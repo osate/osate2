@@ -1635,19 +1635,19 @@ ruleVerificationMethod returns [EObject current=null]
     }
 ((
 (
-		lv_params_3_0=RULE_ID
-		{
-			newLeafNode(lv_params_3_0, grammarAccess.getVerificationMethodAccess().getParamsIDTerminalRuleCall_2_1_0_0()); 
-		}
-		{
+		{ 
+	        newCompositeNode(grammarAccess.getVerificationMethodAccess().getParamsFullJvmFormalParameterParserRuleCall_2_1_0_0()); 
+	    }
+		lv_params_3_0=ruleFullJvmFormalParameter		{
 	        if ($current==null) {
-	            $current = createModelElement(grammarAccess.getVerificationMethodRule());
+	            $current = createModelElementForParent(grammarAccess.getVerificationMethodRule());
 	        }
-       		addWithLastConsumed(
+       		add(
        			$current, 
        			"params",
         		lv_params_3_0, 
-        		"ID");
+        		"FullJvmFormalParameter");
+	        afterParserOrEnumRuleCall();
 	    }
 
 )
@@ -1657,19 +1657,19 @@ ruleVerificationMethod returns [EObject current=null]
     }
 (
 (
-		lv_params_5_0=RULE_ID
-		{
-			newLeafNode(lv_params_5_0, grammarAccess.getVerificationMethodAccess().getParamsIDTerminalRuleCall_2_1_1_1_0()); 
-		}
-		{
+		{ 
+	        newCompositeNode(grammarAccess.getVerificationMethodAccess().getParamsFullJvmFormalParameterParserRuleCall_2_1_1_1_0()); 
+	    }
+		lv_params_5_0=ruleFullJvmFormalParameter		{
 	        if ($current==null) {
-	            $current = createModelElement(grammarAccess.getVerificationMethodRule());
+	            $current = createModelElementForParent(grammarAccess.getVerificationMethodRule());
 	        }
-       		addWithLastConsumed(
+       		add(
        			$current, 
        			"params",
         		lv_params_5_0, 
-        		"ID");
+        		"FullJvmFormalParameter");
+	        afterParserOrEnumRuleCall();
 	    }
 
 )

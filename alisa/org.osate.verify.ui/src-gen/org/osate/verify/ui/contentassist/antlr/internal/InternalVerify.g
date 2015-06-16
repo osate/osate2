@@ -24751,8 +24751,8 @@ rule__VerificationMethod__ParamsAssignment_2_1_0
     }
 :
 (
-{ before(grammarAccess.getVerificationMethodAccess().getParamsIDTerminalRuleCall_2_1_0_0()); }
-	RULE_ID{ after(grammarAccess.getVerificationMethodAccess().getParamsIDTerminalRuleCall_2_1_0_0()); }
+{ before(grammarAccess.getVerificationMethodAccess().getParamsFullJvmFormalParameterParserRuleCall_2_1_0_0()); }
+	ruleFullJvmFormalParameter{ after(grammarAccess.getVerificationMethodAccess().getParamsFullJvmFormalParameterParserRuleCall_2_1_0_0()); }
 )
 
 ;
@@ -24766,8 +24766,8 @@ rule__VerificationMethod__ParamsAssignment_2_1_1_1
     }
 :
 (
-{ before(grammarAccess.getVerificationMethodAccess().getParamsIDTerminalRuleCall_2_1_1_1_0()); }
-	RULE_ID{ after(grammarAccess.getVerificationMethodAccess().getParamsIDTerminalRuleCall_2_1_1_1_0()); }
+{ before(grammarAccess.getVerificationMethodAccess().getParamsFullJvmFormalParameterParserRuleCall_2_1_1_1_0()); }
+	ruleFullJvmFormalParameter{ after(grammarAccess.getVerificationMethodAccess().getParamsFullJvmFormalParameterParserRuleCall_2_1_1_1_0()); }
 )
 
 ;

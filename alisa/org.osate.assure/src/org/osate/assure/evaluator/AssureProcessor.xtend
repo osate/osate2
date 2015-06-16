@@ -49,6 +49,11 @@ import org.eclipse.xtext.xbase.XExpression
 import org.eclipse.xtext.xbase.XVariableDeclaration
 import org.osate.alisa.common.common.ComputeDeclaration
 import org.eclipse.xtext.xbase.compiler.XbaseCompiler
+import org.osate.verify.verify.VerificationActivity
+import org.osate.verify.verify.VerificationMethod
+import org.osate.aadl2.util.OsateDebug
+import org.eclipse.xtext.common.types.JvmFormalParameter
+import org.eclipse.xtext.common.types.JvmType
 
 @ImplementedBy(AssureProcessor)
 interface IAssureProcessor {
@@ -70,7 +75,7 @@ class AssureProcessor implements IAssureProcessor {
 	 * http://www.rcp-vision.com/1796/xtext-2-1-using-xbase-variables/
 	 * about how to use the compiler
 	 */
-	@Inject XbaseCompiler xbaseCompiler
+//	@Inject XbaseCompiler xbaseCompiler
 
 	def void doProcess(AssuranceEvidence caseResult) {
 		caseResult.claimResult.forEach[claimResult|claimResult.process]
@@ -147,34 +152,56 @@ class AssureProcessor implements IAssureProcessor {
 		val method = verificationResult.method;
 		var Object res = null
 		val target = verificationResult.claimSubject
+		var Class[] classesToLoad
+		
 		
 		if (verificationResult instanceof VerificationActivityResult)
 		{
 			val verificationActivityResult =  verificationResult as VerificationActivityResult
-			for (XExpression xe : verificationActivityResult.target.parameters)
+			val verificationActivity = verificationActivityResult.target as VerificationActivity
+			val verificationMethod = verificationActivityResult.method as VerificationMethod
+			
+			if (verificationActivity.parameters.size != verificationMethod.params.size)
 			{
-				if (xe instanceof XVariableDeclaration)
+				OsateDebug.osateDebug("[AssureProcessor] not the same number of parameters");
+			}
+			val nbParams = verificationMethod.params.size
+			var i = 0
+			
+			classesToLoad = newArrayOfSize(nbParams)
+			
+			while (i < nbParams)
+			{
+				var JvmType varType
+				if (verificationActivity.parameters.get(i) instanceof XVariableDeclaration)
 				{
-					print ("compiler" + xbaseCompiler)
-					
-					print ("type=" + (xe as XVariableDeclaration).type)
-					
-					print ("expr=" + (xe as XVariableDeclaration).right)
+					varType = (verificationActivity.parameters.get(i) as XVariableDeclaration).type.type
+				}
+				else
+				{
+					varType = (verificationActivity.parameters.get(i) as ComputeDeclaration).type.type
 				}
 				
-				if (xe instanceof ComputeDeclaration)
-				{
-					print ("compute decl=" + (xe as XVariableDeclaration).type)
-					
+				var paramType = (verificationMethod.params.get(i) as JvmFormalParameter).parameterType.type
+				println ("Param var" + i + ":" + varType.identifier)
+				println ("Param par" + i + ":" + paramType.identifier)
+				classesToLoad.set(i, Class.forName(varType.identifier))
+				if (! varType.equals(paramType))
+				{ 
+					println("Mismatch parameters types")
+					return
 				}
-//				print ("xe=" + xe.getClass())
+				
+				i = i + 1
+				
+				
 			}
 		}
 		
 		try {
 			switch (method.methodType) {
 				case SupportedTypes.PREDICATE: {
-					res = dispatcher.dispatchVerificationMethod(method, target)
+					res = dispatcher.dispatchVerificationMethod(method, target, classesToLoad)
 					if (res != null && res instanceof Boolean && res != true) {
 						setToFail(verificationResult, "");
 					} else {
@@ -182,7 +209,7 @@ class AssureProcessor implements IAssureProcessor {
 					}
 				}
 				case SupportedTypes.ANALYSIS: {
-					res = dispatcher.dispatchVerificationMethod(method, target) // returning the marker or diagnostic id as string
+					res = dispatcher.dispatchVerificationMethod(method, target, classesToLoad) // returning the marker or diagnostic id as string
 					switch (method.reporting) {
 						case ASSERTEXCEPTION: {
 							// handled by catch clauses
@@ -215,7 +242,7 @@ class AssureProcessor implements IAssureProcessor {
 					}
 				}
 				case SupportedTypes.COMPUTE: {
-					res = dispatcher.dispatchVerificationMethod(method, target)
+					res = dispatcher.dispatchVerificationMethod(method, target, classesToLoad)
 
 					// TODO Evaluate predicate function
 					verificationResult.addInfoIssue(verificationResult,

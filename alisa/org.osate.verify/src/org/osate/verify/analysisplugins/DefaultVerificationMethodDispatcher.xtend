@@ -11,10 +11,11 @@ import org.osate.verify.util.IVerificationMethodDispatcher
 import org.osate.verify.verify.VerificationMethod
 
 import static extension org.osate.verify.analysisplugins.AnalysisPluginInterface.*
+import java.util.ArrayList
 
 class DefaultVerificationMethodDispatcher implements IVerificationMethodDispatcher {
 
-	override Object dispatchVerificationMethod(VerificationMethod vm, InstanceObject target) {
+	override Object dispatchVerificationMethod(VerificationMethod vm, InstanceObject target, Class[] classesToLoad) {
 		switch (vm.methodPath) {
 			//				case "org.osate.verify.analysisplugins.AnalysisPluginInterface.assertSumSubBudgets" : {
 			//					if ( target instanceof ComponentInstance) return target.assertSumSubBudgets
@@ -57,14 +58,14 @@ class DefaultVerificationMethodDispatcher implements IVerificationMethodDispatch
 				target.CheckSecurity
 			}
 			//priority inversion
-			default: workspaceInvoke(vm, target)
+			default: workspaceInvoke(vm, target, classesToLoad)
 			
 		}
 		
 	}
 
 	// invoke method in workspace project
-	def Object workspaceInvoke(VerificationMethod vm, InstanceObject target) {
+	def Object workspaceInvoke(VerificationMethod vm, InstanceObject target, Class[] classesToLoad) {
 		val i = vm.methodPath.lastIndexOf('.')
 		val className = vm.methodPath.substring(0, i)
 		val methodName = vm.methodPath.substring(i + 1)
@@ -97,10 +98,32 @@ class DefaultVerificationMethodDispatcher implements IVerificationMethodDispatch
 			val loader = new URLClassLoader(urls, parent);
 			val clazz = Class.forName(className, true, loader);
 			val instance = clazz.newInstance
-			val method = clazz.getMethod(methodName, ComponentInstance)
-
 			
-			method.invoke(instance, target)
+			for (Class c : classesToLoad)
+			{
+				println ("has to load class " + c.toString)
+			}
+			
+			val newClasses = newArrayList()
+			newClasses.add(ComponentInstance)
+			
+			for (c : classesToLoad)
+			{
+				newClasses.add(c as Class)
+				println ("has to load class " + c)
+			}	
+			
+			 
+			val method = clazz.getMethod(methodName, newClasses)
+			val objects = new ArrayList ()
+			objects.add(target)
+			for (Class c : classesToLoad)
+			{
+				objects.add (new Integer (1))
+			}	
+			
+			
+			method.invoke(instance, objects.toArray)
 		} catch (Exception e) {
 			e.printStackTrace
 			throw e

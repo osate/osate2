@@ -526,7 +526,7 @@ public interface VerifyPackage extends EPackage
   int VERIFICATION_METHOD__NAME = 0;
 
   /**
-   * The feature id for the '<em><b>Params</b></em>' attribute list.
+   * The feature id for the '<em><b>Params</b></em>' containment reference list.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
@@ -1451,15 +1451,15 @@ public interface VerifyPackage extends EPackage
   EAttribute getVerificationMethod_Name();
 
   /**
-   * Returns the meta object for the attribute list '{@link org.osate.verify.verify.VerificationMethod#getParams <em>Params</em>}'.
+   * Returns the meta object for the containment reference list '{@link org.osate.verify.verify.VerificationMethod#getParams <em>Params</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @return the meta object for the attribute list '<em>Params</em>'.
+   * @return the meta object for the containment reference list '<em>Params</em>'.
    * @see org.osate.verify.verify.VerificationMethod#getParams()
    * @see #getVerificationMethod()
    * @generated
    */
-  EAttribute getVerificationMethod_Params();
+  EReference getVerificationMethod_Params();
 
   /**
    * Returns the meta object for the attribute '{@link org.osate.verify.verify.VerificationMethod#getTitle <em>Title</em>}'.
@@ -2156,12 +2156,12 @@ public interface VerifyPackage extends EPackage
     EAttribute VERIFICATION_METHOD__NAME = eINSTANCE.getVerificationMethod_Name();
 
     /**
-     * The meta object literal for the '<em><b>Params</b></em>' attribute list feature.
+     * The meta object literal for the '<em><b>Params</b></em>' containment reference list feature.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @generated
      */
-    EAttribute VERIFICATION_METHOD__PARAMS = eINSTANCE.getVerificationMethod_Params();
+    EReference VERIFICATION_METHOD__PARAMS = eINSTANCE.getVerificationMethod_Params();
 
     /**
      * The meta object literal for the '<em><b>Title</b></em>' attribute feature.

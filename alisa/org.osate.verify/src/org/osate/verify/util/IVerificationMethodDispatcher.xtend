@@ -8,5 +8,6 @@ import org.osate.verify.analysisplugins.DefaultVerificationMethodDispatcher
 
 @ImplementedBy(DefaultVerificationMethodDispatcher)
 interface IVerificationMethodDispatcher {
-	def Object dispatchVerificationMethod(VerificationMethod vm, InstanceObject target);
+	def Object dispatchVerificationMethod(VerificationMethod vm, InstanceObject target, Class[] classesToLoad);
 }
+ 

@@ -1012,11 +1012,11 @@ public class VerifyGrammarAccess extends AbstractGrammarElementFinder {
 		private final Keyword cLeftParenthesisKeyword_2_0 = (Keyword)cGroup_2.eContents().get(0);
 		private final Group cGroup_2_1 = (Group)cGroup_2.eContents().get(1);
 		private final Assignment cParamsAssignment_2_1_0 = (Assignment)cGroup_2_1.eContents().get(0);
-		private final RuleCall cParamsIDTerminalRuleCall_2_1_0_0 = (RuleCall)cParamsAssignment_2_1_0.eContents().get(0);
+		private final RuleCall cParamsFullJvmFormalParameterParserRuleCall_2_1_0_0 = (RuleCall)cParamsAssignment_2_1_0.eContents().get(0);
 		private final Group cGroup_2_1_1 = (Group)cGroup_2_1.eContents().get(1);
 		private final Keyword cCommaKeyword_2_1_1_0 = (Keyword)cGroup_2_1_1.eContents().get(0);
 		private final Assignment cParamsAssignment_2_1_1_1 = (Assignment)cGroup_2_1_1.eContents().get(1);
-		private final RuleCall cParamsIDTerminalRuleCall_2_1_1_1_0 = (RuleCall)cParamsAssignment_2_1_1_1.eContents().get(0);
+		private final RuleCall cParamsFullJvmFormalParameterParserRuleCall_2_1_1_1_0 = (RuleCall)cParamsAssignment_2_1_1_1.eContents().get(0);
 		private final Keyword cRightParenthesisKeyword_2_2 = (Keyword)cGroup_2.eContents().get(2);
 		private final Group cGroup_3 = (Group)cGroup.eContents().get(3);
 		private final Keyword cColonKeyword_3_0 = (Keyword)cGroup_3.eContents().get(0);
@@ -1047,14 +1047,14 @@ public class VerifyGrammarAccess extends AbstractGrammarElementFinder {
 		private final Keyword cRightSquareBracketKeyword_6 = (Keyword)cGroup.eContents().get(6);
 		
 		//VerificationMethod:
-		//	"method" name=ID ("(" (params+=ID ("," params+=ID)*)? ")")? (":" title=STRING)? "[" (methodType=SupportedTypes
-		//	scope=SupportedScopes reporting=SupportedReporting? // parameters (in addition to the model element
+		//	"method" name=ID ("(" (params+=FullJvmFormalParameter ("," params+=FullJvmFormalParameter)*)? ")")? (":"
+		//	title=STRING)? "[" (methodType=SupportedTypes scope=SupportedScopes reporting=SupportedReporting? // parameters (in addition to the model element
 		//	& description=Description? & ("path" methodPath=STRING)? & conditions+=VerificationCondition* & ("category"
 		//	category+=[categories::VerificationCategory]+)?) "]";
 		@Override public ParserRule getRule() { return rule; }
 
-		//"method" name=ID ("(" (params+=ID ("," params+=ID)*)? ")")? (":" title=STRING)? "[" (methodType=SupportedTypes
-		//scope=SupportedScopes reporting=SupportedReporting? // parameters (in addition to the model element
+		//"method" name=ID ("(" (params+=FullJvmFormalParameter ("," params+=FullJvmFormalParameter)*)? ")")? (":" title=STRING)?
+		//"[" (methodType=SupportedTypes scope=SupportedScopes reporting=SupportedReporting? // parameters (in addition to the model element
 		//& description=Description? & ("path" methodPath=STRING)? & conditions+=VerificationCondition* & ("category"
 		//category+=[categories::VerificationCategory]+)?) "]"
 		public Group getGroup() { return cGroup; }
@@ -1068,32 +1068,32 @@ public class VerifyGrammarAccess extends AbstractGrammarElementFinder {
 		//ID
 		public RuleCall getNameIDTerminalRuleCall_1_0() { return cNameIDTerminalRuleCall_1_0; }
 
-		//("(" (params+=ID ("," params+=ID)*)? ")")?
+		//("(" (params+=FullJvmFormalParameter ("," params+=FullJvmFormalParameter)*)? ")")?
 		public Group getGroup_2() { return cGroup_2; }
 
 		//"("
 		public Keyword getLeftParenthesisKeyword_2_0() { return cLeftParenthesisKeyword_2_0; }
 
-		//(params+=ID ("," params+=ID)*)?
+		//(params+=FullJvmFormalParameter ("," params+=FullJvmFormalParameter)*)?
 		public Group getGroup_2_1() { return cGroup_2_1; }
 
-		//params+=ID
+		//params+=FullJvmFormalParameter
 		public Assignment getParamsAssignment_2_1_0() { return cParamsAssignment_2_1_0; }
 
-		//ID
-		public RuleCall getParamsIDTerminalRuleCall_2_1_0_0() { return cParamsIDTerminalRuleCall_2_1_0_0; }
+		//FullJvmFormalParameter
+		public RuleCall getParamsFullJvmFormalParameterParserRuleCall_2_1_0_0() { return cParamsFullJvmFormalParameterParserRuleCall_2_1_0_0; }
 
-		//("," params+=ID)*
+		//("," params+=FullJvmFormalParameter)*
 		public Group getGroup_2_1_1() { return cGroup_2_1_1; }
 
 		//","
 		public Keyword getCommaKeyword_2_1_1_0() { return cCommaKeyword_2_1_1_0; }
 
-		//params+=ID
+		//params+=FullJvmFormalParameter
 		public Assignment getParamsAssignment_2_1_1_1() { return cParamsAssignment_2_1_1_1; }
 
-		//ID
-		public RuleCall getParamsIDTerminalRuleCall_2_1_1_1_0() { return cParamsIDTerminalRuleCall_2_1_1_1_0; }
+		//FullJvmFormalParameter
+		public RuleCall getParamsFullJvmFormalParameterParserRuleCall_2_1_1_1_0() { return cParamsFullJvmFormalParameterParserRuleCall_2_1_1_1_0; }
 
 		//")"
 		public Keyword getRightParenthesisKeyword_2_2() { return cRightParenthesisKeyword_2_2; }
@@ -1591,8 +1591,8 @@ public class VerifyGrammarAccess extends AbstractGrammarElementFinder {
 	}
 
 	//VerificationMethod:
-	//	"method" name=ID ("(" (params+=ID ("," params+=ID)*)? ")")? (":" title=STRING)? "[" (methodType=SupportedTypes
-	//	scope=SupportedScopes reporting=SupportedReporting? // parameters (in addition to the model element
+	//	"method" name=ID ("(" (params+=FullJvmFormalParameter ("," params+=FullJvmFormalParameter)*)? ")")? (":"
+	//	title=STRING)? "[" (methodType=SupportedTypes scope=SupportedScopes reporting=SupportedReporting? // parameters (in addition to the model element
 	//	& description=Description? & ("path" methodPath=STRING)? & conditions+=VerificationCondition* & ("category"
 	//	category+=[categories::VerificationCategory]+)?) "]";
 	public VerificationMethodElements getVerificationMethodAccess() {

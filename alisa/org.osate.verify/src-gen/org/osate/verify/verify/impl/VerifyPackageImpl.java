@@ -11,6 +11,8 @@ import org.eclipse.emf.ecore.EcorePackage;
 
 import org.eclipse.emf.ecore.impl.EPackageImpl;
 
+import org.eclipse.xtext.common.types.TypesPackage;
+
 import org.eclipse.xtext.xbase.XbasePackage;
 
 import org.osate.aadl2.Aadl2Package;
@@ -685,9 +687,9 @@ public class VerifyPackageImpl extends EPackageImpl implements VerifyPackage
    * <!-- end-user-doc -->
    * @generated
    */
-  public EAttribute getVerificationMethod_Params()
+  public EReference getVerificationMethod_Params()
   {
-    return (EAttribute)verificationMethodEClass.getEStructuralFeatures().get(1);
+    return (EReference)verificationMethodEClass.getEStructuralFeatures().get(1);
   }
 
   /**
@@ -1061,7 +1063,7 @@ public class VerifyPackageImpl extends EPackageImpl implements VerifyPackage
 
     verificationMethodEClass = createEClass(VERIFICATION_METHOD);
     createEAttribute(verificationMethodEClass, VERIFICATION_METHOD__NAME);
-    createEAttribute(verificationMethodEClass, VERIFICATION_METHOD__PARAMS);
+    createEReference(verificationMethodEClass, VERIFICATION_METHOD__PARAMS);
     createEAttribute(verificationMethodEClass, VERIFICATION_METHOD__TITLE);
     createEAttribute(verificationMethodEClass, VERIFICATION_METHOD__METHOD_TYPE);
     createEAttribute(verificationMethodEClass, VERIFICATION_METHOD__SCOPE);
@@ -1132,6 +1134,7 @@ public class VerifyPackageImpl extends EPackageImpl implements VerifyPackage
     CommonPackage theCommonPackage = (CommonPackage)EPackage.Registry.INSTANCE.getEPackage(CommonPackage.eNS_URI);
     ReqSpecPackage theReqSpecPackage = (ReqSpecPackage)EPackage.Registry.INSTANCE.getEPackage(ReqSpecPackage.eNS_URI);
     XbasePackage theXbasePackage = (XbasePackage)EPackage.Registry.INSTANCE.getEPackage(XbasePackage.eNS_URI);
+    TypesPackage theTypesPackage = (TypesPackage)EPackage.Registry.INSTANCE.getEPackage(TypesPackage.eNS_URI);
     CategoriesPackage theCategoriesPackage = (CategoriesPackage)EPackage.Registry.INSTANCE.getEPackage(CategoriesPackage.eNS_URI);
 
     // Create type parameters
@@ -1199,7 +1202,7 @@ public class VerifyPackageImpl extends EPackageImpl implements VerifyPackage
 
     initEClass(verificationMethodEClass, VerificationMethod.class, "VerificationMethod", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
     initEAttribute(getVerificationMethod_Name(), theEcorePackage.getEString(), "name", null, 0, 1, VerificationMethod.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-    initEAttribute(getVerificationMethod_Params(), theEcorePackage.getEString(), "params", null, 0, -1, VerificationMethod.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEReference(getVerificationMethod_Params(), theTypesPackage.getJvmFormalParameter(), null, "params", null, 0, -1, VerificationMethod.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEAttribute(getVerificationMethod_Title(), theEcorePackage.getEString(), "title", null, 0, 1, VerificationMethod.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEAttribute(getVerificationMethod_MethodType(), this.getSupportedTypes(), "methodType", null, 0, 1, VerificationMethod.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEAttribute(getVerificationMethod_Scope(), this.getSupportedScopes(), "scope", null, 0, 1, VerificationMethod.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);

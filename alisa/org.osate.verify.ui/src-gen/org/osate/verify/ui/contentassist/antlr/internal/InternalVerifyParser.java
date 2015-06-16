@@ -9289,11 +9289,11 @@ public class InternalVerifyParser extends AbstractInternalContentAssistParser {
                 {
                 int LA7_1 = input.LA(2);
 
-                if ( (LA7_1==13) ) {
-                    alt7=1;
-                }
-                else if ( (LA7_1==EOF||(LA7_1>=RULE_ID && LA7_1<=RULE_STRING)||(LA7_1>=14 && LA7_1<=50)||(LA7_1>=68 && LA7_1<=71)||(LA7_1>=75 && LA7_1<=76)||LA7_1==80||LA7_1==85||(LA7_1>=95 && LA7_1<=116)||LA7_1==122||(LA7_1>=124 && LA7_1<=125)) ) {
+                if ( (LA7_1==EOF||(LA7_1>=RULE_ID && LA7_1<=RULE_STRING)||(LA7_1>=14 && LA7_1<=50)||(LA7_1>=68 && LA7_1<=71)||(LA7_1>=75 && LA7_1<=76)||LA7_1==80||LA7_1==85||(LA7_1>=95 && LA7_1<=116)||LA7_1==122||(LA7_1>=124 && LA7_1<=125)) ) {
                     alt7=2;
+                }
+                else if ( (LA7_1==13) ) {
+                    alt7=1;
                 }
                 else {
                     if (state.backtracking>0) {state.failed=true; return ;}
@@ -9346,11 +9346,11 @@ public class InternalVerifyParser extends AbstractInternalContentAssistParser {
                 {
                 int LA7_4 = input.LA(2);
 
-                if ( (LA7_4==EOF||(LA7_4>=RULE_ID && LA7_4<=RULE_STRING)||(LA7_4>=14 && LA7_4<=50)||(LA7_4>=68 && LA7_4<=71)||(LA7_4>=75 && LA7_4<=76)||LA7_4==80||LA7_4==85||(LA7_4>=95 && LA7_4<=116)||LA7_4==122||(LA7_4>=124 && LA7_4<=125)) ) {
-                    alt7=2;
-                }
-                else if ( (LA7_4==13) ) {
+                if ( (LA7_4==13) ) {
                     alt7=1;
+                }
+                else if ( (LA7_4==EOF||(LA7_4>=RULE_ID && LA7_4<=RULE_STRING)||(LA7_4>=14 && LA7_4<=50)||(LA7_4>=68 && LA7_4<=71)||(LA7_4>=75 && LA7_4<=76)||LA7_4==80||LA7_4==85||(LA7_4>=95 && LA7_4<=116)||LA7_4==122||(LA7_4>=124 && LA7_4<=125)) ) {
+                    alt7=2;
                 }
                 else {
                     if (state.backtracking>0) {state.failed=true; return ;}
@@ -25248,7 +25248,7 @@ public class InternalVerifyParser extends AbstractInternalContentAssistParser {
             int alt72=2;
             int LA72_0 = input.LA(1);
 
-            if ( (LA72_0==RULE_ID) ) {
+            if ( (LA72_0==RULE_ID||LA72_0==31||LA72_0==75) ) {
                 alt72=1;
             }
             switch (alt72) {
@@ -70763,24 +70763,28 @@ public class InternalVerifyParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__VerificationMethod__ParamsAssignment_2_1_0"
-    // ../org.osate.verify.ui/src-gen/org/osate/verify/ui/contentassist/antlr/internal/InternalVerify.g:24748:1: rule__VerificationMethod__ParamsAssignment_2_1_0 : ( RULE_ID ) ;
+    // ../org.osate.verify.ui/src-gen/org/osate/verify/ui/contentassist/antlr/internal/InternalVerify.g:24748:1: rule__VerificationMethod__ParamsAssignment_2_1_0 : ( ruleFullJvmFormalParameter ) ;
     public final void rule__VerificationMethod__ParamsAssignment_2_1_0() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.osate.verify.ui/src-gen/org/osate/verify/ui/contentassist/antlr/internal/InternalVerify.g:24752:1: ( ( RULE_ID ) )
-            // ../org.osate.verify.ui/src-gen/org/osate/verify/ui/contentassist/antlr/internal/InternalVerify.g:24753:1: ( RULE_ID )
+            // ../org.osate.verify.ui/src-gen/org/osate/verify/ui/contentassist/antlr/internal/InternalVerify.g:24752:1: ( ( ruleFullJvmFormalParameter ) )
+            // ../org.osate.verify.ui/src-gen/org/osate/verify/ui/contentassist/antlr/internal/InternalVerify.g:24753:1: ( ruleFullJvmFormalParameter )
             {
-            // ../org.osate.verify.ui/src-gen/org/osate/verify/ui/contentassist/antlr/internal/InternalVerify.g:24753:1: ( RULE_ID )
-            // ../org.osate.verify.ui/src-gen/org/osate/verify/ui/contentassist/antlr/internal/InternalVerify.g:24754:1: RULE_ID
+            // ../org.osate.verify.ui/src-gen/org/osate/verify/ui/contentassist/antlr/internal/InternalVerify.g:24753:1: ( ruleFullJvmFormalParameter )
+            // ../org.osate.verify.ui/src-gen/org/osate/verify/ui/contentassist/antlr/internal/InternalVerify.g:24754:1: ruleFullJvmFormalParameter
             {
             if ( state.backtracking==0 ) {
-               before(grammarAccess.getVerificationMethodAccess().getParamsIDTerminalRuleCall_2_1_0_0()); 
+               before(grammarAccess.getVerificationMethodAccess().getParamsFullJvmFormalParameterParserRuleCall_2_1_0_0()); 
             }
-            match(input,RULE_ID,FOLLOW_RULE_ID_in_rule__VerificationMethod__ParamsAssignment_2_1_050877); if (state.failed) return ;
+            pushFollow(FOLLOW_ruleFullJvmFormalParameter_in_rule__VerificationMethod__ParamsAssignment_2_1_050877);
+            ruleFullJvmFormalParameter();
+
+            state._fsp--;
+            if (state.failed) return ;
             if ( state.backtracking==0 ) {
-               after(grammarAccess.getVerificationMethodAccess().getParamsIDTerminalRuleCall_2_1_0_0()); 
+               after(grammarAccess.getVerificationMethodAccess().getParamsFullJvmFormalParameterParserRuleCall_2_1_0_0()); 
             }
 
             }
@@ -70804,24 +70808,28 @@ public class InternalVerifyParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__VerificationMethod__ParamsAssignment_2_1_1_1"
-    // ../org.osate.verify.ui/src-gen/org/osate/verify/ui/contentassist/antlr/internal/InternalVerify.g:24763:1: rule__VerificationMethod__ParamsAssignment_2_1_1_1 : ( RULE_ID ) ;
+    // ../org.osate.verify.ui/src-gen/org/osate/verify/ui/contentassist/antlr/internal/InternalVerify.g:24763:1: rule__VerificationMethod__ParamsAssignment_2_1_1_1 : ( ruleFullJvmFormalParameter ) ;
     public final void rule__VerificationMethod__ParamsAssignment_2_1_1_1() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.osate.verify.ui/src-gen/org/osate/verify/ui/contentassist/antlr/internal/InternalVerify.g:24767:1: ( ( RULE_ID ) )
-            // ../org.osate.verify.ui/src-gen/org/osate/verify/ui/contentassist/antlr/internal/InternalVerify.g:24768:1: ( RULE_ID )
+            // ../org.osate.verify.ui/src-gen/org/osate/verify/ui/contentassist/antlr/internal/InternalVerify.g:24767:1: ( ( ruleFullJvmFormalParameter ) )
+            // ../org.osate.verify.ui/src-gen/org/osate/verify/ui/contentassist/antlr/internal/InternalVerify.g:24768:1: ( ruleFullJvmFormalParameter )
             {
-            // ../org.osate.verify.ui/src-gen/org/osate/verify/ui/contentassist/antlr/internal/InternalVerify.g:24768:1: ( RULE_ID )
-            // ../org.osate.verify.ui/src-gen/org/osate/verify/ui/contentassist/antlr/internal/InternalVerify.g:24769:1: RULE_ID
+            // ../org.osate.verify.ui/src-gen/org/osate/verify/ui/contentassist/antlr/internal/InternalVerify.g:24768:1: ( ruleFullJvmFormalParameter )
+            // ../org.osate.verify.ui/src-gen/org/osate/verify/ui/contentassist/antlr/internal/InternalVerify.g:24769:1: ruleFullJvmFormalParameter
             {
             if ( state.backtracking==0 ) {
-               before(grammarAccess.getVerificationMethodAccess().getParamsIDTerminalRuleCall_2_1_1_1_0()); 
+               before(grammarAccess.getVerificationMethodAccess().getParamsFullJvmFormalParameterParserRuleCall_2_1_1_1_0()); 
             }
-            match(input,RULE_ID,FOLLOW_RULE_ID_in_rule__VerificationMethod__ParamsAssignment_2_1_1_150908); if (state.failed) return ;
+            pushFollow(FOLLOW_ruleFullJvmFormalParameter_in_rule__VerificationMethod__ParamsAssignment_2_1_1_150908);
+            ruleFullJvmFormalParameter();
+
+            state._fsp--;
+            if (state.failed) return ;
             if ( state.backtracking==0 ) {
-               after(grammarAccess.getVerificationMethodAccess().getParamsIDTerminalRuleCall_2_1_1_1_0()); 
+               after(grammarAccess.getVerificationMethodAccess().getParamsFullJvmFormalParameterParserRuleCall_2_1_1_1_0()); 
             }
 
             }
@@ -82123,7 +82131,7 @@ public class InternalVerifyParser extends AbstractInternalContentAssistParser {
     static final String DFA83_acceptS =
         "\10\uffff\1\2\1\1";
     static final String DFA83_specialS =
-        "\1\uffff\1\0\1\3\1\4\1\6\1\1\1\2\1\5\2\uffff}>";
+        "\1\uffff\1\0\1\2\1\3\1\5\1\1\1\6\1\4\2\uffff}>";
     static final String[] DFA83_transitionS = {
             "\5\10\5\uffff\2\10\1\1\1\2\1\3\1\4\1\5\5\10\1\7\1\6\27\10\21\uffff\4\10\3\uffff\2\10\3\uffff\1\10\4\uffff\1\10\11\uffff\26\10\5\uffff\1\10\1\uffff\2\10",
             "\1\uffff",
@@ -82204,21 +82212,6 @@ public class InternalVerifyParser extends AbstractInternalContentAssistParser {
                         if ( s>=0 ) return s;
                         break;
                     case 2 : 
-                        int LA83_6 = input.LA(1);
-
-                         
-                        int index83_6 = input.index();
-                        input.rewind();
-                        s = -1;
-                        if ( (synpred138_InternalVerify()) ) {s = 9;}
-
-                        else if ( (true) ) {s = 8;}
-
-                         
-                        input.seek(index83_6);
-                        if ( s>=0 ) return s;
-                        break;
-                    case 3 : 
                         int LA83_2 = input.LA(1);
 
                          
@@ -82233,7 +82226,7 @@ public class InternalVerifyParser extends AbstractInternalContentAssistParser {
                         input.seek(index83_2);
                         if ( s>=0 ) return s;
                         break;
-                    case 4 : 
+                    case 3 : 
                         int LA83_3 = input.LA(1);
 
                          
@@ -82248,7 +82241,7 @@ public class InternalVerifyParser extends AbstractInternalContentAssistParser {
                         input.seek(index83_3);
                         if ( s>=0 ) return s;
                         break;
-                    case 5 : 
+                    case 4 : 
                         int LA83_7 = input.LA(1);
 
                          
@@ -82263,7 +82256,7 @@ public class InternalVerifyParser extends AbstractInternalContentAssistParser {
                         input.seek(index83_7);
                         if ( s>=0 ) return s;
                         break;
-                    case 6 : 
+                    case 5 : 
                         int LA83_4 = input.LA(1);
 
                          
@@ -82276,6 +82269,21 @@ public class InternalVerifyParser extends AbstractInternalContentAssistParser {
 
                          
                         input.seek(index83_4);
+                        if ( s>=0 ) return s;
+                        break;
+                    case 6 : 
+                        int LA83_6 = input.LA(1);
+
+                         
+                        int index83_6 = input.index();
+                        input.rewind();
+                        s = -1;
+                        if ( (synpred138_InternalVerify()) ) {s = 9;}
+
+                        else if ( (true) ) {s = 8;}
+
+                         
+                        input.seek(index83_6);
                         if ( s>=0 ) return s;
                         break;
             }
@@ -82297,7 +82305,7 @@ public class InternalVerifyParser extends AbstractInternalContentAssistParser {
     static final String DFA89_acceptS =
         "\1\uffff\1\2\10\uffff\1\1";
     static final String DFA89_specialS =
-        "\2\uffff\1\3\1\4\1\6\1\0\1\2\1\7\1\5\1\1\1\uffff}>";
+        "\2\uffff\1\2\1\5\1\7\1\0\1\3\1\4\1\6\1\1\1\uffff}>";
     static final String[] DFA89_transitionS = {
             "\5\1\5\uffff\14\1\1\3\1\2\1\4\1\5\1\6\1\7\1\10\1\11\21\1\21\uffff\4\1\3\uffff\2\1\3\uffff\1\1\4\uffff\1\1\11\uffff\26\1\5\uffff\1\1\1\uffff\2\1",
             "",
@@ -82379,21 +82387,6 @@ public class InternalVerifyParser extends AbstractInternalContentAssistParser {
                         if ( s>=0 ) return s;
                         break;
                     case 2 : 
-                        int LA89_6 = input.LA(1);
-
-                         
-                        int index89_6 = input.index();
-                        input.rewind();
-                        s = -1;
-                        if ( (synpred144_InternalVerify()) ) {s = 10;}
-
-                        else if ( (true) ) {s = 1;}
-
-                         
-                        input.seek(index89_6);
-                        if ( s>=0 ) return s;
-                        break;
-                    case 3 : 
                         int LA89_2 = input.LA(1);
 
                          
@@ -82408,7 +82401,37 @@ public class InternalVerifyParser extends AbstractInternalContentAssistParser {
                         input.seek(index89_2);
                         if ( s>=0 ) return s;
                         break;
+                    case 3 : 
+                        int LA89_6 = input.LA(1);
+
+                         
+                        int index89_6 = input.index();
+                        input.rewind();
+                        s = -1;
+                        if ( (synpred144_InternalVerify()) ) {s = 10;}
+
+                        else if ( (true) ) {s = 1;}
+
+                         
+                        input.seek(index89_6);
+                        if ( s>=0 ) return s;
+                        break;
                     case 4 : 
+                        int LA89_7 = input.LA(1);
+
+                         
+                        int index89_7 = input.index();
+                        input.rewind();
+                        s = -1;
+                        if ( (synpred144_InternalVerify()) ) {s = 10;}
+
+                        else if ( (true) ) {s = 1;}
+
+                         
+                        input.seek(index89_7);
+                        if ( s>=0 ) return s;
+                        break;
+                    case 5 : 
                         int LA89_3 = input.LA(1);
 
                          
@@ -82423,7 +82446,7 @@ public class InternalVerifyParser extends AbstractInternalContentAssistParser {
                         input.seek(index89_3);
                         if ( s>=0 ) return s;
                         break;
-                    case 5 : 
+                    case 6 : 
                         int LA89_8 = input.LA(1);
 
                          
@@ -82438,7 +82461,7 @@ public class InternalVerifyParser extends AbstractInternalContentAssistParser {
                         input.seek(index89_8);
                         if ( s>=0 ) return s;
                         break;
-                    case 6 : 
+                    case 7 : 
                         int LA89_4 = input.LA(1);
 
                          
@@ -82451,21 +82474,6 @@ public class InternalVerifyParser extends AbstractInternalContentAssistParser {
 
                          
                         input.seek(index89_4);
-                        if ( s>=0 ) return s;
-                        break;
-                    case 7 : 
-                        int LA89_7 = input.LA(1);
-
-                         
-                        int index89_7 = input.index();
-                        input.rewind();
-                        s = -1;
-                        if ( (synpred144_InternalVerify()) ) {s = 10;}
-
-                        else if ( (true) ) {s = 1;}
-
-                         
-                        input.seek(index89_7);
                         if ( s>=0 ) return s;
                         break;
             }
@@ -84944,7 +84952,7 @@ public class InternalVerifyParser extends AbstractInternalContentAssistParser {
             "\1\44",
             "\1\45",
             "\1\46",
-            "\1\47\4\uffff\1\50",
+            "\1\50\4\uffff\1\47",
             "\1\51",
             "\1\52",
             "\1\53",
@@ -84956,8 +84964,8 @@ public class InternalVerifyParser extends AbstractInternalContentAssistParser {
             "\1\67\32\uffff\1\13\15\uffff\1\63\1\70\5\uffff\1\62\1\64",
             "\1\13\15\uffff\1\63\6\uffff\1\62\1\64",
             "\1\24\3\uffff\1\23\75\uffff\1\13\15\uffff\1\30\6\uffff\1\27\1\31\1\uffff\1\26\32\uffff\1\25",
-            "\1\33",
             "\1\71",
+            "\1\33",
             "\1\34\32\uffff\1\13\15\uffff\1\30\1\35\5\uffff\1\27\1\31",
             "\1\13\15\uffff\1\30\6\uffff\1\27\1\31",
             "\1\24\3\uffff\1\23\75\uffff\1\13\15\uffff\1\30\6\uffff\1\27\1\31\1\uffff\1\26\32\uffff\1\25",
@@ -84971,13 +84979,13 @@ public class InternalVerifyParser extends AbstractInternalContentAssistParser {
             "\1\101",
             "\1\102",
             "\1\103",
-            "\1\105\4\uffff\1\104",
+            "\1\104\4\uffff\1\105",
             "\1\106",
             "\1\107",
             "\1\24\3\uffff\1\23\75\uffff\1\13\15\uffff\1\30\6\uffff\1\27\1\31\1\uffff\1\26\32\uffff\1\25",
             "\1\24\3\uffff\1\23\75\uffff\1\13\15\uffff\1\30\6\uffff\1\27\1\31\1\uffff\1\26\32\uffff\1\25",
             "\1\110",
-            "\1\112\4\uffff\1\111",
+            "\1\111\4\uffff\1\112",
             "\1\114\3\uffff\1\113\75\uffff\1\13\27\uffff\1\116\32\uffff\1\115",
             "\1\114\3\uffff\1\113\36\uffff\1\117\36\uffff\1\13\27\uffff\1\116\32\uffff\1\115",
             "\1\114\3\uffff\1\113\75\uffff\1\13\27\uffff\1\116\32\uffff\1\115",
@@ -84985,33 +84993,33 @@ public class InternalVerifyParser extends AbstractInternalContentAssistParser {
             "\1\121\32\uffff\1\13\16\uffff\1\122",
             "\1\13",
             "\1\57\3\uffff\1\56\75\uffff\1\13\15\uffff\1\63\6\uffff\1\62\1\64\1\uffff\1\61\32\uffff\1\60",
-            "\1\123",
             "\1\66",
+            "\1\123",
             "\1\67\32\uffff\1\13\15\uffff\1\63\1\70\5\uffff\1\62\1\64",
             "\1\13\15\uffff\1\63\6\uffff\1\62\1\64",
             "\1\57\3\uffff\1\56\75\uffff\1\13\15\uffff\1\63\6\uffff\1\62\1\64\1\uffff\1\61\32\uffff\1\60",
-            "\1\124",
             "\1\74",
+            "\1\124",
             "\1\114\3\uffff\1\113\75\uffff\1\13\27\uffff\1\116\32\uffff\1\115",
             "\1\114\3\uffff\1\113\36\uffff\1\125\36\uffff\1\13\27\uffff\1\116\32\uffff\1\115",
             "\1\114\3\uffff\1\113\75\uffff\1\13\27\uffff\1\116\32\uffff\1\115",
             "\1\126",
             "\1\127",
-            "\1\131\4\uffff\1\130",
+            "\1\130\4\uffff\1\131",
             "\1\132",
             "\1\133",
             "\1\57\3\uffff\1\56\75\uffff\1\13\15\uffff\1\63\6\uffff\1\62\1\64\1\uffff\1\61\32\uffff\1\60",
             "\1\57\3\uffff\1\56\75\uffff\1\13\15\uffff\1\63\6\uffff\1\62\1\64\1\uffff\1\61\32\uffff\1\60",
             "\1\134",
-            "\1\135\4\uffff\1\136",
+            "\1\136\4\uffff\1\135",
             "\1\114\3\uffff\1\113\75\uffff\1\13\27\uffff\1\116\32\uffff\1\115",
-            "\1\137",
             "\1\120",
+            "\1\137",
             "\1\121\32\uffff\1\13\16\uffff\1\122",
             "\1\13",
             "\1\114\3\uffff\1\113\75\uffff\1\13\27\uffff\1\116\32\uffff\1\115",
-            "\1\126",
             "\1\140",
+            "\1\126",
             "\1\114\3\uffff\1\113\75\uffff\1\13\27\uffff\1\116\32\uffff\1\115",
             "\1\114\3\uffff\1\113\75\uffff\1\13\27\uffff\1\116\32\uffff\1\115"
     };
@@ -86285,10 +86293,10 @@ public class InternalVerifyParser extends AbstractInternalContentAssistParser {
     public static final BitSet FOLLOW_rule__VerificationMethod__UnorderedGroup_5_in_rule__VerificationMethod__Group__5__Impl17123 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_rule__VerificationMethod__Group__6__Impl_in_rule__VerificationMethod__Group__617153 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_70_in_rule__VerificationMethod__Group__6__Impl17181 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__VerificationMethod__Group_2__0__Impl_in_rule__VerificationMethod__Group_2__017226 = new BitSet(new long[]{0x0000000000000010L,0x0000000000001000L});
+    public static final BitSet FOLLOW_rule__VerificationMethod__Group_2__0__Impl_in_rule__VerificationMethod__Group_2__017226 = new BitSet(new long[]{0x0000000080000010L,0x0000000000001800L});
     public static final BitSet FOLLOW_rule__VerificationMethod__Group_2__1_in_rule__VerificationMethod__Group_2__017229 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_75_in_rule__VerificationMethod__Group_2__0__Impl17257 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__VerificationMethod__Group_2__1__Impl_in_rule__VerificationMethod__Group_2__117288 = new BitSet(new long[]{0x0000000000000010L,0x0000000000001000L});
+    public static final BitSet FOLLOW_rule__VerificationMethod__Group_2__1__Impl_in_rule__VerificationMethod__Group_2__117288 = new BitSet(new long[]{0x0000000080000010L,0x0000000000001800L});
     public static final BitSet FOLLOW_rule__VerificationMethod__Group_2__2_in_rule__VerificationMethod__Group_2__117291 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_rule__VerificationMethod__Group_2_1__0_in_rule__VerificationMethod__Group_2__1__Impl17318 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_rule__VerificationMethod__Group_2__2__Impl_in_rule__VerificationMethod__Group_2__217349 = new BitSet(new long[]{0x0000000000000002L});
@@ -86298,7 +86306,7 @@ public class InternalVerifyParser extends AbstractInternalContentAssistParser {
     public static final BitSet FOLLOW_rule__VerificationMethod__ParamsAssignment_2_1_0_in_rule__VerificationMethod__Group_2_1__0__Impl17444 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_rule__VerificationMethod__Group_2_1__1__Impl_in_rule__VerificationMethod__Group_2_1__117474 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_rule__VerificationMethod__Group_2_1_1__0_in_rule__VerificationMethod__Group_2_1__1__Impl17501 = new BitSet(new long[]{0x0000000000000002L,0x0000000000010000L});
-    public static final BitSet FOLLOW_rule__VerificationMethod__Group_2_1_1__0__Impl_in_rule__VerificationMethod__Group_2_1_1__017536 = new BitSet(new long[]{0x0000000000000010L});
+    public static final BitSet FOLLOW_rule__VerificationMethod__Group_2_1_1__0__Impl_in_rule__VerificationMethod__Group_2_1_1__017536 = new BitSet(new long[]{0x0000000080000010L,0x0000000000000800L});
     public static final BitSet FOLLOW_rule__VerificationMethod__Group_2_1_1__1_in_rule__VerificationMethod__Group_2_1_1__017539 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_80_in_rule__VerificationMethod__Group_2_1_1__0__Impl17567 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_rule__VerificationMethod__Group_2_1_1__1__Impl_in_rule__VerificationMethod__Group_2_1_1__117598 = new BitSet(new long[]{0x0000000000000002L});
@@ -87586,8 +87594,8 @@ public class InternalVerifyParser extends AbstractInternalContentAssistParser {
     public static final BitSet FOLLOW_ruleDescription_in_rule__VerificationMethodRegistry__DescriptionAssignment_5_050783 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_ruleVerificationMethod_in_rule__VerificationMethodRegistry__MethodsAssignment_5_150814 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_RULE_ID_in_rule__VerificationMethod__NameAssignment_150846 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_RULE_ID_in_rule__VerificationMethod__ParamsAssignment_2_1_050877 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_RULE_ID_in_rule__VerificationMethod__ParamsAssignment_2_1_1_150908 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleFullJvmFormalParameter_in_rule__VerificationMethod__ParamsAssignment_2_1_050877 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleFullJvmFormalParameter_in_rule__VerificationMethod__ParamsAssignment_2_1_1_150908 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_RULE_STRING_in_rule__VerificationMethod__TitleAssignment_3_150939 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_ruleSupportedTypes_in_rule__VerificationMethod__MethodTypeAssignment_5_0_050970 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_ruleSupportedScopes_in_rule__VerificationMethod__ScopeAssignment_5_0_151001 = new BitSet(new long[]{0x0000000000000002L});
