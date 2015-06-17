@@ -145,8 +145,6 @@ import static extension org.osate.aadl2.modelsupport.util.AadlUtil.isSameOrRefin
 /**
  * View that displays the AADL property value associations within a given AADL
  * model element.
- *
- * @author aarong
  */
 class AadlPropertyView extends ViewPart {
 	val static HIDE_UNDEFINED_TOOL_TIP = "Click to hide undefined properties"
@@ -321,17 +319,29 @@ class AadlPropertyView extends ViewPart {
 				override protected isLeafMatch(Viewer viewer, Object element) {
 					var thisTree = viewer as TreeViewer
 					val labelProvider = thisTree.getLabelProvider(0) as ColumnLabelProvider
-					val labelText = labelProvider.getText(element)
 				    val contentProvider = thisTree.getContentProvider() as ITreeContentProvider
-				    val parent = contentProvider.getParent(element)
-				    var parentText = ""
 				    
-				    if (parent instanceof TreeEntry) {
-				    	parentText = labelProvider.getText(parent)	
+				    // first go up to propertyset / property name 
+					// see https://github.com/osate/osate2-core/issues/605)
+				    var current = element
+				    var parent = contentProvider.getParent(element)
+				    while (contentProvider.getParent(parent) instanceof TreeEntry) {
+				    	current = parent
+				    	parent = contentProvider.getParent(parent)
 				    }
 				    
-					return wordMatches(labelText) &&
-						(currentPropertyGroup.size == 0 || isMatch(labelText, parentText))
+//				    val propertysetName = if (parent instanceof TreeEntry) {
+//				    		labelProvider.getText(parent)
+//				    	} else {
+//				    		''
+//				    	}
+				    val propertysetName = labelProvider.getText(parent)?:''
+					var propertyName = labelProvider.getText(current)
+				    
+				    System.out.println('''comparing «propertyName» parent is «propertysetName»''')
+				    
+					return wordMatches(propertyName) &&
+						(currentPropertyGroup.size == 0 || isMatch(propertyName, propertysetName))
 				}
 
 				// Check all children to see if there is a match before hiding this parent
