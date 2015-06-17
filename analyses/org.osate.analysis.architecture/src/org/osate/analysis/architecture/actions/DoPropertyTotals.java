@@ -40,10 +40,12 @@
 package org.osate.analysis.architecture.actions;
 
 import org.eclipse.core.runtime.IProgressMonitor;
+import org.eclipse.ui.IWorkbenchWindow;
 import org.osate.aadl2.Element;
 import org.osate.aadl2.NamedElement;
 import org.osate.aadl2.instance.ComponentInstance;
 import org.osate.aadl2.instance.SystemInstance;
+import org.osate.aadl2.modelsupport.errorreporting.AnalysisErrorReporterManager;
 import org.osate.analysis.architecture.ArchitecturePlugin;
 import org.osate.analysis.architecture.PropertyTotals;
 import org.osate.ui.actions.AaxlReadOnlyActionAsJob;
@@ -63,11 +65,20 @@ public final class DoPropertyTotals extends AaxlReadOnlyActionAsJob {
 	}
 
 	@Override
-	protected boolean initializeAction(NamedElement obj) {
+	public boolean initializeAction(NamedElement obj) {
 		setCSVLog("WeightAnalysis", obj);
 		return true;
 	}
-
+	
+	public void setErrManager() {
+		this.errManager = new AnalysisErrorReporterManager(
+				this.getAnalysisErrorReporterFactory());
+	}
+	
+	public void saveReport(){
+		this.getCSVLog().saveToFile();
+	}
+	
 	@Override
 	public void doAaxlAction(IProgressMonitor monitor, Element obj) {
 		/*
