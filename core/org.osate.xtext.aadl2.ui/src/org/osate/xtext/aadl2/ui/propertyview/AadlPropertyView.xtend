@@ -330,15 +330,8 @@ class AadlPropertyView extends ViewPart {
 				    	parent = contentProvider.getParent(parent)
 				    }
 				    
-//				    val propertysetName = if (parent instanceof TreeEntry) {
-//				    		labelProvider.getText(parent)
-//				    	} else {
-//				    		''
-//				    	}
 				    val propertysetName = labelProvider.getText(parent)?:''
 					var propertyName = labelProvider.getText(current)
-				    
-				    System.out.println('''comparing «propertyName» parent is «propertysetName»''')
 				    
 					return wordMatches(propertyName) &&
 						(currentPropertyGroup.size == 0 || isMatch(propertyName, propertysetName))
