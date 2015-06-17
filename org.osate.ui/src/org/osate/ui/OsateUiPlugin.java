@@ -62,7 +62,7 @@ public class OsateUiPlugin extends AbstractUIPlugin {
 	public static final String PLUGIN_ID = "org.osate.ui";
 
 	public static final String AADL_PROJECT = "AADL_Project.aadl";
-	public static final String AADL_PROJECT_DEFAULT = "/Plugin_Resources/" + AADL_PROJECT;
+	public static final String AADL_PROJECT_DEFAULT = "/Plugin_Resources/Predeclared_Property_Sets/" + AADL_PROJECT;
 	public static final String AADL_PROJECT_HANDLE = "$aadl_project$";
 	public static final String AADL_PROJECT_KEY = "aadl.project.properties";
 
