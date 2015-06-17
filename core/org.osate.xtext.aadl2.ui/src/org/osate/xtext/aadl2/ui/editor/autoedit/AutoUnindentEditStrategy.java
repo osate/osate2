@@ -108,7 +108,7 @@ public class AutoUnindentEditStrategy extends AbstractTerminalsEditStrategy {
 		if (!isAutoComplete() || !isLineDelimiter(document, command)) {
 			return;
 		}
-		String publicWord = isUseCapitalization() ? "PUBLIC" + System.lineSeparator() + "\t1" : "public";
+		String publicWord = isUseCapitalization() ? "PUBLIC" + System.lineSeparator() + "\t" : "public";
 		String endWord = isUseCapitalization() ? "END" : "end";
 		int lineNr = document.getLineOfOffset(command.offset);
 		int firstOffsetOfLine = document.getLineOffset(lineNr);
