@@ -54,6 +54,11 @@ import org.osate.verify.verify.VerificationMethod
 import org.osate.aadl2.util.OsateDebug
 import org.eclipse.xtext.common.types.JvmFormalParameter
 import org.eclipse.xtext.common.types.JvmType
+import org.eclipse.xtext.xbase.interpreter.impl.XbaseInterpreter
+import org.eclipse.xtext.xbase.interpreter.impl.DefaultEvaluationContext
+import org.eclipse.xtext.xbase.interpreter.IEvaluationResult
+import org.eclipse.xtext.util.CancelIndicator
+import org.eclipse.xtext.naming.QualifiedName
 
 @ImplementedBy(AssureProcessor)
 interface IAssureProcessor {
@@ -76,6 +81,7 @@ class AssureProcessor implements IAssureProcessor {
 	 * about how to use the compiler
 	 */
 //	@Inject XbaseCompiler xbaseCompiler
+	@Inject XbaseInterpreter xbaseInterpreter
 
 	def void doProcess(AssuranceEvidence caseResult) {
 		caseResult.claimResult.forEach[claimResult|claimResult.process]
@@ -152,8 +158,8 @@ class AssureProcessor implements IAssureProcessor {
 		val method = verificationResult.method;
 		var Object res = null
 		val target = verificationResult.claimSubject
-		var Class[] classesToLoad
-		
+		var Object[] parameters
+		val ctx = new DefaultEvaluationContext()
 		
 		if (verificationResult instanceof VerificationActivityResult)
 		{
@@ -168,24 +174,38 @@ class AssureProcessor implements IAssureProcessor {
 			val nbParams = verificationMethod.params.size
 			var i = 0
 			
-			classesToLoad = newArrayOfSize(nbParams)
+			parameters = newArrayOfSize(nbParams)
 			
 			while (i < nbParams)
 			{
 				var JvmType varType
+				var Object param
 				if (verificationActivity.parameters.get(i) instanceof XVariableDeclaration)
 				{
-					varType = (verificationActivity.parameters.get(i) as XVariableDeclaration).type.type
+					val varDecl = verificationActivity.parameters.get(i) as XVariableDeclaration
+					varType = varDecl.type.type
+					try {
+						val IEvaluationResult r = xbaseInterpreter.evaluate(varDecl, ctx, CancelIndicator.NullImpl)
+						param = ctx.getValue(QualifiedName.create(varDecl.name))
+						println(varDecl.name + " = " + param)
+					} catch(Exception e) {
+						e.printStackTrace
+					}
 				}
 				else
 				{
 					varType = (verificationActivity.parameters.get(i) as ComputeDeclaration).type.type
+					param = Class.forName(varType.identifier).newInstance
 				}
 				
 				var paramType = (verificationMethod.params.get(i) as JvmFormalParameter).parameterType.type
+				
+				
 				println ("Param var" + i + ":" + varType.identifier)
 				println ("Param par" + i + ":" + paramType.identifier)
-				classesToLoad.set(i, Class.forName(varType.identifier))
+				
+				
+				parameters.set(i, param)
 				if (! varType.equals(paramType))
 				{ 
 					println("Mismatch parameters types")
@@ -201,7 +221,7 @@ class AssureProcessor implements IAssureProcessor {
 		try {
 			switch (method.methodType) {
 				case SupportedTypes.PREDICATE: {
-					res = dispatcher.dispatchVerificationMethod(method, target, classesToLoad)
+					res = dispatcher.dispatchVerificationMethod(method, target, parameters)
 					if (res != null && res instanceof Boolean && res != true) {
 						setToFail(verificationResult, "");
 					} else {
@@ -209,7 +229,7 @@ class AssureProcessor implements IAssureProcessor {
 					}
 				}
 				case SupportedTypes.ANALYSIS: {
-					res = dispatcher.dispatchVerificationMethod(method, target, classesToLoad) // returning the marker or diagnostic id as string
+					res = dispatcher.dispatchVerificationMethod(method, target, parameters) // returning the marker or diagnostic id as string
 					switch (method.reporting) {
 						case ASSERTEXCEPTION: {
 							// handled by catch clauses
@@ -242,7 +262,7 @@ class AssureProcessor implements IAssureProcessor {
 					}
 				}
 				case SupportedTypes.COMPUTE: {
-					res = dispatcher.dispatchVerificationMethod(method, target, classesToLoad)
+					res = dispatcher.dispatchVerificationMethod(method, target, parameters)
 
 					// TODO Evaluate predicate function
 					verificationResult.addInfoIssue(verificationResult,

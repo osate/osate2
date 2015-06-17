@@ -15,7 +15,7 @@ import java.util.ArrayList
 
 class DefaultVerificationMethodDispatcher implements IVerificationMethodDispatcher {
 
-	override Object dispatchVerificationMethod(VerificationMethod vm, InstanceObject target, Class[] classesToLoad) {
+	override Object dispatchVerificationMethod(VerificationMethod vm, InstanceObject target, Object[] parameters) {
 		switch (vm.methodPath) {
 			//				case "org.osate.verify.analysisplugins.AnalysisPluginInterface.assertSumSubBudgets" : {
 			//					if ( target instanceof ComponentInstance) return target.assertSumSubBudgets
@@ -58,14 +58,14 @@ class DefaultVerificationMethodDispatcher implements IVerificationMethodDispatch
 				target.CheckSecurity
 			}
 			//priority inversion
-			default: workspaceInvoke(vm, target, classesToLoad)
+			default: workspaceInvoke(vm, target, parameters)
 			
 		}
 		
 	}
 
 	// invoke method in workspace project
-	def Object workspaceInvoke(VerificationMethod vm, InstanceObject target, Class[] classesToLoad) {
+	def Object workspaceInvoke(VerificationMethod vm, InstanceObject target, Object[] parameters) {
 		val i = vm.methodPath.lastIndexOf('.')
 		val className = vm.methodPath.substring(0, i)
 		val methodName = vm.methodPath.substring(i + 1)
@@ -99,27 +99,24 @@ class DefaultVerificationMethodDispatcher implements IVerificationMethodDispatch
 			val clazz = Class.forName(className, true, loader);
 			val instance = clazz.newInstance
 			
-			for (Class c : classesToLoad)
-			{
-				println ("has to load class " + c.toString)
-			}
+		
 			
 			val newClasses = newArrayList()
 			newClasses.add(ComponentInstance)
 			
-			for (c : classesToLoad)
+			for (o : parameters)
 			{
-				newClasses.add(c as Class)
-				println ("has to load class " + c)
+				newClasses.add(o.class as Class)
+				println ("has to load class " + o.class.name)
 			}	
 			
 			 
 			val method = clazz.getMethod(methodName, newClasses)
 			val objects = new ArrayList ()
 			objects.add(target)
-			for (Class c : classesToLoad)
+			for (o : parameters)
 			{
-				objects.add (new Integer (1))
+				objects.add (o)
 			}	
 			
 			

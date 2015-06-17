@@ -7,7 +7,7 @@ import org.osate.aadl2.instance.ComponentInstance
 import static extension org.osate.verify.userextensions.CompositionalWeightAnalysis.*
 
 class UserExtensionsDispatcher extends DefaultVerificationMethodDispatcher {
-	override Object dispatchVerificationMethod(VerificationMethod vm, InstanceObject target,Class[] classesToLoad) {
+	override Object dispatchVerificationMethod(VerificationMethod vm, InstanceObject target,Object[] parameters) {
 			switch (vm.methodPath) {
 				case "org.osate.verify.userextensions.UserExtensionsDispatcher.assumeWithWeightLimit" : {
 					if ( target instanceof ComponentInstance) return target.assumeWithWeightLimit
@@ -16,7 +16,7 @@ class UserExtensionsDispatcher extends DefaultVerificationMethodDispatcher {
 //					if ( target instanceof ComponentInstance) return target.sumSubBudgets
 //				}
 			}
-		return super.dispatchVerificationMethod(vm,target,classesToLoad)
+		return super.dispatchVerificationMethod(vm,target,parameters)
 	}
 	
 }
