@@ -129,6 +129,8 @@ public class WorkspacePlugin extends AbstractUIPlugin {
 
 	public static final String AUTO_REINSTANTIATE = "autoReinstantiate";
 	public static final String AUTO_INDENT = "AUTO_INDENT";
+	public static final String AUTO_COMPLETE = "AUTO_COMPLETE";
+	public static final String CAPITALIZE = "CAPITALIZE";
 
 	// The shared instance.
 	private static WorkspacePlugin plugin;

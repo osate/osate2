@@ -34,14 +34,23 @@
 package org.osate.xtext.aadl2.ui.editor.autoedit;
 
 import org.apache.log4j.Logger;
+import org.eclipse.emf.ecore.EObject;
+import org.eclipse.jface.preference.IPreferenceStore;
 import org.eclipse.jface.text.BadLocationException;
 import org.eclipse.jface.text.DocumentCommand;
 import org.eclipse.jface.text.IDocument;
-import org.eclipse.jface.text.IRegion;
 import org.eclipse.jface.text.TextUtilities;
 import org.eclipse.xtext.formatting.IIndentationInformation;
+import org.eclipse.xtext.resource.EObjectAtOffsetHelper;
+import org.eclipse.xtext.resource.XtextResource;
 import org.eclipse.xtext.ui.editor.autoedit.AbstractTerminalsEditStrategy;
-import org.eclipse.xtext.ui.editor.autoedit.CommandInfo;
+import org.eclipse.xtext.ui.editor.model.IXtextDocument;
+import org.eclipse.xtext.util.concurrent.IUnitOfWork;
+import org.osate.aadl2.AadlPackage;
+import org.osate.aadl2.Classifier;
+import org.osate.aadl2.ComponentCategory;
+import org.osate.aadl2.NamedElement;
+import org.osate.workspace.WorkspacePlugin;
 
 import com.google.inject.Inject;
 import com.google.inject.MembersInjector;
@@ -57,7 +66,7 @@ public class AutoUnindentEditStrategy extends AbstractTerminalsEditStrategy {
 		@Inject
 		private MembersInjector<AutoUnindentEditStrategy> injector;
 		@Inject
-		private IIndentationInformation indentationInformation;;
+		private IIndentationInformation indentationInformation;
 
 		public AutoUnindentEditStrategy newInstance(String terminal) {
 			return newInstance(terminal, null);
@@ -76,6 +85,7 @@ public class AutoUnindentEditStrategy extends AbstractTerminalsEditStrategy {
 	private final static Logger log = Logger.getLogger(AutoUnindentEditStrategy.class);
 
 	private String indentationString;
+	private IPreferenceStore store = WorkspacePlugin.getDefault().getPreferenceStore();
 
 	public AutoUnindentEditStrategy(String terminal) {
 		this(terminal, null);
@@ -94,19 +104,105 @@ public class AutoUnindentEditStrategy extends AbstractTerminalsEditStrategy {
 	@Override
 	protected void internalCustomizeDocumentCommand(IDocument document, DocumentCommand command)
 			throws BadLocationException {
-		if (isLineDelimiter(document, command)) {
-			IRegion startTerminal = util.searchBackwardsInSamePartition(getLeftTerminal(), document, command.offset);
-			if (startTerminal == null || !atBeginningOfLineInput(document, startTerminal.getOffset())) {
-				return;
+
+		if (!isAutoComplete() || !isLineDelimiter(document, command)) {
+			return;
+		}
+		String publicWord = isUseCapitalization() ? "PUBLIC" + System.lineSeparator() + "\t1" : "public";
+		String endWord = isUseCapitalization() ? "END" : "end";
+		int lineNr = document.getLineOfOffset(command.offset);
+		int firstOffsetOfLine = document.getLineOffset(lineNr);
+		int lineLength = document.getLineLength(lineNr);
+		String lineText = document.get(firstOffsetOfLine, lineLength);
+		String[] tokens = lineText.trim().split("\\s+");
+		String keyword = "";
+		if (tokens.length < 2) {
+			return;
+		}
+		if (tokens[0].equalsIgnoreCase("package")) {
+			keyword = "package";
+		}
+
+		NamedElement namedElement = null;
+		if (keyword.equals("")) {
+			namedElement = null;
+			if (document instanceof IXtextDocument) {
+				IXtextDocument xDoc = (IXtextDocument) document;
+				namedElement = xDoc.readOnly(new IUnitOfWork<NamedElement, XtextResource>() {
+					@Override
+					public NamedElement exec(XtextResource resource) throws Exception {
+						EObjectAtOffsetHelper helper = new EObjectAtOffsetHelper();
+						EObject eobj = helper.resolveElementAt(resource, command.offset);
+						if (eobj == null) {
+							return null;
+						} else if (eobj instanceof Classifier || eobj instanceof AadlPackage) {
+							return (NamedElement) eobj;
+						}
+						return null;
+					}
+				});
 			}
-			if (util.isSameLine(document, startTerminal.getOffset(), command.offset)) {
-				CommandInfo newC = handleCursorInFirstLine(document, command, startTerminal);
-				if (newC != null) {
-					newC.modifyCommand(command);
-				}
+		}
+		if (namedElement == null && keyword.equals("")) {
+			return;
+		} else {
+			String endName = " " + endWord + " ";
+			if (namedElement != null) {
+				endName = endName + namedElement.getName().toLowerCase();
+			} else {
+				endName = endName + tokens[tokens.length - 1];
+			}
+
+			String docText = document.get();
+			docText = docText.replaceAll("--.*?" + System.lineSeparator(), System.lineSeparator());
+			docText = docText.toLowerCase().replaceAll("\\s+", " ");
+			if (docText.toLowerCase().indexOf(endName.toLowerCase()) > -1) {
 				return;
 			}
 		}
+
+		String elementId = tokens[tokens.length - 1];
+		if (ComponentCategory.getByName(elementId.toLowerCase()) != null) {
+			return;
+		}
+
+		if (tokens[0].equalsIgnoreCase("feature") && tokens[1].equalsIgnoreCase("group")) {
+			keyword = tokens[0] + " " + tokens[1];
+		} else if (tokens[0].equalsIgnoreCase("package")) {
+			keyword = tokens[0];
+		} else if (ComponentCategory.getByName((tokens[0] + " " + tokens[1]).toLowerCase()) != null) {
+			keyword = tokens[0] + " " + tokens[1];
+		} else if (ComponentCategory.getByName(tokens[0].toLowerCase()) != null) {
+			keyword = tokens[0];
+		}
+
+		if (keyword == null || keyword.equals("") || elementId == null || elementId.equals("")) {
+			return;
+		}
+
+		int firstTokenIndex = lineText.indexOf(tokens[0]);
+		String leadingString = lineText.substring(0, firstTokenIndex);
+		String targetString = lineText + leadingString + endWord + " " + elementId + ";" + System.lineSeparator();
+		if (keyword.equalsIgnoreCase("package")) {
+			if (lineText.endsWith(System.lineSeparator())) {
+				lineText = lineText.substring(0, lineText.indexOf(System.lineSeparator()));
+			}
+
+			if (isUseCapitalization()) {
+				targetString = lineText + System.lineSeparator() + leadingString + publicWord + System.lineSeparator()
+						+ leadingString + endWord + " " + elementId + ";";
+				document.replace(firstOffsetOfLine, lineText.length(), targetString);
+				command.text = "";
+				command.offset = command.offset + (System.lineSeparator() + leadingString + publicWord).length();
+			} else {
+				targetString = lineText + System.lineSeparator() + leadingString + publicWord + System.lineSeparator()
+						+ leadingString + endWord + " " + elementId + ";" + System.lineSeparator();
+				document.replace(firstOffsetOfLine, lineText.length(), targetString);
+				command.offset = command.offset + (System.lineSeparator() + leadingString + publicWord).length();
+			}
+			return;
+		}
+		document.replace(firstOffsetOfLine, lineText.length(), targetString);
 	}
 
 	private boolean isLineDelimiter(IDocument document, DocumentCommand command) {
@@ -119,23 +215,12 @@ public class AutoUnindentEditStrategy extends AbstractTerminalsEditStrategy {
 		return delimiterIndex != -1 && originalText.trim().length() == 0;
 	}
 
-	protected CommandInfo handleCursorInFirstLine(IDocument document, DocumentCommand command, IRegion startTerminal)
-			throws BadLocationException {
-		CommandInfo newC = new CommandInfo();
-		newC.isChange = true;
-		newC.offset = command.offset;
-		newC.text += command.text.endsWith(indentationString) ? command.text.substring(0,
-				command.text.lastIndexOf(indentationString)) : command.text;
-		newC.cursorOffset = command.offset + newC.text.length();
-		return newC;
+	protected boolean isAutoComplete() {
+		return store.getBoolean(WorkspacePlugin.AUTO_COMPLETE);
 	}
 
-	/**
-	 * determines whether the given offset is at the beginning of the input in the line. leading whitespace is disregarded.
-	 */
-	private boolean atBeginningOfLineInput(IDocument document, int offset) throws BadLocationException {
-		IRegion line = document.getLineInformation(document.getLineOfOffset(offset));
-		return document.get(line.getOffset(), offset - line.getOffset()).trim().length() == 0;
+	protected boolean isUseCapitalization() {
+		return store.getBoolean(WorkspacePlugin.CAPITALIZE);
 	}
 
 }
