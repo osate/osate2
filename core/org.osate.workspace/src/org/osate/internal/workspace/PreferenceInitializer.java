@@ -59,5 +59,7 @@ public class PreferenceInitializer extends AbstractPreferenceInitializer {
 		store.setDefault(WorkspacePlugin.EXPAND_DEFAULT_FLAG, false);
 		store.setDefault(WorkspacePlugin.AUTO_REINSTANTIATE, true);
 		store.setDefault(WorkspacePlugin.AUTO_INDENT, true);
+		store.setDefault(WorkspacePlugin.AUTO_COMPLETE, true);
+		store.setDefault(WorkspacePlugin.CAPITALIZE, false);
 	}
 }

@@ -10,5 +10,7 @@ public class Aadl2TextEditorPreferenceInitializer extends AbstractPreferenceInit
 	public void initializeDefaultPreferences() {
 		IPreferenceStore store = WorkspacePlugin.getDefault().getPreferenceStore();
 		store.setDefault(WorkspacePlugin.AUTO_INDENT, true);
+		store.setDefault(WorkspacePlugin.AUTO_COMPLETE, true);
+		store.setDefault(WorkspacePlugin.CAPITALIZE, false);
 	}
 }
