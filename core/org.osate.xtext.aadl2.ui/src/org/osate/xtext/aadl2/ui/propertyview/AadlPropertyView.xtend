@@ -147,15 +147,15 @@ import static extension org.osate.aadl2.modelsupport.util.AadlUtil.isSameOrRefin
  * model element.
  */
 class AadlPropertyView extends ViewPart {
-	val static HIDE_UNDEFINED_TOOL_TIP = "Click to hide undefined properties"
-	val static SHOW_UNDEFINED_TOOL_TIP = "Click to show undefined properties"
+	val static HIDE_UNDEFINED_TOOL_TIP = "Hide undefined properties"
+	val static SHOW_UNDEFINED_TOOL_TIP = "Show undefined properties"
 	val static COLLAPSE_ALL_TOOL_TIP = "Collapse All"
 	val static SHOW_ONLY_IMPORTED_PROPERTIES = "Show imported properties only"
 	val static SHOW_ALL_AVAILABLE_PROPERTIES = "Show all available properties"
-	val static HIDE_DEFAULT_TOOL_TIP = "Click to hide default properties"
-	val static SHOW_DEFAULT_TOOL_TIP = "Click to show default properties"
+	val static HIDE_DEFAULT_TOOL_TIP = "Hide default property values"
+	val static SHOW_DEFAULT_TOOL_TIP = "Show default property values"
 	
-	val static NO_PROPERTIES_TO_SHOW = "No properties to show: Please select a single object that is an AADL Property Holder."
+	val static NO_PROPERTIES_TO_SHOW = "No properties to show: Please select a single AADL element that can have properties."
 	val static POPULATING_VIEW = "Populating AADL Property Values view."
 	val static DEFAULT_PROPERTY_GROUP = "All"
 
@@ -391,51 +391,52 @@ class AadlPropertyView extends ViewPart {
 					return c
 				}
 
-				override createFilterControls(Composite parent) {
-					val result = super.createFilterControls(parent)
-
-					val Map<String, Set<String>> propertyGroups = newLinkedHashMap(
-						DEFAULT_PROPERTY_GROUP -> new TreeSet())
-					val propertyGroupCombo = new Combo(parent, SWT.READ_ONLY) => [
-						add(DEFAULT_PROPERTY_GROUP)
-						text = DEFAULT_PROPERTY_GROUP
-					]
-					propertyGroupCombo.addModifyListener(
-						new ModifyListener {
-							override modifyText(ModifyEvent e) {
-								currentPropertyGroup.clear()
-								for (s: propertyGroups.get(propertyGroupCombo.text)){
-									currentPropertyGroup.add(new FilterCriterion(null,s))
-								}
-								showOnlyImportedPropertiesAction.checked = false
-								treeViewer.refresh()
-							}
-						})
-
-					val fullPathURI = FileLocator.find(Platform.getBundle("org.osate.xtext.aadl2.ui"),
-						new Path("resources/AadlPropertyGroups.properties"), null)
-					val reader = new InputStreamReader(fullPathURI.openStream())
-					for (line : reader.readLines) {
-						if (!line.startsWith("#") && line.length > 0) {
-							val String[] segments = line.split(':')
-							if (segments.length == 2) {
-								propertyGroupCombo.add(segments.get(0))
-								propertyGroups.put(segments.get(0), segments.get(1).split(",").toSet)
-							}
-						}
-					}
-					reader.close()
-
-					if (parent.getLayout() instanceof GridLayout) {
-
-						// previous gridLayout was 2 columns, can't change after initialization
-						val newGridLayout = new GridLayout(3, false)
-						newGridLayout.marginHeight = 0
-						newGridLayout.marginWidth = 0
-						parent.setLayout(newGridLayout)
-					}
-					result
-				}
+// Don't show property group filter
+//				override createFilterControls(Composite parent) {
+//					val result = super.createFilterControls(parent)
+//
+//					val Map<String, Set<String>> propertyGroups = newLinkedHashMap(
+//						DEFAULT_PROPERTY_GROUP -> new TreeSet())
+//					val propertyGroupCombo = new Combo(parent, SWT.READ_ONLY) => [
+//						add(DEFAULT_PROPERTY_GROUP)
+//						text = DEFAULT_PROPERTY_GROUP
+//					]
+//					propertyGroupCombo.addModifyListener(
+//						new ModifyListener {
+//							override modifyText(ModifyEvent e) {
+//								currentPropertyGroup.clear()
+//								for (s: propertyGroups.get(propertyGroupCombo.text)){
+//									currentPropertyGroup.add(new FilterCriterion(null,s))
+//								}
+//								showOnlyImportedPropertiesAction.checked = false
+//								treeViewer.refresh()
+//							}
+//						})
+//
+//					val fullPathURI = FileLocator.find(Platform.getBundle("org.osate.xtext.aadl2.ui"),
+//						new Path("resources/AadlPropertyGroups.properties"), null)
+//					val reader = new InputStreamReader(fullPathURI.openStream())
+//					for (line : reader.readLines) {
+//						if (!line.startsWith("#") && line.length > 0) {
+//							val String[] segments = line.split(':')
+//							if (segments.length == 2) {
+//								propertyGroupCombo.add(segments.get(0))
+//								propertyGroups.put(segments.get(0), segments.get(1).split(",").toSet)
+//							}
+//						}
+//					}
+//					reader.close()
+//
+//					if (parent.getLayout() instanceof GridLayout) {
+//
+//						// previous gridLayout was 2 columns, can't change after initialization
+//						val newGridLayout = new GridLayout(3, false)
+//						newGridLayout.marginHeight = 0
+//						newGridLayout.marginWidth = 0
+//						parent.setLayout(newGridLayout)
+//					}
+//					result
+//				}
 			}
 			layout = new GridLayout
 			val gd = new GridData(SWT.FILL, SWT.FILL, true, true);
