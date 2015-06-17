@@ -195,14 +195,21 @@ class AssureProcessor implements IAssureProcessor {
 				else
 				{
 					varType = (verificationActivity.parameters.get(i) as ComputeDeclaration).type.type
-					param = Class.forName(varType.identifier).newInstance
+					val myClass = Class.forName(varType.qualifiedName)
+//					println ("myClass=" + myClass)
+					/**
+					 * FIX how to exchange data and return values
+					 */
+					param = new Integer (5)
+//					println ("param=" + param)
+					
 				}
 				
 				var paramType = (verificationMethod.params.get(i) as JvmFormalParameter).parameterType.type
 				
 				
-				println ("Param var" + i + ":" + varType.identifier)
-				println ("Param par" + i + ":" + paramType.identifier)
+//				println ("Param var" + i + ":" + varType.identifier)
+//				println ("Param par" + i + ":" + paramType.identifier)
 				
 				
 				parameters.set(i, param)
