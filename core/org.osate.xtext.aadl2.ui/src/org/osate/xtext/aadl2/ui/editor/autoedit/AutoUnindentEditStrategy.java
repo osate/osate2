@@ -122,6 +122,12 @@ public class AutoUnindentEditStrategy extends AbstractTerminalsEditStrategy {
 		if (tokens[0].equalsIgnoreCase("package")) {
 			keyword = "package";
 		}
+		boolean hasExtends = false;
+		for (int i = 0; i < tokens.length; i++) {
+			if (tokens[i].equalsIgnoreCase("extends")) {
+				hasExtends = true;
+			}
+		}
 
 		NamedElement namedElement = null;
 		if (keyword.equals("")) {
@@ -143,12 +149,21 @@ public class AutoUnindentEditStrategy extends AbstractTerminalsEditStrategy {
 				});
 			}
 		}
-		if (namedElement == null && keyword.equals("")) {
+		if (namedElement == null && keyword.equals("") && !hasExtends) {
 			return;
 		} else {
 			String endName = " " + endWord + " ";
 			if (namedElement != null) {
-				endName = endName + namedElement.getName().toLowerCase();
+				if (hasExtends) {
+					for (int i = 0; i < tokens.length; i++) {
+						if (tokens[i].equalsIgnoreCase("extends")) {
+							endName = endName + tokens[i - 1].toLowerCase();
+						}
+					}
+
+				} else {
+					endName = endName + namedElement.getName().toLowerCase();
+				}
 			} else {
 				endName = endName + tokens[tokens.length - 1];
 			}
@@ -162,6 +177,11 @@ public class AutoUnindentEditStrategy extends AbstractTerminalsEditStrategy {
 		}
 
 		String elementId = tokens[tokens.length - 1];
+		for (int i = 0; i < tokens.length; i++) {
+			if (tokens[i].equalsIgnoreCase("extends")) {
+				elementId = tokens[i - 1];
+			}
+		}
 		if (ComponentCategory.getByName(elementId.toLowerCase()) != null) {
 			return;
 		}
