@@ -201,18 +201,32 @@ class AssureProcessor implements IAssureProcessor {
 					 * FIX how to exchange data and return values
 					 */
 					
-					if (myClass.name.equalsIgnoreCase("java.lang.integer"))
+					switch (myClass.name.toLowerCase)
 					{
-						/**
-						 * integer needs a parameter to be instanciated. We then automatically
-						 * create a negative integer when having a compute value
-						 * for an integer.
-						 */
-						param = myClass.constructors.get(0).newInstance(-1)	
-					}
-					else
-					{
-						param = myClass.newInstance
+						case "java.lang.integer":
+						{
+							/**
+							 * integer needs a parameter to be instanciated. We then automatically
+							 * create a negative integer when having a compute value
+							 * for an integer.
+							 */
+							param = myClass.constructors.get(0).newInstance(-1)
+							
+						}
+						case "java.lang.double":
+						{
+							/**
+							 * integer needs a parameter to be instanciated. We then automatically
+							 * create a negative integer when having a compute value
+							 * for an integer.
+							 */
+							param = myClass.constructors.get(0).newInstance(-1)	
+						}
+						default:
+						{
+							param = myClass.newInstance
+						}
+						
 					}
 //					println ("param=" + param)
 					
@@ -373,7 +387,9 @@ class AssureProcessor implements IAssureProcessor {
 		} catch (ThreadDeath e) { // don't catch ThreadDeath by accident
 			throw e;
 		} catch (Throwable e) {
+//			System.out.println("BLABLA2");
 			setToError(verificationResult, e);
+			throw e;
 		}
 		verificationResult.eResource.save(null)
 	}
@@ -473,6 +489,7 @@ class AssureProcessor implements IAssureProcessor {
 				result.add(URI.encodeSegment(referencedProject.getName(), false));
 			}
 		} catch (CoreException ex) {
+			System.out.println ("CORE EXCEPTION");
 			ex.printStackTrace();
 		}
 

@@ -122,6 +122,7 @@ class DefaultVerificationMethodDispatcher implements IVerificationMethodDispatch
 			
 			method.invoke(instance, objects.toArray)
 		} catch (Exception e) {
+			System.out.println("Exception HERE")
 			e.printStackTrace
 			throw e
 		}
