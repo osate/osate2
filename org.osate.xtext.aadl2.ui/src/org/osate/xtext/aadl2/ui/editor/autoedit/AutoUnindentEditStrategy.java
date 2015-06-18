@@ -101,6 +101,58 @@ public class AutoUnindentEditStrategy extends AbstractTerminalsEditStrategy {
 		return true;
 	}
 
+	private String findKeyWord(String[] tokens) {
+		String keyword = "";
+		if (tokens[0].equalsIgnoreCase("feature") && tokens[1].equalsIgnoreCase("group")) {
+			keyword = tokens[0] + " " + tokens[1];
+		} else if (tokens[0].equalsIgnoreCase("package")) {
+			keyword = tokens[0];
+		} else if (tokens[0].equalsIgnoreCase("property") && tokens[1].equalsIgnoreCase("set")) {
+			keyword = "property set";
+		} else if (ComponentCategory.getByName((tokens[0] + " " + tokens[1]).toLowerCase()) != null) {
+			keyword = tokens[0] + " " + tokens[1];
+		} else if (ComponentCategory.getByName(tokens[0].toLowerCase()) != null) {
+			keyword = tokens[0];
+		}
+		return keyword;
+	}
+
+	private String findElementId(String[] tokens, String keyword) {
+		String elementId = tokens[tokens.length - 1];
+		for (int i = 0; i < tokens.length; i++) {
+			if (tokens[i].equalsIgnoreCase("extends")) {
+				elementId = tokens[i - 1];
+			} else if (keyword.equalsIgnoreCase("property set") && tokens[i].equalsIgnoreCase("is")) {
+				elementId = tokens[i - 1];
+			}
+		}
+		return elementId;
+	}
+
+	private boolean checkForExistingEnd(String endWord, boolean hasExtends, String docText, String elementId,
+			NamedElement namedElement, String keyword, String[] tokens) {
+
+		boolean retVal = false;
+		String endName = " " + endWord + " ";
+		if (hasExtends) {
+			endName = endName + elementId;
+		} else if (namedElement != null) {
+			endName = endName + namedElement.getName().toLowerCase();
+		} else {
+			if (keyword.equals("property set")) {
+				endName = endName + tokens[tokens.length - 2];
+			} else {
+				endName = endName + tokens[tokens.length - 1];
+			}
+		}
+		docText = docText.replaceAll("--.*?" + System.lineSeparator(), System.lineSeparator());
+		docText = docText.toLowerCase().replaceAll("\\s+", " ");
+		if (docText.toLowerCase().indexOf(endName.toLowerCase()) > -1) {
+			return true;
+		}
+		return retVal;
+	}
+
 	@Override
 	protected void internalCustomizeDocumentCommand(IDocument document, DocumentCommand command)
 			throws BadLocationException {
@@ -115,17 +167,10 @@ public class AutoUnindentEditStrategy extends AbstractTerminalsEditStrategy {
 		int lineLength = document.getLineLength(lineNr);
 		String lineText = document.get(firstOffsetOfLine, lineLength);
 		String[] tokens = lineText.trim().split("\\s+");
-		String keyword = "";
 		if (tokens.length < 2) {
 			return;
 		}
-		if (tokens[0].equalsIgnoreCase("package")) {
-			keyword = "package";
-		}
-		if (tokens[0].equalsIgnoreCase("property") && tokens[1].equalsIgnoreCase("set")
-				&& tokens[tokens.length - 1].equalsIgnoreCase("is")) {
-			keyword = "property set";
-		}
+		String keyword = findKeyWord(tokens);
 		boolean hasExtends = false;
 		for (int i = 0; i < tokens.length; i++) {
 			if (tokens[i].equalsIgnoreCase("extends")) {
@@ -153,103 +198,80 @@ public class AutoUnindentEditStrategy extends AbstractTerminalsEditStrategy {
 				});
 			}
 		}
+		String elementId = findElementId(tokens, keyword);
+
 		if (namedElement == null && keyword.equals("") && !hasExtends) {
 			return;
-		} else {
-			String endName = " " + endWord + " ";
-			if (namedElement != null) {
-				if (hasExtends) {
-					for (int i = 0; i < tokens.length; i++) {
-						if (tokens[i].equalsIgnoreCase("extends")) {
-							endName = endName + tokens[i - 1].toLowerCase();
-						}
-					}
-
-				} else {
-					endName = endName + namedElement.getName().toLowerCase();
-				}
-			} else {
-				if (keyword.equals("property set")) {
-					endName = endName + tokens[tokens.length - 2];
-				} else {
-					endName = endName + tokens[tokens.length - 1];
-				}
-			}
-
-			String docText = document.get();
-			docText = docText.replaceAll("--.*?" + System.lineSeparator(), System.lineSeparator());
-			docText = docText.toLowerCase().replaceAll("\\s+", " ");
-			if (docText.toLowerCase().indexOf(endName.toLowerCase()) > -1) {
-				return;
-			}
+		} else if (checkForExistingEnd(endWord, hasExtends, document.get(), elementId, namedElement, keyword, tokens)) {
+			return;
 		}
 
-		String elementId = tokens[tokens.length - 1];
-		for (int i = 0; i < tokens.length; i++) {
-			if (tokens[i].equalsIgnoreCase("extends")) {
-				elementId = tokens[i - 1];
-			} else if (keyword.equalsIgnoreCase("property set") && tokens[i].equalsIgnoreCase("is")) {
-				elementId = tokens[i - 1];
-			}
-		}
 		if (ComponentCategory.getByName(elementId.toLowerCase()) != null) {
 			return;
 		}
-
-		if (tokens[0].equalsIgnoreCase("feature") && tokens[1].equalsIgnoreCase("group")) {
-			keyword = tokens[0] + " " + tokens[1];
-		} else if (tokens[0].equalsIgnoreCase("package")) {
-			keyword = tokens[0];
-		} else if (tokens[0].equalsIgnoreCase("property") && tokens[1].equalsIgnoreCase("set")) {
-			keyword = "property set";
-		} else if (ComponentCategory.getByName((tokens[0] + " " + tokens[1]).toLowerCase()) != null) {
-			keyword = tokens[0] + " " + tokens[1];
-		} else if (ComponentCategory.getByName(tokens[0].toLowerCase()) != null) {
-			keyword = tokens[0];
-		}
-
 		if (keyword == null || keyword.equals("") || elementId == null || elementId.equals("")) {
 			return;
 		}
 
 		int firstTokenIndex = lineText.indexOf(tokens[0]);
 		String leadingString = lineText.substring(0, firstTokenIndex);
-		String targetString = lineText + leadingString + endWord + " " + elementId + ";" + System.lineSeparator();
+		String indent = "";
+		String targetString = "";
 		if (keyword.equalsIgnoreCase("package")) {
 			if (lineText.endsWith(System.lineSeparator())) {
 				lineText = lineText.substring(0, lineText.indexOf(System.lineSeparator()));
 			}
-			if (isUseCapitalization()) {
-				targetString = lineText + System.lineSeparator() + leadingString + publicWord + System.lineSeparator()
-						+ leadingString + endWord + " " + elementId + ";";
-				document.replace(firstOffsetOfLine, lineText.length(), targetString);
-				command.text = "";
-				command.offset = command.offset + (System.lineSeparator() + leadingString + publicWord).length();
-			} else {
-				targetString = lineText + System.lineSeparator() + leadingString + publicWord + System.lineSeparator()
-						+ leadingString + endWord + " " + elementId + ";" + System.lineSeparator();
-				document.replace(firstOffsetOfLine, lineText.length(), targetString);
-				command.offset = command.offset + (System.lineSeparator() + leadingString + publicWord).length();
-			}
-			return;
-		}
-		if (keyword.equalsIgnoreCase("property set")) {
+		} else if (keyword.equalsIgnoreCase("property set")) {
 			if (lineText.endsWith(System.lineSeparator())) {
 				lineText = lineText.substring(0, lineText.indexOf(System.lineSeparator()));
 			}
-			String indent = "";
 			if (isAutoIndent()) {
 				indent = "\t";
 			}
-			targetString = lineText + System.lineSeparator() + leadingString + indent + System.lineSeparator()
-					+ leadingString + endWord + " " + elementId + ";";
+		}
+
+		targetString = buildTargetString(lineText, leadingString, endWord, elementId, keyword, publicWord, indent);
+
+		if (keyword.equalsIgnoreCase("package")) {
+			if (isUseCapitalization()) {
+				command.text = "";
+			}
+			command.offset = command.offset + (System.lineSeparator() + leadingString + publicWord).length();
+		} else if (keyword.equalsIgnoreCase("property set")) {
 			command.offset = command.offset + (System.lineSeparator() + leadingString + indent).length();
 			command.text = "";
-
-			document.replace(firstOffsetOfLine, lineText.length(), targetString);
-			return;
 		}
 		document.replace(firstOffsetOfLine, lineText.length(), targetString);
+	}
+
+	private String buildTargetString(String lineText, String leadingString, String endWord, String elementId,
+			String keyword, String publicWord, String indent) {
+		StringBuilder targetStringBuilder = new StringBuilder();
+
+		targetStringBuilder.append(lineText);
+
+		if (keyword.equalsIgnoreCase("package")) {
+			targetStringBuilder.append(System.lineSeparator());
+			targetStringBuilder.append(leadingString);
+			targetStringBuilder.append(publicWord);
+			targetStringBuilder.append(System.lineSeparator());
+		} else if (keyword.equalsIgnoreCase("property set")) {
+			targetStringBuilder.append(System.lineSeparator());
+			targetStringBuilder.append(leadingString);
+			targetStringBuilder.append(indent);
+			targetStringBuilder.append(System.lineSeparator());
+		}
+
+		targetStringBuilder.append(leadingString);
+		targetStringBuilder.append(endWord);
+		targetStringBuilder.append(" ");
+		targetStringBuilder.append(elementId);
+		targetStringBuilder.append(";");
+		if ((!keyword.equalsIgnoreCase("package") && !keyword.equalsIgnoreCase("property set"))
+				|| (keyword.equalsIgnoreCase("package") && (!isUseCapitalization()))) {
+			targetStringBuilder.append(System.lineSeparator());
+		}
+		return targetStringBuilder.toString();
 	}
 
 	private boolean isLineDelimiter(IDocument document, DocumentCommand command) {
