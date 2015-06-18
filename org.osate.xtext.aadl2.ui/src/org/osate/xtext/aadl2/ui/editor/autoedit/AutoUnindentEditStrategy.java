@@ -122,6 +122,10 @@ public class AutoUnindentEditStrategy extends AbstractTerminalsEditStrategy {
 		if (tokens[0].equalsIgnoreCase("package")) {
 			keyword = "package";
 		}
+		if (tokens[0].equalsIgnoreCase("property") && tokens[1].equalsIgnoreCase("set")
+				&& tokens[tokens.length - 1].equalsIgnoreCase("is")) {
+			keyword = "property set";
+		}
 		boolean hasExtends = false;
 		for (int i = 0; i < tokens.length; i++) {
 			if (tokens[i].equalsIgnoreCase("extends")) {
@@ -165,7 +169,11 @@ public class AutoUnindentEditStrategy extends AbstractTerminalsEditStrategy {
 					endName = endName + namedElement.getName().toLowerCase();
 				}
 			} else {
-				endName = endName + tokens[tokens.length - 1];
+				if (keyword.equals("property set")) {
+					endName = endName + tokens[tokens.length - 2];
+				} else {
+					endName = endName + tokens[tokens.length - 1];
+				}
 			}
 
 			String docText = document.get();
@@ -180,6 +188,8 @@ public class AutoUnindentEditStrategy extends AbstractTerminalsEditStrategy {
 		for (int i = 0; i < tokens.length; i++) {
 			if (tokens[i].equalsIgnoreCase("extends")) {
 				elementId = tokens[i - 1];
+			} else if (keyword.equalsIgnoreCase("property set") && tokens[i].equalsIgnoreCase("is")) {
+				elementId = tokens[i - 1];
 			}
 		}
 		if (ComponentCategory.getByName(elementId.toLowerCase()) != null) {
@@ -190,6 +200,8 @@ public class AutoUnindentEditStrategy extends AbstractTerminalsEditStrategy {
 			keyword = tokens[0] + " " + tokens[1];
 		} else if (tokens[0].equalsIgnoreCase("package")) {
 			keyword = tokens[0];
+		} else if (tokens[0].equalsIgnoreCase("property") && tokens[1].equalsIgnoreCase("set")) {
+			keyword = "property set";
 		} else if (ComponentCategory.getByName((tokens[0] + " " + tokens[1]).toLowerCase()) != null) {
 			keyword = tokens[0] + " " + tokens[1];
 		} else if (ComponentCategory.getByName(tokens[0].toLowerCase()) != null) {
@@ -207,7 +219,6 @@ public class AutoUnindentEditStrategy extends AbstractTerminalsEditStrategy {
 			if (lineText.endsWith(System.lineSeparator())) {
 				lineText = lineText.substring(0, lineText.indexOf(System.lineSeparator()));
 			}
-
 			if (isUseCapitalization()) {
 				targetString = lineText + System.lineSeparator() + leadingString + publicWord + System.lineSeparator()
 						+ leadingString + endWord + " " + elementId + ";";
@@ -220,6 +231,22 @@ public class AutoUnindentEditStrategy extends AbstractTerminalsEditStrategy {
 				document.replace(firstOffsetOfLine, lineText.length(), targetString);
 				command.offset = command.offset + (System.lineSeparator() + leadingString + publicWord).length();
 			}
+			return;
+		}
+		if (keyword.equalsIgnoreCase("property set")) {
+			if (lineText.endsWith(System.lineSeparator())) {
+				lineText = lineText.substring(0, lineText.indexOf(System.lineSeparator()));
+			}
+			String indent = "";
+			if (isAutoIndent()) {
+				indent = "\t";
+			}
+			targetString = lineText + System.lineSeparator() + leadingString + indent + System.lineSeparator()
+					+ leadingString + endWord + " " + elementId + ";";
+			command.offset = command.offset + (System.lineSeparator() + leadingString + indent).length();
+			command.text = "";
+
+			document.replace(firstOffsetOfLine, lineText.length(), targetString);
 			return;
 		}
 		document.replace(firstOffsetOfLine, lineText.length(), targetString);
@@ -237,6 +264,10 @@ public class AutoUnindentEditStrategy extends AbstractTerminalsEditStrategy {
 
 	protected boolean isAutoComplete() {
 		return store.getBoolean(WorkspacePlugin.AUTO_COMPLETE);
+	}
+
+	protected boolean isAutoIndent() {
+		return store.getBoolean(WorkspacePlugin.AUTO_INDENT);
 	}
 
 	protected boolean isUseCapitalization() {
