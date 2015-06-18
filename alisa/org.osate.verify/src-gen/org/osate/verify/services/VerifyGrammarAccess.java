@@ -1679,8 +1679,7 @@ public class VerifyGrammarAccess extends AbstractGrammarElementFinder {
 
 	//// New rule for val only
 	//XValDeclaration returns xbase::XExpression:
-	//	{xbase::XVariableDeclaration} ("val" (=> (type=JvmTypeReference name=ID) | name=ID) "=" right=(APropertyReference |
-	//	XExpression));
+	//	{xbase::XVariableDeclaration} ("val" (=> type=JvmTypeReference name=ID) "=" right=(APropertyReference | XExpression));
 	public CommonGrammarAccess.XValDeclarationElements getXValDeclarationAccess() {
 		return gaCommon.getXValDeclarationAccess();
 	}
@@ -1690,7 +1689,7 @@ public class VerifyGrammarAccess extends AbstractGrammarElementFinder {
 	}
 
 	//ComputeDeclaration returns xbase::XExpression:
-	//	{ComputeDeclaration} ("compute" (=> (type=JvmTypeReference name=ID) | name=ID));
+	//	{ComputeDeclaration} ("compute" (=> type=JvmTypeReference name=ID));
 	public CommonGrammarAccess.ComputeDeclarationElements getComputeDeclarationAccess() {
 		return gaCommon.getComputeDeclarationAccess();
 	}

@@ -196,40 +196,27 @@ class AssureProcessor implements IAssureProcessor {
 				{
 					varType = (verificationActivity.parameters.get(i) as ComputeDeclaration).type.type
 					val myClass = Class.forName(varType.qualifiedName)
-					println ("myClass=" + myClass.name)
+//					println ("myClass=" + myClass.name)
 					/**
 					 * FIX how to exchange data and return values
 					 */
-					
 					switch (myClass.name.toLowerCase)
 					{
-						case "java.lang.integer":
-						{
-							/**
-							 * integer needs a parameter to be instanciated. We then automatically
-							 * create a negative integer when having a compute value
-							 * for an integer.
-							 */
-							param = myClass.constructors.get(0).newInstance(-1)
-							
-						}
 						case "java.lang.double":
 						{
-							/**
-							 * integer needs a parameter to be instanciated. We then automatically
-							 * create a negative integer when having a compute value
-							 * for an integer.
-							 */
+							param = myClass.constructors.get(0).newInstance(-1.0)	
+						}
+						case "java.lang.integer":
+						{
 							param = myClass.constructors.get(0).newInstance(-1)	
 						}
 						default:
 						{
 							param = myClass.newInstance
 						}
-						
 					}
-//					println ("param=" + param)
 					
+
 				}
 				
 				var paramType = (verificationMethod.params.get(i) as JvmFormalParameter).parameterType.type

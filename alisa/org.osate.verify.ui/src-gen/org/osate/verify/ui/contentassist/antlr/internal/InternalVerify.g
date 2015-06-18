@@ -3025,8 +3025,6 @@ finally {
 }
 
 
-
-
 rule__XAssignment__Alternatives
     @init {
 		int stackSize = keepStackSize();
@@ -8881,8 +8879,6 @@ rule__Rationale__Group__1__Impl
 finally {
 	restoreStackSize(stackSize);
 }
-
-
 
 
 
@@ -24996,8 +24992,6 @@ rule__Rationale__TextAssignment_1
 finally {
 	restoreStackSize(stackSize);
 }
-
-
 
 
 
