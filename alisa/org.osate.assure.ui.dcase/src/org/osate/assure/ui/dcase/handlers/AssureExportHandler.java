@@ -61,6 +61,7 @@ import org.osate.assure.assure.AssuranceEvidence;
 import org.osate.assure.assure.ClaimResult;
 import org.osate.assure.assure.VerificationActivityResult;
 import org.osate.assure.assure.VerificationExpr;
+import org.osate.assure.assure.VerificationResultState;
 import org.osate.assure.assure.impl.AssuranceEvidenceImpl;
 import org.osate.assure.evaluator.IAssureProcessor;
 import org.osate.assure.util.AssureUtilExtension;
@@ -222,6 +223,7 @@ public class AssureExportHandler extends AbstractHandler {
 
 		for (VerificationExpr ve : cr.getVerificationActivityResult()) {
 			export(subgoal, ve);
+
 		}
 
 		for (org.osate.reqspec.reqSpec.Goal initialGoal : requirement.getGoalReference()) {
@@ -258,6 +260,8 @@ public class AssureExportHandler extends AbstractHandler {
 	public static void export(BasicNode parent, VerificationExpr ve) {
 		Evidence evidence;
 		DcaseLink001 link;
+		String nodeName;
+		String nodeDescription;
 
 		System.out.println("Verification expr = " + ve);
 		VerificationActivityResult result = (VerificationActivityResult) ve;
@@ -268,59 +272,60 @@ public class AssureExportHandler extends AbstractHandler {
 //		justification.setDesc(ve.getName());
 
 		model.getRootBasicNode().add(strategy);
+		nodeName = "";
+		nodeDescription = "";
 
 		link = DcaseFactory.eINSTANCE.createDcaseLink001();
 		link.setTarget(strategy);
 		link.setSource(parent);
 		model.getRootBasicLink().add(link);
 
+		switch (result.getResultState().getValue()) {
+		case VerificationResultState.FAIL_VALUE: {
+			nodeName = "FAIL";
+			break;
+		}
+
+		case VerificationResultState.SUCCESS_VALUE: {
+			nodeName = "SUCCESS";
+			break;
+		}
+
+		case VerificationResultState.TBD_VALUE: {
+			nodeName = "TBD";
+			break;
+		}
+
+		case VerificationResultState.UNKNOWN_VALUE: {
+			nodeName = "UNKNOWN";
+			break;
+		}
+		}
+
+		nodeDescription += "(";
 		if (ve.getTbdCount() > 0) {
-			evidence = DcaseFactory.eINSTANCE.createEvidence();
-			evidence.setName("tbd");
-			evidence.setDesc("TDB " + ve.getTbdCount() + " time(s)");
-
-//			justification.setMessage(ve.);
-//			justification.setDesc(ve.getName());
-
-			model.getRootBasicNode().add(evidence);
-
-			link = DcaseFactory.eINSTANCE.createDcaseLink001();
-			link.setTarget(evidence);
-			link.setSource(strategy);
-			model.getRootBasicLink().add(link);
+			nodeDescription += "TDB " + ve.getTbdCount() + " time(s)";
 		}
 
 		if (ve.getSuccessCount() > 0) {
-			evidence = DcaseFactory.eINSTANCE.createEvidence();
-			evidence.setName("success");
-			evidence.setDesc("Successfully verified " + ve.getTbdCount() + " time(s)");
-
-//			justification.setMessage(ve.);
-//			justification.setDesc(ve.getName());
-
-			model.getRootBasicNode().add(evidence);
-
-			link = DcaseFactory.eINSTANCE.createDcaseLink001();
-			link.setTarget(evidence);
-			link.setSource(strategy);
-			model.getRootBasicLink().add(link);
+			nodeDescription += " success " + ve.getSuccessCount() + " time(s)";
 		}
 
 		if (ve.getFailCount() > 0) {
-			evidence = DcaseFactory.eINSTANCE.createEvidence();
-			evidence.setName("failure");
-			evidence.setDesc("Failure to be verified " + ve.getFailCount() + " time(s)");
-
-//			justification.setMessage(ve.);
-//			justification.setDesc(ve.getName());
-
-			model.getRootBasicNode().add(evidence);
-
-			link = DcaseFactory.eINSTANCE.createDcaseLink001();
-			link.setTarget(evidence);
-			link.setSource(strategy);
-			model.getRootBasicLink().add(link);
+			nodeDescription += " failed " + ve.getFailCount() + " time(s)";
 		}
+		nodeDescription += ")";
+
+		evidence = DcaseFactory.eINSTANCE.createEvidence();
+		evidence.setName(nodeName);
+		evidence.setDesc(nodeDescription);
+
+		model.getRootBasicNode().add(evidence);
+
+		link = DcaseFactory.eINSTANCE.createDcaseLink001();
+		link.setTarget(evidence);
+		link.setSource(strategy);
+		model.getRootBasicLink().add(link);
 
 	}
 
