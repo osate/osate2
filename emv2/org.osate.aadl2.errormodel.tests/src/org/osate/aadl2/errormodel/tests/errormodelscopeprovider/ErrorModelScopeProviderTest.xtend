@@ -1,6 +1,7 @@
 package org.osate.aadl2.errormodel.tests.errormodelscopeprovider
 
 import org.eclipse.xtext.junit4.InjectWith
+import org.eclipselabs.xtext.utils.unittesting.FluentIssueCollection
 import org.eclipselabs.xtext.utils.unittesting.XtextRunner2
 import org.junit.Test
 import org.junit.runner.RunWith
@@ -25,7 +26,7 @@ class ErrorModelScopeProviderTest extends OsateTest {
 	}
 	
 	@Test
-	//Tests scope_ErrorModelLibrary
+	//Tests scope_ErrorModelLibrary and scope_TypeMappingSet
 	def void testErrorModelLibraryReference() {
 		createFiles("pkg.aadl" -> '''
 			package pkg
@@ -52,12 +53,21 @@ class ErrorModelScopeProviderTest extends OsateTest {
 				abstract a
 					annex EMV2 {**
 						use types ErrorLibrary;
+						use type equivalence pkg::m;
+						use mappings pkg::m;
+						
+						error propagations
+						flows
+							p: error path all -> all use mappings pkg::m;
+						end propagations;
 					**};
 				end a;
 			end pkg;
 		''')
 		suppressSerialization
-		testFile("pkg.aadl").resource.contents.head as AadlPackage => [
+		val testFileResult = testFile("pkg.aadl")
+		val issueCollection = new FluentIssueCollection(testFileResult.resource, newArrayList, newArrayList)
+		testFileResult.resource.contents.head as AadlPackage => [
 			"pkg".assertEquals(name)
 			publicSection => [
 				(ownedAnnexLibraries.head as DefaultAnnexLibrary).parsedAnnexLibrary as ErrorModelLibrary => [
@@ -84,10 +94,22 @@ class ErrorModelScopeProviderTest extends OsateTest {
 					(ownedAnnexSubclauses.head as DefaultAnnexSubclause).parsedAnnexSubclause as ErrorModelSubclause => [
 						//Tests scope_ErrorModelLibrary
 						assertScope(ErrorModelPackage.eINSTANCE.errorModelSubclause_UseTypes, false, #["ErrorLibrary", "pkg"])
+						//Tests scope_TypeMappingSet
+						assertScope(ErrorModelPackage.eINSTANCE.errorModelSubclause_TypeEquivalence, false, #["pkg::m"])
+						//Tests scope_TypeMappingSet
+						assertScope(ErrorModelPackage.eINSTANCE.errorModelSubclause_TypeMappingSet, false, #["pkg::m"])
+						flows.head => [
+							"p".assertEquals(name)
+							assertWarning(testFileResult.issues, issueCollection, "Legacy support: please declare 'use mappings' at subclause level.")
+							//Tests scope_TypeMappingSet
+							assertScope(ErrorModelPackage.eINSTANCE.errorPath_TypeMappingSet, false, #["pkg::m"])
+						]
 					]
 				]
 			]
 		]
+		issueCollection.sizeIs(issueCollection.issues.size)
+		assertConstraints(issueCollection)
 	}
 	
 	/*

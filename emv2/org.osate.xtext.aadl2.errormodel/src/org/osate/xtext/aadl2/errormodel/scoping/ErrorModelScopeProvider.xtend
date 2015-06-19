@@ -124,7 +124,11 @@ class ErrorModelScopeProvider extends PropertiesScopeProvider {
 	}
 
 	def scope_ErrorModelLibrary(EObject context, EReference reference) {
-		new SimpleScope(delegateGetScope(context, reference).allElements.map[EObjectDescription.create(name.firstSegment.substring("emv2$".length), EObjectOrProxy)], true)
+		scopeWithoutEMV2Prefix(context, reference)
+	}
+	
+	def scope_TypeMappingSet(EObject context, EReference reference) {
+		scopeWithoutEMV2Prefix(context, reference)
 	}
 	
 	def scope_FeatureorPPReference_featureorPP(Classifier context, EReference reference) {
@@ -140,5 +144,9 @@ class ErrorModelScopeProvider extends PropertiesScopeProvider {
 			FeatureGroup: fg.featureGroupType.getAllFeatures.scopeFor
 			default: IScope.NULLSCOPE
 		}
+	}
+	
+	def private scopeWithoutEMV2Prefix(EObject context, EReference reference) {
+		new SimpleScope(delegateGetScope(context, reference).allElements.map[EObjectDescription.create(name.firstSegment.substring("emv2$".length), EObjectOrProxy)], true)
 	}
 }
