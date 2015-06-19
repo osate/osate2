@@ -18,6 +18,8 @@ import static org.osate.reqspec.util.ReqSpecUtilExtension.*
 import org.eclipse.emf.common.util.EList
 import org.osate.reqspec.reqSpec.ReqSpecs
 import org.osate.reqspec.reqSpec.ReqSpec
+import org.eclipse.xtext.xbase.XExpression
+import org.eclipse.emf.ecore.EObject
 
 /**
  * This class contains custom scoping description.
@@ -27,7 +29,16 @@ import org.osate.reqspec.reqSpec.ReqSpec
  * 
  */
 class ReqSpecScopeProvider extends AlisaAbstractDeclarativeScopeProvider {
-
+	
+	
+	
+	override IScope getScope(EObject context , EReference reference) {
+		println ("context  =" + context)
+		println ("reference=" + reference.name)
+		super.getScope (context, reference)
+	}
+	
+	
 	// Reference is from Goal, ReqSpec, or Hazard
 	def scope_NamedElement(ContractualElement context, EReference reference) {
 		val targetClassifier = contextClassifier(context)
@@ -93,6 +104,13 @@ class ReqSpecScopeProvider extends AlisaAbstractDeclarativeScopeProvider {
 				Scopes::scopedElementsFor(context.computes,
 					QualifiedName::wrapper(SimpleAttributeResolver::NAME_RESOLVER)), true)
 		}
+		result
+	}
+	
+	
+	def scope_JvmIdentifiableElement(XExpression context, EReference reference) {
+		var result = IScope.NULLSCOPE
+		println ("look for identifiable element")
 		result
 	}
 
