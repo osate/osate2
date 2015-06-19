@@ -6,9 +6,11 @@ import org.junit.Test
 import org.junit.runner.RunWith
 import org.osate.aadl2.AadlPackage
 import org.osate.aadl2.AbstractImplementation
+import org.osate.aadl2.DefaultAnnexLibrary
 import org.osate.aadl2.DefaultAnnexSubclause
 import org.osate.aadl2.errormodel.tests.ErrorModelUiInjectorProvider
 import org.osate.core.test.OsateTest
+import org.osate.xtext.aadl2.errormodel.errorModel.ErrorModelLibrary
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorModelPackage
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorModelSubclause
 
@@ -20,6 +22,72 @@ import static extension org.junit.Assert.assertNull
 class ErrorModelScopeProviderTest extends OsateTest {
 	override getProjectName() {
 		"Error_Model_Scope_Provider_Test"
+	}
+	
+	@Test
+	//Tests scope_ErrorModelLibrary
+	def void testErrorModelLibraryReference() {
+		createFiles("pkg.aadl" -> '''
+			package pkg
+			public
+				annex EMV2 {**
+					error types extends ErrorLibrary with
+					end types;
+					
+					error behavior b
+						use types ErrorLibrary;
+					end behavior;
+					
+					type mappings m
+						use types ErrorLibrary;
+						{ServiceError} -> {ItemOmission};
+					end mappings;
+					
+					type transformations t
+						use types ErrorLibrary;
+						all -[]-> {ServiceError};
+					end transformations;
+				**};
+				
+				abstract a
+					annex EMV2 {**
+						use types ErrorLibrary;
+					**};
+				end a;
+			end pkg;
+		''')
+		suppressSerialization
+		testFile("pkg.aadl").resource.contents.head as AadlPackage => [
+			"pkg".assertEquals(name)
+			publicSection => [
+				(ownedAnnexLibraries.head as DefaultAnnexLibrary).parsedAnnexLibrary as ErrorModelLibrary => [
+					//Tests scope_ErrorModelLibrary
+					assertScope(ErrorModelPackage.eINSTANCE.errorModelLibrary_Extends, false, #["ErrorLibrary", "pkg"])
+					behaviors.head => [
+						"b".assertEquals(name)
+						//Tests scope_ErrorModelLibrary
+						assertScope(ErrorModelPackage.eINSTANCE.errorBehaviorStateMachine_UseTypes, false, #["ErrorLibrary", "pkg"])
+					]
+					mappings.head => [
+						"m".assertEquals(name)
+						//Tests scope_ErrorModelLibrary
+						assertScope(ErrorModelPackage.eINSTANCE.typeMappingSet_UseTypes, false, #["ErrorLibrary", "pkg"])
+					]
+					transformations.head => [
+						"t".assertEquals(name)
+						//Tests scope_ErrorModelLibrary
+						assertScope(ErrorModelPackage.eINSTANCE.typeTransformationSet_UseTypes, false, #["ErrorLibrary", "pkg"])
+					]
+				]
+				ownedClassifiers.head => [
+					"a".assertEquals(name)
+					(ownedAnnexSubclauses.head as DefaultAnnexSubclause).parsedAnnexSubclause as ErrorModelSubclause => [
+						//Tests scope_ErrorModelLibrary
+						assertScope(ErrorModelPackage.eINSTANCE.errorModelSubclause_UseTypes, false, #["ErrorLibrary", "pkg"])
+					]
+				]
+			]
+		]
 	}
 	
 	/*

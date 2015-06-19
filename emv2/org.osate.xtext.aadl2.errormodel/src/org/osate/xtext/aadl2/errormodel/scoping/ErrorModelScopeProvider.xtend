@@ -1,25 +1,23 @@
 package org.osate.xtext.aadl2.errormodel.scoping
 
-import java.util.LinkedHashSet
 import org.eclipse.emf.ecore.EObject
 import org.eclipse.emf.ecore.EReference
 import org.eclipse.xtext.EcoreUtil2
+import org.eclipse.xtext.resource.EObjectDescription
 import org.eclipse.xtext.scoping.IScope
+import org.eclipse.xtext.scoping.impl.SimpleScope
 import org.osate.aadl2.Classifier
 import org.osate.aadl2.ComponentImplementation
 import org.osate.aadl2.FeatureGroup
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorBehaviorStateMachine
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorModelLibrary
-import org.osate.xtext.aadl2.errormodel.errorModel.ErrorModelPackage
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorModelSubclause
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorPropagation
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorType
 import org.osate.xtext.aadl2.errormodel.errorModel.FeatureorPPReference
 import org.osate.xtext.aadl2.errormodel.errorModel.TypeSet
 import org.osate.xtext.aadl2.errormodel.errorModel.TypeTransformationSet
-import org.osate.xtext.aadl2.errormodel.errorModel.impl.ErrorModelLibraryImpl
 import org.osate.xtext.aadl2.properties.scoping.PropertiesScopeProvider
-import org.osate.xtext.aadl2.properties.util.EMFIndexRetrieval
 
 import static extension org.osate.xtext.aadl2.errormodel.util.EMV2Util.getAllPropagationPoints
 
@@ -126,38 +124,7 @@ class ErrorModelScopeProvider extends PropertiesScopeProvider {
 	}
 
 	def scope_ErrorModelLibrary(EObject context, EReference reference) {
-		val ErrorModelLibraryClass = ErrorModelPackage.eINSTANCE.getErrorModelLibrary();
-		var iter = EMFIndexRetrieval.getAllEObjectsOfTypeInWorkspace(ErrorModelLibraryClass);
-		// TODO: Why are there duplicates?
-		var libs = new LinkedHashSet<ErrorModelLibraryImpl>;
-		for (x : iter) {
-			val curLibObj = x.getEObjectOrProxy();
-			/*
-			var ErrorModelLibraryImpl curLib;
-			try {
-				curLib = (curLibObj as ErrorModelLibraryImpl);
-				libs.add(curLib as ErrorModelLibraryImpl);
-				println(curLib.toString());
-			} catch (ClassCastException e) {
-				println("Error: Unexpected type: " + curLibObj.getClass().getName());
-				//continue;				
-			}
-			*/
-			//libs.add(curLib as ErrorModelLibraryImpl);
-			val curLib = curLibObj;
-			switch curLib {
-				ErrorModelLibraryImpl: {					
-					println(curLib.toString());
-					libs.add(curLib);  // Why doesn't the switch cast it? 
-					}
-				default: {
-					println("Error: Unexpected type: " + curLib.getClass().getName());					
-				}
-			}
-			
-		}
-		//return libs.scopeFor(); // This doesn't work.
-		return null;		
+		new SimpleScope(delegateGetScope(context, reference).allElements.map[EObjectDescription.create(name.firstSegment.substring("emv2$".length), EObjectOrProxy)], true)
 	}
 	
 	def scope_FeatureorPPReference_featureorPP(Classifier context, EReference reference) {
