@@ -46,7 +46,7 @@ class CommonJvmModelInferrer extends AbstractModelInferrer {
 	 */
    	def dispatch void infer(Description element, IJvmDeclaredTypeAcceptor acceptor, boolean isPreIndexingPhase) {
    		// Here you explain how your model is mapped to Java elements, by writing the actual translation code.
-   		
+   		println ("call jvmmodelinferrer from common")
    		// An implementation for the initial hello world example could look like this:
 //   		acceptor.accept(element.toClass("my.company.greeting.MyGreetings")) [
 //   			for (greeting : element.greetings) {

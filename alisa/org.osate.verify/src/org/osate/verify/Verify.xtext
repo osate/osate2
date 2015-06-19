@@ -118,7 +118,7 @@ VerificationMethodParameter:
 ;
 
 VerificationMethod:
-	'method' name=ID ('(' (params+=ID (',' params+=ID)*)? ')' )? (':' title=STRING)?
+	'method' name=ID ('(' (params+=FullJvmFormalParameter (',' params+=FullJvmFormalParameter)*)? ')' )? (':' title=STRING)?
 	'['
 	(
 	(methodType=SupportedTypes scope=SupportedScopes (reporting=SupportedReporting)?)

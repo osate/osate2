@@ -3,12 +3,12 @@
     xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" name="verify" nsURI="http://www.osate.org/verify/Verify" nsPrefix="verify">
   <eClassifiers xsi:type="ecore:EClass" name="Verification">
     <eStructuralFeatures xsi:type="ecore:EReference" name="contents" upperBound="-1"
-        eType="ecore:EClass platform:/plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//EObject"
+        eType="ecore:EClass platform:/resource/org.eclipse.emf.ecore/model/Ecore.ecore#//EObject"
         containment="true"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="VerificationPlan">
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" eType="ecore:EDataType platform:/plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//EString"/>
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="title" eType="ecore:EDataType platform:/plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" eType="ecore:EDataType platform:/resource/org.eclipse.emf.ecore/model/Ecore.ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="title" eType="ecore:EDataType platform:/resource/org.eclipse.emf.ecore/model/Ecore.ecore#//EString"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="target" eType="ecore:EClass platform:/resource/org.osate.aadl2/model/aadl2.ecore#//ComponentClassifier"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="description" eType="ecore:EClass platform:/resource/org.osate.alisa.common/model/generated/Common.ecore#//Description"
         containment="true"/>
@@ -19,34 +19,34 @@
     <eStructuralFeatures xsi:type="ecore:EReference" name="verifiedAssumption" unique="false"
         upperBound="-1" eType="#//VerificationPlan"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="issues" unique="false"
-        upperBound="-1" eType="ecore:EDataType platform:/plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//EString"/>
+        upperBound="-1" eType="ecore:EDataType platform:/resource/org.eclipse.emf.ecore/model/Ecore.ecore#//EString"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="Claim">
     <eStructuralFeatures xsi:type="ecore:EReference" name="requirement" eType="ecore:EClass platform:/resource/org.osate.reqspec/model/generated/ReqSpec.ecore#//Requirement"/>
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="title" eType="ecore:EDataType platform:/plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//EString"/>
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="weight" eType="ecore:EDataType platform:/plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="title" eType="ecore:EDataType platform:/resource/org.eclipse.emf.ecore/model/Ecore.ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="weight" eType="ecore:EDataType platform:/resource/org.eclipse.emf.ecore/model/Ecore.ecore#//EString"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="activities" upperBound="-1"
         eType="#//VerificationActivity" containment="true"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="assert" eType="#//ArgumentExpr"
         containment="true"/>
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="argument" eType="ecore:EDataType platform:/plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="argument" eType="ecore:EDataType platform:/resource/org.eclipse.emf.ecore/model/Ecore.ecore#//EString"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="rationale" eType="ecore:EClass platform:/resource/org.osate.alisa.common/model/generated/Common.ecore#//Rationale"
         containment="true"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="subclaim" upperBound="-1"
         eType="#//Claim" containment="true"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="issues" unique="false"
-        upperBound="-1" eType="ecore:EDataType platform:/plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//EString"/>
+        upperBound="-1" eType="ecore:EDataType platform:/resource/org.eclipse.emf.ecore/model/Ecore.ecore#//EString"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="VerificationActivity">
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" eType="ecore:EDataType platform:/plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" eType="ecore:EDataType platform:/resource/org.eclipse.emf.ecore/model/Ecore.ecore#//EString"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="method" eType="#//VerificationMethod"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="parameters" unique="false"
         upperBound="-1" eType="ecore:EClass platform:/resource/org.eclipse.xtext.xbase/model/Xbase.ecore#//XExpression"/>
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="timeout" eType="ecore:EDataType platform:/plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//EInt"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="timeout" eType="ecore:EDataType platform:/resource/org.eclipse.emf.ecore/model/Ecore.ecore#//EInt"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="VerificationCondition">
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" eType="ecore:EDataType platform:/plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//EString"/>
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="title" eType="ecore:EDataType platform:/plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" eType="ecore:EDataType platform:/resource/org.eclipse.emf.ecore/model/Ecore.ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="title" eType="ecore:EDataType platform:/resource/org.eclipse.emf.ecore/model/Ecore.ecore#//EString"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="description" eType="ecore:EClass platform:/resource/org.osate.alisa.common/model/generated/Common.ecore#//Description"
         containment="true"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="method" eType="#//VerificationMethod"/>
@@ -56,27 +56,28 @@
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="ArgumentExpr"/>
   <eClassifiers xsi:type="ecore:EClass" name="VerificationMethodRegistry">
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" eType="ecore:EDataType platform:/plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//EString"/>
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="title" eType="ecore:EDataType platform:/plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" eType="ecore:EDataType platform:/resource/org.eclipse.emf.ecore/model/Ecore.ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="title" eType="ecore:EDataType platform:/resource/org.eclipse.emf.ecore/model/Ecore.ecore#//EString"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="description" eType="ecore:EClass platform:/resource/org.osate.alisa.common/model/generated/Common.ecore#//Description"
         containment="true"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="methods" upperBound="-1"
         eType="#//VerificationMethod" containment="true"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="VerificationMethodParameter">
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" eType="ecore:EDataType platform:/plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" eType="ecore:EDataType platform:/resource/org.eclipse.emf.ecore/model/Ecore.ecore#//EString"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="VerificationMethod">
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" eType="ecore:EDataType platform:/plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//EString"/>
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="params" unique="false"
-        upperBound="-1" eType="ecore:EDataType platform:/plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//EString"/>
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="title" eType="ecore:EDataType platform:/plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" eType="ecore:EDataType platform:/resource/org.eclipse.emf.ecore/model/Ecore.ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="params" upperBound="-1"
+        eType="ecore:EClass platform:/resource/org.eclipse.xtext.common.types/model/JavaVMTypes.ecore#//JvmFormalParameter"
+        containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="title" eType="ecore:EDataType platform:/resource/org.eclipse.emf.ecore/model/Ecore.ecore#//EString"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="methodType" eType="#//SupportedTypes"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="scope" eType="#//SupportedScopes"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="reporting" eType="#//SupportedReporting"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="description" eType="ecore:EClass platform:/resource/org.osate.alisa.common/model/generated/Common.ecore#//Description"
         containment="true"/>
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="methodPath" eType="ecore:EDataType platform:/plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="methodPath" eType="ecore:EDataType platform:/resource/org.eclipse.emf.ecore/model/Ecore.ecore#//EString"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="conditions" upperBound="-1"
         eType="#//VerificationCondition" containment="true"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="category" unique="false"
@@ -118,8 +119,8 @@
   <eClassifiers xsi:type="ecore:EClass" name="FailThenExpr" eSuperTypes="#//ArgumentExpr">
     <eStructuralFeatures xsi:type="ecore:EReference" name="left" eType="#//ArgumentExpr"
         containment="true"/>
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="failed" eType="ecore:EDataType platform:/plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//EBoolean"/>
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="unknown" eType="ecore:EDataType platform:/plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//EBoolean"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="failed" eType="ecore:EDataType platform:/resource/org.eclipse.emf.ecore/model/Ecore.ecore#//EBoolean"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="unknown" eType="ecore:EDataType platform:/resource/org.eclipse.emf.ecore/model/Ecore.ecore#//EBoolean"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="right" eType="#//ArgumentExpr"
         containment="true"/>
   </eClassifiers>
@@ -131,6 +132,6 @@
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="RefExpr" eSuperTypes="#//ArgumentExpr">
     <eStructuralFeatures xsi:type="ecore:EReference" name="verification" eType="#//VerificationActivity"/>
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="weight" eType="ecore:EDataType platform:/plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//EInt"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="weight" eType="ecore:EDataType platform:/resource/org.eclipse.emf.ecore/model/Ecore.ecore#//EInt"/>
   </eClassifiers>
 </ecore:EPackage>

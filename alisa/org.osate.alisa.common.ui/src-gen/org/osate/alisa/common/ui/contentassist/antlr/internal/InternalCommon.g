@@ -2428,8 +2428,6 @@ finally {
 }
 
 
-
-
 rule__XAssignment__Alternatives
     @init {
 		int stackSize = keepStackSize();
@@ -3694,8 +3692,6 @@ rule__Description__Group__1__Impl
 finally {
 	restoreStackSize(stackSize);
 }
-
-
 
 
 
@@ -17963,8 +17959,6 @@ rule__DescriptionElement__ImageAssignment_3
 finally {
 	restoreStackSize(stackSize);
 }
-
-
 
 
 

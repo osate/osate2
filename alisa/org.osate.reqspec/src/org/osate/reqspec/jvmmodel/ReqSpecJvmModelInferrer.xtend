@@ -5,6 +5,7 @@ import org.eclipse.xtext.xbase.jvmmodel.AbstractModelInferrer
 import org.eclipse.xtext.xbase.jvmmodel.IJvmDeclaredTypeAcceptor
 import org.eclipse.xtext.xbase.jvmmodel.JvmTypesBuilder
 import org.osate.reqspec.reqSpec.ReqSpec
+import org.eclipse.xtext.naming.IQualifiedNameProvider
 
 /**
  * <p>Infers a JVM model from the source model.</p> 
@@ -16,8 +17,9 @@ class ReqSpecJvmModelInferrer extends AbstractModelInferrer {
 
     /**
      * convenience API to build and initialize JVM types and their members.
-     */
+     */ 
 	@Inject extension JvmTypesBuilder
+	@Inject extension IQualifiedNameProvider
 
 	/**
 	 * The dispatch method {@code infer} is called for each instance of the

@@ -10,7 +10,7 @@ import org.eclipse.ui.plugin.AbstractUIPlugin;
  * Manual modifications go to {org.osate.assure.ui.AssureUiModule}
  */
 @SuppressWarnings("all")
-public abstract class AbstractAssureUiModule extends org.eclipse.xtext.ui.DefaultUiModule {
+public abstract class AbstractAssureUiModule extends org.eclipse.xtext.common.types.ui.DefaultCommonTypesUiModule {
 	
 	public AbstractAssureUiModule(AbstractUIPlugin plugin) {
 		super(plugin);
@@ -35,11 +35,6 @@ public abstract class AbstractAssureUiModule extends org.eclipse.xtext.ui.Defaul
 	// contributed by org.eclipse.xtext.generator.parser.antlr.XtextAntlrGeneratorFragment
 	public void configureHighlightingTokenDefProvider(com.google.inject.Binder binder) {
 		binder.bind(org.eclipse.xtext.parser.antlr.ITokenDefProvider.class).annotatedWith(com.google.inject.name.Names.named(org.eclipse.xtext.ui.LexerUIBindings.HIGHLIGHTING)).to(org.eclipse.xtext.parser.antlr.AntlrTokenDefProvider.class);
-	}
-
-	// contributed by org.eclipse.xtext.generator.exporting.QualifiedNamesFragment
-	public Class<? extends org.eclipse.xtext.ui.editor.contentassist.PrefixMatcher> bindPrefixMatcher() {
-		return org.eclipse.xtext.ui.editor.contentassist.FQNPrefixMatcher.class;
 	}
 
 	// contributed by org.eclipse.xtext.generator.exporting.QualifiedNamesFragment
@@ -155,6 +150,11 @@ public abstract class AbstractAssureUiModule extends org.eclipse.xtext.ui.Defaul
 	// contributed by org.eclipse.xtext.ui.generator.refactoring.RefactorElementNameFragment
 	public Class<? extends org.eclipse.xtext.ui.refactoring.ui.IRenameSupport.Factory> bindIRenameSupport$Factory() {
 		return org.eclipse.xtext.ui.refactoring.ui.DefaultRenameSupport.Factory.class;
+	}
+
+	// contributed by org.eclipse.xtext.generator.types.TypesGeneratorFragment
+	public Class<? extends org.eclipse.xtext.ui.editor.contentassist.PrefixMatcher> bindPrefixMatcher() {
+		return org.eclipse.xtext.ui.editor.contentassist.FQNPrefixMatcher.class;
 	}
 
 	// contributed by org.eclipse.xtext.ui.generator.templates.CodetemplatesGeneratorFragment

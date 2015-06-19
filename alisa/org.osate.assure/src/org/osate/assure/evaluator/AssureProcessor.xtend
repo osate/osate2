@@ -49,6 +49,16 @@ import org.eclipse.xtext.xbase.XExpression
 import org.eclipse.xtext.xbase.XVariableDeclaration
 import org.osate.alisa.common.common.ComputeDeclaration
 import org.eclipse.xtext.xbase.compiler.XbaseCompiler
+import org.osate.verify.verify.VerificationActivity
+import org.osate.verify.verify.VerificationMethod
+import org.osate.aadl2.util.OsateDebug
+import org.eclipse.xtext.common.types.JvmFormalParameter
+import org.eclipse.xtext.common.types.JvmType
+import org.eclipse.xtext.xbase.interpreter.impl.XbaseInterpreter
+import org.eclipse.xtext.xbase.interpreter.impl.DefaultEvaluationContext
+import org.eclipse.xtext.xbase.interpreter.IEvaluationResult
+import org.eclipse.xtext.util.CancelIndicator
+import org.eclipse.xtext.naming.QualifiedName
 
 @ImplementedBy(AssureProcessor)
 interface IAssureProcessor {
@@ -70,7 +80,8 @@ class AssureProcessor implements IAssureProcessor {
 	 * http://www.rcp-vision.com/1796/xtext-2-1-using-xbase-variables/
 	 * about how to use the compiler
 	 */
-	@Inject XbaseCompiler xbaseCompiler
+//	@Inject XbaseCompiler xbaseCompiler
+	@Inject XbaseInterpreter xbaseInterpreter
 
 	def void doProcess(AssuranceEvidence caseResult) {
 		caseResult.claimResult.forEach[claimResult|claimResult.process]
@@ -147,34 +158,91 @@ class AssureProcessor implements IAssureProcessor {
 		val method = verificationResult.method;
 		var Object res = null
 		val target = verificationResult.claimSubject
+		var Object[] parameters
+		val ctx = new DefaultEvaluationContext()
 		
 		if (verificationResult instanceof VerificationActivityResult)
 		{
 			val verificationActivityResult =  verificationResult as VerificationActivityResult
-			for (XExpression xe : verificationActivityResult.target.parameters)
+			val verificationActivity = verificationActivityResult.target as VerificationActivity
+			val verificationMethod = verificationActivityResult.method as VerificationMethod
+			
+			if (verificationActivity.parameters.size != verificationMethod.params.size)
 			{
-				if (xe instanceof XVariableDeclaration)
+				OsateDebug.osateDebug("[AssureProcessor] not the same number of parameters");
+			}
+			val nbParams = verificationMethod.params.size
+			var i = 0
+			
+			parameters = newArrayOfSize(nbParams)
+			
+			while (i < nbParams)
+			{
+				var JvmType varType
+				var Object param
+				if (verificationActivity.parameters.get(i) instanceof XVariableDeclaration)
 				{
-					print ("compiler" + xbaseCompiler)
+					val varDecl = verificationActivity.parameters.get(i) as XVariableDeclaration
+					varType = varDecl.type.type
+					try {
+						val IEvaluationResult r = xbaseInterpreter.evaluate(varDecl, ctx, CancelIndicator.NullImpl)
+						param = ctx.getValue(QualifiedName.create(varDecl.name))
+						println(varDecl.name + " = " + param)
+					} catch(Exception e) {
+						e.printStackTrace
+					}
+				}
+				else
+				{
+					varType = (verificationActivity.parameters.get(i) as ComputeDeclaration).type.type
+					val myClass = Class.forName(varType.qualifiedName)
+//					println ("myClass=" + myClass.name)
+					/**
+					 * FIX how to exchange data and return values
+					 */
+					switch (myClass.name.toLowerCase)
+					{
+						case "java.lang.double":
+						{
+							param = myClass.constructors.get(0).newInstance(-1.0)	
+						}
+						case "java.lang.integer":
+						{
+							param = myClass.constructors.get(0).newInstance(-1)	
+						}
+						default:
+						{
+							param = myClass.newInstance
+						}
+					}
 					
-					print ("type=" + (xe as XVariableDeclaration).type)
-					
-					print ("expr=" + (xe as XVariableDeclaration).right)
+
 				}
 				
-				if (xe instanceof ComputeDeclaration)
-				{
-					print ("compute decl=" + (xe as XVariableDeclaration).type)
-					
+				var paramType = (verificationMethod.params.get(i) as JvmFormalParameter).parameterType.type
+				
+				
+//				println ("Param var" + i + ":" + varType.identifier)
+//				println ("Param par" + i + ":" + paramType.identifier)
+				
+				
+				parameters.set(i, param)
+				if (! varType.equals(paramType))
+				{ 
+					println("Mismatch parameters types")
+					return
 				}
-//				print ("xe=" + xe.getClass())
+				
+				i = i + 1
+				
+				
 			}
 		}
 		
 		try {
 			switch (method.methodType) {
 				case SupportedTypes.PREDICATE: {
-					res = dispatcher.dispatchVerificationMethod(method, target)
+					res = dispatcher.dispatchVerificationMethod(method, target, parameters)
 					if (res != null && res instanceof Boolean && res != true) {
 						setToFail(verificationResult, "");
 					} else {
@@ -182,7 +250,7 @@ class AssureProcessor implements IAssureProcessor {
 					}
 				}
 				case SupportedTypes.ANALYSIS: {
-					res = dispatcher.dispatchVerificationMethod(method, target) // returning the marker or diagnostic id as string
+					res = dispatcher.dispatchVerificationMethod(method, target, parameters) // returning the marker or diagnostic id as string
 					switch (method.reporting) {
 						case ASSERTEXCEPTION: {
 							// handled by catch clauses
@@ -215,7 +283,7 @@ class AssureProcessor implements IAssureProcessor {
 					}
 				}
 				case SupportedTypes.COMPUTE: {
-					res = dispatcher.dispatchVerificationMethod(method, target)
+					res = dispatcher.dispatchVerificationMethod(method, target, parameters)
 
 					// TODO Evaluate predicate function
 					verificationResult.addInfoIssue(verificationResult,
@@ -306,7 +374,9 @@ class AssureProcessor implements IAssureProcessor {
 		} catch (ThreadDeath e) { // don't catch ThreadDeath by accident
 			throw e;
 		} catch (Throwable e) {
+//			System.out.println("BLABLA2");
 			setToError(verificationResult, e);
+			throw e;
 		}
 		verificationResult.eResource.save(null)
 	}
@@ -406,6 +476,7 @@ class AssureProcessor implements IAssureProcessor {
 				result.add(URI.encodeSegment(referencedProject.getName(), false));
 			}
 		} catch (CoreException ex) {
+			System.out.println ("CORE EXCEPTION");
 			ex.printStackTrace();
 		}
 

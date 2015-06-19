@@ -15,10 +15,11 @@ import org.eclipse.emf.ecore.InternalEObject;
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.eclipse.emf.ecore.impl.MinimalEObjectImpl;
 
-import org.eclipse.emf.ecore.util.EDataTypeEList;
 import org.eclipse.emf.ecore.util.EObjectContainmentEList;
 import org.eclipse.emf.ecore.util.EObjectResolvingEList;
 import org.eclipse.emf.ecore.util.InternalEList;
+
+import org.eclipse.xtext.common.types.JvmFormalParameter;
 
 import org.osate.alisa.common.common.Description;
 
@@ -76,14 +77,14 @@ public class VerificationMethodImpl extends MinimalEObjectImpl.Container impleme
   protected String name = NAME_EDEFAULT;
 
   /**
-   * The cached value of the '{@link #getParams() <em>Params</em>}' attribute list.
+   * The cached value of the '{@link #getParams() <em>Params</em>}' containment reference list.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @see #getParams()
    * @generated
    * @ordered
    */
-  protected EList<String> params;
+  protected EList<JvmFormalParameter> params;
 
   /**
    * The default value of the '{@link #getTitle() <em>Title</em>}' attribute.
@@ -264,11 +265,11 @@ public class VerificationMethodImpl extends MinimalEObjectImpl.Container impleme
    * <!-- end-user-doc -->
    * @generated
    */
-  public EList<String> getParams()
+  public EList<JvmFormalParameter> getParams()
   {
     if (params == null)
     {
-      params = new EDataTypeEList<String>(String.class, this, VerifyPackage.VERIFICATION_METHOD__PARAMS);
+      params = new EObjectContainmentEList<JvmFormalParameter>(JvmFormalParameter.class, this, VerifyPackage.VERIFICATION_METHOD__PARAMS);
     }
     return params;
   }
@@ -474,6 +475,8 @@ public class VerificationMethodImpl extends MinimalEObjectImpl.Container impleme
   {
     switch (featureID)
     {
+      case VerifyPackage.VERIFICATION_METHOD__PARAMS:
+        return ((InternalEList<?>)getParams()).basicRemove(otherEnd, msgs);
       case VerifyPackage.VERIFICATION_METHOD__DESCRIPTION:
         return basicSetDescription(null, msgs);
       case VerifyPackage.VERIFICATION_METHOD__CONDITIONS:
@@ -532,7 +535,7 @@ public class VerificationMethodImpl extends MinimalEObjectImpl.Container impleme
         return;
       case VerifyPackage.VERIFICATION_METHOD__PARAMS:
         getParams().clear();
-        getParams().addAll((Collection<? extends String>)newValue);
+        getParams().addAll((Collection<? extends JvmFormalParameter>)newValue);
         return;
       case VerifyPackage.VERIFICATION_METHOD__TITLE:
         setTitle((String)newValue);
@@ -655,8 +658,6 @@ public class VerificationMethodImpl extends MinimalEObjectImpl.Container impleme
     StringBuffer result = new StringBuffer(super.toString());
     result.append(" (name: ");
     result.append(name);
-    result.append(", params: ");
-    result.append(params);
     result.append(", title: ");
     result.append(title);
     result.append(", methodType: ");

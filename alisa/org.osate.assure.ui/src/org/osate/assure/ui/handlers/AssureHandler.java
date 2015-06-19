@@ -16,6 +16,8 @@ import org.eclipse.emf.ecore.EObject;
 import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.jface.viewers.ISelection;
 import org.eclipse.jface.viewers.IStructuredSelection;
+import org.eclipse.swt.SWT;
+import org.eclipse.swt.widgets.MessageBox;
 import org.eclipse.ui.IEditorPart;
 import org.eclipse.ui.IWorkbenchWindow;
 import org.eclipse.ui.handlers.HandlerUtil;
@@ -63,6 +65,7 @@ public class AssureHandler extends AbstractHandler {
 	}
 
 	public Object executeURI(final URI uri) {
+
 		final XtextEditor xtextEditor = EditorUtils.getActiveXtextEditor();
 		if (xtextEditor == null) {
 			return null;
@@ -75,22 +78,42 @@ public class AssureHandler extends AbstractHandler {
 		WorkspaceJob job = new WorkspaceJob(getJobName()) {
 			@Override
 			public IStatus runInWorkspace(final IProgressMonitor monitor) {
-				return xtextEditor.getDocument().readOnly(new IUnitOfWork<IStatus, XtextResource>() {
-					@Override
-					public IStatus exec(XtextResource resource) throws Exception {
-						EObject eobj = resource.getResourceSet().getEObject(uri, true);
-						if (eobj instanceof AssuranceEvidenceImpl) {
-							return runJob((AssuranceEvidenceImpl) eobj, monitor);
-						} else {
-							return Status.CANCEL_STATUS;
+				try {
+					return xtextEditor.getDocument().readOnly(new IUnitOfWork<IStatus, XtextResource>() {
+						@Override
+						public IStatus exec(XtextResource resource) {
+							EObject eobj = resource.getResourceSet().getEObject(uri, true);
+							if (eobj instanceof AssuranceEvidenceImpl) {
+								return runJob((AssuranceEvidenceImpl) eobj, monitor);
+							} else {
+								return Status.CANCEL_STATUS;
+							}
 						}
-					}
-				});
+					});
+				} catch (Exception e) {
+					System.out.println("EXCEPTION");
+
+					return Status.CANCEL_STATUS;
+				}
 			}
 		};
 
 		job.setRule(ResourcesPlugin.getWorkspace().getRoot());
 		job.schedule();
+		try {
+			job.wait();
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+		if ((job.getResult() == null) || (job.getResult() == Status.CANCEL_STATUS)) {
+			MessageBox dialog = new MessageBox(window.getShell(), SWT.ICON_ERROR | SWT.OK);
+			dialog.setText("Error when running");
+			dialog.setMessage("Error when running the verification activity");
+			dialog.open();
+
+		}
 		return null;
 	}
 
@@ -136,8 +159,15 @@ public class AssureHandler extends AbstractHandler {
 		VerifyUtilExtension.clearAllHasRunRecords();
 		AssureUtilExtension.initializeResoluteContext((SystemInstance) rootCaseResult.getInstance());
 //		AssureProcessing.processCaseResult(rootCaseResult);
-		assureProcessor.process(rootCaseResult);
+		try {
+			assureProcessor.process(rootCaseResult);
+		} catch (Exception e) {
+			if (e instanceof java.lang.NoSuchMethodException) {
 
+				return Status.CANCEL_STATUS;
+			}
+			e.printStackTrace();
+		}
 		long stop = System.currentTimeMillis();
 		System.out.println("Evaluation time: " + (stop - start) / 1000.0 + "s");
 

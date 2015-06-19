@@ -544,7 +544,7 @@ public class VerifySemanticSequencer extends CommonSemanticSequencer {
 	 * Constraint:
 	 *     (
 	 *         name=ID 
-	 *         (params+=ID params+=ID*)? 
+	 *         (params+=FullJvmFormalParameter params+=FullJvmFormalParameter*)? 
 	 *         title=STRING? 
 	 *         methodType=SupportedTypes 
 	 *         scope=SupportedScopes 
