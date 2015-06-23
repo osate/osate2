@@ -555,7 +555,7 @@ public class CreateConnectionsSwitch extends AadlProcessingSwitchWithProgress {
 							if (ci instanceof SystemInstance) {
 								finalizeConnectionInstance(ci, connInfo, ci.findFeatureInstance(toFeature));
 							} else {
-								error(toFi,
+								warning(toFi,
 										"Could not continue connection from " + connInfo.src.getInstanceObjectPath()
 												+ "  through " + toFi.getInstanceObjectPath()
 												+ ". No connection instance created.");
