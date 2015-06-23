@@ -33,10 +33,10 @@
  */
 package org.osate.xtext.aadl2.ui.containers;
 
-import static org.osate.ui.OsateUiPlugin.AADL_PROJECT;
-import static org.osate.ui.OsateUiPlugin.AADL_PROJECT_DEFAULT;
-import static org.osate.ui.OsateUiPlugin.AADL_PROJECT_HANDLE;
-import static org.osate.ui.OsateUiPlugin.AADL_PROJECT_KEY;
+import static org.osate.aadl2.modelsupport.resources.PredeclaredProperties.AADL_PROJECT;
+import static org.osate.aadl2.modelsupport.resources.PredeclaredProperties.AADL_PROJECT_DEFAULT;
+import static org.osate.aadl2.modelsupport.resources.PredeclaredProperties.AADL_PROJECT_HANDLE;
+import static org.osate.aadl2.modelsupport.resources.PredeclaredProperties.AADL_PROJECT_KEY;
 
 import java.util.Collection;
 import java.util.Collections;
@@ -50,8 +50,8 @@ import org.eclipse.core.runtime.preferences.IEclipsePreferences;
 import org.eclipse.core.runtime.preferences.InstanceScope;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.xtext.ui.containers.WorkspaceProjectsStateHelper;
+import org.osate.aadl2.modelsupport.Activator;
 import org.osate.core.AadlNature;
-import org.osate.ui.OsateUiPlugin;
 
 import com.google.inject.Singleton;
 
@@ -60,7 +60,7 @@ public class Aadl2ProjectsStateHelper extends WorkspaceProjectsStateHelper {
 
 	private final static Logger log = Logger.getLogger(Aadl2ProjectsStateHelper.class);
 
-	private IEclipsePreferences prefs = InstanceScope.INSTANCE.getNode(OsateUiPlugin.PLUGIN_ID);
+	private IEclipsePreferences prefs = InstanceScope.INSTANCE.getNode(Activator.PLUGIN_ID);
 
 	@Override
 	public String initHandle(URI uri) {

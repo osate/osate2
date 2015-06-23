@@ -94,7 +94,7 @@ import org.eclipse.xtext.ui.editor.XtextEditor;
 import org.eclipse.xtext.util.concurrent.IUnitOfWork;
 import org.osate.aadl2.Aadl2Factory;
 import org.osate.aadl2.Aadl2Package;
-import org.osate.aadl2.modelsupport.resources.OsateResourceUtil;
+import org.osate.aadl2.modelsupport.resources.PredeclaredProperties;
 import org.osate.ui.OsateUiPlugin;
 import org.osate.workspace.IResourceUtility;
 import org.osate.workspace.WorkspacePlugin;
@@ -153,21 +153,21 @@ public class NewModelWizard extends Wizard implements INewWizard {
 
 				if (selectedElement instanceof IProject) {
 					IContainer project = ((IProject) selectedElement).getProject();
-					if (!project.getName().equals(OsateResourceUtil.PLUGIN_RESOURCES_DIRECTORY_NAME)) {
+					if (!project.getName().equals(PredeclaredProperties.PLUGIN_RESOURCES_PROJECT_NAME)) {
 						projectFolder = project;
 					} else {
 						projectFolder = null;
 					}
 				} else if (selectedElement instanceof IFolder) {
 					IProject project = ((IFolder) selectedElement).getProject();
-					if (!project.getName().equals(OsateResourceUtil.PLUGIN_RESOURCES_DIRECTORY_NAME)) {
+					if (!project.getName().equals(PredeclaredProperties.PLUGIN_RESOURCES_PROJECT_NAME)) {
 						projectFolder = (IContainer) selectedElement;
 					} else {
 						projectFolder = null;
 					}
 				} else if (selectedElement instanceof IFile) {
 					IProject project = ((IFile) selectedElement).getProject();
-					if (!project.getName().equals(OsateResourceUtil.PLUGIN_RESOURCES_DIRECTORY_NAME)) {
+					if (!project.getName().equals(PredeclaredProperties.PLUGIN_RESOURCES_PROJECT_NAME)) {
 						projectFolder = ((IFile) selectedElement).getParent();
 					} else {
 						projectFolder = null;
@@ -406,7 +406,7 @@ public class NewModelWizard extends Wizard implements INewWizard {
 						ArrayList<IProject> openProjects = new ArrayList<IProject>();
 						for (IProject project : projects) {
 							if (project.isOpen()
-									&& !project.getName().equals(OsateResourceUtil.PLUGIN_RESOURCES_DIRECTORY_NAME)) {
+									&& !project.getName().equals(PredeclaredProperties.PLUGIN_RESOURCES_PROJECT_NAME)) {
 								openProjects.add(project);
 							}
 						}

@@ -138,13 +138,13 @@ abstract class OsateTest extends XtextTest {
 	 * Check if plugin resources exists, wait up to 10s. Return project.
 	 */
 	def getPluginResources() {
-		val project = workspaceRoot.getProject(OsateResourceUtil.PLUGIN_RESOURCES_DIRECTORY_NAME)
+		val project = workspaceRoot.getProject(PredeclaredProperties.PLUGIN_RESOURCES_PROJECT_NAME)
 		var int i;
 		for (; !project.exists && i < 20; i++) {
 			Thread.sleep(500);
 		}
 		Assert.isTrue(project.exists,
-			"Project " + OsateResourceUtil.PLUGIN_RESOURCES_DIRECTORY_NAME + " does not exist in the workspace")
+			"Project " + PredeclaredProperties.PLUGIN_RESOURCES_PROJECT_NAME + " does not exist in the workspace")
 		project
 	}
 
