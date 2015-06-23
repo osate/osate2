@@ -53,7 +53,6 @@ import org.eclipse.ui.ide.IDE;
 import org.eclipse.ui.navigator.ICommonActionExtensionSite;
 import org.eclipse.ui.navigator.ICommonViewerSite;
 import org.eclipse.ui.navigator.ICommonViewerWorkbenchSite;
-import org.osate.aadl2.modelsupport.resources.OsateResourceUtil;
 import org.osate.aadl2.modelsupport.resources.PredeclaredProperties;
 import org.osate.ui.OsateUiPlugin;
 
@@ -81,7 +80,7 @@ public class AadlNavigatorActionGroup extends org.eclipse.ui.navigator.CommonAct
 		Object selectedElement = ((IStructuredSelection) getContext().getSelection()).getFirstElement();
 		if (selectedElement instanceof IResource
 				&& ((IResource) selectedElement).getProject().getName()
-						.equals(OsateResourceUtil.PLUGIN_RESOURCES_DIRECTORY_NAME)) {
+						.equals(PredeclaredProperties.PLUGIN_RESOURCES_PROJECT_NAME)) {
 			if (selectedElement instanceof IFile) {
 				menu.add(openForModificationAction);
 				menu.add(revertToContributedAction);

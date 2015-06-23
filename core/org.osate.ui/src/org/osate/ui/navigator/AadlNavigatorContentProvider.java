@@ -53,6 +53,7 @@ import org.osate.aadl2.PropertyType;
 import org.osate.aadl2.instance.ConnectionInstance;
 import org.osate.aadl2.instance.InstanceObject;
 import org.osate.aadl2.modelsupport.resources.OsateResourceUtil;
+import org.osate.aadl2.modelsupport.resources.PredeclaredProperties;
 
 public class AadlNavigatorContentProvider extends WorkbenchContentProvider {
 
@@ -64,7 +65,7 @@ public class AadlNavigatorContentProvider extends WorkbenchContentProvider {
 	public Object[] getChildren(Object element) {
 		if (element instanceof IProject) {
 			IProject project = (IProject) element;
-			if (project.getName().equals(OsateResourceUtil.PLUGIN_RESOURCES_DIRECTORY_NAME)) {
+			if (project.getName().equals(PredeclaredProperties.PLUGIN_RESOURCES_PROJECT_NAME)) {
 				try {
 					// DB: Fix
 					return project.members();

@@ -45,7 +45,7 @@ import org.eclipse.jface.wizard.WizardDialog;
 import org.eclipse.ui.IWorkbench;
 import org.eclipse.ui.IWorkbenchWindow;
 import org.eclipse.ui.IWorkbenchWindowActionDelegate;
-import org.osate.aadl2.modelsupport.resources.OsateResourceUtil;
+import org.osate.aadl2.modelsupport.resources.PredeclaredProperties;
 import org.osate.ui.wizards.NewModelWizard;
 
 /**
@@ -78,7 +78,7 @@ public abstract class NewModelWizardLauncherAction implements IWorkbenchWindowAc
 		ArrayList<IProject> openProjects = new ArrayList<IProject>();
 		for (int i = 0; i < projects.length; i++) {
 			if (projects[i].isOpen()
-					&& !projects[i].getName().equals(OsateResourceUtil.PLUGIN_RESOURCES_DIRECTORY_NAME)) {
+					&& !projects[i].getName().equals(PredeclaredProperties.PLUGIN_RESOURCES_PROJECT_NAME)) {
 				openProjects.add(projects[i]);
 			}
 		}

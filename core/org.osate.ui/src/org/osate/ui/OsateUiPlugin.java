@@ -53,6 +53,7 @@ import org.eclipse.swt.widgets.Shell;
 import org.eclipse.ui.IWorkbenchPage;
 import org.eclipse.ui.IWorkbenchWindow;
 import org.eclipse.ui.plugin.AbstractUIPlugin;
+import org.osate.aadl2.modelsupport.resources.OsateResourceUtil;
 import org.osgi.framework.BundleContext;
 
 /**
@@ -60,11 +61,6 @@ import org.osgi.framework.BundleContext;
  */
 public class OsateUiPlugin extends AbstractUIPlugin {
 	public static final String PLUGIN_ID = "org.osate.ui";
-
-	public static final String AADL_PROJECT = "AADL_Project.aadl";
-	public static final String AADL_PROJECT_DEFAULT = "/Plugin_Resources/Predeclared_Property_Sets/" + AADL_PROJECT;
-	public static final String AADL_PROJECT_HANDLE = "$aadl_project$";
-	public static final String AADL_PROJECT_KEY = "aadl.project.properties";
 
 	public static final String copyright = "Copyright 2014 by Carnegie Mellon University, all rights reserved";
 
