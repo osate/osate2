@@ -48,8 +48,7 @@ public class PredeclaredProperties {
 	public static final String AADL_PROJECT_HANDLE = "$aadl_project$";
 	public static final String AADL_PROJECT_KEY = "aadl.project.properties";
 	public static final String AADL_PROJECT_RELPATH = "Predeclared_Property_Sets/" + AADL_PROJECT;
-	public static final String AADL_PROJECT_DEFAULT = "/" + PLUGIN_RESOURCES_PROJECT_NAME + "/"
-			+ AADL_PROJECT_RELPATH;
+	public static final String AADL_PROJECT_DEFAULT = "/" + PLUGIN_RESOURCES_PROJECT_NAME + "/" + AADL_PROJECT_RELPATH;
 
 	private final static Logger log = Logger.getLogger(PredeclaredProperties.class);
 
@@ -132,6 +131,17 @@ public class PredeclaredProperties {
 									try {
 										copyContributedResourceIntoWorkspace(contributedResourceUri,
 												contributedResourceInWorkspace);
+										// delete obsolete old file in project root
+										if (contributedResourceInWorkspace.getParent() != pluginResourcesProject) {
+											String oldName = contributedResourceUri.lastSegment();
+											IFile oldFile = pluginResourcesProject.getFile(oldName);
+											if (oldFile.exists()) {
+												ResourceAttributes attributes = contributedResourceInWorkspace
+														.getResourceAttributes();
+												attributes.setReadOnly(false);
+												oldFile.delete(true, monitor);
+											}
+										}
 									} catch (Exception e) {
 									}
 								}
