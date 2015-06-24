@@ -80,16 +80,21 @@ public class AadlNavigator extends CommonNavigator implements IResourceChangeLis
 			return true;
 		}
 		if ((delta.getKind() & IResourceDelta.CHANGED) != 0) {
-			IResource res = delta.getResource();
-			if (res instanceof IFile) {
-				ModificationFlag mod = AadlNavigatorLabelProvider.getModification(res);
-				if (res.getName().equals(lastResourceName)) {
-					if (mod.equals(lastDecorator)) {
-						return false;
+			int flags = delta.getFlags();
+			if ((flags & (IResourceDelta.CONTENT | IResourceDelta.REPLACED)) != 0) {
+				IResource res = delta.getResource();
+				if (res instanceof IFile) {
+					ModificationFlag mod = AadlNavigatorLabelProvider.getModification(res);
+					if (res.getName().equals(lastResourceName)) {
+						if (mod.equals(lastDecorator)) {
+							return false;
+						}
 					}
+					lastResourceName = res.getName();
+					lastDecorator = mod;
+				} else {
+					return false;
 				}
-				lastResourceName = res.getName();
-				lastDecorator = mod;
 			} else {
 				return false;
 			}
