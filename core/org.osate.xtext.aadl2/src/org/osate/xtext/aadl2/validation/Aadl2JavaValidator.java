@@ -424,6 +424,7 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 		checkFlowConnectionOrder(flow);
 		checkFlowConnectionEnds(flow);
 		checkFlowSegmentModes(flow);
+		checkSubcomponentFlows(flow);
 		// checkFlowPathElements(flow);
 	}
 
@@ -434,6 +435,7 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 		checkFlowConnectionEnds(flow);
 		checkNestedEndToEndFlows(flow);
 		checkEndToEndFlowModes(flow);
+		checkSubcomponentFlows(flow);
 	}
 
 	@Check(CheckType.FAST)
@@ -1411,6 +1413,76 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 												+ nextFlowSegment.getName() + '\'');
 							}
 						}
+					}
+				}
+			}
+		}
+	}
+
+	/**
+	 * If a flow segment is a subcomponent, preceding and following connections may not continue inside that subcomponent
+	 * (issue #345)
+	 */
+	private void checkSubcomponentFlows(EndToEndFlow flow) {
+		for (int i = 0; i < flow.getOwnedEndToEndFlowSegments().size(); i++) {
+			EndToEndFlowSegment segment = flow.getOwnedEndToEndFlowSegments().get(i);
+			if (segment.getFlowElement() instanceof Subcomponent) {
+				Subcomponent sub = (Subcomponent) segment.getFlowElement();
+				List<Connection> conns = new ArrayList<Connection>(2);
+				if (i > 0) {
+					conns.add((Connection) flow.getOwnedEndToEndFlowSegments().get(i - 1).getFlowElement());
+				}
+				if (i < flow.getOwnedEndToEndFlowSegments().size() - 1) {
+					conns.add((Connection) flow.getOwnedEndToEndFlowSegments().get(i + 1).getFlowElement());
+				}
+				checkSubcomponentFlowHelper(segment, sub, conns);
+			}
+		}
+	}
+
+	/**
+	 * If a flow segment is a subcomponent, preceding and following connections may not continue inside that subcomponent
+	 * (issue #345)
+	 */
+	private void checkSubcomponentFlows(FlowImplementation flow) {
+		for (int i = 0; i < flow.getOwnedFlowSegments().size(); i++) {
+			FlowSegment segment = flow.getOwnedFlowSegments().get(i);
+			if (segment.getFlowElement() instanceof Subcomponent) {
+				Subcomponent sub = (Subcomponent) segment.getFlowElement();
+				List<Connection> conns = new ArrayList<Connection>(2);
+				if (i > 0) {
+					conns.add((Connection) flow.getOwnedFlowSegments().get(i - 1).getFlowElement());
+				}
+				if (i < flow.getOwnedFlowSegments().size() - 1) {
+					conns.add((Connection) flow.getOwnedFlowSegments().get(i + 1).getFlowElement());
+				}
+				checkSubcomponentFlowHelper(segment, sub, conns);
+			}
+		}
+	}
+
+	/**
+	 * Check if one of the connections continues inside the subcomponent
+	 * @param segment - attach error to this model element
+	 * @param sub - subcomponent at which connections should end
+	 * @param conns - connection(s) immediately before/after the subcomponent
+	 */
+	private void checkSubcomponentFlowHelper(Element segment, Subcomponent sub, List<Connection> conns) {
+		for (Connection conn : conns) {
+			ConnectionEnd ce = null;
+			if (sub == conn.getAllSourceContext()) {
+				ce = conn.getAllSource();
+			} else if (sub == conn.getAllDestinationContext()) {
+				ce = conn.getAllDestination();
+			}
+			if (ce != null) {
+				for (Connection innerConn : sub.getComponentImplementation().getAllConnections()) {
+					if ((innerConn.getAllSourceContext() == null && innerConn.getAllSource() == ce)
+							|| (innerConn.getAllDestinationContext() == null && innerConn.getAllDestination() == ce)) {
+						// connection continues inside subcomponent
+						error(segment, "Connection '" + conn.getName() + "' continues inside subcomponent '"
+								+ sub.getName() + "'");
+						break;
 					}
 				}
 			}
