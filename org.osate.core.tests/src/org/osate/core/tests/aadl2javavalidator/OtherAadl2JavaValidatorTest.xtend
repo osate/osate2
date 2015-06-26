@@ -269,6 +269,14 @@ class OtherAadl2JavaValidatorTest extends OsateTest {
 						assertError(testFileResult.issues, issueCollection, "Expected Data Access, Subcomponent, or Subcomponent.Flow Specification; found Flow Specification 'fsource1'")
 					]
 				]
+				ownedFlowImplementations.get(7) => [
+					"fsource4".assertEquals(specification.name)
+					ownedFlowSegments.get(0) => [
+						"asub1".assertEquals(flowElement.name)
+						//Tests checkFlowSubcomponentFlow
+						assertError(testFileResult.issues, issueCollection, "Connection 'fconn2' continues inside subcomponent 'asub1'")
+					]
+				]
 				ownedFlowImplementations.get(8) => [
 					"fsource5".assertEquals(specification.name)
 					ownedFlowSegments.get(0) => [
