@@ -1430,10 +1430,16 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 				Subcomponent sub = (Subcomponent) segment.getFlowElement();
 				List<Connection> conns = new ArrayList<Connection>(2);
 				if (i > 0) {
-					conns.add((Connection) flow.getOwnedEndToEndFlowSegments().get(i - 1).getFlowElement());
+					Element elem = flow.getOwnedEndToEndFlowSegments().get(i - 1).getFlowElement();
+					if (elem instanceof Connection) {
+						conns.add((Connection) elem);
+					}
 				}
 				if (i < flow.getOwnedEndToEndFlowSegments().size() - 1) {
-					conns.add((Connection) flow.getOwnedEndToEndFlowSegments().get(i + 1).getFlowElement());
+					Element elem = flow.getOwnedEndToEndFlowSegments().get(i + 1).getFlowElement();
+					if (elem instanceof Connection) {
+						conns.add((Connection) elem);
+					}
 				}
 				checkSubcomponentFlowHelper(segment, sub, conns);
 			}
@@ -1451,10 +1457,16 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 				Subcomponent sub = (Subcomponent) segment.getFlowElement();
 				List<Connection> conns = new ArrayList<Connection>(2);
 				if (i > 0) {
-					conns.add((Connection) flow.getOwnedFlowSegments().get(i - 1).getFlowElement());
+					Element elem = flow.getOwnedFlowSegments().get(i - 1).getFlowElement();
+					if (elem instanceof Connection) {
+						conns.add((Connection) elem);
+					}
 				}
 				if (i < flow.getOwnedFlowSegments().size() - 1) {
-					conns.add((Connection) flow.getOwnedFlowSegments().get(i + 1).getFlowElement());
+					Element elem = flow.getOwnedFlowSegments().get(i + 1).getFlowElement();
+					if (elem instanceof Connection) {
+						conns.add((Connection) elem);
+					}
 				}
 				checkSubcomponentFlowHelper(segment, sub, conns);
 			}
@@ -1480,8 +1492,9 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 					if ((innerConn.getAllSourceContext() == null && innerConn.getAllSource() == ce)
 							|| (innerConn.getAllDestinationContext() == null && innerConn.getAllDestination() == ce)) {
 						// connection continues inside subcomponent
-						error(segment, "Connection '" + conn.getName() + "' continues inside subcomponent '"
-								+ sub.getName() + "'");
+						error(segment,
+								"Connection '" + conn.getName() + "' continues inside subcomponent '" + sub.getName()
+										+ "'");
 						break;
 					}
 				}
