@@ -1,9 +1,0 @@
-
-
-theorem Partitions_Bindings
-   foreach prs in Process_Set do
-         segments := {x in Memory_Set | Is_Bound_To (prs, x)};
-         runtimes := {y in Virtual_Processor_Set | Is_Bound_To (prs, y)};
-   
-         check ( (Cardinal (segments) = 1 ) and (Cardinal (runtimes) = 1 ));
-end;

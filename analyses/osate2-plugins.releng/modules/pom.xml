@@ -24,14 +24,12 @@
 		<module>${plugins.root}/org.osate.analysis.resource.budgets</module>
 		<module>${plugins.root}/org.osate.analysis.resource.management</module>
 		<module>${plugins.root}/org.osate.analysis.security</module>
-		<module>${plugins.root}/org.osate.analysis.arinc653</module>
 
 		<module>${plugins.root}/org.osate.importer</module>
 		<module>${plugins.root}/org.osate.importer.scade</module>
 		<module>${plugins.root}/org.osate.importer.simulink</module>
 		<module>${plugins.root}/org.osate.importer.lattix</module>
 
-		<module>${plugins.root}/org.osate.analysis.lute</module>
 		<module>${plugins.root}/org.osate.imv.osate</module>
 		<module>${plugins.root}/org.osate.imv.propertydecorations</module>
 		<module>${plugins.root}/org.osate.imv.ui</module>

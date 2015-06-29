@@ -1,4 +1,0 @@
-theorem scheduling_major_frame
-    foreach cpu in Processor_Set do
-    check ((Property (cpu, "ARINC653::Module_Major_Frame")) =  (Sum (Property (cpu, "ARINC653::Partition_Slots"))));
-end;

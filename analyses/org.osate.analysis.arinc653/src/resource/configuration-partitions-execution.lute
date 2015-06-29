@@ -1,6 +1,0 @@
-theorem partitions_execution
-    foreach p in Processor_Set do
-      foreach vp in { x in Virtual_Processor_Set | Is_Direct_Subcomponent_Of (x, p)} do
-
-      check (Member (vp, Property (p, "ARINC653::Slots_Allocation")));
-end;

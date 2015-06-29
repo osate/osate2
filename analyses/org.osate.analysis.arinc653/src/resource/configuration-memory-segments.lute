@@ -1,8 +1,0 @@
-
-
-theorem Contains_Memories
-   foreach s in System_Set do
-      foreach mainmem in {m in Memory_Set | Is_Direct_Subcomponent_Of (m, s)} do
-         segset :=  {m1 in Memory_Set | Is_Subcomponent_Of (m1, mainmem)};
-            check (Cardinal (segset) > 0 );
-end;
