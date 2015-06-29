@@ -461,12 +461,12 @@ public class InstanceModelUtil {
 	}
 
 	public static ComponentInstance getEnclosingProcessor(ComponentInstance vpi) {
-		ComponentInstance ci = vpi;
+		ComponentInstance ci = vpi.getContainingComponentInstance();
 		while (ci != null) {
-			ci = ci.getContainingComponentInstance();
 			if (ci.getCategory().equals(ComponentCategory.PROCESSOR)) {
 				return ci;
 			}
+			ci = ci.getContainingComponentInstance();
 		}
 		return null;
 	}
