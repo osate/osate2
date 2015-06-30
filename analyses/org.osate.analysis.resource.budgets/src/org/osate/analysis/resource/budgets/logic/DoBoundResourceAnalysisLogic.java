@@ -217,8 +217,10 @@ public class DoBoundResourceAnalysisLogic extends DoResourceBudgetLogic {
 			}
 
 			if (isComponentActive == true) {
-				double actualmips = sumBudgets(bci, ResourceKind.MIPS, mipsliteral, true, som, "");
-				totalMIPS += actualmips;
+				double actualmips = sumBudgets(bci, ResourceKind.MIPS, mipsliteral, som, "");
+				if (actualmips > 0) {
+					totalMIPS += actualmips;
+				}
 			}
 
 		}
