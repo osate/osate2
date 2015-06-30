@@ -8,6 +8,7 @@ import org.eclipse.xtext.scoping.IScope
 import org.eclipse.xtext.scoping.impl.SimpleScope
 import org.osate.aadl2.Classifier
 import org.osate.aadl2.ComponentImplementation
+import org.osate.aadl2.DirectionType
 import org.osate.aadl2.FeatureGroup
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorBehaviorStateMachine
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorModelLibrary
@@ -19,7 +20,9 @@ import org.osate.xtext.aadl2.errormodel.errorModel.TypeSet
 import org.osate.xtext.aadl2.errormodel.errorModel.TypeTransformationSet
 import org.osate.xtext.aadl2.properties.scoping.PropertiesScopeProvider
 
+import static extension org.osate.xtext.aadl2.errormodel.util.EMV2Util.getAllContainingClassifierEMV2Subclauses
 import static extension org.osate.xtext.aadl2.errormodel.util.EMV2Util.getAllPropagationPoints
+import static extension org.osate.xtext.aadl2.errormodel.util.EMV2Util.getFeatureorPPRefs
 
 /**
  * This class contains custom scoping description.
@@ -115,14 +118,6 @@ class ErrorModelScopeProvider extends PropertiesScopeProvider {
 		return (#[lib.propagations]).flatten();
 	}
 
-	def scope_ErrorSource_outgoing(ErrorModelSubclause context, EReference reference) {
-		println(getMethodName() + ": " + context);
-		val errorLib = EcoreUtil2.getContainerOfType(context, ErrorModelSubclause);
-		val props = getPropagationsFromSubclause(errorLib);
-		println(props);
-		return props.scopeFor(delegateGetScope(context, reference));
-	}
-
 	def scope_ErrorModelLibrary(EObject context, EReference reference) {
 		scopeWithoutEMV2Prefix(context, reference)
 	}
@@ -144,6 +139,11 @@ class ErrorModelScopeProvider extends PropertiesScopeProvider {
 			FeatureGroup: fg.featureGroupType.getAllFeatures.scopeFor
 			default: IScope.NULLSCOPE
 		}
+	}
+	
+	def scope_ErrorSource_outgoing(Classifier context, EReference reference) {
+		val propagations = context.allContainingClassifierEMV2Subclauses.map[propagations].flatten.filter[!not && direction == DirectionType.OUT]
+		new SimpleScope(propagations.map[EObjectDescription.create(kind ?: featureorPPRefs.join(".", [featureorPP.name]), it)])
 	}
 	
 	def private scopeWithoutEMV2Prefix(EObject context, EReference reference) {

@@ -7,6 +7,7 @@ import org.junit.Test
 import org.junit.runner.RunWith
 import org.osate.aadl2.AadlPackage
 import org.osate.aadl2.AbstractImplementation
+import org.osate.aadl2.AbstractType
 import org.osate.aadl2.DefaultAnnexLibrary
 import org.osate.aadl2.DefaultAnnexSubclause
 import org.osate.aadl2.errormodel.tests.ErrorModelUiInjectorProvider
@@ -25,8 +26,8 @@ class ErrorModelScopeProviderTest extends OsateTest {
 		"Error_Model_Scope_Provider_Test"
 	}
 	
-	@Test
 	//Tests scope_ErrorModelLibrary and scope_TypeMappingSet
+	@Test
 	def void testErrorModelLibraryReference() {
 		createFiles("pkg.aadl" -> '''
 			package pkg
@@ -188,6 +189,59 @@ class ErrorModelScopeProviderTest extends OsateTest {
 							]
 						]
 					]
+				]
+			]
+		]
+	}
+	
+	//Tests scope_ErrorSource_outgoing
+	@Test
+	def void testErrorPropagationReference() {
+		createFiles("pkg.aadl" -> '''
+			package pkg
+			public
+				abstract a
+				features
+					p1: out data port;
+					p2: out data port;
+					fg1: feature group fgt1;
+				annex EMV2 {**
+					use types ErrorLibrary;
+					
+					error propagations
+						p1: out propagation {AboveRange};
+						p2: out propagation {AboveRange};
+						fg1.p3: out propagation {AboveRange};
+						fg1.fg2.p4: out propagation {AboveRange};
+						memory: out propagation {AboveRange};
+						binding: out propagation {AboveRange};
+					flows
+						s: error source fg1.p3;
+					end propagations;
+				**};
+				end a;
+				
+				feature group fgt1
+				features
+					p3: out data port;
+					fg2: feature group fgt2;
+				end fgt1;
+				
+				feature group fgt2
+				features
+					p4: out data port;
+				end fgt2;
+			end pkg;
+		''')
+		suppressSerialization
+		testFile("pkg.aadl").resource.contents.head as AadlPackage => [
+			"pkg".assertEquals(name)
+			publicSection.ownedClassifiers.head as AbstractType => [
+				"a".assertEquals(name)
+				((ownedAnnexSubclauses.head as DefaultAnnexSubclause).parsedAnnexSubclause as ErrorModelSubclause).flows.head => [
+					"s".assertEquals(name)
+					//Tests scope_ErrorSource_outgoing
+					assertScope(ErrorModelPackage.eINSTANCE.errorSource_Outgoing, false, #["binding", "fg1.fg2.p4", "fg1.p3", "memory", "p1", "p2"])
 				]
 			]
 		]
