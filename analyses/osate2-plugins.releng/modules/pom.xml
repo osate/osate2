@@ -15,6 +15,7 @@
 	<packaging>pom</packaging>
 
 	<modules>
+		<module>..</module>
 		<module>../../org.osate.analysis.architecture</module>
 		<module>../../org.osate.analysis.flows</module>
 		<module>../../org.osate.analysis.resource.budgets</module>
