@@ -62,7 +62,6 @@ class ErrorModelScopeProvider extends PropertiesScopeProvider {
 	}
 	
 	def getErrorLibsFromContext(EObject context) {
-		println(getMethodName() + ": " + context);
 		var EObject parCtx;
 		for (parCtx = context; parCtx != null; parCtx = parCtx.eContainer()) {
 			switch (parCtx) {
@@ -78,13 +77,11 @@ class ErrorModelScopeProvider extends PropertiesScopeProvider {
 	}
 
 	def scope_TypeToken_type(EObject context, EReference reference) {
-		println(getMethodName() + ": " + context);
 		val parentScope = delegateGetScope(context, reference);
 		val errorLibs = getErrorLibsFromContext(context);
 		val errorTypes = (
 			errorLibs.map[it | getErrorTypesFromLib(it)] +
 			errorLibs.map[it | getTypesetsFromLib(it)]).flatten();
-		println("Error Types: " + errorTypes.map[it | it.name].toString());
 		return errorTypes.scopeFor(parentScope);
 	}
 	
@@ -95,20 +92,17 @@ class ErrorModelScopeProvider extends PropertiesScopeProvider {
 	}
 	
 	def scope_ErrorBehaviorState(EObject context, EReference reference) {
-		println(getMethodName() + ": " + context);
 		val states = get_ErrorBehaviorStateMachines_from_context(context).map[it | it.states].flatten();
 		return states.scopeFor();
 	}
 
 	def scope_ErrorBehaviorEvent(EObject context, EReference reference) {
-		println(getMethodName() + ": " + context);
 		val events = EcoreUtil2.getContainerOfType(context, ErrorBehaviorStateMachine).events;
 		// TODO: same as for scope_ErrorBehaviorState
 		return events.scopeFor();		
 	}
 	
 	def scope_ErrorEvent(EObject context, EReference reference) {
-		println(getMethodName() + ": " + context);
 		val events = EcoreUtil2.getContainerOfType(context, ErrorBehaviorStateMachine).events;
 		// TODO: same as for scope_ErrorBehaviorState
 		return events.scopeFor();		
