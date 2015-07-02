@@ -131,9 +131,7 @@ public class EMV2Properties {
 				if (xref != null) {
 					PropertyExpression peVal = xref.getOwnedValue();
 					if (peVal instanceof StringLiteral) {
-						String text = ((StringLiteral) peVal).getValue();
-						text = text.replace('\"', ' ');
-						return text;
+						return ((StringLiteral)peVal).getValue();
 					}
 				}
 			}
@@ -147,9 +145,7 @@ public class EMV2Properties {
 						if (xref != null) {
 							PropertyExpression peVal = xref.getOwnedValue();
 							if (peVal instanceof StringLiteral) {
-								String text = ((StringLiteral) peVal).getValue();
-								text = text.replace('\"', ' ');
-								return text;
+								return ((StringLiteral)peVal).getValue();
 							}
 						}
 					}
@@ -196,9 +192,7 @@ public class EMV2Properties {
 				if (xref != null) {
 					PropertyExpression peVal = xref.getOwnedValue();
 					if (peVal instanceof StringLiteral) {
-						String text = ((StringLiteral) peVal).getValue();
-						text = text.replace('\"', ' ');
-						return text;
+						return ((StringLiteral)peVal).getValue();
 					}
 				}
 			}
@@ -212,9 +206,7 @@ public class EMV2Properties {
 						if (xref != null) {
 							PropertyExpression peVal = xref.getOwnedValue();
 							if (peVal instanceof StringLiteral) {
-								String text = ((StringLiteral) peVal).getValue();
-								text = text.replace('\"', ' ');
-								return text;
+								return ((StringLiteral)peVal).getValue();
 							}
 						}
 					}
