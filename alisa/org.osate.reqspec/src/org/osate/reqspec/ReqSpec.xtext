@@ -19,7 +19,7 @@ ReqRoot:  StakeholderGoals | ReqDocument | ReqSpecs;
 
 
 StakeholderGoals: 'stakeholder' 'goals' name=ID (':' title=STRING)?
-	( 'for' (target=[aadl2::Classifier|AADLCLASSIFIERREFERENCE] | targetDescription=STRING| global?='all'))?
+	( 'for' (target=[aadl2::Classifier|AADLCLASSIFIERREFERENCE] | targetDescription=STRING| global?='all'))
 	'[' 
 	(	 (  description=Description)? 
 		&content+=( Goal )* 
@@ -50,7 +50,7 @@ DocumentSection returns DocumentSection:
 ReqSpecs returns ReqSpecs:
 	'requirement' 'specification' name =ID (':' title=STRING)?
 //	('import' importedNamespace=QualifiedNameWithWildCard)?
-	( 'for' (target=[aadl2::Classifier|AADLCLASSIFIERREFERENCE] | targetDescription=STRING| global?='all'))?
+	( 'for' (target=[aadl2::Classifier|AADLCLASSIFIERREFERENCE] | targetDescription=STRING| global?='all'))
 	('include' otherreqspecs += [ReqSpecs|QualifiedName]+)?
 	'[' 
 	(
