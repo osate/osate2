@@ -1,27 +1,27 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <site>
-   <feature url="features/org.osate.core.feature_2.1.1.jar" id="org.osate.core.feature" version="2.1.1">
+   <feature url="features/org.osate.core.feature_2.1.2.qualifier.jar" id="org.osate.core.feature" version="2.1.2.qualifier">
       <category name="osate2"/>
    </feature>
-   <feature url="features/org.osate.plugins.feature_2.1.1.jar" id="org.osate.plugins.feature" version="2.1.1">
+   <feature url="features/org.osate.plugins.feature_2.1.2.qualifier.jar" id="org.osate.plugins.feature" version="2.1.2.qualifier">
       <category name="osate2"/>
    </feature>
-   <feature url="features/org.osate.ge.feature_2.1.1.jar" id="org.osate.ge.feature" version="2.1.1">
+   <feature url="features/org.osate.ge.feature_2.1.2.qualifier.jar" id="org.osate.ge.feature" version="2.1.2.qualifier">
       <category name="osate2"/>
    </feature>
-   <feature url="features/org.osate.ge.feature.source_2.1.1.jar" id="org.osate.ge.feature.source" version="2.1.1">
+   <feature url="features/org.osate.ge.feature.source_2.1.2.qualifier.jar" id="org.osate.ge.feature.source" version="2.1.2.qualifier">
       <category name="osate2source"/>
    </feature>
-   <feature url="features/org.osate.core.feature.source_2.1.1.jar" id="org.osate.core.feature.source" version="2.1.1">
+   <feature url="features/org.osate.core.feature.source_2.1.2.qualifier.jar" id="org.osate.core.feature.source" version="2.1.2.qualifier">
       <category name="osate2source"/>
    </feature>
-   <feature url="features/org.osate.plugins.feature.source_2.1.1.jar" id="org.osate.plugins.feature.source" version="2.1.1">
+   <feature url="features/org.osate.plugins.feature.source_2.1.2.qualifier.jar" id="org.osate.plugins.feature.source" version="2.1.2.qualifier">
       <category name="osate2source"/>
    </feature>
-   <feature url="features/org.osate.xtext.aadl2.errormodel.feature_2.1.1.jar" id="org.osate.xtext.aadl2.errormodel.feature" version="2.1.1">
+   <feature url="features/org.osate.xtext.aadl2.errormodel.feature_2.1.2.qualifier.jar" id="org.osate.xtext.aadl2.errormodel.feature" version="2.1.2.qualifier">
       <category name="osate2"/>
    </feature>
-   <feature url="features/org.osate.xtext.aadl2.errormodel.feature.source_2.1.1.jar" id="org.osate.xtext.aadl2.errormodel.feature.source" version="2.1.1">
+   <feature url="features/org.osate.xtext.aadl2.errormodel.feature.source_2.1.2.qualifier.jar" id="org.osate.xtext.aadl2.errormodel.feature.source" version="2.1.2.qualifier">
       <category name="osate2source"/>
    </feature>
    <feature url="features/org.osate.ocarina.feature_0.0.1.qualifier.jar" id="org.osate.ocarina.feature" version="0.0.1.qualifier">
