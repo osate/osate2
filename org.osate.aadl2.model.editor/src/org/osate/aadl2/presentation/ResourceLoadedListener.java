@@ -11,8 +11,6 @@
  *   IBM - Initial API and implementation
  *
  * </copyright>
- *
- * $Id: ResourceLoadedListener.java,v 1.1 2009-12-01 15:31:10 lwrage Exp $
  */
 
 package org.osate.aadl2.presentation;
@@ -26,7 +24,6 @@ import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.transaction.DemultiplexingListener;
 import org.eclipse.emf.transaction.NotificationFilter;
 import org.eclipse.emf.transaction.TransactionalEditingDomain;
-import org.eclipse.emf.workspace.util.WorkspaceSynchronizer;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.ui.IEditorReference;
 import org.eclipse.ui.IWorkbench;
@@ -34,6 +31,7 @@ import org.eclipse.ui.IWorkbenchPage;
 import org.eclipse.ui.IWorkbenchWindow;
 import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.part.FileEditorInput;
+import org.osate.emf.workspace.util.WorkspaceSynchronizer;
 
 /**
  * Listens for the loading of resources, and creates editors on them when they

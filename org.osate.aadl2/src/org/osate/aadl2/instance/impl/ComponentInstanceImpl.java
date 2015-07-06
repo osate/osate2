@@ -1064,7 +1064,7 @@ public class ComponentInstanceImpl extends ConnectionInstanceEndImpl implements 
 
 	/*
 	 * (non-Javadoc)
-	 * 
+	 *
 	 * @see org.osate.aadl2.instance.impl.InstanceObjectImpl#getPathName()
 	 */
 	@Override
@@ -1080,7 +1080,7 @@ public class ComponentInstanceImpl extends ConnectionInstanceEndImpl implements 
 
 	/*
 	 * (non-Javadoc)
-	 * 
+	 *
 	 * @see org.osate.aadl2.instance.impl.InstanceObjectImpl#findInstanceObjectsHelper(java.util.ListIterator, java.util.List)
 	 */
 	@Override
@@ -1103,7 +1103,7 @@ public class ComponentInstanceImpl extends ConnectionInstanceEndImpl implements 
 
 	/*
 	 * (non-Javadoc)
-	 * 
+	 *
 	 * @see org.osate.aadl2.instance.InstanceObject#matchesIndex(java.util.List)
 	 */
 	@Override

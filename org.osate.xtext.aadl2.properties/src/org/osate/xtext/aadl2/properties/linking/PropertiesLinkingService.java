@@ -144,7 +144,7 @@ public class PropertiesLinkingService extends DefaultLinkingService {
 				PredeclaredProperties.initPluginContributedAadl();
 			}
 			Resource rsrc = OsateResourceUtil.getResource(URI
-					.createPlatformResourceURI(PredeclaredProperties.PLUGIN_RESOURCES_DIRECTORY_NAME
+					.createPlatformResourceURI(PredeclaredProperties.PLUGIN_RESOURCES_PROJECT_NAME
 							+ "/AADL_Project.aadl"));
 			eInstance = (PropertiesLinkingService) ((LazyLinkingResource) rsrc).getLinkingService();
 		}

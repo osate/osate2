@@ -49,7 +49,7 @@ public class Aadl2AutoEditStrategyProvider extends DefaultAutoEditStrategyProvid
 	@Override
 	protected void configure(IEditStrategyAcceptor acceptor) {
 		configureIndentationEditStrategy(acceptor);
-//		configureEndUnindent(acceptor);
+		configureEndUnindent(acceptor);
 		configureStringLiteral(acceptor);
 		configureParenthesis(acceptor);
 		configureSquareBrackets(acceptor);
@@ -79,14 +79,14 @@ public class Aadl2AutoEditStrategyProvider extends DefaultAutoEditStrategyProvid
 	protected void configureKeywordIndent(IEditStrategyAcceptor acceptor) {
 		String[] keywords = { "public", "private", "abstract", "bus", "data", "device", "feature" /* , "features" */,
 				"memory", "subprogram", "system", "thread", "process", "processor", "calls", "connections", "flows",
-				"modes", "properties", "prototypes", "subcomponents", "annex" };
+				"modes", "properties", "prototypes", "subcomponents", "annex", "virtual" };
 		for (String keyword : keywords) {
 			acceptor.accept(autoIndent.newInstance(keyword), IDocument.DEFAULT_CONTENT_TYPE);
 		}
 	}
 
-//	protected void configureEndUnindent(IEditStrategyAcceptor acceptor) {
-//		acceptor.accept(autoUnindent.newInstance("end"), IDocument.DEFAULT_CONTENT_TYPE);
-//	}
+	protected void configureEndUnindent(IEditStrategyAcceptor acceptor) {
+		acceptor.accept(autoUnindent.newInstance(System.lineSeparator()), IDocument.DEFAULT_CONTENT_TYPE);
+	}
 
 }

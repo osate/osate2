@@ -45,25 +45,23 @@ import org.eclipse.xtext.ui.editor.quickfix.DefaultQuickfixProvider
 import org.eclipse.xtext.ui.editor.quickfix.Fix
 import org.eclipse.xtext.ui.editor.quickfix.IssueResolutionAcceptor
 import org.eclipse.xtext.validation.Issue
+import org.osate.aadl2.ArrayRange
 import org.osate.aadl2.IntegerLiteral
+import org.osate.aadl2.ModalPropertyValue
 import org.osate.aadl2.ModelUnit
 import org.osate.aadl2.Namespace
+import org.osate.aadl2.NumberValue
 import org.osate.aadl2.PackageSection
+import org.osate.aadl2.PropertyAssociation
 import org.osate.aadl2.PropertySet
 import org.osate.aadl2.RangeValue
 import org.osate.aadl2.RealLiteral
-import org.osate.aadl2.UnitsType
-import org.osate.xtext.aadl2.properties.validation.PropertiesJavaValidator
-import org.osate.aadl2.NumberValue
-import java.util.ArrayList
 import org.osate.aadl2.UnitLiteral
-import org.osate.aadl2.PropertyAssociation
-import org.osate.aadl2.ModalPropertyValue
-import org.osate.aadl2.impl.UnitLiteralImpl
-import org.osate.xtext.aadl2.properties.util.GetProperties
 import org.osate.xtext.aadl2.properties.util.AadlProject
 import org.osate.xtext.aadl2.properties.util.EMFIndexRetrieval
+import org.osate.xtext.aadl2.properties.util.GetProperties
 import org.osate.xtext.aadl2.properties.util.MemoryProperties
+import org.osate.xtext.aadl2.properties.validation.PropertiesJavaValidator
 
 public class PropertiesQuickfixProvider extends DefaultQuickfixProvider {
 	/**
@@ -110,7 +108,65 @@ public class PropertiesQuickfixProvider extends DefaultQuickfixProvider {
 					}
 				});
 	}
+	/**
+	 * QuickFix for swapping Upper and Lower bounds in an array index range value when the upper is less than the lower
+	 */
+	@Fix(PropertiesJavaValidator.ARRAY_RANGE_UPPER_LESS_THAN_LOWER)
+	def public void fixArrayRangeUpperLessThanLower(Issue issue, IssueResolutionAcceptor acceptor) {
+		acceptor.accept(issue, "Switch upper and lower bounds of the range", null, null,
+				new ISemanticModification() {
+					override public void apply(EObject element, IModificationContext context) throws Exception {
+						var oldMin = (element as ArrayRange).lowerBound
+						var oldMax = (element as ArrayRange).upperBound;
+						(element as ArrayRange).lowerBound = oldMax;
+						(element as ArrayRange).upperBound = oldMin
+					}
+				});
+	}
 
+	/**
+	 * QuickFix for changing Upper bounds in an array index range value to maximum allowed by dimension of the type
+	 * 
+	 * issue.getData(0) = maximum dimension value;
+	 */
+	@Fix(PropertiesJavaValidator.ARRAY_RANGE_UPPER_GREATER_THAN_MAXIMUM)
+	def public void fixArrayRangeUpperGreaterThanMaximum(Issue issue, IssueResolutionAcceptor acceptor) {
+		val maxAllowed = Long.valueOf(issue.data.head); 
+		acceptor.accept(issue, "Change upper bound of the range to maximum defined by type's dimension (" + maxAllowed + ")", null, null,
+				new ISemanticModification() {
+					override public void apply(EObject element, IModificationContext context) throws Exception {
+						(element as ArrayRange).upperBound = maxAllowed
+					}
+				});
+	}
+
+	/**
+	 * QuickFix for changing index in an array to maximum allowed by dimension of the type
+	 * 
+	 * issue.getData(0) = maximum dimension value;
+	 */
+	@Fix(PropertiesJavaValidator.ARRAY_INDEX_GREATER_THAN_MAXIMUM)
+	def public void fixArrayIndexGreaterThanMaximum(Issue issue, IssueResolutionAcceptor acceptor) {
+		val maxAllowed = Long.valueOf(issue.data.head); 
+		acceptor.accept(issue, "Change index of array to maximum defined by type's dimension (" + maxAllowed + ")", null, null,
+				new ISemanticModification() {
+					override public void apply(EObject element, IModificationContext context) throws Exception {
+						(element as ArrayRange).lowerBound = maxAllowed
+					}
+				});
+	}
+	/**
+	 * QuickFix for changing Lower bound in an array index range from 1 to 0
+	 */
+	@Fix(PropertiesJavaValidator.ARRAY_LOWER_BOUND_IS_ZERO)
+	def public void fixArrayRangeLowerBoundIsZero(Issue issue, IssueResolutionAcceptor acceptor) {
+		acceptor.accept(issue, "Change '0' to '1'", null, null,
+				new ISemanticModification() {
+					override public void apply(EObject element, IModificationContext context) throws Exception {
+						(element as ArrayRange).lowerBound = 1
+					}
+				});
+	}
 	/**
 	 * QuickFix for making a negative delta positive
 	 */

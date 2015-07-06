@@ -269,7 +269,7 @@ public class SubprogramCallImpl extends BehavioralFeatureImpl implements Subprog
 
 	/*
 	 * (non-Javadoc)
-	 * 
+	 *
 	 * @see org.osate.aadl2.impl.NamedElementImpl#getNamespace()
 	 */
 	@Override
@@ -280,7 +280,7 @@ public class SubprogramCallImpl extends BehavioralFeatureImpl implements Subprog
 	// XXX: [AADL 1 -> AADL 2] Added to make property lookup work.
 	/*
 	 * (non-Javadoc)
-	 * 
+	 *
 	 * @see
 	 * org.osate.aadl2.impl.NamedElementImpl#getPropertyValueInternal
 	 * (org.osate.aadl2.Property,

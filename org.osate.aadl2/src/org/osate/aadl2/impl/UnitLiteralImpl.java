@@ -285,7 +285,7 @@ public class UnitLiteralImpl extends EnumerationLiteralImpl implements UnitLiter
 
 	/*
 	 * (non-Javadoc)
-	 *
+	 * 
 	 * @see org.osate.aadl2.UnitLiteral#getAbsoluteFactor()
 	 */
 	@Override
@@ -305,7 +305,7 @@ public class UnitLiteralImpl extends EnumerationLiteralImpl implements UnitLiter
 
 	/*
 	 * (non-Javadoc)
-	 *
+	 * 
 	 * @see org.osate.aadl2.UnitLiteral#getAbsoluteFactor(org.osate.aadl2.UnitLiteral)
 	 */
 	@Override

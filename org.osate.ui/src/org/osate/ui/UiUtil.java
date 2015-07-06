@@ -31,6 +31,7 @@ import org.eclipse.xtext.nodemodel.ICompositeNode;
 import org.eclipse.xtext.nodemodel.util.NodeModelUtils;
 import org.osate.aadl2.Element;
 import org.osate.aadl2.instance.InstanceObject;
+import org.osate.aadl2.instance.PropertyAssociationInstance;
 import org.osate.aadl2.instance.provider.InstanceItemProviderAdapterFactory;
 import org.osate.aadl2.modelsupport.AadlConstants;
 import org.osate.aadl2.modelsupport.resources.OsateResourceUtil;
@@ -116,10 +117,20 @@ public final class UiUtil {
 	 * @param io InstanceObject whose source in the declarative model is the target of the goto
 	 */
 	public static void gotoInstanceObjectSource(IWorkbenchPage page, InstanceObject io) {
-		if (io == null) {
-			return;
+		if (io != null) {
+			gotoDeclarativeModelElement(page, AadlUtil.getInstanceOrigin(io));
 		}
-		gotoDeclarativeModelElement(page, AadlUtil.getInstanceOrigin(io));
+	}
+
+	/**
+	 * Goto declarative model object through the editor associated with aadl files.
+	 * @param page Workbench page
+	 * @param pai instance model property association whose source in the declarative model is the target of the goto
+	 */
+	public static void gotoInstanceObjectSource(IWorkbenchPage page, PropertyAssociationInstance pai) {
+		if (pai != null) {
+			gotoDeclarativeModelElement(page, pai.getPropertyAssociation());
+		}
 	}
 
 	/**

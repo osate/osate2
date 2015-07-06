@@ -1856,7 +1856,7 @@ public class InstantiateModel {
 	public EList<Property> getAllUsedPropertyDefinitions(SystemInstance root) {
 		EList<Property> result = new UniqueEList<Property>();
 
-		addUsedProperties(root.getComponentImplementation(), result);
+		addUsedProperties(root, root.getComponentImplementation(), result);
 		TreeIterator<Element> it = EcoreUtil.getAllContents(Collections.singleton(root));
 		// collect topdown component impl. do it and its type to find PA
 		while (it.hasNext()) {
@@ -1866,17 +1866,20 @@ public class InstantiateModel {
 				InstantiatedClassifier ic = InstanceUtil.getInstantiatedClassifier((ComponentInstance) elem, 0,
 						classifierCache);
 				if (ic != null) {
-					addUsedProperties(ic.classifier, result);
+					if (ic.classifier.equals(root.getComponentImplementation())) {
+						addUsedProperties(root, ic.classifier, result, false);
+					} else {
+						addUsedProperties(root, ic.classifier, result);
+					}
 				}
 			} else if (elem instanceof FeatureInstance) {
 				FeatureInstance fi = (FeatureInstance) elem;
 				if (fi.getFeature() instanceof FeatureGroup) {
 					FeatureGroupType fgt = InstanceUtil.getFeatureGroupType(fi, 0, classifierCache);
-					addUsedProperties(fgt, result);
+					addUsedProperties(root, fgt, result);
 				} else {
 					Classifier c = fi.getFeature().getClassifier();
-
-					addUsedProperties(c, result);
+					addUsedProperties(root, c, result);
 				}
 			} else if (elem instanceof ConnectionInstance) {
 				ConnectionInstance ci = (ConnectionInstance) elem;
@@ -1890,20 +1893,41 @@ public class InstantiateModel {
 		return result;
 	}
 
-	private void addUsedProperties(Classifier cc, EList<Property> result) {
+	private void addUsedProperties(SystemInstance root, Classifier cc, EList<Property> result) {
+		addUsedProperties(root, cc, result, true);
+	}
+
+	private void addUsedProperties(SystemInstance root, Classifier cc, EList<Property> result, boolean showError) {
 
 		if (cc instanceof ComponentImplementation) {
 			ComponentImplementation impl = (ComponentImplementation) cc;
-
+			List<ComponentImplementation> extendedComponentImpls = new ArrayList<ComponentImplementation>();
 			while (impl != null) {
+				extendedComponentImpls.add(impl);
 				addUsedPropertyDefinitions(impl, result);
 				impl = impl.getExtended();
+				if (extendedComponentImpls.contains(impl)) {
+					if (showError) {
+						errManager.error(root, "Circular extension: Component '" + impl.getName()
+								+ "' directly or indirectly extends itself.");
+					}
+					break;
+				}
 			}
 			cc = ((ComponentImplementation) cc).getType();
 		}
+		List<Classifier> extendedClassifiers = new ArrayList<Classifier>();
 		while (cc != null) {
+			extendedClassifiers.add(cc);
 			addUsedPropertyDefinitions(cc, result);
 			cc = cc.getExtended();
+			if (extendedClassifiers.contains(cc)) {
+				if (showError) {
+					errManager.error(root, "Circular extension: Classifier '" + cc.getName()
+							+ "' directly or indirectly extends itself.");
+				}
+				break;
+			}
 		}
 
 	}

@@ -33,9 +33,9 @@
  */
 package org.osate.ui.navigator;
 
-import static org.osate.ui.OsateUiPlugin.AADL_PROJECT;
-import static org.osate.ui.OsateUiPlugin.AADL_PROJECT_DEFAULT;
-import static org.osate.ui.OsateUiPlugin.AADL_PROJECT_KEY;
+import static org.osate.aadl2.modelsupport.resources.PredeclaredProperties.AADL_PROJECT;
+import static org.osate.aadl2.modelsupport.resources.PredeclaredProperties.AADL_PROJECT_DEFAULT;
+import static org.osate.aadl2.modelsupport.resources.PredeclaredProperties.AADL_PROJECT_KEY;
 
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IMarker;
@@ -58,7 +58,8 @@ import org.osate.aadl2.PrivatePackageSection;
 import org.osate.aadl2.PropertyType;
 import org.osate.aadl2.PublicPackageSection;
 import org.osate.aadl2.instance.InstanceObject;
-import org.osate.aadl2.modelsupport.resources.OsateResourceUtil;
+import org.osate.aadl2.modelsupport.Activator;
+import org.osate.aadl2.modelsupport.resources.PredeclaredProperties;
 import org.osate.ui.OsateUiPlugin;
 import org.osate.ui.UiUtil;
 import org.osate.ui.navigator.AadlElementImageDescriptor.ModificationFlag;
@@ -73,7 +74,7 @@ public class AadlNavigatorLabelProvider extends DecoratingLabelProvider {
 		StringBuilder text = new StringBuilder(super.getText(element));
 		if (element instanceof IFile) {
 			IFile file = (IFile) element;
-			if (file.getProject().getName().equals(OsateResourceUtil.PLUGIN_RESOURCES_DIRECTORY_NAME)
+			if (file.getProject().getName().equals(PredeclaredProperties.PLUGIN_RESOURCES_PROJECT_NAME)
 					&& !file.getResourceAttributes().isReadOnly()) {
 				text.append(" (Modified)");
 			}
@@ -95,7 +96,7 @@ public class AadlNavigatorLabelProvider extends DecoratingLabelProvider {
 	public Image getImage(Object element) {
 		Image image;
 		if (element instanceof IProject
-				&& ((IProject) element).getName().equals(OsateResourceUtil.PLUGIN_RESOURCES_DIRECTORY_NAME)) {
+				&& ((IProject) element).getName().equals(PredeclaredProperties.PLUGIN_RESOURCES_PROJECT_NAME)) {
 			image = OsateUiPlugin.getImageDescriptor("icons/library_obj.gif").createImage();
 		} else if (element instanceof PropertyType) {
 			image = UiUtil.getModelElementLabelProvider().getImage(element);
@@ -112,7 +113,7 @@ public class AadlNavigatorLabelProvider extends DecoratingLabelProvider {
 	@Override
 	public Color getForeground(Object element) {
 		if (element instanceof IFile) {
-			IEclipsePreferences prefs = InstanceScope.INSTANCE.getNode(OsateUiPlugin.PLUGIN_ID);
+			IEclipsePreferences prefs = InstanceScope.INSTANCE.getNode(Activator.PLUGIN_ID);
 			URI uri = URI.createPlatformResourceURI(((IFile) element).getFullPath().toString(), true);
 			String path = prefs.get(AADL_PROJECT_KEY, AADL_PROJECT_DEFAULT);
 			if (uri.lastSegment().equals(AADL_PROJECT) && !uri.equals(URI.createPlatformResourceURI(path, true))) {

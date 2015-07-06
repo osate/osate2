@@ -58,8 +58,10 @@ import org.osate.aadl2.impl.NamedValueImpl;
 import org.osate.aadl2.instance.ComponentInstance;
 import org.osate.aadl2.instance.ConnectionInstance;
 import org.osate.aadl2.instance.ConnectionReference;
+import org.osate.aadl2.instance.InstanceFactory;
 import org.osate.aadl2.instance.InstanceObject;
 import org.osate.aadl2.instance.ModeInstance;
+import org.osate.aadl2.instance.PropertyAssociationInstance;
 import org.osate.aadl2.instance.SystemInstance;
 import org.osate.aadl2.instance.SystemOperationMode;
 import org.osate.aadl2.instance.util.InstanceSwitch;
@@ -70,6 +72,7 @@ import org.osate.aadl2.properties.EvaluatedProperty;
 import org.osate.aadl2.properties.EvaluatedProperty.MpvProxy;
 import org.osate.aadl2.properties.EvaluationContext;
 import org.osate.aadl2.properties.InvalidModelException;
+import org.osate.aadl2.properties.PropertyEvaluationResult;
 import org.osate.aadl2.util.OsateDebug;
 
 /**
@@ -159,17 +162,18 @@ class CachePropertyAssociationsSwitch extends AadlProcessingSwitchWithProgress {
 					 * declarative model. Property lookup process now corrects
 					 * reference values to instance reference values.
 					 */
+					PropertyEvaluationResult result = property.evaluate(new EvaluationContext(io, classifierCache));
+					List<EvaluatedProperty> evaluated = result.getEvaluated();
 
-					List<EvaluatedProperty> value = property.evaluate(new EvaluationContext(io, classifierCache));
-					// OsateDebug.osateDebug ("   value=" + value);
-
-					if (!value.isEmpty()) {
+					if (!evaluated.isEmpty()) {
 						// OsateDebug.osateDebug ("[CachePropertyAssociation] io=" + io + ";property=" + property + ";value=" + value);
-						PropertyAssociation newPA = Aadl2Factory.eINSTANCE.createPropertyAssociation();
+						PropertyAssociationInstance newPA = InstanceFactory.eINSTANCE
+								.createPropertyAssociationInstance();
 
 						io.removePropertyAssociations(property);
 						newPA.setProperty(property);
-						fillPropertyValue(io, newPA, value);
+						newPA.setPropertyAssociation(getDeclarativePA(result.getPa()));
+						fillPropertyValue(io, newPA, evaluated);
 						if (!newPA.getOwnedValues().isEmpty()) {
 							io.getOwnedPropertyAssociations().add(newPA);
 						}
@@ -193,10 +197,16 @@ class CachePropertyAssociationsSwitch extends AadlProcessingSwitchWithProgress {
 		}
 	}
 
+	private PropertyAssociation getDeclarativePA(PropertyAssociation pa) {
+		while (pa instanceof PropertyAssociationInstance) {
+			pa = ((PropertyAssociationInstance) pa).getPropertyAssociation();
+		}
+		return pa;
+	}
+
 	protected void cacheConnectionPropertyAssociations(final ConnectionInstance conni) {
 		PropertyAssociation setPA;
 		PropertyExpression defaultvalue;
-		List<EvaluatedProperty> propertyValue;
 
 		try {
 			/*
@@ -229,13 +239,16 @@ class CachePropertyAssociationsSwitch extends AadlProcessingSwitchWithProgress {
 								connRef.getConnection());
 
 						final EvaluationContext ctx = new EvaluationContext(connRef, classifierCache, propAssociation);
-						propertyValue = prop.evaluate(ctx);
+						PropertyEvaluationResult result = prop.evaluate(ctx);
+						List<EvaluatedProperty> evaluated = result.getEvaluated();
 
-						if (!propertyValue.isEmpty()) {
-							PropertyAssociation newPA = Aadl2Factory.eINSTANCE.createPropertyAssociation();
+						if (!evaluated.isEmpty()) {
+							PropertyAssociationInstance newPA = InstanceFactory.eINSTANCE
+									.createPropertyAssociationInstance();
 
 							newPA.setProperty(prop);
-							fillPropertyValue(connRef, newPA, propertyValue);
+							newPA.setPropertyAssociation(getDeclarativePA(result.getPa()));
+							fillPropertyValue(connRef, newPA, evaluated);
 							if (!newPA.getOwnedValues().isEmpty()) {
 								/*
 								 * FIXME JD

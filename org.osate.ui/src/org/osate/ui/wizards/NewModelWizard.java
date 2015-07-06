@@ -82,6 +82,7 @@ import org.eclipse.ui.dialogs.ContainerGenerator;
 import org.eclipse.ui.model.WorkbenchContentProvider;
 import org.eclipse.ui.model.WorkbenchLabelProvider;
 import org.eclipse.ui.part.FileEditorInput;
+import org.eclipse.ui.part.PageBook;
 import org.eclipse.xtext.nodemodel.BidiIterable;
 import org.eclipse.xtext.nodemodel.ICompositeNode;
 import org.eclipse.xtext.nodemodel.INode;
@@ -93,7 +94,7 @@ import org.eclipse.xtext.ui.editor.XtextEditor;
 import org.eclipse.xtext.util.concurrent.IUnitOfWork;
 import org.osate.aadl2.Aadl2Factory;
 import org.osate.aadl2.Aadl2Package;
-import org.osate.aadl2.modelsupport.resources.OsateResourceUtil;
+import org.osate.aadl2.modelsupport.resources.PredeclaredProperties;
 import org.osate.ui.OsateUiPlugin;
 import org.osate.workspace.IResourceUtility;
 import org.osate.workspace.WorkspacePlugin;
@@ -152,21 +153,21 @@ public class NewModelWizard extends Wizard implements INewWizard {
 
 				if (selectedElement instanceof IProject) {
 					IContainer project = ((IProject) selectedElement).getProject();
-					if (!project.getName().equals(OsateResourceUtil.PLUGIN_RESOURCES_DIRECTORY_NAME)) {
+					if (!project.getName().equals(PredeclaredProperties.PLUGIN_RESOURCES_PROJECT_NAME)) {
 						projectFolder = project;
 					} else {
 						projectFolder = null;
 					}
 				} else if (selectedElement instanceof IFolder) {
 					IProject project = ((IFolder) selectedElement).getProject();
-					if (!project.getName().equals(OsateResourceUtil.PLUGIN_RESOURCES_DIRECTORY_NAME)) {
+					if (!project.getName().equals(PredeclaredProperties.PLUGIN_RESOURCES_PROJECT_NAME)) {
 						projectFolder = (IContainer) selectedElement;
 					} else {
 						projectFolder = null;
 					}
 				} else if (selectedElement instanceof IFile) {
 					IProject project = ((IFile) selectedElement).getProject();
-					if (!project.getName().equals(OsateResourceUtil.PLUGIN_RESOURCES_DIRECTORY_NAME)) {
+					if (!project.getName().equals(PredeclaredProperties.PLUGIN_RESOURCES_PROJECT_NAME)) {
 						projectFolder = ((IFile) selectedElement).getParent();
 					} else {
 						projectFolder = null;
@@ -365,11 +366,15 @@ public class NewModelWizard extends Wizard implements INewWizard {
 			ButtonAndTextListener listener = new ButtonAndTextListener(this);
 			aadlPackageButton.addSelectionListener(listener);
 			aadlPropertySetButton.addSelectionListener(listener);
-			nameTextField.addModifyListener(listener);
+			if (nameTextField != null) {
+				nameTextField.addModifyListener(listener);
+			}
 		}
 
 		private void createAndLayoutWidgets(Composite parent) {
-			Composite composite = new Composite(parent, SWT.NONE);
+			PageBook pageBook = new PageBook(parent, SWT.NONE);
+
+			Composite composite = new Composite(pageBook, SWT.NONE);
 			composite.setSize(parent.getSize());
 			composite.setLayout(new GridLayout());
 
@@ -401,7 +406,7 @@ public class NewModelWizard extends Wizard implements INewWizard {
 						ArrayList<IProject> openProjects = new ArrayList<IProject>();
 						for (IProject project : projects) {
 							if (project.isOpen()
-									&& !project.getName().equals(OsateResourceUtil.PLUGIN_RESOURCES_DIRECTORY_NAME)) {
+									&& !project.getName().equals(PredeclaredProperties.PLUGIN_RESOURCES_PROJECT_NAME)) {
 								openProjects.add(project);
 							}
 						}
@@ -435,7 +440,10 @@ public class NewModelWizard extends Wizard implements INewWizard {
 					return new Object[0];
 				}
 			});
+
 			folderViewer.setInput(ResourcesPlugin.getWorkspace());
+			TreeItem[] treeItems = folderViewer.getTree().getItems();
+			int treeItemsLength = treeItems.length;
 			Label nameFieldLabel = new Label(composite, SWT.NONE);
 			nameFieldLabel.setText("Enter the new Aadl Package or Property Set name:");
 			layoutData = new GridData(SWT.LEFT, SWT.CENTER, false, false);
@@ -446,14 +454,15 @@ public class NewModelWizard extends Wizard implements INewWizard {
 			nameTextField.setLayoutData(new GridData(SWT.FILL, SWT.CENTER, true, false));
 			nameTextField.setFocus();
 
-			TreeItem[] treeItems = folderViewer.getTree().getItems();
 			if (projectFolder != null) {
 				folderViewer.setSelection(new StructuredSelection(projectFolder), true);
 				if (folderViewer.getSelection().isEmpty()) {
 					folderViewer.getTree().select(treeItems[0]);
 				}
 			} else {
-				folderViewer.getTree().select(treeItems[0]);
+				if (treeItemsLength > 0) {
+					folderViewer.getTree().select(treeItems[0]);
+				}
 			}
 			folderViewer.getTree().setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, true));
 			switch (initialObjectType) {
@@ -467,7 +476,18 @@ public class NewModelWizard extends Wizard implements INewWizard {
 				throw new AssertionError(initialObjectType.name() + " is not a recognized enum literal.");
 			}
 
-			setControl(composite);
+			Composite noProjectComposite = new Composite(pageBook, SWT.NONE);
+			noProjectComposite.setSize(parent.getSize());
+			noProjectComposite.setLayout(new GridLayout());
+			Label noProjectLabel = new Label(noProjectComposite, SWT.NONE);
+			noProjectLabel
+					.setText("The workspace contains no projects. Before an Aadl Package or Property Set can be created you must first create a project.");
+			if (treeItemsLength < 1) {
+				pageBook.showPage(noProjectComposite);
+			} else {
+				pageBook.showPage(composite);
+			}
+			setControl(pageBook);
 		}
 
 		@Override
@@ -500,6 +520,8 @@ public class NewModelWizard extends Wizard implements INewWizard {
 		 * Generates an error message if the name is invalid.
 		 */
 		private boolean validateEnteredName() {
+			if (nameTextField == null)
+				return false;
 			if (nameTextField.getText().length() == 0) {
 				// No error message is specified. We assume that the user knows that
 				// a new Aadl file must have a name.

@@ -1724,7 +1724,9 @@ public final class AadlUtil {
 		EList<Connection> cimplconns = cimpl.getAllConnections();
 		for (Connection conn : cimplconns) {
 			if (features.contains(conn.getAllSource())
-					|| (conn.isBidirectional() && features.contains(conn.getAllDestination()))) {
+					&& !(conn.getAllSourceContext() instanceof Subcomponent)
+					|| (conn.isBidirectional() && features.contains(conn.getAllDestination()) && !(conn
+							.getAllDestinationContext() instanceof Subcomponent))) {
 				result.add(conn);
 			}
 			if ((features.contains(conn.getAllSourceContext()) || (conn.isBidirectional() && features.contains(conn

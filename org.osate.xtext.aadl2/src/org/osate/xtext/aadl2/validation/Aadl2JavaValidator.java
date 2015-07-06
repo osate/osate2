@@ -50,6 +50,7 @@ import java.util.TreeMap;
 
 import org.eclipse.emf.common.util.BasicEList;
 import org.eclipse.emf.common.util.EList;
+import org.eclipse.emf.common.util.TreeIterator;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EObject;
@@ -117,6 +118,7 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 	public static final String REVERSE_ACCESS_KIND = "org.osate.xtext.aadl2.reverse_access_kind";
 	public static final String NUMERIC_RANGE_UPPER_LESS_THAN_LOWER = "org.osate.xtext.aadl2.numeric_range_upper_less_than_lower";
 	public static final String MAKE_CONNECTION_BIDIRECTIONAL = "org.osate.xtext.aadl2.make_connection_bidirectional";
+	public static final String WITH_NOT_USED = "org.osate.xtext.aadl2.with_not_used";
 
 	@Check(CheckType.FAST)
 	public void caseComponentImplementation(ComponentImplementation componentImplementation) {
@@ -422,6 +424,7 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 		checkFlowConnectionOrder(flow);
 		checkFlowConnectionEnds(flow);
 		checkFlowSegmentModes(flow);
+		checkSubcomponentFlows(flow);
 		// checkFlowPathElements(flow);
 	}
 
@@ -432,6 +435,7 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 		checkFlowConnectionEnds(flow);
 		checkNestedEndToEndFlows(flow);
 		checkEndToEndFlowModes(flow);
+		checkSubcomponentFlows(flow);
 	}
 
 	@Check(CheckType.FAST)
@@ -525,34 +529,10 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 		}
 	}
 
-	@Check(CheckType.NORMAL)
+	@Check(CheckType.FAST)
 	public void casePropertySet(PropertySet propSet) {
-		String findings;
-
-		findings = hasDuplicatesPropertySet(propSet);
-		if (findings != null) {
-			error(propSet, "Property set " + propSet.getName() + " has duplicates " + findings);
-		}
-//
-//		if (((Aadl2GlobalScopeProvider)scopeProvider).hasDuplicates(propSet))
-//		{
-//			if (propSet.getName().equals("AADL_Project"))
-//			{
-//				IAadlWorkspace workspace;
-//				workspace = AadlWorkspace.getAadlWorkspace();
-//				IAadlProject[] aadlProjects = workspace.getOpenAadlProjects();
-//				for (int i = 0 ; i < aadlProjects.length ; i++)
-//				{
-//					IAadlProject aadlProject = aadlProjects[i];
-//					if (aadlProject.getAadlProjectFile() != null)
-//					{
-//						return;
-//					}
-//				}
-//
-//			}
-//			error(propSet, "Property set " + propSet.getName()+" has duplicates in this or dependent projects");
-//		}
+		checkWithsAreUsed(propSet);
+		checkForDuplicatesPropertySet(propSet);
 	}
 
 	@Check(CheckType.NORMAL)
@@ -675,6 +655,140 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 	@Check(CheckType.FAST)
 	public void caseModeTransitionTrigger(ModeTransitionTrigger trigger) {
 		typeCheckModeTransitionTrigger(trigger);
+	}
+
+	@Check(CheckType.FAST)
+	public void casePackageSection(PackageSection packageSection) {
+		checkWithsAreUsed(packageSection);
+	}
+
+	@Override
+	public void checkForAppendsInContainedPropertyAssociation(PropertyAssociation propertyAssoc) {
+		List<ContainedNamedElement> appliesTos = propertyAssoc.getAppliesTos();
+		if (null != appliesTos && !appliesTos.isEmpty()) {
+			if (propertyAssoc.isAppend()) {
+				error("Append operator '+=>' cannot be used in contained property associations", propertyAssoc,
+						Aadl2Package.eINSTANCE.getPropertyAssociation_Append());
+			}
+		}
+	}
+
+	public void checkWithsAreUsed(PackageSection packageSection) {
+		List<ModelUnit> importedUnits = packageSection.getImportedUnits();
+		ImportedUnitsLoop: for (ModelUnit nextImportedUnit : importedUnits) {
+			if (nextImportedUnit.equals(packageSection.eContainer())) {
+				StringBuilder errMsg = new StringBuilder(nextImportedUnit.getName());
+				errMsg.append(" in 'with' clause of ");
+				String publicOrPrivate = "public";
+				if (packageSection instanceof PrivatePackageSection) {
+					publicOrPrivate = "private";
+				}
+				errMsg.append(publicOrPrivate);
+				errMsg.append(" package section refers to the containing package and is not needed.");
+				String importedUnitURI = EcoreUtil.getURI(nextImportedUnit).toString();
+				warning(errMsg.toString(), packageSection, Aadl2Package.eINSTANCE.getPackageSection_ImportedUnit(),
+						importedUnits.indexOf(nextImportedUnit), WITH_NOT_USED, nextImportedUnit.getName(),
+						importedUnitURI);
+				continue ImportedUnitsLoop;
+			}
+			if (AadlUtil.isPredeclaredPropertySet(nextImportedUnit.getName())) {
+				StringBuilder errMsg = new StringBuilder(nextImportedUnit.getName());
+				errMsg.append(" in 'with' clause of ");
+				String publicOrPrivate = "public";
+				if (packageSection instanceof PrivatePackageSection) {
+					publicOrPrivate = "private";
+				}
+				errMsg.append(publicOrPrivate);
+				errMsg.append(" package section is a predeclared property set and is not needed.");
+				String importedUnitURI = EcoreUtil.getURI(nextImportedUnit).toString();
+				warning(errMsg.toString(), packageSection, Aadl2Package.eINSTANCE.getPackageSection_ImportedUnit(),
+						importedUnits.indexOf(nextImportedUnit), WITH_NOT_USED, nextImportedUnit.getName(),
+						importedUnitURI);
+				continue ImportedUnitsLoop;
+
+			}
+
+			TreeIterator<EObject> packageContents = packageSection.eAllContents();
+			while (packageContents.hasNext()) {
+				EObject nextObject = packageContents.next();
+				EList<EObject> crossReferences = nextObject.eCrossReferences();
+				for (EObject crossReference : crossReferences) {
+					EObject container = crossReference.eContainer();
+					if (nextImportedUnit.equals(container)) {
+						continue ImportedUnitsLoop;
+					} else {
+						while (container != null && !(container instanceof AadlPackage)
+								&& !(container instanceof PropertySet)) {
+							container = container.eContainer();
+							if (container.equals(nextImportedUnit)) {
+								continue ImportedUnitsLoop;
+							}
+						}
+					}
+				}
+			}
+			StringBuilder errMsg = new StringBuilder(nextImportedUnit.getName());
+			errMsg.append(" in 'with' clause of ");
+			String publicOrPrivate = "public";
+			if (packageSection instanceof PrivatePackageSection) {
+				publicOrPrivate = "private";
+			}
+			errMsg.append(publicOrPrivate);
+			errMsg.append(" package section is not used.");
+			String importedUnitURI = EcoreUtil.getURI(nextImportedUnit).toString();
+			warning(errMsg.toString(), packageSection, Aadl2Package.eINSTANCE.getPackageSection_ImportedUnit(),
+					importedUnits.indexOf(nextImportedUnit), WITH_NOT_USED, nextImportedUnit.getName(), importedUnitURI);
+		}
+	}
+
+	public void checkWithsAreUsed(PropertySet propertySet) {
+		List<ModelUnit> importedUnits = propertySet.getImportedUnits();
+		ImportedUnitsLoop: for (ModelUnit nextImportedUnit : importedUnits) {
+			if (nextImportedUnit.equals(propertySet)) {
+				StringBuilder errMsg = new StringBuilder(nextImportedUnit.getName());
+				errMsg.append(" in 'with' clause refers to the containing package and is not needed.");
+				String importedUnitURI = EcoreUtil.getURI(nextImportedUnit).toString();
+				warning(errMsg.toString(), propertySet, Aadl2Package.eINSTANCE.getPropertySet_ImportedUnit(),
+						importedUnits.indexOf(nextImportedUnit), WITH_NOT_USED, nextImportedUnit.getName(),
+						importedUnitURI);
+				continue ImportedUnitsLoop;
+			}
+			if (AadlUtil.isPredeclaredPropertySet(nextImportedUnit.getName())) {
+				StringBuilder errMsg = new StringBuilder(nextImportedUnit.getName());
+				errMsg.append(" in 'with' clause is a predeclared property set and is not needed.");
+				String importedUnitURI = EcoreUtil.getURI(nextImportedUnit).toString();
+				warning(errMsg.toString(), propertySet, Aadl2Package.eINSTANCE.getPropertySet_ImportedUnit(),
+						importedUnits.indexOf(nextImportedUnit), WITH_NOT_USED, nextImportedUnit.getName(),
+						importedUnitURI);
+				continue ImportedUnitsLoop;
+
+			}
+
+			TreeIterator<EObject> allContents = propertySet.eAllContents();
+			while (allContents.hasNext()) {
+				EObject nextObject = allContents.next();
+				EList<EObject> crossReferences = nextObject.eCrossReferences();
+				for (EObject crossReference : crossReferences) {
+					EObject container = crossReference.eContainer();
+					if (nextImportedUnit.equals(container)) {
+						continue ImportedUnitsLoop;
+					} else {
+						while (container != null && !(container instanceof AadlPackage)
+								&& !(container instanceof PropertySet)) {
+							container = container.eContainer();
+							if (container.equals(nextImportedUnit)) {
+								continue ImportedUnitsLoop;
+							}
+						}
+					}
+				}
+			}
+			StringBuilder errMsg = new StringBuilder(nextImportedUnit.getName());
+			errMsg.append(" in 'with' clause is not used.");
+			String importedUnitURI = EcoreUtil.getURI(nextImportedUnit).toString();
+			warning(errMsg.toString(), propertySet, Aadl2Package.eINSTANCE.getPropertySet_ImportedUnit(),
+					importedUnits.indexOf(nextImportedUnit), WITH_NOT_USED, nextImportedUnit.getName(), importedUnitURI);
+		}
 	}
 
 	public void checkForCyclicDeclarations(Subcomponent subcomponent) {
@@ -1299,6 +1413,89 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 												+ nextFlowSegment.getName() + '\'');
 							}
 						}
+					}
+				}
+			}
+		}
+	}
+
+	/**
+	 * If a flow segment is a subcomponent, preceding and following connections may not continue inside that subcomponent
+	 * (issue #345)
+	 */
+	private void checkSubcomponentFlows(EndToEndFlow flow) {
+		for (int i = 0; i < flow.getOwnedEndToEndFlowSegments().size(); i++) {
+			EndToEndFlowSegment segment = flow.getOwnedEndToEndFlowSegments().get(i);
+			if (segment.getFlowElement() instanceof Subcomponent) {
+				Subcomponent sub = (Subcomponent) segment.getFlowElement();
+				List<Connection> conns = new ArrayList<Connection>(2);
+				if (i > 0) {
+					Element elem = flow.getOwnedEndToEndFlowSegments().get(i - 1).getFlowElement();
+					if (elem instanceof Connection) {
+						conns.add((Connection) elem);
+					}
+				}
+				if (i < flow.getOwnedEndToEndFlowSegments().size() - 1) {
+					Element elem = flow.getOwnedEndToEndFlowSegments().get(i + 1).getFlowElement();
+					if (elem instanceof Connection) {
+						conns.add((Connection) elem);
+					}
+				}
+				checkSubcomponentFlowHelper(segment, sub, conns);
+			}
+		}
+	}
+
+	/**
+	 * If a flow segment is a subcomponent, preceding and following connections may not continue inside that subcomponent
+	 * (issue #345)
+	 */
+	private void checkSubcomponentFlows(FlowImplementation flow) {
+		for (int i = 0; i < flow.getOwnedFlowSegments().size(); i++) {
+			FlowSegment segment = flow.getOwnedFlowSegments().get(i);
+			if (segment.getFlowElement() instanceof Subcomponent) {
+				Subcomponent sub = (Subcomponent) segment.getFlowElement();
+				List<Connection> conns = new ArrayList<Connection>(2);
+				if (i > 0) {
+					Element elem = flow.getOwnedFlowSegments().get(i - 1).getFlowElement();
+					if (elem instanceof Connection) {
+						conns.add((Connection) elem);
+					}
+				}
+				if (i < flow.getOwnedFlowSegments().size() - 1) {
+					Element elem = flow.getOwnedFlowSegments().get(i + 1).getFlowElement();
+					if (elem instanceof Connection) {
+						conns.add((Connection) elem);
+					}
+				}
+				checkSubcomponentFlowHelper(segment, sub, conns);
+			}
+		}
+	}
+
+	/**
+	 * Check if one of the connections continues inside the subcomponent
+	 * @param segment - attach error to this model element
+	 * @param sub - subcomponent at which connections should end
+	 * @param conns - connection(s) immediately before/after the subcomponent
+	 */
+	private void checkSubcomponentFlowHelper(Element segment, Subcomponent sub, List<Connection> conns) {
+		for (Connection conn : conns) {
+			ConnectionEnd ce = null;
+			if (sub == conn.getAllSourceContext()) {
+				ce = conn.getAllSource();
+			} else if (sub == conn.getAllDestinationContext()) {
+				ce = conn.getAllDestination();
+			}
+			if (ce != null) {
+				for (Connection innerConn : sub.getComponentImplementation().getAllConnections()) {
+					if ((innerConn.getAllSourceContext() == null && innerConn.getAllSource() == ce)
+							|| (innerConn.getAllDestinationContext() == null && innerConn.getAllDestination() == ce)) {
+						// connection continues inside subcomponent
+						error(segment,
+								"Connection '" + conn.getName() + "' continues inside subcomponent '" + sub.getName()
+										+ "'");
+						break;
 					}
 				}
 			}
@@ -6703,30 +6900,14 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 	/**
 	 * check whether there are duplicate names
 	 */
-	public String hasDuplicatesPropertySet(PropertySet propSet) {
+	public void checkForDuplicatesPropertySet(PropertySet propSet) {
 		// project dependency based global scope
 		if (!propSet.getName().equals("AADL_Project")) {
 			List<IEObjectDescription> findings = ((Aadl2GlobalScopeProvider) scopeProvider).getDuplicates(propSet);
 			if (!findings.isEmpty()) {
-//				if (propSet.getName().equals("AADL_Project"))
-//				{
-//					IAadlWorkspace workspace;
-//					workspace = AadlWorkspace.getAadlWorkspace();
-//					IAadlProject[] aadlProjects = workspace.getOpenAadlProjects();
-//					for (int i = 0 ; i < aadlProjects.length ; i++)
-//					{
-//						IAadlProject aadlProject = aadlProjects[i];
-//						if (aadlProject.getAadlProjectFile() != null)
-//						{
-////							return;
-//						}
-//					}
-//
-//				}
-				return getNames(findings);
+				error(propSet, "Property set " + propSet.getName() + " has duplicates " + findings);
 			}
 		}
-		return null;
 	}
 
 	protected String getNames(List<IEObjectDescription> findings) {

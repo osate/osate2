@@ -44,7 +44,6 @@ import org.osate.aadl2.AbstractImplementation
 import org.osate.aadl2.AbstractType
 import org.osate.aadl2.BusType
 import org.osate.aadl2.ComponentType
-import org.osate.aadl2.FeatureGroup
 import org.osate.aadl2.FeatureGroupType
 import org.osate.aadl2.PropertySet
 import org.osate.aadl2.SubprogramImplementation
@@ -268,6 +267,14 @@ class OtherAadl2JavaValidatorTest extends OsateTest {
 						"fsource1".assertEquals(flowElement.name)
 						//Tests checkFlowConnectionOrder
 						assertError(testFileResult.issues, issueCollection, "Expected Data Access, Subcomponent, or Subcomponent.Flow Specification; found Flow Specification 'fsource1'")
+					]
+				]
+				ownedFlowImplementations.get(7) => [
+					"fsource4".assertEquals(specification.name)
+					ownedFlowSegments.get(0) => [
+						"asub1".assertEquals(flowElement.name)
+						//Tests checkFlowSubcomponentFlow
+						assertError(testFileResult.issues, issueCollection, "Connection 'fconn2' continues inside subcomponent 'asub1'")
 					]
 				]
 				ownedFlowImplementations.get(8) => [
@@ -1734,6 +1741,5 @@ class OtherAadl2JavaValidatorTest extends OsateTest {
 		issueCollection.sizeIs(issueCollection.issues.size)
 		assertConstraints(issueCollection)
 	}
-
 	
 }

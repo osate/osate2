@@ -32,8 +32,9 @@
 <repository location="http://download.eclipse.org/releases/luna/201502271000"/>
 </location>
 <location includeAllPlatforms="false" includeConfigurePhase="true" includeMode="planner" includeSource="false" type="InstallableUnit">
-<unit id="org.eclipse.xtext.redist.feature.group" version="2.7.3.v201411190455"/>
-<repository location="http://download.eclipse.org/modeling/tmf/xtext/updates/releases/maintenance/R201411190455"/>
+<unit id="org.eclipse.xtext.redist.feature.group" version="2.8.3.v201506010551"/>
+<unit id="org.eclipse.xtext.ui.feature.group" version="2.8.3.v201506010551"/>
+<repository location="http://download.eclipse.org/modeling/tmf/xtext/updates/releases/2.8.3/"/>
 </location>
 <!-- certware and dependencies -->
 <location includeAllPlatforms="false" includeConfigurePhase="true" includeMode="planner" includeSource="true" type="InstallableUnit">

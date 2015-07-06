@@ -66,10 +66,13 @@ import org.osate.aadl2.ModalElement
 import org.osate.aadl2.ModalPath
 import org.osate.aadl2.ModalPropertyValue
 import org.osate.aadl2.Mode
+import org.osate.aadl2.ModelUnit
 import org.osate.aadl2.NamedElement
 import org.osate.aadl2.NumericRange
+import org.osate.aadl2.PackageSection
 import org.osate.aadl2.PortSpecification
 import org.osate.aadl2.PropertyExpression
+import org.osate.aadl2.PropertySet
 import org.osate.aadl2.Subcomponent
 import org.osate.aadl2.UnitLiteral
 import org.osate.xtext.aadl2.properties.ui.quickfix.PropertiesQuickfixProvider
@@ -835,6 +838,30 @@ public class Aadl2QuickfixProvider extends PropertiesQuickfixProvider {
 				}
 			}
 		);
+	}
+
+	/**
+	 * QuickFix for adding a removing unused propertySet in packageSection with clause
+	 * The issue data array is expected to have two elements:
+	 *
+	 * issue.getData()[0]: The name of the package or property set
+	 * issue.getData()[1]: The URI String of the referenced AadlPackage or PropertySet.
+	 */
+	@Fix(Aadl2JavaValidator.WITH_NOT_USED)
+	def public void fixWithNotUsed(Issue issue, IssueResolutionAcceptor acceptor) {
+		acceptor.accept(issue, "Remove '" + issue.getData.get(0) + "' from the with clause", null, null,
+				new ISemanticModification() {
+					override public void apply(EObject element, IModificationContext context) throws Exception {
+						val ResourceSet resourceSet = element.eResource().getResourceSet()
+						val importedModelUnit = resourceSet.getEObject(	URI.createURI(issue.getData.get(1)), true) as ModelUnit
+						switch element{
+							PackageSection : element.importedUnits.remove(importedModelUnit)
+							PropertySet : {
+								element.importedUnits.remove(importedModelUnit)
+							}
+						}
+					}
+				});
 	}
 
 }

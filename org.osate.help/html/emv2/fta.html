@@ -105,6 +105,53 @@ As a consequence, in order to generate a complete FTA, we need first
 to define the composite error behavior of the main system instance.
 </p>
 
+<p>
+The tool browses the composite error model of the top-level component
+and process all the path of the error tree defined by the composite error
+model. Ultimately, leaf nodes are either <em>error states</em>, <em>error events</em> or
+<em>incoming error propagations</em>. For example, let's consider the following
+behavior model and component definition:
+</p>
+<pre>
+error behavior Simple
+events
+	Failure : error event ;
+states
+	Operational : initial state ;
+	Failed : state ;
+transitions
+	BadValueTransition : Operational -[ Failure ]-> Failed ;
+end behavior ;
+
+
+system s
+features
+	datain : in data port mydata; 
+annex EMV2 {**
+	use types ErrorModelLibrary;
+	use behavior ErrorModelLibrary::Simple;
+	
+	error propagations
+		datain : in propagation {BadValue};
+	flows
+		f0 : error sink datain {BadValue};
+	end propagations;
+	component error behavior
+	transitions
+		t0 : Operational -[datain{BadValue}]-> Failed;
+	end component;
+**};
+end s;
+</pre>
+
+<p>
+In that case, its transition to the failing state
+will be shown with the occurrence of an incoming
+error on <em>datain</em> or an occurrence of
+the error event <em>failure</em>.
+</p>
+
+<img src="fta-propagations.png"/>
 
 <h3>Example of produced XML file</h3>
 
@@ -116,8 +163,13 @@ to define the composite error behavior of the main system instance.
 	    to right-click on the installer and change the compatibility options and check,
 	    make sure to execute the software under the Windows 2000 compatibility mode.
 	 </li>
-	<li>Draft function under development</li>
-	<li>Need to be experienced on large models</li>
+	<li>At that point, when the same error event can contribute to several faults,
+	    it is duplicated in the FTA (with different identifiers). This is due to a limitation
+	    with the analysis tool.
+	</li>
+	<li>
+		Each event can only have two sub-events.
+	</li>
 </ul>
 
 </body>
