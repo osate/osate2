@@ -22,6 +22,7 @@ StakeholderGoals: 'stakeholder' 'goals' name=ID (':' title=STRING)?
 	( 'for' (target=[aadl2::Classifier|AADLCLASSIFIERREFERENCE] | targetDescription=STRING| global?='all'))
 	'[' 
 	(	 (  description=Description)? 
+	& (  constants+=XValDeclaration* )
 		&content+=( Goal )* 
 	    &('see' 'document'  docReference+=ExternalDocument+)? 
 		&('issues' issues+=STRING+ )?

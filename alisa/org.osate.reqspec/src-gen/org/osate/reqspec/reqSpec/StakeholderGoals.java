@@ -4,6 +4,8 @@ package org.osate.reqspec.reqSpec;
 
 import org.eclipse.emf.common.util.EList;
 
+import org.eclipse.xtext.xbase.XExpression;
+
 import org.osate.aadl2.Classifier;
 
 import org.osate.alisa.common.common.Description;
@@ -22,6 +24,7 @@ import org.osate.alisa.common.common.Description;
  *   <li>{@link org.osate.reqspec.reqSpec.StakeholderGoals#getTargetDescription <em>Target Description</em>}</li>
  *   <li>{@link org.osate.reqspec.reqSpec.StakeholderGoals#isGlobal <em>Global</em>}</li>
  *   <li>{@link org.osate.reqspec.reqSpec.StakeholderGoals#getDescription <em>Description</em>}</li>
+ *   <li>{@link org.osate.reqspec.reqSpec.StakeholderGoals#getConstants <em>Constants</em>}</li>
  *   <li>{@link org.osate.reqspec.reqSpec.StakeholderGoals#getContent <em>Content</em>}</li>
  *   <li>{@link org.osate.reqspec.reqSpec.StakeholderGoals#getDocReference <em>Doc Reference</em>}</li>
  *   <li>{@link org.osate.reqspec.reqSpec.StakeholderGoals#getIssues <em>Issues</em>}</li>
@@ -189,6 +192,22 @@ public interface StakeholderGoals extends ReqSpecContainer, ReqRoot
    * @generated
    */
   void setDescription(Description value);
+
+  /**
+   * Returns the value of the '<em><b>Constants</b></em>' containment reference list.
+   * The list contents are of type {@link org.eclipse.xtext.xbase.XExpression}.
+   * <!-- begin-user-doc -->
+   * <p>
+   * If the meaning of the '<em>Constants</em>' containment reference list isn't clear,
+   * there really should be more of a description here...
+   * </p>
+   * <!-- end-user-doc -->
+   * @return the value of the '<em>Constants</em>' containment reference list.
+   * @see org.osate.reqspec.reqSpec.ReqSpecPackage#getStakeholderGoals_Constants()
+   * @model containment="true"
+   * @generated
+   */
+  EList<XExpression> getConstants();
 
   /**
    * Returns the value of the '<em><b>Content</b></em>' containment reference list.

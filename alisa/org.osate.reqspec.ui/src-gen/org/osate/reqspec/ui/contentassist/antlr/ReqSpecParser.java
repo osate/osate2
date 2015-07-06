@@ -96,8 +96,8 @@ public class ReqSpecParser extends AbstractContentAssistParser {
 					put(grammarAccess.getStakeholderGoalsAccess().getGroup(), "rule__StakeholderGoals__Group__0");
 					put(grammarAccess.getStakeholderGoalsAccess().getGroup_3(), "rule__StakeholderGoals__Group_3__0");
 					put(grammarAccess.getStakeholderGoalsAccess().getGroup_4(), "rule__StakeholderGoals__Group_4__0");
-					put(grammarAccess.getStakeholderGoalsAccess().getGroup_6_2(), "rule__StakeholderGoals__Group_6_2__0");
 					put(grammarAccess.getStakeholderGoalsAccess().getGroup_6_3(), "rule__StakeholderGoals__Group_6_3__0");
+					put(grammarAccess.getStakeholderGoalsAccess().getGroup_6_4(), "rule__StakeholderGoals__Group_6_4__0");
 					put(grammarAccess.getReqDocumentAccess().getGroup(), "rule__ReqDocument__Group__0");
 					put(grammarAccess.getReqDocumentAccess().getGroup_2(), "rule__ReqDocument__Group_2__0");
 					put(grammarAccess.getReqDocumentAccess().getGroup_4_2(), "rule__ReqDocument__Group_4_2__0");
@@ -362,9 +362,10 @@ public class ReqSpecParser extends AbstractContentAssistParser {
 					put(grammarAccess.getStakeholderGoalsAccess().getTargetDescriptionAssignment_4_1_1(), "rule__StakeholderGoals__TargetDescriptionAssignment_4_1_1");
 					put(grammarAccess.getStakeholderGoalsAccess().getGlobalAssignment_4_1_2(), "rule__StakeholderGoals__GlobalAssignment_4_1_2");
 					put(grammarAccess.getStakeholderGoalsAccess().getDescriptionAssignment_6_0(), "rule__StakeholderGoals__DescriptionAssignment_6_0");
-					put(grammarAccess.getStakeholderGoalsAccess().getContentAssignment_6_1(), "rule__StakeholderGoals__ContentAssignment_6_1");
-					put(grammarAccess.getStakeholderGoalsAccess().getDocReferenceAssignment_6_2_2(), "rule__StakeholderGoals__DocReferenceAssignment_6_2_2");
-					put(grammarAccess.getStakeholderGoalsAccess().getIssuesAssignment_6_3_1(), "rule__StakeholderGoals__IssuesAssignment_6_3_1");
+					put(grammarAccess.getStakeholderGoalsAccess().getConstantsAssignment_6_1(), "rule__StakeholderGoals__ConstantsAssignment_6_1");
+					put(grammarAccess.getStakeholderGoalsAccess().getContentAssignment_6_2(), "rule__StakeholderGoals__ContentAssignment_6_2");
+					put(grammarAccess.getStakeholderGoalsAccess().getDocReferenceAssignment_6_3_2(), "rule__StakeholderGoals__DocReferenceAssignment_6_3_2");
+					put(grammarAccess.getStakeholderGoalsAccess().getIssuesAssignment_6_4_1(), "rule__StakeholderGoals__IssuesAssignment_6_4_1");
 					put(grammarAccess.getReqDocumentAccess().getNameAssignment_1(), "rule__ReqDocument__NameAssignment_1");
 					put(grammarAccess.getReqDocumentAccess().getTitleAssignment_2_1(), "rule__ReqDocument__TitleAssignment_2_1");
 					put(grammarAccess.getReqDocumentAccess().getDescriptionAssignment_4_0(), "rule__ReqDocument__DescriptionAssignment_4_0");

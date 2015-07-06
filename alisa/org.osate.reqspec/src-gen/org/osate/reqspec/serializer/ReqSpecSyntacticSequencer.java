@@ -40,8 +40,8 @@ public class ReqSpecSyntacticSequencer extends AbstractSyntacticSequencer {
 	protected AbstractElementAlias match_Requirement___SeeKeyword_5_11_0_DocumentKeyword_5_11_1_RequirementKeyword_5_11_2__q;
 	protected AbstractElementAlias match_Requirement___SeeKeyword_5_12_0_DocumentKeyword_5_12_1__q;
 	protected AbstractElementAlias match_Requirement___SeeKeyword_5_9_0_GoalKeyword_5_9_1__q;
-	protected AbstractElementAlias match_StakeholderGoals_IssuesKeyword_6_3_0_q;
-	protected AbstractElementAlias match_StakeholderGoals___SeeKeyword_6_2_0_DocumentKeyword_6_2_1__q;
+	protected AbstractElementAlias match_StakeholderGoals_IssuesKeyword_6_4_0_q;
+	protected AbstractElementAlias match_StakeholderGoals___SeeKeyword_6_3_0_DocumentKeyword_6_3_1__q;
 	protected AbstractElementAlias match_XBlockExpression_SemicolonKeyword_2_1_q;
 	protected AbstractElementAlias match_XExpressionInClosure_SemicolonKeyword_1_1_q;
 	protected AbstractElementAlias match_XFunctionTypeRef___LeftParenthesisKeyword_0_0_RightParenthesisKeyword_0_2__q;
@@ -71,8 +71,8 @@ public class ReqSpecSyntacticSequencer extends AbstractSyntacticSequencer {
 		match_Requirement___SeeKeyword_5_11_0_DocumentKeyword_5_11_1_RequirementKeyword_5_11_2__q = new GroupAlias(false, true, new TokenAlias(false, false, grammarAccess.getRequirementAccess().getSeeKeyword_5_11_0()), new TokenAlias(false, false, grammarAccess.getRequirementAccess().getDocumentKeyword_5_11_1()), new TokenAlias(false, false, grammarAccess.getRequirementAccess().getRequirementKeyword_5_11_2()));
 		match_Requirement___SeeKeyword_5_12_0_DocumentKeyword_5_12_1__q = new GroupAlias(false, true, new TokenAlias(false, false, grammarAccess.getRequirementAccess().getSeeKeyword_5_12_0()), new TokenAlias(false, false, grammarAccess.getRequirementAccess().getDocumentKeyword_5_12_1()));
 		match_Requirement___SeeKeyword_5_9_0_GoalKeyword_5_9_1__q = new GroupAlias(false, true, new TokenAlias(false, false, grammarAccess.getRequirementAccess().getSeeKeyword_5_9_0()), new TokenAlias(false, false, grammarAccess.getRequirementAccess().getGoalKeyword_5_9_1()));
-		match_StakeholderGoals_IssuesKeyword_6_3_0_q = new TokenAlias(false, true, grammarAccess.getStakeholderGoalsAccess().getIssuesKeyword_6_3_0());
-		match_StakeholderGoals___SeeKeyword_6_2_0_DocumentKeyword_6_2_1__q = new GroupAlias(false, true, new TokenAlias(false, false, grammarAccess.getStakeholderGoalsAccess().getSeeKeyword_6_2_0()), new TokenAlias(false, false, grammarAccess.getStakeholderGoalsAccess().getDocumentKeyword_6_2_1()));
+		match_StakeholderGoals_IssuesKeyword_6_4_0_q = new TokenAlias(false, true, grammarAccess.getStakeholderGoalsAccess().getIssuesKeyword_6_4_0());
+		match_StakeholderGoals___SeeKeyword_6_3_0_DocumentKeyword_6_3_1__q = new GroupAlias(false, true, new TokenAlias(false, false, grammarAccess.getStakeholderGoalsAccess().getSeeKeyword_6_3_0()), new TokenAlias(false, false, grammarAccess.getStakeholderGoalsAccess().getDocumentKeyword_6_3_1()));
 		match_XBlockExpression_SemicolonKeyword_2_1_q = new TokenAlias(false, true, grammarAccess.getXBlockExpressionAccess().getSemicolonKeyword_2_1());
 		match_XExpressionInClosure_SemicolonKeyword_1_1_q = new TokenAlias(false, true, grammarAccess.getXExpressionInClosureAccess().getSemicolonKeyword_1_1());
 		match_XFunctionTypeRef___LeftParenthesisKeyword_0_0_RightParenthesisKeyword_0_2__q = new GroupAlias(false, true, new TokenAlias(false, false, grammarAccess.getXFunctionTypeRefAccess().getLeftParenthesisKeyword_0_0()), new TokenAlias(false, false, grammarAccess.getXFunctionTypeRefAccess().getRightParenthesisKeyword_0_2()));
@@ -156,10 +156,10 @@ public class ReqSpecSyntacticSequencer extends AbstractSyntacticSequencer {
 				emit_Requirement___SeeKeyword_5_12_0_DocumentKeyword_5_12_1__q(semanticObject, getLastNavigableState(), syntaxNodes);
 			else if(match_Requirement___SeeKeyword_5_9_0_GoalKeyword_5_9_1__q.equals(syntax))
 				emit_Requirement___SeeKeyword_5_9_0_GoalKeyword_5_9_1__q(semanticObject, getLastNavigableState(), syntaxNodes);
-			else if(match_StakeholderGoals_IssuesKeyword_6_3_0_q.equals(syntax))
-				emit_StakeholderGoals_IssuesKeyword_6_3_0_q(semanticObject, getLastNavigableState(), syntaxNodes);
-			else if(match_StakeholderGoals___SeeKeyword_6_2_0_DocumentKeyword_6_2_1__q.equals(syntax))
-				emit_StakeholderGoals___SeeKeyword_6_2_0_DocumentKeyword_6_2_1__q(semanticObject, getLastNavigableState(), syntaxNodes);
+			else if(match_StakeholderGoals_IssuesKeyword_6_4_0_q.equals(syntax))
+				emit_StakeholderGoals_IssuesKeyword_6_4_0_q(semanticObject, getLastNavigableState(), syntaxNodes);
+			else if(match_StakeholderGoals___SeeKeyword_6_3_0_DocumentKeyword_6_3_1__q.equals(syntax))
+				emit_StakeholderGoals___SeeKeyword_6_3_0_DocumentKeyword_6_3_1__q(semanticObject, getLastNavigableState(), syntaxNodes);
 			else if(match_XBlockExpression_SemicolonKeyword_2_1_q.equals(syntax))
 				emit_XBlockExpression_SemicolonKeyword_2_1_q(semanticObject, getLastNavigableState(), syntaxNodes);
 			else if(match_XExpressionInClosure_SemicolonKeyword_1_1_q.equals(syntax))
@@ -446,7 +446,7 @@ public class ReqSpecSyntacticSequencer extends AbstractSyntacticSequencer {
 	 * This ambiguous syntax occurs at:
 	 *     issues+=STRING (ambiguity) issues+=STRING
 	 */
-	protected void emit_StakeholderGoals_IssuesKeyword_6_3_0_q(EObject semanticObject, ISynNavigable transition, List<INode> nodes) {
+	protected void emit_StakeholderGoals_IssuesKeyword_6_4_0_q(EObject semanticObject, ISynNavigable transition, List<INode> nodes) {
 		acceptNodes(transition, nodes);
 	}
 	
@@ -457,7 +457,7 @@ public class ReqSpecSyntacticSequencer extends AbstractSyntacticSequencer {
 	 * This ambiguous syntax occurs at:
 	 *     docReference+=ExternalDocument (ambiguity) docReference+=ExternalDocument
 	 */
-	protected void emit_StakeholderGoals___SeeKeyword_6_2_0_DocumentKeyword_6_2_1__q(EObject semanticObject, ISynNavigable transition, List<INode> nodes) {
+	protected void emit_StakeholderGoals___SeeKeyword_6_3_0_DocumentKeyword_6_3_1__q(EObject semanticObject, ISynNavigable transition, List<INode> nodes) {
 		acceptNodes(transition, nodes);
 	}
 	

@@ -19,6 +19,8 @@ import org.eclipse.emf.ecore.util.EDataTypeEList;
 import org.eclipse.emf.ecore.util.EObjectContainmentEList;
 import org.eclipse.emf.ecore.util.InternalEList;
 
+import org.eclipse.xtext.xbase.XExpression;
+
 import org.osate.aadl2.Classifier;
 
 import org.osate.alisa.common.common.Description;
@@ -41,6 +43,7 @@ import org.osate.reqspec.reqSpec.StakeholderGoals;
  *   <li>{@link org.osate.reqspec.reqSpec.impl.StakeholderGoalsImpl#getTargetDescription <em>Target Description</em>}</li>
  *   <li>{@link org.osate.reqspec.reqSpec.impl.StakeholderGoalsImpl#isGlobal <em>Global</em>}</li>
  *   <li>{@link org.osate.reqspec.reqSpec.impl.StakeholderGoalsImpl#getDescription <em>Description</em>}</li>
+ *   <li>{@link org.osate.reqspec.reqSpec.impl.StakeholderGoalsImpl#getConstants <em>Constants</em>}</li>
  *   <li>{@link org.osate.reqspec.reqSpec.impl.StakeholderGoalsImpl#getContent <em>Content</em>}</li>
  *   <li>{@link org.osate.reqspec.reqSpec.impl.StakeholderGoalsImpl#getDocReference <em>Doc Reference</em>}</li>
  *   <li>{@link org.osate.reqspec.reqSpec.impl.StakeholderGoalsImpl#getIssues <em>Issues</em>}</li>
@@ -150,6 +153,16 @@ public class StakeholderGoalsImpl extends ReqSpecContainerImpl implements Stakeh
    * @ordered
    */
   protected Description description;
+
+  /**
+   * The cached value of the '{@link #getConstants() <em>Constants</em>}' containment reference list.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see #getConstants()
+   * @generated
+   * @ordered
+   */
+  protected EList<XExpression> constants;
 
   /**
    * The cached value of the '{@link #getContent() <em>Content</em>}' containment reference list.
@@ -390,6 +403,20 @@ public class StakeholderGoalsImpl extends ReqSpecContainerImpl implements Stakeh
    * <!-- end-user-doc -->
    * @generated
    */
+  public EList<XExpression> getConstants()
+  {
+    if (constants == null)
+    {
+      constants = new EObjectContainmentEList<XExpression>(XExpression.class, this, ReqSpecPackage.STAKEHOLDER_GOALS__CONSTANTS);
+    }
+    return constants;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
   public EList<Goal> getContent()
   {
     if (content == null)
@@ -439,6 +466,8 @@ public class StakeholderGoalsImpl extends ReqSpecContainerImpl implements Stakeh
     {
       case ReqSpecPackage.STAKEHOLDER_GOALS__DESCRIPTION:
         return basicSetDescription(null, msgs);
+      case ReqSpecPackage.STAKEHOLDER_GOALS__CONSTANTS:
+        return ((InternalEList<?>)getConstants()).basicRemove(otherEnd, msgs);
       case ReqSpecPackage.STAKEHOLDER_GOALS__CONTENT:
         return ((InternalEList<?>)getContent()).basicRemove(otherEnd, msgs);
       case ReqSpecPackage.STAKEHOLDER_GOALS__DOC_REFERENCE:
@@ -470,6 +499,8 @@ public class StakeholderGoalsImpl extends ReqSpecContainerImpl implements Stakeh
         return isGlobal();
       case ReqSpecPackage.STAKEHOLDER_GOALS__DESCRIPTION:
         return getDescription();
+      case ReqSpecPackage.STAKEHOLDER_GOALS__CONSTANTS:
+        return getConstants();
       case ReqSpecPackage.STAKEHOLDER_GOALS__CONTENT:
         return getContent();
       case ReqSpecPackage.STAKEHOLDER_GOALS__DOC_REFERENCE:
@@ -508,6 +539,10 @@ public class StakeholderGoalsImpl extends ReqSpecContainerImpl implements Stakeh
         return;
       case ReqSpecPackage.STAKEHOLDER_GOALS__DESCRIPTION:
         setDescription((Description)newValue);
+        return;
+      case ReqSpecPackage.STAKEHOLDER_GOALS__CONSTANTS:
+        getConstants().clear();
+        getConstants().addAll((Collection<? extends XExpression>)newValue);
         return;
       case ReqSpecPackage.STAKEHOLDER_GOALS__CONTENT:
         getContent().clear();
@@ -553,6 +588,9 @@ public class StakeholderGoalsImpl extends ReqSpecContainerImpl implements Stakeh
       case ReqSpecPackage.STAKEHOLDER_GOALS__DESCRIPTION:
         setDescription((Description)null);
         return;
+      case ReqSpecPackage.STAKEHOLDER_GOALS__CONSTANTS:
+        getConstants().clear();
+        return;
       case ReqSpecPackage.STAKEHOLDER_GOALS__CONTENT:
         getContent().clear();
         return;
@@ -588,6 +626,8 @@ public class StakeholderGoalsImpl extends ReqSpecContainerImpl implements Stakeh
         return global != GLOBAL_EDEFAULT;
       case ReqSpecPackage.STAKEHOLDER_GOALS__DESCRIPTION:
         return description != null;
+      case ReqSpecPackage.STAKEHOLDER_GOALS__CONSTANTS:
+        return constants != null && !constants.isEmpty();
       case ReqSpecPackage.STAKEHOLDER_GOALS__CONTENT:
         return content != null && !content.isEmpty();
       case ReqSpecPackage.STAKEHOLDER_GOALS__DOC_REFERENCE:

@@ -146,28 +146,30 @@ public class ReqSpecGrammarAccess extends AbstractGrammarElementFinder {
 		private final UnorderedGroup cUnorderedGroup_6 = (UnorderedGroup)cGroup.eContents().get(6);
 		private final Assignment cDescriptionAssignment_6_0 = (Assignment)cUnorderedGroup_6.eContents().get(0);
 		private final RuleCall cDescriptionDescriptionParserRuleCall_6_0_0 = (RuleCall)cDescriptionAssignment_6_0.eContents().get(0);
-		private final Assignment cContentAssignment_6_1 = (Assignment)cUnorderedGroup_6.eContents().get(1);
-		private final RuleCall cContentGoalParserRuleCall_6_1_0 = (RuleCall)cContentAssignment_6_1.eContents().get(0);
-		private final Group cGroup_6_2 = (Group)cUnorderedGroup_6.eContents().get(2);
-		private final Keyword cSeeKeyword_6_2_0 = (Keyword)cGroup_6_2.eContents().get(0);
-		private final Keyword cDocumentKeyword_6_2_1 = (Keyword)cGroup_6_2.eContents().get(1);
-		private final Assignment cDocReferenceAssignment_6_2_2 = (Assignment)cGroup_6_2.eContents().get(2);
-		private final RuleCall cDocReferenceExternalDocumentParserRuleCall_6_2_2_0 = (RuleCall)cDocReferenceAssignment_6_2_2.eContents().get(0);
+		private final Assignment cConstantsAssignment_6_1 = (Assignment)cUnorderedGroup_6.eContents().get(1);
+		private final RuleCall cConstantsXValDeclarationParserRuleCall_6_1_0 = (RuleCall)cConstantsAssignment_6_1.eContents().get(0);
+		private final Assignment cContentAssignment_6_2 = (Assignment)cUnorderedGroup_6.eContents().get(2);
+		private final RuleCall cContentGoalParserRuleCall_6_2_0 = (RuleCall)cContentAssignment_6_2.eContents().get(0);
 		private final Group cGroup_6_3 = (Group)cUnorderedGroup_6.eContents().get(3);
-		private final Keyword cIssuesKeyword_6_3_0 = (Keyword)cGroup_6_3.eContents().get(0);
-		private final Assignment cIssuesAssignment_6_3_1 = (Assignment)cGroup_6_3.eContents().get(1);
-		private final RuleCall cIssuesSTRINGTerminalRuleCall_6_3_1_0 = (RuleCall)cIssuesAssignment_6_3_1.eContents().get(0);
+		private final Keyword cSeeKeyword_6_3_0 = (Keyword)cGroup_6_3.eContents().get(0);
+		private final Keyword cDocumentKeyword_6_3_1 = (Keyword)cGroup_6_3.eContents().get(1);
+		private final Assignment cDocReferenceAssignment_6_3_2 = (Assignment)cGroup_6_3.eContents().get(2);
+		private final RuleCall cDocReferenceExternalDocumentParserRuleCall_6_3_2_0 = (RuleCall)cDocReferenceAssignment_6_3_2.eContents().get(0);
+		private final Group cGroup_6_4 = (Group)cUnorderedGroup_6.eContents().get(4);
+		private final Keyword cIssuesKeyword_6_4_0 = (Keyword)cGroup_6_4.eContents().get(0);
+		private final Assignment cIssuesAssignment_6_4_1 = (Assignment)cGroup_6_4.eContents().get(1);
+		private final RuleCall cIssuesSTRINGTerminalRuleCall_6_4_1_0 = (RuleCall)cIssuesAssignment_6_4_1.eContents().get(0);
 		private final Keyword cRightSquareBracketKeyword_7 = (Keyword)cGroup.eContents().get(7);
 		
 		//StakeholderGoals:
 		//	"stakeholder" "goals" name=ID (":" title=STRING)? ("for" (target=[aadl2::Classifier|AADLCLASSIFIERREFERENCE] |
-		//	targetDescription=STRING | global?="all")) "[" (description=Description? & content+=Goal* & ("see" "document"
-		//	docReference+=ExternalDocument+)? & ("issues" issues+=STRING+)?) "]";
+		//	targetDescription=STRING | global?="all")) "[" (description=Description? & constants+=XValDeclaration* &
+		//	content+=Goal* & ("see" "document" docReference+=ExternalDocument+)? & ("issues" issues+=STRING+)?) "]";
 		@Override public ParserRule getRule() { return rule; }
 
 		//"stakeholder" "goals" name=ID (":" title=STRING)? ("for" (target=[aadl2::Classifier|AADLCLASSIFIERREFERENCE] |
-		//targetDescription=STRING | global?="all")) "[" (description=Description? & content+=Goal* & ("see" "document"
-		//docReference+=ExternalDocument+)? & ("issues" issues+=STRING+)?) "]"
+		//targetDescription=STRING | global?="all")) "[" (description=Description? & constants+=XValDeclaration* &
+		//content+=Goal* & ("see" "document" docReference+=ExternalDocument+)? & ("issues" issues+=STRING+)?) "]"
 		public Group getGroup() { return cGroup; }
 
 		//"stakeholder"
@@ -227,8 +229,8 @@ public class ReqSpecGrammarAccess extends AbstractGrammarElementFinder {
 		//"["
 		public Keyword getLeftSquareBracketKeyword_5() { return cLeftSquareBracketKeyword_5; }
 
-		//description=Description? & content+=Goal* & ("see" "document" docReference+=ExternalDocument+)? & ("issues"
-		//issues+=STRING+)?
+		//description=Description? & constants+=XValDeclaration* & content+=Goal* & ("see" "document"
+		//docReference+=ExternalDocument+)? & ("issues" issues+=STRING+)?
 		public UnorderedGroup getUnorderedGroup_6() { return cUnorderedGroup_6; }
 
 		//description=Description?
@@ -237,38 +239,44 @@ public class ReqSpecGrammarAccess extends AbstractGrammarElementFinder {
 		//Description
 		public RuleCall getDescriptionDescriptionParserRuleCall_6_0_0() { return cDescriptionDescriptionParserRuleCall_6_0_0; }
 
+		//constants+=XValDeclaration*
+		public Assignment getConstantsAssignment_6_1() { return cConstantsAssignment_6_1; }
+
+		//XValDeclaration
+		public RuleCall getConstantsXValDeclarationParserRuleCall_6_1_0() { return cConstantsXValDeclarationParserRuleCall_6_1_0; }
+
 		//content+=Goal*
-		public Assignment getContentAssignment_6_1() { return cContentAssignment_6_1; }
+		public Assignment getContentAssignment_6_2() { return cContentAssignment_6_2; }
 
 		//Goal
-		public RuleCall getContentGoalParserRuleCall_6_1_0() { return cContentGoalParserRuleCall_6_1_0; }
+		public RuleCall getContentGoalParserRuleCall_6_2_0() { return cContentGoalParserRuleCall_6_2_0; }
 
 		//("see" "document" docReference+=ExternalDocument+)?
-		public Group getGroup_6_2() { return cGroup_6_2; }
-
-		//"see"
-		public Keyword getSeeKeyword_6_2_0() { return cSeeKeyword_6_2_0; }
-
-		//"document"
-		public Keyword getDocumentKeyword_6_2_1() { return cDocumentKeyword_6_2_1; }
-
-		//docReference+=ExternalDocument+
-		public Assignment getDocReferenceAssignment_6_2_2() { return cDocReferenceAssignment_6_2_2; }
-
-		//ExternalDocument
-		public RuleCall getDocReferenceExternalDocumentParserRuleCall_6_2_2_0() { return cDocReferenceExternalDocumentParserRuleCall_6_2_2_0; }
-
-		//("issues" issues+=STRING+)?
 		public Group getGroup_6_3() { return cGroup_6_3; }
 
+		//"see"
+		public Keyword getSeeKeyword_6_3_0() { return cSeeKeyword_6_3_0; }
+
+		//"document"
+		public Keyword getDocumentKeyword_6_3_1() { return cDocumentKeyword_6_3_1; }
+
+		//docReference+=ExternalDocument+
+		public Assignment getDocReferenceAssignment_6_3_2() { return cDocReferenceAssignment_6_3_2; }
+
+		//ExternalDocument
+		public RuleCall getDocReferenceExternalDocumentParserRuleCall_6_3_2_0() { return cDocReferenceExternalDocumentParserRuleCall_6_3_2_0; }
+
+		//("issues" issues+=STRING+)?
+		public Group getGroup_6_4() { return cGroup_6_4; }
+
 		//"issues"
-		public Keyword getIssuesKeyword_6_3_0() { return cIssuesKeyword_6_3_0; }
+		public Keyword getIssuesKeyword_6_4_0() { return cIssuesKeyword_6_4_0; }
 
 		//issues+=STRING+
-		public Assignment getIssuesAssignment_6_3_1() { return cIssuesAssignment_6_3_1; }
+		public Assignment getIssuesAssignment_6_4_1() { return cIssuesAssignment_6_4_1; }
 
 		//STRING
-		public RuleCall getIssuesSTRINGTerminalRuleCall_6_3_1_0() { return cIssuesSTRINGTerminalRuleCall_6_3_1_0; }
+		public RuleCall getIssuesSTRINGTerminalRuleCall_6_4_1_0() { return cIssuesSTRINGTerminalRuleCall_6_4_1_0; }
 
 		//"]"
 		public Keyword getRightSquareBracketKeyword_7() { return cRightSquareBracketKeyword_7; }
@@ -1826,8 +1834,8 @@ public class ReqSpecGrammarAccess extends AbstractGrammarElementFinder {
 
 	//StakeholderGoals:
 	//	"stakeholder" "goals" name=ID (":" title=STRING)? ("for" (target=[aadl2::Classifier|AADLCLASSIFIERREFERENCE] |
-	//	targetDescription=STRING | global?="all")) "[" (description=Description? & content+=Goal* & ("see" "document"
-	//	docReference+=ExternalDocument+)? & ("issues" issues+=STRING+)?) "]";
+	//	targetDescription=STRING | global?="all")) "[" (description=Description? & constants+=XValDeclaration* &
+	//	content+=Goal* & ("see" "document" docReference+=ExternalDocument+)? & ("issues" issues+=STRING+)?) "]";
 	public StakeholderGoalsElements getStakeholderGoalsAccess() {
 		return pStakeholderGoals;
 	}
