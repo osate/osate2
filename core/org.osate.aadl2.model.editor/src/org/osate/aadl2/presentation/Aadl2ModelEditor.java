@@ -1,38 +1,17 @@
 /**
  * <copyright>
- * Copyright  2008 by Carnegie Mellon University, all rights reserved.
  *
- * Use of the Open Source AADL Tool Environment (OSATE) is subject to the terms of the license set forth
- * at http://www.eclipse.org/org/documents/epl-v10.html.
+ * Copyright (c) 2005, 2007 IBM Corporation and others.
+ * All rights reserved.   This program and the accompanying materials
+ * are made available under the terms of the Eclipse Public License v1.0
+ * which accompanies this distribution, and is available at
+ * http://www.eclipse.org/legal/epl-v10.html
  *
- * NO WARRANTY
+ * Contributors:
+ *   IBM - Initial API and implementation
+ *   CMU/SEI - modifications for OSATE
  *
- * ANY INFORMATION, MATERIALS, SERVICES, INTELLECTUAL PROPERTY OR OTHER PROPERTY OR RIGHTS GRANTED OR PROVIDED BY
- * CARNEGIE MELLON UNIVERSITY PURSUANT TO THIS LICENSE (HEREINAFTER THE ''DELIVERABLES'') ARE ON AN ''AS-IS'' BASIS.
- * CARNEGIE MELLON UNIVERSITY MAKES NO WARRANTIES OF ANY KIND, EITHER EXPRESS OR IMPLIED AS TO ANY MATTER INCLUDING,
- * BUT NOT LIMITED TO, WARRANTY OF FITNESS FOR A PARTICULAR PURPOSE, MERCHANTABILITY, INFORMATIONAL CONTENT,
- * NONINFRINGEMENT, OR ERROR-FREE OPERATION. CARNEGIE MELLON UNIVERSITY SHALL NOT BE LIABLE FOR INDIRECT, SPECIAL OR
- * CONSEQUENTIAL DAMAGES, SUCH AS LOSS OF PROFITS OR INABILITY TO USE SAID INTELLECTUAL PROPERTY, UNDER THIS LICENSE,
- * REGARDLESS OF WHETHER SUCH PARTY WAS AWARE OF THE POSSIBILITY OF SUCH DAMAGES. LICENSEE AGREES THAT IT WILL NOT
- * MAKE ANY WARRANTY ON BEHALF OF CARNEGIE MELLON UNIVERSITY, EXPRESS OR IMPLIED, TO ANY PERSON CONCERNING THE
- * APPLICATION OF OR THE RESULTS TO BE OBTAINED WITH THE DELIVERABLES UNDER THIS LICENSE.
- *
- * Licensee hereby agrees to defend, indemnify, and hold harmless Carnegie Mellon University, its trustees, officers,
- * employees, and agents from all claims or demands made against them (and any related losses, expenses, or
- * attorney's fees) arising out of, or relating to Licensee's and/or its sub licensees' negligent use or willful
- * misuse of or negligent conduct or willful misconduct regarding the Software, facilities, or other rights or
- * assistance granted by Carnegie Mellon University under this License, including, but not limited to, any claims of
- * product liability, personal injury, death, damage to property, or violation of any laws or regulations.
- *
- * Carnegie Mellon University Software Engineering Institute authored documents are sponsored by the U.S. Department
- * of Defense under Contract F19628-00-C-0003. Carnegie Mellon University retains copyrights in all material produced
- * under this contract. The U.S. Government retains a non-exclusive, royalty-free license to publish or reproduce these
- * documents, or allow others to do so, for U.S. Government purposes only pursuant to the copyright license
- * under the contract clause at 252.227.7013.
  * </copyright>
- *
- *
- * $Id: Aadl2ModelEditor.java,v 1.3 2009-12-01 15:31:10 lwrage Exp $
  */
 package org.osate.aadl2.presentation;
 
@@ -67,6 +46,7 @@ import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.ui.MarkerHelper;
 import org.eclipse.emf.common.ui.ViewerPane;
 import org.eclipse.emf.common.ui.editor.ProblemEditorPart;
+import org.eclipse.emf.common.ui.viewer.ColumnViewerInformationControlToolTipSupport;
 import org.eclipse.emf.common.ui.viewer.IViewerProvider;
 import org.eclipse.emf.common.util.BasicDiagnostic;
 import org.eclipse.emf.common.util.Diagnostic;
@@ -90,6 +70,8 @@ import org.eclipse.emf.edit.ui.celleditor.AdapterFactoryTreeEditor;
 import org.eclipse.emf.edit.ui.dnd.EditingDomainViewerDropAdapter;
 import org.eclipse.emf.edit.ui.dnd.LocalTransfer;
 import org.eclipse.emf.edit.ui.dnd.ViewerDragAdapter;
+import org.eclipse.emf.edit.ui.provider.DecoratingColumLabelProvider;
+import org.eclipse.emf.edit.ui.provider.DiagnosticDecorator;
 import org.eclipse.emf.edit.ui.provider.UnwrappingSelectionProvider;
 import org.eclipse.emf.edit.ui.util.EditUIMarkerHelper;
 import org.eclipse.emf.edit.ui.util.EditUIUtil;
@@ -100,7 +82,6 @@ import org.eclipse.emf.transaction.ui.provider.TransactionalAdapterFactoryLabelP
 import org.eclipse.emf.workspace.EMFCommandOperation;
 import org.eclipse.emf.workspace.IWorkspaceCommandStack;
 import org.eclipse.emf.workspace.ResourceUndoContext;
-import org.eclipse.emf.workspace.util.WorkspaceSynchronizer;
 import org.eclipse.jface.action.IMenuListener;
 import org.eclipse.jface.action.IMenuManager;
 import org.eclipse.jface.action.IStatusLineManager;
@@ -150,6 +131,7 @@ import org.eclipse.ui.views.properties.PropertySheetPage;
 import org.osate.aadl2.PropertyAssociation;
 import org.osate.aadl2.instance.provider.InstanceItemProviderAdapterFactory;
 import org.osate.aadl2.provider.Aadl2ItemProviderAdapterFactory;
+import org.osate.emf.workspace.util.WorkspaceSynchronizer;
 
 /**
  * This is an example of a Instance model editor.
@@ -597,6 +579,14 @@ public class Aadl2ModelEditor extends MultiPageEditorPart implements IEditingDom
 			}
 
 			@Override
+			public boolean handleResourceMarkersChanged(Resource resource, IFile file) {
+				DiagnosticDecorator.DiagnosticAdapter.update(resource,
+						markerHelper.getMarkerDiagnostics(resource, file));
+
+				return true;
+			}
+
+			@Override
 			public void dispose() {
 				removedResources.clear();
 				changedResources.clear();
@@ -757,9 +747,6 @@ public class Aadl2ModelEditor extends MultiPageEditorPart implements IEditingDom
 
 		// Get the registered workbench editing domain.
 		//
-		// XXX separate vs. shared resource set
-//		editingDomain =
-//				(AdapterFactoryEditingDomain) new ModelEditingDomainFactory().createEditingDomain();
 		editingDomain = (AdapterFactoryEditingDomain) TransactionalEditingDomain.Registry.INSTANCE
 				.getEditingDomain("org.osate.aadl2.ModelEditingDomain"); //$NON-NLS-1$
 		undoContext = new ObjectUndoContext(this, Aadl2EditorPlugin.getPlugin().getString("_UI_InstanceEditor_label")); //$NON-NLS-1$
@@ -1084,8 +1071,10 @@ public class Aadl2ModelEditor extends MultiPageEditorPart implements IEditingDom
 						(TransactionalEditingDomain) getEditingDomain(), adapterFactory));
 
 				// .CUSTOM: Use a transactional label provider
-				selectionViewer.setLabelProvider(new TransactionalAdapterFactoryLabelProvider(
-						(TransactionalEditingDomain) getEditingDomain(), adapterFactory));
+				selectionViewer.setLabelProvider(new DecoratingColumLabelProvider(
+						new TransactionalAdapterFactoryLabelProvider((TransactionalEditingDomain) getEditingDomain(),
+								adapterFactory), new DiagnosticDecorator(editingDomain, selectionViewer,
+								Aadl2EditorPlugin.getPlugin().getDialogSettings())));
 
 				// .CUSTOM: I edit only a single resource
 				selectionViewer.setInput(getResource());
@@ -1093,6 +1082,8 @@ public class Aadl2ModelEditor extends MultiPageEditorPart implements IEditingDom
 				viewerPane.setTitle(getResource());
 
 				new AdapterFactoryTreeEditor(selectionViewer.getTree(), adapterFactory);
+				new ColumnViewerInformationControlToolTipSupport(selectionViewer,
+						new DiagnosticDecorator.EditingDomainLocationListener(editingDomain, selectionViewer));
 
 				createContextMenuFor(selectionViewer);
 				int pageIndex = addPage(viewerPane.getControl());
@@ -1166,9 +1157,8 @@ public class Aadl2ModelEditor extends MultiPageEditorPart implements IEditingDom
 	 * <!-- end-user-doc -->
 	 * @generated NOT
 	 */
-	@SuppressWarnings("unchecked")
 	@Override
-	public Object getAdapter(Class key) {
+	public Object getAdapter(@SuppressWarnings("rawtypes") Class key) {
 		if (key.equals(IContentOutlinePage.class)) {
 			return showOutlineView() ? getContentOutlinePage() : null;
 		} else if (key.equals(IPropertySheetPage.class)) {
@@ -1207,8 +1197,11 @@ public class Aadl2ModelEditor extends MultiPageEditorPart implements IEditingDom
 							(TransactionalEditingDomain) getEditingDomain(), adapterFactory));
 
 					// .CUSTOM: Use transactional label provider
-					contentOutlineViewer.setLabelProvider(new TransactionalAdapterFactoryLabelProvider(
-							(TransactionalEditingDomain) getEditingDomain(), adapterFactory));
+					contentOutlineViewer.setLabelProvider(new DecoratingColumLabelProvider(
+							new TransactionalAdapterFactoryLabelProvider(
+									(TransactionalEditingDomain) getEditingDomain(), adapterFactory),
+							new DiagnosticDecorator(editingDomain, contentOutlineViewer, Aadl2EditorPlugin.getPlugin()
+									.getDialogSettings())));
 
 					contentOutlineViewer.addFilter(new ViewerFilter() {
 						@Override
@@ -1218,6 +1211,9 @@ public class Aadl2ModelEditor extends MultiPageEditorPart implements IEditingDom
 					});
 					// .CUSTOM: I edit only a single resource, not a resource set
 					contentOutlineViewer.setInput(getResource());
+
+					new ColumnViewerInformationControlToolTipSupport(contentOutlineViewer,
+							new DiagnosticDecorator.EditingDomainLocationListener(editingDomain, contentOutlineViewer));
 
 					// Make sure our popups work.
 					//
@@ -1272,7 +1268,8 @@ public class Aadl2ModelEditor extends MultiPageEditorPart implements IEditingDom
 	 */
 	public IPropertySheetPage getPropertySheetPage() {
 		if (propertySheetPage == null) {
-			propertySheetPage = new ExtendedPropertySheetPage(editingDomain) {
+			propertySheetPage = new ExtendedPropertySheetPage(editingDomain, ExtendedPropertySheetPage.Decoration.LIVE,
+					Aadl2EditorPlugin.getPlugin().getDialogSettings()) {
 				@Override
 				public void setSelectionToViewer(List<?> selection) {
 					Aadl2ModelEditor.this.setSelectionToViewer(selection);
@@ -1722,9 +1719,8 @@ public class Aadl2ModelEditor extends MultiPageEditorPart implements IEditingDom
 		// So, we must unload it explicitly. Also remove our problem
 		// indication adapter
 
-		// XXX XXX should not remove the resource possibly not even unload it
-//		getResource().unload();
-//		editingDomain.getResourceSet().getResources().remove(getResource());
+		getResource().unload();
+		editingDomain.getResourceSet().getResources().remove(getResource());
 		editingDomain.getResourceSet().eAdapters().remove(problemIndicationAdapter);
 
 		getSite().getPage().removePartListener(partListener);

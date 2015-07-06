@@ -35,13 +35,12 @@
  */
 package org.osate.aadl2;
 
-import java.util.List;
-
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EClass;
 import org.osate.aadl2.properties.EvaluatedProperty;
 import org.osate.aadl2.properties.EvaluationContext;
 import org.osate.aadl2.properties.InvalidModelException;
+import org.osate.aadl2.properties.PropertyEvaluationResult;
 
 /**
  * <!-- begin-user-doc -->
@@ -242,7 +241,7 @@ public interface Property extends BasicProperty, AbstractNamedValue, ArraySizePr
 	 * @throws InvalidModelException Thrown if there is a problem with the
 	 * model that prevents the property value from being evaluated.
 	 */
-	List<EvaluatedProperty> evaluate(EvaluationContext ctx);
+	PropertyEvaluationResult evaluate(EvaluationContext ctx);
 
 	EvaluatedProperty evaluateDefault(EvaluationContext ctx);
 

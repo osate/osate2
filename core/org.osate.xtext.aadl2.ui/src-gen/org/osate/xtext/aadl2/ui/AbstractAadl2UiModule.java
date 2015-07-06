@@ -4,14 +4,13 @@
  */
 package org.osate.xtext.aadl2.ui;
 
-import org.eclipse.xtext.ui.DefaultUiModule;
 import org.eclipse.ui.plugin.AbstractUIPlugin;
 
 /**
  * Manual modifications go to {org.osate.xtext.aadl2.ui.Aadl2UiModule}
  */
 @SuppressWarnings("all")
-public abstract class AbstractAadl2UiModule extends DefaultUiModule {
+public abstract class AbstractAadl2UiModule extends org.eclipse.xtext.ui.DefaultUiModule {
 	
 	public AbstractAadl2UiModule(AbstractUIPlugin plugin) {
 		super(plugin);

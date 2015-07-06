@@ -34,6 +34,7 @@
 package org.osate.xtext.aadl2.ui.editor.autoedit;
 
 import org.apache.log4j.Logger;
+import org.eclipse.jface.preference.IPreferenceStore;
 import org.eclipse.jface.text.BadLocationException;
 import org.eclipse.jface.text.DocumentCommand;
 import org.eclipse.jface.text.IDocument;
@@ -42,6 +43,7 @@ import org.eclipse.jface.text.TextUtilities;
 import org.eclipse.xtext.formatting.IIndentationInformation;
 import org.eclipse.xtext.ui.editor.autoedit.AbstractTerminalsEditStrategy;
 import org.eclipse.xtext.ui.editor.autoedit.CommandInfo;
+import org.osate.workspace.WorkspacePlugin;
 
 import com.google.inject.Inject;
 import com.google.inject.MembersInjector;
@@ -76,6 +78,7 @@ public class AutoIndentEditStrategy extends AbstractTerminalsEditStrategy {
 	private final static Logger log = Logger.getLogger(AutoIndentEditStrategy.class);
 
 	private String indentationString;
+	private IPreferenceStore store = WorkspacePlugin.getDefault().getPreferenceStore();
 
 	public AutoIndentEditStrategy(String terminal) {
 		this(terminal, null);
@@ -124,9 +127,16 @@ public class AutoIndentEditStrategy extends AbstractTerminalsEditStrategy {
 		CommandInfo newC = new CommandInfo();
 		newC.isChange = true;
 		newC.offset = command.offset;
-		newC.text += command.text + indentationString;
+		newC.text += command.text + getAutoIndentString();
 		newC.cursorOffset = command.offset + newC.text.length();
 		return newC;
+	}
+
+	protected String getAutoIndentString() {
+		if (store.getBoolean(WorkspacePlugin.AUTO_INDENT)) {
+			return indentationString;
+		}
+		return "";
 	}
 
 	/**

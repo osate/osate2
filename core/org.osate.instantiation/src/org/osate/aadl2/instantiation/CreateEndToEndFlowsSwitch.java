@@ -258,14 +258,9 @@ public class CreateEndToEndFlowsSwitch extends AadlProcessingSwitchWithProgress 
 
 	protected void processETE(final ComponentInstance ci, final EndToEndFlowInstance etei, final EndToEndFlow ete) {
 		FlowIterator iter = new FlowIterator(ete);
+		EndToEndFlowSegment fe = (EndToEndFlowSegment) iter.next();
 
-		// TODO-LW: is this loop necessary?
-		while (iter.hasNext()) {
-			EndToEndFlowSegment fe = (EndToEndFlowSegment) iter.next();
-
-			processETESegment(ci, etei, fe, iter, ete);
-			break;
-		}
+		processETESegment(ci, etei, fe, iter, ete);
 	}
 
 	/**
@@ -780,12 +775,31 @@ public class CreateEndToEndFlowsSwitch extends AadlProcessingSwitchWithProgress 
 			if (fsi != null) {
 				etei.getFlowElements().add(fsi);
 			} else if (fs != null) {
-				error(etei, "Incomplete End-to-end flow instance " + etei.getName() + ": Could not find flow spec "
+				error(etei, "Incomplete end-to-end flow instance " + etei.getName() + ": Could not find flow spec "
 						+ fs.getName() + " of component " + ci.getName());
 			}
 		} else if (leaf instanceof Subcomponent) {
-			// append a subcomponent instance
-			etei.getFlowElements().add(ci);
+			if (etei.getFlowElements().size() == 0) {
+				// append a subcomponent instance
+				etei.getFlowElements().add(ci);
+			} else {
+				ConnectionInstance preConn = (ConnectionInstance) etei.getFlowElements().get(
+						etei.getFlowElements().size() - 1);
+				ConnectionInstanceEnd end = preConn.getDestination();
+				ComponentInstance comp = end.getContainingComponentInstance();
+				if (end instanceof ComponentInstance || comp == ci) {
+					// append a subcomponent instance
+					etei.getFlowElements().add(ci);
+				} else {
+					error(etei,
+							"Invalid end-to-end flow instance " + etei.getName() + ": Connection "
+									+ preConn.getComponentInstancePath() + " continues into component "
+									+ ci.getInstanceObjectPath());
+					// append a subcomponent instance
+					// FIXME: should abort
+					etei.getFlowElements().add(ci);
+				}
+			}
 //		} else if (leaf instanceof DataAccess) {
 //			if (ci != null) {
 //				// append a data instance

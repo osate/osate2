@@ -69,47 +69,59 @@ package class PropertyColumnLabelProvider extends ColumnLabelProvider {
 	}
 	
 	override getText(Object element) {
-		switch treeElement : (element as TreeEntry).treeElement {
-			URI: propertyView.safeRead[extension it | switch treeElementEObject : treeElement.getEObject(true) {
-				PropertySet,
-				BasicProperty: treeElementEObject.name
-				ModalPropertyValue: {
-					val modes = if (treeElementEObject.allInModes.empty) {
-						//This ModalPropertyValue exists in all modes that are not listed for other ModalPropertyValues
-						(propertyView.input.getEObject(true) as ComponentClassifier).allModes.filter[classifierMode |
-							(treeElementEObject.owner as PropertyAssociation).ownedValues.forall[!allInModes.contains(classifierMode)]
-						]
-					} else {
-						treeElementEObject.allInModes
+		if (!(element instanceof TreeEntry))
+			null
+		else {
+			switch treeElement : (element as TreeEntry).treeElement {
+				URI: propertyView.safeRead[extension it | switch treeElementEObject : treeElement.getEObject(true) {
+					PropertySet,
+					BasicProperty: treeElementEObject.name
+					ModalPropertyValue: {
+						val modes = if (treeElementEObject.allInModes.empty) {
+							//This ModalPropertyValue exists in all modes that are not listed for other ModalPropertyValues
+							(propertyView.input.getEObject(true) as ComponentClassifier).allModes.filter[classifierMode |
+								(treeElementEObject.owner as PropertyAssociation).ownedValues.forall[!allInModes.contains(classifierMode)]
+							]
+						} else {
+							treeElementEObject.allInModes
+						}
+						'''in modes («modes.map[name].join(", ")»)'''
 					}
-					'''in modes («modes.map[name].join(", ")»)'''
-				}
-				BasicPropertyAssociation: treeElementEObject.property.name
-			}]
-			RangeElement: treeElement.label
-			ListElement: "# " + treeElement.index
+					BasicPropertyAssociation: treeElementEObject.property.name
+				}]
+				RangeElement: treeElement.label
+				ListElement: "# " + treeElement.index
+			}
 		}
 	}
 	
 	override getForeground(Object element) {
-		val treeElement = (element as TreeEntry).treeElement
-		if (treeElement instanceof URI) {
-			propertyView.safeRead[extension it | switch treeElementEObject : treeElement.getEObject(true) {
-				Property case propertyView.getPropertyStatus(((element as TreeEntry).parent as TreeEntry).treeElement as URI, treeElement) == PropertyStatus.UNDEFINED,
-				BasicProperty case !(treeElementEObject instanceof Property): propertyView.site.shell.display.getSystemColor(SWT.COLOR_RED)
-			}]
+		if (!(element instanceof TreeEntry))
+			null
+		else {
+			val treeElement = (element as TreeEntry).treeElement
+			if (treeElement instanceof URI) {
+				propertyView.safeRead[extension it | switch treeElementEObject : treeElement.getEObject(true) {
+					Property case propertyView.getPropertyStatus(((element as TreeEntry).parent as TreeEntry).treeElement as URI, treeElement) == PropertyStatus.UNDEFINED,
+					BasicProperty case !(treeElementEObject instanceof Property): propertyView.site.shell.display.getSystemColor(SWT.COLOR_RED)
+				}]
+			}
 		}
 	}
 	
 	override getImage(Object element) {
-		val treeElement = (element as TreeEntry).treeElement
-		if (treeElement instanceof URI) {
-			propertyView.safeRead[extension it | switch treeElementEObject : treeElement.getEObject(true) {
-				PropertySet: propSetImage ?: (propSetImage = MyAadl2Activator.getImageDescriptor(PROPERTY_SET_ICON).createImage)
-				Property case treeElementEObject.list: listImage ?: (listImage = MyAadl2Activator.getImageDescriptor(LIST_ICON).createImage)
-				Property case !treeElementEObject.list: scalarImage ?: (scalarImage = MyAadl2Activator.getImageDescriptor(SCALAR_ICON).createImage)
-				ModalPropertyValue: modeImage ?: (modeImage = MyAadl2Activator.getImageDescriptor(MODE_ICON).createImage)
-			}]
+		if (!(element instanceof TreeEntry))
+			null
+		else {
+			val treeElement = (element as TreeEntry).treeElement
+			if (treeElement instanceof URI) {
+				propertyView.safeRead[extension it | switch treeElementEObject : treeElement.getEObject(true) {
+					PropertySet: propSetImage ?: (propSetImage = MyAadl2Activator.getImageDescriptor(PROPERTY_SET_ICON).createImage)
+					Property case treeElementEObject.list: listImage ?: (listImage = MyAadl2Activator.getImageDescriptor(LIST_ICON).createImage)
+					Property case !treeElementEObject.list: scalarImage ?: (scalarImage = MyAadl2Activator.getImageDescriptor(SCALAR_ICON).createImage)
+					ModalPropertyValue: modeImage ?: (modeImage = MyAadl2Activator.getImageDescriptor(MODE_ICON).createImage)
+				}]
+			}
 		}
 	}
 	

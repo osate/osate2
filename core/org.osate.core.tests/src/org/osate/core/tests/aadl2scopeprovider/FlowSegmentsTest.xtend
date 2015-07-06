@@ -247,6 +247,7 @@ class FlowSegmentsTest extends OsateTest {
 					ownedFlowSegments.get(0) => [
 						context.assertNull
 						"asub1".assertEquals(flowElement.name)
+						assertError(testFileResult.issues, issueCollection, "Connection 'fconn1' continues inside subcomponent 'asub1'")
 						//Tests scope_FlowSegment_context
 						assertScope(Aadl2Package::eINSTANCE.flowSegment_Context, false, #["asub1", "asub2", "call1", "call12", "call13", "call2", "call3", "call4",
 							"call5", "call6", "call7", "call8", "dp1", "edp1", "fg1", "fg2", "subpgsub1", "subpgsub2", "subpgsub3", "subpsub1", "subpsub2"

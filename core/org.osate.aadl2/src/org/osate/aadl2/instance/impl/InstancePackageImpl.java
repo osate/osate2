@@ -40,6 +40,7 @@ import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EEnum;
 import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.EReference;
+import org.eclipse.emf.ecore.EValidator;
 import org.eclipse.emf.ecore.impl.EPackageImpl;
 import org.osate.aadl2.Aadl2Package;
 import org.osate.aadl2.instance.AnnexInstance;
@@ -59,8 +60,10 @@ import org.osate.aadl2.instance.InstancePackage;
 import org.osate.aadl2.instance.InstanceReferenceValue;
 import org.osate.aadl2.instance.ModeInstance;
 import org.osate.aadl2.instance.ModeTransitionInstance;
+import org.osate.aadl2.instance.PropertyAssociationInstance;
 import org.osate.aadl2.instance.SystemInstance;
 import org.osate.aadl2.instance.SystemOperationMode;
+import org.osate.aadl2.instance.util.InstanceValidator;
 
 /**
  * <!-- begin-user-doc -->
@@ -89,6 +92,13 @@ public class InstancePackageImpl extends EPackageImpl implements InstancePackage
 	 * @generated
 	 */
 	private EClass annexInstanceEClass = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EClass propertyAssociationInstanceEClass = null;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -246,6 +256,14 @@ public class InstancePackageImpl extends EPackageImpl implements InstancePackage
 		// Initialize created meta-data
 		theInstancePackage.initializePackageContents();
 
+		// Register package validator
+		EValidator.Registry.INSTANCE.put(theInstancePackage, new EValidator.Descriptor() {
+			@Override
+			public EValidator getEValidator() {
+				return InstanceValidator.INSTANCE;
+			}
+		});
+
 		// Mark meta-data to indicate it can't be changed
 		theInstancePackage.freeze();
 
@@ -372,6 +390,26 @@ public class InstancePackageImpl extends EPackageImpl implements InstancePackage
 	@Override
 	public EReference getAnnexInstance_AnnexSubclause() {
 		return (EReference) annexInstanceEClass.getEStructuralFeatures().get(0);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public EClass getPropertyAssociationInstance() {
+		return propertyAssociationInstanceEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public EReference getPropertyAssociationInstance_PropertyAssociation() {
+		return (EReference) propertyAssociationInstanceEClass.getEStructuralFeatures().get(0);
 	}
 
 	/**
@@ -1030,6 +1068,9 @@ public class InstancePackageImpl extends EPackageImpl implements InstancePackage
 		annexInstanceEClass = createEClass(ANNEX_INSTANCE);
 		createEReference(annexInstanceEClass, ANNEX_INSTANCE__ANNEX_SUBCLAUSE);
 
+		propertyAssociationInstanceEClass = createEClass(PROPERTY_ASSOCIATION_INSTANCE);
+		createEReference(propertyAssociationInstanceEClass, PROPERTY_ASSOCIATION_INSTANCE__PROPERTY_ASSOCIATION);
+
 		connectionInstanceEndEClass = createEClass(CONNECTION_INSTANCE_END);
 		createEReference(connectionInstanceEndEClass, CONNECTION_INSTANCE_END__SRC_CONNECTION_INSTANCE);
 		createEReference(connectionInstanceEndEClass, CONNECTION_INSTANCE_END__DST_CONNECTION_INSTANCE);
@@ -1143,6 +1184,7 @@ public class InstancePackageImpl extends EPackageImpl implements InstancePackage
 		featureInstanceEClass.getESuperTypes().add(getInstanceObject());
 		instanceObjectEClass.getESuperTypes().add(theAadl2Package.getNamedElement());
 		annexInstanceEClass.getESuperTypes().add(theAadl2Package.getNamedElement());
+		propertyAssociationInstanceEClass.getESuperTypes().add(theAadl2Package.getPropertyAssociation());
 		connectionInstanceEndEClass.getESuperTypes().add(getInstanceObject());
 		connectionInstanceEClass.getESuperTypes().add(getFlowElementInstance());
 		flowElementInstanceEClass.getESuperTypes().add(getInstanceObject());
@@ -1209,6 +1251,14 @@ public class InstancePackageImpl extends EPackageImpl implements InstancePackage
 				theAadl2Package.getAnnexSubclause(),
 				null,
 				"annexSubclause", null, 1, 1, AnnexInstance.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, !IS_ORDERED); //$NON-NLS-1$
+
+		initEClass(propertyAssociationInstanceEClass, PropertyAssociationInstance.class,
+				"PropertyAssociationInstance", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS); //$NON-NLS-1$
+		initEReference(
+				getPropertyAssociationInstance_PropertyAssociation(),
+				theAadl2Package.getPropertyAssociation(),
+				null,
+				"propertyAssociation", null, 0, 1, PropertyAssociationInstance.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, !IS_ORDERED); //$NON-NLS-1$
 
 		initEClass(connectionInstanceEndEClass, ConnectionInstanceEnd.class,
 				"ConnectionInstanceEnd", IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS); //$NON-NLS-1$
@@ -1501,6 +1551,8 @@ public class InstancePackageImpl extends EPackageImpl implements InstancePackage
 		// Create annotations
 		// http://www.eclipse.org/uml2/2.0.0/UML
 		createUMLAnnotations();
+		// duplicates
+		createDuplicatesAnnotations();
 	}
 
 	/**
@@ -1513,6 +1565,21 @@ public class InstancePackageImpl extends EPackageImpl implements InstancePackage
 		String source = "http://www.eclipse.org/uml2/2.0.0/UML"; //$NON-NLS-1$
 		addAnnotation(this, source, new String[] { "originalName", "aadl2Instance" //$NON-NLS-1$ //$NON-NLS-2$
 		});
+	}
+
+	/**
+	 * Initializes the annotations for <b>duplicates</b>.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected void createDuplicatesAnnotations() {
+		String source = "duplicates"; //$NON-NLS-1$
+		addAnnotation(instanceObjectEClass, source, new String[] {});
+		addAnnotation(instanceObjectEClass, new boolean[] { true }, "ownedPropertyAssociation", //$NON-NLS-1$
+				new String[] { "lowerBound", "1", //$NON-NLS-1$ //$NON-NLS-2$
+						"upperBound", "1" //$NON-NLS-1$ //$NON-NLS-2$
+				});
 	}
 
 } // InstancePackageImpl

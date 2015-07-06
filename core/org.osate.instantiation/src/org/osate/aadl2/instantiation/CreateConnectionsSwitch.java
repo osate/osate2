@@ -555,7 +555,7 @@ public class CreateConnectionsSwitch extends AadlProcessingSwitchWithProgress {
 							if (ci instanceof SystemInstance) {
 								finalizeConnectionInstance(ci, connInfo, ci.findFeatureInstance(toFeature));
 							} else {
-								error(toFi,
+								warning(toFi,
 										"Could not continue connection from " + connInfo.src.getInstanceObjectPath()
 												+ "  through " + toFi.getInstanceObjectPath()
 												+ ". No connection instance created.");
@@ -650,6 +650,7 @@ public class CreateConnectionsSwitch extends AadlProcessingSwitchWithProgress {
 							// TODO-LW: check if this logic is correct
 							EList<Feature> toflist = toFeature.getAllFeatureRefinements();
 							final boolean opposite = toflist.contains(nextConn.getAllDestination())
+									&& toCtx == nextConn.getAllDestinationContext()
 									|| toflist.contains(nextConn.getAllDestinationContext());
 							appendSegment(clone, nextConn, toCi, opposite);
 						}
@@ -844,25 +845,8 @@ public class CreateConnectionsSwitch extends AadlProcessingSwitchWithProgress {
 				container.getConnectionInstances().add(conni);
 			}
 
-			// determine whether connection is delayed
-			// TODO-LW: restore functionality
-			// if (conni instanceof PortConnectionInstance) {
-			// PortConnectionInstance pci = (PortConnectionInstance) conni;
-			// pci.setTiming(pci.computeConnectionTiming());
-			// }
-
-			// set in modes for connection instance. those modes where both src
-			// and
-			// dest are active.
 			fillInModes(conni);
 			fillInModeTransitions(conni);
-			// perform checking on matching src and dst ports
-			// we need to do this since the wrong element from a port group may
-			// have
-			// been picked
-			// if (conni instanceof PortConnectionInstance) {
-			// this.checkSemanticConnection((PortConnectionInstance) conni);
-			// }
 		}
 		return conni;
 	}
@@ -1002,58 +986,6 @@ public class CreateConnectionsSwitch extends AadlProcessingSwitchWithProgress {
 	private boolean isLeafFeature(FeatureInstance fi) {
 		return fi.getFeatureInstances().isEmpty();
 	}
-
-	/**
-	 * check semantic consistency of connections between ports/port
-	 * groups/paramaters
-	 *
-	 * @param conni
-	 */
-	// TODO-LW: implement new AADL2 rules
-	// private void checkSemanticConnection(ConnectionInstance conni) {
-	// perform checking on matching src and dst ports
-	// we need to do this since the wrong element from a port group may have
-	// been picked
-	/*
-	 * FeatureInstance srcI = conni.getSrc(); FeatureInstance dstI =
-	 * conni.getDst(); if (srcI == null || dstI == null) return; Feature srcPort
-	 * = conni.getSrc().getFeature(); Feature dstPort =
-	 * conni.getDst().getFeature(); if (srcPort.eClass() != dstPort.eClass()) {
-	 * error(conni, "Source '" + srcPort.getName() + "' and destination '" +
-	 * dstPort.getName() +
-	 * "' port categories do not match for semantic connection '" +
-	 * conni.getName() + "'"); } else { if (srcPort instanceof FeatureGroup) {
-	 * FeatureGroupType spgt = ((FeatureGroup) srcPort).getFeatureGroupType();
-	 * if (spgt != null && !spgt.isInverseOf(((FeatureGroup)
-	 * dstPort).getFeatureGroupType())) { error(conni, "Source '" +
-	 * srcPort.getName() + "' and destination '" + dstPort.getName() +
-	 * "' are not inverse port group types for semantic connection '" +
-	 * conni.getName() + "'"); } } else { FeatureGroup srcpg = null;
-	 * FeatureGroup dstpg = null; if (srcI.eContainer() instanceof
-	 * FeatureInstance) { srcpg = (FeatureGroup) ((FeatureInstance)
-	 * srcI.eContainer()).getFeature(); } if (dstI.eContainer() instanceof
-	 * FeatureInstance) { dstpg = (FeatureGroup) ((FeatureInstance)
-	 * dstI.eContainer()).getFeature(); } // TODO take care of inverse in port
-	 * group type DirectionType sDir = null; DirectionType dDir = null; if
-	 * (srcPort instanceof Port) { sDir = ((Port) srcPort).getDirection(srcpg);
-	 * // take care of inverse in port group type } else if (srcPort instanceof
-	 * Parameter) sDir = ((Parameter) srcPort).getDirection(); if (dstPort
-	 * instanceof Port) { dDir = ((Port) dstPort).getDirection(dstpg); // take
-	 * care of inverse in port group type } else if (dstPort instanceof
-	 * Parameter) dDir = ((Parameter) dstPort).getDirection(); if (sDir != null
-	 * && dDir != null) { if (!((sDir == DirectionType.OUT && (dDir ==
-	 * DirectionType.IN || dDir == DirectionType.IN_OUT)) || (sDir ==
-	 * DirectionType.IN_OUT && (dDir == DirectionType.IN || dDir ==
-	 * DirectionType.IN_OUT)))) { error(conni, "Incorrect port direction: " +
-	 * sDir.getName() + " '" + srcPort.getName() + "' -> " + dDir.getName() +
-	 * " '" + dstPort.getName() + "'"); } } if
-	 * (!AadlUtil.matchingClassifier(srcPort.getAllClassifier(),
-	 * dstPort.getAllClassifier())) { error(conni, "Source '" +
-	 * srcPort.getName() + "' and destination '" + dstPort.getName() +
-	 * "' port data types do not match for semantic connection '" +
-	 * conni.getName() + "'"); } } }
-	 */
-	// }
 
 	// ------------------------------------------------------------------------
 	// Methods related to mode transition connections

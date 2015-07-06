@@ -61,7 +61,9 @@ import org.osate.aadl2.instance.ComponentInstance;
 import org.osate.aadl2.instance.ConnectionInstance;
 import org.osate.aadl2.instance.FeatureCategory;
 import org.osate.aadl2.instance.FeatureInstance;
+import org.osate.aadl2.instance.InstanceFactory;
 import org.osate.aadl2.instance.InstanceObject;
+import org.osate.aadl2.instance.PropertyAssociationInstance;
 import org.osate.aadl2.instance.SystemInstance;
 import org.osate.aadl2.instance.util.InstanceSwitch;
 import org.osate.aadl2.instance.util.InstanceUtil;
@@ -218,9 +220,10 @@ class CacheContainedPropertyAssociationsSwitch extends AadlProcessingSwitchWithP
 
 					if (!ios.isEmpty()) {
 						for (InstanceObject io : ios) {
-							PropertyAssociation newPA = Aadl2Factory.eINSTANCE.createPropertyAssociation();
+							PropertyAssociationInstance newPA = InstanceFactory.eINSTANCE.createPropertyAssociationInstance();
 
 							newPA.setProperty(prop);
+							newPA.setPropertyAssociation(pa);
 							newPA.getOwnedValues().addAll(EcoreUtil.copyAll(pa.getOwnedValues()));
 
 							// replace reference values in the context of the contained PA's owner
@@ -281,9 +284,10 @@ class CacheContainedPropertyAssociationsSwitch extends AadlProcessingSwitchWithP
 					for (InstanceObject io : ios) {
 						// OsateDebug.osateDebug ("   io=" + io);
 
-						PropertyAssociation newPA = Aadl2Factory.eINSTANCE.createPropertyAssociation();
+						PropertyAssociationInstance newPA = InstanceFactory.eINSTANCE.createPropertyAssociationInstance();
 
 						newPA.setProperty(prop);
+						newPA.setPropertyAssociation(pa);
 						newPA.getOwnedValues().addAll(EcoreUtil.copyAll(pa.getOwnedValues()));
 
 						// replace reference values in the context of the contained PA's owner

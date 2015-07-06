@@ -199,7 +199,7 @@ public class ComputedValueImpl extends PropertyValueImpl implements ComputedValu
 
 	/*
 	 * (non-Javadoc)
-	 *
+	 * 
 	 * @see org.osate.aadl2.PropertyValue#sameAs(org.osate.aadl2.PropertyValue)
 	 */
 	@Override

@@ -50,6 +50,7 @@ import org.osate.aadl2.instance.InstancePackage;
 import org.osate.aadl2.instance.InstanceReferenceValue;
 import org.osate.aadl2.instance.ModeInstance;
 import org.osate.aadl2.instance.ModeTransitionInstance;
+import org.osate.aadl2.instance.PropertyAssociationInstance;
 import org.osate.aadl2.instance.SystemInstance;
 import org.osate.aadl2.instance.SystemOperationMode;
 
@@ -112,6 +113,9 @@ public class InstanceDerivedUnionAdapter extends AdapterImpl {
 		case InstancePackage.FEATURE_INSTANCE:
 			notifyFeatureInstanceChanged(notification, eClass);
 			break;
+		case InstancePackage.PROPERTY_ASSOCIATION_INSTANCE:
+			notifyPropertyAssociationInstanceChanged(notification, eClass);
+			break;
 		case InstancePackage.CONNECTION_INSTANCE:
 			notifyConnectionInstanceChanged(notification, eClass);
 			break;
@@ -169,6 +173,22 @@ public class InstanceDerivedUnionAdapter extends AdapterImpl {
 	protected void notifyFeatureInstanceChanged(Notification notification, EClass eClass) {
 		switch (notification.getFeatureID(FeatureInstance.class)) {
 		case InstancePackage.FEATURE_INSTANCE__OWNED_COMMENT:
+			notifyChanged(notification, eClass, Aadl2Package.eINSTANCE.getElement_OwnedElement());
+			break;
+		}
+	}
+
+	/**
+	 * Calls <code>notifyChanged</code> for each affected derived union.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @param notification a description of the change.
+	 * @param eClass the Ecore class of the notifier.
+	 * @generated
+	 */
+	protected void notifyPropertyAssociationInstanceChanged(Notification notification, EClass eClass) {
+		switch (notification.getFeatureID(PropertyAssociationInstance.class)) {
+		case InstancePackage.PROPERTY_ASSOCIATION_INSTANCE__OWNED_COMMENT:
 			notifyChanged(notification, eClass, Aadl2Package.eINSTANCE.getElement_OwnedElement());
 			break;
 		}
