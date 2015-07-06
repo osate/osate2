@@ -215,7 +215,7 @@ public class Module {
 					opc.getOutgoing());
 
 			for (PropagationPathEnd ppe : propagationEnds) {
-				NamedElement connectedFeature = ppe.getErrorPropagation().getFeatureorPPRefs().get(0).getFeatureorPP();
+				NamedElement connectedFeature = EMV2Util.getFeatureorPPRefs(ppe.getErrorPropagation()).get(0).getFeatureorPP();
 
 				ErrorTypes et = opc.getTypeToken().getType().get(0);
 				// OsateDebug.osateDebug("TYPE" + et.getName() +";state=" + targetState.getName());
@@ -371,7 +371,7 @@ public class Module {
 			 * This variable might be updated/changed by other components connected
 			 * to this incoming propagation.
 			 */
-			for (FeatureorPPReference fr : ep.getFeatureorPPRefs()) {
+			for (FeatureorPPReference fr : EMV2Util.getFeatureorPPRefs(ep)) {
 				NamedElement feature = fr.getFeatureorPP();
 
 				int errorVal = 1;
@@ -448,7 +448,7 @@ public class Module {
 		for (PropagationPathEnd ppe : propagationEnds) {
 			command = new Command();
 
-			NamedElement connectedFeature = ppe.getErrorPropagation().getFeatureorPPRefs().get(0).getFeatureorPP();
+			NamedElement connectedFeature = EMV2Util.getFeatureorPPRefs(ppe.getErrorPropagation()).get(0).getFeatureorPP();
 
 			incomingPropagationName = connectedFeature.getName();
 
@@ -492,7 +492,7 @@ public class Module {
 						.getAllPropagationSourceEnds(aadlComponent, incomingErrorPropagation);
 
 				for (PropagationPathEnd ppe : propagationEnds) {
-					NamedElement connectedFeature = ppe.getErrorPropagation().getFeatureorPPRefs().get(0)
+					NamedElement connectedFeature = EMV2Util.getFeatureorPPRefs(ppe.getErrorPropagation()).get(0)
 							.getFeatureorPP();
 
 					ErrorTypes et = incomingErrorPropagation.getTypeSet().getTypeTokens().get(0).getType().get(0);
@@ -504,7 +504,7 @@ public class Module {
 					}
 				}
 				result = new Equal(new Terminal(Util.getComponentIncomingPropagationVariableName(aadlComponent,
-						incomingErrorPropagation.getFeatureorPPRefs().get(0).getFeatureorPP().getName())),
+						EMV2Util.getFeatureorPPRefs(incomingErrorPropagation).get(0).getFeatureorPP().getName())),
 						new Terminal("" + errorTypeValue));
 			}
 		}

@@ -1097,13 +1097,13 @@ public interface ErrorModelPackage extends EPackage
   int ERROR_PROPAGATION__KIND = Aadl2Package.NAMED_ELEMENT_FEATURE_COUNT + 0;
 
   /**
-   * The feature id for the '<em><b>Featureor PP Refs</b></em>' containment reference list.
+   * The feature id for the '<em><b>Featureor PP Ref</b></em>' containment reference.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    * @ordered
    */
-  int ERROR_PROPAGATION__FEATUREOR_PP_REFS = Aadl2Package.NAMED_ELEMENT_FEATURE_COUNT + 1;
+  int ERROR_PROPAGATION__FEATUREOR_PP_REF = Aadl2Package.NAMED_ELEMENT_FEATURE_COUNT + 1;
 
   /**
    * The feature id for the '<em><b>Not</b></em>' attribute.
@@ -1179,13 +1179,22 @@ public interface ErrorModelPackage extends EPackage
   int FEATUREOR_PP_REFERENCE__FEATUREOR_PP = Aadl2Package.ELEMENT_FEATURE_COUNT + 0;
 
   /**
+   * The feature id for the '<em><b>Next</b></em>' containment reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int FEATUREOR_PP_REFERENCE__NEXT = Aadl2Package.ELEMENT_FEATURE_COUNT + 1;
+
+  /**
    * The number of structural features of the '<em>Featureor PP Reference</em>' class.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    * @ordered
    */
-  int FEATUREOR_PP_REFERENCE_FEATURE_COUNT = Aadl2Package.ELEMENT_FEATURE_COUNT + 1;
+  int FEATUREOR_PP_REFERENCE_FEATURE_COUNT = Aadl2Package.ELEMENT_FEATURE_COUNT + 2;
 
   /**
    * The meta object id for the '{@link org.osate.xtext.aadl2.errormodel.errorModel.impl.ErrorFlowImpl <em>Error Flow</em>}' class.
@@ -4356,15 +4365,15 @@ public interface ErrorModelPackage extends EPackage
   EAttribute getErrorPropagation_Kind();
 
   /**
-   * Returns the meta object for the containment reference list '{@link org.osate.xtext.aadl2.errormodel.errorModel.ErrorPropagation#getFeatureorPPRefs <em>Featureor PP Refs</em>}'.
+   * Returns the meta object for the containment reference '{@link org.osate.xtext.aadl2.errormodel.errorModel.ErrorPropagation#getFeatureorPPRef <em>Featureor PP Ref</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @return the meta object for the containment reference list '<em>Featureor PP Refs</em>'.
-   * @see org.osate.xtext.aadl2.errormodel.errorModel.ErrorPropagation#getFeatureorPPRefs()
+   * @return the meta object for the containment reference '<em>Featureor PP Ref</em>'.
+   * @see org.osate.xtext.aadl2.errormodel.errorModel.ErrorPropagation#getFeatureorPPRef()
    * @see #getErrorPropagation()
    * @generated
    */
-  EReference getErrorPropagation_FeatureorPPRefs();
+  EReference getErrorPropagation_FeatureorPPRef();
 
   /**
    * Returns the meta object for the attribute '{@link org.osate.xtext.aadl2.errormodel.errorModel.ErrorPropagation#isNot <em>Not</em>}'.
@@ -4419,6 +4428,17 @@ public interface ErrorModelPackage extends EPackage
    * @generated
    */
   EReference getFeatureorPPReference_FeatureorPP();
+
+  /**
+   * Returns the meta object for the containment reference '{@link org.osate.xtext.aadl2.errormodel.errorModel.FeatureorPPReference#getNext <em>Next</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the containment reference '<em>Next</em>'.
+   * @see org.osate.xtext.aadl2.errormodel.errorModel.FeatureorPPReference#getNext()
+   * @see #getFeatureorPPReference()
+   * @generated
+   */
+  EReference getFeatureorPPReference_Next();
 
   /**
    * Returns the meta object for class '{@link org.osate.xtext.aadl2.errormodel.errorModel.ErrorFlow <em>Error Flow</em>}'.
@@ -6246,12 +6266,12 @@ public interface ErrorModelPackage extends EPackage
     EAttribute ERROR_PROPAGATION__KIND = eINSTANCE.getErrorPropagation_Kind();
 
     /**
-     * The meta object literal for the '<em><b>Featureor PP Refs</b></em>' containment reference list feature.
+     * The meta object literal for the '<em><b>Featureor PP Ref</b></em>' containment reference feature.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @generated
      */
-    EReference ERROR_PROPAGATION__FEATUREOR_PP_REFS = eINSTANCE.getErrorPropagation_FeatureorPPRefs();
+    EReference ERROR_PROPAGATION__FEATUREOR_PP_REF = eINSTANCE.getErrorPropagation_FeatureorPPRef();
 
     /**
      * The meta object literal for the '<em><b>Not</b></em>' attribute feature.
@@ -6294,6 +6314,14 @@ public interface ErrorModelPackage extends EPackage
      * @generated
      */
     EReference FEATUREOR_PP_REFERENCE__FEATUREOR_PP = eINSTANCE.getFeatureorPPReference_FeatureorPP();
+
+    /**
+     * The meta object literal for the '<em><b>Next</b></em>' containment reference feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EReference FEATUREOR_PP_REFERENCE__NEXT = eINSTANCE.getFeatureorPPReference_Next();
 
     /**
      * The meta object literal for the '{@link org.osate.xtext.aadl2.errormodel.errorModel.impl.ErrorFlowImpl <em>Error Flow</em>}' class.

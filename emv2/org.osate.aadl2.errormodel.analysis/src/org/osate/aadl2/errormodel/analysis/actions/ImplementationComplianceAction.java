@@ -98,7 +98,7 @@ public final class ImplementationComplianceAction extends AaxlReadOnlyActionAsJo
 			boolean found = false;
 
 			for (ErrorPropagation epc : EMV2Util.getAllOutgoingErrorPropagations(componentType)) {
-				if (epi.getFeatureorPPRefs().get(0).getFeatureorPP() == epc.getFeatureorPPRefs().get(0)
+				if (EMV2Util.getFeatureorPPRefs(epi).get(0).getFeatureorPP() == EMV2Util.getFeatureorPPRefs(epc).get(0)
 						.getFeatureorPP()) {
 					found = true;
 
@@ -139,7 +139,7 @@ public final class ImplementationComplianceAction extends AaxlReadOnlyActionAsJo
 			boolean found = false;
 
 			for (ErrorPropagation epc : EMV2Util.getAllIncomingErrorPropagations(componentType)) {
-				if (epi.getFeatureorPPRefs().get(0).getFeatureorPP() == epc.getFeatureorPPRefs().get(0)
+				if (EMV2Util.getFeatureorPPRefs(epi).get(0).getFeatureorPP() == EMV2Util.getFeatureorPPRefs(epc).get(0)
 						.getFeatureorPP()) {
 					found = true;
 

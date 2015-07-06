@@ -191,5 +191,4 @@ public final class FTAAction extends AaxlReadOnlyActionAsJob {
 
 		monitor.done();
 	}
-
 }

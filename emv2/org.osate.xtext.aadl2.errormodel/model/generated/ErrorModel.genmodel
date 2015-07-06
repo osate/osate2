@@ -5,7 +5,7 @@
     forceOverwrite="true" modelName="ErrorModel" updateClasspath="false" rootExtendsClass="org.eclipse.emf.ecore.impl.MinimalEObjectImpl$Container"
     complianceLevel="5.0" copyrightFields="false" editPluginID="org.osate.xtext.aadl2.errormodel.edit"
     editorPluginID="org.osate.xtext.aadl2.errormodel.editor" runtimeVersion="2.9"
-    usedGenPackages="platform:/resource/org.eclipse.emf.ecore/model/Ecore.genmodel#//ecore platform:/resource/org.osate.aadl2/model/aadl2.genmodel#//aadl2">
+    usedGenPackages="platform:/plugin/org.eclipse.emf.ecore/model/Ecore.genmodel#//ecore platform:/resource/org.osate.aadl2/model/aadl2.genmodel#//aadl2">
   <genPackages prefix="ErrorModel" basePackage="org.osate.xtext.aadl2.errormodel"
       resource="XML" disposableProviderFactory="true" ecorePackage="ErrorModel.ecore#/">
     <genClasses ecoreClass="ErrorModel.ecore#//ErrorModelGrammarRoot">
@@ -74,13 +74,15 @@
     </genClasses>
     <genClasses ecoreClass="ErrorModel.ecore#//ErrorPropagation">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute ErrorModel.ecore#//ErrorPropagation/kind"/>
-      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference ErrorModel.ecore#//ErrorPropagation/featureorPPRefs"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference ErrorModel.ecore#//ErrorPropagation/featureorPPRef"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute ErrorModel.ecore#//ErrorPropagation/not"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute ErrorModel.ecore#//ErrorPropagation/direction"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference ErrorModel.ecore#//ErrorPropagation/typeSet"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference ErrorModel.ecore#//ErrorPropagation/featureorPPRefs"/>
     </genClasses>
     <genClasses ecoreClass="ErrorModel.ecore#//FeatureorPPReference">
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference ErrorModel.ecore#//FeatureorPPReference/featureorPP"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference ErrorModel.ecore#//FeatureorPPReference/next"/>
     </genClasses>
     <genClasses ecoreClass="ErrorModel.ecore#//ErrorFlow">
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference ErrorModel.ecore#//ErrorFlow/typeTokenConstraint"/>

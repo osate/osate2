@@ -115,8 +115,8 @@ public class FTAUtils {
 			newEvent = new Event();
 			description = "Error from component " + ppe.getComponentInstance().getName();
 
-			if ((remotePropagation.getFeatureorPPRefs() != null) && (remotePropagation.getFeatureorPPRefs().size() > 0)) {
-				description += " on " + remotePropagation.getFeatureorPPRefs().get(0).getFeatureorPP().getName();
+			if ((EMV2Util.getFeatureorPPRefs(remotePropagation) != null) && (EMV2Util.getFeatureorPPRefs(remotePropagation).size() > 0)) {
+				description += " on " + EMV2Util.getFeatureorPPRefs(remotePropagation).get(0).getFeatureorPP().getName();
 			}
 
 			if ((typeSet != null) && (typeSet.getTypeTokens().size() > 0)) {
@@ -190,7 +190,7 @@ public class FTAUtils {
 	}
 
 	public static String getFeatureFromErrorPropagation(ErrorPropagation errorPropagation) {
-		for (FeatureorPPReference fp : errorPropagation.getFeatureorPPRefs()) {
+		for (FeatureorPPReference fp : EMV2Util.getFeatureorPPRefs(errorPropagation)) {
 			return fp.getFeatureorPP().getName();
 		}
 		return "unknown feature";
@@ -329,9 +329,9 @@ public class FTAUtils {
 
 					errorPropagation = (ErrorPropagation) conditionElement.getIncoming();
 
-					if ((errorPropagation.getFeatureorPPRefs() != null)
-							&& (errorPropagation.getFeatureorPPRefs().size() > 0)) {
-						fpr = errorPropagation.getFeatureorPPRefs().get(0);
+					if ((EMV2Util.getFeatureorPPRefs(errorPropagation) != null)
+							&& (EMV2Util.getFeatureorPPRefs(errorPropagation).size() > 0)) {
+						fpr = EMV2Util.getFeatureorPPRefs(errorPropagation).get(0);
 					} else {
 						fpr = null;
 					}

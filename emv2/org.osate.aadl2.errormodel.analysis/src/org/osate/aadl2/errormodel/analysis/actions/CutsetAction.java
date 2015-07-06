@@ -207,9 +207,9 @@ public final class CutsetAction extends AaxlReadOnlyActionAsJob {
 		for (PropagationPathEnd ppe : dests) {
 			report.addOutput("," + ppe.getComponentInstance().getName());
 
-			if (ppe.getErrorPropagation().getFeatureorPPRefs().size() > 0) {
+			if (EMV2Util.getFeatureorPPRefs(ppe.getErrorPropagation()).size() > 0) {
 				report.addOutput("/");
-				for (FeatureorPPReference t : ppe.getErrorPropagation().getFeatureorPPRefs()) {
+				for (FeatureorPPReference t : EMV2Util.getFeatureorPPRefs(ppe.getErrorPropagation())) {
 					report.addOutput(t.getFeatureorPP().getName());
 				}
 			}
@@ -304,10 +304,10 @@ public final class CutsetAction extends AaxlReadOnlyActionAsJob {
 
 					report.addOutput(" - " + et.getName());
 
-					if (src.getErrorPropagation().getFeatureorPPRefs().size() > 0) {
+					if (EMV2Util.getFeatureorPPRefs(src.getErrorPropagation()).size() > 0) {
 						report.addOutput(" on ");
 					}
-					for (FeatureorPPReference t : src.getErrorPropagation().getFeatureorPPRefs()) {
+					for (FeatureorPPReference t : EMV2Util.getFeatureorPPRefs(src.getErrorPropagation())) {
 						report.addOutput(t.getFeatureorPP().getName());
 					}
 

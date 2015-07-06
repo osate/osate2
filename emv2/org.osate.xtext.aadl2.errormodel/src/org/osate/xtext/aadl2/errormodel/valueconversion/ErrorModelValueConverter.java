@@ -1,12 +1,12 @@
 package org.osate.xtext.aadl2.errormodel.valueconversion;
 
-import org.eclipse.xtext.common.services.DefaultTerminalConverters;
 import org.eclipse.xtext.conversion.IValueConverter;
 import org.eclipse.xtext.conversion.ValueConverter;
 import org.eclipse.xtext.nodemodel.INode;
 import org.osate.aadl2.DirectionType;
+import org.osate.xtext.aadl2.properties.valueconversion.PropertiesValueConverter;
 
-public class ErrorModelValueConverter extends DefaultTerminalConverters {
+public class ErrorModelValueConverter extends PropertiesValueConverter {
 	@ValueConverter(rule = "PropagationDirection")
 	public IValueConverter<DirectionType> InOutDirection() {
 		return new IValueConverter<DirectionType>() {

@@ -4,15 +4,15 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Event {
-	private String name;
-	private String description;
-	private double probability;
-	private List<Event> subEvents;
-	private boolean showProbability;
-	private EventType type;
-	private static int generalId = 1;
-	private String identifier;
-	private Event parent;
+	protected String name;
+	protected String description;
+	protected double probability;
+	protected List<Event> subEvents;
+	protected boolean showProbability;
+	protected EventType type;
+	protected static int generalId = 1;
+	protected String identifier;
+	protected Event parent;
 
 	public Event() {
 		identifier = "event" + generalId;

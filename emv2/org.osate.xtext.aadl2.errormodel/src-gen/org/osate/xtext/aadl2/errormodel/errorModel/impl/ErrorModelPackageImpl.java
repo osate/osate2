@@ -1030,7 +1030,7 @@ public class ErrorModelPackageImpl extends EPackageImpl implements ErrorModelPac
    * <!-- end-user-doc -->
    * @generated
    */
-  public EReference getErrorPropagation_FeatureorPPRefs()
+  public EReference getErrorPropagation_FeatureorPPRef()
   {
     return (EReference)errorPropagationEClass.getEStructuralFeatures().get(1);
   }
@@ -1083,6 +1083,16 @@ public class ErrorModelPackageImpl extends EPackageImpl implements ErrorModelPac
   public EReference getFeatureorPPReference_FeatureorPP()
   {
     return (EReference)featureorPPReferenceEClass.getEStructuralFeatures().get(0);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EReference getFeatureorPPReference_Next()
+  {
+    return (EReference)featureorPPReferenceEClass.getEStructuralFeatures().get(1);
   }
 
   /**
@@ -2422,13 +2432,14 @@ public class ErrorModelPackageImpl extends EPackageImpl implements ErrorModelPac
 
     errorPropagationEClass = createEClass(ERROR_PROPAGATION);
     createEAttribute(errorPropagationEClass, ERROR_PROPAGATION__KIND);
-    createEReference(errorPropagationEClass, ERROR_PROPAGATION__FEATUREOR_PP_REFS);
+    createEReference(errorPropagationEClass, ERROR_PROPAGATION__FEATUREOR_PP_REF);
     createEAttribute(errorPropagationEClass, ERROR_PROPAGATION__NOT);
     createEAttribute(errorPropagationEClass, ERROR_PROPAGATION__DIRECTION);
     createEReference(errorPropagationEClass, ERROR_PROPAGATION__TYPE_SET);
 
     featureorPPReferenceEClass = createEClass(FEATUREOR_PP_REFERENCE);
     createEReference(featureorPPReferenceEClass, FEATUREOR_PP_REFERENCE__FEATUREOR_PP);
+    createEReference(featureorPPReferenceEClass, FEATUREOR_PP_REFERENCE__NEXT);
 
     errorFlowEClass = createEClass(ERROR_FLOW);
     createEReference(errorFlowEClass, ERROR_FLOW__TYPE_TOKEN_CONSTRAINT);
@@ -2747,13 +2758,14 @@ public class ErrorModelPackageImpl extends EPackageImpl implements ErrorModelPac
 
     initEClass(errorPropagationEClass, ErrorPropagation.class, "ErrorPropagation", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
     initEAttribute(getErrorPropagation_Kind(), theEcorePackage.getEString(), "kind", null, 0, 1, ErrorPropagation.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-    initEReference(getErrorPropagation_FeatureorPPRefs(), this.getFeatureorPPReference(), null, "featureorPPRefs", null, 0, -1, ErrorPropagation.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEReference(getErrorPropagation_FeatureorPPRef(), this.getFeatureorPPReference(), null, "featureorPPRef", null, 0, 1, ErrorPropagation.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEAttribute(getErrorPropagation_Not(), theEcorePackage.getEBoolean(), "not", null, 0, 1, ErrorPropagation.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEAttribute(getErrorPropagation_Direction(), theAadl2Package.getDirectionType(), "direction", null, 0, 1, ErrorPropagation.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEReference(getErrorPropagation_TypeSet(), this.getTypeSet(), null, "typeSet", null, 0, 1, ErrorPropagation.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
     initEClass(featureorPPReferenceEClass, FeatureorPPReference.class, "FeatureorPPReference", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
     initEReference(getFeatureorPPReference_FeatureorPP(), theAadl2Package.getNamedElement(), null, "featureorPP", null, 0, 1, FeatureorPPReference.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEReference(getFeatureorPPReference_Next(), this.getFeatureorPPReference(), null, "next", null, 0, 1, FeatureorPPReference.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
     initEClass(errorFlowEClass, ErrorFlow.class, "ErrorFlow", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
     initEReference(getErrorFlow_TypeTokenConstraint(), this.getTypeSet(), null, "typeTokenConstraint", null, 0, 1, ErrorFlow.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);

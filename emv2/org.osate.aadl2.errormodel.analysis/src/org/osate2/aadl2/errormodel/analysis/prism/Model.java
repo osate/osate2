@@ -153,9 +153,9 @@ public class Model {
 		String errorTypeKey;
 		String propagationKey;
 		propagationKey = ppe.getComponentInstance().getName() + "_"
-				+ ppe.getErrorPropagation().getFeatureorPPRefs().get(0).getFeatureorPP().getName();
+				+ EMV2Util.getFeatureorPPRefs(ppe.getErrorPropagation()).get(0).getFeatureorPP().getName();
 		errorTypeKey = ppe.getComponentInstance().getName() + "_"
-				+ ppe.getErrorPropagation().getFeatureorPPRefs().get(0).getFeatureorPP().getName() + "_" + et.getName();
+				+ EMV2Util.getFeatureorPPRefs(ppe.getErrorPropagation()).get(0).getFeatureorPP().getName() + "_" + et.getName();
 
 		int newErrorValue;
 
