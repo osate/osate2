@@ -24,12 +24,20 @@ class ResultsUtilExtension {
 		holder.addIssue(msg, target,  ReportIssueType.WARNING)
 	} 
 	
+	def static void addInfo(ResultIssueHolder holder, String msg, EObject target){
+		holder.addIssue(msg, target,  ReportIssueType.INFO)
+	} 
+	
 	def static void addSuccess(ResultIssueHolder holder, String msg, EObject target){
 		holder.addIssue(msg, target,  ReportIssueType.SUCCESS)
 	} 
 	
-	def static void addInfo(ResultIssueHolder holder, String msg, EObject target){
-		holder.addIssue(msg, target,  ReportIssueType.INFO)
+	def static void addFail(ResultIssueHolder holder, String msg, EObject target){
+		holder.addIssue(msg, target,  ReportIssueType.FAIL)
+	} 
+	
+	def static void addUnknown(ResultIssueHolder holder, String msg, EObject target){
+		holder.addIssue(msg, target,  ReportIssueType.UNKNOWN)
 	} 
 	
 	def static void addIssue (ResultIssueHolder holder, String msg, EObject target,  ReportIssueType rit){

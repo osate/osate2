@@ -4,14 +4,13 @@
  */
 package org.osate.results.ui;
 
-import org.eclipse.xtext.ui.DefaultUiModule;
 import org.eclipse.ui.plugin.AbstractUIPlugin;
 
 /**
  * Manual modifications go to {org.osate.results.ui.ResultsUiModule}
  */
 @SuppressWarnings("all")
-public abstract class AbstractResultsUiModule extends DefaultUiModule {
+public abstract class AbstractResultsUiModule extends org.eclipse.xtext.ui.DefaultUiModule {
 	
 	public AbstractResultsUiModule(AbstractUIPlugin plugin) {
 		super(plugin);

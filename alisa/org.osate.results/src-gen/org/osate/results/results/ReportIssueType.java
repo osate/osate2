@@ -40,16 +40,6 @@ public enum ReportIssueType implements Enumerator
   WARNING(1, "WARNING", "warning"),
 
   /**
-   * The '<em><b>SUCCESS</b></em>' literal object.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @see #SUCCESS_VALUE
-   * @generated
-   * @ordered
-   */
-  SUCCESS(2, "SUCCESS", "success"),
-
-  /**
    * The '<em><b>INFO</b></em>' literal object.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -57,7 +47,37 @@ public enum ReportIssueType implements Enumerator
    * @generated
    * @ordered
    */
-  INFO(3, "INFO", "info");
+  INFO(2, "INFO", "info"),
+
+  /**
+   * The '<em><b>SUCCESS</b></em>' literal object.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see #SUCCESS_VALUE
+   * @generated
+   * @ordered
+   */
+  SUCCESS(3, "SUCCESS", "success"),
+
+  /**
+   * The '<em><b>FAIL</b></em>' literal object.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see #FAIL_VALUE
+   * @generated
+   * @ordered
+   */
+  FAIL(4, "FAIL", "fail"),
+
+  /**
+   * The '<em><b>UNKNOWN</b></em>' literal object.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see #UNKNOWN_VALUE
+   * @generated
+   * @ordered
+   */
+  UNKNOWN(5, "UNKNOWN", "unknown");
 
   /**
    * The '<em><b>ERROR</b></em>' literal value.
@@ -90,21 +110,6 @@ public enum ReportIssueType implements Enumerator
   public static final int WARNING_VALUE = 1;
 
   /**
-   * The '<em><b>SUCCESS</b></em>' literal value.
-   * <!-- begin-user-doc -->
-   * <p>
-   * If the meaning of '<em><b>SUCCESS</b></em>' literal object isn't clear,
-   * there really should be more of a description here...
-   * </p>
-   * <!-- end-user-doc -->
-   * @see #SUCCESS
-   * @model literal="success"
-   * @generated
-   * @ordered
-   */
-  public static final int SUCCESS_VALUE = 2;
-
-  /**
    * The '<em><b>INFO</b></em>' literal value.
    * <!-- begin-user-doc -->
    * <p>
@@ -117,7 +122,52 @@ public enum ReportIssueType implements Enumerator
    * @generated
    * @ordered
    */
-  public static final int INFO_VALUE = 3;
+  public static final int INFO_VALUE = 2;
+
+  /**
+   * The '<em><b>SUCCESS</b></em>' literal value.
+   * <!-- begin-user-doc -->
+   * <p>
+   * If the meaning of '<em><b>SUCCESS</b></em>' literal object isn't clear,
+   * there really should be more of a description here...
+   * </p>
+   * <!-- end-user-doc -->
+   * @see #SUCCESS
+   * @model literal="success"
+   * @generated
+   * @ordered
+   */
+  public static final int SUCCESS_VALUE = 3;
+
+  /**
+   * The '<em><b>FAIL</b></em>' literal value.
+   * <!-- begin-user-doc -->
+   * <p>
+   * If the meaning of '<em><b>FAIL</b></em>' literal object isn't clear,
+   * there really should be more of a description here...
+   * </p>
+   * <!-- end-user-doc -->
+   * @see #FAIL
+   * @model literal="fail"
+   * @generated
+   * @ordered
+   */
+  public static final int FAIL_VALUE = 4;
+
+  /**
+   * The '<em><b>UNKNOWN</b></em>' literal value.
+   * <!-- begin-user-doc -->
+   * <p>
+   * If the meaning of '<em><b>UNKNOWN</b></em>' literal object isn't clear,
+   * there really should be more of a description here...
+   * </p>
+   * <!-- end-user-doc -->
+   * @see #UNKNOWN
+   * @model literal="unknown"
+   * @generated
+   * @ordered
+   */
+  public static final int UNKNOWN_VALUE = 5;
 
   /**
    * An array of all the '<em><b>Report Issue Type</b></em>' enumerators.
@@ -130,8 +180,10 @@ public enum ReportIssueType implements Enumerator
     {
       ERROR,
       WARNING,
-      SUCCESS,
       INFO,
+      SUCCESS,
+      FAIL,
+      UNKNOWN,
     };
 
   /**
@@ -192,8 +244,10 @@ public enum ReportIssueType implements Enumerator
     {
       case ERROR_VALUE: return ERROR;
       case WARNING_VALUE: return WARNING;
-      case SUCCESS_VALUE: return SUCCESS;
       case INFO_VALUE: return INFO;
+      case SUCCESS_VALUE: return SUCCESS;
+      case FAIL_VALUE: return FAIL;
+      case UNKNOWN_VALUE: return UNKNOWN;
     }
     return null;
   }

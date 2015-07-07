@@ -556,8 +556,10 @@ public class ResultsPackageImpl extends EPackageImpl implements ResultsPackage
     initEEnum(reportIssueTypeEEnum, ReportIssueType.class, "ReportIssueType");
     addEEnumLiteral(reportIssueTypeEEnum, ReportIssueType.ERROR);
     addEEnumLiteral(reportIssueTypeEEnum, ReportIssueType.WARNING);
-    addEEnumLiteral(reportIssueTypeEEnum, ReportIssueType.SUCCESS);
     addEEnumLiteral(reportIssueTypeEEnum, ReportIssueType.INFO);
+    addEEnumLiteral(reportIssueTypeEEnum, ReportIssueType.SUCCESS);
+    addEEnumLiteral(reportIssueTypeEEnum, ReportIssueType.FAIL);
+    addEEnumLiteral(reportIssueTypeEEnum, ReportIssueType.UNKNOWN);
 
     // Create resource
     createResource(eNS_URI);

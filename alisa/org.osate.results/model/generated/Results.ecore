@@ -42,7 +42,9 @@
   <eClassifiers xsi:type="ecore:EEnum" name="ReportIssueType">
     <eLiterals name="ERROR" literal="error"/>
     <eLiterals name="WARNING" value="1" literal="warning"/>
-    <eLiterals name="SUCCESS" value="2" literal="success"/>
-    <eLiterals name="INFO" value="3" literal="info"/>
+    <eLiterals name="INFO" value="2" literal="info"/>
+    <eLiterals name="SUCCESS" value="3" literal="success"/>
+    <eLiterals name="FAIL" value="4" literal="fail"/>
+    <eLiterals name="UNKNOWN" value="5" literal="unknown"/>
   </eClassifiers>
 </ecore:EPackage>

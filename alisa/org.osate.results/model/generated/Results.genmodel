@@ -3,15 +3,17 @@
     xmlns:genmodel="http://www.eclipse.org/emf/2002/GenModel" modelDirectory="/org.osate.results/src-gen" editDirectory="/org.osate.results.edit/src"
     editorDirectory="/org.osate.results.editor/src" modelPluginID="org.osate.results"
     forceOverwrite="true" modelName="Results" updateClasspath="false" rootExtendsClass="org.eclipse.emf.ecore.impl.MinimalEObjectImpl$Container"
-    complianceLevel="5.0" copyrightFields="false" editPluginID="org.osate.results.edit"
+    complianceLevel="6.0" copyrightFields="false" editPluginID="org.osate.results.edit"
     editorPluginID="org.osate.results.editor" runtimeVersion="2.10">
   <genPackages prefix="Results" basePackage="org.osate.results" disposableProviderFactory="true"
       fileExtensions="results" ecorePackage="Results.ecore#/">
     <genEnums typeSafeEnumCompatible="false" ecoreEnum="Results.ecore#//ReportIssueType">
       <genEnumLiterals ecoreEnumLiteral="Results.ecore#//ReportIssueType/ERROR"/>
       <genEnumLiterals ecoreEnumLiteral="Results.ecore#//ReportIssueType/WARNING"/>
-      <genEnumLiterals ecoreEnumLiteral="Results.ecore#//ReportIssueType/SUCCESS"/>
       <genEnumLiterals ecoreEnumLiteral="Results.ecore#//ReportIssueType/INFO"/>
+      <genEnumLiterals ecoreEnumLiteral="Results.ecore#//ReportIssueType/SUCCESS"/>
+      <genEnumLiterals ecoreEnumLiteral="Results.ecore#//ReportIssueType/FAIL"/>
+      <genEnumLiterals ecoreEnumLiteral="Results.ecore#//ReportIssueType/UNKNOWN"/>
     </genEnums>
     <genClasses ecoreClass="Results.ecore#//ResultReports">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Results.ecore#//ResultReports/name"/>

@@ -22,33 +22,35 @@ import java.util.ArrayList;
 @SuppressWarnings("all")
 public class InternalResultsParser extends AbstractInternalAntlrParser {
     public static final String[] tokenNames = new String[] {
-        "<invalid>", "<EOR>", "<DOWN>", "<UP>", "RULE_ID", "RULE_STRING", "RULE_INT", "RULE_ML_COMMENT", "RULE_SL_COMMENT", "RULE_WS", "RULE_ANY_OTHER", "'reports'", "':'", "'['", "'target'", "'description'", "'issues'", "']'", "'report'", "'heading'", "'results'", "'contributor'", "'data'", "'='", "'error'", "'warning'", "'success'", "'info'"
+        "<invalid>", "<EOR>", "<DOWN>", "<UP>", "RULE_ID", "RULE_STRING", "RULE_INT", "RULE_ML_COMMENT", "RULE_SL_COMMENT", "RULE_WS", "RULE_ANY_OTHER", "'reports'", "':'", "'['", "'target'", "'description'", "'issues'", "']'", "'report'", "'heading'", "'results'", "'contributor'", "'data'", "'='", "'error'", "'warning'", "'info'", "'success'", "'fail'", "'unknown'"
     };
-    public static final int RULE_ID=4;
-    public static final int T__27=27;
-    public static final int T__26=26;
-    public static final int T__25=25;
-    public static final int T__24=24;
-    public static final int T__23=23;
-    public static final int T__22=22;
-    public static final int RULE_ANY_OTHER=10;
-    public static final int T__21=21;
-    public static final int T__20=20;
-    public static final int RULE_SL_COMMENT=8;
-    public static final int EOF=-1;
-    public static final int RULE_ML_COMMENT=7;
-    public static final int T__19=19;
     public static final int RULE_STRING=5;
-    public static final int T__16=16;
+    public static final int RULE_SL_COMMENT=8;
+    public static final int T__19=19;
     public static final int T__15=15;
-    public static final int T__18=18;
+    public static final int T__16=16;
     public static final int T__17=17;
-    public static final int T__12=12;
+    public static final int T__18=18;
     public static final int T__11=11;
-    public static final int T__14=14;
+    public static final int T__12=12;
     public static final int T__13=13;
-    public static final int RULE_INT=6;
+    public static final int T__14=14;
+    public static final int EOF=-1;
+    public static final int RULE_ID=4;
     public static final int RULE_WS=9;
+    public static final int RULE_ANY_OTHER=10;
+    public static final int T__26=26;
+    public static final int T__27=27;
+    public static final int T__28=28;
+    public static final int RULE_INT=6;
+    public static final int T__29=29;
+    public static final int T__22=22;
+    public static final int RULE_ML_COMMENT=7;
+    public static final int T__23=23;
+    public static final int T__24=24;
+    public static final int T__25=25;
+    public static final int T__20=20;
+    public static final int T__21=21;
 
     // delegates
     // delegators
@@ -537,7 +539,7 @@ public class InternalResultsParser extends AbstractInternalAntlrParser {
                         int alt5=2;
                         int LA5_0 = input.LA(1);
 
-                        if ( ((LA5_0>=24 && LA5_0<=27)) ) {
+                        if ( ((LA5_0>=24 && LA5_0<=29)) ) {
                             alt5=1;
                         }
 
@@ -1032,7 +1034,7 @@ public class InternalResultsParser extends AbstractInternalAntlrParser {
                         int alt13=2;
                         int LA13_0 = input.LA(1);
 
-                        if ( ((LA13_0>=24 && LA13_0<=27)) ) {
+                        if ( ((LA13_0>=24 && LA13_0<=29)) ) {
                             alt13=1;
                         }
 
@@ -1333,7 +1335,7 @@ public class InternalResultsParser extends AbstractInternalAntlrParser {
                 int alt17=2;
                 int LA17_0 = input.LA(1);
 
-                if ( ((LA17_0>=24 && LA17_0<=27)) ) {
+                if ( ((LA17_0>=24 && LA17_0<=29)) ) {
                     alt17=1;
                 }
 
@@ -1571,7 +1573,7 @@ public class InternalResultsParser extends AbstractInternalAntlrParser {
                         int alt19=2;
                         int LA19_0 = input.LA(1);
 
-                        if ( ((LA19_0>=24 && LA19_0<=27)) ) {
+                        if ( ((LA19_0>=24 && LA19_0<=29)) ) {
                             alt19=1;
                         }
 
@@ -2056,7 +2058,7 @@ public class InternalResultsParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "ruleReportIssueType"
-    // ../org.osate.results/src-gen/org/osate/results/parser/antlr/internal/InternalResults.g:875:1: ruleReportIssueType returns [Enumerator current=null] : ( (enumLiteral_0= 'error' ) | (enumLiteral_1= 'warning' ) | (enumLiteral_2= 'success' ) | (enumLiteral_3= 'info' ) ) ;
+    // ../org.osate.results/src-gen/org/osate/results/parser/antlr/internal/InternalResults.g:875:1: ruleReportIssueType returns [Enumerator current=null] : ( (enumLiteral_0= 'error' ) | (enumLiteral_1= 'warning' ) | (enumLiteral_2= 'info' ) | (enumLiteral_3= 'success' ) | (enumLiteral_4= 'fail' ) | (enumLiteral_5= 'unknown' ) ) ;
     public final Enumerator ruleReportIssueType() throws RecognitionException {
         Enumerator current = null;
 
@@ -2064,14 +2066,16 @@ public class InternalResultsParser extends AbstractInternalAntlrParser {
         Token enumLiteral_1=null;
         Token enumLiteral_2=null;
         Token enumLiteral_3=null;
+        Token enumLiteral_4=null;
+        Token enumLiteral_5=null;
 
          enterRule(); 
         try {
-            // ../org.osate.results/src-gen/org/osate/results/parser/antlr/internal/InternalResults.g:877:28: ( ( (enumLiteral_0= 'error' ) | (enumLiteral_1= 'warning' ) | (enumLiteral_2= 'success' ) | (enumLiteral_3= 'info' ) ) )
-            // ../org.osate.results/src-gen/org/osate/results/parser/antlr/internal/InternalResults.g:878:1: ( (enumLiteral_0= 'error' ) | (enumLiteral_1= 'warning' ) | (enumLiteral_2= 'success' ) | (enumLiteral_3= 'info' ) )
+            // ../org.osate.results/src-gen/org/osate/results/parser/antlr/internal/InternalResults.g:877:28: ( ( (enumLiteral_0= 'error' ) | (enumLiteral_1= 'warning' ) | (enumLiteral_2= 'info' ) | (enumLiteral_3= 'success' ) | (enumLiteral_4= 'fail' ) | (enumLiteral_5= 'unknown' ) ) )
+            // ../org.osate.results/src-gen/org/osate/results/parser/antlr/internal/InternalResults.g:878:1: ( (enumLiteral_0= 'error' ) | (enumLiteral_1= 'warning' ) | (enumLiteral_2= 'info' ) | (enumLiteral_3= 'success' ) | (enumLiteral_4= 'fail' ) | (enumLiteral_5= 'unknown' ) )
             {
-            // ../org.osate.results/src-gen/org/osate/results/parser/antlr/internal/InternalResults.g:878:1: ( (enumLiteral_0= 'error' ) | (enumLiteral_1= 'warning' ) | (enumLiteral_2= 'success' ) | (enumLiteral_3= 'info' ) )
-            int alt22=4;
+            // ../org.osate.results/src-gen/org/osate/results/parser/antlr/internal/InternalResults.g:878:1: ( (enumLiteral_0= 'error' ) | (enumLiteral_1= 'warning' ) | (enumLiteral_2= 'info' ) | (enumLiteral_3= 'success' ) | (enumLiteral_4= 'fail' ) | (enumLiteral_5= 'unknown' ) )
+            int alt22=6;
             switch ( input.LA(1) ) {
             case 24:
                 {
@@ -2091,6 +2095,16 @@ public class InternalResultsParser extends AbstractInternalAntlrParser {
             case 27:
                 {
                 alt22=4;
+                }
+                break;
+            case 28:
+                {
+                alt22=5;
+                }
+                break;
+            case 29:
+                {
+                alt22=6;
                 }
                 break;
             default:
@@ -2136,15 +2150,15 @@ public class InternalResultsParser extends AbstractInternalAntlrParser {
                     }
                     break;
                 case 3 :
-                    // ../org.osate.results/src-gen/org/osate/results/parser/antlr/internal/InternalResults.g:890:6: (enumLiteral_2= 'success' )
+                    // ../org.osate.results/src-gen/org/osate/results/parser/antlr/internal/InternalResults.g:890:6: (enumLiteral_2= 'info' )
                     {
-                    // ../org.osate.results/src-gen/org/osate/results/parser/antlr/internal/InternalResults.g:890:6: (enumLiteral_2= 'success' )
-                    // ../org.osate.results/src-gen/org/osate/results/parser/antlr/internal/InternalResults.g:890:8: enumLiteral_2= 'success'
+                    // ../org.osate.results/src-gen/org/osate/results/parser/antlr/internal/InternalResults.g:890:6: (enumLiteral_2= 'info' )
+                    // ../org.osate.results/src-gen/org/osate/results/parser/antlr/internal/InternalResults.g:890:8: enumLiteral_2= 'info'
                     {
                     enumLiteral_2=(Token)match(input,26,FOLLOW_26_in_ruleReportIssueType1782); 
 
-                            current = grammarAccess.getReportIssueTypeAccess().getSUCCESSEnumLiteralDeclaration_2().getEnumLiteral().getInstance();
-                            newLeafNode(enumLiteral_2, grammarAccess.getReportIssueTypeAccess().getSUCCESSEnumLiteralDeclaration_2()); 
+                            current = grammarAccess.getReportIssueTypeAccess().getINFOEnumLiteralDeclaration_2().getEnumLiteral().getInstance();
+                            newLeafNode(enumLiteral_2, grammarAccess.getReportIssueTypeAccess().getINFOEnumLiteralDeclaration_2()); 
                         
 
                     }
@@ -2153,15 +2167,49 @@ public class InternalResultsParser extends AbstractInternalAntlrParser {
                     }
                     break;
                 case 4 :
-                    // ../org.osate.results/src-gen/org/osate/results/parser/antlr/internal/InternalResults.g:896:6: (enumLiteral_3= 'info' )
+                    // ../org.osate.results/src-gen/org/osate/results/parser/antlr/internal/InternalResults.g:896:6: (enumLiteral_3= 'success' )
                     {
-                    // ../org.osate.results/src-gen/org/osate/results/parser/antlr/internal/InternalResults.g:896:6: (enumLiteral_3= 'info' )
-                    // ../org.osate.results/src-gen/org/osate/results/parser/antlr/internal/InternalResults.g:896:8: enumLiteral_3= 'info'
+                    // ../org.osate.results/src-gen/org/osate/results/parser/antlr/internal/InternalResults.g:896:6: (enumLiteral_3= 'success' )
+                    // ../org.osate.results/src-gen/org/osate/results/parser/antlr/internal/InternalResults.g:896:8: enumLiteral_3= 'success'
                     {
                     enumLiteral_3=(Token)match(input,27,FOLLOW_27_in_ruleReportIssueType1799); 
 
-                            current = grammarAccess.getReportIssueTypeAccess().getINFOEnumLiteralDeclaration_3().getEnumLiteral().getInstance();
-                            newLeafNode(enumLiteral_3, grammarAccess.getReportIssueTypeAccess().getINFOEnumLiteralDeclaration_3()); 
+                            current = grammarAccess.getReportIssueTypeAccess().getSUCCESSEnumLiteralDeclaration_3().getEnumLiteral().getInstance();
+                            newLeafNode(enumLiteral_3, grammarAccess.getReportIssueTypeAccess().getSUCCESSEnumLiteralDeclaration_3()); 
+                        
+
+                    }
+
+
+                    }
+                    break;
+                case 5 :
+                    // ../org.osate.results/src-gen/org/osate/results/parser/antlr/internal/InternalResults.g:902:6: (enumLiteral_4= 'fail' )
+                    {
+                    // ../org.osate.results/src-gen/org/osate/results/parser/antlr/internal/InternalResults.g:902:6: (enumLiteral_4= 'fail' )
+                    // ../org.osate.results/src-gen/org/osate/results/parser/antlr/internal/InternalResults.g:902:8: enumLiteral_4= 'fail'
+                    {
+                    enumLiteral_4=(Token)match(input,28,FOLLOW_28_in_ruleReportIssueType1816); 
+
+                            current = grammarAccess.getReportIssueTypeAccess().getFAILEnumLiteralDeclaration_4().getEnumLiteral().getInstance();
+                            newLeafNode(enumLiteral_4, grammarAccess.getReportIssueTypeAccess().getFAILEnumLiteralDeclaration_4()); 
+                        
+
+                    }
+
+
+                    }
+                    break;
+                case 6 :
+                    // ../org.osate.results/src-gen/org/osate/results/parser/antlr/internal/InternalResults.g:908:6: (enumLiteral_5= 'unknown' )
+                    {
+                    // ../org.osate.results/src-gen/org/osate/results/parser/antlr/internal/InternalResults.g:908:6: (enumLiteral_5= 'unknown' )
+                    // ../org.osate.results/src-gen/org/osate/results/parser/antlr/internal/InternalResults.g:908:8: enumLiteral_5= 'unknown'
+                    {
+                    enumLiteral_5=(Token)match(input,29,FOLLOW_29_in_ruleReportIssueType1833); 
+
+                            current = grammarAccess.getReportIssueTypeAccess().getUNKNOWNEnumLiteralDeclaration_5().getEnumLiteral().getInstance();
+                            newLeafNode(enumLiteral_5, grammarAccess.getReportIssueTypeAccess().getUNKNOWNEnumLiteralDeclaration_5()); 
                         
 
                     }
@@ -2210,8 +2258,8 @@ public class InternalResultsParser extends AbstractInternalAntlrParser {
     public static final BitSet FOLLOW_15_in_ruleResultReportCollection387 = new BitSet(new long[]{0x0000000000000020L});
     public static final BitSet FOLLOW_RULE_STRING_in_ruleResultReportCollection404 = new BitSet(new long[]{0x0000000000070000L});
     public static final BitSet FOLLOW_ruleResultReport_in_ruleResultReportCollection432 = new BitSet(new long[]{0x0000000000070000L});
-    public static final BitSet FOLLOW_16_in_ruleResultReportCollection446 = new BitSet(new long[]{0x000000000F020000L});
-    public static final BitSet FOLLOW_ruleReportIssue_in_ruleResultReportCollection467 = new BitSet(new long[]{0x000000000F020000L});
+    public static final BitSet FOLLOW_16_in_ruleResultReportCollection446 = new BitSet(new long[]{0x000000003F020000L});
+    public static final BitSet FOLLOW_ruleReportIssue_in_ruleResultReportCollection467 = new BitSet(new long[]{0x000000003F020000L});
     public static final BitSet FOLLOW_17_in_ruleResultReportCollection482 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_ruleResultReport_in_entryRuleResultReport518 = new BitSet(new long[]{0x0000000000000000L});
     public static final BitSet FOLLOW_EOF_in_entryRuleResultReport528 = new BitSet(new long[]{0x0000000000000002L});
@@ -2229,8 +2277,8 @@ public class InternalResultsParser extends AbstractInternalAntlrParser {
     public static final BitSet FOLLOW_ruleResultContributor_in_ruleResultReport764 = new BitSet(new long[]{0x0000000000330000L});
     public static final BitSet FOLLOW_20_in_ruleResultReport780 = new BitSet(new long[]{0x0000000000000010L});
     public static final BitSet FOLLOW_ruleResultData_in_ruleResultReport801 = new BitSet(new long[]{0x0000000000030010L});
-    public static final BitSet FOLLOW_16_in_ruleResultReport817 = new BitSet(new long[]{0x000000000F020000L});
-    public static final BitSet FOLLOW_ruleReportIssue_in_ruleResultReport838 = new BitSet(new long[]{0x000000000F020000L});
+    public static final BitSet FOLLOW_16_in_ruleResultReport817 = new BitSet(new long[]{0x000000003F020000L});
+    public static final BitSet FOLLOW_ruleReportIssue_in_ruleResultReport838 = new BitSet(new long[]{0x000000003F020000L});
     public static final BitSet FOLLOW_17_in_ruleResultReport853 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_ruleIssuesReport_in_entryRuleIssuesReport889 = new BitSet(new long[]{0x0000000000000000L});
     public static final BitSet FOLLOW_EOF_in_entryRuleIssuesReport899 = new BitSet(new long[]{0x0000000000000002L});
@@ -2240,10 +2288,10 @@ public class InternalResultsParser extends AbstractInternalAntlrParser {
     public static final BitSet FOLLOW_RULE_STRING_in_ruleIssuesReport988 = new BitSet(new long[]{0x0000000000002000L});
     public static final BitSet FOLLOW_13_in_ruleIssuesReport1007 = new BitSet(new long[]{0x0000000000004000L});
     public static final BitSet FOLLOW_14_in_ruleIssuesReport1019 = new BitSet(new long[]{0x0000000000000020L});
-    public static final BitSet FOLLOW_ruleURIID_in_ruleIssuesReport1042 = new BitSet(new long[]{0x000000000F028000L});
+    public static final BitSet FOLLOW_ruleURIID_in_ruleIssuesReport1042 = new BitSet(new long[]{0x000000003F028000L});
     public static final BitSet FOLLOW_15_in_ruleIssuesReport1055 = new BitSet(new long[]{0x0000000000000020L});
-    public static final BitSet FOLLOW_RULE_STRING_in_ruleIssuesReport1072 = new BitSet(new long[]{0x000000000F020000L});
-    public static final BitSet FOLLOW_ruleReportIssue_in_ruleIssuesReport1100 = new BitSet(new long[]{0x000000000F020000L});
+    public static final BitSet FOLLOW_RULE_STRING_in_ruleIssuesReport1072 = new BitSet(new long[]{0x000000003F020000L});
+    public static final BitSet FOLLOW_ruleReportIssue_in_ruleIssuesReport1100 = new BitSet(new long[]{0x000000003F020000L});
     public static final BitSet FOLLOW_17_in_ruleIssuesReport1113 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_ruleResultContributor_in_entryRuleResultContributor1151 = new BitSet(new long[]{0x0000000000000000L});
     public static final BitSet FOLLOW_EOF_in_entryRuleResultContributor1161 = new BitSet(new long[]{0x0000000000000002L});
@@ -2252,8 +2300,8 @@ public class InternalResultsParser extends AbstractInternalAntlrParser {
     public static final BitSet FOLLOW_13_in_ruleResultContributor1233 = new BitSet(new long[]{0x0000000000400000L});
     public static final BitSet FOLLOW_22_in_ruleResultContributor1245 = new BitSet(new long[]{0x0000000000000020L});
     public static final BitSet FOLLOW_RULE_STRING_in_ruleResultContributor1262 = new BitSet(new long[]{0x0000000000230020L});
-    public static final BitSet FOLLOW_16_in_ruleResultContributor1281 = new BitSet(new long[]{0x000000000F220000L});
-    public static final BitSet FOLLOW_ruleReportIssue_in_ruleResultContributor1302 = new BitSet(new long[]{0x000000000F220000L});
+    public static final BitSet FOLLOW_16_in_ruleResultContributor1281 = new BitSet(new long[]{0x000000003F220000L});
+    public static final BitSet FOLLOW_ruleReportIssue_in_ruleResultContributor1302 = new BitSet(new long[]{0x000000003F220000L});
     public static final BitSet FOLLOW_ruleResultContributor_in_ruleResultContributor1326 = new BitSet(new long[]{0x0000000000220000L});
     public static final BitSet FOLLOW_17_in_ruleResultContributor1339 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_ruleReportIssue_in_entryRuleReportIssue1375 = new BitSet(new long[]{0x0000000000000000L});
@@ -2273,5 +2321,7 @@ public class InternalResultsParser extends AbstractInternalAntlrParser {
     public static final BitSet FOLLOW_25_in_ruleReportIssueType1765 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_26_in_ruleReportIssueType1782 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_27_in_ruleReportIssueType1799 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_28_in_ruleReportIssueType1816 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_29_in_ruleReportIssueType1833 = new BitSet(new long[]{0x0000000000000002L});
 
 }

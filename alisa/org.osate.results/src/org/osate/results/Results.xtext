@@ -68,7 +68,7 @@ ResultData:
 ;
 
 enum ReportIssueType:
-	ERROR='error' | WARNING='warning'| SUCCESS='success' | INFO='info'
+	ERROR='error' |  WARNING='warning' | INFO='info' | SUCCESS='success' | FAIL='fail' | UNKNOWN = 'unknown'
 ;
 
 URIID: STRING;
