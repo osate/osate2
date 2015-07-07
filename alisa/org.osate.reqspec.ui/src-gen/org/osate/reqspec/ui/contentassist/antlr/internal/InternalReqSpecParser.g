@@ -4844,7 +4844,7 @@ rule__StakeholderGoals__Group__4__Impl
 :
 (
 { before(grammarAccess.getStakeholderGoalsAccess().getGroup_4()); }
-(rule__StakeholderGoals__Group_4__0)
+(rule__StakeholderGoals__Group_4__0)?
 { after(grammarAccess.getStakeholderGoalsAccess().getGroup_4()); }
 )
 
@@ -5976,7 +5976,7 @@ rule__ReqSpecs__Group__4__Impl
 :
 (
 { before(grammarAccess.getReqSpecsAccess().getGroup_4()); }
-(rule__ReqSpecs__Group_4__0)
+(rule__ReqSpecs__Group_4__0)?
 { after(grammarAccess.getReqSpecsAccess().getGroup_4()); }
 )
 

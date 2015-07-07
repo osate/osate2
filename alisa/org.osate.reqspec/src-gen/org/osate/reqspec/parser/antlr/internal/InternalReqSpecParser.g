@@ -256,7 +256,7 @@ ruleStakeholderGoals returns [EObject current=null]
 	    }
 
 )
-)))
+)))?
 	otherlv_9=LeftSquareBracket
     {
     	newLeafNode(otherlv_9, grammarAccess.getStakeholderGoalsAccess().getLeftSquareBracketKeyword_5());
@@ -982,7 +982,7 @@ ruleReqSpecs returns [EObject current=null]
 	    }
 
 )
-)))(
+)))?(
 	otherlv_9=Include
     {
     	newLeafNode(otherlv_9, grammarAccess.getReqSpecsAccess().getIncludeKeyword_5_0());

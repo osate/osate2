@@ -510,7 +510,7 @@ public class ReqSpecSemanticSequencer extends CommonSemanticSequencer {
 	 *     (
 	 *         name=ID 
 	 *         title=STRING? 
-	 *         (target=[Classifier|AADLCLASSIFIERREFERENCE] | targetDescription=STRING | global?='all') 
+	 *         (target=[Classifier|AADLCLASSIFIERREFERENCE] | targetDescription=STRING | global?='all')? 
 	 *         otherreqspecs+=[ReqSpecs|QualifiedName]* 
 	 *         description=Description? 
 	 *         constants+=XValDeclaration* 
@@ -557,7 +557,7 @@ public class ReqSpecSemanticSequencer extends CommonSemanticSequencer {
 	 *     (
 	 *         name=ID 
 	 *         title=STRING? 
-	 *         (target=[Classifier|AADLCLASSIFIERREFERENCE] | targetDescription=STRING | global?='all') 
+	 *         (target=[Classifier|AADLCLASSIFIERREFERENCE] | targetDescription=STRING | global?='all')? 
 	 *         description=Description? 
 	 *         constants+=XValDeclaration* 
 	 *         content+=Goal* 
