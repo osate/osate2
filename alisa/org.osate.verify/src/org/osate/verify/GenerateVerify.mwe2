@@ -15,27 +15,7 @@ Workflow {
     bean = StandaloneSetup {
     	scanClassPath = true
     	platformUri = "${runtimeProject}/.."
-    			uriMap = {
-			from = "platform:/plugin/org.eclipse.emf.codegen.ecore/model/GenModel.genmodel"
-			to = "platform:/resource/org.eclipse.emf.codegen.ecore/model/GenModel.genmodel"
-		}
-		uriMap = {
-			from = "platform:/plugin/org.eclipse.emf.ecore/model/Ecore.genmodel"
-			to = "platform:/resource/org.eclipse.emf.ecore/model/Ecore.genmodel"
-		}
-		uriMap = {
-			from = "platform:/plugin/org.eclipse.uml2.codegen.ecore/model/GenModel.genmodel"
-			to = "platform:/resource/org.eclipse.uml2.codegen.ecore/model/GenModel.genmodel"
-		}
-		uriMap = {
-			from = "platform:/plugin/org.eclipse.uml2.types/model/Types.genmodel"
-			to = "platform:/resource/org.eclipse.uml2.types/model/Types.genmodel"
-		}
-		uriMap = {
-			from = "platform:/plugin/org.eclipse.uml2.uml/model/UML.genmodel"
-			to = "platform:/resource/org.eclipse.uml2.uml/model/UML.genmodel"
-		}
-		uriMap = {
+ 		uriMap = {
 			from = "platform:/plugin/org.eclipse.emf.codegen.ecore/model/GenModel.ecore"
 			to = "platform:/resource/org.eclipse.emf.codegen.ecore/model/GenModel.ecore"
 		}
