@@ -14,10 +14,7 @@
    </configIni>
 
    <launcherArgs>
-      <programArgs>--launcher.XXPermSize 64M
---launcher.XXMaxPermSize 256M
-      </programArgs>
-      <vmArgs>-XX:PermSize=64m -XX:MaxPermSize=256m -Xms40m -Xmx768m
+      <vmArgs>-Xms40m -Xmx768m
       </vmArgs>
    </launcherArgs>
 
@@ -35,10 +32,8 @@
       </win>
    </launcher>
 
-
    <vm>
    </vm>
-
 
    <plugins>
    </plugins>
