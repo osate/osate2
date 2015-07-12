@@ -361,20 +361,10 @@ public class CommonSemanticSequencer extends XbaseSemanticSequencer {
 	
 	/**
 	 * Constraint:
-	 *     (type=JvmTypeReference name=ID)
+	 *     ((type=JvmTypeReference name=ID) | name=ID)
 	 */
 	protected void sequence_ComputeDeclaration(EObject context, ComputeDeclaration semanticObject) {
-		if(errorAcceptor != null) {
-			if(transientValues.isValueTransient(semanticObject, CommonPackage.Literals.COMPUTE_DECLARATION__TYPE) == ValueTransient.YES)
-				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, CommonPackage.Literals.COMPUTE_DECLARATION__TYPE));
-			if(transientValues.isValueTransient(semanticObject, CommonPackage.Literals.COMPUTE_DECLARATION__NAME) == ValueTransient.YES)
-				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, CommonPackage.Literals.COMPUTE_DECLARATION__NAME));
-		}
-		INodesForEObjectProvider nodes = createNodeProvider(semanticObject);
-		SequenceFeeder feeder = createSequencerFeeder(semanticObject, nodes);
-		feeder.accept(grammarAccess.getComputeDeclarationAccess().getTypeJvmTypeReferenceParserRuleCall_1_1_0_0(), semanticObject.getType());
-		feeder.accept(grammarAccess.getComputeDeclarationAccess().getNameIDTerminalRuleCall_1_1_1_0(), semanticObject.getName());
-		feeder.finish();
+		genericSequencer.createSequence(context, semanticObject);
 	}
 	
 	
@@ -465,7 +455,7 @@ public class CommonSemanticSequencer extends XbaseSemanticSequencer {
 	
 	/**
 	 * Constraint:
-	 *     (type=JvmTypeReference name=ID (right=APropertyReference | right=XExpression))
+	 *     (((type=JvmTypeReference name=ID) | name=ID) (right=APropertyReference | right=XExpression))
 	 */
 	protected void sequence_XValDeclaration(EObject context, XVariableDeclaration semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);

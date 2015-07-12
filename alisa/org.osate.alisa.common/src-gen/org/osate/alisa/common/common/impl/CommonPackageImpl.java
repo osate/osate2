@@ -148,6 +148,7 @@ public class CommonPackageImpl extends EPackageImpl implements CommonPackage
     isInited = true;
 
     // Initialize simple dependencies
+    EcorePackage.eINSTANCE.eClass();
     XbasePackage.eINSTANCE.eClass();
     Aadl2Package.eINSTANCE.eClass();
 

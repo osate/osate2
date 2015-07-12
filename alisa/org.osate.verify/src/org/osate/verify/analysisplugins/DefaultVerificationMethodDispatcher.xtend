@@ -67,6 +67,8 @@ class DefaultVerificationMethodDispatcher implements IVerificationMethodDispatch
 	// invoke method in workspace project
 	def Object workspaceInvoke(VerificationMethod vm, InstanceObject target, Object[] parameters) {
 		val i = vm.methodPath.lastIndexOf('.')
+		if ( i == -1)
+		return null;
 		val className = vm.methodPath.substring(0, i)
 		val methodName = vm.methodPath.substring(i + 1)
 

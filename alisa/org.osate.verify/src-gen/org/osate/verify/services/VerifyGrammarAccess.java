@@ -89,8 +89,8 @@ public class VerifyGrammarAccess extends AbstractGrammarElementFinder {
 
 		//"verification" "plan" name=ID (":" title=STRING)? "for" target= //      [ReqSpec::SystemSpec|QualifiedName]
 		//[aadl2::ComponentClassifier|AADLCLASSIFIERREFERENCE] "[" (description=Description? & claim+=Claim* &
-		//rationale=Rationale? & ("assume" verifiedAssumption+=[VerificationPlan|QualifiedName]+)? & ("issues" issues+=STRING+)?)
-		//"]"
+		//rationale=Rationale? & ("assume" verifiedAssumption+=[VerificationPlan|QualifiedName]+)? & ("issues"
+		//issues+=STRING+)?) "]"
 		public Group getGroup() { return cGroup; }
 
 		//"verification"
@@ -1679,7 +1679,8 @@ public class VerifyGrammarAccess extends AbstractGrammarElementFinder {
 
 	//// New rule for val only
 	//XValDeclaration returns xbase::XExpression:
-	//	{xbase::XVariableDeclaration} ("val" (=> type=JvmTypeReference name=ID) "=" right=(APropertyReference | XExpression));
+	//	{xbase::XVariableDeclaration} ("val" (=> (type=JvmTypeReference name=ID) | name=ID) "=" right=(APropertyReference |
+	//	XExpression));
 	public CommonGrammarAccess.XValDeclarationElements getXValDeclarationAccess() {
 		return gaCommon.getXValDeclarationAccess();
 	}
@@ -1688,8 +1689,10 @@ public class VerifyGrammarAccess extends AbstractGrammarElementFinder {
 		return getXValDeclarationAccess().getRule();
 	}
 
+	////	 ('val' (=> type=JvmTypeReference name=ID) '=' right=(APropertyReference|XExpression)) ;
+	////	 ('compute' (=> type=JvmTypeReference name=ID))
 	//ComputeDeclaration returns xbase::XExpression:
-	//	{ComputeDeclaration} ("compute" (=> type=JvmTypeReference name=ID));
+	//	{ComputeDeclaration} ("compute" (=> (type=JvmTypeReference name=ID) | name=ID));
 	public CommonGrammarAccess.ComputeDeclarationElements getComputeDeclarationAccess() {
 		return gaCommon.getComputeDeclarationAccess();
 	}
@@ -2033,8 +2036,8 @@ public class VerifyGrammarAccess extends AbstractGrammarElementFinder {
 	//	feature=[types::JvmIdentifiableElement|FeatureCallID] OpSingleAssign) value=XAssignment | =>
 	//	({XMemberFeatureCall.memberCallTarget=current} ("." | nullSafe?="?." | explicitStatic?="::")) ("<"
 	//	typeArguments+=JvmArgumentTypeReference ("," typeArguments+=JvmArgumentTypeReference)* ">")?
-	//	feature=[types::JvmIdentifiableElement|IdOrSuper] (=> explicitOperationCall?="(" (memberCallArguments+=XShortClosure |
-	//	memberCallArguments+=XExpression ("," memberCallArguments+=XExpression)*)? ")")? memberCallArguments+=XClosure?)*;
+	//	feature=[types::JvmIdentifiableElement|IdOrSuper] (=> explicitOperationCall?="(" (memberCallArguments+=XShortClosure
+	//	| memberCallArguments+=XExpression ("," memberCallArguments+=XExpression)*)? ")")? memberCallArguments+=XClosure?)*;
 	public XbaseGrammarAccess.XMemberFeatureCallElements getXMemberFeatureCallAccess() {
 		return gaCommon.getXMemberFeatureCallAccess();
 	}
@@ -2149,8 +2152,8 @@ public class VerifyGrammarAccess extends AbstractGrammarElementFinder {
 
 	//XSwitchExpression returns XExpression:
 	//	{XSwitchExpression} "switch" (=> ("(" declaredParam=JvmFormalParameter ":") switch=XExpression ")" | =>
-	//	(declaredParam=JvmFormalParameter ":")? switch=XExpression) "{" cases+=XCasePart* ("default" ":" default=XExpression)?
-	//	"}";
+	//	(declaredParam=JvmFormalParameter ":")? switch=XExpression) "{" cases+=XCasePart* ("default" ":"
+	//	default=XExpression)? "}";
 	public XbaseGrammarAccess.XSwitchExpressionElements getXSwitchExpressionAccess() {
 		return gaCommon.getXSwitchExpressionAccess();
 	}
@@ -2422,7 +2425,8 @@ public class VerifyGrammarAccess extends AbstractGrammarElementFinder {
 	/// **
 	// * Dummy rule, for "better" downwards compatibility, since GrammarAccess generates non-static inner classes, 
 	// * which makes downstream grammars break on classloading, when a rule is removed.
-	// * / StaticQualifier:
+	// * /
+	//StaticQualifier:
 	//	(ValidID "::")+;
 	public XbaseGrammarAccess.StaticQualifierElements getStaticQualifierAccess() {
 		return gaCommon.getStaticQualifierAccess();

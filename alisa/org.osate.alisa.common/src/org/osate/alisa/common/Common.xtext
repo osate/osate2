@@ -38,11 +38,13 @@ Uncertainty:
 // New rule for val only
 XValDeclaration returns xbase::XExpression:
 	{xbase::XVariableDeclaration}
-	 ('val' (=> type=JvmTypeReference name=ID) '=' right=(APropertyReference|XExpression)) ;
+	 ('val' (=> (type=JvmTypeReference name=ID) | name=ID) '=' right=(APropertyReference|XExpression)) ;
+//	 ('val' (=> type=JvmTypeReference name=ID) '=' right=(APropertyReference|XExpression)) ;
 
 ComputeDeclaration returns xbase::XExpression:
 	{ComputeDeclaration}
-	 ('compute' (=> type=JvmTypeReference name=ID))
+	 ('compute' (=> (type=JvmTypeReference name=ID) | name=ID) )
+//	 ('compute' (=> type=JvmTypeReference name=ID))
 	 
 ;
 

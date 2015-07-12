@@ -3475,14 +3475,19 @@ ruleXValDeclaration returns [EObject current=null]
     {
     	newLeafNode(otherlv_1, grammarAccess.getXValDeclarationAccess().getValKeyword_1_0());
     }
-(((
+(((((
 (
 ruleJvmTypeReference
 )
-)=>
+)(
+(
+RULE_ID
+
+)
+)))=>((
 (
 		{ 
-	        newCompositeNode(grammarAccess.getXValDeclarationAccess().getTypeJvmTypeReferenceParserRuleCall_1_1_0_0()); 
+	        newCompositeNode(grammarAccess.getXValDeclarationAccess().getTypeJvmTypeReferenceParserRuleCall_1_1_0_0_0_0()); 
 	    }
 		lv_type_2_0=ruleJvmTypeReference		{
 	        if ($current==null) {
@@ -3501,7 +3506,7 @@ ruleJvmTypeReference
 (
 		lv_name_3_0=RULE_ID
 		{
-			newLeafNode(lv_name_3_0, grammarAccess.getXValDeclarationAccess().getNameIDTerminalRuleCall_1_1_1_0()); 
+			newLeafNode(lv_name_3_0, grammarAccess.getXValDeclarationAccess().getNameIDTerminalRuleCall_1_1_0_0_1_0()); 
 		}
 		{
 	        if ($current==null) {
@@ -3515,10 +3520,29 @@ ruleJvmTypeReference
 	    }
 
 )
+)))
+    |(
+(
+		lv_name_4_0=RULE_ID
+		{
+			newLeafNode(lv_name_4_0, grammarAccess.getXValDeclarationAccess().getNameIDTerminalRuleCall_1_1_1_0()); 
+		}
+		{
+	        if ($current==null) {
+	            $current = createModelElement(grammarAccess.getXValDeclarationRule());
+	        }
+       		setWithLastConsumed(
+       			$current, 
+       			"name",
+        		lv_name_4_0, 
+        		"ID");
+	    }
+
+)
 ))
-	otherlv_4=EqualsSign
+	otherlv_5=EqualsSign
     {
-    	newLeafNode(otherlv_4, grammarAccess.getXValDeclarationAccess().getEqualsSignKeyword_1_2());
+    	newLeafNode(otherlv_5, grammarAccess.getXValDeclarationAccess().getEqualsSignKeyword_1_2());
     }
 (
 (
@@ -3526,14 +3550,14 @@ ruleJvmTypeReference
 		{ 
 	        newCompositeNode(grammarAccess.getXValDeclarationAccess().getRightAPropertyReferenceParserRuleCall_1_3_0_0()); 
 	    }
-		lv_right_5_1=ruleAPropertyReference		{
+		lv_right_6_1=ruleAPropertyReference		{
 	        if ($current==null) {
 	            $current = createModelElementForParent(grammarAccess.getXValDeclarationRule());
 	        }
        		set(
        			$current, 
        			"right",
-        		lv_right_5_1, 
+        		lv_right_6_1, 
         		"APropertyReference");
 	        afterParserOrEnumRuleCall();
 	    }
@@ -3541,14 +3565,14 @@ ruleJvmTypeReference
     |		{ 
 	        newCompositeNode(grammarAccess.getXValDeclarationAccess().getRightXExpressionParserRuleCall_1_3_0_1()); 
 	    }
-		lv_right_5_2=ruleXExpression		{
+		lv_right_6_2=ruleXExpression		{
 	        if ($current==null) {
 	            $current = createModelElementForParent(grammarAccess.getXValDeclarationRule());
 	        }
        		set(
        			$current, 
        			"right",
-        		lv_right_5_2, 
+        		lv_right_6_2, 
         		"XExpression");
 	        afterParserOrEnumRuleCall();
 	    }
@@ -3588,14 +3612,19 @@ ruleComputeDeclaration returns [EObject current=null]
     {
     	newLeafNode(otherlv_1, grammarAccess.getComputeDeclarationAccess().getComputeKeyword_1_0());
     }
-(((
+(((((
 (
 ruleJvmTypeReference
 )
-)=>
+)(
+(
+RULE_ID
+
+)
+)))=>((
 (
 		{ 
-	        newCompositeNode(grammarAccess.getComputeDeclarationAccess().getTypeJvmTypeReferenceParserRuleCall_1_1_0_0()); 
+	        newCompositeNode(grammarAccess.getComputeDeclarationAccess().getTypeJvmTypeReferenceParserRuleCall_1_1_0_0_0_0()); 
 	    }
 		lv_type_2_0=ruleJvmTypeReference		{
 	        if ($current==null) {
@@ -3614,7 +3643,7 @@ ruleJvmTypeReference
 (
 		lv_name_3_0=RULE_ID
 		{
-			newLeafNode(lv_name_3_0, grammarAccess.getComputeDeclarationAccess().getNameIDTerminalRuleCall_1_1_1_0()); 
+			newLeafNode(lv_name_3_0, grammarAccess.getComputeDeclarationAccess().getNameIDTerminalRuleCall_1_1_0_0_1_0()); 
 		}
 		{
 	        if ($current==null) {
@@ -3624,6 +3653,25 @@ ruleJvmTypeReference
        			$current, 
        			"name",
         		lv_name_3_0, 
+        		"ID");
+	    }
+
+)
+)))
+    |(
+(
+		lv_name_4_0=RULE_ID
+		{
+			newLeafNode(lv_name_4_0, grammarAccess.getComputeDeclarationAccess().getNameIDTerminalRuleCall_1_1_1_0()); 
+		}
+		{
+	        if ($current==null) {
+	            $current = createModelElement(grammarAccess.getComputeDeclarationRule());
+	        }
+       		setWithLastConsumed(
+       			$current, 
+       			"name",
+        		lv_name_4_0, 
         		"ID");
 	    }
 

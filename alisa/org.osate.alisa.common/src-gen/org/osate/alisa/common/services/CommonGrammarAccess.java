@@ -263,10 +263,14 @@ public class CommonGrammarAccess extends AbstractGrammarElementFinder {
 		private final Action cXVariableDeclarationAction_0 = (Action)cGroup.eContents().get(0);
 		private final Group cGroup_1 = (Group)cGroup.eContents().get(1);
 		private final Keyword cValKeyword_1_0 = (Keyword)cGroup_1.eContents().get(0);
-		private final Group cGroup_1_1 = (Group)cGroup_1.eContents().get(1);
-		private final Assignment cTypeAssignment_1_1_0 = (Assignment)cGroup_1_1.eContents().get(0);
-		private final RuleCall cTypeJvmTypeReferenceParserRuleCall_1_1_0_0 = (RuleCall)cTypeAssignment_1_1_0.eContents().get(0);
-		private final Assignment cNameAssignment_1_1_1 = (Assignment)cGroup_1_1.eContents().get(1);
+		private final Alternatives cAlternatives_1_1 = (Alternatives)cGroup_1.eContents().get(1);
+		private final Group cGroup_1_1_0 = (Group)cAlternatives_1_1.eContents().get(0);
+		private final Group cGroup_1_1_0_0 = (Group)cGroup_1_1_0.eContents().get(0);
+		private final Assignment cTypeAssignment_1_1_0_0_0 = (Assignment)cGroup_1_1_0_0.eContents().get(0);
+		private final RuleCall cTypeJvmTypeReferenceParserRuleCall_1_1_0_0_0_0 = (RuleCall)cTypeAssignment_1_1_0_0_0.eContents().get(0);
+		private final Assignment cNameAssignment_1_1_0_0_1 = (Assignment)cGroup_1_1_0_0.eContents().get(1);
+		private final RuleCall cNameIDTerminalRuleCall_1_1_0_0_1_0 = (RuleCall)cNameAssignment_1_1_0_0_1.eContents().get(0);
+		private final Assignment cNameAssignment_1_1_1 = (Assignment)cAlternatives_1_1.eContents().get(1);
 		private final RuleCall cNameIDTerminalRuleCall_1_1_1_0 = (RuleCall)cNameAssignment_1_1_1.eContents().get(0);
 		private final Keyword cEqualsSignKeyword_1_2 = (Keyword)cGroup_1.eContents().get(2);
 		private final Assignment cRightAssignment_1_3 = (Assignment)cGroup_1.eContents().get(3);
@@ -276,29 +280,43 @@ public class CommonGrammarAccess extends AbstractGrammarElementFinder {
 		
 		//// New rule for val only
 		//XValDeclaration returns xbase::XExpression:
-		//	{xbase::XVariableDeclaration} ("val" (=> type=JvmTypeReference name=ID) "=" right=(APropertyReference | XExpression));
+		//	{xbase::XVariableDeclaration} ("val" (=> (type=JvmTypeReference name=ID) | name=ID) "=" right=(APropertyReference |
+		//	XExpression));
 		@Override public ParserRule getRule() { return rule; }
 
-		//{xbase::XVariableDeclaration} ("val" (=> type=JvmTypeReference name=ID) "=" right=(APropertyReference | XExpression))
+		//{xbase::XVariableDeclaration} ("val" (=> (type=JvmTypeReference name=ID) | name=ID) "=" right=(APropertyReference |
+		//XExpression))
 		public Group getGroup() { return cGroup; }
 
 		//{xbase::XVariableDeclaration}
 		public Action getXVariableDeclarationAction_0() { return cXVariableDeclarationAction_0; }
 
-		//"val" (=> type=JvmTypeReference name=ID) "=" right=(APropertyReference | XExpression)
+		//"val" (=> (type=JvmTypeReference name=ID) | name=ID) "=" right=(APropertyReference | XExpression)
 		public Group getGroup_1() { return cGroup_1; }
 
 		//"val"
 		public Keyword getValKeyword_1_0() { return cValKeyword_1_0; }
 
-		//=> type=JvmTypeReference name=ID
-		public Group getGroup_1_1() { return cGroup_1_1; }
+		//=> (type=JvmTypeReference name=ID) | name=ID
+		public Alternatives getAlternatives_1_1() { return cAlternatives_1_1; }
 
-		//=> type=JvmTypeReference
-		public Assignment getTypeAssignment_1_1_0() { return cTypeAssignment_1_1_0; }
+		//=> (type=JvmTypeReference name=ID)
+		public Group getGroup_1_1_0() { return cGroup_1_1_0; }
+
+		//type=JvmTypeReference name=ID
+		public Group getGroup_1_1_0_0() { return cGroup_1_1_0_0; }
+
+		//type=JvmTypeReference
+		public Assignment getTypeAssignment_1_1_0_0_0() { return cTypeAssignment_1_1_0_0_0; }
 
 		//JvmTypeReference
-		public RuleCall getTypeJvmTypeReferenceParserRuleCall_1_1_0_0() { return cTypeJvmTypeReferenceParserRuleCall_1_1_0_0; }
+		public RuleCall getTypeJvmTypeReferenceParserRuleCall_1_1_0_0_0_0() { return cTypeJvmTypeReferenceParserRuleCall_1_1_0_0_0_0; }
+
+		//name=ID
+		public Assignment getNameAssignment_1_1_0_0_1() { return cNameAssignment_1_1_0_0_1; }
+
+		//ID
+		public RuleCall getNameIDTerminalRuleCall_1_1_0_0_1_0() { return cNameIDTerminalRuleCall_1_1_0_0_1_0; }
 
 		//name=ID
 		public Assignment getNameAssignment_1_1_1() { return cNameAssignment_1_1_1; }
@@ -328,36 +346,54 @@ public class CommonGrammarAccess extends AbstractGrammarElementFinder {
 		private final Action cComputeDeclarationAction_0 = (Action)cGroup.eContents().get(0);
 		private final Group cGroup_1 = (Group)cGroup.eContents().get(1);
 		private final Keyword cComputeKeyword_1_0 = (Keyword)cGroup_1.eContents().get(0);
-		private final Group cGroup_1_1 = (Group)cGroup_1.eContents().get(1);
-		private final Assignment cTypeAssignment_1_1_0 = (Assignment)cGroup_1_1.eContents().get(0);
-		private final RuleCall cTypeJvmTypeReferenceParserRuleCall_1_1_0_0 = (RuleCall)cTypeAssignment_1_1_0.eContents().get(0);
-		private final Assignment cNameAssignment_1_1_1 = (Assignment)cGroup_1_1.eContents().get(1);
+		private final Alternatives cAlternatives_1_1 = (Alternatives)cGroup_1.eContents().get(1);
+		private final Group cGroup_1_1_0 = (Group)cAlternatives_1_1.eContents().get(0);
+		private final Group cGroup_1_1_0_0 = (Group)cGroup_1_1_0.eContents().get(0);
+		private final Assignment cTypeAssignment_1_1_0_0_0 = (Assignment)cGroup_1_1_0_0.eContents().get(0);
+		private final RuleCall cTypeJvmTypeReferenceParserRuleCall_1_1_0_0_0_0 = (RuleCall)cTypeAssignment_1_1_0_0_0.eContents().get(0);
+		private final Assignment cNameAssignment_1_1_0_0_1 = (Assignment)cGroup_1_1_0_0.eContents().get(1);
+		private final RuleCall cNameIDTerminalRuleCall_1_1_0_0_1_0 = (RuleCall)cNameAssignment_1_1_0_0_1.eContents().get(0);
+		private final Assignment cNameAssignment_1_1_1 = (Assignment)cAlternatives_1_1.eContents().get(1);
 		private final RuleCall cNameIDTerminalRuleCall_1_1_1_0 = (RuleCall)cNameAssignment_1_1_1.eContents().get(0);
 		
+		////	 ('val' (=> type=JvmTypeReference name=ID) '=' right=(APropertyReference|XExpression)) ;
+		////	 ('compute' (=> type=JvmTypeReference name=ID))
 		//ComputeDeclaration returns xbase::XExpression:
-		//	{ComputeDeclaration} ("compute" (=> type=JvmTypeReference name=ID));
+		//	{ComputeDeclaration} ("compute" (=> (type=JvmTypeReference name=ID) | name=ID));
 		@Override public ParserRule getRule() { return rule; }
 
-		//{ComputeDeclaration} ("compute" (=> type=JvmTypeReference name=ID))
+		//{ComputeDeclaration} ("compute" (=> (type=JvmTypeReference name=ID) | name=ID))
 		public Group getGroup() { return cGroup; }
 
 		//{ComputeDeclaration}
 		public Action getComputeDeclarationAction_0() { return cComputeDeclarationAction_0; }
 
-		//"compute" (=> type=JvmTypeReference name=ID)
+		//"compute" (=> (type=JvmTypeReference name=ID) | name=ID)
 		public Group getGroup_1() { return cGroup_1; }
 
 		//"compute"
 		public Keyword getComputeKeyword_1_0() { return cComputeKeyword_1_0; }
 
-		//=> type=JvmTypeReference name=ID
-		public Group getGroup_1_1() { return cGroup_1_1; }
+		//=> (type=JvmTypeReference name=ID) | name=ID
+		public Alternatives getAlternatives_1_1() { return cAlternatives_1_1; }
 
-		//=> type=JvmTypeReference
-		public Assignment getTypeAssignment_1_1_0() { return cTypeAssignment_1_1_0; }
+		//=> (type=JvmTypeReference name=ID)
+		public Group getGroup_1_1_0() { return cGroup_1_1_0; }
+
+		//type=JvmTypeReference name=ID
+		public Group getGroup_1_1_0_0() { return cGroup_1_1_0_0; }
+
+		//type=JvmTypeReference
+		public Assignment getTypeAssignment_1_1_0_0_0() { return cTypeAssignment_1_1_0_0_0; }
 
 		//JvmTypeReference
-		public RuleCall getTypeJvmTypeReferenceParserRuleCall_1_1_0_0() { return cTypeJvmTypeReferenceParserRuleCall_1_1_0_0; }
+		public RuleCall getTypeJvmTypeReferenceParserRuleCall_1_1_0_0_0_0() { return cTypeJvmTypeReferenceParserRuleCall_1_1_0_0_0_0; }
+
+		//name=ID
+		public Assignment getNameAssignment_1_1_0_0_1() { return cNameAssignment_1_1_0_0_1; }
+
+		//ID
+		public RuleCall getNameIDTerminalRuleCall_1_1_0_0_1_0() { return cNameIDTerminalRuleCall_1_1_0_0_1_0; }
 
 		//name=ID
 		public Assignment getNameAssignment_1_1_1() { return cNameAssignment_1_1_1; }
@@ -740,7 +776,8 @@ public class CommonGrammarAccess extends AbstractGrammarElementFinder {
 
 	//// New rule for val only
 	//XValDeclaration returns xbase::XExpression:
-	//	{xbase::XVariableDeclaration} ("val" (=> type=JvmTypeReference name=ID) "=" right=(APropertyReference | XExpression));
+	//	{xbase::XVariableDeclaration} ("val" (=> (type=JvmTypeReference name=ID) | name=ID) "=" right=(APropertyReference |
+	//	XExpression));
 	public XValDeclarationElements getXValDeclarationAccess() {
 		return pXValDeclaration;
 	}
@@ -749,8 +786,10 @@ public class CommonGrammarAccess extends AbstractGrammarElementFinder {
 		return getXValDeclarationAccess().getRule();
 	}
 
+	////	 ('val' (=> type=JvmTypeReference name=ID) '=' right=(APropertyReference|XExpression)) ;
+	////	 ('compute' (=> type=JvmTypeReference name=ID))
 	//ComputeDeclaration returns xbase::XExpression:
-	//	{ComputeDeclaration} ("compute" (=> type=JvmTypeReference name=ID));
+	//	{ComputeDeclaration} ("compute" (=> (type=JvmTypeReference name=ID) | name=ID));
 	public ComputeDeclarationElements getComputeDeclarationAccess() {
 		return pComputeDeclaration;
 	}
@@ -1094,8 +1133,8 @@ public class CommonGrammarAccess extends AbstractGrammarElementFinder {
 	//	feature=[types::JvmIdentifiableElement|FeatureCallID] OpSingleAssign) value=XAssignment | =>
 	//	({XMemberFeatureCall.memberCallTarget=current} ("." | nullSafe?="?." | explicitStatic?="::")) ("<"
 	//	typeArguments+=JvmArgumentTypeReference ("," typeArguments+=JvmArgumentTypeReference)* ">")?
-	//	feature=[types::JvmIdentifiableElement|IdOrSuper] (=> explicitOperationCall?="(" (memberCallArguments+=XShortClosure |
-	//	memberCallArguments+=XExpression ("," memberCallArguments+=XExpression)*)? ")")? memberCallArguments+=XClosure?)*;
+	//	feature=[types::JvmIdentifiableElement|IdOrSuper] (=> explicitOperationCall?="(" (memberCallArguments+=XShortClosure
+	//	| memberCallArguments+=XExpression ("," memberCallArguments+=XExpression)*)? ")")? memberCallArguments+=XClosure?)*;
 	public XbaseGrammarAccess.XMemberFeatureCallElements getXMemberFeatureCallAccess() {
 		return gaXbase.getXMemberFeatureCallAccess();
 	}
@@ -1210,8 +1249,8 @@ public class CommonGrammarAccess extends AbstractGrammarElementFinder {
 
 	//XSwitchExpression returns XExpression:
 	//	{XSwitchExpression} "switch" (=> ("(" declaredParam=JvmFormalParameter ":") switch=XExpression ")" | =>
-	//	(declaredParam=JvmFormalParameter ":")? switch=XExpression) "{" cases+=XCasePart* ("default" ":" default=XExpression)?
-	//	"}";
+	//	(declaredParam=JvmFormalParameter ":")? switch=XExpression) "{" cases+=XCasePart* ("default" ":"
+	//	default=XExpression)? "}";
 	public XbaseGrammarAccess.XSwitchExpressionElements getXSwitchExpressionAccess() {
 		return gaXbase.getXSwitchExpressionAccess();
 	}
@@ -1483,7 +1522,8 @@ public class CommonGrammarAccess extends AbstractGrammarElementFinder {
 	/// **
 	// * Dummy rule, for "better" downwards compatibility, since GrammarAccess generates non-static inner classes, 
 	// * which makes downstream grammars break on classloading, when a rule is removed.
-	// * / StaticQualifier:
+	// * /
+	//StaticQualifier:
 	//	(ValidID "::")+;
 	public XbaseGrammarAccess.StaticQualifierElements getStaticQualifierAccess() {
 		return gaXbase.getStaticQualifierAccess();
