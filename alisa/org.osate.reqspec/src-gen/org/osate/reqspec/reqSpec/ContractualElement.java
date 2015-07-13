@@ -35,6 +35,9 @@ import org.osate.categories.categories.RequirementCategory;
  *   <li>{@link org.osate.reqspec.reqSpec.ContractualElement#getConstants <em>Constants</em>}</li>
  *   <li>{@link org.osate.reqspec.reqSpec.ContractualElement#getRationale <em>Rationale</em>}</li>
  *   <li>{@link org.osate.reqspec.reqSpec.ContractualElement#getChangeUncertainty <em>Change Uncertainty</em>}</li>
+ *   <li>{@link org.osate.reqspec.reqSpec.ContractualElement#getEvolvesReference <em>Evolves Reference</em>}</li>
+ *   <li>{@link org.osate.reqspec.reqSpec.ContractualElement#isDropped <em>Dropped</em>}</li>
+ *   <li>{@link org.osate.reqspec.reqSpec.ContractualElement#getDropRationale <em>Drop Rationale</em>}</li>
  *   <li>{@link org.osate.reqspec.reqSpec.ContractualElement#getDocumentRequirement <em>Document Requirement</em>}</li>
  *   <li>{@link org.osate.reqspec.reqSpec.ContractualElement#getDocReference <em>Doc Reference</em>}</li>
  *   <li>{@link org.osate.reqspec.reqSpec.ContractualElement#getIssues <em>Issues</em>}</li>
@@ -286,6 +289,74 @@ public interface ContractualElement extends EObject
    * @generated
    */
   void setChangeUncertainty(Uncertainty value);
+
+  /**
+   * Returns the value of the '<em><b>Evolves Reference</b></em>' reference list.
+   * The list contents are of type {@link org.osate.reqspec.reqSpec.Requirement}.
+   * <!-- begin-user-doc -->
+   * <p>
+   * If the meaning of the '<em>Evolves Reference</em>' reference list isn't clear,
+   * there really should be more of a description here...
+   * </p>
+   * <!-- end-user-doc -->
+   * @return the value of the '<em>Evolves Reference</em>' reference list.
+   * @see org.osate.reqspec.reqSpec.ReqSpecPackage#getContractualElement_EvolvesReference()
+   * @model
+   * @generated
+   */
+  EList<Requirement> getEvolvesReference();
+
+  /**
+   * Returns the value of the '<em><b>Dropped</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <p>
+   * If the meaning of the '<em>Dropped</em>' attribute isn't clear,
+   * there really should be more of a description here...
+   * </p>
+   * <!-- end-user-doc -->
+   * @return the value of the '<em>Dropped</em>' attribute.
+   * @see #setDropped(boolean)
+   * @see org.osate.reqspec.reqSpec.ReqSpecPackage#getContractualElement_Dropped()
+   * @model
+   * @generated
+   */
+  boolean isDropped();
+
+  /**
+   * Sets the value of the '{@link org.osate.reqspec.reqSpec.ContractualElement#isDropped <em>Dropped</em>}' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @param value the new value of the '<em>Dropped</em>' attribute.
+   * @see #isDropped()
+   * @generated
+   */
+  void setDropped(boolean value);
+
+  /**
+   * Returns the value of the '<em><b>Drop Rationale</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <p>
+   * If the meaning of the '<em>Drop Rationale</em>' attribute isn't clear,
+   * there really should be more of a description here...
+   * </p>
+   * <!-- end-user-doc -->
+   * @return the value of the '<em>Drop Rationale</em>' attribute.
+   * @see #setDropRationale(String)
+   * @see org.osate.reqspec.reqSpec.ReqSpecPackage#getContractualElement_DropRationale()
+   * @model
+   * @generated
+   */
+  String getDropRationale();
+
+  /**
+   * Sets the value of the '{@link org.osate.reqspec.reqSpec.ContractualElement#getDropRationale <em>Drop Rationale</em>}' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @param value the new value of the '<em>Drop Rationale</em>' attribute.
+   * @see #getDropRationale()
+   * @generated
+   */
+  void setDropRationale(String value);
 
   /**
    * Returns the value of the '<em><b>Document Requirement</b></em>' reference list.

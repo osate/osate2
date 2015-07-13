@@ -447,6 +447,8 @@ public class ReqSpecSemanticSequencer extends CommonSemanticSequencer {
 	 *             changeUncertainty=Uncertainty? 
 	 *             refinesReference+=[Goal|QualifiedName]* 
 	 *             conflictsReference+=[Goal|QualifiedName]* 
+	 *             evolvesReference+=[Requirement|QualifiedName]* 
+	 *             (dropped?='dropped' dropRationale=STRING?)? 
 	 *             stakeholderReference+=[Stakeholder|QualifiedName]* 
 	 *             documentRequirement+=[ContractualElement|QualifiedName]* 
 	 *             docReference+=ExternalDocument* 
@@ -463,6 +465,8 @@ public class ReqSpecSemanticSequencer extends CommonSemanticSequencer {
 	 *             changeUncertainty=Uncertainty? 
 	 *             refinesReference+=[Goal|QualifiedName]* 
 	 *             conflictsReference+=[Goal|QualifiedName]* 
+	 *             evolvesReference+=[Requirement|QualifiedName]* 
+	 *             (dropped?='dropped' dropRationale=STRING?)? 
 	 *             stakeholderReference+=[Stakeholder|QualifiedName]* 
 	 *             documentRequirement+=[ContractualElement|QualifiedName]* 
 	 *             docReference+=ExternalDocument* 
@@ -491,6 +495,9 @@ public class ReqSpecSemanticSequencer extends CommonSemanticSequencer {
 	 *             changeUncertainty=Uncertainty? 
 	 *             (exception=[EObject|ID] | exceptionText=STRING)? 
 	 *             refinesReference+=[Requirement|QualifiedName]* 
+	 *             decomposesReference+=[Requirement|QualifiedName]* 
+	 *             evolvesReference+=[Requirement|QualifiedName]* 
+	 *             (dropped?='dropped' dropRationale=STRING?)? 
 	 *             goalReference+=[Goal|QualifiedName]* 
 	 *             stakeholderRequirementReference+=[Goal|QualifiedName]* 
 	 *             documentRequirement+=[ContractualElement|QualifiedName]* 
@@ -510,6 +517,9 @@ public class ReqSpecSemanticSequencer extends CommonSemanticSequencer {
 	 *             changeUncertainty=Uncertainty? 
 	 *             (exception=[EObject|ID] | exceptionText=STRING)? 
 	 *             refinesReference+=[Requirement|QualifiedName]* 
+	 *             decomposesReference+=[Requirement|QualifiedName]* 
+	 *             evolvesReference+=[Requirement|QualifiedName]* 
+	 *             (dropped?='dropped' dropRationale=STRING?)? 
 	 *             goalReference+=[Goal|QualifiedName]* 
 	 *             stakeholderRequirementReference+=[Goal|QualifiedName]* 
 	 *             documentRequirement+=[ContractualElement|QualifiedName]* 
@@ -536,6 +546,8 @@ public class ReqSpecSemanticSequencer extends CommonSemanticSequencer {
 	 *         changeUncertainty=Uncertainty? 
 	 *         refinesReference+=[Goal|QualifiedName]* 
 	 *         conflictsReference+=[Goal|QualifiedName]* 
+	 *         evolvesReference+=[Requirement|QualifiedName]* 
+	 *         (dropped?='dropped' dropRationale=STRING?)? 
 	 *         stakeholderReference+=[Stakeholder|QualifiedName]* 
 	 *         documentRequirement+=[ContractualElement|QualifiedName]* 
 	 *         docReference+=ExternalDocument* 
@@ -562,6 +574,9 @@ public class ReqSpecSemanticSequencer extends CommonSemanticSequencer {
 	 *         changeUncertainty=Uncertainty? 
 	 *         (exception=[EObject|ID] | exceptionText=STRING)? 
 	 *         refinesReference+=[Requirement|QualifiedName]* 
+	 *         decomposesReference+=[Requirement|QualifiedName]* 
+	 *         evolvesReference+=[Requirement|QualifiedName]* 
+	 *         (dropped?='dropped' dropRationale=STRING?)? 
 	 *         goalReference+=[Goal|QualifiedName]* 
 	 *         stakeholderRequirementReference+=[Goal|QualifiedName]* 
 	 *         documentRequirement+=[ContractualElement|QualifiedName]* 
@@ -605,6 +620,8 @@ public class ReqSpecSemanticSequencer extends CommonSemanticSequencer {
 	 *         changeUncertainty=Uncertainty? 
 	 *         refinesReference+=[Goal|QualifiedName]* 
 	 *         conflictsReference+=[Goal|QualifiedName]* 
+	 *         evolvesReference+=[Requirement|QualifiedName]* 
+	 *         (dropped?='dropped' dropRationale=STRING?)? 
 	 *         stakeholderReference+=[Stakeholder|QualifiedName]* 
 	 *         documentRequirement+=[ContractualElement|QualifiedName]* 
 	 *         docReference+=ExternalDocument* 
@@ -703,6 +720,9 @@ public class ReqSpecSemanticSequencer extends CommonSemanticSequencer {
 	 *         changeUncertainty=Uncertainty? 
 	 *         (exception=[EObject|ID] | exceptionText=STRING)? 
 	 *         refinesReference+=[Requirement|QualifiedName]* 
+	 *         decomposesReference+=[Requirement|QualifiedName]* 
+	 *         evolvesReference+=[Requirement|QualifiedName]* 
+	 *         (dropped?='dropped' dropRationale=STRING?)? 
 	 *         goalReference+=[Goal|QualifiedName]* 
 	 *         stakeholderRequirementReference+=[Goal|QualifiedName]* 
 	 *         documentRequirement+=[ContractualElement|QualifiedName]* 

@@ -81,6 +81,8 @@ DocGoal returns Goal:
 	 &(changeUncertainty=Uncertainty)? 
 	 &('refines' refinesReference+=[Goal|QualifiedName]+)? 
 	 &('conflicts' 'with' conflictsReference+=[Goal|QualifiedName]+)? 
+	&('evolves' evolvesReference+=[Requirement|QualifiedName]+)? 
+	&(dropped?='dropped' ( dropRationale=STRING )? )? 
 	 &('stakeholder'  stakeholderReference+=[org::Stakeholder|QualifiedName]+)?
 	 &('see' 'document' 'requirement'  documentRequirement+=[ContractualElement|QualifiedName]+)?
 	 &('see' 'document'  docReference+=ExternalDocument+)? 
@@ -101,6 +103,8 @@ Goal returns Goal:
 	 &(changeUncertainty=Uncertainty)? 
 	 &('refines' refinesReference+=[Goal|QualifiedName]+)? 
 	 &('conflicts' 'with' conflictsReference+=[Goal|QualifiedName]+)? 
+	&('evolves' evolvesReference+=[Requirement|QualifiedName]+)? 
+	&(dropped?='dropped' ( dropRationale=STRING )? )? 
 	 &('stakeholder'  stakeholderReference+=[org::Stakeholder|QualifiedName]+)?
 	 &('see' 'document' 'requirement'  documentRequirement+=[ContractualElement|QualifiedName]+)?
 	 &('see' 'document'  docReference+=ExternalDocument+)? 
@@ -125,6 +129,9 @@ Requirement returns Requirement:
 	 &(changeUncertainty=Uncertainty)? 
 	&('mitigates'  (exception=[ecore::EObject|ID]|exceptionText=STRING))? 
 	&('refines' refinesReference+=[Requirement|QualifiedName]+)? 
+	&('decomposes' decomposesReference+=[Requirement|QualifiedName]+)? 
+	&('evolves' evolvesReference+=[Requirement|QualifiedName]+)? 
+	&(dropped?='dropped' ( dropRationale=STRING )? )? 
 	&('see' 'goal'  goalReference+=[Goal|QualifiedName]+)?
 	&('see' 'document' 'goal'  stakeholderRequirementReference+=[Goal|QualifiedName]+)?
 	 &('see' 'document' 'requirement'  documentRequirement+=[ContractualElement|QualifiedName]+)?
@@ -151,6 +158,9 @@ DocRequirement returns Requirement:
 	 &(changeUncertainty=Uncertainty)? 
 	&('mitigates'  (exception=[ecore::EObject|ID]|exceptionText=STRING))? 
 	&('refines' refinesReference+=[Requirement|QualifiedName]+)? 
+	&('decomposes' decomposesReference+=[Requirement|QualifiedName]+)? 
+	&('evolves' evolvesReference+=[Requirement|QualifiedName]+)? 
+	&(dropped?='dropped' ( dropRationale=STRING )? )? 
 	&('see' 'goal'  goalReference+=[Goal|QualifiedName]+)?
 	&('see' 'document' 'goal'  stakeholderRequirementReference+=[Goal|QualifiedName]+)?
 	 &('see' 'document' 'requirement'  documentRequirement+=[ContractualElement|QualifiedName]+)?

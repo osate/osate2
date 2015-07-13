@@ -204,13 +204,40 @@ public interface ReqSpecPackage extends EPackage
   int CONTRACTUAL_ELEMENT__CHANGE_UNCERTAINTY = 9;
 
   /**
+   * The feature id for the '<em><b>Evolves Reference</b></em>' reference list.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int CONTRACTUAL_ELEMENT__EVOLVES_REFERENCE = 10;
+
+  /**
+   * The feature id for the '<em><b>Dropped</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int CONTRACTUAL_ELEMENT__DROPPED = 11;
+
+  /**
+   * The feature id for the '<em><b>Drop Rationale</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int CONTRACTUAL_ELEMENT__DROP_RATIONALE = 12;
+
+  /**
    * The feature id for the '<em><b>Document Requirement</b></em>' reference list.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    * @ordered
    */
-  int CONTRACTUAL_ELEMENT__DOCUMENT_REQUIREMENT = 10;
+  int CONTRACTUAL_ELEMENT__DOCUMENT_REQUIREMENT = 13;
 
   /**
    * The feature id for the '<em><b>Doc Reference</b></em>' containment reference list.
@@ -219,7 +246,7 @@ public interface ReqSpecPackage extends EPackage
    * @generated
    * @ordered
    */
-  int CONTRACTUAL_ELEMENT__DOC_REFERENCE = 11;
+  int CONTRACTUAL_ELEMENT__DOC_REFERENCE = 14;
 
   /**
    * The feature id for the '<em><b>Issues</b></em>' attribute list.
@@ -228,7 +255,7 @@ public interface ReqSpecPackage extends EPackage
    * @generated
    * @ordered
    */
-  int CONTRACTUAL_ELEMENT__ISSUES = 12;
+  int CONTRACTUAL_ELEMENT__ISSUES = 15;
 
   /**
    * The number of structural features of the '<em>Contractual Element</em>' class.
@@ -237,7 +264,7 @@ public interface ReqSpecPackage extends EPackage
    * @generated
    * @ordered
    */
-  int CONTRACTUAL_ELEMENT_FEATURE_COUNT = 13;
+  int CONTRACTUAL_ELEMENT_FEATURE_COUNT = 16;
 
   /**
    * The meta object id for the '{@link org.osate.reqspec.reqSpec.impl.ReqRootImpl <em>Req Root</em>}' class.
@@ -696,6 +723,33 @@ public interface ReqSpecPackage extends EPackage
   int GOAL__CHANGE_UNCERTAINTY = CONTRACTUAL_ELEMENT__CHANGE_UNCERTAINTY;
 
   /**
+   * The feature id for the '<em><b>Evolves Reference</b></em>' reference list.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int GOAL__EVOLVES_REFERENCE = CONTRACTUAL_ELEMENT__EVOLVES_REFERENCE;
+
+  /**
+   * The feature id for the '<em><b>Dropped</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int GOAL__DROPPED = CONTRACTUAL_ELEMENT__DROPPED;
+
+  /**
+   * The feature id for the '<em><b>Drop Rationale</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int GOAL__DROP_RATIONALE = CONTRACTUAL_ELEMENT__DROP_RATIONALE;
+
+  /**
    * The feature id for the '<em><b>Document Requirement</b></em>' reference list.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -859,6 +913,33 @@ public interface ReqSpecPackage extends EPackage
   int REQUIREMENT__CHANGE_UNCERTAINTY = CONTRACTUAL_ELEMENT__CHANGE_UNCERTAINTY;
 
   /**
+   * The feature id for the '<em><b>Evolves Reference</b></em>' reference list.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int REQUIREMENT__EVOLVES_REFERENCE = CONTRACTUAL_ELEMENT__EVOLVES_REFERENCE;
+
+  /**
+   * The feature id for the '<em><b>Dropped</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int REQUIREMENT__DROPPED = CONTRACTUAL_ELEMENT__DROPPED;
+
+  /**
+   * The feature id for the '<em><b>Drop Rationale</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int REQUIREMENT__DROP_RATIONALE = CONTRACTUAL_ELEMENT__DROP_RATIONALE;
+
+  /**
    * The feature id for the '<em><b>Document Requirement</b></em>' reference list.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -931,13 +1012,22 @@ public interface ReqSpecPackage extends EPackage
   int REQUIREMENT__REFINES_REFERENCE = CONTRACTUAL_ELEMENT_FEATURE_COUNT + 4;
 
   /**
+   * The feature id for the '<em><b>Decomposes Reference</b></em>' reference list.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int REQUIREMENT__DECOMPOSES_REFERENCE = CONTRACTUAL_ELEMENT_FEATURE_COUNT + 5;
+
+  /**
    * The feature id for the '<em><b>Goal Reference</b></em>' reference list.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    * @ordered
    */
-  int REQUIREMENT__GOAL_REFERENCE = CONTRACTUAL_ELEMENT_FEATURE_COUNT + 5;
+  int REQUIREMENT__GOAL_REFERENCE = CONTRACTUAL_ELEMENT_FEATURE_COUNT + 6;
 
   /**
    * The feature id for the '<em><b>Stakeholder Requirement Reference</b></em>' reference list.
@@ -946,7 +1036,7 @@ public interface ReqSpecPackage extends EPackage
    * @generated
    * @ordered
    */
-  int REQUIREMENT__STAKEHOLDER_REQUIREMENT_REFERENCE = CONTRACTUAL_ELEMENT_FEATURE_COUNT + 6;
+  int REQUIREMENT__STAKEHOLDER_REQUIREMENT_REFERENCE = CONTRACTUAL_ELEMENT_FEATURE_COUNT + 7;
 
   /**
    * The number of structural features of the '<em>Requirement</em>' class.
@@ -955,7 +1045,7 @@ public interface ReqSpecPackage extends EPackage
    * @generated
    * @ordered
    */
-  int REQUIREMENT_FEATURE_COUNT = CONTRACTUAL_ELEMENT_FEATURE_COUNT + 7;
+  int REQUIREMENT_FEATURE_COUNT = CONTRACTUAL_ELEMENT_FEATURE_COUNT + 8;
 
   /**
    * The meta object id for the '{@link org.osate.reqspec.reqSpec.impl.ReqPredicateImpl <em>Req Predicate</em>}' class.
@@ -1359,6 +1449,39 @@ public interface ReqSpecPackage extends EPackage
    * @generated
    */
   EReference getContractualElement_ChangeUncertainty();
+
+  /**
+   * Returns the meta object for the reference list '{@link org.osate.reqspec.reqSpec.ContractualElement#getEvolvesReference <em>Evolves Reference</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the reference list '<em>Evolves Reference</em>'.
+   * @see org.osate.reqspec.reqSpec.ContractualElement#getEvolvesReference()
+   * @see #getContractualElement()
+   * @generated
+   */
+  EReference getContractualElement_EvolvesReference();
+
+  /**
+   * Returns the meta object for the attribute '{@link org.osate.reqspec.reqSpec.ContractualElement#isDropped <em>Dropped</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the attribute '<em>Dropped</em>'.
+   * @see org.osate.reqspec.reqSpec.ContractualElement#isDropped()
+   * @see #getContractualElement()
+   * @generated
+   */
+  EAttribute getContractualElement_Dropped();
+
+  /**
+   * Returns the meta object for the attribute '{@link org.osate.reqspec.reqSpec.ContractualElement#getDropRationale <em>Drop Rationale</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the attribute '<em>Drop Rationale</em>'.
+   * @see org.osate.reqspec.reqSpec.ContractualElement#getDropRationale()
+   * @see #getContractualElement()
+   * @generated
+   */
+  EAttribute getContractualElement_DropRationale();
 
   /**
    * Returns the meta object for the reference list '{@link org.osate.reqspec.reqSpec.ContractualElement#getDocumentRequirement <em>Document Requirement</em>}'.
@@ -1871,6 +1994,17 @@ public interface ReqSpecPackage extends EPackage
   EReference getRequirement_RefinesReference();
 
   /**
+   * Returns the meta object for the reference list '{@link org.osate.reqspec.reqSpec.Requirement#getDecomposesReference <em>Decomposes Reference</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the reference list '<em>Decomposes Reference</em>'.
+   * @see org.osate.reqspec.reqSpec.Requirement#getDecomposesReference()
+   * @see #getRequirement()
+   * @generated
+   */
+  EReference getRequirement_DecomposesReference();
+
+  /**
    * Returns the meta object for the reference list '{@link org.osate.reqspec.reqSpec.Requirement#getGoalReference <em>Goal Reference</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -2233,6 +2367,30 @@ public interface ReqSpecPackage extends EPackage
      * @generated
      */
     EReference CONTRACTUAL_ELEMENT__CHANGE_UNCERTAINTY = eINSTANCE.getContractualElement_ChangeUncertainty();
+
+    /**
+     * The meta object literal for the '<em><b>Evolves Reference</b></em>' reference list feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EReference CONTRACTUAL_ELEMENT__EVOLVES_REFERENCE = eINSTANCE.getContractualElement_EvolvesReference();
+
+    /**
+     * The meta object literal for the '<em><b>Dropped</b></em>' attribute feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EAttribute CONTRACTUAL_ELEMENT__DROPPED = eINSTANCE.getContractualElement_Dropped();
+
+    /**
+     * The meta object literal for the '<em><b>Drop Rationale</b></em>' attribute feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EAttribute CONTRACTUAL_ELEMENT__DROP_RATIONALE = eINSTANCE.getContractualElement_DropRationale();
 
     /**
      * The meta object literal for the '<em><b>Document Requirement</b></em>' reference list feature.
@@ -2623,6 +2781,14 @@ public interface ReqSpecPackage extends EPackage
      * @generated
      */
     EReference REQUIREMENT__REFINES_REFERENCE = eINSTANCE.getRequirement_RefinesReference();
+
+    /**
+     * The meta object literal for the '<em><b>Decomposes Reference</b></em>' reference list feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EReference REQUIREMENT__DECOMPOSES_REFERENCE = eINSTANCE.getRequirement_DecomposesReference();
 
     /**
      * The meta object literal for the '<em><b>Goal Reference</b></em>' reference list feature.

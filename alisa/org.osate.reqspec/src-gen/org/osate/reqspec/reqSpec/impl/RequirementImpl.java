@@ -38,6 +38,7 @@ import org.osate.reqspec.reqSpec.Requirement;
  *   <li>{@link org.osate.reqspec.reqSpec.impl.RequirementImpl#getException <em>Exception</em>}</li>
  *   <li>{@link org.osate.reqspec.reqSpec.impl.RequirementImpl#getExceptionText <em>Exception Text</em>}</li>
  *   <li>{@link org.osate.reqspec.reqSpec.impl.RequirementImpl#getRefinesReference <em>Refines Reference</em>}</li>
+ *   <li>{@link org.osate.reqspec.reqSpec.impl.RequirementImpl#getDecomposesReference <em>Decomposes Reference</em>}</li>
  *   <li>{@link org.osate.reqspec.reqSpec.impl.RequirementImpl#getGoalReference <em>Goal Reference</em>}</li>
  *   <li>{@link org.osate.reqspec.reqSpec.impl.RequirementImpl#getStakeholderRequirementReference <em>Stakeholder Requirement Reference</em>}</li>
  * </ul>
@@ -106,6 +107,16 @@ public class RequirementImpl extends ContractualElementImpl implements Requireme
    * @ordered
    */
   protected EList<Requirement> refinesReference;
+
+  /**
+   * The cached value of the '{@link #getDecomposesReference() <em>Decomposes Reference</em>}' reference list.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see #getDecomposesReference()
+   * @generated
+   * @ordered
+   */
+  protected EList<Requirement> decomposesReference;
 
   /**
    * The cached value of the '{@link #getGoalReference() <em>Goal Reference</em>}' reference list.
@@ -295,6 +306,20 @@ public class RequirementImpl extends ContractualElementImpl implements Requireme
    * <!-- end-user-doc -->
    * @generated
    */
+  public EList<Requirement> getDecomposesReference()
+  {
+    if (decomposesReference == null)
+    {
+      decomposesReference = new EObjectResolvingEList<Requirement>(Requirement.class, this, ReqSpecPackage.REQUIREMENT__DECOMPOSES_REFERENCE);
+    }
+    return decomposesReference;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
   public EList<Goal> getGoalReference()
   {
     if (goalReference == null)
@@ -357,6 +382,8 @@ public class RequirementImpl extends ContractualElementImpl implements Requireme
         return getExceptionText();
       case ReqSpecPackage.REQUIREMENT__REFINES_REFERENCE:
         return getRefinesReference();
+      case ReqSpecPackage.REQUIREMENT__DECOMPOSES_REFERENCE:
+        return getDecomposesReference();
       case ReqSpecPackage.REQUIREMENT__GOAL_REFERENCE:
         return getGoalReference();
       case ReqSpecPackage.REQUIREMENT__STAKEHOLDER_REQUIREMENT_REFERENCE:
@@ -392,6 +419,10 @@ public class RequirementImpl extends ContractualElementImpl implements Requireme
       case ReqSpecPackage.REQUIREMENT__REFINES_REFERENCE:
         getRefinesReference().clear();
         getRefinesReference().addAll((Collection<? extends Requirement>)newValue);
+        return;
+      case ReqSpecPackage.REQUIREMENT__DECOMPOSES_REFERENCE:
+        getDecomposesReference().clear();
+        getDecomposesReference().addAll((Collection<? extends Requirement>)newValue);
         return;
       case ReqSpecPackage.REQUIREMENT__GOAL_REFERENCE:
         getGoalReference().clear();
@@ -430,6 +461,9 @@ public class RequirementImpl extends ContractualElementImpl implements Requireme
       case ReqSpecPackage.REQUIREMENT__REFINES_REFERENCE:
         getRefinesReference().clear();
         return;
+      case ReqSpecPackage.REQUIREMENT__DECOMPOSES_REFERENCE:
+        getDecomposesReference().clear();
+        return;
       case ReqSpecPackage.REQUIREMENT__GOAL_REFERENCE:
         getGoalReference().clear();
         return;
@@ -460,6 +494,8 @@ public class RequirementImpl extends ContractualElementImpl implements Requireme
         return EXCEPTION_TEXT_EDEFAULT == null ? exceptionText != null : !EXCEPTION_TEXT_EDEFAULT.equals(exceptionText);
       case ReqSpecPackage.REQUIREMENT__REFINES_REFERENCE:
         return refinesReference != null && !refinesReference.isEmpty();
+      case ReqSpecPackage.REQUIREMENT__DECOMPOSES_REFERENCE:
+        return decomposesReference != null && !decomposesReference.isEmpty();
       case ReqSpecPackage.REQUIREMENT__GOAL_REFERENCE:
         return goalReference != null && !goalReference.isEmpty();
       case ReqSpecPackage.REQUIREMENT__STAKEHOLDER_REQUIREMENT_REFERENCE:

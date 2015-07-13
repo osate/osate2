@@ -35,6 +35,7 @@ import org.osate.categories.categories.RequirementCategory;
 import org.osate.reqspec.reqSpec.ContractualElement;
 import org.osate.reqspec.reqSpec.ExternalDocument;
 import org.osate.reqspec.reqSpec.ReqSpecPackage;
+import org.osate.reqspec.reqSpec.Requirement;
 
 /**
  * <!-- begin-user-doc -->
@@ -53,6 +54,9 @@ import org.osate.reqspec.reqSpec.ReqSpecPackage;
  *   <li>{@link org.osate.reqspec.reqSpec.impl.ContractualElementImpl#getConstants <em>Constants</em>}</li>
  *   <li>{@link org.osate.reqspec.reqSpec.impl.ContractualElementImpl#getRationale <em>Rationale</em>}</li>
  *   <li>{@link org.osate.reqspec.reqSpec.impl.ContractualElementImpl#getChangeUncertainty <em>Change Uncertainty</em>}</li>
+ *   <li>{@link org.osate.reqspec.reqSpec.impl.ContractualElementImpl#getEvolvesReference <em>Evolves Reference</em>}</li>
+ *   <li>{@link org.osate.reqspec.reqSpec.impl.ContractualElementImpl#isDropped <em>Dropped</em>}</li>
+ *   <li>{@link org.osate.reqspec.reqSpec.impl.ContractualElementImpl#getDropRationale <em>Drop Rationale</em>}</li>
  *   <li>{@link org.osate.reqspec.reqSpec.impl.ContractualElementImpl#getDocumentRequirement <em>Document Requirement</em>}</li>
  *   <li>{@link org.osate.reqspec.reqSpec.impl.ContractualElementImpl#getDocReference <em>Doc Reference</em>}</li>
  *   <li>{@link org.osate.reqspec.reqSpec.impl.ContractualElementImpl#getIssues <em>Issues</em>}</li>
@@ -192,6 +196,56 @@ public class ContractualElementImpl extends MinimalEObjectImpl.Container impleme
    * @ordered
    */
   protected Uncertainty changeUncertainty;
+
+  /**
+   * The cached value of the '{@link #getEvolvesReference() <em>Evolves Reference</em>}' reference list.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see #getEvolvesReference()
+   * @generated
+   * @ordered
+   */
+  protected EList<Requirement> evolvesReference;
+
+  /**
+   * The default value of the '{@link #isDropped() <em>Dropped</em>}' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see #isDropped()
+   * @generated
+   * @ordered
+   */
+  protected static final boolean DROPPED_EDEFAULT = false;
+
+  /**
+   * The cached value of the '{@link #isDropped() <em>Dropped</em>}' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see #isDropped()
+   * @generated
+   * @ordered
+   */
+  protected boolean dropped = DROPPED_EDEFAULT;
+
+  /**
+   * The default value of the '{@link #getDropRationale() <em>Drop Rationale</em>}' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see #getDropRationale()
+   * @generated
+   * @ordered
+   */
+  protected static final String DROP_RATIONALE_EDEFAULT = null;
+
+  /**
+   * The cached value of the '{@link #getDropRationale() <em>Drop Rationale</em>}' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see #getDropRationale()
+   * @generated
+   * @ordered
+   */
+  protected String dropRationale = DROP_RATIONALE_EDEFAULT;
 
   /**
    * The cached value of the '{@link #getDocumentRequirement() <em>Document Requirement</em>}' reference list.
@@ -576,6 +630,66 @@ public class ContractualElementImpl extends MinimalEObjectImpl.Container impleme
    * <!-- end-user-doc -->
    * @generated
    */
+  public EList<Requirement> getEvolvesReference()
+  {
+    if (evolvesReference == null)
+    {
+      evolvesReference = new EObjectResolvingEList<Requirement>(Requirement.class, this, ReqSpecPackage.CONTRACTUAL_ELEMENT__EVOLVES_REFERENCE);
+    }
+    return evolvesReference;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public boolean isDropped()
+  {
+    return dropped;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public void setDropped(boolean newDropped)
+  {
+    boolean oldDropped = dropped;
+    dropped = newDropped;
+    if (eNotificationRequired())
+      eNotify(new ENotificationImpl(this, Notification.SET, ReqSpecPackage.CONTRACTUAL_ELEMENT__DROPPED, oldDropped, dropped));
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public String getDropRationale()
+  {
+    return dropRationale;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public void setDropRationale(String newDropRationale)
+  {
+    String oldDropRationale = dropRationale;
+    dropRationale = newDropRationale;
+    if (eNotificationRequired())
+      eNotify(new ENotificationImpl(this, Notification.SET, ReqSpecPackage.CONTRACTUAL_ELEMENT__DROP_RATIONALE, oldDropRationale, dropRationale));
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
   public EList<ContractualElement> getDocumentRequirement()
   {
     if (documentRequirement == null)
@@ -669,6 +783,12 @@ public class ContractualElementImpl extends MinimalEObjectImpl.Container impleme
         return getRationale();
       case ReqSpecPackage.CONTRACTUAL_ELEMENT__CHANGE_UNCERTAINTY:
         return getChangeUncertainty();
+      case ReqSpecPackage.CONTRACTUAL_ELEMENT__EVOLVES_REFERENCE:
+        return getEvolvesReference();
+      case ReqSpecPackage.CONTRACTUAL_ELEMENT__DROPPED:
+        return isDropped();
+      case ReqSpecPackage.CONTRACTUAL_ELEMENT__DROP_RATIONALE:
+        return getDropRationale();
       case ReqSpecPackage.CONTRACTUAL_ELEMENT__DOCUMENT_REQUIREMENT:
         return getDocumentRequirement();
       case ReqSpecPackage.CONTRACTUAL_ELEMENT__DOC_REFERENCE:
@@ -721,6 +841,16 @@ public class ContractualElementImpl extends MinimalEObjectImpl.Container impleme
         return;
       case ReqSpecPackage.CONTRACTUAL_ELEMENT__CHANGE_UNCERTAINTY:
         setChangeUncertainty((Uncertainty)newValue);
+        return;
+      case ReqSpecPackage.CONTRACTUAL_ELEMENT__EVOLVES_REFERENCE:
+        getEvolvesReference().clear();
+        getEvolvesReference().addAll((Collection<? extends Requirement>)newValue);
+        return;
+      case ReqSpecPackage.CONTRACTUAL_ELEMENT__DROPPED:
+        setDropped((Boolean)newValue);
+        return;
+      case ReqSpecPackage.CONTRACTUAL_ELEMENT__DROP_RATIONALE:
+        setDropRationale((String)newValue);
         return;
       case ReqSpecPackage.CONTRACTUAL_ELEMENT__DOCUMENT_REQUIREMENT:
         getDocumentRequirement().clear();
@@ -778,6 +908,15 @@ public class ContractualElementImpl extends MinimalEObjectImpl.Container impleme
       case ReqSpecPackage.CONTRACTUAL_ELEMENT__CHANGE_UNCERTAINTY:
         setChangeUncertainty((Uncertainty)null);
         return;
+      case ReqSpecPackage.CONTRACTUAL_ELEMENT__EVOLVES_REFERENCE:
+        getEvolvesReference().clear();
+        return;
+      case ReqSpecPackage.CONTRACTUAL_ELEMENT__DROPPED:
+        setDropped(DROPPED_EDEFAULT);
+        return;
+      case ReqSpecPackage.CONTRACTUAL_ELEMENT__DROP_RATIONALE:
+        setDropRationale(DROP_RATIONALE_EDEFAULT);
+        return;
       case ReqSpecPackage.CONTRACTUAL_ELEMENT__DOCUMENT_REQUIREMENT:
         getDocumentRequirement().clear();
         return;
@@ -821,6 +960,12 @@ public class ContractualElementImpl extends MinimalEObjectImpl.Container impleme
         return rationale != null;
       case ReqSpecPackage.CONTRACTUAL_ELEMENT__CHANGE_UNCERTAINTY:
         return changeUncertainty != null;
+      case ReqSpecPackage.CONTRACTUAL_ELEMENT__EVOLVES_REFERENCE:
+        return evolvesReference != null && !evolvesReference.isEmpty();
+      case ReqSpecPackage.CONTRACTUAL_ELEMENT__DROPPED:
+        return dropped != DROPPED_EDEFAULT;
+      case ReqSpecPackage.CONTRACTUAL_ELEMENT__DROP_RATIONALE:
+        return DROP_RATIONALE_EDEFAULT == null ? dropRationale != null : !DROP_RATIONALE_EDEFAULT.equals(dropRationale);
       case ReqSpecPackage.CONTRACTUAL_ELEMENT__DOCUMENT_REQUIREMENT:
         return documentRequirement != null && !documentRequirement.isEmpty();
       case ReqSpecPackage.CONTRACTUAL_ELEMENT__DOC_REFERENCE:
@@ -848,6 +993,10 @@ public class ContractualElementImpl extends MinimalEObjectImpl.Container impleme
     result.append(title);
     result.append(", targetDescription: ");
     result.append(targetDescription);
+    result.append(", dropped: ");
+    result.append(dropped);
+    result.append(", dropRationale: ");
+    result.append(dropRationale);
     result.append(", issues: ");
     result.append(issues);
     result.append(')');

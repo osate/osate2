@@ -24,6 +24,10 @@
         containment="true"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="changeUncertainty" eType="ecore:EClass platform:/resource/org.osate.alisa.common/model/generated/Common.ecore#//Uncertainty"
         containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="evolvesReference" unique="false"
+        upperBound="-1" eType="#//Requirement"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="dropped" eType="ecore:EDataType platform:/resource/org.eclipse.emf.ecore/model/Ecore.ecore#//EBoolean"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="dropRationale" eType="ecore:EDataType platform:/resource/org.eclipse.emf.ecore/model/Ecore.ecore#//EString"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="documentRequirement" unique="false"
         upperBound="-1" eType="#//ContractualElement"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="docReference" upperBound="-1"
@@ -108,6 +112,8 @@
     <eStructuralFeatures xsi:type="ecore:EReference" name="exception" eType="ecore:EClass platform:/resource/org.eclipse.emf.ecore/model/Ecore.ecore#//EObject"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="exceptionText" eType="ecore:EDataType platform:/resource/org.eclipse.emf.ecore/model/Ecore.ecore#//EString"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="refinesReference" unique="false"
+        upperBound="-1" eType="#//Requirement"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="decomposesReference" unique="false"
         upperBound="-1" eType="#//Requirement"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="goalReference" unique="false"
         upperBound="-1" eType="#//Goal"/>
