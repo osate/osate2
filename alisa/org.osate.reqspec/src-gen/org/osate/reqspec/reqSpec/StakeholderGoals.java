@@ -21,7 +21,6 @@ import org.osate.alisa.common.common.Description;
  *   <li>{@link org.osate.reqspec.reqSpec.StakeholderGoals#getName <em>Name</em>}</li>
  *   <li>{@link org.osate.reqspec.reqSpec.StakeholderGoals#getTitle <em>Title</em>}</li>
  *   <li>{@link org.osate.reqspec.reqSpec.StakeholderGoals#getTarget <em>Target</em>}</li>
- *   <li>{@link org.osate.reqspec.reqSpec.StakeholderGoals#getTargetDescription <em>Target Description</em>}</li>
  *   <li>{@link org.osate.reqspec.reqSpec.StakeholderGoals#isGlobal <em>Global</em>}</li>
  *   <li>{@link org.osate.reqspec.reqSpec.StakeholderGoals#getDescription <em>Description</em>}</li>
  *   <li>{@link org.osate.reqspec.reqSpec.StakeholderGoals#getConstants <em>Constants</em>}</li>
@@ -114,32 +113,6 @@ public interface StakeholderGoals extends ReqSpecContainer, ReqRoot
    * @generated
    */
   void setTarget(Classifier value);
-
-  /**
-   * Returns the value of the '<em><b>Target Description</b></em>' attribute.
-   * <!-- begin-user-doc -->
-   * <p>
-   * If the meaning of the '<em>Target Description</em>' attribute isn't clear,
-   * there really should be more of a description here...
-   * </p>
-   * <!-- end-user-doc -->
-   * @return the value of the '<em>Target Description</em>' attribute.
-   * @see #setTargetDescription(String)
-   * @see org.osate.reqspec.reqSpec.ReqSpecPackage#getStakeholderGoals_TargetDescription()
-   * @model
-   * @generated
-   */
-  String getTargetDescription();
-
-  /**
-   * Sets the value of the '{@link org.osate.reqspec.reqSpec.StakeholderGoals#getTargetDescription <em>Target Description</em>}' attribute.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @param value the new value of the '<em>Target Description</em>' attribute.
-   * @see #getTargetDescription()
-   * @generated
-   */
-  void setTargetDescription(String value);
 
   /**
    * Returns the value of the '<em><b>Global</b></em>' attribute.

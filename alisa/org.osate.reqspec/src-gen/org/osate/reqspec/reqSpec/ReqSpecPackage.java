@@ -296,22 +296,13 @@ public interface ReqSpecPackage extends EPackage
   int STAKEHOLDER_GOALS__TARGET = REQ_SPEC_CONTAINER_FEATURE_COUNT + 2;
 
   /**
-   * The feature id for the '<em><b>Target Description</b></em>' attribute.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int STAKEHOLDER_GOALS__TARGET_DESCRIPTION = REQ_SPEC_CONTAINER_FEATURE_COUNT + 3;
-
-  /**
    * The feature id for the '<em><b>Global</b></em>' attribute.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    * @ordered
    */
-  int STAKEHOLDER_GOALS__GLOBAL = REQ_SPEC_CONTAINER_FEATURE_COUNT + 4;
+  int STAKEHOLDER_GOALS__GLOBAL = REQ_SPEC_CONTAINER_FEATURE_COUNT + 3;
 
   /**
    * The feature id for the '<em><b>Description</b></em>' containment reference.
@@ -320,7 +311,7 @@ public interface ReqSpecPackage extends EPackage
    * @generated
    * @ordered
    */
-  int STAKEHOLDER_GOALS__DESCRIPTION = REQ_SPEC_CONTAINER_FEATURE_COUNT + 5;
+  int STAKEHOLDER_GOALS__DESCRIPTION = REQ_SPEC_CONTAINER_FEATURE_COUNT + 4;
 
   /**
    * The feature id for the '<em><b>Constants</b></em>' containment reference list.
@@ -329,7 +320,7 @@ public interface ReqSpecPackage extends EPackage
    * @generated
    * @ordered
    */
-  int STAKEHOLDER_GOALS__CONSTANTS = REQ_SPEC_CONTAINER_FEATURE_COUNT + 6;
+  int STAKEHOLDER_GOALS__CONSTANTS = REQ_SPEC_CONTAINER_FEATURE_COUNT + 5;
 
   /**
    * The feature id for the '<em><b>Content</b></em>' containment reference list.
@@ -338,7 +329,7 @@ public interface ReqSpecPackage extends EPackage
    * @generated
    * @ordered
    */
-  int STAKEHOLDER_GOALS__CONTENT = REQ_SPEC_CONTAINER_FEATURE_COUNT + 7;
+  int STAKEHOLDER_GOALS__CONTENT = REQ_SPEC_CONTAINER_FEATURE_COUNT + 6;
 
   /**
    * The feature id for the '<em><b>Doc Reference</b></em>' containment reference list.
@@ -347,7 +338,7 @@ public interface ReqSpecPackage extends EPackage
    * @generated
    * @ordered
    */
-  int STAKEHOLDER_GOALS__DOC_REFERENCE = REQ_SPEC_CONTAINER_FEATURE_COUNT + 8;
+  int STAKEHOLDER_GOALS__DOC_REFERENCE = REQ_SPEC_CONTAINER_FEATURE_COUNT + 7;
 
   /**
    * The feature id for the '<em><b>Issues</b></em>' attribute list.
@@ -356,7 +347,7 @@ public interface ReqSpecPackage extends EPackage
    * @generated
    * @ordered
    */
-  int STAKEHOLDER_GOALS__ISSUES = REQ_SPEC_CONTAINER_FEATURE_COUNT + 9;
+  int STAKEHOLDER_GOALS__ISSUES = REQ_SPEC_CONTAINER_FEATURE_COUNT + 8;
 
   /**
    * The number of structural features of the '<em>Stakeholder Goals</em>' class.
@@ -365,7 +356,7 @@ public interface ReqSpecPackage extends EPackage
    * @generated
    * @ordered
    */
-  int STAKEHOLDER_GOALS_FEATURE_COUNT = REQ_SPEC_CONTAINER_FEATURE_COUNT + 10;
+  int STAKEHOLDER_GOALS_FEATURE_COUNT = REQ_SPEC_CONTAINER_FEATURE_COUNT + 9;
 
   /**
    * The meta object id for the '{@link org.osate.reqspec.reqSpec.impl.ReqDocumentImpl <em>Req Document</em>}' class.
@@ -524,22 +515,13 @@ public interface ReqSpecPackage extends EPackage
   int REQ_SPECS__TARGET = REQ_SPEC_CONTAINER_FEATURE_COUNT + 2;
 
   /**
-   * The feature id for the '<em><b>Target Description</b></em>' attribute.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int REQ_SPECS__TARGET_DESCRIPTION = REQ_SPEC_CONTAINER_FEATURE_COUNT + 3;
-
-  /**
    * The feature id for the '<em><b>Global</b></em>' attribute.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    * @ordered
    */
-  int REQ_SPECS__GLOBAL = REQ_SPEC_CONTAINER_FEATURE_COUNT + 4;
+  int REQ_SPECS__GLOBAL = REQ_SPEC_CONTAINER_FEATURE_COUNT + 3;
 
   /**
    * The feature id for the '<em><b>Otherreqspecs</b></em>' reference list.
@@ -548,7 +530,7 @@ public interface ReqSpecPackage extends EPackage
    * @generated
    * @ordered
    */
-  int REQ_SPECS__OTHERREQSPECS = REQ_SPEC_CONTAINER_FEATURE_COUNT + 5;
+  int REQ_SPECS__OTHERREQSPECS = REQ_SPEC_CONTAINER_FEATURE_COUNT + 4;
 
   /**
    * The feature id for the '<em><b>Description</b></em>' containment reference.
@@ -557,7 +539,7 @@ public interface ReqSpecPackage extends EPackage
    * @generated
    * @ordered
    */
-  int REQ_SPECS__DESCRIPTION = REQ_SPEC_CONTAINER_FEATURE_COUNT + 6;
+  int REQ_SPECS__DESCRIPTION = REQ_SPEC_CONTAINER_FEATURE_COUNT + 5;
 
   /**
    * The feature id for the '<em><b>Constants</b></em>' containment reference list.
@@ -566,7 +548,7 @@ public interface ReqSpecPackage extends EPackage
    * @generated
    * @ordered
    */
-  int REQ_SPECS__CONSTANTS = REQ_SPEC_CONTAINER_FEATURE_COUNT + 7;
+  int REQ_SPECS__CONSTANTS = REQ_SPEC_CONTAINER_FEATURE_COUNT + 6;
 
   /**
    * The feature id for the '<em><b>Computes</b></em>' containment reference list.
@@ -575,7 +557,7 @@ public interface ReqSpecPackage extends EPackage
    * @generated
    * @ordered
    */
-  int REQ_SPECS__COMPUTES = REQ_SPEC_CONTAINER_FEATURE_COUNT + 8;
+  int REQ_SPECS__COMPUTES = REQ_SPEC_CONTAINER_FEATURE_COUNT + 7;
 
   /**
    * The feature id for the '<em><b>Content</b></em>' containment reference list.
@@ -584,7 +566,7 @@ public interface ReqSpecPackage extends EPackage
    * @generated
    * @ordered
    */
-  int REQ_SPECS__CONTENT = REQ_SPEC_CONTAINER_FEATURE_COUNT + 9;
+  int REQ_SPECS__CONTENT = REQ_SPEC_CONTAINER_FEATURE_COUNT + 8;
 
   /**
    * The feature id for the '<em><b>Doc Reference</b></em>' containment reference list.
@@ -593,7 +575,7 @@ public interface ReqSpecPackage extends EPackage
    * @generated
    * @ordered
    */
-  int REQ_SPECS__DOC_REFERENCE = REQ_SPEC_CONTAINER_FEATURE_COUNT + 10;
+  int REQ_SPECS__DOC_REFERENCE = REQ_SPEC_CONTAINER_FEATURE_COUNT + 9;
 
   /**
    * The feature id for the '<em><b>Issues</b></em>' attribute list.
@@ -602,7 +584,7 @@ public interface ReqSpecPackage extends EPackage
    * @generated
    * @ordered
    */
-  int REQ_SPECS__ISSUES = REQ_SPEC_CONTAINER_FEATURE_COUNT + 11;
+  int REQ_SPECS__ISSUES = REQ_SPEC_CONTAINER_FEATURE_COUNT + 10;
 
   /**
    * The number of structural features of the '<em>Req Specs</em>' class.
@@ -611,7 +593,7 @@ public interface ReqSpecPackage extends EPackage
    * @generated
    * @ordered
    */
-  int REQ_SPECS_FEATURE_COUNT = REQ_SPEC_CONTAINER_FEATURE_COUNT + 12;
+  int REQ_SPECS_FEATURE_COUNT = REQ_SPEC_CONTAINER_FEATURE_COUNT + 11;
 
   /**
    * The meta object id for the '{@link org.osate.reqspec.reqSpec.impl.GoalImpl <em>Goal</em>}' class.
@@ -1465,17 +1447,6 @@ public interface ReqSpecPackage extends EPackage
   EReference getStakeholderGoals_Target();
 
   /**
-   * Returns the meta object for the attribute '{@link org.osate.reqspec.reqSpec.StakeholderGoals#getTargetDescription <em>Target Description</em>}'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return the meta object for the attribute '<em>Target Description</em>'.
-   * @see org.osate.reqspec.reqSpec.StakeholderGoals#getTargetDescription()
-   * @see #getStakeholderGoals()
-   * @generated
-   */
-  EAttribute getStakeholderGoals_TargetDescription();
-
-  /**
    * Returns the meta object for the attribute '{@link org.osate.reqspec.reqSpec.StakeholderGoals#isGlobal <em>Global</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -1702,17 +1673,6 @@ public interface ReqSpecPackage extends EPackage
    * @generated
    */
   EReference getReqSpecs_Target();
-
-  /**
-   * Returns the meta object for the attribute '{@link org.osate.reqspec.reqSpec.ReqSpecs#getTargetDescription <em>Target Description</em>}'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return the meta object for the attribute '<em>Target Description</em>'.
-   * @see org.osate.reqspec.reqSpec.ReqSpecs#getTargetDescription()
-   * @see #getReqSpecs()
-   * @generated
-   */
-  EAttribute getReqSpecs_TargetDescription();
 
   /**
    * Returns the meta object for the attribute '{@link org.osate.reqspec.reqSpec.ReqSpecs#isGlobal <em>Global</em>}'.
@@ -2343,14 +2303,6 @@ public interface ReqSpecPackage extends EPackage
     EReference STAKEHOLDER_GOALS__TARGET = eINSTANCE.getStakeholderGoals_Target();
 
     /**
-     * The meta object literal for the '<em><b>Target Description</b></em>' attribute feature.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
-    EAttribute STAKEHOLDER_GOALS__TARGET_DESCRIPTION = eINSTANCE.getStakeholderGoals_TargetDescription();
-
-    /**
      * The meta object literal for the '<em><b>Global</b></em>' attribute feature.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
@@ -2523,14 +2475,6 @@ public interface ReqSpecPackage extends EPackage
      * @generated
      */
     EReference REQ_SPECS__TARGET = eINSTANCE.getReqSpecs_Target();
-
-    /**
-     * The meta object literal for the '<em><b>Target Description</b></em>' attribute feature.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
-    EAttribute REQ_SPECS__TARGET_DESCRIPTION = eINSTANCE.getReqSpecs_TargetDescription();
 
     /**
      * The meta object literal for the '<em><b>Global</b></em>' attribute feature.

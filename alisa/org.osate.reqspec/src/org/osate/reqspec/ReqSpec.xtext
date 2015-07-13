@@ -13,13 +13,13 @@ ReqSpec: parts +=(ReqSpecs|StakeholderGoals|ReqDocument)+  ;
 
 ReqSpecContainer: ReqSpecs |  StakeholderGoals | ReqDocument | DocumentSection;
 
-ContractualElement: Goal | Requirement ;
+ContractualElement: Goal | DocGoal| Requirement |DocRequirement ;
 
 ReqRoot:  StakeholderGoals | ReqDocument | ReqSpecs;
 
 
 StakeholderGoals: 'stakeholder' 'goals' name=ID (':' title=STRING)?
-	( 'for' (target=[aadl2::Classifier|AADLCLASSIFIERREFERENCE] | targetDescription=STRING| global?='all'))?
+	( 'for' (target=[aadl2::Classifier|AADLCLASSIFIERREFERENCE] |  global?='all'))
 	'[' 
 	(	 (  description=Description)? 
 	& (  constants+=XValDeclaration* )
@@ -33,7 +33,7 @@ StakeholderGoals: 'stakeholder' 'goals' name=ID (':' title=STRING)?
 ReqDocument: 'document' name=ID (':' title=STRING)?
 	'[' 
 	( (  description=Description)? 
-	&(content+= (Goal | Requirement |  DocumentSection))*
+	&(content+= (DocGoal | DocRequirement |  DocumentSection))*
 	&('issues' issues+=STRING+ )?
 	)
 	 ']'
@@ -43,7 +43,7 @@ DocumentSection returns DocumentSection:
 	'[' (
 	 (  description=Description)? 
 	
-	&(content+= (Goal | Requirement |  DocumentSection))*
+	&(content+= (DocGoal | DocRequirement |  DocumentSection))*
 	)
 	']' 
 	;
@@ -51,7 +51,7 @@ DocumentSection returns DocumentSection:
 ReqSpecs returns ReqSpecs:
 	'requirement' 'specification' name =ID (':' title=STRING)?
 //	('import' importedNamespace=QualifiedNameWithWildCard)?
-	( 'for' (target=[aadl2::Classifier|AADLCLASSIFIERREFERENCE] | targetDescription=STRING| global?='all'))?
+	( 'for' (target=[aadl2::Classifier|AADLCLASSIFIERREFERENCE] | global?='all'))
 	('include' otherreqspecs += [ReqSpecs|QualifiedName]+)?
 	'[' 
 	(
@@ -68,9 +68,9 @@ ReqSpecs returns ReqSpecs:
 
 	
 
-Goal returns Goal:
+DocGoal returns Goal:
 	'goal' name=ID (':'  title=STRING )? // short string for title
-	(( 'for' ( targetDescription=STRING | (target=[aadl2::Classifier|AADLCLASSIFIERREFERENCE])? ('item' targetElement=[aadl2::NamedElement|ID])?  )
+	( 'for' ( targetDescription=STRING | (target=[aadl2::Classifier|AADLCLASSIFIERREFERENCE] ( targetElement=[aadl2::NamedElement|ID])?  )
 		)
 	)?
 '['  (
@@ -89,12 +89,56 @@ Goal returns Goal:
 	 ']';
 
 
+Goal returns Goal:
+	'goal' name=ID (':'  title=STRING )? // short string for title
+	( 'for'  targetElement=[aadl2::NamedElement|ID]
+	)?
+'['  (
+	 ('category'  category+=[categories::RequirementCategory|ID]+)?
+	 &(  description=Description)? 
+	& (  constants+=XValDeclaration* )
+	 &(rationale=Rationale)? 
+	 &(changeUncertainty=Uncertainty)? 
+	 &('refines' refinesReference+=[Goal|QualifiedName]+)? 
+	 &('conflicts' 'with' conflictsReference+=[Goal|QualifiedName]+)? 
+	 &('stakeholder'  stakeholderReference+=[org::Stakeholder|QualifiedName]+)?
+	 &('see' 'document' 'requirement'  documentRequirement+=[ContractualElement|QualifiedName]+)?
+	 &('see' 'document'  docReference+=ExternalDocument+)? 
+		&('issues' issues+=STRING+ )?
+	)
+	 ']';
+
 // requirement without target acts as a general requirement/constraint
 // becomes a "global" constraint that still takes model elements that are supplied by query 	
-Requirement:
+Requirement returns Requirement:
 	'requirement'  name=ID   
 	(':'  title=STRING)? 
-	( 'for' ( targetDescription=STRING | ((target=[aadl2::Classifier|AADLCLASSIFIERREFERENCE])? ('item' targetElement=[aadl2::NamedElement|ID])? )
+	( 'for'  targetElement=[aadl2::NamedElement|ID]
+	)?
+'['	(
+ 	('category'  category+=[categories::RequirementCategory|ID]+ )?
+	&(  description=Description)? 
+	& (  constants+=XValDeclaration* )
+	& (  computes+=ComputeDeclaration* )
+	&(  predicate=ReqPredicate)?  // predicate expression 
+	&(rationale=Rationale)? 
+	 &(changeUncertainty=Uncertainty)? 
+	&('mitigates'  (exception=[ecore::EObject|ID]|exceptionText=STRING))? 
+	&('refines' refinesReference+=[Requirement|QualifiedName]+)? 
+	&('see' 'goal'  goalReference+=[Goal|QualifiedName]+)?
+	&('see' 'document' 'goal'  stakeholderRequirementReference+=[Goal|QualifiedName]+)?
+	 &('see' 'document' 'requirement'  documentRequirement+=[ContractualElement|QualifiedName]+)?
+	 &('see' 'document'  docReference+=ExternalDocument+)? 
+		&('issues' issues+=STRING+ )?
+	)
+	']';
+	
+// requirement without target acts as a general requirement/constraint
+// becomes a "global" constraint that still takes model elements that are supplied by query 	
+DocRequirement returns Requirement:
+	'requirement'  name=ID   
+	(':'  title=STRING)? 
+	( 'for' ( targetDescription=STRING | (target=[aadl2::Classifier|AADLCLASSIFIERREFERENCE] ( targetElement=[aadl2::NamedElement|ID])?  )
 		)
 	)?
 '['	(

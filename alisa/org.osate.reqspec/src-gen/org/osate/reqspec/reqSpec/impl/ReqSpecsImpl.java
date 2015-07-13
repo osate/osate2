@@ -41,7 +41,6 @@ import org.osate.reqspec.reqSpec.Requirement;
  *   <li>{@link org.osate.reqspec.reqSpec.impl.ReqSpecsImpl#getName <em>Name</em>}</li>
  *   <li>{@link org.osate.reqspec.reqSpec.impl.ReqSpecsImpl#getTitle <em>Title</em>}</li>
  *   <li>{@link org.osate.reqspec.reqSpec.impl.ReqSpecsImpl#getTarget <em>Target</em>}</li>
- *   <li>{@link org.osate.reqspec.reqSpec.impl.ReqSpecsImpl#getTargetDescription <em>Target Description</em>}</li>
  *   <li>{@link org.osate.reqspec.reqSpec.impl.ReqSpecsImpl#isGlobal <em>Global</em>}</li>
  *   <li>{@link org.osate.reqspec.reqSpec.impl.ReqSpecsImpl#getOtherreqspecs <em>Otherreqspecs</em>}</li>
  *   <li>{@link org.osate.reqspec.reqSpec.impl.ReqSpecsImpl#getDescription <em>Description</em>}</li>
@@ -106,26 +105,6 @@ public class ReqSpecsImpl extends ReqSpecContainerImpl implements ReqSpecs
    * @ordered
    */
   protected Classifier target;
-
-  /**
-   * The default value of the '{@link #getTargetDescription() <em>Target Description</em>}' attribute.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @see #getTargetDescription()
-   * @generated
-   * @ordered
-   */
-  protected static final String TARGET_DESCRIPTION_EDEFAULT = null;
-
-  /**
-   * The cached value of the '{@link #getTargetDescription() <em>Target Description</em>}' attribute.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @see #getTargetDescription()
-   * @generated
-   * @ordered
-   */
-  protected String targetDescription = TARGET_DESCRIPTION_EDEFAULT;
 
   /**
    * The default value of the '{@link #isGlobal() <em>Global</em>}' attribute.
@@ -332,29 +311,6 @@ public class ReqSpecsImpl extends ReqSpecContainerImpl implements ReqSpecs
    * <!-- end-user-doc -->
    * @generated
    */
-  public String getTargetDescription()
-  {
-    return targetDescription;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public void setTargetDescription(String newTargetDescription)
-  {
-    String oldTargetDescription = targetDescription;
-    targetDescription = newTargetDescription;
-    if (eNotificationRequired())
-      eNotify(new ENotificationImpl(this, Notification.SET, ReqSpecPackage.REQ_SPECS__TARGET_DESCRIPTION, oldTargetDescription, targetDescription));
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
   public boolean isGlobal()
   {
     return global;
@@ -546,8 +502,6 @@ public class ReqSpecsImpl extends ReqSpecContainerImpl implements ReqSpecs
       case ReqSpecPackage.REQ_SPECS__TARGET:
         if (resolve) return getTarget();
         return basicGetTarget();
-      case ReqSpecPackage.REQ_SPECS__TARGET_DESCRIPTION:
-        return getTargetDescription();
       case ReqSpecPackage.REQ_SPECS__GLOBAL:
         return isGlobal();
       case ReqSpecPackage.REQ_SPECS__OTHERREQSPECS:
@@ -587,9 +541,6 @@ public class ReqSpecsImpl extends ReqSpecContainerImpl implements ReqSpecs
         return;
       case ReqSpecPackage.REQ_SPECS__TARGET:
         setTarget((Classifier)newValue);
-        return;
-      case ReqSpecPackage.REQ_SPECS__TARGET_DESCRIPTION:
-        setTargetDescription((String)newValue);
         return;
       case ReqSpecPackage.REQ_SPECS__GLOBAL:
         setGlobal((Boolean)newValue);
@@ -644,9 +595,6 @@ public class ReqSpecsImpl extends ReqSpecContainerImpl implements ReqSpecs
       case ReqSpecPackage.REQ_SPECS__TARGET:
         setTarget((Classifier)null);
         return;
-      case ReqSpecPackage.REQ_SPECS__TARGET_DESCRIPTION:
-        setTargetDescription(TARGET_DESCRIPTION_EDEFAULT);
-        return;
       case ReqSpecPackage.REQ_SPECS__GLOBAL:
         setGlobal(GLOBAL_EDEFAULT);
         return;
@@ -691,8 +639,6 @@ public class ReqSpecsImpl extends ReqSpecContainerImpl implements ReqSpecs
         return TITLE_EDEFAULT == null ? title != null : !TITLE_EDEFAULT.equals(title);
       case ReqSpecPackage.REQ_SPECS__TARGET:
         return target != null;
-      case ReqSpecPackage.REQ_SPECS__TARGET_DESCRIPTION:
-        return TARGET_DESCRIPTION_EDEFAULT == null ? targetDescription != null : !TARGET_DESCRIPTION_EDEFAULT.equals(targetDescription);
       case ReqSpecPackage.REQ_SPECS__GLOBAL:
         return global != GLOBAL_EDEFAULT;
       case ReqSpecPackage.REQ_SPECS__OTHERREQSPECS:
@@ -728,8 +674,6 @@ public class ReqSpecsImpl extends ReqSpecContainerImpl implements ReqSpecs
     result.append(name);
     result.append(", title: ");
     result.append(title);
-    result.append(", targetDescription: ");
-    result.append(targetDescription);
     result.append(", global: ");
     result.append(global);
     result.append(", issues: ");

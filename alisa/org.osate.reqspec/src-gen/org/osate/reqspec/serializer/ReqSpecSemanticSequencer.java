@@ -135,8 +135,19 @@ public class ReqSpecSemanticSequencer extends CommonSemanticSequencer {
 				sequence_ExternalDocument(context, (ExternalDocument) semanticObject); 
 				return; 
 			case ReqSpecPackage.GOAL:
-				sequence_Goal(context, (Goal) semanticObject); 
-				return; 
+				if(context == grammarAccess.getContractualElementRule()) {
+					sequence_ContractualElement_DocGoal_Goal(context, (Goal) semanticObject); 
+					return; 
+				}
+				else if(context == grammarAccess.getDocGoalRule()) {
+					sequence_DocGoal(context, (Goal) semanticObject); 
+					return; 
+				}
+				else if(context == grammarAccess.getGoalRule()) {
+					sequence_Goal(context, (Goal) semanticObject); 
+					return; 
+				}
+				else break;
 			case ReqSpecPackage.INFORMAL_PREDICATE:
 				sequence_InformalPredicate(context, (InformalPredicate) semanticObject); 
 				return; 
@@ -156,8 +167,19 @@ public class ReqSpecSemanticSequencer extends CommonSemanticSequencer {
 				sequence_ReqSpecs(context, (ReqSpecs) semanticObject); 
 				return; 
 			case ReqSpecPackage.REQUIREMENT:
-				sequence_Requirement(context, (Requirement) semanticObject); 
-				return; 
+				if(context == grammarAccess.getContractualElementRule()) {
+					sequence_ContractualElement_DocRequirement_Requirement(context, (Requirement) semanticObject); 
+					return; 
+				}
+				else if(context == grammarAccess.getDocRequirementRule()) {
+					sequence_DocRequirement(context, (Requirement) semanticObject); 
+					return; 
+				}
+				else if(context == grammarAccess.getRequirementRule()) {
+					sequence_Requirement(context, (Requirement) semanticObject); 
+					return; 
+				}
+				else break;
 			case ReqSpecPackage.STAKEHOLDER_GOALS:
 				sequence_StakeholderGoals(context, (StakeholderGoals) semanticObject); 
 				return; 
@@ -413,7 +435,148 @@ public class ReqSpecSemanticSequencer extends CommonSemanticSequencer {
 	
 	/**
 	 * Constraint:
-	 *     (label=ID title=STRING? description=Description? (content+=Goal | content+=Requirement | content+=DocumentSection)*)
+	 *     (
+	 *         (
+	 *             name=ID 
+	 *             title=STRING? 
+	 *             targetElement=[NamedElement|ID]? 
+	 *             category+=[RequirementCategory|ID]* 
+	 *             description=Description? 
+	 *             constants+=XValDeclaration* 
+	 *             rationale=Rationale? 
+	 *             changeUncertainty=Uncertainty? 
+	 *             refinesReference+=[Goal|QualifiedName]* 
+	 *             conflictsReference+=[Goal|QualifiedName]* 
+	 *             stakeholderReference+=[Stakeholder|QualifiedName]* 
+	 *             documentRequirement+=[ContractualElement|QualifiedName]* 
+	 *             docReference+=ExternalDocument* 
+	 *             issues+=STRING*
+	 *         ) | 
+	 *         (
+	 *             name=ID 
+	 *             title=STRING? 
+	 *             (targetDescription=STRING | (target=[Classifier|AADLCLASSIFIERREFERENCE] targetElement=[NamedElement|ID]?))? 
+	 *             category+=[RequirementCategory|ID]* 
+	 *             description=Description? 
+	 *             constants+=XValDeclaration* 
+	 *             rationale=Rationale? 
+	 *             changeUncertainty=Uncertainty? 
+	 *             refinesReference+=[Goal|QualifiedName]* 
+	 *             conflictsReference+=[Goal|QualifiedName]* 
+	 *             stakeholderReference+=[Stakeholder|QualifiedName]* 
+	 *             documentRequirement+=[ContractualElement|QualifiedName]* 
+	 *             docReference+=ExternalDocument* 
+	 *             issues+=STRING*
+	 *         )
+	 *     )
+	 */
+	protected void sequence_ContractualElement_DocGoal_Goal(EObject context, Goal semanticObject) {
+		genericSequencer.createSequence(context, semanticObject);
+	}
+	
+	
+	/**
+	 * Constraint:
+	 *     (
+	 *         (
+	 *             name=ID 
+	 *             title=STRING? 
+	 *             targetElement=[NamedElement|ID]? 
+	 *             category+=[RequirementCategory|ID]* 
+	 *             description=Description? 
+	 *             constants+=XValDeclaration* 
+	 *             computes+=ComputeDeclaration* 
+	 *             predicate=ReqPredicate? 
+	 *             rationale=Rationale? 
+	 *             changeUncertainty=Uncertainty? 
+	 *             (exception=[EObject|ID] | exceptionText=STRING)? 
+	 *             refinesReference+=[Requirement|QualifiedName]* 
+	 *             goalReference+=[Goal|QualifiedName]* 
+	 *             stakeholderRequirementReference+=[Goal|QualifiedName]* 
+	 *             documentRequirement+=[ContractualElement|QualifiedName]* 
+	 *             docReference+=ExternalDocument* 
+	 *             issues+=STRING*
+	 *         ) | 
+	 *         (
+	 *             name=ID 
+	 *             title=STRING? 
+	 *             (targetDescription=STRING | (target=[Classifier|AADLCLASSIFIERREFERENCE] targetElement=[NamedElement|ID]?))? 
+	 *             category+=[RequirementCategory|ID]* 
+	 *             description=Description? 
+	 *             constants+=XValDeclaration* 
+	 *             computes+=ComputeDeclaration* 
+	 *             predicate=ReqPredicate? 
+	 *             rationale=Rationale? 
+	 *             changeUncertainty=Uncertainty? 
+	 *             (exception=[EObject|ID] | exceptionText=STRING)? 
+	 *             refinesReference+=[Requirement|QualifiedName]* 
+	 *             goalReference+=[Goal|QualifiedName]* 
+	 *             stakeholderRequirementReference+=[Goal|QualifiedName]* 
+	 *             documentRequirement+=[ContractualElement|QualifiedName]* 
+	 *             docReference+=ExternalDocument* 
+	 *             issues+=STRING*
+	 *         )
+	 *     )
+	 */
+	protected void sequence_ContractualElement_DocRequirement_Requirement(EObject context, Requirement semanticObject) {
+		genericSequencer.createSequence(context, semanticObject);
+	}
+	
+	
+	/**
+	 * Constraint:
+	 *     (
+	 *         name=ID 
+	 *         title=STRING? 
+	 *         (targetDescription=STRING | (target=[Classifier|AADLCLASSIFIERREFERENCE] targetElement=[NamedElement|ID]?))? 
+	 *         category+=[RequirementCategory|ID]* 
+	 *         description=Description? 
+	 *         constants+=XValDeclaration* 
+	 *         rationale=Rationale? 
+	 *         changeUncertainty=Uncertainty? 
+	 *         refinesReference+=[Goal|QualifiedName]* 
+	 *         conflictsReference+=[Goal|QualifiedName]* 
+	 *         stakeholderReference+=[Stakeholder|QualifiedName]* 
+	 *         documentRequirement+=[ContractualElement|QualifiedName]* 
+	 *         docReference+=ExternalDocument* 
+	 *         issues+=STRING*
+	 *     )
+	 */
+	protected void sequence_DocGoal(EObject context, Goal semanticObject) {
+		genericSequencer.createSequence(context, semanticObject);
+	}
+	
+	
+	/**
+	 * Constraint:
+	 *     (
+	 *         name=ID 
+	 *         title=STRING? 
+	 *         (targetDescription=STRING | (target=[Classifier|AADLCLASSIFIERREFERENCE] targetElement=[NamedElement|ID]?))? 
+	 *         category+=[RequirementCategory|ID]* 
+	 *         description=Description? 
+	 *         constants+=XValDeclaration* 
+	 *         computes+=ComputeDeclaration* 
+	 *         predicate=ReqPredicate? 
+	 *         rationale=Rationale? 
+	 *         changeUncertainty=Uncertainty? 
+	 *         (exception=[EObject|ID] | exceptionText=STRING)? 
+	 *         refinesReference+=[Requirement|QualifiedName]* 
+	 *         goalReference+=[Goal|QualifiedName]* 
+	 *         stakeholderRequirementReference+=[Goal|QualifiedName]* 
+	 *         documentRequirement+=[ContractualElement|QualifiedName]* 
+	 *         docReference+=ExternalDocument* 
+	 *         issues+=STRING*
+	 *     )
+	 */
+	protected void sequence_DocRequirement(EObject context, Requirement semanticObject) {
+		genericSequencer.createSequence(context, semanticObject);
+	}
+	
+	
+	/**
+	 * Constraint:
+	 *     (label=ID title=STRING? description=Description? (content+=DocGoal | content+=DocRequirement | content+=DocumentSection)*)
 	 */
 	protected void sequence_DocumentSection(EObject context, DocumentSection semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
@@ -434,7 +597,7 @@ public class ReqSpecSemanticSequencer extends CommonSemanticSequencer {
 	 *     (
 	 *         name=ID 
 	 *         title=STRING? 
-	 *         (targetDescription=STRING | (target=[Classifier|AADLCLASSIFIERREFERENCE]? targetElement=[NamedElement|ID]?))? 
+	 *         targetElement=[NamedElement|ID]? 
 	 *         category+=[RequirementCategory|ID]* 
 	 *         description=Description? 
 	 *         constants+=XValDeclaration* 
@@ -489,7 +652,7 @@ public class ReqSpecSemanticSequencer extends CommonSemanticSequencer {
 	
 	/**
 	 * Constraint:
-	 *     (name=ID title=STRING? description=Description? (content+=Goal | content+=Requirement | content+=DocumentSection)* issues+=STRING*)
+	 *     (name=ID title=STRING? description=Description? (content+=DocGoal | content+=DocRequirement | content+=DocumentSection)* issues+=STRING*)
 	 */
 	protected void sequence_ReqDocument(EObject context, ReqDocument semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
@@ -510,7 +673,7 @@ public class ReqSpecSemanticSequencer extends CommonSemanticSequencer {
 	 *     (
 	 *         name=ID 
 	 *         title=STRING? 
-	 *         (target=[Classifier|AADLCLASSIFIERREFERENCE] | targetDescription=STRING | global?='all')? 
+	 *         (target=[Classifier|AADLCLASSIFIERREFERENCE] | global?='all') 
 	 *         otherreqspecs+=[ReqSpecs|QualifiedName]* 
 	 *         description=Description? 
 	 *         constants+=XValDeclaration* 
@@ -530,7 +693,7 @@ public class ReqSpecSemanticSequencer extends CommonSemanticSequencer {
 	 *     (
 	 *         name=ID 
 	 *         title=STRING? 
-	 *         (targetDescription=STRING | (target=[Classifier|AADLCLASSIFIERREFERENCE]? targetElement=[NamedElement|ID]?))? 
+	 *         targetElement=[NamedElement|ID]? 
 	 *         category+=[RequirementCategory|ID]* 
 	 *         description=Description? 
 	 *         constants+=XValDeclaration* 
@@ -557,7 +720,7 @@ public class ReqSpecSemanticSequencer extends CommonSemanticSequencer {
 	 *     (
 	 *         name=ID 
 	 *         title=STRING? 
-	 *         (target=[Classifier|AADLCLASSIFIERREFERENCE] | targetDescription=STRING | global?='all')? 
+	 *         (target=[Classifier|AADLCLASSIFIERREFERENCE] | global?='all') 
 	 *         description=Description? 
 	 *         constants+=XValDeclaration* 
 	 *         content+=Goal* 
