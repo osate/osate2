@@ -15,20 +15,24 @@ import org.eclipse.xtext.util.IAcceptor
 import com.google.inject.Singleton
 import org.eclipse.emf.common.util.URI
 import org.osate.verify.verify.VerificationPlan
+import static org.osate.reqspec.util.ReqSpecUtilExtension.*
+import static org.osate.alisa.workbench.util.AlisaWorkbenchUtilsExtension.*
+import org.osate.reqspec.reqSpec.SystemRequirements
 
 class AlisaWorkbenchReferenceFinder {
 	@Inject
 	var IGlobalScopeProvider scopeProvider
 
 	extension CommonGlobalScopeProvider cgsp = scopeProvider as CommonGlobalScopeProvider
+	
 
-		def getRequirements(ComponentInstance io){
+		def Iterable<Requirement> getRequirements(ComponentInstance io){
 			val x = io.componentClassifier.getGlobalEObjectDescriptions(ReqSpecPackage.eINSTANCE.requirement,null)
 			// TODO if implementation also look at the type.
 			// TODO if classifier is an extension we inherit requirements
 			val y = x.map[EObjectOrProxy as Requirement]
 			for ( r : y) {
-				val cl1 = r.target
+				val cl1 = containingSystemRequirements(r)?.target?:r.target
 				val ComponentClassifier t2 = (io as ComponentInstance).componentClassifier
 				val c1n = cl1.getQualifiedName()
 				val c2n = t2.getQualifiedName()
@@ -41,9 +45,15 @@ class AlisaWorkbenchReferenceFinder {
 	//		 .map[ed|ed.EObjectOrProxy as Requirement]
 		}
 		
-		def boolean isSame (ComponentClassifier cl1, ComponentClassifier cl2){
-			cl1.getQualifiedName().equalsIgnoreCase(cl2.getQualifiedName())
+		def Iterable<SystemRequirements> getSystemRequirements(ComponentInstance io){
+						io.componentClassifier.getGlobalEObjectDescriptions(ReqSpecPackage.eINSTANCE.systemRequirements,null).map[EObjectOrProxy as SystemRequirements]
+						.filter[sysreqs| isSame(sysreqs.target, io.componentClassifier)]
 		}
+		
+		def Iterable<Requirement> getAllRequirements(ComponentInstance ci){
+			getSystemRequirements(ci).map[it.content].flatten
+		}
+		
 		
 		def getVerificationActivities(Requirement reqspec){
 	//		reqspec.getGlobalEObjectDescriptions(VerifyPackage.eINSTANCE.verificationContainer,null).
@@ -68,40 +78,10 @@ class AlisaWorkbenchReferenceFinder {
 			referenceFinder.findAllReferences(targetURIs, null, acceptor, null);
 			references
 		}
-//		 	for (IResourceDescription iResourceDescription : rdlist) {
-//				Iterable<IReferenceDescription> reflist = iResourceDescription.getReferenceDescriptions();
-//				for (IReferenceDescription iReferenceDescription : reflist) {
-//					URI srcURI=iReferenceDescription.getSourceEObjectUri();
-//					URI dstURI = iReferenceDescription.getTargetEObjectUri();
-//					EReference ref = iReferenceDescription.getEReference();
-//					System.out.println("Ref ");
-//				}
-//			}
 		
-//	XXX		final List<IReferenceDescription> references = newArrayList();
-//			IAcceptor<IReferenceDescription> acceptor = new IAcceptor<IReferenceDescription>() {
-//				@Override
-//				public void accept(IReferenceDescription reference) {
-//					references.add(reference);
-//				}
-//			};
-//			referenceFinder.findReferences(getTargetURIs(target), singleton(resource.getURI()),
-//				null, acceptor, monitor.newChild(40));
-
-
-// filter can be some predicate
-//	protected Predicate<IReferenceDescription> getFilter(EObject primaryTarget) {
-//		return Predicates.alwaysTrue();
-//	}
-
-//			this.filteringAcceptor = new IAcceptor<IReferenceDescription>() {
-//				public void accept(IReferenceDescription t) {
-//					if (filter.apply(t))
-//						acceptor.accept(t);
-//				}
-//			};
-
-//			referenceFinder.findAllReferences(targetURIs, localResourceAccess, filteringAcceptor, null);
+		def  rfGetSystemRequirements(ComponentInstance ci){
+			
+		}
 		
 	
 }
