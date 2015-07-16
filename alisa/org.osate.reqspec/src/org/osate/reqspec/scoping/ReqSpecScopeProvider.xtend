@@ -31,11 +31,11 @@ class ReqSpecScopeProvider extends AlisaAbstractDeclarativeScopeProvider {
 	
 	
 	
-	override IScope getScope(EObject context , EReference reference) {
-		println ("context  =" + context)
-		println ("reference=" + reference.name)
-		super.getScope (context, reference)
-	}
+//	override IScope getScope(EObject context , EReference reference) {
+//		println ("context  =" + context)
+//		println ("reference=" + reference.name)
+//		super.getScope (context, reference)
+//	}
 	
 	
 	// Reference is from Goal, ReqSpec, or Hazard
