@@ -24,22 +24,22 @@ public class ReqSpecGrammarAccess extends AbstractGrammarElementFinder {
 		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "ReqSpec");
 		private final Assignment cPartsAssignment = (Assignment)rule.eContents().get(1);
 		private final Alternatives cPartsAlternatives_0 = (Alternatives)cPartsAssignment.eContents().get(0);
-		private final RuleCall cPartsReqSpecsParserRuleCall_0_0 = (RuleCall)cPartsAlternatives_0.eContents().get(0);
+		private final RuleCall cPartsSystemRequirementsParserRuleCall_0_0 = (RuleCall)cPartsAlternatives_0.eContents().get(0);
 		private final RuleCall cPartsStakeholderGoalsParserRuleCall_0_1 = (RuleCall)cPartsAlternatives_0.eContents().get(1);
 		private final RuleCall cPartsReqDocumentParserRuleCall_0_2 = (RuleCall)cPartsAlternatives_0.eContents().get(2);
 		
 		//ReqSpec:
-		//	parts+=(ReqSpecs | StakeholderGoals | ReqDocument)+;
+		//	parts+=(SystemRequirements | StakeholderGoals | ReqDocument)+;
 		@Override public ParserRule getRule() { return rule; }
 
-		//parts+=(ReqSpecs | StakeholderGoals | ReqDocument)+
+		//parts+=(SystemRequirements | StakeholderGoals | ReqDocument)+
 		public Assignment getPartsAssignment() { return cPartsAssignment; }
 
-		//ReqSpecs | StakeholderGoals | ReqDocument
+		//SystemRequirements | StakeholderGoals | ReqDocument
 		public Alternatives getPartsAlternatives_0() { return cPartsAlternatives_0; }
 
-		//ReqSpecs
-		public RuleCall getPartsReqSpecsParserRuleCall_0_0() { return cPartsReqSpecsParserRuleCall_0_0; }
+		//SystemRequirements
+		public RuleCall getPartsSystemRequirementsParserRuleCall_0_0() { return cPartsSystemRequirementsParserRuleCall_0_0; }
 
 		//StakeholderGoals
 		public RuleCall getPartsStakeholderGoalsParserRuleCall_0_1() { return cPartsStakeholderGoalsParserRuleCall_0_1; }
@@ -51,21 +51,21 @@ public class ReqSpecGrammarAccess extends AbstractGrammarElementFinder {
 	public class ReqSpecContainerElements extends AbstractParserRuleElementFinder {
 		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "ReqSpecContainer");
 		private final Alternatives cAlternatives = (Alternatives)rule.eContents().get(1);
-		private final RuleCall cReqSpecsParserRuleCall_0 = (RuleCall)cAlternatives.eContents().get(0);
+		private final RuleCall cSystemRequirementsParserRuleCall_0 = (RuleCall)cAlternatives.eContents().get(0);
 		private final RuleCall cStakeholderGoalsParserRuleCall_1 = (RuleCall)cAlternatives.eContents().get(1);
 		private final RuleCall cReqDocumentParserRuleCall_2 = (RuleCall)cAlternatives.eContents().get(2);
 		private final RuleCall cDocumentSectionParserRuleCall_3 = (RuleCall)cAlternatives.eContents().get(3);
 		
 		////ReqSpec: ReqSpecs|StakeholderGoals|ReqDocument  ;
 		//ReqSpecContainer:
-		//	ReqSpecs | StakeholderGoals | ReqDocument | DocumentSection;
+		//	SystemRequirements | StakeholderGoals | ReqDocument | DocumentSection;
 		@Override public ParserRule getRule() { return rule; }
 
-		//ReqSpecs | StakeholderGoals | ReqDocument | DocumentSection
+		//SystemRequirements | StakeholderGoals | ReqDocument | DocumentSection
 		public Alternatives getAlternatives() { return cAlternatives; }
 
-		//ReqSpecs
-		public RuleCall getReqSpecsParserRuleCall_0() { return cReqSpecsParserRuleCall_0; }
+		//SystemRequirements
+		public RuleCall getSystemRequirementsParserRuleCall_0() { return cSystemRequirementsParserRuleCall_0; }
 
 		//StakeholderGoals
 		public RuleCall getStakeholderGoalsParserRuleCall_1() { return cStakeholderGoalsParserRuleCall_1; }
@@ -110,13 +110,13 @@ public class ReqSpecGrammarAccess extends AbstractGrammarElementFinder {
 		private final Alternatives cAlternatives = (Alternatives)rule.eContents().get(1);
 		private final RuleCall cStakeholderGoalsParserRuleCall_0 = (RuleCall)cAlternatives.eContents().get(0);
 		private final RuleCall cReqDocumentParserRuleCall_1 = (RuleCall)cAlternatives.eContents().get(1);
-		private final RuleCall cReqSpecsParserRuleCall_2 = (RuleCall)cAlternatives.eContents().get(2);
+		private final RuleCall cSystemRequirementsParserRuleCall_2 = (RuleCall)cAlternatives.eContents().get(2);
 		
 		//ReqRoot:
-		//	StakeholderGoals | ReqDocument | ReqSpecs;
+		//	StakeholderGoals | ReqDocument | SystemRequirements;
 		@Override public ParserRule getRule() { return rule; }
 
-		//StakeholderGoals | ReqDocument | ReqSpecs
+		//StakeholderGoals | ReqDocument | SystemRequirements
 		public Alternatives getAlternatives() { return cAlternatives; }
 
 		//StakeholderGoals
@@ -125,8 +125,8 @@ public class ReqSpecGrammarAccess extends AbstractGrammarElementFinder {
 		//ReqDocument
 		public RuleCall getReqDocumentParserRuleCall_1() { return cReqDocumentParserRuleCall_1; }
 
-		//ReqSpecs
-		public RuleCall getReqSpecsParserRuleCall_2() { return cReqSpecsParserRuleCall_2; }
+		//SystemRequirements
+		public RuleCall getSystemRequirementsParserRuleCall_2() { return cSystemRequirementsParserRuleCall_2; }
 	}
 
 	public class StakeholderGoalsElements extends AbstractParserRuleElementFinder {
@@ -144,8 +144,8 @@ public class ReqSpecGrammarAccess extends AbstractGrammarElementFinder {
 		private final Keyword cForKeyword_4_0 = (Keyword)cGroup_4.eContents().get(0);
 		private final Alternatives cAlternatives_4_1 = (Alternatives)cGroup_4.eContents().get(1);
 		private final Assignment cTargetAssignment_4_1_0 = (Assignment)cAlternatives_4_1.eContents().get(0);
-		private final CrossReference cTargetClassifierCrossReference_4_1_0_0 = (CrossReference)cTargetAssignment_4_1_0.eContents().get(0);
-		private final RuleCall cTargetClassifierAADLCLASSIFIERREFERENCEParserRuleCall_4_1_0_0_1 = (RuleCall)cTargetClassifierCrossReference_4_1_0_0.eContents().get(1);
+		private final CrossReference cTargetComponentClassifierCrossReference_4_1_0_0 = (CrossReference)cTargetAssignment_4_1_0.eContents().get(0);
+		private final RuleCall cTargetComponentClassifierAADLCLASSIFIERREFERENCEParserRuleCall_4_1_0_0_1 = (RuleCall)cTargetComponentClassifierCrossReference_4_1_0_0.eContents().get(1);
 		private final Assignment cGlobalAssignment_4_1_1 = (Assignment)cAlternatives_4_1.eContents().get(1);
 		private final Keyword cGlobalAllKeyword_4_1_1_0 = (Keyword)cGlobalAssignment_4_1_1.eContents().get(0);
 		private final Keyword cLeftSquareBracketKeyword_5 = (Keyword)cGroup.eContents().get(5);
@@ -168,12 +168,12 @@ public class ReqSpecGrammarAccess extends AbstractGrammarElementFinder {
 		private final Keyword cRightSquareBracketKeyword_7 = (Keyword)cGroup.eContents().get(7);
 		
 		//StakeholderGoals:
-		//	"stakeholder" "goals" name=ID (":" title=STRING)? ("for" (target=[aadl2::Classifier|AADLCLASSIFIERREFERENCE] |
-		//	global?="all")) "[" (description=Description? & constants+=XValDeclaration* & content+=Goal* & ("see" "document"
+		//	"stakeholder" "goals" name=ID (":" title=STRING)? ("for" (target=[aadl2::ComponentClassifier|AADLCLASSIFIERREFERENCE]
+		//	| global?="all")) "[" (description=Description? & constants+=XValDeclaration* & content+=Goal* & ("see" "document"
 		//	docReference+=ExternalDocument+)? & ("issues" issues+=STRING+)?) "]";
 		@Override public ParserRule getRule() { return rule; }
 
-		//"stakeholder" "goals" name=ID (":" title=STRING)? ("for" (target=[aadl2::Classifier|AADLCLASSIFIERREFERENCE] |
+		//"stakeholder" "goals" name=ID (":" title=STRING)? ("for" (target=[aadl2::ComponentClassifier|AADLCLASSIFIERREFERENCE] |
 		//global?="all")) "[" (description=Description? & constants+=XValDeclaration* & content+=Goal* & ("see" "document"
 		//docReference+=ExternalDocument+)? & ("issues" issues+=STRING+)?) "]"
 		public Group getGroup() { return cGroup; }
@@ -202,23 +202,23 @@ public class ReqSpecGrammarAccess extends AbstractGrammarElementFinder {
 		//STRING
 		public RuleCall getTitleSTRINGTerminalRuleCall_3_1_0() { return cTitleSTRINGTerminalRuleCall_3_1_0; }
 
-		//"for" (target=[aadl2::Classifier|AADLCLASSIFIERREFERENCE] | global?="all")
+		//"for" (target=[aadl2::ComponentClassifier|AADLCLASSIFIERREFERENCE] | global?="all")
 		public Group getGroup_4() { return cGroup_4; }
 
 		//"for"
 		public Keyword getForKeyword_4_0() { return cForKeyword_4_0; }
 
-		//target=[aadl2::Classifier|AADLCLASSIFIERREFERENCE] | global?="all"
+		//target=[aadl2::ComponentClassifier|AADLCLASSIFIERREFERENCE] | global?="all"
 		public Alternatives getAlternatives_4_1() { return cAlternatives_4_1; }
 
-		//target=[aadl2::Classifier|AADLCLASSIFIERREFERENCE]
+		//target=[aadl2::ComponentClassifier|AADLCLASSIFIERREFERENCE]
 		public Assignment getTargetAssignment_4_1_0() { return cTargetAssignment_4_1_0; }
 
-		//[aadl2::Classifier|AADLCLASSIFIERREFERENCE]
-		public CrossReference getTargetClassifierCrossReference_4_1_0_0() { return cTargetClassifierCrossReference_4_1_0_0; }
+		//[aadl2::ComponentClassifier|AADLCLASSIFIERREFERENCE]
+		public CrossReference getTargetComponentClassifierCrossReference_4_1_0_0() { return cTargetComponentClassifierCrossReference_4_1_0_0; }
 
 		//AADLCLASSIFIERREFERENCE
-		public RuleCall getTargetClassifierAADLCLASSIFIERREFERENCEParserRuleCall_4_1_0_0_1() { return cTargetClassifierAADLCLASSIFIERREFERENCEParserRuleCall_4_1_0_0_1; }
+		public RuleCall getTargetComponentClassifierAADLCLASSIFIERREFERENCEParserRuleCall_4_1_0_0_1() { return cTargetComponentClassifierAADLCLASSIFIERREFERENCEParserRuleCall_4_1_0_0_1; }
 
 		//global?="all"
 		public Assignment getGlobalAssignment_4_1_1() { return cGlobalAssignment_4_1_1; }
@@ -462,8 +462,8 @@ public class ReqSpecGrammarAccess extends AbstractGrammarElementFinder {
 		public Keyword getRightSquareBracketKeyword_5() { return cRightSquareBracketKeyword_5; }
 	}
 
-	public class ReqSpecsElements extends AbstractParserRuleElementFinder {
-		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "ReqSpecs");
+	public class SystemRequirementsElements extends AbstractParserRuleElementFinder {
+		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "SystemRequirements");
 		private final Group cGroup = (Group)rule.eContents().get(1);
 		private final Keyword cRequirementKeyword_0 = (Keyword)cGroup.eContents().get(0);
 		private final Keyword cSpecificationKeyword_1 = (Keyword)cGroup.eContents().get(1);
@@ -477,49 +477,42 @@ public class ReqSpecGrammarAccess extends AbstractGrammarElementFinder {
 		private final Keyword cForKeyword_4_0 = (Keyword)cGroup_4.eContents().get(0);
 		private final Alternatives cAlternatives_4_1 = (Alternatives)cGroup_4.eContents().get(1);
 		private final Assignment cTargetAssignment_4_1_0 = (Assignment)cAlternatives_4_1.eContents().get(0);
-		private final CrossReference cTargetClassifierCrossReference_4_1_0_0 = (CrossReference)cTargetAssignment_4_1_0.eContents().get(0);
-		private final RuleCall cTargetClassifierAADLCLASSIFIERREFERENCEParserRuleCall_4_1_0_0_1 = (RuleCall)cTargetClassifierCrossReference_4_1_0_0.eContents().get(1);
+		private final CrossReference cTargetComponentClassifierCrossReference_4_1_0_0 = (CrossReference)cTargetAssignment_4_1_0.eContents().get(0);
+		private final RuleCall cTargetComponentClassifierAADLCLASSIFIERREFERENCEParserRuleCall_4_1_0_0_1 = (RuleCall)cTargetComponentClassifierCrossReference_4_1_0_0.eContents().get(1);
 		private final Assignment cGlobalAssignment_4_1_1 = (Assignment)cAlternatives_4_1.eContents().get(1);
 		private final Keyword cGlobalAllKeyword_4_1_1_0 = (Keyword)cGlobalAssignment_4_1_1.eContents().get(0);
-		private final Group cGroup_5 = (Group)cGroup.eContents().get(5);
-		private final Keyword cIncludeKeyword_5_0 = (Keyword)cGroup_5.eContents().get(0);
-		private final Assignment cOtherreqspecsAssignment_5_1 = (Assignment)cGroup_5.eContents().get(1);
-		private final CrossReference cOtherreqspecsReqSpecsCrossReference_5_1_0 = (CrossReference)cOtherreqspecsAssignment_5_1.eContents().get(0);
-		private final RuleCall cOtherreqspecsReqSpecsQualifiedNameParserRuleCall_5_1_0_1 = (RuleCall)cOtherreqspecsReqSpecsCrossReference_5_1_0.eContents().get(1);
-		private final Keyword cLeftSquareBracketKeyword_6 = (Keyword)cGroup.eContents().get(6);
-		private final UnorderedGroup cUnorderedGroup_7 = (UnorderedGroup)cGroup.eContents().get(7);
-		private final Assignment cDescriptionAssignment_7_0 = (Assignment)cUnorderedGroup_7.eContents().get(0);
-		private final RuleCall cDescriptionDescriptionParserRuleCall_7_0_0 = (RuleCall)cDescriptionAssignment_7_0.eContents().get(0);
-		private final Assignment cConstantsAssignment_7_1 = (Assignment)cUnorderedGroup_7.eContents().get(1);
-		private final RuleCall cConstantsXValDeclarationParserRuleCall_7_1_0 = (RuleCall)cConstantsAssignment_7_1.eContents().get(0);
-		private final Assignment cComputesAssignment_7_2 = (Assignment)cUnorderedGroup_7.eContents().get(2);
-		private final RuleCall cComputesComputeDeclarationParserRuleCall_7_2_0 = (RuleCall)cComputesAssignment_7_2.eContents().get(0);
-		private final Assignment cContentAssignment_7_3 = (Assignment)cUnorderedGroup_7.eContents().get(3);
-		private final RuleCall cContentRequirementParserRuleCall_7_3_0 = (RuleCall)cContentAssignment_7_3.eContents().get(0);
-		private final Group cGroup_7_4 = (Group)cUnorderedGroup_7.eContents().get(4);
-		private final Keyword cSeeKeyword_7_4_0 = (Keyword)cGroup_7_4.eContents().get(0);
-		private final Keyword cDocumentKeyword_7_4_1 = (Keyword)cGroup_7_4.eContents().get(1);
-		private final Assignment cDocReferenceAssignment_7_4_2 = (Assignment)cGroup_7_4.eContents().get(2);
-		private final RuleCall cDocReferenceExternalDocumentParserRuleCall_7_4_2_0 = (RuleCall)cDocReferenceAssignment_7_4_2.eContents().get(0);
-		private final Group cGroup_7_5 = (Group)cUnorderedGroup_7.eContents().get(5);
-		private final Keyword cIssuesKeyword_7_5_0 = (Keyword)cGroup_7_5.eContents().get(0);
-		private final Assignment cIssuesAssignment_7_5_1 = (Assignment)cGroup_7_5.eContents().get(1);
-		private final RuleCall cIssuesSTRINGTerminalRuleCall_7_5_1_0 = (RuleCall)cIssuesAssignment_7_5_1.eContents().get(0);
-		private final Keyword cRightSquareBracketKeyword_8 = (Keyword)cGroup.eContents().get(8);
+		private final Keyword cLeftSquareBracketKeyword_5 = (Keyword)cGroup.eContents().get(5);
+		private final UnorderedGroup cUnorderedGroup_6 = (UnorderedGroup)cGroup.eContents().get(6);
+		private final Assignment cDescriptionAssignment_6_0 = (Assignment)cUnorderedGroup_6.eContents().get(0);
+		private final RuleCall cDescriptionDescriptionParserRuleCall_6_0_0 = (RuleCall)cDescriptionAssignment_6_0.eContents().get(0);
+		private final Assignment cConstantsAssignment_6_1 = (Assignment)cUnorderedGroup_6.eContents().get(1);
+		private final RuleCall cConstantsXValDeclarationParserRuleCall_6_1_0 = (RuleCall)cConstantsAssignment_6_1.eContents().get(0);
+		private final Assignment cComputesAssignment_6_2 = (Assignment)cUnorderedGroup_6.eContents().get(2);
+		private final RuleCall cComputesComputeDeclarationParserRuleCall_6_2_0 = (RuleCall)cComputesAssignment_6_2.eContents().get(0);
+		private final Assignment cContentAssignment_6_3 = (Assignment)cUnorderedGroup_6.eContents().get(3);
+		private final RuleCall cContentRequirementParserRuleCall_6_3_0 = (RuleCall)cContentAssignment_6_3.eContents().get(0);
+		private final Group cGroup_6_4 = (Group)cUnorderedGroup_6.eContents().get(4);
+		private final Keyword cSeeKeyword_6_4_0 = (Keyword)cGroup_6_4.eContents().get(0);
+		private final Keyword cDocumentKeyword_6_4_1 = (Keyword)cGroup_6_4.eContents().get(1);
+		private final Assignment cDocReferenceAssignment_6_4_2 = (Assignment)cGroup_6_4.eContents().get(2);
+		private final RuleCall cDocReferenceExternalDocumentParserRuleCall_6_4_2_0 = (RuleCall)cDocReferenceAssignment_6_4_2.eContents().get(0);
+		private final Group cGroup_6_5 = (Group)cUnorderedGroup_6.eContents().get(5);
+		private final Keyword cIssuesKeyword_6_5_0 = (Keyword)cGroup_6_5.eContents().get(0);
+		private final Assignment cIssuesAssignment_6_5_1 = (Assignment)cGroup_6_5.eContents().get(1);
+		private final RuleCall cIssuesSTRINGTerminalRuleCall_6_5_1_0 = (RuleCall)cIssuesAssignment_6_5_1.eContents().get(0);
+		private final Keyword cRightSquareBracketKeyword_7 = (Keyword)cGroup.eContents().get(7);
 		
-		//ReqSpecs:
+		//SystemRequirements:
 		//	"requirement" "specification" name=ID (":" title=STRING)? //	('import' importedNamespace=QualifiedNameWithWildCard)?
-		//	("for" (target=[aadl2::Classifier|AADLCLASSIFIERREFERENCE] | global?="all")) ("include"
-		//	otherreqspecs+=[ReqSpecs|QualifiedName]+)? "[" (description=Description? & constants+=XValDeclaration* &
-		//	computes+=ComputeDeclaration* & content+=Requirement* & ("see" "document" docReference+=ExternalDocument+)? &
-		//	("issues" issues+=STRING+)?) "]";
+		//	("for" (target=[aadl2::ComponentClassifier|AADLCLASSIFIERREFERENCE] | global?="all")) "[" (description=Description? &
+		//	constants+=XValDeclaration* & computes+=ComputeDeclaration* & content+=Requirement* & ("see" "document"
+		//	docReference+=ExternalDocument+)? & ("issues" issues+=STRING+)?) "]";
 		@Override public ParserRule getRule() { return rule; }
 
 		//"requirement" "specification" name=ID (":" title=STRING)? //	('import' importedNamespace=QualifiedNameWithWildCard)?
-		//("for" (target=[aadl2::Classifier|AADLCLASSIFIERREFERENCE] | global?="all")) ("include"
-		//otherreqspecs+=[ReqSpecs|QualifiedName]+)? "[" (description=Description? & constants+=XValDeclaration* &
-		//computes+=ComputeDeclaration* & content+=Requirement* & ("see" "document" docReference+=ExternalDocument+)? &
-		//("issues" issues+=STRING+)?) "]"
+		//("for" (target=[aadl2::ComponentClassifier|AADLCLASSIFIERREFERENCE] | global?="all")) "[" (description=Description? &
+		//constants+=XValDeclaration* & computes+=ComputeDeclaration* & content+=Requirement* & ("see" "document"
+		//docReference+=ExternalDocument+)? & ("issues" issues+=STRING+)?) "]"
 		public Group getGroup() { return cGroup; }
 
 		//"requirement"
@@ -546,23 +539,23 @@ public class ReqSpecGrammarAccess extends AbstractGrammarElementFinder {
 		//STRING
 		public RuleCall getTitleSTRINGTerminalRuleCall_3_1_0() { return cTitleSTRINGTerminalRuleCall_3_1_0; }
 
-		//"for" (target=[aadl2::Classifier|AADLCLASSIFIERREFERENCE] | global?="all")
+		//"for" (target=[aadl2::ComponentClassifier|AADLCLASSIFIERREFERENCE] | global?="all")
 		public Group getGroup_4() { return cGroup_4; }
 
 		//"for"
 		public Keyword getForKeyword_4_0() { return cForKeyword_4_0; }
 
-		//target=[aadl2::Classifier|AADLCLASSIFIERREFERENCE] | global?="all"
+		//target=[aadl2::ComponentClassifier|AADLCLASSIFIERREFERENCE] | global?="all"
 		public Alternatives getAlternatives_4_1() { return cAlternatives_4_1; }
 
-		//target=[aadl2::Classifier|AADLCLASSIFIERREFERENCE]
+		//target=[aadl2::ComponentClassifier|AADLCLASSIFIERREFERENCE]
 		public Assignment getTargetAssignment_4_1_0() { return cTargetAssignment_4_1_0; }
 
-		//[aadl2::Classifier|AADLCLASSIFIERREFERENCE]
-		public CrossReference getTargetClassifierCrossReference_4_1_0_0() { return cTargetClassifierCrossReference_4_1_0_0; }
+		//[aadl2::ComponentClassifier|AADLCLASSIFIERREFERENCE]
+		public CrossReference getTargetComponentClassifierCrossReference_4_1_0_0() { return cTargetComponentClassifierCrossReference_4_1_0_0; }
 
 		//AADLCLASSIFIERREFERENCE
-		public RuleCall getTargetClassifierAADLCLASSIFIERREFERENCEParserRuleCall_4_1_0_0_1() { return cTargetClassifierAADLCLASSIFIERREFERENCEParserRuleCall_4_1_0_0_1; }
+		public RuleCall getTargetComponentClassifierAADLCLASSIFIERREFERENCEParserRuleCall_4_1_0_0_1() { return cTargetComponentClassifierAADLCLASSIFIERREFERENCEParserRuleCall_4_1_0_0_1; }
 
 		//global?="all"
 		public Assignment getGlobalAssignment_4_1_1() { return cGlobalAssignment_4_1_1; }
@@ -570,81 +563,66 @@ public class ReqSpecGrammarAccess extends AbstractGrammarElementFinder {
 		//"all"
 		public Keyword getGlobalAllKeyword_4_1_1_0() { return cGlobalAllKeyword_4_1_1_0; }
 
-		//("include" otherreqspecs+=[ReqSpecs|QualifiedName]+)?
-		public Group getGroup_5() { return cGroup_5; }
-
-		//"include"
-		public Keyword getIncludeKeyword_5_0() { return cIncludeKeyword_5_0; }
-
-		//otherreqspecs+=[ReqSpecs|QualifiedName]+
-		public Assignment getOtherreqspecsAssignment_5_1() { return cOtherreqspecsAssignment_5_1; }
-
-		//[ReqSpecs|QualifiedName]
-		public CrossReference getOtherreqspecsReqSpecsCrossReference_5_1_0() { return cOtherreqspecsReqSpecsCrossReference_5_1_0; }
-
-		//QualifiedName
-		public RuleCall getOtherreqspecsReqSpecsQualifiedNameParserRuleCall_5_1_0_1() { return cOtherreqspecsReqSpecsQualifiedNameParserRuleCall_5_1_0_1; }
-
 		//"["
-		public Keyword getLeftSquareBracketKeyword_6() { return cLeftSquareBracketKeyword_6; }
+		public Keyword getLeftSquareBracketKeyword_5() { return cLeftSquareBracketKeyword_5; }
 
 		//description=Description? & constants+=XValDeclaration* & computes+=ComputeDeclaration* & content+=Requirement* & ("see"
 		//"document" docReference+=ExternalDocument+)? & ("issues" issues+=STRING+)?
-		public UnorderedGroup getUnorderedGroup_7() { return cUnorderedGroup_7; }
+		public UnorderedGroup getUnorderedGroup_6() { return cUnorderedGroup_6; }
 
 		//description=Description?
-		public Assignment getDescriptionAssignment_7_0() { return cDescriptionAssignment_7_0; }
+		public Assignment getDescriptionAssignment_6_0() { return cDescriptionAssignment_6_0; }
 
 		//Description
-		public RuleCall getDescriptionDescriptionParserRuleCall_7_0_0() { return cDescriptionDescriptionParserRuleCall_7_0_0; }
+		public RuleCall getDescriptionDescriptionParserRuleCall_6_0_0() { return cDescriptionDescriptionParserRuleCall_6_0_0; }
 
 		//constants+=XValDeclaration*
-		public Assignment getConstantsAssignment_7_1() { return cConstantsAssignment_7_1; }
+		public Assignment getConstantsAssignment_6_1() { return cConstantsAssignment_6_1; }
 
 		//XValDeclaration
-		public RuleCall getConstantsXValDeclarationParserRuleCall_7_1_0() { return cConstantsXValDeclarationParserRuleCall_7_1_0; }
+		public RuleCall getConstantsXValDeclarationParserRuleCall_6_1_0() { return cConstantsXValDeclarationParserRuleCall_6_1_0; }
 
 		//computes+=ComputeDeclaration*
-		public Assignment getComputesAssignment_7_2() { return cComputesAssignment_7_2; }
+		public Assignment getComputesAssignment_6_2() { return cComputesAssignment_6_2; }
 
 		//ComputeDeclaration
-		public RuleCall getComputesComputeDeclarationParserRuleCall_7_2_0() { return cComputesComputeDeclarationParserRuleCall_7_2_0; }
+		public RuleCall getComputesComputeDeclarationParserRuleCall_6_2_0() { return cComputesComputeDeclarationParserRuleCall_6_2_0; }
 
 		//content+=Requirement*
-		public Assignment getContentAssignment_7_3() { return cContentAssignment_7_3; }
+		public Assignment getContentAssignment_6_3() { return cContentAssignment_6_3; }
 
 		//Requirement
-		public RuleCall getContentRequirementParserRuleCall_7_3_0() { return cContentRequirementParserRuleCall_7_3_0; }
+		public RuleCall getContentRequirementParserRuleCall_6_3_0() { return cContentRequirementParserRuleCall_6_3_0; }
 
 		//("see" "document" docReference+=ExternalDocument+)?
-		public Group getGroup_7_4() { return cGroup_7_4; }
+		public Group getGroup_6_4() { return cGroup_6_4; }
 
 		//"see"
-		public Keyword getSeeKeyword_7_4_0() { return cSeeKeyword_7_4_0; }
+		public Keyword getSeeKeyword_6_4_0() { return cSeeKeyword_6_4_0; }
 
 		//"document"
-		public Keyword getDocumentKeyword_7_4_1() { return cDocumentKeyword_7_4_1; }
+		public Keyword getDocumentKeyword_6_4_1() { return cDocumentKeyword_6_4_1; }
 
 		//docReference+=ExternalDocument+
-		public Assignment getDocReferenceAssignment_7_4_2() { return cDocReferenceAssignment_7_4_2; }
+		public Assignment getDocReferenceAssignment_6_4_2() { return cDocReferenceAssignment_6_4_2; }
 
 		//ExternalDocument
-		public RuleCall getDocReferenceExternalDocumentParserRuleCall_7_4_2_0() { return cDocReferenceExternalDocumentParserRuleCall_7_4_2_0; }
+		public RuleCall getDocReferenceExternalDocumentParserRuleCall_6_4_2_0() { return cDocReferenceExternalDocumentParserRuleCall_6_4_2_0; }
 
 		//("issues" issues+=STRING+)?
-		public Group getGroup_7_5() { return cGroup_7_5; }
+		public Group getGroup_6_5() { return cGroup_6_5; }
 
 		//"issues"
-		public Keyword getIssuesKeyword_7_5_0() { return cIssuesKeyword_7_5_0; }
+		public Keyword getIssuesKeyword_6_5_0() { return cIssuesKeyword_6_5_0; }
 
 		//issues+=STRING+
-		public Assignment getIssuesAssignment_7_5_1() { return cIssuesAssignment_7_5_1; }
+		public Assignment getIssuesAssignment_6_5_1() { return cIssuesAssignment_6_5_1; }
 
 		//STRING
-		public RuleCall getIssuesSTRINGTerminalRuleCall_7_5_1_0() { return cIssuesSTRINGTerminalRuleCall_7_5_1_0; }
+		public RuleCall getIssuesSTRINGTerminalRuleCall_6_5_1_0() { return cIssuesSTRINGTerminalRuleCall_6_5_1_0; }
 
 		//"]"
-		public Keyword getRightSquareBracketKeyword_8() { return cRightSquareBracketKeyword_8; }
+		public Keyword getRightSquareBracketKeyword_7() { return cRightSquareBracketKeyword_7; }
 	}
 
 	public class DocGoalElements extends AbstractParserRuleElementFinder {
@@ -664,8 +642,8 @@ public class ReqSpecGrammarAccess extends AbstractGrammarElementFinder {
 		private final RuleCall cTargetDescriptionSTRINGTerminalRuleCall_3_1_0_0 = (RuleCall)cTargetDescriptionAssignment_3_1_0.eContents().get(0);
 		private final Group cGroup_3_1_1 = (Group)cAlternatives_3_1.eContents().get(1);
 		private final Assignment cTargetAssignment_3_1_1_0 = (Assignment)cGroup_3_1_1.eContents().get(0);
-		private final CrossReference cTargetClassifierCrossReference_3_1_1_0_0 = (CrossReference)cTargetAssignment_3_1_1_0.eContents().get(0);
-		private final RuleCall cTargetClassifierAADLCLASSIFIERREFERENCEParserRuleCall_3_1_1_0_0_1 = (RuleCall)cTargetClassifierCrossReference_3_1_1_0_0.eContents().get(1);
+		private final CrossReference cTargetComponentClassifierCrossReference_3_1_1_0_0 = (CrossReference)cTargetAssignment_3_1_1_0.eContents().get(0);
+		private final RuleCall cTargetComponentClassifierAADLCLASSIFIERREFERENCEParserRuleCall_3_1_1_0_0_1 = (RuleCall)cTargetComponentClassifierCrossReference_3_1_1_0_0.eContents().get(1);
 		private final Assignment cTargetElementAssignment_3_1_1_1 = (Assignment)cGroup_3_1_1.eContents().get(1);
 		private final CrossReference cTargetElementNamedElementCrossReference_3_1_1_1_0 = (CrossReference)cTargetElementAssignment_3_1_1_1.eContents().get(0);
 		private final RuleCall cTargetElementNamedElementIDTerminalRuleCall_3_1_1_1_0_1 = (RuleCall)cTargetElementNamedElementCrossReference_3_1_1_1_0.eContents().get(1);
@@ -730,7 +708,7 @@ public class ReqSpecGrammarAccess extends AbstractGrammarElementFinder {
 		
 		//DocGoal returns Goal:
 		//	"goal" name=ID (":" title=STRING)? // short string for title
-		//	("for" (targetDescription=STRING | target=[aadl2::Classifier|AADLCLASSIFIERREFERENCE]
+		//	("for" (targetDescription=STRING | target=[aadl2::ComponentClassifier|AADLCLASSIFIERREFERENCE]
 		//	targetElement=[aadl2::NamedElement]?))? "[" (("category" category+=[categories::RequirementCategory]+)? &
 		//	description=Description? & constants+=XValDeclaration* & rationale=Rationale? & changeUncertainty=Uncertainty? &
 		//	("refines" refinesReference+=[Goal|QualifiedName]+)? & ("conflicts" "with"
@@ -742,7 +720,7 @@ public class ReqSpecGrammarAccess extends AbstractGrammarElementFinder {
 		@Override public ParserRule getRule() { return rule; }
 
 		//"goal" name=ID (":" title=STRING)? // short string for title
-		//("for" (targetDescription=STRING | target=[aadl2::Classifier|AADLCLASSIFIERREFERENCE]
+		//("for" (targetDescription=STRING | target=[aadl2::ComponentClassifier|AADLCLASSIFIERREFERENCE]
 		//targetElement=[aadl2::NamedElement]?))? "[" (("category" category+=[categories::RequirementCategory]+)? &
 		//description=Description? & constants+=XValDeclaration* & rationale=Rationale? & changeUncertainty=Uncertainty? &
 		//("refines" refinesReference+=[Goal|QualifiedName]+)? & ("conflicts" "with" conflictsReference+=[Goal|QualifiedName]+)?
@@ -773,14 +751,15 @@ public class ReqSpecGrammarAccess extends AbstractGrammarElementFinder {
 		//STRING
 		public RuleCall getTitleSTRINGTerminalRuleCall_2_1_0() { return cTitleSTRINGTerminalRuleCall_2_1_0; }
 
-		//("for" (targetDescription=STRING | target=[aadl2::Classifier|AADLCLASSIFIERREFERENCE]
+		//("for" (targetDescription=STRING | target=[aadl2::ComponentClassifier|AADLCLASSIFIERREFERENCE]
 		//targetElement=[aadl2::NamedElement]?))?
 		public Group getGroup_3() { return cGroup_3; }
 
 		//"for"
 		public Keyword getForKeyword_3_0() { return cForKeyword_3_0; }
 
-		//targetDescription=STRING | target=[aadl2::Classifier|AADLCLASSIFIERREFERENCE] targetElement=[aadl2::NamedElement]?
+		//targetDescription=STRING | target=[aadl2::ComponentClassifier|AADLCLASSIFIERREFERENCE]
+		//targetElement=[aadl2::NamedElement]?
 		public Alternatives getAlternatives_3_1() { return cAlternatives_3_1; }
 
 		//targetDescription=STRING
@@ -789,17 +768,17 @@ public class ReqSpecGrammarAccess extends AbstractGrammarElementFinder {
 		//STRING
 		public RuleCall getTargetDescriptionSTRINGTerminalRuleCall_3_1_0_0() { return cTargetDescriptionSTRINGTerminalRuleCall_3_1_0_0; }
 
-		//target=[aadl2::Classifier|AADLCLASSIFIERREFERENCE] targetElement=[aadl2::NamedElement]?
+		//target=[aadl2::ComponentClassifier|AADLCLASSIFIERREFERENCE] targetElement=[aadl2::NamedElement]?
 		public Group getGroup_3_1_1() { return cGroup_3_1_1; }
 
-		//target=[aadl2::Classifier|AADLCLASSIFIERREFERENCE]
+		//target=[aadl2::ComponentClassifier|AADLCLASSIFIERREFERENCE]
 		public Assignment getTargetAssignment_3_1_1_0() { return cTargetAssignment_3_1_1_0; }
 
-		//[aadl2::Classifier|AADLCLASSIFIERREFERENCE]
-		public CrossReference getTargetClassifierCrossReference_3_1_1_0_0() { return cTargetClassifierCrossReference_3_1_1_0_0; }
+		//[aadl2::ComponentClassifier|AADLCLASSIFIERREFERENCE]
+		public CrossReference getTargetComponentClassifierCrossReference_3_1_1_0_0() { return cTargetComponentClassifierCrossReference_3_1_1_0_0; }
 
 		//AADLCLASSIFIERREFERENCE
-		public RuleCall getTargetClassifierAADLCLASSIFIERREFERENCEParserRuleCall_3_1_1_0_0_1() { return cTargetClassifierAADLCLASSIFIERREFERENCEParserRuleCall_3_1_1_0_0_1; }
+		public RuleCall getTargetComponentClassifierAADLCLASSIFIERREFERENCEParserRuleCall_3_1_1_0_0_1() { return cTargetComponentClassifierAADLCLASSIFIERREFERENCEParserRuleCall_3_1_1_0_0_1; }
 
 		//targetElement=[aadl2::NamedElement]?
 		public Assignment getTargetElementAssignment_3_1_1_1() { return cTargetElementAssignment_3_1_1_1; }
@@ -1717,8 +1696,8 @@ public class ReqSpecGrammarAccess extends AbstractGrammarElementFinder {
 		private final RuleCall cTargetDescriptionSTRINGTerminalRuleCall_3_1_0_0 = (RuleCall)cTargetDescriptionAssignment_3_1_0.eContents().get(0);
 		private final Group cGroup_3_1_1 = (Group)cAlternatives_3_1.eContents().get(1);
 		private final Assignment cTargetAssignment_3_1_1_0 = (Assignment)cGroup_3_1_1.eContents().get(0);
-		private final CrossReference cTargetClassifierCrossReference_3_1_1_0_0 = (CrossReference)cTargetAssignment_3_1_1_0.eContents().get(0);
-		private final RuleCall cTargetClassifierAADLCLASSIFIERREFERENCEParserRuleCall_3_1_1_0_0_1 = (RuleCall)cTargetClassifierCrossReference_3_1_1_0_0.eContents().get(1);
+		private final CrossReference cTargetComponentClassifierCrossReference_3_1_1_0_0 = (CrossReference)cTargetAssignment_3_1_1_0.eContents().get(0);
+		private final RuleCall cTargetComponentClassifierAADLCLASSIFIERREFERENCEParserRuleCall_3_1_1_0_0_1 = (RuleCall)cTargetComponentClassifierCrossReference_3_1_1_0_0.eContents().get(1);
 		private final Assignment cTargetElementAssignment_3_1_1_1 = (Assignment)cGroup_3_1_1.eContents().get(1);
 		private final CrossReference cTargetElementNamedElementCrossReference_3_1_1_1_0 = (CrossReference)cTargetElementAssignment_3_1_1_1.eContents().get(0);
 		private final RuleCall cTargetElementNamedElementIDTerminalRuleCall_3_1_1_1_0_1 = (RuleCall)cTargetElementNamedElementCrossReference_3_1_1_1_0.eContents().get(1);
@@ -1804,7 +1783,7 @@ public class ReqSpecGrammarAccess extends AbstractGrammarElementFinder {
 		//// becomes a "global" constraint that still takes model elements that are supplied by query 	
 		//DocRequirement returns Requirement:
 		//	"requirement" name=ID (":" title=STRING)? ("for" (targetDescription=STRING |
-		//	target=[aadl2::Classifier|AADLCLASSIFIERREFERENCE] targetElement=[aadl2::NamedElement]?))? "[" (("category"
+		//	target=[aadl2::ComponentClassifier|AADLCLASSIFIERREFERENCE] targetElement=[aadl2::NamedElement]?))? "[" (("category"
 		//	category+=[categories::RequirementCategory]+)? // predicate expression 
 		//	& description=Description? & constants+=XValDeclaration* & computes+=ComputeDeclaration* & predicate=ReqPredicate? &
 		//	rationale=Rationale? & changeUncertainty=Uncertainty? & ("mitigates" (exception=[ecore::EObject] |
@@ -1817,7 +1796,7 @@ public class ReqSpecGrammarAccess extends AbstractGrammarElementFinder {
 		@Override public ParserRule getRule() { return rule; }
 
 		//"requirement" name=ID (":" title=STRING)? ("for" (targetDescription=STRING |
-		//target=[aadl2::Classifier|AADLCLASSIFIERREFERENCE] targetElement=[aadl2::NamedElement]?))? "[" (("category"
+		//target=[aadl2::ComponentClassifier|AADLCLASSIFIERREFERENCE] targetElement=[aadl2::NamedElement]?))? "[" (("category"
 		//category+=[categories::RequirementCategory]+)? // predicate expression 
 		//& description=Description? & constants+=XValDeclaration* & computes+=ComputeDeclaration* & predicate=ReqPredicate? &
 		//rationale=Rationale? & changeUncertainty=Uncertainty? & ("mitigates" (exception=[ecore::EObject] |
@@ -1850,14 +1829,15 @@ public class ReqSpecGrammarAccess extends AbstractGrammarElementFinder {
 		//STRING
 		public RuleCall getTitleSTRINGTerminalRuleCall_2_1_0() { return cTitleSTRINGTerminalRuleCall_2_1_0; }
 
-		//("for" (targetDescription=STRING | target=[aadl2::Classifier|AADLCLASSIFIERREFERENCE]
+		//("for" (targetDescription=STRING | target=[aadl2::ComponentClassifier|AADLCLASSIFIERREFERENCE]
 		//targetElement=[aadl2::NamedElement]?))?
 		public Group getGroup_3() { return cGroup_3; }
 
 		//"for"
 		public Keyword getForKeyword_3_0() { return cForKeyword_3_0; }
 
-		//targetDescription=STRING | target=[aadl2::Classifier|AADLCLASSIFIERREFERENCE] targetElement=[aadl2::NamedElement]?
+		//targetDescription=STRING | target=[aadl2::ComponentClassifier|AADLCLASSIFIERREFERENCE]
+		//targetElement=[aadl2::NamedElement]?
 		public Alternatives getAlternatives_3_1() { return cAlternatives_3_1; }
 
 		//targetDescription=STRING
@@ -1866,17 +1846,17 @@ public class ReqSpecGrammarAccess extends AbstractGrammarElementFinder {
 		//STRING
 		public RuleCall getTargetDescriptionSTRINGTerminalRuleCall_3_1_0_0() { return cTargetDescriptionSTRINGTerminalRuleCall_3_1_0_0; }
 
-		//target=[aadl2::Classifier|AADLCLASSIFIERREFERENCE] targetElement=[aadl2::NamedElement]?
+		//target=[aadl2::ComponentClassifier|AADLCLASSIFIERREFERENCE] targetElement=[aadl2::NamedElement]?
 		public Group getGroup_3_1_1() { return cGroup_3_1_1; }
 
-		//target=[aadl2::Classifier|AADLCLASSIFIERREFERENCE]
+		//target=[aadl2::ComponentClassifier|AADLCLASSIFIERREFERENCE]
 		public Assignment getTargetAssignment_3_1_1_0() { return cTargetAssignment_3_1_1_0; }
 
-		//[aadl2::Classifier|AADLCLASSIFIERREFERENCE]
-		public CrossReference getTargetClassifierCrossReference_3_1_1_0_0() { return cTargetClassifierCrossReference_3_1_1_0_0; }
+		//[aadl2::ComponentClassifier|AADLCLASSIFIERREFERENCE]
+		public CrossReference getTargetComponentClassifierCrossReference_3_1_1_0_0() { return cTargetComponentClassifierCrossReference_3_1_1_0_0; }
 
 		//AADLCLASSIFIERREFERENCE
-		public RuleCall getTargetClassifierAADLCLASSIFIERREFERENCEParserRuleCall_3_1_1_0_0_1() { return cTargetClassifierAADLCLASSIFIERREFERENCEParserRuleCall_3_1_1_0_0_1; }
+		public RuleCall getTargetComponentClassifierAADLCLASSIFIERREFERENCEParserRuleCall_3_1_1_0_0_1() { return cTargetComponentClassifierAADLCLASSIFIERREFERENCEParserRuleCall_3_1_1_0_0_1; }
 
 		//targetElement=[aadl2::NamedElement]?
 		public Assignment getTargetElementAssignment_3_1_1_1() { return cTargetElementAssignment_3_1_1_1; }
@@ -2508,7 +2488,7 @@ public class ReqSpecGrammarAccess extends AbstractGrammarElementFinder {
 	private final StakeholderGoalsElements pStakeholderGoals;
 	private final ReqDocumentElements pReqDocument;
 	private final DocumentSectionElements pDocumentSection;
-	private final ReqSpecsElements pReqSpecs;
+	private final SystemRequirementsElements pSystemRequirements;
 	private final DocGoalElements pDocGoal;
 	private final GoalElements pGoal;
 	private final RequirementElements pRequirement;
@@ -2540,7 +2520,7 @@ public class ReqSpecGrammarAccess extends AbstractGrammarElementFinder {
 		this.pStakeholderGoals = new StakeholderGoalsElements();
 		this.pReqDocument = new ReqDocumentElements();
 		this.pDocumentSection = new DocumentSectionElements();
-		this.pReqSpecs = new ReqSpecsElements();
+		this.pSystemRequirements = new SystemRequirementsElements();
 		this.pDocGoal = new DocGoalElements();
 		this.pGoal = new GoalElements();
 		this.pRequirement = new RequirementElements();
@@ -2585,7 +2565,7 @@ public class ReqSpecGrammarAccess extends AbstractGrammarElementFinder {
 
 	
 	//ReqSpec:
-	//	parts+=(ReqSpecs | StakeholderGoals | ReqDocument)+;
+	//	parts+=(SystemRequirements | StakeholderGoals | ReqDocument)+;
 	public ReqSpecElements getReqSpecAccess() {
 		return pReqSpec;
 	}
@@ -2596,7 +2576,7 @@ public class ReqSpecGrammarAccess extends AbstractGrammarElementFinder {
 
 	////ReqSpec: ReqSpecs|StakeholderGoals|ReqDocument  ;
 	//ReqSpecContainer:
-	//	ReqSpecs | StakeholderGoals | ReqDocument | DocumentSection;
+	//	SystemRequirements | StakeholderGoals | ReqDocument | DocumentSection;
 	public ReqSpecContainerElements getReqSpecContainerAccess() {
 		return pReqSpecContainer;
 	}
@@ -2616,7 +2596,7 @@ public class ReqSpecGrammarAccess extends AbstractGrammarElementFinder {
 	}
 
 	//ReqRoot:
-	//	StakeholderGoals | ReqDocument | ReqSpecs;
+	//	StakeholderGoals | ReqDocument | SystemRequirements;
 	public ReqRootElements getReqRootAccess() {
 		return pReqRoot;
 	}
@@ -2626,8 +2606,8 @@ public class ReqSpecGrammarAccess extends AbstractGrammarElementFinder {
 	}
 
 	//StakeholderGoals:
-	//	"stakeholder" "goals" name=ID (":" title=STRING)? ("for" (target=[aadl2::Classifier|AADLCLASSIFIERREFERENCE] |
-	//	global?="all")) "[" (description=Description? & constants+=XValDeclaration* & content+=Goal* & ("see" "document"
+	//	"stakeholder" "goals" name=ID (":" title=STRING)? ("for" (target=[aadl2::ComponentClassifier|AADLCLASSIFIERREFERENCE]
+	//	| global?="all")) "[" (description=Description? & constants+=XValDeclaration* & content+=Goal* & ("see" "document"
 	//	docReference+=ExternalDocument+)? & ("issues" issues+=STRING+)?) "]";
 	public StakeholderGoalsElements getStakeholderGoalsAccess() {
 		return pStakeholderGoals;
@@ -2659,23 +2639,22 @@ public class ReqSpecGrammarAccess extends AbstractGrammarElementFinder {
 		return getDocumentSectionAccess().getRule();
 	}
 
-	//ReqSpecs:
+	//SystemRequirements:
 	//	"requirement" "specification" name=ID (":" title=STRING)? //	('import' importedNamespace=QualifiedNameWithWildCard)?
-	//	("for" (target=[aadl2::Classifier|AADLCLASSIFIERREFERENCE] | global?="all")) ("include"
-	//	otherreqspecs+=[ReqSpecs|QualifiedName]+)? "[" (description=Description? & constants+=XValDeclaration* &
-	//	computes+=ComputeDeclaration* & content+=Requirement* & ("see" "document" docReference+=ExternalDocument+)? &
-	//	("issues" issues+=STRING+)?) "]";
-	public ReqSpecsElements getReqSpecsAccess() {
-		return pReqSpecs;
+	//	("for" (target=[aadl2::ComponentClassifier|AADLCLASSIFIERREFERENCE] | global?="all")) "[" (description=Description? &
+	//	constants+=XValDeclaration* & computes+=ComputeDeclaration* & content+=Requirement* & ("see" "document"
+	//	docReference+=ExternalDocument+)? & ("issues" issues+=STRING+)?) "]";
+	public SystemRequirementsElements getSystemRequirementsAccess() {
+		return pSystemRequirements;
 	}
 	
-	public ParserRule getReqSpecsRule() {
-		return getReqSpecsAccess().getRule();
+	public ParserRule getSystemRequirementsRule() {
+		return getSystemRequirementsAccess().getRule();
 	}
 
 	//DocGoal returns Goal:
 	//	"goal" name=ID (":" title=STRING)? // short string for title
-	//	("for" (targetDescription=STRING | target=[aadl2::Classifier|AADLCLASSIFIERREFERENCE]
+	//	("for" (targetDescription=STRING | target=[aadl2::ComponentClassifier|AADLCLASSIFIERREFERENCE]
 	//	targetElement=[aadl2::NamedElement]?))? "[" (("category" category+=[categories::RequirementCategory]+)? &
 	//	description=Description? & constants+=XValDeclaration* & rationale=Rationale? & changeUncertainty=Uncertainty? &
 	//	("refines" refinesReference+=[Goal|QualifiedName]+)? & ("conflicts" "with"
@@ -2735,7 +2714,7 @@ public class ReqSpecGrammarAccess extends AbstractGrammarElementFinder {
 	//// becomes a "global" constraint that still takes model elements that are supplied by query 	
 	//DocRequirement returns Requirement:
 	//	"requirement" name=ID (":" title=STRING)? ("for" (targetDescription=STRING |
-	//	target=[aadl2::Classifier|AADLCLASSIFIERREFERENCE] targetElement=[aadl2::NamedElement]?))? "[" (("category"
+	//	target=[aadl2::ComponentClassifier|AADLCLASSIFIERREFERENCE] targetElement=[aadl2::NamedElement]?))? "[" (("category"
 	//	category+=[categories::RequirementCategory]+)? // predicate expression 
 	//	& description=Description? & constants+=XValDeclaration* & computes+=ComputeDeclaration* & predicate=ReqPredicate? &
 	//	rationale=Rationale? & changeUncertainty=Uncertainty? & ("mitigates" (exception=[ecore::EObject] |

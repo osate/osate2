@@ -8,7 +8,7 @@ import org.eclipse.emf.ecore.EObject;
 
 import org.eclipse.xtext.xbase.XExpression;
 
-import org.osate.aadl2.Classifier;
+import org.osate.aadl2.ComponentClassifier;
 import org.osate.aadl2.NamedElement;
 
 import org.osate.alisa.common.common.Description;
@@ -137,12 +137,12 @@ public interface ContractualElement extends EObject
    * </p>
    * <!-- end-user-doc -->
    * @return the value of the '<em>Target</em>' reference.
-   * @see #setTarget(Classifier)
+   * @see #setTarget(ComponentClassifier)
    * @see org.osate.reqspec.reqSpec.ReqSpecPackage#getContractualElement_Target()
    * @model
    * @generated
    */
-  Classifier getTarget();
+  ComponentClassifier getTarget();
 
   /**
    * Sets the value of the '{@link org.osate.reqspec.reqSpec.ContractualElement#getTarget <em>Target</em>}' reference.
@@ -152,7 +152,7 @@ public interface ContractualElement extends EObject
    * @see #getTarget()
    * @generated
    */
-  void setTarget(Classifier value);
+  void setTarget(ComponentClassifier value);
 
   /**
    * Returns the value of the '<em><b>Target Element</b></em>' reference.

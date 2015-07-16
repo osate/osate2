@@ -21,7 +21,7 @@ class ReqSpecProposalProvider extends AbstractReqSpecProposalProvider {
 			[description | !description.EObjectURI.toString.contains("Plugin_Resources")]
 		);
 	}
-	override void completeReqSpecs_Target(EObject model, Assignment assignment, ContentAssistContext context, ICompletionProposalAcceptor acceptor) {
+	override void completeSystemRequirements_Target(EObject model, Assignment assignment, ContentAssistContext context, ICompletionProposalAcceptor acceptor) {
 		lookupCrossReference(assignment.getTerminal() as CrossReference, context, acceptor,
 			[description | !description.EObjectURI.toString.contains("Plugin_Resources")]
 		);

@@ -13,8 +13,8 @@ import static extension org.osate.reqspec.util.ReqSpecUtilExtension.*
 import org.osate.aadl2.Classifier
 import org.osate.reqspec.reqSpec.DocumentSection
 import org.eclipse.xtext.validation.CheckType
-import org.osate.reqspec.reqSpec.ReqSpecs
 import org.osate.aadl2.NamedElement
+import org.osate.reqspec.reqSpec.SystemRequirements
 
 /**
  * Custom validation rules. 
@@ -80,16 +80,16 @@ class ReqSpecValidator extends AbstractReqSpecValidator {
 	}
 	
 		@Check(CheckType.EXPENSIVE)
-	def void checkFeatureCoverage(ReqSpecs reqspecs) {
-		val cl = reqspecs.target
+	def void checkFeatureCoverage(SystemRequirements sysreqs) {
+		val cl = sysreqs.target
 		if (cl == null || cl.getAllFeatures.empty ) return
 		
 		val fealist = new BasicEList<NamedElement>
-		cl.getAllFeatures.forEach[e| if (!reqspecs.content.exists[r| r.targetElement == e ]) fealist += e]
+		cl.getAllFeatures.forEach[e| if (!sysreqs.content.exists[r| r.targetElement == e ]) fealist += e]
 		if (!fealist.empty){
-			val fls = reqspecs.content.map[name].reduce[p1, p2| p1 + ' ' + p2]
+			val fls = sysreqs.content.map[name].reduce[p1, p2| p1 + ' ' + p2]
 			warning('Features without requirement: '+fls, 
-					ReqSpecPackage.Literals.REQ_SPECS__CONTENT,
+					ReqSpecPackage.Literals.SYSTEM_REQUIREMENTS__CONTENT,
 					FEATURES_WITHOUT_REQUIREMENT)
 		}
 	}

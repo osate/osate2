@@ -6,7 +6,7 @@ import org.eclipse.emf.common.util.EList;
 
 import org.eclipse.xtext.xbase.XExpression;
 
-import org.osate.aadl2.Classifier;
+import org.osate.aadl2.ComponentClassifier;
 
 import org.osate.alisa.common.common.Description;
 
@@ -97,12 +97,12 @@ public interface StakeholderGoals extends ReqSpecContainer, ReqRoot
    * </p>
    * <!-- end-user-doc -->
    * @return the value of the '<em>Target</em>' reference.
-   * @see #setTarget(Classifier)
+   * @see #setTarget(ComponentClassifier)
    * @see org.osate.reqspec.reqSpec.ReqSpecPackage#getStakeholderGoals_Target()
    * @model
    * @generated
    */
-  Classifier getTarget();
+  ComponentClassifier getTarget();
 
   /**
    * Sets the value of the '{@link org.osate.reqspec.reqSpec.StakeholderGoals#getTarget <em>Target</em>}' reference.
@@ -112,7 +112,7 @@ public interface StakeholderGoals extends ReqSpecContainer, ReqRoot
    * @see #getTarget()
    * @generated
    */
-  void setTarget(Classifier value);
+  void setTarget(ComponentClassifier value);
 
   /**
    * Returns the value of the '<em><b>Global</b></em>' attribute.

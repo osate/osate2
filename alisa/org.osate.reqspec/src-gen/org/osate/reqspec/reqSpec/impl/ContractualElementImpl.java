@@ -23,7 +23,7 @@ import org.eclipse.emf.ecore.util.InternalEList;
 
 import org.eclipse.xtext.xbase.XExpression;
 
-import org.osate.aadl2.Classifier;
+import org.osate.aadl2.ComponentClassifier;
 import org.osate.aadl2.NamedElement;
 
 import org.osate.alisa.common.common.Description;
@@ -135,7 +135,7 @@ public class ContractualElementImpl extends MinimalEObjectImpl.Container impleme
    * @generated
    * @ordered
    */
-  protected Classifier target;
+  protected ComponentClassifier target;
 
   /**
    * The cached value of the '{@link #getTargetElement() <em>Target Element</em>}' reference.
@@ -372,12 +372,12 @@ public class ContractualElementImpl extends MinimalEObjectImpl.Container impleme
    * <!-- end-user-doc -->
    * @generated
    */
-  public Classifier getTarget()
+  public ComponentClassifier getTarget()
   {
     if (target != null && ((EObject)target).eIsProxy())
     {
       InternalEObject oldTarget = (InternalEObject)target;
-      target = (Classifier)eResolveProxy(oldTarget);
+      target = (ComponentClassifier)eResolveProxy(oldTarget);
       if (target != oldTarget)
       {
         if (eNotificationRequired())
@@ -392,7 +392,7 @@ public class ContractualElementImpl extends MinimalEObjectImpl.Container impleme
    * <!-- end-user-doc -->
    * @generated
    */
-  public Classifier basicGetTarget()
+  public ComponentClassifier basicGetTarget()
   {
     return target;
   }
@@ -402,9 +402,9 @@ public class ContractualElementImpl extends MinimalEObjectImpl.Container impleme
    * <!-- end-user-doc -->
    * @generated
    */
-  public void setTarget(Classifier newTarget)
+  public void setTarget(ComponentClassifier newTarget)
   {
-    Classifier oldTarget = target;
+    ComponentClassifier oldTarget = target;
     target = newTarget;
     if (eNotificationRequired())
       eNotify(new ENotificationImpl(this, Notification.SET, ReqSpecPackage.CONTRACTUAL_ELEMENT__TARGET, oldTarget, target));
@@ -820,7 +820,7 @@ public class ContractualElementImpl extends MinimalEObjectImpl.Container impleme
         setTargetDescription((String)newValue);
         return;
       case ReqSpecPackage.CONTRACTUAL_ELEMENT__TARGET:
-        setTarget((Classifier)newValue);
+        setTarget((ComponentClassifier)newValue);
         return;
       case ReqSpecPackage.CONTRACTUAL_ELEMENT__TARGET_ELEMENT:
         setTargetElement((NamedElement)newValue);
@@ -888,7 +888,7 @@ public class ContractualElementImpl extends MinimalEObjectImpl.Container impleme
         setTargetDescription(TARGET_DESCRIPTION_EDEFAULT);
         return;
       case ReqSpecPackage.CONTRACTUAL_ELEMENT__TARGET:
-        setTarget((Classifier)null);
+        setTarget((ComponentClassifier)null);
         return;
       case ReqSpecPackage.CONTRACTUAL_ELEMENT__TARGET_ELEMENT:
         setTargetElement((NamedElement)null);

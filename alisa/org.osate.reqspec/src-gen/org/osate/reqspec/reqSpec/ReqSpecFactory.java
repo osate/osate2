@@ -86,13 +86,13 @@ public interface ReqSpecFactory extends EFactory
   DocumentSection createDocumentSection();
 
   /**
-   * Returns a new object of class '<em>Req Specs</em>'.
+   * Returns a new object of class '<em>System Requirements</em>'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @return a new object of class '<em>Req Specs</em>'.
+   * @return a new object of class '<em>System Requirements</em>'.
    * @generated
    */
-  ReqSpecs createReqSpecs();
+  SystemRequirements createSystemRequirements();
 
   /**
    * Returns a new object of class '<em>Goal</em>'.

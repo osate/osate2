@@ -110,9 +110,9 @@ public class ReqSpecAdapterFactory extends AdapterFactoryImpl
         return createDocumentSectionAdapter();
       }
       @Override
-      public Adapter caseReqSpecs(ReqSpecs object)
+      public Adapter caseSystemRequirements(SystemRequirements object)
       {
-        return createReqSpecsAdapter();
+        return createSystemRequirementsAdapter();
       }
       @Override
       public Adapter caseGoal(Goal object)
@@ -292,16 +292,16 @@ public class ReqSpecAdapterFactory extends AdapterFactoryImpl
   }
 
   /**
-   * Creates a new adapter for an object of class '{@link org.osate.reqspec.reqSpec.ReqSpecs <em>Req Specs</em>}'.
+   * Creates a new adapter for an object of class '{@link org.osate.reqspec.reqSpec.SystemRequirements <em>System Requirements</em>}'.
    * <!-- begin-user-doc -->
    * This default implementation returns null so that we can easily ignore cases;
    * it's useful to ignore a case when inheritance will catch all the cases anyway.
    * <!-- end-user-doc -->
    * @return the new adapter.
-   * @see org.osate.reqspec.reqSpec.ReqSpecs
+   * @see org.osate.reqspec.reqSpec.SystemRequirements
    * @generated
    */
-  public Adapter createReqSpecsAdapter()
+  public Adapter createSystemRequirementsAdapter()
   {
     return null;
   }

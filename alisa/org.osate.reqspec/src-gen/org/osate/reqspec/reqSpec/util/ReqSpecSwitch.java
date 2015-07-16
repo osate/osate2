@@ -126,12 +126,12 @@ public class ReqSpecSwitch<T> extends Switch<T>
         if (result == null) result = defaultCase(theEObject);
         return result;
       }
-      case ReqSpecPackage.REQ_SPECS:
+      case ReqSpecPackage.SYSTEM_REQUIREMENTS:
       {
-        ReqSpecs reqSpecs = (ReqSpecs)theEObject;
-        T result = caseReqSpecs(reqSpecs);
-        if (result == null) result = caseReqSpecContainer(reqSpecs);
-        if (result == null) result = caseReqRoot(reqSpecs);
+        SystemRequirements systemRequirements = (SystemRequirements)theEObject;
+        T result = caseSystemRequirements(systemRequirements);
+        if (result == null) result = caseReqSpecContainer(systemRequirements);
+        if (result == null) result = caseReqRoot(systemRequirements);
         if (result == null) result = defaultCase(theEObject);
         return result;
       }
@@ -330,17 +330,17 @@ public class ReqSpecSwitch<T> extends Switch<T>
   }
 
   /**
-   * Returns the result of interpreting the object as an instance of '<em>Req Specs</em>'.
+   * Returns the result of interpreting the object as an instance of '<em>System Requirements</em>'.
    * <!-- begin-user-doc -->
    * This implementation returns null;
    * returning a non-null result will terminate the switch.
    * <!-- end-user-doc -->
    * @param object the target of the switch.
-   * @return the result of interpreting the object as an instance of '<em>Req Specs</em>'.
+   * @return the result of interpreting the object as an instance of '<em>System Requirements</em>'.
    * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
    * @generated
    */
-  public T caseReqSpecs(ReqSpecs object)
+  public T caseSystemRequirements(SystemRequirements object)
   {
     return null;
   }

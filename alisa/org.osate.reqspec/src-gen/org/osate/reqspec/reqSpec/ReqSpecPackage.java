@@ -505,14 +505,14 @@ public interface ReqSpecPackage extends EPackage
   int DOCUMENT_SECTION_FEATURE_COUNT = REQ_SPEC_CONTAINER_FEATURE_COUNT + 4;
 
   /**
-   * The meta object id for the '{@link org.osate.reqspec.reqSpec.impl.ReqSpecsImpl <em>Req Specs</em>}' class.
+   * The meta object id for the '{@link org.osate.reqspec.reqSpec.impl.SystemRequirementsImpl <em>System Requirements</em>}' class.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @see org.osate.reqspec.reqSpec.impl.ReqSpecsImpl
-   * @see org.osate.reqspec.reqSpec.impl.ReqSpecPackageImpl#getReqSpecs()
+   * @see org.osate.reqspec.reqSpec.impl.SystemRequirementsImpl
+   * @see org.osate.reqspec.reqSpec.impl.ReqSpecPackageImpl#getSystemRequirements()
    * @generated
    */
-  int REQ_SPECS = 7;
+  int SYSTEM_REQUIREMENTS = 7;
 
   /**
    * The feature id for the '<em><b>Name</b></em>' attribute.
@@ -521,7 +521,7 @@ public interface ReqSpecPackage extends EPackage
    * @generated
    * @ordered
    */
-  int REQ_SPECS__NAME = REQ_SPEC_CONTAINER_FEATURE_COUNT + 0;
+  int SYSTEM_REQUIREMENTS__NAME = REQ_SPEC_CONTAINER_FEATURE_COUNT + 0;
 
   /**
    * The feature id for the '<em><b>Title</b></em>' attribute.
@@ -530,7 +530,7 @@ public interface ReqSpecPackage extends EPackage
    * @generated
    * @ordered
    */
-  int REQ_SPECS__TITLE = REQ_SPEC_CONTAINER_FEATURE_COUNT + 1;
+  int SYSTEM_REQUIREMENTS__TITLE = REQ_SPEC_CONTAINER_FEATURE_COUNT + 1;
 
   /**
    * The feature id for the '<em><b>Target</b></em>' reference.
@@ -539,7 +539,7 @@ public interface ReqSpecPackage extends EPackage
    * @generated
    * @ordered
    */
-  int REQ_SPECS__TARGET = REQ_SPEC_CONTAINER_FEATURE_COUNT + 2;
+  int SYSTEM_REQUIREMENTS__TARGET = REQ_SPEC_CONTAINER_FEATURE_COUNT + 2;
 
   /**
    * The feature id for the '<em><b>Global</b></em>' attribute.
@@ -548,16 +548,7 @@ public interface ReqSpecPackage extends EPackage
    * @generated
    * @ordered
    */
-  int REQ_SPECS__GLOBAL = REQ_SPEC_CONTAINER_FEATURE_COUNT + 3;
-
-  /**
-   * The feature id for the '<em><b>Otherreqspecs</b></em>' reference list.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int REQ_SPECS__OTHERREQSPECS = REQ_SPEC_CONTAINER_FEATURE_COUNT + 4;
+  int SYSTEM_REQUIREMENTS__GLOBAL = REQ_SPEC_CONTAINER_FEATURE_COUNT + 3;
 
   /**
    * The feature id for the '<em><b>Description</b></em>' containment reference.
@@ -566,7 +557,7 @@ public interface ReqSpecPackage extends EPackage
    * @generated
    * @ordered
    */
-  int REQ_SPECS__DESCRIPTION = REQ_SPEC_CONTAINER_FEATURE_COUNT + 5;
+  int SYSTEM_REQUIREMENTS__DESCRIPTION = REQ_SPEC_CONTAINER_FEATURE_COUNT + 4;
 
   /**
    * The feature id for the '<em><b>Constants</b></em>' containment reference list.
@@ -575,7 +566,7 @@ public interface ReqSpecPackage extends EPackage
    * @generated
    * @ordered
    */
-  int REQ_SPECS__CONSTANTS = REQ_SPEC_CONTAINER_FEATURE_COUNT + 6;
+  int SYSTEM_REQUIREMENTS__CONSTANTS = REQ_SPEC_CONTAINER_FEATURE_COUNT + 5;
 
   /**
    * The feature id for the '<em><b>Computes</b></em>' containment reference list.
@@ -584,7 +575,7 @@ public interface ReqSpecPackage extends EPackage
    * @generated
    * @ordered
    */
-  int REQ_SPECS__COMPUTES = REQ_SPEC_CONTAINER_FEATURE_COUNT + 7;
+  int SYSTEM_REQUIREMENTS__COMPUTES = REQ_SPEC_CONTAINER_FEATURE_COUNT + 6;
 
   /**
    * The feature id for the '<em><b>Content</b></em>' containment reference list.
@@ -593,7 +584,7 @@ public interface ReqSpecPackage extends EPackage
    * @generated
    * @ordered
    */
-  int REQ_SPECS__CONTENT = REQ_SPEC_CONTAINER_FEATURE_COUNT + 8;
+  int SYSTEM_REQUIREMENTS__CONTENT = REQ_SPEC_CONTAINER_FEATURE_COUNT + 7;
 
   /**
    * The feature id for the '<em><b>Doc Reference</b></em>' containment reference list.
@@ -602,7 +593,7 @@ public interface ReqSpecPackage extends EPackage
    * @generated
    * @ordered
    */
-  int REQ_SPECS__DOC_REFERENCE = REQ_SPEC_CONTAINER_FEATURE_COUNT + 9;
+  int SYSTEM_REQUIREMENTS__DOC_REFERENCE = REQ_SPEC_CONTAINER_FEATURE_COUNT + 8;
 
   /**
    * The feature id for the '<em><b>Issues</b></em>' attribute list.
@@ -611,16 +602,16 @@ public interface ReqSpecPackage extends EPackage
    * @generated
    * @ordered
    */
-  int REQ_SPECS__ISSUES = REQ_SPEC_CONTAINER_FEATURE_COUNT + 10;
+  int SYSTEM_REQUIREMENTS__ISSUES = REQ_SPEC_CONTAINER_FEATURE_COUNT + 9;
 
   /**
-   * The number of structural features of the '<em>Req Specs</em>' class.
+   * The number of structural features of the '<em>System Requirements</em>' class.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    * @ordered
    */
-  int REQ_SPECS_FEATURE_COUNT = REQ_SPEC_CONTAINER_FEATURE_COUNT + 11;
+  int SYSTEM_REQUIREMENTS_FEATURE_COUNT = REQ_SPEC_CONTAINER_FEATURE_COUNT + 10;
 
   /**
    * The meta object id for the '{@link org.osate.reqspec.reqSpec.impl.GoalImpl <em>Goal</em>}' class.
@@ -1755,135 +1746,124 @@ public interface ReqSpecPackage extends EPackage
   EReference getDocumentSection_Content();
 
   /**
-   * Returns the meta object for class '{@link org.osate.reqspec.reqSpec.ReqSpecs <em>Req Specs</em>}'.
+   * Returns the meta object for class '{@link org.osate.reqspec.reqSpec.SystemRequirements <em>System Requirements</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @return the meta object for class '<em>Req Specs</em>'.
-   * @see org.osate.reqspec.reqSpec.ReqSpecs
+   * @return the meta object for class '<em>System Requirements</em>'.
+   * @see org.osate.reqspec.reqSpec.SystemRequirements
    * @generated
    */
-  EClass getReqSpecs();
+  EClass getSystemRequirements();
 
   /**
-   * Returns the meta object for the attribute '{@link org.osate.reqspec.reqSpec.ReqSpecs#getName <em>Name</em>}'.
+   * Returns the meta object for the attribute '{@link org.osate.reqspec.reqSpec.SystemRequirements#getName <em>Name</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @return the meta object for the attribute '<em>Name</em>'.
-   * @see org.osate.reqspec.reqSpec.ReqSpecs#getName()
-   * @see #getReqSpecs()
+   * @see org.osate.reqspec.reqSpec.SystemRequirements#getName()
+   * @see #getSystemRequirements()
    * @generated
    */
-  EAttribute getReqSpecs_Name();
+  EAttribute getSystemRequirements_Name();
 
   /**
-   * Returns the meta object for the attribute '{@link org.osate.reqspec.reqSpec.ReqSpecs#getTitle <em>Title</em>}'.
+   * Returns the meta object for the attribute '{@link org.osate.reqspec.reqSpec.SystemRequirements#getTitle <em>Title</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @return the meta object for the attribute '<em>Title</em>'.
-   * @see org.osate.reqspec.reqSpec.ReqSpecs#getTitle()
-   * @see #getReqSpecs()
+   * @see org.osate.reqspec.reqSpec.SystemRequirements#getTitle()
+   * @see #getSystemRequirements()
    * @generated
    */
-  EAttribute getReqSpecs_Title();
+  EAttribute getSystemRequirements_Title();
 
   /**
-   * Returns the meta object for the reference '{@link org.osate.reqspec.reqSpec.ReqSpecs#getTarget <em>Target</em>}'.
+   * Returns the meta object for the reference '{@link org.osate.reqspec.reqSpec.SystemRequirements#getTarget <em>Target</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @return the meta object for the reference '<em>Target</em>'.
-   * @see org.osate.reqspec.reqSpec.ReqSpecs#getTarget()
-   * @see #getReqSpecs()
+   * @see org.osate.reqspec.reqSpec.SystemRequirements#getTarget()
+   * @see #getSystemRequirements()
    * @generated
    */
-  EReference getReqSpecs_Target();
+  EReference getSystemRequirements_Target();
 
   /**
-   * Returns the meta object for the attribute '{@link org.osate.reqspec.reqSpec.ReqSpecs#isGlobal <em>Global</em>}'.
+   * Returns the meta object for the attribute '{@link org.osate.reqspec.reqSpec.SystemRequirements#isGlobal <em>Global</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @return the meta object for the attribute '<em>Global</em>'.
-   * @see org.osate.reqspec.reqSpec.ReqSpecs#isGlobal()
-   * @see #getReqSpecs()
+   * @see org.osate.reqspec.reqSpec.SystemRequirements#isGlobal()
+   * @see #getSystemRequirements()
    * @generated
    */
-  EAttribute getReqSpecs_Global();
+  EAttribute getSystemRequirements_Global();
 
   /**
-   * Returns the meta object for the reference list '{@link org.osate.reqspec.reqSpec.ReqSpecs#getOtherreqspecs <em>Otherreqspecs</em>}'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return the meta object for the reference list '<em>Otherreqspecs</em>'.
-   * @see org.osate.reqspec.reqSpec.ReqSpecs#getOtherreqspecs()
-   * @see #getReqSpecs()
-   * @generated
-   */
-  EReference getReqSpecs_Otherreqspecs();
-
-  /**
-   * Returns the meta object for the containment reference '{@link org.osate.reqspec.reqSpec.ReqSpecs#getDescription <em>Description</em>}'.
+   * Returns the meta object for the containment reference '{@link org.osate.reqspec.reqSpec.SystemRequirements#getDescription <em>Description</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @return the meta object for the containment reference '<em>Description</em>'.
-   * @see org.osate.reqspec.reqSpec.ReqSpecs#getDescription()
-   * @see #getReqSpecs()
+   * @see org.osate.reqspec.reqSpec.SystemRequirements#getDescription()
+   * @see #getSystemRequirements()
    * @generated
    */
-  EReference getReqSpecs_Description();
+  EReference getSystemRequirements_Description();
 
   /**
-   * Returns the meta object for the containment reference list '{@link org.osate.reqspec.reqSpec.ReqSpecs#getConstants <em>Constants</em>}'.
+   * Returns the meta object for the containment reference list '{@link org.osate.reqspec.reqSpec.SystemRequirements#getConstants <em>Constants</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @return the meta object for the containment reference list '<em>Constants</em>'.
-   * @see org.osate.reqspec.reqSpec.ReqSpecs#getConstants()
-   * @see #getReqSpecs()
+   * @see org.osate.reqspec.reqSpec.SystemRequirements#getConstants()
+   * @see #getSystemRequirements()
    * @generated
    */
-  EReference getReqSpecs_Constants();
+  EReference getSystemRequirements_Constants();
 
   /**
-   * Returns the meta object for the containment reference list '{@link org.osate.reqspec.reqSpec.ReqSpecs#getComputes <em>Computes</em>}'.
+   * Returns the meta object for the containment reference list '{@link org.osate.reqspec.reqSpec.SystemRequirements#getComputes <em>Computes</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @return the meta object for the containment reference list '<em>Computes</em>'.
-   * @see org.osate.reqspec.reqSpec.ReqSpecs#getComputes()
-   * @see #getReqSpecs()
+   * @see org.osate.reqspec.reqSpec.SystemRequirements#getComputes()
+   * @see #getSystemRequirements()
    * @generated
    */
-  EReference getReqSpecs_Computes();
+  EReference getSystemRequirements_Computes();
 
   /**
-   * Returns the meta object for the containment reference list '{@link org.osate.reqspec.reqSpec.ReqSpecs#getContent <em>Content</em>}'.
+   * Returns the meta object for the containment reference list '{@link org.osate.reqspec.reqSpec.SystemRequirements#getContent <em>Content</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @return the meta object for the containment reference list '<em>Content</em>'.
-   * @see org.osate.reqspec.reqSpec.ReqSpecs#getContent()
-   * @see #getReqSpecs()
+   * @see org.osate.reqspec.reqSpec.SystemRequirements#getContent()
+   * @see #getSystemRequirements()
    * @generated
    */
-  EReference getReqSpecs_Content();
+  EReference getSystemRequirements_Content();
 
   /**
-   * Returns the meta object for the containment reference list '{@link org.osate.reqspec.reqSpec.ReqSpecs#getDocReference <em>Doc Reference</em>}'.
+   * Returns the meta object for the containment reference list '{@link org.osate.reqspec.reqSpec.SystemRequirements#getDocReference <em>Doc Reference</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @return the meta object for the containment reference list '<em>Doc Reference</em>'.
-   * @see org.osate.reqspec.reqSpec.ReqSpecs#getDocReference()
-   * @see #getReqSpecs()
+   * @see org.osate.reqspec.reqSpec.SystemRequirements#getDocReference()
+   * @see #getSystemRequirements()
    * @generated
    */
-  EReference getReqSpecs_DocReference();
+  EReference getSystemRequirements_DocReference();
 
   /**
-   * Returns the meta object for the attribute list '{@link org.osate.reqspec.reqSpec.ReqSpecs#getIssues <em>Issues</em>}'.
+   * Returns the meta object for the attribute list '{@link org.osate.reqspec.reqSpec.SystemRequirements#getIssues <em>Issues</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @return the meta object for the attribute list '<em>Issues</em>'.
-   * @see org.osate.reqspec.reqSpec.ReqSpecs#getIssues()
-   * @see #getReqSpecs()
+   * @see org.osate.reqspec.reqSpec.SystemRequirements#getIssues()
+   * @see #getSystemRequirements()
    * @generated
    */
-  EAttribute getReqSpecs_Issues();
+  EAttribute getSystemRequirements_Issues();
 
   /**
    * Returns the meta object for class '{@link org.osate.reqspec.reqSpec.Goal <em>Goal</em>}'.
@@ -2601,14 +2581,14 @@ public interface ReqSpecPackage extends EPackage
     EReference DOCUMENT_SECTION__CONTENT = eINSTANCE.getDocumentSection_Content();
 
     /**
-     * The meta object literal for the '{@link org.osate.reqspec.reqSpec.impl.ReqSpecsImpl <em>Req Specs</em>}' class.
+     * The meta object literal for the '{@link org.osate.reqspec.reqSpec.impl.SystemRequirementsImpl <em>System Requirements</em>}' class.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @see org.osate.reqspec.reqSpec.impl.ReqSpecsImpl
-     * @see org.osate.reqspec.reqSpec.impl.ReqSpecPackageImpl#getReqSpecs()
+     * @see org.osate.reqspec.reqSpec.impl.SystemRequirementsImpl
+     * @see org.osate.reqspec.reqSpec.impl.ReqSpecPackageImpl#getSystemRequirements()
      * @generated
      */
-    EClass REQ_SPECS = eINSTANCE.getReqSpecs();
+    EClass SYSTEM_REQUIREMENTS = eINSTANCE.getSystemRequirements();
 
     /**
      * The meta object literal for the '<em><b>Name</b></em>' attribute feature.
@@ -2616,7 +2596,7 @@ public interface ReqSpecPackage extends EPackage
      * <!-- end-user-doc -->
      * @generated
      */
-    EAttribute REQ_SPECS__NAME = eINSTANCE.getReqSpecs_Name();
+    EAttribute SYSTEM_REQUIREMENTS__NAME = eINSTANCE.getSystemRequirements_Name();
 
     /**
      * The meta object literal for the '<em><b>Title</b></em>' attribute feature.
@@ -2624,7 +2604,7 @@ public interface ReqSpecPackage extends EPackage
      * <!-- end-user-doc -->
      * @generated
      */
-    EAttribute REQ_SPECS__TITLE = eINSTANCE.getReqSpecs_Title();
+    EAttribute SYSTEM_REQUIREMENTS__TITLE = eINSTANCE.getSystemRequirements_Title();
 
     /**
      * The meta object literal for the '<em><b>Target</b></em>' reference feature.
@@ -2632,7 +2612,7 @@ public interface ReqSpecPackage extends EPackage
      * <!-- end-user-doc -->
      * @generated
      */
-    EReference REQ_SPECS__TARGET = eINSTANCE.getReqSpecs_Target();
+    EReference SYSTEM_REQUIREMENTS__TARGET = eINSTANCE.getSystemRequirements_Target();
 
     /**
      * The meta object literal for the '<em><b>Global</b></em>' attribute feature.
@@ -2640,15 +2620,7 @@ public interface ReqSpecPackage extends EPackage
      * <!-- end-user-doc -->
      * @generated
      */
-    EAttribute REQ_SPECS__GLOBAL = eINSTANCE.getReqSpecs_Global();
-
-    /**
-     * The meta object literal for the '<em><b>Otherreqspecs</b></em>' reference list feature.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
-    EReference REQ_SPECS__OTHERREQSPECS = eINSTANCE.getReqSpecs_Otherreqspecs();
+    EAttribute SYSTEM_REQUIREMENTS__GLOBAL = eINSTANCE.getSystemRequirements_Global();
 
     /**
      * The meta object literal for the '<em><b>Description</b></em>' containment reference feature.
@@ -2656,7 +2628,7 @@ public interface ReqSpecPackage extends EPackage
      * <!-- end-user-doc -->
      * @generated
      */
-    EReference REQ_SPECS__DESCRIPTION = eINSTANCE.getReqSpecs_Description();
+    EReference SYSTEM_REQUIREMENTS__DESCRIPTION = eINSTANCE.getSystemRequirements_Description();
 
     /**
      * The meta object literal for the '<em><b>Constants</b></em>' containment reference list feature.
@@ -2664,7 +2636,7 @@ public interface ReqSpecPackage extends EPackage
      * <!-- end-user-doc -->
      * @generated
      */
-    EReference REQ_SPECS__CONSTANTS = eINSTANCE.getReqSpecs_Constants();
+    EReference SYSTEM_REQUIREMENTS__CONSTANTS = eINSTANCE.getSystemRequirements_Constants();
 
     /**
      * The meta object literal for the '<em><b>Computes</b></em>' containment reference list feature.
@@ -2672,7 +2644,7 @@ public interface ReqSpecPackage extends EPackage
      * <!-- end-user-doc -->
      * @generated
      */
-    EReference REQ_SPECS__COMPUTES = eINSTANCE.getReqSpecs_Computes();
+    EReference SYSTEM_REQUIREMENTS__COMPUTES = eINSTANCE.getSystemRequirements_Computes();
 
     /**
      * The meta object literal for the '<em><b>Content</b></em>' containment reference list feature.
@@ -2680,7 +2652,7 @@ public interface ReqSpecPackage extends EPackage
      * <!-- end-user-doc -->
      * @generated
      */
-    EReference REQ_SPECS__CONTENT = eINSTANCE.getReqSpecs_Content();
+    EReference SYSTEM_REQUIREMENTS__CONTENT = eINSTANCE.getSystemRequirements_Content();
 
     /**
      * The meta object literal for the '<em><b>Doc Reference</b></em>' containment reference list feature.
@@ -2688,7 +2660,7 @@ public interface ReqSpecPackage extends EPackage
      * <!-- end-user-doc -->
      * @generated
      */
-    EReference REQ_SPECS__DOC_REFERENCE = eINSTANCE.getReqSpecs_DocReference();
+    EReference SYSTEM_REQUIREMENTS__DOC_REFERENCE = eINSTANCE.getSystemRequirements_DocReference();
 
     /**
      * The meta object literal for the '<em><b>Issues</b></em>' attribute list feature.
@@ -2696,7 +2668,7 @@ public interface ReqSpecPackage extends EPackage
      * <!-- end-user-doc -->
      * @generated
      */
-    EAttribute REQ_SPECS__ISSUES = eINSTANCE.getReqSpecs_Issues();
+    EAttribute SYSTEM_REQUIREMENTS__ISSUES = eINSTANCE.getSystemRequirements_Issues();
 
     /**
      * The meta object literal for the '{@link org.osate.reqspec.reqSpec.impl.GoalImpl <em>Goal</em>}' class.

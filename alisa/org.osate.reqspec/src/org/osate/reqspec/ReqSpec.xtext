@@ -8,18 +8,18 @@ import  "http://www.osate.org/organization/Organization" as org
 import "http://www.eclipse.org/emf/2002/Ecore" as ecore
 import "http://www.eclipse.org/xtext/xbase/Xbase" as xbase
 
-ReqSpec: parts +=(ReqSpecs|StakeholderGoals|ReqDocument)+  ;
+ReqSpec: parts +=(SystemRequirements|StakeholderGoals|ReqDocument)+  ;
 //ReqSpec: ReqSpecs|StakeholderGoals|ReqDocument  ;
 
-ReqSpecContainer: ReqSpecs |  StakeholderGoals | ReqDocument | DocumentSection;
+ReqSpecContainer: SystemRequirements |  StakeholderGoals | ReqDocument | DocumentSection;
 
 ContractualElement: Goal | DocGoal| Requirement |DocRequirement ;
 
-ReqRoot:  StakeholderGoals | ReqDocument | ReqSpecs;
+ReqRoot:  StakeholderGoals | ReqDocument | SystemRequirements;
 
 
 StakeholderGoals: 'stakeholder' 'goals' name=ID (':' title=STRING)?
-	( 'for' (target=[aadl2::Classifier|AADLCLASSIFIERREFERENCE] |  global?='all'))
+	( 'for' (target=[aadl2::ComponentClassifier|AADLCLASSIFIERREFERENCE] |  global?='all'))
 	'[' 
 	(	 (  description=Description)? 
 	& (  constants+=XValDeclaration* )
@@ -48,11 +48,10 @@ DocumentSection returns DocumentSection:
 	']' 
 	;
 
-ReqSpecs returns ReqSpecs:
+SystemRequirements returns SystemRequirements:
 	'requirement' 'specification' name =ID (':' title=STRING)?
 //	('import' importedNamespace=QualifiedNameWithWildCard)?
-	( 'for' (target=[aadl2::Classifier|AADLCLASSIFIERREFERENCE] | global?='all'))
-	('include' otherreqspecs += [ReqSpecs|QualifiedName]+)?
+	( 'for' (target=[aadl2::ComponentClassifier|AADLCLASSIFIERREFERENCE] | global?='all'))
 	'[' 
 	(
 	 (  description=Description)? 
@@ -70,7 +69,7 @@ ReqSpecs returns ReqSpecs:
 
 DocGoal returns Goal:
 	'goal' name=ID (':'  title=STRING )? // short string for title
-	( 'for' ( targetDescription=STRING | (target=[aadl2::Classifier|AADLCLASSIFIERREFERENCE] ( targetElement=[aadl2::NamedElement|ID])?  )
+	( 'for' ( targetDescription=STRING | (target=[aadl2::ComponentClassifier|AADLCLASSIFIERREFERENCE] ( targetElement=[aadl2::NamedElement|ID])?  )
 		)
 	)?
 '['  (
@@ -145,7 +144,7 @@ Requirement returns Requirement:
 DocRequirement returns Requirement:
 	'requirement'  name=ID   
 	(':'  title=STRING)? 
-	( 'for' ( targetDescription=STRING | (target=[aadl2::Classifier|AADLCLASSIFIERREFERENCE] ( targetElement=[aadl2::NamedElement|ID])?  )
+	( 'for' ( targetDescription=STRING | (target=[aadl2::ComponentClassifier|AADLCLASSIFIERREFERENCE] ( targetElement=[aadl2::NamedElement|ID])?  )
 		)
 	)?
 '['	(

@@ -80,9 +80,9 @@ import org.osate.reqspec.reqSpec.OutputGuarantee;
 import org.osate.reqspec.reqSpec.ReqDocument;
 import org.osate.reqspec.reqSpec.ReqSpec;
 import org.osate.reqspec.reqSpec.ReqSpecPackage;
-import org.osate.reqspec.reqSpec.ReqSpecs;
 import org.osate.reqspec.reqSpec.Requirement;
 import org.osate.reqspec.reqSpec.StakeholderGoals;
+import org.osate.reqspec.reqSpec.SystemRequirements;
 import org.osate.reqspec.reqSpec.ValueAssertion;
 import org.osate.reqspec.reqSpec.XPredicate;
 import org.osate.reqspec.services.ReqSpecGrammarAccess;
@@ -163,9 +163,6 @@ public class ReqSpecSemanticSequencer extends CommonSemanticSequencer {
 			case ReqSpecPackage.REQ_SPEC:
 				sequence_ReqSpec(context, (ReqSpec) semanticObject); 
 				return; 
-			case ReqSpecPackage.REQ_SPECS:
-				sequence_ReqSpecs(context, (ReqSpecs) semanticObject); 
-				return; 
 			case ReqSpecPackage.REQUIREMENT:
 				if(context == grammarAccess.getContractualElementRule()) {
 					sequence_ContractualElement_DocRequirement_Requirement(context, (Requirement) semanticObject); 
@@ -182,6 +179,9 @@ public class ReqSpecSemanticSequencer extends CommonSemanticSequencer {
 				else break;
 			case ReqSpecPackage.STAKEHOLDER_GOALS:
 				sequence_StakeholderGoals(context, (StakeholderGoals) semanticObject); 
+				return; 
+			case ReqSpecPackage.SYSTEM_REQUIREMENTS:
+				sequence_SystemRequirements(context, (SystemRequirements) semanticObject); 
 				return; 
 			case ReqSpecPackage.VALUE_ASSERTION:
 				sequence_ValueAssertion(context, (ValueAssertion) semanticObject); 
@@ -457,7 +457,7 @@ public class ReqSpecSemanticSequencer extends CommonSemanticSequencer {
 	 *         (
 	 *             name=ID 
 	 *             title=STRING? 
-	 *             (targetDescription=STRING | (target=[Classifier|AADLCLASSIFIERREFERENCE] targetElement=[NamedElement|ID]?))? 
+	 *             (targetDescription=STRING | (target=[ComponentClassifier|AADLCLASSIFIERREFERENCE] targetElement=[NamedElement|ID]?))? 
 	 *             category+=[RequirementCategory|ID]* 
 	 *             description=Description? 
 	 *             constants+=XValDeclaration* 
@@ -507,7 +507,7 @@ public class ReqSpecSemanticSequencer extends CommonSemanticSequencer {
 	 *         (
 	 *             name=ID 
 	 *             title=STRING? 
-	 *             (targetDescription=STRING | (target=[Classifier|AADLCLASSIFIERREFERENCE] targetElement=[NamedElement|ID]?))? 
+	 *             (targetDescription=STRING | (target=[ComponentClassifier|AADLCLASSIFIERREFERENCE] targetElement=[NamedElement|ID]?))? 
 	 *             category+=[RequirementCategory|ID]* 
 	 *             description=Description? 
 	 *             constants+=XValDeclaration* 
@@ -538,7 +538,7 @@ public class ReqSpecSemanticSequencer extends CommonSemanticSequencer {
 	 *     (
 	 *         name=ID 
 	 *         title=STRING? 
-	 *         (targetDescription=STRING | (target=[Classifier|AADLCLASSIFIERREFERENCE] targetElement=[NamedElement|ID]?))? 
+	 *         (targetDescription=STRING | (target=[ComponentClassifier|AADLCLASSIFIERREFERENCE] targetElement=[NamedElement|ID]?))? 
 	 *         category+=[RequirementCategory|ID]* 
 	 *         description=Description? 
 	 *         constants+=XValDeclaration* 
@@ -564,7 +564,7 @@ public class ReqSpecSemanticSequencer extends CommonSemanticSequencer {
 	 *     (
 	 *         name=ID 
 	 *         title=STRING? 
-	 *         (targetDescription=STRING | (target=[Classifier|AADLCLASSIFIERREFERENCE] targetElement=[NamedElement|ID]?))? 
+	 *         (targetDescription=STRING | (target=[ComponentClassifier|AADLCLASSIFIERREFERENCE] targetElement=[NamedElement|ID]?))? 
 	 *         category+=[RequirementCategory|ID]* 
 	 *         description=Description? 
 	 *         constants+=XValDeclaration* 
@@ -678,29 +678,9 @@ public class ReqSpecSemanticSequencer extends CommonSemanticSequencer {
 	
 	/**
 	 * Constraint:
-	 *     (parts+=ReqSpecs | parts+=StakeholderGoals | parts+=ReqDocument)+
+	 *     (parts+=SystemRequirements | parts+=StakeholderGoals | parts+=ReqDocument)+
 	 */
 	protected void sequence_ReqSpec(EObject context, ReqSpec semanticObject) {
-		genericSequencer.createSequence(context, semanticObject);
-	}
-	
-	
-	/**
-	 * Constraint:
-	 *     (
-	 *         name=ID 
-	 *         title=STRING? 
-	 *         (target=[Classifier|AADLCLASSIFIERREFERENCE] | global?='all') 
-	 *         otherreqspecs+=[ReqSpecs|QualifiedName]* 
-	 *         description=Description? 
-	 *         constants+=XValDeclaration* 
-	 *         computes+=ComputeDeclaration* 
-	 *         content+=Requirement* 
-	 *         docReference+=ExternalDocument* 
-	 *         issues+=STRING*
-	 *     )
-	 */
-	protected void sequence_ReqSpecs(EObject context, ReqSpecs semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
 	}
 	
@@ -740,7 +720,7 @@ public class ReqSpecSemanticSequencer extends CommonSemanticSequencer {
 	 *     (
 	 *         name=ID 
 	 *         title=STRING? 
-	 *         (target=[Classifier|AADLCLASSIFIERREFERENCE] | global?='all') 
+	 *         (target=[ComponentClassifier|AADLCLASSIFIERREFERENCE] | global?='all') 
 	 *         description=Description? 
 	 *         constants+=XValDeclaration* 
 	 *         content+=Goal* 
@@ -749,6 +729,25 @@ public class ReqSpecSemanticSequencer extends CommonSemanticSequencer {
 	 *     )
 	 */
 	protected void sequence_StakeholderGoals(EObject context, StakeholderGoals semanticObject) {
+		genericSequencer.createSequence(context, semanticObject);
+	}
+	
+	
+	/**
+	 * Constraint:
+	 *     (
+	 *         name=ID 
+	 *         title=STRING? 
+	 *         (target=[ComponentClassifier|AADLCLASSIFIERREFERENCE] | global?='all') 
+	 *         description=Description? 
+	 *         constants+=XValDeclaration* 
+	 *         computes+=ComputeDeclaration* 
+	 *         content+=Requirement* 
+	 *         docReference+=ExternalDocument* 
+	 *         issues+=STRING*
+	 *     )
+	 */
+	protected void sequence_SystemRequirements(EObject context, SystemRequirements semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
 	}
 	
