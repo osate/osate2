@@ -15,20 +15,23 @@ class AlisaWorkbenchUtilsExtension {
 		
 	def static getVerificationPlans(ComponentInstance io, AssurancePlan acp) {
 		val myplans = acp.plans.filter [ VerificationPlan vp |
-			vp.target.isSame(io.componentClassifier)
+//			vp.target.isSame(io.componentClassifier) when for is component classifier reference
+			io.componentClassifier.isSame(vp.systemRequirements?.target)
 		]
 		myplans
 	}
 	
 	def static isSame(ComponentClassifier cl1, ComponentClassifier cl2){
+		if (cl1 == null || cl2 == null) return false;
 		var lcl1 = cl1
 		var lcl2 = cl2
 		if (cl1 instanceof ComponentType && cl2 instanceof ComponentImplementation)
 		lcl2 = (cl2 as ComponentImplementation).type
 		if (cl2 instanceof ComponentType && cl1 instanceof ComponentImplementation)
 		lcl1 = (cl1 as ComponentImplementation).type
-		cl1.name.equalsIgnoreCase(cl2.name)
+		lcl1.name.equalsIgnoreCase(lcl2.name)
 	}
+	
 	def static getRequirementTarget(Requirement req, ComponentInstance io) {
 		io.findElementInstance(req.target)
 	}
