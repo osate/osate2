@@ -11,7 +11,6 @@ import org.eclipse.xtext.naming.QualifiedName
 import org.eclipse.xtext.util.SimpleAttributeResolver
 import org.eclipse.xtext.scoping.impl.SimpleScope
 import org.osate.verify.verify.VerificationActivity
-import org.osate.reqspec.reqSpec.ReqSpecs
 import static org.osate.reqspec.util.ReqSpecUtilExtension.*
 import org.osate.verify.verify.Claim
 
