@@ -8,6 +8,8 @@ import org.eclipse.emf.ecore.EObject;
 
 import org.eclipse.xtext.xbase.XExpression;
 
+import org.osate.alisa.common.common.ComputeDeclaration;
+
 /**
  * <!-- begin-user-doc -->
  * A representation of the model object '<em><b>Verification Activity</b></em>'.
@@ -17,6 +19,7 @@ import org.eclipse.xtext.xbase.XExpression;
  * The following features are supported:
  * <ul>
  *   <li>{@link org.osate.verify.verify.VerificationActivity#getName <em>Name</em>}</li>
+ *   <li>{@link org.osate.verify.verify.VerificationActivity#getResult <em>Result</em>}</li>
  *   <li>{@link org.osate.verify.verify.VerificationActivity#getMethod <em>Method</em>}</li>
  *   <li>{@link org.osate.verify.verify.VerificationActivity#getParameters <em>Parameters</em>}</li>
  *   <li>{@link org.osate.verify.verify.VerificationActivity#getTimeout <em>Timeout</em>}</li>
@@ -54,6 +57,22 @@ public interface VerificationActivity extends EObject
    * @generated
    */
   void setName(String value);
+
+  /**
+   * Returns the value of the '<em><b>Result</b></em>' reference list.
+   * The list contents are of type {@link org.osate.alisa.common.common.ComputeDeclaration}.
+   * <!-- begin-user-doc -->
+   * <p>
+   * If the meaning of the '<em>Result</em>' reference list isn't clear,
+   * there really should be more of a description here...
+   * </p>
+   * <!-- end-user-doc -->
+   * @return the value of the '<em>Result</em>' reference list.
+   * @see org.osate.verify.verify.VerifyPackage#getVerificationActivity_Result()
+   * @model
+   * @generated
+   */
+  EList<ComputeDeclaration> getResult();
 
   /**
    * Returns the value of the '<em><b>Method</b></em>' reference.

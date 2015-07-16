@@ -18,6 +18,8 @@ import org.eclipse.emf.ecore.util.EObjectResolvingEList;
 
 import org.eclipse.xtext.xbase.XExpression;
 
+import org.osate.alisa.common.common.ComputeDeclaration;
+
 import org.osate.verify.verify.VerificationActivity;
 import org.osate.verify.verify.VerificationMethod;
 import org.osate.verify.verify.VerifyPackage;
@@ -30,6 +32,7 @@ import org.osate.verify.verify.VerifyPackage;
  * The following features are implemented:
  * <ul>
  *   <li>{@link org.osate.verify.verify.impl.VerificationActivityImpl#getName <em>Name</em>}</li>
+ *   <li>{@link org.osate.verify.verify.impl.VerificationActivityImpl#getResult <em>Result</em>}</li>
  *   <li>{@link org.osate.verify.verify.impl.VerificationActivityImpl#getMethod <em>Method</em>}</li>
  *   <li>{@link org.osate.verify.verify.impl.VerificationActivityImpl#getParameters <em>Parameters</em>}</li>
  *   <li>{@link org.osate.verify.verify.impl.VerificationActivityImpl#getTimeout <em>Timeout</em>}</li>
@@ -59,6 +62,16 @@ public class VerificationActivityImpl extends MinimalEObjectImpl.Container imple
    * @ordered
    */
   protected String name = NAME_EDEFAULT;
+
+  /**
+   * The cached value of the '{@link #getResult() <em>Result</em>}' reference list.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see #getResult()
+   * @generated
+   * @ordered
+   */
+  protected EList<ComputeDeclaration> result;
 
   /**
    * The cached value of the '{@link #getMethod() <em>Method</em>}' reference.
@@ -142,6 +155,20 @@ public class VerificationActivityImpl extends MinimalEObjectImpl.Container imple
     name = newName;
     if (eNotificationRequired())
       eNotify(new ENotificationImpl(this, Notification.SET, VerifyPackage.VERIFICATION_ACTIVITY__NAME, oldName, name));
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EList<ComputeDeclaration> getResult()
+  {
+    if (result == null)
+    {
+      result = new EObjectResolvingEList<ComputeDeclaration>(ComputeDeclaration.class, this, VerifyPackage.VERIFICATION_ACTIVITY__RESULT);
+    }
+    return result;
   }
 
   /**
@@ -236,6 +263,8 @@ public class VerificationActivityImpl extends MinimalEObjectImpl.Container imple
     {
       case VerifyPackage.VERIFICATION_ACTIVITY__NAME:
         return getName();
+      case VerifyPackage.VERIFICATION_ACTIVITY__RESULT:
+        return getResult();
       case VerifyPackage.VERIFICATION_ACTIVITY__METHOD:
         if (resolve) return getMethod();
         return basicGetMethod();
@@ -260,6 +289,10 @@ public class VerificationActivityImpl extends MinimalEObjectImpl.Container imple
     {
       case VerifyPackage.VERIFICATION_ACTIVITY__NAME:
         setName((String)newValue);
+        return;
+      case VerifyPackage.VERIFICATION_ACTIVITY__RESULT:
+        getResult().clear();
+        getResult().addAll((Collection<? extends ComputeDeclaration>)newValue);
         return;
       case VerifyPackage.VERIFICATION_ACTIVITY__METHOD:
         setMethod((VerificationMethod)newValue);
@@ -288,6 +321,9 @@ public class VerificationActivityImpl extends MinimalEObjectImpl.Container imple
       case VerifyPackage.VERIFICATION_ACTIVITY__NAME:
         setName(NAME_EDEFAULT);
         return;
+      case VerifyPackage.VERIFICATION_ACTIVITY__RESULT:
+        getResult().clear();
+        return;
       case VerifyPackage.VERIFICATION_ACTIVITY__METHOD:
         setMethod((VerificationMethod)null);
         return;
@@ -313,6 +349,8 @@ public class VerificationActivityImpl extends MinimalEObjectImpl.Container imple
     {
       case VerifyPackage.VERIFICATION_ACTIVITY__NAME:
         return NAME_EDEFAULT == null ? name != null : !NAME_EDEFAULT.equals(name);
+      case VerifyPackage.VERIFICATION_ACTIVITY__RESULT:
+        return result != null && !result.isEmpty();
       case VerifyPackage.VERIFICATION_ACTIVITY__METHOD:
         return method != null;
       case VerifyPackage.VERIFICATION_ACTIVITY__PARAMETERS:

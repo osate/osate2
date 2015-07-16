@@ -16,7 +16,7 @@ Verification:
 // Also allows for cross checking that we have covered requirements with claims
 VerificationPlan:
 	'verification' 'plan' name=ID (':' title=STRING)? 
-	'for' target=[aadl2::ComponentClassifier|AADLCLASSIFIERREFERENCE] //      [ReqSpec::SystemSpec|QualifiedName]
+	'for' target=[aadl2::ComponentClassifier|AADLCLASSIFIERREFERENCE] //[ReqSpec::SystemRequirements|QualifiedName]  
 	'['
 	(
 		( description=Description)?
@@ -59,6 +59,7 @@ Claim:
 VerificationActivity:
 	name=ID ':'
 	(
+		( result+=[common::ComputeDeclaration|ID] (',' result+=[common::ComputeDeclaration|ID])*)?
 	   method=[VerificationMethod|QualifiedName] '(' (parameters+=[xbase::XExpression| ID] (',' parameters+=[xbase::XExpression| ID])*)?')'
 	('timeout' timeout=INT)?
 	//	('parameters'  verificationParameters+=([ElementReference])*)? 
@@ -75,7 +76,8 @@ VerificationCondition:
 	(':' title=STRING)?
 	'[' (
 	 ( description=Description)?
-	&('method' method=[VerificationMethod|QualifiedName]('as' computeVariable=[common::ComputeDeclaration|ID])?)?
+	 &  (method=[VerificationMethod|QualifiedName] '(' (parameters+=[xbase::XExpression| ID] (',' parameters+=[xbase::XExpression| ID])*)?')'
+	('timeout' timeout=INT)?)
 	& (rationale=Rationale)?
 	)
 	']';

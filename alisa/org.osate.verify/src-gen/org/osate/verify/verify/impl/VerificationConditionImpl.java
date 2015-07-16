@@ -2,8 +2,12 @@
  */
 package org.osate.verify.verify.impl;
 
+import java.util.Collection;
+
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.notify.NotificationChain;
+
+import org.eclipse.emf.common.util.EList;
 
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.InternalEObject;
@@ -11,7 +15,10 @@ import org.eclipse.emf.ecore.InternalEObject;
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.eclipse.emf.ecore.impl.MinimalEObjectImpl;
 
-import org.osate.alisa.common.common.ComputeDeclaration;
+import org.eclipse.emf.ecore.util.EObjectResolvingEList;
+
+import org.eclipse.xtext.xbase.XExpression;
+
 import org.osate.alisa.common.common.Description;
 import org.osate.alisa.common.common.Rationale;
 
@@ -30,7 +37,8 @@ import org.osate.verify.verify.VerifyPackage;
  *   <li>{@link org.osate.verify.verify.impl.VerificationConditionImpl#getTitle <em>Title</em>}</li>
  *   <li>{@link org.osate.verify.verify.impl.VerificationConditionImpl#getDescription <em>Description</em>}</li>
  *   <li>{@link org.osate.verify.verify.impl.VerificationConditionImpl#getMethod <em>Method</em>}</li>
- *   <li>{@link org.osate.verify.verify.impl.VerificationConditionImpl#getComputeVariable <em>Compute Variable</em>}</li>
+ *   <li>{@link org.osate.verify.verify.impl.VerificationConditionImpl#getParameters <em>Parameters</em>}</li>
+ *   <li>{@link org.osate.verify.verify.impl.VerificationConditionImpl#getTimeout <em>Timeout</em>}</li>
  *   <li>{@link org.osate.verify.verify.impl.VerificationConditionImpl#getRationale <em>Rationale</em>}</li>
  * </ul>
  * </p>
@@ -100,14 +108,34 @@ public class VerificationConditionImpl extends MinimalEObjectImpl.Container impl
   protected VerificationMethod method;
 
   /**
-   * The cached value of the '{@link #getComputeVariable() <em>Compute Variable</em>}' reference.
+   * The cached value of the '{@link #getParameters() <em>Parameters</em>}' reference list.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @see #getComputeVariable()
+   * @see #getParameters()
    * @generated
    * @ordered
    */
-  protected ComputeDeclaration computeVariable;
+  protected EList<XExpression> parameters;
+
+  /**
+   * The default value of the '{@link #getTimeout() <em>Timeout</em>}' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see #getTimeout()
+   * @generated
+   * @ordered
+   */
+  protected static final int TIMEOUT_EDEFAULT = 0;
+
+  /**
+   * The cached value of the '{@link #getTimeout() <em>Timeout</em>}' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see #getTimeout()
+   * @generated
+   * @ordered
+   */
+  protected int timeout = TIMEOUT_EDEFAULT;
 
   /**
    * The cached value of the '{@link #getRationale() <em>Rationale</em>}' containment reference.
@@ -282,19 +310,13 @@ public class VerificationConditionImpl extends MinimalEObjectImpl.Container impl
    * <!-- end-user-doc -->
    * @generated
    */
-  public ComputeDeclaration getComputeVariable()
+  public EList<XExpression> getParameters()
   {
-    if (computeVariable != null && computeVariable.eIsProxy())
+    if (parameters == null)
     {
-      InternalEObject oldComputeVariable = (InternalEObject)computeVariable;
-      computeVariable = (ComputeDeclaration)eResolveProxy(oldComputeVariable);
-      if (computeVariable != oldComputeVariable)
-      {
-        if (eNotificationRequired())
-          eNotify(new ENotificationImpl(this, Notification.RESOLVE, VerifyPackage.VERIFICATION_CONDITION__COMPUTE_VARIABLE, oldComputeVariable, computeVariable));
-      }
+      parameters = new EObjectResolvingEList<XExpression>(XExpression.class, this, VerifyPackage.VERIFICATION_CONDITION__PARAMETERS);
     }
-    return computeVariable;
+    return parameters;
   }
 
   /**
@@ -302,9 +324,9 @@ public class VerificationConditionImpl extends MinimalEObjectImpl.Container impl
    * <!-- end-user-doc -->
    * @generated
    */
-  public ComputeDeclaration basicGetComputeVariable()
+  public int getTimeout()
   {
-    return computeVariable;
+    return timeout;
   }
 
   /**
@@ -312,12 +334,12 @@ public class VerificationConditionImpl extends MinimalEObjectImpl.Container impl
    * <!-- end-user-doc -->
    * @generated
    */
-  public void setComputeVariable(ComputeDeclaration newComputeVariable)
+  public void setTimeout(int newTimeout)
   {
-    ComputeDeclaration oldComputeVariable = computeVariable;
-    computeVariable = newComputeVariable;
+    int oldTimeout = timeout;
+    timeout = newTimeout;
     if (eNotificationRequired())
-      eNotify(new ENotificationImpl(this, Notification.SET, VerifyPackage.VERIFICATION_CONDITION__COMPUTE_VARIABLE, oldComputeVariable, computeVariable));
+      eNotify(new ENotificationImpl(this, Notification.SET, VerifyPackage.VERIFICATION_CONDITION__TIMEOUT, oldTimeout, timeout));
   }
 
   /**
@@ -405,9 +427,10 @@ public class VerificationConditionImpl extends MinimalEObjectImpl.Container impl
       case VerifyPackage.VERIFICATION_CONDITION__METHOD:
         if (resolve) return getMethod();
         return basicGetMethod();
-      case VerifyPackage.VERIFICATION_CONDITION__COMPUTE_VARIABLE:
-        if (resolve) return getComputeVariable();
-        return basicGetComputeVariable();
+      case VerifyPackage.VERIFICATION_CONDITION__PARAMETERS:
+        return getParameters();
+      case VerifyPackage.VERIFICATION_CONDITION__TIMEOUT:
+        return getTimeout();
       case VerifyPackage.VERIFICATION_CONDITION__RATIONALE:
         return getRationale();
     }
@@ -419,6 +442,7 @@ public class VerificationConditionImpl extends MinimalEObjectImpl.Container impl
    * <!-- end-user-doc -->
    * @generated
    */
+  @SuppressWarnings("unchecked")
   @Override
   public void eSet(int featureID, Object newValue)
   {
@@ -436,8 +460,12 @@ public class VerificationConditionImpl extends MinimalEObjectImpl.Container impl
       case VerifyPackage.VERIFICATION_CONDITION__METHOD:
         setMethod((VerificationMethod)newValue);
         return;
-      case VerifyPackage.VERIFICATION_CONDITION__COMPUTE_VARIABLE:
-        setComputeVariable((ComputeDeclaration)newValue);
+      case VerifyPackage.VERIFICATION_CONDITION__PARAMETERS:
+        getParameters().clear();
+        getParameters().addAll((Collection<? extends XExpression>)newValue);
+        return;
+      case VerifyPackage.VERIFICATION_CONDITION__TIMEOUT:
+        setTimeout((Integer)newValue);
         return;
       case VerifyPackage.VERIFICATION_CONDITION__RATIONALE:
         setRationale((Rationale)newValue);
@@ -468,8 +496,11 @@ public class VerificationConditionImpl extends MinimalEObjectImpl.Container impl
       case VerifyPackage.VERIFICATION_CONDITION__METHOD:
         setMethod((VerificationMethod)null);
         return;
-      case VerifyPackage.VERIFICATION_CONDITION__COMPUTE_VARIABLE:
-        setComputeVariable((ComputeDeclaration)null);
+      case VerifyPackage.VERIFICATION_CONDITION__PARAMETERS:
+        getParameters().clear();
+        return;
+      case VerifyPackage.VERIFICATION_CONDITION__TIMEOUT:
+        setTimeout(TIMEOUT_EDEFAULT);
         return;
       case VerifyPackage.VERIFICATION_CONDITION__RATIONALE:
         setRationale((Rationale)null);
@@ -496,8 +527,10 @@ public class VerificationConditionImpl extends MinimalEObjectImpl.Container impl
         return description != null;
       case VerifyPackage.VERIFICATION_CONDITION__METHOD:
         return method != null;
-      case VerifyPackage.VERIFICATION_CONDITION__COMPUTE_VARIABLE:
-        return computeVariable != null;
+      case VerifyPackage.VERIFICATION_CONDITION__PARAMETERS:
+        return parameters != null && !parameters.isEmpty();
+      case VerifyPackage.VERIFICATION_CONDITION__TIMEOUT:
+        return timeout != TIMEOUT_EDEFAULT;
       case VerifyPackage.VERIFICATION_CONDITION__RATIONALE:
         return rationale != null;
     }
@@ -519,6 +552,8 @@ public class VerificationConditionImpl extends MinimalEObjectImpl.Container impl
     result.append(name);
     result.append(", title: ");
     result.append(title);
+    result.append(", timeout: ");
+    result.append(timeout);
     result.append(')');
     return result.toString();
   }

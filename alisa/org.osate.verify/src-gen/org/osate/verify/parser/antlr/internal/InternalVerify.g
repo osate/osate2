@@ -733,26 +733,24 @@ ruleVerificationActivity returns [EObject current=null]
     {
     	newLeafNode(otherlv_1, grammarAccess.getVerificationActivityAccess().getColonKeyword_1());
     }
-((
+(((
 (
 		{
 			if ($current==null) {
 	            $current = createModelElement(grammarAccess.getVerificationActivityRule());
 	        }
         }
-		{ 
-	        newCompositeNode(grammarAccess.getVerificationActivityAccess().getMethodVerificationMethodCrossReference_2_0_0()); 
-	    }
-		ruleQualifiedName		{ 
-	        afterParserOrEnumRuleCall();
-	    }
+	otherlv_2=RULE_ID
+	{
+		newLeafNode(otherlv_2, grammarAccess.getVerificationActivityAccess().getResultComputeDeclarationCrossReference_2_0_0_0()); 
+	}
 
 )
-)	otherlv_3='(' 
+)(	otherlv_3=',' 
     {
-    	newLeafNode(otherlv_3, grammarAccess.getVerificationActivityAccess().getLeftParenthesisKeyword_2_1());
+    	newLeafNode(otherlv_3, grammarAccess.getVerificationActivityAccess().getCommaKeyword_2_0_1_0());
     }
-((
+(
 (
 		{
 			if ($current==null) {
@@ -761,13 +759,45 @@ ruleVerificationActivity returns [EObject current=null]
         }
 	otherlv_4=RULE_ID
 	{
-		newLeafNode(otherlv_4, grammarAccess.getVerificationActivityAccess().getParametersXExpressionCrossReference_2_2_0_0()); 
+		newLeafNode(otherlv_4, grammarAccess.getVerificationActivityAccess().getResultComputeDeclarationCrossReference_2_0_1_1_0()); 
 	}
 
 )
-)(	otherlv_5=',' 
+))*)?(
+(
+		{
+			if ($current==null) {
+	            $current = createModelElement(grammarAccess.getVerificationActivityRule());
+	        }
+        }
+		{ 
+	        newCompositeNode(grammarAccess.getVerificationActivityAccess().getMethodVerificationMethodCrossReference_2_1_0()); 
+	    }
+		ruleQualifiedName		{ 
+	        afterParserOrEnumRuleCall();
+	    }
+
+)
+)	otherlv_6='(' 
     {
-    	newLeafNode(otherlv_5, grammarAccess.getVerificationActivityAccess().getCommaKeyword_2_2_1_0());
+    	newLeafNode(otherlv_6, grammarAccess.getVerificationActivityAccess().getLeftParenthesisKeyword_2_2());
+    }
+((
+(
+		{
+			if ($current==null) {
+	            $current = createModelElement(grammarAccess.getVerificationActivityRule());
+	        }
+        }
+	otherlv_7=RULE_ID
+	{
+		newLeafNode(otherlv_7, grammarAccess.getVerificationActivityAccess().getParametersXExpressionCrossReference_2_3_0_0()); 
+	}
+
+)
+)(	otherlv_8=',' 
+    {
+    	newLeafNode(otherlv_8, grammarAccess.getVerificationActivityAccess().getCommaKeyword_2_3_1_0());
     }
 (
 (
@@ -776,25 +806,25 @@ ruleVerificationActivity returns [EObject current=null]
 	            $current = createModelElement(grammarAccess.getVerificationActivityRule());
 	        }
         }
-	otherlv_6=RULE_ID
+	otherlv_9=RULE_ID
 	{
-		newLeafNode(otherlv_6, grammarAccess.getVerificationActivityAccess().getParametersXExpressionCrossReference_2_2_1_1_0()); 
+		newLeafNode(otherlv_9, grammarAccess.getVerificationActivityAccess().getParametersXExpressionCrossReference_2_3_1_1_0()); 
 	}
 
 )
-))*)?	otherlv_7=')' 
+))*)?	otherlv_10=')' 
     {
-    	newLeafNode(otherlv_7, grammarAccess.getVerificationActivityAccess().getRightParenthesisKeyword_2_3());
+    	newLeafNode(otherlv_10, grammarAccess.getVerificationActivityAccess().getRightParenthesisKeyword_2_4());
     }
-(	otherlv_8='timeout' 
+(	otherlv_11='timeout' 
     {
-    	newLeafNode(otherlv_8, grammarAccess.getVerificationActivityAccess().getTimeoutKeyword_2_4_0());
+    	newLeafNode(otherlv_11, grammarAccess.getVerificationActivityAccess().getTimeoutKeyword_2_5_0());
     }
 (
 (
-		lv_timeout_9_0=RULE_INT
+		lv_timeout_12_0=RULE_INT
 		{
-			newLeafNode(lv_timeout_9_0, grammarAccess.getVerificationActivityAccess().getTimeoutINTTerminalRuleCall_2_4_1_0()); 
+			newLeafNode(lv_timeout_12_0, grammarAccess.getVerificationActivityAccess().getTimeoutINTTerminalRuleCall_2_5_1_0()); 
 		}
 		{
 	        if ($current==null) {
@@ -803,7 +833,7 @@ ruleVerificationActivity returns [EObject current=null]
        		setWithLastConsumed(
        			$current, 
        			"timeout",
-        		lv_timeout_9_0, 
+        		lv_timeout_12_0, 
         		"INT");
 	    }
 
@@ -938,11 +968,7 @@ ruleVerificationCondition returns [EObject current=null]
 					{ 
 	 				  getUnorderedGroupHelper().select(grammarAccess.getVerificationConditionAccess().getUnorderedGroup_4(), 1);
 	 				}
-					({true}?=>(	otherlv_10='method' 
-    {
-    	newLeafNode(otherlv_10, grammarAccess.getVerificationConditionAccess().getMethodKeyword_4_1_0());
-    }
-(
+					({true}?=>((
 (
 		{
 			if ($current==null) {
@@ -950,16 +976,33 @@ ruleVerificationCondition returns [EObject current=null]
 	        }
         }
 		{ 
-	        newCompositeNode(grammarAccess.getVerificationConditionAccess().getMethodVerificationMethodCrossReference_4_1_1_0()); 
+	        newCompositeNode(grammarAccess.getVerificationConditionAccess().getMethodVerificationMethodCrossReference_4_1_0_0()); 
 	    }
 		ruleQualifiedName		{ 
 	        afterParserOrEnumRuleCall();
 	    }
 
 )
-)(	otherlv_12='as' 
+)	otherlv_11='(' 
     {
-    	newLeafNode(otherlv_12, grammarAccess.getVerificationConditionAccess().getAsKeyword_4_1_2_0());
+    	newLeafNode(otherlv_11, grammarAccess.getVerificationConditionAccess().getLeftParenthesisKeyword_4_1_1());
+    }
+((
+(
+		{
+			if ($current==null) {
+	            $current = createModelElement(grammarAccess.getVerificationConditionRule());
+	        }
+        }
+	otherlv_12=RULE_ID
+	{
+		newLeafNode(otherlv_12, grammarAccess.getVerificationConditionAccess().getParametersXExpressionCrossReference_4_1_2_0_0()); 
+	}
+
+)
+)(	otherlv_13=',' 
+    {
+    	newLeafNode(otherlv_13, grammarAccess.getVerificationConditionAccess().getCommaKeyword_4_1_2_1_0());
     }
 (
 (
@@ -968,10 +1011,36 @@ ruleVerificationCondition returns [EObject current=null]
 	            $current = createModelElement(grammarAccess.getVerificationConditionRule());
 	        }
         }
-	otherlv_13=RULE_ID
+	otherlv_14=RULE_ID
 	{
-		newLeafNode(otherlv_13, grammarAccess.getVerificationConditionAccess().getComputeVariableComputeDeclarationCrossReference_4_1_2_1_0()); 
+		newLeafNode(otherlv_14, grammarAccess.getVerificationConditionAccess().getParametersXExpressionCrossReference_4_1_2_1_1_0()); 
 	}
+
+)
+))*)?	otherlv_15=')' 
+    {
+    	newLeafNode(otherlv_15, grammarAccess.getVerificationConditionAccess().getRightParenthesisKeyword_4_1_3());
+    }
+(	otherlv_16='timeout' 
+    {
+    	newLeafNode(otherlv_16, grammarAccess.getVerificationConditionAccess().getTimeoutKeyword_4_1_4_0());
+    }
+(
+(
+		lv_timeout_17_0=RULE_INT
+		{
+			newLeafNode(lv_timeout_17_0, grammarAccess.getVerificationConditionAccess().getTimeoutINTTerminalRuleCall_4_1_4_1_0()); 
+		}
+		{
+	        if ($current==null) {
+	            $current = createModelElement(grammarAccess.getVerificationConditionRule());
+	        }
+       		setWithLastConsumed(
+       			$current, 
+       			"timeout",
+        		lv_timeout_17_0, 
+        		"INT");
+	    }
 
 )
 ))?))
@@ -991,14 +1060,14 @@ ruleVerificationCondition returns [EObject current=null]
 		{ 
 	        newCompositeNode(grammarAccess.getVerificationConditionAccess().getRationaleRationaleParserRuleCall_4_2_0()); 
 	    }
-		lv_rationale_14_0=ruleRationale		{
+		lv_rationale_18_0=ruleRationale		{
 	        if ($current==null) {
 	            $current = createModelElementForParent(grammarAccess.getVerificationConditionRule());
 	        }
        		set(
        			$current, 
        			"rationale",
-        		lv_rationale_14_0, 
+        		lv_rationale_18_0, 
         		"Rationale");
 	        afterParserOrEnumRuleCall();
 	    }
@@ -1011,16 +1080,17 @@ ruleVerificationCondition returns [EObject current=null]
  				)
 			)  
 
-		)*	
+		)+
+	  	{getUnorderedGroupHelper().canLeave(grammarAccess.getVerificationConditionAccess().getUnorderedGroup_4())}?	
 	)
 )
 	{ 
 	  getUnorderedGroupHelper().leave(grammarAccess.getVerificationConditionAccess().getUnorderedGroup_4());
 	}
 
-)	otherlv_15=']' 
+)	otherlv_19=']' 
     {
-    	newLeafNode(otherlv_15, grammarAccess.getVerificationConditionAccess().getRightSquareBracketKeyword_5());
+    	newLeafNode(otherlv_19, grammarAccess.getVerificationConditionAccess().getRightSquareBracketKeyword_5());
     }
 )
 ;

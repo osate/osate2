@@ -478,7 +478,13 @@ public class VerifySemanticSequencer extends CommonSemanticSequencer {
 	
 	/**
 	 * Constraint:
-	 *     (name=ID method=[VerificationMethod|QualifiedName] (parameters+=[XExpression|ID] parameters+=[XExpression|ID]*)? timeout=INT?)
+	 *     (
+	 *         name=ID 
+	 *         (result+=[ComputeDeclaration|ID] result+=[ComputeDeclaration|ID]*)? 
+	 *         method=[VerificationMethod|QualifiedName] 
+	 *         (parameters+=[XExpression|ID] parameters+=[XExpression|ID]*)? 
+	 *         timeout=INT?
+	 *     )
 	 */
 	protected void sequence_VerificationActivity(EObject context, VerificationActivity semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
@@ -491,7 +497,9 @@ public class VerifySemanticSequencer extends CommonSemanticSequencer {
 	 *         name=ID 
 	 *         title=STRING? 
 	 *         description=Description? 
-	 *         (method=[VerificationMethod|QualifiedName] computeVariable=[ComputeDeclaration|ID]?)? 
+	 *         method=[VerificationMethod|QualifiedName] 
+	 *         (parameters+=[XExpression|ID] parameters+=[XExpression|ID]*)? 
+	 *         timeout=INT? 
 	 *         rationale=Rationale?
 	 *     )
 	 */
@@ -506,7 +514,9 @@ public class VerifySemanticSequencer extends CommonSemanticSequencer {
 	 *         name=ID 
 	 *         title=STRING? 
 	 *         description=Description? 
-	 *         (method=[VerificationMethod|QualifiedName] computeVariable=[ComputeDeclaration|ID]?)? 
+	 *         method=[VerificationMethod|QualifiedName] 
+	 *         (parameters+=[XExpression|ID] parameters+=[XExpression|ID]*)? 
+	 *         timeout=INT? 
 	 *         rationale=Rationale?
 	 *     )
 	 */

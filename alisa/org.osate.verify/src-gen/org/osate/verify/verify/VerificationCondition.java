@@ -2,9 +2,12 @@
  */
 package org.osate.verify.verify;
 
+import org.eclipse.emf.common.util.EList;
+
 import org.eclipse.emf.ecore.EObject;
 
-import org.osate.alisa.common.common.ComputeDeclaration;
+import org.eclipse.xtext.xbase.XExpression;
+
 import org.osate.alisa.common.common.Description;
 import org.osate.alisa.common.common.Rationale;
 
@@ -20,7 +23,8 @@ import org.osate.alisa.common.common.Rationale;
  *   <li>{@link org.osate.verify.verify.VerificationCondition#getTitle <em>Title</em>}</li>
  *   <li>{@link org.osate.verify.verify.VerificationCondition#getDescription <em>Description</em>}</li>
  *   <li>{@link org.osate.verify.verify.VerificationCondition#getMethod <em>Method</em>}</li>
- *   <li>{@link org.osate.verify.verify.VerificationCondition#getComputeVariable <em>Compute Variable</em>}</li>
+ *   <li>{@link org.osate.verify.verify.VerificationCondition#getParameters <em>Parameters</em>}</li>
+ *   <li>{@link org.osate.verify.verify.VerificationCondition#getTimeout <em>Timeout</em>}</li>
  *   <li>{@link org.osate.verify.verify.VerificationCondition#getRationale <em>Rationale</em>}</li>
  * </ul>
  * </p>
@@ -136,30 +140,46 @@ public interface VerificationCondition extends EObject
   void setMethod(VerificationMethod value);
 
   /**
-   * Returns the value of the '<em><b>Compute Variable</b></em>' reference.
+   * Returns the value of the '<em><b>Parameters</b></em>' reference list.
+   * The list contents are of type {@link org.eclipse.xtext.xbase.XExpression}.
    * <!-- begin-user-doc -->
    * <p>
-   * If the meaning of the '<em>Compute Variable</em>' reference isn't clear,
+   * If the meaning of the '<em>Parameters</em>' reference list isn't clear,
    * there really should be more of a description here...
    * </p>
    * <!-- end-user-doc -->
-   * @return the value of the '<em>Compute Variable</em>' reference.
-   * @see #setComputeVariable(ComputeDeclaration)
-   * @see org.osate.verify.verify.VerifyPackage#getVerificationCondition_ComputeVariable()
+   * @return the value of the '<em>Parameters</em>' reference list.
+   * @see org.osate.verify.verify.VerifyPackage#getVerificationCondition_Parameters()
    * @model
    * @generated
    */
-  ComputeDeclaration getComputeVariable();
+  EList<XExpression> getParameters();
 
   /**
-   * Sets the value of the '{@link org.osate.verify.verify.VerificationCondition#getComputeVariable <em>Compute Variable</em>}' reference.
+   * Returns the value of the '<em><b>Timeout</b></em>' attribute.
    * <!-- begin-user-doc -->
+   * <p>
+   * If the meaning of the '<em>Timeout</em>' attribute isn't clear,
+   * there really should be more of a description here...
+   * </p>
    * <!-- end-user-doc -->
-   * @param value the new value of the '<em>Compute Variable</em>' reference.
-   * @see #getComputeVariable()
+   * @return the value of the '<em>Timeout</em>' attribute.
+   * @see #setTimeout(int)
+   * @see org.osate.verify.verify.VerifyPackage#getVerificationCondition_Timeout()
+   * @model
    * @generated
    */
-  void setComputeVariable(ComputeDeclaration value);
+  int getTimeout();
+
+  /**
+   * Sets the value of the '{@link org.osate.verify.verify.VerificationCondition#getTimeout <em>Timeout</em>}' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @param value the new value of the '<em>Timeout</em>' attribute.
+   * @see #getTimeout()
+   * @generated
+   */
+  void setTimeout(int value);
 
   /**
    * Returns the value of the '<em><b>Rationale</b></em>' containment reference.
