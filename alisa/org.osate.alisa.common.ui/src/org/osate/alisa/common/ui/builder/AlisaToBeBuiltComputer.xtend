@@ -98,9 +98,9 @@ class AlisaToBeBuiltComputer implements IToBeBuiltComputerContribution {
 				changed = deps += newDependencies
 			}
 		}
-		System.out.println('\n\nDependencies added for ' + storage.name)
-		deps.forEach[System.out.println(it)]
-		System.out.println('======= ')
+//		System.out.println('\n\nDependencies added for ' + storage.name)
+//		deps.forEach[System.out.println(it)]
+//		System.out.println('======= ')
 		deps
 	}
 
