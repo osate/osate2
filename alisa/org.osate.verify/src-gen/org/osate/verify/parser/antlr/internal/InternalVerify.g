@@ -194,12 +194,10 @@ ruleVerificationPlan returns [EObject current=null]
 	            $current = createModelElement(grammarAccess.getVerificationPlanRule());
 	        }
         }
-		{ 
-	        newCompositeNode(grammarAccess.getVerificationPlanAccess().getTargetComponentClassifierCrossReference_5_0()); 
-	    }
-		ruleAADLCLASSIFIERREFERENCE		{ 
-	        afterParserOrEnumRuleCall();
-	    }
+	otherlv_6=RULE_ID
+	{
+		newLeafNode(otherlv_6, grammarAccess.getVerificationPlanAccess().getSystemRequirementsSystemRequirementsCrossReference_5_0()); 
+	}
 
 )
 )	otherlv_7='[' 
@@ -2429,58 +2427,6 @@ ruleIMGREF returns [AntlrDatatypeRuleToken current=new AntlrDatatypeRuleToken()]
     ;
 
 
-
-
-
-// Entry rule entryRuleAADLCLASSIFIERREFERENCE
-entryRuleAADLCLASSIFIERREFERENCE returns [String current=null] 
-	:
-	{ newCompositeNode(grammarAccess.getAADLCLASSIFIERREFERENCERule()); } 
-	 iv_ruleAADLCLASSIFIERREFERENCE=ruleAADLCLASSIFIERREFERENCE 
-	 { $current=$iv_ruleAADLCLASSIFIERREFERENCE.current.getText(); }  
-	 EOF 
-;
-
-// Rule AADLCLASSIFIERREFERENCE
-ruleAADLCLASSIFIERREFERENCE returns [AntlrDatatypeRuleToken current=new AntlrDatatypeRuleToken()] 
-    @init { enterRule(); 
-    }
-    @after { leaveRule(); }:
-(    this_ID_0=RULE_ID    {
-		$current.merge(this_ID_0);
-    }
-
-    { 
-    newLeafNode(this_ID_0, grammarAccess.getAADLCLASSIFIERREFERENCEAccess().getIDTerminalRuleCall_0()); 
-    }
-(
-	kw='::' 
-    {
-        $current.merge(kw);
-        newLeafNode(kw, grammarAccess.getAADLCLASSIFIERREFERENCEAccess().getColonColonKeyword_1_0()); 
-    }
-    this_ID_2=RULE_ID    {
-		$current.merge(this_ID_2);
-    }
-
-    { 
-    newLeafNode(this_ID_2, grammarAccess.getAADLCLASSIFIERREFERENCEAccess().getIDTerminalRuleCall_1_1()); 
-    }
-)+(
-	kw='.' 
-    {
-        $current.merge(kw);
-        newLeafNode(kw, grammarAccess.getAADLCLASSIFIERREFERENCEAccess().getFullStopKeyword_2_0()); 
-    }
-    this_ID_4=RULE_ID    {
-		$current.merge(this_ID_4);
-    }
-
-    { 
-    newLeafNode(this_ID_4, grammarAccess.getAADLCLASSIFIERREFERENCEAccess().getIDTerminalRuleCall_2_1()); 
-    }
-)?)
-    ;
 
 
 

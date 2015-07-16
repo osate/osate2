@@ -56,9 +56,9 @@ public class VerifyGrammarAccess extends AbstractGrammarElementFinder {
 		private final Assignment cTitleAssignment_3_1 = (Assignment)cGroup_3.eContents().get(1);
 		private final RuleCall cTitleSTRINGTerminalRuleCall_3_1_0 = (RuleCall)cTitleAssignment_3_1.eContents().get(0);
 		private final Keyword cForKeyword_4 = (Keyword)cGroup.eContents().get(4);
-		private final Assignment cTargetAssignment_5 = (Assignment)cGroup.eContents().get(5);
-		private final CrossReference cTargetComponentClassifierCrossReference_5_0 = (CrossReference)cTargetAssignment_5.eContents().get(0);
-		private final RuleCall cTargetComponentClassifierAADLCLASSIFIERREFERENCEParserRuleCall_5_0_1 = (RuleCall)cTargetComponentClassifierCrossReference_5_0.eContents().get(1);
+		private final Assignment cSystemRequirementsAssignment_5 = (Assignment)cGroup.eContents().get(5);
+		private final CrossReference cSystemRequirementsSystemRequirementsCrossReference_5_0 = (CrossReference)cSystemRequirementsAssignment_5.eContents().get(0);
+		private final RuleCall cSystemRequirementsSystemRequirementsIDTerminalRuleCall_5_0_1 = (RuleCall)cSystemRequirementsSystemRequirementsCrossReference_5_0.eContents().get(1);
 		private final Keyword cLeftSquareBracketKeyword_6 = (Keyword)cGroup.eContents().get(6);
 		private final UnorderedGroup cUnorderedGroup_7 = (UnorderedGroup)cGroup.eContents().get(7);
 		private final Assignment cDescriptionAssignment_7_0 = (Assignment)cUnorderedGroup_7.eContents().get(0);
@@ -81,16 +81,14 @@ public class VerifyGrammarAccess extends AbstractGrammarElementFinder {
 		//// plan for a classifier. Will add import to allow for non-qualified requirement references 
 		//// Also allows for cross checking that we have covered requirements with claims
 		//VerificationPlan:
-		//	"verification" "plan" name=ID (":" title=STRING)? "for" target= //[ReqSpec::SystemRequirements|QualifiedName]  
-		//	[aadl2::ComponentClassifier|AADLCLASSIFIERREFERENCE] "[" (description=Description? & claim+=Claim* &
-		//	rationale=Rationale? & ("assume" verifiedAssumption+=[VerificationPlan|QualifiedName]+)? & ("issues"
-		//	issues+=STRING+)?) "]";
+		//	"verification" "plan" name=ID (":" title=STRING)? "for" systemRequirements=[ReqSpec::SystemRequirements] //	'for' target=[aadl2::ComponentClassifier|AADLCLASSIFIERREFERENCE] 
+		//	"[" (description=Description? & claim+=Claim* & rationale=Rationale? & ("assume"
+		//	verifiedAssumption+=[VerificationPlan|QualifiedName]+)? & ("issues" issues+=STRING+)?) "]";
 		@Override public ParserRule getRule() { return rule; }
 
-		//"verification" "plan" name=ID (":" title=STRING)? "for" target= //[ReqSpec::SystemRequirements|QualifiedName]  
-		//[aadl2::ComponentClassifier|AADLCLASSIFIERREFERENCE] "[" (description=Description? & claim+=Claim* &
-		//rationale=Rationale? & ("assume" verifiedAssumption+=[VerificationPlan|QualifiedName]+)? & ("issues"
-		//issues+=STRING+)?) "]"
+		//"verification" "plan" name=ID (":" title=STRING)? "for" systemRequirements=[ReqSpec::SystemRequirements] //	'for' target=[aadl2::ComponentClassifier|AADLCLASSIFIERREFERENCE] 
+		//"[" (description=Description? & claim+=Claim* & rationale=Rationale? & ("assume"
+		//verifiedAssumption+=[VerificationPlan|QualifiedName]+)? & ("issues" issues+=STRING+)?) "]"
 		public Group getGroup() { return cGroup; }
 
 		//"verification"
@@ -120,17 +118,16 @@ public class VerifyGrammarAccess extends AbstractGrammarElementFinder {
 		//"for"
 		public Keyword getForKeyword_4() { return cForKeyword_4; }
 
-		//target= //[ReqSpec::SystemRequirements|QualifiedName]  
-		//[aadl2::ComponentClassifier|AADLCLASSIFIERREFERENCE]
-		public Assignment getTargetAssignment_5() { return cTargetAssignment_5; }
+		//systemRequirements=[ReqSpec::SystemRequirements]
+		public Assignment getSystemRequirementsAssignment_5() { return cSystemRequirementsAssignment_5; }
 
-		////[ReqSpec::SystemRequirements|QualifiedName]  
-		//[aadl2::ComponentClassifier|AADLCLASSIFIERREFERENCE]
-		public CrossReference getTargetComponentClassifierCrossReference_5_0() { return cTargetComponentClassifierCrossReference_5_0; }
+		//[ReqSpec::SystemRequirements]
+		public CrossReference getSystemRequirementsSystemRequirementsCrossReference_5_0() { return cSystemRequirementsSystemRequirementsCrossReference_5_0; }
 
-		//AADLCLASSIFIERREFERENCE
-		public RuleCall getTargetComponentClassifierAADLCLASSIFIERREFERENCEParserRuleCall_5_0_1() { return cTargetComponentClassifierAADLCLASSIFIERREFERENCEParserRuleCall_5_0_1; }
+		//ID
+		public RuleCall getSystemRequirementsSystemRequirementsIDTerminalRuleCall_5_0_1() { return cSystemRequirementsSystemRequirementsIDTerminalRuleCall_5_0_1; }
 
+		////	'for' target=[aadl2::ComponentClassifier|AADLCLASSIFIERREFERENCE] 
 		//"["
 		public Keyword getLeftSquareBracketKeyword_6() { return cLeftSquareBracketKeyword_6; }
 
@@ -1507,10 +1504,9 @@ public class VerifyGrammarAccess extends AbstractGrammarElementFinder {
 	//// plan for a classifier. Will add import to allow for non-qualified requirement references 
 	//// Also allows for cross checking that we have covered requirements with claims
 	//VerificationPlan:
-	//	"verification" "plan" name=ID (":" title=STRING)? "for" target= //[ReqSpec::SystemRequirements|QualifiedName]  
-	//	[aadl2::ComponentClassifier|AADLCLASSIFIERREFERENCE] "[" (description=Description? & claim+=Claim* &
-	//	rationale=Rationale? & ("assume" verifiedAssumption+=[VerificationPlan|QualifiedName]+)? & ("issues"
-	//	issues+=STRING+)?) "]";
+	//	"verification" "plan" name=ID (":" title=STRING)? "for" systemRequirements=[ReqSpec::SystemRequirements] //	'for' target=[aadl2::ComponentClassifier|AADLCLASSIFIERREFERENCE] 
+	//	"[" (description=Description? & claim+=Claim* & rationale=Rationale? & ("assume"
+	//	verifiedAssumption+=[VerificationPlan|QualifiedName]+)? & ("issues" issues+=STRING+)?) "]";
 	public VerificationPlanElements getVerificationPlanAccess() {
 		return pVerificationPlan;
 	}

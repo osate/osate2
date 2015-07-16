@@ -6,10 +6,10 @@ import org.eclipse.emf.common.util.EList;
 
 import org.eclipse.emf.ecore.EObject;
 
-import org.osate.aadl2.ComponentClassifier;
-
 import org.osate.alisa.common.common.Description;
 import org.osate.alisa.common.common.Rationale;
+
+import org.osate.reqspec.reqSpec.SystemRequirements;
 
 /**
  * <!-- begin-user-doc -->
@@ -21,7 +21,7 @@ import org.osate.alisa.common.common.Rationale;
  * <ul>
  *   <li>{@link org.osate.verify.verify.VerificationPlan#getName <em>Name</em>}</li>
  *   <li>{@link org.osate.verify.verify.VerificationPlan#getTitle <em>Title</em>}</li>
- *   <li>{@link org.osate.verify.verify.VerificationPlan#getTarget <em>Target</em>}</li>
+ *   <li>{@link org.osate.verify.verify.VerificationPlan#getSystemRequirements <em>System Requirements</em>}</li>
  *   <li>{@link org.osate.verify.verify.VerificationPlan#getDescription <em>Description</em>}</li>
  *   <li>{@link org.osate.verify.verify.VerificationPlan#getClaim <em>Claim</em>}</li>
  *   <li>{@link org.osate.verify.verify.VerificationPlan#getRationale <em>Rationale</em>}</li>
@@ -89,30 +89,30 @@ public interface VerificationPlan extends EObject
   void setTitle(String value);
 
   /**
-   * Returns the value of the '<em><b>Target</b></em>' reference.
+   * Returns the value of the '<em><b>System Requirements</b></em>' reference.
    * <!-- begin-user-doc -->
    * <p>
-   * If the meaning of the '<em>Target</em>' reference isn't clear,
+   * If the meaning of the '<em>System Requirements</em>' reference isn't clear,
    * there really should be more of a description here...
    * </p>
    * <!-- end-user-doc -->
-   * @return the value of the '<em>Target</em>' reference.
-   * @see #setTarget(ComponentClassifier)
-   * @see org.osate.verify.verify.VerifyPackage#getVerificationPlan_Target()
+   * @return the value of the '<em>System Requirements</em>' reference.
+   * @see #setSystemRequirements(SystemRequirements)
+   * @see org.osate.verify.verify.VerifyPackage#getVerificationPlan_SystemRequirements()
    * @model
    * @generated
    */
-  ComponentClassifier getTarget();
+  SystemRequirements getSystemRequirements();
 
   /**
-   * Sets the value of the '{@link org.osate.verify.verify.VerificationPlan#getTarget <em>Target</em>}' reference.
+   * Sets the value of the '{@link org.osate.verify.verify.VerificationPlan#getSystemRequirements <em>System Requirements</em>}' reference.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @param value the new value of the '<em>Target</em>' reference.
-   * @see #getTarget()
+   * @param value the new value of the '<em>System Requirements</em>' reference.
+   * @see #getSystemRequirements()
    * @generated
    */
-  void setTarget(ComponentClassifier value);
+  void setSystemRequirements(SystemRequirements value);
 
   /**
    * Returns the value of the '<em><b>Description</b></em>' containment reference.

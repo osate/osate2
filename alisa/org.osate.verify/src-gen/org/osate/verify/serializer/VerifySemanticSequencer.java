@@ -575,7 +575,7 @@ public class VerifySemanticSequencer extends CommonSemanticSequencer {
 	 *     (
 	 *         name=ID 
 	 *         title=STRING? 
-	 *         target=[ComponentClassifier|AADLCLASSIFIERREFERENCE] 
+	 *         systemRequirements=[SystemRequirements|ID] 
 	 *         description=Description? 
 	 *         claim+=Claim* 
 	 *         rationale=Rationale? 

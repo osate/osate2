@@ -10,13 +10,14 @@ import "http://www.eclipse.org/xtext/xbase/Xtype" as xtype
 import "http://www.eclipse.org/xtext/common/JavaVMTypes" as jvmTypes
 
 Verification:
-	contents+=( VerificationPlan | VerificationMethodRegistry);
+	contents+=	( VerificationPlan | VerificationMethodRegistry);
 
 // plan for a classifier. Will add import to allow for non-qualified requirement references 
 // Also allows for cross checking that we have covered requirements with claims
 VerificationPlan:
 	'verification' 'plan' name=ID (':' title=STRING)? 
-	'for' target=[aadl2::ComponentClassifier|AADLCLASSIFIERREFERENCE] //[ReqSpec::SystemRequirements|QualifiedName]  
+	'for' systemRequirements=[ReqSpec::SystemRequirements|ID]  
+//	'for' target=[aadl2::ComponentClassifier|AADLCLASSIFIERREFERENCE] 
 	'['
 	(
 		( description=Description)?

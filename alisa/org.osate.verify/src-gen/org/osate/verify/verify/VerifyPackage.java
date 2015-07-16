@@ -114,13 +114,13 @@ public interface VerifyPackage extends EPackage
   int VERIFICATION_PLAN__TITLE = 1;
 
   /**
-   * The feature id for the '<em><b>Target</b></em>' reference.
+   * The feature id for the '<em><b>System Requirements</b></em>' reference.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    * @ordered
    */
-  int VERIFICATION_PLAN__TARGET = 2;
+  int VERIFICATION_PLAN__SYSTEM_REQUIREMENTS = 2;
 
   /**
    * The feature id for the '<em><b>Description</b></em>' containment reference.
@@ -1076,15 +1076,15 @@ public interface VerifyPackage extends EPackage
   EAttribute getVerificationPlan_Title();
 
   /**
-   * Returns the meta object for the reference '{@link org.osate.verify.verify.VerificationPlan#getTarget <em>Target</em>}'.
+   * Returns the meta object for the reference '{@link org.osate.verify.verify.VerificationPlan#getSystemRequirements <em>System Requirements</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @return the meta object for the reference '<em>Target</em>'.
-   * @see org.osate.verify.verify.VerificationPlan#getTarget()
+   * @return the meta object for the reference '<em>System Requirements</em>'.
+   * @see org.osate.verify.verify.VerificationPlan#getSystemRequirements()
    * @see #getVerificationPlan()
    * @generated
    */
-  EReference getVerificationPlan_Target();
+  EReference getVerificationPlan_SystemRequirements();
 
   /**
    * Returns the meta object for the containment reference '{@link org.osate.verify.verify.VerificationPlan#getDescription <em>Description</em>}'.
@@ -1896,12 +1896,12 @@ public interface VerifyPackage extends EPackage
     EAttribute VERIFICATION_PLAN__TITLE = eINSTANCE.getVerificationPlan_Title();
 
     /**
-     * The meta object literal for the '<em><b>Target</b></em>' reference feature.
+     * The meta object literal for the '<em><b>System Requirements</b></em>' reference feature.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @generated
      */
-    EReference VERIFICATION_PLAN__TARGET = eINSTANCE.getVerificationPlan_Target();
+    EReference VERIFICATION_PLAN__SYSTEM_REQUIREMENTS = eINSTANCE.getVerificationPlan_SystemRequirements();
 
     /**
      * The meta object literal for the '<em><b>Description</b></em>' containment reference feature.

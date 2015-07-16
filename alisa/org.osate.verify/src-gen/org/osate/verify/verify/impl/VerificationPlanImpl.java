@@ -10,7 +10,6 @@ import org.eclipse.emf.common.notify.NotificationChain;
 import org.eclipse.emf.common.util.EList;
 
 import org.eclipse.emf.ecore.EClass;
-import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.InternalEObject;
 
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
@@ -21,10 +20,10 @@ import org.eclipse.emf.ecore.util.EObjectContainmentEList;
 import org.eclipse.emf.ecore.util.EObjectResolvingEList;
 import org.eclipse.emf.ecore.util.InternalEList;
 
-import org.osate.aadl2.ComponentClassifier;
-
 import org.osate.alisa.common.common.Description;
 import org.osate.alisa.common.common.Rationale;
+
+import org.osate.reqspec.reqSpec.SystemRequirements;
 
 import org.osate.verify.verify.Claim;
 import org.osate.verify.verify.VerificationPlan;
@@ -39,7 +38,7 @@ import org.osate.verify.verify.VerifyPackage;
  * <ul>
  *   <li>{@link org.osate.verify.verify.impl.VerificationPlanImpl#getName <em>Name</em>}</li>
  *   <li>{@link org.osate.verify.verify.impl.VerificationPlanImpl#getTitle <em>Title</em>}</li>
- *   <li>{@link org.osate.verify.verify.impl.VerificationPlanImpl#getTarget <em>Target</em>}</li>
+ *   <li>{@link org.osate.verify.verify.impl.VerificationPlanImpl#getSystemRequirements <em>System Requirements</em>}</li>
  *   <li>{@link org.osate.verify.verify.impl.VerificationPlanImpl#getDescription <em>Description</em>}</li>
  *   <li>{@link org.osate.verify.verify.impl.VerificationPlanImpl#getClaim <em>Claim</em>}</li>
  *   <li>{@link org.osate.verify.verify.impl.VerificationPlanImpl#getRationale <em>Rationale</em>}</li>
@@ -93,14 +92,14 @@ public class VerificationPlanImpl extends MinimalEObjectImpl.Container implement
   protected String title = TITLE_EDEFAULT;
 
   /**
-   * The cached value of the '{@link #getTarget() <em>Target</em>}' reference.
+   * The cached value of the '{@link #getSystemRequirements() <em>System Requirements</em>}' reference.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @see #getTarget()
+   * @see #getSystemRequirements()
    * @generated
    * @ordered
    */
-  protected ComponentClassifier target;
+  protected SystemRequirements systemRequirements;
 
   /**
    * The cached value of the '{@link #getDescription() <em>Description</em>}' containment reference.
@@ -224,19 +223,19 @@ public class VerificationPlanImpl extends MinimalEObjectImpl.Container implement
    * <!-- end-user-doc -->
    * @generated
    */
-  public ComponentClassifier getTarget()
+  public SystemRequirements getSystemRequirements()
   {
-    if (target != null && ((EObject)target).eIsProxy())
+    if (systemRequirements != null && systemRequirements.eIsProxy())
     {
-      InternalEObject oldTarget = (InternalEObject)target;
-      target = (ComponentClassifier)eResolveProxy(oldTarget);
-      if (target != oldTarget)
+      InternalEObject oldSystemRequirements = (InternalEObject)systemRequirements;
+      systemRequirements = (SystemRequirements)eResolveProxy(oldSystemRequirements);
+      if (systemRequirements != oldSystemRequirements)
       {
         if (eNotificationRequired())
-          eNotify(new ENotificationImpl(this, Notification.RESOLVE, VerifyPackage.VERIFICATION_PLAN__TARGET, oldTarget, target));
+          eNotify(new ENotificationImpl(this, Notification.RESOLVE, VerifyPackage.VERIFICATION_PLAN__SYSTEM_REQUIREMENTS, oldSystemRequirements, systemRequirements));
       }
     }
-    return target;
+    return systemRequirements;
   }
 
   /**
@@ -244,9 +243,9 @@ public class VerificationPlanImpl extends MinimalEObjectImpl.Container implement
    * <!-- end-user-doc -->
    * @generated
    */
-  public ComponentClassifier basicGetTarget()
+  public SystemRequirements basicGetSystemRequirements()
   {
-    return target;
+    return systemRequirements;
   }
 
   /**
@@ -254,12 +253,12 @@ public class VerificationPlanImpl extends MinimalEObjectImpl.Container implement
    * <!-- end-user-doc -->
    * @generated
    */
-  public void setTarget(ComponentClassifier newTarget)
+  public void setSystemRequirements(SystemRequirements newSystemRequirements)
   {
-    ComponentClassifier oldTarget = target;
-    target = newTarget;
+    SystemRequirements oldSystemRequirements = systemRequirements;
+    systemRequirements = newSystemRequirements;
     if (eNotificationRequired())
-      eNotify(new ENotificationImpl(this, Notification.SET, VerifyPackage.VERIFICATION_PLAN__TARGET, oldTarget, target));
+      eNotify(new ENotificationImpl(this, Notification.SET, VerifyPackage.VERIFICATION_PLAN__SYSTEM_REQUIREMENTS, oldSystemRequirements, systemRequirements));
   }
 
   /**
@@ -434,9 +433,9 @@ public class VerificationPlanImpl extends MinimalEObjectImpl.Container implement
         return getName();
       case VerifyPackage.VERIFICATION_PLAN__TITLE:
         return getTitle();
-      case VerifyPackage.VERIFICATION_PLAN__TARGET:
-        if (resolve) return getTarget();
-        return basicGetTarget();
+      case VerifyPackage.VERIFICATION_PLAN__SYSTEM_REQUIREMENTS:
+        if (resolve) return getSystemRequirements();
+        return basicGetSystemRequirements();
       case VerifyPackage.VERIFICATION_PLAN__DESCRIPTION:
         return getDescription();
       case VerifyPackage.VERIFICATION_PLAN__CLAIM:
@@ -468,8 +467,8 @@ public class VerificationPlanImpl extends MinimalEObjectImpl.Container implement
       case VerifyPackage.VERIFICATION_PLAN__TITLE:
         setTitle((String)newValue);
         return;
-      case VerifyPackage.VERIFICATION_PLAN__TARGET:
-        setTarget((ComponentClassifier)newValue);
+      case VerifyPackage.VERIFICATION_PLAN__SYSTEM_REQUIREMENTS:
+        setSystemRequirements((SystemRequirements)newValue);
         return;
       case VerifyPackage.VERIFICATION_PLAN__DESCRIPTION:
         setDescription((Description)newValue);
@@ -509,8 +508,8 @@ public class VerificationPlanImpl extends MinimalEObjectImpl.Container implement
       case VerifyPackage.VERIFICATION_PLAN__TITLE:
         setTitle(TITLE_EDEFAULT);
         return;
-      case VerifyPackage.VERIFICATION_PLAN__TARGET:
-        setTarget((ComponentClassifier)null);
+      case VerifyPackage.VERIFICATION_PLAN__SYSTEM_REQUIREMENTS:
+        setSystemRequirements((SystemRequirements)null);
         return;
       case VerifyPackage.VERIFICATION_PLAN__DESCRIPTION:
         setDescription((Description)null);
@@ -545,8 +544,8 @@ public class VerificationPlanImpl extends MinimalEObjectImpl.Container implement
         return NAME_EDEFAULT == null ? name != null : !NAME_EDEFAULT.equals(name);
       case VerifyPackage.VERIFICATION_PLAN__TITLE:
         return TITLE_EDEFAULT == null ? title != null : !TITLE_EDEFAULT.equals(title);
-      case VerifyPackage.VERIFICATION_PLAN__TARGET:
-        return target != null;
+      case VerifyPackage.VERIFICATION_PLAN__SYSTEM_REQUIREMENTS:
+        return systemRequirements != null;
       case VerifyPackage.VERIFICATION_PLAN__DESCRIPTION:
         return description != null;
       case VerifyPackage.VERIFICATION_PLAN__CLAIM:
