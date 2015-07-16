@@ -857,14 +857,14 @@ ruleSystemRequirements returns [EObject current=null]
     }
     @after { leaveRule(); }:
 (
-	otherlv_0=Requirement
+	otherlv_0=KW_System
     {
-    	newLeafNode(otherlv_0, grammarAccess.getSystemRequirementsAccess().getRequirementKeyword_0());
+    	newLeafNode(otherlv_0, grammarAccess.getSystemRequirementsAccess().getSystemKeyword_0());
     }
 
-	otherlv_1=Specification
+	otherlv_1=Requirements
     {
-    	newLeafNode(otherlv_1, grammarAccess.getSystemRequirementsAccess().getSpecificationKeyword_1());
+    	newLeafNode(otherlv_1, grammarAccess.getSystemRequirementsAccess().getRequirementsKeyword_1());
     }
 (
 (

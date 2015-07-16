@@ -117,6 +117,7 @@ import org.osate.reqspec.services.ReqSpecGrammarAccess;
 		tokenNameToValue.put("Return", "'return'");
 		tokenNameToValue.put("Static", "'static'");
 		tokenNameToValue.put("Switch", "'switch'");
+		tokenNameToValue.put("KW_System", "'system'");
 		tokenNameToValue.put("Typeof", "'typeof'");
 		tokenNameToValue.put("Compute", "'compute'");
 		tokenNameToValue.put("Default", "'default'");
@@ -146,9 +147,9 @@ import org.osate.reqspec.services.ReqSpecGrammarAccess;
 		tokenNameToValue.put("Requirement", "'requirement'");
 		tokenNameToValue.put("Stakeholder", "'stakeholder'");
 		tokenNameToValue.put("Uncertainty", "'uncertainty'");
+		tokenNameToValue.put("Requirements", "'requirements'");
 		tokenNameToValue.put("Synchronized", "'synchronized'");
 		tokenNameToValue.put("Maturityindex", "'maturityindex'");
-		tokenNameToValue.put("Specification", "'specification'");
 		tokenNameToValue.put("Scheduleimpact", "'scheduleimpact'");
 		tokenNameToValue.put("Timecriticality", "'timecriticality'");
  	}
@@ -5966,11 +5967,11 @@ rule__SystemRequirements__Group__0__Impl
     }
 :
 (
-{ before(grammarAccess.getSystemRequirementsAccess().getRequirementKeyword_0()); }
+{ before(grammarAccess.getSystemRequirementsAccess().getSystemKeyword_0()); }
 
-	Requirement 
+	KW_System 
 
-{ after(grammarAccess.getSystemRequirementsAccess().getRequirementKeyword_0()); }
+{ after(grammarAccess.getSystemRequirementsAccess().getSystemKeyword_0()); }
 )
 
 ;
@@ -5997,11 +5998,11 @@ rule__SystemRequirements__Group__1__Impl
     }
 :
 (
-{ before(grammarAccess.getSystemRequirementsAccess().getSpecificationKeyword_1()); }
+{ before(grammarAccess.getSystemRequirementsAccess().getRequirementsKeyword_1()); }
 
-	Specification 
+	Requirements 
 
-{ after(grammarAccess.getSystemRequirementsAccess().getSpecificationKeyword_1()); }
+{ after(grammarAccess.getSystemRequirementsAccess().getRequirementsKeyword_1()); }
 )
 
 ;
