@@ -93,7 +93,7 @@ class ReqSpecQuickfixProvider extends DefaultQuickfixProvider {
 		val toName = issue.getData().get(1)
 		val fromURI = issue.getData().get(2)
 
-		acceptor.accept(issue, "Change reqspec 'for' from '" + fromName + "' to '" + toName + "'", null, null,
+		acceptor.accept(issue, "Change System Requirement 'for' from '" + fromName + "' to '" + toName + "'", null, null,
 				new ISemanticModification() {
 					override apply(EObject element, IModificationContext context) throws Exception {
 						

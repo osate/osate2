@@ -148,7 +148,7 @@ class ReqSpecValidator extends AbstractReqSpecValidator {
 					&& goalRefResolved.targetClassifier != reqSpecTarget){
 						val goalTargetName = goalRefResolved.targetClassifier.name
 						val goalTargetURI = EcoreUtil.getURI(goalRefResolved.targetClassifier).toString();
-						error("Requirement specification '" +  sysReqs.name + 
+						error("System Requirement '" +  sysReqs.name + 
 								"' is not for the same component as the StakeholderGoals that " +
 								"holds the goal that corresponds to requirement '" + requirement.name + "'", sysReqs,  
 								ReqSpecPackage.Literals.SYSTEM_REQUIREMENTS__TARGET, REQSPEC_FOR_DIFFERS_FROM_STAKEHOLDERGOALS_FOR,
