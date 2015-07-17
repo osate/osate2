@@ -3,7 +3,7 @@ package org.osate.assure.metrics.utils
 import org.osate.reqspec.reqSpec.Requirement
 import org.osate.aadl2.ComponentClassifier
 import org.osate.aadl2.SystemImplementation
-import org.osate.reqspec.reqSpec.ReqSpecs
+import org.osate.reqspec.reqSpec.SystemRequirements
 
 class ReqSpecHelper
 {
@@ -14,7 +14,7 @@ class ReqSpecHelper
 		
 		if (req.target == null)
 		{
-			return ((req.eContainer as ReqSpecs).target as ComponentClassifier)
+			return ((req.eContainer as SystemRequirements).target as ComponentClassifier)
 		}	
 		
 		return null

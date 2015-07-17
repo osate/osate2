@@ -15,6 +15,11 @@ import org.osate.reqspec.reqSpec.DocumentSection
 import org.eclipse.xtext.validation.CheckType
 import org.osate.aadl2.NamedElement
 import org.osate.reqspec.reqSpec.SystemRequirements
+import org.osate.reqspec.reqSpec.StakeholderGoals
+import org.eclipse.xtext.nodemodel.util.NodeModelUtils
+import org.eclipse.emf.ecore.util.EcoreUtil
+import org.osate.alisa.common.scoping.CommonGlobalScopeProvider
+import com.google.inject.Inject
 
 /**
  * Custom validation rules. 
@@ -27,7 +32,14 @@ class ReqSpecValidator extends AbstractReqSpecValidator {
   public static val MISSING_STAKEHOLDER_GOAL = 'missingStakeholderGoal'
   public static val MULTIPLE_CLASSIFIERS = 'multipleClassifiers'
   public static val FEATURES_WITHOUT_REQUIREMENT = 'featuresWithoutRequirement'
+  public static val DUPLICATE_GOAL_WITHIN_STAKEHOLDER_GOALS = 'org.osate.reqspec.validation.duplicate.goal.within.stakeholdergoals'
+  public static val DUPLICATE_STAKEHOLDER_GOALS = 'org.osate.reqspec.validation.duplicate.stakeholdergoals'
+  public static val REQSPEC_FOR_DIFFERS_FROM_STAKEHOLDERGOALS_FOR = 'org.osate.reqspec.validation.reqspec.for.differs.from.stakeholdergoals.for'
+  public static val GOAL_REFERENCE_NOT_FOUND = 'org.osate.reqspec.validation.goal.reference.not.found'
 
+	@Inject
+	CommonGlobalScopeProvider cgsp
+	
 	@Check//(CheckType.EXPENSIVE)
 	def void checkMissingStakeholder(Goal goal) {
 		if (goal.stakeholderReference.empty) {
@@ -93,4 +105,58 @@ class ReqSpecValidator extends AbstractReqSpecValidator {
 					FEATURES_WITHOUT_REQUIREMENT)
 		}
 	}
+	
+	
+		@Check(CheckType.NORMAL)
+	def void checkDuplicateGoal(StakeholderGoals stakeHolderGoals) {
+		stakeHolderGoals.content.forEach[goal | 
+			if (stakeHolderGoals.content.filter[name == goal.name].size > 1) 
+				error("Duplicate goal name '" + goal.name + "' in StakeholderGoals '" + stakeHolderGoals.name + "'",  
+					goal, ReqSpecPackage.Literals.CONTRACTUAL_ELEMENT__NAME,
+					DUPLICATE_GOAL_WITHIN_STAKEHOLDER_GOALS, EcoreUtil.getURI(stakeHolderGoals).toString()
+				)
+		] 
+	}
+
+	@Check(CheckType.NORMAL)
+	def void checkDuplicateStakeholderGoals(StakeholderGoals shg) {
+		val dupes = cgsp.getDuplicates(shg)
+			if (dupes.size > 0) {
+				val node = NodeModelUtils.getNode(shg);
+				error("Duplicate StakeholderGoal name '" + shg.name + "'",  
+					shg, ReqSpecPackage.Literals.STAKEHOLDER_GOALS__NAME,
+					DUPLICATE_STAKEHOLDER_GOALS, "" + node.offset, "" + node.length)
+			}
+	}
+	
+	@Check(CheckType.FAST)
+	def void checkSpecGoalTargetConsistency(SystemRequirements sysReqs) {
+		val reqSpecTarget = sysReqs.target
+		val requirements = sysReqs.content
+		val resource = sysReqs.eResource();
+
+		requirements.forEach[requirement | 
+			val goalReferences = requirement.goalReference
+			goalReferences.forEach[goalRef | 
+				val goalRefResolved = 
+					switch goalRef {
+						case !goalRef.eIsProxy : goalRef
+						case goalRef.eIsProxy && EcoreUtil.resolve(goalRef,  resource.resourceSet).eIsProxy : null
+						default : EcoreUtil.resolve(goalRef,  resource.resourceSet)
+					} as Goal
+				if (goalRefResolved != null && goalRefResolved.targetClassifier != null 
+					&& goalRefResolved.targetClassifier != reqSpecTarget){
+						val goalTargetName = goalRefResolved.targetClassifier.name
+						val goalTargetURI = EcoreUtil.getURI(goalRefResolved.targetClassifier).toString();
+						error("Requirement specification '" +  sysReqs.name + 
+								"' is not for the same component as the StakeholderGoals that " +
+								"holds the goal that corresponds to requirement '" + requirement.name + "'", sysReqs,  
+								ReqSpecPackage.Literals.SYSTEM_REQUIREMENTS__TARGET, REQSPEC_FOR_DIFFERS_FROM_STAKEHOLDERGOALS_FOR,
+								sysReqs.target.name, goalTargetName, goalTargetURI )
+				}
+				
+			]
+		]
+	}
+	
 }

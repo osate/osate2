@@ -19,7 +19,8 @@ Require-Bundle: org.osate.reqspec,
  org.eclipse.compare,
  org.osate.alisa.common.ui;bundle-version="1.0.0",
  org.eclipse.xtext.xbase.ui,
- org.eclipse.jdt.debug.ui
+ org.eclipse.jdt.debug.ui,
+ org.osate.aadl2;bundle-version="1.0.0"
 Import-Package: org.apache.log4j
 Bundle-RequiredExecutionEnvironment: JavaSE-1.7
 Export-Package: org.osate.reqspec.ui.quickfix,

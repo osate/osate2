@@ -3,6 +3,22 @@
 */
 package org.osate.reqspec.ui.quickfix
 
+import org.eclipse.emf.common.util.URI
+import org.eclipse.emf.ecore.EObject
+import org.eclipse.emf.ecore.resource.ResourceSet
+import org.eclipse.xtext.ui.editor.model.edit.IModification
+import org.eclipse.xtext.ui.editor.model.edit.IModificationContext
+import org.eclipse.xtext.ui.editor.model.edit.ISemanticModification
+import org.eclipse.xtext.ui.editor.quickfix.DefaultQuickfixProvider
+import org.eclipse.xtext.ui.editor.quickfix.Fix
+import org.eclipse.xtext.ui.editor.quickfix.IssueResolutionAcceptor
+import org.eclipse.xtext.validation.Issue
+import org.osate.aadl2.ComponentClassifier
+import org.osate.reqspec.reqSpec.Goal
+import org.osate.reqspec.reqSpec.StakeholderGoals
+import org.osate.reqspec.reqSpec.SystemRequirements
+import org.osate.reqspec.validation.ReqSpecValidator
+
 //import org.eclipse.xtext.ui.editor.quickfix.Fix
 //import org.eclipse.xtext.ui.editor.quickfix.IssueResolutionAcceptor
 //import org.eclipse.xtext.validation.Issue
@@ -12,7 +28,7 @@ package org.osate.reqspec.ui.quickfix
  *
  * see http://www.eclipse.org/Xtext/documentation.html#quickfixes
  */
-class ReqSpecQuickfixProvider extends org.eclipse.xtext.ui.editor.quickfix.DefaultQuickfixProvider {
+class ReqSpecQuickfixProvider extends DefaultQuickfixProvider {
 
 //	@Fix(MyDslValidator::INVALID_NAME)
 //	def capitalizeName(Issue issue, IssueResolutionAcceptor acceptor) {
@@ -23,4 +39,72 @@ class ReqSpecQuickfixProvider extends org.eclipse.xtext.ui.editor.quickfix.Defau
 //			xtextDocument.replace(issue.offset, 1, firstLetter.toUpperCase)
 //		]
 //	}
+
+	/**
+	 * QuickFix for removing a goal duplicated within a StakeholdersGoals
+	 * The issue data array is expected to have one element:
+	 *
+	 * issue.getData()[0]: The URI of the StakeHoldersGoals
+	 */
+	@Fix(ReqSpecValidator.DUPLICATE_GOAL_WITHIN_STAKEHOLDER_GOALS)
+	def public void fixDuplicateGoal(Issue issue, IssueResolutionAcceptor acceptor) {
+		acceptor.accept(issue, "Remove goal", null, null,
+				new ISemanticModification() {
+
+					override apply(EObject element, IModificationContext context) throws Exception {
+						val ResourceSet resourceSet = element.eResource().getResourceSet()
+						val stakeholderGoals = resourceSet.getEObject(URI.createURI(issue.getData.head), true) as StakeholderGoals
+						val goal = element as Goal
+						stakeholderGoals.content.remove(goal);
+					}
+				});
+	}
+	/**
+	 * QuickFix for removing a goal duplicated within a StakeholderGoals
+	 * The issue data array is expected to have one element:
+	 *
+	 * issue.getData()[0]: The offset of the StakeholderGoals
+	 * issue.getData()[1]: The length of the StakeholderGoals
+	 * 
+	 */
+	@Fix(ReqSpecValidator.DUPLICATE_STAKEHOLDER_GOALS)
+	def public void fixDuplicateStakeholderGoals(Issue issue, IssueResolutionAcceptor acceptor) {
+		val offset = Integer.parseInt(issue.getData().get(0))
+		val length = Integer.parseInt(issue.getData().get(1))
+
+		acceptor.accept(issue, "Remove StakeholderGoals", null, null, 
+			new IModification() {
+				override public void apply(IModificationContext context) throws Exception {
+					context.getXtextDocument().replace(offset, length, "");
+			}
+		});
+				
+	}
+	/**
+	 * QuickFix for rename a reqspec target to match a StakeholdersGoals target based on matching requirement and goal
+	 * The issue data array is expected to have one element:
+	 * issue.getData()[0]: The name the needs changed
+	 * issue.getData()[1]: name it needs changed to
+	 * issue.getData()[2]: the uri of what it needs changed to
+	 */
+	@Fix(ReqSpecValidator.REQSPEC_FOR_DIFFERS_FROM_STAKEHOLDERGOALS_FOR)
+	def public void fixDifferingFor(Issue issue, IssueResolutionAcceptor acceptor) {
+		val fromName = issue.getData().get(0)
+		val toName = issue.getData().get(1)
+		val fromURI = issue.getData().get(2)
+
+		acceptor.accept(issue, "Change reqspec 'for' from '" + fromName + "' to '" + toName + "'", null, null,
+				new ISemanticModification() {
+					override apply(EObject element, IModificationContext context) throws Exception {
+						
+						val ResourceSet resourceSet = element.eResource().getResourceSet()
+						val classifier = resourceSet.getEObject(URI.createURI(fromURI), true) as ComponentClassifier
+						val sysReqs = element as SystemRequirements
+						sysReqs.target = classifier
+					}
+				});
+				
+				
+	}
+
 }
