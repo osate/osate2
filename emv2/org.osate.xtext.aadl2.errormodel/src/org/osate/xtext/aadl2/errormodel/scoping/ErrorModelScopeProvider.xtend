@@ -9,6 +9,7 @@ import org.eclipse.xtext.scoping.impl.SimpleScope
 import org.osate.aadl2.Classifier
 import org.osate.aadl2.ComponentImplementation
 import org.osate.aadl2.DirectionType
+import org.osate.aadl2.Element
 import org.osate.aadl2.FeatureGroup
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorBehaviorStateMachine
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorModelLibrary
@@ -20,7 +21,9 @@ import org.osate.xtext.aadl2.errormodel.errorModel.TypeSet
 import org.osate.xtext.aadl2.errormodel.errorModel.TypeTransformationSet
 import org.osate.xtext.aadl2.properties.scoping.PropertiesScopeProvider
 
+import static extension org.eclipse.xtext.EcoreUtil2.getContainerOfType
 import static extension org.osate.xtext.aadl2.errormodel.util.EMV2Util.getAllContainingClassifierEMV2Subclauses
+import static extension org.osate.xtext.aadl2.errormodel.util.EMV2Util.getAllErrorFlows
 import static extension org.osate.xtext.aadl2.errormodel.util.EMV2Util.getAllPropagationPoints
 import static extension org.osate.xtext.aadl2.errormodel.util.EMV2Util.getFeatureorPPRefs
 
@@ -110,6 +113,17 @@ class ErrorModelScopeProvider extends PropertiesScopeProvider {
 	
 	def Iterable<ErrorPropagation> getPropagationsFromSubclause(ErrorModelSubclause lib) {
 		return (#[lib.propagations]).flatten();
+	}
+	
+	/*
+	 * TODO: FINISH THIS!
+	 * This method should be much more complicated.  It should mimic the behavior found in the method
+	 * EMLinkingService.getLinkedObjects where the requiredType is NamedElement and the context is a
+	 * ContainmentPathElement.  Right now, this method only includes ErrorFlows in the scope.  I did this just so that
+	 * I could serialize models that contain properties applied to ErrorSources.
+	 */
+	override scope_ContainmentPathElement_namedElement(Element context, EReference reference) {
+		context.getContainerOfType(Classifier).allErrorFlows.scopeFor
 	}
 
 	def scope_ErrorModelLibrary(EObject context, EReference reference) {
