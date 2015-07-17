@@ -5,8 +5,10 @@ package org.osate.reqspec;
 
 import org.eclipse.xtext.scoping.IScopeProvider;
 import org.eclipse.xtext.scoping.impl.AbstractDeclarativeScopeProvider;
+import org.eclipse.xtext.serializer.tokens.ICrossReferenceSerializer;
 import org.osate.alisa.common.scoping.AlisaAbstractDeclarativeScopeProvider;
 import org.osate.reqspec.scoping.ReqSpecScopeProvider;
+import org.osate.reqspec.serializer.ReqSpecCrossReferenceSerializer;
 
 import com.google.inject.name.Names;
 
@@ -15,6 +17,7 @@ import com.google.inject.name.Names;
  */
 public class ReqSpecRuntimeModule extends org.osate.reqspec.AbstractReqSpecRuntimeModule {
 
+	@Override
 	public Class<? extends org.eclipse.xtext.naming.IQualifiedNameConverter> bindIQualifiedNameConverter() {
 		return org.osate.alisa.common.naming.CommonQualifiedNameConverter.class;
 	}
@@ -31,6 +34,10 @@ public class ReqSpecRuntimeModule extends org.osate.reqspec.AbstractReqSpecRunti
 		binder.bind(org.eclipse.xtext.scoping.IScopeProvider.class)
 				.annotatedWith(Names.named(AlisaAbstractDeclarativeScopeProvider.NAMED_DELEGATE))
 				.to(org.eclipse.xtext.xbase.scoping.XImportSectionNamespaceScopeProvider.class);// XbaseImportedNamespaceScopeProvider.class);
+	}
+
+	public Class<? extends ICrossReferenceSerializer> bindICrossReferenceSerializer() {
+		return ReqSpecCrossReferenceSerializer.class;
 	}
 
 }
