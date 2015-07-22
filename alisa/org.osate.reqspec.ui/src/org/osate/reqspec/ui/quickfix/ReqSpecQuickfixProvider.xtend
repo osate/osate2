@@ -18,6 +18,7 @@ import org.osate.reqspec.reqSpec.Goal
 import org.osate.reqspec.reqSpec.StakeholderGoals
 import org.osate.reqspec.reqSpec.SystemRequirements
 import org.osate.reqspec.validation.ReqSpecValidator
+import org.osate.reqspec.reqSpec.Requirement
 
 //import org.eclipse.xtext.ui.editor.quickfix.Fix
 //import org.eclipse.xtext.ui.editor.quickfix.IssueResolutionAcceptor
@@ -60,8 +61,8 @@ class ReqSpecQuickfixProvider extends DefaultQuickfixProvider {
 				});
 	}
 	/**
-	 * QuickFix for removing a goal duplicated within a StakeholderGoals
-	 * The issue data array is expected to have one element:
+	 * QuickFix for removing a duplicated StakeholderGoals
+	 * The issue data array is expected to have two elements:
 	 *
 	 * issue.getData()[0]: The offset of the StakeholderGoals
 	 * issue.getData()[1]: The length of the StakeholderGoals
@@ -78,7 +79,6 @@ class ReqSpecQuickfixProvider extends DefaultQuickfixProvider {
 					context.getXtextDocument().replace(offset, length, "");
 			}
 		});
-				
 	}
 	/**
 	 * QuickFix for rename a reqspec target to match a StakeholdersGoals target based on matching requirement and goal
@@ -105,6 +105,70 @@ class ReqSpecQuickfixProvider extends DefaultQuickfixProvider {
 				});
 				
 				
+	}
+
+	/**
+	 * QuickFix for removing a duplicated SystemRequirements
+	 * The issue data array is expected to have two elements:
+	 *
+	 * issue.getData()[0]: The offset of the SystemRequirements
+	 * issue.getData()[1]: The length of the SystemRequirements
+	 * 
+	 */
+	@Fix(ReqSpecValidator.DUPLICATE_SYSTEMS_REQUIREMENT)
+	def public void fixDuplicateSystemRequirements(Issue issue, IssueResolutionAcceptor acceptor) {
+		val offset = Integer.parseInt(issue.getData().get(0))
+		val length = Integer.parseInt(issue.getData().get(1))
+
+		acceptor.accept(issue, "Remove SystemsRequirement", null, null, 
+			new IModification() {
+				override public void apply(IModificationContext context) throws Exception {
+					context.getXtextDocument().replace(offset, length, "")
+			}
+		});
+	}
+	/**
+	 * QuickFix for removing a goal duplicated within a StakeholdersGoals
+	 * The issue data array is expected to have one element:
+	 *
+	 * issue.getData()[0]: The URI of the StakeHoldersGoals
+	 */
+	@Fix(ReqSpecValidator.DUPLICATE_REQUIREMENT_WITHIN_SYSTEM_REQUIREMENTS)
+	def public void fixDuplicateRequirement(Issue issue, IssueResolutionAcceptor acceptor) {
+		acceptor.accept(issue, "Remove requirement", null, null,
+				new ISemanticModification() {
+
+					override apply(EObject element, IModificationContext context) throws Exception {
+						val ResourceSet resourceSet = element.eResource().getResourceSet()
+						val SystemRequirements = resourceSet.getEObject(URI.createURI(issue.getData.head), true) as SystemRequirements
+						val requirement = element as Requirement
+						SystemRequirements.content.remove(requirement)
+					}
+				});
+	}
+
+	/**
+	 * QuickFix for removing a refined from a goal with cycle dependencies
+	 * The issue data array is expected to have two elements:
+	 *
+	 * issue.getData()[0]: The name of the refined goal
+	 * issue.getData()[1]: The uri of the refined goal
+	 * 
+	 */
+	@Fix(ReqSpecValidator.CYCLE_IN_REFINE_HIERARCHY)
+	def public void fixCycleInRefineHierarchy(Issue issue, IssueResolutionAcceptor acceptor) {
+		val refinedGoalName = issue.getData().head
+		val refinedGoalURI = issue.getData().get(1)
+
+		acceptor.accept(issue, "Remove refines " + refinedGoalName, null, null,
+				new ISemanticModification() {
+					override apply(EObject element, IModificationContext context) throws Exception {
+						val ResourceSet resourceSet = element.eResource().getResourceSet()
+						val refinedGoal = resourceSet.getEObject(URI.createURI(refinedGoalURI), true) as Goal
+						val goal = element as Goal
+						goal.refinesReference.remove(refinedGoal)
+					}
+				});
 	}
 
 }
