@@ -155,8 +155,8 @@ class ReqSpecQuickfixProvider extends DefaultQuickfixProvider {
 	 * issue.getData()[1]: The uri of the refined goal
 	 * 
 	 */
-	@Fix(ReqSpecValidator.CYCLE_IN_REFINE_HIERARCHY)
-	def public void fixCycleInRefineHierarchy(Issue issue, IssueResolutionAcceptor acceptor) {
+	@Fix(ReqSpecValidator.CYCLE_IN_GOAL_REFINE_HIERARCHY)
+	def public void fixCycleInGoalRefineHierarchy(Issue issue, IssueResolutionAcceptor acceptor) {
 		val refinedGoalName = issue.getData().head
 		val refinedGoalURI = issue.getData().get(1)
 
@@ -167,6 +167,30 @@ class ReqSpecQuickfixProvider extends DefaultQuickfixProvider {
 						val refinedGoal = resourceSet.getEObject(URI.createURI(refinedGoalURI), true) as Goal
 						val goal = element as Goal
 						goal.refinesReference.remove(refinedGoal)
+					}
+				});
+	}
+
+	/**
+	 * QuickFix for removing a refined from a requirment with cycle dependencies
+	 * The issue data array is expected to have two elements:
+	 *
+	 * issue.getData()[0]: The name of the refined requirement
+	 * issue.getData()[1]: The uri of the refined requirement
+	 * 
+	 */
+	@Fix(ReqSpecValidator.CYCLE_IN_REQUIREMENT_REFINE_HIERARCHY)
+	def public void fixCycleInRequiremntRefineHierarchy(Issue issue, IssueResolutionAcceptor acceptor) {
+		val refinedReqName = issue.getData().head
+		val refinedReqURI = issue.getData().get(1)
+
+		acceptor.accept(issue, "Remove refines " + refinedReqName, null, null,
+				new ISemanticModification() {
+					override apply(EObject element, IModificationContext context) throws Exception {
+						val ResourceSet resourceSet = element.eResource().getResourceSet()
+						val refinedReq = resourceSet.getEObject(URI.createURI(refinedReqURI), true) as Requirement
+						val requirement = element as Requirement
+						requirement.refinesReference.remove(refinedReq)
 					}
 				});
 	}

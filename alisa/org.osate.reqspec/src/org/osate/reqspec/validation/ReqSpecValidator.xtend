@@ -43,7 +43,8 @@ class ReqSpecValidator extends AbstractReqSpecValidator {
   public static val GOAL_REFERENCE_NOT_FOUND = 'org.osate.reqspec.validation.goal.reference.not.found'
   public static val DUPLICATE_SYSTEMS_REQUIREMENT = 'org.osate.reqspec.validation.duplicate.system.requiremnts'
   public static val DUPLICATE_REQUIREMENT_WITHIN_SYSTEM_REQUIREMENTS = 'org.osate.reqspec.validation.duplicate.requirement.within.system.requirements'
-  public static val CYCLE_IN_REFINE_HIERARCHY = 'org.osate.reqspec.validation.cycle.in.refine.hierarchy'
+  public static val CYCLE_IN_GOAL_REFINE_HIERARCHY = 'org.osate.reqspec.validation.cycle.in.goal.refine.hierarchy'
+  public static val CYCLE_IN_REQUIREMENT_REFINE_HIERARCHY = 'org.osate.reqspec.validation.cycle.in.requirement.refine.hierarchy'
 
 	@Inject
 	CommonGlobalScopeProvider cgsp
@@ -198,7 +199,7 @@ class ReqSpecValidator extends AbstractReqSpecValidator {
 				val refinedGoalName = refinedGoal.name
 				val refinedGoalURI =  EcoreUtil.getURI(refinedGoal).toString();
 				error("A circular dependency or dependencies exists in the 'refined' hierarchy of " + goal.getName() + ".", 
-						goal, ReqSpecPackage.Literals.GOAL__REFINES_REFERENCE, index, CYCLE_IN_REFINE_HIERARCHY, refinedGoalName, refinedGoalURI);
+						goal, ReqSpecPackage.Literals.GOAL__REFINES_REFERENCE, index, CYCLE_IN_GOAL_REFINE_HIERARCHY, refinedGoalName, refinedGoalURI);
 			}
 			goalList.remove(goalList.size() - 1)
 		]
@@ -214,4 +215,33 @@ class ReqSpecValidator extends AbstractReqSpecValidator {
 			return cycles
 		]
 	}		
+
+	@Check(CheckType.FAST)
+	def void checkRequirementForCycles(Requirement requirement) {
+		val  reqList = new ArrayList<Requirement>()
+		reqList.add(requirement)
+		requirement.refinesReference.forEach[refinedReq, index|
+			reqList.add(refinedReq)
+			if(refinedReq.checkRequirementForCycles(reqList)){
+				val refinedReqName = refinedReq.name
+				val refinedReqURI =  EcoreUtil.getURI(refinedReq).toString();
+				error("A circular dependency or dependencies exists in the 'refined' hierarchy of " + requirement.getName() + ".", 
+						requirement, ReqSpecPackage.Literals.REQUIREMENT__REFINES_REFERENCE, index, CYCLE_IN_REQUIREMENT_REFINE_HIERARCHY, refinedReqName, refinedReqURI);
+			}
+			reqList.remove(reqList.size() - 1)
+		]
+	}
+
+	def private boolean checkRequirementForCycles(Requirement requirement, List<Requirement> reqList) {
+		val refinedReqs = requirement.getRefinesReference()
+		refinedReqs.exists[refinedReq | reqList.contains(refinedReq)] || refinedReqs.exists[refinedReq |
+			reqList.add(refinedReq)
+			val cycles = refinedReq.checkRequirementForCycles(reqList)
+			reqList.remove(reqList.size() - 1)
+			return cycles
+		]
+	}		
+
+
+
 }
