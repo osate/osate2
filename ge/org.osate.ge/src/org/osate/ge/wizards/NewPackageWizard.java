@@ -86,6 +86,7 @@ import org.osate.aadl2.NamedElement;
 import org.osate.aadl2.modelsupport.Activator;
 import org.osate.aadl2.modelsupport.resources.OsateResourceUtil;
 import org.osate.ge.services.DiagramService;
+import org.osate.ge.services.impl.DefaultNamingService;
 import org.osate.ui.OsateUiPlugin;
 import org.osate.workspace.IResourceUtility;
 import org.osate.workspace.WorkspacePlugin;
@@ -110,6 +111,8 @@ public class NewPackageWizard extends Wizard implements INewWizard
 	 * in the wizard's page.
 	 */
 	private IProject project = null;
+	
+	final DefaultNamingService defaultNamingService = new DefaultNamingService();
 	
 	/**
 	 * This just records the information.
@@ -381,6 +384,11 @@ public class NewPackageWizard extends Wizard implements INewWizard
 				if (nameTextField.getText().startsWith(":"))
 				{
 					setErrorMessage("Package path must start with an identifier.");
+					return false;
+				}
+				else if (!defaultNamingService.isValidIdentifier(nameTextField.getText()))
+				{
+					setErrorMessage("Package name must be a valid AADL identifier");
 					return false;
 				}
 				else if (nameTextField.getText().endsWith(":"))
