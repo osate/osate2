@@ -388,7 +388,7 @@ public class NewPackageWizard extends Wizard implements INewWizard
 				}
 				else if (!defaultNamingService.isValidIdentifier(nameTextField.getText()))
 				{
-					setErrorMessage("Package cannot be an AADL identifier");
+					setErrorMessage("Package name must be a valid AADL identifier");
 					return false;
 				}
 				else if (nameTextField.getText().endsWith(":"))
