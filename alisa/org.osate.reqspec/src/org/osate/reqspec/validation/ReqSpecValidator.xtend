@@ -196,12 +196,11 @@ class ReqSpecValidator extends AbstractReqSpecValidator {
 		goal.refinesReference.forEach[refinedGoal, index|
 			goalList.add(refinedGoal)
 			if(refinedGoal.checkGoalForCycles(goalList)){
-				val refinedGoalName = refinedGoal.name
-				val refinedGoalURI =  EcoreUtil.getURI(refinedGoal).toString();
 				error("A circular dependency or dependencies exists in the 'refined' hierarchy of " + goal.getName() + ".", 
-						goal, ReqSpecPackage.Literals.GOAL__REFINES_REFERENCE, index, CYCLE_IN_GOAL_REFINE_HIERARCHY, refinedGoalName, refinedGoalURI);
+						goal, ReqSpecPackage.Literals.GOAL__REFINES_REFERENCE, index, CYCLE_IN_GOAL_REFINE_HIERARCHY, 
+						refinedGoal.name, EcoreUtil.getURI(refinedGoal).toString())
 			}
-			goalList.remove(goalList.size() - 1)
+			goalList.remove(goalList.size - 1)
 		]
 	}
 
@@ -211,7 +210,7 @@ class ReqSpecValidator extends AbstractReqSpecValidator {
 		refinedGoals.exists[refinedGoal | goalList.contains(refinedGoal)] || refinedGoals.exists[refinedGoal |
 			goalList.add(refinedGoal)
 			val cycles = refinedGoal.checkGoalForCycles(goalList)
-			goalList.remove(goalList.size() - 1)
+			goalList.remove(goalList.size - 1)
 			return cycles
 		]
 	}		
@@ -223,12 +222,11 @@ class ReqSpecValidator extends AbstractReqSpecValidator {
 		requirement.refinesReference.forEach[refinedReq, index|
 			reqList.add(refinedReq)
 			if(refinedReq.checkRequirementForCycles(reqList)){
-				val refinedReqName = refinedReq.name
-				val refinedReqURI =  EcoreUtil.getURI(refinedReq).toString();
 				error("A circular dependency or dependencies exists in the 'refined' hierarchy of " + requirement.getName() + ".", 
-						requirement, ReqSpecPackage.Literals.REQUIREMENT__REFINES_REFERENCE, index, CYCLE_IN_REQUIREMENT_REFINE_HIERARCHY, refinedReqName, refinedReqURI);
+						requirement, ReqSpecPackage.Literals.REQUIREMENT__REFINES_REFERENCE, index, CYCLE_IN_REQUIREMENT_REFINE_HIERARCHY,
+						refinedReq.name, EcoreUtil.getURI(refinedReq).toString())
 			}
-			reqList.remove(reqList.size() - 1)
+			reqList.remove(reqList.size - 1)
 		]
 	}
 
@@ -237,7 +235,7 @@ class ReqSpecValidator extends AbstractReqSpecValidator {
 		refinedReqs.exists[refinedReq | reqList.contains(refinedReq)] || refinedReqs.exists[refinedReq |
 			reqList.add(refinedReq)
 			val cycles = refinedReq.checkRequirementForCycles(reqList)
-			reqList.remove(reqList.size() - 1)
+			reqList.remove(reqList.size - 1)
 			return cycles
 		]
 	}		

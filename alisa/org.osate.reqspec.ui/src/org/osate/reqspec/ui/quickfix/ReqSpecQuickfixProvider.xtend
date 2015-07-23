@@ -163,7 +163,7 @@ class ReqSpecQuickfixProvider extends DefaultQuickfixProvider {
 		acceptor.accept(issue, "Remove refines " + refinedGoalName, null, null,
 				new ISemanticModification() {
 					override apply(EObject element, IModificationContext context) throws Exception {
-						val ResourceSet resourceSet = element.eResource().getResourceSet()
+						val resourceSet = element.eResource().getResourceSet() as ResourceSet
 						val refinedGoal = resourceSet.getEObject(URI.createURI(refinedGoalURI), true) as Goal
 						val goal = element as Goal
 						goal.refinesReference.remove(refinedGoal)
@@ -187,7 +187,7 @@ class ReqSpecQuickfixProvider extends DefaultQuickfixProvider {
 		acceptor.accept(issue, "Remove refines " + refinedReqName, null, null,
 				new ISemanticModification() {
 					override apply(EObject element, IModificationContext context) throws Exception {
-						val ResourceSet resourceSet = element.eResource().getResourceSet()
+						val resourceSet = element.eResource().getResourceSet() as ResourceSet
 						val refinedReq = resourceSet.getEObject(URI.createURI(refinedReqURI), true) as Requirement
 						val requirement = element as Requirement
 						requirement.refinesReference.remove(refinedReq)
