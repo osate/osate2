@@ -26,7 +26,7 @@ class ErrorModelScopeProviderTest extends OsateTest {
 		"Error_Model_Scope_Provider_Test"
 	}
 	
-	//Tests scope_ErrorModelLibrary and scope_TypeMappingSet
+	//Tests scope_ErrorModelLibrary, scope_TypeMappingSet, and scope_ErrorModelSubclause_useBehavior
 	@Test
 	def void testErrorModelLibraryReference() {
 		createFiles("pkg.aadl" -> '''
@@ -56,6 +56,7 @@ class ErrorModelScopeProviderTest extends OsateTest {
 						use types ErrorLibrary;
 						use type equivalence pkg::m;
 						use mappings pkg::m;
+						use behavior pkg::b;
 						
 						error propagations
 						flows
@@ -99,6 +100,8 @@ class ErrorModelScopeProviderTest extends OsateTest {
 						assertScope(ErrorModelPackage.eINSTANCE.errorModelSubclause_TypeEquivalence, false, #["pkg::m"])
 						//Tests scope_TypeMappingSet
 						assertScope(ErrorModelPackage.eINSTANCE.errorModelSubclause_TypeMappingSet, false, #["pkg::m"])
+						//Tests scope_ErrorModelSubclause_useBehavior
+						assertScope(ErrorModelPackage.eINSTANCE.errorModelSubclause_UseBehavior, false, #["pkg::b"])
 						flows.head => [
 							"p".assertEquals(name)
 							assertWarning(testFileResult.issues, issueCollection, "Legacy support: please declare 'use mappings' at subclause level.")

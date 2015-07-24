@@ -1,8 +1,10 @@
 package org.osate.xtext.aadl2.errormodel.scoping
 
+import com.google.inject.Inject
 import org.eclipse.emf.ecore.EObject
 import org.eclipse.emf.ecore.EReference
 import org.eclipse.xtext.EcoreUtil2
+import org.eclipse.xtext.naming.IQualifiedNameConverter
 import org.eclipse.xtext.resource.EObjectDescription
 import org.eclipse.xtext.scoping.IScope
 import org.eclipse.xtext.scoping.impl.SimpleScope
@@ -35,6 +37,8 @@ import static extension org.osate.xtext.aadl2.errormodel.util.EMV2Util.getFeatur
  *
  */
 class ErrorModelScopeProvider extends PropertiesScopeProvider {
+	@Inject
+	IQualifiedNameConverter qualifiedNameConverter
 	
 	def String getMethodName() { // For debugging
 		val StackTraceElement[] ste = Thread.currentThread().getStackTrace();
@@ -134,6 +138,10 @@ class ErrorModelScopeProvider extends PropertiesScopeProvider {
 		scopeWithoutEMV2Prefix(context, reference)
 	}
 	
+	def scope_ErrorModelSubclause_useBehavior(EObject context, EReference reference) {
+		scopeWithoutEMV2Prefix(context, reference)
+	}
+	
 	def scope_FeatureorPPReference_featureorPP(Classifier context, EReference reference) {
 		(context.getAllFeatures + context.allPropagationPoints + if (context instanceof ComponentImplementation) {
 			context.allInternalFeatures
@@ -155,6 +163,8 @@ class ErrorModelScopeProvider extends PropertiesScopeProvider {
 	}
 	
 	def private scopeWithoutEMV2Prefix(EObject context, EReference reference) {
-		new SimpleScope(delegateGetScope(context, reference).allElements.map[EObjectDescription.create(name.firstSegment.substring("emv2$".length), EObjectOrProxy)], true)
+		new SimpleScope(delegateGetScope(context, reference).allElements.map[
+			EObjectDescription.create(qualifiedNameConverter.toQualifiedName(name.toString("::").substring("emv2$".length)), EObjectOrProxy)
+		], true)
 	}
 }
