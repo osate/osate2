@@ -7,7 +7,7 @@ import org.eclipse.xtext.nodemodel.INode
 import org.eclipse.xtext.serializer.diagnostic.ISerializationDiagnostic.Acceptor
 
 class ErrorModelCrossReferenceSerializer extends CrossReferenceSerializer {
-	val static PREFIX = "emv2$"
+	val public static PREFIX = "emv2$"
 	
 	override serializeCrossRef(EObject semanticObject, CrossReference crossref, EObject target, INode node, Acceptor errors) {
 		val crossRefString = super.serializeCrossRef(semanticObject, crossref, target, node, errors)

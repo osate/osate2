@@ -26,7 +26,10 @@ class ErrorModelScopeProviderTest extends OsateTest {
 		"Error_Model_Scope_Provider_Test"
 	}
 	
-	//Tests scope_ErrorModelLibrary, scope_TypeMappingSet, and scope_ErrorModelSubclause_useBehavior
+	/*
+	 * Tests scope_ErrorModelLibrary, scope_TypeMappingSet, scope_ErrorModelSubclause_useBehavior, and
+	 * scope_TypeTransformationSet
+	 */
 	@Test
 	def void testErrorModelLibraryReference() {
 		createFiles("pkg.aadl" -> '''
@@ -38,6 +41,7 @@ class ErrorModelScopeProviderTest extends OsateTest {
 					
 					error behavior b
 						use types ErrorLibrary;
+						use transformations t;
 					end behavior;
 					
 					type mappings m
@@ -62,6 +66,14 @@ class ErrorModelScopeProviderTest extends OsateTest {
 						flows
 							p: error path all -> all use mappings pkg::m;
 						end propagations;
+						
+						component error behavior
+							use transformations pkg::t;
+						end component;
+						
+						connection error
+							use transformations pkg::t;
+						end connection;
 					**};
 				end a;
 			end pkg;
@@ -79,6 +91,8 @@ class ErrorModelScopeProviderTest extends OsateTest {
 						"b".assertEquals(name)
 						//Tests scope_ErrorModelLibrary
 						assertScope(ErrorModelPackage.eINSTANCE.errorBehaviorStateMachine_UseTypes, false, #["ErrorLibrary", "pkg"])
+						//Tests scope_TypeTransformationSet
+						assertScope(ErrorModelPackage.eINSTANCE.errorBehaviorStateMachine_UseTransformation, false, #["t", "pkg::t"])
 					]
 					mappings.head => [
 						"m".assertEquals(name)
@@ -108,6 +122,10 @@ class ErrorModelScopeProviderTest extends OsateTest {
 							//Tests scope_TypeMappingSet
 							assertScope(ErrorModelPackage.eINSTANCE.errorPath_TypeMappingSet, false, #["pkg::m"])
 						]
+						//Tests scope_TypeTransformationSet
+						assertScope(ErrorModelPackage.eINSTANCE.errorModelSubclause_UseTransformation, false, #["pkg::t"])
+						//Tests scope_TypeTransformationSet
+						assertScope(ErrorModelPackage.eINSTANCE.errorModelSubclause_TypeTransformationSet, false, #["pkg::t"])
 					]
 				]
 			]

@@ -21,6 +21,7 @@ import org.osate.xtext.aadl2.errormodel.errorModel.ErrorType
 import org.osate.xtext.aadl2.errormodel.errorModel.FeatureorPPReference
 import org.osate.xtext.aadl2.errormodel.errorModel.TypeSet
 import org.osate.xtext.aadl2.errormodel.errorModel.TypeTransformationSet
+import org.osate.xtext.aadl2.errormodel.serializer.ErrorModelCrossReferenceSerializer
 import org.osate.xtext.aadl2.properties.scoping.PropertiesScopeProvider
 
 import static extension org.eclipse.xtext.EcoreUtil2.getContainerOfType
@@ -142,6 +143,10 @@ class ErrorModelScopeProvider extends PropertiesScopeProvider {
 		scopeWithoutEMV2Prefix(context, reference)
 	}
 	
+	def scope_TypeTransformationSet(EObject context, EReference reference) {
+		scopeWithoutEMV2Prefix(context, reference)
+	}
+	
 	def scope_FeatureorPPReference_featureorPP(Classifier context, EReference reference) {
 		(context.getAllFeatures + context.allPropagationPoints + if (context instanceof ComponentImplementation) {
 			context.allInternalFeatures
@@ -164,7 +169,13 @@ class ErrorModelScopeProvider extends PropertiesScopeProvider {
 	
 	def private scopeWithoutEMV2Prefix(EObject context, EReference reference) {
 		new SimpleScope(delegateGetScope(context, reference).allElements.map[
-			EObjectDescription.create(qualifiedNameConverter.toQualifiedName(name.toString("::").substring("emv2$".length)), EObjectOrProxy)
+			val nameAsString = name.toString("::")
+			if (nameAsString.startsWith(ErrorModelCrossReferenceSerializer.PREFIX)) {
+				val strippedName = nameAsString.substring(ErrorModelCrossReferenceSerializer.PREFIX.length)
+				EObjectDescription.create(qualifiedNameConverter.toQualifiedName(strippedName), EObjectOrProxy)
+			} else {
+				it
+			}
 		], true)
 	}
 }
