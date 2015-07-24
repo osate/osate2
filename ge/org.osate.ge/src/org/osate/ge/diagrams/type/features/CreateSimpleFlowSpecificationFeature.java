@@ -14,8 +14,8 @@ import javax.inject.Named;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.graphiti.features.IFeatureProvider;
 import org.eclipse.graphiti.features.context.IContext;
-import org.eclipse.graphiti.features.context.ICustomContext;
-import org.eclipse.graphiti.features.custom.AbstractCustomFeature;
+import org.eclipse.graphiti.features.context.ICreateContext;
+import org.eclipse.graphiti.features.impl.AbstractCreateFeature;
 import org.eclipse.graphiti.mm.pictograms.PictogramElement;
 import org.eclipse.graphiti.mm.pictograms.Shape;
 import org.osate.aadl2.AbstractFeature;
@@ -31,6 +31,8 @@ import org.osate.aadl2.FlowKind;
 import org.osate.aadl2.FlowSpecification;
 import org.osate.aadl2.Parameter;
 import org.osate.aadl2.Port;
+import org.osate.ge.diagrams.common.AgeImageProvider;
+import org.osate.ge.diagrams.common.Categorized;
 import org.osate.ge.services.AadlFeatureService;
 import org.osate.ge.services.AadlModificationService;
 import org.osate.ge.services.BusinessObjectResolutionService;
@@ -38,14 +40,13 @@ import org.osate.ge.services.DiagramModificationService;
 import org.osate.ge.services.NamingService;
 import org.osate.ge.services.ShapeService;
 import org.osate.ge.services.AadlModificationService.AbstractModifier;
-import org.osate.ge.util.StringUtil;
 
 /**
  * Feature for creating a "simple" flow specification. Creates a flow source or sink via a context menu.
  * @author philip.alldredge
  *
  */
-public class CreateSimpleFlowSpecificationFeature extends AbstractCustomFeature {
+public class CreateSimpleFlowSpecificationFeature extends AbstractCreateFeature implements Categorized {
 	private final AadlModificationService aadlModService;
 	private final DiagramModificationService diagramModService;
 	private final ShapeService shapeService;
@@ -58,7 +59,8 @@ public class CreateSimpleFlowSpecificationFeature extends AbstractCustomFeature 
 	public CreateSimpleFlowSpecificationFeature(final AadlModificationService aadlModService, final DiagramModificationService diagramModService, 
 			final ShapeService shapeService, final AadlFeatureService featureService, final NamingService namingService, final BusinessObjectResolutionService bor, 
 			final IFeatureProvider fp, final @Named("Kind") FlowKind flowKind) {
-		super(fp);
+		
+		super(fp, "Flow " + flowKind.toString().substring(0, 1).toUpperCase() + flowKind.toString().substring(1), "");
 		this.aadlModService = aadlModService;
 		this.diagramModService = diagramModService;
 		this.shapeService = shapeService;
@@ -66,76 +68,19 @@ public class CreateSimpleFlowSpecificationFeature extends AbstractCustomFeature 
 		this.namingService = namingService;
 		this.bor = bor;
 		this.flowKind = flowKind;
-		
 		if(flowKind != FlowKind.SINK && flowKind != FlowKind.SOURCE) {
 			throw new RuntimeException("Unsupported flow kind: " + flowKind);
 		}
 	}
-	
+
 	@Override
-    public String getName() {
-      return "Create " + StringUtil.camelCaseToUser(flowKind.getName());
-    }
+	public String getCreateImageId() {
+		return flowKind == FlowKind.SINK ? AgeImageProvider.getImage("FlowSink") : AgeImageProvider.getImage("FlowSource");
+	}
 	
 	@Override
 	public boolean canUndo(final IContext context) {
 		return false;
-	}
-	
-    @Override
-	public boolean isAvailable(final IContext context) {
-		final ICustomContext customCtx = (ICustomContext)context;
-		final PictogramElement[] pes = customCtx.getPictogramElements();		
-		if(customCtx.getPictogramElements().length != 1) {
-			return false;
-		}
-		
-		final PictogramElement pe = pes[0];
-		if(!(pe instanceof Shape)) {
-			return false;
-		}
-		
-		// Check that the pictogram represents a feature
-		final Object bo = bor.getBusinessObjectForPictogramElement(pe);
-		if(!(bo instanceof Feature)) {
-			return false;
-		}
-		
-		final Shape shape = (Shape)pe;
-		final Feature feature = (Feature)bo;
-		
-		if(getComponentType(shape) == null) {
-			return false;
-		}
-		
-		// Check that the feature is of the appropriate type
-		if(!(feature instanceof Port || feature instanceof Parameter || feature instanceof DataAccess || feature instanceof FeatureGroup || feature instanceof AbstractFeature)) {
-			return false;
-		}
-
-		// Check direction. Take into account feature group, inverse, etc..
-		if(feature instanceof DirectedFeature) {
-			// Determine the actual direction of the feature. Since it could effected by things like inverse feature groups, etc
-			final DirectedFeature df = (DirectedFeature)feature;
-			DirectionType direction = df.getDirection();
-	 		if(direction == DirectionType.IN || direction == DirectionType.OUT) {
-	 			if(featureService.isFeatureInverted(shape)) {
-	 				direction = (direction == DirectionType.IN) ? DirectionType.OUT : DirectionType.IN;
-	 			}
-	 		}	
-	 		
-	 		if(flowKind == FlowKind.SOURCE) {
-	 			if(direction != DirectionType.OUT && direction != DirectionType.IN_OUT) {
-	 				return false;
-	 			}
-	 		} else if(flowKind == FlowKind.SINK) {
-	 			if(direction != DirectionType.IN && direction != DirectionType.IN_OUT) {
-	 				return false;
-	 			}
-	 		}
-		}
-
-		return true;
 	}
     
 	private ComponentType getComponentType(final Shape featureShape) {
@@ -147,20 +92,15 @@ public class CreateSimpleFlowSpecificationFeature extends AbstractCustomFeature 
 	}
 	
     @Override
-    public boolean canExecute(final ICustomContext context) {
-    	return true;
-    }
-        
-	@Override
-	public void execute(final ICustomContext context) {
-		final Shape featureShape = (Shape)context.getPictogramElements()[0];
+    public void execute(final IContext context) {
+    	final Shape featureShape = (Shape)((ICreateContext)context).getTargetContainer();
 		final ComponentType ct = getComponentType(featureShape);
 		final Feature feature = (Feature)bor.getBusinessObjectForPictogramElement(featureShape);
 		final String newFlowSpecName = namingService.buildUniqueIdentifier(ct, "new_flow_spec");
 
 		// Create the flow specification
 		aadlModService.modify(ct, new AbstractModifier<ComponentType, Object>() {
-			private DiagramModificationService.Modification diagramMod;    	
+			private DiagramModificationService.Modification diagramMod;    
 			
 			@Override
 			public Object modify(final Resource resource, final ComponentType ct) {
@@ -196,5 +136,69 @@ public class CreateSimpleFlowSpecificationFeature extends AbstractCustomFeature 
 				diagramMod.commit();
 			}
 		});
+    }
+  
+	@Override
+	public boolean canCreate(final ICreateContext context) {
+		final PictogramElement peTargetContainer = context.getTargetContainer();
+		final PictogramElement peTargetConnnection = context.getTargetConnection();
+		
+		if(!(peTargetContainer instanceof Shape) || peTargetConnnection != null) {
+			return false;
+		}
+		
+		final Object bo = shapeService.getClosestBusinessObjectOfType(context.getTargetContainer(), Object.class);
+		
+		// Check that the pictogram represents a feature
+		if(!(bo instanceof Feature)) {
+			return false;
+		}
+		
+		final Shape shape = (Shape)peTargetContainer;
+		final Feature feature = (Feature)bo;
+		
+		if(getComponentType(shape) == null) {
+			return false;
+		}
+		
+		// Check that the feature is of the appropriate type
+		if(!(feature instanceof Port || feature instanceof Parameter || feature instanceof DataAccess || feature instanceof FeatureGroup || feature instanceof AbstractFeature)) {
+			return false;
+		}
+
+		// Check direction. Take into account feature group, inverse, etc..
+		if(feature instanceof DirectedFeature) {
+			// Determine the actual direction of the feature. Since it could effected by things like inverse feature groups, etc
+			final DirectedFeature df = (DirectedFeature)feature;
+			DirectionType direction = df.getDirection();
+	 		if(direction == DirectionType.IN || direction == DirectionType.OUT) {
+	 			if(featureService.isFeatureInverted(shape)) {
+	 				direction = (direction == DirectionType.IN) ? DirectionType.OUT : DirectionType.IN;
+	 			}
+	 		}	
+	 		
+	 		if(flowKind == FlowKind.SOURCE) {
+	 			if(direction != DirectionType.OUT && direction != DirectionType.IN_OUT) {
+	 				return false;
+	 			}
+	 		} else if(flowKind == FlowKind.SINK) {
+	 			if(direction != DirectionType.IN && direction != DirectionType.IN_OUT) {
+	 				return false;
+	 			}
+	 		}
+		}
+
+		return true;
+	}
+
+
+	@Override
+	public Category getCategory() {
+		return Category.FLOWS;
+	}
+
+	@Override
+	public Object[] create(ICreateContext context) {
+		return null;
 	}
 }

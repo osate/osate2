@@ -9,13 +9,12 @@ import org.eclipse.emf.common.util.URI;
 
 public class AgeImageProvider extends AbstractImageProvider implements
 		IImageProvider {
-	public AgeImageProvider() {
-	}
+	final String plugIinImagePath = "org.osate.aadl2.edit/icons/full/obj16/";
 	protected static final String PREFIX = "org.osate.ge.diagrams.common.";
-	public static String getImage(final EClass c) {
-		return PREFIX + c.getName();
+	public static String getImage(final String imageId) {
+		return PREFIX + imageId;
 	}
-	
+
 	private void addImageFilePath(final EClass c) {
 		addImageFilePath(c, c);
 	}
@@ -93,7 +92,9 @@ public class AgeImageProvider extends AbstractImageProvider implements
 		addImageFilePath(p.getEventDataSource(), p.getEventDataPort());
 		addImageFilePath(p.getPortProxy(),p.getAbstractFeature());
 		addImageFilePath(p.getSubprogramProxy(), p.getSubprogramAccess());
-		addImageFilePath(p.getFlowSpecification(), p.getModeTransition());
+		addImageFilePath(PREFIX + "FlowPath", URI.createPlatformPluginURI("org.osate.aadl2.edit/icons/full/obj16/" + "FlowPath" + ".gif", true).toString());
+		addImageFilePath(PREFIX + "FlowSink", URI.createPlatformPluginURI("org.osate.aadl2.edit/icons/full/obj16/" + "FlowSink" + ".gif", true).toString());
+		addImageFilePath(PREFIX + "FlowSource", URI.createPlatformPluginURI("org.osate.aadl2.edit/icons/full/obj16/" + "FlowSource" + ".gif", true).toString());
 		addImageFilePath(p.getGeneralization(), p.getModeTransition());
 		addImageFilePath(p.getSubprogramCall(), p.getSubprogramSubcomponent());
 		addImageFilePath(p.getSubprogramCallSequence());

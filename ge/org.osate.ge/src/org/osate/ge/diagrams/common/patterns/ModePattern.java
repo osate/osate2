@@ -294,7 +294,7 @@ public class ModePattern extends AgeLeafShapePattern implements Categorized {
 	@Override
 	public String getCreateImageId(){
 		final Aadl2Package p = Aadl2Factory.eINSTANCE.getAadl2Package();
-		return AgeImageProvider.getImage(p.getMode());
+		return AgeImageProvider.getImage(p.getMode().getName());
 	}
 	
 	@Override

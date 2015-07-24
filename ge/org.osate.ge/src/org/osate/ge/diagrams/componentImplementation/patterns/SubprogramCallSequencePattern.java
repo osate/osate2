@@ -313,7 +313,7 @@ public class SubprogramCallSequencePattern extends AgePattern implements Categor
 	@Override
 	public String getCreateImageId(){
 		final Aadl2Package p = Aadl2Factory.eINSTANCE.getAadl2Package();
-		return AgeImageProvider.getImage(p.getSubprogramCallSequence());
+		return AgeImageProvider.getImage(p.getSubprogramCallSequence().getName());
 	}
 	
 	@Override

@@ -143,7 +143,7 @@ public class PackageGeneralizationPattern extends AgeConnectionPattern implement
 	@Override
 	public String getCreateImageId(){
 		final Aadl2Package p = Aadl2Factory.eINSTANCE.getAadl2Package();
-		return AgeImageProvider.getImage(p.getGeneralization());
+		return AgeImageProvider.getImage(p.getGeneralization().getName());
 	}
 	@Override
 	public String getCreateName() {
