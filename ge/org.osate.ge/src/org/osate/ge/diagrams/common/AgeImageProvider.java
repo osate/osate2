@@ -25,6 +25,12 @@ public class AgeImageProvider extends AbstractImageProvider implements
 		addImageFilePath(PREFIX + c.getName(), plugInImage.toString());
 	}
 	
+	
+	private void addImageFilePath(final String imageName) {
+		final URI plugInImage = URI.createPlatformPluginURI("org.osate.aadl2.edit/icons/full/obj16/"+ imageName + ".gif", true);
+		addImageFilePath(PREFIX + imageName, plugInImage.toString());
+	}
+	
 	@Override
 	protected void addAvailableImages() {
 		final Aadl2Package p = Aadl2Factory.eINSTANCE.getAadl2Package();
@@ -92,9 +98,9 @@ public class AgeImageProvider extends AbstractImageProvider implements
 		addImageFilePath(p.getEventDataSource(), p.getEventDataPort());
 		addImageFilePath(p.getPortProxy(),p.getAbstractFeature());
 		addImageFilePath(p.getSubprogramProxy(), p.getSubprogramAccess());
-		addImageFilePath(PREFIX + "FlowPath", URI.createPlatformPluginURI("org.osate.aadl2.edit/icons/full/obj16/" + "FlowPath" + ".gif", true).toString());
-		addImageFilePath(PREFIX + "FlowSink", URI.createPlatformPluginURI("org.osate.aadl2.edit/icons/full/obj16/" + "FlowSink" + ".gif", true).toString());
-		addImageFilePath(PREFIX + "FlowSource", URI.createPlatformPluginURI("org.osate.aadl2.edit/icons/full/obj16/" + "FlowSource" + ".gif", true).toString());
+		addImageFilePath("FlowPath");
+		addImageFilePath("FlowSink");
+		addImageFilePath("FlowSource");
 		addImageFilePath(p.getGeneralization(), p.getModeTransition());
 		addImageFilePath(p.getSubprogramCall(), p.getSubprogramSubcomponent());
 		addImageFilePath(p.getSubprogramCallSequence());
