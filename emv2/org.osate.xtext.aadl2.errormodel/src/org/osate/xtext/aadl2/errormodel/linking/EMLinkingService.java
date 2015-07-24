@@ -7,6 +7,7 @@ import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EReference;
+import org.eclipse.xtext.EcoreUtil2;
 import org.eclipse.xtext.linking.impl.IllegalNodeException;
 import org.eclipse.xtext.nodemodel.INode;
 import org.osate.aadl2.Aadl2Package;
@@ -420,7 +421,13 @@ public class EMLinkingService extends PropertiesLinkingService {
 	}
 
 	public TypeTransformationSet findTypeTransformationSet(EObject context, String name) {
-		ErrorModelLibrary eml = findErrorModelLibrary(context, Aadl2Util.getPackageName(name));
+		String packageName = Aadl2Util.getPackageName(name);
+		ErrorModelLibrary eml;
+		if (packageName != null) {
+			eml = findErrorModelLibrary(context, packageName);
+		} else {
+			eml = EcoreUtil2.getContainerOfType(context, ErrorModelLibrary.class);
+		}
 		if (eml != null) {
 			EList<TypeTransformationSet> tmsl = eml.getTransformations();
 			for (TypeTransformationSet tms : tmsl) {
