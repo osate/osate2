@@ -92,53 +92,6 @@ public class CreateSimpleFlowSpecificationFeature extends AbstractCreateFeature 
 	private Context getContext(final Shape featureShape) {
 		return shapeService.getClosestBusinessObjectOfType(featureShape.getContainer(), Context.class);
 	}
-	
-    @Override
-    public void execute(final IContext context) {
-    	final Shape featureShape = (Shape)((ICreateContext)context).getTargetContainer();
-		final ComponentType ct = getComponentType(featureShape);
-		final Feature feature = (Feature) getShapeType(featureShape);
-		final String newFlowSpecName = namingService.buildUniqueIdentifier(ct, "new_flow_spec");
-
-		// Create the flow specification
-		aadlModService.modify(ct, new AbstractModifier<ComponentType, Object>() {
-			private DiagramModificationService.Modification diagramMod;    
-			
-			@Override
-			public Object modify(final Resource resource, final ComponentType ct) {
-				// Start the diagram modification
-     			diagramMod = diagramModService.startModification();
-     			
-     			final FlowSpecification fs = ct.createOwnedFlowSpecification();
-     			fs.setKind(flowKind);
-     			fs.setName(newFlowSpecName);
-
-     			// Create the appropriate flow end depending on the type being created
-     			final FlowEnd flowEnd;
-     			if(flowKind == FlowKind.SOURCE) {
-	     			flowEnd = fs.createOutEnd();
-     			} else if(flowKind == FlowKind.SINK) {
-     				flowEnd = fs.createInEnd();
-     			} else {
-     				throw new RuntimeException("Unexpected flow kind: " + flowKind);
-     			}     			
-     			flowEnd.setFeature(feature);
-     			flowEnd.setContext(getContext(featureShape));     			
-
-     			// Clear the no flows flag
-     			ct.setNoFlows(false);
-     			
-				diagramMod.markOpenRelatedDiagramsAsDirty(ct);
-
-				return null;
-			}
-			
-	 		@Override
-			public void beforeCommit(final Resource resource, final ComponentType ct, final Object modificationResult) {
-				diagramMod.commit();
-			}
-		});
-    }
   
 	@Override
 	public boolean canCreate(final ICreateContext context) {
@@ -199,7 +152,50 @@ public class CreateSimpleFlowSpecificationFeature extends AbstractCreateFeature 
 	}
 
 	@Override
-	public Object[] create(ICreateContext context) {
-		return null;
+	public Object[] create(final ICreateContext context) {
+    	final Shape featureShape = (Shape)((ICreateContext)context).getTargetContainer();
+		final ComponentType ct = getComponentType(featureShape);
+		final Feature feature = (Feature) getShapeType(featureShape);
+		final String newFlowSpecName = namingService.buildUniqueIdentifier(ct, "new_flow_spec");
+
+		// Create the flow specification
+		aadlModService.modify(ct, new AbstractModifier<ComponentType, Object>() {
+			private DiagramModificationService.Modification diagramMod;    
+			
+			@Override
+			public Object modify(final Resource resource, final ComponentType ct) {
+				// Start the diagram modification
+     			diagramMod = diagramModService.startModification();
+     			
+     			final FlowSpecification fs = ct.createOwnedFlowSpecification();
+     			fs.setKind(flowKind);
+     			fs.setName(newFlowSpecName);
+
+     			// Create the appropriate flow end depending on the type being created
+     			final FlowEnd flowEnd;
+     			if(flowKind == FlowKind.SOURCE) {
+	     			flowEnd = fs.createOutEnd();
+     			} else if(flowKind == FlowKind.SINK) {
+     				flowEnd = fs.createInEnd();
+     			} else {
+     				throw new RuntimeException("Unexpected flow kind: " + flowKind);
+     			}     			
+     			flowEnd.setFeature(feature);
+     			flowEnd.setContext(getContext(featureShape));     			
+
+     			// Clear the no flows flag
+     			ct.setNoFlows(false);
+     			
+				diagramMod.markOpenRelatedDiagramsAsDirty(ct);
+
+				return null;
+			}
+			
+	 		@Override
+			public void beforeCommit(final Resource resource, final ComponentType ct, final Object modificationResult) {
+				diagramMod.commit();
+			}
+		});
+		return EMPTY;
 	}
 }
