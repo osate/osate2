@@ -18,7 +18,7 @@ ContractualElement: Goal | DocGoal| Requirement |DocRequirement ;
 ReqRoot:  StakeholderGoals | ReqDocument | SystemRequirements;
 
 
-StakeholderGoals: 'stakeholder' 'goals' name=ID (':' title=STRING)?
+StakeholderGoals: 'stakeholder' 'goals' name=QualifiedName (':' title=STRING)?
 	( 'for' (target=[aadl2::ComponentClassifier|AADLCLASSIFIERREFERENCE] |  global?='all'))
 	'[' 
 	(	 (  description=Description)? 
@@ -30,7 +30,7 @@ StakeholderGoals: 'stakeholder' 'goals' name=ID (':' title=STRING)?
 	']'
 ;
 
-ReqDocument: 'document' name=ID (':' title=STRING)?
+ReqDocument: 'document' name=QualifiedName (':' title=STRING)?
 	'[' 
 	( (  description=Description)? 
 	&(content+= (DocGoal | DocRequirement |  DocumentSection))*
@@ -168,15 +168,15 @@ DocRequirement returns Requirement:
 	)
 	']';
 
-ReqPredicate: InformalPredicate | XPredicate | ValueAssertion | InputAssumption | OutputGuarantee| BehaviorEquation;
+ReqPredicate: InformalPredicate | XPredicate ;//| ValueAssertion | InputAssumption | OutputGuarantee| BehaviorEquation;
 
-InformalPredicate: 'assert' description=STRING ;
-XPredicate: 'assert' 'predicate' xpression=XExpression ;
-
-ValueAssertion: 'assert' 'value' xpression=XExpression;	
-InputAssumption:  'input' 'assumption' (xpression=XExpression |'as' reference=[ecore::EObject|ID]);	
-OutputGuarantee: 'output''guarantee' (xpression=XExpression |'as' reference=[ecore::EObject|ID]);	
-BehaviorEquation: 'assert' 'invariant' (xpression=XExpression |'as' reference=[ecore::EObject|ID]);
+InformalPredicate: 'informal' 'predicate'  description=STRING ;
+XPredicate: 'predicate' xpression=XExpression ;
+//
+//ValueAssertion: 'value' 'predicate' xpression=XExpression;	
+//InputAssumption:  'input' 'assumption' (xpression=XExpression |'as' reference=[ecore::EObject|ID]);	
+//OutputGuarantee: 'output''guarantee' (xpression=XExpression |'as' reference=[ecore::EObject|ID]);	
+//BehaviorEquation: 'invariant' (xpression=XExpression |'as' reference=[ecore::EObject|ID]);
 
 ExternalDocument : 
 	docReference=DOCPATH ( '#' docFragment=DOCFRAGMENT)?

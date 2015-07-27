@@ -12,131 +12,125 @@ import java.util.ArrayList;
 
 @SuppressWarnings("all")
 public class InternalReqSpecLexer extends Lexer {
-    public static final int Val=70;
-    public static final int LessThanSignGreaterThanSign=85;
-    public static final int RULE_HEX=119;
-    public static final int Import=38;
-    public static final int EqualsSignGreaterThanSign=87;
-    public static final int Riskindex=26;
-    public static final int KW_System=44;
-    public static final int Var=71;
-    public static final int Decomposes=16;
-    public static final int False=47;
-    public static final int Document=28;
-    public static final int LessThanSign=109;
-    public static final int Goal=56;
-    public static final int Assert=37;
-    public static final int LeftParenthesis=99;
-    public static final int Throw=51;
-    public static final int Extends=33;
-    public static final int ExclamationMark=95;
-    public static final int ExclamationMarkEqualsSignEqualsSign=61;
-    public static final int GreaterThanSign=111;
-    public static final int RULE_ID=122;
-    public static final int GreaterThanSignEqualsSign=88;
-    public static final int ColonColon=84;
+    public static final int Val=64;
+    public static final int LessThanSignGreaterThanSign=79;
+    public static final int RULE_HEX=113;
+    public static final int Import=35;
+    public static final int EqualsSignGreaterThanSign=81;
+    public static final int Riskindex=23;
+    public static final int KW_System=40;
+    public static final int Var=65;
+    public static final int Decomposes=15;
+    public static final int False=43;
+    public static final int Document=25;
+    public static final int LessThanSign=103;
+    public static final int Goal=50;
+    public static final int LeftParenthesis=93;
+    public static final int Throw=46;
+    public static final int Extends=31;
+    public static final int ExclamationMark=89;
+    public static final int ExclamationMarkEqualsSignEqualsSign=55;
+    public static final int GreaterThanSign=105;
+    public static final int RULE_ID=116;
+    public static final int GreaterThanSignEqualsSign=82;
+    public static final int ColonColon=78;
     public static final int Requirement=11;
-    public static final int EqualsSignEqualsSign=86;
-    public static final int See=68;
-    public static final int Switch=43;
-    public static final int VerticalLine=117;
-    public static final int PlusSign=102;
-    public static final int RULE_INT=120;
-    public static final int RULE_ML_COMMENT=124;
-    public static final int LeftSquareBracket=114;
-    public static final int If=93;
-    public static final int Mitigates=23;
-    public static final int Finally=34;
+    public static final int EqualsSignEqualsSign=80;
+    public static final int See=62;
+    public static final int Switch=39;
+    public static final int VerticalLine=111;
+    public static final int PlusSign=96;
+    public static final int RULE_INT=114;
+    public static final int RULE_ML_COMMENT=118;
+    public static final int LeftSquareBracket=108;
+    public static final int If=87;
+    public static final int Mitigates=20;
+    public static final int Finally=32;
     public static final int Description=9;
     public static final int Maturityindex=6;
-    public static final int Catch=46;
-    public static final int VerticalLineVerticalLine=94;
-    public static final int Assumption=14;
-    public static final int Case=54;
-    public static final int QuestionMarkFullStop=89;
-    public static final int Comma=103;
-    public static final int As=91;
-    public static final int HyphenMinus=104;
+    public static final int Catch=42;
+    public static final int VerticalLineVerticalLine=88;
+    public static final int Case=48;
+    public static final int QuestionMarkFullStop=83;
+    public static final int Comma=97;
+    public static final int As=85;
+    public static final int HyphenMinus=98;
     public static final int Synchronized=8;
-    public static final int QuestionMarkColon=90;
-    public static final int Output=40;
-    public static final int Guarantee=21;
-    public static final int Solidus=106;
-    public static final int RightCurlyBracket=118;
+    public static final int QuestionMarkColon=84;
+    public static final int Solidus=100;
+    public static final int RightCurlyBracket=112;
     public static final int Familiarity=10;
-    public static final int PercentSignEqualsSign=73;
+    public static final int PercentSignEqualsSign=67;
     public static final int Timecriticality=4;
-    public static final int Refines=35;
-    public static final int FullStop=105;
-    public static final int Conflicts=19;
-    public static final int Default=30;
-    public static final int Section=36;
-    public static final int CommercialAt=113;
-    public static final int Semicolon=108;
-    public static final int PlusSignPlusSign=77;
-    public static final int QuestionMark=112;
-    public static final int Else=55;
-    public static final int ExclamationMarkEqualsSign=72;
-    public static final int HyphenMinusGreaterThanSign=81;
-    public static final int All=64;
-    public static final int HyphenMinusHyphenMinus=79;
-    public static final int New=67;
-    public static final int Null=57;
-    public static final int Typeof=45;
-    public static final int SolidusEqualsSign=83;
-    public static final int True=59;
+    public static final int Refines=33;
+    public static final int FullStop=99;
+    public static final int Conflicts=18;
+    public static final int Default=28;
+    public static final int Section=34;
+    public static final int CommercialAt=107;
+    public static final int Semicolon=102;
+    public static final int PlusSignPlusSign=71;
+    public static final int QuestionMark=106;
+    public static final int Else=49;
+    public static final int ExclamationMarkEqualsSign=66;
+    public static final int HyphenMinusGreaterThanSign=75;
+    public static final int All=58;
+    public static final int HyphenMinusHyphenMinus=73;
+    public static final int New=61;
+    public static final int Null=51;
+    public static final int Typeof=41;
+    public static final int SolidusEqualsSign=77;
+    public static final int True=53;
     public static final int Requirements=7;
-    public static final int Predicate=24;
-    public static final int PercentSign=97;
-    public static final int Input=49;
+    public static final int Predicate=21;
+    public static final int PercentSign=91;
     public static final int Stakeholder=12;
-    public static final int Super=50;
-    public static final int FullStopFullStop=82;
-    public static final int This=58;
-    public static final int Try=69;
-    public static final int Ampersand=98;
+    public static final int Super=45;
+    public static final int FullStopFullStop=76;
+    public static final int This=52;
+    public static final int Try=63;
+    public static final int Ampersand=92;
     public static final int Scheduleimpact=5;
-    public static final int AsteriskEqualsSign=76;
-    public static final int RightSquareBracket=115;
-    public static final int Dropped=31;
-    public static final int Img=66;
-    public static final int For=65;
-    public static final int RightParenthesis=100;
-    public static final int Do=92;
-    public static final int EqualsSignEqualsSignEqualsSign=63;
-    public static final int RULE_DECIMAL=121;
-    public static final int NumberSign=96;
-    public static final int Value=52;
-    public static final int AsteriskAsterisk=75;
-    public static final int Static=42;
-    public static final int Goals=48;
-    public static final int Invariant=22;
+    public static final int AsteriskEqualsSign=70;
+    public static final int RightSquareBracket=109;
+    public static final int Dropped=29;
+    public static final int Img=60;
+    public static final int For=59;
+    public static final int RightParenthesis=94;
+    public static final int Do=86;
+    public static final int EqualsSignEqualsSignEqualsSign=57;
+    public static final int RULE_DECIMAL=115;
+    public static final int NumberSign=90;
+    public static final int AsteriskAsterisk=69;
+    public static final int Static=38;
+    public static final int Goals=44;
     public static final int Uncertainty=13;
-    public static final int Category=27;
-    public static final int Volatility=18;
-    public static final int Issues=39;
-    public static final int RULE_STRING=123;
-    public static final int Costimpact=15;
-    public static final int Evolves=32;
-    public static final int With=60;
-    public static final int RULE_SL_COMMENT=125;
-    public static final int EqualsSign=110;
-    public static final int AmpersandAmpersand=74;
-    public static final int Instanceof=17;
-    public static final int Rationale=25;
-    public static final int HyphenMinusEqualsSign=80;
-    public static final int Colon=107;
+    public static final int Category=24;
+    public static final int Volatility=17;
+    public static final int Issues=36;
+    public static final int RULE_STRING=117;
+    public static final int Costimpact=14;
+    public static final int Evolves=30;
+    public static final int With=54;
+    public static final int RULE_SL_COMMENT=119;
+    public static final int EqualsSign=104;
+    public static final int AmpersandAmpersand=68;
+    public static final int Instanceof=16;
+    public static final int Rationale=22;
+    public static final int HyphenMinusEqualsSign=74;
+    public static final int Colon=101;
     public static final int EOF=-1;
-    public static final int Asterisk=101;
-    public static final int PlusSignEqualsSign=78;
-    public static final int Return=41;
-    public static final int RULE_WS=126;
-    public static final int LeftCurlyBracket=116;
-    public static final int While=53;
-    public static final int RULE_ANY_OTHER=127;
-    public static final int Extension=20;
-    public static final int FullStopFullStopLessThanSign=62;
-    public static final int Compute=29;
+    public static final int Asterisk=95;
+    public static final int PlusSignEqualsSign=72;
+    public static final int Return=37;
+    public static final int RULE_WS=120;
+    public static final int LeftCurlyBracket=110;
+    public static final int While=47;
+    public static final int RULE_ANY_OTHER=121;
+    public static final int Extension=19;
+    public static final int FullStopFullStopLessThanSign=56;
+    public static final int Informal=26;
+    public static final int Compute=27;
 
     // delegates
     // delegators
@@ -1430,122 +1424,13 @@ public class InternalReqSpecLexer extends Lexer {
     }
     // $ANTLR end "Uncertainty"
 
-    // $ANTLR start "Assumption"
-    public final void mAssumption() throws RecognitionException {
-        try {
-            int _type = Assumption;
-            int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/lexer/InternalReqSpecLexer.g:39:12: ( ( 'A' | 'a' ) ( 'S' | 's' ) ( 'S' | 's' ) ( 'U' | 'u' ) ( 'M' | 'm' ) ( 'P' | 'p' ) ( 'T' | 't' ) ( 'I' | 'i' ) ( 'O' | 'o' ) ( 'N' | 'n' ) )
-            // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/lexer/InternalReqSpecLexer.g:39:14: ( 'A' | 'a' ) ( 'S' | 's' ) ( 'S' | 's' ) ( 'U' | 'u' ) ( 'M' | 'm' ) ( 'P' | 'p' ) ( 'T' | 't' ) ( 'I' | 'i' ) ( 'O' | 'o' ) ( 'N' | 'n' )
-            {
-            if ( input.LA(1)=='A'||input.LA(1)=='a' ) {
-                input.consume();
-
-            }
-            else {
-                MismatchedSetException mse = new MismatchedSetException(null,input);
-                recover(mse);
-                throw mse;}
-
-            if ( input.LA(1)=='S'||input.LA(1)=='s' ) {
-                input.consume();
-
-            }
-            else {
-                MismatchedSetException mse = new MismatchedSetException(null,input);
-                recover(mse);
-                throw mse;}
-
-            if ( input.LA(1)=='S'||input.LA(1)=='s' ) {
-                input.consume();
-
-            }
-            else {
-                MismatchedSetException mse = new MismatchedSetException(null,input);
-                recover(mse);
-                throw mse;}
-
-            if ( input.LA(1)=='U'||input.LA(1)=='u' ) {
-                input.consume();
-
-            }
-            else {
-                MismatchedSetException mse = new MismatchedSetException(null,input);
-                recover(mse);
-                throw mse;}
-
-            if ( input.LA(1)=='M'||input.LA(1)=='m' ) {
-                input.consume();
-
-            }
-            else {
-                MismatchedSetException mse = new MismatchedSetException(null,input);
-                recover(mse);
-                throw mse;}
-
-            if ( input.LA(1)=='P'||input.LA(1)=='p' ) {
-                input.consume();
-
-            }
-            else {
-                MismatchedSetException mse = new MismatchedSetException(null,input);
-                recover(mse);
-                throw mse;}
-
-            if ( input.LA(1)=='T'||input.LA(1)=='t' ) {
-                input.consume();
-
-            }
-            else {
-                MismatchedSetException mse = new MismatchedSetException(null,input);
-                recover(mse);
-                throw mse;}
-
-            if ( input.LA(1)=='I'||input.LA(1)=='i' ) {
-                input.consume();
-
-            }
-            else {
-                MismatchedSetException mse = new MismatchedSetException(null,input);
-                recover(mse);
-                throw mse;}
-
-            if ( input.LA(1)=='O'||input.LA(1)=='o' ) {
-                input.consume();
-
-            }
-            else {
-                MismatchedSetException mse = new MismatchedSetException(null,input);
-                recover(mse);
-                throw mse;}
-
-            if ( input.LA(1)=='N'||input.LA(1)=='n' ) {
-                input.consume();
-
-            }
-            else {
-                MismatchedSetException mse = new MismatchedSetException(null,input);
-                recover(mse);
-                throw mse;}
-
-
-            }
-
-            state.type = _type;
-            state.channel = _channel;
-        }
-        finally {
-        }
-    }
-    // $ANTLR end "Assumption"
-
     // $ANTLR start "Costimpact"
     public final void mCostimpact() throws RecognitionException {
         try {
             int _type = Costimpact;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/lexer/InternalReqSpecLexer.g:41:12: ( ( 'C' | 'c' ) ( 'O' | 'o' ) ( 'S' | 's' ) ( 'T' | 't' ) ( 'I' | 'i' ) ( 'M' | 'm' ) ( 'P' | 'p' ) ( 'A' | 'a' ) ( 'C' | 'c' ) ( 'T' | 't' ) )
-            // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/lexer/InternalReqSpecLexer.g:41:14: ( 'C' | 'c' ) ( 'O' | 'o' ) ( 'S' | 's' ) ( 'T' | 't' ) ( 'I' | 'i' ) ( 'M' | 'm' ) ( 'P' | 'p' ) ( 'A' | 'a' ) ( 'C' | 'c' ) ( 'T' | 't' )
+            // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/lexer/InternalReqSpecLexer.g:39:12: ( ( 'C' | 'c' ) ( 'O' | 'o' ) ( 'S' | 's' ) ( 'T' | 't' ) ( 'I' | 'i' ) ( 'M' | 'm' ) ( 'P' | 'p' ) ( 'A' | 'a' ) ( 'C' | 'c' ) ( 'T' | 't' ) )
+            // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/lexer/InternalReqSpecLexer.g:39:14: ( 'C' | 'c' ) ( 'O' | 'o' ) ( 'S' | 's' ) ( 'T' | 't' ) ( 'I' | 'i' ) ( 'M' | 'm' ) ( 'P' | 'p' ) ( 'A' | 'a' ) ( 'C' | 'c' ) ( 'T' | 't' )
             {
             if ( input.LA(1)=='C'||input.LA(1)=='c' ) {
                 input.consume();
@@ -1653,8 +1538,8 @@ public class InternalReqSpecLexer extends Lexer {
         try {
             int _type = Decomposes;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/lexer/InternalReqSpecLexer.g:43:12: ( ( 'D' | 'd' ) ( 'E' | 'e' ) ( 'C' | 'c' ) ( 'O' | 'o' ) ( 'M' | 'm' ) ( 'P' | 'p' ) ( 'O' | 'o' ) ( 'S' | 's' ) ( 'E' | 'e' ) ( 'S' | 's' ) )
-            // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/lexer/InternalReqSpecLexer.g:43:14: ( 'D' | 'd' ) ( 'E' | 'e' ) ( 'C' | 'c' ) ( 'O' | 'o' ) ( 'M' | 'm' ) ( 'P' | 'p' ) ( 'O' | 'o' ) ( 'S' | 's' ) ( 'E' | 'e' ) ( 'S' | 's' )
+            // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/lexer/InternalReqSpecLexer.g:41:12: ( ( 'D' | 'd' ) ( 'E' | 'e' ) ( 'C' | 'c' ) ( 'O' | 'o' ) ( 'M' | 'm' ) ( 'P' | 'p' ) ( 'O' | 'o' ) ( 'S' | 's' ) ( 'E' | 'e' ) ( 'S' | 's' ) )
+            // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/lexer/InternalReqSpecLexer.g:41:14: ( 'D' | 'd' ) ( 'E' | 'e' ) ( 'C' | 'c' ) ( 'O' | 'o' ) ( 'M' | 'm' ) ( 'P' | 'p' ) ( 'O' | 'o' ) ( 'S' | 's' ) ( 'E' | 'e' ) ( 'S' | 's' )
             {
             if ( input.LA(1)=='D'||input.LA(1)=='d' ) {
                 input.consume();
@@ -1762,8 +1647,8 @@ public class InternalReqSpecLexer extends Lexer {
         try {
             int _type = Instanceof;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/lexer/InternalReqSpecLexer.g:45:12: ( ( 'I' | 'i' ) ( 'N' | 'n' ) ( 'S' | 's' ) ( 'T' | 't' ) ( 'A' | 'a' ) ( 'N' | 'n' ) ( 'C' | 'c' ) ( 'E' | 'e' ) ( 'O' | 'o' ) ( 'F' | 'f' ) )
-            // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/lexer/InternalReqSpecLexer.g:45:14: ( 'I' | 'i' ) ( 'N' | 'n' ) ( 'S' | 's' ) ( 'T' | 't' ) ( 'A' | 'a' ) ( 'N' | 'n' ) ( 'C' | 'c' ) ( 'E' | 'e' ) ( 'O' | 'o' ) ( 'F' | 'f' )
+            // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/lexer/InternalReqSpecLexer.g:43:12: ( ( 'I' | 'i' ) ( 'N' | 'n' ) ( 'S' | 's' ) ( 'T' | 't' ) ( 'A' | 'a' ) ( 'N' | 'n' ) ( 'C' | 'c' ) ( 'E' | 'e' ) ( 'O' | 'o' ) ( 'F' | 'f' ) )
+            // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/lexer/InternalReqSpecLexer.g:43:14: ( 'I' | 'i' ) ( 'N' | 'n' ) ( 'S' | 's' ) ( 'T' | 't' ) ( 'A' | 'a' ) ( 'N' | 'n' ) ( 'C' | 'c' ) ( 'E' | 'e' ) ( 'O' | 'o' ) ( 'F' | 'f' )
             {
             if ( input.LA(1)=='I'||input.LA(1)=='i' ) {
                 input.consume();
@@ -1871,8 +1756,8 @@ public class InternalReqSpecLexer extends Lexer {
         try {
             int _type = Volatility;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/lexer/InternalReqSpecLexer.g:47:12: ( ( 'V' | 'v' ) ( 'O' | 'o' ) ( 'L' | 'l' ) ( 'A' | 'a' ) ( 'T' | 't' ) ( 'I' | 'i' ) ( 'L' | 'l' ) ( 'I' | 'i' ) ( 'T' | 't' ) ( 'Y' | 'y' ) )
-            // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/lexer/InternalReqSpecLexer.g:47:14: ( 'V' | 'v' ) ( 'O' | 'o' ) ( 'L' | 'l' ) ( 'A' | 'a' ) ( 'T' | 't' ) ( 'I' | 'i' ) ( 'L' | 'l' ) ( 'I' | 'i' ) ( 'T' | 't' ) ( 'Y' | 'y' )
+            // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/lexer/InternalReqSpecLexer.g:45:12: ( ( 'V' | 'v' ) ( 'O' | 'o' ) ( 'L' | 'l' ) ( 'A' | 'a' ) ( 'T' | 't' ) ( 'I' | 'i' ) ( 'L' | 'l' ) ( 'I' | 'i' ) ( 'T' | 't' ) ( 'Y' | 'y' ) )
+            // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/lexer/InternalReqSpecLexer.g:45:14: ( 'V' | 'v' ) ( 'O' | 'o' ) ( 'L' | 'l' ) ( 'A' | 'a' ) ( 'T' | 't' ) ( 'I' | 'i' ) ( 'L' | 'l' ) ( 'I' | 'i' ) ( 'T' | 't' ) ( 'Y' | 'y' )
             {
             if ( input.LA(1)=='V'||input.LA(1)=='v' ) {
                 input.consume();
@@ -1980,8 +1865,8 @@ public class InternalReqSpecLexer extends Lexer {
         try {
             int _type = Conflicts;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/lexer/InternalReqSpecLexer.g:49:11: ( ( 'C' | 'c' ) ( 'O' | 'o' ) ( 'N' | 'n' ) ( 'F' | 'f' ) ( 'L' | 'l' ) ( 'I' | 'i' ) ( 'C' | 'c' ) ( 'T' | 't' ) ( 'S' | 's' ) )
-            // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/lexer/InternalReqSpecLexer.g:49:13: ( 'C' | 'c' ) ( 'O' | 'o' ) ( 'N' | 'n' ) ( 'F' | 'f' ) ( 'L' | 'l' ) ( 'I' | 'i' ) ( 'C' | 'c' ) ( 'T' | 't' ) ( 'S' | 's' )
+            // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/lexer/InternalReqSpecLexer.g:47:11: ( ( 'C' | 'c' ) ( 'O' | 'o' ) ( 'N' | 'n' ) ( 'F' | 'f' ) ( 'L' | 'l' ) ( 'I' | 'i' ) ( 'C' | 'c' ) ( 'T' | 't' ) ( 'S' | 's' ) )
+            // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/lexer/InternalReqSpecLexer.g:47:13: ( 'C' | 'c' ) ( 'O' | 'o' ) ( 'N' | 'n' ) ( 'F' | 'f' ) ( 'L' | 'l' ) ( 'I' | 'i' ) ( 'C' | 'c' ) ( 'T' | 't' ) ( 'S' | 's' )
             {
             if ( input.LA(1)=='C'||input.LA(1)=='c' ) {
                 input.consume();
@@ -2080,8 +1965,8 @@ public class InternalReqSpecLexer extends Lexer {
         try {
             int _type = Extension;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/lexer/InternalReqSpecLexer.g:51:11: ( ( 'E' | 'e' ) ( 'X' | 'x' ) ( 'T' | 't' ) ( 'E' | 'e' ) ( 'N' | 'n' ) ( 'S' | 's' ) ( 'I' | 'i' ) ( 'O' | 'o' ) ( 'N' | 'n' ) )
-            // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/lexer/InternalReqSpecLexer.g:51:13: ( 'E' | 'e' ) ( 'X' | 'x' ) ( 'T' | 't' ) ( 'E' | 'e' ) ( 'N' | 'n' ) ( 'S' | 's' ) ( 'I' | 'i' ) ( 'O' | 'o' ) ( 'N' | 'n' )
+            // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/lexer/InternalReqSpecLexer.g:49:11: ( ( 'E' | 'e' ) ( 'X' | 'x' ) ( 'T' | 't' ) ( 'E' | 'e' ) ( 'N' | 'n' ) ( 'S' | 's' ) ( 'I' | 'i' ) ( 'O' | 'o' ) ( 'N' | 'n' ) )
+            // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/lexer/InternalReqSpecLexer.g:49:13: ( 'E' | 'e' ) ( 'X' | 'x' ) ( 'T' | 't' ) ( 'E' | 'e' ) ( 'N' | 'n' ) ( 'S' | 's' ) ( 'I' | 'i' ) ( 'O' | 'o' ) ( 'N' | 'n' )
             {
             if ( input.LA(1)=='E'||input.LA(1)=='e' ) {
                 input.consume();
@@ -2175,213 +2060,13 @@ public class InternalReqSpecLexer extends Lexer {
     }
     // $ANTLR end "Extension"
 
-    // $ANTLR start "Guarantee"
-    public final void mGuarantee() throws RecognitionException {
-        try {
-            int _type = Guarantee;
-            int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/lexer/InternalReqSpecLexer.g:53:11: ( ( 'G' | 'g' ) ( 'U' | 'u' ) ( 'A' | 'a' ) ( 'R' | 'r' ) ( 'A' | 'a' ) ( 'N' | 'n' ) ( 'T' | 't' ) ( 'E' | 'e' ) ( 'E' | 'e' ) )
-            // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/lexer/InternalReqSpecLexer.g:53:13: ( 'G' | 'g' ) ( 'U' | 'u' ) ( 'A' | 'a' ) ( 'R' | 'r' ) ( 'A' | 'a' ) ( 'N' | 'n' ) ( 'T' | 't' ) ( 'E' | 'e' ) ( 'E' | 'e' )
-            {
-            if ( input.LA(1)=='G'||input.LA(1)=='g' ) {
-                input.consume();
-
-            }
-            else {
-                MismatchedSetException mse = new MismatchedSetException(null,input);
-                recover(mse);
-                throw mse;}
-
-            if ( input.LA(1)=='U'||input.LA(1)=='u' ) {
-                input.consume();
-
-            }
-            else {
-                MismatchedSetException mse = new MismatchedSetException(null,input);
-                recover(mse);
-                throw mse;}
-
-            if ( input.LA(1)=='A'||input.LA(1)=='a' ) {
-                input.consume();
-
-            }
-            else {
-                MismatchedSetException mse = new MismatchedSetException(null,input);
-                recover(mse);
-                throw mse;}
-
-            if ( input.LA(1)=='R'||input.LA(1)=='r' ) {
-                input.consume();
-
-            }
-            else {
-                MismatchedSetException mse = new MismatchedSetException(null,input);
-                recover(mse);
-                throw mse;}
-
-            if ( input.LA(1)=='A'||input.LA(1)=='a' ) {
-                input.consume();
-
-            }
-            else {
-                MismatchedSetException mse = new MismatchedSetException(null,input);
-                recover(mse);
-                throw mse;}
-
-            if ( input.LA(1)=='N'||input.LA(1)=='n' ) {
-                input.consume();
-
-            }
-            else {
-                MismatchedSetException mse = new MismatchedSetException(null,input);
-                recover(mse);
-                throw mse;}
-
-            if ( input.LA(1)=='T'||input.LA(1)=='t' ) {
-                input.consume();
-
-            }
-            else {
-                MismatchedSetException mse = new MismatchedSetException(null,input);
-                recover(mse);
-                throw mse;}
-
-            if ( input.LA(1)=='E'||input.LA(1)=='e' ) {
-                input.consume();
-
-            }
-            else {
-                MismatchedSetException mse = new MismatchedSetException(null,input);
-                recover(mse);
-                throw mse;}
-
-            if ( input.LA(1)=='E'||input.LA(1)=='e' ) {
-                input.consume();
-
-            }
-            else {
-                MismatchedSetException mse = new MismatchedSetException(null,input);
-                recover(mse);
-                throw mse;}
-
-
-            }
-
-            state.type = _type;
-            state.channel = _channel;
-        }
-        finally {
-        }
-    }
-    // $ANTLR end "Guarantee"
-
-    // $ANTLR start "Invariant"
-    public final void mInvariant() throws RecognitionException {
-        try {
-            int _type = Invariant;
-            int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/lexer/InternalReqSpecLexer.g:55:11: ( ( 'I' | 'i' ) ( 'N' | 'n' ) ( 'V' | 'v' ) ( 'A' | 'a' ) ( 'R' | 'r' ) ( 'I' | 'i' ) ( 'A' | 'a' ) ( 'N' | 'n' ) ( 'T' | 't' ) )
-            // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/lexer/InternalReqSpecLexer.g:55:13: ( 'I' | 'i' ) ( 'N' | 'n' ) ( 'V' | 'v' ) ( 'A' | 'a' ) ( 'R' | 'r' ) ( 'I' | 'i' ) ( 'A' | 'a' ) ( 'N' | 'n' ) ( 'T' | 't' )
-            {
-            if ( input.LA(1)=='I'||input.LA(1)=='i' ) {
-                input.consume();
-
-            }
-            else {
-                MismatchedSetException mse = new MismatchedSetException(null,input);
-                recover(mse);
-                throw mse;}
-
-            if ( input.LA(1)=='N'||input.LA(1)=='n' ) {
-                input.consume();
-
-            }
-            else {
-                MismatchedSetException mse = new MismatchedSetException(null,input);
-                recover(mse);
-                throw mse;}
-
-            if ( input.LA(1)=='V'||input.LA(1)=='v' ) {
-                input.consume();
-
-            }
-            else {
-                MismatchedSetException mse = new MismatchedSetException(null,input);
-                recover(mse);
-                throw mse;}
-
-            if ( input.LA(1)=='A'||input.LA(1)=='a' ) {
-                input.consume();
-
-            }
-            else {
-                MismatchedSetException mse = new MismatchedSetException(null,input);
-                recover(mse);
-                throw mse;}
-
-            if ( input.LA(1)=='R'||input.LA(1)=='r' ) {
-                input.consume();
-
-            }
-            else {
-                MismatchedSetException mse = new MismatchedSetException(null,input);
-                recover(mse);
-                throw mse;}
-
-            if ( input.LA(1)=='I'||input.LA(1)=='i' ) {
-                input.consume();
-
-            }
-            else {
-                MismatchedSetException mse = new MismatchedSetException(null,input);
-                recover(mse);
-                throw mse;}
-
-            if ( input.LA(1)=='A'||input.LA(1)=='a' ) {
-                input.consume();
-
-            }
-            else {
-                MismatchedSetException mse = new MismatchedSetException(null,input);
-                recover(mse);
-                throw mse;}
-
-            if ( input.LA(1)=='N'||input.LA(1)=='n' ) {
-                input.consume();
-
-            }
-            else {
-                MismatchedSetException mse = new MismatchedSetException(null,input);
-                recover(mse);
-                throw mse;}
-
-            if ( input.LA(1)=='T'||input.LA(1)=='t' ) {
-                input.consume();
-
-            }
-            else {
-                MismatchedSetException mse = new MismatchedSetException(null,input);
-                recover(mse);
-                throw mse;}
-
-
-            }
-
-            state.type = _type;
-            state.channel = _channel;
-        }
-        finally {
-        }
-    }
-    // $ANTLR end "Invariant"
-
     // $ANTLR start "Mitigates"
     public final void mMitigates() throws RecognitionException {
         try {
             int _type = Mitigates;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/lexer/InternalReqSpecLexer.g:57:11: ( ( 'M' | 'm' ) ( 'I' | 'i' ) ( 'T' | 't' ) ( 'I' | 'i' ) ( 'G' | 'g' ) ( 'A' | 'a' ) ( 'T' | 't' ) ( 'E' | 'e' ) ( 'S' | 's' ) )
-            // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/lexer/InternalReqSpecLexer.g:57:13: ( 'M' | 'm' ) ( 'I' | 'i' ) ( 'T' | 't' ) ( 'I' | 'i' ) ( 'G' | 'g' ) ( 'A' | 'a' ) ( 'T' | 't' ) ( 'E' | 'e' ) ( 'S' | 's' )
+            // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/lexer/InternalReqSpecLexer.g:51:11: ( ( 'M' | 'm' ) ( 'I' | 'i' ) ( 'T' | 't' ) ( 'I' | 'i' ) ( 'G' | 'g' ) ( 'A' | 'a' ) ( 'T' | 't' ) ( 'E' | 'e' ) ( 'S' | 's' ) )
+            // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/lexer/InternalReqSpecLexer.g:51:13: ( 'M' | 'm' ) ( 'I' | 'i' ) ( 'T' | 't' ) ( 'I' | 'i' ) ( 'G' | 'g' ) ( 'A' | 'a' ) ( 'T' | 't' ) ( 'E' | 'e' ) ( 'S' | 's' )
             {
             if ( input.LA(1)=='M'||input.LA(1)=='m' ) {
                 input.consume();
@@ -2480,8 +2165,8 @@ public class InternalReqSpecLexer extends Lexer {
         try {
             int _type = Predicate;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/lexer/InternalReqSpecLexer.g:59:11: ( ( 'P' | 'p' ) ( 'R' | 'r' ) ( 'E' | 'e' ) ( 'D' | 'd' ) ( 'I' | 'i' ) ( 'C' | 'c' ) ( 'A' | 'a' ) ( 'T' | 't' ) ( 'E' | 'e' ) )
-            // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/lexer/InternalReqSpecLexer.g:59:13: ( 'P' | 'p' ) ( 'R' | 'r' ) ( 'E' | 'e' ) ( 'D' | 'd' ) ( 'I' | 'i' ) ( 'C' | 'c' ) ( 'A' | 'a' ) ( 'T' | 't' ) ( 'E' | 'e' )
+            // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/lexer/InternalReqSpecLexer.g:53:11: ( ( 'P' | 'p' ) ( 'R' | 'r' ) ( 'E' | 'e' ) ( 'D' | 'd' ) ( 'I' | 'i' ) ( 'C' | 'c' ) ( 'A' | 'a' ) ( 'T' | 't' ) ( 'E' | 'e' ) )
+            // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/lexer/InternalReqSpecLexer.g:53:13: ( 'P' | 'p' ) ( 'R' | 'r' ) ( 'E' | 'e' ) ( 'D' | 'd' ) ( 'I' | 'i' ) ( 'C' | 'c' ) ( 'A' | 'a' ) ( 'T' | 't' ) ( 'E' | 'e' )
             {
             if ( input.LA(1)=='P'||input.LA(1)=='p' ) {
                 input.consume();
@@ -2580,8 +2265,8 @@ public class InternalReqSpecLexer extends Lexer {
         try {
             int _type = Rationale;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/lexer/InternalReqSpecLexer.g:61:11: ( ( 'R' | 'r' ) ( 'A' | 'a' ) ( 'T' | 't' ) ( 'I' | 'i' ) ( 'O' | 'o' ) ( 'N' | 'n' ) ( 'A' | 'a' ) ( 'L' | 'l' ) ( 'E' | 'e' ) )
-            // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/lexer/InternalReqSpecLexer.g:61:13: ( 'R' | 'r' ) ( 'A' | 'a' ) ( 'T' | 't' ) ( 'I' | 'i' ) ( 'O' | 'o' ) ( 'N' | 'n' ) ( 'A' | 'a' ) ( 'L' | 'l' ) ( 'E' | 'e' )
+            // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/lexer/InternalReqSpecLexer.g:55:11: ( ( 'R' | 'r' ) ( 'A' | 'a' ) ( 'T' | 't' ) ( 'I' | 'i' ) ( 'O' | 'o' ) ( 'N' | 'n' ) ( 'A' | 'a' ) ( 'L' | 'l' ) ( 'E' | 'e' ) )
+            // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/lexer/InternalReqSpecLexer.g:55:13: ( 'R' | 'r' ) ( 'A' | 'a' ) ( 'T' | 't' ) ( 'I' | 'i' ) ( 'O' | 'o' ) ( 'N' | 'n' ) ( 'A' | 'a' ) ( 'L' | 'l' ) ( 'E' | 'e' )
             {
             if ( input.LA(1)=='R'||input.LA(1)=='r' ) {
                 input.consume();
@@ -2680,8 +2365,8 @@ public class InternalReqSpecLexer extends Lexer {
         try {
             int _type = Riskindex;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/lexer/InternalReqSpecLexer.g:63:11: ( ( 'R' | 'r' ) ( 'I' | 'i' ) ( 'S' | 's' ) ( 'K' | 'k' ) ( 'I' | 'i' ) ( 'N' | 'n' ) ( 'D' | 'd' ) ( 'E' | 'e' ) ( 'X' | 'x' ) )
-            // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/lexer/InternalReqSpecLexer.g:63:13: ( 'R' | 'r' ) ( 'I' | 'i' ) ( 'S' | 's' ) ( 'K' | 'k' ) ( 'I' | 'i' ) ( 'N' | 'n' ) ( 'D' | 'd' ) ( 'E' | 'e' ) ( 'X' | 'x' )
+            // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/lexer/InternalReqSpecLexer.g:57:11: ( ( 'R' | 'r' ) ( 'I' | 'i' ) ( 'S' | 's' ) ( 'K' | 'k' ) ( 'I' | 'i' ) ( 'N' | 'n' ) ( 'D' | 'd' ) ( 'E' | 'e' ) ( 'X' | 'x' ) )
+            // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/lexer/InternalReqSpecLexer.g:57:13: ( 'R' | 'r' ) ( 'I' | 'i' ) ( 'S' | 's' ) ( 'K' | 'k' ) ( 'I' | 'i' ) ( 'N' | 'n' ) ( 'D' | 'd' ) ( 'E' | 'e' ) ( 'X' | 'x' )
             {
             if ( input.LA(1)=='R'||input.LA(1)=='r' ) {
                 input.consume();
@@ -2780,8 +2465,8 @@ public class InternalReqSpecLexer extends Lexer {
         try {
             int _type = Category;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/lexer/InternalReqSpecLexer.g:65:10: ( ( 'C' | 'c' ) ( 'A' | 'a' ) ( 'T' | 't' ) ( 'E' | 'e' ) ( 'G' | 'g' ) ( 'O' | 'o' ) ( 'R' | 'r' ) ( 'Y' | 'y' ) )
-            // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/lexer/InternalReqSpecLexer.g:65:12: ( 'C' | 'c' ) ( 'A' | 'a' ) ( 'T' | 't' ) ( 'E' | 'e' ) ( 'G' | 'g' ) ( 'O' | 'o' ) ( 'R' | 'r' ) ( 'Y' | 'y' )
+            // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/lexer/InternalReqSpecLexer.g:59:10: ( ( 'C' | 'c' ) ( 'A' | 'a' ) ( 'T' | 't' ) ( 'E' | 'e' ) ( 'G' | 'g' ) ( 'O' | 'o' ) ( 'R' | 'r' ) ( 'Y' | 'y' ) )
+            // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/lexer/InternalReqSpecLexer.g:59:12: ( 'C' | 'c' ) ( 'A' | 'a' ) ( 'T' | 't' ) ( 'E' | 'e' ) ( 'G' | 'g' ) ( 'O' | 'o' ) ( 'R' | 'r' ) ( 'Y' | 'y' )
             {
             if ( input.LA(1)=='C'||input.LA(1)=='c' ) {
                 input.consume();
@@ -2871,8 +2556,8 @@ public class InternalReqSpecLexer extends Lexer {
         try {
             int _type = Document;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/lexer/InternalReqSpecLexer.g:67:10: ( ( 'D' | 'd' ) ( 'O' | 'o' ) ( 'C' | 'c' ) ( 'U' | 'u' ) ( 'M' | 'm' ) ( 'E' | 'e' ) ( 'N' | 'n' ) ( 'T' | 't' ) )
-            // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/lexer/InternalReqSpecLexer.g:67:12: ( 'D' | 'd' ) ( 'O' | 'o' ) ( 'C' | 'c' ) ( 'U' | 'u' ) ( 'M' | 'm' ) ( 'E' | 'e' ) ( 'N' | 'n' ) ( 'T' | 't' )
+            // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/lexer/InternalReqSpecLexer.g:61:10: ( ( 'D' | 'd' ) ( 'O' | 'o' ) ( 'C' | 'c' ) ( 'U' | 'u' ) ( 'M' | 'm' ) ( 'E' | 'e' ) ( 'N' | 'n' ) ( 'T' | 't' ) )
+            // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/lexer/InternalReqSpecLexer.g:61:12: ( 'D' | 'd' ) ( 'O' | 'o' ) ( 'C' | 'c' ) ( 'U' | 'u' ) ( 'M' | 'm' ) ( 'E' | 'e' ) ( 'N' | 'n' ) ( 'T' | 't' )
             {
             if ( input.LA(1)=='D'||input.LA(1)=='d' ) {
                 input.consume();
@@ -2957,13 +2642,104 @@ public class InternalReqSpecLexer extends Lexer {
     }
     // $ANTLR end "Document"
 
+    // $ANTLR start "Informal"
+    public final void mInformal() throws RecognitionException {
+        try {
+            int _type = Informal;
+            int _channel = DEFAULT_TOKEN_CHANNEL;
+            // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/lexer/InternalReqSpecLexer.g:63:10: ( ( 'I' | 'i' ) ( 'N' | 'n' ) ( 'F' | 'f' ) ( 'O' | 'o' ) ( 'R' | 'r' ) ( 'M' | 'm' ) ( 'A' | 'a' ) ( 'L' | 'l' ) )
+            // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/lexer/InternalReqSpecLexer.g:63:12: ( 'I' | 'i' ) ( 'N' | 'n' ) ( 'F' | 'f' ) ( 'O' | 'o' ) ( 'R' | 'r' ) ( 'M' | 'm' ) ( 'A' | 'a' ) ( 'L' | 'l' )
+            {
+            if ( input.LA(1)=='I'||input.LA(1)=='i' ) {
+                input.consume();
+
+            }
+            else {
+                MismatchedSetException mse = new MismatchedSetException(null,input);
+                recover(mse);
+                throw mse;}
+
+            if ( input.LA(1)=='N'||input.LA(1)=='n' ) {
+                input.consume();
+
+            }
+            else {
+                MismatchedSetException mse = new MismatchedSetException(null,input);
+                recover(mse);
+                throw mse;}
+
+            if ( input.LA(1)=='F'||input.LA(1)=='f' ) {
+                input.consume();
+
+            }
+            else {
+                MismatchedSetException mse = new MismatchedSetException(null,input);
+                recover(mse);
+                throw mse;}
+
+            if ( input.LA(1)=='O'||input.LA(1)=='o' ) {
+                input.consume();
+
+            }
+            else {
+                MismatchedSetException mse = new MismatchedSetException(null,input);
+                recover(mse);
+                throw mse;}
+
+            if ( input.LA(1)=='R'||input.LA(1)=='r' ) {
+                input.consume();
+
+            }
+            else {
+                MismatchedSetException mse = new MismatchedSetException(null,input);
+                recover(mse);
+                throw mse;}
+
+            if ( input.LA(1)=='M'||input.LA(1)=='m' ) {
+                input.consume();
+
+            }
+            else {
+                MismatchedSetException mse = new MismatchedSetException(null,input);
+                recover(mse);
+                throw mse;}
+
+            if ( input.LA(1)=='A'||input.LA(1)=='a' ) {
+                input.consume();
+
+            }
+            else {
+                MismatchedSetException mse = new MismatchedSetException(null,input);
+                recover(mse);
+                throw mse;}
+
+            if ( input.LA(1)=='L'||input.LA(1)=='l' ) {
+                input.consume();
+
+            }
+            else {
+                MismatchedSetException mse = new MismatchedSetException(null,input);
+                recover(mse);
+                throw mse;}
+
+
+            }
+
+            state.type = _type;
+            state.channel = _channel;
+        }
+        finally {
+        }
+    }
+    // $ANTLR end "Informal"
+
     // $ANTLR start "Compute"
     public final void mCompute() throws RecognitionException {
         try {
             int _type = Compute;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/lexer/InternalReqSpecLexer.g:69:9: ( ( 'C' | 'c' ) ( 'O' | 'o' ) ( 'M' | 'm' ) ( 'P' | 'p' ) ( 'U' | 'u' ) ( 'T' | 't' ) ( 'E' | 'e' ) )
-            // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/lexer/InternalReqSpecLexer.g:69:11: ( 'C' | 'c' ) ( 'O' | 'o' ) ( 'M' | 'm' ) ( 'P' | 'p' ) ( 'U' | 'u' ) ( 'T' | 't' ) ( 'E' | 'e' )
+            // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/lexer/InternalReqSpecLexer.g:65:9: ( ( 'C' | 'c' ) ( 'O' | 'o' ) ( 'M' | 'm' ) ( 'P' | 'p' ) ( 'U' | 'u' ) ( 'T' | 't' ) ( 'E' | 'e' ) )
+            // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/lexer/InternalReqSpecLexer.g:65:11: ( 'C' | 'c' ) ( 'O' | 'o' ) ( 'M' | 'm' ) ( 'P' | 'p' ) ( 'U' | 'u' ) ( 'T' | 't' ) ( 'E' | 'e' )
             {
             if ( input.LA(1)=='C'||input.LA(1)=='c' ) {
                 input.consume();
@@ -3044,8 +2820,8 @@ public class InternalReqSpecLexer extends Lexer {
         try {
             int _type = Default;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/lexer/InternalReqSpecLexer.g:71:9: ( ( 'D' | 'd' ) ( 'E' | 'e' ) ( 'F' | 'f' ) ( 'A' | 'a' ) ( 'U' | 'u' ) ( 'L' | 'l' ) ( 'T' | 't' ) )
-            // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/lexer/InternalReqSpecLexer.g:71:11: ( 'D' | 'd' ) ( 'E' | 'e' ) ( 'F' | 'f' ) ( 'A' | 'a' ) ( 'U' | 'u' ) ( 'L' | 'l' ) ( 'T' | 't' )
+            // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/lexer/InternalReqSpecLexer.g:67:9: ( ( 'D' | 'd' ) ( 'E' | 'e' ) ( 'F' | 'f' ) ( 'A' | 'a' ) ( 'U' | 'u' ) ( 'L' | 'l' ) ( 'T' | 't' ) )
+            // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/lexer/InternalReqSpecLexer.g:67:11: ( 'D' | 'd' ) ( 'E' | 'e' ) ( 'F' | 'f' ) ( 'A' | 'a' ) ( 'U' | 'u' ) ( 'L' | 'l' ) ( 'T' | 't' )
             {
             if ( input.LA(1)=='D'||input.LA(1)=='d' ) {
                 input.consume();
@@ -3126,8 +2902,8 @@ public class InternalReqSpecLexer extends Lexer {
         try {
             int _type = Dropped;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/lexer/InternalReqSpecLexer.g:73:9: ( ( 'D' | 'd' ) ( 'R' | 'r' ) ( 'O' | 'o' ) ( 'P' | 'p' ) ( 'P' | 'p' ) ( 'E' | 'e' ) ( 'D' | 'd' ) )
-            // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/lexer/InternalReqSpecLexer.g:73:11: ( 'D' | 'd' ) ( 'R' | 'r' ) ( 'O' | 'o' ) ( 'P' | 'p' ) ( 'P' | 'p' ) ( 'E' | 'e' ) ( 'D' | 'd' )
+            // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/lexer/InternalReqSpecLexer.g:69:9: ( ( 'D' | 'd' ) ( 'R' | 'r' ) ( 'O' | 'o' ) ( 'P' | 'p' ) ( 'P' | 'p' ) ( 'E' | 'e' ) ( 'D' | 'd' ) )
+            // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/lexer/InternalReqSpecLexer.g:69:11: ( 'D' | 'd' ) ( 'R' | 'r' ) ( 'O' | 'o' ) ( 'P' | 'p' ) ( 'P' | 'p' ) ( 'E' | 'e' ) ( 'D' | 'd' )
             {
             if ( input.LA(1)=='D'||input.LA(1)=='d' ) {
                 input.consume();
@@ -3208,8 +2984,8 @@ public class InternalReqSpecLexer extends Lexer {
         try {
             int _type = Evolves;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/lexer/InternalReqSpecLexer.g:75:9: ( ( 'E' | 'e' ) ( 'V' | 'v' ) ( 'O' | 'o' ) ( 'L' | 'l' ) ( 'V' | 'v' ) ( 'E' | 'e' ) ( 'S' | 's' ) )
-            // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/lexer/InternalReqSpecLexer.g:75:11: ( 'E' | 'e' ) ( 'V' | 'v' ) ( 'O' | 'o' ) ( 'L' | 'l' ) ( 'V' | 'v' ) ( 'E' | 'e' ) ( 'S' | 's' )
+            // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/lexer/InternalReqSpecLexer.g:71:9: ( ( 'E' | 'e' ) ( 'V' | 'v' ) ( 'O' | 'o' ) ( 'L' | 'l' ) ( 'V' | 'v' ) ( 'E' | 'e' ) ( 'S' | 's' ) )
+            // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/lexer/InternalReqSpecLexer.g:71:11: ( 'E' | 'e' ) ( 'V' | 'v' ) ( 'O' | 'o' ) ( 'L' | 'l' ) ( 'V' | 'v' ) ( 'E' | 'e' ) ( 'S' | 's' )
             {
             if ( input.LA(1)=='E'||input.LA(1)=='e' ) {
                 input.consume();
@@ -3290,8 +3066,8 @@ public class InternalReqSpecLexer extends Lexer {
         try {
             int _type = Extends;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/lexer/InternalReqSpecLexer.g:77:9: ( ( 'E' | 'e' ) ( 'X' | 'x' ) ( 'T' | 't' ) ( 'E' | 'e' ) ( 'N' | 'n' ) ( 'D' | 'd' ) ( 'S' | 's' ) )
-            // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/lexer/InternalReqSpecLexer.g:77:11: ( 'E' | 'e' ) ( 'X' | 'x' ) ( 'T' | 't' ) ( 'E' | 'e' ) ( 'N' | 'n' ) ( 'D' | 'd' ) ( 'S' | 's' )
+            // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/lexer/InternalReqSpecLexer.g:73:9: ( ( 'E' | 'e' ) ( 'X' | 'x' ) ( 'T' | 't' ) ( 'E' | 'e' ) ( 'N' | 'n' ) ( 'D' | 'd' ) ( 'S' | 's' ) )
+            // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/lexer/InternalReqSpecLexer.g:73:11: ( 'E' | 'e' ) ( 'X' | 'x' ) ( 'T' | 't' ) ( 'E' | 'e' ) ( 'N' | 'n' ) ( 'D' | 'd' ) ( 'S' | 's' )
             {
             if ( input.LA(1)=='E'||input.LA(1)=='e' ) {
                 input.consume();
@@ -3372,8 +3148,8 @@ public class InternalReqSpecLexer extends Lexer {
         try {
             int _type = Finally;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/lexer/InternalReqSpecLexer.g:79:9: ( ( 'F' | 'f' ) ( 'I' | 'i' ) ( 'N' | 'n' ) ( 'A' | 'a' ) ( 'L' | 'l' ) ( 'L' | 'l' ) ( 'Y' | 'y' ) )
-            // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/lexer/InternalReqSpecLexer.g:79:11: ( 'F' | 'f' ) ( 'I' | 'i' ) ( 'N' | 'n' ) ( 'A' | 'a' ) ( 'L' | 'l' ) ( 'L' | 'l' ) ( 'Y' | 'y' )
+            // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/lexer/InternalReqSpecLexer.g:75:9: ( ( 'F' | 'f' ) ( 'I' | 'i' ) ( 'N' | 'n' ) ( 'A' | 'a' ) ( 'L' | 'l' ) ( 'L' | 'l' ) ( 'Y' | 'y' ) )
+            // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/lexer/InternalReqSpecLexer.g:75:11: ( 'F' | 'f' ) ( 'I' | 'i' ) ( 'N' | 'n' ) ( 'A' | 'a' ) ( 'L' | 'l' ) ( 'L' | 'l' ) ( 'Y' | 'y' )
             {
             if ( input.LA(1)=='F'||input.LA(1)=='f' ) {
                 input.consume();
@@ -3454,8 +3230,8 @@ public class InternalReqSpecLexer extends Lexer {
         try {
             int _type = Refines;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/lexer/InternalReqSpecLexer.g:81:9: ( ( 'R' | 'r' ) ( 'E' | 'e' ) ( 'F' | 'f' ) ( 'I' | 'i' ) ( 'N' | 'n' ) ( 'E' | 'e' ) ( 'S' | 's' ) )
-            // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/lexer/InternalReqSpecLexer.g:81:11: ( 'R' | 'r' ) ( 'E' | 'e' ) ( 'F' | 'f' ) ( 'I' | 'i' ) ( 'N' | 'n' ) ( 'E' | 'e' ) ( 'S' | 's' )
+            // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/lexer/InternalReqSpecLexer.g:77:9: ( ( 'R' | 'r' ) ( 'E' | 'e' ) ( 'F' | 'f' ) ( 'I' | 'i' ) ( 'N' | 'n' ) ( 'E' | 'e' ) ( 'S' | 's' ) )
+            // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/lexer/InternalReqSpecLexer.g:77:11: ( 'R' | 'r' ) ( 'E' | 'e' ) ( 'F' | 'f' ) ( 'I' | 'i' ) ( 'N' | 'n' ) ( 'E' | 'e' ) ( 'S' | 's' )
             {
             if ( input.LA(1)=='R'||input.LA(1)=='r' ) {
                 input.consume();
@@ -3536,8 +3312,8 @@ public class InternalReqSpecLexer extends Lexer {
         try {
             int _type = Section;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/lexer/InternalReqSpecLexer.g:83:9: ( ( 'S' | 's' ) ( 'E' | 'e' ) ( 'C' | 'c' ) ( 'T' | 't' ) ( 'I' | 'i' ) ( 'O' | 'o' ) ( 'N' | 'n' ) )
-            // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/lexer/InternalReqSpecLexer.g:83:11: ( 'S' | 's' ) ( 'E' | 'e' ) ( 'C' | 'c' ) ( 'T' | 't' ) ( 'I' | 'i' ) ( 'O' | 'o' ) ( 'N' | 'n' )
+            // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/lexer/InternalReqSpecLexer.g:79:9: ( ( 'S' | 's' ) ( 'E' | 'e' ) ( 'C' | 'c' ) ( 'T' | 't' ) ( 'I' | 'i' ) ( 'O' | 'o' ) ( 'N' | 'n' ) )
+            // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/lexer/InternalReqSpecLexer.g:79:11: ( 'S' | 's' ) ( 'E' | 'e' ) ( 'C' | 'c' ) ( 'T' | 't' ) ( 'I' | 'i' ) ( 'O' | 'o' ) ( 'N' | 'n' )
             {
             if ( input.LA(1)=='S'||input.LA(1)=='s' ) {
                 input.consume();
@@ -3613,86 +3389,13 @@ public class InternalReqSpecLexer extends Lexer {
     }
     // $ANTLR end "Section"
 
-    // $ANTLR start "Assert"
-    public final void mAssert() throws RecognitionException {
-        try {
-            int _type = Assert;
-            int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/lexer/InternalReqSpecLexer.g:85:8: ( ( 'A' | 'a' ) ( 'S' | 's' ) ( 'S' | 's' ) ( 'E' | 'e' ) ( 'R' | 'r' ) ( 'T' | 't' ) )
-            // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/lexer/InternalReqSpecLexer.g:85:10: ( 'A' | 'a' ) ( 'S' | 's' ) ( 'S' | 's' ) ( 'E' | 'e' ) ( 'R' | 'r' ) ( 'T' | 't' )
-            {
-            if ( input.LA(1)=='A'||input.LA(1)=='a' ) {
-                input.consume();
-
-            }
-            else {
-                MismatchedSetException mse = new MismatchedSetException(null,input);
-                recover(mse);
-                throw mse;}
-
-            if ( input.LA(1)=='S'||input.LA(1)=='s' ) {
-                input.consume();
-
-            }
-            else {
-                MismatchedSetException mse = new MismatchedSetException(null,input);
-                recover(mse);
-                throw mse;}
-
-            if ( input.LA(1)=='S'||input.LA(1)=='s' ) {
-                input.consume();
-
-            }
-            else {
-                MismatchedSetException mse = new MismatchedSetException(null,input);
-                recover(mse);
-                throw mse;}
-
-            if ( input.LA(1)=='E'||input.LA(1)=='e' ) {
-                input.consume();
-
-            }
-            else {
-                MismatchedSetException mse = new MismatchedSetException(null,input);
-                recover(mse);
-                throw mse;}
-
-            if ( input.LA(1)=='R'||input.LA(1)=='r' ) {
-                input.consume();
-
-            }
-            else {
-                MismatchedSetException mse = new MismatchedSetException(null,input);
-                recover(mse);
-                throw mse;}
-
-            if ( input.LA(1)=='T'||input.LA(1)=='t' ) {
-                input.consume();
-
-            }
-            else {
-                MismatchedSetException mse = new MismatchedSetException(null,input);
-                recover(mse);
-                throw mse;}
-
-
-            }
-
-            state.type = _type;
-            state.channel = _channel;
-        }
-        finally {
-        }
-    }
-    // $ANTLR end "Assert"
-
     // $ANTLR start "Import"
     public final void mImport() throws RecognitionException {
         try {
             int _type = Import;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/lexer/InternalReqSpecLexer.g:87:8: ( ( 'I' | 'i' ) ( 'M' | 'm' ) ( 'P' | 'p' ) ( 'O' | 'o' ) ( 'R' | 'r' ) ( 'T' | 't' ) )
-            // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/lexer/InternalReqSpecLexer.g:87:10: ( 'I' | 'i' ) ( 'M' | 'm' ) ( 'P' | 'p' ) ( 'O' | 'o' ) ( 'R' | 'r' ) ( 'T' | 't' )
+            // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/lexer/InternalReqSpecLexer.g:81:8: ( ( 'I' | 'i' ) ( 'M' | 'm' ) ( 'P' | 'p' ) ( 'O' | 'o' ) ( 'R' | 'r' ) ( 'T' | 't' ) )
+            // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/lexer/InternalReqSpecLexer.g:81:10: ( 'I' | 'i' ) ( 'M' | 'm' ) ( 'P' | 'p' ) ( 'O' | 'o' ) ( 'R' | 'r' ) ( 'T' | 't' )
             {
             if ( input.LA(1)=='I'||input.LA(1)=='i' ) {
                 input.consume();
@@ -3764,8 +3467,8 @@ public class InternalReqSpecLexer extends Lexer {
         try {
             int _type = Issues;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/lexer/InternalReqSpecLexer.g:89:8: ( ( 'I' | 'i' ) ( 'S' | 's' ) ( 'S' | 's' ) ( 'U' | 'u' ) ( 'E' | 'e' ) ( 'S' | 's' ) )
-            // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/lexer/InternalReqSpecLexer.g:89:10: ( 'I' | 'i' ) ( 'S' | 's' ) ( 'S' | 's' ) ( 'U' | 'u' ) ( 'E' | 'e' ) ( 'S' | 's' )
+            // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/lexer/InternalReqSpecLexer.g:83:8: ( ( 'I' | 'i' ) ( 'S' | 's' ) ( 'S' | 's' ) ( 'U' | 'u' ) ( 'E' | 'e' ) ( 'S' | 's' ) )
+            // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/lexer/InternalReqSpecLexer.g:83:10: ( 'I' | 'i' ) ( 'S' | 's' ) ( 'S' | 's' ) ( 'U' | 'u' ) ( 'E' | 'e' ) ( 'S' | 's' )
             {
             if ( input.LA(1)=='I'||input.LA(1)=='i' ) {
                 input.consume();
@@ -3832,86 +3535,13 @@ public class InternalReqSpecLexer extends Lexer {
     }
     // $ANTLR end "Issues"
 
-    // $ANTLR start "Output"
-    public final void mOutput() throws RecognitionException {
-        try {
-            int _type = Output;
-            int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/lexer/InternalReqSpecLexer.g:91:8: ( ( 'O' | 'o' ) ( 'U' | 'u' ) ( 'T' | 't' ) ( 'P' | 'p' ) ( 'U' | 'u' ) ( 'T' | 't' ) )
-            // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/lexer/InternalReqSpecLexer.g:91:10: ( 'O' | 'o' ) ( 'U' | 'u' ) ( 'T' | 't' ) ( 'P' | 'p' ) ( 'U' | 'u' ) ( 'T' | 't' )
-            {
-            if ( input.LA(1)=='O'||input.LA(1)=='o' ) {
-                input.consume();
-
-            }
-            else {
-                MismatchedSetException mse = new MismatchedSetException(null,input);
-                recover(mse);
-                throw mse;}
-
-            if ( input.LA(1)=='U'||input.LA(1)=='u' ) {
-                input.consume();
-
-            }
-            else {
-                MismatchedSetException mse = new MismatchedSetException(null,input);
-                recover(mse);
-                throw mse;}
-
-            if ( input.LA(1)=='T'||input.LA(1)=='t' ) {
-                input.consume();
-
-            }
-            else {
-                MismatchedSetException mse = new MismatchedSetException(null,input);
-                recover(mse);
-                throw mse;}
-
-            if ( input.LA(1)=='P'||input.LA(1)=='p' ) {
-                input.consume();
-
-            }
-            else {
-                MismatchedSetException mse = new MismatchedSetException(null,input);
-                recover(mse);
-                throw mse;}
-
-            if ( input.LA(1)=='U'||input.LA(1)=='u' ) {
-                input.consume();
-
-            }
-            else {
-                MismatchedSetException mse = new MismatchedSetException(null,input);
-                recover(mse);
-                throw mse;}
-
-            if ( input.LA(1)=='T'||input.LA(1)=='t' ) {
-                input.consume();
-
-            }
-            else {
-                MismatchedSetException mse = new MismatchedSetException(null,input);
-                recover(mse);
-                throw mse;}
-
-
-            }
-
-            state.type = _type;
-            state.channel = _channel;
-        }
-        finally {
-        }
-    }
-    // $ANTLR end "Output"
-
     // $ANTLR start "Return"
     public final void mReturn() throws RecognitionException {
         try {
             int _type = Return;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/lexer/InternalReqSpecLexer.g:93:8: ( ( 'R' | 'r' ) ( 'E' | 'e' ) ( 'T' | 't' ) ( 'U' | 'u' ) ( 'R' | 'r' ) ( 'N' | 'n' ) )
-            // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/lexer/InternalReqSpecLexer.g:93:10: ( 'R' | 'r' ) ( 'E' | 'e' ) ( 'T' | 't' ) ( 'U' | 'u' ) ( 'R' | 'r' ) ( 'N' | 'n' )
+            // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/lexer/InternalReqSpecLexer.g:85:8: ( ( 'R' | 'r' ) ( 'E' | 'e' ) ( 'T' | 't' ) ( 'U' | 'u' ) ( 'R' | 'r' ) ( 'N' | 'n' ) )
+            // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/lexer/InternalReqSpecLexer.g:85:10: ( 'R' | 'r' ) ( 'E' | 'e' ) ( 'T' | 't' ) ( 'U' | 'u' ) ( 'R' | 'r' ) ( 'N' | 'n' )
             {
             if ( input.LA(1)=='R'||input.LA(1)=='r' ) {
                 input.consume();
@@ -3983,8 +3613,8 @@ public class InternalReqSpecLexer extends Lexer {
         try {
             int _type = Static;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/lexer/InternalReqSpecLexer.g:95:8: ( ( 'S' | 's' ) ( 'T' | 't' ) ( 'A' | 'a' ) ( 'T' | 't' ) ( 'I' | 'i' ) ( 'C' | 'c' ) )
-            // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/lexer/InternalReqSpecLexer.g:95:10: ( 'S' | 's' ) ( 'T' | 't' ) ( 'A' | 'a' ) ( 'T' | 't' ) ( 'I' | 'i' ) ( 'C' | 'c' )
+            // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/lexer/InternalReqSpecLexer.g:87:8: ( ( 'S' | 's' ) ( 'T' | 't' ) ( 'A' | 'a' ) ( 'T' | 't' ) ( 'I' | 'i' ) ( 'C' | 'c' ) )
+            // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/lexer/InternalReqSpecLexer.g:87:10: ( 'S' | 's' ) ( 'T' | 't' ) ( 'A' | 'a' ) ( 'T' | 't' ) ( 'I' | 'i' ) ( 'C' | 'c' )
             {
             if ( input.LA(1)=='S'||input.LA(1)=='s' ) {
                 input.consume();
@@ -4056,8 +3686,8 @@ public class InternalReqSpecLexer extends Lexer {
         try {
             int _type = Switch;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/lexer/InternalReqSpecLexer.g:97:8: ( ( 'S' | 's' ) ( 'W' | 'w' ) ( 'I' | 'i' ) ( 'T' | 't' ) ( 'C' | 'c' ) ( 'H' | 'h' ) )
-            // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/lexer/InternalReqSpecLexer.g:97:10: ( 'S' | 's' ) ( 'W' | 'w' ) ( 'I' | 'i' ) ( 'T' | 't' ) ( 'C' | 'c' ) ( 'H' | 'h' )
+            // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/lexer/InternalReqSpecLexer.g:89:8: ( ( 'S' | 's' ) ( 'W' | 'w' ) ( 'I' | 'i' ) ( 'T' | 't' ) ( 'C' | 'c' ) ( 'H' | 'h' ) )
+            // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/lexer/InternalReqSpecLexer.g:89:10: ( 'S' | 's' ) ( 'W' | 'w' ) ( 'I' | 'i' ) ( 'T' | 't' ) ( 'C' | 'c' ) ( 'H' | 'h' )
             {
             if ( input.LA(1)=='S'||input.LA(1)=='s' ) {
                 input.consume();
@@ -4129,8 +3759,8 @@ public class InternalReqSpecLexer extends Lexer {
         try {
             int _type = KW_System;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/lexer/InternalReqSpecLexer.g:99:11: ( ( 'S' | 's' ) ( 'Y' | 'y' ) ( 'S' | 's' ) ( 'T' | 't' ) ( 'E' | 'e' ) ( 'M' | 'm' ) )
-            // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/lexer/InternalReqSpecLexer.g:99:13: ( 'S' | 's' ) ( 'Y' | 'y' ) ( 'S' | 's' ) ( 'T' | 't' ) ( 'E' | 'e' ) ( 'M' | 'm' )
+            // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/lexer/InternalReqSpecLexer.g:91:11: ( ( 'S' | 's' ) ( 'Y' | 'y' ) ( 'S' | 's' ) ( 'T' | 't' ) ( 'E' | 'e' ) ( 'M' | 'm' ) )
+            // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/lexer/InternalReqSpecLexer.g:91:13: ( 'S' | 's' ) ( 'Y' | 'y' ) ( 'S' | 's' ) ( 'T' | 't' ) ( 'E' | 'e' ) ( 'M' | 'm' )
             {
             if ( input.LA(1)=='S'||input.LA(1)=='s' ) {
                 input.consume();
@@ -4202,8 +3832,8 @@ public class InternalReqSpecLexer extends Lexer {
         try {
             int _type = Typeof;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/lexer/InternalReqSpecLexer.g:101:8: ( ( 'T' | 't' ) ( 'Y' | 'y' ) ( 'P' | 'p' ) ( 'E' | 'e' ) ( 'O' | 'o' ) ( 'F' | 'f' ) )
-            // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/lexer/InternalReqSpecLexer.g:101:10: ( 'T' | 't' ) ( 'Y' | 'y' ) ( 'P' | 'p' ) ( 'E' | 'e' ) ( 'O' | 'o' ) ( 'F' | 'f' )
+            // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/lexer/InternalReqSpecLexer.g:93:8: ( ( 'T' | 't' ) ( 'Y' | 'y' ) ( 'P' | 'p' ) ( 'E' | 'e' ) ( 'O' | 'o' ) ( 'F' | 'f' ) )
+            // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/lexer/InternalReqSpecLexer.g:93:10: ( 'T' | 't' ) ( 'Y' | 'y' ) ( 'P' | 'p' ) ( 'E' | 'e' ) ( 'O' | 'o' ) ( 'F' | 'f' )
             {
             if ( input.LA(1)=='T'||input.LA(1)=='t' ) {
                 input.consume();
@@ -4275,8 +3905,8 @@ public class InternalReqSpecLexer extends Lexer {
         try {
             int _type = Catch;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/lexer/InternalReqSpecLexer.g:103:7: ( ( 'C' | 'c' ) ( 'A' | 'a' ) ( 'T' | 't' ) ( 'C' | 'c' ) ( 'H' | 'h' ) )
-            // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/lexer/InternalReqSpecLexer.g:103:9: ( 'C' | 'c' ) ( 'A' | 'a' ) ( 'T' | 't' ) ( 'C' | 'c' ) ( 'H' | 'h' )
+            // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/lexer/InternalReqSpecLexer.g:95:7: ( ( 'C' | 'c' ) ( 'A' | 'a' ) ( 'T' | 't' ) ( 'C' | 'c' ) ( 'H' | 'h' ) )
+            // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/lexer/InternalReqSpecLexer.g:95:9: ( 'C' | 'c' ) ( 'A' | 'a' ) ( 'T' | 't' ) ( 'C' | 'c' ) ( 'H' | 'h' )
             {
             if ( input.LA(1)=='C'||input.LA(1)=='c' ) {
                 input.consume();
@@ -4339,8 +3969,8 @@ public class InternalReqSpecLexer extends Lexer {
         try {
             int _type = False;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/lexer/InternalReqSpecLexer.g:105:7: ( ( 'F' | 'f' ) ( 'A' | 'a' ) ( 'L' | 'l' ) ( 'S' | 's' ) ( 'E' | 'e' ) )
-            // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/lexer/InternalReqSpecLexer.g:105:9: ( 'F' | 'f' ) ( 'A' | 'a' ) ( 'L' | 'l' ) ( 'S' | 's' ) ( 'E' | 'e' )
+            // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/lexer/InternalReqSpecLexer.g:97:7: ( ( 'F' | 'f' ) ( 'A' | 'a' ) ( 'L' | 'l' ) ( 'S' | 's' ) ( 'E' | 'e' ) )
+            // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/lexer/InternalReqSpecLexer.g:97:9: ( 'F' | 'f' ) ( 'A' | 'a' ) ( 'L' | 'l' ) ( 'S' | 's' ) ( 'E' | 'e' )
             {
             if ( input.LA(1)=='F'||input.LA(1)=='f' ) {
                 input.consume();
@@ -4403,8 +4033,8 @@ public class InternalReqSpecLexer extends Lexer {
         try {
             int _type = Goals;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/lexer/InternalReqSpecLexer.g:107:7: ( ( 'G' | 'g' ) ( 'O' | 'o' ) ( 'A' | 'a' ) ( 'L' | 'l' ) ( 'S' | 's' ) )
-            // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/lexer/InternalReqSpecLexer.g:107:9: ( 'G' | 'g' ) ( 'O' | 'o' ) ( 'A' | 'a' ) ( 'L' | 'l' ) ( 'S' | 's' )
+            // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/lexer/InternalReqSpecLexer.g:99:7: ( ( 'G' | 'g' ) ( 'O' | 'o' ) ( 'A' | 'a' ) ( 'L' | 'l' ) ( 'S' | 's' ) )
+            // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/lexer/InternalReqSpecLexer.g:99:9: ( 'G' | 'g' ) ( 'O' | 'o' ) ( 'A' | 'a' ) ( 'L' | 'l' ) ( 'S' | 's' )
             {
             if ( input.LA(1)=='G'||input.LA(1)=='g' ) {
                 input.consume();
@@ -4462,77 +4092,13 @@ public class InternalReqSpecLexer extends Lexer {
     }
     // $ANTLR end "Goals"
 
-    // $ANTLR start "Input"
-    public final void mInput() throws RecognitionException {
-        try {
-            int _type = Input;
-            int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/lexer/InternalReqSpecLexer.g:109:7: ( ( 'I' | 'i' ) ( 'N' | 'n' ) ( 'P' | 'p' ) ( 'U' | 'u' ) ( 'T' | 't' ) )
-            // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/lexer/InternalReqSpecLexer.g:109:9: ( 'I' | 'i' ) ( 'N' | 'n' ) ( 'P' | 'p' ) ( 'U' | 'u' ) ( 'T' | 't' )
-            {
-            if ( input.LA(1)=='I'||input.LA(1)=='i' ) {
-                input.consume();
-
-            }
-            else {
-                MismatchedSetException mse = new MismatchedSetException(null,input);
-                recover(mse);
-                throw mse;}
-
-            if ( input.LA(1)=='N'||input.LA(1)=='n' ) {
-                input.consume();
-
-            }
-            else {
-                MismatchedSetException mse = new MismatchedSetException(null,input);
-                recover(mse);
-                throw mse;}
-
-            if ( input.LA(1)=='P'||input.LA(1)=='p' ) {
-                input.consume();
-
-            }
-            else {
-                MismatchedSetException mse = new MismatchedSetException(null,input);
-                recover(mse);
-                throw mse;}
-
-            if ( input.LA(1)=='U'||input.LA(1)=='u' ) {
-                input.consume();
-
-            }
-            else {
-                MismatchedSetException mse = new MismatchedSetException(null,input);
-                recover(mse);
-                throw mse;}
-
-            if ( input.LA(1)=='T'||input.LA(1)=='t' ) {
-                input.consume();
-
-            }
-            else {
-                MismatchedSetException mse = new MismatchedSetException(null,input);
-                recover(mse);
-                throw mse;}
-
-
-            }
-
-            state.type = _type;
-            state.channel = _channel;
-        }
-        finally {
-        }
-    }
-    // $ANTLR end "Input"
-
     // $ANTLR start "Super"
     public final void mSuper() throws RecognitionException {
         try {
             int _type = Super;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/lexer/InternalReqSpecLexer.g:111:7: ( ( 'S' | 's' ) ( 'U' | 'u' ) ( 'P' | 'p' ) ( 'E' | 'e' ) ( 'R' | 'r' ) )
-            // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/lexer/InternalReqSpecLexer.g:111:9: ( 'S' | 's' ) ( 'U' | 'u' ) ( 'P' | 'p' ) ( 'E' | 'e' ) ( 'R' | 'r' )
+            // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/lexer/InternalReqSpecLexer.g:101:7: ( ( 'S' | 's' ) ( 'U' | 'u' ) ( 'P' | 'p' ) ( 'E' | 'e' ) ( 'R' | 'r' ) )
+            // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/lexer/InternalReqSpecLexer.g:101:9: ( 'S' | 's' ) ( 'U' | 'u' ) ( 'P' | 'p' ) ( 'E' | 'e' ) ( 'R' | 'r' )
             {
             if ( input.LA(1)=='S'||input.LA(1)=='s' ) {
                 input.consume();
@@ -4595,8 +4161,8 @@ public class InternalReqSpecLexer extends Lexer {
         try {
             int _type = Throw;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/lexer/InternalReqSpecLexer.g:113:7: ( ( 'T' | 't' ) ( 'H' | 'h' ) ( 'R' | 'r' ) ( 'O' | 'o' ) ( 'W' | 'w' ) )
-            // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/lexer/InternalReqSpecLexer.g:113:9: ( 'T' | 't' ) ( 'H' | 'h' ) ( 'R' | 'r' ) ( 'O' | 'o' ) ( 'W' | 'w' )
+            // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/lexer/InternalReqSpecLexer.g:103:7: ( ( 'T' | 't' ) ( 'H' | 'h' ) ( 'R' | 'r' ) ( 'O' | 'o' ) ( 'W' | 'w' ) )
+            // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/lexer/InternalReqSpecLexer.g:103:9: ( 'T' | 't' ) ( 'H' | 'h' ) ( 'R' | 'r' ) ( 'O' | 'o' ) ( 'W' | 'w' )
             {
             if ( input.LA(1)=='T'||input.LA(1)=='t' ) {
                 input.consume();
@@ -4654,77 +4220,13 @@ public class InternalReqSpecLexer extends Lexer {
     }
     // $ANTLR end "Throw"
 
-    // $ANTLR start "Value"
-    public final void mValue() throws RecognitionException {
-        try {
-            int _type = Value;
-            int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/lexer/InternalReqSpecLexer.g:115:7: ( ( 'V' | 'v' ) ( 'A' | 'a' ) ( 'L' | 'l' ) ( 'U' | 'u' ) ( 'E' | 'e' ) )
-            // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/lexer/InternalReqSpecLexer.g:115:9: ( 'V' | 'v' ) ( 'A' | 'a' ) ( 'L' | 'l' ) ( 'U' | 'u' ) ( 'E' | 'e' )
-            {
-            if ( input.LA(1)=='V'||input.LA(1)=='v' ) {
-                input.consume();
-
-            }
-            else {
-                MismatchedSetException mse = new MismatchedSetException(null,input);
-                recover(mse);
-                throw mse;}
-
-            if ( input.LA(1)=='A'||input.LA(1)=='a' ) {
-                input.consume();
-
-            }
-            else {
-                MismatchedSetException mse = new MismatchedSetException(null,input);
-                recover(mse);
-                throw mse;}
-
-            if ( input.LA(1)=='L'||input.LA(1)=='l' ) {
-                input.consume();
-
-            }
-            else {
-                MismatchedSetException mse = new MismatchedSetException(null,input);
-                recover(mse);
-                throw mse;}
-
-            if ( input.LA(1)=='U'||input.LA(1)=='u' ) {
-                input.consume();
-
-            }
-            else {
-                MismatchedSetException mse = new MismatchedSetException(null,input);
-                recover(mse);
-                throw mse;}
-
-            if ( input.LA(1)=='E'||input.LA(1)=='e' ) {
-                input.consume();
-
-            }
-            else {
-                MismatchedSetException mse = new MismatchedSetException(null,input);
-                recover(mse);
-                throw mse;}
-
-
-            }
-
-            state.type = _type;
-            state.channel = _channel;
-        }
-        finally {
-        }
-    }
-    // $ANTLR end "Value"
-
     // $ANTLR start "While"
     public final void mWhile() throws RecognitionException {
         try {
             int _type = While;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/lexer/InternalReqSpecLexer.g:117:7: ( ( 'W' | 'w' ) ( 'H' | 'h' ) ( 'I' | 'i' ) ( 'L' | 'l' ) ( 'E' | 'e' ) )
-            // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/lexer/InternalReqSpecLexer.g:117:9: ( 'W' | 'w' ) ( 'H' | 'h' ) ( 'I' | 'i' ) ( 'L' | 'l' ) ( 'E' | 'e' )
+            // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/lexer/InternalReqSpecLexer.g:105:7: ( ( 'W' | 'w' ) ( 'H' | 'h' ) ( 'I' | 'i' ) ( 'L' | 'l' ) ( 'E' | 'e' ) )
+            // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/lexer/InternalReqSpecLexer.g:105:9: ( 'W' | 'w' ) ( 'H' | 'h' ) ( 'I' | 'i' ) ( 'L' | 'l' ) ( 'E' | 'e' )
             {
             if ( input.LA(1)=='W'||input.LA(1)=='w' ) {
                 input.consume();
@@ -4787,8 +4289,8 @@ public class InternalReqSpecLexer extends Lexer {
         try {
             int _type = Case;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/lexer/InternalReqSpecLexer.g:119:6: ( ( 'C' | 'c' ) ( 'A' | 'a' ) ( 'S' | 's' ) ( 'E' | 'e' ) )
-            // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/lexer/InternalReqSpecLexer.g:119:8: ( 'C' | 'c' ) ( 'A' | 'a' ) ( 'S' | 's' ) ( 'E' | 'e' )
+            // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/lexer/InternalReqSpecLexer.g:107:6: ( ( 'C' | 'c' ) ( 'A' | 'a' ) ( 'S' | 's' ) ( 'E' | 'e' ) )
+            // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/lexer/InternalReqSpecLexer.g:107:8: ( 'C' | 'c' ) ( 'A' | 'a' ) ( 'S' | 's' ) ( 'E' | 'e' )
             {
             if ( input.LA(1)=='C'||input.LA(1)=='c' ) {
                 input.consume();
@@ -4842,8 +4344,8 @@ public class InternalReqSpecLexer extends Lexer {
         try {
             int _type = Else;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/lexer/InternalReqSpecLexer.g:121:6: ( ( 'E' | 'e' ) ( 'L' | 'l' ) ( 'S' | 's' ) ( 'E' | 'e' ) )
-            // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/lexer/InternalReqSpecLexer.g:121:8: ( 'E' | 'e' ) ( 'L' | 'l' ) ( 'S' | 's' ) ( 'E' | 'e' )
+            // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/lexer/InternalReqSpecLexer.g:109:6: ( ( 'E' | 'e' ) ( 'L' | 'l' ) ( 'S' | 's' ) ( 'E' | 'e' ) )
+            // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/lexer/InternalReqSpecLexer.g:109:8: ( 'E' | 'e' ) ( 'L' | 'l' ) ( 'S' | 's' ) ( 'E' | 'e' )
             {
             if ( input.LA(1)=='E'||input.LA(1)=='e' ) {
                 input.consume();
@@ -4897,8 +4399,8 @@ public class InternalReqSpecLexer extends Lexer {
         try {
             int _type = Goal;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/lexer/InternalReqSpecLexer.g:123:6: ( ( 'G' | 'g' ) ( 'O' | 'o' ) ( 'A' | 'a' ) ( 'L' | 'l' ) )
-            // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/lexer/InternalReqSpecLexer.g:123:8: ( 'G' | 'g' ) ( 'O' | 'o' ) ( 'A' | 'a' ) ( 'L' | 'l' )
+            // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/lexer/InternalReqSpecLexer.g:111:6: ( ( 'G' | 'g' ) ( 'O' | 'o' ) ( 'A' | 'a' ) ( 'L' | 'l' ) )
+            // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/lexer/InternalReqSpecLexer.g:111:8: ( 'G' | 'g' ) ( 'O' | 'o' ) ( 'A' | 'a' ) ( 'L' | 'l' )
             {
             if ( input.LA(1)=='G'||input.LA(1)=='g' ) {
                 input.consume();
@@ -4952,8 +4454,8 @@ public class InternalReqSpecLexer extends Lexer {
         try {
             int _type = Null;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/lexer/InternalReqSpecLexer.g:125:6: ( ( 'N' | 'n' ) ( 'U' | 'u' ) ( 'L' | 'l' ) ( 'L' | 'l' ) )
-            // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/lexer/InternalReqSpecLexer.g:125:8: ( 'N' | 'n' ) ( 'U' | 'u' ) ( 'L' | 'l' ) ( 'L' | 'l' )
+            // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/lexer/InternalReqSpecLexer.g:113:6: ( ( 'N' | 'n' ) ( 'U' | 'u' ) ( 'L' | 'l' ) ( 'L' | 'l' ) )
+            // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/lexer/InternalReqSpecLexer.g:113:8: ( 'N' | 'n' ) ( 'U' | 'u' ) ( 'L' | 'l' ) ( 'L' | 'l' )
             {
             if ( input.LA(1)=='N'||input.LA(1)=='n' ) {
                 input.consume();
@@ -5007,8 +4509,8 @@ public class InternalReqSpecLexer extends Lexer {
         try {
             int _type = This;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/lexer/InternalReqSpecLexer.g:127:6: ( ( 'T' | 't' ) ( 'H' | 'h' ) ( 'I' | 'i' ) ( 'S' | 's' ) )
-            // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/lexer/InternalReqSpecLexer.g:127:8: ( 'T' | 't' ) ( 'H' | 'h' ) ( 'I' | 'i' ) ( 'S' | 's' )
+            // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/lexer/InternalReqSpecLexer.g:115:6: ( ( 'T' | 't' ) ( 'H' | 'h' ) ( 'I' | 'i' ) ( 'S' | 's' ) )
+            // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/lexer/InternalReqSpecLexer.g:115:8: ( 'T' | 't' ) ( 'H' | 'h' ) ( 'I' | 'i' ) ( 'S' | 's' )
             {
             if ( input.LA(1)=='T'||input.LA(1)=='t' ) {
                 input.consume();
@@ -5062,8 +4564,8 @@ public class InternalReqSpecLexer extends Lexer {
         try {
             int _type = True;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/lexer/InternalReqSpecLexer.g:129:6: ( ( 'T' | 't' ) ( 'R' | 'r' ) ( 'U' | 'u' ) ( 'E' | 'e' ) )
-            // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/lexer/InternalReqSpecLexer.g:129:8: ( 'T' | 't' ) ( 'R' | 'r' ) ( 'U' | 'u' ) ( 'E' | 'e' )
+            // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/lexer/InternalReqSpecLexer.g:117:6: ( ( 'T' | 't' ) ( 'R' | 'r' ) ( 'U' | 'u' ) ( 'E' | 'e' ) )
+            // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/lexer/InternalReqSpecLexer.g:117:8: ( 'T' | 't' ) ( 'R' | 'r' ) ( 'U' | 'u' ) ( 'E' | 'e' )
             {
             if ( input.LA(1)=='T'||input.LA(1)=='t' ) {
                 input.consume();
@@ -5117,8 +4619,8 @@ public class InternalReqSpecLexer extends Lexer {
         try {
             int _type = With;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/lexer/InternalReqSpecLexer.g:131:6: ( ( 'W' | 'w' ) ( 'I' | 'i' ) ( 'T' | 't' ) ( 'H' | 'h' ) )
-            // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/lexer/InternalReqSpecLexer.g:131:8: ( 'W' | 'w' ) ( 'I' | 'i' ) ( 'T' | 't' ) ( 'H' | 'h' )
+            // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/lexer/InternalReqSpecLexer.g:119:6: ( ( 'W' | 'w' ) ( 'I' | 'i' ) ( 'T' | 't' ) ( 'H' | 'h' ) )
+            // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/lexer/InternalReqSpecLexer.g:119:8: ( 'W' | 'w' ) ( 'I' | 'i' ) ( 'T' | 't' ) ( 'H' | 'h' )
             {
             if ( input.LA(1)=='W'||input.LA(1)=='w' ) {
                 input.consume();
@@ -5172,8 +4674,8 @@ public class InternalReqSpecLexer extends Lexer {
         try {
             int _type = ExclamationMarkEqualsSignEqualsSign;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/lexer/InternalReqSpecLexer.g:133:37: ( '!' '=' '=' )
-            // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/lexer/InternalReqSpecLexer.g:133:39: '!' '=' '='
+            // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/lexer/InternalReqSpecLexer.g:121:37: ( '!' '=' '=' )
+            // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/lexer/InternalReqSpecLexer.g:121:39: '!' '=' '='
             {
             match('!'); 
             match('='); 
@@ -5194,8 +4696,8 @@ public class InternalReqSpecLexer extends Lexer {
         try {
             int _type = FullStopFullStopLessThanSign;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/lexer/InternalReqSpecLexer.g:135:30: ( '.' '.' '<' )
-            // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/lexer/InternalReqSpecLexer.g:135:32: '.' '.' '<'
+            // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/lexer/InternalReqSpecLexer.g:123:30: ( '.' '.' '<' )
+            // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/lexer/InternalReqSpecLexer.g:123:32: '.' '.' '<'
             {
             match('.'); 
             match('.'); 
@@ -5216,8 +4718,8 @@ public class InternalReqSpecLexer extends Lexer {
         try {
             int _type = EqualsSignEqualsSignEqualsSign;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/lexer/InternalReqSpecLexer.g:137:32: ( '=' '=' '=' )
-            // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/lexer/InternalReqSpecLexer.g:137:34: '=' '=' '='
+            // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/lexer/InternalReqSpecLexer.g:125:32: ( '=' '=' '=' )
+            // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/lexer/InternalReqSpecLexer.g:125:34: '=' '=' '='
             {
             match('='); 
             match('='); 
@@ -5238,8 +4740,8 @@ public class InternalReqSpecLexer extends Lexer {
         try {
             int _type = All;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/lexer/InternalReqSpecLexer.g:139:5: ( ( 'A' | 'a' ) ( 'L' | 'l' ) ( 'L' | 'l' ) )
-            // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/lexer/InternalReqSpecLexer.g:139:7: ( 'A' | 'a' ) ( 'L' | 'l' ) ( 'L' | 'l' )
+            // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/lexer/InternalReqSpecLexer.g:127:5: ( ( 'A' | 'a' ) ( 'L' | 'l' ) ( 'L' | 'l' ) )
+            // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/lexer/InternalReqSpecLexer.g:127:7: ( 'A' | 'a' ) ( 'L' | 'l' ) ( 'L' | 'l' )
             {
             if ( input.LA(1)=='A'||input.LA(1)=='a' ) {
                 input.consume();
@@ -5284,8 +4786,8 @@ public class InternalReqSpecLexer extends Lexer {
         try {
             int _type = For;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/lexer/InternalReqSpecLexer.g:141:5: ( ( 'F' | 'f' ) ( 'O' | 'o' ) ( 'R' | 'r' ) )
-            // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/lexer/InternalReqSpecLexer.g:141:7: ( 'F' | 'f' ) ( 'O' | 'o' ) ( 'R' | 'r' )
+            // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/lexer/InternalReqSpecLexer.g:129:5: ( ( 'F' | 'f' ) ( 'O' | 'o' ) ( 'R' | 'r' ) )
+            // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/lexer/InternalReqSpecLexer.g:129:7: ( 'F' | 'f' ) ( 'O' | 'o' ) ( 'R' | 'r' )
             {
             if ( input.LA(1)=='F'||input.LA(1)=='f' ) {
                 input.consume();
@@ -5330,8 +4832,8 @@ public class InternalReqSpecLexer extends Lexer {
         try {
             int _type = Img;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/lexer/InternalReqSpecLexer.g:143:5: ( ( 'I' | 'i' ) ( 'M' | 'm' ) ( 'G' | 'g' ) )
-            // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/lexer/InternalReqSpecLexer.g:143:7: ( 'I' | 'i' ) ( 'M' | 'm' ) ( 'G' | 'g' )
+            // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/lexer/InternalReqSpecLexer.g:131:5: ( ( 'I' | 'i' ) ( 'M' | 'm' ) ( 'G' | 'g' ) )
+            // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/lexer/InternalReqSpecLexer.g:131:7: ( 'I' | 'i' ) ( 'M' | 'm' ) ( 'G' | 'g' )
             {
             if ( input.LA(1)=='I'||input.LA(1)=='i' ) {
                 input.consume();
@@ -5376,8 +4878,8 @@ public class InternalReqSpecLexer extends Lexer {
         try {
             int _type = New;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/lexer/InternalReqSpecLexer.g:145:5: ( ( 'N' | 'n' ) ( 'E' | 'e' ) ( 'W' | 'w' ) )
-            // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/lexer/InternalReqSpecLexer.g:145:7: ( 'N' | 'n' ) ( 'E' | 'e' ) ( 'W' | 'w' )
+            // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/lexer/InternalReqSpecLexer.g:133:5: ( ( 'N' | 'n' ) ( 'E' | 'e' ) ( 'W' | 'w' ) )
+            // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/lexer/InternalReqSpecLexer.g:133:7: ( 'N' | 'n' ) ( 'E' | 'e' ) ( 'W' | 'w' )
             {
             if ( input.LA(1)=='N'||input.LA(1)=='n' ) {
                 input.consume();
@@ -5422,8 +4924,8 @@ public class InternalReqSpecLexer extends Lexer {
         try {
             int _type = See;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/lexer/InternalReqSpecLexer.g:147:5: ( ( 'S' | 's' ) ( 'E' | 'e' ) ( 'E' | 'e' ) )
-            // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/lexer/InternalReqSpecLexer.g:147:7: ( 'S' | 's' ) ( 'E' | 'e' ) ( 'E' | 'e' )
+            // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/lexer/InternalReqSpecLexer.g:135:5: ( ( 'S' | 's' ) ( 'E' | 'e' ) ( 'E' | 'e' ) )
+            // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/lexer/InternalReqSpecLexer.g:135:7: ( 'S' | 's' ) ( 'E' | 'e' ) ( 'E' | 'e' )
             {
             if ( input.LA(1)=='S'||input.LA(1)=='s' ) {
                 input.consume();
@@ -5468,8 +4970,8 @@ public class InternalReqSpecLexer extends Lexer {
         try {
             int _type = Try;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/lexer/InternalReqSpecLexer.g:149:5: ( ( 'T' | 't' ) ( 'R' | 'r' ) ( 'Y' | 'y' ) )
-            // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/lexer/InternalReqSpecLexer.g:149:7: ( 'T' | 't' ) ( 'R' | 'r' ) ( 'Y' | 'y' )
+            // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/lexer/InternalReqSpecLexer.g:137:5: ( ( 'T' | 't' ) ( 'R' | 'r' ) ( 'Y' | 'y' ) )
+            // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/lexer/InternalReqSpecLexer.g:137:7: ( 'T' | 't' ) ( 'R' | 'r' ) ( 'Y' | 'y' )
             {
             if ( input.LA(1)=='T'||input.LA(1)=='t' ) {
                 input.consume();
@@ -5514,8 +5016,8 @@ public class InternalReqSpecLexer extends Lexer {
         try {
             int _type = Val;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/lexer/InternalReqSpecLexer.g:151:5: ( ( 'V' | 'v' ) ( 'A' | 'a' ) ( 'L' | 'l' ) )
-            // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/lexer/InternalReqSpecLexer.g:151:7: ( 'V' | 'v' ) ( 'A' | 'a' ) ( 'L' | 'l' )
+            // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/lexer/InternalReqSpecLexer.g:139:5: ( ( 'V' | 'v' ) ( 'A' | 'a' ) ( 'L' | 'l' ) )
+            // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/lexer/InternalReqSpecLexer.g:139:7: ( 'V' | 'v' ) ( 'A' | 'a' ) ( 'L' | 'l' )
             {
             if ( input.LA(1)=='V'||input.LA(1)=='v' ) {
                 input.consume();
@@ -5560,8 +5062,8 @@ public class InternalReqSpecLexer extends Lexer {
         try {
             int _type = Var;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/lexer/InternalReqSpecLexer.g:153:5: ( ( 'V' | 'v' ) ( 'A' | 'a' ) ( 'R' | 'r' ) )
-            // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/lexer/InternalReqSpecLexer.g:153:7: ( 'V' | 'v' ) ( 'A' | 'a' ) ( 'R' | 'r' )
+            // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/lexer/InternalReqSpecLexer.g:141:5: ( ( 'V' | 'v' ) ( 'A' | 'a' ) ( 'R' | 'r' ) )
+            // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/lexer/InternalReqSpecLexer.g:141:7: ( 'V' | 'v' ) ( 'A' | 'a' ) ( 'R' | 'r' )
             {
             if ( input.LA(1)=='V'||input.LA(1)=='v' ) {
                 input.consume();
@@ -5606,8 +5108,8 @@ public class InternalReqSpecLexer extends Lexer {
         try {
             int _type = ExclamationMarkEqualsSign;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/lexer/InternalReqSpecLexer.g:155:27: ( '!' '=' )
-            // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/lexer/InternalReqSpecLexer.g:155:29: '!' '='
+            // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/lexer/InternalReqSpecLexer.g:143:27: ( '!' '=' )
+            // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/lexer/InternalReqSpecLexer.g:143:29: '!' '='
             {
             match('!'); 
             match('='); 
@@ -5627,8 +5129,8 @@ public class InternalReqSpecLexer extends Lexer {
         try {
             int _type = PercentSignEqualsSign;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/lexer/InternalReqSpecLexer.g:157:23: ( '%' '=' )
-            // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/lexer/InternalReqSpecLexer.g:157:25: '%' '='
+            // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/lexer/InternalReqSpecLexer.g:145:23: ( '%' '=' )
+            // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/lexer/InternalReqSpecLexer.g:145:25: '%' '='
             {
             match('%'); 
             match('='); 
@@ -5648,8 +5150,8 @@ public class InternalReqSpecLexer extends Lexer {
         try {
             int _type = AmpersandAmpersand;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/lexer/InternalReqSpecLexer.g:159:20: ( '&' '&' )
-            // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/lexer/InternalReqSpecLexer.g:159:22: '&' '&'
+            // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/lexer/InternalReqSpecLexer.g:147:20: ( '&' '&' )
+            // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/lexer/InternalReqSpecLexer.g:147:22: '&' '&'
             {
             match('&'); 
             match('&'); 
@@ -5669,8 +5171,8 @@ public class InternalReqSpecLexer extends Lexer {
         try {
             int _type = AsteriskAsterisk;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/lexer/InternalReqSpecLexer.g:161:18: ( '*' '*' )
-            // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/lexer/InternalReqSpecLexer.g:161:20: '*' '*'
+            // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/lexer/InternalReqSpecLexer.g:149:18: ( '*' '*' )
+            // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/lexer/InternalReqSpecLexer.g:149:20: '*' '*'
             {
             match('*'); 
             match('*'); 
@@ -5690,8 +5192,8 @@ public class InternalReqSpecLexer extends Lexer {
         try {
             int _type = AsteriskEqualsSign;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/lexer/InternalReqSpecLexer.g:163:20: ( '*' '=' )
-            // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/lexer/InternalReqSpecLexer.g:163:22: '*' '='
+            // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/lexer/InternalReqSpecLexer.g:151:20: ( '*' '=' )
+            // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/lexer/InternalReqSpecLexer.g:151:22: '*' '='
             {
             match('*'); 
             match('='); 
@@ -5711,8 +5213,8 @@ public class InternalReqSpecLexer extends Lexer {
         try {
             int _type = PlusSignPlusSign;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/lexer/InternalReqSpecLexer.g:165:18: ( '+' '+' )
-            // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/lexer/InternalReqSpecLexer.g:165:20: '+' '+'
+            // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/lexer/InternalReqSpecLexer.g:153:18: ( '+' '+' )
+            // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/lexer/InternalReqSpecLexer.g:153:20: '+' '+'
             {
             match('+'); 
             match('+'); 
@@ -5732,8 +5234,8 @@ public class InternalReqSpecLexer extends Lexer {
         try {
             int _type = PlusSignEqualsSign;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/lexer/InternalReqSpecLexer.g:167:20: ( '+' '=' )
-            // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/lexer/InternalReqSpecLexer.g:167:22: '+' '='
+            // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/lexer/InternalReqSpecLexer.g:155:20: ( '+' '=' )
+            // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/lexer/InternalReqSpecLexer.g:155:22: '+' '='
             {
             match('+'); 
             match('='); 
@@ -5753,8 +5255,8 @@ public class InternalReqSpecLexer extends Lexer {
         try {
             int _type = HyphenMinusHyphenMinus;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/lexer/InternalReqSpecLexer.g:169:24: ( '-' '-' )
-            // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/lexer/InternalReqSpecLexer.g:169:26: '-' '-'
+            // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/lexer/InternalReqSpecLexer.g:157:24: ( '-' '-' )
+            // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/lexer/InternalReqSpecLexer.g:157:26: '-' '-'
             {
             match('-'); 
             match('-'); 
@@ -5774,8 +5276,8 @@ public class InternalReqSpecLexer extends Lexer {
         try {
             int _type = HyphenMinusEqualsSign;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/lexer/InternalReqSpecLexer.g:171:23: ( '-' '=' )
-            // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/lexer/InternalReqSpecLexer.g:171:25: '-' '='
+            // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/lexer/InternalReqSpecLexer.g:159:23: ( '-' '=' )
+            // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/lexer/InternalReqSpecLexer.g:159:25: '-' '='
             {
             match('-'); 
             match('='); 
@@ -5795,8 +5297,8 @@ public class InternalReqSpecLexer extends Lexer {
         try {
             int _type = HyphenMinusGreaterThanSign;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/lexer/InternalReqSpecLexer.g:173:28: ( '-' '>' )
-            // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/lexer/InternalReqSpecLexer.g:173:30: '-' '>'
+            // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/lexer/InternalReqSpecLexer.g:161:28: ( '-' '>' )
+            // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/lexer/InternalReqSpecLexer.g:161:30: '-' '>'
             {
             match('-'); 
             match('>'); 
@@ -5816,8 +5318,8 @@ public class InternalReqSpecLexer extends Lexer {
         try {
             int _type = FullStopFullStop;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/lexer/InternalReqSpecLexer.g:175:18: ( '.' '.' )
-            // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/lexer/InternalReqSpecLexer.g:175:20: '.' '.'
+            // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/lexer/InternalReqSpecLexer.g:163:18: ( '.' '.' )
+            // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/lexer/InternalReqSpecLexer.g:163:20: '.' '.'
             {
             match('.'); 
             match('.'); 
@@ -5837,8 +5339,8 @@ public class InternalReqSpecLexer extends Lexer {
         try {
             int _type = SolidusEqualsSign;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/lexer/InternalReqSpecLexer.g:177:19: ( '/' '=' )
-            // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/lexer/InternalReqSpecLexer.g:177:21: '/' '='
+            // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/lexer/InternalReqSpecLexer.g:165:19: ( '/' '=' )
+            // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/lexer/InternalReqSpecLexer.g:165:21: '/' '='
             {
             match('/'); 
             match('='); 
@@ -5858,8 +5360,8 @@ public class InternalReqSpecLexer extends Lexer {
         try {
             int _type = ColonColon;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/lexer/InternalReqSpecLexer.g:179:12: ( ':' ':' )
-            // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/lexer/InternalReqSpecLexer.g:179:14: ':' ':'
+            // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/lexer/InternalReqSpecLexer.g:167:12: ( ':' ':' )
+            // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/lexer/InternalReqSpecLexer.g:167:14: ':' ':'
             {
             match(':'); 
             match(':'); 
@@ -5879,8 +5381,8 @@ public class InternalReqSpecLexer extends Lexer {
         try {
             int _type = LessThanSignGreaterThanSign;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/lexer/InternalReqSpecLexer.g:181:29: ( '<' '>' )
-            // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/lexer/InternalReqSpecLexer.g:181:31: '<' '>'
+            // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/lexer/InternalReqSpecLexer.g:169:29: ( '<' '>' )
+            // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/lexer/InternalReqSpecLexer.g:169:31: '<' '>'
             {
             match('<'); 
             match('>'); 
@@ -5900,8 +5402,8 @@ public class InternalReqSpecLexer extends Lexer {
         try {
             int _type = EqualsSignEqualsSign;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/lexer/InternalReqSpecLexer.g:183:22: ( '=' '=' )
-            // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/lexer/InternalReqSpecLexer.g:183:24: '=' '='
+            // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/lexer/InternalReqSpecLexer.g:171:22: ( '=' '=' )
+            // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/lexer/InternalReqSpecLexer.g:171:24: '=' '='
             {
             match('='); 
             match('='); 
@@ -5921,8 +5423,8 @@ public class InternalReqSpecLexer extends Lexer {
         try {
             int _type = EqualsSignGreaterThanSign;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/lexer/InternalReqSpecLexer.g:185:27: ( '=' '>' )
-            // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/lexer/InternalReqSpecLexer.g:185:29: '=' '>'
+            // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/lexer/InternalReqSpecLexer.g:173:27: ( '=' '>' )
+            // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/lexer/InternalReqSpecLexer.g:173:29: '=' '>'
             {
             match('='); 
             match('>'); 
@@ -5942,8 +5444,8 @@ public class InternalReqSpecLexer extends Lexer {
         try {
             int _type = GreaterThanSignEqualsSign;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/lexer/InternalReqSpecLexer.g:187:27: ( '>' '=' )
-            // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/lexer/InternalReqSpecLexer.g:187:29: '>' '='
+            // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/lexer/InternalReqSpecLexer.g:175:27: ( '>' '=' )
+            // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/lexer/InternalReqSpecLexer.g:175:29: '>' '='
             {
             match('>'); 
             match('='); 
@@ -5963,8 +5465,8 @@ public class InternalReqSpecLexer extends Lexer {
         try {
             int _type = QuestionMarkFullStop;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/lexer/InternalReqSpecLexer.g:189:22: ( '?' '.' )
-            // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/lexer/InternalReqSpecLexer.g:189:24: '?' '.'
+            // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/lexer/InternalReqSpecLexer.g:177:22: ( '?' '.' )
+            // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/lexer/InternalReqSpecLexer.g:177:24: '?' '.'
             {
             match('?'); 
             match('.'); 
@@ -5984,8 +5486,8 @@ public class InternalReqSpecLexer extends Lexer {
         try {
             int _type = QuestionMarkColon;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/lexer/InternalReqSpecLexer.g:191:19: ( '?' ':' )
-            // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/lexer/InternalReqSpecLexer.g:191:21: '?' ':'
+            // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/lexer/InternalReqSpecLexer.g:179:19: ( '?' ':' )
+            // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/lexer/InternalReqSpecLexer.g:179:21: '?' ':'
             {
             match('?'); 
             match(':'); 
@@ -6005,8 +5507,8 @@ public class InternalReqSpecLexer extends Lexer {
         try {
             int _type = As;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/lexer/InternalReqSpecLexer.g:193:4: ( ( 'A' | 'a' ) ( 'S' | 's' ) )
-            // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/lexer/InternalReqSpecLexer.g:193:6: ( 'A' | 'a' ) ( 'S' | 's' )
+            // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/lexer/InternalReqSpecLexer.g:181:4: ( ( 'A' | 'a' ) ( 'S' | 's' ) )
+            // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/lexer/InternalReqSpecLexer.g:181:6: ( 'A' | 'a' ) ( 'S' | 's' )
             {
             if ( input.LA(1)=='A'||input.LA(1)=='a' ) {
                 input.consume();
@@ -6042,8 +5544,8 @@ public class InternalReqSpecLexer extends Lexer {
         try {
             int _type = Do;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/lexer/InternalReqSpecLexer.g:195:4: ( ( 'D' | 'd' ) ( 'O' | 'o' ) )
-            // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/lexer/InternalReqSpecLexer.g:195:6: ( 'D' | 'd' ) ( 'O' | 'o' )
+            // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/lexer/InternalReqSpecLexer.g:183:4: ( ( 'D' | 'd' ) ( 'O' | 'o' ) )
+            // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/lexer/InternalReqSpecLexer.g:183:6: ( 'D' | 'd' ) ( 'O' | 'o' )
             {
             if ( input.LA(1)=='D'||input.LA(1)=='d' ) {
                 input.consume();
@@ -6079,8 +5581,8 @@ public class InternalReqSpecLexer extends Lexer {
         try {
             int _type = If;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/lexer/InternalReqSpecLexer.g:197:4: ( ( 'I' | 'i' ) ( 'F' | 'f' ) )
-            // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/lexer/InternalReqSpecLexer.g:197:6: ( 'I' | 'i' ) ( 'F' | 'f' )
+            // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/lexer/InternalReqSpecLexer.g:185:4: ( ( 'I' | 'i' ) ( 'F' | 'f' ) )
+            // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/lexer/InternalReqSpecLexer.g:185:6: ( 'I' | 'i' ) ( 'F' | 'f' )
             {
             if ( input.LA(1)=='I'||input.LA(1)=='i' ) {
                 input.consume();
@@ -6116,8 +5618,8 @@ public class InternalReqSpecLexer extends Lexer {
         try {
             int _type = VerticalLineVerticalLine;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/lexer/InternalReqSpecLexer.g:199:26: ( '|' '|' )
-            // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/lexer/InternalReqSpecLexer.g:199:28: '|' '|'
+            // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/lexer/InternalReqSpecLexer.g:187:26: ( '|' '|' )
+            // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/lexer/InternalReqSpecLexer.g:187:28: '|' '|'
             {
             match('|'); 
             match('|'); 
@@ -6137,8 +5639,8 @@ public class InternalReqSpecLexer extends Lexer {
         try {
             int _type = ExclamationMark;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/lexer/InternalReqSpecLexer.g:201:17: ( '!' )
-            // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/lexer/InternalReqSpecLexer.g:201:19: '!'
+            // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/lexer/InternalReqSpecLexer.g:189:17: ( '!' )
+            // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/lexer/InternalReqSpecLexer.g:189:19: '!'
             {
             match('!'); 
 
@@ -6157,8 +5659,8 @@ public class InternalReqSpecLexer extends Lexer {
         try {
             int _type = NumberSign;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/lexer/InternalReqSpecLexer.g:203:12: ( '#' )
-            // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/lexer/InternalReqSpecLexer.g:203:14: '#'
+            // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/lexer/InternalReqSpecLexer.g:191:12: ( '#' )
+            // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/lexer/InternalReqSpecLexer.g:191:14: '#'
             {
             match('#'); 
 
@@ -6177,8 +5679,8 @@ public class InternalReqSpecLexer extends Lexer {
         try {
             int _type = PercentSign;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/lexer/InternalReqSpecLexer.g:205:13: ( '%' )
-            // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/lexer/InternalReqSpecLexer.g:205:15: '%'
+            // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/lexer/InternalReqSpecLexer.g:193:13: ( '%' )
+            // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/lexer/InternalReqSpecLexer.g:193:15: '%'
             {
             match('%'); 
 
@@ -6197,8 +5699,8 @@ public class InternalReqSpecLexer extends Lexer {
         try {
             int _type = Ampersand;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/lexer/InternalReqSpecLexer.g:207:11: ( '&' )
-            // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/lexer/InternalReqSpecLexer.g:207:13: '&'
+            // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/lexer/InternalReqSpecLexer.g:195:11: ( '&' )
+            // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/lexer/InternalReqSpecLexer.g:195:13: '&'
             {
             match('&'); 
 
@@ -6217,8 +5719,8 @@ public class InternalReqSpecLexer extends Lexer {
         try {
             int _type = LeftParenthesis;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/lexer/InternalReqSpecLexer.g:209:17: ( '(' )
-            // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/lexer/InternalReqSpecLexer.g:209:19: '('
+            // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/lexer/InternalReqSpecLexer.g:197:17: ( '(' )
+            // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/lexer/InternalReqSpecLexer.g:197:19: '('
             {
             match('('); 
 
@@ -6237,8 +5739,8 @@ public class InternalReqSpecLexer extends Lexer {
         try {
             int _type = RightParenthesis;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/lexer/InternalReqSpecLexer.g:211:18: ( ')' )
-            // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/lexer/InternalReqSpecLexer.g:211:20: ')'
+            // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/lexer/InternalReqSpecLexer.g:199:18: ( ')' )
+            // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/lexer/InternalReqSpecLexer.g:199:20: ')'
             {
             match(')'); 
 
@@ -6257,8 +5759,8 @@ public class InternalReqSpecLexer extends Lexer {
         try {
             int _type = Asterisk;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/lexer/InternalReqSpecLexer.g:213:10: ( '*' )
-            // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/lexer/InternalReqSpecLexer.g:213:12: '*'
+            // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/lexer/InternalReqSpecLexer.g:201:10: ( '*' )
+            // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/lexer/InternalReqSpecLexer.g:201:12: '*'
             {
             match('*'); 
 
@@ -6277,8 +5779,8 @@ public class InternalReqSpecLexer extends Lexer {
         try {
             int _type = PlusSign;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/lexer/InternalReqSpecLexer.g:215:10: ( '+' )
-            // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/lexer/InternalReqSpecLexer.g:215:12: '+'
+            // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/lexer/InternalReqSpecLexer.g:203:10: ( '+' )
+            // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/lexer/InternalReqSpecLexer.g:203:12: '+'
             {
             match('+'); 
 
@@ -6297,8 +5799,8 @@ public class InternalReqSpecLexer extends Lexer {
         try {
             int _type = Comma;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/lexer/InternalReqSpecLexer.g:217:7: ( ',' )
-            // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/lexer/InternalReqSpecLexer.g:217:9: ','
+            // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/lexer/InternalReqSpecLexer.g:205:7: ( ',' )
+            // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/lexer/InternalReqSpecLexer.g:205:9: ','
             {
             match(','); 
 
@@ -6317,8 +5819,8 @@ public class InternalReqSpecLexer extends Lexer {
         try {
             int _type = HyphenMinus;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/lexer/InternalReqSpecLexer.g:219:13: ( '-' )
-            // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/lexer/InternalReqSpecLexer.g:219:15: '-'
+            // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/lexer/InternalReqSpecLexer.g:207:13: ( '-' )
+            // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/lexer/InternalReqSpecLexer.g:207:15: '-'
             {
             match('-'); 
 
@@ -6337,8 +5839,8 @@ public class InternalReqSpecLexer extends Lexer {
         try {
             int _type = FullStop;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/lexer/InternalReqSpecLexer.g:221:10: ( '.' )
-            // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/lexer/InternalReqSpecLexer.g:221:12: '.'
+            // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/lexer/InternalReqSpecLexer.g:209:10: ( '.' )
+            // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/lexer/InternalReqSpecLexer.g:209:12: '.'
             {
             match('.'); 
 
@@ -6357,8 +5859,8 @@ public class InternalReqSpecLexer extends Lexer {
         try {
             int _type = Solidus;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/lexer/InternalReqSpecLexer.g:223:9: ( '/' )
-            // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/lexer/InternalReqSpecLexer.g:223:11: '/'
+            // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/lexer/InternalReqSpecLexer.g:211:9: ( '/' )
+            // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/lexer/InternalReqSpecLexer.g:211:11: '/'
             {
             match('/'); 
 
@@ -6377,8 +5879,8 @@ public class InternalReqSpecLexer extends Lexer {
         try {
             int _type = Colon;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/lexer/InternalReqSpecLexer.g:225:7: ( ':' )
-            // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/lexer/InternalReqSpecLexer.g:225:9: ':'
+            // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/lexer/InternalReqSpecLexer.g:213:7: ( ':' )
+            // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/lexer/InternalReqSpecLexer.g:213:9: ':'
             {
             match(':'); 
 
@@ -6397,8 +5899,8 @@ public class InternalReqSpecLexer extends Lexer {
         try {
             int _type = Semicolon;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/lexer/InternalReqSpecLexer.g:227:11: ( ';' )
-            // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/lexer/InternalReqSpecLexer.g:227:13: ';'
+            // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/lexer/InternalReqSpecLexer.g:215:11: ( ';' )
+            // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/lexer/InternalReqSpecLexer.g:215:13: ';'
             {
             match(';'); 
 
@@ -6417,8 +5919,8 @@ public class InternalReqSpecLexer extends Lexer {
         try {
             int _type = LessThanSign;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/lexer/InternalReqSpecLexer.g:229:14: ( '<' )
-            // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/lexer/InternalReqSpecLexer.g:229:16: '<'
+            // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/lexer/InternalReqSpecLexer.g:217:14: ( '<' )
+            // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/lexer/InternalReqSpecLexer.g:217:16: '<'
             {
             match('<'); 
 
@@ -6437,8 +5939,8 @@ public class InternalReqSpecLexer extends Lexer {
         try {
             int _type = EqualsSign;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/lexer/InternalReqSpecLexer.g:231:12: ( '=' )
-            // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/lexer/InternalReqSpecLexer.g:231:14: '='
+            // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/lexer/InternalReqSpecLexer.g:219:12: ( '=' )
+            // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/lexer/InternalReqSpecLexer.g:219:14: '='
             {
             match('='); 
 
@@ -6457,8 +5959,8 @@ public class InternalReqSpecLexer extends Lexer {
         try {
             int _type = GreaterThanSign;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/lexer/InternalReqSpecLexer.g:233:17: ( '>' )
-            // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/lexer/InternalReqSpecLexer.g:233:19: '>'
+            // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/lexer/InternalReqSpecLexer.g:221:17: ( '>' )
+            // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/lexer/InternalReqSpecLexer.g:221:19: '>'
             {
             match('>'); 
 
@@ -6477,8 +5979,8 @@ public class InternalReqSpecLexer extends Lexer {
         try {
             int _type = QuestionMark;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/lexer/InternalReqSpecLexer.g:235:14: ( '?' )
-            // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/lexer/InternalReqSpecLexer.g:235:16: '?'
+            // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/lexer/InternalReqSpecLexer.g:223:14: ( '?' )
+            // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/lexer/InternalReqSpecLexer.g:223:16: '?'
             {
             match('?'); 
 
@@ -6497,8 +5999,8 @@ public class InternalReqSpecLexer extends Lexer {
         try {
             int _type = CommercialAt;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/lexer/InternalReqSpecLexer.g:237:14: ( '@' )
-            // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/lexer/InternalReqSpecLexer.g:237:16: '@'
+            // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/lexer/InternalReqSpecLexer.g:225:14: ( '@' )
+            // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/lexer/InternalReqSpecLexer.g:225:16: '@'
             {
             match('@'); 
 
@@ -6517,8 +6019,8 @@ public class InternalReqSpecLexer extends Lexer {
         try {
             int _type = LeftSquareBracket;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/lexer/InternalReqSpecLexer.g:239:19: ( '[' )
-            // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/lexer/InternalReqSpecLexer.g:239:21: '['
+            // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/lexer/InternalReqSpecLexer.g:227:19: ( '[' )
+            // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/lexer/InternalReqSpecLexer.g:227:21: '['
             {
             match('['); 
 
@@ -6537,8 +6039,8 @@ public class InternalReqSpecLexer extends Lexer {
         try {
             int _type = RightSquareBracket;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/lexer/InternalReqSpecLexer.g:241:20: ( ']' )
-            // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/lexer/InternalReqSpecLexer.g:241:22: ']'
+            // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/lexer/InternalReqSpecLexer.g:229:20: ( ']' )
+            // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/lexer/InternalReqSpecLexer.g:229:22: ']'
             {
             match(']'); 
 
@@ -6557,8 +6059,8 @@ public class InternalReqSpecLexer extends Lexer {
         try {
             int _type = LeftCurlyBracket;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/lexer/InternalReqSpecLexer.g:243:18: ( '{' )
-            // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/lexer/InternalReqSpecLexer.g:243:20: '{'
+            // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/lexer/InternalReqSpecLexer.g:231:18: ( '{' )
+            // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/lexer/InternalReqSpecLexer.g:231:20: '{'
             {
             match('{'); 
 
@@ -6577,8 +6079,8 @@ public class InternalReqSpecLexer extends Lexer {
         try {
             int _type = VerticalLine;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/lexer/InternalReqSpecLexer.g:245:14: ( '|' )
-            // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/lexer/InternalReqSpecLexer.g:245:16: '|'
+            // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/lexer/InternalReqSpecLexer.g:233:14: ( '|' )
+            // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/lexer/InternalReqSpecLexer.g:233:16: '|'
             {
             match('|'); 
 
@@ -6597,8 +6099,8 @@ public class InternalReqSpecLexer extends Lexer {
         try {
             int _type = RightCurlyBracket;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/lexer/InternalReqSpecLexer.g:247:19: ( '}' )
-            // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/lexer/InternalReqSpecLexer.g:247:21: '}'
+            // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/lexer/InternalReqSpecLexer.g:235:19: ( '}' )
+            // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/lexer/InternalReqSpecLexer.g:235:21: '}'
             {
             match('}'); 
 
@@ -6617,10 +6119,10 @@ public class InternalReqSpecLexer extends Lexer {
         try {
             int _type = RULE_HEX;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/lexer/InternalReqSpecLexer.g:251:10: ( ( '0x' | '0X' ) ( '0' .. '9' | 'a' .. 'f' | 'A' .. 'F' | '_' )+ ( '#' ( ( 'b' | 'B' ) ( 'i' | 'I' ) | ( 'l' | 'L' ) ) )? )
-            // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/lexer/InternalReqSpecLexer.g:251:12: ( '0x' | '0X' ) ( '0' .. '9' | 'a' .. 'f' | 'A' .. 'F' | '_' )+ ( '#' ( ( 'b' | 'B' ) ( 'i' | 'I' ) | ( 'l' | 'L' ) ) )?
+            // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/lexer/InternalReqSpecLexer.g:239:10: ( ( '0x' | '0X' ) ( '0' .. '9' | 'a' .. 'f' | 'A' .. 'F' | '_' )+ ( '#' ( ( 'b' | 'B' ) ( 'i' | 'I' ) | ( 'l' | 'L' ) ) )? )
+            // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/lexer/InternalReqSpecLexer.g:239:12: ( '0x' | '0X' ) ( '0' .. '9' | 'a' .. 'f' | 'A' .. 'F' | '_' )+ ( '#' ( ( 'b' | 'B' ) ( 'i' | 'I' ) | ( 'l' | 'L' ) ) )?
             {
-            // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/lexer/InternalReqSpecLexer.g:251:12: ( '0x' | '0X' )
+            // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/lexer/InternalReqSpecLexer.g:239:12: ( '0x' | '0X' )
             int alt1=2;
             int LA1_0 = input.LA(1);
 
@@ -6648,7 +6150,7 @@ public class InternalReqSpecLexer extends Lexer {
             }
             switch (alt1) {
                 case 1 :
-                    // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/lexer/InternalReqSpecLexer.g:251:13: '0x'
+                    // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/lexer/InternalReqSpecLexer.g:239:13: '0x'
                     {
                     match("0x"); 
 
@@ -6656,7 +6158,7 @@ public class InternalReqSpecLexer extends Lexer {
                     }
                     break;
                 case 2 :
-                    // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/lexer/InternalReqSpecLexer.g:251:18: '0X'
+                    // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/lexer/InternalReqSpecLexer.g:239:18: '0X'
                     {
                     match("0X"); 
 
@@ -6666,7 +6168,7 @@ public class InternalReqSpecLexer extends Lexer {
 
             }
 
-            // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/lexer/InternalReqSpecLexer.g:251:24: ( '0' .. '9' | 'a' .. 'f' | 'A' .. 'F' | '_' )+
+            // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/lexer/InternalReqSpecLexer.g:239:24: ( '0' .. '9' | 'a' .. 'f' | 'A' .. 'F' | '_' )+
             int cnt2=0;
             loop2:
             do {
@@ -6704,7 +6206,7 @@ public class InternalReqSpecLexer extends Lexer {
                 cnt2++;
             } while (true);
 
-            // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/lexer/InternalReqSpecLexer.g:251:58: ( '#' ( ( 'b' | 'B' ) ( 'i' | 'I' ) | ( 'l' | 'L' ) ) )?
+            // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/lexer/InternalReqSpecLexer.g:239:58: ( '#' ( ( 'b' | 'B' ) ( 'i' | 'I' ) | ( 'l' | 'L' ) ) )?
             int alt4=2;
             int LA4_0 = input.LA(1);
 
@@ -6713,10 +6215,10 @@ public class InternalReqSpecLexer extends Lexer {
             }
             switch (alt4) {
                 case 1 :
-                    // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/lexer/InternalReqSpecLexer.g:251:59: '#' ( ( 'b' | 'B' ) ( 'i' | 'I' ) | ( 'l' | 'L' ) )
+                    // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/lexer/InternalReqSpecLexer.g:239:59: '#' ( ( 'b' | 'B' ) ( 'i' | 'I' ) | ( 'l' | 'L' ) )
                     {
                     match('#'); 
-                    // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/lexer/InternalReqSpecLexer.g:251:63: ( ( 'b' | 'B' ) ( 'i' | 'I' ) | ( 'l' | 'L' ) )
+                    // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/lexer/InternalReqSpecLexer.g:239:63: ( ( 'b' | 'B' ) ( 'i' | 'I' ) | ( 'l' | 'L' ) )
                     int alt3=2;
                     int LA3_0 = input.LA(1);
 
@@ -6734,7 +6236,7 @@ public class InternalReqSpecLexer extends Lexer {
                     }
                     switch (alt3) {
                         case 1 :
-                            // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/lexer/InternalReqSpecLexer.g:251:64: ( 'b' | 'B' ) ( 'i' | 'I' )
+                            // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/lexer/InternalReqSpecLexer.g:239:64: ( 'b' | 'B' ) ( 'i' | 'I' )
                             {
                             if ( input.LA(1)=='B'||input.LA(1)=='b' ) {
                                 input.consume();
@@ -6758,7 +6260,7 @@ public class InternalReqSpecLexer extends Lexer {
                             }
                             break;
                         case 2 :
-                            // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/lexer/InternalReqSpecLexer.g:251:84: ( 'l' | 'L' )
+                            // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/lexer/InternalReqSpecLexer.g:239:84: ( 'l' | 'L' )
                             {
                             if ( input.LA(1)=='L'||input.LA(1)=='l' ) {
                                 input.consume();
@@ -6797,11 +6299,11 @@ public class InternalReqSpecLexer extends Lexer {
         try {
             int _type = RULE_INT;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/lexer/InternalReqSpecLexer.g:253:10: ( '0' .. '9' ( '0' .. '9' | '_' )* )
-            // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/lexer/InternalReqSpecLexer.g:253:12: '0' .. '9' ( '0' .. '9' | '_' )*
+            // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/lexer/InternalReqSpecLexer.g:241:10: ( '0' .. '9' ( '0' .. '9' | '_' )* )
+            // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/lexer/InternalReqSpecLexer.g:241:12: '0' .. '9' ( '0' .. '9' | '_' )*
             {
             matchRange('0','9'); 
-            // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/lexer/InternalReqSpecLexer.g:253:21: ( '0' .. '9' | '_' )*
+            // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/lexer/InternalReqSpecLexer.g:241:21: ( '0' .. '9' | '_' )*
             loop5:
             do {
                 int alt5=2;
@@ -6850,11 +6352,11 @@ public class InternalReqSpecLexer extends Lexer {
         try {
             int _type = RULE_DECIMAL;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/lexer/InternalReqSpecLexer.g:255:14: ( RULE_INT ( ( 'e' | 'E' ) ( '+' | '-' )? RULE_INT )? ( ( 'b' | 'B' ) ( 'i' | 'I' | 'd' | 'D' ) | ( 'l' | 'L' | 'd' | 'D' | 'f' | 'F' ) )? )
-            // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/lexer/InternalReqSpecLexer.g:255:16: RULE_INT ( ( 'e' | 'E' ) ( '+' | '-' )? RULE_INT )? ( ( 'b' | 'B' ) ( 'i' | 'I' | 'd' | 'D' ) | ( 'l' | 'L' | 'd' | 'D' | 'f' | 'F' ) )?
+            // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/lexer/InternalReqSpecLexer.g:243:14: ( RULE_INT ( ( 'e' | 'E' ) ( '+' | '-' )? RULE_INT )? ( ( 'b' | 'B' ) ( 'i' | 'I' | 'd' | 'D' ) | ( 'l' | 'L' | 'd' | 'D' | 'f' | 'F' ) )? )
+            // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/lexer/InternalReqSpecLexer.g:243:16: RULE_INT ( ( 'e' | 'E' ) ( '+' | '-' )? RULE_INT )? ( ( 'b' | 'B' ) ( 'i' | 'I' | 'd' | 'D' ) | ( 'l' | 'L' | 'd' | 'D' | 'f' | 'F' ) )?
             {
             mRULE_INT(); 
-            // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/lexer/InternalReqSpecLexer.g:255:25: ( ( 'e' | 'E' ) ( '+' | '-' )? RULE_INT )?
+            // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/lexer/InternalReqSpecLexer.g:243:25: ( ( 'e' | 'E' ) ( '+' | '-' )? RULE_INT )?
             int alt7=2;
             int LA7_0 = input.LA(1);
 
@@ -6863,7 +6365,7 @@ public class InternalReqSpecLexer extends Lexer {
             }
             switch (alt7) {
                 case 1 :
-                    // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/lexer/InternalReqSpecLexer.g:255:26: ( 'e' | 'E' ) ( '+' | '-' )? RULE_INT
+                    // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/lexer/InternalReqSpecLexer.g:243:26: ( 'e' | 'E' ) ( '+' | '-' )? RULE_INT
                     {
                     if ( input.LA(1)=='E'||input.LA(1)=='e' ) {
                         input.consume();
@@ -6874,7 +6376,7 @@ public class InternalReqSpecLexer extends Lexer {
                         recover(mse);
                         throw mse;}
 
-                    // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/lexer/InternalReqSpecLexer.g:255:36: ( '+' | '-' )?
+                    // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/lexer/InternalReqSpecLexer.g:243:36: ( '+' | '-' )?
                     int alt6=2;
                     int LA6_0 = input.LA(1);
 
@@ -6907,7 +6409,7 @@ public class InternalReqSpecLexer extends Lexer {
 
             }
 
-            // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/lexer/InternalReqSpecLexer.g:255:58: ( ( 'b' | 'B' ) ( 'i' | 'I' | 'd' | 'D' ) | ( 'l' | 'L' | 'd' | 'D' | 'f' | 'F' ) )?
+            // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/lexer/InternalReqSpecLexer.g:243:58: ( ( 'b' | 'B' ) ( 'i' | 'I' | 'd' | 'D' ) | ( 'l' | 'L' | 'd' | 'D' | 'f' | 'F' ) )?
             int alt8=3;
             int LA8_0 = input.LA(1);
 
@@ -6919,7 +6421,7 @@ public class InternalReqSpecLexer extends Lexer {
             }
             switch (alt8) {
                 case 1 :
-                    // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/lexer/InternalReqSpecLexer.g:255:59: ( 'b' | 'B' ) ( 'i' | 'I' | 'd' | 'D' )
+                    // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/lexer/InternalReqSpecLexer.g:243:59: ( 'b' | 'B' ) ( 'i' | 'I' | 'd' | 'D' )
                     {
                     if ( input.LA(1)=='B'||input.LA(1)=='b' ) {
                         input.consume();
@@ -6943,7 +6445,7 @@ public class InternalReqSpecLexer extends Lexer {
                     }
                     break;
                 case 2 :
-                    // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/lexer/InternalReqSpecLexer.g:255:87: ( 'l' | 'L' | 'd' | 'D' | 'f' | 'F' )
+                    // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/lexer/InternalReqSpecLexer.g:243:87: ( 'l' | 'L' | 'd' | 'D' | 'f' | 'F' )
                     {
                     if ( input.LA(1)=='D'||input.LA(1)=='F'||input.LA(1)=='L'||input.LA(1)=='d'||input.LA(1)=='f'||input.LA(1)=='l' ) {
                         input.consume();
@@ -6976,10 +6478,10 @@ public class InternalReqSpecLexer extends Lexer {
         try {
             int _type = RULE_ID;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/lexer/InternalReqSpecLexer.g:257:9: ( ( '^' )? ( 'a' .. 'z' | 'A' .. 'Z' | '$' | '_' ) ( 'a' .. 'z' | 'A' .. 'Z' | '$' | '_' | '0' .. '9' )* )
-            // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/lexer/InternalReqSpecLexer.g:257:11: ( '^' )? ( 'a' .. 'z' | 'A' .. 'Z' | '$' | '_' ) ( 'a' .. 'z' | 'A' .. 'Z' | '$' | '_' | '0' .. '9' )*
+            // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/lexer/InternalReqSpecLexer.g:245:9: ( ( '^' )? ( 'a' .. 'z' | 'A' .. 'Z' | '$' | '_' ) ( 'a' .. 'z' | 'A' .. 'Z' | '$' | '_' | '0' .. '9' )* )
+            // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/lexer/InternalReqSpecLexer.g:245:11: ( '^' )? ( 'a' .. 'z' | 'A' .. 'Z' | '$' | '_' ) ( 'a' .. 'z' | 'A' .. 'Z' | '$' | '_' | '0' .. '9' )*
             {
-            // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/lexer/InternalReqSpecLexer.g:257:11: ( '^' )?
+            // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/lexer/InternalReqSpecLexer.g:245:11: ( '^' )?
             int alt9=2;
             int LA9_0 = input.LA(1);
 
@@ -6988,7 +6490,7 @@ public class InternalReqSpecLexer extends Lexer {
             }
             switch (alt9) {
                 case 1 :
-                    // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/lexer/InternalReqSpecLexer.g:257:11: '^'
+                    // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/lexer/InternalReqSpecLexer.g:245:11: '^'
                     {
                     match('^'); 
 
@@ -7006,7 +6508,7 @@ public class InternalReqSpecLexer extends Lexer {
                 recover(mse);
                 throw mse;}
 
-            // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/lexer/InternalReqSpecLexer.g:257:44: ( 'a' .. 'z' | 'A' .. 'Z' | '$' | '_' | '0' .. '9' )*
+            // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/lexer/InternalReqSpecLexer.g:245:44: ( 'a' .. 'z' | 'A' .. 'Z' | '$' | '_' | '0' .. '9' )*
             loop10:
             do {
                 int alt10=2;
@@ -7055,10 +6557,10 @@ public class InternalReqSpecLexer extends Lexer {
         try {
             int _type = RULE_STRING;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/lexer/InternalReqSpecLexer.g:259:13: ( ( '\"' ( '\\\\' . | ~ ( ( '\\\\' | '\"' ) ) )* ( '\"' )? | '\\'' ( '\\\\' . | ~ ( ( '\\\\' | '\\'' ) ) )* ( '\\'' )? ) )
-            // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/lexer/InternalReqSpecLexer.g:259:15: ( '\"' ( '\\\\' . | ~ ( ( '\\\\' | '\"' ) ) )* ( '\"' )? | '\\'' ( '\\\\' . | ~ ( ( '\\\\' | '\\'' ) ) )* ( '\\'' )? )
+            // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/lexer/InternalReqSpecLexer.g:247:13: ( ( '\"' ( '\\\\' . | ~ ( ( '\\\\' | '\"' ) ) )* ( '\"' )? | '\\'' ( '\\\\' . | ~ ( ( '\\\\' | '\\'' ) ) )* ( '\\'' )? ) )
+            // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/lexer/InternalReqSpecLexer.g:247:15: ( '\"' ( '\\\\' . | ~ ( ( '\\\\' | '\"' ) ) )* ( '\"' )? | '\\'' ( '\\\\' . | ~ ( ( '\\\\' | '\\'' ) ) )* ( '\\'' )? )
             {
-            // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/lexer/InternalReqSpecLexer.g:259:15: ( '\"' ( '\\\\' . | ~ ( ( '\\\\' | '\"' ) ) )* ( '\"' )? | '\\'' ( '\\\\' . | ~ ( ( '\\\\' | '\\'' ) ) )* ( '\\'' )? )
+            // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/lexer/InternalReqSpecLexer.g:247:15: ( '\"' ( '\\\\' . | ~ ( ( '\\\\' | '\"' ) ) )* ( '\"' )? | '\\'' ( '\\\\' . | ~ ( ( '\\\\' | '\\'' ) ) )* ( '\\'' )? )
             int alt15=2;
             int LA15_0 = input.LA(1);
 
@@ -7076,10 +6578,10 @@ public class InternalReqSpecLexer extends Lexer {
             }
             switch (alt15) {
                 case 1 :
-                    // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/lexer/InternalReqSpecLexer.g:259:16: '\"' ( '\\\\' . | ~ ( ( '\\\\' | '\"' ) ) )* ( '\"' )?
+                    // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/lexer/InternalReqSpecLexer.g:247:16: '\"' ( '\\\\' . | ~ ( ( '\\\\' | '\"' ) ) )* ( '\"' )?
                     {
                     match('\"'); 
-                    // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/lexer/InternalReqSpecLexer.g:259:20: ( '\\\\' . | ~ ( ( '\\\\' | '\"' ) ) )*
+                    // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/lexer/InternalReqSpecLexer.g:247:20: ( '\\\\' . | ~ ( ( '\\\\' | '\"' ) ) )*
                     loop11:
                     do {
                         int alt11=3;
@@ -7095,7 +6597,7 @@ public class InternalReqSpecLexer extends Lexer {
 
                         switch (alt11) {
                     	case 1 :
-                    	    // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/lexer/InternalReqSpecLexer.g:259:21: '\\\\' .
+                    	    // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/lexer/InternalReqSpecLexer.g:247:21: '\\\\' .
                     	    {
                     	    match('\\'); 
                     	    matchAny(); 
@@ -7103,7 +6605,7 @@ public class InternalReqSpecLexer extends Lexer {
                     	    }
                     	    break;
                     	case 2 :
-                    	    // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/lexer/InternalReqSpecLexer.g:259:28: ~ ( ( '\\\\' | '\"' ) )
+                    	    // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/lexer/InternalReqSpecLexer.g:247:28: ~ ( ( '\\\\' | '\"' ) )
                     	    {
                     	    if ( (input.LA(1)>='\u0000' && input.LA(1)<='!')||(input.LA(1)>='#' && input.LA(1)<='[')||(input.LA(1)>=']' && input.LA(1)<='\uFFFF') ) {
                     	        input.consume();
@@ -7123,7 +6625,7 @@ public class InternalReqSpecLexer extends Lexer {
                         }
                     } while (true);
 
-                    // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/lexer/InternalReqSpecLexer.g:259:44: ( '\"' )?
+                    // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/lexer/InternalReqSpecLexer.g:247:44: ( '\"' )?
                     int alt12=2;
                     int LA12_0 = input.LA(1);
 
@@ -7132,7 +6634,7 @@ public class InternalReqSpecLexer extends Lexer {
                     }
                     switch (alt12) {
                         case 1 :
-                            // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/lexer/InternalReqSpecLexer.g:259:44: '\"'
+                            // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/lexer/InternalReqSpecLexer.g:247:44: '\"'
                             {
                             match('\"'); 
 
@@ -7145,10 +6647,10 @@ public class InternalReqSpecLexer extends Lexer {
                     }
                     break;
                 case 2 :
-                    // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/lexer/InternalReqSpecLexer.g:259:49: '\\'' ( '\\\\' . | ~ ( ( '\\\\' | '\\'' ) ) )* ( '\\'' )?
+                    // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/lexer/InternalReqSpecLexer.g:247:49: '\\'' ( '\\\\' . | ~ ( ( '\\\\' | '\\'' ) ) )* ( '\\'' )?
                     {
                     match('\''); 
-                    // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/lexer/InternalReqSpecLexer.g:259:54: ( '\\\\' . | ~ ( ( '\\\\' | '\\'' ) ) )*
+                    // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/lexer/InternalReqSpecLexer.g:247:54: ( '\\\\' . | ~ ( ( '\\\\' | '\\'' ) ) )*
                     loop13:
                     do {
                         int alt13=3;
@@ -7164,7 +6666,7 @@ public class InternalReqSpecLexer extends Lexer {
 
                         switch (alt13) {
                     	case 1 :
-                    	    // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/lexer/InternalReqSpecLexer.g:259:55: '\\\\' .
+                    	    // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/lexer/InternalReqSpecLexer.g:247:55: '\\\\' .
                     	    {
                     	    match('\\'); 
                     	    matchAny(); 
@@ -7172,7 +6674,7 @@ public class InternalReqSpecLexer extends Lexer {
                     	    }
                     	    break;
                     	case 2 :
-                    	    // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/lexer/InternalReqSpecLexer.g:259:62: ~ ( ( '\\\\' | '\\'' ) )
+                    	    // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/lexer/InternalReqSpecLexer.g:247:62: ~ ( ( '\\\\' | '\\'' ) )
                     	    {
                     	    if ( (input.LA(1)>='\u0000' && input.LA(1)<='&')||(input.LA(1)>='(' && input.LA(1)<='[')||(input.LA(1)>=']' && input.LA(1)<='\uFFFF') ) {
                     	        input.consume();
@@ -7192,7 +6694,7 @@ public class InternalReqSpecLexer extends Lexer {
                         }
                     } while (true);
 
-                    // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/lexer/InternalReqSpecLexer.g:259:79: ( '\\'' )?
+                    // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/lexer/InternalReqSpecLexer.g:247:79: ( '\\'' )?
                     int alt14=2;
                     int LA14_0 = input.LA(1);
 
@@ -7201,7 +6703,7 @@ public class InternalReqSpecLexer extends Lexer {
                     }
                     switch (alt14) {
                         case 1 :
-                            // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/lexer/InternalReqSpecLexer.g:259:79: '\\''
+                            // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/lexer/InternalReqSpecLexer.g:247:79: '\\''
                             {
                             match('\''); 
 
@@ -7232,12 +6734,12 @@ public class InternalReqSpecLexer extends Lexer {
         try {
             int _type = RULE_ML_COMMENT;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/lexer/InternalReqSpecLexer.g:261:17: ( '/*' ( options {greedy=false; } : . )* '*/' )
-            // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/lexer/InternalReqSpecLexer.g:261:19: '/*' ( options {greedy=false; } : . )* '*/'
+            // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/lexer/InternalReqSpecLexer.g:249:17: ( '/*' ( options {greedy=false; } : . )* '*/' )
+            // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/lexer/InternalReqSpecLexer.g:249:19: '/*' ( options {greedy=false; } : . )* '*/'
             {
             match("/*"); 
 
-            // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/lexer/InternalReqSpecLexer.g:261:24: ( options {greedy=false; } : . )*
+            // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/lexer/InternalReqSpecLexer.g:249:24: ( options {greedy=false; } : . )*
             loop16:
             do {
                 int alt16=2;
@@ -7262,7 +6764,7 @@ public class InternalReqSpecLexer extends Lexer {
 
                 switch (alt16) {
             	case 1 :
-            	    // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/lexer/InternalReqSpecLexer.g:261:52: .
+            	    // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/lexer/InternalReqSpecLexer.g:249:52: .
             	    {
             	    matchAny(); 
 
@@ -7292,12 +6794,12 @@ public class InternalReqSpecLexer extends Lexer {
         try {
             int _type = RULE_SL_COMMENT;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/lexer/InternalReqSpecLexer.g:263:17: ( '//' (~ ( ( '\\n' | '\\r' ) ) )* ( ( '\\r' )? '\\n' )? )
-            // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/lexer/InternalReqSpecLexer.g:263:19: '//' (~ ( ( '\\n' | '\\r' ) ) )* ( ( '\\r' )? '\\n' )?
+            // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/lexer/InternalReqSpecLexer.g:251:17: ( '//' (~ ( ( '\\n' | '\\r' ) ) )* ( ( '\\r' )? '\\n' )? )
+            // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/lexer/InternalReqSpecLexer.g:251:19: '//' (~ ( ( '\\n' | '\\r' ) ) )* ( ( '\\r' )? '\\n' )?
             {
             match("//"); 
 
-            // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/lexer/InternalReqSpecLexer.g:263:24: (~ ( ( '\\n' | '\\r' ) ) )*
+            // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/lexer/InternalReqSpecLexer.g:251:24: (~ ( ( '\\n' | '\\r' ) ) )*
             loop17:
             do {
                 int alt17=2;
@@ -7310,7 +6812,7 @@ public class InternalReqSpecLexer extends Lexer {
 
                 switch (alt17) {
             	case 1 :
-            	    // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/lexer/InternalReqSpecLexer.g:263:24: ~ ( ( '\\n' | '\\r' ) )
+            	    // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/lexer/InternalReqSpecLexer.g:251:24: ~ ( ( '\\n' | '\\r' ) )
             	    {
             	    if ( (input.LA(1)>='\u0000' && input.LA(1)<='\t')||(input.LA(1)>='\u000B' && input.LA(1)<='\f')||(input.LA(1)>='\u000E' && input.LA(1)<='\uFFFF') ) {
             	        input.consume();
@@ -7330,7 +6832,7 @@ public class InternalReqSpecLexer extends Lexer {
                 }
             } while (true);
 
-            // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/lexer/InternalReqSpecLexer.g:263:40: ( ( '\\r' )? '\\n' )?
+            // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/lexer/InternalReqSpecLexer.g:251:40: ( ( '\\r' )? '\\n' )?
             int alt19=2;
             int LA19_0 = input.LA(1);
 
@@ -7339,9 +6841,9 @@ public class InternalReqSpecLexer extends Lexer {
             }
             switch (alt19) {
                 case 1 :
-                    // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/lexer/InternalReqSpecLexer.g:263:41: ( '\\r' )? '\\n'
+                    // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/lexer/InternalReqSpecLexer.g:251:41: ( '\\r' )? '\\n'
                     {
-                    // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/lexer/InternalReqSpecLexer.g:263:41: ( '\\r' )?
+                    // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/lexer/InternalReqSpecLexer.g:251:41: ( '\\r' )?
                     int alt18=2;
                     int LA18_0 = input.LA(1);
 
@@ -7350,7 +6852,7 @@ public class InternalReqSpecLexer extends Lexer {
                     }
                     switch (alt18) {
                         case 1 :
-                            // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/lexer/InternalReqSpecLexer.g:263:41: '\\r'
+                            // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/lexer/InternalReqSpecLexer.g:251:41: '\\r'
                             {
                             match('\r'); 
 
@@ -7382,10 +6884,10 @@ public class InternalReqSpecLexer extends Lexer {
         try {
             int _type = RULE_WS;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/lexer/InternalReqSpecLexer.g:265:9: ( ( ' ' | '\\t' | '\\r' | '\\n' )+ )
-            // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/lexer/InternalReqSpecLexer.g:265:11: ( ' ' | '\\t' | '\\r' | '\\n' )+
+            // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/lexer/InternalReqSpecLexer.g:253:9: ( ( ' ' | '\\t' | '\\r' | '\\n' )+ )
+            // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/lexer/InternalReqSpecLexer.g:253:11: ( ' ' | '\\t' | '\\r' | '\\n' )+
             {
-            // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/lexer/InternalReqSpecLexer.g:265:11: ( ' ' | '\\t' | '\\r' | '\\n' )+
+            // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/lexer/InternalReqSpecLexer.g:253:11: ( ' ' | '\\t' | '\\r' | '\\n' )+
             int cnt20=0;
             loop20:
             do {
@@ -7439,8 +6941,8 @@ public class InternalReqSpecLexer extends Lexer {
         try {
             int _type = RULE_ANY_OTHER;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/lexer/InternalReqSpecLexer.g:267:16: ( . )
-            // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/lexer/InternalReqSpecLexer.g:267:18: .
+            // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/lexer/InternalReqSpecLexer.g:255:16: ( . )
+            // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/lexer/InternalReqSpecLexer.g:255:18: .
             {
             matchAny(); 
 
@@ -7455,8 +6957,8 @@ public class InternalReqSpecLexer extends Lexer {
     // $ANTLR end "RULE_ANY_OTHER"
 
     public void mTokens() throws RecognitionException {
-        // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/lexer/InternalReqSpecLexer.g:1:8: ( Timecriticality | Scheduleimpact | Maturityindex | Requirements | Synchronized | Description | Familiarity | Requirement | Stakeholder | Uncertainty | Assumption | Costimpact | Decomposes | Instanceof | Volatility | Conflicts | Extension | Guarantee | Invariant | Mitigates | Predicate | Rationale | Riskindex | Category | Document | Compute | Default | Dropped | Evolves | Extends | Finally | Refines | Section | Assert | Import | Issues | Output | Return | Static | Switch | KW_System | Typeof | Catch | False | Goals | Input | Super | Throw | Value | While | Case | Else | Goal | Null | This | True | With | ExclamationMarkEqualsSignEqualsSign | FullStopFullStopLessThanSign | EqualsSignEqualsSignEqualsSign | All | For | Img | New | See | Try | Val | Var | ExclamationMarkEqualsSign | PercentSignEqualsSign | AmpersandAmpersand | AsteriskAsterisk | AsteriskEqualsSign | PlusSignPlusSign | PlusSignEqualsSign | HyphenMinusHyphenMinus | HyphenMinusEqualsSign | HyphenMinusGreaterThanSign | FullStopFullStop | SolidusEqualsSign | ColonColon | LessThanSignGreaterThanSign | EqualsSignEqualsSign | EqualsSignGreaterThanSign | GreaterThanSignEqualsSign | QuestionMarkFullStop | QuestionMarkColon | As | Do | If | VerticalLineVerticalLine | ExclamationMark | NumberSign | PercentSign | Ampersand | LeftParenthesis | RightParenthesis | Asterisk | PlusSign | Comma | HyphenMinus | FullStop | Solidus | Colon | Semicolon | LessThanSign | EqualsSign | GreaterThanSign | QuestionMark | CommercialAt | LeftSquareBracket | RightSquareBracket | LeftCurlyBracket | VerticalLine | RightCurlyBracket | RULE_HEX | RULE_INT | RULE_DECIMAL | RULE_ID | RULE_STRING | RULE_ML_COMMENT | RULE_SL_COMMENT | RULE_WS | RULE_ANY_OTHER )
-        int alt21=124;
+        // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/lexer/InternalReqSpecLexer.g:1:8: ( Timecriticality | Scheduleimpact | Maturityindex | Requirements | Synchronized | Description | Familiarity | Requirement | Stakeholder | Uncertainty | Costimpact | Decomposes | Instanceof | Volatility | Conflicts | Extension | Mitigates | Predicate | Rationale | Riskindex | Category | Document | Informal | Compute | Default | Dropped | Evolves | Extends | Finally | Refines | Section | Import | Issues | Return | Static | Switch | KW_System | Typeof | Catch | False | Goals | Super | Throw | While | Case | Else | Goal | Null | This | True | With | ExclamationMarkEqualsSignEqualsSign | FullStopFullStopLessThanSign | EqualsSignEqualsSignEqualsSign | All | For | Img | New | See | Try | Val | Var | ExclamationMarkEqualsSign | PercentSignEqualsSign | AmpersandAmpersand | AsteriskAsterisk | AsteriskEqualsSign | PlusSignPlusSign | PlusSignEqualsSign | HyphenMinusHyphenMinus | HyphenMinusEqualsSign | HyphenMinusGreaterThanSign | FullStopFullStop | SolidusEqualsSign | ColonColon | LessThanSignGreaterThanSign | EqualsSignEqualsSign | EqualsSignGreaterThanSign | GreaterThanSignEqualsSign | QuestionMarkFullStop | QuestionMarkColon | As | Do | If | VerticalLineVerticalLine | ExclamationMark | NumberSign | PercentSign | Ampersand | LeftParenthesis | RightParenthesis | Asterisk | PlusSign | Comma | HyphenMinus | FullStop | Solidus | Colon | Semicolon | LessThanSign | EqualsSign | GreaterThanSign | QuestionMark | CommercialAt | LeftSquareBracket | RightSquareBracket | LeftCurlyBracket | VerticalLine | RightCurlyBracket | RULE_HEX | RULE_INT | RULE_DECIMAL | RULE_ID | RULE_STRING | RULE_ML_COMMENT | RULE_SL_COMMENT | RULE_WS | RULE_ANY_OTHER )
+        int alt21=118;
         alt21 = dfa21.predict(input);
         switch (alt21) {
             case 1 :
@@ -7530,798 +7032,756 @@ public class InternalReqSpecLexer extends Lexer {
                 }
                 break;
             case 11 :
-                // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/lexer/InternalReqSpecLexer.g:1:141: Assumption
-                {
-                mAssumption(); 
-
-                }
-                break;
-            case 12 :
-                // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/lexer/InternalReqSpecLexer.g:1:152: Costimpact
+                // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/lexer/InternalReqSpecLexer.g:1:141: Costimpact
                 {
                 mCostimpact(); 
 
                 }
                 break;
-            case 13 :
-                // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/lexer/InternalReqSpecLexer.g:1:163: Decomposes
+            case 12 :
+                // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/lexer/InternalReqSpecLexer.g:1:152: Decomposes
                 {
                 mDecomposes(); 
 
                 }
                 break;
-            case 14 :
-                // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/lexer/InternalReqSpecLexer.g:1:174: Instanceof
+            case 13 :
+                // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/lexer/InternalReqSpecLexer.g:1:163: Instanceof
                 {
                 mInstanceof(); 
 
                 }
                 break;
-            case 15 :
-                // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/lexer/InternalReqSpecLexer.g:1:185: Volatility
+            case 14 :
+                // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/lexer/InternalReqSpecLexer.g:1:174: Volatility
                 {
                 mVolatility(); 
 
                 }
                 break;
-            case 16 :
-                // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/lexer/InternalReqSpecLexer.g:1:196: Conflicts
+            case 15 :
+                // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/lexer/InternalReqSpecLexer.g:1:185: Conflicts
                 {
                 mConflicts(); 
 
                 }
                 break;
-            case 17 :
-                // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/lexer/InternalReqSpecLexer.g:1:206: Extension
+            case 16 :
+                // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/lexer/InternalReqSpecLexer.g:1:195: Extension
                 {
                 mExtension(); 
 
                 }
                 break;
-            case 18 :
-                // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/lexer/InternalReqSpecLexer.g:1:216: Guarantee
-                {
-                mGuarantee(); 
-
-                }
-                break;
-            case 19 :
-                // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/lexer/InternalReqSpecLexer.g:1:226: Invariant
-                {
-                mInvariant(); 
-
-                }
-                break;
-            case 20 :
-                // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/lexer/InternalReqSpecLexer.g:1:236: Mitigates
+            case 17 :
+                // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/lexer/InternalReqSpecLexer.g:1:205: Mitigates
                 {
                 mMitigates(); 
 
                 }
                 break;
-            case 21 :
-                // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/lexer/InternalReqSpecLexer.g:1:246: Predicate
+            case 18 :
+                // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/lexer/InternalReqSpecLexer.g:1:215: Predicate
                 {
                 mPredicate(); 
 
                 }
                 break;
-            case 22 :
-                // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/lexer/InternalReqSpecLexer.g:1:256: Rationale
+            case 19 :
+                // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/lexer/InternalReqSpecLexer.g:1:225: Rationale
                 {
                 mRationale(); 
 
                 }
                 break;
-            case 23 :
-                // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/lexer/InternalReqSpecLexer.g:1:266: Riskindex
+            case 20 :
+                // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/lexer/InternalReqSpecLexer.g:1:235: Riskindex
                 {
                 mRiskindex(); 
 
                 }
                 break;
-            case 24 :
-                // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/lexer/InternalReqSpecLexer.g:1:276: Category
+            case 21 :
+                // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/lexer/InternalReqSpecLexer.g:1:245: Category
                 {
                 mCategory(); 
 
                 }
                 break;
-            case 25 :
-                // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/lexer/InternalReqSpecLexer.g:1:285: Document
+            case 22 :
+                // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/lexer/InternalReqSpecLexer.g:1:254: Document
                 {
                 mDocument(); 
 
                 }
                 break;
-            case 26 :
-                // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/lexer/InternalReqSpecLexer.g:1:294: Compute
+            case 23 :
+                // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/lexer/InternalReqSpecLexer.g:1:263: Informal
+                {
+                mInformal(); 
+
+                }
+                break;
+            case 24 :
+                // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/lexer/InternalReqSpecLexer.g:1:272: Compute
                 {
                 mCompute(); 
 
                 }
                 break;
-            case 27 :
-                // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/lexer/InternalReqSpecLexer.g:1:302: Default
+            case 25 :
+                // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/lexer/InternalReqSpecLexer.g:1:280: Default
                 {
                 mDefault(); 
 
                 }
                 break;
-            case 28 :
-                // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/lexer/InternalReqSpecLexer.g:1:310: Dropped
+            case 26 :
+                // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/lexer/InternalReqSpecLexer.g:1:288: Dropped
                 {
                 mDropped(); 
 
                 }
                 break;
-            case 29 :
-                // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/lexer/InternalReqSpecLexer.g:1:318: Evolves
+            case 27 :
+                // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/lexer/InternalReqSpecLexer.g:1:296: Evolves
                 {
                 mEvolves(); 
 
                 }
                 break;
-            case 30 :
-                // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/lexer/InternalReqSpecLexer.g:1:326: Extends
+            case 28 :
+                // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/lexer/InternalReqSpecLexer.g:1:304: Extends
                 {
                 mExtends(); 
 
                 }
                 break;
-            case 31 :
-                // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/lexer/InternalReqSpecLexer.g:1:334: Finally
+            case 29 :
+                // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/lexer/InternalReqSpecLexer.g:1:312: Finally
                 {
                 mFinally(); 
 
                 }
                 break;
-            case 32 :
-                // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/lexer/InternalReqSpecLexer.g:1:342: Refines
+            case 30 :
+                // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/lexer/InternalReqSpecLexer.g:1:320: Refines
                 {
                 mRefines(); 
 
                 }
                 break;
-            case 33 :
-                // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/lexer/InternalReqSpecLexer.g:1:350: Section
+            case 31 :
+                // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/lexer/InternalReqSpecLexer.g:1:328: Section
                 {
                 mSection(); 
 
                 }
                 break;
-            case 34 :
-                // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/lexer/InternalReqSpecLexer.g:1:358: Assert
-                {
-                mAssert(); 
-
-                }
-                break;
-            case 35 :
-                // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/lexer/InternalReqSpecLexer.g:1:365: Import
+            case 32 :
+                // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/lexer/InternalReqSpecLexer.g:1:336: Import
                 {
                 mImport(); 
 
                 }
                 break;
-            case 36 :
-                // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/lexer/InternalReqSpecLexer.g:1:372: Issues
+            case 33 :
+                // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/lexer/InternalReqSpecLexer.g:1:343: Issues
                 {
                 mIssues(); 
 
                 }
                 break;
-            case 37 :
-                // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/lexer/InternalReqSpecLexer.g:1:379: Output
-                {
-                mOutput(); 
-
-                }
-                break;
-            case 38 :
-                // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/lexer/InternalReqSpecLexer.g:1:386: Return
+            case 34 :
+                // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/lexer/InternalReqSpecLexer.g:1:350: Return
                 {
                 mReturn(); 
 
                 }
                 break;
-            case 39 :
-                // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/lexer/InternalReqSpecLexer.g:1:393: Static
+            case 35 :
+                // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/lexer/InternalReqSpecLexer.g:1:357: Static
                 {
                 mStatic(); 
 
                 }
                 break;
-            case 40 :
-                // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/lexer/InternalReqSpecLexer.g:1:400: Switch
+            case 36 :
+                // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/lexer/InternalReqSpecLexer.g:1:364: Switch
                 {
                 mSwitch(); 
 
                 }
                 break;
-            case 41 :
-                // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/lexer/InternalReqSpecLexer.g:1:407: KW_System
+            case 37 :
+                // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/lexer/InternalReqSpecLexer.g:1:371: KW_System
                 {
                 mKW_System(); 
 
                 }
                 break;
-            case 42 :
-                // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/lexer/InternalReqSpecLexer.g:1:417: Typeof
+            case 38 :
+                // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/lexer/InternalReqSpecLexer.g:1:381: Typeof
                 {
                 mTypeof(); 
 
                 }
                 break;
-            case 43 :
-                // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/lexer/InternalReqSpecLexer.g:1:424: Catch
+            case 39 :
+                // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/lexer/InternalReqSpecLexer.g:1:388: Catch
                 {
                 mCatch(); 
 
                 }
                 break;
-            case 44 :
-                // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/lexer/InternalReqSpecLexer.g:1:430: False
+            case 40 :
+                // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/lexer/InternalReqSpecLexer.g:1:394: False
                 {
                 mFalse(); 
 
                 }
                 break;
-            case 45 :
-                // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/lexer/InternalReqSpecLexer.g:1:436: Goals
+            case 41 :
+                // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/lexer/InternalReqSpecLexer.g:1:400: Goals
                 {
                 mGoals(); 
 
                 }
                 break;
-            case 46 :
-                // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/lexer/InternalReqSpecLexer.g:1:442: Input
-                {
-                mInput(); 
-
-                }
-                break;
-            case 47 :
-                // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/lexer/InternalReqSpecLexer.g:1:448: Super
+            case 42 :
+                // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/lexer/InternalReqSpecLexer.g:1:406: Super
                 {
                 mSuper(); 
 
                 }
                 break;
-            case 48 :
-                // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/lexer/InternalReqSpecLexer.g:1:454: Throw
+            case 43 :
+                // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/lexer/InternalReqSpecLexer.g:1:412: Throw
                 {
                 mThrow(); 
 
                 }
                 break;
-            case 49 :
-                // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/lexer/InternalReqSpecLexer.g:1:460: Value
-                {
-                mValue(); 
-
-                }
-                break;
-            case 50 :
-                // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/lexer/InternalReqSpecLexer.g:1:466: While
+            case 44 :
+                // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/lexer/InternalReqSpecLexer.g:1:418: While
                 {
                 mWhile(); 
 
                 }
                 break;
-            case 51 :
-                // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/lexer/InternalReqSpecLexer.g:1:472: Case
+            case 45 :
+                // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/lexer/InternalReqSpecLexer.g:1:424: Case
                 {
                 mCase(); 
 
                 }
                 break;
-            case 52 :
-                // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/lexer/InternalReqSpecLexer.g:1:477: Else
+            case 46 :
+                // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/lexer/InternalReqSpecLexer.g:1:429: Else
                 {
                 mElse(); 
 
                 }
                 break;
-            case 53 :
-                // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/lexer/InternalReqSpecLexer.g:1:482: Goal
+            case 47 :
+                // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/lexer/InternalReqSpecLexer.g:1:434: Goal
                 {
                 mGoal(); 
 
                 }
                 break;
-            case 54 :
-                // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/lexer/InternalReqSpecLexer.g:1:487: Null
+            case 48 :
+                // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/lexer/InternalReqSpecLexer.g:1:439: Null
                 {
                 mNull(); 
 
                 }
                 break;
-            case 55 :
-                // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/lexer/InternalReqSpecLexer.g:1:492: This
+            case 49 :
+                // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/lexer/InternalReqSpecLexer.g:1:444: This
                 {
                 mThis(); 
 
                 }
                 break;
-            case 56 :
-                // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/lexer/InternalReqSpecLexer.g:1:497: True
+            case 50 :
+                // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/lexer/InternalReqSpecLexer.g:1:449: True
                 {
                 mTrue(); 
 
                 }
                 break;
-            case 57 :
-                // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/lexer/InternalReqSpecLexer.g:1:502: With
+            case 51 :
+                // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/lexer/InternalReqSpecLexer.g:1:454: With
                 {
                 mWith(); 
 
                 }
                 break;
-            case 58 :
-                // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/lexer/InternalReqSpecLexer.g:1:507: ExclamationMarkEqualsSignEqualsSign
+            case 52 :
+                // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/lexer/InternalReqSpecLexer.g:1:459: ExclamationMarkEqualsSignEqualsSign
                 {
                 mExclamationMarkEqualsSignEqualsSign(); 
 
                 }
                 break;
-            case 59 :
-                // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/lexer/InternalReqSpecLexer.g:1:543: FullStopFullStopLessThanSign
+            case 53 :
+                // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/lexer/InternalReqSpecLexer.g:1:495: FullStopFullStopLessThanSign
                 {
                 mFullStopFullStopLessThanSign(); 
 
                 }
                 break;
-            case 60 :
-                // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/lexer/InternalReqSpecLexer.g:1:572: EqualsSignEqualsSignEqualsSign
+            case 54 :
+                // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/lexer/InternalReqSpecLexer.g:1:524: EqualsSignEqualsSignEqualsSign
                 {
                 mEqualsSignEqualsSignEqualsSign(); 
 
                 }
                 break;
-            case 61 :
-                // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/lexer/InternalReqSpecLexer.g:1:603: All
+            case 55 :
+                // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/lexer/InternalReqSpecLexer.g:1:555: All
                 {
                 mAll(); 
 
                 }
                 break;
-            case 62 :
-                // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/lexer/InternalReqSpecLexer.g:1:607: For
+            case 56 :
+                // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/lexer/InternalReqSpecLexer.g:1:559: For
                 {
                 mFor(); 
 
                 }
                 break;
-            case 63 :
-                // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/lexer/InternalReqSpecLexer.g:1:611: Img
+            case 57 :
+                // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/lexer/InternalReqSpecLexer.g:1:563: Img
                 {
                 mImg(); 
 
                 }
                 break;
-            case 64 :
-                // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/lexer/InternalReqSpecLexer.g:1:615: New
+            case 58 :
+                // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/lexer/InternalReqSpecLexer.g:1:567: New
                 {
                 mNew(); 
 
                 }
                 break;
-            case 65 :
-                // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/lexer/InternalReqSpecLexer.g:1:619: See
+            case 59 :
+                // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/lexer/InternalReqSpecLexer.g:1:571: See
                 {
                 mSee(); 
 
                 }
                 break;
-            case 66 :
-                // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/lexer/InternalReqSpecLexer.g:1:623: Try
+            case 60 :
+                // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/lexer/InternalReqSpecLexer.g:1:575: Try
                 {
                 mTry(); 
 
                 }
                 break;
-            case 67 :
-                // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/lexer/InternalReqSpecLexer.g:1:627: Val
+            case 61 :
+                // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/lexer/InternalReqSpecLexer.g:1:579: Val
                 {
                 mVal(); 
 
                 }
                 break;
-            case 68 :
-                // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/lexer/InternalReqSpecLexer.g:1:631: Var
+            case 62 :
+                // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/lexer/InternalReqSpecLexer.g:1:583: Var
                 {
                 mVar(); 
 
                 }
                 break;
-            case 69 :
-                // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/lexer/InternalReqSpecLexer.g:1:635: ExclamationMarkEqualsSign
+            case 63 :
+                // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/lexer/InternalReqSpecLexer.g:1:587: ExclamationMarkEqualsSign
                 {
                 mExclamationMarkEqualsSign(); 
 
                 }
                 break;
-            case 70 :
-                // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/lexer/InternalReqSpecLexer.g:1:661: PercentSignEqualsSign
+            case 64 :
+                // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/lexer/InternalReqSpecLexer.g:1:613: PercentSignEqualsSign
                 {
                 mPercentSignEqualsSign(); 
 
                 }
                 break;
-            case 71 :
-                // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/lexer/InternalReqSpecLexer.g:1:683: AmpersandAmpersand
+            case 65 :
+                // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/lexer/InternalReqSpecLexer.g:1:635: AmpersandAmpersand
                 {
                 mAmpersandAmpersand(); 
 
                 }
                 break;
-            case 72 :
-                // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/lexer/InternalReqSpecLexer.g:1:702: AsteriskAsterisk
+            case 66 :
+                // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/lexer/InternalReqSpecLexer.g:1:654: AsteriskAsterisk
                 {
                 mAsteriskAsterisk(); 
 
                 }
                 break;
-            case 73 :
-                // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/lexer/InternalReqSpecLexer.g:1:719: AsteriskEqualsSign
+            case 67 :
+                // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/lexer/InternalReqSpecLexer.g:1:671: AsteriskEqualsSign
                 {
                 mAsteriskEqualsSign(); 
 
                 }
                 break;
-            case 74 :
-                // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/lexer/InternalReqSpecLexer.g:1:738: PlusSignPlusSign
+            case 68 :
+                // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/lexer/InternalReqSpecLexer.g:1:690: PlusSignPlusSign
                 {
                 mPlusSignPlusSign(); 
 
                 }
                 break;
-            case 75 :
-                // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/lexer/InternalReqSpecLexer.g:1:755: PlusSignEqualsSign
+            case 69 :
+                // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/lexer/InternalReqSpecLexer.g:1:707: PlusSignEqualsSign
                 {
                 mPlusSignEqualsSign(); 
 
                 }
                 break;
-            case 76 :
-                // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/lexer/InternalReqSpecLexer.g:1:774: HyphenMinusHyphenMinus
+            case 70 :
+                // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/lexer/InternalReqSpecLexer.g:1:726: HyphenMinusHyphenMinus
                 {
                 mHyphenMinusHyphenMinus(); 
 
                 }
                 break;
-            case 77 :
-                // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/lexer/InternalReqSpecLexer.g:1:797: HyphenMinusEqualsSign
+            case 71 :
+                // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/lexer/InternalReqSpecLexer.g:1:749: HyphenMinusEqualsSign
                 {
                 mHyphenMinusEqualsSign(); 
 
                 }
                 break;
-            case 78 :
-                // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/lexer/InternalReqSpecLexer.g:1:819: HyphenMinusGreaterThanSign
+            case 72 :
+                // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/lexer/InternalReqSpecLexer.g:1:771: HyphenMinusGreaterThanSign
                 {
                 mHyphenMinusGreaterThanSign(); 
 
                 }
                 break;
-            case 79 :
-                // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/lexer/InternalReqSpecLexer.g:1:846: FullStopFullStop
+            case 73 :
+                // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/lexer/InternalReqSpecLexer.g:1:798: FullStopFullStop
                 {
                 mFullStopFullStop(); 
 
                 }
                 break;
-            case 80 :
-                // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/lexer/InternalReqSpecLexer.g:1:863: SolidusEqualsSign
+            case 74 :
+                // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/lexer/InternalReqSpecLexer.g:1:815: SolidusEqualsSign
                 {
                 mSolidusEqualsSign(); 
 
                 }
                 break;
-            case 81 :
-                // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/lexer/InternalReqSpecLexer.g:1:881: ColonColon
+            case 75 :
+                // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/lexer/InternalReqSpecLexer.g:1:833: ColonColon
                 {
                 mColonColon(); 
 
                 }
                 break;
-            case 82 :
-                // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/lexer/InternalReqSpecLexer.g:1:892: LessThanSignGreaterThanSign
+            case 76 :
+                // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/lexer/InternalReqSpecLexer.g:1:844: LessThanSignGreaterThanSign
                 {
                 mLessThanSignGreaterThanSign(); 
 
                 }
                 break;
-            case 83 :
-                // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/lexer/InternalReqSpecLexer.g:1:920: EqualsSignEqualsSign
+            case 77 :
+                // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/lexer/InternalReqSpecLexer.g:1:872: EqualsSignEqualsSign
                 {
                 mEqualsSignEqualsSign(); 
 
                 }
                 break;
-            case 84 :
-                // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/lexer/InternalReqSpecLexer.g:1:941: EqualsSignGreaterThanSign
+            case 78 :
+                // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/lexer/InternalReqSpecLexer.g:1:893: EqualsSignGreaterThanSign
                 {
                 mEqualsSignGreaterThanSign(); 
 
                 }
                 break;
-            case 85 :
-                // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/lexer/InternalReqSpecLexer.g:1:967: GreaterThanSignEqualsSign
+            case 79 :
+                // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/lexer/InternalReqSpecLexer.g:1:919: GreaterThanSignEqualsSign
                 {
                 mGreaterThanSignEqualsSign(); 
 
                 }
                 break;
-            case 86 :
-                // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/lexer/InternalReqSpecLexer.g:1:993: QuestionMarkFullStop
+            case 80 :
+                // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/lexer/InternalReqSpecLexer.g:1:945: QuestionMarkFullStop
                 {
                 mQuestionMarkFullStop(); 
 
                 }
                 break;
-            case 87 :
-                // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/lexer/InternalReqSpecLexer.g:1:1014: QuestionMarkColon
+            case 81 :
+                // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/lexer/InternalReqSpecLexer.g:1:966: QuestionMarkColon
                 {
                 mQuestionMarkColon(); 
 
                 }
                 break;
-            case 88 :
-                // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/lexer/InternalReqSpecLexer.g:1:1032: As
+            case 82 :
+                // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/lexer/InternalReqSpecLexer.g:1:984: As
                 {
                 mAs(); 
 
                 }
                 break;
-            case 89 :
-                // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/lexer/InternalReqSpecLexer.g:1:1035: Do
+            case 83 :
+                // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/lexer/InternalReqSpecLexer.g:1:987: Do
                 {
                 mDo(); 
 
                 }
                 break;
-            case 90 :
-                // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/lexer/InternalReqSpecLexer.g:1:1038: If
+            case 84 :
+                // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/lexer/InternalReqSpecLexer.g:1:990: If
                 {
                 mIf(); 
 
                 }
                 break;
-            case 91 :
-                // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/lexer/InternalReqSpecLexer.g:1:1041: VerticalLineVerticalLine
+            case 85 :
+                // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/lexer/InternalReqSpecLexer.g:1:993: VerticalLineVerticalLine
                 {
                 mVerticalLineVerticalLine(); 
 
                 }
                 break;
-            case 92 :
-                // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/lexer/InternalReqSpecLexer.g:1:1066: ExclamationMark
+            case 86 :
+                // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/lexer/InternalReqSpecLexer.g:1:1018: ExclamationMark
                 {
                 mExclamationMark(); 
 
                 }
                 break;
-            case 93 :
-                // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/lexer/InternalReqSpecLexer.g:1:1082: NumberSign
+            case 87 :
+                // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/lexer/InternalReqSpecLexer.g:1:1034: NumberSign
                 {
                 mNumberSign(); 
 
                 }
                 break;
-            case 94 :
-                // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/lexer/InternalReqSpecLexer.g:1:1093: PercentSign
+            case 88 :
+                // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/lexer/InternalReqSpecLexer.g:1:1045: PercentSign
                 {
                 mPercentSign(); 
 
                 }
                 break;
-            case 95 :
-                // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/lexer/InternalReqSpecLexer.g:1:1105: Ampersand
+            case 89 :
+                // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/lexer/InternalReqSpecLexer.g:1:1057: Ampersand
                 {
                 mAmpersand(); 
 
                 }
                 break;
-            case 96 :
-                // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/lexer/InternalReqSpecLexer.g:1:1115: LeftParenthesis
+            case 90 :
+                // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/lexer/InternalReqSpecLexer.g:1:1067: LeftParenthesis
                 {
                 mLeftParenthesis(); 
 
                 }
                 break;
-            case 97 :
-                // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/lexer/InternalReqSpecLexer.g:1:1131: RightParenthesis
+            case 91 :
+                // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/lexer/InternalReqSpecLexer.g:1:1083: RightParenthesis
                 {
                 mRightParenthesis(); 
 
                 }
                 break;
-            case 98 :
-                // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/lexer/InternalReqSpecLexer.g:1:1148: Asterisk
+            case 92 :
+                // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/lexer/InternalReqSpecLexer.g:1:1100: Asterisk
                 {
                 mAsterisk(); 
 
                 }
                 break;
-            case 99 :
-                // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/lexer/InternalReqSpecLexer.g:1:1157: PlusSign
+            case 93 :
+                // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/lexer/InternalReqSpecLexer.g:1:1109: PlusSign
                 {
                 mPlusSign(); 
 
                 }
                 break;
-            case 100 :
-                // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/lexer/InternalReqSpecLexer.g:1:1166: Comma
+            case 94 :
+                // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/lexer/InternalReqSpecLexer.g:1:1118: Comma
                 {
                 mComma(); 
 
                 }
                 break;
-            case 101 :
-                // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/lexer/InternalReqSpecLexer.g:1:1172: HyphenMinus
+            case 95 :
+                // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/lexer/InternalReqSpecLexer.g:1:1124: HyphenMinus
                 {
                 mHyphenMinus(); 
 
                 }
                 break;
-            case 102 :
-                // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/lexer/InternalReqSpecLexer.g:1:1184: FullStop
+            case 96 :
+                // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/lexer/InternalReqSpecLexer.g:1:1136: FullStop
                 {
                 mFullStop(); 
 
                 }
                 break;
-            case 103 :
-                // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/lexer/InternalReqSpecLexer.g:1:1193: Solidus
+            case 97 :
+                // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/lexer/InternalReqSpecLexer.g:1:1145: Solidus
                 {
                 mSolidus(); 
 
                 }
                 break;
-            case 104 :
-                // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/lexer/InternalReqSpecLexer.g:1:1201: Colon
+            case 98 :
+                // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/lexer/InternalReqSpecLexer.g:1:1153: Colon
                 {
                 mColon(); 
 
                 }
                 break;
-            case 105 :
-                // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/lexer/InternalReqSpecLexer.g:1:1207: Semicolon
+            case 99 :
+                // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/lexer/InternalReqSpecLexer.g:1:1159: Semicolon
                 {
                 mSemicolon(); 
 
                 }
                 break;
-            case 106 :
-                // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/lexer/InternalReqSpecLexer.g:1:1217: LessThanSign
+            case 100 :
+                // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/lexer/InternalReqSpecLexer.g:1:1169: LessThanSign
                 {
                 mLessThanSign(); 
 
                 }
                 break;
-            case 107 :
-                // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/lexer/InternalReqSpecLexer.g:1:1230: EqualsSign
+            case 101 :
+                // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/lexer/InternalReqSpecLexer.g:1:1182: EqualsSign
                 {
                 mEqualsSign(); 
 
                 }
                 break;
-            case 108 :
-                // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/lexer/InternalReqSpecLexer.g:1:1241: GreaterThanSign
+            case 102 :
+                // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/lexer/InternalReqSpecLexer.g:1:1193: GreaterThanSign
                 {
                 mGreaterThanSign(); 
 
                 }
                 break;
-            case 109 :
-                // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/lexer/InternalReqSpecLexer.g:1:1257: QuestionMark
+            case 103 :
+                // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/lexer/InternalReqSpecLexer.g:1:1209: QuestionMark
                 {
                 mQuestionMark(); 
 
                 }
                 break;
-            case 110 :
-                // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/lexer/InternalReqSpecLexer.g:1:1270: CommercialAt
+            case 104 :
+                // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/lexer/InternalReqSpecLexer.g:1:1222: CommercialAt
                 {
                 mCommercialAt(); 
 
                 }
                 break;
-            case 111 :
-                // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/lexer/InternalReqSpecLexer.g:1:1283: LeftSquareBracket
+            case 105 :
+                // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/lexer/InternalReqSpecLexer.g:1:1235: LeftSquareBracket
                 {
                 mLeftSquareBracket(); 
 
                 }
                 break;
-            case 112 :
-                // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/lexer/InternalReqSpecLexer.g:1:1301: RightSquareBracket
+            case 106 :
+                // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/lexer/InternalReqSpecLexer.g:1:1253: RightSquareBracket
                 {
                 mRightSquareBracket(); 
 
                 }
                 break;
-            case 113 :
-                // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/lexer/InternalReqSpecLexer.g:1:1320: LeftCurlyBracket
+            case 107 :
+                // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/lexer/InternalReqSpecLexer.g:1:1272: LeftCurlyBracket
                 {
                 mLeftCurlyBracket(); 
 
                 }
                 break;
-            case 114 :
-                // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/lexer/InternalReqSpecLexer.g:1:1337: VerticalLine
+            case 108 :
+                // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/lexer/InternalReqSpecLexer.g:1:1289: VerticalLine
                 {
                 mVerticalLine(); 
 
                 }
                 break;
-            case 115 :
-                // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/lexer/InternalReqSpecLexer.g:1:1350: RightCurlyBracket
+            case 109 :
+                // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/lexer/InternalReqSpecLexer.g:1:1302: RightCurlyBracket
                 {
                 mRightCurlyBracket(); 
 
                 }
                 break;
-            case 116 :
-                // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/lexer/InternalReqSpecLexer.g:1:1368: RULE_HEX
+            case 110 :
+                // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/lexer/InternalReqSpecLexer.g:1:1320: RULE_HEX
                 {
                 mRULE_HEX(); 
 
                 }
                 break;
-            case 117 :
-                // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/lexer/InternalReqSpecLexer.g:1:1377: RULE_INT
+            case 111 :
+                // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/lexer/InternalReqSpecLexer.g:1:1329: RULE_INT
                 {
                 mRULE_INT(); 
 
                 }
                 break;
-            case 118 :
-                // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/lexer/InternalReqSpecLexer.g:1:1386: RULE_DECIMAL
+            case 112 :
+                // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/lexer/InternalReqSpecLexer.g:1:1338: RULE_DECIMAL
                 {
                 mRULE_DECIMAL(); 
 
                 }
                 break;
-            case 119 :
-                // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/lexer/InternalReqSpecLexer.g:1:1399: RULE_ID
+            case 113 :
+                // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/lexer/InternalReqSpecLexer.g:1:1351: RULE_ID
                 {
                 mRULE_ID(); 
 
                 }
                 break;
-            case 120 :
-                // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/lexer/InternalReqSpecLexer.g:1:1407: RULE_STRING
+            case 114 :
+                // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/lexer/InternalReqSpecLexer.g:1:1359: RULE_STRING
                 {
                 mRULE_STRING(); 
 
                 }
                 break;
-            case 121 :
-                // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/lexer/InternalReqSpecLexer.g:1:1419: RULE_ML_COMMENT
+            case 115 :
+                // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/lexer/InternalReqSpecLexer.g:1:1371: RULE_ML_COMMENT
                 {
                 mRULE_ML_COMMENT(); 
 
                 }
                 break;
-            case 122 :
-                // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/lexer/InternalReqSpecLexer.g:1:1435: RULE_SL_COMMENT
+            case 116 :
+                // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/lexer/InternalReqSpecLexer.g:1:1387: RULE_SL_COMMENT
                 {
                 mRULE_SL_COMMENT(); 
 
                 }
                 break;
-            case 123 :
-                // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/lexer/InternalReqSpecLexer.g:1:1451: RULE_WS
+            case 117 :
+                // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/lexer/InternalReqSpecLexer.g:1:1403: RULE_WS
                 {
                 mRULE_WS(); 
 
                 }
                 break;
-            case 124 :
-                // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/lexer/InternalReqSpecLexer.g:1:1459: RULE_ANY_OTHER
+            case 118 :
+                // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/lexer/InternalReqSpecLexer.g:1:1411: RULE_ANY_OTHER
                 {
                 mRULE_ANY_OTHER(); 
 
@@ -8335,187 +7795,175 @@ public class InternalReqSpecLexer extends Lexer {
 
     protected DFA21 dfa21 = new DFA21(this);
     static final String DFA21_eotS =
-        "\1\uffff\21\66\1\137\1\141\1\144\1\146\1\150\1\153\1\156\1\162"+
-        "\1\166\1\170\1\172\1\174\1\177\1\u0081\12\uffff\2\u008e\1\61\5\uffff"+
-        "\4\66\1\uffff\14\66\1\u00ab\5\66\1\u00b3\6\66\1\u00c0\15\66\1\u00d0"+
-        "\1\uffff\1\u00d2\1\uffff\1\u00d4\52\uffff\1\u008e\4\uffff\5\66\1"+
-        "\u00da\5\66\1\u00e1\15\66\1\uffff\4\66\1\u00f3\2\66\1\uffff\1\u00f7"+
-        "\11\66\1\u0102\1\66\1\uffff\1\66\1\u0106\1\u0107\12\66\1\u0112\6"+
-        "\uffff\3\66\1\u0116\1\u0117\1\uffff\6\66\1\uffff\21\66\1\uffff\3"+
-        "\66\1\uffff\5\66\1\u0137\4\66\1\uffff\3\66\2\uffff\2\66\1\u0141"+
-        "\1\66\1\u0144\3\66\1\u0148\1\u0149\1\uffff\2\66\1\u014c\2\uffff"+
-        "\7\66\1\u0154\15\66\1\u0162\10\66\1\u016b\1\uffff\2\66\1\u016e\3"+
-        "\66\1\u0172\2\66\1\uffff\1\66\1\u0177\1\uffff\2\66\1\u017a\2\uffff"+
-        "\1\66\1\u017c\1\uffff\2\66\1\u017f\1\66\1\u0181\1\66\1\u0183\1\uffff"+
-        "\4\66\1\u0188\10\66\1\uffff\3\66\1\u0194\4\66\1\uffff\2\66\1\uffff"+
-        "\1\u019b\1\u019c\1\66\1\uffff\4\66\1\uffff\1\66\1\u01a3\1\uffff"+
-        "\1\66\1\uffff\2\66\1\uffff\1\66\1\uffff\1\u01a8\1\uffff\3\66\1\u01ac"+
-        "\1\uffff\4\66\1\u01b1\1\66\1\u01b3\1\66\1\u01b5\2\66\1\uffff\2\66"+
-        "\1\u01ba\3\66\2\uffff\2\66\1\u01c0\1\u01c1\2\66\1\uffff\4\66\1\uffff"+
-        "\3\66\1\uffff\4\66\1\uffff\1\u01cf\1\uffff\1\66\1\uffff\4\66\1\uffff"+
-        "\1\u01d5\4\66\2\uffff\7\66\1\u01e1\1\66\1\u01e3\1\u01e4\2\66\1\uffff"+
-        "\4\66\1\u01eb\1\uffff\1\66\1\u01ed\1\66\1\u01ef\1\u01f0\1\u01f1"+
-        "\5\66\1\uffff\1\66\2\uffff\1\66\1\u01f9\2\66\1\u01fc\1\u01fd\1\uffff"+
-        "\1\u01fe\1\uffff\1\u01ff\3\uffff\3\66\1\u0203\1\66\1\u0206\1\u0207"+
-        "\1\uffff\1\u0208\1\u0209\4\uffff\2\66\1\u020c\1\uffff\1\66\1\u020e"+
-        "\4\uffff\2\66\1\uffff\1\u0211\1\uffff\1\66\1\u0213\1\uffff\1\u0214"+
-        "\2\uffff";
+        "\1\uffff\17\65\1\132\1\134\1\137\1\65\1\143\1\145\1\150\1\153\1"+
+        "\157\1\163\1\165\1\167\1\171\1\174\1\176\12\uffff\2\u008b\1\60\5"+
+        "\uffff\4\65\1\uffff\14\65\1\u00a8\12\65\1\u00b9\13\65\1\u00c7\1"+
+        "\uffff\1\u00c9\1\uffff\1\u00cb\2\uffff\1\65\1\u00cd\50\uffff\1\u008b"+
+        "\4\uffff\5\65\1\u00d3\5\65\1\u00da\15\65\1\uffff\4\65\1\u00ec\11"+
+        "\65\1\u00f7\1\65\1\uffff\1\65\1\u00fa\1\u00fb\10\65\1\u0104\6\uffff"+
+        "\1\u0105\1\uffff\3\65\1\u0109\1\u010a\1\uffff\6\65\1\uffff\21\65"+
+        "\1\uffff\6\65\1\u0128\3\65\1\uffff\2\65\2\uffff\2\65\1\u0130\1\65"+
+        "\1\u0133\1\65\1\u0135\1\u0136\2\uffff\2\65\1\u0139\2\uffff\7\65"+
+        "\1\u0141\15\65\1\u014f\6\65\1\u0156\1\uffff\7\65\1\uffff\1\65\1"+
+        "\u0160\1\uffff\1\u0161\2\uffff\1\65\1\u0163\1\uffff\2\65\1\u0166"+
+        "\1\65\1\u0168\1\65\1\u016a\1\uffff\4\65\1\u016f\10\65\1\uffff\6"+
+        "\65\1\uffff\2\65\1\u0180\1\u0181\5\65\2\uffff\1\65\1\uffff\2\65"+
+        "\1\uffff\1\65\1\uffff\1\u018b\1\uffff\3\65\1\u018f\1\uffff\4\65"+
+        "\1\u0194\1\65\1\u0196\1\65\1\u0198\3\65\1\u019c\3\65\2\uffff\2\65"+
+        "\1\u01a2\1\u01a3\5\65\1\uffff\3\65\1\uffff\4\65\1\uffff\1\u01b0"+
+        "\1\uffff\1\65\1\uffff\3\65\1\uffff\1\u01b5\1\65\1\u01b7\2\65\2\uffff"+
+        "\6\65\1\u01c0\1\65\1\u01c2\1\u01c3\2\65\1\uffff\3\65\1\u01c9\1\uffff"+
+        "\1\65\1\uffff\1\65\1\u01cc\1\u01cd\5\65\1\uffff\1\65\2\uffff\1\65"+
+        "\1\u01d5\2\65\1\u01d8\1\uffff\1\u01d9\1\u01da\2\uffff\3\65\1\u01de"+
+        "\1\65\1\u01e1\1\u01e2\1\uffff\1\u01e3\1\u01e4\3\uffff\2\65\1\u01e7"+
+        "\1\uffff\1\65\1\u01e9\4\uffff\2\65\1\uffff\1\u01ec\1\uffff\1\65"+
+        "\1\u01ee\1\uffff\1\u01ef\2\uffff";
     static final String DFA21_eofS =
-        "\u0215\uffff";
+        "\u01f0\uffff";
     static final String DFA21_minS =
-        "\1\0\1\110\1\103\2\101\1\105\1\101\1\116\1\114\1\101\1\106\1\101"+
-        "\1\114\1\117\1\122\1\125\1\110\1\105\1\75\1\56\2\75\1\46\1\52\1"+
-        "\53\1\55\1\52\1\72\1\76\1\75\1\56\1\174\12\uffff\2\60\1\44\5\uffff"+
+        "\1\0\1\110\1\103\2\101\1\105\1\101\1\116\1\101\1\106\1\101\1\114"+
+        "\1\122\1\117\1\110\1\105\1\75\1\56\1\75\1\114\1\75\1\46\1\52\1\53"+
+        "\1\55\1\52\1\72\1\76\1\75\1\56\1\174\12\uffff\2\60\1\44\5\uffff"+
         "\1\115\1\120\1\111\1\125\1\uffff\1\110\1\116\1\101\1\103\1\111\1"+
         "\120\2\124\1\106\1\124\1\123\1\103\1\44\1\117\1\114\1\116\1\122"+
-        "\1\103\1\44\1\114\1\115\1\123\1\120\1\107\1\123\1\44\2\114\1\124"+
-        "\1\117\1\123\2\101\1\105\1\124\1\111\1\124\1\114\1\127\1\75\1\uffff"+
-        "\1\74\1\uffff\1\75\52\uffff\1\60\4\uffff\2\105\1\117\1\123\1\105"+
-        "\1\44\1\105\1\103\1\124\1\113\1\124\1\44\1\124\1\105\1\125\1\111"+
-        "\1\125\1\111\1\125\1\111\1\113\1\103\1\117\1\101\1\125\1\uffff\1"+
-        "\120\1\111\1\123\1\101\1\44\2\105\1\uffff\1\44\1\124\1\106\1\120"+
-        "\1\103\1\105\1\124\1\101\1\125\1\117\1\44\1\125\1\uffff\1\101\2"+
-        "\44\1\105\1\114\1\105\1\122\1\114\1\104\1\120\1\114\1\110\1\114"+
-        "\1\44\6\uffff\1\103\1\117\1\127\2\44\1\uffff\1\104\1\110\2\105\2"+
-        "\111\1\uffff\1\103\2\122\1\107\1\111\1\116\1\122\1\117\1\111\1\122"+
-        "\1\115\1\125\1\115\1\120\1\114\1\105\1\114\1\uffff\1\122\1\115\1"+
-        "\122\1\uffff\1\111\1\114\1\125\1\107\1\110\1\44\1\101\1\122\1\124"+
-        "\1\122\1\uffff\1\105\1\124\1\105\2\uffff\1\116\1\126\1\44\1\101"+
-        "\1\44\1\111\1\125\1\105\2\44\1\uffff\1\122\1\106\1\44\2\uffff\1"+
-        "\125\1\122\1\115\1\110\1\103\1\117\1\110\1\44\1\111\1\101\1\122"+
-        "\1\105\3\116\1\111\1\120\1\114\2\105\1\111\1\44\1\114\1\124\1\120"+
-        "\1\124\1\115\1\111\1\124\1\117\1\44\1\uffff\1\116\1\111\1\44\1\124"+
-        "\1\123\1\111\1\44\1\104\1\105\1\uffff\1\116\1\44\1\uffff\1\103\1"+
-        "\124\1\44\2\uffff\1\111\1\44\1\uffff\1\114\1\117\1\44\1\117\1\44"+
-        "\1\116\1\44\1\uffff\2\124\1\105\1\123\1\44\1\101\1\104\1\120\1\117"+
-        "\1\124\1\116\1\104\1\101\1\uffff\1\131\1\101\1\124\1\44\1\120\1"+
-        "\103\1\105\1\122\1\uffff\1\103\1\101\1\uffff\2\44\1\114\1\uffff"+
-        "\1\111\2\123\1\124\1\uffff\1\101\1\44\1\uffff\1\124\1\uffff\1\105"+
-        "\1\116\1\uffff\1\114\1\uffff\1\44\1\uffff\1\131\1\105\1\115\1\44"+
-        "\1\uffff\1\114\1\105\1\124\1\123\1\44\1\124\1\44\1\122\1\44\2\111"+
-        "\1\uffff\1\101\1\124\1\44\1\131\1\105\1\116\2\uffff\1\111\1\117"+
-        "\2\44\1\105\1\124\1\uffff\3\111\1\104\1\uffff\1\111\1\123\1\105"+
-        "\1\uffff\1\105\1\130\1\111\1\105\1\uffff\1\44\1\uffff\1\111\1\uffff"+
-        "\1\116\1\117\1\103\1\123\1\uffff\1\44\1\117\2\124\1\116\2\uffff"+
-        "\2\105\1\103\1\115\1\132\1\105\1\116\1\44\1\116\2\44\1\117\1\123"+
-        "\1\uffff\2\124\1\116\1\124\1\44\1\uffff\1\106\1\44\1\131\3\44\1"+
-        "\101\1\120\1\105\1\122\1\104\1\uffff\1\124\2\uffff\1\116\1\44\2"+
-        "\131\2\44\1\uffff\1\44\1\uffff\1\44\3\uffff\1\114\1\101\1\104\1"+
-        "\44\1\105\2\44\1\uffff\2\44\4\uffff\1\111\1\103\1\44\1\uffff\1\130"+
-        "\1\44\4\uffff\2\124\1\uffff\1\44\1\uffff\1\131\1\44\1\uffff\1\44"+
-        "\2\uffff";
+        "\1\103\1\115\1\123\1\106\1\107\1\123\1\44\2\114\1\124\1\117\1\123"+
+        "\1\105\1\101\1\111\1\124\1\114\1\127\1\75\1\uffff\1\74\1\uffff\1"+
+        "\75\2\uffff\1\114\1\44\50\uffff\1\60\4\uffff\2\105\1\117\1\123\1"+
+        "\105\1\44\1\105\1\103\1\124\1\113\1\124\1\44\1\124\1\105\1\125\1"+
+        "\111\1\125\1\111\1\125\1\111\1\113\1\103\1\117\1\101\1\125\1\uffff"+
+        "\1\120\1\111\1\123\1\101\1\44\1\105\1\124\1\106\1\120\1\103\1\105"+
+        "\1\124\2\117\1\44\1\125\1\uffff\1\101\2\44\1\105\1\114\1\105\1\104"+
+        "\2\114\1\110\1\114\1\44\6\uffff\1\44\1\uffff\1\103\1\117\1\127\2"+
+        "\44\1\uffff\1\104\1\110\2\105\2\111\1\uffff\1\103\2\122\1\107\1"+
+        "\111\1\116\1\122\1\117\1\111\1\122\1\115\1\125\1\115\1\120\1\114"+
+        "\1\105\1\114\1\uffff\1\122\1\111\1\114\1\125\1\107\1\110\1\44\1"+
+        "\101\2\122\1\uffff\1\105\1\124\2\uffff\1\116\1\126\1\44\1\111\1"+
+        "\44\1\105\2\44\2\uffff\1\122\1\106\1\44\2\uffff\1\125\1\122\1\115"+
+        "\1\110\1\103\1\117\1\110\1\44\1\111\1\101\1\122\1\105\3\116\1\111"+
+        "\1\120\1\114\2\105\1\111\1\44\1\114\1\124\1\115\1\111\1\124\1\117"+
+        "\1\44\1\uffff\1\116\1\115\1\124\1\123\1\111\1\104\1\105\1\uffff"+
+        "\1\103\1\44\1\uffff\1\44\2\uffff\1\111\1\44\1\uffff\1\114\1\117"+
+        "\1\44\1\117\1\44\1\116\1\44\1\uffff\2\124\1\105\1\123\1\44\1\101"+
+        "\1\104\1\120\1\117\1\124\1\116\1\104\1\101\1\uffff\1\131\1\101\1"+
+        "\120\1\103\1\105\1\122\1\uffff\1\103\1\101\2\44\1\114\1\111\2\123"+
+        "\1\101\2\uffff\1\124\1\uffff\1\105\1\116\1\uffff\1\114\1\uffff\1"+
+        "\44\1\uffff\1\131\1\105\1\115\1\44\1\uffff\1\114\1\105\1\124\1\123"+
+        "\1\44\1\124\1\44\1\122\1\44\1\111\1\101\1\124\1\44\1\131\1\105\1"+
+        "\114\2\uffff\1\111\1\117\2\44\1\124\3\111\1\104\1\uffff\1\111\1"+
+        "\123\1\105\1\uffff\1\105\1\130\1\111\1\105\1\uffff\1\44\1\uffff"+
+        "\1\111\1\uffff\1\116\1\103\1\123\1\uffff\1\44\1\117\1\44\1\124\1"+
+        "\116\2\uffff\1\105\1\103\1\115\1\132\1\105\1\116\1\44\1\116\2\44"+
+        "\1\117\1\123\1\uffff\3\124\1\44\1\uffff\1\106\1\uffff\1\131\2\44"+
+        "\1\101\1\120\1\105\1\122\1\104\1\uffff\1\124\2\uffff\1\116\1\44"+
+        "\2\131\1\44\1\uffff\2\44\2\uffff\1\114\1\101\1\104\1\44\1\105\2"+
+        "\44\1\uffff\2\44\3\uffff\1\111\1\103\1\44\1\uffff\1\130\1\44\4\uffff"+
+        "\2\124\1\uffff\1\44\1\uffff\1\131\1\44\1\uffff\1\44\2\uffff";
     static final String DFA21_maxS =
-        "\1\uffff\2\171\2\151\1\162\1\157\1\156\1\163\1\157\1\163\1\157"+
-        "\1\170\1\165\1\162\1\165\1\151\1\165\1\75\1\56\1\76\1\75\1\46\2"+
-        "\75\1\76\1\75\1\72\1\76\1\75\1\72\1\174\12\uffff\1\170\1\154\1\172"+
-        "\5\uffff\1\155\1\160\1\162\1\171\1\uffff\1\150\1\163\1\141\1\145"+
-        "\1\151\1\160\4\164\2\163\1\172\1\157\1\155\1\156\1\162\1\143\1\172"+
-        "\1\154\1\163\1\164\1\166\1\160\1\163\1\172\1\154\1\162\1\164\1\157"+
-        "\1\163\2\141\1\145\1\164\1\151\1\164\1\154\1\167\1\75\1\uffff\1"+
-        "\74\1\uffff\1\75\52\uffff\1\154\4\uffff\2\145\1\157\1\163\1\145"+
-        "\1\172\1\145\1\143\3\164\1\172\1\164\1\145\1\165\1\151\1\165\1\151"+
-        "\1\165\1\151\1\153\1\143\1\157\1\141\1\165\1\uffff\1\160\1\151\1"+
-        "\163\1\141\1\172\1\145\1\165\1\uffff\1\172\1\164\1\146\1\160\2\145"+
-        "\1\164\1\141\1\165\1\157\1\172\1\165\1\uffff\1\141\2\172\1\145\1"+
-        "\154\1\145\1\162\1\154\1\144\1\160\1\154\1\150\1\154\1\172\6\uffff"+
-        "\1\143\1\157\1\167\2\172\1\uffff\1\144\1\150\2\145\2\151\1\uffff"+
-        "\1\143\2\162\1\147\1\151\1\156\1\162\1\157\1\151\1\162\1\155\1\165"+
-        "\1\155\1\160\1\154\1\145\1\154\1\uffff\1\162\1\155\1\162\1\uffff"+
-        "\1\151\1\154\1\165\1\147\1\150\1\172\1\141\1\162\1\164\1\162\1\uffff"+
-        "\1\145\1\164\1\145\2\uffff\1\156\1\166\1\172\1\141\1\172\1\151\1"+
-        "\165\1\145\2\172\1\uffff\1\162\1\146\1\172\2\uffff\1\165\1\162\1"+
-        "\155\1\150\1\143\1\157\1\150\1\172\1\151\1\141\1\162\1\145\3\156"+
-        "\1\151\1\160\1\154\2\145\1\151\1\172\1\154\1\164\1\160\1\164\1\155"+
-        "\1\151\1\164\1\157\1\172\1\uffff\1\156\1\151\1\172\1\164\1\163\1"+
-        "\151\1\172\1\163\1\145\1\uffff\1\156\1\172\1\uffff\1\143\1\164\1"+
-        "\172\2\uffff\1\151\1\172\1\uffff\1\154\1\157\1\172\1\157\1\172\1"+
-        "\156\1\172\1\uffff\2\164\1\145\1\163\1\172\1\141\1\144\1\160\1\157"+
-        "\1\164\1\156\1\144\1\141\1\uffff\1\171\1\141\1\164\1\172\1\160\1"+
-        "\143\1\145\1\162\1\uffff\1\143\1\141\1\uffff\2\172\1\154\1\uffff"+
-        "\1\151\2\163\1\164\1\uffff\1\141\1\172\1\uffff\1\164\1\uffff\1\145"+
-        "\1\156\1\uffff\1\154\1\uffff\1\172\1\uffff\1\171\1\145\1\155\1\172"+
-        "\1\uffff\1\154\1\145\1\164\1\163\1\172\1\164\1\172\1\162\1\172\2"+
-        "\151\1\uffff\1\141\1\164\1\172\1\171\1\145\1\156\2\uffff\1\151\1"+
-        "\157\2\172\1\145\1\164\1\uffff\3\151\1\144\1\uffff\1\151\1\163\1"+
-        "\145\1\uffff\1\145\1\170\1\151\1\145\1\uffff\1\172\1\uffff\1\151"+
-        "\1\uffff\1\156\1\157\1\143\1\163\1\uffff\1\172\1\157\2\164\1\156"+
-        "\2\uffff\2\145\1\143\1\155\1\172\1\145\1\156\1\172\1\156\2\172\1"+
-        "\157\1\163\1\uffff\2\164\1\156\1\164\1\172\1\uffff\1\146\1\172\1"+
-        "\171\3\172\1\141\1\160\1\145\1\162\1\144\1\uffff\1\164\2\uffff\1"+
-        "\156\1\172\2\171\2\172\1\uffff\1\172\1\uffff\1\172\3\uffff\1\154"+
-        "\1\141\1\144\1\172\1\145\2\172\1\uffff\2\172\4\uffff\1\151\1\143"+
-        "\1\172\1\uffff\1\170\1\172\4\uffff\2\164\1\uffff\1\172\1\uffff\1"+
-        "\171\1\172\1\uffff\1\172\2\uffff";
+        "\1\uffff\2\171\2\151\1\162\1\157\1\156\1\157\1\163\1\157\1\170"+
+        "\1\162\1\157\1\151\1\165\1\75\1\56\1\76\1\163\1\75\1\46\2\75\1\76"+
+        "\1\75\1\72\1\76\1\75\1\72\1\174\12\uffff\1\170\1\154\1\172\5\uffff"+
+        "\1\155\1\160\1\162\1\171\1\uffff\1\150\1\163\1\141\1\145\1\151\1"+
+        "\160\4\164\2\163\1\172\1\157\1\155\1\156\1\162\1\143\1\163\1\164"+
+        "\1\163\1\160\1\163\1\172\1\154\1\162\1\164\1\157\1\163\1\145\1\141"+
+        "\1\151\1\164\1\154\1\167\1\75\1\uffff\1\74\1\uffff\1\75\2\uffff"+
+        "\1\154\1\172\50\uffff\1\154\4\uffff\2\145\1\157\1\163\1\145\1\172"+
+        "\1\145\1\143\3\164\1\172\1\164\1\145\1\165\1\151\1\165\1\151\1\165"+
+        "\1\151\1\153\1\143\1\157\1\141\1\165\1\uffff\1\160\1\151\1\163\1"+
+        "\141\1\172\1\145\1\164\1\146\1\160\2\145\1\164\2\157\1\172\1\165"+
+        "\1\uffff\1\141\2\172\1\145\1\154\1\145\1\144\2\154\1\150\1\154\1"+
+        "\172\6\uffff\1\172\1\uffff\1\143\1\157\1\167\2\172\1\uffff\1\144"+
+        "\1\150\2\145\2\151\1\uffff\1\143\2\162\1\147\1\151\1\156\1\162\1"+
+        "\157\1\151\1\162\1\155\1\165\1\155\1\160\1\154\1\145\1\154\1\uffff"+
+        "\1\162\1\151\1\154\1\165\1\147\1\150\1\172\1\141\2\162\1\uffff\1"+
+        "\145\1\164\2\uffff\1\156\1\166\1\172\1\151\1\172\1\145\2\172\2\uffff"+
+        "\1\162\1\146\1\172\2\uffff\1\165\1\162\1\155\1\150\1\143\1\157\1"+
+        "\150\1\172\1\151\1\141\1\162\1\145\3\156\1\151\1\160\1\154\2\145"+
+        "\1\151\1\172\1\154\1\164\1\155\1\151\1\164\1\157\1\172\1\uffff\1"+
+        "\156\1\155\1\164\1\163\1\151\1\163\1\145\1\uffff\1\143\1\172\1\uffff"+
+        "\1\172\2\uffff\1\151\1\172\1\uffff\1\154\1\157\1\172\1\157\1\172"+
+        "\1\156\1\172\1\uffff\2\164\1\145\1\163\1\172\1\141\1\144\1\160\1"+
+        "\157\1\164\1\156\1\144\1\141\1\uffff\1\171\1\141\1\160\1\143\1\145"+
+        "\1\162\1\uffff\1\143\1\141\2\172\1\154\1\151\2\163\1\141\2\uffff"+
+        "\1\164\1\uffff\1\145\1\156\1\uffff\1\154\1\uffff\1\172\1\uffff\1"+
+        "\171\1\145\1\155\1\172\1\uffff\1\154\1\145\1\164\1\163\1\172\1\164"+
+        "\1\172\1\162\1\172\1\151\1\141\1\164\1\172\1\171\1\145\1\154\2\uffff"+
+        "\1\151\1\157\2\172\1\164\3\151\1\144\1\uffff\1\151\1\163\1\145\1"+
+        "\uffff\1\145\1\170\1\151\1\145\1\uffff\1\172\1\uffff\1\151\1\uffff"+
+        "\1\156\1\143\1\163\1\uffff\1\172\1\157\1\172\1\164\1\156\2\uffff"+
+        "\1\145\1\143\1\155\1\172\1\145\1\156\1\172\1\156\2\172\1\157\1\163"+
+        "\1\uffff\3\164\1\172\1\uffff\1\146\1\uffff\1\171\2\172\1\141\1\160"+
+        "\1\145\1\162\1\144\1\uffff\1\164\2\uffff\1\156\1\172\2\171\1\172"+
+        "\1\uffff\2\172\2\uffff\1\154\1\141\1\144\1\172\1\145\2\172\1\uffff"+
+        "\2\172\3\uffff\1\151\1\143\1\172\1\uffff\1\170\1\172\4\uffff\2\164"+
+        "\1\uffff\1\172\1\uffff\1\171\1\172\1\uffff\1\172\2\uffff";
     static final String DFA21_acceptS =
-        "\40\uffff\1\135\1\140\1\141\1\144\1\151\1\156\1\157\1\160\1\161"+
-        "\1\163\3\uffff\1\167\2\170\1\173\1\174\4\uffff\1\167\50\uffff\1"+
-        "\134\1\uffff\1\146\1\uffff\1\124\1\153\1\106\1\136\1\107\1\137\1"+
-        "\110\1\111\1\142\1\112\1\113\1\143\1\114\1\115\1\116\1\145\1\120"+
-        "\1\171\1\172\1\147\1\121\1\150\1\122\1\152\1\125\1\154\1\126\1\127"+
-        "\1\155\1\133\1\162\1\135\1\140\1\141\1\144\1\151\1\156\1\157\1\160"+
-        "\1\161\1\163\1\164\1\uffff\1\165\1\166\1\170\1\173\31\uffff\1\131"+
-        "\7\uffff\1\130\14\uffff\1\132\16\uffff\1\72\1\105\1\73\1\117\1\74"+
-        "\1\123\5\uffff\1\102\6\uffff\1\101\21\uffff\1\76\3\uffff\1\75\12"+
-        "\uffff\1\77\3\uffff\1\103\1\104\12\uffff\1\100\3\uffff\1\67\1\70"+
-        "\37\uffff\1\63\11\uffff\1\64\2\uffff\1\65\3\uffff\1\71\1\66\2\uffff"+
-        "\1\60\7\uffff\1\57\15\uffff\1\54\10\uffff\1\53\2\uffff\1\56\3\uffff"+
-        "\1\61\4\uffff\1\55\2\uffff\1\62\1\uffff\1\52\2\uffff\1\51\1\uffff"+
-        "\1\47\1\uffff\1\50\4\uffff\1\46\13\uffff\1\42\6\uffff\1\43\1\44"+
-        "\6\uffff\1\45\4\uffff\1\41\3\uffff\1\40\4\uffff\1\33\1\uffff\1\34"+
-        "\1\uffff\1\37\4\uffff\1\32\5\uffff\1\36\1\35\15\uffff\1\31\5\uffff"+
-        "\1\30\13\uffff\1\24\1\uffff\1\26\1\27\6\uffff\1\20\1\uffff\1\23"+
-        "\1\uffff\1\21\1\22\1\25\7\uffff\1\15\2\uffff\1\13\1\14\1\16\1\17"+
-        "\3\uffff\1\11\2\uffff\1\10\1\6\1\7\1\12\2\uffff\1\5\1\uffff\1\4"+
-        "\2\uffff\1\3\1\uffff\1\2\1\1";
+        "\37\uffff\1\127\1\132\1\133\1\136\1\143\1\150\1\151\1\152\1\153"+
+        "\1\155\3\uffff\1\161\2\162\1\165\1\166\4\uffff\1\161\44\uffff\1"+
+        "\126\1\uffff\1\140\1\uffff\1\116\1\145\2\uffff\1\100\1\130\1\101"+
+        "\1\131\1\102\1\103\1\134\1\104\1\105\1\135\1\106\1\107\1\110\1\137"+
+        "\1\112\1\163\1\164\1\141\1\113\1\142\1\114\1\144\1\117\1\146\1\120"+
+        "\1\121\1\147\1\125\1\154\1\127\1\132\1\133\1\136\1\143\1\150\1\151"+
+        "\1\152\1\153\1\155\1\156\1\uffff\1\157\1\160\1\162\1\165\31\uffff"+
+        "\1\123\20\uffff\1\124\14\uffff\1\64\1\77\1\65\1\111\1\66\1\115\1"+
+        "\uffff\1\122\5\uffff\1\74\6\uffff\1\73\21\uffff\1\70\12\uffff\1"+
+        "\71\2\uffff\1\75\1\76\10\uffff\1\72\1\67\3\uffff\1\61\1\62\35\uffff"+
+        "\1\55\7\uffff\1\56\2\uffff\1\57\1\uffff\1\63\1\60\2\uffff\1\53\7"+
+        "\uffff\1\52\15\uffff\1\50\6\uffff\1\47\11\uffff\1\51\1\54\1\uffff"+
+        "\1\46\2\uffff\1\45\1\uffff\1\43\1\uffff\1\44\4\uffff\1\42\20\uffff"+
+        "\1\40\1\41\11\uffff\1\37\3\uffff\1\36\4\uffff\1\31\1\uffff\1\32"+
+        "\1\uffff\1\35\3\uffff\1\30\5\uffff\1\34\1\33\14\uffff\1\26\4\uffff"+
+        "\1\25\1\uffff\1\27\10\uffff\1\21\1\uffff\1\23\1\24\5\uffff\1\17"+
+        "\2\uffff\1\20\1\22\7\uffff\1\14\2\uffff\1\13\1\15\1\16\3\uffff\1"+
+        "\11\2\uffff\1\10\1\6\1\7\1\12\2\uffff\1\5\1\uffff\1\4\2\uffff\1"+
+        "\3\1\uffff\1\2\1\1";
     static final String DFA21_specialS =
-        "\1\0\u0214\uffff}>";
+        "\1\0\u01ef\uffff}>";
     static final String[] DFA21_transitionS = {
-            "\11\61\2\60\2\61\1\60\22\61\1\60\1\22\1\56\1\40\1\55\1\25\1"+
-            "\26\1\57\1\41\1\42\1\27\1\30\1\43\1\31\1\23\1\32\1\52\11\53"+
-            "\1\33\1\44\1\34\1\24\1\35\1\36\1\45\1\10\1\55\1\11\1\5\1\14"+
-            "\1\6\1\15\1\55\1\12\3\55\1\3\1\21\1\17\1\16\1\55\1\4\1\2\1\1"+
-            "\1\7\1\13\1\20\3\55\1\46\1\61\1\47\1\54\1\55\1\61\1\10\1\55"+
-            "\1\11\1\5\1\14\1\6\1\15\1\55\1\12\3\55\1\3\1\21\1\17\1\16\1"+
-            "\55\1\4\1\2\1\1\1\7\1\13\1\20\3\55\1\50\1\37\1\51\uff82\61",
-            "\1\64\1\62\10\uffff\1\65\6\uffff\1\63\16\uffff\1\64\1\62\10"+
-            "\uffff\1\65\6\uffff\1\63",
-            "\1\67\1\uffff\1\72\16\uffff\1\71\1\74\1\uffff\1\73\1\uffff"+
-            "\1\70\11\uffff\1\67\1\uffff\1\72\16\uffff\1\71\1\74\1\uffff"+
-            "\1\73\1\uffff\1\70",
-            "\1\75\7\uffff\1\76\27\uffff\1\75\7\uffff\1\76",
-            "\1\100\3\uffff\1\77\3\uffff\1\101\27\uffff\1\100\3\uffff\1"+
-            "\77\3\uffff\1\101",
-            "\1\102\11\uffff\1\103\2\uffff\1\104\22\uffff\1\102\11\uffff"+
-            "\1\103\2\uffff\1\104",
-            "\1\105\7\uffff\1\106\5\uffff\1\107\21\uffff\1\105\7\uffff"+
-            "\1\106\5\uffff\1\107",
-            "\1\110\37\uffff\1\110",
-            "\1\112\6\uffff\1\111\30\uffff\1\112\6\uffff\1\111",
-            "\1\114\15\uffff\1\113\21\uffff\1\114\15\uffff\1\113",
-            "\1\120\6\uffff\1\116\1\115\4\uffff\1\117\22\uffff\1\120\6"+
-            "\uffff\1\116\1\115\4\uffff\1\117",
-            "\1\122\15\uffff\1\121\21\uffff\1\122\15\uffff\1\121",
-            "\1\125\11\uffff\1\124\1\uffff\1\123\23\uffff\1\125\11\uffff"+
-            "\1\124\1\uffff\1\123",
-            "\1\127\5\uffff\1\126\31\uffff\1\127\5\uffff\1\126",
-            "\1\130\37\uffff\1\130",
-            "\1\131\37\uffff\1\131",
-            "\1\132\1\133\36\uffff\1\132\1\133",
-            "\1\135\17\uffff\1\134\17\uffff\1\135\17\uffff\1\134",
-            "\1\136",
-            "\1\140",
-            "\1\142\1\143",
-            "\1\145",
-            "\1\147",
-            "\1\151\22\uffff\1\152",
-            "\1\154\21\uffff\1\155",
-            "\1\157\17\uffff\1\160\1\161",
-            "\1\164\4\uffff\1\165\15\uffff\1\163",
-            "\1\167",
-            "\1\171",
-            "\1\173",
-            "\1\175\13\uffff\1\176",
-            "\1\u0080",
+            "\11\60\2\57\2\60\1\57\22\60\1\57\1\20\1\55\1\37\1\54\1\24\1"+
+            "\25\1\56\1\40\1\41\1\26\1\27\1\42\1\30\1\21\1\31\1\51\11\52"+
+            "\1\32\1\43\1\33\1\22\1\34\1\35\1\44\1\23\1\54\1\10\1\5\1\13"+
+            "\1\6\1\15\1\54\1\11\3\54\1\3\1\17\1\54\1\14\1\54\1\4\1\2\1\1"+
+            "\1\7\1\12\1\16\3\54\1\45\1\60\1\46\1\53\1\54\1\60\1\23\1\54"+
+            "\1\10\1\5\1\13\1\6\1\15\1\54\1\11\3\54\1\3\1\17\1\54\1\14\1"+
+            "\54\1\4\1\2\1\1\1\7\1\12\1\16\3\54\1\47\1\36\1\50\uff82\60",
+            "\1\63\1\61\10\uffff\1\64\6\uffff\1\62\16\uffff\1\63\1\61\10"+
+            "\uffff\1\64\6\uffff\1\62",
+            "\1\66\1\uffff\1\71\16\uffff\1\70\1\73\1\uffff\1\72\1\uffff"+
+            "\1\67\11\uffff\1\66\1\uffff\1\71\16\uffff\1\70\1\73\1\uffff"+
+            "\1\72\1\uffff\1\67",
+            "\1\74\7\uffff\1\75\27\uffff\1\74\7\uffff\1\75",
+            "\1\77\3\uffff\1\76\3\uffff\1\100\27\uffff\1\77\3\uffff\1\76"+
+            "\3\uffff\1\100",
+            "\1\101\11\uffff\1\102\2\uffff\1\103\22\uffff\1\101\11\uffff"+
+            "\1\102\2\uffff\1\103",
+            "\1\104\7\uffff\1\105\5\uffff\1\106\21\uffff\1\104\7\uffff"+
+            "\1\105\5\uffff\1\106",
+            "\1\107\37\uffff\1\107",
+            "\1\111\15\uffff\1\110\21\uffff\1\111\15\uffff\1\110",
+            "\1\115\6\uffff\1\113\1\112\4\uffff\1\114\22\uffff\1\115\6"+
+            "\uffff\1\113\1\112\4\uffff\1\114",
+            "\1\117\15\uffff\1\116\21\uffff\1\117\15\uffff\1\116",
+            "\1\122\11\uffff\1\121\1\uffff\1\120\23\uffff\1\122\11\uffff"+
+            "\1\121\1\uffff\1\120",
+            "\1\123\37\uffff\1\123",
+            "\1\124\37\uffff\1\124",
+            "\1\125\1\126\36\uffff\1\125\1\126",
+            "\1\130\17\uffff\1\127\17\uffff\1\130\17\uffff\1\127",
+            "\1\131",
+            "\1\133",
+            "\1\135\1\136",
+            "\1\140\6\uffff\1\141\30\uffff\1\140\6\uffff\1\141",
+            "\1\142",
+            "\1\144",
+            "\1\146\22\uffff\1\147",
+            "\1\151\21\uffff\1\152",
+            "\1\154\17\uffff\1\155\1\156",
+            "\1\161\4\uffff\1\162\15\uffff\1\160",
+            "\1\164",
+            "\1\166",
+            "\1\170",
+            "\1\172\13\uffff\1\173",
+            "\1\175",
             "",
             "",
             "",
@@ -8526,573 +7974,530 @@ public class InternalReqSpecLexer extends Lexer {
             "",
             "",
             "",
-            "\12\u008d\10\uffff\1\u008f\1\uffff\3\u008f\5\uffff\1\u008f"+
-            "\13\uffff\1\u008c\6\uffff\1\u008d\2\uffff\1\u008f\1\uffff\3"+
-            "\u008f\5\uffff\1\u008f\13\uffff\1\u008c",
-            "\12\u008d\10\uffff\1\u008f\1\uffff\3\u008f\5\uffff\1\u008f"+
-            "\22\uffff\1\u008d\2\uffff\1\u008f\1\uffff\3\u008f\5\uffff\1"+
-            "\u008f",
-            "\1\66\34\uffff\32\66\4\uffff\1\66\1\uffff\32\66",
+            "\12\u008a\10\uffff\1\u008c\1\uffff\3\u008c\5\uffff\1\u008c"+
+            "\13\uffff\1\u0089\6\uffff\1\u008a\2\uffff\1\u008c\1\uffff\3"+
+            "\u008c\5\uffff\1\u008c\13\uffff\1\u0089",
+            "\12\u008a\10\uffff\1\u008c\1\uffff\3\u008c\5\uffff\1\u008c"+
+            "\22\uffff\1\u008a\2\uffff\1\u008c\1\uffff\3\u008c\5\uffff\1"+
+            "\u008c",
+            "\1\65\34\uffff\32\65\4\uffff\1\65\1\uffff\32\65",
             "",
             "",
             "",
             "",
             "",
-            "\1\u0092\37\uffff\1\u0092",
-            "\1\u0093\37\uffff\1\u0093",
-            "\1\u0095\10\uffff\1\u0094\26\uffff\1\u0095\10\uffff\1\u0094",
-            "\1\u0096\3\uffff\1\u0097\33\uffff\1\u0096\3\uffff\1\u0097",
+            "\1\u008f\37\uffff\1\u008f",
+            "\1\u0090\37\uffff\1\u0090",
+            "\1\u0092\10\uffff\1\u0091\26\uffff\1\u0092\10\uffff\1\u0091",
+            "\1\u0093\3\uffff\1\u0094\33\uffff\1\u0093\3\uffff\1\u0094",
             "",
+            "\1\u0095\37\uffff\1\u0095",
+            "\1\u0096\4\uffff\1\u0097\32\uffff\1\u0096\4\uffff\1\u0097",
             "\1\u0098\37\uffff\1\u0098",
-            "\1\u0099\4\uffff\1\u009a\32\uffff\1\u0099\4\uffff\1\u009a",
+            "\1\u0099\1\uffff\1\u009a\35\uffff\1\u0099\1\uffff\1\u009a",
             "\1\u009b\37\uffff\1\u009b",
-            "\1\u009c\1\uffff\1\u009d\35\uffff\1\u009c\1\uffff\1\u009d",
+            "\1\u009c\37\uffff\1\u009c",
+            "\1\u009d\37\uffff\1\u009d",
             "\1\u009e\37\uffff\1\u009e",
-            "\1\u009f\37\uffff\1\u009f",
-            "\1\u00a0\37\uffff\1\u00a0",
-            "\1\u00a1\37\uffff\1\u00a1",
-            "\1\u00a3\12\uffff\1\u00a2\2\uffff\1\u00a4\21\uffff\1\u00a3"+
-            "\12\uffff\1\u00a2\2\uffff\1\u00a4",
-            "\1\u00a5\37\uffff\1\u00a5",
-            "\1\u00a6\37\uffff\1\u00a6",
-            "\1\u00a8\2\uffff\1\u00a9\14\uffff\1\u00a7\17\uffff\1\u00a8"+
-            "\2\uffff\1\u00a9\14\uffff\1\u00a7",
-            "\1\66\13\uffff\12\66\7\uffff\2\66\1\u00aa\27\66\4\uffff\1"+
-            "\66\1\uffff\2\66\1\u00aa\27\66",
+            "\1\u00a0\12\uffff\1\u009f\2\uffff\1\u00a1\21\uffff\1\u00a0"+
+            "\12\uffff\1\u009f\2\uffff\1\u00a1",
+            "\1\u00a2\37\uffff\1\u00a2",
+            "\1\u00a3\37\uffff\1\u00a3",
+            "\1\u00a5\2\uffff\1\u00a6\14\uffff\1\u00a4\17\uffff\1\u00a5"+
+            "\2\uffff\1\u00a6\14\uffff\1\u00a4",
+            "\1\65\13\uffff\12\65\7\uffff\2\65\1\u00a7\27\65\4\uffff\1"+
+            "\65\1\uffff\2\65\1\u00a7\27\65",
+            "\1\u00a9\37\uffff\1\u00a9",
+            "\1\u00ab\1\u00aa\36\uffff\1\u00ab\1\u00aa",
             "\1\u00ac\37\uffff\1\u00ac",
-            "\1\u00ae\1\u00ad\36\uffff\1\u00ae\1\u00ad",
-            "\1\u00af\37\uffff\1\u00af",
-            "\1\u00b0\37\uffff\1\u00b0",
-            "\1\u00b1\37\uffff\1\u00b1",
-            "\1\66\13\uffff\12\66\7\uffff\22\66\1\u00b2\7\66\4\uffff\1"+
-            "\66\1\uffff\22\66\1\u00b2\7\66",
-            "\1\u00b4\37\uffff\1\u00b4",
-            "\1\u00b7\1\u00b6\4\uffff\1\u00b5\31\uffff\1\u00b7\1\u00b6"+
-            "\4\uffff\1\u00b5",
-            "\1\u00b9\1\u00b8\36\uffff\1\u00b9\1\u00b8",
-            "\1\u00bc\2\uffff\1\u00ba\2\uffff\1\u00bb\31\uffff\1\u00bc"+
-            "\2\uffff\1\u00ba\2\uffff\1\u00bb",
-            "\1\u00be\10\uffff\1\u00bd\26\uffff\1\u00be\10\uffff\1\u00bd",
+            "\1\u00ad\37\uffff\1\u00ad",
+            "\1\u00ae\37\uffff\1\u00ae",
+            "\1\u00b1\1\u00b0\4\uffff\1\u00af\31\uffff\1\u00b1\1\u00b0"+
+            "\4\uffff\1\u00af",
+            "\1\u00b3\1\u00b2\36\uffff\1\u00b3\1\u00b2",
+            "\1\u00b5\14\uffff\1\u00b4\22\uffff\1\u00b5\14\uffff\1\u00b4",
+            "\1\u00b7\10\uffff\1\u00b6\26\uffff\1\u00b7\10\uffff\1\u00b6",
+            "\1\u00b8\37\uffff\1\u00b8",
+            "\1\65\13\uffff\12\65\7\uffff\32\65\4\uffff\1\65\1\uffff\32"+
+            "\65",
+            "\1\u00ba\37\uffff\1\u00ba",
+            "\1\u00bb\5\uffff\1\u00bc\31\uffff\1\u00bb\5\uffff\1\u00bc",
+            "\1\u00bd\37\uffff\1\u00bd",
+            "\1\u00be\37\uffff\1\u00be",
             "\1\u00bf\37\uffff\1\u00bf",
-            "\1\66\13\uffff\12\66\7\uffff\32\66\4\uffff\1\66\1\uffff\32"+
-            "\66",
+            "\1\u00c0\37\uffff\1\u00c0",
             "\1\u00c1\37\uffff\1\u00c1",
-            "\1\u00c2\5\uffff\1\u00c3\31\uffff\1\u00c2\5\uffff\1\u00c3",
+            "\1\u00c2\37\uffff\1\u00c2",
+            "\1\u00c3\37\uffff\1\u00c3",
             "\1\u00c4\37\uffff\1\u00c4",
             "\1\u00c5\37\uffff\1\u00c5",
-            "\1\u00c6\37\uffff\1\u00c6",
-            "\1\u00c7\37\uffff\1\u00c7",
-            "\1\u00c8\37\uffff\1\u00c8",
-            "\1\u00c9\37\uffff\1\u00c9",
-            "\1\u00ca\37\uffff\1\u00ca",
-            "\1\u00cb\37\uffff\1\u00cb",
+            "\1\u00c6",
+            "",
+            "\1\u00c8",
+            "",
+            "\1\u00ca",
+            "",
+            "",
             "\1\u00cc\37\uffff\1\u00cc",
-            "\1\u00cd\37\uffff\1\u00cd",
+            "\1\65\13\uffff\12\65\7\uffff\32\65\4\uffff\1\65\1\uffff\32"+
+            "\65",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "\12\u008a\10\uffff\1\u008c\1\uffff\3\u008c\5\uffff\1\u008c"+
+            "\22\uffff\1\u008a\2\uffff\1\u008c\1\uffff\3\u008c\5\uffff\1"+
+            "\u008c",
+            "",
+            "",
+            "",
+            "",
             "\1\u00ce\37\uffff\1\u00ce",
-            "\1\u00cf",
-            "",
-            "\1\u00d1",
-            "",
-            "\1\u00d3",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "\12\u008d\10\uffff\1\u008f\1\uffff\3\u008f\5\uffff\1\u008f"+
-            "\22\uffff\1\u008d\2\uffff\1\u008f\1\uffff\3\u008f\5\uffff\1"+
-            "\u008f",
-            "",
-            "",
-            "",
-            "",
+            "\1\u00cf\37\uffff\1\u00cf",
+            "\1\u00d0\37\uffff\1\u00d0",
+            "\1\u00d1\37\uffff\1\u00d1",
+            "\1\u00d2\37\uffff\1\u00d2",
+            "\1\65\13\uffff\12\65\7\uffff\32\65\4\uffff\1\65\1\uffff\32"+
+            "\65",
+            "\1\u00d4\37\uffff\1\u00d4",
             "\1\u00d5\37\uffff\1\u00d5",
             "\1\u00d6\37\uffff\1\u00d6",
-            "\1\u00d7\37\uffff\1\u00d7",
-            "\1\u00d8\37\uffff\1\u00d8",
+            "\1\u00d7\10\uffff\1\u00d8\26\uffff\1\u00d7\10\uffff\1\u00d8",
             "\1\u00d9\37\uffff\1\u00d9",
-            "\1\66\13\uffff\12\66\7\uffff\32\66\4\uffff\1\66\1\uffff\32"+
-            "\66",
+            "\1\65\13\uffff\12\65\7\uffff\32\65\4\uffff\1\65\1\uffff\32"+
+            "\65",
             "\1\u00db\37\uffff\1\u00db",
             "\1\u00dc\37\uffff\1\u00dc",
             "\1\u00dd\37\uffff\1\u00dd",
-            "\1\u00de\10\uffff\1\u00df\26\uffff\1\u00de\10\uffff\1\u00df",
+            "\1\u00de\37\uffff\1\u00de",
+            "\1\u00df\37\uffff\1\u00df",
             "\1\u00e0\37\uffff\1\u00e0",
-            "\1\66\13\uffff\12\66\7\uffff\32\66\4\uffff\1\66\1\uffff\32"+
-            "\66",
+            "\1\u00e1\37\uffff\1\u00e1",
             "\1\u00e2\37\uffff\1\u00e2",
             "\1\u00e3\37\uffff\1\u00e3",
             "\1\u00e4\37\uffff\1\u00e4",
             "\1\u00e5\37\uffff\1\u00e5",
             "\1\u00e6\37\uffff\1\u00e6",
             "\1\u00e7\37\uffff\1\u00e7",
+            "",
             "\1\u00e8\37\uffff\1\u00e8",
             "\1\u00e9\37\uffff\1\u00e9",
             "\1\u00ea\37\uffff\1\u00ea",
             "\1\u00eb\37\uffff\1\u00eb",
-            "\1\u00ec\37\uffff\1\u00ec",
+            "\1\65\13\uffff\12\65\7\uffff\32\65\4\uffff\1\65\1\uffff\32"+
+            "\65",
             "\1\u00ed\37\uffff\1\u00ed",
             "\1\u00ee\37\uffff\1\u00ee",
-            "",
             "\1\u00ef\37\uffff\1\u00ef",
             "\1\u00f0\37\uffff\1\u00f0",
-            "\1\u00f1\37\uffff\1\u00f1",
-            "\1\u00f2\37\uffff\1\u00f2",
-            "\1\66\13\uffff\12\66\7\uffff\32\66\4\uffff\1\66\1\uffff\32"+
-            "\66",
+            "\1\u00f2\1\uffff\1\u00f1\35\uffff\1\u00f2\1\uffff\1\u00f1",
+            "\1\u00f3\37\uffff\1\u00f3",
             "\1\u00f4\37\uffff\1\u00f4",
-            "\1\u00f6\17\uffff\1\u00f5\17\uffff\1\u00f6\17\uffff\1\u00f5",
-            "",
-            "\1\66\13\uffff\12\66\7\uffff\32\66\4\uffff\1\66\1\uffff\32"+
-            "\66",
+            "\1\u00f5\37\uffff\1\u00f5",
+            "\1\u00f6\37\uffff\1\u00f6",
+            "\1\65\13\uffff\12\65\7\uffff\32\65\4\uffff\1\65\1\uffff\32"+
+            "\65",
             "\1\u00f8\37\uffff\1\u00f8",
+            "",
             "\1\u00f9\37\uffff\1\u00f9",
-            "\1\u00fa\37\uffff\1\u00fa",
-            "\1\u00fc\1\uffff\1\u00fb\35\uffff\1\u00fc\1\uffff\1\u00fb",
+            "\1\65\13\uffff\12\65\7\uffff\32\65\4\uffff\1\65\1\uffff\32"+
+            "\65",
+            "\1\65\13\uffff\12\65\7\uffff\32\65\4\uffff\1\65\1\uffff\32"+
+            "\65",
+            "\1\u00fc\37\uffff\1\u00fc",
             "\1\u00fd\37\uffff\1\u00fd",
             "\1\u00fe\37\uffff\1\u00fe",
             "\1\u00ff\37\uffff\1\u00ff",
             "\1\u0100\37\uffff\1\u0100",
             "\1\u0101\37\uffff\1\u0101",
-            "\1\66\13\uffff\12\66\7\uffff\32\66\4\uffff\1\66\1\uffff\32"+
-            "\66",
+            "\1\u0102\37\uffff\1\u0102",
             "\1\u0103\37\uffff\1\u0103",
+            "\1\65\13\uffff\12\65\7\uffff\32\65\4\uffff\1\65\1\uffff\32"+
+            "\65",
             "",
-            "\1\u0104\37\uffff\1\u0104",
-            "\1\66\13\uffff\12\66\7\uffff\24\66\1\u0105\5\66\4\uffff\1"+
-            "\66\1\uffff\24\66\1\u0105\5\66",
-            "\1\66\13\uffff\12\66\7\uffff\32\66\4\uffff\1\66\1\uffff\32"+
-            "\66",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "\1\65\13\uffff\12\65\7\uffff\32\65\4\uffff\1\65\1\uffff\32"+
+            "\65",
+            "",
+            "\1\u0106\37\uffff\1\u0106",
+            "\1\u0107\37\uffff\1\u0107",
             "\1\u0108\37\uffff\1\u0108",
-            "\1\u0109\37\uffff\1\u0109",
-            "\1\u010a\37\uffff\1\u010a",
+            "\1\65\13\uffff\12\65\7\uffff\32\65\4\uffff\1\65\1\uffff\32"+
+            "\65",
+            "\1\65\13\uffff\12\65\7\uffff\32\65\4\uffff\1\65\1\uffff\32"+
+            "\65",
+            "",
             "\1\u010b\37\uffff\1\u010b",
             "\1\u010c\37\uffff\1\u010c",
             "\1\u010d\37\uffff\1\u010d",
             "\1\u010e\37\uffff\1\u010e",
             "\1\u010f\37\uffff\1\u010f",
             "\1\u0110\37\uffff\1\u0110",
+            "",
             "\1\u0111\37\uffff\1\u0111",
-            "\1\66\13\uffff\12\66\7\uffff\32\66\4\uffff\1\66\1\uffff\32"+
-            "\66",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
+            "\1\u0112\37\uffff\1\u0112",
             "\1\u0113\37\uffff\1\u0113",
             "\1\u0114\37\uffff\1\u0114",
             "\1\u0115\37\uffff\1\u0115",
-            "\1\66\13\uffff\12\66\7\uffff\32\66\4\uffff\1\66\1\uffff\32"+
-            "\66",
-            "\1\66\13\uffff\12\66\7\uffff\32\66\4\uffff\1\66\1\uffff\32"+
-            "\66",
-            "",
+            "\1\u0116\37\uffff\1\u0116",
+            "\1\u0117\37\uffff\1\u0117",
             "\1\u0118\37\uffff\1\u0118",
             "\1\u0119\37\uffff\1\u0119",
             "\1\u011a\37\uffff\1\u011a",
             "\1\u011b\37\uffff\1\u011b",
             "\1\u011c\37\uffff\1\u011c",
             "\1\u011d\37\uffff\1\u011d",
-            "",
             "\1\u011e\37\uffff\1\u011e",
             "\1\u011f\37\uffff\1\u011f",
             "\1\u0120\37\uffff\1\u0120",
             "\1\u0121\37\uffff\1\u0121",
+            "",
             "\1\u0122\37\uffff\1\u0122",
             "\1\u0123\37\uffff\1\u0123",
             "\1\u0124\37\uffff\1\u0124",
             "\1\u0125\37\uffff\1\u0125",
             "\1\u0126\37\uffff\1\u0126",
             "\1\u0127\37\uffff\1\u0127",
-            "\1\u0128\37\uffff\1\u0128",
+            "\1\65\13\uffff\12\65\7\uffff\32\65\4\uffff\1\65\1\uffff\32"+
+            "\65",
             "\1\u0129\37\uffff\1\u0129",
             "\1\u012a\37\uffff\1\u012a",
             "\1\u012b\37\uffff\1\u012b",
+            "",
             "\1\u012c\37\uffff\1\u012c",
             "\1\u012d\37\uffff\1\u012d",
+            "",
+            "",
             "\1\u012e\37\uffff\1\u012e",
-            "",
             "\1\u012f\37\uffff\1\u012f",
-            "\1\u0130\37\uffff\1\u0130",
+            "\1\65\13\uffff\12\65\7\uffff\32\65\4\uffff\1\65\1\uffff\32"+
+            "\65",
             "\1\u0131\37\uffff\1\u0131",
-            "",
-            "\1\u0132\37\uffff\1\u0132",
-            "\1\u0133\37\uffff\1\u0133",
+            "\1\65\13\uffff\12\65\7\uffff\22\65\1\u0132\7\65\4\uffff\1"+
+            "\65\1\uffff\22\65\1\u0132\7\65",
             "\1\u0134\37\uffff\1\u0134",
-            "\1\u0135\37\uffff\1\u0135",
-            "\1\u0136\37\uffff\1\u0136",
-            "\1\66\13\uffff\12\66\7\uffff\32\66\4\uffff\1\66\1\uffff\32"+
-            "\66",
+            "\1\65\13\uffff\12\65\7\uffff\32\65\4\uffff\1\65\1\uffff\32"+
+            "\65",
+            "\1\65\13\uffff\12\65\7\uffff\32\65\4\uffff\1\65\1\uffff\32"+
+            "\65",
+            "",
+            "",
+            "\1\u0137\37\uffff\1\u0137",
             "\1\u0138\37\uffff\1\u0138",
-            "\1\u0139\37\uffff\1\u0139",
+            "\1\65\13\uffff\12\65\7\uffff\32\65\4\uffff\1\65\1\uffff\32"+
+            "\65",
+            "",
+            "",
             "\1\u013a\37\uffff\1\u013a",
             "\1\u013b\37\uffff\1\u013b",
-            "",
             "\1\u013c\37\uffff\1\u013c",
             "\1\u013d\37\uffff\1\u013d",
             "\1\u013e\37\uffff\1\u013e",
-            "",
-            "",
             "\1\u013f\37\uffff\1\u013f",
             "\1\u0140\37\uffff\1\u0140",
-            "\1\66\13\uffff\12\66\7\uffff\32\66\4\uffff\1\66\1\uffff\32"+
-            "\66",
+            "\1\65\13\uffff\12\65\7\uffff\32\65\4\uffff\1\65\1\uffff\32"+
+            "\65",
             "\1\u0142\37\uffff\1\u0142",
-            "\1\66\13\uffff\12\66\7\uffff\22\66\1\u0143\7\66\4\uffff\1"+
-            "\66\1\uffff\22\66\1\u0143\7\66",
+            "\1\u0143\37\uffff\1\u0143",
+            "\1\u0144\37\uffff\1\u0144",
             "\1\u0145\37\uffff\1\u0145",
             "\1\u0146\37\uffff\1\u0146",
             "\1\u0147\37\uffff\1\u0147",
-            "\1\66\13\uffff\12\66\7\uffff\32\66\4\uffff\1\66\1\uffff\32"+
-            "\66",
-            "\1\66\13\uffff\12\66\7\uffff\32\66\4\uffff\1\66\1\uffff\32"+
-            "\66",
-            "",
+            "\1\u0148\37\uffff\1\u0148",
+            "\1\u0149\37\uffff\1\u0149",
             "\1\u014a\37\uffff\1\u014a",
             "\1\u014b\37\uffff\1\u014b",
-            "\1\66\13\uffff\12\66\7\uffff\32\66\4\uffff\1\66\1\uffff\32"+
-            "\66",
-            "",
-            "",
+            "\1\u014c\37\uffff\1\u014c",
             "\1\u014d\37\uffff\1\u014d",
             "\1\u014e\37\uffff\1\u014e",
-            "\1\u014f\37\uffff\1\u014f",
+            "\1\65\13\uffff\12\65\7\uffff\32\65\4\uffff\1\65\1\uffff\32"+
+            "\65",
             "\1\u0150\37\uffff\1\u0150",
             "\1\u0151\37\uffff\1\u0151",
             "\1\u0152\37\uffff\1\u0152",
             "\1\u0153\37\uffff\1\u0153",
-            "\1\66\13\uffff\12\66\7\uffff\32\66\4\uffff\1\66\1\uffff\32"+
-            "\66",
+            "\1\u0154\37\uffff\1\u0154",
             "\1\u0155\37\uffff\1\u0155",
-            "\1\u0156\37\uffff\1\u0156",
+            "\1\65\13\uffff\12\65\7\uffff\32\65\4\uffff\1\65\1\uffff\32"+
+            "\65",
+            "",
             "\1\u0157\37\uffff\1\u0157",
             "\1\u0158\37\uffff\1\u0158",
             "\1\u0159\37\uffff\1\u0159",
             "\1\u015a\37\uffff\1\u015a",
             "\1\u015b\37\uffff\1\u015b",
-            "\1\u015c\37\uffff\1\u015c",
-            "\1\u015d\37\uffff\1\u015d",
+            "\1\u015d\16\uffff\1\u015c\20\uffff\1\u015d\16\uffff\1\u015c",
             "\1\u015e\37\uffff\1\u015e",
+            "",
             "\1\u015f\37\uffff\1\u015f",
-            "\1\u0160\37\uffff\1\u0160",
-            "\1\u0161\37\uffff\1\u0161",
-            "\1\66\13\uffff\12\66\7\uffff\32\66\4\uffff\1\66\1\uffff\32"+
-            "\66",
-            "\1\u0163\37\uffff\1\u0163",
+            "\1\65\13\uffff\12\65\7\uffff\32\65\4\uffff\1\65\1\uffff\32"+
+            "\65",
+            "",
+            "\1\65\13\uffff\12\65\7\uffff\32\65\4\uffff\1\65\1\uffff\32"+
+            "\65",
+            "",
+            "",
+            "\1\u0162\37\uffff\1\u0162",
+            "\1\65\13\uffff\12\65\7\uffff\32\65\4\uffff\1\65\1\uffff\32"+
+            "\65",
+            "",
             "\1\u0164\37\uffff\1\u0164",
             "\1\u0165\37\uffff\1\u0165",
-            "\1\u0166\37\uffff\1\u0166",
+            "\1\65\13\uffff\12\65\7\uffff\32\65\4\uffff\1\65\1\uffff\32"+
+            "\65",
             "\1\u0167\37\uffff\1\u0167",
-            "\1\u0168\37\uffff\1\u0168",
+            "\1\65\13\uffff\12\65\7\uffff\32\65\4\uffff\1\65\1\uffff\32"+
+            "\65",
             "\1\u0169\37\uffff\1\u0169",
-            "\1\u016a\37\uffff\1\u016a",
-            "\1\66\13\uffff\12\66\7\uffff\32\66\4\uffff\1\66\1\uffff\32"+
-            "\66",
+            "\1\65\13\uffff\12\65\7\uffff\32\65\4\uffff\1\65\1\uffff\32"+
+            "\65",
             "",
+            "\1\u016b\37\uffff\1\u016b",
             "\1\u016c\37\uffff\1\u016c",
             "\1\u016d\37\uffff\1\u016d",
-            "\1\66\13\uffff\12\66\7\uffff\32\66\4\uffff\1\66\1\uffff\32"+
-            "\66",
-            "\1\u016f\37\uffff\1\u016f",
+            "\1\u016e\37\uffff\1\u016e",
+            "\1\65\13\uffff\12\65\7\uffff\32\65\4\uffff\1\65\1\uffff\32"+
+            "\65",
             "\1\u0170\37\uffff\1\u0170",
             "\1\u0171\37\uffff\1\u0171",
-            "\1\66\13\uffff\12\66\7\uffff\32\66\4\uffff\1\66\1\uffff\32"+
-            "\66",
-            "\1\u0174\16\uffff\1\u0173\20\uffff\1\u0174\16\uffff\1\u0173",
+            "\1\u0172\37\uffff\1\u0172",
+            "\1\u0173\37\uffff\1\u0173",
+            "\1\u0174\37\uffff\1\u0174",
             "\1\u0175\37\uffff\1\u0175",
-            "",
             "\1\u0176\37\uffff\1\u0176",
-            "\1\66\13\uffff\12\66\7\uffff\32\66\4\uffff\1\66\1\uffff\32"+
-            "\66",
+            "\1\u0177\37\uffff\1\u0177",
             "",
             "\1\u0178\37\uffff\1\u0178",
             "\1\u0179\37\uffff\1\u0179",
-            "\1\66\13\uffff\12\66\7\uffff\32\66\4\uffff\1\66\1\uffff\32"+
-            "\66",
-            "",
-            "",
+            "\1\u017a\37\uffff\1\u017a",
             "\1\u017b\37\uffff\1\u017b",
-            "\1\66\13\uffff\12\66\7\uffff\32\66\4\uffff\1\66\1\uffff\32"+
-            "\66",
-            "",
+            "\1\u017c\37\uffff\1\u017c",
             "\1\u017d\37\uffff\1\u017d",
-            "\1\u017e\37\uffff\1\u017e",
-            "\1\66\13\uffff\12\66\7\uffff\32\66\4\uffff\1\66\1\uffff\32"+
-            "\66",
-            "\1\u0180\37\uffff\1\u0180",
-            "\1\66\13\uffff\12\66\7\uffff\32\66\4\uffff\1\66\1\uffff\32"+
-            "\66",
-            "\1\u0182\37\uffff\1\u0182",
-            "\1\66\13\uffff\12\66\7\uffff\32\66\4\uffff\1\66\1\uffff\32"+
-            "\66",
             "",
+            "\1\u017e\37\uffff\1\u017e",
+            "\1\u017f\37\uffff\1\u017f",
+            "\1\65\13\uffff\12\65\7\uffff\32\65\4\uffff\1\65\1\uffff\32"+
+            "\65",
+            "\1\65\13\uffff\12\65\7\uffff\32\65\4\uffff\1\65\1\uffff\32"+
+            "\65",
+            "\1\u0182\37\uffff\1\u0182",
+            "\1\u0183\37\uffff\1\u0183",
             "\1\u0184\37\uffff\1\u0184",
             "\1\u0185\37\uffff\1\u0185",
             "\1\u0186\37\uffff\1\u0186",
+            "",
+            "",
             "\1\u0187\37\uffff\1\u0187",
-            "\1\66\13\uffff\12\66\7\uffff\32\66\4\uffff\1\66\1\uffff\32"+
-            "\66",
+            "",
+            "\1\u0188\37\uffff\1\u0188",
             "\1\u0189\37\uffff\1\u0189",
+            "",
             "\1\u018a\37\uffff\1\u018a",
-            "\1\u018b\37\uffff\1\u018b",
+            "",
+            "\1\65\13\uffff\12\65\7\uffff\32\65\4\uffff\1\65\1\uffff\32"+
+            "\65",
+            "",
             "\1\u018c\37\uffff\1\u018c",
             "\1\u018d\37\uffff\1\u018d",
             "\1\u018e\37\uffff\1\u018e",
-            "\1\u018f\37\uffff\1\u018f",
-            "\1\u0190\37\uffff\1\u0190",
+            "\1\65\13\uffff\12\65\7\uffff\32\65\4\uffff\1\65\1\uffff\32"+
+            "\65",
             "",
+            "\1\u0190\37\uffff\1\u0190",
             "\1\u0191\37\uffff\1\u0191",
             "\1\u0192\37\uffff\1\u0192",
             "\1\u0193\37\uffff\1\u0193",
-            "\1\66\13\uffff\12\66\7\uffff\32\66\4\uffff\1\66\1\uffff\32"+
-            "\66",
+            "\1\65\13\uffff\12\65\7\uffff\32\65\4\uffff\1\65\1\uffff\32"+
+            "\65",
             "\1\u0195\37\uffff\1\u0195",
-            "\1\u0196\37\uffff\1\u0196",
+            "\1\65\13\uffff\12\65\7\uffff\32\65\4\uffff\1\65\1\uffff\32"+
+            "\65",
             "\1\u0197\37\uffff\1\u0197",
-            "\1\u0198\37\uffff\1\u0198",
-            "",
+            "\1\65\13\uffff\12\65\7\uffff\32\65\4\uffff\1\65\1\uffff\32"+
+            "\65",
             "\1\u0199\37\uffff\1\u0199",
             "\1\u019a\37\uffff\1\u019a",
-            "",
-            "\1\66\13\uffff\12\66\7\uffff\32\66\4\uffff\1\66\1\uffff\32"+
-            "\66",
-            "\1\66\13\uffff\12\66\7\uffff\32\66\4\uffff\1\66\1\uffff\32"+
-            "\66",
+            "\1\u019b\37\uffff\1\u019b",
+            "\1\65\13\uffff\12\65\7\uffff\32\65\4\uffff\1\65\1\uffff\32"+
+            "\65",
             "\1\u019d\37\uffff\1\u019d",
-            "",
             "\1\u019e\37\uffff\1\u019e",
             "\1\u019f\37\uffff\1\u019f",
+            "",
+            "",
             "\1\u01a0\37\uffff\1\u01a0",
             "\1\u01a1\37\uffff\1\u01a1",
-            "",
-            "\1\u01a2\37\uffff\1\u01a2",
-            "\1\66\13\uffff\12\66\7\uffff\32\66\4\uffff\1\66\1\uffff\32"+
-            "\66",
-            "",
+            "\1\65\13\uffff\12\65\7\uffff\32\65\4\uffff\1\65\1\uffff\32"+
+            "\65",
+            "\1\65\13\uffff\12\65\7\uffff\32\65\4\uffff\1\65\1\uffff\32"+
+            "\65",
             "\1\u01a4\37\uffff\1\u01a4",
-            "",
             "\1\u01a5\37\uffff\1\u01a5",
             "\1\u01a6\37\uffff\1\u01a6",
-            "",
             "\1\u01a7\37\uffff\1\u01a7",
-            "",
-            "\1\66\13\uffff\12\66\7\uffff\32\66\4\uffff\1\66\1\uffff\32"+
-            "\66",
+            "\1\u01a8\37\uffff\1\u01a8",
             "",
             "\1\u01a9\37\uffff\1\u01a9",
             "\1\u01aa\37\uffff\1\u01aa",
             "\1\u01ab\37\uffff\1\u01ab",
-            "\1\66\13\uffff\12\66\7\uffff\32\66\4\uffff\1\66\1\uffff\32"+
-            "\66",
             "",
+            "\1\u01ac\37\uffff\1\u01ac",
             "\1\u01ad\37\uffff\1\u01ad",
             "\1\u01ae\37\uffff\1\u01ae",
             "\1\u01af\37\uffff\1\u01af",
-            "\1\u01b0\37\uffff\1\u01b0",
-            "\1\66\13\uffff\12\66\7\uffff\32\66\4\uffff\1\66\1\uffff\32"+
-            "\66",
-            "\1\u01b2\37\uffff\1\u01b2",
-            "\1\66\13\uffff\12\66\7\uffff\32\66\4\uffff\1\66\1\uffff\32"+
-            "\66",
-            "\1\u01b4\37\uffff\1\u01b4",
-            "\1\66\13\uffff\12\66\7\uffff\32\66\4\uffff\1\66\1\uffff\32"+
-            "\66",
-            "\1\u01b6\37\uffff\1\u01b6",
-            "\1\u01b7\37\uffff\1\u01b7",
             "",
+            "\1\65\13\uffff\12\65\7\uffff\32\65\4\uffff\1\65\1\uffff\32"+
+            "\65",
+            "",
+            "\1\u01b1\37\uffff\1\u01b1",
+            "",
+            "\1\u01b2\37\uffff\1\u01b2",
+            "\1\u01b3\37\uffff\1\u01b3",
+            "\1\u01b4\37\uffff\1\u01b4",
+            "",
+            "\1\65\13\uffff\12\65\7\uffff\32\65\4\uffff\1\65\1\uffff\32"+
+            "\65",
+            "\1\u01b6\37\uffff\1\u01b6",
+            "\1\65\13\uffff\12\65\7\uffff\32\65\4\uffff\1\65\1\uffff\32"+
+            "\65",
             "\1\u01b8\37\uffff\1\u01b8",
             "\1\u01b9\37\uffff\1\u01b9",
-            "\1\66\13\uffff\12\66\7\uffff\32\66\4\uffff\1\66\1\uffff\32"+
-            "\66",
+            "",
+            "",
+            "\1\u01ba\37\uffff\1\u01ba",
             "\1\u01bb\37\uffff\1\u01bb",
             "\1\u01bc\37\uffff\1\u01bc",
             "\1\u01bd\37\uffff\1\u01bd",
-            "",
-            "",
             "\1\u01be\37\uffff\1\u01be",
             "\1\u01bf\37\uffff\1\u01bf",
-            "\1\66\13\uffff\12\66\7\uffff\32\66\4\uffff\1\66\1\uffff\32"+
-            "\66",
-            "\1\66\13\uffff\12\66\7\uffff\32\66\4\uffff\1\66\1\uffff\32"+
-            "\66",
-            "\1\u01c2\37\uffff\1\u01c2",
-            "\1\u01c3\37\uffff\1\u01c3",
-            "",
+            "\1\65\13\uffff\12\65\7\uffff\32\65\4\uffff\1\65\1\uffff\32"+
+            "\65",
+            "\1\u01c1\37\uffff\1\u01c1",
+            "\1\65\13\uffff\12\65\7\uffff\32\65\4\uffff\1\65\1\uffff\32"+
+            "\65",
+            "\1\65\13\uffff\12\65\7\uffff\32\65\4\uffff\1\65\1\uffff\32"+
+            "\65",
             "\1\u01c4\37\uffff\1\u01c4",
             "\1\u01c5\37\uffff\1\u01c5",
+            "",
             "\1\u01c6\37\uffff\1\u01c6",
             "\1\u01c7\37\uffff\1\u01c7",
-            "",
             "\1\u01c8\37\uffff\1\u01c8",
-            "\1\u01c9\37\uffff\1\u01c9",
+            "\1\65\13\uffff\12\65\7\uffff\32\65\4\uffff\1\65\1\uffff\32"+
+            "\65",
+            "",
             "\1\u01ca\37\uffff\1\u01ca",
             "",
             "\1\u01cb\37\uffff\1\u01cb",
-            "\1\u01cc\37\uffff\1\u01cc",
-            "\1\u01cd\37\uffff\1\u01cd",
+            "\1\65\13\uffff\12\65\7\uffff\32\65\4\uffff\1\65\1\uffff\32"+
+            "\65",
+            "\1\65\13\uffff\12\65\7\uffff\32\65\4\uffff\1\65\1\uffff\32"+
+            "\65",
             "\1\u01ce\37\uffff\1\u01ce",
-            "",
-            "\1\66\13\uffff\12\66\7\uffff\32\66\4\uffff\1\66\1\uffff\32"+
-            "\66",
-            "",
+            "\1\u01cf\37\uffff\1\u01cf",
             "\1\u01d0\37\uffff\1\u01d0",
-            "",
             "\1\u01d1\37\uffff\1\u01d1",
             "\1\u01d2\37\uffff\1\u01d2",
-            "\1\u01d3\37\uffff\1\u01d3",
-            "\1\u01d4\37\uffff\1\u01d4",
             "",
-            "\1\66\13\uffff\12\66\7\uffff\32\66\4\uffff\1\66\1\uffff\32"+
-            "\66",
+            "\1\u01d3\37\uffff\1\u01d3",
+            "",
+            "",
+            "\1\u01d4\37\uffff\1\u01d4",
+            "\1\65\13\uffff\12\65\7\uffff\32\65\4\uffff\1\65\1\uffff\32"+
+            "\65",
             "\1\u01d6\37\uffff\1\u01d6",
             "\1\u01d7\37\uffff\1\u01d7",
-            "\1\u01d8\37\uffff\1\u01d8",
-            "\1\u01d9\37\uffff\1\u01d9",
+            "\1\65\13\uffff\12\65\7\uffff\32\65\4\uffff\1\65\1\uffff\32"+
+            "\65",
+            "",
+            "\1\65\13\uffff\12\65\7\uffff\32\65\4\uffff\1\65\1\uffff\32"+
+            "\65",
+            "\1\65\13\uffff\12\65\7\uffff\32\65\4\uffff\1\65\1\uffff\32"+
+            "\65",
             "",
             "",
-            "\1\u01da\37\uffff\1\u01da",
             "\1\u01db\37\uffff\1\u01db",
             "\1\u01dc\37\uffff\1\u01dc",
             "\1\u01dd\37\uffff\1\u01dd",
-            "\1\u01de\37\uffff\1\u01de",
+            "\1\65\13\uffff\12\65\7\uffff\32\65\4\uffff\1\65\1\uffff\32"+
+            "\65",
             "\1\u01df\37\uffff\1\u01df",
-            "\1\u01e0\37\uffff\1\u01e0",
-            "\1\66\13\uffff\12\66\7\uffff\32\66\4\uffff\1\66\1\uffff\32"+
-            "\66",
-            "\1\u01e2\37\uffff\1\u01e2",
-            "\1\66\13\uffff\12\66\7\uffff\32\66\4\uffff\1\66\1\uffff\32"+
-            "\66",
-            "\1\66\13\uffff\12\66\7\uffff\32\66\4\uffff\1\66\1\uffff\32"+
-            "\66",
+            "\1\65\13\uffff\12\65\7\uffff\22\65\1\u01e0\7\65\4\uffff\1"+
+            "\65\1\uffff\22\65\1\u01e0\7\65",
+            "\1\65\13\uffff\12\65\7\uffff\32\65\4\uffff\1\65\1\uffff\32"+
+            "\65",
+            "",
+            "\1\65\13\uffff\12\65\7\uffff\32\65\4\uffff\1\65\1\uffff\32"+
+            "\65",
+            "\1\65\13\uffff\12\65\7\uffff\32\65\4\uffff\1\65\1\uffff\32"+
+            "\65",
+            "",
+            "",
+            "",
             "\1\u01e5\37\uffff\1\u01e5",
             "\1\u01e6\37\uffff\1\u01e6",
+            "\1\65\13\uffff\12\65\7\uffff\32\65\4\uffff\1\65\1\uffff\32"+
+            "\65",
             "",
-            "\1\u01e7\37\uffff\1\u01e7",
             "\1\u01e8\37\uffff\1\u01e8",
-            "\1\u01e9\37\uffff\1\u01e9",
+            "\1\65\13\uffff\12\65\7\uffff\32\65\4\uffff\1\65\1\uffff\32"+
+            "\65",
+            "",
+            "",
+            "",
+            "",
             "\1\u01ea\37\uffff\1\u01ea",
-            "\1\66\13\uffff\12\66\7\uffff\32\66\4\uffff\1\66\1\uffff\32"+
-            "\66",
+            "\1\u01eb\37\uffff\1\u01eb",
             "",
-            "\1\u01ec\37\uffff\1\u01ec",
-            "\1\66\13\uffff\12\66\7\uffff\32\66\4\uffff\1\66\1\uffff\32"+
-            "\66",
-            "\1\u01ee\37\uffff\1\u01ee",
-            "\1\66\13\uffff\12\66\7\uffff\32\66\4\uffff\1\66\1\uffff\32"+
-            "\66",
-            "\1\66\13\uffff\12\66\7\uffff\32\66\4\uffff\1\66\1\uffff\32"+
-            "\66",
-            "\1\66\13\uffff\12\66\7\uffff\32\66\4\uffff\1\66\1\uffff\32"+
-            "\66",
-            "\1\u01f2\37\uffff\1\u01f2",
-            "\1\u01f3\37\uffff\1\u01f3",
-            "\1\u01f4\37\uffff\1\u01f4",
-            "\1\u01f5\37\uffff\1\u01f5",
-            "\1\u01f6\37\uffff\1\u01f6",
+            "\1\65\13\uffff\12\65\7\uffff\32\65\4\uffff\1\65\1\uffff\32"+
+            "\65",
             "",
-            "\1\u01f7\37\uffff\1\u01f7",
+            "\1\u01ed\37\uffff\1\u01ed",
+            "\1\65\13\uffff\12\65\7\uffff\32\65\4\uffff\1\65\1\uffff\32"+
+            "\65",
             "",
-            "",
-            "\1\u01f8\37\uffff\1\u01f8",
-            "\1\66\13\uffff\12\66\7\uffff\32\66\4\uffff\1\66\1\uffff\32"+
-            "\66",
-            "\1\u01fa\37\uffff\1\u01fa",
-            "\1\u01fb\37\uffff\1\u01fb",
-            "\1\66\13\uffff\12\66\7\uffff\32\66\4\uffff\1\66\1\uffff\32"+
-            "\66",
-            "\1\66\13\uffff\12\66\7\uffff\32\66\4\uffff\1\66\1\uffff\32"+
-            "\66",
-            "",
-            "\1\66\13\uffff\12\66\7\uffff\32\66\4\uffff\1\66\1\uffff\32"+
-            "\66",
-            "",
-            "\1\66\13\uffff\12\66\7\uffff\32\66\4\uffff\1\66\1\uffff\32"+
-            "\66",
-            "",
-            "",
-            "",
-            "\1\u0200\37\uffff\1\u0200",
-            "\1\u0201\37\uffff\1\u0201",
-            "\1\u0202\37\uffff\1\u0202",
-            "\1\66\13\uffff\12\66\7\uffff\32\66\4\uffff\1\66\1\uffff\32"+
-            "\66",
-            "\1\u0204\37\uffff\1\u0204",
-            "\1\66\13\uffff\12\66\7\uffff\22\66\1\u0205\7\66\4\uffff\1"+
-            "\66\1\uffff\22\66\1\u0205\7\66",
-            "\1\66\13\uffff\12\66\7\uffff\32\66\4\uffff\1\66\1\uffff\32"+
-            "\66",
-            "",
-            "\1\66\13\uffff\12\66\7\uffff\32\66\4\uffff\1\66\1\uffff\32"+
-            "\66",
-            "\1\66\13\uffff\12\66\7\uffff\32\66\4\uffff\1\66\1\uffff\32"+
-            "\66",
-            "",
-            "",
-            "",
-            "",
-            "\1\u020a\37\uffff\1\u020a",
-            "\1\u020b\37\uffff\1\u020b",
-            "\1\66\13\uffff\12\66\7\uffff\32\66\4\uffff\1\66\1\uffff\32"+
-            "\66",
-            "",
-            "\1\u020d\37\uffff\1\u020d",
-            "\1\66\13\uffff\12\66\7\uffff\32\66\4\uffff\1\66\1\uffff\32"+
-            "\66",
-            "",
-            "",
-            "",
-            "",
-            "\1\u020f\37\uffff\1\u020f",
-            "\1\u0210\37\uffff\1\u0210",
-            "",
-            "\1\66\13\uffff\12\66\7\uffff\32\66\4\uffff\1\66\1\uffff\32"+
-            "\66",
-            "",
-            "\1\u0212\37\uffff\1\u0212",
-            "\1\66\13\uffff\12\66\7\uffff\32\66\4\uffff\1\66\1\uffff\32"+
-            "\66",
-            "",
-            "\1\66\13\uffff\12\66\7\uffff\32\66\4\uffff\1\66\1\uffff\32"+
-            "\66",
+            "\1\65\13\uffff\12\65\7\uffff\32\65\4\uffff\1\65\1\uffff\32"+
+            "\65",
             "",
             ""
     };
@@ -9127,7 +8532,7 @@ public class InternalReqSpecLexer extends Lexer {
             this.transition = DFA21_transition;
         }
         public String getDescription() {
-            return "1:1: Tokens : ( Timecriticality | Scheduleimpact | Maturityindex | Requirements | Synchronized | Description | Familiarity | Requirement | Stakeholder | Uncertainty | Assumption | Costimpact | Decomposes | Instanceof | Volatility | Conflicts | Extension | Guarantee | Invariant | Mitigates | Predicate | Rationale | Riskindex | Category | Document | Compute | Default | Dropped | Evolves | Extends | Finally | Refines | Section | Assert | Import | Issues | Output | Return | Static | Switch | KW_System | Typeof | Catch | False | Goals | Input | Super | Throw | Value | While | Case | Else | Goal | Null | This | True | With | ExclamationMarkEqualsSignEqualsSign | FullStopFullStopLessThanSign | EqualsSignEqualsSignEqualsSign | All | For | Img | New | See | Try | Val | Var | ExclamationMarkEqualsSign | PercentSignEqualsSign | AmpersandAmpersand | AsteriskAsterisk | AsteriskEqualsSign | PlusSignPlusSign | PlusSignEqualsSign | HyphenMinusHyphenMinus | HyphenMinusEqualsSign | HyphenMinusGreaterThanSign | FullStopFullStop | SolidusEqualsSign | ColonColon | LessThanSignGreaterThanSign | EqualsSignEqualsSign | EqualsSignGreaterThanSign | GreaterThanSignEqualsSign | QuestionMarkFullStop | QuestionMarkColon | As | Do | If | VerticalLineVerticalLine | ExclamationMark | NumberSign | PercentSign | Ampersand | LeftParenthesis | RightParenthesis | Asterisk | PlusSign | Comma | HyphenMinus | FullStop | Solidus | Colon | Semicolon | LessThanSign | EqualsSign | GreaterThanSign | QuestionMark | CommercialAt | LeftSquareBracket | RightSquareBracket | LeftCurlyBracket | VerticalLine | RightCurlyBracket | RULE_HEX | RULE_INT | RULE_DECIMAL | RULE_ID | RULE_STRING | RULE_ML_COMMENT | RULE_SL_COMMENT | RULE_WS | RULE_ANY_OTHER );";
+            return "1:1: Tokens : ( Timecriticality | Scheduleimpact | Maturityindex | Requirements | Synchronized | Description | Familiarity | Requirement | Stakeholder | Uncertainty | Costimpact | Decomposes | Instanceof | Volatility | Conflicts | Extension | Mitigates | Predicate | Rationale | Riskindex | Category | Document | Informal | Compute | Default | Dropped | Evolves | Extends | Finally | Refines | Section | Import | Issues | Return | Static | Switch | KW_System | Typeof | Catch | False | Goals | Super | Throw | While | Case | Else | Goal | Null | This | True | With | ExclamationMarkEqualsSignEqualsSign | FullStopFullStopLessThanSign | EqualsSignEqualsSignEqualsSign | All | For | Img | New | See | Try | Val | Var | ExclamationMarkEqualsSign | PercentSignEqualsSign | AmpersandAmpersand | AsteriskAsterisk | AsteriskEqualsSign | PlusSignPlusSign | PlusSignEqualsSign | HyphenMinusHyphenMinus | HyphenMinusEqualsSign | HyphenMinusGreaterThanSign | FullStopFullStop | SolidusEqualsSign | ColonColon | LessThanSignGreaterThanSign | EqualsSignEqualsSign | EqualsSignGreaterThanSign | GreaterThanSignEqualsSign | QuestionMarkFullStop | QuestionMarkColon | As | Do | If | VerticalLineVerticalLine | ExclamationMark | NumberSign | PercentSign | Ampersand | LeftParenthesis | RightParenthesis | Asterisk | PlusSign | Comma | HyphenMinus | FullStop | Solidus | Colon | Semicolon | LessThanSign | EqualsSign | GreaterThanSign | QuestionMark | CommercialAt | LeftSquareBracket | RightSquareBracket | LeftCurlyBracket | VerticalLine | RightCurlyBracket | RULE_HEX | RULE_INT | RULE_DECIMAL | RULE_ID | RULE_STRING | RULE_ML_COMMENT | RULE_SL_COMMENT | RULE_WS | RULE_ANY_OTHER );";
         }
         public int specialStateTransition(int s, IntStream _input) throws NoViableAltException {
             IntStream input = _input;
@@ -9151,89 +8556,87 @@ public class InternalReqSpecLexer extends Lexer {
 
                         else if ( (LA21_0=='U'||LA21_0=='u') ) {s = 7;}
 
-                        else if ( (LA21_0=='A'||LA21_0=='a') ) {s = 8;}
+                        else if ( (LA21_0=='C'||LA21_0=='c') ) {s = 8;}
 
-                        else if ( (LA21_0=='C'||LA21_0=='c') ) {s = 9;}
+                        else if ( (LA21_0=='I'||LA21_0=='i') ) {s = 9;}
 
-                        else if ( (LA21_0=='I'||LA21_0=='i') ) {s = 10;}
+                        else if ( (LA21_0=='V'||LA21_0=='v') ) {s = 10;}
 
-                        else if ( (LA21_0=='V'||LA21_0=='v') ) {s = 11;}
+                        else if ( (LA21_0=='E'||LA21_0=='e') ) {s = 11;}
 
-                        else if ( (LA21_0=='E'||LA21_0=='e') ) {s = 12;}
+                        else if ( (LA21_0=='P'||LA21_0=='p') ) {s = 12;}
 
                         else if ( (LA21_0=='G'||LA21_0=='g') ) {s = 13;}
 
-                        else if ( (LA21_0=='P'||LA21_0=='p') ) {s = 14;}
+                        else if ( (LA21_0=='W'||LA21_0=='w') ) {s = 14;}
 
-                        else if ( (LA21_0=='O'||LA21_0=='o') ) {s = 15;}
+                        else if ( (LA21_0=='N'||LA21_0=='n') ) {s = 15;}
 
-                        else if ( (LA21_0=='W'||LA21_0=='w') ) {s = 16;}
+                        else if ( (LA21_0=='!') ) {s = 16;}
 
-                        else if ( (LA21_0=='N'||LA21_0=='n') ) {s = 17;}
+                        else if ( (LA21_0=='.') ) {s = 17;}
 
-                        else if ( (LA21_0=='!') ) {s = 18;}
+                        else if ( (LA21_0=='=') ) {s = 18;}
 
-                        else if ( (LA21_0=='.') ) {s = 19;}
+                        else if ( (LA21_0=='A'||LA21_0=='a') ) {s = 19;}
 
-                        else if ( (LA21_0=='=') ) {s = 20;}
+                        else if ( (LA21_0=='%') ) {s = 20;}
 
-                        else if ( (LA21_0=='%') ) {s = 21;}
+                        else if ( (LA21_0=='&') ) {s = 21;}
 
-                        else if ( (LA21_0=='&') ) {s = 22;}
+                        else if ( (LA21_0=='*') ) {s = 22;}
 
-                        else if ( (LA21_0=='*') ) {s = 23;}
+                        else if ( (LA21_0=='+') ) {s = 23;}
 
-                        else if ( (LA21_0=='+') ) {s = 24;}
+                        else if ( (LA21_0=='-') ) {s = 24;}
 
-                        else if ( (LA21_0=='-') ) {s = 25;}
+                        else if ( (LA21_0=='/') ) {s = 25;}
 
-                        else if ( (LA21_0=='/') ) {s = 26;}
+                        else if ( (LA21_0==':') ) {s = 26;}
 
-                        else if ( (LA21_0==':') ) {s = 27;}
+                        else if ( (LA21_0=='<') ) {s = 27;}
 
-                        else if ( (LA21_0=='<') ) {s = 28;}
+                        else if ( (LA21_0=='>') ) {s = 28;}
 
-                        else if ( (LA21_0=='>') ) {s = 29;}
+                        else if ( (LA21_0=='?') ) {s = 29;}
 
-                        else if ( (LA21_0=='?') ) {s = 30;}
+                        else if ( (LA21_0=='|') ) {s = 30;}
 
-                        else if ( (LA21_0=='|') ) {s = 31;}
+                        else if ( (LA21_0=='#') ) {s = 31;}
 
-                        else if ( (LA21_0=='#') ) {s = 32;}
+                        else if ( (LA21_0=='(') ) {s = 32;}
 
-                        else if ( (LA21_0=='(') ) {s = 33;}
+                        else if ( (LA21_0==')') ) {s = 33;}
 
-                        else if ( (LA21_0==')') ) {s = 34;}
+                        else if ( (LA21_0==',') ) {s = 34;}
 
-                        else if ( (LA21_0==',') ) {s = 35;}
+                        else if ( (LA21_0==';') ) {s = 35;}
 
-                        else if ( (LA21_0==';') ) {s = 36;}
+                        else if ( (LA21_0=='@') ) {s = 36;}
 
-                        else if ( (LA21_0=='@') ) {s = 37;}
+                        else if ( (LA21_0=='[') ) {s = 37;}
 
-                        else if ( (LA21_0=='[') ) {s = 38;}
+                        else if ( (LA21_0==']') ) {s = 38;}
 
-                        else if ( (LA21_0==']') ) {s = 39;}
+                        else if ( (LA21_0=='{') ) {s = 39;}
 
-                        else if ( (LA21_0=='{') ) {s = 40;}
+                        else if ( (LA21_0=='}') ) {s = 40;}
 
-                        else if ( (LA21_0=='}') ) {s = 41;}
+                        else if ( (LA21_0=='0') ) {s = 41;}
 
-                        else if ( (LA21_0=='0') ) {s = 42;}
+                        else if ( ((LA21_0>='1' && LA21_0<='9')) ) {s = 42;}
 
-                        else if ( ((LA21_0>='1' && LA21_0<='9')) ) {s = 43;}
+                        else if ( (LA21_0=='^') ) {s = 43;}
 
-                        else if ( (LA21_0=='^') ) {s = 44;}
+                        else if ( (LA21_0=='$'||LA21_0=='B'||LA21_0=='H'||(LA21_0>='J' && LA21_0<='L')||LA21_0=='O'||LA21_0=='Q'||(LA21_0>='X' && LA21_0<='Z')||LA21_0=='_'||LA21_0=='b'||LA21_0=='h'||(LA21_0>='j' && LA21_0<='l')||LA21_0=='o'||LA21_0=='q'||(LA21_0>='x' && LA21_0<='z')) ) {s = 44;}
 
-                        else if ( (LA21_0=='$'||LA21_0=='B'||LA21_0=='H'||(LA21_0>='J' && LA21_0<='L')||LA21_0=='Q'||(LA21_0>='X' && LA21_0<='Z')||LA21_0=='_'||LA21_0=='b'||LA21_0=='h'||(LA21_0>='j' && LA21_0<='l')||LA21_0=='q'||(LA21_0>='x' && LA21_0<='z')) ) {s = 45;}
+                        else if ( (LA21_0=='\"') ) {s = 45;}
 
-                        else if ( (LA21_0=='\"') ) {s = 46;}
+                        else if ( (LA21_0=='\'') ) {s = 46;}
 
-                        else if ( (LA21_0=='\'') ) {s = 47;}
+                        else if ( ((LA21_0>='\t' && LA21_0<='\n')||LA21_0=='\r'||LA21_0==' ') ) {s = 47;}
 
-                        else if ( ((LA21_0>='\t' && LA21_0<='\n')||LA21_0=='\r'||LA21_0==' ') ) {s = 48;}
-
-                        else if ( ((LA21_0>='\u0000' && LA21_0<='\b')||(LA21_0>='\u000B' && LA21_0<='\f')||(LA21_0>='\u000E' && LA21_0<='\u001F')||LA21_0=='\\'||LA21_0=='`'||(LA21_0>='~' && LA21_0<='\uFFFF')) ) {s = 49;}
+                        else if ( ((LA21_0>='\u0000' && LA21_0<='\b')||(LA21_0>='\u000B' && LA21_0<='\f')||(LA21_0>='\u000E' && LA21_0<='\u001F')||LA21_0=='\\'||LA21_0=='`'||(LA21_0>='~' && LA21_0<='\uFFFF')) ) {s = 48;}
 
                         if ( s>=0 ) return s;
                         break;

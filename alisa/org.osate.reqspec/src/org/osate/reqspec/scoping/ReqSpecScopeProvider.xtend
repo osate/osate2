@@ -30,17 +30,9 @@ import org.eclipse.emf.ecore.EObject
 class ReqSpecScopeProvider extends AlisaAbstractDeclarativeScopeProvider {
 	
 	
-	
-//	override IScope getScope(EObject context , EReference reference) {
-//		println ("context  =" + context)
-//		println ("reference=" + reference.name)
-//		super.getScope (context, reference)
-//	}
-	
-	
-	// Reference is from Goal, ReqSpec, or Hazard
+	// Reference is from Goal, ReqSpec, 
 	def scope_NamedElement(ContractualElement context, EReference reference) {
-		val targetClassifier = contextClassifier(context)
+		val targetClassifier = targetClassifier(context)
 		if (targetClassifier != null) {
 //			targetClassifier.getAllFeatures.scopeFor
 			val thescope = new SimpleScope(IScope::NULLSCOPE,

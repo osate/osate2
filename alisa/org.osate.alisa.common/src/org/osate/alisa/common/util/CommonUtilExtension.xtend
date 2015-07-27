@@ -11,6 +11,8 @@ import org.osate.aadl2.ComponentType
 import org.osate.aadl2.ComponentImplementation
 import org.osate.aadl2.Classifier
 import org.osate.aadl2.ComponentClassifier
+import org.osate.aadl2.instance.ComponentInstance
+import org.osate.aadl2.instance.InstanceObject
 
 class CommonUtilExtension {
 
@@ -71,6 +73,24 @@ class CommonUtilExtension {
 		}
 
 		return false;
+	}
+
+
+
+	def static findElementInstance(ComponentInstance io, NamedElement element) {
+		switch io {
+			ComponentInstance: io.allOwnedElements.findFirst[ei|
+				(ei as InstanceObject).name.equalsIgnoreCase(element.name)] as InstanceObject
+			default: io
+		}
+	}
+
+	def static findElementInstance(ComponentInstance io, String elementName) {
+		switch io {
+			ComponentInstance: io.allOwnedElements.findFirst[ei|
+				(ei as InstanceObject).name.equalsIgnoreCase(elementName)] as InstanceObject
+			default: io
+		}
 	}
 
 }

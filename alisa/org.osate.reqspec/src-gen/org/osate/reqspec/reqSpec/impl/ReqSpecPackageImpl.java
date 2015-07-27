@@ -20,14 +20,11 @@ import org.osate.categories.categories.CategoriesPackage;
 
 import org.osate.organization.organization.OrganizationPackage;
 
-import org.osate.reqspec.reqSpec.BehaviorEquation;
 import org.osate.reqspec.reqSpec.ContractualElement;
 import org.osate.reqspec.reqSpec.DocumentSection;
 import org.osate.reqspec.reqSpec.ExternalDocument;
 import org.osate.reqspec.reqSpec.Goal;
 import org.osate.reqspec.reqSpec.InformalPredicate;
-import org.osate.reqspec.reqSpec.InputAssumption;
-import org.osate.reqspec.reqSpec.OutputGuarantee;
 import org.osate.reqspec.reqSpec.ReqDocument;
 import org.osate.reqspec.reqSpec.ReqPredicate;
 import org.osate.reqspec.reqSpec.ReqRoot;
@@ -38,7 +35,6 @@ import org.osate.reqspec.reqSpec.ReqSpecPackage;
 import org.osate.reqspec.reqSpec.Requirement;
 import org.osate.reqspec.reqSpec.StakeholderGoals;
 import org.osate.reqspec.reqSpec.SystemRequirements;
-import org.osate.reqspec.reqSpec.ValueAssertion;
 import org.osate.reqspec.reqSpec.XPredicate;
 
 /**
@@ -139,34 +135,6 @@ public class ReqSpecPackageImpl extends EPackageImpl implements ReqSpecPackage
    * @generated
    */
   private EClass xPredicateEClass = null;
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  private EClass valueAssertionEClass = null;
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  private EClass inputAssumptionEClass = null;
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  private EClass outputGuaranteeEClass = null;
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  private EClass behaviorEquationEClass = null;
 
   /**
    * <!-- begin-user-doc -->
@@ -958,116 +926,6 @@ public class ReqSpecPackageImpl extends EPackageImpl implements ReqSpecPackage
    * <!-- end-user-doc -->
    * @generated
    */
-  public EClass getValueAssertion()
-  {
-    return valueAssertionEClass;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public EReference getValueAssertion_Xpression()
-  {
-    return (EReference)valueAssertionEClass.getEStructuralFeatures().get(0);
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public EClass getInputAssumption()
-  {
-    return inputAssumptionEClass;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public EReference getInputAssumption_Xpression()
-  {
-    return (EReference)inputAssumptionEClass.getEStructuralFeatures().get(0);
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public EReference getInputAssumption_Reference()
-  {
-    return (EReference)inputAssumptionEClass.getEStructuralFeatures().get(1);
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public EClass getOutputGuarantee()
-  {
-    return outputGuaranteeEClass;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public EReference getOutputGuarantee_Xpression()
-  {
-    return (EReference)outputGuaranteeEClass.getEStructuralFeatures().get(0);
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public EReference getOutputGuarantee_Reference()
-  {
-    return (EReference)outputGuaranteeEClass.getEStructuralFeatures().get(1);
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public EClass getBehaviorEquation()
-  {
-    return behaviorEquationEClass;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public EReference getBehaviorEquation_Xpression()
-  {
-    return (EReference)behaviorEquationEClass.getEStructuralFeatures().get(0);
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public EReference getBehaviorEquation_Reference()
-  {
-    return (EReference)behaviorEquationEClass.getEStructuralFeatures().get(1);
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
   public EClass getExternalDocument()
   {
     return externalDocumentEClass;
@@ -1207,21 +1065,6 @@ public class ReqSpecPackageImpl extends EPackageImpl implements ReqSpecPackage
     xPredicateEClass = createEClass(XPREDICATE);
     createEReference(xPredicateEClass, XPREDICATE__XPRESSION);
 
-    valueAssertionEClass = createEClass(VALUE_ASSERTION);
-    createEReference(valueAssertionEClass, VALUE_ASSERTION__XPRESSION);
-
-    inputAssumptionEClass = createEClass(INPUT_ASSUMPTION);
-    createEReference(inputAssumptionEClass, INPUT_ASSUMPTION__XPRESSION);
-    createEReference(inputAssumptionEClass, INPUT_ASSUMPTION__REFERENCE);
-
-    outputGuaranteeEClass = createEClass(OUTPUT_GUARANTEE);
-    createEReference(outputGuaranteeEClass, OUTPUT_GUARANTEE__XPRESSION);
-    createEReference(outputGuaranteeEClass, OUTPUT_GUARANTEE__REFERENCE);
-
-    behaviorEquationEClass = createEClass(BEHAVIOR_EQUATION);
-    createEReference(behaviorEquationEClass, BEHAVIOR_EQUATION__XPRESSION);
-    createEReference(behaviorEquationEClass, BEHAVIOR_EQUATION__REFERENCE);
-
     externalDocumentEClass = createEClass(EXTERNAL_DOCUMENT);
     createEAttribute(externalDocumentEClass, EXTERNAL_DOCUMENT__DOC_REFERENCE);
     createEAttribute(externalDocumentEClass, EXTERNAL_DOCUMENT__DOC_FRAGMENT);
@@ -1275,10 +1118,6 @@ public class ReqSpecPackageImpl extends EPackageImpl implements ReqSpecPackage
     requirementEClass.getESuperTypes().add(this.getContractualElement());
     informalPredicateEClass.getESuperTypes().add(this.getReqPredicate());
     xPredicateEClass.getESuperTypes().add(this.getReqPredicate());
-    valueAssertionEClass.getESuperTypes().add(this.getReqPredicate());
-    inputAssumptionEClass.getESuperTypes().add(this.getReqPredicate());
-    outputGuaranteeEClass.getESuperTypes().add(this.getReqPredicate());
-    behaviorEquationEClass.getESuperTypes().add(this.getReqPredicate());
 
     // Initialize classes and features; add operations and parameters
     initEClass(reqSpecEClass, ReqSpec.class, "ReqSpec", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
@@ -1364,21 +1203,6 @@ public class ReqSpecPackageImpl extends EPackageImpl implements ReqSpecPackage
 
     initEClass(xPredicateEClass, XPredicate.class, "XPredicate", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
     initEReference(getXPredicate_Xpression(), theXbasePackage.getXExpression(), null, "xpression", null, 0, 1, XPredicate.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-
-    initEClass(valueAssertionEClass, ValueAssertion.class, "ValueAssertion", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-    initEReference(getValueAssertion_Xpression(), theXbasePackage.getXExpression(), null, "xpression", null, 0, 1, ValueAssertion.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-
-    initEClass(inputAssumptionEClass, InputAssumption.class, "InputAssumption", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-    initEReference(getInputAssumption_Xpression(), theXbasePackage.getXExpression(), null, "xpression", null, 0, 1, InputAssumption.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-    initEReference(getInputAssumption_Reference(), theEcorePackage.getEObject(), null, "reference", null, 0, 1, InputAssumption.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-
-    initEClass(outputGuaranteeEClass, OutputGuarantee.class, "OutputGuarantee", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-    initEReference(getOutputGuarantee_Xpression(), theXbasePackage.getXExpression(), null, "xpression", null, 0, 1, OutputGuarantee.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-    initEReference(getOutputGuarantee_Reference(), theEcorePackage.getEObject(), null, "reference", null, 0, 1, OutputGuarantee.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-
-    initEClass(behaviorEquationEClass, BehaviorEquation.class, "BehaviorEquation", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-    initEReference(getBehaviorEquation_Xpression(), theXbasePackage.getXExpression(), null, "xpression", null, 0, 1, BehaviorEquation.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-    initEReference(getBehaviorEquation_Reference(), theEcorePackage.getEObject(), null, "reference", null, 0, 1, BehaviorEquation.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
     initEClass(externalDocumentEClass, ExternalDocument.class, "ExternalDocument", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
     initEAttribute(getExternalDocument_DocReference(), theEcorePackage.getEString(), "docReference", null, 0, 1, ExternalDocument.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);

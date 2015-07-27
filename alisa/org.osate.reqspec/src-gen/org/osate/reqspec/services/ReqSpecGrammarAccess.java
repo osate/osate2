@@ -135,7 +135,7 @@ public class ReqSpecGrammarAccess extends AbstractGrammarElementFinder {
 		private final Keyword cStakeholderKeyword_0 = (Keyword)cGroup.eContents().get(0);
 		private final Keyword cGoalsKeyword_1 = (Keyword)cGroup.eContents().get(1);
 		private final Assignment cNameAssignment_2 = (Assignment)cGroup.eContents().get(2);
-		private final RuleCall cNameIDTerminalRuleCall_2_0 = (RuleCall)cNameAssignment_2.eContents().get(0);
+		private final RuleCall cNameQualifiedNameParserRuleCall_2_0 = (RuleCall)cNameAssignment_2.eContents().get(0);
 		private final Group cGroup_3 = (Group)cGroup.eContents().get(3);
 		private final Keyword cColonKeyword_3_0 = (Keyword)cGroup_3.eContents().get(0);
 		private final Assignment cTitleAssignment_3_1 = (Assignment)cGroup_3.eContents().get(1);
@@ -168,14 +168,16 @@ public class ReqSpecGrammarAccess extends AbstractGrammarElementFinder {
 		private final Keyword cRightSquareBracketKeyword_7 = (Keyword)cGroup.eContents().get(7);
 		
 		//StakeholderGoals:
-		//	"stakeholder" "goals" name=ID (":" title=STRING)? ("for" (target=[aadl2::ComponentClassifier|AADLCLASSIFIERREFERENCE]
-		//	| global?="all")) "[" (description=Description? & constants+=XValDeclaration* & content+=Goal* & ("see" "document"
-		//	docReference+=ExternalDocument+)? & ("issues" issues+=STRING+)?) "]";
+		//	"stakeholder" "goals" name=QualifiedName (":" title=STRING)? ("for"
+		//	(target=[aadl2::ComponentClassifier|AADLCLASSIFIERREFERENCE] | global?="all")) "[" (description=Description? &
+		//	constants+=XValDeclaration* & content+=Goal* & ("see" "document" docReference+=ExternalDocument+)? & ("issues"
+		//	issues+=STRING+)?) "]";
 		@Override public ParserRule getRule() { return rule; }
 
-		//"stakeholder" "goals" name=ID (":" title=STRING)? ("for" (target=[aadl2::ComponentClassifier|AADLCLASSIFIERREFERENCE] |
-		//global?="all")) "[" (description=Description? & constants+=XValDeclaration* & content+=Goal* & ("see" "document"
-		//docReference+=ExternalDocument+)? & ("issues" issues+=STRING+)?) "]"
+		//"stakeholder" "goals" name=QualifiedName (":" title=STRING)? ("for"
+		//(target=[aadl2::ComponentClassifier|AADLCLASSIFIERREFERENCE] | global?="all")) "[" (description=Description? &
+		//constants+=XValDeclaration* & content+=Goal* & ("see" "document" docReference+=ExternalDocument+)? & ("issues"
+		//issues+=STRING+)?) "]"
 		public Group getGroup() { return cGroup; }
 
 		//"stakeholder"
@@ -184,11 +186,11 @@ public class ReqSpecGrammarAccess extends AbstractGrammarElementFinder {
 		//"goals"
 		public Keyword getGoalsKeyword_1() { return cGoalsKeyword_1; }
 
-		//name=ID
+		//name=QualifiedName
 		public Assignment getNameAssignment_2() { return cNameAssignment_2; }
 
-		//ID
-		public RuleCall getNameIDTerminalRuleCall_2_0() { return cNameIDTerminalRuleCall_2_0; }
+		//QualifiedName
+		public RuleCall getNameQualifiedNameParserRuleCall_2_0() { return cNameQualifiedNameParserRuleCall_2_0; }
 
 		//(":" title=STRING)?
 		public Group getGroup_3() { return cGroup_3; }
@@ -287,7 +289,7 @@ public class ReqSpecGrammarAccess extends AbstractGrammarElementFinder {
 		private final Group cGroup = (Group)rule.eContents().get(1);
 		private final Keyword cDocumentKeyword_0 = (Keyword)cGroup.eContents().get(0);
 		private final Assignment cNameAssignment_1 = (Assignment)cGroup.eContents().get(1);
-		private final RuleCall cNameIDTerminalRuleCall_1_0 = (RuleCall)cNameAssignment_1.eContents().get(0);
+		private final RuleCall cNameQualifiedNameParserRuleCall_1_0 = (RuleCall)cNameAssignment_1.eContents().get(0);
 		private final Group cGroup_2 = (Group)cGroup.eContents().get(2);
 		private final Keyword cColonKeyword_2_0 = (Keyword)cGroup_2.eContents().get(0);
 		private final Assignment cTitleAssignment_2_1 = (Assignment)cGroup_2.eContents().get(1);
@@ -308,22 +310,22 @@ public class ReqSpecGrammarAccess extends AbstractGrammarElementFinder {
 		private final Keyword cRightSquareBracketKeyword_5 = (Keyword)cGroup.eContents().get(5);
 		
 		//ReqDocument:
-		//	"document" name=ID (":" title=STRING)? "[" (description=Description? & content+=(DocGoal | DocRequirement |
-		//	DocumentSection)* & ("issues" issues+=STRING+)?) "]";
+		//	"document" name=QualifiedName (":" title=STRING)? "[" (description=Description? & content+=(DocGoal | DocRequirement
+		//	| DocumentSection)* & ("issues" issues+=STRING+)?) "]";
 		@Override public ParserRule getRule() { return rule; }
 
-		//"document" name=ID (":" title=STRING)? "[" (description=Description? & content+=(DocGoal | DocRequirement |
+		//"document" name=QualifiedName (":" title=STRING)? "[" (description=Description? & content+=(DocGoal | DocRequirement |
 		//DocumentSection)* & ("issues" issues+=STRING+)?) "]"
 		public Group getGroup() { return cGroup; }
 
 		//"document"
 		public Keyword getDocumentKeyword_0() { return cDocumentKeyword_0; }
 
-		//name=ID
+		//name=QualifiedName
 		public Assignment getNameAssignment_1() { return cNameAssignment_1; }
 
-		//ID
-		public RuleCall getNameIDTerminalRuleCall_1_0() { return cNameIDTerminalRuleCall_1_0; }
+		//QualifiedName
+		public RuleCall getNameQualifiedNameParserRuleCall_1_0() { return cNameQualifiedNameParserRuleCall_1_0; }
 
 		//(":" title=STRING)?
 		public Group getGroup_2() { return cGroup_2; }
@@ -2114,16 +2116,13 @@ public class ReqSpecGrammarAccess extends AbstractGrammarElementFinder {
 		private final Alternatives cAlternatives = (Alternatives)rule.eContents().get(1);
 		private final RuleCall cInformalPredicateParserRuleCall_0 = (RuleCall)cAlternatives.eContents().get(0);
 		private final RuleCall cXPredicateParserRuleCall_1 = (RuleCall)cAlternatives.eContents().get(1);
-		private final RuleCall cValueAssertionParserRuleCall_2 = (RuleCall)cAlternatives.eContents().get(2);
-		private final RuleCall cInputAssumptionParserRuleCall_3 = (RuleCall)cAlternatives.eContents().get(3);
-		private final RuleCall cOutputGuaranteeParserRuleCall_4 = (RuleCall)cAlternatives.eContents().get(4);
-		private final RuleCall cBehaviorEquationParserRuleCall_5 = (RuleCall)cAlternatives.eContents().get(5);
 		
+		////| ValueAssertion | InputAssumption | OutputGuarantee| BehaviorEquation;
 		//ReqPredicate:
-		//	InformalPredicate | XPredicate | ValueAssertion | InputAssumption | OutputGuarantee | BehaviorEquation;
+		//	InformalPredicate | XPredicate;
 		@Override public ParserRule getRule() { return rule; }
 
-		//InformalPredicate | XPredicate | ValueAssertion | InputAssumption | OutputGuarantee | BehaviorEquation
+		//InformalPredicate | XPredicate
 		public Alternatives getAlternatives() { return cAlternatives; }
 
 		//InformalPredicate
@@ -2131,254 +2130,58 @@ public class ReqSpecGrammarAccess extends AbstractGrammarElementFinder {
 
 		//XPredicate
 		public RuleCall getXPredicateParserRuleCall_1() { return cXPredicateParserRuleCall_1; }
-
-		//ValueAssertion
-		public RuleCall getValueAssertionParserRuleCall_2() { return cValueAssertionParserRuleCall_2; }
-
-		//InputAssumption
-		public RuleCall getInputAssumptionParserRuleCall_3() { return cInputAssumptionParserRuleCall_3; }
-
-		//OutputGuarantee
-		public RuleCall getOutputGuaranteeParserRuleCall_4() { return cOutputGuaranteeParserRuleCall_4; }
-
-		//BehaviorEquation
-		public RuleCall getBehaviorEquationParserRuleCall_5() { return cBehaviorEquationParserRuleCall_5; }
 	}
 
 	public class InformalPredicateElements extends AbstractParserRuleElementFinder {
 		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "InformalPredicate");
 		private final Group cGroup = (Group)rule.eContents().get(1);
-		private final Keyword cAssertKeyword_0 = (Keyword)cGroup.eContents().get(0);
-		private final Assignment cDescriptionAssignment_1 = (Assignment)cGroup.eContents().get(1);
-		private final RuleCall cDescriptionSTRINGTerminalRuleCall_1_0 = (RuleCall)cDescriptionAssignment_1.eContents().get(0);
+		private final Keyword cInformalKeyword_0 = (Keyword)cGroup.eContents().get(0);
+		private final Keyword cPredicateKeyword_1 = (Keyword)cGroup.eContents().get(1);
+		private final Assignment cDescriptionAssignment_2 = (Assignment)cGroup.eContents().get(2);
+		private final RuleCall cDescriptionSTRINGTerminalRuleCall_2_0 = (RuleCall)cDescriptionAssignment_2.eContents().get(0);
 		
 		//InformalPredicate:
-		//	"assert" description=STRING;
+		//	"informal" "predicate" description=STRING;
 		@Override public ParserRule getRule() { return rule; }
 
-		//"assert" description=STRING
+		//"informal" "predicate" description=STRING
 		public Group getGroup() { return cGroup; }
 
-		//"assert"
-		public Keyword getAssertKeyword_0() { return cAssertKeyword_0; }
+		//"informal"
+		public Keyword getInformalKeyword_0() { return cInformalKeyword_0; }
+
+		//"predicate"
+		public Keyword getPredicateKeyword_1() { return cPredicateKeyword_1; }
 
 		//description=STRING
-		public Assignment getDescriptionAssignment_1() { return cDescriptionAssignment_1; }
+		public Assignment getDescriptionAssignment_2() { return cDescriptionAssignment_2; }
 
 		//STRING
-		public RuleCall getDescriptionSTRINGTerminalRuleCall_1_0() { return cDescriptionSTRINGTerminalRuleCall_1_0; }
+		public RuleCall getDescriptionSTRINGTerminalRuleCall_2_0() { return cDescriptionSTRINGTerminalRuleCall_2_0; }
 	}
 
 	public class XPredicateElements extends AbstractParserRuleElementFinder {
 		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "XPredicate");
 		private final Group cGroup = (Group)rule.eContents().get(1);
-		private final Keyword cAssertKeyword_0 = (Keyword)cGroup.eContents().get(0);
-		private final Keyword cPredicateKeyword_1 = (Keyword)cGroup.eContents().get(1);
-		private final Assignment cXpressionAssignment_2 = (Assignment)cGroup.eContents().get(2);
-		private final RuleCall cXpressionXExpressionParserRuleCall_2_0 = (RuleCall)cXpressionAssignment_2.eContents().get(0);
+		private final Keyword cPredicateKeyword_0 = (Keyword)cGroup.eContents().get(0);
+		private final Assignment cXpressionAssignment_1 = (Assignment)cGroup.eContents().get(1);
+		private final RuleCall cXpressionXExpressionParserRuleCall_1_0 = (RuleCall)cXpressionAssignment_1.eContents().get(0);
 		
 		//XPredicate:
-		//	"assert" "predicate" xpression=XExpression;
+		//	"predicate" xpression=XExpression;
 		@Override public ParserRule getRule() { return rule; }
 
-		//"assert" "predicate" xpression=XExpression
+		//"predicate" xpression=XExpression
 		public Group getGroup() { return cGroup; }
-
-		//"assert"
-		public Keyword getAssertKeyword_0() { return cAssertKeyword_0; }
 
 		//"predicate"
-		public Keyword getPredicateKeyword_1() { return cPredicateKeyword_1; }
+		public Keyword getPredicateKeyword_0() { return cPredicateKeyword_0; }
 
 		//xpression=XExpression
-		public Assignment getXpressionAssignment_2() { return cXpressionAssignment_2; }
+		public Assignment getXpressionAssignment_1() { return cXpressionAssignment_1; }
 
 		//XExpression
-		public RuleCall getXpressionXExpressionParserRuleCall_2_0() { return cXpressionXExpressionParserRuleCall_2_0; }
-	}
-
-	public class ValueAssertionElements extends AbstractParserRuleElementFinder {
-		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "ValueAssertion");
-		private final Group cGroup = (Group)rule.eContents().get(1);
-		private final Keyword cAssertKeyword_0 = (Keyword)cGroup.eContents().get(0);
-		private final Keyword cValueKeyword_1 = (Keyword)cGroup.eContents().get(1);
-		private final Assignment cXpressionAssignment_2 = (Assignment)cGroup.eContents().get(2);
-		private final RuleCall cXpressionXExpressionParserRuleCall_2_0 = (RuleCall)cXpressionAssignment_2.eContents().get(0);
-		
-		//ValueAssertion:
-		//	"assert" "value" xpression=XExpression;
-		@Override public ParserRule getRule() { return rule; }
-
-		//"assert" "value" xpression=XExpression
-		public Group getGroup() { return cGroup; }
-
-		//"assert"
-		public Keyword getAssertKeyword_0() { return cAssertKeyword_0; }
-
-		//"value"
-		public Keyword getValueKeyword_1() { return cValueKeyword_1; }
-
-		//xpression=XExpression
-		public Assignment getXpressionAssignment_2() { return cXpressionAssignment_2; }
-
-		//XExpression
-		public RuleCall getXpressionXExpressionParserRuleCall_2_0() { return cXpressionXExpressionParserRuleCall_2_0; }
-	}
-
-	public class InputAssumptionElements extends AbstractParserRuleElementFinder {
-		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "InputAssumption");
-		private final Group cGroup = (Group)rule.eContents().get(1);
-		private final Keyword cInputKeyword_0 = (Keyword)cGroup.eContents().get(0);
-		private final Keyword cAssumptionKeyword_1 = (Keyword)cGroup.eContents().get(1);
-		private final Alternatives cAlternatives_2 = (Alternatives)cGroup.eContents().get(2);
-		private final Assignment cXpressionAssignment_2_0 = (Assignment)cAlternatives_2.eContents().get(0);
-		private final RuleCall cXpressionXExpressionParserRuleCall_2_0_0 = (RuleCall)cXpressionAssignment_2_0.eContents().get(0);
-		private final Group cGroup_2_1 = (Group)cAlternatives_2.eContents().get(1);
-		private final Keyword cAsKeyword_2_1_0 = (Keyword)cGroup_2_1.eContents().get(0);
-		private final Assignment cReferenceAssignment_2_1_1 = (Assignment)cGroup_2_1.eContents().get(1);
-		private final CrossReference cReferenceEObjectCrossReference_2_1_1_0 = (CrossReference)cReferenceAssignment_2_1_1.eContents().get(0);
-		private final RuleCall cReferenceEObjectIDTerminalRuleCall_2_1_1_0_1 = (RuleCall)cReferenceEObjectCrossReference_2_1_1_0.eContents().get(1);
-		
-		//InputAssumption:
-		//	"input" "assumption" (xpression=XExpression | "as" reference=[ecore::EObject]);
-		@Override public ParserRule getRule() { return rule; }
-
-		//"input" "assumption" (xpression=XExpression | "as" reference=[ecore::EObject])
-		public Group getGroup() { return cGroup; }
-
-		//"input"
-		public Keyword getInputKeyword_0() { return cInputKeyword_0; }
-
-		//"assumption"
-		public Keyword getAssumptionKeyword_1() { return cAssumptionKeyword_1; }
-
-		//xpression=XExpression | "as" reference=[ecore::EObject]
-		public Alternatives getAlternatives_2() { return cAlternatives_2; }
-
-		//xpression=XExpression
-		public Assignment getXpressionAssignment_2_0() { return cXpressionAssignment_2_0; }
-
-		//XExpression
-		public RuleCall getXpressionXExpressionParserRuleCall_2_0_0() { return cXpressionXExpressionParserRuleCall_2_0_0; }
-
-		//"as" reference=[ecore::EObject]
-		public Group getGroup_2_1() { return cGroup_2_1; }
-
-		//"as"
-		public Keyword getAsKeyword_2_1_0() { return cAsKeyword_2_1_0; }
-
-		//reference=[ecore::EObject]
-		public Assignment getReferenceAssignment_2_1_1() { return cReferenceAssignment_2_1_1; }
-
-		//[ecore::EObject]
-		public CrossReference getReferenceEObjectCrossReference_2_1_1_0() { return cReferenceEObjectCrossReference_2_1_1_0; }
-
-		//ID
-		public RuleCall getReferenceEObjectIDTerminalRuleCall_2_1_1_0_1() { return cReferenceEObjectIDTerminalRuleCall_2_1_1_0_1; }
-	}
-
-	public class OutputGuaranteeElements extends AbstractParserRuleElementFinder {
-		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "OutputGuarantee");
-		private final Group cGroup = (Group)rule.eContents().get(1);
-		private final Keyword cOutputKeyword_0 = (Keyword)cGroup.eContents().get(0);
-		private final Keyword cGuaranteeKeyword_1 = (Keyword)cGroup.eContents().get(1);
-		private final Alternatives cAlternatives_2 = (Alternatives)cGroup.eContents().get(2);
-		private final Assignment cXpressionAssignment_2_0 = (Assignment)cAlternatives_2.eContents().get(0);
-		private final RuleCall cXpressionXExpressionParserRuleCall_2_0_0 = (RuleCall)cXpressionAssignment_2_0.eContents().get(0);
-		private final Group cGroup_2_1 = (Group)cAlternatives_2.eContents().get(1);
-		private final Keyword cAsKeyword_2_1_0 = (Keyword)cGroup_2_1.eContents().get(0);
-		private final Assignment cReferenceAssignment_2_1_1 = (Assignment)cGroup_2_1.eContents().get(1);
-		private final CrossReference cReferenceEObjectCrossReference_2_1_1_0 = (CrossReference)cReferenceAssignment_2_1_1.eContents().get(0);
-		private final RuleCall cReferenceEObjectIDTerminalRuleCall_2_1_1_0_1 = (RuleCall)cReferenceEObjectCrossReference_2_1_1_0.eContents().get(1);
-		
-		//OutputGuarantee:
-		//	"output" "guarantee" (xpression=XExpression | "as" reference=[ecore::EObject]);
-		@Override public ParserRule getRule() { return rule; }
-
-		//"output" "guarantee" (xpression=XExpression | "as" reference=[ecore::EObject])
-		public Group getGroup() { return cGroup; }
-
-		//"output"
-		public Keyword getOutputKeyword_0() { return cOutputKeyword_0; }
-
-		//"guarantee"
-		public Keyword getGuaranteeKeyword_1() { return cGuaranteeKeyword_1; }
-
-		//xpression=XExpression | "as" reference=[ecore::EObject]
-		public Alternatives getAlternatives_2() { return cAlternatives_2; }
-
-		//xpression=XExpression
-		public Assignment getXpressionAssignment_2_0() { return cXpressionAssignment_2_0; }
-
-		//XExpression
-		public RuleCall getXpressionXExpressionParserRuleCall_2_0_0() { return cXpressionXExpressionParserRuleCall_2_0_0; }
-
-		//"as" reference=[ecore::EObject]
-		public Group getGroup_2_1() { return cGroup_2_1; }
-
-		//"as"
-		public Keyword getAsKeyword_2_1_0() { return cAsKeyword_2_1_0; }
-
-		//reference=[ecore::EObject]
-		public Assignment getReferenceAssignment_2_1_1() { return cReferenceAssignment_2_1_1; }
-
-		//[ecore::EObject]
-		public CrossReference getReferenceEObjectCrossReference_2_1_1_0() { return cReferenceEObjectCrossReference_2_1_1_0; }
-
-		//ID
-		public RuleCall getReferenceEObjectIDTerminalRuleCall_2_1_1_0_1() { return cReferenceEObjectIDTerminalRuleCall_2_1_1_0_1; }
-	}
-
-	public class BehaviorEquationElements extends AbstractParserRuleElementFinder {
-		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "BehaviorEquation");
-		private final Group cGroup = (Group)rule.eContents().get(1);
-		private final Keyword cAssertKeyword_0 = (Keyword)cGroup.eContents().get(0);
-		private final Keyword cInvariantKeyword_1 = (Keyword)cGroup.eContents().get(1);
-		private final Alternatives cAlternatives_2 = (Alternatives)cGroup.eContents().get(2);
-		private final Assignment cXpressionAssignment_2_0 = (Assignment)cAlternatives_2.eContents().get(0);
-		private final RuleCall cXpressionXExpressionParserRuleCall_2_0_0 = (RuleCall)cXpressionAssignment_2_0.eContents().get(0);
-		private final Group cGroup_2_1 = (Group)cAlternatives_2.eContents().get(1);
-		private final Keyword cAsKeyword_2_1_0 = (Keyword)cGroup_2_1.eContents().get(0);
-		private final Assignment cReferenceAssignment_2_1_1 = (Assignment)cGroup_2_1.eContents().get(1);
-		private final CrossReference cReferenceEObjectCrossReference_2_1_1_0 = (CrossReference)cReferenceAssignment_2_1_1.eContents().get(0);
-		private final RuleCall cReferenceEObjectIDTerminalRuleCall_2_1_1_0_1 = (RuleCall)cReferenceEObjectCrossReference_2_1_1_0.eContents().get(1);
-		
-		//BehaviorEquation:
-		//	"assert" "invariant" (xpression=XExpression | "as" reference=[ecore::EObject]);
-		@Override public ParserRule getRule() { return rule; }
-
-		//"assert" "invariant" (xpression=XExpression | "as" reference=[ecore::EObject])
-		public Group getGroup() { return cGroup; }
-
-		//"assert"
-		public Keyword getAssertKeyword_0() { return cAssertKeyword_0; }
-
-		//"invariant"
-		public Keyword getInvariantKeyword_1() { return cInvariantKeyword_1; }
-
-		//xpression=XExpression | "as" reference=[ecore::EObject]
-		public Alternatives getAlternatives_2() { return cAlternatives_2; }
-
-		//xpression=XExpression
-		public Assignment getXpressionAssignment_2_0() { return cXpressionAssignment_2_0; }
-
-		//XExpression
-		public RuleCall getXpressionXExpressionParserRuleCall_2_0_0() { return cXpressionXExpressionParserRuleCall_2_0_0; }
-
-		//"as" reference=[ecore::EObject]
-		public Group getGroup_2_1() { return cGroup_2_1; }
-
-		//"as"
-		public Keyword getAsKeyword_2_1_0() { return cAsKeyword_2_1_0; }
-
-		//reference=[ecore::EObject]
-		public Assignment getReferenceAssignment_2_1_1() { return cReferenceAssignment_2_1_1; }
-
-		//[ecore::EObject]
-		public CrossReference getReferenceEObjectCrossReference_2_1_1_0() { return cReferenceEObjectCrossReference_2_1_1_0; }
-
-		//ID
-		public RuleCall getReferenceEObjectIDTerminalRuleCall_2_1_1_0_1() { return cReferenceEObjectIDTerminalRuleCall_2_1_1_0_1; }
+		public RuleCall getXpressionXExpressionParserRuleCall_1_0() { return cXpressionXExpressionParserRuleCall_1_0; }
 	}
 
 	public class ExternalDocumentElements extends AbstractParserRuleElementFinder {
@@ -2391,6 +2194,11 @@ public class ReqSpecGrammarAccess extends AbstractGrammarElementFinder {
 		private final Assignment cDocFragmentAssignment_1_1 = (Assignment)cGroup_1.eContents().get(1);
 		private final RuleCall cDocFragmentDOCFRAGMENTParserRuleCall_1_1_0 = (RuleCall)cDocFragmentAssignment_1_1.eContents().get(0);
 		
+		////
+		////ValueAssertion: 'value' 'predicate' xpression=XExpression;	
+		////InputAssumption:  'input' 'assumption' (xpression=XExpression |'as' reference=[ecore::EObject|ID]);	
+		////OutputGuarantee: 'output''guarantee' (xpression=XExpression |'as' reference=[ecore::EObject|ID]);	
+		////BehaviorEquation: 'invariant' (xpression=XExpression |'as' reference=[ecore::EObject|ID]);
 		//ExternalDocument:
 		//	docReference=DOCPATH ("#" docFragment=DOCFRAGMENT)?;
 		@Override public ParserRule getRule() { return rule; }
@@ -2498,10 +2306,6 @@ public class ReqSpecGrammarAccess extends AbstractGrammarElementFinder {
 	private final ReqPredicateElements pReqPredicate;
 	private final InformalPredicateElements pInformalPredicate;
 	private final XPredicateElements pXPredicate;
-	private final ValueAssertionElements pValueAssertion;
-	private final InputAssumptionElements pInputAssumption;
-	private final OutputGuaranteeElements pOutputGuarantee;
-	private final BehaviorEquationElements pBehaviorEquation;
 	private final ExternalDocumentElements pExternalDocument;
 	private final DOCPATHElements pDOCPATH;
 	private final DOCFRAGMENTElements pDOCFRAGMENT;
@@ -2530,10 +2334,6 @@ public class ReqSpecGrammarAccess extends AbstractGrammarElementFinder {
 		this.pReqPredicate = new ReqPredicateElements();
 		this.pInformalPredicate = new InformalPredicateElements();
 		this.pXPredicate = new XPredicateElements();
-		this.pValueAssertion = new ValueAssertionElements();
-		this.pInputAssumption = new InputAssumptionElements();
-		this.pOutputGuarantee = new OutputGuaranteeElements();
-		this.pBehaviorEquation = new BehaviorEquationElements();
 		this.pExternalDocument = new ExternalDocumentElements();
 		this.pDOCPATH = new DOCPATHElements();
 		this.pDOCFRAGMENT = new DOCFRAGMENTElements();
@@ -2608,9 +2408,10 @@ public class ReqSpecGrammarAccess extends AbstractGrammarElementFinder {
 	}
 
 	//StakeholderGoals:
-	//	"stakeholder" "goals" name=ID (":" title=STRING)? ("for" (target=[aadl2::ComponentClassifier|AADLCLASSIFIERREFERENCE]
-	//	| global?="all")) "[" (description=Description? & constants+=XValDeclaration* & content+=Goal* & ("see" "document"
-	//	docReference+=ExternalDocument+)? & ("issues" issues+=STRING+)?) "]";
+	//	"stakeholder" "goals" name=QualifiedName (":" title=STRING)? ("for"
+	//	(target=[aadl2::ComponentClassifier|AADLCLASSIFIERREFERENCE] | global?="all")) "[" (description=Description? &
+	//	constants+=XValDeclaration* & content+=Goal* & ("see" "document" docReference+=ExternalDocument+)? & ("issues"
+	//	issues+=STRING+)?) "]";
 	public StakeholderGoalsElements getStakeholderGoalsAccess() {
 		return pStakeholderGoals;
 	}
@@ -2620,8 +2421,8 @@ public class ReqSpecGrammarAccess extends AbstractGrammarElementFinder {
 	}
 
 	//ReqDocument:
-	//	"document" name=ID (":" title=STRING)? "[" (description=Description? & content+=(DocGoal | DocRequirement |
-	//	DocumentSection)* & ("issues" issues+=STRING+)?) "]";
+	//	"document" name=QualifiedName (":" title=STRING)? "[" (description=Description? & content+=(DocGoal | DocRequirement
+	//	| DocumentSection)* & ("issues" issues+=STRING+)?) "]";
 	public ReqDocumentElements getReqDocumentAccess() {
 		return pReqDocument;
 	}
@@ -2735,8 +2536,9 @@ public class ReqSpecGrammarAccess extends AbstractGrammarElementFinder {
 		return getDocRequirementAccess().getRule();
 	}
 
+	////| ValueAssertion | InputAssumption | OutputGuarantee| BehaviorEquation;
 	//ReqPredicate:
-	//	InformalPredicate | XPredicate | ValueAssertion | InputAssumption | OutputGuarantee | BehaviorEquation;
+	//	InformalPredicate | XPredicate;
 	public ReqPredicateElements getReqPredicateAccess() {
 		return pReqPredicate;
 	}
@@ -2746,7 +2548,7 @@ public class ReqSpecGrammarAccess extends AbstractGrammarElementFinder {
 	}
 
 	//InformalPredicate:
-	//	"assert" description=STRING;
+	//	"informal" "predicate" description=STRING;
 	public InformalPredicateElements getInformalPredicateAccess() {
 		return pInformalPredicate;
 	}
@@ -2756,7 +2558,7 @@ public class ReqSpecGrammarAccess extends AbstractGrammarElementFinder {
 	}
 
 	//XPredicate:
-	//	"assert" "predicate" xpression=XExpression;
+	//	"predicate" xpression=XExpression;
 	public XPredicateElements getXPredicateAccess() {
 		return pXPredicate;
 	}
@@ -2765,46 +2567,11 @@ public class ReqSpecGrammarAccess extends AbstractGrammarElementFinder {
 		return getXPredicateAccess().getRule();
 	}
 
-	//ValueAssertion:
-	//	"assert" "value" xpression=XExpression;
-	public ValueAssertionElements getValueAssertionAccess() {
-		return pValueAssertion;
-	}
-	
-	public ParserRule getValueAssertionRule() {
-		return getValueAssertionAccess().getRule();
-	}
-
-	//InputAssumption:
-	//	"input" "assumption" (xpression=XExpression | "as" reference=[ecore::EObject]);
-	public InputAssumptionElements getInputAssumptionAccess() {
-		return pInputAssumption;
-	}
-	
-	public ParserRule getInputAssumptionRule() {
-		return getInputAssumptionAccess().getRule();
-	}
-
-	//OutputGuarantee:
-	//	"output" "guarantee" (xpression=XExpression | "as" reference=[ecore::EObject]);
-	public OutputGuaranteeElements getOutputGuaranteeAccess() {
-		return pOutputGuarantee;
-	}
-	
-	public ParserRule getOutputGuaranteeRule() {
-		return getOutputGuaranteeAccess().getRule();
-	}
-
-	//BehaviorEquation:
-	//	"assert" "invariant" (xpression=XExpression | "as" reference=[ecore::EObject]);
-	public BehaviorEquationElements getBehaviorEquationAccess() {
-		return pBehaviorEquation;
-	}
-	
-	public ParserRule getBehaviorEquationRule() {
-		return getBehaviorEquationAccess().getRule();
-	}
-
+	////
+	////ValueAssertion: 'value' 'predicate' xpression=XExpression;	
+	////InputAssumption:  'input' 'assumption' (xpression=XExpression |'as' reference=[ecore::EObject|ID]);	
+	////OutputGuarantee: 'output''guarantee' (xpression=XExpression |'as' reference=[ecore::EObject|ID]);	
+	////BehaviorEquation: 'invariant' (xpression=XExpression |'as' reference=[ecore::EObject|ID]);
 	//ExternalDocument:
 	//	docReference=DOCPATH ("#" docFragment=DOCFRAGMENT)?;
 	public ExternalDocumentElements getExternalDocumentAccess() {

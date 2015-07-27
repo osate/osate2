@@ -15,8 +15,9 @@ import org.eclipse.xtext.scoping.IGlobalScopeProvider
 class ReqSpecUtilExtension {
 	
 	
-	def static contextClassifier(ContractualElement context) {
-		var EObject container = context
+	def static targetClassifier(ContractualElement req){
+		if (req.target != null) return req.target
+		var EObject container = req
 		while (container.eContainer != null) {
 			container =container.eContainer
 			if (container instanceof SystemRequirements){
@@ -29,11 +30,6 @@ class ReqSpecUtilExtension {
 			} 
 		}
 		return null;
-	}
-	
-	def static targetClassifier(ContractualElement req){
-	req.target?:
-		req.contextClassifier
 	}
 
 	def static containingRequirement(EObject sh){
