@@ -9,14 +9,14 @@
 	<packaging>pom</packaging>
 
 	<properties>
-		<tycho.version>0.22.0</tycho.version>
-		<tycho-extras.version>0.22.0</tycho-extras.version>
-		<xtext.version>2.7.3</xtext.version>
+		<tycho.version>0.23.0</tycho.version>
+		<tycho-extras.version>0.23.0</tycho-extras.version>
+		<xtext.version>2.8.3</xtext.version>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-		<osate.version>2.0.9</osate.version>
+		<osate.version>2.1.1</osate.version>
 		<luna-sr1a.url>http://download.eclipse.org/releases/luna/201501121000</luna-sr1a.url>
 		<luna-sr2.url>http://download.eclipse.org/releases/luna/201502271000</luna-sr2.url>
-		<xtext.url>http://download.eclipse.org/modeling/tmf/xtext/updates/releases/maintenance/R201411190455</xtext.url>
+		<xtext.url>http://download.eclipse.org/modeling/tmf/xtext/updates/releases/${xtext.version}/</xtext.url>
 	</properties>
 
 	<profiles>
@@ -29,8 +29,8 @@
 					<layout>p2</layout>
 				</repository>
 				<repository>
-					<id>luna-sr1a</id>
-					<url>${luna-sr1a.url}</url>
+					<id>luna-sr2</id>
+					<url>${luna-sr2.url}</url>
 					<layout>p2</layout>
 				</repository>
 				<repository>
