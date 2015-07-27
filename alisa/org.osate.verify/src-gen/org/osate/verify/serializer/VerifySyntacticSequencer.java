@@ -21,10 +21,10 @@ import org.osate.verify.services.VerifyGrammarAccess;
 public class VerifySyntacticSequencer extends AbstractSyntacticSequencer {
 
 	protected VerifyGrammarAccess grammarAccess;
-	protected AbstractElementAlias match_AtomicEvidenceExpr_LeftParenthesisKeyword_1_0_a;
-	protected AbstractElementAlias match_AtomicEvidenceExpr_LeftParenthesisKeyword_1_0_p;
 	protected AbstractElementAlias match_Claim_ActivitiesKeyword_5_0_0_q;
 	protected AbstractElementAlias match_Claim_IssuesKeyword_5_5_0_q;
+	protected AbstractElementAlias match_CompositeEvidenceExpr_LeftParenthesisKeyword_0_0_a;
+	protected AbstractElementAlias match_CompositeEvidenceExpr_LeftParenthesisKeyword_0_0_p;
 	protected AbstractElementAlias match_VerificationMethod_CategoryKeyword_5_4_0_q;
 	protected AbstractElementAlias match_VerificationMethod___LeftParenthesisKeyword_2_0_RightParenthesisKeyword_2_2__q;
 	protected AbstractElementAlias match_VerificationPlan_AssumeKeyword_7_3_0_q;
@@ -39,10 +39,10 @@ public class VerifySyntacticSequencer extends AbstractSyntacticSequencer {
 	@Inject
 	protected void init(IGrammarAccess access) {
 		grammarAccess = (VerifyGrammarAccess) access;
-		match_AtomicEvidenceExpr_LeftParenthesisKeyword_1_0_a = new TokenAlias(true, true, grammarAccess.getAtomicEvidenceExprAccess().getLeftParenthesisKeyword_1_0());
-		match_AtomicEvidenceExpr_LeftParenthesisKeyword_1_0_p = new TokenAlias(true, false, grammarAccess.getAtomicEvidenceExprAccess().getLeftParenthesisKeyword_1_0());
 		match_Claim_ActivitiesKeyword_5_0_0_q = new TokenAlias(false, true, grammarAccess.getClaimAccess().getActivitiesKeyword_5_0_0());
 		match_Claim_IssuesKeyword_5_5_0_q = new TokenAlias(false, true, grammarAccess.getClaimAccess().getIssuesKeyword_5_5_0());
+		match_CompositeEvidenceExpr_LeftParenthesisKeyword_0_0_a = new TokenAlias(true, true, grammarAccess.getCompositeEvidenceExprAccess().getLeftParenthesisKeyword_0_0());
+		match_CompositeEvidenceExpr_LeftParenthesisKeyword_0_0_p = new TokenAlias(true, false, grammarAccess.getCompositeEvidenceExprAccess().getLeftParenthesisKeyword_0_0());
 		match_VerificationMethod_CategoryKeyword_5_4_0_q = new TokenAlias(false, true, grammarAccess.getVerificationMethodAccess().getCategoryKeyword_5_4_0());
 		match_VerificationMethod___LeftParenthesisKeyword_2_0_RightParenthesisKeyword_2_2__q = new GroupAlias(false, true, new TokenAlias(false, false, grammarAccess.getVerificationMethodAccess().getLeftParenthesisKeyword_2_0()), new TokenAlias(false, false, grammarAccess.getVerificationMethodAccess().getRightParenthesisKeyword_2_2()));
 		match_VerificationPlan_AssumeKeyword_7_3_0_q = new TokenAlias(false, true, grammarAccess.getVerificationPlanAccess().getAssumeKeyword_7_3_0());
@@ -92,14 +92,14 @@ public class VerifySyntacticSequencer extends AbstractSyntacticSequencer {
 		List<INode> transitionNodes = collectNodes(fromNode, toNode);
 		for (AbstractElementAlias syntax : transition.getAmbiguousSyntaxes()) {
 			List<INode> syntaxNodes = getNodesFor(transitionNodes, syntax);
-			if(match_AtomicEvidenceExpr_LeftParenthesisKeyword_1_0_a.equals(syntax))
-				emit_AtomicEvidenceExpr_LeftParenthesisKeyword_1_0_a(semanticObject, getLastNavigableState(), syntaxNodes);
-			else if(match_AtomicEvidenceExpr_LeftParenthesisKeyword_1_0_p.equals(syntax))
-				emit_AtomicEvidenceExpr_LeftParenthesisKeyword_1_0_p(semanticObject, getLastNavigableState(), syntaxNodes);
-			else if(match_Claim_ActivitiesKeyword_5_0_0_q.equals(syntax))
+			if(match_Claim_ActivitiesKeyword_5_0_0_q.equals(syntax))
 				emit_Claim_ActivitiesKeyword_5_0_0_q(semanticObject, getLastNavigableState(), syntaxNodes);
 			else if(match_Claim_IssuesKeyword_5_5_0_q.equals(syntax))
 				emit_Claim_IssuesKeyword_5_5_0_q(semanticObject, getLastNavigableState(), syntaxNodes);
+			else if(match_CompositeEvidenceExpr_LeftParenthesisKeyword_0_0_a.equals(syntax))
+				emit_CompositeEvidenceExpr_LeftParenthesisKeyword_0_0_a(semanticObject, getLastNavigableState(), syntaxNodes);
+			else if(match_CompositeEvidenceExpr_LeftParenthesisKeyword_0_0_p.equals(syntax))
+				emit_CompositeEvidenceExpr_LeftParenthesisKeyword_0_0_p(semanticObject, getLastNavigableState(), syntaxNodes);
 			else if(match_VerificationMethod_CategoryKeyword_5_4_0_q.equals(syntax))
 				emit_VerificationMethod_CategoryKeyword_5_4_0_q(semanticObject, getLastNavigableState(), syntaxNodes);
 			else if(match_VerificationMethod___LeftParenthesisKeyword_2_0_RightParenthesisKeyword_2_2__q.equals(syntax))
@@ -126,33 +126,6 @@ public class VerifySyntacticSequencer extends AbstractSyntacticSequencer {
 
 	/**
 	 * Ambiguous syntax:
-	 *     '('*
-	 *
-	 * This ambiguous syntax occurs at:
-	 *     (rule start) (ambiguity) 'all' '[' all+=AndThenEvidenceExpr
-	 *     (rule start) (ambiguity) verification=[VerificationActivity|QualifiedName]
-	 *     (rule start) (ambiguity) {AndThenExpr.left=}
-	 *     (rule start) (ambiguity) {FailThenExpr.left=}
-	 *     (rule start) (ambiguity) {WhenExpr.verification=}
-	 */
-	protected void emit_AtomicEvidenceExpr_LeftParenthesisKeyword_1_0_a(EObject semanticObject, ISynNavigable transition, List<INode> nodes) {
-		acceptNodes(transition, nodes);
-	}
-	
-	/**
-	 * Ambiguous syntax:
-	 *     '('+
-	 *
-	 * This ambiguous syntax occurs at:
-	 *     (rule start) (ambiguity) {AndThenExpr.left=}
-	 *     (rule start) (ambiguity) {FailThenExpr.left=}
-	 */
-	protected void emit_AtomicEvidenceExpr_LeftParenthesisKeyword_1_0_p(EObject semanticObject, ISynNavigable transition, List<INode> nodes) {
-		acceptNodes(transition, nodes);
-	}
-	
-	/**
-	 * Ambiguous syntax:
 	 *     'activities'?
 	 *
 	 * This ambiguous syntax occurs at:
@@ -170,6 +143,35 @@ public class VerifySyntacticSequencer extends AbstractSyntacticSequencer {
 	 *     issues+=STRING (ambiguity) issues+=STRING
 	 */
 	protected void emit_Claim_IssuesKeyword_5_5_0_q(EObject semanticObject, ISynNavigable transition, List<INode> nodes) {
+		acceptNodes(transition, nodes);
+	}
+	
+	/**
+	 * Ambiguous syntax:
+	 *     '('*
+	 *
+	 * This ambiguous syntax occurs at:
+	 *     (rule start) (ambiguity) 'all' '[' elements+=ThenEvidenceExpr
+	 *     (rule start) (ambiguity) verification=[VerificationActivity|QualifiedName]
+	 *     (rule start) (ambiguity) {ElseExpr.left=}
+	 *     (rule start) (ambiguity) {ThenExpr.left=}
+	 *     (rule start) (ambiguity) {WhenExpr.verification=}
+	 */
+	protected void emit_CompositeEvidenceExpr_LeftParenthesisKeyword_0_0_a(EObject semanticObject, ISynNavigable transition, List<INode> nodes) {
+		acceptNodes(transition, nodes);
+	}
+	
+	/**
+	 * Ambiguous syntax:
+	 *     '('+
+	 *
+	 * This ambiguous syntax occurs at:
+	 *     (rule start) (ambiguity) verification=[VerificationActivity|QualifiedName]
+	 *     (rule start) (ambiguity) {ElseExpr.left=}
+	 *     (rule start) (ambiguity) {ThenExpr.left=}
+	 *     (rule start) (ambiguity) {WhenExpr.verification=}
+	 */
+	protected void emit_CompositeEvidenceExpr_LeftParenthesisKeyword_0_0_p(EObject semanticObject, ISynNavigable transition, List<INode> nodes) {
 		acceptNodes(transition, nodes);
 	}
 	
@@ -193,7 +195,7 @@ public class VerifySyntacticSequencer extends AbstractSyntacticSequencer {
 	 *     name=ID (ambiguity) '[' ']' (rule end)
 	 *     name=ID (ambiguity) '[' 'category' category+=[VerificationCategory|ID]
 	 *     name=ID (ambiguity) '[' 'path' methodPath=STRING
-	 *     name=ID (ambiguity) '[' conditions+=VerificationCondition
+	 *     name=ID (ambiguity) '[' condition=VerificationCondition
 	 *     name=ID (ambiguity) '[' description=Description
 	 *     name=ID (ambiguity) '[' methodType=SupportedTypes
 	 */

@@ -86,15 +86,6 @@ public interface VerifyFactory extends EFactory
   VerificationMethodRegistry createVerificationMethodRegistry();
 
   /**
-   * Returns a new object of class '<em>Verification Method Parameter</em>'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return a new object of class '<em>Verification Method Parameter</em>'.
-   * @generated
-   */
-  VerificationMethodParameter createVerificationMethodParameter();
-
-  /**
    * Returns a new object of class '<em>Verification Method</em>'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -122,6 +113,24 @@ public interface VerifyFactory extends EFactory
   VerificationPrecondition createVerificationPrecondition();
 
   /**
+   * Returns a new object of class '<em>Then Expr</em>'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return a new object of class '<em>Then Expr</em>'.
+   * @generated
+   */
+  ThenExpr createThenExpr();
+
+  /**
+   * Returns a new object of class '<em>Else Expr</em>'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return a new object of class '<em>Else Expr</em>'.
+   * @generated
+   */
+  ElseExpr createElseExpr();
+
+  /**
    * Returns a new object of class '<em>All Expr</em>'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -129,24 +138,6 @@ public interface VerifyFactory extends EFactory
    * @generated
    */
   AllExpr createAllExpr();
-
-  /**
-   * Returns a new object of class '<em>And Then Expr</em>'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return a new object of class '<em>And Then Expr</em>'.
-   * @generated
-   */
-  AndThenExpr createAndThenExpr();
-
-  /**
-   * Returns a new object of class '<em>Fail Then Expr</em>'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return a new object of class '<em>Fail Then Expr</em>'.
-   * @generated
-   */
-  FailThenExpr createFailThenExpr();
 
   /**
    * Returns a new object of class '<em>When Expr</em>'.

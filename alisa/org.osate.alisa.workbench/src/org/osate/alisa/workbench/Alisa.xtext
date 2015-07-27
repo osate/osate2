@@ -22,7 +22,7 @@ AssurancePlan:
 	']';
 	
 	AssuranceTask returns AssuranceTask :
-		'assurance' 'task' name=ID (':' title=STRING)? 'of' assurancePlan=[AssurancePlan|ID]
+		'assurance' 'task' name=ID (':' title=STRING)? 'for' assurancePlan=[AssurancePlan|ID]
 	'['
 	(
 	('description' description=Description)?

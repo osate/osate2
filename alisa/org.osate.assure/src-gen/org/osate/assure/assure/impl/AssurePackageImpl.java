@@ -15,16 +15,18 @@ import org.osate.aadl2.Aadl2Package;
 
 import org.osate.aadl2.instance.InstancePackage;
 
-import org.osate.assure.assure.AndThenResult;
 import org.osate.assure.assure.AssuranceEvidence;
 import org.osate.assure.assure.AssureFactory;
 import org.osate.assure.assure.AssurePackage;
 import org.osate.assure.assure.AssureResult;
 import org.osate.assure.assure.ClaimResult;
-import org.osate.assure.assure.FailThenResult;
+import org.osate.assure.assure.ElseResult;
+import org.osate.assure.assure.ElseType;
+import org.osate.assure.assure.Metrics;
 import org.osate.assure.assure.PreconditionResult;
 import org.osate.assure.assure.ResultIssue;
 import org.osate.assure.assure.ResultIssueType;
+import org.osate.assure.assure.ThenResult;
 import org.osate.assure.assure.ValidationResult;
 import org.osate.assure.assure.VerificationActivityResult;
 import org.osate.assure.assure.VerificationExecutionState;
@@ -86,14 +88,21 @@ public class AssurePackageImpl extends EPackageImpl implements AssurePackage
    * <!-- end-user-doc -->
    * @generated
    */
-  private EClass failThenResultEClass = null;
+  private EClass elseResultEClass = null;
 
   /**
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    */
-  private EClass andThenResultEClass = null;
+  private EClass thenResultEClass = null;
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  private EClass metricsEClass = null;
 
   /**
    * <!-- begin-user-doc -->
@@ -107,13 +116,6 @@ public class AssurePackageImpl extends EPackageImpl implements AssurePackage
    * <!-- end-user-doc -->
    * @generated
    */
-  private EClass validationResultEClass = null;
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
   private EClass preconditionResultEClass = null;
 
   /**
@@ -121,7 +123,21 @@ public class AssurePackageImpl extends EPackageImpl implements AssurePackage
    * <!-- end-user-doc -->
    * @generated
    */
+  private EClass validationResultEClass = null;
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
   private EClass verificationActivityResultEClass = null;
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  private EEnum elseTypeEEnum = null;
 
   /**
    * <!-- begin-user-doc -->
@@ -417,69 +433,9 @@ public class AssurePackageImpl extends EPackageImpl implements AssurePackage
    * <!-- end-user-doc -->
    * @generated
    */
-  public EAttribute getAssureResult_SuccessCount()
+  public EReference getAssureResult_Metrics()
   {
-    return (EAttribute)assureResultEClass.getEStructuralFeatures().get(0);
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public EAttribute getAssureResult_FailCount()
-  {
-    return (EAttribute)assureResultEClass.getEStructuralFeatures().get(1);
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public EAttribute getAssureResult_UnknownCount()
-  {
-    return (EAttribute)assureResultEClass.getEStructuralFeatures().get(2);
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public EAttribute getAssureResult_FailthenCount()
-  {
-    return (EAttribute)assureResultEClass.getEStructuralFeatures().get(3);
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public EAttribute getAssureResult_AndthenCount()
-  {
-    return (EAttribute)assureResultEClass.getEStructuralFeatures().get(4);
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public EAttribute getAssureResult_TbdCount()
-  {
-    return (EAttribute)assureResultEClass.getEStructuralFeatures().get(5);
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public EAttribute getAssureResult_Weight()
-  {
-    return (EAttribute)assureResultEClass.getEStructuralFeatures().get(6);
+    return (EReference)assureResultEClass.getEStructuralFeatures().get(0);
   }
 
   /**
@@ -497,9 +453,9 @@ public class AssurePackageImpl extends EPackageImpl implements AssurePackage
    * <!-- end-user-doc -->
    * @generated
    */
-  public EClass getFailThenResult()
+  public EClass getElseResult()
   {
-    return failThenResultEClass;
+    return elseResultEClass;
   }
 
   /**
@@ -507,9 +463,9 @@ public class AssurePackageImpl extends EPackageImpl implements AssurePackage
    * <!-- end-user-doc -->
    * @generated
    */
-  public EReference getFailThenResult_First()
+  public EReference getElseResult_First()
   {
-    return (EReference)failThenResultEClass.getEStructuralFeatures().get(0);
+    return (EReference)elseResultEClass.getEStructuralFeatures().get(0);
   }
 
   /**
@@ -517,9 +473,9 @@ public class AssurePackageImpl extends EPackageImpl implements AssurePackage
    * <!-- end-user-doc -->
    * @generated
    */
-  public EReference getFailThenResult_Second()
+  public EReference getElseResult_Other()
   {
-    return (EReference)failThenResultEClass.getEStructuralFeatures().get(1);
+    return (EReference)elseResultEClass.getEStructuralFeatures().get(1);
   }
 
   /**
@@ -527,9 +483,9 @@ public class AssurePackageImpl extends EPackageImpl implements AssurePackage
    * <!-- end-user-doc -->
    * @generated
    */
-  public EAttribute getFailThenResult_FailThen()
+  public EReference getElseResult_Fail()
   {
-    return (EAttribute)failThenResultEClass.getEStructuralFeatures().get(2);
+    return (EReference)elseResultEClass.getEStructuralFeatures().get(2);
   }
 
   /**
@@ -537,9 +493,9 @@ public class AssurePackageImpl extends EPackageImpl implements AssurePackage
    * <!-- end-user-doc -->
    * @generated
    */
-  public EAttribute getFailThenResult_UnknownThen()
+  public EReference getElseResult_Timeout()
   {
-    return (EAttribute)failThenResultEClass.getEStructuralFeatures().get(3);
+    return (EReference)elseResultEClass.getEStructuralFeatures().get(3);
   }
 
   /**
@@ -547,9 +503,9 @@ public class AssurePackageImpl extends EPackageImpl implements AssurePackage
    * <!-- end-user-doc -->
    * @generated
    */
-  public EAttribute getFailThenResult_DidFail()
+  public EAttribute getElseResult_DidFail()
   {
-    return (EAttribute)failThenResultEClass.getEStructuralFeatures().get(4);
+    return (EAttribute)elseResultEClass.getEStructuralFeatures().get(4);
   }
 
   /**
@@ -557,9 +513,9 @@ public class AssurePackageImpl extends EPackageImpl implements AssurePackage
    * <!-- end-user-doc -->
    * @generated
    */
-  public EClass getAndThenResult()
+  public EClass getThenResult()
   {
-    return andThenResultEClass;
+    return thenResultEClass;
   }
 
   /**
@@ -567,9 +523,9 @@ public class AssurePackageImpl extends EPackageImpl implements AssurePackage
    * <!-- end-user-doc -->
    * @generated
    */
-  public EReference getAndThenResult_First()
+  public EReference getThenResult_First()
   {
-    return (EReference)andThenResultEClass.getEStructuralFeatures().get(0);
+    return (EReference)thenResultEClass.getEStructuralFeatures().get(0);
   }
 
   /**
@@ -577,9 +533,9 @@ public class AssurePackageImpl extends EPackageImpl implements AssurePackage
    * <!-- end-user-doc -->
    * @generated
    */
-  public EReference getAndThenResult_Second()
+  public EReference getThenResult_Second()
   {
-    return (EReference)andThenResultEClass.getEStructuralFeatures().get(1);
+    return (EReference)thenResultEClass.getEStructuralFeatures().get(1);
   }
 
   /**
@@ -587,9 +543,119 @@ public class AssurePackageImpl extends EPackageImpl implements AssurePackage
    * <!-- end-user-doc -->
    * @generated
    */
-  public EAttribute getAndThenResult_DidAndThenFail()
+  public EAttribute getThenResult_DidThenFail()
   {
-    return (EAttribute)andThenResultEClass.getEStructuralFeatures().get(2);
+    return (EAttribute)thenResultEClass.getEStructuralFeatures().get(2);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EClass getMetrics()
+  {
+    return metricsEClass;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EAttribute getMetrics_TbdCount()
+  {
+    return (EAttribute)metricsEClass.getEStructuralFeatures().get(0);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EAttribute getMetrics_SuccessCount()
+  {
+    return (EAttribute)metricsEClass.getEStructuralFeatures().get(1);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EAttribute getMetrics_FailCount()
+  {
+    return (EAttribute)metricsEClass.getEStructuralFeatures().get(2);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EAttribute getMetrics_TimeoutCount()
+  {
+    return (EAttribute)metricsEClass.getEStructuralFeatures().get(3);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EAttribute getMetrics_OtherCount()
+  {
+    return (EAttribute)metricsEClass.getEStructuralFeatures().get(4);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EAttribute getMetrics_DidelseCount()
+  {
+    return (EAttribute)metricsEClass.getEStructuralFeatures().get(5);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EAttribute getMetrics_ThenskipCount()
+  {
+    return (EAttribute)metricsEClass.getEStructuralFeatures().get(6);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EAttribute getMetrics_PreconditionfailCount()
+  {
+    return (EAttribute)metricsEClass.getEStructuralFeatures().get(7);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EAttribute getMetrics_ValidationfailCount()
+  {
+    return (EAttribute)metricsEClass.getEStructuralFeatures().get(8);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EAttribute getMetrics_Weight()
+  {
+    return (EAttribute)metricsEClass.getEStructuralFeatures().get(9);
   }
 
   /**
@@ -667,6 +733,26 @@ public class AssurePackageImpl extends EPackageImpl implements AssurePackage
    * <!-- end-user-doc -->
    * @generated
    */
+  public EClass getPreconditionResult()
+  {
+    return preconditionResultEClass;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EReference getPreconditionResult_Target()
+  {
+    return (EReference)preconditionResultEClass.getEStructuralFeatures().get(0);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
   public EClass getValidationResult()
   {
     return validationResultEClass;
@@ -680,36 +766,6 @@ public class AssurePackageImpl extends EPackageImpl implements AssurePackage
   public EReference getValidationResult_Target()
   {
     return (EReference)validationResultEClass.getEStructuralFeatures().get(0);
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public EClass getPreconditionResult()
-  {
-    return preconditionResultEClass;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public EAttribute getPreconditionResult_Name()
-  {
-    return (EAttribute)preconditionResultEClass.getEStructuralFeatures().get(0);
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public EReference getPreconditionResult_Target()
-  {
-    return (EReference)preconditionResultEClass.getEStructuralFeatures().get(1);
   }
 
   /**
@@ -737,7 +793,7 @@ public class AssurePackageImpl extends EPackageImpl implements AssurePackage
    * <!-- end-user-doc -->
    * @generated
    */
-  public EReference getVerificationActivityResult_ValidationResult()
+  public EReference getVerificationActivityResult_ConditionResult()
   {
     return (EReference)verificationActivityResultEClass.getEStructuralFeatures().get(1);
   }
@@ -747,9 +803,9 @@ public class AssurePackageImpl extends EPackageImpl implements AssurePackage
    * <!-- end-user-doc -->
    * @generated
    */
-  public EReference getVerificationActivityResult_PreconditionResult()
+  public EEnum getElseType()
   {
-    return (EReference)verificationActivityResultEClass.getEStructuralFeatures().get(2);
+    return elseTypeEEnum;
   }
 
   /**
@@ -835,27 +891,33 @@ public class AssurePackageImpl extends EPackageImpl implements AssurePackage
     createEAttribute(verificationResultEClass, VERIFICATION_RESULT__MESSAGE);
 
     assureResultEClass = createEClass(ASSURE_RESULT);
-    createEAttribute(assureResultEClass, ASSURE_RESULT__SUCCESS_COUNT);
-    createEAttribute(assureResultEClass, ASSURE_RESULT__FAIL_COUNT);
-    createEAttribute(assureResultEClass, ASSURE_RESULT__UNKNOWN_COUNT);
-    createEAttribute(assureResultEClass, ASSURE_RESULT__FAILTHEN_COUNT);
-    createEAttribute(assureResultEClass, ASSURE_RESULT__ANDTHEN_COUNT);
-    createEAttribute(assureResultEClass, ASSURE_RESULT__TBD_COUNT);
-    createEAttribute(assureResultEClass, ASSURE_RESULT__WEIGHT);
+    createEReference(assureResultEClass, ASSURE_RESULT__METRICS);
 
     verificationExprEClass = createEClass(VERIFICATION_EXPR);
 
-    failThenResultEClass = createEClass(FAIL_THEN_RESULT);
-    createEReference(failThenResultEClass, FAIL_THEN_RESULT__FIRST);
-    createEReference(failThenResultEClass, FAIL_THEN_RESULT__SECOND);
-    createEAttribute(failThenResultEClass, FAIL_THEN_RESULT__FAIL_THEN);
-    createEAttribute(failThenResultEClass, FAIL_THEN_RESULT__UNKNOWN_THEN);
-    createEAttribute(failThenResultEClass, FAIL_THEN_RESULT__DID_FAIL);
+    elseResultEClass = createEClass(ELSE_RESULT);
+    createEReference(elseResultEClass, ELSE_RESULT__FIRST);
+    createEReference(elseResultEClass, ELSE_RESULT__OTHER);
+    createEReference(elseResultEClass, ELSE_RESULT__FAIL);
+    createEReference(elseResultEClass, ELSE_RESULT__TIMEOUT);
+    createEAttribute(elseResultEClass, ELSE_RESULT__DID_FAIL);
 
-    andThenResultEClass = createEClass(AND_THEN_RESULT);
-    createEReference(andThenResultEClass, AND_THEN_RESULT__FIRST);
-    createEReference(andThenResultEClass, AND_THEN_RESULT__SECOND);
-    createEAttribute(andThenResultEClass, AND_THEN_RESULT__DID_AND_THEN_FAIL);
+    thenResultEClass = createEClass(THEN_RESULT);
+    createEReference(thenResultEClass, THEN_RESULT__FIRST);
+    createEReference(thenResultEClass, THEN_RESULT__SECOND);
+    createEAttribute(thenResultEClass, THEN_RESULT__DID_THEN_FAIL);
+
+    metricsEClass = createEClass(METRICS);
+    createEAttribute(metricsEClass, METRICS__TBD_COUNT);
+    createEAttribute(metricsEClass, METRICS__SUCCESS_COUNT);
+    createEAttribute(metricsEClass, METRICS__FAIL_COUNT);
+    createEAttribute(metricsEClass, METRICS__TIMEOUT_COUNT);
+    createEAttribute(metricsEClass, METRICS__OTHER_COUNT);
+    createEAttribute(metricsEClass, METRICS__DIDELSE_COUNT);
+    createEAttribute(metricsEClass, METRICS__THENSKIP_COUNT);
+    createEAttribute(metricsEClass, METRICS__PRECONDITIONFAIL_COUNT);
+    createEAttribute(metricsEClass, METRICS__VALIDATIONFAIL_COUNT);
+    createEAttribute(metricsEClass, METRICS__WEIGHT);
 
     resultIssueEClass = createEClass(RESULT_ISSUE);
     createEAttribute(resultIssueEClass, RESULT_ISSUE__ISSUE_TYPE);
@@ -865,19 +927,18 @@ public class AssurePackageImpl extends EPackageImpl implements AssurePackage
     createEReference(resultIssueEClass, RESULT_ISSUE__TARGET);
     createEReference(resultIssueEClass, RESULT_ISSUE__ISSUES);
 
+    preconditionResultEClass = createEClass(PRECONDITION_RESULT);
+    createEReference(preconditionResultEClass, PRECONDITION_RESULT__TARGET);
+
     validationResultEClass = createEClass(VALIDATION_RESULT);
     createEReference(validationResultEClass, VALIDATION_RESULT__TARGET);
 
-    preconditionResultEClass = createEClass(PRECONDITION_RESULT);
-    createEAttribute(preconditionResultEClass, PRECONDITION_RESULT__NAME);
-    createEReference(preconditionResultEClass, PRECONDITION_RESULT__TARGET);
-
     verificationActivityResultEClass = createEClass(VERIFICATION_ACTIVITY_RESULT);
     createEReference(verificationActivityResultEClass, VERIFICATION_ACTIVITY_RESULT__TARGET);
-    createEReference(verificationActivityResultEClass, VERIFICATION_ACTIVITY_RESULT__VALIDATION_RESULT);
-    createEReference(verificationActivityResultEClass, VERIFICATION_ACTIVITY_RESULT__PRECONDITION_RESULT);
+    createEReference(verificationActivityResultEClass, VERIFICATION_ACTIVITY_RESULT__CONDITION_RESULT);
 
     // Create enums
+    elseTypeEEnum = createEEnum(ELSE_TYPE);
     resultIssueTypeEEnum = createEEnum(RESULT_ISSUE_TYPE);
     verificationResultStateEEnum = createEEnum(VERIFICATION_RESULT_STATE);
     verificationExecutionStateEEnum = createEEnum(VERIFICATION_EXECUTION_STATE);
@@ -925,10 +986,10 @@ public class AssurePackageImpl extends EPackageImpl implements AssurePackage
     verificationResultEClass.getESuperTypes().add(this.getAssureResult());
     verificationResultEClass.getESuperTypes().add(this.getVerificationExpr());
     verificationExprEClass.getESuperTypes().add(this.getAssureResult());
-    failThenResultEClass.getESuperTypes().add(this.getVerificationExpr());
-    andThenResultEClass.getESuperTypes().add(this.getVerificationExpr());
-    validationResultEClass.getESuperTypes().add(this.getVerificationResult());
+    elseResultEClass.getESuperTypes().add(this.getVerificationExpr());
+    thenResultEClass.getESuperTypes().add(this.getVerificationExpr());
     preconditionResultEClass.getESuperTypes().add(this.getVerificationResult());
+    validationResultEClass.getESuperTypes().add(this.getVerificationResult());
     verificationActivityResultEClass.getESuperTypes().add(this.getVerificationResult());
 
     // Initialize classes and features; add operations and parameters
@@ -955,27 +1016,33 @@ public class AssurePackageImpl extends EPackageImpl implements AssurePackage
     initEAttribute(getVerificationResult_Message(), theEcorePackage.getEString(), "message", null, 0, 1, VerificationResult.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
     initEClass(assureResultEClass, AssureResult.class, "AssureResult", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-    initEAttribute(getAssureResult_SuccessCount(), theEcorePackage.getEInt(), "successCount", null, 0, 1, AssureResult.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-    initEAttribute(getAssureResult_FailCount(), theEcorePackage.getEInt(), "failCount", null, 0, 1, AssureResult.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-    initEAttribute(getAssureResult_UnknownCount(), theEcorePackage.getEInt(), "unknownCount", null, 0, 1, AssureResult.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-    initEAttribute(getAssureResult_FailthenCount(), theEcorePackage.getEInt(), "failthenCount", null, 0, 1, AssureResult.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-    initEAttribute(getAssureResult_AndthenCount(), theEcorePackage.getEInt(), "andthenCount", null, 0, 1, AssureResult.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-    initEAttribute(getAssureResult_TbdCount(), theEcorePackage.getEInt(), "tbdCount", null, 0, 1, AssureResult.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-    initEAttribute(getAssureResult_Weight(), theEcorePackage.getEInt(), "weight", null, 0, 1, AssureResult.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEReference(getAssureResult_Metrics(), this.getMetrics(), null, "metrics", null, 0, 1, AssureResult.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
     initEClass(verificationExprEClass, VerificationExpr.class, "VerificationExpr", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 
-    initEClass(failThenResultEClass, FailThenResult.class, "FailThenResult", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-    initEReference(getFailThenResult_First(), this.getVerificationExpr(), null, "first", null, 0, -1, FailThenResult.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-    initEReference(getFailThenResult_Second(), this.getVerificationExpr(), null, "second", null, 0, -1, FailThenResult.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-    initEAttribute(getFailThenResult_FailThen(), theEcorePackage.getEBoolean(), "failThen", null, 0, 1, FailThenResult.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-    initEAttribute(getFailThenResult_UnknownThen(), theEcorePackage.getEBoolean(), "unknownThen", null, 0, 1, FailThenResult.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-    initEAttribute(getFailThenResult_DidFail(), theEcorePackage.getEBoolean(), "didFail", null, 0, 1, FailThenResult.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEClass(elseResultEClass, ElseResult.class, "ElseResult", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+    initEReference(getElseResult_First(), this.getVerificationExpr(), null, "first", null, 0, -1, ElseResult.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEReference(getElseResult_Other(), this.getVerificationExpr(), null, "other", null, 0, -1, ElseResult.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEReference(getElseResult_Fail(), this.getVerificationExpr(), null, "fail", null, 0, -1, ElseResult.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEReference(getElseResult_Timeout(), this.getVerificationExpr(), null, "timeout", null, 0, -1, ElseResult.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEAttribute(getElseResult_DidFail(), this.getElseType(), "didFail", null, 0, 1, ElseResult.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
-    initEClass(andThenResultEClass, AndThenResult.class, "AndThenResult", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-    initEReference(getAndThenResult_First(), this.getVerificationExpr(), null, "first", null, 0, -1, AndThenResult.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-    initEReference(getAndThenResult_Second(), this.getVerificationExpr(), null, "second", null, 0, -1, AndThenResult.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-    initEAttribute(getAndThenResult_DidAndThenFail(), theEcorePackage.getEBoolean(), "didAndThenFail", null, 0, 1, AndThenResult.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEClass(thenResultEClass, ThenResult.class, "ThenResult", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+    initEReference(getThenResult_First(), this.getVerificationExpr(), null, "first", null, 0, -1, ThenResult.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEReference(getThenResult_Second(), this.getVerificationExpr(), null, "second", null, 0, -1, ThenResult.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEAttribute(getThenResult_DidThenFail(), theEcorePackage.getEBoolean(), "didThenFail", null, 0, 1, ThenResult.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+    initEClass(metricsEClass, Metrics.class, "Metrics", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+    initEAttribute(getMetrics_TbdCount(), theEcorePackage.getEInt(), "tbdCount", null, 0, 1, Metrics.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEAttribute(getMetrics_SuccessCount(), theEcorePackage.getEInt(), "successCount", null, 0, 1, Metrics.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEAttribute(getMetrics_FailCount(), theEcorePackage.getEInt(), "failCount", null, 0, 1, Metrics.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEAttribute(getMetrics_TimeoutCount(), theEcorePackage.getEInt(), "timeoutCount", null, 0, 1, Metrics.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEAttribute(getMetrics_OtherCount(), theEcorePackage.getEInt(), "otherCount", null, 0, 1, Metrics.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEAttribute(getMetrics_DidelseCount(), theEcorePackage.getEInt(), "didelseCount", null, 0, 1, Metrics.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEAttribute(getMetrics_ThenskipCount(), theEcorePackage.getEInt(), "thenskipCount", null, 0, 1, Metrics.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEAttribute(getMetrics_PreconditionfailCount(), theEcorePackage.getEInt(), "preconditionfailCount", null, 0, 1, Metrics.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEAttribute(getMetrics_ValidationfailCount(), theEcorePackage.getEInt(), "validationfailCount", null, 0, 1, Metrics.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEAttribute(getMetrics_Weight(), theEcorePackage.getEInt(), "weight", null, 0, 1, Metrics.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
     initEClass(resultIssueEClass, ResultIssue.class, "ResultIssue", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
     initEAttribute(getResultIssue_IssueType(), this.getResultIssueType(), "issueType", null, 0, 1, ResultIssue.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
@@ -985,19 +1052,22 @@ public class AssurePackageImpl extends EPackageImpl implements AssurePackage
     initEReference(getResultIssue_Target(), theEcorePackage.getEObject(), null, "target", null, 0, 1, ResultIssue.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEReference(getResultIssue_Issues(), this.getResultIssue(), null, "issues", null, 0, -1, ResultIssue.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
-    initEClass(validationResultEClass, ValidationResult.class, "ValidationResult", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-    initEReference(getValidationResult_Target(), theVerifyPackage.getVerificationValidation(), null, "target", null, 0, 1, ValidationResult.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-
     initEClass(preconditionResultEClass, PreconditionResult.class, "PreconditionResult", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-    initEAttribute(getPreconditionResult_Name(), theEcorePackage.getEString(), "name", null, 0, 1, PreconditionResult.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-    initEReference(getPreconditionResult_Target(), theVerifyPackage.getVerificationPrecondition(), null, "target", null, 0, 1, PreconditionResult.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEReference(getPreconditionResult_Target(), theVerifyPackage.getVerificationCondition(), null, "target", null, 0, 1, PreconditionResult.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+    initEClass(validationResultEClass, ValidationResult.class, "ValidationResult", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+    initEReference(getValidationResult_Target(), theVerifyPackage.getVerificationCondition(), null, "target", null, 0, 1, ValidationResult.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
     initEClass(verificationActivityResultEClass, VerificationActivityResult.class, "VerificationActivityResult", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
     initEReference(getVerificationActivityResult_Target(), theVerifyPackage.getVerificationActivity(), null, "target", null, 0, 1, VerificationActivityResult.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-    initEReference(getVerificationActivityResult_ValidationResult(), this.getVerificationResult(), null, "validationResult", null, 0, -1, VerificationActivityResult.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-    initEReference(getVerificationActivityResult_PreconditionResult(), this.getVerificationResult(), null, "preconditionResult", null, 0, -1, VerificationActivityResult.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEReference(getVerificationActivityResult_ConditionResult(), this.getVerificationResult(), null, "conditionResult", null, 0, 1, VerificationActivityResult.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
     // Initialize enums and add enum literals
+    initEEnum(elseTypeEEnum, ElseType.class, "ElseType");
+    addEEnumLiteral(elseTypeEEnum, ElseType.FAIL);
+    addEEnumLiteral(elseTypeEEnum, ElseType.TIMEOUT);
+    addEEnumLiteral(elseTypeEEnum, ElseType.OTHER);
+
     initEEnum(resultIssueTypeEEnum, ResultIssueType.class, "ResultIssueType");
     addEEnumLiteral(resultIssueTypeEEnum, ResultIssueType.ERROR);
     addEEnumLiteral(resultIssueTypeEEnum, ResultIssueType.WARNING);
@@ -1008,7 +1078,8 @@ public class AssurePackageImpl extends EPackageImpl implements AssurePackage
     addEEnumLiteral(verificationResultStateEEnum, VerificationResultState.TBD);
     addEEnumLiteral(verificationResultStateEEnum, VerificationResultState.SUCCESS);
     addEEnumLiteral(verificationResultStateEEnum, VerificationResultState.FAIL);
-    addEEnumLiteral(verificationResultStateEEnum, VerificationResultState.UNKNOWN);
+    addEEnumLiteral(verificationResultStateEEnum, VerificationResultState.OTHER);
+    addEEnumLiteral(verificationResultStateEEnum, VerificationResultState.TIMEOUT);
 
     initEEnum(verificationExecutionStateEEnum, VerificationExecutionState.class, "VerificationExecutionState");
     addEEnumLiteral(verificationExecutionStateEEnum, VerificationExecutionState.TODO);

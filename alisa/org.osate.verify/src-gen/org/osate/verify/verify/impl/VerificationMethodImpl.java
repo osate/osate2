@@ -25,8 +25,6 @@ import org.osate.alisa.common.common.Description;
 
 import org.osate.categories.categories.VerificationCategory;
 
-import org.osate.verify.verify.SupportedReporting;
-import org.osate.verify.verify.SupportedScopes;
 import org.osate.verify.verify.SupportedTypes;
 import org.osate.verify.verify.VerificationCondition;
 import org.osate.verify.verify.VerificationMethod;
@@ -41,13 +39,13 @@ import org.osate.verify.verify.VerifyPackage;
  * <ul>
  *   <li>{@link org.osate.verify.verify.impl.VerificationMethodImpl#getName <em>Name</em>}</li>
  *   <li>{@link org.osate.verify.verify.impl.VerificationMethodImpl#getParams <em>Params</em>}</li>
+ *   <li>{@link org.osate.verify.verify.impl.VerificationMethodImpl#isIsPredicate <em>Is Predicate</em>}</li>
+ *   <li>{@link org.osate.verify.verify.impl.VerificationMethodImpl#isIsResultReport <em>Is Result Report</em>}</li>
  *   <li>{@link org.osate.verify.verify.impl.VerificationMethodImpl#getTitle <em>Title</em>}</li>
  *   <li>{@link org.osate.verify.verify.impl.VerificationMethodImpl#getMethodType <em>Method Type</em>}</li>
- *   <li>{@link org.osate.verify.verify.impl.VerificationMethodImpl#getScope <em>Scope</em>}</li>
- *   <li>{@link org.osate.verify.verify.impl.VerificationMethodImpl#getReporting <em>Reporting</em>}</li>
  *   <li>{@link org.osate.verify.verify.impl.VerificationMethodImpl#getDescription <em>Description</em>}</li>
  *   <li>{@link org.osate.verify.verify.impl.VerificationMethodImpl#getMethodPath <em>Method Path</em>}</li>
- *   <li>{@link org.osate.verify.verify.impl.VerificationMethodImpl#getConditions <em>Conditions</em>}</li>
+ *   <li>{@link org.osate.verify.verify.impl.VerificationMethodImpl#getCondition <em>Condition</em>}</li>
  *   <li>{@link org.osate.verify.verify.impl.VerificationMethodImpl#getCategory <em>Category</em>}</li>
  * </ul>
  * </p>
@@ -87,6 +85,46 @@ public class VerificationMethodImpl extends MinimalEObjectImpl.Container impleme
   protected EList<JvmFormalParameter> params;
 
   /**
+   * The default value of the '{@link #isIsPredicate() <em>Is Predicate</em>}' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see #isIsPredicate()
+   * @generated
+   * @ordered
+   */
+  protected static final boolean IS_PREDICATE_EDEFAULT = false;
+
+  /**
+   * The cached value of the '{@link #isIsPredicate() <em>Is Predicate</em>}' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see #isIsPredicate()
+   * @generated
+   * @ordered
+   */
+  protected boolean isPredicate = IS_PREDICATE_EDEFAULT;
+
+  /**
+   * The default value of the '{@link #isIsResultReport() <em>Is Result Report</em>}' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see #isIsResultReport()
+   * @generated
+   * @ordered
+   */
+  protected static final boolean IS_RESULT_REPORT_EDEFAULT = false;
+
+  /**
+   * The cached value of the '{@link #isIsResultReport() <em>Is Result Report</em>}' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see #isIsResultReport()
+   * @generated
+   * @ordered
+   */
+  protected boolean isResultReport = IS_RESULT_REPORT_EDEFAULT;
+
+  /**
    * The default value of the '{@link #getTitle() <em>Title</em>}' attribute.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -114,7 +152,7 @@ public class VerificationMethodImpl extends MinimalEObjectImpl.Container impleme
    * @generated
    * @ordered
    */
-  protected static final SupportedTypes METHOD_TYPE_EDEFAULT = SupportedTypes.ANALYSIS;
+  protected static final SupportedTypes METHOD_TYPE_EDEFAULT = SupportedTypes.ANALYSISPLUGIN;
 
   /**
    * The cached value of the '{@link #getMethodType() <em>Method Type</em>}' attribute.
@@ -125,46 +163,6 @@ public class VerificationMethodImpl extends MinimalEObjectImpl.Container impleme
    * @ordered
    */
   protected SupportedTypes methodType = METHOD_TYPE_EDEFAULT;
-
-  /**
-   * The default value of the '{@link #getScope() <em>Scope</em>}' attribute.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @see #getScope()
-   * @generated
-   * @ordered
-   */
-  protected static final SupportedScopes SCOPE_EDEFAULT = SupportedScopes.SELF;
-
-  /**
-   * The cached value of the '{@link #getScope() <em>Scope</em>}' attribute.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @see #getScope()
-   * @generated
-   * @ordered
-   */
-  protected SupportedScopes scope = SCOPE_EDEFAULT;
-
-  /**
-   * The default value of the '{@link #getReporting() <em>Reporting</em>}' attribute.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @see #getReporting()
-   * @generated
-   * @ordered
-   */
-  protected static final SupportedReporting REPORTING_EDEFAULT = SupportedReporting.MARKER;
-
-  /**
-   * The cached value of the '{@link #getReporting() <em>Reporting</em>}' attribute.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @see #getReporting()
-   * @generated
-   * @ordered
-   */
-  protected SupportedReporting reporting = REPORTING_EDEFAULT;
 
   /**
    * The cached value of the '{@link #getDescription() <em>Description</em>}' containment reference.
@@ -197,14 +195,14 @@ public class VerificationMethodImpl extends MinimalEObjectImpl.Container impleme
   protected String methodPath = METHOD_PATH_EDEFAULT;
 
   /**
-   * The cached value of the '{@link #getConditions() <em>Conditions</em>}' containment reference list.
+   * The cached value of the '{@link #getCondition() <em>Condition</em>}' containment reference.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @see #getConditions()
+   * @see #getCondition()
    * @generated
    * @ordered
    */
-  protected EList<VerificationCondition> conditions;
+  protected VerificationCondition condition;
 
   /**
    * The cached value of the '{@link #getCategory() <em>Category</em>}' reference list.
@@ -279,6 +277,52 @@ public class VerificationMethodImpl extends MinimalEObjectImpl.Container impleme
    * <!-- end-user-doc -->
    * @generated
    */
+  public boolean isIsPredicate()
+  {
+    return isPredicate;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public void setIsPredicate(boolean newIsPredicate)
+  {
+    boolean oldIsPredicate = isPredicate;
+    isPredicate = newIsPredicate;
+    if (eNotificationRequired())
+      eNotify(new ENotificationImpl(this, Notification.SET, VerifyPackage.VERIFICATION_METHOD__IS_PREDICATE, oldIsPredicate, isPredicate));
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public boolean isIsResultReport()
+  {
+    return isResultReport;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public void setIsResultReport(boolean newIsResultReport)
+  {
+    boolean oldIsResultReport = isResultReport;
+    isResultReport = newIsResultReport;
+    if (eNotificationRequired())
+      eNotify(new ENotificationImpl(this, Notification.SET, VerifyPackage.VERIFICATION_METHOD__IS_RESULT_REPORT, oldIsResultReport, isResultReport));
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
   public String getTitle()
   {
     return title;
@@ -318,52 +362,6 @@ public class VerificationMethodImpl extends MinimalEObjectImpl.Container impleme
     methodType = newMethodType == null ? METHOD_TYPE_EDEFAULT : newMethodType;
     if (eNotificationRequired())
       eNotify(new ENotificationImpl(this, Notification.SET, VerifyPackage.VERIFICATION_METHOD__METHOD_TYPE, oldMethodType, methodType));
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public SupportedScopes getScope()
-  {
-    return scope;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public void setScope(SupportedScopes newScope)
-  {
-    SupportedScopes oldScope = scope;
-    scope = newScope == null ? SCOPE_EDEFAULT : newScope;
-    if (eNotificationRequired())
-      eNotify(new ENotificationImpl(this, Notification.SET, VerifyPackage.VERIFICATION_METHOD__SCOPE, oldScope, scope));
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public SupportedReporting getReporting()
-  {
-    return reporting;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public void setReporting(SupportedReporting newReporting)
-  {
-    SupportedReporting oldReporting = reporting;
-    reporting = newReporting == null ? REPORTING_EDEFAULT : newReporting;
-    if (eNotificationRequired())
-      eNotify(new ENotificationImpl(this, Notification.SET, VerifyPackage.VERIFICATION_METHOD__REPORTING, oldReporting, reporting));
   }
 
   /**
@@ -442,13 +440,47 @@ public class VerificationMethodImpl extends MinimalEObjectImpl.Container impleme
    * <!-- end-user-doc -->
    * @generated
    */
-  public EList<VerificationCondition> getConditions()
+  public VerificationCondition getCondition()
   {
-    if (conditions == null)
+    return condition;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public NotificationChain basicSetCondition(VerificationCondition newCondition, NotificationChain msgs)
+  {
+    VerificationCondition oldCondition = condition;
+    condition = newCondition;
+    if (eNotificationRequired())
     {
-      conditions = new EObjectContainmentEList<VerificationCondition>(VerificationCondition.class, this, VerifyPackage.VERIFICATION_METHOD__CONDITIONS);
+      ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, VerifyPackage.VERIFICATION_METHOD__CONDITION, oldCondition, newCondition);
+      if (msgs == null) msgs = notification; else msgs.add(notification);
     }
-    return conditions;
+    return msgs;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public void setCondition(VerificationCondition newCondition)
+  {
+    if (newCondition != condition)
+    {
+      NotificationChain msgs = null;
+      if (condition != null)
+        msgs = ((InternalEObject)condition).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - VerifyPackage.VERIFICATION_METHOD__CONDITION, null, msgs);
+      if (newCondition != null)
+        msgs = ((InternalEObject)newCondition).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - VerifyPackage.VERIFICATION_METHOD__CONDITION, null, msgs);
+      msgs = basicSetCondition(newCondition, msgs);
+      if (msgs != null) msgs.dispatch();
+    }
+    else if (eNotificationRequired())
+      eNotify(new ENotificationImpl(this, Notification.SET, VerifyPackage.VERIFICATION_METHOD__CONDITION, newCondition, newCondition));
   }
 
   /**
@@ -479,8 +511,8 @@ public class VerificationMethodImpl extends MinimalEObjectImpl.Container impleme
         return ((InternalEList<?>)getParams()).basicRemove(otherEnd, msgs);
       case VerifyPackage.VERIFICATION_METHOD__DESCRIPTION:
         return basicSetDescription(null, msgs);
-      case VerifyPackage.VERIFICATION_METHOD__CONDITIONS:
-        return ((InternalEList<?>)getConditions()).basicRemove(otherEnd, msgs);
+      case VerifyPackage.VERIFICATION_METHOD__CONDITION:
+        return basicSetCondition(null, msgs);
     }
     return super.eInverseRemove(otherEnd, featureID, msgs);
   }
@@ -499,20 +531,20 @@ public class VerificationMethodImpl extends MinimalEObjectImpl.Container impleme
         return getName();
       case VerifyPackage.VERIFICATION_METHOD__PARAMS:
         return getParams();
+      case VerifyPackage.VERIFICATION_METHOD__IS_PREDICATE:
+        return isIsPredicate();
+      case VerifyPackage.VERIFICATION_METHOD__IS_RESULT_REPORT:
+        return isIsResultReport();
       case VerifyPackage.VERIFICATION_METHOD__TITLE:
         return getTitle();
       case VerifyPackage.VERIFICATION_METHOD__METHOD_TYPE:
         return getMethodType();
-      case VerifyPackage.VERIFICATION_METHOD__SCOPE:
-        return getScope();
-      case VerifyPackage.VERIFICATION_METHOD__REPORTING:
-        return getReporting();
       case VerifyPackage.VERIFICATION_METHOD__DESCRIPTION:
         return getDescription();
       case VerifyPackage.VERIFICATION_METHOD__METHOD_PATH:
         return getMethodPath();
-      case VerifyPackage.VERIFICATION_METHOD__CONDITIONS:
-        return getConditions();
+      case VerifyPackage.VERIFICATION_METHOD__CONDITION:
+        return getCondition();
       case VerifyPackage.VERIFICATION_METHOD__CATEGORY:
         return getCategory();
     }
@@ -537,17 +569,17 @@ public class VerificationMethodImpl extends MinimalEObjectImpl.Container impleme
         getParams().clear();
         getParams().addAll((Collection<? extends JvmFormalParameter>)newValue);
         return;
+      case VerifyPackage.VERIFICATION_METHOD__IS_PREDICATE:
+        setIsPredicate((Boolean)newValue);
+        return;
+      case VerifyPackage.VERIFICATION_METHOD__IS_RESULT_REPORT:
+        setIsResultReport((Boolean)newValue);
+        return;
       case VerifyPackage.VERIFICATION_METHOD__TITLE:
         setTitle((String)newValue);
         return;
       case VerifyPackage.VERIFICATION_METHOD__METHOD_TYPE:
         setMethodType((SupportedTypes)newValue);
-        return;
-      case VerifyPackage.VERIFICATION_METHOD__SCOPE:
-        setScope((SupportedScopes)newValue);
-        return;
-      case VerifyPackage.VERIFICATION_METHOD__REPORTING:
-        setReporting((SupportedReporting)newValue);
         return;
       case VerifyPackage.VERIFICATION_METHOD__DESCRIPTION:
         setDescription((Description)newValue);
@@ -555,9 +587,8 @@ public class VerificationMethodImpl extends MinimalEObjectImpl.Container impleme
       case VerifyPackage.VERIFICATION_METHOD__METHOD_PATH:
         setMethodPath((String)newValue);
         return;
-      case VerifyPackage.VERIFICATION_METHOD__CONDITIONS:
-        getConditions().clear();
-        getConditions().addAll((Collection<? extends VerificationCondition>)newValue);
+      case VerifyPackage.VERIFICATION_METHOD__CONDITION:
+        setCondition((VerificationCondition)newValue);
         return;
       case VerifyPackage.VERIFICATION_METHOD__CATEGORY:
         getCategory().clear();
@@ -583,17 +614,17 @@ public class VerificationMethodImpl extends MinimalEObjectImpl.Container impleme
       case VerifyPackage.VERIFICATION_METHOD__PARAMS:
         getParams().clear();
         return;
+      case VerifyPackage.VERIFICATION_METHOD__IS_PREDICATE:
+        setIsPredicate(IS_PREDICATE_EDEFAULT);
+        return;
+      case VerifyPackage.VERIFICATION_METHOD__IS_RESULT_REPORT:
+        setIsResultReport(IS_RESULT_REPORT_EDEFAULT);
+        return;
       case VerifyPackage.VERIFICATION_METHOD__TITLE:
         setTitle(TITLE_EDEFAULT);
         return;
       case VerifyPackage.VERIFICATION_METHOD__METHOD_TYPE:
         setMethodType(METHOD_TYPE_EDEFAULT);
-        return;
-      case VerifyPackage.VERIFICATION_METHOD__SCOPE:
-        setScope(SCOPE_EDEFAULT);
-        return;
-      case VerifyPackage.VERIFICATION_METHOD__REPORTING:
-        setReporting(REPORTING_EDEFAULT);
         return;
       case VerifyPackage.VERIFICATION_METHOD__DESCRIPTION:
         setDescription((Description)null);
@@ -601,8 +632,8 @@ public class VerificationMethodImpl extends MinimalEObjectImpl.Container impleme
       case VerifyPackage.VERIFICATION_METHOD__METHOD_PATH:
         setMethodPath(METHOD_PATH_EDEFAULT);
         return;
-      case VerifyPackage.VERIFICATION_METHOD__CONDITIONS:
-        getConditions().clear();
+      case VerifyPackage.VERIFICATION_METHOD__CONDITION:
+        setCondition((VerificationCondition)null);
         return;
       case VerifyPackage.VERIFICATION_METHOD__CATEGORY:
         getCategory().clear();
@@ -625,20 +656,20 @@ public class VerificationMethodImpl extends MinimalEObjectImpl.Container impleme
         return NAME_EDEFAULT == null ? name != null : !NAME_EDEFAULT.equals(name);
       case VerifyPackage.VERIFICATION_METHOD__PARAMS:
         return params != null && !params.isEmpty();
+      case VerifyPackage.VERIFICATION_METHOD__IS_PREDICATE:
+        return isPredicate != IS_PREDICATE_EDEFAULT;
+      case VerifyPackage.VERIFICATION_METHOD__IS_RESULT_REPORT:
+        return isResultReport != IS_RESULT_REPORT_EDEFAULT;
       case VerifyPackage.VERIFICATION_METHOD__TITLE:
         return TITLE_EDEFAULT == null ? title != null : !TITLE_EDEFAULT.equals(title);
       case VerifyPackage.VERIFICATION_METHOD__METHOD_TYPE:
         return methodType != METHOD_TYPE_EDEFAULT;
-      case VerifyPackage.VERIFICATION_METHOD__SCOPE:
-        return scope != SCOPE_EDEFAULT;
-      case VerifyPackage.VERIFICATION_METHOD__REPORTING:
-        return reporting != REPORTING_EDEFAULT;
       case VerifyPackage.VERIFICATION_METHOD__DESCRIPTION:
         return description != null;
       case VerifyPackage.VERIFICATION_METHOD__METHOD_PATH:
         return METHOD_PATH_EDEFAULT == null ? methodPath != null : !METHOD_PATH_EDEFAULT.equals(methodPath);
-      case VerifyPackage.VERIFICATION_METHOD__CONDITIONS:
-        return conditions != null && !conditions.isEmpty();
+      case VerifyPackage.VERIFICATION_METHOD__CONDITION:
+        return condition != null;
       case VerifyPackage.VERIFICATION_METHOD__CATEGORY:
         return category != null && !category.isEmpty();
     }
@@ -658,14 +689,14 @@ public class VerificationMethodImpl extends MinimalEObjectImpl.Container impleme
     StringBuffer result = new StringBuffer(super.toString());
     result.append(" (name: ");
     result.append(name);
+    result.append(", isPredicate: ");
+    result.append(isPredicate);
+    result.append(", isResultReport: ");
+    result.append(isResultReport);
     result.append(", title: ");
     result.append(title);
     result.append(", methodType: ");
     result.append(methodType);
-    result.append(", scope: ");
-    result.append(scope);
-    result.append(", reporting: ");
-    result.append(reporting);
     result.append(", methodPath: ");
     result.append(methodPath);
     result.append(')');

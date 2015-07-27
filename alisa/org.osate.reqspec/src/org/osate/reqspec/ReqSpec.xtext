@@ -49,7 +49,7 @@ DocumentSection returns DocumentSection:
 	;
 
 SystemRequirements returns SystemRequirements:
-	'system' 'requirements'  name =ID (':' title=STRING)? // 'requirement' 'specification'
+	'system' 'requirements'  name =QualifiedName (':' title=STRING)? // 'requirement' 'specification'
 //	('import' importedNamespace=QualifiedNameWithWildCard)?
 	( 'for' (target=[aadl2::ComponentClassifier|AADLCLASSIFIERREFERENCE] | global?='all'))
 	'[' 

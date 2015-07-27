@@ -15,19 +15,17 @@ import org.eclipse.xtext.util.IAcceptor
 import com.google.inject.Singleton
 import org.eclipse.emf.common.util.URI
 import org.osate.verify.verify.VerificationPlan
-import static org.osate.reqspec.util.ReqSpecUtilExtension.*
-import static org.osate.alisa.workbench.util.AlisaWorkbenchUtilsExtension.*
+import static extension org.osate.reqspec.util.ReqSpecUtilExtension.*
+import static extension org.osate.alisa.common.util.CommonUtilExtension.*
 import org.osate.reqspec.reqSpec.SystemRequirements
 
 class AlisaWorkbenchReferenceFinder {
 	@Inject
 	var IGlobalScopeProvider scopeProvider
-
-	extension CommonGlobalScopeProvider cgsp = scopeProvider as CommonGlobalScopeProvider
 	
 
 		def Iterable<Requirement> getRequirements(ComponentInstance io){
-			val x = io.componentClassifier.getGlobalEObjectDescriptions(ReqSpecPackage.eINSTANCE.requirement,null)
+			val x = (scopeProvider as CommonGlobalScopeProvider).getGlobalEObjectDescriptions(io.componentClassifier,ReqSpecPackage.eINSTANCE.requirement,null)
 			// TODO if implementation also look at the type.
 			// TODO if classifier is an extension we inherit requirements
 			val y = x.map[EObjectOrProxy as Requirement]
@@ -38,7 +36,7 @@ class AlisaWorkbenchReferenceFinder {
 				val c2n = t2.getQualifiedName()
 				println(c1n + " "+c2n)
 			}
-			y.filter[req| isSame((req as Requirement).target as ComponentClassifier, (io as ComponentInstance).componentClassifier )]
+			y.filter[req| (io as ComponentInstance).componentClassifier.isSameorExtends((req as Requirement).targetClassifier as ComponentClassifier )]
 			//(req as Requirement).target.getQualifiedName().equalsIgnoreCase((io as ComponentInstance).componentClassifier.getQualifiedName())]
 	//		io.componentClassifier.getGlobalEObjectDescriptions(ReqSpecPackage.eINSTANCE.requirement)
 	//		 [IEObjectDescription ed | (ed.EObjectOrProxy as Requirement).target == (io as ComponentInstance).componentClassifier]
@@ -46,8 +44,8 @@ class AlisaWorkbenchReferenceFinder {
 		}
 		
 		def Iterable<SystemRequirements> getSystemRequirements(ComponentInstance io){
-						io.componentClassifier.getGlobalEObjectDescriptions(ReqSpecPackage.eINSTANCE.systemRequirements,null).map[EObjectOrProxy as SystemRequirements]
-						.filter[sysreqs| isSame(sysreqs.target, io.componentClassifier)]
+						(scopeProvider as CommonGlobalScopeProvider).getGlobalEObjectDescriptions(io.componentClassifier,ReqSpecPackage.eINSTANCE.systemRequirements,null).map[EObjectOrProxy as SystemRequirements]
+						.filter[sysreqs| isSameorExtends(sysreqs.target, io.componentClassifier)]
 		}
 		
 		def Iterable<Requirement> getAllRequirements(ComponentInstance ci){

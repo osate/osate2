@@ -20,10 +20,8 @@ import org.osate.assure.assure.VerificationExpr
 import org.osate.assure.assure.VerificationResultState
 import org.osate.categories.categories.SelectionCategory
 import org.osate.verify.verify.AllExpr
-import org.osate.verify.verify.AndThenExpr
 import org.osate.verify.verify.ArgumentExpr
 import org.osate.verify.verify.Claim
-import org.osate.verify.verify.FailThenExpr
 import org.osate.verify.verify.RefExpr
 import org.osate.verify.verify.VerificationCondition
 import org.osate.verify.verify.VerificationPrecondition
@@ -38,6 +36,8 @@ import org.osate.alisa.workbench.alisa.AssuranceTask
 import org.osate.categories.categories.RequirementCategory
 import org.osate.categories.categories.VerificationCategory
 import org.osate.verify.verify.VerificationActivity
+import org.osate.verify.verify.ThenExpr
+import org.osate.verify.verify.ElseExpr
 
 /**
  * Generates code from your model files on save.
@@ -136,7 +136,7 @@ class AlisaGenerator implements IGenerator {
 //		claimresult.name = claim.requirement.name
 		claimresult.target = claim.requirement
 		if (claim.requirement.target != null) {
-			claimresult.instance = claim.requirement.getRequirementTarget(ci)
+			claimresult.instance = claim.requirement.getRequirementTargetInstance(ci)
 		}
 		for (subclaim : claim?.subclaim) {
 			claimresult.subClaimResult += subclaim.construct(ci)
@@ -150,7 +150,7 @@ class AlisaGenerator implements IGenerator {
 «««			claim «claim.requirement.name» for «claim.requirement.fullyQualifiedName» // TODO remove for, but also remove it in assure
 			claim «claim.requirement.fullyQualifiedName»
 			«IF claim.requirement.target != null»
-				instance "«claim.requirement.getRequirementTarget(ci)»"
+				instance "«claim.requirement.getRequirementTargetInstance(ci)»"
 			«ENDIF»
 			[
 				tbdcount 1
@@ -165,8 +165,8 @@ class AlisaGenerator implements IGenerator {
 	def void construct(List<VerificationExpr> arl, ArgumentExpr expr) {
 		switch expr {
 			AllExpr: arl.doConstruct(expr)
-			AndThenExpr: arl.doConstruct(expr)
-			FailThenExpr: arl.doConstruct(expr)
+			ThenExpr: arl.doConstruct(expr)
+			ElseExpr: arl.doConstruct(expr)
 			WhenExpr: arl.doConstruct(expr)
 			RefExpr: if(expr.verification.evaluateVerificationFilter) arl.doConstruct(expr)
 		}
@@ -175,62 +175,68 @@ class AlisaGenerator implements IGenerator {
 	def CharSequence generate(ArgumentExpr expr) {
 		switch expr {
 			AllExpr: expr.doGenerate
-			AndThenExpr: expr.doGenerate
-			FailThenExpr: expr.doGenerate
+			ThenExpr: expr.doGenerate
+			ElseExpr: expr.doGenerate
 			WhenExpr: expr.doGenerate
 			RefExpr: if(expr.verification.evaluateVerificationFilter) expr.doGenerate
 		}
 	}
 
 	def void doConstruct(List<VerificationExpr> arl, AllExpr expr) {
-		for (subexpr : expr.all) {
+		for (subexpr : expr.elements) {
 			arl.construct(subexpr)
 		}
 	}
 
 	def doGenerate(AllExpr expr) {
 		'''
-			«FOR subexpr : expr.all»
+			«FOR subexpr : expr.elements»
 				«subexpr.generate»
 			«ENDFOR»
 		'''
 	}
 
-	def void doConstruct(List<VerificationExpr> arl, AndThenExpr expr) {
-		val andres = factory.createAndThenResult
+	def void doConstruct(List<VerificationExpr> arl, ThenExpr expr) {
+		val andres = factory.createThenResult
 		andres.first.construct(expr.left)
-		andres.second.construct(expr.right)
+		andres.second.construct(expr.successor)
 		arl += andres
 	}
 
-	def doGenerate(AndThenExpr expr) {
+	def doGenerate(ThenExpr expr) {
 		'''
-			andthen
+			then
 				«expr.left.generate»
 			do
-				«expr.right.generate»
+				«expr.successor.generate»
 			[
 				tbdcount 1
 			]
 		'''
 	}
 
-	def void doConstruct(List<VerificationExpr> arl, FailThenExpr expr) {
-		val failthenres = factory.createFailThenResult
-		failthenres.first.construct(expr.left)
-		failthenres.second.construct(expr.right)
-		arl += failthenres
+	def void doConstruct(List<VerificationExpr> arl, ElseExpr expr) {
+		val elseres = factory.createElseResult
+		elseres.first.construct(expr.left)
+		elseres.other.construct(expr.other)
+		if (expr.fail != null) elseres.fail.construct(expr.fail)
+		if (expr.timeout != null) elseres.timeout.construct(expr.timeout)
+		arl += elseres
 	}
 
-	def doGenerate(FailThenExpr expr) {
+	def doGenerate(ElseExpr expr) {
 		'''
-			failthen 
+			else
 				«expr.left.generate»
-			do
-				«expr.right.generate»
+			other
+				«expr.other.generate»
+			«IF expr.fail != null»
+			fail "«expr.fail.generate»"
+			«ENDIF»
+			«IF expr.timeout != null»
+			fail "«expr.timeout.generate»"
+			«ENDIF»
 			[
-				«IF expr.unknown»unknownthen«ENDIF»
-				«IF expr.failed»failthen«ENDIF»
 				tbdcount 1
 			]
 		'''
@@ -254,25 +260,22 @@ class AlisaGenerator implements IGenerator {
 		val vr = factory.createVerificationActivityResult
 		vr.resultState = VerificationResultState.TBD
 		vr.executionState = VerificationExecutionState.TODO
-		val conds = expr.verification?.method?.conditions
-		if (conds != null) {
-			for (vacond : conds) {
-				arl.doConstruct(vacond)
-			}
+		val cond = expr.verification?.method?.condition
+		if (cond != null) {
+			arl.doConstruct(cond)
 		}
 	}
 
 	def doGenerate(RefExpr expr) {
 		'''
-«««			verification «expr.verification.name» for «expr.verification.fullyQualifiedName»
 			verification «expr.verification.fullyQualifiedName»
 			[
 				executionstate todo
 				resultstate tbd
 				tbdcount 1
-				«FOR vacond : expr.verification?.method?.conditions ?: #{}»
-					«vacond.generate»
-				«ENDFOR»
+				«IF expr.verification?.method?.condition != null»
+					«expr.verification?.method?.condition.generate»
+				«ENDIF»
 			]
 		'''
 	}
@@ -290,7 +293,6 @@ class AlisaGenerator implements IGenerator {
 
 	def generate(VerificationCondition vc) {
 		'''
-«««			«vc.keyword» «vc.name» for «vc.fullyQualifiedName»
 			«vc.keyword» «vc.fullyQualifiedName»
 			[
 				executionstate todo

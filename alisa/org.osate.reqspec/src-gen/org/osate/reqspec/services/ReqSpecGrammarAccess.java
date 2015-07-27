@@ -468,7 +468,7 @@ public class ReqSpecGrammarAccess extends AbstractGrammarElementFinder {
 		private final Keyword cSystemKeyword_0 = (Keyword)cGroup.eContents().get(0);
 		private final Keyword cRequirementsKeyword_1 = (Keyword)cGroup.eContents().get(1);
 		private final Assignment cNameAssignment_2 = (Assignment)cGroup.eContents().get(2);
-		private final RuleCall cNameIDTerminalRuleCall_2_0 = (RuleCall)cNameAssignment_2.eContents().get(0);
+		private final RuleCall cNameQualifiedNameParserRuleCall_2_0 = (RuleCall)cNameAssignment_2.eContents().get(0);
 		private final Group cGroup_3 = (Group)cGroup.eContents().get(3);
 		private final Keyword cColonKeyword_3_0 = (Keyword)cGroup_3.eContents().get(0);
 		private final Assignment cTitleAssignment_3_1 = (Assignment)cGroup_3.eContents().get(1);
@@ -503,14 +503,14 @@ public class ReqSpecGrammarAccess extends AbstractGrammarElementFinder {
 		private final Keyword cRightSquareBracketKeyword_7 = (Keyword)cGroup.eContents().get(7);
 		
 		//SystemRequirements:
-		//	"system" "requirements" name=ID (":" title=STRING)? // 'requirement' 'specification'
+		//	"system" "requirements" name=QualifiedName (":" title=STRING)? // 'requirement' 'specification'
 		//	//	('import' importedNamespace=QualifiedNameWithWildCard)?
 		//	("for" (target=[aadl2::ComponentClassifier|AADLCLASSIFIERREFERENCE] | global?="all")) "[" (description=Description? &
 		//	constants+=XValDeclaration* & computes+=ComputeDeclaration* & content+=Requirement* & ("see" "document"
 		//	docReference+=ExternalDocument+)? & ("issues" issues+=STRING+)?) "]";
 		@Override public ParserRule getRule() { return rule; }
 
-		//"system" "requirements" name=ID (":" title=STRING)? // 'requirement' 'specification'
+		//"system" "requirements" name=QualifiedName (":" title=STRING)? // 'requirement' 'specification'
 		////	('import' importedNamespace=QualifiedNameWithWildCard)?
 		//("for" (target=[aadl2::ComponentClassifier|AADLCLASSIFIERREFERENCE] | global?="all")) "[" (description=Description? &
 		//constants+=XValDeclaration* & computes+=ComputeDeclaration* & content+=Requirement* & ("see" "document"
@@ -523,11 +523,11 @@ public class ReqSpecGrammarAccess extends AbstractGrammarElementFinder {
 		//"requirements"
 		public Keyword getRequirementsKeyword_1() { return cRequirementsKeyword_1; }
 
-		//name=ID
+		//name=QualifiedName
 		public Assignment getNameAssignment_2() { return cNameAssignment_2; }
 
-		//ID
-		public RuleCall getNameIDTerminalRuleCall_2_0() { return cNameIDTerminalRuleCall_2_0; }
+		//QualifiedName
+		public RuleCall getNameQualifiedNameParserRuleCall_2_0() { return cNameQualifiedNameParserRuleCall_2_0; }
 
 		//(":" title=STRING)?
 		public Group getGroup_3() { return cGroup_3; }
@@ -2642,7 +2642,7 @@ public class ReqSpecGrammarAccess extends AbstractGrammarElementFinder {
 	}
 
 	//SystemRequirements:
-	//	"system" "requirements" name=ID (":" title=STRING)? // 'requirement' 'specification'
+	//	"system" "requirements" name=QualifiedName (":" title=STRING)? // 'requirement' 'specification'
 	//	//	('import' importedNamespace=QualifiedNameWithWildCard)?
 	//	("for" (target=[aadl2::ComponentClassifier|AADLCLASSIFIERREFERENCE] | global?="all")) "[" (description=Description? &
 	//	constants+=XValDeclaration* & computes+=ComputeDeclaration* & content+=Requirement* & ("see" "document"

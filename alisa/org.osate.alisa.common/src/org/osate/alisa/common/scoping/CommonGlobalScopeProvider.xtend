@@ -17,6 +17,7 @@ import static extension org.eclipse.emf.ecore.util.EcoreUtil.*
 import org.osate.aadl2.Aadl2Package
 import org.eclipse.xtext.naming.IQualifiedNameConverter
 import org.eclipse.emf.common.util.URI
+import org.eclipse.emf.ecore.util.EcoreUtil
 
 class CommonGlobalScopeProvider extends DefaultGlobalScopeProvider {
 	@Inject 
@@ -73,12 +74,12 @@ class CommonGlobalScopeProvider extends DefaultGlobalScopeProvider {
 	
 	def EObject getGlobalEObject(EObject context, EClass eClass, String qname, Predicate<IEObjectDescription> filter){
 		val eod = context.getGlobalEObjectDescription(eClass, qname, filter)
-		eod?.EObjectOrProxy
+		EcoreUtil.resolve(eod?.EObjectOrProxy, context)
 	}
 	
 	def EObject getGlobalEObject(EObject context, EClass eClass, String qname){
 		val eod = context.getGlobalEObjectDescription(eClass, qname)
-		eod?.EObjectOrProxy
+		EcoreUtil.resolve(eod?.EObjectOrProxy, context)
 	}
 	
 	def URI getGlobalEObjectURI(EObject context, EClass eClass, String qname){

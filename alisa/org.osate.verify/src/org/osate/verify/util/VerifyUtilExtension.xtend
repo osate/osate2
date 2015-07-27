@@ -2,6 +2,7 @@ package org.osate.verify.util
 
 import java.util.Collections
 import org.eclipse.emf.ecore.EObject
+import org.osate.verify.verify.ElseExpr
 
 class VerifyUtilExtension {
 
@@ -22,5 +23,17 @@ class VerifyUtilExtension {
 
 	def static void clearAllHasRunRecords() {
 		hasRunRecord.clear
+	}
+	
+	def static boolean hasFail(ElseExpr cee){
+		cee.fail != null 
+	}
+	
+	def static boolean hasTimeout(ElseExpr cee){
+		cee.timeout != null 
+	}
+	
+	def static boolean hasOther(ElseExpr cee){
+		cee.other != null 
 	}
 }

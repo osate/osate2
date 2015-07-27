@@ -4,8 +4,6 @@
 package org.osate.assure.ui.labeling
 
 import com.google.inject.Inject
-import org.osate.assure.assure.FailThenResult
-import org.osate.assure.assure.AndThenResult
 import org.osate.assure.assure.ResultIssue
 import org.osate.assure.assure.ResultIssueType
 import org.osate.assure.assure.ClaimResult
@@ -13,6 +11,8 @@ import static extension org.osate.assure.util.AssureUtilExtension.*
 import org.osate.assure.assure.VerificationActivityResult
 import org.osate.assure.assure.AssuranceEvidence
 import org.osate.assure.assure.ValidationResult
+import org.osate.assure.assure.ThenResult
+import org.osate.assure.assure.ElseResult
 
 /**
  * Provides labels for a EObjects.
@@ -49,11 +49,11 @@ class AssureLabelProvider extends org.eclipse.xtext.ui.label.DefaultEObjectLabel
 		ele.name + ": " + ele.constructMessage
 	}
 	
-	def text(FailThenResult ele) {
-		if (ele.isFailThen) 'failthen' else 'unknownthen'
+	def text(ElseResult ele) {
+		'else'
 	}
-	def text(AndThenResult ele) {
-		'andthen'
+	def text(ThenResult ele) {
+		'then'
 	}
 
 	def image(ResultIssue ele) {
@@ -68,37 +68,37 @@ class AssureLabelProvider extends org.eclipse.xtext.ui.label.DefaultEObjectLabel
 	
 	def image(ClaimResult ele) {
 		if (ele.isSuccessful) return 'claimsuccess.png'
-		if (ele.hasFailedorUnknown) return 'claimfail.png'
+		if (ele.noSuccess) return 'claimfail.png'
 		return 'claim.png'
 	}
 	
 	def image(VerificationActivityResult ele) {
 		if (ele.isSuccessful) return 'evidencesuccess.png'
-		if (ele.hasFailedorUnknown) return 'evidencefail.png'
+		if (ele.noSuccess) return 'evidencefail.png'
 		return 'evidence.png'
 	}
 	
 	def image(AssuranceEvidence ele) {
 		if (ele.isSuccessful) return 'assuresuccess.png'
-		if (ele.hasFailedorUnknown) return 'assurefail.png'
+		if (ele.noSuccess) return 'assurefail.png'
 		return 'assure.png'
 	}
 	
 	def image(ValidationResult ele) {
 		if (ele.isSuccessful) return 'validationsuccess.png'
-		if (ele.hasFailedorUnknown) return 'validationfail.png'
+		if (ele.noSuccess) return 'validationfail.png'
 		return 'validation.png'
 	}
 	
-	def image(AndThenResult ele) {
+	def image(ThenResult ele) {
 		if (ele.isSuccessful) return 'valid.png'
-		if (ele.hasFailedorUnknown) return 'error.png'
+		if (ele.noSuccess) return 'error.png'
 		return 'questionmark.png'
 	}
 	
-	def image(FailThenResult ele) {
+	def image(ElseResult ele) {
 		if (ele.isSuccessful) return 'valid.png'
-		if (ele.hasFailedorUnknown) return 'error.png'
+		if (ele.noSuccess) return 'error.png'
 		return 'questionmark.png'
 	}
 	

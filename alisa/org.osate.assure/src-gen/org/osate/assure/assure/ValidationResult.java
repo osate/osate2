@@ -2,7 +2,7 @@
  */
 package org.osate.assure.assure;
 
-import org.osate.verify.verify.VerificationValidation;
+import org.osate.verify.verify.VerificationCondition;
 
 /**
  * <!-- begin-user-doc -->
@@ -31,12 +31,12 @@ public interface ValidationResult extends VerificationResult
    * </p>
    * <!-- end-user-doc -->
    * @return the value of the '<em>Target</em>' reference.
-   * @see #setTarget(VerificationValidation)
+   * @see #setTarget(VerificationCondition)
    * @see org.osate.assure.assure.AssurePackage#getValidationResult_Target()
    * @model
    * @generated
    */
-  VerificationValidation getTarget();
+  VerificationCondition getTarget();
 
   /**
    * Sets the value of the '{@link org.osate.assure.assure.ValidationResult#getTarget <em>Target</em>}' reference.
@@ -46,6 +46,6 @@ public interface ValidationResult extends VerificationResult
    * @see #getTarget()
    * @generated
    */
-  void setTarget(VerificationValidation value);
+  void setTarget(VerificationCondition value);
 
 } // ValidationResult

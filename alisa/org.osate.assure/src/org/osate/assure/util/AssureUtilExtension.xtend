@@ -28,12 +28,12 @@ import org.osate.aadl2.instance.InstanceObject
 import org.osate.aadl2.instance.SystemInstance
 import org.osate.aadl2.modelsupport.AadlConstants
 import org.osate.aadl2.modelsupport.resources.OsateResourceUtil
-import org.osate.assure.assure.AndThenResult
+import org.osate.assure.assure.ThenResult
 import org.osate.assure.assure.AssureFactory
 import org.osate.assure.assure.AssureResult
 import org.osate.assure.assure.AssuranceEvidence
 import org.osate.assure.assure.ClaimResult
-import org.osate.assure.assure.FailThenResult
+import org.osate.assure.assure.ElseResult
 import org.osate.assure.assure.PreconditionResult
 import org.osate.assure.assure.ResultIssue
 import org.osate.assure.assure.ResultIssueType
@@ -48,10 +48,9 @@ import static extension org.eclipse.xtext.EcoreUtil2.*
 import static extension org.osate.alisa.common.util.CommonUtilExtension.*
 import org.osate.assure.assure.VerificationResult
 import org.osate.verify.verify.VerificationMethod
-import org.osate.verify.verify.SupportedScopes
-import org.osate.verify.verify.SupportedReporting
 import java.io.StringWriter
 import java.io.PrintWriter
+import org.osate.assure.assure.ElseType
 
 class AssureUtilExtension {
 
@@ -95,55 +94,34 @@ class AssureUtilExtension {
 	 */
 	def static boolean addMarkers(VerificationResult verificationActivityResult, InstanceObject instance,
 		String markertype, VerificationMethod vm) {
-		val scope = vm.scope 
-		val reporting = vm.reporting
 		val res = instance.eResource
 		val IResource irsrc = OsateResourceUtil.convertToIResource(res);
 		val markersforanalysis = irsrc.findMarkers(markertype, true, IResource.DEPTH_INFINITE) // analysisMarkerType
 		val markers = markersforanalysis.filter [ IMarker m |
 			// filter on Error
-				(reporting == null || reporting == SupportedReporting.MARKER || m.getAttribute(IMarker.SEVERITY) == IMarker.SEVERITY_ERROR)
+				(m.getAttribute(IMarker.SEVERITY) == IMarker.SEVERITY_ERROR)
 		]
 		if(markers.isEmpty) return false
-		var Iterable<IMarker> finalmarkers = null
-		if (scope == SupportedScopes.SELF){
-			finalmarkers = markers.filter [ IMarker m |
-			m.getAttribute(AadlConstants.AADLURI) == EcoreUtil.getURI(instance).toString()]
-		} else if (scope == SupportedScopes.PARTS){
-			finalmarkers = markers.filter [ IMarker m |
-			val URI targetURI = URI.createURI(m.getAttribute(AadlConstants.AADLURI) as String)
-			val target = res.resourceSet.getEObject(targetURI, false)
-			val parent = target.getContainerOfType(ComponentInstance)
-			(EcoreUtil.getURI(parent).toString() == EcoreUtil.getURI(instance).toString())
-			]
-		} else {
-			finalmarkers = markers
-		}
-		if(finalmarkers.isEmpty) return false
+//		var Iterable<IMarker> finalmarkers = null
+//		if (scope == SupportedScopes.SELF){
+//			finalmarkers = markers.filter [ IMarker m |
+//			m.getAttribute(AadlConstants.AADLURI) == EcoreUtil.getURI(instance).toString()]
+//		} else if (scope == SupportedScopes.PARTS){
+//			finalmarkers = markers.filter [ IMarker m |
+//			val URI targetURI = URI.createURI(m.getAttribute(AadlConstants.AADLURI) as String)
+//			val target = res.resourceSet.getEObject(targetURI, false)
+//			val parent = target.getContainerOfType(ComponentInstance)
+//			(EcoreUtil.getURI(parent).toString() == EcoreUtil.getURI(instance).toString())
+//			]
+//		} else {
+//			finalmarkers = markers
+//		}
+//		if(finalmarkers.isEmpty) return false
 		markers.forEach[em|verificationActivityResult.addMarkerIssue(instance, em)]
 		return verificationActivityResult.issues.exists[ri|ri.issueType == ResultIssueType.ERROR]
 	}
 
 
-	def static void addErrorDiagnostics(VerificationResult verificationActivityResult, InstanceObject instance,
-		String markertype) {
-		val res = instance.eResource
-		val diagnosticErrors = res.errors
-
-	//		val filtered = diagnosticErrors.map[diag| diag.message]
-	//		val Diagnostic de = diagnosticErrors.head
-	//		val x = de
-	}
-
-	def void handleXtextIssues() {
-		// Xtext issues. Collected as FluentIssueCollection which also allows messages to be included.
-		//  	assertConstraints(
-		//  issues.errorsOnly()
-		//        .inLine(1)
-		//        .under(Modul.class, "person")
-		//        .named("name")
-		//        .oneOfThemContains("missing display name")
-	}
 
 	def static ResultIssue addMarkerIssue(VerificationResult vr, EObject target, IMarker marker) {
 		val msg = marker.getAttribute(IMarker.MESSAGE) as String
@@ -261,59 +239,93 @@ class AssureUtilExtension {
 	}
 
 	def static getTotalCount(AssureResult ar) {
-		ar.unknownCount + ar.failCount + ar.successCount + ar.tbdCount + ar.failthenCount + ar.andthenCount
+		val counts = ar.metrics
+		counts.timeoutCount + counts.otherCount+ counts.failCount + counts.successCount + counts.tbdCount + counts.didelseCount + counts.thenskipCount
 	}
 
 	def static isSuccessful(AssureResult ar) {
-		ar.failCount == 0 && ar.unknownCount == 0 && ar.tbdCount == 0
+		val counts = ar.metrics
+		counts.failCount == 0 && counts.otherCount == 0 && counts.timeoutCount == 0 && counts.tbdCount == 0
 	}
 
-	def static hasFailedorUnknown(AssureResult ar) {
-		ar.failCount != 0 || ar.unknownCount != 0
+	def static isNoSuccess(AssureResult ar) {
+		val counts = ar.metrics
+		counts.failCount != 0 || counts.otherCount != 0 || counts.timeoutCount != 0
 	}
 
 	def static isTBD(AssureResult ar) {
-		ar.failCount == 0 && ar.unknownCount == 0 && ar.tbdCount > 0
+		val counts = ar.metrics
+		counts.failCount == 0 && counts.otherCount == 0 && counts.timeoutCount == 0 && counts.tbdCount > 0
 	}
+	
+	/** 
+	 * state of VerificationResult 
+	 */
+	 def static boolean isSuccess(VerificationResult vr){
+	 	vr.resultState == VerificationResultState.SUCCESS
+	 }
+	 def static boolean isOther(VerificationResult vr){
+	 	vr.resultState == VerificationResultState.OTHER
+	 }
+	 def static boolean isFailed(VerificationResult vr){
+	 	vr.resultState == VerificationResultState.FAIL
+	 }
+	 def static boolean isTimeout(VerificationResult vr){
+	 	vr.resultState == VerificationResultState.TIMEOUT
+	 }
 
 	/**
 	 * true iff none of the elements have a fail or error
 	 */
-	def static boolean success(EList<VerificationResult> vel) {
+	def static boolean isSuccess(EList<VerificationExpr> vel) {
 		for (ar : vel) {
-			if(ar.failCount != 0 || ar.unknownCount != 0) return false
+			if(ar.noSuccess) return false
+			}
+		return true
+	}
+	/**
+	 * true iff none of the elements have a fail or error
+	 */
+	def static boolean isSuccessFul(EList<VerificationResult> vel) {
+		for (ar : vel) {
+			if(ar.noSuccess) return false
 			}
 		return true
 	}
 
-
-	def static boolean isSuccessFul(EList<VerificationExpr> vel) {
-		for (ar : vel) {
-			if(ar.failCount != 0 || ar.unknownCount != 0) return false
-			}
-		return true
-	}
 
 	/**
 	 * true iff at least one has a non-zero fail or unknown count
 	 */
 	
-	def static boolean hasFailedOrUnknown(EList<VerificationExpr> vel) {
+	def static boolean isNoSuccess(EList<VerificationExpr> vel) {
 		for (ar : vel) {
-			if(ar.failCount != 0 || ar.unknownCount != 0) return true
+			if(ar.isNoSuccess) return true
 		}
 		return false
 	}
 
-	def static boolean hasUnknown(EList<VerificationExpr> vel) {
-		for (ar : vel) {
-			if(ar.unknownCount != 0) return true
+	def static boolean hasOther(EList<VerificationExpr> vel) {
+		if (vel.size == 1 && vel.head instanceof VerificationActivityResult){
+			return (vel.head as VerificationActivityResult).isOther
+		} else {
+			return isNoSuccess(vel)
 		}
 	}
 
-	def static boolean hasFailed(EList<VerificationExpr> vel) {
-		for (ar : vel) {
-			if(ar.failCount != 0 ) return true
+	def static boolean isTimeout(EList<VerificationExpr> vel) {
+		if (vel.size == 1 && vel.head instanceof VerificationActivityResult){
+			return (vel.head as VerificationActivityResult).isTimeout
+		} else {
+			return false
+		}
+	}
+
+	def static boolean isFailed(EList<VerificationExpr> vel) {
+		if (vel.size == 1 && vel.head instanceof VerificationActivityResult){
+			return (vel.head as VerificationActivityResult).isFailed
+		} else {
+			return false
 		}
 	}
 
@@ -346,8 +358,8 @@ class AssureUtilExtension {
 			AssuranceEvidence: return ar.name
 			ClaimResult: return (ar as ClaimResult).target.name
 			ValidationResult: return (ar as ValidationResult).target.name
-			FailThenResult: return "FailThen"
-			AndThenResult: return "AndThen"
+			ElseResult: return "Else"
+			ThenResult: return "Then"
 		}
 		return "unknown assurance result type"
 	}
@@ -440,30 +452,70 @@ class AssureUtilExtension {
 	 */
 	/** Helper methods */
 	private def static void resetCounts(AssureResult result) {
-		result.failCount = 0
-		result.successCount = 0
-		result.unknownCount = 0
-		result.andthenCount = 0
-		result.failthenCount = 0
-		result.tbdCount = 0
+		val counts = result.metrics
+		counts.failCount = 0
+		counts.successCount = 0
+		counts.otherCount = 0
+		counts.timeoutCount = 0
+		counts.thenskipCount = 0
+		counts.didelseCount = 0
+		counts.tbdCount = 0
+		counts.preconditionfailCount = 0
+		counts.validationfailCount = 0
 	}
 
 	/**
 	 * update the counts to reflect existing own status
 	 * Used by complete process and set result
 	 */
-	private def static addOwnResultStateToCount(AssureResult ar) {
-		if (ar instanceof VerificationResult){
+	private def static addOwnResultStateToCount(VerificationActivityResult ar) {
+		val counts = ar.metrics
 		switch (ar.resultState) {
 			case VerificationResultState.SUCCESS:
-				ar.successCount = ar.successCount + 1
+				counts.successCount = counts.successCount + 1
 			case VerificationResultState.FAIL:
-				ar.failCount = ar.failCount + 1
-			case VerificationResultState.UNKNOWN:
-				ar.unknownCount = ar.unknownCount + 1
+				counts.failCount = counts.failCount + 1
+			case VerificationResultState.OTHER:
+				counts.otherCount = counts.otherCount + 1
+			case VerificationResultState.TIMEOUT:
+				counts.timeoutCount = counts.timeoutCount + 1
 			case VerificationResultState.TBD:
-				ar.tbdCount = ar.tbdCount + 1
+				counts.tbdCount = counts.tbdCount + 1
 		}
+		ar
+	}
+
+
+	private def static addOwnResultStateToCount(PreconditionResult ar) {
+		val counts = ar.metrics
+		switch (ar.resultState) {
+			case VerificationResultState.SUCCESS:
+				counts.successCount = counts.successCount + 1
+			case VerificationResultState.FAIL:
+				counts.preconditionfailCount = counts.preconditionfailCount + 1
+			case VerificationResultState.OTHER:
+				counts.preconditionfailCount = counts.preconditionfailCount + 1
+			case VerificationResultState.TIMEOUT:
+				counts.preconditionfailCount = counts.preconditionfailCount + 1
+			case VerificationResultState.TBD:
+				counts.tbdCount = counts.tbdCount + 1
+		}
+		ar
+	}
+
+	private def static addOwnResultStateToCount(ValidationResult ar) {
+		val counts = ar.metrics
+		switch (ar.resultState) {
+			case VerificationResultState.SUCCESS:
+				counts.successCount = counts.successCount + 1
+			case VerificationResultState.FAIL:
+				counts.validationfailCount = counts.validationfailCount + 1
+			case VerificationResultState.OTHER:
+				counts.validationfailCount = counts.validationfailCount + 1
+			case VerificationResultState.TIMEOUT:
+				counts.validationfailCount = counts.validationfailCount + 1
+			case VerificationResultState.TBD:
+				counts.tbdCount = counts.tbdCount + 1
 		}
 		ar
 	}
@@ -473,12 +525,17 @@ class AssureUtilExtension {
 	 * This method is used in the process and set result methods
 	 */
 	private def static void addTo(AssureResult subresult, AssureResult result) {
-		result.failCount = result.failCount + subresult.failCount
-		result.successCount = result.successCount + subresult.successCount
-		result.unknownCount = result.unknownCount + subresult.unknownCount
-		result.andthenCount = result.andthenCount + subresult.andthenCount
-		result.failthenCount = result.failthenCount + subresult.failthenCount
-		result.tbdCount = result.tbdCount + subresult.tbdCount
+		val counts = result.metrics
+		val subcounts = subresult.metrics
+		counts.failCount = counts.failCount + subcounts.failCount
+		counts.successCount = counts.successCount + subcounts.successCount
+		counts.otherCount = counts.otherCount + subcounts.otherCount
+		counts.timeoutCount = counts.timeoutCount + subcounts.timeoutCount
+		counts.thenskipCount = counts.thenskipCount + subcounts.thenskipCount
+		counts.didelseCount = counts.didelseCount + subcounts.didelseCount
+		counts.tbdCount = counts.tbdCount + subcounts.tbdCount
+		counts.preconditionfailCount = counts.preconditionfailCount + subcounts.preconditionfailCount
+		counts.validationfailCount = counts.validationfailCount + subcounts.validationfailCount
 	}
 
 	/**
@@ -504,30 +561,33 @@ class AssureUtilExtension {
 
 	private def static VerificationActivityResult recomputeAllCounts(VerificationActivityResult vaResult) {
 		vaResult.resetCounts
-		vaResult.recomputeAllCounts(vaResult.validationResult)
-		vaResult.recomputeAllCounts(vaResult.preconditionResult)
+		if (vaResult.conditionResult != null) vaResult.conditionResult.recomputeAllCounts.addTo(vaResult)
 		vaResult.addOwnResultStateToCount()
 		vaResult
 	}
 
-	private def static FailThenResult recomputeAllCounts(FailThenResult vaResult) {
+	private def static ElseResult recomputeAllCounts(ElseResult vaResult) {
 		vaResult.resetCounts
-		vaResult.didFail = false
+		vaResult.didFail = null
 		vaResult.recomputeAllCounts(vaResult.first)
-		if (vaResult.first.isSuccessFul) {
-			vaResult.recordNoFailThen
+		if (vaResult.first.isSuccess) {
+			vaResult.recordNoElse
 		} else {
-			vaResult.recordFailThen
-			vaResult.recomputeAllCounts(vaResult.second)
+			if (vaResult.first.isFailed) vaResult.recordElse(ElseType.FAIL)
+			else if (vaResult.first.isTimeout) vaResult.recordElse(ElseType.TIMEOUT)
+			else vaResult.recordElse(ElseType.OTHER)
+			vaResult.recomputeAllCounts(vaResult.other)
+			vaResult.recomputeAllCounts(vaResult.fail)
+			vaResult.recomputeAllCounts(vaResult.timeout)
 		}
 		vaResult
 	}
 
-	private def static AndThenResult recomputeAllCounts(AndThenResult vaResult) {
+	private def static ThenResult recomputeAllCounts(ThenResult vaResult) {
 		vaResult.resetCounts
-		vaResult.didAndThenFail = false
+		vaResult.didThenFail = false
 		vaResult.recomputeAllCounts(vaResult.first)
-		if (vaResult.first.isSuccessFul) {
+		if (vaResult.first.isSuccess) {
 			vaResult.recordSkip
 			vaResult.recomputeAllCounts(vaResult.second)
 		} else {
@@ -555,8 +615,8 @@ class AssureUtilExtension {
 			ValidationResult: assureResult.recomputeAllCounts
 			PreconditionResult: assureResult.recomputeAllCounts
 			VerificationActivityResult: assureResult.recomputeAllCounts
-			FailThenResult: assureResult.recomputeAllCounts
-			AndThenResult: assureResult.recomputeAllCounts
+			ElseResult: assureResult.recomputeAllCounts
+			ThenResult: assureResult.recomputeAllCounts
 		}
 	}
 
@@ -628,12 +688,12 @@ class AssureUtilExtension {
 	/**
   * the next methods update the counts for FailThen and AndThen
   */
-	def static void recordFailThen(FailThenResult result) {
-		if (result.didFail) {
+	def static void recordElse(ElseResult result, ElseType et) {
+		if (result.didFail != null) {
 			// was didthen from previous time
 		} else {
-			result.didFail = true
-			result.failthenCount = result.failthenCount + 1
+			result.didFail = et
+			result.metrics.didelseCount = result.metrics.didelseCount + 1
 			result.propagateCountChangeUp
 		}
 	}
@@ -642,10 +702,10 @@ class AssureUtilExtension {
   * the next methods update the counts for FailThen and AndThen
   * Initial didFail is false
   */
-	def static void recordNoFailThen(FailThenResult result) {
-		if (result.didFail) {
-			result.didFail = false
-			result.failthenCount = result.failthenCount - 1
+	def static void recordNoElse(ElseResult result) {
+		if (result.didFail != null) {
+			result.didFail = null
+			result.metrics.didelseCount = result.metrics.didelseCount - 1
 			result.propagateCountChangeUp
 		} else {
 			// was already no didThen
@@ -656,12 +716,12 @@ class AssureUtilExtension {
   * the next methods update the counts for FailThen and AndThen
   * returns true if change of state
   */
-	def static void recordSkip(AndThenResult result) {
-		if (result.didAndThenFail) {
+	def static void recordSkip(ThenResult result) {
+		if (result.didThenFail) {
 			// was didAndThenFail from previous time
 		} else {
-			result.didAndThenFail = true
-			result.andthenCount = result.andthenCount + 1
+			result.didThenFail = true
+			result.metrics.thenskipCount = result.metrics.thenskipCount + 1
 			result.propagateCountChangeUp
 		}
 	}
@@ -670,10 +730,10 @@ class AssureUtilExtension {
   * the next methods update the counts for FailThen and AndThen
   * returns true if change of state
   */
-	def static void recordNoSkip(AndThenResult result) {
-		if (result.didAndThenFail) {
-			result.didAndThenFail = false
-			result.andthenCount = result.andthenCount - 1
+	def static void recordNoSkip(ThenResult result) {
+		if (result.didThenFail) {
+			result.didThenFail = false
+			result.metrics.thenskipCount = result.metrics.thenskipCount - 1
 			result.propagateCountChangeUp
 		} else {
 			// was already no didThen
@@ -685,32 +745,37 @@ class AssureUtilExtension {
 	 * true if state changed
 	 */
 	def private static boolean updateOwnResultState(VerificationResult ar, VerificationResultState newState) {
+		val counts = ar.metrics
 		if(ar.resultState == newState) return false
 		if (ar.resultState == VerificationResultState.TBD) {
-			ar.tbdCount = ar.tbdCount - 1
+			counts.tbdCount = counts.tbdCount - 1
 			ar.executionState = VerificationExecutionState.COMPLETED
 			switch (newState) {
 				case VerificationResultState.SUCCESS:
-					ar.successCount = ar.successCount + 1
+					counts.successCount = counts.successCount + 1
 				case VerificationResultState.FAIL:
-					ar.failCount = ar.failCount + 1
-				case VerificationResultState.UNKNOWN:
-					ar.unknownCount = ar.unknownCount + 1
+					counts.failCount = counts.failCount + 1
+				case VerificationResultState.OTHER:
+					counts.otherCount = counts.otherCount + 1
+				case VerificationResultState.TIMEOUT:
+					counts.timeoutCount = counts.timeoutCount + 1
 				case VerificationResultState.TBD: {
 				}
 			}
 		} else if (newState == VerificationResultState.TBD) {
-			ar.tbdCount = ar.tbdCount + 1
+			counts.tbdCount = counts.tbdCount + 1
 			ar.executionState = VerificationExecutionState.TODO
 			switch (ar.resultState) {
 				case VerificationResultState.SUCCESS:
-					ar.successCount = ar.successCount - 1
+					counts.successCount = counts.successCount - 1
 				case VerificationResultState.FAIL:
-					ar.failCount = ar.failCount - 1
-				case VerificationResultState.UNKNOWN:
-					ar.unknownCount = ar.unknownCount - 1
+					counts.failCount = counts.failCount - 1
+				case VerificationResultState.OTHER:
+					counts.otherCount = counts.otherCount - 1
+				case VerificationResultState.TIMEOUT:
+					counts.timeoutCount = counts.timeoutCount - 1
 				case VerificationResultState.TBD:
-					ar.tbdCount = ar.tbdCount - 1
+					counts.tbdCount = counts.tbdCount - 1
 			}
 		} else {
 			// should not occur or only when setting multiple error or fail messages
@@ -751,30 +816,33 @@ class AssureUtilExtension {
 
 	private def static VerificationActivityResult addAllSubCounts(VerificationActivityResult vaResult) {
 		vaResult.resetCounts
-		vaResult.validationResult.forEach[e|e.addTo(vaResult)]
-		vaResult.preconditionResult.forEach[e|e.addTo(vaResult)]
+		vaResult.conditionResult.addTo(vaResult)
 		vaResult.addOwnResultStateToCount()
 		vaResult
 	}
 
-	private def static FailThenResult addAllSubCounts(FailThenResult vaResult) {
+	private def static ElseResult addAllSubCounts(ElseResult vaResult) {
 		vaResult.resetCounts
-		vaResult.didFail = false
+		vaResult.didFail = null
 		vaResult.first.forEach[e|e.addTo(vaResult)]
-		if (vaResult.first.isSuccessFul) {
-			vaResult.recordNoFailThen
+		if (vaResult.first.isSuccess) {
+			vaResult.recordNoElse
 		} else {
-			vaResult.recordFailThen
-			vaResult.second.forEach[e|e.addTo(vaResult)]
+			if (vaResult.first.isFailed) vaResult.recordElse(ElseType.FAIL)
+			else if (vaResult.first.isTimeout) vaResult.recordElse(ElseType.TIMEOUT)
+			else vaResult.recordElse(ElseType.OTHER)
+			vaResult.other.forEach[e|e.addTo(vaResult)]
+			vaResult.fail.forEach[e|e.addTo(vaResult)]
+			vaResult.timeout.forEach[e|e.addTo(vaResult)]
 		}
 		vaResult
 	}
 
-	private def static AndThenResult addAllSubCounts(AndThenResult vaResult) {
+	private def static ThenResult addAllSubCounts(ThenResult vaResult) {
 		vaResult.resetCounts
-		vaResult.didAndThenFail = false
+		vaResult.didThenFail = false
 		vaResult.first.forEach[e|e.addTo(vaResult)]
-		if (vaResult.first.isSuccessFul) {
+		if (vaResult.first.isSuccess) {
 			vaResult.recordSkip
 			vaResult.second.forEach[e|e.addTo(vaResult)]
 		} else {
@@ -802,8 +870,8 @@ class AssureUtilExtension {
 			ValidationResult: assureResult.addAllSubCounts
 			PreconditionResult: assureResult.addAllSubCounts
 			VerificationActivityResult: assureResult.addAllSubCounts
-			FailThenResult: assureResult.addAllSubCounts
-			AndThenResult: assureResult.addAllSubCounts
+			ElseResult: assureResult.addAllSubCounts
+			ThenResult: assureResult.addAllSubCounts
 		}
 	}
 
@@ -816,8 +884,9 @@ class AssureUtilExtension {
 		switch (vs) {
 			case VerificationResultState.SUCCESS: return "[S]"
 			case VerificationResultState.FAIL: return "[F]"
-			case VerificationResultState.UNKNOWN: return "[U]"
-			case VerificationResultState.TBD: return "[T]"
+			case VerificationResultState.OTHER: return "[O]"
+			case VerificationResultState.TIMEOUT: return "[T]"
+			case VerificationResultState.TBD: return "[tbd]"
 		}
 	}
 
@@ -832,7 +901,7 @@ class AssureUtilExtension {
 			ValidationResult:
 				return ar.target?.title ?: ar.target.name
 			PreconditionResult:
-				return ar.target?.title ?: ar.name
+				return ar.target?.title ?: ar.target.name
 			VerificationActivityResult: {
 				return ar.target.name
 			}
@@ -882,8 +951,9 @@ class AssureUtilExtension {
 	}
 
 	def static String assureResultCounts(AssureResult ele) {
-		"(S" + ele.successCount + " F" + ele.failCount + " U" + ele.unknownCount + " T" + ele.tbdCount 
-		+ " FU" + ele.failthenCount + " AS" + ele.andthenCount+ ")"
+		val elec= ele.metrics
+		"(S" + elec.successCount + " F" + elec.failCount + " T" + elec.timeoutCount + " O" + elec.otherCount + " tbd" + elec.tbdCount 
+		+ " DE" + elec.didelseCount + " TS" + elec.thenskipCount+ ")"
 	}
 
 }

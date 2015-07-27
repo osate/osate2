@@ -736,7 +736,7 @@ public class ReqSpecSemanticSequencer extends CommonSemanticSequencer {
 	/**
 	 * Constraint:
 	 *     (
-	 *         name=ID 
+	 *         name=QualifiedName 
 	 *         title=STRING? 
 	 *         (target=[ComponentClassifier|AADLCLASSIFIERREFERENCE] | global?='all') 
 	 *         description=Description? 

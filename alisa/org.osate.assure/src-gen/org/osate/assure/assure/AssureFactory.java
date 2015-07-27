@@ -68,22 +68,31 @@ public interface AssureFactory extends EFactory
   VerificationExpr createVerificationExpr();
 
   /**
-   * Returns a new object of class '<em>Fail Then Result</em>'.
+   * Returns a new object of class '<em>Else Result</em>'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @return a new object of class '<em>Fail Then Result</em>'.
+   * @return a new object of class '<em>Else Result</em>'.
    * @generated
    */
-  FailThenResult createFailThenResult();
+  ElseResult createElseResult();
 
   /**
-   * Returns a new object of class '<em>And Then Result</em>'.
+   * Returns a new object of class '<em>Then Result</em>'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @return a new object of class '<em>And Then Result</em>'.
+   * @return a new object of class '<em>Then Result</em>'.
    * @generated
    */
-  AndThenResult createAndThenResult();
+  ThenResult createThenResult();
+
+  /**
+   * Returns a new object of class '<em>Metrics</em>'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return a new object of class '<em>Metrics</em>'.
+   * @generated
+   */
+  Metrics createMetrics();
 
   /**
    * Returns a new object of class '<em>Result Issue</em>'.
@@ -95,15 +104,6 @@ public interface AssureFactory extends EFactory
   ResultIssue createResultIssue();
 
   /**
-   * Returns a new object of class '<em>Validation Result</em>'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return a new object of class '<em>Validation Result</em>'.
-   * @generated
-   */
-  ValidationResult createValidationResult();
-
-  /**
    * Returns a new object of class '<em>Precondition Result</em>'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -111,6 +111,15 @@ public interface AssureFactory extends EFactory
    * @generated
    */
   PreconditionResult createPreconditionResult();
+
+  /**
+   * Returns a new object of class '<em>Validation Result</em>'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return a new object of class '<em>Validation Result</em>'.
+   * @generated
+   */
+  ValidationResult createValidationResult();
 
   /**
    * Returns a new object of class '<em>Verification Activity Result</em>'.

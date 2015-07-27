@@ -12,7 +12,7 @@ import org.eclipse.emf.common.util.EList;
  * <p>
  * The following features are supported:
  * <ul>
- *   <li>{@link org.osate.verify.verify.AllExpr#getAll <em>All</em>}</li>
+ *   <li>{@link org.osate.verify.verify.AllExpr#getElements <em>Elements</em>}</li>
  * </ul>
  * </p>
  *
@@ -23,19 +23,19 @@ import org.eclipse.emf.common.util.EList;
 public interface AllExpr extends ArgumentExpr
 {
   /**
-   * Returns the value of the '<em><b>All</b></em>' containment reference list.
+   * Returns the value of the '<em><b>Elements</b></em>' containment reference list.
    * The list contents are of type {@link org.osate.verify.verify.ArgumentExpr}.
    * <!-- begin-user-doc -->
    * <p>
-   * If the meaning of the '<em>All</em>' containment reference list isn't clear,
+   * If the meaning of the '<em>Elements</em>' containment reference list isn't clear,
    * there really should be more of a description here...
    * </p>
    * <!-- end-user-doc -->
-   * @return the value of the '<em>All</em>' containment reference list.
-   * @see org.osate.verify.verify.VerifyPackage#getAllExpr_All()
+   * @return the value of the '<em>Elements</em>' containment reference list.
+   * @see org.osate.verify.verify.VerifyPackage#getAllExpr_Elements()
    * @model containment="true"
    * @generated
    */
-  EList<ArgumentExpr> getAll();
+  EList<ArgumentExpr> getElements();
 
 } // AllExpr

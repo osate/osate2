@@ -17,12 +17,6 @@ class DefaultVerificationMethodDispatcher implements IVerificationMethodDispatch
 
 	override Object dispatchVerificationMethod(VerificationMethod vm, InstanceObject target, Object[] parameters) {
 		switch (vm.methodPath) {
-			//				case "org.osate.verify.analysisplugins.AnalysisPluginInterface.assertSumSubBudgets" : {
-			//					if ( target instanceof ComponentInstance) return target.assertSumSubBudgets
-			//				}
-			//				case "org.osate.verify.analysisplugins.AnalysisPluginInterface.sumSubBudgets": {
-			//					if ( target instanceof ComponentInstance) return target.sumSubBudgets
-			//				}
 			case "org.osate.verify.analysisplugins.AnalysisPluginInterface.flowLatencyAnalysis": {
 				target.flowLatencyAnalysis
 			}

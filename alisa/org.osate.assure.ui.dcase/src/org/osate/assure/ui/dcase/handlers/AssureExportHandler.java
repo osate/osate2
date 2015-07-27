@@ -58,7 +58,9 @@ import org.eclipse.xtext.util.concurrent.IUnitOfWork;
 import org.osate.aadl2.instance.SystemInstance;
 import org.osate.aadl2.util.OsateDebug;
 import org.osate.assure.assure.AssuranceEvidence;
+import org.osate.assure.assure.AssureResult;
 import org.osate.assure.assure.ClaimResult;
+import org.osate.assure.assure.Metrics;
 import org.osate.assure.assure.VerificationActivityResult;
 import org.osate.assure.assure.VerificationExpr;
 import org.osate.assure.assure.VerificationResultState;
@@ -296,23 +298,36 @@ public class AssureExportHandler extends AbstractHandler {
 			break;
 		}
 
-		case VerificationResultState.UNKNOWN_VALUE: {
-			nodeName = "UNKNOWN";
+		case VerificationResultState.OTHER_VALUE: {
+			nodeName = "OTHER";
+			break;
+		}
+
+		case VerificationResultState.TIMEOUT_VALUE: {
+			nodeName = "TIMEOUT";
 			break;
 		}
 		}
-
+		Metrics counts = ((AssureResult) ve).getMetrics();
 		nodeDescription += "(";
-		if (ve.getTbdCount() > 0) {
-			nodeDescription += "TDB " + ve.getTbdCount() + " time(s)";
+		if (counts.getTbdCount() > 0) {
+			nodeDescription += "TDB " + counts.getTbdCount() + " time(s)";
 		}
 
-		if (ve.getSuccessCount() > 0) {
-			nodeDescription += " success " + ve.getSuccessCount() + " time(s)";
+		if (counts.getSuccessCount() > 0) {
+			nodeDescription += " success " + counts.getSuccessCount() + " time(s)";
 		}
 
-		if (ve.getFailCount() > 0) {
-			nodeDescription += " failed " + ve.getFailCount() + " time(s)";
+		if (counts.getFailCount() > 0) {
+			nodeDescription += " failed " + counts.getFailCount() + " time(s)";
+		}
+
+		if (counts.getTimeoutCount() > 0) {
+			nodeDescription += " timeout " + counts.getTimeoutCount() + " time(s)";
+		}
+
+		if (counts.getOtherCount() > 0) {
+			nodeDescription += " nocompletion " + counts.getOtherCount() + " time(s)";
 		}
 		nodeDescription += ")";
 

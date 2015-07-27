@@ -121,13 +121,6 @@ public class VerifySwitch<T> extends Switch<T>
         if (result == null) result = defaultCase(theEObject);
         return result;
       }
-      case VerifyPackage.VERIFICATION_METHOD_PARAMETER:
-      {
-        VerificationMethodParameter verificationMethodParameter = (VerificationMethodParameter)theEObject;
-        T result = caseVerificationMethodParameter(verificationMethodParameter);
-        if (result == null) result = defaultCase(theEObject);
-        return result;
-      }
       case VerifyPackage.VERIFICATION_METHOD:
       {
         VerificationMethod verificationMethod = (VerificationMethod)theEObject;
@@ -151,27 +144,27 @@ public class VerifySwitch<T> extends Switch<T>
         if (result == null) result = defaultCase(theEObject);
         return result;
       }
+      case VerifyPackage.THEN_EXPR:
+      {
+        ThenExpr thenExpr = (ThenExpr)theEObject;
+        T result = caseThenExpr(thenExpr);
+        if (result == null) result = caseArgumentExpr(thenExpr);
+        if (result == null) result = defaultCase(theEObject);
+        return result;
+      }
+      case VerifyPackage.ELSE_EXPR:
+      {
+        ElseExpr elseExpr = (ElseExpr)theEObject;
+        T result = caseElseExpr(elseExpr);
+        if (result == null) result = caseArgumentExpr(elseExpr);
+        if (result == null) result = defaultCase(theEObject);
+        return result;
+      }
       case VerifyPackage.ALL_EXPR:
       {
         AllExpr allExpr = (AllExpr)theEObject;
         T result = caseAllExpr(allExpr);
         if (result == null) result = caseArgumentExpr(allExpr);
-        if (result == null) result = defaultCase(theEObject);
-        return result;
-      }
-      case VerifyPackage.AND_THEN_EXPR:
-      {
-        AndThenExpr andThenExpr = (AndThenExpr)theEObject;
-        T result = caseAndThenExpr(andThenExpr);
-        if (result == null) result = caseArgumentExpr(andThenExpr);
-        if (result == null) result = defaultCase(theEObject);
-        return result;
-      }
-      case VerifyPackage.FAIL_THEN_EXPR:
-      {
-        FailThenExpr failThenExpr = (FailThenExpr)theEObject;
-        T result = caseFailThenExpr(failThenExpr);
-        if (result == null) result = caseArgumentExpr(failThenExpr);
         if (result == null) result = defaultCase(theEObject);
         return result;
       }
@@ -308,22 +301,6 @@ public class VerifySwitch<T> extends Switch<T>
   }
 
   /**
-   * Returns the result of interpreting the object as an instance of '<em>Verification Method Parameter</em>'.
-   * <!-- begin-user-doc -->
-   * This implementation returns null;
-   * returning a non-null result will terminate the switch.
-   * <!-- end-user-doc -->
-   * @param object the target of the switch.
-   * @return the result of interpreting the object as an instance of '<em>Verification Method Parameter</em>'.
-   * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
-   * @generated
-   */
-  public T caseVerificationMethodParameter(VerificationMethodParameter object)
-  {
-    return null;
-  }
-
-  /**
    * Returns the result of interpreting the object as an instance of '<em>Verification Method</em>'.
    * <!-- begin-user-doc -->
    * This implementation returns null;
@@ -372,6 +349,38 @@ public class VerifySwitch<T> extends Switch<T>
   }
 
   /**
+   * Returns the result of interpreting the object as an instance of '<em>Then Expr</em>'.
+   * <!-- begin-user-doc -->
+   * This implementation returns null;
+   * returning a non-null result will terminate the switch.
+   * <!-- end-user-doc -->
+   * @param object the target of the switch.
+   * @return the result of interpreting the object as an instance of '<em>Then Expr</em>'.
+   * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+   * @generated
+   */
+  public T caseThenExpr(ThenExpr object)
+  {
+    return null;
+  }
+
+  /**
+   * Returns the result of interpreting the object as an instance of '<em>Else Expr</em>'.
+   * <!-- begin-user-doc -->
+   * This implementation returns null;
+   * returning a non-null result will terminate the switch.
+   * <!-- end-user-doc -->
+   * @param object the target of the switch.
+   * @return the result of interpreting the object as an instance of '<em>Else Expr</em>'.
+   * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+   * @generated
+   */
+  public T caseElseExpr(ElseExpr object)
+  {
+    return null;
+  }
+
+  /**
    * Returns the result of interpreting the object as an instance of '<em>All Expr</em>'.
    * <!-- begin-user-doc -->
    * This implementation returns null;
@@ -383,38 +392,6 @@ public class VerifySwitch<T> extends Switch<T>
    * @generated
    */
   public T caseAllExpr(AllExpr object)
-  {
-    return null;
-  }
-
-  /**
-   * Returns the result of interpreting the object as an instance of '<em>And Then Expr</em>'.
-   * <!-- begin-user-doc -->
-   * This implementation returns null;
-   * returning a non-null result will terminate the switch.
-   * <!-- end-user-doc -->
-   * @param object the target of the switch.
-   * @return the result of interpreting the object as an instance of '<em>And Then Expr</em>'.
-   * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
-   * @generated
-   */
-  public T caseAndThenExpr(AndThenExpr object)
-  {
-    return null;
-  }
-
-  /**
-   * Returns the result of interpreting the object as an instance of '<em>Fail Then Expr</em>'.
-   * <!-- begin-user-doc -->
-   * This implementation returns null;
-   * returning a non-null result will terminate the switch.
-   * <!-- end-user-doc -->
-   * @param object the target of the switch.
-   * @return the result of interpreting the object as an instance of '<em>Fail Then Expr</em>'.
-   * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
-   * @generated
-   */
-  public T caseFailThenExpr(FailThenExpr object)
   {
     return null;
   }

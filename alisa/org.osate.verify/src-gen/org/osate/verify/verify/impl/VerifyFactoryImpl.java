@@ -72,13 +72,12 @@ public class VerifyFactoryImpl extends EFactoryImpl implements VerifyFactory
       case VerifyPackage.VERIFICATION_CONDITION: return createVerificationCondition();
       case VerifyPackage.ARGUMENT_EXPR: return createArgumentExpr();
       case VerifyPackage.VERIFICATION_METHOD_REGISTRY: return createVerificationMethodRegistry();
-      case VerifyPackage.VERIFICATION_METHOD_PARAMETER: return createVerificationMethodParameter();
       case VerifyPackage.VERIFICATION_METHOD: return createVerificationMethod();
       case VerifyPackage.VERIFICATION_VALIDATION: return createVerificationValidation();
       case VerifyPackage.VERIFICATION_PRECONDITION: return createVerificationPrecondition();
+      case VerifyPackage.THEN_EXPR: return createThenExpr();
+      case VerifyPackage.ELSE_EXPR: return createElseExpr();
       case VerifyPackage.ALL_EXPR: return createAllExpr();
-      case VerifyPackage.AND_THEN_EXPR: return createAndThenExpr();
-      case VerifyPackage.FAIL_THEN_EXPR: return createFailThenExpr();
       case VerifyPackage.WHEN_EXPR: return createWhenExpr();
       case VerifyPackage.REF_EXPR: return createRefExpr();
       default:
@@ -98,10 +97,6 @@ public class VerifyFactoryImpl extends EFactoryImpl implements VerifyFactory
     {
       case VerifyPackage.SUPPORTED_TYPES:
         return createSupportedTypesFromString(eDataType, initialValue);
-      case VerifyPackage.SUPPORTED_SCOPES:
-        return createSupportedScopesFromString(eDataType, initialValue);
-      case VerifyPackage.SUPPORTED_REPORTING:
-        return createSupportedReportingFromString(eDataType, initialValue);
       default:
         throw new IllegalArgumentException("The datatype '" + eDataType.getName() + "' is not a valid classifier");
     }
@@ -119,10 +114,6 @@ public class VerifyFactoryImpl extends EFactoryImpl implements VerifyFactory
     {
       case VerifyPackage.SUPPORTED_TYPES:
         return convertSupportedTypesToString(eDataType, instanceValue);
-      case VerifyPackage.SUPPORTED_SCOPES:
-        return convertSupportedScopesToString(eDataType, instanceValue);
-      case VerifyPackage.SUPPORTED_REPORTING:
-        return convertSupportedReportingToString(eDataType, instanceValue);
       default:
         throw new IllegalArgumentException("The datatype '" + eDataType.getName() + "' is not a valid classifier");
     }
@@ -210,17 +201,6 @@ public class VerifyFactoryImpl extends EFactoryImpl implements VerifyFactory
    * <!-- end-user-doc -->
    * @generated
    */
-  public VerificationMethodParameter createVerificationMethodParameter()
-  {
-    VerificationMethodParameterImpl verificationMethodParameter = new VerificationMethodParameterImpl();
-    return verificationMethodParameter;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
   public VerificationMethod createVerificationMethod()
   {
     VerificationMethodImpl verificationMethod = new VerificationMethodImpl();
@@ -254,32 +234,32 @@ public class VerifyFactoryImpl extends EFactoryImpl implements VerifyFactory
    * <!-- end-user-doc -->
    * @generated
    */
+  public ThenExpr createThenExpr()
+  {
+    ThenExprImpl thenExpr = new ThenExprImpl();
+    return thenExpr;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public ElseExpr createElseExpr()
+  {
+    ElseExprImpl elseExpr = new ElseExprImpl();
+    return elseExpr;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
   public AllExpr createAllExpr()
   {
     AllExprImpl allExpr = new AllExprImpl();
     return allExpr;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public AndThenExpr createAndThenExpr()
-  {
-    AndThenExprImpl andThenExpr = new AndThenExprImpl();
-    return andThenExpr;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public FailThenExpr createFailThenExpr()
-  {
-    FailThenExprImpl failThenExpr = new FailThenExprImpl();
-    return failThenExpr;
   }
 
   /**
@@ -322,50 +302,6 @@ public class VerifyFactoryImpl extends EFactoryImpl implements VerifyFactory
    * @generated
    */
   public String convertSupportedTypesToString(EDataType eDataType, Object instanceValue)
-  {
-    return instanceValue == null ? null : instanceValue.toString();
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public SupportedScopes createSupportedScopesFromString(EDataType eDataType, String initialValue)
-  {
-    SupportedScopes result = SupportedScopes.get(initialValue);
-    if (result == null) throw new IllegalArgumentException("The value '" + initialValue + "' is not a valid enumerator of '" + eDataType.getName() + "'");
-    return result;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public String convertSupportedScopesToString(EDataType eDataType, Object instanceValue)
-  {
-    return instanceValue == null ? null : instanceValue.toString();
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public SupportedReporting createSupportedReportingFromString(EDataType eDataType, String initialValue)
-  {
-    SupportedReporting result = SupportedReporting.get(initialValue);
-    if (result == null) throw new IllegalArgumentException("The value '" + initialValue + "' is not a valid enumerator of '" + eDataType.getName() + "'");
-    return result;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public String convertSupportedReportingToString(EDataType eDataType, Object instanceValue)
   {
     return instanceValue == null ? null : instanceValue.toString();
   }

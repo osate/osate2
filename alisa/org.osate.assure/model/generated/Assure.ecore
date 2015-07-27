@@ -29,30 +29,45 @@
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="message" eType="ecore:EDataType platform:/plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//EString"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="AssureResult">
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="successCount" eType="ecore:EDataType platform:/plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//EInt"/>
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="failCount" eType="ecore:EDataType platform:/plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//EInt"/>
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="unknownCount" eType="ecore:EDataType platform:/plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//EInt"/>
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="failthenCount" eType="ecore:EDataType platform:/plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//EInt"/>
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="andthenCount" eType="ecore:EDataType platform:/plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//EInt"/>
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="tbdCount" eType="ecore:EDataType platform:/plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//EInt"/>
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="weight" eType="ecore:EDataType platform:/plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//EInt"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="metrics" eType="#//Metrics"
+        containment="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EEnum" name="ElseType">
+    <eLiterals name="FAIL" literal="fail"/>
+    <eLiterals name="TIMEOUT" value="1" literal="timeout"/>
+    <eLiterals name="OTHER" value="2" literal="other"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="VerificationExpr" eSuperTypes="#//AssureResult"/>
-  <eClassifiers xsi:type="ecore:EClass" name="FailThenResult" eSuperTypes="#//VerificationExpr">
+  <eClassifiers xsi:type="ecore:EClass" name="ElseResult" eSuperTypes="#//VerificationExpr">
     <eStructuralFeatures xsi:type="ecore:EReference" name="first" upperBound="-1"
         eType="#//VerificationExpr" containment="true"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="second" upperBound="-1"
+    <eStructuralFeatures xsi:type="ecore:EReference" name="other" upperBound="-1"
         eType="#//VerificationExpr" containment="true"/>
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="failThen" eType="ecore:EDataType platform:/plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//EBoolean"/>
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="unknownThen" eType="ecore:EDataType platform:/plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//EBoolean"/>
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="didFail" eType="ecore:EDataType platform:/plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//EBoolean"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="fail" upperBound="-1" eType="#//VerificationExpr"
+        containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="timeout" upperBound="-1"
+        eType="#//VerificationExpr" containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="didFail" eType="#//ElseType"/>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="AndThenResult" eSuperTypes="#//VerificationExpr">
+  <eClassifiers xsi:type="ecore:EClass" name="ThenResult" eSuperTypes="#//VerificationExpr">
     <eStructuralFeatures xsi:type="ecore:EReference" name="first" upperBound="-1"
         eType="#//VerificationExpr" containment="true"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="second" upperBound="-1"
         eType="#//VerificationExpr" containment="true"/>
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="didAndThenFail" eType="ecore:EDataType platform:/plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//EBoolean"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="didThenFail" eType="ecore:EDataType platform:/plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//EBoolean"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="Metrics">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="tbdCount" eType="ecore:EDataType platform:/plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//EInt"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="successCount" eType="ecore:EDataType platform:/plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//EInt"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="failCount" eType="ecore:EDataType platform:/plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//EInt"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="timeoutCount" eType="ecore:EDataType platform:/plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//EInt"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="otherCount" eType="ecore:EDataType platform:/plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//EInt"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="didelseCount" eType="ecore:EDataType platform:/plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//EInt"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="thenskipCount" eType="ecore:EDataType platform:/plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//EInt"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="preconditionfailCount"
+        eType="ecore:EDataType platform:/plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//EInt"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="validationfailCount" eType="ecore:EDataType platform:/plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//EInt"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="weight" eType="ecore:EDataType platform:/plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//EInt"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="ResultIssue">
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="issueType" eType="#//ResultIssueType"/>
@@ -73,7 +88,8 @@
     <eLiterals name="TBD" literal="tbd"/>
     <eLiterals name="SUCCESS" value="1" literal="success"/>
     <eLiterals name="FAIL" value="2" literal="fail"/>
-    <eLiterals name="UNKNOWN" value="3" literal="unknown"/>
+    <eLiterals name="OTHER" value="3" literal="other"/>
+    <eLiterals name="TIMEOUT" value="4" literal="timeout"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EEnum" name="VerificationExecutionState">
     <eLiterals name="TODO" literal="todo"/>
@@ -81,18 +97,15 @@
     <eLiterals name="REDO" value="2" literal="redo"/>
     <eLiterals name="COMPLETED" value="3" literal="completed"/>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="ValidationResult" eSuperTypes="#//VerificationResult">
-    <eStructuralFeatures xsi:type="ecore:EReference" name="target" eType="ecore:EClass platform:/resource/org.osate.verify/model/generated/Verify.ecore#//VerificationValidation"/>
-  </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="PreconditionResult" eSuperTypes="#//VerificationResult">
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" eType="ecore:EDataType platform:/plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//EString"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="target" eType="ecore:EClass platform:/resource/org.osate.verify/model/generated/Verify.ecore#//VerificationPrecondition"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="target" eType="ecore:EClass platform:/resource/org.osate.verify/model/generated/Verify.ecore#//VerificationCondition"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="ValidationResult" eSuperTypes="#//VerificationResult">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="target" eType="ecore:EClass platform:/resource/org.osate.verify/model/generated/Verify.ecore#//VerificationCondition"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="VerificationActivityResult" eSuperTypes="#//VerificationResult">
     <eStructuralFeatures xsi:type="ecore:EReference" name="target" eType="ecore:EClass platform:/resource/org.osate.verify/model/generated/Verify.ecore#//VerificationActivity"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="validationResult" upperBound="-1"
-        eType="#//VerificationResult" containment="true"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="preconditionResult" upperBound="-1"
-        eType="#//VerificationResult" containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="conditionResult" eType="#//VerificationResult"
+        containment="true"/>
   </eClassifiers>
 </ecore:EPackage>

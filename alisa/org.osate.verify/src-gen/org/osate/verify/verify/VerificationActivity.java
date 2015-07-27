@@ -8,6 +8,8 @@ import org.eclipse.emf.ecore.EObject;
 
 import org.eclipse.xtext.xbase.XExpression;
 
+import org.osate.aadl2.ComponentClassifier;
+
 import org.osate.alisa.common.common.ComputeDeclaration;
 
 /**
@@ -19,6 +21,8 @@ import org.osate.alisa.common.common.ComputeDeclaration;
  * The following features are supported:
  * <ul>
  *   <li>{@link org.osate.verify.verify.VerificationActivity#getName <em>Name</em>}</li>
+ *   <li>{@link org.osate.verify.verify.VerificationActivity#getTitle <em>Title</em>}</li>
+ *   <li>{@link org.osate.verify.verify.VerificationActivity#getTarget <em>Target</em>}</li>
  *   <li>{@link org.osate.verify.verify.VerificationActivity#getResult <em>Result</em>}</li>
  *   <li>{@link org.osate.verify.verify.VerificationActivity#getMethod <em>Method</em>}</li>
  *   <li>{@link org.osate.verify.verify.VerificationActivity#getParameters <em>Parameters</em>}</li>
@@ -57,6 +61,58 @@ public interface VerificationActivity extends EObject
    * @generated
    */
   void setName(String value);
+
+  /**
+   * Returns the value of the '<em><b>Title</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <p>
+   * If the meaning of the '<em>Title</em>' attribute isn't clear,
+   * there really should be more of a description here...
+   * </p>
+   * <!-- end-user-doc -->
+   * @return the value of the '<em>Title</em>' attribute.
+   * @see #setTitle(String)
+   * @see org.osate.verify.verify.VerifyPackage#getVerificationActivity_Title()
+   * @model
+   * @generated
+   */
+  String getTitle();
+
+  /**
+   * Sets the value of the '{@link org.osate.verify.verify.VerificationActivity#getTitle <em>Title</em>}' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @param value the new value of the '<em>Title</em>' attribute.
+   * @see #getTitle()
+   * @generated
+   */
+  void setTitle(String value);
+
+  /**
+   * Returns the value of the '<em><b>Target</b></em>' reference.
+   * <!-- begin-user-doc -->
+   * <p>
+   * If the meaning of the '<em>Target</em>' reference isn't clear,
+   * there really should be more of a description here...
+   * </p>
+   * <!-- end-user-doc -->
+   * @return the value of the '<em>Target</em>' reference.
+   * @see #setTarget(ComponentClassifier)
+   * @see org.osate.verify.verify.VerifyPackage#getVerificationActivity_Target()
+   * @model
+   * @generated
+   */
+  ComponentClassifier getTarget();
+
+  /**
+   * Sets the value of the '{@link org.osate.verify.verify.VerificationActivity#getTarget <em>Target</em>}' reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @param value the new value of the '<em>Target</em>' reference.
+   * @see #getTarget()
+   * @generated
+   */
+  void setTarget(ComponentClassifier value);
 
   /**
    * Returns the value of the '<em><b>Result</b></em>' reference list.

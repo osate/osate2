@@ -12,7 +12,7 @@ import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.osate.assure.assure.AssurePackage;
 import org.osate.assure.assure.PreconditionResult;
 
-import org.osate.verify.verify.VerificationPrecondition;
+import org.osate.verify.verify.VerificationCondition;
 
 /**
  * <!-- begin-user-doc -->
@@ -21,7 +21,6 @@ import org.osate.verify.verify.VerificationPrecondition;
  * <p>
  * The following features are implemented:
  * <ul>
- *   <li>{@link org.osate.assure.assure.impl.PreconditionResultImpl#getName <em>Name</em>}</li>
  *   <li>{@link org.osate.assure.assure.impl.PreconditionResultImpl#getTarget <em>Target</em>}</li>
  * </ul>
  * </p>
@@ -31,26 +30,6 @@ import org.osate.verify.verify.VerificationPrecondition;
 public class PreconditionResultImpl extends VerificationResultImpl implements PreconditionResult
 {
   /**
-   * The default value of the '{@link #getName() <em>Name</em>}' attribute.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @see #getName()
-   * @generated
-   * @ordered
-   */
-  protected static final String NAME_EDEFAULT = null;
-
-  /**
-   * The cached value of the '{@link #getName() <em>Name</em>}' attribute.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @see #getName()
-   * @generated
-   * @ordered
-   */
-  protected String name = NAME_EDEFAULT;
-
-  /**
    * The cached value of the '{@link #getTarget() <em>Target</em>}' reference.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -58,7 +37,7 @@ public class PreconditionResultImpl extends VerificationResultImpl implements Pr
    * @generated
    * @ordered
    */
-  protected VerificationPrecondition target;
+  protected VerificationCondition target;
 
   /**
    * <!-- begin-user-doc -->
@@ -86,35 +65,12 @@ public class PreconditionResultImpl extends VerificationResultImpl implements Pr
    * <!-- end-user-doc -->
    * @generated
    */
-  public String getName()
-  {
-    return name;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public void setName(String newName)
-  {
-    String oldName = name;
-    name = newName;
-    if (eNotificationRequired())
-      eNotify(new ENotificationImpl(this, Notification.SET, AssurePackage.PRECONDITION_RESULT__NAME, oldName, name));
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public VerificationPrecondition getTarget()
+  public VerificationCondition getTarget()
   {
     if (target != null && target.eIsProxy())
     {
       InternalEObject oldTarget = (InternalEObject)target;
-      target = (VerificationPrecondition)eResolveProxy(oldTarget);
+      target = (VerificationCondition)eResolveProxy(oldTarget);
       if (target != oldTarget)
       {
         if (eNotificationRequired())
@@ -129,7 +85,7 @@ public class PreconditionResultImpl extends VerificationResultImpl implements Pr
    * <!-- end-user-doc -->
    * @generated
    */
-  public VerificationPrecondition basicGetTarget()
+  public VerificationCondition basicGetTarget()
   {
     return target;
   }
@@ -139,9 +95,9 @@ public class PreconditionResultImpl extends VerificationResultImpl implements Pr
    * <!-- end-user-doc -->
    * @generated
    */
-  public void setTarget(VerificationPrecondition newTarget)
+  public void setTarget(VerificationCondition newTarget)
   {
-    VerificationPrecondition oldTarget = target;
+    VerificationCondition oldTarget = target;
     target = newTarget;
     if (eNotificationRequired())
       eNotify(new ENotificationImpl(this, Notification.SET, AssurePackage.PRECONDITION_RESULT__TARGET, oldTarget, target));
@@ -157,8 +113,6 @@ public class PreconditionResultImpl extends VerificationResultImpl implements Pr
   {
     switch (featureID)
     {
-      case AssurePackage.PRECONDITION_RESULT__NAME:
-        return getName();
       case AssurePackage.PRECONDITION_RESULT__TARGET:
         if (resolve) return getTarget();
         return basicGetTarget();
@@ -176,11 +130,8 @@ public class PreconditionResultImpl extends VerificationResultImpl implements Pr
   {
     switch (featureID)
     {
-      case AssurePackage.PRECONDITION_RESULT__NAME:
-        setName((String)newValue);
-        return;
       case AssurePackage.PRECONDITION_RESULT__TARGET:
-        setTarget((VerificationPrecondition)newValue);
+        setTarget((VerificationCondition)newValue);
         return;
     }
     super.eSet(featureID, newValue);
@@ -196,11 +147,8 @@ public class PreconditionResultImpl extends VerificationResultImpl implements Pr
   {
     switch (featureID)
     {
-      case AssurePackage.PRECONDITION_RESULT__NAME:
-        setName(NAME_EDEFAULT);
-        return;
       case AssurePackage.PRECONDITION_RESULT__TARGET:
-        setTarget((VerificationPrecondition)null);
+        setTarget((VerificationCondition)null);
         return;
     }
     super.eUnset(featureID);
@@ -216,29 +164,10 @@ public class PreconditionResultImpl extends VerificationResultImpl implements Pr
   {
     switch (featureID)
     {
-      case AssurePackage.PRECONDITION_RESULT__NAME:
-        return NAME_EDEFAULT == null ? name != null : !NAME_EDEFAULT.equals(name);
       case AssurePackage.PRECONDITION_RESULT__TARGET:
         return target != null;
     }
     return super.eIsSet(featureID);
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  @Override
-  public String toString()
-  {
-    if (eIsProxy()) return super.toString();
-
-    StringBuffer result = new StringBuffer(super.toString());
-    result.append(" (name: ");
-    result.append(name);
-    result.append(')');
-    return result.toString();
   }
 
 } //PreconditionResultImpl

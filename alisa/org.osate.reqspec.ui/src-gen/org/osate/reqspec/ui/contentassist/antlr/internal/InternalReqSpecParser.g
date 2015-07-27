@@ -31746,8 +31746,8 @@ rule__SystemRequirements__NameAssignment_2
     }
 :
 (
-{ before(grammarAccess.getSystemRequirementsAccess().getNameIDTerminalRuleCall_2_0()); }
-	RULE_ID{ after(grammarAccess.getSystemRequirementsAccess().getNameIDTerminalRuleCall_2_0()); }
+{ before(grammarAccess.getSystemRequirementsAccess().getNameQualifiedNameParserRuleCall_2_0()); }
+	ruleQualifiedName{ after(grammarAccess.getSystemRequirementsAccess().getNameQualifiedNameParserRuleCall_2_0()); }
 )
 
 ;

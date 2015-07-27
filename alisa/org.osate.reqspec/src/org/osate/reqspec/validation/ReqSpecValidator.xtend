@@ -15,6 +15,14 @@ import org.osate.reqspec.reqSpec.DocumentSection
 import org.eclipse.xtext.validation.CheckType
 import org.osate.aadl2.NamedElement
 import org.osate.reqspec.reqSpec.SystemRequirements
+import com.google.inject.Inject
+import org.eclipse.xtext.scoping.IGlobalScopeProvider
+import org.osate.alisa.common.scoping.CommonGlobalScopeProvider
+import org.osate.aadl2.Aadl2Package
+import org.osate.reqspec.util.ReqSpecUtilExtension
+import org.osate.reqspec.util.IReqSpecReferenceFinder
+import org.osate.aadl2.ComponentClassifier
+import org.eclipse.emf.ecore.util.EcoreUtil
 
 /**
  * Custom validation rules. 
@@ -22,11 +30,17 @@ import org.osate.reqspec.reqSpec.SystemRequirements
  * see http://www.eclipse.org/Xtext/documentation.html#validation
  */
 class ReqSpecValidator extends AbstractReqSpecValidator {
+	@Inject
+	var IGlobalScopeProvider scopeProvider
+	
+	@Inject var IReqSpecReferenceFinder rsReffinder
 
   public static val MISSING_STAKEHOLDER = 'missingStakeholder'
   public static val MISSING_STAKEHOLDER_GOAL = 'missingStakeholderGoal'
   public static val MULTIPLE_CLASSIFIERS = 'multipleClassifiers'
-  public static val FEATURES_WITHOUT_REQUIREMENT = 'featuresWithoutRequirement'
+  public static val NAME_NOT_A_COMPONENTCLASSIFIER = 'SystemRequirementsNameNotAComponentClassifier'
+  public static val FEATURES_WITHOUT_REQUIREMENT = 'FeaturesWithoutRequirement'
+  
 
 	@Check//(CheckType.EXPENSIVE)
 	def void checkMissingStakeholder(Goal goal) {
@@ -91,6 +105,16 @@ class ReqSpecValidator extends AbstractReqSpecValidator {
 			warning('Features without requirement: '+fls, 
 					ReqSpecPackage.Literals.SYSTEM_REQUIREMENTS__CONTENT,
 					FEATURES_WITHOUT_REQUIREMENT)
+		}
+	}
+	
+		@Check
+	def void checkName(SystemRequirements sysreqs) {
+		val match = (scopeProvider as CommonGlobalScopeProvider).getGlobalEObjectDescription(sysreqs,Aadl2Package.eINSTANCE.componentClassifier,sysreqs.name)
+		if (match == null){
+			warning('no match: ', 
+					ReqSpecPackage.Literals.SYSTEM_REQUIREMENTS__NAME,
+					NAME_NOT_A_COMPONENTCLASSIFIER)
 		}
 	}
 }
