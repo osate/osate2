@@ -42,7 +42,7 @@ import org.osate.ge.services.ShapeService;
 import org.osate.ge.services.AadlModificationService.AbstractModifier;
 
 /**
- * Feature for creating a "simple" flow specification. Creates a flow source or sink via a context menu.
+ * Feature for creating a "simple" flow specification. Creates a flow source or sink via a the palette.
  * @author philip.alldredge
  *
  */
