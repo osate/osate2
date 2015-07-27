@@ -356,9 +356,9 @@ class AssureProcessor implements IAssureProcessor {
 		def ProveStatement createWrapperProveCall(VerificationResult vr) {
 			val resoluteFunction = vr.method.methodPath
 			val factory = ResoluteFactory.eINSTANCE
-			val found = resolveResoluteFunction(vr, resoluteFunction)
+//			val found = resolveResoluteFunction(vr, resoluteFunction)
 
-			// val found = findResoluteFunction(vr,resoluteFunction)
+			 val found = findResoluteFunction(vr,resoluteFunction)
 			if(found == null) return null
 			val call = factory.createFnCallExpr
 			call.fn = found
@@ -374,7 +374,7 @@ class AssureProcessor implements IAssureProcessor {
 			val target = factory.createIdExpr
 			target.id = vr.claimSubject
 			val call = factory.createFnCallExpr
-			val found = resolveResoluteFunction(vr, resoluteFunction)
+			val found = findResoluteFunction(vr, resoluteFunction)
 			call.fn = found
 			call.args.add(target)
 			call
@@ -393,78 +393,15 @@ class AssureProcessor implements IAssureProcessor {
 		@Inject
 		public IGlobalScopeProvider scopeProvider;
 
-		// @Inject
-		// public ResoluteLinkingService resoluteLinkingService;
-		//
-		// final static PSNode psNode = new PSNode();
-		def FunctionDefinition resolveResoluteFunction(EObject context, String resoluteFunctionName) {
-
-			// psNode.setText(resoluteFunctionName);
-			// val List<EObject> boundList = resoluteLinkingService.getLinkedObjects(context,
-			// ResolutePackage.eINSTANCE.getFnCallExpr_Fn(), psNode);
-			// if (boundList.size() > 0) {
-			// return  boundList.get(0) as FunctionDefinition;
-			// }
-			val res = getNamedElementByType(context, resoluteFunctionName,
-				ResolutePackage.eINSTANCE.getFunctionDefinition())
-			return res as FunctionDefinition
-		}
-
-		def EObject getNamedElementByType(EObject context, String name, EClass eclass) {
-
-			// This code will only link to objects in the projects visible from the current project
-			val Iterable<IEObjectDescription> allObjectTypes = EMFIndexRetrieval.
-				getAllEObjectsOfTypeInWorkspace(context, eclass);
-			val String contextProject = context.eResource().getURI().segment(1);
-			val List<String> visibleProjects = getVisibleProjects(contextProject);
-
-			for (IEObjectDescription eod : allObjectTypes) {
-				if (eod.getName().getLastSegment().equalsIgnoreCase(name)) {
-					var EObject res = eod.getEObjectOrProxy();
-					res = EcoreUtil.resolve(res, context.eResource().getResourceSet());
-					if (!Aadl2Util.isNull(res)) {
-						val URI linkUri = res.eResource().getURI();
-						val String linkProject = linkUri.segment(1);
-						if (visibleProjects.contains(linkProject)) {
-							return res;
-						}
-					}
-				}
-			}
-
-			return null;
-		}
-
-		def List<String> getVisibleProjects(String contextProjectName) {
-			val List<String> result = new ArrayList<String>();
-			result.add(contextProjectName);
-
-			val IWorkspaceRoot root = ResourcesPlugin.getWorkspace().getRoot();
-			val IProject contextProject = root.getProject(URI.decode(contextProjectName));
-			if (!contextProject.exists() || !contextProject.isAccessible() || !contextProject.isOpen())
-				return result;
-			try {
-				val IProjectDescription description = contextProject.getDescription();
-				for (IProject referencedProject : description.getReferencedProjects()) {
-					result.add(URI.encodeSegment(referencedProject.getName(), false));
-				}
-			} catch (CoreException ex) {
-				System.out.println("CORE EXCEPTION");
-				ex.printStackTrace();
-			}
-
-			return result;
-		}
 
 		def FunctionDefinition findResoluteFunction(EObject context, String resoluteFunctionName) {
 			val scope = scopeProvider as CommonGlobalScopeProvider
 			val foundlist = scope.getGlobalEObjectDescriptions(context,
-				ResolutePackage.eINSTANCE.getFunctionDefinition(), null)
-			val filteredlist = foundlist.filter [ eod |
+				ResolutePackage.eINSTANCE.getFunctionDefinition(), [ eod |
 				eod.getName().getLastSegment().equalsIgnoreCase(resoluteFunctionName)
-			]
-			if(filteredlist.length == 0) return null
-			return filteredlist.head as FunctionDefinition
+			])
+			if(foundlist.length == 0) return null
+			return EcoreUtil.resolve(foundlist.head.EObjectOrProxy,context) as FunctionDefinition
 		}
 
 	}
