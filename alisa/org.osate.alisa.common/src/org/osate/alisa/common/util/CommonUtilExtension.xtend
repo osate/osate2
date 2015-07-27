@@ -66,7 +66,7 @@ class CommonUtilExtension {
 			ext = (target as ComponentImplementation).getType();
 		}
 		while (ext != null) {
-			if (ancestor == ext) {
+			if (ancestor.name.equalsIgnoreCase(ext.name) ) {
 				return true;
 			}
 			ext = ext.getExtended();
