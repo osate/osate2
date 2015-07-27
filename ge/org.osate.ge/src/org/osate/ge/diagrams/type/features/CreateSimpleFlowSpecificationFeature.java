@@ -52,7 +52,6 @@ public class CreateSimpleFlowSpecificationFeature extends AbstractCreateFeature 
 	private final ShapeService shapeService;
 	private final AadlFeatureService featureService;
 	private final NamingService namingService;
-	private final BusinessObjectResolutionService bor;
 	private final FlowKind flowKind;
 	
 	@Inject
@@ -66,7 +65,6 @@ public class CreateSimpleFlowSpecificationFeature extends AbstractCreateFeature 
 		this.shapeService = shapeService;
 		this.featureService = featureService;
 		this.namingService = namingService;
-		this.bor = bor;
 		this.flowKind = flowKind;
 		if(flowKind != FlowKind.SINK && flowKind != FlowKind.SOURCE) {
 			throw new RuntimeException("Unsupported flow kind: " + flowKind);
@@ -82,6 +80,10 @@ public class CreateSimpleFlowSpecificationFeature extends AbstractCreateFeature 
 	public boolean canUndo(final IContext context) {
 		return false;
 	}
+	
+	private Object getShapeType(final Shape shape) {
+		return shapeService.getClosestBusinessObjectOfType(shape, Object.class);
+	}
     
 	private ComponentType getComponentType(final Shape featureShape) {
 		return shapeService.getClosestBusinessObjectOfType(featureShape, ComponentType.class);
@@ -95,7 +97,7 @@ public class CreateSimpleFlowSpecificationFeature extends AbstractCreateFeature 
     public void execute(final IContext context) {
     	final Shape featureShape = (Shape)((ICreateContext)context).getTargetContainer();
 		final ComponentType ct = getComponentType(featureShape);
-		final Feature feature = (Feature)bor.getBusinessObjectForPictogramElement(featureShape);
+		final Feature feature = (Feature) getShapeType(featureShape);
 		final String newFlowSpecName = namingService.buildUniqueIdentifier(ct, "new_flow_spec");
 
 		// Create the flow specification
@@ -146,9 +148,8 @@ public class CreateSimpleFlowSpecificationFeature extends AbstractCreateFeature 
 		if(!(peTargetContainer instanceof Shape) || peTargetConnnection != null) {
 			return false;
 		}
-		
-		final Object bo = shapeService.getClosestBusinessObjectOfType(context.getTargetContainer(), Object.class);
-		
+
+		final Object bo = getShapeType((Shape)peTargetContainer);
 		// Check that the pictogram represents a feature
 		if(!(bo instanceof Feature)) {
 			return false;
