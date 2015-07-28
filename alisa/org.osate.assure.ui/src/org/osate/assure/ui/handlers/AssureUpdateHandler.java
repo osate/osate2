@@ -1,8 +1,5 @@
 package org.osate.assure.ui.handlers;
 
-import static org.osate.assure.util.AssureUtilExtension.getInstanceModel;
-import static org.osate.assure.util.AssureUtilExtension.initializeResoluteContext;
-
 import org.eclipse.core.commands.AbstractHandler;
 import org.eclipse.core.commands.ExecutionEvent;
 import org.eclipse.core.resources.ResourcesPlugin;
@@ -131,9 +128,7 @@ public class AssureUpdateHandler extends AbstractHandler {
 
 		long start = System.currentTimeMillis();
 		VerifyUtilExtension.clearAllHasRunRecords();
-		initializeResoluteContext(getInstanceModel(rootCaseResult));
 		AssureUtilExtension.clearAllInstanceModels();
-//		assureProcessor.process(rootCaseResult);
 		try {
 			assureProcessor.process(rootCaseResult);
 		} catch (Exception e) {

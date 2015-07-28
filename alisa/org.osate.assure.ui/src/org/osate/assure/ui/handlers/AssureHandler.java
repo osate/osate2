@@ -1,6 +1,5 @@
 package org.osate.assure.ui.handlers;
 
-import static org.osate.assure.util.AssureUtilExtension.getInstanceModel;
 import static org.osate.assure.util.AssureUtilExtension.recomputeAllCounts;
 import static org.osate.assure.util.AssureUtilExtension.resetToTBD;
 
@@ -157,9 +156,7 @@ public class AssureHandler extends AbstractHandler {
 		resetToTBD(rootCaseResult);
 		recomputeAllCounts(rootCaseResult);
 		VerifyUtilExtension.clearAllHasRunRecords();
-		AssureUtilExtension.initializeResoluteContext(getInstanceModel(rootCaseResult.getTarget().getSystem()));
 		AssureUtilExtension.clearAllInstanceModels();
-//		AssureProcessing.processCaseResult(rootCaseResult);
 		try {
 			assureProcessor.process(rootCaseResult);
 		} catch (Exception e) {

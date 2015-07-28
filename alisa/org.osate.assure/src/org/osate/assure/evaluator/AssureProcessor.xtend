@@ -43,6 +43,8 @@ import org.osate.verify.verify.VerificationMethod
 import static extension org.osate.alisa.common.util.CommonUtilExtension.*
 import static extension org.osate.assure.util.AssureUtilExtension.*
 import org.osate.aadl2.instance.InstanceObject
+import org.osate.assure.util.AssureUtilExtension
+import static org.osate.assure.util.AssureUtilExtension.getInstanceModel
 
 @ImplementedBy(AssureProcessor)
 interface IAssureProcessor {
@@ -250,6 +252,7 @@ class AssureProcessor implements IAssureProcessor {
 				case SupportedTypes.RESOLUTE: {
 
 					// Resolute handling See AssureUtil for setup	
+					AssureUtilExtension.initializeResoluteContext(instance);
 					val EvaluationContext context = new EvaluationContext(instance, sets, featToConnsMap);
 					val ResoluteInterpreter interpreter = new ResoluteInterpreter(context);
 					val provecall = createWrapperProveCall(verificationResult)
