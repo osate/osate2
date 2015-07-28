@@ -19,7 +19,7 @@ import org.eclipse.emf.ecore.util.EObjectResolvingEList;
 
 import org.eclipse.xtext.xbase.XExpression;
 
-import org.osate.aadl2.ComponentClassifier;
+import org.osate.aadl2.ComponentImplementation;
 
 import org.osate.alisa.common.common.ComputeDeclaration;
 
@@ -96,7 +96,7 @@ public class VerificationActivityImpl extends MinimalEObjectImpl.Container imple
    * @generated
    * @ordered
    */
-  protected ComponentClassifier target;
+  protected ComponentImplementation target;
 
   /**
    * The cached value of the '{@link #getResult() <em>Result</em>}' reference list.
@@ -220,12 +220,12 @@ public class VerificationActivityImpl extends MinimalEObjectImpl.Container imple
    * <!-- end-user-doc -->
    * @generated
    */
-  public ComponentClassifier getTarget()
+  public ComponentImplementation getTarget()
   {
     if (target != null && ((EObject)target).eIsProxy())
     {
       InternalEObject oldTarget = (InternalEObject)target;
-      target = (ComponentClassifier)eResolveProxy(oldTarget);
+      target = (ComponentImplementation)eResolveProxy(oldTarget);
       if (target != oldTarget)
       {
         if (eNotificationRequired())
@@ -240,7 +240,7 @@ public class VerificationActivityImpl extends MinimalEObjectImpl.Container imple
    * <!-- end-user-doc -->
    * @generated
    */
-  public ComponentClassifier basicGetTarget()
+  public ComponentImplementation basicGetTarget()
   {
     return target;
   }
@@ -250,9 +250,9 @@ public class VerificationActivityImpl extends MinimalEObjectImpl.Container imple
    * <!-- end-user-doc -->
    * @generated
    */
-  public void setTarget(ComponentClassifier newTarget)
+  public void setTarget(ComponentImplementation newTarget)
   {
-    ComponentClassifier oldTarget = target;
+    ComponentImplementation oldTarget = target;
     target = newTarget;
     if (eNotificationRequired())
       eNotify(new ENotificationImpl(this, Notification.SET, VerifyPackage.VERIFICATION_ACTIVITY__TARGET, oldTarget, target));
@@ -400,7 +400,7 @@ public class VerificationActivityImpl extends MinimalEObjectImpl.Container imple
         setTitle((String)newValue);
         return;
       case VerifyPackage.VERIFICATION_ACTIVITY__TARGET:
-        setTarget((ComponentClassifier)newValue);
+        setTarget((ComponentImplementation)newValue);
         return;
       case VerifyPackage.VERIFICATION_ACTIVITY__RESULT:
         getResult().clear();
@@ -437,7 +437,7 @@ public class VerificationActivityImpl extends MinimalEObjectImpl.Container imple
         setTitle(TITLE_EDEFAULT);
         return;
       case VerifyPackage.VERIFICATION_ACTIVITY__TARGET:
-        setTarget((ComponentClassifier)null);
+        setTarget((ComponentImplementation)null);
         return;
       case VerifyPackage.VERIFICATION_ACTIVITY__RESULT:
         getResult().clear();

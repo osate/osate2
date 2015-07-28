@@ -69,17 +69,17 @@ public class VerifyFactoryImpl extends EFactoryImpl implements VerifyFactory
       case VerifyPackage.VERIFICATION_PLAN: return createVerificationPlan();
       case VerifyPackage.CLAIM: return createClaim();
       case VerifyPackage.VERIFICATION_ACTIVITY: return createVerificationActivity();
-      case VerifyPackage.VERIFICATION_CONDITION: return createVerificationCondition();
       case VerifyPackage.ARGUMENT_EXPR: return createArgumentExpr();
       case VerifyPackage.VERIFICATION_METHOD_REGISTRY: return createVerificationMethodRegistry();
       case VerifyPackage.VERIFICATION_METHOD: return createVerificationMethod();
-      case VerifyPackage.VERIFICATION_VALIDATION: return createVerificationValidation();
-      case VerifyPackage.VERIFICATION_PRECONDITION: return createVerificationPrecondition();
+      case VerifyPackage.VERIFICATION_CONDITION: return createVerificationCondition();
       case VerifyPackage.THEN_EXPR: return createThenExpr();
       case VerifyPackage.ELSE_EXPR: return createElseExpr();
       case VerifyPackage.ALL_EXPR: return createAllExpr();
       case VerifyPackage.WHEN_EXPR: return createWhenExpr();
       case VerifyPackage.REF_EXPR: return createRefExpr();
+      case VerifyPackage.VERIFICATION_VALIDATION: return createVerificationValidation();
+      case VerifyPackage.VERIFICATION_PRECONDITION: return createVerificationPrecondition();
       default:
         throw new IllegalArgumentException("The class '" + eClass.getName() + "' is not a valid classifier");
     }
@@ -168,17 +168,6 @@ public class VerifyFactoryImpl extends EFactoryImpl implements VerifyFactory
    * <!-- end-user-doc -->
    * @generated
    */
-  public VerificationCondition createVerificationCondition()
-  {
-    VerificationConditionImpl verificationCondition = new VerificationConditionImpl();
-    return verificationCondition;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
   public ArgumentExpr createArgumentExpr()
   {
     ArgumentExprImpl argumentExpr = new ArgumentExprImpl();
@@ -212,21 +201,10 @@ public class VerifyFactoryImpl extends EFactoryImpl implements VerifyFactory
    * <!-- end-user-doc -->
    * @generated
    */
-  public VerificationValidation createVerificationValidation()
+  public VerificationCondition createVerificationCondition()
   {
-    VerificationValidationImpl verificationValidation = new VerificationValidationImpl();
-    return verificationValidation;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public VerificationPrecondition createVerificationPrecondition()
-  {
-    VerificationPreconditionImpl verificationPrecondition = new VerificationPreconditionImpl();
-    return verificationPrecondition;
+    VerificationConditionImpl verificationCondition = new VerificationConditionImpl();
+    return verificationCondition;
   }
 
   /**
@@ -282,6 +260,28 @@ public class VerifyFactoryImpl extends EFactoryImpl implements VerifyFactory
   {
     RefExprImpl refExpr = new RefExprImpl();
     return refExpr;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public VerificationValidation createVerificationValidation()
+  {
+    VerificationValidationImpl verificationValidation = new VerificationValidationImpl();
+    return verificationValidation;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public VerificationPrecondition createVerificationPrecondition()
+  {
+    VerificationPreconditionImpl verificationPrecondition = new VerificationPreconditionImpl();
+    return verificationPrecondition;
   }
 
   /**

@@ -59,15 +59,6 @@ public interface VerifyFactory extends EFactory
   VerificationActivity createVerificationActivity();
 
   /**
-   * Returns a new object of class '<em>Verification Condition</em>'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return a new object of class '<em>Verification Condition</em>'.
-   * @generated
-   */
-  VerificationCondition createVerificationCondition();
-
-  /**
    * Returns a new object of class '<em>Argument Expr</em>'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -95,22 +86,13 @@ public interface VerifyFactory extends EFactory
   VerificationMethod createVerificationMethod();
 
   /**
-   * Returns a new object of class '<em>Verification Validation</em>'.
+   * Returns a new object of class '<em>Verification Condition</em>'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @return a new object of class '<em>Verification Validation</em>'.
+   * @return a new object of class '<em>Verification Condition</em>'.
    * @generated
    */
-  VerificationValidation createVerificationValidation();
-
-  /**
-   * Returns a new object of class '<em>Verification Precondition</em>'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return a new object of class '<em>Verification Precondition</em>'.
-   * @generated
-   */
-  VerificationPrecondition createVerificationPrecondition();
+  VerificationCondition createVerificationCondition();
 
   /**
    * Returns a new object of class '<em>Then Expr</em>'.
@@ -156,6 +138,24 @@ public interface VerifyFactory extends EFactory
    * @generated
    */
   RefExpr createRefExpr();
+
+  /**
+   * Returns a new object of class '<em>Verification Validation</em>'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return a new object of class '<em>Verification Validation</em>'.
+   * @generated
+   */
+  VerificationValidation createVerificationValidation();
+
+  /**
+   * Returns a new object of class '<em>Verification Precondition</em>'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return a new object of class '<em>Verification Precondition</em>'.
+   * @generated
+   */
+  VerificationPrecondition createVerificationPrecondition();
 
   /**
    * Returns the package supported by this factory.

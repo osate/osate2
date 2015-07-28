@@ -44,25 +44,13 @@ Claim:
 
 VerificationActivity:
 	name=ID  ( ':' title=STRING)? 
-	('for' target=[aadl2::ComponentClassifier|AADLCLASSIFIERREFERENCE])? // for specific AADL model configuration
+	('for' target=[aadl2::ComponentImplementation|AADLCLASSIFIERREFERENCE])? // for specific AADL model configuration
 	':' (
 		( result+=[common::ComputeDeclaration|ID] (',' result+=[common::ComputeDeclaration|ID])* '=')?
 	   method=[VerificationMethod|QualifiedName] '(' (parameters+=[xbase::XExpression| ID] (',' parameters+=[xbase::XExpression| ID])*)?')'
 	('timeout' timeout=INT)?
 )
 	;
-
-VerificationCondition:
-	('validation' {VerificationValidation} | 'precondition' {VerificationPrecondition}) 
- 	 name=ID
-	(':' title=STRING)?
-	'[' (
-	 ( description=Description)?
-	 &  (method=[VerificationMethod|QualifiedName] '(' (parameters+=[xbase::XExpression| ID] (',' parameters+=[xbase::XExpression| ID])*)?')'
-	('timeout' timeout=INT)?)
-	& rationale=Rationale?
-	)
-	']';
 
 ArgumentExpr:
 	ThenEvidenceExpr;
@@ -174,6 +162,19 @@ VerificationMethod:
 	&('path' methodPath=STRING)?
 	& condition=VerificationCondition?
 	& ('category' category+=[categories::VerificationCategory|ID]+)?
+	)
+	']';
+
+
+VerificationCondition:
+	('validation' {VerificationValidation} | 'precondition' {VerificationPrecondition}) 
+ 	 name=ID
+	(':' title=STRING)?
+	'[' (
+	 ( description=Description)?
+	 &  (method=[VerificationMethod|QualifiedName] '(' (parameters+=[xbase::XExpression| ID] (',' parameters+=[xbase::XExpression| ID])*)?')'
+	('timeout' timeout=INT)?)
+	& rationale=Rationale?
 	)
 	']';
 

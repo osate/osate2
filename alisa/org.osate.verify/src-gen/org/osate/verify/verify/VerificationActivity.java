@@ -8,7 +8,7 @@ import org.eclipse.emf.ecore.EObject;
 
 import org.eclipse.xtext.xbase.XExpression;
 
-import org.osate.aadl2.ComponentClassifier;
+import org.osate.aadl2.ComponentImplementation;
 
 import org.osate.alisa.common.common.ComputeDeclaration;
 
@@ -97,12 +97,12 @@ public interface VerificationActivity extends EObject
    * </p>
    * <!-- end-user-doc -->
    * @return the value of the '<em>Target</em>' reference.
-   * @see #setTarget(ComponentClassifier)
+   * @see #setTarget(ComponentImplementation)
    * @see org.osate.verify.verify.VerifyPackage#getVerificationActivity_Target()
    * @model
    * @generated
    */
-  ComponentClassifier getTarget();
+  ComponentImplementation getTarget();
 
   /**
    * Sets the value of the '{@link org.osate.verify.verify.VerificationActivity#getTarget <em>Target</em>}' reference.
@@ -112,7 +112,7 @@ public interface VerificationActivity extends EObject
    * @see #getTarget()
    * @generated
    */
-  void setTarget(ComponentClassifier value);
+  void setTarget(ComponentImplementation value);
 
   /**
    * Returns the value of the '<em><b>Result</b></em>' reference list.

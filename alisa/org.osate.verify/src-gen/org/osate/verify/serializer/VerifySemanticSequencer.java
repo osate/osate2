@@ -509,7 +509,7 @@ public class VerifySemanticSequencer extends CommonSemanticSequencer {
 	 *     (
 	 *         name=ID 
 	 *         title=STRING? 
-	 *         target=[ComponentClassifier|AADLCLASSIFIERREFERENCE]? 
+	 *         target=[ComponentImplementation|AADLCLASSIFIERREFERENCE]? 
 	 *         (result+=[ComputeDeclaration|ID] result+=[ComputeDeclaration|ID]*)? 
 	 *         method=[VerificationMethod|QualifiedName] 
 	 *         (parameters+=[XExpression|ID] parameters+=[XExpression|ID]*)? 

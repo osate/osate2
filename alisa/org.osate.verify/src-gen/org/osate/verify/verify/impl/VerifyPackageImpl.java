@@ -83,13 +83,6 @@ public class VerifyPackageImpl extends EPackageImpl implements VerifyPackage
    * <!-- end-user-doc -->
    * @generated
    */
-  private EClass verificationConditionEClass = null;
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
   private EClass argumentExprEClass = null;
 
   /**
@@ -111,14 +104,7 @@ public class VerifyPackageImpl extends EPackageImpl implements VerifyPackage
    * <!-- end-user-doc -->
    * @generated
    */
-  private EClass verificationValidationEClass = null;
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  private EClass verificationPreconditionEClass = null;
+  private EClass verificationConditionEClass = null;
 
   /**
    * <!-- begin-user-doc -->
@@ -154,6 +140,20 @@ public class VerifyPackageImpl extends EPackageImpl implements VerifyPackage
    * @generated
    */
   private EClass refExprEClass = null;
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  private EClass verificationValidationEClass = null;
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  private EClass verificationPreconditionEClass = null;
 
   /**
    * <!-- begin-user-doc -->
@@ -523,86 +523,6 @@ public class VerifyPackageImpl extends EPackageImpl implements VerifyPackage
    * <!-- end-user-doc -->
    * @generated
    */
-  public EClass getVerificationCondition()
-  {
-    return verificationConditionEClass;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public EAttribute getVerificationCondition_Name()
-  {
-    return (EAttribute)verificationConditionEClass.getEStructuralFeatures().get(0);
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public EAttribute getVerificationCondition_Title()
-  {
-    return (EAttribute)verificationConditionEClass.getEStructuralFeatures().get(1);
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public EReference getVerificationCondition_Description()
-  {
-    return (EReference)verificationConditionEClass.getEStructuralFeatures().get(2);
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public EReference getVerificationCondition_Method()
-  {
-    return (EReference)verificationConditionEClass.getEStructuralFeatures().get(3);
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public EReference getVerificationCondition_Parameters()
-  {
-    return (EReference)verificationConditionEClass.getEStructuralFeatures().get(4);
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public EAttribute getVerificationCondition_Timeout()
-  {
-    return (EAttribute)verificationConditionEClass.getEStructuralFeatures().get(5);
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public EReference getVerificationCondition_Rationale()
-  {
-    return (EReference)verificationConditionEClass.getEStructuralFeatures().get(6);
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
   public EClass getArgumentExpr()
   {
     return argumentExprEClass;
@@ -773,9 +693,9 @@ public class VerifyPackageImpl extends EPackageImpl implements VerifyPackage
    * <!-- end-user-doc -->
    * @generated
    */
-  public EClass getVerificationValidation()
+  public EClass getVerificationCondition()
   {
-    return verificationValidationEClass;
+    return verificationConditionEClass;
   }
 
   /**
@@ -783,9 +703,69 @@ public class VerifyPackageImpl extends EPackageImpl implements VerifyPackage
    * <!-- end-user-doc -->
    * @generated
    */
-  public EClass getVerificationPrecondition()
+  public EAttribute getVerificationCondition_Name()
   {
-    return verificationPreconditionEClass;
+    return (EAttribute)verificationConditionEClass.getEStructuralFeatures().get(0);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EAttribute getVerificationCondition_Title()
+  {
+    return (EAttribute)verificationConditionEClass.getEStructuralFeatures().get(1);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EReference getVerificationCondition_Description()
+  {
+    return (EReference)verificationConditionEClass.getEStructuralFeatures().get(2);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EReference getVerificationCondition_Method()
+  {
+    return (EReference)verificationConditionEClass.getEStructuralFeatures().get(3);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EReference getVerificationCondition_Parameters()
+  {
+    return (EReference)verificationConditionEClass.getEStructuralFeatures().get(4);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EAttribute getVerificationCondition_Timeout()
+  {
+    return (EAttribute)verificationConditionEClass.getEStructuralFeatures().get(5);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EReference getVerificationCondition_Rationale()
+  {
+    return (EReference)verificationConditionEClass.getEStructuralFeatures().get(6);
   }
 
   /**
@@ -953,6 +933,26 @@ public class VerifyPackageImpl extends EPackageImpl implements VerifyPackage
    * <!-- end-user-doc -->
    * @generated
    */
+  public EClass getVerificationValidation()
+  {
+    return verificationValidationEClass;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EClass getVerificationPrecondition()
+  {
+    return verificationPreconditionEClass;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
   public EEnum getSupportedTypes()
   {
     return supportedTypesEEnum;
@@ -1021,15 +1021,6 @@ public class VerifyPackageImpl extends EPackageImpl implements VerifyPackage
     createEReference(verificationActivityEClass, VERIFICATION_ACTIVITY__PARAMETERS);
     createEAttribute(verificationActivityEClass, VERIFICATION_ACTIVITY__TIMEOUT);
 
-    verificationConditionEClass = createEClass(VERIFICATION_CONDITION);
-    createEAttribute(verificationConditionEClass, VERIFICATION_CONDITION__NAME);
-    createEAttribute(verificationConditionEClass, VERIFICATION_CONDITION__TITLE);
-    createEReference(verificationConditionEClass, VERIFICATION_CONDITION__DESCRIPTION);
-    createEReference(verificationConditionEClass, VERIFICATION_CONDITION__METHOD);
-    createEReference(verificationConditionEClass, VERIFICATION_CONDITION__PARAMETERS);
-    createEAttribute(verificationConditionEClass, VERIFICATION_CONDITION__TIMEOUT);
-    createEReference(verificationConditionEClass, VERIFICATION_CONDITION__RATIONALE);
-
     argumentExprEClass = createEClass(ARGUMENT_EXPR);
 
     verificationMethodRegistryEClass = createEClass(VERIFICATION_METHOD_REGISTRY);
@@ -1050,9 +1041,14 @@ public class VerifyPackageImpl extends EPackageImpl implements VerifyPackage
     createEReference(verificationMethodEClass, VERIFICATION_METHOD__CONDITION);
     createEReference(verificationMethodEClass, VERIFICATION_METHOD__CATEGORY);
 
-    verificationValidationEClass = createEClass(VERIFICATION_VALIDATION);
-
-    verificationPreconditionEClass = createEClass(VERIFICATION_PRECONDITION);
+    verificationConditionEClass = createEClass(VERIFICATION_CONDITION);
+    createEAttribute(verificationConditionEClass, VERIFICATION_CONDITION__NAME);
+    createEAttribute(verificationConditionEClass, VERIFICATION_CONDITION__TITLE);
+    createEReference(verificationConditionEClass, VERIFICATION_CONDITION__DESCRIPTION);
+    createEReference(verificationConditionEClass, VERIFICATION_CONDITION__METHOD);
+    createEReference(verificationConditionEClass, VERIFICATION_CONDITION__PARAMETERS);
+    createEAttribute(verificationConditionEClass, VERIFICATION_CONDITION__TIMEOUT);
+    createEReference(verificationConditionEClass, VERIFICATION_CONDITION__RATIONALE);
 
     thenExprEClass = createEClass(THEN_EXPR);
     createEReference(thenExprEClass, THEN_EXPR__LEFT);
@@ -1074,6 +1070,10 @@ public class VerifyPackageImpl extends EPackageImpl implements VerifyPackage
     refExprEClass = createEClass(REF_EXPR);
     createEReference(refExprEClass, REF_EXPR__VERIFICATION);
     createEAttribute(refExprEClass, REF_EXPR__WEIGHT);
+
+    verificationValidationEClass = createEClass(VERIFICATION_VALIDATION);
+
+    verificationPreconditionEClass = createEClass(VERIFICATION_PRECONDITION);
 
     // Create enums
     supportedTypesEEnum = createEEnum(SUPPORTED_TYPES);
@@ -1117,13 +1117,13 @@ public class VerifyPackageImpl extends EPackageImpl implements VerifyPackage
     // Set bounds for type parameters
 
     // Add supertypes to classes
-    verificationValidationEClass.getESuperTypes().add(this.getVerificationCondition());
-    verificationPreconditionEClass.getESuperTypes().add(this.getVerificationCondition());
     thenExprEClass.getESuperTypes().add(this.getArgumentExpr());
     elseExprEClass.getESuperTypes().add(this.getArgumentExpr());
     allExprEClass.getESuperTypes().add(this.getArgumentExpr());
     whenExprEClass.getESuperTypes().add(this.getArgumentExpr());
     refExprEClass.getESuperTypes().add(this.getArgumentExpr());
+    verificationValidationEClass.getESuperTypes().add(this.getVerificationCondition());
+    verificationPreconditionEClass.getESuperTypes().add(this.getVerificationCondition());
 
     // Initialize classes and features; add operations and parameters
     initEClass(verificationEClass, Verification.class, "Verification", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
@@ -1153,20 +1153,11 @@ public class VerifyPackageImpl extends EPackageImpl implements VerifyPackage
     initEClass(verificationActivityEClass, VerificationActivity.class, "VerificationActivity", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
     initEAttribute(getVerificationActivity_Name(), theEcorePackage.getEString(), "name", null, 0, 1, VerificationActivity.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEAttribute(getVerificationActivity_Title(), theEcorePackage.getEString(), "title", null, 0, 1, VerificationActivity.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-    initEReference(getVerificationActivity_Target(), theAadl2Package.getComponentClassifier(), null, "target", null, 0, 1, VerificationActivity.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEReference(getVerificationActivity_Target(), theAadl2Package.getComponentImplementation(), null, "target", null, 0, 1, VerificationActivity.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEReference(getVerificationActivity_Result(), theCommonPackage.getComputeDeclaration(), null, "result", null, 0, -1, VerificationActivity.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEReference(getVerificationActivity_Method(), this.getVerificationMethod(), null, "method", null, 0, 1, VerificationActivity.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEReference(getVerificationActivity_Parameters(), theXbasePackage.getXExpression(), null, "parameters", null, 0, -1, VerificationActivity.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEAttribute(getVerificationActivity_Timeout(), theEcorePackage.getEInt(), "timeout", null, 0, 1, VerificationActivity.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-
-    initEClass(verificationConditionEClass, VerificationCondition.class, "VerificationCondition", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-    initEAttribute(getVerificationCondition_Name(), theEcorePackage.getEString(), "name", null, 0, 1, VerificationCondition.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-    initEAttribute(getVerificationCondition_Title(), theEcorePackage.getEString(), "title", null, 0, 1, VerificationCondition.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-    initEReference(getVerificationCondition_Description(), theCommonPackage.getDescription(), null, "description", null, 0, 1, VerificationCondition.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-    initEReference(getVerificationCondition_Method(), this.getVerificationMethod(), null, "method", null, 0, 1, VerificationCondition.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-    initEReference(getVerificationCondition_Parameters(), theXbasePackage.getXExpression(), null, "parameters", null, 0, -1, VerificationCondition.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-    initEAttribute(getVerificationCondition_Timeout(), theEcorePackage.getEInt(), "timeout", null, 0, 1, VerificationCondition.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-    initEReference(getVerificationCondition_Rationale(), theCommonPackage.getRationale(), null, "rationale", null, 0, 1, VerificationCondition.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
     initEClass(argumentExprEClass, ArgumentExpr.class, "ArgumentExpr", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 
@@ -1188,9 +1179,14 @@ public class VerifyPackageImpl extends EPackageImpl implements VerifyPackage
     initEReference(getVerificationMethod_Condition(), this.getVerificationCondition(), null, "condition", null, 0, 1, VerificationMethod.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEReference(getVerificationMethod_Category(), theCategoriesPackage.getVerificationCategory(), null, "category", null, 0, -1, VerificationMethod.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
-    initEClass(verificationValidationEClass, VerificationValidation.class, "VerificationValidation", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-
-    initEClass(verificationPreconditionEClass, VerificationPrecondition.class, "VerificationPrecondition", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+    initEClass(verificationConditionEClass, VerificationCondition.class, "VerificationCondition", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+    initEAttribute(getVerificationCondition_Name(), theEcorePackage.getEString(), "name", null, 0, 1, VerificationCondition.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEAttribute(getVerificationCondition_Title(), theEcorePackage.getEString(), "title", null, 0, 1, VerificationCondition.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEReference(getVerificationCondition_Description(), theCommonPackage.getDescription(), null, "description", null, 0, 1, VerificationCondition.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEReference(getVerificationCondition_Method(), this.getVerificationMethod(), null, "method", null, 0, 1, VerificationCondition.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEReference(getVerificationCondition_Parameters(), theXbasePackage.getXExpression(), null, "parameters", null, 0, -1, VerificationCondition.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEAttribute(getVerificationCondition_Timeout(), theEcorePackage.getEInt(), "timeout", null, 0, 1, VerificationCondition.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEReference(getVerificationCondition_Rationale(), theCommonPackage.getRationale(), null, "rationale", null, 0, 1, VerificationCondition.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
     initEClass(thenExprEClass, ThenExpr.class, "ThenExpr", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
     initEReference(getThenExpr_Left(), this.getArgumentExpr(), null, "left", null, 0, 1, ThenExpr.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
@@ -1212,6 +1208,10 @@ public class VerifyPackageImpl extends EPackageImpl implements VerifyPackage
     initEClass(refExprEClass, RefExpr.class, "RefExpr", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
     initEReference(getRefExpr_Verification(), this.getVerificationActivity(), null, "verification", null, 0, 1, RefExpr.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEAttribute(getRefExpr_Weight(), theEcorePackage.getEInt(), "weight", null, 0, 1, RefExpr.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+    initEClass(verificationValidationEClass, VerificationValidation.class, "VerificationValidation", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+
+    initEClass(verificationPreconditionEClass, VerificationPrecondition.class, "VerificationPrecondition", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 
     // Initialize enums and add enum literals
     initEEnum(supportedTypesEEnum, SupportedTypes.class, "SupportedTypes");
