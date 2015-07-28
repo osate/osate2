@@ -112,7 +112,7 @@ ruleAssuranceEvidence returns [EObject current=null]
 	        }
         }
 		{ 
-	        newCompositeNode(grammarAccess.getAssuranceEvidenceAccess().getTargetEObjectCrossReference_3_0()); 
+	        newCompositeNode(grammarAccess.getAssuranceEvidenceAccess().getTargetAssurancePlanCrossReference_3_0()); 
 	    }
 		ruleQualifiedName		{ 
 	        afterParserOrEnumRuleCall();

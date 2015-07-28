@@ -26,8 +26,8 @@ public class AssureGrammarAccess extends AbstractGrammarElementFinder {
 		private final RuleCall cNameQualifiedNameParserRuleCall_1_0 = (RuleCall)cNameAssignment_1.eContents().get(0);
 		private final Keyword cForKeyword_2 = (Keyword)cGroup.eContents().get(2);
 		private final Assignment cTargetAssignment_3 = (Assignment)cGroup.eContents().get(3);
-		private final CrossReference cTargetEObjectCrossReference_3_0 = (CrossReference)cTargetAssignment_3.eContents().get(0);
-		private final RuleCall cTargetEObjectQualifiedNameParserRuleCall_3_0_1 = (RuleCall)cTargetEObjectCrossReference_3_0.eContents().get(1);
+		private final CrossReference cTargetAssurancePlanCrossReference_3_0 = (CrossReference)cTargetAssignment_3.eContents().get(0);
+		private final RuleCall cTargetAssurancePlanQualifiedNameParserRuleCall_3_0_1 = (RuleCall)cTargetAssurancePlanCrossReference_3_0.eContents().get(1);
 		private final Keyword cLeftSquareBracketKeyword_4 = (Keyword)cGroup.eContents().get(4);
 		private final Assignment cMetricsAssignment_5 = (Assignment)cGroup.eContents().get(5);
 		private final RuleCall cMetricsMetricsParserRuleCall_5_0 = (RuleCall)cMetricsAssignment_5.eContents().get(0);
@@ -43,13 +43,11 @@ public class AssureGrammarAccess extends AbstractGrammarElementFinder {
 		
 		//// result for a system in the architecture hierarchy
 		//AssuranceEvidence:
-		//	"evidence" name=QualifiedName "for" target= //Alisa::AssurancePlan|QualifiedName]
-		//	[ecore::EObject|QualifiedName] //	('instance' instance= [instance::InstanceObject|URIID])?
+		//	"evidence" name=QualifiedName "for" target=[Alisa::AssurancePlan|QualifiedName] //	('instance' instance= [instance::InstanceObject|URIID])?
 		//	"[" metrics=Metrics ("message" message=STRING)? subAssuranceEvidence+=AssuranceEvidence* claimResult+=ClaimResult* "]";
 		@Override public ParserRule getRule() { return rule; }
 
-		//"evidence" name=QualifiedName "for" target= //Alisa::AssurancePlan|QualifiedName]
-		//[ecore::EObject|QualifiedName] //	('instance' instance= [instance::InstanceObject|URIID])?
+		//"evidence" name=QualifiedName "for" target=[Alisa::AssurancePlan|QualifiedName] //	('instance' instance= [instance::InstanceObject|URIID])?
 		//"[" metrics=Metrics ("message" message=STRING)? subAssuranceEvidence+=AssuranceEvidence* claimResult+=ClaimResult* "]"
 		public Group getGroup() { return cGroup; }
 
@@ -65,16 +63,14 @@ public class AssureGrammarAccess extends AbstractGrammarElementFinder {
 		//"for"
 		public Keyword getForKeyword_2() { return cForKeyword_2; }
 
-		//target= //Alisa::AssurancePlan|QualifiedName]
-		//[ecore::EObject|QualifiedName]
+		//target=[Alisa::AssurancePlan|QualifiedName]
 		public Assignment getTargetAssignment_3() { return cTargetAssignment_3; }
 
-		////Alisa::AssurancePlan|QualifiedName]
-		//[ecore::EObject|QualifiedName]
-		public CrossReference getTargetEObjectCrossReference_3_0() { return cTargetEObjectCrossReference_3_0; }
+		//[Alisa::AssurancePlan|QualifiedName]
+		public CrossReference getTargetAssurancePlanCrossReference_3_0() { return cTargetAssurancePlanCrossReference_3_0; }
 
 		//QualifiedName
-		public RuleCall getTargetEObjectQualifiedNameParserRuleCall_3_0_1() { return cTargetEObjectQualifiedNameParserRuleCall_3_0_1; }
+		public RuleCall getTargetAssurancePlanQualifiedNameParserRuleCall_3_0_1() { return cTargetAssurancePlanQualifiedNameParserRuleCall_3_0_1; }
 
 		////	('instance' instance= [instance::InstanceObject|URIID])?
 		//"["
@@ -1339,8 +1335,7 @@ public class AssureGrammarAccess extends AbstractGrammarElementFinder {
 	
 	//// result for a system in the architecture hierarchy
 	//AssuranceEvidence:
-	//	"evidence" name=QualifiedName "for" target= //Alisa::AssurancePlan|QualifiedName]
-	//	[ecore::EObject|QualifiedName] //	('instance' instance= [instance::InstanceObject|URIID])?
+	//	"evidence" name=QualifiedName "for" target=[Alisa::AssurancePlan|QualifiedName] //	('instance' instance= [instance::InstanceObject|URIID])?
 	//	"[" metrics=Metrics ("message" message=STRING)? subAssuranceEvidence+=AssuranceEvidence* claimResult+=ClaimResult* "]";
 	public AssuranceEvidenceElements getAssuranceEvidenceAccess() {
 		return pAssuranceEvidence;

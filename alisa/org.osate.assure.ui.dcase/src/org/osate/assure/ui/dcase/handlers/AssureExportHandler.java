@@ -1,5 +1,6 @@
 package org.osate.assure.ui.dcase.handlers;
 
+import static org.osate.assure.util.AssureUtilExtension.getInstanceModel;
 import static org.osate.assure.util.AssureUtilExtension.recomputeAllCounts;
 import static org.osate.assure.util.AssureUtilExtension.resetToTBD;
 
@@ -55,7 +56,6 @@ import org.eclipse.xtext.ui.editor.outline.impl.EObjectNode;
 import org.eclipse.xtext.ui.editor.utils.EditorUtils;
 import org.eclipse.xtext.ui.util.ResourceUtil;
 import org.eclipse.xtext.util.concurrent.IUnitOfWork;
-import org.osate.aadl2.instance.SystemInstance;
 import org.osate.aadl2.util.OsateDebug;
 import org.osate.assure.assure.AssuranceEvidence;
 import org.osate.assure.assure.AssureResult;
@@ -174,7 +174,7 @@ public class AssureExportHandler extends AbstractHandler {
 		resetToTBD(rootCaseResult);
 		recomputeAllCounts(rootCaseResult);
 		VerifyUtilExtension.clearAllHasRunRecords();
-		AssureUtilExtension.initializeResoluteContext((SystemInstance) rootCaseResult.getInstance());
+		AssureUtilExtension.initializeResoluteContext(getInstanceModel(rootCaseResult));
 //		AssureProcessing.processCaseResult(rootCaseResult);
 //		assureProcessor.process(rootCaseResult);
 

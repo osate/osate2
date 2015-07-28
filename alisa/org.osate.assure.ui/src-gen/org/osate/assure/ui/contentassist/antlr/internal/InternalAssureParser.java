@@ -14203,13 +14203,13 @@ public class InternalAssureParser extends AbstractInternalContentAssistParser {
             // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:5077:1: ( ruleQualifiedName )
             {
             if ( state.backtracking==0 ) {
-               before(grammarAccess.getAssuranceEvidenceAccess().getTargetEObjectCrossReference_3_0()); 
+               before(grammarAccess.getAssuranceEvidenceAccess().getTargetAssurancePlanCrossReference_3_0()); 
             }
             // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:5078:1: ( ruleQualifiedName )
             // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:5079:1: ruleQualifiedName
             {
             if ( state.backtracking==0 ) {
-               before(grammarAccess.getAssuranceEvidenceAccess().getTargetEObjectQualifiedNameParserRuleCall_3_0_1()); 
+               before(grammarAccess.getAssuranceEvidenceAccess().getTargetAssurancePlanQualifiedNameParserRuleCall_3_0_1()); 
             }
             pushFollow(FOLLOW_ruleQualifiedName_in_rule__AssuranceEvidence__TargetAssignment_310114);
             ruleQualifiedName();
@@ -14217,13 +14217,13 @@ public class InternalAssureParser extends AbstractInternalContentAssistParser {
             state._fsp--;
             if (state.failed) return ;
             if ( state.backtracking==0 ) {
-               after(grammarAccess.getAssuranceEvidenceAccess().getTargetEObjectQualifiedNameParserRuleCall_3_0_1()); 
+               after(grammarAccess.getAssuranceEvidenceAccess().getTargetAssurancePlanQualifiedNameParserRuleCall_3_0_1()); 
             }
 
             }
 
             if ( state.backtracking==0 ) {
-               after(grammarAccess.getAssuranceEvidenceAccess().getTargetEObjectCrossReference_3_0()); 
+               after(grammarAccess.getAssuranceEvidenceAccess().getTargetAssurancePlanCrossReference_3_0()); 
             }
 
             }

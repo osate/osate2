@@ -1,5 +1,8 @@
 package org.osate.assure.ui.handlers;
 
+import static org.osate.assure.util.AssureUtilExtension.getInstanceModel;
+import static org.osate.assure.util.AssureUtilExtension.initializeResoluteContext;
+
 import org.eclipse.core.commands.AbstractHandler;
 import org.eclipse.core.commands.ExecutionEvent;
 import org.eclipse.core.resources.ResourcesPlugin;
@@ -21,7 +24,6 @@ import org.eclipse.xtext.ui.editor.XtextEditor;
 import org.eclipse.xtext.ui.editor.outline.impl.EObjectNode;
 import org.eclipse.xtext.ui.editor.utils.EditorUtils;
 import org.eclipse.xtext.util.concurrent.IUnitOfWork;
-import org.osate.aadl2.instance.SystemInstance;
 import org.osate.assure.assure.AssuranceEvidence;
 import org.osate.assure.assure.impl.AssuranceEvidenceImpl;
 import org.osate.assure.evaluator.IAssureProcessor;
@@ -129,8 +131,18 @@ public class AssureUpdateHandler extends AbstractHandler {
 
 		long start = System.currentTimeMillis();
 		VerifyUtilExtension.clearAllHasRunRecords();
-		AssureUtilExtension.initializeResoluteContext((SystemInstance) rootCaseResult.getInstance());
-		assureProcessor.process(rootCaseResult);
+		initializeResoluteContext(getInstanceModel(rootCaseResult));
+		AssureUtilExtension.clearAllInstanceModels();
+//		assureProcessor.process(rootCaseResult);
+		try {
+			assureProcessor.process(rootCaseResult);
+		} catch (Exception e) {
+			if (e instanceof java.lang.NoSuchMethodException) {
+
+				return Status.CANCEL_STATUS;
+			}
+			e.printStackTrace();
+		}
 
 		long stop = System.currentTimeMillis();
 		System.out.println("Evaluation time: " + (stop - start) / 1000.0 + "s");

@@ -5074,12 +5074,12 @@ rule__AssuranceEvidence__TargetAssignment_3
     }
 :
 (
-{ before(grammarAccess.getAssuranceEvidenceAccess().getTargetEObjectCrossReference_3_0()); }
+{ before(grammarAccess.getAssuranceEvidenceAccess().getTargetAssurancePlanCrossReference_3_0()); }
 (
-{ before(grammarAccess.getAssuranceEvidenceAccess().getTargetEObjectQualifiedNameParserRuleCall_3_0_1()); }
-	ruleQualifiedName{ after(grammarAccess.getAssuranceEvidenceAccess().getTargetEObjectQualifiedNameParserRuleCall_3_0_1()); }
+{ before(grammarAccess.getAssuranceEvidenceAccess().getTargetAssurancePlanQualifiedNameParserRuleCall_3_0_1()); }
+	ruleQualifiedName{ after(grammarAccess.getAssuranceEvidenceAccess().getTargetAssurancePlanQualifiedNameParserRuleCall_3_0_1()); }
 )
-{ after(grammarAccess.getAssuranceEvidenceAccess().getTargetEObjectCrossReference_3_0()); }
+{ after(grammarAccess.getAssuranceEvidenceAccess().getTargetAssurancePlanCrossReference_3_0()); }
 )
 
 ;

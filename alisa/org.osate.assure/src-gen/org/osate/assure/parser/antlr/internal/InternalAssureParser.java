@@ -246,7 +246,7 @@ public class InternalAssureParser extends AbstractInternalAntlrParser {
             }
             if ( state.backtracking==0 ) {
                
-              	        newCompositeNode(grammarAccess.getAssuranceEvidenceAccess().getTargetEObjectCrossReference_3_0()); 
+              	        newCompositeNode(grammarAccess.getAssuranceEvidenceAccess().getTargetAssurancePlanCrossReference_3_0()); 
               	    
             }
             pushFollow(FOLLOW_ruleQualifiedName_in_ruleAssuranceEvidence178);

@@ -44,7 +44,6 @@ import org.osate.assure.assure.VerificationExpr
 import org.osate.assure.assure.VerificationResultState
 import org.osate.verify.verify.RefExpr
 
-import static extension org.eclipse.xtext.EcoreUtil2.*
 import static extension org.osate.alisa.common.util.CommonUtilExtension.*
 import static extension org.osate.reqspec.util.ReqSpecUtilExtension.*
 import static extension org.osate.aadl2.instantiation.InstantiateModel.buildInstanceModelFile
@@ -83,15 +82,13 @@ class AssureUtilExtension {
 		req.targetElement?:req.targetClassifier
 	}
 
-	def static  ComponentImplementation getInstanceRoot(EObject assureObject) {
-		assureObject.enclosingAssuranceEvidence?.target
+	def static  SystemInstance getInstanceModel(VerificationResult assureObject) {
+		assureObject.enclosingAssuranceEvidence?.target?.system?.instanceModel
 	}
-		
-	def static getRequirementTargetInstance(Requirement req, ComponentInstance io) {
-		if (req.target == null) return io
-		io.findElementInstance(req.target)
+	
+	def static getInstanceModel(AssuranceEvidence ae){
+		getInstanceModel(ae.getTarget().getSystem())
 	}
-
 	
 	
 	def static VerificationMethod getMethod(VerificationResult vr){

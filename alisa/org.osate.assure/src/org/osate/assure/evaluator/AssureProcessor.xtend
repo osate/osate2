@@ -1,65 +1,48 @@
 package org.osate.assure.evaluator
 
-import com.google.inject.Inject
-
-//import com.rockwellcollins.atc.resolute.analysis.results.ClaimResult
-import org.osate.assure.assure.VerificationActivityResult
-import org.osate.assure.assure.PreconditionResult
-import org.osate.assure.assure.ElseResult
-import org.osate.assure.assure.ThenResult
-import org.osate.assure.assure.AssureResult
 import com.google.inject.ImplementedBy
-import static extension org.osate.assure.util.AssureUtilExtension.*
-import org.osate.assure.assure.ValidationResult
-import org.osate.assure.assure.AssuranceEvidence
-import org.osate.assure.assure.VerificationResult
-import org.osate.verify.verify.SupportedTypes
+import com.google.inject.Inject
 import com.rockwellcollins.atc.resolute.analysis.execution.EvaluationContext
 import com.rockwellcollins.atc.resolute.analysis.execution.ResoluteInterpreter
-import org.osate.assure.assure.AssureFactory
+import com.rockwellcollins.atc.resolute.resolute.FunctionDefinition
 import com.rockwellcollins.atc.resolute.resolute.ProveStatement
 import com.rockwellcollins.atc.resolute.resolute.ResoluteFactory
-import org.eclipse.xtext.scoping.IGlobalScopeProvider
-import com.rockwellcollins.atc.resolute.resolute.FunctionDefinition
-import org.eclipse.emf.ecore.EObject
-import org.eclipse.xtext.resource.IEObjectDescription
-import java.util.List
-import org.eclipse.emf.ecore.EClass
 import com.rockwellcollins.atc.resolute.resolute.ResolutePackage
-import org.osate.xtext.aadl2.properties.util.EMFIndexRetrieval
+import org.eclipse.emf.ecore.EObject
 import org.eclipse.emf.ecore.util.EcoreUtil
-import org.osate.aadl2.util.Aadl2Util
-import org.eclipse.emf.common.util.URI
-import java.util.ArrayList
-import org.eclipse.core.resources.IWorkspaceRoot
-import org.eclipse.core.resources.ResourcesPlugin
-import org.eclipse.core.resources.IProject
-import org.eclipse.core.resources.IProjectDescription
-import org.eclipse.core.runtime.CoreException
-import org.osate.alisa.common.scoping.CommonGlobalScopeProvider
-import org.osate.results.results.ResultReport
-import org.osate.assure.assure.ClaimResult
-import org.osate.verify.util.IVerificationMethodDispatcher
-import com.rockwellcollins.atc.resolute.analysis.values.NamedElementValue
-import com.rockwellcollins.atc.resolute.analysis.execution.ResoluteProver
-import com.rockwellcollins.atc.resolute.analysis.execution.ResoluteEvaluator
-import com.rockwellcollins.atc.resolute.analysis.values.ResoluteValue
-import com.rockwellcollins.atc.resolute.analysis.values.BoolValue
-import org.eclipse.xtext.xbase.XExpression
-import org.eclipse.xtext.xbase.XVariableDeclaration
-import org.osate.alisa.common.common.ComputeDeclaration
-import org.eclipse.xtext.xbase.compiler.XbaseCompiler
-import org.osate.verify.verify.VerificationActivity
-import org.osate.verify.verify.VerificationMethod
-import org.osate.aadl2.util.OsateDebug
 import org.eclipse.xtext.common.types.JvmFormalParameter
 import org.eclipse.xtext.common.types.JvmType
-import org.eclipse.xtext.xbase.interpreter.impl.XbaseInterpreter
-import org.eclipse.xtext.xbase.interpreter.impl.DefaultEvaluationContext
-import org.eclipse.xtext.xbase.interpreter.IEvaluationResult
-import org.eclipse.xtext.util.CancelIndicator
 import org.eclipse.xtext.naming.QualifiedName
+import org.eclipse.xtext.scoping.IGlobalScopeProvider
+import org.eclipse.xtext.util.CancelIndicator
+import org.eclipse.xtext.xbase.XVariableDeclaration
+import org.eclipse.xtext.xbase.interpreter.IEvaluationResult
+import org.eclipse.xtext.xbase.interpreter.impl.DefaultEvaluationContext
+import org.eclipse.xtext.xbase.interpreter.impl.XbaseInterpreter
+import org.osate.aadl2.ComponentImplementation
+import org.osate.aadl2.util.OsateDebug
+import org.osate.alisa.common.common.ComputeDeclaration
+import org.osate.alisa.common.scoping.CommonGlobalScopeProvider
+import org.osate.assure.assure.AssuranceEvidence
+import org.osate.assure.assure.AssureFactory
+import org.osate.assure.assure.AssureResult
+import org.osate.assure.assure.ClaimResult
+import org.osate.assure.assure.ElseResult
 import org.osate.assure.assure.ElseType
+import org.osate.assure.assure.PreconditionResult
+import org.osate.assure.assure.ThenResult
+import org.osate.assure.assure.ValidationResult
+import org.osate.assure.assure.VerificationActivityResult
+import org.osate.assure.assure.VerificationResult
+import org.osate.results.results.ResultReport
+import org.osate.verify.util.IVerificationMethodDispatcher
+import org.osate.verify.verify.SupportedTypes
+import org.osate.verify.verify.VerificationActivity
+import org.osate.verify.verify.VerificationMethod
+
+import static extension org.osate.alisa.common.util.CommonUtilExtension.*
+import static extension org.osate.assure.util.AssureUtilExtension.*
+import org.osate.aadl2.instance.InstanceObject
 
 @ImplementedBy(AssureProcessor)
 interface IAssureProcessor {
@@ -160,7 +143,12 @@ class AssureProcessor implements IAssureProcessor {
 	def void runVerificationMethod(VerificationResult verificationResult) {
 		val method = verificationResult.method;
 		var Object res = null
-		val target = verificationResult.claimSubject
+		val targetElement = verificationResult.claimSubject
+		val instance = verificationResult.instanceModel
+		var InstanceObject target = instance
+		if (!(targetElement instanceof ComponentImplementation)){
+			target = instance.findElementInstance(targetElement)?:target
+		}
 		var Object[] parameters
 		val ctx = new DefaultEvaluationContext()
 
@@ -249,8 +237,7 @@ class AssureProcessor implements IAssureProcessor {
 				case SupportedTypes.ANALYSISPLUGIN: {
 					res = dispatcher.dispatchVerificationMethod(method, target, parameters) // returning the marker or diagnostic id as string
 					if (res instanceof String) {
-						val subject = verificationResult.caseSubject
-						val errors = addMarkers(verificationResult, subject, res, method)
+						val errors = addMarkers(verificationResult, target, res, method)
 						if (errors) {
 							setToFail(verificationResult);
 						} else {
@@ -263,8 +250,7 @@ class AssureProcessor implements IAssureProcessor {
 				case SupportedTypes.RESOLUTE: {
 
 					// Resolute handling See AssureUtil for setup	
-					val si = verificationResult.caseSubject.systemInstance
-					val EvaluationContext context = new EvaluationContext(si, sets, featToConnsMap);
+					val EvaluationContext context = new EvaluationContext(instance, sets, featToConnsMap);
 					val ResoluteInterpreter interpreter = new ResoluteInterpreter(context);
 					val provecall = createWrapperProveCall(verificationResult)
 					if (provecall == null) {
