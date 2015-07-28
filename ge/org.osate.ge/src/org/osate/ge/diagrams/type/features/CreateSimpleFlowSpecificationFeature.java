@@ -40,6 +40,7 @@ import org.osate.ge.services.DiagramModificationService;
 import org.osate.ge.services.NamingService;
 import org.osate.ge.services.ShapeService;
 import org.osate.ge.services.AadlModificationService.AbstractModifier;
+import org.osate.ge.util.StringUtil;
 
 /**
  * Feature for creating a "simple" flow specification. Creates a flow source or sink via a the palette.
@@ -53,19 +54,20 @@ public class CreateSimpleFlowSpecificationFeature extends AbstractCreateFeature 
 	private final AadlFeatureService featureService;
 	private final NamingService namingService;
 	private final FlowKind flowKind;
+	private final BusinessObjectResolutionService bor;
 	
 	@Inject
 	public CreateSimpleFlowSpecificationFeature(final AadlModificationService aadlModService, final DiagramModificationService diagramModService, 
 			final ShapeService shapeService, final AadlFeatureService featureService, final NamingService namingService, final BusinessObjectResolutionService bor, 
 			final IFeatureProvider fp, final @Named("Kind") FlowKind flowKind) {
-		
-		super(fp, "Flow " + flowKind.toString().substring(0, 1).toUpperCase() + flowKind.toString().substring(1), "");
+		super(fp, "Flow " + StringUtil.camelCaseToUser(flowKind.toString()), "");
 		this.aadlModService = aadlModService;
 		this.diagramModService = diagramModService;
 		this.shapeService = shapeService;
 		this.featureService = featureService;
 		this.namingService = namingService;
 		this.flowKind = flowKind;
+		this.bor = bor;
 		if(flowKind != FlowKind.SINK && flowKind != FlowKind.SOURCE) {
 			throw new RuntimeException("Unsupported flow kind: " + flowKind);
 		}
@@ -89,8 +91,18 @@ public class CreateSimpleFlowSpecificationFeature extends AbstractCreateFeature 
 		return shapeService.getClosestBusinessObjectOfType(featureShape, ComponentType.class);
 	}
 	
-	private Context getContext(final Shape featureShape) {
-		return shapeService.getClosestBusinessObjectOfType(featureShape.getContainer(), Context.class);
+	@SuppressWarnings("unchecked")
+	public <T> T getContext(Shape s, final Class<?> ... types) {
+		for(Shape tmpShape = s.getContainer(); tmpShape != null; tmpShape = tmpShape.getContainer()) {
+			final Object tmpShapeBo = bor.getBusinessObjectForPictogramElement(tmpShape.getContainer());
+			for(Class<?>type : types) {
+				if(type.isInstance(tmpShapeBo)) {
+					return (T)tmpShapeBo;
+				}	
+			}
+		}
+		
+		return null;
 	}
   
 	@Override
@@ -103,6 +115,7 @@ public class CreateSimpleFlowSpecificationFeature extends AbstractCreateFeature 
 		}
 
 		final Object bo = getShapeType((Shape)peTargetContainer);
+		
 		// Check that the pictogram represents a feature
 		if(!(bo instanceof Feature)) {
 			return false;
@@ -154,6 +167,7 @@ public class CreateSimpleFlowSpecificationFeature extends AbstractCreateFeature 
 	@Override
 	public Object[] create(final ICreateContext context) {
     	final Shape featureShape = (Shape)((ICreateContext)context).getTargetContainer();
+    	System.err.println(featureShape + " featureShape");
 		final ComponentType ct = getComponentType(featureShape);
 		final Feature feature = (Feature) getShapeType(featureShape);
 		final String newFlowSpecName = namingService.buildUniqueIdentifier(ct, "new_flow_spec");
@@ -181,8 +195,9 @@ public class CreateSimpleFlowSpecificationFeature extends AbstractCreateFeature 
      				throw new RuntimeException("Unexpected flow kind: " + flowKind);
      			}     			
      			flowEnd.setFeature(feature);
-     			flowEnd.setContext(getContext(featureShape));     			
-
+     			if (!(feature instanceof FeatureGroup)) {
+     				flowEnd.setContext((Context) getContext(featureShape, Context.class));
+     			}
      			// Clear the no flows flag
      			ct.setNoFlows(false);
      			
