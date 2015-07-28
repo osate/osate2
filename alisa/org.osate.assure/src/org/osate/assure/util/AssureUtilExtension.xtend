@@ -79,26 +79,34 @@ class AssureUtilExtension {
 
 	def static NamedElement getClaimSubject(EObject assureObject) {
 		val req = assureObject.enclosingClaimResult.target
-		req.targetElement?:req.targetClassifier
+		req.targetElement ?: req.targetClassifier
 	}
 
-	def static  SystemInstance getInstanceModel(VerificationResult assureObject) {
-		assureObject.enclosingAssuranceEvidence?.target?.system?.instanceModel
-	}
-	
-	def static getInstanceModel(AssuranceEvidence ae){
-		getInstanceModel(ae.getTarget().getSystem())
-	}
-	
-	
-	def static VerificationMethod getMethod(VerificationResult vr){
-		switch(vr){
-			VerificationActivityResult: return vr.target.method
-			PreconditionResult: return vr.target.method 
-			ValidationResult: return vr.target.method
+	def static SystemInstance getInstanceModel(VerificationResult assureObject) {
+		switch (assureObject) {
+			VerificationActivityResult:
+				assureObject.target?.target?.instanceModel ?:
+					assureObject.enclosingAssuranceEvidence?.target?.system?.instanceModel
+			ValidationResult:
+				(assureObject.eContainer as VerificationActivityResult).target?.target?.instanceModel ?:
+					assureObject.enclosingAssuranceEvidence?.target?.system?.instanceModel
+			PreconditionResult:
+				(assureObject.eContainer as VerificationActivityResult).target?.target?.instanceModel ?:
+					assureObject.enclosingAssuranceEvidence?.target?.system?.instanceModel
 		}
 	}
 
+	def static getInstanceModel(AssuranceEvidence ae) {
+		getInstanceModel(ae.getTarget().getSystem())
+	}
+
+	def static VerificationMethod getMethod(VerificationResult vr) {
+		switch (vr) {
+			VerificationActivityResult: return vr.target.method
+			PreconditionResult: return vr.target.method
+			ValidationResult: return vr.target.method
+		}
+	}
 
 	/**
 	 * methods to process results from verification methods
@@ -110,7 +118,8 @@ class AssureUtilExtension {
 		val markersforanalysis = irsrc.findMarkers(markertype, true, IResource.DEPTH_INFINITE) // analysisMarkerType
 		val markers = markersforanalysis.filter [ IMarker m |
 			// filter on Error
-				(m.getAttribute(IMarker.SEVERITY) == IMarker.SEVERITY_ERROR)
+			(m.getAttribute(IMarker.SEVERITY) == IMarker.SEVERITY_ERROR
+			)
 		]
 		if(markers.isEmpty) return false
 //		var Iterable<IMarker> finalmarkers = null
@@ -132,8 +141,6 @@ class AssureUtilExtension {
 		return verificationActivityResult.issues.exists[ri|ri.issueType == ResultIssueType.ERROR]
 	}
 
-
-
 	def static ResultIssue addMarkerIssue(VerificationResult vr, EObject target, IMarker marker) {
 		val msg = marker.getAttribute(IMarker.MESSAGE) as String
 		switch (marker.getAttribute(IMarker.SEVERITY)) {
@@ -147,8 +154,7 @@ class AssureUtilExtension {
 		addErrorIssue(vr, target, message, null)
 	}
 
-	def static ResultIssue addErrorIssue(VerificationResult vr, EObject target, String message,
-		String issueSource) {
+	def static ResultIssue addErrorIssue(VerificationResult vr, EObject target, String message, String issueSource) {
 		val issue = AssureFactory.eINSTANCE.createResultIssue
 		issue.message = message
 		issue.issueType = ResultIssueType.ERROR;
@@ -162,8 +168,7 @@ class AssureUtilExtension {
 		addInfoIssue(vr, target, message, null)
 	}
 
-	def static ResultIssue addInfoIssue(VerificationResult vr, EObject target, String message,
-		String issueSource) {
+	def static ResultIssue addInfoIssue(VerificationResult vr, EObject target, String message, String issueSource) {
 		val issue = AssureFactory.eINSTANCE.createResultIssue
 		issue.message = message
 		issue.issueType = ResultIssueType.INFO;
@@ -177,8 +182,7 @@ class AssureUtilExtension {
 		addWarningIssue(vr, target, message, null)
 	}
 
-	def static ResultIssue addWarningIssue(VerificationResult vr, EObject target, String message,
-		String issueSource) {
+	def static ResultIssue addWarningIssue(VerificationResult vr, EObject target, String message, String issueSource) {
 		val issue = AssureFactory.eINSTANCE.createResultIssue
 		issue.message = message
 		issue.issueType = ResultIssueType.WARNING;
@@ -251,7 +255,8 @@ class AssureUtilExtension {
 
 	def static getTotalCount(AssureResult ar) {
 		val counts = ar.metrics
-		counts.timeoutCount + counts.otherCount+ counts.failCount + counts.successCount + counts.tbdCount + counts.didelseCount + counts.thenskipCount
+		counts.timeoutCount + counts.otherCount + counts.failCount + counts.successCount + counts.tbdCount +
+			counts.didelseCount + counts.thenskipCount
 	}
 
 	def static isSuccessful(AssureResult ar) {
@@ -268,22 +273,25 @@ class AssureUtilExtension {
 		val counts = ar.metrics
 		counts.failCount == 0 && counts.otherCount == 0 && counts.timeoutCount == 0 && counts.tbdCount > 0
 	}
-	
+
 	/** 
 	 * state of VerificationResult 
 	 */
-	 def static boolean isSuccess(VerificationResult vr){
-	 	vr.resultState == VerificationResultState.SUCCESS
-	 }
-	 def static boolean isOther(VerificationResult vr){
-	 	vr.resultState == VerificationResultState.OTHER
-	 }
-	 def static boolean isFailed(VerificationResult vr){
-	 	vr.resultState == VerificationResultState.FAIL
-	 }
-	 def static boolean isTimeout(VerificationResult vr){
-	 	vr.resultState == VerificationResultState.TIMEOUT
-	 }
+	def static boolean isSuccess(VerificationResult vr) {
+		vr.resultState == VerificationResultState.SUCCESS
+	}
+
+	def static boolean isOther(VerificationResult vr) {
+		vr.resultState == VerificationResultState.OTHER
+	}
+
+	def static boolean isFailed(VerificationResult vr) {
+		vr.resultState == VerificationResultState.FAIL
+	}
+
+	def static boolean isTimeout(VerificationResult vr) {
+		vr.resultState == VerificationResultState.TIMEOUT
+	}
 
 	/**
 	 * true iff none of the elements have a fail or error
@@ -291,24 +299,23 @@ class AssureUtilExtension {
 	def static boolean isSuccess(EList<VerificationExpr> vel) {
 		for (ar : vel) {
 			if(ar.noSuccess) return false
-			}
+		}
 		return true
 	}
+
 	/**
 	 * true iff none of the elements have a fail or error
 	 */
 	def static boolean isSuccessFul(EList<VerificationResult> vel) {
 		for (ar : vel) {
 			if(ar.noSuccess) return false
-			}
+		}
 		return true
 	}
-
 
 	/**
 	 * true iff at least one has a non-zero fail or unknown count
 	 */
-	
 	def static boolean isNoSuccess(EList<VerificationExpr> vel) {
 		for (ar : vel) {
 			if(ar.isNoSuccess) return true
@@ -317,7 +324,7 @@ class AssureUtilExtension {
 	}
 
 	def static boolean hasOther(EList<VerificationExpr> vel) {
-		if (vel.size == 1 && vel.head instanceof VerificationActivityResult){
+		if (vel.size == 1 && vel.head instanceof VerificationActivityResult) {
 			return (vel.head as VerificationActivityResult).isOther
 		} else {
 			return isNoSuccess(vel)
@@ -325,7 +332,7 @@ class AssureUtilExtension {
 	}
 
 	def static boolean isTimeout(EList<VerificationExpr> vel) {
-		if (vel.size == 1 && vel.head instanceof VerificationActivityResult){
+		if (vel.size == 1 && vel.head instanceof VerificationActivityResult) {
 			return (vel.head as VerificationActivityResult).isTimeout
 		} else {
 			return false
@@ -333,7 +340,7 @@ class AssureUtilExtension {
 	}
 
 	def static boolean isFailed(EList<VerificationExpr> vel) {
-		if (vel.size == 1 && vel.head instanceof VerificationActivityResult){
+		if (vel.size == 1 && vel.head instanceof VerificationActivityResult) {
 			return (vel.head as VerificationActivityResult).isFailed
 		} else {
 			return false
@@ -376,10 +383,10 @@ class AssureUtilExtension {
 	}
 
 	/**
- * interface with Resolute
- * we initialize the sets on demand. See populate function.
- * We reset the sets and maps on an evelaution run.
- */
+	 * interface with Resolute
+	 * we initialize the sets on demand. See populate function.
+	 * We reset the sets and maps on an evelaution run.
+	 */
 	static var SystemInstance systemroot
 
 	static var Map<String, SortedSet<NamedElement>> sets
@@ -400,9 +407,11 @@ class AssureUtilExtension {
 	}
 
 	def static initializeResoluteContext(SystemInstance si) {
+		if (systemroot != si) {
 		sets = null
 		featToConnsMap = null
 		systemroot = si
+		}
 	}
 
 	def private static void populateResoluteContext() {
