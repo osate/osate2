@@ -68,9 +68,8 @@ public class AssureSemanticSequencer extends AbstractDelegatingSemanticSequencer
 	/**
 	 * Constraint:
 	 *     (
-	 *         name=ID 
-	 *         target=[ComponentClassifier|AadlClassifierReference] 
-	 *         instance=[InstanceObject|URIID] 
+	 *         name=QualifiedName 
+	 *         target=[EObject|QualifiedName] 
 	 *         metrics=Metrics 
 	 *         message=STRING? 
 	 *         subAssuranceEvidence+=AssuranceEvidence* 
@@ -84,14 +83,7 @@ public class AssureSemanticSequencer extends AbstractDelegatingSemanticSequencer
 	
 	/**
 	 * Constraint:
-	 *     (
-	 *         target=[Requirement|QualifiedName] 
-	 *         instance=[InstanceObject|URIID]? 
-	 *         metrics=Metrics 
-	 *         message=STRING? 
-	 *         subClaimResult+=ClaimResult* 
-	 *         verificationActivityResult+=VerificationExpr*
-	 *     )
+	 *     (target=[Requirement|QualifiedName] metrics=Metrics message=STRING? subClaimResult+=ClaimResult* verificationActivityResult+=VerificationExpr*)
 	 */
 	protected void sequence_ClaimResult(EObject context, ClaimResult semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);

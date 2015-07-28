@@ -46,11 +46,17 @@ import org.osate.verify.verify.RefExpr
 
 import static extension org.eclipse.xtext.EcoreUtil2.*
 import static extension org.osate.alisa.common.util.CommonUtilExtension.*
+import static extension org.osate.reqspec.util.ReqSpecUtilExtension.*
+import static extension org.osate.aadl2.instantiation.InstantiateModel.buildInstanceModelFile
+
 import org.osate.assure.assure.VerificationResult
 import org.osate.verify.verify.VerificationMethod
 import java.io.StringWriter
 import java.io.PrintWriter
 import org.osate.assure.assure.ElseType
+import org.osate.aadl2.ComponentImplementation
+import org.osate.aadl2.ComponentClassifier
+import org.osate.reqspec.reqSpec.Requirement
 
 class AssureUtilExtension {
 
@@ -72,13 +78,21 @@ class AssureUtilExtension {
 		return result as ClaimResult
 	}
 
-	def static InstanceObject getClaimSubject(EObject assureObject) {
-		assureObject.enclosingClaimResult.instance ?: assureObject.caseSubject
+	def static NamedElement getClaimSubject(EObject assureObject) {
+		val req = assureObject.enclosingClaimResult.target
+		req.targetElement?:req.targetClassifier
 	}
 
-	def static InstanceObject getCaseSubject(EObject assureObject) {
-		assureObject.enclosingAssuranceEvidence?.instance
+	def static  ComponentImplementation getInstanceRoot(EObject assureObject) {
+		assureObject.enclosingAssuranceEvidence?.target
 	}
+		
+	def static getRequirementTargetInstance(Requirement req, ComponentInstance io) {
+		if (req.target == null) return io
+		io.findElementInstance(req.target)
+	}
+
+	
 	
 	def static VerificationMethod getMethod(VerificationResult vr){
 		switch(vr){
@@ -955,5 +969,28 @@ class AssureUtilExtension {
 		"(S" + elec.successCount + " F" + elec.failCount + " T" + elec.timeoutCount + " O" + elec.otherCount + " tbd" + elec.tbdCount 
 		+ " DE" + elec.didelseCount + " TS" + elec.thenskipCount+ ")"
 	}
+	
+	// manage instance model generation
+	
+	
+	static val instanceModelRecord = Collections.synchronizedMap(newHashMap)
+
+	def static void setInstanceModel(ComponentImplementation key, SystemInstance target) {
+		instanceModelRecord.put(key.name, target)
+	}
+
+	def static void clearAllInstanceModels() {
+		instanceModelRecord.clear
+	}
+	
+	def static SystemInstance getInstanceModel(ComponentImplementation cimpl){
+		var si = instanceModelRecord.get(cimpl.name) as SystemInstance
+		if (si == null){
+			si = cimpl.buildInstanceModelFile
+			setInstanceModel(cimpl,si)
+		}
+		return si	
+	}
+	
 
 }

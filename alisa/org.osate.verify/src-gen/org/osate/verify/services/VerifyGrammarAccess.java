@@ -82,13 +82,15 @@ public class VerifyGrammarAccess extends AbstractGrammarElementFinder {
 		//// Also allows for cross checking that we have covered requirements with claims
 		//VerificationPlan:
 		//	"verification" "plan" name=ID (":" title=STRING)? "for" systemRequirements=[ReqSpec::SystemRequirements] "["
-		//	(description=Description? & claim+=Claim* & rationale=Rationale? & ("assume"
-		//	verifiedAssumption+=[VerificationPlan|QualifiedName]+)? & ("issues" issues+=STRING+)?) "]";
+		//	(description=Description? // direct subsystem separately verified 
+		//	& claim+=Claim* & rationale=Rationale? & ("assume" verifiedAssumption+=[VerificationPlan|QualifiedName]+)? & ("issues"
+		//	issues+=STRING+)?) "]";
 		@Override public ParserRule getRule() { return rule; }
 
 		//"verification" "plan" name=ID (":" title=STRING)? "for" systemRequirements=[ReqSpec::SystemRequirements] "["
-		//(description=Description? & claim+=Claim* & rationale=Rationale? & ("assume"
-		//verifiedAssumption+=[VerificationPlan|QualifiedName]+)? & ("issues" issues+=STRING+)?) "]"
+		//(description=Description? // direct subsystem separately verified 
+		//& claim+=Claim* & rationale=Rationale? & ("assume" verifiedAssumption+=[VerificationPlan|QualifiedName]+)? & ("issues"
+		//issues+=STRING+)?) "]"
 		public Group getGroup() { return cGroup; }
 
 		//"verification"
@@ -130,8 +132,9 @@ public class VerifyGrammarAccess extends AbstractGrammarElementFinder {
 		//"["
 		public Keyword getLeftSquareBracketKeyword_6() { return cLeftSquareBracketKeyword_6; }
 
-		//description=Description? & claim+=Claim* & rationale=Rationale? & ("assume"
-		//verifiedAssumption+=[VerificationPlan|QualifiedName]+)? & ("issues" issues+=STRING+)?
+		//description=Description? // direct subsystem separately verified 
+		//& claim+=Claim* & rationale=Rationale? & ("assume" verifiedAssumption+=[VerificationPlan|QualifiedName]+)? & ("issues"
+		//issues+=STRING+)?
 		public UnorderedGroup getUnorderedGroup_7() { return cUnorderedGroup_7; }
 
 		//description=Description?
@@ -1569,8 +1572,9 @@ public class VerifyGrammarAccess extends AbstractGrammarElementFinder {
 	//// Also allows for cross checking that we have covered requirements with claims
 	//VerificationPlan:
 	//	"verification" "plan" name=ID (":" title=STRING)? "for" systemRequirements=[ReqSpec::SystemRequirements] "["
-	//	(description=Description? & claim+=Claim* & rationale=Rationale? & ("assume"
-	//	verifiedAssumption+=[VerificationPlan|QualifiedName]+)? & ("issues" issues+=STRING+)?) "]";
+	//	(description=Description? // direct subsystem separately verified 
+	//	& claim+=Claim* & rationale=Rationale? & ("assume" verifiedAssumption+=[VerificationPlan|QualifiedName]+)? & ("issues"
+	//	issues+=STRING+)?) "]";
 	public VerificationPlanElements getVerificationPlanAccess() {
 		return pVerificationPlan;
 	}

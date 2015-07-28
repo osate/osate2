@@ -131,13 +131,13 @@ public interface AlisaPackage extends EPackage
   int ASSURANCE_PLAN__DESCRIPTION = 3;
 
   /**
-   * The feature id for the '<em><b>Plans</b></em>' reference list.
+   * The feature id for the '<em><b>Subsystem Plans</b></em>' reference list.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    * @ordered
    */
-  int ASSURANCE_PLAN__PLANS = 4;
+  int ASSURANCE_PLAN__SUBSYSTEM_PLANS = 4;
 
   /**
    * The feature id for the '<em><b>Verified Assumption</b></em>' reference list.
@@ -408,15 +408,15 @@ public interface AlisaPackage extends EPackage
   EReference getAssurancePlan_Description();
 
   /**
-   * Returns the meta object for the reference list '{@link org.osate.alisa.workbench.alisa.AssurancePlan#getPlans <em>Plans</em>}'.
+   * Returns the meta object for the reference list '{@link org.osate.alisa.workbench.alisa.AssurancePlan#getSubsystemPlans <em>Subsystem Plans</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @return the meta object for the reference list '<em>Plans</em>'.
-   * @see org.osate.alisa.workbench.alisa.AssurancePlan#getPlans()
+   * @return the meta object for the reference list '<em>Subsystem Plans</em>'.
+   * @see org.osate.alisa.workbench.alisa.AssurancePlan#getSubsystemPlans()
    * @see #getAssurancePlan()
    * @generated
    */
-  EReference getAssurancePlan_Plans();
+  EReference getAssurancePlan_SubsystemPlans();
 
   /**
    * Returns the meta object for the reference list '{@link org.osate.alisa.workbench.alisa.AssurancePlan#getVerifiedAssumption <em>Verified Assumption</em>}'.
@@ -686,12 +686,12 @@ public interface AlisaPackage extends EPackage
     EReference ASSURANCE_PLAN__DESCRIPTION = eINSTANCE.getAssurancePlan_Description();
 
     /**
-     * The meta object literal for the '<em><b>Plans</b></em>' reference list feature.
+     * The meta object literal for the '<em><b>Subsystem Plans</b></em>' reference list feature.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @generated
      */
-    EReference ASSURANCE_PLAN__PLANS = eINSTANCE.getAssurancePlan_Plans();
+    EReference ASSURANCE_PLAN__SUBSYSTEM_PLANS = eINSTANCE.getAssurancePlan_SubsystemPlans();
 
     /**
      * The meta object literal for the '<em><b>Verified Assumption</b></em>' reference list feature.

@@ -8,8 +8,6 @@ import org.eclipse.emf.ecore.EObject;
 
 import org.osate.aadl2.ComponentImplementation;
 
-import org.osate.verify.verify.VerificationPlan;
-
 /**
  * <!-- begin-user-doc -->
  * A representation of the model object '<em><b>Assurance Plan</b></em>'.
@@ -22,7 +20,7 @@ import org.osate.verify.verify.VerificationPlan;
  *   <li>{@link org.osate.alisa.workbench.alisa.AssurancePlan#getTitle <em>Title</em>}</li>
  *   <li>{@link org.osate.alisa.workbench.alisa.AssurancePlan#getSystem <em>System</em>}</li>
  *   <li>{@link org.osate.alisa.workbench.alisa.AssurancePlan#getDescription <em>Description</em>}</li>
- *   <li>{@link org.osate.alisa.workbench.alisa.AssurancePlan#getPlans <em>Plans</em>}</li>
+ *   <li>{@link org.osate.alisa.workbench.alisa.AssurancePlan#getSubsystemPlans <em>Subsystem Plans</em>}</li>
  *   <li>{@link org.osate.alisa.workbench.alisa.AssurancePlan#getVerifiedAssumption <em>Verified Assumption</em>}</li>
  *   <li>{@link org.osate.alisa.workbench.alisa.AssurancePlan#getIssues <em>Issues</em>}</li>
  * </ul>
@@ -139,20 +137,20 @@ public interface AssurancePlan extends EObject
   void setDescription(Description value);
 
   /**
-   * Returns the value of the '<em><b>Plans</b></em>' reference list.
-   * The list contents are of type {@link org.osate.verify.verify.VerificationPlan}.
+   * Returns the value of the '<em><b>Subsystem Plans</b></em>' reference list.
+   * The list contents are of type {@link org.osate.alisa.workbench.alisa.AssurancePlan}.
    * <!-- begin-user-doc -->
    * <p>
-   * If the meaning of the '<em>Plans</em>' reference list isn't clear,
+   * If the meaning of the '<em>Subsystem Plans</em>' reference list isn't clear,
    * there really should be more of a description here...
    * </p>
    * <!-- end-user-doc -->
-   * @return the value of the '<em>Plans</em>' reference list.
-   * @see org.osate.alisa.workbench.alisa.AlisaPackage#getAssurancePlan_Plans()
+   * @return the value of the '<em>Subsystem Plans</em>' reference list.
+   * @see org.osate.alisa.workbench.alisa.AlisaPackage#getAssurancePlan_SubsystemPlans()
    * @model
    * @generated
    */
-  EList<VerificationPlan> getPlans();
+  EList<AssurancePlan> getSubsystemPlans();
 
   /**
    * Returns the value of the '<em><b>Verified Assumption</b></em>' reference list.
