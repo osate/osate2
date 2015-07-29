@@ -57,6 +57,7 @@ import org.osate.ge.dialogs.ModeTransitionTriggerSelectionDialog.ModeTransitionT
 import org.osate.ge.services.AadlModificationService;
 import org.osate.ge.services.AnchorService;
 import org.osate.ge.services.BusinessObjectResolutionService;
+import org.osate.ge.services.ColoringService;
 import org.osate.ge.services.ComponentImplementationService;
 import org.osate.ge.services.ConnectionService;
 import org.osate.ge.services.DiagramModificationService;
@@ -86,11 +87,11 @@ public class ModeTransitionPattern extends AgeConnectionPattern implements Categ
 	private final ComponentImplementationService componentImplementationService;
 	
 	@Inject
-	public ModeTransitionPattern(final GhostingService ghostingService, final StyleService styleUtil, final AnchorService anchorUtil, final NamingService namingService,
+	public ModeTransitionPattern(final ColoringService coloringService, final GhostingService ghostingService, final StyleService styleUtil, final AnchorService anchorUtil, final NamingService namingService,
 			final ConnectionService connectionHelper, final ShapeService shapeHelper, AadlModificationService aadlModService, final DiagramModificationService diagramModService,
 			final UserInputService userInputService, final SerializableReferenceService referenceService, final BusinessObjectResolutionService bor, final PropertyService propertyService,
 			final SubcomponentService subcomponentService, final ComponentImplementationService componentImplementationService) {
-		super(ghostingService, connectionHelper, bor);
+		super(coloringService, ghostingService, connectionHelper, bor);
 		this.styleService = styleUtil;
 		this.anchorService = anchorUtil;
 		this.namingService = namingService;

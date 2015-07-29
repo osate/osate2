@@ -33,6 +33,7 @@ import org.eclipse.graphiti.services.IPeCreateService;
 import org.osate.aadl2.Element;
 import org.osate.ge.diagrams.common.AadlElementWrapper;
 import org.osate.ge.services.BusinessObjectResolutionService;
+import org.osate.ge.services.ColoringService;
 import org.osate.ge.services.ConnectionService;
 import org.osate.ge.services.GhostingService;
 
@@ -42,12 +43,14 @@ import org.osate.ge.services.GhostingService;
  *
  */
 public abstract class AgeConnectionPattern extends AbstractConnectionPattern implements IConnectionPattern, ICustomUndoablePattern, IUpdate, IDelete {
+	private final ColoringService coloringService;
 	private final GhostingService ghostingService;
 	protected final ConnectionService connectionService;
 	private final BusinessObjectResolutionService bor;
 	
 	@Inject
-	public AgeConnectionPattern(final GhostingService ghostingService, final ConnectionService connectionService, final BusinessObjectResolutionService bor) {
+	public AgeConnectionPattern(final ColoringService coloringService, final GhostingService ghostingService, final ConnectionService connectionService, final BusinessObjectResolutionService bor) {
+		this.coloringService = coloringService;
 		this.ghostingService = ghostingService;
 		this.connectionService = connectionService;
 		this.bor = bor;
@@ -129,6 +132,7 @@ public abstract class AgeConnectionPattern extends AbstractConnectionPattern imp
  
         createGraphicsAlgorithm(connection);
         createDecorators(connection);
+        coloringService.applyColoring(connection);
         onAfterRefresh(connection);
         
 		return connection;
@@ -162,6 +166,7 @@ public abstract class AgeConnectionPattern extends AbstractConnectionPattern imp
 		
 			createGraphicsAlgorithmOnUpdate(connection);
 			createDecorators(connection);
+			coloringService.applyColoring(connection);
 			onAfterRefresh(connection);
 		}
 		

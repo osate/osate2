@@ -29,6 +29,8 @@ public class DefaultPropertyService implements PropertyService {
 	private static final String IS_UNSELECTABLE_KEY = "is_unselectable";
 	private static final String IS_TRANSIENT_KEY = "is_transient";
 	private static final String IS_BACKGROUND_KEY = "is_background";
+	private static final String IS_COLORING_CONTAINER_KEY = "is_coloring_container";
+	private static final String IS_COLORING_CHILD_KEY = "is_coloring_child";
 	private static final String BINDING_TYPE_KEY = "binding_type";
 	private static final String SHOW_BINDING_TYPE_KEY_BASE = "show_binding_type";
 
@@ -223,6 +225,30 @@ public class DefaultPropertyService implements PropertyService {
 	public void setIsBackground(PictogramElement pe, boolean value) {
 		Graphiti.getPeService().setPropertyValue(pe, IS_BACKGROUND_KEY, value ? "true" : "false");
 	}
+	
+	// Coloring
+	
+	@Override
+	public boolean isColoringContainer(PictogramElement pe) {
+		return "true".equals(Graphiti.getPeService().getPropertyValue(pe, IS_COLORING_CONTAINER_KEY));
+	}
+	
+	@Override
+	public void setIsColoringContainer(PictogramElement pe, boolean value) {
+		Graphiti.getPeService().setPropertyValue(pe, IS_COLORING_CONTAINER_KEY, value ? "true" : "false");
+	}
+    
+	@Override
+	public boolean isColoringChild(PictogramElement pe) {
+		return "true".equals(Graphiti.getPeService().getPropertyValue(pe, IS_COLORING_CHILD_KEY));
+		
+	}
+	
+	@Override
+	public void setIsColoringChild(PictogramElement pe, boolean value) {
+		Graphiti.getPeService().setPropertyValue(pe, IS_COLORING_CHILD_KEY, value ? "true" : "false");
+	}
+    
 	
 	// Bindings
 	@Override

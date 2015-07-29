@@ -30,7 +30,7 @@ import org.osate.ge.services.DiagramService;
 import org.osate.ge.services.GhostingService;
 import org.osate.ge.services.GraphicsAlgorithmCreationService;
 import org.osate.ge.services.GraphicsAlgorithmManipulationService;
-import org.osate.ge.services.HighlightingService;
+import org.osate.ge.services.ColoringService;
 import org.osate.ge.services.LabelService;
 import org.osate.ge.services.LayoutService;
 import org.osate.ge.services.NamingService;
@@ -43,6 +43,8 @@ import org.osate.ge.services.ShapeService;
 import org.osate.ge.services.StyleProviderService;
 import org.osate.ge.services.StyleService;
 import org.osate.ge.services.SubcomponentService;
+import org.osate.ge.services.ToolService;
+import org.osate.ge.services.UiService;
 import org.osate.ge.services.UserInputService;
 import org.osate.ge.services.impl.DefaultAadlArrayService;
 import org.osate.ge.services.impl.DefaultAadlFeatureService;
@@ -57,7 +59,7 @@ import org.osate.ge.services.impl.DefaultDiagramModificationService;
 import org.osate.ge.services.impl.DefaultGhostingService;
 import org.osate.ge.services.impl.DefaultGraphicsAlgorithmCreationService;
 import org.osate.ge.services.impl.DefaultGraphicsAlgorithmManipulationService;
-import org.osate.ge.services.impl.DefaultHighlightingService;
+import org.osate.ge.services.impl.DefaultColoringService;
 import org.osate.ge.services.impl.DefaultLabelService;
 import org.osate.ge.services.impl.DefaultLayoutService;
 import org.osate.ge.services.impl.DefaultNamingService;
@@ -69,6 +71,7 @@ import org.osate.ge.services.impl.DefaultShapeCreationService;
 import org.osate.ge.services.impl.DefaultShapeService;
 import org.osate.ge.services.impl.DefaultStyleService;
 import org.osate.ge.services.impl.DefaultSubcomponentService;
+import org.osate.ge.services.impl.DefaultUiService;
 import org.osate.ge.services.impl.DefaultUserInputService;
 import org.osate.ge.ui.util.impl.DefaultGhostPurger;
 import org.osgi.framework.Bundle;
@@ -86,6 +89,8 @@ public class AgeDiagramTypeProvider extends AbstractDiagramTypeProvider {
 	
 	private IEclipseContext createEclipseContext(final IFeatureProvider fp) {
 		// Create objects for the context
+		final ToolService toolService = (ToolService)PlatformUI.getWorkbench().getActiveWorkbenchWindow().getService(ToolService.class);
+		final UiService uiService = new DefaultUiService(this);
 		final CachingService cachingService = new DefaultCachingService();
 		final SerializableReferenceService serializableReferenceService = new DefaultSerializableReferenceService();
 		final BusinessObjectResolutionService bor = new DefaultBusinessObjectResolutionService(fp);
@@ -113,7 +118,7 @@ public class AgeDiagramTypeProvider extends AbstractDiagramTypeProvider {
 		final DefaultShapeCreationService shapeCreationService = new DefaultShapeCreationService(shapeHelper, propertyUtil, layoutService, fp);		
 		final DefaultConnectionCreationService connectionCreationService = new DefaultConnectionCreationService(connectionService, fp);
 		final DefaultGraphicsAlgorithmCreationService graphicsAlgorithmCreator = new DefaultGraphicsAlgorithmCreationService(styleUtil, featureService, subcomponentService, graphicsAlgorithmUtil);		
-		final DefaultHighlightingService highlightingHelper = new DefaultHighlightingService(propertyUtil, styleUtil, bor, fp);		
+		final DefaultColoringService highlightingHelper = new DefaultColoringService(shapeHelper, propertyUtil, styleUtil, bor, fp);		
 		final DefaultLabelService labelService = new DefaultLabelService(propertyUtil, graphicsAlgorithmCreator, fp);
 		
 		// Create the eclipse context
@@ -123,6 +128,8 @@ public class AgeDiagramTypeProvider extends AbstractDiagramTypeProvider {
 		// Populate the context.
 		context.set(IDiagramTypeProvider.class, this);
 		context.set(IFeatureProvider.class, fp);
+		context.set(ToolService.class, toolService);
+		context.set(UiService.class, uiService);
 		context.set(CachingService.class, cachingService);
 		context.set(SerializableReferenceService.class, serializableReferenceService);
 		context.set(BusinessObjectResolutionService.class, bor);
@@ -149,7 +156,7 @@ public class AgeDiagramTypeProvider extends AbstractDiagramTypeProvider {
 		context.set(ConnectionService.class, connectionService);
 		context.set(ConnectionCreationService.class, connectionCreationService);
 		context.set(GraphicsAlgorithmCreationService.class, graphicsAlgorithmCreator);
-		context.set(HighlightingService.class, highlightingHelper);
+		context.set(ColoringService.class, highlightingHelper);
 		context.set(LabelService.class, labelService);
 		
 		return context;

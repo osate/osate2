@@ -88,6 +88,15 @@ public interface PropertyService {
 	boolean isBackground(PictogramElement pe);
 	void setIsBackground(PictogramElement pe, boolean value);
 	
+	// Coloring
+	// A coloring container is a shape that is not colored itself but whose children which are marked as coloring children should be colored. Useful in cases where the selected
+	// shape has an invisible graphical algorithm but is composed of child shapes
+	boolean isColoringContainer(PictogramElement pe);
+    void setIsColoringContainer(PictogramElement pe, boolean value);
+    
+    boolean isColoringChild(PictogramElement pe);
+    void setIsColoringChild(PictogramElement pe, boolean value);
+    
 	// Bindings
 	BindingType getBindingType(Connection c);
 	void setBindingType(Connection c, BindingType value);
