@@ -213,12 +213,8 @@ public class PropertyUtils {
 	 *             value.
 	 */
 	public static String getStringValue(final NamedElement ph, final Property pd) {
-		try {
-			final PropertyExpression pv = getSimplePropertyValue(ph, pd);
-			return ((StringLiteral) pv).getValue();
-		} catch (PropertyLookupException e) {
-			return "";
-		}
+		final PropertyExpression pv = getSimplePropertyValue(ph, pd);
+		return ((StringLiteral) pv).getValue();
 	}
 
 	public static PropertyExpression getRecordFieldValue(final RecordValue rv, final String fieldName) {
