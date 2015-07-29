@@ -753,7 +753,7 @@ public class FeaturePattern extends AgeLeafShapePattern implements Categorized {
 	
 	@Override
 	public String getCreateImageId() { 
-		return AgeImageProvider.getImage(featureType);
+		return AgeImageProvider.getImage(featureType.getName());
 	}
 	
 	@Override

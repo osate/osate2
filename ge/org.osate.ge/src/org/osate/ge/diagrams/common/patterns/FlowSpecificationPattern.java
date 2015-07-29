@@ -27,8 +27,6 @@ import org.eclipse.graphiti.mm.pictograms.Shape;
 import org.eclipse.graphiti.services.Graphiti;
 import org.eclipse.graphiti.services.IGaService;
 import org.eclipse.graphiti.services.IPeCreateService;
-import org.osate.aadl2.Aadl2Factory;
-import org.osate.aadl2.Aadl2Package;
 import org.osate.aadl2.AbstractFeature;
 import org.osate.aadl2.ComponentClassifier;
 import org.osate.aadl2.ComponentType;
@@ -276,8 +274,7 @@ public class FlowSpecificationPattern extends AgeConnectionPattern implements Ca
 	// This pattern only handles the creation of flow paths. Flow sources and flow sinks are handled by features via context menus.
 	@Override
 	public String getCreateImageId(){
-		final Aadl2Package p = Aadl2Factory.eINSTANCE.getAadl2Package();
-		return AgeImageProvider.getImage(p.getFlowSpecification());
+		return AgeImageProvider.getImage("FlowPath");
 	}
 	
 	@Override
