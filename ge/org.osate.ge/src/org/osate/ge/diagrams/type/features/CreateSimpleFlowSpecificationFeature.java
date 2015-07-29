@@ -167,7 +167,6 @@ public class CreateSimpleFlowSpecificationFeature extends AbstractCreateFeature 
 	@Override
 	public Object[] create(final ICreateContext context) {
     	final Shape featureShape = (Shape)((ICreateContext)context).getTargetContainer();
-    	System.err.println(featureShape + " featureShape");
 		final ComponentType ct = getComponentType(featureShape);
 		final Feature feature = (Feature) getShapeType(featureShape);
 		final String newFlowSpecName = namingService.buildUniqueIdentifier(ct, "new_flow_spec");
