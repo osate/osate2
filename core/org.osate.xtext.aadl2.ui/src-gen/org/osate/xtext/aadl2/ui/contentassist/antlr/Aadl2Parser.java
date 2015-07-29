@@ -2662,9 +2662,9 @@ public class Aadl2Parser extends AbstractContentAssistParser {
 					put(grammarAccess.getUnnamedIntegerTypeAccess().getReferencedUnitsTypeAssignment_3_1_1(), "rule__UnnamedIntegerType__ReferencedUnitsTypeAssignment_3_1_1");
 					put(grammarAccess.getRangeTypeAccess().getNameAssignment_0(), "rule__RangeType__NameAssignment_0");
 					put(grammarAccess.getRangeTypeAccess().getOwnedNumberTypeAssignment_5_0(), "rule__RangeType__OwnedNumberTypeAssignment_5_0");
-					put(grammarAccess.getRangeTypeAccess().getNumberTypeAssignment_5_1(), "rule__RangeType__NumberTypeAssignment_5_1");
+					put(grammarAccess.getRangeTypeAccess().getReferencedNumberTypeAssignment_5_1(), "rule__RangeType__ReferencedNumberTypeAssignment_5_1");
 					put(grammarAccess.getUnnamedRangeTypeAccess().getOwnedNumberTypeAssignment_3_0(), "rule__UnnamedRangeType__OwnedNumberTypeAssignment_3_0");
-					put(grammarAccess.getUnnamedRangeTypeAccess().getNumberTypeAssignment_3_1(), "rule__UnnamedRangeType__NumberTypeAssignment_3_1");
+					put(grammarAccess.getUnnamedRangeTypeAccess().getReferencedNumberTypeAssignment_3_1(), "rule__UnnamedRangeType__ReferencedNumberTypeAssignment_3_1");
 					put(grammarAccess.getClassifierTypeAccess().getNameAssignment_0(), "rule__ClassifierType__NameAssignment_0");
 					put(grammarAccess.getClassifierTypeAccess().getClassifierReferenceAssignment_4_1(), "rule__ClassifierType__ClassifierReferenceAssignment_4_1");
 					put(grammarAccess.getClassifierTypeAccess().getClassifierReferenceAssignment_4_2_1(), "rule__ClassifierType__ClassifierReferenceAssignment_4_2_1");
