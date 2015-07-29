@@ -45,6 +45,7 @@ import static extension org.osate.assure.util.AssureUtilExtension.*
 import org.osate.aadl2.instance.InstanceObject
 import org.osate.assure.util.AssureUtilExtension
 import static org.osate.assure.util.AssureUtilExtension.getInstanceModel
+import org.osate.assure.assure.VerificationExecutionState
 
 @ImplementedBy(AssureProcessor)
 interface IAssureProcessor {
@@ -80,6 +81,7 @@ class AssureProcessor implements IAssureProcessor {
 	}
 
 	def void doProcess(VerificationActivityResult vaResult) {
+		if (vaResult.executionState != VerificationExecutionState.TODO) return;
 		if (vaResult.conditionResult != null) {
 			vaResult.conditionResult.process
 			if (vaResult.conditionResult instanceof PreconditionResult && !vaResult.conditionResult.isSuccess) {
