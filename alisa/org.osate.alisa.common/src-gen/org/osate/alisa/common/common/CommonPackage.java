@@ -317,6 +317,70 @@ public interface CommonPackage extends EPackage
   int IMAGE_REFERENCE_FEATURE_COUNT = 1;
 
   /**
+   * The meta object id for the '{@link org.osate.alisa.common.common.impl.PropertyConsistentVariableDeclarationImpl <em>Property Consistent Variable Declaration</em>}' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see org.osate.alisa.common.common.impl.PropertyConsistentVariableDeclarationImpl
+   * @see org.osate.alisa.common.common.impl.CommonPackageImpl#getPropertyConsistentVariableDeclaration()
+   * @generated
+   */
+  int PROPERTY_CONSISTENT_VARIABLE_DECLARATION = 6;
+
+  /**
+   * The feature id for the '<em><b>Type</b></em>' containment reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int PROPERTY_CONSISTENT_VARIABLE_DECLARATION__TYPE = XbasePackage.XVARIABLE_DECLARATION__TYPE;
+
+  /**
+   * The feature id for the '<em><b>Name</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int PROPERTY_CONSISTENT_VARIABLE_DECLARATION__NAME = XbasePackage.XVARIABLE_DECLARATION__NAME;
+
+  /**
+   * The feature id for the '<em><b>Right</b></em>' containment reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int PROPERTY_CONSISTENT_VARIABLE_DECLARATION__RIGHT = XbasePackage.XVARIABLE_DECLARATION__RIGHT;
+
+  /**
+   * The feature id for the '<em><b>Writeable</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int PROPERTY_CONSISTENT_VARIABLE_DECLARATION__WRITEABLE = XbasePackage.XVARIABLE_DECLARATION__WRITEABLE;
+
+  /**
+   * The feature id for the '<em><b>Property</b></em>' reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int PROPERTY_CONSISTENT_VARIABLE_DECLARATION__PROPERTY = XbasePackage.XVARIABLE_DECLARATION_FEATURE_COUNT + 0;
+
+  /**
+   * The number of structural features of the '<em>Property Consistent Variable Declaration</em>' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int PROPERTY_CONSISTENT_VARIABLE_DECLARATION_FEATURE_COUNT = XbasePackage.XVARIABLE_DECLARATION_FEATURE_COUNT + 1;
+
+  /**
    * The meta object id for the '{@link org.osate.alisa.common.common.impl.ComputeDeclarationImpl <em>Compute Declaration</em>}' class.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -324,7 +388,7 @@ public interface CommonPackage extends EPackage
    * @see org.osate.alisa.common.common.impl.CommonPackageImpl#getComputeDeclaration()
    * @generated
    */
-  int COMPUTE_DECLARATION = 6;
+  int COMPUTE_DECLARATION = 7;
 
   /**
    * The feature id for the '<em><b>Type</b></em>' containment reference.
@@ -361,7 +425,7 @@ public interface CommonPackage extends EPackage
    * @see org.osate.alisa.common.common.impl.CommonPackageImpl#getAPropertyReference()
    * @generated
    */
-  int APROPERTY_REFERENCE = 7;
+  int APROPERTY_REFERENCE = 8;
 
   /**
    * The feature id for the '<em><b>Property</b></em>' reference.
@@ -389,7 +453,7 @@ public interface CommonPackage extends EPackage
    * @see org.osate.alisa.common.common.impl.CommonPackageImpl#getXNumberLiteralUnit()
    * @generated
    */
-  int XNUMBER_LITERAL_UNIT = 8;
+  int XNUMBER_LITERAL_UNIT = 9;
 
   /**
    * The feature id for the '<em><b>Value</b></em>' attribute.
@@ -654,6 +718,27 @@ public interface CommonPackage extends EPackage
    * @generated
    */
   EAttribute getImageReference_Imgfile();
+
+  /**
+   * Returns the meta object for class '{@link org.osate.alisa.common.common.PropertyConsistentVariableDeclaration <em>Property Consistent Variable Declaration</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for class '<em>Property Consistent Variable Declaration</em>'.
+   * @see org.osate.alisa.common.common.PropertyConsistentVariableDeclaration
+   * @generated
+   */
+  EClass getPropertyConsistentVariableDeclaration();
+
+  /**
+   * Returns the meta object for the reference '{@link org.osate.alisa.common.common.PropertyConsistentVariableDeclaration#getProperty <em>Property</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the reference '<em>Property</em>'.
+   * @see org.osate.alisa.common.common.PropertyConsistentVariableDeclaration#getProperty()
+   * @see #getPropertyConsistentVariableDeclaration()
+   * @generated
+   */
+  EReference getPropertyConsistentVariableDeclaration_Property();
 
   /**
    * Returns the meta object for class '{@link org.osate.alisa.common.common.ComputeDeclaration <em>Compute Declaration</em>}'.
@@ -939,6 +1024,24 @@ public interface CommonPackage extends EPackage
      * @generated
      */
     EAttribute IMAGE_REFERENCE__IMGFILE = eINSTANCE.getImageReference_Imgfile();
+
+    /**
+     * The meta object literal for the '{@link org.osate.alisa.common.common.impl.PropertyConsistentVariableDeclarationImpl <em>Property Consistent Variable Declaration</em>}' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see org.osate.alisa.common.common.impl.PropertyConsistentVariableDeclarationImpl
+     * @see org.osate.alisa.common.common.impl.CommonPackageImpl#getPropertyConsistentVariableDeclaration()
+     * @generated
+     */
+    EClass PROPERTY_CONSISTENT_VARIABLE_DECLARATION = eINSTANCE.getPropertyConsistentVariableDeclaration();
+
+    /**
+     * The meta object literal for the '<em><b>Property</b></em>' reference feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EReference PROPERTY_CONSISTENT_VARIABLE_DECLARATION__PROPERTY = eINSTANCE.getPropertyConsistentVariableDeclaration_Property();
 
     /**
      * The meta object literal for the '{@link org.osate.alisa.common.common.impl.ComputeDeclarationImpl <em>Compute Declaration</em>}' class.

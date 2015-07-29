@@ -77,6 +77,15 @@ public interface CommonFactory extends EFactory
   ImageReference createImageReference();
 
   /**
+   * Returns a new object of class '<em>Property Consistent Variable Declaration</em>'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return a new object of class '<em>Property Consistent Variable Declaration</em>'.
+   * @generated
+   */
+  PropertyConsistentVariableDeclaration createPropertyConsistentVariableDeclaration();
+
+  /**
    * Returns a new object of class '<em>Compute Declaration</em>'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->

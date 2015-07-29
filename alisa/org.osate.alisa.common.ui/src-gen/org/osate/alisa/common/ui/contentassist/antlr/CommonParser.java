@@ -94,6 +94,7 @@ public class CommonParser extends AbstractContentAssistParser {
 					put(grammarAccess.getXValDeclarationAccess().getGroup_1(), "rule__XValDeclaration__Group_1__0");
 					put(grammarAccess.getXValDeclarationAccess().getGroup_1_1_0(), "rule__XValDeclaration__Group_1_1_0__0");
 					put(grammarAccess.getXValDeclarationAccess().getGroup_1_1_0_0(), "rule__XValDeclaration__Group_1_1_0_0__0");
+					put(grammarAccess.getXValDeclarationAccess().getGroup_2(), "rule__XValDeclaration__Group_2__0");
 					put(grammarAccess.getComputeDeclarationAccess().getGroup(), "rule__ComputeDeclaration__Group__0");
 					put(grammarAccess.getComputeDeclarationAccess().getGroup_1(), "rule__ComputeDeclaration__Group_1__0");
 					put(grammarAccess.getComputeDeclarationAccess().getGroup_1_1_0(), "rule__ComputeDeclaration__Group_1_1_0__0");
@@ -305,6 +306,7 @@ public class CommonParser extends AbstractContentAssistParser {
 					put(grammarAccess.getXValDeclarationAccess().getNameAssignment_1_1_0_0_1(), "rule__XValDeclaration__NameAssignment_1_1_0_0_1");
 					put(grammarAccess.getXValDeclarationAccess().getNameAssignment_1_1_1(), "rule__XValDeclaration__NameAssignment_1_1_1");
 					put(grammarAccess.getXValDeclarationAccess().getRightAssignment_1_3(), "rule__XValDeclaration__RightAssignment_1_3");
+					put(grammarAccess.getXValDeclarationAccess().getPropertyAssignment_2_1(), "rule__XValDeclaration__PropertyAssignment_2_1");
 					put(grammarAccess.getComputeDeclarationAccess().getTypeAssignment_1_1_0_0_0(), "rule__ComputeDeclaration__TypeAssignment_1_1_0_0_0");
 					put(grammarAccess.getComputeDeclarationAccess().getNameAssignment_1_1_0_0_1(), "rule__ComputeDeclaration__NameAssignment_1_1_0_0_1");
 					put(grammarAccess.getComputeDeclarationAccess().getNameAssignment_1_1_1(), "rule__ComputeDeclaration__NameAssignment_1_1_1");

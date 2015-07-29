@@ -260,7 +260,7 @@ public class CommonGrammarAccess extends AbstractGrammarElementFinder {
 	public class XValDeclarationElements extends AbstractParserRuleElementFinder {
 		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "XValDeclaration");
 		private final Group cGroup = (Group)rule.eContents().get(1);
-		private final Action cXVariableDeclarationAction_0 = (Action)cGroup.eContents().get(0);
+		private final Action cPropertyConsistentVariableDeclarationAction_0 = (Action)cGroup.eContents().get(0);
 		private final Group cGroup_1 = (Group)cGroup.eContents().get(1);
 		private final Keyword cValKeyword_1_0 = (Keyword)cGroup_1.eContents().get(0);
 		private final Alternatives cAlternatives_1_1 = (Alternatives)cGroup_1.eContents().get(1);
@@ -277,19 +277,24 @@ public class CommonGrammarAccess extends AbstractGrammarElementFinder {
 		private final Alternatives cRightAlternatives_1_3_0 = (Alternatives)cRightAssignment_1_3.eContents().get(0);
 		private final RuleCall cRightAPropertyReferenceParserRuleCall_1_3_0_0 = (RuleCall)cRightAlternatives_1_3_0.eContents().get(0);
 		private final RuleCall cRightXExpressionParserRuleCall_1_3_0_1 = (RuleCall)cRightAlternatives_1_3_0.eContents().get(1);
+		private final Group cGroup_2 = (Group)cGroup.eContents().get(2);
+		private final Keyword cAsKeyword_2_0 = (Keyword)cGroup_2.eContents().get(0);
+		private final Assignment cPropertyAssignment_2_1 = (Assignment)cGroup_2.eContents().get(1);
+		private final CrossReference cPropertyPropertyCrossReference_2_1_0 = (CrossReference)cPropertyAssignment_2_1.eContents().get(0);
+		private final RuleCall cPropertyPropertyAADLPROPERTYREFERENCEParserRuleCall_2_1_0_1 = (RuleCall)cPropertyPropertyCrossReference_2_1_0.eContents().get(1);
 		
 		//// New rule for val only
-		//XValDeclaration returns xbase::XExpression:
-		//	{xbase::XVariableDeclaration} ("val" (=> (type=JvmTypeReference name=ID) | name=ID) "=" right=(APropertyReference |
-		//	XExpression));
+		//XValDeclaration returns xbase::XVariableDeclaration:
+		//	{PropertyConsistentVariableDeclaration} ("val" (=> (type=JvmTypeReference name=ID) | name=ID) "="
+		//	right=(APropertyReference | XExpression)) ("as" property=[aadl2::Property|AADLPROPERTYREFERENCE])?;
 		@Override public ParserRule getRule() { return rule; }
 
-		//{xbase::XVariableDeclaration} ("val" (=> (type=JvmTypeReference name=ID) | name=ID) "=" right=(APropertyReference |
-		//XExpression))
+		//{PropertyConsistentVariableDeclaration} ("val" (=> (type=JvmTypeReference name=ID) | name=ID) "="
+		//right=(APropertyReference | XExpression)) ("as" property=[aadl2::Property|AADLPROPERTYREFERENCE])?
 		public Group getGroup() { return cGroup; }
 
-		//{xbase::XVariableDeclaration}
-		public Action getXVariableDeclarationAction_0() { return cXVariableDeclarationAction_0; }
+		//{PropertyConsistentVariableDeclaration}
+		public Action getPropertyConsistentVariableDeclarationAction_0() { return cPropertyConsistentVariableDeclarationAction_0; }
 
 		//"val" (=> (type=JvmTypeReference name=ID) | name=ID) "=" right=(APropertyReference | XExpression)
 		public Group getGroup_1() { return cGroup_1; }
@@ -338,6 +343,21 @@ public class CommonGrammarAccess extends AbstractGrammarElementFinder {
 
 		//XExpression
 		public RuleCall getRightXExpressionParserRuleCall_1_3_0_1() { return cRightXExpressionParserRuleCall_1_3_0_1; }
+
+		//("as" property=[aadl2::Property|AADLPROPERTYREFERENCE])?
+		public Group getGroup_2() { return cGroup_2; }
+
+		//"as"
+		public Keyword getAsKeyword_2_0() { return cAsKeyword_2_0; }
+
+		//property=[aadl2::Property|AADLPROPERTYREFERENCE]
+		public Assignment getPropertyAssignment_2_1() { return cPropertyAssignment_2_1; }
+
+		//[aadl2::Property|AADLPROPERTYREFERENCE]
+		public CrossReference getPropertyPropertyCrossReference_2_1_0() { return cPropertyPropertyCrossReference_2_1_0; }
+
+		//AADLPROPERTYREFERENCE
+		public RuleCall getPropertyPropertyAADLPROPERTYREFERENCEParserRuleCall_2_1_0_1() { return cPropertyPropertyAADLPROPERTYREFERENCEParserRuleCall_2_1_0_1; }
 	}
 
 	public class ComputeDeclarationElements extends AbstractParserRuleElementFinder {
@@ -775,9 +795,9 @@ public class CommonGrammarAccess extends AbstractGrammarElementFinder {
 	}
 
 	//// New rule for val only
-	//XValDeclaration returns xbase::XExpression:
-	//	{xbase::XVariableDeclaration} ("val" (=> (type=JvmTypeReference name=ID) | name=ID) "=" right=(APropertyReference |
-	//	XExpression));
+	//XValDeclaration returns xbase::XVariableDeclaration:
+	//	{PropertyConsistentVariableDeclaration} ("val" (=> (type=JvmTypeReference name=ID) | name=ID) "="
+	//	right=(APropertyReference | XExpression)) ("as" property=[aadl2::Property|AADLPROPERTYREFERENCE])?;
 	public XValDeclarationElements getXValDeclarationAccess() {
 		return pXValDeclaration;
 	}
