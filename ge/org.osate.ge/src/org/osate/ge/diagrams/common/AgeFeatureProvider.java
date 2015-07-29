@@ -17,6 +17,7 @@ import org.eclipse.emf.ecore.EClass;
 import org.eclipse.graphiti.dt.IDiagramTypeProvider;
 import org.eclipse.graphiti.features.IAddBendpointFeature;
 import org.eclipse.graphiti.features.ICreateConnectionFeature;
+import org.eclipse.graphiti.features.ICreateFeature;
 import org.eclipse.graphiti.features.IDeleteFeature;
 import org.eclipse.graphiti.features.IDirectEditingFeature;
 import org.eclipse.graphiti.features.IMoveBendpointFeature;
@@ -139,7 +140,6 @@ public class AgeFeatureProvider extends DefaultFeatureProviderWithPatterns {
 		addConnectionPattern(make(FlowSpecificationPattern.class));
 		addPattern(make(ModePattern.class));
 		addConnectionPattern(make(ModeTransitionPattern.class));
-		
 		// Package
 		addConnectionPattern(make(PackageGeneralizationPattern.class));
 		
@@ -155,7 +155,7 @@ public class AgeFeatureProvider extends DefaultFeatureProviderWithPatterns {
 		addPattern(make(SubprogramCallPattern.class));
 		addConnectionPattern(make(SubprogramCallOrderPattern.class));
 	}
-	
+
 	private IEclipseContext getContext() {
 		return context;
 	}
@@ -275,15 +275,15 @@ public class AgeFeatureProvider extends DefaultFeatureProviderWithPatterns {
 		// Type
 		features.add(make(RefineFeatureFeature.class));
 		features.add(make(RefineFlowSpecificationFeature.class));
+		
 		features.add(createSetFeatureGroupInverseFeature(true));
 		features.add(createSetFeatureGroupInverseFeature(false));
 		features.add(createSetFeatureDirectionFeature(DirectionType.IN));
 		features.add(createSetFeatureDirectionFeature(DirectionType.OUT));
 		features.add(createSetFeatureDirectionFeature(DirectionType.IN_OUT));		
 		features.add(createSetFeatureKindFeature(AccessType.PROVIDES));
-		features.add(createSetFeatureKindFeature(AccessType.REQUIRES));		
-		features.add(createCreateSimpleFlowSpecificationFeature(FlowKind.SOURCE));
-		features.add(createCreateSimpleFlowSpecificationFeature(FlowKind.SINK));
+		features.add(createSetFeatureKindFeature(AccessType.REQUIRES));
+		
 		
 		// Subprogram Call
 		features.add(make(MoveSubprogramCallUpFeature.class));
@@ -368,7 +368,7 @@ public class AgeFeatureProvider extends DefaultFeatureProviderWithPatterns {
 			this.addPattern(createFeaturePattern(featureType));	
 		}
 	}
-	
+
 	@Override
 	protected IDirectEditingFeature getDirectEditingFeatureAdditional(final IDirectEditingContext context) {
 		final BusinessObjectResolutionService bor = getContext().get(BusinessObjectResolutionService.class);
@@ -384,6 +384,24 @@ public class AgeFeatureProvider extends DefaultFeatureProviderWithPatterns {
 		}
 
 		return super.getDirectEditingFeatureAdditional(context);
+	}
+	
+	//Check if FlowSpecification is applicable then add create features if true
+	@Override
+	protected ICreateFeature[] getCreateFeaturesAdditional() {
+		for (final IConnectionPattern cp : getConnectionPatterns()) {
+			if (cp instanceof FlowSpecificationPattern) {
+				if (((FlowSpecificationPattern) cp).isPaletteApplicable()) {
+					return new ICreateFeature[] {
+						createCreateSimpleFlowSpecificationFeature(FlowKind.SOURCE),
+						createCreateSimpleFlowSpecificationFeature(FlowKind.SINK)
+					};
+				} else {
+					return new ICreateFeature[0];
+				}
+			}
+		}
+		return new ICreateFeature[0];
 	}
 	
 	/**
@@ -564,7 +582,7 @@ public class AgeFeatureProvider extends DefaultFeatureProviderWithPatterns {
 		addPattern(createPackageClassifierPattern(p.getVirtualBusType()));
 		addPattern(createPackageClassifierPattern(p.getVirtualBusImplementation()));
 		addPattern(createPackageClassifierPattern(p.getVirtualProcessorType()));
-		addPattern(createPackageClassifierPattern(p.getVirtualProcessorImplementation()));	
+		addPattern(createPackageClassifierPattern(p.getVirtualProcessorImplementation()));
 	}
 	
 	private IPattern createPackageClassifierPattern(final EClass classifierType) {

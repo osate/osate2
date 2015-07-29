@@ -373,7 +373,7 @@ public class SubprogramCallPattern extends AgePattern implements Categorized {
 	@Override
 	public String getCreateImageId(){
 		final Aadl2Package p = Aadl2Factory.eINSTANCE.getAadl2Package();
-		return AgeImageProvider.getImage(p.getSubprogramCall());
+		return AgeImageProvider.getImage(p.getSubprogramCall().getName());
 	}
 	
 	@Override

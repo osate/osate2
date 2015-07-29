@@ -444,7 +444,7 @@ public class ModeTransitionPattern extends AgeConnectionPattern implements Categ
 	@Override
 	public String getCreateImageId(){
 		final Aadl2Package p = Aadl2Factory.eINSTANCE.getAadl2Package();
-		return AgeImageProvider.getImage(p.getModeTransition());
+		return AgeImageProvider.getImage(p.getModeTransition().getName());
 	}
 	@Override
 	public String getCreateName() {

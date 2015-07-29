@@ -342,30 +342,47 @@
 			<title>Flows</title>
 			<para>The graphical editor supports creating and editing flow specifications, flow implementations, and end-to-end flows.</para>
 			<section>
-				<title>Creating Flow Sources</title>
-				<para>Flow sources can be created when editing a component type. Create the flow source by right-clicking on an appropriate feature and selecting <emphasis>Create Source</emphasis> from the context menu. The new flow source will appear.</para>
-			</section>
-			<section>
-				<title>Creating Flow Sinks</title>
-				<para>Flow sources can be created when editing a component type. Create the flow source by right-clicking on an appropriate feature and selecting <emphasis>Create Sink</emphasis> from the context menu. The new flow sink will appear.</para>
+				<title>Creating Flow Specifications</title>
+				<para>Flow paths, flow sinks, and flow sources can be created using the palette when editing a component type.</para>
 				<imageobject>
-    				<imagedata fileref="images/CreateSource.png" format="PNG"/>
+    				<imagedata fileref="images/FlowSpecificationPalette.png" format="PNG"/>
   				</imageobject>
-			</section>
-			<section>
-				<title>Creating Flow Paths</title>
-				<para>When editing a component type, flow paths can be created using the palette.</para>
-				<orderedlist>
-					<listitem>
-						<para>Select <emphasis>Flow Path</emphasis> from the palette.</para>
-					</listitem>
-					<listitem>
-						<para>Select the feature to use as the start of the flow path.</para>
-					</listitem>
-					<listitem>
-						<para>Select the feature to use as the end of the path. The new flow path will appear.</para>
-					</listitem>
-				</orderedlist>
+				<section>
+					<title>Creating Flow Paths</title>
+					<orderedlist>
+						<listitem>
+							<para>Select <emphasis>Flow Path</emphasis> from the palette.</para>
+						</listitem>
+						<listitem>
+							<para>Select the feature to use as the start of the flow path.</para>
+						</listitem>
+						<listitem>
+							<para>Select the feature to use as the end of the path. The new flow path will appear.</para>
+						</listitem>
+					</orderedlist>
+				</section>
+				<section>
+					<title>Creating Flow Sinks</title>
+					<orderedlist>
+						<listitem>
+							<para>Select <emphasis>Flow Sink</emphasis> from the palette.</para>
+						</listitem>
+						<listitem>
+							<para>Select the feature to use as the sink. The new flow sink will appear.</para>
+						</listitem>
+					</orderedlist>
+				</section>
+				<section>
+					<title>Creating Flow Sources</title>
+					<orderedlist>
+						<listitem>
+							<para>Select <emphasis>Flow Source</emphasis> from the palette.</para>
+						</listitem>
+						<listitem>
+							<para>Select the feature to use as the source. The new flow source will appear.</para>
+						</listitem>
+					</orderedlist>
+				</section>
 			</section>
 			<section>
 				<title>Editing Flow Implementations and End-to-End Flows</title>

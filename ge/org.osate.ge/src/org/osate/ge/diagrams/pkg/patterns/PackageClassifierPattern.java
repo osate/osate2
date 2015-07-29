@@ -232,7 +232,7 @@ public class PackageClassifierPattern extends AgeLeafShapePattern implements Cat
 	
 	@Override
 	public String getCreateImageId() {
-		return AgeImageProvider.getImage(classifierType);
+		return AgeImageProvider.getImage(classifierType.getName());
 	}
 	
 	

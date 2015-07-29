@@ -9,13 +9,12 @@ import org.eclipse.emf.common.util.URI;
 
 public class AgeImageProvider extends AbstractImageProvider implements
 		IImageProvider {
-	public AgeImageProvider() {
-	}
+	final String plugIinImagePath = "org.osate.aadl2.edit/icons/full/obj16/";
 	protected static final String PREFIX = "org.osate.ge.diagrams.common.";
-	public static String getImage(final EClass c) {
-		return PREFIX + c.getName();
+	public static String getImage(final String imageId) {
+		return PREFIX + imageId;
 	}
-	
+
 	private void addImageFilePath(final EClass c) {
 		addImageFilePath(c, c);
 	}
@@ -24,6 +23,12 @@ public class AgeImageProvider extends AbstractImageProvider implements
 		//Using URI plugInImage to access images registered in plug-in dependency
 		final URI plugInImage = URI.createPlatformPluginURI("org.osate.aadl2.edit/icons/full/obj16/"+ ic.getName() + ".gif", true);
 		addImageFilePath(PREFIX + c.getName(), plugInImage.toString());
+	}
+	
+	
+	private void addImageFilePath(final String imageName) {
+		final URI plugInImage = URI.createPlatformPluginURI("org.osate.aadl2.edit/icons/full/obj16/"+ imageName + ".gif", true);
+		addImageFilePath(PREFIX + imageName, plugInImage.toString());
 	}
 	
 	@Override
@@ -93,7 +98,9 @@ public class AgeImageProvider extends AbstractImageProvider implements
 		addImageFilePath(p.getEventDataSource(), p.getEventDataPort());
 		addImageFilePath(p.getPortProxy(),p.getAbstractFeature());
 		addImageFilePath(p.getSubprogramProxy(), p.getSubprogramAccess());
-		addImageFilePath(p.getFlowSpecification(), p.getModeTransition());
+		addImageFilePath("FlowPath");
+		addImageFilePath("FlowSink");
+		addImageFilePath("FlowSource");
 		addImageFilePath(p.getGeneralization(), p.getModeTransition());
 		addImageFilePath(p.getSubprogramCall(), p.getSubprogramSubcomponent());
 		addImageFilePath(p.getSubprogramCallSequence());

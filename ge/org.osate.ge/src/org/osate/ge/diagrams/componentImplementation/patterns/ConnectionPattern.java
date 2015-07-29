@@ -443,7 +443,7 @@ public class ConnectionPattern extends AgeConnectionPattern implements Categoriz
 	}
 	@Override
 	public String getCreateImageId() { 
-		return AgeImageProvider.getImage(connectionType);
+		return AgeImageProvider.getImage(connectionType.getName());
 	}
 	
 	@Override

@@ -895,7 +895,7 @@ public class ClassifierPattern extends AgePattern implements Categorized {
 		
 	@Override
 	public String getCreateImageId(){
-		return AgeImageProvider.getImage(subcomponentType);
+		return AgeImageProvider.getImage(subcomponentType.getName());
 	}
 	
 	@Override
