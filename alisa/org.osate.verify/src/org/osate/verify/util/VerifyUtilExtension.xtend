@@ -3,22 +3,24 @@ package org.osate.verify.util
 import java.util.Collections
 import org.eclipse.emf.ecore.EObject
 import org.osate.verify.verify.ElseExpr
+import com.google.common.collect.HashMultimap
+import org.eclipse.emf.ecore.util.EcoreUtil
 
 class VerifyUtilExtension {
 
-	static val hasRunRecord = Collections.synchronizedMap(newHashMap)
+	static val HashMultimap <String,String> hasRunRecord = HashMultimap.create//Collections.synchronizedMap(newHashMap)
 
 	def static boolean getHasRun(String analysisID, EObject target) {
 		val value = hasRunRecord.get(analysisID)
-		return value == target
+		return value.contains(EcoreUtil.getURI(target).toString)
 	}
 
 	def static void setHasRun(String analysisID, EObject target) {
-		hasRunRecord.put(analysisID, target)
+		hasRunRecord.put(analysisID, EcoreUtil.getURI(target).toString)
 	}
 
 	def static void unsetHasRun(String analysisID, EObject target) {
-		hasRunRecord.remove(analysisID)
+		hasRunRecord.remove(analysisID,EcoreUtil.getURI(target).toString)
 	}
 
 	def static void clearAllHasRunRecords() {
