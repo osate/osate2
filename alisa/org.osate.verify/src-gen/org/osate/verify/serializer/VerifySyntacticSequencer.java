@@ -27,8 +27,7 @@ public class VerifySyntacticSequencer extends AbstractSyntacticSequencer {
 	protected AbstractElementAlias match_CompositeEvidenceExpr_LeftParenthesisKeyword_0_0_p;
 	protected AbstractElementAlias match_VerificationMethod_CategoryKeyword_5_4_0_q;
 	protected AbstractElementAlias match_VerificationMethod___LeftParenthesisKeyword_2_0_RightParenthesisKeyword_2_2__q;
-	protected AbstractElementAlias match_VerificationPlan_AssumeKeyword_7_3_0_q;
-	protected AbstractElementAlias match_VerificationPlan_IssuesKeyword_7_4_0_q;
+	protected AbstractElementAlias match_VerificationPlan_IssuesKeyword_7_3_0_q;
 	protected AbstractElementAlias match_XBlockExpression_SemicolonKeyword_2_1_q;
 	protected AbstractElementAlias match_XExpressionInClosure_SemicolonKeyword_1_1_q;
 	protected AbstractElementAlias match_XFunctionTypeRef___LeftParenthesisKeyword_0_0_RightParenthesisKeyword_0_2__q;
@@ -45,8 +44,7 @@ public class VerifySyntacticSequencer extends AbstractSyntacticSequencer {
 		match_CompositeEvidenceExpr_LeftParenthesisKeyword_0_0_p = new TokenAlias(true, false, grammarAccess.getCompositeEvidenceExprAccess().getLeftParenthesisKeyword_0_0());
 		match_VerificationMethod_CategoryKeyword_5_4_0_q = new TokenAlias(false, true, grammarAccess.getVerificationMethodAccess().getCategoryKeyword_5_4_0());
 		match_VerificationMethod___LeftParenthesisKeyword_2_0_RightParenthesisKeyword_2_2__q = new GroupAlias(false, true, new TokenAlias(false, false, grammarAccess.getVerificationMethodAccess().getLeftParenthesisKeyword_2_0()), new TokenAlias(false, false, grammarAccess.getVerificationMethodAccess().getRightParenthesisKeyword_2_2()));
-		match_VerificationPlan_AssumeKeyword_7_3_0_q = new TokenAlias(false, true, grammarAccess.getVerificationPlanAccess().getAssumeKeyword_7_3_0());
-		match_VerificationPlan_IssuesKeyword_7_4_0_q = new TokenAlias(false, true, grammarAccess.getVerificationPlanAccess().getIssuesKeyword_7_4_0());
+		match_VerificationPlan_IssuesKeyword_7_3_0_q = new TokenAlias(false, true, grammarAccess.getVerificationPlanAccess().getIssuesKeyword_7_3_0());
 		match_XBlockExpression_SemicolonKeyword_2_1_q = new TokenAlias(false, true, grammarAccess.getXBlockExpressionAccess().getSemicolonKeyword_2_1());
 		match_XExpressionInClosure_SemicolonKeyword_1_1_q = new TokenAlias(false, true, grammarAccess.getXExpressionInClosureAccess().getSemicolonKeyword_1_1());
 		match_XFunctionTypeRef___LeftParenthesisKeyword_0_0_RightParenthesisKeyword_0_2__q = new GroupAlias(false, true, new TokenAlias(false, false, grammarAccess.getXFunctionTypeRefAccess().getLeftParenthesisKeyword_0_0()), new TokenAlias(false, false, grammarAccess.getXFunctionTypeRefAccess().getRightParenthesisKeyword_0_2()));
@@ -104,10 +102,8 @@ public class VerifySyntacticSequencer extends AbstractSyntacticSequencer {
 				emit_VerificationMethod_CategoryKeyword_5_4_0_q(semanticObject, getLastNavigableState(), syntaxNodes);
 			else if(match_VerificationMethod___LeftParenthesisKeyword_2_0_RightParenthesisKeyword_2_2__q.equals(syntax))
 				emit_VerificationMethod___LeftParenthesisKeyword_2_0_RightParenthesisKeyword_2_2__q(semanticObject, getLastNavigableState(), syntaxNodes);
-			else if(match_VerificationPlan_AssumeKeyword_7_3_0_q.equals(syntax))
-				emit_VerificationPlan_AssumeKeyword_7_3_0_q(semanticObject, getLastNavigableState(), syntaxNodes);
-			else if(match_VerificationPlan_IssuesKeyword_7_4_0_q.equals(syntax))
-				emit_VerificationPlan_IssuesKeyword_7_4_0_q(semanticObject, getLastNavigableState(), syntaxNodes);
+			else if(match_VerificationPlan_IssuesKeyword_7_3_0_q.equals(syntax))
+				emit_VerificationPlan_IssuesKeyword_7_3_0_q(semanticObject, getLastNavigableState(), syntaxNodes);
 			else if(match_XBlockExpression_SemicolonKeyword_2_1_q.equals(syntax))
 				emit_XBlockExpression_SemicolonKeyword_2_1_q(semanticObject, getLastNavigableState(), syntaxNodes);
 			else if(match_XExpressionInClosure_SemicolonKeyword_1_1_q.equals(syntax))
@@ -205,23 +201,12 @@ public class VerifySyntacticSequencer extends AbstractSyntacticSequencer {
 	
 	/**
 	 * Ambiguous syntax:
-	 *     'assume'?
-	 *
-	 * This ambiguous syntax occurs at:
-	 *     verifiedAssumption+=[VerificationPlan|QualifiedName] (ambiguity) verifiedAssumption+=[VerificationPlan|QualifiedName]
-	 */
-	protected void emit_VerificationPlan_AssumeKeyword_7_3_0_q(EObject semanticObject, ISynNavigable transition, List<INode> nodes) {
-		acceptNodes(transition, nodes);
-	}
-	
-	/**
-	 * Ambiguous syntax:
 	 *     'issues'?
 	 *
 	 * This ambiguous syntax occurs at:
 	 *     issues+=STRING (ambiguity) issues+=STRING
 	 */
-	protected void emit_VerificationPlan_IssuesKeyword_7_4_0_q(EObject semanticObject, ISynNavigable transition, List<INode> nodes) {
+	protected void emit_VerificationPlan_IssuesKeyword_7_3_0_q(EObject semanticObject, ISynNavigable transition, List<INode> nodes) {
 		acceptNodes(transition, nodes);
 	}
 	

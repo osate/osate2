@@ -4,7 +4,7 @@ package org.osate.reqspec.reqSpec;
 
 import org.eclipse.emf.common.util.EList;
 
-import org.eclipse.xtext.xbase.XExpression;
+import org.eclipse.xtext.xbase.XVariableDeclaration;
 
 import org.osate.aadl2.ComponentClassifier;
 
@@ -168,7 +168,7 @@ public interface StakeholderGoals extends ReqSpecContainer, ReqRoot
 
   /**
    * Returns the value of the '<em><b>Constants</b></em>' containment reference list.
-   * The list contents are of type {@link org.eclipse.xtext.xbase.XExpression}.
+   * The list contents are of type {@link org.eclipse.xtext.xbase.XVariableDeclaration}.
    * <!-- begin-user-doc -->
    * <p>
    * If the meaning of the '<em>Constants</em>' containment reference list isn't clear,
@@ -180,7 +180,7 @@ public interface StakeholderGoals extends ReqSpecContainer, ReqRoot
    * @model containment="true"
    * @generated
    */
-  EList<XExpression> getConstants();
+  EList<XVariableDeclaration> getConstants();
 
   /**
    * Returns the value of the '<em><b>Content</b></em>' containment reference list.

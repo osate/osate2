@@ -17,7 +17,6 @@ import org.eclipse.emf.ecore.impl.MinimalEObjectImpl;
 
 import org.eclipse.emf.ecore.util.EDataTypeEList;
 import org.eclipse.emf.ecore.util.EObjectContainmentEList;
-import org.eclipse.emf.ecore.util.EObjectResolvingEList;
 import org.eclipse.emf.ecore.util.InternalEList;
 
 import org.osate.alisa.common.common.Description;
@@ -42,7 +41,6 @@ import org.osate.verify.verify.VerifyPackage;
  *   <li>{@link org.osate.verify.verify.impl.VerificationPlanImpl#getDescription <em>Description</em>}</li>
  *   <li>{@link org.osate.verify.verify.impl.VerificationPlanImpl#getClaim <em>Claim</em>}</li>
  *   <li>{@link org.osate.verify.verify.impl.VerificationPlanImpl#getRationale <em>Rationale</em>}</li>
- *   <li>{@link org.osate.verify.verify.impl.VerificationPlanImpl#getVerifiedAssumption <em>Verified Assumption</em>}</li>
  *   <li>{@link org.osate.verify.verify.impl.VerificationPlanImpl#getIssues <em>Issues</em>}</li>
  * </ul>
  * </p>
@@ -130,16 +128,6 @@ public class VerificationPlanImpl extends MinimalEObjectImpl.Container implement
    * @ordered
    */
   protected Rationale rationale;
-
-  /**
-   * The cached value of the '{@link #getVerifiedAssumption() <em>Verified Assumption</em>}' reference list.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @see #getVerifiedAssumption()
-   * @generated
-   * @ordered
-   */
-  protected EList<VerificationPlan> verifiedAssumption;
 
   /**
    * The cached value of the '{@link #getIssues() <em>Issues</em>}' attribute list.
@@ -376,20 +364,6 @@ public class VerificationPlanImpl extends MinimalEObjectImpl.Container implement
    * <!-- end-user-doc -->
    * @generated
    */
-  public EList<VerificationPlan> getVerifiedAssumption()
-  {
-    if (verifiedAssumption == null)
-    {
-      verifiedAssumption = new EObjectResolvingEList<VerificationPlan>(VerificationPlan.class, this, VerifyPackage.VERIFICATION_PLAN__VERIFIED_ASSUMPTION);
-    }
-    return verifiedAssumption;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
   public EList<String> getIssues()
   {
     if (issues == null)
@@ -442,8 +416,6 @@ public class VerificationPlanImpl extends MinimalEObjectImpl.Container implement
         return getClaim();
       case VerifyPackage.VERIFICATION_PLAN__RATIONALE:
         return getRationale();
-      case VerifyPackage.VERIFICATION_PLAN__VERIFIED_ASSUMPTION:
-        return getVerifiedAssumption();
       case VerifyPackage.VERIFICATION_PLAN__ISSUES:
         return getIssues();
     }
@@ -479,10 +451,6 @@ public class VerificationPlanImpl extends MinimalEObjectImpl.Container implement
         return;
       case VerifyPackage.VERIFICATION_PLAN__RATIONALE:
         setRationale((Rationale)newValue);
-        return;
-      case VerifyPackage.VERIFICATION_PLAN__VERIFIED_ASSUMPTION:
-        getVerifiedAssumption().clear();
-        getVerifiedAssumption().addAll((Collection<? extends VerificationPlan>)newValue);
         return;
       case VerifyPackage.VERIFICATION_PLAN__ISSUES:
         getIssues().clear();
@@ -520,9 +488,6 @@ public class VerificationPlanImpl extends MinimalEObjectImpl.Container implement
       case VerifyPackage.VERIFICATION_PLAN__RATIONALE:
         setRationale((Rationale)null);
         return;
-      case VerifyPackage.VERIFICATION_PLAN__VERIFIED_ASSUMPTION:
-        getVerifiedAssumption().clear();
-        return;
       case VerifyPackage.VERIFICATION_PLAN__ISSUES:
         getIssues().clear();
         return;
@@ -552,8 +517,6 @@ public class VerificationPlanImpl extends MinimalEObjectImpl.Container implement
         return claim != null && !claim.isEmpty();
       case VerifyPackage.VERIFICATION_PLAN__RATIONALE:
         return rationale != null;
-      case VerifyPackage.VERIFICATION_PLAN__VERIFIED_ASSUMPTION:
-        return verifiedAssumption != null && !verifiedAssumption.isEmpty();
       case VerifyPackage.VERIFICATION_PLAN__ISSUES:
         return issues != null && !issues.isEmpty();
     }

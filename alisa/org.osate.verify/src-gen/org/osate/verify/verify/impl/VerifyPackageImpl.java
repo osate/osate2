@@ -323,19 +323,9 @@ public class VerifyPackageImpl extends EPackageImpl implements VerifyPackage
    * <!-- end-user-doc -->
    * @generated
    */
-  public EReference getVerificationPlan_VerifiedAssumption()
-  {
-    return (EReference)verificationPlanEClass.getEStructuralFeatures().get(6);
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
   public EAttribute getVerificationPlan_Issues()
   {
-    return (EAttribute)verificationPlanEClass.getEStructuralFeatures().get(7);
+    return (EAttribute)verificationPlanEClass.getEStructuralFeatures().get(6);
   }
 
   /**
@@ -998,7 +988,6 @@ public class VerifyPackageImpl extends EPackageImpl implements VerifyPackage
     createEReference(verificationPlanEClass, VERIFICATION_PLAN__DESCRIPTION);
     createEReference(verificationPlanEClass, VERIFICATION_PLAN__CLAIM);
     createEReference(verificationPlanEClass, VERIFICATION_PLAN__RATIONALE);
-    createEReference(verificationPlanEClass, VERIFICATION_PLAN__VERIFIED_ASSUMPTION);
     createEAttribute(verificationPlanEClass, VERIFICATION_PLAN__ISSUES);
 
     claimEClass = createEClass(CLAIM);
@@ -1136,7 +1125,6 @@ public class VerifyPackageImpl extends EPackageImpl implements VerifyPackage
     initEReference(getVerificationPlan_Description(), theCommonPackage.getDescription(), null, "description", null, 0, 1, VerificationPlan.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEReference(getVerificationPlan_Claim(), this.getClaim(), null, "claim", null, 0, -1, VerificationPlan.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEReference(getVerificationPlan_Rationale(), theCommonPackage.getRationale(), null, "rationale", null, 0, 1, VerificationPlan.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-    initEReference(getVerificationPlan_VerifiedAssumption(), this.getVerificationPlan(), null, "verifiedAssumption", null, 0, -1, VerificationPlan.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEAttribute(getVerificationPlan_Issues(), theEcorePackage.getEString(), "issues", null, 0, -1, VerificationPlan.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
     initEClass(claimEClass, Claim.class, "Claim", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);

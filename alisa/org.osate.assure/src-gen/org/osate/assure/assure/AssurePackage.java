@@ -123,22 +123,22 @@ public interface AssurePackage extends EPackage
   int ASSURANCE_EVIDENCE__TARGET = ASSURE_RESULT_FEATURE_COUNT + 1;
 
   /**
+   * The feature id for the '<em><b>Target System</b></em>' reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int ASSURANCE_EVIDENCE__TARGET_SYSTEM = ASSURE_RESULT_FEATURE_COUNT + 2;
+
+  /**
    * The feature id for the '<em><b>Message</b></em>' attribute.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    * @ordered
    */
-  int ASSURANCE_EVIDENCE__MESSAGE = ASSURE_RESULT_FEATURE_COUNT + 2;
-
-  /**
-   * The feature id for the '<em><b>Sub Assurance Evidence</b></em>' containment reference list.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int ASSURANCE_EVIDENCE__SUB_ASSURANCE_EVIDENCE = ASSURE_RESULT_FEATURE_COUNT + 3;
+  int ASSURANCE_EVIDENCE__MESSAGE = ASSURE_RESULT_FEATURE_COUNT + 3;
 
   /**
    * The feature id for the '<em><b>Claim Result</b></em>' containment reference list.
@@ -150,13 +150,22 @@ public interface AssurePackage extends EPackage
   int ASSURANCE_EVIDENCE__CLAIM_RESULT = ASSURE_RESULT_FEATURE_COUNT + 4;
 
   /**
+   * The feature id for the '<em><b>Sub Assurance Evidence</b></em>' containment reference list.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int ASSURANCE_EVIDENCE__SUB_ASSURANCE_EVIDENCE = ASSURE_RESULT_FEATURE_COUNT + 5;
+
+  /**
    * The number of structural features of the '<em>Assurance Evidence</em>' class.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    * @ordered
    */
-  int ASSURANCE_EVIDENCE_FEATURE_COUNT = ASSURE_RESULT_FEATURE_COUNT + 5;
+  int ASSURANCE_EVIDENCE_FEATURE_COUNT = ASSURE_RESULT_FEATURE_COUNT + 6;
 
   /**
    * The meta object id for the '{@link org.osate.assure.assure.impl.ClaimResultImpl <em>Claim Result</em>}' class.
@@ -962,6 +971,17 @@ public interface AssurePackage extends EPackage
   EReference getAssuranceEvidence_Target();
 
   /**
+   * Returns the meta object for the reference '{@link org.osate.assure.assure.AssuranceEvidence#getTargetSystem <em>Target System</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the reference '<em>Target System</em>'.
+   * @see org.osate.assure.assure.AssuranceEvidence#getTargetSystem()
+   * @see #getAssuranceEvidence()
+   * @generated
+   */
+  EReference getAssuranceEvidence_TargetSystem();
+
+  /**
    * Returns the meta object for the attribute '{@link org.osate.assure.assure.AssuranceEvidence#getMessage <em>Message</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -973,17 +993,6 @@ public interface AssurePackage extends EPackage
   EAttribute getAssuranceEvidence_Message();
 
   /**
-   * Returns the meta object for the containment reference list '{@link org.osate.assure.assure.AssuranceEvidence#getSubAssuranceEvidence <em>Sub Assurance Evidence</em>}'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return the meta object for the containment reference list '<em>Sub Assurance Evidence</em>'.
-   * @see org.osate.assure.assure.AssuranceEvidence#getSubAssuranceEvidence()
-   * @see #getAssuranceEvidence()
-   * @generated
-   */
-  EReference getAssuranceEvidence_SubAssuranceEvidence();
-
-  /**
    * Returns the meta object for the containment reference list '{@link org.osate.assure.assure.AssuranceEvidence#getClaimResult <em>Claim Result</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -993,6 +1002,17 @@ public interface AssurePackage extends EPackage
    * @generated
    */
   EReference getAssuranceEvidence_ClaimResult();
+
+  /**
+   * Returns the meta object for the containment reference list '{@link org.osate.assure.assure.AssuranceEvidence#getSubAssuranceEvidence <em>Sub Assurance Evidence</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the containment reference list '<em>Sub Assurance Evidence</em>'.
+   * @see org.osate.assure.assure.AssuranceEvidence#getSubAssuranceEvidence()
+   * @see #getAssuranceEvidence()
+   * @generated
+   */
+  EReference getAssuranceEvidence_SubAssuranceEvidence();
 
   /**
    * Returns the meta object for class '{@link org.osate.assure.assure.ClaimResult <em>Claim Result</em>}'.
@@ -1612,6 +1632,14 @@ public interface AssurePackage extends EPackage
     EReference ASSURANCE_EVIDENCE__TARGET = eINSTANCE.getAssuranceEvidence_Target();
 
     /**
+     * The meta object literal for the '<em><b>Target System</b></em>' reference feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EReference ASSURANCE_EVIDENCE__TARGET_SYSTEM = eINSTANCE.getAssuranceEvidence_TargetSystem();
+
+    /**
      * The meta object literal for the '<em><b>Message</b></em>' attribute feature.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
@@ -1620,20 +1648,20 @@ public interface AssurePackage extends EPackage
     EAttribute ASSURANCE_EVIDENCE__MESSAGE = eINSTANCE.getAssuranceEvidence_Message();
 
     /**
-     * The meta object literal for the '<em><b>Sub Assurance Evidence</b></em>' containment reference list feature.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
-    EReference ASSURANCE_EVIDENCE__SUB_ASSURANCE_EVIDENCE = eINSTANCE.getAssuranceEvidence_SubAssuranceEvidence();
-
-    /**
      * The meta object literal for the '<em><b>Claim Result</b></em>' containment reference list feature.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @generated
      */
     EReference ASSURANCE_EVIDENCE__CLAIM_RESULT = eINSTANCE.getAssuranceEvidence_ClaimResult();
+
+    /**
+     * The meta object literal for the '<em><b>Sub Assurance Evidence</b></em>' containment reference list feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EReference ASSURANCE_EVIDENCE__SUB_ASSURANCE_EVIDENCE = eINSTANCE.getAssuranceEvidence_SubAssuranceEvidence();
 
     /**
      * The meta object literal for the '{@link org.osate.assure.assure.impl.ClaimResultImpl <em>Claim Result</em>}' class.

@@ -68,29 +68,20 @@ public class VerifyGrammarAccess extends AbstractGrammarElementFinder {
 		private final Assignment cRationaleAssignment_7_2 = (Assignment)cUnorderedGroup_7.eContents().get(2);
 		private final RuleCall cRationaleRationaleParserRuleCall_7_2_0 = (RuleCall)cRationaleAssignment_7_2.eContents().get(0);
 		private final Group cGroup_7_3 = (Group)cUnorderedGroup_7.eContents().get(3);
-		private final Keyword cAssumeKeyword_7_3_0 = (Keyword)cGroup_7_3.eContents().get(0);
-		private final Assignment cVerifiedAssumptionAssignment_7_3_1 = (Assignment)cGroup_7_3.eContents().get(1);
-		private final CrossReference cVerifiedAssumptionVerificationPlanCrossReference_7_3_1_0 = (CrossReference)cVerifiedAssumptionAssignment_7_3_1.eContents().get(0);
-		private final RuleCall cVerifiedAssumptionVerificationPlanQualifiedNameParserRuleCall_7_3_1_0_1 = (RuleCall)cVerifiedAssumptionVerificationPlanCrossReference_7_3_1_0.eContents().get(1);
-		private final Group cGroup_7_4 = (Group)cUnorderedGroup_7.eContents().get(4);
-		private final Keyword cIssuesKeyword_7_4_0 = (Keyword)cGroup_7_4.eContents().get(0);
-		private final Assignment cIssuesAssignment_7_4_1 = (Assignment)cGroup_7_4.eContents().get(1);
-		private final RuleCall cIssuesSTRINGTerminalRuleCall_7_4_1_0 = (RuleCall)cIssuesAssignment_7_4_1.eContents().get(0);
+		private final Keyword cIssuesKeyword_7_3_0 = (Keyword)cGroup_7_3.eContents().get(0);
+		private final Assignment cIssuesAssignment_7_3_1 = (Assignment)cGroup_7_3.eContents().get(1);
+		private final RuleCall cIssuesSTRINGTerminalRuleCall_7_3_1_0 = (RuleCall)cIssuesAssignment_7_3_1.eContents().get(0);
 		private final Keyword cRightSquareBracketKeyword_8 = (Keyword)cGroup.eContents().get(8);
 		
 		//// plan for a classifier. Will add import to allow for non-qualified requirement references 
 		//// Also allows for cross checking that we have covered requirements with claims
 		//VerificationPlan:
 		//	"verification" "plan" name=ID (":" title=STRING)? "for" systemRequirements=[ReqSpec::SystemRequirements] "["
-		//	(description=Description? // direct subsystem separately verified 
-		//	& claim+=Claim* & rationale=Rationale? & ("assume" verifiedAssumption+=[VerificationPlan|QualifiedName]+)? & ("issues"
-		//	issues+=STRING+)?) "]";
+		//	(description=Description? & claim+=Claim* & rationale=Rationale? & ("issues" issues+=STRING+)?) "]";
 		@Override public ParserRule getRule() { return rule; }
 
 		//"verification" "plan" name=ID (":" title=STRING)? "for" systemRequirements=[ReqSpec::SystemRequirements] "["
-		//(description=Description? // direct subsystem separately verified 
-		//& claim+=Claim* & rationale=Rationale? & ("assume" verifiedAssumption+=[VerificationPlan|QualifiedName]+)? & ("issues"
-		//issues+=STRING+)?) "]"
+		//(description=Description? & claim+=Claim* & rationale=Rationale? & ("issues" issues+=STRING+)?) "]"
 		public Group getGroup() { return cGroup; }
 
 		//"verification"
@@ -132,9 +123,7 @@ public class VerifyGrammarAccess extends AbstractGrammarElementFinder {
 		//"["
 		public Keyword getLeftSquareBracketKeyword_6() { return cLeftSquareBracketKeyword_6; }
 
-		//description=Description? // direct subsystem separately verified 
-		//& claim+=Claim* & rationale=Rationale? & ("assume" verifiedAssumption+=[VerificationPlan|QualifiedName]+)? & ("issues"
-		//issues+=STRING+)?
+		//description=Description? & claim+=Claim* & rationale=Rationale? & ("issues" issues+=STRING+)?
 		public UnorderedGroup getUnorderedGroup_7() { return cUnorderedGroup_7; }
 
 		//description=Description?
@@ -155,32 +144,17 @@ public class VerifyGrammarAccess extends AbstractGrammarElementFinder {
 		//Rationale
 		public RuleCall getRationaleRationaleParserRuleCall_7_2_0() { return cRationaleRationaleParserRuleCall_7_2_0; }
 
-		//("assume" verifiedAssumption+=[VerificationPlan|QualifiedName]+)?
+		//("issues" issues+=STRING+)?
 		public Group getGroup_7_3() { return cGroup_7_3; }
 
-		//"assume"
-		public Keyword getAssumeKeyword_7_3_0() { return cAssumeKeyword_7_3_0; }
-
-		//verifiedAssumption+=[VerificationPlan|QualifiedName]+
-		public Assignment getVerifiedAssumptionAssignment_7_3_1() { return cVerifiedAssumptionAssignment_7_3_1; }
-
-		//[VerificationPlan|QualifiedName]
-		public CrossReference getVerifiedAssumptionVerificationPlanCrossReference_7_3_1_0() { return cVerifiedAssumptionVerificationPlanCrossReference_7_3_1_0; }
-
-		//QualifiedName
-		public RuleCall getVerifiedAssumptionVerificationPlanQualifiedNameParserRuleCall_7_3_1_0_1() { return cVerifiedAssumptionVerificationPlanQualifiedNameParserRuleCall_7_3_1_0_1; }
-
-		//("issues" issues+=STRING+)?
-		public Group getGroup_7_4() { return cGroup_7_4; }
-
 		//"issues"
-		public Keyword getIssuesKeyword_7_4_0() { return cIssuesKeyword_7_4_0; }
+		public Keyword getIssuesKeyword_7_3_0() { return cIssuesKeyword_7_3_0; }
 
 		//issues+=STRING+
-		public Assignment getIssuesAssignment_7_4_1() { return cIssuesAssignment_7_4_1; }
+		public Assignment getIssuesAssignment_7_3_1() { return cIssuesAssignment_7_3_1; }
 
 		//STRING
-		public RuleCall getIssuesSTRINGTerminalRuleCall_7_4_1_0() { return cIssuesSTRINGTerminalRuleCall_7_4_1_0; }
+		public RuleCall getIssuesSTRINGTerminalRuleCall_7_3_1_0() { return cIssuesSTRINGTerminalRuleCall_7_3_1_0; }
 
 		//"]"
 		public Keyword getRightSquareBracketKeyword_8() { return cRightSquareBracketKeyword_8; }
@@ -1572,9 +1546,7 @@ public class VerifyGrammarAccess extends AbstractGrammarElementFinder {
 	//// Also allows for cross checking that we have covered requirements with claims
 	//VerificationPlan:
 	//	"verification" "plan" name=ID (":" title=STRING)? "for" systemRequirements=[ReqSpec::SystemRequirements] "["
-	//	(description=Description? // direct subsystem separately verified 
-	//	& claim+=Claim* & rationale=Rationale? & ("assume" verifiedAssumption+=[VerificationPlan|QualifiedName]+)? & ("issues"
-	//	issues+=STRING+)?) "]";
+	//	(description=Description? & claim+=Claim* & rationale=Rationale? & ("issues" issues+=STRING+)?) "]";
 	public VerificationPlanElements getVerificationPlanAccess() {
 		return pVerificationPlan;
 	}
@@ -1837,9 +1809,9 @@ public class VerifyGrammarAccess extends AbstractGrammarElementFinder {
 	}
 
 	//// New rule for val only
-	//XValDeclaration returns xbase::XExpression:
-	//	{xbase::XVariableDeclaration} ("val" (=> (type=JvmTypeReference name=ID) | name=ID) "=" right=(APropertyReference |
-	//	XExpression));
+	//XValDeclaration returns xbase::XVariableDeclaration:
+	//	{PropertyConsistentVariableDeclaration} ("val" (=> (type=JvmTypeReference name=ID) | name=ID) "="
+	//	right=(APropertyReference | XExpression)) ("as" property=[aadl2::Property|AADLPROPERTYREFERENCE])?;
 	public CommonGrammarAccess.XValDeclarationElements getXValDeclarationAccess() {
 		return gaCommon.getXValDeclarationAccess();
 	}

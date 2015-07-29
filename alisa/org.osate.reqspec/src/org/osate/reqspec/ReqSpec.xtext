@@ -100,7 +100,8 @@ Goal returns Goal:
 	& (  constants+=XValDeclaration* )
 	 &(rationale=Rationale)? 
 	 &(changeUncertainty=Uncertainty)? 
-	 &('refines' refinesReference+=[Goal|QualifiedName]+)? 
+//	 &('refines' refinesReference+=[Goal|QualifiedName]+)? 
+	 &('refined' 'to' '['refinedGoal+=Goal+ ']')? 
 	 &('conflicts' 'with' conflictsReference+=[Goal|QualifiedName]+)? 
 	&('evolves' evolvesReference+=[Requirement|QualifiedName]+)? 
 	&(dropped?='dropped' ( dropRationale=STRING )? )? 
@@ -127,7 +128,8 @@ Requirement returns Requirement:
 	&(rationale=Rationale)? 
 	 &(changeUncertainty=Uncertainty)? 
 	&('mitigates'  (exception=[ecore::EObject|ID]|exceptionText=STRING))? 
-	&('refines' refinesReference+=[Requirement|QualifiedName]+)? 
+//	&('refines' refinesReference+=[Requirement|QualifiedName]+)? 
+	&('refined' 'to' '['refinedRequirement+=Requirement+ ']')? 
 	&('decomposes' decomposesReference+=[Requirement|QualifiedName]+)? 
 	&('evolves' evolvesReference+=[Requirement|QualifiedName]+)? 
 	&(dropped?='dropped' ( dropRationale=STRING )? )? 

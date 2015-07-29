@@ -150,22 +150,13 @@ public interface VerifyPackage extends EPackage
   int VERIFICATION_PLAN__RATIONALE = 5;
 
   /**
-   * The feature id for the '<em><b>Verified Assumption</b></em>' reference list.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int VERIFICATION_PLAN__VERIFIED_ASSUMPTION = 6;
-
-  /**
    * The feature id for the '<em><b>Issues</b></em>' attribute list.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    * @ordered
    */
-  int VERIFICATION_PLAN__ISSUES = 7;
+  int VERIFICATION_PLAN__ISSUES = 6;
 
   /**
    * The number of structural features of the '<em>Verification Plan</em>' class.
@@ -174,7 +165,7 @@ public interface VerifyPackage extends EPackage
    * @generated
    * @ordered
    */
-  int VERIFICATION_PLAN_FEATURE_COUNT = 8;
+  int VERIFICATION_PLAN_FEATURE_COUNT = 7;
 
   /**
    * The meta object id for the '{@link org.osate.verify.verify.impl.ClaimImpl <em>Claim</em>}' class.
@@ -1090,17 +1081,6 @@ public interface VerifyPackage extends EPackage
   EReference getVerificationPlan_Rationale();
 
   /**
-   * Returns the meta object for the reference list '{@link org.osate.verify.verify.VerificationPlan#getVerifiedAssumption <em>Verified Assumption</em>}'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return the meta object for the reference list '<em>Verified Assumption</em>'.
-   * @see org.osate.verify.verify.VerificationPlan#getVerifiedAssumption()
-   * @see #getVerificationPlan()
-   * @generated
-   */
-  EReference getVerificationPlan_VerifiedAssumption();
-
-  /**
    * Returns the meta object for the attribute list '{@link org.osate.verify.verify.VerificationPlan#getIssues <em>Issues</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -1877,14 +1857,6 @@ public interface VerifyPackage extends EPackage
      * @generated
      */
     EReference VERIFICATION_PLAN__RATIONALE = eINSTANCE.getVerificationPlan_Rationale();
-
-    /**
-     * The meta object literal for the '<em><b>Verified Assumption</b></em>' reference list feature.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
-    EReference VERIFICATION_PLAN__VERIFIED_ASSUMPTION = eINSTANCE.getVerificationPlan_VerifiedAssumption();
 
     /**
      * The meta object literal for the '<em><b>Issues</b></em>' attribute list feature.

@@ -22,8 +22,8 @@ public class AlisaSyntacticSequencer extends AbstractSyntacticSequencer {
 
 	protected AlisaGrammarAccess grammarAccess;
 	protected AbstractElementAlias match_AssurancePlan_IssuesKeyword_7_3_0_q;
-	protected AbstractElementAlias match_AssurancePlan___AssertKeyword_7_1_0_SubsystemsKeyword_7_1_1__q;
 	protected AbstractElementAlias match_AssurancePlan___AssumeKeyword_7_2_0_SubsystemsKeyword_7_2_1__q;
+	protected AbstractElementAlias match_AssurancePlan___AssureKeyword_7_1_0_SubsystemKeyword_7_1_1_PlansKeyword_7_1_2__q;
 	protected AbstractElementAlias match_AssuranceTask_FilterKeyword_7_1_0_0_0_a;
 	protected AbstractElementAlias match_AssuranceTask_FilterKeyword_7_1_0_0_0_p;
 	protected AbstractElementAlias match_AssuranceTask___FilterKeyword_7_1_0_0_0_a_ClaimsKeyword_7_1_1_0__q;
@@ -36,8 +36,8 @@ public class AlisaSyntacticSequencer extends AbstractSyntacticSequencer {
 	protected void init(IGrammarAccess access) {
 		grammarAccess = (AlisaGrammarAccess) access;
 		match_AssurancePlan_IssuesKeyword_7_3_0_q = new TokenAlias(false, true, grammarAccess.getAssurancePlanAccess().getIssuesKeyword_7_3_0());
-		match_AssurancePlan___AssertKeyword_7_1_0_SubsystemsKeyword_7_1_1__q = new GroupAlias(false, true, new TokenAlias(false, false, grammarAccess.getAssurancePlanAccess().getAssertKeyword_7_1_0()), new TokenAlias(false, false, grammarAccess.getAssurancePlanAccess().getSubsystemsKeyword_7_1_1()));
 		match_AssurancePlan___AssumeKeyword_7_2_0_SubsystemsKeyword_7_2_1__q = new GroupAlias(false, true, new TokenAlias(false, false, grammarAccess.getAssurancePlanAccess().getAssumeKeyword_7_2_0()), new TokenAlias(false, false, grammarAccess.getAssurancePlanAccess().getSubsystemsKeyword_7_2_1()));
+		match_AssurancePlan___AssureKeyword_7_1_0_SubsystemKeyword_7_1_1_PlansKeyword_7_1_2__q = new GroupAlias(false, true, new TokenAlias(false, false, grammarAccess.getAssurancePlanAccess().getAssureKeyword_7_1_0()), new TokenAlias(false, false, grammarAccess.getAssurancePlanAccess().getSubsystemKeyword_7_1_1()), new TokenAlias(false, false, grammarAccess.getAssurancePlanAccess().getPlansKeyword_7_1_2()));
 		match_AssuranceTask_FilterKeyword_7_1_0_0_0_a = new TokenAlias(true, true, grammarAccess.getAssuranceTaskAccess().getFilterKeyword_7_1_0_0_0());
 		match_AssuranceTask_FilterKeyword_7_1_0_0_0_p = new TokenAlias(true, false, grammarAccess.getAssuranceTaskAccess().getFilterKeyword_7_1_0_0_0());
 		match_AssuranceTask___FilterKeyword_7_1_0_0_0_a_ClaimsKeyword_7_1_1_0__q = new GroupAlias(false, true, new TokenAlias(true, true, grammarAccess.getAssuranceTaskAccess().getFilterKeyword_7_1_0_0_0()), new TokenAlias(false, false, grammarAccess.getAssuranceTaskAccess().getClaimsKeyword_7_1_1_0()));
@@ -61,10 +61,10 @@ public class AlisaSyntacticSequencer extends AbstractSyntacticSequencer {
 			List<INode> syntaxNodes = getNodesFor(transitionNodes, syntax);
 			if(match_AssurancePlan_IssuesKeyword_7_3_0_q.equals(syntax))
 				emit_AssurancePlan_IssuesKeyword_7_3_0_q(semanticObject, getLastNavigableState(), syntaxNodes);
-			else if(match_AssurancePlan___AssertKeyword_7_1_0_SubsystemsKeyword_7_1_1__q.equals(syntax))
-				emit_AssurancePlan___AssertKeyword_7_1_0_SubsystemsKeyword_7_1_1__q(semanticObject, getLastNavigableState(), syntaxNodes);
 			else if(match_AssurancePlan___AssumeKeyword_7_2_0_SubsystemsKeyword_7_2_1__q.equals(syntax))
 				emit_AssurancePlan___AssumeKeyword_7_2_0_SubsystemsKeyword_7_2_1__q(semanticObject, getLastNavigableState(), syntaxNodes);
+			else if(match_AssurancePlan___AssureKeyword_7_1_0_SubsystemKeyword_7_1_1_PlansKeyword_7_1_2__q.equals(syntax))
+				emit_AssurancePlan___AssureKeyword_7_1_0_SubsystemKeyword_7_1_1_PlansKeyword_7_1_2__q(semanticObject, getLastNavigableState(), syntaxNodes);
 			else if(match_AssuranceTask_FilterKeyword_7_1_0_0_0_a.equals(syntax))
 				emit_AssuranceTask_FilterKeyword_7_1_0_0_0_a(semanticObject, getLastNavigableState(), syntaxNodes);
 			else if(match_AssuranceTask_FilterKeyword_7_1_0_0_0_p.equals(syntax))
@@ -96,23 +96,23 @@ public class AlisaSyntacticSequencer extends AbstractSyntacticSequencer {
 	
 	/**
 	 * Ambiguous syntax:
-	 *     ('assert' 'subsystems')?
+	 *     ('assume' 'subsystems')?
 	 *
 	 * This ambiguous syntax occurs at:
-	 *     subsystemPlans+=[AssurancePlan|QualifiedName] (ambiguity) subsystemPlans+=[AssurancePlan|QualifiedName]
+	 *     assumeSubsystems+=[ComponentClassifier|AadlClassifierReference] (ambiguity) assumeSubsystems+=[ComponentClassifier|AadlClassifierReference]
 	 */
-	protected void emit_AssurancePlan___AssertKeyword_7_1_0_SubsystemsKeyword_7_1_1__q(EObject semanticObject, ISynNavigable transition, List<INode> nodes) {
+	protected void emit_AssurancePlan___AssumeKeyword_7_2_0_SubsystemsKeyword_7_2_1__q(EObject semanticObject, ISynNavigable transition, List<INode> nodes) {
 		acceptNodes(transition, nodes);
 	}
 	
 	/**
 	 * Ambiguous syntax:
-	 *     ('assume' 'subsystems')?
+	 *     ('assure' 'subsystem' 'plans')?
 	 *
 	 * This ambiguous syntax occurs at:
-	 *     verifiedAssumption+=[AssurancePlan|QualifiedName] (ambiguity) verifiedAssumption+=[AssurancePlan|QualifiedName]
+	 *     assurePlans+=[AssurancePlan|QualifiedName] (ambiguity) assurePlans+=[AssurancePlan|QualifiedName]
 	 */
-	protected void emit_AssurancePlan___AssumeKeyword_7_2_0_SubsystemsKeyword_7_2_1__q(EObject semanticObject, ISynNavigable transition, List<INode> nodes) {
+	protected void emit_AssurancePlan___AssureKeyword_7_1_0_SubsystemKeyword_7_1_1_PlansKeyword_7_1_2__q(EObject semanticObject, ISynNavigable transition, List<INode> nodes) {
 		acceptNodes(transition, nodes);
 	}
 	

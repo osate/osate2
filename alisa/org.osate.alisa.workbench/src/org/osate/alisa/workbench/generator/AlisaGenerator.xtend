@@ -35,6 +35,12 @@ import org.osate.verify.verify.WhenExpr
 
 import static extension org.eclipse.emf.ecore.util.EcoreUtil.*
 import static extension org.osate.alisa.common.util.CommonUtilExtension.*
+import org.osate.aadl2.ComponentImplementation
+import java.util.Collection
+import java.util.Collections
+import org.eclipse.emf.common.util.UniqueEList
+import java.util.List
+import org.osate.aadl2.ComponentType
 
 /**
  * Generates code from your model files on save.
@@ -67,16 +73,23 @@ class AlisaGenerator implements IGenerator {
 	}
 
 	def generateCase(AssurancePlan acp) {
-		acp.system.generate(acp)
+		acp.target.generate(acp, false)
+	}
+
+	def generateSystemEvidence(ComponentClassifier cc, AssurancePlan acp) {
+		cc.generate(acp,true)
 	}
 
 
-	def CharSequence generate(ComponentClassifier ci, AssurancePlan acp) {
-		val myplans = ci.getVerificationPlans();
+	def CharSequence generate(ComponentClassifier cc, AssurancePlan acp, boolean systemEvidence) {
+		val myplans = cc.getVerificationPlans();
 		'''	
 			«IF !myplans.empty»
+			«IF !systemEvidence»
 				evidence «acp.name» for «acp.name»
-«««				instance "«ci.URI.toString»"
+			«ELSE»
+				evidence «cc.name» for system «cc.getQualifiedName»
+			«ENDIF»
 				[
 					tbdcount 1
 					«FOR myplan : myplans»
@@ -86,12 +99,38 @@ class AlisaGenerator implements IGenerator {
 						«ENDIF»
 						«ENDFOR»
 					«ENDFOR»
-«««					«FOR subci : ci.componentInstances» if compimpl do subcomponent classifier
-«««						«subci.generate(acp)»
-«««					«ENDFOR»
+					«FOR subcl : cc.subcomponentClassifiers»
+						«subcl.filterplans(acp)»
+					«ENDFOR»
 				]
 			«ENDIF»
 		'''
+	}
+	
+	def CharSequence filterplans(ComponentClassifier cc, AssurancePlan parentacp){
+		if (cc instanceof ComponentType || cc.skipAssuranceplans(parentacp)) return ''''''
+		val subacp = cc.getSubsystemAssuranceplan(parentacp)
+		if (subacp != null){
+			subacp.generateCase
+		} else {
+			cc.generateSystemEvidence(parentacp)
+		}
+	}
+	
+	def boolean skipAssuranceplans(ComponentClassifier cc, AssurancePlan parentacp){
+		val assumes = parentacp.assumeSubsystems
+		for (cl: assumes){
+			if (cc.isSameorExtends(cl)) return true;
+		}
+		return false
+	}
+	
+	def AssurancePlan getSubsystemAssuranceplan(ComponentClassifier cc, AssurancePlan parentacp){
+		val assure = parentacp.assurePlans
+		for (ap: assure){
+			if (cc.isSameorExtends(ap.target)) return ap;
+		}
+		return null
 	}
 
 	def CharSequence generate(Claim claim) {
@@ -216,6 +255,16 @@ class AlisaGenerator implements IGenerator {
 		switch vc {
 			VerificationValidation: '''validation'''
 			VerificationPrecondition: '''precondition'''
+		}
+	}
+	
+	def subcomponentClassifiers(ComponentClassifier cl){
+		if (cl instanceof ComponentImplementation){
+			val List<ComponentClassifier> result = new UniqueEList<ComponentClassifier>()
+			result += cl.allSubcomponents.map[sub|sub.classifier]
+			result
+		} else {
+			Collections.emptyList
 		}
 	}
 	

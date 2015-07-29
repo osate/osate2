@@ -22,7 +22,6 @@ VerificationPlan:
 		( description=Description)?
 	& claim+=Claim*
 	& rationale=Rationale?
-	& ('assume' verifiedAssumption+=[VerificationPlan|QualifiedName]+)? // direct subsystem separately verified 
 	& ('issues' issues+=STRING+ )?
 	)
 	']';

@@ -69,11 +69,11 @@ public class AssureSemanticSequencer extends AbstractDelegatingSemanticSequencer
 	 * Constraint:
 	 *     (
 	 *         name=QualifiedName 
-	 *         target=[AssurancePlan|QualifiedName] 
+	 *         (target=[AssurancePlan|QualifiedName] | targetSystem=[ComponentImplementation|AadlClassifierReference]) 
 	 *         metrics=Metrics 
 	 *         message=STRING? 
-	 *         subAssuranceEvidence+=AssuranceEvidence* 
-	 *         claimResult+=ClaimResult*
+	 *         claimResult+=ClaimResult* 
+	 *         subAssuranceEvidence+=AssuranceEvidence*
 	 *     )
 	 */
 	protected void sequence_AssuranceEvidence(EObject context, AssuranceEvidence semanticObject) {

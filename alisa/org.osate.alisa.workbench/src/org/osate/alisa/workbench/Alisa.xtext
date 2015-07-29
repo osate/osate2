@@ -11,12 +11,12 @@ AlisaWorkArea:
  
 AssurancePlan:
 	'assurance' 'plan' name=ID (':' title=STRING)?
-	'for' system=[aadl2::ComponentImplementation|AadlClassifierReference]
+	'for' target=[aadl2::ComponentImplementation|AadlClassifierReference]
 	'['
 	(
 	('description' description=Description)?
-	& ('assert' 'subsystems' subsystemPlans+=[AssurancePlan|QualifiedName]+)?
-	& ('assume' 'subsystems' verifiedAssumption+=[AssurancePlan|QualifiedName]+)?
+	& ('assure' 'subsystem' 'plans' assurePlans+=[AssurancePlan|QualifiedName]+)?
+	& ('assume' 'subsystems' assumeSubsystems+=[aadl2::ComponentClassifier|AadlClassifierReference]+)?
 		& ('issues' issues+=STRING+ )?
 	)
 	']';

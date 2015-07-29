@@ -308,46 +308,15 @@ ruleVerificationPlan returns [EObject current=null]
 					{ 
 	 				  getUnorderedGroupHelper().select(grammarAccess.getVerificationPlanAccess().getUnorderedGroup_7(), 3);
 	 				}
-					({true}?=>(	otherlv_12='assume' 
+					({true}?=>(	otherlv_12='issues' 
     {
-    	newLeafNode(otherlv_12, grammarAccess.getVerificationPlanAccess().getAssumeKeyword_7_3_0());
+    	newLeafNode(otherlv_12, grammarAccess.getVerificationPlanAccess().getIssuesKeyword_7_3_0());
     }
 (
 (
+		lv_issues_13_0=RULE_STRING
 		{
-			if ($current==null) {
-	            $current = createModelElement(grammarAccess.getVerificationPlanRule());
-	        }
-        }
-		{ 
-	        newCompositeNode(grammarAccess.getVerificationPlanAccess().getVerifiedAssumptionVerificationPlanCrossReference_7_3_1_0()); 
-	    }
-		ruleQualifiedName		{ 
-	        afterParserOrEnumRuleCall();
-	    }
-
-)
-)+))
-					{ 
-	 				  getUnorderedGroupHelper().returnFromSelection(grammarAccess.getVerificationPlanAccess().getUnorderedGroup_7());
-	 				}
- 				)
-			)  |
-
-			( 
-				{getUnorderedGroupHelper().canSelect(grammarAccess.getVerificationPlanAccess().getUnorderedGroup_7(), 4)}?=>(
-					{ 
-	 				  getUnorderedGroupHelper().select(grammarAccess.getVerificationPlanAccess().getUnorderedGroup_7(), 4);
-	 				}
-					({true}?=>(	otherlv_14='issues' 
-    {
-    	newLeafNode(otherlv_14, grammarAccess.getVerificationPlanAccess().getIssuesKeyword_7_4_0());
-    }
-(
-(
-		lv_issues_15_0=RULE_STRING
-		{
-			newLeafNode(lv_issues_15_0, grammarAccess.getVerificationPlanAccess().getIssuesSTRINGTerminalRuleCall_7_4_1_0()); 
+			newLeafNode(lv_issues_13_0, grammarAccess.getVerificationPlanAccess().getIssuesSTRINGTerminalRuleCall_7_3_1_0()); 
 		}
 		{
 	        if ($current==null) {
@@ -356,7 +325,7 @@ ruleVerificationPlan returns [EObject current=null]
        		addWithLastConsumed(
        			$current, 
        			"issues",
-        		lv_issues_15_0, 
+        		lv_issues_13_0, 
         		"STRING");
 	    }
 
@@ -375,9 +344,9 @@ ruleVerificationPlan returns [EObject current=null]
 	  getUnorderedGroupHelper().leave(grammarAccess.getVerificationPlanAccess().getUnorderedGroup_7());
 	}
 
-)	otherlv_16=']' 
+)	otherlv_14=']' 
     {
-    	newLeafNode(otherlv_16, grammarAccess.getVerificationPlanAccess().getRightSquareBracketKeyword_8());
+    	newLeafNode(otherlv_14, grammarAccess.getVerificationPlanAccess().getRightSquareBracketKeyword_8());
     }
 )
 ;

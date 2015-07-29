@@ -68,6 +68,10 @@ class AssureUtilExtension {
 		return result as AssuranceEvidence
 	}
 
+	def static ComponentImplementation getTargetClassifier(AssuranceEvidence ae) {
+		ae.targetSystem?:ae.target?.target
+	}
+
 	def static ClaimResult getEnclosingClaimResult(EObject assureObject) {
 		var result = assureObject
 		while (!(result instanceof ClaimResult)) {
@@ -86,18 +90,18 @@ class AssureUtilExtension {
 		switch (assureObject) {
 			VerificationActivityResult:
 				assureObject.target?.target?.instanceModel ?:
-					assureObject.enclosingAssuranceEvidence?.target?.system?.instanceModel
+					assureObject.enclosingAssuranceEvidence?.targetClassifier.instanceModel
 			ValidationResult:
 				(assureObject.eContainer as VerificationActivityResult).target?.target?.instanceModel ?:
-					assureObject.enclosingAssuranceEvidence?.target?.system?.instanceModel
+					assureObject.enclosingAssuranceEvidence?.target?.target?.instanceModel
 			PreconditionResult:
 				(assureObject.eContainer as VerificationActivityResult).target?.target?.instanceModel ?:
-					assureObject.enclosingAssuranceEvidence?.target?.system?.instanceModel
+					assureObject.enclosingAssuranceEvidence?.target?.target?.instanceModel
 		}
 	}
 
 	def static getInstanceModel(AssuranceEvidence ae) {
-		getInstanceModel(ae.getTarget().getSystem())
+		getInstanceModel(ae.getTarget().getTarget())
 	}
 
 	def static VerificationMethod getMethod(VerificationResult vr) {

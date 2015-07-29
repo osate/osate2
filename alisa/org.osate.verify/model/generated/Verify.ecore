@@ -16,8 +16,6 @@
         eType="#//Claim" containment="true"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="rationale" eType="ecore:EClass platform:/resource/org.osate.alisa.common/model/generated/Common.ecore#//Rationale"
         containment="true"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="verifiedAssumption" unique="false"
-        upperBound="-1" eType="#//VerificationPlan"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="issues" unique="false"
         upperBound="-1" eType="ecore:EDataType platform:/plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//EString"/>
   </eClassifiers>
