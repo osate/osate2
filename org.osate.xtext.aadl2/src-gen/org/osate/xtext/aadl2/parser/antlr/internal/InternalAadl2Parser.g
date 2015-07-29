@@ -33938,7 +33938,7 @@ ruleRangeType returns [EObject current=null]
 	        }
         }
 		{ 
-	        newCompositeNode(grammarAccess.getRangeTypeAccess().getNumberTypeNumberTypeCrossReference_5_1_0()); 
+	        newCompositeNode(grammarAccess.getRangeTypeAccess().getReferencedNumberTypeNumberTypeCrossReference_5_1_0()); 
 	    }
 		ruleQPREF		{ 
 	        afterParserOrEnumRuleCall();
@@ -34027,7 +34027,7 @@ ruleUnnamedRangeType returns [EObject current=null]
 	        }
         }
 		{ 
-	        newCompositeNode(grammarAccess.getUnnamedRangeTypeAccess().getNumberTypeNumberTypeCrossReference_3_1_0()); 
+	        newCompositeNode(grammarAccess.getUnnamedRangeTypeAccess().getReferencedNumberTypeNumberTypeCrossReference_3_1_0()); 
 	    }
 		ruleQPREF		{ 
 	        afterParserOrEnumRuleCall();

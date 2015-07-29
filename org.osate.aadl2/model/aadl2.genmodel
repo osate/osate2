@@ -1373,6 +1373,8 @@
           createChild="true" ecoreFeature="ecore:EReference aadl2.ecore#//RangeType/ownedNumberType"/>
       <genFeatures xsi:type="genmodel:GenFeature" notify="false" createChild="false"
           propertySortChoices="true" ecoreFeature="ecore:EReference aadl2.ecore#//RangeType/numberType"/>
+      <genFeatures xsi:type="genmodel:GenFeature" notify="false" createChild="false"
+          propertySortChoices="true" ecoreFeature="ecore:EReference aadl2.ecore#//RangeType/referencedNumberType"/>
     </genClasses>
     <genClasses xsi:type="genmodel:GenClass" ecoreClass="aadl2.ecore#//RecordType">
       <genFeatures xsi:type="genmodel:GenFeature" property="None" children="true"

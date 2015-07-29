@@ -51,6 +51,7 @@ import org.eclipse.emf.ecore.EClass;
  * <ul>
  *   <li>{@link org.osate.aadl2.RangeType#getOwnedNumberType <em>Owned Number Type</em>}</li>
  *   <li>{@link org.osate.aadl2.RangeType#getNumberType <em>Number Type</em>}</li>
+ *   <li>{@link org.osate.aadl2.RangeType#getReferencedNumberType <em>Referenced Number Type</em>}</li>
  * </ul>
  * </p>
  *
@@ -117,21 +118,41 @@ public interface RangeType extends NonListType {
 	 * <p>From package AADLProperties::Types.</p>
 	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Number Type</em>' reference.
-	 * @see #setNumberType(NumberType)
 	 * @see org.osate.aadl2.Aadl2Package#getRangeType_NumberType()
-	 * @model required="true" ordered="false"
+	 * @model required="true" transient="true" changeable="false" volatile="true" derived="true" ordered="false"
 	 * @generated
 	 */
 	NumberType getNumberType();
 
 	/**
-	 * Sets the value of the '{@link org.osate.aadl2.RangeType#getNumberType <em>Number Type</em>}' reference.
+	 * Returns the value of the '<em><b>Referenced Number Type</b></em>' reference.
+	 * <p>
+	 * This feature subsets the following features:
+	 * <ul>
+	 *   <li>'{@link org.osate.aadl2.RangeType#getNumberType() <em>Number Type</em>}'</li>
+	 * </ul>
+	 * </p>
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @param value the new value of the '<em>Number Type</em>' reference.
-	 * @see #getNumberType()
+	 * <!-- begin-model-doc -->
+	 * <p>From package AADLProperties::Types.</p>
+	 * <!-- end-model-doc -->
+	 * @return the value of the '<em>Referenced Number Type</em>' reference.
+	 * @see #setReferencedNumberType(NumberType)
+	 * @see org.osate.aadl2.Aadl2Package#getRangeType_ReferencedNumberType()
+	 * @model ordered="false"
 	 * @generated
 	 */
-	void setNumberType(NumberType value);
+	NumberType getReferencedNumberType();
+
+	/**
+	 * Sets the value of the '{@link org.osate.aadl2.RangeType#getReferencedNumberType <em>Referenced Number Type</em>}' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @param value the new value of the '<em>Referenced Number Type</em>' reference.
+	 * @see #getReferencedNumberType()
+	 * @generated
+	 */
+	void setReferencedNumberType(NumberType value);
 
 } // RangeType

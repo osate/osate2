@@ -4916,7 +4916,15 @@
       </eAnnotations>
     </eStructuralFeatures>
     <eStructuralFeatures xsi:type="ecore:EReference" name="numberType" ordered="false"
-        lowerBound="1" eType="#//NumberType">
+        lowerBound="1" eType="#//NumberType" changeable="false" volatile="true" transient="true"
+        derived="true">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="documentation" value="&lt;p>From package AADLProperties::Types.&lt;/p>"/>
+      </eAnnotations>
+    </eStructuralFeatures>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="referencedNumberType" ordered="false"
+        eType="#//NumberType">
+      <eAnnotations source="subsets" references="#//RangeType/numberType"/>
       <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
         <details key="documentation" value="&lt;p>From package AADLProperties::Types.&lt;/p>"/>
       </eAnnotations>

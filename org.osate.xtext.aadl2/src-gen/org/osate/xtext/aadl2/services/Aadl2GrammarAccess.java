@@ -24487,17 +24487,17 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 		private final Alternatives cOwnedNumberTypeAlternatives_5_0_0 = (Alternatives)cOwnedNumberTypeAssignment_5_0.eContents().get(0);
 		private final RuleCall cOwnedNumberTypeUnnamedIntegerTypeParserRuleCall_5_0_0_0 = (RuleCall)cOwnedNumberTypeAlternatives_5_0_0.eContents().get(0);
 		private final RuleCall cOwnedNumberTypeUnnamedRealTypeParserRuleCall_5_0_0_1 = (RuleCall)cOwnedNumberTypeAlternatives_5_0_0.eContents().get(1);
-		private final Assignment cNumberTypeAssignment_5_1 = (Assignment)cAlternatives_5.eContents().get(1);
-		private final CrossReference cNumberTypeNumberTypeCrossReference_5_1_0 = (CrossReference)cNumberTypeAssignment_5_1.eContents().get(0);
-		private final RuleCall cNumberTypeNumberTypeQPREFParserRuleCall_5_1_0_1 = (RuleCall)cNumberTypeNumberTypeCrossReference_5_1_0.eContents().get(1);
+		private final Assignment cReferencedNumberTypeAssignment_5_1 = (Assignment)cAlternatives_5.eContents().get(1);
+		private final CrossReference cReferencedNumberTypeNumberTypeCrossReference_5_1_0 = (CrossReference)cReferencedNumberTypeAssignment_5_1.eContents().get(0);
+		private final RuleCall cReferencedNumberTypeNumberTypeQPREFParserRuleCall_5_1_0_1 = (RuleCall)cReferencedNumberTypeNumberTypeCrossReference_5_1_0.eContents().get(1);
 		
 		//RangeType returns aadl2::RangeType:
 		//	name=ID ":" "type" "range" "of" (ownedNumberType=(UnnamedIntegerType | UnnamedRealType) |
-		//	numberType=[aadl2::NumberType|QPREF]);
+		//	referencedNumberType=[aadl2::NumberType|QPREF]);
 		@Override public ParserRule getRule() { return rule; }
 
 		//name=ID ":" "type" "range" "of" (ownedNumberType=(UnnamedIntegerType | UnnamedRealType) |
-		//numberType=[aadl2::NumberType|QPREF])
+		//referencedNumberType=[aadl2::NumberType|QPREF])
 		public Group getGroup() { return cGroup; }
 
 		//name=ID
@@ -24518,7 +24518,7 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 		//"of"
 		public Keyword getOfKeyword_4() { return cOfKeyword_4; }
 
-		//ownedNumberType=(UnnamedIntegerType | UnnamedRealType) | numberType=[aadl2::NumberType|QPREF]
+		//ownedNumberType=(UnnamedIntegerType | UnnamedRealType) | referencedNumberType=[aadl2::NumberType|QPREF]
 		public Alternatives getAlternatives_5() { return cAlternatives_5; }
 
 		//ownedNumberType=(UnnamedIntegerType | UnnamedRealType)
@@ -24533,14 +24533,14 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 		//UnnamedRealType
 		public RuleCall getOwnedNumberTypeUnnamedRealTypeParserRuleCall_5_0_0_1() { return cOwnedNumberTypeUnnamedRealTypeParserRuleCall_5_0_0_1; }
 
-		//numberType=[aadl2::NumberType|QPREF]
-		public Assignment getNumberTypeAssignment_5_1() { return cNumberTypeAssignment_5_1; }
+		//referencedNumberType=[aadl2::NumberType|QPREF]
+		public Assignment getReferencedNumberTypeAssignment_5_1() { return cReferencedNumberTypeAssignment_5_1; }
 
 		//[aadl2::NumberType|QPREF]
-		public CrossReference getNumberTypeNumberTypeCrossReference_5_1_0() { return cNumberTypeNumberTypeCrossReference_5_1_0; }
+		public CrossReference getReferencedNumberTypeNumberTypeCrossReference_5_1_0() { return cReferencedNumberTypeNumberTypeCrossReference_5_1_0; }
 
 		//QPREF
-		public RuleCall getNumberTypeNumberTypeQPREFParserRuleCall_5_1_0_1() { return cNumberTypeNumberTypeQPREFParserRuleCall_5_1_0_1; }
+		public RuleCall getReferencedNumberTypeNumberTypeQPREFParserRuleCall_5_1_0_1() { return cReferencedNumberTypeNumberTypeQPREFParserRuleCall_5_1_0_1; }
 	}
 
 	public class UnnamedRangeTypeElements extends AbstractParserRuleElementFinder {
@@ -24554,17 +24554,17 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 		private final Alternatives cOwnedNumberTypeAlternatives_3_0_0 = (Alternatives)cOwnedNumberTypeAssignment_3_0.eContents().get(0);
 		private final RuleCall cOwnedNumberTypeUnnamedIntegerTypeParserRuleCall_3_0_0_0 = (RuleCall)cOwnedNumberTypeAlternatives_3_0_0.eContents().get(0);
 		private final RuleCall cOwnedNumberTypeUnnamedRealTypeParserRuleCall_3_0_0_1 = (RuleCall)cOwnedNumberTypeAlternatives_3_0_0.eContents().get(1);
-		private final Assignment cNumberTypeAssignment_3_1 = (Assignment)cAlternatives_3.eContents().get(1);
-		private final CrossReference cNumberTypeNumberTypeCrossReference_3_1_0 = (CrossReference)cNumberTypeAssignment_3_1.eContents().get(0);
-		private final RuleCall cNumberTypeNumberTypeQPREFParserRuleCall_3_1_0_1 = (RuleCall)cNumberTypeNumberTypeCrossReference_3_1_0.eContents().get(1);
+		private final Assignment cReferencedNumberTypeAssignment_3_1 = (Assignment)cAlternatives_3.eContents().get(1);
+		private final CrossReference cReferencedNumberTypeNumberTypeCrossReference_3_1_0 = (CrossReference)cReferencedNumberTypeAssignment_3_1.eContents().get(0);
+		private final RuleCall cReferencedNumberTypeNumberTypeQPREFParserRuleCall_3_1_0_1 = (RuleCall)cReferencedNumberTypeNumberTypeCrossReference_3_1_0.eContents().get(1);
 		
 		//UnnamedRangeType returns aadl2::RangeType:
 		//	{aadl2::RangeType} "range" "of" (ownedNumberType=(UnnamedIntegerType | UnnamedRealType) |
-		//	numberType=[aadl2::NumberType|QPREF]);
+		//	referencedNumberType=[aadl2::NumberType|QPREF]);
 		@Override public ParserRule getRule() { return rule; }
 
 		//{aadl2::RangeType} "range" "of" (ownedNumberType=(UnnamedIntegerType | UnnamedRealType) |
-		//numberType=[aadl2::NumberType|QPREF])
+		//referencedNumberType=[aadl2::NumberType|QPREF])
 		public Group getGroup() { return cGroup; }
 
 		//{aadl2::RangeType}
@@ -24576,7 +24576,7 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 		//"of"
 		public Keyword getOfKeyword_2() { return cOfKeyword_2; }
 
-		//ownedNumberType=(UnnamedIntegerType | UnnamedRealType) | numberType=[aadl2::NumberType|QPREF]
+		//ownedNumberType=(UnnamedIntegerType | UnnamedRealType) | referencedNumberType=[aadl2::NumberType|QPREF]
 		public Alternatives getAlternatives_3() { return cAlternatives_3; }
 
 		//ownedNumberType=(UnnamedIntegerType | UnnamedRealType)
@@ -24591,14 +24591,14 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 		//UnnamedRealType
 		public RuleCall getOwnedNumberTypeUnnamedRealTypeParserRuleCall_3_0_0_1() { return cOwnedNumberTypeUnnamedRealTypeParserRuleCall_3_0_0_1; }
 
-		//numberType=[aadl2::NumberType|QPREF]
-		public Assignment getNumberTypeAssignment_3_1() { return cNumberTypeAssignment_3_1; }
+		//referencedNumberType=[aadl2::NumberType|QPREF]
+		public Assignment getReferencedNumberTypeAssignment_3_1() { return cReferencedNumberTypeAssignment_3_1; }
 
 		//[aadl2::NumberType|QPREF]
-		public CrossReference getNumberTypeNumberTypeCrossReference_3_1_0() { return cNumberTypeNumberTypeCrossReference_3_1_0; }
+		public CrossReference getReferencedNumberTypeNumberTypeCrossReference_3_1_0() { return cReferencedNumberTypeNumberTypeCrossReference_3_1_0; }
 
 		//QPREF
-		public RuleCall getNumberTypeNumberTypeQPREFParserRuleCall_3_1_0_1() { return cNumberTypeNumberTypeQPREFParserRuleCall_3_1_0_1; }
+		public RuleCall getReferencedNumberTypeNumberTypeQPREFParserRuleCall_3_1_0_1() { return cReferencedNumberTypeNumberTypeQPREFParserRuleCall_3_1_0_1; }
 	}
 
 	public class ClassifierTypeElements extends AbstractParserRuleElementFinder {
@@ -28684,7 +28684,7 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 
 	//RangeType returns aadl2::RangeType:
 	//	name=ID ":" "type" "range" "of" (ownedNumberType=(UnnamedIntegerType | UnnamedRealType) |
-	//	numberType=[aadl2::NumberType|QPREF]);
+	//	referencedNumberType=[aadl2::NumberType|QPREF]);
 	public RangeTypeElements getRangeTypeAccess() {
 		return pRangeType;
 	}
@@ -28695,7 +28695,7 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 
 	//UnnamedRangeType returns aadl2::RangeType:
 	//	{aadl2::RangeType} "range" "of" (ownedNumberType=(UnnamedIntegerType | UnnamedRealType) |
-	//	numberType=[aadl2::NumberType|QPREF]);
+	//	referencedNumberType=[aadl2::NumberType|QPREF]);
 	public UnnamedRangeTypeElements getUnnamedRangeTypeAccess() {
 		return pUnnamedRangeType;
 	}
