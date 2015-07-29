@@ -345,7 +345,7 @@
 				<title>Creating Flow Specifications</title>
 				<para>Flow paths, flow sinks, and flow sources can be created using the palette when editing a component type.</para>
 				<imageobject>
-    				<imagedata fileref="images/FlowSpecificationPalette.PNG" format="PNG"/>
+    				<imagedata fileref="images/FlowSpecificationPalette.png" format="PNG"/>
   				</imageobject>
 				<section>
 					<title>Creating Flow Paths</title>
