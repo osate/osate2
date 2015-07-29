@@ -27,7 +27,8 @@ import org.eclipse.xtext.ui.editor.outline.impl.EObjectNode;
 import org.eclipse.xtext.ui.editor.utils.EditorUtils;
 import org.eclipse.xtext.util.concurrent.IUnitOfWork;
 import org.osate.assure.assure.AssuranceEvidence;
-import org.osate.assure.assure.impl.AssuranceEvidenceImpl;
+import org.osate.assure.util.AssureUtilExtension;
+import org.osate.verify.util.VerifyUtilExtension;
 
 public class AssureResetHandler extends AbstractHandler {
 
@@ -72,8 +73,9 @@ public class AssureResetHandler extends AbstractHandler {
 					@Override
 					public IStatus exec(XtextResource resource) throws Exception {
 						EObject eobj = resource.getResourceSet().getEObject(uri, true);
-						if (eobj instanceof AssuranceEvidenceImpl) {
-							return runJob((AssuranceEvidenceImpl) eobj, monitor);
+						AssuranceEvidence ae = AssureUtilExtension.getEnclosingAssuranceEvidence(eobj);
+						if (ae != null) {
+							return runJob(ae, monitor);
 						} else {
 							return Status.CANCEL_STATUS;
 						}
@@ -126,6 +128,8 @@ public class AssureResetHandler extends AbstractHandler {
 		long start = System.currentTimeMillis();
 		resetToTBD(rootCaseResult);
 		recomputeAllCounts(rootCaseResult);
+		VerifyUtilExtension.clearAllHasRunRecords();
+		AssureUtilExtension.clearAllInstanceModels();
 		try {
 			rootCaseResult.eResource().save(null);
 		} catch (IOException e) {
