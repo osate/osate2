@@ -168,9 +168,8 @@ public class DefaultColoringService implements ColoringService {
 			 		}
 	 			}
 	 		}
-	 		
-	 		boolean isFlowInMode =  (isModeSelected && selectedFlow != null) ? isInMode(selectedFlow, selectedModeName) : false;
-			
+	 		boolean isFlowInMode =  (isModeSelected && selectedFlow != null) ? isInMode(selectedFlow, selectedModeName) : true;
+
 			// Highlight accordingly
 	 		if(inSelectedMode && (inSelectedFlow && isFlowInMode)) {
 	 			return Graphiti.getGaService().manageColor(getDiagram(), styleService.getInSelectedModeAndFlowColor());
