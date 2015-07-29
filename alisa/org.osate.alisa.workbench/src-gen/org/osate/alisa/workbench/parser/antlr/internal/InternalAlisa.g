@@ -352,8 +352,7 @@ ruleAssurancePlan returns [EObject current=null]
  				)
 			)  
 
-		)+
-	  	{getUnorderedGroupHelper().canLeave(grammarAccess.getAssurancePlanAccess().getUnorderedGroup_7())}?	
+		)*	
 	)
 )
 	{ 

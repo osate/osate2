@@ -83,12 +83,13 @@ public class AlisaGrammarAccess extends AbstractGrammarElementFinder {
 		
 		//AssurancePlan:
 		//	"assurance" "plan" name=ID (":" title=STRING)? "for" system=[aadl2::ComponentImplementation|AadlClassifierReference]
-		//	"[" (("description" description=Description)? & "assert" "subsystems" subsystemPlans+=[AssurancePlan|QualifiedName]+
-		//	& ("assume" "subsystems" verifiedAssumption+=[AssurancePlan|QualifiedName]+)? & ("issues" issues+=STRING+)?) "]";
+		//	"[" (("description" description=Description)? & ("assert" "subsystems"
+		//	subsystemPlans+=[AssurancePlan|QualifiedName]+)? & ("assume" "subsystems"
+		//	verifiedAssumption+=[AssurancePlan|QualifiedName]+)? & ("issues" issues+=STRING+)?) "]";
 		@Override public ParserRule getRule() { return rule; }
 
 		//"assurance" "plan" name=ID (":" title=STRING)? "for" system=[aadl2::ComponentImplementation|AadlClassifierReference] "["
-		//(("description" description=Description)? & "assert" "subsystems" subsystemPlans+=[AssurancePlan|QualifiedName]+ &
+		//(("description" description=Description)? & ("assert" "subsystems" subsystemPlans+=[AssurancePlan|QualifiedName]+)? &
 		//("assume" "subsystems" verifiedAssumption+=[AssurancePlan|QualifiedName]+)? & ("issues" issues+=STRING+)?) "]"
 		public Group getGroup() { return cGroup; }
 
@@ -131,7 +132,7 @@ public class AlisaGrammarAccess extends AbstractGrammarElementFinder {
 		//"["
 		public Keyword getLeftSquareBracketKeyword_6() { return cLeftSquareBracketKeyword_6; }
 
-		//("description" description=Description)? & "assert" "subsystems" subsystemPlans+=[AssurancePlan|QualifiedName]+ &
+		//("description" description=Description)? & ("assert" "subsystems" subsystemPlans+=[AssurancePlan|QualifiedName]+)? &
 		//("assume" "subsystems" verifiedAssumption+=[AssurancePlan|QualifiedName]+)? & ("issues" issues+=STRING+)?
 		public UnorderedGroup getUnorderedGroup_7() { return cUnorderedGroup_7; }
 
@@ -147,7 +148,7 @@ public class AlisaGrammarAccess extends AbstractGrammarElementFinder {
 		//Description
 		public RuleCall getDescriptionDescriptionParserRuleCall_7_0_1_0() { return cDescriptionDescriptionParserRuleCall_7_0_1_0; }
 
-		//"assert" "subsystems" subsystemPlans+=[AssurancePlan|QualifiedName]+
+		//("assert" "subsystems" subsystemPlans+=[AssurancePlan|QualifiedName]+)?
 		public Group getGroup_7_1() { return cGroup_7_1; }
 
 		//"assert"
@@ -616,8 +617,9 @@ public class AlisaGrammarAccess extends AbstractGrammarElementFinder {
 
 	//AssurancePlan:
 	//	"assurance" "plan" name=ID (":" title=STRING)? "for" system=[aadl2::ComponentImplementation|AadlClassifierReference]
-	//	"[" (("description" description=Description)? & "assert" "subsystems" subsystemPlans+=[AssurancePlan|QualifiedName]+
-	//	& ("assume" "subsystems" verifiedAssumption+=[AssurancePlan|QualifiedName]+)? & ("issues" issues+=STRING+)?) "]";
+	//	"[" (("description" description=Description)? & ("assert" "subsystems"
+	//	subsystemPlans+=[AssurancePlan|QualifiedName]+)? & ("assume" "subsystems"
+	//	verifiedAssumption+=[AssurancePlan|QualifiedName]+)? & ("issues" issues+=STRING+)?) "]";
 	public AssurancePlanElements getAssurancePlanAccess() {
 		return pAssurancePlan;
 	}

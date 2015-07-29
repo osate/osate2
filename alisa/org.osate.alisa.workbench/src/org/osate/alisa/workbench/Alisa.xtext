@@ -15,7 +15,7 @@ AssurancePlan:
 	'['
 	(
 	('description' description=Description)?
-	& ('assert' 'subsystems' subsystemPlans+=[AssurancePlan|QualifiedName]+)
+	& ('assert' 'subsystems' subsystemPlans+=[AssurancePlan|QualifiedName]+)?
 	& ('assume' 'subsystems' verifiedAssumption+=[AssurancePlan|QualifiedName]+)?
 		& ('issues' issues+=STRING+ )?
 	)

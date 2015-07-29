@@ -75,8 +75,8 @@ class AlisaGenerator implements IGenerator {
 		val myplans = ci.getVerificationPlans();
 		'''	
 			«IF !myplans.empty»
-				evidence «acp.name» for «ci.getQualifiedName»
-				instance "«ci.URI.toString»"
+				evidence «acp.name» for «acp.name»
+«««				instance "«ci.URI.toString»"
 				[
 					tbdcount 1
 					«FOR myplan : myplans»

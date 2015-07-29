@@ -2204,8 +2204,7 @@ rule__AssurancePlan__UnorderedGroup_7
     }
 :
 	rule__AssurancePlan__UnorderedGroup_7__0
-	
-	{getUnorderedGroupHelper().canLeave(grammarAccess.getAssurancePlanAccess().getUnorderedGroup_7())}?
+	?
 	
 ;
 finally {
