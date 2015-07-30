@@ -56,7 +56,7 @@ class VerifyScopeProvider extends AlisaAbstractDeclarativeScopeProvider {
 						QualifiedName::wrapper(SimpleAttributeResolver::NAME_RESOLVER)), true)
 			}
 		for ( r :req.refinesReference){
-			result = scopeForValCompute(req, result)
+			result = scopeForValCompute(r, result)
 		}
 			
 		result
