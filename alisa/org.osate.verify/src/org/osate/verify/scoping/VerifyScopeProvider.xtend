@@ -13,46 +13,53 @@ import org.eclipse.xtext.scoping.impl.SimpleScope
 import org.osate.verify.verify.VerificationActivity
 import static org.osate.reqspec.util.ReqSpecUtilExtension.*
 import org.osate.verify.verify.Claim
+import org.osate.reqspec.reqSpec.Requirement
+import org.osate.reqspec.reqSpec.SystemRequirements
 
 /**
  * This class contains custom scoping description.
  * 
  * see : http://www.eclipse.org/Xtext/documentation.html#scoping
  * on how and when to use it 
- *
+ * 
  */
 class VerifyScopeProvider extends AlisaAbstractDeclarativeScopeProvider {
 
-	def scope_XExpression (VerificationActivity context, EReference reference)
-	{
-		var result = IScope.NULLSCOPE
+	def scope_XExpression(VerificationActivity context, EReference reference) {
 		val claim = context.eContainer as Claim
-		val req = claim.requirement
-		result = new SimpleScope(result,
-						Scopes::scopedElementsFor(req.computes,
+		var req = claim.requirement
+		return scopeForValCompute(req, IScope.NULLSCOPE)
+	}
+	
+
+	def IScope scopeForValCompute(Requirement req, IScope parentscope) {
+		var result = parentscope
+		if (!req.computes.empty) {
+			result = new SimpleScope(result,
+				Scopes::scopedElementsFor(req.computes, QualifiedName::wrapper(SimpleAttributeResolver::NAME_RESOLVER)),
+				true)
+		}
+		if (!req.constants.empty) {
+			result = new SimpleScope(result,
+				Scopes::scopedElementsFor(req.constants,
+					QualifiedName::wrapper(SimpleAttributeResolver::NAME_RESOLVER)), true)
+		}
+			val  sr = containingSystemRequirements(req)
+			if (!sr.computes.empty) {
+				result = new SimpleScope(result,
+					Scopes::scopedElementsFor(sr.computes,
 						QualifiedName::wrapper(SimpleAttributeResolver::NAME_RESOLVER)), true)
-		result = new SimpleScope(result,
-						Scopes::scopedElementsFor(req.constants,
+			}
+			if (!sr.constants.empty) {
+				result = new SimpleScope(result,
+					Scopes::scopedElementsFor(sr.constants,
 						QualifiedName::wrapper(SimpleAttributeResolver::NAME_RESOLVER)), true)
-		
-		return result
+			}
+		for ( r :req.refinesReference){
+			result = scopeForValCompute(req, result)
+		}
+			
+		result
 	}
 
-//	def scope_ComputeDeclaration(VerificationActivity context, EReference reference) {
-//		var result = IScope.NULLSCOPE
-//		val req = context.requirement
-//		val ReqSpecs reqspecs = containingReqSpecs(req)
-//		if (!reqspecs.computes.isEmpty) {
-//			result = new SimpleScope(result,
-//				Scopes::scopedElementsFor(reqspecs.computes,
-//					QualifiedName::wrapper(SimpleAttributeResolver::NAME_RESOLVER)), true)
-//		}
-//		if (!req.computes.empty) {
-//			result = new SimpleScope(result,
-//				Scopes::scopedElementsFor(req.computes,
-//					QualifiedName::wrapper(SimpleAttributeResolver::NAME_RESOLVER)), true)
-//		}
-//		result
-//	}
-
-}
+	}
