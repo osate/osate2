@@ -10,6 +10,7 @@ import java.util.Stack;
 import java.util.List;
 import java.util.ArrayList;
 
+@SuppressWarnings("all")
 public class InternalReqSpecLexer extends Lexer {
     public static final int Val=64;
     public static final int LessThanSignGreaterThanSign=79;
@@ -8517,7 +8518,7 @@ public class InternalReqSpecLexer extends Lexer {
         }
     }
 
-    class DFA21 extends DFA {
+    static class DFA21 extends DFA {
 
         public DFA21(BaseRecognizer recognizer) {
             this.recognizer = recognizer;
