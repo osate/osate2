@@ -80,6 +80,10 @@ public class DoResourceBudget extends AaxlReadOnlyActionAsJob {
 				this.getAnalysisErrorReporterFactory());
 	}
 	
+	public void setSummaryReport(){
+		this.summaryReport = new StringBuffer();
+	}
+	
 	public void saveReport(){
 		this.getCSVLog().saveToFile();
 	}
@@ -92,22 +96,20 @@ public class DoResourceBudget extends AaxlReadOnlyActionAsJob {
 		if (si != null) {
 			monitor.beginTask(getActionName(), IProgressMonitor.UNKNOWN);
 			DoResourceBudgetLogic logic = null;
-//			final SOMIterator soms = new SOMIterator(si);
-//			while (soms.hasNext())
-//			{
-//				final SystemOperationMode som = soms.nextSOM();
-//				final String somName = som.getName();
-			// final String somName = null;
+
 			InstanceValidation iv = new InstanceValidation(this);
 			if (!iv.checkReferenceProcessor(si)) {
 				Dialog.showWarning("Resource Budget Analysis",
 						"Model contains thread execution times without reference processor.");
 				return;
 			}
-
+			
+//			actionBody(monitor, si);
+			
 			logic = new DoResourceBudgetLogic(this);
+
 			logic.analyzeResourceBudget(si, null);
-//			}
+
 			monitor.done();
 
 			if (si.getSystemOperationModes().size() == 1) {
