@@ -20,6 +20,7 @@ import org.eclipse.emf.ecore.util.EObjectContainmentEList;
 import org.eclipse.emf.ecore.util.InternalEList;
 
 import org.eclipse.xtext.xbase.XExpression;
+import org.eclipse.xtext.xbase.XVariableDeclaration;
 
 import org.osate.aadl2.ComponentClassifier;
 
@@ -142,7 +143,7 @@ public class SystemRequirementsImpl extends ReqSpecContainerImpl implements Syst
    * @generated
    * @ordered
    */
-  protected EList<XExpression> constants;
+  protected EList<XVariableDeclaration> constants;
 
   /**
    * The cached value of the '{@link #getComputes() <em>Computes</em>}' containment reference list.
@@ -370,11 +371,11 @@ public class SystemRequirementsImpl extends ReqSpecContainerImpl implements Syst
    * <!-- end-user-doc -->
    * @generated
    */
-  public EList<XExpression> getConstants()
+  public EList<XVariableDeclaration> getConstants()
   {
     if (constants == null)
     {
-      constants = new EObjectContainmentEList<XExpression>(XExpression.class, this, ReqSpecPackage.SYSTEM_REQUIREMENTS__CONSTANTS);
+      constants = new EObjectContainmentEList<XVariableDeclaration>(XVariableDeclaration.class, this, ReqSpecPackage.SYSTEM_REQUIREMENTS__CONSTANTS);
     }
     return constants;
   }
@@ -522,7 +523,7 @@ public class SystemRequirementsImpl extends ReqSpecContainerImpl implements Syst
         return;
       case ReqSpecPackage.SYSTEM_REQUIREMENTS__CONSTANTS:
         getConstants().clear();
-        getConstants().addAll((Collection<? extends XExpression>)newValue);
+        getConstants().addAll((Collection<? extends XVariableDeclaration>)newValue);
         return;
       case ReqSpecPackage.SYSTEM_REQUIREMENTS__COMPUTES:
         getComputes().clear();

@@ -5,43 +5,31 @@ import "http://aadl.info/AADL/2.0" as aadl2
 import "http://aadl.info/AADL/2.0/instance" as instance
 import "http://www.osate.org/reqspec/ReqSpec" as ReqSpec
 import "http://www.osate.org/alisa/common/Common" as Common
+import "http://www.osate.org/alisa/workbench/Alisa" as Alisa
 import "http://www.osate.org/verify/Verify" as Verify 
-import  "http://www.osate.org/categories/Categories" as categories
 import  "http://www.osate.org/results/Results" as results
 import "http://www.eclipse.org/emf/2002/Ecore" as ecore
 
  
 // result for a system in the architecture hierarchy
 AssuranceEvidence:
-	'evidence' name=ID 
-	'for' target=[aadl2::ComponentClassifier|AadlClassifierReference]
-	'instance' instance= [instance::InstanceObject|URIID]
+	'evidence' name=QualifiedName 
+	'for' (target=[Alisa::AssurancePlan|QualifiedName]|'system' targetSystem=[aadl2::ComponentImplementation|AadlClassifierReference])
+//	('instance' instance= [instance::InstanceObject|URIID])?
 	'['
-	('successcount'  successCount=INT)?
-	('failcount'  failCount=INT)?
-	('unknowncount' unknownCount=INT)? 
-	('failthencount' failthenCount=INT)?
-	('andthencount' andthenCount=INT)?
-	('tbdcount' tbdCount=INT)?
-	('weight' weight = INT)?
+	metrics=Metrics
 	('message' message= STRING)?
-	(subAssuranceEvidence += AssuranceEvidence)*
 	(claimResult += ClaimResult)*
+	(subAssuranceEvidence += AssuranceEvidence)*
 	']'  
 ;
 
 // Result of meeting a requirement
 ClaimResult:
 	'claim' target=[ReqSpec::Requirement|QualifiedName]
-	('instance' instance= [instance::InstanceObject|URIID])? // if the requirement is for an element of the component instance
+//	('instance' instance= [instance::InstanceObject|URIID])? // if the requirement is for an element of the component instance
 	'['
-	('successcount'  successCount=INT)?
-	('failcount'  failCount=INT)?
-	('unknowncount' unknownCount=INT)? 
-	('failthencount' failthenCount=INT)?
-	('andthencount' andthenCount=INT)?
-	('tbdcount' tbdCount=INT)?
-	('weight' weight = INT)?
+	metrics=Metrics
 	('message' message= STRING)?
 	(subClaimResult += ClaimResult)*
 	(verificationActivityResult+= VerificationExpr)*
@@ -49,30 +37,10 @@ ClaimResult:
 ;
 
 
-ValidationResult returns VerificationResult:
-	'validation' {ValidationResult}	target=[Verify::VerificationValidation|QualifiedName]
-	'['
-	'executionstate'  executionState=VerificationExecutionState
-	'resultstate' resultState=VerificationResultState
-	('issues' '['
-		issues+=ResultIssue*
-		']'
-	)?
-	('report' resultReport=[results::ResultReport|QualifiedName])? // pointer to separate report
-	('successcount'  successCount=INT)?
-	('failcount'  failCount=INT)?
-	('unknowncount' unknownCount=INT)? 
-	('failthencount' failthenCount=INT)?
-	('andthencount' andthenCount=INT)?
-	('tbdcount' tbdCount=INT)?
-	('weight' weight = INT)?
-	('message' message= STRING)?
-	']'  
-;
 
-PreconditionResult returns VerificationResult:
-	'precondition' {PreconditionResult}	name=ID 
-	'for' target=[Verify::VerificationPrecondition|QualifiedName]
+ConditionResult returns VerificationResult:
+	('precondition' {PreconditionResult}| 'validation' {ValidationResult})	
+	target=[Verify::VerificationCondition|QualifiedName]
 	'['
 	'executionstate'  executionState=VerificationExecutionState
 	'resultstate' resultState=VerificationResultState
@@ -81,13 +49,7 @@ PreconditionResult returns VerificationResult:
 		']'
 	)?
 	('report' resultReport=[results::ResultReport|QualifiedName])? // pointer to separate report
-	('successcount'  successCount=INT)?
-	('failcount'  failCount=INT)?
-	('unknowncount' unknownCount=INT)? 
-	('failthencount' failthenCount=INT)?
-	('andthencount' andthenCount=INT)?
-	('tbdcount' tbdCount=INT)?
-	('weight' weight = INT)?
+	metrics=Metrics
 	('message' message= STRING)?
 	']'  
 ;
@@ -96,6 +58,7 @@ PreconditionResult returns VerificationResult:
 // result of executing a verification activity
 VerificationActivityResult returns VerificationResult:
 	'verification' {VerificationActivityResult}	target=[Verify::VerificationActivity|QualifiedName]
+//	('instance' instance= [instance::InstanceObject|URIID])?
 	'['
 	'executionstate'  executionState=VerificationExecutionState
 	'resultstate' resultState=VerificationResultState
@@ -104,55 +67,51 @@ VerificationActivityResult returns VerificationResult:
 		']'
 	)?
 	('report' resultReport=[results::ResultReport|QualifiedName])? // pointer to separate report
-	('successcount'  successCount=INT)?
-	('failcount'  failCount=INT)?
-	('unknowncount' unknownCount=INT)? 
-	('failthencount' failthenCount=INT)?
-	('andthencount' andthenCount=INT)?
-	('tbdcount' tbdCount=INT)?
-	('weight' weight = INT)?
+	metrics=Metrics
 	('message' message= STRING)?
-	(validationResult+= ValidationResult)*
-	(preconditionResult+= PreconditionResult)*
+	conditionResult= ConditionResult?
 	']'  
 ;
 
 AssureResult:
 	VerificationExpr |
-		AssuranceEvidence | ClaimResult  | PreconditionResult | ValidationResult
+		AssuranceEvidence | ClaimResult  | ConditionResult 
 	;
 
+enum ElseType: 
+	FAIL='fail' | TIMEOUT='timeout' | OTHER='other'
+;
 	
-VerificationExpr : VerificationActivityResult | FailThenResult | AndThenResult;
+VerificationExpr : VerificationActivityResult | ElseResult | ThenResult;
 
-FailThenResult returns FailThenResult:
-	'failthen'  first+=VerificationExpr 'do' second+=VerificationExpr
+ElseResult returns ElseResult:
+	'else'  first+=VerificationExpr 'other' other+=VerificationExpr?
+	('fail' fail+=VerificationExpr)? ('timeout' timeout+=VerificationExpr)?
 	'['
-	( failThen?='failthen')?
-	( unknownThen?='unknownthen')?
-	( didFail?='didfail')?
-	('successcount'  successCount=INT)?
-	('failcount'  failCount=INT)?
-	('unknowncount' unknownCount=INT)? 
-	('failthencount' failthenCount=INT)?
-	('andthencount' andthenCount=INT)?
-	('tbdcount' tbdCount=INT)?
-	('weight' weight = INT)?
+	didFail=ElseType?
+	metrics=Metrics
 	']'
 ;
 
-AndThenResult returns AndThenResult:
-	'andthen' first+=VerificationExpr 'do' second+=VerificationExpr
+ThenResult returns ThenResult:
+	'then' first+=VerificationExpr 'do' second+=VerificationExpr
 	'['
-	( didAndThenFail?='andthenfailed')?
+	( didThenFail?='thenfailed')?
+	metrics=Metrics
+	']'
+;
+
+Metrics returns Metrics:
+	('tbdcount' tbdCount=INT)
 	('successcount'  successCount=INT)?
 	('failcount'  failCount=INT)?
-	('unknowncount' unknownCount=INT)? 
-	('failthencount' failthenCount=INT)?
-	('andthencount' andthenCount=INT)?
-	('tbdcount' tbdCount=INT)?
+	('timeoutcount'  timeoutCount=INT)?
+	('othercount' otherCount=INT)? 
+	('didelsecount' didelseCount=INT)?  // else branch executed
+	('thenskipcount' thenskipCount=INT)?
+	('prefailcount'  preconditionfailCount=INT)?
+	('validfailcount'  validationfailCount=INT)?
 	('weight' weight = INT)?
-	']'
 ;
 
 // use it for failures, warnings and successes.
@@ -170,7 +129,7 @@ enum ResultIssueType:
 
 
 enum VerificationResultState :
-	TBD='tbd'| SUCCESS='success' | FAIL='fail' | UNKNOWN='unknown' ;
+	TBD='tbd'| SUCCESS='success' | FAIL='fail' | OTHER='other' | TIMEOUT='timeout' ;
 
 
 

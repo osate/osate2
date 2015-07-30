@@ -50,14 +50,24 @@ public enum VerificationResultState implements Enumerator
   FAIL(2, "FAIL", "fail"),
 
   /**
-   * The '<em><b>UNKNOWN</b></em>' literal object.
+   * The '<em><b>OTHER</b></em>' literal object.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @see #UNKNOWN_VALUE
+   * @see #OTHER_VALUE
    * @generated
    * @ordered
    */
-  UNKNOWN(3, "UNKNOWN", "unknown");
+  OTHER(3, "OTHER", "other"),
+
+  /**
+   * The '<em><b>TIMEOUT</b></em>' literal object.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see #TIMEOUT_VALUE
+   * @generated
+   * @ordered
+   */
+  TIMEOUT(4, "TIMEOUT", "timeout");
 
   /**
    * The '<em><b>TBD</b></em>' literal value.
@@ -105,19 +115,34 @@ public enum VerificationResultState implements Enumerator
   public static final int FAIL_VALUE = 2;
 
   /**
-   * The '<em><b>UNKNOWN</b></em>' literal value.
+   * The '<em><b>OTHER</b></em>' literal value.
    * <!-- begin-user-doc -->
    * <p>
-   * If the meaning of '<em><b>UNKNOWN</b></em>' literal object isn't clear,
+   * If the meaning of '<em><b>OTHER</b></em>' literal object isn't clear,
    * there really should be more of a description here...
    * </p>
    * <!-- end-user-doc -->
-   * @see #UNKNOWN
-   * @model literal="unknown"
+   * @see #OTHER
+   * @model literal="other"
    * @generated
    * @ordered
    */
-  public static final int UNKNOWN_VALUE = 3;
+  public static final int OTHER_VALUE = 3;
+
+  /**
+   * The '<em><b>TIMEOUT</b></em>' literal value.
+   * <!-- begin-user-doc -->
+   * <p>
+   * If the meaning of '<em><b>TIMEOUT</b></em>' literal object isn't clear,
+   * there really should be more of a description here...
+   * </p>
+   * <!-- end-user-doc -->
+   * @see #TIMEOUT
+   * @model literal="timeout"
+   * @generated
+   * @ordered
+   */
+  public static final int TIMEOUT_VALUE = 4;
 
   /**
    * An array of all the '<em><b>Verification Result State</b></em>' enumerators.
@@ -131,7 +156,8 @@ public enum VerificationResultState implements Enumerator
       TBD,
       SUCCESS,
       FAIL,
-      UNKNOWN,
+      OTHER,
+      TIMEOUT,
     };
 
   /**
@@ -193,7 +219,8 @@ public enum VerificationResultState implements Enumerator
       case TBD_VALUE: return TBD;
       case SUCCESS_VALUE: return SUCCESS;
       case FAIL_VALUE: return FAIL;
-      case UNKNOWN_VALUE: return UNKNOWN;
+      case OTHER_VALUE: return OTHER;
+      case TIMEOUT_VALUE: return TIMEOUT;
     }
     return null;
   }

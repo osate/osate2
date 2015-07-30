@@ -20,64 +20,34 @@ import org.eclipse.emf.common.util.Enumerator;
 public enum SupportedTypes implements Enumerator
 {
   /**
-   * The '<em><b>ANALYSIS</b></em>' literal object.
+   * The '<em><b>ANALYSISPLUGIN</b></em>' literal object.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @see #ANALYSIS_VALUE
+   * @see #ANALYSISPLUGIN_VALUE
    * @generated
    * @ordered
    */
-  ANALYSIS(0, "ANALYSIS", "analysis"),
+  ANALYSISPLUGIN(0, "ANALYSISPLUGIN", "analysisplugin"),
 
   /**
-   * The '<em><b>PREDICATE</b></em>' literal object.
+   * The '<em><b>RESOLUTE</b></em>' literal object.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @see #PREDICATE_VALUE
+   * @see #RESOLUTE_VALUE
    * @generated
    * @ordered
    */
-  PREDICATE(1, "PREDICATE", "predicate"),
+  RESOLUTE(1, "RESOLUTE", "resolute"),
 
   /**
-   * The '<em><b>COMPUTE</b></em>' literal object.
+   * The '<em><b>JAVA</b></em>' literal object.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @see #COMPUTE_VALUE
+   * @see #JAVA_VALUE
    * @generated
    * @ordered
    */
-  COMPUTE(2, "COMPUTE", "compute"),
-
-  /**
-   * The '<em><b>RESOLUTEPROVE</b></em>' literal object.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @see #RESOLUTEPROVE_VALUE
-   * @generated
-   * @ordered
-   */
-  RESOLUTEPROVE(3, "RESOLUTEPROVE", "resoluteprove"),
-
-  /**
-   * The '<em><b>RESOLUTECOMPUTE</b></em>' literal object.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @see #RESOLUTECOMPUTE_VALUE
-   * @generated
-   * @ordered
-   */
-  RESOLUTECOMPUTE(4, "RESOLUTECOMPUTE", "resolutecompute"),
-
-  /**
-   * The '<em><b>RESOLUTEPREDICATE</b></em>' literal object.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @see #RESOLUTEPREDICATE_VALUE
-   * @generated
-   * @ordered
-   */
-  RESOLUTEPREDICATE(5, "RESOLUTEPREDICATE", "resolutepredicate"),
+  JAVA(2, "JAVA", "java"),
 
   /**
    * The '<em><b>MANUAL</b></em>' literal object.
@@ -87,97 +57,52 @@ public enum SupportedTypes implements Enumerator
    * @generated
    * @ordered
    */
-  MANUAL(6, "MANUAL", "manual");
+  MANUAL(3, "MANUAL", "manual");
 
   /**
-   * The '<em><b>ANALYSIS</b></em>' literal value.
+   * The '<em><b>ANALYSISPLUGIN</b></em>' literal value.
    * <!-- begin-user-doc -->
    * <p>
-   * If the meaning of '<em><b>ANALYSIS</b></em>' literal object isn't clear,
+   * If the meaning of '<em><b>ANALYSISPLUGIN</b></em>' literal object isn't clear,
    * there really should be more of a description here...
    * </p>
    * <!-- end-user-doc -->
-   * @see #ANALYSIS
-   * @model literal="analysis"
+   * @see #ANALYSISPLUGIN
+   * @model literal="analysisplugin"
    * @generated
    * @ordered
    */
-  public static final int ANALYSIS_VALUE = 0;
+  public static final int ANALYSISPLUGIN_VALUE = 0;
 
   /**
-   * The '<em><b>PREDICATE</b></em>' literal value.
+   * The '<em><b>RESOLUTE</b></em>' literal value.
    * <!-- begin-user-doc -->
    * <p>
-   * If the meaning of '<em><b>PREDICATE</b></em>' literal object isn't clear,
+   * If the meaning of '<em><b>RESOLUTE</b></em>' literal object isn't clear,
    * there really should be more of a description here...
    * </p>
    * <!-- end-user-doc -->
-   * @see #PREDICATE
-   * @model literal="predicate"
+   * @see #RESOLUTE
+   * @model literal="resolute"
    * @generated
    * @ordered
    */
-  public static final int PREDICATE_VALUE = 1;
+  public static final int RESOLUTE_VALUE = 1;
 
   /**
-   * The '<em><b>COMPUTE</b></em>' literal value.
+   * The '<em><b>JAVA</b></em>' literal value.
    * <!-- begin-user-doc -->
    * <p>
-   * If the meaning of '<em><b>COMPUTE</b></em>' literal object isn't clear,
+   * If the meaning of '<em><b>JAVA</b></em>' literal object isn't clear,
    * there really should be more of a description here...
    * </p>
    * <!-- end-user-doc -->
-   * @see #COMPUTE
-   * @model literal="compute"
+   * @see #JAVA
+   * @model literal="java"
    * @generated
    * @ordered
    */
-  public static final int COMPUTE_VALUE = 2;
-
-  /**
-   * The '<em><b>RESOLUTEPROVE</b></em>' literal value.
-   * <!-- begin-user-doc -->
-   * <p>
-   * If the meaning of '<em><b>RESOLUTEPROVE</b></em>' literal object isn't clear,
-   * there really should be more of a description here...
-   * </p>
-   * <!-- end-user-doc -->
-   * @see #RESOLUTEPROVE
-   * @model literal="resoluteprove"
-   * @generated
-   * @ordered
-   */
-  public static final int RESOLUTEPROVE_VALUE = 3;
-
-  /**
-   * The '<em><b>RESOLUTECOMPUTE</b></em>' literal value.
-   * <!-- begin-user-doc -->
-   * <p>
-   * If the meaning of '<em><b>RESOLUTECOMPUTE</b></em>' literal object isn't clear,
-   * there really should be more of a description here...
-   * </p>
-   * <!-- end-user-doc -->
-   * @see #RESOLUTECOMPUTE
-   * @model literal="resolutecompute"
-   * @generated
-   * @ordered
-   */
-  public static final int RESOLUTECOMPUTE_VALUE = 4;
-
-  /**
-   * The '<em><b>RESOLUTEPREDICATE</b></em>' literal value.
-   * <!-- begin-user-doc -->
-   * <p>
-   * If the meaning of '<em><b>RESOLUTEPREDICATE</b></em>' literal object isn't clear,
-   * there really should be more of a description here...
-   * </p>
-   * <!-- end-user-doc -->
-   * @see #RESOLUTEPREDICATE
-   * @model literal="resolutepredicate"
-   * @generated
-   * @ordered
-   */
-  public static final int RESOLUTEPREDICATE_VALUE = 5;
+  public static final int JAVA_VALUE = 2;
 
   /**
    * The '<em><b>MANUAL</b></em>' literal value.
@@ -192,7 +117,7 @@ public enum SupportedTypes implements Enumerator
    * @generated
    * @ordered
    */
-  public static final int MANUAL_VALUE = 6;
+  public static final int MANUAL_VALUE = 3;
 
   /**
    * An array of all the '<em><b>Supported Types</b></em>' enumerators.
@@ -203,12 +128,9 @@ public enum SupportedTypes implements Enumerator
   private static final SupportedTypes[] VALUES_ARRAY =
     new SupportedTypes[]
     {
-      ANALYSIS,
-      PREDICATE,
-      COMPUTE,
-      RESOLUTEPROVE,
-      RESOLUTECOMPUTE,
-      RESOLUTEPREDICATE,
+      ANALYSISPLUGIN,
+      RESOLUTE,
+      JAVA,
       MANUAL,
     };
 
@@ -268,12 +190,9 @@ public enum SupportedTypes implements Enumerator
   {
     switch (value)
     {
-      case ANALYSIS_VALUE: return ANALYSIS;
-      case PREDICATE_VALUE: return PREDICATE;
-      case COMPUTE_VALUE: return COMPUTE;
-      case RESOLUTEPROVE_VALUE: return RESOLUTEPROVE;
-      case RESOLUTECOMPUTE_VALUE: return RESOLUTECOMPUTE;
-      case RESOLUTEPREDICATE_VALUE: return RESOLUTEPREDICATE;
+      case ANALYSISPLUGIN_VALUE: return ANALYSISPLUGIN;
+      case RESOLUTE_VALUE: return RESOLUTE;
+      case JAVA_VALUE: return JAVA;
       case MANUAL_VALUE: return MANUAL;
     }
     return null;

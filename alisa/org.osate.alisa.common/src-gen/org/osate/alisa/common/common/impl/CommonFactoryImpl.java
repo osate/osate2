@@ -70,6 +70,7 @@ public class CommonFactoryImpl extends EFactoryImpl implements CommonFactory
       case CommonPackage.UNCERTAINTY: return createUncertainty();
       case CommonPackage.SHOW_VALUE: return createShowValue();
       case CommonPackage.IMAGE_REFERENCE: return createImageReference();
+      case CommonPackage.PROPERTY_CONSISTENT_VARIABLE_DECLARATION: return createPropertyConsistentVariableDeclaration();
       case CommonPackage.COMPUTE_DECLARATION: return createComputeDeclaration();
       case CommonPackage.APROPERTY_REFERENCE: return createAPropertyReference();
       case CommonPackage.XNUMBER_LITERAL_UNIT: return createXNumberLiteralUnit();
@@ -142,6 +143,17 @@ public class CommonFactoryImpl extends EFactoryImpl implements CommonFactory
   {
     ImageReferenceImpl imageReference = new ImageReferenceImpl();
     return imageReference;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public PropertyConsistentVariableDeclaration createPropertyConsistentVariableDeclaration()
+  {
+    PropertyConsistentVariableDeclarationImpl propertyConsistentVariableDeclaration = new PropertyConsistentVariableDeclarationImpl();
+    return propertyConsistentVariableDeclaration;
   }
 
   /**

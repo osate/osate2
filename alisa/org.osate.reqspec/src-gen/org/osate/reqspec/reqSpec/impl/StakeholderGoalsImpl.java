@@ -19,7 +19,7 @@ import org.eclipse.emf.ecore.util.EDataTypeEList;
 import org.eclipse.emf.ecore.util.EObjectContainmentEList;
 import org.eclipse.emf.ecore.util.InternalEList;
 
-import org.eclipse.xtext.xbase.XExpression;
+import org.eclipse.xtext.xbase.XVariableDeclaration;
 
 import org.osate.aadl2.ComponentClassifier;
 
@@ -141,7 +141,7 @@ public class StakeholderGoalsImpl extends ReqSpecContainerImpl implements Stakeh
    * @generated
    * @ordered
    */
-  protected EList<XExpression> constants;
+  protected EList<XVariableDeclaration> constants;
 
   /**
    * The cached value of the '{@link #getContent() <em>Content</em>}' containment reference list.
@@ -359,11 +359,11 @@ public class StakeholderGoalsImpl extends ReqSpecContainerImpl implements Stakeh
    * <!-- end-user-doc -->
    * @generated
    */
-  public EList<XExpression> getConstants()
+  public EList<XVariableDeclaration> getConstants()
   {
     if (constants == null)
     {
-      constants = new EObjectContainmentEList<XExpression>(XExpression.class, this, ReqSpecPackage.STAKEHOLDER_GOALS__CONSTANTS);
+      constants = new EObjectContainmentEList<XVariableDeclaration>(XVariableDeclaration.class, this, ReqSpecPackage.STAKEHOLDER_GOALS__CONSTANTS);
     }
     return constants;
   }
@@ -493,7 +493,7 @@ public class StakeholderGoalsImpl extends ReqSpecContainerImpl implements Stakeh
         return;
       case ReqSpecPackage.STAKEHOLDER_GOALS__CONSTANTS:
         getConstants().clear();
-        getConstants().addAll((Collection<? extends XExpression>)newValue);
+        getConstants().addAll((Collection<? extends XVariableDeclaration>)newValue);
         return;
       case ReqSpecPackage.STAKEHOLDER_GOALS__CONTENT:
         getContent().clear();

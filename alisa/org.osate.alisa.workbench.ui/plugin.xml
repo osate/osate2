@@ -479,7 +479,7 @@
    
    
        	<!-- Execute assurance plan -->
-<!--   	<extension
+   	<extension
 		point="org.eclipse.ui.handlers">
 		<handler 
 			class="org.osate.alisa.workbench.ui.AlisaExecutableExtensionFactory:org.osate.alisa.workbench.ui.handlers.ExecuteAssurancePlanHandler"
@@ -524,7 +524,6 @@
 		tooltip="Do Execute Assurance Plan" 
 		style="push">
 		         <visibleWhen checkEnabled="false">
-
          </visibleWhen>
 		</command>
 	</menuContribution>
@@ -539,6 +538,6 @@
          </command>
       </menuContribution>
    </extension> 
- --> 
+ 
 
 </plugin>

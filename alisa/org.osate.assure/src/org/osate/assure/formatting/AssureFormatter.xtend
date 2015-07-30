@@ -37,8 +37,7 @@ class AssureFormatter extends AbstractDeclarativeFormatter {
 		c.setLinewrap().after(assuranceEvidenceRule);
 		c.setLinewrap().after(claimResultRule);
 		c.setLinewrap().after(verificationActivityResultRule);
-		c.setLinewrap().after(validationResultRule);
-		c.setLinewrap().after(preconditionResultRule);
+		c.setLinewrap().after(conditionResultRule);
 		c.setLinewrap().after(resultIssueRule);
 		for (kw : findKeywords("message","uri")) {
 			c.setLinewrap().before(kw);

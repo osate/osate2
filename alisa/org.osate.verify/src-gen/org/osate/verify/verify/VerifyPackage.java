@@ -150,22 +150,13 @@ public interface VerifyPackage extends EPackage
   int VERIFICATION_PLAN__RATIONALE = 5;
 
   /**
-   * The feature id for the '<em><b>Verified Assumption</b></em>' reference list.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int VERIFICATION_PLAN__VERIFIED_ASSUMPTION = 6;
-
-  /**
    * The feature id for the '<em><b>Issues</b></em>' attribute list.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    * @ordered
    */
-  int VERIFICATION_PLAN__ISSUES = 7;
+  int VERIFICATION_PLAN__ISSUES = 6;
 
   /**
    * The number of structural features of the '<em>Verification Plan</em>' class.
@@ -174,7 +165,7 @@ public interface VerifyPackage extends EPackage
    * @generated
    * @ordered
    */
-  int VERIFICATION_PLAN_FEATURE_COUNT = 8;
+  int VERIFICATION_PLAN_FEATURE_COUNT = 7;
 
   /**
    * The meta object id for the '{@link org.osate.verify.verify.impl.ClaimImpl <em>Claim</em>}' class.
@@ -296,13 +287,31 @@ public interface VerifyPackage extends EPackage
   int VERIFICATION_ACTIVITY__NAME = 0;
 
   /**
+   * The feature id for the '<em><b>Title</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int VERIFICATION_ACTIVITY__TITLE = 1;
+
+  /**
+   * The feature id for the '<em><b>Target</b></em>' reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int VERIFICATION_ACTIVITY__TARGET = 2;
+
+  /**
    * The feature id for the '<em><b>Result</b></em>' reference list.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    * @ordered
    */
-  int VERIFICATION_ACTIVITY__RESULT = 1;
+  int VERIFICATION_ACTIVITY__RESULT = 3;
 
   /**
    * The feature id for the '<em><b>Method</b></em>' reference.
@@ -311,7 +320,7 @@ public interface VerifyPackage extends EPackage
    * @generated
    * @ordered
    */
-  int VERIFICATION_ACTIVITY__METHOD = 2;
+  int VERIFICATION_ACTIVITY__METHOD = 4;
 
   /**
    * The feature id for the '<em><b>Parameters</b></em>' reference list.
@@ -320,7 +329,7 @@ public interface VerifyPackage extends EPackage
    * @generated
    * @ordered
    */
-  int VERIFICATION_ACTIVITY__PARAMETERS = 3;
+  int VERIFICATION_ACTIVITY__PARAMETERS = 5;
 
   /**
    * The feature id for the '<em><b>Timeout</b></em>' attribute.
@@ -329,7 +338,7 @@ public interface VerifyPackage extends EPackage
    * @generated
    * @ordered
    */
-  int VERIFICATION_ACTIVITY__TIMEOUT = 4;
+  int VERIFICATION_ACTIVITY__TIMEOUT = 6;
 
   /**
    * The number of structural features of the '<em>Verification Activity</em>' class.
@@ -338,7 +347,190 @@ public interface VerifyPackage extends EPackage
    * @generated
    * @ordered
    */
-  int VERIFICATION_ACTIVITY_FEATURE_COUNT = 5;
+  int VERIFICATION_ACTIVITY_FEATURE_COUNT = 7;
+
+  /**
+   * The meta object id for the '{@link org.osate.verify.verify.impl.ArgumentExprImpl <em>Argument Expr</em>}' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see org.osate.verify.verify.impl.ArgumentExprImpl
+   * @see org.osate.verify.verify.impl.VerifyPackageImpl#getArgumentExpr()
+   * @generated
+   */
+  int ARGUMENT_EXPR = 4;
+
+  /**
+   * The number of structural features of the '<em>Argument Expr</em>' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int ARGUMENT_EXPR_FEATURE_COUNT = 0;
+
+  /**
+   * The meta object id for the '{@link org.osate.verify.verify.impl.VerificationMethodRegistryImpl <em>Verification Method Registry</em>}' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see org.osate.verify.verify.impl.VerificationMethodRegistryImpl
+   * @see org.osate.verify.verify.impl.VerifyPackageImpl#getVerificationMethodRegistry()
+   * @generated
+   */
+  int VERIFICATION_METHOD_REGISTRY = 5;
+
+  /**
+   * The feature id for the '<em><b>Name</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int VERIFICATION_METHOD_REGISTRY__NAME = 0;
+
+  /**
+   * The feature id for the '<em><b>Title</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int VERIFICATION_METHOD_REGISTRY__TITLE = 1;
+
+  /**
+   * The feature id for the '<em><b>Description</b></em>' containment reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int VERIFICATION_METHOD_REGISTRY__DESCRIPTION = 2;
+
+  /**
+   * The feature id for the '<em><b>Methods</b></em>' containment reference list.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int VERIFICATION_METHOD_REGISTRY__METHODS = 3;
+
+  /**
+   * The number of structural features of the '<em>Verification Method Registry</em>' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int VERIFICATION_METHOD_REGISTRY_FEATURE_COUNT = 4;
+
+  /**
+   * The meta object id for the '{@link org.osate.verify.verify.impl.VerificationMethodImpl <em>Verification Method</em>}' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see org.osate.verify.verify.impl.VerificationMethodImpl
+   * @see org.osate.verify.verify.impl.VerifyPackageImpl#getVerificationMethod()
+   * @generated
+   */
+  int VERIFICATION_METHOD = 6;
+
+  /**
+   * The feature id for the '<em><b>Name</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int VERIFICATION_METHOD__NAME = 0;
+
+  /**
+   * The feature id for the '<em><b>Params</b></em>' containment reference list.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int VERIFICATION_METHOD__PARAMS = 1;
+
+  /**
+   * The feature id for the '<em><b>Is Predicate</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int VERIFICATION_METHOD__IS_PREDICATE = 2;
+
+  /**
+   * The feature id for the '<em><b>Is Result Report</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int VERIFICATION_METHOD__IS_RESULT_REPORT = 3;
+
+  /**
+   * The feature id for the '<em><b>Title</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int VERIFICATION_METHOD__TITLE = 4;
+
+  /**
+   * The feature id for the '<em><b>Method Type</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int VERIFICATION_METHOD__METHOD_TYPE = 5;
+
+  /**
+   * The feature id for the '<em><b>Description</b></em>' containment reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int VERIFICATION_METHOD__DESCRIPTION = 6;
+
+  /**
+   * The feature id for the '<em><b>Method Path</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int VERIFICATION_METHOD__METHOD_PATH = 7;
+
+  /**
+   * The feature id for the '<em><b>Condition</b></em>' containment reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int VERIFICATION_METHOD__CONDITION = 8;
+
+  /**
+   * The feature id for the '<em><b>Category</b></em>' reference list.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int VERIFICATION_METHOD__CATEGORY = 9;
+
+  /**
+   * The number of structural features of the '<em>Verification Method</em>' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int VERIFICATION_METHOD_FEATURE_COUNT = 10;
 
   /**
    * The meta object id for the '{@link org.osate.verify.verify.impl.VerificationConditionImpl <em>Verification Condition</em>}' class.
@@ -348,7 +540,7 @@ public interface VerifyPackage extends EPackage
    * @see org.osate.verify.verify.impl.VerifyPackageImpl#getVerificationCondition()
    * @generated
    */
-  int VERIFICATION_CONDITION = 4;
+  int VERIFICATION_CONDITION = 7;
 
   /**
    * The feature id for the '<em><b>Name</b></em>' attribute.
@@ -423,215 +615,198 @@ public interface VerifyPackage extends EPackage
   int VERIFICATION_CONDITION_FEATURE_COUNT = 7;
 
   /**
-   * The meta object id for the '{@link org.osate.verify.verify.impl.ArgumentExprImpl <em>Argument Expr</em>}' class.
+   * The meta object id for the '{@link org.osate.verify.verify.impl.ThenExprImpl <em>Then Expr</em>}' class.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @see org.osate.verify.verify.impl.ArgumentExprImpl
-   * @see org.osate.verify.verify.impl.VerifyPackageImpl#getArgumentExpr()
+   * @see org.osate.verify.verify.impl.ThenExprImpl
+   * @see org.osate.verify.verify.impl.VerifyPackageImpl#getThenExpr()
    * @generated
    */
-  int ARGUMENT_EXPR = 5;
+  int THEN_EXPR = 8;
 
   /**
-   * The number of structural features of the '<em>Argument Expr</em>' class.
+   * The feature id for the '<em><b>Left</b></em>' containment reference.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    * @ordered
    */
-  int ARGUMENT_EXPR_FEATURE_COUNT = 0;
+  int THEN_EXPR__LEFT = ARGUMENT_EXPR_FEATURE_COUNT + 0;
 
   /**
-   * The meta object id for the '{@link org.osate.verify.verify.impl.VerificationMethodRegistryImpl <em>Verification Method Registry</em>}' class.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @see org.osate.verify.verify.impl.VerificationMethodRegistryImpl
-   * @see org.osate.verify.verify.impl.VerifyPackageImpl#getVerificationMethodRegistry()
-   * @generated
-   */
-  int VERIFICATION_METHOD_REGISTRY = 6;
-
-  /**
-   * The feature id for the '<em><b>Name</b></em>' attribute.
+   * The feature id for the '<em><b>Successor</b></em>' containment reference.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    * @ordered
    */
-  int VERIFICATION_METHOD_REGISTRY__NAME = 0;
+  int THEN_EXPR__SUCCESSOR = ARGUMENT_EXPR_FEATURE_COUNT + 1;
 
   /**
-   * The feature id for the '<em><b>Title</b></em>' attribute.
+   * The number of structural features of the '<em>Then Expr</em>' class.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    * @ordered
    */
-  int VERIFICATION_METHOD_REGISTRY__TITLE = 1;
+  int THEN_EXPR_FEATURE_COUNT = ARGUMENT_EXPR_FEATURE_COUNT + 2;
 
   /**
-   * The feature id for the '<em><b>Description</b></em>' containment reference.
+   * The meta object id for the '{@link org.osate.verify.verify.impl.ElseExprImpl <em>Else Expr</em>}' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see org.osate.verify.verify.impl.ElseExprImpl
+   * @see org.osate.verify.verify.impl.VerifyPackageImpl#getElseExpr()
+   * @generated
+   */
+  int ELSE_EXPR = 9;
+
+  /**
+   * The feature id for the '<em><b>Left</b></em>' containment reference.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    * @ordered
    */
-  int VERIFICATION_METHOD_REGISTRY__DESCRIPTION = 2;
+  int ELSE_EXPR__LEFT = ARGUMENT_EXPR_FEATURE_COUNT + 0;
 
   /**
-   * The feature id for the '<em><b>Methods</b></em>' containment reference list.
+   * The feature id for the '<em><b>Other</b></em>' containment reference.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    * @ordered
    */
-  int VERIFICATION_METHOD_REGISTRY__METHODS = 3;
+  int ELSE_EXPR__OTHER = ARGUMENT_EXPR_FEATURE_COUNT + 1;
 
   /**
-   * The number of structural features of the '<em>Verification Method Registry</em>' class.
+   * The feature id for the '<em><b>Fail</b></em>' containment reference.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    * @ordered
    */
-  int VERIFICATION_METHOD_REGISTRY_FEATURE_COUNT = 4;
+  int ELSE_EXPR__FAIL = ARGUMENT_EXPR_FEATURE_COUNT + 2;
 
   /**
-   * The meta object id for the '{@link org.osate.verify.verify.impl.VerificationMethodParameterImpl <em>Verification Method Parameter</em>}' class.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @see org.osate.verify.verify.impl.VerificationMethodParameterImpl
-   * @see org.osate.verify.verify.impl.VerifyPackageImpl#getVerificationMethodParameter()
-   * @generated
-   */
-  int VERIFICATION_METHOD_PARAMETER = 7;
-
-  /**
-   * The feature id for the '<em><b>Name</b></em>' attribute.
+   * The feature id for the '<em><b>Timeout</b></em>' containment reference.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    * @ordered
    */
-  int VERIFICATION_METHOD_PARAMETER__NAME = 0;
+  int ELSE_EXPR__TIMEOUT = ARGUMENT_EXPR_FEATURE_COUNT + 3;
 
   /**
-   * The number of structural features of the '<em>Verification Method Parameter</em>' class.
+   * The number of structural features of the '<em>Else Expr</em>' class.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    * @ordered
    */
-  int VERIFICATION_METHOD_PARAMETER_FEATURE_COUNT = 1;
+  int ELSE_EXPR_FEATURE_COUNT = ARGUMENT_EXPR_FEATURE_COUNT + 4;
 
   /**
-   * The meta object id for the '{@link org.osate.verify.verify.impl.VerificationMethodImpl <em>Verification Method</em>}' class.
+   * The meta object id for the '{@link org.osate.verify.verify.impl.AllExprImpl <em>All Expr</em>}' class.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @see org.osate.verify.verify.impl.VerificationMethodImpl
-   * @see org.osate.verify.verify.impl.VerifyPackageImpl#getVerificationMethod()
+   * @see org.osate.verify.verify.impl.AllExprImpl
+   * @see org.osate.verify.verify.impl.VerifyPackageImpl#getAllExpr()
    * @generated
    */
-  int VERIFICATION_METHOD = 8;
+  int ALL_EXPR = 10;
 
   /**
-   * The feature id for the '<em><b>Name</b></em>' attribute.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int VERIFICATION_METHOD__NAME = 0;
-
-  /**
-   * The feature id for the '<em><b>Params</b></em>' containment reference list.
+   * The feature id for the '<em><b>Elements</b></em>' containment reference list.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    * @ordered
    */
-  int VERIFICATION_METHOD__PARAMS = 1;
+  int ALL_EXPR__ELEMENTS = ARGUMENT_EXPR_FEATURE_COUNT + 0;
 
   /**
-   * The feature id for the '<em><b>Title</b></em>' attribute.
+   * The number of structural features of the '<em>All Expr</em>' class.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    * @ordered
    */
-  int VERIFICATION_METHOD__TITLE = 2;
+  int ALL_EXPR_FEATURE_COUNT = ARGUMENT_EXPR_FEATURE_COUNT + 1;
 
   /**
-   * The feature id for the '<em><b>Method Type</b></em>' attribute.
+   * The meta object id for the '{@link org.osate.verify.verify.impl.WhenExprImpl <em>When Expr</em>}' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see org.osate.verify.verify.impl.WhenExprImpl
+   * @see org.osate.verify.verify.impl.VerifyPackageImpl#getWhenExpr()
+   * @generated
+   */
+  int WHEN_EXPR = 11;
+
+  /**
+   * The feature id for the '<em><b>Verification</b></em>' containment reference.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    * @ordered
    */
-  int VERIFICATION_METHOD__METHOD_TYPE = 3;
+  int WHEN_EXPR__VERIFICATION = ARGUMENT_EXPR_FEATURE_COUNT + 0;
 
   /**
-   * The feature id for the '<em><b>Scope</b></em>' attribute.
+   * The feature id for the '<em><b>Condition</b></em>' reference list.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    * @ordered
    */
-  int VERIFICATION_METHOD__SCOPE = 4;
+  int WHEN_EXPR__CONDITION = ARGUMENT_EXPR_FEATURE_COUNT + 1;
 
   /**
-   * The feature id for the '<em><b>Reporting</b></em>' attribute.
+   * The number of structural features of the '<em>When Expr</em>' class.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    * @ordered
    */
-  int VERIFICATION_METHOD__REPORTING = 5;
+  int WHEN_EXPR_FEATURE_COUNT = ARGUMENT_EXPR_FEATURE_COUNT + 2;
 
   /**
-   * The feature id for the '<em><b>Description</b></em>' containment reference.
+   * The meta object id for the '{@link org.osate.verify.verify.impl.RefExprImpl <em>Ref Expr</em>}' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see org.osate.verify.verify.impl.RefExprImpl
+   * @see org.osate.verify.verify.impl.VerifyPackageImpl#getRefExpr()
+   * @generated
+   */
+  int REF_EXPR = 12;
+
+  /**
+   * The feature id for the '<em><b>Verification</b></em>' reference.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    * @ordered
    */
-  int VERIFICATION_METHOD__DESCRIPTION = 6;
+  int REF_EXPR__VERIFICATION = ARGUMENT_EXPR_FEATURE_COUNT + 0;
 
   /**
-   * The feature id for the '<em><b>Method Path</b></em>' attribute.
+   * The feature id for the '<em><b>Weight</b></em>' attribute.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    * @ordered
    */
-  int VERIFICATION_METHOD__METHOD_PATH = 7;
+  int REF_EXPR__WEIGHT = ARGUMENT_EXPR_FEATURE_COUNT + 1;
 
   /**
-   * The feature id for the '<em><b>Conditions</b></em>' containment reference list.
+   * The number of structural features of the '<em>Ref Expr</em>' class.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    * @ordered
    */
-  int VERIFICATION_METHOD__CONDITIONS = 8;
-
-  /**
-   * The feature id for the '<em><b>Category</b></em>' reference list.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int VERIFICATION_METHOD__CATEGORY = 9;
-
-  /**
-   * The number of structural features of the '<em>Verification Method</em>' class.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int VERIFICATION_METHOD_FEATURE_COUNT = 10;
+  int REF_EXPR_FEATURE_COUNT = ARGUMENT_EXPR_FEATURE_COUNT + 2;
 
   /**
    * The meta object id for the '{@link org.osate.verify.verify.impl.VerificationValidationImpl <em>Verification Validation</em>}' class.
@@ -641,7 +816,7 @@ public interface VerifyPackage extends EPackage
    * @see org.osate.verify.verify.impl.VerifyPackageImpl#getVerificationValidation()
    * @generated
    */
-  int VERIFICATION_VALIDATION = 9;
+  int VERIFICATION_VALIDATION = 13;
 
   /**
    * The feature id for the '<em><b>Name</b></em>' attribute.
@@ -723,7 +898,7 @@ public interface VerifyPackage extends EPackage
    * @see org.osate.verify.verify.impl.VerifyPackageImpl#getVerificationPrecondition()
    * @generated
    */
-  int VERIFICATION_PRECONDITION = 10;
+  int VERIFICATION_PRECONDITION = 14;
 
   /**
    * The feature id for the '<em><b>Name</b></em>' attribute.
@@ -798,200 +973,6 @@ public interface VerifyPackage extends EPackage
   int VERIFICATION_PRECONDITION_FEATURE_COUNT = VERIFICATION_CONDITION_FEATURE_COUNT + 0;
 
   /**
-   * The meta object id for the '{@link org.osate.verify.verify.impl.AllExprImpl <em>All Expr</em>}' class.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @see org.osate.verify.verify.impl.AllExprImpl
-   * @see org.osate.verify.verify.impl.VerifyPackageImpl#getAllExpr()
-   * @generated
-   */
-  int ALL_EXPR = 11;
-
-  /**
-   * The feature id for the '<em><b>All</b></em>' containment reference list.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int ALL_EXPR__ALL = ARGUMENT_EXPR_FEATURE_COUNT + 0;
-
-  /**
-   * The number of structural features of the '<em>All Expr</em>' class.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int ALL_EXPR_FEATURE_COUNT = ARGUMENT_EXPR_FEATURE_COUNT + 1;
-
-  /**
-   * The meta object id for the '{@link org.osate.verify.verify.impl.AndThenExprImpl <em>And Then Expr</em>}' class.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @see org.osate.verify.verify.impl.AndThenExprImpl
-   * @see org.osate.verify.verify.impl.VerifyPackageImpl#getAndThenExpr()
-   * @generated
-   */
-  int AND_THEN_EXPR = 12;
-
-  /**
-   * The feature id for the '<em><b>Left</b></em>' containment reference.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int AND_THEN_EXPR__LEFT = ARGUMENT_EXPR_FEATURE_COUNT + 0;
-
-  /**
-   * The feature id for the '<em><b>Right</b></em>' containment reference.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int AND_THEN_EXPR__RIGHT = ARGUMENT_EXPR_FEATURE_COUNT + 1;
-
-  /**
-   * The number of structural features of the '<em>And Then Expr</em>' class.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int AND_THEN_EXPR_FEATURE_COUNT = ARGUMENT_EXPR_FEATURE_COUNT + 2;
-
-  /**
-   * The meta object id for the '{@link org.osate.verify.verify.impl.FailThenExprImpl <em>Fail Then Expr</em>}' class.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @see org.osate.verify.verify.impl.FailThenExprImpl
-   * @see org.osate.verify.verify.impl.VerifyPackageImpl#getFailThenExpr()
-   * @generated
-   */
-  int FAIL_THEN_EXPR = 13;
-
-  /**
-   * The feature id for the '<em><b>Left</b></em>' containment reference.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int FAIL_THEN_EXPR__LEFT = ARGUMENT_EXPR_FEATURE_COUNT + 0;
-
-  /**
-   * The feature id for the '<em><b>Failed</b></em>' attribute.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int FAIL_THEN_EXPR__FAILED = ARGUMENT_EXPR_FEATURE_COUNT + 1;
-
-  /**
-   * The feature id for the '<em><b>Unknown</b></em>' attribute.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int FAIL_THEN_EXPR__UNKNOWN = ARGUMENT_EXPR_FEATURE_COUNT + 2;
-
-  /**
-   * The feature id for the '<em><b>Right</b></em>' containment reference.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int FAIL_THEN_EXPR__RIGHT = ARGUMENT_EXPR_FEATURE_COUNT + 3;
-
-  /**
-   * The number of structural features of the '<em>Fail Then Expr</em>' class.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int FAIL_THEN_EXPR_FEATURE_COUNT = ARGUMENT_EXPR_FEATURE_COUNT + 4;
-
-  /**
-   * The meta object id for the '{@link org.osate.verify.verify.impl.WhenExprImpl <em>When Expr</em>}' class.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @see org.osate.verify.verify.impl.WhenExprImpl
-   * @see org.osate.verify.verify.impl.VerifyPackageImpl#getWhenExpr()
-   * @generated
-   */
-  int WHEN_EXPR = 14;
-
-  /**
-   * The feature id for the '<em><b>Verification</b></em>' containment reference.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int WHEN_EXPR__VERIFICATION = ARGUMENT_EXPR_FEATURE_COUNT + 0;
-
-  /**
-   * The feature id for the '<em><b>Condition</b></em>' reference list.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int WHEN_EXPR__CONDITION = ARGUMENT_EXPR_FEATURE_COUNT + 1;
-
-  /**
-   * The number of structural features of the '<em>When Expr</em>' class.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int WHEN_EXPR_FEATURE_COUNT = ARGUMENT_EXPR_FEATURE_COUNT + 2;
-
-  /**
-   * The meta object id for the '{@link org.osate.verify.verify.impl.RefExprImpl <em>Ref Expr</em>}' class.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @see org.osate.verify.verify.impl.RefExprImpl
-   * @see org.osate.verify.verify.impl.VerifyPackageImpl#getRefExpr()
-   * @generated
-   */
-  int REF_EXPR = 15;
-
-  /**
-   * The feature id for the '<em><b>Verification</b></em>' reference.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int REF_EXPR__VERIFICATION = ARGUMENT_EXPR_FEATURE_COUNT + 0;
-
-  /**
-   * The feature id for the '<em><b>Weight</b></em>' attribute.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int REF_EXPR__WEIGHT = ARGUMENT_EXPR_FEATURE_COUNT + 1;
-
-  /**
-   * The number of structural features of the '<em>Ref Expr</em>' class.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int REF_EXPR_FEATURE_COUNT = ARGUMENT_EXPR_FEATURE_COUNT + 2;
-
-  /**
    * The meta object id for the '{@link org.osate.verify.verify.SupportedTypes <em>Supported Types</em>}' enum.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -999,27 +980,7 @@ public interface VerifyPackage extends EPackage
    * @see org.osate.verify.verify.impl.VerifyPackageImpl#getSupportedTypes()
    * @generated
    */
-  int SUPPORTED_TYPES = 16;
-
-  /**
-   * The meta object id for the '{@link org.osate.verify.verify.SupportedScopes <em>Supported Scopes</em>}' enum.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @see org.osate.verify.verify.SupportedScopes
-   * @see org.osate.verify.verify.impl.VerifyPackageImpl#getSupportedScopes()
-   * @generated
-   */
-  int SUPPORTED_SCOPES = 17;
-
-  /**
-   * The meta object id for the '{@link org.osate.verify.verify.SupportedReporting <em>Supported Reporting</em>}' enum.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @see org.osate.verify.verify.SupportedReporting
-   * @see org.osate.verify.verify.impl.VerifyPackageImpl#getSupportedReporting()
-   * @generated
-   */
-  int SUPPORTED_REPORTING = 18;
+  int SUPPORTED_TYPES = 15;
 
 
   /**
@@ -1118,17 +1079,6 @@ public interface VerifyPackage extends EPackage
    * @generated
    */
   EReference getVerificationPlan_Rationale();
-
-  /**
-   * Returns the meta object for the reference list '{@link org.osate.verify.verify.VerificationPlan#getVerifiedAssumption <em>Verified Assumption</em>}'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return the meta object for the reference list '<em>Verified Assumption</em>'.
-   * @see org.osate.verify.verify.VerificationPlan#getVerifiedAssumption()
-   * @see #getVerificationPlan()
-   * @generated
-   */
-  EReference getVerificationPlan_VerifiedAssumption();
 
   /**
    * Returns the meta object for the attribute list '{@link org.osate.verify.verify.VerificationPlan#getIssues <em>Issues</em>}'.
@@ -1272,6 +1222,28 @@ public interface VerifyPackage extends EPackage
   EAttribute getVerificationActivity_Name();
 
   /**
+   * Returns the meta object for the attribute '{@link org.osate.verify.verify.VerificationActivity#getTitle <em>Title</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the attribute '<em>Title</em>'.
+   * @see org.osate.verify.verify.VerificationActivity#getTitle()
+   * @see #getVerificationActivity()
+   * @generated
+   */
+  EAttribute getVerificationActivity_Title();
+
+  /**
+   * Returns the meta object for the reference '{@link org.osate.verify.verify.VerificationActivity#getTarget <em>Target</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the reference '<em>Target</em>'.
+   * @see org.osate.verify.verify.VerificationActivity#getTarget()
+   * @see #getVerificationActivity()
+   * @generated
+   */
+  EReference getVerificationActivity_Target();
+
+  /**
    * Returns the meta object for the reference list '{@link org.osate.verify.verify.VerificationActivity#getResult <em>Result</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -1314,6 +1286,190 @@ public interface VerifyPackage extends EPackage
    * @generated
    */
   EAttribute getVerificationActivity_Timeout();
+
+  /**
+   * Returns the meta object for class '{@link org.osate.verify.verify.ArgumentExpr <em>Argument Expr</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for class '<em>Argument Expr</em>'.
+   * @see org.osate.verify.verify.ArgumentExpr
+   * @generated
+   */
+  EClass getArgumentExpr();
+
+  /**
+   * Returns the meta object for class '{@link org.osate.verify.verify.VerificationMethodRegistry <em>Verification Method Registry</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for class '<em>Verification Method Registry</em>'.
+   * @see org.osate.verify.verify.VerificationMethodRegistry
+   * @generated
+   */
+  EClass getVerificationMethodRegistry();
+
+  /**
+   * Returns the meta object for the attribute '{@link org.osate.verify.verify.VerificationMethodRegistry#getName <em>Name</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the attribute '<em>Name</em>'.
+   * @see org.osate.verify.verify.VerificationMethodRegistry#getName()
+   * @see #getVerificationMethodRegistry()
+   * @generated
+   */
+  EAttribute getVerificationMethodRegistry_Name();
+
+  /**
+   * Returns the meta object for the attribute '{@link org.osate.verify.verify.VerificationMethodRegistry#getTitle <em>Title</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the attribute '<em>Title</em>'.
+   * @see org.osate.verify.verify.VerificationMethodRegistry#getTitle()
+   * @see #getVerificationMethodRegistry()
+   * @generated
+   */
+  EAttribute getVerificationMethodRegistry_Title();
+
+  /**
+   * Returns the meta object for the containment reference '{@link org.osate.verify.verify.VerificationMethodRegistry#getDescription <em>Description</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the containment reference '<em>Description</em>'.
+   * @see org.osate.verify.verify.VerificationMethodRegistry#getDescription()
+   * @see #getVerificationMethodRegistry()
+   * @generated
+   */
+  EReference getVerificationMethodRegistry_Description();
+
+  /**
+   * Returns the meta object for the containment reference list '{@link org.osate.verify.verify.VerificationMethodRegistry#getMethods <em>Methods</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the containment reference list '<em>Methods</em>'.
+   * @see org.osate.verify.verify.VerificationMethodRegistry#getMethods()
+   * @see #getVerificationMethodRegistry()
+   * @generated
+   */
+  EReference getVerificationMethodRegistry_Methods();
+
+  /**
+   * Returns the meta object for class '{@link org.osate.verify.verify.VerificationMethod <em>Verification Method</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for class '<em>Verification Method</em>'.
+   * @see org.osate.verify.verify.VerificationMethod
+   * @generated
+   */
+  EClass getVerificationMethod();
+
+  /**
+   * Returns the meta object for the attribute '{@link org.osate.verify.verify.VerificationMethod#getName <em>Name</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the attribute '<em>Name</em>'.
+   * @see org.osate.verify.verify.VerificationMethod#getName()
+   * @see #getVerificationMethod()
+   * @generated
+   */
+  EAttribute getVerificationMethod_Name();
+
+  /**
+   * Returns the meta object for the containment reference list '{@link org.osate.verify.verify.VerificationMethod#getParams <em>Params</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the containment reference list '<em>Params</em>'.
+   * @see org.osate.verify.verify.VerificationMethod#getParams()
+   * @see #getVerificationMethod()
+   * @generated
+   */
+  EReference getVerificationMethod_Params();
+
+  /**
+   * Returns the meta object for the attribute '{@link org.osate.verify.verify.VerificationMethod#isIsPredicate <em>Is Predicate</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the attribute '<em>Is Predicate</em>'.
+   * @see org.osate.verify.verify.VerificationMethod#isIsPredicate()
+   * @see #getVerificationMethod()
+   * @generated
+   */
+  EAttribute getVerificationMethod_IsPredicate();
+
+  /**
+   * Returns the meta object for the attribute '{@link org.osate.verify.verify.VerificationMethod#isIsResultReport <em>Is Result Report</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the attribute '<em>Is Result Report</em>'.
+   * @see org.osate.verify.verify.VerificationMethod#isIsResultReport()
+   * @see #getVerificationMethod()
+   * @generated
+   */
+  EAttribute getVerificationMethod_IsResultReport();
+
+  /**
+   * Returns the meta object for the attribute '{@link org.osate.verify.verify.VerificationMethod#getTitle <em>Title</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the attribute '<em>Title</em>'.
+   * @see org.osate.verify.verify.VerificationMethod#getTitle()
+   * @see #getVerificationMethod()
+   * @generated
+   */
+  EAttribute getVerificationMethod_Title();
+
+  /**
+   * Returns the meta object for the attribute '{@link org.osate.verify.verify.VerificationMethod#getMethodType <em>Method Type</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the attribute '<em>Method Type</em>'.
+   * @see org.osate.verify.verify.VerificationMethod#getMethodType()
+   * @see #getVerificationMethod()
+   * @generated
+   */
+  EAttribute getVerificationMethod_MethodType();
+
+  /**
+   * Returns the meta object for the containment reference '{@link org.osate.verify.verify.VerificationMethod#getDescription <em>Description</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the containment reference '<em>Description</em>'.
+   * @see org.osate.verify.verify.VerificationMethod#getDescription()
+   * @see #getVerificationMethod()
+   * @generated
+   */
+  EReference getVerificationMethod_Description();
+
+  /**
+   * Returns the meta object for the attribute '{@link org.osate.verify.verify.VerificationMethod#getMethodPath <em>Method Path</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the attribute '<em>Method Path</em>'.
+   * @see org.osate.verify.verify.VerificationMethod#getMethodPath()
+   * @see #getVerificationMethod()
+   * @generated
+   */
+  EAttribute getVerificationMethod_MethodPath();
+
+  /**
+   * Returns the meta object for the containment reference '{@link org.osate.verify.verify.VerificationMethod#getCondition <em>Condition</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the containment reference '<em>Condition</em>'.
+   * @see org.osate.verify.verify.VerificationMethod#getCondition()
+   * @see #getVerificationMethod()
+   * @generated
+   */
+  EReference getVerificationMethod_Condition();
+
+  /**
+   * Returns the meta object for the reference list '{@link org.osate.verify.verify.VerificationMethod#getCategory <em>Category</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the reference list '<em>Category</em>'.
+   * @see org.osate.verify.verify.VerificationMethod#getCategory()
+   * @see #getVerificationMethod()
+   * @generated
+   */
+  EReference getVerificationMethod_Category();
 
   /**
    * Returns the meta object for class '{@link org.osate.verify.verify.VerificationCondition <em>Verification Condition</em>}'.
@@ -1403,229 +1559,90 @@ public interface VerifyPackage extends EPackage
   EReference getVerificationCondition_Rationale();
 
   /**
-   * Returns the meta object for class '{@link org.osate.verify.verify.ArgumentExpr <em>Argument Expr</em>}'.
+   * Returns the meta object for class '{@link org.osate.verify.verify.ThenExpr <em>Then Expr</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @return the meta object for class '<em>Argument Expr</em>'.
-   * @see org.osate.verify.verify.ArgumentExpr
+   * @return the meta object for class '<em>Then Expr</em>'.
+   * @see org.osate.verify.verify.ThenExpr
    * @generated
    */
-  EClass getArgumentExpr();
+  EClass getThenExpr();
 
   /**
-   * Returns the meta object for class '{@link org.osate.verify.verify.VerificationMethodRegistry <em>Verification Method Registry</em>}'.
+   * Returns the meta object for the containment reference '{@link org.osate.verify.verify.ThenExpr#getLeft <em>Left</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @return the meta object for class '<em>Verification Method Registry</em>'.
-   * @see org.osate.verify.verify.VerificationMethodRegistry
+   * @return the meta object for the containment reference '<em>Left</em>'.
+   * @see org.osate.verify.verify.ThenExpr#getLeft()
+   * @see #getThenExpr()
    * @generated
    */
-  EClass getVerificationMethodRegistry();
+  EReference getThenExpr_Left();
 
   /**
-   * Returns the meta object for the attribute '{@link org.osate.verify.verify.VerificationMethodRegistry#getName <em>Name</em>}'.
+   * Returns the meta object for the containment reference '{@link org.osate.verify.verify.ThenExpr#getSuccessor <em>Successor</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @return the meta object for the attribute '<em>Name</em>'.
-   * @see org.osate.verify.verify.VerificationMethodRegistry#getName()
-   * @see #getVerificationMethodRegistry()
+   * @return the meta object for the containment reference '<em>Successor</em>'.
+   * @see org.osate.verify.verify.ThenExpr#getSuccessor()
+   * @see #getThenExpr()
    * @generated
    */
-  EAttribute getVerificationMethodRegistry_Name();
+  EReference getThenExpr_Successor();
 
   /**
-   * Returns the meta object for the attribute '{@link org.osate.verify.verify.VerificationMethodRegistry#getTitle <em>Title</em>}'.
+   * Returns the meta object for class '{@link org.osate.verify.verify.ElseExpr <em>Else Expr</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @return the meta object for the attribute '<em>Title</em>'.
-   * @see org.osate.verify.verify.VerificationMethodRegistry#getTitle()
-   * @see #getVerificationMethodRegistry()
+   * @return the meta object for class '<em>Else Expr</em>'.
+   * @see org.osate.verify.verify.ElseExpr
    * @generated
    */
-  EAttribute getVerificationMethodRegistry_Title();
+  EClass getElseExpr();
 
   /**
-   * Returns the meta object for the containment reference '{@link org.osate.verify.verify.VerificationMethodRegistry#getDescription <em>Description</em>}'.
+   * Returns the meta object for the containment reference '{@link org.osate.verify.verify.ElseExpr#getLeft <em>Left</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @return the meta object for the containment reference '<em>Description</em>'.
-   * @see org.osate.verify.verify.VerificationMethodRegistry#getDescription()
-   * @see #getVerificationMethodRegistry()
+   * @return the meta object for the containment reference '<em>Left</em>'.
+   * @see org.osate.verify.verify.ElseExpr#getLeft()
+   * @see #getElseExpr()
    * @generated
    */
-  EReference getVerificationMethodRegistry_Description();
+  EReference getElseExpr_Left();
 
   /**
-   * Returns the meta object for the containment reference list '{@link org.osate.verify.verify.VerificationMethodRegistry#getMethods <em>Methods</em>}'.
+   * Returns the meta object for the containment reference '{@link org.osate.verify.verify.ElseExpr#getOther <em>Other</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @return the meta object for the containment reference list '<em>Methods</em>'.
-   * @see org.osate.verify.verify.VerificationMethodRegistry#getMethods()
-   * @see #getVerificationMethodRegistry()
+   * @return the meta object for the containment reference '<em>Other</em>'.
+   * @see org.osate.verify.verify.ElseExpr#getOther()
+   * @see #getElseExpr()
    * @generated
    */
-  EReference getVerificationMethodRegistry_Methods();
+  EReference getElseExpr_Other();
 
   /**
-   * Returns the meta object for class '{@link org.osate.verify.verify.VerificationMethodParameter <em>Verification Method Parameter</em>}'.
+   * Returns the meta object for the containment reference '{@link org.osate.verify.verify.ElseExpr#getFail <em>Fail</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @return the meta object for class '<em>Verification Method Parameter</em>'.
-   * @see org.osate.verify.verify.VerificationMethodParameter
+   * @return the meta object for the containment reference '<em>Fail</em>'.
+   * @see org.osate.verify.verify.ElseExpr#getFail()
+   * @see #getElseExpr()
    * @generated
    */
-  EClass getVerificationMethodParameter();
+  EReference getElseExpr_Fail();
 
   /**
-   * Returns the meta object for the attribute '{@link org.osate.verify.verify.VerificationMethodParameter#getName <em>Name</em>}'.
+   * Returns the meta object for the containment reference '{@link org.osate.verify.verify.ElseExpr#getTimeout <em>Timeout</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @return the meta object for the attribute '<em>Name</em>'.
-   * @see org.osate.verify.verify.VerificationMethodParameter#getName()
-   * @see #getVerificationMethodParameter()
+   * @return the meta object for the containment reference '<em>Timeout</em>'.
+   * @see org.osate.verify.verify.ElseExpr#getTimeout()
+   * @see #getElseExpr()
    * @generated
    */
-  EAttribute getVerificationMethodParameter_Name();
-
-  /**
-   * Returns the meta object for class '{@link org.osate.verify.verify.VerificationMethod <em>Verification Method</em>}'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return the meta object for class '<em>Verification Method</em>'.
-   * @see org.osate.verify.verify.VerificationMethod
-   * @generated
-   */
-  EClass getVerificationMethod();
-
-  /**
-   * Returns the meta object for the attribute '{@link org.osate.verify.verify.VerificationMethod#getName <em>Name</em>}'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return the meta object for the attribute '<em>Name</em>'.
-   * @see org.osate.verify.verify.VerificationMethod#getName()
-   * @see #getVerificationMethod()
-   * @generated
-   */
-  EAttribute getVerificationMethod_Name();
-
-  /**
-   * Returns the meta object for the containment reference list '{@link org.osate.verify.verify.VerificationMethod#getParams <em>Params</em>}'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return the meta object for the containment reference list '<em>Params</em>'.
-   * @see org.osate.verify.verify.VerificationMethod#getParams()
-   * @see #getVerificationMethod()
-   * @generated
-   */
-  EReference getVerificationMethod_Params();
-
-  /**
-   * Returns the meta object for the attribute '{@link org.osate.verify.verify.VerificationMethod#getTitle <em>Title</em>}'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return the meta object for the attribute '<em>Title</em>'.
-   * @see org.osate.verify.verify.VerificationMethod#getTitle()
-   * @see #getVerificationMethod()
-   * @generated
-   */
-  EAttribute getVerificationMethod_Title();
-
-  /**
-   * Returns the meta object for the attribute '{@link org.osate.verify.verify.VerificationMethod#getMethodType <em>Method Type</em>}'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return the meta object for the attribute '<em>Method Type</em>'.
-   * @see org.osate.verify.verify.VerificationMethod#getMethodType()
-   * @see #getVerificationMethod()
-   * @generated
-   */
-  EAttribute getVerificationMethod_MethodType();
-
-  /**
-   * Returns the meta object for the attribute '{@link org.osate.verify.verify.VerificationMethod#getScope <em>Scope</em>}'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return the meta object for the attribute '<em>Scope</em>'.
-   * @see org.osate.verify.verify.VerificationMethod#getScope()
-   * @see #getVerificationMethod()
-   * @generated
-   */
-  EAttribute getVerificationMethod_Scope();
-
-  /**
-   * Returns the meta object for the attribute '{@link org.osate.verify.verify.VerificationMethod#getReporting <em>Reporting</em>}'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return the meta object for the attribute '<em>Reporting</em>'.
-   * @see org.osate.verify.verify.VerificationMethod#getReporting()
-   * @see #getVerificationMethod()
-   * @generated
-   */
-  EAttribute getVerificationMethod_Reporting();
-
-  /**
-   * Returns the meta object for the containment reference '{@link org.osate.verify.verify.VerificationMethod#getDescription <em>Description</em>}'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return the meta object for the containment reference '<em>Description</em>'.
-   * @see org.osate.verify.verify.VerificationMethod#getDescription()
-   * @see #getVerificationMethod()
-   * @generated
-   */
-  EReference getVerificationMethod_Description();
-
-  /**
-   * Returns the meta object for the attribute '{@link org.osate.verify.verify.VerificationMethod#getMethodPath <em>Method Path</em>}'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return the meta object for the attribute '<em>Method Path</em>'.
-   * @see org.osate.verify.verify.VerificationMethod#getMethodPath()
-   * @see #getVerificationMethod()
-   * @generated
-   */
-  EAttribute getVerificationMethod_MethodPath();
-
-  /**
-   * Returns the meta object for the containment reference list '{@link org.osate.verify.verify.VerificationMethod#getConditions <em>Conditions</em>}'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return the meta object for the containment reference list '<em>Conditions</em>'.
-   * @see org.osate.verify.verify.VerificationMethod#getConditions()
-   * @see #getVerificationMethod()
-   * @generated
-   */
-  EReference getVerificationMethod_Conditions();
-
-  /**
-   * Returns the meta object for the reference list '{@link org.osate.verify.verify.VerificationMethod#getCategory <em>Category</em>}'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return the meta object for the reference list '<em>Category</em>'.
-   * @see org.osate.verify.verify.VerificationMethod#getCategory()
-   * @see #getVerificationMethod()
-   * @generated
-   */
-  EReference getVerificationMethod_Category();
-
-  /**
-   * Returns the meta object for class '{@link org.osate.verify.verify.VerificationValidation <em>Verification Validation</em>}'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return the meta object for class '<em>Verification Validation</em>'.
-   * @see org.osate.verify.verify.VerificationValidation
-   * @generated
-   */
-  EClass getVerificationValidation();
-
-  /**
-   * Returns the meta object for class '{@link org.osate.verify.verify.VerificationPrecondition <em>Verification Precondition</em>}'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return the meta object for class '<em>Verification Precondition</em>'.
-   * @see org.osate.verify.verify.VerificationPrecondition
-   * @generated
-   */
-  EClass getVerificationPrecondition();
+  EReference getElseExpr_Timeout();
 
   /**
    * Returns the meta object for class '{@link org.osate.verify.verify.AllExpr <em>All Expr</em>}'.
@@ -1638,101 +1655,15 @@ public interface VerifyPackage extends EPackage
   EClass getAllExpr();
 
   /**
-   * Returns the meta object for the containment reference list '{@link org.osate.verify.verify.AllExpr#getAll <em>All</em>}'.
+   * Returns the meta object for the containment reference list '{@link org.osate.verify.verify.AllExpr#getElements <em>Elements</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @return the meta object for the containment reference list '<em>All</em>'.
-   * @see org.osate.verify.verify.AllExpr#getAll()
+   * @return the meta object for the containment reference list '<em>Elements</em>'.
+   * @see org.osate.verify.verify.AllExpr#getElements()
    * @see #getAllExpr()
    * @generated
    */
-  EReference getAllExpr_All();
-
-  /**
-   * Returns the meta object for class '{@link org.osate.verify.verify.AndThenExpr <em>And Then Expr</em>}'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return the meta object for class '<em>And Then Expr</em>'.
-   * @see org.osate.verify.verify.AndThenExpr
-   * @generated
-   */
-  EClass getAndThenExpr();
-
-  /**
-   * Returns the meta object for the containment reference '{@link org.osate.verify.verify.AndThenExpr#getLeft <em>Left</em>}'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return the meta object for the containment reference '<em>Left</em>'.
-   * @see org.osate.verify.verify.AndThenExpr#getLeft()
-   * @see #getAndThenExpr()
-   * @generated
-   */
-  EReference getAndThenExpr_Left();
-
-  /**
-   * Returns the meta object for the containment reference '{@link org.osate.verify.verify.AndThenExpr#getRight <em>Right</em>}'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return the meta object for the containment reference '<em>Right</em>'.
-   * @see org.osate.verify.verify.AndThenExpr#getRight()
-   * @see #getAndThenExpr()
-   * @generated
-   */
-  EReference getAndThenExpr_Right();
-
-  /**
-   * Returns the meta object for class '{@link org.osate.verify.verify.FailThenExpr <em>Fail Then Expr</em>}'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return the meta object for class '<em>Fail Then Expr</em>'.
-   * @see org.osate.verify.verify.FailThenExpr
-   * @generated
-   */
-  EClass getFailThenExpr();
-
-  /**
-   * Returns the meta object for the containment reference '{@link org.osate.verify.verify.FailThenExpr#getLeft <em>Left</em>}'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return the meta object for the containment reference '<em>Left</em>'.
-   * @see org.osate.verify.verify.FailThenExpr#getLeft()
-   * @see #getFailThenExpr()
-   * @generated
-   */
-  EReference getFailThenExpr_Left();
-
-  /**
-   * Returns the meta object for the attribute '{@link org.osate.verify.verify.FailThenExpr#isFailed <em>Failed</em>}'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return the meta object for the attribute '<em>Failed</em>'.
-   * @see org.osate.verify.verify.FailThenExpr#isFailed()
-   * @see #getFailThenExpr()
-   * @generated
-   */
-  EAttribute getFailThenExpr_Failed();
-
-  /**
-   * Returns the meta object for the attribute '{@link org.osate.verify.verify.FailThenExpr#isUnknown <em>Unknown</em>}'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return the meta object for the attribute '<em>Unknown</em>'.
-   * @see org.osate.verify.verify.FailThenExpr#isUnknown()
-   * @see #getFailThenExpr()
-   * @generated
-   */
-  EAttribute getFailThenExpr_Unknown();
-
-  /**
-   * Returns the meta object for the containment reference '{@link org.osate.verify.verify.FailThenExpr#getRight <em>Right</em>}'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return the meta object for the containment reference '<em>Right</em>'.
-   * @see org.osate.verify.verify.FailThenExpr#getRight()
-   * @see #getFailThenExpr()
-   * @generated
-   */
-  EReference getFailThenExpr_Right();
+  EReference getAllExpr_Elements();
 
   /**
    * Returns the meta object for class '{@link org.osate.verify.verify.WhenExpr <em>When Expr</em>}'.
@@ -1799,6 +1730,26 @@ public interface VerifyPackage extends EPackage
   EAttribute getRefExpr_Weight();
 
   /**
+   * Returns the meta object for class '{@link org.osate.verify.verify.VerificationValidation <em>Verification Validation</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for class '<em>Verification Validation</em>'.
+   * @see org.osate.verify.verify.VerificationValidation
+   * @generated
+   */
+  EClass getVerificationValidation();
+
+  /**
+   * Returns the meta object for class '{@link org.osate.verify.verify.VerificationPrecondition <em>Verification Precondition</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for class '<em>Verification Precondition</em>'.
+   * @see org.osate.verify.verify.VerificationPrecondition
+   * @generated
+   */
+  EClass getVerificationPrecondition();
+
+  /**
    * Returns the meta object for enum '{@link org.osate.verify.verify.SupportedTypes <em>Supported Types</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -1807,26 +1758,6 @@ public interface VerifyPackage extends EPackage
    * @generated
    */
   EEnum getSupportedTypes();
-
-  /**
-   * Returns the meta object for enum '{@link org.osate.verify.verify.SupportedScopes <em>Supported Scopes</em>}'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return the meta object for enum '<em>Supported Scopes</em>'.
-   * @see org.osate.verify.verify.SupportedScopes
-   * @generated
-   */
-  EEnum getSupportedScopes();
-
-  /**
-   * Returns the meta object for enum '{@link org.osate.verify.verify.SupportedReporting <em>Supported Reporting</em>}'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return the meta object for enum '<em>Supported Reporting</em>'.
-   * @see org.osate.verify.verify.SupportedReporting
-   * @generated
-   */
-  EEnum getSupportedReporting();
 
   /**
    * Returns the factory that creates the instances of the model.
@@ -1926,14 +1857,6 @@ public interface VerifyPackage extends EPackage
      * @generated
      */
     EReference VERIFICATION_PLAN__RATIONALE = eINSTANCE.getVerificationPlan_Rationale();
-
-    /**
-     * The meta object literal for the '<em><b>Verified Assumption</b></em>' reference list feature.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
-    EReference VERIFICATION_PLAN__VERIFIED_ASSUMPTION = eINSTANCE.getVerificationPlan_VerifiedAssumption();
 
     /**
      * The meta object literal for the '<em><b>Issues</b></em>' attribute list feature.
@@ -2044,6 +1967,22 @@ public interface VerifyPackage extends EPackage
     EAttribute VERIFICATION_ACTIVITY__NAME = eINSTANCE.getVerificationActivity_Name();
 
     /**
+     * The meta object literal for the '<em><b>Title</b></em>' attribute feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EAttribute VERIFICATION_ACTIVITY__TITLE = eINSTANCE.getVerificationActivity_Title();
+
+    /**
+     * The meta object literal for the '<em><b>Target</b></em>' reference feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EReference VERIFICATION_ACTIVITY__TARGET = eINSTANCE.getVerificationActivity_Target();
+
+    /**
      * The meta object literal for the '<em><b>Result</b></em>' reference list feature.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
@@ -2074,6 +2013,148 @@ public interface VerifyPackage extends EPackage
      * @generated
      */
     EAttribute VERIFICATION_ACTIVITY__TIMEOUT = eINSTANCE.getVerificationActivity_Timeout();
+
+    /**
+     * The meta object literal for the '{@link org.osate.verify.verify.impl.ArgumentExprImpl <em>Argument Expr</em>}' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see org.osate.verify.verify.impl.ArgumentExprImpl
+     * @see org.osate.verify.verify.impl.VerifyPackageImpl#getArgumentExpr()
+     * @generated
+     */
+    EClass ARGUMENT_EXPR = eINSTANCE.getArgumentExpr();
+
+    /**
+     * The meta object literal for the '{@link org.osate.verify.verify.impl.VerificationMethodRegistryImpl <em>Verification Method Registry</em>}' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see org.osate.verify.verify.impl.VerificationMethodRegistryImpl
+     * @see org.osate.verify.verify.impl.VerifyPackageImpl#getVerificationMethodRegistry()
+     * @generated
+     */
+    EClass VERIFICATION_METHOD_REGISTRY = eINSTANCE.getVerificationMethodRegistry();
+
+    /**
+     * The meta object literal for the '<em><b>Name</b></em>' attribute feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EAttribute VERIFICATION_METHOD_REGISTRY__NAME = eINSTANCE.getVerificationMethodRegistry_Name();
+
+    /**
+     * The meta object literal for the '<em><b>Title</b></em>' attribute feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EAttribute VERIFICATION_METHOD_REGISTRY__TITLE = eINSTANCE.getVerificationMethodRegistry_Title();
+
+    /**
+     * The meta object literal for the '<em><b>Description</b></em>' containment reference feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EReference VERIFICATION_METHOD_REGISTRY__DESCRIPTION = eINSTANCE.getVerificationMethodRegistry_Description();
+
+    /**
+     * The meta object literal for the '<em><b>Methods</b></em>' containment reference list feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EReference VERIFICATION_METHOD_REGISTRY__METHODS = eINSTANCE.getVerificationMethodRegistry_Methods();
+
+    /**
+     * The meta object literal for the '{@link org.osate.verify.verify.impl.VerificationMethodImpl <em>Verification Method</em>}' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see org.osate.verify.verify.impl.VerificationMethodImpl
+     * @see org.osate.verify.verify.impl.VerifyPackageImpl#getVerificationMethod()
+     * @generated
+     */
+    EClass VERIFICATION_METHOD = eINSTANCE.getVerificationMethod();
+
+    /**
+     * The meta object literal for the '<em><b>Name</b></em>' attribute feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EAttribute VERIFICATION_METHOD__NAME = eINSTANCE.getVerificationMethod_Name();
+
+    /**
+     * The meta object literal for the '<em><b>Params</b></em>' containment reference list feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EReference VERIFICATION_METHOD__PARAMS = eINSTANCE.getVerificationMethod_Params();
+
+    /**
+     * The meta object literal for the '<em><b>Is Predicate</b></em>' attribute feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EAttribute VERIFICATION_METHOD__IS_PREDICATE = eINSTANCE.getVerificationMethod_IsPredicate();
+
+    /**
+     * The meta object literal for the '<em><b>Is Result Report</b></em>' attribute feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EAttribute VERIFICATION_METHOD__IS_RESULT_REPORT = eINSTANCE.getVerificationMethod_IsResultReport();
+
+    /**
+     * The meta object literal for the '<em><b>Title</b></em>' attribute feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EAttribute VERIFICATION_METHOD__TITLE = eINSTANCE.getVerificationMethod_Title();
+
+    /**
+     * The meta object literal for the '<em><b>Method Type</b></em>' attribute feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EAttribute VERIFICATION_METHOD__METHOD_TYPE = eINSTANCE.getVerificationMethod_MethodType();
+
+    /**
+     * The meta object literal for the '<em><b>Description</b></em>' containment reference feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EReference VERIFICATION_METHOD__DESCRIPTION = eINSTANCE.getVerificationMethod_Description();
+
+    /**
+     * The meta object literal for the '<em><b>Method Path</b></em>' attribute feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EAttribute VERIFICATION_METHOD__METHOD_PATH = eINSTANCE.getVerificationMethod_MethodPath();
+
+    /**
+     * The meta object literal for the '<em><b>Condition</b></em>' containment reference feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EReference VERIFICATION_METHOD__CONDITION = eINSTANCE.getVerificationMethod_Condition();
+
+    /**
+     * The meta object literal for the '<em><b>Category</b></em>' reference list feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EReference VERIFICATION_METHOD__CATEGORY = eINSTANCE.getVerificationMethod_Category();
 
     /**
      * The meta object literal for the '{@link org.osate.verify.verify.impl.VerificationConditionImpl <em>Verification Condition</em>}' class.
@@ -2142,184 +2223,72 @@ public interface VerifyPackage extends EPackage
     EReference VERIFICATION_CONDITION__RATIONALE = eINSTANCE.getVerificationCondition_Rationale();
 
     /**
-     * The meta object literal for the '{@link org.osate.verify.verify.impl.ArgumentExprImpl <em>Argument Expr</em>}' class.
+     * The meta object literal for the '{@link org.osate.verify.verify.impl.ThenExprImpl <em>Then Expr</em>}' class.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @see org.osate.verify.verify.impl.ArgumentExprImpl
-     * @see org.osate.verify.verify.impl.VerifyPackageImpl#getArgumentExpr()
+     * @see org.osate.verify.verify.impl.ThenExprImpl
+     * @see org.osate.verify.verify.impl.VerifyPackageImpl#getThenExpr()
      * @generated
      */
-    EClass ARGUMENT_EXPR = eINSTANCE.getArgumentExpr();
+    EClass THEN_EXPR = eINSTANCE.getThenExpr();
 
     /**
-     * The meta object literal for the '{@link org.osate.verify.verify.impl.VerificationMethodRegistryImpl <em>Verification Method Registry</em>}' class.
+     * The meta object literal for the '<em><b>Left</b></em>' containment reference feature.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @see org.osate.verify.verify.impl.VerificationMethodRegistryImpl
-     * @see org.osate.verify.verify.impl.VerifyPackageImpl#getVerificationMethodRegistry()
      * @generated
      */
-    EClass VERIFICATION_METHOD_REGISTRY = eINSTANCE.getVerificationMethodRegistry();
+    EReference THEN_EXPR__LEFT = eINSTANCE.getThenExpr_Left();
 
     /**
-     * The meta object literal for the '<em><b>Name</b></em>' attribute feature.
+     * The meta object literal for the '<em><b>Successor</b></em>' containment reference feature.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @generated
      */
-    EAttribute VERIFICATION_METHOD_REGISTRY__NAME = eINSTANCE.getVerificationMethodRegistry_Name();
+    EReference THEN_EXPR__SUCCESSOR = eINSTANCE.getThenExpr_Successor();
 
     /**
-     * The meta object literal for the '<em><b>Title</b></em>' attribute feature.
+     * The meta object literal for the '{@link org.osate.verify.verify.impl.ElseExprImpl <em>Else Expr</em>}' class.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
+     * @see org.osate.verify.verify.impl.ElseExprImpl
+     * @see org.osate.verify.verify.impl.VerifyPackageImpl#getElseExpr()
      * @generated
      */
-    EAttribute VERIFICATION_METHOD_REGISTRY__TITLE = eINSTANCE.getVerificationMethodRegistry_Title();
+    EClass ELSE_EXPR = eINSTANCE.getElseExpr();
 
     /**
-     * The meta object literal for the '<em><b>Description</b></em>' containment reference feature.
+     * The meta object literal for the '<em><b>Left</b></em>' containment reference feature.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @generated
      */
-    EReference VERIFICATION_METHOD_REGISTRY__DESCRIPTION = eINSTANCE.getVerificationMethodRegistry_Description();
+    EReference ELSE_EXPR__LEFT = eINSTANCE.getElseExpr_Left();
 
     /**
-     * The meta object literal for the '<em><b>Methods</b></em>' containment reference list feature.
+     * The meta object literal for the '<em><b>Other</b></em>' containment reference feature.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @generated
      */
-    EReference VERIFICATION_METHOD_REGISTRY__METHODS = eINSTANCE.getVerificationMethodRegistry_Methods();
+    EReference ELSE_EXPR__OTHER = eINSTANCE.getElseExpr_Other();
 
     /**
-     * The meta object literal for the '{@link org.osate.verify.verify.impl.VerificationMethodParameterImpl <em>Verification Method Parameter</em>}' class.
+     * The meta object literal for the '<em><b>Fail</b></em>' containment reference feature.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @see org.osate.verify.verify.impl.VerificationMethodParameterImpl
-     * @see org.osate.verify.verify.impl.VerifyPackageImpl#getVerificationMethodParameter()
      * @generated
      */
-    EClass VERIFICATION_METHOD_PARAMETER = eINSTANCE.getVerificationMethodParameter();
+    EReference ELSE_EXPR__FAIL = eINSTANCE.getElseExpr_Fail();
 
     /**
-     * The meta object literal for the '<em><b>Name</b></em>' attribute feature.
+     * The meta object literal for the '<em><b>Timeout</b></em>' containment reference feature.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @generated
      */
-    EAttribute VERIFICATION_METHOD_PARAMETER__NAME = eINSTANCE.getVerificationMethodParameter_Name();
-
-    /**
-     * The meta object literal for the '{@link org.osate.verify.verify.impl.VerificationMethodImpl <em>Verification Method</em>}' class.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @see org.osate.verify.verify.impl.VerificationMethodImpl
-     * @see org.osate.verify.verify.impl.VerifyPackageImpl#getVerificationMethod()
-     * @generated
-     */
-    EClass VERIFICATION_METHOD = eINSTANCE.getVerificationMethod();
-
-    /**
-     * The meta object literal for the '<em><b>Name</b></em>' attribute feature.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
-    EAttribute VERIFICATION_METHOD__NAME = eINSTANCE.getVerificationMethod_Name();
-
-    /**
-     * The meta object literal for the '<em><b>Params</b></em>' containment reference list feature.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
-    EReference VERIFICATION_METHOD__PARAMS = eINSTANCE.getVerificationMethod_Params();
-
-    /**
-     * The meta object literal for the '<em><b>Title</b></em>' attribute feature.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
-    EAttribute VERIFICATION_METHOD__TITLE = eINSTANCE.getVerificationMethod_Title();
-
-    /**
-     * The meta object literal for the '<em><b>Method Type</b></em>' attribute feature.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
-    EAttribute VERIFICATION_METHOD__METHOD_TYPE = eINSTANCE.getVerificationMethod_MethodType();
-
-    /**
-     * The meta object literal for the '<em><b>Scope</b></em>' attribute feature.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
-    EAttribute VERIFICATION_METHOD__SCOPE = eINSTANCE.getVerificationMethod_Scope();
-
-    /**
-     * The meta object literal for the '<em><b>Reporting</b></em>' attribute feature.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
-    EAttribute VERIFICATION_METHOD__REPORTING = eINSTANCE.getVerificationMethod_Reporting();
-
-    /**
-     * The meta object literal for the '<em><b>Description</b></em>' containment reference feature.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
-    EReference VERIFICATION_METHOD__DESCRIPTION = eINSTANCE.getVerificationMethod_Description();
-
-    /**
-     * The meta object literal for the '<em><b>Method Path</b></em>' attribute feature.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
-    EAttribute VERIFICATION_METHOD__METHOD_PATH = eINSTANCE.getVerificationMethod_MethodPath();
-
-    /**
-     * The meta object literal for the '<em><b>Conditions</b></em>' containment reference list feature.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
-    EReference VERIFICATION_METHOD__CONDITIONS = eINSTANCE.getVerificationMethod_Conditions();
-
-    /**
-     * The meta object literal for the '<em><b>Category</b></em>' reference list feature.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
-    EReference VERIFICATION_METHOD__CATEGORY = eINSTANCE.getVerificationMethod_Category();
-
-    /**
-     * The meta object literal for the '{@link org.osate.verify.verify.impl.VerificationValidationImpl <em>Verification Validation</em>}' class.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @see org.osate.verify.verify.impl.VerificationValidationImpl
-     * @see org.osate.verify.verify.impl.VerifyPackageImpl#getVerificationValidation()
-     * @generated
-     */
-    EClass VERIFICATION_VALIDATION = eINSTANCE.getVerificationValidation();
-
-    /**
-     * The meta object literal for the '{@link org.osate.verify.verify.impl.VerificationPreconditionImpl <em>Verification Precondition</em>}' class.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @see org.osate.verify.verify.impl.VerificationPreconditionImpl
-     * @see org.osate.verify.verify.impl.VerifyPackageImpl#getVerificationPrecondition()
-     * @generated
-     */
-    EClass VERIFICATION_PRECONDITION = eINSTANCE.getVerificationPrecondition();
+    EReference ELSE_EXPR__TIMEOUT = eINSTANCE.getElseExpr_Timeout();
 
     /**
      * The meta object literal for the '{@link org.osate.verify.verify.impl.AllExprImpl <em>All Expr</em>}' class.
@@ -2332,80 +2301,12 @@ public interface VerifyPackage extends EPackage
     EClass ALL_EXPR = eINSTANCE.getAllExpr();
 
     /**
-     * The meta object literal for the '<em><b>All</b></em>' containment reference list feature.
+     * The meta object literal for the '<em><b>Elements</b></em>' containment reference list feature.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @generated
      */
-    EReference ALL_EXPR__ALL = eINSTANCE.getAllExpr_All();
-
-    /**
-     * The meta object literal for the '{@link org.osate.verify.verify.impl.AndThenExprImpl <em>And Then Expr</em>}' class.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @see org.osate.verify.verify.impl.AndThenExprImpl
-     * @see org.osate.verify.verify.impl.VerifyPackageImpl#getAndThenExpr()
-     * @generated
-     */
-    EClass AND_THEN_EXPR = eINSTANCE.getAndThenExpr();
-
-    /**
-     * The meta object literal for the '<em><b>Left</b></em>' containment reference feature.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
-    EReference AND_THEN_EXPR__LEFT = eINSTANCE.getAndThenExpr_Left();
-
-    /**
-     * The meta object literal for the '<em><b>Right</b></em>' containment reference feature.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
-    EReference AND_THEN_EXPR__RIGHT = eINSTANCE.getAndThenExpr_Right();
-
-    /**
-     * The meta object literal for the '{@link org.osate.verify.verify.impl.FailThenExprImpl <em>Fail Then Expr</em>}' class.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @see org.osate.verify.verify.impl.FailThenExprImpl
-     * @see org.osate.verify.verify.impl.VerifyPackageImpl#getFailThenExpr()
-     * @generated
-     */
-    EClass FAIL_THEN_EXPR = eINSTANCE.getFailThenExpr();
-
-    /**
-     * The meta object literal for the '<em><b>Left</b></em>' containment reference feature.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
-    EReference FAIL_THEN_EXPR__LEFT = eINSTANCE.getFailThenExpr_Left();
-
-    /**
-     * The meta object literal for the '<em><b>Failed</b></em>' attribute feature.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
-    EAttribute FAIL_THEN_EXPR__FAILED = eINSTANCE.getFailThenExpr_Failed();
-
-    /**
-     * The meta object literal for the '<em><b>Unknown</b></em>' attribute feature.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
-    EAttribute FAIL_THEN_EXPR__UNKNOWN = eINSTANCE.getFailThenExpr_Unknown();
-
-    /**
-     * The meta object literal for the '<em><b>Right</b></em>' containment reference feature.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
-    EReference FAIL_THEN_EXPR__RIGHT = eINSTANCE.getFailThenExpr_Right();
+    EReference ALL_EXPR__ELEMENTS = eINSTANCE.getAllExpr_Elements();
 
     /**
      * The meta object literal for the '{@link org.osate.verify.verify.impl.WhenExprImpl <em>When Expr</em>}' class.
@@ -2460,6 +2361,26 @@ public interface VerifyPackage extends EPackage
     EAttribute REF_EXPR__WEIGHT = eINSTANCE.getRefExpr_Weight();
 
     /**
+     * The meta object literal for the '{@link org.osate.verify.verify.impl.VerificationValidationImpl <em>Verification Validation</em>}' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see org.osate.verify.verify.impl.VerificationValidationImpl
+     * @see org.osate.verify.verify.impl.VerifyPackageImpl#getVerificationValidation()
+     * @generated
+     */
+    EClass VERIFICATION_VALIDATION = eINSTANCE.getVerificationValidation();
+
+    /**
+     * The meta object literal for the '{@link org.osate.verify.verify.impl.VerificationPreconditionImpl <em>Verification Precondition</em>}' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see org.osate.verify.verify.impl.VerificationPreconditionImpl
+     * @see org.osate.verify.verify.impl.VerifyPackageImpl#getVerificationPrecondition()
+     * @generated
+     */
+    EClass VERIFICATION_PRECONDITION = eINSTANCE.getVerificationPrecondition();
+
+    /**
      * The meta object literal for the '{@link org.osate.verify.verify.SupportedTypes <em>Supported Types</em>}' enum.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
@@ -2468,26 +2389,6 @@ public interface VerifyPackage extends EPackage
      * @generated
      */
     EEnum SUPPORTED_TYPES = eINSTANCE.getSupportedTypes();
-
-    /**
-     * The meta object literal for the '{@link org.osate.verify.verify.SupportedScopes <em>Supported Scopes</em>}' enum.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @see org.osate.verify.verify.SupportedScopes
-     * @see org.osate.verify.verify.impl.VerifyPackageImpl#getSupportedScopes()
-     * @generated
-     */
-    EEnum SUPPORTED_SCOPES = eINSTANCE.getSupportedScopes();
-
-    /**
-     * The meta object literal for the '{@link org.osate.verify.verify.SupportedReporting <em>Supported Reporting</em>}' enum.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @see org.osate.verify.verify.SupportedReporting
-     * @see org.osate.verify.verify.impl.VerifyPackageImpl#getSupportedReporting()
-     * @generated
-     */
-    EEnum SUPPORTED_REPORTING = eINSTANCE.getSupportedReporting();
 
   }
 

@@ -113,13 +113,13 @@ public interface AlisaPackage extends EPackage
   int ASSURANCE_PLAN__TITLE = 1;
 
   /**
-   * The feature id for the '<em><b>System</b></em>' reference.
+   * The feature id for the '<em><b>Target</b></em>' reference.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    * @ordered
    */
-  int ASSURANCE_PLAN__SYSTEM = 2;
+  int ASSURANCE_PLAN__TARGET = 2;
 
   /**
    * The feature id for the '<em><b>Description</b></em>' containment reference.
@@ -131,22 +131,22 @@ public interface AlisaPackage extends EPackage
   int ASSURANCE_PLAN__DESCRIPTION = 3;
 
   /**
-   * The feature id for the '<em><b>Plans</b></em>' reference list.
+   * The feature id for the '<em><b>Assure Plans</b></em>' reference list.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    * @ordered
    */
-  int ASSURANCE_PLAN__PLANS = 4;
+  int ASSURANCE_PLAN__ASSURE_PLANS = 4;
 
   /**
-   * The feature id for the '<em><b>Verified Assumption</b></em>' reference list.
+   * The feature id for the '<em><b>Assume Subsystems</b></em>' reference list.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    * @ordered
    */
-  int ASSURANCE_PLAN__VERIFIED_ASSUMPTION = 5;
+  int ASSURANCE_PLAN__ASSUME_SUBSYSTEMS = 5;
 
   /**
    * The feature id for the '<em><b>Issues</b></em>' attribute list.
@@ -386,15 +386,15 @@ public interface AlisaPackage extends EPackage
   EAttribute getAssurancePlan_Title();
 
   /**
-   * Returns the meta object for the reference '{@link org.osate.alisa.workbench.alisa.AssurancePlan#getSystem <em>System</em>}'.
+   * Returns the meta object for the reference '{@link org.osate.alisa.workbench.alisa.AssurancePlan#getTarget <em>Target</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @return the meta object for the reference '<em>System</em>'.
-   * @see org.osate.alisa.workbench.alisa.AssurancePlan#getSystem()
+   * @return the meta object for the reference '<em>Target</em>'.
+   * @see org.osate.alisa.workbench.alisa.AssurancePlan#getTarget()
    * @see #getAssurancePlan()
    * @generated
    */
-  EReference getAssurancePlan_System();
+  EReference getAssurancePlan_Target();
 
   /**
    * Returns the meta object for the containment reference '{@link org.osate.alisa.workbench.alisa.AssurancePlan#getDescription <em>Description</em>}'.
@@ -408,26 +408,26 @@ public interface AlisaPackage extends EPackage
   EReference getAssurancePlan_Description();
 
   /**
-   * Returns the meta object for the reference list '{@link org.osate.alisa.workbench.alisa.AssurancePlan#getPlans <em>Plans</em>}'.
+   * Returns the meta object for the reference list '{@link org.osate.alisa.workbench.alisa.AssurancePlan#getAssurePlans <em>Assure Plans</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @return the meta object for the reference list '<em>Plans</em>'.
-   * @see org.osate.alisa.workbench.alisa.AssurancePlan#getPlans()
+   * @return the meta object for the reference list '<em>Assure Plans</em>'.
+   * @see org.osate.alisa.workbench.alisa.AssurancePlan#getAssurePlans()
    * @see #getAssurancePlan()
    * @generated
    */
-  EReference getAssurancePlan_Plans();
+  EReference getAssurancePlan_AssurePlans();
 
   /**
-   * Returns the meta object for the reference list '{@link org.osate.alisa.workbench.alisa.AssurancePlan#getVerifiedAssumption <em>Verified Assumption</em>}'.
+   * Returns the meta object for the reference list '{@link org.osate.alisa.workbench.alisa.AssurancePlan#getAssumeSubsystems <em>Assume Subsystems</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @return the meta object for the reference list '<em>Verified Assumption</em>'.
-   * @see org.osate.alisa.workbench.alisa.AssurancePlan#getVerifiedAssumption()
+   * @return the meta object for the reference list '<em>Assume Subsystems</em>'.
+   * @see org.osate.alisa.workbench.alisa.AssurancePlan#getAssumeSubsystems()
    * @see #getAssurancePlan()
    * @generated
    */
-  EReference getAssurancePlan_VerifiedAssumption();
+  EReference getAssurancePlan_AssumeSubsystems();
 
   /**
    * Returns the meta object for the attribute list '{@link org.osate.alisa.workbench.alisa.AssurancePlan#getIssues <em>Issues</em>}'.
@@ -670,12 +670,12 @@ public interface AlisaPackage extends EPackage
     EAttribute ASSURANCE_PLAN__TITLE = eINSTANCE.getAssurancePlan_Title();
 
     /**
-     * The meta object literal for the '<em><b>System</b></em>' reference feature.
+     * The meta object literal for the '<em><b>Target</b></em>' reference feature.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @generated
      */
-    EReference ASSURANCE_PLAN__SYSTEM = eINSTANCE.getAssurancePlan_System();
+    EReference ASSURANCE_PLAN__TARGET = eINSTANCE.getAssurancePlan_Target();
 
     /**
      * The meta object literal for the '<em><b>Description</b></em>' containment reference feature.
@@ -686,20 +686,20 @@ public interface AlisaPackage extends EPackage
     EReference ASSURANCE_PLAN__DESCRIPTION = eINSTANCE.getAssurancePlan_Description();
 
     /**
-     * The meta object literal for the '<em><b>Plans</b></em>' reference list feature.
+     * The meta object literal for the '<em><b>Assure Plans</b></em>' reference list feature.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @generated
      */
-    EReference ASSURANCE_PLAN__PLANS = eINSTANCE.getAssurancePlan_Plans();
+    EReference ASSURANCE_PLAN__ASSURE_PLANS = eINSTANCE.getAssurancePlan_AssurePlans();
 
     /**
-     * The meta object literal for the '<em><b>Verified Assumption</b></em>' reference list feature.
+     * The meta object literal for the '<em><b>Assume Subsystems</b></em>' reference list feature.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @generated
      */
-    EReference ASSURANCE_PLAN__VERIFIED_ASSUMPTION = eINSTANCE.getAssurancePlan_VerifiedAssumption();
+    EReference ASSURANCE_PLAN__ASSUME_SUBSYSTEMS = eINSTANCE.getAssurancePlan_AssumeSubsystems();
 
     /**
      * The meta object literal for the '<em><b>Issues</b></em>' attribute list feature.

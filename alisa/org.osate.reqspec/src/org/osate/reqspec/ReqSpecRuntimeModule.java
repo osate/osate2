@@ -16,6 +16,10 @@ import com.google.inject.name.Names;
  * Use this class to register components to be used at runtime / without the Equinox extension registry.
  */
 public class ReqSpecRuntimeModule extends org.osate.reqspec.AbstractReqSpecRuntimeModule {
+	@Override
+	public Class<? extends org.eclipse.xtext.scoping.IGlobalScopeProvider> bindIGlobalScopeProvider() {
+		return org.osate.alisa.common.scoping.CommonGlobalScopeProvider.class;
+	}
 
 	@Override
 	public Class<? extends org.eclipse.xtext.naming.IQualifiedNameConverter> bindIQualifiedNameConverter() {
@@ -38,6 +42,10 @@ public class ReqSpecRuntimeModule extends org.osate.reqspec.AbstractReqSpecRunti
 
 	public Class<? extends ICrossReferenceSerializer> bindICrossReferenceSerializer() {
 		return ReqSpecCrossReferenceSerializer.class;
+	}
+
+	public Class<? extends org.osate.reqspec.util.IReqSpecReferenceFinder> bindIReqSpecReferenceFinder() {
+		return org.osate.reqspec.util.ReqSpecReferenceFinder.class;
 	}
 
 }

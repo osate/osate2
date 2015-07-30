@@ -70,11 +70,12 @@ public class AssureFactoryImpl extends EFactoryImpl implements AssureFactory
       case AssurePackage.VERIFICATION_RESULT: return createVerificationResult();
       case AssurePackage.ASSURE_RESULT: return createAssureResult();
       case AssurePackage.VERIFICATION_EXPR: return createVerificationExpr();
-      case AssurePackage.FAIL_THEN_RESULT: return createFailThenResult();
-      case AssurePackage.AND_THEN_RESULT: return createAndThenResult();
+      case AssurePackage.ELSE_RESULT: return createElseResult();
+      case AssurePackage.THEN_RESULT: return createThenResult();
+      case AssurePackage.METRICS: return createMetrics();
       case AssurePackage.RESULT_ISSUE: return createResultIssue();
-      case AssurePackage.VALIDATION_RESULT: return createValidationResult();
       case AssurePackage.PRECONDITION_RESULT: return createPreconditionResult();
+      case AssurePackage.VALIDATION_RESULT: return createValidationResult();
       case AssurePackage.VERIFICATION_ACTIVITY_RESULT: return createVerificationActivityResult();
       default:
         throw new IllegalArgumentException("The class '" + eClass.getName() + "' is not a valid classifier");
@@ -91,6 +92,8 @@ public class AssureFactoryImpl extends EFactoryImpl implements AssureFactory
   {
     switch (eDataType.getClassifierID())
     {
+      case AssurePackage.ELSE_TYPE:
+        return createElseTypeFromString(eDataType, initialValue);
       case AssurePackage.RESULT_ISSUE_TYPE:
         return createResultIssueTypeFromString(eDataType, initialValue);
       case AssurePackage.VERIFICATION_RESULT_STATE:
@@ -112,6 +115,8 @@ public class AssureFactoryImpl extends EFactoryImpl implements AssureFactory
   {
     switch (eDataType.getClassifierID())
     {
+      case AssurePackage.ELSE_TYPE:
+        return convertElseTypeToString(eDataType, instanceValue);
       case AssurePackage.RESULT_ISSUE_TYPE:
         return convertResultIssueTypeToString(eDataType, instanceValue);
       case AssurePackage.VERIFICATION_RESULT_STATE:
@@ -183,10 +188,10 @@ public class AssureFactoryImpl extends EFactoryImpl implements AssureFactory
    * <!-- end-user-doc -->
    * @generated
    */
-  public FailThenResult createFailThenResult()
+  public ElseResult createElseResult()
   {
-    FailThenResultImpl failThenResult = new FailThenResultImpl();
-    return failThenResult;
+    ElseResultImpl elseResult = new ElseResultImpl();
+    return elseResult;
   }
 
   /**
@@ -194,10 +199,21 @@ public class AssureFactoryImpl extends EFactoryImpl implements AssureFactory
    * <!-- end-user-doc -->
    * @generated
    */
-  public AndThenResult createAndThenResult()
+  public ThenResult createThenResult()
   {
-    AndThenResultImpl andThenResult = new AndThenResultImpl();
-    return andThenResult;
+    ThenResultImpl thenResult = new ThenResultImpl();
+    return thenResult;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public Metrics createMetrics()
+  {
+    MetricsImpl metrics = new MetricsImpl();
+    return metrics;
   }
 
   /**
@@ -216,17 +232,6 @@ public class AssureFactoryImpl extends EFactoryImpl implements AssureFactory
    * <!-- end-user-doc -->
    * @generated
    */
-  public ValidationResult createValidationResult()
-  {
-    ValidationResultImpl validationResult = new ValidationResultImpl();
-    return validationResult;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
   public PreconditionResult createPreconditionResult()
   {
     PreconditionResultImpl preconditionResult = new PreconditionResultImpl();
@@ -238,10 +243,43 @@ public class AssureFactoryImpl extends EFactoryImpl implements AssureFactory
    * <!-- end-user-doc -->
    * @generated
    */
+  public ValidationResult createValidationResult()
+  {
+    ValidationResultImpl validationResult = new ValidationResultImpl();
+    return validationResult;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
   public VerificationActivityResult createVerificationActivityResult()
   {
     VerificationActivityResultImpl verificationActivityResult = new VerificationActivityResultImpl();
     return verificationActivityResult;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public ElseType createElseTypeFromString(EDataType eDataType, String initialValue)
+  {
+    ElseType result = ElseType.get(initialValue);
+    if (result == null) throw new IllegalArgumentException("The value '" + initialValue + "' is not a valid enumerator of '" + eDataType.getName() + "'");
+    return result;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public String convertElseTypeToString(EDataType eDataType, Object instanceValue)
+  {
+    return instanceValue == null ? null : instanceValue.toString();
   }
 
   /**

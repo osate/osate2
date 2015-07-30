@@ -23,216 +23,118 @@ public class AssureGrammarAccess extends AbstractGrammarElementFinder {
 		private final Group cGroup = (Group)rule.eContents().get(1);
 		private final Keyword cEvidenceKeyword_0 = (Keyword)cGroup.eContents().get(0);
 		private final Assignment cNameAssignment_1 = (Assignment)cGroup.eContents().get(1);
-		private final RuleCall cNameIDTerminalRuleCall_1_0 = (RuleCall)cNameAssignment_1.eContents().get(0);
+		private final RuleCall cNameQualifiedNameParserRuleCall_1_0 = (RuleCall)cNameAssignment_1.eContents().get(0);
 		private final Keyword cForKeyword_2 = (Keyword)cGroup.eContents().get(2);
-		private final Assignment cTargetAssignment_3 = (Assignment)cGroup.eContents().get(3);
-		private final CrossReference cTargetComponentClassifierCrossReference_3_0 = (CrossReference)cTargetAssignment_3.eContents().get(0);
-		private final RuleCall cTargetComponentClassifierAadlClassifierReferenceParserRuleCall_3_0_1 = (RuleCall)cTargetComponentClassifierCrossReference_3_0.eContents().get(1);
-		private final Keyword cInstanceKeyword_4 = (Keyword)cGroup.eContents().get(4);
-		private final Assignment cInstanceAssignment_5 = (Assignment)cGroup.eContents().get(5);
-		private final CrossReference cInstanceInstanceObjectCrossReference_5_0 = (CrossReference)cInstanceAssignment_5.eContents().get(0);
-		private final RuleCall cInstanceInstanceObjectURIIDParserRuleCall_5_0_1 = (RuleCall)cInstanceInstanceObjectCrossReference_5_0.eContents().get(1);
-		private final Keyword cLeftSquareBracketKeyword_6 = (Keyword)cGroup.eContents().get(6);
-		private final Group cGroup_7 = (Group)cGroup.eContents().get(7);
-		private final Keyword cSuccesscountKeyword_7_0 = (Keyword)cGroup_7.eContents().get(0);
-		private final Assignment cSuccessCountAssignment_7_1 = (Assignment)cGroup_7.eContents().get(1);
-		private final RuleCall cSuccessCountINTTerminalRuleCall_7_1_0 = (RuleCall)cSuccessCountAssignment_7_1.eContents().get(0);
-		private final Group cGroup_8 = (Group)cGroup.eContents().get(8);
-		private final Keyword cFailcountKeyword_8_0 = (Keyword)cGroup_8.eContents().get(0);
-		private final Assignment cFailCountAssignment_8_1 = (Assignment)cGroup_8.eContents().get(1);
-		private final RuleCall cFailCountINTTerminalRuleCall_8_1_0 = (RuleCall)cFailCountAssignment_8_1.eContents().get(0);
-		private final Group cGroup_9 = (Group)cGroup.eContents().get(9);
-		private final Keyword cUnknowncountKeyword_9_0 = (Keyword)cGroup_9.eContents().get(0);
-		private final Assignment cUnknownCountAssignment_9_1 = (Assignment)cGroup_9.eContents().get(1);
-		private final RuleCall cUnknownCountINTTerminalRuleCall_9_1_0 = (RuleCall)cUnknownCountAssignment_9_1.eContents().get(0);
-		private final Group cGroup_10 = (Group)cGroup.eContents().get(10);
-		private final Keyword cFailthencountKeyword_10_0 = (Keyword)cGroup_10.eContents().get(0);
-		private final Assignment cFailthenCountAssignment_10_1 = (Assignment)cGroup_10.eContents().get(1);
-		private final RuleCall cFailthenCountINTTerminalRuleCall_10_1_0 = (RuleCall)cFailthenCountAssignment_10_1.eContents().get(0);
-		private final Group cGroup_11 = (Group)cGroup.eContents().get(11);
-		private final Keyword cAndthencountKeyword_11_0 = (Keyword)cGroup_11.eContents().get(0);
-		private final Assignment cAndthenCountAssignment_11_1 = (Assignment)cGroup_11.eContents().get(1);
-		private final RuleCall cAndthenCountINTTerminalRuleCall_11_1_0 = (RuleCall)cAndthenCountAssignment_11_1.eContents().get(0);
-		private final Group cGroup_12 = (Group)cGroup.eContents().get(12);
-		private final Keyword cTbdcountKeyword_12_0 = (Keyword)cGroup_12.eContents().get(0);
-		private final Assignment cTbdCountAssignment_12_1 = (Assignment)cGroup_12.eContents().get(1);
-		private final RuleCall cTbdCountINTTerminalRuleCall_12_1_0 = (RuleCall)cTbdCountAssignment_12_1.eContents().get(0);
-		private final Group cGroup_13 = (Group)cGroup.eContents().get(13);
-		private final Keyword cWeightKeyword_13_0 = (Keyword)cGroup_13.eContents().get(0);
-		private final Assignment cWeightAssignment_13_1 = (Assignment)cGroup_13.eContents().get(1);
-		private final RuleCall cWeightINTTerminalRuleCall_13_1_0 = (RuleCall)cWeightAssignment_13_1.eContents().get(0);
-		private final Group cGroup_14 = (Group)cGroup.eContents().get(14);
-		private final Keyword cMessageKeyword_14_0 = (Keyword)cGroup_14.eContents().get(0);
-		private final Assignment cMessageAssignment_14_1 = (Assignment)cGroup_14.eContents().get(1);
-		private final RuleCall cMessageSTRINGTerminalRuleCall_14_1_0 = (RuleCall)cMessageAssignment_14_1.eContents().get(0);
-		private final Assignment cSubAssuranceEvidenceAssignment_15 = (Assignment)cGroup.eContents().get(15);
-		private final RuleCall cSubAssuranceEvidenceAssuranceEvidenceParserRuleCall_15_0 = (RuleCall)cSubAssuranceEvidenceAssignment_15.eContents().get(0);
-		private final Assignment cClaimResultAssignment_16 = (Assignment)cGroup.eContents().get(16);
-		private final RuleCall cClaimResultClaimResultParserRuleCall_16_0 = (RuleCall)cClaimResultAssignment_16.eContents().get(0);
-		private final Keyword cRightSquareBracketKeyword_17 = (Keyword)cGroup.eContents().get(17);
+		private final Alternatives cAlternatives_3 = (Alternatives)cGroup.eContents().get(3);
+		private final Assignment cTargetAssignment_3_0 = (Assignment)cAlternatives_3.eContents().get(0);
+		private final CrossReference cTargetAssurancePlanCrossReference_3_0_0 = (CrossReference)cTargetAssignment_3_0.eContents().get(0);
+		private final RuleCall cTargetAssurancePlanQualifiedNameParserRuleCall_3_0_0_1 = (RuleCall)cTargetAssurancePlanCrossReference_3_0_0.eContents().get(1);
+		private final Group cGroup_3_1 = (Group)cAlternatives_3.eContents().get(1);
+		private final Keyword cSystemKeyword_3_1_0 = (Keyword)cGroup_3_1.eContents().get(0);
+		private final Assignment cTargetSystemAssignment_3_1_1 = (Assignment)cGroup_3_1.eContents().get(1);
+		private final CrossReference cTargetSystemComponentImplementationCrossReference_3_1_1_0 = (CrossReference)cTargetSystemAssignment_3_1_1.eContents().get(0);
+		private final RuleCall cTargetSystemComponentImplementationAadlClassifierReferenceParserRuleCall_3_1_1_0_1 = (RuleCall)cTargetSystemComponentImplementationCrossReference_3_1_1_0.eContents().get(1);
+		private final Keyword cLeftSquareBracketKeyword_4 = (Keyword)cGroup.eContents().get(4);
+		private final Assignment cMetricsAssignment_5 = (Assignment)cGroup.eContents().get(5);
+		private final RuleCall cMetricsMetricsParserRuleCall_5_0 = (RuleCall)cMetricsAssignment_5.eContents().get(0);
+		private final Group cGroup_6 = (Group)cGroup.eContents().get(6);
+		private final Keyword cMessageKeyword_6_0 = (Keyword)cGroup_6.eContents().get(0);
+		private final Assignment cMessageAssignment_6_1 = (Assignment)cGroup_6.eContents().get(1);
+		private final RuleCall cMessageSTRINGTerminalRuleCall_6_1_0 = (RuleCall)cMessageAssignment_6_1.eContents().get(0);
+		private final Assignment cClaimResultAssignment_7 = (Assignment)cGroup.eContents().get(7);
+		private final RuleCall cClaimResultClaimResultParserRuleCall_7_0 = (RuleCall)cClaimResultAssignment_7.eContents().get(0);
+		private final Assignment cSubAssuranceEvidenceAssignment_8 = (Assignment)cGroup.eContents().get(8);
+		private final RuleCall cSubAssuranceEvidenceAssuranceEvidenceParserRuleCall_8_0 = (RuleCall)cSubAssuranceEvidenceAssignment_8.eContents().get(0);
+		private final Keyword cRightSquareBracketKeyword_9 = (Keyword)cGroup.eContents().get(9);
 		
 		//// result for a system in the architecture hierarchy
 		//AssuranceEvidence:
-		//	"evidence" name=ID "for" target=[aadl2::ComponentClassifier|AadlClassifierReference] "instance"
-		//	instance=[instance::InstanceObject|URIID] "[" ("successcount" successCount=INT)? ("failcount" failCount=INT)?
-		//	("unknowncount" unknownCount=INT)? ("failthencount" failthenCount=INT)? ("andthencount" andthenCount=INT)? ("tbdcount"
-		//	tbdCount=INT)? ("weight" weight=INT)? ("message" message=STRING)? subAssuranceEvidence+=AssuranceEvidence*
-		//	claimResult+=ClaimResult* "]";
+		//	"evidence" name=QualifiedName "for" (target=[Alisa::AssurancePlan|QualifiedName] | "system"
+		//	targetSystem=[aadl2::ComponentImplementation|AadlClassifierReference]) //	('instance' instance= [instance::InstanceObject|URIID])?
+		//	"[" metrics=Metrics ("message" message=STRING)? claimResult+=ClaimResult* subAssuranceEvidence+=AssuranceEvidence* "]";
 		@Override public ParserRule getRule() { return rule; }
 
-		//"evidence" name=ID "for" target=[aadl2::ComponentClassifier|AadlClassifierReference] "instance"
-		//instance=[instance::InstanceObject|URIID] "[" ("successcount" successCount=INT)? ("failcount" failCount=INT)?
-		//("unknowncount" unknownCount=INT)? ("failthencount" failthenCount=INT)? ("andthencount" andthenCount=INT)? ("tbdcount"
-		//tbdCount=INT)? ("weight" weight=INT)? ("message" message=STRING)? subAssuranceEvidence+=AssuranceEvidence*
-		//claimResult+=ClaimResult* "]"
+		//"evidence" name=QualifiedName "for" (target=[Alisa::AssurancePlan|QualifiedName] | "system"
+		//targetSystem=[aadl2::ComponentImplementation|AadlClassifierReference]) //	('instance' instance= [instance::InstanceObject|URIID])?
+		//"[" metrics=Metrics ("message" message=STRING)? claimResult+=ClaimResult* subAssuranceEvidence+=AssuranceEvidence* "]"
 		public Group getGroup() { return cGroup; }
 
 		//"evidence"
 		public Keyword getEvidenceKeyword_0() { return cEvidenceKeyword_0; }
 
-		//name=ID
+		//name=QualifiedName
 		public Assignment getNameAssignment_1() { return cNameAssignment_1; }
 
-		//ID
-		public RuleCall getNameIDTerminalRuleCall_1_0() { return cNameIDTerminalRuleCall_1_0; }
+		//QualifiedName
+		public RuleCall getNameQualifiedNameParserRuleCall_1_0() { return cNameQualifiedNameParserRuleCall_1_0; }
 
 		//"for"
 		public Keyword getForKeyword_2() { return cForKeyword_2; }
 
-		//target=[aadl2::ComponentClassifier|AadlClassifierReference]
-		public Assignment getTargetAssignment_3() { return cTargetAssignment_3; }
+		//target=[Alisa::AssurancePlan|QualifiedName] | "system"
+		//targetSystem=[aadl2::ComponentImplementation|AadlClassifierReference]
+		public Alternatives getAlternatives_3() { return cAlternatives_3; }
 
-		//[aadl2::ComponentClassifier|AadlClassifierReference]
-		public CrossReference getTargetComponentClassifierCrossReference_3_0() { return cTargetComponentClassifierCrossReference_3_0; }
+		//target=[Alisa::AssurancePlan|QualifiedName]
+		public Assignment getTargetAssignment_3_0() { return cTargetAssignment_3_0; }
+
+		//[Alisa::AssurancePlan|QualifiedName]
+		public CrossReference getTargetAssurancePlanCrossReference_3_0_0() { return cTargetAssurancePlanCrossReference_3_0_0; }
+
+		//QualifiedName
+		public RuleCall getTargetAssurancePlanQualifiedNameParserRuleCall_3_0_0_1() { return cTargetAssurancePlanQualifiedNameParserRuleCall_3_0_0_1; }
+
+		//"system" targetSystem=[aadl2::ComponentImplementation|AadlClassifierReference]
+		public Group getGroup_3_1() { return cGroup_3_1; }
+
+		//"system"
+		public Keyword getSystemKeyword_3_1_0() { return cSystemKeyword_3_1_0; }
+
+		//targetSystem=[aadl2::ComponentImplementation|AadlClassifierReference]
+		public Assignment getTargetSystemAssignment_3_1_1() { return cTargetSystemAssignment_3_1_1; }
+
+		//[aadl2::ComponentImplementation|AadlClassifierReference]
+		public CrossReference getTargetSystemComponentImplementationCrossReference_3_1_1_0() { return cTargetSystemComponentImplementationCrossReference_3_1_1_0; }
 
 		//AadlClassifierReference
-		public RuleCall getTargetComponentClassifierAadlClassifierReferenceParserRuleCall_3_0_1() { return cTargetComponentClassifierAadlClassifierReferenceParserRuleCall_3_0_1; }
+		public RuleCall getTargetSystemComponentImplementationAadlClassifierReferenceParserRuleCall_3_1_1_0_1() { return cTargetSystemComponentImplementationAadlClassifierReferenceParserRuleCall_3_1_1_0_1; }
 
-		//"instance"
-		public Keyword getInstanceKeyword_4() { return cInstanceKeyword_4; }
-
-		//instance=[instance::InstanceObject|URIID]
-		public Assignment getInstanceAssignment_5() { return cInstanceAssignment_5; }
-
-		//[instance::InstanceObject|URIID]
-		public CrossReference getInstanceInstanceObjectCrossReference_5_0() { return cInstanceInstanceObjectCrossReference_5_0; }
-
-		//URIID
-		public RuleCall getInstanceInstanceObjectURIIDParserRuleCall_5_0_1() { return cInstanceInstanceObjectURIIDParserRuleCall_5_0_1; }
-
+		////	('instance' instance= [instance::InstanceObject|URIID])?
 		//"["
-		public Keyword getLeftSquareBracketKeyword_6() { return cLeftSquareBracketKeyword_6; }
+		public Keyword getLeftSquareBracketKeyword_4() { return cLeftSquareBracketKeyword_4; }
 
-		//("successcount" successCount=INT)?
-		public Group getGroup_7() { return cGroup_7; }
+		//metrics=Metrics
+		public Assignment getMetricsAssignment_5() { return cMetricsAssignment_5; }
 
-		//"successcount"
-		public Keyword getSuccesscountKeyword_7_0() { return cSuccesscountKeyword_7_0; }
-
-		//successCount=INT
-		public Assignment getSuccessCountAssignment_7_1() { return cSuccessCountAssignment_7_1; }
-
-		//INT
-		public RuleCall getSuccessCountINTTerminalRuleCall_7_1_0() { return cSuccessCountINTTerminalRuleCall_7_1_0; }
-
-		//("failcount" failCount=INT)?
-		public Group getGroup_8() { return cGroup_8; }
-
-		//"failcount"
-		public Keyword getFailcountKeyword_8_0() { return cFailcountKeyword_8_0; }
-
-		//failCount=INT
-		public Assignment getFailCountAssignment_8_1() { return cFailCountAssignment_8_1; }
-
-		//INT
-		public RuleCall getFailCountINTTerminalRuleCall_8_1_0() { return cFailCountINTTerminalRuleCall_8_1_0; }
-
-		//("unknowncount" unknownCount=INT)?
-		public Group getGroup_9() { return cGroup_9; }
-
-		//"unknowncount"
-		public Keyword getUnknowncountKeyword_9_0() { return cUnknowncountKeyword_9_0; }
-
-		//unknownCount=INT
-		public Assignment getUnknownCountAssignment_9_1() { return cUnknownCountAssignment_9_1; }
-
-		//INT
-		public RuleCall getUnknownCountINTTerminalRuleCall_9_1_0() { return cUnknownCountINTTerminalRuleCall_9_1_0; }
-
-		//("failthencount" failthenCount=INT)?
-		public Group getGroup_10() { return cGroup_10; }
-
-		//"failthencount"
-		public Keyword getFailthencountKeyword_10_0() { return cFailthencountKeyword_10_0; }
-
-		//failthenCount=INT
-		public Assignment getFailthenCountAssignment_10_1() { return cFailthenCountAssignment_10_1; }
-
-		//INT
-		public RuleCall getFailthenCountINTTerminalRuleCall_10_1_0() { return cFailthenCountINTTerminalRuleCall_10_1_0; }
-
-		//("andthencount" andthenCount=INT)?
-		public Group getGroup_11() { return cGroup_11; }
-
-		//"andthencount"
-		public Keyword getAndthencountKeyword_11_0() { return cAndthencountKeyword_11_0; }
-
-		//andthenCount=INT
-		public Assignment getAndthenCountAssignment_11_1() { return cAndthenCountAssignment_11_1; }
-
-		//INT
-		public RuleCall getAndthenCountINTTerminalRuleCall_11_1_0() { return cAndthenCountINTTerminalRuleCall_11_1_0; }
-
-		//("tbdcount" tbdCount=INT)?
-		public Group getGroup_12() { return cGroup_12; }
-
-		//"tbdcount"
-		public Keyword getTbdcountKeyword_12_0() { return cTbdcountKeyword_12_0; }
-
-		//tbdCount=INT
-		public Assignment getTbdCountAssignment_12_1() { return cTbdCountAssignment_12_1; }
-
-		//INT
-		public RuleCall getTbdCountINTTerminalRuleCall_12_1_0() { return cTbdCountINTTerminalRuleCall_12_1_0; }
-
-		//("weight" weight=INT)?
-		public Group getGroup_13() { return cGroup_13; }
-
-		//"weight"
-		public Keyword getWeightKeyword_13_0() { return cWeightKeyword_13_0; }
-
-		//weight=INT
-		public Assignment getWeightAssignment_13_1() { return cWeightAssignment_13_1; }
-
-		//INT
-		public RuleCall getWeightINTTerminalRuleCall_13_1_0() { return cWeightINTTerminalRuleCall_13_1_0; }
+		//Metrics
+		public RuleCall getMetricsMetricsParserRuleCall_5_0() { return cMetricsMetricsParserRuleCall_5_0; }
 
 		//("message" message=STRING)?
-		public Group getGroup_14() { return cGroup_14; }
+		public Group getGroup_6() { return cGroup_6; }
 
 		//"message"
-		public Keyword getMessageKeyword_14_0() { return cMessageKeyword_14_0; }
+		public Keyword getMessageKeyword_6_0() { return cMessageKeyword_6_0; }
 
 		//message=STRING
-		public Assignment getMessageAssignment_14_1() { return cMessageAssignment_14_1; }
+		public Assignment getMessageAssignment_6_1() { return cMessageAssignment_6_1; }
 
 		//STRING
-		public RuleCall getMessageSTRINGTerminalRuleCall_14_1_0() { return cMessageSTRINGTerminalRuleCall_14_1_0; }
-
-		//subAssuranceEvidence+=AssuranceEvidence*
-		public Assignment getSubAssuranceEvidenceAssignment_15() { return cSubAssuranceEvidenceAssignment_15; }
-
-		//AssuranceEvidence
-		public RuleCall getSubAssuranceEvidenceAssuranceEvidenceParserRuleCall_15_0() { return cSubAssuranceEvidenceAssuranceEvidenceParserRuleCall_15_0; }
+		public RuleCall getMessageSTRINGTerminalRuleCall_6_1_0() { return cMessageSTRINGTerminalRuleCall_6_1_0; }
 
 		//claimResult+=ClaimResult*
-		public Assignment getClaimResultAssignment_16() { return cClaimResultAssignment_16; }
+		public Assignment getClaimResultAssignment_7() { return cClaimResultAssignment_7; }
 
 		//ClaimResult
-		public RuleCall getClaimResultClaimResultParserRuleCall_16_0() { return cClaimResultClaimResultParserRuleCall_16_0; }
+		public RuleCall getClaimResultClaimResultParserRuleCall_7_0() { return cClaimResultClaimResultParserRuleCall_7_0; }
+
+		//subAssuranceEvidence+=AssuranceEvidence*
+		public Assignment getSubAssuranceEvidenceAssignment_8() { return cSubAssuranceEvidenceAssignment_8; }
+
+		//AssuranceEvidence
+		public RuleCall getSubAssuranceEvidenceAssuranceEvidenceParserRuleCall_8_0() { return cSubAssuranceEvidenceAssuranceEvidenceParserRuleCall_8_0; }
 
 		//"]"
-		public Keyword getRightSquareBracketKeyword_17() { return cRightSquareBracketKeyword_17; }
+		public Keyword getRightSquareBracketKeyword_9() { return cRightSquareBracketKeyword_9; }
 	}
 
 	public class ClaimResultElements extends AbstractParserRuleElementFinder {
@@ -242,62 +144,29 @@ public class AssureGrammarAccess extends AbstractGrammarElementFinder {
 		private final Assignment cTargetAssignment_1 = (Assignment)cGroup.eContents().get(1);
 		private final CrossReference cTargetRequirementCrossReference_1_0 = (CrossReference)cTargetAssignment_1.eContents().get(0);
 		private final RuleCall cTargetRequirementQualifiedNameParserRuleCall_1_0_1 = (RuleCall)cTargetRequirementCrossReference_1_0.eContents().get(1);
-		private final Group cGroup_2 = (Group)cGroup.eContents().get(2);
-		private final Keyword cInstanceKeyword_2_0 = (Keyword)cGroup_2.eContents().get(0);
-		private final Assignment cInstanceAssignment_2_1 = (Assignment)cGroup_2.eContents().get(1);
-		private final CrossReference cInstanceInstanceObjectCrossReference_2_1_0 = (CrossReference)cInstanceAssignment_2_1.eContents().get(0);
-		private final RuleCall cInstanceInstanceObjectURIIDParserRuleCall_2_1_0_1 = (RuleCall)cInstanceInstanceObjectCrossReference_2_1_0.eContents().get(1);
-		private final Keyword cLeftSquareBracketKeyword_3 = (Keyword)cGroup.eContents().get(3);
+		private final Keyword cLeftSquareBracketKeyword_2 = (Keyword)cGroup.eContents().get(2);
+		private final Assignment cMetricsAssignment_3 = (Assignment)cGroup.eContents().get(3);
+		private final RuleCall cMetricsMetricsParserRuleCall_3_0 = (RuleCall)cMetricsAssignment_3.eContents().get(0);
 		private final Group cGroup_4 = (Group)cGroup.eContents().get(4);
-		private final Keyword cSuccesscountKeyword_4_0 = (Keyword)cGroup_4.eContents().get(0);
-		private final Assignment cSuccessCountAssignment_4_1 = (Assignment)cGroup_4.eContents().get(1);
-		private final RuleCall cSuccessCountINTTerminalRuleCall_4_1_0 = (RuleCall)cSuccessCountAssignment_4_1.eContents().get(0);
-		private final Group cGroup_5 = (Group)cGroup.eContents().get(5);
-		private final Keyword cFailcountKeyword_5_0 = (Keyword)cGroup_5.eContents().get(0);
-		private final Assignment cFailCountAssignment_5_1 = (Assignment)cGroup_5.eContents().get(1);
-		private final RuleCall cFailCountINTTerminalRuleCall_5_1_0 = (RuleCall)cFailCountAssignment_5_1.eContents().get(0);
-		private final Group cGroup_6 = (Group)cGroup.eContents().get(6);
-		private final Keyword cUnknowncountKeyword_6_0 = (Keyword)cGroup_6.eContents().get(0);
-		private final Assignment cUnknownCountAssignment_6_1 = (Assignment)cGroup_6.eContents().get(1);
-		private final RuleCall cUnknownCountINTTerminalRuleCall_6_1_0 = (RuleCall)cUnknownCountAssignment_6_1.eContents().get(0);
-		private final Group cGroup_7 = (Group)cGroup.eContents().get(7);
-		private final Keyword cFailthencountKeyword_7_0 = (Keyword)cGroup_7.eContents().get(0);
-		private final Assignment cFailthenCountAssignment_7_1 = (Assignment)cGroup_7.eContents().get(1);
-		private final RuleCall cFailthenCountINTTerminalRuleCall_7_1_0 = (RuleCall)cFailthenCountAssignment_7_1.eContents().get(0);
-		private final Group cGroup_8 = (Group)cGroup.eContents().get(8);
-		private final Keyword cAndthencountKeyword_8_0 = (Keyword)cGroup_8.eContents().get(0);
-		private final Assignment cAndthenCountAssignment_8_1 = (Assignment)cGroup_8.eContents().get(1);
-		private final RuleCall cAndthenCountINTTerminalRuleCall_8_1_0 = (RuleCall)cAndthenCountAssignment_8_1.eContents().get(0);
-		private final Group cGroup_9 = (Group)cGroup.eContents().get(9);
-		private final Keyword cTbdcountKeyword_9_0 = (Keyword)cGroup_9.eContents().get(0);
-		private final Assignment cTbdCountAssignment_9_1 = (Assignment)cGroup_9.eContents().get(1);
-		private final RuleCall cTbdCountINTTerminalRuleCall_9_1_0 = (RuleCall)cTbdCountAssignment_9_1.eContents().get(0);
-		private final Group cGroup_10 = (Group)cGroup.eContents().get(10);
-		private final Keyword cWeightKeyword_10_0 = (Keyword)cGroup_10.eContents().get(0);
-		private final Assignment cWeightAssignment_10_1 = (Assignment)cGroup_10.eContents().get(1);
-		private final RuleCall cWeightINTTerminalRuleCall_10_1_0 = (RuleCall)cWeightAssignment_10_1.eContents().get(0);
-		private final Group cGroup_11 = (Group)cGroup.eContents().get(11);
-		private final Keyword cMessageKeyword_11_0 = (Keyword)cGroup_11.eContents().get(0);
-		private final Assignment cMessageAssignment_11_1 = (Assignment)cGroup_11.eContents().get(1);
-		private final RuleCall cMessageSTRINGTerminalRuleCall_11_1_0 = (RuleCall)cMessageAssignment_11_1.eContents().get(0);
-		private final Assignment cSubClaimResultAssignment_12 = (Assignment)cGroup.eContents().get(12);
-		private final RuleCall cSubClaimResultClaimResultParserRuleCall_12_0 = (RuleCall)cSubClaimResultAssignment_12.eContents().get(0);
-		private final Assignment cVerificationActivityResultAssignment_13 = (Assignment)cGroup.eContents().get(13);
-		private final RuleCall cVerificationActivityResultVerificationExprParserRuleCall_13_0 = (RuleCall)cVerificationActivityResultAssignment_13.eContents().get(0);
-		private final Keyword cRightSquareBracketKeyword_14 = (Keyword)cGroup.eContents().get(14);
+		private final Keyword cMessageKeyword_4_0 = (Keyword)cGroup_4.eContents().get(0);
+		private final Assignment cMessageAssignment_4_1 = (Assignment)cGroup_4.eContents().get(1);
+		private final RuleCall cMessageSTRINGTerminalRuleCall_4_1_0 = (RuleCall)cMessageAssignment_4_1.eContents().get(0);
+		private final Assignment cSubClaimResultAssignment_5 = (Assignment)cGroup.eContents().get(5);
+		private final RuleCall cSubClaimResultClaimResultParserRuleCall_5_0 = (RuleCall)cSubClaimResultAssignment_5.eContents().get(0);
+		private final Assignment cVerificationActivityResultAssignment_6 = (Assignment)cGroup.eContents().get(6);
+		private final RuleCall cVerificationActivityResultVerificationExprParserRuleCall_6_0 = (RuleCall)cVerificationActivityResultAssignment_6.eContents().get(0);
+		private final Keyword cRightSquareBracketKeyword_7 = (Keyword)cGroup.eContents().get(7);
 		
 		//// Result of meeting a requirement
 		//ClaimResult:
-		//	"claim" target=[ReqSpec::Requirement|QualifiedName] ("instance" instance=[instance::InstanceObject|URIID])? // if the requirement is for an element of the component instance
-		//	"[" ("successcount" successCount=INT)? ("failcount" failCount=INT)? ("unknowncount" unknownCount=INT)? ("failthencount"
-		//	failthenCount=INT)? ("andthencount" andthenCount=INT)? ("tbdcount" tbdCount=INT)? ("weight" weight=INT)? ("message"
-		//	message=STRING)? subClaimResult+=ClaimResult* verificationActivityResult+=VerificationExpr* "]";
+		//	"claim" target=[ReqSpec::Requirement|QualifiedName] //	('instance' instance= [instance::InstanceObject|URIID])? // if the requirement is for an element of the component instance
+		//	"[" metrics=Metrics ("message" message=STRING)? subClaimResult+=ClaimResult*
+		//	verificationActivityResult+=VerificationExpr* "]";
 		@Override public ParserRule getRule() { return rule; }
 
-		//"claim" target=[ReqSpec::Requirement|QualifiedName] ("instance" instance=[instance::InstanceObject|URIID])? // if the requirement is for an element of the component instance
-		//"[" ("successcount" successCount=INT)? ("failcount" failCount=INT)? ("unknowncount" unknownCount=INT)? ("failthencount"
-		//failthenCount=INT)? ("andthencount" andthenCount=INT)? ("tbdcount" tbdCount=INT)? ("weight" weight=INT)? ("message"
-		//message=STRING)? subClaimResult+=ClaimResult* verificationActivityResult+=VerificationExpr* "]"
+		//"claim" target=[ReqSpec::Requirement|QualifiedName] //	('instance' instance= [instance::InstanceObject|URIID])? // if the requirement is for an element of the component instance
+		//"[" metrics=Metrics ("message" message=STRING)? subClaimResult+=ClaimResult*
+		//verificationActivityResult+=VerificationExpr* "]"
 		public Group getGroup() { return cGroup; }
 
 		//"claim"
@@ -312,638 +181,202 @@ public class AssureGrammarAccess extends AbstractGrammarElementFinder {
 		//QualifiedName
 		public RuleCall getTargetRequirementQualifiedNameParserRuleCall_1_0_1() { return cTargetRequirementQualifiedNameParserRuleCall_1_0_1; }
 
-		//("instance" instance=[instance::InstanceObject|URIID])?
-		public Group getGroup_2() { return cGroup_2; }
-
-		//"instance"
-		public Keyword getInstanceKeyword_2_0() { return cInstanceKeyword_2_0; }
-
-		//instance=[instance::InstanceObject|URIID]
-		public Assignment getInstanceAssignment_2_1() { return cInstanceAssignment_2_1; }
-
-		//[instance::InstanceObject|URIID]
-		public CrossReference getInstanceInstanceObjectCrossReference_2_1_0() { return cInstanceInstanceObjectCrossReference_2_1_0; }
-
-		//URIID
-		public RuleCall getInstanceInstanceObjectURIIDParserRuleCall_2_1_0_1() { return cInstanceInstanceObjectURIIDParserRuleCall_2_1_0_1; }
-
+		////	('instance' instance= [instance::InstanceObject|URIID])? // if the requirement is for an element of the component instance
 		//"["
-		public Keyword getLeftSquareBracketKeyword_3() { return cLeftSquareBracketKeyword_3; }
+		public Keyword getLeftSquareBracketKeyword_2() { return cLeftSquareBracketKeyword_2; }
 
-		//("successcount" successCount=INT)?
+		//metrics=Metrics
+		public Assignment getMetricsAssignment_3() { return cMetricsAssignment_3; }
+
+		//Metrics
+		public RuleCall getMetricsMetricsParserRuleCall_3_0() { return cMetricsMetricsParserRuleCall_3_0; }
+
+		//("message" message=STRING)?
 		public Group getGroup_4() { return cGroup_4; }
 
-		//"successcount"
-		public Keyword getSuccesscountKeyword_4_0() { return cSuccesscountKeyword_4_0; }
-
-		//successCount=INT
-		public Assignment getSuccessCountAssignment_4_1() { return cSuccessCountAssignment_4_1; }
-
-		//INT
-		public RuleCall getSuccessCountINTTerminalRuleCall_4_1_0() { return cSuccessCountINTTerminalRuleCall_4_1_0; }
-
-		//("failcount" failCount=INT)?
-		public Group getGroup_5() { return cGroup_5; }
-
-		//"failcount"
-		public Keyword getFailcountKeyword_5_0() { return cFailcountKeyword_5_0; }
-
-		//failCount=INT
-		public Assignment getFailCountAssignment_5_1() { return cFailCountAssignment_5_1; }
-
-		//INT
-		public RuleCall getFailCountINTTerminalRuleCall_5_1_0() { return cFailCountINTTerminalRuleCall_5_1_0; }
-
-		//("unknowncount" unknownCount=INT)?
-		public Group getGroup_6() { return cGroup_6; }
-
-		//"unknowncount"
-		public Keyword getUnknowncountKeyword_6_0() { return cUnknowncountKeyword_6_0; }
-
-		//unknownCount=INT
-		public Assignment getUnknownCountAssignment_6_1() { return cUnknownCountAssignment_6_1; }
-
-		//INT
-		public RuleCall getUnknownCountINTTerminalRuleCall_6_1_0() { return cUnknownCountINTTerminalRuleCall_6_1_0; }
-
-		//("failthencount" failthenCount=INT)?
-		public Group getGroup_7() { return cGroup_7; }
-
-		//"failthencount"
-		public Keyword getFailthencountKeyword_7_0() { return cFailthencountKeyword_7_0; }
-
-		//failthenCount=INT
-		public Assignment getFailthenCountAssignment_7_1() { return cFailthenCountAssignment_7_1; }
-
-		//INT
-		public RuleCall getFailthenCountINTTerminalRuleCall_7_1_0() { return cFailthenCountINTTerminalRuleCall_7_1_0; }
-
-		//("andthencount" andthenCount=INT)?
-		public Group getGroup_8() { return cGroup_8; }
-
-		//"andthencount"
-		public Keyword getAndthencountKeyword_8_0() { return cAndthencountKeyword_8_0; }
-
-		//andthenCount=INT
-		public Assignment getAndthenCountAssignment_8_1() { return cAndthenCountAssignment_8_1; }
-
-		//INT
-		public RuleCall getAndthenCountINTTerminalRuleCall_8_1_0() { return cAndthenCountINTTerminalRuleCall_8_1_0; }
-
-		//("tbdcount" tbdCount=INT)?
-		public Group getGroup_9() { return cGroup_9; }
-
-		//"tbdcount"
-		public Keyword getTbdcountKeyword_9_0() { return cTbdcountKeyword_9_0; }
-
-		//tbdCount=INT
-		public Assignment getTbdCountAssignment_9_1() { return cTbdCountAssignment_9_1; }
-
-		//INT
-		public RuleCall getTbdCountINTTerminalRuleCall_9_1_0() { return cTbdCountINTTerminalRuleCall_9_1_0; }
-
-		//("weight" weight=INT)?
-		public Group getGroup_10() { return cGroup_10; }
-
-		//"weight"
-		public Keyword getWeightKeyword_10_0() { return cWeightKeyword_10_0; }
-
-		//weight=INT
-		public Assignment getWeightAssignment_10_1() { return cWeightAssignment_10_1; }
-
-		//INT
-		public RuleCall getWeightINTTerminalRuleCall_10_1_0() { return cWeightINTTerminalRuleCall_10_1_0; }
-
-		//("message" message=STRING)?
-		public Group getGroup_11() { return cGroup_11; }
-
 		//"message"
-		public Keyword getMessageKeyword_11_0() { return cMessageKeyword_11_0; }
+		public Keyword getMessageKeyword_4_0() { return cMessageKeyword_4_0; }
 
 		//message=STRING
-		public Assignment getMessageAssignment_11_1() { return cMessageAssignment_11_1; }
+		public Assignment getMessageAssignment_4_1() { return cMessageAssignment_4_1; }
 
 		//STRING
-		public RuleCall getMessageSTRINGTerminalRuleCall_11_1_0() { return cMessageSTRINGTerminalRuleCall_11_1_0; }
+		public RuleCall getMessageSTRINGTerminalRuleCall_4_1_0() { return cMessageSTRINGTerminalRuleCall_4_1_0; }
 
 		//subClaimResult+=ClaimResult*
-		public Assignment getSubClaimResultAssignment_12() { return cSubClaimResultAssignment_12; }
+		public Assignment getSubClaimResultAssignment_5() { return cSubClaimResultAssignment_5; }
 
 		//ClaimResult
-		public RuleCall getSubClaimResultClaimResultParserRuleCall_12_0() { return cSubClaimResultClaimResultParserRuleCall_12_0; }
+		public RuleCall getSubClaimResultClaimResultParserRuleCall_5_0() { return cSubClaimResultClaimResultParserRuleCall_5_0; }
 
 		//verificationActivityResult+=VerificationExpr*
-		public Assignment getVerificationActivityResultAssignment_13() { return cVerificationActivityResultAssignment_13; }
+		public Assignment getVerificationActivityResultAssignment_6() { return cVerificationActivityResultAssignment_6; }
 
 		//VerificationExpr
-		public RuleCall getVerificationActivityResultVerificationExprParserRuleCall_13_0() { return cVerificationActivityResultVerificationExprParserRuleCall_13_0; }
+		public RuleCall getVerificationActivityResultVerificationExprParserRuleCall_6_0() { return cVerificationActivityResultVerificationExprParserRuleCall_6_0; }
 
 		//"]"
-		public Keyword getRightSquareBracketKeyword_14() { return cRightSquareBracketKeyword_14; }
+		public Keyword getRightSquareBracketKeyword_7() { return cRightSquareBracketKeyword_7; }
 	}
 
-	public class ValidationResultElements extends AbstractParserRuleElementFinder {
-		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "ValidationResult");
+	public class ConditionResultElements extends AbstractParserRuleElementFinder {
+		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "ConditionResult");
 		private final Group cGroup = (Group)rule.eContents().get(1);
-		private final Keyword cValidationKeyword_0 = (Keyword)cGroup.eContents().get(0);
-		private final Action cValidationResultAction_1 = (Action)cGroup.eContents().get(1);
-		private final Assignment cTargetAssignment_2 = (Assignment)cGroup.eContents().get(2);
-		private final CrossReference cTargetVerificationValidationCrossReference_2_0 = (CrossReference)cTargetAssignment_2.eContents().get(0);
-		private final RuleCall cTargetVerificationValidationQualifiedNameParserRuleCall_2_0_1 = (RuleCall)cTargetVerificationValidationCrossReference_2_0.eContents().get(1);
-		private final Keyword cLeftSquareBracketKeyword_3 = (Keyword)cGroup.eContents().get(3);
-		private final Keyword cExecutionstateKeyword_4 = (Keyword)cGroup.eContents().get(4);
-		private final Assignment cExecutionStateAssignment_5 = (Assignment)cGroup.eContents().get(5);
-		private final RuleCall cExecutionStateVerificationExecutionStateEnumRuleCall_5_0 = (RuleCall)cExecutionStateAssignment_5.eContents().get(0);
-		private final Keyword cResultstateKeyword_6 = (Keyword)cGroup.eContents().get(6);
-		private final Assignment cResultStateAssignment_7 = (Assignment)cGroup.eContents().get(7);
-		private final RuleCall cResultStateVerificationResultStateEnumRuleCall_7_0 = (RuleCall)cResultStateAssignment_7.eContents().get(0);
+		private final Alternatives cAlternatives_0 = (Alternatives)cGroup.eContents().get(0);
+		private final Group cGroup_0_0 = (Group)cAlternatives_0.eContents().get(0);
+		private final Keyword cPreconditionKeyword_0_0_0 = (Keyword)cGroup_0_0.eContents().get(0);
+		private final Action cPreconditionResultAction_0_0_1 = (Action)cGroup_0_0.eContents().get(1);
+		private final Group cGroup_0_1 = (Group)cAlternatives_0.eContents().get(1);
+		private final Keyword cValidationKeyword_0_1_0 = (Keyword)cGroup_0_1.eContents().get(0);
+		private final Action cValidationResultAction_0_1_1 = (Action)cGroup_0_1.eContents().get(1);
+		private final Assignment cTargetAssignment_1 = (Assignment)cGroup.eContents().get(1);
+		private final CrossReference cTargetVerificationConditionCrossReference_1_0 = (CrossReference)cTargetAssignment_1.eContents().get(0);
+		private final RuleCall cTargetVerificationConditionQualifiedNameParserRuleCall_1_0_1 = (RuleCall)cTargetVerificationConditionCrossReference_1_0.eContents().get(1);
+		private final Keyword cLeftSquareBracketKeyword_2 = (Keyword)cGroup.eContents().get(2);
+		private final Keyword cExecutionstateKeyword_3 = (Keyword)cGroup.eContents().get(3);
+		private final Assignment cExecutionStateAssignment_4 = (Assignment)cGroup.eContents().get(4);
+		private final RuleCall cExecutionStateVerificationExecutionStateEnumRuleCall_4_0 = (RuleCall)cExecutionStateAssignment_4.eContents().get(0);
+		private final Keyword cResultstateKeyword_5 = (Keyword)cGroup.eContents().get(5);
+		private final Assignment cResultStateAssignment_6 = (Assignment)cGroup.eContents().get(6);
+		private final RuleCall cResultStateVerificationResultStateEnumRuleCall_6_0 = (RuleCall)cResultStateAssignment_6.eContents().get(0);
+		private final Group cGroup_7 = (Group)cGroup.eContents().get(7);
+		private final Keyword cIssuesKeyword_7_0 = (Keyword)cGroup_7.eContents().get(0);
+		private final Keyword cLeftSquareBracketKeyword_7_1 = (Keyword)cGroup_7.eContents().get(1);
+		private final Assignment cIssuesAssignment_7_2 = (Assignment)cGroup_7.eContents().get(2);
+		private final RuleCall cIssuesResultIssueParserRuleCall_7_2_0 = (RuleCall)cIssuesAssignment_7_2.eContents().get(0);
+		private final Keyword cRightSquareBracketKeyword_7_3 = (Keyword)cGroup_7.eContents().get(3);
 		private final Group cGroup_8 = (Group)cGroup.eContents().get(8);
-		private final Keyword cIssuesKeyword_8_0 = (Keyword)cGroup_8.eContents().get(0);
-		private final Keyword cLeftSquareBracketKeyword_8_1 = (Keyword)cGroup_8.eContents().get(1);
-		private final Assignment cIssuesAssignment_8_2 = (Assignment)cGroup_8.eContents().get(2);
-		private final RuleCall cIssuesResultIssueParserRuleCall_8_2_0 = (RuleCall)cIssuesAssignment_8_2.eContents().get(0);
-		private final Keyword cRightSquareBracketKeyword_8_3 = (Keyword)cGroup_8.eContents().get(3);
-		private final Group cGroup_9 = (Group)cGroup.eContents().get(9);
-		private final Keyword cReportKeyword_9_0 = (Keyword)cGroup_9.eContents().get(0);
-		private final Assignment cResultReportAssignment_9_1 = (Assignment)cGroup_9.eContents().get(1);
-		private final CrossReference cResultReportResultReportCrossReference_9_1_0 = (CrossReference)cResultReportAssignment_9_1.eContents().get(0);
-		private final RuleCall cResultReportResultReportQualifiedNameParserRuleCall_9_1_0_1 = (RuleCall)cResultReportResultReportCrossReference_9_1_0.eContents().get(1);
+		private final Keyword cReportKeyword_8_0 = (Keyword)cGroup_8.eContents().get(0);
+		private final Assignment cResultReportAssignment_8_1 = (Assignment)cGroup_8.eContents().get(1);
+		private final CrossReference cResultReportResultReportCrossReference_8_1_0 = (CrossReference)cResultReportAssignment_8_1.eContents().get(0);
+		private final RuleCall cResultReportResultReportQualifiedNameParserRuleCall_8_1_0_1 = (RuleCall)cResultReportResultReportCrossReference_8_1_0.eContents().get(1);
+		private final Assignment cMetricsAssignment_9 = (Assignment)cGroup.eContents().get(9);
+		private final RuleCall cMetricsMetricsParserRuleCall_9_0 = (RuleCall)cMetricsAssignment_9.eContents().get(0);
 		private final Group cGroup_10 = (Group)cGroup.eContents().get(10);
-		private final Keyword cSuccesscountKeyword_10_0 = (Keyword)cGroup_10.eContents().get(0);
-		private final Assignment cSuccessCountAssignment_10_1 = (Assignment)cGroup_10.eContents().get(1);
-		private final RuleCall cSuccessCountINTTerminalRuleCall_10_1_0 = (RuleCall)cSuccessCountAssignment_10_1.eContents().get(0);
-		private final Group cGroup_11 = (Group)cGroup.eContents().get(11);
-		private final Keyword cFailcountKeyword_11_0 = (Keyword)cGroup_11.eContents().get(0);
-		private final Assignment cFailCountAssignment_11_1 = (Assignment)cGroup_11.eContents().get(1);
-		private final RuleCall cFailCountINTTerminalRuleCall_11_1_0 = (RuleCall)cFailCountAssignment_11_1.eContents().get(0);
-		private final Group cGroup_12 = (Group)cGroup.eContents().get(12);
-		private final Keyword cUnknowncountKeyword_12_0 = (Keyword)cGroup_12.eContents().get(0);
-		private final Assignment cUnknownCountAssignment_12_1 = (Assignment)cGroup_12.eContents().get(1);
-		private final RuleCall cUnknownCountINTTerminalRuleCall_12_1_0 = (RuleCall)cUnknownCountAssignment_12_1.eContents().get(0);
-		private final Group cGroup_13 = (Group)cGroup.eContents().get(13);
-		private final Keyword cFailthencountKeyword_13_0 = (Keyword)cGroup_13.eContents().get(0);
-		private final Assignment cFailthenCountAssignment_13_1 = (Assignment)cGroup_13.eContents().get(1);
-		private final RuleCall cFailthenCountINTTerminalRuleCall_13_1_0 = (RuleCall)cFailthenCountAssignment_13_1.eContents().get(0);
-		private final Group cGroup_14 = (Group)cGroup.eContents().get(14);
-		private final Keyword cAndthencountKeyword_14_0 = (Keyword)cGroup_14.eContents().get(0);
-		private final Assignment cAndthenCountAssignment_14_1 = (Assignment)cGroup_14.eContents().get(1);
-		private final RuleCall cAndthenCountINTTerminalRuleCall_14_1_0 = (RuleCall)cAndthenCountAssignment_14_1.eContents().get(0);
-		private final Group cGroup_15 = (Group)cGroup.eContents().get(15);
-		private final Keyword cTbdcountKeyword_15_0 = (Keyword)cGroup_15.eContents().get(0);
-		private final Assignment cTbdCountAssignment_15_1 = (Assignment)cGroup_15.eContents().get(1);
-		private final RuleCall cTbdCountINTTerminalRuleCall_15_1_0 = (RuleCall)cTbdCountAssignment_15_1.eContents().get(0);
-		private final Group cGroup_16 = (Group)cGroup.eContents().get(16);
-		private final Keyword cWeightKeyword_16_0 = (Keyword)cGroup_16.eContents().get(0);
-		private final Assignment cWeightAssignment_16_1 = (Assignment)cGroup_16.eContents().get(1);
-		private final RuleCall cWeightINTTerminalRuleCall_16_1_0 = (RuleCall)cWeightAssignment_16_1.eContents().get(0);
-		private final Group cGroup_17 = (Group)cGroup.eContents().get(17);
-		private final Keyword cMessageKeyword_17_0 = (Keyword)cGroup_17.eContents().get(0);
-		private final Assignment cMessageAssignment_17_1 = (Assignment)cGroup_17.eContents().get(1);
-		private final RuleCall cMessageSTRINGTerminalRuleCall_17_1_0 = (RuleCall)cMessageAssignment_17_1.eContents().get(0);
-		private final Keyword cRightSquareBracketKeyword_18 = (Keyword)cGroup.eContents().get(18);
+		private final Keyword cMessageKeyword_10_0 = (Keyword)cGroup_10.eContents().get(0);
+		private final Assignment cMessageAssignment_10_1 = (Assignment)cGroup_10.eContents().get(1);
+		private final RuleCall cMessageSTRINGTerminalRuleCall_10_1_0 = (RuleCall)cMessageAssignment_10_1.eContents().get(0);
+		private final Keyword cRightSquareBracketKeyword_11 = (Keyword)cGroup.eContents().get(11);
 		
-		//ValidationResult returns VerificationResult:
-		//	"validation" {ValidationResult} target=[Verify::VerificationValidation|QualifiedName] "[" "executionstate"
-		//	executionState=VerificationExecutionState "resultstate" resultState=VerificationResultState ("issues" "["
-		//	issues+=ResultIssue* "]")? ("report" resultReport=[results::ResultReport|QualifiedName])? // pointer to separate report
-		//	("successcount" successCount=INT)? ("failcount" failCount=INT)? ("unknowncount" unknownCount=INT)? ("failthencount"
-		//	failthenCount=INT)? ("andthencount" andthenCount=INT)? ("tbdcount" tbdCount=INT)? ("weight" weight=INT)? ("message"
-		//	message=STRING)? "]";
+		//ConditionResult returns VerificationResult:
+		//	("precondition" {PreconditionResult} | "validation" {ValidationResult})
+		//	target=[Verify::VerificationCondition|QualifiedName] "[" "executionstate" executionState=VerificationExecutionState
+		//	"resultstate" resultState=VerificationResultState ("issues" "[" issues+=ResultIssue* "]")? ("report"
+		//	resultReport=[results::ResultReport|QualifiedName])? // pointer to separate report
+		//	metrics=Metrics ("message" message=STRING)? "]";
 		@Override public ParserRule getRule() { return rule; }
 
-		//"validation" {ValidationResult} target=[Verify::VerificationValidation|QualifiedName] "[" "executionstate"
-		//executionState=VerificationExecutionState "resultstate" resultState=VerificationResultState ("issues" "["
-		//issues+=ResultIssue* "]")? ("report" resultReport=[results::ResultReport|QualifiedName])? // pointer to separate report
-		//("successcount" successCount=INT)? ("failcount" failCount=INT)? ("unknowncount" unknownCount=INT)? ("failthencount"
-		//failthenCount=INT)? ("andthencount" andthenCount=INT)? ("tbdcount" tbdCount=INT)? ("weight" weight=INT)? ("message"
-		//message=STRING)? "]"
+		//("precondition" {PreconditionResult} | "validation" {ValidationResult})
+		//target=[Verify::VerificationCondition|QualifiedName] "[" "executionstate" executionState=VerificationExecutionState
+		//"resultstate" resultState=VerificationResultState ("issues" "[" issues+=ResultIssue* "]")? ("report"
+		//resultReport=[results::ResultReport|QualifiedName])? // pointer to separate report
+		//metrics=Metrics ("message" message=STRING)? "]"
 		public Group getGroup() { return cGroup; }
 
-		//"validation"
-		public Keyword getValidationKeyword_0() { return cValidationKeyword_0; }
+		//"precondition" {PreconditionResult} | "validation" {ValidationResult}
+		public Alternatives getAlternatives_0() { return cAlternatives_0; }
 
-		//{ValidationResult}
-		public Action getValidationResultAction_1() { return cValidationResultAction_1; }
-
-		//target=[Verify::VerificationValidation|QualifiedName]
-		public Assignment getTargetAssignment_2() { return cTargetAssignment_2; }
-
-		//[Verify::VerificationValidation|QualifiedName]
-		public CrossReference getTargetVerificationValidationCrossReference_2_0() { return cTargetVerificationValidationCrossReference_2_0; }
-
-		//QualifiedName
-		public RuleCall getTargetVerificationValidationQualifiedNameParserRuleCall_2_0_1() { return cTargetVerificationValidationQualifiedNameParserRuleCall_2_0_1; }
-
-		//"["
-		public Keyword getLeftSquareBracketKeyword_3() { return cLeftSquareBracketKeyword_3; }
-
-		//"executionstate"
-		public Keyword getExecutionstateKeyword_4() { return cExecutionstateKeyword_4; }
-
-		//executionState=VerificationExecutionState
-		public Assignment getExecutionStateAssignment_5() { return cExecutionStateAssignment_5; }
-
-		//VerificationExecutionState
-		public RuleCall getExecutionStateVerificationExecutionStateEnumRuleCall_5_0() { return cExecutionStateVerificationExecutionStateEnumRuleCall_5_0; }
-
-		//"resultstate"
-		public Keyword getResultstateKeyword_6() { return cResultstateKeyword_6; }
-
-		//resultState=VerificationResultState
-		public Assignment getResultStateAssignment_7() { return cResultStateAssignment_7; }
-
-		//VerificationResultState
-		public RuleCall getResultStateVerificationResultStateEnumRuleCall_7_0() { return cResultStateVerificationResultStateEnumRuleCall_7_0; }
-
-		//("issues" "[" issues+=ResultIssue* "]")?
-		public Group getGroup_8() { return cGroup_8; }
-
-		//"issues"
-		public Keyword getIssuesKeyword_8_0() { return cIssuesKeyword_8_0; }
-
-		//"["
-		public Keyword getLeftSquareBracketKeyword_8_1() { return cLeftSquareBracketKeyword_8_1; }
-
-		//issues+=ResultIssue*
-		public Assignment getIssuesAssignment_8_2() { return cIssuesAssignment_8_2; }
-
-		//ResultIssue
-		public RuleCall getIssuesResultIssueParserRuleCall_8_2_0() { return cIssuesResultIssueParserRuleCall_8_2_0; }
-
-		//"]"
-		public Keyword getRightSquareBracketKeyword_8_3() { return cRightSquareBracketKeyword_8_3; }
-
-		//("report" resultReport=[results::ResultReport|QualifiedName])?
-		public Group getGroup_9() { return cGroup_9; }
-
-		//"report"
-		public Keyword getReportKeyword_9_0() { return cReportKeyword_9_0; }
-
-		//resultReport=[results::ResultReport|QualifiedName]
-		public Assignment getResultReportAssignment_9_1() { return cResultReportAssignment_9_1; }
-
-		//[results::ResultReport|QualifiedName]
-		public CrossReference getResultReportResultReportCrossReference_9_1_0() { return cResultReportResultReportCrossReference_9_1_0; }
-
-		//QualifiedName
-		public RuleCall getResultReportResultReportQualifiedNameParserRuleCall_9_1_0_1() { return cResultReportResultReportQualifiedNameParserRuleCall_9_1_0_1; }
-
-		//("successcount" successCount=INT)?
-		public Group getGroup_10() { return cGroup_10; }
-
-		//"successcount"
-		public Keyword getSuccesscountKeyword_10_0() { return cSuccesscountKeyword_10_0; }
-
-		//successCount=INT
-		public Assignment getSuccessCountAssignment_10_1() { return cSuccessCountAssignment_10_1; }
-
-		//INT
-		public RuleCall getSuccessCountINTTerminalRuleCall_10_1_0() { return cSuccessCountINTTerminalRuleCall_10_1_0; }
-
-		//("failcount" failCount=INT)?
-		public Group getGroup_11() { return cGroup_11; }
-
-		//"failcount"
-		public Keyword getFailcountKeyword_11_0() { return cFailcountKeyword_11_0; }
-
-		//failCount=INT
-		public Assignment getFailCountAssignment_11_1() { return cFailCountAssignment_11_1; }
-
-		//INT
-		public RuleCall getFailCountINTTerminalRuleCall_11_1_0() { return cFailCountINTTerminalRuleCall_11_1_0; }
-
-		//("unknowncount" unknownCount=INT)?
-		public Group getGroup_12() { return cGroup_12; }
-
-		//"unknowncount"
-		public Keyword getUnknowncountKeyword_12_0() { return cUnknowncountKeyword_12_0; }
-
-		//unknownCount=INT
-		public Assignment getUnknownCountAssignment_12_1() { return cUnknownCountAssignment_12_1; }
-
-		//INT
-		public RuleCall getUnknownCountINTTerminalRuleCall_12_1_0() { return cUnknownCountINTTerminalRuleCall_12_1_0; }
-
-		//("failthencount" failthenCount=INT)?
-		public Group getGroup_13() { return cGroup_13; }
-
-		//"failthencount"
-		public Keyword getFailthencountKeyword_13_0() { return cFailthencountKeyword_13_0; }
-
-		//failthenCount=INT
-		public Assignment getFailthenCountAssignment_13_1() { return cFailthenCountAssignment_13_1; }
-
-		//INT
-		public RuleCall getFailthenCountINTTerminalRuleCall_13_1_0() { return cFailthenCountINTTerminalRuleCall_13_1_0; }
-
-		//("andthencount" andthenCount=INT)?
-		public Group getGroup_14() { return cGroup_14; }
-
-		//"andthencount"
-		public Keyword getAndthencountKeyword_14_0() { return cAndthencountKeyword_14_0; }
-
-		//andthenCount=INT
-		public Assignment getAndthenCountAssignment_14_1() { return cAndthenCountAssignment_14_1; }
-
-		//INT
-		public RuleCall getAndthenCountINTTerminalRuleCall_14_1_0() { return cAndthenCountINTTerminalRuleCall_14_1_0; }
-
-		//("tbdcount" tbdCount=INT)?
-		public Group getGroup_15() { return cGroup_15; }
-
-		//"tbdcount"
-		public Keyword getTbdcountKeyword_15_0() { return cTbdcountKeyword_15_0; }
-
-		//tbdCount=INT
-		public Assignment getTbdCountAssignment_15_1() { return cTbdCountAssignment_15_1; }
-
-		//INT
-		public RuleCall getTbdCountINTTerminalRuleCall_15_1_0() { return cTbdCountINTTerminalRuleCall_15_1_0; }
-
-		//("weight" weight=INT)?
-		public Group getGroup_16() { return cGroup_16; }
-
-		//"weight"
-		public Keyword getWeightKeyword_16_0() { return cWeightKeyword_16_0; }
-
-		//weight=INT
-		public Assignment getWeightAssignment_16_1() { return cWeightAssignment_16_1; }
-
-		//INT
-		public RuleCall getWeightINTTerminalRuleCall_16_1_0() { return cWeightINTTerminalRuleCall_16_1_0; }
-
-		//("message" message=STRING)?
-		public Group getGroup_17() { return cGroup_17; }
-
-		//"message"
-		public Keyword getMessageKeyword_17_0() { return cMessageKeyword_17_0; }
-
-		//message=STRING
-		public Assignment getMessageAssignment_17_1() { return cMessageAssignment_17_1; }
-
-		//STRING
-		public RuleCall getMessageSTRINGTerminalRuleCall_17_1_0() { return cMessageSTRINGTerminalRuleCall_17_1_0; }
-
-		//"]"
-		public Keyword getRightSquareBracketKeyword_18() { return cRightSquareBracketKeyword_18; }
-	}
-
-	public class PreconditionResultElements extends AbstractParserRuleElementFinder {
-		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "PreconditionResult");
-		private final Group cGroup = (Group)rule.eContents().get(1);
-		private final Keyword cPreconditionKeyword_0 = (Keyword)cGroup.eContents().get(0);
-		private final Action cPreconditionResultAction_1 = (Action)cGroup.eContents().get(1);
-		private final Assignment cNameAssignment_2 = (Assignment)cGroup.eContents().get(2);
-		private final RuleCall cNameIDTerminalRuleCall_2_0 = (RuleCall)cNameAssignment_2.eContents().get(0);
-		private final Keyword cForKeyword_3 = (Keyword)cGroup.eContents().get(3);
-		private final Assignment cTargetAssignment_4 = (Assignment)cGroup.eContents().get(4);
-		private final CrossReference cTargetVerificationPreconditionCrossReference_4_0 = (CrossReference)cTargetAssignment_4.eContents().get(0);
-		private final RuleCall cTargetVerificationPreconditionQualifiedNameParserRuleCall_4_0_1 = (RuleCall)cTargetVerificationPreconditionCrossReference_4_0.eContents().get(1);
-		private final Keyword cLeftSquareBracketKeyword_5 = (Keyword)cGroup.eContents().get(5);
-		private final Keyword cExecutionstateKeyword_6 = (Keyword)cGroup.eContents().get(6);
-		private final Assignment cExecutionStateAssignment_7 = (Assignment)cGroup.eContents().get(7);
-		private final RuleCall cExecutionStateVerificationExecutionStateEnumRuleCall_7_0 = (RuleCall)cExecutionStateAssignment_7.eContents().get(0);
-		private final Keyword cResultstateKeyword_8 = (Keyword)cGroup.eContents().get(8);
-		private final Assignment cResultStateAssignment_9 = (Assignment)cGroup.eContents().get(9);
-		private final RuleCall cResultStateVerificationResultStateEnumRuleCall_9_0 = (RuleCall)cResultStateAssignment_9.eContents().get(0);
-		private final Group cGroup_10 = (Group)cGroup.eContents().get(10);
-		private final Keyword cIssuesKeyword_10_0 = (Keyword)cGroup_10.eContents().get(0);
-		private final Keyword cLeftSquareBracketKeyword_10_1 = (Keyword)cGroup_10.eContents().get(1);
-		private final Assignment cIssuesAssignment_10_2 = (Assignment)cGroup_10.eContents().get(2);
-		private final RuleCall cIssuesResultIssueParserRuleCall_10_2_0 = (RuleCall)cIssuesAssignment_10_2.eContents().get(0);
-		private final Keyword cRightSquareBracketKeyword_10_3 = (Keyword)cGroup_10.eContents().get(3);
-		private final Group cGroup_11 = (Group)cGroup.eContents().get(11);
-		private final Keyword cReportKeyword_11_0 = (Keyword)cGroup_11.eContents().get(0);
-		private final Assignment cResultReportAssignment_11_1 = (Assignment)cGroup_11.eContents().get(1);
-		private final CrossReference cResultReportResultReportCrossReference_11_1_0 = (CrossReference)cResultReportAssignment_11_1.eContents().get(0);
-		private final RuleCall cResultReportResultReportQualifiedNameParserRuleCall_11_1_0_1 = (RuleCall)cResultReportResultReportCrossReference_11_1_0.eContents().get(1);
-		private final Group cGroup_12 = (Group)cGroup.eContents().get(12);
-		private final Keyword cSuccesscountKeyword_12_0 = (Keyword)cGroup_12.eContents().get(0);
-		private final Assignment cSuccessCountAssignment_12_1 = (Assignment)cGroup_12.eContents().get(1);
-		private final RuleCall cSuccessCountINTTerminalRuleCall_12_1_0 = (RuleCall)cSuccessCountAssignment_12_1.eContents().get(0);
-		private final Group cGroup_13 = (Group)cGroup.eContents().get(13);
-		private final Keyword cFailcountKeyword_13_0 = (Keyword)cGroup_13.eContents().get(0);
-		private final Assignment cFailCountAssignment_13_1 = (Assignment)cGroup_13.eContents().get(1);
-		private final RuleCall cFailCountINTTerminalRuleCall_13_1_0 = (RuleCall)cFailCountAssignment_13_1.eContents().get(0);
-		private final Group cGroup_14 = (Group)cGroup.eContents().get(14);
-		private final Keyword cUnknowncountKeyword_14_0 = (Keyword)cGroup_14.eContents().get(0);
-		private final Assignment cUnknownCountAssignment_14_1 = (Assignment)cGroup_14.eContents().get(1);
-		private final RuleCall cUnknownCountINTTerminalRuleCall_14_1_0 = (RuleCall)cUnknownCountAssignment_14_1.eContents().get(0);
-		private final Group cGroup_15 = (Group)cGroup.eContents().get(15);
-		private final Keyword cFailthencountKeyword_15_0 = (Keyword)cGroup_15.eContents().get(0);
-		private final Assignment cFailthenCountAssignment_15_1 = (Assignment)cGroup_15.eContents().get(1);
-		private final RuleCall cFailthenCountINTTerminalRuleCall_15_1_0 = (RuleCall)cFailthenCountAssignment_15_1.eContents().get(0);
-		private final Group cGroup_16 = (Group)cGroup.eContents().get(16);
-		private final Keyword cAndthencountKeyword_16_0 = (Keyword)cGroup_16.eContents().get(0);
-		private final Assignment cAndthenCountAssignment_16_1 = (Assignment)cGroup_16.eContents().get(1);
-		private final RuleCall cAndthenCountINTTerminalRuleCall_16_1_0 = (RuleCall)cAndthenCountAssignment_16_1.eContents().get(0);
-		private final Group cGroup_17 = (Group)cGroup.eContents().get(17);
-		private final Keyword cTbdcountKeyword_17_0 = (Keyword)cGroup_17.eContents().get(0);
-		private final Assignment cTbdCountAssignment_17_1 = (Assignment)cGroup_17.eContents().get(1);
-		private final RuleCall cTbdCountINTTerminalRuleCall_17_1_0 = (RuleCall)cTbdCountAssignment_17_1.eContents().get(0);
-		private final Group cGroup_18 = (Group)cGroup.eContents().get(18);
-		private final Keyword cWeightKeyword_18_0 = (Keyword)cGroup_18.eContents().get(0);
-		private final Assignment cWeightAssignment_18_1 = (Assignment)cGroup_18.eContents().get(1);
-		private final RuleCall cWeightINTTerminalRuleCall_18_1_0 = (RuleCall)cWeightAssignment_18_1.eContents().get(0);
-		private final Group cGroup_19 = (Group)cGroup.eContents().get(19);
-		private final Keyword cMessageKeyword_19_0 = (Keyword)cGroup_19.eContents().get(0);
-		private final Assignment cMessageAssignment_19_1 = (Assignment)cGroup_19.eContents().get(1);
-		private final RuleCall cMessageSTRINGTerminalRuleCall_19_1_0 = (RuleCall)cMessageAssignment_19_1.eContents().get(0);
-		private final Keyword cRightSquareBracketKeyword_20 = (Keyword)cGroup.eContents().get(20);
-		
-		//PreconditionResult returns VerificationResult:
-		//	"precondition" {PreconditionResult} name=ID "for" target=[Verify::VerificationPrecondition|QualifiedName] "["
-		//	"executionstate" executionState=VerificationExecutionState "resultstate" resultState=VerificationResultState ("issues"
-		//	"[" issues+=ResultIssue* "]")? ("report" resultReport=[results::ResultReport|QualifiedName])? // pointer to separate report
-		//	("successcount" successCount=INT)? ("failcount" failCount=INT)? ("unknowncount" unknownCount=INT)? ("failthencount"
-		//	failthenCount=INT)? ("andthencount" andthenCount=INT)? ("tbdcount" tbdCount=INT)? ("weight" weight=INT)? ("message"
-		//	message=STRING)? "]";
-		@Override public ParserRule getRule() { return rule; }
-
-		//"precondition" {PreconditionResult} name=ID "for" target=[Verify::VerificationPrecondition|QualifiedName] "["
-		//"executionstate" executionState=VerificationExecutionState "resultstate" resultState=VerificationResultState ("issues"
-		//"[" issues+=ResultIssue* "]")? ("report" resultReport=[results::ResultReport|QualifiedName])? // pointer to separate report
-		//("successcount" successCount=INT)? ("failcount" failCount=INT)? ("unknowncount" unknownCount=INT)? ("failthencount"
-		//failthenCount=INT)? ("andthencount" andthenCount=INT)? ("tbdcount" tbdCount=INT)? ("weight" weight=INT)? ("message"
-		//message=STRING)? "]"
-		public Group getGroup() { return cGroup; }
+		//"precondition" {PreconditionResult}
+		public Group getGroup_0_0() { return cGroup_0_0; }
 
 		//"precondition"
-		public Keyword getPreconditionKeyword_0() { return cPreconditionKeyword_0; }
+		public Keyword getPreconditionKeyword_0_0_0() { return cPreconditionKeyword_0_0_0; }
 
 		//{PreconditionResult}
-		public Action getPreconditionResultAction_1() { return cPreconditionResultAction_1; }
+		public Action getPreconditionResultAction_0_0_1() { return cPreconditionResultAction_0_0_1; }
 
-		//name=ID
-		public Assignment getNameAssignment_2() { return cNameAssignment_2; }
+		//"validation" {ValidationResult}
+		public Group getGroup_0_1() { return cGroup_0_1; }
 
-		//ID
-		public RuleCall getNameIDTerminalRuleCall_2_0() { return cNameIDTerminalRuleCall_2_0; }
+		//"validation"
+		public Keyword getValidationKeyword_0_1_0() { return cValidationKeyword_0_1_0; }
 
-		//"for"
-		public Keyword getForKeyword_3() { return cForKeyword_3; }
+		//{ValidationResult}
+		public Action getValidationResultAction_0_1_1() { return cValidationResultAction_0_1_1; }
 
-		//target=[Verify::VerificationPrecondition|QualifiedName]
-		public Assignment getTargetAssignment_4() { return cTargetAssignment_4; }
+		//target=[Verify::VerificationCondition|QualifiedName]
+		public Assignment getTargetAssignment_1() { return cTargetAssignment_1; }
 
-		//[Verify::VerificationPrecondition|QualifiedName]
-		public CrossReference getTargetVerificationPreconditionCrossReference_4_0() { return cTargetVerificationPreconditionCrossReference_4_0; }
+		//[Verify::VerificationCondition|QualifiedName]
+		public CrossReference getTargetVerificationConditionCrossReference_1_0() { return cTargetVerificationConditionCrossReference_1_0; }
 
 		//QualifiedName
-		public RuleCall getTargetVerificationPreconditionQualifiedNameParserRuleCall_4_0_1() { return cTargetVerificationPreconditionQualifiedNameParserRuleCall_4_0_1; }
+		public RuleCall getTargetVerificationConditionQualifiedNameParserRuleCall_1_0_1() { return cTargetVerificationConditionQualifiedNameParserRuleCall_1_0_1; }
 
 		//"["
-		public Keyword getLeftSquareBracketKeyword_5() { return cLeftSquareBracketKeyword_5; }
+		public Keyword getLeftSquareBracketKeyword_2() { return cLeftSquareBracketKeyword_2; }
 
 		//"executionstate"
-		public Keyword getExecutionstateKeyword_6() { return cExecutionstateKeyword_6; }
+		public Keyword getExecutionstateKeyword_3() { return cExecutionstateKeyword_3; }
 
 		//executionState=VerificationExecutionState
-		public Assignment getExecutionStateAssignment_7() { return cExecutionStateAssignment_7; }
+		public Assignment getExecutionStateAssignment_4() { return cExecutionStateAssignment_4; }
 
 		//VerificationExecutionState
-		public RuleCall getExecutionStateVerificationExecutionStateEnumRuleCall_7_0() { return cExecutionStateVerificationExecutionStateEnumRuleCall_7_0; }
+		public RuleCall getExecutionStateVerificationExecutionStateEnumRuleCall_4_0() { return cExecutionStateVerificationExecutionStateEnumRuleCall_4_0; }
 
 		//"resultstate"
-		public Keyword getResultstateKeyword_8() { return cResultstateKeyword_8; }
+		public Keyword getResultstateKeyword_5() { return cResultstateKeyword_5; }
 
 		//resultState=VerificationResultState
-		public Assignment getResultStateAssignment_9() { return cResultStateAssignment_9; }
+		public Assignment getResultStateAssignment_6() { return cResultStateAssignment_6; }
 
 		//VerificationResultState
-		public RuleCall getResultStateVerificationResultStateEnumRuleCall_9_0() { return cResultStateVerificationResultStateEnumRuleCall_9_0; }
+		public RuleCall getResultStateVerificationResultStateEnumRuleCall_6_0() { return cResultStateVerificationResultStateEnumRuleCall_6_0; }
 
 		//("issues" "[" issues+=ResultIssue* "]")?
-		public Group getGroup_10() { return cGroup_10; }
+		public Group getGroup_7() { return cGroup_7; }
 
 		//"issues"
-		public Keyword getIssuesKeyword_10_0() { return cIssuesKeyword_10_0; }
+		public Keyword getIssuesKeyword_7_0() { return cIssuesKeyword_7_0; }
 
 		//"["
-		public Keyword getLeftSquareBracketKeyword_10_1() { return cLeftSquareBracketKeyword_10_1; }
+		public Keyword getLeftSquareBracketKeyword_7_1() { return cLeftSquareBracketKeyword_7_1; }
 
 		//issues+=ResultIssue*
-		public Assignment getIssuesAssignment_10_2() { return cIssuesAssignment_10_2; }
+		public Assignment getIssuesAssignment_7_2() { return cIssuesAssignment_7_2; }
 
 		//ResultIssue
-		public RuleCall getIssuesResultIssueParserRuleCall_10_2_0() { return cIssuesResultIssueParserRuleCall_10_2_0; }
+		public RuleCall getIssuesResultIssueParserRuleCall_7_2_0() { return cIssuesResultIssueParserRuleCall_7_2_0; }
 
 		//"]"
-		public Keyword getRightSquareBracketKeyword_10_3() { return cRightSquareBracketKeyword_10_3; }
+		public Keyword getRightSquareBracketKeyword_7_3() { return cRightSquareBracketKeyword_7_3; }
 
 		//("report" resultReport=[results::ResultReport|QualifiedName])?
-		public Group getGroup_11() { return cGroup_11; }
+		public Group getGroup_8() { return cGroup_8; }
 
 		//"report"
-		public Keyword getReportKeyword_11_0() { return cReportKeyword_11_0; }
+		public Keyword getReportKeyword_8_0() { return cReportKeyword_8_0; }
 
 		//resultReport=[results::ResultReport|QualifiedName]
-		public Assignment getResultReportAssignment_11_1() { return cResultReportAssignment_11_1; }
+		public Assignment getResultReportAssignment_8_1() { return cResultReportAssignment_8_1; }
 
 		//[results::ResultReport|QualifiedName]
-		public CrossReference getResultReportResultReportCrossReference_11_1_0() { return cResultReportResultReportCrossReference_11_1_0; }
+		public CrossReference getResultReportResultReportCrossReference_8_1_0() { return cResultReportResultReportCrossReference_8_1_0; }
 
 		//QualifiedName
-		public RuleCall getResultReportResultReportQualifiedNameParserRuleCall_11_1_0_1() { return cResultReportResultReportQualifiedNameParserRuleCall_11_1_0_1; }
+		public RuleCall getResultReportResultReportQualifiedNameParserRuleCall_8_1_0_1() { return cResultReportResultReportQualifiedNameParserRuleCall_8_1_0_1; }
 
-		//("successcount" successCount=INT)?
-		public Group getGroup_12() { return cGroup_12; }
+		//metrics=Metrics
+		public Assignment getMetricsAssignment_9() { return cMetricsAssignment_9; }
 
-		//"successcount"
-		public Keyword getSuccesscountKeyword_12_0() { return cSuccesscountKeyword_12_0; }
-
-		//successCount=INT
-		public Assignment getSuccessCountAssignment_12_1() { return cSuccessCountAssignment_12_1; }
-
-		//INT
-		public RuleCall getSuccessCountINTTerminalRuleCall_12_1_0() { return cSuccessCountINTTerminalRuleCall_12_1_0; }
-
-		//("failcount" failCount=INT)?
-		public Group getGroup_13() { return cGroup_13; }
-
-		//"failcount"
-		public Keyword getFailcountKeyword_13_0() { return cFailcountKeyword_13_0; }
-
-		//failCount=INT
-		public Assignment getFailCountAssignment_13_1() { return cFailCountAssignment_13_1; }
-
-		//INT
-		public RuleCall getFailCountINTTerminalRuleCall_13_1_0() { return cFailCountINTTerminalRuleCall_13_1_0; }
-
-		//("unknowncount" unknownCount=INT)?
-		public Group getGroup_14() { return cGroup_14; }
-
-		//"unknowncount"
-		public Keyword getUnknowncountKeyword_14_0() { return cUnknowncountKeyword_14_0; }
-
-		//unknownCount=INT
-		public Assignment getUnknownCountAssignment_14_1() { return cUnknownCountAssignment_14_1; }
-
-		//INT
-		public RuleCall getUnknownCountINTTerminalRuleCall_14_1_0() { return cUnknownCountINTTerminalRuleCall_14_1_0; }
-
-		//("failthencount" failthenCount=INT)?
-		public Group getGroup_15() { return cGroup_15; }
-
-		//"failthencount"
-		public Keyword getFailthencountKeyword_15_0() { return cFailthencountKeyword_15_0; }
-
-		//failthenCount=INT
-		public Assignment getFailthenCountAssignment_15_1() { return cFailthenCountAssignment_15_1; }
-
-		//INT
-		public RuleCall getFailthenCountINTTerminalRuleCall_15_1_0() { return cFailthenCountINTTerminalRuleCall_15_1_0; }
-
-		//("andthencount" andthenCount=INT)?
-		public Group getGroup_16() { return cGroup_16; }
-
-		//"andthencount"
-		public Keyword getAndthencountKeyword_16_0() { return cAndthencountKeyword_16_0; }
-
-		//andthenCount=INT
-		public Assignment getAndthenCountAssignment_16_1() { return cAndthenCountAssignment_16_1; }
-
-		//INT
-		public RuleCall getAndthenCountINTTerminalRuleCall_16_1_0() { return cAndthenCountINTTerminalRuleCall_16_1_0; }
-
-		//("tbdcount" tbdCount=INT)?
-		public Group getGroup_17() { return cGroup_17; }
-
-		//"tbdcount"
-		public Keyword getTbdcountKeyword_17_0() { return cTbdcountKeyword_17_0; }
-
-		//tbdCount=INT
-		public Assignment getTbdCountAssignment_17_1() { return cTbdCountAssignment_17_1; }
-
-		//INT
-		public RuleCall getTbdCountINTTerminalRuleCall_17_1_0() { return cTbdCountINTTerminalRuleCall_17_1_0; }
-
-		//("weight" weight=INT)?
-		public Group getGroup_18() { return cGroup_18; }
-
-		//"weight"
-		public Keyword getWeightKeyword_18_0() { return cWeightKeyword_18_0; }
-
-		//weight=INT
-		public Assignment getWeightAssignment_18_1() { return cWeightAssignment_18_1; }
-
-		//INT
-		public RuleCall getWeightINTTerminalRuleCall_18_1_0() { return cWeightINTTerminalRuleCall_18_1_0; }
+		//Metrics
+		public RuleCall getMetricsMetricsParserRuleCall_9_0() { return cMetricsMetricsParserRuleCall_9_0; }
 
 		//("message" message=STRING)?
-		public Group getGroup_19() { return cGroup_19; }
+		public Group getGroup_10() { return cGroup_10; }
 
 		//"message"
-		public Keyword getMessageKeyword_19_0() { return cMessageKeyword_19_0; }
+		public Keyword getMessageKeyword_10_0() { return cMessageKeyword_10_0; }
 
 		//message=STRING
-		public Assignment getMessageAssignment_19_1() { return cMessageAssignment_19_1; }
+		public Assignment getMessageAssignment_10_1() { return cMessageAssignment_10_1; }
 
 		//STRING
-		public RuleCall getMessageSTRINGTerminalRuleCall_19_1_0() { return cMessageSTRINGTerminalRuleCall_19_1_0; }
+		public RuleCall getMessageSTRINGTerminalRuleCall_10_1_0() { return cMessageSTRINGTerminalRuleCall_10_1_0; }
 
 		//"]"
-		public Keyword getRightSquareBracketKeyword_20() { return cRightSquareBracketKeyword_20; }
+		public Keyword getRightSquareBracketKeyword_11() { return cRightSquareBracketKeyword_11; }
 	}
 
 	public class VerificationActivityResultElements extends AbstractParserRuleElementFinder {
@@ -972,60 +405,28 @@ public class AssureGrammarAccess extends AbstractGrammarElementFinder {
 		private final Assignment cResultReportAssignment_9_1 = (Assignment)cGroup_9.eContents().get(1);
 		private final CrossReference cResultReportResultReportCrossReference_9_1_0 = (CrossReference)cResultReportAssignment_9_1.eContents().get(0);
 		private final RuleCall cResultReportResultReportQualifiedNameParserRuleCall_9_1_0_1 = (RuleCall)cResultReportResultReportCrossReference_9_1_0.eContents().get(1);
-		private final Group cGroup_10 = (Group)cGroup.eContents().get(10);
-		private final Keyword cSuccesscountKeyword_10_0 = (Keyword)cGroup_10.eContents().get(0);
-		private final Assignment cSuccessCountAssignment_10_1 = (Assignment)cGroup_10.eContents().get(1);
-		private final RuleCall cSuccessCountINTTerminalRuleCall_10_1_0 = (RuleCall)cSuccessCountAssignment_10_1.eContents().get(0);
+		private final Assignment cMetricsAssignment_10 = (Assignment)cGroup.eContents().get(10);
+		private final RuleCall cMetricsMetricsParserRuleCall_10_0 = (RuleCall)cMetricsAssignment_10.eContents().get(0);
 		private final Group cGroup_11 = (Group)cGroup.eContents().get(11);
-		private final Keyword cFailcountKeyword_11_0 = (Keyword)cGroup_11.eContents().get(0);
-		private final Assignment cFailCountAssignment_11_1 = (Assignment)cGroup_11.eContents().get(1);
-		private final RuleCall cFailCountINTTerminalRuleCall_11_1_0 = (RuleCall)cFailCountAssignment_11_1.eContents().get(0);
-		private final Group cGroup_12 = (Group)cGroup.eContents().get(12);
-		private final Keyword cUnknowncountKeyword_12_0 = (Keyword)cGroup_12.eContents().get(0);
-		private final Assignment cUnknownCountAssignment_12_1 = (Assignment)cGroup_12.eContents().get(1);
-		private final RuleCall cUnknownCountINTTerminalRuleCall_12_1_0 = (RuleCall)cUnknownCountAssignment_12_1.eContents().get(0);
-		private final Group cGroup_13 = (Group)cGroup.eContents().get(13);
-		private final Keyword cFailthencountKeyword_13_0 = (Keyword)cGroup_13.eContents().get(0);
-		private final Assignment cFailthenCountAssignment_13_1 = (Assignment)cGroup_13.eContents().get(1);
-		private final RuleCall cFailthenCountINTTerminalRuleCall_13_1_0 = (RuleCall)cFailthenCountAssignment_13_1.eContents().get(0);
-		private final Group cGroup_14 = (Group)cGroup.eContents().get(14);
-		private final Keyword cAndthencountKeyword_14_0 = (Keyword)cGroup_14.eContents().get(0);
-		private final Assignment cAndthenCountAssignment_14_1 = (Assignment)cGroup_14.eContents().get(1);
-		private final RuleCall cAndthenCountINTTerminalRuleCall_14_1_0 = (RuleCall)cAndthenCountAssignment_14_1.eContents().get(0);
-		private final Group cGroup_15 = (Group)cGroup.eContents().get(15);
-		private final Keyword cTbdcountKeyword_15_0 = (Keyword)cGroup_15.eContents().get(0);
-		private final Assignment cTbdCountAssignment_15_1 = (Assignment)cGroup_15.eContents().get(1);
-		private final RuleCall cTbdCountINTTerminalRuleCall_15_1_0 = (RuleCall)cTbdCountAssignment_15_1.eContents().get(0);
-		private final Group cGroup_16 = (Group)cGroup.eContents().get(16);
-		private final Keyword cWeightKeyword_16_0 = (Keyword)cGroup_16.eContents().get(0);
-		private final Assignment cWeightAssignment_16_1 = (Assignment)cGroup_16.eContents().get(1);
-		private final RuleCall cWeightINTTerminalRuleCall_16_1_0 = (RuleCall)cWeightAssignment_16_1.eContents().get(0);
-		private final Group cGroup_17 = (Group)cGroup.eContents().get(17);
-		private final Keyword cMessageKeyword_17_0 = (Keyword)cGroup_17.eContents().get(0);
-		private final Assignment cMessageAssignment_17_1 = (Assignment)cGroup_17.eContents().get(1);
-		private final RuleCall cMessageSTRINGTerminalRuleCall_17_1_0 = (RuleCall)cMessageAssignment_17_1.eContents().get(0);
-		private final Assignment cValidationResultAssignment_18 = (Assignment)cGroup.eContents().get(18);
-		private final RuleCall cValidationResultValidationResultParserRuleCall_18_0 = (RuleCall)cValidationResultAssignment_18.eContents().get(0);
-		private final Assignment cPreconditionResultAssignment_19 = (Assignment)cGroup.eContents().get(19);
-		private final RuleCall cPreconditionResultPreconditionResultParserRuleCall_19_0 = (RuleCall)cPreconditionResultAssignment_19.eContents().get(0);
-		private final Keyword cRightSquareBracketKeyword_20 = (Keyword)cGroup.eContents().get(20);
+		private final Keyword cMessageKeyword_11_0 = (Keyword)cGroup_11.eContents().get(0);
+		private final Assignment cMessageAssignment_11_1 = (Assignment)cGroup_11.eContents().get(1);
+		private final RuleCall cMessageSTRINGTerminalRuleCall_11_1_0 = (RuleCall)cMessageAssignment_11_1.eContents().get(0);
+		private final Assignment cConditionResultAssignment_12 = (Assignment)cGroup.eContents().get(12);
+		private final RuleCall cConditionResultConditionResultParserRuleCall_12_0 = (RuleCall)cConditionResultAssignment_12.eContents().get(0);
+		private final Keyword cRightSquareBracketKeyword_13 = (Keyword)cGroup.eContents().get(13);
 		
 		//// result of executing a verification activity
 		//VerificationActivityResult returns VerificationResult:
-		//	"verification" {VerificationActivityResult} target=[Verify::VerificationActivity|QualifiedName] "[" "executionstate"
-		//	executionState=VerificationExecutionState "resultstate" resultState=VerificationResultState ("issues" "["
-		//	issues+=ResultIssue* "]")? ("report" resultReport=[results::ResultReport|QualifiedName])? // pointer to separate report
-		//	("successcount" successCount=INT)? ("failcount" failCount=INT)? ("unknowncount" unknownCount=INT)? ("failthencount"
-		//	failthenCount=INT)? ("andthencount" andthenCount=INT)? ("tbdcount" tbdCount=INT)? ("weight" weight=INT)? ("message"
-		//	message=STRING)? validationResult+=ValidationResult* preconditionResult+=PreconditionResult* "]";
+		//	"verification" {VerificationActivityResult} target=[Verify::VerificationActivity|QualifiedName] //	('instance' instance= [instance::InstanceObject|URIID])?
+		//	"[" "executionstate" executionState=VerificationExecutionState "resultstate" resultState=VerificationResultState
+		//	("issues" "[" issues+=ResultIssue* "]")? ("report" resultReport=[results::ResultReport|QualifiedName])? // pointer to separate report
+		//	metrics=Metrics ("message" message=STRING)? conditionResult=ConditionResult? "]";
 		@Override public ParserRule getRule() { return rule; }
 
-		//"verification" {VerificationActivityResult} target=[Verify::VerificationActivity|QualifiedName] "[" "executionstate"
-		//executionState=VerificationExecutionState "resultstate" resultState=VerificationResultState ("issues" "["
-		//issues+=ResultIssue* "]")? ("report" resultReport=[results::ResultReport|QualifiedName])? // pointer to separate report
-		//("successcount" successCount=INT)? ("failcount" failCount=INT)? ("unknowncount" unknownCount=INT)? ("failthencount"
-		//failthenCount=INT)? ("andthencount" andthenCount=INT)? ("tbdcount" tbdCount=INT)? ("weight" weight=INT)? ("message"
-		//message=STRING)? validationResult+=ValidationResult* preconditionResult+=PreconditionResult* "]"
+		//"verification" {VerificationActivityResult} target=[Verify::VerificationActivity|QualifiedName] //	('instance' instance= [instance::InstanceObject|URIID])?
+		//"[" "executionstate" executionState=VerificationExecutionState "resultstate" resultState=VerificationResultState
+		//("issues" "[" issues+=ResultIssue* "]")? ("report" resultReport=[results::ResultReport|QualifiedName])? // pointer to separate report
+		//metrics=Metrics ("message" message=STRING)? conditionResult=ConditionResult? "]"
 		public Group getGroup() { return cGroup; }
 
 		//"verification"
@@ -1043,6 +444,7 @@ public class AssureGrammarAccess extends AbstractGrammarElementFinder {
 		//QualifiedName
 		public RuleCall getTargetVerificationActivityQualifiedNameParserRuleCall_2_0_1() { return cTargetVerificationActivityQualifiedNameParserRuleCall_2_0_1; }
 
+		////	('instance' instance= [instance::InstanceObject|URIID])?
 		//"["
 		public Keyword getLeftSquareBracketKeyword_3() { return cLeftSquareBracketKeyword_3; }
 
@@ -1097,116 +499,32 @@ public class AssureGrammarAccess extends AbstractGrammarElementFinder {
 		//QualifiedName
 		public RuleCall getResultReportResultReportQualifiedNameParserRuleCall_9_1_0_1() { return cResultReportResultReportQualifiedNameParserRuleCall_9_1_0_1; }
 
-		//("successcount" successCount=INT)?
-		public Group getGroup_10() { return cGroup_10; }
+		//metrics=Metrics
+		public Assignment getMetricsAssignment_10() { return cMetricsAssignment_10; }
 
-		//"successcount"
-		public Keyword getSuccesscountKeyword_10_0() { return cSuccesscountKeyword_10_0; }
-
-		//successCount=INT
-		public Assignment getSuccessCountAssignment_10_1() { return cSuccessCountAssignment_10_1; }
-
-		//INT
-		public RuleCall getSuccessCountINTTerminalRuleCall_10_1_0() { return cSuccessCountINTTerminalRuleCall_10_1_0; }
-
-		//("failcount" failCount=INT)?
-		public Group getGroup_11() { return cGroup_11; }
-
-		//"failcount"
-		public Keyword getFailcountKeyword_11_0() { return cFailcountKeyword_11_0; }
-
-		//failCount=INT
-		public Assignment getFailCountAssignment_11_1() { return cFailCountAssignment_11_1; }
-
-		//INT
-		public RuleCall getFailCountINTTerminalRuleCall_11_1_0() { return cFailCountINTTerminalRuleCall_11_1_0; }
-
-		//("unknowncount" unknownCount=INT)?
-		public Group getGroup_12() { return cGroup_12; }
-
-		//"unknowncount"
-		public Keyword getUnknowncountKeyword_12_0() { return cUnknowncountKeyword_12_0; }
-
-		//unknownCount=INT
-		public Assignment getUnknownCountAssignment_12_1() { return cUnknownCountAssignment_12_1; }
-
-		//INT
-		public RuleCall getUnknownCountINTTerminalRuleCall_12_1_0() { return cUnknownCountINTTerminalRuleCall_12_1_0; }
-
-		//("failthencount" failthenCount=INT)?
-		public Group getGroup_13() { return cGroup_13; }
-
-		//"failthencount"
-		public Keyword getFailthencountKeyword_13_0() { return cFailthencountKeyword_13_0; }
-
-		//failthenCount=INT
-		public Assignment getFailthenCountAssignment_13_1() { return cFailthenCountAssignment_13_1; }
-
-		//INT
-		public RuleCall getFailthenCountINTTerminalRuleCall_13_1_0() { return cFailthenCountINTTerminalRuleCall_13_1_0; }
-
-		//("andthencount" andthenCount=INT)?
-		public Group getGroup_14() { return cGroup_14; }
-
-		//"andthencount"
-		public Keyword getAndthencountKeyword_14_0() { return cAndthencountKeyword_14_0; }
-
-		//andthenCount=INT
-		public Assignment getAndthenCountAssignment_14_1() { return cAndthenCountAssignment_14_1; }
-
-		//INT
-		public RuleCall getAndthenCountINTTerminalRuleCall_14_1_0() { return cAndthenCountINTTerminalRuleCall_14_1_0; }
-
-		//("tbdcount" tbdCount=INT)?
-		public Group getGroup_15() { return cGroup_15; }
-
-		//"tbdcount"
-		public Keyword getTbdcountKeyword_15_0() { return cTbdcountKeyword_15_0; }
-
-		//tbdCount=INT
-		public Assignment getTbdCountAssignment_15_1() { return cTbdCountAssignment_15_1; }
-
-		//INT
-		public RuleCall getTbdCountINTTerminalRuleCall_15_1_0() { return cTbdCountINTTerminalRuleCall_15_1_0; }
-
-		//("weight" weight=INT)?
-		public Group getGroup_16() { return cGroup_16; }
-
-		//"weight"
-		public Keyword getWeightKeyword_16_0() { return cWeightKeyword_16_0; }
-
-		//weight=INT
-		public Assignment getWeightAssignment_16_1() { return cWeightAssignment_16_1; }
-
-		//INT
-		public RuleCall getWeightINTTerminalRuleCall_16_1_0() { return cWeightINTTerminalRuleCall_16_1_0; }
+		//Metrics
+		public RuleCall getMetricsMetricsParserRuleCall_10_0() { return cMetricsMetricsParserRuleCall_10_0; }
 
 		//("message" message=STRING)?
-		public Group getGroup_17() { return cGroup_17; }
+		public Group getGroup_11() { return cGroup_11; }
 
 		//"message"
-		public Keyword getMessageKeyword_17_0() { return cMessageKeyword_17_0; }
+		public Keyword getMessageKeyword_11_0() { return cMessageKeyword_11_0; }
 
 		//message=STRING
-		public Assignment getMessageAssignment_17_1() { return cMessageAssignment_17_1; }
+		public Assignment getMessageAssignment_11_1() { return cMessageAssignment_11_1; }
 
 		//STRING
-		public RuleCall getMessageSTRINGTerminalRuleCall_17_1_0() { return cMessageSTRINGTerminalRuleCall_17_1_0; }
+		public RuleCall getMessageSTRINGTerminalRuleCall_11_1_0() { return cMessageSTRINGTerminalRuleCall_11_1_0; }
 
-		//validationResult+=ValidationResult*
-		public Assignment getValidationResultAssignment_18() { return cValidationResultAssignment_18; }
+		//conditionResult=ConditionResult?
+		public Assignment getConditionResultAssignment_12() { return cConditionResultAssignment_12; }
 
-		//ValidationResult
-		public RuleCall getValidationResultValidationResultParserRuleCall_18_0() { return cValidationResultValidationResultParserRuleCall_18_0; }
-
-		//preconditionResult+=PreconditionResult*
-		public Assignment getPreconditionResultAssignment_19() { return cPreconditionResultAssignment_19; }
-
-		//PreconditionResult
-		public RuleCall getPreconditionResultPreconditionResultParserRuleCall_19_0() { return cPreconditionResultPreconditionResultParserRuleCall_19_0; }
+		//ConditionResult
+		public RuleCall getConditionResultConditionResultParserRuleCall_12_0() { return cConditionResultConditionResultParserRuleCall_12_0; }
 
 		//"]"
-		public Keyword getRightSquareBracketKeyword_20() { return cRightSquareBracketKeyword_20; }
+		public Keyword getRightSquareBracketKeyword_13() { return cRightSquareBracketKeyword_13; }
 	}
 
 	public class AssureResultElements extends AbstractParserRuleElementFinder {
@@ -1215,14 +533,13 @@ public class AssureGrammarAccess extends AbstractGrammarElementFinder {
 		private final RuleCall cVerificationExprParserRuleCall_0 = (RuleCall)cAlternatives.eContents().get(0);
 		private final RuleCall cAssuranceEvidenceParserRuleCall_1 = (RuleCall)cAlternatives.eContents().get(1);
 		private final RuleCall cClaimResultParserRuleCall_2 = (RuleCall)cAlternatives.eContents().get(2);
-		private final RuleCall cPreconditionResultParserRuleCall_3 = (RuleCall)cAlternatives.eContents().get(3);
-		private final RuleCall cValidationResultParserRuleCall_4 = (RuleCall)cAlternatives.eContents().get(4);
+		private final RuleCall cConditionResultParserRuleCall_3 = (RuleCall)cAlternatives.eContents().get(3);
 		
 		//AssureResult:
-		//	VerificationExpr | AssuranceEvidence | ClaimResult | PreconditionResult | ValidationResult;
+		//	VerificationExpr | AssuranceEvidence | ClaimResult | ConditionResult;
 		@Override public ParserRule getRule() { return rule; }
 
-		//VerificationExpr | AssuranceEvidence | ClaimResult | PreconditionResult | ValidationResult
+		//VerificationExpr | AssuranceEvidence | ClaimResult | ConditionResult
 		public Alternatives getAlternatives() { return cAlternatives; }
 
 		//VerificationExpr
@@ -1234,98 +551,69 @@ public class AssureGrammarAccess extends AbstractGrammarElementFinder {
 		//ClaimResult
 		public RuleCall getClaimResultParserRuleCall_2() { return cClaimResultParserRuleCall_2; }
 
-		//PreconditionResult
-		public RuleCall getPreconditionResultParserRuleCall_3() { return cPreconditionResultParserRuleCall_3; }
-
-		//ValidationResult
-		public RuleCall getValidationResultParserRuleCall_4() { return cValidationResultParserRuleCall_4; }
+		//ConditionResult
+		public RuleCall getConditionResultParserRuleCall_3() { return cConditionResultParserRuleCall_3; }
 	}
 
 	public class VerificationExprElements extends AbstractParserRuleElementFinder {
 		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "VerificationExpr");
 		private final Alternatives cAlternatives = (Alternatives)rule.eContents().get(1);
 		private final RuleCall cVerificationActivityResultParserRuleCall_0 = (RuleCall)cAlternatives.eContents().get(0);
-		private final RuleCall cFailThenResultParserRuleCall_1 = (RuleCall)cAlternatives.eContents().get(1);
-		private final RuleCall cAndThenResultParserRuleCall_2 = (RuleCall)cAlternatives.eContents().get(2);
+		private final RuleCall cElseResultParserRuleCall_1 = (RuleCall)cAlternatives.eContents().get(1);
+		private final RuleCall cThenResultParserRuleCall_2 = (RuleCall)cAlternatives.eContents().get(2);
 		
 		//VerificationExpr:
-		//	VerificationActivityResult | FailThenResult | AndThenResult;
+		//	VerificationActivityResult | ElseResult | ThenResult;
 		@Override public ParserRule getRule() { return rule; }
 
-		//VerificationActivityResult | FailThenResult | AndThenResult
+		//VerificationActivityResult | ElseResult | ThenResult
 		public Alternatives getAlternatives() { return cAlternatives; }
 
 		//VerificationActivityResult
 		public RuleCall getVerificationActivityResultParserRuleCall_0() { return cVerificationActivityResultParserRuleCall_0; }
 
-		//FailThenResult
-		public RuleCall getFailThenResultParserRuleCall_1() { return cFailThenResultParserRuleCall_1; }
+		//ElseResult
+		public RuleCall getElseResultParserRuleCall_1() { return cElseResultParserRuleCall_1; }
 
-		//AndThenResult
-		public RuleCall getAndThenResultParserRuleCall_2() { return cAndThenResultParserRuleCall_2; }
+		//ThenResult
+		public RuleCall getThenResultParserRuleCall_2() { return cThenResultParserRuleCall_2; }
 	}
 
-	public class FailThenResultElements extends AbstractParserRuleElementFinder {
-		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "FailThenResult");
+	public class ElseResultElements extends AbstractParserRuleElementFinder {
+		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "ElseResult");
 		private final Group cGroup = (Group)rule.eContents().get(1);
-		private final Keyword cFailthenKeyword_0 = (Keyword)cGroup.eContents().get(0);
+		private final Keyword cElseKeyword_0 = (Keyword)cGroup.eContents().get(0);
 		private final Assignment cFirstAssignment_1 = (Assignment)cGroup.eContents().get(1);
 		private final RuleCall cFirstVerificationExprParserRuleCall_1_0 = (RuleCall)cFirstAssignment_1.eContents().get(0);
-		private final Keyword cDoKeyword_2 = (Keyword)cGroup.eContents().get(2);
-		private final Assignment cSecondAssignment_3 = (Assignment)cGroup.eContents().get(3);
-		private final RuleCall cSecondVerificationExprParserRuleCall_3_0 = (RuleCall)cSecondAssignment_3.eContents().get(0);
-		private final Keyword cLeftSquareBracketKeyword_4 = (Keyword)cGroup.eContents().get(4);
-		private final Assignment cFailThenAssignment_5 = (Assignment)cGroup.eContents().get(5);
-		private final Keyword cFailThenFailthenKeyword_5_0 = (Keyword)cFailThenAssignment_5.eContents().get(0);
-		private final Assignment cUnknownThenAssignment_6 = (Assignment)cGroup.eContents().get(6);
-		private final Keyword cUnknownThenUnknownthenKeyword_6_0 = (Keyword)cUnknownThenAssignment_6.eContents().get(0);
+		private final Keyword cOtherKeyword_2 = (Keyword)cGroup.eContents().get(2);
+		private final Assignment cOtherAssignment_3 = (Assignment)cGroup.eContents().get(3);
+		private final RuleCall cOtherVerificationExprParserRuleCall_3_0 = (RuleCall)cOtherAssignment_3.eContents().get(0);
+		private final Group cGroup_4 = (Group)cGroup.eContents().get(4);
+		private final Keyword cFailKeyword_4_0 = (Keyword)cGroup_4.eContents().get(0);
+		private final Assignment cFailAssignment_4_1 = (Assignment)cGroup_4.eContents().get(1);
+		private final RuleCall cFailVerificationExprParserRuleCall_4_1_0 = (RuleCall)cFailAssignment_4_1.eContents().get(0);
+		private final Group cGroup_5 = (Group)cGroup.eContents().get(5);
+		private final Keyword cTimeoutKeyword_5_0 = (Keyword)cGroup_5.eContents().get(0);
+		private final Assignment cTimeoutAssignment_5_1 = (Assignment)cGroup_5.eContents().get(1);
+		private final RuleCall cTimeoutVerificationExprParserRuleCall_5_1_0 = (RuleCall)cTimeoutAssignment_5_1.eContents().get(0);
+		private final Keyword cLeftSquareBracketKeyword_6 = (Keyword)cGroup.eContents().get(6);
 		private final Assignment cDidFailAssignment_7 = (Assignment)cGroup.eContents().get(7);
-		private final Keyword cDidFailDidfailKeyword_7_0 = (Keyword)cDidFailAssignment_7.eContents().get(0);
-		private final Group cGroup_8 = (Group)cGroup.eContents().get(8);
-		private final Keyword cSuccesscountKeyword_8_0 = (Keyword)cGroup_8.eContents().get(0);
-		private final Assignment cSuccessCountAssignment_8_1 = (Assignment)cGroup_8.eContents().get(1);
-		private final RuleCall cSuccessCountINTTerminalRuleCall_8_1_0 = (RuleCall)cSuccessCountAssignment_8_1.eContents().get(0);
-		private final Group cGroup_9 = (Group)cGroup.eContents().get(9);
-		private final Keyword cFailcountKeyword_9_0 = (Keyword)cGroup_9.eContents().get(0);
-		private final Assignment cFailCountAssignment_9_1 = (Assignment)cGroup_9.eContents().get(1);
-		private final RuleCall cFailCountINTTerminalRuleCall_9_1_0 = (RuleCall)cFailCountAssignment_9_1.eContents().get(0);
-		private final Group cGroup_10 = (Group)cGroup.eContents().get(10);
-		private final Keyword cUnknowncountKeyword_10_0 = (Keyword)cGroup_10.eContents().get(0);
-		private final Assignment cUnknownCountAssignment_10_1 = (Assignment)cGroup_10.eContents().get(1);
-		private final RuleCall cUnknownCountINTTerminalRuleCall_10_1_0 = (RuleCall)cUnknownCountAssignment_10_1.eContents().get(0);
-		private final Group cGroup_11 = (Group)cGroup.eContents().get(11);
-		private final Keyword cFailthencountKeyword_11_0 = (Keyword)cGroup_11.eContents().get(0);
-		private final Assignment cFailthenCountAssignment_11_1 = (Assignment)cGroup_11.eContents().get(1);
-		private final RuleCall cFailthenCountINTTerminalRuleCall_11_1_0 = (RuleCall)cFailthenCountAssignment_11_1.eContents().get(0);
-		private final Group cGroup_12 = (Group)cGroup.eContents().get(12);
-		private final Keyword cAndthencountKeyword_12_0 = (Keyword)cGroup_12.eContents().get(0);
-		private final Assignment cAndthenCountAssignment_12_1 = (Assignment)cGroup_12.eContents().get(1);
-		private final RuleCall cAndthenCountINTTerminalRuleCall_12_1_0 = (RuleCall)cAndthenCountAssignment_12_1.eContents().get(0);
-		private final Group cGroup_13 = (Group)cGroup.eContents().get(13);
-		private final Keyword cTbdcountKeyword_13_0 = (Keyword)cGroup_13.eContents().get(0);
-		private final Assignment cTbdCountAssignment_13_1 = (Assignment)cGroup_13.eContents().get(1);
-		private final RuleCall cTbdCountINTTerminalRuleCall_13_1_0 = (RuleCall)cTbdCountAssignment_13_1.eContents().get(0);
-		private final Group cGroup_14 = (Group)cGroup.eContents().get(14);
-		private final Keyword cWeightKeyword_14_0 = (Keyword)cGroup_14.eContents().get(0);
-		private final Assignment cWeightAssignment_14_1 = (Assignment)cGroup_14.eContents().get(1);
-		private final RuleCall cWeightINTTerminalRuleCall_14_1_0 = (RuleCall)cWeightAssignment_14_1.eContents().get(0);
-		private final Keyword cRightSquareBracketKeyword_15 = (Keyword)cGroup.eContents().get(15);
+		private final RuleCall cDidFailElseTypeEnumRuleCall_7_0 = (RuleCall)cDidFailAssignment_7.eContents().get(0);
+		private final Assignment cMetricsAssignment_8 = (Assignment)cGroup.eContents().get(8);
+		private final RuleCall cMetricsMetricsParserRuleCall_8_0 = (RuleCall)cMetricsAssignment_8.eContents().get(0);
+		private final Keyword cRightSquareBracketKeyword_9 = (Keyword)cGroup.eContents().get(9);
 		
-		//FailThenResult:
-		//	"failthen" first+=VerificationExpr "do" second+=VerificationExpr "[" failThen?="failthen"? unknownThen?="unknownthen"?
-		//	didFail?="didfail"? ("successcount" successCount=INT)? ("failcount" failCount=INT)? ("unknowncount" unknownCount=INT)?
-		//	("failthencount" failthenCount=INT)? ("andthencount" andthenCount=INT)? ("tbdcount" tbdCount=INT)? ("weight"
-		//	weight=INT)? "]";
+		//ElseResult:
+		//	"else" first+=VerificationExpr "other" other+=VerificationExpr? ("fail" fail+=VerificationExpr)? ("timeout"
+		//	timeout+=VerificationExpr)? "[" didFail=ElseType? metrics=Metrics "]";
 		@Override public ParserRule getRule() { return rule; }
 
-		//"failthen" first+=VerificationExpr "do" second+=VerificationExpr "[" failThen?="failthen"? unknownThen?="unknownthen"?
-		//didFail?="didfail"? ("successcount" successCount=INT)? ("failcount" failCount=INT)? ("unknowncount" unknownCount=INT)?
-		//("failthencount" failthenCount=INT)? ("andthencount" andthenCount=INT)? ("tbdcount" tbdCount=INT)? ("weight"
-		//weight=INT)? "]"
+		//"else" first+=VerificationExpr "other" other+=VerificationExpr? ("fail" fail+=VerificationExpr)? ("timeout"
+		//timeout+=VerificationExpr)? "[" didFail=ElseType? metrics=Metrics "]"
 		public Group getGroup() { return cGroup; }
 
-		//"failthen"
-		public Keyword getFailthenKeyword_0() { return cFailthenKeyword_0; }
+		//"else"
+		public Keyword getElseKeyword_0() { return cElseKeyword_0; }
 
 		//first+=VerificationExpr
 		public Assignment getFirstAssignment_1() { return cFirstAssignment_1; }
@@ -1333,179 +621,83 @@ public class AssureGrammarAccess extends AbstractGrammarElementFinder {
 		//VerificationExpr
 		public RuleCall getFirstVerificationExprParserRuleCall_1_0() { return cFirstVerificationExprParserRuleCall_1_0; }
 
-		//"do"
-		public Keyword getDoKeyword_2() { return cDoKeyword_2; }
+		//"other"
+		public Keyword getOtherKeyword_2() { return cOtherKeyword_2; }
 
-		//second+=VerificationExpr
-		public Assignment getSecondAssignment_3() { return cSecondAssignment_3; }
+		//other+=VerificationExpr?
+		public Assignment getOtherAssignment_3() { return cOtherAssignment_3; }
 
 		//VerificationExpr
-		public RuleCall getSecondVerificationExprParserRuleCall_3_0() { return cSecondVerificationExprParserRuleCall_3_0; }
+		public RuleCall getOtherVerificationExprParserRuleCall_3_0() { return cOtherVerificationExprParserRuleCall_3_0; }
+
+		//("fail" fail+=VerificationExpr)?
+		public Group getGroup_4() { return cGroup_4; }
+
+		//"fail"
+		public Keyword getFailKeyword_4_0() { return cFailKeyword_4_0; }
+
+		//fail+=VerificationExpr
+		public Assignment getFailAssignment_4_1() { return cFailAssignment_4_1; }
+
+		//VerificationExpr
+		public RuleCall getFailVerificationExprParserRuleCall_4_1_0() { return cFailVerificationExprParserRuleCall_4_1_0; }
+
+		//("timeout" timeout+=VerificationExpr)?
+		public Group getGroup_5() { return cGroup_5; }
+
+		//"timeout"
+		public Keyword getTimeoutKeyword_5_0() { return cTimeoutKeyword_5_0; }
+
+		//timeout+=VerificationExpr
+		public Assignment getTimeoutAssignment_5_1() { return cTimeoutAssignment_5_1; }
+
+		//VerificationExpr
+		public RuleCall getTimeoutVerificationExprParserRuleCall_5_1_0() { return cTimeoutVerificationExprParserRuleCall_5_1_0; }
 
 		//"["
-		public Keyword getLeftSquareBracketKeyword_4() { return cLeftSquareBracketKeyword_4; }
+		public Keyword getLeftSquareBracketKeyword_6() { return cLeftSquareBracketKeyword_6; }
 
-		//failThen?="failthen"?
-		public Assignment getFailThenAssignment_5() { return cFailThenAssignment_5; }
-
-		//"failthen"
-		public Keyword getFailThenFailthenKeyword_5_0() { return cFailThenFailthenKeyword_5_0; }
-
-		//unknownThen?="unknownthen"?
-		public Assignment getUnknownThenAssignment_6() { return cUnknownThenAssignment_6; }
-
-		//"unknownthen"
-		public Keyword getUnknownThenUnknownthenKeyword_6_0() { return cUnknownThenUnknownthenKeyword_6_0; }
-
-		//didFail?="didfail"?
+		//didFail=ElseType?
 		public Assignment getDidFailAssignment_7() { return cDidFailAssignment_7; }
 
-		//"didfail"
-		public Keyword getDidFailDidfailKeyword_7_0() { return cDidFailDidfailKeyword_7_0; }
+		//ElseType
+		public RuleCall getDidFailElseTypeEnumRuleCall_7_0() { return cDidFailElseTypeEnumRuleCall_7_0; }
 
-		//("successcount" successCount=INT)?
-		public Group getGroup_8() { return cGroup_8; }
+		//metrics=Metrics
+		public Assignment getMetricsAssignment_8() { return cMetricsAssignment_8; }
 
-		//"successcount"
-		public Keyword getSuccesscountKeyword_8_0() { return cSuccesscountKeyword_8_0; }
-
-		//successCount=INT
-		public Assignment getSuccessCountAssignment_8_1() { return cSuccessCountAssignment_8_1; }
-
-		//INT
-		public RuleCall getSuccessCountINTTerminalRuleCall_8_1_0() { return cSuccessCountINTTerminalRuleCall_8_1_0; }
-
-		//("failcount" failCount=INT)?
-		public Group getGroup_9() { return cGroup_9; }
-
-		//"failcount"
-		public Keyword getFailcountKeyword_9_0() { return cFailcountKeyword_9_0; }
-
-		//failCount=INT
-		public Assignment getFailCountAssignment_9_1() { return cFailCountAssignment_9_1; }
-
-		//INT
-		public RuleCall getFailCountINTTerminalRuleCall_9_1_0() { return cFailCountINTTerminalRuleCall_9_1_0; }
-
-		//("unknowncount" unknownCount=INT)?
-		public Group getGroup_10() { return cGroup_10; }
-
-		//"unknowncount"
-		public Keyword getUnknowncountKeyword_10_0() { return cUnknowncountKeyword_10_0; }
-
-		//unknownCount=INT
-		public Assignment getUnknownCountAssignment_10_1() { return cUnknownCountAssignment_10_1; }
-
-		//INT
-		public RuleCall getUnknownCountINTTerminalRuleCall_10_1_0() { return cUnknownCountINTTerminalRuleCall_10_1_0; }
-
-		//("failthencount" failthenCount=INT)?
-		public Group getGroup_11() { return cGroup_11; }
-
-		//"failthencount"
-		public Keyword getFailthencountKeyword_11_0() { return cFailthencountKeyword_11_0; }
-
-		//failthenCount=INT
-		public Assignment getFailthenCountAssignment_11_1() { return cFailthenCountAssignment_11_1; }
-
-		//INT
-		public RuleCall getFailthenCountINTTerminalRuleCall_11_1_0() { return cFailthenCountINTTerminalRuleCall_11_1_0; }
-
-		//("andthencount" andthenCount=INT)?
-		public Group getGroup_12() { return cGroup_12; }
-
-		//"andthencount"
-		public Keyword getAndthencountKeyword_12_0() { return cAndthencountKeyword_12_0; }
-
-		//andthenCount=INT
-		public Assignment getAndthenCountAssignment_12_1() { return cAndthenCountAssignment_12_1; }
-
-		//INT
-		public RuleCall getAndthenCountINTTerminalRuleCall_12_1_0() { return cAndthenCountINTTerminalRuleCall_12_1_0; }
-
-		//("tbdcount" tbdCount=INT)?
-		public Group getGroup_13() { return cGroup_13; }
-
-		//"tbdcount"
-		public Keyword getTbdcountKeyword_13_0() { return cTbdcountKeyword_13_0; }
-
-		//tbdCount=INT
-		public Assignment getTbdCountAssignment_13_1() { return cTbdCountAssignment_13_1; }
-
-		//INT
-		public RuleCall getTbdCountINTTerminalRuleCall_13_1_0() { return cTbdCountINTTerminalRuleCall_13_1_0; }
-
-		//("weight" weight=INT)?
-		public Group getGroup_14() { return cGroup_14; }
-
-		//"weight"
-		public Keyword getWeightKeyword_14_0() { return cWeightKeyword_14_0; }
-
-		//weight=INT
-		public Assignment getWeightAssignment_14_1() { return cWeightAssignment_14_1; }
-
-		//INT
-		public RuleCall getWeightINTTerminalRuleCall_14_1_0() { return cWeightINTTerminalRuleCall_14_1_0; }
+		//Metrics
+		public RuleCall getMetricsMetricsParserRuleCall_8_0() { return cMetricsMetricsParserRuleCall_8_0; }
 
 		//"]"
-		public Keyword getRightSquareBracketKeyword_15() { return cRightSquareBracketKeyword_15; }
+		public Keyword getRightSquareBracketKeyword_9() { return cRightSquareBracketKeyword_9; }
 	}
 
-	public class AndThenResultElements extends AbstractParserRuleElementFinder {
-		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "AndThenResult");
+	public class ThenResultElements extends AbstractParserRuleElementFinder {
+		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "ThenResult");
 		private final Group cGroup = (Group)rule.eContents().get(1);
-		private final Keyword cAndthenKeyword_0 = (Keyword)cGroup.eContents().get(0);
+		private final Keyword cThenKeyword_0 = (Keyword)cGroup.eContents().get(0);
 		private final Assignment cFirstAssignment_1 = (Assignment)cGroup.eContents().get(1);
 		private final RuleCall cFirstVerificationExprParserRuleCall_1_0 = (RuleCall)cFirstAssignment_1.eContents().get(0);
 		private final Keyword cDoKeyword_2 = (Keyword)cGroup.eContents().get(2);
 		private final Assignment cSecondAssignment_3 = (Assignment)cGroup.eContents().get(3);
 		private final RuleCall cSecondVerificationExprParserRuleCall_3_0 = (RuleCall)cSecondAssignment_3.eContents().get(0);
 		private final Keyword cLeftSquareBracketKeyword_4 = (Keyword)cGroup.eContents().get(4);
-		private final Assignment cDidAndThenFailAssignment_5 = (Assignment)cGroup.eContents().get(5);
-		private final Keyword cDidAndThenFailAndthenfailedKeyword_5_0 = (Keyword)cDidAndThenFailAssignment_5.eContents().get(0);
-		private final Group cGroup_6 = (Group)cGroup.eContents().get(6);
-		private final Keyword cSuccesscountKeyword_6_0 = (Keyword)cGroup_6.eContents().get(0);
-		private final Assignment cSuccessCountAssignment_6_1 = (Assignment)cGroup_6.eContents().get(1);
-		private final RuleCall cSuccessCountINTTerminalRuleCall_6_1_0 = (RuleCall)cSuccessCountAssignment_6_1.eContents().get(0);
-		private final Group cGroup_7 = (Group)cGroup.eContents().get(7);
-		private final Keyword cFailcountKeyword_7_0 = (Keyword)cGroup_7.eContents().get(0);
-		private final Assignment cFailCountAssignment_7_1 = (Assignment)cGroup_7.eContents().get(1);
-		private final RuleCall cFailCountINTTerminalRuleCall_7_1_0 = (RuleCall)cFailCountAssignment_7_1.eContents().get(0);
-		private final Group cGroup_8 = (Group)cGroup.eContents().get(8);
-		private final Keyword cUnknowncountKeyword_8_0 = (Keyword)cGroup_8.eContents().get(0);
-		private final Assignment cUnknownCountAssignment_8_1 = (Assignment)cGroup_8.eContents().get(1);
-		private final RuleCall cUnknownCountINTTerminalRuleCall_8_1_0 = (RuleCall)cUnknownCountAssignment_8_1.eContents().get(0);
-		private final Group cGroup_9 = (Group)cGroup.eContents().get(9);
-		private final Keyword cFailthencountKeyword_9_0 = (Keyword)cGroup_9.eContents().get(0);
-		private final Assignment cFailthenCountAssignment_9_1 = (Assignment)cGroup_9.eContents().get(1);
-		private final RuleCall cFailthenCountINTTerminalRuleCall_9_1_0 = (RuleCall)cFailthenCountAssignment_9_1.eContents().get(0);
-		private final Group cGroup_10 = (Group)cGroup.eContents().get(10);
-		private final Keyword cAndthencountKeyword_10_0 = (Keyword)cGroup_10.eContents().get(0);
-		private final Assignment cAndthenCountAssignment_10_1 = (Assignment)cGroup_10.eContents().get(1);
-		private final RuleCall cAndthenCountINTTerminalRuleCall_10_1_0 = (RuleCall)cAndthenCountAssignment_10_1.eContents().get(0);
-		private final Group cGroup_11 = (Group)cGroup.eContents().get(11);
-		private final Keyword cTbdcountKeyword_11_0 = (Keyword)cGroup_11.eContents().get(0);
-		private final Assignment cTbdCountAssignment_11_1 = (Assignment)cGroup_11.eContents().get(1);
-		private final RuleCall cTbdCountINTTerminalRuleCall_11_1_0 = (RuleCall)cTbdCountAssignment_11_1.eContents().get(0);
-		private final Group cGroup_12 = (Group)cGroup.eContents().get(12);
-		private final Keyword cWeightKeyword_12_0 = (Keyword)cGroup_12.eContents().get(0);
-		private final Assignment cWeightAssignment_12_1 = (Assignment)cGroup_12.eContents().get(1);
-		private final RuleCall cWeightINTTerminalRuleCall_12_1_0 = (RuleCall)cWeightAssignment_12_1.eContents().get(0);
-		private final Keyword cRightSquareBracketKeyword_13 = (Keyword)cGroup.eContents().get(13);
+		private final Assignment cDidThenFailAssignment_5 = (Assignment)cGroup.eContents().get(5);
+		private final Keyword cDidThenFailThenfailedKeyword_5_0 = (Keyword)cDidThenFailAssignment_5.eContents().get(0);
+		private final Assignment cMetricsAssignment_6 = (Assignment)cGroup.eContents().get(6);
+		private final RuleCall cMetricsMetricsParserRuleCall_6_0 = (RuleCall)cMetricsAssignment_6.eContents().get(0);
+		private final Keyword cRightSquareBracketKeyword_7 = (Keyword)cGroup.eContents().get(7);
 		
-		//AndThenResult:
-		//	"andthen" first+=VerificationExpr "do" second+=VerificationExpr "[" didAndThenFail?="andthenfailed"? ("successcount"
-		//	successCount=INT)? ("failcount" failCount=INT)? ("unknowncount" unknownCount=INT)? ("failthencount"
-		//	failthenCount=INT)? ("andthencount" andthenCount=INT)? ("tbdcount" tbdCount=INT)? ("weight" weight=INT)? "]";
+		//ThenResult:
+		//	"then" first+=VerificationExpr "do" second+=VerificationExpr "[" didThenFail?="thenfailed"? metrics=Metrics "]";
 		@Override public ParserRule getRule() { return rule; }
 
-		//"andthen" first+=VerificationExpr "do" second+=VerificationExpr "[" didAndThenFail?="andthenfailed"? ("successcount"
-		//successCount=INT)? ("failcount" failCount=INT)? ("unknowncount" unknownCount=INT)? ("failthencount" failthenCount=INT)?
-		//("andthencount" andthenCount=INT)? ("tbdcount" tbdCount=INT)? ("weight" weight=INT)? "]"
+		//"then" first+=VerificationExpr "do" second+=VerificationExpr "[" didThenFail?="thenfailed"? metrics=Metrics "]"
 		public Group getGroup() { return cGroup; }
 
-		//"andthen"
-		public Keyword getAndthenKeyword_0() { return cAndthenKeyword_0; }
+		//"then"
+		public Keyword getThenKeyword_0() { return cThenKeyword_0; }
 
 		//first+=VerificationExpr
 		public Assignment getFirstAssignment_1() { return cFirstAssignment_1; }
@@ -1525,98 +717,198 @@ public class AssureGrammarAccess extends AbstractGrammarElementFinder {
 		//"["
 		public Keyword getLeftSquareBracketKeyword_4() { return cLeftSquareBracketKeyword_4; }
 
-		//didAndThenFail?="andthenfailed"?
-		public Assignment getDidAndThenFailAssignment_5() { return cDidAndThenFailAssignment_5; }
+		//didThenFail?="thenfailed"?
+		public Assignment getDidThenFailAssignment_5() { return cDidThenFailAssignment_5; }
 
-		//"andthenfailed"
-		public Keyword getDidAndThenFailAndthenfailedKeyword_5_0() { return cDidAndThenFailAndthenfailedKeyword_5_0; }
+		//"thenfailed"
+		public Keyword getDidThenFailThenfailedKeyword_5_0() { return cDidThenFailThenfailedKeyword_5_0; }
 
-		//("successcount" successCount=INT)?
-		public Group getGroup_6() { return cGroup_6; }
+		//metrics=Metrics
+		public Assignment getMetricsAssignment_6() { return cMetricsAssignment_6; }
 
-		//"successcount"
-		public Keyword getSuccesscountKeyword_6_0() { return cSuccesscountKeyword_6_0; }
-
-		//successCount=INT
-		public Assignment getSuccessCountAssignment_6_1() { return cSuccessCountAssignment_6_1; }
-
-		//INT
-		public RuleCall getSuccessCountINTTerminalRuleCall_6_1_0() { return cSuccessCountINTTerminalRuleCall_6_1_0; }
-
-		//("failcount" failCount=INT)?
-		public Group getGroup_7() { return cGroup_7; }
-
-		//"failcount"
-		public Keyword getFailcountKeyword_7_0() { return cFailcountKeyword_7_0; }
-
-		//failCount=INT
-		public Assignment getFailCountAssignment_7_1() { return cFailCountAssignment_7_1; }
-
-		//INT
-		public RuleCall getFailCountINTTerminalRuleCall_7_1_0() { return cFailCountINTTerminalRuleCall_7_1_0; }
-
-		//("unknowncount" unknownCount=INT)?
-		public Group getGroup_8() { return cGroup_8; }
-
-		//"unknowncount"
-		public Keyword getUnknowncountKeyword_8_0() { return cUnknowncountKeyword_8_0; }
-
-		//unknownCount=INT
-		public Assignment getUnknownCountAssignment_8_1() { return cUnknownCountAssignment_8_1; }
-
-		//INT
-		public RuleCall getUnknownCountINTTerminalRuleCall_8_1_0() { return cUnknownCountINTTerminalRuleCall_8_1_0; }
-
-		//("failthencount" failthenCount=INT)?
-		public Group getGroup_9() { return cGroup_9; }
-
-		//"failthencount"
-		public Keyword getFailthencountKeyword_9_0() { return cFailthencountKeyword_9_0; }
-
-		//failthenCount=INT
-		public Assignment getFailthenCountAssignment_9_1() { return cFailthenCountAssignment_9_1; }
-
-		//INT
-		public RuleCall getFailthenCountINTTerminalRuleCall_9_1_0() { return cFailthenCountINTTerminalRuleCall_9_1_0; }
-
-		//("andthencount" andthenCount=INT)?
-		public Group getGroup_10() { return cGroup_10; }
-
-		//"andthencount"
-		public Keyword getAndthencountKeyword_10_0() { return cAndthencountKeyword_10_0; }
-
-		//andthenCount=INT
-		public Assignment getAndthenCountAssignment_10_1() { return cAndthenCountAssignment_10_1; }
-
-		//INT
-		public RuleCall getAndthenCountINTTerminalRuleCall_10_1_0() { return cAndthenCountINTTerminalRuleCall_10_1_0; }
-
-		//("tbdcount" tbdCount=INT)?
-		public Group getGroup_11() { return cGroup_11; }
-
-		//"tbdcount"
-		public Keyword getTbdcountKeyword_11_0() { return cTbdcountKeyword_11_0; }
-
-		//tbdCount=INT
-		public Assignment getTbdCountAssignment_11_1() { return cTbdCountAssignment_11_1; }
-
-		//INT
-		public RuleCall getTbdCountINTTerminalRuleCall_11_1_0() { return cTbdCountINTTerminalRuleCall_11_1_0; }
-
-		//("weight" weight=INT)?
-		public Group getGroup_12() { return cGroup_12; }
-
-		//"weight"
-		public Keyword getWeightKeyword_12_0() { return cWeightKeyword_12_0; }
-
-		//weight=INT
-		public Assignment getWeightAssignment_12_1() { return cWeightAssignment_12_1; }
-
-		//INT
-		public RuleCall getWeightINTTerminalRuleCall_12_1_0() { return cWeightINTTerminalRuleCall_12_1_0; }
+		//Metrics
+		public RuleCall getMetricsMetricsParserRuleCall_6_0() { return cMetricsMetricsParserRuleCall_6_0; }
 
 		//"]"
-		public Keyword getRightSquareBracketKeyword_13() { return cRightSquareBracketKeyword_13; }
+		public Keyword getRightSquareBracketKeyword_7() { return cRightSquareBracketKeyword_7; }
+	}
+
+	public class MetricsElements extends AbstractParserRuleElementFinder {
+		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "Metrics");
+		private final Group cGroup = (Group)rule.eContents().get(1);
+		private final Group cGroup_0 = (Group)cGroup.eContents().get(0);
+		private final Keyword cTbdcountKeyword_0_0 = (Keyword)cGroup_0.eContents().get(0);
+		private final Assignment cTbdCountAssignment_0_1 = (Assignment)cGroup_0.eContents().get(1);
+		private final RuleCall cTbdCountINTTerminalRuleCall_0_1_0 = (RuleCall)cTbdCountAssignment_0_1.eContents().get(0);
+		private final Group cGroup_1 = (Group)cGroup.eContents().get(1);
+		private final Keyword cSuccesscountKeyword_1_0 = (Keyword)cGroup_1.eContents().get(0);
+		private final Assignment cSuccessCountAssignment_1_1 = (Assignment)cGroup_1.eContents().get(1);
+		private final RuleCall cSuccessCountINTTerminalRuleCall_1_1_0 = (RuleCall)cSuccessCountAssignment_1_1.eContents().get(0);
+		private final Group cGroup_2 = (Group)cGroup.eContents().get(2);
+		private final Keyword cFailcountKeyword_2_0 = (Keyword)cGroup_2.eContents().get(0);
+		private final Assignment cFailCountAssignment_2_1 = (Assignment)cGroup_2.eContents().get(1);
+		private final RuleCall cFailCountINTTerminalRuleCall_2_1_0 = (RuleCall)cFailCountAssignment_2_1.eContents().get(0);
+		private final Group cGroup_3 = (Group)cGroup.eContents().get(3);
+		private final Keyword cTimeoutcountKeyword_3_0 = (Keyword)cGroup_3.eContents().get(0);
+		private final Assignment cTimeoutCountAssignment_3_1 = (Assignment)cGroup_3.eContents().get(1);
+		private final RuleCall cTimeoutCountINTTerminalRuleCall_3_1_0 = (RuleCall)cTimeoutCountAssignment_3_1.eContents().get(0);
+		private final Group cGroup_4 = (Group)cGroup.eContents().get(4);
+		private final Keyword cOthercountKeyword_4_0 = (Keyword)cGroup_4.eContents().get(0);
+		private final Assignment cOtherCountAssignment_4_1 = (Assignment)cGroup_4.eContents().get(1);
+		private final RuleCall cOtherCountINTTerminalRuleCall_4_1_0 = (RuleCall)cOtherCountAssignment_4_1.eContents().get(0);
+		private final Group cGroup_5 = (Group)cGroup.eContents().get(5);
+		private final Keyword cDidelsecountKeyword_5_0 = (Keyword)cGroup_5.eContents().get(0);
+		private final Assignment cDidelseCountAssignment_5_1 = (Assignment)cGroup_5.eContents().get(1);
+		private final RuleCall cDidelseCountINTTerminalRuleCall_5_1_0 = (RuleCall)cDidelseCountAssignment_5_1.eContents().get(0);
+		private final Group cGroup_6 = (Group)cGroup.eContents().get(6);
+		private final Keyword cThenskipcountKeyword_6_0 = (Keyword)cGroup_6.eContents().get(0);
+		private final Assignment cThenskipCountAssignment_6_1 = (Assignment)cGroup_6.eContents().get(1);
+		private final RuleCall cThenskipCountINTTerminalRuleCall_6_1_0 = (RuleCall)cThenskipCountAssignment_6_1.eContents().get(0);
+		private final Group cGroup_7 = (Group)cGroup.eContents().get(7);
+		private final Keyword cPrefailcountKeyword_7_0 = (Keyword)cGroup_7.eContents().get(0);
+		private final Assignment cPreconditionfailCountAssignment_7_1 = (Assignment)cGroup_7.eContents().get(1);
+		private final RuleCall cPreconditionfailCountINTTerminalRuleCall_7_1_0 = (RuleCall)cPreconditionfailCountAssignment_7_1.eContents().get(0);
+		private final Group cGroup_8 = (Group)cGroup.eContents().get(8);
+		private final Keyword cValidfailcountKeyword_8_0 = (Keyword)cGroup_8.eContents().get(0);
+		private final Assignment cValidationfailCountAssignment_8_1 = (Assignment)cGroup_8.eContents().get(1);
+		private final RuleCall cValidationfailCountINTTerminalRuleCall_8_1_0 = (RuleCall)cValidationfailCountAssignment_8_1.eContents().get(0);
+		private final Group cGroup_9 = (Group)cGroup.eContents().get(9);
+		private final Keyword cWeightKeyword_9_0 = (Keyword)cGroup_9.eContents().get(0);
+		private final Assignment cWeightAssignment_9_1 = (Assignment)cGroup_9.eContents().get(1);
+		private final RuleCall cWeightINTTerminalRuleCall_9_1_0 = (RuleCall)cWeightAssignment_9_1.eContents().get(0);
+		
+		//Metrics:
+		//	("tbdcount" tbdCount=INT) ("successcount" successCount=INT)? ("failcount" failCount=INT)? ("timeoutcount"
+		//	timeoutCount=INT)? ("othercount" otherCount=INT)? ("didelsecount" didelseCount=INT)? // else branch executed
+		//	("thenskipcount" thenskipCount=INT)? ("prefailcount" preconditionfailCount=INT)? ("validfailcount"
+		//	validationfailCount=INT)? ("weight" weight=INT)?;
+		@Override public ParserRule getRule() { return rule; }
+
+		//("tbdcount" tbdCount=INT) ("successcount" successCount=INT)? ("failcount" failCount=INT)? ("timeoutcount"
+		//timeoutCount=INT)? ("othercount" otherCount=INT)? ("didelsecount" didelseCount=INT)? // else branch executed
+		//("thenskipcount" thenskipCount=INT)? ("prefailcount" preconditionfailCount=INT)? ("validfailcount"
+		//validationfailCount=INT)? ("weight" weight=INT)?
+		public Group getGroup() { return cGroup; }
+
+		//"tbdcount" tbdCount=INT
+		public Group getGroup_0() { return cGroup_0; }
+
+		//"tbdcount"
+		public Keyword getTbdcountKeyword_0_0() { return cTbdcountKeyword_0_0; }
+
+		//tbdCount=INT
+		public Assignment getTbdCountAssignment_0_1() { return cTbdCountAssignment_0_1; }
+
+		//INT
+		public RuleCall getTbdCountINTTerminalRuleCall_0_1_0() { return cTbdCountINTTerminalRuleCall_0_1_0; }
+
+		//("successcount" successCount=INT)?
+		public Group getGroup_1() { return cGroup_1; }
+
+		//"successcount"
+		public Keyword getSuccesscountKeyword_1_0() { return cSuccesscountKeyword_1_0; }
+
+		//successCount=INT
+		public Assignment getSuccessCountAssignment_1_1() { return cSuccessCountAssignment_1_1; }
+
+		//INT
+		public RuleCall getSuccessCountINTTerminalRuleCall_1_1_0() { return cSuccessCountINTTerminalRuleCall_1_1_0; }
+
+		//("failcount" failCount=INT)?
+		public Group getGroup_2() { return cGroup_2; }
+
+		//"failcount"
+		public Keyword getFailcountKeyword_2_0() { return cFailcountKeyword_2_0; }
+
+		//failCount=INT
+		public Assignment getFailCountAssignment_2_1() { return cFailCountAssignment_2_1; }
+
+		//INT
+		public RuleCall getFailCountINTTerminalRuleCall_2_1_0() { return cFailCountINTTerminalRuleCall_2_1_0; }
+
+		//("timeoutcount" timeoutCount=INT)?
+		public Group getGroup_3() { return cGroup_3; }
+
+		//"timeoutcount"
+		public Keyword getTimeoutcountKeyword_3_0() { return cTimeoutcountKeyword_3_0; }
+
+		//timeoutCount=INT
+		public Assignment getTimeoutCountAssignment_3_1() { return cTimeoutCountAssignment_3_1; }
+
+		//INT
+		public RuleCall getTimeoutCountINTTerminalRuleCall_3_1_0() { return cTimeoutCountINTTerminalRuleCall_3_1_0; }
+
+		//("othercount" otherCount=INT)?
+		public Group getGroup_4() { return cGroup_4; }
+
+		//"othercount"
+		public Keyword getOthercountKeyword_4_0() { return cOthercountKeyword_4_0; }
+
+		//otherCount=INT
+		public Assignment getOtherCountAssignment_4_1() { return cOtherCountAssignment_4_1; }
+
+		//INT
+		public RuleCall getOtherCountINTTerminalRuleCall_4_1_0() { return cOtherCountINTTerminalRuleCall_4_1_0; }
+
+		//("didelsecount" didelseCount=INT)?
+		public Group getGroup_5() { return cGroup_5; }
+
+		//"didelsecount"
+		public Keyword getDidelsecountKeyword_5_0() { return cDidelsecountKeyword_5_0; }
+
+		//didelseCount=INT
+		public Assignment getDidelseCountAssignment_5_1() { return cDidelseCountAssignment_5_1; }
+
+		//INT
+		public RuleCall getDidelseCountINTTerminalRuleCall_5_1_0() { return cDidelseCountINTTerminalRuleCall_5_1_0; }
+
+		//("thenskipcount" thenskipCount=INT)?
+		public Group getGroup_6() { return cGroup_6; }
+
+		//"thenskipcount"
+		public Keyword getThenskipcountKeyword_6_0() { return cThenskipcountKeyword_6_0; }
+
+		//thenskipCount=INT
+		public Assignment getThenskipCountAssignment_6_1() { return cThenskipCountAssignment_6_1; }
+
+		//INT
+		public RuleCall getThenskipCountINTTerminalRuleCall_6_1_0() { return cThenskipCountINTTerminalRuleCall_6_1_0; }
+
+		//("prefailcount" preconditionfailCount=INT)?
+		public Group getGroup_7() { return cGroup_7; }
+
+		//"prefailcount"
+		public Keyword getPrefailcountKeyword_7_0() { return cPrefailcountKeyword_7_0; }
+
+		//preconditionfailCount=INT
+		public Assignment getPreconditionfailCountAssignment_7_1() { return cPreconditionfailCountAssignment_7_1; }
+
+		//INT
+		public RuleCall getPreconditionfailCountINTTerminalRuleCall_7_1_0() { return cPreconditionfailCountINTTerminalRuleCall_7_1_0; }
+
+		//("validfailcount" validationfailCount=INT)?
+		public Group getGroup_8() { return cGroup_8; }
+
+		//"validfailcount"
+		public Keyword getValidfailcountKeyword_8_0() { return cValidfailcountKeyword_8_0; }
+
+		//validationfailCount=INT
+		public Assignment getValidationfailCountAssignment_8_1() { return cValidationfailCountAssignment_8_1; }
+
+		//INT
+		public RuleCall getValidationfailCountINTTerminalRuleCall_8_1_0() { return cValidationfailCountINTTerminalRuleCall_8_1_0; }
+
+		//("weight" weight=INT)?
+		public Group getGroup_9() { return cGroup_9; }
+
+		//"weight"
+		public Keyword getWeightKeyword_9_0() { return cWeightKeyword_9_0; }
+
+		//weight=INT
+		public Assignment getWeightAssignment_9_1() { return cWeightAssignment_9_1; }
+
+		//INT
+		public RuleCall getWeightINTTerminalRuleCall_9_1_0() { return cWeightINTTerminalRuleCall_9_1_0; }
 	}
 
 	public class ResultIssueElements extends AbstractParserRuleElementFinder {
@@ -1803,6 +1095,42 @@ public class AssureGrammarAccess extends AbstractGrammarElementFinder {
 	}
 	
 	
+	public class ElseTypeElements extends AbstractEnumRuleElementFinder {
+		private final EnumRule rule = (EnumRule) GrammarUtil.findRuleForName(getGrammar(), "ElseType");
+		private final Alternatives cAlternatives = (Alternatives)rule.eContents().get(1);
+		private final EnumLiteralDeclaration cFAILEnumLiteralDeclaration_0 = (EnumLiteralDeclaration)cAlternatives.eContents().get(0);
+		private final Keyword cFAILFailKeyword_0_0 = (Keyword)cFAILEnumLiteralDeclaration_0.eContents().get(0);
+		private final EnumLiteralDeclaration cTIMEOUTEnumLiteralDeclaration_1 = (EnumLiteralDeclaration)cAlternatives.eContents().get(1);
+		private final Keyword cTIMEOUTTimeoutKeyword_1_0 = (Keyword)cTIMEOUTEnumLiteralDeclaration_1.eContents().get(0);
+		private final EnumLiteralDeclaration cOTHEREnumLiteralDeclaration_2 = (EnumLiteralDeclaration)cAlternatives.eContents().get(2);
+		private final Keyword cOTHEROtherKeyword_2_0 = (Keyword)cOTHEREnumLiteralDeclaration_2.eContents().get(0);
+		
+		//enum ElseType:
+		//	FAIL="fail" | TIMEOUT="timeout" | OTHER="other";
+		public EnumRule getRule() { return rule; }
+
+		//FAIL="fail" | TIMEOUT="timeout" | OTHER="other"
+		public Alternatives getAlternatives() { return cAlternatives; }
+
+		//FAIL="fail"
+		public EnumLiteralDeclaration getFAILEnumLiteralDeclaration_0() { return cFAILEnumLiteralDeclaration_0; }
+
+		//"fail"
+		public Keyword getFAILFailKeyword_0_0() { return cFAILFailKeyword_0_0; }
+
+		//TIMEOUT="timeout"
+		public EnumLiteralDeclaration getTIMEOUTEnumLiteralDeclaration_1() { return cTIMEOUTEnumLiteralDeclaration_1; }
+
+		//"timeout"
+		public Keyword getTIMEOUTTimeoutKeyword_1_0() { return cTIMEOUTTimeoutKeyword_1_0; }
+
+		//OTHER="other"
+		public EnumLiteralDeclaration getOTHEREnumLiteralDeclaration_2() { return cOTHEREnumLiteralDeclaration_2; }
+
+		//"other"
+		public Keyword getOTHEROtherKeyword_2_0() { return cOTHEROtherKeyword_2_0; }
+	}
+
 	public class ResultIssueTypeElements extends AbstractEnumRuleElementFinder {
 		private final EnumRule rule = (EnumRule) GrammarUtil.findRuleForName(getGrammar(), "ResultIssueType");
 		private final Alternatives cAlternatives = (Alternatives)rule.eContents().get(1);
@@ -1856,14 +1184,16 @@ public class AssureGrammarAccess extends AbstractGrammarElementFinder {
 		private final Keyword cSUCCESSSuccessKeyword_1_0 = (Keyword)cSUCCESSEnumLiteralDeclaration_1.eContents().get(0);
 		private final EnumLiteralDeclaration cFAILEnumLiteralDeclaration_2 = (EnumLiteralDeclaration)cAlternatives.eContents().get(2);
 		private final Keyword cFAILFailKeyword_2_0 = (Keyword)cFAILEnumLiteralDeclaration_2.eContents().get(0);
-		private final EnumLiteralDeclaration cUNKNOWNEnumLiteralDeclaration_3 = (EnumLiteralDeclaration)cAlternatives.eContents().get(3);
-		private final Keyword cUNKNOWNUnknownKeyword_3_0 = (Keyword)cUNKNOWNEnumLiteralDeclaration_3.eContents().get(0);
+		private final EnumLiteralDeclaration cOTHEREnumLiteralDeclaration_3 = (EnumLiteralDeclaration)cAlternatives.eContents().get(3);
+		private final Keyword cOTHEROtherKeyword_3_0 = (Keyword)cOTHEREnumLiteralDeclaration_3.eContents().get(0);
+		private final EnumLiteralDeclaration cTIMEOUTEnumLiteralDeclaration_4 = (EnumLiteralDeclaration)cAlternatives.eContents().get(4);
+		private final Keyword cTIMEOUTTimeoutKeyword_4_0 = (Keyword)cTIMEOUTEnumLiteralDeclaration_4.eContents().get(0);
 		
 		//enum VerificationResultState:
-		//	TBD="tbd" | SUCCESS="success" | FAIL="fail" | UNKNOWN="unknown";
+		//	TBD="tbd" | SUCCESS="success" | FAIL="fail" | OTHER="other" | TIMEOUT="timeout";
 		public EnumRule getRule() { return rule; }
 
-		//TBD="tbd" | SUCCESS="success" | FAIL="fail" | UNKNOWN="unknown"
+		//TBD="tbd" | SUCCESS="success" | FAIL="fail" | OTHER="other" | TIMEOUT="timeout"
 		public Alternatives getAlternatives() { return cAlternatives; }
 
 		//TBD="tbd"
@@ -1884,11 +1214,17 @@ public class AssureGrammarAccess extends AbstractGrammarElementFinder {
 		//"fail"
 		public Keyword getFAILFailKeyword_2_0() { return cFAILFailKeyword_2_0; }
 
-		//UNKNOWN="unknown"
-		public EnumLiteralDeclaration getUNKNOWNEnumLiteralDeclaration_3() { return cUNKNOWNEnumLiteralDeclaration_3; }
+		//OTHER="other"
+		public EnumLiteralDeclaration getOTHEREnumLiteralDeclaration_3() { return cOTHEREnumLiteralDeclaration_3; }
 
-		//"unknown"
-		public Keyword getUNKNOWNUnknownKeyword_3_0() { return cUNKNOWNUnknownKeyword_3_0; }
+		//"other"
+		public Keyword getOTHEROtherKeyword_3_0() { return cOTHEROtherKeyword_3_0; }
+
+		//TIMEOUT="timeout"
+		public EnumLiteralDeclaration getTIMEOUTEnumLiteralDeclaration_4() { return cTIMEOUTEnumLiteralDeclaration_4; }
+
+		//"timeout"
+		public Keyword getTIMEOUTTimeoutKeyword_4_0() { return cTIMEOUTTimeoutKeyword_4_0; }
 	}
 
 	public class VerificationExecutionStateElements extends AbstractEnumRuleElementFinder {
@@ -1953,13 +1289,14 @@ public class AssureGrammarAccess extends AbstractGrammarElementFinder {
 	
 	private final AssuranceEvidenceElements pAssuranceEvidence;
 	private final ClaimResultElements pClaimResult;
-	private final ValidationResultElements pValidationResult;
-	private final PreconditionResultElements pPreconditionResult;
+	private final ConditionResultElements pConditionResult;
 	private final VerificationActivityResultElements pVerificationActivityResult;
 	private final AssureResultElements pAssureResult;
+	private final ElseTypeElements unknownRuleElseType;
 	private final VerificationExprElements pVerificationExpr;
-	private final FailThenResultElements pFailThenResult;
-	private final AndThenResultElements pAndThenResult;
+	private final ElseResultElements pElseResult;
+	private final ThenResultElements pThenResult;
+	private final MetricsElements pMetrics;
 	private final ResultIssueElements pResultIssue;
 	private final ResultIssueTypeElements unknownRuleResultIssueType;
 	private final VerificationResultStateElements unknownRuleVerificationResultState;
@@ -1979,13 +1316,14 @@ public class AssureGrammarAccess extends AbstractGrammarElementFinder {
 		this.gaTerminals = gaTerminals;
 		this.pAssuranceEvidence = new AssuranceEvidenceElements();
 		this.pClaimResult = new ClaimResultElements();
-		this.pValidationResult = new ValidationResultElements();
-		this.pPreconditionResult = new PreconditionResultElements();
+		this.pConditionResult = new ConditionResultElements();
 		this.pVerificationActivityResult = new VerificationActivityResultElements();
 		this.pAssureResult = new AssureResultElements();
+		this.unknownRuleElseType = new ElseTypeElements();
 		this.pVerificationExpr = new VerificationExprElements();
-		this.pFailThenResult = new FailThenResultElements();
-		this.pAndThenResult = new AndThenResultElements();
+		this.pElseResult = new ElseResultElements();
+		this.pThenResult = new ThenResultElements();
+		this.pMetrics = new MetricsElements();
 		this.pResultIssue = new ResultIssueElements();
 		this.unknownRuleResultIssueType = new ResultIssueTypeElements();
 		this.unknownRuleVerificationResultState = new VerificationResultStateElements();
@@ -2024,11 +1362,9 @@ public class AssureGrammarAccess extends AbstractGrammarElementFinder {
 	
 	//// result for a system in the architecture hierarchy
 	//AssuranceEvidence:
-	//	"evidence" name=ID "for" target=[aadl2::ComponentClassifier|AadlClassifierReference] "instance"
-	//	instance=[instance::InstanceObject|URIID] "[" ("successcount" successCount=INT)? ("failcount" failCount=INT)?
-	//	("unknowncount" unknownCount=INT)? ("failthencount" failthenCount=INT)? ("andthencount" andthenCount=INT)? ("tbdcount"
-	//	tbdCount=INT)? ("weight" weight=INT)? ("message" message=STRING)? subAssuranceEvidence+=AssuranceEvidence*
-	//	claimResult+=ClaimResult* "]";
+	//	"evidence" name=QualifiedName "for" (target=[Alisa::AssurancePlan|QualifiedName] | "system"
+	//	targetSystem=[aadl2::ComponentImplementation|AadlClassifierReference]) //	('instance' instance= [instance::InstanceObject|URIID])?
+	//	"[" metrics=Metrics ("message" message=STRING)? claimResult+=ClaimResult* subAssuranceEvidence+=AssuranceEvidence* "]";
 	public AssuranceEvidenceElements getAssuranceEvidenceAccess() {
 		return pAssuranceEvidence;
 	}
@@ -2039,10 +1375,9 @@ public class AssureGrammarAccess extends AbstractGrammarElementFinder {
 
 	//// Result of meeting a requirement
 	//ClaimResult:
-	//	"claim" target=[ReqSpec::Requirement|QualifiedName] ("instance" instance=[instance::InstanceObject|URIID])? // if the requirement is for an element of the component instance
-	//	"[" ("successcount" successCount=INT)? ("failcount" failCount=INT)? ("unknowncount" unknownCount=INT)? ("failthencount"
-	//	failthenCount=INT)? ("andthencount" andthenCount=INT)? ("tbdcount" tbdCount=INT)? ("weight" weight=INT)? ("message"
-	//	message=STRING)? subClaimResult+=ClaimResult* verificationActivityResult+=VerificationExpr* "]";
+	//	"claim" target=[ReqSpec::Requirement|QualifiedName] //	('instance' instance= [instance::InstanceObject|URIID])? // if the requirement is for an element of the component instance
+	//	"[" metrics=Metrics ("message" message=STRING)? subClaimResult+=ClaimResult*
+	//	verificationActivityResult+=VerificationExpr* "]";
 	public ClaimResultElements getClaimResultAccess() {
 		return pClaimResult;
 	}
@@ -2051,44 +1386,26 @@ public class AssureGrammarAccess extends AbstractGrammarElementFinder {
 		return getClaimResultAccess().getRule();
 	}
 
-	//ValidationResult returns VerificationResult:
-	//	"validation" {ValidationResult} target=[Verify::VerificationValidation|QualifiedName] "[" "executionstate"
-	//	executionState=VerificationExecutionState "resultstate" resultState=VerificationResultState ("issues" "["
-	//	issues+=ResultIssue* "]")? ("report" resultReport=[results::ResultReport|QualifiedName])? // pointer to separate report
-	//	("successcount" successCount=INT)? ("failcount" failCount=INT)? ("unknowncount" unknownCount=INT)? ("failthencount"
-	//	failthenCount=INT)? ("andthencount" andthenCount=INT)? ("tbdcount" tbdCount=INT)? ("weight" weight=INT)? ("message"
-	//	message=STRING)? "]";
-	public ValidationResultElements getValidationResultAccess() {
-		return pValidationResult;
+	//ConditionResult returns VerificationResult:
+	//	("precondition" {PreconditionResult} | "validation" {ValidationResult})
+	//	target=[Verify::VerificationCondition|QualifiedName] "[" "executionstate" executionState=VerificationExecutionState
+	//	"resultstate" resultState=VerificationResultState ("issues" "[" issues+=ResultIssue* "]")? ("report"
+	//	resultReport=[results::ResultReport|QualifiedName])? // pointer to separate report
+	//	metrics=Metrics ("message" message=STRING)? "]";
+	public ConditionResultElements getConditionResultAccess() {
+		return pConditionResult;
 	}
 	
-	public ParserRule getValidationResultRule() {
-		return getValidationResultAccess().getRule();
-	}
-
-	//PreconditionResult returns VerificationResult:
-	//	"precondition" {PreconditionResult} name=ID "for" target=[Verify::VerificationPrecondition|QualifiedName] "["
-	//	"executionstate" executionState=VerificationExecutionState "resultstate" resultState=VerificationResultState ("issues"
-	//	"[" issues+=ResultIssue* "]")? ("report" resultReport=[results::ResultReport|QualifiedName])? // pointer to separate report
-	//	("successcount" successCount=INT)? ("failcount" failCount=INT)? ("unknowncount" unknownCount=INT)? ("failthencount"
-	//	failthenCount=INT)? ("andthencount" andthenCount=INT)? ("tbdcount" tbdCount=INT)? ("weight" weight=INT)? ("message"
-	//	message=STRING)? "]";
-	public PreconditionResultElements getPreconditionResultAccess() {
-		return pPreconditionResult;
-	}
-	
-	public ParserRule getPreconditionResultRule() {
-		return getPreconditionResultAccess().getRule();
+	public ParserRule getConditionResultRule() {
+		return getConditionResultAccess().getRule();
 	}
 
 	//// result of executing a verification activity
 	//VerificationActivityResult returns VerificationResult:
-	//	"verification" {VerificationActivityResult} target=[Verify::VerificationActivity|QualifiedName] "[" "executionstate"
-	//	executionState=VerificationExecutionState "resultstate" resultState=VerificationResultState ("issues" "["
-	//	issues+=ResultIssue* "]")? ("report" resultReport=[results::ResultReport|QualifiedName])? // pointer to separate report
-	//	("successcount" successCount=INT)? ("failcount" failCount=INT)? ("unknowncount" unknownCount=INT)? ("failthencount"
-	//	failthenCount=INT)? ("andthencount" andthenCount=INT)? ("tbdcount" tbdCount=INT)? ("weight" weight=INT)? ("message"
-	//	message=STRING)? validationResult+=ValidationResult* preconditionResult+=PreconditionResult* "]";
+	//	"verification" {VerificationActivityResult} target=[Verify::VerificationActivity|QualifiedName] //	('instance' instance= [instance::InstanceObject|URIID])?
+	//	"[" "executionstate" executionState=VerificationExecutionState "resultstate" resultState=VerificationResultState
+	//	("issues" "[" issues+=ResultIssue* "]")? ("report" resultReport=[results::ResultReport|QualifiedName])? // pointer to separate report
+	//	metrics=Metrics ("message" message=STRING)? conditionResult=ConditionResult? "]";
 	public VerificationActivityResultElements getVerificationActivityResultAccess() {
 		return pVerificationActivityResult;
 	}
@@ -2098,7 +1415,7 @@ public class AssureGrammarAccess extends AbstractGrammarElementFinder {
 	}
 
 	//AssureResult:
-	//	VerificationExpr | AssuranceEvidence | ClaimResult | PreconditionResult | ValidationResult;
+	//	VerificationExpr | AssuranceEvidence | ClaimResult | ConditionResult;
 	public AssureResultElements getAssureResultAccess() {
 		return pAssureResult;
 	}
@@ -2107,8 +1424,18 @@ public class AssureGrammarAccess extends AbstractGrammarElementFinder {
 		return getAssureResultAccess().getRule();
 	}
 
+	//enum ElseType:
+	//	FAIL="fail" | TIMEOUT="timeout" | OTHER="other";
+	public ElseTypeElements getElseTypeAccess() {
+		return unknownRuleElseType;
+	}
+	
+	public EnumRule getElseTypeRule() {
+		return getElseTypeAccess().getRule();
+	}
+
 	//VerificationExpr:
-	//	VerificationActivityResult | FailThenResult | AndThenResult;
+	//	VerificationActivityResult | ElseResult | ThenResult;
 	public VerificationExprElements getVerificationExprAccess() {
 		return pVerificationExpr;
 	}
@@ -2117,29 +1444,38 @@ public class AssureGrammarAccess extends AbstractGrammarElementFinder {
 		return getVerificationExprAccess().getRule();
 	}
 
-	//FailThenResult:
-	//	"failthen" first+=VerificationExpr "do" second+=VerificationExpr "[" failThen?="failthen"? unknownThen?="unknownthen"?
-	//	didFail?="didfail"? ("successcount" successCount=INT)? ("failcount" failCount=INT)? ("unknowncount" unknownCount=INT)?
-	//	("failthencount" failthenCount=INT)? ("andthencount" andthenCount=INT)? ("tbdcount" tbdCount=INT)? ("weight"
-	//	weight=INT)? "]";
-	public FailThenResultElements getFailThenResultAccess() {
-		return pFailThenResult;
+	//ElseResult:
+	//	"else" first+=VerificationExpr "other" other+=VerificationExpr? ("fail" fail+=VerificationExpr)? ("timeout"
+	//	timeout+=VerificationExpr)? "[" didFail=ElseType? metrics=Metrics "]";
+	public ElseResultElements getElseResultAccess() {
+		return pElseResult;
 	}
 	
-	public ParserRule getFailThenResultRule() {
-		return getFailThenResultAccess().getRule();
+	public ParserRule getElseResultRule() {
+		return getElseResultAccess().getRule();
 	}
 
-	//AndThenResult:
-	//	"andthen" first+=VerificationExpr "do" second+=VerificationExpr "[" didAndThenFail?="andthenfailed"? ("successcount"
-	//	successCount=INT)? ("failcount" failCount=INT)? ("unknowncount" unknownCount=INT)? ("failthencount"
-	//	failthenCount=INT)? ("andthencount" andthenCount=INT)? ("tbdcount" tbdCount=INT)? ("weight" weight=INT)? "]";
-	public AndThenResultElements getAndThenResultAccess() {
-		return pAndThenResult;
+	//ThenResult:
+	//	"then" first+=VerificationExpr "do" second+=VerificationExpr "[" didThenFail?="thenfailed"? metrics=Metrics "]";
+	public ThenResultElements getThenResultAccess() {
+		return pThenResult;
 	}
 	
-	public ParserRule getAndThenResultRule() {
-		return getAndThenResultAccess().getRule();
+	public ParserRule getThenResultRule() {
+		return getThenResultAccess().getRule();
+	}
+
+	//Metrics:
+	//	("tbdcount" tbdCount=INT) ("successcount" successCount=INT)? ("failcount" failCount=INT)? ("timeoutcount"
+	//	timeoutCount=INT)? ("othercount" otherCount=INT)? ("didelsecount" didelseCount=INT)? // else branch executed
+	//	("thenskipcount" thenskipCount=INT)? ("prefailcount" preconditionfailCount=INT)? ("validfailcount"
+	//	validationfailCount=INT)? ("weight" weight=INT)?;
+	public MetricsElements getMetricsAccess() {
+		return pMetrics;
+	}
+	
+	public ParserRule getMetricsRule() {
+		return getMetricsAccess().getRule();
 	}
 
 	//// use it for failures, warnings and successes.
@@ -2165,7 +1501,7 @@ public class AssureGrammarAccess extends AbstractGrammarElementFinder {
 	}
 
 	//enum VerificationResultState:
-	//	TBD="tbd" | SUCCESS="success" | FAIL="fail" | UNKNOWN="unknown";
+	//	TBD="tbd" | SUCCESS="success" | FAIL="fail" | OTHER="other" | TIMEOUT="timeout";
 	public VerificationResultStateElements getVerificationResultStateAccess() {
 		return unknownRuleVerificationResultState;
 	}

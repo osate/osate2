@@ -17,13 +17,11 @@ Verification:
 VerificationPlan:
 	'verification' 'plan' name=ID (':' title=STRING)? 
 	'for' systemRequirements=[ReqSpec::SystemRequirements|ID]  
-//	'for' target=[aadl2::ComponentClassifier|AADLCLASSIFIERREFERENCE] 
 	'['
 	(
 		( description=Description)?
 	& claim+=Claim*
-	& (rationale=Rationale)?
-	& ('assume' verifiedAssumption+=[VerificationPlan|QualifiedName]+)?
+	& rationale=Rationale?
 	& ('issues' issues+=STRING+ )?
 	)
 	']';
@@ -36,77 +34,112 @@ Claim:
 		('activities' activities += VerificationActivity+)
 		&('assert' assert=ArgumentExpr)
 	& ('argument' argument=STRING )?//( argumentUncertainty=Uncertainty)? )?
-	& (rationale=Rationale)?
-	& (subclaim+=Claim)*
+	& rationale=Rationale?
+	& subclaim+=Claim*
 	& ('issues' issues+=STRING+ )?
 	)  
 	']';
-//
-//VerificationLibrary returns VerificationLibrary:
-//	'library' name=ID (':' title=STRING)?
-//	('for' target=[aadl2::ComponentClassifier|AADLCLASSIFIERREFERENCE])?
-//	'['
-//	( ( description=Description)?
-//	&(content+=(VerificationActivity |  VerificationFolder))*
-//	)
-//	']';
-
-
-//VerificationActivityParameter:
-//	ComputeDeclaration | XValDeclaration
-//;
 
 
 VerificationActivity:
-	name=ID ':'
-	(
-		( result+=[common::ComputeDeclaration|ID] (',' result+=[common::ComputeDeclaration|ID])*)?
+	name=ID  ( ':' title=STRING)? 
+	('for' target=[aadl2::ComponentImplementation|AADLCLASSIFIERREFERENCE])? // for specific AADL model configuration
+	':' (
+		( result+=[common::ComputeDeclaration|ID] (',' result+=[common::ComputeDeclaration|ID])* '=')?
 	   method=[VerificationMethod|QualifiedName] '(' (parameters+=[xbase::XExpression| ID] (',' parameters+=[xbase::XExpression| ID])*)?')'
 	('timeout' timeout=INT)?
-	//	('parameters'  verificationParameters+=([ElementReference])*)? 
-	// these are data parameters to the method in addition to what comes with the model
 )
 	;
-	
-//	VMParameter:
-//		{VMParameter} value = [xbase::XVariableDeclaration|ID]
-//	;
-
-VerificationCondition:
-	('validation' {VerificationValidation} | 'precondition' {VerificationPrecondition}) name=ID
-	(':' title=STRING)?
-	'[' (
-	 ( description=Description)?
-	 &  (method=[VerificationMethod|QualifiedName] '(' (parameters+=[xbase::XExpression| ID] (',' parameters+=[xbase::XExpression| ID])*)?')'
-	('timeout' timeout=INT)?)
-	& (rationale=Rationale)?
-	)
-	']';
 
 ArgumentExpr:
-	AllEvidenceExpr;
+	ThenEvidenceExpr;
 
-AllEvidenceExpr returns ArgumentExpr:
-	'all' {AllExpr} '[' all+=AndThenEvidenceExpr (',' all+=AndThenEvidenceExpr)* ']';
-
-AndThenEvidenceExpr returns ArgumentExpr:
-	FailThenEvidenceExpr (=> ({AndThenExpr.left=current} 'andthen') right=AndThenEvidenceExpr)*;
+ThenEvidenceExpr returns ArgumentExpr:
+	ElseEvidenceExpr (=> ({ThenExpr.left=current} 'then') successor=ThenEvidenceExpr)*;
 
 	// Execute as alternative if the first one fails.
 // The results of both are reported
-FailThenEvidenceExpr returns ArgumentExpr:
-	AtomicEvidenceExpr (=> ({FailThenExpr.left=current} (failed?='failthen'|unknown?='unknownthen')) right=FailThenEvidenceExpr)*;
+ElseEvidenceExpr returns ArgumentExpr:
+	SingleElseEvidenceExpr | CompositeElseEvidenceExpr
+;
+	
+SingleElseEvidenceExpr returns ArgumentExpr:	
+	SingleEvidenceExpr (=> ({ElseExpr.left=current} 'else') 
+		(other=ElseEvidenceExpr | 
+				'[' ('fail' ':' fail=ThenEvidenceExpr)? ('timeout' ':' timeout=ThenEvidenceExpr)? 
+				('other' ':' other=ThenEvidenceExpr)? 
+				 ']'
+		)
+	)*
+	;
 
-AtomicEvidenceExpr returns ArgumentExpr:
-	ConditionalEvidence
-	| '(' AndThenEvidenceExpr ')' | AllEvidenceExpr;
+CompositeElseEvidenceExpr returns ArgumentExpr:	
+	CompositeEvidenceExpr (=> ({ElseExpr.left=current} 'else') 
+		other=ElseEvidenceExpr 
+	)*
+	;
 
-ConditionalEvidence returns ArgumentExpr:
+
+QuantifiedEvidenceExpr returns ArgumentExpr:
+	 'all' {AllExpr} '[' elements+=ThenEvidenceExpr (',' elements+=ThenEvidenceExpr)* ']' ;
+
+
+CompositeEvidenceExpr returns ArgumentExpr:
+	 '(' ThenEvidenceExpr ')' | QuantifiedEvidenceExpr;
+
+SingleEvidenceExpr returns ArgumentExpr:
 	VAReference (=> ({WhenExpr.verification=current} 'when') condition+=[categories::VerificationCategory|ID]+)?; // should it be a selection category as well
 
 VAReference returns ArgumentExpr:
 	{RefExpr} verification=[VerificationActivity|QualifiedName]
 	('(' weight=INT ')')?;
+
+//ConditionalEvidenceExpr returns ArgumentExpr:
+//	AtomicEvidenceExpr ( => 
+//		( => ({ConditionalEvidenceExpr.condition=current} 'else' 
+//			(alternative=ConditionalElseExpr |
+//				'[' ('fail' ':' fail=ConditionalEvidenceExpr)? ('timeout' ':' timeout=ConditionalEvidenceExpr)? 
+//				('other' ':' other=ConditionalEvidenceExpr)? 
+//				 ']'
+//			)
+//		))
+//		|
+//		(  {ConditionalEvidenceExpr.condition=current} 'then' successor=ConditionalThenExpr
+//		( => 'else' 
+//			(alternative=ConditionalElseExpr |
+//				'[' ('fail' ':' fail=ConditionalEvidenceExpr)? ('timeout' ':' timeout=ConditionalEvidenceExpr)? 
+//				('other' ':' other=ConditionalEvidenceExpr)? 
+//				 ']'
+//			)
+//		)?) 
+//	)?
+//;
+//
+//ConditionalThenExpr returns ArgumentExpr:
+//	AtomicEvidenceExpr ( => (  {ConditionalEvidenceExpr.condition=current} 'then' successor=ConditionalThenExpr
+//		( => 'else' 
+//			(alternative=ConditionalElseExpr |
+//				'[' ('fail' ':' fail=ConditionalEvidenceExpr)? ('timeout' ':' timeout=ConditionalEvidenceExpr)? 
+//				('other' ':' other=ConditionalEvidenceExpr)? 
+//				 ']'
+//			)
+//		)?) 
+//	)?
+//;
+//
+//
+//ConditionalElseExpr returns ArgumentExpr:
+//	AtomicEvidenceExpr ( =>  (  {ConditionalEvidenceExpr.condition=current} 'else' 
+//			(alternative=ConditionalElseExpr |
+//				'[' ('fail' ':' fail=ConditionalEvidenceExpr)? ('timeout' ':' timeout=ConditionalEvidenceExpr)? 
+//				('other' ':' other=ConditionalEvidenceExpr)? 
+//				 ']'
+//			)
+//		)
+//	)?
+//;
+
+
 
 VerificationMethodRegistry returns VerificationMethodRegistry:
 	'verification' 'methods' name=ID
@@ -116,28 +149,39 @@ VerificationMethodRegistry returns VerificationMethodRegistry:
 	methods+=VerificationMethod*)
 	']';
 
-VerificationMethodParameter:
-	name=ID
-;
-
 VerificationMethod:
-	'method' name=ID ('(' (params+=FullJvmFormalParameter (',' params+=FullJvmFormalParameter)*)? ')' )? (':' title=STRING)?
+	'method' name=ID ('(' (params+=FullJvmFormalParameter (',' params+=FullJvmFormalParameter)*)? ')' 
+		(isPredicate?='boolean'|isResultReport?='report')?
+	)? 
+	(':' title=STRING)?
 	'['
 	(
-	(methodType=SupportedTypes scope=SupportedScopes (reporting=SupportedReporting)?)
-	&( description=Description)?
+	methodType=SupportedTypes 
+	& description=Description?
 	&('path' methodPath=STRING)?
-	& (conditions+=VerificationCondition)*
-	// parameters (in addition to the model element
+	& condition=VerificationCondition?
 	& ('category' category+=[categories::VerificationCategory|ID]+)?
 	)
 	']';
 
-enum SupportedTypes:
-	ANALYSIS='analysis' | PREDICATE='predicate' | COMPUTE='compute' 
-	| RESOLUTEPROVE='resoluteprove' | RESOLUTECOMPUTE='resolutecompute' 
-	| RESOLUTEPREDICATE='resolutepredicate'| MANUAL='manual';
-	
-enum SupportedScopes: SELF='self' | PARTS='parts' | ALL='all';
 
-enum SupportedReporting: MARKER='marker' |ERRORMARKER='errormarker' | DIAGNOSTICS='diagnostics'| ASSERTEXCEPTION='assertexception'|RESULTREPORT='resultreport' ;
+VerificationCondition:
+	('validation' {VerificationValidation} | 'precondition' {VerificationPrecondition}) 
+ 	 name=ID
+	(':' title=STRING)?
+	'[' (
+	 ( description=Description)?
+	 &  (method=[VerificationMethod|QualifiedName] '(' (parameters+=[xbase::XExpression| ID] (',' parameters+=[xbase::XExpression| ID])*)?')'
+	('timeout' timeout=INT)?)
+	& rationale=Rationale?
+	)
+	']';
+
+enum SupportedTypes:
+	ANALYSISPLUGIN='analysisplugin'  
+	| RESOLUTE='resolute' | JAVA='java' 
+	| MANUAL='manual';
+	
+//enum SupportedScopes: SELF='self' | PARTS='parts' | ALL='all';
+
+//enum SupportedReporting: MARKER='marker' |ERRORMARKER='errormarker' | DIAGNOSTICS='diagnostics'| ASSERTEXCEPTION='assertexception'|RESULTREPORT='resultreport' ;

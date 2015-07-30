@@ -17,6 +17,8 @@ import static extension org.eclipse.emf.ecore.util.EcoreUtil.*
 import org.osate.aadl2.Aadl2Package
 import org.eclipse.xtext.naming.IQualifiedNameConverter
 import org.eclipse.emf.common.util.URI
+import org.eclipse.emf.ecore.util.EcoreUtil
+import org.osate.aadl2.ComponentClassifier
 
 class CommonGlobalScopeProvider extends DefaultGlobalScopeProvider {
 	@Inject 
@@ -73,12 +75,12 @@ class CommonGlobalScopeProvider extends DefaultGlobalScopeProvider {
 	
 	def EObject getGlobalEObject(EObject context, EClass eClass, String qname, Predicate<IEObjectDescription> filter){
 		val eod = context.getGlobalEObjectDescription(eClass, qname, filter)
-		eod?.EObjectOrProxy
+		EcoreUtil.resolve(eod?.EObjectOrProxy, context)
 	}
 	
 	def EObject getGlobalEObject(EObject context, EClass eClass, String qname){
 		val eod = context.getGlobalEObjectDescription(eClass, qname)
-		eod?.EObjectOrProxy
+		EcoreUtil.resolve(eod?.EObjectOrProxy, context)
 	}
 	
 	def URI getGlobalEObjectURI(EObject context, EClass eClass, String qname){
@@ -86,24 +88,13 @@ class CommonGlobalScopeProvider extends DefaultGlobalScopeProvider {
 		eod?.EObjectURI
 	}
 	
-//	def EObject getPropertyDefinition(EObject context, String qname){
-//		val eod = context.getGlobalEObjectDescription(Aadl2Package.eINSTANCE.getProperty(), qname)
-//		eod.EObjectOrProxy
-//	}
-//		
-//	def EObject getClassifier(EObject context, String qname){
-//		val eod = context.getGlobalEObjectDescription(Aadl2Package.eINSTANCE.classifier, qname)
-//		eod.EObjectOrProxy
-//	}
-
-def void printScope(Iterable<IEObjectDescription> edl){
-	println("scope content")
-	edl.forEach[ed|println(ed.name+ " URI " + ed.EObjectURI)]
-}
-def void printScope(IScope scope){
-	println("scope")
-	val edl = scope.allElements
-	edl.forEach[ed|println(ed.name+ " URI " + ed.EObjectURI)]
-}
+	def getPropertyDefinition(EObject context, String qname){
+		context.getGlobalEObject(Aadl2Package.eINSTANCE.getProperty(), qname) as org.osate.aadl2.Property
+		
+	}
+		
+	def ComponentClassifier getComponentClassifier(EObject context, String qname){
+		context.getGlobalEObject(Aadl2Package.eINSTANCE.classifier, qname) as ComponentClassifier
+	}
 
 }

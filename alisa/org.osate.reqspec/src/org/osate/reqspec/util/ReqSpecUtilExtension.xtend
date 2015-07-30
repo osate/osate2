@@ -6,11 +6,18 @@ import org.osate.reqspec.reqSpec.StakeholderGoals
 import org.osate.reqspec.reqSpec.Requirement
 import static extension org.eclipse.xtext.EcoreUtil2.*
 import org.osate.reqspec.reqSpec.SystemRequirements
+import org.osate.aadl2.Aadl2Package
+import org.osate.aadl2.ComponentClassifier
+import org.osate.alisa.common.scoping.CommonGlobalScopeProvider
+import com.google.inject.Inject
+import org.eclipse.xtext.scoping.IGlobalScopeProvider
 
 class ReqSpecUtilExtension {
 	
-	def static contextClassifier(ContractualElement context) {
-		var EObject container = context
+	
+	def static targetClassifier(ContractualElement req){
+		if (req.target != null) return req.target
+		var EObject container = req
 		while (container.eContainer != null) {
 			container =container.eContainer
 			if (container instanceof SystemRequirements){
@@ -24,11 +31,6 @@ class ReqSpecUtilExtension {
 		}
 		return null;
 	}
-	
-	def static targetClassifier(ContractualElement req){
-	req.target?:
-		req.contextClassifier
-	}
 
 	def static containingRequirement(EObject sh){
 		sh.getContainerOfType(Requirement)
@@ -37,18 +39,5 @@ class ReqSpecUtilExtension {
 	def static containingSystemRequirements(EObject sh){
 		sh.getContainerOfType(SystemRequirements)
 	}
-	
-//	def static allRequirements(ReqSpecs reqs){
-//		val allreqs = reqs.content.filter[a|a instanceof Requirement] as Iterable<Requirement>
-////		reqs.content.filter[a|a instanceof ReqSpecFolder].forEach[b| allreqs.concat((b as ReqSpecFolder).allRequirements)]
-////		concat(allreqs,allreqs)
-//		return allreqs
-//	}
-//	
-//	def static allRequirements(ReqSpecFolder reqs){
-//		val allreqs = reqs.content.filter[a|a instanceof Requirement] as Iterable<Requirement>
-//		val allFolders = reqs.content.filter[a|a instanceof ReqSpecFolder] as Iterable<ReqSpecFolder>
-//		return allreqs
-//	}
 	
 }

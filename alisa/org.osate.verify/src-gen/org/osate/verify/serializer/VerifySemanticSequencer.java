@@ -65,6 +65,7 @@ import org.osate.alisa.common.common.ComputeDeclaration;
 import org.osate.alisa.common.common.Description;
 import org.osate.alisa.common.common.DescriptionElement;
 import org.osate.alisa.common.common.ImageReference;
+import org.osate.alisa.common.common.PropertyConsistentVariableDeclaration;
 import org.osate.alisa.common.common.Rationale;
 import org.osate.alisa.common.common.ShowValue;
 import org.osate.alisa.common.common.Uncertainty;
@@ -72,14 +73,13 @@ import org.osate.alisa.common.common.XNumberLiteralUnit;
 import org.osate.alisa.common.serializer.CommonSemanticSequencer;
 import org.osate.verify.services.VerifyGrammarAccess;
 import org.osate.verify.verify.AllExpr;
-import org.osate.verify.verify.AndThenExpr;
 import org.osate.verify.verify.Claim;
-import org.osate.verify.verify.FailThenExpr;
+import org.osate.verify.verify.ElseExpr;
 import org.osate.verify.verify.RefExpr;
+import org.osate.verify.verify.ThenExpr;
 import org.osate.verify.verify.Verification;
 import org.osate.verify.verify.VerificationActivity;
 import org.osate.verify.verify.VerificationMethod;
-import org.osate.verify.verify.VerificationMethodParameter;
 import org.osate.verify.verify.VerificationMethodRegistry;
 import org.osate.verify.verify.VerificationPlan;
 import org.osate.verify.verify.VerificationPrecondition;
@@ -110,6 +110,9 @@ public class VerifySemanticSequencer extends CommonSemanticSequencer {
 				return; 
 			case CommonPackage.IMAGE_REFERENCE:
 				sequence_ImageReference(context, (ImageReference) semanticObject); 
+				return; 
+			case CommonPackage.PROPERTY_CONSISTENT_VARIABLE_DECLARATION:
+				sequence_XValDeclaration(context, (PropertyConsistentVariableDeclaration) semanticObject); 
 				return; 
 			case CommonPackage.RATIONALE:
 				sequence_Rationale(context, (Rationale) semanticObject); 
@@ -173,19 +176,33 @@ public class VerifySemanticSequencer extends CommonSemanticSequencer {
 			}
 		else if(semanticObject.eClass().getEPackage() == VerifyPackage.eINSTANCE) switch(semanticObject.eClass().getClassifierID()) {
 			case VerifyPackage.ALL_EXPR:
-				sequence_AllEvidenceExpr(context, (AllExpr) semanticObject); 
-				return; 
-			case VerifyPackage.AND_THEN_EXPR:
-				sequence_AndThenEvidenceExpr(context, (AndThenExpr) semanticObject); 
+				sequence_QuantifiedEvidenceExpr(context, (AllExpr) semanticObject); 
 				return; 
 			case VerifyPackage.CLAIM:
 				sequence_Claim(context, (Claim) semanticObject); 
 				return; 
-			case VerifyPackage.FAIL_THEN_EXPR:
-				sequence_FailThenEvidenceExpr(context, (FailThenExpr) semanticObject); 
-				return; 
+			case VerifyPackage.ELSE_EXPR:
+				if(context == grammarAccess.getArgumentExprRule() ||
+				   context == grammarAccess.getCompositeElseEvidenceExprRule() ||
+				   context == grammarAccess.getCompositeElseEvidenceExprAccess().getElseExprLeftAction_1_0_0_0() ||
+				   context == grammarAccess.getCompositeEvidenceExprRule() ||
+				   context == grammarAccess.getElseEvidenceExprRule() ||
+				   context == grammarAccess.getThenEvidenceExprRule() ||
+				   context == grammarAccess.getThenEvidenceExprAccess().getThenExprLeftAction_1_0_0_0()) {
+					sequence_CompositeElseEvidenceExpr_ElseEvidenceExpr_SingleElseEvidenceExpr(context, (ElseExpr) semanticObject); 
+					return; 
+				}
+				else if(context == grammarAccess.getSingleElseEvidenceExprRule() ||
+				   context == grammarAccess.getSingleElseEvidenceExprAccess().getElseExprLeftAction_1_0_0_0()) {
+					sequence_SingleElseEvidenceExpr(context, (ElseExpr) semanticObject); 
+					return; 
+				}
+				else break;
 			case VerifyPackage.REF_EXPR:
 				sequence_VAReference(context, (RefExpr) semanticObject); 
+				return; 
+			case VerifyPackage.THEN_EXPR:
+				sequence_ThenEvidenceExpr(context, (ThenExpr) semanticObject); 
 				return; 
 			case VerifyPackage.VERIFICATION:
 				sequence_Verification(context, (Verification) semanticObject); 
@@ -195,9 +212,6 @@ public class VerifySemanticSequencer extends CommonSemanticSequencer {
 				return; 
 			case VerifyPackage.VERIFICATION_METHOD:
 				sequence_VerificationMethod(context, (VerificationMethod) semanticObject); 
-				return; 
-			case VerifyPackage.VERIFICATION_METHOD_PARAMETER:
-				sequence_VerificationMethodParameter(context, (VerificationMethodParameter) semanticObject); 
 				return; 
 			case VerifyPackage.VERIFICATION_METHOD_REGISTRY:
 				sequence_VerificationMethodRegistry(context, (VerificationMethodRegistry) semanticObject); 
@@ -212,7 +226,7 @@ public class VerifySemanticSequencer extends CommonSemanticSequencer {
 				sequence_VerificationCondition(context, (VerificationValidation) semanticObject); 
 				return; 
 			case VerifyPackage.WHEN_EXPR:
-				sequence_ConditionalEvidence(context, (WhenExpr) semanticObject); 
+				sequence_SingleEvidenceExpr(context, (WhenExpr) semanticObject); 
 				return; 
 			}
 		else if(semanticObject.eClass().getEPackage() == XbasePackage.eINSTANCE) switch(semanticObject.eClass().getClassifierID()) {
@@ -374,16 +388,8 @@ public class VerifySemanticSequencer extends CommonSemanticSequencer {
 				sequence_XUnaryOperation(context, (XUnaryOperation) semanticObject); 
 				return; 
 			case XbasePackage.XVARIABLE_DECLARATION:
-				if(context == grammarAccess.getXValDeclarationRule()) {
-					sequence_XValDeclaration(context, (XVariableDeclaration) semanticObject); 
-					return; 
-				}
-				else if(context == grammarAccess.getXExpressionOrVarDeclarationRule() ||
-				   context == grammarAccess.getXVariableDeclarationRule()) {
-					sequence_XVariableDeclaration(context, (XVariableDeclaration) semanticObject); 
-					return; 
-				}
-				else break;
+				sequence_XVariableDeclaration(context, (XVariableDeclaration) semanticObject); 
+				return; 
 			case XbasePackage.XWHILE_EXPRESSION:
 				sequence_XWhileExpression(context, (XWhileExpression) semanticObject); 
 				return; 
@@ -401,34 +407,6 @@ public class VerifySemanticSequencer extends CommonSemanticSequencer {
 			}
 		if (errorAcceptor != null) errorAcceptor.accept(diagnosticProvider.createInvalidContextOrTypeDiagnostic(semanticObject, context));
 	}
-	
-	/**
-	 * Constraint:
-	 *     (all+=AndThenEvidenceExpr all+=AndThenEvidenceExpr*)
-	 */
-	protected void sequence_AllEvidenceExpr(EObject context, AllExpr semanticObject) {
-		genericSequencer.createSequence(context, semanticObject);
-	}
-	
-	
-	/**
-	 * Constraint:
-	 *     (left=AndThenEvidenceExpr_AndThenExpr_1_0_0_0 right=AndThenEvidenceExpr)
-	 */
-	protected void sequence_AndThenEvidenceExpr(EObject context, AndThenExpr semanticObject) {
-		if(errorAcceptor != null) {
-			if(transientValues.isValueTransient(semanticObject, VerifyPackage.Literals.AND_THEN_EXPR__LEFT) == ValueTransient.YES)
-				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, VerifyPackage.Literals.AND_THEN_EXPR__LEFT));
-			if(transientValues.isValueTransient(semanticObject, VerifyPackage.Literals.AND_THEN_EXPR__RIGHT) == ValueTransient.YES)
-				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, VerifyPackage.Literals.AND_THEN_EXPR__RIGHT));
-		}
-		INodesForEObjectProvider nodes = createNodeProvider(semanticObject);
-		SequenceFeeder feeder = createSequencerFeeder(semanticObject, nodes);
-		feeder.accept(grammarAccess.getAndThenEvidenceExprAccess().getAndThenExprLeftAction_1_0_0_0(), semanticObject.getLeft());
-		feeder.accept(grammarAccess.getAndThenEvidenceExprAccess().getRightAndThenEvidenceExprParserRuleCall_1_1_0(), semanticObject.getRight());
-		feeder.finish();
-	}
-	
 	
 	/**
 	 * Constraint:
@@ -451,19 +429,65 @@ public class VerifySemanticSequencer extends CommonSemanticSequencer {
 	
 	/**
 	 * Constraint:
-	 *     (verification=ConditionalEvidence_WhenExpr_1_0_0_0 condition+=[VerificationCategory|ID]+)
+	 *     (
+	 *         (
+	 *             left=SingleElseEvidenceExpr_ElseExpr_1_0_0_0 
+	 *             (other=ElseEvidenceExpr | (fail=ThenEvidenceExpr? timeout=ThenEvidenceExpr? other=ThenEvidenceExpr?))
+	 *         ) | 
+	 *         (left=CompositeElseEvidenceExpr_ElseExpr_1_0_0_0 other=ElseEvidenceExpr)
+	 *     )
 	 */
-	protected void sequence_ConditionalEvidence(EObject context, WhenExpr semanticObject) {
+	protected void sequence_CompositeElseEvidenceExpr_ElseEvidenceExpr_SingleElseEvidenceExpr(EObject context, ElseExpr semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
 	}
 	
 	
 	/**
 	 * Constraint:
-	 *     (left=FailThenEvidenceExpr_FailThenExpr_1_0_0_0 (failed?='failthen' | unknown?='unknownthen') right=FailThenEvidenceExpr)
+	 *     (elements+=ThenEvidenceExpr elements+=ThenEvidenceExpr*)
 	 */
-	protected void sequence_FailThenEvidenceExpr(EObject context, FailThenExpr semanticObject) {
+	protected void sequence_QuantifiedEvidenceExpr(EObject context, AllExpr semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
+	}
+	
+	
+	/**
+	 * Constraint:
+	 *     (
+	 *         left=SingleElseEvidenceExpr_ElseExpr_1_0_0_0 
+	 *         (other=ElseEvidenceExpr | (fail=ThenEvidenceExpr? timeout=ThenEvidenceExpr? other=ThenEvidenceExpr?))
+	 *     )
+	 */
+	protected void sequence_SingleElseEvidenceExpr(EObject context, ElseExpr semanticObject) {
+		genericSequencer.createSequence(context, semanticObject);
+	}
+	
+	
+	/**
+	 * Constraint:
+	 *     (verification=SingleEvidenceExpr_WhenExpr_1_0_0_0 condition+=[VerificationCategory|ID]+)
+	 */
+	protected void sequence_SingleEvidenceExpr(EObject context, WhenExpr semanticObject) {
+		genericSequencer.createSequence(context, semanticObject);
+	}
+	
+	
+	/**
+	 * Constraint:
+	 *     (left=ThenEvidenceExpr_ThenExpr_1_0_0_0 successor=ThenEvidenceExpr)
+	 */
+	protected void sequence_ThenEvidenceExpr(EObject context, ThenExpr semanticObject) {
+		if(errorAcceptor != null) {
+			if(transientValues.isValueTransient(semanticObject, VerifyPackage.Literals.THEN_EXPR__LEFT) == ValueTransient.YES)
+				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, VerifyPackage.Literals.THEN_EXPR__LEFT));
+			if(transientValues.isValueTransient(semanticObject, VerifyPackage.Literals.THEN_EXPR__SUCCESSOR) == ValueTransient.YES)
+				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, VerifyPackage.Literals.THEN_EXPR__SUCCESSOR));
+		}
+		INodesForEObjectProvider nodes = createNodeProvider(semanticObject);
+		SequenceFeeder feeder = createSequencerFeeder(semanticObject, nodes);
+		feeder.accept(grammarAccess.getThenEvidenceExprAccess().getThenExprLeftAction_1_0_0_0(), semanticObject.getLeft());
+		feeder.accept(grammarAccess.getThenEvidenceExprAccess().getSuccessorThenEvidenceExprParserRuleCall_1_1_0(), semanticObject.getSuccessor());
+		feeder.finish();
 	}
 	
 	
@@ -480,6 +504,8 @@ public class VerifySemanticSequencer extends CommonSemanticSequencer {
 	 * Constraint:
 	 *     (
 	 *         name=ID 
+	 *         title=STRING? 
+	 *         target=[ComponentImplementation|AADLCLASSIFIERREFERENCE]? 
 	 *         (result+=[ComputeDeclaration|ID] result+=[ComputeDeclaration|ID]*)? 
 	 *         method=[VerificationMethod|QualifiedName] 
 	 *         (parameters+=[XExpression|ID] parameters+=[XExpression|ID]*)? 
@@ -527,22 +553,6 @@ public class VerifySemanticSequencer extends CommonSemanticSequencer {
 	
 	/**
 	 * Constraint:
-	 *     name=ID
-	 */
-	protected void sequence_VerificationMethodParameter(EObject context, VerificationMethodParameter semanticObject) {
-		if(errorAcceptor != null) {
-			if(transientValues.isValueTransient(semanticObject, VerifyPackage.Literals.VERIFICATION_METHOD_PARAMETER__NAME) == ValueTransient.YES)
-				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, VerifyPackage.Literals.VERIFICATION_METHOD_PARAMETER__NAME));
-		}
-		INodesForEObjectProvider nodes = createNodeProvider(semanticObject);
-		SequenceFeeder feeder = createSequencerFeeder(semanticObject, nodes);
-		feeder.accept(grammarAccess.getVerificationMethodParameterAccess().getNameIDTerminalRuleCall_0(), semanticObject.getName());
-		feeder.finish();
-	}
-	
-	
-	/**
-	 * Constraint:
 	 *     (name=ID title=STRING? description=Description? methods+=VerificationMethod*)
 	 */
 	protected void sequence_VerificationMethodRegistry(EObject context, VerificationMethodRegistry semanticObject) {
@@ -554,14 +564,12 @@ public class VerifySemanticSequencer extends CommonSemanticSequencer {
 	 * Constraint:
 	 *     (
 	 *         name=ID 
-	 *         (params+=FullJvmFormalParameter params+=FullJvmFormalParameter*)? 
+	 *         ((params+=FullJvmFormalParameter params+=FullJvmFormalParameter*)? (isPredicate?='boolean' | isResultReport?='report')?)? 
 	 *         title=STRING? 
 	 *         methodType=SupportedTypes 
-	 *         scope=SupportedScopes 
-	 *         reporting=SupportedReporting? 
 	 *         description=Description? 
 	 *         methodPath=STRING? 
-	 *         conditions+=VerificationCondition* 
+	 *         condition=VerificationCondition? 
 	 *         category+=[VerificationCategory|ID]*
 	 *     )
 	 */
@@ -579,7 +587,6 @@ public class VerifySemanticSequencer extends CommonSemanticSequencer {
 	 *         description=Description? 
 	 *         claim+=Claim* 
 	 *         rationale=Rationale? 
-	 *         verifiedAssumption+=[VerificationPlan|QualifiedName]* 
 	 *         issues+=STRING*
 	 *     )
 	 */

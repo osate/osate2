@@ -10,25 +10,25 @@ import org.eclipse.emf.ecore.InternalEObject;
 
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 
-import org.osate.verify.verify.AndThenExpr;
 import org.osate.verify.verify.ArgumentExpr;
+import org.osate.verify.verify.ThenExpr;
 import org.osate.verify.verify.VerifyPackage;
 
 /**
  * <!-- begin-user-doc -->
- * An implementation of the model object '<em><b>And Then Expr</b></em>'.
+ * An implementation of the model object '<em><b>Then Expr</b></em>'.
  * <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
  * <ul>
- *   <li>{@link org.osate.verify.verify.impl.AndThenExprImpl#getLeft <em>Left</em>}</li>
- *   <li>{@link org.osate.verify.verify.impl.AndThenExprImpl#getRight <em>Right</em>}</li>
+ *   <li>{@link org.osate.verify.verify.impl.ThenExprImpl#getLeft <em>Left</em>}</li>
+ *   <li>{@link org.osate.verify.verify.impl.ThenExprImpl#getSuccessor <em>Successor</em>}</li>
  * </ul>
  * </p>
  *
  * @generated
  */
-public class AndThenExprImpl extends ArgumentExprImpl implements AndThenExpr
+public class ThenExprImpl extends ArgumentExprImpl implements ThenExpr
 {
   /**
    * The cached value of the '{@link #getLeft() <em>Left</em>}' containment reference.
@@ -41,21 +41,21 @@ public class AndThenExprImpl extends ArgumentExprImpl implements AndThenExpr
   protected ArgumentExpr left;
 
   /**
-   * The cached value of the '{@link #getRight() <em>Right</em>}' containment reference.
+   * The cached value of the '{@link #getSuccessor() <em>Successor</em>}' containment reference.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @see #getRight()
+   * @see #getSuccessor()
    * @generated
    * @ordered
    */
-  protected ArgumentExpr right;
+  protected ArgumentExpr successor;
 
   /**
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    */
-  protected AndThenExprImpl()
+  protected ThenExprImpl()
   {
     super();
   }
@@ -68,7 +68,7 @@ public class AndThenExprImpl extends ArgumentExprImpl implements AndThenExpr
   @Override
   protected EClass eStaticClass()
   {
-    return VerifyPackage.Literals.AND_THEN_EXPR;
+    return VerifyPackage.Literals.THEN_EXPR;
   }
 
   /**
@@ -92,7 +92,7 @@ public class AndThenExprImpl extends ArgumentExprImpl implements AndThenExpr
     left = newLeft;
     if (eNotificationRequired())
     {
-      ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, VerifyPackage.AND_THEN_EXPR__LEFT, oldLeft, newLeft);
+      ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, VerifyPackage.THEN_EXPR__LEFT, oldLeft, newLeft);
       if (msgs == null) msgs = notification; else msgs.add(notification);
     }
     return msgs;
@@ -109,14 +109,14 @@ public class AndThenExprImpl extends ArgumentExprImpl implements AndThenExpr
     {
       NotificationChain msgs = null;
       if (left != null)
-        msgs = ((InternalEObject)left).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - VerifyPackage.AND_THEN_EXPR__LEFT, null, msgs);
+        msgs = ((InternalEObject)left).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - VerifyPackage.THEN_EXPR__LEFT, null, msgs);
       if (newLeft != null)
-        msgs = ((InternalEObject)newLeft).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - VerifyPackage.AND_THEN_EXPR__LEFT, null, msgs);
+        msgs = ((InternalEObject)newLeft).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - VerifyPackage.THEN_EXPR__LEFT, null, msgs);
       msgs = basicSetLeft(newLeft, msgs);
       if (msgs != null) msgs.dispatch();
     }
     else if (eNotificationRequired())
-      eNotify(new ENotificationImpl(this, Notification.SET, VerifyPackage.AND_THEN_EXPR__LEFT, newLeft, newLeft));
+      eNotify(new ENotificationImpl(this, Notification.SET, VerifyPackage.THEN_EXPR__LEFT, newLeft, newLeft));
   }
 
   /**
@@ -124,9 +124,9 @@ public class AndThenExprImpl extends ArgumentExprImpl implements AndThenExpr
    * <!-- end-user-doc -->
    * @generated
    */
-  public ArgumentExpr getRight()
+  public ArgumentExpr getSuccessor()
   {
-    return right;
+    return successor;
   }
 
   /**
@@ -134,13 +134,13 @@ public class AndThenExprImpl extends ArgumentExprImpl implements AndThenExpr
    * <!-- end-user-doc -->
    * @generated
    */
-  public NotificationChain basicSetRight(ArgumentExpr newRight, NotificationChain msgs)
+  public NotificationChain basicSetSuccessor(ArgumentExpr newSuccessor, NotificationChain msgs)
   {
-    ArgumentExpr oldRight = right;
-    right = newRight;
+    ArgumentExpr oldSuccessor = successor;
+    successor = newSuccessor;
     if (eNotificationRequired())
     {
-      ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, VerifyPackage.AND_THEN_EXPR__RIGHT, oldRight, newRight);
+      ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, VerifyPackage.THEN_EXPR__SUCCESSOR, oldSuccessor, newSuccessor);
       if (msgs == null) msgs = notification; else msgs.add(notification);
     }
     return msgs;
@@ -151,20 +151,20 @@ public class AndThenExprImpl extends ArgumentExprImpl implements AndThenExpr
    * <!-- end-user-doc -->
    * @generated
    */
-  public void setRight(ArgumentExpr newRight)
+  public void setSuccessor(ArgumentExpr newSuccessor)
   {
-    if (newRight != right)
+    if (newSuccessor != successor)
     {
       NotificationChain msgs = null;
-      if (right != null)
-        msgs = ((InternalEObject)right).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - VerifyPackage.AND_THEN_EXPR__RIGHT, null, msgs);
-      if (newRight != null)
-        msgs = ((InternalEObject)newRight).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - VerifyPackage.AND_THEN_EXPR__RIGHT, null, msgs);
-      msgs = basicSetRight(newRight, msgs);
+      if (successor != null)
+        msgs = ((InternalEObject)successor).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - VerifyPackage.THEN_EXPR__SUCCESSOR, null, msgs);
+      if (newSuccessor != null)
+        msgs = ((InternalEObject)newSuccessor).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - VerifyPackage.THEN_EXPR__SUCCESSOR, null, msgs);
+      msgs = basicSetSuccessor(newSuccessor, msgs);
       if (msgs != null) msgs.dispatch();
     }
     else if (eNotificationRequired())
-      eNotify(new ENotificationImpl(this, Notification.SET, VerifyPackage.AND_THEN_EXPR__RIGHT, newRight, newRight));
+      eNotify(new ENotificationImpl(this, Notification.SET, VerifyPackage.THEN_EXPR__SUCCESSOR, newSuccessor, newSuccessor));
   }
 
   /**
@@ -177,10 +177,10 @@ public class AndThenExprImpl extends ArgumentExprImpl implements AndThenExpr
   {
     switch (featureID)
     {
-      case VerifyPackage.AND_THEN_EXPR__LEFT:
+      case VerifyPackage.THEN_EXPR__LEFT:
         return basicSetLeft(null, msgs);
-      case VerifyPackage.AND_THEN_EXPR__RIGHT:
-        return basicSetRight(null, msgs);
+      case VerifyPackage.THEN_EXPR__SUCCESSOR:
+        return basicSetSuccessor(null, msgs);
     }
     return super.eInverseRemove(otherEnd, featureID, msgs);
   }
@@ -195,10 +195,10 @@ public class AndThenExprImpl extends ArgumentExprImpl implements AndThenExpr
   {
     switch (featureID)
     {
-      case VerifyPackage.AND_THEN_EXPR__LEFT:
+      case VerifyPackage.THEN_EXPR__LEFT:
         return getLeft();
-      case VerifyPackage.AND_THEN_EXPR__RIGHT:
-        return getRight();
+      case VerifyPackage.THEN_EXPR__SUCCESSOR:
+        return getSuccessor();
     }
     return super.eGet(featureID, resolve, coreType);
   }
@@ -213,11 +213,11 @@ public class AndThenExprImpl extends ArgumentExprImpl implements AndThenExpr
   {
     switch (featureID)
     {
-      case VerifyPackage.AND_THEN_EXPR__LEFT:
+      case VerifyPackage.THEN_EXPR__LEFT:
         setLeft((ArgumentExpr)newValue);
         return;
-      case VerifyPackage.AND_THEN_EXPR__RIGHT:
-        setRight((ArgumentExpr)newValue);
+      case VerifyPackage.THEN_EXPR__SUCCESSOR:
+        setSuccessor((ArgumentExpr)newValue);
         return;
     }
     super.eSet(featureID, newValue);
@@ -233,11 +233,11 @@ public class AndThenExprImpl extends ArgumentExprImpl implements AndThenExpr
   {
     switch (featureID)
     {
-      case VerifyPackage.AND_THEN_EXPR__LEFT:
+      case VerifyPackage.THEN_EXPR__LEFT:
         setLeft((ArgumentExpr)null);
         return;
-      case VerifyPackage.AND_THEN_EXPR__RIGHT:
-        setRight((ArgumentExpr)null);
+      case VerifyPackage.THEN_EXPR__SUCCESSOR:
+        setSuccessor((ArgumentExpr)null);
         return;
     }
     super.eUnset(featureID);
@@ -253,12 +253,12 @@ public class AndThenExprImpl extends ArgumentExprImpl implements AndThenExpr
   {
     switch (featureID)
     {
-      case VerifyPackage.AND_THEN_EXPR__LEFT:
+      case VerifyPackage.THEN_EXPR__LEFT:
         return left != null;
-      case VerifyPackage.AND_THEN_EXPR__RIGHT:
-        return right != null;
+      case VerifyPackage.THEN_EXPR__SUCCESSOR:
+        return successor != null;
     }
     return super.eIsSet(featureID);
   }
 
-} //AndThenExprImpl
+} //ThenExprImpl

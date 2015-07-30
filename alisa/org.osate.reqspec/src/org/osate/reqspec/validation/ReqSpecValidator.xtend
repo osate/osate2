@@ -240,6 +240,4 @@ class ReqSpecValidator extends AbstractReqSpecValidator {
 		]
 	}		
 
-
-
 }

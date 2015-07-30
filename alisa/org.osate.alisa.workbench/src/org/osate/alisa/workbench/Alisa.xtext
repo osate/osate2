@@ -11,18 +11,18 @@ AlisaWorkArea:
  
 AssurancePlan:
 	'assurance' 'plan' name=ID (':' title=STRING)?
-	'for' system=[aadl2::ComponentImplementation|AadlClassifierReference]
+	'for' target=[aadl2::ComponentImplementation|AadlClassifierReference]
 	'['
 	(
 	('description' description=Description)?
-	& ('assert' plans+=[Verify::VerificationPlan|QualifiedName]+)
-	& ('assume' verifiedAssumption+=[AssurancePlan|QualifiedName]+)?
+	& ('assure' 'subsystem' 'plans' assurePlans+=[AssurancePlan|QualifiedName]+)?
+	& ('assume' 'subsystems' assumeSubsystems+=[aadl2::ComponentClassifier|AadlClassifierReference]+)?
 		& ('issues' issues+=STRING+ )?
 	)
 	']';
 	
 	AssuranceTask returns AssuranceTask :
-		'assurance' 'task' name=ID (':' title=STRING)? 'of' assurancePlan=[AssurancePlan|ID]
+		'assurance' 'task' name=ID (':' title=STRING)? 'for' assurancePlan=[AssurancePlan|ID]
 	'['
 	(
 	('description' description=Description)?

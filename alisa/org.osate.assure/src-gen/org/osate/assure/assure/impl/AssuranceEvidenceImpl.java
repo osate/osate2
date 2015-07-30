@@ -18,9 +18,9 @@ import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.eclipse.emf.ecore.util.EObjectContainmentEList;
 import org.eclipse.emf.ecore.util.InternalEList;
 
-import org.osate.aadl2.ComponentClassifier;
+import org.osate.aadl2.ComponentImplementation;
 
-import org.osate.aadl2.instance.InstanceObject;
+import org.osate.alisa.workbench.alisa.AssurancePlan;
 
 import org.osate.assure.assure.AssuranceEvidence;
 import org.osate.assure.assure.AssurePackage;
@@ -35,10 +35,10 @@ import org.osate.assure.assure.ClaimResult;
  * <ul>
  *   <li>{@link org.osate.assure.assure.impl.AssuranceEvidenceImpl#getName <em>Name</em>}</li>
  *   <li>{@link org.osate.assure.assure.impl.AssuranceEvidenceImpl#getTarget <em>Target</em>}</li>
- *   <li>{@link org.osate.assure.assure.impl.AssuranceEvidenceImpl#getInstance <em>Instance</em>}</li>
+ *   <li>{@link org.osate.assure.assure.impl.AssuranceEvidenceImpl#getTargetSystem <em>Target System</em>}</li>
  *   <li>{@link org.osate.assure.assure.impl.AssuranceEvidenceImpl#getMessage <em>Message</em>}</li>
- *   <li>{@link org.osate.assure.assure.impl.AssuranceEvidenceImpl#getSubAssuranceEvidence <em>Sub Assurance Evidence</em>}</li>
  *   <li>{@link org.osate.assure.assure.impl.AssuranceEvidenceImpl#getClaimResult <em>Claim Result</em>}</li>
+ *   <li>{@link org.osate.assure.assure.impl.AssuranceEvidenceImpl#getSubAssuranceEvidence <em>Sub Assurance Evidence</em>}</li>
  * </ul>
  * </p>
  *
@@ -74,17 +74,17 @@ public class AssuranceEvidenceImpl extends AssureResultImpl implements Assurance
    * @generated
    * @ordered
    */
-  protected ComponentClassifier target;
+  protected AssurancePlan target;
 
   /**
-   * The cached value of the '{@link #getInstance() <em>Instance</em>}' reference.
+   * The cached value of the '{@link #getTargetSystem() <em>Target System</em>}' reference.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @see #getInstance()
+   * @see #getTargetSystem()
    * @generated
    * @ordered
    */
-  protected InstanceObject instance;
+  protected ComponentImplementation targetSystem;
 
   /**
    * The default value of the '{@link #getMessage() <em>Message</em>}' attribute.
@@ -107,16 +107,6 @@ public class AssuranceEvidenceImpl extends AssureResultImpl implements Assurance
   protected String message = MESSAGE_EDEFAULT;
 
   /**
-   * The cached value of the '{@link #getSubAssuranceEvidence() <em>Sub Assurance Evidence</em>}' containment reference list.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @see #getSubAssuranceEvidence()
-   * @generated
-   * @ordered
-   */
-  protected EList<AssuranceEvidence> subAssuranceEvidence;
-
-  /**
    * The cached value of the '{@link #getClaimResult() <em>Claim Result</em>}' containment reference list.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -125,6 +115,16 @@ public class AssuranceEvidenceImpl extends AssureResultImpl implements Assurance
    * @ordered
    */
   protected EList<ClaimResult> claimResult;
+
+  /**
+   * The cached value of the '{@link #getSubAssuranceEvidence() <em>Sub Assurance Evidence</em>}' containment reference list.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see #getSubAssuranceEvidence()
+   * @generated
+   * @ordered
+   */
+  protected EList<AssuranceEvidence> subAssuranceEvidence;
 
   /**
    * <!-- begin-user-doc -->
@@ -175,12 +175,12 @@ public class AssuranceEvidenceImpl extends AssureResultImpl implements Assurance
    * <!-- end-user-doc -->
    * @generated
    */
-  public ComponentClassifier getTarget()
+  public AssurancePlan getTarget()
   {
-    if (target != null && ((EObject)target).eIsProxy())
+    if (target != null && target.eIsProxy())
     {
       InternalEObject oldTarget = (InternalEObject)target;
-      target = (ComponentClassifier)eResolveProxy(oldTarget);
+      target = (AssurancePlan)eResolveProxy(oldTarget);
       if (target != oldTarget)
       {
         if (eNotificationRequired())
@@ -195,7 +195,7 @@ public class AssuranceEvidenceImpl extends AssureResultImpl implements Assurance
    * <!-- end-user-doc -->
    * @generated
    */
-  public ComponentClassifier basicGetTarget()
+  public AssurancePlan basicGetTarget()
   {
     return target;
   }
@@ -205,9 +205,9 @@ public class AssuranceEvidenceImpl extends AssureResultImpl implements Assurance
    * <!-- end-user-doc -->
    * @generated
    */
-  public void setTarget(ComponentClassifier newTarget)
+  public void setTarget(AssurancePlan newTarget)
   {
-    ComponentClassifier oldTarget = target;
+    AssurancePlan oldTarget = target;
     target = newTarget;
     if (eNotificationRequired())
       eNotify(new ENotificationImpl(this, Notification.SET, AssurePackage.ASSURANCE_EVIDENCE__TARGET, oldTarget, target));
@@ -218,19 +218,19 @@ public class AssuranceEvidenceImpl extends AssureResultImpl implements Assurance
    * <!-- end-user-doc -->
    * @generated
    */
-  public InstanceObject getInstance()
+  public ComponentImplementation getTargetSystem()
   {
-    if (instance != null && instance.eIsProxy())
+    if (targetSystem != null && ((EObject)targetSystem).eIsProxy())
     {
-      InternalEObject oldInstance = (InternalEObject)instance;
-      instance = (InstanceObject)eResolveProxy(oldInstance);
-      if (instance != oldInstance)
+      InternalEObject oldTargetSystem = (InternalEObject)targetSystem;
+      targetSystem = (ComponentImplementation)eResolveProxy(oldTargetSystem);
+      if (targetSystem != oldTargetSystem)
       {
         if (eNotificationRequired())
-          eNotify(new ENotificationImpl(this, Notification.RESOLVE, AssurePackage.ASSURANCE_EVIDENCE__INSTANCE, oldInstance, instance));
+          eNotify(new ENotificationImpl(this, Notification.RESOLVE, AssurePackage.ASSURANCE_EVIDENCE__TARGET_SYSTEM, oldTargetSystem, targetSystem));
       }
     }
-    return instance;
+    return targetSystem;
   }
 
   /**
@@ -238,9 +238,9 @@ public class AssuranceEvidenceImpl extends AssureResultImpl implements Assurance
    * <!-- end-user-doc -->
    * @generated
    */
-  public InstanceObject basicGetInstance()
+  public ComponentImplementation basicGetTargetSystem()
   {
-    return instance;
+    return targetSystem;
   }
 
   /**
@@ -248,12 +248,12 @@ public class AssuranceEvidenceImpl extends AssureResultImpl implements Assurance
    * <!-- end-user-doc -->
    * @generated
    */
-  public void setInstance(InstanceObject newInstance)
+  public void setTargetSystem(ComponentImplementation newTargetSystem)
   {
-    InstanceObject oldInstance = instance;
-    instance = newInstance;
+    ComponentImplementation oldTargetSystem = targetSystem;
+    targetSystem = newTargetSystem;
     if (eNotificationRequired())
-      eNotify(new ENotificationImpl(this, Notification.SET, AssurePackage.ASSURANCE_EVIDENCE__INSTANCE, oldInstance, instance));
+      eNotify(new ENotificationImpl(this, Notification.SET, AssurePackage.ASSURANCE_EVIDENCE__TARGET_SYSTEM, oldTargetSystem, targetSystem));
   }
 
   /**
@@ -284,20 +284,6 @@ public class AssuranceEvidenceImpl extends AssureResultImpl implements Assurance
    * <!-- end-user-doc -->
    * @generated
    */
-  public EList<AssuranceEvidence> getSubAssuranceEvidence()
-  {
-    if (subAssuranceEvidence == null)
-    {
-      subAssuranceEvidence = new EObjectContainmentEList<AssuranceEvidence>(AssuranceEvidence.class, this, AssurePackage.ASSURANCE_EVIDENCE__SUB_ASSURANCE_EVIDENCE);
-    }
-    return subAssuranceEvidence;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
   public EList<ClaimResult> getClaimResult()
   {
     if (claimResult == null)
@@ -312,15 +298,29 @@ public class AssuranceEvidenceImpl extends AssureResultImpl implements Assurance
    * <!-- end-user-doc -->
    * @generated
    */
+  public EList<AssuranceEvidence> getSubAssuranceEvidence()
+  {
+    if (subAssuranceEvidence == null)
+    {
+      subAssuranceEvidence = new EObjectContainmentEList<AssuranceEvidence>(AssuranceEvidence.class, this, AssurePackage.ASSURANCE_EVIDENCE__SUB_ASSURANCE_EVIDENCE);
+    }
+    return subAssuranceEvidence;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
   @Override
   public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs)
   {
     switch (featureID)
     {
-      case AssurePackage.ASSURANCE_EVIDENCE__SUB_ASSURANCE_EVIDENCE:
-        return ((InternalEList<?>)getSubAssuranceEvidence()).basicRemove(otherEnd, msgs);
       case AssurePackage.ASSURANCE_EVIDENCE__CLAIM_RESULT:
         return ((InternalEList<?>)getClaimResult()).basicRemove(otherEnd, msgs);
+      case AssurePackage.ASSURANCE_EVIDENCE__SUB_ASSURANCE_EVIDENCE:
+        return ((InternalEList<?>)getSubAssuranceEvidence()).basicRemove(otherEnd, msgs);
     }
     return super.eInverseRemove(otherEnd, featureID, msgs);
   }
@@ -340,15 +340,15 @@ public class AssuranceEvidenceImpl extends AssureResultImpl implements Assurance
       case AssurePackage.ASSURANCE_EVIDENCE__TARGET:
         if (resolve) return getTarget();
         return basicGetTarget();
-      case AssurePackage.ASSURANCE_EVIDENCE__INSTANCE:
-        if (resolve) return getInstance();
-        return basicGetInstance();
+      case AssurePackage.ASSURANCE_EVIDENCE__TARGET_SYSTEM:
+        if (resolve) return getTargetSystem();
+        return basicGetTargetSystem();
       case AssurePackage.ASSURANCE_EVIDENCE__MESSAGE:
         return getMessage();
-      case AssurePackage.ASSURANCE_EVIDENCE__SUB_ASSURANCE_EVIDENCE:
-        return getSubAssuranceEvidence();
       case AssurePackage.ASSURANCE_EVIDENCE__CLAIM_RESULT:
         return getClaimResult();
+      case AssurePackage.ASSURANCE_EVIDENCE__SUB_ASSURANCE_EVIDENCE:
+        return getSubAssuranceEvidence();
     }
     return super.eGet(featureID, resolve, coreType);
   }
@@ -368,21 +368,21 @@ public class AssuranceEvidenceImpl extends AssureResultImpl implements Assurance
         setName((String)newValue);
         return;
       case AssurePackage.ASSURANCE_EVIDENCE__TARGET:
-        setTarget((ComponentClassifier)newValue);
+        setTarget((AssurancePlan)newValue);
         return;
-      case AssurePackage.ASSURANCE_EVIDENCE__INSTANCE:
-        setInstance((InstanceObject)newValue);
+      case AssurePackage.ASSURANCE_EVIDENCE__TARGET_SYSTEM:
+        setTargetSystem((ComponentImplementation)newValue);
         return;
       case AssurePackage.ASSURANCE_EVIDENCE__MESSAGE:
         setMessage((String)newValue);
         return;
-      case AssurePackage.ASSURANCE_EVIDENCE__SUB_ASSURANCE_EVIDENCE:
-        getSubAssuranceEvidence().clear();
-        getSubAssuranceEvidence().addAll((Collection<? extends AssuranceEvidence>)newValue);
-        return;
       case AssurePackage.ASSURANCE_EVIDENCE__CLAIM_RESULT:
         getClaimResult().clear();
         getClaimResult().addAll((Collection<? extends ClaimResult>)newValue);
+        return;
+      case AssurePackage.ASSURANCE_EVIDENCE__SUB_ASSURANCE_EVIDENCE:
+        getSubAssuranceEvidence().clear();
+        getSubAssuranceEvidence().addAll((Collection<? extends AssuranceEvidence>)newValue);
         return;
     }
     super.eSet(featureID, newValue);
@@ -402,19 +402,19 @@ public class AssuranceEvidenceImpl extends AssureResultImpl implements Assurance
         setName(NAME_EDEFAULT);
         return;
       case AssurePackage.ASSURANCE_EVIDENCE__TARGET:
-        setTarget((ComponentClassifier)null);
+        setTarget((AssurancePlan)null);
         return;
-      case AssurePackage.ASSURANCE_EVIDENCE__INSTANCE:
-        setInstance((InstanceObject)null);
+      case AssurePackage.ASSURANCE_EVIDENCE__TARGET_SYSTEM:
+        setTargetSystem((ComponentImplementation)null);
         return;
       case AssurePackage.ASSURANCE_EVIDENCE__MESSAGE:
         setMessage(MESSAGE_EDEFAULT);
         return;
-      case AssurePackage.ASSURANCE_EVIDENCE__SUB_ASSURANCE_EVIDENCE:
-        getSubAssuranceEvidence().clear();
-        return;
       case AssurePackage.ASSURANCE_EVIDENCE__CLAIM_RESULT:
         getClaimResult().clear();
+        return;
+      case AssurePackage.ASSURANCE_EVIDENCE__SUB_ASSURANCE_EVIDENCE:
+        getSubAssuranceEvidence().clear();
         return;
     }
     super.eUnset(featureID);
@@ -434,14 +434,14 @@ public class AssuranceEvidenceImpl extends AssureResultImpl implements Assurance
         return NAME_EDEFAULT == null ? name != null : !NAME_EDEFAULT.equals(name);
       case AssurePackage.ASSURANCE_EVIDENCE__TARGET:
         return target != null;
-      case AssurePackage.ASSURANCE_EVIDENCE__INSTANCE:
-        return instance != null;
+      case AssurePackage.ASSURANCE_EVIDENCE__TARGET_SYSTEM:
+        return targetSystem != null;
       case AssurePackage.ASSURANCE_EVIDENCE__MESSAGE:
         return MESSAGE_EDEFAULT == null ? message != null : !MESSAGE_EDEFAULT.equals(message);
-      case AssurePackage.ASSURANCE_EVIDENCE__SUB_ASSURANCE_EVIDENCE:
-        return subAssuranceEvidence != null && !subAssuranceEvidence.isEmpty();
       case AssurePackage.ASSURANCE_EVIDENCE__CLAIM_RESULT:
         return claimResult != null && !claimResult.isEmpty();
+      case AssurePackage.ASSURANCE_EVIDENCE__SUB_ASSURANCE_EVIDENCE:
+        return subAssuranceEvidence != null && !subAssuranceEvidence.isEmpty();
     }
     return super.eIsSet(featureID);
   }

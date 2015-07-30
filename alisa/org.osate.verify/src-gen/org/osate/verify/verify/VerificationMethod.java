@@ -22,13 +22,13 @@ import org.osate.categories.categories.VerificationCategory;
  * <ul>
  *   <li>{@link org.osate.verify.verify.VerificationMethod#getName <em>Name</em>}</li>
  *   <li>{@link org.osate.verify.verify.VerificationMethod#getParams <em>Params</em>}</li>
+ *   <li>{@link org.osate.verify.verify.VerificationMethod#isIsPredicate <em>Is Predicate</em>}</li>
+ *   <li>{@link org.osate.verify.verify.VerificationMethod#isIsResultReport <em>Is Result Report</em>}</li>
  *   <li>{@link org.osate.verify.verify.VerificationMethod#getTitle <em>Title</em>}</li>
  *   <li>{@link org.osate.verify.verify.VerificationMethod#getMethodType <em>Method Type</em>}</li>
- *   <li>{@link org.osate.verify.verify.VerificationMethod#getScope <em>Scope</em>}</li>
- *   <li>{@link org.osate.verify.verify.VerificationMethod#getReporting <em>Reporting</em>}</li>
  *   <li>{@link org.osate.verify.verify.VerificationMethod#getDescription <em>Description</em>}</li>
  *   <li>{@link org.osate.verify.verify.VerificationMethod#getMethodPath <em>Method Path</em>}</li>
- *   <li>{@link org.osate.verify.verify.VerificationMethod#getConditions <em>Conditions</em>}</li>
+ *   <li>{@link org.osate.verify.verify.VerificationMethod#getCondition <em>Condition</em>}</li>
  *   <li>{@link org.osate.verify.verify.VerificationMethod#getCategory <em>Category</em>}</li>
  * </ul>
  * </p>
@@ -80,6 +80,58 @@ public interface VerificationMethod extends EObject
    * @generated
    */
   EList<JvmFormalParameter> getParams();
+
+  /**
+   * Returns the value of the '<em><b>Is Predicate</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <p>
+   * If the meaning of the '<em>Is Predicate</em>' attribute isn't clear,
+   * there really should be more of a description here...
+   * </p>
+   * <!-- end-user-doc -->
+   * @return the value of the '<em>Is Predicate</em>' attribute.
+   * @see #setIsPredicate(boolean)
+   * @see org.osate.verify.verify.VerifyPackage#getVerificationMethod_IsPredicate()
+   * @model
+   * @generated
+   */
+  boolean isIsPredicate();
+
+  /**
+   * Sets the value of the '{@link org.osate.verify.verify.VerificationMethod#isIsPredicate <em>Is Predicate</em>}' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @param value the new value of the '<em>Is Predicate</em>' attribute.
+   * @see #isIsPredicate()
+   * @generated
+   */
+  void setIsPredicate(boolean value);
+
+  /**
+   * Returns the value of the '<em><b>Is Result Report</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <p>
+   * If the meaning of the '<em>Is Result Report</em>' attribute isn't clear,
+   * there really should be more of a description here...
+   * </p>
+   * <!-- end-user-doc -->
+   * @return the value of the '<em>Is Result Report</em>' attribute.
+   * @see #setIsResultReport(boolean)
+   * @see org.osate.verify.verify.VerifyPackage#getVerificationMethod_IsResultReport()
+   * @model
+   * @generated
+   */
+  boolean isIsResultReport();
+
+  /**
+   * Sets the value of the '{@link org.osate.verify.verify.VerificationMethod#isIsResultReport <em>Is Result Report</em>}' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @param value the new value of the '<em>Is Result Report</em>' attribute.
+   * @see #isIsResultReport()
+   * @generated
+   */
+  void setIsResultReport(boolean value);
 
   /**
    * Returns the value of the '<em><b>Title</b></em>' attribute.
@@ -137,64 +189,6 @@ public interface VerificationMethod extends EObject
   void setMethodType(SupportedTypes value);
 
   /**
-   * Returns the value of the '<em><b>Scope</b></em>' attribute.
-   * The literals are from the enumeration {@link org.osate.verify.verify.SupportedScopes}.
-   * <!-- begin-user-doc -->
-   * <p>
-   * If the meaning of the '<em>Scope</em>' attribute isn't clear,
-   * there really should be more of a description here...
-   * </p>
-   * <!-- end-user-doc -->
-   * @return the value of the '<em>Scope</em>' attribute.
-   * @see org.osate.verify.verify.SupportedScopes
-   * @see #setScope(SupportedScopes)
-   * @see org.osate.verify.verify.VerifyPackage#getVerificationMethod_Scope()
-   * @model
-   * @generated
-   */
-  SupportedScopes getScope();
-
-  /**
-   * Sets the value of the '{@link org.osate.verify.verify.VerificationMethod#getScope <em>Scope</em>}' attribute.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @param value the new value of the '<em>Scope</em>' attribute.
-   * @see org.osate.verify.verify.SupportedScopes
-   * @see #getScope()
-   * @generated
-   */
-  void setScope(SupportedScopes value);
-
-  /**
-   * Returns the value of the '<em><b>Reporting</b></em>' attribute.
-   * The literals are from the enumeration {@link org.osate.verify.verify.SupportedReporting}.
-   * <!-- begin-user-doc -->
-   * <p>
-   * If the meaning of the '<em>Reporting</em>' attribute isn't clear,
-   * there really should be more of a description here...
-   * </p>
-   * <!-- end-user-doc -->
-   * @return the value of the '<em>Reporting</em>' attribute.
-   * @see org.osate.verify.verify.SupportedReporting
-   * @see #setReporting(SupportedReporting)
-   * @see org.osate.verify.verify.VerifyPackage#getVerificationMethod_Reporting()
-   * @model
-   * @generated
-   */
-  SupportedReporting getReporting();
-
-  /**
-   * Sets the value of the '{@link org.osate.verify.verify.VerificationMethod#getReporting <em>Reporting</em>}' attribute.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @param value the new value of the '<em>Reporting</em>' attribute.
-   * @see org.osate.verify.verify.SupportedReporting
-   * @see #getReporting()
-   * @generated
-   */
-  void setReporting(SupportedReporting value);
-
-  /**
    * Returns the value of the '<em><b>Description</b></em>' containment reference.
    * <!-- begin-user-doc -->
    * <p>
@@ -247,20 +241,30 @@ public interface VerificationMethod extends EObject
   void setMethodPath(String value);
 
   /**
-   * Returns the value of the '<em><b>Conditions</b></em>' containment reference list.
-   * The list contents are of type {@link org.osate.verify.verify.VerificationCondition}.
+   * Returns the value of the '<em><b>Condition</b></em>' containment reference.
    * <!-- begin-user-doc -->
    * <p>
-   * If the meaning of the '<em>Conditions</em>' containment reference list isn't clear,
+   * If the meaning of the '<em>Condition</em>' containment reference isn't clear,
    * there really should be more of a description here...
    * </p>
    * <!-- end-user-doc -->
-   * @return the value of the '<em>Conditions</em>' containment reference list.
-   * @see org.osate.verify.verify.VerifyPackage#getVerificationMethod_Conditions()
+   * @return the value of the '<em>Condition</em>' containment reference.
+   * @see #setCondition(VerificationCondition)
+   * @see org.osate.verify.verify.VerifyPackage#getVerificationMethod_Condition()
    * @model containment="true"
    * @generated
    */
-  EList<VerificationCondition> getConditions();
+  VerificationCondition getCondition();
+
+  /**
+   * Sets the value of the '{@link org.osate.verify.verify.VerificationMethod#getCondition <em>Condition</em>}' containment reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @param value the new value of the '<em>Condition</em>' containment reference.
+   * @see #getCondition()
+   * @generated
+   */
+  void setCondition(VerificationCondition value);
 
   /**
    * Returns the value of the '<em><b>Category</b></em>' reference list.

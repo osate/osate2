@@ -17,26 +17,26 @@ import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.eclipse.emf.ecore.util.EObjectContainmentEList;
 import org.eclipse.emf.ecore.util.InternalEList;
 
-import org.osate.assure.assure.AndThenResult;
 import org.osate.assure.assure.AssurePackage;
+import org.osate.assure.assure.ThenResult;
 import org.osate.assure.assure.VerificationExpr;
 
 /**
  * <!-- begin-user-doc -->
- * An implementation of the model object '<em><b>And Then Result</b></em>'.
+ * An implementation of the model object '<em><b>Then Result</b></em>'.
  * <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
  * <ul>
- *   <li>{@link org.osate.assure.assure.impl.AndThenResultImpl#getFirst <em>First</em>}</li>
- *   <li>{@link org.osate.assure.assure.impl.AndThenResultImpl#getSecond <em>Second</em>}</li>
- *   <li>{@link org.osate.assure.assure.impl.AndThenResultImpl#isDidAndThenFail <em>Did And Then Fail</em>}</li>
+ *   <li>{@link org.osate.assure.assure.impl.ThenResultImpl#getFirst <em>First</em>}</li>
+ *   <li>{@link org.osate.assure.assure.impl.ThenResultImpl#getSecond <em>Second</em>}</li>
+ *   <li>{@link org.osate.assure.assure.impl.ThenResultImpl#isDidThenFail <em>Did Then Fail</em>}</li>
  * </ul>
  * </p>
  *
  * @generated
  */
-public class AndThenResultImpl extends VerificationExprImpl implements AndThenResult
+public class ThenResultImpl extends VerificationExprImpl implements ThenResult
 {
   /**
    * The cached value of the '{@link #getFirst() <em>First</em>}' containment reference list.
@@ -59,31 +59,31 @@ public class AndThenResultImpl extends VerificationExprImpl implements AndThenRe
   protected EList<VerificationExpr> second;
 
   /**
-   * The default value of the '{@link #isDidAndThenFail() <em>Did And Then Fail</em>}' attribute.
+   * The default value of the '{@link #isDidThenFail() <em>Did Then Fail</em>}' attribute.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @see #isDidAndThenFail()
+   * @see #isDidThenFail()
    * @generated
    * @ordered
    */
-  protected static final boolean DID_AND_THEN_FAIL_EDEFAULT = false;
+  protected static final boolean DID_THEN_FAIL_EDEFAULT = false;
 
   /**
-   * The cached value of the '{@link #isDidAndThenFail() <em>Did And Then Fail</em>}' attribute.
+   * The cached value of the '{@link #isDidThenFail() <em>Did Then Fail</em>}' attribute.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @see #isDidAndThenFail()
+   * @see #isDidThenFail()
    * @generated
    * @ordered
    */
-  protected boolean didAndThenFail = DID_AND_THEN_FAIL_EDEFAULT;
+  protected boolean didThenFail = DID_THEN_FAIL_EDEFAULT;
 
   /**
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    */
-  protected AndThenResultImpl()
+  protected ThenResultImpl()
   {
     super();
   }
@@ -96,7 +96,7 @@ public class AndThenResultImpl extends VerificationExprImpl implements AndThenRe
   @Override
   protected EClass eStaticClass()
   {
-    return AssurePackage.Literals.AND_THEN_RESULT;
+    return AssurePackage.Literals.THEN_RESULT;
   }
 
   /**
@@ -108,7 +108,7 @@ public class AndThenResultImpl extends VerificationExprImpl implements AndThenRe
   {
     if (first == null)
     {
-      first = new EObjectContainmentEList<VerificationExpr>(VerificationExpr.class, this, AssurePackage.AND_THEN_RESULT__FIRST);
+      first = new EObjectContainmentEList<VerificationExpr>(VerificationExpr.class, this, AssurePackage.THEN_RESULT__FIRST);
     }
     return first;
   }
@@ -122,7 +122,7 @@ public class AndThenResultImpl extends VerificationExprImpl implements AndThenRe
   {
     if (second == null)
     {
-      second = new EObjectContainmentEList<VerificationExpr>(VerificationExpr.class, this, AssurePackage.AND_THEN_RESULT__SECOND);
+      second = new EObjectContainmentEList<VerificationExpr>(VerificationExpr.class, this, AssurePackage.THEN_RESULT__SECOND);
     }
     return second;
   }
@@ -132,9 +132,9 @@ public class AndThenResultImpl extends VerificationExprImpl implements AndThenRe
    * <!-- end-user-doc -->
    * @generated
    */
-  public boolean isDidAndThenFail()
+  public boolean isDidThenFail()
   {
-    return didAndThenFail;
+    return didThenFail;
   }
 
   /**
@@ -142,12 +142,12 @@ public class AndThenResultImpl extends VerificationExprImpl implements AndThenRe
    * <!-- end-user-doc -->
    * @generated
    */
-  public void setDidAndThenFail(boolean newDidAndThenFail)
+  public void setDidThenFail(boolean newDidThenFail)
   {
-    boolean oldDidAndThenFail = didAndThenFail;
-    didAndThenFail = newDidAndThenFail;
+    boolean oldDidThenFail = didThenFail;
+    didThenFail = newDidThenFail;
     if (eNotificationRequired())
-      eNotify(new ENotificationImpl(this, Notification.SET, AssurePackage.AND_THEN_RESULT__DID_AND_THEN_FAIL, oldDidAndThenFail, didAndThenFail));
+      eNotify(new ENotificationImpl(this, Notification.SET, AssurePackage.THEN_RESULT__DID_THEN_FAIL, oldDidThenFail, didThenFail));
   }
 
   /**
@@ -160,9 +160,9 @@ public class AndThenResultImpl extends VerificationExprImpl implements AndThenRe
   {
     switch (featureID)
     {
-      case AssurePackage.AND_THEN_RESULT__FIRST:
+      case AssurePackage.THEN_RESULT__FIRST:
         return ((InternalEList<?>)getFirst()).basicRemove(otherEnd, msgs);
-      case AssurePackage.AND_THEN_RESULT__SECOND:
+      case AssurePackage.THEN_RESULT__SECOND:
         return ((InternalEList<?>)getSecond()).basicRemove(otherEnd, msgs);
     }
     return super.eInverseRemove(otherEnd, featureID, msgs);
@@ -178,12 +178,12 @@ public class AndThenResultImpl extends VerificationExprImpl implements AndThenRe
   {
     switch (featureID)
     {
-      case AssurePackage.AND_THEN_RESULT__FIRST:
+      case AssurePackage.THEN_RESULT__FIRST:
         return getFirst();
-      case AssurePackage.AND_THEN_RESULT__SECOND:
+      case AssurePackage.THEN_RESULT__SECOND:
         return getSecond();
-      case AssurePackage.AND_THEN_RESULT__DID_AND_THEN_FAIL:
-        return isDidAndThenFail();
+      case AssurePackage.THEN_RESULT__DID_THEN_FAIL:
+        return isDidThenFail();
     }
     return super.eGet(featureID, resolve, coreType);
   }
@@ -199,16 +199,16 @@ public class AndThenResultImpl extends VerificationExprImpl implements AndThenRe
   {
     switch (featureID)
     {
-      case AssurePackage.AND_THEN_RESULT__FIRST:
+      case AssurePackage.THEN_RESULT__FIRST:
         getFirst().clear();
         getFirst().addAll((Collection<? extends VerificationExpr>)newValue);
         return;
-      case AssurePackage.AND_THEN_RESULT__SECOND:
+      case AssurePackage.THEN_RESULT__SECOND:
         getSecond().clear();
         getSecond().addAll((Collection<? extends VerificationExpr>)newValue);
         return;
-      case AssurePackage.AND_THEN_RESULT__DID_AND_THEN_FAIL:
-        setDidAndThenFail((Boolean)newValue);
+      case AssurePackage.THEN_RESULT__DID_THEN_FAIL:
+        setDidThenFail((Boolean)newValue);
         return;
     }
     super.eSet(featureID, newValue);
@@ -224,14 +224,14 @@ public class AndThenResultImpl extends VerificationExprImpl implements AndThenRe
   {
     switch (featureID)
     {
-      case AssurePackage.AND_THEN_RESULT__FIRST:
+      case AssurePackage.THEN_RESULT__FIRST:
         getFirst().clear();
         return;
-      case AssurePackage.AND_THEN_RESULT__SECOND:
+      case AssurePackage.THEN_RESULT__SECOND:
         getSecond().clear();
         return;
-      case AssurePackage.AND_THEN_RESULT__DID_AND_THEN_FAIL:
-        setDidAndThenFail(DID_AND_THEN_FAIL_EDEFAULT);
+      case AssurePackage.THEN_RESULT__DID_THEN_FAIL:
+        setDidThenFail(DID_THEN_FAIL_EDEFAULT);
         return;
     }
     super.eUnset(featureID);
@@ -247,12 +247,12 @@ public class AndThenResultImpl extends VerificationExprImpl implements AndThenRe
   {
     switch (featureID)
     {
-      case AssurePackage.AND_THEN_RESULT__FIRST:
+      case AssurePackage.THEN_RESULT__FIRST:
         return first != null && !first.isEmpty();
-      case AssurePackage.AND_THEN_RESULT__SECOND:
+      case AssurePackage.THEN_RESULT__SECOND:
         return second != null && !second.isEmpty();
-      case AssurePackage.AND_THEN_RESULT__DID_AND_THEN_FAIL:
-        return didAndThenFail != DID_AND_THEN_FAIL_EDEFAULT;
+      case AssurePackage.THEN_RESULT__DID_THEN_FAIL:
+        return didThenFail != DID_THEN_FAIL_EDEFAULT;
     }
     return super.eIsSet(featureID);
   }
@@ -268,10 +268,10 @@ public class AndThenResultImpl extends VerificationExprImpl implements AndThenRe
     if (eIsProxy()) return super.toString();
 
     StringBuffer result = new StringBuffer(super.toString());
-    result.append(" (didAndThenFail: ");
-    result.append(didAndThenFail);
+    result.append(" (didThenFail: ");
+    result.append(didThenFail);
     result.append(')');
     return result.toString();
   }
 
-} //AndThenResultImpl
+} //ThenResultImpl

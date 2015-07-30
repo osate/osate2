@@ -95,11 +95,6 @@ public class VerifyAdapterFactory extends AdapterFactoryImpl
         return createVerificationActivityAdapter();
       }
       @Override
-      public Adapter caseVerificationCondition(VerificationCondition object)
-      {
-        return createVerificationConditionAdapter();
-      }
-      @Override
       public Adapter caseArgumentExpr(ArgumentExpr object)
       {
         return createArgumentExprAdapter();
@@ -110,39 +105,29 @@ public class VerifyAdapterFactory extends AdapterFactoryImpl
         return createVerificationMethodRegistryAdapter();
       }
       @Override
-      public Adapter caseVerificationMethodParameter(VerificationMethodParameter object)
-      {
-        return createVerificationMethodParameterAdapter();
-      }
-      @Override
       public Adapter caseVerificationMethod(VerificationMethod object)
       {
         return createVerificationMethodAdapter();
       }
       @Override
-      public Adapter caseVerificationValidation(VerificationValidation object)
+      public Adapter caseVerificationCondition(VerificationCondition object)
       {
-        return createVerificationValidationAdapter();
+        return createVerificationConditionAdapter();
       }
       @Override
-      public Adapter caseVerificationPrecondition(VerificationPrecondition object)
+      public Adapter caseThenExpr(ThenExpr object)
       {
-        return createVerificationPreconditionAdapter();
+        return createThenExprAdapter();
+      }
+      @Override
+      public Adapter caseElseExpr(ElseExpr object)
+      {
+        return createElseExprAdapter();
       }
       @Override
       public Adapter caseAllExpr(AllExpr object)
       {
         return createAllExprAdapter();
-      }
-      @Override
-      public Adapter caseAndThenExpr(AndThenExpr object)
-      {
-        return createAndThenExprAdapter();
-      }
-      @Override
-      public Adapter caseFailThenExpr(FailThenExpr object)
-      {
-        return createFailThenExprAdapter();
       }
       @Override
       public Adapter caseWhenExpr(WhenExpr object)
@@ -153,6 +138,16 @@ public class VerifyAdapterFactory extends AdapterFactoryImpl
       public Adapter caseRefExpr(RefExpr object)
       {
         return createRefExprAdapter();
+      }
+      @Override
+      public Adapter caseVerificationValidation(VerificationValidation object)
+      {
+        return createVerificationValidationAdapter();
+      }
+      @Override
+      public Adapter caseVerificationPrecondition(VerificationPrecondition object)
+      {
+        return createVerificationPreconditionAdapter();
       }
       @Override
       public Adapter defaultCase(EObject object)
@@ -237,21 +232,6 @@ public class VerifyAdapterFactory extends AdapterFactoryImpl
   }
 
   /**
-   * Creates a new adapter for an object of class '{@link org.osate.verify.verify.VerificationCondition <em>Verification Condition</em>}'.
-   * <!-- begin-user-doc -->
-   * This default implementation returns null so that we can easily ignore cases;
-   * it's useful to ignore a case when inheritance will catch all the cases anyway.
-   * <!-- end-user-doc -->
-   * @return the new adapter.
-   * @see org.osate.verify.verify.VerificationCondition
-   * @generated
-   */
-  public Adapter createVerificationConditionAdapter()
-  {
-    return null;
-  }
-
-  /**
    * Creates a new adapter for an object of class '{@link org.osate.verify.verify.ArgumentExpr <em>Argument Expr</em>}'.
    * <!-- begin-user-doc -->
    * This default implementation returns null so that we can easily ignore cases;
@@ -282,21 +262,6 @@ public class VerifyAdapterFactory extends AdapterFactoryImpl
   }
 
   /**
-   * Creates a new adapter for an object of class '{@link org.osate.verify.verify.VerificationMethodParameter <em>Verification Method Parameter</em>}'.
-   * <!-- begin-user-doc -->
-   * This default implementation returns null so that we can easily ignore cases;
-   * it's useful to ignore a case when inheritance will catch all the cases anyway.
-   * <!-- end-user-doc -->
-   * @return the new adapter.
-   * @see org.osate.verify.verify.VerificationMethodParameter
-   * @generated
-   */
-  public Adapter createVerificationMethodParameterAdapter()
-  {
-    return null;
-  }
-
-  /**
    * Creates a new adapter for an object of class '{@link org.osate.verify.verify.VerificationMethod <em>Verification Method</em>}'.
    * <!-- begin-user-doc -->
    * This default implementation returns null so that we can easily ignore cases;
@@ -312,31 +277,46 @@ public class VerifyAdapterFactory extends AdapterFactoryImpl
   }
 
   /**
-   * Creates a new adapter for an object of class '{@link org.osate.verify.verify.VerificationValidation <em>Verification Validation</em>}'.
+   * Creates a new adapter for an object of class '{@link org.osate.verify.verify.VerificationCondition <em>Verification Condition</em>}'.
    * <!-- begin-user-doc -->
    * This default implementation returns null so that we can easily ignore cases;
    * it's useful to ignore a case when inheritance will catch all the cases anyway.
    * <!-- end-user-doc -->
    * @return the new adapter.
-   * @see org.osate.verify.verify.VerificationValidation
+   * @see org.osate.verify.verify.VerificationCondition
    * @generated
    */
-  public Adapter createVerificationValidationAdapter()
+  public Adapter createVerificationConditionAdapter()
   {
     return null;
   }
 
   /**
-   * Creates a new adapter for an object of class '{@link org.osate.verify.verify.VerificationPrecondition <em>Verification Precondition</em>}'.
+   * Creates a new adapter for an object of class '{@link org.osate.verify.verify.ThenExpr <em>Then Expr</em>}'.
    * <!-- begin-user-doc -->
    * This default implementation returns null so that we can easily ignore cases;
    * it's useful to ignore a case when inheritance will catch all the cases anyway.
    * <!-- end-user-doc -->
    * @return the new adapter.
-   * @see org.osate.verify.verify.VerificationPrecondition
+   * @see org.osate.verify.verify.ThenExpr
    * @generated
    */
-  public Adapter createVerificationPreconditionAdapter()
+  public Adapter createThenExprAdapter()
+  {
+    return null;
+  }
+
+  /**
+   * Creates a new adapter for an object of class '{@link org.osate.verify.verify.ElseExpr <em>Else Expr</em>}'.
+   * <!-- begin-user-doc -->
+   * This default implementation returns null so that we can easily ignore cases;
+   * it's useful to ignore a case when inheritance will catch all the cases anyway.
+   * <!-- end-user-doc -->
+   * @return the new adapter.
+   * @see org.osate.verify.verify.ElseExpr
+   * @generated
+   */
+  public Adapter createElseExprAdapter()
   {
     return null;
   }
@@ -352,36 +332,6 @@ public class VerifyAdapterFactory extends AdapterFactoryImpl
    * @generated
    */
   public Adapter createAllExprAdapter()
-  {
-    return null;
-  }
-
-  /**
-   * Creates a new adapter for an object of class '{@link org.osate.verify.verify.AndThenExpr <em>And Then Expr</em>}'.
-   * <!-- begin-user-doc -->
-   * This default implementation returns null so that we can easily ignore cases;
-   * it's useful to ignore a case when inheritance will catch all the cases anyway.
-   * <!-- end-user-doc -->
-   * @return the new adapter.
-   * @see org.osate.verify.verify.AndThenExpr
-   * @generated
-   */
-  public Adapter createAndThenExprAdapter()
-  {
-    return null;
-  }
-
-  /**
-   * Creates a new adapter for an object of class '{@link org.osate.verify.verify.FailThenExpr <em>Fail Then Expr</em>}'.
-   * <!-- begin-user-doc -->
-   * This default implementation returns null so that we can easily ignore cases;
-   * it's useful to ignore a case when inheritance will catch all the cases anyway.
-   * <!-- end-user-doc -->
-   * @return the new adapter.
-   * @see org.osate.verify.verify.FailThenExpr
-   * @generated
-   */
-  public Adapter createFailThenExprAdapter()
   {
     return null;
   }
@@ -412,6 +362,36 @@ public class VerifyAdapterFactory extends AdapterFactoryImpl
    * @generated
    */
   public Adapter createRefExprAdapter()
+  {
+    return null;
+  }
+
+  /**
+   * Creates a new adapter for an object of class '{@link org.osate.verify.verify.VerificationValidation <em>Verification Validation</em>}'.
+   * <!-- begin-user-doc -->
+   * This default implementation returns null so that we can easily ignore cases;
+   * it's useful to ignore a case when inheritance will catch all the cases anyway.
+   * <!-- end-user-doc -->
+   * @return the new adapter.
+   * @see org.osate.verify.verify.VerificationValidation
+   * @generated
+   */
+  public Adapter createVerificationValidationAdapter()
+  {
+    return null;
+  }
+
+  /**
+   * Creates a new adapter for an object of class '{@link org.osate.verify.verify.VerificationPrecondition <em>Verification Precondition</em>}'.
+   * <!-- begin-user-doc -->
+   * This default implementation returns null so that we can easily ignore cases;
+   * it's useful to ignore a case when inheritance will catch all the cases anyway.
+   * <!-- end-user-doc -->
+   * @return the new adapter.
+   * @see org.osate.verify.verify.VerificationPrecondition
+   * @generated
+   */
+  public Adapter createVerificationPreconditionAdapter()
   {
     return null;
   }

@@ -18,7 +18,7 @@ ContractualElement: Goal | DocGoal| Requirement |DocRequirement ;
 ReqRoot:  StakeholderGoals | ReqDocument | SystemRequirements;
 
 
-StakeholderGoals: 'stakeholder' 'goals' name=ID (':' title=STRING)?
+StakeholderGoals: 'stakeholder' 'goals' name=QualifiedName (':' title=STRING)?
 	( 'for' (target=[aadl2::ComponentClassifier|AADLCLASSIFIERREFERENCE] |  global?='all'))
 	'[' 
 	(	 (  description=Description)? 
@@ -30,7 +30,7 @@ StakeholderGoals: 'stakeholder' 'goals' name=ID (':' title=STRING)?
 	']'
 ;
 
-ReqDocument: 'document' name=ID (':' title=STRING)?
+ReqDocument: 'document' name=QualifiedName (':' title=STRING)?
 	'[' 
 	( (  description=Description)? 
 	&(content+= (DocGoal | DocRequirement |  DocumentSection))*
@@ -49,7 +49,7 @@ DocumentSection returns DocumentSection:
 	;
 
 SystemRequirements returns SystemRequirements:
-	'system' 'requirements'  name =ID (':' title=STRING)? // 'requirement' 'specification'
+	'system' 'requirements'  name =QualifiedName (':' title=STRING)? // 'requirement' 'specification'
 //	('import' importedNamespace=QualifiedNameWithWildCard)?
 	( 'for' (target=[aadl2::ComponentClassifier|AADLCLASSIFIERREFERENCE] | global?='all'))
 	'[' 
@@ -100,7 +100,8 @@ Goal returns Goal:
 	& (  constants+=XValDeclaration* )
 	 &(rationale=Rationale)? 
 	 &(changeUncertainty=Uncertainty)? 
-	 &('refines' refinesReference+=[Goal|QualifiedName]+)? 
+//	 &('refines' refinesReference+=[Goal|QualifiedName]+)? 
+	 &('refined' 'to' '['refinedGoal+=Goal+ ']')? 
 	 &('conflicts' 'with' conflictsReference+=[Goal|QualifiedName]+)? 
 	&('evolves' evolvesReference+=[Requirement|QualifiedName]+)? 
 	&(dropped?='dropped' ( dropRationale=STRING )? )? 
@@ -127,7 +128,8 @@ Requirement returns Requirement:
 	&(rationale=Rationale)? 
 	 &(changeUncertainty=Uncertainty)? 
 	&('mitigates'  (exception=[ecore::EObject|ID]|exceptionText=STRING))? 
-	&('refines' refinesReference+=[Requirement|QualifiedName]+)? 
+//	&('refines' refinesReference+=[Requirement|QualifiedName]+)? 
+	&('refined' 'to' '['refinedRequirement+=Requirement+ ']')? 
 	&('decomposes' decomposesReference+=[Requirement|QualifiedName]+)? 
 	&('evolves' evolvesReference+=[Requirement|QualifiedName]+)? 
 	&(dropped?='dropped' ( dropRationale=STRING )? )? 
@@ -168,15 +170,15 @@ DocRequirement returns Requirement:
 	)
 	']';
 
-ReqPredicate: InformalPredicate | XPredicate | ValueAssertion | InputAssumption | OutputGuarantee| BehaviorEquation;
+ReqPredicate: InformalPredicate | XPredicate ;//| ValueAssertion | InputAssumption | OutputGuarantee| BehaviorEquation;
 
-InformalPredicate: 'assert' description=STRING ;
-XPredicate: 'assert' 'predicate' xpression=XExpression ;
-
-ValueAssertion: 'assert' 'value' xpression=XExpression;	
-InputAssumption:  'input' 'assumption' (xpression=XExpression |'as' reference=[ecore::EObject|ID]);	
-OutputGuarantee: 'output''guarantee' (xpression=XExpression |'as' reference=[ecore::EObject|ID]);	
-BehaviorEquation: 'assert' 'invariant' (xpression=XExpression |'as' reference=[ecore::EObject|ID]);
+InformalPredicate: 'informal' 'predicate'  description=STRING ;
+XPredicate: 'predicate' xpression=XExpression ;
+//
+//ValueAssertion: 'value' 'predicate' xpression=XExpression;	
+//InputAssumption:  'input' 'assumption' (xpression=XExpression |'as' reference=[ecore::EObject|ID]);	
+//OutputGuarantee: 'output''guarantee' (xpression=XExpression |'as' reference=[ecore::EObject|ID]);	
+//BehaviorEquation: 'invariant' (xpression=XExpression |'as' reference=[ecore::EObject|ID]);
 
 ExternalDocument : 
 	docReference=DOCPATH ( '#' docFragment=DOCFRAGMENT)?

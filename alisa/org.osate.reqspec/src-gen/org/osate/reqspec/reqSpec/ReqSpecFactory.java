@@ -140,42 +140,6 @@ public interface ReqSpecFactory extends EFactory
   XPredicate createXPredicate();
 
   /**
-   * Returns a new object of class '<em>Value Assertion</em>'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return a new object of class '<em>Value Assertion</em>'.
-   * @generated
-   */
-  ValueAssertion createValueAssertion();
-
-  /**
-   * Returns a new object of class '<em>Input Assumption</em>'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return a new object of class '<em>Input Assumption</em>'.
-   * @generated
-   */
-  InputAssumption createInputAssumption();
-
-  /**
-   * Returns a new object of class '<em>Output Guarantee</em>'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return a new object of class '<em>Output Guarantee</em>'.
-   * @generated
-   */
-  OutputGuarantee createOutputGuarantee();
-
-  /**
-   * Returns a new object of class '<em>Behavior Equation</em>'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return a new object of class '<em>Behavior Equation</em>'.
-   * @generated
-   */
-  BehaviorEquation createBehaviorEquation();
-
-  /**
    * Returns a new object of class '<em>External Document</em>'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->

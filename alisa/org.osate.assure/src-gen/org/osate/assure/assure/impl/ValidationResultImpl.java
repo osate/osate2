@@ -12,7 +12,7 @@ import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.osate.assure.assure.AssurePackage;
 import org.osate.assure.assure.ValidationResult;
 
-import org.osate.verify.verify.VerificationValidation;
+import org.osate.verify.verify.VerificationCondition;
 
 /**
  * <!-- begin-user-doc -->
@@ -37,7 +37,7 @@ public class ValidationResultImpl extends VerificationResultImpl implements Vali
    * @generated
    * @ordered
    */
-  protected VerificationValidation target;
+  protected VerificationCondition target;
 
   /**
    * <!-- begin-user-doc -->
@@ -65,12 +65,12 @@ public class ValidationResultImpl extends VerificationResultImpl implements Vali
    * <!-- end-user-doc -->
    * @generated
    */
-  public VerificationValidation getTarget()
+  public VerificationCondition getTarget()
   {
     if (target != null && target.eIsProxy())
     {
       InternalEObject oldTarget = (InternalEObject)target;
-      target = (VerificationValidation)eResolveProxy(oldTarget);
+      target = (VerificationCondition)eResolveProxy(oldTarget);
       if (target != oldTarget)
       {
         if (eNotificationRequired())
@@ -85,7 +85,7 @@ public class ValidationResultImpl extends VerificationResultImpl implements Vali
    * <!-- end-user-doc -->
    * @generated
    */
-  public VerificationValidation basicGetTarget()
+  public VerificationCondition basicGetTarget()
   {
     return target;
   }
@@ -95,9 +95,9 @@ public class ValidationResultImpl extends VerificationResultImpl implements Vali
    * <!-- end-user-doc -->
    * @generated
    */
-  public void setTarget(VerificationValidation newTarget)
+  public void setTarget(VerificationCondition newTarget)
   {
-    VerificationValidation oldTarget = target;
+    VerificationCondition oldTarget = target;
     target = newTarget;
     if (eNotificationRequired())
       eNotify(new ENotificationImpl(this, Notification.SET, AssurePackage.VALIDATION_RESULT__TARGET, oldTarget, target));
@@ -131,7 +131,7 @@ public class ValidationResultImpl extends VerificationResultImpl implements Vali
     switch (featureID)
     {
       case AssurePackage.VALIDATION_RESULT__TARGET:
-        setTarget((VerificationValidation)newValue);
+        setTarget((VerificationCondition)newValue);
         return;
     }
     super.eSet(featureID, newValue);
@@ -148,7 +148,7 @@ public class ValidationResultImpl extends VerificationResultImpl implements Vali
     switch (featureID)
     {
       case AssurePackage.VALIDATION_RESULT__TARGET:
-        setTarget((VerificationValidation)null);
+        setTarget((VerificationCondition)null);
         return;
     }
     super.eUnset(featureID);

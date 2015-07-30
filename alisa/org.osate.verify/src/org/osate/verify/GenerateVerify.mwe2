@@ -15,34 +15,7 @@ Workflow {
     bean = StandaloneSetup {
     	scanClassPath = true
     	platformUri = "${runtimeProject}/.."
- 		uriMap = {
-			from = "platform:/plugin/org.eclipse.emf.codegen.ecore/model/GenModel.ecore"
-			to = "platform:/resource/org.eclipse.emf.codegen.ecore/model/GenModel.ecore"
-		}
 		uriMap = {
-			from = "platform:/plugin/org.eclipse.emf.ecore/model/Ecore.ecore"
-			to = "platform:/resource/org.eclipse.emf.ecore/model/Ecore.ecore"
-		}
-		uriMap = {
-			from = "platform:/plugin/org.eclipse.uml2.codegen.ecore/model/GenModel.ecore"
-			to = "platform:/resource/org.eclipse.uml2.codegen.ecore/model/GenModel.ecore"
-		}
-		uriMap = {
-			from = "platform:/plugin/org.eclipse.uml2.types/model/Types.ecore"
-			to = "platform:/resource/org.eclipse.uml2.types/model/Types.ecore"
-		}
-		uriMap = {
-			from = "platform:/plugin/org.eclipse.uml2.uml/model/UML.ecore"
-			to = "platform:/resource/org.eclipse.uml2.uml/model/UML.ecore"
-		}
-		uriMap = {
-			from = "platform:/plugin/org.eclipse.xtext.xbase/model/Xbase.genmodel"
-			to = "platform:/resource/org.eclipse.xtext.xbase/model/Xbase.genmodel"
-		}
-		// added a third instance for it to generate, also a second instance of xbase.
-		// it had the problem when I added the ReqSpec::SystemRequirements reference in place of classifier reference.
-		// does not cause the problem if the rule contains both references.
-				uriMap = {
 			from = "platform:/plugin/org.eclipse.emf.codegen.ecore/model/GenModel.genmodel"
 			to = "platform:/resource/org.eclipse.emf.codegen.ecore/model/GenModel.genmodel"
 		}
@@ -63,9 +36,30 @@ Workflow {
 			to = "platform:/resource/org.eclipse.uml2.uml/model/UML.genmodel"
 		}
 		uriMap = {
+			from = "platform:/plugin/org.eclipse.emf.codegen.ecore/model/GenModel.ecore"
+			to = "platform:/resource/org.eclipse.emf.codegen.ecore/model/GenModel.ecore"
+		}
+		uriMap = {
+			from = "platform:/plugin/org.eclipse.emf.ecore/model/Ecore.ecore"
+			to = "platform:/resource/org.eclipse.emf.ecore/model/Ecore.ecore"
+		}
+		uriMap = {
+			from = "platform:/plugin/org.eclipse.uml2.codegen.ecore/model/GenModel.ecore"
+			to = "platform:/resource/org.eclipse.uml2.codegen.ecore/model/GenModel.ecore"
+		}
+		uriMap = {
+			from = "platform:/plugin/org.eclipse.uml2.types/model/Types.ecore"
+			to = "platform:/resource/org.eclipse.uml2.types/model/Types.ecore"
+		}
+		uriMap = {
+			from = "platform:/plugin/org.eclipse.uml2.uml/model/UML.ecore"
+			to = "platform:/resource/org.eclipse.uml2.uml/model/UML.ecore"
+		}
+
+		uriMap = {
 			from = "platform:/plugin/org.eclipse.xtext.xbase/model/Xbase.genmodel"
 			to = "platform:/resource/org.eclipse.xtext.xbase/model/Xbase.genmodel"
-}		
+		}
     	// The following two lines can be removed, if Xbase is not used.
     	registerGeneratedEPackage = "org.eclipse.xtext.xbase.XbasePackage"
     	registerGenModelFile = "platform:/resource/org.eclipse.xtext.xbase/model/Xbase.genmodel"
@@ -76,7 +70,7 @@ Workflow {
 		registerGeneratedEPackage = "org.eclipse.uml2.uml.UMLPackage"
 		registerGeneratedEPackage = "org.eclipse.emf.codegen.ecore.genmodel.GenModelPackage"
 		registerGeneratedEPackage = "org.eclipse.uml2.codegen.ecore.genmodel.GenModelPackage"
-		registerGenModelFile = "platform:/resource/org.eclipse.emf.ecore/model/Ecore.genmodel"
+		registerGenModelFile = "platform:/plugin/org.eclipse.emf.ecore/model/Ecore.genmodel"
 		registerGenModelFile = "platform:/resource/org.eclipse.emf.codegen.ecore/model/GenModel.genmodel"
 		registerGenModelFile = "platform:/resource/org.eclipse.uml2.types/model/Types.genmodel"
 		registerGenModelFile = "platform:/resource/org.eclipse.uml2.uml/model/UML.genmodel"

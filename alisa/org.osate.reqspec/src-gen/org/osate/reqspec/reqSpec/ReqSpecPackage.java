@@ -795,13 +795,22 @@ public interface ReqSpecPackage extends EPackage
   int GOAL__STAKEHOLDER_REFERENCE = CONTRACTUAL_ELEMENT_FEATURE_COUNT + 2;
 
   /**
+   * The feature id for the '<em><b>Refined Goal</b></em>' containment reference list.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int GOAL__REFINED_GOAL = CONTRACTUAL_ELEMENT_FEATURE_COUNT + 3;
+
+  /**
    * The number of structural features of the '<em>Goal</em>' class.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    * @ordered
    */
-  int GOAL_FEATURE_COUNT = CONTRACTUAL_ELEMENT_FEATURE_COUNT + 3;
+  int GOAL_FEATURE_COUNT = CONTRACTUAL_ELEMENT_FEATURE_COUNT + 4;
 
   /**
    * The meta object id for the '{@link org.osate.reqspec.reqSpec.impl.RequirementImpl <em>Requirement</em>}' class.
@@ -994,13 +1003,13 @@ public interface ReqSpecPackage extends EPackage
   int REQUIREMENT__EXCEPTION_TEXT = CONTRACTUAL_ELEMENT_FEATURE_COUNT + 3;
 
   /**
-   * The feature id for the '<em><b>Refines Reference</b></em>' reference list.
+   * The feature id for the '<em><b>Refined Requirement</b></em>' containment reference list.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    * @ordered
    */
-  int REQUIREMENT__REFINES_REFERENCE = CONTRACTUAL_ELEMENT_FEATURE_COUNT + 4;
+  int REQUIREMENT__REFINED_REQUIREMENT = CONTRACTUAL_ELEMENT_FEATURE_COUNT + 4;
 
   /**
    * The feature id for the '<em><b>Decomposes Reference</b></em>' reference list.
@@ -1030,13 +1039,22 @@ public interface ReqSpecPackage extends EPackage
   int REQUIREMENT__STAKEHOLDER_REQUIREMENT_REFERENCE = CONTRACTUAL_ELEMENT_FEATURE_COUNT + 7;
 
   /**
+   * The feature id for the '<em><b>Refines Reference</b></em>' reference list.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int REQUIREMENT__REFINES_REFERENCE = CONTRACTUAL_ELEMENT_FEATURE_COUNT + 8;
+
+  /**
    * The number of structural features of the '<em>Requirement</em>' class.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    * @ordered
    */
-  int REQUIREMENT_FEATURE_COUNT = CONTRACTUAL_ELEMENT_FEATURE_COUNT + 8;
+  int REQUIREMENT_FEATURE_COUNT = CONTRACTUAL_ELEMENT_FEATURE_COUNT + 9;
 
   /**
    * The meta object id for the '{@link org.osate.reqspec.reqSpec.impl.ReqPredicateImpl <em>Req Predicate</em>}' class.
@@ -1114,145 +1132,6 @@ public interface ReqSpecPackage extends EPackage
   int XPREDICATE_FEATURE_COUNT = REQ_PREDICATE_FEATURE_COUNT + 1;
 
   /**
-   * The meta object id for the '{@link org.osate.reqspec.reqSpec.impl.ValueAssertionImpl <em>Value Assertion</em>}' class.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @see org.osate.reqspec.reqSpec.impl.ValueAssertionImpl
-   * @see org.osate.reqspec.reqSpec.impl.ReqSpecPackageImpl#getValueAssertion()
-   * @generated
-   */
-  int VALUE_ASSERTION = 13;
-
-  /**
-   * The feature id for the '<em><b>Xpression</b></em>' containment reference.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int VALUE_ASSERTION__XPRESSION = REQ_PREDICATE_FEATURE_COUNT + 0;
-
-  /**
-   * The number of structural features of the '<em>Value Assertion</em>' class.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int VALUE_ASSERTION_FEATURE_COUNT = REQ_PREDICATE_FEATURE_COUNT + 1;
-
-  /**
-   * The meta object id for the '{@link org.osate.reqspec.reqSpec.impl.InputAssumptionImpl <em>Input Assumption</em>}' class.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @see org.osate.reqspec.reqSpec.impl.InputAssumptionImpl
-   * @see org.osate.reqspec.reqSpec.impl.ReqSpecPackageImpl#getInputAssumption()
-   * @generated
-   */
-  int INPUT_ASSUMPTION = 14;
-
-  /**
-   * The feature id for the '<em><b>Xpression</b></em>' containment reference.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int INPUT_ASSUMPTION__XPRESSION = REQ_PREDICATE_FEATURE_COUNT + 0;
-
-  /**
-   * The feature id for the '<em><b>Reference</b></em>' reference.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int INPUT_ASSUMPTION__REFERENCE = REQ_PREDICATE_FEATURE_COUNT + 1;
-
-  /**
-   * The number of structural features of the '<em>Input Assumption</em>' class.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int INPUT_ASSUMPTION_FEATURE_COUNT = REQ_PREDICATE_FEATURE_COUNT + 2;
-
-  /**
-   * The meta object id for the '{@link org.osate.reqspec.reqSpec.impl.OutputGuaranteeImpl <em>Output Guarantee</em>}' class.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @see org.osate.reqspec.reqSpec.impl.OutputGuaranteeImpl
-   * @see org.osate.reqspec.reqSpec.impl.ReqSpecPackageImpl#getOutputGuarantee()
-   * @generated
-   */
-  int OUTPUT_GUARANTEE = 15;
-
-  /**
-   * The feature id for the '<em><b>Xpression</b></em>' containment reference.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int OUTPUT_GUARANTEE__XPRESSION = REQ_PREDICATE_FEATURE_COUNT + 0;
-
-  /**
-   * The feature id for the '<em><b>Reference</b></em>' reference.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int OUTPUT_GUARANTEE__REFERENCE = REQ_PREDICATE_FEATURE_COUNT + 1;
-
-  /**
-   * The number of structural features of the '<em>Output Guarantee</em>' class.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int OUTPUT_GUARANTEE_FEATURE_COUNT = REQ_PREDICATE_FEATURE_COUNT + 2;
-
-  /**
-   * The meta object id for the '{@link org.osate.reqspec.reqSpec.impl.BehaviorEquationImpl <em>Behavior Equation</em>}' class.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @see org.osate.reqspec.reqSpec.impl.BehaviorEquationImpl
-   * @see org.osate.reqspec.reqSpec.impl.ReqSpecPackageImpl#getBehaviorEquation()
-   * @generated
-   */
-  int BEHAVIOR_EQUATION = 16;
-
-  /**
-   * The feature id for the '<em><b>Xpression</b></em>' containment reference.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int BEHAVIOR_EQUATION__XPRESSION = REQ_PREDICATE_FEATURE_COUNT + 0;
-
-  /**
-   * The feature id for the '<em><b>Reference</b></em>' reference.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int BEHAVIOR_EQUATION__REFERENCE = REQ_PREDICATE_FEATURE_COUNT + 1;
-
-  /**
-   * The number of structural features of the '<em>Behavior Equation</em>' class.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int BEHAVIOR_EQUATION_FEATURE_COUNT = REQ_PREDICATE_FEATURE_COUNT + 2;
-
-  /**
    * The meta object id for the '{@link org.osate.reqspec.reqSpec.impl.ExternalDocumentImpl <em>External Document</em>}' class.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -1260,7 +1139,7 @@ public interface ReqSpecPackage extends EPackage
    * @see org.osate.reqspec.reqSpec.impl.ReqSpecPackageImpl#getExternalDocument()
    * @generated
    */
-  int EXTERNAL_DOCUMENT = 17;
+  int EXTERNAL_DOCUMENT = 13;
 
   /**
    * The feature id for the '<em><b>Doc Reference</b></em>' attribute.
@@ -1909,6 +1788,17 @@ public interface ReqSpecPackage extends EPackage
   EReference getGoal_StakeholderReference();
 
   /**
+   * Returns the meta object for the containment reference list '{@link org.osate.reqspec.reqSpec.Goal#getRefinedGoal <em>Refined Goal</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the containment reference list '<em>Refined Goal</em>'.
+   * @see org.osate.reqspec.reqSpec.Goal#getRefinedGoal()
+   * @see #getGoal()
+   * @generated
+   */
+  EReference getGoal_RefinedGoal();
+
+  /**
    * Returns the meta object for class '{@link org.osate.reqspec.reqSpec.Requirement <em>Requirement</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -1963,15 +1853,15 @@ public interface ReqSpecPackage extends EPackage
   EAttribute getRequirement_ExceptionText();
 
   /**
-   * Returns the meta object for the reference list '{@link org.osate.reqspec.reqSpec.Requirement#getRefinesReference <em>Refines Reference</em>}'.
+   * Returns the meta object for the containment reference list '{@link org.osate.reqspec.reqSpec.Requirement#getRefinedRequirement <em>Refined Requirement</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @return the meta object for the reference list '<em>Refines Reference</em>'.
-   * @see org.osate.reqspec.reqSpec.Requirement#getRefinesReference()
+   * @return the meta object for the containment reference list '<em>Refined Requirement</em>'.
+   * @see org.osate.reqspec.reqSpec.Requirement#getRefinedRequirement()
    * @see #getRequirement()
    * @generated
    */
-  EReference getRequirement_RefinesReference();
+  EReference getRequirement_RefinedRequirement();
 
   /**
    * Returns the meta object for the reference list '{@link org.osate.reqspec.reqSpec.Requirement#getDecomposesReference <em>Decomposes Reference</em>}'.
@@ -2005,6 +1895,17 @@ public interface ReqSpecPackage extends EPackage
    * @generated
    */
   EReference getRequirement_StakeholderRequirementReference();
+
+  /**
+   * Returns the meta object for the reference list '{@link org.osate.reqspec.reqSpec.Requirement#getRefinesReference <em>Refines Reference</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the reference list '<em>Refines Reference</em>'.
+   * @see org.osate.reqspec.reqSpec.Requirement#getRefinesReference()
+   * @see #getRequirement()
+   * @generated
+   */
+  EReference getRequirement_RefinesReference();
 
   /**
    * Returns the meta object for class '{@link org.osate.reqspec.reqSpec.ReqPredicate <em>Req Predicate</em>}'.
@@ -2057,123 +1958,6 @@ public interface ReqSpecPackage extends EPackage
    * @generated
    */
   EReference getXPredicate_Xpression();
-
-  /**
-   * Returns the meta object for class '{@link org.osate.reqspec.reqSpec.ValueAssertion <em>Value Assertion</em>}'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return the meta object for class '<em>Value Assertion</em>'.
-   * @see org.osate.reqspec.reqSpec.ValueAssertion
-   * @generated
-   */
-  EClass getValueAssertion();
-
-  /**
-   * Returns the meta object for the containment reference '{@link org.osate.reqspec.reqSpec.ValueAssertion#getXpression <em>Xpression</em>}'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return the meta object for the containment reference '<em>Xpression</em>'.
-   * @see org.osate.reqspec.reqSpec.ValueAssertion#getXpression()
-   * @see #getValueAssertion()
-   * @generated
-   */
-  EReference getValueAssertion_Xpression();
-
-  /**
-   * Returns the meta object for class '{@link org.osate.reqspec.reqSpec.InputAssumption <em>Input Assumption</em>}'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return the meta object for class '<em>Input Assumption</em>'.
-   * @see org.osate.reqspec.reqSpec.InputAssumption
-   * @generated
-   */
-  EClass getInputAssumption();
-
-  /**
-   * Returns the meta object for the containment reference '{@link org.osate.reqspec.reqSpec.InputAssumption#getXpression <em>Xpression</em>}'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return the meta object for the containment reference '<em>Xpression</em>'.
-   * @see org.osate.reqspec.reqSpec.InputAssumption#getXpression()
-   * @see #getInputAssumption()
-   * @generated
-   */
-  EReference getInputAssumption_Xpression();
-
-  /**
-   * Returns the meta object for the reference '{@link org.osate.reqspec.reqSpec.InputAssumption#getReference <em>Reference</em>}'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return the meta object for the reference '<em>Reference</em>'.
-   * @see org.osate.reqspec.reqSpec.InputAssumption#getReference()
-   * @see #getInputAssumption()
-   * @generated
-   */
-  EReference getInputAssumption_Reference();
-
-  /**
-   * Returns the meta object for class '{@link org.osate.reqspec.reqSpec.OutputGuarantee <em>Output Guarantee</em>}'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return the meta object for class '<em>Output Guarantee</em>'.
-   * @see org.osate.reqspec.reqSpec.OutputGuarantee
-   * @generated
-   */
-  EClass getOutputGuarantee();
-
-  /**
-   * Returns the meta object for the containment reference '{@link org.osate.reqspec.reqSpec.OutputGuarantee#getXpression <em>Xpression</em>}'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return the meta object for the containment reference '<em>Xpression</em>'.
-   * @see org.osate.reqspec.reqSpec.OutputGuarantee#getXpression()
-   * @see #getOutputGuarantee()
-   * @generated
-   */
-  EReference getOutputGuarantee_Xpression();
-
-  /**
-   * Returns the meta object for the reference '{@link org.osate.reqspec.reqSpec.OutputGuarantee#getReference <em>Reference</em>}'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return the meta object for the reference '<em>Reference</em>'.
-   * @see org.osate.reqspec.reqSpec.OutputGuarantee#getReference()
-   * @see #getOutputGuarantee()
-   * @generated
-   */
-  EReference getOutputGuarantee_Reference();
-
-  /**
-   * Returns the meta object for class '{@link org.osate.reqspec.reqSpec.BehaviorEquation <em>Behavior Equation</em>}'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return the meta object for class '<em>Behavior Equation</em>'.
-   * @see org.osate.reqspec.reqSpec.BehaviorEquation
-   * @generated
-   */
-  EClass getBehaviorEquation();
-
-  /**
-   * Returns the meta object for the containment reference '{@link org.osate.reqspec.reqSpec.BehaviorEquation#getXpression <em>Xpression</em>}'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return the meta object for the containment reference '<em>Xpression</em>'.
-   * @see org.osate.reqspec.reqSpec.BehaviorEquation#getXpression()
-   * @see #getBehaviorEquation()
-   * @generated
-   */
-  EReference getBehaviorEquation_Xpression();
-
-  /**
-   * Returns the meta object for the reference '{@link org.osate.reqspec.reqSpec.BehaviorEquation#getReference <em>Reference</em>}'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return the meta object for the reference '<em>Reference</em>'.
-   * @see org.osate.reqspec.reqSpec.BehaviorEquation#getReference()
-   * @see #getBehaviorEquation()
-   * @generated
-   */
-  EReference getBehaviorEquation_Reference();
 
   /**
    * Returns the meta object for class '{@link org.osate.reqspec.reqSpec.ExternalDocument <em>External Document</em>}'.
@@ -2705,6 +2489,14 @@ public interface ReqSpecPackage extends EPackage
     EReference GOAL__STAKEHOLDER_REFERENCE = eINSTANCE.getGoal_StakeholderReference();
 
     /**
+     * The meta object literal for the '<em><b>Refined Goal</b></em>' containment reference list feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EReference GOAL__REFINED_GOAL = eINSTANCE.getGoal_RefinedGoal();
+
+    /**
      * The meta object literal for the '{@link org.osate.reqspec.reqSpec.impl.RequirementImpl <em>Requirement</em>}' class.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
@@ -2747,12 +2539,12 @@ public interface ReqSpecPackage extends EPackage
     EAttribute REQUIREMENT__EXCEPTION_TEXT = eINSTANCE.getRequirement_ExceptionText();
 
     /**
-     * The meta object literal for the '<em><b>Refines Reference</b></em>' reference list feature.
+     * The meta object literal for the '<em><b>Refined Requirement</b></em>' containment reference list feature.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @generated
      */
-    EReference REQUIREMENT__REFINES_REFERENCE = eINSTANCE.getRequirement_RefinesReference();
+    EReference REQUIREMENT__REFINED_REQUIREMENT = eINSTANCE.getRequirement_RefinedRequirement();
 
     /**
      * The meta object literal for the '<em><b>Decomposes Reference</b></em>' reference list feature.
@@ -2777,6 +2569,14 @@ public interface ReqSpecPackage extends EPackage
      * @generated
      */
     EReference REQUIREMENT__STAKEHOLDER_REQUIREMENT_REFERENCE = eINSTANCE.getRequirement_StakeholderRequirementReference();
+
+    /**
+     * The meta object literal for the '<em><b>Refines Reference</b></em>' reference list feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EReference REQUIREMENT__REFINES_REFERENCE = eINSTANCE.getRequirement_RefinesReference();
 
     /**
      * The meta object literal for the '{@link org.osate.reqspec.reqSpec.impl.ReqPredicateImpl <em>Req Predicate</em>}' class.
@@ -2823,102 +2623,6 @@ public interface ReqSpecPackage extends EPackage
      * @generated
      */
     EReference XPREDICATE__XPRESSION = eINSTANCE.getXPredicate_Xpression();
-
-    /**
-     * The meta object literal for the '{@link org.osate.reqspec.reqSpec.impl.ValueAssertionImpl <em>Value Assertion</em>}' class.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @see org.osate.reqspec.reqSpec.impl.ValueAssertionImpl
-     * @see org.osate.reqspec.reqSpec.impl.ReqSpecPackageImpl#getValueAssertion()
-     * @generated
-     */
-    EClass VALUE_ASSERTION = eINSTANCE.getValueAssertion();
-
-    /**
-     * The meta object literal for the '<em><b>Xpression</b></em>' containment reference feature.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
-    EReference VALUE_ASSERTION__XPRESSION = eINSTANCE.getValueAssertion_Xpression();
-
-    /**
-     * The meta object literal for the '{@link org.osate.reqspec.reqSpec.impl.InputAssumptionImpl <em>Input Assumption</em>}' class.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @see org.osate.reqspec.reqSpec.impl.InputAssumptionImpl
-     * @see org.osate.reqspec.reqSpec.impl.ReqSpecPackageImpl#getInputAssumption()
-     * @generated
-     */
-    EClass INPUT_ASSUMPTION = eINSTANCE.getInputAssumption();
-
-    /**
-     * The meta object literal for the '<em><b>Xpression</b></em>' containment reference feature.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
-    EReference INPUT_ASSUMPTION__XPRESSION = eINSTANCE.getInputAssumption_Xpression();
-
-    /**
-     * The meta object literal for the '<em><b>Reference</b></em>' reference feature.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
-    EReference INPUT_ASSUMPTION__REFERENCE = eINSTANCE.getInputAssumption_Reference();
-
-    /**
-     * The meta object literal for the '{@link org.osate.reqspec.reqSpec.impl.OutputGuaranteeImpl <em>Output Guarantee</em>}' class.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @see org.osate.reqspec.reqSpec.impl.OutputGuaranteeImpl
-     * @see org.osate.reqspec.reqSpec.impl.ReqSpecPackageImpl#getOutputGuarantee()
-     * @generated
-     */
-    EClass OUTPUT_GUARANTEE = eINSTANCE.getOutputGuarantee();
-
-    /**
-     * The meta object literal for the '<em><b>Xpression</b></em>' containment reference feature.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
-    EReference OUTPUT_GUARANTEE__XPRESSION = eINSTANCE.getOutputGuarantee_Xpression();
-
-    /**
-     * The meta object literal for the '<em><b>Reference</b></em>' reference feature.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
-    EReference OUTPUT_GUARANTEE__REFERENCE = eINSTANCE.getOutputGuarantee_Reference();
-
-    /**
-     * The meta object literal for the '{@link org.osate.reqspec.reqSpec.impl.BehaviorEquationImpl <em>Behavior Equation</em>}' class.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @see org.osate.reqspec.reqSpec.impl.BehaviorEquationImpl
-     * @see org.osate.reqspec.reqSpec.impl.ReqSpecPackageImpl#getBehaviorEquation()
-     * @generated
-     */
-    EClass BEHAVIOR_EQUATION = eINSTANCE.getBehaviorEquation();
-
-    /**
-     * The meta object literal for the '<em><b>Xpression</b></em>' containment reference feature.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
-    EReference BEHAVIOR_EQUATION__XPRESSION = eINSTANCE.getBehaviorEquation_Xpression();
-
-    /**
-     * The meta object literal for the '<em><b>Reference</b></em>' reference feature.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
-    EReference BEHAVIOR_EQUATION__REFERENCE = eINSTANCE.getBehaviorEquation_Reference();
 
     /**
      * The meta object literal for the '{@link org.osate.reqspec.reqSpec.impl.ExternalDocumentImpl <em>External Document</em>}' class.

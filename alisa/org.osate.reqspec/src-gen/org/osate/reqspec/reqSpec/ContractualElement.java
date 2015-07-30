@@ -6,7 +6,7 @@ import org.eclipse.emf.common.util.EList;
 
 import org.eclipse.emf.ecore.EObject;
 
-import org.eclipse.xtext.xbase.XExpression;
+import org.eclipse.xtext.xbase.XVariableDeclaration;
 
 import org.osate.aadl2.ComponentClassifier;
 import org.osate.aadl2.NamedElement;
@@ -224,7 +224,7 @@ public interface ContractualElement extends EObject
 
   /**
    * Returns the value of the '<em><b>Constants</b></em>' containment reference list.
-   * The list contents are of type {@link org.eclipse.xtext.xbase.XExpression}.
+   * The list contents are of type {@link org.eclipse.xtext.xbase.XVariableDeclaration}.
    * <!-- begin-user-doc -->
    * <p>
    * If the meaning of the '<em>Constants</em>' containment reference list isn't clear,
@@ -236,7 +236,7 @@ public interface ContractualElement extends EObject
    * @model containment="true"
    * @generated
    */
-  EList<XExpression> getConstants();
+  EList<XVariableDeclaration> getConstants();
 
   /**
    * Returns the value of the '<em><b>Rationale</b></em>' containment reference.

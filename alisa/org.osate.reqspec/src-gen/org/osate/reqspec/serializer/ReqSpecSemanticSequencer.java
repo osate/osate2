@@ -65,25 +65,22 @@ import org.osate.alisa.common.common.ComputeDeclaration;
 import org.osate.alisa.common.common.Description;
 import org.osate.alisa.common.common.DescriptionElement;
 import org.osate.alisa.common.common.ImageReference;
+import org.osate.alisa.common.common.PropertyConsistentVariableDeclaration;
 import org.osate.alisa.common.common.Rationale;
 import org.osate.alisa.common.common.ShowValue;
 import org.osate.alisa.common.common.Uncertainty;
 import org.osate.alisa.common.common.XNumberLiteralUnit;
 import org.osate.alisa.common.serializer.CommonSemanticSequencer;
-import org.osate.reqspec.reqSpec.BehaviorEquation;
 import org.osate.reqspec.reqSpec.DocumentSection;
 import org.osate.reqspec.reqSpec.ExternalDocument;
 import org.osate.reqspec.reqSpec.Goal;
 import org.osate.reqspec.reqSpec.InformalPredicate;
-import org.osate.reqspec.reqSpec.InputAssumption;
-import org.osate.reqspec.reqSpec.OutputGuarantee;
 import org.osate.reqspec.reqSpec.ReqDocument;
 import org.osate.reqspec.reqSpec.ReqSpec;
 import org.osate.reqspec.reqSpec.ReqSpecPackage;
 import org.osate.reqspec.reqSpec.Requirement;
 import org.osate.reqspec.reqSpec.StakeholderGoals;
 import org.osate.reqspec.reqSpec.SystemRequirements;
-import org.osate.reqspec.reqSpec.ValueAssertion;
 import org.osate.reqspec.reqSpec.XPredicate;
 import org.osate.reqspec.services.ReqSpecGrammarAccess;
 
@@ -111,6 +108,9 @@ public class ReqSpecSemanticSequencer extends CommonSemanticSequencer {
 			case CommonPackage.IMAGE_REFERENCE:
 				sequence_ImageReference(context, (ImageReference) semanticObject); 
 				return; 
+			case CommonPackage.PROPERTY_CONSISTENT_VARIABLE_DECLARATION:
+				sequence_XValDeclaration(context, (PropertyConsistentVariableDeclaration) semanticObject); 
+				return; 
 			case CommonPackage.RATIONALE:
 				sequence_Rationale(context, (Rationale) semanticObject); 
 				return; 
@@ -125,9 +125,6 @@ public class ReqSpecSemanticSequencer extends CommonSemanticSequencer {
 				return; 
 			}
 		else if(semanticObject.eClass().getEPackage() == ReqSpecPackage.eINSTANCE) switch(semanticObject.eClass().getClassifierID()) {
-			case ReqSpecPackage.BEHAVIOR_EQUATION:
-				sequence_BehaviorEquation(context, (BehaviorEquation) semanticObject); 
-				return; 
 			case ReqSpecPackage.DOCUMENT_SECTION:
 				sequence_DocumentSection(context, (DocumentSection) semanticObject); 
 				return; 
@@ -150,12 +147,6 @@ public class ReqSpecSemanticSequencer extends CommonSemanticSequencer {
 				else break;
 			case ReqSpecPackage.INFORMAL_PREDICATE:
 				sequence_InformalPredicate(context, (InformalPredicate) semanticObject); 
-				return; 
-			case ReqSpecPackage.INPUT_ASSUMPTION:
-				sequence_InputAssumption(context, (InputAssumption) semanticObject); 
-				return; 
-			case ReqSpecPackage.OUTPUT_GUARANTEE:
-				sequence_OutputGuarantee(context, (OutputGuarantee) semanticObject); 
 				return; 
 			case ReqSpecPackage.REQ_DOCUMENT:
 				sequence_ReqDocument(context, (ReqDocument) semanticObject); 
@@ -182,9 +173,6 @@ public class ReqSpecSemanticSequencer extends CommonSemanticSequencer {
 				return; 
 			case ReqSpecPackage.SYSTEM_REQUIREMENTS:
 				sequence_SystemRequirements(context, (SystemRequirements) semanticObject); 
-				return; 
-			case ReqSpecPackage.VALUE_ASSERTION:
-				sequence_ValueAssertion(context, (ValueAssertion) semanticObject); 
 				return; 
 			case ReqSpecPackage.XPREDICATE:
 				sequence_XPredicate(context, (XPredicate) semanticObject); 
@@ -396,16 +384,8 @@ public class ReqSpecSemanticSequencer extends CommonSemanticSequencer {
 				sequence_XUnaryOperation(context, (XUnaryOperation) semanticObject); 
 				return; 
 			case XbasePackage.XVARIABLE_DECLARATION:
-				if(context == grammarAccess.getXValDeclarationRule()) {
-					sequence_XValDeclaration(context, (XVariableDeclaration) semanticObject); 
-					return; 
-				}
-				else if(context == grammarAccess.getXExpressionOrVarDeclarationRule() ||
-				   context == grammarAccess.getXVariableDeclarationRule()) {
-					sequence_XVariableDeclaration(context, (XVariableDeclaration) semanticObject); 
-					return; 
-				}
-				else break;
+				sequence_XVariableDeclaration(context, (XVariableDeclaration) semanticObject); 
+				return; 
 			case XbasePackage.XWHILE_EXPRESSION:
 				sequence_XWhileExpression(context, (XWhileExpression) semanticObject); 
 				return; 
@@ -426,15 +406,6 @@ public class ReqSpecSemanticSequencer extends CommonSemanticSequencer {
 	
 	/**
 	 * Constraint:
-	 *     (xpression=XExpression | reference=[EObject|ID])
-	 */
-	protected void sequence_BehaviorEquation(EObject context, BehaviorEquation semanticObject) {
-		genericSequencer.createSequence(context, semanticObject);
-	}
-	
-	
-	/**
-	 * Constraint:
 	 *     (
 	 *         (
 	 *             name=ID 
@@ -445,7 +416,7 @@ public class ReqSpecSemanticSequencer extends CommonSemanticSequencer {
 	 *             constants+=XValDeclaration* 
 	 *             rationale=Rationale? 
 	 *             changeUncertainty=Uncertainty? 
-	 *             refinesReference+=[Goal|QualifiedName]* 
+	 *             refinedGoal+=Goal* 
 	 *             conflictsReference+=[Goal|QualifiedName]* 
 	 *             evolvesReference+=[Requirement|QualifiedName]* 
 	 *             (dropped?='dropped' dropRationale=STRING?)? 
@@ -494,7 +465,7 @@ public class ReqSpecSemanticSequencer extends CommonSemanticSequencer {
 	 *             rationale=Rationale? 
 	 *             changeUncertainty=Uncertainty? 
 	 *             (exception=[EObject|ID] | exceptionText=STRING)? 
-	 *             refinesReference+=[Requirement|QualifiedName]* 
+	 *             refinedRequirement+=Requirement* 
 	 *             decomposesReference+=[Requirement|QualifiedName]* 
 	 *             evolvesReference+=[Requirement|QualifiedName]* 
 	 *             (dropped?='dropped' dropRationale=STRING?)? 
@@ -618,7 +589,7 @@ public class ReqSpecSemanticSequencer extends CommonSemanticSequencer {
 	 *         constants+=XValDeclaration* 
 	 *         rationale=Rationale? 
 	 *         changeUncertainty=Uncertainty? 
-	 *         refinesReference+=[Goal|QualifiedName]* 
+	 *         refinedGoal+=Goal* 
 	 *         conflictsReference+=[Goal|QualifiedName]* 
 	 *         evolvesReference+=[Requirement|QualifiedName]* 
 	 *         (dropped?='dropped' dropRationale=STRING?)? 
@@ -644,32 +615,20 @@ public class ReqSpecSemanticSequencer extends CommonSemanticSequencer {
 		}
 		INodesForEObjectProvider nodes = createNodeProvider(semanticObject);
 		SequenceFeeder feeder = createSequencerFeeder(semanticObject, nodes);
-		feeder.accept(grammarAccess.getInformalPredicateAccess().getDescriptionSTRINGTerminalRuleCall_1_0(), semanticObject.getDescription());
+		feeder.accept(grammarAccess.getInformalPredicateAccess().getDescriptionSTRINGTerminalRuleCall_2_0(), semanticObject.getDescription());
 		feeder.finish();
 	}
 	
 	
 	/**
 	 * Constraint:
-	 *     (xpression=XExpression | reference=[EObject|ID])
-	 */
-	protected void sequence_InputAssumption(EObject context, InputAssumption semanticObject) {
-		genericSequencer.createSequence(context, semanticObject);
-	}
-	
-	
-	/**
-	 * Constraint:
-	 *     (xpression=XExpression | reference=[EObject|ID])
-	 */
-	protected void sequence_OutputGuarantee(EObject context, OutputGuarantee semanticObject) {
-		genericSequencer.createSequence(context, semanticObject);
-	}
-	
-	
-	/**
-	 * Constraint:
-	 *     (name=ID title=STRING? description=Description? (content+=DocGoal | content+=DocRequirement | content+=DocumentSection)* issues+=STRING*)
+	 *     (
+	 *         name=QualifiedName 
+	 *         title=STRING? 
+	 *         description=Description? 
+	 *         (content+=DocGoal | content+=DocRequirement | content+=DocumentSection)* 
+	 *         issues+=STRING*
+	 *     )
 	 */
 	protected void sequence_ReqDocument(EObject context, ReqDocument semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
@@ -699,7 +658,7 @@ public class ReqSpecSemanticSequencer extends CommonSemanticSequencer {
 	 *         rationale=Rationale? 
 	 *         changeUncertainty=Uncertainty? 
 	 *         (exception=[EObject|ID] | exceptionText=STRING)? 
-	 *         refinesReference+=[Requirement|QualifiedName]* 
+	 *         refinedRequirement+=Requirement* 
 	 *         decomposesReference+=[Requirement|QualifiedName]* 
 	 *         evolvesReference+=[Requirement|QualifiedName]* 
 	 *         (dropped?='dropped' dropRationale=STRING?)? 
@@ -718,7 +677,7 @@ public class ReqSpecSemanticSequencer extends CommonSemanticSequencer {
 	/**
 	 * Constraint:
 	 *     (
-	 *         name=ID 
+	 *         name=QualifiedName 
 	 *         title=STRING? 
 	 *         (target=[ComponentClassifier|AADLCLASSIFIERREFERENCE] | global?='all') 
 	 *         description=Description? 
@@ -736,7 +695,7 @@ public class ReqSpecSemanticSequencer extends CommonSemanticSequencer {
 	/**
 	 * Constraint:
 	 *     (
-	 *         name=ID 
+	 *         name=QualifiedName 
 	 *         title=STRING? 
 	 *         (target=[ComponentClassifier|AADLCLASSIFIERREFERENCE] | global?='all') 
 	 *         description=Description? 
@@ -756,22 +715,6 @@ public class ReqSpecSemanticSequencer extends CommonSemanticSequencer {
 	 * Constraint:
 	 *     xpression=XExpression
 	 */
-	protected void sequence_ValueAssertion(EObject context, ValueAssertion semanticObject) {
-		if(errorAcceptor != null) {
-			if(transientValues.isValueTransient(semanticObject, ReqSpecPackage.Literals.VALUE_ASSERTION__XPRESSION) == ValueTransient.YES)
-				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, ReqSpecPackage.Literals.VALUE_ASSERTION__XPRESSION));
-		}
-		INodesForEObjectProvider nodes = createNodeProvider(semanticObject);
-		SequenceFeeder feeder = createSequencerFeeder(semanticObject, nodes);
-		feeder.accept(grammarAccess.getValueAssertionAccess().getXpressionXExpressionParserRuleCall_2_0(), semanticObject.getXpression());
-		feeder.finish();
-	}
-	
-	
-	/**
-	 * Constraint:
-	 *     xpression=XExpression
-	 */
 	protected void sequence_XPredicate(EObject context, XPredicate semanticObject) {
 		if(errorAcceptor != null) {
 			if(transientValues.isValueTransient(semanticObject, ReqSpecPackage.Literals.XPREDICATE__XPRESSION) == ValueTransient.YES)
@@ -779,7 +722,7 @@ public class ReqSpecSemanticSequencer extends CommonSemanticSequencer {
 		}
 		INodesForEObjectProvider nodes = createNodeProvider(semanticObject);
 		SequenceFeeder feeder = createSequencerFeeder(semanticObject, nodes);
-		feeder.accept(grammarAccess.getXPredicateAccess().getXpressionXExpressionParserRuleCall_2_0(), semanticObject.getXpression());
+		feeder.accept(grammarAccess.getXPredicateAccess().getXpressionXExpressionParserRuleCall_1_0(), semanticObject.getXpression());
 		feeder.finish();
 	}
 }

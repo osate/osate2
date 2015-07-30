@@ -4,8 +4,6 @@ package org.osate.assure.assure;
 
 import org.eclipse.emf.common.util.EList;
 
-import org.osate.aadl2.instance.InstanceObject;
-
 import org.osate.reqspec.reqSpec.Requirement;
 
 /**
@@ -17,7 +15,6 @@ import org.osate.reqspec.reqSpec.Requirement;
  * The following features are supported:
  * <ul>
  *   <li>{@link org.osate.assure.assure.ClaimResult#getTarget <em>Target</em>}</li>
- *   <li>{@link org.osate.assure.assure.ClaimResult#getInstance <em>Instance</em>}</li>
  *   <li>{@link org.osate.assure.assure.ClaimResult#getMessage <em>Message</em>}</li>
  *   <li>{@link org.osate.assure.assure.ClaimResult#getSubClaimResult <em>Sub Claim Result</em>}</li>
  *   <li>{@link org.osate.assure.assure.ClaimResult#getVerificationActivityResult <em>Verification Activity Result</em>}</li>
@@ -55,32 +52,6 @@ public interface ClaimResult extends AssureResult
    * @generated
    */
   void setTarget(Requirement value);
-
-  /**
-   * Returns the value of the '<em><b>Instance</b></em>' reference.
-   * <!-- begin-user-doc -->
-   * <p>
-   * If the meaning of the '<em>Instance</em>' reference isn't clear,
-   * there really should be more of a description here...
-   * </p>
-   * <!-- end-user-doc -->
-   * @return the value of the '<em>Instance</em>' reference.
-   * @see #setInstance(InstanceObject)
-   * @see org.osate.assure.assure.AssurePackage#getClaimResult_Instance()
-   * @model
-   * @generated
-   */
-  InstanceObject getInstance();
-
-  /**
-   * Sets the value of the '{@link org.osate.assure.assure.ClaimResult#getInstance <em>Instance</em>}' reference.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @param value the new value of the '<em>Instance</em>' reference.
-   * @see #getInstance()
-   * @generated
-   */
-  void setInstance(InstanceObject value);
 
   /**
    * Returns the value of the '<em><b>Message</b></em>' attribute.

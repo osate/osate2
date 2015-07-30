@@ -1,6 +1,6 @@
 /**
  */
-package org.osate.verify.verify;
+package org.osate.assure.assure;
 
 import java.util.Arrays;
 import java.util.Collections;
@@ -10,123 +10,123 @@ import org.eclipse.emf.common.util.Enumerator;
 
 /**
  * <!-- begin-user-doc -->
- * A representation of the literals of the enumeration '<em><b>Supported Scopes</b></em>',
+ * A representation of the literals of the enumeration '<em><b>Else Type</b></em>',
  * and utility methods for working with them.
  * <!-- end-user-doc -->
- * @see org.osate.verify.verify.VerifyPackage#getSupportedScopes()
+ * @see org.osate.assure.assure.AssurePackage#getElseType()
  * @model
  * @generated
  */
-public enum SupportedScopes implements Enumerator
+public enum ElseType implements Enumerator
 {
   /**
-   * The '<em><b>SELF</b></em>' literal object.
+   * The '<em><b>FAIL</b></em>' literal object.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @see #SELF_VALUE
+   * @see #FAIL_VALUE
    * @generated
    * @ordered
    */
-  SELF(0, "SELF", "self"),
+  FAIL(0, "FAIL", "fail"),
 
   /**
-   * The '<em><b>PARTS</b></em>' literal object.
+   * The '<em><b>TIMEOUT</b></em>' literal object.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @see #PARTS_VALUE
+   * @see #TIMEOUT_VALUE
    * @generated
    * @ordered
    */
-  PARTS(1, "PARTS", "parts"),
+  TIMEOUT(1, "TIMEOUT", "timeout"),
 
   /**
-   * The '<em><b>ALL</b></em>' literal object.
+   * The '<em><b>OTHER</b></em>' literal object.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @see #ALL_VALUE
+   * @see #OTHER_VALUE
    * @generated
    * @ordered
    */
-  ALL(2, "ALL", "all");
+  OTHER(2, "OTHER", "other");
 
   /**
-   * The '<em><b>SELF</b></em>' literal value.
+   * The '<em><b>FAIL</b></em>' literal value.
    * <!-- begin-user-doc -->
    * <p>
-   * If the meaning of '<em><b>SELF</b></em>' literal object isn't clear,
+   * If the meaning of '<em><b>FAIL</b></em>' literal object isn't clear,
    * there really should be more of a description here...
    * </p>
    * <!-- end-user-doc -->
-   * @see #SELF
-   * @model literal="self"
+   * @see #FAIL
+   * @model literal="fail"
    * @generated
    * @ordered
    */
-  public static final int SELF_VALUE = 0;
+  public static final int FAIL_VALUE = 0;
 
   /**
-   * The '<em><b>PARTS</b></em>' literal value.
+   * The '<em><b>TIMEOUT</b></em>' literal value.
    * <!-- begin-user-doc -->
    * <p>
-   * If the meaning of '<em><b>PARTS</b></em>' literal object isn't clear,
+   * If the meaning of '<em><b>TIMEOUT</b></em>' literal object isn't clear,
    * there really should be more of a description here...
    * </p>
    * <!-- end-user-doc -->
-   * @see #PARTS
-   * @model literal="parts"
+   * @see #TIMEOUT
+   * @model literal="timeout"
    * @generated
    * @ordered
    */
-  public static final int PARTS_VALUE = 1;
+  public static final int TIMEOUT_VALUE = 1;
 
   /**
-   * The '<em><b>ALL</b></em>' literal value.
+   * The '<em><b>OTHER</b></em>' literal value.
    * <!-- begin-user-doc -->
    * <p>
-   * If the meaning of '<em><b>ALL</b></em>' literal object isn't clear,
+   * If the meaning of '<em><b>OTHER</b></em>' literal object isn't clear,
    * there really should be more of a description here...
    * </p>
    * <!-- end-user-doc -->
-   * @see #ALL
-   * @model literal="all"
+   * @see #OTHER
+   * @model literal="other"
    * @generated
    * @ordered
    */
-  public static final int ALL_VALUE = 2;
+  public static final int OTHER_VALUE = 2;
 
   /**
-   * An array of all the '<em><b>Supported Scopes</b></em>' enumerators.
+   * An array of all the '<em><b>Else Type</b></em>' enumerators.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    */
-  private static final SupportedScopes[] VALUES_ARRAY =
-    new SupportedScopes[]
+  private static final ElseType[] VALUES_ARRAY =
+    new ElseType[]
     {
-      SELF,
-      PARTS,
-      ALL,
+      FAIL,
+      TIMEOUT,
+      OTHER,
     };
 
   /**
-   * A public read-only list of all the '<em><b>Supported Scopes</b></em>' enumerators.
+   * A public read-only list of all the '<em><b>Else Type</b></em>' enumerators.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    */
-  public static final List<SupportedScopes> VALUES = Collections.unmodifiableList(Arrays.asList(VALUES_ARRAY));
+  public static final List<ElseType> VALUES = Collections.unmodifiableList(Arrays.asList(VALUES_ARRAY));
 
   /**
-   * Returns the '<em><b>Supported Scopes</b></em>' literal with the specified literal value.
+   * Returns the '<em><b>Else Type</b></em>' literal with the specified literal value.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    */
-  public static SupportedScopes get(String literal)
+  public static ElseType get(String literal)
   {
     for (int i = 0; i < VALUES_ARRAY.length; ++i)
     {
-      SupportedScopes result = VALUES_ARRAY[i];
+      ElseType result = VALUES_ARRAY[i];
       if (result.toString().equals(literal))
       {
         return result;
@@ -136,16 +136,16 @@ public enum SupportedScopes implements Enumerator
   }
 
   /**
-   * Returns the '<em><b>Supported Scopes</b></em>' literal with the specified name.
+   * Returns the '<em><b>Else Type</b></em>' literal with the specified name.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    */
-  public static SupportedScopes getByName(String name)
+  public static ElseType getByName(String name)
   {
     for (int i = 0; i < VALUES_ARRAY.length; ++i)
     {
-      SupportedScopes result = VALUES_ARRAY[i];
+      ElseType result = VALUES_ARRAY[i];
       if (result.getName().equals(name))
       {
         return result;
@@ -155,18 +155,18 @@ public enum SupportedScopes implements Enumerator
   }
 
   /**
-   * Returns the '<em><b>Supported Scopes</b></em>' literal with the specified integer value.
+   * Returns the '<em><b>Else Type</b></em>' literal with the specified integer value.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    */
-  public static SupportedScopes get(int value)
+  public static ElseType get(int value)
   {
     switch (value)
     {
-      case SELF_VALUE: return SELF;
-      case PARTS_VALUE: return PARTS;
-      case ALL_VALUE: return ALL;
+      case FAIL_VALUE: return FAIL;
+      case TIMEOUT_VALUE: return TIMEOUT;
+      case OTHER_VALUE: return OTHER;
     }
     return null;
   }
@@ -198,7 +198,7 @@ public enum SupportedScopes implements Enumerator
    * <!-- end-user-doc -->
    * @generated
    */
-  private SupportedScopes(int value, String name, String literal)
+  private ElseType(int value, String name, String literal)
   {
     this.value = value;
     this.name = name;
@@ -247,4 +247,4 @@ public enum SupportedScopes implements Enumerator
     return literal;
   }
   
-} //SupportedScopes
+} //ElseType

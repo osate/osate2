@@ -3,14 +3,17 @@
 package org.osate.assure.assure.impl;
 
 import org.eclipse.emf.common.notify.Notification;
+import org.eclipse.emf.common.notify.NotificationChain;
 
 import org.eclipse.emf.ecore.EClass;
+import org.eclipse.emf.ecore.InternalEObject;
 
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.eclipse.emf.ecore.impl.MinimalEObjectImpl;
 
 import org.osate.assure.assure.AssurePackage;
 import org.osate.assure.assure.AssureResult;
+import org.osate.assure.assure.Metrics;
 
 /**
  * <!-- begin-user-doc -->
@@ -19,13 +22,7 @@ import org.osate.assure.assure.AssureResult;
  * <p>
  * The following features are implemented:
  * <ul>
- *   <li>{@link org.osate.assure.assure.impl.AssureResultImpl#getSuccessCount <em>Success Count</em>}</li>
- *   <li>{@link org.osate.assure.assure.impl.AssureResultImpl#getFailCount <em>Fail Count</em>}</li>
- *   <li>{@link org.osate.assure.assure.impl.AssureResultImpl#getUnknownCount <em>Unknown Count</em>}</li>
- *   <li>{@link org.osate.assure.assure.impl.AssureResultImpl#getFailthenCount <em>Failthen Count</em>}</li>
- *   <li>{@link org.osate.assure.assure.impl.AssureResultImpl#getAndthenCount <em>Andthen Count</em>}</li>
- *   <li>{@link org.osate.assure.assure.impl.AssureResultImpl#getTbdCount <em>Tbd Count</em>}</li>
- *   <li>{@link org.osate.assure.assure.impl.AssureResultImpl#getWeight <em>Weight</em>}</li>
+ *   <li>{@link org.osate.assure.assure.impl.AssureResultImpl#getMetrics <em>Metrics</em>}</li>
  * </ul>
  * </p>
  *
@@ -34,144 +31,14 @@ import org.osate.assure.assure.AssureResult;
 public class AssureResultImpl extends MinimalEObjectImpl.Container implements AssureResult
 {
   /**
-   * The default value of the '{@link #getSuccessCount() <em>Success Count</em>}' attribute.
+   * The cached value of the '{@link #getMetrics() <em>Metrics</em>}' containment reference.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @see #getSuccessCount()
+   * @see #getMetrics()
    * @generated
    * @ordered
    */
-  protected static final int SUCCESS_COUNT_EDEFAULT = 0;
-
-  /**
-   * The cached value of the '{@link #getSuccessCount() <em>Success Count</em>}' attribute.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @see #getSuccessCount()
-   * @generated
-   * @ordered
-   */
-  protected int successCount = SUCCESS_COUNT_EDEFAULT;
-
-  /**
-   * The default value of the '{@link #getFailCount() <em>Fail Count</em>}' attribute.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @see #getFailCount()
-   * @generated
-   * @ordered
-   */
-  protected static final int FAIL_COUNT_EDEFAULT = 0;
-
-  /**
-   * The cached value of the '{@link #getFailCount() <em>Fail Count</em>}' attribute.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @see #getFailCount()
-   * @generated
-   * @ordered
-   */
-  protected int failCount = FAIL_COUNT_EDEFAULT;
-
-  /**
-   * The default value of the '{@link #getUnknownCount() <em>Unknown Count</em>}' attribute.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @see #getUnknownCount()
-   * @generated
-   * @ordered
-   */
-  protected static final int UNKNOWN_COUNT_EDEFAULT = 0;
-
-  /**
-   * The cached value of the '{@link #getUnknownCount() <em>Unknown Count</em>}' attribute.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @see #getUnknownCount()
-   * @generated
-   * @ordered
-   */
-  protected int unknownCount = UNKNOWN_COUNT_EDEFAULT;
-
-  /**
-   * The default value of the '{@link #getFailthenCount() <em>Failthen Count</em>}' attribute.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @see #getFailthenCount()
-   * @generated
-   * @ordered
-   */
-  protected static final int FAILTHEN_COUNT_EDEFAULT = 0;
-
-  /**
-   * The cached value of the '{@link #getFailthenCount() <em>Failthen Count</em>}' attribute.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @see #getFailthenCount()
-   * @generated
-   * @ordered
-   */
-  protected int failthenCount = FAILTHEN_COUNT_EDEFAULT;
-
-  /**
-   * The default value of the '{@link #getAndthenCount() <em>Andthen Count</em>}' attribute.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @see #getAndthenCount()
-   * @generated
-   * @ordered
-   */
-  protected static final int ANDTHEN_COUNT_EDEFAULT = 0;
-
-  /**
-   * The cached value of the '{@link #getAndthenCount() <em>Andthen Count</em>}' attribute.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @see #getAndthenCount()
-   * @generated
-   * @ordered
-   */
-  protected int andthenCount = ANDTHEN_COUNT_EDEFAULT;
-
-  /**
-   * The default value of the '{@link #getTbdCount() <em>Tbd Count</em>}' attribute.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @see #getTbdCount()
-   * @generated
-   * @ordered
-   */
-  protected static final int TBD_COUNT_EDEFAULT = 0;
-
-  /**
-   * The cached value of the '{@link #getTbdCount() <em>Tbd Count</em>}' attribute.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @see #getTbdCount()
-   * @generated
-   * @ordered
-   */
-  protected int tbdCount = TBD_COUNT_EDEFAULT;
-
-  /**
-   * The default value of the '{@link #getWeight() <em>Weight</em>}' attribute.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @see #getWeight()
-   * @generated
-   * @ordered
-   */
-  protected static final int WEIGHT_EDEFAULT = 0;
-
-  /**
-   * The cached value of the '{@link #getWeight() <em>Weight</em>}' attribute.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @see #getWeight()
-   * @generated
-   * @ordered
-   */
-  protected int weight = WEIGHT_EDEFAULT;
+  protected Metrics metrics;
 
   /**
    * <!-- begin-user-doc -->
@@ -199,9 +66,9 @@ public class AssureResultImpl extends MinimalEObjectImpl.Container implements As
    * <!-- end-user-doc -->
    * @generated
    */
-  public int getSuccessCount()
+  public Metrics getMetrics()
   {
-    return successCount;
+    return metrics;
   }
 
   /**
@@ -209,12 +76,16 @@ public class AssureResultImpl extends MinimalEObjectImpl.Container implements As
    * <!-- end-user-doc -->
    * @generated
    */
-  public void setSuccessCount(int newSuccessCount)
+  public NotificationChain basicSetMetrics(Metrics newMetrics, NotificationChain msgs)
   {
-    int oldSuccessCount = successCount;
-    successCount = newSuccessCount;
+    Metrics oldMetrics = metrics;
+    metrics = newMetrics;
     if (eNotificationRequired())
-      eNotify(new ENotificationImpl(this, Notification.SET, AssurePackage.ASSURE_RESULT__SUCCESS_COUNT, oldSuccessCount, successCount));
+    {
+      ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, AssurePackage.ASSURE_RESULT__METRICS, oldMetrics, newMetrics);
+      if (msgs == null) msgs = notification; else msgs.add(notification);
+    }
+    return msgs;
   }
 
   /**
@@ -222,9 +93,20 @@ public class AssureResultImpl extends MinimalEObjectImpl.Container implements As
    * <!-- end-user-doc -->
    * @generated
    */
-  public int getFailCount()
+  public void setMetrics(Metrics newMetrics)
   {
-    return failCount;
+    if (newMetrics != metrics)
+    {
+      NotificationChain msgs = null;
+      if (metrics != null)
+        msgs = ((InternalEObject)metrics).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - AssurePackage.ASSURE_RESULT__METRICS, null, msgs);
+      if (newMetrics != null)
+        msgs = ((InternalEObject)newMetrics).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - AssurePackage.ASSURE_RESULT__METRICS, null, msgs);
+      msgs = basicSetMetrics(newMetrics, msgs);
+      if (msgs != null) msgs.dispatch();
+    }
+    else if (eNotificationRequired())
+      eNotify(new ENotificationImpl(this, Notification.SET, AssurePackage.ASSURE_RESULT__METRICS, newMetrics, newMetrics));
   }
 
   /**
@@ -232,127 +114,15 @@ public class AssureResultImpl extends MinimalEObjectImpl.Container implements As
    * <!-- end-user-doc -->
    * @generated
    */
-  public void setFailCount(int newFailCount)
+  @Override
+  public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs)
   {
-    int oldFailCount = failCount;
-    failCount = newFailCount;
-    if (eNotificationRequired())
-      eNotify(new ENotificationImpl(this, Notification.SET, AssurePackage.ASSURE_RESULT__FAIL_COUNT, oldFailCount, failCount));
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public int getUnknownCount()
-  {
-    return unknownCount;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public void setUnknownCount(int newUnknownCount)
-  {
-    int oldUnknownCount = unknownCount;
-    unknownCount = newUnknownCount;
-    if (eNotificationRequired())
-      eNotify(new ENotificationImpl(this, Notification.SET, AssurePackage.ASSURE_RESULT__UNKNOWN_COUNT, oldUnknownCount, unknownCount));
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public int getFailthenCount()
-  {
-    return failthenCount;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public void setFailthenCount(int newFailthenCount)
-  {
-    int oldFailthenCount = failthenCount;
-    failthenCount = newFailthenCount;
-    if (eNotificationRequired())
-      eNotify(new ENotificationImpl(this, Notification.SET, AssurePackage.ASSURE_RESULT__FAILTHEN_COUNT, oldFailthenCount, failthenCount));
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public int getAndthenCount()
-  {
-    return andthenCount;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public void setAndthenCount(int newAndthenCount)
-  {
-    int oldAndthenCount = andthenCount;
-    andthenCount = newAndthenCount;
-    if (eNotificationRequired())
-      eNotify(new ENotificationImpl(this, Notification.SET, AssurePackage.ASSURE_RESULT__ANDTHEN_COUNT, oldAndthenCount, andthenCount));
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public int getTbdCount()
-  {
-    return tbdCount;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public void setTbdCount(int newTbdCount)
-  {
-    int oldTbdCount = tbdCount;
-    tbdCount = newTbdCount;
-    if (eNotificationRequired())
-      eNotify(new ENotificationImpl(this, Notification.SET, AssurePackage.ASSURE_RESULT__TBD_COUNT, oldTbdCount, tbdCount));
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public int getWeight()
-  {
-    return weight;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public void setWeight(int newWeight)
-  {
-    int oldWeight = weight;
-    weight = newWeight;
-    if (eNotificationRequired())
-      eNotify(new ENotificationImpl(this, Notification.SET, AssurePackage.ASSURE_RESULT__WEIGHT, oldWeight, weight));
+    switch (featureID)
+    {
+      case AssurePackage.ASSURE_RESULT__METRICS:
+        return basicSetMetrics(null, msgs);
+    }
+    return super.eInverseRemove(otherEnd, featureID, msgs);
   }
 
   /**
@@ -365,20 +135,8 @@ public class AssureResultImpl extends MinimalEObjectImpl.Container implements As
   {
     switch (featureID)
     {
-      case AssurePackage.ASSURE_RESULT__SUCCESS_COUNT:
-        return getSuccessCount();
-      case AssurePackage.ASSURE_RESULT__FAIL_COUNT:
-        return getFailCount();
-      case AssurePackage.ASSURE_RESULT__UNKNOWN_COUNT:
-        return getUnknownCount();
-      case AssurePackage.ASSURE_RESULT__FAILTHEN_COUNT:
-        return getFailthenCount();
-      case AssurePackage.ASSURE_RESULT__ANDTHEN_COUNT:
-        return getAndthenCount();
-      case AssurePackage.ASSURE_RESULT__TBD_COUNT:
-        return getTbdCount();
-      case AssurePackage.ASSURE_RESULT__WEIGHT:
-        return getWeight();
+      case AssurePackage.ASSURE_RESULT__METRICS:
+        return getMetrics();
     }
     return super.eGet(featureID, resolve, coreType);
   }
@@ -393,26 +151,8 @@ public class AssureResultImpl extends MinimalEObjectImpl.Container implements As
   {
     switch (featureID)
     {
-      case AssurePackage.ASSURE_RESULT__SUCCESS_COUNT:
-        setSuccessCount((Integer)newValue);
-        return;
-      case AssurePackage.ASSURE_RESULT__FAIL_COUNT:
-        setFailCount((Integer)newValue);
-        return;
-      case AssurePackage.ASSURE_RESULT__UNKNOWN_COUNT:
-        setUnknownCount((Integer)newValue);
-        return;
-      case AssurePackage.ASSURE_RESULT__FAILTHEN_COUNT:
-        setFailthenCount((Integer)newValue);
-        return;
-      case AssurePackage.ASSURE_RESULT__ANDTHEN_COUNT:
-        setAndthenCount((Integer)newValue);
-        return;
-      case AssurePackage.ASSURE_RESULT__TBD_COUNT:
-        setTbdCount((Integer)newValue);
-        return;
-      case AssurePackage.ASSURE_RESULT__WEIGHT:
-        setWeight((Integer)newValue);
+      case AssurePackage.ASSURE_RESULT__METRICS:
+        setMetrics((Metrics)newValue);
         return;
     }
     super.eSet(featureID, newValue);
@@ -428,26 +168,8 @@ public class AssureResultImpl extends MinimalEObjectImpl.Container implements As
   {
     switch (featureID)
     {
-      case AssurePackage.ASSURE_RESULT__SUCCESS_COUNT:
-        setSuccessCount(SUCCESS_COUNT_EDEFAULT);
-        return;
-      case AssurePackage.ASSURE_RESULT__FAIL_COUNT:
-        setFailCount(FAIL_COUNT_EDEFAULT);
-        return;
-      case AssurePackage.ASSURE_RESULT__UNKNOWN_COUNT:
-        setUnknownCount(UNKNOWN_COUNT_EDEFAULT);
-        return;
-      case AssurePackage.ASSURE_RESULT__FAILTHEN_COUNT:
-        setFailthenCount(FAILTHEN_COUNT_EDEFAULT);
-        return;
-      case AssurePackage.ASSURE_RESULT__ANDTHEN_COUNT:
-        setAndthenCount(ANDTHEN_COUNT_EDEFAULT);
-        return;
-      case AssurePackage.ASSURE_RESULT__TBD_COUNT:
-        setTbdCount(TBD_COUNT_EDEFAULT);
-        return;
-      case AssurePackage.ASSURE_RESULT__WEIGHT:
-        setWeight(WEIGHT_EDEFAULT);
+      case AssurePackage.ASSURE_RESULT__METRICS:
+        setMetrics((Metrics)null);
         return;
     }
     super.eUnset(featureID);
@@ -463,51 +185,10 @@ public class AssureResultImpl extends MinimalEObjectImpl.Container implements As
   {
     switch (featureID)
     {
-      case AssurePackage.ASSURE_RESULT__SUCCESS_COUNT:
-        return successCount != SUCCESS_COUNT_EDEFAULT;
-      case AssurePackage.ASSURE_RESULT__FAIL_COUNT:
-        return failCount != FAIL_COUNT_EDEFAULT;
-      case AssurePackage.ASSURE_RESULT__UNKNOWN_COUNT:
-        return unknownCount != UNKNOWN_COUNT_EDEFAULT;
-      case AssurePackage.ASSURE_RESULT__FAILTHEN_COUNT:
-        return failthenCount != FAILTHEN_COUNT_EDEFAULT;
-      case AssurePackage.ASSURE_RESULT__ANDTHEN_COUNT:
-        return andthenCount != ANDTHEN_COUNT_EDEFAULT;
-      case AssurePackage.ASSURE_RESULT__TBD_COUNT:
-        return tbdCount != TBD_COUNT_EDEFAULT;
-      case AssurePackage.ASSURE_RESULT__WEIGHT:
-        return weight != WEIGHT_EDEFAULT;
+      case AssurePackage.ASSURE_RESULT__METRICS:
+        return metrics != null;
     }
     return super.eIsSet(featureID);
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  @Override
-  public String toString()
-  {
-    if (eIsProxy()) return super.toString();
-
-    StringBuffer result = new StringBuffer(super.toString());
-    result.append(" (successCount: ");
-    result.append(successCount);
-    result.append(", failCount: ");
-    result.append(failCount);
-    result.append(", unknownCount: ");
-    result.append(unknownCount);
-    result.append(", failthenCount: ");
-    result.append(failthenCount);
-    result.append(", andthenCount: ");
-    result.append(andthenCount);
-    result.append(", tbdCount: ");
-    result.append(tbdCount);
-    result.append(", weight: ");
-    result.append(weight);
-    result.append(')');
-    return result.toString();
   }
 
 } //AssureResultImpl

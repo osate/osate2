@@ -1,8 +1,5 @@
 package org.osate.assure.ui.dcase.handlers;
 
-import static org.osate.assure.util.AssureUtilExtension.recomputeAllCounts;
-import static org.osate.assure.util.AssureUtilExtension.resetToTBD;
-
 import java.io.IOException;
 import java.util.Collections;
 import java.util.List;
@@ -55,19 +52,18 @@ import org.eclipse.xtext.ui.editor.outline.impl.EObjectNode;
 import org.eclipse.xtext.ui.editor.utils.EditorUtils;
 import org.eclipse.xtext.ui.util.ResourceUtil;
 import org.eclipse.xtext.util.concurrent.IUnitOfWork;
-import org.osate.aadl2.instance.SystemInstance;
 import org.osate.aadl2.util.OsateDebug;
 import org.osate.assure.assure.AssuranceEvidence;
+import org.osate.assure.assure.AssureResult;
 import org.osate.assure.assure.ClaimResult;
+import org.osate.assure.assure.Metrics;
 import org.osate.assure.assure.VerificationActivityResult;
 import org.osate.assure.assure.VerificationExpr;
 import org.osate.assure.assure.VerificationResultState;
 import org.osate.assure.assure.impl.AssuranceEvidenceImpl;
 import org.osate.assure.evaluator.IAssureProcessor;
-import org.osate.assure.util.AssureUtilExtension;
 import org.osate.organization.organization.Stakeholder;
 import org.osate.reqspec.reqSpec.Requirement;
-import org.osate.verify.util.VerifyUtilExtension;
 
 import com.google.inject.Inject;
 
@@ -168,16 +164,17 @@ public class AssureExportHandler extends AbstractHandler {
 
 	protected IStatus runJob(AssuranceEvidence rootCaseResult, IProgressMonitor monitor) {
 
-		long start = System.currentTimeMillis();
-		resetToTBD(rootCaseResult);
-		recomputeAllCounts(rootCaseResult);
-		VerifyUtilExtension.clearAllHasRunRecords();
-		AssureUtilExtension.initializeResoluteContext((SystemInstance) rootCaseResult.getInstance());
+//		long start = System.currentTimeMillis();
+//		resetToTBD(rootCaseResult);
+//		recomputeAllCounts(rootCaseResult);
+//		VerifyUtilExtension.clearAllHasRunRecords();
+//		AssureUtilExtension.initializeResoluteContext(getInstanceModel(rootCaseResult));
+
 //		AssureProcessing.processCaseResult(rootCaseResult);
 //		assureProcessor.process(rootCaseResult);
 
-		long stop = System.currentTimeMillis();
-		System.out.println("Evaluation time: " + (stop - start) / 1000.0 + "s");
+//		long stop = System.currentTimeMillis();
+//		System.out.println("Evaluation time: " + (stop - start) / 1000.0 + "s");
 		System.out.println("export2");
 		model = createInitialModel();
 
@@ -296,23 +293,36 @@ public class AssureExportHandler extends AbstractHandler {
 			break;
 		}
 
-		case VerificationResultState.UNKNOWN_VALUE: {
-			nodeName = "UNKNOWN";
+		case VerificationResultState.OTHER_VALUE: {
+			nodeName = "OTHER";
+			break;
+		}
+
+		case VerificationResultState.TIMEOUT_VALUE: {
+			nodeName = "TIMEOUT";
 			break;
 		}
 		}
-
+		Metrics counts = ((AssureResult) ve).getMetrics();
 		nodeDescription += "(";
-		if (ve.getTbdCount() > 0) {
-			nodeDescription += "TDB " + ve.getTbdCount() + " time(s)";
+		if (counts.getTbdCount() > 0) {
+			nodeDescription += "TDB " + counts.getTbdCount() + " time(s)";
 		}
 
-		if (ve.getSuccessCount() > 0) {
-			nodeDescription += " success " + ve.getSuccessCount() + " time(s)";
+		if (counts.getSuccessCount() > 0) {
+			nodeDescription += " success " + counts.getSuccessCount() + " time(s)";
 		}
 
-		if (ve.getFailCount() > 0) {
-			nodeDescription += " failed " + ve.getFailCount() + " time(s)";
+		if (counts.getFailCount() > 0) {
+			nodeDescription += " failed " + counts.getFailCount() + " time(s)";
+		}
+
+		if (counts.getTimeoutCount() > 0) {
+			nodeDescription += " timeout " + counts.getTimeoutCount() + " time(s)";
+		}
+
+		if (counts.getOtherCount() > 0) {
+			nodeDescription += " nocompletion " + counts.getOtherCount() + " time(s)";
 		}
 		nodeDescription += ")";
 

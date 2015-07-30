@@ -25,7 +25,7 @@ import org.osate.verify.verify.VerifyPackage;
  * <p>
  * The following features are implemented:
  * <ul>
- *   <li>{@link org.osate.verify.verify.impl.AllExprImpl#getAll <em>All</em>}</li>
+ *   <li>{@link org.osate.verify.verify.impl.AllExprImpl#getElements <em>Elements</em>}</li>
  * </ul>
  * </p>
  *
@@ -34,14 +34,14 @@ import org.osate.verify.verify.VerifyPackage;
 public class AllExprImpl extends ArgumentExprImpl implements AllExpr
 {
   /**
-   * The cached value of the '{@link #getAll() <em>All</em>}' containment reference list.
+   * The cached value of the '{@link #getElements() <em>Elements</em>}' containment reference list.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @see #getAll()
+   * @see #getElements()
    * @generated
    * @ordered
    */
-  protected EList<ArgumentExpr> all;
+  protected EList<ArgumentExpr> elements;
 
   /**
    * <!-- begin-user-doc -->
@@ -69,13 +69,13 @@ public class AllExprImpl extends ArgumentExprImpl implements AllExpr
    * <!-- end-user-doc -->
    * @generated
    */
-  public EList<ArgumentExpr> getAll()
+  public EList<ArgumentExpr> getElements()
   {
-    if (all == null)
+    if (elements == null)
     {
-      all = new EObjectContainmentEList<ArgumentExpr>(ArgumentExpr.class, this, VerifyPackage.ALL_EXPR__ALL);
+      elements = new EObjectContainmentEList<ArgumentExpr>(ArgumentExpr.class, this, VerifyPackage.ALL_EXPR__ELEMENTS);
     }
-    return all;
+    return elements;
   }
 
   /**
@@ -88,8 +88,8 @@ public class AllExprImpl extends ArgumentExprImpl implements AllExpr
   {
     switch (featureID)
     {
-      case VerifyPackage.ALL_EXPR__ALL:
-        return ((InternalEList<?>)getAll()).basicRemove(otherEnd, msgs);
+      case VerifyPackage.ALL_EXPR__ELEMENTS:
+        return ((InternalEList<?>)getElements()).basicRemove(otherEnd, msgs);
     }
     return super.eInverseRemove(otherEnd, featureID, msgs);
   }
@@ -104,8 +104,8 @@ public class AllExprImpl extends ArgumentExprImpl implements AllExpr
   {
     switch (featureID)
     {
-      case VerifyPackage.ALL_EXPR__ALL:
-        return getAll();
+      case VerifyPackage.ALL_EXPR__ELEMENTS:
+        return getElements();
     }
     return super.eGet(featureID, resolve, coreType);
   }
@@ -121,9 +121,9 @@ public class AllExprImpl extends ArgumentExprImpl implements AllExpr
   {
     switch (featureID)
     {
-      case VerifyPackage.ALL_EXPR__ALL:
-        getAll().clear();
-        getAll().addAll((Collection<? extends ArgumentExpr>)newValue);
+      case VerifyPackage.ALL_EXPR__ELEMENTS:
+        getElements().clear();
+        getElements().addAll((Collection<? extends ArgumentExpr>)newValue);
         return;
     }
     super.eSet(featureID, newValue);
@@ -139,8 +139,8 @@ public class AllExprImpl extends ArgumentExprImpl implements AllExpr
   {
     switch (featureID)
     {
-      case VerifyPackage.ALL_EXPR__ALL:
-        getAll().clear();
+      case VerifyPackage.ALL_EXPR__ELEMENTS:
+        getElements().clear();
         return;
     }
     super.eUnset(featureID);
@@ -156,8 +156,8 @@ public class AllExprImpl extends ArgumentExprImpl implements AllExpr
   {
     switch (featureID)
     {
-      case VerifyPackage.ALL_EXPR__ALL:
-        return all != null && !all.isEmpty();
+      case VerifyPackage.ALL_EXPR__ELEMENTS:
+        return elements != null && !elements.isEmpty();
     }
     return super.eIsSet(featureID);
   }
