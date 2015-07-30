@@ -25,6 +25,7 @@ import org.osate.reqspec.reqSpec.StakeholderGoals
 import org.osate.reqspec.reqSpec.SystemRequirements
 
 import static extension org.osate.reqspec.util.ReqSpecUtilExtension.*
+import org.osate.alisa.common.util.CommonUtilExtension
 
 /**
  * Custom validation rules. 
@@ -175,7 +176,7 @@ class ReqSpecValidator extends AbstractReqSpecValidator {
 						default : EcoreUtil.resolve(goalRef,  resource.resourceSet)
 					} as Goal
 				if (goalRefResolved != null && goalRefResolved.targetClassifier != null 
-					&& goalRefResolved.targetClassifier != reqSpecTarget){
+					&& !CommonUtilExtension.isSameorExtends(reqSpecTarget,goalRefResolved.targetClassifier )){
 						val goalTargetName = goalRefResolved.targetClassifier.name
 						val goalTargetURI = EcoreUtil.getURI(goalRefResolved.targetClassifier).toString();
 						error("System Requirement '" +  sysReqs.name + 
