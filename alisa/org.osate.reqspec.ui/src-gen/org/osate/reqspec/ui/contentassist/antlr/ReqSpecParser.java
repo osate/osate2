@@ -435,7 +435,7 @@ public class ReqSpecParser extends AbstractContentAssistParser {
 					put(grammarAccess.getGoalAccess().getConstantsAssignment_5_2(), "rule__Goal__ConstantsAssignment_5_2");
 					put(grammarAccess.getGoalAccess().getRationaleAssignment_5_3(), "rule__Goal__RationaleAssignment_5_3");
 					put(grammarAccess.getGoalAccess().getChangeUncertaintyAssignment_5_4(), "rule__Goal__ChangeUncertaintyAssignment_5_4");
-					put(grammarAccess.getGoalAccess().getRefinedGoalAssignment_5_5_3(), "rule__Goal__RefinedGoalAssignment_5_5_3");
+					put(grammarAccess.getGoalAccess().getRefinesReferenceAssignment_5_5_1(), "rule__Goal__RefinesReferenceAssignment_5_5_1");
 					put(grammarAccess.getGoalAccess().getConflictsReferenceAssignment_5_6_2(), "rule__Goal__ConflictsReferenceAssignment_5_6_2");
 					put(grammarAccess.getGoalAccess().getEvolvesReferenceAssignment_5_7_1(), "rule__Goal__EvolvesReferenceAssignment_5_7_1");
 					put(grammarAccess.getGoalAccess().getDroppedAssignment_5_8_0(), "rule__Goal__DroppedAssignment_5_8_0");
@@ -456,7 +456,7 @@ public class ReqSpecParser extends AbstractContentAssistParser {
 					put(grammarAccess.getRequirementAccess().getChangeUncertaintyAssignment_5_6(), "rule__Requirement__ChangeUncertaintyAssignment_5_6");
 					put(grammarAccess.getRequirementAccess().getExceptionAssignment_5_7_1_0(), "rule__Requirement__ExceptionAssignment_5_7_1_0");
 					put(grammarAccess.getRequirementAccess().getExceptionTextAssignment_5_7_1_1(), "rule__Requirement__ExceptionTextAssignment_5_7_1_1");
-					put(grammarAccess.getRequirementAccess().getRefinedRequirementAssignment_5_8_3(), "rule__Requirement__RefinedRequirementAssignment_5_8_3");
+					put(grammarAccess.getRequirementAccess().getRefinesReferenceAssignment_5_8_1(), "rule__Requirement__RefinesReferenceAssignment_5_8_1");
 					put(grammarAccess.getRequirementAccess().getDecomposesReferenceAssignment_5_9_1(), "rule__Requirement__DecomposesReferenceAssignment_5_9_1");
 					put(grammarAccess.getRequirementAccess().getEvolvesReferenceAssignment_5_10_1(), "rule__Requirement__EvolvesReferenceAssignment_5_10_1");
 					put(grammarAccess.getRequirementAccess().getDroppedAssignment_5_11_0(), "rule__Requirement__DroppedAssignment_5_11_0");

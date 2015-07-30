@@ -100,8 +100,6 @@
         upperBound="-1" eType="#//Goal"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="stakeholderReference" unique="false"
         upperBound="-1" eType="ecore:EClass platform:/resource/org.osate.organization/model/generated/Organization.ecore#//Stakeholder"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="refinedGoal" upperBound="-1"
-        eType="#//Goal" containment="true"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="Requirement" eSuperTypes="#//ContractualElement">
     <eStructuralFeatures xsi:type="ecore:EReference" name="computes" upperBound="-1"
@@ -111,16 +109,14 @@
         containment="true"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="exception" eType="ecore:EClass platform:/plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//EObject"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="exceptionText" eType="ecore:EDataType platform:/plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//EString"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="refinedRequirement" upperBound="-1"
-        eType="#//Requirement" containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="refinesReference" unique="false"
+        upperBound="-1" eType="#//Requirement"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="decomposesReference" unique="false"
         upperBound="-1" eType="#//Requirement"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="goalReference" unique="false"
         upperBound="-1" eType="#//Goal"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="stakeholderRequirementReference"
         unique="false" upperBound="-1" eType="#//Goal"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="refinesReference" unique="false"
-        upperBound="-1" eType="#//Requirement"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="ReqPredicate"/>
   <eClassifiers xsi:type="ecore:EClass" name="InformalPredicate" eSuperTypes="#//ReqPredicate">

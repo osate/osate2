@@ -416,7 +416,7 @@ public class ReqSpecSemanticSequencer extends CommonSemanticSequencer {
 	 *             constants+=XValDeclaration* 
 	 *             rationale=Rationale? 
 	 *             changeUncertainty=Uncertainty? 
-	 *             refinedGoal+=Goal* 
+	 *             refinesReference+=[Goal|QualifiedName]* 
 	 *             conflictsReference+=[Goal|QualifiedName]* 
 	 *             evolvesReference+=[Requirement|QualifiedName]* 
 	 *             (dropped?='dropped' dropRationale=STRING?)? 
@@ -465,7 +465,7 @@ public class ReqSpecSemanticSequencer extends CommonSemanticSequencer {
 	 *             rationale=Rationale? 
 	 *             changeUncertainty=Uncertainty? 
 	 *             (exception=[EObject|ID] | exceptionText=STRING)? 
-	 *             refinedRequirement+=Requirement* 
+	 *             refinesReference+=[Requirement|QualifiedName]* 
 	 *             decomposesReference+=[Requirement|QualifiedName]* 
 	 *             evolvesReference+=[Requirement|QualifiedName]* 
 	 *             (dropped?='dropped' dropRationale=STRING?)? 
@@ -589,7 +589,7 @@ public class ReqSpecSemanticSequencer extends CommonSemanticSequencer {
 	 *         constants+=XValDeclaration* 
 	 *         rationale=Rationale? 
 	 *         changeUncertainty=Uncertainty? 
-	 *         refinedGoal+=Goal* 
+	 *         refinesReference+=[Goal|QualifiedName]* 
 	 *         conflictsReference+=[Goal|QualifiedName]* 
 	 *         evolvesReference+=[Requirement|QualifiedName]* 
 	 *         (dropped?='dropped' dropRationale=STRING?)? 
@@ -658,7 +658,7 @@ public class ReqSpecSemanticSequencer extends CommonSemanticSequencer {
 	 *         rationale=Rationale? 
 	 *         changeUncertainty=Uncertainty? 
 	 *         (exception=[EObject|ID] | exceptionText=STRING)? 
-	 *         refinedRequirement+=Requirement* 
+	 *         refinesReference+=[Requirement|QualifiedName]* 
 	 *         decomposesReference+=[Requirement|QualifiedName]* 
 	 *         evolvesReference+=[Requirement|QualifiedName]* 
 	 *         (dropped?='dropped' dropRationale=STRING?)? 

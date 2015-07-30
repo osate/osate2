@@ -795,22 +795,13 @@ public interface ReqSpecPackage extends EPackage
   int GOAL__STAKEHOLDER_REFERENCE = CONTRACTUAL_ELEMENT_FEATURE_COUNT + 2;
 
   /**
-   * The feature id for the '<em><b>Refined Goal</b></em>' containment reference list.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int GOAL__REFINED_GOAL = CONTRACTUAL_ELEMENT_FEATURE_COUNT + 3;
-
-  /**
    * The number of structural features of the '<em>Goal</em>' class.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    * @ordered
    */
-  int GOAL_FEATURE_COUNT = CONTRACTUAL_ELEMENT_FEATURE_COUNT + 4;
+  int GOAL_FEATURE_COUNT = CONTRACTUAL_ELEMENT_FEATURE_COUNT + 3;
 
   /**
    * The meta object id for the '{@link org.osate.reqspec.reqSpec.impl.RequirementImpl <em>Requirement</em>}' class.
@@ -1003,13 +994,13 @@ public interface ReqSpecPackage extends EPackage
   int REQUIREMENT__EXCEPTION_TEXT = CONTRACTUAL_ELEMENT_FEATURE_COUNT + 3;
 
   /**
-   * The feature id for the '<em><b>Refined Requirement</b></em>' containment reference list.
+   * The feature id for the '<em><b>Refines Reference</b></em>' reference list.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    * @ordered
    */
-  int REQUIREMENT__REFINED_REQUIREMENT = CONTRACTUAL_ELEMENT_FEATURE_COUNT + 4;
+  int REQUIREMENT__REFINES_REFERENCE = CONTRACTUAL_ELEMENT_FEATURE_COUNT + 4;
 
   /**
    * The feature id for the '<em><b>Decomposes Reference</b></em>' reference list.
@@ -1039,22 +1030,13 @@ public interface ReqSpecPackage extends EPackage
   int REQUIREMENT__STAKEHOLDER_REQUIREMENT_REFERENCE = CONTRACTUAL_ELEMENT_FEATURE_COUNT + 7;
 
   /**
-   * The feature id for the '<em><b>Refines Reference</b></em>' reference list.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int REQUIREMENT__REFINES_REFERENCE = CONTRACTUAL_ELEMENT_FEATURE_COUNT + 8;
-
-  /**
    * The number of structural features of the '<em>Requirement</em>' class.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    * @ordered
    */
-  int REQUIREMENT_FEATURE_COUNT = CONTRACTUAL_ELEMENT_FEATURE_COUNT + 9;
+  int REQUIREMENT_FEATURE_COUNT = CONTRACTUAL_ELEMENT_FEATURE_COUNT + 8;
 
   /**
    * The meta object id for the '{@link org.osate.reqspec.reqSpec.impl.ReqPredicateImpl <em>Req Predicate</em>}' class.
@@ -1788,17 +1770,6 @@ public interface ReqSpecPackage extends EPackage
   EReference getGoal_StakeholderReference();
 
   /**
-   * Returns the meta object for the containment reference list '{@link org.osate.reqspec.reqSpec.Goal#getRefinedGoal <em>Refined Goal</em>}'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return the meta object for the containment reference list '<em>Refined Goal</em>'.
-   * @see org.osate.reqspec.reqSpec.Goal#getRefinedGoal()
-   * @see #getGoal()
-   * @generated
-   */
-  EReference getGoal_RefinedGoal();
-
-  /**
    * Returns the meta object for class '{@link org.osate.reqspec.reqSpec.Requirement <em>Requirement</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -1853,15 +1824,15 @@ public interface ReqSpecPackage extends EPackage
   EAttribute getRequirement_ExceptionText();
 
   /**
-   * Returns the meta object for the containment reference list '{@link org.osate.reqspec.reqSpec.Requirement#getRefinedRequirement <em>Refined Requirement</em>}'.
+   * Returns the meta object for the reference list '{@link org.osate.reqspec.reqSpec.Requirement#getRefinesReference <em>Refines Reference</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @return the meta object for the containment reference list '<em>Refined Requirement</em>'.
-   * @see org.osate.reqspec.reqSpec.Requirement#getRefinedRequirement()
+   * @return the meta object for the reference list '<em>Refines Reference</em>'.
+   * @see org.osate.reqspec.reqSpec.Requirement#getRefinesReference()
    * @see #getRequirement()
    * @generated
    */
-  EReference getRequirement_RefinedRequirement();
+  EReference getRequirement_RefinesReference();
 
   /**
    * Returns the meta object for the reference list '{@link org.osate.reqspec.reqSpec.Requirement#getDecomposesReference <em>Decomposes Reference</em>}'.
@@ -1895,17 +1866,6 @@ public interface ReqSpecPackage extends EPackage
    * @generated
    */
   EReference getRequirement_StakeholderRequirementReference();
-
-  /**
-   * Returns the meta object for the reference list '{@link org.osate.reqspec.reqSpec.Requirement#getRefinesReference <em>Refines Reference</em>}'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return the meta object for the reference list '<em>Refines Reference</em>'.
-   * @see org.osate.reqspec.reqSpec.Requirement#getRefinesReference()
-   * @see #getRequirement()
-   * @generated
-   */
-  EReference getRequirement_RefinesReference();
 
   /**
    * Returns the meta object for class '{@link org.osate.reqspec.reqSpec.ReqPredicate <em>Req Predicate</em>}'.
@@ -2489,14 +2449,6 @@ public interface ReqSpecPackage extends EPackage
     EReference GOAL__STAKEHOLDER_REFERENCE = eINSTANCE.getGoal_StakeholderReference();
 
     /**
-     * The meta object literal for the '<em><b>Refined Goal</b></em>' containment reference list feature.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
-    EReference GOAL__REFINED_GOAL = eINSTANCE.getGoal_RefinedGoal();
-
-    /**
      * The meta object literal for the '{@link org.osate.reqspec.reqSpec.impl.RequirementImpl <em>Requirement</em>}' class.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
@@ -2539,12 +2491,12 @@ public interface ReqSpecPackage extends EPackage
     EAttribute REQUIREMENT__EXCEPTION_TEXT = eINSTANCE.getRequirement_ExceptionText();
 
     /**
-     * The meta object literal for the '<em><b>Refined Requirement</b></em>' containment reference list feature.
+     * The meta object literal for the '<em><b>Refines Reference</b></em>' reference list feature.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @generated
      */
-    EReference REQUIREMENT__REFINED_REQUIREMENT = eINSTANCE.getRequirement_RefinedRequirement();
+    EReference REQUIREMENT__REFINES_REFERENCE = eINSTANCE.getRequirement_RefinesReference();
 
     /**
      * The meta object literal for the '<em><b>Decomposes Reference</b></em>' reference list feature.
@@ -2569,14 +2521,6 @@ public interface ReqSpecPackage extends EPackage
      * @generated
      */
     EReference REQUIREMENT__STAKEHOLDER_REQUIREMENT_REFERENCE = eINSTANCE.getRequirement_StakeholderRequirementReference();
-
-    /**
-     * The meta object literal for the '<em><b>Refines Reference</b></em>' reference list feature.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
-    EReference REQUIREMENT__REFINES_REFERENCE = eINSTANCE.getRequirement_RefinesReference();
 
     /**
      * The meta object literal for the '{@link org.osate.reqspec.reqSpec.impl.ReqPredicateImpl <em>Req Predicate</em>}' class.

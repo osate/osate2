@@ -20,11 +20,10 @@ import org.eclipse.xtext.xbase.XExpression;
  *   <li>{@link org.osate.reqspec.reqSpec.Requirement#getPredicate <em>Predicate</em>}</li>
  *   <li>{@link org.osate.reqspec.reqSpec.Requirement#getException <em>Exception</em>}</li>
  *   <li>{@link org.osate.reqspec.reqSpec.Requirement#getExceptionText <em>Exception Text</em>}</li>
- *   <li>{@link org.osate.reqspec.reqSpec.Requirement#getRefinedRequirement <em>Refined Requirement</em>}</li>
+ *   <li>{@link org.osate.reqspec.reqSpec.Requirement#getRefinesReference <em>Refines Reference</em>}</li>
  *   <li>{@link org.osate.reqspec.reqSpec.Requirement#getDecomposesReference <em>Decomposes Reference</em>}</li>
  *   <li>{@link org.osate.reqspec.reqSpec.Requirement#getGoalReference <em>Goal Reference</em>}</li>
  *   <li>{@link org.osate.reqspec.reqSpec.Requirement#getStakeholderRequirementReference <em>Stakeholder Requirement Reference</em>}</li>
- *   <li>{@link org.osate.reqspec.reqSpec.Requirement#getRefinesReference <em>Refines Reference</em>}</li>
  * </ul>
  * </p>
  *
@@ -129,20 +128,20 @@ public interface Requirement extends ContractualElement
   void setExceptionText(String value);
 
   /**
-   * Returns the value of the '<em><b>Refined Requirement</b></em>' containment reference list.
+   * Returns the value of the '<em><b>Refines Reference</b></em>' reference list.
    * The list contents are of type {@link org.osate.reqspec.reqSpec.Requirement}.
    * <!-- begin-user-doc -->
    * <p>
-   * If the meaning of the '<em>Refined Requirement</em>' containment reference list isn't clear,
+   * If the meaning of the '<em>Refines Reference</em>' reference list isn't clear,
    * there really should be more of a description here...
    * </p>
    * <!-- end-user-doc -->
-   * @return the value of the '<em>Refined Requirement</em>' containment reference list.
-   * @see org.osate.reqspec.reqSpec.ReqSpecPackage#getRequirement_RefinedRequirement()
-   * @model containment="true"
+   * @return the value of the '<em>Refines Reference</em>' reference list.
+   * @see org.osate.reqspec.reqSpec.ReqSpecPackage#getRequirement_RefinesReference()
+   * @model
    * @generated
    */
-  EList<Requirement> getRefinedRequirement();
+  EList<Requirement> getRefinesReference();
 
   /**
    * Returns the value of the '<em><b>Decomposes Reference</b></em>' reference list.
@@ -191,21 +190,5 @@ public interface Requirement extends ContractualElement
    * @generated
    */
   EList<Goal> getStakeholderRequirementReference();
-
-  /**
-   * Returns the value of the '<em><b>Refines Reference</b></em>' reference list.
-   * The list contents are of type {@link org.osate.reqspec.reqSpec.Requirement}.
-   * <!-- begin-user-doc -->
-   * <p>
-   * If the meaning of the '<em>Refines Reference</em>' reference list isn't clear,
-   * there really should be more of a description here...
-   * </p>
-   * <!-- end-user-doc -->
-   * @return the value of the '<em>Refines Reference</em>' reference list.
-   * @see org.osate.reqspec.reqSpec.ReqSpecPackage#getRequirement_RefinesReference()
-   * @model
-   * @generated
-   */
-  EList<Requirement> getRefinesReference();
 
 } // Requirement

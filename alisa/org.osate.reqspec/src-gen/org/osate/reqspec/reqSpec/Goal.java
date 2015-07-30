@@ -17,7 +17,6 @@ import org.osate.organization.organization.Stakeholder;
  *   <li>{@link org.osate.reqspec.reqSpec.Goal#getRefinesReference <em>Refines Reference</em>}</li>
  *   <li>{@link org.osate.reqspec.reqSpec.Goal#getConflictsReference <em>Conflicts Reference</em>}</li>
  *   <li>{@link org.osate.reqspec.reqSpec.Goal#getStakeholderReference <em>Stakeholder Reference</em>}</li>
- *   <li>{@link org.osate.reqspec.reqSpec.Goal#getRefinedGoal <em>Refined Goal</em>}</li>
  * </ul>
  * </p>
  *
@@ -74,21 +73,5 @@ public interface Goal extends ContractualElement
    * @generated
    */
   EList<Stakeholder> getStakeholderReference();
-
-  /**
-   * Returns the value of the '<em><b>Refined Goal</b></em>' containment reference list.
-   * The list contents are of type {@link org.osate.reqspec.reqSpec.Goal}.
-   * <!-- begin-user-doc -->
-   * <p>
-   * If the meaning of the '<em>Refined Goal</em>' containment reference list isn't clear,
-   * there really should be more of a description here...
-   * </p>
-   * <!-- end-user-doc -->
-   * @return the value of the '<em>Refined Goal</em>' containment reference list.
-   * @see org.osate.reqspec.reqSpec.ReqSpecPackage#getGoal_RefinedGoal()
-   * @model containment="true"
-   * @generated
-   */
-  EList<Goal> getRefinedGoal();
 
 } // Goal

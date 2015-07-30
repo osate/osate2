@@ -4,16 +4,11 @@ package org.osate.reqspec.reqSpec.impl;
 
 import java.util.Collection;
 
-import org.eclipse.emf.common.notify.NotificationChain;
-
 import org.eclipse.emf.common.util.EList;
 
 import org.eclipse.emf.ecore.EClass;
-import org.eclipse.emf.ecore.InternalEObject;
 
-import org.eclipse.emf.ecore.util.EObjectContainmentEList;
 import org.eclipse.emf.ecore.util.EObjectResolvingEList;
-import org.eclipse.emf.ecore.util.InternalEList;
 
 import org.osate.organization.organization.Stakeholder;
 
@@ -30,7 +25,6 @@ import org.osate.reqspec.reqSpec.ReqSpecPackage;
  *   <li>{@link org.osate.reqspec.reqSpec.impl.GoalImpl#getRefinesReference <em>Refines Reference</em>}</li>
  *   <li>{@link org.osate.reqspec.reqSpec.impl.GoalImpl#getConflictsReference <em>Conflicts Reference</em>}</li>
  *   <li>{@link org.osate.reqspec.reqSpec.impl.GoalImpl#getStakeholderReference <em>Stakeholder Reference</em>}</li>
- *   <li>{@link org.osate.reqspec.reqSpec.impl.GoalImpl#getRefinedGoal <em>Refined Goal</em>}</li>
  * </ul>
  * </p>
  *
@@ -67,16 +61,6 @@ public class GoalImpl extends ContractualElementImpl implements Goal
    * @ordered
    */
   protected EList<Stakeholder> stakeholderReference;
-
-  /**
-   * The cached value of the '{@link #getRefinedGoal() <em>Refined Goal</em>}' containment reference list.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @see #getRefinedGoal()
-   * @generated
-   * @ordered
-   */
-  protected EList<Goal> refinedGoal;
 
   /**
    * <!-- begin-user-doc -->
@@ -146,36 +130,6 @@ public class GoalImpl extends ContractualElementImpl implements Goal
    * <!-- end-user-doc -->
    * @generated
    */
-  public EList<Goal> getRefinedGoal()
-  {
-    if (refinedGoal == null)
-    {
-      refinedGoal = new EObjectContainmentEList<Goal>(Goal.class, this, ReqSpecPackage.GOAL__REFINED_GOAL);
-    }
-    return refinedGoal;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  @Override
-  public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs)
-  {
-    switch (featureID)
-    {
-      case ReqSpecPackage.GOAL__REFINED_GOAL:
-        return ((InternalEList<?>)getRefinedGoal()).basicRemove(otherEnd, msgs);
-    }
-    return super.eInverseRemove(otherEnd, featureID, msgs);
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
   @Override
   public Object eGet(int featureID, boolean resolve, boolean coreType)
   {
@@ -187,8 +141,6 @@ public class GoalImpl extends ContractualElementImpl implements Goal
         return getConflictsReference();
       case ReqSpecPackage.GOAL__STAKEHOLDER_REFERENCE:
         return getStakeholderReference();
-      case ReqSpecPackage.GOAL__REFINED_GOAL:
-        return getRefinedGoal();
     }
     return super.eGet(featureID, resolve, coreType);
   }
@@ -216,10 +168,6 @@ public class GoalImpl extends ContractualElementImpl implements Goal
         getStakeholderReference().clear();
         getStakeholderReference().addAll((Collection<? extends Stakeholder>)newValue);
         return;
-      case ReqSpecPackage.GOAL__REFINED_GOAL:
-        getRefinedGoal().clear();
-        getRefinedGoal().addAll((Collection<? extends Goal>)newValue);
-        return;
     }
     super.eSet(featureID, newValue);
   }
@@ -243,9 +191,6 @@ public class GoalImpl extends ContractualElementImpl implements Goal
       case ReqSpecPackage.GOAL__STAKEHOLDER_REFERENCE:
         getStakeholderReference().clear();
         return;
-      case ReqSpecPackage.GOAL__REFINED_GOAL:
-        getRefinedGoal().clear();
-        return;
     }
     super.eUnset(featureID);
   }
@@ -266,8 +211,6 @@ public class GoalImpl extends ContractualElementImpl implements Goal
         return conflictsReference != null && !conflictsReference.isEmpty();
       case ReqSpecPackage.GOAL__STAKEHOLDER_REFERENCE:
         return stakeholderReference != null && !stakeholderReference.isEmpty();
-      case ReqSpecPackage.GOAL__REFINED_GOAL:
-        return refinedGoal != null && !refinedGoal.isEmpty();
     }
     return super.eIsSet(featureID);
   }
