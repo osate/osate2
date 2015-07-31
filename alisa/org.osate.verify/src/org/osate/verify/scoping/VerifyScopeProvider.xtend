@@ -3,18 +3,13 @@
  */
 package org.osate.verify.scoping
 
-import org.osate.alisa.common.scoping.AlisaAbstractDeclarativeScopeProvider
 import org.eclipse.emf.ecore.EReference
 import org.eclipse.xtext.scoping.IScope
-import org.eclipse.xtext.scoping.Scopes
-import org.eclipse.xtext.naming.QualifiedName
-import org.eclipse.xtext.util.SimpleAttributeResolver
-import org.eclipse.xtext.scoping.impl.SimpleScope
-import org.osate.verify.verify.VerificationActivity
-import static org.osate.reqspec.util.ReqSpecUtilExtension.*
+import org.osate.alisa.common.scoping.AlisaAbstractDeclarativeScopeProvider
 import org.osate.verify.verify.Claim
-import org.osate.reqspec.reqSpec.Requirement
-import org.osate.reqspec.reqSpec.SystemRequirements
+import org.osate.verify.verify.VerificationActivity
+
+import static org.osate.reqspec.util.ReqSpecUtilExtension.*
 
 /**
  * This class contains custom scoping description.
@@ -31,35 +26,5 @@ class VerifyScopeProvider extends AlisaAbstractDeclarativeScopeProvider {
 		return scopeForValCompute(req, IScope.NULLSCOPE)
 	}
 	
-
-	def IScope scopeForValCompute(Requirement req, IScope parentscope) {
-		var result = parentscope
-		if (!req.computes.empty) {
-			result = new SimpleScope(result,
-				Scopes::scopedElementsFor(req.computes, QualifiedName::wrapper(SimpleAttributeResolver::NAME_RESOLVER)),
-				true)
-		}
-		if (!req.constants.empty) {
-			result = new SimpleScope(result,
-				Scopes::scopedElementsFor(req.constants,
-					QualifiedName::wrapper(SimpleAttributeResolver::NAME_RESOLVER)), true)
-		}
-			val  sr = containingSystemRequirements(req)
-			if (!sr.computes.empty) {
-				result = new SimpleScope(result,
-					Scopes::scopedElementsFor(sr.computes,
-						QualifiedName::wrapper(SimpleAttributeResolver::NAME_RESOLVER)), true)
-			}
-			if (!sr.constants.empty) {
-				result = new SimpleScope(result,
-					Scopes::scopedElementsFor(sr.constants,
-						QualifiedName::wrapper(SimpleAttributeResolver::NAME_RESOLVER)), true)
-			}
-		for ( r :req.refinesReference){
-			result = scopeForValCompute(r, result)
-		}
-			
-		result
-	}
 
 	}

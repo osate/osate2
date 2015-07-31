@@ -50,38 +50,10 @@ class ReqSpecScopeProvider extends AlisaAbstractDeclarativeScopeProvider {
 		}
 	}
 
-	def scope_XVariableDeclaration(Requirement context, EReference reference) {
-		var result = IScope.NULLSCOPE
-		val reqspecs = containingSystemRequirements(context)
-		if (!reqspecs.constants.empty) {
-			result = new SimpleScope(result,
-				Scopes::scopedElementsFor(reqspecs.constants,
-					QualifiedName::wrapper(SimpleAttributeResolver::NAME_RESOLVER)), true)
-		}
-		if (!context.constants.empty) {
-			result = new SimpleScope(result,
-				Scopes::scopedElementsFor(context.constants,
-					QualifiedName::wrapper(SimpleAttributeResolver::NAME_RESOLVER)), true)
-		}
-		result
-	}
 
-	def scope_ComputeDeclaration(Requirement context, EReference reference) {
-		var result = IScope.NULLSCOPE
-		val reqspecs = containingSystemRequirements(context)
-		if (!reqspecs.computes.empty) {
-			result = new SimpleScope(result,
-				Scopes::scopedElementsFor(reqspecs.computes,
-					QualifiedName::wrapper(SimpleAttributeResolver::NAME_RESOLVER)), true)
-		}
-		if (!context.computes.empty) {
-			result = new SimpleScope(result,
-				Scopes::scopedElementsFor(context.computes,
-					QualifiedName::wrapper(SimpleAttributeResolver::NAME_RESOLVER)), true)
-		}
-		result
+	def scope_XExpression(Requirement context, EReference reference) {
+		return scopeForValCompute(context, IScope.NULLSCOPE)
 	}
-	
 	
 	def scope_JvmIdentifiableElement(XExpression context, EReference reference) {
 		var result = IScope.NULLSCOPE
