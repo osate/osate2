@@ -36,7 +36,6 @@ import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
-import org.eclipse.swt.layout.RowData;
 import org.eclipse.swt.layout.RowLayout;
 import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Composite;
@@ -85,7 +84,7 @@ public class EditFlowsDialog extends TitleAreaDialog {
 	private final PrototypeService prototypeService;
 	private final NamingService namingService;
 	private final int deleteWidth = 50;
-	private final int segmentWidth = 200;
+	private final int segmentWidth = 50;
 	private final LabelProvider flowSegmentInfoLabelProvider = new LabelProvider() {
     	@Override
     	public String getText(final Object element) {
@@ -112,7 +111,9 @@ public class EditFlowsDialog extends TitleAreaDialog {
 		this.prototypeService = prototypeService;
 		this.namingService = namingService;
 		this.setHelpAvailable(false);
-		populatePotentialFlowSegmentList();	    
+		populatePotentialFlowSegmentList();	 
+		
+		setShellStyle(getShellStyle() | SWT.RESIZE); 
 	}
 	
 	@Override
@@ -169,19 +170,21 @@ public class EditFlowsDialog extends TitleAreaDialog {
 	    final Composite area = (Composite)super.createDialogArea(parent);
 	    
 	    final Composite container = new Composite(area, SWT.NONE);
-	    container.setLayoutData(new GridData(SWT.FILL, SWT.FILL, false, false)); 
+	    container.setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, true)); 
 	    final GridLayout layout = new GridLayout(2, false);
 	    container.setLayout(layout);
 
 	    final Composite flowListPane = new Composite(container, SWT.NONE);
-	    flowListPane.setLayout(new RowLayout(SWT.VERTICAL));
+	    flowListPane.setLayoutData(new GridData(SWT.FILL, SWT.FILL, false, true));
+	    flowListPane.setLayout(new GridLayout(1, false));
 	    
 	    // Flow List
 	    flowList = new org.eclipse.swt.widgets.List(flowListPane, SWT.SINGLE | SWT.BORDER | SWT.V_SCROLL);
-	    final RowData flowListRowData = new RowData();
-	    flowListRowData.height = 300;
-	    flowListRowData.width = 300;
-	    flowList.setLayoutData(flowListRowData);
+	    final GridData flowListGridData = new GridData(GridData.FILL_BOTH);
+	    flowListGridData.widthHint = 300;
+	    flowListGridData.heightHint = 300;
+	    flowListGridData.grabExcessHorizontalSpace = true;
+	    flowList.setLayoutData(flowListGridData);
 
 	    final ListViewer flowListViewer = new ListViewer(flowList);
 	    flowListViewer.setContentProvider(new ArrayContentProvider());
@@ -226,16 +229,17 @@ public class EditFlowsDialog extends TitleAreaDialog {
 	    // Flow Details Pane
 	    final ScrolledComposite detailsScrolled = new ScrolledComposite(container, SWT.V_SCROLL | SWT.BORDER);
 	    final GridData detailsScrolledGridData = new GridData(GridData.FILL_BOTH);
-	    detailsScrolledGridData.minimumWidth = 350;
+	    detailsScrolledGridData.widthHint = 350;
 	    detailsScrolledGridData.grabExcessHorizontalSpace = true;
+	    detailsScrolledGridData.grabExcessVerticalSpace = true;
 	    detailsScrolled.setLayoutData(detailsScrolledGridData);
+	    detailsScrolled.setExpandHorizontal(true);
 	    detailsScrolled.setLayout(new GridLayout(1, false));	
 		
 	    flowDetailsPane = new Composite(detailsScrolled, SWT.NONE);
 	    final GridData flowDetailsGridData = new GridData(GridData.FILL_BOTH);
 	    flowDetailsGridData.grabExcessHorizontalSpace = true;
-	    flowDetailsGridData.minimumWidth = 250;
-	    flowDetailsPane.setLayoutData(flowDetailsGridData);
+	    flowDetailsGridData.widthHint = 250;
 	    flowDetailsPane.setLayout(new GridLayout(3, false));
 	    detailsScrolled.setContent(flowDetailsPane);
 	    
@@ -646,7 +650,7 @@ public class EditFlowsDialog extends TitleAreaDialog {
 	    final ComboViewer cmb = new ComboViewer(flowDetailsPane, SWT.DROP_DOWN | SWT.READ_ONLY);
     	final GridData cmbGridData = new GridData(GridData.FILL_HORIZONTAL);
     	cmbGridData.grabExcessHorizontalSpace = true;
-    	cmbGridData.minimumWidth = 150;
+    	cmbGridData.widthHint = segmentWidth;
     	cmb.getCombo().setLayoutData(cmbGridData);
     	cmb.addSelectionChangedListener(new ISelectionChangedListener() {
 			@Override
