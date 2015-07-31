@@ -14,9 +14,9 @@ import org.osate.aadl2.Element;
  * <p>
  * The following features are supported:
  * <ul>
+ *   <li>{@link org.osate.xtext.aadl2.errormodel.errorModel.ConditionElement#getSubcomponents <em>Subcomponents</em>}</li>
  *   <li>{@link org.osate.xtext.aadl2.errormodel.errorModel.ConditionElement#getIncoming <em>Incoming</em>}</li>
  *   <li>{@link org.osate.xtext.aadl2.errormodel.errorModel.ConditionElement#getConstraint <em>Constraint</em>}</li>
- *   <li>{@link org.osate.xtext.aadl2.errormodel.errorModel.ConditionElement#getSubcomponents <em>Subcomponents</em>}</li>
  *   <li>{@link org.osate.xtext.aadl2.errormodel.errorModel.ConditionElement#getState <em>State</em>}</li>
  * </ul>
  * </p>
@@ -27,6 +27,22 @@ import org.osate.aadl2.Element;
  */
 public interface ConditionElement extends Element, ConditionExpression
 {
+  /**
+   * Returns the value of the '<em><b>Subcomponents</b></em>' containment reference list.
+   * The list contents are of type {@link org.osate.xtext.aadl2.errormodel.errorModel.SubcomponentElement}.
+   * <!-- begin-user-doc -->
+   * <p>
+   * If the meaning of the '<em>Subcomponents</em>' containment reference list isn't clear,
+   * there really should be more of a description here...
+   * </p>
+   * <!-- end-user-doc -->
+   * @return the value of the '<em>Subcomponents</em>' containment reference list.
+   * @see org.osate.xtext.aadl2.errormodel.errorModel.ErrorModelPackage#getConditionElement_Subcomponents()
+   * @model containment="true"
+   * @generated
+   */
+  EList<SubcomponentElement> getSubcomponents();
+
   /**
    * Returns the value of the '<em><b>Incoming</b></em>' reference.
    * <!-- begin-user-doc -->
@@ -78,22 +94,6 @@ public interface ConditionElement extends Element, ConditionExpression
    * @generated
    */
   void setConstraint(TypeSet value);
-
-  /**
-   * Returns the value of the '<em><b>Subcomponents</b></em>' containment reference list.
-   * The list contents are of type {@link org.osate.xtext.aadl2.errormodel.errorModel.SubcomponentElement}.
-   * <!-- begin-user-doc -->
-   * <p>
-   * If the meaning of the '<em>Subcomponents</em>' containment reference list isn't clear,
-   * there really should be more of a description here...
-   * </p>
-   * <!-- end-user-doc -->
-   * @return the value of the '<em>Subcomponents</em>' containment reference list.
-   * @see org.osate.xtext.aadl2.errormodel.errorModel.ErrorModelPackage#getConditionElement_Subcomponents()
-   * @model containment="true"
-   * @generated
-   */
-  EList<SubcomponentElement> getSubcomponents();
 
   /**
    * Returns the value of the '<em><b>State</b></em>' reference.

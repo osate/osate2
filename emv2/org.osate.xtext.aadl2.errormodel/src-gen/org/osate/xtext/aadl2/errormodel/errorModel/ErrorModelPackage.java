@@ -2939,13 +2939,22 @@ public interface ErrorModelPackage extends EPackage
   int CONDITION_ELEMENT__OWNED_COMMENT = Aadl2Package.ELEMENT__OWNED_COMMENT;
 
   /**
+   * The feature id for the '<em><b>Subcomponents</b></em>' containment reference list.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int CONDITION_ELEMENT__SUBCOMPONENTS = Aadl2Package.ELEMENT_FEATURE_COUNT + 0;
+
+  /**
    * The feature id for the '<em><b>Incoming</b></em>' reference.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    * @ordered
    */
-  int CONDITION_ELEMENT__INCOMING = Aadl2Package.ELEMENT_FEATURE_COUNT + 0;
+  int CONDITION_ELEMENT__INCOMING = Aadl2Package.ELEMENT_FEATURE_COUNT + 1;
 
   /**
    * The feature id for the '<em><b>Constraint</b></em>' containment reference.
@@ -2954,16 +2963,7 @@ public interface ErrorModelPackage extends EPackage
    * @generated
    * @ordered
    */
-  int CONDITION_ELEMENT__CONSTRAINT = Aadl2Package.ELEMENT_FEATURE_COUNT + 1;
-
-  /**
-   * The feature id for the '<em><b>Subcomponents</b></em>' containment reference list.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int CONDITION_ELEMENT__SUBCOMPONENTS = Aadl2Package.ELEMENT_FEATURE_COUNT + 2;
+  int CONDITION_ELEMENT__CONSTRAINT = Aadl2Package.ELEMENT_FEATURE_COUNT + 2;
 
   /**
    * The feature id for the '<em><b>State</b></em>' reference.
@@ -5298,6 +5298,17 @@ public interface ErrorModelPackage extends EPackage
   EClass getConditionElement();
 
   /**
+   * Returns the meta object for the containment reference list '{@link org.osate.xtext.aadl2.errormodel.errorModel.ConditionElement#getSubcomponents <em>Subcomponents</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the containment reference list '<em>Subcomponents</em>'.
+   * @see org.osate.xtext.aadl2.errormodel.errorModel.ConditionElement#getSubcomponents()
+   * @see #getConditionElement()
+   * @generated
+   */
+  EReference getConditionElement_Subcomponents();
+
+  /**
    * Returns the meta object for the reference '{@link org.osate.xtext.aadl2.errormodel.errorModel.ConditionElement#getIncoming <em>Incoming</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -5318,17 +5329,6 @@ public interface ErrorModelPackage extends EPackage
    * @generated
    */
   EReference getConditionElement_Constraint();
-
-  /**
-   * Returns the meta object for the containment reference list '{@link org.osate.xtext.aadl2.errormodel.errorModel.ConditionElement#getSubcomponents <em>Subcomponents</em>}'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return the meta object for the containment reference list '<em>Subcomponents</em>'.
-   * @see org.osate.xtext.aadl2.errormodel.errorModel.ConditionElement#getSubcomponents()
-   * @see #getConditionElement()
-   * @generated
-   */
-  EReference getConditionElement_Subcomponents();
 
   /**
    * Returns the meta object for the reference '{@link org.osate.xtext.aadl2.errormodel.errorModel.ConditionElement#getState <em>State</em>}'.
@@ -7010,6 +7010,14 @@ public interface ErrorModelPackage extends EPackage
     EClass CONDITION_ELEMENT = eINSTANCE.getConditionElement();
 
     /**
+     * The meta object literal for the '<em><b>Subcomponents</b></em>' containment reference list feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EReference CONDITION_ELEMENT__SUBCOMPONENTS = eINSTANCE.getConditionElement_Subcomponents();
+
+    /**
      * The meta object literal for the '<em><b>Incoming</b></em>' reference feature.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
@@ -7024,14 +7032,6 @@ public interface ErrorModelPackage extends EPackage
      * @generated
      */
     EReference CONDITION_ELEMENT__CONSTRAINT = eINSTANCE.getConditionElement_Constraint();
-
-    /**
-     * The meta object literal for the '<em><b>Subcomponents</b></em>' containment reference list feature.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
-    EReference CONDITION_ELEMENT__SUBCOMPONENTS = eINSTANCE.getConditionElement_Subcomponents();
 
     /**
      * The meta object literal for the '<em><b>State</b></em>' reference feature.

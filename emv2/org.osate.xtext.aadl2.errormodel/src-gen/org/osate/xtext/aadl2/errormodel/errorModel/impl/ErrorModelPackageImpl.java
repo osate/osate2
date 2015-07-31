@@ -1900,7 +1900,7 @@ public class ErrorModelPackageImpl extends EPackageImpl implements ErrorModelPac
    * <!-- end-user-doc -->
    * @generated
    */
-  public EReference getConditionElement_Incoming()
+  public EReference getConditionElement_Subcomponents()
   {
     return (EReference)conditionElementEClass.getEStructuralFeatures().get(0);
   }
@@ -1910,7 +1910,7 @@ public class ErrorModelPackageImpl extends EPackageImpl implements ErrorModelPac
    * <!-- end-user-doc -->
    * @generated
    */
-  public EReference getConditionElement_Constraint()
+  public EReference getConditionElement_Incoming()
   {
     return (EReference)conditionElementEClass.getEStructuralFeatures().get(1);
   }
@@ -1920,7 +1920,7 @@ public class ErrorModelPackageImpl extends EPackageImpl implements ErrorModelPac
    * <!-- end-user-doc -->
    * @generated
    */
-  public EReference getConditionElement_Subcomponents()
+  public EReference getConditionElement_Constraint()
   {
     return (EReference)conditionElementEClass.getEStructuralFeatures().get(2);
   }
@@ -2543,9 +2543,9 @@ public class ErrorModelPackageImpl extends EPackageImpl implements ErrorModelPac
     createEReference(orlessExpressionEClass, ORLESS_EXPRESSION__OPERANDS);
 
     conditionElementEClass = createEClass(CONDITION_ELEMENT);
+    createEReference(conditionElementEClass, CONDITION_ELEMENT__SUBCOMPONENTS);
     createEReference(conditionElementEClass, CONDITION_ELEMENT__INCOMING);
     createEReference(conditionElementEClass, CONDITION_ELEMENT__CONSTRAINT);
-    createEReference(conditionElementEClass, CONDITION_ELEMENT__SUBCOMPONENTS);
     createEReference(conditionElementEClass, CONDITION_ELEMENT__STATE);
 
     eventOrPropagationEClass = createEClass(EVENT_OR_PROPAGATION);
@@ -2869,9 +2869,9 @@ public class ErrorModelPackageImpl extends EPackageImpl implements ErrorModelPac
     initEReference(getOrlessExpression_Operands(), this.getConditionElement(), null, "operands", null, 0, -1, OrlessExpression.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
     initEClass(conditionElementEClass, ConditionElement.class, "ConditionElement", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+    initEReference(getConditionElement_Subcomponents(), this.getSubcomponentElement(), null, "subcomponents", null, 0, -1, ConditionElement.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEReference(getConditionElement_Incoming(), this.getEventOrPropagation(), null, "incoming", null, 0, 1, ConditionElement.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEReference(getConditionElement_Constraint(), this.getTypeSet(), null, "constraint", null, 0, 1, ConditionElement.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-    initEReference(getConditionElement_Subcomponents(), this.getSubcomponentElement(), null, "subcomponents", null, 0, -1, ConditionElement.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEReference(getConditionElement_State(), this.getErrorBehaviorState(), null, "state", null, 0, 1, ConditionElement.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
     initEClass(eventOrPropagationEClass, EventOrPropagation.class, "EventOrPropagation", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);

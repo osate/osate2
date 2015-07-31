@@ -277,7 +277,7 @@ ErrorPath returns ErrorPath:
 
 // reference to error propagation  
 ErrorPropagationPoint :
-   PropagationKind | (ID  ('.' ID)*)
+   PropagationKind | ID //(ID  ('.' ID)*)
    ;
 
    
@@ -403,7 +403,7 @@ ConditionTerm returns ConditionExpression:
   ;
   
 ConditionElement returns ConditionElement:
-	// ( subcomponent=[Subcomponent|ID] '.' )* or ?
+	 (subcomponents+=SubcomponentElement '.')*
   incoming=[EventOrPropagation|ErrorPropagationPoint] ( constraint=TypeTokenConstraintNoError )?
   ;
 

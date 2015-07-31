@@ -430,7 +430,7 @@ public abstract class AbstractErrorModelSemanticSequencer extends PropertiesSema
 	
 	/**
 	 * Constraint:
-	 *     (incoming=[EventOrPropagation|ErrorPropagationPoint] constraint=TypeTokenConstraintNoError?)
+	 *     (subcomponents+=SubcomponentElement* incoming=[EventOrPropagation|ErrorPropagationPoint] constraint=TypeTokenConstraintNoError?)
 	 */
 	protected void sequence_ConditionElement(EObject context, ConditionElement semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);

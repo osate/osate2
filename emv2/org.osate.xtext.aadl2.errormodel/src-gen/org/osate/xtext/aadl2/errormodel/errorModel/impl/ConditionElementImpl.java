@@ -33,9 +33,9 @@ import org.osate.xtext.aadl2.errormodel.errorModel.TypeSet;
  * <p>
  * The following features are implemented:
  * <ul>
+ *   <li>{@link org.osate.xtext.aadl2.errormodel.errorModel.impl.ConditionElementImpl#getSubcomponents <em>Subcomponents</em>}</li>
  *   <li>{@link org.osate.xtext.aadl2.errormodel.errorModel.impl.ConditionElementImpl#getIncoming <em>Incoming</em>}</li>
  *   <li>{@link org.osate.xtext.aadl2.errormodel.errorModel.impl.ConditionElementImpl#getConstraint <em>Constraint</em>}</li>
- *   <li>{@link org.osate.xtext.aadl2.errormodel.errorModel.impl.ConditionElementImpl#getSubcomponents <em>Subcomponents</em>}</li>
  *   <li>{@link org.osate.xtext.aadl2.errormodel.errorModel.impl.ConditionElementImpl#getState <em>State</em>}</li>
  * </ul>
  * </p>
@@ -44,6 +44,16 @@ import org.osate.xtext.aadl2.errormodel.errorModel.TypeSet;
  */
 public class ConditionElementImpl extends ElementImpl implements ConditionElement
 {
+  /**
+   * The cached value of the '{@link #getSubcomponents() <em>Subcomponents</em>}' containment reference list.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see #getSubcomponents()
+   * @generated
+   * @ordered
+   */
+  protected EList<SubcomponentElement> subcomponents;
+
   /**
    * The cached value of the '{@link #getIncoming() <em>Incoming</em>}' reference.
    * <!-- begin-user-doc -->
@@ -63,16 +73,6 @@ public class ConditionElementImpl extends ElementImpl implements ConditionElemen
    * @ordered
    */
   protected TypeSet constraint;
-
-  /**
-   * The cached value of the '{@link #getSubcomponents() <em>Subcomponents</em>}' containment reference list.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @see #getSubcomponents()
-   * @generated
-   * @ordered
-   */
-  protected EList<SubcomponentElement> subcomponents;
 
   /**
    * The cached value of the '{@link #getState() <em>State</em>}' reference.
@@ -103,6 +103,20 @@ public class ConditionElementImpl extends ElementImpl implements ConditionElemen
   protected EClass eStaticClass()
   {
     return ErrorModelPackage.Literals.CONDITION_ELEMENT;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EList<SubcomponentElement> getSubcomponents()
+  {
+    if (subcomponents == null)
+    {
+      subcomponents = new EObjectContainmentEList<SubcomponentElement>(SubcomponentElement.class, this, ErrorModelPackage.CONDITION_ELEMENT__SUBCOMPONENTS);
+    }
+    return subcomponents;
   }
 
   /**
@@ -201,20 +215,6 @@ public class ConditionElementImpl extends ElementImpl implements ConditionElemen
    * <!-- end-user-doc -->
    * @generated
    */
-  public EList<SubcomponentElement> getSubcomponents()
-  {
-    if (subcomponents == null)
-    {
-      subcomponents = new EObjectContainmentEList<SubcomponentElement>(SubcomponentElement.class, this, ErrorModelPackage.CONDITION_ELEMENT__SUBCOMPONENTS);
-    }
-    return subcomponents;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
   public ErrorBehaviorState getState()
   {
     if (state != null && state.eIsProxy())
@@ -263,10 +263,10 @@ public class ConditionElementImpl extends ElementImpl implements ConditionElemen
   {
     switch (featureID)
     {
-      case ErrorModelPackage.CONDITION_ELEMENT__CONSTRAINT:
-        return basicSetConstraint(null, msgs);
       case ErrorModelPackage.CONDITION_ELEMENT__SUBCOMPONENTS:
         return ((InternalEList<?>)getSubcomponents()).basicRemove(otherEnd, msgs);
+      case ErrorModelPackage.CONDITION_ELEMENT__CONSTRAINT:
+        return basicSetConstraint(null, msgs);
     }
     return super.eInverseRemove(otherEnd, featureID, msgs);
   }
@@ -281,13 +281,13 @@ public class ConditionElementImpl extends ElementImpl implements ConditionElemen
   {
     switch (featureID)
     {
+      case ErrorModelPackage.CONDITION_ELEMENT__SUBCOMPONENTS:
+        return getSubcomponents();
       case ErrorModelPackage.CONDITION_ELEMENT__INCOMING:
         if (resolve) return getIncoming();
         return basicGetIncoming();
       case ErrorModelPackage.CONDITION_ELEMENT__CONSTRAINT:
         return getConstraint();
-      case ErrorModelPackage.CONDITION_ELEMENT__SUBCOMPONENTS:
-        return getSubcomponents();
       case ErrorModelPackage.CONDITION_ELEMENT__STATE:
         if (resolve) return getState();
         return basicGetState();
@@ -306,15 +306,15 @@ public class ConditionElementImpl extends ElementImpl implements ConditionElemen
   {
     switch (featureID)
     {
+      case ErrorModelPackage.CONDITION_ELEMENT__SUBCOMPONENTS:
+        getSubcomponents().clear();
+        getSubcomponents().addAll((Collection<? extends SubcomponentElement>)newValue);
+        return;
       case ErrorModelPackage.CONDITION_ELEMENT__INCOMING:
         setIncoming((EventOrPropagation)newValue);
         return;
       case ErrorModelPackage.CONDITION_ELEMENT__CONSTRAINT:
         setConstraint((TypeSet)newValue);
-        return;
-      case ErrorModelPackage.CONDITION_ELEMENT__SUBCOMPONENTS:
-        getSubcomponents().clear();
-        getSubcomponents().addAll((Collection<? extends SubcomponentElement>)newValue);
         return;
       case ErrorModelPackage.CONDITION_ELEMENT__STATE:
         setState((ErrorBehaviorState)newValue);
@@ -333,14 +333,14 @@ public class ConditionElementImpl extends ElementImpl implements ConditionElemen
   {
     switch (featureID)
     {
+      case ErrorModelPackage.CONDITION_ELEMENT__SUBCOMPONENTS:
+        getSubcomponents().clear();
+        return;
       case ErrorModelPackage.CONDITION_ELEMENT__INCOMING:
         setIncoming((EventOrPropagation)null);
         return;
       case ErrorModelPackage.CONDITION_ELEMENT__CONSTRAINT:
         setConstraint((TypeSet)null);
-        return;
-      case ErrorModelPackage.CONDITION_ELEMENT__SUBCOMPONENTS:
-        getSubcomponents().clear();
         return;
       case ErrorModelPackage.CONDITION_ELEMENT__STATE:
         setState((ErrorBehaviorState)null);
@@ -359,12 +359,12 @@ public class ConditionElementImpl extends ElementImpl implements ConditionElemen
   {
     switch (featureID)
     {
+      case ErrorModelPackage.CONDITION_ELEMENT__SUBCOMPONENTS:
+        return subcomponents != null && !subcomponents.isEmpty();
       case ErrorModelPackage.CONDITION_ELEMENT__INCOMING:
         return incoming != null;
       case ErrorModelPackage.CONDITION_ELEMENT__CONSTRAINT:
         return constraint != null;
-      case ErrorModelPackage.CONDITION_ELEMENT__SUBCOMPONENTS:
-        return subcomponents != null && !subcomponents.isEmpty();
       case ErrorModelPackage.CONDITION_ELEMENT__STATE:
         return state != null;
     }

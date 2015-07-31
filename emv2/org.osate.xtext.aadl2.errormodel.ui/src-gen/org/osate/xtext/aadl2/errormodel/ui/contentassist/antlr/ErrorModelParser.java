@@ -148,8 +148,6 @@ public class ErrorModelParser extends AbstractPartialContentAssistParser {
 					put(grammarAccess.getErrorSinkAccess().getGroup(), "rule__ErrorSink__Group__0");
 					put(grammarAccess.getErrorPathAccess().getGroup(), "rule__ErrorPath__Group__0");
 					put(grammarAccess.getErrorPathAccess().getGroup_8_1(), "rule__ErrorPath__Group_8_1__0");
-					put(grammarAccess.getErrorPropagationPointAccess().getGroup_1(), "rule__ErrorPropagationPoint__Group_1__0");
-					put(grammarAccess.getErrorPropagationPointAccess().getGroup_1_1(), "rule__ErrorPropagationPoint__Group_1_1__0");
 					put(grammarAccess.getPropagationPointAccess().getGroup(), "rule__PropagationPoint__Group__0");
 					put(grammarAccess.getPropagationPathAccess().getGroup(), "rule__PropagationPath__Group__0");
 					put(grammarAccess.getPropagationPathAccess().getGroup_0(), "rule__PropagationPath__Group_0__0");
@@ -197,6 +195,7 @@ public class ErrorModelParser extends AbstractPartialContentAssistParser {
 					put(grammarAccess.getOrlessExpressionAccess().getGroup_4(), "rule__OrlessExpression__Group_4__0");
 					put(grammarAccess.getConditionTermAccess().getGroup_3(), "rule__ConditionTerm__Group_3__0");
 					put(grammarAccess.getConditionElementAccess().getGroup(), "rule__ConditionElement__Group__0");
+					put(grammarAccess.getConditionElementAccess().getGroup_0(), "rule__ConditionElement__Group_0__0");
 					put(grammarAccess.getOutgoingPropagationConditionAccess().getGroup(), "rule__OutgoingPropagationCondition__Group__0");
 					put(grammarAccess.getOutgoingPropagationConditionAccess().getGroup_0(), "rule__OutgoingPropagationCondition__Group_0__0");
 					put(grammarAccess.getOutgoingPropagationConditionAccess().getGroup_1_0(), "rule__OutgoingPropagationCondition__Group_1_0__0");
@@ -414,8 +413,9 @@ public class ErrorModelParser extends AbstractPartialContentAssistParser {
 					put(grammarAccess.getOrlessExpressionAccess().getCountAssignment_0(), "rule__OrlessExpression__CountAssignment_0");
 					put(grammarAccess.getOrlessExpressionAccess().getOperandsAssignment_3(), "rule__OrlessExpression__OperandsAssignment_3");
 					put(grammarAccess.getOrlessExpressionAccess().getOperandsAssignment_4_1(), "rule__OrlessExpression__OperandsAssignment_4_1");
-					put(grammarAccess.getConditionElementAccess().getIncomingAssignment_0(), "rule__ConditionElement__IncomingAssignment_0");
-					put(grammarAccess.getConditionElementAccess().getConstraintAssignment_1(), "rule__ConditionElement__ConstraintAssignment_1");
+					put(grammarAccess.getConditionElementAccess().getSubcomponentsAssignment_0_0(), "rule__ConditionElement__SubcomponentsAssignment_0_0");
+					put(grammarAccess.getConditionElementAccess().getIncomingAssignment_1(), "rule__ConditionElement__IncomingAssignment_1");
+					put(grammarAccess.getConditionElementAccess().getConstraintAssignment_2(), "rule__ConditionElement__ConstraintAssignment_2");
 					put(grammarAccess.getOutgoingPropagationConditionAccess().getNameAssignment_0_0(), "rule__OutgoingPropagationCondition__NameAssignment_0_0");
 					put(grammarAccess.getOutgoingPropagationConditionAccess().getStateAssignment_1_0_0(), "rule__OutgoingPropagationCondition__StateAssignment_1_0_0");
 					put(grammarAccess.getOutgoingPropagationConditionAccess().getTypeTokenConstraintAssignment_1_0_1(), "rule__OutgoingPropagationCondition__TypeTokenConstraintAssignment_1_0_1");
