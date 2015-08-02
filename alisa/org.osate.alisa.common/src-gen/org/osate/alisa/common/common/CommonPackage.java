@@ -397,7 +397,7 @@ public interface CommonPackage extends EPackage
    * @generated
    * @ordered
    */
-  int COMPUTE_DECLARATION__TYPE = XbasePackage.XEXPRESSION_FEATURE_COUNT + 0;
+  int COMPUTE_DECLARATION__TYPE = XbasePackage.XVARIABLE_DECLARATION__TYPE;
 
   /**
    * The feature id for the '<em><b>Name</b></em>' attribute.
@@ -406,7 +406,25 @@ public interface CommonPackage extends EPackage
    * @generated
    * @ordered
    */
-  int COMPUTE_DECLARATION__NAME = XbasePackage.XEXPRESSION_FEATURE_COUNT + 1;
+  int COMPUTE_DECLARATION__NAME = XbasePackage.XVARIABLE_DECLARATION__NAME;
+
+  /**
+   * The feature id for the '<em><b>Right</b></em>' containment reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int COMPUTE_DECLARATION__RIGHT = XbasePackage.XVARIABLE_DECLARATION__RIGHT;
+
+  /**
+   * The feature id for the '<em><b>Writeable</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int COMPUTE_DECLARATION__WRITEABLE = XbasePackage.XVARIABLE_DECLARATION__WRITEABLE;
 
   /**
    * The number of structural features of the '<em>Compute Declaration</em>' class.
@@ -415,7 +433,7 @@ public interface CommonPackage extends EPackage
    * @generated
    * @ordered
    */
-  int COMPUTE_DECLARATION_FEATURE_COUNT = XbasePackage.XEXPRESSION_FEATURE_COUNT + 2;
+  int COMPUTE_DECLARATION_FEATURE_COUNT = XbasePackage.XVARIABLE_DECLARATION_FEATURE_COUNT + 0;
 
   /**
    * The meta object id for the '{@link org.osate.alisa.common.common.impl.APropertyReferenceImpl <em>AProperty Reference</em>}' class.
@@ -751,28 +769,6 @@ public interface CommonPackage extends EPackage
   EClass getComputeDeclaration();
 
   /**
-   * Returns the meta object for the containment reference '{@link org.osate.alisa.common.common.ComputeDeclaration#getType <em>Type</em>}'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return the meta object for the containment reference '<em>Type</em>'.
-   * @see org.osate.alisa.common.common.ComputeDeclaration#getType()
-   * @see #getComputeDeclaration()
-   * @generated
-   */
-  EReference getComputeDeclaration_Type();
-
-  /**
-   * Returns the meta object for the attribute '{@link org.osate.alisa.common.common.ComputeDeclaration#getName <em>Name</em>}'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return the meta object for the attribute '<em>Name</em>'.
-   * @see org.osate.alisa.common.common.ComputeDeclaration#getName()
-   * @see #getComputeDeclaration()
-   * @generated
-   */
-  EAttribute getComputeDeclaration_Name();
-
-  /**
    * Returns the meta object for class '{@link org.osate.alisa.common.common.APropertyReference <em>AProperty Reference</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -1052,22 +1048,6 @@ public interface CommonPackage extends EPackage
      * @generated
      */
     EClass COMPUTE_DECLARATION = eINSTANCE.getComputeDeclaration();
-
-    /**
-     * The meta object literal for the '<em><b>Type</b></em>' containment reference feature.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
-    EReference COMPUTE_DECLARATION__TYPE = eINSTANCE.getComputeDeclaration_Type();
-
-    /**
-     * The meta object literal for the '<em><b>Name</b></em>' attribute feature.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
-    EAttribute COMPUTE_DECLARATION__NAME = eINSTANCE.getComputeDeclaration_Name();
 
     /**
      * The meta object literal for the '{@link org.osate.alisa.common.common.impl.APropertyReferenceImpl <em>AProperty Reference</em>}' class.

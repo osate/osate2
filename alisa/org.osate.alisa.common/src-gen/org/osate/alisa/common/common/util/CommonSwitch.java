@@ -134,7 +134,9 @@ public class CommonSwitch<T> extends Switch<T>
       {
         ComputeDeclaration computeDeclaration = (ComputeDeclaration)theEObject;
         T result = caseComputeDeclaration(computeDeclaration);
+        if (result == null) result = caseXVariableDeclaration(computeDeclaration);
         if (result == null) result = caseXExpression(computeDeclaration);
+        if (result == null) result = caseJvmIdentifiableElement(computeDeclaration);
         if (result == null) result = defaultCase(theEObject);
         return result;
       }
