@@ -2663,7 +2663,7 @@ public class ReqSpecGrammarAccess extends AbstractGrammarElementFinder {
 
 	////	 ('val' (=> type=JvmTypeReference name=ID) '=' right=(APropertyReference|XExpression)) ;
 	////	 ('compute' (=> type=JvmTypeReference name=ID))
-	//ComputeDeclaration returns xbase::XExpression:
+	//ComputeDeclaration returns xbase::XVariableDeclaration:
 	//	{ComputeDeclaration} ("compute" (=> (type=JvmTypeReference name=ID) | name=ID));
 	public CommonGrammarAccess.ComputeDeclarationElements getComputeDeclarationAccess() {
 		return gaCommon.getComputeDeclarationAccess();
