@@ -378,7 +378,7 @@ public class CommonGrammarAccess extends AbstractGrammarElementFinder {
 		
 		////	 ('val' (=> type=JvmTypeReference name=ID) '=' right=(APropertyReference|XExpression)) ;
 		////	 ('compute' (=> type=JvmTypeReference name=ID))
-		//ComputeDeclaration returns xbase::XVariableDeclaration:
+		//ComputeDeclaration returns xbase::XExpression:
 		//	{ComputeDeclaration} ("compute" (=> (type=JvmTypeReference name=ID) | name=ID));
 		@Override public ParserRule getRule() { return rule; }
 
@@ -808,7 +808,7 @@ public class CommonGrammarAccess extends AbstractGrammarElementFinder {
 
 	////	 ('val' (=> type=JvmTypeReference name=ID) '=' right=(APropertyReference|XExpression)) ;
 	////	 ('compute' (=> type=JvmTypeReference name=ID))
-	//ComputeDeclaration returns xbase::XVariableDeclaration:
+	//ComputeDeclaration returns xbase::XExpression:
 	//	{ComputeDeclaration} ("compute" (=> (type=JvmTypeReference name=ID) | name=ID));
 	public ComputeDeclarationElements getComputeDeclarationAccess() {
 		return pComputeDeclaration;

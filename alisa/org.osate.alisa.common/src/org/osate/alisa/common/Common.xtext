@@ -42,7 +42,7 @@ XValDeclaration returns xbase::XVariableDeclaration:
 	 ('as' property=[aadl2::Property|AADLPROPERTYREFERENCE] )?;
 //	 ('val' (=> type=JvmTypeReference name=ID) '=' right=(APropertyReference|XExpression)) ;
 
-ComputeDeclaration returns xbase::XVariableDeclaration:
+ComputeDeclaration returns xbase::XExpression:
 	{ComputeDeclaration}
 	 ('compute' (=> (type=JvmTypeReference name=ID) | name=ID) )
 //	 ('compute' (=> type=JvmTypeReference name=ID))

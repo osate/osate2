@@ -4,6 +4,7 @@ package org.osate.reqspec.reqSpec;
 
 import org.eclipse.emf.common.util.EList;
 
+import org.eclipse.xtext.xbase.XExpression;
 import org.eclipse.xtext.xbase.XVariableDeclaration;
 
 import org.osate.aadl2.ComponentClassifier;
@@ -185,7 +186,7 @@ public interface SystemRequirements extends ReqSpecContainer, ReqRoot
 
   /**
    * Returns the value of the '<em><b>Computes</b></em>' containment reference list.
-   * The list contents are of type {@link org.eclipse.xtext.xbase.XVariableDeclaration}.
+   * The list contents are of type {@link org.eclipse.xtext.xbase.XExpression}.
    * <!-- begin-user-doc -->
    * <p>
    * If the meaning of the '<em>Computes</em>' containment reference list isn't clear,
@@ -197,7 +198,7 @@ public interface SystemRequirements extends ReqSpecContainer, ReqRoot
    * @model containment="true"
    * @generated
    */
-  EList<XVariableDeclaration> getComputes();
+  EList<XExpression> getComputes();
 
   /**
    * Returns the value of the '<em><b>Content</b></em>' containment reference list.

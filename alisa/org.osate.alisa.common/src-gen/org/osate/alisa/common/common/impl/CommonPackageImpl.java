@@ -10,6 +10,8 @@ import org.eclipse.emf.ecore.EcorePackage;
 
 import org.eclipse.emf.ecore.impl.EPackageImpl;
 
+import org.eclipse.xtext.common.types.TypesPackage;
+
 import org.eclipse.xtext.xbase.XbasePackage;
 
 import org.osate.aadl2.Aadl2Package;
@@ -427,6 +429,26 @@ public class CommonPackageImpl extends EPackageImpl implements CommonPackage
    * <!-- end-user-doc -->
    * @generated
    */
+  public EReference getComputeDeclaration_Type()
+  {
+    return (EReference)computeDeclarationEClass.getEStructuralFeatures().get(0);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EAttribute getComputeDeclaration_Name()
+  {
+    return (EAttribute)computeDeclarationEClass.getEStructuralFeatures().get(1);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
   public EClass getAPropertyReference()
   {
     return aPropertyReferenceEClass;
@@ -524,6 +546,8 @@ public class CommonPackageImpl extends EPackageImpl implements CommonPackage
     createEReference(propertyConsistentVariableDeclarationEClass, PROPERTY_CONSISTENT_VARIABLE_DECLARATION__PROPERTY);
 
     computeDeclarationEClass = createEClass(COMPUTE_DECLARATION);
+    createEReference(computeDeclarationEClass, COMPUTE_DECLARATION__TYPE);
+    createEAttribute(computeDeclarationEClass, COMPUTE_DECLARATION__NAME);
 
     aPropertyReferenceEClass = createEClass(APROPERTY_REFERENCE);
     createEReference(aPropertyReferenceEClass, APROPERTY_REFERENCE__PROPERTY);
@@ -560,6 +584,7 @@ public class CommonPackageImpl extends EPackageImpl implements CommonPackage
     EcorePackage theEcorePackage = (EcorePackage)EPackage.Registry.INSTANCE.getEPackage(EcorePackage.eNS_URI);
     XbasePackage theXbasePackage = (XbasePackage)EPackage.Registry.INSTANCE.getEPackage(XbasePackage.eNS_URI);
     Aadl2Package theAadl2Package = (Aadl2Package)EPackage.Registry.INSTANCE.getEPackage(Aadl2Package.eNS_URI);
+    TypesPackage theTypesPackage = (TypesPackage)EPackage.Registry.INSTANCE.getEPackage(TypesPackage.eNS_URI);
 
     // Create type parameters
 
@@ -567,7 +592,7 @@ public class CommonPackageImpl extends EPackageImpl implements CommonPackage
 
     // Add supertypes to classes
     propertyConsistentVariableDeclarationEClass.getESuperTypes().add(theXbasePackage.getXVariableDeclaration());
-    computeDeclarationEClass.getESuperTypes().add(theXbasePackage.getXVariableDeclaration());
+    computeDeclarationEClass.getESuperTypes().add(theXbasePackage.getXExpression());
     aPropertyReferenceEClass.getESuperTypes().add(theXbasePackage.getXExpression());
     xNumberLiteralUnitEClass.getESuperTypes().add(theXbasePackage.getXNumberLiteral());
 
@@ -604,6 +629,8 @@ public class CommonPackageImpl extends EPackageImpl implements CommonPackage
     initEReference(getPropertyConsistentVariableDeclaration_Property(), theAadl2Package.getProperty(), null, "property", null, 0, 1, PropertyConsistentVariableDeclaration.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
     initEClass(computeDeclarationEClass, ComputeDeclaration.class, "ComputeDeclaration", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+    initEReference(getComputeDeclaration_Type(), theTypesPackage.getJvmTypeReference(), null, "type", null, 0, 1, ComputeDeclaration.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEAttribute(getComputeDeclaration_Name(), theEcorePackage.getEString(), "name", null, 0, 1, ComputeDeclaration.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
     initEClass(aPropertyReferenceEClass, APropertyReference.class, "APropertyReference", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
     initEReference(getAPropertyReference_Property(), theAadl2Package.getProperty(), null, "property", null, 0, 1, APropertyReference.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);

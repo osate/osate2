@@ -19,7 +19,7 @@ import org.eclipse.emf.ecore.util.EObjectContainmentEList;
 import org.eclipse.emf.ecore.util.EObjectResolvingEList;
 import org.eclipse.emf.ecore.util.InternalEList;
 
-import org.eclipse.xtext.xbase.XVariableDeclaration;
+import org.eclipse.xtext.xbase.XExpression;
 
 import org.osate.reqspec.reqSpec.Goal;
 import org.osate.reqspec.reqSpec.ReqPredicate;
@@ -56,7 +56,7 @@ public class RequirementImpl extends ContractualElementImpl implements Requireme
    * @generated
    * @ordered
    */
-  protected EList<XVariableDeclaration> computes;
+  protected EList<XExpression> computes;
 
   /**
    * The cached value of the '{@link #getPredicate() <em>Predicate</em>}' containment reference.
@@ -164,11 +164,11 @@ public class RequirementImpl extends ContractualElementImpl implements Requireme
    * <!-- end-user-doc -->
    * @generated
    */
-  public EList<XVariableDeclaration> getComputes()
+  public EList<XExpression> getComputes()
   {
     if (computes == null)
     {
-      computes = new EObjectContainmentEList<XVariableDeclaration>(XVariableDeclaration.class, this, ReqSpecPackage.REQUIREMENT__COMPUTES);
+      computes = new EObjectContainmentEList<XExpression>(XExpression.class, this, ReqSpecPackage.REQUIREMENT__COMPUTES);
     }
     return computes;
   }
@@ -405,7 +405,7 @@ public class RequirementImpl extends ContractualElementImpl implements Requireme
     {
       case ReqSpecPackage.REQUIREMENT__COMPUTES:
         getComputes().clear();
-        getComputes().addAll((Collection<? extends XVariableDeclaration>)newValue);
+        getComputes().addAll((Collection<? extends XExpression>)newValue);
         return;
       case ReqSpecPackage.REQUIREMENT__PREDICATE:
         setPredicate((ReqPredicate)newValue);
