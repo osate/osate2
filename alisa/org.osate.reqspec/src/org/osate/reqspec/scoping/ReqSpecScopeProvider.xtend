@@ -64,6 +64,10 @@ class ReqSpecScopeProvider extends AlisaAbstractDeclarativeScopeProvider {
 		return scopeForValCompute(context, IScope.NULLSCOPE)
 	}
 
+	def scope_XVariableDeclaration(Requirement context, EReference reference) {
+		return scopeForValCompute(context, IScope.NULLSCOPE)
+	}
+	
 	def scope_JvmIdentifiableElement(XExpression context, EReference reference) {
 		var result = IScope.NULLSCOPE
 		println("look for identifiable element")

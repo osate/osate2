@@ -10,6 +10,7 @@ import org.osate.verify.verify.Claim
 import org.osate.verify.verify.VerificationActivity
 
 import static org.osate.reqspec.util.ReqSpecUtilExtension.*
+import static org.osate.verify.util.VerifyUtilExtension.*
 
 /**
  * This class contains custom scoping description.
@@ -21,9 +22,15 @@ import static org.osate.reqspec.util.ReqSpecUtilExtension.*
 class VerifyScopeProvider extends AlisaAbstractDeclarativeScopeProvider {
 
 	def scope_XExpression(VerificationActivity context, EReference reference) {
-		val claim = context.eContainer as Claim
+		val claim = getContainingClaim (context)
 		var req = claim.requirement
 		return scopeForValCompute(req, IScope.NULLSCOPE)
+	}
+
+	def scope_ComputeDeclaration(VerificationActivity context, EReference reference) {
+		val claim = getContainingClaim (context)
+		var req = claim.requirement
+		return scopeForCompute(req, IScope.NULLSCOPE)
 	}
 	
 

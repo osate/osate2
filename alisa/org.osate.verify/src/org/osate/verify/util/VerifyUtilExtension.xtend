@@ -5,6 +5,8 @@ import org.eclipse.emf.ecore.EObject
 import org.osate.verify.verify.ElseExpr
 import com.google.common.collect.HashMultimap
 import org.eclipse.emf.ecore.util.EcoreUtil
+import org.osate.verify.verify.VerificationActivity
+import org.osate.verify.verify.Claim
 
 class VerifyUtilExtension {
 
@@ -37,5 +39,9 @@ class VerifyUtilExtension {
 	
 	def static boolean hasOther(ElseExpr cee){
 		cee.other != null 
+	}
+	
+	def static Claim getContainingClaim(VerificationActivity va){
+		return va.eContainer as Claim
 	}
 }
