@@ -46,6 +46,8 @@ import org.osate.aadl2.instance.InstanceObject
 import org.osate.assure.util.AssureUtilExtension
 import static org.osate.assure.util.AssureUtilExtension.getInstanceModel
 import org.osate.assure.assure.VerificationExecutionState
+import org.osate.aadl2.Aadl2Factory
+import com.rockwellcollins.atc.resolute.resolute.FnCallExpr
 
 @ImplementedBy(AssureProcessor)
 interface IAssureProcessor {
@@ -257,7 +259,7 @@ class AssureProcessor implements IAssureProcessor {
 					AssureUtilExtension.initializeResoluteContext(instance);
 					val EvaluationContext context = new EvaluationContext(instance, sets, featToConnsMap);
 					val ResoluteInterpreter interpreter = new ResoluteInterpreter(context);
-					val provecall = createWrapperProveCall(verificationResult)
+					val provecall = createWrapperProveCall(verificationResult,parameters)
 					if (provecall == null) {
 						setToError(verificationResult,
 							"Could not find Resolute Function " + verificationResult.method.name)
@@ -277,10 +279,11 @@ class AssureProcessor implements IAssureProcessor {
 						}
 					}
 //					case SupportedTypes.RESOLUTEPREDICATE: {
-//						val si = verificationResult.caseSubject.systemInstance
-//						val EvaluationContext context = new EvaluationContext(si, sets, featToConnsMap);
+//					AssureUtilExtension.initializeResoluteContext(instance);
+
+//						val EvaluationContext context = new EvaluationContext(instance, sets, featToConnsMap);
 //						val ResoluteEvaluator evaluator = new ResoluteEvaluator(context, null);
-//						val fncall = createWrapperFnCall(verificationResult)
+//						val fncall = createWrapperFnCall(verificationResult,parameters)
 //						if (fncall == null) {
 //							setToError(verificationResult,
 //								"Could not find Resolute Function " + verificationResult.method.name)
@@ -295,33 +298,6 @@ class AssureProcessor implements IAssureProcessor {
 //									}
 //								} else {
 //									setToError(verificationResult, "Expected boolean result. Found " + resultvalue.type)
-//								}
-//							} catch (Throwable t) {
-//								setToError(verificationResult,
-//									"Verification activity did not complete. Exception: " + t.message)
-//							}
-//						}
-//					}
-//					case SupportedTypes.RESOLUTECOMPUTE: {
-//						val si = verificationResult.caseSubject.systemInstance
-//						val EvaluationContext context = new EvaluationContext(si, sets, featToConnsMap);
-//						val ResoluteEvaluator evaluator = new ResoluteEvaluator(context, null);
-//						val fncall = createWrapperFnCall(verificationResult)
-//						if (fncall == null) {
-//							setToError(verificationResult,
-//								"Could not find Resolute Function " + verificationResult.method.name)
-//						} else {
-//							try {
-//								val ResoluteValue resultvalue = evaluator.caseFnCallExpr(fncall)
-//								// TODO evaluate claim predicate
-//								if (resultvalue instanceof BoolValue) {
-//									if (resultvalue.getBool) {
-//										setToSuccess(verificationResult)
-//									} else {
-//										setToFail(verificationResult, "Resolute function evaluated to false")
-//									}
-//								} else {
-//									setToFail(verificationResult, "Expected boolean result. Found " + resultvalue.type)
 //								}
 //							} catch (Throwable t) {
 //								setToError(verificationResult,
@@ -344,7 +320,7 @@ class AssureProcessor implements IAssureProcessor {
 			verificationResult.eResource.save(null)
 		}
 
-		def ProveStatement createWrapperProveCall(VerificationResult vr) {
+		def ProveStatement createWrapperProveCall(VerificationResult vr, Object[] params) {
 			val resoluteFunction = vr.method.methodPath
 			val factory = ResoluteFactory.eINSTANCE
 //			val found = resolveResoluteFunction(vr, resoluteFunction)
@@ -354,12 +330,37 @@ class AssureProcessor implements IAssureProcessor {
 			val call = factory.createFnCallExpr
 			call.fn = found
 			call.args.add(factory.createThisExpr)
+			addParams(call,params)
 			val prove = factory.createProveStatement
 			prove.expr = call
 			prove
 		}
+		
+		def addParams(FnCallExpr call, Object[] params){
+			for (p : params){
+				if (p instanceof Double){
+					val realval = ResoluteFactory.eINSTANCE.createRealExpr
+					val reallit = Aadl2Factory.eINSTANCE.createRealLiteral
+					reallit.value = p;
+					realval.^val = reallit
+					call.args.add(realval)
+				} else if (p instanceof Long){
+					val intval = ResoluteFactory.eINSTANCE.createIntExpr
+					val intlit = Aadl2Factory.eINSTANCE.createIntegerLiteral
+					intlit.value = p;
+					intval.^val = intlit
+					call.args.add(intval)
+				} else if (p instanceof String){
+					val stringval = ResoluteFactory.eINSTANCE.createStringExpr
+					val stringlit = Aadl2Factory.eINSTANCE.createStringLiteral
+					stringlit.value = p;
+					stringval.^val = stringlit
+					call.args.add(stringval)
+				}
+			}
+		}
 
-		def createWrapperFnCall(VerificationResult vr) {
+		def createWrapperFnCall(VerificationResult vr, Object[] params) {
 			val resoluteFunction = vr.method.methodPath
 			val factory = ResoluteFactory.eINSTANCE
 			val target = factory.createIdExpr
@@ -368,6 +369,7 @@ class AssureProcessor implements IAssureProcessor {
 			val found = findResoluteFunction(vr, resoluteFunction)
 			call.fn = found
 			call.args.add(target)
+			addParams(call, params)
 			call
 		}
 
