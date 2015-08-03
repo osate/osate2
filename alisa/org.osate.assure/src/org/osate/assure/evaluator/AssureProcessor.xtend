@@ -174,7 +174,7 @@ class AssureProcessor implements IAssureProcessor {
 				var Object param
 				if (verificationActivity.parameters.get(i) instanceof XVariableDeclaration) {
 					val varDecl = verificationActivity.parameters.get(i) as XVariableDeclaration
-					varType = varDecl.type.type
+					varType = varDecl.type?.type
 					try {
 						val IEvaluationResult r = xbaseInterpreter.evaluate(varDecl, ctx, CancelIndicator.NullImpl)
 						param = ctx.getValue(QualifiedName.create(varDecl.name))
@@ -183,7 +183,7 @@ class AssureProcessor implements IAssureProcessor {
 						e.printStackTrace
 					}
 				} else {
-					varType = (verificationActivity.parameters.get(i) as ComputeDeclaration).type.type
+					varType = (verificationActivity.parameters.get(i) as ComputeDeclaration).type?.type
 					val myClass = Class.forName(varType.qualifiedName)
 //					println ("myClass=" + myClass.name)
 					/**
@@ -203,12 +203,12 @@ class AssureProcessor implements IAssureProcessor {
 
 				}
 
-				var paramType = (verificationMethod.params.get(i) as JvmFormalParameter).parameterType.type
+				var paramType = (verificationMethod.params.get(i) as JvmFormalParameter).parameterType?.type
 
 //				println ("Param var" + i + ":" + varType.identifier)
 //				println ("Param par" + i + ":" + paramType.identifier)
 				parameters.set(i, param)
-				if (! varType.equals(paramType)) {
+				if (varType!= null && paramType != null && ! varType.equals(paramType)) {
 					println("Mismatch parameters types")
 					return
 				}
