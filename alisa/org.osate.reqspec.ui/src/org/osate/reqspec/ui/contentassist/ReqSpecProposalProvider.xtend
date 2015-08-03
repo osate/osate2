@@ -9,6 +9,13 @@ import org.eclipse.xtext.Assignment
 import org.eclipse.xtext.ui.editor.contentassist.ContentAssistContext
 import org.eclipse.xtext.ui.editor.contentassist.ICompletionProposalAcceptor
 import org.eclipse.xtext.CrossReference
+import org.osate.reqspec.reqSpec.SystemRequirements
+import org.osate.aadl2.Classifier
+import org.eclipse.emf.common.util.EList
+import org.eclipse.emf.ecore.util.BasicInternalEList
+import org.osate.aadl2.ComponentImplementation
+import org.eclipse.emf.ecore.util.EcoreUtil
+import org.osate.reqspec.reqSpec.StakeholderGoals
 
 /**
  * see http://www.eclipse.org/Xtext/documentation.html#contentAssist on how to customize content assistant
@@ -27,5 +34,81 @@ class ReqSpecProposalProvider extends AbstractReqSpecProposalProvider {
 		);
 	}
 
+	override void completeRequirement_GoalReference(EObject model, Assignment assignment, ContentAssistContext context, ICompletionProposalAcceptor acceptor) {
+		//System.out.println("completeRequirement_GoalReference0000" + model.toString);
+		val sysRequirements = model.eContainer as SystemRequirements
+		
+		//if stakeHolderGoals.target is equal to any of the parent and self of sysRequirements.target
+		val targetComponentClassifier = sysRequirements.target 
+		val allAncestors = targetComponentClassifier.getSelfPlusAncestors
+		
+		
+		lookupCrossReference(assignment.getTerminal() as CrossReference, context, acceptor, [
+			val proposedObj =  EcoreUtil.resolve(EObjectOrProxy, model)  //Gets all Goals from Loose Scope
+			val stakeHolderGoals = proposedObj.eContainer as StakeholderGoals
+			
+			allAncestors.contains(stakeHolderGoals.target)
+
+		]);
+	}
+	
+	
+	override void completeRequirement_RefinesReference(EObject model, Assignment assignment, ContentAssistContext context, ICompletionProposalAcceptor acceptor) {
+		//Don't suggest itself
+		lookupCrossReference(assignment.getTerminal() as CrossReference, context, acceptor, [
+			model !=  EcoreUtil.resolve(EObjectOrProxy, model)  //Gets Requirements from Scope
+		]);
+	}
+	
+	override void completeRequirement_DecomposesReference(EObject model, Assignment assignment, ContentAssistContext context, ICompletionProposalAcceptor acceptor) {
+		completeRequirement_RefinesReference(model, assignment, context, acceptor)
+	}
+
+	override void completeRequirement_EvolvesReference(EObject model, Assignment assignment, ContentAssistContext context, ICompletionProposalAcceptor acceptor) {
+		completeRequirement_RefinesReference(model, assignment, context, acceptor)
+	}
+	
+    //mnam: Later refine this to customize content assist String
+//    override getStyledDisplayString(EObject element, String qualifiedNameAsString, String shortName) {
+//    	if (element instanceof XXXX) {
+//    		val member = element as XXXX
+//    		new StyledString(member.memberAsStringWithType).
+//			append(new StyledString(" - " + member.containingClass.name,
+//			StyledString::QUALIFIER_STYLER))
+//    	} else {
+//    		super.getStyledDisplayString(element, qualifiedNameAsString, shortName)
+//    	}
+//    	  
+//    }
+
+	//Brought from Aadl2JavaValidator
+	def EList<Classifier> getSelfPlusAncestors(Classifier cl) {
+		val cls = new BasicInternalEList<Classifier>(typeof(Classifier));
+		cls.add(cl);
+		
+		var temp = cl
+		while (temp.getExtended() != null) {
+			if (cls.contains(temp.getExtended())) {
+				return cls;
+			}
+			temp = temp.getExtended() as Classifier;
+			cls.add(temp);
+		}
+		
+		//If implementation collect for type
+		if(cl instanceof ComponentImplementation){
+			var temp2 = (cl as ComponentImplementation).type
+			cls.add(temp2);
+			while (temp2.getExtended() != null) {
+				if (cls.contains(temp2.getExtended())) {
+					return cls;
+				}
+				temp2 = temp2.getExtended();
+				cls.add(temp2);
+			}
+			
+		}
+		return cls;
+	}
 
 }
