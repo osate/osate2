@@ -26,6 +26,8 @@ import org.osate.alisa.workbench.alisa.AlisaPackage;
 import org.osate.alisa.workbench.alisa.AssurancePlan;
 import org.osate.alisa.workbench.alisa.Description;
 
+import org.osate.verify.verify.VerificationPlan;
+
 /**
  * <!-- begin-user-doc -->
  * An implementation of the model object '<em><b>Assurance Plan</b></em>'.
@@ -37,6 +39,7 @@ import org.osate.alisa.workbench.alisa.Description;
  *   <li>{@link org.osate.alisa.workbench.alisa.impl.AssurancePlanImpl#getTitle <em>Title</em>}</li>
  *   <li>{@link org.osate.alisa.workbench.alisa.impl.AssurancePlanImpl#getTarget <em>Target</em>}</li>
  *   <li>{@link org.osate.alisa.workbench.alisa.impl.AssurancePlanImpl#getDescription <em>Description</em>}</li>
+ *   <li>{@link org.osate.alisa.workbench.alisa.impl.AssurancePlanImpl#getAssureAll <em>Assure All</em>}</li>
  *   <li>{@link org.osate.alisa.workbench.alisa.impl.AssurancePlanImpl#getAssurePlans <em>Assure Plans</em>}</li>
  *   <li>{@link org.osate.alisa.workbench.alisa.impl.AssurancePlanImpl#getAssumeSubsystems <em>Assume Subsystems</em>}</li>
  *   <li>{@link org.osate.alisa.workbench.alisa.impl.AssurancePlanImpl#getIssues <em>Issues</em>}</li>
@@ -106,6 +109,16 @@ public class AssurancePlanImpl extends MinimalEObjectImpl.Container implements A
    * @ordered
    */
   protected Description description;
+
+  /**
+   * The cached value of the '{@link #getAssureAll() <em>Assure All</em>}' reference list.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see #getAssureAll()
+   * @generated
+   * @ordered
+   */
+  protected EList<VerificationPlan> assureAll;
 
   /**
    * The cached value of the '{@link #getAssurePlans() <em>Assure Plans</em>}' reference list.
@@ -300,6 +313,20 @@ public class AssurancePlanImpl extends MinimalEObjectImpl.Container implements A
    * <!-- end-user-doc -->
    * @generated
    */
+  public EList<VerificationPlan> getAssureAll()
+  {
+    if (assureAll == null)
+    {
+      assureAll = new EObjectResolvingEList<VerificationPlan>(VerificationPlan.class, this, AlisaPackage.ASSURANCE_PLAN__ASSURE_ALL);
+    }
+    return assureAll;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
   public EList<AssurancePlan> getAssurePlans()
   {
     if (assurePlans == null)
@@ -372,6 +399,8 @@ public class AssurancePlanImpl extends MinimalEObjectImpl.Container implements A
         return basicGetTarget();
       case AlisaPackage.ASSURANCE_PLAN__DESCRIPTION:
         return getDescription();
+      case AlisaPackage.ASSURANCE_PLAN__ASSURE_ALL:
+        return getAssureAll();
       case AlisaPackage.ASSURANCE_PLAN__ASSURE_PLANS:
         return getAssurePlans();
       case AlisaPackage.ASSURANCE_PLAN__ASSUME_SUBSYSTEMS:
@@ -404,6 +433,10 @@ public class AssurancePlanImpl extends MinimalEObjectImpl.Container implements A
         return;
       case AlisaPackage.ASSURANCE_PLAN__DESCRIPTION:
         setDescription((Description)newValue);
+        return;
+      case AlisaPackage.ASSURANCE_PLAN__ASSURE_ALL:
+        getAssureAll().clear();
+        getAssureAll().addAll((Collection<? extends VerificationPlan>)newValue);
         return;
       case AlisaPackage.ASSURANCE_PLAN__ASSURE_PLANS:
         getAssurePlans().clear();
@@ -443,6 +476,9 @@ public class AssurancePlanImpl extends MinimalEObjectImpl.Container implements A
       case AlisaPackage.ASSURANCE_PLAN__DESCRIPTION:
         setDescription((Description)null);
         return;
+      case AlisaPackage.ASSURANCE_PLAN__ASSURE_ALL:
+        getAssureAll().clear();
+        return;
       case AlisaPackage.ASSURANCE_PLAN__ASSURE_PLANS:
         getAssurePlans().clear();
         return;
@@ -474,6 +510,8 @@ public class AssurancePlanImpl extends MinimalEObjectImpl.Container implements A
         return target != null;
       case AlisaPackage.ASSURANCE_PLAN__DESCRIPTION:
         return description != null;
+      case AlisaPackage.ASSURANCE_PLAN__ASSURE_ALL:
+        return assureAll != null && !assureAll.isEmpty();
       case AlisaPackage.ASSURANCE_PLAN__ASSURE_PLANS:
         return assurePlans != null && !assurePlans.isEmpty();
       case AlisaPackage.ASSURANCE_PLAN__ASSUME_SUBSYSTEMS:

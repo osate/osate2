@@ -65,33 +65,40 @@ public class AlisaGrammarAccess extends AbstractGrammarElementFinder {
 		private final RuleCall cDescriptionDescriptionParserRuleCall_7_0_1_0 = (RuleCall)cDescriptionAssignment_7_0_1.eContents().get(0);
 		private final Group cGroup_7_1 = (Group)cUnorderedGroup_7.eContents().get(1);
 		private final Keyword cAssureKeyword_7_1_0 = (Keyword)cGroup_7_1.eContents().get(0);
-		private final Keyword cSubsystemKeyword_7_1_1 = (Keyword)cGroup_7_1.eContents().get(1);
-		private final Keyword cPlansKeyword_7_1_2 = (Keyword)cGroup_7_1.eContents().get(2);
-		private final Assignment cAssurePlansAssignment_7_1_3 = (Assignment)cGroup_7_1.eContents().get(3);
-		private final CrossReference cAssurePlansAssurancePlanCrossReference_7_1_3_0 = (CrossReference)cAssurePlansAssignment_7_1_3.eContents().get(0);
-		private final RuleCall cAssurePlansAssurancePlanQualifiedNameParserRuleCall_7_1_3_0_1 = (RuleCall)cAssurePlansAssurancePlanCrossReference_7_1_3_0.eContents().get(1);
+		private final Keyword cAllKeyword_7_1_1 = (Keyword)cGroup_7_1.eContents().get(1);
+		private final Assignment cAssureAllAssignment_7_1_2 = (Assignment)cGroup_7_1.eContents().get(2);
+		private final CrossReference cAssureAllVerificationPlanCrossReference_7_1_2_0 = (CrossReference)cAssureAllAssignment_7_1_2.eContents().get(0);
+		private final RuleCall cAssureAllVerificationPlanQualifiedNameParserRuleCall_7_1_2_0_1 = (RuleCall)cAssureAllVerificationPlanCrossReference_7_1_2_0.eContents().get(1);
 		private final Group cGroup_7_2 = (Group)cUnorderedGroup_7.eContents().get(2);
-		private final Keyword cAssumeKeyword_7_2_0 = (Keyword)cGroup_7_2.eContents().get(0);
-		private final Keyword cSubsystemsKeyword_7_2_1 = (Keyword)cGroup_7_2.eContents().get(1);
-		private final Assignment cAssumeSubsystemsAssignment_7_2_2 = (Assignment)cGroup_7_2.eContents().get(2);
-		private final CrossReference cAssumeSubsystemsComponentClassifierCrossReference_7_2_2_0 = (CrossReference)cAssumeSubsystemsAssignment_7_2_2.eContents().get(0);
-		private final RuleCall cAssumeSubsystemsComponentClassifierAadlClassifierReferenceParserRuleCall_7_2_2_0_1 = (RuleCall)cAssumeSubsystemsComponentClassifierCrossReference_7_2_2_0.eContents().get(1);
+		private final Keyword cAssureKeyword_7_2_0 = (Keyword)cGroup_7_2.eContents().get(0);
+		private final Keyword cSubsystemKeyword_7_2_1 = (Keyword)cGroup_7_2.eContents().get(1);
+		private final Keyword cPlansKeyword_7_2_2 = (Keyword)cGroup_7_2.eContents().get(2);
+		private final Assignment cAssurePlansAssignment_7_2_3 = (Assignment)cGroup_7_2.eContents().get(3);
+		private final CrossReference cAssurePlansAssurancePlanCrossReference_7_2_3_0 = (CrossReference)cAssurePlansAssignment_7_2_3.eContents().get(0);
+		private final RuleCall cAssurePlansAssurancePlanQualifiedNameParserRuleCall_7_2_3_0_1 = (RuleCall)cAssurePlansAssurancePlanCrossReference_7_2_3_0.eContents().get(1);
 		private final Group cGroup_7_3 = (Group)cUnorderedGroup_7.eContents().get(3);
-		private final Keyword cIssuesKeyword_7_3_0 = (Keyword)cGroup_7_3.eContents().get(0);
-		private final Assignment cIssuesAssignment_7_3_1 = (Assignment)cGroup_7_3.eContents().get(1);
-		private final RuleCall cIssuesSTRINGTerminalRuleCall_7_3_1_0 = (RuleCall)cIssuesAssignment_7_3_1.eContents().get(0);
+		private final Keyword cAssumeKeyword_7_3_0 = (Keyword)cGroup_7_3.eContents().get(0);
+		private final Keyword cSubsystemsKeyword_7_3_1 = (Keyword)cGroup_7_3.eContents().get(1);
+		private final Assignment cAssumeSubsystemsAssignment_7_3_2 = (Assignment)cGroup_7_3.eContents().get(2);
+		private final CrossReference cAssumeSubsystemsComponentClassifierCrossReference_7_3_2_0 = (CrossReference)cAssumeSubsystemsAssignment_7_3_2.eContents().get(0);
+		private final RuleCall cAssumeSubsystemsComponentClassifierAadlClassifierReferenceParserRuleCall_7_3_2_0_1 = (RuleCall)cAssumeSubsystemsComponentClassifierCrossReference_7_3_2_0.eContents().get(1);
+		private final Group cGroup_7_4 = (Group)cUnorderedGroup_7.eContents().get(4);
+		private final Keyword cIssuesKeyword_7_4_0 = (Keyword)cGroup_7_4.eContents().get(0);
+		private final Assignment cIssuesAssignment_7_4_1 = (Assignment)cGroup_7_4.eContents().get(1);
+		private final RuleCall cIssuesSTRINGTerminalRuleCall_7_4_1_0 = (RuleCall)cIssuesAssignment_7_4_1.eContents().get(0);
 		private final Keyword cRightSquareBracketKeyword_8 = (Keyword)cGroup.eContents().get(8);
 		
 		//AssurancePlan:
 		//	"assurance" "plan" name=ID (":" title=STRING)? "for" target=[aadl2::ComponentImplementation|AadlClassifierReference]
-		//	"[" (("description" description=Description)? & ("assure" "subsystem" "plans"
+		//	"[" (("description" description=Description)? & ("assure" "all"
+		//	assureAll+=[Verify::VerificationPlan|QualifiedName]+)? & ("assure" "subsystem" "plans"
 		//	assurePlans+=[AssurancePlan|QualifiedName]+)? & ("assume" "subsystems"
 		//	assumeSubsystems+=[aadl2::ComponentClassifier|AadlClassifierReference]+)? & ("issues" issues+=STRING+)?) "]";
 		@Override public ParserRule getRule() { return rule; }
 
 		//"assurance" "plan" name=ID (":" title=STRING)? "for" target=[aadl2::ComponentImplementation|AadlClassifierReference] "["
-		//(("description" description=Description)? & ("assure" "subsystem" "plans"
-		//assurePlans+=[AssurancePlan|QualifiedName]+)? & ("assume" "subsystems"
+		//(("description" description=Description)? & ("assure" "all" assureAll+=[Verify::VerificationPlan|QualifiedName]+)? &
+		//("assure" "subsystem" "plans" assurePlans+=[AssurancePlan|QualifiedName]+)? & ("assume" "subsystems"
 		//assumeSubsystems+=[aadl2::ComponentClassifier|AadlClassifierReference]+)? & ("issues" issues+=STRING+)?) "]"
 		public Group getGroup() { return cGroup; }
 
@@ -134,9 +141,9 @@ public class AlisaGrammarAccess extends AbstractGrammarElementFinder {
 		//"["
 		public Keyword getLeftSquareBracketKeyword_6() { return cLeftSquareBracketKeyword_6; }
 
-		//("description" description=Description)? & ("assure" "subsystem" "plans" assurePlans+=[AssurancePlan|QualifiedName]+)? &
-		//("assume" "subsystems" assumeSubsystems+=[aadl2::ComponentClassifier|AadlClassifierReference]+)? & ("issues"
-		//issues+=STRING+)?
+		//("description" description=Description)? & ("assure" "all" assureAll+=[Verify::VerificationPlan|QualifiedName]+)? &
+		//("assure" "subsystem" "plans" assurePlans+=[AssurancePlan|QualifiedName]+)? & ("assume" "subsystems"
+		//assumeSubsystems+=[aadl2::ComponentClassifier|AadlClassifierReference]+)? & ("issues" issues+=STRING+)?
 		public UnorderedGroup getUnorderedGroup_7() { return cUnorderedGroup_7; }
 
 		//("description" description=Description)?
@@ -151,56 +158,74 @@ public class AlisaGrammarAccess extends AbstractGrammarElementFinder {
 		//Description
 		public RuleCall getDescriptionDescriptionParserRuleCall_7_0_1_0() { return cDescriptionDescriptionParserRuleCall_7_0_1_0; }
 
-		//("assure" "subsystem" "plans" assurePlans+=[AssurancePlan|QualifiedName]+)?
+		//("assure" "all" assureAll+=[Verify::VerificationPlan|QualifiedName]+)?
 		public Group getGroup_7_1() { return cGroup_7_1; }
 
 		//"assure"
 		public Keyword getAssureKeyword_7_1_0() { return cAssureKeyword_7_1_0; }
 
-		//"subsystem"
-		public Keyword getSubsystemKeyword_7_1_1() { return cSubsystemKeyword_7_1_1; }
+		//"all"
+		public Keyword getAllKeyword_7_1_1() { return cAllKeyword_7_1_1; }
 
-		//"plans"
-		public Keyword getPlansKeyword_7_1_2() { return cPlansKeyword_7_1_2; }
+		//assureAll+=[Verify::VerificationPlan|QualifiedName]+
+		public Assignment getAssureAllAssignment_7_1_2() { return cAssureAllAssignment_7_1_2; }
 
-		//assurePlans+=[AssurancePlan|QualifiedName]+
-		public Assignment getAssurePlansAssignment_7_1_3() { return cAssurePlansAssignment_7_1_3; }
-
-		//[AssurancePlan|QualifiedName]
-		public CrossReference getAssurePlansAssurancePlanCrossReference_7_1_3_0() { return cAssurePlansAssurancePlanCrossReference_7_1_3_0; }
+		//[Verify::VerificationPlan|QualifiedName]
+		public CrossReference getAssureAllVerificationPlanCrossReference_7_1_2_0() { return cAssureAllVerificationPlanCrossReference_7_1_2_0; }
 
 		//QualifiedName
-		public RuleCall getAssurePlansAssurancePlanQualifiedNameParserRuleCall_7_1_3_0_1() { return cAssurePlansAssurancePlanQualifiedNameParserRuleCall_7_1_3_0_1; }
+		public RuleCall getAssureAllVerificationPlanQualifiedNameParserRuleCall_7_1_2_0_1() { return cAssureAllVerificationPlanQualifiedNameParserRuleCall_7_1_2_0_1; }
 
-		//("assume" "subsystems" assumeSubsystems+=[aadl2::ComponentClassifier|AadlClassifierReference]+)?
+		//("assure" "subsystem" "plans" assurePlans+=[AssurancePlan|QualifiedName]+)?
 		public Group getGroup_7_2() { return cGroup_7_2; }
 
-		//"assume"
-		public Keyword getAssumeKeyword_7_2_0() { return cAssumeKeyword_7_2_0; }
+		//"assure"
+		public Keyword getAssureKeyword_7_2_0() { return cAssureKeyword_7_2_0; }
 
-		//"subsystems"
-		public Keyword getSubsystemsKeyword_7_2_1() { return cSubsystemsKeyword_7_2_1; }
+		//"subsystem"
+		public Keyword getSubsystemKeyword_7_2_1() { return cSubsystemKeyword_7_2_1; }
 
-		//assumeSubsystems+=[aadl2::ComponentClassifier|AadlClassifierReference]+
-		public Assignment getAssumeSubsystemsAssignment_7_2_2() { return cAssumeSubsystemsAssignment_7_2_2; }
+		//"plans"
+		public Keyword getPlansKeyword_7_2_2() { return cPlansKeyword_7_2_2; }
 
-		//[aadl2::ComponentClassifier|AadlClassifierReference]
-		public CrossReference getAssumeSubsystemsComponentClassifierCrossReference_7_2_2_0() { return cAssumeSubsystemsComponentClassifierCrossReference_7_2_2_0; }
+		//assurePlans+=[AssurancePlan|QualifiedName]+
+		public Assignment getAssurePlansAssignment_7_2_3() { return cAssurePlansAssignment_7_2_3; }
 
-		//AadlClassifierReference
-		public RuleCall getAssumeSubsystemsComponentClassifierAadlClassifierReferenceParserRuleCall_7_2_2_0_1() { return cAssumeSubsystemsComponentClassifierAadlClassifierReferenceParserRuleCall_7_2_2_0_1; }
+		//[AssurancePlan|QualifiedName]
+		public CrossReference getAssurePlansAssurancePlanCrossReference_7_2_3_0() { return cAssurePlansAssurancePlanCrossReference_7_2_3_0; }
 
-		//("issues" issues+=STRING+)?
+		//QualifiedName
+		public RuleCall getAssurePlansAssurancePlanQualifiedNameParserRuleCall_7_2_3_0_1() { return cAssurePlansAssurancePlanQualifiedNameParserRuleCall_7_2_3_0_1; }
+
+		//("assume" "subsystems" assumeSubsystems+=[aadl2::ComponentClassifier|AadlClassifierReference]+)?
 		public Group getGroup_7_3() { return cGroup_7_3; }
 
+		//"assume"
+		public Keyword getAssumeKeyword_7_3_0() { return cAssumeKeyword_7_3_0; }
+
+		//"subsystems"
+		public Keyword getSubsystemsKeyword_7_3_1() { return cSubsystemsKeyword_7_3_1; }
+
+		//assumeSubsystems+=[aadl2::ComponentClassifier|AadlClassifierReference]+
+		public Assignment getAssumeSubsystemsAssignment_7_3_2() { return cAssumeSubsystemsAssignment_7_3_2; }
+
+		//[aadl2::ComponentClassifier|AadlClassifierReference]
+		public CrossReference getAssumeSubsystemsComponentClassifierCrossReference_7_3_2_0() { return cAssumeSubsystemsComponentClassifierCrossReference_7_3_2_0; }
+
+		//AadlClassifierReference
+		public RuleCall getAssumeSubsystemsComponentClassifierAadlClassifierReferenceParserRuleCall_7_3_2_0_1() { return cAssumeSubsystemsComponentClassifierAadlClassifierReferenceParserRuleCall_7_3_2_0_1; }
+
+		//("issues" issues+=STRING+)?
+		public Group getGroup_7_4() { return cGroup_7_4; }
+
 		//"issues"
-		public Keyword getIssuesKeyword_7_3_0() { return cIssuesKeyword_7_3_0; }
+		public Keyword getIssuesKeyword_7_4_0() { return cIssuesKeyword_7_4_0; }
 
 		//issues+=STRING+
-		public Assignment getIssuesAssignment_7_3_1() { return cIssuesAssignment_7_3_1; }
+		public Assignment getIssuesAssignment_7_4_1() { return cIssuesAssignment_7_4_1; }
 
 		//STRING
-		public RuleCall getIssuesSTRINGTerminalRuleCall_7_3_1_0() { return cIssuesSTRINGTerminalRuleCall_7_3_1_0; }
+		public RuleCall getIssuesSTRINGTerminalRuleCall_7_4_1_0() { return cIssuesSTRINGTerminalRuleCall_7_4_1_0; }
 
 		//"]"
 		public Keyword getRightSquareBracketKeyword_8() { return cRightSquareBracketKeyword_8; }
@@ -623,7 +648,8 @@ public class AlisaGrammarAccess extends AbstractGrammarElementFinder {
 
 	//AssurancePlan:
 	//	"assurance" "plan" name=ID (":" title=STRING)? "for" target=[aadl2::ComponentImplementation|AadlClassifierReference]
-	//	"[" (("description" description=Description)? & ("assure" "subsystem" "plans"
+	//	"[" (("description" description=Description)? & ("assure" "all"
+	//	assureAll+=[Verify::VerificationPlan|QualifiedName]+)? & ("assure" "subsystem" "plans"
 	//	assurePlans+=[AssurancePlan|QualifiedName]+)? & ("assume" "subsystems"
 	//	assumeSubsystems+=[aadl2::ComponentClassifier|AadlClassifierReference]+)? & ("issues" issues+=STRING+)?) "]";
 	public AssurancePlanElements getAssurancePlanAccess() {

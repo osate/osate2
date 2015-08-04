@@ -9,6 +9,8 @@ import org.eclipse.emf.ecore.EObject;
 import org.osate.aadl2.ComponentClassifier;
 import org.osate.aadl2.ComponentImplementation;
 
+import org.osate.verify.verify.VerificationPlan;
+
 /**
  * <!-- begin-user-doc -->
  * A representation of the model object '<em><b>Assurance Plan</b></em>'.
@@ -21,6 +23,7 @@ import org.osate.aadl2.ComponentImplementation;
  *   <li>{@link org.osate.alisa.workbench.alisa.AssurancePlan#getTitle <em>Title</em>}</li>
  *   <li>{@link org.osate.alisa.workbench.alisa.AssurancePlan#getTarget <em>Target</em>}</li>
  *   <li>{@link org.osate.alisa.workbench.alisa.AssurancePlan#getDescription <em>Description</em>}</li>
+ *   <li>{@link org.osate.alisa.workbench.alisa.AssurancePlan#getAssureAll <em>Assure All</em>}</li>
  *   <li>{@link org.osate.alisa.workbench.alisa.AssurancePlan#getAssurePlans <em>Assure Plans</em>}</li>
  *   <li>{@link org.osate.alisa.workbench.alisa.AssurancePlan#getAssumeSubsystems <em>Assume Subsystems</em>}</li>
  *   <li>{@link org.osate.alisa.workbench.alisa.AssurancePlan#getIssues <em>Issues</em>}</li>
@@ -136,6 +139,22 @@ public interface AssurancePlan extends EObject
    * @generated
    */
   void setDescription(Description value);
+
+  /**
+   * Returns the value of the '<em><b>Assure All</b></em>' reference list.
+   * The list contents are of type {@link org.osate.verify.verify.VerificationPlan}.
+   * <!-- begin-user-doc -->
+   * <p>
+   * If the meaning of the '<em>Assure All</em>' reference list isn't clear,
+   * there really should be more of a description here...
+   * </p>
+   * <!-- end-user-doc -->
+   * @return the value of the '<em>Assure All</em>' reference list.
+   * @see org.osate.alisa.workbench.alisa.AlisaPackage#getAssurancePlan_AssureAll()
+   * @model
+   * @generated
+   */
+  EList<VerificationPlan> getAssureAll();
 
   /**
    * Returns the value of the '<em><b>Assure Plans</b></em>' reference list.

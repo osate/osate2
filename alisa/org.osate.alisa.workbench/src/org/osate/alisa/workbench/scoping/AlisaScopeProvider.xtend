@@ -3,6 +3,17 @@
  */
 package org.osate.alisa.workbench.scoping
 
+import org.osate.alisa.workbench.alisa.AssurancePlan
+import com.google.inject.Inject
+import org.eclipse.xtext.scoping.IGlobalScopeProvider
+import org.eclipse.emf.ecore.EReference
+import org.osate.alisa.common.scoping.CommonGlobalScopeProvider
+import org.osate.verify.verify.VerifyPackage
+import org.eclipse.xtext.scoping.impl.SimpleScope
+import org.eclipse.xtext.scoping.IScope
+import org.eclipse.emf.ecore.util.EcoreUtil
+import org.osate.verify.verify.VerificationPlan
+
 /**
  * This class contains custom scoping description.
  * 
@@ -11,5 +22,13 @@ package org.osate.alisa.workbench.scoping
  *
  */
 class AlisaScopeProvider extends org.eclipse.xtext.scoping.impl.AbstractDeclarativeScopeProvider {
+	@Inject
+	var IGlobalScopeProvider scopeProvider
+
+	def scope_VerificationPlan(AssurancePlan context, EReference reference){
+			val vps = (scopeProvider as CommonGlobalScopeProvider).getGlobalEObjectDescriptions(context,
+				VerifyPackage.eINSTANCE.verificationPlan, [eod|val obj = eod.EObjectOrProxy; val vp = EcoreUtil.resolve(context,obj) as VerificationPlan; vp.systemRequirements.global])
+		new SimpleScope(IScope::NULLSCOPE, vps,true)
+	}
 
 }
