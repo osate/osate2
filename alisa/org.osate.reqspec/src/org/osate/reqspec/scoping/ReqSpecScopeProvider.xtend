@@ -3,6 +3,7 @@
  */
 package org.osate.reqspec.scoping
 
+import com.google.inject.Inject
 import org.eclipse.emf.ecore.EReference
 import org.eclipse.xtext.naming.QualifiedName
 import org.eclipse.xtext.scoping.IScope
@@ -16,9 +17,17 @@ import org.osate.reqspec.reqSpec.Requirement
 
 import static org.osate.reqspec.util.ReqSpecUtilExtension.*
 import org.eclipse.emf.common.util.EList
-import org.osate.reqspec.reqSpec.ReqSpec
 import org.eclipse.xtext.xbase.XExpression
 import org.eclipse.emf.ecore.EObject
+import org.osate.alisa.common.scoping.CommonGlobalScopeProvider
+import org.osate.reqspec.reqSpec.ReqSpecPackage
+import org.osate.reqspec.reqSpec.SystemRequirements
+import org.osate.aadl2.ComponentClassifier
+import org.eclipse.emf.ecore.util.BasicInternalEList
+import org.osate.aadl2.ComponentType
+import org.eclipse.xtext.scoping.IGlobalScopeProvider
+import org.osate.aadl2.Classifier
+import org.eclipse.emf.ecore.util.EcoreUtil
 
 /**
  * This class contains custom scoping description.
@@ -28,8 +37,9 @@ import org.eclipse.emf.ecore.EObject
  * 
  */
 class ReqSpecScopeProvider extends AlisaAbstractDeclarativeScopeProvider {
-	
-	
+	@Inject
+	var IGlobalScopeProvider scopeProvider
+
 	// Reference is from Goal, ReqSpec, 
 	def scope_NamedElement(ContractualElement context, EReference reference) {
 		val targetClassifier = targetClassifier(context)
@@ -50,7 +60,6 @@ class ReqSpecScopeProvider extends AlisaAbstractDeclarativeScopeProvider {
 		}
 	}
 
-
 	def scope_XExpression(Requirement context, EReference reference) {
 		return scopeForValCompute(context, IScope.NULLSCOPE)
 	}
@@ -61,8 +70,132 @@ class ReqSpecScopeProvider extends AlisaAbstractDeclarativeScopeProvider {
 	
 	def scope_JvmIdentifiableElement(XExpression context, EReference reference) {
 		var result = IScope.NULLSCOPE
-		println ("look for identifiable element")
+		println("look for identifiable element")
 		result
+	}
+
+	// TODO: probably want validation to take care of Refining itself. Need to take care of inheritance
+	def scope_Requirement_refinesReference(Requirement context, EReference reference) {
+		println("scope_Requirement_RefinesReference: " + context.toString)
+		var result = IScope.NULLSCOPE
+		val sysRequirements = containingSystemRequirements(context)
+
+		// TODO: when target is all
+		val targetComponentClassifier = sysRequirements.target
+		val allAncestors = targetComponentClassifier.getSelfPlusAncestors
+		val listAccessibleSystemRequirements = newArrayList();
+
+		// This works best
+		for (cc : allAncestors) {
+//			//ReqSpecReferenceFinder
+			// System.out.println("     scope_Requirement_RefinesReference FOR: " + cc);
+			val temp1 = (scopeProvider as CommonGlobalScopeProvider).getGlobalEObjectDescriptions(cc,
+				ReqSpecPackage.eINSTANCE.systemRequirements, null)
+			// System.out.println("     scope_Requirement_RefinesReference temp1: " + temp1);
+			for (objDis : temp1) {
+				val EObject obj = EcoreUtil.resolve(objDis.EObjectOrProxy, context.eResource().getResourceSet())
+				if (isSame((obj as SystemRequirements).target, cc)) {
+					listAccessibleSystemRequirements.add(obj as SystemRequirements)
+				}
+			}
+		}
+
+		// This has strange hiccups where sometime Can't resolve reference while it was in scope
+//		val temp1 = (scopeProvider as CommonGlobalScopeProvider).getGlobalEObjectDescriptions(targetComponentClassifier, ReqSpecPackage.eINSTANCE.systemRequirements,null)
+//			System.out.println("     scope_Requirement_RefinesReference temp1: " + temp1);
+//
+//		for (objDis : temp1) {
+//			val EObject obj = EcoreUtil.resolve(objDis.EObjectOrProxy, context.eResource().getResourceSet())
+//			println("     isSame 1: " + (obj as SystemRequirements).target.toString + "   2:" + targetComponentClassifier.toString);
+////			if(isSameorExtends((obj as SystemRequirements).target, targetComponentClassifier)){
+//			if(isSameorExtends(targetComponentClassifier, (obj as SystemRequirements).target)){
+//				System.out.println("     added: " + (obj as SystemRequirements).target.toString);
+//				
+//				listAccessibleSystemRequirements.add(obj as SystemRequirements)
+//			}
+//		}
+		// Doesn't work because of missing resolve step of EObjectOrProxy
+//		listAccessibleSystemRequirements.addAll((scopeProvider as CommonGlobalScopeProvider).getGlobalEObjectDescriptions(targetComponentClassifier, ReqSpecPackage.eINSTANCE.systemRequirements,null)
+//			.map[EObjectOrProxy as SystemRequirements]
+//						.filter[sysreqs| isSameorExtends(sysreqs.target, targetComponentClassifier)])
+		// Need to go through all system requirements and see if target is in allAncestor
+		// and if it is, then add content to the Scope
+		for (sr : listAccessibleSystemRequirements) {
+			if (!sr.content.empty) {
+				result = new SimpleScope(result,
+					Scopes::scopedElementsFor(sr.content,
+						QualifiedName::wrapper(SimpleAttributeResolver::NAME_RESOLVER)), true)
+			}
+		}
+		result
+	}
+
+	def scope_Requirement_decomposesReference(Requirement context, EReference reference) {
+		scope_Requirement_refinesReference(context, reference)
+	}
+
+	def scope_Requirement_evolvesReference(Requirement context, EReference reference) {
+		scope_Requirement_refinesReference(context, reference)
+	}
+
+	// Brought from Aadl2JavaValidator
+	def EList<ComponentClassifier> getSelfPlusAncestors(ComponentClassifier cl) {
+		val cls = new BasicInternalEList<ComponentClassifier>(typeof(ComponentClassifier));
+		cls.add(cl);
+
+		var temp = cl
+		while (temp.getExtended() != null) {
+			if (cls.contains(temp.getExtended())) {
+				return cls;
+			}
+			temp = temp.getExtended() as ComponentClassifier;
+			cls.add(temp);
+		}
+
+		// If implementation collect for type
+		if (cl instanceof ComponentImplementation) {
+			temp = (cl as ComponentImplementation).type
+			cls.add(temp);
+			while (temp.getExtended() != null) {
+				if (cls.contains(temp.getExtended())) {
+					return cls;
+				}
+				temp = temp.getExtended() as ComponentClassifier;
+				cls.add(temp);
+			}
+
+		}
+		cls
+	}
+
+	// From AlisaWorkbenchUtilsExtension
+	def static isSame(ComponentClassifier cl1, ComponentClassifier cl2) {
+		// println("     isSame 1: " + cl1.toString + "   2:" + cl2.toString);
+		if (cl1 == null || cl2 == null) return false;
+		var lcl1 = cl1
+		var lcl2 = cl2
+		if (cl1 instanceof ComponentType && cl2 instanceof ComponentImplementation)
+			lcl2 = (cl2 as ComponentImplementation).type
+		if (cl2 instanceof ComponentType && cl1 instanceof ComponentImplementation)
+			lcl1 = (cl1 as ComponentImplementation).type
+
+		// System.out.println("     isSame result: " + lcl1.name.equalsIgnoreCase(lcl2.name))
+		lcl1.name.equalsIgnoreCase(lcl2.name)
+	}
+
+	def static boolean isSameorExtends(ComponentClassifier target, ComponentClassifier ancestor) {
+		var Classifier ext = target
+		if (target instanceof ComponentImplementation && ancestor instanceof ComponentType) {
+			ext = (target as ComponentImplementation).getType();
+		}
+		while (ext != null) {
+			if (ancestor.name.equalsIgnoreCase(ext.name)) {
+				return true;
+			}
+			ext = ext.getExtended();
+		}
+
+		return false;
 	}
 
 }
