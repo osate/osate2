@@ -207,50 +207,6 @@ ruleDescriptionElement returns [EObject current=null]
 
 
 
-// Entry rule entryRuleAPropertyReference
-entryRuleAPropertyReference returns [EObject current=null] 
-	:
-	{ newCompositeNode(grammarAccess.getAPropertyReferenceRule()); }
-	 iv_ruleAPropertyReference=ruleAPropertyReference 
-	 { $current=$iv_ruleAPropertyReference.current; } 
-	 EOF 
-;
-
-// Rule APropertyReference
-ruleAPropertyReference returns [EObject current=null] 
-    @init { enterRule(); 
-    }
-    @after { leaveRule(); }:
-((
-    {
-        $current = forceCreateModelElement(
-            grammarAccess.getAPropertyReferenceAccess().getAPropertyReferenceAction_0(),
-            $current);
-    }
-)	otherlv_1='@' 
-    {
-    	newLeafNode(otherlv_1, grammarAccess.getAPropertyReferenceAccess().getCommercialAtKeyword_1());
-    }
-(
-(
-		{
-			if ($current==null) {
-	            $current = createModelElement(grammarAccess.getAPropertyReferenceRule());
-	        }
-        }
-		{ 
-	        newCompositeNode(grammarAccess.getAPropertyReferenceAccess().getPropertyPropertyCrossReference_2_0()); 
-	    }
-		ruleAADLPROPERTYREFERENCE		{ 
-	        afterParserOrEnumRuleCall();
-	    }
-
-)
-))
-;
-
-
-
 
 
 // Entry rule entryRuleXNumberLiteral

@@ -28,6 +28,8 @@ import org.osate.aadl2.ComponentType
 import org.eclipse.xtext.scoping.IGlobalScopeProvider
 import org.osate.aadl2.Classifier
 import org.eclipse.emf.ecore.util.EcoreUtil
+import org.osate.alisa.common.common.PropertyConsistentVariableDeclaration
+import org.osate.aadl2.Aadl2Package
 
 /**
  * This class contains custom scoping description.
@@ -40,7 +42,7 @@ class ReqSpecScopeProvider extends AlisaAbstractDeclarativeScopeProvider {
 	@Inject
 	var IGlobalScopeProvider scopeProvider
 
-	// Reference is from Goal, ReqSpec, 
+	// For Reference is from Goal, Requirement 
 	def scope_NamedElement(ContractualElement context, EReference reference) {
 		val targetClassifier = targetClassifier(context)
 		if (targetClassifier != null) {
@@ -59,6 +61,12 @@ class ReqSpecScopeProvider extends AlisaAbstractDeclarativeScopeProvider {
 			IScope.NULLSCOPE
 		}
 	}
+//	
+//	def scope_Property(PropertyConsistentVariableDeclaration context, EReference reference){
+//			val props = (scopeProvider as CommonGlobalScopeProvider).getGlobalEObjectDescriptions(context,
+//				Aadl2Package.eINSTANCE.property, null)
+//		new SimpleScope(IScope::NULLSCOPE, props,true)
+//	}
 
 	def scope_XExpression(Requirement context, EReference reference) {
 		return scopeForValCompute(context, IScope.NULLSCOPE)

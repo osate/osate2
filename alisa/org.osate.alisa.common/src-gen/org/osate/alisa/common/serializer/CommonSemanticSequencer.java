@@ -451,7 +451,7 @@ public class CommonSemanticSequencer extends XbaseSemanticSequencer {
 	
 	/**
 	 * Constraint:
-	 *     (((type=JvmTypeReference name=ID) | name=ID) (right=APropertyReference | right=XExpression) property=[Property|AADLPROPERTYREFERENCE]?)
+	 *     (((type=JvmTypeReference name=ID) | name=ID) right=XExpression property=[Property|AADLPROPERTYREFERENCE]?)
 	 */
 	protected void sequence_XValDeclaration(EObject context, PropertyConsistentVariableDeclaration semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);

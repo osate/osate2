@@ -4621,10 +4621,10 @@ ruleXValDeclaration returns [EObject current=null]
             grammarAccess.getXValDeclarationAccess().getPropertyConsistentVariableDeclarationAction_0(),
             $current);
     }
-)(
+)
 	otherlv_1=Val
     {
-    	newLeafNode(otherlv_1, grammarAccess.getXValDeclarationAccess().getValKeyword_1_0());
+    	newLeafNode(otherlv_1, grammarAccess.getXValDeclarationAccess().getValKeyword_1());
     }
 (((((
 (
@@ -4638,7 +4638,7 @@ RULE_ID
 )))=>((
 (
 		{ 
-	        newCompositeNode(grammarAccess.getXValDeclarationAccess().getTypeJvmTypeReferenceParserRuleCall_1_1_0_0_0_0()); 
+	        newCompositeNode(grammarAccess.getXValDeclarationAccess().getTypeJvmTypeReferenceParserRuleCall_2_0_0_0_0()); 
 	    }
 		lv_type_2_0=ruleJvmTypeReference		{
 	        if ($current==null) {
@@ -4657,7 +4657,7 @@ RULE_ID
 (
 		lv_name_3_0=RULE_ID
 		{
-			newLeafNode(lv_name_3_0, grammarAccess.getXValDeclarationAccess().getNameIDTerminalRuleCall_1_1_0_0_1_0()); 
+			newLeafNode(lv_name_3_0, grammarAccess.getXValDeclarationAccess().getNameIDTerminalRuleCall_2_0_0_1_0()); 
 		}
 		{
 	        if ($current==null) {
@@ -4676,7 +4676,7 @@ RULE_ID
 (
 		lv_name_4_0=RULE_ID
 		{
-			newLeafNode(lv_name_4_0, grammarAccess.getXValDeclarationAccess().getNameIDTerminalRuleCall_1_1_1_0()); 
+			newLeafNode(lv_name_4_0, grammarAccess.getXValDeclarationAccess().getNameIDTerminalRuleCall_2_1_0()); 
 		}
 		{
 	        if ($current==null) {
@@ -4693,48 +4693,35 @@ RULE_ID
 ))
 	otherlv_5=EqualsSign
     {
-    	newLeafNode(otherlv_5, grammarAccess.getXValDeclarationAccess().getEqualsSignKeyword_1_2());
+    	newLeafNode(otherlv_5, grammarAccess.getXValDeclarationAccess().getEqualsSignKeyword_3());
     }
 (
 (
-(
 		{ 
-	        newCompositeNode(grammarAccess.getXValDeclarationAccess().getRightAPropertyReferenceParserRuleCall_1_3_0_0()); 
+	        newCompositeNode(grammarAccess.getXValDeclarationAccess().getRightXExpressionParserRuleCall_4_0()); 
 	    }
-		lv_right_6_1=ruleAPropertyReference		{
+		lv_right_6_0=ruleXExpression		{
 	        if ($current==null) {
 	            $current = createModelElementForParent(grammarAccess.getXValDeclarationRule());
 	        }
        		set(
        			$current, 
        			"right",
-        		lv_right_6_1, 
-        		"APropertyReference");
-	        afterParserOrEnumRuleCall();
-	    }
-
-    |		{ 
-	        newCompositeNode(grammarAccess.getXValDeclarationAccess().getRightXExpressionParserRuleCall_1_3_0_1()); 
-	    }
-		lv_right_6_2=ruleXExpression		{
-	        if ($current==null) {
-	            $current = createModelElementForParent(grammarAccess.getXValDeclarationRule());
-	        }
-       		set(
-       			$current, 
-       			"right",
-        		lv_right_6_2, 
+        		lv_right_6_0, 
         		"XExpression");
 	        afterParserOrEnumRuleCall();
 	    }
 
 )
-
-)
-))(
-	otherlv_7=As
+)(
+	otherlv_7=Sameas
     {
-    	newLeafNode(otherlv_7, grammarAccess.getXValDeclarationAccess().getAsKeyword_2_0());
+    	newLeafNode(otherlv_7, grammarAccess.getXValDeclarationAccess().getSameasKeyword_5_0());
+    }
+
+	otherlv_8=Property
+    {
+    	newLeafNode(otherlv_8, grammarAccess.getXValDeclarationAccess().getPropertyKeyword_5_1());
     }
 (
 (
@@ -4744,7 +4731,7 @@ RULE_ID
 	        }
         }
 		{ 
-	        newCompositeNode(grammarAccess.getXValDeclarationAccess().getPropertyPropertyCrossReference_2_1_0()); 
+	        newCompositeNode(grammarAccess.getXValDeclarationAccess().getPropertyPropertyCrossReference_5_2_0()); 
 	    }
 		ruleAADLPROPERTYREFERENCE		{ 
 	        afterParserOrEnumRuleCall();
@@ -4778,10 +4765,10 @@ ruleComputeDeclaration returns [EObject current=null]
             grammarAccess.getComputeDeclarationAccess().getComputeDeclarationAction_0(),
             $current);
     }
-)(
+)
 	otherlv_1=Compute
     {
-    	newLeafNode(otherlv_1, grammarAccess.getComputeDeclarationAccess().getComputeKeyword_1_0());
+    	newLeafNode(otherlv_1, grammarAccess.getComputeDeclarationAccess().getComputeKeyword_1());
     }
 (((((
 (
@@ -4795,7 +4782,7 @@ RULE_ID
 )))=>((
 (
 		{ 
-	        newCompositeNode(grammarAccess.getComputeDeclarationAccess().getTypeJvmTypeReferenceParserRuleCall_1_1_0_0_0_0()); 
+	        newCompositeNode(grammarAccess.getComputeDeclarationAccess().getTypeJvmTypeReferenceParserRuleCall_2_0_0_0_0()); 
 	    }
 		lv_type_2_0=ruleJvmTypeReference		{
 	        if ($current==null) {
@@ -4814,7 +4801,7 @@ RULE_ID
 (
 		lv_name_3_0=RULE_ID
 		{
-			newLeafNode(lv_name_3_0, grammarAccess.getComputeDeclarationAccess().getNameIDTerminalRuleCall_1_1_0_0_1_0()); 
+			newLeafNode(lv_name_3_0, grammarAccess.getComputeDeclarationAccess().getNameIDTerminalRuleCall_2_0_0_1_0()); 
 		}
 		{
 	        if ($current==null) {
@@ -4833,7 +4820,7 @@ RULE_ID
 (
 		lv_name_4_0=RULE_ID
 		{
-			newLeafNode(lv_name_4_0, grammarAccess.getComputeDeclarationAccess().getNameIDTerminalRuleCall_1_1_1_0()); 
+			newLeafNode(lv_name_4_0, grammarAccess.getComputeDeclarationAccess().getNameIDTerminalRuleCall_2_1_0()); 
 		}
 		{
 	        if ($current==null) {
@@ -4847,55 +4834,10 @@ RULE_ID
 	    }
 
 )
-))))
+)))
 ;
 
 
-
-
-
-// Entry rule entryRuleAPropertyReference
-entryRuleAPropertyReference returns [EObject current=null]
-	:
-	{ newCompositeNode(grammarAccess.getAPropertyReferenceRule()); }
-	 iv_ruleAPropertyReference=ruleAPropertyReference 
-	 { $current=$iv_ruleAPropertyReference.current; } 
-	 EOF 
-;
-
-// Rule APropertyReference
-ruleAPropertyReference returns [EObject current=null] 
-    @init { enterRule(); 
-    }
-    @after { leaveRule(); }:
-((
-    {
-        $current = forceCreateModelElement(
-            grammarAccess.getAPropertyReferenceAccess().getAPropertyReferenceAction_0(),
-            $current);
-    }
-)
-	otherlv_1=CommercialAt
-    {
-    	newLeafNode(otherlv_1, grammarAccess.getAPropertyReferenceAccess().getCommercialAtKeyword_1());
-    }
-(
-(
-		{
-			if ($current==null) {
-	            $current = createModelElement(grammarAccess.getAPropertyReferenceRule());
-	        }
-        }
-		{ 
-	        newCompositeNode(grammarAccess.getAPropertyReferenceAccess().getPropertyPropertyCrossReference_2_0()); 
-	    }
-		ruleAADLPROPERTYREFERENCE		{ 
-	        afterParserOrEnumRuleCall();
-	    }
-
-)
-))
-;
 
 
 
