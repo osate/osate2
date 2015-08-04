@@ -164,6 +164,7 @@ public class ReqSpecParser extends AbstractContentAssistParser {
 					put(grammarAccess.getDocRequirementAccess().getGroup_5_16(), "rule__DocRequirement__Group_5_16__0");
 					put(grammarAccess.getInformalPredicateAccess().getGroup(), "rule__InformalPredicate__Group__0");
 					put(grammarAccess.getXPredicateAccess().getGroup(), "rule__XPredicate__Group__0");
+					put(grammarAccess.getValuePredicateAccess().getGroup(), "rule__ValuePredicate__Group__0");
 					put(grammarAccess.getExternalDocumentAccess().getGroup(), "rule__ExternalDocument__Group__0");
 					put(grammarAccess.getExternalDocumentAccess().getGroup_1(), "rule__ExternalDocument__Group_1__0");
 					put(grammarAccess.getDOCPATHAccess().getGroup(), "rule__DOCPATH__Group__0");
@@ -492,6 +493,7 @@ public class ReqSpecParser extends AbstractContentAssistParser {
 					put(grammarAccess.getDocRequirementAccess().getIssuesAssignment_5_16_1(), "rule__DocRequirement__IssuesAssignment_5_16_1");
 					put(grammarAccess.getInformalPredicateAccess().getDescriptionAssignment_2(), "rule__InformalPredicate__DescriptionAssignment_2");
 					put(grammarAccess.getXPredicateAccess().getXpressionAssignment_1(), "rule__XPredicate__XpressionAssignment_1");
+					put(grammarAccess.getValuePredicateAccess().getXpressionAssignment_2(), "rule__ValuePredicate__XpressionAssignment_2");
 					put(grammarAccess.getExternalDocumentAccess().getDocReferenceAssignment_0(), "rule__ExternalDocument__DocReferenceAssignment_0");
 					put(grammarAccess.getExternalDocumentAccess().getDocFragmentAssignment_1_1(), "rule__ExternalDocument__DocFragmentAssignment_1_1");
 					put(grammarAccess.getDescriptionAccess().getDescriptionAssignment_1(), "rule__Description__DescriptionAssignment_1");

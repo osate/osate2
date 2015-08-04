@@ -140,6 +140,15 @@ public interface ReqSpecFactory extends EFactory
   XPredicate createXPredicate();
 
   /**
+   * Returns a new object of class '<em>Value Predicate</em>'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return a new object of class '<em>Value Predicate</em>'.
+   * @generated
+   */
+  ValuePredicate createValuePredicate();
+
+  /**
    * Returns a new object of class '<em>External Document</em>'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->

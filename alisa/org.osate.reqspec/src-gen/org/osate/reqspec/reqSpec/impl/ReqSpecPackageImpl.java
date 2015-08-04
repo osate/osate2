@@ -35,6 +35,7 @@ import org.osate.reqspec.reqSpec.ReqSpecPackage;
 import org.osate.reqspec.reqSpec.Requirement;
 import org.osate.reqspec.reqSpec.StakeholderGoals;
 import org.osate.reqspec.reqSpec.SystemRequirements;
+import org.osate.reqspec.reqSpec.ValuePredicate;
 import org.osate.reqspec.reqSpec.XPredicate;
 
 /**
@@ -135,6 +136,13 @@ public class ReqSpecPackageImpl extends EPackageImpl implements ReqSpecPackage
    * @generated
    */
   private EClass xPredicateEClass = null;
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  private EClass valuePredicateEClass = null;
 
   /**
    * <!-- begin-user-doc -->
@@ -926,6 +934,26 @@ public class ReqSpecPackageImpl extends EPackageImpl implements ReqSpecPackage
    * <!-- end-user-doc -->
    * @generated
    */
+  public EClass getValuePredicate()
+  {
+    return valuePredicateEClass;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EReference getValuePredicate_Xpression()
+  {
+    return (EReference)valuePredicateEClass.getEStructuralFeatures().get(0);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
   public EClass getExternalDocument()
   {
     return externalDocumentEClass;
@@ -1065,6 +1093,9 @@ public class ReqSpecPackageImpl extends EPackageImpl implements ReqSpecPackage
     xPredicateEClass = createEClass(XPREDICATE);
     createEReference(xPredicateEClass, XPREDICATE__XPRESSION);
 
+    valuePredicateEClass = createEClass(VALUE_PREDICATE);
+    createEReference(valuePredicateEClass, VALUE_PREDICATE__XPRESSION);
+
     externalDocumentEClass = createEClass(EXTERNAL_DOCUMENT);
     createEAttribute(externalDocumentEClass, EXTERNAL_DOCUMENT__DOC_REFERENCE);
     createEAttribute(externalDocumentEClass, EXTERNAL_DOCUMENT__DOC_FRAGMENT);
@@ -1118,6 +1149,7 @@ public class ReqSpecPackageImpl extends EPackageImpl implements ReqSpecPackage
     requirementEClass.getESuperTypes().add(this.getContractualElement());
     informalPredicateEClass.getESuperTypes().add(this.getReqPredicate());
     xPredicateEClass.getESuperTypes().add(this.getReqPredicate());
+    valuePredicateEClass.getESuperTypes().add(this.getReqPredicate());
 
     // Initialize classes and features; add operations and parameters
     initEClass(reqSpecEClass, ReqSpec.class, "ReqSpec", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
@@ -1203,6 +1235,9 @@ public class ReqSpecPackageImpl extends EPackageImpl implements ReqSpecPackage
 
     initEClass(xPredicateEClass, XPredicate.class, "XPredicate", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
     initEReference(getXPredicate_Xpression(), theXbasePackage.getXExpression(), null, "xpression", null, 0, 1, XPredicate.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+    initEClass(valuePredicateEClass, ValuePredicate.class, "ValuePredicate", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+    initEReference(getValuePredicate_Xpression(), theXbasePackage.getXExpression(), null, "xpression", null, 0, 1, ValuePredicate.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
     initEClass(externalDocumentEClass, ExternalDocument.class, "ExternalDocument", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
     initEAttribute(getExternalDocument_DocReference(), theEcorePackage.getEString(), "docReference", null, 0, 1, ExternalDocument.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);

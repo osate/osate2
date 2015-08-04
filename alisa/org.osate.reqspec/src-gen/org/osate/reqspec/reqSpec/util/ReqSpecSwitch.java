@@ -174,6 +174,14 @@ public class ReqSpecSwitch<T> extends Switch<T>
         if (result == null) result = defaultCase(theEObject);
         return result;
       }
+      case ReqSpecPackage.VALUE_PREDICATE:
+      {
+        ValuePredicate valuePredicate = (ValuePredicate)theEObject;
+        T result = caseValuePredicate(valuePredicate);
+        if (result == null) result = caseReqPredicate(valuePredicate);
+        if (result == null) result = defaultCase(theEObject);
+        return result;
+      }
       case ReqSpecPackage.EXTERNAL_DOCUMENT:
       {
         ExternalDocument externalDocument = (ExternalDocument)theEObject;
@@ -389,6 +397,22 @@ public class ReqSpecSwitch<T> extends Switch<T>
    * @generated
    */
   public T caseXPredicate(XPredicate object)
+  {
+    return null;
+  }
+
+  /**
+   * Returns the result of interpreting the object as an instance of '<em>Value Predicate</em>'.
+   * <!-- begin-user-doc -->
+   * This implementation returns null;
+   * returning a non-null result will terminate the switch.
+   * <!-- end-user-doc -->
+   * @param object the target of the switch.
+   * @return the result of interpreting the object as an instance of '<em>Value Predicate</em>'.
+   * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+   * @generated
+   */
+  public T caseValuePredicate(ValuePredicate object)
   {
     return null;
   }

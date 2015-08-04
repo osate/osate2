@@ -3803,6 +3803,16 @@ ruleReqPredicate returns [EObject current=null]
         $current = $this_XPredicate_1.current;
         afterParserOrEnumRuleCall();
     }
+
+    |
+    { 
+        newCompositeNode(grammarAccess.getReqPredicateAccess().getValuePredicateParserRuleCall_2()); 
+    }
+    this_ValuePredicate_2=ruleValuePredicate
+    {
+        $current = $this_ValuePredicate_2.current;
+        afterParserOrEnumRuleCall();
+    }
 )
 ;
 
@@ -3892,6 +3902,55 @@ ruleXPredicate returns [EObject current=null]
        			"xpression",
         		lv_xpression_1_0, 
         		"XExpression");
+	        afterParserOrEnumRuleCall();
+	    }
+
+)
+))
+;
+
+
+
+
+
+// Entry rule entryRuleValuePredicate
+entryRuleValuePredicate returns [EObject current=null]
+	:
+	{ newCompositeNode(grammarAccess.getValuePredicateRule()); }
+	 iv_ruleValuePredicate=ruleValuePredicate 
+	 { $current=$iv_ruleValuePredicate.current; } 
+	 EOF 
+;
+
+// Rule ValuePredicate
+ruleValuePredicate returns [EObject current=null] 
+    @init { enterRule(); 
+    }
+    @after { leaveRule(); }:
+(
+	otherlv_0=Value
+    {
+    	newLeafNode(otherlv_0, grammarAccess.getValuePredicateAccess().getValueKeyword_0());
+    }
+
+	otherlv_1=Predicate
+    {
+    	newLeafNode(otherlv_1, grammarAccess.getValuePredicateAccess().getPredicateKeyword_1());
+    }
+(
+(
+		{ 
+	        newCompositeNode(grammarAccess.getValuePredicateAccess().getXpressionXEqualityExpressionParserRuleCall_2_0()); 
+	    }
+		lv_xpression_2_0=ruleXEqualityExpression		{
+	        if ($current==null) {
+	            $current = createModelElementForParent(grammarAccess.getValuePredicateRule());
+	        }
+       		set(
+       			$current, 
+       			"xpression",
+        		lv_xpression_2_0, 
+        		"XEqualityExpression");
 	        afterParserOrEnumRuleCall();
 	    }
 

@@ -1114,6 +1114,34 @@ public interface ReqSpecPackage extends EPackage
   int XPREDICATE_FEATURE_COUNT = REQ_PREDICATE_FEATURE_COUNT + 1;
 
   /**
+   * The meta object id for the '{@link org.osate.reqspec.reqSpec.impl.ValuePredicateImpl <em>Value Predicate</em>}' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see org.osate.reqspec.reqSpec.impl.ValuePredicateImpl
+   * @see org.osate.reqspec.reqSpec.impl.ReqSpecPackageImpl#getValuePredicate()
+   * @generated
+   */
+  int VALUE_PREDICATE = 13;
+
+  /**
+   * The feature id for the '<em><b>Xpression</b></em>' containment reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int VALUE_PREDICATE__XPRESSION = REQ_PREDICATE_FEATURE_COUNT + 0;
+
+  /**
+   * The number of structural features of the '<em>Value Predicate</em>' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int VALUE_PREDICATE_FEATURE_COUNT = REQ_PREDICATE_FEATURE_COUNT + 1;
+
+  /**
    * The meta object id for the '{@link org.osate.reqspec.reqSpec.impl.ExternalDocumentImpl <em>External Document</em>}' class.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -1121,7 +1149,7 @@ public interface ReqSpecPackage extends EPackage
    * @see org.osate.reqspec.reqSpec.impl.ReqSpecPackageImpl#getExternalDocument()
    * @generated
    */
-  int EXTERNAL_DOCUMENT = 13;
+  int EXTERNAL_DOCUMENT = 14;
 
   /**
    * The feature id for the '<em><b>Doc Reference</b></em>' attribute.
@@ -1920,6 +1948,27 @@ public interface ReqSpecPackage extends EPackage
   EReference getXPredicate_Xpression();
 
   /**
+   * Returns the meta object for class '{@link org.osate.reqspec.reqSpec.ValuePredicate <em>Value Predicate</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for class '<em>Value Predicate</em>'.
+   * @see org.osate.reqspec.reqSpec.ValuePredicate
+   * @generated
+   */
+  EClass getValuePredicate();
+
+  /**
+   * Returns the meta object for the containment reference '{@link org.osate.reqspec.reqSpec.ValuePredicate#getXpression <em>Xpression</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the containment reference '<em>Xpression</em>'.
+   * @see org.osate.reqspec.reqSpec.ValuePredicate#getXpression()
+   * @see #getValuePredicate()
+   * @generated
+   */
+  EReference getValuePredicate_Xpression();
+
+  /**
    * Returns the meta object for class '{@link org.osate.reqspec.reqSpec.ExternalDocument <em>External Document</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -2567,6 +2616,24 @@ public interface ReqSpecPackage extends EPackage
      * @generated
      */
     EReference XPREDICATE__XPRESSION = eINSTANCE.getXPredicate_Xpression();
+
+    /**
+     * The meta object literal for the '{@link org.osate.reqspec.reqSpec.impl.ValuePredicateImpl <em>Value Predicate</em>}' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see org.osate.reqspec.reqSpec.impl.ValuePredicateImpl
+     * @see org.osate.reqspec.reqSpec.impl.ReqSpecPackageImpl#getValuePredicate()
+     * @generated
+     */
+    EClass VALUE_PREDICATE = eINSTANCE.getValuePredicate();
+
+    /**
+     * The meta object literal for the '<em><b>Xpression</b></em>' containment reference feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EReference VALUE_PREDICATE__XPRESSION = eINSTANCE.getValuePredicate_Xpression();
 
     /**
      * The meta object literal for the '{@link org.osate.reqspec.reqSpec.impl.ExternalDocumentImpl <em>External Document</em>}' class.

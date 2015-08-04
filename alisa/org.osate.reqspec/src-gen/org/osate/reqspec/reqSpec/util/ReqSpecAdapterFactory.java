@@ -140,6 +140,11 @@ public class ReqSpecAdapterFactory extends AdapterFactoryImpl
         return createXPredicateAdapter();
       }
       @Override
+      public Adapter caseValuePredicate(ValuePredicate object)
+      {
+        return createValuePredicateAdapter();
+      }
+      @Override
       public Adapter caseExternalDocument(ExternalDocument object)
       {
         return createExternalDocumentAdapter();
@@ -357,6 +362,21 @@ public class ReqSpecAdapterFactory extends AdapterFactoryImpl
    * @generated
    */
   public Adapter createXPredicateAdapter()
+  {
+    return null;
+  }
+
+  /**
+   * Creates a new adapter for an object of class '{@link org.osate.reqspec.reqSpec.ValuePredicate <em>Value Predicate</em>}'.
+   * <!-- begin-user-doc -->
+   * This default implementation returns null so that we can easily ignore cases;
+   * it's useful to ignore a case when inheritance will catch all the cases anyway.
+   * <!-- end-user-doc -->
+   * @return the new adapter.
+   * @see org.osate.reqspec.reqSpec.ValuePredicate
+   * @generated
+   */
+  public Adapter createValuePredicateAdapter()
   {
     return null;
   }

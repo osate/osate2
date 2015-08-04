@@ -88,6 +88,9 @@
     <genClasses ecoreClass="ReqSpec.ecore#//XPredicate">
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference ReqSpec.ecore#//XPredicate/xpression"/>
     </genClasses>
+    <genClasses ecoreClass="ReqSpec.ecore#//ValuePredicate">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference ReqSpec.ecore#//ValuePredicate/xpression"/>
+    </genClasses>
     <genClasses ecoreClass="ReqSpec.ecore#//ExternalDocument">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute ReqSpec.ecore#//ExternalDocument/docReference"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute ReqSpec.ecore#//ExternalDocument/docFragment"/>

@@ -2119,13 +2119,14 @@ public class ReqSpecGrammarAccess extends AbstractGrammarElementFinder {
 		private final Alternatives cAlternatives = (Alternatives)rule.eContents().get(1);
 		private final RuleCall cInformalPredicateParserRuleCall_0 = (RuleCall)cAlternatives.eContents().get(0);
 		private final RuleCall cXPredicateParserRuleCall_1 = (RuleCall)cAlternatives.eContents().get(1);
+		private final RuleCall cValuePredicateParserRuleCall_2 = (RuleCall)cAlternatives.eContents().get(2);
 		
-		////| ValueAssertion | InputAssumption | OutputGuarantee| BehaviorEquation;
+		//// | InputAssumption | OutputGuarantee| BehaviorEquation;
 		//ReqPredicate:
-		//	InformalPredicate | XPredicate;
+		//	InformalPredicate | XPredicate | ValuePredicate;
 		@Override public ParserRule getRule() { return rule; }
 
-		//InformalPredicate | XPredicate
+		//InformalPredicate | XPredicate | ValuePredicate
 		public Alternatives getAlternatives() { return cAlternatives; }
 
 		//InformalPredicate
@@ -2133,6 +2134,9 @@ public class ReqSpecGrammarAccess extends AbstractGrammarElementFinder {
 
 		//XPredicate
 		public RuleCall getXPredicateParserRuleCall_1() { return cXPredicateParserRuleCall_1; }
+
+		//ValuePredicate
+		public RuleCall getValuePredicateParserRuleCall_2() { return cValuePredicateParserRuleCall_2; }
 	}
 
 	public class InformalPredicateElements extends AbstractParserRuleElementFinder {
@@ -2187,6 +2191,35 @@ public class ReqSpecGrammarAccess extends AbstractGrammarElementFinder {
 		public RuleCall getXpressionXExpressionParserRuleCall_1_0() { return cXpressionXExpressionParserRuleCall_1_0; }
 	}
 
+	public class ValuePredicateElements extends AbstractParserRuleElementFinder {
+		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "ValuePredicate");
+		private final Group cGroup = (Group)rule.eContents().get(1);
+		private final Keyword cValueKeyword_0 = (Keyword)cGroup.eContents().get(0);
+		private final Keyword cPredicateKeyword_1 = (Keyword)cGroup.eContents().get(1);
+		private final Assignment cXpressionAssignment_2 = (Assignment)cGroup.eContents().get(2);
+		private final RuleCall cXpressionXEqualityExpressionParserRuleCall_2_0 = (RuleCall)cXpressionAssignment_2.eContents().get(0);
+		
+		//// intended to be restricted to deal with value limits
+		//ValuePredicate:
+		//	"value" "predicate" xpression=XEqualityExpression;
+		@Override public ParserRule getRule() { return rule; }
+
+		//"value" "predicate" xpression=XEqualityExpression
+		public Group getGroup() { return cGroup; }
+
+		//"value"
+		public Keyword getValueKeyword_0() { return cValueKeyword_0; }
+
+		//"predicate"
+		public Keyword getPredicateKeyword_1() { return cPredicateKeyword_1; }
+
+		//xpression=XEqualityExpression
+		public Assignment getXpressionAssignment_2() { return cXpressionAssignment_2; }
+
+		//XEqualityExpression
+		public RuleCall getXpressionXEqualityExpressionParserRuleCall_2_0() { return cXpressionXEqualityExpressionParserRuleCall_2_0; }
+	}
+
 	public class ExternalDocumentElements extends AbstractParserRuleElementFinder {
 		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "ExternalDocument");
 		private final Group cGroup = (Group)rule.eContents().get(1);
@@ -2197,8 +2230,6 @@ public class ReqSpecGrammarAccess extends AbstractGrammarElementFinder {
 		private final Assignment cDocFragmentAssignment_1_1 = (Assignment)cGroup_1.eContents().get(1);
 		private final RuleCall cDocFragmentDOCFRAGMENTParserRuleCall_1_1_0 = (RuleCall)cDocFragmentAssignment_1_1.eContents().get(0);
 		
-		////
-		////ValueAssertion: 'value' 'predicate' xpression=XExpression;	
 		////InputAssumption:  'input' 'assumption' (xpression=XExpression |'as' reference=[ecore::EObject|ID]);	
 		////OutputGuarantee: 'output''guarantee' (xpression=XExpression |'as' reference=[ecore::EObject|ID]);	
 		////BehaviorEquation: 'invariant' (xpression=XExpression |'as' reference=[ecore::EObject|ID]);
@@ -2309,6 +2340,7 @@ public class ReqSpecGrammarAccess extends AbstractGrammarElementFinder {
 	private final ReqPredicateElements pReqPredicate;
 	private final InformalPredicateElements pInformalPredicate;
 	private final XPredicateElements pXPredicate;
+	private final ValuePredicateElements pValuePredicate;
 	private final ExternalDocumentElements pExternalDocument;
 	private final DOCPATHElements pDOCPATH;
 	private final DOCFRAGMENTElements pDOCFRAGMENT;
@@ -2337,6 +2369,7 @@ public class ReqSpecGrammarAccess extends AbstractGrammarElementFinder {
 		this.pReqPredicate = new ReqPredicateElements();
 		this.pInformalPredicate = new InformalPredicateElements();
 		this.pXPredicate = new XPredicateElements();
+		this.pValuePredicate = new ValuePredicateElements();
 		this.pExternalDocument = new ExternalDocumentElements();
 		this.pDOCPATH = new DOCPATHElements();
 		this.pDOCFRAGMENT = new DOCFRAGMENTElements();
@@ -2540,9 +2573,9 @@ public class ReqSpecGrammarAccess extends AbstractGrammarElementFinder {
 		return getDocRequirementAccess().getRule();
 	}
 
-	////| ValueAssertion | InputAssumption | OutputGuarantee| BehaviorEquation;
+	//// | InputAssumption | OutputGuarantee| BehaviorEquation;
 	//ReqPredicate:
-	//	InformalPredicate | XPredicate;
+	//	InformalPredicate | XPredicate | ValuePredicate;
 	public ReqPredicateElements getReqPredicateAccess() {
 		return pReqPredicate;
 	}
@@ -2571,8 +2604,17 @@ public class ReqSpecGrammarAccess extends AbstractGrammarElementFinder {
 		return getXPredicateAccess().getRule();
 	}
 
-	////
-	////ValueAssertion: 'value' 'predicate' xpression=XExpression;	
+	//// intended to be restricted to deal with value limits
+	//ValuePredicate:
+	//	"value" "predicate" xpression=XEqualityExpression;
+	public ValuePredicateElements getValuePredicateAccess() {
+		return pValuePredicate;
+	}
+	
+	public ParserRule getValuePredicateRule() {
+		return getValuePredicateAccess().getRule();
+	}
+
 	////InputAssumption:  'input' 'assumption' (xpression=XExpression |'as' reference=[ecore::EObject|ID]);	
 	////OutputGuarantee: 'output''guarantee' (xpression=XExpression |'as' reference=[ecore::EObject|ID]);	
 	////BehaviorEquation: 'invariant' (xpression=XExpression |'as' reference=[ecore::EObject|ID]);

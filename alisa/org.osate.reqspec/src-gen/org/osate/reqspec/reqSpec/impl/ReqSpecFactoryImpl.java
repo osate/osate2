@@ -77,6 +77,7 @@ public class ReqSpecFactoryImpl extends EFactoryImpl implements ReqSpecFactory
       case ReqSpecPackage.REQ_PREDICATE: return createReqPredicate();
       case ReqSpecPackage.INFORMAL_PREDICATE: return createInformalPredicate();
       case ReqSpecPackage.XPREDICATE: return createXPredicate();
+      case ReqSpecPackage.VALUE_PREDICATE: return createValuePredicate();
       case ReqSpecPackage.EXTERNAL_DOCUMENT: return createExternalDocument();
       default:
         throw new IllegalArgumentException("The class '" + eClass.getName() + "' is not a valid classifier");
@@ -224,6 +225,17 @@ public class ReqSpecFactoryImpl extends EFactoryImpl implements ReqSpecFactory
   {
     XPredicateImpl xPredicate = new XPredicateImpl();
     return xPredicate;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public ValuePredicate createValuePredicate()
+  {
+    ValuePredicateImpl valuePredicate = new ValuePredicateImpl();
+    return valuePredicate;
   }
 
   /**

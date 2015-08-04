@@ -7,6 +7,7 @@ import  "http://www.osate.org/categories/Categories" as categories
 import  "http://www.osate.org/organization/Organization" as org
 import "http://www.eclipse.org/emf/2002/Ecore" as ecore
 import "http://www.eclipse.org/xtext/xbase/Xbase" as xbase
+import "http://www.eclipse.org/xtext/common/JavaVMTypes" as types
 
 ReqSpec: parts +=(SystemRequirements|StakeholderGoals|ReqDocument)+  ;
 //ReqSpec: ReqSpecs|StakeholderGoals|ReqDocument  ;
@@ -170,12 +171,15 @@ DocRequirement returns Requirement:
 	)
 	']';
 
-ReqPredicate: InformalPredicate | XPredicate ;//| ValueAssertion | InputAssumption | OutputGuarantee| BehaviorEquation;
+ReqPredicate: InformalPredicate | XPredicate | ValuePredicate;// | InputAssumption | OutputGuarantee| BehaviorEquation;
 
 InformalPredicate: 'informal' 'predicate'  description=STRING ;
 XPredicate: 'predicate' xpression=XExpression ;
-//
-//ValueAssertion: 'value' 'predicate' xpression=XExpression;	
+
+ValuePredicate: 'value' 'predicate' xpression=XEqualityExpression;	// intended to be restricted to deal with value limits
+
+
+
 //InputAssumption:  'input' 'assumption' (xpression=XExpression |'as' reference=[ecore::EObject|ID]);	
 //OutputGuarantee: 'output''guarantee' (xpression=XExpression |'as' reference=[ecore::EObject|ID]);	
 //BehaviorEquation: 'invariant' (xpression=XExpression |'as' reference=[ecore::EObject|ID]);
