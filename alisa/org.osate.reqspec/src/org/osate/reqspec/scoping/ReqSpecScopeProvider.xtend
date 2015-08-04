@@ -61,7 +61,8 @@ class ReqSpecScopeProvider extends AlisaAbstractDeclarativeScopeProvider {
 			IScope.NULLSCOPE
 		}
 	}
-//	
+	
+//	Offer property definitions via scope. Here we can add filter to allow only those properties that actually apply to the target object
 //	def scope_Property(PropertyConsistentVariableDeclaration context, EReference reference){
 //			val props = (scopeProvider as CommonGlobalScopeProvider).getGlobalEObjectDescriptions(context,
 //				Aadl2Package.eINSTANCE.property, null)
