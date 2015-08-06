@@ -15,9 +15,5 @@ def static AssurancePlan getEnclosingAssurancePlan(EObject eo){
 	}
 	return null
 }
-
-def static ComponentClassifier getTargetComponentClassifier(VerificationPlan vp){
-	vp.systemRequirements?.target
-}
 	
 }

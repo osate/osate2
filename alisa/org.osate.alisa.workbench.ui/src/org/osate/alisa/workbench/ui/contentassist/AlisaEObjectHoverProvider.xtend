@@ -10,7 +10,7 @@ import org.osate.alisa.common.scoping.CommonGlobalScopeProvider
 import org.eclipse.emf.ecore.util.EcoreUtil
 import org.osate.aadl2.ComponentClassifier
 import static extension org.osate.alisa.common.util.CommonUtilExtension.*
-import static org.osate.alisa.workbench.util.AlisaWorkbenchUtilExtension.*
+import static extension org.osate.verify.util.VerifyUtilExtension.*
 import org.osate.verify.verify.VerifyPackage
 
 class AlisaEObjectHoverProvider extends DefaultEObjectHoverProvider {
@@ -33,7 +33,7 @@ class AlisaEObjectHoverProvider extends DefaultEObjectHoverProvider {
 		def Iterable<VerificationPlan> getVerificationPlans(ComponentClassifier cc){
 			val x = (scopeProvider as CommonGlobalScopeProvider).getGlobalEObjectDescriptions(cc,VerifyPackage.eINSTANCE.verificationPlan,null)
 			val y = x.map[ied|EcoreUtil.resolve(ied.EObjectOrProxy, cc) as VerificationPlan]
-			val z = y.filter [  vp | cc.isSameorExtends(getTargetComponentClassifier(vp))]
+			val z = y.filter [  vp | cc.isSameorExtends(vp.targetComponentClassifier)]
 			return z
 	}
 	

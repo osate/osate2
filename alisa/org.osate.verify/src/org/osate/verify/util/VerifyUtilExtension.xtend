@@ -7,6 +7,8 @@ import com.google.common.collect.HashMultimap
 import org.eclipse.emf.ecore.util.EcoreUtil
 import org.osate.verify.verify.VerificationActivity
 import org.osate.verify.verify.Claim
+import org.osate.aadl2.ComponentClassifier
+import org.osate.verify.verify.VerificationPlan
 
 class VerifyUtilExtension {
 
@@ -44,4 +46,9 @@ class VerifyUtilExtension {
 	def static Claim getContainingClaim(VerificationActivity va){
 		return va.eContainer as Claim
 	}
+	
+	def static ComponentClassifier getTargetComponentClassifier(VerificationPlan vp){
+	vp.systemRequirements?.target
+}
+	
 }

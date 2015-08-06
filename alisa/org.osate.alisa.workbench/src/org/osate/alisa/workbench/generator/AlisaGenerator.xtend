@@ -4,7 +4,10 @@
 package org.osate.alisa.workbench.generator
 
 import com.google.inject.Inject
+import java.util.Collections
+import java.util.List
 import org.eclipse.emf.common.util.EList
+import org.eclipse.emf.common.util.UniqueEList
 import org.eclipse.emf.ecore.resource.Resource
 import org.eclipse.emf.ecore.util.EcoreUtil
 import org.eclipse.xtext.generator.IFileSystemAccess
@@ -12,6 +15,8 @@ import org.eclipse.xtext.generator.IGenerator
 import org.eclipse.xtext.naming.IQualifiedNameProvider
 import org.eclipse.xtext.scoping.IGlobalScopeProvider
 import org.osate.aadl2.ComponentClassifier
+import org.osate.aadl2.ComponentImplementation
+import org.osate.aadl2.ComponentType
 import org.osate.alisa.common.scoping.CommonGlobalScopeProvider
 import org.osate.alisa.workbench.alisa.AlisaWorkArea
 import org.osate.alisa.workbench.alisa.AssurancePlan
@@ -35,12 +40,6 @@ import org.osate.verify.verify.WhenExpr
 
 import static extension org.eclipse.emf.ecore.util.EcoreUtil.*
 import static extension org.osate.alisa.common.util.CommonUtilExtension.*
-import org.osate.aadl2.ComponentImplementation
-import java.util.Collection
-import java.util.Collections
-import org.eclipse.emf.common.util.UniqueEList
-import java.util.List
-import org.osate.aadl2.ComponentType
 
 /**
  * Generates code from your model files on save.
