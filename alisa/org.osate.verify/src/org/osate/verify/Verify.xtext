@@ -33,7 +33,6 @@ Claim:
 	(
 		('activities' activities += VerificationActivity+)
 		&('assert' assert=ArgumentExpr)
-	& ('argument' argument=STRING )?//( argumentUncertainty=Uncertainty)? )?
 	& rationale=Rationale?
 	& subclaim+=Claim*
 	& ('issues' issues+=STRING+ )?

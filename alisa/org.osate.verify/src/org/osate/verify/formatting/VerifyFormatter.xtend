@@ -32,14 +32,15 @@ class VerifyFormatter extends AbstractDeclarativeFormatter {
 			c.setIndentationDecrement().before(pair.second);
 			c.setLinewrap().before(pair.second);
 		}
-		c.setLinewrap().after(verificationMethodRule);
-		c.setLinewrap().after(verificationPlanRule);
-		c.setLinewrap().after(verificationMethodRegistryRule);
-		for (kw : findKeywords("folder")) {
-			c.setLinewrap().before(kw);
-		}
-		for (kw : findKeywords("title", "description", "category", "assert", "weights", "class", "method", "verified",
-			"asserted", "rationale", "import", "timeout")) {
+		c.setLinewrap(1,2,2).after(verificationPlanRule);
+		c.setLinewrap(1,2,2).after(verificationMethodRegistryRule);
+		c.setLinewrap(1,2,2).before(claimRule);
+		c.setLinewrap(1,2,2).before(rationaleRule);
+		c.setLinewrap(1,2,2).before(verificationActivityRule);
+		c.setLinewrap(1,2,2).before(verificationMethodRule);
+		c.setLinewrap(1,2,2).before(verificationConditionRule);
+		for (kw : findKeywords("description", "category", "assert", "path", 
+			 "issues", "timeout")) {
 			c.setLinewrap().before(kw);
 		}
 	}
