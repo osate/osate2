@@ -87,46 +87,30 @@ class ReqSpecScopeProvider extends AlisaAbstractDeclarativeScopeProvider {
 	def scope_Requirement_refinesReference(Requirement context, EReference reference) {
 		println("scope_Requirement_RefinesReference: " + context.toString)
 		var result = IScope.NULLSCOPE
-		val sysRequirements = containingSystemRequirements(context)
 
 		// TODO: when target is all
-		val targetComponentClassifier = sysRequirements.target
-		val allAncestors = targetComponentClassifier.getSelfPlusAncestors
+		val targetComponentClassifier = containingSystemRequirements(context).target
+		//val allAncestors = targetComponentClassifier.getSelfPlusAncestors
 		val listAccessibleSystemRequirements = newArrayList();
 
 		// This works best
-		for (cc : allAncestors) {
-//			//ReqSpecReferenceFinder
-			// System.out.println("     scope_Requirement_RefinesReference FOR: " + cc);
-			val temp1 = (scopeProvider as CommonGlobalScopeProvider).getGlobalEObjectDescriptions(cc,
-				ReqSpecPackage.eINSTANCE.systemRequirements, null)
-			// System.out.println("     scope_Requirement_RefinesReference temp1: " + temp1);
-			for (objDis : temp1) {
-				val EObject obj = EcoreUtil.resolve(objDis.EObjectOrProxy, context.eResource().getResourceSet())
-				if (isSame((obj as SystemRequirements).target, cc)) {
-					listAccessibleSystemRequirements.add(obj as SystemRequirements)
-				}
-			}
-		}
-
-		// This has strange hiccups where sometime Can't resolve reference while it was in scope
-//		val temp1 = (scopeProvider as CommonGlobalScopeProvider).getGlobalEObjectDescriptions(targetComponentClassifier, ReqSpecPackage.eINSTANCE.systemRequirements,null)
-//			System.out.println("     scope_Requirement_RefinesReference temp1: " + temp1);
-//
-//		for (objDis : temp1) {
-//			val EObject obj = EcoreUtil.resolve(objDis.EObjectOrProxy, context.eResource().getResourceSet())
-//			println("     isSame 1: " + (obj as SystemRequirements).target.toString + "   2:" + targetComponentClassifier.toString);
-////			if(isSameorExtends((obj as SystemRequirements).target, targetComponentClassifier)){
-//			if(isSameorExtends(targetComponentClassifier, (obj as SystemRequirements).target)){
-//				System.out.println("     added: " + (obj as SystemRequirements).target.toString);
-//				
-//				listAccessibleSystemRequirements.add(obj as SystemRequirements)
+//		for (cc : allAncestors) {
+////			//ReqSpecReferenceFinder
+//			// System.out.println("     scope_Requirement_RefinesReference FOR: " + cc);
+//			val temp1 = (scopeProvider as CommonGlobalScopeProvider).getGlobalEObjectDescriptions(cc,
+//				ReqSpecPackage.eINSTANCE.systemRequirements, null)
+//			// System.out.println("     scope_Requirement_RefinesReference temp1: " + temp1);
+//			for (objDis : temp1) {
+//				val EObject obj = EcoreUtil.resolve(objDis.EObjectOrProxy, context.eResource().getResourceSet())
+//				if (isSame((obj as SystemRequirements).target, cc)) {
+//					listAccessibleSystemRequirements.add(obj as SystemRequirements)
+//				}
 //			}
 //		}
-		// Doesn't work because of missing resolve step of EObjectOrProxy
-//		listAccessibleSystemRequirements.addAll((scopeProvider as CommonGlobalScopeProvider).getGlobalEObjectDescriptions(targetComponentClassifier, ReqSpecPackage.eINSTANCE.systemRequirements,null)
-//			.map[EObjectOrProxy as SystemRequirements]
-//						.filter[sysreqs| isSameorExtends(sysreqs.target, targetComponentClassifier)])
+		
+		listAccessibleSystemRequirements.addAll((scopeProvider as CommonGlobalScopeProvider).getGlobalEObjectDescriptions(targetComponentClassifier, ReqSpecPackage.eINSTANCE.systemRequirements,null)
+			.map[EcoreUtil.resolve(EObjectOrProxy, context) as SystemRequirements]
+						.filter[sysreqs| isSameorExtends(targetComponentClassifier, sysreqs.target)])
 		// Need to go through all system requirements and see if target is in allAncestor
 		// and if it is, then add content to the Scope
 		for (sr : listAccessibleSystemRequirements) {
