@@ -522,29 +522,25 @@ ruleClaim returns [EObject current=null]
 					{ 
 	 				  getUnorderedGroupHelper().select(grammarAccess.getClaimAccess().getUnorderedGroup_5(), 2);
 	 				}
-					({true}?=>(	otherlv_13='argument' 
-    {
-    	newLeafNode(otherlv_13, grammarAccess.getClaimAccess().getArgumentKeyword_5_2_0());
-    }
+					({true}?=>(
 (
-(
-		lv_argument_14_0=RULE_STRING
-		{
-			newLeafNode(lv_argument_14_0, grammarAccess.getClaimAccess().getArgumentSTRINGTerminalRuleCall_5_2_1_0()); 
-		}
-		{
+		{ 
+	        newCompositeNode(grammarAccess.getClaimAccess().getRationaleRationaleParserRuleCall_5_2_0()); 
+	    }
+		lv_rationale_13_0=ruleRationale		{
 	        if ($current==null) {
-	            $current = createModelElement(grammarAccess.getClaimRule());
+	            $current = createModelElementForParent(grammarAccess.getClaimRule());
 	        }
-       		setWithLastConsumed(
+       		set(
        			$current, 
-       			"argument",
-        		lv_argument_14_0, 
-        		"STRING");
+       			"rationale",
+        		lv_rationale_13_0, 
+        		"Rationale");
+	        afterParserOrEnumRuleCall();
 	    }
 
 )
-)))
+))
 					{ 
 	 				  getUnorderedGroupHelper().returnFromSelection(grammarAccess.getClaimAccess().getUnorderedGroup_5());
 	 				}
@@ -559,46 +555,16 @@ ruleClaim returns [EObject current=null]
 					({true}?=>(
 (
 		{ 
-	        newCompositeNode(grammarAccess.getClaimAccess().getRationaleRationaleParserRuleCall_5_3_0()); 
+	        newCompositeNode(grammarAccess.getClaimAccess().getSubclaimClaimParserRuleCall_5_3_0()); 
 	    }
-		lv_rationale_15_0=ruleRationale		{
-	        if ($current==null) {
-	            $current = createModelElementForParent(grammarAccess.getClaimRule());
-	        }
-       		set(
-       			$current, 
-       			"rationale",
-        		lv_rationale_15_0, 
-        		"Rationale");
-	        afterParserOrEnumRuleCall();
-	    }
-
-)
-))
-					{ 
-	 				  getUnorderedGroupHelper().returnFromSelection(grammarAccess.getClaimAccess().getUnorderedGroup_5());
-	 				}
- 				)
-			)  |
-
-			( 
-				{getUnorderedGroupHelper().canSelect(grammarAccess.getClaimAccess().getUnorderedGroup_5(), 4)}?=>(
-					{ 
-	 				  getUnorderedGroupHelper().select(grammarAccess.getClaimAccess().getUnorderedGroup_5(), 4);
-	 				}
-					({true}?=>(
-(
-		{ 
-	        newCompositeNode(grammarAccess.getClaimAccess().getSubclaimClaimParserRuleCall_5_4_0()); 
-	    }
-		lv_subclaim_16_0=ruleClaim		{
+		lv_subclaim_14_0=ruleClaim		{
 	        if ($current==null) {
 	            $current = createModelElementForParent(grammarAccess.getClaimRule());
 	        }
        		add(
        			$current, 
        			"subclaim",
-        		lv_subclaim_16_0, 
+        		lv_subclaim_14_0, 
         		"Claim");
 	        afterParserOrEnumRuleCall();
 	    }
@@ -612,19 +578,19 @@ ruleClaim returns [EObject current=null]
 			)  |
 
 			( 
-				{getUnorderedGroupHelper().canSelect(grammarAccess.getClaimAccess().getUnorderedGroup_5(), 5)}?=>(
+				{getUnorderedGroupHelper().canSelect(grammarAccess.getClaimAccess().getUnorderedGroup_5(), 4)}?=>(
 					{ 
-	 				  getUnorderedGroupHelper().select(grammarAccess.getClaimAccess().getUnorderedGroup_5(), 5);
+	 				  getUnorderedGroupHelper().select(grammarAccess.getClaimAccess().getUnorderedGroup_5(), 4);
 	 				}
-					({true}?=>(	otherlv_17='issues' 
+					({true}?=>(	otherlv_15='issues' 
     {
-    	newLeafNode(otherlv_17, grammarAccess.getClaimAccess().getIssuesKeyword_5_5_0());
+    	newLeafNode(otherlv_15, grammarAccess.getClaimAccess().getIssuesKeyword_5_4_0());
     }
 (
 (
-		lv_issues_18_0=RULE_STRING
+		lv_issues_16_0=RULE_STRING
 		{
-			newLeafNode(lv_issues_18_0, grammarAccess.getClaimAccess().getIssuesSTRINGTerminalRuleCall_5_5_1_0()); 
+			newLeafNode(lv_issues_16_0, grammarAccess.getClaimAccess().getIssuesSTRINGTerminalRuleCall_5_4_1_0()); 
 		}
 		{
 	        if ($current==null) {
@@ -633,7 +599,7 @@ ruleClaim returns [EObject current=null]
        		addWithLastConsumed(
        			$current, 
        			"issues",
-        		lv_issues_18_0, 
+        		lv_issues_16_0, 
         		"STRING");
 	    }
 
@@ -653,9 +619,9 @@ ruleClaim returns [EObject current=null]
 	  getUnorderedGroupHelper().leave(grammarAccess.getClaimAccess().getUnorderedGroup_5());
 	}
 
-)	otherlv_19=']' 
+)	otherlv_17=']' 
     {
-    	newLeafNode(otherlv_19, grammarAccess.getClaimAccess().getRightSquareBracketKeyword_6());
+    	newLeafNode(otherlv_17, grammarAccess.getClaimAccess().getRightSquareBracketKeyword_6());
     }
 )
 ;

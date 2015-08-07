@@ -416,7 +416,6 @@ public class VerifySemanticSequencer extends CommonSemanticSequencer {
 	 *         weight=Number? 
 	 *         activities+=VerificationActivity+ 
 	 *         assert=ArgumentExpr 
-	 *         argument=STRING? 
 	 *         rationale=Rationale? 
 	 *         subclaim+=Claim* 
 	 *         issues+=STRING*

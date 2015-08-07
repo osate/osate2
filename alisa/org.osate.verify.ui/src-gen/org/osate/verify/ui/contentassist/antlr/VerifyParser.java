@@ -94,8 +94,7 @@ public class VerifyParser extends AbstractContentAssistParser {
 					put(grammarAccess.getClaimAccess().getGroup_3(), "rule__Claim__Group_3__0");
 					put(grammarAccess.getClaimAccess().getGroup_5_0(), "rule__Claim__Group_5_0__0");
 					put(grammarAccess.getClaimAccess().getGroup_5_1(), "rule__Claim__Group_5_1__0");
-					put(grammarAccess.getClaimAccess().getGroup_5_2(), "rule__Claim__Group_5_2__0");
-					put(grammarAccess.getClaimAccess().getGroup_5_5(), "rule__Claim__Group_5_5__0");
+					put(grammarAccess.getClaimAccess().getGroup_5_4(), "rule__Claim__Group_5_4__0");
 					put(grammarAccess.getVerificationActivityAccess().getGroup(), "rule__VerificationActivity__Group__0");
 					put(grammarAccess.getVerificationActivityAccess().getGroup_1(), "rule__VerificationActivity__Group_1__0");
 					put(grammarAccess.getVerificationActivityAccess().getGroup_2(), "rule__VerificationActivity__Group_2__0");
@@ -368,10 +367,9 @@ public class VerifyParser extends AbstractContentAssistParser {
 					put(grammarAccess.getClaimAccess().getWeightAssignment_3_1(), "rule__Claim__WeightAssignment_3_1");
 					put(grammarAccess.getClaimAccess().getActivitiesAssignment_5_0_1(), "rule__Claim__ActivitiesAssignment_5_0_1");
 					put(grammarAccess.getClaimAccess().getAssertAssignment_5_1_1(), "rule__Claim__AssertAssignment_5_1_1");
-					put(grammarAccess.getClaimAccess().getArgumentAssignment_5_2_1(), "rule__Claim__ArgumentAssignment_5_2_1");
-					put(grammarAccess.getClaimAccess().getRationaleAssignment_5_3(), "rule__Claim__RationaleAssignment_5_3");
-					put(grammarAccess.getClaimAccess().getSubclaimAssignment_5_4(), "rule__Claim__SubclaimAssignment_5_4");
-					put(grammarAccess.getClaimAccess().getIssuesAssignment_5_5_1(), "rule__Claim__IssuesAssignment_5_5_1");
+					put(grammarAccess.getClaimAccess().getRationaleAssignment_5_2(), "rule__Claim__RationaleAssignment_5_2");
+					put(grammarAccess.getClaimAccess().getSubclaimAssignment_5_3(), "rule__Claim__SubclaimAssignment_5_3");
+					put(grammarAccess.getClaimAccess().getIssuesAssignment_5_4_1(), "rule__Claim__IssuesAssignment_5_4_1");
 					put(grammarAccess.getVerificationActivityAccess().getNameAssignment_0(), "rule__VerificationActivity__NameAssignment_0");
 					put(grammarAccess.getVerificationActivityAccess().getTitleAssignment_1_1(), "rule__VerificationActivity__TitleAssignment_1_1");
 					put(grammarAccess.getVerificationActivityAccess().getTargetAssignment_2_1(), "rule__VerificationActivity__TargetAssignment_2_1");

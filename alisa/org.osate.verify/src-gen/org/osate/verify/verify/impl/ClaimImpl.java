@@ -40,7 +40,6 @@ import org.osate.verify.verify.VerifyPackage;
  *   <li>{@link org.osate.verify.verify.impl.ClaimImpl#getWeight <em>Weight</em>}</li>
  *   <li>{@link org.osate.verify.verify.impl.ClaimImpl#getActivities <em>Activities</em>}</li>
  *   <li>{@link org.osate.verify.verify.impl.ClaimImpl#getAssert <em>Assert</em>}</li>
- *   <li>{@link org.osate.verify.verify.impl.ClaimImpl#getArgument <em>Argument</em>}</li>
  *   <li>{@link org.osate.verify.verify.impl.ClaimImpl#getRationale <em>Rationale</em>}</li>
  *   <li>{@link org.osate.verify.verify.impl.ClaimImpl#getSubclaim <em>Subclaim</em>}</li>
  *   <li>{@link org.osate.verify.verify.impl.ClaimImpl#getIssues <em>Issues</em>}</li>
@@ -120,26 +119,6 @@ public class ClaimImpl extends MinimalEObjectImpl.Container implements Claim
    * @ordered
    */
   protected ArgumentExpr assert_;
-
-  /**
-   * The default value of the '{@link #getArgument() <em>Argument</em>}' attribute.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @see #getArgument()
-   * @generated
-   * @ordered
-   */
-  protected static final String ARGUMENT_EDEFAULT = null;
-
-  /**
-   * The cached value of the '{@link #getArgument() <em>Argument</em>}' attribute.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @see #getArgument()
-   * @generated
-   * @ordered
-   */
-  protected String argument = ARGUMENT_EDEFAULT;
 
   /**
    * The cached value of the '{@link #getRationale() <em>Rationale</em>}' containment reference.
@@ -348,29 +327,6 @@ public class ClaimImpl extends MinimalEObjectImpl.Container implements Claim
    * <!-- end-user-doc -->
    * @generated
    */
-  public String getArgument()
-  {
-    return argument;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public void setArgument(String newArgument)
-  {
-    String oldArgument = argument;
-    argument = newArgument;
-    if (eNotificationRequired())
-      eNotify(new ENotificationImpl(this, Notification.SET, VerifyPackage.CLAIM__ARGUMENT, oldArgument, argument));
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
   public Rationale getRationale()
   {
     return rationale;
@@ -485,8 +441,6 @@ public class ClaimImpl extends MinimalEObjectImpl.Container implements Claim
         return getActivities();
       case VerifyPackage.CLAIM__ASSERT:
         return getAssert();
-      case VerifyPackage.CLAIM__ARGUMENT:
-        return getArgument();
       case VerifyPackage.CLAIM__RATIONALE:
         return getRationale();
       case VerifyPackage.CLAIM__SUBCLAIM:
@@ -523,9 +477,6 @@ public class ClaimImpl extends MinimalEObjectImpl.Container implements Claim
         return;
       case VerifyPackage.CLAIM__ASSERT:
         setAssert((ArgumentExpr)newValue);
-        return;
-      case VerifyPackage.CLAIM__ARGUMENT:
-        setArgument((String)newValue);
         return;
       case VerifyPackage.CLAIM__RATIONALE:
         setRationale((Rationale)newValue);
@@ -567,9 +518,6 @@ public class ClaimImpl extends MinimalEObjectImpl.Container implements Claim
       case VerifyPackage.CLAIM__ASSERT:
         setAssert((ArgumentExpr)null);
         return;
-      case VerifyPackage.CLAIM__ARGUMENT:
-        setArgument(ARGUMENT_EDEFAULT);
-        return;
       case VerifyPackage.CLAIM__RATIONALE:
         setRationale((Rationale)null);
         return;
@@ -603,8 +551,6 @@ public class ClaimImpl extends MinimalEObjectImpl.Container implements Claim
         return activities != null && !activities.isEmpty();
       case VerifyPackage.CLAIM__ASSERT:
         return assert_ != null;
-      case VerifyPackage.CLAIM__ARGUMENT:
-        return ARGUMENT_EDEFAULT == null ? argument != null : !ARGUMENT_EDEFAULT.equals(argument);
       case VerifyPackage.CLAIM__RATIONALE:
         return rationale != null;
       case VerifyPackage.CLAIM__SUBCLAIM:
@@ -630,8 +576,6 @@ public class ClaimImpl extends MinimalEObjectImpl.Container implements Claim
     result.append(title);
     result.append(", weight: ");
     result.append(weight);
-    result.append(", argument: ");
-    result.append(argument);
     result.append(", issues: ");
     result.append(issues);
     result.append(')');

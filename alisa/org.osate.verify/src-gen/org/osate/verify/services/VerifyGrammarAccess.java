@@ -186,30 +186,24 @@ public class VerifyGrammarAccess extends AbstractGrammarElementFinder {
 		private final Keyword cAssertKeyword_5_1_0 = (Keyword)cGroup_5_1.eContents().get(0);
 		private final Assignment cAssertAssignment_5_1_1 = (Assignment)cGroup_5_1.eContents().get(1);
 		private final RuleCall cAssertArgumentExprParserRuleCall_5_1_1_0 = (RuleCall)cAssertAssignment_5_1_1.eContents().get(0);
-		private final Group cGroup_5_2 = (Group)cUnorderedGroup_5.eContents().get(2);
-		private final Keyword cArgumentKeyword_5_2_0 = (Keyword)cGroup_5_2.eContents().get(0);
-		private final Assignment cArgumentAssignment_5_2_1 = (Assignment)cGroup_5_2.eContents().get(1);
-		private final RuleCall cArgumentSTRINGTerminalRuleCall_5_2_1_0 = (RuleCall)cArgumentAssignment_5_2_1.eContents().get(0);
-		private final Assignment cRationaleAssignment_5_3 = (Assignment)cUnorderedGroup_5.eContents().get(3);
-		private final RuleCall cRationaleRationaleParserRuleCall_5_3_0 = (RuleCall)cRationaleAssignment_5_3.eContents().get(0);
-		private final Assignment cSubclaimAssignment_5_4 = (Assignment)cUnorderedGroup_5.eContents().get(4);
-		private final RuleCall cSubclaimClaimParserRuleCall_5_4_0 = (RuleCall)cSubclaimAssignment_5_4.eContents().get(0);
-		private final Group cGroup_5_5 = (Group)cUnorderedGroup_5.eContents().get(5);
-		private final Keyword cIssuesKeyword_5_5_0 = (Keyword)cGroup_5_5.eContents().get(0);
-		private final Assignment cIssuesAssignment_5_5_1 = (Assignment)cGroup_5_5.eContents().get(1);
-		private final RuleCall cIssuesSTRINGTerminalRuleCall_5_5_1_0 = (RuleCall)cIssuesAssignment_5_5_1.eContents().get(0);
+		private final Assignment cRationaleAssignment_5_2 = (Assignment)cUnorderedGroup_5.eContents().get(2);
+		private final RuleCall cRationaleRationaleParserRuleCall_5_2_0 = (RuleCall)cRationaleAssignment_5_2.eContents().get(0);
+		private final Assignment cSubclaimAssignment_5_3 = (Assignment)cUnorderedGroup_5.eContents().get(3);
+		private final RuleCall cSubclaimClaimParserRuleCall_5_3_0 = (RuleCall)cSubclaimAssignment_5_3.eContents().get(0);
+		private final Group cGroup_5_4 = (Group)cUnorderedGroup_5.eContents().get(4);
+		private final Keyword cIssuesKeyword_5_4_0 = (Keyword)cGroup_5_4.eContents().get(0);
+		private final Assignment cIssuesAssignment_5_4_1 = (Assignment)cGroup_5_4.eContents().get(1);
+		private final RuleCall cIssuesSTRINGTerminalRuleCall_5_4_1_0 = (RuleCall)cIssuesAssignment_5_4_1.eContents().get(0);
 		private final Keyword cRightSquareBracketKeyword_6 = (Keyword)cGroup.eContents().get(6);
 		
 		//Claim:
 		//	"claim" requirement=[ReqSpec::Requirement|QualifiedName] (":" title=STRING)? ("(" weight=Number ")")? "["
-		//	("activities" activities+=VerificationActivity+ //( argumentUncertainty=Uncertainty)? )?
-		//	& "assert" assert=ArgumentExpr & ("argument" argument=STRING)? & rationale=Rationale? & subclaim+=Claim* & ("issues"
-		//	issues+=STRING+)?) "]";
+		//	("activities" activities+=VerificationActivity+ & "assert" assert=ArgumentExpr & rationale=Rationale? &
+		//	subclaim+=Claim* & ("issues" issues+=STRING+)?) "]";
 		@Override public ParserRule getRule() { return rule; }
 
 		//"claim" requirement=[ReqSpec::Requirement|QualifiedName] (":" title=STRING)? ("(" weight=Number ")")? "[" ("activities"
-		//activities+=VerificationActivity+ //( argumentUncertainty=Uncertainty)? )?
-		//& "assert" assert=ArgumentExpr & ("argument" argument=STRING)? & rationale=Rationale? & subclaim+=Claim* & ("issues"
+		//activities+=VerificationActivity+ & "assert" assert=ArgumentExpr & rationale=Rationale? & subclaim+=Claim* & ("issues"
 		//issues+=STRING+)?) "]"
 		public Group getGroup() { return cGroup; }
 
@@ -255,9 +249,8 @@ public class VerifyGrammarAccess extends AbstractGrammarElementFinder {
 		//"["
 		public Keyword getLeftSquareBracketKeyword_4() { return cLeftSquareBracketKeyword_4; }
 
-		//"activities" activities+=VerificationActivity+ //( argumentUncertainty=Uncertainty)? )?
-		//& "assert" assert=ArgumentExpr & ("argument" argument=STRING)? & rationale=Rationale? & subclaim+=Claim* & ("issues"
-		//issues+=STRING+)?
+		//"activities" activities+=VerificationActivity+ & "assert" assert=ArgumentExpr & rationale=Rationale? & subclaim+=Claim*
+		//& ("issues" issues+=STRING+)?
 		public UnorderedGroup getUnorderedGroup_5() { return cUnorderedGroup_5; }
 
 		//"activities" activities+=VerificationActivity+
@@ -284,41 +277,29 @@ public class VerifyGrammarAccess extends AbstractGrammarElementFinder {
 		//ArgumentExpr
 		public RuleCall getAssertArgumentExprParserRuleCall_5_1_1_0() { return cAssertArgumentExprParserRuleCall_5_1_1_0; }
 
-		//("argument" argument=STRING)?
-		public Group getGroup_5_2() { return cGroup_5_2; }
-
-		//"argument"
-		public Keyword getArgumentKeyword_5_2_0() { return cArgumentKeyword_5_2_0; }
-
-		//argument=STRING
-		public Assignment getArgumentAssignment_5_2_1() { return cArgumentAssignment_5_2_1; }
-
-		//STRING
-		public RuleCall getArgumentSTRINGTerminalRuleCall_5_2_1_0() { return cArgumentSTRINGTerminalRuleCall_5_2_1_0; }
-
 		//rationale=Rationale?
-		public Assignment getRationaleAssignment_5_3() { return cRationaleAssignment_5_3; }
+		public Assignment getRationaleAssignment_5_2() { return cRationaleAssignment_5_2; }
 
 		//Rationale
-		public RuleCall getRationaleRationaleParserRuleCall_5_3_0() { return cRationaleRationaleParserRuleCall_5_3_0; }
+		public RuleCall getRationaleRationaleParserRuleCall_5_2_0() { return cRationaleRationaleParserRuleCall_5_2_0; }
 
 		//subclaim+=Claim*
-		public Assignment getSubclaimAssignment_5_4() { return cSubclaimAssignment_5_4; }
+		public Assignment getSubclaimAssignment_5_3() { return cSubclaimAssignment_5_3; }
 
 		//Claim
-		public RuleCall getSubclaimClaimParserRuleCall_5_4_0() { return cSubclaimClaimParserRuleCall_5_4_0; }
+		public RuleCall getSubclaimClaimParserRuleCall_5_3_0() { return cSubclaimClaimParserRuleCall_5_3_0; }
 
 		//("issues" issues+=STRING+)?
-		public Group getGroup_5_5() { return cGroup_5_5; }
+		public Group getGroup_5_4() { return cGroup_5_4; }
 
 		//"issues"
-		public Keyword getIssuesKeyword_5_5_0() { return cIssuesKeyword_5_5_0; }
+		public Keyword getIssuesKeyword_5_4_0() { return cIssuesKeyword_5_4_0; }
 
 		//issues+=STRING+
-		public Assignment getIssuesAssignment_5_5_1() { return cIssuesAssignment_5_5_1; }
+		public Assignment getIssuesAssignment_5_4_1() { return cIssuesAssignment_5_4_1; }
 
 		//STRING
-		public RuleCall getIssuesSTRINGTerminalRuleCall_5_5_1_0() { return cIssuesSTRINGTerminalRuleCall_5_5_1_0; }
+		public RuleCall getIssuesSTRINGTerminalRuleCall_5_4_1_0() { return cIssuesSTRINGTerminalRuleCall_5_4_1_0; }
 
 		//"]"
 		public Keyword getRightSquareBracketKeyword_6() { return cRightSquareBracketKeyword_6; }
@@ -1557,9 +1538,8 @@ public class VerifyGrammarAccess extends AbstractGrammarElementFinder {
 
 	//Claim:
 	//	"claim" requirement=[ReqSpec::Requirement|QualifiedName] (":" title=STRING)? ("(" weight=Number ")")? "["
-	//	("activities" activities+=VerificationActivity+ //( argumentUncertainty=Uncertainty)? )?
-	//	& "assert" assert=ArgumentExpr & ("argument" argument=STRING)? & rationale=Rationale? & subclaim+=Claim* & ("issues"
-	//	issues+=STRING+)?) "]";
+	//	("activities" activities+=VerificationActivity+ & "assert" assert=ArgumentExpr & rationale=Rationale? &
+	//	subclaim+=Claim* & ("issues" issues+=STRING+)?) "]";
 	public ClaimElements getClaimAccess() {
 		return pClaim;
 	}

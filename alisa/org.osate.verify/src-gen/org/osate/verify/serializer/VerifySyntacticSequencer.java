@@ -22,7 +22,7 @@ public class VerifySyntacticSequencer extends AbstractSyntacticSequencer {
 
 	protected VerifyGrammarAccess grammarAccess;
 	protected AbstractElementAlias match_Claim_ActivitiesKeyword_5_0_0_q;
-	protected AbstractElementAlias match_Claim_IssuesKeyword_5_5_0_q;
+	protected AbstractElementAlias match_Claim_IssuesKeyword_5_4_0_q;
 	protected AbstractElementAlias match_CompositeEvidenceExpr_LeftParenthesisKeyword_0_0_a;
 	protected AbstractElementAlias match_CompositeEvidenceExpr_LeftParenthesisKeyword_0_0_p;
 	protected AbstractElementAlias match_VerificationMethod_CategoryKeyword_5_4_0_q;
@@ -39,7 +39,7 @@ public class VerifySyntacticSequencer extends AbstractSyntacticSequencer {
 	protected void init(IGrammarAccess access) {
 		grammarAccess = (VerifyGrammarAccess) access;
 		match_Claim_ActivitiesKeyword_5_0_0_q = new TokenAlias(false, true, grammarAccess.getClaimAccess().getActivitiesKeyword_5_0_0());
-		match_Claim_IssuesKeyword_5_5_0_q = new TokenAlias(false, true, grammarAccess.getClaimAccess().getIssuesKeyword_5_5_0());
+		match_Claim_IssuesKeyword_5_4_0_q = new TokenAlias(false, true, grammarAccess.getClaimAccess().getIssuesKeyword_5_4_0());
 		match_CompositeEvidenceExpr_LeftParenthesisKeyword_0_0_a = new TokenAlias(true, true, grammarAccess.getCompositeEvidenceExprAccess().getLeftParenthesisKeyword_0_0());
 		match_CompositeEvidenceExpr_LeftParenthesisKeyword_0_0_p = new TokenAlias(true, false, grammarAccess.getCompositeEvidenceExprAccess().getLeftParenthesisKeyword_0_0());
 		match_VerificationMethod_CategoryKeyword_5_4_0_q = new TokenAlias(false, true, grammarAccess.getVerificationMethodAccess().getCategoryKeyword_5_4_0());
@@ -92,8 +92,8 @@ public class VerifySyntacticSequencer extends AbstractSyntacticSequencer {
 			List<INode> syntaxNodes = getNodesFor(transitionNodes, syntax);
 			if(match_Claim_ActivitiesKeyword_5_0_0_q.equals(syntax))
 				emit_Claim_ActivitiesKeyword_5_0_0_q(semanticObject, getLastNavigableState(), syntaxNodes);
-			else if(match_Claim_IssuesKeyword_5_5_0_q.equals(syntax))
-				emit_Claim_IssuesKeyword_5_5_0_q(semanticObject, getLastNavigableState(), syntaxNodes);
+			else if(match_Claim_IssuesKeyword_5_4_0_q.equals(syntax))
+				emit_Claim_IssuesKeyword_5_4_0_q(semanticObject, getLastNavigableState(), syntaxNodes);
 			else if(match_CompositeEvidenceExpr_LeftParenthesisKeyword_0_0_a.equals(syntax))
 				emit_CompositeEvidenceExpr_LeftParenthesisKeyword_0_0_a(semanticObject, getLastNavigableState(), syntaxNodes);
 			else if(match_CompositeEvidenceExpr_LeftParenthesisKeyword_0_0_p.equals(syntax))
@@ -138,7 +138,7 @@ public class VerifySyntacticSequencer extends AbstractSyntacticSequencer {
 	 * This ambiguous syntax occurs at:
 	 *     issues+=STRING (ambiguity) issues+=STRING
 	 */
-	protected void emit_Claim_IssuesKeyword_5_5_0_q(EObject semanticObject, ISynNavigable transition, List<INode> nodes) {
+	protected void emit_Claim_IssuesKeyword_5_4_0_q(EObject semanticObject, ISynNavigable transition, List<INode> nodes) {
 		acceptNodes(transition, nodes);
 	}
 	

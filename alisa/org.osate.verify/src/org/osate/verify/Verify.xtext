@@ -6,8 +6,6 @@ import "http://www.osate.org/reqspec/ReqSpec" as ReqSpec
 import "http://www.osate.org/categories/Categories" as categories
 import "http://www.osate.org/alisa/common/Common" as common
 import "http://www.eclipse.org/xtext/xbase/Xbase" as xbase
-import "http://www.eclipse.org/xtext/xbase/Xtype" as xtype
-import "http://www.eclipse.org/xtext/common/JavaVMTypes" as jvmTypes
 
 Verification:
 	contents+=	( VerificationPlan | VerificationMethodRegistry);

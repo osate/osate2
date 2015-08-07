@@ -31,7 +31,6 @@
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Verify.ecore#//Claim/weight"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Verify.ecore#//Claim/activities"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Verify.ecore#//Claim/assert"/>
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Verify.ecore#//Claim/argument"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Verify.ecore#//Claim/rationale"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Verify.ecore#//Claim/subclaim"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Verify.ecore#//Claim/issues"/>
