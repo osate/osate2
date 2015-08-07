@@ -9,21 +9,19 @@ import java.util.List
 import org.eclipse.emf.common.util.EList
 import org.eclipse.emf.common.util.UniqueEList
 import org.eclipse.emf.ecore.resource.Resource
-import org.eclipse.emf.ecore.util.EcoreUtil
 import org.eclipse.xtext.generator.IFileSystemAccess
 import org.eclipse.xtext.generator.IGenerator
 import org.eclipse.xtext.naming.IQualifiedNameProvider
-import org.eclipse.xtext.scoping.IGlobalScopeProvider
 import org.osate.aadl2.ComponentClassifier
 import org.osate.aadl2.ComponentImplementation
 import org.osate.aadl2.ComponentType
-import org.osate.alisa.common.scoping.CommonGlobalScopeProvider
 import org.osate.alisa.workbench.alisa.AlisaWorkArea
 import org.osate.alisa.workbench.alisa.AssurancePlan
 import org.osate.alisa.workbench.alisa.AssuranceTask
 import org.osate.categories.categories.RequirementCategory
 import org.osate.categories.categories.SelectionCategory
 import org.osate.categories.categories.VerificationCategory
+import org.osate.verify.util.IVerifyReferenceFinder
 import org.osate.verify.verify.AllExpr
 import org.osate.verify.verify.ArgumentExpr
 import org.osate.verify.verify.Claim
@@ -32,15 +30,12 @@ import org.osate.verify.verify.RefExpr
 import org.osate.verify.verify.ThenExpr
 import org.osate.verify.verify.VerificationActivity
 import org.osate.verify.verify.VerificationCondition
-import org.osate.verify.verify.VerificationPlan
 import org.osate.verify.verify.VerificationPrecondition
 import org.osate.verify.verify.VerificationValidation
-import org.osate.verify.verify.VerifyPackage
 import org.osate.verify.verify.WhenExpr
 
 import static extension org.eclipse.emf.ecore.util.EcoreUtil.*
 import static extension org.osate.alisa.common.util.CommonUtilExtension.*
-import org.osate.alisa.workbench.util.IAlisaReferenceFinder
 
 /**
  * Generates code from your model files on save.
@@ -80,7 +75,7 @@ class AlisaGenerator implements IGenerator {
 		cc.generate(acp,true)
 	}
 
-@Inject extension IAlisaReferenceFinder referenceFinder
+@Inject extension IVerifyReferenceFinder referenceFinder
 
 
 	def CharSequence generate(ComponentClassifier cc, AssurancePlan acp, boolean systemEvidence) {
