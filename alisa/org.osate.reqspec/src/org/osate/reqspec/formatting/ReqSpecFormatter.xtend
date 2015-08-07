@@ -36,12 +36,20 @@ class ReqSpecFormatter extends AbstractDeclarativeFormatter {
 		c.setLinewrap(1,2,2).after(stakeholderGoalsRule);
 		c.setLinewrap(1,2,2).after(reqDocumentRule);
 		c.setLinewrap(1,2,2).after(systemRequirementsRule);
-//		c.setLinewrap().before(reqSpecFolderRule);
-		for (kw : findKeywords("goal","requirement","requirements","folder","section",'constants')) {
-			c.setLinewrap().before(kw);
-		}
-		for (kw : findKeywords("description","assert","rationale",
-		"refines","conflicts","mitigates","stakeholder","see")) {
+		c.setLinewrap(1,2,2).before(requirementRule);
+		c.setLinewrap(1,2,2).before(docRequirementRule);
+		c.setLinewrap(1,2,2).before(documentSectionRule);
+		c.setLinewrap(1,2,2).before(goalRule);
+		c.setLinewrap(1,2,2).before(docGoalRule);
+		c.setLinewrap(1,2,2).before(informalPredicateRule);
+		c.setLinewrap(1,2,2).before(valuePredicateRule);
+		c.setLinewrap(1,2,2).before(XPredicateRule);
+		c.setLinewrap(1,2,2).before(uncertaintyRule);
+		c.setLinewrap(1,2,2).before(rationaleRule);
+		
+		c.setLinewrap(1,2,2).after(systemRequirementsRule);
+		for (kw : findKeywords("val", "compute","description","category","rationale",
+		"refines","conflicts","decomposes","mitigates","evolves","stakeholder","see","issues")) {
 			c.setLinewrap().before(kw);
 		}
 	}
