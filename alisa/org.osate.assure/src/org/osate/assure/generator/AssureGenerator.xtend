@@ -4,8 +4,8 @@
 package org.osate.assure.generator
 
 import org.eclipse.emf.ecore.resource.Resource
-import org.eclipse.xtext.generator.IGenerator
 import org.eclipse.xtext.generator.IFileSystemAccess
+import org.eclipse.xtext.generator.IGenerator
 
 /**
  * Generates code from your model files on save.
@@ -21,4 +21,6 @@ class AssureGenerator implements IGenerator {
 //				.map[name]
 //				.join(', '))
 	}
+	
+	
 }
