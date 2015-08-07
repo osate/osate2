@@ -33,7 +33,7 @@ public class ExecuteAssurancePlanHandler extends EditorObjectHandler {
 	@Override
 	protected IStatus runJob(EObject sel, IProgressMonitor monitor) {
 		AssurancePlan plan = AlisaWorkbenchUtilExtension.getEnclosingAssurancePlan(sel);
-		if (plan != null)
+		if (plan == null)
 			return Status.CANCEL_STATUS;
 		Resource res = plan.eResource();
 		res.setModified(true);
@@ -52,15 +52,15 @@ public class ExecuteAssurancePlanHandler extends EditorObjectHandler {
 		recomputeAllCounts(ae);
 		VerifyUtilExtension.clearAllHasRunRecords();
 		clearAllInstanceModels();
-//		try {
+		try {
 //			assureProcessor.process(ae);
-//		} catch (Exception e) {
-//			if (e instanceof java.lang.NoSuchMethodException) {
-//
-//				return Status.CANCEL_STATUS;
-//			}
-//			e.printStackTrace();
-//		}
+		} catch (Exception e) {
+			if (e instanceof java.lang.NoSuchMethodException) {
+
+				return Status.CANCEL_STATUS;
+			}
+			e.printStackTrace();
+		}
 		long stop = System.currentTimeMillis();
 		System.out.println("Evaluation time: " + (stop - start) / 1000.0 + "s");
 

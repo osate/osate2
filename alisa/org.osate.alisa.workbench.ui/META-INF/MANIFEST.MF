@@ -26,7 +26,7 @@ Require-Bundle: org.osate.alisa.workbench;visibility:=reexport,
  org.eclipse.xtext.common.types.ui,
  org.eclipse.jdt.debug.ui,
  org.osate.alisa.common.ui;bundle-version="1.0.0",
- org.osate.verify;bundle-version="1.0.0"
+ org.osate.verify
 Import-Package: org.apache.commons.lang,
  org.apache.log4j
 Bundle-RequiredExecutionEnvironment: JavaSE-1.7
