@@ -34,10 +34,9 @@ class AlisaFormatter extends AbstractDeclarativeFormatter {
 			c.setIndentationDecrement().before(pair.second);
 			c.setLinewrap().before(pair.second);
 		}
-		c.setLinewrap().after(assurancePlanRule);
-		c.setLinewrap().after(assuranceTaskRule);
-		c.setLinewrap().after(alisaWorkAreaRule);
-		for (kw : findKeywords("constants", "description")) {
+		c.setLinewrap(1,2,2).after(assurancePlanRule);
+		c.setLinewrap(1,2,2).after(assuranceTaskRule);
+		for (kw : findKeywords("assure", "description", "assume","issues","filter","claims")) {
 			c.setLinewrap().before(kw);
 		}
 	}
