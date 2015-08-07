@@ -55,21 +55,14 @@ public class ToolHandler {
 		activeTool = null;
 	}
 	
-	public void setSelectedPictogramElements(final PictogramElement[] pes) {
+	public void setSelectedPictogramElements(final PictogramElement[] pes, final Object object) {
 		// Update the context
 		context.set(ToolConstants.SELECTED_PICTOGRAM_ELEMENTS, pes);
-		
+		context.set(ToolConstants.SELECTED_FLOW, object);
 		// Notify the active tool
 		if(activeTool != null) {
 			ContextInjectionFactory.invoke(activeTool, SelectionChanged.class, context);
+			ContextInjectionFactory.invoke(activeTool, SelectionChanged.class, context);
 		}
 	}
-
-	public void setSelectedFlow(final Object object) {
-		context.set(ToolConstants.SELECTED_FLOW, object);
-		if (activeTool != null) {
-			ContextInjectionFactory.invoke(activeTool, SelectedFlow.class, context);
-		}
-	}
-	
 }

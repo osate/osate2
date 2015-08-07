@@ -43,9 +43,7 @@ public class CreateEndToEndFlowTool {
 	
 	private ColoringService.Coloring coloring = null;
 	private CreateFlowsToolsDialog createEndToEndFlowDialog;
-	ComponentImplementation ci;
-	UiService uiService;
-	List<PictogramElement> peList = new ArrayList<PictogramElement>();
+	private ComponentImplementation ci;
 	boolean canActivate = true;
 	final List<PictogramElement> previouslySelelectedPes = new ArrayList<PictogramElement>();
 
@@ -67,15 +65,13 @@ public class CreateEndToEndFlowTool {
 			final BusinessObjectResolutionService bor,
 			final ConnectionService connectionService,
 			final ShapeService shapeService, final IFeatureProvider fp, final NamingService namingService) {
-		// Create a coloring object that will allow adjustment of pictogram
-		// colors
-		coloring = highlightingService.adjustColors();
-		AgeDiagramEditor editor = (AgeDiagramEditor)fp.getDiagramTypeProvider().getDiagramBehavior().getDiagramContainer();
-		// TODO: Create a tool window similiar to the one used in
+		final AgeDiagramEditor editor = (AgeDiagramEditor)fp.getDiagramTypeProvider().getDiagramBehavior().getDiagramContainer();
 		editor.getActionRegistry().getAction(CreateEndToEndFlowTool.ID).setEnabled(false);
-		this.uiService = uiService;
-		createEndToEndFlowDialog = new CreateFlowsToolsDialog(Display.getCurrent()
-				.getActiveShell(), bor, connectionService, shapeService, namingService, ID);
+		// Create a coloring object that will allow adjustment of pictogram
+		coloring = highlightingService.adjustColors();
+		ci = (ComponentImplementation) bor.getBusinessObjectForPictogramElement(fp.getDiagramTypeProvider().getDiagram());
+		
+		createEndToEndFlowDialog = new CreateFlowsToolsDialog(Display.getCurrent().getActiveShell(), bor, connectionService, shapeService, namingService, ID);
 		canActivate = false;
 		if (createEndToEndFlowDialog.open() == Dialog.CANCEL) {
 			uiService.deactivateActiveTool();
@@ -83,8 +79,6 @@ public class CreateEndToEndFlowTool {
 			canActivate = true;
 			return;
 		}
-
-		
 		
 		aadlModService.modify(ci,
 				new AbstractModifier<ComponentImplementation, Object>() {
@@ -138,15 +132,10 @@ public class CreateEndToEndFlowTool {
 		dtp.getDiagramBehavior().refresh();
 	}
 	
-	Object eTEFlowSelected = null;
-	PictogramElement previousPe = null;
 	@SelectionChanged
-	public void onSelectionChanged(
-			@Named(ToolConstants.SELECTED_PICTOGRAM_ELEMENTS) final PictogramElement[] selectedPes,
-			final BusinessObjectResolutionService bor,
-			final IDiagramTypeProvider dtp, AadlModificationService aadlModService, final ShapeService shapeService, final ConnectionService connectionService) {
-		if (bor.getBusinessObjectForPictogramElement(dtp.getDiagram()) instanceof ComponentImplementation) {
-		ci = (ComponentImplementation) bor.getBusinessObjectForPictogramElement(dtp.getDiagram());
+	public void onSelectionChanged(@Named(ToolConstants.SELECTED_PICTOGRAM_ELEMENTS) final PictogramElement[] selectedPes,
+			@Named(ToolConstants.SELECTED_FLOW) final Object selectedEndToEndFlow,
+			final BusinessObjectResolutionService bor,final IDiagramTypeProvider dtp, final ShapeService shapeService) {
 		// Highlight all selected shapes
 		final TransactionalEditingDomain editingDomain = dtp.getDiagramBehavior().getEditingDomain();
 		editingDomain.getCommandStack().execute(new NonUndoableToolCommand() {
@@ -157,7 +146,7 @@ public class CreateEndToEndFlowTool {
 						pe = dtp.getFeatureProvider().getPictogramElementForBusinessObject(shapeService.getClosestBusinessObjectOfType((ConnectionDecorator)pe, Object.class));
 					}
 					if (canHighlightPictogramElement(pe, previouslySelelectedPes)) {
-						if (createEndToEndFlowDialog.setTargetPictogramElements(pe, bor.getBusinessObjectForPictogramElement(pe), ci.getType(), eTEFlowSelected)) {
+						if (createEndToEndFlowDialog.setTargetPictogramElements(pe, bor.getBusinessObjectForPictogramElement(pe), ci.getType(), selectedEndToEndFlow)) {
 							coloring.setForeground(pe, IColorConstant.RED);
 							previouslySelelectedPes.add(pe);
 						}
@@ -170,24 +159,14 @@ public class CreateEndToEndFlowTool {
 				}
 			}
 		});
-		eTEFlowSelected = null;
-		}
 	}
 	
-	private boolean canHighlightPictogramElement(PictogramElement pe, List<PictogramElement> previouslySelelectedPes) {
-		
-		for (PictogramElement previouslySelectedPe : previouslySelelectedPes) {
+	private boolean canHighlightPictogramElement(final PictogramElement pe, final List<PictogramElement> previouslySelelectedPes) {
+		for (final PictogramElement previouslySelectedPe : previouslySelelectedPes) {
 			if (pe == previouslySelectedPe) {
 				return false;
 			}
 		}
 		return true;
 	}
-	
-	@SelectedFlow
-	public void setSelectedFlow(@Named(ToolConstants.SELECTED_FLOW) Object object) {
-		eTEFlowSelected = object;
-	}
-
-	
 }

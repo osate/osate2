@@ -188,9 +188,10 @@ public class FlowContributionItem extends ComboContributionItem implements Compo
 				if (!editor.getActionRegistry().getAction(CreateEndToEndFlowTool.ID).isEnabled()) {
 					if (editor.getActionRegistry().getAction(CreateEndToEndFlowTool.ID) instanceof ActivateToolAction) {
 						ActivateToolAction ata = (ActivateToolAction)editor.getActionRegistry().getAction(CreateEndToEndFlowTool.ID);
+						Object endToEndObject = null;
 						for (EndToEndFlow ete : ci.getAllEndToEndFlows()) {
 							if (ete.getName().equals(transformedTxt)) {
-								ata.getToolHandler().setSelectedFlow(ete);
+								endToEndObject = ete;
 								for (final EndToEndFlowSegment eteseg : ete.getAllFlowSegments()) {
 									selectPictogramElements.add(editor.getDiagramTypeProvider().getFeatureProvider().getPictogramElementForBusinessObject(eteseg.getFlowElement()));
 								}
@@ -202,7 +203,8 @@ public class FlowContributionItem extends ComboContributionItem implements Compo
 				
 						if (selectPictogramElements.size() > 0) {
 							PictogramElement[] selectedPesToArray = selectPictogramElements.toArray(new PictogramElement[selectPictogramElements.size()-1]);
-							editor.getDiagramBehavior().getDiagramContainer().selectPictogramElements(selectedPesToArray);
+							//editor.getDiagramBehavior().getDiagramContainer().selectPictogramElements(selectedPesToArray);
+							ata.getToolHandler().setSelectedPictogramElements(selectedPesToArray, endToEndObject);
 						}
 					}
 				}
