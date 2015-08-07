@@ -67,7 +67,7 @@ public class CreateFlowImplementationTool {
 
 		this.uiService = uiService;
 		createFlowImplementationDialog = new CreateFlowsToolsDialog(Display.getCurrent()
-				.getActiveShell(), bor, connectionService, shapeService, fp, namingService, ID);
+				.getActiveShell(), bor, connectionService, shapeService, namingService, ID);
 		//eTEDialog.open();
 		if (createFlowImplementationDialog.open() == Dialog.CANCEL) {
 			uiService.deactivateActiveTool();
@@ -138,8 +138,8 @@ public class CreateFlowImplementationTool {
 				}*/
 				
 				
-				if (selectedPes.length > 0) {
-					if (createFlowImplementationDialog.setTargetPictogramElements(selectedPes[selectedPes.length-1])) {
+				/*if (selectedPes.length > 0) {
+					if (createFlowImplementationDialog.setTargetPictogramElements(selectedPes[selectedPes.length-1], null)) {
 						coloring.setForeground(selectedPes[selectedPes.length-1], IColorConstant.RED);
 						
 					}
@@ -147,7 +147,7 @@ public class CreateFlowImplementationTool {
 						coloring.setForeground(createFlowImplementationDialog.getDeletedPictogramElement(), IColorConstant.BLACK);
 						createFlowImplementationDialog.setDeletedPictogramElement();
 					}
-				}
+				}*/
 			}
 		});
 

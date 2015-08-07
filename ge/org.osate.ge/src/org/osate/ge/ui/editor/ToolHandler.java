@@ -9,6 +9,7 @@ import org.osate.ge.ui.tools.ToolConstants;
 import org.osate.ge.ui.tools.annotations.Activate;
 import org.osate.ge.ui.tools.annotations.CanActivate;
 import org.osate.ge.ui.tools.annotations.Deactivate;
+import org.osate.ge.ui.tools.annotations.SelectedFlow;
 import org.osate.ge.ui.tools.annotations.SelectionChanged;
 
 /**
@@ -63,4 +64,12 @@ public class ToolHandler {
 			ContextInjectionFactory.invoke(activeTool, SelectionChanged.class, context);
 		}
 	}
+
+	public void setSelectedFlow(final Object object) {
+		context.set(ToolConstants.SELECTED_FLOW, object);
+		if (activeTool != null) {
+			ContextInjectionFactory.invoke(activeTool, SelectedFlow.class, context);
+		}
+	}
+	
 }
