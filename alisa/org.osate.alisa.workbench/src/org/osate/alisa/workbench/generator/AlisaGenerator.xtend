@@ -40,6 +40,7 @@ import org.osate.verify.verify.WhenExpr
 
 import static extension org.eclipse.emf.ecore.util.EcoreUtil.*
 import static extension org.osate.alisa.common.util.CommonUtilExtension.*
+import org.osate.alisa.workbench.util.IAlisaReferenceFinder
 
 /**
  * Generates code from your model files on save.
@@ -78,6 +79,8 @@ class AlisaGenerator implements IGenerator {
 	def generateSystemEvidence(ComponentClassifier cc, AssurancePlan acp) {
 		cc.generate(acp,true)
 	}
+
+@Inject extension IAlisaReferenceFinder referenceFinder
 
 
 	def CharSequence generate(ComponentClassifier cc, AssurancePlan acp, boolean systemEvidence) {
@@ -267,15 +270,5 @@ class AlisaGenerator implements IGenerator {
 		}
 	}
 	
-			
-	@Inject
-	var IGlobalScopeProvider scopeProvider
-
-		def Iterable<VerificationPlan> getVerificationPlans(ComponentClassifier cc){
-			val x = (scopeProvider as CommonGlobalScopeProvider).getGlobalEObjectDescriptions(cc,VerifyPackage.eINSTANCE.verificationPlan,null)
-			val y = x.map[ied|EcoreUtil.resolve(ied.EObjectOrProxy, cc) as VerificationPlan]
-			val z = y.filter [  vp | cc.isSameorExtends(vp.systemRequirements?.target)]
-			return z
-	}
 
 }
