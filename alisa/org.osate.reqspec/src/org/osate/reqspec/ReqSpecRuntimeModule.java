@@ -44,8 +44,4 @@ public class ReqSpecRuntimeModule extends org.osate.reqspec.AbstractReqSpecRunti
 		return ReqSpecCrossReferenceSerializer.class;
 	}
 
-	public Class<? extends org.osate.reqspec.util.IReqSpecReferenceFinder> bindIReqSpecReferenceFinder() {
-		return org.osate.reqspec.util.ReqSpecReferenceFinder.class;
-	}
-
 }
