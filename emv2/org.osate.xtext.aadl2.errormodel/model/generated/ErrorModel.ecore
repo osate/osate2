@@ -241,11 +241,11 @@
         eType="#//ConditionElement" containment="true"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="ConditionElement" eSuperTypes="platform:/resource/org.osate.aadl2/model/aadl2.ecore#//Element #//ConditionExpression">
-    <eStructuralFeatures xsi:type="ecore:EReference" name="subcomponents" upperBound="-1"
-        eType="#//SubcomponentElement" containment="true"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="incoming" eType="#//EventOrPropagation"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="constraint" eType="#//TypeSet"
         containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="subcomponents" upperBound="-1"
+        eType="#//SubcomponentElement" containment="true"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="state" eType="#//ErrorBehaviorState"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="EventOrPropagation" eSuperTypes="platform:/resource/org.osate.aadl2/model/aadl2.ecore#//NamedElement"/>

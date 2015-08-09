@@ -90,7 +90,6 @@ public abstract class AbstractErrorModelSyntacticSequencer extends AbstractSynta
 	 * This ambiguous syntax occurs at:
 	 *     (rule start) (ambiguity) count=INTVALUE
 	 *     (rule start) (ambiguity) incoming=[EventOrPropagation|ErrorPropagationPoint]
-	 *     (rule start) (ambiguity) subcomponents+=SubcomponentElement
 	 *     (rule start) (ambiguity) {AndExpression.operands+=}
 	 *     (rule start) (ambiguity) {OrExpression.operands+=}
 	 */

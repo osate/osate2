@@ -290,17 +290,7 @@ public class EMLinkingService extends PropertiesLinkingService {
 			searchResult = EMV2Util.findErrorBehaviorState((Element) context, name);
 
 		} else if (ErrorModelPackage.eINSTANCE.getEventOrPropagation() == requiredType) {
-			EList<SubcomponentElement> subs = ((ConditionElement) context).getSubcomponents();
-			if (!subs.isEmpty()) {
-				SubcomponentElement last = subs.get(subs.size() - 1);
-				Subcomponent sub = last.getSubcomponent();
-				if (sub != null && !sub.eIsProxy()) {
-					ComponentClassifier cl = sub.getAllClassifier();
-					searchResult = EMV2Util.findOutgoingErrorPropagation(cl, name);
-				}
-			} else {
-				searchResult = EMV2Util.findErrorPropagation(cxt, name, DirectionType.IN);
-			}
+			searchResult = EMV2Util.findSubcomponentOrIncomingErrorProparation(cxt, name);
 			if (searchResult == null) {
 				if ((EMV2Util.getConditionExpressionContext((ConditionExpression) context) instanceof ErrorDetection || EMV2Util
 						.getConditionExpressionContext((ConditionExpression) context) instanceof ErrorBehaviorTransition)) {
