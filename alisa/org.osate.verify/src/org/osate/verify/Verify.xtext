@@ -30,7 +30,7 @@ Claim:
 	'['
 	(
 		('activities' activities += VerificationActivity+)
-		&('assert' assert=ArgumentExpr)
+		&('assert' assert=ArgumentExpr)?
 	& rationale=Rationale?
 	& subclaim+=Claim*
 	& ('issues' issues+=STRING+ )?

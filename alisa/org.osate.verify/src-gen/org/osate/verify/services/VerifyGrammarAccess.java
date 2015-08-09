@@ -198,13 +198,13 @@ public class VerifyGrammarAccess extends AbstractGrammarElementFinder {
 		
 		//Claim:
 		//	"claim" requirement=[ReqSpec::Requirement|QualifiedName] (":" title=STRING)? ("(" weight=Number ")")? "["
-		//	("activities" activities+=VerificationActivity+ & "assert" assert=ArgumentExpr & rationale=Rationale? &
+		//	("activities" activities+=VerificationActivity+ & ("assert" assert=ArgumentExpr)? & rationale=Rationale? &
 		//	subclaim+=Claim* & ("issues" issues+=STRING+)?) "]";
 		@Override public ParserRule getRule() { return rule; }
 
 		//"claim" requirement=[ReqSpec::Requirement|QualifiedName] (":" title=STRING)? ("(" weight=Number ")")? "[" ("activities"
-		//activities+=VerificationActivity+ & "assert" assert=ArgumentExpr & rationale=Rationale? & subclaim+=Claim* & ("issues"
-		//issues+=STRING+)?) "]"
+		//activities+=VerificationActivity+ & ("assert" assert=ArgumentExpr)? & rationale=Rationale? & subclaim+=Claim* &
+		//("issues" issues+=STRING+)?) "]"
 		public Group getGroup() { return cGroup; }
 
 		//"claim"
@@ -249,8 +249,8 @@ public class VerifyGrammarAccess extends AbstractGrammarElementFinder {
 		//"["
 		public Keyword getLeftSquareBracketKeyword_4() { return cLeftSquareBracketKeyword_4; }
 
-		//"activities" activities+=VerificationActivity+ & "assert" assert=ArgumentExpr & rationale=Rationale? & subclaim+=Claim*
-		//& ("issues" issues+=STRING+)?
+		//"activities" activities+=VerificationActivity+ & ("assert" assert=ArgumentExpr)? & rationale=Rationale? &
+		//subclaim+=Claim* & ("issues" issues+=STRING+)?
 		public UnorderedGroup getUnorderedGroup_5() { return cUnorderedGroup_5; }
 
 		//"activities" activities+=VerificationActivity+
@@ -265,7 +265,7 @@ public class VerifyGrammarAccess extends AbstractGrammarElementFinder {
 		//VerificationActivity
 		public RuleCall getActivitiesVerificationActivityParserRuleCall_5_0_1_0() { return cActivitiesVerificationActivityParserRuleCall_5_0_1_0; }
 
-		//"assert" assert=ArgumentExpr
+		//("assert" assert=ArgumentExpr)?
 		public Group getGroup_5_1() { return cGroup_5_1; }
 
 		//"assert"
@@ -1538,7 +1538,7 @@ public class VerifyGrammarAccess extends AbstractGrammarElementFinder {
 
 	//Claim:
 	//	"claim" requirement=[ReqSpec::Requirement|QualifiedName] (":" title=STRING)? ("(" weight=Number ")")? "["
-	//	("activities" activities+=VerificationActivity+ & "assert" assert=ArgumentExpr & rationale=Rationale? &
+	//	("activities" activities+=VerificationActivity+ & ("assert" assert=ArgumentExpr)? & rationale=Rationale? &
 	//	subclaim+=Claim* & ("issues" issues+=STRING+)?) "]";
 	public ClaimElements getClaimAccess() {
 		return pClaim;
