@@ -130,9 +130,9 @@ public class AutoUnindentEditStrategy extends AbstractTerminalsEditStrategy {
 	}
 
 	private boolean checkForExistingEnd(String endWord, boolean hasExtends, String docText, String elementId,
-			NamedElement namedElement, String keyword, String[] tokens) {
+			NamedElement namedElement, String keyword, String[] tokens, int lineOffset) {
 
-		boolean retVal = false;
+		docText = docText.substring(lineOffset);
 		String endName = " " + endWord + " ";
 		if (hasExtends) {
 			endName = endName + elementId;
@@ -147,10 +147,21 @@ public class AutoUnindentEditStrategy extends AbstractTerminalsEditStrategy {
 		}
 		docText = docText.replaceAll("--.*?" + System.lineSeparator(), System.lineSeparator());
 		docText = docText.toLowerCase().replaceAll("\\s+", " ");
-		if (docText.toLowerCase().indexOf(endName.toLowerCase()) > -1) {
+		int possibleEndIndex = docText.toLowerCase().indexOf(endName.toLowerCase());
+
+		if (possibleEndIndex > -1) {
+			int possibleEndEnd = possibleEndIndex + endName.length();
+			for (int i = 0; possibleEndEnd + i < docText.length(); i++) {
+				String possibleEnd = docText.toLowerCase().substring(possibleEndIndex, possibleEndEnd + i);
+				if (possibleEnd.endsWith(";") || Character.isWhitespace(possibleEnd.charAt(possibleEnd.length() - 1))) {
+					return true;
+				} else if (!possibleEnd.equals(endName)) {
+					return false;
+				}
+			}
 			return true;
 		}
-		return retVal;
+		return false;
 	}
 
 	@Override
@@ -202,7 +213,8 @@ public class AutoUnindentEditStrategy extends AbstractTerminalsEditStrategy {
 
 		if (namedElement == null && keyword.equals("") && !hasExtends) {
 			return;
-		} else if (checkForExistingEnd(endWord, hasExtends, document.get(), elementId, namedElement, keyword, tokens)) {
+		} else if (checkForExistingEnd(endWord, hasExtends, document.get(), elementId, namedElement, keyword, tokens,
+				firstOffsetOfLine)) {
 			return;
 		}
 
