@@ -198,13 +198,13 @@ public class VerifyGrammarAccess extends AbstractGrammarElementFinder {
 		
 		//Claim:
 		//	"claim" requirement=[ReqSpec::Requirement|QualifiedName] (":" title=STRING)? ("(" weight=Number ")")? "["
-		//	("activities" activities+=VerificationActivity+ & "assert" assert=ArgumentExpr & rationale=Rationale? &
+		//	("activities" activities+=VerificationActivity+ & ("assert" assert=ArgumentExpr)? & rationale=Rationale? &
 		//	subclaim+=Claim* & ("issues" issues+=STRING+)?) "]";
 		@Override public ParserRule getRule() { return rule; }
 
 		//"claim" requirement=[ReqSpec::Requirement|QualifiedName] (":" title=STRING)? ("(" weight=Number ")")? "[" ("activities"
-		//activities+=VerificationActivity+ & "assert" assert=ArgumentExpr & rationale=Rationale? & subclaim+=Claim* & ("issues"
-		//issues+=STRING+)?) "]"
+		//activities+=VerificationActivity+ & ("assert" assert=ArgumentExpr)? & rationale=Rationale? & subclaim+=Claim* &
+		//("issues" issues+=STRING+)?) "]"
 		public Group getGroup() { return cGroup; }
 
 		//"claim"
@@ -249,8 +249,8 @@ public class VerifyGrammarAccess extends AbstractGrammarElementFinder {
 		//"["
 		public Keyword getLeftSquareBracketKeyword_4() { return cLeftSquareBracketKeyword_4; }
 
-		//"activities" activities+=VerificationActivity+ & "assert" assert=ArgumentExpr & rationale=Rationale? & subclaim+=Claim*
-		//& ("issues" issues+=STRING+)?
+		//"activities" activities+=VerificationActivity+ & ("assert" assert=ArgumentExpr)? & rationale=Rationale? &
+		//subclaim+=Claim* & ("issues" issues+=STRING+)?
 		public UnorderedGroup getUnorderedGroup_5() { return cUnorderedGroup_5; }
 
 		//"activities" activities+=VerificationActivity+
@@ -265,7 +265,7 @@ public class VerifyGrammarAccess extends AbstractGrammarElementFinder {
 		//VerificationActivity
 		public RuleCall getActivitiesVerificationActivityParserRuleCall_5_0_1_0() { return cActivitiesVerificationActivityParserRuleCall_5_0_1_0; }
 
-		//"assert" assert=ArgumentExpr
+		//("assert" assert=ArgumentExpr)?
 		public Group getGroup_5_1() { return cGroup_5_1; }
 
 		//"assert"
@@ -346,21 +346,28 @@ public class VerifyGrammarAccess extends AbstractGrammarElementFinder {
 		private final RuleCall cParametersXExpressionIDTerminalRuleCall_4_3_1_1_0_1 = (RuleCall)cParametersXExpressionCrossReference_4_3_1_1_0.eContents().get(1);
 		private final Keyword cRightParenthesisKeyword_4_4 = (Keyword)cGroup_4.eContents().get(4);
 		private final Group cGroup_4_5 = (Group)cGroup_4.eContents().get(5);
-		private final Keyword cTimeoutKeyword_4_5_0 = (Keyword)cGroup_4_5.eContents().get(0);
-		private final Assignment cTimeoutAssignment_4_5_1 = (Assignment)cGroup_4_5.eContents().get(1);
-		private final RuleCall cTimeoutINTTerminalRuleCall_4_5_1_0 = (RuleCall)cTimeoutAssignment_4_5_1.eContents().get(0);
+		private final Keyword cWhenKeyword_4_5_0 = (Keyword)cGroup_4_5.eContents().get(0);
+		private final Assignment cConditionAssignment_4_5_1 = (Assignment)cGroup_4_5.eContents().get(1);
+		private final CrossReference cConditionSelectionCategoryCrossReference_4_5_1_0 = (CrossReference)cConditionAssignment_4_5_1.eContents().get(0);
+		private final RuleCall cConditionSelectionCategoryIDTerminalRuleCall_4_5_1_0_1 = (RuleCall)cConditionSelectionCategoryCrossReference_4_5_1_0.eContents().get(1);
+		private final Group cGroup_4_6 = (Group)cGroup_4.eContents().get(6);
+		private final Keyword cTimeoutKeyword_4_6_0 = (Keyword)cGroup_4_6.eContents().get(0);
+		private final Assignment cTimeoutAssignment_4_6_1 = (Assignment)cGroup_4_6.eContents().get(1);
+		private final RuleCall cTimeoutINTTerminalRuleCall_4_6_1_0 = (RuleCall)cTimeoutAssignment_4_6_1.eContents().get(0);
 		
 		//VerificationActivity:
 		//	name=ID (":" title=STRING)? ("for" target=[aadl2::ComponentImplementation|AADLCLASSIFIERREFERENCE])? // for specific AADL model configuration
 		//	":" ((result+=[common::ComputeDeclaration] ("," result+=[common::ComputeDeclaration])* "=")?
 		//	method=[VerificationMethod|QualifiedName] "(" (parameters+=[xbase::XExpression] (","
-		//	parameters+=[xbase::XExpression])*)? ")" ("timeout" timeout=INT)?);
+		//	parameters+=[xbase::XExpression])*)? ")" ("when" condition+=[categories::SelectionCategory]+)? ("timeout"
+		//	timeout=INT)?);
 		@Override public ParserRule getRule() { return rule; }
 
 		//name=ID (":" title=STRING)? ("for" target=[aadl2::ComponentImplementation|AADLCLASSIFIERREFERENCE])? // for specific AADL model configuration
 		//":" ((result+=[common::ComputeDeclaration] ("," result+=[common::ComputeDeclaration])* "=")?
 		//method=[VerificationMethod|QualifiedName] "(" (parameters+=[xbase::XExpression] (","
-		//parameters+=[xbase::XExpression])*)? ")" ("timeout" timeout=INT)?)
+		//parameters+=[xbase::XExpression])*)? ")" ("when" condition+=[categories::SelectionCategory]+)? ("timeout"
+		//timeout=INT)?)
 		public Group getGroup() { return cGroup; }
 
 		//name=ID
@@ -401,7 +408,8 @@ public class VerifyGrammarAccess extends AbstractGrammarElementFinder {
 
 		//(result+=[common::ComputeDeclaration] ("," result+=[common::ComputeDeclaration])* "=")?
 		//method=[VerificationMethod|QualifiedName] "(" (parameters+=[xbase::XExpression] (","
-		//parameters+=[xbase::XExpression])*)? ")" ("timeout" timeout=INT)?
+		//parameters+=[xbase::XExpression])*)? ")" ("when" condition+=[categories::SelectionCategory]+)? ("timeout"
+		//timeout=INT)?
 		public Group getGroup_4() { return cGroup_4; }
 
 		//(result+=[common::ComputeDeclaration] ("," result+=[common::ComputeDeclaration])* "=")?
@@ -476,17 +484,32 @@ public class VerifyGrammarAccess extends AbstractGrammarElementFinder {
 		//")"
 		public Keyword getRightParenthesisKeyword_4_4() { return cRightParenthesisKeyword_4_4; }
 
-		//("timeout" timeout=INT)?
+		//("when" condition+=[categories::SelectionCategory]+)?
 		public Group getGroup_4_5() { return cGroup_4_5; }
 
+		//"when"
+		public Keyword getWhenKeyword_4_5_0() { return cWhenKeyword_4_5_0; }
+
+		//condition+=[categories::SelectionCategory]+
+		public Assignment getConditionAssignment_4_5_1() { return cConditionAssignment_4_5_1; }
+
+		//[categories::SelectionCategory]
+		public CrossReference getConditionSelectionCategoryCrossReference_4_5_1_0() { return cConditionSelectionCategoryCrossReference_4_5_1_0; }
+
+		//ID
+		public RuleCall getConditionSelectionCategoryIDTerminalRuleCall_4_5_1_0_1() { return cConditionSelectionCategoryIDTerminalRuleCall_4_5_1_0_1; }
+
+		//("timeout" timeout=INT)?
+		public Group getGroup_4_6() { return cGroup_4_6; }
+
 		//"timeout"
-		public Keyword getTimeoutKeyword_4_5_0() { return cTimeoutKeyword_4_5_0; }
+		public Keyword getTimeoutKeyword_4_6_0() { return cTimeoutKeyword_4_6_0; }
 
 		//timeout=INT
-		public Assignment getTimeoutAssignment_4_5_1() { return cTimeoutAssignment_4_5_1; }
+		public Assignment getTimeoutAssignment_4_6_1() { return cTimeoutAssignment_4_6_1; }
 
 		//INT
-		public RuleCall getTimeoutINTTerminalRuleCall_4_5_1_0() { return cTimeoutINTTerminalRuleCall_4_5_1_0; }
+		public RuleCall getTimeoutINTTerminalRuleCall_4_6_1_0() { return cTimeoutINTTerminalRuleCall_4_6_1_0; }
 	}
 
 	public class ArgumentExprElements extends AbstractParserRuleElementFinder {
@@ -570,7 +593,7 @@ public class VerifyGrammarAccess extends AbstractGrammarElementFinder {
 	public class SingleElseEvidenceExprElements extends AbstractParserRuleElementFinder {
 		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "SingleElseEvidenceExpr");
 		private final Group cGroup = (Group)rule.eContents().get(1);
-		private final RuleCall cSingleEvidenceExprParserRuleCall_0 = (RuleCall)cGroup.eContents().get(0);
+		private final RuleCall cVAReferenceParserRuleCall_0 = (RuleCall)cGroup.eContents().get(0);
 		private final Group cGroup_1 = (Group)cGroup.eContents().get(1);
 		private final Group cGroup_1_0 = (Group)cGroup_1.eContents().get(0);
 		private final Group cGroup_1_0_0 = (Group)cGroup_1_0.eContents().get(0);
@@ -599,16 +622,16 @@ public class VerifyGrammarAccess extends AbstractGrammarElementFinder {
 		private final Keyword cRightSquareBracketKeyword_1_1_1_4 = (Keyword)cGroup_1_1_1.eContents().get(4);
 		
 		//SingleElseEvidenceExpr returns ArgumentExpr:
-		//	SingleEvidenceExpr (=> ({ElseExpr.left=current} "else") (other=ElseEvidenceExpr | "[" ("fail" ":"
-		//	fail=ThenEvidenceExpr)? ("timeout" ":" timeout=ThenEvidenceExpr)? ("other" ":" other=ThenEvidenceExpr)? "]"))*;
+		//	VAReference (=> ({ElseExpr.left=current} "else") (other=ElseEvidenceExpr | "[" ("fail" ":" fail=ThenEvidenceExpr)?
+		//	("timeout" ":" timeout=ThenEvidenceExpr)? ("other" ":" other=ThenEvidenceExpr)? "]"))*;
 		@Override public ParserRule getRule() { return rule; }
 
-		//SingleEvidenceExpr (=> ({ElseExpr.left=current} "else") (other=ElseEvidenceExpr | "[" ("fail" ":"
-		//fail=ThenEvidenceExpr)? ("timeout" ":" timeout=ThenEvidenceExpr)? ("other" ":" other=ThenEvidenceExpr)? "]"))*
+		//VAReference (=> ({ElseExpr.left=current} "else") (other=ElseEvidenceExpr | "[" ("fail" ":" fail=ThenEvidenceExpr)?
+		//("timeout" ":" timeout=ThenEvidenceExpr)? ("other" ":" other=ThenEvidenceExpr)? "]"))*
 		public Group getGroup() { return cGroup; }
 
-		//SingleEvidenceExpr
-		public RuleCall getSingleEvidenceExprParserRuleCall_0() { return cSingleEvidenceExprParserRuleCall_0; }
+		//VAReference
+		public RuleCall getVAReferenceParserRuleCall_0() { return cVAReferenceParserRuleCall_0; }
 
 		//(=> ({ElseExpr.left=current} "else") (other=ElseEvidenceExpr | "[" ("fail" ":" fail=ThenEvidenceExpr)? ("timeout" ":"
 		//timeout=ThenEvidenceExpr)? ("other" ":" other=ThenEvidenceExpr)? "]"))*
@@ -820,55 +843,6 @@ public class VerifyGrammarAccess extends AbstractGrammarElementFinder {
 		public RuleCall getQuantifiedEvidenceExprParserRuleCall_1() { return cQuantifiedEvidenceExprParserRuleCall_1; }
 	}
 
-	public class SingleEvidenceExprElements extends AbstractParserRuleElementFinder {
-		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "SingleEvidenceExpr");
-		private final Group cGroup = (Group)rule.eContents().get(1);
-		private final RuleCall cVAReferenceParserRuleCall_0 = (RuleCall)cGroup.eContents().get(0);
-		private final Group cGroup_1 = (Group)cGroup.eContents().get(1);
-		private final Group cGroup_1_0 = (Group)cGroup_1.eContents().get(0);
-		private final Group cGroup_1_0_0 = (Group)cGroup_1_0.eContents().get(0);
-		private final Action cWhenExprVerificationAction_1_0_0_0 = (Action)cGroup_1_0_0.eContents().get(0);
-		private final Keyword cWhenKeyword_1_0_0_1 = (Keyword)cGroup_1_0_0.eContents().get(1);
-		private final Assignment cConditionAssignment_1_1 = (Assignment)cGroup_1.eContents().get(1);
-		private final CrossReference cConditionVerificationCategoryCrossReference_1_1_0 = (CrossReference)cConditionAssignment_1_1.eContents().get(0);
-		private final RuleCall cConditionVerificationCategoryIDTerminalRuleCall_1_1_0_1 = (RuleCall)cConditionVerificationCategoryCrossReference_1_1_0.eContents().get(1);
-		
-		//// should it be a selection category as well
-		//SingleEvidenceExpr returns ArgumentExpr:
-		//	VAReference (=> ({WhenExpr.verification=current} "when") condition+=[categories::VerificationCategory]+)?;
-		@Override public ParserRule getRule() { return rule; }
-
-		//VAReference (=> ({WhenExpr.verification=current} "when") condition+=[categories::VerificationCategory]+)?
-		public Group getGroup() { return cGroup; }
-
-		//VAReference
-		public RuleCall getVAReferenceParserRuleCall_0() { return cVAReferenceParserRuleCall_0; }
-
-		//(=> ({WhenExpr.verification=current} "when") condition+=[categories::VerificationCategory]+)?
-		public Group getGroup_1() { return cGroup_1; }
-
-		//=> ({WhenExpr.verification=current} "when")
-		public Group getGroup_1_0() { return cGroup_1_0; }
-
-		//{WhenExpr.verification=current} "when"
-		public Group getGroup_1_0_0() { return cGroup_1_0_0; }
-
-		//{WhenExpr.verification=current}
-		public Action getWhenExprVerificationAction_1_0_0_0() { return cWhenExprVerificationAction_1_0_0_0; }
-
-		//"when"
-		public Keyword getWhenKeyword_1_0_0_1() { return cWhenKeyword_1_0_0_1; }
-
-		//condition+=[categories::VerificationCategory]+
-		public Assignment getConditionAssignment_1_1() { return cConditionAssignment_1_1; }
-
-		//[categories::VerificationCategory]
-		public CrossReference getConditionVerificationCategoryCrossReference_1_1_0() { return cConditionVerificationCategoryCrossReference_1_1_0; }
-
-		//ID
-		public RuleCall getConditionVerificationCategoryIDTerminalRuleCall_1_1_0_1() { return cConditionVerificationCategoryIDTerminalRuleCall_1_1_0_1; }
-	}
-
 	public class VAReferenceElements extends AbstractParserRuleElementFinder {
 		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "VAReference");
 		private final Group cGroup = (Group)rule.eContents().get(1);
@@ -882,6 +856,8 @@ public class VerifyGrammarAccess extends AbstractGrammarElementFinder {
 		private final RuleCall cWeightINTTerminalRuleCall_2_1_0 = (RuleCall)cWeightAssignment_2_1.eContents().get(0);
 		private final Keyword cRightParenthesisKeyword_2_2 = (Keyword)cGroup_2.eContents().get(2);
 		
+		////SingleEvidenceExpr returns ArgumentExpr:
+		////	VAReference (=> ({WhenExpr.verification=current} 'when') condition+=[categories::VerificationCategory|ID]+)?; // should it be a selection category as well
 		//VAReference returns ArgumentExpr:
 		//	{RefExpr} verification=[VerificationActivity|QualifiedName] ("(" weight=INT ")")?;
 		@Override public ParserRule getRule() { return rule; }
@@ -1451,7 +1427,6 @@ public class VerifyGrammarAccess extends AbstractGrammarElementFinder {
 	private final CompositeElseEvidenceExprElements pCompositeElseEvidenceExpr;
 	private final QuantifiedEvidenceExprElements pQuantifiedEvidenceExpr;
 	private final CompositeEvidenceExprElements pCompositeEvidenceExpr;
-	private final SingleEvidenceExprElements pSingleEvidenceExpr;
 	private final VAReferenceElements pVAReference;
 	private final VerificationMethodRegistryElements pVerificationMethodRegistry;
 	private final VerificationMethodElements pVerificationMethod;
@@ -1478,7 +1453,6 @@ public class VerifyGrammarAccess extends AbstractGrammarElementFinder {
 		this.pCompositeElseEvidenceExpr = new CompositeElseEvidenceExprElements();
 		this.pQuantifiedEvidenceExpr = new QuantifiedEvidenceExprElements();
 		this.pCompositeEvidenceExpr = new CompositeEvidenceExprElements();
-		this.pSingleEvidenceExpr = new SingleEvidenceExprElements();
 		this.pVAReference = new VAReferenceElements();
 		this.pVerificationMethodRegistry = new VerificationMethodRegistryElements();
 		this.pVerificationMethod = new VerificationMethodElements();
@@ -1538,7 +1512,7 @@ public class VerifyGrammarAccess extends AbstractGrammarElementFinder {
 
 	//Claim:
 	//	"claim" requirement=[ReqSpec::Requirement|QualifiedName] (":" title=STRING)? ("(" weight=Number ")")? "["
-	//	("activities" activities+=VerificationActivity+ & "assert" assert=ArgumentExpr & rationale=Rationale? &
+	//	("activities" activities+=VerificationActivity+ & ("assert" assert=ArgumentExpr)? & rationale=Rationale? &
 	//	subclaim+=Claim* & ("issues" issues+=STRING+)?) "]";
 	public ClaimElements getClaimAccess() {
 		return pClaim;
@@ -1552,7 +1526,8 @@ public class VerifyGrammarAccess extends AbstractGrammarElementFinder {
 	//	name=ID (":" title=STRING)? ("for" target=[aadl2::ComponentImplementation|AADLCLASSIFIERREFERENCE])? // for specific AADL model configuration
 	//	":" ((result+=[common::ComputeDeclaration] ("," result+=[common::ComputeDeclaration])* "=")?
 	//	method=[VerificationMethod|QualifiedName] "(" (parameters+=[xbase::XExpression] (","
-	//	parameters+=[xbase::XExpression])*)? ")" ("timeout" timeout=INT)?);
+	//	parameters+=[xbase::XExpression])*)? ")" ("when" condition+=[categories::SelectionCategory]+)? ("timeout"
+	//	timeout=INT)?);
 	public VerificationActivityElements getVerificationActivityAccess() {
 		return pVerificationActivity;
 	}
@@ -1594,8 +1569,8 @@ public class VerifyGrammarAccess extends AbstractGrammarElementFinder {
 	}
 
 	//SingleElseEvidenceExpr returns ArgumentExpr:
-	//	SingleEvidenceExpr (=> ({ElseExpr.left=current} "else") (other=ElseEvidenceExpr | "[" ("fail" ":"
-	//	fail=ThenEvidenceExpr)? ("timeout" ":" timeout=ThenEvidenceExpr)? ("other" ":" other=ThenEvidenceExpr)? "]"))*;
+	//	VAReference (=> ({ElseExpr.left=current} "else") (other=ElseEvidenceExpr | "[" ("fail" ":" fail=ThenEvidenceExpr)?
+	//	("timeout" ":" timeout=ThenEvidenceExpr)? ("other" ":" other=ThenEvidenceExpr)? "]"))*;
 	public SingleElseEvidenceExprElements getSingleElseEvidenceExprAccess() {
 		return pSingleElseEvidenceExpr;
 	}
@@ -1634,17 +1609,8 @@ public class VerifyGrammarAccess extends AbstractGrammarElementFinder {
 		return getCompositeEvidenceExprAccess().getRule();
 	}
 
-	//// should it be a selection category as well
-	//SingleEvidenceExpr returns ArgumentExpr:
-	//	VAReference (=> ({WhenExpr.verification=current} "when") condition+=[categories::VerificationCategory]+)?;
-	public SingleEvidenceExprElements getSingleEvidenceExprAccess() {
-		return pSingleEvidenceExpr;
-	}
-	
-	public ParserRule getSingleEvidenceExprRule() {
-		return getSingleEvidenceExprAccess().getRule();
-	}
-
+	////SingleEvidenceExpr returns ArgumentExpr:
+	////	VAReference (=> ({WhenExpr.verification=current} 'when') condition+=[categories::VerificationCategory|ID]+)?; // should it be a selection category as well
 	//VAReference returns ArgumentExpr:
 	//	{RefExpr} verification=[VerificationActivity|QualifiedName] ("(" weight=INT ")")?;
 	public VAReferenceElements getVAReferenceAccess() {

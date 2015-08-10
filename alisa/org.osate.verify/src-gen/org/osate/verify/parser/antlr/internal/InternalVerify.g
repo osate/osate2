@@ -794,15 +794,32 @@ ruleVerificationActivity returns [EObject current=null]
     {
     	newLeafNode(otherlv_15, grammarAccess.getVerificationActivityAccess().getRightParenthesisKeyword_4_4());
     }
-(	otherlv_16='timeout' 
+(	otherlv_16='when' 
     {
-    	newLeafNode(otherlv_16, grammarAccess.getVerificationActivityAccess().getTimeoutKeyword_4_5_0());
+    	newLeafNode(otherlv_16, grammarAccess.getVerificationActivityAccess().getWhenKeyword_4_5_0());
     }
 (
 (
-		lv_timeout_17_0=RULE_INT
 		{
-			newLeafNode(lv_timeout_17_0, grammarAccess.getVerificationActivityAccess().getTimeoutINTTerminalRuleCall_4_5_1_0()); 
+			if ($current==null) {
+	            $current = createModelElement(grammarAccess.getVerificationActivityRule());
+	        }
+        }
+	otherlv_17=RULE_ID
+	{
+		newLeafNode(otherlv_17, grammarAccess.getVerificationActivityAccess().getConditionSelectionCategoryCrossReference_4_5_1_0()); 
+	}
+
+)
+)+)?(	otherlv_18='timeout' 
+    {
+    	newLeafNode(otherlv_18, grammarAccess.getVerificationActivityAccess().getTimeoutKeyword_4_6_0());
+    }
+(
+(
+		lv_timeout_19_0=RULE_INT
+		{
+			newLeafNode(lv_timeout_19_0, grammarAccess.getVerificationActivityAccess().getTimeoutINTTerminalRuleCall_4_6_1_0()); 
 		}
 		{
 	        if ($current==null) {
@@ -811,7 +828,7 @@ ruleVerificationActivity returns [EObject current=null]
        		setWithLastConsumed(
        			$current, 
        			"timeout",
-        		lv_timeout_17_0, 
+        		lv_timeout_19_0, 
         		"INT");
 	    }
 
@@ -969,11 +986,11 @@ ruleSingleElseEvidenceExpr returns [EObject current=null]
     @after { leaveRule(); }:
 (
     { 
-        newCompositeNode(grammarAccess.getSingleElseEvidenceExprAccess().getSingleEvidenceExprParserRuleCall_0()); 
+        newCompositeNode(grammarAccess.getSingleElseEvidenceExprAccess().getVAReferenceParserRuleCall_0()); 
     }
-    this_SingleEvidenceExpr_0=ruleSingleEvidenceExpr
+    this_VAReference_0=ruleVAReference
     { 
-        $current = $this_SingleEvidenceExpr_0.current; 
+        $current = $this_VAReference_0.current; 
         afterParserOrEnumRuleCall();
     }
 (((((
@@ -1281,61 +1298,6 @@ ruleCompositeEvidenceExpr returns [EObject current=null]
         afterParserOrEnumRuleCall();
     }
 )
-;
-
-
-
-
-
-// Entry rule entryRuleSingleEvidenceExpr
-entryRuleSingleEvidenceExpr returns [EObject current=null] 
-	:
-	{ newCompositeNode(grammarAccess.getSingleEvidenceExprRule()); }
-	 iv_ruleSingleEvidenceExpr=ruleSingleEvidenceExpr 
-	 { $current=$iv_ruleSingleEvidenceExpr.current; } 
-	 EOF 
-;
-
-// Rule SingleEvidenceExpr
-ruleSingleEvidenceExpr returns [EObject current=null] 
-    @init { enterRule(); 
-    }
-    @after { leaveRule(); }:
-(
-    { 
-        newCompositeNode(grammarAccess.getSingleEvidenceExprAccess().getVAReferenceParserRuleCall_0()); 
-    }
-    this_VAReference_0=ruleVAReference
-    { 
-        $current = $this_VAReference_0.current; 
-        afterParserOrEnumRuleCall();
-    }
-(((((
-)	'when' 
-))=>((
-    {
-        $current = forceCreateModelElementAndSet(
-            grammarAccess.getSingleEvidenceExprAccess().getWhenExprVerificationAction_1_0_0_0(),
-            $current);
-    }
-)	otherlv_2='when' 
-    {
-    	newLeafNode(otherlv_2, grammarAccess.getSingleEvidenceExprAccess().getWhenKeyword_1_0_0_1());
-    }
-))(
-(
-		{
-			if ($current==null) {
-	            $current = createModelElement(grammarAccess.getSingleEvidenceExprRule());
-	        }
-        }
-	otherlv_3=RULE_ID
-	{
-		newLeafNode(otherlv_3, grammarAccess.getSingleEvidenceExprAccess().getConditionVerificationCategoryCrossReference_1_1_0()); 
-	}
-
-)
-)+)?)
 ;
 
 

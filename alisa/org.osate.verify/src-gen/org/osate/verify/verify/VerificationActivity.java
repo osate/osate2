@@ -12,6 +12,8 @@ import org.osate.aadl2.ComponentImplementation;
 
 import org.osate.alisa.common.common.ComputeDeclaration;
 
+import org.osate.categories.categories.SelectionCategory;
+
 /**
  * <!-- begin-user-doc -->
  * A representation of the model object '<em><b>Verification Activity</b></em>'.
@@ -26,6 +28,7 @@ import org.osate.alisa.common.common.ComputeDeclaration;
  *   <li>{@link org.osate.verify.verify.VerificationActivity#getResult <em>Result</em>}</li>
  *   <li>{@link org.osate.verify.verify.VerificationActivity#getMethod <em>Method</em>}</li>
  *   <li>{@link org.osate.verify.verify.VerificationActivity#getParameters <em>Parameters</em>}</li>
+ *   <li>{@link org.osate.verify.verify.VerificationActivity#getCondition <em>Condition</em>}</li>
  *   <li>{@link org.osate.verify.verify.VerificationActivity#getTimeout <em>Timeout</em>}</li>
  * </ul>
  * </p>
@@ -171,6 +174,22 @@ public interface VerificationActivity extends EObject
    * @generated
    */
   EList<XExpression> getParameters();
+
+  /**
+   * Returns the value of the '<em><b>Condition</b></em>' reference list.
+   * The list contents are of type {@link org.osate.categories.categories.SelectionCategory}.
+   * <!-- begin-user-doc -->
+   * <p>
+   * If the meaning of the '<em>Condition</em>' reference list isn't clear,
+   * there really should be more of a description here...
+   * </p>
+   * <!-- end-user-doc -->
+   * @return the value of the '<em>Condition</em>' reference list.
+   * @see org.osate.verify.verify.VerifyPackage#getVerificationActivity_Condition()
+   * @model
+   * @generated
+   */
+  EList<SelectionCategory> getCondition();
 
   /**
    * Returns the value of the '<em><b>Timeout</b></em>' attribute.

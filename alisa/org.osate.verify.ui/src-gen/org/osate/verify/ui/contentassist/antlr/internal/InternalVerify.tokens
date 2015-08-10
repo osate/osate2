@@ -41,7 +41,7 @@
 '['=58
 ']'=59
 'activities'=65
-'all'=73
+'all'=74
 'analysisplugin'=51
 'as'=86
 'assert'=66
@@ -53,10 +53,10 @@
 'default'=93
 'description'=81
 'do'=96
-'else'=70
+'else'=71
 'extends'=45
 'extension'=48
-'fail'=71
+'fail'=72
 'false'=50
 'finally'=103
 'for'=57
@@ -71,7 +71,7 @@
 'methods'=75
 'new'=97
 'null'=98
-'other'=72
+'other'=73
 'path'=77
 'plan'=56
 'precondition'=80
@@ -83,10 +83,10 @@
 'super'=49
 'switch'=92
 'synchronized'=104
-'then'=69
+'then'=70
 'this'=110
 'throw'=100
-'timeout'=68
+'timeout'=69
 'true'=114
 'try'=102
 'typeof'=99
@@ -94,7 +94,7 @@
 'validation'=79
 'var'=113
 'verification'=55
-'when'=74
+'when'=68
 'while'=95
 '{'=88
 '|'=112

@@ -63,7 +63,7 @@ class ReqSpecValidator extends AbstractReqSpecValidator {
 		}
 	}
 	
-	@Check//(CheckType.EXPENSIVE)
+	@Check(CheckType.EXPENSIVE)
 	def void checkMissingGoal(Requirement req) {
 		if (req.goalReference.empty  && req.stakeholderRequirementReference.empty) {
 			if (req.refinesReference.empty){ 

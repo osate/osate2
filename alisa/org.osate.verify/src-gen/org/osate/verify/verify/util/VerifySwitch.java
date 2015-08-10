@@ -152,14 +152,6 @@ public class VerifySwitch<T> extends Switch<T>
         if (result == null) result = defaultCase(theEObject);
         return result;
       }
-      case VerifyPackage.WHEN_EXPR:
-      {
-        WhenExpr whenExpr = (WhenExpr)theEObject;
-        T result = caseWhenExpr(whenExpr);
-        if (result == null) result = caseArgumentExpr(whenExpr);
-        if (result == null) result = defaultCase(theEObject);
-        return result;
-      }
       case VerifyPackage.REF_EXPR:
       {
         RefExpr refExpr = (RefExpr)theEObject;
@@ -360,22 +352,6 @@ public class VerifySwitch<T> extends Switch<T>
    * @generated
    */
   public T caseAllExpr(AllExpr object)
-  {
-    return null;
-  }
-
-  /**
-   * Returns the result of interpreting the object as an instance of '<em>When Expr</em>'.
-   * <!-- begin-user-doc -->
-   * This implementation returns null;
-   * returning a non-null result will terminate the switch.
-   * <!-- end-user-doc -->
-   * @param object the target of the switch.
-   * @return the result of interpreting the object as an instance of '<em>When Expr</em>'.
-   * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
-   * @generated
-   */
-  public T caseWhenExpr(WhenExpr object)
   {
     return null;
   }

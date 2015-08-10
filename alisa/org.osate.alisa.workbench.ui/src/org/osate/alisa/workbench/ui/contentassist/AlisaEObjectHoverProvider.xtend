@@ -14,7 +14,7 @@ class AlisaEObjectHoverProvider extends DefaultEObjectHoverProvider {
 		switch (o) {
 			AssurancePlan: {
 				val rootsystem = o.target
-				val z = rootsystem.getVerificationPlans().map[vp|vp.name]
+				val z = rootsystem.getVerificationPlans(o).map[vp|vp.name]
 				val res = "VerificationPlans:" + z.fold("")[a, b|a + " " + b]
 				return res
 			}

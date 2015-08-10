@@ -5,8 +5,6 @@ package org.osate.verify.ui.labeling
 
 import com.google.inject.Inject
 import org.osate.verify.verify.AllExpr
-import org.osate.verify.verify.WhenExpr
-import static org.osate.verify.util.VerifyUtilExtension.*
 import org.osate.verify.verify.RefExpr
 import org.osate.verify.verify.ElseExpr
 import org.osate.verify.verify.ThenExpr
@@ -34,9 +32,6 @@ class VerifyLabelProvider extends org.eclipse.xtext.ui.label.DefaultEObjectLabel
 	}
 	def text(AllExpr ele) {
 		'all'
-	}
-	def text(WhenExpr ele) {
-		'when'
 	}
 	def text(RefExpr ele){
 		ele.verification.name
