@@ -15,6 +15,7 @@ import org.osate.analysis.resource.budgets.actions.DoResourceBudget
 import org.osate.analysis.resource.management.actions.Binpack
 import org.osate.analysis.security.actions.CheckSafety
 import org.osate.analysis.security.actions.CheckSecurity
+import org.osate.analysis.resource.budgets.actions.DoBoundSwitchBandWidthAnalysis
 
 class AnalysisPluginInterface {
 	
@@ -101,6 +102,21 @@ class AnalysisPluginInterface {
 
 	def static String BoundResourceAnalysis(InstanceObject ci) {
 		val checker = new DoBoundResourceAnalysis()
+		val markerType = checker.getMarkerType
+		val instance = ci.elementRoot as SystemInstance
+		if (!getHasRun(markerType, instance)) {
+			try{
+			checker.invoke(new NullProgressMonitor,  instance)
+				setHasRun(markerType, instance)
+			} catch (Throwable e) {
+				unsetHasRun(markerType, instance)
+			}
+		}
+		markerType
+	}
+
+	def static String NetworkBandWidthAnalysis(InstanceObject ci) {
+		val checker = new DoBoundSwitchBandWidthAnalysis
 		val markerType = checker.getMarkerType
 		val instance = ci.elementRoot as SystemInstance
 		if (!getHasRun(markerType, instance)) {

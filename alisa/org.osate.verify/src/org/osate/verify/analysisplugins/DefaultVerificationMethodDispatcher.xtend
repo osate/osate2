@@ -35,6 +35,9 @@ class DefaultVerificationMethodDispatcher implements IVerificationMethodDispatch
 			case "org.osate.verify.analysisplugins.AnalysisPluginInterface.BoundResourceAnalysis": {
 				target.BoundResourceAnalysis
 			}
+			case "org.osate.verify.analysisplugins.AnalysisPluginInterface.NetworkBandwidthAnalysis": {
+				target.NetworkBandWidthAnalysis
+			}
 			case "org.osate.verify.analysisplugins.AnalysisPluginInterface.PowerAnalysis": {
 				target.PowerAnalysis
 			}
