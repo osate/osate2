@@ -37,6 +37,7 @@ import org.osate.verify.verify.WhenExpr
 
 import static extension org.eclipse.emf.ecore.util.EcoreUtil.*
 import static extension org.osate.alisa.common.util.CommonUtilExtension.*
+import org.osate.assure.assure.VerificationResult
 
 /**
  * Generates code from your model files on save.
@@ -72,7 +73,7 @@ class AssureConstructor  {
 @Inject extension IVerifyReferenceFinder referenceFinder
 
 	def AssuranceEvidence construct(ComponentClassifier cc, AssurancePlan acp, boolean systemEvidence) {
-		val myplans = cc.getVerificationPlans();
+		val myplans = cc.getVerificationPlans(acp);
 		var AssuranceEvidence acase = null
 		if (!myplans.empty) {
 			acase = factory.createAssuranceEvidence
@@ -134,7 +135,13 @@ class AssureConstructor  {
 		for (subclaim : claim?.subclaim) {
 			claimresult.subClaimResult += subclaim.construct
 		}
+		if (claim.assert != null){
 		claimresult.verificationActivityResult.construct(claim.assert)
+		} else {
+			for (va : claim.activities){
+				claimresult.verificationActivityResult.doConstruct(va)
+			}
+		}
 		claimresult
 	}
 
@@ -186,21 +193,37 @@ class AssureConstructor  {
 		val vr = factory.createVerificationActivityResult
 		vr.resultState = VerificationResultState.TBD
 		vr.executionState = VerificationExecutionState.TODO
+		vr.target = expr.verification
 		val cond = expr.verification?.method?.condition
 		if (cond != null) {
-			arl.doConstruct(cond)
+			vr.conditionResult = doConstruct(cond)
 		}
 	}
 
-	def void doConstruct(List<VerificationExpr> arl, VerificationCondition vc) {
+	def void doConstruct(List<VerificationExpr> arl, VerificationActivity expr) {
+		val vr = factory.createVerificationActivityResult
+		vr.resultState = VerificationResultState.TBD
+		vr.executionState = VerificationExecutionState.TODO
+		vr.target = expr
+		val cond = expr.method?.condition
+		if (cond != null) {
+			vr.conditionResult = doConstruct(cond)
+		}
+	}
+
+	def VerificationResult doConstruct( VerificationCondition vc) {
+		var VerificationResult vcr
 		switch (vc) {
 			VerificationValidation: {
-				val vcr = factory.createValidationResult
+				vcr = factory.createValidationResult
 			}
 			VerificationPrecondition: {
-				val vcr = factory.createPreconditionResult
+				vcr = factory.createPreconditionResult
 			}
 		}
+		vcr.resultState = VerificationResultState.TBD
+		vcr.executionState = VerificationExecutionState.TODO
+		return vcr
 	}
 
 	def evaluateSelectionCondition(WhenExpr expr) {

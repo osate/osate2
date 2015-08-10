@@ -79,7 +79,7 @@ class AlisaGenerator implements IGenerator {
 
 
 	def CharSequence generate(ComponentClassifier cc, AssurancePlan acp, boolean systemEvidence) {
-		val myplans = cc.getVerificationPlans();
+		val myplans = cc.getVerificationPlans(acp);
 		'''	
 			«IF !myplans.empty»
 			«IF !systemEvidence»
@@ -138,9 +138,29 @@ class AlisaGenerator implements IGenerator {
 			    «FOR subclaim : claim?.subclaim»
 				«subclaim.generate()»
 				«ENDFOR»
-				«claim.assert.generate»
+			    «IF claim.assert != null»
+			    «claim.assert.generate»
+			    «ELSE»
+			    «FOR va : claim.activities»
+				«va.doGenerate»
+			    «ENDFOR»
+			    «ENDIF»
 				]
 			'''
+	}
+
+	def doGenerate(VerificationActivity va) {
+		'''
+			verification «va.fullyQualifiedName»
+			[
+				executionstate todo
+				resultstate tbd
+				tbdcount 1
+				«IF va.method?.condition != null»
+					«va.method?.condition.generate»
+				«ENDIF»
+			]
+		'''
 	}
 
 	def CharSequence generate(ArgumentExpr expr) {

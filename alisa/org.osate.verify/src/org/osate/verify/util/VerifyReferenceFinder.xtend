@@ -14,10 +14,11 @@ import org.osate.aadl2.ComponentClassifier
 import org.osate.verify.verify.VerificationPlan
 import org.eclipse.emf.ecore.util.EcoreUtil
 import org.osate.verify.verify.VerifyPackage
+import org.eclipse.emf.ecore.EObject
 
 @ImplementedBy(VerifyReferenceFinder)
 interface IVerifyReferenceFinder {
-	def Iterable<VerificationPlan> getVerificationPlans(ComponentClassifier cc);
+	def Iterable<VerificationPlan> getVerificationPlans(ComponentClassifier cc , EObject context);
 }
 
 class VerifyReferenceFinder implements IVerifyReferenceFinder{
@@ -25,9 +26,13 @@ class VerifyReferenceFinder implements IVerifyReferenceFinder{
 	@Inject
 	var IGlobalScopeProvider scopeProvider
 		
-		override Iterable<VerificationPlan> getVerificationPlans(ComponentClassifier cc){
-			val x = (scopeProvider as CommonGlobalScopeProvider).getGlobalEObjectDescriptions(cc,VerifyPackage.eINSTANCE.verificationPlan,null)
-			val y = x.map[ied|EcoreUtil.resolve(ied.EObjectOrProxy, cc) as VerificationPlan]
+		override Iterable<VerificationPlan> getVerificationPlans(ComponentClassifier cc, EObject context){
+			val x = (scopeProvider as CommonGlobalScopeProvider).getGlobalEObjectDescriptions(context,VerifyPackage.eINSTANCE.verificationPlan,null)
+			for (vp : x){
+				val n = vp.name
+				val n2 = vp.name
+			}
+			val y = x.map[ied|EcoreUtil.resolve(ied.EObjectOrProxy, context) as VerificationPlan]
 			val z = y.filter [  vp | cc.isSameorExtends(vp.systemRequirements?.target)]
 			return z
 	}
