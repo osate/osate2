@@ -1043,6 +1043,20 @@ public class GetProperties {
 		}
 	}
 
+	public static String getConcurrencyControlProtocol(final NamedElement ne) {
+		try {
+			Property concurrencyControlProtocol = lookupPropertyDefinition(ne, ThreadProperties._NAME,
+					DeploymentProperties.SCHEDULING_PROTOCOL);
+			List<? extends PropertyExpression> propertyValues = ne.getPropertyValueList(concurrencyControlProtocol);
+			for (PropertyExpression propertyExpression : propertyValues) {
+				return ((EnumerationLiteral) ((NamedValue) propertyExpression).getNamedValue()).getName();
+			}
+			return null;
+		} catch (PropertyLookupException e) {
+			return null;
+		}
+	}
+
 	public static EnumerationLiteral getDispatchProtocol(final NamedElement ne) {
 		try {
 			Property dispatchProtocol = lookupPropertyDefinition(ne, ThreadProperties._NAME,
@@ -1496,6 +1510,33 @@ public class GetProperties {
 			components.add((ComponentClassifier) ((ClassifierValue) propertyExpression).getClassifier());
 		}
 		return components;
+	}
+
+	public static EnumerationLiteral getDataRepresentation(final NamedElement ne) {
+		try {
+			Property dataRepresentation = lookupPropertyDefinition(ne, DataModel._NAME, DataModel.Data_Representation);
+			return PropertyUtils.getEnumLiteral(ne, dataRepresentation);
+		} catch (final PropertyLookupException e) {
+			return null;
+		}
+	}
+
+	public static RangeValue getDataIntegerRange(final NamedElement ne) {
+		try {
+			Property integerRange = lookupPropertyDefinition(ne, DataModel._NAME, DataModel.INTEGER_RANGE);
+			return (RangeValue) ne.getSimplePropertyValue(integerRange);
+		} catch (final PropertyLookupException e) {
+			return null;
+		}
+	}
+
+	public static RangeValue getDataRealRange(final NamedElement ne) {
+		try {
+			Property realRange = lookupPropertyDefinition(ne, DataModel._NAME, DataModel.REAL_RANGE);
+			return (RangeValue) ne.getSimplePropertyValue(realRange);
+		} catch (final PropertyLookupException e) {
+			return null;
+		}
 	}
 
 }
