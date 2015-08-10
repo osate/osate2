@@ -130,11 +130,6 @@ public class VerifyAdapterFactory extends AdapterFactoryImpl
         return createAllExprAdapter();
       }
       @Override
-      public Adapter caseWhenExpr(WhenExpr object)
-      {
-        return createWhenExprAdapter();
-      }
-      @Override
       public Adapter caseRefExpr(RefExpr object)
       {
         return createRefExprAdapter();
@@ -332,21 +327,6 @@ public class VerifyAdapterFactory extends AdapterFactoryImpl
    * @generated
    */
   public Adapter createAllExprAdapter()
-  {
-    return null;
-  }
-
-  /**
-   * Creates a new adapter for an object of class '{@link org.osate.verify.verify.WhenExpr <em>When Expr</em>}'.
-   * <!-- begin-user-doc -->
-   * This default implementation returns null so that we can easily ignore cases;
-   * it's useful to ignore a case when inheritance will catch all the cases anyway.
-   * <!-- end-user-doc -->
-   * @return the new adapter.
-   * @see org.osate.verify.verify.WhenExpr
-   * @generated
-   */
-  public Adapter createWhenExprAdapter()
   {
     return null;
   }

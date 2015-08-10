@@ -151,7 +151,6 @@ public class VerifySyntacticSequencer extends AbstractSyntacticSequencer {
 	 *     (rule start) (ambiguity) verification=[VerificationActivity|QualifiedName]
 	 *     (rule start) (ambiguity) {ElseExpr.left=}
 	 *     (rule start) (ambiguity) {ThenExpr.left=}
-	 *     (rule start) (ambiguity) {WhenExpr.verification=}
 	 */
 	protected void emit_CompositeEvidenceExpr_LeftParenthesisKeyword_0_0_a(EObject semanticObject, ISynNavigable transition, List<INode> nodes) {
 		acceptNodes(transition, nodes);
@@ -165,7 +164,6 @@ public class VerifySyntacticSequencer extends AbstractSyntacticSequencer {
 	 *     (rule start) (ambiguity) verification=[VerificationActivity|QualifiedName]
 	 *     (rule start) (ambiguity) {ElseExpr.left=}
 	 *     (rule start) (ambiguity) {ThenExpr.left=}
-	 *     (rule start) (ambiguity) {WhenExpr.verification=}
 	 */
 	protected void emit_CompositeEvidenceExpr_LeftParenthesisKeyword_0_0_p(EObject semanticObject, ISynNavigable transition, List<INode> nodes) {
 		acceptNodes(transition, nodes);

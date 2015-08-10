@@ -85,7 +85,6 @@ import org.osate.verify.verify.VerificationPlan;
 import org.osate.verify.verify.VerificationPrecondition;
 import org.osate.verify.verify.VerificationValidation;
 import org.osate.verify.verify.VerifyPackage;
-import org.osate.verify.verify.WhenExpr;
 
 @SuppressWarnings("all")
 public class VerifySemanticSequencer extends CommonSemanticSequencer {
@@ -224,9 +223,6 @@ public class VerifySemanticSequencer extends CommonSemanticSequencer {
 				return; 
 			case VerifyPackage.VERIFICATION_VALIDATION:
 				sequence_VerificationCondition(context, (VerificationValidation) semanticObject); 
-				return; 
-			case VerifyPackage.WHEN_EXPR:
-				sequence_SingleEvidenceExpr(context, (WhenExpr) semanticObject); 
 				return; 
 			}
 		else if(semanticObject.eClass().getEPackage() == XbasePackage.eINSTANCE) switch(semanticObject.eClass().getClassifierID()) {
@@ -464,15 +460,6 @@ public class VerifySemanticSequencer extends CommonSemanticSequencer {
 	
 	/**
 	 * Constraint:
-	 *     (verification=SingleEvidenceExpr_WhenExpr_1_0_0_0 condition+=[VerificationCategory|ID]+)
-	 */
-	protected void sequence_SingleEvidenceExpr(EObject context, WhenExpr semanticObject) {
-		genericSequencer.createSequence(context, semanticObject);
-	}
-	
-	
-	/**
-	 * Constraint:
 	 *     (left=ThenEvidenceExpr_ThenExpr_1_0_0_0 successor=ThenEvidenceExpr)
 	 */
 	protected void sequence_ThenEvidenceExpr(EObject context, ThenExpr semanticObject) {
@@ -508,6 +495,7 @@ public class VerifySemanticSequencer extends CommonSemanticSequencer {
 	 *         (result+=[ComputeDeclaration|ID] result+=[ComputeDeclaration|ID]*)? 
 	 *         method=[VerificationMethod|QualifiedName] 
 	 *         (parameters+=[XExpression|ID] parameters+=[XExpression|ID]*)? 
+	 *         condition+=[SelectionCategory|ID]* 
 	 *         timeout=INT?
 	 *     )
 	 */

@@ -32,7 +32,6 @@ import org.osate.verify.verify.VerificationActivity
 import org.osate.verify.verify.VerificationCondition
 import org.osate.verify.verify.VerificationPrecondition
 import org.osate.verify.verify.VerificationValidation
-import org.osate.verify.verify.WhenExpr
 
 import static extension org.eclipse.emf.ecore.util.EcoreUtil.*
 import static extension org.osate.alisa.common.util.CommonUtilExtension.*
@@ -151,6 +150,7 @@ class AlisaGenerator implements IGenerator {
 
 	def doGenerate(VerificationActivity va) {
 		'''
+			«IF va.evaluateSelectionCondition»
 			verification «va.fullyQualifiedName»
 			[
 				executionstate todo
@@ -160,6 +160,7 @@ class AlisaGenerator implements IGenerator {
 					«va.method?.condition.generate»
 				«ENDIF»
 			]
+			«ENDIF»
 		'''
 	}
 
@@ -168,7 +169,6 @@ class AlisaGenerator implements IGenerator {
 			AllExpr: expr.doGenerate
 			ThenExpr: expr.doGenerate
 			ElseExpr: expr.doGenerate
-			WhenExpr: expr.doGenerate
 			RefExpr: if(expr.verification.evaluateVerificationFilter) expr.doGenerate
 		}
 	}
@@ -211,14 +211,6 @@ class AlisaGenerator implements IGenerator {
 		'''
 	}
 
-	def doGenerate(WhenExpr expr) {
-		'''
-			«IF expr.evaluateSelectionCondition»
-				«expr.verification.generate»
-			«ENDIF»
-		'''
-	}
-
 	def doGenerate(RefExpr expr) {
 		'''
 			verification «expr.verification.fullyQualifiedName»
@@ -244,7 +236,7 @@ class AlisaGenerator implements IGenerator {
 		'''
 	}
 
-	def evaluateSelectionCondition(WhenExpr expr) {
+	def evaluateSelectionCondition(VerificationActivity expr) {
 		val selection = expr.condition
 		if (selectionFilter == null || selectionFilter.empty || selection.empty) return true
 		val intersect = selection.copyAll

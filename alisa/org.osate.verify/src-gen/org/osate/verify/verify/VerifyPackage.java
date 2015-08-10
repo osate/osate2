@@ -323,13 +323,22 @@ public interface VerifyPackage extends EPackage
   int VERIFICATION_ACTIVITY__PARAMETERS = 5;
 
   /**
+   * The feature id for the '<em><b>Condition</b></em>' reference list.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int VERIFICATION_ACTIVITY__CONDITION = 6;
+
+  /**
    * The feature id for the '<em><b>Timeout</b></em>' attribute.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    * @ordered
    */
-  int VERIFICATION_ACTIVITY__TIMEOUT = 6;
+  int VERIFICATION_ACTIVITY__TIMEOUT = 7;
 
   /**
    * The number of structural features of the '<em>Verification Activity</em>' class.
@@ -338,7 +347,7 @@ public interface VerifyPackage extends EPackage
    * @generated
    * @ordered
    */
-  int VERIFICATION_ACTIVITY_FEATURE_COUNT = 7;
+  int VERIFICATION_ACTIVITY_FEATURE_COUNT = 8;
 
   /**
    * The meta object id for the '{@link org.osate.verify.verify.impl.ArgumentExprImpl <em>Argument Expr</em>}' class.
@@ -726,43 +735,6 @@ public interface VerifyPackage extends EPackage
   int ALL_EXPR_FEATURE_COUNT = ARGUMENT_EXPR_FEATURE_COUNT + 1;
 
   /**
-   * The meta object id for the '{@link org.osate.verify.verify.impl.WhenExprImpl <em>When Expr</em>}' class.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @see org.osate.verify.verify.impl.WhenExprImpl
-   * @see org.osate.verify.verify.impl.VerifyPackageImpl#getWhenExpr()
-   * @generated
-   */
-  int WHEN_EXPR = 11;
-
-  /**
-   * The feature id for the '<em><b>Verification</b></em>' containment reference.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int WHEN_EXPR__VERIFICATION = ARGUMENT_EXPR_FEATURE_COUNT + 0;
-
-  /**
-   * The feature id for the '<em><b>Condition</b></em>' reference list.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int WHEN_EXPR__CONDITION = ARGUMENT_EXPR_FEATURE_COUNT + 1;
-
-  /**
-   * The number of structural features of the '<em>When Expr</em>' class.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int WHEN_EXPR_FEATURE_COUNT = ARGUMENT_EXPR_FEATURE_COUNT + 2;
-
-  /**
    * The meta object id for the '{@link org.osate.verify.verify.impl.RefExprImpl <em>Ref Expr</em>}' class.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -770,7 +742,7 @@ public interface VerifyPackage extends EPackage
    * @see org.osate.verify.verify.impl.VerifyPackageImpl#getRefExpr()
    * @generated
    */
-  int REF_EXPR = 12;
+  int REF_EXPR = 11;
 
   /**
    * The feature id for the '<em><b>Verification</b></em>' reference.
@@ -807,7 +779,7 @@ public interface VerifyPackage extends EPackage
    * @see org.osate.verify.verify.impl.VerifyPackageImpl#getVerificationValidation()
    * @generated
    */
-  int VERIFICATION_VALIDATION = 13;
+  int VERIFICATION_VALIDATION = 12;
 
   /**
    * The feature id for the '<em><b>Name</b></em>' attribute.
@@ -889,7 +861,7 @@ public interface VerifyPackage extends EPackage
    * @see org.osate.verify.verify.impl.VerifyPackageImpl#getVerificationPrecondition()
    * @generated
    */
-  int VERIFICATION_PRECONDITION = 14;
+  int VERIFICATION_PRECONDITION = 13;
 
   /**
    * The feature id for the '<em><b>Name</b></em>' attribute.
@@ -971,7 +943,7 @@ public interface VerifyPackage extends EPackage
    * @see org.osate.verify.verify.impl.VerifyPackageImpl#getSupportedTypes()
    * @generated
    */
-  int SUPPORTED_TYPES = 15;
+  int SUPPORTED_TYPES = 14;
 
 
   /**
@@ -1255,6 +1227,17 @@ public interface VerifyPackage extends EPackage
    * @generated
    */
   EReference getVerificationActivity_Parameters();
+
+  /**
+   * Returns the meta object for the reference list '{@link org.osate.verify.verify.VerificationActivity#getCondition <em>Condition</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the reference list '<em>Condition</em>'.
+   * @see org.osate.verify.verify.VerificationActivity#getCondition()
+   * @see #getVerificationActivity()
+   * @generated
+   */
+  EReference getVerificationActivity_Condition();
 
   /**
    * Returns the meta object for the attribute '{@link org.osate.verify.verify.VerificationActivity#getTimeout <em>Timeout</em>}'.
@@ -1646,38 +1629,6 @@ public interface VerifyPackage extends EPackage
   EReference getAllExpr_Elements();
 
   /**
-   * Returns the meta object for class '{@link org.osate.verify.verify.WhenExpr <em>When Expr</em>}'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return the meta object for class '<em>When Expr</em>'.
-   * @see org.osate.verify.verify.WhenExpr
-   * @generated
-   */
-  EClass getWhenExpr();
-
-  /**
-   * Returns the meta object for the containment reference '{@link org.osate.verify.verify.WhenExpr#getVerification <em>Verification</em>}'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return the meta object for the containment reference '<em>Verification</em>'.
-   * @see org.osate.verify.verify.WhenExpr#getVerification()
-   * @see #getWhenExpr()
-   * @generated
-   */
-  EReference getWhenExpr_Verification();
-
-  /**
-   * Returns the meta object for the reference list '{@link org.osate.verify.verify.WhenExpr#getCondition <em>Condition</em>}'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return the meta object for the reference list '<em>Condition</em>'.
-   * @see org.osate.verify.verify.WhenExpr#getCondition()
-   * @see #getWhenExpr()
-   * @generated
-   */
-  EReference getWhenExpr_Condition();
-
-  /**
    * Returns the meta object for class '{@link org.osate.verify.verify.RefExpr <em>Ref Expr</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -1977,6 +1928,14 @@ public interface VerifyPackage extends EPackage
      * @generated
      */
     EReference VERIFICATION_ACTIVITY__PARAMETERS = eINSTANCE.getVerificationActivity_Parameters();
+
+    /**
+     * The meta object literal for the '<em><b>Condition</b></em>' reference list feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EReference VERIFICATION_ACTIVITY__CONDITION = eINSTANCE.getVerificationActivity_Condition();
 
     /**
      * The meta object literal for the '<em><b>Timeout</b></em>' attribute feature.
@@ -2279,32 +2238,6 @@ public interface VerifyPackage extends EPackage
      * @generated
      */
     EReference ALL_EXPR__ELEMENTS = eINSTANCE.getAllExpr_Elements();
-
-    /**
-     * The meta object literal for the '{@link org.osate.verify.verify.impl.WhenExprImpl <em>When Expr</em>}' class.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @see org.osate.verify.verify.impl.WhenExprImpl
-     * @see org.osate.verify.verify.impl.VerifyPackageImpl#getWhenExpr()
-     * @generated
-     */
-    EClass WHEN_EXPR = eINSTANCE.getWhenExpr();
-
-    /**
-     * The meta object literal for the '<em><b>Verification</b></em>' containment reference feature.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
-    EReference WHEN_EXPR__VERIFICATION = eINSTANCE.getWhenExpr_Verification();
-
-    /**
-     * The meta object literal for the '<em><b>Condition</b></em>' reference list feature.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
-    EReference WHEN_EXPR__CONDITION = eINSTANCE.getWhenExpr_Condition();
 
     /**
      * The meta object literal for the '{@link org.osate.verify.verify.impl.RefExprImpl <em>Ref Expr</em>}' class.

@@ -122,15 +122,6 @@ public interface VerifyFactory extends EFactory
   AllExpr createAllExpr();
 
   /**
-   * Returns a new object of class '<em>When Expr</em>'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return a new object of class '<em>When Expr</em>'.
-   * @generated
-   */
-  WhenExpr createWhenExpr();
-
-  /**
    * Returns a new object of class '<em>Ref Expr</em>'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->

@@ -76,7 +76,6 @@ public class VerifyFactoryImpl extends EFactoryImpl implements VerifyFactory
       case VerifyPackage.THEN_EXPR: return createThenExpr();
       case VerifyPackage.ELSE_EXPR: return createElseExpr();
       case VerifyPackage.ALL_EXPR: return createAllExpr();
-      case VerifyPackage.WHEN_EXPR: return createWhenExpr();
       case VerifyPackage.REF_EXPR: return createRefExpr();
       case VerifyPackage.VERIFICATION_VALIDATION: return createVerificationValidation();
       case VerifyPackage.VERIFICATION_PRECONDITION: return createVerificationPrecondition();
@@ -238,17 +237,6 @@ public class VerifyFactoryImpl extends EFactoryImpl implements VerifyFactory
   {
     AllExprImpl allExpr = new AllExprImpl();
     return allExpr;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public WhenExpr createWhenExpr()
-  {
-    WhenExprImpl whenExpr = new WhenExprImpl();
-    return whenExpr;
   }
 
   /**

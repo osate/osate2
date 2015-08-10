@@ -29,32 +29,29 @@ import org.osate.verify.verify.Claim
 import org.osate.verify.verify.ElseExpr
 import org.osate.verify.verify.RefExpr
 import org.osate.verify.verify.ThenExpr
-import org.osate.verify.verify.VerificationActivity
-import org.osate.verify.verify.VerificationCondition
-import org.osate.verify.verify.VerificationPrecondition
-import org.osate.verify.verify.VerificationValidation
-import org.osate.verify.verify.WhenExpr
 
-import static extension org.eclipse.emf.ecore.util.EcoreUtil.*
 import static extension org.osate.alisa.common.util.CommonUtilExtension.*
+import static extension org.eclipse.emf.ecore.util.EcoreUtil.*
+import org.osate.verify.verify.VerificationActivity
 import org.osate.assure.assure.VerificationResult
+import org.osate.verify.verify.VerificationValidation
+import org.osate.verify.verify.VerificationPrecondition
+import org.osate.verify.verify.VerificationCondition
 
 /**
  * Generates code from your model files on save.
  * 
  * see http://www.eclipse.org/Xtext/documentation.html#TutorialCodeGeneration
  */
-class AssureConstructor  {
-	
+class AssureConstructor {
 
-	
 	val factory = AssureFactory.eINSTANCE
-	
+
 	var EList<SelectionCategory> selectionFilter = null
 	var EList<RequirementCategory> requirementFilter = null
 	var EList<VerificationCategory> verificationFilter = null
-	
-	def constructAssuranceTask(AssuranceTask at){
+
+	def constructAssuranceTask(AssuranceTask at) {
 		selectionFilter = at.selectionFilter
 		requirementFilter = at.requirementFilter
 		verificationFilter = at.verificationFilter
@@ -69,8 +66,7 @@ class AssureConstructor  {
 		cc.construct(acp, true)
 	}
 
-
-@Inject extension IVerifyReferenceFinder referenceFinder
+	@Inject extension IVerifyReferenceFinder referenceFinder
 
 	def AssuranceEvidence construct(ComponentClassifier cc, AssurancePlan acp, boolean systemEvidence) {
 		val myplans = cc.getVerificationPlans(acp);
@@ -92,19 +88,18 @@ class AssureConstructor  {
 		acase
 	}
 
-	
-	def AssuranceEvidence filterplans(ComponentClassifier cc, AssurancePlan parentacp){
-		if (cc instanceof ComponentType || cc.skipAssuranceplans(parentacp)) return null
+	def AssuranceEvidence filterplans(ComponentClassifier cc, AssurancePlan parentacp) {
+		if(cc instanceof ComponentType || cc.skipAssuranceplans(parentacp)) return null
 		val subacp = cc.getSubsystemAssuranceplan(parentacp)
-		if (subacp != null){
+		if (subacp != null) {
 			subacp.constructCase
 		} else {
 			cc.constructSystemEvidence(parentacp)
 		}
 	}
-	
-	def subcomponentClassifiers(ComponentClassifier cl){
-		if (cl instanceof ComponentImplementation){
+
+	def subcomponentClassifiers(ComponentClassifier cl) {
+		if (cl instanceof ComponentImplementation) {
 			val List<ComponentClassifier> result = new UniqueEList<ComponentClassifier>()
 			result += cl.allSubcomponents.map[sub|sub.classifier]
 			result
@@ -112,57 +107,53 @@ class AssureConstructor  {
 			Collections.emptyList
 		}
 	}
-	
-	def boolean skipAssuranceplans(ComponentClassifier cc, AssurancePlan parentacp){
+
+	def boolean skipAssuranceplans(ComponentClassifier cc, AssurancePlan parentacp) {
 		val assumes = parentacp.assumeSubsystems
-		for (cl: assumes){
-			if (cc.isSameorExtends(cl)) return true;
+		for (cl : assumes) {
+			if(cc.isSameorExtends(cl)) return true;
 		}
 		return false
 	}
-	
-	def AssurancePlan getSubsystemAssuranceplan(ComponentClassifier cc, AssurancePlan parentacp){
+
+	def AssurancePlan getSubsystemAssuranceplan(ComponentClassifier cc, AssurancePlan parentacp) {
 		val assure = parentacp.assurePlans
-		for (ap: assure){
-			if (cc.isSameorExtends(ap.target)) return ap;
+		for (ap : assure) {
+			if(cc.isSameorExtends(ap.target)) return ap;
 		}
 		return null
 	}
 
-	def ClaimResult construct(Claim claim) { 
+	def ClaimResult construct(Claim claim) {
 		val claimresult = factory.createClaimResult
 		claimresult.target = claim.requirement
 		for (subclaim : claim?.subclaim) {
 			claimresult.subClaimResult += subclaim.construct
 		}
-		if (claim.assert != null){
-		claimresult.verificationActivityResult.construct(claim.assert)
+		if (claim.assert != null) {
+			claimresult.verificationActivityResult.construct(claim.assert)
 		} else {
-			for (va : claim.activities){
+			for (va : claim.activities) {
 				claimresult.verificationActivityResult.doConstruct(va)
 			}
 		}
 		claimresult
 	}
 
-
 	def void construct(List<VerificationExpr> arl, ArgumentExpr expr) {
 		switch expr {
 			AllExpr: arl.doConstruct(expr)
 			ThenExpr: arl.doConstruct(expr)
 			ElseExpr: arl.doConstruct(expr)
-			WhenExpr: arl.doConstruct(expr)
-			RefExpr: if(expr.verification.evaluateVerificationFilter) arl.doConstruct(expr)
+			RefExpr: arl.doConstruct(expr)
 		}
 	}
-
 
 	def void doConstruct(List<VerificationExpr> arl, AllExpr expr) {
 		for (subexpr : expr.elements) {
 			arl.construct(subexpr)
 		}
 	}
-
 
 	def void doConstruct(List<VerificationExpr> arl, ThenExpr expr) {
 		val andres = factory.createThenResult
@@ -171,36 +162,34 @@ class AssureConstructor  {
 		arl += andres
 	}
 
-
 	def void doConstruct(List<VerificationExpr> arl, ElseExpr expr) {
 		val elseres = factory.createElseResult
 		elseres.first.construct(expr.left)
 		elseres.other.construct(expr.other)
-		if (expr.fail != null) elseres.fail.construct(expr.fail)
-		if (expr.timeout != null) elseres.timeout.construct(expr.timeout)
+		if(expr.fail != null) elseres.fail.construct(expr.fail)
+		if(expr.timeout != null) elseres.timeout.construct(expr.timeout)
 		arl += elseres
 	}
 
 
-	def void doConstruct(List<VerificationExpr> arl, WhenExpr expr) {
-		if (expr.evaluateSelectionCondition) {
-			arl.construct(expr.verification)
-		}
-	}
-
-
 	def void doConstruct(List<VerificationExpr> arl, RefExpr expr) {
-		val vr = factory.createVerificationActivityResult
-		vr.resultState = VerificationResultState.TBD
-		vr.executionState = VerificationExecutionState.TODO
-		vr.target = expr.verification
-		val cond = expr.verification?.method?.condition
-		if (cond != null) {
-			vr.conditionResult = doConstruct(cond)
+		val va = expr.verification
+		if (va.evaluateSelectionFilter && va.evaluateVerificationFilter) {
+			val vr = factory.createVerificationActivityResult
+			vr.resultState = VerificationResultState.TBD
+			vr.executionState = VerificationExecutionState.TODO
+			vr.target = expr.verification
+			arl += vr
+			val cond = expr.verification?.method?.condition
+			if (cond != null) {
+				vr.conditionResult = doConstruct(cond)
+			}
 		}
 	}
+
 
 	def void doConstruct(List<VerificationExpr> arl, VerificationActivity expr) {
+		if (expr.evaluateSelectionFilter) {
 		val vr = factory.createVerificationActivityResult
 		vr.resultState = VerificationResultState.TBD
 		vr.executionState = VerificationExecutionState.TODO
@@ -208,6 +197,7 @@ class AssureConstructor  {
 		val cond = expr.method?.condition
 		if (cond != null) {
 			vr.conditionResult = doConstruct(cond)
+		}
 		}
 	}
 
@@ -226,7 +216,7 @@ class AssureConstructor  {
 		return vcr
 	}
 
-	def evaluateSelectionCondition(WhenExpr expr) {
+	def evaluateSelectionFilter(VerificationActivity expr) {
 		val selection = expr.condition
 		if (selectionFilter == null || selectionFilter.empty || selection.empty) return true
 		val intersect = selection.copyAll

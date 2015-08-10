@@ -23,6 +23,8 @@ import org.osate.aadl2.ComponentImplementation;
 
 import org.osate.alisa.common.common.ComputeDeclaration;
 
+import org.osate.categories.categories.SelectionCategory;
+
 import org.osate.verify.verify.VerificationActivity;
 import org.osate.verify.verify.VerificationMethod;
 import org.osate.verify.verify.VerifyPackage;
@@ -40,6 +42,7 @@ import org.osate.verify.verify.VerifyPackage;
  *   <li>{@link org.osate.verify.verify.impl.VerificationActivityImpl#getResult <em>Result</em>}</li>
  *   <li>{@link org.osate.verify.verify.impl.VerificationActivityImpl#getMethod <em>Method</em>}</li>
  *   <li>{@link org.osate.verify.verify.impl.VerificationActivityImpl#getParameters <em>Parameters</em>}</li>
+ *   <li>{@link org.osate.verify.verify.impl.VerificationActivityImpl#getCondition <em>Condition</em>}</li>
  *   <li>{@link org.osate.verify.verify.impl.VerificationActivityImpl#getTimeout <em>Timeout</em>}</li>
  * </ul>
  * </p>
@@ -127,6 +130,16 @@ public class VerificationActivityImpl extends MinimalEObjectImpl.Container imple
    * @ordered
    */
   protected EList<XExpression> parameters;
+
+  /**
+   * The cached value of the '{@link #getCondition() <em>Condition</em>}' reference list.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see #getCondition()
+   * @generated
+   * @ordered
+   */
+  protected EList<SelectionCategory> condition;
 
   /**
    * The default value of the '{@link #getTimeout() <em>Timeout</em>}' attribute.
@@ -334,6 +347,20 @@ public class VerificationActivityImpl extends MinimalEObjectImpl.Container imple
    * <!-- end-user-doc -->
    * @generated
    */
+  public EList<SelectionCategory> getCondition()
+  {
+    if (condition == null)
+    {
+      condition = new EObjectResolvingEList<SelectionCategory>(SelectionCategory.class, this, VerifyPackage.VERIFICATION_ACTIVITY__CONDITION);
+    }
+    return condition;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
   public int getTimeout()
   {
     return timeout;
@@ -376,6 +403,8 @@ public class VerificationActivityImpl extends MinimalEObjectImpl.Container imple
         return basicGetMethod();
       case VerifyPackage.VERIFICATION_ACTIVITY__PARAMETERS:
         return getParameters();
+      case VerifyPackage.VERIFICATION_ACTIVITY__CONDITION:
+        return getCondition();
       case VerifyPackage.VERIFICATION_ACTIVITY__TIMEOUT:
         return getTimeout();
     }
@@ -413,6 +442,10 @@ public class VerificationActivityImpl extends MinimalEObjectImpl.Container imple
         getParameters().clear();
         getParameters().addAll((Collection<? extends XExpression>)newValue);
         return;
+      case VerifyPackage.VERIFICATION_ACTIVITY__CONDITION:
+        getCondition().clear();
+        getCondition().addAll((Collection<? extends SelectionCategory>)newValue);
+        return;
       case VerifyPackage.VERIFICATION_ACTIVITY__TIMEOUT:
         setTimeout((Integer)newValue);
         return;
@@ -448,6 +481,9 @@ public class VerificationActivityImpl extends MinimalEObjectImpl.Container imple
       case VerifyPackage.VERIFICATION_ACTIVITY__PARAMETERS:
         getParameters().clear();
         return;
+      case VerifyPackage.VERIFICATION_ACTIVITY__CONDITION:
+        getCondition().clear();
+        return;
       case VerifyPackage.VERIFICATION_ACTIVITY__TIMEOUT:
         setTimeout(TIMEOUT_EDEFAULT);
         return;
@@ -477,6 +513,8 @@ public class VerificationActivityImpl extends MinimalEObjectImpl.Container imple
         return method != null;
       case VerifyPackage.VERIFICATION_ACTIVITY__PARAMETERS:
         return parameters != null && !parameters.isEmpty();
+      case VerifyPackage.VERIFICATION_ACTIVITY__CONDITION:
+        return condition != null && !condition.isEmpty();
       case VerifyPackage.VERIFICATION_ACTIVITY__TIMEOUT:
         return timeout != TIMEOUT_EDEFAULT;
     }

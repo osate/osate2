@@ -44,7 +44,8 @@ VerificationActivity:
 	':' (
 		( result+=[common::ComputeDeclaration|ID] (',' result+=[common::ComputeDeclaration|ID])* '=')?
 	   method=[VerificationMethod|QualifiedName] '(' (parameters+=[xbase::XExpression| ID] (',' parameters+=[xbase::XExpression| ID])*)?')'
-	('timeout' timeout=INT)?
+	('when' condition+=[categories::SelectionCategory|ID]+)?
+	('timeout' timeout=INT)? 
 )
 	;
 
@@ -61,7 +62,7 @@ ElseEvidenceExpr returns ArgumentExpr:
 ;
 	
 SingleElseEvidenceExpr returns ArgumentExpr:	
-	SingleEvidenceExpr (=> ({ElseExpr.left=current} 'else') 
+	VAReference (=> ({ElseExpr.left=current} 'else') 
 		(other=ElseEvidenceExpr | 
 				'[' ('fail' ':' fail=ThenEvidenceExpr)? ('timeout' ':' timeout=ThenEvidenceExpr)? 
 				('other' ':' other=ThenEvidenceExpr)? 
@@ -84,8 +85,8 @@ QuantifiedEvidenceExpr returns ArgumentExpr:
 CompositeEvidenceExpr returns ArgumentExpr:
 	 '(' ThenEvidenceExpr ')' | QuantifiedEvidenceExpr;
 
-SingleEvidenceExpr returns ArgumentExpr:
-	VAReference (=> ({WhenExpr.verification=current} 'when') condition+=[categories::VerificationCategory|ID]+)?; // should it be a selection category as well
+//SingleEvidenceExpr returns ArgumentExpr:
+//	VAReference (=> ({WhenExpr.verification=current} 'when') condition+=[categories::VerificationCategory|ID]+)?; // should it be a selection category as well
 
 VAReference returns ArgumentExpr:
 	{RefExpr} verification=[VerificationActivity|QualifiedName]

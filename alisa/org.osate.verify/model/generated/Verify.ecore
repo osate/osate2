@@ -43,6 +43,8 @@
     <eStructuralFeatures xsi:type="ecore:EReference" name="method" eType="#//VerificationMethod"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="parameters" unique="false"
         upperBound="-1" eType="ecore:EClass platform:/resource/org.eclipse.xtext.xbase/model/Xbase.ecore#//XExpression"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="condition" unique="false"
+        upperBound="-1" eType="ecore:EClass platform:/resource/org.osate.categories/model/generated/Categories.ecore#//SelectionCategory"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="timeout" eType="ecore:EDataType platform:/plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//EInt"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="ArgumentExpr"/>
@@ -108,12 +110,6 @@
   <eClassifiers xsi:type="ecore:EClass" name="AllExpr" eSuperTypes="#//ArgumentExpr">
     <eStructuralFeatures xsi:type="ecore:EReference" name="elements" upperBound="-1"
         eType="#//ArgumentExpr" containment="true"/>
-  </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="WhenExpr" eSuperTypes="#//ArgumentExpr">
-    <eStructuralFeatures xsi:type="ecore:EReference" name="verification" eType="#//ArgumentExpr"
-        containment="true"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="condition" unique="false"
-        upperBound="-1" eType="ecore:EClass platform:/resource/org.osate.categories/model/generated/Categories.ecore#//VerificationCategory"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="RefExpr" eSuperTypes="#//ArgumentExpr">
     <eStructuralFeatures xsi:type="ecore:EReference" name="verification" eType="#//VerificationActivity"/>
