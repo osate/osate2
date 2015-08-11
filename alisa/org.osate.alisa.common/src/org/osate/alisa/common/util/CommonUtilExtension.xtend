@@ -80,7 +80,6 @@ class CommonUtilExtension {
 	def static boolean isSameorExtends(ComponentClassifier target, URI ancestorURI) {
 		var Classifier ext = target
 		while (ext != null) {
-			EcoreUtil.getURI(ext);
 			if (ancestorURI == EcoreUtil.getURI(ext) ) {
 				return true;
 			}
@@ -88,13 +87,12 @@ class CommonUtilExtension {
 		}
 		if (target instanceof ComponentImplementation) {
 			ext = (target as ComponentImplementation).getType();
-		}
 		while (ext != null) {
-			EcoreUtil.getURI(ext);
 			if (ancestorURI == EcoreUtil.getURI(ext) ) {
 				return true;
 			}
 			ext = ext.getExtended();
+		}
 		}
 		return false;
 	}
