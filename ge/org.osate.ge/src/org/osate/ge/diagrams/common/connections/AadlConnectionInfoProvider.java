@@ -23,6 +23,7 @@ import org.eclipse.graphiti.mm.pictograms.Shape;
 import org.eclipse.graphiti.services.Graphiti;
 import org.eclipse.graphiti.services.IPeService;
 import org.osate.aadl2.ComponentImplementation;
+import org.osate.aadl2.ComponentType;
 import org.osate.aadl2.ConnectionEnd;
 import org.osate.aadl2.Context;
 import org.osate.aadl2.FeatureGroup;
@@ -94,7 +95,7 @@ public class AadlConnectionInfoProvider extends AbstractConnectionInfoProvider {
 		// Get the pictogram elements for the source and destination of the connection
 		final PictogramElement sourcePe = getPictogramElement(ownerShape, connection.getAllSource(), connection.getAllSourceContext());
 		final PictogramElement destPe = getPictogramElement(ownerShape, connection.getAllDestination(), connection.getAllDestinationContext());
-
+		
 		// Check if the sourcePe and destPe are valid
 		if(sourcePe == null || !(sourcePe instanceof Shape) || destPe == null || !(destPe instanceof Shape)) {
 			return null;
@@ -131,9 +132,7 @@ public class AadlConnectionInfoProvider extends AbstractConnectionInfoProvider {
 		
 		// The context for the actual context. If the context and secondary context are the same then only one is used.
 		NamedElement secondaryContext = context;
-		if(secondaryContext instanceof FeatureGroup) {
-			secondaryContext = secondaryContext.getContainingComponentImpl();
-		} else if(secondaryContext instanceof SubprogramCall) {
+		if(secondaryContext instanceof SubprogramCall) {
 			secondaryContext = (NamedElement)secondaryContext.eContainer();
 		}
 		
@@ -142,16 +141,9 @@ public class AadlConnectionInfoProvider extends AbstractConnectionInfoProvider {
 		if(secondaryContext != null) {
 			// Check if the context matches the BO of the owner shape
 			final Object ownerShapeBo = getBusinessObjectResolver().getBusinessObjectForPictogramElement(ownerShape);
-			if(secondaryContext == ownerShapeBo){
+			if(secondaryContext == ownerShapeBo) {
 				pe = ownerShape;
-			} else {
-				if(ownerShapeBo instanceof ComponentImplementation) {
-					final ComponentImplementation ci = (ComponentImplementation)ownerShapeBo;
-					if(getAllExtended(ci).contains(secondaryContext)) {
-						pe = ownerShape;
-					}
-				}
-				
+			} else {				
 				if(pe == null) {
 					pe = shapeService.getChildShapeByElementName(ownerShape, secondaryContext);
 
@@ -187,13 +179,5 @@ public class AadlConnectionInfoProvider extends AbstractConnectionInfoProvider {
 		pe = shapeService.getDescendantShapeByElementName((ContainerShape)pe, ce);		
 
 		return pe;
-	}
-	
-	private List<ComponentImplementation> getAllExtended(final ComponentImplementation ci) {
-		final List<ComponentImplementation> results = new ArrayList<ComponentImplementation>();		
-		for(ComponentImplementation tmp = ci.getExtended(); tmp != null; tmp = tmp.getExtended()) {
-			results.add(tmp);
-		}
-		return results;
 	}
 }
