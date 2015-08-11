@@ -639,10 +639,17 @@ public class EditFlowsDialog extends TitleAreaDialog {
 		return name;
 	}
 	
+	private GridData createSegmentGridData() {
+		final GridData segGridData = new GridData(GridData.FILL_HORIZONTAL);
+    	segGridData.grabExcessHorizontalSpace = true;
+    	segGridData.widthHint = segmentWidth;
+    	return segGridData;
+	}
+	
 	private void addInsertRow(final int insertIndex) {
 		// Create row of widgets. Just insert box
 		new Label(flowDetailsPane, SWT.NONE).setLayoutData(GridDataFactory.fillDefaults().hint(deleteWidth, SWT.DEFAULT).create());
-		new Label(flowDetailsPane, SWT.NONE).setLayoutData(GridDataFactory.fillDefaults().hint(segmentWidth, SWT.DEFAULT).create());
+		new Label(flowDetailsPane, SWT.NONE).setLayoutData(createSegmentGridData());		
 		addInsertButton(insertIndex);
 	}
 	
@@ -681,10 +688,7 @@ public class EditFlowsDialog extends TitleAreaDialog {
 	    });
 
 	    final ComboViewer cmb = new ComboViewer(flowDetailsPane, SWT.DROP_DOWN | SWT.READ_ONLY);
-    	final GridData cmbGridData = new GridData(GridData.FILL_HORIZONTAL);
-    	cmbGridData.grabExcessHorizontalSpace = true;
-    	cmbGridData.widthHint = segmentWidth;
-    	cmb.getCombo().setLayoutData(cmbGridData);
+    	cmb.getCombo().setLayoutData(createSegmentGridData());
     	cmb.addSelectionChangedListener(new ISelectionChangedListener() {
 			@Override
 			public void selectionChanged(final SelectionChangedEvent event) {
@@ -747,7 +751,7 @@ public class EditFlowsDialog extends TitleAreaDialog {
 
 		final Label segmentLbl = new Label(flowDetailsPane, SWT.NONE);
 		final String lblTxt = getSegmentName(ctx, flowElement);
-		segmentLbl.setLayoutData(GridDataFactory.fillDefaults().hint(segmentWidth, SWT.DEFAULT).create());
+		segmentLbl.setLayoutData(createSegmentGridData());
 		segmentLbl.setText(lblTxt);
 
 		if(showInsertButton) {
