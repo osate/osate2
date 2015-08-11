@@ -38,6 +38,8 @@ public class ReqSpecStandaloneSetupGenerated implements ISetup {
 		org.eclipse.xtext.resource.IResourceServiceProvider serviceProvider = injector.getInstance(org.eclipse.xtext.resource.IResourceServiceProvider.class);
 		Resource.Factory.Registry.INSTANCE.getExtensionToFactoryMap().put("reqspec", resourceFactory);
 		org.eclipse.xtext.resource.IResourceServiceProvider.Registry.INSTANCE.getExtensionToFactoryMap().put("reqspec", serviceProvider);
+		Resource.Factory.Registry.INSTANCE.getExtensionToFactoryMap().put("goals", resourceFactory);
+		org.eclipse.xtext.resource.IResourceServiceProvider.Registry.INSTANCE.getExtensionToFactoryMap().put("goals", serviceProvider);
 		
 
 
