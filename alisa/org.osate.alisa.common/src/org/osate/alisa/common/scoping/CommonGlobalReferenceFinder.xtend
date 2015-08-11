@@ -23,9 +23,21 @@ import static extension org.eclipse.emf.ecore.util.EcoreUtil.*
 
 @ImplementedBy(CommonGlobalReferenceFinder)
 interface ICommonGlobalReferenceFinder {
+	/**
+	 * getEObjectReferences assume that references have been resolved. Therefore do not use them to construct scopes.
+	 */
 	def Iterable<URI> getEObjectReferences(ComponentClassifier target, EReference ereference, String URIExtension);
+	/**
+	 * getEObjectReferences assume that references have been resolved. Therefore do not use them to construct scopes.
+	 */
 	def Iterable<URI> getEObjectReferences(URI target, EReference ereference, String URIExtension);
+	/**
+	 * getEObjectDescriptions can be used to construct scopes, which themselves are used to resolve references.
+	 */
 	def Iterable<IEObjectDescription> getEObjectDescriptions(EObject context, EClass eclass, String URIExtension);
+	/**
+	 * getDuplicates is a method that finds duplicates for the target object, which is assumed to exist in the global scope
+	 */
 	def Iterable<IEObjectDescription> getDuplicates(EObject target) ;
 }
 

@@ -12,6 +12,9 @@ import org.osate.reqspec.reqSpec.ReqSpecPackage
 
 @ImplementedBy(VerifyGlobalReferenceFinder)
 interface IVerifyGlobalReferenceFinder {
+	/**
+	 * do not use these methods to construction of scopes as they are operating on references
+	 */
 	def Iterable<VerificationPlan> getVerificationPlans(ComponentClassifier cc );
 }
 

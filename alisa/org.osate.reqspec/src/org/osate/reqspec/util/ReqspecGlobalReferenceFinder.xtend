@@ -11,6 +11,9 @@ import org.osate.reqspec.reqSpec.SystemRequirements
 
 @ImplementedBy(ReqspecGlobalReferenceFinder)
 interface IReqspecGlobalReferenceFinder {
+	/**
+	 * these methods should not be used to construct scopes
+	 */
 	def Iterable<SystemRequirements> getSystemRequirements(ComponentInstance ci);
 	def Iterable<Requirement> getAllRequirements(ComponentInstance ci);
 	def Iterable<SystemRequirements> getSystemRequirements(ComponentClassifier cc);
