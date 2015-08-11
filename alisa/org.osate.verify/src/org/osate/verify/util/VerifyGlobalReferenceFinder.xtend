@@ -10,12 +10,12 @@ import static extension org.osate.alisa.common.util.CommonUtilExtension.*
 import org.osate.verify.verify.VerifyPackage
 import org.osate.reqspec.reqSpec.ReqSpecPackage
 
-@ImplementedBy(VerifyReferenceFinder)
-interface IVerifyReferenceFinder {
+@ImplementedBy(VerifyGlobalReferenceFinder)
+interface IVerifyGlobalReferenceFinder {
 	def Iterable<VerificationPlan> getVerificationPlans(ComponentClassifier cc );
 }
 
-class VerifyReferenceFinder implements IVerifyReferenceFinder{
+class VerifyGlobalReferenceFinder implements IVerifyGlobalReferenceFinder{
 		
 	@Inject
 	var ICommonGlobalReferenceFinder refFinder

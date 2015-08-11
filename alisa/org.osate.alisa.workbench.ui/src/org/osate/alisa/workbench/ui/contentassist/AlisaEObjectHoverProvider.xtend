@@ -4,12 +4,12 @@ import com.google.inject.Inject
 import org.eclipse.emf.ecore.EObject
 import org.eclipse.xtext.ui.editor.hover.html.DefaultEObjectHoverProvider
 import org.osate.alisa.workbench.alisa.AssurancePlan
-import org.osate.verify.util.IVerifyReferenceFinder
+import org.osate.verify.util.IVerifyGlobalReferenceFinder
 import org.osate.verify.verify.VerificationPlan
 
 class AlisaEObjectHoverProvider extends DefaultEObjectHoverProvider {
 
-	@Inject extension IVerifyReferenceFinder referenceFinder
+	@Inject extension IVerifyGlobalReferenceFinder referenceFinder
 
 	override getHoverInfoAsHtml(EObject o) {
 		switch (o) {

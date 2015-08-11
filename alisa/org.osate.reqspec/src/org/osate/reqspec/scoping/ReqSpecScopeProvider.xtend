@@ -20,7 +20,7 @@ import org.osate.aadl2.ComponentType
 import org.osate.alisa.common.scoping.AlisaAbstractDeclarativeScopeProvider
 import org.osate.reqspec.reqSpec.ContractualElement
 import org.osate.reqspec.reqSpec.Requirement
-import org.osate.reqspec.util.IReqspecReferenceFinder
+import org.osate.reqspec.util.IReqspecGlobalReferenceFinder
 
 import static org.osate.reqspec.util.ReqSpecUtilExtension.*
 import org.osate.reqspec.reqSpec.ReqSpecPackage
@@ -36,7 +36,7 @@ import org.osate.reqspec.reqSpec.SystemRequirements
  * 
  */
 class ReqSpecScopeProvider extends AlisaAbstractDeclarativeScopeProvider {
-@Inject var IReqspecReferenceFinder refFinder
+@Inject var IReqspecGlobalReferenceFinder refFinder
 
 @Inject var ICommonGlobalReferenceFinder commonRefFinder
 

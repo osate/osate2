@@ -12,7 +12,7 @@ import org.eclipse.xtext.scoping.impl.AbstractDeclarativeScopeProvider
 import org.eclipse.xtext.scoping.impl.SimpleScope
 import org.eclipse.xtext.util.SimpleAttributeResolver
 import org.osate.alisa.workbench.alisa.AssurancePlan
-import org.osate.verify.util.IVerifyReferenceFinder
+import org.osate.verify.util.IVerifyGlobalReferenceFinder
 
 /**
  * This class contains custom scoping description.
@@ -31,7 +31,7 @@ class AlisaScopeProvider extends AbstractDeclarativeScopeProvider {
 //		new SimpleScope(IScope::NULLSCOPE, vps,true)
 //	}
 
-@Inject var IVerifyReferenceFinder refFinder
+@Inject var IVerifyGlobalReferenceFinder refFinder
 
 	def scope_VerificationPlan(AssurancePlan acp, EReference reference){
 		val targetCC = acp.target

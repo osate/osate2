@@ -21,7 +21,7 @@ import org.osate.alisa.workbench.alisa.AssuranceTask
 import org.osate.categories.categories.RequirementCategory
 import org.osate.categories.categories.SelectionCategory
 import org.osate.categories.categories.VerificationCategory
-import org.osate.verify.util.IVerifyReferenceFinder
+import org.osate.verify.util.IVerifyGlobalReferenceFinder
 import org.osate.verify.verify.AllExpr
 import org.osate.verify.verify.ArgumentExpr
 import org.osate.verify.verify.Claim
@@ -75,7 +75,7 @@ class AlisaGenerator implements IGenerator {
 		cc.generate(acp,true)
 	}
 
-@Inject extension IVerifyReferenceFinder referenceFinder
+@Inject extension IVerifyGlobalReferenceFinder referenceFinder
 
 
 	def CharSequence generate(ComponentClassifier cc, AssurancePlan acp, boolean systemEvidence) {

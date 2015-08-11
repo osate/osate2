@@ -9,15 +9,15 @@ import org.osate.reqspec.reqSpec.ReqSpecPackage
 import org.osate.reqspec.reqSpec.Requirement
 import org.osate.reqspec.reqSpec.SystemRequirements
 
-@ImplementedBy(ReqspecReferenceFinder)
-interface IReqspecReferenceFinder {
+@ImplementedBy(ReqspecGlobalReferenceFinder)
+interface IReqspecGlobalReferenceFinder {
 	def Iterable<SystemRequirements> getSystemRequirements(ComponentInstance ci);
 	def Iterable<Requirement> getAllRequirements(ComponentInstance ci);
 	def Iterable<SystemRequirements> getSystemRequirements(ComponentClassifier cc);
 	def Iterable<Requirement> getAllRequirements(ComponentClassifier cc);
 }
 
-class ReqspecReferenceFinder implements IReqspecReferenceFinder{
+class ReqspecGlobalReferenceFinder implements IReqspecGlobalReferenceFinder{
 		
 	@Inject
 	var ICommonGlobalReferenceFinder refFinder
