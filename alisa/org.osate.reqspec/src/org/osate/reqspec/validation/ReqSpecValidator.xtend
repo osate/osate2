@@ -237,6 +237,24 @@ class ReqSpecValidator extends AbstractReqSpecValidator {
 			reqList.remove(reqList.size - 1)
 			return cycles
 		]
-	}		
+	}	
+		
+//	@Check(CheckType.FAST)
+//	def void checkCoverage(StakeholderGoals shgs) {
+//		val target = shgs.target
+//		if (!SystemImplementation.isInstance(target)){ return }
+//		println("target = " + target)
+//	}
+
+////	@Check(CheckType.FAST)
+//	def void checkCoverage(Goal goal) {
+//		val contextClassifier = goal.contextClassifier
+//		println("contextClassifier = " + contextClassifier)
+//		if (!SystemImplementation.isInstance(contextClassifier)){ return }
+//		//TODO: Need to get all the requirements where contextClassifier is the same and has see goal equal to this goal
+//		
+//
+//	}
+
 
 }

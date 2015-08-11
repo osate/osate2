@@ -3,11 +3,41 @@
 */
 package org.osate.reqspec.ui.outline
 
+import org.eclipse.emf.ecore.EObject
+import org.eclipse.xtext.ui.editor.outline.IOutlineNode
+import org.eclipse.xtext.ui.editor.outline.impl.DefaultOutlineTreeProvider
+import org.osate.alisa.common.common.Description
+import org.osate.alisa.common.common.DescriptionElement
+
+import static extension org.osate.alisa.common.util.CommonUtilExtension.*
+
 /**
  * Customization of the default outline structure.
  *
  * see http://www.eclipse.org/Xtext/documentation.html#outline
  */
-class ReqSpecOutlineTreeProvider extends org.eclipse.xtext.ui.editor.outline.impl.DefaultOutlineTreeProvider {
+class ReqSpecOutlineTreeProvider extends DefaultOutlineTreeProvider {
+	 
+	override _createChildren(IOutlineNode parentNode, EObject modelElement) {
+		modelElement.eContents().forEach [childElement |
+			if (!DescriptionElement.isInstance(childElement)){
+				createNode(parentNode, childElement)
+			}
+		]
+	}
+	
+	override _createNode(IOutlineNode parentNode, EObject modelElement) {
+		var text = textDispatcher.invoke(modelElement)
+		val isLeaf = isLeafDispatcher.invoke(modelElement)
+		if (text == null && isLeaf)
+			return;
+		if (text == null && Description.isInstance(modelElement)){
+			text = (modelElement as Description).toText(null)
+//			text = "description"
+		}
+		val image = imageDispatcher.invoke(modelElement)
+		createEObjectNode(parentNode, modelElement, image, text, isLeaf)
+	}
+
 	
 }
