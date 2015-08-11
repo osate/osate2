@@ -14,6 +14,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 
+import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.jface.dialogs.Dialog;
 import org.eclipse.jface.dialogs.IDialogConstants;
@@ -255,12 +256,44 @@ public class EditFlowsDialog extends TitleAreaDialog {
 	    // Make a copy of the flows and use it as the input to the flow list viewer.
 	    // The copies share flow specifications but have a different set of owned flow segments
 	    flows.clear();
-	    flows.addAll(EcoreUtil.copyAll(ci.getOwnedFlowImplementations()));
-	    
+	    for(final FlowImplementation fi : ci.getOwnedFlowImplementations()) {
+	    	if(fi.getInModeOrTransitions().size() == 0) {
+    			flows.add(EcoreUtil.copy(fi));
+    		} else {
+    			// Use an alternative mechanism to copy flows if the in modes clause is not empty. This is needed because EcoreUtil.copy does not work properly in that case. It throws an exception.
+    			// See osate2-core issue #598
+    			final EClass flowClass = fi.eClass();
+    			final FlowImplementation copiedFlowImplementation = (FlowImplementation)flowClass.getEPackage().getEFactoryInstance().create(flowClass);
+    			copiedFlowImplementation.setName(fi.getName());
+    			copiedFlowImplementation.setKind(fi.getKind());
+    			copiedFlowImplementation.setSpecification(fi.getSpecification());
+    			copiedFlowImplementation.getInModeOrTransitions().addAll(EcoreUtil.copyAll(fi.getInModeOrTransitions()));
+    			copiedFlowImplementation.getOwnedComments().addAll(EcoreUtil.copyAll(fi.getOwnedComments()));
+    			copiedFlowImplementation.getOwnedElements().addAll(EcoreUtil.copyAll(fi.getOwnedElements()));
+    			copiedFlowImplementation.getOwnedFlowSegments().addAll(EcoreUtil.copyAll(fi.getOwnedFlowSegments()));
+    			copiedFlowImplementation.getOwnedPropertyAssociations().addAll(EcoreUtil.copyAll(fi.getOwnedPropertyAssociations()));	    			
+    			flows.add(copiedFlowImplementation);
+    		}
+	    }
+
 	    // Add all end to end flows that are not refinements
 	    for(final EndToEndFlow eteFlow : ci.getOwnedEndToEndFlows()) {
 	    	if(eteFlow.getRefined() == null) {
-	    		flows.add(EcoreUtil.copy(eteFlow));		
+	    		if(eteFlow.getInModeOrTransitions().size() == 0) {
+	    			flows.add(EcoreUtil.copy(eteFlow));
+	    		} else {
+	    			// Use an alternative mechanism to copy flows if the in modes clause is not empty. This is needed because EcoreUtil.copy does not work properly in that case. It throws an exception.
+	    			// See osate2-core issue #598
+	    			final EClass flowClass = eteFlow.eClass();
+	    			final EndToEndFlow copiedEndToEndFlow = (EndToEndFlow)flowClass.getEPackage().getEFactoryInstance().create(flowClass);
+	    			copiedEndToEndFlow.setName(eteFlow.getName());
+	    			copiedEndToEndFlow.getInModeOrTransitions().addAll(EcoreUtil.copyAll(eteFlow.getInModeOrTransitions()));
+	    			copiedEndToEndFlow.getOwnedComments().addAll(EcoreUtil.copyAll(eteFlow.getOwnedComments()));
+	    			copiedEndToEndFlow.getOwnedElements().addAll(EcoreUtil.copyAll(eteFlow.getOwnedElements()));
+	    			copiedEndToEndFlow.getOwnedEndToEndFlowSegments().addAll(EcoreUtil.copyAll(eteFlow.getOwnedEndToEndFlowSegments()));
+	    			copiedEndToEndFlow.getOwnedPropertyAssociations().addAll(EcoreUtil.copyAll(eteFlow.getOwnedPropertyAssociations()));	    			
+	    			flows.add(copiedEndToEndFlow);
+	    		}
 	    	}
 	    }
 	    flowListViewer.setInput(flows);
