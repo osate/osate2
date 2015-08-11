@@ -36,8 +36,6 @@ import org.osate.reqspec.reqSpec.SystemRequirements
  * 
  */
 class ReqSpecScopeProvider extends AlisaAbstractDeclarativeScopeProvider {
-	@Inject var IReqspecGlobalReferenceFinder refFinder
-
 	@Inject var ICommonGlobalReferenceFinder commonRefFinder
 
 	// For Reference is from Goal, Requirement 
