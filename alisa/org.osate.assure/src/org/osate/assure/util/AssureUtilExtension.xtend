@@ -695,10 +695,8 @@ class AssureUtilExtension {
 	}
 
 	def static void setToError(VerificationResult verificationActivityResult, Throwable e) {
-		val StringWriter writer = new StringWriter
-		val PrintWriter pwriter = new PrintWriter(writer)
-		e.printStackTrace(pwriter)
-		verificationActivityResult.addErrorIssue(null, writer.toString, e.getClass().getName());
+		val msg = e.message
+		verificationActivityResult.addErrorIssue(null, msg, e.getClass().getName());
 		if (verificationActivityResult.updateOwnResultState(VerificationResultState.FAIL))
 			verificationActivityResult.propagateCountChangeUp
 	}
