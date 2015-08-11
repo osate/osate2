@@ -9,6 +9,7 @@ import org.osate.verify.verify.VerificationActivity
 import org.osate.verify.verify.Claim
 import org.osate.aadl2.ComponentClassifier
 import org.osate.verify.verify.VerificationPlan
+import static extension org.eclipse.xtext.EcoreUtil2.*
 
 class VerifyUtilExtension {
 
@@ -48,7 +49,11 @@ class VerifyUtilExtension {
 	}
 	
 	def static ComponentClassifier getTargetComponentClassifier(VerificationPlan vp){
-	vp.systemRequirements?.target
-}
+		vp.systemRequirements?.target
+	}
+	
+	def static containingVerificationPlan(EObject sh) {
+		sh.getContainerOfType(VerificationPlan)
+	}
 	
 }
