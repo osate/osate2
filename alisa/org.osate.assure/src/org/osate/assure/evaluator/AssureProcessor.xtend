@@ -313,7 +313,6 @@ class AssureProcessor implements IAssureProcessor {
 			} catch (Throwable e) {
 //			System.out.println("BLABLA2");
 				setToError(verificationResult, e);
-				throw e;
 			}
 			verificationResult.eResource.save(null)
 		}
