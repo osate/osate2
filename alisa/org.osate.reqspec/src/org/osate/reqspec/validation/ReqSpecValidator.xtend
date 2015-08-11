@@ -3,7 +3,6 @@
  */
 package org.osate.reqspec.validation
 
-import com.google.inject.Inject
 import java.util.ArrayList
 import java.util.List
 import org.eclipse.emf.common.util.BasicEList
@@ -11,10 +10,9 @@ import org.eclipse.emf.ecore.util.EcoreUtil
 import org.eclipse.xtext.nodemodel.util.NodeModelUtils
 import org.eclipse.xtext.validation.Check
 import org.eclipse.xtext.validation.CheckType
-import org.eclipse.xtext.validation.ValidationMessageAcceptor
 import org.osate.aadl2.Classifier
 import org.osate.aadl2.NamedElement
-import org.osate.alisa.common.scoping.CommonGlobalScopeProvider
+import org.osate.alisa.common.util.CommonUtilExtension
 import org.osate.reqspec.reqSpec.ContractualElement
 import org.osate.reqspec.reqSpec.DocumentSection
 import org.osate.reqspec.reqSpec.Goal
@@ -25,7 +23,8 @@ import org.osate.reqspec.reqSpec.StakeholderGoals
 import org.osate.reqspec.reqSpec.SystemRequirements
 
 import static extension org.osate.reqspec.util.ReqSpecUtilExtension.*
-import org.osate.alisa.common.util.CommonUtilExtension
+import org.osate.alisa.common.scoping.ICommonGlobalReferenceFinder
+import com.google.inject.Inject
 
 /**
  * Custom validation rules. 
@@ -46,9 +45,6 @@ class ReqSpecValidator extends AbstractReqSpecValidator {
   public static val DUPLICATE_REQUIREMENT_WITHIN_SYSTEM_REQUIREMENTS = 'org.osate.reqspec.validation.duplicate.requirement.within.system.requirements'
   public static val CYCLE_IN_GOAL_REFINE_HIERARCHY = 'org.osate.reqspec.validation.cycle.in.goal.refine.hierarchy'
   public static val CYCLE_IN_REQUIREMENT_REFINE_HIERARCHY = 'org.osate.reqspec.validation.cycle.in.requirement.refine.hierarchy'
-
-	@Inject
-	CommonGlobalScopeProvider cgsp
 	
 	@Check//(CheckType.EXPENSIVE)
 	def void checkMissingStakeholder(Goal goal) {
@@ -127,10 +123,12 @@ class ReqSpecValidator extends AbstractReqSpecValidator {
 				)
 		] 
 	}
+	
+@Inject ICommonGlobalReferenceFinder refFinder
 
 	@Check(CheckType.NORMAL)
 	def void checkDuplicateStakeholderGoals(StakeholderGoals shg) {
-		val dupes = cgsp.getDuplicates(shg)
+		val dupes = refFinder.getDuplicates(shg)
 			if (dupes.size > 0) {
 				val node = NodeModelUtils.getNode(shg);
 				error("Duplicate StakeholderGoal name '" + shg.name + "'",  
@@ -141,7 +139,7 @@ class ReqSpecValidator extends AbstractReqSpecValidator {
 	
 	@Check(CheckType.NORMAL)
 	def void checkDuplicateSystemRequirements(SystemRequirements sysReq) {
-		val dupes = cgsp.getDuplicates(sysReq)
+		val dupes = refFinder.getDuplicates(sysReq)
 			if (dupes.size > 0) {
 				val node = NodeModelUtils.getNode(sysReq);
 				error("Duplicate System Requirements name '" + sysReq.name + "'",  

@@ -13,6 +13,8 @@ import org.osate.aadl2.Classifier
 import org.osate.aadl2.ComponentClassifier
 import org.osate.aadl2.instance.ComponentInstance
 import org.osate.aadl2.instance.InstanceObject
+import org.eclipse.emf.common.util.URI
+import org.eclipse.emf.ecore.util.EcoreUtil
 
 class CommonUtilExtension {
 
@@ -72,6 +74,28 @@ class CommonUtilExtension {
 			ext = ext.getExtended();
 		}
 
+		return false;
+	}
+
+	def static boolean isSameorExtends(ComponentClassifier target, URI ancestorURI) {
+		var Classifier ext = target
+		while (ext != null) {
+			EcoreUtil.getURI(ext);
+			if (ancestorURI == EcoreUtil.getURI(ext) ) {
+				return true;
+			}
+			ext = ext.getExtended();
+		}
+		if (target instanceof ComponentImplementation) {
+			ext = (target as ComponentImplementation).getType();
+		}
+		while (ext != null) {
+			EcoreUtil.getURI(ext);
+			if (ancestorURI == EcoreUtil.getURI(ext) ) {
+				return true;
+			}
+			ext = ext.getExtended();
+		}
 		return false;
 	}
 

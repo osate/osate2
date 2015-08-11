@@ -4,6 +4,7 @@ import com.google.inject.ImplementedBy
 import com.google.inject.Inject
 import com.rockwellcollins.atc.resolute.analysis.execution.EvaluationContext
 import com.rockwellcollins.atc.resolute.analysis.execution.ResoluteInterpreter
+import com.rockwellcollins.atc.resolute.resolute.FnCallExpr
 import com.rockwellcollins.atc.resolute.resolute.FunctionDefinition
 import com.rockwellcollins.atc.resolute.resolute.ProveStatement
 import com.rockwellcollins.atc.resolute.resolute.ResoluteFactory
@@ -13,16 +14,17 @@ import org.eclipse.emf.ecore.util.EcoreUtil
 import org.eclipse.xtext.common.types.JvmFormalParameter
 import org.eclipse.xtext.common.types.JvmType
 import org.eclipse.xtext.naming.QualifiedName
-import org.eclipse.xtext.scoping.IGlobalScopeProvider
 import org.eclipse.xtext.util.CancelIndicator
 import org.eclipse.xtext.xbase.XVariableDeclaration
 import org.eclipse.xtext.xbase.interpreter.IEvaluationResult
 import org.eclipse.xtext.xbase.interpreter.impl.DefaultEvaluationContext
 import org.eclipse.xtext.xbase.interpreter.impl.XbaseInterpreter
+import org.osate.aadl2.Aadl2Factory
 import org.osate.aadl2.ComponentImplementation
+import org.osate.aadl2.instance.InstanceObject
 import org.osate.aadl2.util.OsateDebug
 import org.osate.alisa.common.common.ComputeDeclaration
-import org.osate.alisa.common.scoping.CommonGlobalScopeProvider
+import org.osate.alisa.common.scoping.ICommonGlobalReferenceFinder
 import org.osate.assure.assure.AssuranceEvidence
 import org.osate.assure.assure.AssureFactory
 import org.osate.assure.assure.AssureResult
@@ -33,7 +35,9 @@ import org.osate.assure.assure.PreconditionResult
 import org.osate.assure.assure.ThenResult
 import org.osate.assure.assure.ValidationResult
 import org.osate.assure.assure.VerificationActivityResult
+import org.osate.assure.assure.VerificationExecutionState
 import org.osate.assure.assure.VerificationResult
+import org.osate.assure.util.AssureUtilExtension
 import org.osate.results.results.ResultReport
 import org.osate.verify.util.IVerificationMethodDispatcher
 import org.osate.verify.verify.SupportedTypes
@@ -42,12 +46,6 @@ import org.osate.verify.verify.VerificationMethod
 
 import static extension org.osate.alisa.common.util.CommonUtilExtension.*
 import static extension org.osate.assure.util.AssureUtilExtension.*
-import org.osate.aadl2.instance.InstanceObject
-import org.osate.assure.util.AssureUtilExtension
-import static org.osate.assure.util.AssureUtilExtension.getInstanceModel
-import org.osate.assure.assure.VerificationExecutionState
-import org.osate.aadl2.Aadl2Factory
-import com.rockwellcollins.atc.resolute.resolute.FnCallExpr
 
 @ImplementedBy(AssureProcessor)
 interface IAssureProcessor {
@@ -383,16 +381,13 @@ class AssureProcessor implements IAssureProcessor {
 			}
 		}
 
-		@Inject
-		public IGlobalScopeProvider scopeProvider;
-
+		@Inject ICommonGlobalReferenceFinder refFinder
 
 		def FunctionDefinition findResoluteFunction(EObject context, String resoluteFunctionName) {
-			val scope = scopeProvider as CommonGlobalScopeProvider
-			val foundlist = scope.getGlobalEObjectDescriptions(context,
-				ResolutePackage.eINSTANCE.getFunctionDefinition(), [ eod |
+			val foundlist = refFinder.getEObjectDescriptions(context,
+				ResolutePackage.Literals.FUNCTION_DEFINITION, "aadl").filter[ eod |
 				eod.getName().getLastSegment().equalsIgnoreCase(resoluteFunctionName)
-			])
+			]
 			if(foundlist.length == 0) return null
 			return EcoreUtil.resolve(foundlist.head.EObjectOrProxy,context) as FunctionDefinition
 		}

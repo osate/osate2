@@ -35,6 +35,7 @@ import org.osate.verify.verify.VerificationValidation
 
 import static extension org.eclipse.emf.ecore.util.EcoreUtil.*
 import static extension org.osate.alisa.common.util.CommonUtilExtension.*
+import org.osate.verify.verify.VerificationPlan
 
 /**
  * Generates code from your model files on save.
@@ -78,7 +79,7 @@ class AlisaGenerator implements IGenerator {
 
 
 	def CharSequence generate(ComponentClassifier cc, AssurancePlan acp, boolean systemEvidence) {
-		val myplans = cc.getVerificationPlans(acp);
+		val myplans = cc.getVerificationPlans();
 		'''	
 			«IF !myplans.empty»
 			«IF !systemEvidence»
@@ -89,7 +90,7 @@ class AlisaGenerator implements IGenerator {
 				[
 					tbdcount 1
 					«FOR myplan : myplans»
-						«FOR claim : myplan.claim»
+						«FOR claim : (myplan as VerificationPlan).claim»
 						«IF claim.evaluateRequirementFilter»
 							«claim.generate()»
 						«ENDIF»

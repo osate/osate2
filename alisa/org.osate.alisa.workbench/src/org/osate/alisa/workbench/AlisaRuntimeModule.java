@@ -18,10 +18,4 @@ public class AlisaRuntimeModule extends org.osate.alisa.workbench.AbstractAlisaR
 		return org.osate.alisa.workbench.generator.AlisaOutputConfigurationProvider.class;
 	}
 
-	// bind in the Common global scope provider for generator
-	@Override
-	public Class<? extends org.eclipse.xtext.scoping.IGlobalScopeProvider> bindIGlobalScopeProvider() {
-		return org.osate.alisa.common.scoping.CommonGlobalScopeProvider.class;
-	}
-
 }

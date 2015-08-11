@@ -1,0 +1,117 @@
+package org.osate.alisa.common.scoping
+
+import com.google.inject.ImplementedBy
+import com.google.inject.Inject
+import java.util.ArrayList
+import java.util.Collections
+import java.util.Stack
+import org.eclipse.emf.common.util.BasicEList
+import org.eclipse.emf.common.util.URI
+import org.eclipse.emf.ecore.EClass
+import org.eclipse.emf.ecore.EObject
+import org.eclipse.emf.ecore.EReference
+import org.eclipse.xtext.naming.IQualifiedNameProvider
+import org.eclipse.xtext.resource.IContainer
+import org.eclipse.xtext.resource.IEObjectDescription
+import org.eclipse.xtext.resource.IResourceDescription
+import org.eclipse.xtext.resource.IResourceDescriptions
+import org.osate.aadl2.ComponentClassifier
+
+import static org.osate.alisa.common.util.CommonUtilExtension.*
+
+import static extension org.eclipse.emf.ecore.util.EcoreUtil.*
+
+@ImplementedBy(CommonGlobalReferenceFinder)
+interface ICommonGlobalReferenceFinder {
+	def Iterable<URI> getEObjectReferences(ComponentClassifier target, EReference ereference, String URIExtension);
+	def Iterable<URI> getEObjectReferences(URI target, EReference ereference, String URIExtension);
+	def Iterable<IEObjectDescription> getEObjectDescriptions(EObject context, EClass eclass, String URIExtension);
+	def Iterable<IEObjectDescription> getDuplicates(EObject target) ;
+}
+
+class CommonGlobalReferenceFinder implements ICommonGlobalReferenceFinder {
+
+	@Inject
+	protected IResourceDescriptions rds
+	
+	override Iterable<URI> getEObjectReferences(ComponentClassifier target, EReference ereference, String URIExtension){
+		val result = new BasicEList
+		for (rd : rds.allResourceDescriptions.filter[d|isURIExtension(d.URI,URIExtension)]) {
+			for (reference : rd.referenceDescriptions) {
+				val referencetargetURI = reference.targetEObjectUri
+				val referencesourceURI = reference.sourceEObjectUri
+				if ( ereference == reference.EReference && isSameorExtends(target, referencetargetURI)) {
+					result += referencesourceURI
+				}
+			}
+		}
+		return result
+	}
+
+	override Iterable<URI> getEObjectReferences(URI targetURI, EReference ereference, String URIExtension){
+		val result = new BasicEList
+		for (rd : rds.allResourceDescriptions.filter[d|isURIExtension(d.URI,URIExtension)]) {
+			for (reference : rd.referenceDescriptions) {
+				val referencetargetURI = reference.targetEObjectUri
+				val referencesourceURI = reference.sourceEObjectUri
+				if ( ereference == reference.EReference && targetURI == referencetargetURI) {
+					result += referencesourceURI
+				}
+			}
+		}
+		return result
+	}
+	
+	private def boolean isURIExtension(URI uri, String URIExtension){
+		URIExtension.equalsIgnoreCase(uri.fileExtension)
+	}
+
+    @Inject
+    IContainer.Manager manager;
+
+	override Iterable<IEObjectDescription> getEObjectDescriptions(EObject context, EClass eclass, String URIExtension){
+		val result = new ArrayList<IEObjectDescription> 
+        val IResourceDescription descr = rds.getResourceDescription(context.eResource.getURI());
+      for(IContainer visibleContainer:
+            manager.getVisibleContainers(descr, rds)) {
+        for(IResourceDescription rd:
+                visibleContainer.getResourceDescriptions().filter[d|isURIExtension(d.URI,URIExtension)]) {
+		 	result += rd.getExportedObjectsByType(eclass);
+        }
+        return result
+      }
+	}
+     
+	@Inject 
+	private IQualifiedNameProvider qualifiedNameProvider ;
+
+	/**
+	 * Get all global definitions of objects with the qualified name and the same eClass as target.
+	 */
+	override Iterable<IEObjectDescription> getDuplicates(EObject target) {
+		val res = new Stack<IEObjectDescription>()
+		val context = target.eResource();
+		if (context == null || context.getResourceSet() == null) {
+			return Collections.EMPTY_LIST;
+		}
+		val qn = qualifiedNameProvider?.getFullyQualifiedName(target)
+		if(qn == null) return Collections.EMPTY_LIST;
+        val IResourceDescription descr = rds.getResourceDescription(context.getURI());
+        for(IContainer container:
+            manager.getVisibleContainers(descr, rds)) {
+			val eds = container.getExportedObjects(target.eClass(), qn, true)
+			if (!container.hasResourceDescription(context.getURI())) {
+				res += eds
+			} else {
+				if (eds.size > 1) {
+					for (ed : eds) {
+						if(ed.EObjectURI != target.URI) res += ed
+					}
+				}
+			}
+		}
+		return res
+	}
+	
+
+}

@@ -37,6 +37,7 @@ import org.osate.assure.assure.VerificationResult
 import org.osate.verify.verify.VerificationValidation
 import org.osate.verify.verify.VerificationPrecondition
 import org.osate.verify.verify.VerificationCondition
+import org.osate.verify.verify.VerificationPlan
 
 /**
  * Generates code from your model files on save.
@@ -69,14 +70,14 @@ class AssureConstructor {
 	@Inject extension IVerifyReferenceFinder referenceFinder
 
 	def AssuranceEvidence construct(ComponentClassifier cc, AssurancePlan acp, boolean systemEvidence) {
-		val myplans = cc.getVerificationPlans(acp);
+		val myplans = cc.getVerificationPlans();
 		var AssuranceEvidence acase = null
 		if (!myplans.empty) {
 			acase = factory.createAssuranceEvidence
 			acase.name = acp.name
 			acase.target = acp
 			for (myplan : myplans) {
-				for (claim : myplan.claim) {
+				for (claim : (myplan as VerificationPlan).claim) {
 					if (claim.evaluateRequirementFilter)
 						acase.claimResult += claim.construct
 				}

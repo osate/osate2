@@ -4,32 +4,25 @@
 package org.osate.reqspec.scoping
 
 import com.google.inject.Inject
+import org.eclipse.emf.common.util.EList
 import org.eclipse.emf.ecore.EReference
+import org.eclipse.emf.ecore.util.BasicInternalEList
 import org.eclipse.xtext.naming.QualifiedName
 import org.eclipse.xtext.scoping.IScope
 import org.eclipse.xtext.scoping.Scopes
 import org.eclipse.xtext.scoping.impl.SimpleScope
 import org.eclipse.xtext.util.SimpleAttributeResolver
+import org.eclipse.xtext.xbase.XExpression
+import org.osate.aadl2.Classifier
+import org.osate.aadl2.ComponentClassifier
 import org.osate.aadl2.ComponentImplementation
+import org.osate.aadl2.ComponentType
 import org.osate.alisa.common.scoping.AlisaAbstractDeclarativeScopeProvider
 import org.osate.reqspec.reqSpec.ContractualElement
 import org.osate.reqspec.reqSpec.Requirement
+import org.osate.reqspec.util.IReqspecReferenceFinder
 
 import static org.osate.reqspec.util.ReqSpecUtilExtension.*
-import org.eclipse.emf.common.util.EList
-import org.eclipse.xtext.xbase.XExpression
-import org.eclipse.emf.ecore.EObject
-import org.osate.alisa.common.scoping.CommonGlobalScopeProvider
-import org.osate.reqspec.reqSpec.ReqSpecPackage
-import org.osate.reqspec.reqSpec.SystemRequirements
-import org.osate.aadl2.ComponentClassifier
-import org.eclipse.emf.ecore.util.BasicInternalEList
-import org.osate.aadl2.ComponentType
-import org.eclipse.xtext.scoping.IGlobalScopeProvider
-import org.osate.aadl2.Classifier
-import org.eclipse.emf.ecore.util.EcoreUtil
-import org.osate.alisa.common.common.PropertyConsistentVariableDeclaration
-import org.osate.aadl2.Aadl2Package
 
 /**
  * This class contains custom scoping description.
@@ -39,8 +32,9 @@ import org.osate.aadl2.Aadl2Package
  * 
  */
 class ReqSpecScopeProvider extends AlisaAbstractDeclarativeScopeProvider {
-	@Inject
-	var IGlobalScopeProvider scopeProvider
+//	@Inject
+//	var IGlobalScopeProvider scopeProvider
+@Inject var IReqspecReferenceFinder refFinder
 
 	// For Reference is from Goal, Requirement 
 	def scope_NamedElement(ContractualElement context, EReference reference) {
@@ -91,7 +85,7 @@ class ReqSpecScopeProvider extends AlisaAbstractDeclarativeScopeProvider {
 		// TODO: when target is all
 		val targetComponentClassifier = containingSystemRequirements(context).target
 		//val allAncestors = targetComponentClassifier.getSelfPlusAncestors
-		val listAccessibleSystemRequirements = newArrayList();
+//		val listAccessibleSystemRequirements = newArrayList();
 
 		// This works best
 //		for (cc : allAncestors) {
@@ -108,11 +102,12 @@ class ReqSpecScopeProvider extends AlisaAbstractDeclarativeScopeProvider {
 //			}
 //		}
 		
-		listAccessibleSystemRequirements.addAll((scopeProvider as CommonGlobalScopeProvider).getGlobalEObjectDescriptions(targetComponentClassifier, ReqSpecPackage.eINSTANCE.systemRequirements,null)
-			.map[EcoreUtil.resolve(EObjectOrProxy, context) as SystemRequirements]
-						.filter[sysreqs| isSameorExtends(targetComponentClassifier, sysreqs.target)])
+//		listAccessibleSystemRequirements.addAll((scopeProvider as CommonGlobalScopeProvider).getGlobalEObjectDescriptions(targetComponentClassifier, ReqSpecPackage.eINSTANCE.systemRequirements,null)
+//			.map[EcoreUtil.resolve(EObjectOrProxy, context) as SystemRequirements]
+//						.filter[sysreqs| isSameorExtends(targetComponentClassifier, sysreqs.target)])
 		// Need to go through all system requirements and see if target is in allAncestor
 		// and if it is, then add content to the Scope
+		val listAccessibleSystemRequirements = refFinder.getSystemRequirements(targetComponentClassifier)
 		for (sr : listAccessibleSystemRequirements) {
 			if (!sr.content.empty) {
 				result = new SimpleScope(result,

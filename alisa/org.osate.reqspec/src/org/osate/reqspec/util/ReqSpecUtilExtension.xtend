@@ -1,22 +1,18 @@
 package org.osate.reqspec.util
 
 import org.eclipse.emf.ecore.EObject
-import org.osate.reqspec.reqSpec.ContractualElement
-import org.osate.reqspec.reqSpec.StakeholderGoals
-import org.osate.reqspec.reqSpec.Requirement
-import static extension org.eclipse.xtext.EcoreUtil2.*
-import org.osate.reqspec.reqSpec.SystemRequirements
-import org.osate.aadl2.Aadl2Package
-import org.osate.aadl2.ComponentClassifier
-import org.osate.alisa.common.scoping.CommonGlobalScopeProvider
-import com.google.inject.Inject
-import org.eclipse.xtext.scoping.IGlobalScopeProvider
-import org.eclipse.xtext.scoping.IScope
-import org.eclipse.xtext.scoping.impl.SimpleScope
-import org.eclipse.xtext.scoping.Scopes
 import org.eclipse.xtext.naming.QualifiedName
+import org.eclipse.xtext.scoping.IScope
+import org.eclipse.xtext.scoping.Scopes
+import org.eclipse.xtext.scoping.impl.SimpleScope
 import org.eclipse.xtext.util.SimpleAttributeResolver
+import org.osate.reqspec.reqSpec.ContractualElement
 import org.osate.reqspec.reqSpec.Goal
+import org.osate.reqspec.reqSpec.Requirement
+import org.osate.reqspec.reqSpec.StakeholderGoals
+import org.osate.reqspec.reqSpec.SystemRequirements
+
+import static extension org.eclipse.xtext.EcoreUtil2.*
 
 class ReqSpecUtilExtension {
 
