@@ -318,7 +318,7 @@ public class VerifyGrammarAccess extends AbstractGrammarElementFinder {
 		private final Keyword cForKeyword_2_0 = (Keyword)cGroup_2.eContents().get(0);
 		private final Assignment cTargetAssignment_2_1 = (Assignment)cGroup_2.eContents().get(1);
 		private final CrossReference cTargetComponentImplementationCrossReference_2_1_0 = (CrossReference)cTargetAssignment_2_1.eContents().get(0);
-		private final RuleCall cTargetComponentImplementationAADLCLASSIFIERREFERENCEParserRuleCall_2_1_0_1 = (RuleCall)cTargetComponentImplementationCrossReference_2_1_0.eContents().get(1);
+		private final RuleCall cTargetComponentImplementationAadlClassifierReferenceParserRuleCall_2_1_0_1 = (RuleCall)cTargetComponentImplementationCrossReference_2_1_0.eContents().get(1);
 		private final Keyword cColonKeyword_3 = (Keyword)cGroup.eContents().get(3);
 		private final Group cGroup_4 = (Group)cGroup.eContents().get(4);
 		private final Group cGroup_4_0 = (Group)cGroup_4.eContents().get(0);
@@ -356,14 +356,14 @@ public class VerifyGrammarAccess extends AbstractGrammarElementFinder {
 		private final RuleCall cTimeoutINTTerminalRuleCall_4_6_1_0 = (RuleCall)cTimeoutAssignment_4_6_1.eContents().get(0);
 		
 		//VerificationActivity:
-		//	name=ID (":" title=STRING)? ("for" target=[aadl2::ComponentImplementation|AADLCLASSIFIERREFERENCE])? // for specific AADL model configuration
+		//	name=ID (":" title=STRING)? ("for" target=[aadl2::ComponentImplementation|AadlClassifierReference])? // for specific AADL model configuration
 		//	":" ((result+=[common::ComputeDeclaration] ("," result+=[common::ComputeDeclaration])* "=")?
 		//	method=[VerificationMethod|QualifiedName] "(" (parameters+=[xbase::XExpression] (","
 		//	parameters+=[xbase::XExpression])*)? ")" ("when" condition+=[categories::SelectionCategory]+)? ("timeout"
 		//	timeout=INT)?);
 		@Override public ParserRule getRule() { return rule; }
 
-		//name=ID (":" title=STRING)? ("for" target=[aadl2::ComponentImplementation|AADLCLASSIFIERREFERENCE])? // for specific AADL model configuration
+		//name=ID (":" title=STRING)? ("for" target=[aadl2::ComponentImplementation|AadlClassifierReference])? // for specific AADL model configuration
 		//":" ((result+=[common::ComputeDeclaration] ("," result+=[common::ComputeDeclaration])* "=")?
 		//method=[VerificationMethod|QualifiedName] "(" (parameters+=[xbase::XExpression] (","
 		//parameters+=[xbase::XExpression])*)? ")" ("when" condition+=[categories::SelectionCategory]+)? ("timeout"
@@ -388,28 +388,27 @@ public class VerifyGrammarAccess extends AbstractGrammarElementFinder {
 		//STRING
 		public RuleCall getTitleSTRINGTerminalRuleCall_1_1_0() { return cTitleSTRINGTerminalRuleCall_1_1_0; }
 
-		//("for" target=[aadl2::ComponentImplementation|AADLCLASSIFIERREFERENCE])?
+		//("for" target=[aadl2::ComponentImplementation|AadlClassifierReference])?
 		public Group getGroup_2() { return cGroup_2; }
 
 		//"for"
 		public Keyword getForKeyword_2_0() { return cForKeyword_2_0; }
 
-		//target=[aadl2::ComponentImplementation|AADLCLASSIFIERREFERENCE]
+		//target=[aadl2::ComponentImplementation|AadlClassifierReference]
 		public Assignment getTargetAssignment_2_1() { return cTargetAssignment_2_1; }
 
-		//[aadl2::ComponentImplementation|AADLCLASSIFIERREFERENCE]
+		//[aadl2::ComponentImplementation|AadlClassifierReference]
 		public CrossReference getTargetComponentImplementationCrossReference_2_1_0() { return cTargetComponentImplementationCrossReference_2_1_0; }
 
-		//AADLCLASSIFIERREFERENCE
-		public RuleCall getTargetComponentImplementationAADLCLASSIFIERREFERENCEParserRuleCall_2_1_0_1() { return cTargetComponentImplementationAADLCLASSIFIERREFERENCEParserRuleCall_2_1_0_1; }
+		//AadlClassifierReference
+		public RuleCall getTargetComponentImplementationAadlClassifierReferenceParserRuleCall_2_1_0_1() { return cTargetComponentImplementationAadlClassifierReferenceParserRuleCall_2_1_0_1; }
 
 		//":"
 		public Keyword getColonKeyword_3() { return cColonKeyword_3; }
 
 		//(result+=[common::ComputeDeclaration] ("," result+=[common::ComputeDeclaration])* "=")?
 		//method=[VerificationMethod|QualifiedName] "(" (parameters+=[xbase::XExpression] (","
-		//parameters+=[xbase::XExpression])*)? ")" ("when" condition+=[categories::SelectionCategory]+)? ("timeout"
-		//timeout=INT)?
+		//parameters+=[xbase::XExpression])*)? ")" ("when" condition+=[categories::SelectionCategory]+)? ("timeout" timeout=INT)?
 		public Group getGroup_4() { return cGroup_4; }
 
 		//(result+=[common::ComputeDeclaration] ("," result+=[common::ComputeDeclaration])* "=")?
@@ -1523,7 +1522,7 @@ public class VerifyGrammarAccess extends AbstractGrammarElementFinder {
 	}
 
 	//VerificationActivity:
-	//	name=ID (":" title=STRING)? ("for" target=[aadl2::ComponentImplementation|AADLCLASSIFIERREFERENCE])? // for specific AADL model configuration
+	//	name=ID (":" title=STRING)? ("for" target=[aadl2::ComponentImplementation|AadlClassifierReference])? // for specific AADL model configuration
 	//	":" ((result+=[common::ComputeDeclaration] ("," result+=[common::ComputeDeclaration])* "=")?
 	//	method=[VerificationMethod|QualifiedName] "(" (parameters+=[xbase::XExpression] (","
 	//	parameters+=[xbase::XExpression])*)? ")" ("when" condition+=[categories::SelectionCategory]+)? ("timeout"
@@ -1838,14 +1837,14 @@ public class VerifyGrammarAccess extends AbstractGrammarElementFinder {
 	}
 
 	//// Qualified classifier reference
-	//AADLCLASSIFIERREFERENCE:
+	//AadlClassifierReference:
 	//	ID ("::" ID)+ ("." ID)?;
-	public CommonGrammarAccess.AADLCLASSIFIERREFERENCEElements getAADLCLASSIFIERREFERENCEAccess() {
-		return gaCommon.getAADLCLASSIFIERREFERENCEAccess();
+	public CommonGrammarAccess.AadlClassifierReferenceElements getAadlClassifierReferenceAccess() {
+		return gaCommon.getAadlClassifierReferenceAccess();
 	}
 	
-	public ParserRule getAADLCLASSIFIERREFERENCERule() {
-		return getAADLCLASSIFIERREFERENCEAccess().getRule();
+	public ParserRule getAadlClassifierReferenceRule() {
+		return getAadlClassifierReferenceAccess().getRule();
 	}
 
 	//AADLPROPERTYREFERENCE:
@@ -2113,8 +2112,8 @@ public class VerifyGrammarAccess extends AbstractGrammarElementFinder {
 	//	feature=[types::JvmIdentifiableElement|FeatureCallID] OpSingleAssign) value=XAssignment | =>
 	//	({XMemberFeatureCall.memberCallTarget=current} ("." | nullSafe?="?." | explicitStatic?="::")) ("<"
 	//	typeArguments+=JvmArgumentTypeReference ("," typeArguments+=JvmArgumentTypeReference)* ">")?
-	//	feature=[types::JvmIdentifiableElement|IdOrSuper] (=> explicitOperationCall?="(" (memberCallArguments+=XShortClosure
-	//	| memberCallArguments+=XExpression ("," memberCallArguments+=XExpression)*)? ")")? memberCallArguments+=XClosure?)*;
+	//	feature=[types::JvmIdentifiableElement|IdOrSuper] (=> explicitOperationCall?="(" (memberCallArguments+=XShortClosure |
+	//	memberCallArguments+=XExpression ("," memberCallArguments+=XExpression)*)? ")")? memberCallArguments+=XClosure?)*;
 	public XbaseGrammarAccess.XMemberFeatureCallElements getXMemberFeatureCallAccess() {
 		return gaCommon.getXMemberFeatureCallAccess();
 	}
@@ -2229,8 +2228,8 @@ public class VerifyGrammarAccess extends AbstractGrammarElementFinder {
 
 	//XSwitchExpression returns XExpression:
 	//	{XSwitchExpression} "switch" (=> ("(" declaredParam=JvmFormalParameter ":") switch=XExpression ")" | =>
-	//	(declaredParam=JvmFormalParameter ":")? switch=XExpression) "{" cases+=XCasePart* ("default" ":"
-	//	default=XExpression)? "}";
+	//	(declaredParam=JvmFormalParameter ":")? switch=XExpression) "{" cases+=XCasePart* ("default" ":" default=XExpression)?
+	//	"}";
 	public XbaseGrammarAccess.XSwitchExpressionElements getXSwitchExpressionAccess() {
 		return gaCommon.getXSwitchExpressionAccess();
 	}
@@ -2502,8 +2501,7 @@ public class VerifyGrammarAccess extends AbstractGrammarElementFinder {
 	/// **
 	// * Dummy rule, for "better" downwards compatibility, since GrammarAccess generates non-static inner classes, 
 	// * which makes downstream grammars break on classloading, when a rule is removed.
-	// * /
-	//StaticQualifier:
+	// * / StaticQualifier:
 	//	(ValidID "::")+;
 	public XbaseGrammarAccess.StaticQualifierElements getStaticQualifierAccess() {
 		return gaCommon.getStaticQualifierAccess();

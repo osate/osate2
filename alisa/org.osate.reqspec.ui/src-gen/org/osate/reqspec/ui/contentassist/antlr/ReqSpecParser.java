@@ -194,9 +194,9 @@ public class ReqSpecParser extends AbstractContentAssistParser {
 					put(grammarAccess.getImageReferenceAccess().getGroup(), "rule__ImageReference__Group__0");
 					put(grammarAccess.getIMGREFAccess().getGroup(), "rule__IMGREF__Group__0");
 					put(grammarAccess.getIMGREFAccess().getGroup_0(), "rule__IMGREF__Group_0__0");
-					put(grammarAccess.getAADLCLASSIFIERREFERENCEAccess().getGroup(), "rule__AADLCLASSIFIERREFERENCE__Group__0");
-					put(grammarAccess.getAADLCLASSIFIERREFERENCEAccess().getGroup_1(), "rule__AADLCLASSIFIERREFERENCE__Group_1__0");
-					put(grammarAccess.getAADLCLASSIFIERREFERENCEAccess().getGroup_2(), "rule__AADLCLASSIFIERREFERENCE__Group_2__0");
+					put(grammarAccess.getAadlClassifierReferenceAccess().getGroup(), "rule__AadlClassifierReference__Group__0");
+					put(grammarAccess.getAadlClassifierReferenceAccess().getGroup_1(), "rule__AadlClassifierReference__Group_1__0");
+					put(grammarAccess.getAadlClassifierReferenceAccess().getGroup_2(), "rule__AadlClassifierReference__Group_2__0");
 					put(grammarAccess.getAADLPROPERTYREFERENCEAccess().getGroup(), "rule__AADLPROPERTYREFERENCE__Group__0");
 					put(grammarAccess.getAADLPROPERTYREFERENCEAccess().getGroup_1(), "rule__AADLPROPERTYREFERENCE__Group_1__0");
 					put(grammarAccess.getXAssignmentAccess().getGroup_0(), "rule__XAssignment__Group_0__0");

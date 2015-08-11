@@ -432,7 +432,7 @@ public class ReqSpecSemanticSequencer extends CommonSemanticSequencer {
 	 *         (
 	 *             name=ID 
 	 *             title=STRING? 
-	 *             (targetDescription=STRING | (target=[ComponentClassifier|AADLCLASSIFIERREFERENCE] targetElement=[NamedElement|ID]?))? 
+	 *             (targetDescription=STRING | (target=[ComponentClassifier|AadlClassifierReference] targetElement=[NamedElement|ID]?))? 
 	 *             category+=[RequirementCategory|ID]* 
 	 *             description=Description? 
 	 *             constants+=XValDeclaration* 
@@ -482,7 +482,7 @@ public class ReqSpecSemanticSequencer extends CommonSemanticSequencer {
 	 *         (
 	 *             name=ID 
 	 *             title=STRING? 
-	 *             (targetDescription=STRING | (target=[ComponentClassifier|AADLCLASSIFIERREFERENCE] targetElement=[NamedElement|ID]?))? 
+	 *             (targetDescription=STRING | (target=[ComponentClassifier|AadlClassifierReference] targetElement=[NamedElement|ID]?))? 
 	 *             category+=[RequirementCategory|ID]* 
 	 *             description=Description? 
 	 *             constants+=XValDeclaration* 
@@ -513,7 +513,7 @@ public class ReqSpecSemanticSequencer extends CommonSemanticSequencer {
 	 *     (
 	 *         name=ID 
 	 *         title=STRING? 
-	 *         (targetDescription=STRING | (target=[ComponentClassifier|AADLCLASSIFIERREFERENCE] targetElement=[NamedElement|ID]?))? 
+	 *         (targetDescription=STRING | (target=[ComponentClassifier|AadlClassifierReference] targetElement=[NamedElement|ID]?))? 
 	 *         category+=[RequirementCategory|ID]* 
 	 *         description=Description? 
 	 *         constants+=XValDeclaration* 
@@ -539,7 +539,7 @@ public class ReqSpecSemanticSequencer extends CommonSemanticSequencer {
 	 *     (
 	 *         name=ID 
 	 *         title=STRING? 
-	 *         (targetDescription=STRING | (target=[ComponentClassifier|AADLCLASSIFIERREFERENCE] targetElement=[NamedElement|ID]?))? 
+	 *         (targetDescription=STRING | (target=[ComponentClassifier|AadlClassifierReference] targetElement=[NamedElement|ID]?))? 
 	 *         category+=[RequirementCategory|ID]* 
 	 *         description=Description? 
 	 *         constants+=XValDeclaration* 
@@ -683,7 +683,7 @@ public class ReqSpecSemanticSequencer extends CommonSemanticSequencer {
 	 *     (
 	 *         name=QualifiedName 
 	 *         title=STRING? 
-	 *         (target=[ComponentClassifier|AADLCLASSIFIERREFERENCE] | global?='all') 
+	 *         (target=[ComponentClassifier|AadlClassifierReference] | global?='all') 
 	 *         description=Description? 
 	 *         constants+=XValDeclaration* 
 	 *         content+=Goal* 
@@ -701,7 +701,7 @@ public class ReqSpecSemanticSequencer extends CommonSemanticSequencer {
 	 *     (
 	 *         name=QualifiedName 
 	 *         title=STRING? 
-	 *         (target=[ComponentClassifier|AADLCLASSIFIERREFERENCE] | global?='all') 
+	 *         (target=[ComponentClassifier|AadlClassifierReference] | global?='all') 
 	 *         description=Description? 
 	 *         constants+=XValDeclaration* 
 	 *         computes+=ComputeDeclaration* 

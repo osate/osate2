@@ -215,7 +215,7 @@ ruleStakeholderGoals returns [EObject current=null]
 		{ 
 	        newCompositeNode(grammarAccess.getStakeholderGoalsAccess().getTargetComponentClassifierCrossReference_4_1_0_0()); 
 	    }
-		ruleAADLCLASSIFIERREFERENCE		{ 
+		ruleAadlClassifierReference		{ 
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -922,7 +922,7 @@ ruleSystemRequirements returns [EObject current=null]
 		{ 
 	        newCompositeNode(grammarAccess.getSystemRequirementsAccess().getTargetComponentClassifierCrossReference_4_1_0_0()); 
 	    }
-		ruleAADLCLASSIFIERREFERENCE		{ 
+		ruleAadlClassifierReference		{ 
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -1266,7 +1266,7 @@ ruleDocGoal returns [EObject current=null]
 		{ 
 	        newCompositeNode(grammarAccess.getDocGoalAccess().getTargetComponentClassifierCrossReference_3_1_1_0_0()); 
 	    }
-		ruleAADLCLASSIFIERREFERENCE		{ 
+		ruleAadlClassifierReference		{ 
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -3122,7 +3122,7 @@ ruleDocRequirement returns [EObject current=null]
 		{ 
 	        newCompositeNode(grammarAccess.getDocRequirementAccess().getTargetComponentClassifierCrossReference_3_1_1_0_0()); 
 	    }
-		ruleAADLCLASSIFIERREFERENCE		{ 
+		ruleAadlClassifierReference		{ 
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -5057,17 +5057,17 @@ ruleIMGREF returns [AntlrDatatypeRuleToken current=new AntlrDatatypeRuleToken()]
 
 
 
-// Entry rule entryRuleAADLCLASSIFIERREFERENCE
-entryRuleAADLCLASSIFIERREFERENCE returns [String current=null] 
+// Entry rule entryRuleAadlClassifierReference
+entryRuleAadlClassifierReference returns [String current=null] 
 :
-	{ newCompositeNode(grammarAccess.getAADLCLASSIFIERREFERENCERule()); } 
-	 iv_ruleAADLCLASSIFIERREFERENCE=ruleAADLCLASSIFIERREFERENCE 
-	 { $current=$iv_ruleAADLCLASSIFIERREFERENCE.current.getText(); }  
+	{ newCompositeNode(grammarAccess.getAadlClassifierReferenceRule()); } 
+	 iv_ruleAadlClassifierReference=ruleAadlClassifierReference 
+	 { $current=$iv_ruleAadlClassifierReference.current.getText(); }  
 	 EOF 
 ;
 
-// Rule AADLCLASSIFIERREFERENCE
-ruleAADLCLASSIFIERREFERENCE returns [AntlrDatatypeRuleToken current=new AntlrDatatypeRuleToken()] 
+// Rule AadlClassifierReference
+ruleAadlClassifierReference returns [AntlrDatatypeRuleToken current=new AntlrDatatypeRuleToken()] 
     @init { enterRule(); 
     }
     @after { leaveRule();
@@ -5077,33 +5077,33 @@ ruleAADLCLASSIFIERREFERENCE returns [AntlrDatatypeRuleToken current=new AntlrDat
     }
 
     { 
-    newLeafNode(this_ID_0, grammarAccess.getAADLCLASSIFIERREFERENCEAccess().getIDTerminalRuleCall_0()); 
+    newLeafNode(this_ID_0, grammarAccess.getAadlClassifierReferenceAccess().getIDTerminalRuleCall_0()); 
     }
 (
 	kw=ColonColon 
     {
         $current.merge(kw);
-        newLeafNode(kw, grammarAccess.getAADLCLASSIFIERREFERENCEAccess().getColonColonKeyword_1_0()); 
+        newLeafNode(kw, grammarAccess.getAadlClassifierReferenceAccess().getColonColonKeyword_1_0()); 
     }
     this_ID_2=RULE_ID    {
 		$current.merge(this_ID_2);
     }
 
     { 
-    newLeafNode(this_ID_2, grammarAccess.getAADLCLASSIFIERREFERENCEAccess().getIDTerminalRuleCall_1_1()); 
+    newLeafNode(this_ID_2, grammarAccess.getAadlClassifierReferenceAccess().getIDTerminalRuleCall_1_1()); 
     }
 )+(
 	kw=FullStop 
     {
         $current.merge(kw);
-        newLeafNode(kw, grammarAccess.getAADLCLASSIFIERREFERENCEAccess().getFullStopKeyword_2_0()); 
+        newLeafNode(kw, grammarAccess.getAadlClassifierReferenceAccess().getFullStopKeyword_2_0()); 
     }
     this_ID_4=RULE_ID    {
 		$current.merge(this_ID_4);
     }
 
     { 
-    newLeafNode(this_ID_4, grammarAccess.getAADLCLASSIFIERREFERENCEAccess().getIDTerminalRuleCall_2_1()); 
+    newLeafNode(this_ID_4, grammarAccess.getAadlClassifierReferenceAccess().getIDTerminalRuleCall_2_1()); 
     }
 )?)
     ;

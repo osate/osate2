@@ -20,7 +20,7 @@ ReqRoot:  StakeholderGoals | ReqDocument | SystemRequirements;
 
 
 StakeholderGoals: 'stakeholder' 'goals' name=QualifiedName (':' title=STRING)?
-	( 'for' (target=[aadl2::ComponentClassifier|AADLCLASSIFIERREFERENCE] |  global?='all'))
+	( 'for' (target=[aadl2::ComponentClassifier|AadlClassifierReference] |  global?='all'))
 	'[' 
 	(	 (  description=Description)? 
 	& (  constants+=XValDeclaration* )
@@ -52,7 +52,7 @@ DocumentSection returns DocumentSection:
 SystemRequirements returns SystemRequirements:
 	'system' 'requirements'  name =QualifiedName (':' title=STRING)? // 'requirement' 'specification'
 //	('import' importedNamespace=QualifiedNameWithWildCard)?
-	( 'for' (target=[aadl2::ComponentClassifier|AADLCLASSIFIERREFERENCE] | global?='all'))
+	( 'for' (target=[aadl2::ComponentClassifier|AadlClassifierReference] | global?='all'))
 	'[' 
 	(
 	 (  description=Description)? 
@@ -70,7 +70,7 @@ SystemRequirements returns SystemRequirements:
 
 DocGoal returns Goal:
 	'goal' name=ID (':'  title=STRING )? // short string for title
-	( 'for' ( targetDescription=STRING | (target=[aadl2::ComponentClassifier|AADLCLASSIFIERREFERENCE] ( targetElement=[aadl2::NamedElement|ID])?  )
+	( 'for' ( targetDescription=STRING | (target=[aadl2::ComponentClassifier|AadlClassifierReference] ( targetElement=[aadl2::NamedElement|ID])?  )
 		)
 	)?
 '['  (
@@ -147,7 +147,7 @@ Requirement returns Requirement:
 DocRequirement returns Requirement:
 	'requirement'  name=ID   
 	(':'  title=STRING)? 
-	( 'for' ( targetDescription=STRING | (target=[aadl2::ComponentClassifier|AADLCLASSIFIERREFERENCE] ( targetElement=[aadl2::NamedElement|ID])?  )
+	( 'for' ( targetDescription=STRING | (target=[aadl2::ComponentClassifier|AadlClassifierReference] ( targetElement=[aadl2::NamedElement|ID])?  )
 		)
 	)?
 '['	(

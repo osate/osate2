@@ -3,6 +3,7 @@
  */
 package org.osate.alisa.workbench;
 
+import org.eclipse.xtext.conversion.IValueConverterService;
 import org.eclipse.xtext.generator.IOutputConfigurationProvider;
 
 /**
@@ -12,6 +13,11 @@ public class AlisaRuntimeModule extends org.osate.alisa.workbench.AbstractAlisaR
 
 	public Class<? extends org.eclipse.xtext.naming.IQualifiedNameConverter> bindIQualifiedNameConverter() {
 		return org.osate.alisa.common.naming.CommonQualifiedNameConverter.class;
+	}
+
+	@Override
+	public Class<? extends IValueConverterService> bindIValueConverterService() {
+		return org.osate.alisa.common.services.CommonValueConverters.class;
 	}
 
 	public Class<? extends IOutputConfigurationProvider> bindIOutputConfigurationProvider() {

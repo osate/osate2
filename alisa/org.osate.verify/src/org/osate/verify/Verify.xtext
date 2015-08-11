@@ -40,7 +40,7 @@ Claim:
 
 VerificationActivity:
 	name=ID  ( ':' title=STRING)? 
-	('for' target=[aadl2::ComponentImplementation|AADLCLASSIFIERREFERENCE])? // for specific AADL model configuration
+	('for' target=[aadl2::ComponentImplementation|AadlClassifierReference])? // for specific AADL model configuration
 	':' (
 		( result+=[common::ComputeDeclaration|ID] (',' result+=[common::ComputeDeclaration|ID])* '=')?
 	   method=[VerificationMethod|QualifiedName] '(' (parameters+=[xbase::XExpression| ID] (',' parameters+=[xbase::XExpression| ID])*)?')'

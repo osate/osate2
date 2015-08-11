@@ -78,7 +78,7 @@ ImageReference : 'img' imgfile=IMGREF;
 IMGREF : (ID '/')* ID '.' ID; 
 
 // Qualified classifier reference
-AADLCLASSIFIERREFERENCE:
+AadlClassifierReference:
 	ID ('::' ID)+ ('.' ID)?;
 
 AADLPROPERTYREFERENCE: ID ('::' ID)?;

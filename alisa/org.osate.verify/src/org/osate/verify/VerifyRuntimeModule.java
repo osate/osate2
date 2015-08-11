@@ -3,6 +3,7 @@
  */
 package org.osate.verify;
 
+import org.eclipse.xtext.conversion.IValueConverterService;
 import org.eclipse.xtext.scoping.IScopeProvider;
 import org.eclipse.xtext.scoping.impl.AbstractDeclarativeScopeProvider;
 import org.osate.alisa.common.scoping.AlisaAbstractDeclarativeScopeProvider;
@@ -15,8 +16,14 @@ import com.google.inject.name.Names;
  */
 public class VerifyRuntimeModule extends org.osate.verify.AbstractVerifyRuntimeModule {
 
+	@Override
 	public Class<? extends org.eclipse.xtext.naming.IQualifiedNameConverter> bindIQualifiedNameConverter() {
 		return org.osate.alisa.common.naming.CommonQualifiedNameConverter.class;
+	}
+
+	@Override
+	public Class<? extends IValueConverterService> bindIValueConverterService() {
+		return org.osate.alisa.common.services.CommonValueConverters.class;
 	}
 
 	public void configureIScopeProviderDelegate2(com.google.inject.Binder binder) {

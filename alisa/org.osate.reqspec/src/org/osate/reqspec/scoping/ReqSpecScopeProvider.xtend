@@ -36,9 +36,9 @@ import org.osate.reqspec.reqSpec.SystemRequirements
  * 
  */
 class ReqSpecScopeProvider extends AlisaAbstractDeclarativeScopeProvider {
-@Inject var IReqspecGlobalReferenceFinder refFinder
+	@Inject var IReqspecGlobalReferenceFinder refFinder
 
-@Inject var ICommonGlobalReferenceFinder commonRefFinder
+	@Inject var ICommonGlobalReferenceFinder commonRefFinder
 
 	// For Reference is from Goal, Requirement 
 	def scope_NamedElement(ContractualElement context, EReference reference) {
@@ -59,26 +59,19 @@ class ReqSpecScopeProvider extends AlisaAbstractDeclarativeScopeProvider {
 			IScope.NULLSCOPE
 		}
 	}
-	
+
 //	Offer property definitions via scope. Here we can add filter to allow only those properties that actually apply to the target object
 //	def scope_Property(PropertyConsistentVariableDeclaration context, EReference reference){
 //			val props = (scopeProvider as CommonGlobalScopeProvider).getGlobalEObjectDescriptions(context,
 //				Aadl2Package.eINSTANCE.property, null)
 //		new SimpleScope(IScope::NULLSCOPE, props,true)
 //	}
-
 	def scope_XExpression(Requirement context, EReference reference) {
 		return scopeForValCompute(context, IScope.NULLSCOPE)
 	}
 
 	def scope_XVariableDeclaration(Requirement context, EReference reference) {
 		return scopeForValCompute(context, IScope.NULLSCOPE)
-	}
-	
-	def scope_JvmIdentifiableElement(XExpression context, EReference reference) {
-		var result = IScope.NULLSCOPE
-		println("look for identifiable element")
-		result
 	}
 
 	// TODO: probably want validation to take care of Refining itself. Need to take care of inheritance
@@ -108,13 +101,12 @@ class ReqSpecScopeProvider extends AlisaAbstractDeclarativeScopeProvider {
 //		listAccessibleSystemRequirements.addAll(commonRefFinder.getEObjectDescriptions(targetComponentClassifier, ReqSpecPackage.Literals.SYSTEM_REQUIREMENTS,"reqspec")
 //			.map[eod| EcoreUtil.resolve(eod.EObjectOrProxy, context) as SystemRequirements]
 //						.filter[sysreqs| isSameorExtends(targetComponentClassifier, sysreqs.target)])
-
-		val Iterable <SystemRequirements>listAccessibleSystemRequirements = commonRefFinder.getEObjectDescriptions(targetComponentClassifier, ReqSpecPackage.Literals.SYSTEM_REQUIREMENTS,"reqspec")
-			.map[eod| EcoreUtil.resolve(eod.EObjectOrProxy, context) as SystemRequirements]
-						.filter[sysreqs| isSameorExtends(targetComponentClassifier, sysreqs.target)]
+		val Iterable<SystemRequirements> listAccessibleSystemRequirements = commonRefFinder.getEObjectDescriptions(
+			targetComponentClassifier, ReqSpecPackage.Literals.SYSTEM_REQUIREMENTS, "reqspec").map [ eod |
+			EcoreUtil.resolve(eod.EObjectOrProxy, context) as SystemRequirements
+		].filter[sysreqs|isSameorExtends(targetComponentClassifier, sysreqs.target)]
 // indicates not resolved although it returns the systemrequirements object
 //		val listAccessibleSystemRequirements = refFinder.getSystemRequirements(targetComponentClassifier)
-
 		// Need to go through all system requirements and see if target is in allAncestor
 		// and if it is, then add content to the Scope
 		for (sr : listAccessibleSystemRequirements) {
@@ -168,7 +160,7 @@ class ReqSpecScopeProvider extends AlisaAbstractDeclarativeScopeProvider {
 	// From AlisaWorkbenchUtilsExtension
 	def static isSame(ComponentClassifier cl1, ComponentClassifier cl2) {
 		// println("     isSame 1: " + cl1.toString + "   2:" + cl2.toString);
-		if (cl1 == null || cl2 == null) return false;
+		if(cl1 == null || cl2 == null) return false;
 		var lcl1 = cl1
 		var lcl2 = cl2
 		if (cl1 instanceof ComponentType && cl2 instanceof ComponentImplementation)

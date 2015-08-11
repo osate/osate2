@@ -591,8 +591,8 @@ public class CommonGrammarAccess extends AbstractGrammarElementFinder {
 		public RuleCall getIDTerminalRuleCall_3() { return cIDTerminalRuleCall_3; }
 	}
 
-	public class AADLCLASSIFIERREFERENCEElements extends AbstractParserRuleElementFinder {
-		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "AADLCLASSIFIERREFERENCE");
+	public class AadlClassifierReferenceElements extends AbstractParserRuleElementFinder {
+		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "AadlClassifierReference");
 		private final Group cGroup = (Group)rule.eContents().get(1);
 		private final RuleCall cIDTerminalRuleCall_0 = (RuleCall)cGroup.eContents().get(0);
 		private final Group cGroup_1 = (Group)cGroup.eContents().get(1);
@@ -603,7 +603,7 @@ public class CommonGrammarAccess extends AbstractGrammarElementFinder {
 		private final RuleCall cIDTerminalRuleCall_2_1 = (RuleCall)cGroup_2.eContents().get(1);
 		
 		//// Qualified classifier reference
-		//AADLCLASSIFIERREFERENCE:
+		//AadlClassifierReference:
 		//	ID ("::" ID)+ ("." ID)?;
 		@Override public ParserRule getRule() { return rule; }
 
@@ -684,7 +684,7 @@ public class CommonGrammarAccess extends AbstractGrammarElementFinder {
 	private final ShowValueElements pShowValue;
 	private final ImageReferenceElements pImageReference;
 	private final IMGREFElements pIMGREF;
-	private final AADLCLASSIFIERREFERENCEElements pAADLCLASSIFIERREFERENCE;
+	private final AadlClassifierReferenceElements pAadlClassifierReference;
 	private final AADLPROPERTYREFERENCEElements pAADLPROPERTYREFERENCE;
 	private final URIIDElements pURIID;
 	
@@ -708,7 +708,7 @@ public class CommonGrammarAccess extends AbstractGrammarElementFinder {
 		this.pShowValue = new ShowValueElements();
 		this.pImageReference = new ImageReferenceElements();
 		this.pIMGREF = new IMGREFElements();
-		this.pAADLCLASSIFIERREFERENCE = new AADLCLASSIFIERREFERENCEElements();
+		this.pAadlClassifierReference = new AadlClassifierReferenceElements();
 		this.pAADLPROPERTYREFERENCE = new AADLPROPERTYREFERENCEElements();
 		this.pURIID = new URIIDElements();
 	}
@@ -866,14 +866,14 @@ public class CommonGrammarAccess extends AbstractGrammarElementFinder {
 	}
 
 	//// Qualified classifier reference
-	//AADLCLASSIFIERREFERENCE:
+	//AadlClassifierReference:
 	//	ID ("::" ID)+ ("." ID)?;
-	public AADLCLASSIFIERREFERENCEElements getAADLCLASSIFIERREFERENCEAccess() {
-		return pAADLCLASSIFIERREFERENCE;
+	public AadlClassifierReferenceElements getAadlClassifierReferenceAccess() {
+		return pAadlClassifierReference;
 	}
 	
-	public ParserRule getAADLCLASSIFIERREFERENCERule() {
-		return getAADLCLASSIFIERREFERENCEAccess().getRule();
+	public ParserRule getAadlClassifierReferenceRule() {
+		return getAadlClassifierReferenceAccess().getRule();
 	}
 
 	//AADLPROPERTYREFERENCE:
@@ -1141,8 +1141,8 @@ public class CommonGrammarAccess extends AbstractGrammarElementFinder {
 	//	feature=[types::JvmIdentifiableElement|FeatureCallID] OpSingleAssign) value=XAssignment | =>
 	//	({XMemberFeatureCall.memberCallTarget=current} ("." | nullSafe?="?." | explicitStatic?="::")) ("<"
 	//	typeArguments+=JvmArgumentTypeReference ("," typeArguments+=JvmArgumentTypeReference)* ">")?
-	//	feature=[types::JvmIdentifiableElement|IdOrSuper] (=> explicitOperationCall?="(" (memberCallArguments+=XShortClosure
-	//	| memberCallArguments+=XExpression ("," memberCallArguments+=XExpression)*)? ")")? memberCallArguments+=XClosure?)*;
+	//	feature=[types::JvmIdentifiableElement|IdOrSuper] (=> explicitOperationCall?="(" (memberCallArguments+=XShortClosure |
+	//	memberCallArguments+=XExpression ("," memberCallArguments+=XExpression)*)? ")")? memberCallArguments+=XClosure?)*;
 	public XbaseGrammarAccess.XMemberFeatureCallElements getXMemberFeatureCallAccess() {
 		return gaXbase.getXMemberFeatureCallAccess();
 	}
@@ -1257,8 +1257,8 @@ public class CommonGrammarAccess extends AbstractGrammarElementFinder {
 
 	//XSwitchExpression returns XExpression:
 	//	{XSwitchExpression} "switch" (=> ("(" declaredParam=JvmFormalParameter ":") switch=XExpression ")" | =>
-	//	(declaredParam=JvmFormalParameter ":")? switch=XExpression) "{" cases+=XCasePart* ("default" ":"
-	//	default=XExpression)? "}";
+	//	(declaredParam=JvmFormalParameter ":")? switch=XExpression) "{" cases+=XCasePart* ("default" ":" default=XExpression)?
+	//	"}";
 	public XbaseGrammarAccess.XSwitchExpressionElements getXSwitchExpressionAccess() {
 		return gaXbase.getXSwitchExpressionAccess();
 	}
@@ -1530,8 +1530,7 @@ public class CommonGrammarAccess extends AbstractGrammarElementFinder {
 	/// **
 	// * Dummy rule, for "better" downwards compatibility, since GrammarAccess generates non-static inner classes, 
 	// * which makes downstream grammars break on classloading, when a rule is removed.
-	// * /
-	//StaticQualifier:
+	// * / StaticQualifier:
 	//	(ValidID "::")+;
 	public XbaseGrammarAccess.StaticQualifierElements getStaticQualifierAccess() {
 		return gaXbase.getStaticQualifierAccess();
