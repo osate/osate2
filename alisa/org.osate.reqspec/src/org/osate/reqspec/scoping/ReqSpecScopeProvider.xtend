@@ -23,6 +23,10 @@ import org.osate.reqspec.reqSpec.Requirement
 import org.osate.reqspec.util.IReqspecReferenceFinder
 
 import static org.osate.reqspec.util.ReqSpecUtilExtension.*
+import org.osate.reqspec.reqSpec.ReqSpecPackage
+import org.osate.alisa.common.scoping.ICommonGlobalReferenceFinder
+import org.eclipse.emf.ecore.util.EcoreUtil
+import org.osate.reqspec.reqSpec.SystemRequirements
 
 /**
  * This class contains custom scoping description.
@@ -32,9 +36,9 @@ import static org.osate.reqspec.util.ReqSpecUtilExtension.*
  * 
  */
 class ReqSpecScopeProvider extends AlisaAbstractDeclarativeScopeProvider {
-//	@Inject
-//	var IGlobalScopeProvider scopeProvider
 @Inject var IReqspecReferenceFinder refFinder
+
+@Inject var ICommonGlobalReferenceFinder commonRefFinder
 
 	// For Reference is from Goal, Requirement 
 	def scope_NamedElement(ContractualElement context, EReference reference) {
@@ -79,15 +83,15 @@ class ReqSpecScopeProvider extends AlisaAbstractDeclarativeScopeProvider {
 
 	// TODO: probably want validation to take care of Refining itself. Need to take care of inheritance
 	def scope_Requirement_refinesReference(Requirement context, EReference reference) {
-		println("scope_Requirement_RefinesReference: " + context.toString)
+//		println("scope_Requirement_RefinesReference: " + context.toString)
 		var result = IScope.NULLSCOPE
 
 		// TODO: when target is all
 		val targetComponentClassifier = containingSystemRequirements(context).target
-		//val allAncestors = targetComponentClassifier.getSelfPlusAncestors
+//		val allAncestors = targetComponentClassifier.getSelfPlusAncestors
 //		val listAccessibleSystemRequirements = newArrayList();
-
-		// This works best
+//
+//		// This works best
 //		for (cc : allAncestors) {
 ////			//ReqSpecReferenceFinder
 //			// System.out.println("     scope_Requirement_RefinesReference FOR: " + cc);
@@ -101,13 +105,18 @@ class ReqSpecScopeProvider extends AlisaAbstractDeclarativeScopeProvider {
 //				}
 //			}
 //		}
-		
-//		listAccessibleSystemRequirements.addAll((scopeProvider as CommonGlobalScopeProvider).getGlobalEObjectDescriptions(targetComponentClassifier, ReqSpecPackage.eINSTANCE.systemRequirements,null)
-//			.map[EcoreUtil.resolve(EObjectOrProxy, context) as SystemRequirements]
+//		listAccessibleSystemRequirements.addAll(commonRefFinder.getEObjectDescriptions(targetComponentClassifier, ReqSpecPackage.Literals.SYSTEM_REQUIREMENTS,"reqspec")
+//			.map[eod| EcoreUtil.resolve(eod.EObjectOrProxy, context) as SystemRequirements]
 //						.filter[sysreqs| isSameorExtends(targetComponentClassifier, sysreqs.target)])
+
+		val Iterable <SystemRequirements>listAccessibleSystemRequirements = commonRefFinder.getEObjectDescriptions(targetComponentClassifier, ReqSpecPackage.Literals.SYSTEM_REQUIREMENTS,"reqspec")
+			.map[eod| EcoreUtil.resolve(eod.EObjectOrProxy, context) as SystemRequirements]
+						.filter[sysreqs| isSameorExtends(targetComponentClassifier, sysreqs.target)]
+// indicates not resolved although it returns the systemrequirements object
+//		val listAccessibleSystemRequirements = refFinder.getSystemRequirements(targetComponentClassifier)
+
 		// Need to go through all system requirements and see if target is in allAncestor
 		// and if it is, then add content to the Scope
-		val listAccessibleSystemRequirements = refFinder.getSystemRequirements(targetComponentClassifier)
 		for (sr : listAccessibleSystemRequirements) {
 			if (!sr.content.empty) {
 				result = new SimpleScope(result,
