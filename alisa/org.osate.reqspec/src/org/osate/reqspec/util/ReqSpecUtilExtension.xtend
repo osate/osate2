@@ -45,34 +45,34 @@ class ReqSpecUtilExtension {
 	}
 
 	def static IScope scopeForValCompute(Requirement req, IScope parentscope) {
-		var result = scopeForValComputeReq(req, parentscope)
-		scopeForValGoal(req, result)
+		var result = scopeForValGoal(req, parentscope)
+		return scopeForValComputeReq(req, result)
 	}
 
 	def static IScope scopeForValComputeReq(Requirement req, IScope parentscope) {
 		var result = parentscope
-		result = new SimpleScope(result, Scopes::scopedElementsFor(req.computes + req.constants,
-			QualifiedName::wrapper(SimpleAttributeResolver::NAME_RESOLVER)), true)
+		for (r : req.refinesReference) {
+			result = scopeForValComputeReq(r, result)
+		}
 		val sr = containingSystemRequirements(req)
 		result = new SimpleScope(result,
 			Scopes::scopedElementsFor(sr.computes + sr.constants,
 				QualifiedName::wrapper(SimpleAttributeResolver::NAME_RESOLVER)), true)
-		for (r : req.refinesReference) {
-			result = scopeForValComputeReq(r, result)
-		}
-		result
+		result = new SimpleScope(result, Scopes::scopedElementsFor(req.computes + req.constants,
+			QualifiedName::wrapper(SimpleAttributeResolver::NAME_RESOLVER)), true)
+		return result
 	}
 
 	/**
-	 * collect val definitions from goals up the req refinement hierqrchy
+	 * collect val definitions from goals up the req refinement hierarchy
 	 */
 	def static IScope scopeForValGoal(Requirement req, IScope parentscope) {
 		var result = parentscope
-		for (g : req.goalReference) {
-			result = scopeForVal(g, result)
-		}
 		for (r : req.refinesReference) {
 			result = scopeForValGoal(r, result)
+		}
+		for (g : req.goalReference) {
+			result = scopeForVal(g, result)
 		}
 		result
 	}
@@ -82,42 +82,42 @@ class ReqSpecUtilExtension {
 	 */
 	def static IScope scopeForVal(Goal goal, IScope parentscope) {
 		var result = parentscope
-		result = new SimpleScope(result,
-		Scopes::scopedElementsFor(goal.constants, QualifiedName::wrapper(SimpleAttributeResolver::NAME_RESOLVER)),
-		true)
+		for (r : goal.refinesReference) {
+			result = scopeForVal(r, result)
+		}
 		val sr = containingStakeholderGoals(goal)
 		result = new SimpleScope(result,
 			Scopes::scopedElementsFor(sr.constants, QualifiedName::wrapper(SimpleAttributeResolver::NAME_RESOLVER)),
 			true)
-		for (r : goal.refinesReference) {
-			result = scopeForVal(r, result)
-		}
-		result
+		result = new SimpleScope(result,
+		Scopes::scopedElementsFor(goal.constants, QualifiedName::wrapper(SimpleAttributeResolver::NAME_RESOLVER)),
+		true)
+		return result
 	}
 
 			/**
 			 * collect Val definitions in req incl. refinements & goals associated with req.
 			 */
 			def static IScope scopeForVal(Requirement req, IScope parentscope) {
-				var result = scopeForValReq(req, parentscope)
-				scopeForValGoal(req, result)
+				var result = scopeForValGoal(req, parentscope )
+				return scopeForValReq(req, result)
 			}
 
 			/**
-			 * callect val definitions in req including refinement
+			 * collect val definitions in req including refinement
 			 */
 			def static IScope scopeForValReq(Requirement req, IScope parentscope) {
 				var result = parentscope
-				result = new SimpleScope(result, Scopes::scopedElementsFor(req.constants,
-					QualifiedName::wrapper(SimpleAttributeResolver::NAME_RESOLVER)), true)
+				for (r : req.refinesReference) {
+					result = scopeForValReq(r, result)
+				}
 				val sr = containingSystemRequirements(req)
 				result = new SimpleScope(result,
 					Scopes::scopedElementsFor(sr.constants,
 						QualifiedName::wrapper(SimpleAttributeResolver::NAME_RESOLVER)), true)
-				for (r : req.refinesReference) {
-					result = scopeForValReq(r, result)
-				}
-				result
+				result = new SimpleScope(result, Scopes::scopedElementsFor(req.constants,
+					QualifiedName::wrapper(SimpleAttributeResolver::NAME_RESOLVER)), true)
+				return result
 			}
 
 			/**
@@ -129,16 +129,16 @@ class ReqSpecUtilExtension {
 
 			def static IScope scopeForComputeReq(Requirement req, IScope parentscope) {
 				var result = parentscope
-				result = new SimpleScope(result, Scopes::scopedElementsFor(req.computes,
-					QualifiedName::wrapper(SimpleAttributeResolver::NAME_RESOLVER)), true)
+				for (r : req.refinesReference) {
+					result = scopeForComputeReq(r, result)
+				}
 				val sr = containingSystemRequirements(req)
 				result = new SimpleScope(result,
 					Scopes::scopedElementsFor(sr.computes,
 						QualifiedName::wrapper(SimpleAttributeResolver::NAME_RESOLVER)), true)
-				for (r : req.refinesReference) {
-					result = scopeForComputeReq(r, result)
-				}
-				result
+				result = new SimpleScope(result, Scopes::scopedElementsFor(req.computes,
+					QualifiedName::wrapper(SimpleAttributeResolver::NAME_RESOLVER)), true)
+				return result
 			}
 
 		}

@@ -6,11 +6,15 @@
     complianceLevel="6.0" copyrightFields="false" editPluginID="org.osate.reqspec.edit"
     editorPluginID="org.osate.reqspec.editor" runtimeVersion="2.10" usedGenPackages="platform:/plugin/org.eclipse.emf.ecore/model/Ecore.genmodel#//ecore platform:/resource/org.eclipse.xtext.xbase/model/Xbase.genmodel#//xbase platform:/resource/org.osate.aadl2/model/aadl2.genmodel#//aadl2 platform:/resource/org.osate.alisa.common/model/generated/Common.genmodel#//common platform:/resource/org.osate.categories/model/generated/Categories.genmodel#//categories platform:/resource/org.osate.organization/model/generated/Organization.genmodel#//organization">
   <genPackages prefix="ReqSpec" basePackage="org.osate.reqspec" disposableProviderFactory="true"
-      fileExtensions="reqspec,goals" ecorePackage="ReqSpec.ecore#/">
+      fileExtensions="reqspec,goals,constants" ecorePackage="ReqSpec.ecore#/">
     <genClasses ecoreClass="ReqSpec.ecore#//ReqSpec">
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference ReqSpec.ecore#//ReqSpec/parts"/>
     </genClasses>
     <genClasses ecoreClass="ReqSpec.ecore#//ReqSpecContainer"/>
+    <genClasses ecoreClass="ReqSpec.ecore#//ProjectConstants">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute ReqSpec.ecore#//ProjectConstants/name"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference ReqSpec.ecore#//ProjectConstants/constants"/>
+    </genClasses>
     <genClasses ecoreClass="ReqSpec.ecore#//ContractualElement">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute ReqSpec.ecore#//ContractualElement/name"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute ReqSpec.ecore#//ContractualElement/title"/>

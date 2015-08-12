@@ -86,6 +86,13 @@ public class ReqSpecSwitch<T> extends Switch<T>
         if (result == null) result = defaultCase(theEObject);
         return result;
       }
+      case ReqSpecPackage.PROJECT_CONSTANTS:
+      {
+        ProjectConstants projectConstants = (ProjectConstants)theEObject;
+        T result = caseProjectConstants(projectConstants);
+        if (result == null) result = defaultCase(theEObject);
+        return result;
+      }
       case ReqSpecPackage.CONTRACTUAL_ELEMENT:
       {
         ContractualElement contractualElement = (ContractualElement)theEObject;
@@ -221,6 +228,22 @@ public class ReqSpecSwitch<T> extends Switch<T>
    * @generated
    */
   public T caseReqSpecContainer(ReqSpecContainer object)
+  {
+    return null;
+  }
+
+  /**
+   * Returns the result of interpreting the object as an instance of '<em>Project Constants</em>'.
+   * <!-- begin-user-doc -->
+   * This implementation returns null;
+   * returning a non-null result will terminate the switch.
+   * <!-- end-user-doc -->
+   * @param object the target of the switch.
+   * @return the result of interpreting the object as an instance of '<em>Project Constants</em>'.
+   * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+   * @generated
+   */
+  public T caseProjectConstants(ProjectConstants object)
   {
     return null;
   }

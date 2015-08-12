@@ -75,6 +75,7 @@ import org.osate.reqspec.reqSpec.DocumentSection;
 import org.osate.reqspec.reqSpec.ExternalDocument;
 import org.osate.reqspec.reqSpec.Goal;
 import org.osate.reqspec.reqSpec.InformalPredicate;
+import org.osate.reqspec.reqSpec.ProjectConstants;
 import org.osate.reqspec.reqSpec.ReqDocument;
 import org.osate.reqspec.reqSpec.ReqSpec;
 import org.osate.reqspec.reqSpec.ReqSpecPackage;
@@ -148,6 +149,9 @@ public class ReqSpecSemanticSequencer extends CommonSemanticSequencer {
 				else break;
 			case ReqSpecPackage.INFORMAL_PREDICATE:
 				sequence_InformalPredicate(context, (InformalPredicate) semanticObject); 
+				return; 
+			case ReqSpecPackage.PROJECT_CONSTANTS:
+				sequence_ProjectConstants(context, (ProjectConstants) semanticObject); 
 				return; 
 			case ReqSpecPackage.REQ_DOCUMENT:
 				sequence_ReqDocument(context, (ReqDocument) semanticObject); 
@@ -626,6 +630,15 @@ public class ReqSpecSemanticSequencer extends CommonSemanticSequencer {
 	
 	/**
 	 * Constraint:
+	 *     (name=QualifiedName constants+=XValDeclaration*)
+	 */
+	protected void sequence_ProjectConstants(EObject context, ProjectConstants semanticObject) {
+		genericSequencer.createSequence(context, semanticObject);
+	}
+	
+	
+	/**
+	 * Constraint:
 	 *     (
 	 *         name=QualifiedName 
 	 *         title=STRING? 
@@ -641,7 +654,7 @@ public class ReqSpecSemanticSequencer extends CommonSemanticSequencer {
 	
 	/**
 	 * Constraint:
-	 *     (parts+=SystemRequirements | parts+=StakeholderGoals | parts+=ReqDocument)+
+	 *     (parts+=SystemRequirements | parts+=StakeholderGoals | parts+=ReqDocument | parts+=ProjectConstants)+
 	 */
 	protected void sequence_ReqSpec(EObject context, ReqSpec semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);

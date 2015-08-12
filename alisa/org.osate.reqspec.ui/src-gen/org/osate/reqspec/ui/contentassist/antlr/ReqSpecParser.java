@@ -92,6 +92,7 @@ public class ReqSpecParser extends AbstractContentAssistParser {
 					put(grammarAccess.getJvmWildcardTypeReferenceAccess().getAlternatives_2(), "rule__JvmWildcardTypeReference__Alternatives_2");
 					put(grammarAccess.getXImportDeclarationAccess().getAlternatives_1(), "rule__XImportDeclaration__Alternatives_1");
 					put(grammarAccess.getXImportDeclarationAccess().getAlternatives_1_0_3(), "rule__XImportDeclaration__Alternatives_1_0_3");
+					put(grammarAccess.getProjectConstantsAccess().getGroup(), "rule__ProjectConstants__Group__0");
 					put(grammarAccess.getStakeholderGoalsAccess().getGroup(), "rule__StakeholderGoals__Group__0");
 					put(grammarAccess.getStakeholderGoalsAccess().getGroup_3(), "rule__StakeholderGoals__Group_3__0");
 					put(grammarAccess.getStakeholderGoalsAccess().getGroup_4(), "rule__StakeholderGoals__Group_4__0");
@@ -378,6 +379,8 @@ public class ReqSpecParser extends AbstractContentAssistParser {
 					put(grammarAccess.getXImportDeclarationAccess().getGroup_1_0(), "rule__XImportDeclaration__Group_1_0__0");
 					put(grammarAccess.getQualifiedNameInStaticImportAccess().getGroup(), "rule__QualifiedNameInStaticImport__Group__0");
 					put(grammarAccess.getReqSpecAccess().getPartsAssignment(), "rule__ReqSpec__PartsAssignment");
+					put(grammarAccess.getProjectConstantsAccess().getNameAssignment_2(), "rule__ProjectConstants__NameAssignment_2");
+					put(grammarAccess.getProjectConstantsAccess().getConstantsAssignment_3(), "rule__ProjectConstants__ConstantsAssignment_3");
 					put(grammarAccess.getStakeholderGoalsAccess().getNameAssignment_2(), "rule__StakeholderGoals__NameAssignment_2");
 					put(grammarAccess.getStakeholderGoalsAccess().getTitleAssignment_3_1(), "rule__StakeholderGoals__TitleAssignment_3_1");
 					put(grammarAccess.getStakeholderGoalsAccess().getTargetAssignment_4_1_0(), "rule__StakeholderGoals__TargetAssignment_4_1_0");

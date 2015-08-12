@@ -9,7 +9,7 @@
             class="org.osate.reqspec.ui.ReqSpecExecutableExtensionFactory:org.eclipse.xtext.ui.editor.XtextEditor"
             contributorClass="org.eclipse.ui.editors.text.TextEditorActionContributor"
             default="true"
-            extensions="reqspec,goals"
+            extensions="reqspec,goals,constants"
             id="org.osate.reqspec.ReqSpec"
             matchingStrategy="org.osate.reqspec.ui.ReqSpecExecutableExtensionFactory:org.eclipse.xtext.xbase.ui.editor.JavaEditorInputMatcher"
             name="ReqSpec Editor">
@@ -238,6 +238,20 @@
         </resourceServiceProvider>
     </extension>
 
+	<extension
+		point="org.eclipse.emf.ecore.extension_parser">
+		<parser
+			class="org.osate.reqspec.ui.ReqSpecExecutableExtensionFactory:org.eclipse.xtext.resource.IResourceFactory"
+			type="constants">
+		</parser>
+	</extension>
+	<extension point="org.eclipse.xtext.extension_resourceServiceProvider">
+        <resourceServiceProvider
+            class="org.osate.reqspec.ui.ReqSpecExecutableExtensionFactory:org.eclipse.xtext.ui.resource.IResourceUIServiceProvider"
+            uriExtension="constants">
+        </resourceServiceProvider>
+    </extension>
+
 
 	<!-- marker definitions for org.osate.reqspec.ReqSpec -->
 	<extension
@@ -266,7 +280,7 @@
          point="org.eclipse.xtext.builder.participant">
       <participant
             class="org.osate.reqspec.ui.ReqSpecExecutableExtensionFactory:org.eclipse.xtext.builder.IXtextBuilderParticipant"
-            fileExtensions="reqspec,goals"
+            fileExtensions="reqspec,goals,constants"
             >
       </participant>
    </extension>
@@ -578,19 +592,19 @@
   <extension point="org.eclipse.compare.contentViewers">
     <viewer id="org.osate.reqspec.ReqSpec.compare.contentViewers"
             class="org.osate.reqspec.ui.ReqSpecExecutableExtensionFactory:org.eclipse.xtext.ui.compare.InjectableViewerCreator"
-            extensions="reqspec,goals">
+            extensions="reqspec,goals,constants">
     </viewer>
   </extension>
   <extension point="org.eclipse.compare.contentMergeViewers">
     <viewer id="org.osate.reqspec.ReqSpec.compare.contentMergeViewers"
             class="org.osate.reqspec.ui.ReqSpecExecutableExtensionFactory:org.eclipse.xtext.ui.compare.InjectableViewerCreator"
-            extensions="reqspec,goals" label="ReqSpec Compare">
+            extensions="reqspec,goals,constants" label="ReqSpec Compare">
      </viewer>
   </extension>
   <extension point="org.eclipse.ui.editors.documentProviders">
     <provider id="org.osate.reqspec.ReqSpec.editors.documentProviders"
             class="org.osate.reqspec.ui.ReqSpecExecutableExtensionFactory:org.eclipse.xtext.ui.editor.model.XtextDocumentProvider"
-            extensions="reqspec,goals">
+            extensions="reqspec,goals,constants">
     </provider>
   </extension>
   <extension point="org.eclipse.team.core.fileTypes">
@@ -600,6 +614,10 @@
     </fileTypes>
     <fileTypes
             extension="goals"
+            type="text">
+    </fileTypes>
+    <fileTypes
+            extension="constants"
             type="text">
     </fileTypes>
   </extension>

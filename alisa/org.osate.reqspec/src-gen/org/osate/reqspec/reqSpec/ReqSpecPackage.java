@@ -104,6 +104,43 @@ public interface ReqSpecPackage extends EPackage
   int REQ_SPEC_CONTAINER_FEATURE_COUNT = 0;
 
   /**
+   * The meta object id for the '{@link org.osate.reqspec.reqSpec.impl.ProjectConstantsImpl <em>Project Constants</em>}' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see org.osate.reqspec.reqSpec.impl.ProjectConstantsImpl
+   * @see org.osate.reqspec.reqSpec.impl.ReqSpecPackageImpl#getProjectConstants()
+   * @generated
+   */
+  int PROJECT_CONSTANTS = 2;
+
+  /**
+   * The feature id for the '<em><b>Name</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int PROJECT_CONSTANTS__NAME = 0;
+
+  /**
+   * The feature id for the '<em><b>Constants</b></em>' containment reference list.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int PROJECT_CONSTANTS__CONSTANTS = 1;
+
+  /**
+   * The number of structural features of the '<em>Project Constants</em>' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int PROJECT_CONSTANTS_FEATURE_COUNT = 2;
+
+  /**
    * The meta object id for the '{@link org.osate.reqspec.reqSpec.impl.ContractualElementImpl <em>Contractual Element</em>}' class.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -111,7 +148,7 @@ public interface ReqSpecPackage extends EPackage
    * @see org.osate.reqspec.reqSpec.impl.ReqSpecPackageImpl#getContractualElement()
    * @generated
    */
-  int CONTRACTUAL_ELEMENT = 2;
+  int CONTRACTUAL_ELEMENT = 3;
 
   /**
    * The feature id for the '<em><b>Name</b></em>' attribute.
@@ -274,7 +311,7 @@ public interface ReqSpecPackage extends EPackage
    * @see org.osate.reqspec.reqSpec.impl.ReqSpecPackageImpl#getReqRoot()
    * @generated
    */
-  int REQ_ROOT = 3;
+  int REQ_ROOT = 4;
 
   /**
    * The number of structural features of the '<em>Req Root</em>' class.
@@ -293,7 +330,7 @@ public interface ReqSpecPackage extends EPackage
    * @see org.osate.reqspec.reqSpec.impl.ReqSpecPackageImpl#getStakeholderGoals()
    * @generated
    */
-  int STAKEHOLDER_GOALS = 4;
+  int STAKEHOLDER_GOALS = 5;
 
   /**
    * The feature id for the '<em><b>Name</b></em>' attribute.
@@ -393,7 +430,7 @@ public interface ReqSpecPackage extends EPackage
    * @see org.osate.reqspec.reqSpec.impl.ReqSpecPackageImpl#getReqDocument()
    * @generated
    */
-  int REQ_DOCUMENT = 5;
+  int REQ_DOCUMENT = 6;
 
   /**
    * The feature id for the '<em><b>Name</b></em>' attribute.
@@ -457,7 +494,7 @@ public interface ReqSpecPackage extends EPackage
    * @see org.osate.reqspec.reqSpec.impl.ReqSpecPackageImpl#getDocumentSection()
    * @generated
    */
-  int DOCUMENT_SECTION = 6;
+  int DOCUMENT_SECTION = 7;
 
   /**
    * The feature id for the '<em><b>Label</b></em>' attribute.
@@ -512,7 +549,7 @@ public interface ReqSpecPackage extends EPackage
    * @see org.osate.reqspec.reqSpec.impl.ReqSpecPackageImpl#getSystemRequirements()
    * @generated
    */
-  int SYSTEM_REQUIREMENTS = 7;
+  int SYSTEM_REQUIREMENTS = 8;
 
   /**
    * The feature id for the '<em><b>Name</b></em>' attribute.
@@ -621,7 +658,7 @@ public interface ReqSpecPackage extends EPackage
    * @see org.osate.reqspec.reqSpec.impl.ReqSpecPackageImpl#getGoal()
    * @generated
    */
-  int GOAL = 8;
+  int GOAL = 9;
 
   /**
    * The feature id for the '<em><b>Name</b></em>' attribute.
@@ -811,7 +848,7 @@ public interface ReqSpecPackage extends EPackage
    * @see org.osate.reqspec.reqSpec.impl.ReqSpecPackageImpl#getRequirement()
    * @generated
    */
-  int REQUIREMENT = 9;
+  int REQUIREMENT = 10;
 
   /**
    * The feature id for the '<em><b>Name</b></em>' attribute.
@@ -1046,7 +1083,7 @@ public interface ReqSpecPackage extends EPackage
    * @see org.osate.reqspec.reqSpec.impl.ReqSpecPackageImpl#getReqPredicate()
    * @generated
    */
-  int REQ_PREDICATE = 10;
+  int REQ_PREDICATE = 11;
 
   /**
    * The number of structural features of the '<em>Req Predicate</em>' class.
@@ -1065,7 +1102,7 @@ public interface ReqSpecPackage extends EPackage
    * @see org.osate.reqspec.reqSpec.impl.ReqSpecPackageImpl#getInformalPredicate()
    * @generated
    */
-  int INFORMAL_PREDICATE = 11;
+  int INFORMAL_PREDICATE = 12;
 
   /**
    * The feature id for the '<em><b>Description</b></em>' attribute.
@@ -1093,7 +1130,7 @@ public interface ReqSpecPackage extends EPackage
    * @see org.osate.reqspec.reqSpec.impl.ReqSpecPackageImpl#getXPredicate()
    * @generated
    */
-  int XPREDICATE = 12;
+  int XPREDICATE = 13;
 
   /**
    * The feature id for the '<em><b>Xpression</b></em>' containment reference.
@@ -1121,7 +1158,7 @@ public interface ReqSpecPackage extends EPackage
    * @see org.osate.reqspec.reqSpec.impl.ReqSpecPackageImpl#getValuePredicate()
    * @generated
    */
-  int VALUE_PREDICATE = 13;
+  int VALUE_PREDICATE = 14;
 
   /**
    * The feature id for the '<em><b>Xpression</b></em>' containment reference.
@@ -1149,7 +1186,7 @@ public interface ReqSpecPackage extends EPackage
    * @see org.osate.reqspec.reqSpec.impl.ReqSpecPackageImpl#getExternalDocument()
    * @generated
    */
-  int EXTERNAL_DOCUMENT = 14;
+  int EXTERNAL_DOCUMENT = 15;
 
   /**
    * The feature id for the '<em><b>Doc Reference</b></em>' attribute.
@@ -1209,6 +1246,38 @@ public interface ReqSpecPackage extends EPackage
    * @generated
    */
   EClass getReqSpecContainer();
+
+  /**
+   * Returns the meta object for class '{@link org.osate.reqspec.reqSpec.ProjectConstants <em>Project Constants</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for class '<em>Project Constants</em>'.
+   * @see org.osate.reqspec.reqSpec.ProjectConstants
+   * @generated
+   */
+  EClass getProjectConstants();
+
+  /**
+   * Returns the meta object for the attribute '{@link org.osate.reqspec.reqSpec.ProjectConstants#getName <em>Name</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the attribute '<em>Name</em>'.
+   * @see org.osate.reqspec.reqSpec.ProjectConstants#getName()
+   * @see #getProjectConstants()
+   * @generated
+   */
+  EAttribute getProjectConstants_Name();
+
+  /**
+   * Returns the meta object for the containment reference list '{@link org.osate.reqspec.reqSpec.ProjectConstants#getConstants <em>Constants</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the containment reference list '<em>Constants</em>'.
+   * @see org.osate.reqspec.reqSpec.ProjectConstants#getConstants()
+   * @see #getProjectConstants()
+   * @generated
+   */
+  EReference getProjectConstants_Constants();
 
   /**
    * Returns the meta object for class '{@link org.osate.reqspec.reqSpec.ContractualElement <em>Contractual Element</em>}'.
@@ -2050,6 +2119,32 @@ public interface ReqSpecPackage extends EPackage
      * @generated
      */
     EClass REQ_SPEC_CONTAINER = eINSTANCE.getReqSpecContainer();
+
+    /**
+     * The meta object literal for the '{@link org.osate.reqspec.reqSpec.impl.ProjectConstantsImpl <em>Project Constants</em>}' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see org.osate.reqspec.reqSpec.impl.ProjectConstantsImpl
+     * @see org.osate.reqspec.reqSpec.impl.ReqSpecPackageImpl#getProjectConstants()
+     * @generated
+     */
+    EClass PROJECT_CONSTANTS = eINSTANCE.getProjectConstants();
+
+    /**
+     * The meta object literal for the '<em><b>Name</b></em>' attribute feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EAttribute PROJECT_CONSTANTS__NAME = eINSTANCE.getProjectConstants_Name();
+
+    /**
+     * The meta object literal for the '<em><b>Constants</b></em>' containment reference list feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EReference PROJECT_CONSTANTS__CONSTANTS = eINSTANCE.getProjectConstants_Constants();
 
     /**
      * The meta object literal for the '{@link org.osate.reqspec.reqSpec.impl.ContractualElementImpl <em>Contractual Element</em>}' class.

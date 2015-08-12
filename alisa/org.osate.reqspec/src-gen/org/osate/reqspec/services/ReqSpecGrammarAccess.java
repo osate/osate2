@@ -27,15 +27,16 @@ public class ReqSpecGrammarAccess extends AbstractGrammarElementFinder {
 		private final RuleCall cPartsSystemRequirementsParserRuleCall_0_0 = (RuleCall)cPartsAlternatives_0.eContents().get(0);
 		private final RuleCall cPartsStakeholderGoalsParserRuleCall_0_1 = (RuleCall)cPartsAlternatives_0.eContents().get(1);
 		private final RuleCall cPartsReqDocumentParserRuleCall_0_2 = (RuleCall)cPartsAlternatives_0.eContents().get(2);
+		private final RuleCall cPartsProjectConstantsParserRuleCall_0_3 = (RuleCall)cPartsAlternatives_0.eContents().get(3);
 		
 		//ReqSpec:
-		//	parts+=(SystemRequirements | StakeholderGoals | ReqDocument)+;
+		//	parts+=(SystemRequirements | StakeholderGoals | ReqDocument | ProjectConstants)+;
 		@Override public ParserRule getRule() { return rule; }
 
-		//parts+=(SystemRequirements | StakeholderGoals | ReqDocument)+
+		//parts+=(SystemRequirements | StakeholderGoals | ReqDocument | ProjectConstants)+
 		public Assignment getPartsAssignment() { return cPartsAssignment; }
 
-		//SystemRequirements | StakeholderGoals | ReqDocument
+		//SystemRequirements | StakeholderGoals | ReqDocument | ProjectConstants
 		public Alternatives getPartsAlternatives_0() { return cPartsAlternatives_0; }
 
 		//SystemRequirements
@@ -46,6 +47,9 @@ public class ReqSpecGrammarAccess extends AbstractGrammarElementFinder {
 
 		//ReqDocument
 		public RuleCall getPartsReqDocumentParserRuleCall_0_2() { return cPartsReqDocumentParserRuleCall_0_2; }
+
+		//ProjectConstants
+		public RuleCall getPartsProjectConstantsParserRuleCall_0_3() { return cPartsProjectConstantsParserRuleCall_0_3; }
 	}
 
 	public class ReqSpecContainerElements extends AbstractParserRuleElementFinder {
@@ -75,6 +79,42 @@ public class ReqSpecGrammarAccess extends AbstractGrammarElementFinder {
 
 		//DocumentSection
 		public RuleCall getDocumentSectionParserRuleCall_3() { return cDocumentSectionParserRuleCall_3; }
+	}
+
+	public class ProjectConstantsElements extends AbstractParserRuleElementFinder {
+		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "ProjectConstants");
+		private final Group cGroup = (Group)rule.eContents().get(1);
+		private final Keyword cProjectKeyword_0 = (Keyword)cGroup.eContents().get(0);
+		private final Keyword cConstantsKeyword_1 = (Keyword)cGroup.eContents().get(1);
+		private final Assignment cNameAssignment_2 = (Assignment)cGroup.eContents().get(2);
+		private final RuleCall cNameQualifiedNameParserRuleCall_2_0 = (RuleCall)cNameAssignment_2.eContents().get(0);
+		private final Assignment cConstantsAssignment_3 = (Assignment)cGroup.eContents().get(3);
+		private final RuleCall cConstantsXValDeclarationParserRuleCall_3_0 = (RuleCall)cConstantsAssignment_3.eContents().get(0);
+		
+		//ProjectConstants:
+		//	"project" "constants" name=QualifiedName constants+=XValDeclaration*;
+		@Override public ParserRule getRule() { return rule; }
+
+		//"project" "constants" name=QualifiedName constants+=XValDeclaration*
+		public Group getGroup() { return cGroup; }
+
+		//"project"
+		public Keyword getProjectKeyword_0() { return cProjectKeyword_0; }
+
+		//"constants"
+		public Keyword getConstantsKeyword_1() { return cConstantsKeyword_1; }
+
+		//name=QualifiedName
+		public Assignment getNameAssignment_2() { return cNameAssignment_2; }
+
+		//QualifiedName
+		public RuleCall getNameQualifiedNameParserRuleCall_2_0() { return cNameQualifiedNameParserRuleCall_2_0; }
+
+		//constants+=XValDeclaration*
+		public Assignment getConstantsAssignment_3() { return cConstantsAssignment_3; }
+
+		//XValDeclaration
+		public RuleCall getConstantsXValDeclarationParserRuleCall_3_0() { return cConstantsXValDeclarationParserRuleCall_3_0; }
 	}
 
 	public class ContractualElementElements extends AbstractParserRuleElementFinder {
@@ -2327,6 +2367,7 @@ public class ReqSpecGrammarAccess extends AbstractGrammarElementFinder {
 	
 	private final ReqSpecElements pReqSpec;
 	private final ReqSpecContainerElements pReqSpecContainer;
+	private final ProjectConstantsElements pProjectConstants;
 	private final ContractualElementElements pContractualElement;
 	private final ReqRootElements pReqRoot;
 	private final StakeholderGoalsElements pStakeholderGoals;
@@ -2356,6 +2397,7 @@ public class ReqSpecGrammarAccess extends AbstractGrammarElementFinder {
 		this.gaCommon = gaCommon;
 		this.pReqSpec = new ReqSpecElements();
 		this.pReqSpecContainer = new ReqSpecContainerElements();
+		this.pProjectConstants = new ProjectConstantsElements();
 		this.pContractualElement = new ContractualElementElements();
 		this.pReqRoot = new ReqRootElements();
 		this.pStakeholderGoals = new StakeholderGoalsElements();
@@ -2403,7 +2445,7 @@ public class ReqSpecGrammarAccess extends AbstractGrammarElementFinder {
 
 	
 	//ReqSpec:
-	//	parts+=(SystemRequirements | StakeholderGoals | ReqDocument)+;
+	//	parts+=(SystemRequirements | StakeholderGoals | ReqDocument | ProjectConstants)+;
 	public ReqSpecElements getReqSpecAccess() {
 		return pReqSpec;
 	}
@@ -2421,6 +2463,16 @@ public class ReqSpecGrammarAccess extends AbstractGrammarElementFinder {
 	
 	public ParserRule getReqSpecContainerRule() {
 		return getReqSpecContainerAccess().getRule();
+	}
+
+	//ProjectConstants:
+	//	"project" "constants" name=QualifiedName constants+=XValDeclaration*;
+	public ProjectConstantsElements getProjectConstantsAccess() {
+		return pProjectConstants;
+	}
+	
+	public ParserRule getProjectConstantsRule() {
+		return getProjectConstantsAccess().getRule();
 	}
 
 	//ContractualElement:

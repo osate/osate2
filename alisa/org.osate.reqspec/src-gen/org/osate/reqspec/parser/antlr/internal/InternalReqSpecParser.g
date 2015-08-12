@@ -119,6 +119,21 @@ ruleReqSpec returns [EObject current=null]
 	        afterParserOrEnumRuleCall();
 	    }
 
+    |		{ 
+	        newCompositeNode(grammarAccess.getReqSpecAccess().getPartsProjectConstantsParserRuleCall_0_3()); 
+	    }
+		lv_parts_0_4=ruleProjectConstants		{
+	        if ($current==null) {
+	            $current = createModelElementForParent(grammarAccess.getReqSpecRule());
+	        }
+       		add(
+       			$current, 
+       			"parts",
+        		lv_parts_0_4, 
+        		"ProjectConstants");
+	        afterParserOrEnumRuleCall();
+	    }
+
 )
 
 )
@@ -126,6 +141,73 @@ ruleReqSpec returns [EObject current=null]
 ;
 
 
+
+
+
+
+
+// Entry rule entryRuleProjectConstants
+entryRuleProjectConstants returns [EObject current=null]
+	:
+	{ newCompositeNode(grammarAccess.getProjectConstantsRule()); }
+	 iv_ruleProjectConstants=ruleProjectConstants 
+	 { $current=$iv_ruleProjectConstants.current; } 
+	 EOF 
+;
+
+// Rule ProjectConstants
+ruleProjectConstants returns [EObject current=null] 
+    @init { enterRule(); 
+    }
+    @after { leaveRule(); }:
+(
+	otherlv_0=Project
+    {
+    	newLeafNode(otherlv_0, grammarAccess.getProjectConstantsAccess().getProjectKeyword_0());
+    }
+
+	otherlv_1=Constants
+    {
+    	newLeafNode(otherlv_1, grammarAccess.getProjectConstantsAccess().getConstantsKeyword_1());
+    }
+(
+(
+		{ 
+	        newCompositeNode(grammarAccess.getProjectConstantsAccess().getNameQualifiedNameParserRuleCall_2_0()); 
+	    }
+		lv_name_2_0=ruleQualifiedName		{
+	        if ($current==null) {
+	            $current = createModelElementForParent(grammarAccess.getProjectConstantsRule());
+	        }
+       		set(
+       			$current, 
+       			"name",
+        		lv_name_2_0, 
+        		"QualifiedName");
+	        afterParserOrEnumRuleCall();
+	    }
+
+)
+)(
+(
+		{ 
+	        newCompositeNode(grammarAccess.getProjectConstantsAccess().getConstantsXValDeclarationParserRuleCall_3_0()); 
+	    }
+		lv_constants_3_0=ruleXValDeclaration		{
+	        if ($current==null) {
+	            $current = createModelElementForParent(grammarAccess.getProjectConstantsRule());
+	        }
+       		add(
+       			$current, 
+       			"constants",
+        		lv_constants_3_0, 
+        		"XValDeclaration");
+	        afterParserOrEnumRuleCall();
+	    }
+
+)
+)*)
+;
 
 
 

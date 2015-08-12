@@ -28,6 +28,9 @@ import org.osate.alisa.common.scoping.ICommonGlobalReferenceFinder
 import org.eclipse.emf.ecore.util.EcoreUtil
 import org.osate.reqspec.reqSpec.SystemRequirements
 import org.osate.reqspec.reqSpec.Goal
+import org.eclipse.emf.ecore.EObject
+import org.eclipse.xtext.xbase.XVariableDeclaration
+import org.eclipse.emf.common.util.BasicEList
 
 /**
  * This class contains custom scoping description.
@@ -38,6 +41,7 @@ import org.osate.reqspec.reqSpec.Goal
  */
 class ReqSpecScopeProvider extends AlisaAbstractDeclarativeScopeProvider {
 	@Inject var ICommonGlobalReferenceFinder commonRefFinder
+	@Inject var IReqspecGlobalReferenceFinder refFinder
 
 	// For Reference is from Goal, Requirement 
 	def scope_NamedElement(ContractualElement context, EReference reference) {
@@ -66,16 +70,37 @@ class ReqSpecScopeProvider extends AlisaAbstractDeclarativeScopeProvider {
 //		new SimpleScope(IScope::NULLSCOPE, props,true)
 //	}
 	def scope_XExpression(Requirement context, EReference reference) {
-		return scopeForValCompute(context, IScope.NULLSCOPE)
+		val result = scopeForGlobalVal(context,IScope.NULLSCOPE)
+		return scopeForValCompute(context, result )
 	}
 
 	def scope_XVariableDeclaration(Requirement context, EReference reference) {
-		return scopeForValCompute(context, IScope.NULLSCOPE)
+		val result = scopeForGlobalVal(context,IScope.NULLSCOPE)
+		return scopeForValCompute(context, result)
+		
 	}
 
 	def scope_XVariableDeclaration(Goal context, EReference reference) {
-		return scopeForVal(context, IScope.NULLSCOPE)
+		val result = scopeForGlobalVal(context,IScope.NULLSCOPE)
+		return scopeForVal(context, result)
 	}
+		
+	def IScope scopeForGlobalVal(EObject context,IScope parentScope){
+		var result = parentScope
+		val projectconstants = refFinder.getAllProjectConstants(context)
+		var Iterable<XVariableDeclaration> constants = new BasicEList
+		for (pc : projectconstants) {
+			constants = constants +  pc.constants
+		}
+		if (!constants.empty) {
+			result = new SimpleScope(result,
+				Scopes::scopedElementsFor(constants,
+					QualifiedName::wrapper(SimpleAttributeResolver::NAME_RESOLVER)), true)
+		}
+		return result
+		
+	}
+	
 
 	// TODO: probably want validation to take care of Refining itself. Need to take care of inheritance
 	def scope_Requirement_refinesReference(Requirement context, EReference reference) {
@@ -112,6 +137,8 @@ class ReqSpecScopeProvider extends AlisaAbstractDeclarativeScopeProvider {
 //		val listAccessibleSystemRequirements = refFinder.getSystemRequirements(targetComponentClassifier)
 		// Need to go through all system requirements and see if target is in allAncestor
 		// and if it is, then add content to the Scope
+		
+		// TODO sort in extends hierarchy order
 		for (sr : listAccessibleSystemRequirements) {
 			if (!sr.content.empty) {
 				result = new SimpleScope(result,
