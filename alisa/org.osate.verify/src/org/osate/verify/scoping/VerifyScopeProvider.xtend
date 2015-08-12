@@ -22,6 +22,7 @@ import org.eclipse.emf.ecore.EObject
 import com.rockwellcollins.atc.resolute.resolute.ResolutePackage
 import org.eclipse.emf.ecore.util.EcoreUtil
 import com.rockwellcollins.atc.resolute.resolute.FunctionDefinition
+import com.rockwellcollins.atc.resolute.resolute.ClaimBody
 
 /**
  * This class contains custom scoping description.
@@ -60,6 +61,7 @@ class VerifyScopeProvider extends AlisaAbstractDeclarativeScopeProvider {
 		val foundlist = refFinder.getEObjectDescriptions(context, ResolutePackage.Literals.FUNCTION_DEFINITION, "aadl")
 		if (foundlist.isEmpty) return IScope.NULLSCOPE
 		val fcns =  foundlist.map[f|EcoreUtil.resolve(f.EObjectOrProxy,context) as FunctionDefinition]
+		.filter[fd|fd.body instanceof ClaimBody]
 		return new SimpleScope(IScope.NULLSCOPE,Scopes::scopedElementsFor(fcns,
 					QualifiedName::wrapper(SimpleAttributeResolver::NAME_RESOLVER)), true)
 	}
