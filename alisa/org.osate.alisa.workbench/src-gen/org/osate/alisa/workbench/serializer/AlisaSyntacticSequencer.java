@@ -25,13 +25,12 @@ public class AlisaSyntacticSequencer extends AbstractSyntacticSequencer {
 	protected AbstractElementAlias match_AssurancePlan___AssumeKeyword_7_3_0_SubsystemsKeyword_7_3_1__q;
 	protected AbstractElementAlias match_AssurancePlan___AssureKeyword_7_1_0_AllKeyword_7_1_1__q;
 	protected AbstractElementAlias match_AssurancePlan___AssureKeyword_7_2_0_SubsystemKeyword_7_2_1_PlansKeyword_7_2_2__q;
-	protected AbstractElementAlias match_AssuranceTask_FilterKeyword_7_1_0_0_0_a;
-	protected AbstractElementAlias match_AssuranceTask_FilterKeyword_7_1_0_0_0_p;
-	protected AbstractElementAlias match_AssuranceTask___FilterKeyword_7_1_0_0_0_a_ClaimsKeyword_7_1_1_0__q;
-	protected AbstractElementAlias match_AssuranceTask___FilterKeyword_7_1_0_0_0_a_IssuesKeyword_7_2_0__q;
-	protected AbstractElementAlias match_AssuranceTask___FilterKeyword_7_1_0_0_0_a_SelectionsKeyword_7_1_0_2_0__q;
-	protected AbstractElementAlias match_AssuranceTask___FilterKeyword_7_1_0_0_0_a_VerificationsKeyword_7_1_0_1_0__q;
-	protected AbstractElementAlias match_AssuranceTask___FilterKeyword_7_1_0_0_0_p_RequirementsKeyword_7_1_0_0_1_0__q;
+	protected AbstractElementAlias match_AssuranceTask_FilterKeyword_7_1_0_0_a;
+	protected AbstractElementAlias match_AssuranceTask_FilterKeyword_7_1_0_0_p;
+	protected AbstractElementAlias match_AssuranceTask___FilterKeyword_7_1_0_0_a_IssuesKeyword_7_2_0__q;
+	protected AbstractElementAlias match_AssuranceTask___FilterKeyword_7_1_0_0_a_SelectionsKeyword_7_1_2_0__q;
+	protected AbstractElementAlias match_AssuranceTask___FilterKeyword_7_1_0_0_a_VerificationsKeyword_7_1_1_0__q;
+	protected AbstractElementAlias match_AssuranceTask___FilterKeyword_7_1_0_0_p_RequirementsKeyword_7_1_0_1_0__q;
 	
 	@Inject
 	protected void init(IGrammarAccess access) {
@@ -40,13 +39,12 @@ public class AlisaSyntacticSequencer extends AbstractSyntacticSequencer {
 		match_AssurancePlan___AssumeKeyword_7_3_0_SubsystemsKeyword_7_3_1__q = new GroupAlias(false, true, new TokenAlias(false, false, grammarAccess.getAssurancePlanAccess().getAssumeKeyword_7_3_0()), new TokenAlias(false, false, grammarAccess.getAssurancePlanAccess().getSubsystemsKeyword_7_3_1()));
 		match_AssurancePlan___AssureKeyword_7_1_0_AllKeyword_7_1_1__q = new GroupAlias(false, true, new TokenAlias(false, false, grammarAccess.getAssurancePlanAccess().getAssureKeyword_7_1_0()), new TokenAlias(false, false, grammarAccess.getAssurancePlanAccess().getAllKeyword_7_1_1()));
 		match_AssurancePlan___AssureKeyword_7_2_0_SubsystemKeyword_7_2_1_PlansKeyword_7_2_2__q = new GroupAlias(false, true, new TokenAlias(false, false, grammarAccess.getAssurancePlanAccess().getAssureKeyword_7_2_0()), new TokenAlias(false, false, grammarAccess.getAssurancePlanAccess().getSubsystemKeyword_7_2_1()), new TokenAlias(false, false, grammarAccess.getAssurancePlanAccess().getPlansKeyword_7_2_2()));
-		match_AssuranceTask_FilterKeyword_7_1_0_0_0_a = new TokenAlias(true, true, grammarAccess.getAssuranceTaskAccess().getFilterKeyword_7_1_0_0_0());
-		match_AssuranceTask_FilterKeyword_7_1_0_0_0_p = new TokenAlias(true, false, grammarAccess.getAssuranceTaskAccess().getFilterKeyword_7_1_0_0_0());
-		match_AssuranceTask___FilterKeyword_7_1_0_0_0_a_ClaimsKeyword_7_1_1_0__q = new GroupAlias(false, true, new TokenAlias(true, true, grammarAccess.getAssuranceTaskAccess().getFilterKeyword_7_1_0_0_0()), new TokenAlias(false, false, grammarAccess.getAssuranceTaskAccess().getClaimsKeyword_7_1_1_0()));
-		match_AssuranceTask___FilterKeyword_7_1_0_0_0_a_IssuesKeyword_7_2_0__q = new GroupAlias(false, true, new TokenAlias(true, true, grammarAccess.getAssuranceTaskAccess().getFilterKeyword_7_1_0_0_0()), new TokenAlias(false, false, grammarAccess.getAssuranceTaskAccess().getIssuesKeyword_7_2_0()));
-		match_AssuranceTask___FilterKeyword_7_1_0_0_0_a_SelectionsKeyword_7_1_0_2_0__q = new GroupAlias(false, true, new TokenAlias(true, true, grammarAccess.getAssuranceTaskAccess().getFilterKeyword_7_1_0_0_0()), new TokenAlias(false, false, grammarAccess.getAssuranceTaskAccess().getSelectionsKeyword_7_1_0_2_0()));
-		match_AssuranceTask___FilterKeyword_7_1_0_0_0_a_VerificationsKeyword_7_1_0_1_0__q = new GroupAlias(false, true, new TokenAlias(true, true, grammarAccess.getAssuranceTaskAccess().getFilterKeyword_7_1_0_0_0()), new TokenAlias(false, false, grammarAccess.getAssuranceTaskAccess().getVerificationsKeyword_7_1_0_1_0()));
-		match_AssuranceTask___FilterKeyword_7_1_0_0_0_p_RequirementsKeyword_7_1_0_0_1_0__q = new GroupAlias(false, true, new TokenAlias(true, false, grammarAccess.getAssuranceTaskAccess().getFilterKeyword_7_1_0_0_0()), new TokenAlias(false, false, grammarAccess.getAssuranceTaskAccess().getRequirementsKeyword_7_1_0_0_1_0()));
+		match_AssuranceTask_FilterKeyword_7_1_0_0_a = new TokenAlias(true, true, grammarAccess.getAssuranceTaskAccess().getFilterKeyword_7_1_0_0());
+		match_AssuranceTask_FilterKeyword_7_1_0_0_p = new TokenAlias(true, false, grammarAccess.getAssuranceTaskAccess().getFilterKeyword_7_1_0_0());
+		match_AssuranceTask___FilterKeyword_7_1_0_0_a_IssuesKeyword_7_2_0__q = new GroupAlias(false, true, new TokenAlias(true, true, grammarAccess.getAssuranceTaskAccess().getFilterKeyword_7_1_0_0()), new TokenAlias(false, false, grammarAccess.getAssuranceTaskAccess().getIssuesKeyword_7_2_0()));
+		match_AssuranceTask___FilterKeyword_7_1_0_0_a_SelectionsKeyword_7_1_2_0__q = new GroupAlias(false, true, new TokenAlias(true, true, grammarAccess.getAssuranceTaskAccess().getFilterKeyword_7_1_0_0()), new TokenAlias(false, false, grammarAccess.getAssuranceTaskAccess().getSelectionsKeyword_7_1_2_0()));
+		match_AssuranceTask___FilterKeyword_7_1_0_0_a_VerificationsKeyword_7_1_1_0__q = new GroupAlias(false, true, new TokenAlias(true, true, grammarAccess.getAssuranceTaskAccess().getFilterKeyword_7_1_0_0()), new TokenAlias(false, false, grammarAccess.getAssuranceTaskAccess().getVerificationsKeyword_7_1_1_0()));
+		match_AssuranceTask___FilterKeyword_7_1_0_0_p_RequirementsKeyword_7_1_0_1_0__q = new GroupAlias(false, true, new TokenAlias(true, false, grammarAccess.getAssuranceTaskAccess().getFilterKeyword_7_1_0_0()), new TokenAlias(false, false, grammarAccess.getAssuranceTaskAccess().getRequirementsKeyword_7_1_0_1_0()));
 	}
 	
 	@Override
@@ -69,20 +67,18 @@ public class AlisaSyntacticSequencer extends AbstractSyntacticSequencer {
 				emit_AssurancePlan___AssureKeyword_7_1_0_AllKeyword_7_1_1__q(semanticObject, getLastNavigableState(), syntaxNodes);
 			else if(match_AssurancePlan___AssureKeyword_7_2_0_SubsystemKeyword_7_2_1_PlansKeyword_7_2_2__q.equals(syntax))
 				emit_AssurancePlan___AssureKeyword_7_2_0_SubsystemKeyword_7_2_1_PlansKeyword_7_2_2__q(semanticObject, getLastNavigableState(), syntaxNodes);
-			else if(match_AssuranceTask_FilterKeyword_7_1_0_0_0_a.equals(syntax))
-				emit_AssuranceTask_FilterKeyword_7_1_0_0_0_a(semanticObject, getLastNavigableState(), syntaxNodes);
-			else if(match_AssuranceTask_FilterKeyword_7_1_0_0_0_p.equals(syntax))
-				emit_AssuranceTask_FilterKeyword_7_1_0_0_0_p(semanticObject, getLastNavigableState(), syntaxNodes);
-			else if(match_AssuranceTask___FilterKeyword_7_1_0_0_0_a_ClaimsKeyword_7_1_1_0__q.equals(syntax))
-				emit_AssuranceTask___FilterKeyword_7_1_0_0_0_a_ClaimsKeyword_7_1_1_0__q(semanticObject, getLastNavigableState(), syntaxNodes);
-			else if(match_AssuranceTask___FilterKeyword_7_1_0_0_0_a_IssuesKeyword_7_2_0__q.equals(syntax))
-				emit_AssuranceTask___FilterKeyword_7_1_0_0_0_a_IssuesKeyword_7_2_0__q(semanticObject, getLastNavigableState(), syntaxNodes);
-			else if(match_AssuranceTask___FilterKeyword_7_1_0_0_0_a_SelectionsKeyword_7_1_0_2_0__q.equals(syntax))
-				emit_AssuranceTask___FilterKeyword_7_1_0_0_0_a_SelectionsKeyword_7_1_0_2_0__q(semanticObject, getLastNavigableState(), syntaxNodes);
-			else if(match_AssuranceTask___FilterKeyword_7_1_0_0_0_a_VerificationsKeyword_7_1_0_1_0__q.equals(syntax))
-				emit_AssuranceTask___FilterKeyword_7_1_0_0_0_a_VerificationsKeyword_7_1_0_1_0__q(semanticObject, getLastNavigableState(), syntaxNodes);
-			else if(match_AssuranceTask___FilterKeyword_7_1_0_0_0_p_RequirementsKeyword_7_1_0_0_1_0__q.equals(syntax))
-				emit_AssuranceTask___FilterKeyword_7_1_0_0_0_p_RequirementsKeyword_7_1_0_0_1_0__q(semanticObject, getLastNavigableState(), syntaxNodes);
+			else if(match_AssuranceTask_FilterKeyword_7_1_0_0_a.equals(syntax))
+				emit_AssuranceTask_FilterKeyword_7_1_0_0_a(semanticObject, getLastNavigableState(), syntaxNodes);
+			else if(match_AssuranceTask_FilterKeyword_7_1_0_0_p.equals(syntax))
+				emit_AssuranceTask_FilterKeyword_7_1_0_0_p(semanticObject, getLastNavigableState(), syntaxNodes);
+			else if(match_AssuranceTask___FilterKeyword_7_1_0_0_a_IssuesKeyword_7_2_0__q.equals(syntax))
+				emit_AssuranceTask___FilterKeyword_7_1_0_0_a_IssuesKeyword_7_2_0__q(semanticObject, getLastNavigableState(), syntaxNodes);
+			else if(match_AssuranceTask___FilterKeyword_7_1_0_0_a_SelectionsKeyword_7_1_2_0__q.equals(syntax))
+				emit_AssuranceTask___FilterKeyword_7_1_0_0_a_SelectionsKeyword_7_1_2_0__q(semanticObject, getLastNavigableState(), syntaxNodes);
+			else if(match_AssuranceTask___FilterKeyword_7_1_0_0_a_VerificationsKeyword_7_1_1_0__q.equals(syntax))
+				emit_AssuranceTask___FilterKeyword_7_1_0_0_a_VerificationsKeyword_7_1_1_0__q(semanticObject, getLastNavigableState(), syntaxNodes);
+			else if(match_AssuranceTask___FilterKeyword_7_1_0_0_p_RequirementsKeyword_7_1_0_1_0__q.equals(syntax))
+				emit_AssuranceTask___FilterKeyword_7_1_0_0_p_RequirementsKeyword_7_1_0_1_0__q(semanticObject, getLastNavigableState(), syntaxNodes);
 			else acceptNodes(getLastNavigableState(), syntaxNodes);
 		}
 	}
@@ -136,46 +132,35 @@ public class AlisaSyntacticSequencer extends AbstractSyntacticSequencer {
 	 *     'filter'*
 	 *
 	 * This ambiguous syntax occurs at:
-	 *     assurancePlan=[AssurancePlan|ID] '[' (ambiguity) ']' (rule end)
-	 *     assurancePlan=[AssurancePlan|ID] '[' (ambiguity) 'claims' claims+=[Claim|QualifiedName]
-	 *     assurancePlan=[AssurancePlan|ID] '[' (ambiguity) 'description' description=Description
-	 *     assurancePlan=[AssurancePlan|ID] '[' (ambiguity) 'issues' issues+=STRING
-	 *     assurancePlan=[AssurancePlan|ID] '[' (ambiguity) 'selections' selectionFilter+=[SelectionCategory|ID]
-	 *     assurancePlan=[AssurancePlan|ID] '[' (ambiguity) 'verifications' verificationFilter+=[VerificationCategory|ID]
-	 *     claims+=[Claim|QualifiedName] (ambiguity) ']' (rule end)
-	 *     claims+=[Claim|QualifiedName] (ambiguity) 'description' description=Description
-	 *     claims+=[Claim|QualifiedName] (ambiguity) 'issues' issues+=STRING
-	 *     claims+=[Claim|QualifiedName] (ambiguity) 'selections' selectionFilter+=[SelectionCategory|ID]
-	 *     claims+=[Claim|QualifiedName] (ambiguity) 'verifications' verificationFilter+=[VerificationCategory|ID]
+	 *     assurancePlan=[AssurancePlan|QualifiedName] '[' (ambiguity) ']' (rule end)
+	 *     assurancePlan=[AssurancePlan|QualifiedName] '[' (ambiguity) 'description' description=Description
+	 *     assurancePlan=[AssurancePlan|QualifiedName] '[' (ambiguity) 'issues' issues+=STRING
+	 *     assurancePlan=[AssurancePlan|QualifiedName] '[' (ambiguity) 'selections' selectionFilter+=[SelectionCategory|ID]
+	 *     assurancePlan=[AssurancePlan|QualifiedName] '[' (ambiguity) 'verifications' verificationFilter+=[VerificationCategory|ID]
 	 *     description=Description (ambiguity) ']' (rule end)
-	 *     description=Description (ambiguity) 'claims' claims+=[Claim|QualifiedName]
 	 *     description=Description (ambiguity) 'description' description=Description
 	 *     description=Description (ambiguity) 'issues' issues+=STRING
 	 *     description=Description (ambiguity) 'selections' selectionFilter+=[SelectionCategory|ID]
 	 *     description=Description (ambiguity) 'verifications' verificationFilter+=[VerificationCategory|ID]
 	 *     issues+=STRING (ambiguity) ']' (rule end)
-	 *     issues+=STRING (ambiguity) 'claims' claims+=[Claim|QualifiedName]
 	 *     issues+=STRING (ambiguity) 'description' description=Description
 	 *     issues+=STRING (ambiguity) 'selections' selectionFilter+=[SelectionCategory|ID]
 	 *     issues+=STRING (ambiguity) 'verifications' verificationFilter+=[VerificationCategory|ID]
 	 *     requirementFilter+=[RequirementCategory|ID] (ambiguity) ']' (rule end)
-	 *     requirementFilter+=[RequirementCategory|ID] (ambiguity) 'claims' claims+=[Claim|QualifiedName]
 	 *     requirementFilter+=[RequirementCategory|ID] (ambiguity) 'description' description=Description
 	 *     requirementFilter+=[RequirementCategory|ID] (ambiguity) 'issues' issues+=STRING
 	 *     requirementFilter+=[RequirementCategory|ID] (ambiguity) 'selections' selectionFilter+=[SelectionCategory|ID]
 	 *     requirementFilter+=[RequirementCategory|ID] (ambiguity) 'verifications' verificationFilter+=[VerificationCategory|ID]
 	 *     selectionFilter+=[SelectionCategory|ID] (ambiguity) ']' (rule end)
-	 *     selectionFilter+=[SelectionCategory|ID] (ambiguity) 'claims' claims+=[Claim|QualifiedName]
 	 *     selectionFilter+=[SelectionCategory|ID] (ambiguity) 'description' description=Description
 	 *     selectionFilter+=[SelectionCategory|ID] (ambiguity) 'issues' issues+=STRING
 	 *     selectionFilter+=[SelectionCategory|ID] (ambiguity) 'verifications' verificationFilter+=[VerificationCategory|ID]
 	 *     verificationFilter+=[VerificationCategory|ID] (ambiguity) ']' (rule end)
-	 *     verificationFilter+=[VerificationCategory|ID] (ambiguity) 'claims' claims+=[Claim|QualifiedName]
 	 *     verificationFilter+=[VerificationCategory|ID] (ambiguity) 'description' description=Description
 	 *     verificationFilter+=[VerificationCategory|ID] (ambiguity) 'issues' issues+=STRING
 	 *     verificationFilter+=[VerificationCategory|ID] (ambiguity) 'selections' selectionFilter+=[SelectionCategory|ID]
 	 */
-	protected void emit_AssuranceTask_FilterKeyword_7_1_0_0_0_a(EObject semanticObject, ISynNavigable transition, List<INode> nodes) {
+	protected void emit_AssuranceTask_FilterKeyword_7_1_0_0_a(EObject semanticObject, ISynNavigable transition, List<INode> nodes) {
 		acceptNodes(transition, nodes);
 	}
 	
@@ -184,25 +169,13 @@ public class AlisaSyntacticSequencer extends AbstractSyntacticSequencer {
 	 *     'filter'+
 	 *
 	 * This ambiguous syntax occurs at:
-	 *     assurancePlan=[AssurancePlan|ID] '[' (ambiguity) 'requirements' requirementFilter+=[RequirementCategory|ID]
-	 *     claims+=[Claim|QualifiedName] (ambiguity) 'requirements' requirementFilter+=[RequirementCategory|ID]
+	 *     assurancePlan=[AssurancePlan|QualifiedName] '[' (ambiguity) 'requirements' requirementFilter+=[RequirementCategory|ID]
 	 *     description=Description (ambiguity) 'requirements' requirementFilter+=[RequirementCategory|ID]
 	 *     issues+=STRING (ambiguity) 'requirements' requirementFilter+=[RequirementCategory|ID]
 	 *     selectionFilter+=[SelectionCategory|ID] (ambiguity) 'requirements' requirementFilter+=[RequirementCategory|ID]
 	 *     verificationFilter+=[VerificationCategory|ID] (ambiguity) 'requirements' requirementFilter+=[RequirementCategory|ID]
 	 */
-	protected void emit_AssuranceTask_FilterKeyword_7_1_0_0_0_p(EObject semanticObject, ISynNavigable transition, List<INode> nodes) {
-		acceptNodes(transition, nodes);
-	}
-	
-	/**
-	 * Ambiguous syntax:
-	 *     ('filter'* 'claims')?
-	 *
-	 * This ambiguous syntax occurs at:
-	 *     claims+=[Claim|QualifiedName] (ambiguity) claims+=[Claim|QualifiedName]
-	 */
-	protected void emit_AssuranceTask___FilterKeyword_7_1_0_0_0_a_ClaimsKeyword_7_1_1_0__q(EObject semanticObject, ISynNavigable transition, List<INode> nodes) {
+	protected void emit_AssuranceTask_FilterKeyword_7_1_0_0_p(EObject semanticObject, ISynNavigable transition, List<INode> nodes) {
 		acceptNodes(transition, nodes);
 	}
 	
@@ -213,7 +186,7 @@ public class AlisaSyntacticSequencer extends AbstractSyntacticSequencer {
 	 * This ambiguous syntax occurs at:
 	 *     issues+=STRING (ambiguity) issues+=STRING
 	 */
-	protected void emit_AssuranceTask___FilterKeyword_7_1_0_0_0_a_IssuesKeyword_7_2_0__q(EObject semanticObject, ISynNavigable transition, List<INode> nodes) {
+	protected void emit_AssuranceTask___FilterKeyword_7_1_0_0_a_IssuesKeyword_7_2_0__q(EObject semanticObject, ISynNavigable transition, List<INode> nodes) {
 		acceptNodes(transition, nodes);
 	}
 	
@@ -224,7 +197,7 @@ public class AlisaSyntacticSequencer extends AbstractSyntacticSequencer {
 	 * This ambiguous syntax occurs at:
 	 *     selectionFilter+=[SelectionCategory|ID] (ambiguity) selectionFilter+=[SelectionCategory|ID]
 	 */
-	protected void emit_AssuranceTask___FilterKeyword_7_1_0_0_0_a_SelectionsKeyword_7_1_0_2_0__q(EObject semanticObject, ISynNavigable transition, List<INode> nodes) {
+	protected void emit_AssuranceTask___FilterKeyword_7_1_0_0_a_SelectionsKeyword_7_1_2_0__q(EObject semanticObject, ISynNavigable transition, List<INode> nodes) {
 		acceptNodes(transition, nodes);
 	}
 	
@@ -235,7 +208,7 @@ public class AlisaSyntacticSequencer extends AbstractSyntacticSequencer {
 	 * This ambiguous syntax occurs at:
 	 *     verificationFilter+=[VerificationCategory|ID] (ambiguity) verificationFilter+=[VerificationCategory|ID]
 	 */
-	protected void emit_AssuranceTask___FilterKeyword_7_1_0_0_0_a_VerificationsKeyword_7_1_0_1_0__q(EObject semanticObject, ISynNavigable transition, List<INode> nodes) {
+	protected void emit_AssuranceTask___FilterKeyword_7_1_0_0_a_VerificationsKeyword_7_1_1_0__q(EObject semanticObject, ISynNavigable transition, List<INode> nodes) {
 		acceptNodes(transition, nodes);
 	}
 	
@@ -246,7 +219,7 @@ public class AlisaSyntacticSequencer extends AbstractSyntacticSequencer {
 	 * This ambiguous syntax occurs at:
 	 *     requirementFilter+=[RequirementCategory|ID] (ambiguity) requirementFilter+=[RequirementCategory|ID]
 	 */
-	protected void emit_AssuranceTask___FilterKeyword_7_1_0_0_0_p_RequirementsKeyword_7_1_0_0_1_0__q(EObject semanticObject, ISynNavigable transition, List<INode> nodes) {
+	protected void emit_AssuranceTask___FilterKeyword_7_1_0_0_p_RequirementsKeyword_7_1_0_1_0__q(EObject semanticObject, ISynNavigable transition, List<INode> nodes) {
 		acceptNodes(transition, nodes);
 	}
 	

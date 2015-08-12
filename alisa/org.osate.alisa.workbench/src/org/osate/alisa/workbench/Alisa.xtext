@@ -10,7 +10,7 @@ AlisaWorkArea:
 	cases+=(AssurancePlan|AssuranceTask)*;
  
 AssurancePlan:
-	'assurance' 'plan' name=ID (':' title=STRING)?
+	'assurance' 'plan' name=QualifiedName (':' title=STRING)?
 	'for' target=[aadl2::ComponentImplementation|AadlClassifierReference]
 	'['
 	(
@@ -23,16 +23,14 @@ AssurancePlan:
 	']';
 	
 	AssuranceTask returns AssuranceTask :
-		'assurance' 'task' name=ID (':' title=STRING)? 'for' assurancePlan=[AssurancePlan|ID]
+		'assurance' 'task' name=ID (':' title=STRING)? 'for' assurancePlan=[AssurancePlan|QualifiedName]
 	'['
 	(
 	('description' description=Description)?
-	&(( 'filter'
+	&( 'filter'
 	( 'requirements' requirementFilter+=[categories::RequirementCategory|ID]+ )?
 	&('verifications' verificationFilter+=[categories::VerificationCategory|ID]+ )?
 	&( 'selections' selectionFilter+=[categories::SelectionCategory|ID]+ )?
-	)|
-	('claims' claims+=[Verify::Claim|QualifiedName]+)
 	)
 	&('issues' issues+=STRING+ )?
 	

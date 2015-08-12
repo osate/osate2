@@ -249,22 +249,13 @@ public interface AlisaPackage extends EPackage
   int ASSURANCE_TASK__SELECTION_FILTER = 6;
 
   /**
-   * The feature id for the '<em><b>Claims</b></em>' reference list.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int ASSURANCE_TASK__CLAIMS = 7;
-
-  /**
    * The feature id for the '<em><b>Issues</b></em>' attribute list.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    * @ordered
    */
-  int ASSURANCE_TASK__ISSUES = 8;
+  int ASSURANCE_TASK__ISSUES = 7;
 
   /**
    * The number of structural features of the '<em>Assurance Task</em>' class.
@@ -273,7 +264,7 @@ public interface AlisaPackage extends EPackage
    * @generated
    * @ordered
    */
-  int ASSURANCE_TASK_FEATURE_COUNT = 9;
+  int ASSURANCE_TASK_FEATURE_COUNT = 8;
 
   /**
    * The meta object id for the '{@link org.osate.alisa.workbench.alisa.impl.DescriptionImpl <em>Description</em>}' class.
@@ -548,17 +539,6 @@ public interface AlisaPackage extends EPackage
   EReference getAssuranceTask_SelectionFilter();
 
   /**
-   * Returns the meta object for the reference list '{@link org.osate.alisa.workbench.alisa.AssuranceTask#getClaims <em>Claims</em>}'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return the meta object for the reference list '<em>Claims</em>'.
-   * @see org.osate.alisa.workbench.alisa.AssuranceTask#getClaims()
-   * @see #getAssuranceTask()
-   * @generated
-   */
-  EReference getAssuranceTask_Claims();
-
-  /**
    * Returns the meta object for the attribute list '{@link org.osate.alisa.workbench.alisa.AssuranceTask#getIssues <em>Issues</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -802,14 +782,6 @@ public interface AlisaPackage extends EPackage
      * @generated
      */
     EReference ASSURANCE_TASK__SELECTION_FILTER = eINSTANCE.getAssuranceTask_SelectionFilter();
-
-    /**
-     * The meta object literal for the '<em><b>Claims</b></em>' reference list feature.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
-    EReference ASSURANCE_TASK__CLAIMS = eINSTANCE.getAssuranceTask_Claims();
 
     /**
      * The meta object literal for the '<em><b>Issues</b></em>' attribute list feature.

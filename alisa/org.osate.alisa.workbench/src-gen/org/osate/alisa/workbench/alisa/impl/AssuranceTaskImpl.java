@@ -27,8 +27,6 @@ import org.osate.categories.categories.RequirementCategory;
 import org.osate.categories.categories.SelectionCategory;
 import org.osate.categories.categories.VerificationCategory;
 
-import org.osate.verify.verify.Claim;
-
 /**
  * <!-- begin-user-doc -->
  * An implementation of the model object '<em><b>Assurance Task</b></em>'.
@@ -43,7 +41,6 @@ import org.osate.verify.verify.Claim;
  *   <li>{@link org.osate.alisa.workbench.alisa.impl.AssuranceTaskImpl#getRequirementFilter <em>Requirement Filter</em>}</li>
  *   <li>{@link org.osate.alisa.workbench.alisa.impl.AssuranceTaskImpl#getVerificationFilter <em>Verification Filter</em>}</li>
  *   <li>{@link org.osate.alisa.workbench.alisa.impl.AssuranceTaskImpl#getSelectionFilter <em>Selection Filter</em>}</li>
- *   <li>{@link org.osate.alisa.workbench.alisa.impl.AssuranceTaskImpl#getClaims <em>Claims</em>}</li>
  *   <li>{@link org.osate.alisa.workbench.alisa.impl.AssuranceTaskImpl#getIssues <em>Issues</em>}</li>
  * </ul>
  * </p>
@@ -141,16 +138,6 @@ public class AssuranceTaskImpl extends MinimalEObjectImpl.Container implements A
    * @ordered
    */
   protected EList<SelectionCategory> selectionFilter;
-
-  /**
-   * The cached value of the '{@link #getClaims() <em>Claims</em>}' reference list.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @see #getClaims()
-   * @generated
-   * @ordered
-   */
-  protected EList<Claim> claims;
 
   /**
    * The cached value of the '{@link #getIssues() <em>Issues</em>}' attribute list.
@@ -367,20 +354,6 @@ public class AssuranceTaskImpl extends MinimalEObjectImpl.Container implements A
    * <!-- end-user-doc -->
    * @generated
    */
-  public EList<Claim> getClaims()
-  {
-    if (claims == null)
-    {
-      claims = new EObjectResolvingEList<Claim>(Claim.class, this, AlisaPackage.ASSURANCE_TASK__CLAIMS);
-    }
-    return claims;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
   public EList<String> getIssues()
   {
     if (issues == null)
@@ -431,8 +404,6 @@ public class AssuranceTaskImpl extends MinimalEObjectImpl.Container implements A
         return getVerificationFilter();
       case AlisaPackage.ASSURANCE_TASK__SELECTION_FILTER:
         return getSelectionFilter();
-      case AlisaPackage.ASSURANCE_TASK__CLAIMS:
-        return getClaims();
       case AlisaPackage.ASSURANCE_TASK__ISSUES:
         return getIssues();
     }
@@ -474,10 +445,6 @@ public class AssuranceTaskImpl extends MinimalEObjectImpl.Container implements A
         getSelectionFilter().clear();
         getSelectionFilter().addAll((Collection<? extends SelectionCategory>)newValue);
         return;
-      case AlisaPackage.ASSURANCE_TASK__CLAIMS:
-        getClaims().clear();
-        getClaims().addAll((Collection<? extends Claim>)newValue);
-        return;
       case AlisaPackage.ASSURANCE_TASK__ISSUES:
         getIssues().clear();
         getIssues().addAll((Collection<? extends String>)newValue);
@@ -517,9 +484,6 @@ public class AssuranceTaskImpl extends MinimalEObjectImpl.Container implements A
       case AlisaPackage.ASSURANCE_TASK__SELECTION_FILTER:
         getSelectionFilter().clear();
         return;
-      case AlisaPackage.ASSURANCE_TASK__CLAIMS:
-        getClaims().clear();
-        return;
       case AlisaPackage.ASSURANCE_TASK__ISSUES:
         getIssues().clear();
         return;
@@ -551,8 +515,6 @@ public class AssuranceTaskImpl extends MinimalEObjectImpl.Container implements A
         return verificationFilter != null && !verificationFilter.isEmpty();
       case AlisaPackage.ASSURANCE_TASK__SELECTION_FILTER:
         return selectionFilter != null && !selectionFilter.isEmpty();
-      case AlisaPackage.ASSURANCE_TASK__CLAIMS:
-        return claims != null && !claims.isEmpty();
       case AlisaPackage.ASSURANCE_TASK__ISSUES:
         return issues != null && !issues.isEmpty();
     }

@@ -28,7 +28,6 @@
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference Alisa.ecore#//AssuranceTask/requirementFilter"/>
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference Alisa.ecore#//AssuranceTask/verificationFilter"/>
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference Alisa.ecore#//AssuranceTask/selectionFilter"/>
-      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference Alisa.ecore#//AssuranceTask/claims"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Alisa.ecore#//AssuranceTask/issues"/>
     </genClasses>
     <genClasses ecoreClass="Alisa.ecore#//Description">
