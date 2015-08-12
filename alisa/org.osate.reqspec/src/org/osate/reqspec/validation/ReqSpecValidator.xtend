@@ -25,6 +25,8 @@ import org.osate.reqspec.reqSpec.SystemRequirements
 import static extension org.osate.reqspec.util.ReqSpecUtilExtension.*
 import org.osate.alisa.common.scoping.ICommonGlobalReferenceFinder
 import com.google.inject.Inject
+import org.osate.aadl2.SystemImplementation
+import org.osate.reqspec.util.IReqspecGlobalReferenceFinder
 
 /**
  * Custom validation rules. 
@@ -238,23 +240,18 @@ class ReqSpecValidator extends AbstractReqSpecValidator {
 			return cycles
 		]
 	}	
+	@Inject IReqspecGlobalReferenceFinder reqSpecrefFinder
 		
-//	@Check(CheckType.FAST)
-//	def void checkCoverage(StakeholderGoals shgs) {
-//		val target = shgs.target
-//		if (!SystemImplementation.isInstance(target)){ return }
-//		println("target = " + target)
-//	}
-
-////	@Check(CheckType.FAST)
-//	def void checkCoverage(Goal goal) {
-//		val contextClassifier = goal.contextClassifier
-//		println("contextClassifier = " + contextClassifier)
-//		if (!SystemImplementation.isInstance(contextClassifier)){ return }
-//		//TODO: Need to get all the requirements where contextClassifier is the same and has see goal equal to this goal
-//		
-//
-//	}
-
-
+	@Check(CheckType.EXPENSIVE)
+	def void checkCoverage(StakeholderGoals shgs) {
+		val target = shgs.target
+		if (!SystemImplementation.isInstance(target)){ return }
+		val sysReqs = reqSpecrefFinder.getSystemRequirements(target)
+		shgs.content.forEach[goal | 
+			if (!sysReqs.exists[sysReq | sysReq.content.exists[goalReference.exists[goalRef | goalRef === goal]]]){
+				error("Goal " + goal.name + " does not have a corresponding System Requirement.", 
+						goal, ReqSpecPackage.Literals.CONTRACTUAL_ELEMENT__NAME)
+			}
+		]
+	}
 }
