@@ -8,6 +8,9 @@ import org.osate.verify.verify.VerificationActivity
 import org.osate.verify.verify.VerificationCondition
 import org.osate.verify.verify.VerificationMethod
 import org.osate.verify.verify.VerifyPackage
+import org.osate.verify.verify.JavaMethod
+import org.osate.verify.verify.PluginMethod
+import org.osate.verify.util.VerificationMethodDispatchers
 
 /**
  * Custom validation rules. 
@@ -16,19 +19,32 @@ import org.osate.verify.verify.VerifyPackage
  */
 class VerifyValidator extends AbstractVerifyValidator {
 
-  public static val MISSING_METHOD_PATH = "org.osate.organization.missingMethodPath"
-  public static val MISSING_METHOD_REFERENCE = "org.osate.organization.missingMethodReference"
+  public static val INCORRECT_METHOD_PATH = "org.osate.verify.incorrectMethodPath"
+  public static val INCORRECT_METHOD_REFERENCE = "org.osate.verify.incorrectMethodReference"
+  public static val MISSING_METHOD_REFERENCE = "org.osate.verify.missingMethodReference"
+  public static val INCORRECT_METHOD_ID = "org.osate.verify.incorrectMethodID"
 
 	@Check
-	def checkMissingMethodPath(VerificationMethod method) {
-		if (method.methodPath == null) {
-			warning('Verification method should have a method path', 
-					VerifyPackage.Literals.VERIFICATION_METHOD__METHOD_PATH,
-					MISSING_METHOD_PATH)
+	def checkMethodPath(JavaMethod method) {
+		val result = VerificationMethodDispatchers.eInstance.methodExists(method)
+		if (result!=null) {
+			warning("Could not method: "+result, 
+					VerifyPackage.Literals.JAVA_METHOD__METHOD_PATH,
+					INCORRECT_METHOD_PATH)
 		}
 	}
 	@Check
-	def checkMissingMethodReference(VerificationCondition cond) {
+	def checkMethodID(PluginMethod method) {
+		val result = VerificationMethodDispatchers.eInstance.dispatchVerificationMethod(method,null,null)
+		if (result == null) {
+			warning('Plugin verification method ID not found', 
+					VerifyPackage.Literals.PLUGIN_METHOD__METHOD_ID,
+					INCORRECT_METHOD_ID)
+		}
+	}
+
+	@Check
+	def checkMethodReference(VerificationCondition cond) {
 		if (cond.method == null) {
 			warning('Verification precondition or validation should have a verification method reference', 
 					VerifyPackage.Literals.VERIFICATION_CONDITION__METHOD,

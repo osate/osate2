@@ -25,7 +25,7 @@ import org.osate.alisa.common.common.Description;
 
 import org.osate.categories.categories.VerificationCategory;
 
-import org.osate.verify.verify.SupportedTypes;
+import org.osate.verify.verify.MethodType;
 import org.osate.verify.verify.VerificationCondition;
 import org.osate.verify.verify.VerificationMethod;
 import org.osate.verify.verify.VerifyPackage;
@@ -44,7 +44,6 @@ import org.osate.verify.verify.VerifyPackage;
  *   <li>{@link org.osate.verify.verify.impl.VerificationMethodImpl#getTitle <em>Title</em>}</li>
  *   <li>{@link org.osate.verify.verify.impl.VerificationMethodImpl#getMethodType <em>Method Type</em>}</li>
  *   <li>{@link org.osate.verify.verify.impl.VerificationMethodImpl#getDescription <em>Description</em>}</li>
- *   <li>{@link org.osate.verify.verify.impl.VerificationMethodImpl#getMethodPath <em>Method Path</em>}</li>
  *   <li>{@link org.osate.verify.verify.impl.VerificationMethodImpl#getCondition <em>Condition</em>}</li>
  *   <li>{@link org.osate.verify.verify.impl.VerificationMethodImpl#getCategory <em>Category</em>}</li>
  * </ul>
@@ -145,24 +144,14 @@ public class VerificationMethodImpl extends MinimalEObjectImpl.Container impleme
   protected String title = TITLE_EDEFAULT;
 
   /**
-   * The default value of the '{@link #getMethodType() <em>Method Type</em>}' attribute.
+   * The cached value of the '{@link #getMethodType() <em>Method Type</em>}' containment reference.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @see #getMethodType()
    * @generated
    * @ordered
    */
-  protected static final SupportedTypes METHOD_TYPE_EDEFAULT = SupportedTypes.ANALYSISPLUGIN;
-
-  /**
-   * The cached value of the '{@link #getMethodType() <em>Method Type</em>}' attribute.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @see #getMethodType()
-   * @generated
-   * @ordered
-   */
-  protected SupportedTypes methodType = METHOD_TYPE_EDEFAULT;
+  protected MethodType methodType;
 
   /**
    * The cached value of the '{@link #getDescription() <em>Description</em>}' containment reference.
@@ -173,26 +162,6 @@ public class VerificationMethodImpl extends MinimalEObjectImpl.Container impleme
    * @ordered
    */
   protected Description description;
-
-  /**
-   * The default value of the '{@link #getMethodPath() <em>Method Path</em>}' attribute.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @see #getMethodPath()
-   * @generated
-   * @ordered
-   */
-  protected static final String METHOD_PATH_EDEFAULT = null;
-
-  /**
-   * The cached value of the '{@link #getMethodPath() <em>Method Path</em>}' attribute.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @see #getMethodPath()
-   * @generated
-   * @ordered
-   */
-  protected String methodPath = METHOD_PATH_EDEFAULT;
 
   /**
    * The cached value of the '{@link #getCondition() <em>Condition</em>}' containment reference.
@@ -346,7 +315,7 @@ public class VerificationMethodImpl extends MinimalEObjectImpl.Container impleme
    * <!-- end-user-doc -->
    * @generated
    */
-  public SupportedTypes getMethodType()
+  public MethodType getMethodType()
   {
     return methodType;
   }
@@ -356,12 +325,37 @@ public class VerificationMethodImpl extends MinimalEObjectImpl.Container impleme
    * <!-- end-user-doc -->
    * @generated
    */
-  public void setMethodType(SupportedTypes newMethodType)
+  public NotificationChain basicSetMethodType(MethodType newMethodType, NotificationChain msgs)
   {
-    SupportedTypes oldMethodType = methodType;
-    methodType = newMethodType == null ? METHOD_TYPE_EDEFAULT : newMethodType;
+    MethodType oldMethodType = methodType;
+    methodType = newMethodType;
     if (eNotificationRequired())
-      eNotify(new ENotificationImpl(this, Notification.SET, VerifyPackage.VERIFICATION_METHOD__METHOD_TYPE, oldMethodType, methodType));
+    {
+      ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, VerifyPackage.VERIFICATION_METHOD__METHOD_TYPE, oldMethodType, newMethodType);
+      if (msgs == null) msgs = notification; else msgs.add(notification);
+    }
+    return msgs;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public void setMethodType(MethodType newMethodType)
+  {
+    if (newMethodType != methodType)
+    {
+      NotificationChain msgs = null;
+      if (methodType != null)
+        msgs = ((InternalEObject)methodType).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - VerifyPackage.VERIFICATION_METHOD__METHOD_TYPE, null, msgs);
+      if (newMethodType != null)
+        msgs = ((InternalEObject)newMethodType).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - VerifyPackage.VERIFICATION_METHOD__METHOD_TYPE, null, msgs);
+      msgs = basicSetMethodType(newMethodType, msgs);
+      if (msgs != null) msgs.dispatch();
+    }
+    else if (eNotificationRequired())
+      eNotify(new ENotificationImpl(this, Notification.SET, VerifyPackage.VERIFICATION_METHOD__METHOD_TYPE, newMethodType, newMethodType));
   }
 
   /**
@@ -410,29 +404,6 @@ public class VerificationMethodImpl extends MinimalEObjectImpl.Container impleme
     }
     else if (eNotificationRequired())
       eNotify(new ENotificationImpl(this, Notification.SET, VerifyPackage.VERIFICATION_METHOD__DESCRIPTION, newDescription, newDescription));
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public String getMethodPath()
-  {
-    return methodPath;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public void setMethodPath(String newMethodPath)
-  {
-    String oldMethodPath = methodPath;
-    methodPath = newMethodPath;
-    if (eNotificationRequired())
-      eNotify(new ENotificationImpl(this, Notification.SET, VerifyPackage.VERIFICATION_METHOD__METHOD_PATH, oldMethodPath, methodPath));
   }
 
   /**
@@ -509,6 +480,8 @@ public class VerificationMethodImpl extends MinimalEObjectImpl.Container impleme
     {
       case VerifyPackage.VERIFICATION_METHOD__PARAMS:
         return ((InternalEList<?>)getParams()).basicRemove(otherEnd, msgs);
+      case VerifyPackage.VERIFICATION_METHOD__METHOD_TYPE:
+        return basicSetMethodType(null, msgs);
       case VerifyPackage.VERIFICATION_METHOD__DESCRIPTION:
         return basicSetDescription(null, msgs);
       case VerifyPackage.VERIFICATION_METHOD__CONDITION:
@@ -541,8 +514,6 @@ public class VerificationMethodImpl extends MinimalEObjectImpl.Container impleme
         return getMethodType();
       case VerifyPackage.VERIFICATION_METHOD__DESCRIPTION:
         return getDescription();
-      case VerifyPackage.VERIFICATION_METHOD__METHOD_PATH:
-        return getMethodPath();
       case VerifyPackage.VERIFICATION_METHOD__CONDITION:
         return getCondition();
       case VerifyPackage.VERIFICATION_METHOD__CATEGORY:
@@ -579,13 +550,10 @@ public class VerificationMethodImpl extends MinimalEObjectImpl.Container impleme
         setTitle((String)newValue);
         return;
       case VerifyPackage.VERIFICATION_METHOD__METHOD_TYPE:
-        setMethodType((SupportedTypes)newValue);
+        setMethodType((MethodType)newValue);
         return;
       case VerifyPackage.VERIFICATION_METHOD__DESCRIPTION:
         setDescription((Description)newValue);
-        return;
-      case VerifyPackage.VERIFICATION_METHOD__METHOD_PATH:
-        setMethodPath((String)newValue);
         return;
       case VerifyPackage.VERIFICATION_METHOD__CONDITION:
         setCondition((VerificationCondition)newValue);
@@ -624,13 +592,10 @@ public class VerificationMethodImpl extends MinimalEObjectImpl.Container impleme
         setTitle(TITLE_EDEFAULT);
         return;
       case VerifyPackage.VERIFICATION_METHOD__METHOD_TYPE:
-        setMethodType(METHOD_TYPE_EDEFAULT);
+        setMethodType((MethodType)null);
         return;
       case VerifyPackage.VERIFICATION_METHOD__DESCRIPTION:
         setDescription((Description)null);
-        return;
-      case VerifyPackage.VERIFICATION_METHOD__METHOD_PATH:
-        setMethodPath(METHOD_PATH_EDEFAULT);
         return;
       case VerifyPackage.VERIFICATION_METHOD__CONDITION:
         setCondition((VerificationCondition)null);
@@ -663,11 +628,9 @@ public class VerificationMethodImpl extends MinimalEObjectImpl.Container impleme
       case VerifyPackage.VERIFICATION_METHOD__TITLE:
         return TITLE_EDEFAULT == null ? title != null : !TITLE_EDEFAULT.equals(title);
       case VerifyPackage.VERIFICATION_METHOD__METHOD_TYPE:
-        return methodType != METHOD_TYPE_EDEFAULT;
+        return methodType != null;
       case VerifyPackage.VERIFICATION_METHOD__DESCRIPTION:
         return description != null;
-      case VerifyPackage.VERIFICATION_METHOD__METHOD_PATH:
-        return METHOD_PATH_EDEFAULT == null ? methodPath != null : !METHOD_PATH_EDEFAULT.equals(methodPath);
       case VerifyPackage.VERIFICATION_METHOD__CONDITION:
         return condition != null;
       case VerifyPackage.VERIFICATION_METHOD__CATEGORY:
@@ -695,10 +658,6 @@ public class VerificationMethodImpl extends MinimalEObjectImpl.Container impleme
     result.append(isResultReport);
     result.append(", title: ");
     result.append(title);
-    result.append(", methodType: ");
-    result.append(methodType);
-    result.append(", methodPath: ");
-    result.append(methodPath);
     result.append(')');
     return result.toString();
   }

@@ -3,7 +3,6 @@
 package org.osate.verify.verify.impl;
 
 import org.eclipse.emf.ecore.EClass;
-import org.eclipse.emf.ecore.EDataType;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EPackage;
 
@@ -72,6 +71,11 @@ public class VerifyFactoryImpl extends EFactoryImpl implements VerifyFactory
       case VerifyPackage.ARGUMENT_EXPR: return createArgumentExpr();
       case VerifyPackage.VERIFICATION_METHOD_REGISTRY: return createVerificationMethodRegistry();
       case VerifyPackage.VERIFICATION_METHOD: return createVerificationMethod();
+      case VerifyPackage.METHOD_TYPE: return createMethodType();
+      case VerifyPackage.RESOLUTE_METHOD: return createResoluteMethod();
+      case VerifyPackage.JAVA_METHOD: return createJavaMethod();
+      case VerifyPackage.MANUAL_METHOD: return createManualMethod();
+      case VerifyPackage.PLUGIN_METHOD: return createPluginMethod();
       case VerifyPackage.VERIFICATION_CONDITION: return createVerificationCondition();
       case VerifyPackage.THEN_EXPR: return createThenExpr();
       case VerifyPackage.ELSE_EXPR: return createElseExpr();
@@ -81,40 +85,6 @@ public class VerifyFactoryImpl extends EFactoryImpl implements VerifyFactory
       case VerifyPackage.VERIFICATION_PRECONDITION: return createVerificationPrecondition();
       default:
         throw new IllegalArgumentException("The class '" + eClass.getName() + "' is not a valid classifier");
-    }
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  @Override
-  public Object createFromString(EDataType eDataType, String initialValue)
-  {
-    switch (eDataType.getClassifierID())
-    {
-      case VerifyPackage.SUPPORTED_TYPES:
-        return createSupportedTypesFromString(eDataType, initialValue);
-      default:
-        throw new IllegalArgumentException("The datatype '" + eDataType.getName() + "' is not a valid classifier");
-    }
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  @Override
-  public String convertToString(EDataType eDataType, Object instanceValue)
-  {
-    switch (eDataType.getClassifierID())
-    {
-      case VerifyPackage.SUPPORTED_TYPES:
-        return convertSupportedTypesToString(eDataType, instanceValue);
-      default:
-        throw new IllegalArgumentException("The datatype '" + eDataType.getName() + "' is not a valid classifier");
     }
   }
 
@@ -200,6 +170,61 @@ public class VerifyFactoryImpl extends EFactoryImpl implements VerifyFactory
    * <!-- end-user-doc -->
    * @generated
    */
+  public MethodType createMethodType()
+  {
+    MethodTypeImpl methodType = new MethodTypeImpl();
+    return methodType;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public ResoluteMethod createResoluteMethod()
+  {
+    ResoluteMethodImpl resoluteMethod = new ResoluteMethodImpl();
+    return resoluteMethod;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public JavaMethod createJavaMethod()
+  {
+    JavaMethodImpl javaMethod = new JavaMethodImpl();
+    return javaMethod;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public ManualMethod createManualMethod()
+  {
+    ManualMethodImpl manualMethod = new ManualMethodImpl();
+    return manualMethod;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public PluginMethod createPluginMethod()
+  {
+    PluginMethodImpl pluginMethod = new PluginMethodImpl();
+    return pluginMethod;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
   public VerificationCondition createVerificationCondition()
   {
     VerificationConditionImpl verificationCondition = new VerificationConditionImpl();
@@ -270,28 +295,6 @@ public class VerifyFactoryImpl extends EFactoryImpl implements VerifyFactory
   {
     VerificationPreconditionImpl verificationPrecondition = new VerificationPreconditionImpl();
     return verificationPrecondition;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public SupportedTypes createSupportedTypesFromString(EDataType eDataType, String initialValue)
-  {
-    SupportedTypes result = SupportedTypes.get(initialValue);
-    if (result == null) throw new IllegalArgumentException("The value '" + initialValue + "' is not a valid enumerator of '" + eDataType.getName() + "'");
-    return result;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public String convertSupportedTypesToString(EDataType eDataType, Object instanceValue)
-  {
-    return instanceValue == null ? null : instanceValue.toString();
   }
 
   /**

@@ -27,6 +27,7 @@ public class VerifyGrammarAccess extends AbstractGrammarElementFinder {
 		private final RuleCall cContentsVerificationPlanParserRuleCall_0_0 = (RuleCall)cContentsAlternatives_0.eContents().get(0);
 		private final RuleCall cContentsVerificationMethodRegistryParserRuleCall_0_1 = (RuleCall)cContentsAlternatives_0.eContents().get(1);
 		
+		////import "http://www.eclipse.org/emf/2002/Ecore" as ecore
 		//Verification:
 		//	contents+=(VerificationPlan | VerificationMethodRegistry);
 		@Override public ParserRule getRule() { return rule; }
@@ -994,32 +995,28 @@ public class VerifyGrammarAccess extends AbstractGrammarElementFinder {
 		private final Keyword cLeftSquareBracketKeyword_4 = (Keyword)cGroup.eContents().get(4);
 		private final UnorderedGroup cUnorderedGroup_5 = (UnorderedGroup)cGroup.eContents().get(5);
 		private final Assignment cMethodTypeAssignment_5_0 = (Assignment)cUnorderedGroup_5.eContents().get(0);
-		private final RuleCall cMethodTypeSupportedTypesEnumRuleCall_5_0_0 = (RuleCall)cMethodTypeAssignment_5_0.eContents().get(0);
+		private final RuleCall cMethodTypeMethodTypeParserRuleCall_5_0_0 = (RuleCall)cMethodTypeAssignment_5_0.eContents().get(0);
 		private final Assignment cDescriptionAssignment_5_1 = (Assignment)cUnorderedGroup_5.eContents().get(1);
 		private final RuleCall cDescriptionDescriptionParserRuleCall_5_1_0 = (RuleCall)cDescriptionAssignment_5_1.eContents().get(0);
-		private final Group cGroup_5_2 = (Group)cUnorderedGroup_5.eContents().get(2);
-		private final Keyword cPathKeyword_5_2_0 = (Keyword)cGroup_5_2.eContents().get(0);
-		private final Assignment cMethodPathAssignment_5_2_1 = (Assignment)cGroup_5_2.eContents().get(1);
-		private final RuleCall cMethodPathSTRINGTerminalRuleCall_5_2_1_0 = (RuleCall)cMethodPathAssignment_5_2_1.eContents().get(0);
-		private final Assignment cConditionAssignment_5_3 = (Assignment)cUnorderedGroup_5.eContents().get(3);
-		private final RuleCall cConditionVerificationConditionParserRuleCall_5_3_0 = (RuleCall)cConditionAssignment_5_3.eContents().get(0);
-		private final Group cGroup_5_4 = (Group)cUnorderedGroup_5.eContents().get(4);
-		private final Keyword cCategoryKeyword_5_4_0 = (Keyword)cGroup_5_4.eContents().get(0);
-		private final Assignment cCategoryAssignment_5_4_1 = (Assignment)cGroup_5_4.eContents().get(1);
-		private final CrossReference cCategoryVerificationCategoryCrossReference_5_4_1_0 = (CrossReference)cCategoryAssignment_5_4_1.eContents().get(0);
-		private final RuleCall cCategoryVerificationCategoryIDTerminalRuleCall_5_4_1_0_1 = (RuleCall)cCategoryVerificationCategoryCrossReference_5_4_1_0.eContents().get(1);
+		private final Assignment cConditionAssignment_5_2 = (Assignment)cUnorderedGroup_5.eContents().get(2);
+		private final RuleCall cConditionVerificationConditionParserRuleCall_5_2_0 = (RuleCall)cConditionAssignment_5_2.eContents().get(0);
+		private final Group cGroup_5_3 = (Group)cUnorderedGroup_5.eContents().get(3);
+		private final Keyword cCategoryKeyword_5_3_0 = (Keyword)cGroup_5_3.eContents().get(0);
+		private final Assignment cCategoryAssignment_5_3_1 = (Assignment)cGroup_5_3.eContents().get(1);
+		private final CrossReference cCategoryVerificationCategoryCrossReference_5_3_1_0 = (CrossReference)cCategoryAssignment_5_3_1.eContents().get(0);
+		private final RuleCall cCategoryVerificationCategoryIDTerminalRuleCall_5_3_1_0_1 = (RuleCall)cCategoryVerificationCategoryCrossReference_5_3_1_0.eContents().get(1);
 		private final Keyword cRightSquareBracketKeyword_6 = (Keyword)cGroup.eContents().get(6);
 		
 		//VerificationMethod:
 		//	"method" name=ID ("(" (params+=FullJvmFormalParameter ("," params+=FullJvmFormalParameter)*)? ")"
-		//	(isPredicate?="boolean" | isResultReport?="report")?)? (":" title=STRING)? "[" (methodType=SupportedTypes &
-		//	description=Description? & ("path" methodPath=STRING)? & condition=VerificationCondition? & ("category"
+		//	(isPredicate?="boolean" | isResultReport?="report")?)? (":" title=STRING)? "[" (methodType=MethodType &
+		//	description=Description? & condition=VerificationCondition? & ("category"
 		//	category+=[categories::VerificationCategory]+)?) "]";
 		@Override public ParserRule getRule() { return rule; }
 
 		//"method" name=ID ("(" (params+=FullJvmFormalParameter ("," params+=FullJvmFormalParameter)*)? ")"
-		//(isPredicate?="boolean" | isResultReport?="report")?)? (":" title=STRING)? "[" (methodType=SupportedTypes &
-		//description=Description? & ("path" methodPath=STRING)? & condition=VerificationCondition? & ("category"
+		//(isPredicate?="boolean" | isResultReport?="report")?)? (":" title=STRING)? "[" (methodType=MethodType &
+		//description=Description? & condition=VerificationCondition? & ("category"
 		//category+=[categories::VerificationCategory]+)?) "]"
 		public Group getGroup() { return cGroup; }
 
@@ -1093,15 +1090,15 @@ public class VerifyGrammarAccess extends AbstractGrammarElementFinder {
 		//"["
 		public Keyword getLeftSquareBracketKeyword_4() { return cLeftSquareBracketKeyword_4; }
 
-		//methodType=SupportedTypes & description=Description? & ("path" methodPath=STRING)? & condition=VerificationCondition? &
-		//("category" category+=[categories::VerificationCategory]+)?
+		//methodType=MethodType & description=Description? & condition=VerificationCondition? & ("category"
+		//category+=[categories::VerificationCategory]+)?
 		public UnorderedGroup getUnorderedGroup_5() { return cUnorderedGroup_5; }
 
-		//methodType=SupportedTypes
+		//methodType=MethodType
 		public Assignment getMethodTypeAssignment_5_0() { return cMethodTypeAssignment_5_0; }
 
-		//SupportedTypes
-		public RuleCall getMethodTypeSupportedTypesEnumRuleCall_5_0_0() { return cMethodTypeSupportedTypesEnumRuleCall_5_0_0; }
+		//MethodType
+		public RuleCall getMethodTypeMethodTypeParserRuleCall_5_0_0() { return cMethodTypeMethodTypeParserRuleCall_5_0_0; }
 
 		//description=Description?
 		public Assignment getDescriptionAssignment_5_1() { return cDescriptionAssignment_5_1; }
@@ -1109,41 +1106,161 @@ public class VerifyGrammarAccess extends AbstractGrammarElementFinder {
 		//Description
 		public RuleCall getDescriptionDescriptionParserRuleCall_5_1_0() { return cDescriptionDescriptionParserRuleCall_5_1_0; }
 
-		//("path" methodPath=STRING)?
-		public Group getGroup_5_2() { return cGroup_5_2; }
-
-		//"path"
-		public Keyword getPathKeyword_5_2_0() { return cPathKeyword_5_2_0; }
-
-		//methodPath=STRING
-		public Assignment getMethodPathAssignment_5_2_1() { return cMethodPathAssignment_5_2_1; }
-
-		//STRING
-		public RuleCall getMethodPathSTRINGTerminalRuleCall_5_2_1_0() { return cMethodPathSTRINGTerminalRuleCall_5_2_1_0; }
-
 		//condition=VerificationCondition?
-		public Assignment getConditionAssignment_5_3() { return cConditionAssignment_5_3; }
+		public Assignment getConditionAssignment_5_2() { return cConditionAssignment_5_2; }
 
 		//VerificationCondition
-		public RuleCall getConditionVerificationConditionParserRuleCall_5_3_0() { return cConditionVerificationConditionParserRuleCall_5_3_0; }
+		public RuleCall getConditionVerificationConditionParserRuleCall_5_2_0() { return cConditionVerificationConditionParserRuleCall_5_2_0; }
 
 		//("category" category+=[categories::VerificationCategory]+)?
-		public Group getGroup_5_4() { return cGroup_5_4; }
+		public Group getGroup_5_3() { return cGroup_5_3; }
 
 		//"category"
-		public Keyword getCategoryKeyword_5_4_0() { return cCategoryKeyword_5_4_0; }
+		public Keyword getCategoryKeyword_5_3_0() { return cCategoryKeyword_5_3_0; }
 
 		//category+=[categories::VerificationCategory]+
-		public Assignment getCategoryAssignment_5_4_1() { return cCategoryAssignment_5_4_1; }
+		public Assignment getCategoryAssignment_5_3_1() { return cCategoryAssignment_5_3_1; }
 
 		//[categories::VerificationCategory]
-		public CrossReference getCategoryVerificationCategoryCrossReference_5_4_1_0() { return cCategoryVerificationCategoryCrossReference_5_4_1_0; }
+		public CrossReference getCategoryVerificationCategoryCrossReference_5_3_1_0() { return cCategoryVerificationCategoryCrossReference_5_3_1_0; }
 
 		//ID
-		public RuleCall getCategoryVerificationCategoryIDTerminalRuleCall_5_4_1_0_1() { return cCategoryVerificationCategoryIDTerminalRuleCall_5_4_1_0_1; }
+		public RuleCall getCategoryVerificationCategoryIDTerminalRuleCall_5_3_1_0_1() { return cCategoryVerificationCategoryIDTerminalRuleCall_5_3_1_0_1; }
 
 		//"]"
 		public Keyword getRightSquareBracketKeyword_6() { return cRightSquareBracketKeyword_6; }
+	}
+
+	public class MethodTypeElements extends AbstractParserRuleElementFinder {
+		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "MethodType");
+		private final Alternatives cAlternatives = (Alternatives)rule.eContents().get(1);
+		private final RuleCall cResoluteMethodParserRuleCall_0 = (RuleCall)cAlternatives.eContents().get(0);
+		private final RuleCall cJavaMethodParserRuleCall_1 = (RuleCall)cAlternatives.eContents().get(1);
+		private final RuleCall cManualMethodParserRuleCall_2 = (RuleCall)cAlternatives.eContents().get(2);
+		private final RuleCall cPluginMethodParserRuleCall_3 = (RuleCall)cAlternatives.eContents().get(3);
+		
+		//MethodType:
+		//	ResoluteMethod | JavaMethod | ManualMethod | PluginMethod;
+		@Override public ParserRule getRule() { return rule; }
+
+		//ResoluteMethod | JavaMethod | ManualMethod | PluginMethod
+		public Alternatives getAlternatives() { return cAlternatives; }
+
+		//ResoluteMethod
+		public RuleCall getResoluteMethodParserRuleCall_0() { return cResoluteMethodParserRuleCall_0; }
+
+		//JavaMethod
+		public RuleCall getJavaMethodParserRuleCall_1() { return cJavaMethodParserRuleCall_1; }
+
+		//ManualMethod
+		public RuleCall getManualMethodParserRuleCall_2() { return cManualMethodParserRuleCall_2; }
+
+		//PluginMethod
+		public RuleCall getPluginMethodParserRuleCall_3() { return cPluginMethodParserRuleCall_3; }
+	}
+
+	public class ResoluteMethodElements extends AbstractParserRuleElementFinder {
+		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "ResoluteMethod");
+		private final Group cGroup = (Group)rule.eContents().get(1);
+		private final Keyword cResoluteKeyword_0 = (Keyword)cGroup.eContents().get(0);
+		private final Assignment cMethodReferenceAssignment_1 = (Assignment)cGroup.eContents().get(1);
+		private final CrossReference cMethodReferenceFunctionDefinitionCrossReference_1_0 = (CrossReference)cMethodReferenceAssignment_1.eContents().get(0);
+		private final RuleCall cMethodReferenceFunctionDefinitionIDTerminalRuleCall_1_0_1 = (RuleCall)cMethodReferenceFunctionDefinitionCrossReference_1_0.eContents().get(1);
+		
+		//ResoluteMethod:
+		//	"resolute" methodReference=[resolute::FunctionDefinition];
+		@Override public ParserRule getRule() { return rule; }
+
+		//"resolute" methodReference=[resolute::FunctionDefinition]
+		public Group getGroup() { return cGroup; }
+
+		//"resolute"
+		public Keyword getResoluteKeyword_0() { return cResoluteKeyword_0; }
+
+		//methodReference=[resolute::FunctionDefinition]
+		public Assignment getMethodReferenceAssignment_1() { return cMethodReferenceAssignment_1; }
+
+		//[resolute::FunctionDefinition]
+		public CrossReference getMethodReferenceFunctionDefinitionCrossReference_1_0() { return cMethodReferenceFunctionDefinitionCrossReference_1_0; }
+
+		//ID
+		public RuleCall getMethodReferenceFunctionDefinitionIDTerminalRuleCall_1_0_1() { return cMethodReferenceFunctionDefinitionIDTerminalRuleCall_1_0_1; }
+	}
+
+	public class JavaMethodElements extends AbstractParserRuleElementFinder {
+		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "JavaMethod");
+		private final Group cGroup = (Group)rule.eContents().get(1);
+		private final Keyword cJavaKeyword_0 = (Keyword)cGroup.eContents().get(0);
+		private final Assignment cMethodPathAssignment_1 = (Assignment)cGroup.eContents().get(1);
+		private final RuleCall cMethodPathSTRINGTerminalRuleCall_1_0 = (RuleCall)cMethodPathAssignment_1.eContents().get(0);
+		
+		//JavaMethod:
+		//	"java" methodPath=STRING;
+		@Override public ParserRule getRule() { return rule; }
+
+		//"java" methodPath=STRING
+		public Group getGroup() { return cGroup; }
+
+		//"java"
+		public Keyword getJavaKeyword_0() { return cJavaKeyword_0; }
+
+		//methodPath=STRING
+		public Assignment getMethodPathAssignment_1() { return cMethodPathAssignment_1; }
+
+		//STRING
+		public RuleCall getMethodPathSTRINGTerminalRuleCall_1_0() { return cMethodPathSTRINGTerminalRuleCall_1_0; }
+	}
+
+	public class ManualMethodElements extends AbstractParserRuleElementFinder {
+		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "ManualMethod");
+		private final Group cGroup = (Group)rule.eContents().get(1);
+		private final Keyword cManualKeyword_0 = (Keyword)cGroup.eContents().get(0);
+		private final Action cManualMethodAction_1 = (Action)cGroup.eContents().get(1);
+		private final Assignment cDialogIDAssignment_2 = (Assignment)cGroup.eContents().get(2);
+		private final RuleCall cDialogIDSTRINGTerminalRuleCall_2_0 = (RuleCall)cDialogIDAssignment_2.eContents().get(0);
+		
+		//ManualMethod:
+		//	"manual" {ManualMethod} dialogID=STRING;
+		@Override public ParserRule getRule() { return rule; }
+
+		//"manual" {ManualMethod} dialogID=STRING
+		public Group getGroup() { return cGroup; }
+
+		//"manual"
+		public Keyword getManualKeyword_0() { return cManualKeyword_0; }
+
+		//{ManualMethod}
+		public Action getManualMethodAction_1() { return cManualMethodAction_1; }
+
+		//dialogID=STRING
+		public Assignment getDialogIDAssignment_2() { return cDialogIDAssignment_2; }
+
+		//STRING
+		public RuleCall getDialogIDSTRINGTerminalRuleCall_2_0() { return cDialogIDSTRINGTerminalRuleCall_2_0; }
+	}
+
+	public class PluginMethodElements extends AbstractParserRuleElementFinder {
+		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "PluginMethod");
+		private final Group cGroup = (Group)rule.eContents().get(1);
+		private final Keyword cPluginKeyword_0 = (Keyword)cGroup.eContents().get(0);
+		private final Assignment cMethodIDAssignment_1 = (Assignment)cGroup.eContents().get(1);
+		private final RuleCall cMethodIDSTRINGTerminalRuleCall_1_0 = (RuleCall)cMethodIDAssignment_1.eContents().get(0);
+		
+		//PluginMethod:
+		//	"plugin" methodID=STRING;
+		@Override public ParserRule getRule() { return rule; }
+
+		//"plugin" methodID=STRING
+		public Group getGroup() { return cGroup; }
+
+		//"plugin"
+		public Keyword getPluginKeyword_0() { return cPluginKeyword_0; }
+
+		//methodID=STRING
+		public Assignment getMethodIDAssignment_1() { return cMethodIDAssignment_1; }
+
+		//STRING
+		public RuleCall getMethodIDSTRINGTerminalRuleCall_1_0() { return cMethodIDSTRINGTerminalRuleCall_1_0; }
 	}
 
 	public class VerificationConditionElements extends AbstractParserRuleElementFinder {
@@ -1189,6 +1306,8 @@ public class VerifyGrammarAccess extends AbstractGrammarElementFinder {
 		private final RuleCall cRationaleRationaleParserRuleCall_4_2_0 = (RuleCall)cRationaleAssignment_4_2.eContents().get(0);
 		private final Keyword cRightSquareBracketKeyword_5 = (Keyword)cGroup.eContents().get(5);
 		
+		////enum SupportedScopes: SELF='self' | PARTS='parts' | ALL='all';
+		////enum SupportedReporting: MARKER='marker' |ERRORMARKER='errormarker' | DIAGNOSTICS='diagnostics'| ASSERTEXCEPTION='assertexception'|RESULTREPORT='resultreport' ;
 		//VerificationCondition:
 		//	("validation" {VerificationValidation} | "precondition" {VerificationPrecondition}) name=ID (":" title=STRING)? "["
 		//	(description=Description? & method=[VerificationMethod|QualifiedName] "(" (parameters+=[xbase::XExpression] (","
@@ -1197,7 +1316,8 @@ public class VerifyGrammarAccess extends AbstractGrammarElementFinder {
 
 		//("validation" {VerificationValidation} | "precondition" {VerificationPrecondition}) name=ID (":" title=STRING)? "["
 		//(description=Description? & method=[VerificationMethod|QualifiedName] "(" (parameters+=[xbase::XExpression] (","
-		//parameters+=[xbase::XExpression])*)? ")" ("timeout" timeout=INT)? & rationale=Rationale?) "]"
+		//parameters+=[xbase::XExpression])*)? ")" ("timeout" timeout=INT)? & rationale=Rationale?) "]" //enum SupportedScopes: SELF='self' | PARTS='parts' | ALL='all';
+		////enum SupportedReporting: MARKER='marker' |ERRORMARKER='errormarker' | DIAGNOSTICS='diagnostics'| ASSERTEXCEPTION='assertexception'|RESULTREPORT='resultreport' ;
 		public Group getGroup() { return cGroup; }
 
 		//"validation" {VerificationValidation} | "precondition" {VerificationPrecondition}
@@ -1316,62 +1436,12 @@ public class VerifyGrammarAccess extends AbstractGrammarElementFinder {
 		//Rationale
 		public RuleCall getRationaleRationaleParserRuleCall_4_2_0() { return cRationaleRationaleParserRuleCall_4_2_0; }
 
+		////enum SupportedScopes: SELF='self' | PARTS='parts' | ALL='all';
+		////enum SupportedReporting: MARKER='marker' |ERRORMARKER='errormarker' | DIAGNOSTICS='diagnostics'| ASSERTEXCEPTION='assertexception'|RESULTREPORT='resultreport' ;
 		//"]"
 		public Keyword getRightSquareBracketKeyword_5() { return cRightSquareBracketKeyword_5; }
 	}
 	
-	
-	public class SupportedTypesElements extends AbstractEnumRuleElementFinder {
-		private final EnumRule rule = (EnumRule) GrammarUtil.findRuleForName(getGrammar(), "SupportedTypes");
-		private final Alternatives cAlternatives = (Alternatives)rule.eContents().get(1);
-		private final EnumLiteralDeclaration cANALYSISPLUGINEnumLiteralDeclaration_0 = (EnumLiteralDeclaration)cAlternatives.eContents().get(0);
-		private final Keyword cANALYSISPLUGINAnalysispluginKeyword_0_0 = (Keyword)cANALYSISPLUGINEnumLiteralDeclaration_0.eContents().get(0);
-		private final EnumLiteralDeclaration cRESOLUTEEnumLiteralDeclaration_1 = (EnumLiteralDeclaration)cAlternatives.eContents().get(1);
-		private final Keyword cRESOLUTEResoluteKeyword_1_0 = (Keyword)cRESOLUTEEnumLiteralDeclaration_1.eContents().get(0);
-		private final EnumLiteralDeclaration cJAVAEnumLiteralDeclaration_2 = (EnumLiteralDeclaration)cAlternatives.eContents().get(2);
-		private final Keyword cJAVAJavaKeyword_2_0 = (Keyword)cJAVAEnumLiteralDeclaration_2.eContents().get(0);
-		private final EnumLiteralDeclaration cMANUALEnumLiteralDeclaration_3 = (EnumLiteralDeclaration)cAlternatives.eContents().get(3);
-		private final Keyword cMANUALManualKeyword_3_0 = (Keyword)cMANUALEnumLiteralDeclaration_3.eContents().get(0);
-		
-		////enum SupportedScopes: SELF='self' | PARTS='parts' | ALL='all';
-		////enum SupportedReporting: MARKER='marker' |ERRORMARKER='errormarker' | DIAGNOSTICS='diagnostics'| ASSERTEXCEPTION='assertexception'|RESULTREPORT='resultreport' ;
-		//enum SupportedTypes:
-		//	ANALYSISPLUGIN="analysisplugin" | RESOLUTE="resolute" | JAVA="java" | MANUAL="manual";
-		public EnumRule getRule() { return rule; }
-
-		//ANALYSISPLUGIN="analysisplugin" //enum SupportedScopes: SELF='self' | PARTS='parts' | ALL='all';
-		////enum SupportedReporting: MARKER='marker' |ERRORMARKER='errormarker' | DIAGNOSTICS='diagnostics'| ASSERTEXCEPTION='assertexception'|RESULTREPORT='resultreport' ;
-		//| RESOLUTE="resolute" | JAVA="java" | MANUAL="manual"
-		public Alternatives getAlternatives() { return cAlternatives; }
-
-		//ANALYSISPLUGIN="analysisplugin"
-		public EnumLiteralDeclaration getANALYSISPLUGINEnumLiteralDeclaration_0() { return cANALYSISPLUGINEnumLiteralDeclaration_0; }
-
-		//"analysisplugin"
-		public Keyword getANALYSISPLUGINAnalysispluginKeyword_0_0() { return cANALYSISPLUGINAnalysispluginKeyword_0_0; }
-
-		//RESOLUTE="resolute"
-		public EnumLiteralDeclaration getRESOLUTEEnumLiteralDeclaration_1() { return cRESOLUTEEnumLiteralDeclaration_1; }
-
-		//"resolute"
-		public Keyword getRESOLUTEResoluteKeyword_1_0() { return cRESOLUTEResoluteKeyword_1_0; }
-
-		//JAVA="java"
-		public EnumLiteralDeclaration getJAVAEnumLiteralDeclaration_2() { return cJAVAEnumLiteralDeclaration_2; }
-
-		//"java"
-		public Keyword getJAVAJavaKeyword_2_0() { return cJAVAJavaKeyword_2_0; }
-
-		////enum SupportedScopes: SELF='self' | PARTS='parts' | ALL='all';
-		////enum SupportedReporting: MARKER='marker' |ERRORMARKER='errormarker' | DIAGNOSTICS='diagnostics'| ASSERTEXCEPTION='assertexception'|RESULTREPORT='resultreport' ;
-		//MANUAL="manual"
-		public EnumLiteralDeclaration getMANUALEnumLiteralDeclaration_3() { return cMANUALEnumLiteralDeclaration_3; }
-
-		////enum SupportedScopes: SELF='self' | PARTS='parts' | ALL='all';
-		////enum SupportedReporting: MARKER='marker' |ERRORMARKER='errormarker' | DIAGNOSTICS='diagnostics'| ASSERTEXCEPTION='assertexception'|RESULTREPORT='resultreport' ;
-		//"manual"
-		public Keyword getMANUALManualKeyword_3_0() { return cMANUALManualKeyword_3_0; }
-	}
 	
 	private final VerificationElements pVerification;
 	private final VerificationPlanElements pVerificationPlan;
@@ -1387,8 +1457,12 @@ public class VerifyGrammarAccess extends AbstractGrammarElementFinder {
 	private final VAReferenceElements pVAReference;
 	private final VerificationMethodRegistryElements pVerificationMethodRegistry;
 	private final VerificationMethodElements pVerificationMethod;
+	private final MethodTypeElements pMethodType;
+	private final ResoluteMethodElements pResoluteMethod;
+	private final JavaMethodElements pJavaMethod;
+	private final ManualMethodElements pManualMethod;
+	private final PluginMethodElements pPluginMethod;
 	private final VerificationConditionElements pVerificationCondition;
-	private final SupportedTypesElements unknownRuleSupportedTypes;
 	
 	private final Grammar grammar;
 
@@ -1413,8 +1487,12 @@ public class VerifyGrammarAccess extends AbstractGrammarElementFinder {
 		this.pVAReference = new VAReferenceElements();
 		this.pVerificationMethodRegistry = new VerificationMethodRegistryElements();
 		this.pVerificationMethod = new VerificationMethodElements();
+		this.pMethodType = new MethodTypeElements();
+		this.pResoluteMethod = new ResoluteMethodElements();
+		this.pJavaMethod = new JavaMethodElements();
+		this.pManualMethod = new ManualMethodElements();
+		this.pPluginMethod = new PluginMethodElements();
 		this.pVerificationCondition = new VerificationConditionElements();
-		this.unknownRuleSupportedTypes = new SupportedTypesElements();
 	}
 	
 	protected Grammar internalFindGrammar(GrammarProvider grammarProvider) {
@@ -1444,6 +1522,7 @@ public class VerifyGrammarAccess extends AbstractGrammarElementFinder {
 	}
 
 	
+	////import "http://www.eclipse.org/emf/2002/Ecore" as ecore
 	//Verification:
 	//	contents+=(VerificationPlan | VerificationMethodRegistry);
 	public VerificationElements getVerificationAccess() {
@@ -1591,8 +1670,8 @@ public class VerifyGrammarAccess extends AbstractGrammarElementFinder {
 
 	//VerificationMethod:
 	//	"method" name=ID ("(" (params+=FullJvmFormalParameter ("," params+=FullJvmFormalParameter)*)? ")"
-	//	(isPredicate?="boolean" | isResultReport?="report")?)? (":" title=STRING)? "[" (methodType=SupportedTypes &
-	//	description=Description? & ("path" methodPath=STRING)? & condition=VerificationCondition? & ("category"
+	//	(isPredicate?="boolean" | isResultReport?="report")?)? (":" title=STRING)? "[" (methodType=MethodType &
+	//	description=Description? & condition=VerificationCondition? & ("category"
 	//	category+=[categories::VerificationCategory]+)?) "]";
 	public VerificationMethodElements getVerificationMethodAccess() {
 		return pVerificationMethod;
@@ -1602,6 +1681,58 @@ public class VerifyGrammarAccess extends AbstractGrammarElementFinder {
 		return getVerificationMethodAccess().getRule();
 	}
 
+	//MethodType:
+	//	ResoluteMethod | JavaMethod | ManualMethod | PluginMethod;
+	public MethodTypeElements getMethodTypeAccess() {
+		return pMethodType;
+	}
+	
+	public ParserRule getMethodTypeRule() {
+		return getMethodTypeAccess().getRule();
+	}
+
+	//ResoluteMethod:
+	//	"resolute" methodReference=[resolute::FunctionDefinition];
+	public ResoluteMethodElements getResoluteMethodAccess() {
+		return pResoluteMethod;
+	}
+	
+	public ParserRule getResoluteMethodRule() {
+		return getResoluteMethodAccess().getRule();
+	}
+
+	//JavaMethod:
+	//	"java" methodPath=STRING;
+	public JavaMethodElements getJavaMethodAccess() {
+		return pJavaMethod;
+	}
+	
+	public ParserRule getJavaMethodRule() {
+		return getJavaMethodAccess().getRule();
+	}
+
+	//ManualMethod:
+	//	"manual" {ManualMethod} dialogID=STRING;
+	public ManualMethodElements getManualMethodAccess() {
+		return pManualMethod;
+	}
+	
+	public ParserRule getManualMethodRule() {
+		return getManualMethodAccess().getRule();
+	}
+
+	//PluginMethod:
+	//	"plugin" methodID=STRING;
+	public PluginMethodElements getPluginMethodAccess() {
+		return pPluginMethod;
+	}
+	
+	public ParserRule getPluginMethodRule() {
+		return getPluginMethodAccess().getRule();
+	}
+
+	////enum SupportedScopes: SELF='self' | PARTS='parts' | ALL='all';
+	////enum SupportedReporting: MARKER='marker' |ERRORMARKER='errormarker' | DIAGNOSTICS='diagnostics'| ASSERTEXCEPTION='assertexception'|RESULTREPORT='resultreport' ;
 	//VerificationCondition:
 	//	("validation" {VerificationValidation} | "precondition" {VerificationPrecondition}) name=ID (":" title=STRING)? "["
 	//	(description=Description? & method=[VerificationMethod|QualifiedName] "(" (parameters+=[xbase::XExpression] (","
@@ -1612,18 +1743,6 @@ public class VerifyGrammarAccess extends AbstractGrammarElementFinder {
 	
 	public ParserRule getVerificationConditionRule() {
 		return getVerificationConditionAccess().getRule();
-	}
-
-	////enum SupportedScopes: SELF='self' | PARTS='parts' | ALL='all';
-	////enum SupportedReporting: MARKER='marker' |ERRORMARKER='errormarker' | DIAGNOSTICS='diagnostics'| ASSERTEXCEPTION='assertexception'|RESULTREPORT='resultreport' ;
-	//enum SupportedTypes:
-	//	ANALYSISPLUGIN="analysisplugin" | RESOLUTE="resolute" | JAVA="java" | MANUAL="manual";
-	public SupportedTypesElements getSupportedTypesAccess() {
-		return unknownRuleSupportedTypes;
-	}
-	
-	public EnumRule getSupportedTypesRule() {
-		return getSupportedTypesAccess().getRule();
 	}
 
 	//Description:

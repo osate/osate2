@@ -64,14 +64,27 @@
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="isPredicate" eType="ecore:EDataType platform:/plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//EBoolean"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="isResultReport" eType="ecore:EDataType platform:/plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//EBoolean"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="title" eType="ecore:EDataType platform:/plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//EString"/>
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="methodType" eType="#//SupportedTypes"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="methodType" eType="#//MethodType"
+        containment="true"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="description" eType="ecore:EClass platform:/resource/org.osate.alisa.common/model/generated/Common.ecore#//Description"
         containment="true"/>
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="methodPath" eType="ecore:EDataType platform:/plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//EString"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="condition" eType="#//VerificationCondition"
         containment="true"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="category" unique="false"
         upperBound="-1" eType="ecore:EClass platform:/resource/org.osate.categories/model/generated/Categories.ecore#//VerificationCategory"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="MethodType"/>
+  <eClassifiers xsi:type="ecore:EClass" name="ResoluteMethod" eSuperTypes="#//MethodType">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="methodReference" eType="ecore:EClass platform:/resource/com.rockwellcollins.atc.resolute/src-gen/com/rockwellcollins/atc/resolute/Resolute.ecore#//FunctionDefinition"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="JavaMethod" eSuperTypes="#//MethodType">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="methodPath" eType="ecore:EDataType platform:/plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//EString"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="ManualMethod" eSuperTypes="#//MethodType">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="dialogID" eType="ecore:EDataType platform:/plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//EString"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="PluginMethod" eSuperTypes="#//MethodType">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="methodID" eType="ecore:EDataType platform:/plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//EString"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="VerificationCondition">
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" eType="ecore:EDataType platform:/plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//EString"/>
@@ -84,12 +97,6 @@
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="timeout" eType="ecore:EDataType platform:/plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//EInt"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="rationale" eType="ecore:EClass platform:/resource/org.osate.alisa.common/model/generated/Common.ecore#//Rationale"
         containment="true"/>
-  </eClassifiers>
-  <eClassifiers xsi:type="ecore:EEnum" name="SupportedTypes">
-    <eLiterals name="ANALYSISPLUGIN" literal="analysisplugin"/>
-    <eLiterals name="RESOLUTE" value="1" literal="resolute"/>
-    <eLiterals name="JAVA" value="2" literal="java"/>
-    <eLiterals name="MANUAL" value="3" literal="manual"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="ThenExpr" eSuperTypes="#//ArgumentExpr">
     <eStructuralFeatures xsi:type="ecore:EReference" name="left" eType="#//ArgumentExpr"

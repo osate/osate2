@@ -2,9 +2,10 @@
  */
 package org.osate.verify.verify.impl;
 
+import com.rockwellcollins.atc.resolute.resolute.ResolutePackage;
+
 import org.eclipse.emf.ecore.EAttribute;
 import org.eclipse.emf.ecore.EClass;
-import org.eclipse.emf.ecore.EEnum;
 import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.EReference;
 import org.eclipse.emf.ecore.EcorePackage;
@@ -27,8 +28,12 @@ import org.osate.verify.verify.AllExpr;
 import org.osate.verify.verify.ArgumentExpr;
 import org.osate.verify.verify.Claim;
 import org.osate.verify.verify.ElseExpr;
+import org.osate.verify.verify.JavaMethod;
+import org.osate.verify.verify.ManualMethod;
+import org.osate.verify.verify.MethodType;
+import org.osate.verify.verify.PluginMethod;
 import org.osate.verify.verify.RefExpr;
-import org.osate.verify.verify.SupportedTypes;
+import org.osate.verify.verify.ResoluteMethod;
 import org.osate.verify.verify.ThenExpr;
 import org.osate.verify.verify.Verification;
 import org.osate.verify.verify.VerificationActivity;
@@ -103,6 +108,41 @@ public class VerifyPackageImpl extends EPackageImpl implements VerifyPackage
    * <!-- end-user-doc -->
    * @generated
    */
+  private EClass methodTypeEClass = null;
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  private EClass resoluteMethodEClass = null;
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  private EClass javaMethodEClass = null;
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  private EClass manualMethodEClass = null;
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  private EClass pluginMethodEClass = null;
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
   private EClass verificationConditionEClass = null;
 
   /**
@@ -146,13 +186,6 @@ public class VerifyPackageImpl extends EPackageImpl implements VerifyPackage
    * @generated
    */
   private EClass verificationPreconditionEClass = null;
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  private EEnum supportedTypesEEnum = null;
 
   /**
    * Creates an instance of the model <b>Package</b>, registered with
@@ -203,6 +236,7 @@ public class VerifyPackageImpl extends EPackageImpl implements VerifyPackage
     isInited = true;
 
     // Initialize simple dependencies
+    ResolutePackage.eINSTANCE.eClass();
     ReqSpecPackage.eINSTANCE.eClass();
 
     // Create package meta-data objects
@@ -625,9 +659,9 @@ public class VerifyPackageImpl extends EPackageImpl implements VerifyPackage
    * <!-- end-user-doc -->
    * @generated
    */
-  public EAttribute getVerificationMethod_MethodType()
+  public EReference getVerificationMethod_MethodType()
   {
-    return (EAttribute)verificationMethodEClass.getEStructuralFeatures().get(5);
+    return (EReference)verificationMethodEClass.getEStructuralFeatures().get(5);
   }
 
   /**
@@ -645,19 +679,9 @@ public class VerifyPackageImpl extends EPackageImpl implements VerifyPackage
    * <!-- end-user-doc -->
    * @generated
    */
-  public EAttribute getVerificationMethod_MethodPath()
-  {
-    return (EAttribute)verificationMethodEClass.getEStructuralFeatures().get(7);
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
   public EReference getVerificationMethod_Condition()
   {
-    return (EReference)verificationMethodEClass.getEStructuralFeatures().get(8);
+    return (EReference)verificationMethodEClass.getEStructuralFeatures().get(7);
   }
 
   /**
@@ -667,7 +691,97 @@ public class VerifyPackageImpl extends EPackageImpl implements VerifyPackage
    */
   public EReference getVerificationMethod_Category()
   {
-    return (EReference)verificationMethodEClass.getEStructuralFeatures().get(9);
+    return (EReference)verificationMethodEClass.getEStructuralFeatures().get(8);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EClass getMethodType()
+  {
+    return methodTypeEClass;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EClass getResoluteMethod()
+  {
+    return resoluteMethodEClass;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EReference getResoluteMethod_MethodReference()
+  {
+    return (EReference)resoluteMethodEClass.getEStructuralFeatures().get(0);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EClass getJavaMethod()
+  {
+    return javaMethodEClass;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EAttribute getJavaMethod_MethodPath()
+  {
+    return (EAttribute)javaMethodEClass.getEStructuralFeatures().get(0);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EClass getManualMethod()
+  {
+    return manualMethodEClass;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EAttribute getManualMethod_DialogID()
+  {
+    return (EAttribute)manualMethodEClass.getEStructuralFeatures().get(0);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EClass getPluginMethod()
+  {
+    return pluginMethodEClass;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EAttribute getPluginMethod_MethodID()
+  {
+    return (EAttribute)pluginMethodEClass.getEStructuralFeatures().get(0);
   }
 
   /**
@@ -905,16 +1019,6 @@ public class VerifyPackageImpl extends EPackageImpl implements VerifyPackage
    * <!-- end-user-doc -->
    * @generated
    */
-  public EEnum getSupportedTypes()
-  {
-    return supportedTypesEEnum;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
   public VerifyFactory getVerifyFactory()
   {
     return (VerifyFactory)getEFactoryInstance();
@@ -986,11 +1090,24 @@ public class VerifyPackageImpl extends EPackageImpl implements VerifyPackage
     createEAttribute(verificationMethodEClass, VERIFICATION_METHOD__IS_PREDICATE);
     createEAttribute(verificationMethodEClass, VERIFICATION_METHOD__IS_RESULT_REPORT);
     createEAttribute(verificationMethodEClass, VERIFICATION_METHOD__TITLE);
-    createEAttribute(verificationMethodEClass, VERIFICATION_METHOD__METHOD_TYPE);
+    createEReference(verificationMethodEClass, VERIFICATION_METHOD__METHOD_TYPE);
     createEReference(verificationMethodEClass, VERIFICATION_METHOD__DESCRIPTION);
-    createEAttribute(verificationMethodEClass, VERIFICATION_METHOD__METHOD_PATH);
     createEReference(verificationMethodEClass, VERIFICATION_METHOD__CONDITION);
     createEReference(verificationMethodEClass, VERIFICATION_METHOD__CATEGORY);
+
+    methodTypeEClass = createEClass(METHOD_TYPE);
+
+    resoluteMethodEClass = createEClass(RESOLUTE_METHOD);
+    createEReference(resoluteMethodEClass, RESOLUTE_METHOD__METHOD_REFERENCE);
+
+    javaMethodEClass = createEClass(JAVA_METHOD);
+    createEAttribute(javaMethodEClass, JAVA_METHOD__METHOD_PATH);
+
+    manualMethodEClass = createEClass(MANUAL_METHOD);
+    createEAttribute(manualMethodEClass, MANUAL_METHOD__DIALOG_ID);
+
+    pluginMethodEClass = createEClass(PLUGIN_METHOD);
+    createEAttribute(pluginMethodEClass, PLUGIN_METHOD__METHOD_ID);
 
     verificationConditionEClass = createEClass(VERIFICATION_CONDITION);
     createEAttribute(verificationConditionEClass, VERIFICATION_CONDITION__NAME);
@@ -1021,9 +1138,6 @@ public class VerifyPackageImpl extends EPackageImpl implements VerifyPackage
     verificationValidationEClass = createEClass(VERIFICATION_VALIDATION);
 
     verificationPreconditionEClass = createEClass(VERIFICATION_PRECONDITION);
-
-    // Create enums
-    supportedTypesEEnum = createEEnum(SUPPORTED_TYPES);
   }
 
   /**
@@ -1058,12 +1172,17 @@ public class VerifyPackageImpl extends EPackageImpl implements VerifyPackage
     XbasePackage theXbasePackage = (XbasePackage)EPackage.Registry.INSTANCE.getEPackage(XbasePackage.eNS_URI);
     CategoriesPackage theCategoriesPackage = (CategoriesPackage)EPackage.Registry.INSTANCE.getEPackage(CategoriesPackage.eNS_URI);
     TypesPackage theTypesPackage = (TypesPackage)EPackage.Registry.INSTANCE.getEPackage(TypesPackage.eNS_URI);
+    ResolutePackage theResolutePackage = (ResolutePackage)EPackage.Registry.INSTANCE.getEPackage(ResolutePackage.eNS_URI);
 
     // Create type parameters
 
     // Set bounds for type parameters
 
     // Add supertypes to classes
+    resoluteMethodEClass.getESuperTypes().add(this.getMethodType());
+    javaMethodEClass.getESuperTypes().add(this.getMethodType());
+    manualMethodEClass.getESuperTypes().add(this.getMethodType());
+    pluginMethodEClass.getESuperTypes().add(this.getMethodType());
     thenExprEClass.getESuperTypes().add(this.getArgumentExpr());
     elseExprEClass.getESuperTypes().add(this.getArgumentExpr());
     allExprEClass.getESuperTypes().add(this.getArgumentExpr());
@@ -1118,11 +1237,24 @@ public class VerifyPackageImpl extends EPackageImpl implements VerifyPackage
     initEAttribute(getVerificationMethod_IsPredicate(), theEcorePackage.getEBoolean(), "isPredicate", null, 0, 1, VerificationMethod.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEAttribute(getVerificationMethod_IsResultReport(), theEcorePackage.getEBoolean(), "isResultReport", null, 0, 1, VerificationMethod.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEAttribute(getVerificationMethod_Title(), theEcorePackage.getEString(), "title", null, 0, 1, VerificationMethod.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-    initEAttribute(getVerificationMethod_MethodType(), this.getSupportedTypes(), "methodType", null, 0, 1, VerificationMethod.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEReference(getVerificationMethod_MethodType(), this.getMethodType(), null, "methodType", null, 0, 1, VerificationMethod.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEReference(getVerificationMethod_Description(), theCommonPackage.getDescription(), null, "description", null, 0, 1, VerificationMethod.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-    initEAttribute(getVerificationMethod_MethodPath(), theEcorePackage.getEString(), "methodPath", null, 0, 1, VerificationMethod.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEReference(getVerificationMethod_Condition(), this.getVerificationCondition(), null, "condition", null, 0, 1, VerificationMethod.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEReference(getVerificationMethod_Category(), theCategoriesPackage.getVerificationCategory(), null, "category", null, 0, -1, VerificationMethod.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+    initEClass(methodTypeEClass, MethodType.class, "MethodType", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+
+    initEClass(resoluteMethodEClass, ResoluteMethod.class, "ResoluteMethod", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+    initEReference(getResoluteMethod_MethodReference(), theResolutePackage.getFunctionDefinition(), null, "methodReference", null, 0, 1, ResoluteMethod.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+    initEClass(javaMethodEClass, JavaMethod.class, "JavaMethod", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+    initEAttribute(getJavaMethod_MethodPath(), theEcorePackage.getEString(), "methodPath", null, 0, 1, JavaMethod.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+    initEClass(manualMethodEClass, ManualMethod.class, "ManualMethod", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+    initEAttribute(getManualMethod_DialogID(), theEcorePackage.getEString(), "dialogID", null, 0, 1, ManualMethod.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+    initEClass(pluginMethodEClass, PluginMethod.class, "PluginMethod", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+    initEAttribute(getPluginMethod_MethodID(), theEcorePackage.getEString(), "methodID", null, 0, 1, PluginMethod.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
     initEClass(verificationConditionEClass, VerificationCondition.class, "VerificationCondition", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
     initEAttribute(getVerificationCondition_Name(), theEcorePackage.getEString(), "name", null, 0, 1, VerificationCondition.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
@@ -1153,13 +1285,6 @@ public class VerifyPackageImpl extends EPackageImpl implements VerifyPackage
     initEClass(verificationValidationEClass, VerificationValidation.class, "VerificationValidation", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 
     initEClass(verificationPreconditionEClass, VerificationPrecondition.class, "VerificationPrecondition", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-
-    // Initialize enums and add enum literals
-    initEEnum(supportedTypesEEnum, SupportedTypes.class, "SupportedTypes");
-    addEEnumLiteral(supportedTypesEEnum, SupportedTypes.ANALYSISPLUGIN);
-    addEEnumLiteral(supportedTypesEEnum, SupportedTypes.RESOLUTE);
-    addEEnumLiteral(supportedTypesEEnum, SupportedTypes.JAVA);
-    addEEnumLiteral(supportedTypesEEnum, SupportedTypes.MANUAL);
 
     // Create resource
     createResource(eNS_URI);

@@ -15,6 +15,13 @@ import org.eclipse.xtext.scoping.impl.SimpleScope
 import org.eclipse.xtext.scoping.Scopes
 import org.eclipse.xtext.naming.QualifiedName
 import org.eclipse.xtext.util.SimpleAttributeResolver
+import org.osate.verify.verify.ResoluteMethod
+import com.google.inject.Inject
+import org.osate.alisa.common.scoping.ICommonGlobalReferenceFinder
+import org.eclipse.emf.ecore.EObject
+import com.rockwellcollins.atc.resolute.resolute.ResolutePackage
+import org.eclipse.emf.ecore.util.EcoreUtil
+import com.rockwellcollins.atc.resolute.resolute.FunctionDefinition
 
 /**
  * This class contains custom scoping description.
@@ -47,5 +54,24 @@ class VerifyScopeProvider extends AlisaAbstractDeclarativeScopeProvider {
 		}
 		return result
 	}
+	
+	def scope_FunctionDefinition(ResoluteMethod context, EReference reference){
+		var result = IScope.NULLSCOPE
+		val foundlist = refFinder.getEObjectDescriptions(context, ResolutePackage.Literals.FUNCTION_DEFINITION, "aadl")
+		if (foundlist.isEmpty) return IScope.NULLSCOPE
+		val fcns =  foundlist.map[f|EcoreUtil.resolve(f.EObjectOrProxy,context) as FunctionDefinition]
+		return new SimpleScope(IScope.NULLSCOPE,Scopes::scopedElementsFor(fcns,
+					QualifiedName::wrapper(SimpleAttributeResolver::NAME_RESOLVER)), true)
+	}
+		@Inject ICommonGlobalReferenceFinder refFinder
+
+		def FunctionDefinition findResoluteFunction(EObject context, String resoluteFunctionName) {
+			val foundlist = refFinder.getEObjectDescriptions(context,
+				ResolutePackage.Literals.FUNCTION_DEFINITION, "aadl").filter[ eod |
+				eod.getName().getLastSegment().equalsIgnoreCase(resoluteFunctionName)
+			]
+			if(foundlist.length == 0) return null
+			return EcoreUtil.resolve(foundlist.head.EObjectOrProxy,context) as FunctionDefinition
+		}
 
 }

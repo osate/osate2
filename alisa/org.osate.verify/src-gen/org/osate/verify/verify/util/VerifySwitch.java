@@ -121,6 +121,45 @@ public class VerifySwitch<T> extends Switch<T>
         if (result == null) result = defaultCase(theEObject);
         return result;
       }
+      case VerifyPackage.METHOD_TYPE:
+      {
+        MethodType methodType = (MethodType)theEObject;
+        T result = caseMethodType(methodType);
+        if (result == null) result = defaultCase(theEObject);
+        return result;
+      }
+      case VerifyPackage.RESOLUTE_METHOD:
+      {
+        ResoluteMethod resoluteMethod = (ResoluteMethod)theEObject;
+        T result = caseResoluteMethod(resoluteMethod);
+        if (result == null) result = caseMethodType(resoluteMethod);
+        if (result == null) result = defaultCase(theEObject);
+        return result;
+      }
+      case VerifyPackage.JAVA_METHOD:
+      {
+        JavaMethod javaMethod = (JavaMethod)theEObject;
+        T result = caseJavaMethod(javaMethod);
+        if (result == null) result = caseMethodType(javaMethod);
+        if (result == null) result = defaultCase(theEObject);
+        return result;
+      }
+      case VerifyPackage.MANUAL_METHOD:
+      {
+        ManualMethod manualMethod = (ManualMethod)theEObject;
+        T result = caseManualMethod(manualMethod);
+        if (result == null) result = caseMethodType(manualMethod);
+        if (result == null) result = defaultCase(theEObject);
+        return result;
+      }
+      case VerifyPackage.PLUGIN_METHOD:
+      {
+        PluginMethod pluginMethod = (PluginMethod)theEObject;
+        T result = casePluginMethod(pluginMethod);
+        if (result == null) result = caseMethodType(pluginMethod);
+        if (result == null) result = defaultCase(theEObject);
+        return result;
+      }
       case VerifyPackage.VERIFICATION_CONDITION:
       {
         VerificationCondition verificationCondition = (VerificationCondition)theEObject;
@@ -288,6 +327,86 @@ public class VerifySwitch<T> extends Switch<T>
    * @generated
    */
   public T caseVerificationMethod(VerificationMethod object)
+  {
+    return null;
+  }
+
+  /**
+   * Returns the result of interpreting the object as an instance of '<em>Method Type</em>'.
+   * <!-- begin-user-doc -->
+   * This implementation returns null;
+   * returning a non-null result will terminate the switch.
+   * <!-- end-user-doc -->
+   * @param object the target of the switch.
+   * @return the result of interpreting the object as an instance of '<em>Method Type</em>'.
+   * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+   * @generated
+   */
+  public T caseMethodType(MethodType object)
+  {
+    return null;
+  }
+
+  /**
+   * Returns the result of interpreting the object as an instance of '<em>Resolute Method</em>'.
+   * <!-- begin-user-doc -->
+   * This implementation returns null;
+   * returning a non-null result will terminate the switch.
+   * <!-- end-user-doc -->
+   * @param object the target of the switch.
+   * @return the result of interpreting the object as an instance of '<em>Resolute Method</em>'.
+   * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+   * @generated
+   */
+  public T caseResoluteMethod(ResoluteMethod object)
+  {
+    return null;
+  }
+
+  /**
+   * Returns the result of interpreting the object as an instance of '<em>Java Method</em>'.
+   * <!-- begin-user-doc -->
+   * This implementation returns null;
+   * returning a non-null result will terminate the switch.
+   * <!-- end-user-doc -->
+   * @param object the target of the switch.
+   * @return the result of interpreting the object as an instance of '<em>Java Method</em>'.
+   * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+   * @generated
+   */
+  public T caseJavaMethod(JavaMethod object)
+  {
+    return null;
+  }
+
+  /**
+   * Returns the result of interpreting the object as an instance of '<em>Manual Method</em>'.
+   * <!-- begin-user-doc -->
+   * This implementation returns null;
+   * returning a non-null result will terminate the switch.
+   * <!-- end-user-doc -->
+   * @param object the target of the switch.
+   * @return the result of interpreting the object as an instance of '<em>Manual Method</em>'.
+   * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+   * @generated
+   */
+  public T caseManualMethod(ManualMethod object)
+  {
+    return null;
+  }
+
+  /**
+   * Returns the result of interpreting the object as an instance of '<em>Plugin Method</em>'.
+   * <!-- begin-user-doc -->
+   * This implementation returns null;
+   * returning a non-null result will terminate the switch.
+   * <!-- end-user-doc -->
+   * @param object the target of the switch.
+   * @return the result of interpreting the object as an instance of '<em>Plugin Method</em>'.
+   * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+   * @generated
+   */
+  public T casePluginMethod(PluginMethod object)
   {
     return null;
   }

@@ -75,7 +75,11 @@ import org.osate.verify.services.VerifyGrammarAccess;
 import org.osate.verify.verify.AllExpr;
 import org.osate.verify.verify.Claim;
 import org.osate.verify.verify.ElseExpr;
+import org.osate.verify.verify.JavaMethod;
+import org.osate.verify.verify.ManualMethod;
+import org.osate.verify.verify.PluginMethod;
 import org.osate.verify.verify.RefExpr;
+import org.osate.verify.verify.ResoluteMethod;
 import org.osate.verify.verify.ThenExpr;
 import org.osate.verify.verify.Verification;
 import org.osate.verify.verify.VerificationActivity;
@@ -197,8 +201,20 @@ public class VerifySemanticSequencer extends CommonSemanticSequencer {
 					return; 
 				}
 				else break;
+			case VerifyPackage.JAVA_METHOD:
+				sequence_JavaMethod(context, (JavaMethod) semanticObject); 
+				return; 
+			case VerifyPackage.MANUAL_METHOD:
+				sequence_ManualMethod(context, (ManualMethod) semanticObject); 
+				return; 
+			case VerifyPackage.PLUGIN_METHOD:
+				sequence_PluginMethod(context, (PluginMethod) semanticObject); 
+				return; 
 			case VerifyPackage.REF_EXPR:
 				sequence_VAReference(context, (RefExpr) semanticObject); 
+				return; 
+			case VerifyPackage.RESOLUTE_METHOD:
+				sequence_ResoluteMethod(context, (ResoluteMethod) semanticObject); 
 				return; 
 			case VerifyPackage.THEN_EXPR:
 				sequence_ThenEvidenceExpr(context, (ThenExpr) semanticObject); 
@@ -439,10 +455,74 @@ public class VerifySemanticSequencer extends CommonSemanticSequencer {
 	
 	/**
 	 * Constraint:
+	 *     methodPath=STRING
+	 */
+	protected void sequence_JavaMethod(EObject context, JavaMethod semanticObject) {
+		if(errorAcceptor != null) {
+			if(transientValues.isValueTransient(semanticObject, VerifyPackage.Literals.JAVA_METHOD__METHOD_PATH) == ValueTransient.YES)
+				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, VerifyPackage.Literals.JAVA_METHOD__METHOD_PATH));
+		}
+		INodesForEObjectProvider nodes = createNodeProvider(semanticObject);
+		SequenceFeeder feeder = createSequencerFeeder(semanticObject, nodes);
+		feeder.accept(grammarAccess.getJavaMethodAccess().getMethodPathSTRINGTerminalRuleCall_1_0(), semanticObject.getMethodPath());
+		feeder.finish();
+	}
+	
+	
+	/**
+	 * Constraint:
+	 *     dialogID=STRING
+	 */
+	protected void sequence_ManualMethod(EObject context, ManualMethod semanticObject) {
+		if(errorAcceptor != null) {
+			if(transientValues.isValueTransient(semanticObject, VerifyPackage.Literals.MANUAL_METHOD__DIALOG_ID) == ValueTransient.YES)
+				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, VerifyPackage.Literals.MANUAL_METHOD__DIALOG_ID));
+		}
+		INodesForEObjectProvider nodes = createNodeProvider(semanticObject);
+		SequenceFeeder feeder = createSequencerFeeder(semanticObject, nodes);
+		feeder.accept(grammarAccess.getManualMethodAccess().getDialogIDSTRINGTerminalRuleCall_2_0(), semanticObject.getDialogID());
+		feeder.finish();
+	}
+	
+	
+	/**
+	 * Constraint:
+	 *     methodID=STRING
+	 */
+	protected void sequence_PluginMethod(EObject context, PluginMethod semanticObject) {
+		if(errorAcceptor != null) {
+			if(transientValues.isValueTransient(semanticObject, VerifyPackage.Literals.PLUGIN_METHOD__METHOD_ID) == ValueTransient.YES)
+				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, VerifyPackage.Literals.PLUGIN_METHOD__METHOD_ID));
+		}
+		INodesForEObjectProvider nodes = createNodeProvider(semanticObject);
+		SequenceFeeder feeder = createSequencerFeeder(semanticObject, nodes);
+		feeder.accept(grammarAccess.getPluginMethodAccess().getMethodIDSTRINGTerminalRuleCall_1_0(), semanticObject.getMethodID());
+		feeder.finish();
+	}
+	
+	
+	/**
+	 * Constraint:
 	 *     (elements+=ThenEvidenceExpr elements+=ThenEvidenceExpr*)
 	 */
 	protected void sequence_QuantifiedEvidenceExpr(EObject context, AllExpr semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
+	}
+	
+	
+	/**
+	 * Constraint:
+	 *     methodReference=[FunctionDefinition|ID]
+	 */
+	protected void sequence_ResoluteMethod(EObject context, ResoluteMethod semanticObject) {
+		if(errorAcceptor != null) {
+			if(transientValues.isValueTransient(semanticObject, VerifyPackage.Literals.RESOLUTE_METHOD__METHOD_REFERENCE) == ValueTransient.YES)
+				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, VerifyPackage.Literals.RESOLUTE_METHOD__METHOD_REFERENCE));
+		}
+		INodesForEObjectProvider nodes = createNodeProvider(semanticObject);
+		SequenceFeeder feeder = createSequencerFeeder(semanticObject, nodes);
+		feeder.accept(grammarAccess.getResoluteMethodAccess().getMethodReferenceFunctionDefinitionIDTerminalRuleCall_1_0_1(), semanticObject.getMethodReference());
+		feeder.finish();
 	}
 	
 	
@@ -553,9 +633,8 @@ public class VerifySemanticSequencer extends CommonSemanticSequencer {
 	 *         name=ID 
 	 *         ((params+=FullJvmFormalParameter params+=FullJvmFormalParameter*)? (isPredicate?='boolean' | isResultReport?='report')?)? 
 	 *         title=STRING? 
-	 *         methodType=SupportedTypes 
+	 *         methodType=MethodType 
 	 *         description=Description? 
-	 *         methodPath=STRING? 
 	 *         condition=VerificationCondition? 
 	 *         category+=[VerificationCategory|ID]*
 	 *     )

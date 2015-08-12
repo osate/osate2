@@ -86,6 +86,51 @@ public interface VerifyFactory extends EFactory
   VerificationMethod createVerificationMethod();
 
   /**
+   * Returns a new object of class '<em>Method Type</em>'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return a new object of class '<em>Method Type</em>'.
+   * @generated
+   */
+  MethodType createMethodType();
+
+  /**
+   * Returns a new object of class '<em>Resolute Method</em>'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return a new object of class '<em>Resolute Method</em>'.
+   * @generated
+   */
+  ResoluteMethod createResoluteMethod();
+
+  /**
+   * Returns a new object of class '<em>Java Method</em>'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return a new object of class '<em>Java Method</em>'.
+   * @generated
+   */
+  JavaMethod createJavaMethod();
+
+  /**
+   * Returns a new object of class '<em>Manual Method</em>'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return a new object of class '<em>Manual Method</em>'.
+   * @generated
+   */
+  ManualMethod createManualMethod();
+
+  /**
+   * Returns a new object of class '<em>Plugin Method</em>'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return a new object of class '<em>Plugin Method</em>'.
+   * @generated
+   */
+  PluginMethod createPluginMethod();
+
+  /**
    * Returns a new object of class '<em>Verification Condition</em>'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->

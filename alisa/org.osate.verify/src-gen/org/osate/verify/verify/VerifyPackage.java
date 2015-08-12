@@ -4,7 +4,6 @@ package org.osate.verify.verify;
 
 import org.eclipse.emf.ecore.EAttribute;
 import org.eclipse.emf.ecore.EClass;
-import org.eclipse.emf.ecore.EEnum;
 import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.EReference;
 
@@ -479,7 +478,7 @@ public interface VerifyPackage extends EPackage
   int VERIFICATION_METHOD__TITLE = 4;
 
   /**
-   * The feature id for the '<em><b>Method Type</b></em>' attribute.
+   * The feature id for the '<em><b>Method Type</b></em>' containment reference.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
@@ -497,22 +496,13 @@ public interface VerifyPackage extends EPackage
   int VERIFICATION_METHOD__DESCRIPTION = 6;
 
   /**
-   * The feature id for the '<em><b>Method Path</b></em>' attribute.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int VERIFICATION_METHOD__METHOD_PATH = 7;
-
-  /**
    * The feature id for the '<em><b>Condition</b></em>' containment reference.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    * @ordered
    */
-  int VERIFICATION_METHOD__CONDITION = 8;
+  int VERIFICATION_METHOD__CONDITION = 7;
 
   /**
    * The feature id for the '<em><b>Category</b></em>' reference list.
@@ -521,7 +511,7 @@ public interface VerifyPackage extends EPackage
    * @generated
    * @ordered
    */
-  int VERIFICATION_METHOD__CATEGORY = 9;
+  int VERIFICATION_METHOD__CATEGORY = 8;
 
   /**
    * The number of structural features of the '<em>Verification Method</em>' class.
@@ -530,7 +520,138 @@ public interface VerifyPackage extends EPackage
    * @generated
    * @ordered
    */
-  int VERIFICATION_METHOD_FEATURE_COUNT = 10;
+  int VERIFICATION_METHOD_FEATURE_COUNT = 9;
+
+  /**
+   * The meta object id for the '{@link org.osate.verify.verify.impl.MethodTypeImpl <em>Method Type</em>}' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see org.osate.verify.verify.impl.MethodTypeImpl
+   * @see org.osate.verify.verify.impl.VerifyPackageImpl#getMethodType()
+   * @generated
+   */
+  int METHOD_TYPE = 7;
+
+  /**
+   * The number of structural features of the '<em>Method Type</em>' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int METHOD_TYPE_FEATURE_COUNT = 0;
+
+  /**
+   * The meta object id for the '{@link org.osate.verify.verify.impl.ResoluteMethodImpl <em>Resolute Method</em>}' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see org.osate.verify.verify.impl.ResoluteMethodImpl
+   * @see org.osate.verify.verify.impl.VerifyPackageImpl#getResoluteMethod()
+   * @generated
+   */
+  int RESOLUTE_METHOD = 8;
+
+  /**
+   * The feature id for the '<em><b>Method Reference</b></em>' reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int RESOLUTE_METHOD__METHOD_REFERENCE = METHOD_TYPE_FEATURE_COUNT + 0;
+
+  /**
+   * The number of structural features of the '<em>Resolute Method</em>' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int RESOLUTE_METHOD_FEATURE_COUNT = METHOD_TYPE_FEATURE_COUNT + 1;
+
+  /**
+   * The meta object id for the '{@link org.osate.verify.verify.impl.JavaMethodImpl <em>Java Method</em>}' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see org.osate.verify.verify.impl.JavaMethodImpl
+   * @see org.osate.verify.verify.impl.VerifyPackageImpl#getJavaMethod()
+   * @generated
+   */
+  int JAVA_METHOD = 9;
+
+  /**
+   * The feature id for the '<em><b>Method Path</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int JAVA_METHOD__METHOD_PATH = METHOD_TYPE_FEATURE_COUNT + 0;
+
+  /**
+   * The number of structural features of the '<em>Java Method</em>' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int JAVA_METHOD_FEATURE_COUNT = METHOD_TYPE_FEATURE_COUNT + 1;
+
+  /**
+   * The meta object id for the '{@link org.osate.verify.verify.impl.ManualMethodImpl <em>Manual Method</em>}' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see org.osate.verify.verify.impl.ManualMethodImpl
+   * @see org.osate.verify.verify.impl.VerifyPackageImpl#getManualMethod()
+   * @generated
+   */
+  int MANUAL_METHOD = 10;
+
+  /**
+   * The feature id for the '<em><b>Dialog ID</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int MANUAL_METHOD__DIALOG_ID = METHOD_TYPE_FEATURE_COUNT + 0;
+
+  /**
+   * The number of structural features of the '<em>Manual Method</em>' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int MANUAL_METHOD_FEATURE_COUNT = METHOD_TYPE_FEATURE_COUNT + 1;
+
+  /**
+   * The meta object id for the '{@link org.osate.verify.verify.impl.PluginMethodImpl <em>Plugin Method</em>}' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see org.osate.verify.verify.impl.PluginMethodImpl
+   * @see org.osate.verify.verify.impl.VerifyPackageImpl#getPluginMethod()
+   * @generated
+   */
+  int PLUGIN_METHOD = 11;
+
+  /**
+   * The feature id for the '<em><b>Method ID</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int PLUGIN_METHOD__METHOD_ID = METHOD_TYPE_FEATURE_COUNT + 0;
+
+  /**
+   * The number of structural features of the '<em>Plugin Method</em>' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int PLUGIN_METHOD_FEATURE_COUNT = METHOD_TYPE_FEATURE_COUNT + 1;
 
   /**
    * The meta object id for the '{@link org.osate.verify.verify.impl.VerificationConditionImpl <em>Verification Condition</em>}' class.
@@ -540,7 +661,7 @@ public interface VerifyPackage extends EPackage
    * @see org.osate.verify.verify.impl.VerifyPackageImpl#getVerificationCondition()
    * @generated
    */
-  int VERIFICATION_CONDITION = 7;
+  int VERIFICATION_CONDITION = 12;
 
   /**
    * The feature id for the '<em><b>Name</b></em>' attribute.
@@ -622,7 +743,7 @@ public interface VerifyPackage extends EPackage
    * @see org.osate.verify.verify.impl.VerifyPackageImpl#getThenExpr()
    * @generated
    */
-  int THEN_EXPR = 8;
+  int THEN_EXPR = 13;
 
   /**
    * The feature id for the '<em><b>Left</b></em>' containment reference.
@@ -659,7 +780,7 @@ public interface VerifyPackage extends EPackage
    * @see org.osate.verify.verify.impl.VerifyPackageImpl#getElseExpr()
    * @generated
    */
-  int ELSE_EXPR = 9;
+  int ELSE_EXPR = 14;
 
   /**
    * The feature id for the '<em><b>Left</b></em>' containment reference.
@@ -714,7 +835,7 @@ public interface VerifyPackage extends EPackage
    * @see org.osate.verify.verify.impl.VerifyPackageImpl#getAllExpr()
    * @generated
    */
-  int ALL_EXPR = 10;
+  int ALL_EXPR = 15;
 
   /**
    * The feature id for the '<em><b>Elements</b></em>' containment reference list.
@@ -742,7 +863,7 @@ public interface VerifyPackage extends EPackage
    * @see org.osate.verify.verify.impl.VerifyPackageImpl#getRefExpr()
    * @generated
    */
-  int REF_EXPR = 11;
+  int REF_EXPR = 16;
 
   /**
    * The feature id for the '<em><b>Verification</b></em>' reference.
@@ -779,7 +900,7 @@ public interface VerifyPackage extends EPackage
    * @see org.osate.verify.verify.impl.VerifyPackageImpl#getVerificationValidation()
    * @generated
    */
-  int VERIFICATION_VALIDATION = 12;
+  int VERIFICATION_VALIDATION = 17;
 
   /**
    * The feature id for the '<em><b>Name</b></em>' attribute.
@@ -861,7 +982,7 @@ public interface VerifyPackage extends EPackage
    * @see org.osate.verify.verify.impl.VerifyPackageImpl#getVerificationPrecondition()
    * @generated
    */
-  int VERIFICATION_PRECONDITION = 13;
+  int VERIFICATION_PRECONDITION = 18;
 
   /**
    * The feature id for the '<em><b>Name</b></em>' attribute.
@@ -934,16 +1055,6 @@ public interface VerifyPackage extends EPackage
    * @ordered
    */
   int VERIFICATION_PRECONDITION_FEATURE_COUNT = VERIFICATION_CONDITION_FEATURE_COUNT + 0;
-
-  /**
-   * The meta object id for the '{@link org.osate.verify.verify.SupportedTypes <em>Supported Types</em>}' enum.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @see org.osate.verify.verify.SupportedTypes
-   * @see org.osate.verify.verify.impl.VerifyPackageImpl#getSupportedTypes()
-   * @generated
-   */
-  int SUPPORTED_TYPES = 14;
 
 
   /**
@@ -1380,15 +1491,15 @@ public interface VerifyPackage extends EPackage
   EAttribute getVerificationMethod_Title();
 
   /**
-   * Returns the meta object for the attribute '{@link org.osate.verify.verify.VerificationMethod#getMethodType <em>Method Type</em>}'.
+   * Returns the meta object for the containment reference '{@link org.osate.verify.verify.VerificationMethod#getMethodType <em>Method Type</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @return the meta object for the attribute '<em>Method Type</em>'.
+   * @return the meta object for the containment reference '<em>Method Type</em>'.
    * @see org.osate.verify.verify.VerificationMethod#getMethodType()
    * @see #getVerificationMethod()
    * @generated
    */
-  EAttribute getVerificationMethod_MethodType();
+  EReference getVerificationMethod_MethodType();
 
   /**
    * Returns the meta object for the containment reference '{@link org.osate.verify.verify.VerificationMethod#getDescription <em>Description</em>}'.
@@ -1400,17 +1511,6 @@ public interface VerifyPackage extends EPackage
    * @generated
    */
   EReference getVerificationMethod_Description();
-
-  /**
-   * Returns the meta object for the attribute '{@link org.osate.verify.verify.VerificationMethod#getMethodPath <em>Method Path</em>}'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return the meta object for the attribute '<em>Method Path</em>'.
-   * @see org.osate.verify.verify.VerificationMethod#getMethodPath()
-   * @see #getVerificationMethod()
-   * @generated
-   */
-  EAttribute getVerificationMethod_MethodPath();
 
   /**
    * Returns the meta object for the containment reference '{@link org.osate.verify.verify.VerificationMethod#getCondition <em>Condition</em>}'.
@@ -1433,6 +1533,100 @@ public interface VerifyPackage extends EPackage
    * @generated
    */
   EReference getVerificationMethod_Category();
+
+  /**
+   * Returns the meta object for class '{@link org.osate.verify.verify.MethodType <em>Method Type</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for class '<em>Method Type</em>'.
+   * @see org.osate.verify.verify.MethodType
+   * @generated
+   */
+  EClass getMethodType();
+
+  /**
+   * Returns the meta object for class '{@link org.osate.verify.verify.ResoluteMethod <em>Resolute Method</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for class '<em>Resolute Method</em>'.
+   * @see org.osate.verify.verify.ResoluteMethod
+   * @generated
+   */
+  EClass getResoluteMethod();
+
+  /**
+   * Returns the meta object for the reference '{@link org.osate.verify.verify.ResoluteMethod#getMethodReference <em>Method Reference</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the reference '<em>Method Reference</em>'.
+   * @see org.osate.verify.verify.ResoluteMethod#getMethodReference()
+   * @see #getResoluteMethod()
+   * @generated
+   */
+  EReference getResoluteMethod_MethodReference();
+
+  /**
+   * Returns the meta object for class '{@link org.osate.verify.verify.JavaMethod <em>Java Method</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for class '<em>Java Method</em>'.
+   * @see org.osate.verify.verify.JavaMethod
+   * @generated
+   */
+  EClass getJavaMethod();
+
+  /**
+   * Returns the meta object for the attribute '{@link org.osate.verify.verify.JavaMethod#getMethodPath <em>Method Path</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the attribute '<em>Method Path</em>'.
+   * @see org.osate.verify.verify.JavaMethod#getMethodPath()
+   * @see #getJavaMethod()
+   * @generated
+   */
+  EAttribute getJavaMethod_MethodPath();
+
+  /**
+   * Returns the meta object for class '{@link org.osate.verify.verify.ManualMethod <em>Manual Method</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for class '<em>Manual Method</em>'.
+   * @see org.osate.verify.verify.ManualMethod
+   * @generated
+   */
+  EClass getManualMethod();
+
+  /**
+   * Returns the meta object for the attribute '{@link org.osate.verify.verify.ManualMethod#getDialogID <em>Dialog ID</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the attribute '<em>Dialog ID</em>'.
+   * @see org.osate.verify.verify.ManualMethod#getDialogID()
+   * @see #getManualMethod()
+   * @generated
+   */
+  EAttribute getManualMethod_DialogID();
+
+  /**
+   * Returns the meta object for class '{@link org.osate.verify.verify.PluginMethod <em>Plugin Method</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for class '<em>Plugin Method</em>'.
+   * @see org.osate.verify.verify.PluginMethod
+   * @generated
+   */
+  EClass getPluginMethod();
+
+  /**
+   * Returns the meta object for the attribute '{@link org.osate.verify.verify.PluginMethod#getMethodID <em>Method ID</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the attribute '<em>Method ID</em>'.
+   * @see org.osate.verify.verify.PluginMethod#getMethodID()
+   * @see #getPluginMethod()
+   * @generated
+   */
+  EAttribute getPluginMethod_MethodID();
 
   /**
    * Returns the meta object for class '{@link org.osate.verify.verify.VerificationCondition <em>Verification Condition</em>}'.
@@ -1679,16 +1873,6 @@ public interface VerifyPackage extends EPackage
    * @generated
    */
   EClass getVerificationPrecondition();
-
-  /**
-   * Returns the meta object for enum '{@link org.osate.verify.verify.SupportedTypes <em>Supported Types</em>}'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return the meta object for enum '<em>Supported Types</em>'.
-   * @see org.osate.verify.verify.SupportedTypes
-   * @generated
-   */
-  EEnum getSupportedTypes();
 
   /**
    * Returns the factory that creates the instances of the model.
@@ -2048,12 +2232,12 @@ public interface VerifyPackage extends EPackage
     EAttribute VERIFICATION_METHOD__TITLE = eINSTANCE.getVerificationMethod_Title();
 
     /**
-     * The meta object literal for the '<em><b>Method Type</b></em>' attribute feature.
+     * The meta object literal for the '<em><b>Method Type</b></em>' containment reference feature.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @generated
      */
-    EAttribute VERIFICATION_METHOD__METHOD_TYPE = eINSTANCE.getVerificationMethod_MethodType();
+    EReference VERIFICATION_METHOD__METHOD_TYPE = eINSTANCE.getVerificationMethod_MethodType();
 
     /**
      * The meta object literal for the '<em><b>Description</b></em>' containment reference feature.
@@ -2062,14 +2246,6 @@ public interface VerifyPackage extends EPackage
      * @generated
      */
     EReference VERIFICATION_METHOD__DESCRIPTION = eINSTANCE.getVerificationMethod_Description();
-
-    /**
-     * The meta object literal for the '<em><b>Method Path</b></em>' attribute feature.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
-    EAttribute VERIFICATION_METHOD__METHOD_PATH = eINSTANCE.getVerificationMethod_MethodPath();
 
     /**
      * The meta object literal for the '<em><b>Condition</b></em>' containment reference feature.
@@ -2086,6 +2262,88 @@ public interface VerifyPackage extends EPackage
      * @generated
      */
     EReference VERIFICATION_METHOD__CATEGORY = eINSTANCE.getVerificationMethod_Category();
+
+    /**
+     * The meta object literal for the '{@link org.osate.verify.verify.impl.MethodTypeImpl <em>Method Type</em>}' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see org.osate.verify.verify.impl.MethodTypeImpl
+     * @see org.osate.verify.verify.impl.VerifyPackageImpl#getMethodType()
+     * @generated
+     */
+    EClass METHOD_TYPE = eINSTANCE.getMethodType();
+
+    /**
+     * The meta object literal for the '{@link org.osate.verify.verify.impl.ResoluteMethodImpl <em>Resolute Method</em>}' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see org.osate.verify.verify.impl.ResoluteMethodImpl
+     * @see org.osate.verify.verify.impl.VerifyPackageImpl#getResoluteMethod()
+     * @generated
+     */
+    EClass RESOLUTE_METHOD = eINSTANCE.getResoluteMethod();
+
+    /**
+     * The meta object literal for the '<em><b>Method Reference</b></em>' reference feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EReference RESOLUTE_METHOD__METHOD_REFERENCE = eINSTANCE.getResoluteMethod_MethodReference();
+
+    /**
+     * The meta object literal for the '{@link org.osate.verify.verify.impl.JavaMethodImpl <em>Java Method</em>}' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see org.osate.verify.verify.impl.JavaMethodImpl
+     * @see org.osate.verify.verify.impl.VerifyPackageImpl#getJavaMethod()
+     * @generated
+     */
+    EClass JAVA_METHOD = eINSTANCE.getJavaMethod();
+
+    /**
+     * The meta object literal for the '<em><b>Method Path</b></em>' attribute feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EAttribute JAVA_METHOD__METHOD_PATH = eINSTANCE.getJavaMethod_MethodPath();
+
+    /**
+     * The meta object literal for the '{@link org.osate.verify.verify.impl.ManualMethodImpl <em>Manual Method</em>}' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see org.osate.verify.verify.impl.ManualMethodImpl
+     * @see org.osate.verify.verify.impl.VerifyPackageImpl#getManualMethod()
+     * @generated
+     */
+    EClass MANUAL_METHOD = eINSTANCE.getManualMethod();
+
+    /**
+     * The meta object literal for the '<em><b>Dialog ID</b></em>' attribute feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EAttribute MANUAL_METHOD__DIALOG_ID = eINSTANCE.getManualMethod_DialogID();
+
+    /**
+     * The meta object literal for the '{@link org.osate.verify.verify.impl.PluginMethodImpl <em>Plugin Method</em>}' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see org.osate.verify.verify.impl.PluginMethodImpl
+     * @see org.osate.verify.verify.impl.VerifyPackageImpl#getPluginMethod()
+     * @generated
+     */
+    EClass PLUGIN_METHOD = eINSTANCE.getPluginMethod();
+
+    /**
+     * The meta object literal for the '<em><b>Method ID</b></em>' attribute feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EAttribute PLUGIN_METHOD__METHOD_ID = eINSTANCE.getPluginMethod_MethodID();
 
     /**
      * The meta object literal for the '{@link org.osate.verify.verify.impl.VerificationConditionImpl <em>Verification Condition</em>}' class.
@@ -2284,16 +2542,6 @@ public interface VerifyPackage extends EPackage
      * @generated
      */
     EClass VERIFICATION_PRECONDITION = eINSTANCE.getVerificationPrecondition();
-
-    /**
-     * The meta object literal for the '{@link org.osate.verify.verify.SupportedTypes <em>Supported Types</em>}' enum.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @see org.osate.verify.verify.SupportedTypes
-     * @see org.osate.verify.verify.impl.VerifyPackageImpl#getSupportedTypes()
-     * @generated
-     */
-    EEnum SUPPORTED_TYPES = eINSTANCE.getSupportedTypes();
 
   }
 

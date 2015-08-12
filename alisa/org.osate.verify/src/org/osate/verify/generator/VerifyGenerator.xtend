@@ -55,7 +55,7 @@ class VerifyGenerator implements IGenerator {
 		'''
 		@Test
 		public void «va.name» (ComponentInstance ci){
-			org.junit.Assert.assertTrue(«va.method.methodPath»(ci));
+«««			org.junit.Assert.assertTrue(«va.method.method»(ci));
 		}
 		'''
 		//mnam need more code
@@ -63,7 +63,7 @@ class VerifyGenerator implements IGenerator {
 	
 	 
 	def dispatch String generateImports(VerificationActivity va){
-		val themethod = va.method?.methodPath
+		val themethod = va.method.name//?.methodPath
 		if (themethod != null && addedImports.add(themethod)) {
 			val substr = themethod.lastIndexOf('.');
 			'''import «themethod.substring(0,themethod.lastIndexOf('.'))»;

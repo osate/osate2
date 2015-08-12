@@ -27,7 +27,6 @@ import org.osate.categories.categories.VerificationCategory;
  *   <li>{@link org.osate.verify.verify.VerificationMethod#getTitle <em>Title</em>}</li>
  *   <li>{@link org.osate.verify.verify.VerificationMethod#getMethodType <em>Method Type</em>}</li>
  *   <li>{@link org.osate.verify.verify.VerificationMethod#getDescription <em>Description</em>}</li>
- *   <li>{@link org.osate.verify.verify.VerificationMethod#getMethodPath <em>Method Path</em>}</li>
  *   <li>{@link org.osate.verify.verify.VerificationMethod#getCondition <em>Condition</em>}</li>
  *   <li>{@link org.osate.verify.verify.VerificationMethod#getCategory <em>Category</em>}</li>
  * </ul>
@@ -160,33 +159,30 @@ public interface VerificationMethod extends EObject
   void setTitle(String value);
 
   /**
-   * Returns the value of the '<em><b>Method Type</b></em>' attribute.
-   * The literals are from the enumeration {@link org.osate.verify.verify.SupportedTypes}.
+   * Returns the value of the '<em><b>Method Type</b></em>' containment reference.
    * <!-- begin-user-doc -->
    * <p>
-   * If the meaning of the '<em>Method Type</em>' attribute isn't clear,
+   * If the meaning of the '<em>Method Type</em>' containment reference isn't clear,
    * there really should be more of a description here...
    * </p>
    * <!-- end-user-doc -->
-   * @return the value of the '<em>Method Type</em>' attribute.
-   * @see org.osate.verify.verify.SupportedTypes
-   * @see #setMethodType(SupportedTypes)
+   * @return the value of the '<em>Method Type</em>' containment reference.
+   * @see #setMethodType(MethodType)
    * @see org.osate.verify.verify.VerifyPackage#getVerificationMethod_MethodType()
-   * @model
+   * @model containment="true"
    * @generated
    */
-  SupportedTypes getMethodType();
+  MethodType getMethodType();
 
   /**
-   * Sets the value of the '{@link org.osate.verify.verify.VerificationMethod#getMethodType <em>Method Type</em>}' attribute.
+   * Sets the value of the '{@link org.osate.verify.verify.VerificationMethod#getMethodType <em>Method Type</em>}' containment reference.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @param value the new value of the '<em>Method Type</em>' attribute.
-   * @see org.osate.verify.verify.SupportedTypes
+   * @param value the new value of the '<em>Method Type</em>' containment reference.
    * @see #getMethodType()
    * @generated
    */
-  void setMethodType(SupportedTypes value);
+  void setMethodType(MethodType value);
 
   /**
    * Returns the value of the '<em><b>Description</b></em>' containment reference.
@@ -213,32 +209,6 @@ public interface VerificationMethod extends EObject
    * @generated
    */
   void setDescription(Description value);
-
-  /**
-   * Returns the value of the '<em><b>Method Path</b></em>' attribute.
-   * <!-- begin-user-doc -->
-   * <p>
-   * If the meaning of the '<em>Method Path</em>' attribute isn't clear,
-   * there really should be more of a description here...
-   * </p>
-   * <!-- end-user-doc -->
-   * @return the value of the '<em>Method Path</em>' attribute.
-   * @see #setMethodPath(String)
-   * @see org.osate.verify.verify.VerifyPackage#getVerificationMethod_MethodPath()
-   * @model
-   * @generated
-   */
-  String getMethodPath();
-
-  /**
-   * Sets the value of the '{@link org.osate.verify.verify.VerificationMethod#getMethodPath <em>Method Path</em>}' attribute.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @param value the new value of the '<em>Method Path</em>' attribute.
-   * @see #getMethodPath()
-   * @generated
-   */
-  void setMethodPath(String value);
 
   /**
    * Returns the value of the '<em><b>Condition</b></em>' containment reference.

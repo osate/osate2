@@ -39,13 +39,16 @@ import org.osate.assure.assure.VerificationExecutionState
 import org.osate.assure.assure.VerificationResult
 import org.osate.assure.util.AssureUtilExtension
 import org.osate.results.results.ResultReport
-import org.osate.verify.util.IVerificationMethodDispatcher
-import org.osate.verify.verify.SupportedTypes
+import org.osate.verify.verify.JavaMethod
+import org.osate.verify.verify.ManualMethod
+import org.osate.verify.verify.PluginMethod
+import org.osate.verify.verify.ResoluteMethod
 import org.osate.verify.verify.VerificationActivity
 import org.osate.verify.verify.VerificationMethod
 
 import static extension org.osate.alisa.common.util.CommonUtilExtension.*
 import static extension org.osate.assure.util.AssureUtilExtension.*
+import org.osate.verify.util.VerificationMethodDispatchers
 
 @ImplementedBy(AssureProcessor)
 interface IAssureProcessor {
@@ -59,7 +62,6 @@ interface IAssureProcessor {
  * It assumes the counts are ok
  */
 class AssureProcessor implements IAssureProcessor {
-	@Inject IVerificationMethodDispatcher dispatcher
 
 	/**
 	 * See the following documentation
@@ -219,9 +221,10 @@ class AssureProcessor implements IAssureProcessor {
 		}
 
 		try {
-			switch (method.methodType) {
-				case SupportedTypes.JAVA: {
-					res = dispatcher.dispatchVerificationMethod(method, target, parameters)
+			val methodtype  =method.methodType
+			switch (methodtype) {
+				JavaMethod: {
+					res = VerificationMethodDispatchers.eInstance.workspaceInvoke(methodtype, target, parameters)
 					if (res != null) {
 
 						if (res instanceof Boolean) {
@@ -238,8 +241,8 @@ class AssureProcessor implements IAssureProcessor {
 						}
 					}
 				}
-				case SupportedTypes.ANALYSISPLUGIN: {
-					res = dispatcher.dispatchVerificationMethod(method, target, parameters) // returning the marker or diagnostic id as string
+				PluginMethod: {
+					res = VerificationMethodDispatchers.eInstance.dispatchVerificationMethod(methodtype, target, parameters) // returning the marker or diagnostic id as string
 					if (res instanceof String) {
 						val errors = addMarkers(verificationResult, target, res, method)
 						if (errors) {
@@ -251,13 +254,13 @@ class AssureProcessor implements IAssureProcessor {
 						setToFail(verificationResult, "Analysis return type is not a string of MarkerType");
 					}
 				}
-				case SupportedTypes.RESOLUTE: {
+				ResoluteMethod: {
 
 					// Resolute handling See AssureUtil for setup	
 					AssureUtilExtension.initializeResoluteContext(instance);
 					val EvaluationContext context = new EvaluationContext(instance, sets, featToConnsMap);
 					val ResoluteInterpreter interpreter = new ResoluteInterpreter(context);
-					val provecall = createWrapperProveCall(verificationResult,parameters)
+					val provecall = createWrapperProveCall(methodtype,parameters)
 					if (provecall == null) {
 						setToError(verificationResult,
 							"Could not find Resolute Function " + verificationResult.method.name)
@@ -303,7 +306,7 @@ class AssureProcessor implements IAssureProcessor {
 //							}
 //						}
 //					}
-					case MANUAL: {
+					case ManualMethod: {
 					}
 				} // end switch on method
 			} catch (AssertionError e) {
@@ -316,12 +319,9 @@ class AssureProcessor implements IAssureProcessor {
 			verificationResult.eResource.save(null)
 		}
 
-		def ProveStatement createWrapperProveCall(VerificationResult vr, Object[] params) {
-			val resoluteFunction = vr.method.methodPath
+		def ProveStatement createWrapperProveCall(ResoluteMethod rm, Object[] params) {
+			val found = rm.methodReference
 			val factory = ResoluteFactory.eINSTANCE
-//			val found = resolveResoluteFunction(vr, resoluteFunction)
-
-			 val found = findResoluteFunction(vr,resoluteFunction)
 			if(found == null) return null
 			val call = factory.createFnCallExpr
 			call.fn = found
@@ -356,13 +356,12 @@ class AssureProcessor implements IAssureProcessor {
 			}
 		}
 
-		def createWrapperFnCall(VerificationResult vr, Object[] params) {
-			val resoluteFunction = vr.method.methodPath
+		def createWrapperFnCall(ResoluteMethod vr, Object[] params) {
+			val found = vr.methodReference
 			val factory = ResoluteFactory.eINSTANCE
 			val target = factory.createIdExpr
 			target.id = vr.claimSubject
 			val call = factory.createFnCallExpr
-			val found = findResoluteFunction(vr, resoluteFunction)
 			call.fn = found
 			call.args.add(target)
 			addParams(call, params)
@@ -377,17 +376,6 @@ class AssureProcessor implements IAssureProcessor {
 				String: o
 				default: "an object"
 			}
-		}
-
-		@Inject ICommonGlobalReferenceFinder refFinder
-
-		def FunctionDefinition findResoluteFunction(EObject context, String resoluteFunctionName) {
-			val foundlist = refFinder.getEObjectDescriptions(context,
-				ResolutePackage.Literals.FUNCTION_DEFINITION, "aadl").filter[ eod |
-				eod.getName().getLastSegment().equalsIgnoreCase(resoluteFunctionName)
-			]
-			if(foundlist.length == 0) return null
-			return EcoreUtil.resolve(foundlist.head.EObjectOrProxy,context) as FunctionDefinition
 		}
 
 	}

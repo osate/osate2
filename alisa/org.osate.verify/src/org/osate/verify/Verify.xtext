@@ -6,6 +6,8 @@ import "http://www.osate.org/reqspec/ReqSpec" as ReqSpec
 import "http://www.osate.org/categories/Categories" as categories
 import "http://www.osate.org/alisa/common/Common" as common
 import "http://www.eclipse.org/xtext/xbase/Xbase" as xbase
+import  "http://www.rockwellcollins.com/atc/resolute/Resolute" as resolute
+//import "http://www.eclipse.org/emf/2002/Ecore" as ecore
 
 Verification:
 	contents+=	( VerificationPlan | VerificationMethodRegistry);
@@ -110,13 +112,32 @@ VerificationMethod:
 	(':' title=STRING)?
 	'['
 	(
-	methodType=SupportedTypes 
+	methodType=MethodType 
 	& description=Description?
-	&('path' methodPath=STRING)?
 	& condition=VerificationCondition?
 	& ('category' category+=[categories::VerificationCategory|ID]+)?
 	)
 	']';
+
+MethodType:
+	ResoluteMethod | JavaMethod | ManualMethod | PluginMethod
+;
+	
+	ResoluteMethod:
+		'resolute' methodReference=[resolute::FunctionDefinition|ID]
+	;
+	
+	JavaMethod:
+		'java' methodPath=STRING
+	;
+	
+	ManualMethod:
+		'manual' {ManualMethod} dialogID=STRING
+	;
+	
+	PluginMethod:
+		'plugin' methodID=STRING
+	;
 
 
 VerificationCondition:
@@ -131,10 +152,7 @@ VerificationCondition:
 	)
 	']';
 
-enum SupportedTypes:
-	ANALYSISPLUGIN='analysisplugin'  
-	| RESOLUTE='resolute' | JAVA='java' 
-	| MANUAL='manual';
+
 	
 //enum SupportedScopes: SELF='self' | PARTS='parts' | ALL='all';
 

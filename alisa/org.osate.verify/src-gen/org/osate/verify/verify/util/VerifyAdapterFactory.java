@@ -110,6 +110,31 @@ public class VerifyAdapterFactory extends AdapterFactoryImpl
         return createVerificationMethodAdapter();
       }
       @Override
+      public Adapter caseMethodType(MethodType object)
+      {
+        return createMethodTypeAdapter();
+      }
+      @Override
+      public Adapter caseResoluteMethod(ResoluteMethod object)
+      {
+        return createResoluteMethodAdapter();
+      }
+      @Override
+      public Adapter caseJavaMethod(JavaMethod object)
+      {
+        return createJavaMethodAdapter();
+      }
+      @Override
+      public Adapter caseManualMethod(ManualMethod object)
+      {
+        return createManualMethodAdapter();
+      }
+      @Override
+      public Adapter casePluginMethod(PluginMethod object)
+      {
+        return createPluginMethodAdapter();
+      }
+      @Override
       public Adapter caseVerificationCondition(VerificationCondition object)
       {
         return createVerificationConditionAdapter();
@@ -267,6 +292,81 @@ public class VerifyAdapterFactory extends AdapterFactoryImpl
    * @generated
    */
   public Adapter createVerificationMethodAdapter()
+  {
+    return null;
+  }
+
+  /**
+   * Creates a new adapter for an object of class '{@link org.osate.verify.verify.MethodType <em>Method Type</em>}'.
+   * <!-- begin-user-doc -->
+   * This default implementation returns null so that we can easily ignore cases;
+   * it's useful to ignore a case when inheritance will catch all the cases anyway.
+   * <!-- end-user-doc -->
+   * @return the new adapter.
+   * @see org.osate.verify.verify.MethodType
+   * @generated
+   */
+  public Adapter createMethodTypeAdapter()
+  {
+    return null;
+  }
+
+  /**
+   * Creates a new adapter for an object of class '{@link org.osate.verify.verify.ResoluteMethod <em>Resolute Method</em>}'.
+   * <!-- begin-user-doc -->
+   * This default implementation returns null so that we can easily ignore cases;
+   * it's useful to ignore a case when inheritance will catch all the cases anyway.
+   * <!-- end-user-doc -->
+   * @return the new adapter.
+   * @see org.osate.verify.verify.ResoluteMethod
+   * @generated
+   */
+  public Adapter createResoluteMethodAdapter()
+  {
+    return null;
+  }
+
+  /**
+   * Creates a new adapter for an object of class '{@link org.osate.verify.verify.JavaMethod <em>Java Method</em>}'.
+   * <!-- begin-user-doc -->
+   * This default implementation returns null so that we can easily ignore cases;
+   * it's useful to ignore a case when inheritance will catch all the cases anyway.
+   * <!-- end-user-doc -->
+   * @return the new adapter.
+   * @see org.osate.verify.verify.JavaMethod
+   * @generated
+   */
+  public Adapter createJavaMethodAdapter()
+  {
+    return null;
+  }
+
+  /**
+   * Creates a new adapter for an object of class '{@link org.osate.verify.verify.ManualMethod <em>Manual Method</em>}'.
+   * <!-- begin-user-doc -->
+   * This default implementation returns null so that we can easily ignore cases;
+   * it's useful to ignore a case when inheritance will catch all the cases anyway.
+   * <!-- end-user-doc -->
+   * @return the new adapter.
+   * @see org.osate.verify.verify.ManualMethod
+   * @generated
+   */
+  public Adapter createManualMethodAdapter()
+  {
+    return null;
+  }
+
+  /**
+   * Creates a new adapter for an object of class '{@link org.osate.verify.verify.PluginMethod <em>Plugin Method</em>}'.
+   * <!-- begin-user-doc -->
+   * This default implementation returns null so that we can easily ignore cases;
+   * it's useful to ignore a case when inheritance will catch all the cases anyway.
+   * <!-- end-user-doc -->
+   * @return the new adapter.
+   * @see org.osate.verify.verify.PluginMethod
+   * @generated
+   */
+  public Adapter createPluginMethodAdapter()
   {
     return null;
   }
