@@ -18,41 +18,41 @@ class DefaultVerificationMethodDispatcher implements IVerificationMethodDispatch
 
 	override Object dispatchVerificationMethod(VerificationMethod vm, InstanceObject target, Object[] parameters) {
 		switch (vm.methodPath) {
-			case "org.osate.verify.analysisplugins.AnalysisPluginInterface.flowLatencyAnalysis": {
+			case "flowLatencyAnalysis": {
 				target.flowLatencyAnalysis
 			}
-			case "org.osate.verify.analysisplugins.AnalysisPluginInterface.A429Consistency": {
+			case "A429Consistency": {
 				target.A429Consistency
 			}
-			case "org.osate.verify.analysisplugins.AnalysisPluginInterface.ConnectionBindingConsistency": {
+			case "ConnectionBindingConsistency": {
 				target.ConnectionBindingConsistency
 			}
-			case "org.osate.verify.analysisplugins.AnalysisPluginInterface.PortDataConsistency": {
+			case "PortDataConsistency": {
 				target.PortDataConsistency
 			}
-			case "org.osate.verify.analysisplugins.AnalysisPluginInterface.MassAnalysis": {
+			case "MassAnalysis": {
 				target.MassAnalysis
 			}
-			case "org.osate.verify.analysisplugins.AnalysisPluginInterface.BoundResourceAnalysis": {
+			case "BoundResourceAnalysis": {
 				target.BoundResourceAnalysis
 			}
-			case "org.osate.verify.analysisplugins.AnalysisPluginInterface.NetworkBandwidthAnalysis": {
+			case "NetworkBandwidthAnalysis": {
 				target.NetworkBandWidthAnalysis
 			}
-			case "org.osate.verify.analysisplugins.AnalysisPluginInterface.PowerAnalysis": {
+			case "PowerAnalysis": {
 				target.PowerAnalysis
 			}
-			case "org.osate.verify.analysisplugins.AnalysisPluginInterface.ResourceBudget": {
+			case "ResourceBudget": {
 				target.ResourceBudget
 			}
 			
-			case "org.osate.verify.analysisplugins.AnalysisPluginInterface.Binpack": {
+			case "Binpack": {
 				target.Binpack
 			}
-			case "org.osate.verify.analysisplugins.AnalysisPluginInterface.CheckSafety": {
+			case "CheckSafety": {
 				target.CheckSafety
 			}
-			case "org.osate.verify.analysisplugins.AnalysisPluginInterface.CheckSecurity": {
+			case "CheckSecurity": {
 				target.CheckSecurity
 			}
 			//priority inversion
