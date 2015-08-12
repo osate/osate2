@@ -160,7 +160,7 @@ class AssureUtilExtension {
 
 	def static ResultIssue addErrorIssue(VerificationResult vr, EObject target, String message, String issueSource) {
 		val issue = AssureFactory.eINSTANCE.createResultIssue
-		issue.message = message
+		issue.message = message?:"no message"
 		issue.issueType = ResultIssueType.ERROR;
 		issue.exceptionType = issueSource
 		issue.target = target
@@ -689,14 +689,13 @@ class AssureUtilExtension {
 	}
 
 	def static void setToFail(VerificationResult verificationActivityResult, Throwable e) {
-		verificationActivityResult.addErrorIssue(null, e.getMessage(), e.getClass().getName());
+		verificationActivityResult.addErrorIssue(null, e.message?:e.toString, null);//e.getClass().getName());
 		if (verificationActivityResult.updateOwnResultState(VerificationResultState.FAIL))
 			verificationActivityResult.propagateCountChangeUp
 	}
 
 	def static void setToError(VerificationResult verificationActivityResult, Throwable e) {
-		val msg = e.message
-		verificationActivityResult.addErrorIssue(null, msg, e.getClass().getName());
+		verificationActivityResult.addErrorIssue(null, e.message?:e.toString, null);//e.getClass().getName());
 		if (verificationActivityResult.updateOwnResultState(VerificationResultState.FAIL))
 			verificationActivityResult.propagateCountChangeUp
 	}
@@ -706,6 +705,13 @@ class AssureUtilExtension {
 		if (verificationActivityResult.updateOwnResultState(VerificationResultState.FAIL))
 			verificationActivityResult.propagateCountChangeUp
 	}
+//	
+//	def static String stackTrace(Throwable e){
+//		val StringWriter writer = new StringWriter
+//		val PrintWriter pwriter = new PrintWriter(writer)
+//		e.printStackTrace(pwriter)
+//		writer.toString
+//	}
 
 	/**
   * the next methods update the counts for FailThen and AndThen

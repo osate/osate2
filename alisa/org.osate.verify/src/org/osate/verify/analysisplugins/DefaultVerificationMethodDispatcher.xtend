@@ -12,6 +12,7 @@ import org.osate.verify.verify.VerificationMethod
 
 import static extension org.osate.verify.analysisplugins.AnalysisPluginInterface.*
 import java.util.ArrayList
+import java.lang.reflect.InvocationTargetException
 
 class DefaultVerificationMethodDispatcher implements IVerificationMethodDispatcher {
 
@@ -121,6 +122,9 @@ class DefaultVerificationMethodDispatcher implements IVerificationMethodDispatch
 			
 			method.invoke(instance, objects.toArray)
 		} catch (Exception e) {
+			if (e instanceof InvocationTargetException){
+				throw e.targetException
+			}
 			throw e
 		}
 	}
