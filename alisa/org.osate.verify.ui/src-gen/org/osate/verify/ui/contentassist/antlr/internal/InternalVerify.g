@@ -24746,8 +24746,8 @@ rule__VerificationPlan__SystemRequirementsAssignment_5
 (
 { before(grammarAccess.getVerificationPlanAccess().getSystemRequirementsSystemRequirementsCrossReference_5_0()); }
 (
-{ before(grammarAccess.getVerificationPlanAccess().getSystemRequirementsSystemRequirementsIDTerminalRuleCall_5_0_1()); }
-	RULE_ID{ after(grammarAccess.getVerificationPlanAccess().getSystemRequirementsSystemRequirementsIDTerminalRuleCall_5_0_1()); }
+{ before(grammarAccess.getVerificationPlanAccess().getSystemRequirementsSystemRequirementsQualifiedNameParserRuleCall_5_0_1()); }
+	ruleQualifiedName{ after(grammarAccess.getVerificationPlanAccess().getSystemRequirementsSystemRequirementsQualifiedNameParserRuleCall_5_0_1()); }
 )
 { after(grammarAccess.getVerificationPlanAccess().getSystemRequirementsSystemRequirementsCrossReference_5_0()); }
 )

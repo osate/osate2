@@ -10,8 +10,6 @@ import org.osate.categories.categories.RequirementCategory;
 import org.osate.categories.categories.SelectionCategory;
 import org.osate.categories.categories.VerificationCategory;
 
-import org.osate.verify.verify.Claim;
-
 /**
  * <!-- begin-user-doc -->
  * A representation of the model object '<em><b>Assurance Task</b></em>'.
@@ -27,7 +25,6 @@ import org.osate.verify.verify.Claim;
  *   <li>{@link org.osate.alisa.workbench.alisa.AssuranceTask#getRequirementFilter <em>Requirement Filter</em>}</li>
  *   <li>{@link org.osate.alisa.workbench.alisa.AssuranceTask#getVerificationFilter <em>Verification Filter</em>}</li>
  *   <li>{@link org.osate.alisa.workbench.alisa.AssuranceTask#getSelectionFilter <em>Selection Filter</em>}</li>
- *   <li>{@link org.osate.alisa.workbench.alisa.AssuranceTask#getClaims <em>Claims</em>}</li>
  *   <li>{@link org.osate.alisa.workbench.alisa.AssuranceTask#getIssues <em>Issues</em>}</li>
  * </ul>
  * </p>
@@ -189,22 +186,6 @@ public interface AssuranceTask extends EObject
    * @generated
    */
   EList<SelectionCategory> getSelectionFilter();
-
-  /**
-   * Returns the value of the '<em><b>Claims</b></em>' reference list.
-   * The list contents are of type {@link org.osate.verify.verify.Claim}.
-   * <!-- begin-user-doc -->
-   * <p>
-   * If the meaning of the '<em>Claims</em>' reference list isn't clear,
-   * there really should be more of a description here...
-   * </p>
-   * <!-- end-user-doc -->
-   * @return the value of the '<em>Claims</em>' reference list.
-   * @see org.osate.alisa.workbench.alisa.AlisaPackage#getAssuranceTask_Claims()
-   * @model
-   * @generated
-   */
-  EList<Claim> getClaims();
 
   /**
    * Returns the value of the '<em><b>Issues</b></em>' attribute list.

@@ -61,7 +61,7 @@ public class AlisaSemanticSequencer extends AbstractDelegatingSemanticSequencer 
 	/**
 	 * Constraint:
 	 *     (
-	 *         name=ID 
+	 *         name=QualifiedName 
 	 *         title=STRING? 
 	 *         target=[ComponentImplementation|AadlClassifierReference] 
 	 *         description=Description? 
@@ -81,12 +81,11 @@ public class AlisaSemanticSequencer extends AbstractDelegatingSemanticSequencer 
 	 *     (
 	 *         name=ID 
 	 *         title=STRING? 
-	 *         assurancePlan=[AssurancePlan|ID] 
+	 *         assurancePlan=[AssurancePlan|QualifiedName] 
 	 *         description=Description? 
-	 *         (
-	 *             (requirementFilter+=[RequirementCategory|ID]* verificationFilter+=[VerificationCategory|ID]* selectionFilter+=[SelectionCategory|ID]*) | 
-	 *             claims+=[Claim|QualifiedName]+
-	 *         ) 
+	 *         requirementFilter+=[RequirementCategory|ID]* 
+	 *         verificationFilter+=[VerificationCategory|ID]* 
+	 *         selectionFilter+=[SelectionCategory|ID]* 
 	 *         issues+=STRING*
 	 *     )
 	 */

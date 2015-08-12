@@ -90,8 +90,6 @@ public class AssureHandler extends AbstractHandler {
 						}
 					});
 				} catch (Exception e) {
-					System.out.println("EXCEPTION");
-
 					return Status.CANCEL_STATUS;
 				}
 			}

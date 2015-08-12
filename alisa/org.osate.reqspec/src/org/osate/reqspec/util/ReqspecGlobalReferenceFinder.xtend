@@ -8,6 +8,9 @@ import org.osate.alisa.common.scoping.ICommonGlobalReferenceFinder
 import org.osate.reqspec.reqSpec.ReqSpecPackage
 import org.osate.reqspec.reqSpec.Requirement
 import org.osate.reqspec.reqSpec.SystemRequirements
+import org.eclipse.emf.ecore.EObject
+import org.osate.reqspec.reqSpec.GlobalConstants
+import org.eclipse.emf.ecore.util.EcoreUtil
 
 @ImplementedBy(ReqspecGlobalReferenceFinder)
 interface IReqspecGlobalReferenceFinder {
@@ -18,19 +21,20 @@ interface IReqspecGlobalReferenceFinder {
 	def Iterable<Requirement> getAllRequirements(ComponentInstance ci);
 	def Iterable<SystemRequirements> getSystemRequirements(ComponentClassifier cc);
 	def Iterable<Requirement> getAllRequirements(ComponentClassifier cc);
+	def Iterable<GlobalConstants> getAllGlobalConstants(EObject context);
 }
 
 class ReqspecGlobalReferenceFinder implements IReqspecGlobalReferenceFinder{
 		
 	@Inject
-	var ICommonGlobalReferenceFinder refFinder
+	var ICommonGlobalReferenceFinder commonRefFinder
 		
 		override Iterable<SystemRequirements> getSystemRequirements(ComponentInstance ci){
 			ci.componentClassifier.systemRequirements
 		}
 		
 		override Iterable<SystemRequirements> getSystemRequirements(ComponentClassifier cc){
-			val srURIs = refFinder.getEObjectReferences(cc, ReqSpecPackage.Literals.SYSTEM_REQUIREMENTS__TARGET, "reqspec") 
+			val srURIs = commonRefFinder.getEObjectReferences(cc, ReqSpecPackage.Literals.SYSTEM_REQUIREMENTS__TARGET, "reqspec") 
 			val resset = cc.eResource.resourceSet
 			return srURIs.map[ srURI | resset.getEObject(srURI, true) as SystemRequirements]
 		}
@@ -41,5 +45,12 @@ class ReqspecGlobalReferenceFinder implements IReqspecGlobalReferenceFinder{
 		override Iterable<Requirement> getAllRequirements(ComponentClassifier cc){
 			cc.systemRequirements.map[it.content].flatten
 		}
+
+	override Iterable<GlobalConstants> getAllGlobalConstants(EObject context){
+		val Iterable<GlobalConstants> result = commonRefFinder.getEObjectDescriptions(
+			context, ReqSpecPackage.Literals.GLOBAL_CONSTANTS, "constants").map [ eod |
+			EcoreUtil.resolve(eod.EObjectOrProxy, context) as GlobalConstants]
+		return result
+	}
 
 }

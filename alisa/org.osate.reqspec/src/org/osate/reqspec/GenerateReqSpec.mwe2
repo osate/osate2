@@ -5,7 +5,7 @@ import org.eclipse.xtext.generator.*
 import org.eclipse.xtext.ui.generator.*
 
 var grammarURI = "classpath:/org/osate/reqspec/ReqSpec.xtext"
-var fileExtensions = "reqspec"
+var fileExtensions = "reqspec,goals,constants,reqdoc,goaldoc"
 var projectName = "org.osate.reqspec"
 var runtimeProject = "../${projectName}"
 var generateXtendStub = true

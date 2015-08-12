@@ -14,7 +14,7 @@ Verification:
 // Also allows for cross checking that we have covered requirements with claims
 VerificationPlan:
 	'verification' 'plan' name=ID (':' title=STRING)? 
-	'for' systemRequirements=[ReqSpec::SystemRequirements|ID]  
+	'for' systemRequirements=[ReqSpec::SystemRequirements|QualifiedName]  
 	'['
 	(
 		( description=Description)?
@@ -92,50 +92,6 @@ VAReference returns ArgumentExpr:
 	{RefExpr} verification=[VerificationActivity|QualifiedName]
 	('(' weight=INT ')')?;
 
-//ConditionalEvidenceExpr returns ArgumentExpr:
-//	AtomicEvidenceExpr ( => 
-//		( => ({ConditionalEvidenceExpr.condition=current} 'else' 
-//			(alternative=ConditionalElseExpr |
-//				'[' ('fail' ':' fail=ConditionalEvidenceExpr)? ('timeout' ':' timeout=ConditionalEvidenceExpr)? 
-//				('other' ':' other=ConditionalEvidenceExpr)? 
-//				 ']'
-//			)
-//		))
-//		|
-//		(  {ConditionalEvidenceExpr.condition=current} 'then' successor=ConditionalThenExpr
-//		( => 'else' 
-//			(alternative=ConditionalElseExpr |
-//				'[' ('fail' ':' fail=ConditionalEvidenceExpr)? ('timeout' ':' timeout=ConditionalEvidenceExpr)? 
-//				('other' ':' other=ConditionalEvidenceExpr)? 
-//				 ']'
-//			)
-//		)?) 
-//	)?
-//;
-//
-//ConditionalThenExpr returns ArgumentExpr:
-//	AtomicEvidenceExpr ( => (  {ConditionalEvidenceExpr.condition=current} 'then' successor=ConditionalThenExpr
-//		( => 'else' 
-//			(alternative=ConditionalElseExpr |
-//				'[' ('fail' ':' fail=ConditionalEvidenceExpr)? ('timeout' ':' timeout=ConditionalEvidenceExpr)? 
-//				('other' ':' other=ConditionalEvidenceExpr)? 
-//				 ']'
-//			)
-//		)?) 
-//	)?
-//;
-//
-//
-//ConditionalElseExpr returns ArgumentExpr:
-//	AtomicEvidenceExpr ( =>  (  {ConditionalEvidenceExpr.condition=current} 'else' 
-//			(alternative=ConditionalElseExpr |
-//				'[' ('fail' ':' fail=ConditionalEvidenceExpr)? ('timeout' ':' timeout=ConditionalEvidenceExpr)? 
-//				('other' ':' other=ConditionalEvidenceExpr)? 
-//				 ']'
-//			)
-//		)
-//	)?
-//;
 
 
 

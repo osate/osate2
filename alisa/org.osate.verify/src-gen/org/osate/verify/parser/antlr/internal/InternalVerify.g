@@ -194,10 +194,12 @@ ruleVerificationPlan returns [EObject current=null]
 	            $current = createModelElement(grammarAccess.getVerificationPlanRule());
 	        }
         }
-	otherlv_6=RULE_ID
-	{
-		newLeafNode(otherlv_6, grammarAccess.getVerificationPlanAccess().getSystemRequirementsSystemRequirementsCrossReference_5_0()); 
-	}
+		{ 
+	        newCompositeNode(grammarAccess.getVerificationPlanAccess().getSystemRequirementsSystemRequirementsCrossReference_5_0()); 
+	    }
+		ruleQualifiedName		{ 
+	        afterParserOrEnumRuleCall();
+	    }
 
 )
 )	otherlv_7='[' 

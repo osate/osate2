@@ -23,6 +23,7 @@ import org.osate.alisa.common.common.Description;
  *   <li>{@link org.osate.reqspec.reqSpec.SystemRequirements#getTitle <em>Title</em>}</li>
  *   <li>{@link org.osate.reqspec.reqSpec.SystemRequirements#getTarget <em>Target</em>}</li>
  *   <li>{@link org.osate.reqspec.reqSpec.SystemRequirements#isGlobal <em>Global</em>}</li>
+ *   <li>{@link org.osate.reqspec.reqSpec.SystemRequirements#getImportConstants <em>Import Constants</em>}</li>
  *   <li>{@link org.osate.reqspec.reqSpec.SystemRequirements#getDescription <em>Description</em>}</li>
  *   <li>{@link org.osate.reqspec.reqSpec.SystemRequirements#getConstants <em>Constants</em>}</li>
  *   <li>{@link org.osate.reqspec.reqSpec.SystemRequirements#getComputes <em>Computes</em>}</li>
@@ -141,6 +142,22 @@ public interface SystemRequirements extends ReqSpecContainer, ReqRoot
    * @generated
    */
   void setGlobal(boolean value);
+
+  /**
+   * Returns the value of the '<em><b>Import Constants</b></em>' reference list.
+   * The list contents are of type {@link org.osate.reqspec.reqSpec.GlobalConstants}.
+   * <!-- begin-user-doc -->
+   * <p>
+   * If the meaning of the '<em>Import Constants</em>' reference list isn't clear,
+   * there really should be more of a description here...
+   * </p>
+   * <!-- end-user-doc -->
+   * @return the value of the '<em>Import Constants</em>' reference list.
+   * @see org.osate.reqspec.reqSpec.ReqSpecPackage#getSystemRequirements_ImportConstants()
+   * @model
+   * @generated
+   */
+  EList<GlobalConstants> getImportConstants();
 
   /**
    * Returns the value of the '<em><b>Description</b></em>' containment reference.

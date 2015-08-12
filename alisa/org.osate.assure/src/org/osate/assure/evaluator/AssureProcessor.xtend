@@ -311,9 +311,7 @@ class AssureProcessor implements IAssureProcessor {
 			} catch (ThreadDeath e) { // don't catch ThreadDeath by accident
 				throw e;
 			} catch (Throwable e) {
-//			System.out.println("BLABLA2");
 				setToError(verificationResult, e);
-				throw e;
 			}
 			verificationResult.eResource.save(null)
 		}
