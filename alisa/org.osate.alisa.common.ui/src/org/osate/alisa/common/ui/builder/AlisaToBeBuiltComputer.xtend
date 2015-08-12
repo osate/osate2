@@ -16,6 +16,7 @@ import org.eclipse.xtext.builder.builderState.IBuilderState
 import org.eclipse.xtext.builder.impl.IToBeBuiltComputerContribution
 import org.eclipse.xtext.builder.impl.ToBeBuilt
 import org.eclipse.xtext.ui.resource.IStorage2UriMapper
+import org.eclipse.xtext.builder.clustering.CopiedResourceDescription
 
 class AlisaToBeBuiltComputer implements IToBeBuiltComputerContribution {
 
@@ -73,7 +74,8 @@ class AlisaToBeBuiltComputer implements IToBeBuiltComputerContribution {
 		// direct dependencies
 		for (rd : builderState.allResourceDescriptions.filter[d|isAlisaResource(d.URI)]) {
 			val sourceURI = rd.URI
-			
+			// added this check - otherwise I was getting IllegalStateException at org.eclipse.xtext.builder.clustering.CopiedResourceDescription.getReferenceDescriptions(CopiedResourceDescription.java:82) 
+			if (!(rd instanceof CopiedResourceDescription)){
 			for (reference : rd.referenceDescriptions) {
 				val targetURI = reference.targetEObjectUri.trimFragment
 				if (isAlisaResource(targetURI)) {
@@ -83,6 +85,7 @@ class AlisaToBeBuiltComputer implements IToBeBuiltComputerContribution {
 						depCache.put(targetURI, deps)
 					}
 				}
+			}
 			}
 		}
 
