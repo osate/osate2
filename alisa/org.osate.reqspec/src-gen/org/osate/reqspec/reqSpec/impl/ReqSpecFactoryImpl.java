@@ -66,7 +66,7 @@ public class ReqSpecFactoryImpl extends EFactoryImpl implements ReqSpecFactory
     {
       case ReqSpecPackage.REQ_SPEC: return createReqSpec();
       case ReqSpecPackage.REQ_SPEC_CONTAINER: return createReqSpecContainer();
-      case ReqSpecPackage.PROJECT_CONSTANTS: return createProjectConstants();
+      case ReqSpecPackage.GLOBAL_CONSTANTS: return createGlobalConstants();
       case ReqSpecPackage.CONTRACTUAL_ELEMENT: return createContractualElement();
       case ReqSpecPackage.REQ_ROOT: return createReqRoot();
       case ReqSpecPackage.STAKEHOLDER_GOALS: return createStakeholderGoals();
@@ -112,10 +112,10 @@ public class ReqSpecFactoryImpl extends EFactoryImpl implements ReqSpecFactory
    * <!-- end-user-doc -->
    * @generated
    */
-  public ProjectConstants createProjectConstants()
+  public GlobalConstants createGlobalConstants()
   {
-    ProjectConstantsImpl projectConstants = new ProjectConstantsImpl();
-    return projectConstants;
+    GlobalConstantsImpl globalConstants = new GlobalConstantsImpl();
+    return globalConstants;
   }
 
   /**

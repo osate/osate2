@@ -17,6 +17,7 @@ import org.eclipse.emf.ecore.impl.ENotificationImpl;
 
 import org.eclipse.emf.ecore.util.EDataTypeEList;
 import org.eclipse.emf.ecore.util.EObjectContainmentEList;
+import org.eclipse.emf.ecore.util.EObjectResolvingEList;
 import org.eclipse.emf.ecore.util.InternalEList;
 
 import org.eclipse.xtext.xbase.XExpression;
@@ -27,6 +28,7 @@ import org.osate.aadl2.ComponentClassifier;
 import org.osate.alisa.common.common.Description;
 
 import org.osate.reqspec.reqSpec.ExternalDocument;
+import org.osate.reqspec.reqSpec.GlobalConstants;
 import org.osate.reqspec.reqSpec.ReqSpecPackage;
 import org.osate.reqspec.reqSpec.Requirement;
 import org.osate.reqspec.reqSpec.SystemRequirements;
@@ -42,6 +44,7 @@ import org.osate.reqspec.reqSpec.SystemRequirements;
  *   <li>{@link org.osate.reqspec.reqSpec.impl.SystemRequirementsImpl#getTitle <em>Title</em>}</li>
  *   <li>{@link org.osate.reqspec.reqSpec.impl.SystemRequirementsImpl#getTarget <em>Target</em>}</li>
  *   <li>{@link org.osate.reqspec.reqSpec.impl.SystemRequirementsImpl#isGlobal <em>Global</em>}</li>
+ *   <li>{@link org.osate.reqspec.reqSpec.impl.SystemRequirementsImpl#getImportConstants <em>Import Constants</em>}</li>
  *   <li>{@link org.osate.reqspec.reqSpec.impl.SystemRequirementsImpl#getDescription <em>Description</em>}</li>
  *   <li>{@link org.osate.reqspec.reqSpec.impl.SystemRequirementsImpl#getConstants <em>Constants</em>}</li>
  *   <li>{@link org.osate.reqspec.reqSpec.impl.SystemRequirementsImpl#getComputes <em>Computes</em>}</li>
@@ -124,6 +127,16 @@ public class SystemRequirementsImpl extends ReqSpecContainerImpl implements Syst
    * @ordered
    */
   protected boolean global = GLOBAL_EDEFAULT;
+
+  /**
+   * The cached value of the '{@link #getImportConstants() <em>Import Constants</em>}' reference list.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see #getImportConstants()
+   * @generated
+   * @ordered
+   */
+  protected EList<GlobalConstants> importConstants;
 
   /**
    * The cached value of the '{@link #getDescription() <em>Description</em>}' containment reference.
@@ -323,6 +336,20 @@ public class SystemRequirementsImpl extends ReqSpecContainerImpl implements Syst
    * <!-- end-user-doc -->
    * @generated
    */
+  public EList<GlobalConstants> getImportConstants()
+  {
+    if (importConstants == null)
+    {
+      importConstants = new EObjectResolvingEList<GlobalConstants>(GlobalConstants.class, this, ReqSpecPackage.SYSTEM_REQUIREMENTS__IMPORT_CONSTANTS);
+    }
+    return importConstants;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
   public Description getDescription()
   {
     return description;
@@ -479,6 +506,8 @@ public class SystemRequirementsImpl extends ReqSpecContainerImpl implements Syst
         return basicGetTarget();
       case ReqSpecPackage.SYSTEM_REQUIREMENTS__GLOBAL:
         return isGlobal();
+      case ReqSpecPackage.SYSTEM_REQUIREMENTS__IMPORT_CONSTANTS:
+        return getImportConstants();
       case ReqSpecPackage.SYSTEM_REQUIREMENTS__DESCRIPTION:
         return getDescription();
       case ReqSpecPackage.SYSTEM_REQUIREMENTS__CONSTANTS:
@@ -517,6 +546,10 @@ public class SystemRequirementsImpl extends ReqSpecContainerImpl implements Syst
         return;
       case ReqSpecPackage.SYSTEM_REQUIREMENTS__GLOBAL:
         setGlobal((Boolean)newValue);
+        return;
+      case ReqSpecPackage.SYSTEM_REQUIREMENTS__IMPORT_CONSTANTS:
+        getImportConstants().clear();
+        getImportConstants().addAll((Collection<? extends GlobalConstants>)newValue);
         return;
       case ReqSpecPackage.SYSTEM_REQUIREMENTS__DESCRIPTION:
         setDescription((Description)newValue);
@@ -567,6 +600,9 @@ public class SystemRequirementsImpl extends ReqSpecContainerImpl implements Syst
       case ReqSpecPackage.SYSTEM_REQUIREMENTS__GLOBAL:
         setGlobal(GLOBAL_EDEFAULT);
         return;
+      case ReqSpecPackage.SYSTEM_REQUIREMENTS__IMPORT_CONSTANTS:
+        getImportConstants().clear();
+        return;
       case ReqSpecPackage.SYSTEM_REQUIREMENTS__DESCRIPTION:
         setDescription((Description)null);
         return;
@@ -607,6 +643,8 @@ public class SystemRequirementsImpl extends ReqSpecContainerImpl implements Syst
         return target != null;
       case ReqSpecPackage.SYSTEM_REQUIREMENTS__GLOBAL:
         return global != GLOBAL_EDEFAULT;
+      case ReqSpecPackage.SYSTEM_REQUIREMENTS__IMPORT_CONSTANTS:
+        return importConstants != null && !importConstants.isEmpty();
       case ReqSpecPackage.SYSTEM_REQUIREMENTS__DESCRIPTION:
         return description != null;
       case ReqSpecPackage.SYSTEM_REQUIREMENTS__CONSTANTS:

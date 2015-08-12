@@ -20,17 +20,18 @@ import org.osate.aadl2.ComponentType
 import org.osate.alisa.common.scoping.AlisaAbstractDeclarativeScopeProvider
 import org.osate.reqspec.reqSpec.ContractualElement
 import org.osate.reqspec.reqSpec.Requirement
+import org.osate.reqspec.reqSpec.SystemRequirements
 import org.osate.reqspec.util.IReqspecGlobalReferenceFinder
 
 import static org.osate.reqspec.util.ReqSpecUtilExtension.*
 import org.osate.reqspec.reqSpec.ReqSpecPackage
 import org.osate.alisa.common.scoping.ICommonGlobalReferenceFinder
 import org.eclipse.emf.ecore.util.EcoreUtil
-import org.osate.reqspec.reqSpec.SystemRequirements
 import org.osate.reqspec.reqSpec.Goal
 import org.eclipse.emf.ecore.EObject
 import org.eclipse.xtext.xbase.XVariableDeclaration
 import org.eclipse.emf.common.util.BasicEList
+import org.eclipse.xtext.scoping.IGlobalScopeProvider
 
 /**
  * This class contains custom scoping description.
@@ -87,7 +88,7 @@ class ReqSpecScopeProvider extends AlisaAbstractDeclarativeScopeProvider {
 		
 	def IScope scopeForGlobalVal(EObject context,IScope parentScope){
 		var result = parentScope
-		val projectconstants = refFinder.getAllProjectConstants(context)
+		val projectconstants = getImportedGlobals(context) //refFinder.getAllGlobalConstants(context)
 		var Iterable<XVariableDeclaration> constants = new BasicEList
 		for (pc : projectconstants) {
 			constants = constants +  pc.constants
@@ -98,14 +99,20 @@ class ReqSpecScopeProvider extends AlisaAbstractDeclarativeScopeProvider {
 					QualifiedName::wrapper(SimpleAttributeResolver::NAME_RESOLVER)), true)
 		}
 		return result
-		
 	}
 	
+	def getImportedGlobals(EObject context){
+		val sr = containingSystemRequirements(context)
+		val sg =containingStakeholderGoals(context)
+		val res = sr?.importConstants?:sg?.importConstants
+		res
+	}
 
 	// TODO: probably want validation to take care of Refining itself. Need to take care of inheritance
 	def scope_Requirement_refinesReference(Requirement context, EReference reference) {
 //		println("scope_Requirement_RefinesReference: " + context.toString)
-		var result = IScope.NULLSCOPE
+// use delegate to get other scopes including the global scope
+		var result = delegateGetScope(context,reference)//IScope.NULLSCOPE
 
 		// TODO: when target is all
 		val targetComponentClassifier = containingSystemRequirements(context).target

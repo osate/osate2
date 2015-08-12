@@ -41,13 +41,13 @@ public interface ReqSpecFactory extends EFactory
   ReqSpecContainer createReqSpecContainer();
 
   /**
-   * Returns a new object of class '<em>Project Constants</em>'.
+   * Returns a new object of class '<em>Global Constants</em>'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @return a new object of class '<em>Project Constants</em>'.
+   * @return a new object of class '<em>Global Constants</em>'.
    * @generated
    */
-  ProjectConstants createProjectConstants();
+  GlobalConstants createGlobalConstants();
 
   /**
    * Returns a new object of class '<em>Contractual Element</em>'.

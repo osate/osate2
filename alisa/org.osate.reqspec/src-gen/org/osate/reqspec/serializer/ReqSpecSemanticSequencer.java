@@ -73,9 +73,9 @@ import org.osate.alisa.common.common.XNumberLiteralUnit;
 import org.osate.alisa.common.serializer.CommonSemanticSequencer;
 import org.osate.reqspec.reqSpec.DocumentSection;
 import org.osate.reqspec.reqSpec.ExternalDocument;
+import org.osate.reqspec.reqSpec.GlobalConstants;
 import org.osate.reqspec.reqSpec.Goal;
 import org.osate.reqspec.reqSpec.InformalPredicate;
-import org.osate.reqspec.reqSpec.ProjectConstants;
 import org.osate.reqspec.reqSpec.ReqDocument;
 import org.osate.reqspec.reqSpec.ReqSpec;
 import org.osate.reqspec.reqSpec.ReqSpecPackage;
@@ -133,6 +133,9 @@ public class ReqSpecSemanticSequencer extends CommonSemanticSequencer {
 			case ReqSpecPackage.EXTERNAL_DOCUMENT:
 				sequence_ExternalDocument(context, (ExternalDocument) semanticObject); 
 				return; 
+			case ReqSpecPackage.GLOBAL_CONSTANTS:
+				sequence_GlobalConstants(context, (GlobalConstants) semanticObject); 
+				return; 
 			case ReqSpecPackage.GOAL:
 				if(context == grammarAccess.getContractualElementRule()) {
 					sequence_ContractualElement_DocGoal_Goal(context, (Goal) semanticObject); 
@@ -149,9 +152,6 @@ public class ReqSpecSemanticSequencer extends CommonSemanticSequencer {
 				else break;
 			case ReqSpecPackage.INFORMAL_PREDICATE:
 				sequence_InformalPredicate(context, (InformalPredicate) semanticObject); 
-				return; 
-			case ReqSpecPackage.PROJECT_CONSTANTS:
-				sequence_ProjectConstants(context, (ProjectConstants) semanticObject); 
 				return; 
 			case ReqSpecPackage.REQ_DOCUMENT:
 				sequence_ReqDocument(context, (ReqDocument) semanticObject); 
@@ -588,6 +588,15 @@ public class ReqSpecSemanticSequencer extends CommonSemanticSequencer {
 	
 	/**
 	 * Constraint:
+	 *     (name=QualifiedName constants+=XValDeclaration*)
+	 */
+	protected void sequence_GlobalConstants(EObject context, GlobalConstants semanticObject) {
+		genericSequencer.createSequence(context, semanticObject);
+	}
+	
+	
+	/**
+	 * Constraint:
 	 *     (
 	 *         name=ID 
 	 *         title=STRING? 
@@ -630,15 +639,6 @@ public class ReqSpecSemanticSequencer extends CommonSemanticSequencer {
 	
 	/**
 	 * Constraint:
-	 *     (name=QualifiedName constants+=XValDeclaration*)
-	 */
-	protected void sequence_ProjectConstants(EObject context, ProjectConstants semanticObject) {
-		genericSequencer.createSequence(context, semanticObject);
-	}
-	
-	
-	/**
-	 * Constraint:
 	 *     (
 	 *         name=QualifiedName 
 	 *         title=STRING? 
@@ -654,7 +654,7 @@ public class ReqSpecSemanticSequencer extends CommonSemanticSequencer {
 	
 	/**
 	 * Constraint:
-	 *     (parts+=SystemRequirements | parts+=StakeholderGoals | parts+=ReqDocument | parts+=ProjectConstants)+
+	 *     (parts+=SystemRequirements | parts+=StakeholderGoals | parts+=ReqDocument | parts+=GlobalConstants)+
 	 */
 	protected void sequence_ReqSpec(EObject context, ReqSpec semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
@@ -697,6 +697,7 @@ public class ReqSpecSemanticSequencer extends CommonSemanticSequencer {
 	 *         name=QualifiedName 
 	 *         title=STRING? 
 	 *         (target=[ComponentClassifier|AadlClassifierReference] | global?='all') 
+	 *         importConstants+=[GlobalConstants|QualifiedName]* 
 	 *         description=Description? 
 	 *         constants+=XValDeclaration* 
 	 *         content+=Goal* 
@@ -715,6 +716,7 @@ public class ReqSpecSemanticSequencer extends CommonSemanticSequencer {
 	 *         name=QualifiedName 
 	 *         title=STRING? 
 	 *         (target=[ComponentClassifier|AadlClassifierReference] | global?='all') 
+	 *         importConstants+=[GlobalConstants|QualifiedName]* 
 	 *         description=Description? 
 	 *         constants+=XValDeclaration* 
 	 *         computes+=ComputeDeclaration* 

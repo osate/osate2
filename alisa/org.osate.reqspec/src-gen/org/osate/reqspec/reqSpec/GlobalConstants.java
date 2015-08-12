@@ -10,22 +10,22 @@ import org.eclipse.xtext.xbase.XVariableDeclaration;
 
 /**
  * <!-- begin-user-doc -->
- * A representation of the model object '<em><b>Project Constants</b></em>'.
+ * A representation of the model object '<em><b>Global Constants</b></em>'.
  * <!-- end-user-doc -->
  *
  * <p>
  * The following features are supported:
  * <ul>
- *   <li>{@link org.osate.reqspec.reqSpec.ProjectConstants#getName <em>Name</em>}</li>
- *   <li>{@link org.osate.reqspec.reqSpec.ProjectConstants#getConstants <em>Constants</em>}</li>
+ *   <li>{@link org.osate.reqspec.reqSpec.GlobalConstants#getName <em>Name</em>}</li>
+ *   <li>{@link org.osate.reqspec.reqSpec.GlobalConstants#getConstants <em>Constants</em>}</li>
  * </ul>
  * </p>
  *
- * @see org.osate.reqspec.reqSpec.ReqSpecPackage#getProjectConstants()
+ * @see org.osate.reqspec.reqSpec.ReqSpecPackage#getGlobalConstants()
  * @model
  * @generated
  */
-public interface ProjectConstants extends EObject
+public interface GlobalConstants extends EObject
 {
   /**
    * Returns the value of the '<em><b>Name</b></em>' attribute.
@@ -37,14 +37,14 @@ public interface ProjectConstants extends EObject
    * <!-- end-user-doc -->
    * @return the value of the '<em>Name</em>' attribute.
    * @see #setName(String)
-   * @see org.osate.reqspec.reqSpec.ReqSpecPackage#getProjectConstants_Name()
+   * @see org.osate.reqspec.reqSpec.ReqSpecPackage#getGlobalConstants_Name()
    * @model
    * @generated
    */
   String getName();
 
   /**
-   * Sets the value of the '{@link org.osate.reqspec.reqSpec.ProjectConstants#getName <em>Name</em>}' attribute.
+   * Sets the value of the '{@link org.osate.reqspec.reqSpec.GlobalConstants#getName <em>Name</em>}' attribute.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @param value the new value of the '<em>Name</em>' attribute.
@@ -63,10 +63,10 @@ public interface ProjectConstants extends EObject
    * </p>
    * <!-- end-user-doc -->
    * @return the value of the '<em>Constants</em>' containment reference list.
-   * @see org.osate.reqspec.reqSpec.ReqSpecPackage#getProjectConstants_Constants()
+   * @see org.osate.reqspec.reqSpec.ReqSpecPackage#getGlobalConstants_Constants()
    * @model containment="true"
    * @generated
    */
   EList<XVariableDeclaration> getConstants();
 
-} // ProjectConstants
+} // GlobalConstants

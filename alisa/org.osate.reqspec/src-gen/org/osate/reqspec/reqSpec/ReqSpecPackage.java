@@ -104,14 +104,14 @@ public interface ReqSpecPackage extends EPackage
   int REQ_SPEC_CONTAINER_FEATURE_COUNT = 0;
 
   /**
-   * The meta object id for the '{@link org.osate.reqspec.reqSpec.impl.ProjectConstantsImpl <em>Project Constants</em>}' class.
+   * The meta object id for the '{@link org.osate.reqspec.reqSpec.impl.GlobalConstantsImpl <em>Global Constants</em>}' class.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @see org.osate.reqspec.reqSpec.impl.ProjectConstantsImpl
-   * @see org.osate.reqspec.reqSpec.impl.ReqSpecPackageImpl#getProjectConstants()
+   * @see org.osate.reqspec.reqSpec.impl.GlobalConstantsImpl
+   * @see org.osate.reqspec.reqSpec.impl.ReqSpecPackageImpl#getGlobalConstants()
    * @generated
    */
-  int PROJECT_CONSTANTS = 2;
+  int GLOBAL_CONSTANTS = 2;
 
   /**
    * The feature id for the '<em><b>Name</b></em>' attribute.
@@ -120,7 +120,7 @@ public interface ReqSpecPackage extends EPackage
    * @generated
    * @ordered
    */
-  int PROJECT_CONSTANTS__NAME = 0;
+  int GLOBAL_CONSTANTS__NAME = 0;
 
   /**
    * The feature id for the '<em><b>Constants</b></em>' containment reference list.
@@ -129,16 +129,16 @@ public interface ReqSpecPackage extends EPackage
    * @generated
    * @ordered
    */
-  int PROJECT_CONSTANTS__CONSTANTS = 1;
+  int GLOBAL_CONSTANTS__CONSTANTS = 1;
 
   /**
-   * The number of structural features of the '<em>Project Constants</em>' class.
+   * The number of structural features of the '<em>Global Constants</em>' class.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    * @ordered
    */
-  int PROJECT_CONSTANTS_FEATURE_COUNT = 2;
+  int GLOBAL_CONSTANTS_FEATURE_COUNT = 2;
 
   /**
    * The meta object id for the '{@link org.osate.reqspec.reqSpec.impl.ContractualElementImpl <em>Contractual Element</em>}' class.
@@ -369,13 +369,22 @@ public interface ReqSpecPackage extends EPackage
   int STAKEHOLDER_GOALS__GLOBAL = REQ_SPEC_CONTAINER_FEATURE_COUNT + 3;
 
   /**
+   * The feature id for the '<em><b>Import Constants</b></em>' reference list.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int STAKEHOLDER_GOALS__IMPORT_CONSTANTS = REQ_SPEC_CONTAINER_FEATURE_COUNT + 4;
+
+  /**
    * The feature id for the '<em><b>Description</b></em>' containment reference.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    * @ordered
    */
-  int STAKEHOLDER_GOALS__DESCRIPTION = REQ_SPEC_CONTAINER_FEATURE_COUNT + 4;
+  int STAKEHOLDER_GOALS__DESCRIPTION = REQ_SPEC_CONTAINER_FEATURE_COUNT + 5;
 
   /**
    * The feature id for the '<em><b>Constants</b></em>' containment reference list.
@@ -384,7 +393,7 @@ public interface ReqSpecPackage extends EPackage
    * @generated
    * @ordered
    */
-  int STAKEHOLDER_GOALS__CONSTANTS = REQ_SPEC_CONTAINER_FEATURE_COUNT + 5;
+  int STAKEHOLDER_GOALS__CONSTANTS = REQ_SPEC_CONTAINER_FEATURE_COUNT + 6;
 
   /**
    * The feature id for the '<em><b>Content</b></em>' containment reference list.
@@ -393,7 +402,7 @@ public interface ReqSpecPackage extends EPackage
    * @generated
    * @ordered
    */
-  int STAKEHOLDER_GOALS__CONTENT = REQ_SPEC_CONTAINER_FEATURE_COUNT + 6;
+  int STAKEHOLDER_GOALS__CONTENT = REQ_SPEC_CONTAINER_FEATURE_COUNT + 7;
 
   /**
    * The feature id for the '<em><b>Doc Reference</b></em>' containment reference list.
@@ -402,7 +411,7 @@ public interface ReqSpecPackage extends EPackage
    * @generated
    * @ordered
    */
-  int STAKEHOLDER_GOALS__DOC_REFERENCE = REQ_SPEC_CONTAINER_FEATURE_COUNT + 7;
+  int STAKEHOLDER_GOALS__DOC_REFERENCE = REQ_SPEC_CONTAINER_FEATURE_COUNT + 8;
 
   /**
    * The feature id for the '<em><b>Issues</b></em>' attribute list.
@@ -411,7 +420,7 @@ public interface ReqSpecPackage extends EPackage
    * @generated
    * @ordered
    */
-  int STAKEHOLDER_GOALS__ISSUES = REQ_SPEC_CONTAINER_FEATURE_COUNT + 8;
+  int STAKEHOLDER_GOALS__ISSUES = REQ_SPEC_CONTAINER_FEATURE_COUNT + 9;
 
   /**
    * The number of structural features of the '<em>Stakeholder Goals</em>' class.
@@ -420,7 +429,7 @@ public interface ReqSpecPackage extends EPackage
    * @generated
    * @ordered
    */
-  int STAKEHOLDER_GOALS_FEATURE_COUNT = REQ_SPEC_CONTAINER_FEATURE_COUNT + 9;
+  int STAKEHOLDER_GOALS_FEATURE_COUNT = REQ_SPEC_CONTAINER_FEATURE_COUNT + 10;
 
   /**
    * The meta object id for the '{@link org.osate.reqspec.reqSpec.impl.ReqDocumentImpl <em>Req Document</em>}' class.
@@ -588,13 +597,22 @@ public interface ReqSpecPackage extends EPackage
   int SYSTEM_REQUIREMENTS__GLOBAL = REQ_SPEC_CONTAINER_FEATURE_COUNT + 3;
 
   /**
+   * The feature id for the '<em><b>Import Constants</b></em>' reference list.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int SYSTEM_REQUIREMENTS__IMPORT_CONSTANTS = REQ_SPEC_CONTAINER_FEATURE_COUNT + 4;
+
+  /**
    * The feature id for the '<em><b>Description</b></em>' containment reference.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    * @ordered
    */
-  int SYSTEM_REQUIREMENTS__DESCRIPTION = REQ_SPEC_CONTAINER_FEATURE_COUNT + 4;
+  int SYSTEM_REQUIREMENTS__DESCRIPTION = REQ_SPEC_CONTAINER_FEATURE_COUNT + 5;
 
   /**
    * The feature id for the '<em><b>Constants</b></em>' containment reference list.
@@ -603,7 +621,7 @@ public interface ReqSpecPackage extends EPackage
    * @generated
    * @ordered
    */
-  int SYSTEM_REQUIREMENTS__CONSTANTS = REQ_SPEC_CONTAINER_FEATURE_COUNT + 5;
+  int SYSTEM_REQUIREMENTS__CONSTANTS = REQ_SPEC_CONTAINER_FEATURE_COUNT + 6;
 
   /**
    * The feature id for the '<em><b>Computes</b></em>' containment reference list.
@@ -612,7 +630,7 @@ public interface ReqSpecPackage extends EPackage
    * @generated
    * @ordered
    */
-  int SYSTEM_REQUIREMENTS__COMPUTES = REQ_SPEC_CONTAINER_FEATURE_COUNT + 6;
+  int SYSTEM_REQUIREMENTS__COMPUTES = REQ_SPEC_CONTAINER_FEATURE_COUNT + 7;
 
   /**
    * The feature id for the '<em><b>Content</b></em>' containment reference list.
@@ -621,7 +639,7 @@ public interface ReqSpecPackage extends EPackage
    * @generated
    * @ordered
    */
-  int SYSTEM_REQUIREMENTS__CONTENT = REQ_SPEC_CONTAINER_FEATURE_COUNT + 7;
+  int SYSTEM_REQUIREMENTS__CONTENT = REQ_SPEC_CONTAINER_FEATURE_COUNT + 8;
 
   /**
    * The feature id for the '<em><b>Doc Reference</b></em>' containment reference list.
@@ -630,7 +648,7 @@ public interface ReqSpecPackage extends EPackage
    * @generated
    * @ordered
    */
-  int SYSTEM_REQUIREMENTS__DOC_REFERENCE = REQ_SPEC_CONTAINER_FEATURE_COUNT + 8;
+  int SYSTEM_REQUIREMENTS__DOC_REFERENCE = REQ_SPEC_CONTAINER_FEATURE_COUNT + 9;
 
   /**
    * The feature id for the '<em><b>Issues</b></em>' attribute list.
@@ -639,7 +657,7 @@ public interface ReqSpecPackage extends EPackage
    * @generated
    * @ordered
    */
-  int SYSTEM_REQUIREMENTS__ISSUES = REQ_SPEC_CONTAINER_FEATURE_COUNT + 9;
+  int SYSTEM_REQUIREMENTS__ISSUES = REQ_SPEC_CONTAINER_FEATURE_COUNT + 10;
 
   /**
    * The number of structural features of the '<em>System Requirements</em>' class.
@@ -648,7 +666,7 @@ public interface ReqSpecPackage extends EPackage
    * @generated
    * @ordered
    */
-  int SYSTEM_REQUIREMENTS_FEATURE_COUNT = REQ_SPEC_CONTAINER_FEATURE_COUNT + 10;
+  int SYSTEM_REQUIREMENTS_FEATURE_COUNT = REQ_SPEC_CONTAINER_FEATURE_COUNT + 11;
 
   /**
    * The meta object id for the '{@link org.osate.reqspec.reqSpec.impl.GoalImpl <em>Goal</em>}' class.
@@ -1248,36 +1266,36 @@ public interface ReqSpecPackage extends EPackage
   EClass getReqSpecContainer();
 
   /**
-   * Returns the meta object for class '{@link org.osate.reqspec.reqSpec.ProjectConstants <em>Project Constants</em>}'.
+   * Returns the meta object for class '{@link org.osate.reqspec.reqSpec.GlobalConstants <em>Global Constants</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @return the meta object for class '<em>Project Constants</em>'.
-   * @see org.osate.reqspec.reqSpec.ProjectConstants
+   * @return the meta object for class '<em>Global Constants</em>'.
+   * @see org.osate.reqspec.reqSpec.GlobalConstants
    * @generated
    */
-  EClass getProjectConstants();
+  EClass getGlobalConstants();
 
   /**
-   * Returns the meta object for the attribute '{@link org.osate.reqspec.reqSpec.ProjectConstants#getName <em>Name</em>}'.
+   * Returns the meta object for the attribute '{@link org.osate.reqspec.reqSpec.GlobalConstants#getName <em>Name</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @return the meta object for the attribute '<em>Name</em>'.
-   * @see org.osate.reqspec.reqSpec.ProjectConstants#getName()
-   * @see #getProjectConstants()
+   * @see org.osate.reqspec.reqSpec.GlobalConstants#getName()
+   * @see #getGlobalConstants()
    * @generated
    */
-  EAttribute getProjectConstants_Name();
+  EAttribute getGlobalConstants_Name();
 
   /**
-   * Returns the meta object for the containment reference list '{@link org.osate.reqspec.reqSpec.ProjectConstants#getConstants <em>Constants</em>}'.
+   * Returns the meta object for the containment reference list '{@link org.osate.reqspec.reqSpec.GlobalConstants#getConstants <em>Constants</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @return the meta object for the containment reference list '<em>Constants</em>'.
-   * @see org.osate.reqspec.reqSpec.ProjectConstants#getConstants()
-   * @see #getProjectConstants()
+   * @see org.osate.reqspec.reqSpec.GlobalConstants#getConstants()
+   * @see #getGlobalConstants()
    * @generated
    */
-  EReference getProjectConstants_Constants();
+  EReference getGlobalConstants_Constants();
 
   /**
    * Returns the meta object for class '{@link org.osate.reqspec.reqSpec.ContractualElement <em>Contractual Element</em>}'.
@@ -1530,6 +1548,17 @@ public interface ReqSpecPackage extends EPackage
   EAttribute getStakeholderGoals_Global();
 
   /**
+   * Returns the meta object for the reference list '{@link org.osate.reqspec.reqSpec.StakeholderGoals#getImportConstants <em>Import Constants</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the reference list '<em>Import Constants</em>'.
+   * @see org.osate.reqspec.reqSpec.StakeholderGoals#getImportConstants()
+   * @see #getStakeholderGoals()
+   * @generated
+   */
+  EReference getStakeholderGoals_ImportConstants();
+
+  /**
    * Returns the meta object for the containment reference '{@link org.osate.reqspec.reqSpec.StakeholderGoals#getDescription <em>Description</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -1756,6 +1785,17 @@ public interface ReqSpecPackage extends EPackage
    * @generated
    */
   EAttribute getSystemRequirements_Global();
+
+  /**
+   * Returns the meta object for the reference list '{@link org.osate.reqspec.reqSpec.SystemRequirements#getImportConstants <em>Import Constants</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the reference list '<em>Import Constants</em>'.
+   * @see org.osate.reqspec.reqSpec.SystemRequirements#getImportConstants()
+   * @see #getSystemRequirements()
+   * @generated
+   */
+  EReference getSystemRequirements_ImportConstants();
 
   /**
    * Returns the meta object for the containment reference '{@link org.osate.reqspec.reqSpec.SystemRequirements#getDescription <em>Description</em>}'.
@@ -2121,14 +2161,14 @@ public interface ReqSpecPackage extends EPackage
     EClass REQ_SPEC_CONTAINER = eINSTANCE.getReqSpecContainer();
 
     /**
-     * The meta object literal for the '{@link org.osate.reqspec.reqSpec.impl.ProjectConstantsImpl <em>Project Constants</em>}' class.
+     * The meta object literal for the '{@link org.osate.reqspec.reqSpec.impl.GlobalConstantsImpl <em>Global Constants</em>}' class.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @see org.osate.reqspec.reqSpec.impl.ProjectConstantsImpl
-     * @see org.osate.reqspec.reqSpec.impl.ReqSpecPackageImpl#getProjectConstants()
+     * @see org.osate.reqspec.reqSpec.impl.GlobalConstantsImpl
+     * @see org.osate.reqspec.reqSpec.impl.ReqSpecPackageImpl#getGlobalConstants()
      * @generated
      */
-    EClass PROJECT_CONSTANTS = eINSTANCE.getProjectConstants();
+    EClass GLOBAL_CONSTANTS = eINSTANCE.getGlobalConstants();
 
     /**
      * The meta object literal for the '<em><b>Name</b></em>' attribute feature.
@@ -2136,7 +2176,7 @@ public interface ReqSpecPackage extends EPackage
      * <!-- end-user-doc -->
      * @generated
      */
-    EAttribute PROJECT_CONSTANTS__NAME = eINSTANCE.getProjectConstants_Name();
+    EAttribute GLOBAL_CONSTANTS__NAME = eINSTANCE.getGlobalConstants_Name();
 
     /**
      * The meta object literal for the '<em><b>Constants</b></em>' containment reference list feature.
@@ -2144,7 +2184,7 @@ public interface ReqSpecPackage extends EPackage
      * <!-- end-user-doc -->
      * @generated
      */
-    EReference PROJECT_CONSTANTS__CONSTANTS = eINSTANCE.getProjectConstants_Constants();
+    EReference GLOBAL_CONSTANTS__CONSTANTS = eINSTANCE.getGlobalConstants_Constants();
 
     /**
      * The meta object literal for the '{@link org.osate.reqspec.reqSpec.impl.ContractualElementImpl <em>Contractual Element</em>}' class.
@@ -2337,6 +2377,14 @@ public interface ReqSpecPackage extends EPackage
     EAttribute STAKEHOLDER_GOALS__GLOBAL = eINSTANCE.getStakeholderGoals_Global();
 
     /**
+     * The meta object literal for the '<em><b>Import Constants</b></em>' reference list feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EReference STAKEHOLDER_GOALS__IMPORT_CONSTANTS = eINSTANCE.getStakeholderGoals_ImportConstants();
+
+    /**
      * The meta object literal for the '<em><b>Description</b></em>' containment reference feature.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
@@ -2509,6 +2557,14 @@ public interface ReqSpecPackage extends EPackage
      * @generated
      */
     EAttribute SYSTEM_REQUIREMENTS__GLOBAL = eINSTANCE.getSystemRequirements_Global();
+
+    /**
+     * The meta object literal for the '<em><b>Import Constants</b></em>' reference list feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EReference SYSTEM_REQUIREMENTS__IMPORT_CONSTANTS = eINSTANCE.getSystemRequirements_ImportConstants();
 
     /**
      * The meta object literal for the '<em><b>Description</b></em>' containment reference feature.

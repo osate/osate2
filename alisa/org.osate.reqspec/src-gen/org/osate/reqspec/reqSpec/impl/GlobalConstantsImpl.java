@@ -20,24 +20,24 @@ import org.eclipse.emf.ecore.util.InternalEList;
 
 import org.eclipse.xtext.xbase.XVariableDeclaration;
 
-import org.osate.reqspec.reqSpec.ProjectConstants;
+import org.osate.reqspec.reqSpec.GlobalConstants;
 import org.osate.reqspec.reqSpec.ReqSpecPackage;
 
 /**
  * <!-- begin-user-doc -->
- * An implementation of the model object '<em><b>Project Constants</b></em>'.
+ * An implementation of the model object '<em><b>Global Constants</b></em>'.
  * <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
  * <ul>
- *   <li>{@link org.osate.reqspec.reqSpec.impl.ProjectConstantsImpl#getName <em>Name</em>}</li>
- *   <li>{@link org.osate.reqspec.reqSpec.impl.ProjectConstantsImpl#getConstants <em>Constants</em>}</li>
+ *   <li>{@link org.osate.reqspec.reqSpec.impl.GlobalConstantsImpl#getName <em>Name</em>}</li>
+ *   <li>{@link org.osate.reqspec.reqSpec.impl.GlobalConstantsImpl#getConstants <em>Constants</em>}</li>
  * </ul>
  * </p>
  *
  * @generated
  */
-public class ProjectConstantsImpl extends MinimalEObjectImpl.Container implements ProjectConstants
+public class GlobalConstantsImpl extends MinimalEObjectImpl.Container implements GlobalConstants
 {
   /**
    * The default value of the '{@link #getName() <em>Name</em>}' attribute.
@@ -74,7 +74,7 @@ public class ProjectConstantsImpl extends MinimalEObjectImpl.Container implement
    * <!-- end-user-doc -->
    * @generated
    */
-  protected ProjectConstantsImpl()
+  protected GlobalConstantsImpl()
   {
     super();
   }
@@ -87,7 +87,7 @@ public class ProjectConstantsImpl extends MinimalEObjectImpl.Container implement
   @Override
   protected EClass eStaticClass()
   {
-    return ReqSpecPackage.Literals.PROJECT_CONSTANTS;
+    return ReqSpecPackage.Literals.GLOBAL_CONSTANTS;
   }
 
   /**
@@ -110,7 +110,7 @@ public class ProjectConstantsImpl extends MinimalEObjectImpl.Container implement
     String oldName = name;
     name = newName;
     if (eNotificationRequired())
-      eNotify(new ENotificationImpl(this, Notification.SET, ReqSpecPackage.PROJECT_CONSTANTS__NAME, oldName, name));
+      eNotify(new ENotificationImpl(this, Notification.SET, ReqSpecPackage.GLOBAL_CONSTANTS__NAME, oldName, name));
   }
 
   /**
@@ -122,7 +122,7 @@ public class ProjectConstantsImpl extends MinimalEObjectImpl.Container implement
   {
     if (constants == null)
     {
-      constants = new EObjectContainmentEList<XVariableDeclaration>(XVariableDeclaration.class, this, ReqSpecPackage.PROJECT_CONSTANTS__CONSTANTS);
+      constants = new EObjectContainmentEList<XVariableDeclaration>(XVariableDeclaration.class, this, ReqSpecPackage.GLOBAL_CONSTANTS__CONSTANTS);
     }
     return constants;
   }
@@ -137,7 +137,7 @@ public class ProjectConstantsImpl extends MinimalEObjectImpl.Container implement
   {
     switch (featureID)
     {
-      case ReqSpecPackage.PROJECT_CONSTANTS__CONSTANTS:
+      case ReqSpecPackage.GLOBAL_CONSTANTS__CONSTANTS:
         return ((InternalEList<?>)getConstants()).basicRemove(otherEnd, msgs);
     }
     return super.eInverseRemove(otherEnd, featureID, msgs);
@@ -153,9 +153,9 @@ public class ProjectConstantsImpl extends MinimalEObjectImpl.Container implement
   {
     switch (featureID)
     {
-      case ReqSpecPackage.PROJECT_CONSTANTS__NAME:
+      case ReqSpecPackage.GLOBAL_CONSTANTS__NAME:
         return getName();
-      case ReqSpecPackage.PROJECT_CONSTANTS__CONSTANTS:
+      case ReqSpecPackage.GLOBAL_CONSTANTS__CONSTANTS:
         return getConstants();
     }
     return super.eGet(featureID, resolve, coreType);
@@ -172,10 +172,10 @@ public class ProjectConstantsImpl extends MinimalEObjectImpl.Container implement
   {
     switch (featureID)
     {
-      case ReqSpecPackage.PROJECT_CONSTANTS__NAME:
+      case ReqSpecPackage.GLOBAL_CONSTANTS__NAME:
         setName((String)newValue);
         return;
-      case ReqSpecPackage.PROJECT_CONSTANTS__CONSTANTS:
+      case ReqSpecPackage.GLOBAL_CONSTANTS__CONSTANTS:
         getConstants().clear();
         getConstants().addAll((Collection<? extends XVariableDeclaration>)newValue);
         return;
@@ -193,10 +193,10 @@ public class ProjectConstantsImpl extends MinimalEObjectImpl.Container implement
   {
     switch (featureID)
     {
-      case ReqSpecPackage.PROJECT_CONSTANTS__NAME:
+      case ReqSpecPackage.GLOBAL_CONSTANTS__NAME:
         setName(NAME_EDEFAULT);
         return;
-      case ReqSpecPackage.PROJECT_CONSTANTS__CONSTANTS:
+      case ReqSpecPackage.GLOBAL_CONSTANTS__CONSTANTS:
         getConstants().clear();
         return;
     }
@@ -213,9 +213,9 @@ public class ProjectConstantsImpl extends MinimalEObjectImpl.Container implement
   {
     switch (featureID)
     {
-      case ReqSpecPackage.PROJECT_CONSTANTS__NAME:
+      case ReqSpecPackage.GLOBAL_CONSTANTS__NAME:
         return NAME_EDEFAULT == null ? name != null : !NAME_EDEFAULT.equals(name);
-      case ReqSpecPackage.PROJECT_CONSTANTS__CONSTANTS:
+      case ReqSpecPackage.GLOBAL_CONSTANTS__CONSTANTS:
         return constants != null && !constants.isEmpty();
     }
     return super.eIsSet(featureID);
@@ -238,4 +238,4 @@ public class ProjectConstantsImpl extends MinimalEObjectImpl.Container implement
     return result.toString();
   }
 
-} //ProjectConstantsImpl
+} //GlobalConstantsImpl

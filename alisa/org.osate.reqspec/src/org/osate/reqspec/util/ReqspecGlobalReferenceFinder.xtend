@@ -9,7 +9,7 @@ import org.osate.reqspec.reqSpec.ReqSpecPackage
 import org.osate.reqspec.reqSpec.Requirement
 import org.osate.reqspec.reqSpec.SystemRequirements
 import org.eclipse.emf.ecore.EObject
-import org.osate.reqspec.reqSpec.ProjectConstants
+import org.osate.reqspec.reqSpec.GlobalConstants
 import org.eclipse.emf.ecore.util.EcoreUtil
 
 @ImplementedBy(ReqspecGlobalReferenceFinder)
@@ -21,7 +21,7 @@ interface IReqspecGlobalReferenceFinder {
 	def Iterable<Requirement> getAllRequirements(ComponentInstance ci);
 	def Iterable<SystemRequirements> getSystemRequirements(ComponentClassifier cc);
 	def Iterable<Requirement> getAllRequirements(ComponentClassifier cc);
-	def Iterable<ProjectConstants> getAllProjectConstants(EObject context);
+	def Iterable<GlobalConstants> getAllGlobalConstants(EObject context);
 }
 
 class ReqspecGlobalReferenceFinder implements IReqspecGlobalReferenceFinder{
@@ -46,10 +46,10 @@ class ReqspecGlobalReferenceFinder implements IReqspecGlobalReferenceFinder{
 			cc.systemRequirements.map[it.content].flatten
 		}
 
-	override Iterable<ProjectConstants> getAllProjectConstants(EObject context){
-		val Iterable<ProjectConstants> result = commonRefFinder.getEObjectDescriptions(
-			context, ReqSpecPackage.Literals.PROJECT_CONSTANTS, "constants").map [ eod |
-			EcoreUtil.resolve(eod.EObjectOrProxy, context) as ProjectConstants]
+	override Iterable<GlobalConstants> getAllGlobalConstants(EObject context){
+		val Iterable<GlobalConstants> result = commonRefFinder.getEObjectDescriptions(
+			context, ReqSpecPackage.Literals.GLOBAL_CONSTANTS, "constants").map [ eod |
+			EcoreUtil.resolve(eod.EObjectOrProxy, context) as GlobalConstants]
 		return result
 	}
 

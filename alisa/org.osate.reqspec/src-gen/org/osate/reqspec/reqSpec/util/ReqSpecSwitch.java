@@ -86,10 +86,10 @@ public class ReqSpecSwitch<T> extends Switch<T>
         if (result == null) result = defaultCase(theEObject);
         return result;
       }
-      case ReqSpecPackage.PROJECT_CONSTANTS:
+      case ReqSpecPackage.GLOBAL_CONSTANTS:
       {
-        ProjectConstants projectConstants = (ProjectConstants)theEObject;
-        T result = caseProjectConstants(projectConstants);
+        GlobalConstants globalConstants = (GlobalConstants)theEObject;
+        T result = caseGlobalConstants(globalConstants);
         if (result == null) result = defaultCase(theEObject);
         return result;
       }
@@ -233,17 +233,17 @@ public class ReqSpecSwitch<T> extends Switch<T>
   }
 
   /**
-   * Returns the result of interpreting the object as an instance of '<em>Project Constants</em>'.
+   * Returns the result of interpreting the object as an instance of '<em>Global Constants</em>'.
    * <!-- begin-user-doc -->
    * This implementation returns null;
    * returning a non-null result will terminate the switch.
    * <!-- end-user-doc -->
    * @param object the target of the switch.
-   * @return the result of interpreting the object as an instance of '<em>Project Constants</em>'.
+   * @return the result of interpreting the object as an instance of '<em>Global Constants</em>'.
    * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
    * @generated
    */
-  public T caseProjectConstants(ProjectConstants object)
+  public T caseGlobalConstants(GlobalConstants object)
   {
     return null;
   }
