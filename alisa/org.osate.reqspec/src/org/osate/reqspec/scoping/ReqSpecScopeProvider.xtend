@@ -27,6 +27,7 @@ import org.osate.reqspec.reqSpec.ReqSpecPackage
 import org.osate.alisa.common.scoping.ICommonGlobalReferenceFinder
 import org.eclipse.emf.ecore.util.EcoreUtil
 import org.osate.reqspec.reqSpec.SystemRequirements
+import org.osate.reqspec.reqSpec.Goal
 
 /**
  * This class contains custom scoping description.
@@ -70,6 +71,10 @@ class ReqSpecScopeProvider extends AlisaAbstractDeclarativeScopeProvider {
 
 	def scope_XVariableDeclaration(Requirement context, EReference reference) {
 		return scopeForValCompute(context, IScope.NULLSCOPE)
+	}
+
+	def scope_XVariableDeclaration(Goal context, EReference reference) {
+		return scopeForVal(context, IScope.NULLSCOPE)
 	}
 
 	// TODO: probably want validation to take care of Refining itself. Need to take care of inheritance
