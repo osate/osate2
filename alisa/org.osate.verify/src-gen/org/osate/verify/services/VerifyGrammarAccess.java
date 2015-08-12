@@ -58,7 +58,7 @@ public class VerifyGrammarAccess extends AbstractGrammarElementFinder {
 		private final Keyword cForKeyword_4 = (Keyword)cGroup.eContents().get(4);
 		private final Assignment cSystemRequirementsAssignment_5 = (Assignment)cGroup.eContents().get(5);
 		private final CrossReference cSystemRequirementsSystemRequirementsCrossReference_5_0 = (CrossReference)cSystemRequirementsAssignment_5.eContents().get(0);
-		private final RuleCall cSystemRequirementsSystemRequirementsIDTerminalRuleCall_5_0_1 = (RuleCall)cSystemRequirementsSystemRequirementsCrossReference_5_0.eContents().get(1);
+		private final RuleCall cSystemRequirementsSystemRequirementsQualifiedNameParserRuleCall_5_0_1 = (RuleCall)cSystemRequirementsSystemRequirementsCrossReference_5_0.eContents().get(1);
 		private final Keyword cLeftSquareBracketKeyword_6 = (Keyword)cGroup.eContents().get(6);
 		private final UnorderedGroup cUnorderedGroup_7 = (UnorderedGroup)cGroup.eContents().get(7);
 		private final Assignment cDescriptionAssignment_7_0 = (Assignment)cUnorderedGroup_7.eContents().get(0);
@@ -76,12 +76,13 @@ public class VerifyGrammarAccess extends AbstractGrammarElementFinder {
 		//// plan for a classifier. Will add import to allow for non-qualified requirement references 
 		//// Also allows for cross checking that we have covered requirements with claims
 		//VerificationPlan:
-		//	"verification" "plan" name=ID (":" title=STRING)? "for" systemRequirements=[ReqSpec::SystemRequirements] "["
-		//	(description=Description? & claim+=Claim* & rationale=Rationale? & ("issues" issues+=STRING+)?) "]";
+		//	"verification" "plan" name=ID (":" title=STRING)? "for"
+		//	systemRequirements=[ReqSpec::SystemRequirements|QualifiedName] "[" (description=Description? & claim+=Claim* &
+		//	rationale=Rationale? & ("issues" issues+=STRING+)?) "]";
 		@Override public ParserRule getRule() { return rule; }
 
-		//"verification" "plan" name=ID (":" title=STRING)? "for" systemRequirements=[ReqSpec::SystemRequirements] "["
-		//(description=Description? & claim+=Claim* & rationale=Rationale? & ("issues" issues+=STRING+)?) "]"
+		//"verification" "plan" name=ID (":" title=STRING)? "for" systemRequirements=[ReqSpec::SystemRequirements|QualifiedName]
+		//"[" (description=Description? & claim+=Claim* & rationale=Rationale? & ("issues" issues+=STRING+)?) "]"
 		public Group getGroup() { return cGroup; }
 
 		//"verification"
@@ -111,14 +112,14 @@ public class VerifyGrammarAccess extends AbstractGrammarElementFinder {
 		//"for"
 		public Keyword getForKeyword_4() { return cForKeyword_4; }
 
-		//systemRequirements=[ReqSpec::SystemRequirements]
+		//systemRequirements=[ReqSpec::SystemRequirements|QualifiedName]
 		public Assignment getSystemRequirementsAssignment_5() { return cSystemRequirementsAssignment_5; }
 
-		//[ReqSpec::SystemRequirements]
+		//[ReqSpec::SystemRequirements|QualifiedName]
 		public CrossReference getSystemRequirementsSystemRequirementsCrossReference_5_0() { return cSystemRequirementsSystemRequirementsCrossReference_5_0; }
 
-		//ID
-		public RuleCall getSystemRequirementsSystemRequirementsIDTerminalRuleCall_5_0_1() { return cSystemRequirementsSystemRequirementsIDTerminalRuleCall_5_0_1; }
+		//QualifiedName
+		public RuleCall getSystemRequirementsSystemRequirementsQualifiedNameParserRuleCall_5_0_1() { return cSystemRequirementsSystemRequirementsQualifiedNameParserRuleCall_5_0_1; }
 
 		//"["
 		public Keyword getLeftSquareBracketKeyword_6() { return cLeftSquareBracketKeyword_6; }
@@ -912,50 +913,6 @@ public class VerifyGrammarAccess extends AbstractGrammarElementFinder {
 		private final RuleCall cMethodsVerificationMethodParserRuleCall_5_1_0 = (RuleCall)cMethodsAssignment_5_1.eContents().get(0);
 		private final Keyword cRightSquareBracketKeyword_6 = (Keyword)cGroup.eContents().get(6);
 		
-		////ConditionalEvidenceExpr returns ArgumentExpr:
-		////	AtomicEvidenceExpr ( => 
-		////		( => ({ConditionalEvidenceExpr.condition=current} 'else' 
-		////			(alternative=ConditionalElseExpr |
-		////				'[' ('fail' ':' fail=ConditionalEvidenceExpr)? ('timeout' ':' timeout=ConditionalEvidenceExpr)? 
-		////				('other' ':' other=ConditionalEvidenceExpr)? 
-		////				 ']'
-		////			)
-		////		))
-		////		|
-		////		(  {ConditionalEvidenceExpr.condition=current} 'then' successor=ConditionalThenExpr
-		////		( => 'else' 
-		////			(alternative=ConditionalElseExpr |
-		////				'[' ('fail' ':' fail=ConditionalEvidenceExpr)? ('timeout' ':' timeout=ConditionalEvidenceExpr)? 
-		////				('other' ':' other=ConditionalEvidenceExpr)? 
-		////				 ']'
-		////			)
-		////		)?) 
-		////	)?
-		////;
-		////
-		////ConditionalThenExpr returns ArgumentExpr:
-		////	AtomicEvidenceExpr ( => (  {ConditionalEvidenceExpr.condition=current} 'then' successor=ConditionalThenExpr
-		////		( => 'else' 
-		////			(alternative=ConditionalElseExpr |
-		////				'[' ('fail' ':' fail=ConditionalEvidenceExpr)? ('timeout' ':' timeout=ConditionalEvidenceExpr)? 
-		////				('other' ':' other=ConditionalEvidenceExpr)? 
-		////				 ']'
-		////			)
-		////		)?) 
-		////	)?
-		////;
-		////
-		////
-		////ConditionalElseExpr returns ArgumentExpr:
-		////	AtomicEvidenceExpr ( =>  (  {ConditionalEvidenceExpr.condition=current} 'else' 
-		////			(alternative=ConditionalElseExpr |
-		////				'[' ('fail' ':' fail=ConditionalEvidenceExpr)? ('timeout' ':' timeout=ConditionalEvidenceExpr)? 
-		////				('other' ':' other=ConditionalEvidenceExpr)? 
-		////				 ']'
-		////			)
-		////		)
-		////	)?
-		////;
 		//VerificationMethodRegistry:
 		//	"verification" "methods" name=ID (":" title=STRING)? "[" (description=Description? methods+=VerificationMethod*) "]";
 		@Override public ParserRule getRule() { return rule; }
@@ -1500,8 +1457,9 @@ public class VerifyGrammarAccess extends AbstractGrammarElementFinder {
 	//// plan for a classifier. Will add import to allow for non-qualified requirement references 
 	//// Also allows for cross checking that we have covered requirements with claims
 	//VerificationPlan:
-	//	"verification" "plan" name=ID (":" title=STRING)? "for" systemRequirements=[ReqSpec::SystemRequirements] "["
-	//	(description=Description? & claim+=Claim* & rationale=Rationale? & ("issues" issues+=STRING+)?) "]";
+	//	"verification" "plan" name=ID (":" title=STRING)? "for"
+	//	systemRequirements=[ReqSpec::SystemRequirements|QualifiedName] "[" (description=Description? & claim+=Claim* &
+	//	rationale=Rationale? & ("issues" issues+=STRING+)?) "]";
 	public VerificationPlanElements getVerificationPlanAccess() {
 		return pVerificationPlan;
 	}
@@ -1621,50 +1579,6 @@ public class VerifyGrammarAccess extends AbstractGrammarElementFinder {
 		return getVAReferenceAccess().getRule();
 	}
 
-	////ConditionalEvidenceExpr returns ArgumentExpr:
-	////	AtomicEvidenceExpr ( => 
-	////		( => ({ConditionalEvidenceExpr.condition=current} 'else' 
-	////			(alternative=ConditionalElseExpr |
-	////				'[' ('fail' ':' fail=ConditionalEvidenceExpr)? ('timeout' ':' timeout=ConditionalEvidenceExpr)? 
-	////				('other' ':' other=ConditionalEvidenceExpr)? 
-	////				 ']'
-	////			)
-	////		))
-	////		|
-	////		(  {ConditionalEvidenceExpr.condition=current} 'then' successor=ConditionalThenExpr
-	////		( => 'else' 
-	////			(alternative=ConditionalElseExpr |
-	////				'[' ('fail' ':' fail=ConditionalEvidenceExpr)? ('timeout' ':' timeout=ConditionalEvidenceExpr)? 
-	////				('other' ':' other=ConditionalEvidenceExpr)? 
-	////				 ']'
-	////			)
-	////		)?) 
-	////	)?
-	////;
-	////
-	////ConditionalThenExpr returns ArgumentExpr:
-	////	AtomicEvidenceExpr ( => (  {ConditionalEvidenceExpr.condition=current} 'then' successor=ConditionalThenExpr
-	////		( => 'else' 
-	////			(alternative=ConditionalElseExpr |
-	////				'[' ('fail' ':' fail=ConditionalEvidenceExpr)? ('timeout' ':' timeout=ConditionalEvidenceExpr)? 
-	////				('other' ':' other=ConditionalEvidenceExpr)? 
-	////				 ']'
-	////			)
-	////		)?) 
-	////	)?
-	////;
-	////
-	////
-	////ConditionalElseExpr returns ArgumentExpr:
-	////	AtomicEvidenceExpr ( =>  (  {ConditionalEvidenceExpr.condition=current} 'else' 
-	////			(alternative=ConditionalElseExpr |
-	////				'[' ('fail' ':' fail=ConditionalEvidenceExpr)? ('timeout' ':' timeout=ConditionalEvidenceExpr)? 
-	////				('other' ':' other=ConditionalEvidenceExpr)? 
-	////				 ']'
-	////			)
-	////		)
-	////	)?
-	////;
 	//VerificationMethodRegistry:
 	//	"verification" "methods" name=ID (":" title=STRING)? "[" (description=Description? methods+=VerificationMethod*) "]";
 	public VerificationMethodRegistryElements getVerificationMethodRegistryAccess() {
