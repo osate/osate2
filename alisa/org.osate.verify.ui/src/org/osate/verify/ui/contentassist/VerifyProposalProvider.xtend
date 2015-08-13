@@ -4,9 +4,25 @@
 package org.osate.verify.ui.contentassist
 
 import org.osate.verify.ui.contentassist.AbstractVerifyProposalProvider
+import org.eclipse.xtext.ui.editor.contentassist.ContentAssistContext
+import org.eclipse.xtext.ui.editor.contentassist.ICompletionProposalAcceptor
+import org.eclipse.xtext.Assignment
+import org.eclipse.emf.ecore.EObject
+import org.eclipse.xtext.CrossReference
+import org.osate.verify.verify.VerificationPlan
+import org.eclipse.emf.ecore.util.EcoreUtil
 
 /**
  * see http://www.eclipse.org/Xtext/documentation.html#contentAssist on how to customize content assistant
  */
 class VerifyProposalProvider extends AbstractVerifyProposalProvider {
+	
+	override void completeClaim_Requirement(EObject model, Assignment assignment, ContentAssistContext context, ICompletionProposalAcceptor acceptor) {
+		//filter scope to only include requirements that exist in system requirement of verification plan
+		val forSystemRequirements = (model.eContainer as VerificationPlan).systemRequirements
+		lookupCrossReference(assignment.getTerminal() as CrossReference, context, acceptor, [
+			val proposedObj =  EcoreUtil.resolve(EObjectOrProxy, model)  //Gets all Requirements from Loose Scope
+			forSystemRequirements.content.contains(proposedObj)
+		]);
+	}
 }
