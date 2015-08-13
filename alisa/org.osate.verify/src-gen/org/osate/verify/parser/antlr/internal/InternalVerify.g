@@ -1892,19 +1892,19 @@ ruleJavaMethod returns [EObject current=null]
     }
 (
 (
-		lv_methodPath_1_0=RULE_STRING
-		{
-			newLeafNode(lv_methodPath_1_0, grammarAccess.getJavaMethodAccess().getMethodPathSTRINGTerminalRuleCall_1_0()); 
-		}
-		{
+		{ 
+	        newCompositeNode(grammarAccess.getJavaMethodAccess().getMethodPathQualifiedNameParserRuleCall_1_0()); 
+	    }
+		lv_methodPath_1_0=ruleQualifiedName		{
 	        if ($current==null) {
-	            $current = createModelElement(grammarAccess.getJavaMethodRule());
+	            $current = createModelElementForParent(grammarAccess.getJavaMethodRule());
 	        }
-       		setWithLastConsumed(
+       		set(
        			$current, 
        			"methodPath",
         		lv_methodPath_1_0, 
-        		"STRING");
+        		"QualifiedName");
+	        afterParserOrEnumRuleCall();
 	    }
 
 )
@@ -1941,19 +1941,19 @@ ruleManualMethod returns [EObject current=null]
     }
 )(
 (
-		lv_dialogID_2_0=RULE_STRING
-		{
-			newLeafNode(lv_dialogID_2_0, grammarAccess.getManualMethodAccess().getDialogIDSTRINGTerminalRuleCall_2_0()); 
-		}
-		{
+		{ 
+	        newCompositeNode(grammarAccess.getManualMethodAccess().getDialogIDQualifiedNameParserRuleCall_2_0()); 
+	    }
+		lv_dialogID_2_0=ruleQualifiedName		{
 	        if ($current==null) {
-	            $current = createModelElement(grammarAccess.getManualMethodRule());
+	            $current = createModelElementForParent(grammarAccess.getManualMethodRule());
 	        }
-       		setWithLastConsumed(
+       		set(
        			$current, 
        			"dialogID",
         		lv_dialogID_2_0, 
-        		"STRING");
+        		"QualifiedName");
+	        afterParserOrEnumRuleCall();
 	    }
 
 )
@@ -1984,9 +1984,9 @@ rulePluginMethod returns [EObject current=null]
     }
 (
 (
-		lv_methodID_1_0=RULE_STRING
+		lv_methodID_1_0=RULE_ID
 		{
-			newLeafNode(lv_methodID_1_0, grammarAccess.getPluginMethodAccess().getMethodIDSTRINGTerminalRuleCall_1_0()); 
+			newLeafNode(lv_methodID_1_0, grammarAccess.getPluginMethodAccess().getMethodIDIDTerminalRuleCall_1_0()); 
 		}
 		{
 	        if ($current==null) {
@@ -1996,7 +1996,7 @@ rulePluginMethod returns [EObject current=null]
        			$current, 
        			"methodID",
         		lv_methodID_1_0, 
-        		"STRING");
+        		"ID");
 	    }
 
 )

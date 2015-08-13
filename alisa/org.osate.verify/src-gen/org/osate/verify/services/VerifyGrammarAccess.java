@@ -1192,23 +1192,23 @@ public class VerifyGrammarAccess extends AbstractGrammarElementFinder {
 		private final Group cGroup = (Group)rule.eContents().get(1);
 		private final Keyword cJavaKeyword_0 = (Keyword)cGroup.eContents().get(0);
 		private final Assignment cMethodPathAssignment_1 = (Assignment)cGroup.eContents().get(1);
-		private final RuleCall cMethodPathSTRINGTerminalRuleCall_1_0 = (RuleCall)cMethodPathAssignment_1.eContents().get(0);
+		private final RuleCall cMethodPathQualifiedNameParserRuleCall_1_0 = (RuleCall)cMethodPathAssignment_1.eContents().get(0);
 		
 		//JavaMethod:
-		//	"java" methodPath=STRING;
+		//	"java" methodPath=QualifiedName;
 		@Override public ParserRule getRule() { return rule; }
 
-		//"java" methodPath=STRING
+		//"java" methodPath=QualifiedName
 		public Group getGroup() { return cGroup; }
 
 		//"java"
 		public Keyword getJavaKeyword_0() { return cJavaKeyword_0; }
 
-		//methodPath=STRING
+		//methodPath=QualifiedName
 		public Assignment getMethodPathAssignment_1() { return cMethodPathAssignment_1; }
 
-		//STRING
-		public RuleCall getMethodPathSTRINGTerminalRuleCall_1_0() { return cMethodPathSTRINGTerminalRuleCall_1_0; }
+		//QualifiedName
+		public RuleCall getMethodPathQualifiedNameParserRuleCall_1_0() { return cMethodPathQualifiedNameParserRuleCall_1_0; }
 	}
 
 	public class ManualMethodElements extends AbstractParserRuleElementFinder {
@@ -1217,13 +1217,13 @@ public class VerifyGrammarAccess extends AbstractGrammarElementFinder {
 		private final Keyword cManualKeyword_0 = (Keyword)cGroup.eContents().get(0);
 		private final Action cManualMethodAction_1 = (Action)cGroup.eContents().get(1);
 		private final Assignment cDialogIDAssignment_2 = (Assignment)cGroup.eContents().get(2);
-		private final RuleCall cDialogIDSTRINGTerminalRuleCall_2_0 = (RuleCall)cDialogIDAssignment_2.eContents().get(0);
+		private final RuleCall cDialogIDQualifiedNameParserRuleCall_2_0 = (RuleCall)cDialogIDAssignment_2.eContents().get(0);
 		
 		//ManualMethod:
-		//	"manual" {ManualMethod} dialogID=STRING;
+		//	"manual" {ManualMethod} dialogID=QualifiedName;
 		@Override public ParserRule getRule() { return rule; }
 
-		//"manual" {ManualMethod} dialogID=STRING
+		//"manual" {ManualMethod} dialogID=QualifiedName
 		public Group getGroup() { return cGroup; }
 
 		//"manual"
@@ -1232,11 +1232,11 @@ public class VerifyGrammarAccess extends AbstractGrammarElementFinder {
 		//{ManualMethod}
 		public Action getManualMethodAction_1() { return cManualMethodAction_1; }
 
-		//dialogID=STRING
+		//dialogID=QualifiedName
 		public Assignment getDialogIDAssignment_2() { return cDialogIDAssignment_2; }
 
-		//STRING
-		public RuleCall getDialogIDSTRINGTerminalRuleCall_2_0() { return cDialogIDSTRINGTerminalRuleCall_2_0; }
+		//QualifiedName
+		public RuleCall getDialogIDQualifiedNameParserRuleCall_2_0() { return cDialogIDQualifiedNameParserRuleCall_2_0; }
 	}
 
 	public class PluginMethodElements extends AbstractParserRuleElementFinder {
@@ -1244,23 +1244,23 @@ public class VerifyGrammarAccess extends AbstractGrammarElementFinder {
 		private final Group cGroup = (Group)rule.eContents().get(1);
 		private final Keyword cPluginKeyword_0 = (Keyword)cGroup.eContents().get(0);
 		private final Assignment cMethodIDAssignment_1 = (Assignment)cGroup.eContents().get(1);
-		private final RuleCall cMethodIDSTRINGTerminalRuleCall_1_0 = (RuleCall)cMethodIDAssignment_1.eContents().get(0);
+		private final RuleCall cMethodIDIDTerminalRuleCall_1_0 = (RuleCall)cMethodIDAssignment_1.eContents().get(0);
 		
 		//PluginMethod:
-		//	"plugin" methodID=STRING;
+		//	"plugin" methodID=ID;
 		@Override public ParserRule getRule() { return rule; }
 
-		//"plugin" methodID=STRING
+		//"plugin" methodID=ID
 		public Group getGroup() { return cGroup; }
 
 		//"plugin"
 		public Keyword getPluginKeyword_0() { return cPluginKeyword_0; }
 
-		//methodID=STRING
+		//methodID=ID
 		public Assignment getMethodIDAssignment_1() { return cMethodIDAssignment_1; }
 
-		//STRING
-		public RuleCall getMethodIDSTRINGTerminalRuleCall_1_0() { return cMethodIDSTRINGTerminalRuleCall_1_0; }
+		//ID
+		public RuleCall getMethodIDIDTerminalRuleCall_1_0() { return cMethodIDIDTerminalRuleCall_1_0; }
 	}
 
 	public class VerificationConditionElements extends AbstractParserRuleElementFinder {
@@ -1702,7 +1702,7 @@ public class VerifyGrammarAccess extends AbstractGrammarElementFinder {
 	}
 
 	//JavaMethod:
-	//	"java" methodPath=STRING;
+	//	"java" methodPath=QualifiedName;
 	public JavaMethodElements getJavaMethodAccess() {
 		return pJavaMethod;
 	}
@@ -1712,7 +1712,7 @@ public class VerifyGrammarAccess extends AbstractGrammarElementFinder {
 	}
 
 	//ManualMethod:
-	//	"manual" {ManualMethod} dialogID=STRING;
+	//	"manual" {ManualMethod} dialogID=QualifiedName;
 	public ManualMethodElements getManualMethodAccess() {
 		return pManualMethod;
 	}
@@ -1722,7 +1722,7 @@ public class VerifyGrammarAccess extends AbstractGrammarElementFinder {
 	}
 
 	//PluginMethod:
-	//	"plugin" methodID=STRING;
+	//	"plugin" methodID=ID;
 	public PluginMethodElements getPluginMethodAccess() {
 		return pPluginMethod;
 	}

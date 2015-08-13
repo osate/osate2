@@ -128,15 +128,15 @@ MethodType:
 	;
 	
 	JavaMethod:
-		'java' methodPath=STRING
+		'java' methodPath=QualifiedName
 	;
 	
 	ManualMethod:
-		'manual' {ManualMethod} dialogID=STRING
+		'manual' {ManualMethod} dialogID=QualifiedName
 	;
 	
 	PluginMethod:
-		'plugin' methodID=STRING
+		'plugin' methodID=ID
 	;
 
 

@@ -27,7 +27,8 @@ class VerificationMethodDispatchers  {
 	 */
 	 def Object dispatchVerificationMethod(PluginMethod vm, InstanceObject target, Object[] parameters) {
 		switch (vm.methodID) {
-			case "flowLatencyAnalysis": {
+			case "FlowLatencyAnalysis": {
+				if (target == null) return true
 				return target?.flowLatencyAnalysis
 			}
 			case "A429Consistency": {
@@ -58,11 +59,11 @@ class VerificationMethodDispatchers  {
 				if (target == null) return true
 				return target.PowerAnalysis
 			}
-			case "ResourceBudget": {
+			case "ResourceBudgets": {
 				if (target == null) return true
 				return target.ResourceBudget
 			}
-			case "Binpack": {
+			case "BinPack": {
 				if (target == null) return true
 				return target.Binpack
 			}

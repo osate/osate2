@@ -455,7 +455,7 @@ public class VerifySemanticSequencer extends CommonSemanticSequencer {
 	
 	/**
 	 * Constraint:
-	 *     methodPath=STRING
+	 *     methodPath=QualifiedName
 	 */
 	protected void sequence_JavaMethod(EObject context, JavaMethod semanticObject) {
 		if(errorAcceptor != null) {
@@ -464,14 +464,14 @@ public class VerifySemanticSequencer extends CommonSemanticSequencer {
 		}
 		INodesForEObjectProvider nodes = createNodeProvider(semanticObject);
 		SequenceFeeder feeder = createSequencerFeeder(semanticObject, nodes);
-		feeder.accept(grammarAccess.getJavaMethodAccess().getMethodPathSTRINGTerminalRuleCall_1_0(), semanticObject.getMethodPath());
+		feeder.accept(grammarAccess.getJavaMethodAccess().getMethodPathQualifiedNameParserRuleCall_1_0(), semanticObject.getMethodPath());
 		feeder.finish();
 	}
 	
 	
 	/**
 	 * Constraint:
-	 *     dialogID=STRING
+	 *     dialogID=QualifiedName
 	 */
 	protected void sequence_ManualMethod(EObject context, ManualMethod semanticObject) {
 		if(errorAcceptor != null) {
@@ -480,14 +480,14 @@ public class VerifySemanticSequencer extends CommonSemanticSequencer {
 		}
 		INodesForEObjectProvider nodes = createNodeProvider(semanticObject);
 		SequenceFeeder feeder = createSequencerFeeder(semanticObject, nodes);
-		feeder.accept(grammarAccess.getManualMethodAccess().getDialogIDSTRINGTerminalRuleCall_2_0(), semanticObject.getDialogID());
+		feeder.accept(grammarAccess.getManualMethodAccess().getDialogIDQualifiedNameParserRuleCall_2_0(), semanticObject.getDialogID());
 		feeder.finish();
 	}
 	
 	
 	/**
 	 * Constraint:
-	 *     methodID=STRING
+	 *     methodID=ID
 	 */
 	protected void sequence_PluginMethod(EObject context, PluginMethod semanticObject) {
 		if(errorAcceptor != null) {
@@ -496,7 +496,7 @@ public class VerifySemanticSequencer extends CommonSemanticSequencer {
 		}
 		INodesForEObjectProvider nodes = createNodeProvider(semanticObject);
 		SequenceFeeder feeder = createSequencerFeeder(semanticObject, nodes);
-		feeder.accept(grammarAccess.getPluginMethodAccess().getMethodIDSTRINGTerminalRuleCall_1_0(), semanticObject.getMethodID());
+		feeder.accept(grammarAccess.getPluginMethodAccess().getMethodIDIDTerminalRuleCall_1_0(), semanticObject.getMethodID());
 		feeder.finish();
 	}
 	

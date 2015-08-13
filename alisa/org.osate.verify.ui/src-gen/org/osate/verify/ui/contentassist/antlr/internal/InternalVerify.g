@@ -25835,8 +25835,8 @@ rule__JavaMethod__MethodPathAssignment_1
     }
 :
 (
-{ before(grammarAccess.getJavaMethodAccess().getMethodPathSTRINGTerminalRuleCall_1_0()); }
-	RULE_STRING{ after(grammarAccess.getJavaMethodAccess().getMethodPathSTRINGTerminalRuleCall_1_0()); }
+{ before(grammarAccess.getJavaMethodAccess().getMethodPathQualifiedNameParserRuleCall_1_0()); }
+	ruleQualifiedName{ after(grammarAccess.getJavaMethodAccess().getMethodPathQualifiedNameParserRuleCall_1_0()); }
 )
 
 ;
@@ -25850,8 +25850,8 @@ rule__ManualMethod__DialogIDAssignment_2
     }
 :
 (
-{ before(grammarAccess.getManualMethodAccess().getDialogIDSTRINGTerminalRuleCall_2_0()); }
-	RULE_STRING{ after(grammarAccess.getManualMethodAccess().getDialogIDSTRINGTerminalRuleCall_2_0()); }
+{ before(grammarAccess.getManualMethodAccess().getDialogIDQualifiedNameParserRuleCall_2_0()); }
+	ruleQualifiedName{ after(grammarAccess.getManualMethodAccess().getDialogIDQualifiedNameParserRuleCall_2_0()); }
 )
 
 ;
@@ -25865,8 +25865,8 @@ rule__PluginMethod__MethodIDAssignment_1
     }
 :
 (
-{ before(grammarAccess.getPluginMethodAccess().getMethodIDSTRINGTerminalRuleCall_1_0()); }
-	RULE_STRING{ after(grammarAccess.getPluginMethodAccess().getMethodIDSTRINGTerminalRuleCall_1_0()); }
+{ before(grammarAccess.getPluginMethodAccess().getMethodIDIDTerminalRuleCall_1_0()); }
+	RULE_ID{ after(grammarAccess.getPluginMethodAccess().getMethodIDIDTerminalRuleCall_1_0()); }
 )
 
 ;

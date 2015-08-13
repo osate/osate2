@@ -46,7 +46,7 @@ class VerifyScopeProvider extends AlisaAbstractDeclarativeScopeProvider {
 	}
 
 	def scope_Claim_requirement(Claim context, EReference reference) {
-		var result = IScope.NULLSCOPE
+		var result = delegateGetScope(context,reference)
 		val forSystemRequirements = containingVerificationPlan(context).systemRequirements
 		if (!forSystemRequirements.content.empty) {
 			result = new SimpleScope(result,
@@ -66,14 +66,14 @@ class VerifyScopeProvider extends AlisaAbstractDeclarativeScopeProvider {
 					QualifiedName::wrapper(SimpleAttributeResolver::NAME_RESOLVER)), true)
 	}
 		@Inject ICommonGlobalReferenceFinder refFinder
-
-		def FunctionDefinition findResoluteFunction(EObject context, String resoluteFunctionName) {
-			val foundlist = refFinder.getEObjectDescriptions(context,
-				ResolutePackage.Literals.FUNCTION_DEFINITION, "aadl").filter[ eod |
-				eod.getName().getLastSegment().equalsIgnoreCase(resoluteFunctionName)
-			]
-			if(foundlist.length == 0) return null
-			return EcoreUtil.resolve(foundlist.head.EObjectOrProxy,context) as FunctionDefinition
-		}
+//
+//		def FunctionDefinition findResoluteFunction(EObject context, String resoluteFunctionName) {
+//			val foundlist = refFinder.getEObjectDescriptions(context,
+//				ResolutePackage.Literals.FUNCTION_DEFINITION, "aadl").filter[ eod |
+//				eod.getName().getLastSegment().equalsIgnoreCase(resoluteFunctionName)
+//			]
+//			if(foundlist.length == 0) return null
+//			return EcoreUtil.resolve(foundlist.head.EObjectOrProxy,context) as FunctionDefinition
+//		}
 
 }
