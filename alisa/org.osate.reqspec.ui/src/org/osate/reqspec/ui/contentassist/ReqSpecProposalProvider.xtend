@@ -3,6 +3,7 @@
  */
 package org.osate.reqspec.ui.contentassist
 
+import com.google.inject.Inject
 import org.osate.reqspec.ui.contentassist.AbstractReqSpecProposalProvider
 import org.eclipse.emf.ecore.EObject
 import org.eclipse.xtext.Assignment
@@ -16,59 +17,81 @@ import org.eclipse.emf.ecore.util.BasicInternalEList
 import org.osate.aadl2.ComponentImplementation
 import org.eclipse.emf.ecore.util.EcoreUtil
 import org.osate.reqspec.reqSpec.StakeholderGoals
+import org.osate.alisa.common.scoping.ICommonGlobalReferenceFinder
+import org.osate.reqspec.reqSpec.ReqSpecPackage
+import org.osate.aadl2.ComponentClassifier
+import org.osate.aadl2.ComponentType
 
 /**
  * see http://www.eclipse.org/Xtext/documentation.html#contentAssist on how to customize content assistant
  */
 class ReqSpecProposalProvider extends AbstractReqSpecProposalProvider {
-	
+	@Inject var ICommonGlobalReferenceFinder commonRefFinder
 
-	override void completeStakeholderGoals_Target(EObject model, Assignment assignment, ContentAssistContext context, ICompletionProposalAcceptor acceptor) {
-		lookupCrossReference(assignment.getTerminal() as CrossReference, context, acceptor,
-			[description | !description.EObjectURI.toString.contains("Plugin_Resources")]
+	override void completeStakeholderGoals_Target(EObject model, Assignment assignment, ContentAssistContext context,
+		ICompletionProposalAcceptor acceptor) {
+		lookupCrossReference(
+			assignment.getTerminal() as CrossReference,
+			context,
+			acceptor,
+			[description|!description.EObjectURI.toString.contains("Plugin_Resources")]
 		);
 	}
-	override void completeSystemRequirements_Target(EObject model, Assignment assignment, ContentAssistContext context, ICompletionProposalAcceptor acceptor) {
-		lookupCrossReference(assignment.getTerminal() as CrossReference, context, acceptor,
-			[description | !description.EObjectURI.toString.contains("Plugin_Resources")]
+
+	override void completeSystemRequirements_Target(EObject model, Assignment assignment, ContentAssistContext context,
+		ICompletionProposalAcceptor acceptor) {
+		lookupCrossReference(
+			assignment.getTerminal() as CrossReference,
+			context,
+			acceptor,
+			[description|!description.EObjectURI.toString.contains("Plugin_Resources")]
 		);
 	}
 
-	override void completeRequirement_GoalReference(EObject model, Assignment assignment, ContentAssistContext context, ICompletionProposalAcceptor acceptor) {
-		//System.out.println("completeRequirement_GoalReference0000" + model.toString);
+	override void completeRequirement_GoalReference(EObject model, Assignment assignment, ContentAssistContext context,
+		ICompletionProposalAcceptor acceptor) {
+		// System.out.println("completeRequirement_GoalReference0000" + model.toString);
 		val sysRequirements = model.eContainer as SystemRequirements
-		
-		//if stakeHolderGoals.target is equal to any of the parent and self of sysRequirements.target
-		val targetComponentClassifier = sysRequirements.target 
+
+		// if stakeHolderGoals.target is equal to any of the parent and self of sysRequirements.target
+		val targetComponentClassifier = sysRequirements.target
 		val allAncestors = targetComponentClassifier.getSelfPlusAncestors
-		
-		
+
 		lookupCrossReference(assignment.getTerminal() as CrossReference, context, acceptor, [
-			val proposedObj =  EcoreUtil.resolve(EObjectOrProxy, model)  //Gets all Goals from Loose Scope
+			val proposedObj = EcoreUtil.resolve(EObjectOrProxy, model) // Gets all Goals from Loose Scope
 			val stakeHolderGoals = proposedObj.eContainer as StakeholderGoals
-			
+
 			allAncestors.contains(stakeHolderGoals.target)
 
 		]);
 	}
-	
-	
-	override void completeRequirement_RefinesReference(EObject model, Assignment assignment, ContentAssistContext context, ICompletionProposalAcceptor acceptor) {
-		//Don't suggest itself
+
+	override void completeRequirement_RefinesReference(EObject model, Assignment assignment,
+		ContentAssistContext context, ICompletionProposalAcceptor acceptor) {
+		val targetComponentClassifier = (model.eContainer as SystemRequirements).target
+		val Iterable<SystemRequirements> listAccessibleSystemRequirements = commonRefFinder.getEObjectDescriptions(
+			targetComponentClassifier, ReqSpecPackage.Literals.SYSTEM_REQUIREMENTS, "reqspec").map [ eod |
+			EcoreUtil.resolve(eod.EObjectOrProxy, model) as SystemRequirements
+		].filter[sysreqs|isSameorExtends(targetComponentClassifier, sysreqs.target)]
+
 		lookupCrossReference(assignment.getTerminal() as CrossReference, context, acceptor, [
-			model !=  EcoreUtil.resolve(EObjectOrProxy, model)  //Gets Requirements from Scope
+			val proposedObj = EcoreUtil.resolve(EObjectOrProxy, model) // Gets Requirements from Scope
+			// predicate for not itself and whether proposed requirement exists in any of the accessible system requirements
+			model != proposedObj && listAccessibleSystemRequirements.filter[content.contains(proposedObj)].size > 0
 		]);
 	}
-	
-	override void completeRequirement_DecomposesReference(EObject model, Assignment assignment, ContentAssistContext context, ICompletionProposalAcceptor acceptor) {
+
+	override void completeRequirement_DecomposesReference(EObject model, Assignment assignment,
+		ContentAssistContext context, ICompletionProposalAcceptor acceptor) {
 		completeRequirement_RefinesReference(model, assignment, context, acceptor)
 	}
 
-	override void completeRequirement_EvolvesReference(EObject model, Assignment assignment, ContentAssistContext context, ICompletionProposalAcceptor acceptor) {
+	override void completeRequirement_EvolvesReference(EObject model, Assignment assignment,
+		ContentAssistContext context, ICompletionProposalAcceptor acceptor) {
 		completeRequirement_RefinesReference(model, assignment, context, acceptor)
 	}
-	
-    //mnam: Later refine this to customize content assist String
+
+	// mnam: Later refine this to customize content assist String
 //    override getStyledDisplayString(EObject element, String qualifiedNameAsString, String shortName) {
 //    	if (element instanceof XXXX) {
 //    		val member = element as XXXX
@@ -80,12 +103,11 @@ class ReqSpecProposalProvider extends AbstractReqSpecProposalProvider {
 //    	}
 //    	  
 //    }
-
-	//Brought from Aadl2JavaValidator
+	// Brought from Aadl2JavaValidator
 	def EList<Classifier> getSelfPlusAncestors(Classifier cl) {
 		val cls = new BasicInternalEList<Classifier>(typeof(Classifier));
 		cls.add(cl);
-		
+
 		var temp = cl
 		while (temp.getExtended() != null) {
 			if (cls.contains(temp.getExtended())) {
@@ -94,9 +116,9 @@ class ReqSpecProposalProvider extends AbstractReqSpecProposalProvider {
 			temp = temp.getExtended() as Classifier;
 			cls.add(temp);
 		}
-		
-		//If implementation collect for type
-		if(cl instanceof ComponentImplementation){
+
+		// If implementation collect for type
+		if (cl instanceof ComponentImplementation) {
 			var temp2 = (cl as ComponentImplementation).type
 			cls.add(temp2);
 			while (temp2.getExtended() != null) {
@@ -106,9 +128,24 @@ class ReqSpecProposalProvider extends AbstractReqSpecProposalProvider {
 				temp2 = temp2.getExtended();
 				cls.add(temp2);
 			}
-			
+
 		}
 		return cls;
+	}
+
+	def static boolean isSameorExtends(ComponentClassifier target, ComponentClassifier ancestor) {
+		var Classifier ext = target
+		if (target instanceof ComponentImplementation && ancestor instanceof ComponentType) {
+			ext = (target as ComponentImplementation).getType();
+		}
+		while (ext != null) {
+			if (ancestor.name.equalsIgnoreCase(ext.name)) {
+				return true;
+			}
+			ext = ext.getExtended();
+		}
+
+		return false;
 	}
 
 }
