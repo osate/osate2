@@ -11,6 +11,8 @@ import org.osate.verify.verify.VerifyPackage
 import org.osate.verify.verify.JavaMethod
 import org.osate.verify.verify.PluginMethod
 import org.osate.verify.util.VerificationMethodDispatchers
+import org.osate.verify.verify.Claim
+import static org.osate.verify.util.VerifyUtilExtension.*
 
 /**
  * Custom validation rules. 
@@ -23,6 +25,8 @@ class VerifyValidator extends AbstractVerifyValidator {
   public static val INCORRECT_METHOD_REFERENCE = "org.osate.verify.incorrectMethodReference"
   public static val MISSING_METHOD_REFERENCE = "org.osate.verify.missingMethodReference"
   public static val INCORRECT_METHOD_ID = "org.osate.verify.incorrectMethodID"
+  public static val CLAIM_MISSING_REQUIREMENT = "org.osate.verify.claimMissingRequirement"
+  public static val CLAIM_INVALID_REQUIREMENT = "org.osate.verify.claimInvalidRequirement"
 
 	@Check
 	def checkMethodPath(JavaMethod method) {
@@ -57,6 +61,21 @@ class VerifyValidator extends AbstractVerifyValidator {
 			warning('Verification activity should have a method reference', 
 					VerifyPackage.Literals.VERIFICATION_ACTIVITY__METHOD,
 					MISSING_METHOD_REFERENCE)
+		}
+	}
+	@Check
+	def checkInvalidRequirementForClaim(Claim cl) {
+		if (cl.requirement == null) {
+			warning('Claim is missing requirement', 
+					VerifyPackage.Literals.CLAIM__REQUIREMENT,
+					CLAIM_MISSING_REQUIREMENT)
+		}else{
+			if(!containingVerificationPlan(cl).systemRequirements.content.contains(cl.requirement)){
+				error('Requirement ' + cl.requirement.name + ' does not exist in ' + 
+					containingVerificationPlan(cl).systemRequirements.name + '.', cl, VerifyPackage.Literals.CLAIM__REQUIREMENT,
+					CLAIM_INVALID_REQUIREMENT
+				)
+			}
 		}
 	}
 }
