@@ -66,8 +66,11 @@ class AlisaGenerator implements IGenerator {
 		verificationFilter = at.verificationFilter
 		at.assurancePlan?.generateCase
 	}
+	
+	var Iterable<VerificationPlan> allPlans = null
 
 	def generateCase(AssurancePlan acp) {
+		allPlans = referenceFinder.getForallVerificationPlans(acp)
 		acp.target.generate(acp, false)
 	}
 
@@ -79,7 +82,7 @@ class AlisaGenerator implements IGenerator {
 
 
 	def CharSequence generate(ComponentClassifier cc, AssurancePlan acp, boolean systemEvidence) {
-		val myplans = cc.getVerificationPlans();
+		val myplans = cc.getVerificationPlans(acp);
 		'''	
 			«IF !myplans.empty»
 			«IF !systemEvidence»
@@ -90,6 +93,13 @@ class AlisaGenerator implements IGenerator {
 				[
 					tbdcount 1
 					«FOR myplan : myplans»
+						«FOR claim : (myplan as VerificationPlan).claim»
+						«IF claim.evaluateRequirementFilter»
+							«claim.generate()»
+						«ENDIF»
+						«ENDFOR»
+					«ENDFOR»
+					«FOR myplan : allPlans»
 						«FOR claim : (myplan as VerificationPlan).claim»
 						«IF claim.evaluateRequirementFilter»
 							«claim.generate()»

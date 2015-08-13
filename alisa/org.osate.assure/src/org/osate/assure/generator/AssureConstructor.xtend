@@ -70,7 +70,7 @@ class AssureConstructor {
 	@Inject extension IVerifyGlobalReferenceFinder referenceFinder
 
 	def AssuranceEvidence construct(ComponentClassifier cc, AssurancePlan acp, boolean systemEvidence) {
-		val myplans = cc.getVerificationPlans();
+		val myplans = cc.getVerificationPlans(acp);
 		var AssuranceEvidence acase = null
 		if (!myplans.empty) {
 			acase = factory.createAssuranceEvidence

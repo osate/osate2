@@ -22,20 +22,12 @@ import org.osate.verify.util.IVerifyGlobalReferenceFinder
  *
  */
 class AlisaScopeProvider extends AbstractDeclarativeScopeProvider {
-//	@Inject
-//	var IGlobalScopeProvider scopeProvider
-
-//	def scope_VerificationPlan(AssurancePlan context, EReference reference){
-//			val vps = (scopeProvider as CommonGlobalScopeProvider).getGlobalEObjectDescriptions(context,
-//				VerifyPackage.eINSTANCE.verificationPlan, [eod|val obj = eod.EObjectOrProxy; val vp = EcoreUtil.resolve(context,obj) as VerificationPlan; vp.systemRequirements.global])
-//		new SimpleScope(IScope::NULLSCOPE, vps,true)
-//	}
 
 @Inject var IVerifyGlobalReferenceFinder refFinder
 
 	def scope_VerificationPlan(AssurancePlan acp, EReference reference){
 		val targetCC = acp.target
-		val vps = refFinder.getVerificationPlans(targetCC).filter[vp| vp.systemRequirements.global]
+		val vps = refFinder.getVerificationPlans(targetCC,acp).filter[vp| vp.systemRequirements.global]
 		new SimpleScope(IScope::NULLSCOPE, 
 			Scopes::scopedElementsFor(vps,
 						QualifiedName::wrapper(SimpleAttributeResolver::NAME_RESOLVER)), true)
