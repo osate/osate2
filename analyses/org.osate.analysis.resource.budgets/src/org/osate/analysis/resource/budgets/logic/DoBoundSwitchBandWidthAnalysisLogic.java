@@ -39,14 +39,12 @@ import org.osate.aadl2.instance.InstanceObject;
 import org.osate.aadl2.instance.SystemInstance;
 import org.osate.aadl2.instance.SystemOperationMode;
 import org.osate.aadl2.modelsupport.modeltraversal.SOMIterator;
-import org.osate.aadl2.util.Aadl2Util;
 import org.osate.ui.actions.AbstractAaxlAction;
 import org.osate.ui.dialogs.Dialog;
 
 public class DoBoundSwitchBandWidthAnalysisLogic extends DoBoundResourceAnalysisLogic {
-	public DoBoundSwitchBandWidthAnalysisLogic(final String actionName, 
-			final AbstractAaxlAction errManager) {
-		super(actionName,  errManager);
+	public DoBoundSwitchBandWidthAnalysisLogic(final String actionName, final AbstractAaxlAction errManager) {
+		super(actionName, errManager);
 	}
 
 	public void analysisBody(final IProgressMonitor monitor, final Element obj) {
@@ -60,10 +58,10 @@ public class DoBoundSwitchBandWidthAnalysisLogic extends DoBoundResourceAnalysis
 			}
 			monitor.done();
 
-			if (root.getSystemOperationModes().size() == 1) {
-				// Also report the results using a message dialog
-				Dialog.showInfo("Bound Bus Bandwidth Analysis Results", getErrManager().getResultsMessages());
-			}
+//			if (root.getSystemOperationModes().size() == 1) {
+//				// Also report the results using a message dialog
+//				Dialog.showInfo("Bound Bus Bandwidth Analysis Results", getErrManager().getResultsMessages());
+//			}
 		} else {
 			Dialog.showError("Bound Bus Bandwidth Analysis Error", "Can only check system instances");
 		}
