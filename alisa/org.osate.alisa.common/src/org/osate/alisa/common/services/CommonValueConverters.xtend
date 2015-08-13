@@ -24,4 +24,18 @@ class CommonValueConverters extends DefaultTerminalConverters {
 			
 		}
 	}
+	@ValueConverter(rule = "QualifiedName")
+	def IValueConverter<String> QualifiedName() {
+		new AbstractNullSafeConverter<String> () {
+			
+			override protected internalToString(String value) {
+				value.split('::').map[it.split('\\.').map[id | ID().toString(id)].join('.')].join('::')
+			}
+			
+			override protected internalToValue(String string, INode node) throws ValueConverterException {
+				string.replace('^', '')
+			}
+			
+		}
+	}
 }
