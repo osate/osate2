@@ -65,9 +65,10 @@ public class AlisaGrammarAccess extends AbstractGrammarElementFinder {
 		private final RuleCall cDescriptionDescriptionParserRuleCall_7_0_1_0 = (RuleCall)cDescriptionAssignment_7_0_1.eContents().get(0);
 		private final Group cGroup_7_1 = (Group)cUnorderedGroup_7.eContents().get(1);
 		private final Keyword cAssureKeyword_7_1_0 = (Keyword)cGroup_7_1.eContents().get(0);
-		private final Assignment cAssureOwnAssignment_7_1_1 = (Assignment)cGroup_7_1.eContents().get(1);
-		private final CrossReference cAssureOwnVerificationPlanCrossReference_7_1_1_0 = (CrossReference)cAssureOwnAssignment_7_1_1.eContents().get(0);
-		private final RuleCall cAssureOwnVerificationPlanQualifiedNameParserRuleCall_7_1_1_0_1 = (RuleCall)cAssureOwnVerificationPlanCrossReference_7_1_1_0.eContents().get(1);
+		private final Keyword cOwnKeyword_7_1_1 = (Keyword)cGroup_7_1.eContents().get(1);
+		private final Assignment cAssureOwnAssignment_7_1_2 = (Assignment)cGroup_7_1.eContents().get(2);
+		private final CrossReference cAssureOwnVerificationPlanCrossReference_7_1_2_0 = (CrossReference)cAssureOwnAssignment_7_1_2.eContents().get(0);
+		private final RuleCall cAssureOwnVerificationPlanQualifiedNameParserRuleCall_7_1_2_0_1 = (RuleCall)cAssureOwnVerificationPlanCrossReference_7_1_2_0.eContents().get(1);
 		private final Group cGroup_7_2 = (Group)cUnorderedGroup_7.eContents().get(2);
 		private final Keyword cAssureKeyword_7_2_0 = (Keyword)cGroup_7_2.eContents().get(0);
 		private final Keyword cGlobalKeyword_7_2_1 = (Keyword)cGroup_7_2.eContents().get(1);
@@ -96,7 +97,7 @@ public class AlisaGrammarAccess extends AbstractGrammarElementFinder {
 		//AssurancePlan:
 		//	"assurance" "plan" name=QualifiedName (":" title=STRING)? "for"
 		//	target=[aadl2::ComponentImplementation|AadlClassifierReference] "[" (("description" description=Description)? &
-		//	("assure" assureOwn+=[Verify::VerificationPlan|QualifiedName]+)? & ("assure" "global"
+		//	("assure" "own" assureOwn+=[Verify::VerificationPlan|QualifiedName]+)? & ("assure" "global"
 		//	assureGlobal+=[Verify::VerificationPlan|QualifiedName]+)? & ("assure" "subsystem" "plans"
 		//	assurePlans+=[AssurancePlan|QualifiedName]+)? & ("assume" "subsystems"
 		//	assumeSubsystems+=[aadl2::ComponentClassifier|AadlClassifierReference]+)? & ("issues" issues+=STRING+)?) "]";
@@ -104,7 +105,7 @@ public class AlisaGrammarAccess extends AbstractGrammarElementFinder {
 
 		//"assurance" "plan" name=QualifiedName (":" title=STRING)? "for"
 		//target=[aadl2::ComponentImplementation|AadlClassifierReference] "[" (("description" description=Description)? &
-		//("assure" assureOwn+=[Verify::VerificationPlan|QualifiedName]+)? & ("assure" "global"
+		//("assure" "own" assureOwn+=[Verify::VerificationPlan|QualifiedName]+)? & ("assure" "global"
 		//assureGlobal+=[Verify::VerificationPlan|QualifiedName]+)? & ("assure" "subsystem" "plans"
 		//assurePlans+=[AssurancePlan|QualifiedName]+)? & ("assume" "subsystems"
 		//assumeSubsystems+=[aadl2::ComponentClassifier|AadlClassifierReference]+)? & ("issues" issues+=STRING+)?) "]"
@@ -149,8 +150,8 @@ public class AlisaGrammarAccess extends AbstractGrammarElementFinder {
 		//"["
 		public Keyword getLeftSquareBracketKeyword_6() { return cLeftSquareBracketKeyword_6; }
 
-		//("description" description=Description)? & ("assure" assureOwn+=[Verify::VerificationPlan|QualifiedName]+)? & ("assure"
-		//"global" assureGlobal+=[Verify::VerificationPlan|QualifiedName]+)? & ("assure" "subsystem" "plans"
+		//("description" description=Description)? & ("assure" "own" assureOwn+=[Verify::VerificationPlan|QualifiedName]+)? &
+		//("assure" "global" assureGlobal+=[Verify::VerificationPlan|QualifiedName]+)? & ("assure" "subsystem" "plans"
 		//assurePlans+=[AssurancePlan|QualifiedName]+)? & ("assume" "subsystems"
 		//assumeSubsystems+=[aadl2::ComponentClassifier|AadlClassifierReference]+)? & ("issues" issues+=STRING+)?
 		public UnorderedGroup getUnorderedGroup_7() { return cUnorderedGroup_7; }
@@ -167,20 +168,23 @@ public class AlisaGrammarAccess extends AbstractGrammarElementFinder {
 		//Description
 		public RuleCall getDescriptionDescriptionParserRuleCall_7_0_1_0() { return cDescriptionDescriptionParserRuleCall_7_0_1_0; }
 
-		//("assure" assureOwn+=[Verify::VerificationPlan|QualifiedName]+)?
+		//("assure" "own" assureOwn+=[Verify::VerificationPlan|QualifiedName]+)?
 		public Group getGroup_7_1() { return cGroup_7_1; }
 
 		//"assure"
 		public Keyword getAssureKeyword_7_1_0() { return cAssureKeyword_7_1_0; }
 
+		//"own"
+		public Keyword getOwnKeyword_7_1_1() { return cOwnKeyword_7_1_1; }
+
 		//assureOwn+=[Verify::VerificationPlan|QualifiedName]+
-		public Assignment getAssureOwnAssignment_7_1_1() { return cAssureOwnAssignment_7_1_1; }
+		public Assignment getAssureOwnAssignment_7_1_2() { return cAssureOwnAssignment_7_1_2; }
 
 		//[Verify::VerificationPlan|QualifiedName]
-		public CrossReference getAssureOwnVerificationPlanCrossReference_7_1_1_0() { return cAssureOwnVerificationPlanCrossReference_7_1_1_0; }
+		public CrossReference getAssureOwnVerificationPlanCrossReference_7_1_2_0() { return cAssureOwnVerificationPlanCrossReference_7_1_2_0; }
 
 		//QualifiedName
-		public RuleCall getAssureOwnVerificationPlanQualifiedNameParserRuleCall_7_1_1_0_1() { return cAssureOwnVerificationPlanQualifiedNameParserRuleCall_7_1_1_0_1; }
+		public RuleCall getAssureOwnVerificationPlanQualifiedNameParserRuleCall_7_1_2_0_1() { return cAssureOwnVerificationPlanQualifiedNameParserRuleCall_7_1_2_0_1; }
 
 		//("assure" "global" assureGlobal+=[Verify::VerificationPlan|QualifiedName]+)?
 		public Group getGroup_7_2() { return cGroup_7_2; }
@@ -644,7 +648,7 @@ public class AlisaGrammarAccess extends AbstractGrammarElementFinder {
 	//AssurancePlan:
 	//	"assurance" "plan" name=QualifiedName (":" title=STRING)? "for"
 	//	target=[aadl2::ComponentImplementation|AadlClassifierReference] "[" (("description" description=Description)? &
-	//	("assure" assureOwn+=[Verify::VerificationPlan|QualifiedName]+)? & ("assure" "global"
+	//	("assure" "own" assureOwn+=[Verify::VerificationPlan|QualifiedName]+)? & ("assure" "global"
 	//	assureGlobal+=[Verify::VerificationPlan|QualifiedName]+)? & ("assure" "subsystem" "plans"
 	//	assurePlans+=[AssurancePlan|QualifiedName]+)? & ("assume" "subsystems"
 	//	assumeSubsystems+=[aadl2::ComponentClassifier|AadlClassifierReference]+)? & ("issues" issues+=STRING+)?) "]";
