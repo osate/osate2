@@ -88,7 +88,7 @@ public/* final */class ModelStatistics extends AadlProcessingSwitchWithProgress 
 	}
 
 	public ModelStatistics(final IProgressMonitor monitor, AnalysisErrorReporterManager errmgr) {
-		super(monitor, PROCESS_PRE_ORDER_ALL,errmgr);
+		super(monitor, PROCESS_PRE_ORDER_ALL, errmgr);
 	}
 
 	protected final void initSwitches() {
@@ -118,7 +118,7 @@ public/* final */class ModelStatistics extends AadlProcessingSwitchWithProgress 
 //				System.out.println("case "+ci.getName()+" "+cl.size());
 				return DONE;
 			}
-			
+
 			public String caseFlowSpecification(FlowSpecification obj) {
 				flowCount++;
 				return DONE;
@@ -130,13 +130,10 @@ public/* final */class ModelStatistics extends AadlProcessingSwitchWithProgress 
 			}
 		};
 
-		// We want to count instance model objects. 
+		// We want to count instance model objects.
 		instanceSwitch = new InstanceSwitch<String>() {
 			public String caseComponentInstance(ComponentInstance obj) {
 				componentCount++;
-				System.out.println ("fullname =" + obj.getFullName());
-				System.out.println ("qualified=" + obj.getQualifiedName());
-				System.out.println ("path     =" + obj.getComponentInstance().getInstanceObjectPath());
 				/*
 				 * We want to count category specific instances. We retrieve the
 				 * category and branch on its numeric representation.
@@ -186,11 +183,11 @@ public/* final */class ModelStatistics extends AadlProcessingSwitchWithProgress 
 		 * components packages.
 		 */
 	}
-	
-	public void countClassifier(EClass cl){
-		if (Aadl2Package.eINSTANCE.getComponentType().isSuperTypeOf(cl)){
+
+	public void countClassifier(EClass cl) {
+		if (Aadl2Package.eINSTANCE.getComponentType().isSuperTypeOf(cl)) {
 			typeCount++;
-		} else if (Aadl2Package.eINSTANCE.getComponentImplementation().isSuperTypeOf(cl)){
+		} else if (Aadl2Package.eINSTANCE.getComponentImplementation().isSuperTypeOf(cl)) {
 			compImplCount++;
 		}
 	}
