@@ -97,17 +97,17 @@ class VerifyValidator extends AbstractVerifyValidator {
 		]
 	}
 	
-	@Check (CheckType.FAST)
-	def checkClaimRequirementsAreForVerificationPlanTarget(VerificationPlan vp){
-		val systemRequirements = vp.systemRequirements
- 		val requirements = systemRequirements.content
-		vp.claim.forEach[claim|
-			 if (!requirements.exists[req | req === claim.requirement]){
-				error('Claim requirement ' + claim.requirement.name + ' does not match classifier identified for verification plan ' + vp.name,
-					claim, VerifyPackage.Literals.CLAIM__REQUIREMENT,
-					CLAIM_REQ_FOR_NOT_VP_FOR)
-			 }
-		]
-	}
+//	@Check (CheckType.FAST)
+//	def checkClaimRequirementsAreForVerificationPlanTarget(VerificationPlan vp){
+//		val systemRequirements = vp.systemRequirements
+// 		val requirements = systemRequirements.content
+//		vp.claim.forEach[claim|
+//			 if (!requirements.exists[req | req === claim.requirement]){
+//				error('Claim requirement ' + claim.requirement.name + ' does not match classifier identified for verification plan ' + vp.name,
+//					claim, VerifyPackage.Literals.CLAIM__REQUIREMENT,
+//					CLAIM_REQ_FOR_NOT_VP_FOR)
+//			 }
+//		]
+//	}
 	
 }
