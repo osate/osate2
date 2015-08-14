@@ -70,7 +70,11 @@ class AlisaGenerator implements IGenerator {
 	var Iterable<VerificationPlan> allPlans = null
 
 	def generateCase(AssurancePlan acp) {
+		if (acp.assureGlobal.isEmpty){
 		allPlans = referenceFinder.getForallVerificationPlans(acp)
+		} else {
+			allPlans = acp.assureGlobal
+		}
 		acp.target.generate(acp, false)
 	}
 
