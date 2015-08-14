@@ -3689,7 +3689,6 @@ finally {
 
 
 
-
 rule__XNumberLiteral__Group__0
     @init {
 		int stackSize = keepStackSize();
@@ -17840,7 +17839,6 @@ rule__DescriptionElement__ImageAssignment_3
 finally {
 	restoreStackSize(stackSize);
 }
-
 
 
 

@@ -2792,8 +2792,7 @@ public class ReqSpecGrammarAccess extends AbstractGrammarElementFinder {
 
 	//// New rule for val only
 	//XValDeclaration returns xbase::XVariableDeclaration:
-	//	{PropertyConsistentVariableDeclaration} "val" (=> (type=JvmTypeReference name=ID) | name=ID) "=" right=XExpression
-	//	("sameas" "property" property=[aadl2::Property|AADLPROPERTYREFERENCE])?;
+	//	"val" (=> (type=JvmTypeReference name=ID) | name=ID) "=" right=XExpression;
 	public CommonGrammarAccess.XValDeclarationElements getXValDeclarationAccess() {
 		return gaCommon.getXValDeclarationAccess();
 	}
@@ -2802,7 +2801,6 @@ public class ReqSpecGrammarAccess extends AbstractGrammarElementFinder {
 		return getXValDeclarationAccess().getRule();
 	}
 
-	////	 ('val' (=> type=JvmTypeReference name=ID) '=' right=(APropertyReference|XExpression)) ;
 	////	 ('compute' (=> type=JvmTypeReference name=ID))
 	//ComputeDeclaration returns xbase::XExpression:
 	//	{ComputeDeclaration} "compute" (=> (type=JvmTypeReference name=ID) | name=ID);

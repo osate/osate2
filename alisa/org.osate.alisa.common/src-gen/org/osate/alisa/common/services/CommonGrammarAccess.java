@@ -260,96 +260,66 @@ public class CommonGrammarAccess extends AbstractGrammarElementFinder {
 	public class XValDeclarationElements extends AbstractParserRuleElementFinder {
 		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "XValDeclaration");
 		private final Group cGroup = (Group)rule.eContents().get(1);
-		private final Action cPropertyConsistentVariableDeclarationAction_0 = (Action)cGroup.eContents().get(0);
-		private final Keyword cValKeyword_1 = (Keyword)cGroup.eContents().get(1);
-		private final Alternatives cAlternatives_2 = (Alternatives)cGroup.eContents().get(2);
-		private final Group cGroup_2_0 = (Group)cAlternatives_2.eContents().get(0);
-		private final Group cGroup_2_0_0 = (Group)cGroup_2_0.eContents().get(0);
-		private final Assignment cTypeAssignment_2_0_0_0 = (Assignment)cGroup_2_0_0.eContents().get(0);
-		private final RuleCall cTypeJvmTypeReferenceParserRuleCall_2_0_0_0_0 = (RuleCall)cTypeAssignment_2_0_0_0.eContents().get(0);
-		private final Assignment cNameAssignment_2_0_0_1 = (Assignment)cGroup_2_0_0.eContents().get(1);
-		private final RuleCall cNameIDTerminalRuleCall_2_0_0_1_0 = (RuleCall)cNameAssignment_2_0_0_1.eContents().get(0);
-		private final Assignment cNameAssignment_2_1 = (Assignment)cAlternatives_2.eContents().get(1);
-		private final RuleCall cNameIDTerminalRuleCall_2_1_0 = (RuleCall)cNameAssignment_2_1.eContents().get(0);
-		private final Keyword cEqualsSignKeyword_3 = (Keyword)cGroup.eContents().get(3);
-		private final Assignment cRightAssignment_4 = (Assignment)cGroup.eContents().get(4);
-		private final RuleCall cRightXExpressionParserRuleCall_4_0 = (RuleCall)cRightAssignment_4.eContents().get(0);
-		private final Group cGroup_5 = (Group)cGroup.eContents().get(5);
-		private final Keyword cSameasKeyword_5_0 = (Keyword)cGroup_5.eContents().get(0);
-		private final Keyword cPropertyKeyword_5_1 = (Keyword)cGroup_5.eContents().get(1);
-		private final Assignment cPropertyAssignment_5_2 = (Assignment)cGroup_5.eContents().get(2);
-		private final CrossReference cPropertyPropertyCrossReference_5_2_0 = (CrossReference)cPropertyAssignment_5_2.eContents().get(0);
-		private final RuleCall cPropertyPropertyAADLPROPERTYREFERENCEParserRuleCall_5_2_0_1 = (RuleCall)cPropertyPropertyCrossReference_5_2_0.eContents().get(1);
+		private final Keyword cValKeyword_0 = (Keyword)cGroup.eContents().get(0);
+		private final Alternatives cAlternatives_1 = (Alternatives)cGroup.eContents().get(1);
+		private final Group cGroup_1_0 = (Group)cAlternatives_1.eContents().get(0);
+		private final Group cGroup_1_0_0 = (Group)cGroup_1_0.eContents().get(0);
+		private final Assignment cTypeAssignment_1_0_0_0 = (Assignment)cGroup_1_0_0.eContents().get(0);
+		private final RuleCall cTypeJvmTypeReferenceParserRuleCall_1_0_0_0_0 = (RuleCall)cTypeAssignment_1_0_0_0.eContents().get(0);
+		private final Assignment cNameAssignment_1_0_0_1 = (Assignment)cGroup_1_0_0.eContents().get(1);
+		private final RuleCall cNameIDTerminalRuleCall_1_0_0_1_0 = (RuleCall)cNameAssignment_1_0_0_1.eContents().get(0);
+		private final Assignment cNameAssignment_1_1 = (Assignment)cAlternatives_1.eContents().get(1);
+		private final RuleCall cNameIDTerminalRuleCall_1_1_0 = (RuleCall)cNameAssignment_1_1.eContents().get(0);
+		private final Keyword cEqualsSignKeyword_2 = (Keyword)cGroup.eContents().get(2);
+		private final Assignment cRightAssignment_3 = (Assignment)cGroup.eContents().get(3);
+		private final RuleCall cRightXExpressionParserRuleCall_3_0 = (RuleCall)cRightAssignment_3.eContents().get(0);
 		
 		//// New rule for val only
 		//XValDeclaration returns xbase::XVariableDeclaration:
-		//	{PropertyConsistentVariableDeclaration} "val" (=> (type=JvmTypeReference name=ID) | name=ID) "=" right=XExpression
-		//	("sameas" "property" property=[aadl2::Property|AADLPROPERTYREFERENCE])?;
+		//	"val" (=> (type=JvmTypeReference name=ID) | name=ID) "=" right=XExpression;
 		@Override public ParserRule getRule() { return rule; }
 
-		//{PropertyConsistentVariableDeclaration} "val" (=> (type=JvmTypeReference name=ID) | name=ID) "=" right=XExpression
-		//("sameas" "property" property=[aadl2::Property|AADLPROPERTYREFERENCE])?
+		//"val" (=> (type=JvmTypeReference name=ID) | name=ID) "=" right=XExpression
 		public Group getGroup() { return cGroup; }
 
-		//{PropertyConsistentVariableDeclaration}
-		public Action getPropertyConsistentVariableDeclarationAction_0() { return cPropertyConsistentVariableDeclarationAction_0; }
-
 		//"val"
-		public Keyword getValKeyword_1() { return cValKeyword_1; }
+		public Keyword getValKeyword_0() { return cValKeyword_0; }
 
 		//=> (type=JvmTypeReference name=ID) | name=ID
-		public Alternatives getAlternatives_2() { return cAlternatives_2; }
+		public Alternatives getAlternatives_1() { return cAlternatives_1; }
 
 		//=> (type=JvmTypeReference name=ID)
-		public Group getGroup_2_0() { return cGroup_2_0; }
+		public Group getGroup_1_0() { return cGroup_1_0; }
 
 		//type=JvmTypeReference name=ID
-		public Group getGroup_2_0_0() { return cGroup_2_0_0; }
+		public Group getGroup_1_0_0() { return cGroup_1_0_0; }
 
 		//type=JvmTypeReference
-		public Assignment getTypeAssignment_2_0_0_0() { return cTypeAssignment_2_0_0_0; }
+		public Assignment getTypeAssignment_1_0_0_0() { return cTypeAssignment_1_0_0_0; }
 
 		//JvmTypeReference
-		public RuleCall getTypeJvmTypeReferenceParserRuleCall_2_0_0_0_0() { return cTypeJvmTypeReferenceParserRuleCall_2_0_0_0_0; }
+		public RuleCall getTypeJvmTypeReferenceParserRuleCall_1_0_0_0_0() { return cTypeJvmTypeReferenceParserRuleCall_1_0_0_0_0; }
 
 		//name=ID
-		public Assignment getNameAssignment_2_0_0_1() { return cNameAssignment_2_0_0_1; }
+		public Assignment getNameAssignment_1_0_0_1() { return cNameAssignment_1_0_0_1; }
 
 		//ID
-		public RuleCall getNameIDTerminalRuleCall_2_0_0_1_0() { return cNameIDTerminalRuleCall_2_0_0_1_0; }
+		public RuleCall getNameIDTerminalRuleCall_1_0_0_1_0() { return cNameIDTerminalRuleCall_1_0_0_1_0; }
 
 		//name=ID
-		public Assignment getNameAssignment_2_1() { return cNameAssignment_2_1; }
+		public Assignment getNameAssignment_1_1() { return cNameAssignment_1_1; }
 
 		//ID
-		public RuleCall getNameIDTerminalRuleCall_2_1_0() { return cNameIDTerminalRuleCall_2_1_0; }
+		public RuleCall getNameIDTerminalRuleCall_1_1_0() { return cNameIDTerminalRuleCall_1_1_0; }
 
 		//"="
-		public Keyword getEqualsSignKeyword_3() { return cEqualsSignKeyword_3; }
+		public Keyword getEqualsSignKeyword_2() { return cEqualsSignKeyword_2; }
 
 		//right=XExpression
-		public Assignment getRightAssignment_4() { return cRightAssignment_4; }
+		public Assignment getRightAssignment_3() { return cRightAssignment_3; }
 
 		//XExpression
-		public RuleCall getRightXExpressionParserRuleCall_4_0() { return cRightXExpressionParserRuleCall_4_0; }
-
-		//("sameas" "property" property=[aadl2::Property|AADLPROPERTYREFERENCE])?
-		public Group getGroup_5() { return cGroup_5; }
-
-		//"sameas"
-		public Keyword getSameasKeyword_5_0() { return cSameasKeyword_5_0; }
-
-		//"property"
-		public Keyword getPropertyKeyword_5_1() { return cPropertyKeyword_5_1; }
-
-		//property=[aadl2::Property|AADLPROPERTYREFERENCE]
-		public Assignment getPropertyAssignment_5_2() { return cPropertyAssignment_5_2; }
-
-		//[aadl2::Property|AADLPROPERTYREFERENCE]
-		public CrossReference getPropertyPropertyCrossReference_5_2_0() { return cPropertyPropertyCrossReference_5_2_0; }
-
-		//AADLPROPERTYREFERENCE
-		public RuleCall getPropertyPropertyAADLPROPERTYREFERENCEParserRuleCall_5_2_0_1() { return cPropertyPropertyAADLPROPERTYREFERENCEParserRuleCall_5_2_0_1; }
+		public RuleCall getRightXExpressionParserRuleCall_3_0() { return cRightXExpressionParserRuleCall_3_0; }
 	}
 
 	public class ComputeDeclarationElements extends AbstractParserRuleElementFinder {
@@ -367,7 +337,6 @@ public class CommonGrammarAccess extends AbstractGrammarElementFinder {
 		private final Assignment cNameAssignment_2_1 = (Assignment)cAlternatives_2.eContents().get(1);
 		private final RuleCall cNameIDTerminalRuleCall_2_1_0 = (RuleCall)cNameAssignment_2_1.eContents().get(0);
 		
-		////	 ('val' (=> type=JvmTypeReference name=ID) '=' right=(APropertyReference|XExpression)) ;
 		////	 ('compute' (=> type=JvmTypeReference name=ID))
 		//ComputeDeclaration returns xbase::XExpression:
 		//	{ComputeDeclaration} "compute" (=> (type=JvmTypeReference name=ID) | name=ID);
@@ -784,8 +753,7 @@ public class CommonGrammarAccess extends AbstractGrammarElementFinder {
 
 	//// New rule for val only
 	//XValDeclaration returns xbase::XVariableDeclaration:
-	//	{PropertyConsistentVariableDeclaration} "val" (=> (type=JvmTypeReference name=ID) | name=ID) "=" right=XExpression
-	//	("sameas" "property" property=[aadl2::Property|AADLPROPERTYREFERENCE])?;
+	//	"val" (=> (type=JvmTypeReference name=ID) | name=ID) "=" right=XExpression;
 	public XValDeclarationElements getXValDeclarationAccess() {
 		return pXValDeclaration;
 	}
@@ -794,7 +762,6 @@ public class CommonGrammarAccess extends AbstractGrammarElementFinder {
 		return getXValDeclarationAccess().getRule();
 	}
 
-	////	 ('val' (=> type=JvmTypeReference name=ID) '=' right=(APropertyReference|XExpression)) ;
 	////	 ('compute' (=> type=JvmTypeReference name=ID))
 	//ComputeDeclaration returns xbase::XExpression:
 	//	{ComputeDeclaration} "compute" (=> (type=JvmTypeReference name=ID) | name=ID);

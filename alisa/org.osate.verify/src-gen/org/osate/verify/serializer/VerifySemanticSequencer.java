@@ -65,7 +65,6 @@ import org.osate.alisa.common.common.ComputeDeclaration;
 import org.osate.alisa.common.common.Description;
 import org.osate.alisa.common.common.DescriptionElement;
 import org.osate.alisa.common.common.ImageReference;
-import org.osate.alisa.common.common.PropertyConsistentVariableDeclaration;
 import org.osate.alisa.common.common.Rationale;
 import org.osate.alisa.common.common.ShowValue;
 import org.osate.alisa.common.common.Uncertainty;
@@ -113,9 +112,6 @@ public class VerifySemanticSequencer extends CommonSemanticSequencer {
 				return; 
 			case CommonPackage.IMAGE_REFERENCE:
 				sequence_ImageReference(context, (ImageReference) semanticObject); 
-				return; 
-			case CommonPackage.PROPERTY_CONSISTENT_VARIABLE_DECLARATION:
-				sequence_XValDeclaration(context, (PropertyConsistentVariableDeclaration) semanticObject); 
 				return; 
 			case CommonPackage.RATIONALE:
 				sequence_Rationale(context, (Rationale) semanticObject); 
@@ -400,8 +396,16 @@ public class VerifySemanticSequencer extends CommonSemanticSequencer {
 				sequence_XUnaryOperation(context, (XUnaryOperation) semanticObject); 
 				return; 
 			case XbasePackage.XVARIABLE_DECLARATION:
-				sequence_XVariableDeclaration(context, (XVariableDeclaration) semanticObject); 
-				return; 
+				if(context == grammarAccess.getXValDeclarationRule()) {
+					sequence_XValDeclaration(context, (XVariableDeclaration) semanticObject); 
+					return; 
+				}
+				else if(context == grammarAccess.getXExpressionOrVarDeclarationRule() ||
+				   context == grammarAccess.getXVariableDeclarationRule()) {
+					sequence_XVariableDeclaration(context, (XVariableDeclaration) semanticObject); 
+					return; 
+				}
+				else break;
 			case XbasePackage.XWHILE_EXPRESSION:
 				sequence_XWhileExpression(context, (XWhileExpression) semanticObject); 
 				return; 

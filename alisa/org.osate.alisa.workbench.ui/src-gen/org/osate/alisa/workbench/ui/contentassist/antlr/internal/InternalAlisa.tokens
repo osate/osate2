@@ -3,13 +3,13 @@
 '::'=30
 '['=14
 ']'=15
-'all'=19
 'assume'=22
 'assurance'=11
 'assure'=18
 'description'=17
 'filter'=26
 'for'=13
+'global'=19
 'issues'=24
 'plan'=12
 'plans'=21

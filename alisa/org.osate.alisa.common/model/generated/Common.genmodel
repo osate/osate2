@@ -35,9 +35,6 @@
     <genClasses ecoreClass="Common.ecore#//ImageReference">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Common.ecore#//ImageReference/imgfile"/>
     </genClasses>
-    <genClasses ecoreClass="Common.ecore#//PropertyConsistentVariableDeclaration">
-      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference Common.ecore#//PropertyConsistentVariableDeclaration/property"/>
-    </genClasses>
     <genClasses ecoreClass="Common.ecore#//ComputeDeclaration">
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Common.ecore#//ComputeDeclaration/type"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Common.ecore#//ComputeDeclaration/name"/>

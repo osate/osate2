@@ -51,7 +51,7 @@ public class ReqSpecParser extends AbstractContentAssistParser {
 					put(grammarAccess.getDocRequirementAccess().getAlternatives_5_7_1(), "rule__DocRequirement__Alternatives_5_7_1");
 					put(grammarAccess.getReqPredicateAccess().getAlternatives(), "rule__ReqPredicate__Alternatives");
 					put(grammarAccess.getDescriptionElementAccess().getAlternatives(), "rule__DescriptionElement__Alternatives");
-					put(grammarAccess.getXValDeclarationAccess().getAlternatives_2(), "rule__XValDeclaration__Alternatives_2");
+					put(grammarAccess.getXValDeclarationAccess().getAlternatives_1(), "rule__XValDeclaration__Alternatives_1");
 					put(grammarAccess.getComputeDeclarationAccess().getAlternatives_2(), "rule__ComputeDeclaration__Alternatives_2");
 					put(grammarAccess.getXAssignmentAccess().getAlternatives(), "rule__XAssignment__Alternatives");
 					put(grammarAccess.getOpMultiAssignAccess().getAlternatives(), "rule__OpMultiAssign__Alternatives");
@@ -184,9 +184,8 @@ public class ReqSpecParser extends AbstractContentAssistParser {
 					put(grammarAccess.getUncertaintyAccess().getGroup_2_5(), "rule__Uncertainty__Group_2_5__0");
 					put(grammarAccess.getUncertaintyAccess().getGroup_2_6(), "rule__Uncertainty__Group_2_6__0");
 					put(grammarAccess.getXValDeclarationAccess().getGroup(), "rule__XValDeclaration__Group__0");
-					put(grammarAccess.getXValDeclarationAccess().getGroup_2_0(), "rule__XValDeclaration__Group_2_0__0");
-					put(grammarAccess.getXValDeclarationAccess().getGroup_2_0_0(), "rule__XValDeclaration__Group_2_0_0__0");
-					put(grammarAccess.getXValDeclarationAccess().getGroup_5(), "rule__XValDeclaration__Group_5__0");
+					put(grammarAccess.getXValDeclarationAccess().getGroup_1_0(), "rule__XValDeclaration__Group_1_0__0");
+					put(grammarAccess.getXValDeclarationAccess().getGroup_1_0_0(), "rule__XValDeclaration__Group_1_0_0__0");
 					put(grammarAccess.getComputeDeclarationAccess().getGroup(), "rule__ComputeDeclaration__Group__0");
 					put(grammarAccess.getComputeDeclarationAccess().getGroup_2_0(), "rule__ComputeDeclaration__Group_2_0__0");
 					put(grammarAccess.getComputeDeclarationAccess().getGroup_2_0_0(), "rule__ComputeDeclaration__Group_2_0_0__0");
@@ -513,11 +512,10 @@ public class ReqSpecParser extends AbstractContentAssistParser {
 					put(grammarAccess.getUncertaintyAccess().getTimecriticalityAssignment_2_4_1(), "rule__Uncertainty__TimecriticalityAssignment_2_4_1");
 					put(grammarAccess.getUncertaintyAccess().getRiskindexAssignment_2_5_1(), "rule__Uncertainty__RiskindexAssignment_2_5_1");
 					put(grammarAccess.getUncertaintyAccess().getMaturityindexAssignment_2_6_1(), "rule__Uncertainty__MaturityindexAssignment_2_6_1");
-					put(grammarAccess.getXValDeclarationAccess().getTypeAssignment_2_0_0_0(), "rule__XValDeclaration__TypeAssignment_2_0_0_0");
-					put(grammarAccess.getXValDeclarationAccess().getNameAssignment_2_0_0_1(), "rule__XValDeclaration__NameAssignment_2_0_0_1");
-					put(grammarAccess.getXValDeclarationAccess().getNameAssignment_2_1(), "rule__XValDeclaration__NameAssignment_2_1");
-					put(grammarAccess.getXValDeclarationAccess().getRightAssignment_4(), "rule__XValDeclaration__RightAssignment_4");
-					put(grammarAccess.getXValDeclarationAccess().getPropertyAssignment_5_2(), "rule__XValDeclaration__PropertyAssignment_5_2");
+					put(grammarAccess.getXValDeclarationAccess().getTypeAssignment_1_0_0_0(), "rule__XValDeclaration__TypeAssignment_1_0_0_0");
+					put(grammarAccess.getXValDeclarationAccess().getNameAssignment_1_0_0_1(), "rule__XValDeclaration__NameAssignment_1_0_0_1");
+					put(grammarAccess.getXValDeclarationAccess().getNameAssignment_1_1(), "rule__XValDeclaration__NameAssignment_1_1");
+					put(grammarAccess.getXValDeclarationAccess().getRightAssignment_3(), "rule__XValDeclaration__RightAssignment_3");
 					put(grammarAccess.getComputeDeclarationAccess().getTypeAssignment_2_0_0_0(), "rule__ComputeDeclaration__TypeAssignment_2_0_0_0");
 					put(grammarAccess.getComputeDeclarationAccess().getNameAssignment_2_0_0_1(), "rule__ComputeDeclaration__NameAssignment_2_0_0_1");
 					put(grammarAccess.getComputeDeclarationAccess().getNameAssignment_2_1(), "rule__ComputeDeclaration__NameAssignment_2_1");
