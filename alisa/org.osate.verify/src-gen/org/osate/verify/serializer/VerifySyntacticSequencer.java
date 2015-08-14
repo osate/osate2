@@ -21,8 +21,9 @@ import org.osate.verify.services.VerifyGrammarAccess;
 public class VerifySyntacticSequencer extends AbstractSyntacticSequencer {
 
 	protected VerifyGrammarAccess grammarAccess;
-	protected AbstractElementAlias match_Claim_ActivitiesKeyword_5_0_0_q;
-	protected AbstractElementAlias match_Claim_IssuesKeyword_5_4_0_q;
+	protected AbstractElementAlias match_Claim_ActivitiesKeyword_5_0_0_a;
+	protected AbstractElementAlias match_Claim_ActivitiesKeyword_5_0_0_p;
+	protected AbstractElementAlias match_Claim___ActivitiesKeyword_5_0_0_a_IssuesKeyword_5_4_0__q;
 	protected AbstractElementAlias match_CompositeEvidenceExpr_LeftParenthesisKeyword_0_0_a;
 	protected AbstractElementAlias match_CompositeEvidenceExpr_LeftParenthesisKeyword_0_0_p;
 	protected AbstractElementAlias match_VerificationMethod_CategoryKeyword_5_3_0_q;
@@ -38,8 +39,9 @@ public class VerifySyntacticSequencer extends AbstractSyntacticSequencer {
 	@Inject
 	protected void init(IGrammarAccess access) {
 		grammarAccess = (VerifyGrammarAccess) access;
-		match_Claim_ActivitiesKeyword_5_0_0_q = new TokenAlias(false, true, grammarAccess.getClaimAccess().getActivitiesKeyword_5_0_0());
-		match_Claim_IssuesKeyword_5_4_0_q = new TokenAlias(false, true, grammarAccess.getClaimAccess().getIssuesKeyword_5_4_0());
+		match_Claim_ActivitiesKeyword_5_0_0_a = new TokenAlias(true, true, grammarAccess.getClaimAccess().getActivitiesKeyword_5_0_0());
+		match_Claim_ActivitiesKeyword_5_0_0_p = new TokenAlias(true, false, grammarAccess.getClaimAccess().getActivitiesKeyword_5_0_0());
+		match_Claim___ActivitiesKeyword_5_0_0_a_IssuesKeyword_5_4_0__q = new GroupAlias(false, true, new TokenAlias(true, true, grammarAccess.getClaimAccess().getActivitiesKeyword_5_0_0()), new TokenAlias(false, false, grammarAccess.getClaimAccess().getIssuesKeyword_5_4_0()));
 		match_CompositeEvidenceExpr_LeftParenthesisKeyword_0_0_a = new TokenAlias(true, true, grammarAccess.getCompositeEvidenceExprAccess().getLeftParenthesisKeyword_0_0());
 		match_CompositeEvidenceExpr_LeftParenthesisKeyword_0_0_p = new TokenAlias(true, false, grammarAccess.getCompositeEvidenceExprAccess().getLeftParenthesisKeyword_0_0());
 		match_VerificationMethod_CategoryKeyword_5_3_0_q = new TokenAlias(false, true, grammarAccess.getVerificationMethodAccess().getCategoryKeyword_5_3_0());
@@ -90,10 +92,12 @@ public class VerifySyntacticSequencer extends AbstractSyntacticSequencer {
 		List<INode> transitionNodes = collectNodes(fromNode, toNode);
 		for (AbstractElementAlias syntax : transition.getAmbiguousSyntaxes()) {
 			List<INode> syntaxNodes = getNodesFor(transitionNodes, syntax);
-			if(match_Claim_ActivitiesKeyword_5_0_0_q.equals(syntax))
-				emit_Claim_ActivitiesKeyword_5_0_0_q(semanticObject, getLastNavigableState(), syntaxNodes);
-			else if(match_Claim_IssuesKeyword_5_4_0_q.equals(syntax))
-				emit_Claim_IssuesKeyword_5_4_0_q(semanticObject, getLastNavigableState(), syntaxNodes);
+			if(match_Claim_ActivitiesKeyword_5_0_0_a.equals(syntax))
+				emit_Claim_ActivitiesKeyword_5_0_0_a(semanticObject, getLastNavigableState(), syntaxNodes);
+			else if(match_Claim_ActivitiesKeyword_5_0_0_p.equals(syntax))
+				emit_Claim_ActivitiesKeyword_5_0_0_p(semanticObject, getLastNavigableState(), syntaxNodes);
+			else if(match_Claim___ActivitiesKeyword_5_0_0_a_IssuesKeyword_5_4_0__q.equals(syntax))
+				emit_Claim___ActivitiesKeyword_5_0_0_a_IssuesKeyword_5_4_0__q(semanticObject, getLastNavigableState(), syntaxNodes);
 			else if(match_CompositeEvidenceExpr_LeftParenthesisKeyword_0_0_a.equals(syntax))
 				emit_CompositeEvidenceExpr_LeftParenthesisKeyword_0_0_a(semanticObject, getLastNavigableState(), syntaxNodes);
 			else if(match_CompositeEvidenceExpr_LeftParenthesisKeyword_0_0_p.equals(syntax))
@@ -122,23 +126,79 @@ public class VerifySyntacticSequencer extends AbstractSyntacticSequencer {
 
 	/**
 	 * Ambiguous syntax:
-	 *     'activities'?
+	 *     'activities'*
 	 *
 	 * This ambiguous syntax occurs at:
+	 *     activities+=VerificationActivity (ambiguity) ']' (rule end)
+	 *     activities+=VerificationActivity (ambiguity) 'assert' assert=ArgumentExpr
+	 *     activities+=VerificationActivity (ambiguity) 'issues' issues+=STRING
 	 *     activities+=VerificationActivity (ambiguity) activities+=VerificationActivity
+	 *     activities+=VerificationActivity (ambiguity) rationale=Rationale
+	 *     activities+=VerificationActivity (ambiguity) subclaim+=Claim
+	 *     assert=ArgumentExpr (ambiguity) ']' (rule end)
+	 *     assert=ArgumentExpr (ambiguity) 'assert' assert=ArgumentExpr
+	 *     assert=ArgumentExpr (ambiguity) 'issues' issues+=STRING
+	 *     assert=ArgumentExpr (ambiguity) rationale=Rationale
+	 *     assert=ArgumentExpr (ambiguity) subclaim+=Claim
+	 *     issues+=STRING (ambiguity) ']' (rule end)
+	 *     issues+=STRING (ambiguity) 'assert' assert=ArgumentExpr
+	 *     issues+=STRING (ambiguity) rationale=Rationale
+	 *     issues+=STRING (ambiguity) subclaim+=Claim
+	 *     rationale=Rationale (ambiguity) ']' (rule end)
+	 *     rationale=Rationale (ambiguity) 'assert' assert=ArgumentExpr
+	 *     rationale=Rationale (ambiguity) 'issues' issues+=STRING
+	 *     rationale=Rationale (ambiguity) rationale=Rationale
+	 *     rationale=Rationale (ambiguity) subclaim+=Claim
+	 *     requirement=[Requirement|QualifiedName] '[' (ambiguity) ']' (rule end)
+	 *     requirement=[Requirement|QualifiedName] '[' (ambiguity) 'assert' assert=ArgumentExpr
+	 *     requirement=[Requirement|QualifiedName] '[' (ambiguity) 'issues' issues+=STRING
+	 *     requirement=[Requirement|QualifiedName] '[' (ambiguity) rationale=Rationale
+	 *     requirement=[Requirement|QualifiedName] '[' (ambiguity) subclaim+=Claim
+	 *     subclaim+=Claim (ambiguity) ']' (rule end)
+	 *     subclaim+=Claim (ambiguity) 'assert' assert=ArgumentExpr
+	 *     subclaim+=Claim (ambiguity) 'issues' issues+=STRING
+	 *     subclaim+=Claim (ambiguity) rationale=Rationale
+	 *     subclaim+=Claim (ambiguity) subclaim+=Claim
+	 *     title=STRING '[' (ambiguity) ']' (rule end)
+	 *     title=STRING '[' (ambiguity) 'assert' assert=ArgumentExpr
+	 *     title=STRING '[' (ambiguity) 'issues' issues+=STRING
+	 *     title=STRING '[' (ambiguity) rationale=Rationale
+	 *     title=STRING '[' (ambiguity) subclaim+=Claim
+	 *     weight=Number ')' '[' (ambiguity) ']' (rule end)
+	 *     weight=Number ')' '[' (ambiguity) 'assert' assert=ArgumentExpr
+	 *     weight=Number ')' '[' (ambiguity) 'issues' issues+=STRING
+	 *     weight=Number ')' '[' (ambiguity) rationale=Rationale
+	 *     weight=Number ')' '[' (ambiguity) subclaim+=Claim
 	 */
-	protected void emit_Claim_ActivitiesKeyword_5_0_0_q(EObject semanticObject, ISynNavigable transition, List<INode> nodes) {
+	protected void emit_Claim_ActivitiesKeyword_5_0_0_a(EObject semanticObject, ISynNavigable transition, List<INode> nodes) {
 		acceptNodes(transition, nodes);
 	}
 	
 	/**
 	 * Ambiguous syntax:
-	 *     'issues'?
+	 *     'activities'+
+	 *
+	 * This ambiguous syntax occurs at:
+	 *     assert=ArgumentExpr (ambiguity) activities+=VerificationActivity
+	 *     issues+=STRING (ambiguity) activities+=VerificationActivity
+	 *     rationale=Rationale (ambiguity) activities+=VerificationActivity
+	 *     requirement=[Requirement|QualifiedName] '[' (ambiguity) activities+=VerificationActivity
+	 *     subclaim+=Claim (ambiguity) activities+=VerificationActivity
+	 *     title=STRING '[' (ambiguity) activities+=VerificationActivity
+	 *     weight=Number ')' '[' (ambiguity) activities+=VerificationActivity
+	 */
+	protected void emit_Claim_ActivitiesKeyword_5_0_0_p(EObject semanticObject, ISynNavigable transition, List<INode> nodes) {
+		acceptNodes(transition, nodes);
+	}
+	
+	/**
+	 * Ambiguous syntax:
+	 *     ('activities'* 'issues')?
 	 *
 	 * This ambiguous syntax occurs at:
 	 *     issues+=STRING (ambiguity) issues+=STRING
 	 */
-	protected void emit_Claim_IssuesKeyword_5_4_0_q(EObject semanticObject, ISynNavigable transition, List<INode> nodes) {
+	protected void emit_Claim___ActivitiesKeyword_5_0_0_a_IssuesKeyword_5_4_0__q(EObject semanticObject, ISynNavigable transition, List<INode> nodes) {
 		acceptNodes(transition, nodes);
 	}
 	

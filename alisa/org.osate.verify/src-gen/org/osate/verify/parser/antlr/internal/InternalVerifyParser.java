@@ -1016,7 +1016,7 @@ public class InternalVerifyParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "ruleClaim"
-    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:369:1: ruleClaim returns [EObject current=null] : (otherlv_0= 'claim' ( ( ruleQualifiedName ) ) (otherlv_2= ':' ( (lv_title_3_0= RULE_STRING ) ) )? (otherlv_4= '(' ( (lv_weight_5_0= ruleNumber ) ) otherlv_6= ')' )? otherlv_7= '[' ( ( ( ( ({...}? => ( ({...}? => (otherlv_9= 'activities' ( (lv_activities_10_0= ruleVerificationActivity ) )+ ) ) ) ) | ({...}? => ( ({...}? => (otherlv_11= 'assert' ( (lv_assert_12_0= ruleArgumentExpr ) ) ) ) ) ) | ({...}? => ( ({...}? => ( (lv_rationale_13_0= ruleRationale ) ) ) ) ) | ({...}? => ( ({...}? => ( (lv_subclaim_14_0= ruleClaim ) ) )+ ) ) | ({...}? => ( ({...}? => (otherlv_15= 'issues' ( (lv_issues_16_0= RULE_STRING ) )+ ) ) ) ) )* ) ) ) otherlv_17= ']' ) ;
+    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:369:1: ruleClaim returns [EObject current=null] : (otherlv_0= 'claim' ( ( ruleQualifiedName ) ) (otherlv_2= ':' ( (lv_title_3_0= RULE_STRING ) ) )? (otherlv_4= '(' ( (lv_weight_5_0= ruleNumber ) ) otherlv_6= ')' )? otherlv_7= '[' ( ( ( ( ({...}? => ( ({...}? => (otherlv_9= 'activities' ( (lv_activities_10_0= ruleVerificationActivity ) )* ) ) ) ) | ({...}? => ( ({...}? => (otherlv_11= 'assert' ( (lv_assert_12_0= ruleArgumentExpr ) ) ) ) ) ) | ({...}? => ( ({...}? => ( (lv_rationale_13_0= ruleRationale ) ) ) ) ) | ({...}? => ( ({...}? => ( (lv_subclaim_14_0= ruleClaim ) ) )+ ) ) | ({...}? => ( ({...}? => (otherlv_15= 'issues' ( (lv_issues_16_0= RULE_STRING ) )+ ) ) ) ) )* ) ) ) otherlv_17= ']' ) ;
     public final EObject ruleClaim() throws RecognitionException {
         EObject current = null;
 
@@ -1045,11 +1045,11 @@ public class InternalVerifyParser extends AbstractInternalAntlrParser {
          enterRule(); 
             
         try {
-            // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:372:28: ( (otherlv_0= 'claim' ( ( ruleQualifiedName ) ) (otherlv_2= ':' ( (lv_title_3_0= RULE_STRING ) ) )? (otherlv_4= '(' ( (lv_weight_5_0= ruleNumber ) ) otherlv_6= ')' )? otherlv_7= '[' ( ( ( ( ({...}? => ( ({...}? => (otherlv_9= 'activities' ( (lv_activities_10_0= ruleVerificationActivity ) )+ ) ) ) ) | ({...}? => ( ({...}? => (otherlv_11= 'assert' ( (lv_assert_12_0= ruleArgumentExpr ) ) ) ) ) ) | ({...}? => ( ({...}? => ( (lv_rationale_13_0= ruleRationale ) ) ) ) ) | ({...}? => ( ({...}? => ( (lv_subclaim_14_0= ruleClaim ) ) )+ ) ) | ({...}? => ( ({...}? => (otherlv_15= 'issues' ( (lv_issues_16_0= RULE_STRING ) )+ ) ) ) ) )* ) ) ) otherlv_17= ']' ) )
-            // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:373:1: (otherlv_0= 'claim' ( ( ruleQualifiedName ) ) (otherlv_2= ':' ( (lv_title_3_0= RULE_STRING ) ) )? (otherlv_4= '(' ( (lv_weight_5_0= ruleNumber ) ) otherlv_6= ')' )? otherlv_7= '[' ( ( ( ( ({...}? => ( ({...}? => (otherlv_9= 'activities' ( (lv_activities_10_0= ruleVerificationActivity ) )+ ) ) ) ) | ({...}? => ( ({...}? => (otherlv_11= 'assert' ( (lv_assert_12_0= ruleArgumentExpr ) ) ) ) ) ) | ({...}? => ( ({...}? => ( (lv_rationale_13_0= ruleRationale ) ) ) ) ) | ({...}? => ( ({...}? => ( (lv_subclaim_14_0= ruleClaim ) ) )+ ) ) | ({...}? => ( ({...}? => (otherlv_15= 'issues' ( (lv_issues_16_0= RULE_STRING ) )+ ) ) ) ) )* ) ) ) otherlv_17= ']' )
+            // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:372:28: ( (otherlv_0= 'claim' ( ( ruleQualifiedName ) ) (otherlv_2= ':' ( (lv_title_3_0= RULE_STRING ) ) )? (otherlv_4= '(' ( (lv_weight_5_0= ruleNumber ) ) otherlv_6= ')' )? otherlv_7= '[' ( ( ( ( ({...}? => ( ({...}? => (otherlv_9= 'activities' ( (lv_activities_10_0= ruleVerificationActivity ) )* ) ) ) ) | ({...}? => ( ({...}? => (otherlv_11= 'assert' ( (lv_assert_12_0= ruleArgumentExpr ) ) ) ) ) ) | ({...}? => ( ({...}? => ( (lv_rationale_13_0= ruleRationale ) ) ) ) ) | ({...}? => ( ({...}? => ( (lv_subclaim_14_0= ruleClaim ) ) )+ ) ) | ({...}? => ( ({...}? => (otherlv_15= 'issues' ( (lv_issues_16_0= RULE_STRING ) )+ ) ) ) ) )* ) ) ) otherlv_17= ']' ) )
+            // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:373:1: (otherlv_0= 'claim' ( ( ruleQualifiedName ) ) (otherlv_2= ':' ( (lv_title_3_0= RULE_STRING ) ) )? (otherlv_4= '(' ( (lv_weight_5_0= ruleNumber ) ) otherlv_6= ')' )? otherlv_7= '[' ( ( ( ( ({...}? => ( ({...}? => (otherlv_9= 'activities' ( (lv_activities_10_0= ruleVerificationActivity ) )* ) ) ) ) | ({...}? => ( ({...}? => (otherlv_11= 'assert' ( (lv_assert_12_0= ruleArgumentExpr ) ) ) ) ) ) | ({...}? => ( ({...}? => ( (lv_rationale_13_0= ruleRationale ) ) ) ) ) | ({...}? => ( ({...}? => ( (lv_subclaim_14_0= ruleClaim ) ) )+ ) ) | ({...}? => ( ({...}? => (otherlv_15= 'issues' ( (lv_issues_16_0= RULE_STRING ) )+ ) ) ) ) )* ) ) ) otherlv_17= ']' )
             {
-            // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:373:1: (otherlv_0= 'claim' ( ( ruleQualifiedName ) ) (otherlv_2= ':' ( (lv_title_3_0= RULE_STRING ) ) )? (otherlv_4= '(' ( (lv_weight_5_0= ruleNumber ) ) otherlv_6= ')' )? otherlv_7= '[' ( ( ( ( ({...}? => ( ({...}? => (otherlv_9= 'activities' ( (lv_activities_10_0= ruleVerificationActivity ) )+ ) ) ) ) | ({...}? => ( ({...}? => (otherlv_11= 'assert' ( (lv_assert_12_0= ruleArgumentExpr ) ) ) ) ) ) | ({...}? => ( ({...}? => ( (lv_rationale_13_0= ruleRationale ) ) ) ) ) | ({...}? => ( ({...}? => ( (lv_subclaim_14_0= ruleClaim ) ) )+ ) ) | ({...}? => ( ({...}? => (otherlv_15= 'issues' ( (lv_issues_16_0= RULE_STRING ) )+ ) ) ) ) )* ) ) ) otherlv_17= ']' )
-            // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:373:3: otherlv_0= 'claim' ( ( ruleQualifiedName ) ) (otherlv_2= ':' ( (lv_title_3_0= RULE_STRING ) ) )? (otherlv_4= '(' ( (lv_weight_5_0= ruleNumber ) ) otherlv_6= ')' )? otherlv_7= '[' ( ( ( ( ({...}? => ( ({...}? => (otherlv_9= 'activities' ( (lv_activities_10_0= ruleVerificationActivity ) )+ ) ) ) ) | ({...}? => ( ({...}? => (otherlv_11= 'assert' ( (lv_assert_12_0= ruleArgumentExpr ) ) ) ) ) ) | ({...}? => ( ({...}? => ( (lv_rationale_13_0= ruleRationale ) ) ) ) ) | ({...}? => ( ({...}? => ( (lv_subclaim_14_0= ruleClaim ) ) )+ ) ) | ({...}? => ( ({...}? => (otherlv_15= 'issues' ( (lv_issues_16_0= RULE_STRING ) )+ ) ) ) ) )* ) ) ) otherlv_17= ']'
+            // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:373:1: (otherlv_0= 'claim' ( ( ruleQualifiedName ) ) (otherlv_2= ':' ( (lv_title_3_0= RULE_STRING ) ) )? (otherlv_4= '(' ( (lv_weight_5_0= ruleNumber ) ) otherlv_6= ')' )? otherlv_7= '[' ( ( ( ( ({...}? => ( ({...}? => (otherlv_9= 'activities' ( (lv_activities_10_0= ruleVerificationActivity ) )* ) ) ) ) | ({...}? => ( ({...}? => (otherlv_11= 'assert' ( (lv_assert_12_0= ruleArgumentExpr ) ) ) ) ) ) | ({...}? => ( ({...}? => ( (lv_rationale_13_0= ruleRationale ) ) ) ) ) | ({...}? => ( ({...}? => ( (lv_subclaim_14_0= ruleClaim ) ) )+ ) ) | ({...}? => ( ({...}? => (otherlv_15= 'issues' ( (lv_issues_16_0= RULE_STRING ) )+ ) ) ) ) )* ) ) ) otherlv_17= ']' )
+            // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:373:3: otherlv_0= 'claim' ( ( ruleQualifiedName ) ) (otherlv_2= ':' ( (lv_title_3_0= RULE_STRING ) ) )? (otherlv_4= '(' ( (lv_weight_5_0= ruleNumber ) ) otherlv_6= ')' )? otherlv_7= '[' ( ( ( ( ({...}? => ( ({...}? => (otherlv_9= 'activities' ( (lv_activities_10_0= ruleVerificationActivity ) )* ) ) ) ) | ({...}? => ( ({...}? => (otherlv_11= 'assert' ( (lv_assert_12_0= ruleArgumentExpr ) ) ) ) ) ) | ({...}? => ( ({...}? => ( (lv_rationale_13_0= ruleRationale ) ) ) ) ) | ({...}? => ( ({...}? => ( (lv_subclaim_14_0= ruleClaim ) ) )+ ) ) | ({...}? => ( ({...}? => (otherlv_15= 'issues' ( (lv_issues_16_0= RULE_STRING ) )+ ) ) ) ) )* ) ) ) otherlv_17= ']'
             {
             otherlv_0=(Token)match(input,20,FOLLOW_20_in_ruleClaim797); if (state.failed) return current;
             if ( state.backtracking==0 ) {
@@ -1214,17 +1214,17 @@ public class InternalVerifyParser extends AbstractInternalAntlrParser {
                   	newLeafNode(otherlv_7, grammarAccess.getClaimAccess().getLeftSquareBracketKeyword_4());
                   
             }
-            // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:444:1: ( ( ( ( ({...}? => ( ({...}? => (otherlv_9= 'activities' ( (lv_activities_10_0= ruleVerificationActivity ) )+ ) ) ) ) | ({...}? => ( ({...}? => (otherlv_11= 'assert' ( (lv_assert_12_0= ruleArgumentExpr ) ) ) ) ) ) | ({...}? => ( ({...}? => ( (lv_rationale_13_0= ruleRationale ) ) ) ) ) | ({...}? => ( ({...}? => ( (lv_subclaim_14_0= ruleClaim ) ) )+ ) ) | ({...}? => ( ({...}? => (otherlv_15= 'issues' ( (lv_issues_16_0= RULE_STRING ) )+ ) ) ) ) )* ) ) )
-            // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:446:1: ( ( ( ({...}? => ( ({...}? => (otherlv_9= 'activities' ( (lv_activities_10_0= ruleVerificationActivity ) )+ ) ) ) ) | ({...}? => ( ({...}? => (otherlv_11= 'assert' ( (lv_assert_12_0= ruleArgumentExpr ) ) ) ) ) ) | ({...}? => ( ({...}? => ( (lv_rationale_13_0= ruleRationale ) ) ) ) ) | ({...}? => ( ({...}? => ( (lv_subclaim_14_0= ruleClaim ) ) )+ ) ) | ({...}? => ( ({...}? => (otherlv_15= 'issues' ( (lv_issues_16_0= RULE_STRING ) )+ ) ) ) ) )* ) )
+            // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:444:1: ( ( ( ( ({...}? => ( ({...}? => (otherlv_9= 'activities' ( (lv_activities_10_0= ruleVerificationActivity ) )* ) ) ) ) | ({...}? => ( ({...}? => (otherlv_11= 'assert' ( (lv_assert_12_0= ruleArgumentExpr ) ) ) ) ) ) | ({...}? => ( ({...}? => ( (lv_rationale_13_0= ruleRationale ) ) ) ) ) | ({...}? => ( ({...}? => ( (lv_subclaim_14_0= ruleClaim ) ) )+ ) ) | ({...}? => ( ({...}? => (otherlv_15= 'issues' ( (lv_issues_16_0= RULE_STRING ) )+ ) ) ) ) )* ) ) )
+            // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:446:1: ( ( ( ({...}? => ( ({...}? => (otherlv_9= 'activities' ( (lv_activities_10_0= ruleVerificationActivity ) )* ) ) ) ) | ({...}? => ( ({...}? => (otherlv_11= 'assert' ( (lv_assert_12_0= ruleArgumentExpr ) ) ) ) ) ) | ({...}? => ( ({...}? => ( (lv_rationale_13_0= ruleRationale ) ) ) ) ) | ({...}? => ( ({...}? => ( (lv_subclaim_14_0= ruleClaim ) ) )+ ) ) | ({...}? => ( ({...}? => (otherlv_15= 'issues' ( (lv_issues_16_0= RULE_STRING ) )+ ) ) ) ) )* ) )
             {
-            // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:446:1: ( ( ( ({...}? => ( ({...}? => (otherlv_9= 'activities' ( (lv_activities_10_0= ruleVerificationActivity ) )+ ) ) ) ) | ({...}? => ( ({...}? => (otherlv_11= 'assert' ( (lv_assert_12_0= ruleArgumentExpr ) ) ) ) ) ) | ({...}? => ( ({...}? => ( (lv_rationale_13_0= ruleRationale ) ) ) ) ) | ({...}? => ( ({...}? => ( (lv_subclaim_14_0= ruleClaim ) ) )+ ) ) | ({...}? => ( ({...}? => (otherlv_15= 'issues' ( (lv_issues_16_0= RULE_STRING ) )+ ) ) ) ) )* ) )
-            // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:447:2: ( ( ({...}? => ( ({...}? => (otherlv_9= 'activities' ( (lv_activities_10_0= ruleVerificationActivity ) )+ ) ) ) ) | ({...}? => ( ({...}? => (otherlv_11= 'assert' ( (lv_assert_12_0= ruleArgumentExpr ) ) ) ) ) ) | ({...}? => ( ({...}? => ( (lv_rationale_13_0= ruleRationale ) ) ) ) ) | ({...}? => ( ({...}? => ( (lv_subclaim_14_0= ruleClaim ) ) )+ ) ) | ({...}? => ( ({...}? => (otherlv_15= 'issues' ( (lv_issues_16_0= RULE_STRING ) )+ ) ) ) ) )* )
+            // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:446:1: ( ( ( ({...}? => ( ({...}? => (otherlv_9= 'activities' ( (lv_activities_10_0= ruleVerificationActivity ) )* ) ) ) ) | ({...}? => ( ({...}? => (otherlv_11= 'assert' ( (lv_assert_12_0= ruleArgumentExpr ) ) ) ) ) ) | ({...}? => ( ({...}? => ( (lv_rationale_13_0= ruleRationale ) ) ) ) ) | ({...}? => ( ({...}? => ( (lv_subclaim_14_0= ruleClaim ) ) )+ ) ) | ({...}? => ( ({...}? => (otherlv_15= 'issues' ( (lv_issues_16_0= RULE_STRING ) )+ ) ) ) ) )* ) )
+            // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:447:2: ( ( ({...}? => ( ({...}? => (otherlv_9= 'activities' ( (lv_activities_10_0= ruleVerificationActivity ) )* ) ) ) ) | ({...}? => ( ({...}? => (otherlv_11= 'assert' ( (lv_assert_12_0= ruleArgumentExpr ) ) ) ) ) ) | ({...}? => ( ({...}? => ( (lv_rationale_13_0= ruleRationale ) ) ) ) ) | ({...}? => ( ({...}? => ( (lv_subclaim_14_0= ruleClaim ) ) )+ ) ) | ({...}? => ( ({...}? => (otherlv_15= 'issues' ( (lv_issues_16_0= RULE_STRING ) )+ ) ) ) ) )* )
             {
             getUnorderedGroupHelper().enter(grammarAccess.getClaimAccess().getUnorderedGroup_5());
-            // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:450:2: ( ( ({...}? => ( ({...}? => (otherlv_9= 'activities' ( (lv_activities_10_0= ruleVerificationActivity ) )+ ) ) ) ) | ({...}? => ( ({...}? => (otherlv_11= 'assert' ( (lv_assert_12_0= ruleArgumentExpr ) ) ) ) ) ) | ({...}? => ( ({...}? => ( (lv_rationale_13_0= ruleRationale ) ) ) ) ) | ({...}? => ( ({...}? => ( (lv_subclaim_14_0= ruleClaim ) ) )+ ) ) | ({...}? => ( ({...}? => (otherlv_15= 'issues' ( (lv_issues_16_0= RULE_STRING ) )+ ) ) ) ) )* )
-            // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:451:3: ( ({...}? => ( ({...}? => (otherlv_9= 'activities' ( (lv_activities_10_0= ruleVerificationActivity ) )+ ) ) ) ) | ({...}? => ( ({...}? => (otherlv_11= 'assert' ( (lv_assert_12_0= ruleArgumentExpr ) ) ) ) ) ) | ({...}? => ( ({...}? => ( (lv_rationale_13_0= ruleRationale ) ) ) ) ) | ({...}? => ( ({...}? => ( (lv_subclaim_14_0= ruleClaim ) ) )+ ) ) | ({...}? => ( ({...}? => (otherlv_15= 'issues' ( (lv_issues_16_0= RULE_STRING ) )+ ) ) ) ) )*
+            // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:450:2: ( ( ({...}? => ( ({...}? => (otherlv_9= 'activities' ( (lv_activities_10_0= ruleVerificationActivity ) )* ) ) ) ) | ({...}? => ( ({...}? => (otherlv_11= 'assert' ( (lv_assert_12_0= ruleArgumentExpr ) ) ) ) ) ) | ({...}? => ( ({...}? => ( (lv_rationale_13_0= ruleRationale ) ) ) ) ) | ({...}? => ( ({...}? => ( (lv_subclaim_14_0= ruleClaim ) ) )+ ) ) | ({...}? => ( ({...}? => (otherlv_15= 'issues' ( (lv_issues_16_0= RULE_STRING ) )+ ) ) ) ) )* )
+            // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:451:3: ( ({...}? => ( ({...}? => (otherlv_9= 'activities' ( (lv_activities_10_0= ruleVerificationActivity ) )* ) ) ) ) | ({...}? => ( ({...}? => (otherlv_11= 'assert' ( (lv_assert_12_0= ruleArgumentExpr ) ) ) ) ) ) | ({...}? => ( ({...}? => ( (lv_rationale_13_0= ruleRationale ) ) ) ) ) | ({...}? => ( ({...}? => ( (lv_subclaim_14_0= ruleClaim ) ) )+ ) ) | ({...}? => ( ({...}? => (otherlv_15= 'issues' ( (lv_issues_16_0= RULE_STRING ) )+ ) ) ) ) )*
             {
-            // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:451:3: ( ({...}? => ( ({...}? => (otherlv_9= 'activities' ( (lv_activities_10_0= ruleVerificationActivity ) )+ ) ) ) ) | ({...}? => ( ({...}? => (otherlv_11= 'assert' ( (lv_assert_12_0= ruleArgumentExpr ) ) ) ) ) ) | ({...}? => ( ({...}? => ( (lv_rationale_13_0= ruleRationale ) ) ) ) ) | ({...}? => ( ({...}? => ( (lv_subclaim_14_0= ruleClaim ) ) )+ ) ) | ({...}? => ( ({...}? => (otherlv_15= 'issues' ( (lv_issues_16_0= RULE_STRING ) )+ ) ) ) ) )*
+            // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:451:3: ( ({...}? => ( ({...}? => (otherlv_9= 'activities' ( (lv_activities_10_0= ruleVerificationActivity ) )* ) ) ) ) | ({...}? => ( ({...}? => (otherlv_11= 'assert' ( (lv_assert_12_0= ruleArgumentExpr ) ) ) ) ) ) | ({...}? => ( ({...}? => ( (lv_rationale_13_0= ruleRationale ) ) ) ) ) | ({...}? => ( ({...}? => ( (lv_subclaim_14_0= ruleClaim ) ) )+ ) ) | ({...}? => ( ({...}? => (otherlv_15= 'issues' ( (lv_issues_16_0= RULE_STRING ) )+ ) ) ) ) )*
             loop11:
             do {
                 int alt11=6;
@@ -1249,28 +1249,28 @@ public class InternalVerifyParser extends AbstractInternalAntlrParser {
 
                 switch (alt11) {
             	case 1 :
-            	    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:453:4: ({...}? => ( ({...}? => (otherlv_9= 'activities' ( (lv_activities_10_0= ruleVerificationActivity ) )+ ) ) ) )
+            	    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:453:4: ({...}? => ( ({...}? => (otherlv_9= 'activities' ( (lv_activities_10_0= ruleVerificationActivity ) )* ) ) ) )
             	    {
-            	    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:453:4: ({...}? => ( ({...}? => (otherlv_9= 'activities' ( (lv_activities_10_0= ruleVerificationActivity ) )+ ) ) ) )
-            	    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:454:5: {...}? => ( ({...}? => (otherlv_9= 'activities' ( (lv_activities_10_0= ruleVerificationActivity ) )+ ) ) )
+            	    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:453:4: ({...}? => ( ({...}? => (otherlv_9= 'activities' ( (lv_activities_10_0= ruleVerificationActivity ) )* ) ) ) )
+            	    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:454:5: {...}? => ( ({...}? => (otherlv_9= 'activities' ( (lv_activities_10_0= ruleVerificationActivity ) )* ) ) )
             	    {
             	    if ( ! getUnorderedGroupHelper().canSelect(grammarAccess.getClaimAccess().getUnorderedGroup_5(), 0) ) {
             	        if (state.backtracking>0) {state.failed=true; return current;}
             	        throw new FailedPredicateException(input, "ruleClaim", "getUnorderedGroupHelper().canSelect(grammarAccess.getClaimAccess().getUnorderedGroup_5(), 0)");
             	    }
-            	    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:454:102: ( ({...}? => (otherlv_9= 'activities' ( (lv_activities_10_0= ruleVerificationActivity ) )+ ) ) )
-            	    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:455:6: ({...}? => (otherlv_9= 'activities' ( (lv_activities_10_0= ruleVerificationActivity ) )+ ) )
+            	    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:454:102: ( ({...}? => (otherlv_9= 'activities' ( (lv_activities_10_0= ruleVerificationActivity ) )* ) ) )
+            	    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:455:6: ({...}? => (otherlv_9= 'activities' ( (lv_activities_10_0= ruleVerificationActivity ) )* ) )
             	    {
             	    getUnorderedGroupHelper().select(grammarAccess.getClaimAccess().getUnorderedGroup_5(), 0);
-            	    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:458:6: ({...}? => (otherlv_9= 'activities' ( (lv_activities_10_0= ruleVerificationActivity ) )+ ) )
-            	    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:458:7: {...}? => (otherlv_9= 'activities' ( (lv_activities_10_0= ruleVerificationActivity ) )+ )
+            	    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:458:6: ({...}? => (otherlv_9= 'activities' ( (lv_activities_10_0= ruleVerificationActivity ) )* ) )
+            	    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:458:7: {...}? => (otherlv_9= 'activities' ( (lv_activities_10_0= ruleVerificationActivity ) )* )
             	    {
             	    if ( !((true)) ) {
             	        if (state.backtracking>0) {state.failed=true; return current;}
             	        throw new FailedPredicateException(input, "ruleClaim", "true");
             	    }
-            	    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:458:16: (otherlv_9= 'activities' ( (lv_activities_10_0= ruleVerificationActivity ) )+ )
-            	    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:458:18: otherlv_9= 'activities' ( (lv_activities_10_0= ruleVerificationActivity ) )+
+            	    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:458:16: (otherlv_9= 'activities' ( (lv_activities_10_0= ruleVerificationActivity ) )* )
+            	    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:458:18: otherlv_9= 'activities' ( (lv_activities_10_0= ruleVerificationActivity ) )*
             	    {
             	    otherlv_9=(Token)match(input,23,FOLLOW_23_in_ruleClaim975); if (state.failed) return current;
             	    if ( state.backtracking==0 ) {
@@ -1278,8 +1278,7 @@ public class InternalVerifyParser extends AbstractInternalAntlrParser {
             	          	newLeafNode(otherlv_9, grammarAccess.getClaimAccess().getActivitiesKeyword_5_0_0());
             	          
             	    }
-            	    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:462:1: ( (lv_activities_10_0= ruleVerificationActivity ) )+
-            	    int cnt8=0;
+            	    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:462:1: ( (lv_activities_10_0= ruleVerificationActivity ) )*
             	    loop8:
             	    do {
             	        int alt8=2;
@@ -1328,13 +1327,8 @@ public class InternalVerifyParser extends AbstractInternalAntlrParser {
             	    	    break;
 
             	    	default :
-            	    	    if ( cnt8 >= 1 ) break loop8;
-            	    	    if (state.backtracking>0) {state.failed=true; return current;}
-            	                EarlyExitException eee =
-            	                    new EarlyExitException(8, input);
-            	                throw eee;
+            	    	    break loop8;
             	        }
-            	        cnt8++;
             	    } while (true);
 
 
@@ -27270,7 +27264,7 @@ public class InternalVerifyParser extends AbstractInternalAntlrParser {
     static final String DFA57_acceptS =
         "\10\uffff\1\2\1\1";
     static final String DFA57_specialS =
-        "\1\uffff\1\1\1\2\1\3\1\4\1\5\1\0\1\6\2\uffff}>";
+        "\1\uffff\1\1\1\2\1\3\1\4\1\5\1\6\1\0\2\uffff}>";
     static final String[] DFA57_transitionS = {
             "\5\10\6\uffff\3\10\1\uffff\1\10\1\uffff\2\10\2\uffff\1\10\4"+
             "\uffff\1\10\21\uffff\1\10\1\uffff\3\10\1\1\1\2\1\3\1\4\1\5\1"+
@@ -27323,10 +27317,10 @@ public class InternalVerifyParser extends AbstractInternalAntlrParser {
         	int _s = s;
             switch ( s ) {
                     case 0 : 
-                        int LA57_6 = input.LA(1);
+                        int LA57_7 = input.LA(1);
 
                          
-                        int index57_6 = input.index();
+                        int index57_7 = input.index();
                         input.rewind();
                         s = -1;
                         if ( (synpred5_InternalVerify()) ) {s = 9;}
@@ -27334,7 +27328,7 @@ public class InternalVerifyParser extends AbstractInternalAntlrParser {
                         else if ( (true) ) {s = 8;}
 
                          
-                        input.seek(index57_6);
+                        input.seek(index57_7);
                         if ( s>=0 ) return s;
                         break;
                     case 1 : 
@@ -27413,10 +27407,10 @@ public class InternalVerifyParser extends AbstractInternalAntlrParser {
                         if ( s>=0 ) return s;
                         break;
                     case 6 : 
-                        int LA57_7 = input.LA(1);
+                        int LA57_6 = input.LA(1);
 
                          
-                        int index57_7 = input.index();
+                        int index57_6 = input.index();
                         input.rewind();
                         s = -1;
                         if ( (synpred5_InternalVerify()) ) {s = 9;}
@@ -27424,7 +27418,7 @@ public class InternalVerifyParser extends AbstractInternalAntlrParser {
                         else if ( (true) ) {s = 8;}
 
                          
-                        input.seek(index57_7);
+                        input.seek(index57_6);
                         if ( s>=0 ) return s;
                         break;
             }
@@ -27446,7 +27440,7 @@ public class InternalVerifyParser extends AbstractInternalAntlrParser {
     static final String DFA67_acceptS =
         "\1\uffff\1\2\10\uffff\1\1";
     static final String DFA67_specialS =
-        "\2\uffff\1\4\1\2\1\6\1\7\1\5\1\3\1\0\1\1\1\uffff}>";
+        "\2\uffff\1\3\1\7\1\5\1\6\1\4\1\0\1\1\1\2\1\uffff}>";
     static final String[] DFA67_transitionS = {
             "\5\1\6\uffff\3\1\1\uffff\1\1\1\uffff\2\1\2\uffff\1\1\4\uffff"+
             "\1\1\21\uffff\1\1\1\uffff\10\1\1\2\1\3\10\1\1\4\1\5\1\6\1\7"+
@@ -27500,51 +27494,6 @@ public class InternalVerifyParser extends AbstractInternalAntlrParser {
         	int _s = s;
             switch ( s ) {
                     case 0 : 
-                        int LA67_8 = input.LA(1);
-
-                         
-                        int index67_8 = input.index();
-                        input.rewind();
-                        s = -1;
-                        if ( (synpred11_InternalVerify()) ) {s = 10;}
-
-                        else if ( (true) ) {s = 1;}
-
-                         
-                        input.seek(index67_8);
-                        if ( s>=0 ) return s;
-                        break;
-                    case 1 : 
-                        int LA67_9 = input.LA(1);
-
-                         
-                        int index67_9 = input.index();
-                        input.rewind();
-                        s = -1;
-                        if ( (synpred11_InternalVerify()) ) {s = 10;}
-
-                        else if ( (true) ) {s = 1;}
-
-                         
-                        input.seek(index67_9);
-                        if ( s>=0 ) return s;
-                        break;
-                    case 2 : 
-                        int LA67_3 = input.LA(1);
-
-                         
-                        int index67_3 = input.index();
-                        input.rewind();
-                        s = -1;
-                        if ( (synpred11_InternalVerify()) ) {s = 10;}
-
-                        else if ( (true) ) {s = 1;}
-
-                         
-                        input.seek(index67_3);
-                        if ( s>=0 ) return s;
-                        break;
-                    case 3 : 
                         int LA67_7 = input.LA(1);
 
                          
@@ -27559,7 +27508,37 @@ public class InternalVerifyParser extends AbstractInternalAntlrParser {
                         input.seek(index67_7);
                         if ( s>=0 ) return s;
                         break;
-                    case 4 : 
+                    case 1 : 
+                        int LA67_8 = input.LA(1);
+
+                         
+                        int index67_8 = input.index();
+                        input.rewind();
+                        s = -1;
+                        if ( (synpred11_InternalVerify()) ) {s = 10;}
+
+                        else if ( (true) ) {s = 1;}
+
+                         
+                        input.seek(index67_8);
+                        if ( s>=0 ) return s;
+                        break;
+                    case 2 : 
+                        int LA67_9 = input.LA(1);
+
+                         
+                        int index67_9 = input.index();
+                        input.rewind();
+                        s = -1;
+                        if ( (synpred11_InternalVerify()) ) {s = 10;}
+
+                        else if ( (true) ) {s = 1;}
+
+                         
+                        input.seek(index67_9);
+                        if ( s>=0 ) return s;
+                        break;
+                    case 3 : 
                         int LA67_2 = input.LA(1);
 
                          
@@ -27574,7 +27553,7 @@ public class InternalVerifyParser extends AbstractInternalAntlrParser {
                         input.seek(index67_2);
                         if ( s>=0 ) return s;
                         break;
-                    case 5 : 
+                    case 4 : 
                         int LA67_6 = input.LA(1);
 
                          
@@ -27589,7 +27568,7 @@ public class InternalVerifyParser extends AbstractInternalAntlrParser {
                         input.seek(index67_6);
                         if ( s>=0 ) return s;
                         break;
-                    case 6 : 
+                    case 5 : 
                         int LA67_4 = input.LA(1);
 
                          
@@ -27604,7 +27583,7 @@ public class InternalVerifyParser extends AbstractInternalAntlrParser {
                         input.seek(index67_4);
                         if ( s>=0 ) return s;
                         break;
-                    case 7 : 
+                    case 6 : 
                         int LA67_5 = input.LA(1);
 
                          
@@ -27617,6 +27596,21 @@ public class InternalVerifyParser extends AbstractInternalAntlrParser {
 
                          
                         input.seek(index67_5);
+                        if ( s>=0 ) return s;
+                        break;
+                    case 7 : 
+                        int LA67_3 = input.LA(1);
+
+                         
+                        int index67_3 = input.index();
+                        input.rewind();
+                        s = -1;
+                        if ( (synpred11_InternalVerify()) ) {s = 10;}
+
+                        else if ( (true) ) {s = 1;}
+
+                         
+                        input.seek(index67_3);
                         if ( s>=0 ) return s;
                         break;
             }
@@ -30780,7 +30774,7 @@ public class InternalVerifyParser extends AbstractInternalAntlrParser {
     public static final BitSet FOLLOW_ruleNumber_in_ruleClaim891 = new BitSet(new long[]{0x0000000000400000L});
     public static final BitSet FOLLOW_22_in_ruleClaim903 = new BitSet(new long[]{0x0000000000020000L});
     public static final BitSet FOLLOW_17_in_ruleClaim917 = new BitSet(new long[]{0x00008000019C0000L});
-    public static final BitSet FOLLOW_23_in_ruleClaim975 = new BitSet(new long[]{0x0000000000000010L});
+    public static final BitSet FOLLOW_23_in_ruleClaim975 = new BitSet(new long[]{0x00008000019C0010L});
     public static final BitSet FOLLOW_ruleVerificationActivity_in_ruleClaim996 = new BitSet(new long[]{0x00008000019C0010L});
     public static final BitSet FOLLOW_24_in_ruleClaim1065 = new BitSet(new long[]{0x0000000200200010L});
     public static final BitSet FOLLOW_ruleArgumentExpr_in_ruleClaim1086 = new BitSet(new long[]{0x00008000019C0000L});
