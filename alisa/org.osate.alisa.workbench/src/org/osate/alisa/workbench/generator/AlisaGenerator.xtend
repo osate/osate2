@@ -71,7 +71,7 @@ class AlisaGenerator implements IGenerator {
 
 	def generateCase(AssurancePlan acp) {
 		if (acp.assureGlobal.isEmpty){
-		allPlans = referenceFinder.getForallVerificationPlans(acp)
+			allPlans = referenceFinder.getForallVerificationPlans(acp)
 		} else {
 			allPlans = acp.assureGlobal
 		}
@@ -86,7 +86,10 @@ class AlisaGenerator implements IGenerator {
 
 
 	def CharSequence generate(ComponentClassifier cc, AssurancePlan acp, boolean systemEvidence) {
-		val myplans = cc.getVerificationPlans(acp);
+		var Iterable<VerificationPlan> myplans = acp.assureOwn
+		if (myplans.empty){
+		 myplans = cc.getVerificationPlans(acp);
+		}
 		'''	
 			«IF !myplans.empty»
 			«IF !systemEvidence»

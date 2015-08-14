@@ -23,7 +23,8 @@ import org.osate.verify.verify.VerificationPlan;
  *   <li>{@link org.osate.alisa.workbench.alisa.AssurancePlan#getTitle <em>Title</em>}</li>
  *   <li>{@link org.osate.alisa.workbench.alisa.AssurancePlan#getTarget <em>Target</em>}</li>
  *   <li>{@link org.osate.alisa.workbench.alisa.AssurancePlan#getDescription <em>Description</em>}</li>
- *   <li>{@link org.osate.alisa.workbench.alisa.AssurancePlan#getAssureAll <em>Assure All</em>}</li>
+ *   <li>{@link org.osate.alisa.workbench.alisa.AssurancePlan#getAssureOwn <em>Assure Own</em>}</li>
+ *   <li>{@link org.osate.alisa.workbench.alisa.AssurancePlan#getAssureGlobal <em>Assure Global</em>}</li>
  *   <li>{@link org.osate.alisa.workbench.alisa.AssurancePlan#getAssurePlans <em>Assure Plans</em>}</li>
  *   <li>{@link org.osate.alisa.workbench.alisa.AssurancePlan#getAssumeSubsystems <em>Assume Subsystems</em>}</li>
  *   <li>{@link org.osate.alisa.workbench.alisa.AssurancePlan#getIssues <em>Issues</em>}</li>
@@ -141,20 +142,36 @@ public interface AssurancePlan extends EObject
   void setDescription(Description value);
 
   /**
-   * Returns the value of the '<em><b>Assure All</b></em>' reference list.
+   * Returns the value of the '<em><b>Assure Own</b></em>' reference list.
    * The list contents are of type {@link org.osate.verify.verify.VerificationPlan}.
    * <!-- begin-user-doc -->
    * <p>
-   * If the meaning of the '<em>Assure All</em>' reference list isn't clear,
+   * If the meaning of the '<em>Assure Own</em>' reference list isn't clear,
    * there really should be more of a description here...
    * </p>
    * <!-- end-user-doc -->
-   * @return the value of the '<em>Assure All</em>' reference list.
-   * @see org.osate.alisa.workbench.alisa.AlisaPackage#getAssurancePlan_AssureAll()
+   * @return the value of the '<em>Assure Own</em>' reference list.
+   * @see org.osate.alisa.workbench.alisa.AlisaPackage#getAssurancePlan_AssureOwn()
    * @model
    * @generated
    */
-  EList<VerificationPlan> getAssureAll();
+  EList<VerificationPlan> getAssureOwn();
+
+  /**
+   * Returns the value of the '<em><b>Assure Global</b></em>' reference list.
+   * The list contents are of type {@link org.osate.verify.verify.VerificationPlan}.
+   * <!-- begin-user-doc -->
+   * <p>
+   * If the meaning of the '<em>Assure Global</em>' reference list isn't clear,
+   * there really should be more of a description here...
+   * </p>
+   * <!-- end-user-doc -->
+   * @return the value of the '<em>Assure Global</em>' reference list.
+   * @see org.osate.alisa.workbench.alisa.AlisaPackage#getAssurancePlan_AssureGlobal()
+   * @model
+   * @generated
+   */
+  EList<VerificationPlan> getAssureGlobal();
 
   /**
    * Returns the value of the '<em><b>Assure Plans</b></em>' reference list.

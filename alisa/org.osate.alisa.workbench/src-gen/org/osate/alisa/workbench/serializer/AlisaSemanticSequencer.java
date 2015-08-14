@@ -65,7 +65,8 @@ public class AlisaSemanticSequencer extends AbstractDelegatingSemanticSequencer 
 	 *         title=STRING? 
 	 *         target=[ComponentImplementation|AadlClassifierReference] 
 	 *         description=Description? 
-	 *         assureAll+=[VerificationPlan|QualifiedName]* 
+	 *         assureOwn+=[VerificationPlan|QualifiedName]* 
+	 *         assureGlobal+=[VerificationPlan|QualifiedName]* 
 	 *         assurePlans+=[AssurancePlan|QualifiedName]* 
 	 *         assumeSubsystems+=[ComponentClassifier|AadlClassifierReference]* 
 	 *         issues+=STRING*
