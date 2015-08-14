@@ -13,6 +13,9 @@ import org.osate.verify.verify.PluginMethod
 import org.osate.verify.util.VerificationMethodDispatchers
 import org.osate.verify.verify.Claim
 import static org.osate.verify.util.VerifyUtilExtension.*
+import org.osate.verify.verify.VerificationPlan
+import org.eclipse.xtext.validation.CheckType
+import org.eclipse.emf.ecore.util.EcoreUtil
 
 /**
  * Custom validation rules. 
@@ -27,6 +30,8 @@ class VerifyValidator extends AbstractVerifyValidator {
   public static val INCORRECT_METHOD_ID = "org.osate.verify.incorrectMethodID"
   public static val CLAIM_MISSING_REQUIREMENT = "org.osate.verify.claimMissingRequirement"
   public static val CLAIM_INVALID_REQUIREMENT = "org.osate.verify.claimInvalidRequirement"
+  public static val MISSING_CLAIM_FOR_REQ = "org.osate.verify.missingClaimForReq"
+  public static val CLAIM_REQ_FOR_NOT_VP_FOR = "org.osate.verify.claimReqForNotVpFor"
 
 	@Check
 	def checkMethodPath(JavaMethod method) {
@@ -78,4 +83,31 @@ class VerifyValidator extends AbstractVerifyValidator {
 			}
 		}
 	}
+	
+	@Check (CheckType.NORMAL)
+	def checkClaimsForRequirement(VerificationPlan vp){
+		val systemRequirements = vp.systemRequirements
+		val requirements = systemRequirements.content
+		requirements.forEach[req | 
+			if( !vp.claim.exists[claim | claim.requirement === req]){
+				error('No claim for requirement ' + req.name, vp,
+					VerifyPackage.Literals.VERIFICATION_PLAN__NAME,
+					MISSING_CLAIM_FOR_REQ, req.name, EcoreUtil.getURI(req).toString())
+			}
+		]
+	}
+	
+	@Check (CheckType.FAST)
+	def checkClaimRequirementsAreForVerificationPlanTarget(VerificationPlan vp){
+		val systemRequirements = vp.systemRequirements
+ 		val requirements = systemRequirements.content
+		vp.claim.forEach[claim|
+			 if (!requirements.exists[req | req === claim.requirement]){
+				error('Claim requirement ' + claim.requirement.name + ' does not match classifier identified for verification plan ' + vp.name,
+					claim, VerifyPackage.Literals.CLAIM__REQUIREMENT,
+					CLAIM_REQ_FOR_NOT_VP_FOR)
+			 }
+		]
+	}
+	
 }

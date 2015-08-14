@@ -24517,8 +24517,7 @@ rule__Claim__UnorderedGroup_5
     }
 :
 	rule__Claim__UnorderedGroup_5__0
-	
-	{getUnorderedGroupHelper().canLeave(grammarAccess.getClaimAccess().getUnorderedGroup_5())}?
+	?
 	
 ;
 finally {

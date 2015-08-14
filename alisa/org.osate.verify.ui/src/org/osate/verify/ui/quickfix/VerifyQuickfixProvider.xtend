@@ -3,6 +3,23 @@
 */
 package org.osate.verify.ui.quickfix
 
+import org.eclipse.emf.common.util.URI
+import org.eclipse.emf.ecore.EObject
+import org.eclipse.emf.ecore.resource.ResourceSet
+import org.eclipse.xtext.ui.editor.model.edit.IModification
+import org.eclipse.xtext.ui.editor.model.edit.IModificationContext
+import org.eclipse.xtext.ui.editor.model.edit.ISemanticModification
+import org.eclipse.xtext.ui.editor.quickfix.DefaultQuickfixProvider
+import org.eclipse.xtext.ui.editor.quickfix.Fix
+import org.eclipse.xtext.ui.editor.quickfix.IssueResolutionAcceptor
+import org.eclipse.xtext.validation.Issue
+import org.osate.reqspec.reqSpec.Requirement
+import org.osate.verify.validation.VerifyValidator
+import org.osate.verify.verify.Claim
+import org.osate.verify.verify.VerificationPlan
+import org.osate.verify.verify.VerifyFactory
+import org.osate.verify.verify.VerifyPackage
+
 //import org.eclipse.xtext.ui.editor.quickfix.Fix
 //import org.eclipse.xtext.ui.editor.quickfix.IssueResolutionAcceptor
 //import org.eclipse.xtext.validation.Issue
@@ -12,7 +29,7 @@ package org.osate.verify.ui.quickfix
  *
  * see http://www.eclipse.org/Xtext/documentation.html#quickfixes
  */
-class VerifyQuickfixProvider extends org.eclipse.xtext.ui.editor.quickfix.DefaultQuickfixProvider {
+class VerifyQuickfixProvider extends DefaultQuickfixProvider {
 
 //	@Fix(MyDslValidator::INVALID_NAME)
 //	def capitalizeName(Issue issue, IssueResolutionAcceptor acceptor) {
@@ -23,4 +40,35 @@ class VerifyQuickfixProvider extends org.eclipse.xtext.ui.editor.quickfix.Defaul
 //			xtextDocument.replace(issue.offset, 1, firstLetter.toUpperCase)
 //		]
 //	}
+	protected VerifyPackage verifyPackage = VerifyPackage.eINSTANCE;
+	protected VerifyFactory verifyFactory = verifyPackage.getVerifyFactory();
+
+	/**
+	 * QuickFix for adding a claim for a requirement
+	 * The issue data array is expected to have two elements:
+	 *
+	 * issue.getData()[0]: The name of the requirement
+	 * issue.getData()[1]: the uri of the requirement
+	 * 
+	 */
+	@Fix(VerifyValidator.MISSING_CLAIM_FOR_REQ)
+	def public void fixMissingClaimForRequirement(Issue issue, IssueResolutionAcceptor acceptor) {
+		val reqName = issue.getData().head
+		val reqURI = issue.getData().get(1)
+
+		acceptor.accept(issue, "Add claim for " + reqName, null, null,
+				new ISemanticModification() {
+					override apply(EObject element, IModificationContext context) throws Exception {
+						val resourceSet = element.eResource().getResourceSet() as ResourceSet
+						val req = resourceSet.getEObject(URI.createURI(reqURI), true) as Requirement
+						val verificationPlan = element as VerificationPlan
+						val Claim claim = verifyFactory.createClaim
+						claim.requirement = req
+						verificationPlan.claim.add(claim)
+					}
+				});
+	}
+
+
+
 }

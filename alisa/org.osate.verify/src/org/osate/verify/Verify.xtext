@@ -31,7 +31,7 @@ Claim:
 	( '(' weight=Number ')' )?
 	'['
 	(
-		('activities' activities += VerificationActivity+)
+		('activities' activities += VerificationActivity+)?
 		&('assert' assert=ArgumentExpr)?
 	& rationale=Rationale?
 	& subclaim+=Claim*

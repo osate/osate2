@@ -612,8 +612,7 @@ ruleClaim returns [EObject current=null]
  				)
 			)  
 
-		)+
-	  	{getUnorderedGroupHelper().canLeave(grammarAccess.getClaimAccess().getUnorderedGroup_5())}?	
+		)*	
 	)
 )
 	{ 

@@ -200,12 +200,12 @@ public class VerifyGrammarAccess extends AbstractGrammarElementFinder {
 		
 		//Claim:
 		//	"claim" requirement=[ReqSpec::Requirement|QualifiedName] (":" title=STRING)? ("(" weight=Number ")")? "["
-		//	("activities" activities+=VerificationActivity+ & ("assert" assert=ArgumentExpr)? & rationale=Rationale? &
+		//	(("activities" activities+=VerificationActivity+)? & ("assert" assert=ArgumentExpr)? & rationale=Rationale? &
 		//	subclaim+=Claim* & ("issues" issues+=STRING+)?) "]";
 		@Override public ParserRule getRule() { return rule; }
 
-		//"claim" requirement=[ReqSpec::Requirement|QualifiedName] (":" title=STRING)? ("(" weight=Number ")")? "[" ("activities"
-		//activities+=VerificationActivity+ & ("assert" assert=ArgumentExpr)? & rationale=Rationale? & subclaim+=Claim* &
+		//"claim" requirement=[ReqSpec::Requirement|QualifiedName] (":" title=STRING)? ("(" weight=Number ")")? "[" (("activities"
+		//activities+=VerificationActivity+)? & ("assert" assert=ArgumentExpr)? & rationale=Rationale? & subclaim+=Claim* &
 		//("issues" issues+=STRING+)?) "]"
 		public Group getGroup() { return cGroup; }
 
@@ -251,11 +251,11 @@ public class VerifyGrammarAccess extends AbstractGrammarElementFinder {
 		//"["
 		public Keyword getLeftSquareBracketKeyword_4() { return cLeftSquareBracketKeyword_4; }
 
-		//"activities" activities+=VerificationActivity+ & ("assert" assert=ArgumentExpr)? & rationale=Rationale? &
+		//("activities" activities+=VerificationActivity+)? & ("assert" assert=ArgumentExpr)? & rationale=Rationale? &
 		//subclaim+=Claim* & ("issues" issues+=STRING+)?
 		public UnorderedGroup getUnorderedGroup_5() { return cUnorderedGroup_5; }
 
-		//"activities" activities+=VerificationActivity+
+		//("activities" activities+=VerificationActivity+)?
 		public Group getGroup_5_0() { return cGroup_5_0; }
 
 		//"activities"
@@ -1549,7 +1549,7 @@ public class VerifyGrammarAccess extends AbstractGrammarElementFinder {
 
 	//Claim:
 	//	"claim" requirement=[ReqSpec::Requirement|QualifiedName] (":" title=STRING)? ("(" weight=Number ")")? "["
-	//	("activities" activities+=VerificationActivity+ & ("assert" assert=ArgumentExpr)? & rationale=Rationale? &
+	//	(("activities" activities+=VerificationActivity+)? & ("assert" assert=ArgumentExpr)? & rationale=Rationale? &
 	//	subclaim+=Claim* & ("issues" issues+=STRING+)?) "]";
 	public ClaimElements getClaimAccess() {
 		return pClaim;
