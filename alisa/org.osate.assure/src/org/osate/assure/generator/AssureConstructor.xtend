@@ -52,6 +52,9 @@ class AssureConstructor {
 	var EList<RequirementCategory> requirementFilter = null
 	var EList<VerificationCategory> verificationFilter = null
 
+	
+	var Iterable<VerificationPlan> allPlans = null
+
 	def constructAssuranceTask(AssuranceTask at) {
 		selectionFilter = at.selectionFilter
 		requirementFilter = at.requirementFilter
@@ -60,6 +63,11 @@ class AssureConstructor {
 	}
 
 	def constructCase(AssurancePlan acp) {
+		if (acp.assureGlobal.isEmpty){
+			allPlans = referenceFinder.getForallVerificationPlans(acp)
+		} else {
+			allPlans = acp.assureGlobal
+		}
 		acp.target.construct(acp, false)
 	}
 
@@ -70,7 +78,10 @@ class AssureConstructor {
 	@Inject extension IVerifyGlobalReferenceFinder referenceFinder
 
 	def AssuranceEvidence construct(ComponentClassifier cc, AssurancePlan acp, boolean systemEvidence) {
-		val myplans = cc.getVerificationPlans(acp);
+		var Iterable<VerificationPlan> myplans = acp.assureOwn
+		if (myplans.empty){
+		 myplans = cc.getVerificationPlans(acp);
+		}
 		var AssuranceEvidence acase = null
 		if (!myplans.empty) {
 			acase = factory.createAssuranceEvidence
