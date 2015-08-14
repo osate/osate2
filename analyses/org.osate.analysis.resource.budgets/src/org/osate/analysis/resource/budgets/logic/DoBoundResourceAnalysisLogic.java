@@ -104,10 +104,10 @@ public class DoBoundResourceAnalysisLogic extends DoResourceBudgetLogic {
 			}
 			monitor.done();
 
-			if (root.getSystemOperationModes().size() == 1) {
-				// Also report the results using a message dialog
-				Dialog.showInfo("Resource Budget Statistics", errManager.getResultsMessages());
-			}
+//			if (root.getSystemOperationModes().size() == 1) {
+//				// Also report the results using a message dialog
+//				Dialog.showInfo("Resource Budget Statistics", errManager.getResultsMessages());
+//			}
 		} else
 			Dialog.showError("Bound Resource Analysis Error", "Can only check system instances");
 	}

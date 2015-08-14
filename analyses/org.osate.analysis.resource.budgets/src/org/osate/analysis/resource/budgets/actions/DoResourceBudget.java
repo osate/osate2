@@ -74,20 +74,19 @@ public class DoResourceBudget extends AaxlReadOnlyActionAsJob {
 		setCSVLog("ResourceBudgets", obj);
 		return true;
 	}
-	
+
 	public void setErrManager() {
-		this.errManager = new AnalysisErrorReporterManager(
-				this.getAnalysisErrorReporterFactory());
+		this.errManager = new AnalysisErrorReporterManager(this.getAnalysisErrorReporterFactory());
 	}
-	
-	public void setSummaryReport(){
+
+	public void setSummaryReport() {
 		this.summaryReport = new StringBuffer();
 	}
-	
-	public void saveReport(){
+
+	public void saveReport() {
 		this.getCSVLog().saveToFile();
 	}
-	
+
 	public void doAaxlAction(IProgressMonitor monitor, Element obj) {
 
 		// Get the system instance (if any)
@@ -103,19 +102,19 @@ public class DoResourceBudget extends AaxlReadOnlyActionAsJob {
 						"Model contains thread execution times without reference processor.");
 				return;
 			}
-			
+
 //			actionBody(monitor, si);
-			
+
 			logic = new DoResourceBudgetLogic(this);
 
 			logic.analyzeResourceBudget(si, null);
 
 			monitor.done();
 
-			if (si.getSystemOperationModes().size() == 1) {
-				// Also report the results using a message dialog
-				Dialog.showInfo("Resource Budget Statistics", getResultsMessages());
-			}
+//			if (si.getSystemOperationModes().size() == 1) {
+//				// Also report the results using a message dialog
+//				Dialog.showInfo("Resource Budget Statistics", getResultsMessages());
+//			}
 		}
 	}
 
