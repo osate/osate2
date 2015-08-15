@@ -69,36 +69,42 @@ class AssureLabelProvider extends org.eclipse.xtext.ui.label.DefaultEObjectLabel
 	def image(ClaimResult ele) {
 		if (ele.isSuccessful) return 'valid.png'//'claimsuccess.png'
 		if (ele.noSuccess) return 'error.png'//'claimfail.png'
+		if (ele.isTBD) return 'info.png'//'validationfail.png'
 		return 'questionmark.png'//'claim.png'
 	}
 	
 	def image(VerificationActivityResult ele) {
 		if (ele.isSuccessful) return 'valid.png'//'evidencesuccess.png'
 		if (ele.noSuccess) return 'error.png'//'evidencefail.png'
+		if (ele.isTBD) return 'info.png'//'validationfail.png'
 		return 'questionmark.png'//'evidence.png'
 	}
 	
 	def image(AssuranceEvidence ele) {
 		if (ele.isSuccessful) return 'valid.png'//'assuresuccess.png'
 		if (ele.noSuccess) return 'error.png'//'assurefail.png'
+		if (ele.isTBD) return 'info.png'//'validationfail.png'
 		return 'questionmark.png'//'assure.png'
 	}
 	
 	def image(ValidationResult ele) {
 		if (ele.isSuccessful) return 'valid.png'//'validationsuccess.png'
 		if (ele.noSuccess) return 'error.png'//'validationfail.png'
+		if (ele.isTBD) return 'info.png'//'validationfail.png'
 		return 'questionmark.png'//'validation.png'
 	}
 	
 	def image(ThenResult ele) {
 		if (ele.isSuccessful) return 'valid.png'
 		if (ele.noSuccess) return 'error.png'
+		if (ele.isTBD) return 'info.png'//'validationfail.png'
 		return 'questionmark.png'
 	}
 	
 	def image(ElseResult ele) {
 		if (ele.isSuccessful) return 'valid.png'
 		if (ele.noSuccess) return 'error.png'
+		if (ele.isTBD) return 'info.png'//'validationfail.png'
 		return 'questionmark.png'
 	}
 	
