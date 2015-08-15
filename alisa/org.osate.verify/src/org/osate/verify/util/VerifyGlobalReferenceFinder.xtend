@@ -14,6 +14,7 @@ import org.eclipse.emf.ecore.util.EcoreUtil
 
 @ImplementedBy(VerifyGlobalReferenceFinder)
 interface IVerifyGlobalReferenceFinder {
+	def Iterable<VerificationPlan> getVerificationPlansForScopes(ComponentClassifier cc, EObject context);
 	/**
 	 * do not use this methods to construction of scopes as they are operating on references
 	 * cc is the classifier that must be the same or an ancestor of the classifier referenced by the system requirements or the verification plan
@@ -31,6 +32,15 @@ class VerifyGlobalReferenceFinder implements IVerifyGlobalReferenceFinder{
 		
 	@Inject
 	var ICommonGlobalReferenceFinder refFinder
+		
+		override Iterable<VerificationPlan> getVerificationPlansForScopes(ComponentClassifier cc, EObject context){
+			val srURIs = refFinder.getEObjectReferences(cc, ReqSpecPackage.eINSTANCE.systemRequirements_Target, "reqspec")
+			val vpURIs = srURIs.map[srURI|refFinder.getEObjectReferences(srURI, VerifyPackage.Literals.VERIFICATION_PLAN__SYSTEM_REQUIREMENTS, "verify")].flatten
+			val resset = context.eResource.resourceSet
+			val x= vpURIs.map[ vpURI | resset.getEObject(vpURI, true) as VerificationPlan]
+			return refFinder.getEObjectDescriptions(context, VerifyPackage.Literals.VERIFICATION_PLAN, "verify").map [ eod |
+			EcoreUtil.resolve(eod.EObjectOrProxy, context) as VerificationPlan].filter[vp|cc.isSameorExtends(vp.systemRequirements?.target)]
+	}
 		
 		override Iterable<VerificationPlan> getVerificationPlans(ComponentClassifier cc, EObject context){
 			val srURIs = refFinder.getEObjectReferences(cc, ReqSpecPackage.eINSTANCE.systemRequirements_Target, "reqspec")

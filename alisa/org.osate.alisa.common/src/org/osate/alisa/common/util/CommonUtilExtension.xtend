@@ -63,6 +63,7 @@ class CommonUtilExtension {
 //		return String.format("%.3f " + targetliteral.getName(), result);
 //	}
 	def static boolean isSameorExtends(ComponentClassifier target, ComponentClassifier ancestor) {
+		if (target == null || ancestor == null) return false
 		var Classifier ext = target
 		if (target instanceof ComponentImplementation && ancestor instanceof ComponentType) {
 			ext = (target as ComponentImplementation).getType();
@@ -78,6 +79,7 @@ class CommonUtilExtension {
 	}
 
 	def static boolean isSameorExtends(ComponentClassifier target, URI ancestorURI) {
+		if (target == null || ancestorURI == null) return false
 		var Classifier ext = target
 		while (ext != null) {
 			if (ancestorURI == EcoreUtil.getURI(ext) ) {
