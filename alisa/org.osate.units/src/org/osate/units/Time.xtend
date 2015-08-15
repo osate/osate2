@@ -26,6 +26,10 @@ import org.eclipse.xtend.lib.annotations.Data
 	def *(int times) {
 		new Time(this.msec * new BigDecimal(times))
 	}
+// handle times on int as first operand
+	static def *(int times, Time d){
+		return new Time(d.msec * new BigDecimal(times))
+	}
 
 	def *(double times) {
 		new Time(this.msec * new BigDecimal(times))
