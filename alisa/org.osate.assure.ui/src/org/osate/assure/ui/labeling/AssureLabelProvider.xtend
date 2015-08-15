@@ -29,18 +29,18 @@ class AssureLabelProvider extends org.eclipse.xtext.ui.label.DefaultEObjectLabel
 	// Labels and icons can be computed like this:
 	
 	def text(ClaimResult ele) {
-		"claim for req " + ele.constructMessage
+		"Claim: "+ele.constructMessage
 		+ ele.assureResultCounts
 	}
 	
 	def text(VerificationActivityResult ele) {
-		ele.constructLabel +" "+ ele.constructMessage	+ ele.resultState.toTextLabel
+		"Evidence: "+ ele.constructMessage	+ ele.resultState.toTextLabel
 		+ ele.assureResultCounts
 
 	}
 	
 	def text(AssuranceEvidence ele) {
-		ele.constructLabel +" "+ ele.constructMessage		
+		"System "+ele.constructMessage		
 		+ ele.assureResultCounts
 	}
 	
@@ -67,27 +67,27 @@ class AssureLabelProvider extends org.eclipse.xtext.ui.label.DefaultEObjectLabel
 	
 	
 	def image(ClaimResult ele) {
-		if (ele.isSuccessful) return 'claimsuccess.png'
-		if (ele.noSuccess) return 'claimfail.png'
-		return 'claim.png'
+		if (ele.isSuccessful) return 'valid.png'//'claimsuccess.png'
+		if (ele.noSuccess) return 'error.png'//'claimfail.png'
+		return 'questionmark.png'//'claim.png'
 	}
 	
 	def image(VerificationActivityResult ele) {
-		if (ele.isSuccessful) return 'evidencesuccess.png'
-		if (ele.noSuccess) return 'evidencefail.png'
-		return 'evidence.png'
+		if (ele.isSuccessful) return 'valid.png'//'evidencesuccess.png'
+		if (ele.noSuccess) return 'error.png'//'evidencefail.png'
+		return 'questionmark.png'//'evidence.png'
 	}
 	
 	def image(AssuranceEvidence ele) {
-		if (ele.isSuccessful) return 'assuresuccess.png'
-		if (ele.noSuccess) return 'assurefail.png'
-		return 'assure.png'
+		if (ele.isSuccessful) return 'valid.png'//'assuresuccess.png'
+		if (ele.noSuccess) return 'error.png'//'assurefail.png'
+		return 'questionmark.png'//'assure.png'
 	}
 	
 	def image(ValidationResult ele) {
-		if (ele.isSuccessful) return 'validationsuccess.png'
-		if (ele.noSuccess) return 'validationfail.png'
-		return 'validation.png'
+		if (ele.isSuccessful) return 'valid.png'//'validationsuccess.png'
+		if (ele.noSuccess) return 'error.png'//'validationfail.png'
+		return 'questionmark.png'//'validation.png'
 	}
 	
 	def image(ThenResult ele) {
