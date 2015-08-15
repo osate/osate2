@@ -940,21 +940,26 @@ class AssureUtilExtension {
 	def static String constructMessage(VerificationActivityResult vr) {
 		if(vr.message != null) return vr.message
 		val va = vr.target
-		""
+		if (va.title != null) return va.title
+		val vm = va.method
+		if (vm.description != null) return vm.description.toText(va.target)
+		if (vm.title != null) return vm.title
+		return vm.name
 	}
 
 	def static String constructMessage(AssuranceEvidence ce) {
 		if(ce.message != null) return ce.message
-		return "for " + ce.target.name
+		if (ce.target != null && ce.target.target != null) return ce.target.target.name
+		return ce.targetSystem.name
 	}
 
 	def static String constructMessage(ClaimResult cr) {
 		if(cr.message != null) return cr.message
 		
 		val r = cr.target
-		if(r.name != null) return r.name
 		if(r.description != null) return r.description.toText(cr.claimSubject)
-		
+		if(r.title != null) return r.title
+		if(r.name != null) return r.name
 		""
 	}
 
@@ -980,7 +985,7 @@ class AssureUtilExtension {
 
 	def static String assureResultCounts(AssureResult ele) {
 		val elec= ele.metrics
-		"(S" + elec.successCount + " F" + elec.failCount + " T" + elec.timeoutCount + " O" + elec.otherCount + " tbd" + elec.tbdCount 
+		" (S" + elec.successCount + " F" + elec.failCount + " T" + elec.timeoutCount + " O" + elec.otherCount + " tbd" + elec.tbdCount 
 		+ " DE" + elec.didelseCount + " TS" + elec.thenskipCount+ ")"
 	}
 	

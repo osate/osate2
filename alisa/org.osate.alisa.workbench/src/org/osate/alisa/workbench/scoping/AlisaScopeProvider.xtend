@@ -27,7 +27,7 @@ class AlisaScopeProvider extends AbstractDeclarativeScopeProvider {
 
 	def scope_AssurancePlan_assureGlobal(AssurancePlan acp, EReference reference){
 		val targetCC = acp.target
-		val vps = refFinder.getVerificationPlans(targetCC,acp).filter[vp| vp.systemRequirements.global]
+		val vps = refFinder.getVerificationPlansForScopes(targetCC,acp).filter[vp| vp.systemRequirements.global]
 		new SimpleScope(IScope::NULLSCOPE, 
 			Scopes::scopedElementsFor(vps,
 						QualifiedName::wrapper(SimpleAttributeResolver::NAME_RESOLVER)), true)
@@ -36,7 +36,7 @@ class AlisaScopeProvider extends AbstractDeclarativeScopeProvider {
 
 	def scope_AssurancePlan_assureOwn(AssurancePlan acp, EReference reference){
 		val targetCC = acp.target
-		 val vps = refFinder.getVerificationPlans(targetCC,acp);
+		 val vps = refFinder.getGlobalReqVerificationPlans(acp);
 		new SimpleScope(IScope::NULLSCOPE, 
 			Scopes::scopedElementsFor(vps,
 						QualifiedName::wrapper(SimpleAttributeResolver::NAME_RESOLVER)), true)
