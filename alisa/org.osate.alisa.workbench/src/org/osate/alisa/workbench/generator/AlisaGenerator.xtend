@@ -78,15 +78,21 @@ class AlisaGenerator implements IGenerator {
 		acp.target.generate(acp, false)
 	}
 
-	def generateSystemEvidence(ComponentClassifier cc, AssurancePlan acp) {
-		cc.generate(acp,true)
+	def generateSystemEvidence(ComponentClassifier cc, AssurancePlan parentacp) {
+		cc.generate(parentacp,true)
 	}
 
 @Inject extension IVerifyGlobalReferenceFinder referenceFinder
 
 
+	/**
+	 * if systemEvidence is true then acp is the parent acp. Therefore we need to find the verification plans for the system.
+	 */
 	def CharSequence generate(ComponentClassifier cc, AssurancePlan acp, boolean systemEvidence) {
-		var Iterable<VerificationPlan> myplans = acp.assureOwn
+		var Iterable<VerificationPlan> myplans = Collections.EMPTY_LIST
+		if (!systemEvidence){
+			myplans = acp.assureOwn
+		}
 		if (myplans.empty){
 		 myplans = cc.getVerificationPlans(acp);
 		}

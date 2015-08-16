@@ -71,14 +71,20 @@ class AssureConstructor {
 		acp.target.construct(acp, false)
 	}
 
-	def constructSystemEvidence(ComponentClassifier cc, AssurancePlan acp) {
-		cc.construct(acp, true)
+	def constructSystemEvidence(ComponentClassifier cc, AssurancePlan parentacp) {
+		cc.construct(parentacp, true)
 	}
 
 	@Inject extension IVerifyGlobalReferenceFinder referenceFinder
 
+	/**
+	 * if systemEvidence is true then acp is the parent acp. Therefore we need to find the verification plans for the system.
+	 */
 	def AssuranceEvidence construct(ComponentClassifier cc, AssurancePlan acp, boolean systemEvidence) {
-		var Iterable<VerificationPlan> myplans = acp.assureOwn
+		var Iterable<VerificationPlan> myplans = Collections.EMPTY_LIST
+		if (!systemEvidence){
+			myplans = acp.assureOwn
+		}
 		if (myplans.empty){
 		 myplans = cc.getVerificationPlans(acp);
 		}
