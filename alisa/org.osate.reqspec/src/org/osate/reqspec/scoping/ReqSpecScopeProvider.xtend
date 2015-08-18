@@ -50,11 +50,11 @@ class ReqSpecScopeProvider extends AlisaAbstractDeclarativeScopeProvider {
 		if (targetClassifier != null) {
 //			targetClassifier.getAllFeatures.scopeFor
 			val thescope = new SimpleScope(IScope::NULLSCOPE,
-				Scopes::scopedElementsFor(targetClassifier.getAllFeatures,
+				Scopes::scopedElementsFor(targetClassifier.getAllFeatures+targetClassifier.allModes,
 					QualifiedName::wrapper(SimpleAttributeResolver::NAME_RESOLVER)), true)
 			if (targetClassifier instanceof ComponentImplementation) {
 				new SimpleScope(thescope,
-					Scopes::scopedElementsFor(targetClassifier.allSubcomponents,
+					Scopes::scopedElementsFor(targetClassifier.allSubcomponents+targetClassifier.allEndToEndFlows,
 						QualifiedName::wrapper(SimpleAttributeResolver::NAME_RESOLVER)), true)
 			} else {
 				return thescope
