@@ -14,6 +14,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 
+import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.jface.dialogs.Dialog;
 import org.eclipse.jface.dialogs.IDialogConstants;
@@ -36,7 +37,6 @@ import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
-import org.eclipse.swt.layout.RowData;
 import org.eclipse.swt.layout.RowLayout;
 import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Composite;
@@ -85,7 +85,7 @@ public class EditFlowsDialog extends TitleAreaDialog {
 	private final PrototypeService prototypeService;
 	private final NamingService namingService;
 	private final int deleteWidth = 50;
-	private final int segmentWidth = 200;
+	private final int segmentWidth = 50;
 	private final LabelProvider flowSegmentInfoLabelProvider = new LabelProvider() {
     	@Override
     	public String getText(final Object element) {
@@ -112,7 +112,9 @@ public class EditFlowsDialog extends TitleAreaDialog {
 		this.prototypeService = prototypeService;
 		this.namingService = namingService;
 		this.setHelpAvailable(false);
-		populatePotentialFlowSegmentList();	    
+		populatePotentialFlowSegmentList();	 
+		
+		setShellStyle(getShellStyle() | SWT.RESIZE); 
 	}
 	
 	@Override
@@ -169,19 +171,21 @@ public class EditFlowsDialog extends TitleAreaDialog {
 	    final Composite area = (Composite)super.createDialogArea(parent);
 	    
 	    final Composite container = new Composite(area, SWT.NONE);
-	    container.setLayoutData(new GridData(SWT.FILL, SWT.FILL, false, false)); 
+	    container.setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, true)); 
 	    final GridLayout layout = new GridLayout(2, false);
 	    container.setLayout(layout);
 
 	    final Composite flowListPane = new Composite(container, SWT.NONE);
-	    flowListPane.setLayout(new RowLayout(SWT.VERTICAL));
+	    flowListPane.setLayoutData(new GridData(SWT.FILL, SWT.FILL, false, true));
+	    flowListPane.setLayout(new GridLayout(1, false));
 	    
 	    // Flow List
 	    flowList = new org.eclipse.swt.widgets.List(flowListPane, SWT.SINGLE | SWT.BORDER | SWT.V_SCROLL);
-	    final RowData flowListRowData = new RowData();
-	    flowListRowData.height = 300;
-	    flowListRowData.width = 300;
-	    flowList.setLayoutData(flowListRowData);
+	    final GridData flowListGridData = new GridData(GridData.FILL_BOTH);
+	    flowListGridData.widthHint = 300;
+	    flowListGridData.heightHint = 300;
+	    flowListGridData.grabExcessHorizontalSpace = true;
+	    flowList.setLayoutData(flowListGridData);
 
 	    final ListViewer flowListViewer = new ListViewer(flowList);
 	    flowListViewer.setContentProvider(new ArrayContentProvider());
@@ -226,16 +230,17 @@ public class EditFlowsDialog extends TitleAreaDialog {
 	    // Flow Details Pane
 	    final ScrolledComposite detailsScrolled = new ScrolledComposite(container, SWT.V_SCROLL | SWT.BORDER);
 	    final GridData detailsScrolledGridData = new GridData(GridData.FILL_BOTH);
-	    detailsScrolledGridData.minimumWidth = 350;
+	    detailsScrolledGridData.widthHint = 350;
 	    detailsScrolledGridData.grabExcessHorizontalSpace = true;
+	    detailsScrolledGridData.grabExcessVerticalSpace = true;
 	    detailsScrolled.setLayoutData(detailsScrolledGridData);
+	    detailsScrolled.setExpandHorizontal(true);
 	    detailsScrolled.setLayout(new GridLayout(1, false));	
 		
 	    flowDetailsPane = new Composite(detailsScrolled, SWT.NONE);
 	    final GridData flowDetailsGridData = new GridData(GridData.FILL_BOTH);
 	    flowDetailsGridData.grabExcessHorizontalSpace = true;
-	    flowDetailsGridData.minimumWidth = 250;
-	    flowDetailsPane.setLayoutData(flowDetailsGridData);
+	    flowDetailsGridData.widthHint = 250;
 	    flowDetailsPane.setLayout(new GridLayout(3, false));
 	    detailsScrolled.setContent(flowDetailsPane);
 	    
@@ -251,12 +256,44 @@ public class EditFlowsDialog extends TitleAreaDialog {
 	    // Make a copy of the flows and use it as the input to the flow list viewer.
 	    // The copies share flow specifications but have a different set of owned flow segments
 	    flows.clear();
-	    flows.addAll(EcoreUtil.copyAll(ci.getOwnedFlowImplementations()));
-	    
+	    for(final FlowImplementation fi : ci.getOwnedFlowImplementations()) {
+	    	if(fi.getInModeOrTransitions().size() == 0) {
+    			flows.add(EcoreUtil.copy(fi));
+    		} else {
+    			// Use an alternative mechanism to copy flows if the in modes clause is not empty. This is needed because EcoreUtil.copy does not work properly in that case. It throws an exception.
+    			// See osate2-core issue #598
+    			final EClass flowClass = fi.eClass();
+    			final FlowImplementation copiedFlowImplementation = (FlowImplementation)flowClass.getEPackage().getEFactoryInstance().create(flowClass);
+    			copiedFlowImplementation.setName(fi.getName());
+    			copiedFlowImplementation.setKind(fi.getKind());
+    			copiedFlowImplementation.setSpecification(fi.getSpecification());
+    			copiedFlowImplementation.getInModeOrTransitions().addAll(EcoreUtil.copyAll(fi.getInModeOrTransitions()));
+    			copiedFlowImplementation.getOwnedComments().addAll(EcoreUtil.copyAll(fi.getOwnedComments()));
+    			copiedFlowImplementation.getOwnedElements().addAll(EcoreUtil.copyAll(fi.getOwnedElements()));
+    			copiedFlowImplementation.getOwnedFlowSegments().addAll(EcoreUtil.copyAll(fi.getOwnedFlowSegments()));
+    			copiedFlowImplementation.getOwnedPropertyAssociations().addAll(EcoreUtil.copyAll(fi.getOwnedPropertyAssociations()));	    			
+    			flows.add(copiedFlowImplementation);
+    		}
+	    }
+
 	    // Add all end to end flows that are not refinements
 	    for(final EndToEndFlow eteFlow : ci.getOwnedEndToEndFlows()) {
 	    	if(eteFlow.getRefined() == null) {
-	    		flows.add(EcoreUtil.copy(eteFlow));		
+	    		if(eteFlow.getInModeOrTransitions().size() == 0) {
+	    			flows.add(EcoreUtil.copy(eteFlow));
+	    		} else {
+	    			// Use an alternative mechanism to copy flows if the in modes clause is not empty. This is needed because EcoreUtil.copy does not work properly in that case. It throws an exception.
+	    			// See osate2-core issue #598
+	    			final EClass flowClass = eteFlow.eClass();
+	    			final EndToEndFlow copiedEndToEndFlow = (EndToEndFlow)flowClass.getEPackage().getEFactoryInstance().create(flowClass);
+	    			copiedEndToEndFlow.setName(eteFlow.getName());
+	    			copiedEndToEndFlow.getInModeOrTransitions().addAll(EcoreUtil.copyAll(eteFlow.getInModeOrTransitions()));
+	    			copiedEndToEndFlow.getOwnedComments().addAll(EcoreUtil.copyAll(eteFlow.getOwnedComments()));
+	    			copiedEndToEndFlow.getOwnedElements().addAll(EcoreUtil.copyAll(eteFlow.getOwnedElements()));
+	    			copiedEndToEndFlow.getOwnedEndToEndFlowSegments().addAll(EcoreUtil.copyAll(eteFlow.getOwnedEndToEndFlowSegments()));
+	    			copiedEndToEndFlow.getOwnedPropertyAssociations().addAll(EcoreUtil.copyAll(eteFlow.getOwnedPropertyAssociations()));	    			
+	    			flows.add(copiedEndToEndFlow);
+	    		}
 	    	}
 	    }
 	    flowListViewer.setInput(flows);
@@ -602,10 +639,17 @@ public class EditFlowsDialog extends TitleAreaDialog {
 		return name;
 	}
 	
+	private GridData createSegmentGridData() {
+		final GridData segGridData = new GridData(GridData.FILL_HORIZONTAL);
+    	segGridData.grabExcessHorizontalSpace = true;
+    	segGridData.widthHint = segmentWidth;
+    	return segGridData;
+	}
+	
 	private void addInsertRow(final int insertIndex) {
 		// Create row of widgets. Just insert box
 		new Label(flowDetailsPane, SWT.NONE).setLayoutData(GridDataFactory.fillDefaults().hint(deleteWidth, SWT.DEFAULT).create());
-		new Label(flowDetailsPane, SWT.NONE).setLayoutData(GridDataFactory.fillDefaults().hint(segmentWidth, SWT.DEFAULT).create());
+		new Label(flowDetailsPane, SWT.NONE).setLayoutData(createSegmentGridData());		
 		addInsertButton(insertIndex);
 	}
 	
@@ -644,10 +688,7 @@ public class EditFlowsDialog extends TitleAreaDialog {
 	    });
 
 	    final ComboViewer cmb = new ComboViewer(flowDetailsPane, SWT.DROP_DOWN | SWT.READ_ONLY);
-    	final GridData cmbGridData = new GridData(GridData.FILL_HORIZONTAL);
-    	cmbGridData.grabExcessHorizontalSpace = true;
-    	cmbGridData.minimumWidth = 150;
-    	cmb.getCombo().setLayoutData(cmbGridData);
+    	cmb.getCombo().setLayoutData(createSegmentGridData());
     	cmb.addSelectionChangedListener(new ISelectionChangedListener() {
 			@Override
 			public void selectionChanged(final SelectionChangedEvent event) {
@@ -710,7 +751,7 @@ public class EditFlowsDialog extends TitleAreaDialog {
 
 		final Label segmentLbl = new Label(flowDetailsPane, SWT.NONE);
 		final String lblTxt = getSegmentName(ctx, flowElement);
-		segmentLbl.setLayoutData(GridDataFactory.fillDefaults().hint(segmentWidth, SWT.DEFAULT).create());
+		segmentLbl.setLayoutData(createSegmentGridData());
 		segmentLbl.setText(lblTxt);
 
 		if(showInsertButton) {
