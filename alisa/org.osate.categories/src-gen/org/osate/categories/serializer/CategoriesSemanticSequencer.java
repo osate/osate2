@@ -64,7 +64,7 @@ public class CategoriesSemanticSequencer extends AbstractDelegatingSemanticSeque
 	
 	/**
 	 * Constraint:
-	 *     (name=ID extends=[RequirementCategory|CatRef]?)
+	 *     (name=ID subCategories+=[RequirementCategory|CatRef]*)
 	 */
 	protected void sequence_RequirementCategory(EObject context, RequirementCategory semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
@@ -82,7 +82,7 @@ public class CategoriesSemanticSequencer extends AbstractDelegatingSemanticSeque
 	
 	/**
 	 * Constraint:
-	 *     (name=ID extends=[SelectionCategory|CatRef]?)
+	 *     (name=ID subCategories+=[SelectionCategory|CatRef]*)
 	 */
 	protected void sequence_SelectionCategory(EObject context, SelectionCategory semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
@@ -100,7 +100,7 @@ public class CategoriesSemanticSequencer extends AbstractDelegatingSemanticSeque
 	
 	/**
 	 * Constraint:
-	 *     (name=ID extends=[VerificationCategory|CatRef]?)
+	 *     (name=ID subCategories+=[VerificationCategory|CatRef]*)
 	 */
 	protected void sequence_VerificationCategory(EObject context, VerificationCategory semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);

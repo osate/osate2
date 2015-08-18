@@ -30,12 +30,12 @@ import org.osate.verify.verify.RefExpr
 import org.osate.verify.verify.ThenExpr
 import org.osate.verify.verify.VerificationActivity
 import org.osate.verify.verify.VerificationCondition
+import org.osate.verify.verify.VerificationPlan
 import org.osate.verify.verify.VerificationPrecondition
 import org.osate.verify.verify.VerificationValidation
 
-import static extension org.eclipse.emf.ecore.util.EcoreUtil.*
 import static extension org.osate.alisa.common.util.CommonUtilExtension.*
-import org.osate.verify.verify.VerificationPlan
+import static extension org.osate.verify.util.VerifyUtilExtension.*
 
 /**
  * Generates code from your model files on save.
@@ -56,9 +56,9 @@ class AlisaGenerator implements IGenerator {
 
 	@Inject extension IQualifiedNameProvider qualifiedNameProvider
 	
-	var EList<SelectionCategory> selectionFilter = null
-	var EList<RequirementCategory> requirementFilter = null
-	var EList<VerificationCategory> verificationFilter = null
+	var List<SelectionCategory> selectionFilter = Collections.EMPTY_LIST
+	var List<RequirementCategory> requirementFilter = Collections.EMPTY_LIST
+	var List<VerificationCategory> verificationFilter = Collections.EMPTY_LIST
 	
 	def generateAssuranceTask(AssuranceTask at){
 		selectionFilter = at.selectionFilter
@@ -107,14 +107,14 @@ class AlisaGenerator implements IGenerator {
 					tbdcount 1
 					«FOR myplan : myplans»
 						«FOR claim : (myplan as VerificationPlan).claim»
-						«IF claim.evaluateRequirementFilter»
+						«IF claim.evaluateRequirementFilter(requirementFilter)»
 							«claim.generate()»
 						«ENDIF»
 						«ENDFOR»
 					«ENDFOR»
 					«FOR myplan : allPlans»
 						«FOR claim : (myplan as VerificationPlan).claim»
-						«IF claim.evaluateRequirementFilter»
+						«IF claim.evaluateRequirementFilter(requirementFilter)»
 							«claim.generate()»
 						«ENDIF»
 						«ENDFOR»
@@ -174,7 +174,7 @@ class AlisaGenerator implements IGenerator {
 
 	def doGenerate(VerificationActivity va) {
 		'''
-			«IF va.evaluateSelectionCondition»
+			«IF va.evaluateSelectionFilter(selectionFilter) && va.evaluateVerificationFilter(verificationFilter) »
 			verification «va.fullyQualifiedName»
 			[
 				executionstate todo
@@ -193,7 +193,7 @@ class AlisaGenerator implements IGenerator {
 			AllExpr: expr.doGenerate
 			ThenExpr: expr.doGenerate
 			ElseExpr: expr.doGenerate
-			RefExpr: if(expr.verification.evaluateVerificationFilter) expr.doGenerate
+			RefExpr: expr.doGenerate
 		}
 	}
 
@@ -236,17 +236,9 @@ class AlisaGenerator implements IGenerator {
 	}
 
 	def doGenerate(RefExpr expr) {
-		'''
-			verification «expr.verification.fullyQualifiedName»
-			[
-				executionstate todo
-				resultstate tbd
-				tbdcount 1
-				«IF expr.verification?.method?.condition != null»
-					«expr.verification?.method?.condition.generate»
-				«ENDIF»
-			]
-		'''
+		if (expr.verification != null) expr.verification.doGenerate
+		else 
+		''''''
 	}
 
 	def generate(VerificationCondition vc) {
@@ -260,29 +252,6 @@ class AlisaGenerator implements IGenerator {
 		'''
 	}
 
-	def evaluateSelectionCondition(VerificationActivity expr) {
-		val selection = expr.condition
-		if (selectionFilter == null || selectionFilter.empty || selection.empty) return true
-		val intersect = selection.copyAll
-		intersect.retainAll(selectionFilter) 
-		!intersect.isEmpty
-	}
-
-	def evaluateRequirementFilter(Claim claim) {
-		val req = claim.requirement.category
-		if (requirementFilter == null || requirementFilter.empty || req.empty) return true
-		val intersect = req.copyAll
-		intersect.retainAll(requirementFilter) 
-		!intersect.isEmpty
-	}
-
-	def evaluateVerificationFilter(VerificationActivity va) {
-		val vcs = va.method.category
-		if (verificationFilter == null || verificationFilter.empty || vcs.empty) return true
-		val intersect = vcs.copyAll
-		intersect.retainAll(requirementFilter) 
-		!intersect.isEmpty
-	}
 
 	def keyword(VerificationCondition vc) {
 		switch vc {

@@ -21,13 +21,13 @@
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Categories.ecore#//Category/name"/>
     </genClasses>
     <genClasses ecoreClass="Categories.ecore#//RequirementCategory">
-      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference Categories.ecore#//RequirementCategory/extends"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference Categories.ecore#//RequirementCategory/subCategories"/>
     </genClasses>
     <genClasses ecoreClass="Categories.ecore#//VerificationCategory">
-      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference Categories.ecore#//VerificationCategory/extends"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference Categories.ecore#//VerificationCategory/subCategories"/>
     </genClasses>
     <genClasses ecoreClass="Categories.ecore#//SelectionCategory">
-      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference Categories.ecore#//SelectionCategory/extends"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference Categories.ecore#//SelectionCategory/subCategories"/>
     </genClasses>
   </genPackages>
 </genmodel:GenModel>

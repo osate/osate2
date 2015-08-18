@@ -32,7 +32,7 @@ Category : RequirementCategory | VerificationCategory  | SelectionCategory;
  * Requirement category indicates the kind of requirement we are dealing with
  */
 RequirementCategory :
-	name = ID ('extends' extends=[RequirementCategory|CatRef])? 
+	name = ID ('{' subCategories+=[RequirementCategory|CatRef]* '}')? 
 ;
 
 
@@ -42,14 +42,14 @@ RequirementCategory :
  * Verification category indicates the kind of verification we are dealing with
  */
 VerificationCategory :
-	name = ID ('extends' extends=[VerificationCategory|CatRef])? 
+	name = ID ('{' subCategories+=[VerificationCategory|CatRef]*'}')? 
 ;
 
 /**
  * selection category indicates a tag for filtered selection of verification activities
  */
 SelectionCategory :
-	name = ID ('extends' extends=[SelectionCategory|CatRef])? 
+	name = ID ('{' subCategories+=[SelectionCategory|CatRef]*'}')? 
 ;
 
 

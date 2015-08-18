@@ -52,11 +52,11 @@ public class CategoriesParser extends AbstractContentAssistParser {
 					put(grammarAccess.getVerificationCategoriesAccess().getCategoryAssignment_3(), "rule__VerificationCategories__CategoryAssignment_3");
 					put(grammarAccess.getSelectionCategoriesAccess().getCategoryAssignment_3(), "rule__SelectionCategories__CategoryAssignment_3");
 					put(grammarAccess.getRequirementCategoryAccess().getNameAssignment_0(), "rule__RequirementCategory__NameAssignment_0");
-					put(grammarAccess.getRequirementCategoryAccess().getExtendsAssignment_1_1(), "rule__RequirementCategory__ExtendsAssignment_1_1");
+					put(grammarAccess.getRequirementCategoryAccess().getSubCategoriesAssignment_1_1(), "rule__RequirementCategory__SubCategoriesAssignment_1_1");
 					put(grammarAccess.getVerificationCategoryAccess().getNameAssignment_0(), "rule__VerificationCategory__NameAssignment_0");
-					put(grammarAccess.getVerificationCategoryAccess().getExtendsAssignment_1_1(), "rule__VerificationCategory__ExtendsAssignment_1_1");
+					put(grammarAccess.getVerificationCategoryAccess().getSubCategoriesAssignment_1_1(), "rule__VerificationCategory__SubCategoriesAssignment_1_1");
 					put(grammarAccess.getSelectionCategoryAccess().getNameAssignment_0(), "rule__SelectionCategory__NameAssignment_0");
-					put(grammarAccess.getSelectionCategoryAccess().getExtendsAssignment_1_1(), "rule__SelectionCategory__ExtendsAssignment_1_1");
+					put(grammarAccess.getSelectionCategoryAccess().getSubCategoriesAssignment_1_1(), "rule__SelectionCategory__SubCategoriesAssignment_1_1");
 				}
 			};
 		}

@@ -19,12 +19,15 @@
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="RequirementCategory" eSuperTypes="#//Category">
-    <eStructuralFeatures xsi:type="ecore:EReference" name="extends" eType="#//RequirementCategory"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="subCategories" unique="false"
+        upperBound="-1" eType="#//RequirementCategory"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="VerificationCategory" eSuperTypes="#//Category">
-    <eStructuralFeatures xsi:type="ecore:EReference" name="extends" eType="#//VerificationCategory"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="subCategories" unique="false"
+        upperBound="-1" eType="#//VerificationCategory"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="SelectionCategory" eSuperTypes="#//Category">
-    <eStructuralFeatures xsi:type="ecore:EReference" name="extends" eType="#//SelectionCategory"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="subCategories" unique="false"
+        upperBound="-1" eType="#//SelectionCategory"/>
   </eClassifiers>
 </ecore:EPackage>

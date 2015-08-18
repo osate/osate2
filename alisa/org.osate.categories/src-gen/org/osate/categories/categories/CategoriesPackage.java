@@ -207,13 +207,13 @@ public interface CategoriesPackage extends EPackage
   int REQUIREMENT_CATEGORY__NAME = CATEGORY__NAME;
 
   /**
-   * The feature id for the '<em><b>Extends</b></em>' reference.
+   * The feature id for the '<em><b>Sub Categories</b></em>' reference list.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    * @ordered
    */
-  int REQUIREMENT_CATEGORY__EXTENDS = CATEGORY_FEATURE_COUNT + 0;
+  int REQUIREMENT_CATEGORY__SUB_CATEGORIES = CATEGORY_FEATURE_COUNT + 0;
 
   /**
    * The number of structural features of the '<em>Requirement Category</em>' class.
@@ -244,13 +244,13 @@ public interface CategoriesPackage extends EPackage
   int VERIFICATION_CATEGORY__NAME = CATEGORY__NAME;
 
   /**
-   * The feature id for the '<em><b>Extends</b></em>' reference.
+   * The feature id for the '<em><b>Sub Categories</b></em>' reference list.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    * @ordered
    */
-  int VERIFICATION_CATEGORY__EXTENDS = CATEGORY_FEATURE_COUNT + 0;
+  int VERIFICATION_CATEGORY__SUB_CATEGORIES = CATEGORY_FEATURE_COUNT + 0;
 
   /**
    * The number of structural features of the '<em>Verification Category</em>' class.
@@ -281,13 +281,13 @@ public interface CategoriesPackage extends EPackage
   int SELECTION_CATEGORY__NAME = CATEGORY__NAME;
 
   /**
-   * The feature id for the '<em><b>Extends</b></em>' reference.
+   * The feature id for the '<em><b>Sub Categories</b></em>' reference list.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    * @ordered
    */
-  int SELECTION_CATEGORY__EXTENDS = CATEGORY_FEATURE_COUNT + 0;
+  int SELECTION_CATEGORY__SUB_CATEGORIES = CATEGORY_FEATURE_COUNT + 0;
 
   /**
    * The number of structural features of the '<em>Selection Category</em>' class.
@@ -404,15 +404,15 @@ public interface CategoriesPackage extends EPackage
   EClass getRequirementCategory();
 
   /**
-   * Returns the meta object for the reference '{@link org.osate.categories.categories.RequirementCategory#getExtends <em>Extends</em>}'.
+   * Returns the meta object for the reference list '{@link org.osate.categories.categories.RequirementCategory#getSubCategories <em>Sub Categories</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @return the meta object for the reference '<em>Extends</em>'.
-   * @see org.osate.categories.categories.RequirementCategory#getExtends()
+   * @return the meta object for the reference list '<em>Sub Categories</em>'.
+   * @see org.osate.categories.categories.RequirementCategory#getSubCategories()
    * @see #getRequirementCategory()
    * @generated
    */
-  EReference getRequirementCategory_Extends();
+  EReference getRequirementCategory_SubCategories();
 
   /**
    * Returns the meta object for class '{@link org.osate.categories.categories.VerificationCategory <em>Verification Category</em>}'.
@@ -425,15 +425,15 @@ public interface CategoriesPackage extends EPackage
   EClass getVerificationCategory();
 
   /**
-   * Returns the meta object for the reference '{@link org.osate.categories.categories.VerificationCategory#getExtends <em>Extends</em>}'.
+   * Returns the meta object for the reference list '{@link org.osate.categories.categories.VerificationCategory#getSubCategories <em>Sub Categories</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @return the meta object for the reference '<em>Extends</em>'.
-   * @see org.osate.categories.categories.VerificationCategory#getExtends()
+   * @return the meta object for the reference list '<em>Sub Categories</em>'.
+   * @see org.osate.categories.categories.VerificationCategory#getSubCategories()
    * @see #getVerificationCategory()
    * @generated
    */
-  EReference getVerificationCategory_Extends();
+  EReference getVerificationCategory_SubCategories();
 
   /**
    * Returns the meta object for class '{@link org.osate.categories.categories.SelectionCategory <em>Selection Category</em>}'.
@@ -446,15 +446,15 @@ public interface CategoriesPackage extends EPackage
   EClass getSelectionCategory();
 
   /**
-   * Returns the meta object for the reference '{@link org.osate.categories.categories.SelectionCategory#getExtends <em>Extends</em>}'.
+   * Returns the meta object for the reference list '{@link org.osate.categories.categories.SelectionCategory#getSubCategories <em>Sub Categories</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @return the meta object for the reference '<em>Extends</em>'.
-   * @see org.osate.categories.categories.SelectionCategory#getExtends()
+   * @return the meta object for the reference list '<em>Sub Categories</em>'.
+   * @see org.osate.categories.categories.SelectionCategory#getSubCategories()
    * @see #getSelectionCategory()
    * @generated
    */
-  EReference getSelectionCategory_Extends();
+  EReference getSelectionCategory_SubCategories();
 
   /**
    * Returns the factory that creates the instances of the model.
@@ -572,12 +572,12 @@ public interface CategoriesPackage extends EPackage
     EClass REQUIREMENT_CATEGORY = eINSTANCE.getRequirementCategory();
 
     /**
-     * The meta object literal for the '<em><b>Extends</b></em>' reference feature.
+     * The meta object literal for the '<em><b>Sub Categories</b></em>' reference list feature.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @generated
      */
-    EReference REQUIREMENT_CATEGORY__EXTENDS = eINSTANCE.getRequirementCategory_Extends();
+    EReference REQUIREMENT_CATEGORY__SUB_CATEGORIES = eINSTANCE.getRequirementCategory_SubCategories();
 
     /**
      * The meta object literal for the '{@link org.osate.categories.categories.impl.VerificationCategoryImpl <em>Verification Category</em>}' class.
@@ -590,12 +590,12 @@ public interface CategoriesPackage extends EPackage
     EClass VERIFICATION_CATEGORY = eINSTANCE.getVerificationCategory();
 
     /**
-     * The meta object literal for the '<em><b>Extends</b></em>' reference feature.
+     * The meta object literal for the '<em><b>Sub Categories</b></em>' reference list feature.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @generated
      */
-    EReference VERIFICATION_CATEGORY__EXTENDS = eINSTANCE.getVerificationCategory_Extends();
+    EReference VERIFICATION_CATEGORY__SUB_CATEGORIES = eINSTANCE.getVerificationCategory_SubCategories();
 
     /**
      * The meta object literal for the '{@link org.osate.categories.categories.impl.SelectionCategoryImpl <em>Selection Category</em>}' class.
@@ -608,12 +608,12 @@ public interface CategoriesPackage extends EPackage
     EClass SELECTION_CATEGORY = eINSTANCE.getSelectionCategory();
 
     /**
-     * The meta object literal for the '<em><b>Extends</b></em>' reference feature.
+     * The meta object literal for the '<em><b>Sub Categories</b></em>' reference list feature.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @generated
      */
-    EReference SELECTION_CATEGORY__EXTENDS = eINSTANCE.getSelectionCategory_Extends();
+    EReference SELECTION_CATEGORY__SUB_CATEGORIES = eINSTANCE.getSelectionCategory_SubCategories();
 
   }
 

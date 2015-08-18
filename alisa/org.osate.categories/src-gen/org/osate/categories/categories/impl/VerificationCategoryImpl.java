@@ -2,12 +2,13 @@
  */
 package org.osate.categories.categories.impl;
 
-import org.eclipse.emf.common.notify.Notification;
+import java.util.Collection;
+
+import org.eclipse.emf.common.util.EList;
 
 import org.eclipse.emf.ecore.EClass;
-import org.eclipse.emf.ecore.InternalEObject;
 
-import org.eclipse.emf.ecore.impl.ENotificationImpl;
+import org.eclipse.emf.ecore.util.EObjectResolvingEList;
 
 import org.osate.categories.categories.CategoriesPackage;
 import org.osate.categories.categories.VerificationCategory;
@@ -19,7 +20,7 @@ import org.osate.categories.categories.VerificationCategory;
  * <p>
  * The following features are implemented:
  * <ul>
- *   <li>{@link org.osate.categories.categories.impl.VerificationCategoryImpl#getExtends <em>Extends</em>}</li>
+ *   <li>{@link org.osate.categories.categories.impl.VerificationCategoryImpl#getSubCategories <em>Sub Categories</em>}</li>
  * </ul>
  * </p>
  *
@@ -28,14 +29,14 @@ import org.osate.categories.categories.VerificationCategory;
 public class VerificationCategoryImpl extends CategoryImpl implements VerificationCategory
 {
   /**
-   * The cached value of the '{@link #getExtends() <em>Extends</em>}' reference.
+   * The cached value of the '{@link #getSubCategories() <em>Sub Categories</em>}' reference list.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @see #getExtends()
+   * @see #getSubCategories()
    * @generated
    * @ordered
    */
-  protected VerificationCategory extends_;
+  protected EList<VerificationCategory> subCategories;
 
   /**
    * <!-- begin-user-doc -->
@@ -63,42 +64,13 @@ public class VerificationCategoryImpl extends CategoryImpl implements Verificati
    * <!-- end-user-doc -->
    * @generated
    */
-  public VerificationCategory getExtends()
+  public EList<VerificationCategory> getSubCategories()
   {
-    if (extends_ != null && extends_.eIsProxy())
+    if (subCategories == null)
     {
-      InternalEObject oldExtends = (InternalEObject)extends_;
-      extends_ = (VerificationCategory)eResolveProxy(oldExtends);
-      if (extends_ != oldExtends)
-      {
-        if (eNotificationRequired())
-          eNotify(new ENotificationImpl(this, Notification.RESOLVE, CategoriesPackage.VERIFICATION_CATEGORY__EXTENDS, oldExtends, extends_));
-      }
+      subCategories = new EObjectResolvingEList<VerificationCategory>(VerificationCategory.class, this, CategoriesPackage.VERIFICATION_CATEGORY__SUB_CATEGORIES);
     }
-    return extends_;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public VerificationCategory basicGetExtends()
-  {
-    return extends_;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public void setExtends(VerificationCategory newExtends)
-  {
-    VerificationCategory oldExtends = extends_;
-    extends_ = newExtends;
-    if (eNotificationRequired())
-      eNotify(new ENotificationImpl(this, Notification.SET, CategoriesPackage.VERIFICATION_CATEGORY__EXTENDS, oldExtends, extends_));
+    return subCategories;
   }
 
   /**
@@ -111,9 +83,8 @@ public class VerificationCategoryImpl extends CategoryImpl implements Verificati
   {
     switch (featureID)
     {
-      case CategoriesPackage.VERIFICATION_CATEGORY__EXTENDS:
-        if (resolve) return getExtends();
-        return basicGetExtends();
+      case CategoriesPackage.VERIFICATION_CATEGORY__SUB_CATEGORIES:
+        return getSubCategories();
     }
     return super.eGet(featureID, resolve, coreType);
   }
@@ -123,13 +94,15 @@ public class VerificationCategoryImpl extends CategoryImpl implements Verificati
    * <!-- end-user-doc -->
    * @generated
    */
+  @SuppressWarnings("unchecked")
   @Override
   public void eSet(int featureID, Object newValue)
   {
     switch (featureID)
     {
-      case CategoriesPackage.VERIFICATION_CATEGORY__EXTENDS:
-        setExtends((VerificationCategory)newValue);
+      case CategoriesPackage.VERIFICATION_CATEGORY__SUB_CATEGORIES:
+        getSubCategories().clear();
+        getSubCategories().addAll((Collection<? extends VerificationCategory>)newValue);
         return;
     }
     super.eSet(featureID, newValue);
@@ -145,8 +118,8 @@ public class VerificationCategoryImpl extends CategoryImpl implements Verificati
   {
     switch (featureID)
     {
-      case CategoriesPackage.VERIFICATION_CATEGORY__EXTENDS:
-        setExtends((VerificationCategory)null);
+      case CategoriesPackage.VERIFICATION_CATEGORY__SUB_CATEGORIES:
+        getSubCategories().clear();
         return;
     }
     super.eUnset(featureID);
@@ -162,8 +135,8 @@ public class VerificationCategoryImpl extends CategoryImpl implements Verificati
   {
     switch (featureID)
     {
-      case CategoriesPackage.VERIFICATION_CATEGORY__EXTENDS:
-        return extends_ != null;
+      case CategoriesPackage.VERIFICATION_CATEGORY__SUB_CATEGORIES:
+        return subCategories != null && !subCategories.isEmpty();
     }
     return super.eIsSet(featureID);
   }

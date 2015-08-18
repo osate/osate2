@@ -1,10 +1,11 @@
 '['=13
 ']'=14
 'categories'=12
-'extends'=17
 'requirement'=11
 'selection'=16
 'verification'=15
+'{'=17
+'}'=18
 RULE_ANY_OTHER=10
 RULE_ID=4
 RULE_INT=5
@@ -19,3 +20,4 @@ T__14=14
 T__15=15
 T__16=16
 T__17=17
+T__18=18

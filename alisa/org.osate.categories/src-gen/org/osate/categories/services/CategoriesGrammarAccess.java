@@ -182,18 +182,19 @@ public class CategoriesGrammarAccess extends AbstractGrammarElementFinder {
 		private final Assignment cNameAssignment_0 = (Assignment)cGroup.eContents().get(0);
 		private final RuleCall cNameIDTerminalRuleCall_0_0 = (RuleCall)cNameAssignment_0.eContents().get(0);
 		private final Group cGroup_1 = (Group)cGroup.eContents().get(1);
-		private final Keyword cExtendsKeyword_1_0 = (Keyword)cGroup_1.eContents().get(0);
-		private final Assignment cExtendsAssignment_1_1 = (Assignment)cGroup_1.eContents().get(1);
-		private final CrossReference cExtendsRequirementCategoryCrossReference_1_1_0 = (CrossReference)cExtendsAssignment_1_1.eContents().get(0);
-		private final RuleCall cExtendsRequirementCategoryCatRefParserRuleCall_1_1_0_1 = (RuleCall)cExtendsRequirementCategoryCrossReference_1_1_0.eContents().get(1);
+		private final Keyword cLeftCurlyBracketKeyword_1_0 = (Keyword)cGroup_1.eContents().get(0);
+		private final Assignment cSubCategoriesAssignment_1_1 = (Assignment)cGroup_1.eContents().get(1);
+		private final CrossReference cSubCategoriesRequirementCategoryCrossReference_1_1_0 = (CrossReference)cSubCategoriesAssignment_1_1.eContents().get(0);
+		private final RuleCall cSubCategoriesRequirementCategoryCatRefParserRuleCall_1_1_0_1 = (RuleCall)cSubCategoriesRequirementCategoryCrossReference_1_1_0.eContents().get(1);
+		private final Keyword cRightCurlyBracketKeyword_1_2 = (Keyword)cGroup_1.eContents().get(2);
 		
 		/// **
 		// * Requirement category indicates the kind of requirement we are dealing with
 		// * / RequirementCategory:
-		//	name=ID ("extends" extends=[RequirementCategory|CatRef])?;
+		//	name=ID ("{" subCategories+=[RequirementCategory|CatRef]* "}")?;
 		@Override public ParserRule getRule() { return rule; }
 
-		//name=ID ("extends" extends=[RequirementCategory|CatRef])?
+		//name=ID ("{" subCategories+=[RequirementCategory|CatRef]* "}")?
 		public Group getGroup() { return cGroup; }
 
 		//name=ID
@@ -202,20 +203,23 @@ public class CategoriesGrammarAccess extends AbstractGrammarElementFinder {
 		//ID
 		public RuleCall getNameIDTerminalRuleCall_0_0() { return cNameIDTerminalRuleCall_0_0; }
 
-		//("extends" extends=[RequirementCategory|CatRef])?
+		//("{" subCategories+=[RequirementCategory|CatRef]* "}")?
 		public Group getGroup_1() { return cGroup_1; }
 
-		//"extends"
-		public Keyword getExtendsKeyword_1_0() { return cExtendsKeyword_1_0; }
+		//"{"
+		public Keyword getLeftCurlyBracketKeyword_1_0() { return cLeftCurlyBracketKeyword_1_0; }
 
-		//extends=[RequirementCategory|CatRef]
-		public Assignment getExtendsAssignment_1_1() { return cExtendsAssignment_1_1; }
+		//subCategories+=[RequirementCategory|CatRef]*
+		public Assignment getSubCategoriesAssignment_1_1() { return cSubCategoriesAssignment_1_1; }
 
 		//[RequirementCategory|CatRef]
-		public CrossReference getExtendsRequirementCategoryCrossReference_1_1_0() { return cExtendsRequirementCategoryCrossReference_1_1_0; }
+		public CrossReference getSubCategoriesRequirementCategoryCrossReference_1_1_0() { return cSubCategoriesRequirementCategoryCrossReference_1_1_0; }
 
 		//CatRef
-		public RuleCall getExtendsRequirementCategoryCatRefParserRuleCall_1_1_0_1() { return cExtendsRequirementCategoryCatRefParserRuleCall_1_1_0_1; }
+		public RuleCall getSubCategoriesRequirementCategoryCatRefParserRuleCall_1_1_0_1() { return cSubCategoriesRequirementCategoryCatRefParserRuleCall_1_1_0_1; }
+
+		//"}"
+		public Keyword getRightCurlyBracketKeyword_1_2() { return cRightCurlyBracketKeyword_1_2; }
 	}
 
 	public class VerificationCategoryElements extends AbstractParserRuleElementFinder {
@@ -224,18 +228,19 @@ public class CategoriesGrammarAccess extends AbstractGrammarElementFinder {
 		private final Assignment cNameAssignment_0 = (Assignment)cGroup.eContents().get(0);
 		private final RuleCall cNameIDTerminalRuleCall_0_0 = (RuleCall)cNameAssignment_0.eContents().get(0);
 		private final Group cGroup_1 = (Group)cGroup.eContents().get(1);
-		private final Keyword cExtendsKeyword_1_0 = (Keyword)cGroup_1.eContents().get(0);
-		private final Assignment cExtendsAssignment_1_1 = (Assignment)cGroup_1.eContents().get(1);
-		private final CrossReference cExtendsVerificationCategoryCrossReference_1_1_0 = (CrossReference)cExtendsAssignment_1_1.eContents().get(0);
-		private final RuleCall cExtendsVerificationCategoryCatRefParserRuleCall_1_1_0_1 = (RuleCall)cExtendsVerificationCategoryCrossReference_1_1_0.eContents().get(1);
+		private final Keyword cLeftCurlyBracketKeyword_1_0 = (Keyword)cGroup_1.eContents().get(0);
+		private final Assignment cSubCategoriesAssignment_1_1 = (Assignment)cGroup_1.eContents().get(1);
+		private final CrossReference cSubCategoriesVerificationCategoryCrossReference_1_1_0 = (CrossReference)cSubCategoriesAssignment_1_1.eContents().get(0);
+		private final RuleCall cSubCategoriesVerificationCategoryCatRefParserRuleCall_1_1_0_1 = (RuleCall)cSubCategoriesVerificationCategoryCrossReference_1_1_0.eContents().get(1);
+		private final Keyword cRightCurlyBracketKeyword_1_2 = (Keyword)cGroup_1.eContents().get(2);
 		
 		/// **
 		// * Verification category indicates the kind of verification we are dealing with
 		// * / VerificationCategory:
-		//	name=ID ("extends" extends=[VerificationCategory|CatRef])?;
+		//	name=ID ("{" subCategories+=[VerificationCategory|CatRef]* "}")?;
 		@Override public ParserRule getRule() { return rule; }
 
-		//name=ID ("extends" extends=[VerificationCategory|CatRef])?
+		//name=ID ("{" subCategories+=[VerificationCategory|CatRef]* "}")?
 		public Group getGroup() { return cGroup; }
 
 		//name=ID
@@ -244,20 +249,23 @@ public class CategoriesGrammarAccess extends AbstractGrammarElementFinder {
 		//ID
 		public RuleCall getNameIDTerminalRuleCall_0_0() { return cNameIDTerminalRuleCall_0_0; }
 
-		//("extends" extends=[VerificationCategory|CatRef])?
+		//("{" subCategories+=[VerificationCategory|CatRef]* "}")?
 		public Group getGroup_1() { return cGroup_1; }
 
-		//"extends"
-		public Keyword getExtendsKeyword_1_0() { return cExtendsKeyword_1_0; }
+		//"{"
+		public Keyword getLeftCurlyBracketKeyword_1_0() { return cLeftCurlyBracketKeyword_1_0; }
 
-		//extends=[VerificationCategory|CatRef]
-		public Assignment getExtendsAssignment_1_1() { return cExtendsAssignment_1_1; }
+		//subCategories+=[VerificationCategory|CatRef]*
+		public Assignment getSubCategoriesAssignment_1_1() { return cSubCategoriesAssignment_1_1; }
 
 		//[VerificationCategory|CatRef]
-		public CrossReference getExtendsVerificationCategoryCrossReference_1_1_0() { return cExtendsVerificationCategoryCrossReference_1_1_0; }
+		public CrossReference getSubCategoriesVerificationCategoryCrossReference_1_1_0() { return cSubCategoriesVerificationCategoryCrossReference_1_1_0; }
 
 		//CatRef
-		public RuleCall getExtendsVerificationCategoryCatRefParserRuleCall_1_1_0_1() { return cExtendsVerificationCategoryCatRefParserRuleCall_1_1_0_1; }
+		public RuleCall getSubCategoriesVerificationCategoryCatRefParserRuleCall_1_1_0_1() { return cSubCategoriesVerificationCategoryCatRefParserRuleCall_1_1_0_1; }
+
+		//"}"
+		public Keyword getRightCurlyBracketKeyword_1_2() { return cRightCurlyBracketKeyword_1_2; }
 	}
 
 	public class SelectionCategoryElements extends AbstractParserRuleElementFinder {
@@ -266,18 +274,19 @@ public class CategoriesGrammarAccess extends AbstractGrammarElementFinder {
 		private final Assignment cNameAssignment_0 = (Assignment)cGroup.eContents().get(0);
 		private final RuleCall cNameIDTerminalRuleCall_0_0 = (RuleCall)cNameAssignment_0.eContents().get(0);
 		private final Group cGroup_1 = (Group)cGroup.eContents().get(1);
-		private final Keyword cExtendsKeyword_1_0 = (Keyword)cGroup_1.eContents().get(0);
-		private final Assignment cExtendsAssignment_1_1 = (Assignment)cGroup_1.eContents().get(1);
-		private final CrossReference cExtendsSelectionCategoryCrossReference_1_1_0 = (CrossReference)cExtendsAssignment_1_1.eContents().get(0);
-		private final RuleCall cExtendsSelectionCategoryCatRefParserRuleCall_1_1_0_1 = (RuleCall)cExtendsSelectionCategoryCrossReference_1_1_0.eContents().get(1);
+		private final Keyword cLeftCurlyBracketKeyword_1_0 = (Keyword)cGroup_1.eContents().get(0);
+		private final Assignment cSubCategoriesAssignment_1_1 = (Assignment)cGroup_1.eContents().get(1);
+		private final CrossReference cSubCategoriesSelectionCategoryCrossReference_1_1_0 = (CrossReference)cSubCategoriesAssignment_1_1.eContents().get(0);
+		private final RuleCall cSubCategoriesSelectionCategoryCatRefParserRuleCall_1_1_0_1 = (RuleCall)cSubCategoriesSelectionCategoryCrossReference_1_1_0.eContents().get(1);
+		private final Keyword cRightCurlyBracketKeyword_1_2 = (Keyword)cGroup_1.eContents().get(2);
 		
 		/// **
 		// * selection category indicates a tag for filtered selection of verification activities
 		// * / SelectionCategory:
-		//	name=ID ("extends" extends=[SelectionCategory|CatRef])?;
+		//	name=ID ("{" subCategories+=[SelectionCategory|CatRef]* "}")?;
 		@Override public ParserRule getRule() { return rule; }
 
-		//name=ID ("extends" extends=[SelectionCategory|CatRef])?
+		//name=ID ("{" subCategories+=[SelectionCategory|CatRef]* "}")?
 		public Group getGroup() { return cGroup; }
 
 		//name=ID
@@ -286,20 +295,23 @@ public class CategoriesGrammarAccess extends AbstractGrammarElementFinder {
 		//ID
 		public RuleCall getNameIDTerminalRuleCall_0_0() { return cNameIDTerminalRuleCall_0_0; }
 
-		//("extends" extends=[SelectionCategory|CatRef])?
+		//("{" subCategories+=[SelectionCategory|CatRef]* "}")?
 		public Group getGroup_1() { return cGroup_1; }
 
-		//"extends"
-		public Keyword getExtendsKeyword_1_0() { return cExtendsKeyword_1_0; }
+		//"{"
+		public Keyword getLeftCurlyBracketKeyword_1_0() { return cLeftCurlyBracketKeyword_1_0; }
 
-		//extends=[SelectionCategory|CatRef]
-		public Assignment getExtendsAssignment_1_1() { return cExtendsAssignment_1_1; }
+		//subCategories+=[SelectionCategory|CatRef]*
+		public Assignment getSubCategoriesAssignment_1_1() { return cSubCategoriesAssignment_1_1; }
 
 		//[SelectionCategory|CatRef]
-		public CrossReference getExtendsSelectionCategoryCrossReference_1_1_0() { return cExtendsSelectionCategoryCrossReference_1_1_0; }
+		public CrossReference getSubCategoriesSelectionCategoryCrossReference_1_1_0() { return cSubCategoriesSelectionCategoryCrossReference_1_1_0; }
 
 		//CatRef
-		public RuleCall getExtendsSelectionCategoryCatRefParserRuleCall_1_1_0_1() { return cExtendsSelectionCategoryCatRefParserRuleCall_1_1_0_1; }
+		public RuleCall getSubCategoriesSelectionCategoryCatRefParserRuleCall_1_1_0_1() { return cSubCategoriesSelectionCategoryCatRefParserRuleCall_1_1_0_1; }
+
+		//"}"
+		public Keyword getRightCurlyBracketKeyword_1_2() { return cRightCurlyBracketKeyword_1_2; }
 	}
 
 	public class CatRefElements extends AbstractParserRuleElementFinder {
@@ -429,7 +441,7 @@ public class CategoriesGrammarAccess extends AbstractGrammarElementFinder {
 	/// **
 	// * Requirement category indicates the kind of requirement we are dealing with
 	// * / RequirementCategory:
-	//	name=ID ("extends" extends=[RequirementCategory|CatRef])?;
+	//	name=ID ("{" subCategories+=[RequirementCategory|CatRef]* "}")?;
 	public RequirementCategoryElements getRequirementCategoryAccess() {
 		return pRequirementCategory;
 	}
@@ -441,7 +453,7 @@ public class CategoriesGrammarAccess extends AbstractGrammarElementFinder {
 	/// **
 	// * Verification category indicates the kind of verification we are dealing with
 	// * / VerificationCategory:
-	//	name=ID ("extends" extends=[VerificationCategory|CatRef])?;
+	//	name=ID ("{" subCategories+=[VerificationCategory|CatRef]* "}")?;
 	public VerificationCategoryElements getVerificationCategoryAccess() {
 		return pVerificationCategory;
 	}
@@ -453,7 +465,7 @@ public class CategoriesGrammarAccess extends AbstractGrammarElementFinder {
 	/// **
 	// * selection category indicates a tag for filtered selection of verification activities
 	// * / SelectionCategory:
-	//	name=ID ("extends" extends=[SelectionCategory|CatRef])?;
+	//	name=ID ("{" subCategories+=[SelectionCategory|CatRef]* "}")?;
 	public SelectionCategoryElements getSelectionCategoryAccess() {
 		return pSelectionCategory;
 	}

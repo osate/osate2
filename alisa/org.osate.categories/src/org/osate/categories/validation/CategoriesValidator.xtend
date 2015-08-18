@@ -13,57 +13,27 @@ import org.osate.categories.util.CategoriesUtil
 //import org.eclipse.xtext.validation.Check
 /**
  * Custom validation rules. 
- *
+ * 
  * see http://www.eclipse.org/Xtext/documentation.html#validation
  */
 class CategoriesValidator extends AbstractCategoriesValidator {
 	extension CategoriesUtil cu = new CategoriesUtil
-	@Inject
-	private IGlobalScopeProvider scopeProvider;
 
-	public static val DUPLICATE_CATEGORY = "org.osate.organization.DuplicateCategory"
-	public static val CYCLES_CATEGORY = "org.osate.organization.CyclesCategory"
+	public static val CYCLES_CATEGORY = "org.osate.categories.CyclesCategory"
 
 	/**
- * Check that Category are globally unique
- */
-//	@Check
-//	def void checkDuplicatesCategory(Category cat) {
-//		val dups = ( scopeProvider as CommonGlobalScopeProvider).getDuplicates(cat)
-//		if (!dups.empty) {
-//
-//			// the original is in the set
-//			for (dup : dups) {
-//				error(
-//					"Duplicate category '" + dup.name + "'",
-//					CategoriesPackage::eINSTANCE.category_Name,
-//					DUPLICATE_CATEGORY,
-//					dup.name.toString
-//				)
-//			}
-//		}
-//	}
-
-/**
- * check that there are no cycles in Category extends hierarchy
- */
+	 * check that there are no cycles in Category subcategories
+	 */
 	@Check
 	def void checkNoCycleCategoryHierarchy(Category cat) {
-		val supertype = cat.superType
-		if(supertype == null) return
-		val visitedCategory = <Category>newHashSet()
-		visitedCategory.add(cat)
-		var current = supertype
-		while (current != null){
-			if (visitedCategory.contains(current)){
-				error("Cycle in extends hierarchy of Category '"+current.name+"'",
-					CategoriesPackage::eINSTANCE.category_Name,
-					CYCLES_CATEGORY, supertype.name.toString
-				)
-				return
-			}
-			visitedCategory.add(current)
-			current = current.superType
+		val cyclecat = CategoriesUtil.hasCycle(cat)
+		if (cyclecat != null) {
+			error(
+				"Cycle in subcategory '"+cat.name+"' of Category '" + cyclecat.name + "'",
+				CategoriesPackage::eINSTANCE.category_Name,
+				CYCLES_CATEGORY,
+				cat.name
+			)
 		}
 	}
 

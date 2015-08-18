@@ -312,9 +312,9 @@ ruleRequirementCategory returns [EObject current=null]
 	    }
 
 )
-)(	otherlv_1='extends' 
+)(	otherlv_1='{' 
     {
-    	newLeafNode(otherlv_1, grammarAccess.getRequirementCategoryAccess().getExtendsKeyword_1_0());
+    	newLeafNode(otherlv_1, grammarAccess.getRequirementCategoryAccess().getLeftCurlyBracketKeyword_1_0());
     }
 (
 (
@@ -324,14 +324,18 @@ ruleRequirementCategory returns [EObject current=null]
 	        }
         }
 		{ 
-	        newCompositeNode(grammarAccess.getRequirementCategoryAccess().getExtendsRequirementCategoryCrossReference_1_1_0()); 
+	        newCompositeNode(grammarAccess.getRequirementCategoryAccess().getSubCategoriesRequirementCategoryCrossReference_1_1_0()); 
 	    }
 		ruleCatRef		{ 
 	        afterParserOrEnumRuleCall();
 	    }
 
 )
-))?)
+)*	otherlv_3='}' 
+    {
+    	newLeafNode(otherlv_3, grammarAccess.getRequirementCategoryAccess().getRightCurlyBracketKeyword_1_2());
+    }
+)?)
 ;
 
 
@@ -370,9 +374,9 @@ ruleVerificationCategory returns [EObject current=null]
 	    }
 
 )
-)(	otherlv_1='extends' 
+)(	otherlv_1='{' 
     {
-    	newLeafNode(otherlv_1, grammarAccess.getVerificationCategoryAccess().getExtendsKeyword_1_0());
+    	newLeafNode(otherlv_1, grammarAccess.getVerificationCategoryAccess().getLeftCurlyBracketKeyword_1_0());
     }
 (
 (
@@ -382,14 +386,18 @@ ruleVerificationCategory returns [EObject current=null]
 	        }
         }
 		{ 
-	        newCompositeNode(grammarAccess.getVerificationCategoryAccess().getExtendsVerificationCategoryCrossReference_1_1_0()); 
+	        newCompositeNode(grammarAccess.getVerificationCategoryAccess().getSubCategoriesVerificationCategoryCrossReference_1_1_0()); 
 	    }
 		ruleCatRef		{ 
 	        afterParserOrEnumRuleCall();
 	    }
 
 )
-))?)
+)*	otherlv_3='}' 
+    {
+    	newLeafNode(otherlv_3, grammarAccess.getVerificationCategoryAccess().getRightCurlyBracketKeyword_1_2());
+    }
+)?)
 ;
 
 
@@ -428,9 +436,9 @@ ruleSelectionCategory returns [EObject current=null]
 	    }
 
 )
-)(	otherlv_1='extends' 
+)(	otherlv_1='{' 
     {
-    	newLeafNode(otherlv_1, grammarAccess.getSelectionCategoryAccess().getExtendsKeyword_1_0());
+    	newLeafNode(otherlv_1, grammarAccess.getSelectionCategoryAccess().getLeftCurlyBracketKeyword_1_0());
     }
 (
 (
@@ -440,14 +448,18 @@ ruleSelectionCategory returns [EObject current=null]
 	        }
         }
 		{ 
-	        newCompositeNode(grammarAccess.getSelectionCategoryAccess().getExtendsSelectionCategoryCrossReference_1_1_0()); 
+	        newCompositeNode(grammarAccess.getSelectionCategoryAccess().getSubCategoriesSelectionCategoryCrossReference_1_1_0()); 
 	    }
 		ruleCatRef		{ 
 	        afterParserOrEnumRuleCall();
 	    }
 
 )
-))?)
+)*	otherlv_3='}' 
+    {
+    	newLeafNode(otherlv_3, grammarAccess.getSelectionCategoryAccess().getRightCurlyBracketKeyword_1_2());
+    }
+)?)
 ;
 
 

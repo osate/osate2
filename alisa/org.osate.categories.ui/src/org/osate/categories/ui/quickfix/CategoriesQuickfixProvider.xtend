@@ -17,30 +17,29 @@ import org.osate.categories.util.CategoriesUtil
  * see http://www.eclipse.org/Xtext/documentation.html#quickfixes
  */
 class CategoriesQuickfixProvider extends org.eclipse.xtext.ui.editor.quickfix.DefaultQuickfixProvider {//org.osate.alisa.common.ui.quickfix.CommonQuickfixProvider {
-	extension CategoriesUtil cu = new CategoriesUtil
 	
-@Fix(CategoriesValidator::DUPLICATE_CATEGORY)
-	def void removeCategory(Issue issue, IssueResolutionAcceptor acceptor) {
-		acceptor.accept(
-			issue,
-			"Remove category",
-			'''Remove category '«issue.data.get(0)»' ''',
-			"delete.gif",
-			[element, context|(element as Category).containingCategories.category.remove(element)]
-		)
-	}
+//@Fix(CategoriesValidator::DUPLICATE_CATEGORY)
+//	def void removeCategory(Issue issue, IssueResolutionAcceptor acceptor) {
+//		acceptor.accept(
+//			issue,
+//			"Remove category",
+//			'''Remove category '«issue.data.get(0)»' ''',
+//			"delete.gif",
+//			[element, context|(element as Category).containingCategories.category.remove(element)]
+//		)
+//	}
 
 
 	
 @Fix(CategoriesValidator::CYCLES_CATEGORY)
-	def void removeExtends(Issue issue, IssueResolutionAcceptor acceptor) {
+	def void removeSubcategory(Issue issue, IssueResolutionAcceptor acceptor) {
 		acceptor.accept(
 			issue,
-			"Remove extends",
-			'''Remove extends '«issue.data.get(0)»' ''',
+			"Remove subcategory",
+			'''Remove subcategory '«issue.data.get(0)»' ''',
 			"delete.gif",
 			[element, context|
-				(element as Category).superType = null
+				CategoriesUtil.removeSubcategory(element as Category,issue.data.get(0))
 			]
 		)
 	}

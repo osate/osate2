@@ -38,6 +38,7 @@ import org.osate.verify.verify.VerificationValidation
 import org.osate.verify.verify.VerificationPrecondition
 import org.osate.verify.verify.VerificationCondition
 import org.osate.verify.verify.VerificationPlan
+import static extension org.osate.verify.util.VerifyUtilExtension.*
 
 /**
  * Generates code from your model files on save.
@@ -48,9 +49,9 @@ class AssureConstructor {
 
 	val factory = AssureFactory.eINSTANCE
 
-	var EList<SelectionCategory> selectionFilter = null
-	var EList<RequirementCategory> requirementFilter = null
-	var EList<VerificationCategory> verificationFilter = null
+	var List<SelectionCategory> selectionFilter = Collections.EMPTY_LIST
+	var List<RequirementCategory> requirementFilter = Collections.EMPTY_LIST
+	var List<VerificationCategory> verificationFilter = Collections.EMPTY_LIST
 
 	
 	var Iterable<VerificationPlan> allPlans = null
@@ -95,7 +96,13 @@ class AssureConstructor {
 			acase.target = acp
 			for (myplan : myplans) {
 				for (claim : (myplan as VerificationPlan).claim) {
-					if (claim.evaluateRequirementFilter)
+					if (claim.evaluateRequirementFilter(requirementFilter))
+						acase.claimResult += claim.construct
+				}
+			}
+			for (myplan : allPlans) {
+				for (claim : (myplan as VerificationPlan).claim) {
+					if (claim.evaluateRequirementFilter(requirementFilter))
 						acase.claimResult += claim.construct
 				}
 			}
@@ -192,7 +199,7 @@ class AssureConstructor {
 
 	def void doConstruct(List<VerificationExpr> arl, RefExpr expr) {
 		val va = expr.verification
-		if (va.evaluateSelectionFilter && va.evaluateVerificationFilter) {
+		if (va.evaluateSelectionFilter(selectionFilter) && va.evaluateVerificationFilter(verificationFilter)) {
 			val vr = factory.createVerificationActivityResult
 			vr.resultState = VerificationResultState.TBD
 			vr.executionState = VerificationExecutionState.TODO
@@ -207,7 +214,7 @@ class AssureConstructor {
 
 
 	def void doConstruct(List<VerificationExpr> arl, VerificationActivity expr) {
-		if (expr.evaluateSelectionFilter) {
+		if (expr.evaluateSelectionFilter(selectionFilter)) {
 		val vr = factory.createVerificationActivityResult
 		vr.resultState = VerificationResultState.TBD
 		vr.executionState = VerificationExecutionState.TODO
@@ -232,30 +239,6 @@ class AssureConstructor {
 		vcr.resultState = VerificationResultState.TBD
 		vcr.executionState = VerificationExecutionState.TODO
 		return vcr
-	}
-
-	def evaluateSelectionFilter(VerificationActivity expr) {
-		val selection = expr.condition
-		if (selectionFilter == null || selectionFilter.empty || selection.empty) return true
-		val intersect = selection.copyAll
-		intersect.retainAll(selectionFilter) 
-		!intersect.isEmpty
-	}
-
-	def evaluateRequirementFilter(Claim claim) {
-		val req = claim.requirement.category
-		if (requirementFilter == null || requirementFilter.empty || req.empty) return true
-		val intersect = req.copyAll
-		intersect.retainAll(requirementFilter) 
-		!intersect.isEmpty
-	}
-
-	def evaluateVerificationFilter(VerificationActivity va) {
-		val vcs = va.method.category
-		if (verificationFilter == null || verificationFilter.empty || vcs.empty) return true
-		val intersect = vcs.copyAll
-		intersect.retainAll(requirementFilter) 
-		!intersect.isEmpty
 	}
 
 	

@@ -2,12 +2,13 @@
  */
 package org.osate.categories.categories.impl;
 
-import org.eclipse.emf.common.notify.Notification;
+import java.util.Collection;
+
+import org.eclipse.emf.common.util.EList;
 
 import org.eclipse.emf.ecore.EClass;
-import org.eclipse.emf.ecore.InternalEObject;
 
-import org.eclipse.emf.ecore.impl.ENotificationImpl;
+import org.eclipse.emf.ecore.util.EObjectResolvingEList;
 
 import org.osate.categories.categories.CategoriesPackage;
 import org.osate.categories.categories.SelectionCategory;
@@ -19,7 +20,7 @@ import org.osate.categories.categories.SelectionCategory;
  * <p>
  * The following features are implemented:
  * <ul>
- *   <li>{@link org.osate.categories.categories.impl.SelectionCategoryImpl#getExtends <em>Extends</em>}</li>
+ *   <li>{@link org.osate.categories.categories.impl.SelectionCategoryImpl#getSubCategories <em>Sub Categories</em>}</li>
  * </ul>
  * </p>
  *
@@ -28,14 +29,14 @@ import org.osate.categories.categories.SelectionCategory;
 public class SelectionCategoryImpl extends CategoryImpl implements SelectionCategory
 {
   /**
-   * The cached value of the '{@link #getExtends() <em>Extends</em>}' reference.
+   * The cached value of the '{@link #getSubCategories() <em>Sub Categories</em>}' reference list.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @see #getExtends()
+   * @see #getSubCategories()
    * @generated
    * @ordered
    */
-  protected SelectionCategory extends_;
+  protected EList<SelectionCategory> subCategories;
 
   /**
    * <!-- begin-user-doc -->
@@ -63,42 +64,13 @@ public class SelectionCategoryImpl extends CategoryImpl implements SelectionCate
    * <!-- end-user-doc -->
    * @generated
    */
-  public SelectionCategory getExtends()
+  public EList<SelectionCategory> getSubCategories()
   {
-    if (extends_ != null && extends_.eIsProxy())
+    if (subCategories == null)
     {
-      InternalEObject oldExtends = (InternalEObject)extends_;
-      extends_ = (SelectionCategory)eResolveProxy(oldExtends);
-      if (extends_ != oldExtends)
-      {
-        if (eNotificationRequired())
-          eNotify(new ENotificationImpl(this, Notification.RESOLVE, CategoriesPackage.SELECTION_CATEGORY__EXTENDS, oldExtends, extends_));
-      }
+      subCategories = new EObjectResolvingEList<SelectionCategory>(SelectionCategory.class, this, CategoriesPackage.SELECTION_CATEGORY__SUB_CATEGORIES);
     }
-    return extends_;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public SelectionCategory basicGetExtends()
-  {
-    return extends_;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public void setExtends(SelectionCategory newExtends)
-  {
-    SelectionCategory oldExtends = extends_;
-    extends_ = newExtends;
-    if (eNotificationRequired())
-      eNotify(new ENotificationImpl(this, Notification.SET, CategoriesPackage.SELECTION_CATEGORY__EXTENDS, oldExtends, extends_));
+    return subCategories;
   }
 
   /**
@@ -111,9 +83,8 @@ public class SelectionCategoryImpl extends CategoryImpl implements SelectionCate
   {
     switch (featureID)
     {
-      case CategoriesPackage.SELECTION_CATEGORY__EXTENDS:
-        if (resolve) return getExtends();
-        return basicGetExtends();
+      case CategoriesPackage.SELECTION_CATEGORY__SUB_CATEGORIES:
+        return getSubCategories();
     }
     return super.eGet(featureID, resolve, coreType);
   }
@@ -123,13 +94,15 @@ public class SelectionCategoryImpl extends CategoryImpl implements SelectionCate
    * <!-- end-user-doc -->
    * @generated
    */
+  @SuppressWarnings("unchecked")
   @Override
   public void eSet(int featureID, Object newValue)
   {
     switch (featureID)
     {
-      case CategoriesPackage.SELECTION_CATEGORY__EXTENDS:
-        setExtends((SelectionCategory)newValue);
+      case CategoriesPackage.SELECTION_CATEGORY__SUB_CATEGORIES:
+        getSubCategories().clear();
+        getSubCategories().addAll((Collection<? extends SelectionCategory>)newValue);
         return;
     }
     super.eSet(featureID, newValue);
@@ -145,8 +118,8 @@ public class SelectionCategoryImpl extends CategoryImpl implements SelectionCate
   {
     switch (featureID)
     {
-      case CategoriesPackage.SELECTION_CATEGORY__EXTENDS:
-        setExtends((SelectionCategory)null);
+      case CategoriesPackage.SELECTION_CATEGORY__SUB_CATEGORIES:
+        getSubCategories().clear();
         return;
     }
     super.eUnset(featureID);
@@ -162,8 +135,8 @@ public class SelectionCategoryImpl extends CategoryImpl implements SelectionCate
   {
     switch (featureID)
     {
-      case CategoriesPackage.SELECTION_CATEGORY__EXTENDS:
-        return extends_ != null;
+      case CategoriesPackage.SELECTION_CATEGORY__SUB_CATEGORIES:
+        return subCategories != null && !subCategories.isEmpty();
     }
     return super.eIsSet(featureID);
   }

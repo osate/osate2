@@ -1,14 +1,20 @@
 package org.osate.verify.util
 
-import java.util.Collections
-import org.eclipse.emf.ecore.EObject
-import org.osate.verify.verify.ElseExpr
 import com.google.common.collect.HashMultimap
+import java.util.List
+import org.eclipse.emf.ecore.EObject
 import org.eclipse.emf.ecore.util.EcoreUtil
-import org.osate.verify.verify.VerificationActivity
-import org.osate.verify.verify.Claim
 import org.osate.aadl2.ComponentClassifier
+import org.osate.categories.categories.RequirementCategory
+import org.osate.categories.categories.SelectionCategory
+import org.osate.categories.categories.VerificationCategory
+import org.osate.categories.util.CategoriesUtil
+import org.osate.verify.verify.Claim
+import org.osate.verify.verify.ElseExpr
+import org.osate.verify.verify.VerificationActivity
 import org.osate.verify.verify.VerificationPlan
+
+import static extension org.eclipse.emf.ecore.util.EcoreUtil.*
 import static extension org.eclipse.xtext.EcoreUtil2.*
 
 class VerifyUtilExtension {
@@ -55,5 +61,22 @@ class VerifyUtilExtension {
 	def static containingVerificationPlan(EObject sh) {
 		sh.getContainerOfType(VerificationPlan)
 	}
+	
+	
+	def static evaluateSelectionFilter(VerificationActivity expr, List<SelectionCategory> selectionFilter) {
+		val selection = expr.condition
+		return CategoriesUtil.intersects(selection,selectionFilter)
+	}
+
+	def static evaluateRequirementFilter(Claim claim, Iterable<RequirementCategory> requirementFilter) {
+		val req = claim.requirement.category 
+		return CategoriesUtil.intersects(req,requirementFilter)
+	}
+
+	def static evaluateVerificationFilter(VerificationActivity va, List<VerificationCategory> verificationFilter) {
+		val vcs = va.method.category
+		return CategoriesUtil.intersects(vcs,verificationFilter)
+	}
+	
 	
 }

@@ -252,7 +252,7 @@ public class CategoriesPackageImpl extends EPackageImpl implements CategoriesPac
    * <!-- end-user-doc -->
    * @generated
    */
-  public EReference getRequirementCategory_Extends()
+  public EReference getRequirementCategory_SubCategories()
   {
     return (EReference)requirementCategoryEClass.getEStructuralFeatures().get(0);
   }
@@ -272,7 +272,7 @@ public class CategoriesPackageImpl extends EPackageImpl implements CategoriesPac
    * <!-- end-user-doc -->
    * @generated
    */
-  public EReference getVerificationCategory_Extends()
+  public EReference getVerificationCategory_SubCategories()
   {
     return (EReference)verificationCategoryEClass.getEStructuralFeatures().get(0);
   }
@@ -292,7 +292,7 @@ public class CategoriesPackageImpl extends EPackageImpl implements CategoriesPac
    * <!-- end-user-doc -->
    * @generated
    */
-  public EReference getSelectionCategory_Extends()
+  public EReference getSelectionCategory_SubCategories()
   {
     return (EReference)selectionCategoryEClass.getEStructuralFeatures().get(0);
   }
@@ -342,13 +342,13 @@ public class CategoriesPackageImpl extends EPackageImpl implements CategoriesPac
     createEAttribute(categoryEClass, CATEGORY__NAME);
 
     requirementCategoryEClass = createEClass(REQUIREMENT_CATEGORY);
-    createEReference(requirementCategoryEClass, REQUIREMENT_CATEGORY__EXTENDS);
+    createEReference(requirementCategoryEClass, REQUIREMENT_CATEGORY__SUB_CATEGORIES);
 
     verificationCategoryEClass = createEClass(VERIFICATION_CATEGORY);
-    createEReference(verificationCategoryEClass, VERIFICATION_CATEGORY__EXTENDS);
+    createEReference(verificationCategoryEClass, VERIFICATION_CATEGORY__SUB_CATEGORIES);
 
     selectionCategoryEClass = createEClass(SELECTION_CATEGORY);
-    createEReference(selectionCategoryEClass, SELECTION_CATEGORY__EXTENDS);
+    createEReference(selectionCategoryEClass, SELECTION_CATEGORY__SUB_CATEGORIES);
   }
 
   /**
@@ -403,13 +403,13 @@ public class CategoriesPackageImpl extends EPackageImpl implements CategoriesPac
     initEAttribute(getCategory_Name(), ecorePackage.getEString(), "name", null, 0, 1, Category.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
     initEClass(requirementCategoryEClass, RequirementCategory.class, "RequirementCategory", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-    initEReference(getRequirementCategory_Extends(), this.getRequirementCategory(), null, "extends", null, 0, 1, RequirementCategory.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEReference(getRequirementCategory_SubCategories(), this.getRequirementCategory(), null, "subCategories", null, 0, -1, RequirementCategory.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
     initEClass(verificationCategoryEClass, VerificationCategory.class, "VerificationCategory", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-    initEReference(getVerificationCategory_Extends(), this.getVerificationCategory(), null, "extends", null, 0, 1, VerificationCategory.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEReference(getVerificationCategory_SubCategories(), this.getVerificationCategory(), null, "subCategories", null, 0, -1, VerificationCategory.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
     initEClass(selectionCategoryEClass, SelectionCategory.class, "SelectionCategory", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-    initEReference(getSelectionCategory_Extends(), this.getSelectionCategory(), null, "extends", null, 0, 1, SelectionCategory.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEReference(getSelectionCategory_SubCategories(), this.getSelectionCategory(), null, "subCategories", null, 0, -1, SelectionCategory.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
     // Create resource
     createResource(eNS_URI);

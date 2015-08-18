@@ -2,6 +2,7 @@
  */
 package org.osate.categories.categories;
 
+import org.eclipse.emf.common.util.EList;
 
 /**
  * <!-- begin-user-doc -->
@@ -11,7 +12,7 @@ package org.osate.categories.categories;
  * <p>
  * The following features are supported:
  * <ul>
- *   <li>{@link org.osate.categories.categories.VerificationCategory#getExtends <em>Extends</em>}</li>
+ *   <li>{@link org.osate.categories.categories.VerificationCategory#getSubCategories <em>Sub Categories</em>}</li>
  * </ul>
  * </p>
  *
@@ -22,29 +23,19 @@ package org.osate.categories.categories;
 public interface VerificationCategory extends Category
 {
   /**
-   * Returns the value of the '<em><b>Extends</b></em>' reference.
+   * Returns the value of the '<em><b>Sub Categories</b></em>' reference list.
+   * The list contents are of type {@link org.osate.categories.categories.VerificationCategory}.
    * <!-- begin-user-doc -->
    * <p>
-   * If the meaning of the '<em>Extends</em>' reference isn't clear,
+   * If the meaning of the '<em>Sub Categories</em>' reference list isn't clear,
    * there really should be more of a description here...
    * </p>
    * <!-- end-user-doc -->
-   * @return the value of the '<em>Extends</em>' reference.
-   * @see #setExtends(VerificationCategory)
-   * @see org.osate.categories.categories.CategoriesPackage#getVerificationCategory_Extends()
+   * @return the value of the '<em>Sub Categories</em>' reference list.
+   * @see org.osate.categories.categories.CategoriesPackage#getVerificationCategory_SubCategories()
    * @model
    * @generated
    */
-  VerificationCategory getExtends();
-
-  /**
-   * Sets the value of the '{@link org.osate.categories.categories.VerificationCategory#getExtends <em>Extends</em>}' reference.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @param value the new value of the '<em>Extends</em>' reference.
-   * @see #getExtends()
-   * @generated
-   */
-  void setExtends(VerificationCategory value);
+  EList<VerificationCategory> getSubCategories();
 
 } // VerificationCategory
