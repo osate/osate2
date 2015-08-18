@@ -123,6 +123,8 @@
         upperBound="-1" eType="#//Requirement"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="decomposesReference" unique="false"
         upperBound="-1" eType="#//Requirement"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="developmentStakeholder"
+        unique="false" upperBound="-1" eType="ecore:EClass platform:/resource/org.osate.organization/model/generated/Organization.ecore#//Stakeholder"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="goalReference" unique="false"
         upperBound="-1" eType="#//Goal"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="stakeholderRequirementReference"

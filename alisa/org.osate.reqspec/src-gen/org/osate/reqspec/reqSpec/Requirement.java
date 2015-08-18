@@ -8,6 +8,8 @@ import org.eclipse.emf.ecore.EObject;
 
 import org.eclipse.xtext.xbase.XExpression;
 
+import org.osate.organization.organization.Stakeholder;
+
 /**
  * <!-- begin-user-doc -->
  * A representation of the model object '<em><b>Requirement</b></em>'.
@@ -22,6 +24,7 @@ import org.eclipse.xtext.xbase.XExpression;
  *   <li>{@link org.osate.reqspec.reqSpec.Requirement#getExceptionText <em>Exception Text</em>}</li>
  *   <li>{@link org.osate.reqspec.reqSpec.Requirement#getRefinesReference <em>Refines Reference</em>}</li>
  *   <li>{@link org.osate.reqspec.reqSpec.Requirement#getDecomposesReference <em>Decomposes Reference</em>}</li>
+ *   <li>{@link org.osate.reqspec.reqSpec.Requirement#getDevelopmentStakeholder <em>Development Stakeholder</em>}</li>
  *   <li>{@link org.osate.reqspec.reqSpec.Requirement#getGoalReference <em>Goal Reference</em>}</li>
  *   <li>{@link org.osate.reqspec.reqSpec.Requirement#getStakeholderRequirementReference <em>Stakeholder Requirement Reference</em>}</li>
  * </ul>
@@ -158,6 +161,22 @@ public interface Requirement extends ContractualElement
    * @generated
    */
   EList<Requirement> getDecomposesReference();
+
+  /**
+   * Returns the value of the '<em><b>Development Stakeholder</b></em>' reference list.
+   * The list contents are of type {@link org.osate.organization.organization.Stakeholder}.
+   * <!-- begin-user-doc -->
+   * <p>
+   * If the meaning of the '<em>Development Stakeholder</em>' reference list isn't clear,
+   * there really should be more of a description here...
+   * </p>
+   * <!-- end-user-doc -->
+   * @return the value of the '<em>Development Stakeholder</em>' reference list.
+   * @see org.osate.reqspec.reqSpec.ReqSpecPackage#getRequirement_DevelopmentStakeholder()
+   * @model
+   * @generated
+   */
+  EList<Stakeholder> getDevelopmentStakeholder();
 
   /**
    * Returns the value of the '<em><b>Goal Reference</b></em>' reference list.

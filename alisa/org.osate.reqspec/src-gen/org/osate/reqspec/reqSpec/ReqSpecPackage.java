@@ -1067,13 +1067,22 @@ public interface ReqSpecPackage extends EPackage
   int REQUIREMENT__DECOMPOSES_REFERENCE = CONTRACTUAL_ELEMENT_FEATURE_COUNT + 5;
 
   /**
+   * The feature id for the '<em><b>Development Stakeholder</b></em>' reference list.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int REQUIREMENT__DEVELOPMENT_STAKEHOLDER = CONTRACTUAL_ELEMENT_FEATURE_COUNT + 6;
+
+  /**
    * The feature id for the '<em><b>Goal Reference</b></em>' reference list.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    * @ordered
    */
-  int REQUIREMENT__GOAL_REFERENCE = CONTRACTUAL_ELEMENT_FEATURE_COUNT + 6;
+  int REQUIREMENT__GOAL_REFERENCE = CONTRACTUAL_ELEMENT_FEATURE_COUNT + 7;
 
   /**
    * The feature id for the '<em><b>Stakeholder Requirement Reference</b></em>' reference list.
@@ -1082,7 +1091,7 @@ public interface ReqSpecPackage extends EPackage
    * @generated
    * @ordered
    */
-  int REQUIREMENT__STAKEHOLDER_REQUIREMENT_REFERENCE = CONTRACTUAL_ELEMENT_FEATURE_COUNT + 7;
+  int REQUIREMENT__STAKEHOLDER_REQUIREMENT_REFERENCE = CONTRACTUAL_ELEMENT_FEATURE_COUNT + 8;
 
   /**
    * The number of structural features of the '<em>Requirement</em>' class.
@@ -1091,7 +1100,7 @@ public interface ReqSpecPackage extends EPackage
    * @generated
    * @ordered
    */
-  int REQUIREMENT_FEATURE_COUNT = CONTRACTUAL_ELEMENT_FEATURE_COUNT + 8;
+  int REQUIREMENT_FEATURE_COUNT = CONTRACTUAL_ELEMENT_FEATURE_COUNT + 9;
 
   /**
    * The meta object id for the '{@link org.osate.reqspec.reqSpec.impl.ReqPredicateImpl <em>Req Predicate</em>}' class.
@@ -1983,6 +1992,17 @@ public interface ReqSpecPackage extends EPackage
   EReference getRequirement_DecomposesReference();
 
   /**
+   * Returns the meta object for the reference list '{@link org.osate.reqspec.reqSpec.Requirement#getDevelopmentStakeholder <em>Development Stakeholder</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the reference list '<em>Development Stakeholder</em>'.
+   * @see org.osate.reqspec.reqSpec.Requirement#getDevelopmentStakeholder()
+   * @see #getRequirement()
+   * @generated
+   */
+  EReference getRequirement_DevelopmentStakeholder();
+
+  /**
    * Returns the meta object for the reference list '{@link org.osate.reqspec.reqSpec.Requirement#getGoalReference <em>Goal Reference</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -2705,6 +2725,14 @@ public interface ReqSpecPackage extends EPackage
      * @generated
      */
     EReference REQUIREMENT__DECOMPOSES_REFERENCE = eINSTANCE.getRequirement_DecomposesReference();
+
+    /**
+     * The meta object literal for the '<em><b>Development Stakeholder</b></em>' reference list feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EReference REQUIREMENT__DEVELOPMENT_STAKEHOLDER = eINSTANCE.getRequirement_DevelopmentStakeholder();
 
     /**
      * The meta object literal for the '<em><b>Goal Reference</b></em>' reference list feature.

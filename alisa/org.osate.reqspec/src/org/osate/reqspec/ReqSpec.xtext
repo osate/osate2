@@ -141,6 +141,7 @@ Requirement returns Requirement:
 	&('decomposes' decomposesReference+=[Requirement|QualifiedName]+)? 
 	&('evolves' evolvesReference+=[Requirement|QualifiedName]+)? 
 	&(dropped?='dropped' ( dropRationale=STRING )? )? 
+	 &('development' 'stakeholder'  developmentStakeholder+=[org::Stakeholder|QualifiedName]+)?
 	&('see' 'goal'  goalReference+=[Goal|QualifiedName]+)?
 	&('see' 'document' 'goal'  stakeholderRequirementReference+=[Goal|QualifiedName]+)?
 	 &('see' 'document' 'requirement'  documentRequirement+=[ContractualElement|QualifiedName]+)?
@@ -170,6 +171,7 @@ DocRequirement returns Requirement:
 	&('decomposes' decomposesReference+=[Requirement|QualifiedName]+)? 
 	&('evolves' evolvesReference+=[Requirement|QualifiedName]+)? 
 	&(dropped?='dropped' ( dropRationale=STRING )? )? 
+	 &('development' 'stakeholder'  developmentStakeholder+=[org::Stakeholder|QualifiedName]+)?
 	&('see' 'goal'  goalReference+=[Goal|QualifiedName]+)?
 	&('see' 'document' 'goal'  stakeholderRequirementReference+=[Goal|QualifiedName]+)?
 	 &('see' 'document' 'requirement'  documentRequirement+=[ContractualElement|QualifiedName]+)?

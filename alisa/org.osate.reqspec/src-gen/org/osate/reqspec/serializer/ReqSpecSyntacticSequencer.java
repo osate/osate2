@@ -32,12 +32,13 @@ public class ReqSpecSyntacticSequencer extends AbstractSyntacticSequencer {
 	protected AbstractElementAlias match_DocRequirement_CategoryKeyword_5_0_0_q;
 	protected AbstractElementAlias match_DocRequirement_DecomposesKeyword_5_9_0_q;
 	protected AbstractElementAlias match_DocRequirement_EvolvesKeyword_5_10_0_q;
-	protected AbstractElementAlias match_DocRequirement_IssuesKeyword_5_16_0_q;
+	protected AbstractElementAlias match_DocRequirement_IssuesKeyword_5_17_0_q;
 	protected AbstractElementAlias match_DocRequirement_RefinesKeyword_5_8_0_q;
-	protected AbstractElementAlias match_DocRequirement___SeeKeyword_5_12_0_GoalKeyword_5_12_1__q;
-	protected AbstractElementAlias match_DocRequirement___SeeKeyword_5_13_0_DocumentKeyword_5_13_1_GoalKeyword_5_13_2__q;
-	protected AbstractElementAlias match_DocRequirement___SeeKeyword_5_14_0_DocumentKeyword_5_14_1_RequirementKeyword_5_14_2__q;
-	protected AbstractElementAlias match_DocRequirement___SeeKeyword_5_15_0_DocumentKeyword_5_15_1__q;
+	protected AbstractElementAlias match_DocRequirement___DevelopmentKeyword_5_12_0_StakeholderKeyword_5_12_1__q;
+	protected AbstractElementAlias match_DocRequirement___SeeKeyword_5_13_0_GoalKeyword_5_13_1__q;
+	protected AbstractElementAlias match_DocRequirement___SeeKeyword_5_14_0_DocumentKeyword_5_14_1_GoalKeyword_5_14_2__q;
+	protected AbstractElementAlias match_DocRequirement___SeeKeyword_5_15_0_DocumentKeyword_5_15_1_RequirementKeyword_5_15_2__q;
+	protected AbstractElementAlias match_DocRequirement___SeeKeyword_5_16_0_DocumentKeyword_5_16_1__q;
 	protected AbstractElementAlias match_Goal_CategoryKeyword_5_0_0_q;
 	protected AbstractElementAlias match_Goal_EvolvesKeyword_5_7_0_q;
 	protected AbstractElementAlias match_Goal_IssuesKeyword_5_12_0_q;
@@ -50,12 +51,13 @@ public class ReqSpecSyntacticSequencer extends AbstractSyntacticSequencer {
 	protected AbstractElementAlias match_Requirement_CategoryKeyword_5_0_0_q;
 	protected AbstractElementAlias match_Requirement_DecomposesKeyword_5_9_0_q;
 	protected AbstractElementAlias match_Requirement_EvolvesKeyword_5_10_0_q;
-	protected AbstractElementAlias match_Requirement_IssuesKeyword_5_16_0_q;
+	protected AbstractElementAlias match_Requirement_IssuesKeyword_5_17_0_q;
 	protected AbstractElementAlias match_Requirement_RefinesKeyword_5_8_0_q;
-	protected AbstractElementAlias match_Requirement___SeeKeyword_5_12_0_GoalKeyword_5_12_1__q;
-	protected AbstractElementAlias match_Requirement___SeeKeyword_5_13_0_DocumentKeyword_5_13_1_GoalKeyword_5_13_2__q;
-	protected AbstractElementAlias match_Requirement___SeeKeyword_5_14_0_DocumentKeyword_5_14_1_RequirementKeyword_5_14_2__q;
-	protected AbstractElementAlias match_Requirement___SeeKeyword_5_15_0_DocumentKeyword_5_15_1__q;
+	protected AbstractElementAlias match_Requirement___DevelopmentKeyword_5_12_0_StakeholderKeyword_5_12_1__q;
+	protected AbstractElementAlias match_Requirement___SeeKeyword_5_13_0_GoalKeyword_5_13_1__q;
+	protected AbstractElementAlias match_Requirement___SeeKeyword_5_14_0_DocumentKeyword_5_14_1_GoalKeyword_5_14_2__q;
+	protected AbstractElementAlias match_Requirement___SeeKeyword_5_15_0_DocumentKeyword_5_15_1_RequirementKeyword_5_15_2__q;
+	protected AbstractElementAlias match_Requirement___SeeKeyword_5_16_0_DocumentKeyword_5_16_1__q;
 	protected AbstractElementAlias match_StakeholderGoals_IssuesKeyword_7_4_0_q;
 	protected AbstractElementAlias match_StakeholderGoals___SeeKeyword_7_3_0_DocumentKeyword_7_3_1__q;
 	protected AbstractElementAlias match_SystemRequirements_IssuesKeyword_7_5_0_q;
@@ -81,12 +83,13 @@ public class ReqSpecSyntacticSequencer extends AbstractSyntacticSequencer {
 		match_DocRequirement_CategoryKeyword_5_0_0_q = new TokenAlias(false, true, grammarAccess.getDocRequirementAccess().getCategoryKeyword_5_0_0());
 		match_DocRequirement_DecomposesKeyword_5_9_0_q = new TokenAlias(false, true, grammarAccess.getDocRequirementAccess().getDecomposesKeyword_5_9_0());
 		match_DocRequirement_EvolvesKeyword_5_10_0_q = new TokenAlias(false, true, grammarAccess.getDocRequirementAccess().getEvolvesKeyword_5_10_0());
-		match_DocRequirement_IssuesKeyword_5_16_0_q = new TokenAlias(false, true, grammarAccess.getDocRequirementAccess().getIssuesKeyword_5_16_0());
+		match_DocRequirement_IssuesKeyword_5_17_0_q = new TokenAlias(false, true, grammarAccess.getDocRequirementAccess().getIssuesKeyword_5_17_0());
 		match_DocRequirement_RefinesKeyword_5_8_0_q = new TokenAlias(false, true, grammarAccess.getDocRequirementAccess().getRefinesKeyword_5_8_0());
-		match_DocRequirement___SeeKeyword_5_12_0_GoalKeyword_5_12_1__q = new GroupAlias(false, true, new TokenAlias(false, false, grammarAccess.getDocRequirementAccess().getSeeKeyword_5_12_0()), new TokenAlias(false, false, grammarAccess.getDocRequirementAccess().getGoalKeyword_5_12_1()));
-		match_DocRequirement___SeeKeyword_5_13_0_DocumentKeyword_5_13_1_GoalKeyword_5_13_2__q = new GroupAlias(false, true, new TokenAlias(false, false, grammarAccess.getDocRequirementAccess().getSeeKeyword_5_13_0()), new TokenAlias(false, false, grammarAccess.getDocRequirementAccess().getDocumentKeyword_5_13_1()), new TokenAlias(false, false, grammarAccess.getDocRequirementAccess().getGoalKeyword_5_13_2()));
-		match_DocRequirement___SeeKeyword_5_14_0_DocumentKeyword_5_14_1_RequirementKeyword_5_14_2__q = new GroupAlias(false, true, new TokenAlias(false, false, grammarAccess.getDocRequirementAccess().getSeeKeyword_5_14_0()), new TokenAlias(false, false, grammarAccess.getDocRequirementAccess().getDocumentKeyword_5_14_1()), new TokenAlias(false, false, grammarAccess.getDocRequirementAccess().getRequirementKeyword_5_14_2()));
-		match_DocRequirement___SeeKeyword_5_15_0_DocumentKeyword_5_15_1__q = new GroupAlias(false, true, new TokenAlias(false, false, grammarAccess.getDocRequirementAccess().getSeeKeyword_5_15_0()), new TokenAlias(false, false, grammarAccess.getDocRequirementAccess().getDocumentKeyword_5_15_1()));
+		match_DocRequirement___DevelopmentKeyword_5_12_0_StakeholderKeyword_5_12_1__q = new GroupAlias(false, true, new TokenAlias(false, false, grammarAccess.getDocRequirementAccess().getDevelopmentKeyword_5_12_0()), new TokenAlias(false, false, grammarAccess.getDocRequirementAccess().getStakeholderKeyword_5_12_1()));
+		match_DocRequirement___SeeKeyword_5_13_0_GoalKeyword_5_13_1__q = new GroupAlias(false, true, new TokenAlias(false, false, grammarAccess.getDocRequirementAccess().getSeeKeyword_5_13_0()), new TokenAlias(false, false, grammarAccess.getDocRequirementAccess().getGoalKeyword_5_13_1()));
+		match_DocRequirement___SeeKeyword_5_14_0_DocumentKeyword_5_14_1_GoalKeyword_5_14_2__q = new GroupAlias(false, true, new TokenAlias(false, false, grammarAccess.getDocRequirementAccess().getSeeKeyword_5_14_0()), new TokenAlias(false, false, grammarAccess.getDocRequirementAccess().getDocumentKeyword_5_14_1()), new TokenAlias(false, false, grammarAccess.getDocRequirementAccess().getGoalKeyword_5_14_2()));
+		match_DocRequirement___SeeKeyword_5_15_0_DocumentKeyword_5_15_1_RequirementKeyword_5_15_2__q = new GroupAlias(false, true, new TokenAlias(false, false, grammarAccess.getDocRequirementAccess().getSeeKeyword_5_15_0()), new TokenAlias(false, false, grammarAccess.getDocRequirementAccess().getDocumentKeyword_5_15_1()), new TokenAlias(false, false, grammarAccess.getDocRequirementAccess().getRequirementKeyword_5_15_2()));
+		match_DocRequirement___SeeKeyword_5_16_0_DocumentKeyword_5_16_1__q = new GroupAlias(false, true, new TokenAlias(false, false, grammarAccess.getDocRequirementAccess().getSeeKeyword_5_16_0()), new TokenAlias(false, false, grammarAccess.getDocRequirementAccess().getDocumentKeyword_5_16_1()));
 		match_Goal_CategoryKeyword_5_0_0_q = new TokenAlias(false, true, grammarAccess.getGoalAccess().getCategoryKeyword_5_0_0());
 		match_Goal_EvolvesKeyword_5_7_0_q = new TokenAlias(false, true, grammarAccess.getGoalAccess().getEvolvesKeyword_5_7_0());
 		match_Goal_IssuesKeyword_5_12_0_q = new TokenAlias(false, true, grammarAccess.getGoalAccess().getIssuesKeyword_5_12_0());
@@ -99,12 +102,13 @@ public class ReqSpecSyntacticSequencer extends AbstractSyntacticSequencer {
 		match_Requirement_CategoryKeyword_5_0_0_q = new TokenAlias(false, true, grammarAccess.getRequirementAccess().getCategoryKeyword_5_0_0());
 		match_Requirement_DecomposesKeyword_5_9_0_q = new TokenAlias(false, true, grammarAccess.getRequirementAccess().getDecomposesKeyword_5_9_0());
 		match_Requirement_EvolvesKeyword_5_10_0_q = new TokenAlias(false, true, grammarAccess.getRequirementAccess().getEvolvesKeyword_5_10_0());
-		match_Requirement_IssuesKeyword_5_16_0_q = new TokenAlias(false, true, grammarAccess.getRequirementAccess().getIssuesKeyword_5_16_0());
+		match_Requirement_IssuesKeyword_5_17_0_q = new TokenAlias(false, true, grammarAccess.getRequirementAccess().getIssuesKeyword_5_17_0());
 		match_Requirement_RefinesKeyword_5_8_0_q = new TokenAlias(false, true, grammarAccess.getRequirementAccess().getRefinesKeyword_5_8_0());
-		match_Requirement___SeeKeyword_5_12_0_GoalKeyword_5_12_1__q = new GroupAlias(false, true, new TokenAlias(false, false, grammarAccess.getRequirementAccess().getSeeKeyword_5_12_0()), new TokenAlias(false, false, grammarAccess.getRequirementAccess().getGoalKeyword_5_12_1()));
-		match_Requirement___SeeKeyword_5_13_0_DocumentKeyword_5_13_1_GoalKeyword_5_13_2__q = new GroupAlias(false, true, new TokenAlias(false, false, grammarAccess.getRequirementAccess().getSeeKeyword_5_13_0()), new TokenAlias(false, false, grammarAccess.getRequirementAccess().getDocumentKeyword_5_13_1()), new TokenAlias(false, false, grammarAccess.getRequirementAccess().getGoalKeyword_5_13_2()));
-		match_Requirement___SeeKeyword_5_14_0_DocumentKeyword_5_14_1_RequirementKeyword_5_14_2__q = new GroupAlias(false, true, new TokenAlias(false, false, grammarAccess.getRequirementAccess().getSeeKeyword_5_14_0()), new TokenAlias(false, false, grammarAccess.getRequirementAccess().getDocumentKeyword_5_14_1()), new TokenAlias(false, false, grammarAccess.getRequirementAccess().getRequirementKeyword_5_14_2()));
-		match_Requirement___SeeKeyword_5_15_0_DocumentKeyword_5_15_1__q = new GroupAlias(false, true, new TokenAlias(false, false, grammarAccess.getRequirementAccess().getSeeKeyword_5_15_0()), new TokenAlias(false, false, grammarAccess.getRequirementAccess().getDocumentKeyword_5_15_1()));
+		match_Requirement___DevelopmentKeyword_5_12_0_StakeholderKeyword_5_12_1__q = new GroupAlias(false, true, new TokenAlias(false, false, grammarAccess.getRequirementAccess().getDevelopmentKeyword_5_12_0()), new TokenAlias(false, false, grammarAccess.getRequirementAccess().getStakeholderKeyword_5_12_1()));
+		match_Requirement___SeeKeyword_5_13_0_GoalKeyword_5_13_1__q = new GroupAlias(false, true, new TokenAlias(false, false, grammarAccess.getRequirementAccess().getSeeKeyword_5_13_0()), new TokenAlias(false, false, grammarAccess.getRequirementAccess().getGoalKeyword_5_13_1()));
+		match_Requirement___SeeKeyword_5_14_0_DocumentKeyword_5_14_1_GoalKeyword_5_14_2__q = new GroupAlias(false, true, new TokenAlias(false, false, grammarAccess.getRequirementAccess().getSeeKeyword_5_14_0()), new TokenAlias(false, false, grammarAccess.getRequirementAccess().getDocumentKeyword_5_14_1()), new TokenAlias(false, false, grammarAccess.getRequirementAccess().getGoalKeyword_5_14_2()));
+		match_Requirement___SeeKeyword_5_15_0_DocumentKeyword_5_15_1_RequirementKeyword_5_15_2__q = new GroupAlias(false, true, new TokenAlias(false, false, grammarAccess.getRequirementAccess().getSeeKeyword_5_15_0()), new TokenAlias(false, false, grammarAccess.getRequirementAccess().getDocumentKeyword_5_15_1()), new TokenAlias(false, false, grammarAccess.getRequirementAccess().getRequirementKeyword_5_15_2()));
+		match_Requirement___SeeKeyword_5_16_0_DocumentKeyword_5_16_1__q = new GroupAlias(false, true, new TokenAlias(false, false, grammarAccess.getRequirementAccess().getSeeKeyword_5_16_0()), new TokenAlias(false, false, grammarAccess.getRequirementAccess().getDocumentKeyword_5_16_1()));
 		match_StakeholderGoals_IssuesKeyword_7_4_0_q = new TokenAlias(false, true, grammarAccess.getStakeholderGoalsAccess().getIssuesKeyword_7_4_0());
 		match_StakeholderGoals___SeeKeyword_7_3_0_DocumentKeyword_7_3_1__q = new GroupAlias(false, true, new TokenAlias(false, false, grammarAccess.getStakeholderGoalsAccess().getSeeKeyword_7_3_0()), new TokenAlias(false, false, grammarAccess.getStakeholderGoalsAccess().getDocumentKeyword_7_3_1()));
 		match_SystemRequirements_IssuesKeyword_7_5_0_q = new TokenAlias(false, true, grammarAccess.getSystemRequirementsAccess().getIssuesKeyword_7_5_0());
@@ -176,18 +180,20 @@ public class ReqSpecSyntacticSequencer extends AbstractSyntacticSequencer {
 				emit_DocRequirement_DecomposesKeyword_5_9_0_q(semanticObject, getLastNavigableState(), syntaxNodes);
 			else if(match_DocRequirement_EvolvesKeyword_5_10_0_q.equals(syntax))
 				emit_DocRequirement_EvolvesKeyword_5_10_0_q(semanticObject, getLastNavigableState(), syntaxNodes);
-			else if(match_DocRequirement_IssuesKeyword_5_16_0_q.equals(syntax))
-				emit_DocRequirement_IssuesKeyword_5_16_0_q(semanticObject, getLastNavigableState(), syntaxNodes);
+			else if(match_DocRequirement_IssuesKeyword_5_17_0_q.equals(syntax))
+				emit_DocRequirement_IssuesKeyword_5_17_0_q(semanticObject, getLastNavigableState(), syntaxNodes);
 			else if(match_DocRequirement_RefinesKeyword_5_8_0_q.equals(syntax))
 				emit_DocRequirement_RefinesKeyword_5_8_0_q(semanticObject, getLastNavigableState(), syntaxNodes);
-			else if(match_DocRequirement___SeeKeyword_5_12_0_GoalKeyword_5_12_1__q.equals(syntax))
-				emit_DocRequirement___SeeKeyword_5_12_0_GoalKeyword_5_12_1__q(semanticObject, getLastNavigableState(), syntaxNodes);
-			else if(match_DocRequirement___SeeKeyword_5_13_0_DocumentKeyword_5_13_1_GoalKeyword_5_13_2__q.equals(syntax))
-				emit_DocRequirement___SeeKeyword_5_13_0_DocumentKeyword_5_13_1_GoalKeyword_5_13_2__q(semanticObject, getLastNavigableState(), syntaxNodes);
-			else if(match_DocRequirement___SeeKeyword_5_14_0_DocumentKeyword_5_14_1_RequirementKeyword_5_14_2__q.equals(syntax))
-				emit_DocRequirement___SeeKeyword_5_14_0_DocumentKeyword_5_14_1_RequirementKeyword_5_14_2__q(semanticObject, getLastNavigableState(), syntaxNodes);
-			else if(match_DocRequirement___SeeKeyword_5_15_0_DocumentKeyword_5_15_1__q.equals(syntax))
-				emit_DocRequirement___SeeKeyword_5_15_0_DocumentKeyword_5_15_1__q(semanticObject, getLastNavigableState(), syntaxNodes);
+			else if(match_DocRequirement___DevelopmentKeyword_5_12_0_StakeholderKeyword_5_12_1__q.equals(syntax))
+				emit_DocRequirement___DevelopmentKeyword_5_12_0_StakeholderKeyword_5_12_1__q(semanticObject, getLastNavigableState(), syntaxNodes);
+			else if(match_DocRequirement___SeeKeyword_5_13_0_GoalKeyword_5_13_1__q.equals(syntax))
+				emit_DocRequirement___SeeKeyword_5_13_0_GoalKeyword_5_13_1__q(semanticObject, getLastNavigableState(), syntaxNodes);
+			else if(match_DocRequirement___SeeKeyword_5_14_0_DocumentKeyword_5_14_1_GoalKeyword_5_14_2__q.equals(syntax))
+				emit_DocRequirement___SeeKeyword_5_14_0_DocumentKeyword_5_14_1_GoalKeyword_5_14_2__q(semanticObject, getLastNavigableState(), syntaxNodes);
+			else if(match_DocRequirement___SeeKeyword_5_15_0_DocumentKeyword_5_15_1_RequirementKeyword_5_15_2__q.equals(syntax))
+				emit_DocRequirement___SeeKeyword_5_15_0_DocumentKeyword_5_15_1_RequirementKeyword_5_15_2__q(semanticObject, getLastNavigableState(), syntaxNodes);
+			else if(match_DocRequirement___SeeKeyword_5_16_0_DocumentKeyword_5_16_1__q.equals(syntax))
+				emit_DocRequirement___SeeKeyword_5_16_0_DocumentKeyword_5_16_1__q(semanticObject, getLastNavigableState(), syntaxNodes);
 			else if(match_Goal_CategoryKeyword_5_0_0_q.equals(syntax))
 				emit_Goal_CategoryKeyword_5_0_0_q(semanticObject, getLastNavigableState(), syntaxNodes);
 			else if(match_Goal_EvolvesKeyword_5_7_0_q.equals(syntax))
@@ -212,18 +218,20 @@ public class ReqSpecSyntacticSequencer extends AbstractSyntacticSequencer {
 				emit_Requirement_DecomposesKeyword_5_9_0_q(semanticObject, getLastNavigableState(), syntaxNodes);
 			else if(match_Requirement_EvolvesKeyword_5_10_0_q.equals(syntax))
 				emit_Requirement_EvolvesKeyword_5_10_0_q(semanticObject, getLastNavigableState(), syntaxNodes);
-			else if(match_Requirement_IssuesKeyword_5_16_0_q.equals(syntax))
-				emit_Requirement_IssuesKeyword_5_16_0_q(semanticObject, getLastNavigableState(), syntaxNodes);
+			else if(match_Requirement_IssuesKeyword_5_17_0_q.equals(syntax))
+				emit_Requirement_IssuesKeyword_5_17_0_q(semanticObject, getLastNavigableState(), syntaxNodes);
 			else if(match_Requirement_RefinesKeyword_5_8_0_q.equals(syntax))
 				emit_Requirement_RefinesKeyword_5_8_0_q(semanticObject, getLastNavigableState(), syntaxNodes);
-			else if(match_Requirement___SeeKeyword_5_12_0_GoalKeyword_5_12_1__q.equals(syntax))
-				emit_Requirement___SeeKeyword_5_12_0_GoalKeyword_5_12_1__q(semanticObject, getLastNavigableState(), syntaxNodes);
-			else if(match_Requirement___SeeKeyword_5_13_0_DocumentKeyword_5_13_1_GoalKeyword_5_13_2__q.equals(syntax))
-				emit_Requirement___SeeKeyword_5_13_0_DocumentKeyword_5_13_1_GoalKeyword_5_13_2__q(semanticObject, getLastNavigableState(), syntaxNodes);
-			else if(match_Requirement___SeeKeyword_5_14_0_DocumentKeyword_5_14_1_RequirementKeyword_5_14_2__q.equals(syntax))
-				emit_Requirement___SeeKeyword_5_14_0_DocumentKeyword_5_14_1_RequirementKeyword_5_14_2__q(semanticObject, getLastNavigableState(), syntaxNodes);
-			else if(match_Requirement___SeeKeyword_5_15_0_DocumentKeyword_5_15_1__q.equals(syntax))
-				emit_Requirement___SeeKeyword_5_15_0_DocumentKeyword_5_15_1__q(semanticObject, getLastNavigableState(), syntaxNodes);
+			else if(match_Requirement___DevelopmentKeyword_5_12_0_StakeholderKeyword_5_12_1__q.equals(syntax))
+				emit_Requirement___DevelopmentKeyword_5_12_0_StakeholderKeyword_5_12_1__q(semanticObject, getLastNavigableState(), syntaxNodes);
+			else if(match_Requirement___SeeKeyword_5_13_0_GoalKeyword_5_13_1__q.equals(syntax))
+				emit_Requirement___SeeKeyword_5_13_0_GoalKeyword_5_13_1__q(semanticObject, getLastNavigableState(), syntaxNodes);
+			else if(match_Requirement___SeeKeyword_5_14_0_DocumentKeyword_5_14_1_GoalKeyword_5_14_2__q.equals(syntax))
+				emit_Requirement___SeeKeyword_5_14_0_DocumentKeyword_5_14_1_GoalKeyword_5_14_2__q(semanticObject, getLastNavigableState(), syntaxNodes);
+			else if(match_Requirement___SeeKeyword_5_15_0_DocumentKeyword_5_15_1_RequirementKeyword_5_15_2__q.equals(syntax))
+				emit_Requirement___SeeKeyword_5_15_0_DocumentKeyword_5_15_1_RequirementKeyword_5_15_2__q(semanticObject, getLastNavigableState(), syntaxNodes);
+			else if(match_Requirement___SeeKeyword_5_16_0_DocumentKeyword_5_16_1__q.equals(syntax))
+				emit_Requirement___SeeKeyword_5_16_0_DocumentKeyword_5_16_1__q(semanticObject, getLastNavigableState(), syntaxNodes);
 			else if(match_StakeholderGoals_IssuesKeyword_7_4_0_q.equals(syntax))
 				emit_StakeholderGoals_IssuesKeyword_7_4_0_q(semanticObject, getLastNavigableState(), syntaxNodes);
 			else if(match_StakeholderGoals___SeeKeyword_7_3_0_DocumentKeyword_7_3_1__q.equals(syntax))
@@ -376,7 +384,7 @@ public class ReqSpecSyntacticSequencer extends AbstractSyntacticSequencer {
 	 * This ambiguous syntax occurs at:
 	 *     issues+=STRING (ambiguity) issues+=STRING
 	 */
-	protected void emit_DocRequirement_IssuesKeyword_5_16_0_q(EObject semanticObject, ISynNavigable transition, List<INode> nodes) {
+	protected void emit_DocRequirement_IssuesKeyword_5_17_0_q(EObject semanticObject, ISynNavigable transition, List<INode> nodes) {
 		acceptNodes(transition, nodes);
 	}
 	
@@ -393,12 +401,23 @@ public class ReqSpecSyntacticSequencer extends AbstractSyntacticSequencer {
 	
 	/**
 	 * Ambiguous syntax:
+	 *     ('development' 'stakeholder')?
+	 *
+	 * This ambiguous syntax occurs at:
+	 *     developmentStakeholder+=[Stakeholder|QualifiedName] (ambiguity) developmentStakeholder+=[Stakeholder|QualifiedName]
+	 */
+	protected void emit_DocRequirement___DevelopmentKeyword_5_12_0_StakeholderKeyword_5_12_1__q(EObject semanticObject, ISynNavigable transition, List<INode> nodes) {
+		acceptNodes(transition, nodes);
+	}
+	
+	/**
+	 * Ambiguous syntax:
 	 *     ('see' 'goal')?
 	 *
 	 * This ambiguous syntax occurs at:
 	 *     goalReference+=[Goal|QualifiedName] (ambiguity) goalReference+=[Goal|QualifiedName]
 	 */
-	protected void emit_DocRequirement___SeeKeyword_5_12_0_GoalKeyword_5_12_1__q(EObject semanticObject, ISynNavigable transition, List<INode> nodes) {
+	protected void emit_DocRequirement___SeeKeyword_5_13_0_GoalKeyword_5_13_1__q(EObject semanticObject, ISynNavigable transition, List<INode> nodes) {
 		acceptNodes(transition, nodes);
 	}
 	
@@ -409,7 +428,7 @@ public class ReqSpecSyntacticSequencer extends AbstractSyntacticSequencer {
 	 * This ambiguous syntax occurs at:
 	 *     stakeholderRequirementReference+=[Goal|QualifiedName] (ambiguity) stakeholderRequirementReference+=[Goal|QualifiedName]
 	 */
-	protected void emit_DocRequirement___SeeKeyword_5_13_0_DocumentKeyword_5_13_1_GoalKeyword_5_13_2__q(EObject semanticObject, ISynNavigable transition, List<INode> nodes) {
+	protected void emit_DocRequirement___SeeKeyword_5_14_0_DocumentKeyword_5_14_1_GoalKeyword_5_14_2__q(EObject semanticObject, ISynNavigable transition, List<INode> nodes) {
 		acceptNodes(transition, nodes);
 	}
 	
@@ -420,7 +439,7 @@ public class ReqSpecSyntacticSequencer extends AbstractSyntacticSequencer {
 	 * This ambiguous syntax occurs at:
 	 *     documentRequirement+=[ContractualElement|QualifiedName] (ambiguity) documentRequirement+=[ContractualElement|QualifiedName]
 	 */
-	protected void emit_DocRequirement___SeeKeyword_5_14_0_DocumentKeyword_5_14_1_RequirementKeyword_5_14_2__q(EObject semanticObject, ISynNavigable transition, List<INode> nodes) {
+	protected void emit_DocRequirement___SeeKeyword_5_15_0_DocumentKeyword_5_15_1_RequirementKeyword_5_15_2__q(EObject semanticObject, ISynNavigable transition, List<INode> nodes) {
 		acceptNodes(transition, nodes);
 	}
 	
@@ -431,7 +450,7 @@ public class ReqSpecSyntacticSequencer extends AbstractSyntacticSequencer {
 	 * This ambiguous syntax occurs at:
 	 *     docReference+=ExternalDocument (ambiguity) docReference+=ExternalDocument
 	 */
-	protected void emit_DocRequirement___SeeKeyword_5_15_0_DocumentKeyword_5_15_1__q(EObject semanticObject, ISynNavigable transition, List<INode> nodes) {
+	protected void emit_DocRequirement___SeeKeyword_5_16_0_DocumentKeyword_5_16_1__q(EObject semanticObject, ISynNavigable transition, List<INode> nodes) {
 		acceptNodes(transition, nodes);
 	}
 	
@@ -574,7 +593,7 @@ public class ReqSpecSyntacticSequencer extends AbstractSyntacticSequencer {
 	 * This ambiguous syntax occurs at:
 	 *     issues+=STRING (ambiguity) issues+=STRING
 	 */
-	protected void emit_Requirement_IssuesKeyword_5_16_0_q(EObject semanticObject, ISynNavigable transition, List<INode> nodes) {
+	protected void emit_Requirement_IssuesKeyword_5_17_0_q(EObject semanticObject, ISynNavigable transition, List<INode> nodes) {
 		acceptNodes(transition, nodes);
 	}
 	
@@ -591,12 +610,23 @@ public class ReqSpecSyntacticSequencer extends AbstractSyntacticSequencer {
 	
 	/**
 	 * Ambiguous syntax:
+	 *     ('development' 'stakeholder')?
+	 *
+	 * This ambiguous syntax occurs at:
+	 *     developmentStakeholder+=[Stakeholder|QualifiedName] (ambiguity) developmentStakeholder+=[Stakeholder|QualifiedName]
+	 */
+	protected void emit_Requirement___DevelopmentKeyword_5_12_0_StakeholderKeyword_5_12_1__q(EObject semanticObject, ISynNavigable transition, List<INode> nodes) {
+		acceptNodes(transition, nodes);
+	}
+	
+	/**
+	 * Ambiguous syntax:
 	 *     ('see' 'goal')?
 	 *
 	 * This ambiguous syntax occurs at:
 	 *     goalReference+=[Goal|QualifiedName] (ambiguity) goalReference+=[Goal|QualifiedName]
 	 */
-	protected void emit_Requirement___SeeKeyword_5_12_0_GoalKeyword_5_12_1__q(EObject semanticObject, ISynNavigable transition, List<INode> nodes) {
+	protected void emit_Requirement___SeeKeyword_5_13_0_GoalKeyword_5_13_1__q(EObject semanticObject, ISynNavigable transition, List<INode> nodes) {
 		acceptNodes(transition, nodes);
 	}
 	
@@ -607,7 +637,7 @@ public class ReqSpecSyntacticSequencer extends AbstractSyntacticSequencer {
 	 * This ambiguous syntax occurs at:
 	 *     stakeholderRequirementReference+=[Goal|QualifiedName] (ambiguity) stakeholderRequirementReference+=[Goal|QualifiedName]
 	 */
-	protected void emit_Requirement___SeeKeyword_5_13_0_DocumentKeyword_5_13_1_GoalKeyword_5_13_2__q(EObject semanticObject, ISynNavigable transition, List<INode> nodes) {
+	protected void emit_Requirement___SeeKeyword_5_14_0_DocumentKeyword_5_14_1_GoalKeyword_5_14_2__q(EObject semanticObject, ISynNavigable transition, List<INode> nodes) {
 		acceptNodes(transition, nodes);
 	}
 	
@@ -618,7 +648,7 @@ public class ReqSpecSyntacticSequencer extends AbstractSyntacticSequencer {
 	 * This ambiguous syntax occurs at:
 	 *     documentRequirement+=[ContractualElement|QualifiedName] (ambiguity) documentRequirement+=[ContractualElement|QualifiedName]
 	 */
-	protected void emit_Requirement___SeeKeyword_5_14_0_DocumentKeyword_5_14_1_RequirementKeyword_5_14_2__q(EObject semanticObject, ISynNavigable transition, List<INode> nodes) {
+	protected void emit_Requirement___SeeKeyword_5_15_0_DocumentKeyword_5_15_1_RequirementKeyword_5_15_2__q(EObject semanticObject, ISynNavigable transition, List<INode> nodes) {
 		acceptNodes(transition, nodes);
 	}
 	
@@ -629,7 +659,7 @@ public class ReqSpecSyntacticSequencer extends AbstractSyntacticSequencer {
 	 * This ambiguous syntax occurs at:
 	 *     docReference+=ExternalDocument (ambiguity) docReference+=ExternalDocument
 	 */
-	protected void emit_Requirement___SeeKeyword_5_15_0_DocumentKeyword_5_15_1__q(EObject semanticObject, ISynNavigable transition, List<INode> nodes) {
+	protected void emit_Requirement___SeeKeyword_5_16_0_DocumentKeyword_5_16_1__q(EObject semanticObject, ISynNavigable transition, List<INode> nodes) {
 		acceptNodes(transition, nodes);
 	}
 	

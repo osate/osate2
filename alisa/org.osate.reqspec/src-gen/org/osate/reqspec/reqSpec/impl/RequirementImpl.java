@@ -21,6 +21,8 @@ import org.eclipse.emf.ecore.util.InternalEList;
 
 import org.eclipse.xtext.xbase.XExpression;
 
+import org.osate.organization.organization.Stakeholder;
+
 import org.osate.reqspec.reqSpec.Goal;
 import org.osate.reqspec.reqSpec.ReqPredicate;
 import org.osate.reqspec.reqSpec.ReqSpecPackage;
@@ -39,6 +41,7 @@ import org.osate.reqspec.reqSpec.Requirement;
  *   <li>{@link org.osate.reqspec.reqSpec.impl.RequirementImpl#getExceptionText <em>Exception Text</em>}</li>
  *   <li>{@link org.osate.reqspec.reqSpec.impl.RequirementImpl#getRefinesReference <em>Refines Reference</em>}</li>
  *   <li>{@link org.osate.reqspec.reqSpec.impl.RequirementImpl#getDecomposesReference <em>Decomposes Reference</em>}</li>
+ *   <li>{@link org.osate.reqspec.reqSpec.impl.RequirementImpl#getDevelopmentStakeholder <em>Development Stakeholder</em>}</li>
  *   <li>{@link org.osate.reqspec.reqSpec.impl.RequirementImpl#getGoalReference <em>Goal Reference</em>}</li>
  *   <li>{@link org.osate.reqspec.reqSpec.impl.RequirementImpl#getStakeholderRequirementReference <em>Stakeholder Requirement Reference</em>}</li>
  * </ul>
@@ -117,6 +120,16 @@ public class RequirementImpl extends ContractualElementImpl implements Requireme
    * @ordered
    */
   protected EList<Requirement> decomposesReference;
+
+  /**
+   * The cached value of the '{@link #getDevelopmentStakeholder() <em>Development Stakeholder</em>}' reference list.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see #getDevelopmentStakeholder()
+   * @generated
+   * @ordered
+   */
+  protected EList<Stakeholder> developmentStakeholder;
 
   /**
    * The cached value of the '{@link #getGoalReference() <em>Goal Reference</em>}' reference list.
@@ -320,6 +333,20 @@ public class RequirementImpl extends ContractualElementImpl implements Requireme
    * <!-- end-user-doc -->
    * @generated
    */
+  public EList<Stakeholder> getDevelopmentStakeholder()
+  {
+    if (developmentStakeholder == null)
+    {
+      developmentStakeholder = new EObjectResolvingEList<Stakeholder>(Stakeholder.class, this, ReqSpecPackage.REQUIREMENT__DEVELOPMENT_STAKEHOLDER);
+    }
+    return developmentStakeholder;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
   public EList<Goal> getGoalReference()
   {
     if (goalReference == null)
@@ -384,6 +411,8 @@ public class RequirementImpl extends ContractualElementImpl implements Requireme
         return getRefinesReference();
       case ReqSpecPackage.REQUIREMENT__DECOMPOSES_REFERENCE:
         return getDecomposesReference();
+      case ReqSpecPackage.REQUIREMENT__DEVELOPMENT_STAKEHOLDER:
+        return getDevelopmentStakeholder();
       case ReqSpecPackage.REQUIREMENT__GOAL_REFERENCE:
         return getGoalReference();
       case ReqSpecPackage.REQUIREMENT__STAKEHOLDER_REQUIREMENT_REFERENCE:
@@ -423,6 +452,10 @@ public class RequirementImpl extends ContractualElementImpl implements Requireme
       case ReqSpecPackage.REQUIREMENT__DECOMPOSES_REFERENCE:
         getDecomposesReference().clear();
         getDecomposesReference().addAll((Collection<? extends Requirement>)newValue);
+        return;
+      case ReqSpecPackage.REQUIREMENT__DEVELOPMENT_STAKEHOLDER:
+        getDevelopmentStakeholder().clear();
+        getDevelopmentStakeholder().addAll((Collection<? extends Stakeholder>)newValue);
         return;
       case ReqSpecPackage.REQUIREMENT__GOAL_REFERENCE:
         getGoalReference().clear();
@@ -464,6 +497,9 @@ public class RequirementImpl extends ContractualElementImpl implements Requireme
       case ReqSpecPackage.REQUIREMENT__DECOMPOSES_REFERENCE:
         getDecomposesReference().clear();
         return;
+      case ReqSpecPackage.REQUIREMENT__DEVELOPMENT_STAKEHOLDER:
+        getDevelopmentStakeholder().clear();
+        return;
       case ReqSpecPackage.REQUIREMENT__GOAL_REFERENCE:
         getGoalReference().clear();
         return;
@@ -496,6 +532,8 @@ public class RequirementImpl extends ContractualElementImpl implements Requireme
         return refinesReference != null && !refinesReference.isEmpty();
       case ReqSpecPackage.REQUIREMENT__DECOMPOSES_REFERENCE:
         return decomposesReference != null && !decomposesReference.isEmpty();
+      case ReqSpecPackage.REQUIREMENT__DEVELOPMENT_STAKEHOLDER:
+        return developmentStakeholder != null && !developmentStakeholder.isEmpty();
       case ReqSpecPackage.REQUIREMENT__GOAL_REFERENCE:
         return goalReference != null && !goalReference.isEmpty();
       case ReqSpecPackage.REQUIREMENT__STAKEHOLDER_REQUIREMENT_REFERENCE:

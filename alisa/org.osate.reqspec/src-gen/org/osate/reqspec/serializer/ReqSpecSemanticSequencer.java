@@ -481,6 +481,7 @@ public class ReqSpecSemanticSequencer extends CommonSemanticSequencer {
 	 *             decomposesReference+=[Requirement|QualifiedName]* 
 	 *             evolvesReference+=[Requirement|QualifiedName]* 
 	 *             (dropped?='dropped' dropRationale=STRING?)? 
+	 *             developmentStakeholder+=[Stakeholder|QualifiedName]* 
 	 *             goalReference+=[Goal|QualifiedName]* 
 	 *             stakeholderRequirementReference+=[Goal|QualifiedName]* 
 	 *             documentRequirement+=[ContractualElement|QualifiedName]* 
@@ -503,6 +504,7 @@ public class ReqSpecSemanticSequencer extends CommonSemanticSequencer {
 	 *             decomposesReference+=[Requirement|QualifiedName]* 
 	 *             evolvesReference+=[Requirement|QualifiedName]* 
 	 *             (dropped?='dropped' dropRationale=STRING?)? 
+	 *             developmentStakeholder+=[Stakeholder|QualifiedName]* 
 	 *             goalReference+=[Goal|QualifiedName]* 
 	 *             stakeholderRequirementReference+=[Goal|QualifiedName]* 
 	 *             documentRequirement+=[ContractualElement|QualifiedName]* 
@@ -560,6 +562,7 @@ public class ReqSpecSemanticSequencer extends CommonSemanticSequencer {
 	 *         decomposesReference+=[Requirement|QualifiedName]* 
 	 *         evolvesReference+=[Requirement|QualifiedName]* 
 	 *         (dropped?='dropped' dropRationale=STRING?)? 
+	 *         developmentStakeholder+=[Stakeholder|QualifiedName]* 
 	 *         goalReference+=[Goal|QualifiedName]* 
 	 *         stakeholderRequirementReference+=[Goal|QualifiedName]* 
 	 *         documentRequirement+=[ContractualElement|QualifiedName]* 
@@ -683,6 +686,7 @@ public class ReqSpecSemanticSequencer extends CommonSemanticSequencer {
 	 *         decomposesReference+=[Requirement|QualifiedName]* 
 	 *         evolvesReference+=[Requirement|QualifiedName]* 
 	 *         (dropped?='dropped' dropRationale=STRING?)? 
+	 *         developmentStakeholder+=[Stakeholder|QualifiedName]* 
 	 *         goalReference+=[Goal|QualifiedName]* 
 	 *         stakeholderRequirementReference+=[Goal|QualifiedName]* 
 	 *         documentRequirement+=[ContractualElement|QualifiedName]* 
