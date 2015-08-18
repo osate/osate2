@@ -44,6 +44,7 @@ import org.osate.aadl2.Element;
 import org.osate.aadl2.NamedElement;
 import org.osate.aadl2.instance.InstanceObject;
 import org.osate.aadl2.instance.SystemInstance;
+import org.osate.aadl2.modelsupport.errorreporting.AnalysisErrorReporterManager;
 import org.osate.analysis.architecture.InstanceValidation;
 import org.osate.analysis.resource.budgets.ResourceBudgetPlugin;
 import org.osate.analysis.resource.budgets.logic.DoBoundResourceAnalysisLogic;
@@ -74,11 +75,23 @@ public class DoBoundResourceAnalysis extends AaxlReadOnlyActionAsJob {
 	}
 
 	@Override
-	protected boolean initializeAction(NamedElement obj) {
+	public boolean initializeAction(NamedElement obj) {
 		setCSVLog("BoundResourceBudgets", obj);
 		return true;
 	}
+	
+	public void setErrManager() {
+		this.errManager = new AnalysisErrorReporterManager(this.getAnalysisErrorReporterFactory());
+	}
 
+	public void setSummaryReport() {
+		this.summaryReport = new StringBuffer();
+	}
+
+	public void saveReport() {
+		this.getCSVLog().saveToFile();
+	}
+	
 	public final void doAaxlAction(final IProgressMonitor monitor, final Element obj) {
 		InstanceModelUtil.clearCache();
 		InstanceValidation iv = new InstanceValidation(this);
