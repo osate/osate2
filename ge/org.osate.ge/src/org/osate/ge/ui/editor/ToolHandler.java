@@ -9,7 +9,6 @@ import org.osate.ge.ui.tools.ToolConstants;
 import org.osate.ge.ui.tools.annotations.Activate;
 import org.osate.ge.ui.tools.annotations.CanActivate;
 import org.osate.ge.ui.tools.annotations.Deactivate;
-import org.osate.ge.ui.tools.annotations.SelectedFlow;
 import org.osate.ge.ui.tools.annotations.SelectionChanged;
 
 /**
@@ -55,13 +54,11 @@ public class ToolHandler {
 		activeTool = null;
 	}
 	
-	public void setSelectedPictogramElements(final PictogramElement[] pes, final Object object) {
+	public void setSelectedPictogramElements(final PictogramElement[] pes) {
 		// Update the context
 		context.set(ToolConstants.SELECTED_PICTOGRAM_ELEMENTS, pes);
-		context.set(ToolConstants.SELECTED_FLOW, object);
 		// Notify the active tool
 		if(activeTool != null) {
-			ContextInjectionFactory.invoke(activeTool, SelectionChanged.class, context);
 			ContextInjectionFactory.invoke(activeTool, SelectionChanged.class, context);
 		}
 	}

@@ -139,11 +139,11 @@ public class AgeDiagramBehavior extends DiagramBehavior {
 				public void selectionChanged(final SelectionChangedEvent event) {
 					final PictogramElement[] selectedPes = editor.getSelectedPictogramElements();
 					if(selectedPes != null) {
-						toolHandler.setSelectedPictogramElements(selectedPes, null);
+						toolHandler.setSelectedPictogramElements(selectedPes);
 					}
 				}	 			
 	 		});	 		
-	 		toolHandler.setSelectedPictogramElements(editor.getSelectedPictogramElements(), null);
+	 		toolHandler.setSelectedPictogramElements(editor.getSelectedPictogramElements());
 	 		
 	 		// Deactivate the tool when the part is deactivated or closed
 	 		editor.getSite().getWorkbenchWindow().getPartService().addPartListener(new IPartListener() {
