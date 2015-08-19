@@ -32,6 +32,7 @@ import org.eclipse.graphiti.mm.pictograms.PictogramElement;
 import org.eclipse.graphiti.mm.pictograms.Shape;
 import org.eclipse.ui.statushandlers.StatusManager;
 import org.osate.aadl2.AadlPackage;
+import org.osate.aadl2.AnnexLibrary;
 import org.osate.aadl2.Classifier;
 import org.osate.aadl2.ComponentImplementation;
 import org.osate.aadl2.ComponentType;
@@ -44,12 +45,14 @@ import org.osate.aadl2.Realization;
 import org.osate.aadl2.TypeExtension;
 import org.osate.aadl2.modelsupport.Activator;
 import org.osate.aadl2.util.Aadl2Util;
+import org.osate.annexsupport.AnnexUtil;
 import org.osate.ge.diagrams.common.AadlElementWrapper;
 import org.osate.ge.diagrams.common.features.DiagramUpdateFeature;
 import org.osate.ge.diagrams.common.features.LayoutDiagramFeature;
 import org.osate.ge.services.BusinessObjectResolutionService;
 import org.osate.ge.services.ConnectionCreationService;
 import org.osate.ge.services.ConnectionService;
+import org.osate.ge.services.ShapeCreationService;
 import org.osate.ge.services.ShapeService;
 import org.osate.ge.services.StyleService;
 import org.osate.ge.services.GhostingService;
@@ -60,15 +63,18 @@ public class PackageUpdateDiagramFeature extends AbstractUpdateFeature implement
 	private final ConnectionCreationService connectionCreationService;
 	private final GhostingService ghostingService;
 	private final ShapeService shapeService;
+	private final ShapeCreationService shapeCreationService;
 	private final BusinessObjectResolutionService bor;
 	
 	@Inject
-	public PackageUpdateDiagramFeature(final IFeatureProvider fp, final StyleService styleService, final ConnectionService connectionService, final ConnectionCreationService connectionCreationService, final GhostingService ghostingService, final ShapeService shapeService, final BusinessObjectResolutionService bor) {
+	public PackageUpdateDiagramFeature(final IFeatureProvider fp, final StyleService styleService, final ConnectionService connectionService, final ConnectionCreationService connectionCreationService, final GhostingService ghostingService, final ShapeService shapeService, 
+			final ShapeCreationService shapeCreationService, final BusinessObjectResolutionService bor) {
 		super(fp);
 		this.styleService = styleService;
 		this.connectionCreationService = connectionCreationService;
 		this.ghostingService = ghostingService;
 		this.shapeService = shapeService;
+		this.shapeCreationService = shapeCreationService;
 		this.bor = bor;
 	}
 	
@@ -151,7 +157,8 @@ public class PackageUpdateDiagramFeature extends AbstractUpdateFeature implement
 		// Iterate over named elements and add/update classifiers and their relationships.
 		updateClassifiers(diagram, relevantElements, 0, 0);	
 		updateRelationships(diagram, relevantElements);
-
+		updateAnnexLibraries(diagram, relevantElements);
+		
 		// Layout the diagram
 		final ICustomContext layoutCtx = LayoutDiagramFeature.createContext(false);
 		for(ICustomFeature feature : this.getFeatureProvider().getCustomFeatures(layoutCtx)) {
@@ -248,5 +255,14 @@ public class PackageUpdateDiagramFeature extends AbstractUpdateFeature implement
 	
 	private void updateGeneralization(final Diagram diagram, final Generalization generalization) {
 		connectionCreationService.createUpdateConnection(diagram, generalization);
+	}
+	
+	private void updateAnnexLibraries(final Diagram diagram, final Set<NamedElement> elements) {
+		// Create shapes for annex libraries
+		for(final NamedElement el : elements) {
+			if(el instanceof AnnexLibrary) {
+				shapeCreationService.createUpdateShapeForElement(diagram, el);				
+			}
+		}
 	}
 }

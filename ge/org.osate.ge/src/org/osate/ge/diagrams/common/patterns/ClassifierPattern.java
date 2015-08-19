@@ -23,6 +23,8 @@ import java.util.Set;
 import javax.inject.Inject;
 import javax.inject.Named;
 
+import org.eclipse.emf.common.util.BasicEList;
+import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.util.EcoreUtil;
@@ -55,6 +57,7 @@ import org.eclipse.graphiti.services.IPeCreateService;
 import org.eclipse.graphiti.ui.services.GraphitiUi;
 import org.osate.aadl2.Aadl2Factory;
 import org.osate.aadl2.Aadl2Package;
+import org.osate.aadl2.AnnexSubclause;
 import org.osate.aadl2.BehavioredImplementation;
 import org.osate.aadl2.Classifier;
 import org.osate.aadl2.ComponentClassifier;
@@ -378,6 +381,13 @@ public class ClassifierPattern extends AgePattern implements Categorized {
 				shapeCreationService.createUpdateModeShapes(shape, cc.getAllModes(), touchedShapes);
 			}
 		}
+		
+		// Annex Subclauses
+		if(bo instanceof Classifier) {
+			System.err.println("AAAAAAAAAAA");
+			shapeCreationService.createUpdateShapesForElements(shape, getAllDefaultAnnexSubclauses((Classifier)bo), 25, true, 30, 25, true, 20, touchedShapes);
+			System.err.println("BBBBBBBBBBB");
+		}
 
 		// Ghost child shapes that were not updated. This is done before updating connections because the connections may refer to invisible or ghosted shapes
 		childShapesToGhost.removeAll(touchedShapes);
@@ -411,7 +421,7 @@ public class ClassifierPattern extends AgePattern implements Categorized {
 		if(componentType != null) {
 			connectionCreationService.createUpdateConnections(shape, componentType.getAllFlowSpecifications());
 		}	
-
+		
 		// Update label and graphics algorithms
 		if(bo instanceof Subcomponent) {	
 			final IPeCreateService peCreateService = Graphiti.getPeCreateService();
@@ -1068,5 +1078,29 @@ public class ClassifierPattern extends AgePattern implements Categorized {
 	@Override
 	public Category getCategory() {
 		return Category.SUBCOMPONENTS;
+	}
+	
+	/**
+	 * Returns all the default annex subclauses owned by a classifier or any extended or implemented classifiers.
+	 * @param topClassifier
+	 * @return
+	 */
+	private static EList<AnnexSubclause> getAllDefaultAnnexSubclauses(final Classifier topClassifier) {
+		final EList<AnnexSubclause> result = new BasicEList<AnnexSubclause>();
+		if(topClassifier == null) {
+			return result;
+		}
+		
+		final EList<Classifier> classifiers = topClassifier.getSelfPlusAllExtended();
+		if (topClassifier instanceof ComponentImplementation) {
+			ComponentType ct = ((ComponentImplementation) topClassifier).getType();
+			final EList<Classifier> tclassifiers = ct.getSelfPlusAllExtended();
+			classifiers.addAll(tclassifiers);
+		}
+		
+		for (Classifier classifier : classifiers) {
+			result.addAll(classifier.getOwnedAnnexSubclauses());
+		}
+		return result;
 	}
 }

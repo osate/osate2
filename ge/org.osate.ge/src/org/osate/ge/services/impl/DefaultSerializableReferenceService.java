@@ -6,14 +6,18 @@ import java.util.Set;
 
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.resource.Resource;
+import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.xtext.resource.XtextResourceSet;
 import org.osate.aadl2.AadlPackage;
+import org.osate.aadl2.AnnexLibrary;
+import org.osate.aadl2.AnnexSubclause;
 import org.osate.aadl2.BehavioredImplementation;
 import org.osate.aadl2.Classifier;
 import org.osate.aadl2.ComponentClassifier;
 import org.osate.aadl2.ComponentImplementation;
 import org.osate.aadl2.ComponentType;
 import org.osate.aadl2.Connection;
+import org.osate.aadl2.DefaultAnnexLibrary;
 import org.osate.aadl2.Element;
 import org.osate.aadl2.Feature;
 import org.osate.aadl2.FeatureGroupType;
@@ -33,12 +37,16 @@ import org.osate.aadl2.Subcomponent;
 import org.osate.aadl2.SubprogramCall;
 import org.osate.aadl2.SubprogramCallSequence;
 import org.osate.aadl2.TypeExtension;
+import org.osate.annexsupport.AnnexUtil;
 import org.osate.ge.diagrams.componentImplementation.patterns.SubprogramCallOrder;
 import org.osate.ge.services.SerializableReferenceService;
 import org.osate.ge.util.Log;
 import org.osate.ge.util.StringUtil;
 
 public class DefaultSerializableReferenceService implements SerializableReferenceService {
+	private final static String TYPE_ANNEX_LIBRARY = "annex_library";
+	private final static String TYPE_ANNEX_SUBCLAUSE = "annex_subclause";
+	
 	@Override
 	public String getReference(final Object bo) {
 		if(bo instanceof AadlPackage) {
@@ -76,11 +84,29 @@ public class DefaultSerializableReferenceService implements SerializableReferenc
 		} else if(bo instanceof SubprogramCallOrder) {
 			final SubprogramCallOrder sco = (SubprogramCallOrder)bo;
 			return "subprogram_call_order " + sco.previousSubprogramCall.getQualifiedName() + " " + sco.subprogramCall.getQualifiedName();
+		} else if(bo instanceof AnnexLibrary) {
+			final AnnexLibrary annexLibrary = (AnnexLibrary)bo;					
+			final AadlPackage annexPkg = getAnnexLibraryPackage(annexLibrary);
+			if(annexPkg == null) {
+				throw new RuntimeException("Unable to retrieve package.");
+			}
+			
+			final int index = getAnnexLibraryIndex(annexLibrary);
+			return TYPE_ANNEX_LIBRARY + " " + annexPkg.getQualifiedName() + " " + annexLibrary.getName().toLowerCase() + " " + index;
+		} else if(bo instanceof AnnexSubclause) {
+			final AnnexSubclause annexSubclause = (AnnexSubclause)bo;			
+			if(annexSubclause.getContainingClassifier() == null) {
+				throw new RuntimeException("Unable to retrieve containing classifier.");
+			}
+			
+			final Classifier annexSubclauseClassifier = annexSubclause.getContainingClassifier();	
+			final int index = getAnnexSubclauseIndex(annexSubclause);
+			return TYPE_ANNEX_SUBCLAUSE + " " + annexSubclauseClassifier.getQualifiedName() + " " + annexSubclause.getName().toLowerCase() + " " + index;
 		} else {
 			return null;
 		}
 	}
-	
+		
 	public Object getReferencedObject(final XtextResourceSet resourceSet, final String reference) {
 		if(reference == null) {
 			return null;
@@ -147,11 +173,26 @@ public class DefaultSerializableReferenceService implements SerializableReferenc
 				if(relevantElement instanceof FeatureGroupType) {
 					referencedObject = ((FeatureGroupType)relevantElement).getOwnedExtension();
 				}
+			} else if(type.equals(TYPE_ANNEX_LIBRARY)) {
+				if(segs.length == 4 && relevantElement instanceof AadlPackage) {
+					final AadlPackage pkg = (AadlPackage)relevantElement;
+					final String annexName = segs[2];
+					final int annexIndex = Integer.parseInt(segs[3]);
+					referencedObject = findAnnexLibrary(pkg, annexName, annexIndex);
+				}
+			} else if(type.equals(TYPE_ANNEX_SUBCLAUSE)) {
+				if(segs.length == 4 && relevantElement instanceof Classifier) {
+					final Classifier classifier = (Classifier)relevantElement;
+					final String annexName = segs[2];
+					final int annexIndex = Integer.parseInt(segs[3]);
+					referencedObject = findAnnexSubclause(classifier, annexName, annexIndex);
+					System.err.println("RESULT: " + referencedObject);
+				}
 			} else {
 				Log.error("Unhandled case: " + type);
 			}
 		}
-
+		
 		return referencedObject;
 	}
 	
@@ -311,5 +352,108 @@ public class DefaultSerializableReferenceService implements SerializableReferenc
 		}
 		
 		return null;
+	}
+	
+	// Helper methods for working with Annexes
+	private AnnexLibrary findAnnexLibrary(final AadlPackage pkg, final String annexName, final int searchIndex) {
+		int currentIndex = 0;
+		for(final AnnexLibrary library : AnnexUtil.getAllDefaultAnnexLibraries(pkg)) {
+			if(annexName.equalsIgnoreCase(library.getName())) {
+				if(currentIndex == searchIndex) {
+					return library;
+				}
+				
+				currentIndex++;
+			}
+		}
+		
+		return null;
+	}
+	
+	private AnnexSubclause findAnnexSubclause(final Classifier classifier, final String annexName, final int searchIndex) {
+		int currentIndex = 0;
+		for(final AnnexSubclause subclause : classifier.getOwnedAnnexSubclauses()) {
+			if(annexName.equalsIgnoreCase(subclause.getName())) {
+				if(currentIndex == searchIndex) {
+					return subclause;
+				}
+				
+				currentIndex++;
+			}
+		}
+		
+		return null;
+	}
+	
+	/**
+	 * Get the package in which the annex library is contained.
+	 * @param annex
+	 * @return
+	 */
+	private AadlPackage getAnnexLibraryPackage(final AnnexLibrary annexLibrary) {
+		for(Element o = annexLibrary.getOwner(); o != null; o = o.getOwner()) {
+			if(o instanceof AadlPackage) {
+				return (AadlPackage)o;
+			}
+		}
+		
+		return null;
+	}
+	
+	/**
+	 * Returns a 0 based index for referencing an annex library in a list that contains only annex libraries with the same type and owner
+	 * @param annexLibrary
+	 * @return
+	 */
+	private int getAnnexLibraryIndex(final AnnexLibrary annexLibrary) {
+		final String annexName = annexLibrary.getName();
+		if(annexName == null) {
+			return -1;
+		}
+		
+		// Get the Aadl Package
+		Element tmp = annexLibrary.getOwner();
+		while(tmp != null && !(tmp instanceof AadlPackage)) {
+			tmp = tmp.getOwner();
+		}
+		
+		int index = 0;
+		if(tmp instanceof AadlPackage) {
+			for(final AnnexLibrary tmpLibrary : AnnexUtil.getAllDefaultAnnexLibraries((AadlPackage)tmp)) {
+				if(tmpLibrary == annexLibrary) {
+					return index;
+				} else if(annexName.equalsIgnoreCase(tmpLibrary.getName())) {
+					index++;
+				}
+			}
+		}
+
+		return -1;
+	}
+	
+	/**
+	 * Returns a 0 based index for referencing an annex subclause in a list that contains only annex subclauses with the same type and owner
+	 * @param annexLibrary
+	 * @return
+	 */
+	private int getAnnexSubclauseIndex(final AnnexSubclause annexSubclause) {
+		final String annexName = annexSubclause.getName();
+		if(annexName == null) {
+			return -1;
+		}
+		
+		// Get the Classifier
+		final Classifier classifier = annexSubclause.getContainingClassifier();
+				
+		int index = 0;
+		for(final AnnexSubclause tmpSubclause : classifier.getOwnedAnnexSubclauses()) {
+			if(tmpSubclause == annexSubclause) {
+				return index;
+			} else if(annexName.equalsIgnoreCase(tmpSubclause.getName())) {
+				index++;
+			}
+		}
+
+		return -1;
 	}
 }

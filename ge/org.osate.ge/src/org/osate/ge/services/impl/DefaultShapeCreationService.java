@@ -71,13 +71,13 @@ public class DefaultShapeCreationService implements ShapeCreationService {
 	 * @param touchedShapes a list to populate with the shapes that were created/updated. Can be null.
 	 */
 	private void createUpdateShapesForElements(final ContainerShape shape, final List<? extends NamedElement> elements, final int startX, final boolean incX, final int xPadding, final int startY, final boolean incY, final int yPadding, final boolean checkForOverlapOnCreate, final Collection<Shape> touchedShapes) {
-		// TODO: Could find an X and Y that doens't overlap existing one. Or wait until layout algorithm is implemented.
 		int childX = startX;
 		int childY = startY;
 
 		for(final NamedElement element : elements) {
-			PictogramElement pictogramElement = shapeService.getChildShapeByElementQualifiedName(shape, element);
+			PictogramElement pictogramElement = shapeService.getChildShapeByReference(shape, element);
 			if(pictogramElement == null) {
+				System.err.println("ADD");
 				final AddContext addContext = new AddContext();
 				addContext.setNewObject(new AadlElementWrapper(element));
 				addContext.setTargetContainer(shape);
@@ -99,8 +99,6 @@ public class DefaultShapeCreationService implements ShapeCreationService {
 						final GraphicsAlgorithm newGa = pictogramElement.getGraphicsAlgorithm();
 						
 						boolean intersects;
-						// TODO: Need to call move feature?
-						// TODO: Loop cap?
 						do	{
 							final int minX1 = newGa.getX();
 							final int minY1 = newGa.getY();
@@ -134,6 +132,7 @@ public class DefaultShapeCreationService implements ShapeCreationService {
 					}
 				}
 			} else {
+				System.err.println("UPDATE");
 				final UpdateContext updateContext = new UpdateContext(pictogramElement);
 				final IUpdateFeature updateFeature = fp.getUpdateFeature(updateContext);
 				
@@ -145,6 +144,31 @@ public class DefaultShapeCreationService implements ShapeCreationService {
 
 			if(touchedShapes != null && pictogramElement instanceof Shape) {
 				touchedShapes.add((Shape)pictogramElement);
+			}
+		}
+	}
+	
+	@Override
+	public void createUpdateShapeForElement(final ContainerShape container, final NamedElement element) {
+		final PictogramElement pictogramElement = shapeService.getChildShapeByReference(container, element);
+		if(pictogramElement == null) {					
+			final AddContext addContext = new AddContext();
+			addContext.setNewObject(new AadlElementWrapper(element));
+			addContext.setTargetContainer(container);
+			addContext.setX(0);
+			addContext.setY(0);
+			
+			final IAddFeature addFeature = fp.getAddFeature(addContext);
+			if(addFeature != null && addFeature.canAdd(addContext)) {			
+				addFeature.add(addContext);
+			}
+		} else {				
+			final UpdateContext updateContext = new UpdateContext(pictogramElement);
+			final IUpdateFeature updateFeature = fp.getUpdateFeature(updateContext);
+			
+			// Update the classifier regardless of whether it is "needed" or not.
+			if(updateFeature != null && updateFeature.canUpdate(updateContext)) {
+				updateFeature.update(updateContext);
 			}
 		}
 	}

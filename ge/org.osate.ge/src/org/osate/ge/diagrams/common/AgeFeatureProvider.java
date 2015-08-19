@@ -79,6 +79,7 @@ import org.osate.ge.diagrams.common.features.SetInitialModeFeature;
 import org.osate.ge.diagrams.common.features.SetModeTransitionTriggersFeature;
 import org.osate.ge.diagrams.common.features.UpdateClassifierDiagramFeature;
 import org.osate.ge.diagrams.common.patterns.AgeConnectionPattern;
+import org.osate.ge.diagrams.common.patterns.AnnexPattern;
 import org.osate.ge.diagrams.common.patterns.ClassifierPattern;
 import org.osate.ge.diagrams.common.patterns.FeaturePattern;
 import org.osate.ge.diagrams.common.patterns.FlowSpecificationPattern;
@@ -139,6 +140,7 @@ public class AgeFeatureProvider extends DefaultFeatureProviderWithPatterns {
 		addAadlFeaturePatterns();
 		addConnectionPattern(make(FlowSpecificationPattern.class));
 		addPattern(make(ModePattern.class));
+		addPattern(make(AnnexPattern.class));
 		addConnectionPattern(make(ModeTransitionPattern.class));
 		// Package
 		addConnectionPattern(make(PackageGeneralizationPattern.class));

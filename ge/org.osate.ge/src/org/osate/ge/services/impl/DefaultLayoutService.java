@@ -156,7 +156,6 @@ public class DefaultLayoutService implements LayoutService {
 		final GraphicsAlgorithm shapeGa = shape.getGraphicsAlgorithm();
 		int maxWidth = Math.max(150, shapeGa == null ? 0 : (shapeGa.getWidth() + shiftX));
 		int maxHeight = Math.max(50, shapeGa == null ? 0 : (shapeGa.getHeight() + shiftY));
-		
 		for(final Shape childShape :  shapeService.getNonGhostChildren(shape)) {
 			if(childShape.isVisible()) {
 				final Object childBo = bor.getBusinessObjectForPictogramElement(childShape);
