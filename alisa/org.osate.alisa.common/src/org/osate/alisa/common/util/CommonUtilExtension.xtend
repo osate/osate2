@@ -21,9 +21,13 @@ class CommonUtilExtension {
 	def static String toText(Description desc, NamedElement target) {
 		desc.description.map[de|de.toText(target)].reduce[a, b|a + b]
 	}
+	
+	private def static stripNewlineTab(String s){
+		return s.replaceAll("\n","").replaceAll("\t","")
+	}
 
 	def static toText(DescriptionElement de, NamedElement target) {
-		if(de.text != null) return de.text
+		if(de.text != null) return de.text.stripNewlineTab
 		if (de.showValue != null) {
 			val decl = de.showValue?.ref
 			if (decl instanceof ComputeDeclaration) {
