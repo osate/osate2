@@ -1,14 +1,14 @@
-package org.osate.ge.ui.editor;
+package org.osate.ge.ext;
 
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Field;
 
 import org.eclipse.jface.resource.ImageDescriptor;
-import org.osate.ge.ui.tools.annotations.Description;
-import org.osate.ge.ui.tools.annotations.Icon;
-import org.osate.ge.ui.tools.annotations.Id;
+import org.osate.ge.ext.annotations.Description;
+import org.osate.ge.ext.annotations.Icon;
+import org.osate.ge.ext.annotations.Id;
 
-class ToolUtil {
+public class ExtensionUtil {
 	public static String getId(final Object tool) {
 		return (String)getFieldValue(tool, Id.class);
 	}
@@ -21,7 +21,7 @@ class ToolUtil {
 		return (String)getFieldValue(tool, Description.class);
 	}
 	
-	private static Object getFieldValue(final Object tool, final Class<? extends Annotation> annotationClass) {
+	public static Object getFieldValue(final Object tool, final Class<? extends Annotation> annotationClass) {
 		for(final Field field : tool.getClass().getDeclaredFields()) {
 			if(field.isAnnotationPresent(annotationClass)) {
 				try {

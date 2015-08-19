@@ -27,6 +27,7 @@ import org.osate.ge.services.ConnectionCreationService;
 import org.osate.ge.services.ConnectionService;
 import org.osate.ge.services.DiagramModificationService;
 import org.osate.ge.services.DiagramService;
+import org.osate.ge.services.ExtensionService;
 import org.osate.ge.services.GhostingService;
 import org.osate.ge.services.GraphicsAlgorithmCreationService;
 import org.osate.ge.services.GraphicsAlgorithmManipulationService;
@@ -43,7 +44,7 @@ import org.osate.ge.services.ShapeService;
 import org.osate.ge.services.StyleProviderService;
 import org.osate.ge.services.StyleService;
 import org.osate.ge.services.SubcomponentService;
-import org.osate.ge.services.ToolService;
+import org.osate.ge.services.ExtensionRegistryService;
 import org.osate.ge.services.UiService;
 import org.osate.ge.services.UserInputService;
 import org.osate.ge.services.impl.DefaultAadlArrayService;
@@ -56,6 +57,7 @@ import org.osate.ge.services.impl.DefaultComponentImplementationService;
 import org.osate.ge.services.impl.DefaultConnectionCreationService;
 import org.osate.ge.services.impl.DefaultConnectionService;
 import org.osate.ge.services.impl.DefaultDiagramModificationService;
+import org.osate.ge.services.impl.DefaultExtensionService;
 import org.osate.ge.services.impl.DefaultGhostingService;
 import org.osate.ge.services.impl.DefaultGraphicsAlgorithmCreationService;
 import org.osate.ge.services.impl.DefaultGraphicsAlgorithmManipulationService;
@@ -88,8 +90,11 @@ public class AgeDiagramTypeProvider extends AbstractDiagramTypeProvider {
 	}
 	
 	private IEclipseContext createEclipseContext(final IFeatureProvider fp) {
+		// Create the eclipse context
+		final Bundle bundle = FrameworkUtil.getBundle(getClass());	
+		final IEclipseContext context =  EclipseContextFactory.getServiceContext(bundle.getBundleContext()).createChild();
+		
 		// Create objects for the context
-		final ToolService toolService = (ToolService)PlatformUI.getWorkbench().getActiveWorkbenchWindow().getService(ToolService.class);
 		final UiService uiService = new DefaultUiService(this);
 		final CachingService cachingService = new DefaultCachingService();
 		final SerializableReferenceService serializableReferenceService = new DefaultSerializableReferenceService();
@@ -120,15 +125,12 @@ public class AgeDiagramTypeProvider extends AbstractDiagramTypeProvider {
 		final DefaultGraphicsAlgorithmCreationService graphicsAlgorithmCreator = new DefaultGraphicsAlgorithmCreationService(styleUtil, featureService, subcomponentService, graphicsAlgorithmUtil);		
 		final DefaultColoringService highlightingHelper = new DefaultColoringService(shapeHelper, propertyUtil, styleUtil, bor, fp);		
 		final DefaultLabelService labelService = new DefaultLabelService(propertyUtil, graphicsAlgorithmCreator, fp);
-		
-		// Create the eclipse context
-		final Bundle bundle = FrameworkUtil.getBundle(getClass());	
-		final IEclipseContext context =  EclipseContextFactory.getServiceContext(bundle.getBundleContext()).createChild();
+		final ExtensionService extensionService = new DefaultExtensionService((ExtensionRegistryService)PlatformUI.getWorkbench().getActiveWorkbenchWindow().getService(ExtensionRegistryService.class), context);
 		
 		// Populate the context.
 		context.set(IDiagramTypeProvider.class, this);
 		context.set(IFeatureProvider.class, fp);
-		context.set(ToolService.class, toolService);
+		context.set(ExtensionService.class, extensionService);
 		context.set(UiService.class, uiService);
 		context.set(CachingService.class, cachingService);
 		context.set(SerializableReferenceService.class, serializableReferenceService);

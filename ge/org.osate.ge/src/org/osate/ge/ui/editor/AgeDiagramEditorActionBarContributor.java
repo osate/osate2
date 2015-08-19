@@ -22,9 +22,10 @@ import org.eclipse.ui.IEditorPart;
 import org.eclipse.ui.PlatformUI;
 import org.osate.aadl2.ComponentClassifier;
 import org.osate.aadl2.ComponentImplementation;
+import org.osate.ge.ext.ExtensionUtil;
 import org.osate.ge.services.BusinessObjectResolutionService;
 import org.osate.ge.services.PropertyService;
-import org.osate.ge.services.ToolService;
+import org.osate.ge.services.ExtensionRegistryService;
 import org.osate.ge.services.impl.DefaultPropertyService;
 
 @SuppressWarnings({ "restriction" })
@@ -51,7 +52,7 @@ public class AgeDiagramEditorActionBarContributor extends org.eclipse.graphiti.u
 		addRetargetAction(new SetBindingRetargetAction());
 		
 		// Create retarget actions of each tool
-		for(final Object tool : getToolService().getTools()) {
+		for(final Object tool : getExtensionRegistryService().getTools()) {
 			addRetargetAction(new ActivateToolRetargetAction(tool));
 		}
 	}
@@ -83,8 +84,8 @@ public class AgeDiagramEditorActionBarContributor extends org.eclipse.graphiti.u
 		
 		// Insert the actions for each tool
 		final String toolsInsertionPoint = MatchSizeAction.MATCH_SIZE;
-		for(final Object tool : getToolService().getTools()) {
-			tbm.insertAfter(toolsInsertionPoint, getAction(ToolUtil.getId(tool)));
+		for(final Object tool : getExtensionRegistryService().getTools()) {
+			tbm.insertAfter(toolsInsertionPoint, getAction(ExtensionUtil.getId(tool)));
 		}
 		
 		tbm.remove(ToggleContextButtonPadAction.ACTION_ID);
@@ -145,8 +146,8 @@ public class AgeDiagramEditorActionBarContributor extends org.eclipse.graphiti.u
 		mgr.update(true);
 	}
 	
-	private ToolService getToolService() {
-		return (ToolService)PlatformUI.getWorkbench().getActiveWorkbenchWindow().getService(ToolService.class);
+	private ExtensionRegistryService getExtensionRegistryService() {
+		return (ExtensionRegistryService)PlatformUI.getWorkbench().getActiveWorkbenchWindow().getService(ExtensionRegistryService.class);
 	}
 	
 }

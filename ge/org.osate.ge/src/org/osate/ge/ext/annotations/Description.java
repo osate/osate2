@@ -1,4 +1,4 @@
-package org.osate.ge.ui.tools.annotations;
+package org.osate.ge.ext.annotations;
 
 import java.lang.annotation.Documented;
 import java.lang.annotation.ElementType;
@@ -7,12 +7,11 @@ import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
 /**
- * Use this annotation to tag methods called when a selection has been made while the tool is activated.
+ * Use this annotation to tag static fields which contains a brief description of the functionality of the tool. Likely to be displayed in a tooltip.
  * This annotation must not be applied to more than one method per class.
  */
 @Documented
-@Target({ElementType.METHOD})
+@Target({ElementType.FIELD})
 @Retention(RetentionPolicy.RUNTIME)
-public @interface SelectionChanged {
-
+public @interface Description {
 }

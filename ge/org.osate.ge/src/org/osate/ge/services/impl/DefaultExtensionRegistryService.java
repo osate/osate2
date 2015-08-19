@@ -10,19 +10,20 @@ import org.eclipse.core.runtime.IExtension;
 import org.eclipse.core.runtime.IExtensionPoint;
 import org.eclipse.core.runtime.IExtensionRegistry;
 import org.eclipse.core.runtime.Platform;
-import org.osate.ge.services.ToolService;
-import org.osate.ge.util.Log;
+import org.osate.ge.services.ExtensionRegistryService;
 
 /**
- * Instantiates tools which are registered to the tool extension point.
+ * Instantiates extensions which are registered via extension points.
  */
-public class DefaultToolService implements ToolService {
+public class DefaultExtensionRegistryService implements ExtensionRegistryService {
+	private final ArrayList<Object> tools = new ArrayList<Object>();
+	private static final String TOOL_EXTENSION_POINT_ID = "org.osate.ge.tools";
 
-	final ArrayList<Object> AGETools = new ArrayList<Object>();
-
-	public DefaultToolService() {
+	public DefaultExtensionRegistryService() {
 		final IExtensionRegistry registry = Platform.getExtensionRegistry();
-		final IExtensionPoint point = registry.getExtensionPoint("org.osate.ge.tools");
+		
+		// Instantiate Tools
+		final IExtensionPoint point = registry.getExtensionPoint(TOOL_EXTENSION_POINT_ID);
 		if(point != null) {
 			// Iterate over all the extensions
 			for(final IExtension extension : point.getExtensions()) {
@@ -30,10 +31,9 @@ public class DefaultToolService implements ToolService {
 					if(ce.getName().equals("tool")) {
 						try {								
 							final Object tool = (Object)ce.createExecutableExtension("class");
-							AGETools.add(tool);
+							tools.add(tool);
 						} catch(final CoreException ex) {
-							//TODO: Update maybe
-							Log.error("Error creating AGE tool: " + ex);
+							throw new RuntimeException(ex);
 						}
 					}
 				}
@@ -43,6 +43,6 @@ public class DefaultToolService implements ToolService {
 
 	@Override
 	public Collection<Object> getTools() {
-		return Collections.unmodifiableList(AGETools);
+		return Collections.unmodifiableList(tools);
 	}
 }

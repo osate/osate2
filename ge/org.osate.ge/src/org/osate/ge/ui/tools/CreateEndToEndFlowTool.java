@@ -17,6 +17,13 @@ import org.eclipse.jface.dialogs.Dialog;
 import org.eclipse.swt.widgets.Display;
 import org.osate.aadl2.ComponentImplementation;
 import org.osate.aadl2.EndToEndFlow;
+import org.osate.ge.ext.ExtensionConstants;
+import org.osate.ge.ext.annotations.Activate;
+import org.osate.ge.ext.annotations.CanActivate;
+import org.osate.ge.ext.annotations.Deactivate;
+import org.osate.ge.ext.annotations.Description;
+import org.osate.ge.ext.annotations.Id;
+import org.osate.ge.ext.annotations.SelectionChanged;
 import org.osate.ge.services.AadlModificationService;
 import org.osate.ge.services.BusinessObjectResolutionService;
 import org.osate.ge.services.ColoringService;
@@ -26,12 +33,6 @@ import org.osate.ge.services.ShapeService;
 import org.osate.ge.services.UiService;
 import org.osate.ge.services.AadlModificationService.AbstractModifier;
 import org.osate.ge.ui.editor.AgeDiagramEditor;
-import org.osate.ge.ui.tools.annotations.Activate;
-import org.osate.ge.ui.tools.annotations.CanActivate;
-import org.osate.ge.ui.tools.annotations.Deactivate;
-import org.osate.ge.ui.tools.annotations.Description;
-import org.osate.ge.ui.tools.annotations.Id;
-import org.osate.ge.ui.tools.annotations.SelectionChanged;
 import org.eclipse.graphiti.mm.pictograms.Connection;
 import org.eclipse.jface.dialogs.IDialogConstants;
 import org.eclipse.jface.dialogs.TitleAreaDialog;
@@ -155,7 +156,7 @@ public class CreateEndToEndFlowTool {
 	}
 
 	@SelectionChanged
-	public void onSelectionChanged(@Named(ToolConstants.SELECTED_PICTOGRAM_ELEMENTS) final PictogramElement[] selectedPes,
+	public void onSelectionChanged(@Named(ExtensionConstants.SELECTED_PICTOGRAM_ELEMENTS) final PictogramElement[] selectedPes,
 			final BusinessObjectResolutionService bor,final IDiagramTypeProvider dtp, final ShapeService shapeService, final ConnectionService connectionService) {
 		// Highlight all selected shapes
 		final TransactionalEditingDomain editingDomain = dtp.getDiagramBehavior().getEditingDomain();

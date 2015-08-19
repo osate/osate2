@@ -155,8 +155,8 @@
  </extension>
  
  <extension point="org.eclipse.ui.services">
-     <serviceFactory factoryClass="org.osate.ge.services.ToolService$Factory">
-       <service serviceClass="org.osate.ge.services.ToolService"></service>
+     <serviceFactory factoryClass="org.osate.ge.services.ExtensionRegistryService$Factory">
+       <service serviceClass="org.osate.ge.services.ExtensionRegistryService"></service>
     </serviceFactory>
     <serviceFactory factoryClass="org.osate.ge.services.StyleProviderService$Factory">
        <service serviceClass="org.osate.ge.services.StyleProviderService"></service>

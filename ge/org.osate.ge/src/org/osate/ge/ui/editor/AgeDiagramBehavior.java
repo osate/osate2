@@ -12,8 +12,6 @@ import java.util.EventObject;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
-
-import org.eclipse.e4.core.contexts.IEclipseContext;
 import org.eclipse.emf.common.command.BasicCommandStack;
 import org.eclipse.emf.common.command.CommandStackListener;
 import org.eclipse.emf.common.util.URI;
@@ -62,8 +60,8 @@ import org.osate.ge.services.CachingService;
 import org.osate.ge.services.ConnectionService;
 import org.osate.ge.services.DiagramModificationService;
 import org.osate.ge.services.DiagramService;
+import org.osate.ge.services.ExtensionService;
 import org.osate.ge.services.PropertyService;
-import org.osate.ge.services.ToolService;
 import org.osate.ge.ui.util.GhostPurger;
 import org.osate.ge.ui.xtext.AgeXtextUtil;
 import org.osate.ge.util.Log;
@@ -128,9 +126,9 @@ public class AgeDiagramBehavior extends DiagramBehavior {
 	 		registerAction(new SetBindingAction(editor, aadlModService, diagramModService, connectionService, bor));
 
  			// Register an action for each tool
-	 		toolHandler = new ToolHandler((IEclipseContext)getAdapter(IEclipseContext.class));
-	 		final ToolService toolService = (ToolService)getAdapter(ToolService.class);	
-	 		for(final Object tool : toolService.getTools()) {
+	 		final ExtensionService extService = (ExtensionService)getAdapter(ExtensionService.class);
+	 		toolHandler = new ToolHandler(extService);
+	 		for(final Object tool : extService.getTools()) {
 	 			registerAction(new ActivateToolAction(editor, toolHandler, tool));
 	 		}
 	 		
