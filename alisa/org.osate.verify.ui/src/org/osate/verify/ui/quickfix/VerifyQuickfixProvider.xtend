@@ -6,7 +6,6 @@ package org.osate.verify.ui.quickfix
 import org.eclipse.emf.common.util.URI
 import org.eclipse.emf.ecore.EObject
 import org.eclipse.emf.ecore.resource.ResourceSet
-import org.eclipse.xtext.ui.editor.model.edit.IModification
 import org.eclipse.xtext.ui.editor.model.edit.IModificationContext
 import org.eclipse.xtext.ui.editor.model.edit.ISemanticModification
 import org.eclipse.xtext.ui.editor.quickfix.DefaultQuickfixProvider
@@ -16,6 +15,7 @@ import org.eclipse.xtext.validation.Issue
 import org.osate.reqspec.reqSpec.Requirement
 import org.osate.verify.validation.VerifyValidator
 import org.osate.verify.verify.Claim
+import org.osate.verify.verify.Verification
 import org.osate.verify.verify.VerificationPlan
 import org.osate.verify.verify.VerifyFactory
 import org.osate.verify.verify.VerifyPackage
@@ -69,6 +69,29 @@ class VerifyQuickfixProvider extends DefaultQuickfixProvider {
 				});
 	}
 
+	/**
+	 * QuickFix for removing an illegal object in a Verification file
+	 * The issue data array is expected to have two elements:
+	 *
+	 * issue.getData()[0]: The type of element
+	 * issue.getData()[1]: The uri of the containing parent
+	 * 
+	 */
+	@Fix(VerifyValidator.ILLEGAL_OBJECT_FOR_FILETYPE)
+	def public void fixIllegalObjectForFileTypeInVerify(Issue issue, IssueResolutionAcceptor acceptor) {
+		val elementType = issue.getData().head
+		val verificationURI = issue.getData().get(1)
+
+		acceptor.accept(issue, "Remove " + elementType + ".", null, null,
+				new ISemanticModification() {
+					override apply(EObject element, IModificationContext context) throws Exception {
+						val resourceSet = element.eResource().getResourceSet() as ResourceSet
+						val verification  = resourceSet.getEObject(URI.createURI(verificationURI), true) as Verification
+						val illegalObject = element as EObject
+						verification.contents.remove(illegalObject)
+					}
+				});
+	}
 
 
 }

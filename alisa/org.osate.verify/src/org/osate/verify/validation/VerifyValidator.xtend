@@ -3,19 +3,22 @@
  */
 package org.osate.verify.validation
 
+import org.eclipse.emf.ecore.EObject
+import org.eclipse.emf.ecore.util.EcoreUtil
 import org.eclipse.xtext.validation.Check
-import org.osate.verify.verify.VerificationActivity
-import org.osate.verify.verify.VerificationCondition
-import org.osate.verify.verify.VerificationMethod
-import org.osate.verify.verify.VerifyPackage
-import org.osate.verify.verify.JavaMethod
-import org.osate.verify.verify.PluginMethod
+import org.eclipse.xtext.validation.CheckType
 import org.osate.verify.util.VerificationMethodDispatchers
 import org.osate.verify.verify.Claim
-import static org.osate.verify.util.VerifyUtilExtension.*
+import org.osate.verify.verify.JavaMethod
+import org.osate.verify.verify.PluginMethod
+import org.osate.verify.verify.Verification
+import org.osate.verify.verify.VerificationActivity
+import org.osate.verify.verify.VerificationCondition
+import org.osate.verify.verify.VerificationMethodRegistry
 import org.osate.verify.verify.VerificationPlan
-import org.eclipse.xtext.validation.CheckType
-import org.eclipse.emf.ecore.util.EcoreUtil
+import org.osate.verify.verify.VerifyPackage
+
+import static org.osate.verify.util.VerifyUtilExtension.*
 
 /**
  * Custom validation rules. 
@@ -32,6 +35,7 @@ class VerifyValidator extends AbstractVerifyValidator {
   public static val CLAIM_INVALID_REQUIREMENT = "org.osate.verify.claimInvalidRequirement"
   public static val MISSING_CLAIM_FOR_REQ = "org.osate.verify.missingClaimForReq"
   public static val CLAIM_REQ_FOR_NOT_VP_FOR = "org.osate.verify.claimReqForNotVpFor"
+  public static val ILLEGAL_OBJECT_FOR_FILETYPE = "org.osate.verify.illegal.object.for.filetype"
 
 	@Check
 	def checkMethodPath(JavaMethod method) {
@@ -97,17 +101,39 @@ class VerifyValidator extends AbstractVerifyValidator {
 		]
 	}
 	
-//	@Check (CheckType.FAST)
-//	def checkClaimRequirementsAreForVerificationPlanTarget(VerificationPlan vp){
-//		val systemRequirements = vp.systemRequirements
-// 		val requirements = systemRequirements.content
-//		vp.claim.forEach[claim|
-//			 if (!requirements.exists[req | req === claim.requirement]){
-//				error('Claim requirement ' + claim.requirement.name + ' does not match classifier identified for verification plan ' + vp.name,
-//					claim, VerifyPackage.Literals.CLAIM__REQUIREMENT,
-//					CLAIM_REQ_FOR_NOT_VP_FOR)
-//			 }
-//		]
+	@Check (CheckType.FAST)
+	def void checkFileTypeContents(Verification verification) {
+		val verificationURI = EcoreUtil.getURI(verification)
+		val fileExt = verificationURI.fileExtension.toLowerCase
+		val contents = verification.contents
+		switch fileExt{
+			case "verify" : {
+				contents.forEach[content |
+					switch content {
+						VerificationPlan : {}
+						VerificationMethodRegistry : fileTypeError(fileExt, "verification methods", content)	
+						default : fileTypeError(fileExt, content.class.name, content)
+					}
+				]
+			}
+			case "methodregistry" : {
+				contents.forEach[content |
+					switch content {
+						VerificationMethodRegistry : {}
+						VerificationPlan : fileTypeError(fileExt, "verification plan", content)	
+						default : fileTypeError(fileExt, content.class.name, content)
+					}
+				]
+			}
+			default : {}
+		}
+	}	
+	// TODO: This method overload calls the quickfix which does not work as expected, commenting out for the immediate future
+//	def void fileTypeError(String fileType, String partName, EObject part, URI verificationURI){
+//		error( partName +" not allowed in '"+ fileType + "' file.", part, null, ILLEGAL_OBJECT_FOR_FILETYPE, partName, verificationURI.toString())
 //	}
+	def void fileTypeError(String fileType, String partName, EObject part){
+		error( partName +" not allowed in '"+ fileType + "' file.", part, null)
+	}
 	
 }

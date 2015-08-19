@@ -14,11 +14,14 @@ import org.eclipse.xtext.ui.editor.quickfix.Fix
 import org.eclipse.xtext.ui.editor.quickfix.IssueResolutionAcceptor
 import org.eclipse.xtext.validation.Issue
 import org.osate.aadl2.ComponentClassifier
+import org.osate.reqspec.reqSpec.DocumentSection
 import org.osate.reqspec.reqSpec.Goal
+import org.osate.reqspec.reqSpec.ReqDocument
+import org.osate.reqspec.reqSpec.ReqSpec
+import org.osate.reqspec.reqSpec.Requirement
 import org.osate.reqspec.reqSpec.StakeholderGoals
 import org.osate.reqspec.reqSpec.SystemRequirements
 import org.osate.reqspec.validation.ReqSpecValidator
-import org.osate.reqspec.reqSpec.Requirement
 
 //import org.eclipse.xtext.ui.editor.quickfix.Fix
 //import org.eclipse.xtext.ui.editor.quickfix.IssueResolutionAcceptor
@@ -172,7 +175,7 @@ class ReqSpecQuickfixProvider extends DefaultQuickfixProvider {
 	}
 
 	/**
-	 * QuickFix for removing a refined from a requirment with cycle dependencies
+	 * QuickFix for removing a refined from a requirement with cycle dependencies
 	 * The issue data array is expected to have two elements:
 	 *
 	 * issue.getData()[0]: The name of the refined requirement
@@ -191,6 +194,77 @@ class ReqSpecQuickfixProvider extends DefaultQuickfixProvider {
 						val refinedReq = resourceSet.getEObject(URI.createURI(refinedReqURI), true) as Requirement
 						val requirement = element as Requirement
 						requirement.refinesReference.remove(refinedReq)
+					}
+				});
+	}
+	/**
+	 * QuickFix for removing an illegal object from a document section of a reqdoc or goaldoc
+	 * The issue data array is expected to have two elements:
+	 *
+	 * issue.getData()[0]: The type of element
+	 * issue.getData()[1]: The uri of the containing section
+	 * 
+	 */
+	@Fix(ReqSpecValidator.ILLEGAL_OBJECT_FOR_FILETYPE_IN_DOCUMENTSECTION)
+	def public void fixIllegalObjectForFileTypeInDocumentSection(Issue issue, IssueResolutionAcceptor acceptor) {
+		val elementType = issue.getData().head
+		val sectionURI = issue.getData().get(1)
+
+		acceptor.accept(issue, "Remove " + elementType + " from section.", null, null,
+				new ISemanticModification() {
+					override apply(EObject element, IModificationContext context) throws Exception {
+						val resourceSet = element.eResource().getResourceSet() as ResourceSet
+						val section  = resourceSet.getEObject(URI.createURI(sectionURI), true) as DocumentSection
+						val illegalObject = element as EObject
+						section.content.remove(illegalObject)
+					}
+				});
+	}
+
+	/**
+	 * QuickFix for removing an illegal object in a reqdoc or goaldoc
+	 * The issue data array is expected to have two elements:
+	 *
+	 * issue.getData()[0]: The type of element
+	 * issue.getData()[1]: The uri of the containing parent
+	 * 
+	 */
+	@Fix(ReqSpecValidator.ILLEGAL_OBJECT_FOR_FILETYPE_IN_REQDOCUMENT)
+	def public void fixIllegalObjectForFileTypeInReqDocument(Issue issue, IssueResolutionAcceptor acceptor) {
+		val elementType = issue.getData().head
+		val reqDocURI = issue.getData().get(1)
+
+		acceptor.accept(issue, "Remove " + elementType + ".", null, null,
+				new ISemanticModification() {
+					override apply(EObject element, IModificationContext context) throws Exception {
+						val resourceSet = element.eResource().getResourceSet() as ResourceSet
+						val reqDoc  = resourceSet.getEObject(URI.createURI(reqDocURI), true) as ReqDocument
+						val illegalObject = element as EObject
+						reqDoc.content.remove(illegalObject)
+					}
+				});
+	}
+
+	/**
+	 * QuickFix for removing an illegal object in a ReqSpec
+	 * The issue data array is expected to have two elements:
+	 *
+	 * issue.getData()[0]: The type of element
+	 * issue.getData()[1]: The uri of the containing parent
+	 * 
+	 */
+	@Fix(ReqSpecValidator.ILLEGAL_OBJECT_FOR_FILETYPE_IN_REQSPEC)
+	def public void fixIllegalObjectForFileTypeInReqSpec(Issue issue, IssueResolutionAcceptor acceptor) {
+		val elementType = issue.getData().head
+		val reqSpecURI = issue.getData().get(1)
+
+		acceptor.accept(issue, "Remove " + elementType + ".", null, null,
+				new ISemanticModification() {
+					override apply(EObject element, IModificationContext context) throws Exception {
+						val resourceSet = element.eResource().getResourceSet() as ResourceSet
+						val reqSpec  = resourceSet.getEObject(URI.createURI(reqSpecURI), true) as ReqSpec
+						val illegalObject = element as EObject
+						reqSpec.parts.remove(illegalObject)
 					}
 				});
 	}
