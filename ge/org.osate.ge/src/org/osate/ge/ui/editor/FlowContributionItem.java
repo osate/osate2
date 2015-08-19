@@ -8,15 +8,11 @@
  *******************************************************************************/
 package org.osate.ge.ui.editor;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import org.eclipse.emf.transaction.RecordingCommand;
 import org.eclipse.graphiti.features.IFeatureProvider;
 import org.eclipse.graphiti.features.IUpdateFeature;
 import org.eclipse.graphiti.features.context.impl.UpdateContext;
 import org.eclipse.graphiti.mm.pictograms.Diagram;
-import org.eclipse.graphiti.mm.pictograms.PictogramElement;
 import org.eclipse.swt.widgets.Combo;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Control;
@@ -25,13 +21,10 @@ import org.osate.aadl2.ComponentClassifier;
 import org.osate.aadl2.ComponentImplementation;
 import org.osate.aadl2.Element;
 import org.osate.aadl2.EndToEndFlow;
-import org.osate.aadl2.EndToEndFlowSegment;
 import org.osate.aadl2.FlowImplementation;
-import org.osate.aadl2.ModeFeature;
 import org.osate.aadl2.NamedElement;
 import org.osate.ge.diagrams.common.AadlElementWrapper;
 import org.osate.ge.services.PropertyService;
-import org.osate.ge.ui.tools.CreateEndToEndFlowTool;
 
 public class FlowContributionItem extends ComboContributionItem implements ComponentClassifierItem {
 	private static final String emptySelectionTxt = "<Flows>";
@@ -166,8 +159,6 @@ public class FlowContributionItem extends ComboContributionItem implements Compo
 	@Override
 	protected void onSelection(final String txt) {
 		final ComponentClassifier cc = getComponentImplementation();
-		final ComponentImplementation ci = getComponentImplementation();
-		final List<PictogramElement> selectPictogramElements = new ArrayList<PictogramElement>();
 		final String transformedTxt = txt.equals(emptySelectionTxt) ? "" : txt;
 		if(cc != null) {
 			if(!transformedTxt.equalsIgnoreCase(propertyUtil.getSelectedFlow(editor.getDiagramTypeProvider().getDiagram()))) {
@@ -184,32 +175,7 @@ public class FlowContributionItem extends ComboContributionItem implements Compo
 						}
 					}				
 				});
-
-				if (!editor.getActionRegistry().getAction(CreateEndToEndFlowTool.ID).isEnabled()) {
-					if (editor.getActionRegistry().getAction(CreateEndToEndFlowTool.ID) instanceof ActivateToolAction) {
-						ActivateToolAction ata = (ActivateToolAction)editor.getActionRegistry().getAction(CreateEndToEndFlowTool.ID);
-						Object endToEndObject = null;
-						for (EndToEndFlow ete : ci.getAllEndToEndFlows()) {
-							if (ete.getName().equals(transformedTxt)) {
-								endToEndObject = ete;
-								for (final EndToEndFlowSegment eteseg : ete.getAllFlowSegments()) {
-									selectPictogramElements.add(editor.getDiagramTypeProvider().getFeatureProvider().getPictogramElementForBusinessObject(eteseg.getFlowElement()));
-								}
-								for (final ModeFeature mf : ete.getInModeOrTransitions()) {
-									selectPictogramElements.add(editor.getDiagramTypeProvider().getFeatureProvider().getPictogramElementForBusinessObject(mf));
-								}
-							}
-						}
-				
-						if (selectPictogramElements.size() > 0) {
-							PictogramElement[] selectedPesToArray = selectPictogramElements.toArray(new PictogramElement[selectPictogramElements.size()-1]);
-							//editor.getDiagramBehavior().getDiagramContainer().selectPictogramElements(selectedPesToArray);
-							ata.getToolHandler().setSelectedPictogramElements(selectedPesToArray, endToEndObject);
-						}
-					}
-				}
 			}
 		}
-		
 	}
 }
