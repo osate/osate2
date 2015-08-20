@@ -3,30 +3,33 @@
  */
 package org.osate.reqspec.validation
 
+import com.google.inject.Inject
 import java.util.ArrayList
 import java.util.List
 import org.eclipse.emf.common.util.BasicEList
+import org.eclipse.emf.ecore.EObject
 import org.eclipse.emf.ecore.util.EcoreUtil
 import org.eclipse.xtext.nodemodel.util.NodeModelUtils
 import org.eclipse.xtext.validation.Check
 import org.eclipse.xtext.validation.CheckType
 import org.osate.aadl2.Classifier
 import org.osate.aadl2.NamedElement
+import org.osate.aadl2.SystemImplementation
+import org.osate.alisa.common.scoping.ICommonGlobalReferenceFinder
 import org.osate.alisa.common.util.CommonUtilExtension
 import org.osate.reqspec.reqSpec.ContractualElement
 import org.osate.reqspec.reqSpec.DocumentSection
+import org.osate.reqspec.reqSpec.GlobalConstants
 import org.osate.reqspec.reqSpec.Goal
 import org.osate.reqspec.reqSpec.ReqDocument
+import org.osate.reqspec.reqSpec.ReqSpec
 import org.osate.reqspec.reqSpec.ReqSpecPackage
 import org.osate.reqspec.reqSpec.Requirement
 import org.osate.reqspec.reqSpec.StakeholderGoals
 import org.osate.reqspec.reqSpec.SystemRequirements
+import org.osate.reqspec.util.IReqspecGlobalReferenceFinder
 
 import static extension org.osate.reqspec.util.ReqSpecUtilExtension.*
-import org.osate.alisa.common.scoping.ICommonGlobalReferenceFinder
-import com.google.inject.Inject
-import org.osate.aadl2.SystemImplementation
-import org.osate.reqspec.util.IReqspecGlobalReferenceFinder
 
 /**
  * Custom validation rules. 
@@ -47,7 +50,16 @@ class ReqSpecValidator extends AbstractReqSpecValidator {
   public static val DUPLICATE_REQUIREMENT_WITHIN_SYSTEM_REQUIREMENTS = 'org.osate.reqspec.validation.duplicate.requirement.within.system.requirements'
   public static val CYCLE_IN_GOAL_REFINE_HIERARCHY = 'org.osate.reqspec.validation.cycle.in.goal.refine.hierarchy'
   public static val CYCLE_IN_REQUIREMENT_REFINE_HIERARCHY = 'org.osate.reqspec.validation.cycle.in.requirement.refine.hierarchy'
-	
+  public static val ILLEGAL_OBJECT_FOR_FILETYPE_IN_DOCUMENTSECTION = 'org.osate.reqspec.validation.illegal.object.for.filetype.in.documentsection'
+  public static val ILLEGAL_OBJECT_FOR_FILETYPE_IN_REQSPEC = 'org.osate.reqspec.validation.illegal.object.for.filetype.in.reqspec'
+  public static val ILLEGAL_OBJECT_FOR_FILETYPE_IN_REQDOCUMENT = 'org.osate.reqspec.validation.illegal.object.for.filetype.in.reqdocument'
+  public static val REQSPEC_FILE_EXT = "reqspec"
+  public static val GOALS_FILE_EXT = "goals"
+  public static val REQDOC_FILE_EXT = "reqdoc"
+  public static val GOALDOC_FILE_EXT = "goaldoc"
+  public static val CONSTANTS_FILE_EXT = "constants"
+
+
 	@Check//(CheckType.EXPENSIVE)
 	def void checkMissingStakeholder(Goal goal) {
 		if (goal.stakeholderReference.empty) {
@@ -251,6 +263,129 @@ class ReqSpecValidator extends AbstractReqSpecValidator {
 			if (!sysReqs.exists[sysReq | sysReq.content.exists[goalReference.exists[goalRef | goalRef === goal]]]){
 				error("Goal " + goal.name + " does not have a corresponding System Requirement.", 
 						goal, ReqSpecPackage.Literals.CONTRACTUAL_ELEMENT__NAME)
+			}
+		]
+	}
+	
+	@Check (CheckType.FAST)
+	def void checkFileTypeContents(ReqSpec reqSpec) {
+		val reqSpecURI =EcoreUtil.getURI(reqSpec)
+		val fileExt = reqSpecURI.fileExtension.toLowerCase
+		val parts = reqSpec.parts
+		switch fileExt{
+			case REQSPEC_FILE_EXT : {
+				parts.forEach[part |
+					switch part {
+						SystemRequirements : {}
+						StakeholderGoals : fileTypeError(fileExt, "stakeholder goal", part)	
+						ReqDocument : fileTypeError(fileExt, "document", part)	
+						GlobalConstants : fileTypeError(fileExt, "constant", part)
+						default : fileTypeError(fileExt, part.class.name, part)
+					}
+				]
+			}
+			case GOALS_FILE_EXT : {
+				parts.forEach[part |
+					switch part {
+						StakeholderGoals : {}
+						SystemRequirements : fileTypeError(fileExt, "system requirement", part)	
+						ReqDocument : fileTypeError(fileExt, "document", part)	
+						GlobalConstants : fileTypeError(fileExt, "constant", part)
+						default : fileTypeError(fileExt, part.class.name, part)
+					}
+				]
+			} 
+			case REQDOC_FILE_EXT : {
+				parts.forEach[part |
+					switch part {
+						ReqDocument : {
+							val reqDocContent = part.content
+							reqDocContent.forEach[element |
+								switch element {
+									Requirement : {}
+									Goal : fileTypeError(fileExt, "goal" , element)
+									DocumentSection : checkRecDocSection(element)
+									default : fileTypeError(fileExt, element.class.name, element)
+								}
+							]
+						}	
+						SystemRequirements : fileTypeError(fileExt, "system requirement", part)	
+						GlobalConstants : fileTypeError(fileExt, "constant", part)
+						StakeholderGoals : fileTypeError(fileExt, "stakeholder goal", part)	
+						default : fileTypeError(fileExt, part.class.name, part)
+					}
+				]
+			}
+			case GOALDOC_FILE_EXT : {
+				parts.forEach[part |
+					switch part {
+						ReqDocument : {
+							val reqDocContent = part.content
+							reqDocContent.forEach[element |
+								switch element {
+									Goal : {}
+									Requirement : fileTypeError(fileExt, "requirement" , element)
+									DocumentSection : checkGoalDocSection(element)
+									default : fileTypeError(fileExt, element.class.name, element)
+								}
+							]
+						}	
+						SystemRequirements : fileTypeError(fileExt, "system requirement", part)	
+						GlobalConstants : fileTypeError(fileExt, "constant", part)
+						StakeholderGoals : fileTypeError(fileExt, "stakeholder goal", part)	
+						default : fileTypeError(fileExt, part.class.name, part)
+					}
+				]
+			}
+			case CONSTANTS_FILE_EXT : {
+				parts.forEach[part |
+					switch part {
+						GlobalConstants : {}
+						SystemRequirements : fileTypeError(fileExt, "system requirement", part)	
+						StakeholderGoals : fileTypeError(fileExt, "stakeholder goal", part)	
+						ReqDocument : fileTypeError(fileExt, "document", part)	
+						default : fileTypeError(fileExt, part.class.name, part)
+					}
+				]
+			}
+			
+			default : {}
+		}
+	}	
+	def void fileTypeError(String fileType, String partName, EObject part){
+		error( partName +" not allowed in '"+ fileType + "' file.", part, null)
+	}
+	/** TODO: These methods invoke the QuickFixes, not using yet do to unexpected behavior: 
+	 * 		  when removing illegal stakeholder goal from reqspec, the SystemsRequirements elements re-order in a way causing an error
+	def void fileTypeError(String fileType, String partName, EObject part, ReqSpec parent){
+		error( partName +" not allowed in '"+ fileType + "' file.", part, null, ILLEGAL_OBJECT_FOR_FILETYPE_IN_REQSPEC, partName, EcoreUtil.getURI(parent).toString())
+	}
+	def void fileTypeError(String fileType, String partName, EObject part, ReqDocument parent){
+		error( partName +" not allowed in '"+ fileType + "' file.", part, null, ILLEGAL_OBJECT_FOR_FILETYPE_IN_REQDOCUMENT, partName, EcoreUtil.getURI(parent).toString())
+	}
+	def void fileTypeError(String fileType, String partName, EObject part, DocumentSection parent){
+		error( partName +" not allowed in '"+ fileType + "' file.", part, null, ILLEGAL_OBJECT_FOR_FILETYPE_IN_DOCUMENTSECTION, partName, EcoreUtil.getURI(parent).toString())
+	}
+	 */
+	def void checkRecDocSection(DocumentSection section){
+		val contents = section.content
+		contents.forEach[element |
+			switch element {
+				Requirement : {}
+				Goal : fileTypeError(REQDOC_FILE_EXT,  "goal" , element)
+				DocumentSection : checkRecDocSection(element)
+				default : fileTypeError(REQDOC_FILE_EXT, element.class.name, element)
+			}
+		]
+	}
+	def void checkGoalDocSection(DocumentSection section){
+		val contents = section.content
+		contents.forEach[element |
+			switch element {
+				Goal : {}
+				Requirement : fileTypeError(GOALDOC_FILE_EXT,  "requirement" , element)
+				DocumentSection : checkGoalDocSection(element)
+				default : fileTypeError(GOALDOC_FILE_EXT, element.class.name, element)
 			}
 		]
 	}
