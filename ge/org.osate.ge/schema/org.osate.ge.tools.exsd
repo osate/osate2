@@ -6,7 +6,7 @@
          <meta.schema plugin="org.osate.ge" id="org.osate.ge.tools" name="AGE Tools"/>
       </appinfo>
       <documentation>
-         [Enter description of this extension point.]
+         Allow defining tools to edit models used by AADL Graphical Editor (AGE).
       </documentation>
    </annotation>
 
@@ -17,7 +17,7 @@
          </appinfo>
       </annotation>
       <complexType>
-         <choice minOccurs="1" maxOccurs="unbounded">
+         <choice minOccurs="0" maxOccurs="unbounded">
             <element ref="tool"/>
          </choice>
          <attribute name="point" type="string" use="required">
@@ -49,10 +49,10 @@
 
    <element name="tool">
       <complexType>
-         <attribute name="class" type="string">
+         <attribute name="class" type="string" use="required">
             <annotation>
                <documentation>
-                  
+                  The class that instantiates the tool.
                </documentation>
                <appinfo>
                   <meta.attribute kind="java"/>
@@ -76,7 +76,9 @@
          <meta.section type="examples"/>
       </appinfo>
       <documentation>
-         [Enter extension point usage example here.]
+         &lt;extension point=&quot;org.osate.ge.tools&quot;&gt;
+       &lt;tool class=&quot;org.osate.ge.ui.tools.ToolClass&quot;/&gt;
+&lt;/extension&gt;
       </documentation>
    </annotation>
 
@@ -85,7 +87,8 @@
          <meta.section type="apiinfo"/>
       </appinfo>
       <documentation>
-         [Enter API information here.]
+         Element: tool
+ Attribute: class - The class that instantiates the tool.
       </documentation>
    </annotation>
 
