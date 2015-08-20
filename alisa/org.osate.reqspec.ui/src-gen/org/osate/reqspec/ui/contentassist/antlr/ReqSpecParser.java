@@ -383,7 +383,7 @@ public class ReqSpecParser extends AbstractContentAssistParser {
 					put(grammarAccess.getQualifiedNameInStaticImportAccess().getGroup(), "rule__QualifiedNameInStaticImport__Group__0");
 					put(grammarAccess.getReqSpecAccess().getPartsAssignment(), "rule__ReqSpec__PartsAssignment");
 					put(grammarAccess.getGlobalConstantsAccess().getNameAssignment_1(), "rule__GlobalConstants__NameAssignment_1");
-					put(grammarAccess.getGlobalConstantsAccess().getConstantsAssignment_2(), "rule__GlobalConstants__ConstantsAssignment_2");
+					put(grammarAccess.getGlobalConstantsAccess().getConstantsAssignment_3(), "rule__GlobalConstants__ConstantsAssignment_3");
 					put(grammarAccess.getStakeholderGoalsAccess().getNameAssignment_2(), "rule__StakeholderGoals__NameAssignment_2");
 					put(grammarAccess.getStakeholderGoalsAccess().getTitleAssignment_3_1(), "rule__StakeholderGoals__TitleAssignment_3_1");
 					put(grammarAccess.getStakeholderGoalsAccess().getTargetAssignment_4_1_0(), "rule__StakeholderGoals__TargetAssignment_4_1_0");

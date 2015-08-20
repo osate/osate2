@@ -183,25 +183,35 @@ ruleGlobalConstants returns [EObject current=null]
 	    }
 
 )
-)(
+)
+	otherlv_2=LeftSquareBracket
+    {
+    	newLeafNode(otherlv_2, grammarAccess.getGlobalConstantsAccess().getLeftSquareBracketKeyword_2());
+    }
+(
 (
 		{ 
-	        newCompositeNode(grammarAccess.getGlobalConstantsAccess().getConstantsXValDeclarationParserRuleCall_2_0()); 
+	        newCompositeNode(grammarAccess.getGlobalConstantsAccess().getConstantsXValDeclarationParserRuleCall_3_0()); 
 	    }
-		lv_constants_2_0=ruleXValDeclaration		{
+		lv_constants_3_0=ruleXValDeclaration		{
 	        if ($current==null) {
 	            $current = createModelElementForParent(grammarAccess.getGlobalConstantsRule());
 	        }
        		add(
        			$current, 
        			"constants",
-        		lv_constants_2_0, 
+        		lv_constants_3_0, 
         		"XValDeclaration");
 	        afterParserOrEnumRuleCall();
 	    }
 
 )
-)*)
+)*
+	otherlv_4=RightSquareBracket
+    {
+    	newLeafNode(otherlv_4, grammarAccess.getGlobalConstantsAccess().getRightSquareBracketKeyword_4());
+    }
+)
 ;
 
 

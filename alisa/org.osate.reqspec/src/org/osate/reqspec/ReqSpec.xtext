@@ -15,8 +15,8 @@ ReqSpec: parts +=(SystemRequirements|StakeholderGoals|ReqDocument|GlobalConstant
 ReqSpecContainer: SystemRequirements |  StakeholderGoals | ReqDocument | DocumentSection;
 
 GlobalConstants: 
-	'constants' name=QualifiedName
-	constants+=XValDeclaration*
+	'constants' name=QualifiedName '['
+	constants+=XValDeclaration* ']'
 ;
 
 ContractualElement: Goal | DocGoal| Requirement |DocRequirement ;

@@ -87,14 +87,16 @@ public class ReqSpecGrammarAccess extends AbstractGrammarElementFinder {
 		private final Keyword cConstantsKeyword_0 = (Keyword)cGroup.eContents().get(0);
 		private final Assignment cNameAssignment_1 = (Assignment)cGroup.eContents().get(1);
 		private final RuleCall cNameQualifiedNameParserRuleCall_1_0 = (RuleCall)cNameAssignment_1.eContents().get(0);
-		private final Assignment cConstantsAssignment_2 = (Assignment)cGroup.eContents().get(2);
-		private final RuleCall cConstantsXValDeclarationParserRuleCall_2_0 = (RuleCall)cConstantsAssignment_2.eContents().get(0);
+		private final Keyword cLeftSquareBracketKeyword_2 = (Keyword)cGroup.eContents().get(2);
+		private final Assignment cConstantsAssignment_3 = (Assignment)cGroup.eContents().get(3);
+		private final RuleCall cConstantsXValDeclarationParserRuleCall_3_0 = (RuleCall)cConstantsAssignment_3.eContents().get(0);
+		private final Keyword cRightSquareBracketKeyword_4 = (Keyword)cGroup.eContents().get(4);
 		
 		//GlobalConstants:
-		//	"constants" name=QualifiedName constants+=XValDeclaration*;
+		//	"constants" name=QualifiedName "[" constants+=XValDeclaration* "]";
 		@Override public ParserRule getRule() { return rule; }
 
-		//"constants" name=QualifiedName constants+=XValDeclaration*
+		//"constants" name=QualifiedName "[" constants+=XValDeclaration* "]"
 		public Group getGroup() { return cGroup; }
 
 		//"constants"
@@ -106,11 +108,17 @@ public class ReqSpecGrammarAccess extends AbstractGrammarElementFinder {
 		//QualifiedName
 		public RuleCall getNameQualifiedNameParserRuleCall_1_0() { return cNameQualifiedNameParserRuleCall_1_0; }
 
+		//"["
+		public Keyword getLeftSquareBracketKeyword_2() { return cLeftSquareBracketKeyword_2; }
+
 		//constants+=XValDeclaration*
-		public Assignment getConstantsAssignment_2() { return cConstantsAssignment_2; }
+		public Assignment getConstantsAssignment_3() { return cConstantsAssignment_3; }
 
 		//XValDeclaration
-		public RuleCall getConstantsXValDeclarationParserRuleCall_2_0() { return cConstantsXValDeclarationParserRuleCall_2_0; }
+		public RuleCall getConstantsXValDeclarationParserRuleCall_3_0() { return cConstantsXValDeclarationParserRuleCall_3_0; }
+
+		//"]"
+		public Keyword getRightSquareBracketKeyword_4() { return cRightSquareBracketKeyword_4; }
 	}
 
 	public class ContractualElementElements extends AbstractParserRuleElementFinder {
@@ -2566,7 +2574,7 @@ public class ReqSpecGrammarAccess extends AbstractGrammarElementFinder {
 	}
 
 	//GlobalConstants:
-	//	"constants" name=QualifiedName constants+=XValDeclaration*;
+	//	"constants" name=QualifiedName "[" constants+=XValDeclaration* "]";
 	public GlobalConstantsElements getGlobalConstantsAccess() {
 		return pGlobalConstants;
 	}
