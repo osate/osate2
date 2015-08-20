@@ -348,7 +348,6 @@ public class CreateEndToEndFlowTool {
 						}
 					} else if ((prevEle instanceof FlowSpecification)
 							&& (selectedEle instanceof org.osate.aadl2.Connection)) {
-						
 						final FlowSpecification segFs = (FlowSpecification)prevEle;
 						if (segFs.getKind() == FlowKind.SOURCE || segFs.getKind() == FlowKind.PATH) {
 							final Object prevOb = segFs.getOutEnd().getFeature();
