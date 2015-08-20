@@ -31,12 +31,12 @@ public class DefaultExtensionRegistryService implements ExtensionRegistryService
 	}
 	
 	private static Collection<Object> instantiateTools(final IExtensionRegistry registry) {
-		return instantiateSimpleExtension(registry, TOOL_EXTENSION_POINT_ID, "tool");
+		return instantiateSimpleExtensions(registry, TOOL_EXTENSION_POINT_ID, "tool");
 	}
 
 	// Returns an unmodifiable collection containing the objects created by instantiating class referenced by the "class" attribute of all configuration elements
 	// with the specified name for a specified extension point.
-	private static Collection<Object> instantiateSimpleExtension(final IExtensionRegistry registry, final String extensionPointId, final String elementName) {
+	private static Collection<Object> instantiateSimpleExtensions(final IExtensionRegistry registry, final String extensionPointId, final String elementName) {
 		final Collection<Object> extensions = new ArrayList<Object>();
 		
 		final IExtensionPoint point = registry.getExtensionPoint(extensionPointId);
