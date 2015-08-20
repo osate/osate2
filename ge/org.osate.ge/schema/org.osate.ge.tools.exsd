@@ -3,7 +3,7 @@
 <schema targetNamespace="org.osate.ge" xmlns="http://www.w3.org/2001/XMLSchema">
 <annotation>
       <appinfo>
-         <meta.schema plugin="org.osate.ge" id="org.osate.ge.tools" name="AGE Tools"/>
+         <meta.schema plugin="org.osate.ge" id="org.osate.ge.tools" name="Tools"/>
       </appinfo>
       <documentation>
          Allow defining tools to edit models used by AADL Graphical Editor (AGE).

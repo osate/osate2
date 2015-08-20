@@ -5,11 +5,12 @@ import java.util.Objects;
 import org.eclipse.e4.core.contexts.ContextInjectionFactory;
 import org.eclipse.e4.core.contexts.IEclipseContext;
 import org.eclipse.graphiti.mm.pictograms.PictogramElement;
-import org.osate.ge.ui.tools.ToolConstants;
-import org.osate.ge.ui.tools.annotations.Activate;
-import org.osate.ge.ui.tools.annotations.CanActivate;
-import org.osate.ge.ui.tools.annotations.Deactivate;
-import org.osate.ge.ui.tools.annotations.SelectionChanged;
+import org.osate.ge.ext.ExtensionConstants;
+import org.osate.ge.ext.annotations.Activate;
+import org.osate.ge.ext.annotations.CanActivate;
+import org.osate.ge.ext.annotations.Deactivate;
+import org.osate.ge.ext.annotations.SelectionChanged;
+import org.osate.ge.services.ExtensionService;
 
 /**
  * Handles invoking tools and tracking the current tool.
@@ -20,8 +21,8 @@ public class ToolHandler {
 	private final IEclipseContext context;
 	private Object activeTool = null;
 	
-	public ToolHandler(final IEclipseContext context) {
-		this.context = Objects.requireNonNull(context, "context must not be null").createChild();
+	public ToolHandler(final ExtensionService extensionService) {
+		this.context = Objects.requireNonNull(extensionService, "extensionService must not be null").createChildContext();
 	}
 
 	public boolean canActivate(final Object tool) {
@@ -56,7 +57,7 @@ public class ToolHandler {
 	
 	public void setSelectedPictogramElements(final PictogramElement[] pes) {
 		// Update the context
-		context.set(ToolConstants.SELECTED_PICTOGRAM_ELEMENTS, pes);
+		context.set(ExtensionConstants.SELECTED_PICTOGRAM_ELEMENTS, pes);
 		// Notify the active tool
 		if(activeTool != null) {
 			ContextInjectionFactory.invoke(activeTool, SelectionChanged.class, context);

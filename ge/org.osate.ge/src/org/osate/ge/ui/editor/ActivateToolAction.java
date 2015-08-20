@@ -1,6 +1,7 @@
 package org.osate.ge.ui.editor;
 
 import org.eclipse.gef.ui.actions.SelectionAction;
+import org.osate.ge.ext.ExtensionUtil;
 
 /**
  * Action to activate a tool provided by the tool service
@@ -11,9 +12,9 @@ public class ActivateToolAction extends SelectionAction {
 	private final Object tool;
 	public ActivateToolAction(final AgeDiagramEditor editor, final ToolHandler toolHandler, final Object tool) {
 		super(editor);
-		setId(ToolUtil.getId(tool));
-		setText(ToolUtil.getDescription(tool));
-		setHoverImageDescriptor(ToolUtil.getIcon(tool));
+		setId(ExtensionUtil.getId(tool));
+		setText(ExtensionUtil.getDescription(tool));
+		setHoverImageDescriptor(ExtensionUtil.getIcon(tool));
 		this.toolHandler = toolHandler;
 		this.tool = tool;
 	}
