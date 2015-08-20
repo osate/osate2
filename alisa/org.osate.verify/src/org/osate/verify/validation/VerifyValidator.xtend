@@ -3,10 +3,12 @@
  */
 package org.osate.verify.validation
 
+import com.google.inject.Inject
 import org.eclipse.emf.ecore.EObject
 import org.eclipse.emf.ecore.util.EcoreUtil
 import org.eclipse.xtext.validation.Check
 import org.eclipse.xtext.validation.CheckType
+import org.osate.verify.util.IVerifyGlobalReferenceFinder
 import org.osate.verify.util.VerificationMethodDispatchers
 import org.osate.verify.verify.Claim
 import org.osate.verify.verify.JavaMethod
@@ -36,6 +38,8 @@ class VerifyValidator extends AbstractVerifyValidator {
   public static val MISSING_CLAIM_FOR_REQ = "org.osate.verify.missingClaimForReq"
   public static val CLAIM_REQ_FOR_NOT_VP_FOR = "org.osate.verify.claimReqForNotVpFor"
   public static val ILLEGAL_OBJECT_FOR_FILETYPE = "org.osate.verify.illegal.object.for.filetype"
+
+	@Inject IVerifyGlobalReferenceFinder verifyGlobalRefFinder
 
 	@Check
 	def checkMethodPath(JavaMethod method) {
@@ -134,6 +138,17 @@ class VerifyValidator extends AbstractVerifyValidator {
 //	}
 	def void fileTypeError(String fileType, String partName, EObject part){
 		error( partName +" not allowed in '"+ fileType + "' file.", part, null)
+	}
+	
+	@Check(CheckType.NORMAL)
+	def void checkVerificationPlanUniqueToComponentClassifier(VerificationPlan vp) {
+		val sysReq = vp.systemRequirements
+		val vps = verifyGlobalRefFinder.getAllVerificationPlansForSystemRequirement(sysReq, vp)
+		if (vps.size > 1){
+			error("Other Verification Plans exist for '" +  sysReq.name + 
+								"'. Only one Verification Plans is allowed for a specific System Requirements." , vp,  
+								VerifyPackage.Literals.VERIFICATION_PLAN__SYSTEM_REQUIREMENTS)
+		}
 	}
 	
 }
