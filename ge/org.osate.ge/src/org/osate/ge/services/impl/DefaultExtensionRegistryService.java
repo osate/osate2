@@ -16,22 +16,38 @@ import org.osate.ge.services.ExtensionRegistryService;
  * Instantiates extensions which are registered via extension points.
  */
 public class DefaultExtensionRegistryService implements ExtensionRegistryService {
-	private final ArrayList<Object> tools = new ArrayList<Object>();
 	private static final String TOOL_EXTENSION_POINT_ID = "org.osate.ge.tools";
+	
+	private final Collection<Object> tools;
 
 	public DefaultExtensionRegistryService() {
-		final IExtensionRegistry registry = Platform.getExtensionRegistry();
+		final IExtensionRegistry registry = Platform.getExtensionRegistry();		
+		tools = instantiateTools(registry);
+	}
+
+	@Override
+	public Collection<Object> getTools() {
+		return tools;
+	}
+	
+	private static Collection<Object> instantiateTools(final IExtensionRegistry registry) {
+		return instantiateSimpleExtension(registry, TOOL_EXTENSION_POINT_ID, "tool");
+	}
+
+	// Returns an unmodifiable collection containing the objects created by instantiating class referenced by the "class" attribute of all configuration elements
+	// with the specified name for a specified extension point.
+	private static Collection<Object> instantiateSimpleExtension(final IExtensionRegistry registry, final String extensionPointId, final String elementName) {
+		final Collection<Object> extensions = new ArrayList<Object>();
 		
-		// Instantiate Tools
-		final IExtensionPoint point = registry.getExtensionPoint(TOOL_EXTENSION_POINT_ID);
+		final IExtensionPoint point = registry.getExtensionPoint(extensionPointId);
 		if(point != null) {
 			// Iterate over all the extensions
 			for(final IExtension extension : point.getExtensions()) {
 				for(final IConfigurationElement ce : extension.getConfigurationElements()) {
-					if(ce.getName().equals("tool")) {
+					if(ce.getName().equals(elementName)) {
 						try {								
-							final Object tool = (Object)ce.createExecutableExtension("class");
-							tools.add(tool);
+							final Object ext = (Object)ce.createExecutableExtension("class");
+							extensions.add(ext);
 						} catch(final CoreException ex) {
 							throw new RuntimeException(ex);
 						}
@@ -39,10 +55,7 @@ public class DefaultExtensionRegistryService implements ExtensionRegistryService
 				}
 			}
 		}
-	}
-
-	@Override
-	public Collection<Object> getTools() {
-		return Collections.unmodifiableList(tools);
+		
+		return Collections.unmodifiableCollection(extensions);
 	}
 }
