@@ -15,8 +15,7 @@ To get started, you should first download and install the Alisa feature with the
 the different notations of Alisa as well as the assurance harness that executes the verification activities specified in verification plans on an instance
 of the AADL model for the system of interest. 
  
-You then create a project as an AADL project for which the Xtext nature will be enabled when you create
-model files for one of the Alisa notations. You can create separate projects for your architecture models
+You then create a project as a Java project and then configure it with the AADL nature. You can create separate projects for your architecture models
 in AADL, for your requirement/verification specifications, and for other specifications such as Resolute
 libraries used in the verification - as shown in the example. Make sure you specify <em>Project References</em>
 through the <em>Preferences</em> menu. Select a project, select <em>Preferences</em> under the <em>Window</em> menu, (type <em>pref</em> into the search bar of the preferences dialog and then
@@ -83,7 +82,7 @@ System Requirements in Context of an AADL Model
 </div>
 </p>
 <p>
-For each system the user specifies a verificaiton plan. The verification plan specifies a claim for each requirement of the system of interest,
+For each system the user specifies a verification plan. The verification plan specifies a claim for each requirement of the system of interest,
 identifying a collection of verification activities and making the argument of sufficient evidence if these verification activities applied to a system implementation pass. 
 Users may impose an order to indicate that some are dependent
 on the successful completion of others, and specify that in case of failure to complete execution, or returning a negative
@@ -99,14 +98,13 @@ System Requirements in Context of an AADL Model
 </div>
 </p>
 <p>
-Typically the user will work with an existing <em>registry</em> of <em>verification methods</em>. This registry identifies the methods available for use in verification activities. You may add methods to the registry as you may
-develop additional analysis,verification, and test methods. Users can build up libraries of verificaion
-methods that can be used on different projects.
+Typically the user will work with an existing <em>registry</em> of <em>verification methods</em> for the OSATE plugins. 
+Users can define additional registries for methods they wrote in Resolute, Java/Xtend. 
 </p>
 <p>
-Finally, the user will define the an <em>assurance task</em> for a particular system. The assurance task identifies
-the verification plans of those system components that the user wants to verify. The user may specify
-selection criteria for a subset of the verification activities that are to be performed as part of this assurance task.
+Finally, the user will define the an <em>assurance plan</em> for a particular system. The assurance plan represents a configuration for verifying a system implementation that identifies
+the verification plans of those system components that the user is responsible for verifying. The user may define asssurance tasks that specify
+selection criteria for a subset of the verification activities in the assurance plan that are to be performed as part of this assurance task.
 The selection criterion is expressed in terms of <em>selection category</em> tags that have been attached to
 verification methods or activities.
  
@@ -127,10 +125,10 @@ Generated Assure file and Outline View
  <em>assure</em> file and selecting the root element in the <em>Outline</em> view, bring up the cotnext menu by right clicking, and invoking
  the <em>Verify All Evidence</em> command.
  
- Note that multiple assurance cases can be defined for the same system. Each case may focus on assuring
- different aspects of the system, as identified by the chosen selection categories.  SImilarly users
- can define assurance tasks to include different combinations of verification plans for different subsets
- of system components, leading to an incrememental approach of verification.
+ Note that multiple assurance tasks can be defined for the same system. Each task may focus on assuring
+ different aspects of the system, as identified by the chosen selection categories.  Similarly users
+ can define assurance plans to include different combinations of verification plans for different subsets
+ of system components, leading to an incremental approach of verification.
  
  Users can define the following types of categories:
  <ul>

@@ -13,17 +13,8 @@
 		<a href="02-GettingStarted.php">Getting Started</a></div>
 		</li>
 		<li class="separator"><div class="separator">
-		<img src="triangle.gif" style="height:12px; margin-right: 2px; "  /><img src="triangle-90.gif" style="display:none; margin-right: 2px" height="12px" />
+		<img src="triangle.gif" style="height:12px; margin-right: 2px; display:none"  /><img src="triangle-90.gif" style="display:none; margin-right: 2px" height="12px" />
 		<a href="03-ReqSpec.php">Requirement Specification</a></div>
-		<ul style="display: none;" id="subToc_03-ReqSpec.html">
-		<li id="03-ReqSpec.html#Goals.html" ><a href="03-ReqSpec.php#Goals.php" >Stakeholder Goals</a></li>
-		<li id="03-ReqSpec.html#Requirements.html" ><a href="03-ReqSpec.php#Requirements.php" >System Requirements</a></li>
-		<li id="03-ReqSpec.html#RequirementDocuments.html" ><a href="03-ReqSpec.php#RequirementDocuments.php" >Requirement Documents</a></li>
-		<li id="03-ReqSpec.html#ALRS.html" ><a href="03-ReqSpec.php#ALRS.php" >Architecture-led Goal and Requirement Specifications</a></li>
-		<li id="03-ReqSpec.html#ReqCategory.html" ><a href="03-ReqSpec.php#ReqCategory.php" >User Definable Requirement Categories</a></li>
-		<li id="03-ReqSpec.html#Stakeholders.html" ><a href="03-ReqSpec.php#Stakeholders.php" >Stakeholders and Their Organization</a></li>
-		<li id="03-ReqSpec.html#Validity.html" ><a href="03-ReqSpec.php#Validity.php" >Validation approaches</a></li>
-		</ul>
 		</li>
 		<li class="separator"><div class="separator">
 		<img src="triangle.gif" style="height:12px; margin-right: 2px; "  /><img src="triangle-90.gif" style="display:none; margin-right: 2px" height="12px" />
@@ -153,15 +144,16 @@
 		  reference of the enclosing Requirement specifications container.</li>
 		  <li>References to objects in the Alisa languages, e.g., requirements and goals, use a &quot;.&quot; separator
 		  in the qualified name path, e.g., systemreqs.r1. This includes references to verification activities,
-		  verification methods, verification plans, and to stakeholders.</li>
+		  verification methods, verification plans, and to stakeholders. In many cases the references do not have to be qualified as the context uniquely identifies to target. 
+		  For example, the requirement reference of a claim is within the scope of the system requirements container identified by a verification plan.</li>
 		  <li>User defined categories are globally known by their name. Categories of different kinds (requirement,
 		  verification, selection) can use the same name as they only have to be unique within their kind.</li>
 		</ul>
 		</p>
 		<p>
-		Note that we will be providing a user interface that presents the Alisa information in a grpahical or
+		Note that we will be providing a user interface that presents the Alisa information in a graphical or
 		structured navigator view with the details of a selected entity shown in a properties view. The user
-		will be able to create entities within the navigator view and edit its atttributes in the properties
+		will be able to create entities within the navigator view and edit its attributes in the properties
 		view. In other words, in the future users of Alisa may not have to learn the details of the textual syntax of the Alisa notations.
 		</p>
 		<div id="disqus_thread"></div>

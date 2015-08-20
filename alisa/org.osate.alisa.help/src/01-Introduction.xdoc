@@ -61,12 +61,13 @@ a feature within a classifier. this is done by the feature name, which is resolv
 reference of the enclosing Requirement specifications container.]
 item[References to objects in the Alisa languages, e.g., requirements and goals, use a "." separator
 in the qualified name path, e.g., systemreqs.r1. This includes references to verification activities,
-verification methods, verification plans, and to stakeholders.]
+verification methods, verification plans, and to stakeholders. In many cases the references do not have to be qualified as the context uniquely identifies to target. 
+For example, the requirement reference of a claim is within the scope of the system requirements container identified by a verification plan.]
 item[User defined categories are globally known by their name. Categories of different kinds (requirement,
 verification, selection) can use the same name as they only have to be unique within their kind.]
 ]
 
-Note that we will be providing a user interface that presents the Alisa information in a grpahical or
+Note that we will be providing a user interface that presents the Alisa information in a graphical or
 structured navigator view with the details of a selected entity shown in a properties view. The user
-will be able to create entities within the navigator view and edit its atttributes in the properties
+will be able to create entities within the navigator view and edit its attributes in the properties
 view. In other words, in the future users of Alisa may not have to learn the details of the textual syntax of the Alisa notations.

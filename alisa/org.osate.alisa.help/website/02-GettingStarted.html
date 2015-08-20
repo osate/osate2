@@ -13,17 +13,8 @@
 		<a href="02-GettingStarted.php">Getting Started</a></div>
 		</li>
 		<li class="separator"><div class="separator">
-		<img src="triangle.gif" style="height:12px; margin-right: 2px; "  /><img src="triangle-90.gif" style="display:none; margin-right: 2px" height="12px" />
+		<img src="triangle.gif" style="height:12px; margin-right: 2px; display:none"  /><img src="triangle-90.gif" style="display:none; margin-right: 2px" height="12px" />
 		<a href="03-ReqSpec.php">Requirement Specification</a></div>
-		<ul style="display: none;" id="subToc_03-ReqSpec.html">
-		<li id="03-ReqSpec.html#Goals.html" ><a href="03-ReqSpec.php#Goals.php" >Stakeholder Goals</a></li>
-		<li id="03-ReqSpec.html#Requirements.html" ><a href="03-ReqSpec.php#Requirements.php" >System Requirements</a></li>
-		<li id="03-ReqSpec.html#RequirementDocuments.html" ><a href="03-ReqSpec.php#RequirementDocuments.php" >Requirement Documents</a></li>
-		<li id="03-ReqSpec.html#ALRS.html" ><a href="03-ReqSpec.php#ALRS.php" >Architecture-led Goal and Requirement Specifications</a></li>
-		<li id="03-ReqSpec.html#ReqCategory.html" ><a href="03-ReqSpec.php#ReqCategory.php" >User Definable Requirement Categories</a></li>
-		<li id="03-ReqSpec.html#Stakeholders.html" ><a href="03-ReqSpec.php#Stakeholders.php" >Stakeholders and Their Organization</a></li>
-		<li id="03-ReqSpec.html#Validity.html" ><a href="03-ReqSpec.php#Validity.php" >Validation approaches</a></li>
-		</ul>
 		</li>
 		<li class="separator"><div class="separator">
 		<img src="triangle.gif" style="height:12px; margin-right: 2px; "  /><img src="triangle-90.gif" style="display:none; margin-right: 2px" height="12px" />
@@ -77,8 +68,7 @@
 		the different notations of Alisa as well as the assurance harness that executes the verification activities specified in verification plans on an instance
 		of the AADL model for the system of interest. 
 		 
-		You then create a project as an AADL project for which the Xtext nature will be enabled when you create
-		model files for one of the Alisa notations. You can create separate projects for your architecture models
+		You then create a project as a Java project and then configure it with the AADL nature. You can create separate projects for your architecture models
 		in AADL, for your requirement/verification specifications, and for other specifications such as Resolute
 		libraries used in the verification - as shown in the example. Make sure you specify <em>Project References</em>
 		through the <em>Preferences</em> menu. Select a project, select <em>Preferences</em> under the <em>Window</em> menu, (type <em>pref</em> into the search bar of the preferences dialog and then
@@ -157,7 +147,7 @@
 		</div>
 		</p>
 		<p>
-		For each system the user specifies a verificaiton plan. The verification plan specifies a claim for each requirement of the system of interest,
+		For each system the user specifies a verification plan. The verification plan specifies a claim for each requirement of the system of interest,
 		identifying a collection of verification activities and making the argument of sufficient evidence if these verification activities applied to a system implementation pass. 
 		Users may impose an order to indicate that some are dependent
 		on the successful completion of others, and specify that in case of failure to complete execution, or returning a negative
@@ -176,14 +166,13 @@
 		</div>
 		</p>
 		<p>
-		Typically the user will work with an existing <em>registry</em> of <em>verification methods</em>. This registry identifies the methods available for use in verification activities. You may add methods to the registry as you may
-		develop additional analysis,verification, and test methods. Users can build up libraries of verificaion
-		methods that can be used on different projects.
+		Typically the user will work with an existing <em>registry</em> of <em>verification methods</em> for the OSATE plugins. 
+		Users can define additional registries for methods they wrote in Resolute, Java/Xtend. 
 		</p>
 		<p>
-		Finally, the user will define the an <em>assurance task</em> for a particular system. The assurance task identifies
-		the verification plans of those system components that the user wants to verify. The user may specify
-		selection criteria for a subset of the verification activities that are to be performed as part of this assurance task.
+		Finally, the user will define the an <em>assurance plan</em> for a particular system. The assurance plan represents a configuration for verifying a system implementation that identifies
+		the verification plans of those system components that the user is responsible for verifying. The user may define asssurance tasks that specify
+		selection criteria for a subset of the verification activities in the assurance plan that are to be performed as part of this assurance task.
 		The selection criterion is expressed in terms of <em>selection category</em> tags that have been attached to
 		verification methods or activities.
 		 
@@ -207,10 +196,10 @@
 		 <em>assure</em> file and selecting the root element in the <em>Outline</em> view, bring up the cotnext menu by right clicking, and invoking
 		 the <em>Verify All Evidence</em> command.
 		 
-		 Note that multiple assurance cases can be defined for the same system. Each case may focus on assuring
-		 different aspects of the system, as identified by the chosen selection categories.  SImilarly users
-		 can define assurance tasks to include different combinations of verification plans for different subsets
-		 of system components, leading to an incrememental approach of verification.
+		 Note that multiple assurance tasks can be defined for the same system. Each task may focus on assuring
+		 different aspects of the system, as identified by the chosen selection categories.  Similarly users
+		 can define assurance plans to include different combinations of verification plans for different subsets
+		 of system components, leading to an incremental approach of verification.
 		 
 		 Users can define the following types of categories:
 		 <ul>
