@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <?eclipse version="3.4"?>
 <plugin>
-   <extension-point id="org.osate.ge.styles" name="AGE Styles" schema="schema/org.osate.ge.styles.exsd"/>
-   <extension-point id="org.osate.ge.tools" name="AGE Tools" schema="schema/org.osate.ge.tools.exsd"/>
+   <extension-point id="org.osate.ge.styles" name="Styles" schema="schema/org.osate.ge.styles.exsd"/>
+   <extension-point id="org.osate.ge.tools" name="Tools" schema="schema/org.osate.ge.tools.exsd"/>
 	<extension point="org.eclipse.ui.commands">
 	   <command id="org.osate.ge.commands.opendiagram" name="Open Diagram" defaultHandler="org.osate.ge.ui.handlers.OpenDiagramHandler"></command>
 	   <command 
