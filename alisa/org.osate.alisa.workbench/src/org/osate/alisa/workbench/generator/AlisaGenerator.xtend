@@ -157,7 +157,7 @@ class AlisaGenerator implements IGenerator {
 		'''
 			claim «claim.requirement.fullyQualifiedName»
 			[
-				tbdcount 1
+«««				tbdcount 0
 			    «FOR subclaim : claim?.subclaim»
 				«subclaim.generate()»
 				«ENDFOR»
@@ -206,18 +206,26 @@ class AlisaGenerator implements IGenerator {
 	}
 
 	def doGenerate(ThenExpr expr) {
+		val leftresult = expr.left.generate
+		val successorresult = expr.successor.generate
+		if (leftresult.length == 0) return ''''''
+		if (successorresult == 0) return leftresult
 		'''
 			then
-				«expr.left.generate»
+				«leftresult»
 			do
-				«expr.successor.generate»
+				«successorresult»
 			[
-				tbdcount 1
+«««				tbdcount 1
 			]
 		'''
 	}
 
 	def doGenerate(ElseExpr expr) {
+		val leftresult = expr.left.generate
+		val otherresult = expr.other.generate
+		if (leftresult.length == 0) return ''''''
+		if (otherresult == 0) return leftresult
 		'''
 			else
 				«expr.left.generate»
