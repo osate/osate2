@@ -1104,7 +1104,7 @@ ruleMetrics returns [EObject current=null]
 	    }
 
 )
-))(	otherlv_2='successcount' 
+))?(	otherlv_2='successcount' 
     {
     	newLeafNode(otherlv_2, grammarAccess.getMetricsAccess().getSuccesscountKeyword_1_0());
     }
