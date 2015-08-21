@@ -59,21 +59,13 @@ class VerifyScopeProvider extends AlisaAbstractDeclarativeScopeProvider {
 	def scope_FunctionDefinition(ResoluteMethod context, EReference reference){
 		var result = IScope.NULLSCOPE
 		val foundlist = refFinder.getEObjectDescriptions(context, ResolutePackage.Literals.FUNCTION_DEFINITION, "aadl")
-		if (foundlist.isEmpty) return IScope.NULLSCOPE
+		if (foundlist.isEmpty) 
+			return IScope.NULLSCOPE
 		val fcns =  foundlist.map[f|EcoreUtil.resolve(f.EObjectOrProxy,context) as FunctionDefinition]
 		.filter[fd|fd.body instanceof ClaimBody]
 		return new SimpleScope(IScope.NULLSCOPE,Scopes::scopedElementsFor(fcns,
 					QualifiedName::wrapper(SimpleAttributeResolver::NAME_RESOLVER)), true)
 	}
 		@Inject ICommonGlobalReferenceFinder refFinder
-//
-//		def FunctionDefinition findResoluteFunction(EObject context, String resoluteFunctionName) {
-//			val foundlist = refFinder.getEObjectDescriptions(context,
-//				ResolutePackage.Literals.FUNCTION_DEFINITION, "aadl").filter[ eod |
-//				eod.getName().getLastSegment().equalsIgnoreCase(resoluteFunctionName)
-//			]
-//			if(foundlist.length == 0) return null
-//			return EcoreUtil.resolve(foundlist.head.EObjectOrProxy,context) as FunctionDefinition
-//		}
 
 }
