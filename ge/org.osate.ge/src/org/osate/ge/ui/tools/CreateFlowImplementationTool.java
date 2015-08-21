@@ -34,6 +34,7 @@ import org.osate.aadl2.Aadl2Factory;
 import org.osate.aadl2.Aadl2Package;
 import org.osate.aadl2.ComponentImplementation;
 import org.osate.aadl2.ConnectedElement;
+import org.osate.aadl2.ConnectionEnd;
 import org.osate.aadl2.Context;
 import org.osate.aadl2.DataAccess;
 import org.osate.aadl2.Element;
@@ -46,6 +47,7 @@ import org.osate.aadl2.FlowSegment;
 import org.osate.aadl2.FlowSpecification;
 import org.osate.aadl2.ModeFeature;
 import org.osate.aadl2.NamedElement;
+import org.osate.aadl2.RefinableElement;
 import org.osate.aadl2.Subcomponent;
 import org.osate.ge.ext.ExtensionConstants;
 import org.osate.ge.ext.annotations.Activate;
@@ -354,7 +356,7 @@ public class CreateFlowImplementationTool {
 			}
 			return modeString == "" ? modeString : modeString + ")";
 		}
-
+		
 		private boolean isValid(final Element selectedEle, final Context context) {
 			if (flowImpl != null) {
 				if (selectedEle instanceof ModeFeature) {

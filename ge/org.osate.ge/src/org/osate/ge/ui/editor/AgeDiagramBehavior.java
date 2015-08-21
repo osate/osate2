@@ -12,6 +12,7 @@ import java.util.EventObject;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
+
 import org.eclipse.emf.common.command.BasicCommandStack;
 import org.eclipse.emf.common.command.CommandStackListener;
 import org.eclipse.emf.common.util.URI;
@@ -20,6 +21,8 @@ import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.transaction.RecordingCommand;
 import org.eclipse.emf.transaction.TransactionalEditingDomain;
 import org.eclipse.gef.ContextMenuProvider;
+import org.eclipse.gef.palette.PaletteDrawer;
+import org.eclipse.gef.palette.PaletteRoot;
 import org.eclipse.gef.ui.actions.ActionRegistry;
 import org.eclipse.gef.ui.actions.GEFActionConstants;
 import org.eclipse.graphiti.dt.IDiagramTypeProvider;
@@ -32,6 +35,7 @@ import org.eclipse.graphiti.mm.pictograms.Connection;
 import org.eclipse.graphiti.mm.pictograms.Diagram;
 import org.eclipse.graphiti.mm.pictograms.PictogramElement;
 import org.eclipse.graphiti.mm.pictograms.Shape;
+import org.eclipse.graphiti.ui.editor.DefaultPaletteBehavior;
 import org.eclipse.graphiti.ui.editor.DefaultPersistencyBehavior;
 import org.eclipse.graphiti.ui.editor.DefaultRefreshBehavior;
 import org.eclipse.graphiti.ui.editor.DefaultUpdateBehavior;
@@ -127,7 +131,7 @@ public class AgeDiagramBehavior extends DiagramBehavior {
 
  			// Register an action for each tool
 	 		final ExtensionService extService = (ExtensionService)getAdapter(ExtensionService.class);
-	 		toolHandler = new ToolHandler(extService);
+	 		toolHandler = new ToolHandler(extService, getPaletteBehavior());
 	 		for(final Object tool : extService.getTools()) {
 	 			registerAction(new ActivateToolAction(editor, toolHandler, tool));
 	 		}
@@ -142,7 +146,7 @@ public class AgeDiagramBehavior extends DiagramBehavior {
 				}	 			
 	 		});	 		
 	 		toolHandler.setSelectedPictogramElements(editor.getSelectedPictogramElements());
-	 		
+	 			 		
 	 		// Deactivate the tool when the part is deactivated or closed
 	 		editor.getSite().getWorkbenchWindow().getPartService().addPartListener(new IPartListener() {
 	 			@Override
@@ -279,6 +283,27 @@ public class AgeDiagramBehavior extends DiagramBehavior {
 	}	
 	
 	@Override
+	protected DefaultPaletteBehavior createPaletteBehaviour() {
+		return new DefaultPaletteBehavior(this) {
+			@Override
+			public void refreshPalette() {
+				super.refreshPalette();
+				
+				// Hide palette drawers if a tool is active
+				if(toolHandler != null && toolHandler.isToolActive()) {
+					final PaletteRoot root = getPaletteRoot();
+					for(final Object child : root.getChildren()) {
+						if(child instanceof PaletteDrawer) {
+							final PaletteDrawer drawer = (PaletteDrawer)child;
+							drawer.setVisible(false);
+						}
+					}
+				}
+			}
+		};
+	}
+	
+	@Override
 	protected DefaultRefreshBehavior createRefreshBehavior() {		
 		return new DefaultRefreshBehavior(this) {
 			@Override
@@ -318,6 +343,14 @@ public class AgeDiagramBehavior extends DiagramBehavior {
 				super.addDefaultMenuGroupRest(manager);
 				addActionToMenu(manager, SetBindingAction.ID, GEFActionConstants.GROUP_REST);
 			}
+			
+			@Override
+			public void buildContextMenu(final IMenuManager manager) {
+				// Don't populate context menu when a tool is active
+				if(toolHandler == null  || !toolHandler.isToolActive()) {
+					super.buildContextMenu(manager);
+				}
+			}					
 		};
 	}
 	
@@ -455,5 +488,11 @@ public class AgeDiagramBehavior extends DiagramBehavior {
 	@Override
 	protected void unregisterDiagramResourceSetListener() {
 		AgeXtextUtil.removeModelListener(modelListener);
+	}
+	
+	// This prevents cluttering the context menu with global eclipse menu items
+	@Override
+	protected boolean shouldRegisterContextMenu() {
+		return false;
 	}
 }

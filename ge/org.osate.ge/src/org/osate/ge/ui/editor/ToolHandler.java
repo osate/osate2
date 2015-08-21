@@ -5,6 +5,7 @@ import java.util.Objects;
 import org.eclipse.e4.core.contexts.ContextInjectionFactory;
 import org.eclipse.e4.core.contexts.IEclipseContext;
 import org.eclipse.graphiti.mm.pictograms.PictogramElement;
+import org.eclipse.graphiti.ui.editor.DefaultPaletteBehavior;
 import org.osate.ge.ext.ExtensionConstants;
 import org.osate.ge.ext.annotations.Activate;
 import org.osate.ge.ext.annotations.CanActivate;
@@ -18,11 +19,17 @@ import org.osate.ge.services.ExtensionService;
  *
  */
 public class ToolHandler {
+	private final DefaultPaletteBehavior paletteBehavior;
 	private final IEclipseContext context;
 	private Object activeTool = null;
 	
-	public ToolHandler(final ExtensionService extensionService) {
+	public ToolHandler(final ExtensionService extensionService, final DefaultPaletteBehavior paletteBehavior) {
+		this.paletteBehavior = paletteBehavior;
 		this.context = Objects.requireNonNull(extensionService, "extensionService must not be null").createChildContext();
+	}
+	
+	public boolean isToolActive() {
+		return activeTool != null;
 	}
 
 	public boolean canActivate(final Object tool) {
@@ -41,6 +48,8 @@ public class ToolHandler {
 		}
 
 		activeTool = tool;
+		
+		paletteBehavior.refreshPalette();
 		ContextInjectionFactory.invoke(tool, Activate.class, context);
 	}
 	
@@ -53,6 +62,7 @@ public class ToolHandler {
 	public void deactivate(final Object tool) {
 		ContextInjectionFactory.invoke(tool, Deactivate.class, context);
 		activeTool = null;
+		paletteBehavior.refreshPalette();
 	}
 	
 	public void setSelectedPictogramElements(final PictogramElement[] pes) {
