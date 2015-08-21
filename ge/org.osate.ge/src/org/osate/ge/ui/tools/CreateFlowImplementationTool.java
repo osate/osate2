@@ -14,7 +14,6 @@ import org.eclipse.graphiti.mm.pictograms.Connection;
 import org.eclipse.graphiti.mm.pictograms.ConnectionDecorator;
 import org.eclipse.graphiti.mm.pictograms.PictogramElement;
 import org.eclipse.graphiti.mm.pictograms.Shape;
-import org.eclipse.graphiti.util.IColorConstant;
 import org.eclipse.jface.dialogs.Dialog;
 import org.eclipse.jface.dialogs.IDialogConstants;
 import org.eclipse.jface.dialogs.TitleAreaDialog;
@@ -35,7 +34,6 @@ import org.osate.aadl2.Aadl2Factory;
 import org.osate.aadl2.Aadl2Package;
 import org.osate.aadl2.ComponentImplementation;
 import org.osate.aadl2.ConnectedElement;
-import org.osate.aadl2.ConnectionEnd;
 import org.osate.aadl2.Context;
 import org.osate.aadl2.DataAccess;
 import org.osate.aadl2.Element;
@@ -48,7 +46,6 @@ import org.osate.aadl2.FlowSegment;
 import org.osate.aadl2.FlowSpecification;
 import org.osate.aadl2.ModeFeature;
 import org.osate.aadl2.NamedElement;
-import org.osate.aadl2.RefinableElement;
 import org.osate.aadl2.Subcomponent;
 import org.osate.ge.ext.ExtensionConstants;
 import org.osate.ge.ext.annotations.Activate;
@@ -174,9 +171,9 @@ public class CreateFlowImplementationTool {
 					final Context context = shapeService.getClosestBusinessObjectOfType(shape, Context.class);
 					if (pe != null && createFlowImplementationDialog != null && createFlowImplementationDialog.setTargetPictogramElements(bo, context)) {
 						if (bo.equals(createFlowImplementationDialog.getFlow().getSpecification())) {
-							coloring.setForeground(pe, Color.ORANGE);
+							coloring.setForeground(pe, Color.ORANGE.darker());
 						} else if(bo instanceof ModeFeature) {
-							coloring.setForeground(pe, Color.ORANGE);
+							coloring.setForeground(pe, Color.ORANGE.brighter());
 						} else {
 							coloring.setForeground(pe, Color.ORANGE);
 						}

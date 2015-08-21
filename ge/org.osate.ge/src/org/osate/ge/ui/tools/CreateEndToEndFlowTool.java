@@ -13,7 +13,6 @@ import org.eclipse.graphiti.dt.IDiagramTypeProvider;
 import org.eclipse.graphiti.mm.pictograms.ConnectionDecorator;
 import org.eclipse.graphiti.mm.pictograms.PictogramElement;
 import org.eclipse.graphiti.mm.pictograms.Shape;
-import org.eclipse.graphiti.util.IColorConstant;
 import org.eclipse.jface.dialogs.Dialog;
 import org.eclipse.swt.widgets.Display;
 import org.osate.aadl2.ComponentImplementation;
@@ -174,7 +173,7 @@ public class CreateEndToEndFlowTool {
 					final Context context = shapeService.getClosestBusinessObjectOfType(shape, Context.class);
 					if (pe != null && createEndToEndFlowDialog != null && createEndToEndFlowDialog.setTargetPictogramElements(bo, context)) {
 						if (bo instanceof ModeFeature) {
-							coloring.setForeground(pe, Color.ORANGE);
+							coloring.setForeground(pe, Color.ORANGE.brighter());
 						} else {
 							coloring.setForeground(pe, Color.ORANGE);
 						}
