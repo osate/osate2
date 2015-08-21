@@ -224,13 +224,17 @@ class AlisaGenerator implements IGenerator {
 	def doGenerate(ElseExpr expr) {
 		val leftresult = expr.left.generate
 		val otherresult = expr.other.generate
+		val failresult = expr.fail?.generate?:''''''
+		val timeoutresult = expr.timeout?.generate?:''''''
 		if (leftresult.length == 0) return ''''''
-		if (otherresult == 0) return leftresult
+		if (otherresult == 0&&failresult.length == 0 && timeoutresult.length ==0) return leftresult
 		'''
 			else
 				«expr.left.generate»
-			other
-				«expr.other.generate»
+			«IF otherresult.length > 0»
+			other 
+				«otherresult»
+			«ENDIF»
 			«IF expr.fail != null»
 			fail "«expr.fail.generate»"
 			«ENDIF»
@@ -238,7 +242,7 @@ class AlisaGenerator implements IGenerator {
 			timeout "«expr.timeout.generate»"
 			«ENDIF»
 			[
-				tbdcount 1
+«««				tbdcount 1
 			]
 		'''
 	}
