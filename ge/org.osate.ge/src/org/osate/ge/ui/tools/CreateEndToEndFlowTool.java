@@ -1,5 +1,6 @@
 package org.osate.ge.ui.tools;
 
+import java.awt.Color;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Collections;
@@ -173,9 +174,9 @@ public class CreateEndToEndFlowTool {
 					final Context context = shapeService.getClosestBusinessObjectOfType(shape, Context.class);
 					if (pe != null && createEndToEndFlowDialog != null && createEndToEndFlowDialog.setTargetPictogramElements(bo, context)) {
 						if (bo instanceof ModeFeature) {
-							coloring.setForeground(pe, IColorConstant.LIGHT_ORANGE);
+							coloring.setForeground(pe, Color.ORANGE);
 						} else {
-							coloring.setForeground(pe, IColorConstant.ORANGE);
+							coloring.setForeground(pe, Color.ORANGE);
 						}
 						createEndToEndFlowDialog.setMessage(getMessage(bo));
 					}

@@ -1,5 +1,6 @@
 package org.osate.ge.ui.tools;
 
+import java.awt.Color;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -173,11 +174,11 @@ public class CreateFlowImplementationTool {
 					final Context context = shapeService.getClosestBusinessObjectOfType(shape, Context.class);
 					if (pe != null && createFlowImplementationDialog != null && createFlowImplementationDialog.setTargetPictogramElements(bo, context)) {
 						if (bo.equals(createFlowImplementationDialog.getFlow().getSpecification())) {
-							coloring.setForeground(pe, IColorConstant.DARK_ORANGE);
+							coloring.setForeground(pe, Color.ORANGE);
 						} else if(bo instanceof ModeFeature) {
-							coloring.setForeground(pe, IColorConstant.LIGHT_ORANGE);
+							coloring.setForeground(pe, Color.ORANGE);
 						} else {
-							coloring.setForeground(pe, IColorConstant.ORANGE);
+							coloring.setForeground(pe, Color.ORANGE);
 						}
 						createFlowImplementationDialog.setMessage(getMessage(bo));
 					}
