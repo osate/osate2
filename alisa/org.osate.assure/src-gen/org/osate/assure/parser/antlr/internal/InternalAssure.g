@@ -845,14 +845,14 @@ ruleElseResult returns [EObject current=null]
 	    }
 
 )
-)	otherlv_2='other' 
+)+(	otherlv_2='other' 
     {
-    	newLeafNode(otherlv_2, grammarAccess.getElseResultAccess().getOtherKeyword_2());
+    	newLeafNode(otherlv_2, grammarAccess.getElseResultAccess().getOtherKeyword_2_0());
     }
 (
 (
 		{ 
-	        newCompositeNode(grammarAccess.getElseResultAccess().getOtherVerificationExprParserRuleCall_3_0()); 
+	        newCompositeNode(grammarAccess.getElseResultAccess().getOtherVerificationExprParserRuleCall_2_1_0()); 
 	    }
 		lv_other_3_0=ruleVerificationExpr		{
 	        if ($current==null) {
@@ -867,14 +867,14 @@ ruleElseResult returns [EObject current=null]
 	    }
 
 )
-)?(	otherlv_4='fail' 
+)+)?(	otherlv_4='fail' 
     {
-    	newLeafNode(otherlv_4, grammarAccess.getElseResultAccess().getFailKeyword_4_0());
+    	newLeafNode(otherlv_4, grammarAccess.getElseResultAccess().getFailKeyword_3_0());
     }
 (
 (
 		{ 
-	        newCompositeNode(grammarAccess.getElseResultAccess().getFailVerificationExprParserRuleCall_4_1_0()); 
+	        newCompositeNode(grammarAccess.getElseResultAccess().getFailVerificationExprParserRuleCall_3_1_0()); 
 	    }
 		lv_fail_5_0=ruleVerificationExpr		{
 	        if ($current==null) {
@@ -889,14 +889,14 @@ ruleElseResult returns [EObject current=null]
 	    }
 
 )
-))?(	otherlv_6='timeout' 
+)+)?(	otherlv_6='timeout' 
     {
-    	newLeafNode(otherlv_6, grammarAccess.getElseResultAccess().getTimeoutKeyword_5_0());
+    	newLeafNode(otherlv_6, grammarAccess.getElseResultAccess().getTimeoutKeyword_4_0());
     }
 (
 (
 		{ 
-	        newCompositeNode(grammarAccess.getElseResultAccess().getTimeoutVerificationExprParserRuleCall_5_1_0()); 
+	        newCompositeNode(grammarAccess.getElseResultAccess().getTimeoutVerificationExprParserRuleCall_4_1_0()); 
 	    }
 		lv_timeout_7_0=ruleVerificationExpr		{
 	        if ($current==null) {
@@ -911,14 +911,14 @@ ruleElseResult returns [EObject current=null]
 	    }
 
 )
-))?	otherlv_8='[' 
+)+)?	otherlv_8='[' 
     {
-    	newLeafNode(otherlv_8, grammarAccess.getElseResultAccess().getLeftSquareBracketKeyword_6());
+    	newLeafNode(otherlv_8, grammarAccess.getElseResultAccess().getLeftSquareBracketKeyword_5());
     }
 (
 (
 		{ 
-	        newCompositeNode(grammarAccess.getElseResultAccess().getDidFailElseTypeEnumRuleCall_7_0()); 
+	        newCompositeNode(grammarAccess.getElseResultAccess().getDidFailElseTypeEnumRuleCall_6_0()); 
 	    }
 		lv_didFail_9_0=ruleElseType		{
 	        if ($current==null) {
@@ -936,7 +936,7 @@ ruleElseResult returns [EObject current=null]
 )?(
 (
 		{ 
-	        newCompositeNode(grammarAccess.getElseResultAccess().getMetricsMetricsParserRuleCall_8_0()); 
+	        newCompositeNode(grammarAccess.getElseResultAccess().getMetricsMetricsParserRuleCall_7_0()); 
 	    }
 		lv_metrics_10_0=ruleMetrics		{
 	        if ($current==null) {
@@ -953,7 +953,7 @@ ruleElseResult returns [EObject current=null]
 )
 )	otherlv_11=']' 
     {
-    	newLeafNode(otherlv_11, grammarAccess.getElseResultAccess().getRightSquareBracketKeyword_9());
+    	newLeafNode(otherlv_11, grammarAccess.getElseResultAccess().getRightSquareBracketKeyword_8());
     }
 )
 ;
@@ -998,7 +998,7 @@ ruleThenResult returns [EObject current=null]
 	    }
 
 )
-)	otherlv_2='do' 
+)+	otherlv_2='do' 
     {
     	newLeafNode(otherlv_2, grammarAccess.getThenResultAccess().getDoKeyword_2());
     }
@@ -1020,7 +1020,7 @@ ruleThenResult returns [EObject current=null]
 	    }
 
 )
-)	otherlv_4='[' 
+)+	otherlv_4='[' 
     {
     	newLeafNode(otherlv_4, grammarAccess.getThenResultAccess().getLeftSquareBracketKeyword_4());
     }

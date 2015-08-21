@@ -85,8 +85,8 @@ enum ElseType:
 VerificationExpr : VerificationActivityResult | ElseResult | ThenResult;
 
 ElseResult returns ElseResult:
-	'else'  first+=VerificationExpr 'other' other+=VerificationExpr?
-	('fail' fail+=VerificationExpr)? ('timeout' timeout+=VerificationExpr)?
+	'else'  first+=VerificationExpr+ ('other' other+=VerificationExpr+)?
+	('fail' fail+=VerificationExpr+)? ('timeout' timeout+=VerificationExpr+)?
 	'['
 	didFail=ElseType?
 	metrics=Metrics
@@ -94,7 +94,7 @@ ElseResult returns ElseResult:
 ;
 
 ThenResult returns ThenResult:
-	'then' first+=VerificationExpr 'do' second+=VerificationExpr
+	'then' first+=VerificationExpr+ 'do' second+=VerificationExpr+
 	'['
 	( didThenFail?='thenfailed')?
 	metrics=Metrics

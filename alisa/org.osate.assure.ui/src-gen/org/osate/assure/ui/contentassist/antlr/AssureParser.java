@@ -61,8 +61,9 @@ public class AssureParser extends AbstractContentAssistParser {
 					put(grammarAccess.getVerificationActivityResultAccess().getGroup_9(), "rule__VerificationActivityResult__Group_9__0");
 					put(grammarAccess.getVerificationActivityResultAccess().getGroup_11(), "rule__VerificationActivityResult__Group_11__0");
 					put(grammarAccess.getElseResultAccess().getGroup(), "rule__ElseResult__Group__0");
+					put(grammarAccess.getElseResultAccess().getGroup_2(), "rule__ElseResult__Group_2__0");
+					put(grammarAccess.getElseResultAccess().getGroup_3(), "rule__ElseResult__Group_3__0");
 					put(grammarAccess.getElseResultAccess().getGroup_4(), "rule__ElseResult__Group_4__0");
-					put(grammarAccess.getElseResultAccess().getGroup_5(), "rule__ElseResult__Group_5__0");
 					put(grammarAccess.getThenResultAccess().getGroup(), "rule__ThenResult__Group__0");
 					put(grammarAccess.getMetricsAccess().getGroup(), "rule__Metrics__Group__0");
 					put(grammarAccess.getMetricsAccess().getGroup_0(), "rule__Metrics__Group_0__0");
@@ -113,11 +114,11 @@ public class AssureParser extends AbstractContentAssistParser {
 					put(grammarAccess.getVerificationActivityResultAccess().getMessageAssignment_11_1(), "rule__VerificationActivityResult__MessageAssignment_11_1");
 					put(grammarAccess.getVerificationActivityResultAccess().getConditionResultAssignment_12(), "rule__VerificationActivityResult__ConditionResultAssignment_12");
 					put(grammarAccess.getElseResultAccess().getFirstAssignment_1(), "rule__ElseResult__FirstAssignment_1");
-					put(grammarAccess.getElseResultAccess().getOtherAssignment_3(), "rule__ElseResult__OtherAssignment_3");
-					put(grammarAccess.getElseResultAccess().getFailAssignment_4_1(), "rule__ElseResult__FailAssignment_4_1");
-					put(grammarAccess.getElseResultAccess().getTimeoutAssignment_5_1(), "rule__ElseResult__TimeoutAssignment_5_1");
-					put(grammarAccess.getElseResultAccess().getDidFailAssignment_7(), "rule__ElseResult__DidFailAssignment_7");
-					put(grammarAccess.getElseResultAccess().getMetricsAssignment_8(), "rule__ElseResult__MetricsAssignment_8");
+					put(grammarAccess.getElseResultAccess().getOtherAssignment_2_1(), "rule__ElseResult__OtherAssignment_2_1");
+					put(grammarAccess.getElseResultAccess().getFailAssignment_3_1(), "rule__ElseResult__FailAssignment_3_1");
+					put(grammarAccess.getElseResultAccess().getTimeoutAssignment_4_1(), "rule__ElseResult__TimeoutAssignment_4_1");
+					put(grammarAccess.getElseResultAccess().getDidFailAssignment_6(), "rule__ElseResult__DidFailAssignment_6");
+					put(grammarAccess.getElseResultAccess().getMetricsAssignment_7(), "rule__ElseResult__MetricsAssignment_7");
 					put(grammarAccess.getThenResultAccess().getFirstAssignment_1(), "rule__ThenResult__FirstAssignment_1");
 					put(grammarAccess.getThenResultAccess().getSecondAssignment_3(), "rule__ThenResult__SecondAssignment_3");
 					put(grammarAccess.getThenResultAccess().getDidThenFailAssignment_5(), "rule__ThenResult__DidThenFailAssignment_5");

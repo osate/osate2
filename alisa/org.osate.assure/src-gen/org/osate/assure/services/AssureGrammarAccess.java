@@ -585,92 +585,96 @@ public class AssureGrammarAccess extends AbstractGrammarElementFinder {
 		private final Keyword cElseKeyword_0 = (Keyword)cGroup.eContents().get(0);
 		private final Assignment cFirstAssignment_1 = (Assignment)cGroup.eContents().get(1);
 		private final RuleCall cFirstVerificationExprParserRuleCall_1_0 = (RuleCall)cFirstAssignment_1.eContents().get(0);
-		private final Keyword cOtherKeyword_2 = (Keyword)cGroup.eContents().get(2);
-		private final Assignment cOtherAssignment_3 = (Assignment)cGroup.eContents().get(3);
-		private final RuleCall cOtherVerificationExprParserRuleCall_3_0 = (RuleCall)cOtherAssignment_3.eContents().get(0);
+		private final Group cGroup_2 = (Group)cGroup.eContents().get(2);
+		private final Keyword cOtherKeyword_2_0 = (Keyword)cGroup_2.eContents().get(0);
+		private final Assignment cOtherAssignment_2_1 = (Assignment)cGroup_2.eContents().get(1);
+		private final RuleCall cOtherVerificationExprParserRuleCall_2_1_0 = (RuleCall)cOtherAssignment_2_1.eContents().get(0);
+		private final Group cGroup_3 = (Group)cGroup.eContents().get(3);
+		private final Keyword cFailKeyword_3_0 = (Keyword)cGroup_3.eContents().get(0);
+		private final Assignment cFailAssignment_3_1 = (Assignment)cGroup_3.eContents().get(1);
+		private final RuleCall cFailVerificationExprParserRuleCall_3_1_0 = (RuleCall)cFailAssignment_3_1.eContents().get(0);
 		private final Group cGroup_4 = (Group)cGroup.eContents().get(4);
-		private final Keyword cFailKeyword_4_0 = (Keyword)cGroup_4.eContents().get(0);
-		private final Assignment cFailAssignment_4_1 = (Assignment)cGroup_4.eContents().get(1);
-		private final RuleCall cFailVerificationExprParserRuleCall_4_1_0 = (RuleCall)cFailAssignment_4_1.eContents().get(0);
-		private final Group cGroup_5 = (Group)cGroup.eContents().get(5);
-		private final Keyword cTimeoutKeyword_5_0 = (Keyword)cGroup_5.eContents().get(0);
-		private final Assignment cTimeoutAssignment_5_1 = (Assignment)cGroup_5.eContents().get(1);
-		private final RuleCall cTimeoutVerificationExprParserRuleCall_5_1_0 = (RuleCall)cTimeoutAssignment_5_1.eContents().get(0);
-		private final Keyword cLeftSquareBracketKeyword_6 = (Keyword)cGroup.eContents().get(6);
-		private final Assignment cDidFailAssignment_7 = (Assignment)cGroup.eContents().get(7);
-		private final RuleCall cDidFailElseTypeEnumRuleCall_7_0 = (RuleCall)cDidFailAssignment_7.eContents().get(0);
-		private final Assignment cMetricsAssignment_8 = (Assignment)cGroup.eContents().get(8);
-		private final RuleCall cMetricsMetricsParserRuleCall_8_0 = (RuleCall)cMetricsAssignment_8.eContents().get(0);
-		private final Keyword cRightSquareBracketKeyword_9 = (Keyword)cGroup.eContents().get(9);
+		private final Keyword cTimeoutKeyword_4_0 = (Keyword)cGroup_4.eContents().get(0);
+		private final Assignment cTimeoutAssignment_4_1 = (Assignment)cGroup_4.eContents().get(1);
+		private final RuleCall cTimeoutVerificationExprParserRuleCall_4_1_0 = (RuleCall)cTimeoutAssignment_4_1.eContents().get(0);
+		private final Keyword cLeftSquareBracketKeyword_5 = (Keyword)cGroup.eContents().get(5);
+		private final Assignment cDidFailAssignment_6 = (Assignment)cGroup.eContents().get(6);
+		private final RuleCall cDidFailElseTypeEnumRuleCall_6_0 = (RuleCall)cDidFailAssignment_6.eContents().get(0);
+		private final Assignment cMetricsAssignment_7 = (Assignment)cGroup.eContents().get(7);
+		private final RuleCall cMetricsMetricsParserRuleCall_7_0 = (RuleCall)cMetricsAssignment_7.eContents().get(0);
+		private final Keyword cRightSquareBracketKeyword_8 = (Keyword)cGroup.eContents().get(8);
 		
 		//ElseResult:
-		//	"else" first+=VerificationExpr "other" other+=VerificationExpr? ("fail" fail+=VerificationExpr)? ("timeout"
-		//	timeout+=VerificationExpr)? "[" didFail=ElseType? metrics=Metrics "]";
+		//	"else" first+=VerificationExpr+ ("other" other+=VerificationExpr+)? ("fail" fail+=VerificationExpr+)? ("timeout"
+		//	timeout+=VerificationExpr+)? "[" didFail=ElseType? metrics=Metrics "]";
 		@Override public ParserRule getRule() { return rule; }
 
-		//"else" first+=VerificationExpr "other" other+=VerificationExpr? ("fail" fail+=VerificationExpr)? ("timeout"
-		//timeout+=VerificationExpr)? "[" didFail=ElseType? metrics=Metrics "]"
+		//"else" first+=VerificationExpr+ ("other" other+=VerificationExpr+)? ("fail" fail+=VerificationExpr+)? ("timeout"
+		//timeout+=VerificationExpr+)? "[" didFail=ElseType? metrics=Metrics "]"
 		public Group getGroup() { return cGroup; }
 
 		//"else"
 		public Keyword getElseKeyword_0() { return cElseKeyword_0; }
 
-		//first+=VerificationExpr
+		//first+=VerificationExpr+
 		public Assignment getFirstAssignment_1() { return cFirstAssignment_1; }
 
 		//VerificationExpr
 		public RuleCall getFirstVerificationExprParserRuleCall_1_0() { return cFirstVerificationExprParserRuleCall_1_0; }
 
-		//"other"
-		public Keyword getOtherKeyword_2() { return cOtherKeyword_2; }
+		//("other" other+=VerificationExpr+)?
+		public Group getGroup_2() { return cGroup_2; }
 
-		//other+=VerificationExpr?
-		public Assignment getOtherAssignment_3() { return cOtherAssignment_3; }
+		//"other"
+		public Keyword getOtherKeyword_2_0() { return cOtherKeyword_2_0; }
+
+		//other+=VerificationExpr+
+		public Assignment getOtherAssignment_2_1() { return cOtherAssignment_2_1; }
 
 		//VerificationExpr
-		public RuleCall getOtherVerificationExprParserRuleCall_3_0() { return cOtherVerificationExprParserRuleCall_3_0; }
+		public RuleCall getOtherVerificationExprParserRuleCall_2_1_0() { return cOtherVerificationExprParserRuleCall_2_1_0; }
 
-		//("fail" fail+=VerificationExpr)?
-		public Group getGroup_4() { return cGroup_4; }
+		//("fail" fail+=VerificationExpr+)?
+		public Group getGroup_3() { return cGroup_3; }
 
 		//"fail"
-		public Keyword getFailKeyword_4_0() { return cFailKeyword_4_0; }
+		public Keyword getFailKeyword_3_0() { return cFailKeyword_3_0; }
 
-		//fail+=VerificationExpr
-		public Assignment getFailAssignment_4_1() { return cFailAssignment_4_1; }
+		//fail+=VerificationExpr+
+		public Assignment getFailAssignment_3_1() { return cFailAssignment_3_1; }
 
 		//VerificationExpr
-		public RuleCall getFailVerificationExprParserRuleCall_4_1_0() { return cFailVerificationExprParserRuleCall_4_1_0; }
+		public RuleCall getFailVerificationExprParserRuleCall_3_1_0() { return cFailVerificationExprParserRuleCall_3_1_0; }
 
-		//("timeout" timeout+=VerificationExpr)?
-		public Group getGroup_5() { return cGroup_5; }
+		//("timeout" timeout+=VerificationExpr+)?
+		public Group getGroup_4() { return cGroup_4; }
 
 		//"timeout"
-		public Keyword getTimeoutKeyword_5_0() { return cTimeoutKeyword_5_0; }
+		public Keyword getTimeoutKeyword_4_0() { return cTimeoutKeyword_4_0; }
 
-		//timeout+=VerificationExpr
-		public Assignment getTimeoutAssignment_5_1() { return cTimeoutAssignment_5_1; }
+		//timeout+=VerificationExpr+
+		public Assignment getTimeoutAssignment_4_1() { return cTimeoutAssignment_4_1; }
 
 		//VerificationExpr
-		public RuleCall getTimeoutVerificationExprParserRuleCall_5_1_0() { return cTimeoutVerificationExprParserRuleCall_5_1_0; }
+		public RuleCall getTimeoutVerificationExprParserRuleCall_4_1_0() { return cTimeoutVerificationExprParserRuleCall_4_1_0; }
 
 		//"["
-		public Keyword getLeftSquareBracketKeyword_6() { return cLeftSquareBracketKeyword_6; }
+		public Keyword getLeftSquareBracketKeyword_5() { return cLeftSquareBracketKeyword_5; }
 
 		//didFail=ElseType?
-		public Assignment getDidFailAssignment_7() { return cDidFailAssignment_7; }
+		public Assignment getDidFailAssignment_6() { return cDidFailAssignment_6; }
 
 		//ElseType
-		public RuleCall getDidFailElseTypeEnumRuleCall_7_0() { return cDidFailElseTypeEnumRuleCall_7_0; }
+		public RuleCall getDidFailElseTypeEnumRuleCall_6_0() { return cDidFailElseTypeEnumRuleCall_6_0; }
 
 		//metrics=Metrics
-		public Assignment getMetricsAssignment_8() { return cMetricsAssignment_8; }
+		public Assignment getMetricsAssignment_7() { return cMetricsAssignment_7; }
 
 		//Metrics
-		public RuleCall getMetricsMetricsParserRuleCall_8_0() { return cMetricsMetricsParserRuleCall_8_0; }
+		public RuleCall getMetricsMetricsParserRuleCall_7_0() { return cMetricsMetricsParserRuleCall_7_0; }
 
 		//"]"
-		public Keyword getRightSquareBracketKeyword_9() { return cRightSquareBracketKeyword_9; }
+		public Keyword getRightSquareBracketKeyword_8() { return cRightSquareBracketKeyword_8; }
 	}
 
 	public class ThenResultElements extends AbstractParserRuleElementFinder {
@@ -690,16 +694,16 @@ public class AssureGrammarAccess extends AbstractGrammarElementFinder {
 		private final Keyword cRightSquareBracketKeyword_7 = (Keyword)cGroup.eContents().get(7);
 		
 		//ThenResult:
-		//	"then" first+=VerificationExpr "do" second+=VerificationExpr "[" didThenFail?="thenfailed"? metrics=Metrics "]";
+		//	"then" first+=VerificationExpr+ "do" second+=VerificationExpr+ "[" didThenFail?="thenfailed"? metrics=Metrics "]";
 		@Override public ParserRule getRule() { return rule; }
 
-		//"then" first+=VerificationExpr "do" second+=VerificationExpr "[" didThenFail?="thenfailed"? metrics=Metrics "]"
+		//"then" first+=VerificationExpr+ "do" second+=VerificationExpr+ "[" didThenFail?="thenfailed"? metrics=Metrics "]"
 		public Group getGroup() { return cGroup; }
 
 		//"then"
 		public Keyword getThenKeyword_0() { return cThenKeyword_0; }
 
-		//first+=VerificationExpr
+		//first+=VerificationExpr+
 		public Assignment getFirstAssignment_1() { return cFirstAssignment_1; }
 
 		//VerificationExpr
@@ -708,7 +712,7 @@ public class AssureGrammarAccess extends AbstractGrammarElementFinder {
 		//"do"
 		public Keyword getDoKeyword_2() { return cDoKeyword_2; }
 
-		//second+=VerificationExpr
+		//second+=VerificationExpr+
 		public Assignment getSecondAssignment_3() { return cSecondAssignment_3; }
 
 		//VerificationExpr
@@ -1445,8 +1449,8 @@ public class AssureGrammarAccess extends AbstractGrammarElementFinder {
 	}
 
 	//ElseResult:
-	//	"else" first+=VerificationExpr "other" other+=VerificationExpr? ("fail" fail+=VerificationExpr)? ("timeout"
-	//	timeout+=VerificationExpr)? "[" didFail=ElseType? metrics=Metrics "]";
+	//	"else" first+=VerificationExpr+ ("other" other+=VerificationExpr+)? ("fail" fail+=VerificationExpr+)? ("timeout"
+	//	timeout+=VerificationExpr+)? "[" didFail=ElseType? metrics=Metrics "]";
 	public ElseResultElements getElseResultAccess() {
 		return pElseResult;
 	}
@@ -1456,7 +1460,7 @@ public class AssureGrammarAccess extends AbstractGrammarElementFinder {
 	}
 
 	//ThenResult:
-	//	"then" first+=VerificationExpr "do" second+=VerificationExpr "[" didThenFail?="thenfailed"? metrics=Metrics "]";
+	//	"then" first+=VerificationExpr+ "do" second+=VerificationExpr+ "[" didThenFail?="thenfailed"? metrics=Metrics "]";
 	public ThenResultElements getThenResultAccess() {
 		return pThenResult;
 	}

@@ -127,10 +127,10 @@ public class AssureSemanticSequencer extends AbstractDelegatingSemanticSequencer
 	/**
 	 * Constraint:
 	 *     (
-	 *         first+=VerificationExpr 
-	 *         other+=VerificationExpr? 
-	 *         fail+=VerificationExpr? 
-	 *         timeout+=VerificationExpr? 
+	 *         first+=VerificationExpr+ 
+	 *         other+=VerificationExpr* 
+	 *         fail+=VerificationExpr* 
+	 *         timeout+=VerificationExpr* 
 	 *         didFail=ElseType? 
 	 *         metrics=Metrics
 	 *     )
@@ -178,7 +178,7 @@ public class AssureSemanticSequencer extends AbstractDelegatingSemanticSequencer
 	
 	/**
 	 * Constraint:
-	 *     (first+=VerificationExpr second+=VerificationExpr didThenFail?='thenfailed'? metrics=Metrics)
+	 *     (first+=VerificationExpr+ second+=VerificationExpr+ didThenFail?='thenfailed'? metrics=Metrics)
 	 */
 	protected void sequence_ThenResult(EObject context, ThenResult semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
