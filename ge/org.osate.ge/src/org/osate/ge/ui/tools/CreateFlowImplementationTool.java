@@ -72,10 +72,9 @@ public class CreateFlowImplementationTool {
 	@Description
 	public final static String DESCRIPTION = "Create Flow Implementation";
 	
-	// TODO
-	//@Icon
-	//public final static ImageDescriptor ICON = Activator.getImageDescriptor("icons/CreateFlowImplementation.gif");
-	
+	/*@Icon
+	public final static ImageDescriptor ICON = Activator.getImageDescriptor("icons/CreateFlowImplementation.gif");
+	*/
 	private ColoringService.Coloring coloring = null;
 	private ComponentImplementation ci;
 	private CreateFlowImplementationDialog createFlowImplementationDialog;
@@ -121,7 +120,6 @@ public class CreateFlowImplementationTool {
 						return null;
 					}
 				});
-				
 			}
 			uiService.deactivateActiveTool();
 		}
@@ -413,7 +411,7 @@ public class CreateFlowImplementationTool {
 				} else if (flowImpl.getOwnedFlowSegments().isEmpty()) {
 					if (flowImpl.getKind().equals(FlowKind.SOURCE)) {
 						if (selectedEle instanceof FlowSpecification) {
-							return context.getNamespace().equals(ci);
+							return context != null && context.getNamespace().equals(ci);
 						} else if (selectedEle instanceof DataAccess) {
 							return context == null;
 						} else if (selectedEle instanceof Subcomponent) {
