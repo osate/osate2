@@ -778,19 +778,19 @@ public class AssureGrammarAccess extends AbstractGrammarElementFinder {
 		private final RuleCall cWeightINTTerminalRuleCall_9_1_0 = (RuleCall)cWeightAssignment_9_1.eContents().get(0);
 		
 		//Metrics:
-		//	("tbdcount" tbdCount=INT) ("successcount" successCount=INT)? ("failcount" failCount=INT)? ("timeoutcount"
+		//	("tbdcount" tbdCount=INT)? ("successcount" successCount=INT)? ("failcount" failCount=INT)? ("timeoutcount"
 		//	timeoutCount=INT)? ("othercount" otherCount=INT)? ("didelsecount" didelseCount=INT)? // else branch executed
 		//	("thenskipcount" thenskipCount=INT)? ("prefailcount" preconditionfailCount=INT)? ("validfailcount"
 		//	validationfailCount=INT)? ("weight" weight=INT)?;
 		@Override public ParserRule getRule() { return rule; }
 
-		//("tbdcount" tbdCount=INT) ("successcount" successCount=INT)? ("failcount" failCount=INT)? ("timeoutcount"
+		//("tbdcount" tbdCount=INT)? ("successcount" successCount=INT)? ("failcount" failCount=INT)? ("timeoutcount"
 		//timeoutCount=INT)? ("othercount" otherCount=INT)? ("didelsecount" didelseCount=INT)? // else branch executed
 		//("thenskipcount" thenskipCount=INT)? ("prefailcount" preconditionfailCount=INT)? ("validfailcount"
 		//validationfailCount=INT)? ("weight" weight=INT)?
 		public Group getGroup() { return cGroup; }
 
-		//"tbdcount" tbdCount=INT
+		//("tbdcount" tbdCount=INT)?
 		public Group getGroup_0() { return cGroup_0; }
 
 		//"tbdcount"
@@ -1466,7 +1466,7 @@ public class AssureGrammarAccess extends AbstractGrammarElementFinder {
 	}
 
 	//Metrics:
-	//	("tbdcount" tbdCount=INT) ("successcount" successCount=INT)? ("failcount" failCount=INT)? ("timeoutcount"
+	//	("tbdcount" tbdCount=INT)? ("successcount" successCount=INT)? ("failcount" failCount=INT)? ("timeoutcount"
 	//	timeoutCount=INT)? ("othercount" otherCount=INT)? ("didelsecount" didelseCount=INT)? // else branch executed
 	//	("thenskipcount" thenskipCount=INT)? ("prefailcount" preconditionfailCount=INT)? ("validfailcount"
 	//	validationfailCount=INT)? ("weight" weight=INT)?;

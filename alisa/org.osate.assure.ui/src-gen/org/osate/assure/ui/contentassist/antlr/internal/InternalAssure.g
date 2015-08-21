@@ -3639,7 +3639,7 @@ rule__Metrics__Group__0__Impl
 :
 (
 { before(grammarAccess.getMetricsAccess().getGroup_0()); }
-(rule__Metrics__Group_0__0)
+(rule__Metrics__Group_0__0)?
 { after(grammarAccess.getMetricsAccess().getGroup_0()); }
 )
 
