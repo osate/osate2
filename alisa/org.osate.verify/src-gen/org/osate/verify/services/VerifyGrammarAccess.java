@@ -29,10 +29,10 @@ public class VerifyGrammarAccess extends AbstractGrammarElementFinder {
 		
 		////import "http://www.eclipse.org/emf/2002/Ecore" as ecore
 		//Verification:
-		//	contents+=(VerificationPlan | VerificationMethodRegistry);
+		//	contents+=(VerificationPlan | VerificationMethodRegistry)+;
 		@Override public ParserRule getRule() { return rule; }
 
-		//contents+=(VerificationPlan | VerificationMethodRegistry)
+		//contents+=(VerificationPlan | VerificationMethodRegistry)+
 		public Assignment getContentsAssignment() { return cContentsAssignment; }
 
 		//VerificationPlan | VerificationMethodRegistry
@@ -1524,7 +1524,7 @@ public class VerifyGrammarAccess extends AbstractGrammarElementFinder {
 	
 	////import "http://www.eclipse.org/emf/2002/Ecore" as ecore
 	//Verification:
-	//	contents+=(VerificationPlan | VerificationMethodRegistry);
+	//	contents+=(VerificationPlan | VerificationMethodRegistry)+;
 	public VerificationElements getVerificationAccess() {
 		return pVerification;
 	}

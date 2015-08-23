@@ -73,9 +73,16 @@ ruleVerification
     }
 	:
 (
+(
 { before(grammarAccess.getVerificationAccess().getContentsAssignment()); }
 (rule__Verification__ContentsAssignment)
 { after(grammarAccess.getVerificationAccess().getContentsAssignment()); }
+)
+(
+{ before(grammarAccess.getVerificationAccess().getContentsAssignment()); }
+(rule__Verification__ContentsAssignment)*
+{ after(grammarAccess.getVerificationAccess().getContentsAssignment()); }
+)
 )
 
 ;

@@ -667,7 +667,7 @@ public class VerifySemanticSequencer extends CommonSemanticSequencer {
 	
 	/**
 	 * Constraint:
-	 *     (contents+=VerificationPlan | contents+=VerificationMethodRegistry)
+	 *     (contents+=VerificationPlan | contents+=VerificationMethodRegistry)+
 	 */
 	protected void sequence_Verification(EObject context, Verification semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);

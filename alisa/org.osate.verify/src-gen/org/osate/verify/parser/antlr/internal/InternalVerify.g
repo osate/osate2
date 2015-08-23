@@ -113,7 +113,7 @@ ruleVerification returns [EObject current=null]
 )
 
 )
-)
+)+
 ;
 
 
