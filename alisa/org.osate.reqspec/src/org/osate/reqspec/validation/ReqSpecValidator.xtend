@@ -394,7 +394,7 @@ class ReqSpecValidator extends AbstractReqSpecValidator {
 	@Check(CheckType.NORMAL)
 	def void checkSystemRequirementsUniqueToComponentClassifier(SystemRequirements sysReq) {
 		val target = sysReq.target
-		val allSystemRequirements = reqSpecrefFinder.getSystemRequirements(target)
+		val allSystemRequirements = reqSpecrefFinder.getSystemRequirementsForScopes(target)
 		if (allSystemRequirements.size > 1){
 			error("Other System Requirements exist for '" +  target.name + 
 								"'. Only one System Requirement is allowed for a specific component." , sysReq,  
