@@ -94,6 +94,7 @@ class AssureConstructor {
 			acase = factory.createAssuranceEvidence
 			acase.name = acp.name
 			acase.target = acp
+			acase.metrics = factory.createMetrics
 			for (myplan : myplans) {
 				for (claim : (myplan as VerificationPlan).claim) {
 					if (claim.evaluateRequirementFilter(requirementFilter))
@@ -152,6 +153,7 @@ class AssureConstructor {
 	def ClaimResult construct(Claim claim) {
 		val claimresult = factory.createClaimResult
 		claimresult.target = claim.requirement
+		claimresult.metrics = factory.createMetrics
 		for (subclaim : claim?.subclaim) {
 			claimresult.subClaimResult += subclaim.construct
 		}
@@ -181,19 +183,31 @@ class AssureConstructor {
 	}
 
 	def void doConstruct(List<VerificationExpr> arl, ThenExpr expr) {
-		val andres = factory.createThenResult
-		andres.first.construct(expr.left)
-		andres.second.construct(expr.successor)
-		arl += andres
+		val thenres = factory.createThenResult
+		thenres.metrics = factory.createMetrics
+		thenres.first.construct(expr.left)
+		thenres.second.construct(expr.successor)
+		if (thenres.first.empty) return;
+		if (thenres.second.empty) {
+			arl += thenres.first
+		} else {
+			arl += thenres
+		}
 	}
 
 	def void doConstruct(List<VerificationExpr> arl, ElseExpr expr) {
 		val elseres = factory.createElseResult
+		elseres.metrics = factory.createMetrics
 		elseres.first.construct(expr.left)
 		elseres.other.construct(expr.other)
 		if(expr.fail != null) elseres.fail.construct(expr.fail)
 		if(expr.timeout != null) elseres.timeout.construct(expr.timeout)
-		arl += elseres
+		if (elseres.first.empty) return;
+		if (elseres.other.empty && elseres.fail.empty && elseres.timeout.empty){
+			arl += elseres.first
+		} else {
+			arl += elseres
+		}
 	}
 
 
@@ -204,6 +218,7 @@ class AssureConstructor {
 			vr.resultState = VerificationResultState.TBD
 			vr.executionState = VerificationExecutionState.TODO
 			vr.target = expr.verification
+			vr.metrics = factory.createMetrics
 			arl += vr
 			val cond = expr.verification?.method?.condition
 			if (cond != null) {
@@ -219,6 +234,7 @@ class AssureConstructor {
 		vr.resultState = VerificationResultState.TBD
 		vr.executionState = VerificationExecutionState.TODO
 		vr.target = expr
+		vr.metrics = factory.createMetrics
 		val cond = expr.method?.condition
 		if (cond != null) {
 			vr.conditionResult = doConstruct(cond)
@@ -238,6 +254,7 @@ class AssureConstructor {
 		}
 		vcr.resultState = VerificationResultState.TBD
 		vcr.executionState = VerificationExecutionState.TODO
+		vcr.metrics = factory.createMetrics
 		return vcr
 	}
 
