@@ -157,7 +157,7 @@ class AlisaGenerator implements IGenerator {
 		'''
 			claim «claim.requirement.fullyQualifiedName»
 			[
-				tbdcount 1
+				tbdcount 0
 			    «FOR subclaim : claim?.subclaim»
 				«subclaim.generate()»
 				«ENDFOR»
@@ -179,7 +179,7 @@ class AlisaGenerator implements IGenerator {
 			[
 				executionstate todo
 				resultstate tbd
-				tbdcount 1
+				tbdcount 0
 				«IF va.method?.condition != null»
 					«va.method?.condition.generate»
 				«ENDIF»
@@ -216,7 +216,7 @@ class AlisaGenerator implements IGenerator {
 			do
 				«successorresult»
 			[
-				tbdcount 1
+				tbdcount 0
 			]
 		'''
 	}
@@ -242,7 +242,7 @@ class AlisaGenerator implements IGenerator {
 			timeout "«expr.timeout.generate»"
 			«ENDIF»
 			[
-				tbdcount 1
+				tbdcount 0
 			]
 		'''
 	}
@@ -259,7 +259,7 @@ class AlisaGenerator implements IGenerator {
 			[
 				executionstate todo
 				resultstate tbd
-				tbdcount 1
+				tbdcount 0
 			]
 		'''
 	}
