@@ -21,6 +21,7 @@ import org.osate.alisa.common.scoping.ICommonGlobalReferenceFinder
 import org.osate.reqspec.reqSpec.ReqSpecPackage
 import org.osate.aadl2.ComponentClassifier
 import org.osate.aadl2.ComponentType
+import java.util.ArrayList
 
 /**
  * see http://www.eclipse.org/Xtext/documentation.html#contentAssist on how to customize content assistant
@@ -68,16 +69,27 @@ class ReqSpecProposalProvider extends AbstractReqSpecProposalProvider {
 
 	override void completeRequirement_RefinesReference(EObject model, Assignment assignment,
 		ContentAssistContext context, ICompletionProposalAcceptor acceptor) {
+
 		val targetComponentClassifier = (model.eContainer as SystemRequirements).target
 		val Iterable<SystemRequirements> listAccessibleSystemRequirements = commonRefFinder.getEObjectDescriptions(
 			targetComponentClassifier, ReqSpecPackage.Literals.SYSTEM_REQUIREMENTS, "reqspec").map [ eod |
 			EcoreUtil.resolve(eod.EObjectOrProxy, model) as SystemRequirements
 		].filter[sysreqs|isSameorExtends(targetComponentClassifier, sysreqs.target)]
 
+		val ArrayList<EObject> nameList = newArrayList();
 		lookupCrossReference(assignment.getTerminal() as CrossReference, context, acceptor, [
 			val proposedObj = EcoreUtil.resolve(EObjectOrProxy, model) // Gets Requirements from Scope
+			// no duplicates. Seems like duplicates with full qualified names are check later so that we get the short one.
+			if (nameList.contains(proposedObj)) {
+				return false
+			} else {
+				nameList.add(proposedObj)
+			}
+
 			// predicate for not itself and whether proposed requirement exists in any of the accessible system requirements
-			model != proposedObj && listAccessibleSystemRequirements.filter[content.contains(proposedObj)].size > 0
+			model != proposedObj && listAccessibleSystemRequirements.filter [
+				content.contains(proposedObj)
+			].size > 0
 		]);
 	}
 
