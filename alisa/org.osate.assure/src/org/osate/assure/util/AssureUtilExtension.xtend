@@ -278,6 +278,11 @@ class AssureUtilExtension {
 		counts.failCount == 0 && counts.otherCount == 0 && counts.timeoutCount == 0 && counts.tbdCount > 0
 	}
 
+	def static isZeroCount(AssureResult ar) {
+		val counts = ar.metrics
+		counts.failCount == 0 && counts.otherCount == 0 && counts.timeoutCount == 0 && counts.tbdCount == 0
+	}
+
 	/** 
 	 * state of VerificationResult 
 	 */
@@ -985,6 +990,10 @@ class AssureUtilExtension {
 
 	def static String assureResultCounts(AssureResult ele) {
 		val elec= ele.metrics
+		if (ele instanceof AssuranceEvidence && ele.isZeroCount && ele.eContainer == null){
+			ele.resetCounts
+			ele.recomputeAllCounts
+		}
 		" (S" + elec.successCount + " F" + elec.failCount + " T" + elec.timeoutCount + " O" + elec.otherCount + " tbd" + elec.tbdCount 
 		+ " DE" + elec.didelseCount + " TS" + elec.thenskipCount+ ")"
 	}
