@@ -104,7 +104,7 @@ class AlisaGenerator implements IGenerator {
 				evidence «cc.name» for system «cc.getQualifiedName»
 			«ENDIF»
 				[
-					tbdcount 1
+					tbdcount 0
 					«FOR myplan : myplans»
 						«FOR claim : (myplan as VerificationPlan).claim»
 						«IF claim.evaluateRequirementFilter(requirementFilter)»
@@ -157,7 +157,7 @@ class AlisaGenerator implements IGenerator {
 		'''
 			claim «claim.requirement.fullyQualifiedName»
 			[
-				tbdcount 0
+				tbdcount 1
 			    «FOR subclaim : claim?.subclaim»
 				«subclaim.generate()»
 				«ENDFOR»
