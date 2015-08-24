@@ -143,7 +143,7 @@ public class AssureSemanticSequencer extends AbstractDelegatingSemanticSequencer
 	/**
 	 * Constraint:
 	 *     (
-	 *         tbdCount=INT 
+	 *         tbdCount=INT? 
 	 *         successCount=INT? 
 	 *         failCount=INT? 
 	 *         timeoutCount=INT? 

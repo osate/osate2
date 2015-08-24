@@ -102,7 +102,7 @@ ThenResult returns ThenResult:
 ;
 
 Metrics returns Metrics:
-	('tbdcount' tbdCount=INT)
+	('tbdcount' tbdCount=INT)?
 	('successcount'  successCount=INT)?
 	('failcount'  failCount=INT)?
 	('timeoutcount'  timeoutCount=INT)?

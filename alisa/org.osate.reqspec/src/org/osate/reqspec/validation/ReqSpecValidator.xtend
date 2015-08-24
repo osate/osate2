@@ -389,4 +389,28 @@ class ReqSpecValidator extends AbstractReqSpecValidator {
 			}
 		]
 	}
+	
+	// TODO: Works fine when changing a file but on start up, exception is thrown
+	@Check(CheckType.NORMAL)
+	def void checkSystemRequirementsUniqueToComponentClassifier(SystemRequirements sysReq) {
+		val target = sysReq.target
+		val allSystemRequirements = reqSpecrefFinder.getSystemRequirements(target)
+		if (allSystemRequirements.size > 1){
+			error("Other System Requirements exist for '" +  target.name + 
+								"'. Only one System Requirement is allowed for a specific component." , sysReq,  
+								ReqSpecPackage.Literals.SYSTEM_REQUIREMENTS__TARGET)
+		}
+	}
+	
+	@Check(CheckType.NORMAL)
+	def void checkStakeholderGoalsUniqueToComponentClassifier(StakeholderGoals shg) {
+		val target = shg.target
+		val allStakeholderGoals = reqSpecrefFinder.getStakeholderGoals(target)
+		if (allStakeholderGoals.size > 1){
+			error("Other Stakeholder Goals exist for '" +  target.name + 
+								"'. Only one Stakeholder Goals is allowed for a specific component." , shg,  
+								ReqSpecPackage.Literals.STAKEHOLDER_GOALS__TARGET)
+		}
+	}
+	
 }

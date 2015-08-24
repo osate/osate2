@@ -2,15 +2,16 @@ package org.osate.verify.util
 
 import com.google.inject.ImplementedBy
 import com.google.inject.Inject
-import org.osate.aadl2.ComponentClassifier
-import org.osate.alisa.common.scoping.ICommonGlobalReferenceFinder
-import org.osate.verify.verify.VerificationPlan
-
-import static extension org.osate.alisa.common.util.CommonUtilExtension.*
-import org.osate.verify.verify.VerifyPackage
-import org.osate.reqspec.reqSpec.ReqSpecPackage
 import org.eclipse.emf.ecore.EObject
 import org.eclipse.emf.ecore.util.EcoreUtil
+import org.osate.aadl2.ComponentClassifier
+import org.osate.alisa.common.scoping.ICommonGlobalReferenceFinder
+import org.osate.reqspec.reqSpec.ReqSpecPackage
+import org.osate.reqspec.reqSpec.SystemRequirements
+import org.osate.verify.verify.VerificationPlan
+import org.osate.verify.verify.VerifyPackage
+
+import static extension org.osate.alisa.common.util.CommonUtilExtension.*
 
 @ImplementedBy(VerifyGlobalReferenceFinder)
 interface IVerifyGlobalReferenceFinder {
@@ -30,6 +31,8 @@ interface IVerifyGlobalReferenceFinder {
 	 * context determines the visibility of the verification plans EObjectDescriptions to be found
 	 */
 	def Iterable<VerificationPlan> getGlobalReqVerificationPlans(EObject context);
+	
+	def Iterable<VerificationPlan> getAllVerificationPlansForSystemRequirement(SystemRequirements sysReqs, EObject context);
 }
 
 class VerifyGlobalReferenceFinder implements IVerifyGlobalReferenceFinder{
@@ -58,6 +61,12 @@ class VerifyGlobalReferenceFinder implements IVerifyGlobalReferenceFinder{
 			 refFinder.getEObjectDescriptions(context, VerifyPackage.Literals.VERIFICATION_PLAN, "verify").map [ eod |
 			EcoreUtil.resolve(eod.EObjectOrProxy, context) as VerificationPlan
 		].filter[vp|vp.systemRequirements?.global]
-	}
+		
+		}
+
+		override Iterable<VerificationPlan> getAllVerificationPlansForSystemRequirement(SystemRequirements sysReqs, EObject context){
+			 refFinder.getEObjectDescriptions(context, VerifyPackage.Literals.VERIFICATION_PLAN, "verify").map [ eod |
+			EcoreUtil.resolve(eod.EObjectOrProxy, context) as VerificationPlan].filter[vp|vp.systemRequirements === sysReqs]
+		}
 
 }
