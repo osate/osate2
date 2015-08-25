@@ -604,7 +604,7 @@ public class LatencyReportEntry {
 							+ BestDecPoint(expectedMinLatency) + ".." + BestDecPoint(expectedMaxLatency) + "ms");
 				}
 				if ((minValue > expectedMinLatency) && (expectedMaxLatency > maxValue)) {
-					reportSummarySuccess("Actual end-to-end flow latency jitter " + BestDecPoint(minValue) + ".."
+					reportSummarySuccess("Jitter of actual flow latency " + BestDecPoint(minValue) + ".."
 							+ BestDecPoint(maxValue) + "ms is within expected end to end latency jitter "
 							+ BestDecPoint(expectedMinLatency) + ".." + BestDecPoint(expectedMaxLatency) + "ms");
 				}

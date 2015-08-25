@@ -556,7 +556,7 @@ public abstract class LatencyContributor {
 		List<ReportedCell> doIssues = this.getReportedIssues();
 		for (ReportedCell reportedCell : doIssues) {
 			if (reportedCell.getSeverity() == ReportSeverity.INFO) {
-//				errManager.info(this.relatedElement, getRelatedObjectLabel()+reportedCell.getMessage());
+				errManager.info(this.relatedElement, getRelatedObjectLabel() + reportedCell.getMessage());
 			} else if (reportedCell.getSeverity() == ReportSeverity.SUCCESS) {
 				errManager.info(this.relatedElement, getRelatedObjectLabel() + reportedCell.getMessage());
 			} else if (reportedCell.getSeverity() == ReportSeverity.WARNING) {
