@@ -136,10 +136,25 @@ class AssureUtilExtension {
 //		}
 //		if(finalmarkers.isEmpty) return false
 		val targetURI = EcoreUtil.getURI(instance).toString()
-		val targetmarkers = markers.filter [ IMarker m |
+		var targetmarkers = markers.filter [ IMarker m |
 			m.getAttribute(AadlConstants.AADLURI) == targetURI]
+		val matchstr = matchMessage(vm)
+		if (!matchstr.empty){
+			targetmarkers = targetmarkers.filter[IMarker m| val msg = m.getAttribute(IMarker.MESSAGE) as String; 
+				msg.contains(matchstr)
+			]
+		}
 		targetmarkers.forEach[em|verificationActivityResult.addMarkerIssue(instance, em)]
 		return verificationActivityResult.issues.exists[ri|ri.issueType == ResultIssueType.ERROR]
+	}
+	
+	def private static String matchMessage(VerificationMethod vm){
+		switch (vm.name){
+			case "MaxFlowLatencyAnalysis": return "Maximum actual latency"
+			case "MinFlowLatencyAnalysis": return "Minimum actual latency"
+			case "FlowLatencyJitterAnalysis": return "Jitter"
+		}
+		return ""
 	}
 
 	def static ResultIssue addMarkerIssue(VerificationResult vr, EObject target, IMarker marker) {

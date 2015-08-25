@@ -27,7 +27,19 @@ class VerificationMethodDispatchers  {
 	 */
 	 def Object dispatchVerificationMethod(PluginMethod vm, InstanceObject target, Object[] parameters) {
 		switch (vm.methodID) {
-			case "FlowLatencyAnalysis": {
+			case "FlowLatencyAnalysis" : {
+				if (target == null) return true
+				return target?.flowLatencyAnalysis
+			}
+			case "MaxFlowLatencyAnalysis" : {
+				if (target == null) return true
+				return target?.flowLatencyAnalysis
+			}
+			case "MinFlowLatencyAnalysis" : {
+				if (target == null) return true
+				return target?.flowLatencyAnalysis
+			}
+			case "FlowLatencyJitterAnalysis" : {
 				if (target == null) return true
 				return target?.flowLatencyAnalysis
 			}
