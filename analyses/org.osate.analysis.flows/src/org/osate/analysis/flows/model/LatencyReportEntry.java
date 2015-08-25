@@ -551,78 +551,54 @@ public class LatencyReportEntry {
 		/*
 		 * In that case, the end to end flow has a minimum latency
 		 */
-		boolean didError = false;
 		if (expectedMaxLatency > 0) {
 			if (minSpecifiedValue > expectedMaxLatency) {
 				reportSummaryError("Minimum specified latency total " + minSpecifiedValue
 						+ "ms exceeds expected maximum end to end latency " + expectedMaxLatency + "ms");
-				didError = true;
 			}
 			if (minSpecifiedValue < expectedMinLatency) {
-				if (maxSpecifiedValue - minSpecifiedValue > expectedMaxLatency - expectedMinLatency) {
-					reportSummaryError("Jitter of specified latency total "
-							+ (maxSpecifiedValue - minSpecifiedValue)
-							+ "ms exceeds expected end to end latency jitter "
-							+ (expectedMaxLatency - expectedMinLatency)
-							+ "ms with minimum specified latency total less then expected minimum (better response time)");
-					didError = true;
-				}
+				reportSummaryWarning("Minimum specified latency total " + minSpecifiedValue
+						+ "ms less then expected minimum " + expectedMinLatency + "ms (better response time)");
 			}
 
 			if (minValue < expectedMinLatency) {
-				if (maxValue - minValue > expectedMaxLatency - expectedMinLatency) {
-					reportSummaryError("Jitter of actual latency total " + (maxValue - minValue)
-							+ "ms exceeds expected end to end latency jitter "
-							+ (expectedMaxLatency - expectedMinLatency)
-							+ "ms with minimum actual latency total less then expected minimum (better response time)");
-					didError = true;
-				}
-			}
-			if (!didError) {
-				if (minValue < expectedMinLatency) {
-					reportSummaryWarning("Minimum actual latency " + minValue
-							+ "ms is less than expected minimum end to end latency " + expectedMinLatency
-							+ "ms (Faster actual minimum response time");
-				}
-			}
-
-			if (expectedMaxLatency < maxSpecifiedValue) {
-				reportSummaryError("Maximum specified latency total " + maxSpecifiedValue
-						+ "ms exceeds expected end to end latency " + expectedMaxLatency + "ms");
-			}
-
-			if (expectedMaxLatency < maxValue) {
-				reportSummaryError("Maximum actual latency " + maxValue
-						+ "ms exceeds expected maximum end to end latency " + expectedMaxLatency + "ms");
-			}
-			if (minValue > expectedMaxLatency) {
-				reportSummaryError("Minimum actual latency " + minValue
-						+ "ms exceeds expected maximum end to end latency " + expectedMaxLatency + "ms");
-				didError = true;
-			} else if (expectedMinLatency <= minValue) {
+				reportSummaryWarning("Minimum actual latency total " + minValue + "ms less then expected minimum "
+						+ expectedMinLatency + "ms (faster actual minimum response time)");
+			} else {
 				reportSummarySuccess("Actual minimum end-to-end flow latency " + minValue
 						+ "ms is greater or equal to specified minimum end to end latency " + expectedMinLatency + "ms");
 			}
 
 			if (maxValue > 0) {
-				if ((minValue >= expectedMinLatency) && (expectedMaxLatency >= maxValue)) {
-					reportSummarySuccess("Actual end-to-end flow latency " + minValue + ".." + maxValue
-							+ "ms is within specified end to end latency " + expectedMinLatency + ".."
-							+ expectedMaxLatency + "ms");
-				} else {
-					if (expectedMaxLatency >= maxValue) {
-						reportSummarySuccess("Actual maximum end-to-end flow latency " + maxValue
-								+ "ms is less or equal to specified maximum end to end latency " + expectedMaxLatency
-								+ "ms");
-					}
+				if (expectedMaxLatency < maxSpecifiedValue) {
+					reportSummaryError("Maximum specified latency total " + maxSpecifiedValue
+							+ "ms exceeds expected end to end latency " + expectedMaxLatency + "ms");
 				}
-//				if ((minValue >= expectedMinLatency) && (expectedMaxLatency >= maxValue)
-//						&& ((expectedMaxLatency - expectedMinLatency) > (maxValue - minValue))) {
-//					reportSummarySuccess(this.relatedEndToEndFlow.getName()
-//							+ ": Actual end-to-end flow latency jitter " + minValue + ".." + maxValue
-//							+ " is within specified end to end latency jitter " + expectedMinLatency + ".."
-//							+ expectedMaxLatency + "and minimum reponse time is better");
-//				}
+
+				if (expectedMaxLatency < maxValue) {
+					reportSummaryError("Maximum actual latency " + maxValue
+							+ "ms exceeds expected maximum end to end latency " + expectedMaxLatency + "ms");
+				} else {
+					reportSummarySuccess("Actual maximum end-to-end flow latency " + maxValue
+							+ "ms is less or equal to specified maximum end to end latency " + expectedMaxLatency
+							+ "ms");
+				}
+				// do jitter analysis
+				if (maxSpecifiedValue - minSpecifiedValue > expectedMaxLatency - expectedMinLatency) {
+					reportSummaryWarning("Jitter of specified latency total " + (maxSpecifiedValue - minSpecifiedValue)
+							+ "ms exceeds expected end to end latency jitter " + expectedMinLatency + ".."
+							+ expectedMaxLatency + "ms");
+				}
+				if (maxValue - minValue > expectedMaxLatency - expectedMinLatency) {
+					reportSummaryWarning("Jitter of actual latency total " + minValue + ".." + maxValue
+							+ "ms exceeds expected end to end latency jitter " + expectedMinLatency + ".."
+							+ expectedMaxLatency + "ms");
+				}
+				if ((minValue > expectedMinLatency) && (expectedMaxLatency > maxValue)) {
+					reportSummarySuccess("Actual end-to-end flow latency jitter " + minValue + ".." + maxValue
+							+ "ms is within specified end to end latency jitter " + expectedMinLatency + ".."
+							+ expectedMaxLatency + "ms");
+				}
 			}
 		} else {
 			reportSummaryWarning("Expected end to end latency is not specified");
