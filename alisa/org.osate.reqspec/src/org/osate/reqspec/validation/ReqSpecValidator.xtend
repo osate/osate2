@@ -277,10 +277,10 @@ class ReqSpecValidator extends AbstractReqSpecValidator {
 				parts.forEach[part |
 					switch part {
 						SystemRequirements : {}
-						StakeholderGoals : fileTypeError(fileExt, "stakeholder goal", part)	
-						ReqDocument : fileTypeError(fileExt, "document", part)	
-						GlobalConstants : fileTypeError(fileExt, "constant", part)
-						default : fileTypeError(fileExt, part.class.name, part)
+						StakeholderGoals : fileTypeWarning(fileExt, "stakeholder goal", part)	
+						ReqDocument : fileTypeWarning(fileExt, "document", part)	
+						GlobalConstants : fileTypeWarning(fileExt, "constant", part)
+						default : fileTypeWarning(fileExt, part.class.name, part)
 					}
 				]
 			}
@@ -288,10 +288,10 @@ class ReqSpecValidator extends AbstractReqSpecValidator {
 				parts.forEach[part |
 					switch part {
 						StakeholderGoals : {}
-						SystemRequirements : fileTypeError(fileExt, "system requirement", part)	
-						ReqDocument : fileTypeError(fileExt, "document", part)	
-						GlobalConstants : fileTypeError(fileExt, "constant", part)
-						default : fileTypeError(fileExt, part.class.name, part)
+						SystemRequirements : fileTypeWarning(fileExt, "system requirement", part)	
+						ReqDocument : fileTypeWarning(fileExt, "document", part)	
+						GlobalConstants : fileTypeWarning(fileExt, "constant", part)
+						default : fileTypeWarning(fileExt, part.class.name, part)
 					}
 				]
 			} 
@@ -303,16 +303,16 @@ class ReqSpecValidator extends AbstractReqSpecValidator {
 							reqDocContent.forEach[element |
 								switch element {
 									Requirement : {}
-									Goal : fileTypeError(fileExt, "goal" , element)
+									Goal : fileTypeWarning(fileExt, "goal" , element)
 									DocumentSection : checkRecDocSection(element)
-									default : fileTypeError(fileExt, element.class.name, element)
+									default : fileTypeWarning(fileExt, element.class.name, element)
 								}
 							]
 						}	
-						SystemRequirements : fileTypeError(fileExt, "system requirement", part)	
-						GlobalConstants : fileTypeError(fileExt, "constant", part)
-						StakeholderGoals : fileTypeError(fileExt, "stakeholder goal", part)	
-						default : fileTypeError(fileExt, part.class.name, part)
+						SystemRequirements : fileTypeWarning(fileExt, "system requirement", part)	
+						GlobalConstants : fileTypeWarning(fileExt, "constant", part)
+						StakeholderGoals : fileTypeWarning(fileExt, "stakeholder goal", part)	
+						default : fileTypeWarning(fileExt, part.class.name, part)
 					}
 				]
 			}
@@ -324,16 +324,16 @@ class ReqSpecValidator extends AbstractReqSpecValidator {
 							reqDocContent.forEach[element |
 								switch element {
 									Goal : {}
-									Requirement : fileTypeError(fileExt, "requirement" , element)
+									Requirement : fileTypeWarning(fileExt, "requirement" , element)
 									DocumentSection : checkGoalDocSection(element)
-									default : fileTypeError(fileExt, element.class.name, element)
+									default : fileTypeWarning(fileExt, element.class.name, element)
 								}
 							]
 						}	
-						SystemRequirements : fileTypeError(fileExt, "system requirement", part)	
-						GlobalConstants : fileTypeError(fileExt, "constant", part)
-						StakeholderGoals : fileTypeError(fileExt, "stakeholder goal", part)	
-						default : fileTypeError(fileExt, part.class.name, part)
+						SystemRequirements : fileTypeWarning(fileExt, "system requirement", part)	
+						GlobalConstants : fileTypeWarning(fileExt, "constant", part)
+						StakeholderGoals : fileTypeWarning(fileExt, "stakeholder goal", part)	
+						default : fileTypeWarning(fileExt, part.class.name, part)
 					}
 				]
 			}
@@ -341,10 +341,10 @@ class ReqSpecValidator extends AbstractReqSpecValidator {
 				parts.forEach[part |
 					switch part {
 						GlobalConstants : {}
-						SystemRequirements : fileTypeError(fileExt, "system requirement", part)	
-						StakeholderGoals : fileTypeError(fileExt, "stakeholder goal", part)	
-						ReqDocument : fileTypeError(fileExt, "document", part)	
-						default : fileTypeError(fileExt, part.class.name, part)
+						SystemRequirements : fileTypeWarning(fileExt, "system requirement", part)	
+						StakeholderGoals : fileTypeWarning(fileExt, "stakeholder goal", part)	
+						ReqDocument : fileTypeWarning(fileExt, "document", part)	
+						default : fileTypeWarning(fileExt, part.class.name, part)
 					}
 				]
 			}
@@ -352,8 +352,8 @@ class ReqSpecValidator extends AbstractReqSpecValidator {
 			default : {}
 		}
 	}	
-	def void fileTypeError(String fileType, String partName, EObject part){
-		error( partName +" not allowed in '"+ fileType + "' file.", part, null)
+	def void fileTypeWarning(String fileType, String partName, EObject part){
+		warning( partName +" not allowed in '"+ fileType + "' file.", part, null)
 	}
 	/** TODO: These methods invoke the QuickFixes, not using yet do to unexpected behavior: 
 	 * 		  when removing illegal stakeholder goal from reqspec, the SystemsRequirements elements re-order in a way causing an error
@@ -372,9 +372,9 @@ class ReqSpecValidator extends AbstractReqSpecValidator {
 		contents.forEach[element |
 			switch element {
 				Requirement : {}
-				Goal : fileTypeError(REQDOC_FILE_EXT,  "goal" , element)
+				Goal : fileTypeWarning(REQDOC_FILE_EXT,  "goal" , element)
 				DocumentSection : checkRecDocSection(element)
-				default : fileTypeError(REQDOC_FILE_EXT, element.class.name, element)
+				default : fileTypeWarning(REQDOC_FILE_EXT, element.class.name, element)
 			}
 		]
 	}
@@ -383,15 +383,15 @@ class ReqSpecValidator extends AbstractReqSpecValidator {
 		contents.forEach[element |
 			switch element {
 				Goal : {}
-				Requirement : fileTypeError(GOALDOC_FILE_EXT,  "requirement" , element)
+				Requirement : fileTypeWarning(GOALDOC_FILE_EXT,  "requirement" , element)
 				DocumentSection : checkGoalDocSection(element)
-				default : fileTypeError(GOALDOC_FILE_EXT, element.class.name, element)
+				default : fileTypeWarning(GOALDOC_FILE_EXT, element.class.name, element)
 			}
 		]
 	}
 	
 	// TODO: Works fine when changing a file but on start up, exception is thrown
-	@Check(CheckType.NORMAL)
+	@Check(CheckType.FAST)
 	def void checkSystemRequirementsUniqueToComponentClassifier(SystemRequirements sysReq) {
 		val target = sysReq.target
 		val allSystemRequirements = reqSpecrefFinder.getSystemRequirementsForScopes(target)
@@ -402,7 +402,7 @@ class ReqSpecValidator extends AbstractReqSpecValidator {
 		}
 	}
 	
-	@Check(CheckType.NORMAL)
+	@Check(CheckType.FAST)
 	def void checkStakeholderGoalsUniqueToComponentClassifier(StakeholderGoals shg) {
 		val target = shg.target
 		val allStakeholderGoals = reqSpecrefFinder.getStakeholderGoals(target)

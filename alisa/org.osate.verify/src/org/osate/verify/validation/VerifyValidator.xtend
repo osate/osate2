@@ -137,7 +137,7 @@ class VerifyValidator extends AbstractVerifyValidator {
 //		error( partName +" not allowed in '"+ fileType + "' file.", part, null, ILLEGAL_OBJECT_FOR_FILETYPE, partName, verificationURI.toString())
 //	}
 	def void fileTypeError(String fileType, String partName, EObject part){
-		error( partName +" not allowed in '"+ fileType + "' file.", part, null)
+		warning( partName +" not allowed in '"+ fileType + "' file.", part, null)
 	}
 	
 	@Check(CheckType.NORMAL)
