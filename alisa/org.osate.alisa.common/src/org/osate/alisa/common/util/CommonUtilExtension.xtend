@@ -15,15 +15,19 @@ import org.osate.aadl2.instance.ComponentInstance
 import org.osate.aadl2.instance.InstanceObject
 import org.eclipse.emf.common.util.URI
 import org.eclipse.emf.ecore.util.EcoreUtil
+import org.eclipse.emf.common.util.EList
+import org.osate.aadl2.EndToEndFlow
+import org.osate.aadl2.Subcomponent
+import org.osate.aadl2.Feature
 
 class CommonUtilExtension {
 
 	def static String toText(Description desc, NamedElement target) {
 		desc.description.map[de|de.toText(target)].reduce[a, b|a + b]
 	}
-	
-	private def static stripNewlineTab(String s){
-		return s.replaceAll("\n","").replaceAll("\t","")
+
+	private def static stripNewlineTab(String s) {
+		return s.replaceAll("\n", "").replaceAll("\t", "")
 	}
 
 	def static toText(DescriptionElement de, NamedElement target) {
@@ -67,13 +71,13 @@ class CommonUtilExtension {
 //		return String.format("%.3f " + targetliteral.getName(), result);
 //	}
 	def static boolean isSameorExtends(ComponentClassifier target, ComponentClassifier ancestor) {
-		if (target == null || ancestor == null) return false
+		if(target == null || ancestor == null) return false
 		var Classifier ext = target
 		if (target instanceof ComponentImplementation && ancestor instanceof ComponentType) {
 			ext = (target as ComponentImplementation).getType();
 		}
 		while (ext != null) {
-			if (ancestor.name.equalsIgnoreCase(ext.name) ) {
+			if (ancestor.name.equalsIgnoreCase(ext.name)) {
 				return true;
 			}
 			ext = ext.getExtended();
@@ -83,42 +87,50 @@ class CommonUtilExtension {
 	}
 
 	def static boolean isSameorExtends(ComponentClassifier target, URI ancestorURI) {
-		if (target == null || ancestorURI == null) return false
+		if(target == null || ancestorURI == null) return false
 		var Classifier ext = target
 		while (ext != null) {
-			if (ancestorURI == EcoreUtil.getURI(ext) ) {
+			if (ancestorURI == EcoreUtil.getURI(ext)) {
 				return true;
 			}
 			ext = ext.getExtended();
 		}
 		if (target instanceof ComponentImplementation) {
 			ext = (target as ComponentImplementation).getType();
-		while (ext != null) {
-			if (ancestorURI == EcoreUtil.getURI(ext) ) {
-				return true;
+			while (ext != null) {
+				if (ancestorURI == EcoreUtil.getURI(ext)) {
+					return true;
+				}
+				ext = ext.getExtended();
 			}
-			ext = ext.getExtended();
-		}
 		}
 		return false;
 	}
 
-
-
-	def static findElementInstance(ComponentInstance io, NamedElement element) {
-		switch io {
-			ComponentInstance: io.allOwnedElements.findFirst[ei|
-				(ei as InstanceObject).name.equalsIgnoreCase(element.name)] as InstanceObject
-			default: io
+	def static InstanceObject findElementInstance(ComponentInstance io, NamedElement element) {
+		val n = element.name
+		switch (element) {
+			EndToEndFlow: return findElementInstance(io.endToEndFlows, n)
+			Subcomponent: return findElementInstance(io.componentInstances, n)
+			Feature: return findElementInstance(io.featureInstances, n)
 		}
+		return null
+	}
+
+	def static InstanceObject findElementInstance(EList<? extends InstanceObject> instancelist, String name) {
+		for (ei : instancelist) {
+			val n1 = ei.name
+			if(name.equalsIgnoreCase(n1)) return ei
+		}
+		return null
 	}
 
 	def static findElementInstance(ComponentInstance io, String elementName) {
-		switch io {
-			ComponentInstance: io.allOwnedElements.findFirst[ei|
-				(ei as InstanceObject).name.equalsIgnoreCase(elementName)] as InstanceObject
-			default: io
-		}
+		val n = elementName
+		var res = findElementInstance(io.endToEndFlows, n)
+		if(res == null) res = findElementInstance(io.componentInstances, n)
+		if(res == null) res = findElementInstance(io.featureInstances, n)
+		return res
 	}
 
 }

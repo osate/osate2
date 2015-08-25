@@ -119,13 +119,7 @@ class AssureUtilExtension {
 		String markertype, VerificationMethod vm) {
 		val res = instance.eResource
 		val IResource irsrc = OsateResourceUtil.convertToIResource(res);
-		val markersforanalysis = irsrc.findMarkers(markertype, true, IResource.DEPTH_INFINITE) // analysisMarkerType
-		val markers = markersforanalysis.filter [ IMarker m |
-			// filter on Error
-			(m.getAttribute(IMarker.SEVERITY) == IMarker.SEVERITY_ERROR
-			)
-		]
-		if(markers.isEmpty) return false
+		val markers = irsrc.findMarkers(markertype, true, IResource.DEPTH_INFINITE) // analysisMarkerType
 //		var Iterable<IMarker> finalmarkers = null
 //		if (scope == SupportedScopes.SELF){
 //			finalmarkers = markers.filter [ IMarker m |
@@ -141,7 +135,10 @@ class AssureUtilExtension {
 //			finalmarkers = markers
 //		}
 //		if(finalmarkers.isEmpty) return false
-		markers.forEach[em|verificationActivityResult.addMarkerIssue(instance, em)]
+		val targetURI = EcoreUtil.getURI(instance).toString()
+		val targetmarkers = markers.filter [ IMarker m |
+			m.getAttribute(AadlConstants.AADLURI) == targetURI]
+		targetmarkers.forEach[em|verificationActivityResult.addMarkerIssue(instance, em)]
 		return verificationActivityResult.issues.exists[ri|ri.issueType == ResultIssueType.ERROR]
 	}
 
@@ -150,7 +147,7 @@ class AssureUtilExtension {
 		switch (marker.getAttribute(IMarker.SEVERITY)) {
 			case IMarker.SEVERITY_ERROR: addErrorIssue(vr, target, msg)
 			case IMarker.SEVERITY_WARNING: addWarningIssue(vr, target, msg)
-			case IMarker.SEVERITY_INFO: addInfoIssue(vr, target, msg)
+			case IMarker.SEVERITY_INFO: addSuccessIssue(vr, target, msg)
 		}
 	}
 
@@ -176,6 +173,20 @@ class AssureUtilExtension {
 		val issue = AssureFactory.eINSTANCE.createResultIssue
 		issue.message = message
 		issue.issueType = ResultIssueType.INFO;
+		issue.exceptionType = issueSource
+		issue.target = target
+		vr.issues.add(issue)
+		issue
+	}
+
+	def static ResultIssue addSuccessIssue(VerificationResult vr, EObject target, String message) {
+		addSuccessIssue(vr, target, message, null)
+	}
+
+	def static ResultIssue addSuccessIssue(VerificationResult vr, EObject target, String message, String issueSource) {
+		val issue = AssureFactory.eINSTANCE.createResultIssue
+		issue.message = message
+		issue.issueType = ResultIssueType.SUCCESS;
 		issue.exceptionType = issueSource
 		issue.target = target
 		vr.issues.add(issue)

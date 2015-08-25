@@ -153,6 +153,7 @@ class AssureProcessor implements IAssureProcessor {
 		val instance = verificationResult.instanceModel
 		var InstanceObject target = instance
 		if (!(targetElement instanceof ComponentImplementation)){
+			val x = instance.findElementInstance(targetElement)
 			target = instance.findElementInstance(targetElement)?:target
 		}
 		var Object[] parameters
