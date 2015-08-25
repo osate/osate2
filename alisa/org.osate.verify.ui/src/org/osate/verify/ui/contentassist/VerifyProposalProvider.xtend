@@ -11,17 +11,27 @@ import org.eclipse.emf.ecore.EObject
 import org.eclipse.xtext.CrossReference
 import org.osate.verify.verify.VerificationPlan
 import org.eclipse.emf.ecore.util.EcoreUtil
+import java.util.ArrayList
 
 /**
  * see http://www.eclipse.org/Xtext/documentation.html#contentAssist on how to customize content assistant
  */
 class VerifyProposalProvider extends AbstractVerifyProposalProvider {
-	
-	override void completeClaim_Requirement(EObject model, Assignment assignment, ContentAssistContext context, ICompletionProposalAcceptor acceptor) {
-		//filter scope to only include requirements that exist in system requirement of verification plan
+
+	override void completeClaim_Requirement(EObject model, Assignment assignment, ContentAssistContext context,
+		ICompletionProposalAcceptor acceptor) {
+		// filter scope to only include requirements that exist in system requirement of verification plan
 		val forSystemRequirements = (model.eContainer as VerificationPlan).systemRequirements
+		val ArrayList<EObject> nameList = newArrayList();
 		lookupCrossReference(assignment.getTerminal() as CrossReference, context, acceptor, [
-			val proposedObj =  EcoreUtil.resolve(EObjectOrProxy, model)  //Gets all Requirements from Loose Scope
+			val proposedObj = EcoreUtil.resolve(EObjectOrProxy, model) // Gets all Requirements from Loose Scope
+			// no duplicates. Seems like duplicates with full qualified names are check later so that we get the short one.
+			if (nameList.contains(proposedObj)) {
+				return false
+			} else {
+				nameList.add(proposedObj)
+			}
+			// Scope handles correctly to make sure all valid requirements are included in scope without '.'
 			forSystemRequirements.content.contains(proposedObj)
 		]);
 	}
