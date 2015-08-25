@@ -30,6 +30,7 @@ import org.osate.reqspec.reqSpec.SystemRequirements
 import org.osate.reqspec.util.IReqspecGlobalReferenceFinder
 
 import static extension org.osate.reqspec.util.ReqSpecUtilExtension.*
+import org.osate.aadl2.ComponentClassifier
 
 /**
  * Custom validation rules. 
@@ -390,11 +391,10 @@ class ReqSpecValidator extends AbstractReqSpecValidator {
 		]
 	}
 	
-	// TODO: Works fine when changing a file but on start up, exception is thrown
 	@Check(CheckType.FAST)
 	def void checkSystemRequirementsUniqueToComponentClassifier(SystemRequirements sysReq) {
 		val target = sysReq.target
-		val allSystemRequirements = reqSpecrefFinder.getSystemRequirementsForScopes(target)
+		val allSystemRequirements = reqSpecrefFinder.getSystemRequirementsForScopesNoExtends(target)
 		if (allSystemRequirements.size > 1){
 			error("Other System Requirements exist for '" +  target.name + 
 								"'. Only one System Requirement is allowed for a specific component." , sysReq,  
@@ -412,5 +412,31 @@ class ReqSpecValidator extends AbstractReqSpecValidator {
 								ReqSpecPackage.Literals.STAKEHOLDER_GOALS__TARGET)
 		}
 	}
+
+////TODO: This should work but not successfully tested yet because there is an exception thrown
+////      in the call to allParents that seems to be a problem with EOCL 
+////      "Error executing EValidator java.lang.UnsupportedOperationException: 2:1:2:65 missing ")" to complete scope	
+	@Check(CheckType.FAST)
+	def void checkRequirementShadowing(Requirement req){
+		val reqName = req.name
+		val reqEvolvesReferences = req.evolvesReference
+		val containingSysReqs = req.containingSystemRequirements
+		val componentClassifier = containingSysReqs.target
+		val classifierParents = componentClassifier.allParents()
+		classifierParents.forEach[ classifierParent |
+			reqSpecrefFinder.getSystemRequirementsForScopes(classifierParent as ComponentClassifier).forEach[ sysreqs |
+				if (sysreqs.content.exists[r| r.name == reqName && !r.dropped && !reqEvolvesReferences.contains(r)]){
+					error("Requirement '" + req.name + "' for '" + componentClassifier.name + 
+							"' shadows a requirement of the same name in the System Requirements for '" +
+							classifierParent.name + "'. Shadowing '" + reqName + "' must evolve original or original '" + 
+							reqName + "' must be tagged as 'dropped'", req,  
+								ReqSpecPackage.Literals.CONTRACTUAL_ELEMENT__NAME)
+				}
+			]
+			
+		]
+		
+	}
+	
 	
 }
