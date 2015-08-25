@@ -49,6 +49,7 @@ import org.osate.verify.verify.VerificationMethod
 import static extension org.osate.alisa.common.util.CommonUtilExtension.*
 import static extension org.osate.assure.util.AssureUtilExtension.*
 import org.osate.verify.util.VerificationMethodDispatchers
+import org.osate.aadl2.ComponentClassifier
 
 @ImplementedBy(AssureProcessor)
 interface IAssureProcessor {
@@ -152,9 +153,9 @@ class AssureProcessor implements IAssureProcessor {
 		val targetElement = verificationResult.claimSubject
 		val instance = verificationResult.instanceModel
 		var InstanceObject target = instance
-		if (!(targetElement instanceof ComponentImplementation)){
+		if (!(targetElement instanceof ComponentClassifier)){
 			val x = instance.findElementInstance(targetElement)
-			target = instance.findElementInstance(targetElement)?:target
+			target = x?:target
 		}
 		var Object[] parameters
 		val ctx = new DefaultEvaluationContext()
