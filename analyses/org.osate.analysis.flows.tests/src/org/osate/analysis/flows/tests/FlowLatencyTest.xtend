@@ -193,8 +193,9 @@ thread prot.requestor,,0.0ms,no latency,,0.0ms,no latency,
 Latency Total,4.0ms,304.0ms,,4.0ms,304.0ms,,
 End to End Latency,,300.0ms,,,300.0ms,,
 End to end Latency Summary,
-ERROR,Maximum actual latency 304.0ms exceeds expected maximum end to end latency 300.0ms,
-ERROR,Minimum actual latency 304.0ms exceeds expected maximum end to end latency 300.0ms,
+WARNING,Minimum specified flow latency total 4.00ms less then expected minimum end to end latency 300.0ms (better response time),
+ERROR,Minimum actual latency total 304.0ms exceeds expected maximum end to end latency 300.0ms,
+ERROR,Maximum actual latency total 304.0ms exceeds expected maximum end to end latency 300.0ms,
 
 
 
