@@ -13,6 +13,9 @@ import org.eclipse.xtext.nodemodel.util.NodeModelUtils
 import org.eclipse.xtext.validation.Check
 import org.eclipse.xtext.validation.CheckType
 import org.osate.aadl2.Classifier
+import org.osate.aadl2.ComponentClassifier
+import org.osate.aadl2.ComponentImplementation
+import org.osate.aadl2.ComponentType
 import org.osate.aadl2.NamedElement
 import org.osate.aadl2.SystemImplementation
 import org.osate.alisa.common.scoping.ICommonGlobalReferenceFinder
@@ -30,7 +33,6 @@ import org.osate.reqspec.reqSpec.SystemRequirements
 import org.osate.reqspec.util.IReqspecGlobalReferenceFinder
 
 import static extension org.osate.reqspec.util.ReqSpecUtilExtension.*
-import org.osate.aadl2.ComponentClassifier
 
 /**
  * Custom validation rules. 
@@ -418,14 +420,19 @@ class ReqSpecValidator extends AbstractReqSpecValidator {
 ////      "Error executing EValidator java.lang.UnsupportedOperationException: 2:1:2:65 missing ")" to complete scope	
 	@Check(CheckType.FAST)
 	def void checkRequirementShadowing(Requirement req){
-		val reqName = req.name
+		val reqName = req.name.toLowerCase
 		val reqEvolvesReferences = req.evolvesReference
 		val containingSysReqs = req.containingSystemRequirements
 		val componentClassifier = containingSysReqs.target
-		val classifierParents = componentClassifier.allParents()
-		classifierParents.forEach[ classifierParent |
+		val classifierParents = new ArrayList<ComponentClassifier>
+
+		componentClassifier.buildExtended(classifierParents)
+		
+		var ComponentType compType
+		if (componentClassifier instanceof ComponentImplementation)	 compType = componentClassifier.type
+		classifierParents.toSet.toList.forEach[ classifierParent |
 			reqSpecrefFinder.getSystemRequirementsForScopes(classifierParent as ComponentClassifier).forEach[ sysreqs |
-				if (sysreqs.content.exists[r| r.name == reqName && !r.dropped && !reqEvolvesReferences.contains(r)]){
+				if (sysreqs.content.exists[r| r.name.toLowerCase == reqName && !r.dropped && !reqEvolvesReferences.contains(r)]){
 					error("Requirement '" + req.name + "' for '" + componentClassifier.name + 
 							"' shadows a requirement of the same name in the System Requirements for '" +
 							classifierParent.name + "'. Shadowing '" + reqName + "' must evolve original or original '" + 
@@ -433,10 +440,20 @@ class ReqSpecValidator extends AbstractReqSpecValidator {
 								ReqSpecPackage.Literals.CONTRACTUAL_ELEMENT__NAME)
 				}
 			]
-			
 		]
-		
 	}
-	
-	
+
+	def void buildExtended(ComponentClassifier compClassifier, List<ComponentClassifier> ancestors){
+		var ext = compClassifier.extended
+		if (ext != null && ext instanceof ComponentClassifier) {
+			ancestors.add(ext as ComponentClassifier)
+			(ext as ComponentClassifier).buildExtended(ancestors)
+		}
+		if (compClassifier instanceof ComponentImplementation){
+			var type = compClassifier.type
+			ancestors.add(type)
+			type.buildExtended(ancestors)
+		}
+	}
+		
 }
