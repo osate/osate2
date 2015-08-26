@@ -40,24 +40,17 @@
 package org.osate.analysis.architecture;
 
 import org.eclipse.core.runtime.IProgressMonitor;
-import org.osate.aadl2.BasicPropertyAssociation;
 import org.osate.aadl2.Classifier;
 import org.osate.aadl2.EnumerationLiteral;
 import org.osate.aadl2.NamedElement;
-import org.osate.aadl2.NumberValue;
-import org.osate.aadl2.Property;
-import org.osate.aadl2.PropertyExpression;
-import org.osate.aadl2.RangeValue;
 import org.osate.aadl2.RecordValue;
 import org.osate.aadl2.instance.ConnectionInstance;
 import org.osate.aadl2.instance.ConnectionInstanceEnd;
 import org.osate.aadl2.instance.FeatureInstance;
 import org.osate.aadl2.instance.util.InstanceSwitch;
 import org.osate.aadl2.modelsupport.modeltraversal.AadlProcessingSwitchWithProgress;
-import org.osate.contribution.sei.names.SEI;
 import org.osate.ui.actions.AbstractAaxlAction;
 import org.osate.xtext.aadl2.properties.util.GetProperties;
-import org.osate.xtext.aadl2.properties.util.PropertyUtils;
 
 /**
  * @author phf
@@ -115,14 +108,14 @@ public class PortConnectionConsistency extends AadlProcessingSwitchWithProgress 
 		if (srcRate != null && dstRate != null) {
 			srcRU = GetProperties.getRateUnit(srcRate);
 			dstRU = GetProperties.getRateUnit(dstRate);
-			srcMaxRateValue = getMaxDataRate(srcRate);
-			dstMaxRateValue = getMaxDataRate(dstRate);
-			srcMinRateValue = getMinDataRate(srcRate);
-			dstMinRateValue = getMinDataRate(dstRate);
+			srcMaxRateValue = GetProperties.getMaxDataRate(srcRate);
+			dstMaxRateValue = GetProperties.getMaxDataRate(dstRate);
+			srcMinRateValue = GetProperties.getMinDataRate(srcRate);
+			dstMinRateValue = GetProperties.getMinDataRate(dstRate);
 		}
 		// now try it as SEI::Data_Rate
-		double srcRateValue = getSEIDataRate(srcFI);
-		double dstRateValue = getSEIDataRate(dstFI);
+		double srcRateValue = GetProperties.getSEIDataRate(srcFI);
+		double dstRateValue = GetProperties.getSEIDataRate(dstFI);
 
 		Classifier srcC = GetProperties.getSingleBaseType(srcFI);
 		Classifier dstC = GetProperties.getSingleBaseType(dstFI);
@@ -199,31 +192,6 @@ public class PortConnectionConsistency extends AadlProcessingSwitchWithProgress 
 			if (dstS.length() == 0 && srcS.length() > 0)
 				error(conni, "Destination measurement unit is missing");
 		}
-	}
-
-	private double getMaxDataRate(RecordValue rate) {
-		BasicPropertyAssociation vr = GetProperties.getRecordField(rate.getOwnedFieldValues(), "Value_Range");
-		if (vr == null)
-			return 0;
-		RangeValue rv = (RangeValue) vr.getOwnedValue();
-		PropertyExpression maximum = rv.getMaximum().evaluate(null).first().getValue();
-		return ((NumberValue) maximum).getScaledValue();
-	}
-
-	private double getMinDataRate(RecordValue rate) {
-		BasicPropertyAssociation vr = GetProperties.getRecordField(rate.getOwnedFieldValues(), "Value_Range");
-		if (vr == null)
-			return 0;
-		RangeValue rv = (RangeValue) vr.getOwnedValue();
-		PropertyExpression minimum = rv.getMinimum().evaluate(null).first().getValue();
-		return ((NumberValue) minimum).getScaledValue();
-	}
-
-	private double getSEIDataRate(NamedElement ne) {
-		Property dr = GetProperties.lookupPropertyDefinition(ne, SEI._NAME, SEI.DATA_RATE);
-		if (dr == null)
-			return 0;
-		return PropertyUtils.getRealValue(ne, dr, 0.0);
 	}
 
 	private static NamedElement previousNE = null;
