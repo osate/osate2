@@ -1560,4 +1560,54 @@ public class GetProperties {
 		}
 	}
 
+	public static double getMaxDataRate(RecordValue rate) {
+		BasicPropertyAssociation vr = GetProperties.getRecordField(rate.getOwnedFieldValues(), "Value_Range");
+		if (vr == null)
+			return 0;
+		RangeValue rv = (RangeValue) vr.getOwnedValue();
+		PropertyExpression maximum = rv.getMaximum().evaluate(null).first().getValue();
+		return ((NumberValue) maximum).getScaledValue();
+	}
+
+	public static double getMinDataRate(RecordValue rate) {
+		BasicPropertyAssociation vr = GetProperties.getRecordField(rate.getOwnedFieldValues(), "Value_Range");
+		if (vr == null)
+			return 0;
+		RangeValue rv = (RangeValue) vr.getOwnedValue();
+		PropertyExpression minimum = rv.getMinimum().evaluate(null).first().getValue();
+		return ((NumberValue) minimum).getScaledValue();
+	}
+
+	public static double getSEIDataRate(NamedElement ne) {
+		Property dr = GetProperties.lookupPropertyDefinition(ne, SEI._NAME, SEI.DATA_RATE);
+		if (dr == null)
+			return 0;
+		return PropertyUtils.getRealValue(ne, dr, 0.0);
+	}
+
+	public static double getDataRate(final NamedElement ne) {
+		double res = GetProperties.getSEIDataRate(ne);
+		if (res > 0) {
+			return res;
+		}
+		RecordValue rec = GetProperties.getOutPutRate(ne);
+		if (rec != null) {
+			res = GetProperties.getMaxDataRate(rec);
+			EnumerationLiteral unit = GetProperties.getRateUnit(rec);
+			if (unit == null || unit.getName().equalsIgnoreCase("PerDispatch")) {
+				double period = 0;
+				if (ne instanceof InstanceObject) {
+					period = GetProperties
+							.getPeriodInSeconds(((InstanceObject) ne).getContainingComponentInstance(), 0);
+				} else {
+					period = GetProperties.getPeriodInSeconds(ne.getContainingClassifier(), 0);
+				}
+				if (period == 0)
+					return res;
+				res = res / period;
+			}
+		}
+		return res;
+	}
+
 }
