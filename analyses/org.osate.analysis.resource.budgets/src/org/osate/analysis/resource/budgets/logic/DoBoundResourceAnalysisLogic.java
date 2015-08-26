@@ -44,7 +44,6 @@ import org.osate.aadl2.ComponentCategory;
 import org.osate.aadl2.Element;
 import org.osate.aadl2.Mode;
 import org.osate.aadl2.NamedElement;
-import org.osate.aadl2.Property;
 import org.osate.aadl2.UnitLiteral;
 import org.osate.aadl2.instance.ComponentInstance;
 import org.osate.aadl2.instance.ConnectionInstance;
@@ -64,7 +63,6 @@ import org.osate.ui.dialogs.Dialog;
 import org.osate.xtext.aadl2.properties.util.AadlProject;
 import org.osate.xtext.aadl2.properties.util.GetProperties;
 import org.osate.xtext.aadl2.properties.util.InstanceModelUtil;
-import org.osate.xtext.aadl2.properties.util.PropertyUtils;
 
 //TODO-LW: assumes connection ends are features
 public class DoBoundResourceAnalysisLogic extends DoResourceBudgetLogic {
@@ -569,16 +567,6 @@ public class DoBoundResourceAnalysisLogic extends DoResourceBudgetLogic {
 		}
 	}
 
-	public static double getDataRate(final NamedElement ne, final double defaultValue) {
-		// TODO add in new Input_Rate or OutPut_Rate property from V2
-		try {
-			Property dataRate = GetProperties.lookupPropertyDefinition(ne, "SEI", "Data_Rate");
-			return PropertyUtils.getRealValue(ne, dataRate, defaultValue);
-		} catch (Throwable e) {
-			return defaultValue;
-		}
-	}
-
 	/**
 	 * Calculate bandwidth demand from rate & data size
 	 * 
@@ -593,7 +581,7 @@ public class DoBoundResourceAnalysisLogic extends DoResourceBudgetLogic {
 		if (cie instanceof FeatureInstance) {
 			FeatureInstance fi = (FeatureInstance) cie;
 			double datasize = GetProperties.getSourceDataSize(fi, GetProperties.getKBUnitLiteral(fi));
-			double srcRate = getDataRate(fi, 0.0);
+			double srcRate = GetProperties.getDataRate(fi);
 			if (srcRate == 0) {
 				double period = GetProperties.getPeriodInSeconds(fi.getContainingComponentInstance(), 0);
 				if (period == 0)
