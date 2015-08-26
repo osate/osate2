@@ -396,7 +396,7 @@ class ReqSpecValidator extends AbstractReqSpecValidator {
 	@Check(CheckType.FAST)
 	def void checkSystemRequirementsUniqueToComponentClassifier(SystemRequirements sysReq) {
 		val target = sysReq.target
-		val allSystemRequirements = reqSpecrefFinder.getSystemRequirementsForScopesNoExtends(target)
+		val allSystemRequirements = reqSpecrefFinder.getSystemRequirementsNoExtends(target)
 		if (allSystemRequirements.size > 1){
 			error("Other System Requirements exist for '" +  target.name + 
 								"'. Only one System Requirement is allowed for a specific component." , sysReq,  
@@ -431,7 +431,7 @@ class ReqSpecValidator extends AbstractReqSpecValidator {
 		var ComponentType compType
 		if (componentClassifier instanceof ComponentImplementation)	 compType = componentClassifier.type
 		classifierParents.toSet.toList.forEach[ classifierParent |
-			reqSpecrefFinder.getSystemRequirementsForScopes(classifierParent as ComponentClassifier).forEach[ sysreqs |
+			reqSpecrefFinder.getSystemRequirements(classifierParent as ComponentClassifier).forEach[ sysreqs |
 				if (sysreqs.content.exists[r| r.name.toLowerCase == reqName && !r.dropped && !reqEvolvesReferences.contains(r)]){
 					error("Requirement '" + req.name + "' for '" + componentClassifier.name + 
 							"' shadows a requirement of the same name in the System Requirements for '" +

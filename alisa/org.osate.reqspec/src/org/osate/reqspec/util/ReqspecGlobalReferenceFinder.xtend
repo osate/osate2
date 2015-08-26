@@ -23,8 +23,7 @@ interface IReqspecGlobalReferenceFinder {
 	def Iterable<Requirement> getAllRequirements(ComponentInstance ci);
 	def Iterable<SystemRequirements> getSystemRequirements(ComponentClassifier cc);
 	def Iterable<Requirement> getAllRequirements(ComponentClassifier cc);
-	def Iterable<SystemRequirements> getSystemRequirementsForScopes(ComponentClassifier cc);
-	def Iterable<SystemRequirements> getSystemRequirementsForScopesNoExtends(ComponentClassifier cc);
+	def Iterable<SystemRequirements> getSystemRequirementsNoExtends(ComponentClassifier cc);
 	def Iterable<GlobalConstants> getAllGlobalConstants(EObject context);
 	def Iterable<StakeholderGoals> getStakeholderGoals(ComponentClassifier cc);
 	def Iterable<StakeholderGoals> getStakeholderGoals(ComponentInstance ci);
@@ -40,20 +39,13 @@ class ReqspecGlobalReferenceFinder implements IReqspecGlobalReferenceFinder{
 		}
 		
 		override Iterable<SystemRequirements> getSystemRequirements(ComponentClassifier cc){
-			val srURIs = commonRefFinder.getEObjectReferences(cc, ReqSpecPackage.Literals.SYSTEM_REQUIREMENTS__TARGET, "reqspec") 
-			val resset = cc.eResource.resourceSet
-			return srURIs.map[ srURI | resset.getEObject(srURI, true) as SystemRequirements]
-		}
-
-		
-		override Iterable<SystemRequirements> getSystemRequirementsForScopes(ComponentClassifier cc){
 		   val Iterable<SystemRequirements> result = commonRefFinder.getEObjectDescriptions(
 			cc, ReqSpecPackage.Literals.SYSTEM_REQUIREMENTS, "reqspec").map [ eod |
 			EcoreUtil.resolve(eod.EObjectOrProxy, cc) as SystemRequirements]
 			return result.filter[ sr | CommonUtilExtension.isSameorExtends(cc, sr.target)]
 		}
 		
-		override Iterable<SystemRequirements> getSystemRequirementsForScopesNoExtends(ComponentClassifier cc){
+		override Iterable<SystemRequirements> getSystemRequirementsNoExtends(ComponentClassifier cc){
 		   val Iterable<SystemRequirements> result = commonRefFinder.getEObjectDescriptions(
 			cc, ReqSpecPackage.Literals.SYSTEM_REQUIREMENTS, "reqspec").map [ eod |
 			EcoreUtil.resolve(eod.EObjectOrProxy, cc) as SystemRequirements]
@@ -68,10 +60,12 @@ class ReqspecGlobalReferenceFinder implements IReqspecGlobalReferenceFinder{
 		}
 
 		override Iterable<StakeholderGoals> getStakeholderGoals(ComponentClassifier cc){
-			val srURIs = commonRefFinder.getEObjectReferences(cc, ReqSpecPackage.Literals.STAKEHOLDER_GOALS__TARGET, "goals") 
-			val resset = cc.eResource.resourceSet
-			return srURIs.map[ srURI | resset.getEObject(srURI, true) as StakeholderGoals]
+		   val Iterable<StakeholderGoals> result = commonRefFinder.getEObjectDescriptions(
+			cc, ReqSpecPackage.Literals.STAKEHOLDER_GOALS, "goals").map [ eod |
+			EcoreUtil.resolve(eod.EObjectOrProxy, cc) as StakeholderGoals]
+			return result.filter[ sr | CommonUtilExtension.isSameorExtends(cc, sr.target)]
 		}
+		
 		override getStakeholderGoals(ComponentInstance ci) {
 			ci.componentClassifier.stakeholderGoals
 		}
