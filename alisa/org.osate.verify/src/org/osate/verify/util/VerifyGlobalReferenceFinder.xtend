@@ -25,11 +25,6 @@ interface IVerifyGlobalReferenceFinder {
 	/**
 	 * method to be used for scope creation as it does not use EReferences
 	 */
-	def Iterable<VerificationPlan> getVerificationPlansForScopes(ComponentClassifier cc, EObject context);
-	/**
-	 * This method does not use EReferences
-	 * context determines the visibility of the verification plans EObjectDescriptions to be found
-	 */
 	def Iterable<VerificationPlan> getGlobalReqVerificationPlans(EObject context);
 	
 	def Iterable<VerificationPlan> getAllVerificationPlansForSystemRequirement(SystemRequirements sysReqs, EObject context);
@@ -40,17 +35,17 @@ class VerifyGlobalReferenceFinder implements IVerifyGlobalReferenceFinder{
 	@Inject
 	var ICommonGlobalReferenceFinder refFinder
 		
-		override Iterable<VerificationPlan> getVerificationPlansForScopes(ComponentClassifier cc, EObject context){
+		override Iterable<VerificationPlan> getVerificationPlans(ComponentClassifier cc, EObject context){
 			return refFinder.getEObjectDescriptions(context, VerifyPackage.Literals.VERIFICATION_PLAN, "verify").map [ eod |
 			EcoreUtil.resolve(eod.EObjectOrProxy, context) as VerificationPlan].filter[vp|cc.isSameorExtends(vp.systemRequirements?.target)]
 	}
 		
-		override Iterable<VerificationPlan> getVerificationPlans(ComponentClassifier cc, EObject context){
-			val srURIs = refFinder.getEObjectReferences(cc, ReqSpecPackage.eINSTANCE.systemRequirements_Target, "reqspec")
-			val vpURIs = srURIs.map[srURI|refFinder.getEObjectReferences(srURI, VerifyPackage.Literals.VERIFICATION_PLAN__SYSTEM_REQUIREMENTS, "verify")].flatten
-			val resset = context.eResource.resourceSet
-			return vpURIs.map[ vpURI | resset.getEObject(vpURI, true) as VerificationPlan]
-	}
+//		override Iterable<VerificationPlan> getVerificationPlans(ComponentClassifier cc, EObject context){
+//			val srURIs = refFinder.getEObjectReferences(cc, ReqSpecPackage.eINSTANCE.systemRequirements_Target, "reqspec")
+//			val vpURIs = srURIs.map[srURI|refFinder.getEObjectReferences(srURI, VerifyPackage.Literals.VERIFICATION_PLAN__SYSTEM_REQUIREMENTS, "verify")].flatten
+//			val resset = context.eResource.resourceSet
+//			return vpURIs.map[ vpURI | resset.getEObject(vpURI, true) as VerificationPlan]
+//	}
 
 		
 		override Iterable<VerificationPlan> getGlobalReqVerificationPlans(EObject context){
