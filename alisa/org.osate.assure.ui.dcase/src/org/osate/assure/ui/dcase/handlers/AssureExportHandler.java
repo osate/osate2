@@ -53,14 +53,14 @@ import org.eclipse.xtext.ui.editor.utils.EditorUtils;
 import org.eclipse.xtext.ui.util.ResourceUtil;
 import org.eclipse.xtext.util.concurrent.IUnitOfWork;
 import org.osate.aadl2.util.OsateDebug;
-import org.osate.assure.assure.AssuranceEvidence;
+import org.osate.assure.assure.AssuranceCase;
 import org.osate.assure.assure.AssureResult;
 import org.osate.assure.assure.ClaimResult;
 import org.osate.assure.assure.Metrics;
 import org.osate.assure.assure.VerificationActivityResult;
 import org.osate.assure.assure.VerificationExpr;
 import org.osate.assure.assure.VerificationResultState;
-import org.osate.assure.assure.impl.AssuranceEvidenceImpl;
+import org.osate.assure.assure.impl.AssuranceCaseImpl;
 import org.osate.assure.evaluator.IAssureProcessor;
 import org.osate.organization.organization.Stakeholder;
 import org.osate.reqspec.reqSpec.Requirement;
@@ -113,8 +113,8 @@ public class AssureExportHandler extends AbstractHandler {
 					@Override
 					public IStatus exec(XtextResource resource) throws Exception {
 						EObject eobj = resource.getResourceSet().getEObject(uri, true);
-						if (eobj instanceof AssuranceEvidenceImpl) {
-							return runJob((AssuranceEvidenceImpl) eobj, monitor);
+						if (eobj instanceof AssuranceCaseImpl) {
+							return runJob((AssuranceCaseImpl) eobj, monitor);
 						} else {
 							return Status.CANCEL_STATUS;
 						}
@@ -162,7 +162,7 @@ public class AssureExportHandler extends AbstractHandler {
 		return "ASSURE verification";
 	}
 
-	protected IStatus runJob(AssuranceEvidence rootCaseResult, IProgressMonitor monitor) {
+	protected IStatus runJob(AssuranceCase rootCaseResult, IProgressMonitor monitor) {
 
 //		long start = System.currentTimeMillis();
 //		resetToTBD(rootCaseResult);
@@ -339,13 +339,13 @@ public class AssureExportHandler extends AbstractHandler {
 
 	}
 
-	private static URI getModelURI(AssuranceEvidence rootCaseResult) {
+	private static URI getModelURI(AssuranceCase rootCaseResult) {
 		IFile file = ResourceUtil.getFile(rootCaseResult.eResource());
 		IPath path = file.getFullPath();
 		return URI.createPlatformResourceURI(path.addFileExtension("dcase_model").toString(), true);
 	}
 
-	private static URI getDiagramURI(AssuranceEvidence rootCaseResult) {
+	private static URI getDiagramURI(AssuranceCase rootCaseResult) {
 //		EObject obj = cr.getLocation();
 		Resource res = rootCaseResult.eResource();
 		IFile file = ResourceUtil.getFile(res);

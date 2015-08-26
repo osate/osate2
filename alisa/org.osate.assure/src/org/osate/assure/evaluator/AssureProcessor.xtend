@@ -25,7 +25,6 @@ import org.osate.aadl2.instance.InstanceObject
 import org.osate.aadl2.util.OsateDebug
 import org.osate.alisa.common.common.ComputeDeclaration
 import org.osate.alisa.common.scoping.ICommonGlobalReferenceFinder
-import org.osate.assure.assure.AssuranceEvidence
 import org.osate.assure.assure.AssureFactory
 import org.osate.assure.assure.AssureResult
 import org.osate.assure.assure.ClaimResult
@@ -50,6 +49,7 @@ import static extension org.osate.alisa.common.util.CommonUtilExtension.*
 import static extension org.osate.assure.util.AssureUtilExtension.*
 import org.osate.verify.util.VerificationMethodDispatchers
 import org.osate.aadl2.ComponentClassifier
+import org.osate.assure.assure.AssuranceCase
 
 @ImplementedBy(AssureProcessor)
 interface IAssureProcessor {
@@ -73,9 +73,9 @@ class AssureProcessor implements IAssureProcessor {
 //	@Inject XbaseCompiler xbaseCompiler
 	@Inject XbaseInterpreter xbaseInterpreter
 
-	def void doProcess(AssuranceEvidence caseResult) {
+	def void doProcess(AssuranceCase caseResult) {
 		caseResult.claimResult.forEach[claimResult|claimResult.process]
-		caseResult.subAssuranceEvidence.forEach[subcaseResult|subcaseResult.process]
+		caseResult.subAssuranceCase.forEach[subcaseResult|subcaseResult.process]
 	}
 
 	def void doProcess(ClaimResult claimResult) {
@@ -130,7 +130,7 @@ class AssureProcessor implements IAssureProcessor {
 
 	override void process(AssureResult assureResult) {
 		switch (assureResult) {
-			AssuranceEvidence: assureResult.doProcess
+			AssuranceCase: assureResult.doProcess
 			ClaimResult: assureResult.doProcess
 			VerificationActivityResult: assureResult.doProcess
 			ElseResult: assureResult.doProcess

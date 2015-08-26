@@ -45,7 +45,7 @@ import org.osate.assure.services.AssureGrammarAccess;
     
     @Override
     protected String getFirstRuleName() {
-    	return "AssuranceEvidence";	
+    	return "AssuranceCase";	
    	}
    	
    	@Override
@@ -64,32 +64,32 @@ import org.osate.assure.services.AssureGrammarAccess;
 
 
 
-// Entry rule entryRuleAssuranceEvidence
-entryRuleAssuranceEvidence returns [EObject current=null] 
+// Entry rule entryRuleAssuranceCase
+entryRuleAssuranceCase returns [EObject current=null] 
 	:
-	{ newCompositeNode(grammarAccess.getAssuranceEvidenceRule()); }
-	 iv_ruleAssuranceEvidence=ruleAssuranceEvidence 
-	 { $current=$iv_ruleAssuranceEvidence.current; } 
+	{ newCompositeNode(grammarAccess.getAssuranceCaseRule()); }
+	 iv_ruleAssuranceCase=ruleAssuranceCase 
+	 { $current=$iv_ruleAssuranceCase.current; } 
 	 EOF 
 ;
 
-// Rule AssuranceEvidence
-ruleAssuranceEvidence returns [EObject current=null] 
+// Rule AssuranceCase
+ruleAssuranceCase returns [EObject current=null] 
     @init { enterRule(); 
     }
     @after { leaveRule(); }:
-(	otherlv_0='evidence' 
+(	otherlv_0='case' 
     {
-    	newLeafNode(otherlv_0, grammarAccess.getAssuranceEvidenceAccess().getEvidenceKeyword_0());
+    	newLeafNode(otherlv_0, grammarAccess.getAssuranceCaseAccess().getCaseKeyword_0());
     }
 (
 (
 		{ 
-	        newCompositeNode(grammarAccess.getAssuranceEvidenceAccess().getNameQualifiedNameParserRuleCall_1_0()); 
+	        newCompositeNode(grammarAccess.getAssuranceCaseAccess().getNameQualifiedNameParserRuleCall_1_0()); 
 	    }
 		lv_name_1_0=ruleQualifiedName		{
 	        if ($current==null) {
-	            $current = createModelElementForParent(grammarAccess.getAssuranceEvidenceRule());
+	            $current = createModelElementForParent(grammarAccess.getAssuranceCaseRule());
 	        }
        		set(
        			$current, 
@@ -102,17 +102,17 @@ ruleAssuranceEvidence returns [EObject current=null]
 )
 )	otherlv_2='for' 
     {
-    	newLeafNode(otherlv_2, grammarAccess.getAssuranceEvidenceAccess().getForKeyword_2());
+    	newLeafNode(otherlv_2, grammarAccess.getAssuranceCaseAccess().getForKeyword_2());
     }
 ((
 (
 		{
 			if ($current==null) {
-	            $current = createModelElement(grammarAccess.getAssuranceEvidenceRule());
+	            $current = createModelElement(grammarAccess.getAssuranceCaseRule());
 	        }
         }
 		{ 
-	        newCompositeNode(grammarAccess.getAssuranceEvidenceAccess().getTargetAssurancePlanCrossReference_3_0_0()); 
+	        newCompositeNode(grammarAccess.getAssuranceCaseAccess().getTargetAssurancePlanCrossReference_3_0_0()); 
 	    }
 		ruleQualifiedName		{ 
 	        afterParserOrEnumRuleCall();
@@ -122,35 +122,33 @@ ruleAssuranceEvidence returns [EObject current=null]
 )
     |(	otherlv_4='system' 
     {
-    	newLeafNode(otherlv_4, grammarAccess.getAssuranceEvidenceAccess().getSystemKeyword_3_1_0());
+    	newLeafNode(otherlv_4, grammarAccess.getAssuranceCaseAccess().getSystemKeyword_3_1_0());
     }
 (
 (
 		{
 			if ($current==null) {
-	            $current = createModelElement(grammarAccess.getAssuranceEvidenceRule());
+	            $current = createModelElement(grammarAccess.getAssuranceCaseRule());
 	        }
         }
-		{ 
-	        newCompositeNode(grammarAccess.getAssuranceEvidenceAccess().getTargetSystemComponentImplementationCrossReference_3_1_1_0()); 
-	    }
-		ruleAadlClassifierReference		{ 
-	        afterParserOrEnumRuleCall();
-	    }
+	otherlv_5=RULE_ID
+	{
+		newLeafNode(otherlv_5, grammarAccess.getAssuranceCaseAccess().getTargetSystemSubcomponentCrossReference_3_1_1_0()); 
+	}
 
 )
 )))	otherlv_6='[' 
     {
-    	newLeafNode(otherlv_6, grammarAccess.getAssuranceEvidenceAccess().getLeftSquareBracketKeyword_4());
+    	newLeafNode(otherlv_6, grammarAccess.getAssuranceCaseAccess().getLeftSquareBracketKeyword_4());
     }
 (
 (
 		{ 
-	        newCompositeNode(grammarAccess.getAssuranceEvidenceAccess().getMetricsMetricsParserRuleCall_5_0()); 
+	        newCompositeNode(grammarAccess.getAssuranceCaseAccess().getMetricsMetricsParserRuleCall_5_0()); 
 	    }
 		lv_metrics_7_0=ruleMetrics		{
 	        if ($current==null) {
-	            $current = createModelElementForParent(grammarAccess.getAssuranceEvidenceRule());
+	            $current = createModelElementForParent(grammarAccess.getAssuranceCaseRule());
 	        }
        		set(
        			$current, 
@@ -163,17 +161,17 @@ ruleAssuranceEvidence returns [EObject current=null]
 )
 )(	otherlv_8='message' 
     {
-    	newLeafNode(otherlv_8, grammarAccess.getAssuranceEvidenceAccess().getMessageKeyword_6_0());
+    	newLeafNode(otherlv_8, grammarAccess.getAssuranceCaseAccess().getMessageKeyword_6_0());
     }
 (
 (
 		lv_message_9_0=RULE_STRING
 		{
-			newLeafNode(lv_message_9_0, grammarAccess.getAssuranceEvidenceAccess().getMessageSTRINGTerminalRuleCall_6_1_0()); 
+			newLeafNode(lv_message_9_0, grammarAccess.getAssuranceCaseAccess().getMessageSTRINGTerminalRuleCall_6_1_0()); 
 		}
 		{
 	        if ($current==null) {
-	            $current = createModelElement(grammarAccess.getAssuranceEvidenceRule());
+	            $current = createModelElement(grammarAccess.getAssuranceCaseRule());
 	        }
        		setWithLastConsumed(
        			$current, 
@@ -186,11 +184,11 @@ ruleAssuranceEvidence returns [EObject current=null]
 ))?(
 (
 		{ 
-	        newCompositeNode(grammarAccess.getAssuranceEvidenceAccess().getClaimResultClaimResultParserRuleCall_7_0()); 
+	        newCompositeNode(grammarAccess.getAssuranceCaseAccess().getClaimResultClaimResultParserRuleCall_7_0()); 
 	    }
 		lv_claimResult_10_0=ruleClaimResult		{
 	        if ($current==null) {
-	            $current = createModelElementForParent(grammarAccess.getAssuranceEvidenceRule());
+	            $current = createModelElementForParent(grammarAccess.getAssuranceCaseRule());
 	        }
        		add(
        			$current, 
@@ -204,24 +202,24 @@ ruleAssuranceEvidence returns [EObject current=null]
 )*(
 (
 		{ 
-	        newCompositeNode(grammarAccess.getAssuranceEvidenceAccess().getSubAssuranceEvidenceAssuranceEvidenceParserRuleCall_8_0()); 
+	        newCompositeNode(grammarAccess.getAssuranceCaseAccess().getSubAssuranceCaseAssuranceCaseParserRuleCall_8_0()); 
 	    }
-		lv_subAssuranceEvidence_11_0=ruleAssuranceEvidence		{
+		lv_subAssuranceCase_11_0=ruleAssuranceCase		{
 	        if ($current==null) {
-	            $current = createModelElementForParent(grammarAccess.getAssuranceEvidenceRule());
+	            $current = createModelElementForParent(grammarAccess.getAssuranceCaseRule());
 	        }
        		add(
        			$current, 
-       			"subAssuranceEvidence",
-        		lv_subAssuranceEvidence_11_0, 
-        		"AssuranceEvidence");
+       			"subAssuranceCase",
+        		lv_subAssuranceCase_11_0, 
+        		"AssuranceCase");
 	        afterParserOrEnumRuleCall();
 	    }
 
 )
 )*	otherlv_12=']' 
     {
-    	newLeafNode(otherlv_12, grammarAccess.getAssuranceEvidenceAccess().getRightSquareBracketKeyword_9());
+    	newLeafNode(otherlv_12, grammarAccess.getAssuranceCaseAccess().getRightSquareBracketKeyword_9());
     }
 )
 ;
@@ -1480,58 +1478,6 @@ ruleURIID returns [AntlrDatatypeRuleToken current=new AntlrDatatypeRuleToken()]
     ;
 
 
-
-
-
-// Entry rule entryRuleAadlClassifierReference
-entryRuleAadlClassifierReference returns [String current=null] 
-	:
-	{ newCompositeNode(grammarAccess.getAadlClassifierReferenceRule()); } 
-	 iv_ruleAadlClassifierReference=ruleAadlClassifierReference 
-	 { $current=$iv_ruleAadlClassifierReference.current.getText(); }  
-	 EOF 
-;
-
-// Rule AadlClassifierReference
-ruleAadlClassifierReference returns [AntlrDatatypeRuleToken current=new AntlrDatatypeRuleToken()] 
-    @init { enterRule(); 
-    }
-    @after { leaveRule(); }:
-(    this_ID_0=RULE_ID    {
-		$current.merge(this_ID_0);
-    }
-
-    { 
-    newLeafNode(this_ID_0, grammarAccess.getAadlClassifierReferenceAccess().getIDTerminalRuleCall_0()); 
-    }
-(
-	kw='::' 
-    {
-        $current.merge(kw);
-        newLeafNode(kw, grammarAccess.getAadlClassifierReferenceAccess().getColonColonKeyword_1_0()); 
-    }
-    this_ID_2=RULE_ID    {
-		$current.merge(this_ID_2);
-    }
-
-    { 
-    newLeafNode(this_ID_2, grammarAccess.getAadlClassifierReferenceAccess().getIDTerminalRuleCall_1_1()); 
-    }
-)+(
-	kw='.' 
-    {
-        $current.merge(kw);
-        newLeafNode(kw, grammarAccess.getAadlClassifierReferenceAccess().getFullStopKeyword_2_0()); 
-    }
-    this_ID_4=RULE_ID    {
-		$current.merge(this_ID_4);
-    }
-
-    { 
-    newLeafNode(this_ID_4, grammarAccess.getAadlClassifierReferenceAccess().getIDTerminalRuleCall_2_1()); 
-    }
-)?)
-    ;
 
 
 

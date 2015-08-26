@@ -99,9 +99,9 @@ class AlisaGenerator implements IGenerator {
 		'''	
 			«IF !myplans.empty»
 			«IF !systemEvidence»
-				evidence «acp.name» for «acp.name»
+				case «acp.name» for «acp.name»
 			«ELSE»
-				evidence «cc.name» for system «cc.getQualifiedName»
+				case «cc.name» for system «cc.getQualifiedName»
 			«ENDIF»
 				[
 					tbdcount 0

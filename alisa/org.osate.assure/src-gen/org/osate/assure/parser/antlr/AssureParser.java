@@ -25,7 +25,7 @@ public class AssureParser extends org.eclipse.xtext.parser.antlr.AbstractAntlrPa
 	
 	@Override 
 	protected String getDefaultRuleName() {
-		return "AssuranceEvidence";
+		return "AssuranceCase";
 	}
 	
 	public AssureGrammarAccess getGrammarAccess() {

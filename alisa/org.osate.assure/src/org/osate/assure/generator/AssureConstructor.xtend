@@ -6,18 +6,18 @@ package org.osate.assure.generator
 import com.google.inject.Inject
 import java.util.Collections
 import java.util.List
-import org.eclipse.emf.common.util.EList
 import org.eclipse.emf.common.util.UniqueEList
 import org.osate.aadl2.ComponentClassifier
 import org.osate.aadl2.ComponentImplementation
 import org.osate.aadl2.ComponentType
 import org.osate.alisa.workbench.alisa.AssurancePlan
 import org.osate.alisa.workbench.alisa.AssuranceTask
-import org.osate.assure.assure.AssuranceEvidence
+import org.osate.assure.assure.AssuranceCase
 import org.osate.assure.assure.AssureFactory
 import org.osate.assure.assure.ClaimResult
 import org.osate.assure.assure.VerificationExecutionState
 import org.osate.assure.assure.VerificationExpr
+import org.osate.assure.assure.VerificationResult
 import org.osate.assure.assure.VerificationResultState
 import org.osate.categories.categories.RequirementCategory
 import org.osate.categories.categories.SelectionCategory
@@ -29,15 +29,13 @@ import org.osate.verify.verify.Claim
 import org.osate.verify.verify.ElseExpr
 import org.osate.verify.verify.RefExpr
 import org.osate.verify.verify.ThenExpr
-
-import static extension org.osate.alisa.common.util.CommonUtilExtension.*
-import static extension org.eclipse.emf.ecore.util.EcoreUtil.*
 import org.osate.verify.verify.VerificationActivity
-import org.osate.assure.assure.VerificationResult
-import org.osate.verify.verify.VerificationValidation
-import org.osate.verify.verify.VerificationPrecondition
 import org.osate.verify.verify.VerificationCondition
 import org.osate.verify.verify.VerificationPlan
+import org.osate.verify.verify.VerificationPrecondition
+import org.osate.verify.verify.VerificationValidation
+
+import static extension org.osate.alisa.common.util.CommonUtilExtension.*
 import static extension org.osate.verify.util.VerifyUtilExtension.*
 
 /**
@@ -81,7 +79,7 @@ class AssureConstructor {
 	/**
 	 * if systemEvidence is true then acp is the parent acp. Therefore we need to find the verification plans for the system.
 	 */
-	def AssuranceEvidence construct(ComponentClassifier cc, AssurancePlan acp, boolean systemEvidence) {
+	def AssuranceCase construct(ComponentClassifier cc, AssurancePlan acp, boolean systemEvidence) {
 		var Iterable<VerificationPlan> myplans = Collections.EMPTY_LIST
 		if (!systemEvidence){
 			myplans = acp.assureOwn
@@ -89,9 +87,9 @@ class AssureConstructor {
 		if (myplans.empty){
 		 myplans = cc.getVerificationPlans(acp);
 		}
-		var AssuranceEvidence acase = null
+		var AssuranceCase acase = null
 		if (!myplans.empty) {
-			acase = factory.createAssuranceEvidence
+			acase = factory.createAssuranceCase
 			acase.name = acp.name
 			acase.target = acp
 			acase.metrics = factory.createMetrics
@@ -108,13 +106,13 @@ class AssureConstructor {
 				}
 			}
 			for (subci : cc.subcomponentClassifiers) {
-				acase.subAssuranceEvidence += subci.filterplans(acp)
+				acase.subAssuranceCase += subci.filterplans(acp)
 			}
 		}
 		acase
 	}
 
-	def AssuranceEvidence filterplans(ComponentClassifier cc, AssurancePlan parentacp) {
+	def AssuranceCase filterplans(ComponentClassifier cc, AssurancePlan parentacp) {
 		if(cc instanceof ComponentType || cc.skipAssuranceplans(parentacp)) return null
 		val subacp = cc.getSubsystemAssuranceplan(parentacp)
 		if (subacp != null) {

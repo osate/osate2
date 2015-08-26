@@ -9,7 +9,7 @@ import org.osate.assure.assure.ResultIssueType
 import org.osate.assure.assure.ClaimResult
 import static extension org.osate.assure.util.AssureUtilExtension.*
 import org.osate.assure.assure.VerificationActivityResult
-import org.osate.assure.assure.AssuranceEvidence
+import org.osate.assure.assure.AssuranceCase
 import org.osate.assure.assure.ValidationResult
 import org.osate.assure.assure.ThenResult
 import org.osate.assure.assure.ElseResult
@@ -39,7 +39,7 @@ class AssureLabelProvider extends org.eclipse.xtext.ui.label.DefaultEObjectLabel
 
 	}
 	
-	def text(AssuranceEvidence ele) {
+	def text(AssuranceCase ele) {
 		"System "+ele.constructMessage		
 		+ ele.assureResultCounts
 	}
@@ -80,7 +80,7 @@ class AssureLabelProvider extends org.eclipse.xtext.ui.label.DefaultEObjectLabel
 		return 'questionmark.png'//'evidence.png'
 	}
 	
-	def image(AssuranceEvidence ele) {
+	def image(AssuranceCase ele) {
 		if (ele.isSuccessful) return 'valid.png'//'assuresuccess.png'
 		if (ele.noSuccess) return 'error.png'//'assurefail.png'
 		if (ele.isTBD) return 'info.png'//'validationfail.png'

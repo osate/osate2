@@ -16,11 +16,11 @@ import java.util.TreeSet
 import org.eclipse.core.resources.IMarker
 import org.eclipse.core.resources.IResource
 import org.eclipse.emf.common.util.EList
-import org.eclipse.emf.common.util.URI
 import org.eclipse.emf.ecore.EObject
 import org.eclipse.emf.ecore.util.EcoreUtil
 import org.eclipse.xtext.EcoreUtil2
 import org.osate.aadl2.ComponentCategory
+import org.osate.aadl2.ComponentImplementation
 import org.osate.aadl2.NamedElement
 import org.osate.aadl2.instance.ComponentInstance
 import org.osate.aadl2.instance.ConnectionInstance
@@ -28,48 +28,42 @@ import org.osate.aadl2.instance.InstanceObject
 import org.osate.aadl2.instance.SystemInstance
 import org.osate.aadl2.modelsupport.AadlConstants
 import org.osate.aadl2.modelsupport.resources.OsateResourceUtil
-import org.osate.assure.assure.ThenResult
+import org.osate.assure.assure.AssuranceCase
 import org.osate.assure.assure.AssureFactory
 import org.osate.assure.assure.AssureResult
-import org.osate.assure.assure.AssuranceEvidence
 import org.osate.assure.assure.ClaimResult
 import org.osate.assure.assure.ElseResult
+import org.osate.assure.assure.ElseType
 import org.osate.assure.assure.PreconditionResult
 import org.osate.assure.assure.ResultIssue
 import org.osate.assure.assure.ResultIssueType
+import org.osate.assure.assure.ThenResult
 import org.osate.assure.assure.ValidationResult
 import org.osate.assure.assure.VerificationActivityResult
 import org.osate.assure.assure.VerificationExecutionState
 import org.osate.assure.assure.VerificationExpr
+import org.osate.assure.assure.VerificationResult
 import org.osate.assure.assure.VerificationResultState
 import org.osate.verify.verify.RefExpr
+import org.osate.verify.verify.VerificationMethod
 
+import static extension org.osate.aadl2.instantiation.InstantiateModel.buildInstanceModelFile
 import static extension org.osate.alisa.common.util.CommonUtilExtension.*
 import static extension org.osate.reqspec.util.ReqSpecUtilExtension.*
-import static extension org.osate.aadl2.instantiation.InstantiateModel.buildInstanceModelFile
-
-import org.osate.assure.assure.VerificationResult
-import org.osate.verify.verify.VerificationMethod
-import java.io.StringWriter
-import java.io.PrintWriter
-import org.osate.assure.assure.ElseType
-import org.osate.aadl2.ComponentImplementation
-import org.osate.aadl2.ComponentClassifier
-import org.osate.reqspec.reqSpec.Requirement
 
 class AssureUtilExtension {
 
-	def static AssuranceEvidence getEnclosingAssuranceEvidence(EObject assureObject) {
+	def static AssuranceCase getEnclosingAssuranceCase(EObject assureObject) {
 		var result = assureObject
-		while (!(result instanceof AssuranceEvidence)) {
+		while (!(result instanceof AssuranceCase)) {
 			result = result.eContainer
 		}
 		if(result == null) return null
-		return result as AssuranceEvidence
+		return result as AssuranceCase
 	}
 
-	def static ComponentImplementation getTargetClassifier(AssuranceEvidence ae) {
-		ae.targetSystem?:ae.target?.target
+	def static ComponentImplementation getTargetClassifier(AssuranceCase ae) {
+		return ae.targetSystem?.componentImplementation?:ae.target?.target
 	}
 
 	def static ClaimResult getEnclosingClaimResult(EObject assureObject) {
@@ -90,17 +84,17 @@ class AssureUtilExtension {
 		switch (assureObject) {
 			VerificationActivityResult:
 				assureObject.target?.target?.instanceModel ?:
-					assureObject.enclosingAssuranceEvidence?.targetClassifier.instanceModel
+					assureObject.enclosingAssuranceCase?.targetClassifier.instanceModel
 			ValidationResult:
 				(assureObject.eContainer as VerificationActivityResult).target?.target?.instanceModel ?:
-					assureObject.enclosingAssuranceEvidence?.target?.target?.instanceModel
+					assureObject.enclosingAssuranceCase?.target?.target?.instanceModel
 			PreconditionResult:
 				(assureObject.eContainer as VerificationActivityResult).target?.target?.instanceModel ?:
-					assureObject.enclosingAssuranceEvidence?.target?.target?.instanceModel
+					assureObject.enclosingAssuranceCase?.target?.target?.instanceModel
 		}
 	}
 
-	def static getInstanceModel(AssuranceEvidence ae) {
+	def static getInstanceModel(AssuranceCase ae) {
 		getInstanceModel(ae.getTarget().getTarget())
 	}
 
@@ -409,7 +403,7 @@ class AssureUtilExtension {
 
 	def static getPrintableName(AssureResult ar) {
 		switch (ar) {
-			AssuranceEvidence: return ar.name
+			AssuranceCase: return ar.name
 			ClaimResult: return (ar as ClaimResult).target.name
 			ValidationResult: return (ar as ValidationResult).target.name
 			ElseResult: return "Else"
@@ -492,7 +486,7 @@ class AssureUtilExtension {
 	/**
 	  * this method resets the execution state of all verification activities to TBD
 	  */
-	def static void resetToTBD(AssuranceEvidence root) {
+	def static void resetToTBD(AssuranceCase root) {
 		val vrlist = EcoreUtil2.eAllOfType(root, VerificationResult)
 		vrlist.forEach [ vr |
 			vr.resultState = VerificationResultState.TBD
@@ -601,10 +595,10 @@ class AssureUtilExtension {
 		parts.forEach[e|e.recomputeAllCounts.addTo(result)]
 	}
 
-	def static AssuranceEvidence recomputeAllCounts(AssuranceEvidence caseResult) {
+	def static AssuranceCase recomputeAllCounts(AssuranceCase caseResult) {
 		caseResult.resetCounts
 		caseResult.recomputeAllCounts(caseResult.claimResult)
-		caseResult.recomputeAllCounts(caseResult.subAssuranceEvidence)
+		caseResult.recomputeAllCounts(caseResult.subAssuranceCase)
 		caseResult
 	}
 
@@ -666,7 +660,7 @@ class AssureUtilExtension {
 
 	private def static AssureResult recomputeAllCounts(AssureResult assureResult) {
 		switch (assureResult) {
-			AssuranceEvidence: assureResult.recomputeAllCounts
+			AssuranceCase: assureResult.recomputeAllCounts
 			ClaimResult: assureResult.recomputeAllCounts
 			ValidationResult: assureResult.recomputeAllCounts
 			PreconditionResult: assureResult.recomputeAllCounts
@@ -860,10 +854,10 @@ class AssureUtilExtension {
 	 * recompute the result count from the part list counts without recursing
 	 */
 
-	private def static AssuranceEvidence addAllSubCounts(AssuranceEvidence caseResult) {
+	private def static AssuranceCase addAllSubCounts(AssuranceCase caseResult) {
 		caseResult.resetCounts
 		caseResult.claimResult.forEach[e|e.addTo(caseResult)]
-		caseResult.subAssuranceEvidence.forEach[e|e.addTo(caseResult)]
+		caseResult.subAssuranceCase.forEach[e|e.addTo(caseResult)]
 		caseResult
 	}
 
@@ -925,7 +919,7 @@ class AssureUtilExtension {
 
 	private def static AssureResult addAllSubCounts(AssureResult assureResult) {
 		switch (assureResult) {
-			AssuranceEvidence: assureResult.addAllSubCounts
+			AssuranceCase: assureResult.addAllSubCounts
 			ClaimResult: assureResult.addAllSubCounts
 			ValidationResult: assureResult.addAllSubCounts
 			PreconditionResult: assureResult.addAllSubCounts
@@ -954,7 +948,7 @@ class AssureUtilExtension {
 
 		// has to be a string without space (ID) 
 		switch (ar) {
-			AssuranceEvidence:
+			AssuranceCase:
 				return ar.name
 			ClaimResult:
 				return ar.target?.title ?: ar.target.name
@@ -979,7 +973,7 @@ class AssureUtilExtension {
 		return vm.name
 	}
 
-	def static String constructMessage(AssuranceEvidence ce) {
+	def static String constructMessage(AssuranceCase ce) {
 		if(ce.message != null) return ce.message
 		if (ce.target != null && ce.target.target != null) return ce.target.target.name
 		return ce.targetSystem.name
@@ -1017,7 +1011,7 @@ class AssureUtilExtension {
 
 	def static String assureResultCounts(AssureResult ele) {
 		val elec= ele.metrics
-		if (ele instanceof AssuranceEvidence && ele.isZeroCount && ele.eContainer == null){
+		if (ele instanceof AssuranceCase && ele.isZeroCount && ele.eContainer == null){
 			ele.resetCounts
 			ele.recomputeAllCounts
 		}

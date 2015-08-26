@@ -13,7 +13,7 @@ import org.eclipse.xtext.serializer.sequencer.AbstractDelegatingSemanticSequence
 import org.eclipse.xtext.serializer.sequencer.GenericSequencer;
 import org.eclipse.xtext.serializer.sequencer.ISemanticSequencer;
 import org.eclipse.xtext.serializer.sequencer.ITransientValueService;
-import org.osate.assure.assure.AssuranceEvidence;
+import org.osate.assure.assure.AssuranceCase;
 import org.osate.assure.assure.AssurePackage;
 import org.osate.assure.assure.ClaimResult;
 import org.osate.assure.assure.ElseResult;
@@ -34,8 +34,8 @@ public class AssureSemanticSequencer extends AbstractDelegatingSemanticSequencer
 	@Override
 	public void createSequence(EObject context, EObject semanticObject) {
 		if(semanticObject.eClass().getEPackage() == AssurePackage.eINSTANCE) switch(semanticObject.eClass().getClassifierID()) {
-			case AssurePackage.ASSURANCE_EVIDENCE:
-				sequence_AssuranceEvidence(context, (AssuranceEvidence) semanticObject); 
+			case AssurePackage.ASSURANCE_CASE:
+				sequence_AssuranceCase(context, (AssuranceCase) semanticObject); 
 				return; 
 			case AssurePackage.CLAIM_RESULT:
 				sequence_ClaimResult(context, (ClaimResult) semanticObject); 
@@ -69,14 +69,14 @@ public class AssureSemanticSequencer extends AbstractDelegatingSemanticSequencer
 	 * Constraint:
 	 *     (
 	 *         name=QualifiedName 
-	 *         (target=[AssurancePlan|QualifiedName] | targetSystem=[ComponentImplementation|AadlClassifierReference]) 
+	 *         (target=[AssurancePlan|QualifiedName] | targetSystem=[Subcomponent|ID]) 
 	 *         metrics=Metrics 
 	 *         message=STRING? 
 	 *         claimResult+=ClaimResult* 
-	 *         subAssuranceEvidence+=AssuranceEvidence*
+	 *         subAssuranceCase+=AssuranceCase*
 	 *     )
 	 */
-	protected void sequence_AssuranceEvidence(EObject context, AssuranceEvidence semanticObject) {
+	protected void sequence_AssuranceCase(EObject context, AssuranceCase semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
 	}
 	

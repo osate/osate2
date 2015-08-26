@@ -37,7 +37,7 @@ public class AssureParser extends AbstractContentAssistParser {
 			nameMappings = new HashMap<AbstractElement, String>() {
 				private static final long serialVersionUID = 1L;
 				{
-					put(grammarAccess.getAssuranceEvidenceAccess().getAlternatives_3(), "rule__AssuranceEvidence__Alternatives_3");
+					put(grammarAccess.getAssuranceCaseAccess().getAlternatives_3(), "rule__AssuranceCase__Alternatives_3");
 					put(grammarAccess.getConditionResultAccess().getAlternatives_0(), "rule__ConditionResult__Alternatives_0");
 					put(grammarAccess.getAssureResultAccess().getAlternatives(), "rule__AssureResult__Alternatives");
 					put(grammarAccess.getVerificationExprAccess().getAlternatives(), "rule__VerificationExpr__Alternatives");
@@ -45,9 +45,9 @@ public class AssureParser extends AbstractContentAssistParser {
 					put(grammarAccess.getResultIssueTypeAccess().getAlternatives(), "rule__ResultIssueType__Alternatives");
 					put(grammarAccess.getVerificationResultStateAccess().getAlternatives(), "rule__VerificationResultState__Alternatives");
 					put(grammarAccess.getVerificationExecutionStateAccess().getAlternatives(), "rule__VerificationExecutionState__Alternatives");
-					put(grammarAccess.getAssuranceEvidenceAccess().getGroup(), "rule__AssuranceEvidence__Group__0");
-					put(grammarAccess.getAssuranceEvidenceAccess().getGroup_3_1(), "rule__AssuranceEvidence__Group_3_1__0");
-					put(grammarAccess.getAssuranceEvidenceAccess().getGroup_6(), "rule__AssuranceEvidence__Group_6__0");
+					put(grammarAccess.getAssuranceCaseAccess().getGroup(), "rule__AssuranceCase__Group__0");
+					put(grammarAccess.getAssuranceCaseAccess().getGroup_3_1(), "rule__AssuranceCase__Group_3_1__0");
+					put(grammarAccess.getAssuranceCaseAccess().getGroup_6(), "rule__AssuranceCase__Group_6__0");
 					put(grammarAccess.getClaimResultAccess().getGroup(), "rule__ClaimResult__Group__0");
 					put(grammarAccess.getClaimResultAccess().getGroup_4(), "rule__ClaimResult__Group_4__0");
 					put(grammarAccess.getConditionResultAccess().getGroup(), "rule__ConditionResult__Group__0");
@@ -86,13 +86,13 @@ public class AssureParser extends AbstractContentAssistParser {
 					put(grammarAccess.getAadlClassifierReferenceAccess().getGroup_2(), "rule__AadlClassifierReference__Group_2__0");
 					put(grammarAccess.getQualifiedNameAccess().getGroup(), "rule__QualifiedName__Group__0");
 					put(grammarAccess.getQualifiedNameAccess().getGroup_1(), "rule__QualifiedName__Group_1__0");
-					put(grammarAccess.getAssuranceEvidenceAccess().getNameAssignment_1(), "rule__AssuranceEvidence__NameAssignment_1");
-					put(grammarAccess.getAssuranceEvidenceAccess().getTargetAssignment_3_0(), "rule__AssuranceEvidence__TargetAssignment_3_0");
-					put(grammarAccess.getAssuranceEvidenceAccess().getTargetSystemAssignment_3_1_1(), "rule__AssuranceEvidence__TargetSystemAssignment_3_1_1");
-					put(grammarAccess.getAssuranceEvidenceAccess().getMetricsAssignment_5(), "rule__AssuranceEvidence__MetricsAssignment_5");
-					put(grammarAccess.getAssuranceEvidenceAccess().getMessageAssignment_6_1(), "rule__AssuranceEvidence__MessageAssignment_6_1");
-					put(grammarAccess.getAssuranceEvidenceAccess().getClaimResultAssignment_7(), "rule__AssuranceEvidence__ClaimResultAssignment_7");
-					put(grammarAccess.getAssuranceEvidenceAccess().getSubAssuranceEvidenceAssignment_8(), "rule__AssuranceEvidence__SubAssuranceEvidenceAssignment_8");
+					put(grammarAccess.getAssuranceCaseAccess().getNameAssignment_1(), "rule__AssuranceCase__NameAssignment_1");
+					put(grammarAccess.getAssuranceCaseAccess().getTargetAssignment_3_0(), "rule__AssuranceCase__TargetAssignment_3_0");
+					put(grammarAccess.getAssuranceCaseAccess().getTargetSystemAssignment_3_1_1(), "rule__AssuranceCase__TargetSystemAssignment_3_1_1");
+					put(grammarAccess.getAssuranceCaseAccess().getMetricsAssignment_5(), "rule__AssuranceCase__MetricsAssignment_5");
+					put(grammarAccess.getAssuranceCaseAccess().getMessageAssignment_6_1(), "rule__AssuranceCase__MessageAssignment_6_1");
+					put(grammarAccess.getAssuranceCaseAccess().getClaimResultAssignment_7(), "rule__AssuranceCase__ClaimResultAssignment_7");
+					put(grammarAccess.getAssuranceCaseAccess().getSubAssuranceCaseAssignment_8(), "rule__AssuranceCase__SubAssuranceCaseAssignment_8");
 					put(grammarAccess.getClaimResultAccess().getTargetAssignment_1(), "rule__ClaimResult__TargetAssignment_1");
 					put(grammarAccess.getClaimResultAccess().getMetricsAssignment_3(), "rule__ClaimResult__MetricsAssignment_3");
 					put(grammarAccess.getClaimResultAccess().getMessageAssignment_4_1(), "rule__ClaimResult__MessageAssignment_4_1");
@@ -149,7 +149,7 @@ public class AssureParser extends AbstractContentAssistParser {
 	protected Collection<FollowElement> getFollowElements(AbstractInternalContentAssistParser parser) {
 		try {
 			org.osate.assure.ui.contentassist.antlr.internal.InternalAssureParser typedParser = (org.osate.assure.ui.contentassist.antlr.internal.InternalAssureParser) parser;
-			typedParser.entryRuleAssuranceEvidence();
+			typedParser.entryRuleAssuranceCase();
 			return typedParser.getFollowElements();
 		} catch(RecognitionException ex) {
 			throw new RuntimeException(ex);

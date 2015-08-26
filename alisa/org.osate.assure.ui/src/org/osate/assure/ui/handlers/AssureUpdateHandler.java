@@ -21,7 +21,7 @@ import org.eclipse.xtext.ui.editor.XtextEditor;
 import org.eclipse.xtext.ui.editor.outline.impl.EObjectNode;
 import org.eclipse.xtext.ui.editor.utils.EditorUtils;
 import org.eclipse.xtext.util.concurrent.IUnitOfWork;
-import org.osate.assure.assure.AssuranceEvidence;
+import org.osate.assure.assure.AssuranceCase;
 import org.osate.assure.evaluator.IAssureProcessor;
 import org.osate.assure.util.AssureUtilExtension;
 import org.osate.verify.util.VerifyUtilExtension;
@@ -74,7 +74,7 @@ public class AssureUpdateHandler extends AbstractHandler {
 					@Override
 					public IStatus exec(XtextResource resource) throws Exception {
 						EObject eobj = resource.getResourceSet().getEObject(uri, true);
-						AssuranceEvidence ae = AssureUtilExtension.getEnclosingAssuranceEvidence(eobj);
+						AssuranceCase ae = AssureUtilExtension.getEnclosingAssuranceCase(eobj);
 						if (ae != null) {
 							return runJob(ae, monitor);
 						} else {
@@ -124,7 +124,7 @@ public class AssureUpdateHandler extends AbstractHandler {
 		return "Assure update verification";
 	}
 
-	protected IStatus runJob(AssuranceEvidence rootCaseResult, IProgressMonitor monitor) {
+	protected IStatus runJob(AssuranceCase rootCaseResult, IProgressMonitor monitor) {
 
 		long start = System.currentTimeMillis();
 		VerifyUtilExtension.clearAllHasRunRecords();

@@ -15,7 +15,7 @@ import org.osate.aadl2.Aadl2Package;
 
 import org.osate.alisa.workbench.alisa.AlisaPackage;
 
-import org.osate.assure.assure.AssuranceEvidence;
+import org.osate.assure.assure.AssuranceCase;
 import org.osate.assure.assure.AssureFactory;
 import org.osate.assure.assure.AssurePackage;
 import org.osate.assure.assure.AssureResult;
@@ -53,7 +53,7 @@ public class AssurePackageImpl extends EPackageImpl implements AssurePackage
    * <!-- end-user-doc -->
    * @generated
    */
-  private EClass assuranceEvidenceEClass = null;
+  private EClass assuranceCaseEClass = null;
 
   /**
    * <!-- begin-user-doc -->
@@ -232,9 +232,9 @@ public class AssurePackageImpl extends EPackageImpl implements AssurePackage
    * <!-- end-user-doc -->
    * @generated
    */
-  public EClass getAssuranceEvidence()
+  public EClass getAssuranceCase()
   {
-    return assuranceEvidenceEClass;
+    return assuranceCaseEClass;
   }
 
   /**
@@ -242,9 +242,9 @@ public class AssurePackageImpl extends EPackageImpl implements AssurePackage
    * <!-- end-user-doc -->
    * @generated
    */
-  public EAttribute getAssuranceEvidence_Name()
+  public EAttribute getAssuranceCase_Name()
   {
-    return (EAttribute)assuranceEvidenceEClass.getEStructuralFeatures().get(0);
+    return (EAttribute)assuranceCaseEClass.getEStructuralFeatures().get(0);
   }
 
   /**
@@ -252,9 +252,9 @@ public class AssurePackageImpl extends EPackageImpl implements AssurePackage
    * <!-- end-user-doc -->
    * @generated
    */
-  public EReference getAssuranceEvidence_Target()
+  public EReference getAssuranceCase_Target()
   {
-    return (EReference)assuranceEvidenceEClass.getEStructuralFeatures().get(1);
+    return (EReference)assuranceCaseEClass.getEStructuralFeatures().get(1);
   }
 
   /**
@@ -262,9 +262,9 @@ public class AssurePackageImpl extends EPackageImpl implements AssurePackage
    * <!-- end-user-doc -->
    * @generated
    */
-  public EReference getAssuranceEvidence_TargetSystem()
+  public EReference getAssuranceCase_TargetSystem()
   {
-    return (EReference)assuranceEvidenceEClass.getEStructuralFeatures().get(2);
+    return (EReference)assuranceCaseEClass.getEStructuralFeatures().get(2);
   }
 
   /**
@@ -272,9 +272,9 @@ public class AssurePackageImpl extends EPackageImpl implements AssurePackage
    * <!-- end-user-doc -->
    * @generated
    */
-  public EAttribute getAssuranceEvidence_Message()
+  public EAttribute getAssuranceCase_Message()
   {
-    return (EAttribute)assuranceEvidenceEClass.getEStructuralFeatures().get(3);
+    return (EAttribute)assuranceCaseEClass.getEStructuralFeatures().get(3);
   }
 
   /**
@@ -282,9 +282,9 @@ public class AssurePackageImpl extends EPackageImpl implements AssurePackage
    * <!-- end-user-doc -->
    * @generated
    */
-  public EReference getAssuranceEvidence_ClaimResult()
+  public EReference getAssuranceCase_ClaimResult()
   {
-    return (EReference)assuranceEvidenceEClass.getEStructuralFeatures().get(4);
+    return (EReference)assuranceCaseEClass.getEStructuralFeatures().get(4);
   }
 
   /**
@@ -292,9 +292,9 @@ public class AssurePackageImpl extends EPackageImpl implements AssurePackage
    * <!-- end-user-doc -->
    * @generated
    */
-  public EReference getAssuranceEvidence_SubAssuranceEvidence()
+  public EReference getAssuranceCase_SubAssuranceCase()
   {
-    return (EReference)assuranceEvidenceEClass.getEStructuralFeatures().get(5);
+    return (EReference)assuranceCaseEClass.getEStructuralFeatures().get(5);
   }
 
   /**
@@ -857,13 +857,13 @@ public class AssurePackageImpl extends EPackageImpl implements AssurePackage
     isCreated = true;
 
     // Create classes and their features
-    assuranceEvidenceEClass = createEClass(ASSURANCE_EVIDENCE);
-    createEAttribute(assuranceEvidenceEClass, ASSURANCE_EVIDENCE__NAME);
-    createEReference(assuranceEvidenceEClass, ASSURANCE_EVIDENCE__TARGET);
-    createEReference(assuranceEvidenceEClass, ASSURANCE_EVIDENCE__TARGET_SYSTEM);
-    createEAttribute(assuranceEvidenceEClass, ASSURANCE_EVIDENCE__MESSAGE);
-    createEReference(assuranceEvidenceEClass, ASSURANCE_EVIDENCE__CLAIM_RESULT);
-    createEReference(assuranceEvidenceEClass, ASSURANCE_EVIDENCE__SUB_ASSURANCE_EVIDENCE);
+    assuranceCaseEClass = createEClass(ASSURANCE_CASE);
+    createEAttribute(assuranceCaseEClass, ASSURANCE_CASE__NAME);
+    createEReference(assuranceCaseEClass, ASSURANCE_CASE__TARGET);
+    createEReference(assuranceCaseEClass, ASSURANCE_CASE__TARGET_SYSTEM);
+    createEAttribute(assuranceCaseEClass, ASSURANCE_CASE__MESSAGE);
+    createEReference(assuranceCaseEClass, ASSURANCE_CASE__CLAIM_RESULT);
+    createEReference(assuranceCaseEClass, ASSURANCE_CASE__SUB_ASSURANCE_CASE);
 
     claimResultEClass = createEClass(CLAIM_RESULT);
     createEReference(claimResultEClass, CLAIM_RESULT__TARGET);
@@ -969,7 +969,7 @@ public class AssurePackageImpl extends EPackageImpl implements AssurePackage
     // Set bounds for type parameters
 
     // Add supertypes to classes
-    assuranceEvidenceEClass.getESuperTypes().add(this.getAssureResult());
+    assuranceCaseEClass.getESuperTypes().add(this.getAssureResult());
     claimResultEClass.getESuperTypes().add(this.getAssureResult());
     verificationResultEClass.getESuperTypes().add(this.getAssureResult());
     verificationResultEClass.getESuperTypes().add(this.getVerificationExpr());
@@ -981,13 +981,13 @@ public class AssurePackageImpl extends EPackageImpl implements AssurePackage
     verificationActivityResultEClass.getESuperTypes().add(this.getVerificationResult());
 
     // Initialize classes and features; add operations and parameters
-    initEClass(assuranceEvidenceEClass, AssuranceEvidence.class, "AssuranceEvidence", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-    initEAttribute(getAssuranceEvidence_Name(), theEcorePackage.getEString(), "name", null, 0, 1, AssuranceEvidence.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-    initEReference(getAssuranceEvidence_Target(), theAlisaPackage.getAssurancePlan(), null, "target", null, 0, 1, AssuranceEvidence.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-    initEReference(getAssuranceEvidence_TargetSystem(), theAadl2Package.getComponentImplementation(), null, "targetSystem", null, 0, 1, AssuranceEvidence.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-    initEAttribute(getAssuranceEvidence_Message(), theEcorePackage.getEString(), "message", null, 0, 1, AssuranceEvidence.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-    initEReference(getAssuranceEvidence_ClaimResult(), this.getClaimResult(), null, "claimResult", null, 0, -1, AssuranceEvidence.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-    initEReference(getAssuranceEvidence_SubAssuranceEvidence(), this.getAssuranceEvidence(), null, "subAssuranceEvidence", null, 0, -1, AssuranceEvidence.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEClass(assuranceCaseEClass, AssuranceCase.class, "AssuranceCase", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+    initEAttribute(getAssuranceCase_Name(), theEcorePackage.getEString(), "name", null, 0, 1, AssuranceCase.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEReference(getAssuranceCase_Target(), theAlisaPackage.getAssurancePlan(), null, "target", null, 0, 1, AssuranceCase.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEReference(getAssuranceCase_TargetSystem(), theAadl2Package.getSubcomponent(), null, "targetSystem", null, 0, 1, AssuranceCase.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEAttribute(getAssuranceCase_Message(), theEcorePackage.getEString(), "message", null, 0, 1, AssuranceCase.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEReference(getAssuranceCase_ClaimResult(), this.getClaimResult(), null, "claimResult", null, 0, -1, AssuranceCase.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEReference(getAssuranceCase_SubAssuranceCase(), this.getAssuranceCase(), null, "subAssuranceCase", null, 0, -1, AssuranceCase.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
     initEClass(claimResultEClass, ClaimResult.class, "ClaimResult", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
     initEReference(getClaimResult_Target(), theReqSpecPackage.getRequirement(), null, "target", null, 0, 1, ClaimResult.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);

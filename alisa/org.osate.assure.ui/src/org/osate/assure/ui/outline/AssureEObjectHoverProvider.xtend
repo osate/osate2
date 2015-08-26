@@ -7,12 +7,12 @@ import org.osate.assure.assure.VerificationActivityResult
 import org.osate.assure.assure.PreconditionResult
 import org.osate.assure.assure.ResultIssue
 import org.osate.assure.assure.ValidationResult
-import org.osate.assure.assure.AssuranceEvidence
+import org.osate.assure.assure.AssuranceCase
 
 class AssureEObjectHoverProvider extends DefaultEObjectHoverProvider {
 	override getHoverInfoAsHtml(EObject o){
 		switch (o){
-			AssuranceEvidence: return o.message?:"No message"
+			AssuranceCase: return o.message?:"No message"
 			ClaimResult: return o.message?:"No message"
 			VerificationActivityResult: return o.message?:"No message"
 			ValidationResult: return o.message?:"No message"

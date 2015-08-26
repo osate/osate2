@@ -9,7 +9,7 @@ import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.osate.alisa.workbench.alisa.AssurancePlan;
 import org.osate.alisa.workbench.util.AlisaWorkbenchUtilExtension;
-import org.osate.assure.assure.AssuranceEvidence;
+import org.osate.assure.assure.AssuranceCase;
 
 public class ExecuteAssurancePlanHandler extends EditorObjectHandler {
 //
@@ -33,7 +33,7 @@ public class ExecuteAssurancePlanHandler extends EditorObjectHandler {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
 		}
-		AssuranceEvidence ae = null;// (AssuranceEvidence) ((CommonGlobalScopeProvider) scopeProvider).getGlobalEObject(plan,
+		AssuranceCase ae = null;// (AssuranceEvidence) ((CommonGlobalScopeProvider) scopeProvider).getGlobalEObject(plan,
 //				AssurePackage.eINSTANCE.getAssuranceEvidence(), plan.getName());
 		if (ae == null)
 			return Status.CANCEL_STATUS;

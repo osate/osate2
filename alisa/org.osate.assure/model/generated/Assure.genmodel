@@ -31,13 +31,13 @@
       <genEnumLiterals ecoreEnumLiteral="Assure.ecore#//VerificationExecutionState/REDO"/>
       <genEnumLiterals ecoreEnumLiteral="Assure.ecore#//VerificationExecutionState/COMPLETED"/>
     </genEnums>
-    <genClasses ecoreClass="Assure.ecore#//AssuranceEvidence">
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Assure.ecore#//AssuranceEvidence/name"/>
-      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference Assure.ecore#//AssuranceEvidence/target"/>
-      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference Assure.ecore#//AssuranceEvidence/targetSystem"/>
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Assure.ecore#//AssuranceEvidence/message"/>
-      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Assure.ecore#//AssuranceEvidence/claimResult"/>
-      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Assure.ecore#//AssuranceEvidence/subAssuranceEvidence"/>
+    <genClasses ecoreClass="Assure.ecore#//AssuranceCase">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Assure.ecore#//AssuranceCase/name"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference Assure.ecore#//AssuranceCase/target"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference Assure.ecore#//AssuranceCase/targetSystem"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Assure.ecore#//AssuranceCase/message"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Assure.ecore#//AssuranceCase/claimResult"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Assure.ecore#//AssuranceCase/subAssuranceCase"/>
     </genClasses>
     <genClasses ecoreClass="Assure.ecore#//ClaimResult">
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference Assure.ecore#//ClaimResult/target"/>
