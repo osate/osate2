@@ -47,6 +47,8 @@ import org.osate.aadl2.Classifier;
 import org.osate.aadl2.ClassifierValue;
 import org.osate.aadl2.ComponentClassifier;
 import org.osate.aadl2.ComponentImplementation;
+import org.osate.aadl2.DataImplementation;
+import org.osate.aadl2.DataSubcomponent;
 import org.osate.aadl2.Element;
 import org.osate.aadl2.EnumerationLiteral;
 import org.osate.aadl2.EnumerationType;
@@ -70,6 +72,7 @@ import org.osate.aadl2.impl.BooleanLiteralImpl;
 import org.osate.aadl2.impl.ClassifierValueImpl;
 import org.osate.aadl2.instance.ComponentInstance;
 import org.osate.aadl2.instance.ConnectionInstance;
+import org.osate.aadl2.instance.FeatureInstance;
 import org.osate.aadl2.instance.InstanceObject;
 import org.osate.aadl2.instance.InstanceReferenceValue;
 import org.osate.aadl2.properties.PropertyAcc;
@@ -1100,14 +1103,32 @@ public class GetProperties {
 		Property SourceDataSize = lookupPropertyDefinition(ne, MemoryProperties._NAME,
 				MemoryProperties.SOURCE_DATA_SIZE);
 		double res = PropertyUtils.getScaledNumberValue(ne, SourceDataSize, unit, 0.0);
-		if (res == 0.0 && ne instanceof FeatureGroupType) {
-			EList fl = ((FeatureGroupType) ne).getAllFeatures();
-			for (Object f : fl) {
-				Classifier c = ((Feature) f).getAllClassifier();
-				if (c == null) {
-//						res = res + 1.0;
-				} else {
-					res = res + getSourceDataSize(c, unit);
+		if (res == 0.0) {
+			Classifier cl = null;
+			if (ne instanceof Classifier) {
+				cl = (Classifier) ne;
+			} else if (ne instanceof FeatureInstance) {
+				cl = ((FeatureInstance) ne).getFeature().getClassifier();
+			} else if (ne instanceof Feature) {
+				cl = ((Feature) ne).getClassifier();
+			} else if (ne instanceof DataSubcomponent) {
+				cl = ((DataSubcomponent) ne).getClassifier();
+			}
+			if (cl != null) {
+				if (cl instanceof FeatureGroupType) {
+					EList fl = ((FeatureGroupType) cl).getAllFeatures();
+					for (Object f : fl) {
+						Classifier c = ((Feature) f).getAllClassifier();
+						if (c == null) {
+//							res = res + 1.0;
+						} else {
+							res = res + getSourceDataSize(c, unit);
+						}
+					}
+				} else if (cl instanceof DataImplementation) {
+					for (Subcomponent ds : ((DataImplementation) cl).getAllSubcomponents()) {
+						res = res + getSourceDataSize(ds, unit);
+					}
 				}
 			}
 		}
