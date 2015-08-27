@@ -46,6 +46,9 @@ public class Aadl2AutoEditStrategyProvider extends DefaultAutoEditStrategyProvid
 	@Inject
 	protected AutoUnindentEditStrategy.Factory autoUnindent;
 
+	@Inject
+	protected AutoUnindentComponentContentsEditStrategy.Factory autoIndentSection;
+
 	@Override
 	protected void configure(IEditStrategyAcceptor acceptor) {
 		configureIndentationEditStrategy(acceptor);
@@ -58,6 +61,7 @@ public class Aadl2AutoEditStrategyProvider extends DefaultAutoEditStrategyProvid
 		configureMultilineComments(acceptor);
 		configureCompoundBracesBlocks(acceptor);
 		configureKeywordIndent(acceptor);
+		configureSectionIndent(acceptor);
 	}
 
 	@Override
@@ -87,6 +91,10 @@ public class Aadl2AutoEditStrategyProvider extends DefaultAutoEditStrategyProvid
 
 	protected void configureEndUnindent(IEditStrategyAcceptor acceptor) {
 		acceptor.accept(autoUnindent.newInstance(System.lineSeparator()), IDocument.DEFAULT_CONTENT_TYPE);
+	}
+
+	protected void configureSectionIndent(IEditStrategyAcceptor acceptor) {
+		acceptor.accept(autoIndentSection.newInstance(System.lineSeparator()), IDocument.DEFAULT_CONTENT_TYPE);
 	}
 
 }
