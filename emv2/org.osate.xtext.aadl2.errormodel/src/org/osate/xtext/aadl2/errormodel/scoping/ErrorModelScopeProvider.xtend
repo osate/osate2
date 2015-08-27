@@ -19,8 +19,8 @@ import org.osate.xtext.aadl2.errormodel.errorModel.ErrorBehaviorStateMachine
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorModelLibrary
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorModelPackage
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorModelSubclause
-import org.osate.xtext.aadl2.errormodel.errorModel.ErrorPropagation
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorType
+import org.osate.xtext.aadl2.errormodel.errorModel.ErrorTypes
 import org.osate.xtext.aadl2.errormodel.errorModel.FeatureorPPReference
 import org.osate.xtext.aadl2.errormodel.errorModel.TypeSet
 import org.osate.xtext.aadl2.errormodel.errorModel.TypeTransformationSet
@@ -45,11 +45,6 @@ class ErrorModelScopeProvider extends PropertiesScopeProvider {
 	@Inject
 	IQualifiedNameConverter qualifiedNameConverter
 	
-	def String getMethodName() { // For debugging
-		val StackTraceElement[] ste = Thread.currentThread().getStackTrace();
-		return ste.get(2).getMethodName();
-	}
-	
 	def Iterable<ErrorType> getErrorTypesFromLib(ErrorModelLibrary lib) {
 		return (#[lib.types] + lib.extends.map[it | getErrorTypesFromLib(it)]).flatten();
 	}
@@ -58,21 +53,6 @@ class ErrorModelScopeProvider extends PropertiesScopeProvider {
 		return (#[lib.typesets] + lib.extends.map[it | getTypesetsFromLib(it)]).flatten();
 	}
 
-//	def scope_ErrorType_superType(ErrorModelLibrary context, EReference reference) {
-//		val errorLib = EcoreUtil2.getContainerOfType(context, ErrorModelLibrary);
-//		return getErrorTypesFromLib(errorLib).scopeFor(delegateGetScope(context, reference));
-//	}
-
-//	def scope_ErrorType_aliasedType(ErrorModelLibrary context, EReference reference) {
-//		val errorLib = EcoreUtil2.getContainerOfType(context, ErrorModelLibrary);
-//		return getErrorTypesFromLib(errorLib).scopeFor(delegateGetScope(context, reference));
-//	}
-
-	def scope_TypeSet_aliasedType(ErrorModelLibrary context, EReference reference) {
-		val errorLib = EcoreUtil2.getContainerOfType(context, ErrorModelLibrary);
-		return getTypesetsFromLib(errorLib).scopeFor(delegateGetScope(context, reference));
-	}
-	
 	def getErrorLibsFromContext(EObject context) {
 		var EObject parCtx;
 		for (parCtx = context; parCtx != null; parCtx = parCtx.eContainer()) {
@@ -120,10 +100,6 @@ class ErrorModelScopeProvider extends PropertiesScopeProvider {
 		return events.scopeFor();		
 	}
 	
-	def Iterable<ErrorPropagation> getPropagationsFromSubclause(ErrorModelSubclause lib) {
-		return (#[lib.propagations]).flatten();
-	}
-	
 	/*
 	 * TODO: FINISH THIS!
 	 * This method should be much more complicated.  It should mimic the behavior found in the method
@@ -151,36 +127,12 @@ class ErrorModelScopeProvider extends PropertiesScopeProvider {
 		scopeWithoutEMV2Prefix(context, reference)
 	}
 	
-	/*
-	 * This scope is a little complicated because each ErrorType could potentially have multiple qualified names.
-	 * Consider the following example:
-	 * 
-	 * package lib1
-	 * public
-	 *   annex EMV2 {**
-	 *     error types
-	 *       t1: type;
-	 *     end types;
-	 *   **};
-	 * end lib1;
-	 * 
-	 * package lib2
-	 * public
-	 *   annex EMV2 {**
-	 *     error types extends lib1 with
-	 *     end types;
-	 *   **};
-	 * end lib2;
-	 * 
-	 * In this example, the ErrorType "t1" has the qualified names "lib1::t1" and "lib2::t1" because "lib2" extends
-	 * from "lib1".  If the extension was not there, then "t1" would only have one qualified name.
-	 */
 	def scope_ErrorType(ErrorModelLibrary context, EReference reference) {
-		val libraries = delegateGetScope(context, ErrorModelPackage.eINSTANCE.errorModelLibrary_Extends).allElements.map[EObjectOrProxy.resolve(context) as ErrorModelLibrary]
-		val types = libraries.map[library | library.allErrorTypes.map[library.getContainerOfType(AadlPackage).name -> it]].flatten
-		val descriptions = types.map[EObjectDescription.create(QualifiedName.create(key, value.name), value)]
-		val qualifiedNameScope = new SimpleScope(descriptions, true)
-		context.allErrorTypes.scopeFor(qualifiedNameScope)
+		context.scopeForInheritableErrorTypes[allErrorTypes]
+	}
+	
+	def scope_TypeSet_aliasedType(ErrorModelLibrary context, EReference reference) {
+		context.scopeForInheritableErrorTypes[allTypesets]
 	}
 	
 	def scope_FeatureorPPReference_featureorPP(Classifier context, EReference reference) {
@@ -215,7 +167,44 @@ class ErrorModelScopeProvider extends PropertiesScopeProvider {
 		], true)
 	}
 	
+	/*
+	 * This is a little complicated because each ErrorType or TypeSet could potentially have multiple qualified names.
+	 * Consider the following example:
+	 * 
+	 * package lib1
+	 * public
+	 *   annex EMV2 {**
+	 *     error types
+	 *       t1: type;
+	 *     end types;
+	 *   **};
+	 * end lib1;
+	 * 
+	 * package lib2
+	 * public
+	 *   annex EMV2 {**
+	 *     error types extends lib1 with
+	 *     end types;
+	 *   **};
+	 * end lib2;
+	 * 
+	 * In this example, the ErrorType "t1" has the qualified names "lib1::t1" and "lib2::t1" because "lib2" extends
+	 * from "lib1".  If the extension was not there, then "t1" would only have one qualified name.  The same applies to
+	 * TypeSets as well.
+	 */
+	def private scopeForInheritableErrorTypes(ErrorModelLibrary context, (ErrorModelLibrary)=>Iterable<? extends ErrorTypes> elementGetter) {
+		val libraries = delegateGetScope(context, ErrorModelPackage.eINSTANCE.errorModelLibrary_Extends).allElements.map[EObjectOrProxy.resolve(context) as ErrorModelLibrary]
+		val typesOrTypesets = libraries.map[library | elementGetter.apply(library).map[library.getContainerOfType(AadlPackage).name -> it]].flatten
+		val descriptions = typesOrTypesets.map[EObjectDescription.create(QualifiedName.create(key, value.name), value)]
+		val qualifiedNameScope = new SimpleScope(descriptions, true)
+		elementGetter.apply(context).scopeFor(qualifiedNameScope)
+	}
+	
 	def private static Iterable<ErrorType> getAllErrorTypes(ErrorModelLibrary library) {
 		library.extends.map[allErrorTypes].flatten.toSet + library.types
+	}
+	
+	def private static Iterable<TypeSet> getAllTypesets(ErrorModelLibrary library) {
+		library.extends.map[allTypesets].flatten.toSet + library.typesets
 	}
 }
