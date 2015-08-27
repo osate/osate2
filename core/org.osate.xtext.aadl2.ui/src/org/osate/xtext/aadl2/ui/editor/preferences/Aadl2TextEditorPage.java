@@ -17,6 +17,8 @@ public class Aadl2TextEditorPage extends LanguageRootPreferencePage {
 		addField(new BooleanFieldEditor(WorkspacePlugin.CAPITALIZE,
 				"Use &upper case instead of lower case for \"public\" and \"end\" when using auto complete above",
 				getFieldEditorParent()));
+		addField(new BooleanFieldEditor(WorkspacePlugin.INDENT_SECTIONS,
+				"Automatically set indent of component &section keywords", getFieldEditorParent()));
 	}
 
 	@Override
