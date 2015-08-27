@@ -5,9 +5,11 @@ import org.eclipse.emf.ecore.EObject
 import org.eclipse.emf.ecore.EReference
 import org.eclipse.xtext.EcoreUtil2
 import org.eclipse.xtext.naming.IQualifiedNameConverter
+import org.eclipse.xtext.naming.QualifiedName
 import org.eclipse.xtext.resource.EObjectDescription
 import org.eclipse.xtext.scoping.IScope
 import org.eclipse.xtext.scoping.impl.SimpleScope
+import org.osate.aadl2.AadlPackage
 import org.osate.aadl2.Classifier
 import org.osate.aadl2.ComponentImplementation
 import org.osate.aadl2.DirectionType
@@ -15,6 +17,7 @@ import org.osate.aadl2.Element
 import org.osate.aadl2.FeatureGroup
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorBehaviorStateMachine
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorModelLibrary
+import org.osate.xtext.aadl2.errormodel.errorModel.ErrorModelPackage
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorModelSubclause
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorPropagation
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorType
@@ -24,6 +27,7 @@ import org.osate.xtext.aadl2.errormodel.errorModel.TypeTransformationSet
 import org.osate.xtext.aadl2.errormodel.serializer.ErrorModelCrossReferenceSerializer
 import org.osate.xtext.aadl2.properties.scoping.PropertiesScopeProvider
 
+import static extension org.eclipse.emf.ecore.util.EcoreUtil.resolve
 import static extension org.eclipse.xtext.EcoreUtil2.getContainerOfType
 import static extension org.osate.xtext.aadl2.errormodel.util.EMV2Util.getAllContainingClassifierEMV2Subclauses
 import static extension org.osate.xtext.aadl2.errormodel.util.EMV2Util.getAllErrorFlows
@@ -54,15 +58,15 @@ class ErrorModelScopeProvider extends PropertiesScopeProvider {
 		return (#[lib.typesets] + lib.extends.map[it | getTypesetsFromLib(it)]).flatten();
 	}
 
-	def scope_ErrorType_superType(ErrorModelLibrary context, EReference reference) {
-		val errorLib = EcoreUtil2.getContainerOfType(context, ErrorModelLibrary);
-		return getErrorTypesFromLib(errorLib).scopeFor(delegateGetScope(context, reference));
-	}
+//	def scope_ErrorType_superType(ErrorModelLibrary context, EReference reference) {
+//		val errorLib = EcoreUtil2.getContainerOfType(context, ErrorModelLibrary);
+//		return getErrorTypesFromLib(errorLib).scopeFor(delegateGetScope(context, reference));
+//	}
 
-	def scope_ErrorType_aliasedType(ErrorModelLibrary context, EReference reference) {
-		val errorLib = EcoreUtil2.getContainerOfType(context, ErrorModelLibrary);
-		return getErrorTypesFromLib(errorLib).scopeFor(delegateGetScope(context, reference));
-	}
+//	def scope_ErrorType_aliasedType(ErrorModelLibrary context, EReference reference) {
+//		val errorLib = EcoreUtil2.getContainerOfType(context, ErrorModelLibrary);
+//		return getErrorTypesFromLib(errorLib).scopeFor(delegateGetScope(context, reference));
+//	}
 
 	def scope_TypeSet_aliasedType(ErrorModelLibrary context, EReference reference) {
 		val errorLib = EcoreUtil2.getContainerOfType(context, ErrorModelLibrary);
@@ -147,6 +151,38 @@ class ErrorModelScopeProvider extends PropertiesScopeProvider {
 		scopeWithoutEMV2Prefix(context, reference)
 	}
 	
+	/*
+	 * This scope is a little complicated because each ErrorType could potentially have multiple qualified names.
+	 * Consider the following example:
+	 * 
+	 * package lib1
+	 * public
+	 *   annex EMV2 {**
+	 *     error types
+	 *       t1: type;
+	 *     end types;
+	 *   **};
+	 * end lib1;
+	 * 
+	 * package lib2
+	 * public
+	 *   annex EMV2 {**
+	 *     error types extends lib1 with
+	 *     end types;
+	 *   **};
+	 * end lib2;
+	 * 
+	 * In this example, the ErrorType "t1" has the qualified names "lib1::t1" and "lib2::t1" because "lib2" extends
+	 * from "lib1".  If the extension was not there, then "t1" would only have one qualified name.
+	 */
+	def scope_ErrorType(ErrorModelLibrary context, EReference reference) {
+		val libraries = delegateGetScope(context, ErrorModelPackage.eINSTANCE.errorModelLibrary_Extends).allElements.map[EObjectOrProxy.resolve(context) as ErrorModelLibrary]
+		val types = libraries.map[library | library.allErrorTypes.map[library.getContainerOfType(AadlPackage).name -> it]].flatten
+		val descriptions = types.map[EObjectDescription.create(QualifiedName.create(key, value.name), value)]
+		val qualifiedNameScope = new SimpleScope(descriptions, true)
+		context.allErrorTypes.scopeFor(qualifiedNameScope)
+	}
+	
 	def scope_FeatureorPPReference_featureorPP(Classifier context, EReference reference) {
 		(context.getAllFeatures + context.allPropagationPoints + if (context instanceof ComponentImplementation) {
 			context.allInternalFeatures
@@ -177,5 +213,9 @@ class ErrorModelScopeProvider extends PropertiesScopeProvider {
 				it
 			}
 		], true)
+	}
+	
+	def private static Iterable<ErrorType> getAllErrorTypes(ErrorModelLibrary library) {
+		library.extends.map[allErrorTypes].flatten.toSet + library.types
 	}
 }

@@ -134,6 +134,57 @@ class ErrorModelScopeProviderTest extends OsateTest {
 		assertConstraints(issueCollection)
 	}
 	
+	//Tests scope_ErrorType
+	@Test
+	def void testErrorTypeReference() {
+		val lib1FileName = "lib1.aadl"
+		val lib2FileName = "lib2.aadl"
+		createFiles(lib1FileName -> '''
+			package lib1
+			public
+				annex EMV2 {**
+					error types
+						t1: type;
+					end types;
+				**};
+			end lib1;
+		''', lib2FileName -> '''
+			package lib2
+			public
+				annex EMV2 {**
+					error types extends lib1 with
+						t2: type;
+					end types;
+				**};
+			end lib2;
+		''')
+		suppressSerialization
+		val lib1TestResult = testFile(lib1FileName)
+		val lib2TestResult = testFile(lib2FileName)
+		lib1TestResult.resource.contents.head as AadlPackage => [
+			"lib1".assertEquals(name)
+			((publicSection.ownedAnnexLibraries.head as DefaultAnnexLibrary).parsedAnnexLibrary as ErrorModelLibrary).types.head => [
+				"t1".assertEquals(name)
+				val expectedScope = #["t1", "lib1::t1", "lib2::t1", "lib2::t2"]
+				//Tests scope_ErrorType
+				assertScope(ErrorModelPackage.eINSTANCE.errorType_SuperType, false, expectedScope)
+				//Tests scope_ErrorType
+				assertScope(ErrorModelPackage.eINSTANCE.errorType_AliasedType, false, expectedScope)
+			]
+		]
+		lib2TestResult.resource.contents.head as AadlPackage => [
+			"lib2".assertEquals(name)
+			((publicSection.ownedAnnexLibraries.head as DefaultAnnexLibrary).parsedAnnexLibrary as ErrorModelLibrary).types.head => [
+				"t2".assertEquals(name)
+				val expectedScope = #["t1", "t2", "lib1::t1", "lib2::t1", "lib2::t2"]
+				//Tests scope_ErrorType
+				assertScope(ErrorModelPackage.eINSTANCE.errorType_SuperType, false, expectedScope)
+				//Tests scope_ErrorType
+				assertScope(ErrorModelPackage.eINSTANCE.errorType_AliasedType, false, expectedScope)
+			]
+		]
+	}
+	
 	/*
 	 * Tests ErrorModelScopeProvider.scope_FeatureorPPReference_featureorPP(Classifier, EReference),
 	 * ErrorModelScopeProvider.scope_FeatureorPPReference_featureorPP(FeatureorPPReference, EReference), and
