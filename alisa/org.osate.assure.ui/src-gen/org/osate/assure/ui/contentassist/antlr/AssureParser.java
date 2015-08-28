@@ -88,7 +88,8 @@ public class AssureParser extends AbstractContentAssistParser {
 					put(grammarAccess.getQualifiedNameAccess().getGroup_1(), "rule__QualifiedName__Group_1__0");
 					put(grammarAccess.getAssuranceCaseAccess().getNameAssignment_1(), "rule__AssuranceCase__NameAssignment_1");
 					put(grammarAccess.getAssuranceCaseAccess().getTargetAssignment_2_1(), "rule__AssuranceCase__TargetAssignment_2_1");
-					put(grammarAccess.getAssuranceCaseAccess().getTargetSystemAssignment_3_1(), "rule__AssuranceCase__TargetSystemAssignment_3_1");
+					put(grammarAccess.getAssuranceCaseAccess().getContextImplementationAssignment_3_1(), "rule__AssuranceCase__ContextImplementationAssignment_3_1");
+					put(grammarAccess.getAssuranceCaseAccess().getTargetSystemAssignment_3_2(), "rule__AssuranceCase__TargetSystemAssignment_3_2");
 					put(grammarAccess.getAssuranceCaseAccess().getMetricsAssignment_5(), "rule__AssuranceCase__MetricsAssignment_5");
 					put(grammarAccess.getAssuranceCaseAccess().getMessageAssignment_6_1(), "rule__AssuranceCase__MessageAssignment_6_1");
 					put(grammarAccess.getAssuranceCaseAccess().getClaimResultAssignment_7(), "rule__AssuranceCase__ClaimResultAssignment_7");

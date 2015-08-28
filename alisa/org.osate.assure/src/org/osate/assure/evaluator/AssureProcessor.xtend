@@ -50,6 +50,7 @@ import static extension org.osate.assure.util.AssureUtilExtension.*
 import org.osate.verify.util.VerificationMethodDispatchers
 import org.osate.aadl2.ComponentClassifier
 import org.osate.assure.assure.AssuranceCase
+import org.osate.aadl2.instance.ComponentInstance
 
 @ImplementedBy(AssureProcessor)
 interface IAssureProcessor {
@@ -150,12 +151,13 @@ class AssureProcessor implements IAssureProcessor {
 	def void runVerificationMethod(VerificationResult verificationResult) {
 		val method = verificationResult.method;
 		var Object res = null
+		var InstanceObject target = null;
 		val targetElement = verificationResult.claimSubject
-		val instance = verificationResult.instanceModel
-		var InstanceObject target = instance
+		val instanceroot = verificationResult.instanceModel
+		var ComponentInstance targetComponent = findComponentInstance(instanceroot,verificationResult.enclosingAssuranceCase)
 		if (!(targetElement instanceof ComponentClassifier)){
-			val x = instance.findElementInstance(targetElement)
-			target = x?:target
+			val x = targetComponent.findElementInstance(targetElement)
+			target = x?:targetComponent
 		}
 		var Object[] parameters
 		val ctx = new DefaultEvaluationContext()
@@ -244,7 +246,7 @@ class AssureProcessor implements IAssureProcessor {
 					}
 				}
 				PluginMethod: {
-					res = VerificationMethodDispatchers.eInstance.dispatchVerificationMethod(methodtype, target, parameters) // returning the marker or diagnostic id as string
+					res = VerificationMethodDispatchers.eInstance.dispatchVerificationMethod(methodtype, instanceroot, parameters) // returning the marker or diagnostic id as string
 					if (res instanceof String) {
 						val errors = addMarkers(verificationResult, target, res, method)
 						if (errors) {
@@ -259,8 +261,8 @@ class AssureProcessor implements IAssureProcessor {
 				ResoluteMethod: {
 
 					// Resolute handling See AssureUtil for setup	
-					AssureUtilExtension.initializeResoluteContext(instance);
-					val EvaluationContext context = new EvaluationContext(instance, sets, featToConnsMap);
+					AssureUtilExtension.initializeResoluteContext(instanceroot);
+					val EvaluationContext context = new EvaluationContext(instanceroot, sets, featToConnsMap);
 					val ResoluteInterpreter interpreter = new ResoluteInterpreter(context);
 					val provecall = createWrapperProveCall(methodtype,parameters)
 					if (provecall == null) {

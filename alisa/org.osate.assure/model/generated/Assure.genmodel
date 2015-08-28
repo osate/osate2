@@ -34,6 +34,7 @@
     <genClasses ecoreClass="Assure.ecore#//AssuranceCase">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Assure.ecore#//AssuranceCase/name"/>
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference Assure.ecore#//AssuranceCase/target"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference Assure.ecore#//AssuranceCase/contextImplementation"/>
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference Assure.ecore#//AssuranceCase/targetSystem"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Assure.ecore#//AssuranceCase/message"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Assure.ecore#//AssuranceCase/claimResult"/>

@@ -70,7 +70,7 @@ public class AssureSemanticSequencer extends AbstractDelegatingSemanticSequencer
 	 *     (
 	 *         name=QualifiedName 
 	 *         target=[AssurancePlan|QualifiedName]? 
-	 *         targetSystem=[Subcomponent|ID]? 
+	 *         (contextImplementation=[ComponentImplementation|AadlClassifierReference] targetSystem=[Subcomponent|ID])? 
 	 *         metrics=Metrics 
 	 *         message=STRING? 
 	 *         claimResult+=ClaimResult* 

@@ -11,6 +11,8 @@ import org.eclipse.xtext.scoping.impl.SimpleScope
 import org.eclipse.xtext.scoping.Scopes
 import org.eclipse.xtext.naming.QualifiedName
 import org.eclipse.xtext.util.SimpleAttributeResolver
+import org.eclipse.emf.mwe2.language.mwe2.impl.ComponentImpl
+import org.osate.aadl2.ComponentImplementation
 
 /**
  * This class contains custom scoping description.
@@ -24,11 +26,14 @@ class AssureScopeProvider extends org.eclipse.xtext.scoping.impl.AbstractDeclara
 	def scope_Subcomponent(AssuranceCase ac, EReference reference){
 		val parent = ac.enclosingAssuranceCase
 		if (parent == null) return IScope::NULLSCOPE
-		val targetCC = parent.target.target
-		new SimpleScope(IScope::NULLSCOPE, 
+		val targetCC = ac.contextImplementation?:parent.target?.target
+		if (targetCC instanceof ComponentImplementation){
+			return new SimpleScope(IScope::NULLSCOPE, 
 			Scopes::scopedElementsFor(targetCC.allSubcomponents,
 						QualifiedName::wrapper(SimpleAttributeResolver::NAME_RESOLVER)), true)
-
+		} else {
+			return IScope::NULLSCOPE
+		}
 	}
 
 }

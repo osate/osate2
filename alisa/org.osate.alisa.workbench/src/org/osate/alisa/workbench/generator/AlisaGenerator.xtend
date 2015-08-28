@@ -79,11 +79,7 @@ class AlisaGenerator implements IGenerator {
 			allPlans = acp.assureGlobal
 		}
 		rootAssuranceCase = acp
-		generateCase(acp, null)
-	}
-
-	def generateSystemEvidence(Subcomponent sub) {
-		generateCase(null,sub)
+		generateCase(acp, null, null)
 	}
 
 @Inject extension IVerifyGlobalReferenceFinder referenceFinder
@@ -95,7 +91,7 @@ class AlisaGenerator implements IGenerator {
 	 * either acp or sub may be null, but not both
 	 * they can both be set, in this case acp takes precedence
 	 */
-	def CharSequence generateCase(AssurancePlan acp, Subcomponent sub) {
+	def CharSequence generateCase(AssurancePlan acp, Subcomponent sub, ComponentImplementation cimpl) {
 		var Iterable<VerificationPlan> myplans = Collections.EMPTY_LIST
 		var ComponentClassifier cc
 		if (acp != null){
@@ -120,7 +116,7 @@ class AlisaGenerator implements IGenerator {
 				for «acp.name»
 			«ENDIF»
 			«IF sub != null»
-				system «sub.name»
+				system «cimpl.getQualifiedName» «sub.name»
 			«ENDIF»
 				[
 					tbdcount 0
@@ -140,7 +136,7 @@ class AlisaGenerator implements IGenerator {
 					«ENDFOR»
 			    «IF cc instanceof ComponentImplementation»
 					«FOR subc : cc.allSubcomponents»
-						«subc.filterplans(acp)»
+						«subc.filterplans(acp, cc)»
 					«ENDFOR»
 			    «ENDIF»
 				]
@@ -148,14 +144,15 @@ class AlisaGenerator implements IGenerator {
 		'''
 	}
 	
-	def CharSequence filterplans(Subcomponent subc, AssurancePlan parentacp){
+	def CharSequence filterplans(Subcomponent subc, AssurancePlan parentacp, ComponentImplementation cimpl){
 		val cc = subc.allClassifier
 		if (cc.skipAssuranceplans(parentacp)) return ''''''
 		if (cc instanceof ComponentType){
-			generateCase(null,subc)
-		}
+			generateCase(null,subc, cimpl)
+		} else {
 		val subacp = cc.getSubsystemAssuranceplan(parentacp)
-		generateCase(subacp,subc)
+		generateCase(subacp,subc, cimpl)
+		}
 	}
 	
 	def boolean skipAssuranceplans(ComponentClassifier cc, AssurancePlan parentacp){

@@ -89,23 +89,31 @@ class AssureUtilExtension {
 	}
 
 	def static SystemInstance getInstanceModel(VerificationResult assureObject) {
-		switch (assureObject) {
-			VerificationActivityResult:
-				assureObject.target?.target?.instanceModel ?:
-					assureObject.enclosingAssuranceCase?.targetClassifier.instanceModel
-			ValidationResult:
-				(assureObject.eContainer as VerificationActivityResult).target?.target?.instanceModel ?:
-					assureObject.enclosingAssuranceCase?.target?.target?.instanceModel
-			PreconditionResult:
-				(assureObject.eContainer as VerificationActivityResult).target?.target?.instanceModel ?:
-					assureObject.enclosingAssuranceCase?.target?.target?.instanceModel
+		val rac = assureObject.rootAssuranceCase
+		if (rac == null ) return null
+		rac.target?.target?.instanceModel
+//		switch (assureObject) {
+//			VerificationActivityResult:
+//				assureObject.target?.target?.instanceModel ?:
+//					assureObject.enclosingAssuranceCase?.targetClassifier.instanceModel
+//			ValidationResult:
+//				(assureObject.eContainer as VerificationActivityResult).target?.target?.instanceModel ?:
+//					assureObject.enclosingAssuranceCase?.target?.target?.instanceModel
+//			PreconditionResult:
+//				(assureObject.eContainer as VerificationActivityResult).target?.target?.instanceModel ?:
+//					assureObject.enclosingAssuranceCase?.target?.target?.instanceModel
+//		}
+	}
+
+	def static ComponentInstance findComponentInstance(SystemInstance si,AssuranceCase ac){
+		if (ac.targetSystem != null){
+			val ci = findComponentInstance(si,ac.enclosingAssuranceCase)
+			findElementInstance(ci,ac.targetSystem) as ComponentInstance
+		} else {
+			si
 		}
 	}
-
-	def static getInstanceModel(AssuranceCase ae) {
-		getInstanceModel(ae.getTarget().getTarget())
-	}
-
+	
 	def static VerificationMethod getMethod(VerificationResult vr) {
 		switch (vr) {
 			VerificationActivityResult: return vr.target.method
