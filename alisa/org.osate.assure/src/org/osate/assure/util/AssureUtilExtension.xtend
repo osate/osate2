@@ -54,11 +54,19 @@ import static extension org.osate.reqspec.util.ReqSpecUtilExtension.*
 class AssureUtilExtension {
 
 	def static AssuranceCase getEnclosingAssuranceCase(EObject assureObject) {
-		var result = assureObject
+		var result = assureObject.eContainer
 		while (!(result instanceof AssuranceCase)) {
 			result = result.eContainer
 		}
 		if(result == null) return null
+		return result as AssuranceCase
+	}
+
+	def static AssuranceCase getRootAssuranceCase(EObject assureObject) {
+		var result = assureObject
+		while (result.eContainer != null) {
+			result = result.eContainer
+		}
 		return result as AssuranceCase
 	}
 
@@ -67,7 +75,7 @@ class AssureUtilExtension {
 	}
 
 	def static ClaimResult getEnclosingClaimResult(EObject assureObject) {
-		var result = assureObject
+		var result = assureObject.eContainer
 		while (!(result instanceof ClaimResult)) {
 			result = result.eContainer
 		}
@@ -76,8 +84,8 @@ class AssureUtilExtension {
 	}
 
 	def static NamedElement getClaimSubject(EObject assureObject) {
-		val req = assureObject.enclosingClaimResult.target
-		req.targetElement ?: req.targetClassifier
+		val req = if (assureObject instanceof ClaimResult) assureObject.target else assureObject.enclosingClaimResult.target
+		req?.targetElement ?: req.targetClassifier
 	}
 
 	def static SystemInstance getInstanceModel(VerificationResult assureObject) {

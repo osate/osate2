@@ -69,7 +69,8 @@ public class AssureSemanticSequencer extends AbstractDelegatingSemanticSequencer
 	 * Constraint:
 	 *     (
 	 *         name=QualifiedName 
-	 *         (target=[AssurancePlan|QualifiedName] | targetSystem=[Subcomponent|ID]) 
+	 *         target=[AssurancePlan|QualifiedName]? 
+	 *         targetSystem=[Subcomponent|ID]? 
 	 *         metrics=Metrics 
 	 *         message=STRING? 
 	 *         claimResult+=ClaimResult* 

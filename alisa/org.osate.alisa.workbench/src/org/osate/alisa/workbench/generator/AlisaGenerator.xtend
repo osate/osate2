@@ -36,6 +36,7 @@ import org.osate.verify.verify.VerificationValidation
 
 import static extension org.osate.alisa.common.util.CommonUtilExtension.*
 import static extension org.osate.verify.util.VerifyUtilExtension.*
+import org.osate.aadl2.Subcomponent
 
 /**
  * Generates code from your model files on save.
@@ -48,7 +49,7 @@ class AlisaGenerator implements IGenerator {
 		val workarea = resource.contents.get(0) as AlisaWorkArea
 		workarea.cases.forEach [ mycase |
 			switch (mycase){
-			AssurancePlan: fsa.generateFile('''«mycase.name».assure''', generateCase(mycase))
+			AssurancePlan: fsa.generateFile('''«mycase.name».assure''', generateRootCase(mycase))
 			AssuranceTask: fsa.generateFile('''«mycase.name».assure''', generateAssuranceTask(mycase))
 			}
 		]
@@ -60,48 +61,66 @@ class AlisaGenerator implements IGenerator {
 	var List<RequirementCategory> requirementFilter = Collections.EMPTY_LIST
 	var List<VerificationCategory> verificationFilter = Collections.EMPTY_LIST
 	
+	var AssurancePlan rootAssuranceCase;
+	
 	def generateAssuranceTask(AssuranceTask at){
 		selectionFilter = at.selectionFilter
 		requirementFilter = at.requirementFilter
 		verificationFilter = at.verificationFilter
-		at.assurancePlan?.generateCase
+		at.assurancePlan?.generateRootCase
 	}
 	
 	var Iterable<VerificationPlan> allPlans = null
 
-	def generateCase(AssurancePlan acp) {
+	def generateRootCase(AssurancePlan acp) {
 		if (acp.assureGlobal.isEmpty){
 			allPlans = referenceFinder.getGlobalReqVerificationPlans(acp)
 		} else {
 			allPlans = acp.assureGlobal
 		}
-		acp.target.generate(acp, false)
+		rootAssuranceCase = acp
+		generateCase(acp, null)
 	}
 
-	def generateSystemEvidence(ComponentClassifier cc, AssurancePlan parentacp) {
-		cc.generate(parentacp,true)
+	def generateSystemEvidence(Subcomponent sub) {
+		generateCase(null,sub)
 	}
 
 @Inject extension IVerifyGlobalReferenceFinder referenceFinder
 
 
 	/**
-	 * if systemEvidence is true then acp is the parent acp. Therefore we need to find the verification plans for the system.
+	 * acp: AssurancePlan of the system of interest
+	 * sub: system of interest as subcomponent of another system
+	 * either acp or sub may be null, but not both
+	 * they can both be set, in this case acp takes precedence
 	 */
-	def CharSequence generate(ComponentClassifier cc, AssurancePlan acp, boolean systemEvidence) {
+	def CharSequence generateCase(AssurancePlan acp, Subcomponent sub) {
 		var Iterable<VerificationPlan> myplans = Collections.EMPTY_LIST
-		if (!systemEvidence){
+		var ComponentClassifier cc
+		if (acp != null){
 			myplans = acp.assureOwn
+			cc = acp.target
+			if (myplans.empty && cc != null){
+				myplans = cc.getVerificationPlans(rootAssuranceCase)
+			}
 		}
-		if (myplans.empty){
-		 myplans = cc.getVerificationPlans(acp);
+		if (myplans.empty && sub != null){
+			cc = sub.allClassifier
+		 myplans = cc?.getVerificationPlans(rootAssuranceCase);
 		}
 		'''	
 			«IF !myplans.empty»
-			«IF !systemEvidence»
-				case «acp.name» for «acp.name»
+			«IF sub == null»
+				case «acp.name» 
 			«ELSE»
-				case «cc.name» for system «cc.getQualifiedName»
+				case «sub.name» 
+			«ENDIF»
+			«IF acp != null»
+				for «acp.name»
+			«ENDIF»
+			«IF sub != null»
+				system «sub.name»
 			«ENDIF»
 				[
 					tbdcount 0
@@ -119,25 +138,28 @@ class AlisaGenerator implements IGenerator {
 						«ENDIF»
 						«ENDFOR»
 					«ENDFOR»
-					«FOR subcl : cc.subcomponentClassifiers»
-						«subcl.filterplans(acp)»
+			    «IF cc instanceof ComponentImplementation»
+					«FOR subc : cc.allSubcomponents»
+						«subc.filterplans(acp)»
 					«ENDFOR»
+			    «ENDIF»
 				]
 			«ENDIF»
 		'''
 	}
 	
-	def CharSequence filterplans(ComponentClassifier cc, AssurancePlan parentacp){
-		if (cc instanceof ComponentType || cc.skipAssuranceplans(parentacp)) return ''''''
-		val subacp = cc.getSubsystemAssuranceplan(parentacp)
-		if (subacp != null){
-			subacp.generateCase
-		} else {
-			cc.generateSystemEvidence(parentacp)
+	def CharSequence filterplans(Subcomponent subc, AssurancePlan parentacp){
+		val cc = subc.allClassifier
+		if (cc.skipAssuranceplans(parentacp)) return ''''''
+		if (cc instanceof ComponentType){
+			generateCase(null,subc)
 		}
+		val subacp = cc.getSubsystemAssuranceplan(parentacp)
+		generateCase(subacp,subc)
 	}
 	
 	def boolean skipAssuranceplans(ComponentClassifier cc, AssurancePlan parentacp){
+		if (parentacp == null) return false
 		val assumes = parentacp.assumeSubsystems
 		for (cl: assumes){
 			if (cc.isSameorExtends(cl)) return true;
@@ -146,6 +168,7 @@ class AlisaGenerator implements IGenerator {
 	}
 	
 	def AssurancePlan getSubsystemAssuranceplan(ComponentClassifier cc, AssurancePlan parentacp){
+		if (parentacp == null) return null
 		val assure = parentacp.assurePlans
 		for (ap: assure){
 			if (cc.isSameorExtends(ap.target)) return ap;

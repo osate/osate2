@@ -37,7 +37,6 @@ public class AssureParser extends AbstractContentAssistParser {
 			nameMappings = new HashMap<AbstractElement, String>() {
 				private static final long serialVersionUID = 1L;
 				{
-					put(grammarAccess.getAssuranceCaseAccess().getAlternatives_3(), "rule__AssuranceCase__Alternatives_3");
 					put(grammarAccess.getConditionResultAccess().getAlternatives_0(), "rule__ConditionResult__Alternatives_0");
 					put(grammarAccess.getAssureResultAccess().getAlternatives(), "rule__AssureResult__Alternatives");
 					put(grammarAccess.getVerificationExprAccess().getAlternatives(), "rule__VerificationExpr__Alternatives");
@@ -46,7 +45,8 @@ public class AssureParser extends AbstractContentAssistParser {
 					put(grammarAccess.getVerificationResultStateAccess().getAlternatives(), "rule__VerificationResultState__Alternatives");
 					put(grammarAccess.getVerificationExecutionStateAccess().getAlternatives(), "rule__VerificationExecutionState__Alternatives");
 					put(grammarAccess.getAssuranceCaseAccess().getGroup(), "rule__AssuranceCase__Group__0");
-					put(grammarAccess.getAssuranceCaseAccess().getGroup_3_1(), "rule__AssuranceCase__Group_3_1__0");
+					put(grammarAccess.getAssuranceCaseAccess().getGroup_2(), "rule__AssuranceCase__Group_2__0");
+					put(grammarAccess.getAssuranceCaseAccess().getGroup_3(), "rule__AssuranceCase__Group_3__0");
 					put(grammarAccess.getAssuranceCaseAccess().getGroup_6(), "rule__AssuranceCase__Group_6__0");
 					put(grammarAccess.getClaimResultAccess().getGroup(), "rule__ClaimResult__Group__0");
 					put(grammarAccess.getClaimResultAccess().getGroup_4(), "rule__ClaimResult__Group_4__0");
@@ -87,8 +87,8 @@ public class AssureParser extends AbstractContentAssistParser {
 					put(grammarAccess.getQualifiedNameAccess().getGroup(), "rule__QualifiedName__Group__0");
 					put(grammarAccess.getQualifiedNameAccess().getGroup_1(), "rule__QualifiedName__Group_1__0");
 					put(grammarAccess.getAssuranceCaseAccess().getNameAssignment_1(), "rule__AssuranceCase__NameAssignment_1");
-					put(grammarAccess.getAssuranceCaseAccess().getTargetAssignment_3_0(), "rule__AssuranceCase__TargetAssignment_3_0");
-					put(grammarAccess.getAssuranceCaseAccess().getTargetSystemAssignment_3_1_1(), "rule__AssuranceCase__TargetSystemAssignment_3_1_1");
+					put(grammarAccess.getAssuranceCaseAccess().getTargetAssignment_2_1(), "rule__AssuranceCase__TargetAssignment_2_1");
+					put(grammarAccess.getAssuranceCaseAccess().getTargetSystemAssignment_3_1(), "rule__AssuranceCase__TargetSystemAssignment_3_1");
 					put(grammarAccess.getAssuranceCaseAccess().getMetricsAssignment_5(), "rule__AssuranceCase__MetricsAssignment_5");
 					put(grammarAccess.getAssuranceCaseAccess().getMessageAssignment_6_1(), "rule__AssuranceCase__MessageAssignment_6_1");
 					put(grammarAccess.getAssuranceCaseAccess().getClaimResultAssignment_7(), "rule__AssuranceCase__ClaimResultAssignment_7");

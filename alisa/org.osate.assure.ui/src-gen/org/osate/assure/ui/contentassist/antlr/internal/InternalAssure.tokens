@@ -1,7 +1,7 @@
 '.'=53
 ':'=50
-'['=25
-']'=26
+'['=24
+']'=25
 'case'=23
 'claim'=29
 'completed'=22
@@ -13,7 +13,7 @@
 'executionstate'=30
 'fail'=11
 'failcount'=42
-'for'=24
+'for'=26
 'info'=17
 'issues'=34
 'message'=28

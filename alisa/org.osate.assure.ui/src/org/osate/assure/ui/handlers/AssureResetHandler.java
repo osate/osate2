@@ -73,7 +73,7 @@ public class AssureResetHandler extends AbstractHandler {
 					@Override
 					public IStatus exec(XtextResource resource) throws Exception {
 						EObject eobj = resource.getResourceSet().getEObject(uri, true);
-						AssuranceCase ae = AssureUtilExtension.getEnclosingAssuranceCase(eobj);
+						AssuranceCase ae = AssureUtilExtension.getRootAssuranceCase(eobj);
 						if (ae != null) {
 							return runJob(ae, monitor);
 						} else {

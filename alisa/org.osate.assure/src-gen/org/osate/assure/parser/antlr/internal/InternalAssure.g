@@ -100,11 +100,11 @@ ruleAssuranceCase returns [EObject current=null]
 	    }
 
 )
-)	otherlv_2='for' 
+)(	otherlv_2='for' 
     {
-    	newLeafNode(otherlv_2, grammarAccess.getAssuranceCaseAccess().getForKeyword_2());
+    	newLeafNode(otherlv_2, grammarAccess.getAssuranceCaseAccess().getForKeyword_2_0());
     }
-((
+(
 (
 		{
 			if ($current==null) {
@@ -112,17 +112,16 @@ ruleAssuranceCase returns [EObject current=null]
 	        }
         }
 		{ 
-	        newCompositeNode(grammarAccess.getAssuranceCaseAccess().getTargetAssurancePlanCrossReference_3_0_0()); 
+	        newCompositeNode(grammarAccess.getAssuranceCaseAccess().getTargetAssurancePlanCrossReference_2_1_0()); 
 	    }
 		ruleQualifiedName		{ 
 	        afterParserOrEnumRuleCall();
 	    }
 
 )
-)
-    |(	otherlv_4='system' 
+))?(	otherlv_4='system' 
     {
-    	newLeafNode(otherlv_4, grammarAccess.getAssuranceCaseAccess().getSystemKeyword_3_1_0());
+    	newLeafNode(otherlv_4, grammarAccess.getAssuranceCaseAccess().getSystemKeyword_3_0());
     }
 (
 (
@@ -133,11 +132,11 @@ ruleAssuranceCase returns [EObject current=null]
         }
 	otherlv_5=RULE_ID
 	{
-		newLeafNode(otherlv_5, grammarAccess.getAssuranceCaseAccess().getTargetSystemSubcomponentCrossReference_3_1_1_0()); 
+		newLeafNode(otherlv_5, grammarAccess.getAssuranceCaseAccess().getTargetSystemSubcomponentCrossReference_3_1_0()); 
 	}
 
 )
-)))	otherlv_6='[' 
+))?	otherlv_6='[' 
     {
     	newLeafNode(otherlv_6, grammarAccess.getAssuranceCaseAccess().getLeftSquareBracketKeyword_4());
     }
