@@ -437,7 +437,7 @@ public class CreateFlowImplementationTool {
 											return true;
 										}
 									} else {
-										if (flowEnd.getFeature() == srcCE && sourceFlowSpec.getOutEnd() == destCE) {
+										if (flowEnd.getFeature() == srcCE && sourceFlowSpec.getOutEnd().getFeature() == destCE) {
 											return true;
 										} 
 									}
@@ -630,7 +630,7 @@ public class CreateFlowImplementationTool {
 		}
 		
 		public Object getPreviousSegmentElement() {
-			return flowImpl.getOwnedFlowSegments().size() > 0 ? flowImpl.getOwnedFlowSegments().get(flowImpl.getOwnedFlowSegments().size()-1).getFlowElement() : null;
+			return flowImpl.getOwnedFlowSegments().size() > 0 ? getRefinedElement(flowImpl.getOwnedFlowSegments().get(flowImpl.getOwnedFlowSegments().size()-1).getFlowElement()) : null;
 		}
 		
 		private boolean checkSubcomponentOwner(final Context context) {
@@ -641,7 +641,6 @@ public class CreateFlowImplementationTool {
 			}
 			return false;
 		}
-
 		
 		private Object getRefinedElement(final Object ce) {
 			if(ce instanceof RefinableElement) {
@@ -652,7 +651,6 @@ public class CreateFlowImplementationTool {
 		}
 
 		private boolean checkValidConnection(final FlowSpecification fs, final org.osate.aadl2.Connection connection, Context context) {
-			System.err.println("calling the validnes");
 			final ConnectedElement destCE = (ConnectedElement)getRefinedElement(connection.getDestination());
 			final ConnectedElement srcCE = (ConnectedElement)getRefinedElement(connection.getSource());
 			
