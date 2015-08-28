@@ -384,9 +384,7 @@ public class ClassifierPattern extends AgePattern implements Categorized {
 		
 		// Annex Subclauses
 		if(bo instanceof Classifier) {
-			System.err.println("AAAAAAAAAAA");
 			shapeCreationService.createUpdateShapesForElements(shape, getAllDefaultAnnexSubclauses((Classifier)bo), 25, true, 30, 25, true, 20, touchedShapes);
-			System.err.println("BBBBBBBBBBB");
 		}
 
 		// Ghost child shapes that were not updated. This is done before updating connections because the connections may refer to invisible or ghosted shapes

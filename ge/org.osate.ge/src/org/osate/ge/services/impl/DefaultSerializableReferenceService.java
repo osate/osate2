@@ -186,7 +186,6 @@ public class DefaultSerializableReferenceService implements SerializableReferenc
 					final String annexName = segs[2];
 					final int annexIndex = Integer.parseInt(segs[3]);
 					referencedObject = findAnnexSubclause(classifier, annexName, annexIndex);
-					System.err.println("RESULT: " + referencedObject);
 				}
 			} else {
 				Log.error("Unhandled case: " + type);

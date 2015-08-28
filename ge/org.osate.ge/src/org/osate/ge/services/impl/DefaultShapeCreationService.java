@@ -77,7 +77,6 @@ public class DefaultShapeCreationService implements ShapeCreationService {
 		for(final NamedElement element : elements) {
 			PictogramElement pictogramElement = shapeService.getChildShapeByReference(shape, element);
 			if(pictogramElement == null) {
-				System.err.println("ADD");
 				final AddContext addContext = new AddContext();
 				addContext.setNewObject(new AadlElementWrapper(element));
 				addContext.setTargetContainer(shape);
@@ -132,7 +131,6 @@ public class DefaultShapeCreationService implements ShapeCreationService {
 					}
 				}
 			} else {
-				System.err.println("UPDATE");
 				final UpdateContext updateContext = new UpdateContext(pictogramElement);
 				final IUpdateFeature updateFeature = fp.getUpdateFeature(updateContext);
 				

@@ -12,11 +12,14 @@ import java.io.IOException;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
+import java.util.Objects;
 
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.Status;
 import org.eclipse.emf.common.util.Diagnostic;
 import org.eclipse.emf.common.util.URI;
+import org.eclipse.emf.ecore.EObject;
+import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.emf.transaction.RecordingCommand;
 import org.eclipse.emf.transaction.TransactionalEditingDomain;
@@ -25,13 +28,20 @@ import org.eclipse.graphiti.features.IFeatureProvider;
 import org.eclipse.graphiti.mm.pictograms.PictogramElement;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.ui.statushandlers.StatusManager;
+import org.eclipse.xtext.EcoreUtil2;
 import org.eclipse.xtext.resource.SaveOptions;
 import org.eclipse.xtext.resource.XtextResource;
 import org.eclipse.xtext.ui.editor.model.IXtextDocument;
 import org.eclipse.xtext.util.concurrent.IUnitOfWork;
+import org.osate.aadl2.AnnexLibrary;
+import org.osate.aadl2.AnnexSubclause;
+import org.osate.aadl2.DefaultAnnexLibrary;
+import org.osate.aadl2.DefaultAnnexSubclause;
 import org.osate.aadl2.Element;
 import org.osate.aadl2.NamedElement;
 import org.osate.aadl2.modelsupport.Activator;
+import org.osate.annexsupport.AnnexRegistry;
+import org.osate.annexsupport.AnnexUnparserRegistry;
 import org.osate.ge.services.AadlModificationService;
 import org.osate.ge.ui.xtext.AgeXtextUtil;
 import org.osate.ge.util.Log;
@@ -64,7 +74,7 @@ public class DefaultAadlModificationService implements AadlModificationService {
 				final IXtextDocument doc = AgeXtextUtil.getDocumentByPackageName(root.getQualifiedName());
 				if(doc == null) {
 					final XtextResource res = (XtextResource)element.eResource();
-					final ModifySafelyResults<R> modifySafelyResult = modifySafely(res, element, modifier, true);
+					final ModifySafelyResults<R> modifySafelyResult = modifySafely(res, element, modifier, false);//true);
 					modifierResult = modifySafelyResult.modifierResult;
 					
 					if(modifySafelyResult.modificationSuccessful) {
@@ -96,8 +106,56 @@ public class DefaultAadlModificationService implements AadlModificationService {
 							if(element == null) {
 								return null;
 							}
-							
-							return modifySafely(res, element, modifier, false);
+
+							final Object parsedAnnexRoot = getParsedAnnexRoot(element);
+							if(parsedAnnexRoot == null) {
+								return modifySafely(res, element, modifier, false);
+							} else {
+								final E elementClone = (E)EcoreUtil.copy(element);
+								
+								// TODO: Should copy the entire object.... may not be library..
+								// TODO: Fix inconsistency
+								// Need to be able to start modifiying any element inside...
+								//EcoreUtil.setID(elementClone, "clone"); // TODO: Change ID?
+								// TODO: Want to avoid copying entire resource? Can add to another resource
+								// What resource is it in?
+								// How is that set?
+								
+								System.err.println(element.eResource());
+								
+								// TODO: create a wrapper modifier
+								return modifySafely(res, elementClone, new Modifier<E, R>() {
+									@Override
+									public R modify(final Resource resource, final E element) {
+										final R result = modifier.modify(resource, element);
+										
+										// TODO: Unparse and set source text
+										// TODO: Cleanup
+										// PROBLEM: Xtext is throwing exception when trying to retrieve resource URI for cloned block...
+										if(parsedAnnexRoot instanceof AnnexLibrary) {
+											//EcoreUtil2.getPlatformResourceOrNormalizedURI(context).trimFragment();
+											
+											final String sourceTxt = getAnnexUnparserRegistry().getAnnexUnparser(((AnnexLibrary)parsedAnnexRoot).getName()).unparseAnnexLibrary((AnnexLibrary)elementClone, "  ");
+											final DefaultAnnexLibrary defaultAnnexLibrary = (DefaultAnnexLibrary)((AnnexLibrary) parsedAnnexRoot).eContainer();
+											defaultAnnexLibrary.setSourceText(sourceTxt);
+										}
+										
+										// TODO: Handle annex subclause too
+										return result;
+									}
+
+									@Override
+									public void beforeCommit(final Resource resource, final E element, final R modificationResult) {
+										modifier.beforeCommit(resource, element, modificationResult);
+									}
+
+									@Override
+									public void afterCommit(final Resource resource, final E element, final R modificationResult) {
+										modifier.afterCommit(resource, element, modificationResult);
+									}
+									
+								}, false);	
+							}
 						}
 					});
 					modifierResult = modifySafelyResult.modifierResult;
@@ -140,6 +198,29 @@ public class DefaultAadlModificationService implements AadlModificationService {
 		return modifyRunnable.result;
 	}
 	
+	private AnnexUnparserRegistry getAnnexUnparserRegistry() {
+		return (AnnexUnparserRegistry)AnnexRegistry.getRegistry(AnnexRegistry.ANNEX_UNPARSER_EXT_ID);
+	}
+	
+	/**
+	 * Finds the parsed AnnexLibrary or AnnexSubclause for a model object. Returns null if the object is not part of a parsed annex.
+	 * Used to determine whether special handling for the object is necessary
+	 */
+	private EObject getParsedAnnexRoot(final EObject obj) {
+		// If the object is a default annex library or subclause, then it is not part of a parsed annex
+		if(obj instanceof DefaultAnnexLibrary || obj instanceof DefaultAnnexSubclause) {
+			return null;
+		}
+		
+		// Find the root of the parsed annex 
+		EObject tmp = obj;
+		while(tmp != null && !(tmp instanceof AnnexLibrary || tmp instanceof AnnexSubclause)) {
+			tmp = tmp.eContainer();
+		}
+		
+		return tmp;
+	}
+	
 	/**
 	 * Class used to return the results of the modifySafely method
 	 * @author philip.alldredge
@@ -167,13 +248,8 @@ public class DefaultAadlModificationService implements AadlModificationService {
 			return null;
 		}
 
-		// Ensure that the resource does not have an editing domain
-		if(TransactionUtil.getEditingDomain(resource) != null) {
-			throw new RuntimeException("Unexpected case: resource already has an editing domain");
-		}
-
 		// Create a new editing domain
-		final TransactionalEditingDomain domain = TransactionalEditingDomain.Factory.INSTANCE.createEditingDomain(resource.getResourceSet());
+		final TransactionalEditingDomain domain = Objects.requireNonNull(TransactionalEditingDomain.Registry.INSTANCE.getEditingDomain("org.osate.aadl2.ModelEditingDomain"), "unable to retrieve editing domain");
 		
 		R result = null;
 		boolean modificationSuccessful = false;
@@ -237,7 +313,6 @@ public class DefaultAadlModificationService implements AadlModificationService {
 
 			// Flush and dispose of the editing domain
 			domain.getCommandStack().flush();			
-			domain.dispose();
 			
 			if(modificationSuccessful) {
 				// Call the after modification callback
