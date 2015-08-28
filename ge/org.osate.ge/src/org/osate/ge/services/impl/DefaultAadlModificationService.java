@@ -9,17 +9,22 @@
 package org.osate.ge.services.impl;
 
 import java.io.IOException;
+import java.util.ArrayDeque;
 import java.util.Collection;
 import java.util.Collections;
+import java.util.Deque;
 import java.util.List;
 import java.util.Objects;
 
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.Status;
 import org.eclipse.emf.common.util.Diagnostic;
+import org.eclipse.emf.common.util.ECollections;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.resource.Resource;
+import org.eclipse.emf.ecore.resource.ResourceSet;
+import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
 import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.emf.transaction.RecordingCommand;
 import org.eclipse.emf.transaction.TransactionalEditingDomain;
@@ -58,7 +63,7 @@ public class DefaultAadlModificationService implements AadlModificationService {
 		if(element == null) {
 			return null;
 		}
-		
+
 		class ModifyRunnable implements Runnable {
 			public R result;
 			
@@ -94,67 +99,30 @@ public class DefaultAadlModificationService implements AadlModificationService {
 						});
 						
 						// Call the after modification callback
-						modifier.afterCommit(res, element, modifierResult);
+						modifier.afterCommit(res);
 					}
 				} else {
-					final URI elementUri = EcoreUtil.getURI(element);
+					// TODO: Fix wording
+					// Determine what the root actual/parsed annex element is if the element is in an annex
+					final EObject parsedAnnexRoot = getParsedAnnexRoot(element);
+					
+					// If the element which needs to be edited is in an annex, modify the default annex element. This is needed because objects inside of annexes 
+					// may not have unique URI's
+					final EObject elementToModify = parsedAnnexRoot == null ? element : parsedAnnexRoot.eContainer();
+					final URI modificationElementUri = EcoreUtil.getURI(elementToModify);
 					final ModifySafelyResults<R> modifySafelyResult = doc.modify(new IUnitOfWork<ModifySafelyResults<R>, XtextResource>() {
+						@SuppressWarnings("unchecked")
 						@Override
 						public ModifySafelyResults<R> exec(final XtextResource res) throws Exception {
-							@SuppressWarnings("unchecked")
-							final E element = (E)res.getResourceSet().getEObject(elementUri, true);
-							if(element == null) {
+							final EObject elementToModify = res.getResourceSet().getEObject(modificationElementUri, true);
+							if(elementToModify == null) {
 								return null;
 							}
-
-							final Object parsedAnnexRoot = getParsedAnnexRoot(element);
-							if(parsedAnnexRoot == null) {
-								return modifySafely(res, element, modifier, false);
+							
+							if(elementToModify instanceof DefaultAnnexLibrary || elementToModify instanceof DefaultAnnexSubclause) {
+								return modifyAnnexInXtextDocument(res, elementToModify, element, modifier);
 							} else {
-								final E elementClone = (E)EcoreUtil.copy(element);
-								
-								// TODO: Should copy the entire object.... may not be library..
-								// TODO: Fix inconsistency
-								// Need to be able to start modifiying any element inside...
-								//EcoreUtil.setID(elementClone, "clone"); // TODO: Change ID?
-								// TODO: Want to avoid copying entire resource? Can add to another resource
-								// What resource is it in?
-								// How is that set?
-								
-								System.err.println(element.eResource());
-								
-								// TODO: create a wrapper modifier
-								return modifySafely(res, elementClone, new Modifier<E, R>() {
-									@Override
-									public R modify(final Resource resource, final E element) {
-										final R result = modifier.modify(resource, element);
-										
-										// TODO: Unparse and set source text
-										// TODO: Cleanup
-										// PROBLEM: Xtext is throwing exception when trying to retrieve resource URI for cloned block...
-										if(parsedAnnexRoot instanceof AnnexLibrary) {
-											//EcoreUtil2.getPlatformResourceOrNormalizedURI(context).trimFragment();
-											
-											final String sourceTxt = getAnnexUnparserRegistry().getAnnexUnparser(((AnnexLibrary)parsedAnnexRoot).getName()).unparseAnnexLibrary((AnnexLibrary)elementClone, "  ");
-											final DefaultAnnexLibrary defaultAnnexLibrary = (DefaultAnnexLibrary)((AnnexLibrary) parsedAnnexRoot).eContainer();
-											defaultAnnexLibrary.setSourceText(sourceTxt);
-										}
-										
-										// TODO: Handle annex subclause too
-										return result;
-									}
-
-									@Override
-									public void beforeCommit(final Resource resource, final E element, final R modificationResult) {
-										modifier.beforeCommit(resource, element, modificationResult);
-									}
-
-									@Override
-									public void afterCommit(final Resource resource, final E element, final R modificationResult) {
-										modifier.afterCommit(resource, element, modificationResult);
-									}
-									
-								}, false);	
+								return modifySafely(res, (E)elementToModify, modifier, false);
 							}
 						}
 					});
@@ -167,7 +135,7 @@ public class DefaultAadlModificationService implements AadlModificationService {
 						doc.readOnly(new IUnitOfWork<Object, XtextResource>() {
 							@Override
 							public Object exec(final XtextResource res) throws Exception {
-								modifier.afterCommit(res, element, modifierResult);
+								modifier.afterCommit(res);
 								return null;
 							}
 						});	
@@ -197,9 +165,82 @@ public class DefaultAadlModificationService implements AadlModificationService {
 		
 		return modifyRunnable.result;
 	}
+		
+	// TODO: Rename
+	// TODO: Rename userElement
+	private <E extends EObject, R> ModifySafelyResults<R> modifyAnnexInXtextDocument(final XtextResource resource, final EObject defaultAnnexElement, final E userElement, final Modifier<E, R> modifier) {
+		// TODO: Test with models in separate files. May need to copy entire resource set.
+		// Make a copy of the parsed annex root and add it to a temporary resource
+		final EObject parsedAnnexElement = getParsedAnnexElement(defaultAnnexElement);							
+		final ResourceSet tmpResourceSet = new ResourceSetImpl();
+		final Resource tmpResource = tmpResourceSet.createResource(resource.getURI()); // TODO: Use that resource uri or the one from the default annex elmeent? Same one?
+		tmpResource.getContents().addAll(EcoreUtil.copyAll(resource.getContents()));
+		final EObject parsedAnnexRootClone = tmpResourceSet.getEObject(EcoreUtil.getURI(parsedAnnexElement), false);
+		// TODO: Error checking
+		
+		// TODO: Use the word object more than clone
+		// TODO: Get the object inside of the clone
+		final Deque<Integer> indexStack = getParsedAnnexRootIndices(userElement);
+		EObject tmpClonedObject = parsedAnnexRootClone;
+		while(!indexStack.isEmpty()) {
+			tmpClonedObject = tmpClonedObject.eContents().get(indexStack.pop());
+		}
+		
+		@SuppressWarnings("unchecked")
+		final E clonedObject = (E)tmpClonedObject;
+		
+		// Modify the annex by modifying the cloned object, unparsing, and then updating the source text of the original default annex element. 
+		return modifySafely(resource, defaultAnnexElement, new Modifier<EObject, R>() {
+			@Override
+			public R modify(final Resource resource, final EObject elementToModify) {
+				// Modify the cloned object
+				final R result = modifier.modify(resource, clonedObject);
+				
+				// Unparse the annex text of the cloned object and update the Xtext document
+				if(parsedAnnexRootClone instanceof AnnexLibrary) {									
+					final String sourceTxt = "{**" + getAnnexUnparserRegistry().getAnnexUnparser(((AnnexLibrary)defaultAnnexElement).getName()).unparseAnnexLibrary((AnnexLibrary)parsedAnnexRootClone, "  ") + "**}";
+					final DefaultAnnexLibrary defaultAnnexLibrary = (DefaultAnnexLibrary)elementToModify;
+					EcoreUtil.delete(defaultAnnexLibrary.getParsedAnnexLibrary());
+					defaultAnnexLibrary.setSourceText(sourceTxt);
+				} else if(parsedAnnexRootClone instanceof AnnexSubclause) {
+					final String sourceTxt = "{**" + getAnnexUnparserRegistry().getAnnexUnparser(((AnnexSubclause)defaultAnnexElement).getName()).unparseAnnexSubclause((AnnexSubclause)parsedAnnexRootClone, "  ") + "**}";
+					final DefaultAnnexSubclause defaultAnnexSubclause = (DefaultAnnexSubclause)elementToModify;
+					EcoreUtil.delete(defaultAnnexSubclause.getParsedAnnexSubclause());
+					defaultAnnexSubclause.setSourceText(sourceTxt);
+				} else {
+					throw new RuntimeException("Unhandled case, parsedAnnexRoot is of type: " + parsedAnnexRootClone.getClass());
+				}
+
+				return result;
+			}
+
+			@Override
+			public void beforeCommit(final Resource resource, final EObject element, final R modificationResult) {
+				modifier.beforeCommit(resource, clonedObject, modificationResult);
+			}
+
+			@Override
+			public void afterCommit(final Resource resource) {
+				modifier.afterCommit(resource);
+			}
+		}, false);
+	}
+	
+	// TODO: Rename methods
 	
 	private AnnexUnparserRegistry getAnnexUnparserRegistry() {
 		return (AnnexUnparserRegistry)AnnexRegistry.getRegistry(AnnexRegistry.ANNEX_UNPARSER_EXT_ID);
+	}
+	
+	
+	private EObject getParsedAnnexElement(final EObject defaultAnnexObject) {
+		if(defaultAnnexObject instanceof DefaultAnnexLibrary) {
+			return ((DefaultAnnexLibrary) defaultAnnexObject).getParsedAnnexLibrary();
+		} else if(defaultAnnexObject instanceof DefaultAnnexSubclause) {
+			return ((DefaultAnnexSubclause) defaultAnnexObject).getParsedAnnexSubclause();
+		} else {
+			throw new RuntimeException("Unexpected type: " + defaultAnnexObject.getClass().getName());
+		}
 	}
 	
 	/**
@@ -220,6 +261,29 @@ public class DefaultAadlModificationService implements AadlModificationService {
 		
 		return tmp;
 	}
+	
+	// TODO: Rename
+	private Deque<Integer> getParsedAnnexRootIndices(final EObject obj) {
+		assert !(obj instanceof DefaultAnnexLibrary || obj instanceof DefaultAnnexSubclause);
+		
+		final Deque<Integer> indices = new ArrayDeque<Integer>();
+		
+		// Find the root of the parsed annex 
+		EObject tmp = obj;
+		while(tmp != null && !(tmp instanceof AnnexLibrary || tmp instanceof AnnexSubclause)) {
+			
+			final int newIndex = ECollections.indexOf(tmp.eContainer().eContents(), tmp, 0);
+			if(newIndex == -1) {
+				throw new RuntimeException("Unable to get index inside of container contents");
+			}
+			
+			indices.push(newIndex);;
+			tmp = tmp.eContainer();
+		}
+		
+		return indices;
+	}
+	
 	
 	/**
 	 * Class used to return the results of the modifySafely method
@@ -243,7 +307,7 @@ public class DefaultAadlModificationService implements AadlModificationService {
 	 * @return
 	 */
 	@SuppressWarnings("unchecked")
-	private <E extends Element, R> ModifySafelyResults<R> modifySafely(final XtextResource resource, final E element, final Modifier<E, R> modifier, final boolean testSerialization) {
+	private <E extends EObject, R> ModifySafelyResults<R> modifySafely(final XtextResource resource, final E element, final Modifier<E, R> modifier, final boolean testSerialization) {
 		if(resource.getContents().size() < 1) {
 			return null;
 		}
