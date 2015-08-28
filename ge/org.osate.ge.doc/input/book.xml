@@ -385,6 +385,10 @@
 				</section>
 			</section>
 			<section>
+				<title>Creating Flow Implementations and End-To-End Flows</title>
+				<para>When editing a component implementation, flow implementations and end-to-end flows can be created using the Create Flow Implementation and Create End-To-End Flow buttons on the toolbar.</para>
+			</section>
+			<section>
 				<title>Editing Flow Implementations and End-to-End Flows</title>
 				<para>When editing a component implementation, flow implementations and end-to-end flow can be edited using the flow editor. It can be accessed by right-clicking in the diagram and selecting <emphasis>Edit Flows...</emphasis> from the context menu.</para>
 				<imageobject>

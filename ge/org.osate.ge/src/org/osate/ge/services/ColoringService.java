@@ -8,8 +8,9 @@
  *******************************************************************************/
 package org.osate.ge.services;
 
+import java.awt.Color;
+
 import org.eclipse.graphiti.mm.pictograms.PictogramElement;
-import org.eclipse.graphiti.util.IColorConstant;
 
 /**
  * Contains methods to handle highlighting objects based on editor state
@@ -19,7 +20,7 @@ import org.eclipse.graphiti.util.IColorConstant;
 public interface ColoringService {
 	interface Coloring {
 		void dispose();
-		void setForeground(PictogramElement pe, IColorConstant colorConstant);
+		void setForeground(PictogramElement pe, Color color);
 	}
 	
 	/**

@@ -15,7 +15,6 @@ import java.util.Map;
 
 import org.eclipse.graphiti.features.IFeatureProvider;
 import org.eclipse.graphiti.mm.algorithms.GraphicsAlgorithm;
-import org.eclipse.graphiti.mm.algorithms.styles.Color;
 import org.eclipse.graphiti.mm.pictograms.AnchorContainer;
 import org.eclipse.graphiti.mm.pictograms.Connection;
 import org.eclipse.graphiti.mm.pictograms.ConnectionDecorator;
@@ -24,7 +23,6 @@ import org.eclipse.graphiti.mm.pictograms.Diagram;
 import org.eclipse.graphiti.mm.pictograms.PictogramElement;
 import org.eclipse.graphiti.mm.pictograms.Shape;
 import org.eclipse.graphiti.services.Graphiti;
-import org.eclipse.graphiti.util.IColorConstant;
 import org.osate.aadl2.Classifier;
 import org.osate.aadl2.ComponentImplementation;
 import org.osate.aadl2.Context;
@@ -55,11 +53,11 @@ public class DefaultColoringService implements ColoringService {
 	
 	// TODO: Consider exposing functionality via the service
 	private static interface ColoringCalculator {
-		Color getForegroundColor(final PictogramElement pe);
+		org.eclipse.graphiti.mm.algorithms.styles.Color getForegroundColor(final PictogramElement pe);
 	}
 	
 	private class SimpleColoring implements Coloring, ColoringCalculator {
-		private final Map<PictogramElement, Color> foregroundColors = new HashMap<PictogramElement, Color>();
+		private final Map<PictogramElement, org.eclipse.graphiti.mm.algorithms.styles.Color> foregroundColors = new HashMap<PictogramElement, org.eclipse.graphiti.mm.algorithms.styles.Color>();
 		
 		@Override
 		public void dispose() {
@@ -72,7 +70,7 @@ public class DefaultColoringService implements ColoringService {
 		}
 
 		@Override
-		public void setForeground(PictogramElement pe, final IColorConstant colorConstant) {
+		public void setForeground(PictogramElement pe, final java.awt.Color color) {
 			// If a transient shape is selected, it is likely a child shape and the container should be retrieved
 			while(pe instanceof Shape && propertyService.isTransient(pe)) {
 				pe = ((Shape)pe).getContainer();
@@ -83,20 +81,20 @@ public class DefaultColoringService implements ColoringService {
 			}
 			
 			// Store the color
-			final Color foregroundColor = Graphiti.getGaService().manageColor(getDiagram(), colorConstant);
+			final org.eclipse.graphiti.mm.algorithms.styles.Color foregroundColor = Graphiti.getGaService().manageColor(getDiagram(), color.getRed(), color.getGreen(), color.getBlue());
 			foregroundColors.put(pe, foregroundColor);
 			
 			applyForeground(pe, foregroundColor);
 		}
 		
-		public Color getForegroundColor(final PictogramElement pe) {
+		public org.eclipse.graphiti.mm.algorithms.styles.Color getForegroundColor(final PictogramElement pe) {
 			return foregroundColors.get(pe);
 		}
 	};	
 	
 	private class SelectedModeFlowColoringCalculator implements ColoringCalculator {
 		@Override
-		public Color getForegroundColor(final PictogramElement pe) {
+		public org.eclipse.graphiti.mm.algorithms.styles.Color getForegroundColor(final PictogramElement pe) {
 			final Object bo = bor.getBusinessObjectForPictogramElement(pe);
 			final Context context;
 			if(bo instanceof Feature && pe instanceof Shape) {
@@ -218,7 +216,7 @@ public class DefaultColoringService implements ColoringService {
 	@Override
 	public void applyColoring(final PictogramElement pe) {
 		// Determine the appropriate color
-		Color foregroundColor = null;
+		org.eclipse.graphiti.mm.algorithms.styles.Color foregroundColor = null;
 		for(final ColoringCalculator coloring : coloringCalculators) {
 			foregroundColor = coloring.getForegroundColor(pe);
 			if(foregroundColor != null) {
@@ -229,7 +227,7 @@ public class DefaultColoringService implements ColoringService {
 		applyForeground(pe, foregroundColor);
 	}
 	
-	private void applyForeground(final PictogramElement pe, final Color color) {
+	private void applyForeground(final PictogramElement pe, final org.eclipse.graphiti.mm.algorithms.styles.Color color) {
 		// Handle coloring containers
 		if(pe instanceof ContainerShape && propertyService.isColoringContainer(pe)) {
 			for(final Shape childShape : ((ContainerShape)pe).getChildren()) {
@@ -273,7 +271,7 @@ public class DefaultColoringService implements ColoringService {
  		return false;
 	}
 	
-	private void setForeground(final GraphicsAlgorithm ga, Color color) {
+	private void setForeground(final GraphicsAlgorithm ga, org.eclipse.graphiti.mm.algorithms.styles.Color color) {
 		ga.setForeground(color);
 		
 		for(final GraphicsAlgorithm childGa : ga.getGraphicsAlgorithmChildren()) {
