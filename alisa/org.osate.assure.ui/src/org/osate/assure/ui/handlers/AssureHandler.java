@@ -156,7 +156,7 @@ public class AssureHandler extends AbstractHandler {
 		VerifyUtilExtension.clearAllHasRunRecords();
 		AssureUtilExtension.clearAllInstanceModels();
 		try {
-			assureProcessor.process(rootCaseResult);
+			assureProcessor.processCase(rootCaseResult, monitor);
 		} catch (Exception e) {
 			if (e instanceof java.lang.NoSuchMethodException) {
 

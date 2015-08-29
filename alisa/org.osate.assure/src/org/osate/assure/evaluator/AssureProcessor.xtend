@@ -51,10 +51,11 @@ import org.osate.verify.util.VerificationMethodDispatchers
 import org.osate.aadl2.ComponentClassifier
 import org.osate.assure.assure.AssuranceCase
 import org.osate.aadl2.instance.ComponentInstance
+import org.eclipse.core.runtime.IProgressMonitor
 
 @ImplementedBy(AssureProcessor)
 interface IAssureProcessor {
-	def void process(AssureResult assureResult);
+	def void processCase(AssuranceCase assureResult, IProgressMonitor monitor);
 }
 
 /**
@@ -73,6 +74,13 @@ class AssureProcessor implements IAssureProcessor {
 	 */
 //	@Inject XbaseCompiler xbaseCompiler
 	@Inject XbaseInterpreter xbaseInterpreter
+	
+	var IProgressMonitor progressmonitor
+	
+	override processCase(AssuranceCase assureResult, IProgressMonitor monitor){
+		progressmonitor = monitor
+		assureResult.doProcess
+	}
 
 	def void doProcess(AssuranceCase caseResult) {
 		caseResult.claimResult.forEach[claimResult|claimResult.process]
@@ -92,6 +100,7 @@ class AssureProcessor implements IAssureProcessor {
 				return
 			}
 		}
+		progressmonitor.taskName = vaResult.target.name
 		runVerificationMethod(vaResult)
 	}
 
@@ -129,7 +138,7 @@ class AssureProcessor implements IAssureProcessor {
 		runVerificationMethod(preconditionResult)
 	}
 
-	override void process(AssureResult assureResult) {
+	def void process(AssureResult assureResult) {
 		switch (assureResult) {
 			AssuranceCase: assureResult.doProcess
 			ClaimResult: assureResult.doProcess
