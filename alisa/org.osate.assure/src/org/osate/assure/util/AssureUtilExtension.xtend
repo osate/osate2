@@ -70,9 +70,9 @@ class AssureUtilExtension {
 		return result as AssuranceCase
 	}
 
-	def static ComponentImplementation getTargetClassifier(AssuranceCase ae) {
-		return ae.targetSystem?.componentImplementation?:ae.target?.target
-	}
+//	def static ComponentImplementation getTargetClassifier(AssuranceCase ae) {
+//		return ae.targetSystem?.componentImplementation?:ae.target?.target
+//	}
 
 	def static ClaimResult getEnclosingClaimResult(EObject assureObject) {
 		var result = assureObject.eContainer
@@ -992,7 +992,7 @@ class AssureUtilExtension {
 	def static String constructMessage(AssuranceCase ce) {
 		if(ce.message != null) return ce.message
 		if (ce.target != null && ce.target.target != null) return ce.target.target.name
-		return ce.targetSystem.name
+		return ce.targetSystem
 	}
 
 	def static String constructMessage(ClaimResult cr) {

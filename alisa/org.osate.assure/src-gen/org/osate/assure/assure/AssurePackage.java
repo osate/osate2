@@ -123,22 +123,13 @@ public interface AssurePackage extends EPackage
   int ASSURANCE_CASE__TARGET = ASSURE_RESULT_FEATURE_COUNT + 1;
 
   /**
-   * The feature id for the '<em><b>Context Implementation</b></em>' reference.
+   * The feature id for the '<em><b>Target System</b></em>' attribute.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    * @ordered
    */
-  int ASSURANCE_CASE__CONTEXT_IMPLEMENTATION = ASSURE_RESULT_FEATURE_COUNT + 2;
-
-  /**
-   * The feature id for the '<em><b>Target System</b></em>' reference.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int ASSURANCE_CASE__TARGET_SYSTEM = ASSURE_RESULT_FEATURE_COUNT + 3;
+  int ASSURANCE_CASE__TARGET_SYSTEM = ASSURE_RESULT_FEATURE_COUNT + 2;
 
   /**
    * The feature id for the '<em><b>Message</b></em>' attribute.
@@ -147,7 +138,7 @@ public interface AssurePackage extends EPackage
    * @generated
    * @ordered
    */
-  int ASSURANCE_CASE__MESSAGE = ASSURE_RESULT_FEATURE_COUNT + 4;
+  int ASSURANCE_CASE__MESSAGE = ASSURE_RESULT_FEATURE_COUNT + 3;
 
   /**
    * The feature id for the '<em><b>Claim Result</b></em>' containment reference list.
@@ -156,7 +147,7 @@ public interface AssurePackage extends EPackage
    * @generated
    * @ordered
    */
-  int ASSURANCE_CASE__CLAIM_RESULT = ASSURE_RESULT_FEATURE_COUNT + 5;
+  int ASSURANCE_CASE__CLAIM_RESULT = ASSURE_RESULT_FEATURE_COUNT + 4;
 
   /**
    * The feature id for the '<em><b>Sub Assurance Case</b></em>' containment reference list.
@@ -165,7 +156,7 @@ public interface AssurePackage extends EPackage
    * @generated
    * @ordered
    */
-  int ASSURANCE_CASE__SUB_ASSURANCE_CASE = ASSURE_RESULT_FEATURE_COUNT + 6;
+  int ASSURANCE_CASE__SUB_ASSURANCE_CASE = ASSURE_RESULT_FEATURE_COUNT + 5;
 
   /**
    * The number of structural features of the '<em>Assurance Case</em>' class.
@@ -174,7 +165,7 @@ public interface AssurePackage extends EPackage
    * @generated
    * @ordered
    */
-  int ASSURANCE_CASE_FEATURE_COUNT = ASSURE_RESULT_FEATURE_COUNT + 7;
+  int ASSURANCE_CASE_FEATURE_COUNT = ASSURE_RESULT_FEATURE_COUNT + 6;
 
   /**
    * The meta object id for the '{@link org.osate.assure.assure.impl.ClaimResultImpl <em>Claim Result</em>}' class.
@@ -980,26 +971,15 @@ public interface AssurePackage extends EPackage
   EReference getAssuranceCase_Target();
 
   /**
-   * Returns the meta object for the reference '{@link org.osate.assure.assure.AssuranceCase#getContextImplementation <em>Context Implementation</em>}'.
+   * Returns the meta object for the attribute '{@link org.osate.assure.assure.AssuranceCase#getTargetSystem <em>Target System</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @return the meta object for the reference '<em>Context Implementation</em>'.
-   * @see org.osate.assure.assure.AssuranceCase#getContextImplementation()
-   * @see #getAssuranceCase()
-   * @generated
-   */
-  EReference getAssuranceCase_ContextImplementation();
-
-  /**
-   * Returns the meta object for the reference '{@link org.osate.assure.assure.AssuranceCase#getTargetSystem <em>Target System</em>}'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return the meta object for the reference '<em>Target System</em>'.
+   * @return the meta object for the attribute '<em>Target System</em>'.
    * @see org.osate.assure.assure.AssuranceCase#getTargetSystem()
    * @see #getAssuranceCase()
    * @generated
    */
-  EReference getAssuranceCase_TargetSystem();
+  EAttribute getAssuranceCase_TargetSystem();
 
   /**
    * Returns the meta object for the attribute '{@link org.osate.assure.assure.AssuranceCase#getMessage <em>Message</em>}'.
@@ -1652,20 +1632,12 @@ public interface AssurePackage extends EPackage
     EReference ASSURANCE_CASE__TARGET = eINSTANCE.getAssuranceCase_Target();
 
     /**
-     * The meta object literal for the '<em><b>Context Implementation</b></em>' reference feature.
+     * The meta object literal for the '<em><b>Target System</b></em>' attribute feature.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @generated
      */
-    EReference ASSURANCE_CASE__CONTEXT_IMPLEMENTATION = eINSTANCE.getAssuranceCase_ContextImplementation();
-
-    /**
-     * The meta object literal for the '<em><b>Target System</b></em>' reference feature.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
-    EReference ASSURANCE_CASE__TARGET_SYSTEM = eINSTANCE.getAssuranceCase_TargetSystem();
+    EAttribute ASSURANCE_CASE__TARGET_SYSTEM = eINSTANCE.getAssuranceCase_TargetSystem();
 
     /**
      * The meta object literal for the '<em><b>Message</b></em>' attribute feature.

@@ -4,9 +4,6 @@ package org.osate.assure.assure;
 
 import org.eclipse.emf.common.util.EList;
 
-import org.osate.aadl2.ComponentImplementation;
-import org.osate.aadl2.Subcomponent;
-
 import org.osate.alisa.workbench.alisa.AssurancePlan;
 
 /**
@@ -19,7 +16,6 @@ import org.osate.alisa.workbench.alisa.AssurancePlan;
  * <ul>
  *   <li>{@link org.osate.assure.assure.AssuranceCase#getName <em>Name</em>}</li>
  *   <li>{@link org.osate.assure.assure.AssuranceCase#getTarget <em>Target</em>}</li>
- *   <li>{@link org.osate.assure.assure.AssuranceCase#getContextImplementation <em>Context Implementation</em>}</li>
  *   <li>{@link org.osate.assure.assure.AssuranceCase#getTargetSystem <em>Target System</em>}</li>
  *   <li>{@link org.osate.assure.assure.AssuranceCase#getMessage <em>Message</em>}</li>
  *   <li>{@link org.osate.assure.assure.AssuranceCase#getClaimResult <em>Claim Result</em>}</li>
@@ -86,56 +82,30 @@ public interface AssuranceCase extends AssureResult
   void setTarget(AssurancePlan value);
 
   /**
-   * Returns the value of the '<em><b>Context Implementation</b></em>' reference.
+   * Returns the value of the '<em><b>Target System</b></em>' attribute.
    * <!-- begin-user-doc -->
    * <p>
-   * If the meaning of the '<em>Context Implementation</em>' reference isn't clear,
+   * If the meaning of the '<em>Target System</em>' attribute isn't clear,
    * there really should be more of a description here...
    * </p>
    * <!-- end-user-doc -->
-   * @return the value of the '<em>Context Implementation</em>' reference.
-   * @see #setContextImplementation(ComponentImplementation)
-   * @see org.osate.assure.assure.AssurePackage#getAssuranceCase_ContextImplementation()
-   * @model
-   * @generated
-   */
-  ComponentImplementation getContextImplementation();
-
-  /**
-   * Sets the value of the '{@link org.osate.assure.assure.AssuranceCase#getContextImplementation <em>Context Implementation</em>}' reference.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @param value the new value of the '<em>Context Implementation</em>' reference.
-   * @see #getContextImplementation()
-   * @generated
-   */
-  void setContextImplementation(ComponentImplementation value);
-
-  /**
-   * Returns the value of the '<em><b>Target System</b></em>' reference.
-   * <!-- begin-user-doc -->
-   * <p>
-   * If the meaning of the '<em>Target System</em>' reference isn't clear,
-   * there really should be more of a description here...
-   * </p>
-   * <!-- end-user-doc -->
-   * @return the value of the '<em>Target System</em>' reference.
-   * @see #setTargetSystem(Subcomponent)
+   * @return the value of the '<em>Target System</em>' attribute.
+   * @see #setTargetSystem(String)
    * @see org.osate.assure.assure.AssurePackage#getAssuranceCase_TargetSystem()
    * @model
    * @generated
    */
-  Subcomponent getTargetSystem();
+  String getTargetSystem();
 
   /**
-   * Sets the value of the '{@link org.osate.assure.assure.AssuranceCase#getTargetSystem <em>Target System</em>}' reference.
+   * Sets the value of the '{@link org.osate.assure.assure.AssuranceCase#getTargetSystem <em>Target System</em>}' attribute.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @param value the new value of the '<em>Target System</em>' reference.
+   * @param value the new value of the '<em>Target System</em>' attribute.
    * @see #getTargetSystem()
    * @generated
    */
-  void setTargetSystem(Subcomponent value);
+  void setTargetSystem(String value);
 
   /**
    * Returns the value of the '<em><b>Message</b></em>' attribute.

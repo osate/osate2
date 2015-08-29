@@ -116,7 +116,7 @@ class AlisaGenerator implements IGenerator {
 				for «acp.name»
 			«ENDIF»
 			«IF sub != null»
-				system «cimpl.getQualifiedName» «sub.name»
+				system «sub.name»
 			«ENDIF»
 				[
 					tbdcount 0

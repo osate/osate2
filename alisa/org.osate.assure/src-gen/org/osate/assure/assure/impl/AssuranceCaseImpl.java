@@ -10,16 +10,12 @@ import org.eclipse.emf.common.notify.NotificationChain;
 import org.eclipse.emf.common.util.EList;
 
 import org.eclipse.emf.ecore.EClass;
-import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.InternalEObject;
 
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 
 import org.eclipse.emf.ecore.util.EObjectContainmentEList;
 import org.eclipse.emf.ecore.util.InternalEList;
-
-import org.osate.aadl2.ComponentImplementation;
-import org.osate.aadl2.Subcomponent;
 
 import org.osate.alisa.workbench.alisa.AssurancePlan;
 
@@ -36,7 +32,6 @@ import org.osate.assure.assure.ClaimResult;
  * <ul>
  *   <li>{@link org.osate.assure.assure.impl.AssuranceCaseImpl#getName <em>Name</em>}</li>
  *   <li>{@link org.osate.assure.assure.impl.AssuranceCaseImpl#getTarget <em>Target</em>}</li>
- *   <li>{@link org.osate.assure.assure.impl.AssuranceCaseImpl#getContextImplementation <em>Context Implementation</em>}</li>
  *   <li>{@link org.osate.assure.assure.impl.AssuranceCaseImpl#getTargetSystem <em>Target System</em>}</li>
  *   <li>{@link org.osate.assure.assure.impl.AssuranceCaseImpl#getMessage <em>Message</em>}</li>
  *   <li>{@link org.osate.assure.assure.impl.AssuranceCaseImpl#getClaimResult <em>Claim Result</em>}</li>
@@ -79,24 +74,24 @@ public class AssuranceCaseImpl extends AssureResultImpl implements AssuranceCase
   protected AssurancePlan target;
 
   /**
-   * The cached value of the '{@link #getContextImplementation() <em>Context Implementation</em>}' reference.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @see #getContextImplementation()
-   * @generated
-   * @ordered
-   */
-  protected ComponentImplementation contextImplementation;
-
-  /**
-   * The cached value of the '{@link #getTargetSystem() <em>Target System</em>}' reference.
+   * The default value of the '{@link #getTargetSystem() <em>Target System</em>}' attribute.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @see #getTargetSystem()
    * @generated
    * @ordered
    */
-  protected Subcomponent targetSystem;
+  protected static final String TARGET_SYSTEM_EDEFAULT = null;
+
+  /**
+   * The cached value of the '{@link #getTargetSystem() <em>Target System</em>}' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see #getTargetSystem()
+   * @generated
+   * @ordered
+   */
+  protected String targetSystem = TARGET_SYSTEM_EDEFAULT;
 
   /**
    * The default value of the '{@link #getMessage() <em>Message</em>}' attribute.
@@ -230,70 +225,7 @@ public class AssuranceCaseImpl extends AssureResultImpl implements AssuranceCase
    * <!-- end-user-doc -->
    * @generated
    */
-  public ComponentImplementation getContextImplementation()
-  {
-    if (contextImplementation != null && ((EObject)contextImplementation).eIsProxy())
-    {
-      InternalEObject oldContextImplementation = (InternalEObject)contextImplementation;
-      contextImplementation = (ComponentImplementation)eResolveProxy(oldContextImplementation);
-      if (contextImplementation != oldContextImplementation)
-      {
-        if (eNotificationRequired())
-          eNotify(new ENotificationImpl(this, Notification.RESOLVE, AssurePackage.ASSURANCE_CASE__CONTEXT_IMPLEMENTATION, oldContextImplementation, contextImplementation));
-      }
-    }
-    return contextImplementation;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public ComponentImplementation basicGetContextImplementation()
-  {
-    return contextImplementation;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public void setContextImplementation(ComponentImplementation newContextImplementation)
-  {
-    ComponentImplementation oldContextImplementation = contextImplementation;
-    contextImplementation = newContextImplementation;
-    if (eNotificationRequired())
-      eNotify(new ENotificationImpl(this, Notification.SET, AssurePackage.ASSURANCE_CASE__CONTEXT_IMPLEMENTATION, oldContextImplementation, contextImplementation));
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public Subcomponent getTargetSystem()
-  {
-    if (targetSystem != null && ((EObject)targetSystem).eIsProxy())
-    {
-      InternalEObject oldTargetSystem = (InternalEObject)targetSystem;
-      targetSystem = (Subcomponent)eResolveProxy(oldTargetSystem);
-      if (targetSystem != oldTargetSystem)
-      {
-        if (eNotificationRequired())
-          eNotify(new ENotificationImpl(this, Notification.RESOLVE, AssurePackage.ASSURANCE_CASE__TARGET_SYSTEM, oldTargetSystem, targetSystem));
-      }
-    }
-    return targetSystem;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public Subcomponent basicGetTargetSystem()
+  public String getTargetSystem()
   {
     return targetSystem;
   }
@@ -303,9 +235,9 @@ public class AssuranceCaseImpl extends AssureResultImpl implements AssuranceCase
    * <!-- end-user-doc -->
    * @generated
    */
-  public void setTargetSystem(Subcomponent newTargetSystem)
+  public void setTargetSystem(String newTargetSystem)
   {
-    Subcomponent oldTargetSystem = targetSystem;
+    String oldTargetSystem = targetSystem;
     targetSystem = newTargetSystem;
     if (eNotificationRequired())
       eNotify(new ENotificationImpl(this, Notification.SET, AssurePackage.ASSURANCE_CASE__TARGET_SYSTEM, oldTargetSystem, targetSystem));
@@ -395,12 +327,8 @@ public class AssuranceCaseImpl extends AssureResultImpl implements AssuranceCase
       case AssurePackage.ASSURANCE_CASE__TARGET:
         if (resolve) return getTarget();
         return basicGetTarget();
-      case AssurePackage.ASSURANCE_CASE__CONTEXT_IMPLEMENTATION:
-        if (resolve) return getContextImplementation();
-        return basicGetContextImplementation();
       case AssurePackage.ASSURANCE_CASE__TARGET_SYSTEM:
-        if (resolve) return getTargetSystem();
-        return basicGetTargetSystem();
+        return getTargetSystem();
       case AssurePackage.ASSURANCE_CASE__MESSAGE:
         return getMessage();
       case AssurePackage.ASSURANCE_CASE__CLAIM_RESULT:
@@ -428,11 +356,8 @@ public class AssuranceCaseImpl extends AssureResultImpl implements AssuranceCase
       case AssurePackage.ASSURANCE_CASE__TARGET:
         setTarget((AssurancePlan)newValue);
         return;
-      case AssurePackage.ASSURANCE_CASE__CONTEXT_IMPLEMENTATION:
-        setContextImplementation((ComponentImplementation)newValue);
-        return;
       case AssurePackage.ASSURANCE_CASE__TARGET_SYSTEM:
-        setTargetSystem((Subcomponent)newValue);
+        setTargetSystem((String)newValue);
         return;
       case AssurePackage.ASSURANCE_CASE__MESSAGE:
         setMessage((String)newValue);
@@ -465,11 +390,8 @@ public class AssuranceCaseImpl extends AssureResultImpl implements AssuranceCase
       case AssurePackage.ASSURANCE_CASE__TARGET:
         setTarget((AssurancePlan)null);
         return;
-      case AssurePackage.ASSURANCE_CASE__CONTEXT_IMPLEMENTATION:
-        setContextImplementation((ComponentImplementation)null);
-        return;
       case AssurePackage.ASSURANCE_CASE__TARGET_SYSTEM:
-        setTargetSystem((Subcomponent)null);
+        setTargetSystem(TARGET_SYSTEM_EDEFAULT);
         return;
       case AssurePackage.ASSURANCE_CASE__MESSAGE:
         setMessage(MESSAGE_EDEFAULT);
@@ -498,10 +420,8 @@ public class AssuranceCaseImpl extends AssureResultImpl implements AssuranceCase
         return NAME_EDEFAULT == null ? name != null : !NAME_EDEFAULT.equals(name);
       case AssurePackage.ASSURANCE_CASE__TARGET:
         return target != null;
-      case AssurePackage.ASSURANCE_CASE__CONTEXT_IMPLEMENTATION:
-        return contextImplementation != null;
       case AssurePackage.ASSURANCE_CASE__TARGET_SYSTEM:
-        return targetSystem != null;
+        return TARGET_SYSTEM_EDEFAULT == null ? targetSystem != null : !TARGET_SYSTEM_EDEFAULT.equals(targetSystem);
       case AssurePackage.ASSURANCE_CASE__MESSAGE:
         return MESSAGE_EDEFAULT == null ? message != null : !MESSAGE_EDEFAULT.equals(message);
       case AssurePackage.ASSURANCE_CASE__CLAIM_RESULT:
@@ -525,6 +445,8 @@ public class AssuranceCaseImpl extends AssureResultImpl implements AssuranceCase
     StringBuffer result = new StringBuffer(super.toString());
     result.append(" (name: ");
     result.append(name);
+    result.append(", targetSystem: ");
+    result.append(targetSystem);
     result.append(", message: ");
     result.append(message);
     result.append(')');

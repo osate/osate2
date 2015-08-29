@@ -151,10 +151,10 @@ class AssureProcessor implements IAssureProcessor {
 	def void runVerificationMethod(VerificationResult verificationResult) {
 		val method = verificationResult.method;
 		var Object res = null
-		var InstanceObject target = null;
 		val targetElement = verificationResult.claimSubject
 		val instanceroot = verificationResult.instanceModel
 		var ComponentInstance targetComponent = findComponentInstance(instanceroot,verificationResult.enclosingAssuranceCase)
+		var InstanceObject target = targetComponent;
 		if (!(targetElement instanceof ComponentClassifier)){
 			val x = targetComponent.findElementInstance(targetElement)
 			target = x?:targetComponent

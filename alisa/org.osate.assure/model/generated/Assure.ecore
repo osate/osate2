@@ -4,9 +4,7 @@
   <eClassifiers xsi:type="ecore:EClass" name="AssuranceCase" eSuperTypes="#//AssureResult">
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" eType="ecore:EDataType platform:/plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//EString"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="target" eType="ecore:EClass platform:/resource/org.osate.alisa.workbench/model/generated/Alisa.ecore#//AssurancePlan"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="contextImplementation"
-        eType="ecore:EClass platform:/resource/org.osate.aadl2/model/aadl2.ecore#//ComponentImplementation"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="targetSystem" eType="ecore:EClass platform:/resource/org.osate.aadl2/model/aadl2.ecore#//Subcomponent"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="targetSystem" eType="ecore:EDataType platform:/plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//EString"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="message" eType="ecore:EDataType platform:/plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//EString"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="claimResult" upperBound="-1"
         eType="#//ClaimResult" containment="true"/>

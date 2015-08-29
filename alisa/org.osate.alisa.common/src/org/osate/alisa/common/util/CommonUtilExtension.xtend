@@ -110,14 +110,14 @@ class CommonUtilExtension {
 	def static InstanceObject findElementInstance(ComponentInstance io, NamedElement element) {
 		val n = element.name
 		switch (element) {
-			EndToEndFlow: return findElementInstance(io.endToEndFlows, n)
-			Subcomponent: return findElementInstance(io.componentInstances, n)
-			Feature: return findElementInstance(io.featureInstances, n)
+			EndToEndFlow: return findElementInstanceInList(io.endToEndFlows, n)
+			Subcomponent: return findElementInstanceInList(io.componentInstances, n)
+			Feature: return findElementInstanceInList(io.featureInstances, n)
 		}
 		return null
 	}
-
-	def static InstanceObject findElementInstance(EList<? extends InstanceObject> instancelist, String name) {
+	
+	def static InstanceObject findElementInstanceInList(EList<? extends InstanceObject> instancelist, String name) {
 		for (ei : instancelist) {
 			val n1 = ei.name
 			if(name.equalsIgnoreCase(n1)) return ei
@@ -127,9 +127,9 @@ class CommonUtilExtension {
 
 	def static findElementInstance(ComponentInstance io, String elementName) {
 		val n = elementName
-		var res = findElementInstance(io.endToEndFlows, n)
-		if(res == null) res = findElementInstance(io.componentInstances, n)
-		if(res == null) res = findElementInstance(io.featureInstances, n)
+		var res = findElementInstanceInList(io.endToEndFlows, n)
+		if(res == null) res = findElementInstanceInList(io.componentInstances, n)
+		if(res == null) res = findElementInstanceInList(io.featureInstances, n)
 		return res
 	}
 
