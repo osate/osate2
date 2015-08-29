@@ -79,6 +79,7 @@ class AssureProcessor implements IAssureProcessor {
 	
 	override processCase(AssuranceCase assureResult, IProgressMonitor monitor){
 		progressmonitor = monitor
+		progressmonitor.beginTask(assureResult.target.name, 100)
 		assureResult.doProcess
 	}
 
@@ -100,8 +101,9 @@ class AssureProcessor implements IAssureProcessor {
 				return
 			}
 		}
-		progressmonitor.taskName = vaResult.target.name
+		progressmonitor.subTask(vaResult.target.method.name+ " on "+ vaResult.claimSubject.name)
 		runVerificationMethod(vaResult)
+		progressmonitor.worked(1)
 	}
 
 	def void doProcess(ElseResult vaResult) {
@@ -168,6 +170,7 @@ class AssureProcessor implements IAssureProcessor {
 			val x = targetComponent.findElementInstance(targetElement)
 			target = x?:targetComponent
 		}
+
 		var Object[] parameters
 		val ctx = new DefaultEvaluationContext()
 
