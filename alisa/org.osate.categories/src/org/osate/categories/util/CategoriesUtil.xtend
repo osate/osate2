@@ -33,7 +33,7 @@ class CategoriesUtil {
 	}
 
 	def static boolean isSameorContains(Category supercat, Category subcat) {
-		if(supercat == subcat) return true
+		if(supercat.name.equalsIgnoreCase(subcat.name)) return true
 		for (c : supercat.subCategories) {
 			if(c.isSameorContains(subcat)) return true
 		}

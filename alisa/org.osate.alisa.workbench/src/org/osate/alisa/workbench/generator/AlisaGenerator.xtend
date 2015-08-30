@@ -72,6 +72,13 @@ class AlisaGenerator implements IGenerator {
 	
 	var Iterable<VerificationPlan> allPlans = null
 
+	def generateFullRootCase(AssurancePlan acp) {
+		selectionFilter = Collections.EMPTY_LIST
+		requirementFilter = Collections.EMPTY_LIST
+		verificationFilter = Collections.EMPTY_LIST
+		generateRootCase(acp)
+	}
+
 	def generateRootCase(AssurancePlan acp) {
 		if (acp.assureGlobal.isEmpty){
 			allPlans = referenceFinder.getGlobalReqVerificationPlans(acp)

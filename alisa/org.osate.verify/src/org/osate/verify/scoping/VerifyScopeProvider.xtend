@@ -23,6 +23,10 @@ import com.rockwellcollins.atc.resolute.resolute.ResolutePackage
 import org.eclipse.emf.ecore.util.EcoreUtil
 import com.rockwellcollins.atc.resolute.resolute.FunctionDefinition
 import com.rockwellcollins.atc.resolute.resolute.ClaimBody
+import org.osate.verify.verify.VerificationMethod
+import org.eclipse.emf.common.util.CommonUtil
+import org.osate.categories.categories.VerificationCategory
+import org.osate.categories.categories.CategoriesPackage
 
 /**
  * This class contains custom scoping description.
@@ -56,6 +60,9 @@ class VerifyScopeProvider extends AlisaAbstractDeclarativeScopeProvider {
 		return result
 	}
 	
+	
+		@Inject ICommonGlobalReferenceFinder refFinder
+		
 	def scope_FunctionDefinition(ResoluteMethod context, EReference reference){
 		var result = IScope.NULLSCOPE
 		val foundlist = refFinder.getEObjectDescriptions(context, ResolutePackage.Literals.FUNCTION_DEFINITION, "aadl")
@@ -66,6 +73,6 @@ class VerifyScopeProvider extends AlisaAbstractDeclarativeScopeProvider {
 		return new SimpleScope(IScope.NULLSCOPE,Scopes::scopedElementsFor(fcns,
 					QualifiedName::wrapper(SimpleAttributeResolver::NAME_RESOLVER)), true)
 	}
-		@Inject ICommonGlobalReferenceFinder refFinder
+
 
 }

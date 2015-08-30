@@ -19,6 +19,7 @@ import org.eclipse.emf.common.util.EList
 import org.osate.aadl2.EndToEndFlow
 import org.osate.aadl2.Subcomponent
 import org.osate.aadl2.Feature
+import org.osate.aadl2.util.Aadl2Util
 
 class CommonUtilExtension {
 
@@ -71,12 +72,12 @@ class CommonUtilExtension {
 //		return String.format("%.3f " + targetliteral.getName(), result);
 //	}
 	def static boolean isSameorExtends(ComponentClassifier target, ComponentClassifier ancestor) {
-		if(target == null || ancestor == null) return false
+		if(Aadl2Util.isNull(target) || Aadl2Util.isNull(ancestor)) return false
 		var Classifier ext = target
 		if (target instanceof ComponentImplementation && ancestor instanceof ComponentType) {
 			ext = (target as ComponentImplementation).getType();
 		}
-		while (ext != null) {
+		while (!Aadl2Util.isNull(ext)) {
 			if (ancestor.name.equalsIgnoreCase(ext.name)) {
 				return true;
 			}

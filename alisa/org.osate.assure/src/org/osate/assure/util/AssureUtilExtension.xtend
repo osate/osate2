@@ -89,6 +89,12 @@ class AssureUtilExtension {
 	}
 
 	def static SystemInstance getInstanceModel(VerificationResult assureObject) {
+		val ci = if (assureObject instanceof VerificationActivityResult) {assureObject.target?.target} else {
+			(assureObject.eContainer as VerificationActivityResult).target?.target
+		}
+		if (ci != null){
+			return ci.instanceModel
+		}
 		val rac = assureObject.rootAssuranceCase
 		if (rac == null ) return null
 		rac.target?.target?.instanceModel
@@ -148,7 +154,7 @@ class AssureUtilExtension {
 		val targetURI = EcoreUtil.getURI(instance).toString()
 		var targetmarkers = markers.filter [ IMarker m |
 			m.getAttribute(AadlConstants.AADLURI) == targetURI]
-		if (targetmarkers.empty) targetmarkers = markers
+//		if (targetmarkers.empty) targetmarkers = markers
 		val matchstr = matchMessage(vm)
 		if (!matchstr.empty){
 			targetmarkers = targetmarkers.filter[IMarker m| val msg = m.getAttribute(IMarker.MESSAGE) as String; 
