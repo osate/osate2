@@ -11,6 +11,6 @@ public class CategoriesAntlrTokenFileProvider implements IAntlrTokenFileProvider
 	@Override
 	public InputStream getAntlrTokenFile() {
 		ClassLoader classLoader = getClass().getClassLoader();
-    	return classLoader.getResourceAsStream("org/osate/categories/parser/antlr/internal/InternalCategories.tokens");
+    	return classLoader.getResourceAsStream("org/osate/categories/parser/antlr/internal/InternalCategoriesParser.tokens");
 	}
 }

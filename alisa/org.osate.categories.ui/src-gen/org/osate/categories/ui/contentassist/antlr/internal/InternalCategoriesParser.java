@@ -1,5 +1,8 @@
 package org.osate.categories.ui.contentassist.antlr.internal; 
 
+import java.util.Map;
+import java.util.HashMap;
+
 import java.io.InputStream;
 import org.eclipse.xtext.*;
 import org.eclipse.xtext.parser.*;
@@ -22,24 +25,24 @@ import java.util.ArrayList;
 @SuppressWarnings("all")
 public class InternalCategoriesParser extends AbstractInternalContentAssistParser {
     public static final String[] tokenNames = new String[] {
-        "<invalid>", "<EOR>", "<DOWN>", "<UP>", "RULE_ID", "RULE_INT", "RULE_STRING", "RULE_ML_COMMENT", "RULE_SL_COMMENT", "RULE_WS", "RULE_ANY_OTHER", "'requirement'", "'categories'", "'['", "']'", "'verification'", "'selection'", "'{'", "'}'"
+        "<invalid>", "<EOR>", "<DOWN>", "<UP>", "Verification", "Requirement", "Categories", "Selection", "LeftSquareBracket", "RightSquareBracket", "LeftCurlyBracket", "RightCurlyBracket", "RULE_ID", "RULE_INT", "RULE_STRING", "RULE_ML_COMMENT", "RULE_SL_COMMENT", "RULE_WS", "RULE_ANY_OTHER"
     };
-    public static final int RULE_ID=4;
-    public static final int RULE_WS=9;
-    public static final int RULE_STRING=6;
-    public static final int RULE_ANY_OTHER=10;
-    public static final int RULE_SL_COMMENT=8;
-    public static final int T__15=15;
-    public static final int T__16=16;
-    public static final int T__17=17;
-    public static final int RULE_INT=5;
-    public static final int T__18=18;
-    public static final int T__11=11;
-    public static final int RULE_ML_COMMENT=7;
-    public static final int T__12=12;
-    public static final int T__13=13;
-    public static final int T__14=14;
+    public static final int RULE_ID=12;
+    public static final int Categories=6;
+    public static final int RULE_WS=17;
+    public static final int Selection=7;
+    public static final int LeftCurlyBracket=10;
+    public static final int Verification=4;
+    public static final int RULE_STRING=14;
+    public static final int RULE_ANY_OTHER=18;
+    public static final int RULE_SL_COMMENT=16;
+    public static final int Requirement=5;
+    public static final int RULE_INT=13;
+    public static final int RULE_ML_COMMENT=15;
+    public static final int LeftSquareBracket=8;
+    public static final int RightCurlyBracket=11;
     public static final int EOF=-1;
+    public static final int RightSquareBracket=9;
 
     // delegates
     // delegators
@@ -55,11 +58,24 @@ public class InternalCategoriesParser extends AbstractInternalContentAssistParse
         
 
     public String[] getTokenNames() { return InternalCategoriesParser.tokenNames; }
-    public String getGrammarFileName() { return "../org.osate.categories.ui/src-gen/org/osate/categories/ui/contentassist/antlr/internal/InternalCategories.g"; }
+    public String getGrammarFileName() { return "../org.osate.categories.ui/src-gen/org/osate/categories/ui/contentassist/antlr/internal/InternalCategoriesParser.g"; }
 
 
      
      	private CategoriesGrammarAccess grammarAccess;
+     	
+     	private final Map<String, String> tokenNameToValue = new HashMap<String, String>();
+     	
+     	{
+    		tokenNameToValue.put("LeftSquareBracket", "'['");
+    		tokenNameToValue.put("RightSquareBracket", "']'");
+    		tokenNameToValue.put("LeftCurlyBracket", "'{'");
+    		tokenNameToValue.put("RightCurlyBracket", "'}'");
+    		tokenNameToValue.put("Selection", "'selection'");
+    		tokenNameToValue.put("Categories", "'categories'");
+    		tokenNameToValue.put("Requirement", "'requirement'");
+    		tokenNameToValue.put("Verification", "'verification'");
+     	}
      	
         public void setGrammarAccess(CategoriesGrammarAccess grammarAccess) {
         	this.grammarAccess = grammarAccess;
@@ -69,30 +85,32 @@ public class InternalCategoriesParser extends AbstractInternalContentAssistParse
         protected Grammar getGrammar() {
         	return grammarAccess.getGrammar();
         }
-        
-        @Override
+
+    	@Override
         protected String getValueForTokenName(String tokenName) {
-        	return tokenName;
+        	String result = tokenNameToValue.get(tokenName);
+        	if (result == null)
+        		result = tokenName;
+        	return result;
         }
 
 
 
-
     // $ANTLR start "entryRuleCategories"
-    // ../org.osate.categories.ui/src-gen/org/osate/categories/ui/contentassist/antlr/internal/InternalCategories.g:60:1: entryRuleCategories : ruleCategories EOF ;
+    // ../org.osate.categories.ui/src-gen/org/osate/categories/ui/contentassist/antlr/internal/InternalCategoriesParser.g:71:1: entryRuleCategories : ruleCategories EOF ;
     public final void entryRuleCategories() throws RecognitionException {
         try {
-            // ../org.osate.categories.ui/src-gen/org/osate/categories/ui/contentassist/antlr/internal/InternalCategories.g:61:1: ( ruleCategories EOF )
-            // ../org.osate.categories.ui/src-gen/org/osate/categories/ui/contentassist/antlr/internal/InternalCategories.g:62:1: ruleCategories EOF
+            // ../org.osate.categories.ui/src-gen/org/osate/categories/ui/contentassist/antlr/internal/InternalCategoriesParser.g:72:1: ( ruleCategories EOF )
+            // ../org.osate.categories.ui/src-gen/org/osate/categories/ui/contentassist/antlr/internal/InternalCategoriesParser.g:73:1: ruleCategories EOF
             {
              before(grammarAccess.getCategoriesRule()); 
-            pushFollow(FOLLOW_ruleCategories_in_entryRuleCategories61);
+            pushFollow(FOLLOW_ruleCategories_in_entryRuleCategories54);
             ruleCategories();
 
             state._fsp--;
 
              after(grammarAccess.getCategoriesRule()); 
-            match(input,EOF,FOLLOW_EOF_in_entryRuleCategories68); 
+            match(input,EOF,FOLLOW_EOF_in_entryRuleCategories61); 
 
             }
 
@@ -109,23 +127,23 @@ public class InternalCategoriesParser extends AbstractInternalContentAssistParse
 
 
     // $ANTLR start "ruleCategories"
-    // ../org.osate.categories.ui/src-gen/org/osate/categories/ui/contentassist/antlr/internal/InternalCategories.g:69:1: ruleCategories : ( ( rule__Categories__Alternatives ) ) ;
+    // ../org.osate.categories.ui/src-gen/org/osate/categories/ui/contentassist/antlr/internal/InternalCategoriesParser.g:80:1: ruleCategories : ( ( rule__Categories__Alternatives ) ) ;
     public final void ruleCategories() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.osate.categories.ui/src-gen/org/osate/categories/ui/contentassist/antlr/internal/InternalCategories.g:73:2: ( ( ( rule__Categories__Alternatives ) ) )
-            // ../org.osate.categories.ui/src-gen/org/osate/categories/ui/contentassist/antlr/internal/InternalCategories.g:74:1: ( ( rule__Categories__Alternatives ) )
+            // ../org.osate.categories.ui/src-gen/org/osate/categories/ui/contentassist/antlr/internal/InternalCategoriesParser.g:84:5: ( ( ( rule__Categories__Alternatives ) ) )
+            // ../org.osate.categories.ui/src-gen/org/osate/categories/ui/contentassist/antlr/internal/InternalCategoriesParser.g:85:1: ( ( rule__Categories__Alternatives ) )
             {
-            // ../org.osate.categories.ui/src-gen/org/osate/categories/ui/contentassist/antlr/internal/InternalCategories.g:74:1: ( ( rule__Categories__Alternatives ) )
-            // ../org.osate.categories.ui/src-gen/org/osate/categories/ui/contentassist/antlr/internal/InternalCategories.g:75:1: ( rule__Categories__Alternatives )
+            // ../org.osate.categories.ui/src-gen/org/osate/categories/ui/contentassist/antlr/internal/InternalCategoriesParser.g:85:1: ( ( rule__Categories__Alternatives ) )
+            // ../org.osate.categories.ui/src-gen/org/osate/categories/ui/contentassist/antlr/internal/InternalCategoriesParser.g:86:1: ( rule__Categories__Alternatives )
             {
              before(grammarAccess.getCategoriesAccess().getAlternatives()); 
-            // ../org.osate.categories.ui/src-gen/org/osate/categories/ui/contentassist/antlr/internal/InternalCategories.g:76:1: ( rule__Categories__Alternatives )
-            // ../org.osate.categories.ui/src-gen/org/osate/categories/ui/contentassist/antlr/internal/InternalCategories.g:76:2: rule__Categories__Alternatives
+            // ../org.osate.categories.ui/src-gen/org/osate/categories/ui/contentassist/antlr/internal/InternalCategoriesParser.g:87:1: ( rule__Categories__Alternatives )
+            // ../org.osate.categories.ui/src-gen/org/osate/categories/ui/contentassist/antlr/internal/InternalCategoriesParser.g:87:2: rule__Categories__Alternatives
             {
-            pushFollow(FOLLOW_rule__Categories__Alternatives_in_ruleCategories94);
+            pushFollow(FOLLOW_rule__Categories__Alternatives_in_ruleCategories91);
             rule__Categories__Alternatives();
 
             state._fsp--;
@@ -156,20 +174,20 @@ public class InternalCategoriesParser extends AbstractInternalContentAssistParse
 
 
     // $ANTLR start "entryRuleRequirementCategories"
-    // ../org.osate.categories.ui/src-gen/org/osate/categories/ui/contentassist/antlr/internal/InternalCategories.g:88:1: entryRuleRequirementCategories : ruleRequirementCategories EOF ;
+    // ../org.osate.categories.ui/src-gen/org/osate/categories/ui/contentassist/antlr/internal/InternalCategoriesParser.g:99:1: entryRuleRequirementCategories : ruleRequirementCategories EOF ;
     public final void entryRuleRequirementCategories() throws RecognitionException {
         try {
-            // ../org.osate.categories.ui/src-gen/org/osate/categories/ui/contentassist/antlr/internal/InternalCategories.g:89:1: ( ruleRequirementCategories EOF )
-            // ../org.osate.categories.ui/src-gen/org/osate/categories/ui/contentassist/antlr/internal/InternalCategories.g:90:1: ruleRequirementCategories EOF
+            // ../org.osate.categories.ui/src-gen/org/osate/categories/ui/contentassist/antlr/internal/InternalCategoriesParser.g:100:1: ( ruleRequirementCategories EOF )
+            // ../org.osate.categories.ui/src-gen/org/osate/categories/ui/contentassist/antlr/internal/InternalCategoriesParser.g:101:1: ruleRequirementCategories EOF
             {
              before(grammarAccess.getRequirementCategoriesRule()); 
-            pushFollow(FOLLOW_ruleRequirementCategories_in_entryRuleRequirementCategories121);
+            pushFollow(FOLLOW_ruleRequirementCategories_in_entryRuleRequirementCategories118);
             ruleRequirementCategories();
 
             state._fsp--;
 
              after(grammarAccess.getRequirementCategoriesRule()); 
-            match(input,EOF,FOLLOW_EOF_in_entryRuleRequirementCategories128); 
+            match(input,EOF,FOLLOW_EOF_in_entryRuleRequirementCategories125); 
 
             }
 
@@ -186,23 +204,23 @@ public class InternalCategoriesParser extends AbstractInternalContentAssistParse
 
 
     // $ANTLR start "ruleRequirementCategories"
-    // ../org.osate.categories.ui/src-gen/org/osate/categories/ui/contentassist/antlr/internal/InternalCategories.g:97:1: ruleRequirementCategories : ( ( rule__RequirementCategories__Group__0 ) ) ;
+    // ../org.osate.categories.ui/src-gen/org/osate/categories/ui/contentassist/antlr/internal/InternalCategoriesParser.g:108:1: ruleRequirementCategories : ( ( rule__RequirementCategories__Group__0 ) ) ;
     public final void ruleRequirementCategories() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.osate.categories.ui/src-gen/org/osate/categories/ui/contentassist/antlr/internal/InternalCategories.g:101:2: ( ( ( rule__RequirementCategories__Group__0 ) ) )
-            // ../org.osate.categories.ui/src-gen/org/osate/categories/ui/contentassist/antlr/internal/InternalCategories.g:102:1: ( ( rule__RequirementCategories__Group__0 ) )
+            // ../org.osate.categories.ui/src-gen/org/osate/categories/ui/contentassist/antlr/internal/InternalCategoriesParser.g:112:5: ( ( ( rule__RequirementCategories__Group__0 ) ) )
+            // ../org.osate.categories.ui/src-gen/org/osate/categories/ui/contentassist/antlr/internal/InternalCategoriesParser.g:113:1: ( ( rule__RequirementCategories__Group__0 ) )
             {
-            // ../org.osate.categories.ui/src-gen/org/osate/categories/ui/contentassist/antlr/internal/InternalCategories.g:102:1: ( ( rule__RequirementCategories__Group__0 ) )
-            // ../org.osate.categories.ui/src-gen/org/osate/categories/ui/contentassist/antlr/internal/InternalCategories.g:103:1: ( rule__RequirementCategories__Group__0 )
+            // ../org.osate.categories.ui/src-gen/org/osate/categories/ui/contentassist/antlr/internal/InternalCategoriesParser.g:113:1: ( ( rule__RequirementCategories__Group__0 ) )
+            // ../org.osate.categories.ui/src-gen/org/osate/categories/ui/contentassist/antlr/internal/InternalCategoriesParser.g:114:1: ( rule__RequirementCategories__Group__0 )
             {
              before(grammarAccess.getRequirementCategoriesAccess().getGroup()); 
-            // ../org.osate.categories.ui/src-gen/org/osate/categories/ui/contentassist/antlr/internal/InternalCategories.g:104:1: ( rule__RequirementCategories__Group__0 )
-            // ../org.osate.categories.ui/src-gen/org/osate/categories/ui/contentassist/antlr/internal/InternalCategories.g:104:2: rule__RequirementCategories__Group__0
+            // ../org.osate.categories.ui/src-gen/org/osate/categories/ui/contentassist/antlr/internal/InternalCategoriesParser.g:115:1: ( rule__RequirementCategories__Group__0 )
+            // ../org.osate.categories.ui/src-gen/org/osate/categories/ui/contentassist/antlr/internal/InternalCategoriesParser.g:115:2: rule__RequirementCategories__Group__0
             {
-            pushFollow(FOLLOW_rule__RequirementCategories__Group__0_in_ruleRequirementCategories154);
+            pushFollow(FOLLOW_rule__RequirementCategories__Group__0_in_ruleRequirementCategories155);
             rule__RequirementCategories__Group__0();
 
             state._fsp--;
@@ -233,20 +251,20 @@ public class InternalCategoriesParser extends AbstractInternalContentAssistParse
 
 
     // $ANTLR start "entryRuleVerificationCategories"
-    // ../org.osate.categories.ui/src-gen/org/osate/categories/ui/contentassist/antlr/internal/InternalCategories.g:116:1: entryRuleVerificationCategories : ruleVerificationCategories EOF ;
+    // ../org.osate.categories.ui/src-gen/org/osate/categories/ui/contentassist/antlr/internal/InternalCategoriesParser.g:127:1: entryRuleVerificationCategories : ruleVerificationCategories EOF ;
     public final void entryRuleVerificationCategories() throws RecognitionException {
         try {
-            // ../org.osate.categories.ui/src-gen/org/osate/categories/ui/contentassist/antlr/internal/InternalCategories.g:117:1: ( ruleVerificationCategories EOF )
-            // ../org.osate.categories.ui/src-gen/org/osate/categories/ui/contentassist/antlr/internal/InternalCategories.g:118:1: ruleVerificationCategories EOF
+            // ../org.osate.categories.ui/src-gen/org/osate/categories/ui/contentassist/antlr/internal/InternalCategoriesParser.g:128:1: ( ruleVerificationCategories EOF )
+            // ../org.osate.categories.ui/src-gen/org/osate/categories/ui/contentassist/antlr/internal/InternalCategoriesParser.g:129:1: ruleVerificationCategories EOF
             {
              before(grammarAccess.getVerificationCategoriesRule()); 
-            pushFollow(FOLLOW_ruleVerificationCategories_in_entryRuleVerificationCategories181);
+            pushFollow(FOLLOW_ruleVerificationCategories_in_entryRuleVerificationCategories182);
             ruleVerificationCategories();
 
             state._fsp--;
 
              after(grammarAccess.getVerificationCategoriesRule()); 
-            match(input,EOF,FOLLOW_EOF_in_entryRuleVerificationCategories188); 
+            match(input,EOF,FOLLOW_EOF_in_entryRuleVerificationCategories189); 
 
             }
 
@@ -263,23 +281,23 @@ public class InternalCategoriesParser extends AbstractInternalContentAssistParse
 
 
     // $ANTLR start "ruleVerificationCategories"
-    // ../org.osate.categories.ui/src-gen/org/osate/categories/ui/contentassist/antlr/internal/InternalCategories.g:125:1: ruleVerificationCategories : ( ( rule__VerificationCategories__Group__0 ) ) ;
+    // ../org.osate.categories.ui/src-gen/org/osate/categories/ui/contentassist/antlr/internal/InternalCategoriesParser.g:136:1: ruleVerificationCategories : ( ( rule__VerificationCategories__Group__0 ) ) ;
     public final void ruleVerificationCategories() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.osate.categories.ui/src-gen/org/osate/categories/ui/contentassist/antlr/internal/InternalCategories.g:129:2: ( ( ( rule__VerificationCategories__Group__0 ) ) )
-            // ../org.osate.categories.ui/src-gen/org/osate/categories/ui/contentassist/antlr/internal/InternalCategories.g:130:1: ( ( rule__VerificationCategories__Group__0 ) )
+            // ../org.osate.categories.ui/src-gen/org/osate/categories/ui/contentassist/antlr/internal/InternalCategoriesParser.g:140:5: ( ( ( rule__VerificationCategories__Group__0 ) ) )
+            // ../org.osate.categories.ui/src-gen/org/osate/categories/ui/contentassist/antlr/internal/InternalCategoriesParser.g:141:1: ( ( rule__VerificationCategories__Group__0 ) )
             {
-            // ../org.osate.categories.ui/src-gen/org/osate/categories/ui/contentassist/antlr/internal/InternalCategories.g:130:1: ( ( rule__VerificationCategories__Group__0 ) )
-            // ../org.osate.categories.ui/src-gen/org/osate/categories/ui/contentassist/antlr/internal/InternalCategories.g:131:1: ( rule__VerificationCategories__Group__0 )
+            // ../org.osate.categories.ui/src-gen/org/osate/categories/ui/contentassist/antlr/internal/InternalCategoriesParser.g:141:1: ( ( rule__VerificationCategories__Group__0 ) )
+            // ../org.osate.categories.ui/src-gen/org/osate/categories/ui/contentassist/antlr/internal/InternalCategoriesParser.g:142:1: ( rule__VerificationCategories__Group__0 )
             {
              before(grammarAccess.getVerificationCategoriesAccess().getGroup()); 
-            // ../org.osate.categories.ui/src-gen/org/osate/categories/ui/contentassist/antlr/internal/InternalCategories.g:132:1: ( rule__VerificationCategories__Group__0 )
-            // ../org.osate.categories.ui/src-gen/org/osate/categories/ui/contentassist/antlr/internal/InternalCategories.g:132:2: rule__VerificationCategories__Group__0
+            // ../org.osate.categories.ui/src-gen/org/osate/categories/ui/contentassist/antlr/internal/InternalCategoriesParser.g:143:1: ( rule__VerificationCategories__Group__0 )
+            // ../org.osate.categories.ui/src-gen/org/osate/categories/ui/contentassist/antlr/internal/InternalCategoriesParser.g:143:2: rule__VerificationCategories__Group__0
             {
-            pushFollow(FOLLOW_rule__VerificationCategories__Group__0_in_ruleVerificationCategories214);
+            pushFollow(FOLLOW_rule__VerificationCategories__Group__0_in_ruleVerificationCategories219);
             rule__VerificationCategories__Group__0();
 
             state._fsp--;
@@ -310,20 +328,20 @@ public class InternalCategoriesParser extends AbstractInternalContentAssistParse
 
 
     // $ANTLR start "entryRuleSelectionCategories"
-    // ../org.osate.categories.ui/src-gen/org/osate/categories/ui/contentassist/antlr/internal/InternalCategories.g:144:1: entryRuleSelectionCategories : ruleSelectionCategories EOF ;
+    // ../org.osate.categories.ui/src-gen/org/osate/categories/ui/contentassist/antlr/internal/InternalCategoriesParser.g:155:1: entryRuleSelectionCategories : ruleSelectionCategories EOF ;
     public final void entryRuleSelectionCategories() throws RecognitionException {
         try {
-            // ../org.osate.categories.ui/src-gen/org/osate/categories/ui/contentassist/antlr/internal/InternalCategories.g:145:1: ( ruleSelectionCategories EOF )
-            // ../org.osate.categories.ui/src-gen/org/osate/categories/ui/contentassist/antlr/internal/InternalCategories.g:146:1: ruleSelectionCategories EOF
+            // ../org.osate.categories.ui/src-gen/org/osate/categories/ui/contentassist/antlr/internal/InternalCategoriesParser.g:156:1: ( ruleSelectionCategories EOF )
+            // ../org.osate.categories.ui/src-gen/org/osate/categories/ui/contentassist/antlr/internal/InternalCategoriesParser.g:157:1: ruleSelectionCategories EOF
             {
              before(grammarAccess.getSelectionCategoriesRule()); 
-            pushFollow(FOLLOW_ruleSelectionCategories_in_entryRuleSelectionCategories241);
+            pushFollow(FOLLOW_ruleSelectionCategories_in_entryRuleSelectionCategories246);
             ruleSelectionCategories();
 
             state._fsp--;
 
              after(grammarAccess.getSelectionCategoriesRule()); 
-            match(input,EOF,FOLLOW_EOF_in_entryRuleSelectionCategories248); 
+            match(input,EOF,FOLLOW_EOF_in_entryRuleSelectionCategories253); 
 
             }
 
@@ -340,23 +358,23 @@ public class InternalCategoriesParser extends AbstractInternalContentAssistParse
 
 
     // $ANTLR start "ruleSelectionCategories"
-    // ../org.osate.categories.ui/src-gen/org/osate/categories/ui/contentassist/antlr/internal/InternalCategories.g:153:1: ruleSelectionCategories : ( ( rule__SelectionCategories__Group__0 ) ) ;
+    // ../org.osate.categories.ui/src-gen/org/osate/categories/ui/contentassist/antlr/internal/InternalCategoriesParser.g:164:1: ruleSelectionCategories : ( ( rule__SelectionCategories__Group__0 ) ) ;
     public final void ruleSelectionCategories() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.osate.categories.ui/src-gen/org/osate/categories/ui/contentassist/antlr/internal/InternalCategories.g:157:2: ( ( ( rule__SelectionCategories__Group__0 ) ) )
-            // ../org.osate.categories.ui/src-gen/org/osate/categories/ui/contentassist/antlr/internal/InternalCategories.g:158:1: ( ( rule__SelectionCategories__Group__0 ) )
+            // ../org.osate.categories.ui/src-gen/org/osate/categories/ui/contentassist/antlr/internal/InternalCategoriesParser.g:168:5: ( ( ( rule__SelectionCategories__Group__0 ) ) )
+            // ../org.osate.categories.ui/src-gen/org/osate/categories/ui/contentassist/antlr/internal/InternalCategoriesParser.g:169:1: ( ( rule__SelectionCategories__Group__0 ) )
             {
-            // ../org.osate.categories.ui/src-gen/org/osate/categories/ui/contentassist/antlr/internal/InternalCategories.g:158:1: ( ( rule__SelectionCategories__Group__0 ) )
-            // ../org.osate.categories.ui/src-gen/org/osate/categories/ui/contentassist/antlr/internal/InternalCategories.g:159:1: ( rule__SelectionCategories__Group__0 )
+            // ../org.osate.categories.ui/src-gen/org/osate/categories/ui/contentassist/antlr/internal/InternalCategoriesParser.g:169:1: ( ( rule__SelectionCategories__Group__0 ) )
+            // ../org.osate.categories.ui/src-gen/org/osate/categories/ui/contentassist/antlr/internal/InternalCategoriesParser.g:170:1: ( rule__SelectionCategories__Group__0 )
             {
              before(grammarAccess.getSelectionCategoriesAccess().getGroup()); 
-            // ../org.osate.categories.ui/src-gen/org/osate/categories/ui/contentassist/antlr/internal/InternalCategories.g:160:1: ( rule__SelectionCategories__Group__0 )
-            // ../org.osate.categories.ui/src-gen/org/osate/categories/ui/contentassist/antlr/internal/InternalCategories.g:160:2: rule__SelectionCategories__Group__0
+            // ../org.osate.categories.ui/src-gen/org/osate/categories/ui/contentassist/antlr/internal/InternalCategoriesParser.g:171:1: ( rule__SelectionCategories__Group__0 )
+            // ../org.osate.categories.ui/src-gen/org/osate/categories/ui/contentassist/antlr/internal/InternalCategoriesParser.g:171:2: rule__SelectionCategories__Group__0
             {
-            pushFollow(FOLLOW_rule__SelectionCategories__Group__0_in_ruleSelectionCategories274);
+            pushFollow(FOLLOW_rule__SelectionCategories__Group__0_in_ruleSelectionCategories283);
             rule__SelectionCategories__Group__0();
 
             state._fsp--;
@@ -387,20 +405,20 @@ public class InternalCategoriesParser extends AbstractInternalContentAssistParse
 
 
     // $ANTLR start "entryRuleRequirementCategory"
-    // ../org.osate.categories.ui/src-gen/org/osate/categories/ui/contentassist/antlr/internal/InternalCategories.g:174:1: entryRuleRequirementCategory : ruleRequirementCategory EOF ;
+    // ../org.osate.categories.ui/src-gen/org/osate/categories/ui/contentassist/antlr/internal/InternalCategoriesParser.g:185:1: entryRuleRequirementCategory : ruleRequirementCategory EOF ;
     public final void entryRuleRequirementCategory() throws RecognitionException {
         try {
-            // ../org.osate.categories.ui/src-gen/org/osate/categories/ui/contentassist/antlr/internal/InternalCategories.g:175:1: ( ruleRequirementCategory EOF )
-            // ../org.osate.categories.ui/src-gen/org/osate/categories/ui/contentassist/antlr/internal/InternalCategories.g:176:1: ruleRequirementCategory EOF
+            // ../org.osate.categories.ui/src-gen/org/osate/categories/ui/contentassist/antlr/internal/InternalCategoriesParser.g:186:1: ( ruleRequirementCategory EOF )
+            // ../org.osate.categories.ui/src-gen/org/osate/categories/ui/contentassist/antlr/internal/InternalCategoriesParser.g:187:1: ruleRequirementCategory EOF
             {
              before(grammarAccess.getRequirementCategoryRule()); 
-            pushFollow(FOLLOW_ruleRequirementCategory_in_entryRuleRequirementCategory303);
+            pushFollow(FOLLOW_ruleRequirementCategory_in_entryRuleRequirementCategory312);
             ruleRequirementCategory();
 
             state._fsp--;
 
              after(grammarAccess.getRequirementCategoryRule()); 
-            match(input,EOF,FOLLOW_EOF_in_entryRuleRequirementCategory310); 
+            match(input,EOF,FOLLOW_EOF_in_entryRuleRequirementCategory319); 
 
             }
 
@@ -417,23 +435,23 @@ public class InternalCategoriesParser extends AbstractInternalContentAssistParse
 
 
     // $ANTLR start "ruleRequirementCategory"
-    // ../org.osate.categories.ui/src-gen/org/osate/categories/ui/contentassist/antlr/internal/InternalCategories.g:183:1: ruleRequirementCategory : ( ( rule__RequirementCategory__Group__0 ) ) ;
+    // ../org.osate.categories.ui/src-gen/org/osate/categories/ui/contentassist/antlr/internal/InternalCategoriesParser.g:194:1: ruleRequirementCategory : ( ( rule__RequirementCategory__Group__0 ) ) ;
     public final void ruleRequirementCategory() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.osate.categories.ui/src-gen/org/osate/categories/ui/contentassist/antlr/internal/InternalCategories.g:187:2: ( ( ( rule__RequirementCategory__Group__0 ) ) )
-            // ../org.osate.categories.ui/src-gen/org/osate/categories/ui/contentassist/antlr/internal/InternalCategories.g:188:1: ( ( rule__RequirementCategory__Group__0 ) )
+            // ../org.osate.categories.ui/src-gen/org/osate/categories/ui/contentassist/antlr/internal/InternalCategoriesParser.g:198:5: ( ( ( rule__RequirementCategory__Group__0 ) ) )
+            // ../org.osate.categories.ui/src-gen/org/osate/categories/ui/contentassist/antlr/internal/InternalCategoriesParser.g:199:1: ( ( rule__RequirementCategory__Group__0 ) )
             {
-            // ../org.osate.categories.ui/src-gen/org/osate/categories/ui/contentassist/antlr/internal/InternalCategories.g:188:1: ( ( rule__RequirementCategory__Group__0 ) )
-            // ../org.osate.categories.ui/src-gen/org/osate/categories/ui/contentassist/antlr/internal/InternalCategories.g:189:1: ( rule__RequirementCategory__Group__0 )
+            // ../org.osate.categories.ui/src-gen/org/osate/categories/ui/contentassist/antlr/internal/InternalCategoriesParser.g:199:1: ( ( rule__RequirementCategory__Group__0 ) )
+            // ../org.osate.categories.ui/src-gen/org/osate/categories/ui/contentassist/antlr/internal/InternalCategoriesParser.g:200:1: ( rule__RequirementCategory__Group__0 )
             {
              before(grammarAccess.getRequirementCategoryAccess().getGroup()); 
-            // ../org.osate.categories.ui/src-gen/org/osate/categories/ui/contentassist/antlr/internal/InternalCategories.g:190:1: ( rule__RequirementCategory__Group__0 )
-            // ../org.osate.categories.ui/src-gen/org/osate/categories/ui/contentassist/antlr/internal/InternalCategories.g:190:2: rule__RequirementCategory__Group__0
+            // ../org.osate.categories.ui/src-gen/org/osate/categories/ui/contentassist/antlr/internal/InternalCategoriesParser.g:201:1: ( rule__RequirementCategory__Group__0 )
+            // ../org.osate.categories.ui/src-gen/org/osate/categories/ui/contentassist/antlr/internal/InternalCategoriesParser.g:201:2: rule__RequirementCategory__Group__0
             {
-            pushFollow(FOLLOW_rule__RequirementCategory__Group__0_in_ruleRequirementCategory336);
+            pushFollow(FOLLOW_rule__RequirementCategory__Group__0_in_ruleRequirementCategory349);
             rule__RequirementCategory__Group__0();
 
             state._fsp--;
@@ -464,20 +482,20 @@ public class InternalCategoriesParser extends AbstractInternalContentAssistParse
 
 
     // $ANTLR start "entryRuleVerificationCategory"
-    // ../org.osate.categories.ui/src-gen/org/osate/categories/ui/contentassist/antlr/internal/InternalCategories.g:202:1: entryRuleVerificationCategory : ruleVerificationCategory EOF ;
+    // ../org.osate.categories.ui/src-gen/org/osate/categories/ui/contentassist/antlr/internal/InternalCategoriesParser.g:213:1: entryRuleVerificationCategory : ruleVerificationCategory EOF ;
     public final void entryRuleVerificationCategory() throws RecognitionException {
         try {
-            // ../org.osate.categories.ui/src-gen/org/osate/categories/ui/contentassist/antlr/internal/InternalCategories.g:203:1: ( ruleVerificationCategory EOF )
-            // ../org.osate.categories.ui/src-gen/org/osate/categories/ui/contentassist/antlr/internal/InternalCategories.g:204:1: ruleVerificationCategory EOF
+            // ../org.osate.categories.ui/src-gen/org/osate/categories/ui/contentassist/antlr/internal/InternalCategoriesParser.g:214:1: ( ruleVerificationCategory EOF )
+            // ../org.osate.categories.ui/src-gen/org/osate/categories/ui/contentassist/antlr/internal/InternalCategoriesParser.g:215:1: ruleVerificationCategory EOF
             {
              before(grammarAccess.getVerificationCategoryRule()); 
-            pushFollow(FOLLOW_ruleVerificationCategory_in_entryRuleVerificationCategory363);
+            pushFollow(FOLLOW_ruleVerificationCategory_in_entryRuleVerificationCategory376);
             ruleVerificationCategory();
 
             state._fsp--;
 
              after(grammarAccess.getVerificationCategoryRule()); 
-            match(input,EOF,FOLLOW_EOF_in_entryRuleVerificationCategory370); 
+            match(input,EOF,FOLLOW_EOF_in_entryRuleVerificationCategory383); 
 
             }
 
@@ -494,23 +512,23 @@ public class InternalCategoriesParser extends AbstractInternalContentAssistParse
 
 
     // $ANTLR start "ruleVerificationCategory"
-    // ../org.osate.categories.ui/src-gen/org/osate/categories/ui/contentassist/antlr/internal/InternalCategories.g:211:1: ruleVerificationCategory : ( ( rule__VerificationCategory__Group__0 ) ) ;
+    // ../org.osate.categories.ui/src-gen/org/osate/categories/ui/contentassist/antlr/internal/InternalCategoriesParser.g:222:1: ruleVerificationCategory : ( ( rule__VerificationCategory__Group__0 ) ) ;
     public final void ruleVerificationCategory() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.osate.categories.ui/src-gen/org/osate/categories/ui/contentassist/antlr/internal/InternalCategories.g:215:2: ( ( ( rule__VerificationCategory__Group__0 ) ) )
-            // ../org.osate.categories.ui/src-gen/org/osate/categories/ui/contentassist/antlr/internal/InternalCategories.g:216:1: ( ( rule__VerificationCategory__Group__0 ) )
+            // ../org.osate.categories.ui/src-gen/org/osate/categories/ui/contentassist/antlr/internal/InternalCategoriesParser.g:226:5: ( ( ( rule__VerificationCategory__Group__0 ) ) )
+            // ../org.osate.categories.ui/src-gen/org/osate/categories/ui/contentassist/antlr/internal/InternalCategoriesParser.g:227:1: ( ( rule__VerificationCategory__Group__0 ) )
             {
-            // ../org.osate.categories.ui/src-gen/org/osate/categories/ui/contentassist/antlr/internal/InternalCategories.g:216:1: ( ( rule__VerificationCategory__Group__0 ) )
-            // ../org.osate.categories.ui/src-gen/org/osate/categories/ui/contentassist/antlr/internal/InternalCategories.g:217:1: ( rule__VerificationCategory__Group__0 )
+            // ../org.osate.categories.ui/src-gen/org/osate/categories/ui/contentassist/antlr/internal/InternalCategoriesParser.g:227:1: ( ( rule__VerificationCategory__Group__0 ) )
+            // ../org.osate.categories.ui/src-gen/org/osate/categories/ui/contentassist/antlr/internal/InternalCategoriesParser.g:228:1: ( rule__VerificationCategory__Group__0 )
             {
              before(grammarAccess.getVerificationCategoryAccess().getGroup()); 
-            // ../org.osate.categories.ui/src-gen/org/osate/categories/ui/contentassist/antlr/internal/InternalCategories.g:218:1: ( rule__VerificationCategory__Group__0 )
-            // ../org.osate.categories.ui/src-gen/org/osate/categories/ui/contentassist/antlr/internal/InternalCategories.g:218:2: rule__VerificationCategory__Group__0
+            // ../org.osate.categories.ui/src-gen/org/osate/categories/ui/contentassist/antlr/internal/InternalCategoriesParser.g:229:1: ( rule__VerificationCategory__Group__0 )
+            // ../org.osate.categories.ui/src-gen/org/osate/categories/ui/contentassist/antlr/internal/InternalCategoriesParser.g:229:2: rule__VerificationCategory__Group__0
             {
-            pushFollow(FOLLOW_rule__VerificationCategory__Group__0_in_ruleVerificationCategory396);
+            pushFollow(FOLLOW_rule__VerificationCategory__Group__0_in_ruleVerificationCategory413);
             rule__VerificationCategory__Group__0();
 
             state._fsp--;
@@ -541,20 +559,20 @@ public class InternalCategoriesParser extends AbstractInternalContentAssistParse
 
 
     // $ANTLR start "entryRuleSelectionCategory"
-    // ../org.osate.categories.ui/src-gen/org/osate/categories/ui/contentassist/antlr/internal/InternalCategories.g:230:1: entryRuleSelectionCategory : ruleSelectionCategory EOF ;
+    // ../org.osate.categories.ui/src-gen/org/osate/categories/ui/contentassist/antlr/internal/InternalCategoriesParser.g:241:1: entryRuleSelectionCategory : ruleSelectionCategory EOF ;
     public final void entryRuleSelectionCategory() throws RecognitionException {
         try {
-            // ../org.osate.categories.ui/src-gen/org/osate/categories/ui/contentassist/antlr/internal/InternalCategories.g:231:1: ( ruleSelectionCategory EOF )
-            // ../org.osate.categories.ui/src-gen/org/osate/categories/ui/contentassist/antlr/internal/InternalCategories.g:232:1: ruleSelectionCategory EOF
+            // ../org.osate.categories.ui/src-gen/org/osate/categories/ui/contentassist/antlr/internal/InternalCategoriesParser.g:242:1: ( ruleSelectionCategory EOF )
+            // ../org.osate.categories.ui/src-gen/org/osate/categories/ui/contentassist/antlr/internal/InternalCategoriesParser.g:243:1: ruleSelectionCategory EOF
             {
              before(grammarAccess.getSelectionCategoryRule()); 
-            pushFollow(FOLLOW_ruleSelectionCategory_in_entryRuleSelectionCategory423);
+            pushFollow(FOLLOW_ruleSelectionCategory_in_entryRuleSelectionCategory440);
             ruleSelectionCategory();
 
             state._fsp--;
 
              after(grammarAccess.getSelectionCategoryRule()); 
-            match(input,EOF,FOLLOW_EOF_in_entryRuleSelectionCategory430); 
+            match(input,EOF,FOLLOW_EOF_in_entryRuleSelectionCategory447); 
 
             }
 
@@ -571,23 +589,23 @@ public class InternalCategoriesParser extends AbstractInternalContentAssistParse
 
 
     // $ANTLR start "ruleSelectionCategory"
-    // ../org.osate.categories.ui/src-gen/org/osate/categories/ui/contentassist/antlr/internal/InternalCategories.g:239:1: ruleSelectionCategory : ( ( rule__SelectionCategory__Group__0 ) ) ;
+    // ../org.osate.categories.ui/src-gen/org/osate/categories/ui/contentassist/antlr/internal/InternalCategoriesParser.g:250:1: ruleSelectionCategory : ( ( rule__SelectionCategory__Group__0 ) ) ;
     public final void ruleSelectionCategory() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.osate.categories.ui/src-gen/org/osate/categories/ui/contentassist/antlr/internal/InternalCategories.g:243:2: ( ( ( rule__SelectionCategory__Group__0 ) ) )
-            // ../org.osate.categories.ui/src-gen/org/osate/categories/ui/contentassist/antlr/internal/InternalCategories.g:244:1: ( ( rule__SelectionCategory__Group__0 ) )
+            // ../org.osate.categories.ui/src-gen/org/osate/categories/ui/contentassist/antlr/internal/InternalCategoriesParser.g:254:5: ( ( ( rule__SelectionCategory__Group__0 ) ) )
+            // ../org.osate.categories.ui/src-gen/org/osate/categories/ui/contentassist/antlr/internal/InternalCategoriesParser.g:255:1: ( ( rule__SelectionCategory__Group__0 ) )
             {
-            // ../org.osate.categories.ui/src-gen/org/osate/categories/ui/contentassist/antlr/internal/InternalCategories.g:244:1: ( ( rule__SelectionCategory__Group__0 ) )
-            // ../org.osate.categories.ui/src-gen/org/osate/categories/ui/contentassist/antlr/internal/InternalCategories.g:245:1: ( rule__SelectionCategory__Group__0 )
+            // ../org.osate.categories.ui/src-gen/org/osate/categories/ui/contentassist/antlr/internal/InternalCategoriesParser.g:255:1: ( ( rule__SelectionCategory__Group__0 ) )
+            // ../org.osate.categories.ui/src-gen/org/osate/categories/ui/contentassist/antlr/internal/InternalCategoriesParser.g:256:1: ( rule__SelectionCategory__Group__0 )
             {
              before(grammarAccess.getSelectionCategoryAccess().getGroup()); 
-            // ../org.osate.categories.ui/src-gen/org/osate/categories/ui/contentassist/antlr/internal/InternalCategories.g:246:1: ( rule__SelectionCategory__Group__0 )
-            // ../org.osate.categories.ui/src-gen/org/osate/categories/ui/contentassist/antlr/internal/InternalCategories.g:246:2: rule__SelectionCategory__Group__0
+            // ../org.osate.categories.ui/src-gen/org/osate/categories/ui/contentassist/antlr/internal/InternalCategoriesParser.g:257:1: ( rule__SelectionCategory__Group__0 )
+            // ../org.osate.categories.ui/src-gen/org/osate/categories/ui/contentassist/antlr/internal/InternalCategoriesParser.g:257:2: rule__SelectionCategory__Group__0
             {
-            pushFollow(FOLLOW_rule__SelectionCategory__Group__0_in_ruleSelectionCategory456);
+            pushFollow(FOLLOW_rule__SelectionCategory__Group__0_in_ruleSelectionCategory477);
             rule__SelectionCategory__Group__0();
 
             state._fsp--;
@@ -618,20 +636,20 @@ public class InternalCategoriesParser extends AbstractInternalContentAssistParse
 
 
     // $ANTLR start "entryRuleCatRef"
-    // ../org.osate.categories.ui/src-gen/org/osate/categories/ui/contentassist/antlr/internal/InternalCategories.g:258:1: entryRuleCatRef : ruleCatRef EOF ;
+    // ../org.osate.categories.ui/src-gen/org/osate/categories/ui/contentassist/antlr/internal/InternalCategoriesParser.g:269:1: entryRuleCatRef : ruleCatRef EOF ;
     public final void entryRuleCatRef() throws RecognitionException {
         try {
-            // ../org.osate.categories.ui/src-gen/org/osate/categories/ui/contentassist/antlr/internal/InternalCategories.g:259:1: ( ruleCatRef EOF )
-            // ../org.osate.categories.ui/src-gen/org/osate/categories/ui/contentassist/antlr/internal/InternalCategories.g:260:1: ruleCatRef EOF
+            // ../org.osate.categories.ui/src-gen/org/osate/categories/ui/contentassist/antlr/internal/InternalCategoriesParser.g:270:1: ( ruleCatRef EOF )
+            // ../org.osate.categories.ui/src-gen/org/osate/categories/ui/contentassist/antlr/internal/InternalCategoriesParser.g:271:1: ruleCatRef EOF
             {
              before(grammarAccess.getCatRefRule()); 
-            pushFollow(FOLLOW_ruleCatRef_in_entryRuleCatRef483);
+            pushFollow(FOLLOW_ruleCatRef_in_entryRuleCatRef504);
             ruleCatRef();
 
             state._fsp--;
 
              after(grammarAccess.getCatRefRule()); 
-            match(input,EOF,FOLLOW_EOF_in_entryRuleCatRef490); 
+            match(input,EOF,FOLLOW_EOF_in_entryRuleCatRef511); 
 
             }
 
@@ -648,20 +666,20 @@ public class InternalCategoriesParser extends AbstractInternalContentAssistParse
 
 
     // $ANTLR start "ruleCatRef"
-    // ../org.osate.categories.ui/src-gen/org/osate/categories/ui/contentassist/antlr/internal/InternalCategories.g:267:1: ruleCatRef : ( RULE_ID ) ;
+    // ../org.osate.categories.ui/src-gen/org/osate/categories/ui/contentassist/antlr/internal/InternalCategoriesParser.g:278:1: ruleCatRef : ( RULE_ID ) ;
     public final void ruleCatRef() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.osate.categories.ui/src-gen/org/osate/categories/ui/contentassist/antlr/internal/InternalCategories.g:271:2: ( ( RULE_ID ) )
-            // ../org.osate.categories.ui/src-gen/org/osate/categories/ui/contentassist/antlr/internal/InternalCategories.g:272:1: ( RULE_ID )
+            // ../org.osate.categories.ui/src-gen/org/osate/categories/ui/contentassist/antlr/internal/InternalCategoriesParser.g:282:5: ( ( RULE_ID ) )
+            // ../org.osate.categories.ui/src-gen/org/osate/categories/ui/contentassist/antlr/internal/InternalCategoriesParser.g:283:1: ( RULE_ID )
             {
-            // ../org.osate.categories.ui/src-gen/org/osate/categories/ui/contentassist/antlr/internal/InternalCategories.g:272:1: ( RULE_ID )
-            // ../org.osate.categories.ui/src-gen/org/osate/categories/ui/contentassist/antlr/internal/InternalCategories.g:273:1: RULE_ID
+            // ../org.osate.categories.ui/src-gen/org/osate/categories/ui/contentassist/antlr/internal/InternalCategoriesParser.g:283:1: ( RULE_ID )
+            // ../org.osate.categories.ui/src-gen/org/osate/categories/ui/contentassist/antlr/internal/InternalCategoriesParser.g:284:1: RULE_ID
             {
              before(grammarAccess.getCatRefAccess().getIDTerminalRuleCall()); 
-            match(input,RULE_ID,FOLLOW_RULE_ID_in_ruleCatRef516); 
+            match(input,RULE_ID,FOLLOW_RULE_ID_in_ruleCatRef541); 
              after(grammarAccess.getCatRefAccess().getIDTerminalRuleCall()); 
 
             }
@@ -685,26 +703,26 @@ public class InternalCategoriesParser extends AbstractInternalContentAssistParse
 
 
     // $ANTLR start "rule__Categories__Alternatives"
-    // ../org.osate.categories.ui/src-gen/org/osate/categories/ui/contentassist/antlr/internal/InternalCategories.g:286:1: rule__Categories__Alternatives : ( ( ruleRequirementCategories ) | ( ruleVerificationCategories ) | ( ruleSelectionCategories ) );
+    // ../org.osate.categories.ui/src-gen/org/osate/categories/ui/contentassist/antlr/internal/InternalCategoriesParser.g:297:1: rule__Categories__Alternatives : ( ( ruleRequirementCategories ) | ( ruleVerificationCategories ) | ( ruleSelectionCategories ) );
     public final void rule__Categories__Alternatives() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.osate.categories.ui/src-gen/org/osate/categories/ui/contentassist/antlr/internal/InternalCategories.g:290:1: ( ( ruleRequirementCategories ) | ( ruleVerificationCategories ) | ( ruleSelectionCategories ) )
+            // ../org.osate.categories.ui/src-gen/org/osate/categories/ui/contentassist/antlr/internal/InternalCategoriesParser.g:301:1: ( ( ruleRequirementCategories ) | ( ruleVerificationCategories ) | ( ruleSelectionCategories ) )
             int alt1=3;
             switch ( input.LA(1) ) {
-            case 11:
+            case Requirement:
                 {
                 alt1=1;
                 }
                 break;
-            case 15:
+            case Verification:
                 {
                 alt1=2;
                 }
                 break;
-            case 16:
+            case Selection:
                 {
                 alt1=3;
                 }
@@ -718,13 +736,13 @@ public class InternalCategoriesParser extends AbstractInternalContentAssistParse
 
             switch (alt1) {
                 case 1 :
-                    // ../org.osate.categories.ui/src-gen/org/osate/categories/ui/contentassist/antlr/internal/InternalCategories.g:291:1: ( ruleRequirementCategories )
+                    // ../org.osate.categories.ui/src-gen/org/osate/categories/ui/contentassist/antlr/internal/InternalCategoriesParser.g:302:1: ( ruleRequirementCategories )
                     {
-                    // ../org.osate.categories.ui/src-gen/org/osate/categories/ui/contentassist/antlr/internal/InternalCategories.g:291:1: ( ruleRequirementCategories )
-                    // ../org.osate.categories.ui/src-gen/org/osate/categories/ui/contentassist/antlr/internal/InternalCategories.g:292:1: ruleRequirementCategories
+                    // ../org.osate.categories.ui/src-gen/org/osate/categories/ui/contentassist/antlr/internal/InternalCategoriesParser.g:302:1: ( ruleRequirementCategories )
+                    // ../org.osate.categories.ui/src-gen/org/osate/categories/ui/contentassist/antlr/internal/InternalCategoriesParser.g:303:1: ruleRequirementCategories
                     {
                      before(grammarAccess.getCategoriesAccess().getRequirementCategoriesParserRuleCall_0()); 
-                    pushFollow(FOLLOW_ruleRequirementCategories_in_rule__Categories__Alternatives551);
+                    pushFollow(FOLLOW_ruleRequirementCategories_in_rule__Categories__Alternatives576);
                     ruleRequirementCategories();
 
                     state._fsp--;
@@ -737,13 +755,13 @@ public class InternalCategoriesParser extends AbstractInternalContentAssistParse
                     }
                     break;
                 case 2 :
-                    // ../org.osate.categories.ui/src-gen/org/osate/categories/ui/contentassist/antlr/internal/InternalCategories.g:297:6: ( ruleVerificationCategories )
+                    // ../org.osate.categories.ui/src-gen/org/osate/categories/ui/contentassist/antlr/internal/InternalCategoriesParser.g:308:6: ( ruleVerificationCategories )
                     {
-                    // ../org.osate.categories.ui/src-gen/org/osate/categories/ui/contentassist/antlr/internal/InternalCategories.g:297:6: ( ruleVerificationCategories )
-                    // ../org.osate.categories.ui/src-gen/org/osate/categories/ui/contentassist/antlr/internal/InternalCategories.g:298:1: ruleVerificationCategories
+                    // ../org.osate.categories.ui/src-gen/org/osate/categories/ui/contentassist/antlr/internal/InternalCategoriesParser.g:308:6: ( ruleVerificationCategories )
+                    // ../org.osate.categories.ui/src-gen/org/osate/categories/ui/contentassist/antlr/internal/InternalCategoriesParser.g:309:1: ruleVerificationCategories
                     {
                      before(grammarAccess.getCategoriesAccess().getVerificationCategoriesParserRuleCall_1()); 
-                    pushFollow(FOLLOW_ruleVerificationCategories_in_rule__Categories__Alternatives568);
+                    pushFollow(FOLLOW_ruleVerificationCategories_in_rule__Categories__Alternatives593);
                     ruleVerificationCategories();
 
                     state._fsp--;
@@ -756,13 +774,13 @@ public class InternalCategoriesParser extends AbstractInternalContentAssistParse
                     }
                     break;
                 case 3 :
-                    // ../org.osate.categories.ui/src-gen/org/osate/categories/ui/contentassist/antlr/internal/InternalCategories.g:303:6: ( ruleSelectionCategories )
+                    // ../org.osate.categories.ui/src-gen/org/osate/categories/ui/contentassist/antlr/internal/InternalCategoriesParser.g:314:6: ( ruleSelectionCategories )
                     {
-                    // ../org.osate.categories.ui/src-gen/org/osate/categories/ui/contentassist/antlr/internal/InternalCategories.g:303:6: ( ruleSelectionCategories )
-                    // ../org.osate.categories.ui/src-gen/org/osate/categories/ui/contentassist/antlr/internal/InternalCategories.g:304:1: ruleSelectionCategories
+                    // ../org.osate.categories.ui/src-gen/org/osate/categories/ui/contentassist/antlr/internal/InternalCategoriesParser.g:314:6: ( ruleSelectionCategories )
+                    // ../org.osate.categories.ui/src-gen/org/osate/categories/ui/contentassist/antlr/internal/InternalCategoriesParser.g:315:1: ruleSelectionCategories
                     {
                      before(grammarAccess.getCategoriesAccess().getSelectionCategoriesParserRuleCall_2()); 
-                    pushFollow(FOLLOW_ruleSelectionCategories_in_rule__Categories__Alternatives585);
+                    pushFollow(FOLLOW_ruleSelectionCategories_in_rule__Categories__Alternatives610);
                     ruleSelectionCategories();
 
                     state._fsp--;
@@ -792,21 +810,21 @@ public class InternalCategoriesParser extends AbstractInternalContentAssistParse
 
 
     // $ANTLR start "rule__RequirementCategories__Group__0"
-    // ../org.osate.categories.ui/src-gen/org/osate/categories/ui/contentassist/antlr/internal/InternalCategories.g:317:1: rule__RequirementCategories__Group__0 : rule__RequirementCategories__Group__0__Impl rule__RequirementCategories__Group__1 ;
+    // ../org.osate.categories.ui/src-gen/org/osate/categories/ui/contentassist/antlr/internal/InternalCategoriesParser.g:328:1: rule__RequirementCategories__Group__0 : rule__RequirementCategories__Group__0__Impl rule__RequirementCategories__Group__1 ;
     public final void rule__RequirementCategories__Group__0() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.osate.categories.ui/src-gen/org/osate/categories/ui/contentassist/antlr/internal/InternalCategories.g:321:1: ( rule__RequirementCategories__Group__0__Impl rule__RequirementCategories__Group__1 )
-            // ../org.osate.categories.ui/src-gen/org/osate/categories/ui/contentassist/antlr/internal/InternalCategories.g:322:2: rule__RequirementCategories__Group__0__Impl rule__RequirementCategories__Group__1
+            // ../org.osate.categories.ui/src-gen/org/osate/categories/ui/contentassist/antlr/internal/InternalCategoriesParser.g:332:1: ( rule__RequirementCategories__Group__0__Impl rule__RequirementCategories__Group__1 )
+            // ../org.osate.categories.ui/src-gen/org/osate/categories/ui/contentassist/antlr/internal/InternalCategoriesParser.g:333:2: rule__RequirementCategories__Group__0__Impl rule__RequirementCategories__Group__1
             {
-            pushFollow(FOLLOW_rule__RequirementCategories__Group__0__Impl_in_rule__RequirementCategories__Group__0616);
+            pushFollow(FOLLOW_rule__RequirementCategories__Group__0__Impl_in_rule__RequirementCategories__Group__0641);
             rule__RequirementCategories__Group__0__Impl();
 
             state._fsp--;
 
-            pushFollow(FOLLOW_rule__RequirementCategories__Group__1_in_rule__RequirementCategories__Group__0619);
+            pushFollow(FOLLOW_rule__RequirementCategories__Group__1_in_rule__RequirementCategories__Group__0644);
             rule__RequirementCategories__Group__1();
 
             state._fsp--;
@@ -830,20 +848,20 @@ public class InternalCategoriesParser extends AbstractInternalContentAssistParse
 
 
     // $ANTLR start "rule__RequirementCategories__Group__0__Impl"
-    // ../org.osate.categories.ui/src-gen/org/osate/categories/ui/contentassist/antlr/internal/InternalCategories.g:329:1: rule__RequirementCategories__Group__0__Impl : ( 'requirement' ) ;
+    // ../org.osate.categories.ui/src-gen/org/osate/categories/ui/contentassist/antlr/internal/InternalCategoriesParser.g:340:1: rule__RequirementCategories__Group__0__Impl : ( Requirement ) ;
     public final void rule__RequirementCategories__Group__0__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.osate.categories.ui/src-gen/org/osate/categories/ui/contentassist/antlr/internal/InternalCategories.g:333:1: ( ( 'requirement' ) )
-            // ../org.osate.categories.ui/src-gen/org/osate/categories/ui/contentassist/antlr/internal/InternalCategories.g:334:1: ( 'requirement' )
+            // ../org.osate.categories.ui/src-gen/org/osate/categories/ui/contentassist/antlr/internal/InternalCategoriesParser.g:344:1: ( ( Requirement ) )
+            // ../org.osate.categories.ui/src-gen/org/osate/categories/ui/contentassist/antlr/internal/InternalCategoriesParser.g:345:1: ( Requirement )
             {
-            // ../org.osate.categories.ui/src-gen/org/osate/categories/ui/contentassist/antlr/internal/InternalCategories.g:334:1: ( 'requirement' )
-            // ../org.osate.categories.ui/src-gen/org/osate/categories/ui/contentassist/antlr/internal/InternalCategories.g:335:1: 'requirement'
+            // ../org.osate.categories.ui/src-gen/org/osate/categories/ui/contentassist/antlr/internal/InternalCategoriesParser.g:345:1: ( Requirement )
+            // ../org.osate.categories.ui/src-gen/org/osate/categories/ui/contentassist/antlr/internal/InternalCategoriesParser.g:346:1: Requirement
             {
              before(grammarAccess.getRequirementCategoriesAccess().getRequirementKeyword_0()); 
-            match(input,11,FOLLOW_11_in_rule__RequirementCategories__Group__0__Impl647); 
+            match(input,Requirement,FOLLOW_Requirement_in_rule__RequirementCategories__Group__0__Impl672); 
              after(grammarAccess.getRequirementCategoriesAccess().getRequirementKeyword_0()); 
 
             }
@@ -867,21 +885,21 @@ public class InternalCategoriesParser extends AbstractInternalContentAssistParse
 
 
     // $ANTLR start "rule__RequirementCategories__Group__1"
-    // ../org.osate.categories.ui/src-gen/org/osate/categories/ui/contentassist/antlr/internal/InternalCategories.g:348:1: rule__RequirementCategories__Group__1 : rule__RequirementCategories__Group__1__Impl rule__RequirementCategories__Group__2 ;
+    // ../org.osate.categories.ui/src-gen/org/osate/categories/ui/contentassist/antlr/internal/InternalCategoriesParser.g:359:1: rule__RequirementCategories__Group__1 : rule__RequirementCategories__Group__1__Impl rule__RequirementCategories__Group__2 ;
     public final void rule__RequirementCategories__Group__1() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.osate.categories.ui/src-gen/org/osate/categories/ui/contentassist/antlr/internal/InternalCategories.g:352:1: ( rule__RequirementCategories__Group__1__Impl rule__RequirementCategories__Group__2 )
-            // ../org.osate.categories.ui/src-gen/org/osate/categories/ui/contentassist/antlr/internal/InternalCategories.g:353:2: rule__RequirementCategories__Group__1__Impl rule__RequirementCategories__Group__2
+            // ../org.osate.categories.ui/src-gen/org/osate/categories/ui/contentassist/antlr/internal/InternalCategoriesParser.g:363:1: ( rule__RequirementCategories__Group__1__Impl rule__RequirementCategories__Group__2 )
+            // ../org.osate.categories.ui/src-gen/org/osate/categories/ui/contentassist/antlr/internal/InternalCategoriesParser.g:364:2: rule__RequirementCategories__Group__1__Impl rule__RequirementCategories__Group__2
             {
-            pushFollow(FOLLOW_rule__RequirementCategories__Group__1__Impl_in_rule__RequirementCategories__Group__1678);
+            pushFollow(FOLLOW_rule__RequirementCategories__Group__1__Impl_in_rule__RequirementCategories__Group__1703);
             rule__RequirementCategories__Group__1__Impl();
 
             state._fsp--;
 
-            pushFollow(FOLLOW_rule__RequirementCategories__Group__2_in_rule__RequirementCategories__Group__1681);
+            pushFollow(FOLLOW_rule__RequirementCategories__Group__2_in_rule__RequirementCategories__Group__1706);
             rule__RequirementCategories__Group__2();
 
             state._fsp--;
@@ -905,20 +923,20 @@ public class InternalCategoriesParser extends AbstractInternalContentAssistParse
 
 
     // $ANTLR start "rule__RequirementCategories__Group__1__Impl"
-    // ../org.osate.categories.ui/src-gen/org/osate/categories/ui/contentassist/antlr/internal/InternalCategories.g:360:1: rule__RequirementCategories__Group__1__Impl : ( 'categories' ) ;
+    // ../org.osate.categories.ui/src-gen/org/osate/categories/ui/contentassist/antlr/internal/InternalCategoriesParser.g:371:1: rule__RequirementCategories__Group__1__Impl : ( Categories ) ;
     public final void rule__RequirementCategories__Group__1__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.osate.categories.ui/src-gen/org/osate/categories/ui/contentassist/antlr/internal/InternalCategories.g:364:1: ( ( 'categories' ) )
-            // ../org.osate.categories.ui/src-gen/org/osate/categories/ui/contentassist/antlr/internal/InternalCategories.g:365:1: ( 'categories' )
+            // ../org.osate.categories.ui/src-gen/org/osate/categories/ui/contentassist/antlr/internal/InternalCategoriesParser.g:375:1: ( ( Categories ) )
+            // ../org.osate.categories.ui/src-gen/org/osate/categories/ui/contentassist/antlr/internal/InternalCategoriesParser.g:376:1: ( Categories )
             {
-            // ../org.osate.categories.ui/src-gen/org/osate/categories/ui/contentassist/antlr/internal/InternalCategories.g:365:1: ( 'categories' )
-            // ../org.osate.categories.ui/src-gen/org/osate/categories/ui/contentassist/antlr/internal/InternalCategories.g:366:1: 'categories'
+            // ../org.osate.categories.ui/src-gen/org/osate/categories/ui/contentassist/antlr/internal/InternalCategoriesParser.g:376:1: ( Categories )
+            // ../org.osate.categories.ui/src-gen/org/osate/categories/ui/contentassist/antlr/internal/InternalCategoriesParser.g:377:1: Categories
             {
              before(grammarAccess.getRequirementCategoriesAccess().getCategoriesKeyword_1()); 
-            match(input,12,FOLLOW_12_in_rule__RequirementCategories__Group__1__Impl709); 
+            match(input,Categories,FOLLOW_Categories_in_rule__RequirementCategories__Group__1__Impl734); 
              after(grammarAccess.getRequirementCategoriesAccess().getCategoriesKeyword_1()); 
 
             }
@@ -942,21 +960,21 @@ public class InternalCategoriesParser extends AbstractInternalContentAssistParse
 
 
     // $ANTLR start "rule__RequirementCategories__Group__2"
-    // ../org.osate.categories.ui/src-gen/org/osate/categories/ui/contentassist/antlr/internal/InternalCategories.g:379:1: rule__RequirementCategories__Group__2 : rule__RequirementCategories__Group__2__Impl rule__RequirementCategories__Group__3 ;
+    // ../org.osate.categories.ui/src-gen/org/osate/categories/ui/contentassist/antlr/internal/InternalCategoriesParser.g:390:1: rule__RequirementCategories__Group__2 : rule__RequirementCategories__Group__2__Impl rule__RequirementCategories__Group__3 ;
     public final void rule__RequirementCategories__Group__2() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.osate.categories.ui/src-gen/org/osate/categories/ui/contentassist/antlr/internal/InternalCategories.g:383:1: ( rule__RequirementCategories__Group__2__Impl rule__RequirementCategories__Group__3 )
-            // ../org.osate.categories.ui/src-gen/org/osate/categories/ui/contentassist/antlr/internal/InternalCategories.g:384:2: rule__RequirementCategories__Group__2__Impl rule__RequirementCategories__Group__3
+            // ../org.osate.categories.ui/src-gen/org/osate/categories/ui/contentassist/antlr/internal/InternalCategoriesParser.g:394:1: ( rule__RequirementCategories__Group__2__Impl rule__RequirementCategories__Group__3 )
+            // ../org.osate.categories.ui/src-gen/org/osate/categories/ui/contentassist/antlr/internal/InternalCategoriesParser.g:395:2: rule__RequirementCategories__Group__2__Impl rule__RequirementCategories__Group__3
             {
-            pushFollow(FOLLOW_rule__RequirementCategories__Group__2__Impl_in_rule__RequirementCategories__Group__2740);
+            pushFollow(FOLLOW_rule__RequirementCategories__Group__2__Impl_in_rule__RequirementCategories__Group__2765);
             rule__RequirementCategories__Group__2__Impl();
 
             state._fsp--;
 
-            pushFollow(FOLLOW_rule__RequirementCategories__Group__3_in_rule__RequirementCategories__Group__2743);
+            pushFollow(FOLLOW_rule__RequirementCategories__Group__3_in_rule__RequirementCategories__Group__2768);
             rule__RequirementCategories__Group__3();
 
             state._fsp--;
@@ -980,20 +998,20 @@ public class InternalCategoriesParser extends AbstractInternalContentAssistParse
 
 
     // $ANTLR start "rule__RequirementCategories__Group__2__Impl"
-    // ../org.osate.categories.ui/src-gen/org/osate/categories/ui/contentassist/antlr/internal/InternalCategories.g:391:1: rule__RequirementCategories__Group__2__Impl : ( '[' ) ;
+    // ../org.osate.categories.ui/src-gen/org/osate/categories/ui/contentassist/antlr/internal/InternalCategoriesParser.g:402:1: rule__RequirementCategories__Group__2__Impl : ( LeftSquareBracket ) ;
     public final void rule__RequirementCategories__Group__2__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.osate.categories.ui/src-gen/org/osate/categories/ui/contentassist/antlr/internal/InternalCategories.g:395:1: ( ( '[' ) )
-            // ../org.osate.categories.ui/src-gen/org/osate/categories/ui/contentassist/antlr/internal/InternalCategories.g:396:1: ( '[' )
+            // ../org.osate.categories.ui/src-gen/org/osate/categories/ui/contentassist/antlr/internal/InternalCategoriesParser.g:406:1: ( ( LeftSquareBracket ) )
+            // ../org.osate.categories.ui/src-gen/org/osate/categories/ui/contentassist/antlr/internal/InternalCategoriesParser.g:407:1: ( LeftSquareBracket )
             {
-            // ../org.osate.categories.ui/src-gen/org/osate/categories/ui/contentassist/antlr/internal/InternalCategories.g:396:1: ( '[' )
-            // ../org.osate.categories.ui/src-gen/org/osate/categories/ui/contentassist/antlr/internal/InternalCategories.g:397:1: '['
+            // ../org.osate.categories.ui/src-gen/org/osate/categories/ui/contentassist/antlr/internal/InternalCategoriesParser.g:407:1: ( LeftSquareBracket )
+            // ../org.osate.categories.ui/src-gen/org/osate/categories/ui/contentassist/antlr/internal/InternalCategoriesParser.g:408:1: LeftSquareBracket
             {
              before(grammarAccess.getRequirementCategoriesAccess().getLeftSquareBracketKeyword_2()); 
-            match(input,13,FOLLOW_13_in_rule__RequirementCategories__Group__2__Impl771); 
+            match(input,LeftSquareBracket,FOLLOW_LeftSquareBracket_in_rule__RequirementCategories__Group__2__Impl796); 
              after(grammarAccess.getRequirementCategoriesAccess().getLeftSquareBracketKeyword_2()); 
 
             }
@@ -1017,21 +1035,21 @@ public class InternalCategoriesParser extends AbstractInternalContentAssistParse
 
 
     // $ANTLR start "rule__RequirementCategories__Group__3"
-    // ../org.osate.categories.ui/src-gen/org/osate/categories/ui/contentassist/antlr/internal/InternalCategories.g:410:1: rule__RequirementCategories__Group__3 : rule__RequirementCategories__Group__3__Impl rule__RequirementCategories__Group__4 ;
+    // ../org.osate.categories.ui/src-gen/org/osate/categories/ui/contentassist/antlr/internal/InternalCategoriesParser.g:421:1: rule__RequirementCategories__Group__3 : rule__RequirementCategories__Group__3__Impl rule__RequirementCategories__Group__4 ;
     public final void rule__RequirementCategories__Group__3() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.osate.categories.ui/src-gen/org/osate/categories/ui/contentassist/antlr/internal/InternalCategories.g:414:1: ( rule__RequirementCategories__Group__3__Impl rule__RequirementCategories__Group__4 )
-            // ../org.osate.categories.ui/src-gen/org/osate/categories/ui/contentassist/antlr/internal/InternalCategories.g:415:2: rule__RequirementCategories__Group__3__Impl rule__RequirementCategories__Group__4
+            // ../org.osate.categories.ui/src-gen/org/osate/categories/ui/contentassist/antlr/internal/InternalCategoriesParser.g:425:1: ( rule__RequirementCategories__Group__3__Impl rule__RequirementCategories__Group__4 )
+            // ../org.osate.categories.ui/src-gen/org/osate/categories/ui/contentassist/antlr/internal/InternalCategoriesParser.g:426:2: rule__RequirementCategories__Group__3__Impl rule__RequirementCategories__Group__4
             {
-            pushFollow(FOLLOW_rule__RequirementCategories__Group__3__Impl_in_rule__RequirementCategories__Group__3802);
+            pushFollow(FOLLOW_rule__RequirementCategories__Group__3__Impl_in_rule__RequirementCategories__Group__3827);
             rule__RequirementCategories__Group__3__Impl();
 
             state._fsp--;
 
-            pushFollow(FOLLOW_rule__RequirementCategories__Group__4_in_rule__RequirementCategories__Group__3805);
+            pushFollow(FOLLOW_rule__RequirementCategories__Group__4_in_rule__RequirementCategories__Group__3830);
             rule__RequirementCategories__Group__4();
 
             state._fsp--;
@@ -1055,26 +1073,26 @@ public class InternalCategoriesParser extends AbstractInternalContentAssistParse
 
 
     // $ANTLR start "rule__RequirementCategories__Group__3__Impl"
-    // ../org.osate.categories.ui/src-gen/org/osate/categories/ui/contentassist/antlr/internal/InternalCategories.g:422:1: rule__RequirementCategories__Group__3__Impl : ( ( ( rule__RequirementCategories__CategoryAssignment_3 ) ) ( ( rule__RequirementCategories__CategoryAssignment_3 )* ) ) ;
+    // ../org.osate.categories.ui/src-gen/org/osate/categories/ui/contentassist/antlr/internal/InternalCategoriesParser.g:433:1: rule__RequirementCategories__Group__3__Impl : ( ( ( rule__RequirementCategories__CategoryAssignment_3 ) ) ( ( rule__RequirementCategories__CategoryAssignment_3 )* ) ) ;
     public final void rule__RequirementCategories__Group__3__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.osate.categories.ui/src-gen/org/osate/categories/ui/contentassist/antlr/internal/InternalCategories.g:426:1: ( ( ( ( rule__RequirementCategories__CategoryAssignment_3 ) ) ( ( rule__RequirementCategories__CategoryAssignment_3 )* ) ) )
-            // ../org.osate.categories.ui/src-gen/org/osate/categories/ui/contentassist/antlr/internal/InternalCategories.g:427:1: ( ( ( rule__RequirementCategories__CategoryAssignment_3 ) ) ( ( rule__RequirementCategories__CategoryAssignment_3 )* ) )
+            // ../org.osate.categories.ui/src-gen/org/osate/categories/ui/contentassist/antlr/internal/InternalCategoriesParser.g:437:1: ( ( ( ( rule__RequirementCategories__CategoryAssignment_3 ) ) ( ( rule__RequirementCategories__CategoryAssignment_3 )* ) ) )
+            // ../org.osate.categories.ui/src-gen/org/osate/categories/ui/contentassist/antlr/internal/InternalCategoriesParser.g:438:1: ( ( ( rule__RequirementCategories__CategoryAssignment_3 ) ) ( ( rule__RequirementCategories__CategoryAssignment_3 )* ) )
             {
-            // ../org.osate.categories.ui/src-gen/org/osate/categories/ui/contentassist/antlr/internal/InternalCategories.g:427:1: ( ( ( rule__RequirementCategories__CategoryAssignment_3 ) ) ( ( rule__RequirementCategories__CategoryAssignment_3 )* ) )
-            // ../org.osate.categories.ui/src-gen/org/osate/categories/ui/contentassist/antlr/internal/InternalCategories.g:428:1: ( ( rule__RequirementCategories__CategoryAssignment_3 ) ) ( ( rule__RequirementCategories__CategoryAssignment_3 )* )
+            // ../org.osate.categories.ui/src-gen/org/osate/categories/ui/contentassist/antlr/internal/InternalCategoriesParser.g:438:1: ( ( ( rule__RequirementCategories__CategoryAssignment_3 ) ) ( ( rule__RequirementCategories__CategoryAssignment_3 )* ) )
+            // ../org.osate.categories.ui/src-gen/org/osate/categories/ui/contentassist/antlr/internal/InternalCategoriesParser.g:439:1: ( ( rule__RequirementCategories__CategoryAssignment_3 ) ) ( ( rule__RequirementCategories__CategoryAssignment_3 )* )
             {
-            // ../org.osate.categories.ui/src-gen/org/osate/categories/ui/contentassist/antlr/internal/InternalCategories.g:428:1: ( ( rule__RequirementCategories__CategoryAssignment_3 ) )
-            // ../org.osate.categories.ui/src-gen/org/osate/categories/ui/contentassist/antlr/internal/InternalCategories.g:429:1: ( rule__RequirementCategories__CategoryAssignment_3 )
+            // ../org.osate.categories.ui/src-gen/org/osate/categories/ui/contentassist/antlr/internal/InternalCategoriesParser.g:439:1: ( ( rule__RequirementCategories__CategoryAssignment_3 ) )
+            // ../org.osate.categories.ui/src-gen/org/osate/categories/ui/contentassist/antlr/internal/InternalCategoriesParser.g:440:1: ( rule__RequirementCategories__CategoryAssignment_3 )
             {
              before(grammarAccess.getRequirementCategoriesAccess().getCategoryAssignment_3()); 
-            // ../org.osate.categories.ui/src-gen/org/osate/categories/ui/contentassist/antlr/internal/InternalCategories.g:430:1: ( rule__RequirementCategories__CategoryAssignment_3 )
-            // ../org.osate.categories.ui/src-gen/org/osate/categories/ui/contentassist/antlr/internal/InternalCategories.g:430:2: rule__RequirementCategories__CategoryAssignment_3
+            // ../org.osate.categories.ui/src-gen/org/osate/categories/ui/contentassist/antlr/internal/InternalCategoriesParser.g:441:1: ( rule__RequirementCategories__CategoryAssignment_3 )
+            // ../org.osate.categories.ui/src-gen/org/osate/categories/ui/contentassist/antlr/internal/InternalCategoriesParser.g:441:2: rule__RequirementCategories__CategoryAssignment_3
             {
-            pushFollow(FOLLOW_rule__RequirementCategories__CategoryAssignment_3_in_rule__RequirementCategories__Group__3__Impl834);
+            pushFollow(FOLLOW_rule__RequirementCategories__CategoryAssignment_3_in_rule__RequirementCategories__Group__3__Impl859);
             rule__RequirementCategories__CategoryAssignment_3();
 
             state._fsp--;
@@ -1086,11 +1104,11 @@ public class InternalCategoriesParser extends AbstractInternalContentAssistParse
 
             }
 
-            // ../org.osate.categories.ui/src-gen/org/osate/categories/ui/contentassist/antlr/internal/InternalCategories.g:433:1: ( ( rule__RequirementCategories__CategoryAssignment_3 )* )
-            // ../org.osate.categories.ui/src-gen/org/osate/categories/ui/contentassist/antlr/internal/InternalCategories.g:434:1: ( rule__RequirementCategories__CategoryAssignment_3 )*
+            // ../org.osate.categories.ui/src-gen/org/osate/categories/ui/contentassist/antlr/internal/InternalCategoriesParser.g:444:1: ( ( rule__RequirementCategories__CategoryAssignment_3 )* )
+            // ../org.osate.categories.ui/src-gen/org/osate/categories/ui/contentassist/antlr/internal/InternalCategoriesParser.g:445:1: ( rule__RequirementCategories__CategoryAssignment_3 )*
             {
              before(grammarAccess.getRequirementCategoriesAccess().getCategoryAssignment_3()); 
-            // ../org.osate.categories.ui/src-gen/org/osate/categories/ui/contentassist/antlr/internal/InternalCategories.g:435:1: ( rule__RequirementCategories__CategoryAssignment_3 )*
+            // ../org.osate.categories.ui/src-gen/org/osate/categories/ui/contentassist/antlr/internal/InternalCategoriesParser.g:446:1: ( rule__RequirementCategories__CategoryAssignment_3 )*
             loop2:
             do {
                 int alt2=2;
@@ -1103,9 +1121,9 @@ public class InternalCategoriesParser extends AbstractInternalContentAssistParse
 
                 switch (alt2) {
             	case 1 :
-            	    // ../org.osate.categories.ui/src-gen/org/osate/categories/ui/contentassist/antlr/internal/InternalCategories.g:435:2: rule__RequirementCategories__CategoryAssignment_3
+            	    // ../org.osate.categories.ui/src-gen/org/osate/categories/ui/contentassist/antlr/internal/InternalCategoriesParser.g:446:2: rule__RequirementCategories__CategoryAssignment_3
             	    {
-            	    pushFollow(FOLLOW_rule__RequirementCategories__CategoryAssignment_3_in_rule__RequirementCategories__Group__3__Impl846);
+            	    pushFollow(FOLLOW_rule__RequirementCategories__CategoryAssignment_3_in_rule__RequirementCategories__Group__3__Impl871);
             	    rule__RequirementCategories__CategoryAssignment_3();
 
             	    state._fsp--;
@@ -1145,16 +1163,16 @@ public class InternalCategoriesParser extends AbstractInternalContentAssistParse
 
 
     // $ANTLR start "rule__RequirementCategories__Group__4"
-    // ../org.osate.categories.ui/src-gen/org/osate/categories/ui/contentassist/antlr/internal/InternalCategories.g:446:1: rule__RequirementCategories__Group__4 : rule__RequirementCategories__Group__4__Impl ;
+    // ../org.osate.categories.ui/src-gen/org/osate/categories/ui/contentassist/antlr/internal/InternalCategoriesParser.g:457:1: rule__RequirementCategories__Group__4 : rule__RequirementCategories__Group__4__Impl ;
     public final void rule__RequirementCategories__Group__4() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.osate.categories.ui/src-gen/org/osate/categories/ui/contentassist/antlr/internal/InternalCategories.g:450:1: ( rule__RequirementCategories__Group__4__Impl )
-            // ../org.osate.categories.ui/src-gen/org/osate/categories/ui/contentassist/antlr/internal/InternalCategories.g:451:2: rule__RequirementCategories__Group__4__Impl
+            // ../org.osate.categories.ui/src-gen/org/osate/categories/ui/contentassist/antlr/internal/InternalCategoriesParser.g:461:1: ( rule__RequirementCategories__Group__4__Impl )
+            // ../org.osate.categories.ui/src-gen/org/osate/categories/ui/contentassist/antlr/internal/InternalCategoriesParser.g:462:2: rule__RequirementCategories__Group__4__Impl
             {
-            pushFollow(FOLLOW_rule__RequirementCategories__Group__4__Impl_in_rule__RequirementCategories__Group__4879);
+            pushFollow(FOLLOW_rule__RequirementCategories__Group__4__Impl_in_rule__RequirementCategories__Group__4904);
             rule__RequirementCategories__Group__4__Impl();
 
             state._fsp--;
@@ -1178,20 +1196,20 @@ public class InternalCategoriesParser extends AbstractInternalContentAssistParse
 
 
     // $ANTLR start "rule__RequirementCategories__Group__4__Impl"
-    // ../org.osate.categories.ui/src-gen/org/osate/categories/ui/contentassist/antlr/internal/InternalCategories.g:457:1: rule__RequirementCategories__Group__4__Impl : ( ']' ) ;
+    // ../org.osate.categories.ui/src-gen/org/osate/categories/ui/contentassist/antlr/internal/InternalCategoriesParser.g:468:1: rule__RequirementCategories__Group__4__Impl : ( RightSquareBracket ) ;
     public final void rule__RequirementCategories__Group__4__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.osate.categories.ui/src-gen/org/osate/categories/ui/contentassist/antlr/internal/InternalCategories.g:461:1: ( ( ']' ) )
-            // ../org.osate.categories.ui/src-gen/org/osate/categories/ui/contentassist/antlr/internal/InternalCategories.g:462:1: ( ']' )
+            // ../org.osate.categories.ui/src-gen/org/osate/categories/ui/contentassist/antlr/internal/InternalCategoriesParser.g:472:1: ( ( RightSquareBracket ) )
+            // ../org.osate.categories.ui/src-gen/org/osate/categories/ui/contentassist/antlr/internal/InternalCategoriesParser.g:473:1: ( RightSquareBracket )
             {
-            // ../org.osate.categories.ui/src-gen/org/osate/categories/ui/contentassist/antlr/internal/InternalCategories.g:462:1: ( ']' )
-            // ../org.osate.categories.ui/src-gen/org/osate/categories/ui/contentassist/antlr/internal/InternalCategories.g:463:1: ']'
+            // ../org.osate.categories.ui/src-gen/org/osate/categories/ui/contentassist/antlr/internal/InternalCategoriesParser.g:473:1: ( RightSquareBracket )
+            // ../org.osate.categories.ui/src-gen/org/osate/categories/ui/contentassist/antlr/internal/InternalCategoriesParser.g:474:1: RightSquareBracket
             {
              before(grammarAccess.getRequirementCategoriesAccess().getRightSquareBracketKeyword_4()); 
-            match(input,14,FOLLOW_14_in_rule__RequirementCategories__Group__4__Impl907); 
+            match(input,RightSquareBracket,FOLLOW_RightSquareBracket_in_rule__RequirementCategories__Group__4__Impl932); 
              after(grammarAccess.getRequirementCategoriesAccess().getRightSquareBracketKeyword_4()); 
 
             }
@@ -1215,21 +1233,21 @@ public class InternalCategoriesParser extends AbstractInternalContentAssistParse
 
 
     // $ANTLR start "rule__VerificationCategories__Group__0"
-    // ../org.osate.categories.ui/src-gen/org/osate/categories/ui/contentassist/antlr/internal/InternalCategories.g:486:1: rule__VerificationCategories__Group__0 : rule__VerificationCategories__Group__0__Impl rule__VerificationCategories__Group__1 ;
+    // ../org.osate.categories.ui/src-gen/org/osate/categories/ui/contentassist/antlr/internal/InternalCategoriesParser.g:497:1: rule__VerificationCategories__Group__0 : rule__VerificationCategories__Group__0__Impl rule__VerificationCategories__Group__1 ;
     public final void rule__VerificationCategories__Group__0() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.osate.categories.ui/src-gen/org/osate/categories/ui/contentassist/antlr/internal/InternalCategories.g:490:1: ( rule__VerificationCategories__Group__0__Impl rule__VerificationCategories__Group__1 )
-            // ../org.osate.categories.ui/src-gen/org/osate/categories/ui/contentassist/antlr/internal/InternalCategories.g:491:2: rule__VerificationCategories__Group__0__Impl rule__VerificationCategories__Group__1
+            // ../org.osate.categories.ui/src-gen/org/osate/categories/ui/contentassist/antlr/internal/InternalCategoriesParser.g:501:1: ( rule__VerificationCategories__Group__0__Impl rule__VerificationCategories__Group__1 )
+            // ../org.osate.categories.ui/src-gen/org/osate/categories/ui/contentassist/antlr/internal/InternalCategoriesParser.g:502:2: rule__VerificationCategories__Group__0__Impl rule__VerificationCategories__Group__1
             {
-            pushFollow(FOLLOW_rule__VerificationCategories__Group__0__Impl_in_rule__VerificationCategories__Group__0948);
+            pushFollow(FOLLOW_rule__VerificationCategories__Group__0__Impl_in_rule__VerificationCategories__Group__0973);
             rule__VerificationCategories__Group__0__Impl();
 
             state._fsp--;
 
-            pushFollow(FOLLOW_rule__VerificationCategories__Group__1_in_rule__VerificationCategories__Group__0951);
+            pushFollow(FOLLOW_rule__VerificationCategories__Group__1_in_rule__VerificationCategories__Group__0976);
             rule__VerificationCategories__Group__1();
 
             state._fsp--;
@@ -1253,20 +1271,20 @@ public class InternalCategoriesParser extends AbstractInternalContentAssistParse
 
 
     // $ANTLR start "rule__VerificationCategories__Group__0__Impl"
-    // ../org.osate.categories.ui/src-gen/org/osate/categories/ui/contentassist/antlr/internal/InternalCategories.g:498:1: rule__VerificationCategories__Group__0__Impl : ( 'verification' ) ;
+    // ../org.osate.categories.ui/src-gen/org/osate/categories/ui/contentassist/antlr/internal/InternalCategoriesParser.g:509:1: rule__VerificationCategories__Group__0__Impl : ( Verification ) ;
     public final void rule__VerificationCategories__Group__0__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.osate.categories.ui/src-gen/org/osate/categories/ui/contentassist/antlr/internal/InternalCategories.g:502:1: ( ( 'verification' ) )
-            // ../org.osate.categories.ui/src-gen/org/osate/categories/ui/contentassist/antlr/internal/InternalCategories.g:503:1: ( 'verification' )
+            // ../org.osate.categories.ui/src-gen/org/osate/categories/ui/contentassist/antlr/internal/InternalCategoriesParser.g:513:1: ( ( Verification ) )
+            // ../org.osate.categories.ui/src-gen/org/osate/categories/ui/contentassist/antlr/internal/InternalCategoriesParser.g:514:1: ( Verification )
             {
-            // ../org.osate.categories.ui/src-gen/org/osate/categories/ui/contentassist/antlr/internal/InternalCategories.g:503:1: ( 'verification' )
-            // ../org.osate.categories.ui/src-gen/org/osate/categories/ui/contentassist/antlr/internal/InternalCategories.g:504:1: 'verification'
+            // ../org.osate.categories.ui/src-gen/org/osate/categories/ui/contentassist/antlr/internal/InternalCategoriesParser.g:514:1: ( Verification )
+            // ../org.osate.categories.ui/src-gen/org/osate/categories/ui/contentassist/antlr/internal/InternalCategoriesParser.g:515:1: Verification
             {
              before(grammarAccess.getVerificationCategoriesAccess().getVerificationKeyword_0()); 
-            match(input,15,FOLLOW_15_in_rule__VerificationCategories__Group__0__Impl979); 
+            match(input,Verification,FOLLOW_Verification_in_rule__VerificationCategories__Group__0__Impl1004); 
              after(grammarAccess.getVerificationCategoriesAccess().getVerificationKeyword_0()); 
 
             }
@@ -1290,21 +1308,21 @@ public class InternalCategoriesParser extends AbstractInternalContentAssistParse
 
 
     // $ANTLR start "rule__VerificationCategories__Group__1"
-    // ../org.osate.categories.ui/src-gen/org/osate/categories/ui/contentassist/antlr/internal/InternalCategories.g:517:1: rule__VerificationCategories__Group__1 : rule__VerificationCategories__Group__1__Impl rule__VerificationCategories__Group__2 ;
+    // ../org.osate.categories.ui/src-gen/org/osate/categories/ui/contentassist/antlr/internal/InternalCategoriesParser.g:528:1: rule__VerificationCategories__Group__1 : rule__VerificationCategories__Group__1__Impl rule__VerificationCategories__Group__2 ;
     public final void rule__VerificationCategories__Group__1() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.osate.categories.ui/src-gen/org/osate/categories/ui/contentassist/antlr/internal/InternalCategories.g:521:1: ( rule__VerificationCategories__Group__1__Impl rule__VerificationCategories__Group__2 )
-            // ../org.osate.categories.ui/src-gen/org/osate/categories/ui/contentassist/antlr/internal/InternalCategories.g:522:2: rule__VerificationCategories__Group__1__Impl rule__VerificationCategories__Group__2
+            // ../org.osate.categories.ui/src-gen/org/osate/categories/ui/contentassist/antlr/internal/InternalCategoriesParser.g:532:1: ( rule__VerificationCategories__Group__1__Impl rule__VerificationCategories__Group__2 )
+            // ../org.osate.categories.ui/src-gen/org/osate/categories/ui/contentassist/antlr/internal/InternalCategoriesParser.g:533:2: rule__VerificationCategories__Group__1__Impl rule__VerificationCategories__Group__2
             {
-            pushFollow(FOLLOW_rule__VerificationCategories__Group__1__Impl_in_rule__VerificationCategories__Group__11010);
+            pushFollow(FOLLOW_rule__VerificationCategories__Group__1__Impl_in_rule__VerificationCategories__Group__11035);
             rule__VerificationCategories__Group__1__Impl();
 
             state._fsp--;
 
-            pushFollow(FOLLOW_rule__VerificationCategories__Group__2_in_rule__VerificationCategories__Group__11013);
+            pushFollow(FOLLOW_rule__VerificationCategories__Group__2_in_rule__VerificationCategories__Group__11038);
             rule__VerificationCategories__Group__2();
 
             state._fsp--;
@@ -1328,20 +1346,20 @@ public class InternalCategoriesParser extends AbstractInternalContentAssistParse
 
 
     // $ANTLR start "rule__VerificationCategories__Group__1__Impl"
-    // ../org.osate.categories.ui/src-gen/org/osate/categories/ui/contentassist/antlr/internal/InternalCategories.g:529:1: rule__VerificationCategories__Group__1__Impl : ( 'categories' ) ;
+    // ../org.osate.categories.ui/src-gen/org/osate/categories/ui/contentassist/antlr/internal/InternalCategoriesParser.g:540:1: rule__VerificationCategories__Group__1__Impl : ( Categories ) ;
     public final void rule__VerificationCategories__Group__1__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.osate.categories.ui/src-gen/org/osate/categories/ui/contentassist/antlr/internal/InternalCategories.g:533:1: ( ( 'categories' ) )
-            // ../org.osate.categories.ui/src-gen/org/osate/categories/ui/contentassist/antlr/internal/InternalCategories.g:534:1: ( 'categories' )
+            // ../org.osate.categories.ui/src-gen/org/osate/categories/ui/contentassist/antlr/internal/InternalCategoriesParser.g:544:1: ( ( Categories ) )
+            // ../org.osate.categories.ui/src-gen/org/osate/categories/ui/contentassist/antlr/internal/InternalCategoriesParser.g:545:1: ( Categories )
             {
-            // ../org.osate.categories.ui/src-gen/org/osate/categories/ui/contentassist/antlr/internal/InternalCategories.g:534:1: ( 'categories' )
-            // ../org.osate.categories.ui/src-gen/org/osate/categories/ui/contentassist/antlr/internal/InternalCategories.g:535:1: 'categories'
+            // ../org.osate.categories.ui/src-gen/org/osate/categories/ui/contentassist/antlr/internal/InternalCategoriesParser.g:545:1: ( Categories )
+            // ../org.osate.categories.ui/src-gen/org/osate/categories/ui/contentassist/antlr/internal/InternalCategoriesParser.g:546:1: Categories
             {
              before(grammarAccess.getVerificationCategoriesAccess().getCategoriesKeyword_1()); 
-            match(input,12,FOLLOW_12_in_rule__VerificationCategories__Group__1__Impl1041); 
+            match(input,Categories,FOLLOW_Categories_in_rule__VerificationCategories__Group__1__Impl1066); 
              after(grammarAccess.getVerificationCategoriesAccess().getCategoriesKeyword_1()); 
 
             }
@@ -1365,21 +1383,21 @@ public class InternalCategoriesParser extends AbstractInternalContentAssistParse
 
 
     // $ANTLR start "rule__VerificationCategories__Group__2"
-    // ../org.osate.categories.ui/src-gen/org/osate/categories/ui/contentassist/antlr/internal/InternalCategories.g:548:1: rule__VerificationCategories__Group__2 : rule__VerificationCategories__Group__2__Impl rule__VerificationCategories__Group__3 ;
+    // ../org.osate.categories.ui/src-gen/org/osate/categories/ui/contentassist/antlr/internal/InternalCategoriesParser.g:559:1: rule__VerificationCategories__Group__2 : rule__VerificationCategories__Group__2__Impl rule__VerificationCategories__Group__3 ;
     public final void rule__VerificationCategories__Group__2() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.osate.categories.ui/src-gen/org/osate/categories/ui/contentassist/antlr/internal/InternalCategories.g:552:1: ( rule__VerificationCategories__Group__2__Impl rule__VerificationCategories__Group__3 )
-            // ../org.osate.categories.ui/src-gen/org/osate/categories/ui/contentassist/antlr/internal/InternalCategories.g:553:2: rule__VerificationCategories__Group__2__Impl rule__VerificationCategories__Group__3
+            // ../org.osate.categories.ui/src-gen/org/osate/categories/ui/contentassist/antlr/internal/InternalCategoriesParser.g:563:1: ( rule__VerificationCategories__Group__2__Impl rule__VerificationCategories__Group__3 )
+            // ../org.osate.categories.ui/src-gen/org/osate/categories/ui/contentassist/antlr/internal/InternalCategoriesParser.g:564:2: rule__VerificationCategories__Group__2__Impl rule__VerificationCategories__Group__3
             {
-            pushFollow(FOLLOW_rule__VerificationCategories__Group__2__Impl_in_rule__VerificationCategories__Group__21072);
+            pushFollow(FOLLOW_rule__VerificationCategories__Group__2__Impl_in_rule__VerificationCategories__Group__21097);
             rule__VerificationCategories__Group__2__Impl();
 
             state._fsp--;
 
-            pushFollow(FOLLOW_rule__VerificationCategories__Group__3_in_rule__VerificationCategories__Group__21075);
+            pushFollow(FOLLOW_rule__VerificationCategories__Group__3_in_rule__VerificationCategories__Group__21100);
             rule__VerificationCategories__Group__3();
 
             state._fsp--;
@@ -1403,20 +1421,20 @@ public class InternalCategoriesParser extends AbstractInternalContentAssistParse
 
 
     // $ANTLR start "rule__VerificationCategories__Group__2__Impl"
-    // ../org.osate.categories.ui/src-gen/org/osate/categories/ui/contentassist/antlr/internal/InternalCategories.g:560:1: rule__VerificationCategories__Group__2__Impl : ( '[' ) ;
+    // ../org.osate.categories.ui/src-gen/org/osate/categories/ui/contentassist/antlr/internal/InternalCategoriesParser.g:571:1: rule__VerificationCategories__Group__2__Impl : ( LeftSquareBracket ) ;
     public final void rule__VerificationCategories__Group__2__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.osate.categories.ui/src-gen/org/osate/categories/ui/contentassist/antlr/internal/InternalCategories.g:564:1: ( ( '[' ) )
-            // ../org.osate.categories.ui/src-gen/org/osate/categories/ui/contentassist/antlr/internal/InternalCategories.g:565:1: ( '[' )
+            // ../org.osate.categories.ui/src-gen/org/osate/categories/ui/contentassist/antlr/internal/InternalCategoriesParser.g:575:1: ( ( LeftSquareBracket ) )
+            // ../org.osate.categories.ui/src-gen/org/osate/categories/ui/contentassist/antlr/internal/InternalCategoriesParser.g:576:1: ( LeftSquareBracket )
             {
-            // ../org.osate.categories.ui/src-gen/org/osate/categories/ui/contentassist/antlr/internal/InternalCategories.g:565:1: ( '[' )
-            // ../org.osate.categories.ui/src-gen/org/osate/categories/ui/contentassist/antlr/internal/InternalCategories.g:566:1: '['
+            // ../org.osate.categories.ui/src-gen/org/osate/categories/ui/contentassist/antlr/internal/InternalCategoriesParser.g:576:1: ( LeftSquareBracket )
+            // ../org.osate.categories.ui/src-gen/org/osate/categories/ui/contentassist/antlr/internal/InternalCategoriesParser.g:577:1: LeftSquareBracket
             {
              before(grammarAccess.getVerificationCategoriesAccess().getLeftSquareBracketKeyword_2()); 
-            match(input,13,FOLLOW_13_in_rule__VerificationCategories__Group__2__Impl1103); 
+            match(input,LeftSquareBracket,FOLLOW_LeftSquareBracket_in_rule__VerificationCategories__Group__2__Impl1128); 
              after(grammarAccess.getVerificationCategoriesAccess().getLeftSquareBracketKeyword_2()); 
 
             }
@@ -1440,21 +1458,21 @@ public class InternalCategoriesParser extends AbstractInternalContentAssistParse
 
 
     // $ANTLR start "rule__VerificationCategories__Group__3"
-    // ../org.osate.categories.ui/src-gen/org/osate/categories/ui/contentassist/antlr/internal/InternalCategories.g:579:1: rule__VerificationCategories__Group__3 : rule__VerificationCategories__Group__3__Impl rule__VerificationCategories__Group__4 ;
+    // ../org.osate.categories.ui/src-gen/org/osate/categories/ui/contentassist/antlr/internal/InternalCategoriesParser.g:590:1: rule__VerificationCategories__Group__3 : rule__VerificationCategories__Group__3__Impl rule__VerificationCategories__Group__4 ;
     public final void rule__VerificationCategories__Group__3() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.osate.categories.ui/src-gen/org/osate/categories/ui/contentassist/antlr/internal/InternalCategories.g:583:1: ( rule__VerificationCategories__Group__3__Impl rule__VerificationCategories__Group__4 )
-            // ../org.osate.categories.ui/src-gen/org/osate/categories/ui/contentassist/antlr/internal/InternalCategories.g:584:2: rule__VerificationCategories__Group__3__Impl rule__VerificationCategories__Group__4
+            // ../org.osate.categories.ui/src-gen/org/osate/categories/ui/contentassist/antlr/internal/InternalCategoriesParser.g:594:1: ( rule__VerificationCategories__Group__3__Impl rule__VerificationCategories__Group__4 )
+            // ../org.osate.categories.ui/src-gen/org/osate/categories/ui/contentassist/antlr/internal/InternalCategoriesParser.g:595:2: rule__VerificationCategories__Group__3__Impl rule__VerificationCategories__Group__4
             {
-            pushFollow(FOLLOW_rule__VerificationCategories__Group__3__Impl_in_rule__VerificationCategories__Group__31134);
+            pushFollow(FOLLOW_rule__VerificationCategories__Group__3__Impl_in_rule__VerificationCategories__Group__31159);
             rule__VerificationCategories__Group__3__Impl();
 
             state._fsp--;
 
-            pushFollow(FOLLOW_rule__VerificationCategories__Group__4_in_rule__VerificationCategories__Group__31137);
+            pushFollow(FOLLOW_rule__VerificationCategories__Group__4_in_rule__VerificationCategories__Group__31162);
             rule__VerificationCategories__Group__4();
 
             state._fsp--;
@@ -1478,26 +1496,26 @@ public class InternalCategoriesParser extends AbstractInternalContentAssistParse
 
 
     // $ANTLR start "rule__VerificationCategories__Group__3__Impl"
-    // ../org.osate.categories.ui/src-gen/org/osate/categories/ui/contentassist/antlr/internal/InternalCategories.g:591:1: rule__VerificationCategories__Group__3__Impl : ( ( ( rule__VerificationCategories__CategoryAssignment_3 ) ) ( ( rule__VerificationCategories__CategoryAssignment_3 )* ) ) ;
+    // ../org.osate.categories.ui/src-gen/org/osate/categories/ui/contentassist/antlr/internal/InternalCategoriesParser.g:602:1: rule__VerificationCategories__Group__3__Impl : ( ( ( rule__VerificationCategories__CategoryAssignment_3 ) ) ( ( rule__VerificationCategories__CategoryAssignment_3 )* ) ) ;
     public final void rule__VerificationCategories__Group__3__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.osate.categories.ui/src-gen/org/osate/categories/ui/contentassist/antlr/internal/InternalCategories.g:595:1: ( ( ( ( rule__VerificationCategories__CategoryAssignment_3 ) ) ( ( rule__VerificationCategories__CategoryAssignment_3 )* ) ) )
-            // ../org.osate.categories.ui/src-gen/org/osate/categories/ui/contentassist/antlr/internal/InternalCategories.g:596:1: ( ( ( rule__VerificationCategories__CategoryAssignment_3 ) ) ( ( rule__VerificationCategories__CategoryAssignment_3 )* ) )
+            // ../org.osate.categories.ui/src-gen/org/osate/categories/ui/contentassist/antlr/internal/InternalCategoriesParser.g:606:1: ( ( ( ( rule__VerificationCategories__CategoryAssignment_3 ) ) ( ( rule__VerificationCategories__CategoryAssignment_3 )* ) ) )
+            // ../org.osate.categories.ui/src-gen/org/osate/categories/ui/contentassist/antlr/internal/InternalCategoriesParser.g:607:1: ( ( ( rule__VerificationCategories__CategoryAssignment_3 ) ) ( ( rule__VerificationCategories__CategoryAssignment_3 )* ) )
             {
-            // ../org.osate.categories.ui/src-gen/org/osate/categories/ui/contentassist/antlr/internal/InternalCategories.g:596:1: ( ( ( rule__VerificationCategories__CategoryAssignment_3 ) ) ( ( rule__VerificationCategories__CategoryAssignment_3 )* ) )
-            // ../org.osate.categories.ui/src-gen/org/osate/categories/ui/contentassist/antlr/internal/InternalCategories.g:597:1: ( ( rule__VerificationCategories__CategoryAssignment_3 ) ) ( ( rule__VerificationCategories__CategoryAssignment_3 )* )
+            // ../org.osate.categories.ui/src-gen/org/osate/categories/ui/contentassist/antlr/internal/InternalCategoriesParser.g:607:1: ( ( ( rule__VerificationCategories__CategoryAssignment_3 ) ) ( ( rule__VerificationCategories__CategoryAssignment_3 )* ) )
+            // ../org.osate.categories.ui/src-gen/org/osate/categories/ui/contentassist/antlr/internal/InternalCategoriesParser.g:608:1: ( ( rule__VerificationCategories__CategoryAssignment_3 ) ) ( ( rule__VerificationCategories__CategoryAssignment_3 )* )
             {
-            // ../org.osate.categories.ui/src-gen/org/osate/categories/ui/contentassist/antlr/internal/InternalCategories.g:597:1: ( ( rule__VerificationCategories__CategoryAssignment_3 ) )
-            // ../org.osate.categories.ui/src-gen/org/osate/categories/ui/contentassist/antlr/internal/InternalCategories.g:598:1: ( rule__VerificationCategories__CategoryAssignment_3 )
+            // ../org.osate.categories.ui/src-gen/org/osate/categories/ui/contentassist/antlr/internal/InternalCategoriesParser.g:608:1: ( ( rule__VerificationCategories__CategoryAssignment_3 ) )
+            // ../org.osate.categories.ui/src-gen/org/osate/categories/ui/contentassist/antlr/internal/InternalCategoriesParser.g:609:1: ( rule__VerificationCategories__CategoryAssignment_3 )
             {
              before(grammarAccess.getVerificationCategoriesAccess().getCategoryAssignment_3()); 
-            // ../org.osate.categories.ui/src-gen/org/osate/categories/ui/contentassist/antlr/internal/InternalCategories.g:599:1: ( rule__VerificationCategories__CategoryAssignment_3 )
-            // ../org.osate.categories.ui/src-gen/org/osate/categories/ui/contentassist/antlr/internal/InternalCategories.g:599:2: rule__VerificationCategories__CategoryAssignment_3
+            // ../org.osate.categories.ui/src-gen/org/osate/categories/ui/contentassist/antlr/internal/InternalCategoriesParser.g:610:1: ( rule__VerificationCategories__CategoryAssignment_3 )
+            // ../org.osate.categories.ui/src-gen/org/osate/categories/ui/contentassist/antlr/internal/InternalCategoriesParser.g:610:2: rule__VerificationCategories__CategoryAssignment_3
             {
-            pushFollow(FOLLOW_rule__VerificationCategories__CategoryAssignment_3_in_rule__VerificationCategories__Group__3__Impl1166);
+            pushFollow(FOLLOW_rule__VerificationCategories__CategoryAssignment_3_in_rule__VerificationCategories__Group__3__Impl1191);
             rule__VerificationCategories__CategoryAssignment_3();
 
             state._fsp--;
@@ -1509,11 +1527,11 @@ public class InternalCategoriesParser extends AbstractInternalContentAssistParse
 
             }
 
-            // ../org.osate.categories.ui/src-gen/org/osate/categories/ui/contentassist/antlr/internal/InternalCategories.g:602:1: ( ( rule__VerificationCategories__CategoryAssignment_3 )* )
-            // ../org.osate.categories.ui/src-gen/org/osate/categories/ui/contentassist/antlr/internal/InternalCategories.g:603:1: ( rule__VerificationCategories__CategoryAssignment_3 )*
+            // ../org.osate.categories.ui/src-gen/org/osate/categories/ui/contentassist/antlr/internal/InternalCategoriesParser.g:613:1: ( ( rule__VerificationCategories__CategoryAssignment_3 )* )
+            // ../org.osate.categories.ui/src-gen/org/osate/categories/ui/contentassist/antlr/internal/InternalCategoriesParser.g:614:1: ( rule__VerificationCategories__CategoryAssignment_3 )*
             {
              before(grammarAccess.getVerificationCategoriesAccess().getCategoryAssignment_3()); 
-            // ../org.osate.categories.ui/src-gen/org/osate/categories/ui/contentassist/antlr/internal/InternalCategories.g:604:1: ( rule__VerificationCategories__CategoryAssignment_3 )*
+            // ../org.osate.categories.ui/src-gen/org/osate/categories/ui/contentassist/antlr/internal/InternalCategoriesParser.g:615:1: ( rule__VerificationCategories__CategoryAssignment_3 )*
             loop3:
             do {
                 int alt3=2;
@@ -1526,9 +1544,9 @@ public class InternalCategoriesParser extends AbstractInternalContentAssistParse
 
                 switch (alt3) {
             	case 1 :
-            	    // ../org.osate.categories.ui/src-gen/org/osate/categories/ui/contentassist/antlr/internal/InternalCategories.g:604:2: rule__VerificationCategories__CategoryAssignment_3
+            	    // ../org.osate.categories.ui/src-gen/org/osate/categories/ui/contentassist/antlr/internal/InternalCategoriesParser.g:615:2: rule__VerificationCategories__CategoryAssignment_3
             	    {
-            	    pushFollow(FOLLOW_rule__VerificationCategories__CategoryAssignment_3_in_rule__VerificationCategories__Group__3__Impl1178);
+            	    pushFollow(FOLLOW_rule__VerificationCategories__CategoryAssignment_3_in_rule__VerificationCategories__Group__3__Impl1203);
             	    rule__VerificationCategories__CategoryAssignment_3();
 
             	    state._fsp--;
@@ -1568,16 +1586,16 @@ public class InternalCategoriesParser extends AbstractInternalContentAssistParse
 
 
     // $ANTLR start "rule__VerificationCategories__Group__4"
-    // ../org.osate.categories.ui/src-gen/org/osate/categories/ui/contentassist/antlr/internal/InternalCategories.g:615:1: rule__VerificationCategories__Group__4 : rule__VerificationCategories__Group__4__Impl ;
+    // ../org.osate.categories.ui/src-gen/org/osate/categories/ui/contentassist/antlr/internal/InternalCategoriesParser.g:626:1: rule__VerificationCategories__Group__4 : rule__VerificationCategories__Group__4__Impl ;
     public final void rule__VerificationCategories__Group__4() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.osate.categories.ui/src-gen/org/osate/categories/ui/contentassist/antlr/internal/InternalCategories.g:619:1: ( rule__VerificationCategories__Group__4__Impl )
-            // ../org.osate.categories.ui/src-gen/org/osate/categories/ui/contentassist/antlr/internal/InternalCategories.g:620:2: rule__VerificationCategories__Group__4__Impl
+            // ../org.osate.categories.ui/src-gen/org/osate/categories/ui/contentassist/antlr/internal/InternalCategoriesParser.g:630:1: ( rule__VerificationCategories__Group__4__Impl )
+            // ../org.osate.categories.ui/src-gen/org/osate/categories/ui/contentassist/antlr/internal/InternalCategoriesParser.g:631:2: rule__VerificationCategories__Group__4__Impl
             {
-            pushFollow(FOLLOW_rule__VerificationCategories__Group__4__Impl_in_rule__VerificationCategories__Group__41211);
+            pushFollow(FOLLOW_rule__VerificationCategories__Group__4__Impl_in_rule__VerificationCategories__Group__41236);
             rule__VerificationCategories__Group__4__Impl();
 
             state._fsp--;
@@ -1601,20 +1619,20 @@ public class InternalCategoriesParser extends AbstractInternalContentAssistParse
 
 
     // $ANTLR start "rule__VerificationCategories__Group__4__Impl"
-    // ../org.osate.categories.ui/src-gen/org/osate/categories/ui/contentassist/antlr/internal/InternalCategories.g:626:1: rule__VerificationCategories__Group__4__Impl : ( ']' ) ;
+    // ../org.osate.categories.ui/src-gen/org/osate/categories/ui/contentassist/antlr/internal/InternalCategoriesParser.g:637:1: rule__VerificationCategories__Group__4__Impl : ( RightSquareBracket ) ;
     public final void rule__VerificationCategories__Group__4__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.osate.categories.ui/src-gen/org/osate/categories/ui/contentassist/antlr/internal/InternalCategories.g:630:1: ( ( ']' ) )
-            // ../org.osate.categories.ui/src-gen/org/osate/categories/ui/contentassist/antlr/internal/InternalCategories.g:631:1: ( ']' )
+            // ../org.osate.categories.ui/src-gen/org/osate/categories/ui/contentassist/antlr/internal/InternalCategoriesParser.g:641:1: ( ( RightSquareBracket ) )
+            // ../org.osate.categories.ui/src-gen/org/osate/categories/ui/contentassist/antlr/internal/InternalCategoriesParser.g:642:1: ( RightSquareBracket )
             {
-            // ../org.osate.categories.ui/src-gen/org/osate/categories/ui/contentassist/antlr/internal/InternalCategories.g:631:1: ( ']' )
-            // ../org.osate.categories.ui/src-gen/org/osate/categories/ui/contentassist/antlr/internal/InternalCategories.g:632:1: ']'
+            // ../org.osate.categories.ui/src-gen/org/osate/categories/ui/contentassist/antlr/internal/InternalCategoriesParser.g:642:1: ( RightSquareBracket )
+            // ../org.osate.categories.ui/src-gen/org/osate/categories/ui/contentassist/antlr/internal/InternalCategoriesParser.g:643:1: RightSquareBracket
             {
              before(grammarAccess.getVerificationCategoriesAccess().getRightSquareBracketKeyword_4()); 
-            match(input,14,FOLLOW_14_in_rule__VerificationCategories__Group__4__Impl1239); 
+            match(input,RightSquareBracket,FOLLOW_RightSquareBracket_in_rule__VerificationCategories__Group__4__Impl1264); 
              after(grammarAccess.getVerificationCategoriesAccess().getRightSquareBracketKeyword_4()); 
 
             }
@@ -1638,21 +1656,21 @@ public class InternalCategoriesParser extends AbstractInternalContentAssistParse
 
 
     // $ANTLR start "rule__SelectionCategories__Group__0"
-    // ../org.osate.categories.ui/src-gen/org/osate/categories/ui/contentassist/antlr/internal/InternalCategories.g:655:1: rule__SelectionCategories__Group__0 : rule__SelectionCategories__Group__0__Impl rule__SelectionCategories__Group__1 ;
+    // ../org.osate.categories.ui/src-gen/org/osate/categories/ui/contentassist/antlr/internal/InternalCategoriesParser.g:666:1: rule__SelectionCategories__Group__0 : rule__SelectionCategories__Group__0__Impl rule__SelectionCategories__Group__1 ;
     public final void rule__SelectionCategories__Group__0() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.osate.categories.ui/src-gen/org/osate/categories/ui/contentassist/antlr/internal/InternalCategories.g:659:1: ( rule__SelectionCategories__Group__0__Impl rule__SelectionCategories__Group__1 )
-            // ../org.osate.categories.ui/src-gen/org/osate/categories/ui/contentassist/antlr/internal/InternalCategories.g:660:2: rule__SelectionCategories__Group__0__Impl rule__SelectionCategories__Group__1
+            // ../org.osate.categories.ui/src-gen/org/osate/categories/ui/contentassist/antlr/internal/InternalCategoriesParser.g:670:1: ( rule__SelectionCategories__Group__0__Impl rule__SelectionCategories__Group__1 )
+            // ../org.osate.categories.ui/src-gen/org/osate/categories/ui/contentassist/antlr/internal/InternalCategoriesParser.g:671:2: rule__SelectionCategories__Group__0__Impl rule__SelectionCategories__Group__1
             {
-            pushFollow(FOLLOW_rule__SelectionCategories__Group__0__Impl_in_rule__SelectionCategories__Group__01280);
+            pushFollow(FOLLOW_rule__SelectionCategories__Group__0__Impl_in_rule__SelectionCategories__Group__01305);
             rule__SelectionCategories__Group__0__Impl();
 
             state._fsp--;
 
-            pushFollow(FOLLOW_rule__SelectionCategories__Group__1_in_rule__SelectionCategories__Group__01283);
+            pushFollow(FOLLOW_rule__SelectionCategories__Group__1_in_rule__SelectionCategories__Group__01308);
             rule__SelectionCategories__Group__1();
 
             state._fsp--;
@@ -1676,20 +1694,20 @@ public class InternalCategoriesParser extends AbstractInternalContentAssistParse
 
 
     // $ANTLR start "rule__SelectionCategories__Group__0__Impl"
-    // ../org.osate.categories.ui/src-gen/org/osate/categories/ui/contentassist/antlr/internal/InternalCategories.g:667:1: rule__SelectionCategories__Group__0__Impl : ( 'selection' ) ;
+    // ../org.osate.categories.ui/src-gen/org/osate/categories/ui/contentassist/antlr/internal/InternalCategoriesParser.g:678:1: rule__SelectionCategories__Group__0__Impl : ( Selection ) ;
     public final void rule__SelectionCategories__Group__0__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.osate.categories.ui/src-gen/org/osate/categories/ui/contentassist/antlr/internal/InternalCategories.g:671:1: ( ( 'selection' ) )
-            // ../org.osate.categories.ui/src-gen/org/osate/categories/ui/contentassist/antlr/internal/InternalCategories.g:672:1: ( 'selection' )
+            // ../org.osate.categories.ui/src-gen/org/osate/categories/ui/contentassist/antlr/internal/InternalCategoriesParser.g:682:1: ( ( Selection ) )
+            // ../org.osate.categories.ui/src-gen/org/osate/categories/ui/contentassist/antlr/internal/InternalCategoriesParser.g:683:1: ( Selection )
             {
-            // ../org.osate.categories.ui/src-gen/org/osate/categories/ui/contentassist/antlr/internal/InternalCategories.g:672:1: ( 'selection' )
-            // ../org.osate.categories.ui/src-gen/org/osate/categories/ui/contentassist/antlr/internal/InternalCategories.g:673:1: 'selection'
+            // ../org.osate.categories.ui/src-gen/org/osate/categories/ui/contentassist/antlr/internal/InternalCategoriesParser.g:683:1: ( Selection )
+            // ../org.osate.categories.ui/src-gen/org/osate/categories/ui/contentassist/antlr/internal/InternalCategoriesParser.g:684:1: Selection
             {
              before(grammarAccess.getSelectionCategoriesAccess().getSelectionKeyword_0()); 
-            match(input,16,FOLLOW_16_in_rule__SelectionCategories__Group__0__Impl1311); 
+            match(input,Selection,FOLLOW_Selection_in_rule__SelectionCategories__Group__0__Impl1336); 
              after(grammarAccess.getSelectionCategoriesAccess().getSelectionKeyword_0()); 
 
             }
@@ -1713,21 +1731,21 @@ public class InternalCategoriesParser extends AbstractInternalContentAssistParse
 
 
     // $ANTLR start "rule__SelectionCategories__Group__1"
-    // ../org.osate.categories.ui/src-gen/org/osate/categories/ui/contentassist/antlr/internal/InternalCategories.g:686:1: rule__SelectionCategories__Group__1 : rule__SelectionCategories__Group__1__Impl rule__SelectionCategories__Group__2 ;
+    // ../org.osate.categories.ui/src-gen/org/osate/categories/ui/contentassist/antlr/internal/InternalCategoriesParser.g:697:1: rule__SelectionCategories__Group__1 : rule__SelectionCategories__Group__1__Impl rule__SelectionCategories__Group__2 ;
     public final void rule__SelectionCategories__Group__1() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.osate.categories.ui/src-gen/org/osate/categories/ui/contentassist/antlr/internal/InternalCategories.g:690:1: ( rule__SelectionCategories__Group__1__Impl rule__SelectionCategories__Group__2 )
-            // ../org.osate.categories.ui/src-gen/org/osate/categories/ui/contentassist/antlr/internal/InternalCategories.g:691:2: rule__SelectionCategories__Group__1__Impl rule__SelectionCategories__Group__2
+            // ../org.osate.categories.ui/src-gen/org/osate/categories/ui/contentassist/antlr/internal/InternalCategoriesParser.g:701:1: ( rule__SelectionCategories__Group__1__Impl rule__SelectionCategories__Group__2 )
+            // ../org.osate.categories.ui/src-gen/org/osate/categories/ui/contentassist/antlr/internal/InternalCategoriesParser.g:702:2: rule__SelectionCategories__Group__1__Impl rule__SelectionCategories__Group__2
             {
-            pushFollow(FOLLOW_rule__SelectionCategories__Group__1__Impl_in_rule__SelectionCategories__Group__11342);
+            pushFollow(FOLLOW_rule__SelectionCategories__Group__1__Impl_in_rule__SelectionCategories__Group__11367);
             rule__SelectionCategories__Group__1__Impl();
 
             state._fsp--;
 
-            pushFollow(FOLLOW_rule__SelectionCategories__Group__2_in_rule__SelectionCategories__Group__11345);
+            pushFollow(FOLLOW_rule__SelectionCategories__Group__2_in_rule__SelectionCategories__Group__11370);
             rule__SelectionCategories__Group__2();
 
             state._fsp--;
@@ -1751,20 +1769,20 @@ public class InternalCategoriesParser extends AbstractInternalContentAssistParse
 
 
     // $ANTLR start "rule__SelectionCategories__Group__1__Impl"
-    // ../org.osate.categories.ui/src-gen/org/osate/categories/ui/contentassist/antlr/internal/InternalCategories.g:698:1: rule__SelectionCategories__Group__1__Impl : ( 'categories' ) ;
+    // ../org.osate.categories.ui/src-gen/org/osate/categories/ui/contentassist/antlr/internal/InternalCategoriesParser.g:709:1: rule__SelectionCategories__Group__1__Impl : ( Categories ) ;
     public final void rule__SelectionCategories__Group__1__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.osate.categories.ui/src-gen/org/osate/categories/ui/contentassist/antlr/internal/InternalCategories.g:702:1: ( ( 'categories' ) )
-            // ../org.osate.categories.ui/src-gen/org/osate/categories/ui/contentassist/antlr/internal/InternalCategories.g:703:1: ( 'categories' )
+            // ../org.osate.categories.ui/src-gen/org/osate/categories/ui/contentassist/antlr/internal/InternalCategoriesParser.g:713:1: ( ( Categories ) )
+            // ../org.osate.categories.ui/src-gen/org/osate/categories/ui/contentassist/antlr/internal/InternalCategoriesParser.g:714:1: ( Categories )
             {
-            // ../org.osate.categories.ui/src-gen/org/osate/categories/ui/contentassist/antlr/internal/InternalCategories.g:703:1: ( 'categories' )
-            // ../org.osate.categories.ui/src-gen/org/osate/categories/ui/contentassist/antlr/internal/InternalCategories.g:704:1: 'categories'
+            // ../org.osate.categories.ui/src-gen/org/osate/categories/ui/contentassist/antlr/internal/InternalCategoriesParser.g:714:1: ( Categories )
+            // ../org.osate.categories.ui/src-gen/org/osate/categories/ui/contentassist/antlr/internal/InternalCategoriesParser.g:715:1: Categories
             {
              before(grammarAccess.getSelectionCategoriesAccess().getCategoriesKeyword_1()); 
-            match(input,12,FOLLOW_12_in_rule__SelectionCategories__Group__1__Impl1373); 
+            match(input,Categories,FOLLOW_Categories_in_rule__SelectionCategories__Group__1__Impl1398); 
              after(grammarAccess.getSelectionCategoriesAccess().getCategoriesKeyword_1()); 
 
             }
@@ -1788,21 +1806,21 @@ public class InternalCategoriesParser extends AbstractInternalContentAssistParse
 
 
     // $ANTLR start "rule__SelectionCategories__Group__2"
-    // ../org.osate.categories.ui/src-gen/org/osate/categories/ui/contentassist/antlr/internal/InternalCategories.g:717:1: rule__SelectionCategories__Group__2 : rule__SelectionCategories__Group__2__Impl rule__SelectionCategories__Group__3 ;
+    // ../org.osate.categories.ui/src-gen/org/osate/categories/ui/contentassist/antlr/internal/InternalCategoriesParser.g:728:1: rule__SelectionCategories__Group__2 : rule__SelectionCategories__Group__2__Impl rule__SelectionCategories__Group__3 ;
     public final void rule__SelectionCategories__Group__2() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.osate.categories.ui/src-gen/org/osate/categories/ui/contentassist/antlr/internal/InternalCategories.g:721:1: ( rule__SelectionCategories__Group__2__Impl rule__SelectionCategories__Group__3 )
-            // ../org.osate.categories.ui/src-gen/org/osate/categories/ui/contentassist/antlr/internal/InternalCategories.g:722:2: rule__SelectionCategories__Group__2__Impl rule__SelectionCategories__Group__3
+            // ../org.osate.categories.ui/src-gen/org/osate/categories/ui/contentassist/antlr/internal/InternalCategoriesParser.g:732:1: ( rule__SelectionCategories__Group__2__Impl rule__SelectionCategories__Group__3 )
+            // ../org.osate.categories.ui/src-gen/org/osate/categories/ui/contentassist/antlr/internal/InternalCategoriesParser.g:733:2: rule__SelectionCategories__Group__2__Impl rule__SelectionCategories__Group__3
             {
-            pushFollow(FOLLOW_rule__SelectionCategories__Group__2__Impl_in_rule__SelectionCategories__Group__21404);
+            pushFollow(FOLLOW_rule__SelectionCategories__Group__2__Impl_in_rule__SelectionCategories__Group__21429);
             rule__SelectionCategories__Group__2__Impl();
 
             state._fsp--;
 
-            pushFollow(FOLLOW_rule__SelectionCategories__Group__3_in_rule__SelectionCategories__Group__21407);
+            pushFollow(FOLLOW_rule__SelectionCategories__Group__3_in_rule__SelectionCategories__Group__21432);
             rule__SelectionCategories__Group__3();
 
             state._fsp--;
@@ -1826,20 +1844,20 @@ public class InternalCategoriesParser extends AbstractInternalContentAssistParse
 
 
     // $ANTLR start "rule__SelectionCategories__Group__2__Impl"
-    // ../org.osate.categories.ui/src-gen/org/osate/categories/ui/contentassist/antlr/internal/InternalCategories.g:729:1: rule__SelectionCategories__Group__2__Impl : ( '[' ) ;
+    // ../org.osate.categories.ui/src-gen/org/osate/categories/ui/contentassist/antlr/internal/InternalCategoriesParser.g:740:1: rule__SelectionCategories__Group__2__Impl : ( LeftSquareBracket ) ;
     public final void rule__SelectionCategories__Group__2__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.osate.categories.ui/src-gen/org/osate/categories/ui/contentassist/antlr/internal/InternalCategories.g:733:1: ( ( '[' ) )
-            // ../org.osate.categories.ui/src-gen/org/osate/categories/ui/contentassist/antlr/internal/InternalCategories.g:734:1: ( '[' )
+            // ../org.osate.categories.ui/src-gen/org/osate/categories/ui/contentassist/antlr/internal/InternalCategoriesParser.g:744:1: ( ( LeftSquareBracket ) )
+            // ../org.osate.categories.ui/src-gen/org/osate/categories/ui/contentassist/antlr/internal/InternalCategoriesParser.g:745:1: ( LeftSquareBracket )
             {
-            // ../org.osate.categories.ui/src-gen/org/osate/categories/ui/contentassist/antlr/internal/InternalCategories.g:734:1: ( '[' )
-            // ../org.osate.categories.ui/src-gen/org/osate/categories/ui/contentassist/antlr/internal/InternalCategories.g:735:1: '['
+            // ../org.osate.categories.ui/src-gen/org/osate/categories/ui/contentassist/antlr/internal/InternalCategoriesParser.g:745:1: ( LeftSquareBracket )
+            // ../org.osate.categories.ui/src-gen/org/osate/categories/ui/contentassist/antlr/internal/InternalCategoriesParser.g:746:1: LeftSquareBracket
             {
              before(grammarAccess.getSelectionCategoriesAccess().getLeftSquareBracketKeyword_2()); 
-            match(input,13,FOLLOW_13_in_rule__SelectionCategories__Group__2__Impl1435); 
+            match(input,LeftSquareBracket,FOLLOW_LeftSquareBracket_in_rule__SelectionCategories__Group__2__Impl1460); 
              after(grammarAccess.getSelectionCategoriesAccess().getLeftSquareBracketKeyword_2()); 
 
             }
@@ -1863,21 +1881,21 @@ public class InternalCategoriesParser extends AbstractInternalContentAssistParse
 
 
     // $ANTLR start "rule__SelectionCategories__Group__3"
-    // ../org.osate.categories.ui/src-gen/org/osate/categories/ui/contentassist/antlr/internal/InternalCategories.g:748:1: rule__SelectionCategories__Group__3 : rule__SelectionCategories__Group__3__Impl rule__SelectionCategories__Group__4 ;
+    // ../org.osate.categories.ui/src-gen/org/osate/categories/ui/contentassist/antlr/internal/InternalCategoriesParser.g:759:1: rule__SelectionCategories__Group__3 : rule__SelectionCategories__Group__3__Impl rule__SelectionCategories__Group__4 ;
     public final void rule__SelectionCategories__Group__3() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.osate.categories.ui/src-gen/org/osate/categories/ui/contentassist/antlr/internal/InternalCategories.g:752:1: ( rule__SelectionCategories__Group__3__Impl rule__SelectionCategories__Group__4 )
-            // ../org.osate.categories.ui/src-gen/org/osate/categories/ui/contentassist/antlr/internal/InternalCategories.g:753:2: rule__SelectionCategories__Group__3__Impl rule__SelectionCategories__Group__4
+            // ../org.osate.categories.ui/src-gen/org/osate/categories/ui/contentassist/antlr/internal/InternalCategoriesParser.g:763:1: ( rule__SelectionCategories__Group__3__Impl rule__SelectionCategories__Group__4 )
+            // ../org.osate.categories.ui/src-gen/org/osate/categories/ui/contentassist/antlr/internal/InternalCategoriesParser.g:764:2: rule__SelectionCategories__Group__3__Impl rule__SelectionCategories__Group__4
             {
-            pushFollow(FOLLOW_rule__SelectionCategories__Group__3__Impl_in_rule__SelectionCategories__Group__31466);
+            pushFollow(FOLLOW_rule__SelectionCategories__Group__3__Impl_in_rule__SelectionCategories__Group__31491);
             rule__SelectionCategories__Group__3__Impl();
 
             state._fsp--;
 
-            pushFollow(FOLLOW_rule__SelectionCategories__Group__4_in_rule__SelectionCategories__Group__31469);
+            pushFollow(FOLLOW_rule__SelectionCategories__Group__4_in_rule__SelectionCategories__Group__31494);
             rule__SelectionCategories__Group__4();
 
             state._fsp--;
@@ -1901,26 +1919,26 @@ public class InternalCategoriesParser extends AbstractInternalContentAssistParse
 
 
     // $ANTLR start "rule__SelectionCategories__Group__3__Impl"
-    // ../org.osate.categories.ui/src-gen/org/osate/categories/ui/contentassist/antlr/internal/InternalCategories.g:760:1: rule__SelectionCategories__Group__3__Impl : ( ( ( rule__SelectionCategories__CategoryAssignment_3 ) ) ( ( rule__SelectionCategories__CategoryAssignment_3 )* ) ) ;
+    // ../org.osate.categories.ui/src-gen/org/osate/categories/ui/contentassist/antlr/internal/InternalCategoriesParser.g:771:1: rule__SelectionCategories__Group__3__Impl : ( ( ( rule__SelectionCategories__CategoryAssignment_3 ) ) ( ( rule__SelectionCategories__CategoryAssignment_3 )* ) ) ;
     public final void rule__SelectionCategories__Group__3__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.osate.categories.ui/src-gen/org/osate/categories/ui/contentassist/antlr/internal/InternalCategories.g:764:1: ( ( ( ( rule__SelectionCategories__CategoryAssignment_3 ) ) ( ( rule__SelectionCategories__CategoryAssignment_3 )* ) ) )
-            // ../org.osate.categories.ui/src-gen/org/osate/categories/ui/contentassist/antlr/internal/InternalCategories.g:765:1: ( ( ( rule__SelectionCategories__CategoryAssignment_3 ) ) ( ( rule__SelectionCategories__CategoryAssignment_3 )* ) )
+            // ../org.osate.categories.ui/src-gen/org/osate/categories/ui/contentassist/antlr/internal/InternalCategoriesParser.g:775:1: ( ( ( ( rule__SelectionCategories__CategoryAssignment_3 ) ) ( ( rule__SelectionCategories__CategoryAssignment_3 )* ) ) )
+            // ../org.osate.categories.ui/src-gen/org/osate/categories/ui/contentassist/antlr/internal/InternalCategoriesParser.g:776:1: ( ( ( rule__SelectionCategories__CategoryAssignment_3 ) ) ( ( rule__SelectionCategories__CategoryAssignment_3 )* ) )
             {
-            // ../org.osate.categories.ui/src-gen/org/osate/categories/ui/contentassist/antlr/internal/InternalCategories.g:765:1: ( ( ( rule__SelectionCategories__CategoryAssignment_3 ) ) ( ( rule__SelectionCategories__CategoryAssignment_3 )* ) )
-            // ../org.osate.categories.ui/src-gen/org/osate/categories/ui/contentassist/antlr/internal/InternalCategories.g:766:1: ( ( rule__SelectionCategories__CategoryAssignment_3 ) ) ( ( rule__SelectionCategories__CategoryAssignment_3 )* )
+            // ../org.osate.categories.ui/src-gen/org/osate/categories/ui/contentassist/antlr/internal/InternalCategoriesParser.g:776:1: ( ( ( rule__SelectionCategories__CategoryAssignment_3 ) ) ( ( rule__SelectionCategories__CategoryAssignment_3 )* ) )
+            // ../org.osate.categories.ui/src-gen/org/osate/categories/ui/contentassist/antlr/internal/InternalCategoriesParser.g:777:1: ( ( rule__SelectionCategories__CategoryAssignment_3 ) ) ( ( rule__SelectionCategories__CategoryAssignment_3 )* )
             {
-            // ../org.osate.categories.ui/src-gen/org/osate/categories/ui/contentassist/antlr/internal/InternalCategories.g:766:1: ( ( rule__SelectionCategories__CategoryAssignment_3 ) )
-            // ../org.osate.categories.ui/src-gen/org/osate/categories/ui/contentassist/antlr/internal/InternalCategories.g:767:1: ( rule__SelectionCategories__CategoryAssignment_3 )
+            // ../org.osate.categories.ui/src-gen/org/osate/categories/ui/contentassist/antlr/internal/InternalCategoriesParser.g:777:1: ( ( rule__SelectionCategories__CategoryAssignment_3 ) )
+            // ../org.osate.categories.ui/src-gen/org/osate/categories/ui/contentassist/antlr/internal/InternalCategoriesParser.g:778:1: ( rule__SelectionCategories__CategoryAssignment_3 )
             {
              before(grammarAccess.getSelectionCategoriesAccess().getCategoryAssignment_3()); 
-            // ../org.osate.categories.ui/src-gen/org/osate/categories/ui/contentassist/antlr/internal/InternalCategories.g:768:1: ( rule__SelectionCategories__CategoryAssignment_3 )
-            // ../org.osate.categories.ui/src-gen/org/osate/categories/ui/contentassist/antlr/internal/InternalCategories.g:768:2: rule__SelectionCategories__CategoryAssignment_3
+            // ../org.osate.categories.ui/src-gen/org/osate/categories/ui/contentassist/antlr/internal/InternalCategoriesParser.g:779:1: ( rule__SelectionCategories__CategoryAssignment_3 )
+            // ../org.osate.categories.ui/src-gen/org/osate/categories/ui/contentassist/antlr/internal/InternalCategoriesParser.g:779:2: rule__SelectionCategories__CategoryAssignment_3
             {
-            pushFollow(FOLLOW_rule__SelectionCategories__CategoryAssignment_3_in_rule__SelectionCategories__Group__3__Impl1498);
+            pushFollow(FOLLOW_rule__SelectionCategories__CategoryAssignment_3_in_rule__SelectionCategories__Group__3__Impl1523);
             rule__SelectionCategories__CategoryAssignment_3();
 
             state._fsp--;
@@ -1932,11 +1950,11 @@ public class InternalCategoriesParser extends AbstractInternalContentAssistParse
 
             }
 
-            // ../org.osate.categories.ui/src-gen/org/osate/categories/ui/contentassist/antlr/internal/InternalCategories.g:771:1: ( ( rule__SelectionCategories__CategoryAssignment_3 )* )
-            // ../org.osate.categories.ui/src-gen/org/osate/categories/ui/contentassist/antlr/internal/InternalCategories.g:772:1: ( rule__SelectionCategories__CategoryAssignment_3 )*
+            // ../org.osate.categories.ui/src-gen/org/osate/categories/ui/contentassist/antlr/internal/InternalCategoriesParser.g:782:1: ( ( rule__SelectionCategories__CategoryAssignment_3 )* )
+            // ../org.osate.categories.ui/src-gen/org/osate/categories/ui/contentassist/antlr/internal/InternalCategoriesParser.g:783:1: ( rule__SelectionCategories__CategoryAssignment_3 )*
             {
              before(grammarAccess.getSelectionCategoriesAccess().getCategoryAssignment_3()); 
-            // ../org.osate.categories.ui/src-gen/org/osate/categories/ui/contentassist/antlr/internal/InternalCategories.g:773:1: ( rule__SelectionCategories__CategoryAssignment_3 )*
+            // ../org.osate.categories.ui/src-gen/org/osate/categories/ui/contentassist/antlr/internal/InternalCategoriesParser.g:784:1: ( rule__SelectionCategories__CategoryAssignment_3 )*
             loop4:
             do {
                 int alt4=2;
@@ -1949,9 +1967,9 @@ public class InternalCategoriesParser extends AbstractInternalContentAssistParse
 
                 switch (alt4) {
             	case 1 :
-            	    // ../org.osate.categories.ui/src-gen/org/osate/categories/ui/contentassist/antlr/internal/InternalCategories.g:773:2: rule__SelectionCategories__CategoryAssignment_3
+            	    // ../org.osate.categories.ui/src-gen/org/osate/categories/ui/contentassist/antlr/internal/InternalCategoriesParser.g:784:2: rule__SelectionCategories__CategoryAssignment_3
             	    {
-            	    pushFollow(FOLLOW_rule__SelectionCategories__CategoryAssignment_3_in_rule__SelectionCategories__Group__3__Impl1510);
+            	    pushFollow(FOLLOW_rule__SelectionCategories__CategoryAssignment_3_in_rule__SelectionCategories__Group__3__Impl1535);
             	    rule__SelectionCategories__CategoryAssignment_3();
 
             	    state._fsp--;
@@ -1991,16 +2009,16 @@ public class InternalCategoriesParser extends AbstractInternalContentAssistParse
 
 
     // $ANTLR start "rule__SelectionCategories__Group__4"
-    // ../org.osate.categories.ui/src-gen/org/osate/categories/ui/contentassist/antlr/internal/InternalCategories.g:784:1: rule__SelectionCategories__Group__4 : rule__SelectionCategories__Group__4__Impl ;
+    // ../org.osate.categories.ui/src-gen/org/osate/categories/ui/contentassist/antlr/internal/InternalCategoriesParser.g:795:1: rule__SelectionCategories__Group__4 : rule__SelectionCategories__Group__4__Impl ;
     public final void rule__SelectionCategories__Group__4() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.osate.categories.ui/src-gen/org/osate/categories/ui/contentassist/antlr/internal/InternalCategories.g:788:1: ( rule__SelectionCategories__Group__4__Impl )
-            // ../org.osate.categories.ui/src-gen/org/osate/categories/ui/contentassist/antlr/internal/InternalCategories.g:789:2: rule__SelectionCategories__Group__4__Impl
+            // ../org.osate.categories.ui/src-gen/org/osate/categories/ui/contentassist/antlr/internal/InternalCategoriesParser.g:799:1: ( rule__SelectionCategories__Group__4__Impl )
+            // ../org.osate.categories.ui/src-gen/org/osate/categories/ui/contentassist/antlr/internal/InternalCategoriesParser.g:800:2: rule__SelectionCategories__Group__4__Impl
             {
-            pushFollow(FOLLOW_rule__SelectionCategories__Group__4__Impl_in_rule__SelectionCategories__Group__41543);
+            pushFollow(FOLLOW_rule__SelectionCategories__Group__4__Impl_in_rule__SelectionCategories__Group__41568);
             rule__SelectionCategories__Group__4__Impl();
 
             state._fsp--;
@@ -2024,20 +2042,20 @@ public class InternalCategoriesParser extends AbstractInternalContentAssistParse
 
 
     // $ANTLR start "rule__SelectionCategories__Group__4__Impl"
-    // ../org.osate.categories.ui/src-gen/org/osate/categories/ui/contentassist/antlr/internal/InternalCategories.g:795:1: rule__SelectionCategories__Group__4__Impl : ( ']' ) ;
+    // ../org.osate.categories.ui/src-gen/org/osate/categories/ui/contentassist/antlr/internal/InternalCategoriesParser.g:806:1: rule__SelectionCategories__Group__4__Impl : ( RightSquareBracket ) ;
     public final void rule__SelectionCategories__Group__4__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.osate.categories.ui/src-gen/org/osate/categories/ui/contentassist/antlr/internal/InternalCategories.g:799:1: ( ( ']' ) )
-            // ../org.osate.categories.ui/src-gen/org/osate/categories/ui/contentassist/antlr/internal/InternalCategories.g:800:1: ( ']' )
+            // ../org.osate.categories.ui/src-gen/org/osate/categories/ui/contentassist/antlr/internal/InternalCategoriesParser.g:810:1: ( ( RightSquareBracket ) )
+            // ../org.osate.categories.ui/src-gen/org/osate/categories/ui/contentassist/antlr/internal/InternalCategoriesParser.g:811:1: ( RightSquareBracket )
             {
-            // ../org.osate.categories.ui/src-gen/org/osate/categories/ui/contentassist/antlr/internal/InternalCategories.g:800:1: ( ']' )
-            // ../org.osate.categories.ui/src-gen/org/osate/categories/ui/contentassist/antlr/internal/InternalCategories.g:801:1: ']'
+            // ../org.osate.categories.ui/src-gen/org/osate/categories/ui/contentassist/antlr/internal/InternalCategoriesParser.g:811:1: ( RightSquareBracket )
+            // ../org.osate.categories.ui/src-gen/org/osate/categories/ui/contentassist/antlr/internal/InternalCategoriesParser.g:812:1: RightSquareBracket
             {
              before(grammarAccess.getSelectionCategoriesAccess().getRightSquareBracketKeyword_4()); 
-            match(input,14,FOLLOW_14_in_rule__SelectionCategories__Group__4__Impl1571); 
+            match(input,RightSquareBracket,FOLLOW_RightSquareBracket_in_rule__SelectionCategories__Group__4__Impl1596); 
              after(grammarAccess.getSelectionCategoriesAccess().getRightSquareBracketKeyword_4()); 
 
             }
@@ -2061,21 +2079,21 @@ public class InternalCategoriesParser extends AbstractInternalContentAssistParse
 
 
     // $ANTLR start "rule__RequirementCategory__Group__0"
-    // ../org.osate.categories.ui/src-gen/org/osate/categories/ui/contentassist/antlr/internal/InternalCategories.g:824:1: rule__RequirementCategory__Group__0 : rule__RequirementCategory__Group__0__Impl rule__RequirementCategory__Group__1 ;
+    // ../org.osate.categories.ui/src-gen/org/osate/categories/ui/contentassist/antlr/internal/InternalCategoriesParser.g:835:1: rule__RequirementCategory__Group__0 : rule__RequirementCategory__Group__0__Impl rule__RequirementCategory__Group__1 ;
     public final void rule__RequirementCategory__Group__0() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.osate.categories.ui/src-gen/org/osate/categories/ui/contentassist/antlr/internal/InternalCategories.g:828:1: ( rule__RequirementCategory__Group__0__Impl rule__RequirementCategory__Group__1 )
-            // ../org.osate.categories.ui/src-gen/org/osate/categories/ui/contentassist/antlr/internal/InternalCategories.g:829:2: rule__RequirementCategory__Group__0__Impl rule__RequirementCategory__Group__1
+            // ../org.osate.categories.ui/src-gen/org/osate/categories/ui/contentassist/antlr/internal/InternalCategoriesParser.g:839:1: ( rule__RequirementCategory__Group__0__Impl rule__RequirementCategory__Group__1 )
+            // ../org.osate.categories.ui/src-gen/org/osate/categories/ui/contentassist/antlr/internal/InternalCategoriesParser.g:840:2: rule__RequirementCategory__Group__0__Impl rule__RequirementCategory__Group__1
             {
-            pushFollow(FOLLOW_rule__RequirementCategory__Group__0__Impl_in_rule__RequirementCategory__Group__01612);
+            pushFollow(FOLLOW_rule__RequirementCategory__Group__0__Impl_in_rule__RequirementCategory__Group__01637);
             rule__RequirementCategory__Group__0__Impl();
 
             state._fsp--;
 
-            pushFollow(FOLLOW_rule__RequirementCategory__Group__1_in_rule__RequirementCategory__Group__01615);
+            pushFollow(FOLLOW_rule__RequirementCategory__Group__1_in_rule__RequirementCategory__Group__01640);
             rule__RequirementCategory__Group__1();
 
             state._fsp--;
@@ -2099,23 +2117,23 @@ public class InternalCategoriesParser extends AbstractInternalContentAssistParse
 
 
     // $ANTLR start "rule__RequirementCategory__Group__0__Impl"
-    // ../org.osate.categories.ui/src-gen/org/osate/categories/ui/contentassist/antlr/internal/InternalCategories.g:836:1: rule__RequirementCategory__Group__0__Impl : ( ( rule__RequirementCategory__NameAssignment_0 ) ) ;
+    // ../org.osate.categories.ui/src-gen/org/osate/categories/ui/contentassist/antlr/internal/InternalCategoriesParser.g:847:1: rule__RequirementCategory__Group__0__Impl : ( ( rule__RequirementCategory__NameAssignment_0 ) ) ;
     public final void rule__RequirementCategory__Group__0__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.osate.categories.ui/src-gen/org/osate/categories/ui/contentassist/antlr/internal/InternalCategories.g:840:1: ( ( ( rule__RequirementCategory__NameAssignment_0 ) ) )
-            // ../org.osate.categories.ui/src-gen/org/osate/categories/ui/contentassist/antlr/internal/InternalCategories.g:841:1: ( ( rule__RequirementCategory__NameAssignment_0 ) )
+            // ../org.osate.categories.ui/src-gen/org/osate/categories/ui/contentassist/antlr/internal/InternalCategoriesParser.g:851:1: ( ( ( rule__RequirementCategory__NameAssignment_0 ) ) )
+            // ../org.osate.categories.ui/src-gen/org/osate/categories/ui/contentassist/antlr/internal/InternalCategoriesParser.g:852:1: ( ( rule__RequirementCategory__NameAssignment_0 ) )
             {
-            // ../org.osate.categories.ui/src-gen/org/osate/categories/ui/contentassist/antlr/internal/InternalCategories.g:841:1: ( ( rule__RequirementCategory__NameAssignment_0 ) )
-            // ../org.osate.categories.ui/src-gen/org/osate/categories/ui/contentassist/antlr/internal/InternalCategories.g:842:1: ( rule__RequirementCategory__NameAssignment_0 )
+            // ../org.osate.categories.ui/src-gen/org/osate/categories/ui/contentassist/antlr/internal/InternalCategoriesParser.g:852:1: ( ( rule__RequirementCategory__NameAssignment_0 ) )
+            // ../org.osate.categories.ui/src-gen/org/osate/categories/ui/contentassist/antlr/internal/InternalCategoriesParser.g:853:1: ( rule__RequirementCategory__NameAssignment_0 )
             {
              before(grammarAccess.getRequirementCategoryAccess().getNameAssignment_0()); 
-            // ../org.osate.categories.ui/src-gen/org/osate/categories/ui/contentassist/antlr/internal/InternalCategories.g:843:1: ( rule__RequirementCategory__NameAssignment_0 )
-            // ../org.osate.categories.ui/src-gen/org/osate/categories/ui/contentassist/antlr/internal/InternalCategories.g:843:2: rule__RequirementCategory__NameAssignment_0
+            // ../org.osate.categories.ui/src-gen/org/osate/categories/ui/contentassist/antlr/internal/InternalCategoriesParser.g:854:1: ( rule__RequirementCategory__NameAssignment_0 )
+            // ../org.osate.categories.ui/src-gen/org/osate/categories/ui/contentassist/antlr/internal/InternalCategoriesParser.g:854:2: rule__RequirementCategory__NameAssignment_0
             {
-            pushFollow(FOLLOW_rule__RequirementCategory__NameAssignment_0_in_rule__RequirementCategory__Group__0__Impl1642);
+            pushFollow(FOLLOW_rule__RequirementCategory__NameAssignment_0_in_rule__RequirementCategory__Group__0__Impl1667);
             rule__RequirementCategory__NameAssignment_0();
 
             state._fsp--;
@@ -2146,16 +2164,16 @@ public class InternalCategoriesParser extends AbstractInternalContentAssistParse
 
 
     // $ANTLR start "rule__RequirementCategory__Group__1"
-    // ../org.osate.categories.ui/src-gen/org/osate/categories/ui/contentassist/antlr/internal/InternalCategories.g:853:1: rule__RequirementCategory__Group__1 : rule__RequirementCategory__Group__1__Impl ;
+    // ../org.osate.categories.ui/src-gen/org/osate/categories/ui/contentassist/antlr/internal/InternalCategoriesParser.g:864:1: rule__RequirementCategory__Group__1 : rule__RequirementCategory__Group__1__Impl ;
     public final void rule__RequirementCategory__Group__1() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.osate.categories.ui/src-gen/org/osate/categories/ui/contentassist/antlr/internal/InternalCategories.g:857:1: ( rule__RequirementCategory__Group__1__Impl )
-            // ../org.osate.categories.ui/src-gen/org/osate/categories/ui/contentassist/antlr/internal/InternalCategories.g:858:2: rule__RequirementCategory__Group__1__Impl
+            // ../org.osate.categories.ui/src-gen/org/osate/categories/ui/contentassist/antlr/internal/InternalCategoriesParser.g:868:1: ( rule__RequirementCategory__Group__1__Impl )
+            // ../org.osate.categories.ui/src-gen/org/osate/categories/ui/contentassist/antlr/internal/InternalCategoriesParser.g:869:2: rule__RequirementCategory__Group__1__Impl
             {
-            pushFollow(FOLLOW_rule__RequirementCategory__Group__1__Impl_in_rule__RequirementCategory__Group__11672);
+            pushFollow(FOLLOW_rule__RequirementCategory__Group__1__Impl_in_rule__RequirementCategory__Group__11697);
             rule__RequirementCategory__Group__1__Impl();
 
             state._fsp--;
@@ -2179,31 +2197,31 @@ public class InternalCategoriesParser extends AbstractInternalContentAssistParse
 
 
     // $ANTLR start "rule__RequirementCategory__Group__1__Impl"
-    // ../org.osate.categories.ui/src-gen/org/osate/categories/ui/contentassist/antlr/internal/InternalCategories.g:864:1: rule__RequirementCategory__Group__1__Impl : ( ( rule__RequirementCategory__Group_1__0 )? ) ;
+    // ../org.osate.categories.ui/src-gen/org/osate/categories/ui/contentassist/antlr/internal/InternalCategoriesParser.g:875:1: rule__RequirementCategory__Group__1__Impl : ( ( rule__RequirementCategory__Group_1__0 )? ) ;
     public final void rule__RequirementCategory__Group__1__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.osate.categories.ui/src-gen/org/osate/categories/ui/contentassist/antlr/internal/InternalCategories.g:868:1: ( ( ( rule__RequirementCategory__Group_1__0 )? ) )
-            // ../org.osate.categories.ui/src-gen/org/osate/categories/ui/contentassist/antlr/internal/InternalCategories.g:869:1: ( ( rule__RequirementCategory__Group_1__0 )? )
+            // ../org.osate.categories.ui/src-gen/org/osate/categories/ui/contentassist/antlr/internal/InternalCategoriesParser.g:879:1: ( ( ( rule__RequirementCategory__Group_1__0 )? ) )
+            // ../org.osate.categories.ui/src-gen/org/osate/categories/ui/contentassist/antlr/internal/InternalCategoriesParser.g:880:1: ( ( rule__RequirementCategory__Group_1__0 )? )
             {
-            // ../org.osate.categories.ui/src-gen/org/osate/categories/ui/contentassist/antlr/internal/InternalCategories.g:869:1: ( ( rule__RequirementCategory__Group_1__0 )? )
-            // ../org.osate.categories.ui/src-gen/org/osate/categories/ui/contentassist/antlr/internal/InternalCategories.g:870:1: ( rule__RequirementCategory__Group_1__0 )?
+            // ../org.osate.categories.ui/src-gen/org/osate/categories/ui/contentassist/antlr/internal/InternalCategoriesParser.g:880:1: ( ( rule__RequirementCategory__Group_1__0 )? )
+            // ../org.osate.categories.ui/src-gen/org/osate/categories/ui/contentassist/antlr/internal/InternalCategoriesParser.g:881:1: ( rule__RequirementCategory__Group_1__0 )?
             {
              before(grammarAccess.getRequirementCategoryAccess().getGroup_1()); 
-            // ../org.osate.categories.ui/src-gen/org/osate/categories/ui/contentassist/antlr/internal/InternalCategories.g:871:1: ( rule__RequirementCategory__Group_1__0 )?
+            // ../org.osate.categories.ui/src-gen/org/osate/categories/ui/contentassist/antlr/internal/InternalCategoriesParser.g:882:1: ( rule__RequirementCategory__Group_1__0 )?
             int alt5=2;
             int LA5_0 = input.LA(1);
 
-            if ( (LA5_0==17) ) {
+            if ( (LA5_0==LeftCurlyBracket) ) {
                 alt5=1;
             }
             switch (alt5) {
                 case 1 :
-                    // ../org.osate.categories.ui/src-gen/org/osate/categories/ui/contentassist/antlr/internal/InternalCategories.g:871:2: rule__RequirementCategory__Group_1__0
+                    // ../org.osate.categories.ui/src-gen/org/osate/categories/ui/contentassist/antlr/internal/InternalCategoriesParser.g:882:2: rule__RequirementCategory__Group_1__0
                     {
-                    pushFollow(FOLLOW_rule__RequirementCategory__Group_1__0_in_rule__RequirementCategory__Group__1__Impl1699);
+                    pushFollow(FOLLOW_rule__RequirementCategory__Group_1__0_in_rule__RequirementCategory__Group__1__Impl1724);
                     rule__RequirementCategory__Group_1__0();
 
                     state._fsp--;
@@ -2237,21 +2255,21 @@ public class InternalCategoriesParser extends AbstractInternalContentAssistParse
 
 
     // $ANTLR start "rule__RequirementCategory__Group_1__0"
-    // ../org.osate.categories.ui/src-gen/org/osate/categories/ui/contentassist/antlr/internal/InternalCategories.g:885:1: rule__RequirementCategory__Group_1__0 : rule__RequirementCategory__Group_1__0__Impl rule__RequirementCategory__Group_1__1 ;
+    // ../org.osate.categories.ui/src-gen/org/osate/categories/ui/contentassist/antlr/internal/InternalCategoriesParser.g:896:1: rule__RequirementCategory__Group_1__0 : rule__RequirementCategory__Group_1__0__Impl rule__RequirementCategory__Group_1__1 ;
     public final void rule__RequirementCategory__Group_1__0() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.osate.categories.ui/src-gen/org/osate/categories/ui/contentassist/antlr/internal/InternalCategories.g:889:1: ( rule__RequirementCategory__Group_1__0__Impl rule__RequirementCategory__Group_1__1 )
-            // ../org.osate.categories.ui/src-gen/org/osate/categories/ui/contentassist/antlr/internal/InternalCategories.g:890:2: rule__RequirementCategory__Group_1__0__Impl rule__RequirementCategory__Group_1__1
+            // ../org.osate.categories.ui/src-gen/org/osate/categories/ui/contentassist/antlr/internal/InternalCategoriesParser.g:900:1: ( rule__RequirementCategory__Group_1__0__Impl rule__RequirementCategory__Group_1__1 )
+            // ../org.osate.categories.ui/src-gen/org/osate/categories/ui/contentassist/antlr/internal/InternalCategoriesParser.g:901:2: rule__RequirementCategory__Group_1__0__Impl rule__RequirementCategory__Group_1__1
             {
-            pushFollow(FOLLOW_rule__RequirementCategory__Group_1__0__Impl_in_rule__RequirementCategory__Group_1__01734);
+            pushFollow(FOLLOW_rule__RequirementCategory__Group_1__0__Impl_in_rule__RequirementCategory__Group_1__01759);
             rule__RequirementCategory__Group_1__0__Impl();
 
             state._fsp--;
 
-            pushFollow(FOLLOW_rule__RequirementCategory__Group_1__1_in_rule__RequirementCategory__Group_1__01737);
+            pushFollow(FOLLOW_rule__RequirementCategory__Group_1__1_in_rule__RequirementCategory__Group_1__01762);
             rule__RequirementCategory__Group_1__1();
 
             state._fsp--;
@@ -2275,20 +2293,20 @@ public class InternalCategoriesParser extends AbstractInternalContentAssistParse
 
 
     // $ANTLR start "rule__RequirementCategory__Group_1__0__Impl"
-    // ../org.osate.categories.ui/src-gen/org/osate/categories/ui/contentassist/antlr/internal/InternalCategories.g:897:1: rule__RequirementCategory__Group_1__0__Impl : ( '{' ) ;
+    // ../org.osate.categories.ui/src-gen/org/osate/categories/ui/contentassist/antlr/internal/InternalCategoriesParser.g:908:1: rule__RequirementCategory__Group_1__0__Impl : ( LeftCurlyBracket ) ;
     public final void rule__RequirementCategory__Group_1__0__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.osate.categories.ui/src-gen/org/osate/categories/ui/contentassist/antlr/internal/InternalCategories.g:901:1: ( ( '{' ) )
-            // ../org.osate.categories.ui/src-gen/org/osate/categories/ui/contentassist/antlr/internal/InternalCategories.g:902:1: ( '{' )
+            // ../org.osate.categories.ui/src-gen/org/osate/categories/ui/contentassist/antlr/internal/InternalCategoriesParser.g:912:1: ( ( LeftCurlyBracket ) )
+            // ../org.osate.categories.ui/src-gen/org/osate/categories/ui/contentassist/antlr/internal/InternalCategoriesParser.g:913:1: ( LeftCurlyBracket )
             {
-            // ../org.osate.categories.ui/src-gen/org/osate/categories/ui/contentassist/antlr/internal/InternalCategories.g:902:1: ( '{' )
-            // ../org.osate.categories.ui/src-gen/org/osate/categories/ui/contentassist/antlr/internal/InternalCategories.g:903:1: '{'
+            // ../org.osate.categories.ui/src-gen/org/osate/categories/ui/contentassist/antlr/internal/InternalCategoriesParser.g:913:1: ( LeftCurlyBracket )
+            // ../org.osate.categories.ui/src-gen/org/osate/categories/ui/contentassist/antlr/internal/InternalCategoriesParser.g:914:1: LeftCurlyBracket
             {
              before(grammarAccess.getRequirementCategoryAccess().getLeftCurlyBracketKeyword_1_0()); 
-            match(input,17,FOLLOW_17_in_rule__RequirementCategory__Group_1__0__Impl1765); 
+            match(input,LeftCurlyBracket,FOLLOW_LeftCurlyBracket_in_rule__RequirementCategory__Group_1__0__Impl1790); 
              after(grammarAccess.getRequirementCategoryAccess().getLeftCurlyBracketKeyword_1_0()); 
 
             }
@@ -2312,21 +2330,21 @@ public class InternalCategoriesParser extends AbstractInternalContentAssistParse
 
 
     // $ANTLR start "rule__RequirementCategory__Group_1__1"
-    // ../org.osate.categories.ui/src-gen/org/osate/categories/ui/contentassist/antlr/internal/InternalCategories.g:916:1: rule__RequirementCategory__Group_1__1 : rule__RequirementCategory__Group_1__1__Impl rule__RequirementCategory__Group_1__2 ;
+    // ../org.osate.categories.ui/src-gen/org/osate/categories/ui/contentassist/antlr/internal/InternalCategoriesParser.g:927:1: rule__RequirementCategory__Group_1__1 : rule__RequirementCategory__Group_1__1__Impl rule__RequirementCategory__Group_1__2 ;
     public final void rule__RequirementCategory__Group_1__1() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.osate.categories.ui/src-gen/org/osate/categories/ui/contentassist/antlr/internal/InternalCategories.g:920:1: ( rule__RequirementCategory__Group_1__1__Impl rule__RequirementCategory__Group_1__2 )
-            // ../org.osate.categories.ui/src-gen/org/osate/categories/ui/contentassist/antlr/internal/InternalCategories.g:921:2: rule__RequirementCategory__Group_1__1__Impl rule__RequirementCategory__Group_1__2
+            // ../org.osate.categories.ui/src-gen/org/osate/categories/ui/contentassist/antlr/internal/InternalCategoriesParser.g:931:1: ( rule__RequirementCategory__Group_1__1__Impl rule__RequirementCategory__Group_1__2 )
+            // ../org.osate.categories.ui/src-gen/org/osate/categories/ui/contentassist/antlr/internal/InternalCategoriesParser.g:932:2: rule__RequirementCategory__Group_1__1__Impl rule__RequirementCategory__Group_1__2
             {
-            pushFollow(FOLLOW_rule__RequirementCategory__Group_1__1__Impl_in_rule__RequirementCategory__Group_1__11796);
+            pushFollow(FOLLOW_rule__RequirementCategory__Group_1__1__Impl_in_rule__RequirementCategory__Group_1__11821);
             rule__RequirementCategory__Group_1__1__Impl();
 
             state._fsp--;
 
-            pushFollow(FOLLOW_rule__RequirementCategory__Group_1__2_in_rule__RequirementCategory__Group_1__11799);
+            pushFollow(FOLLOW_rule__RequirementCategory__Group_1__2_in_rule__RequirementCategory__Group_1__11824);
             rule__RequirementCategory__Group_1__2();
 
             state._fsp--;
@@ -2350,20 +2368,20 @@ public class InternalCategoriesParser extends AbstractInternalContentAssistParse
 
 
     // $ANTLR start "rule__RequirementCategory__Group_1__1__Impl"
-    // ../org.osate.categories.ui/src-gen/org/osate/categories/ui/contentassist/antlr/internal/InternalCategories.g:928:1: rule__RequirementCategory__Group_1__1__Impl : ( ( rule__RequirementCategory__SubCategoriesAssignment_1_1 )* ) ;
+    // ../org.osate.categories.ui/src-gen/org/osate/categories/ui/contentassist/antlr/internal/InternalCategoriesParser.g:939:1: rule__RequirementCategory__Group_1__1__Impl : ( ( rule__RequirementCategory__SubCategoriesAssignment_1_1 )* ) ;
     public final void rule__RequirementCategory__Group_1__1__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.osate.categories.ui/src-gen/org/osate/categories/ui/contentassist/antlr/internal/InternalCategories.g:932:1: ( ( ( rule__RequirementCategory__SubCategoriesAssignment_1_1 )* ) )
-            // ../org.osate.categories.ui/src-gen/org/osate/categories/ui/contentassist/antlr/internal/InternalCategories.g:933:1: ( ( rule__RequirementCategory__SubCategoriesAssignment_1_1 )* )
+            // ../org.osate.categories.ui/src-gen/org/osate/categories/ui/contentassist/antlr/internal/InternalCategoriesParser.g:943:1: ( ( ( rule__RequirementCategory__SubCategoriesAssignment_1_1 )* ) )
+            // ../org.osate.categories.ui/src-gen/org/osate/categories/ui/contentassist/antlr/internal/InternalCategoriesParser.g:944:1: ( ( rule__RequirementCategory__SubCategoriesAssignment_1_1 )* )
             {
-            // ../org.osate.categories.ui/src-gen/org/osate/categories/ui/contentassist/antlr/internal/InternalCategories.g:933:1: ( ( rule__RequirementCategory__SubCategoriesAssignment_1_1 )* )
-            // ../org.osate.categories.ui/src-gen/org/osate/categories/ui/contentassist/antlr/internal/InternalCategories.g:934:1: ( rule__RequirementCategory__SubCategoriesAssignment_1_1 )*
+            // ../org.osate.categories.ui/src-gen/org/osate/categories/ui/contentassist/antlr/internal/InternalCategoriesParser.g:944:1: ( ( rule__RequirementCategory__SubCategoriesAssignment_1_1 )* )
+            // ../org.osate.categories.ui/src-gen/org/osate/categories/ui/contentassist/antlr/internal/InternalCategoriesParser.g:945:1: ( rule__RequirementCategory__SubCategoriesAssignment_1_1 )*
             {
              before(grammarAccess.getRequirementCategoryAccess().getSubCategoriesAssignment_1_1()); 
-            // ../org.osate.categories.ui/src-gen/org/osate/categories/ui/contentassist/antlr/internal/InternalCategories.g:935:1: ( rule__RequirementCategory__SubCategoriesAssignment_1_1 )*
+            // ../org.osate.categories.ui/src-gen/org/osate/categories/ui/contentassist/antlr/internal/InternalCategoriesParser.g:946:1: ( rule__RequirementCategory__SubCategoriesAssignment_1_1 )*
             loop6:
             do {
                 int alt6=2;
@@ -2376,9 +2394,9 @@ public class InternalCategoriesParser extends AbstractInternalContentAssistParse
 
                 switch (alt6) {
             	case 1 :
-            	    // ../org.osate.categories.ui/src-gen/org/osate/categories/ui/contentassist/antlr/internal/InternalCategories.g:935:2: rule__RequirementCategory__SubCategoriesAssignment_1_1
+            	    // ../org.osate.categories.ui/src-gen/org/osate/categories/ui/contentassist/antlr/internal/InternalCategoriesParser.g:946:2: rule__RequirementCategory__SubCategoriesAssignment_1_1
             	    {
-            	    pushFollow(FOLLOW_rule__RequirementCategory__SubCategoriesAssignment_1_1_in_rule__RequirementCategory__Group_1__1__Impl1826);
+            	    pushFollow(FOLLOW_rule__RequirementCategory__SubCategoriesAssignment_1_1_in_rule__RequirementCategory__Group_1__1__Impl1851);
             	    rule__RequirementCategory__SubCategoriesAssignment_1_1();
 
             	    state._fsp--;
@@ -2415,16 +2433,16 @@ public class InternalCategoriesParser extends AbstractInternalContentAssistParse
 
 
     // $ANTLR start "rule__RequirementCategory__Group_1__2"
-    // ../org.osate.categories.ui/src-gen/org/osate/categories/ui/contentassist/antlr/internal/InternalCategories.g:945:1: rule__RequirementCategory__Group_1__2 : rule__RequirementCategory__Group_1__2__Impl ;
+    // ../org.osate.categories.ui/src-gen/org/osate/categories/ui/contentassist/antlr/internal/InternalCategoriesParser.g:956:1: rule__RequirementCategory__Group_1__2 : rule__RequirementCategory__Group_1__2__Impl ;
     public final void rule__RequirementCategory__Group_1__2() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.osate.categories.ui/src-gen/org/osate/categories/ui/contentassist/antlr/internal/InternalCategories.g:949:1: ( rule__RequirementCategory__Group_1__2__Impl )
-            // ../org.osate.categories.ui/src-gen/org/osate/categories/ui/contentassist/antlr/internal/InternalCategories.g:950:2: rule__RequirementCategory__Group_1__2__Impl
+            // ../org.osate.categories.ui/src-gen/org/osate/categories/ui/contentassist/antlr/internal/InternalCategoriesParser.g:960:1: ( rule__RequirementCategory__Group_1__2__Impl )
+            // ../org.osate.categories.ui/src-gen/org/osate/categories/ui/contentassist/antlr/internal/InternalCategoriesParser.g:961:2: rule__RequirementCategory__Group_1__2__Impl
             {
-            pushFollow(FOLLOW_rule__RequirementCategory__Group_1__2__Impl_in_rule__RequirementCategory__Group_1__21857);
+            pushFollow(FOLLOW_rule__RequirementCategory__Group_1__2__Impl_in_rule__RequirementCategory__Group_1__21882);
             rule__RequirementCategory__Group_1__2__Impl();
 
             state._fsp--;
@@ -2448,20 +2466,20 @@ public class InternalCategoriesParser extends AbstractInternalContentAssistParse
 
 
     // $ANTLR start "rule__RequirementCategory__Group_1__2__Impl"
-    // ../org.osate.categories.ui/src-gen/org/osate/categories/ui/contentassist/antlr/internal/InternalCategories.g:956:1: rule__RequirementCategory__Group_1__2__Impl : ( '}' ) ;
+    // ../org.osate.categories.ui/src-gen/org/osate/categories/ui/contentassist/antlr/internal/InternalCategoriesParser.g:967:1: rule__RequirementCategory__Group_1__2__Impl : ( RightCurlyBracket ) ;
     public final void rule__RequirementCategory__Group_1__2__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.osate.categories.ui/src-gen/org/osate/categories/ui/contentassist/antlr/internal/InternalCategories.g:960:1: ( ( '}' ) )
-            // ../org.osate.categories.ui/src-gen/org/osate/categories/ui/contentassist/antlr/internal/InternalCategories.g:961:1: ( '}' )
+            // ../org.osate.categories.ui/src-gen/org/osate/categories/ui/contentassist/antlr/internal/InternalCategoriesParser.g:971:1: ( ( RightCurlyBracket ) )
+            // ../org.osate.categories.ui/src-gen/org/osate/categories/ui/contentassist/antlr/internal/InternalCategoriesParser.g:972:1: ( RightCurlyBracket )
             {
-            // ../org.osate.categories.ui/src-gen/org/osate/categories/ui/contentassist/antlr/internal/InternalCategories.g:961:1: ( '}' )
-            // ../org.osate.categories.ui/src-gen/org/osate/categories/ui/contentassist/antlr/internal/InternalCategories.g:962:1: '}'
+            // ../org.osate.categories.ui/src-gen/org/osate/categories/ui/contentassist/antlr/internal/InternalCategoriesParser.g:972:1: ( RightCurlyBracket )
+            // ../org.osate.categories.ui/src-gen/org/osate/categories/ui/contentassist/antlr/internal/InternalCategoriesParser.g:973:1: RightCurlyBracket
             {
              before(grammarAccess.getRequirementCategoryAccess().getRightCurlyBracketKeyword_1_2()); 
-            match(input,18,FOLLOW_18_in_rule__RequirementCategory__Group_1__2__Impl1885); 
+            match(input,RightCurlyBracket,FOLLOW_RightCurlyBracket_in_rule__RequirementCategory__Group_1__2__Impl1910); 
              after(grammarAccess.getRequirementCategoryAccess().getRightCurlyBracketKeyword_1_2()); 
 
             }
@@ -2485,21 +2503,21 @@ public class InternalCategoriesParser extends AbstractInternalContentAssistParse
 
 
     // $ANTLR start "rule__VerificationCategory__Group__0"
-    // ../org.osate.categories.ui/src-gen/org/osate/categories/ui/contentassist/antlr/internal/InternalCategories.g:981:1: rule__VerificationCategory__Group__0 : rule__VerificationCategory__Group__0__Impl rule__VerificationCategory__Group__1 ;
+    // ../org.osate.categories.ui/src-gen/org/osate/categories/ui/contentassist/antlr/internal/InternalCategoriesParser.g:992:1: rule__VerificationCategory__Group__0 : rule__VerificationCategory__Group__0__Impl rule__VerificationCategory__Group__1 ;
     public final void rule__VerificationCategory__Group__0() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.osate.categories.ui/src-gen/org/osate/categories/ui/contentassist/antlr/internal/InternalCategories.g:985:1: ( rule__VerificationCategory__Group__0__Impl rule__VerificationCategory__Group__1 )
-            // ../org.osate.categories.ui/src-gen/org/osate/categories/ui/contentassist/antlr/internal/InternalCategories.g:986:2: rule__VerificationCategory__Group__0__Impl rule__VerificationCategory__Group__1
+            // ../org.osate.categories.ui/src-gen/org/osate/categories/ui/contentassist/antlr/internal/InternalCategoriesParser.g:996:1: ( rule__VerificationCategory__Group__0__Impl rule__VerificationCategory__Group__1 )
+            // ../org.osate.categories.ui/src-gen/org/osate/categories/ui/contentassist/antlr/internal/InternalCategoriesParser.g:997:2: rule__VerificationCategory__Group__0__Impl rule__VerificationCategory__Group__1
             {
-            pushFollow(FOLLOW_rule__VerificationCategory__Group__0__Impl_in_rule__VerificationCategory__Group__01922);
+            pushFollow(FOLLOW_rule__VerificationCategory__Group__0__Impl_in_rule__VerificationCategory__Group__01947);
             rule__VerificationCategory__Group__0__Impl();
 
             state._fsp--;
 
-            pushFollow(FOLLOW_rule__VerificationCategory__Group__1_in_rule__VerificationCategory__Group__01925);
+            pushFollow(FOLLOW_rule__VerificationCategory__Group__1_in_rule__VerificationCategory__Group__01950);
             rule__VerificationCategory__Group__1();
 
             state._fsp--;
@@ -2523,23 +2541,23 @@ public class InternalCategoriesParser extends AbstractInternalContentAssistParse
 
 
     // $ANTLR start "rule__VerificationCategory__Group__0__Impl"
-    // ../org.osate.categories.ui/src-gen/org/osate/categories/ui/contentassist/antlr/internal/InternalCategories.g:993:1: rule__VerificationCategory__Group__0__Impl : ( ( rule__VerificationCategory__NameAssignment_0 ) ) ;
+    // ../org.osate.categories.ui/src-gen/org/osate/categories/ui/contentassist/antlr/internal/InternalCategoriesParser.g:1004:1: rule__VerificationCategory__Group__0__Impl : ( ( rule__VerificationCategory__NameAssignment_0 ) ) ;
     public final void rule__VerificationCategory__Group__0__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.osate.categories.ui/src-gen/org/osate/categories/ui/contentassist/antlr/internal/InternalCategories.g:997:1: ( ( ( rule__VerificationCategory__NameAssignment_0 ) ) )
-            // ../org.osate.categories.ui/src-gen/org/osate/categories/ui/contentassist/antlr/internal/InternalCategories.g:998:1: ( ( rule__VerificationCategory__NameAssignment_0 ) )
+            // ../org.osate.categories.ui/src-gen/org/osate/categories/ui/contentassist/antlr/internal/InternalCategoriesParser.g:1008:1: ( ( ( rule__VerificationCategory__NameAssignment_0 ) ) )
+            // ../org.osate.categories.ui/src-gen/org/osate/categories/ui/contentassist/antlr/internal/InternalCategoriesParser.g:1009:1: ( ( rule__VerificationCategory__NameAssignment_0 ) )
             {
-            // ../org.osate.categories.ui/src-gen/org/osate/categories/ui/contentassist/antlr/internal/InternalCategories.g:998:1: ( ( rule__VerificationCategory__NameAssignment_0 ) )
-            // ../org.osate.categories.ui/src-gen/org/osate/categories/ui/contentassist/antlr/internal/InternalCategories.g:999:1: ( rule__VerificationCategory__NameAssignment_0 )
+            // ../org.osate.categories.ui/src-gen/org/osate/categories/ui/contentassist/antlr/internal/InternalCategoriesParser.g:1009:1: ( ( rule__VerificationCategory__NameAssignment_0 ) )
+            // ../org.osate.categories.ui/src-gen/org/osate/categories/ui/contentassist/antlr/internal/InternalCategoriesParser.g:1010:1: ( rule__VerificationCategory__NameAssignment_0 )
             {
              before(grammarAccess.getVerificationCategoryAccess().getNameAssignment_0()); 
-            // ../org.osate.categories.ui/src-gen/org/osate/categories/ui/contentassist/antlr/internal/InternalCategories.g:1000:1: ( rule__VerificationCategory__NameAssignment_0 )
-            // ../org.osate.categories.ui/src-gen/org/osate/categories/ui/contentassist/antlr/internal/InternalCategories.g:1000:2: rule__VerificationCategory__NameAssignment_0
+            // ../org.osate.categories.ui/src-gen/org/osate/categories/ui/contentassist/antlr/internal/InternalCategoriesParser.g:1011:1: ( rule__VerificationCategory__NameAssignment_0 )
+            // ../org.osate.categories.ui/src-gen/org/osate/categories/ui/contentassist/antlr/internal/InternalCategoriesParser.g:1011:2: rule__VerificationCategory__NameAssignment_0
             {
-            pushFollow(FOLLOW_rule__VerificationCategory__NameAssignment_0_in_rule__VerificationCategory__Group__0__Impl1952);
+            pushFollow(FOLLOW_rule__VerificationCategory__NameAssignment_0_in_rule__VerificationCategory__Group__0__Impl1977);
             rule__VerificationCategory__NameAssignment_0();
 
             state._fsp--;
@@ -2570,16 +2588,16 @@ public class InternalCategoriesParser extends AbstractInternalContentAssistParse
 
 
     // $ANTLR start "rule__VerificationCategory__Group__1"
-    // ../org.osate.categories.ui/src-gen/org/osate/categories/ui/contentassist/antlr/internal/InternalCategories.g:1010:1: rule__VerificationCategory__Group__1 : rule__VerificationCategory__Group__1__Impl ;
+    // ../org.osate.categories.ui/src-gen/org/osate/categories/ui/contentassist/antlr/internal/InternalCategoriesParser.g:1021:1: rule__VerificationCategory__Group__1 : rule__VerificationCategory__Group__1__Impl ;
     public final void rule__VerificationCategory__Group__1() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.osate.categories.ui/src-gen/org/osate/categories/ui/contentassist/antlr/internal/InternalCategories.g:1014:1: ( rule__VerificationCategory__Group__1__Impl )
-            // ../org.osate.categories.ui/src-gen/org/osate/categories/ui/contentassist/antlr/internal/InternalCategories.g:1015:2: rule__VerificationCategory__Group__1__Impl
+            // ../org.osate.categories.ui/src-gen/org/osate/categories/ui/contentassist/antlr/internal/InternalCategoriesParser.g:1025:1: ( rule__VerificationCategory__Group__1__Impl )
+            // ../org.osate.categories.ui/src-gen/org/osate/categories/ui/contentassist/antlr/internal/InternalCategoriesParser.g:1026:2: rule__VerificationCategory__Group__1__Impl
             {
-            pushFollow(FOLLOW_rule__VerificationCategory__Group__1__Impl_in_rule__VerificationCategory__Group__11982);
+            pushFollow(FOLLOW_rule__VerificationCategory__Group__1__Impl_in_rule__VerificationCategory__Group__12007);
             rule__VerificationCategory__Group__1__Impl();
 
             state._fsp--;
@@ -2603,31 +2621,31 @@ public class InternalCategoriesParser extends AbstractInternalContentAssistParse
 
 
     // $ANTLR start "rule__VerificationCategory__Group__1__Impl"
-    // ../org.osate.categories.ui/src-gen/org/osate/categories/ui/contentassist/antlr/internal/InternalCategories.g:1021:1: rule__VerificationCategory__Group__1__Impl : ( ( rule__VerificationCategory__Group_1__0 )? ) ;
+    // ../org.osate.categories.ui/src-gen/org/osate/categories/ui/contentassist/antlr/internal/InternalCategoriesParser.g:1032:1: rule__VerificationCategory__Group__1__Impl : ( ( rule__VerificationCategory__Group_1__0 )? ) ;
     public final void rule__VerificationCategory__Group__1__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.osate.categories.ui/src-gen/org/osate/categories/ui/contentassist/antlr/internal/InternalCategories.g:1025:1: ( ( ( rule__VerificationCategory__Group_1__0 )? ) )
-            // ../org.osate.categories.ui/src-gen/org/osate/categories/ui/contentassist/antlr/internal/InternalCategories.g:1026:1: ( ( rule__VerificationCategory__Group_1__0 )? )
+            // ../org.osate.categories.ui/src-gen/org/osate/categories/ui/contentassist/antlr/internal/InternalCategoriesParser.g:1036:1: ( ( ( rule__VerificationCategory__Group_1__0 )? ) )
+            // ../org.osate.categories.ui/src-gen/org/osate/categories/ui/contentassist/antlr/internal/InternalCategoriesParser.g:1037:1: ( ( rule__VerificationCategory__Group_1__0 )? )
             {
-            // ../org.osate.categories.ui/src-gen/org/osate/categories/ui/contentassist/antlr/internal/InternalCategories.g:1026:1: ( ( rule__VerificationCategory__Group_1__0 )? )
-            // ../org.osate.categories.ui/src-gen/org/osate/categories/ui/contentassist/antlr/internal/InternalCategories.g:1027:1: ( rule__VerificationCategory__Group_1__0 )?
+            // ../org.osate.categories.ui/src-gen/org/osate/categories/ui/contentassist/antlr/internal/InternalCategoriesParser.g:1037:1: ( ( rule__VerificationCategory__Group_1__0 )? )
+            // ../org.osate.categories.ui/src-gen/org/osate/categories/ui/contentassist/antlr/internal/InternalCategoriesParser.g:1038:1: ( rule__VerificationCategory__Group_1__0 )?
             {
              before(grammarAccess.getVerificationCategoryAccess().getGroup_1()); 
-            // ../org.osate.categories.ui/src-gen/org/osate/categories/ui/contentassist/antlr/internal/InternalCategories.g:1028:1: ( rule__VerificationCategory__Group_1__0 )?
+            // ../org.osate.categories.ui/src-gen/org/osate/categories/ui/contentassist/antlr/internal/InternalCategoriesParser.g:1039:1: ( rule__VerificationCategory__Group_1__0 )?
             int alt7=2;
             int LA7_0 = input.LA(1);
 
-            if ( (LA7_0==17) ) {
+            if ( (LA7_0==LeftCurlyBracket) ) {
                 alt7=1;
             }
             switch (alt7) {
                 case 1 :
-                    // ../org.osate.categories.ui/src-gen/org/osate/categories/ui/contentassist/antlr/internal/InternalCategories.g:1028:2: rule__VerificationCategory__Group_1__0
+                    // ../org.osate.categories.ui/src-gen/org/osate/categories/ui/contentassist/antlr/internal/InternalCategoriesParser.g:1039:2: rule__VerificationCategory__Group_1__0
                     {
-                    pushFollow(FOLLOW_rule__VerificationCategory__Group_1__0_in_rule__VerificationCategory__Group__1__Impl2009);
+                    pushFollow(FOLLOW_rule__VerificationCategory__Group_1__0_in_rule__VerificationCategory__Group__1__Impl2034);
                     rule__VerificationCategory__Group_1__0();
 
                     state._fsp--;
@@ -2661,21 +2679,21 @@ public class InternalCategoriesParser extends AbstractInternalContentAssistParse
 
 
     // $ANTLR start "rule__VerificationCategory__Group_1__0"
-    // ../org.osate.categories.ui/src-gen/org/osate/categories/ui/contentassist/antlr/internal/InternalCategories.g:1042:1: rule__VerificationCategory__Group_1__0 : rule__VerificationCategory__Group_1__0__Impl rule__VerificationCategory__Group_1__1 ;
+    // ../org.osate.categories.ui/src-gen/org/osate/categories/ui/contentassist/antlr/internal/InternalCategoriesParser.g:1053:1: rule__VerificationCategory__Group_1__0 : rule__VerificationCategory__Group_1__0__Impl rule__VerificationCategory__Group_1__1 ;
     public final void rule__VerificationCategory__Group_1__0() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.osate.categories.ui/src-gen/org/osate/categories/ui/contentassist/antlr/internal/InternalCategories.g:1046:1: ( rule__VerificationCategory__Group_1__0__Impl rule__VerificationCategory__Group_1__1 )
-            // ../org.osate.categories.ui/src-gen/org/osate/categories/ui/contentassist/antlr/internal/InternalCategories.g:1047:2: rule__VerificationCategory__Group_1__0__Impl rule__VerificationCategory__Group_1__1
+            // ../org.osate.categories.ui/src-gen/org/osate/categories/ui/contentassist/antlr/internal/InternalCategoriesParser.g:1057:1: ( rule__VerificationCategory__Group_1__0__Impl rule__VerificationCategory__Group_1__1 )
+            // ../org.osate.categories.ui/src-gen/org/osate/categories/ui/contentassist/antlr/internal/InternalCategoriesParser.g:1058:2: rule__VerificationCategory__Group_1__0__Impl rule__VerificationCategory__Group_1__1
             {
-            pushFollow(FOLLOW_rule__VerificationCategory__Group_1__0__Impl_in_rule__VerificationCategory__Group_1__02044);
+            pushFollow(FOLLOW_rule__VerificationCategory__Group_1__0__Impl_in_rule__VerificationCategory__Group_1__02069);
             rule__VerificationCategory__Group_1__0__Impl();
 
             state._fsp--;
 
-            pushFollow(FOLLOW_rule__VerificationCategory__Group_1__1_in_rule__VerificationCategory__Group_1__02047);
+            pushFollow(FOLLOW_rule__VerificationCategory__Group_1__1_in_rule__VerificationCategory__Group_1__02072);
             rule__VerificationCategory__Group_1__1();
 
             state._fsp--;
@@ -2699,20 +2717,20 @@ public class InternalCategoriesParser extends AbstractInternalContentAssistParse
 
 
     // $ANTLR start "rule__VerificationCategory__Group_1__0__Impl"
-    // ../org.osate.categories.ui/src-gen/org/osate/categories/ui/contentassist/antlr/internal/InternalCategories.g:1054:1: rule__VerificationCategory__Group_1__0__Impl : ( '{' ) ;
+    // ../org.osate.categories.ui/src-gen/org/osate/categories/ui/contentassist/antlr/internal/InternalCategoriesParser.g:1065:1: rule__VerificationCategory__Group_1__0__Impl : ( LeftCurlyBracket ) ;
     public final void rule__VerificationCategory__Group_1__0__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.osate.categories.ui/src-gen/org/osate/categories/ui/contentassist/antlr/internal/InternalCategories.g:1058:1: ( ( '{' ) )
-            // ../org.osate.categories.ui/src-gen/org/osate/categories/ui/contentassist/antlr/internal/InternalCategories.g:1059:1: ( '{' )
+            // ../org.osate.categories.ui/src-gen/org/osate/categories/ui/contentassist/antlr/internal/InternalCategoriesParser.g:1069:1: ( ( LeftCurlyBracket ) )
+            // ../org.osate.categories.ui/src-gen/org/osate/categories/ui/contentassist/antlr/internal/InternalCategoriesParser.g:1070:1: ( LeftCurlyBracket )
             {
-            // ../org.osate.categories.ui/src-gen/org/osate/categories/ui/contentassist/antlr/internal/InternalCategories.g:1059:1: ( '{' )
-            // ../org.osate.categories.ui/src-gen/org/osate/categories/ui/contentassist/antlr/internal/InternalCategories.g:1060:1: '{'
+            // ../org.osate.categories.ui/src-gen/org/osate/categories/ui/contentassist/antlr/internal/InternalCategoriesParser.g:1070:1: ( LeftCurlyBracket )
+            // ../org.osate.categories.ui/src-gen/org/osate/categories/ui/contentassist/antlr/internal/InternalCategoriesParser.g:1071:1: LeftCurlyBracket
             {
              before(grammarAccess.getVerificationCategoryAccess().getLeftCurlyBracketKeyword_1_0()); 
-            match(input,17,FOLLOW_17_in_rule__VerificationCategory__Group_1__0__Impl2075); 
+            match(input,LeftCurlyBracket,FOLLOW_LeftCurlyBracket_in_rule__VerificationCategory__Group_1__0__Impl2100); 
              after(grammarAccess.getVerificationCategoryAccess().getLeftCurlyBracketKeyword_1_0()); 
 
             }
@@ -2736,21 +2754,21 @@ public class InternalCategoriesParser extends AbstractInternalContentAssistParse
 
 
     // $ANTLR start "rule__VerificationCategory__Group_1__1"
-    // ../org.osate.categories.ui/src-gen/org/osate/categories/ui/contentassist/antlr/internal/InternalCategories.g:1073:1: rule__VerificationCategory__Group_1__1 : rule__VerificationCategory__Group_1__1__Impl rule__VerificationCategory__Group_1__2 ;
+    // ../org.osate.categories.ui/src-gen/org/osate/categories/ui/contentassist/antlr/internal/InternalCategoriesParser.g:1084:1: rule__VerificationCategory__Group_1__1 : rule__VerificationCategory__Group_1__1__Impl rule__VerificationCategory__Group_1__2 ;
     public final void rule__VerificationCategory__Group_1__1() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.osate.categories.ui/src-gen/org/osate/categories/ui/contentassist/antlr/internal/InternalCategories.g:1077:1: ( rule__VerificationCategory__Group_1__1__Impl rule__VerificationCategory__Group_1__2 )
-            // ../org.osate.categories.ui/src-gen/org/osate/categories/ui/contentassist/antlr/internal/InternalCategories.g:1078:2: rule__VerificationCategory__Group_1__1__Impl rule__VerificationCategory__Group_1__2
+            // ../org.osate.categories.ui/src-gen/org/osate/categories/ui/contentassist/antlr/internal/InternalCategoriesParser.g:1088:1: ( rule__VerificationCategory__Group_1__1__Impl rule__VerificationCategory__Group_1__2 )
+            // ../org.osate.categories.ui/src-gen/org/osate/categories/ui/contentassist/antlr/internal/InternalCategoriesParser.g:1089:2: rule__VerificationCategory__Group_1__1__Impl rule__VerificationCategory__Group_1__2
             {
-            pushFollow(FOLLOW_rule__VerificationCategory__Group_1__1__Impl_in_rule__VerificationCategory__Group_1__12106);
+            pushFollow(FOLLOW_rule__VerificationCategory__Group_1__1__Impl_in_rule__VerificationCategory__Group_1__12131);
             rule__VerificationCategory__Group_1__1__Impl();
 
             state._fsp--;
 
-            pushFollow(FOLLOW_rule__VerificationCategory__Group_1__2_in_rule__VerificationCategory__Group_1__12109);
+            pushFollow(FOLLOW_rule__VerificationCategory__Group_1__2_in_rule__VerificationCategory__Group_1__12134);
             rule__VerificationCategory__Group_1__2();
 
             state._fsp--;
@@ -2774,20 +2792,20 @@ public class InternalCategoriesParser extends AbstractInternalContentAssistParse
 
 
     // $ANTLR start "rule__VerificationCategory__Group_1__1__Impl"
-    // ../org.osate.categories.ui/src-gen/org/osate/categories/ui/contentassist/antlr/internal/InternalCategories.g:1085:1: rule__VerificationCategory__Group_1__1__Impl : ( ( rule__VerificationCategory__SubCategoriesAssignment_1_1 )* ) ;
+    // ../org.osate.categories.ui/src-gen/org/osate/categories/ui/contentassist/antlr/internal/InternalCategoriesParser.g:1096:1: rule__VerificationCategory__Group_1__1__Impl : ( ( rule__VerificationCategory__SubCategoriesAssignment_1_1 )* ) ;
     public final void rule__VerificationCategory__Group_1__1__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.osate.categories.ui/src-gen/org/osate/categories/ui/contentassist/antlr/internal/InternalCategories.g:1089:1: ( ( ( rule__VerificationCategory__SubCategoriesAssignment_1_1 )* ) )
-            // ../org.osate.categories.ui/src-gen/org/osate/categories/ui/contentassist/antlr/internal/InternalCategories.g:1090:1: ( ( rule__VerificationCategory__SubCategoriesAssignment_1_1 )* )
+            // ../org.osate.categories.ui/src-gen/org/osate/categories/ui/contentassist/antlr/internal/InternalCategoriesParser.g:1100:1: ( ( ( rule__VerificationCategory__SubCategoriesAssignment_1_1 )* ) )
+            // ../org.osate.categories.ui/src-gen/org/osate/categories/ui/contentassist/antlr/internal/InternalCategoriesParser.g:1101:1: ( ( rule__VerificationCategory__SubCategoriesAssignment_1_1 )* )
             {
-            // ../org.osate.categories.ui/src-gen/org/osate/categories/ui/contentassist/antlr/internal/InternalCategories.g:1090:1: ( ( rule__VerificationCategory__SubCategoriesAssignment_1_1 )* )
-            // ../org.osate.categories.ui/src-gen/org/osate/categories/ui/contentassist/antlr/internal/InternalCategories.g:1091:1: ( rule__VerificationCategory__SubCategoriesAssignment_1_1 )*
+            // ../org.osate.categories.ui/src-gen/org/osate/categories/ui/contentassist/antlr/internal/InternalCategoriesParser.g:1101:1: ( ( rule__VerificationCategory__SubCategoriesAssignment_1_1 )* )
+            // ../org.osate.categories.ui/src-gen/org/osate/categories/ui/contentassist/antlr/internal/InternalCategoriesParser.g:1102:1: ( rule__VerificationCategory__SubCategoriesAssignment_1_1 )*
             {
              before(grammarAccess.getVerificationCategoryAccess().getSubCategoriesAssignment_1_1()); 
-            // ../org.osate.categories.ui/src-gen/org/osate/categories/ui/contentassist/antlr/internal/InternalCategories.g:1092:1: ( rule__VerificationCategory__SubCategoriesAssignment_1_1 )*
+            // ../org.osate.categories.ui/src-gen/org/osate/categories/ui/contentassist/antlr/internal/InternalCategoriesParser.g:1103:1: ( rule__VerificationCategory__SubCategoriesAssignment_1_1 )*
             loop8:
             do {
                 int alt8=2;
@@ -2800,9 +2818,9 @@ public class InternalCategoriesParser extends AbstractInternalContentAssistParse
 
                 switch (alt8) {
             	case 1 :
-            	    // ../org.osate.categories.ui/src-gen/org/osate/categories/ui/contentassist/antlr/internal/InternalCategories.g:1092:2: rule__VerificationCategory__SubCategoriesAssignment_1_1
+            	    // ../org.osate.categories.ui/src-gen/org/osate/categories/ui/contentassist/antlr/internal/InternalCategoriesParser.g:1103:2: rule__VerificationCategory__SubCategoriesAssignment_1_1
             	    {
-            	    pushFollow(FOLLOW_rule__VerificationCategory__SubCategoriesAssignment_1_1_in_rule__VerificationCategory__Group_1__1__Impl2136);
+            	    pushFollow(FOLLOW_rule__VerificationCategory__SubCategoriesAssignment_1_1_in_rule__VerificationCategory__Group_1__1__Impl2161);
             	    rule__VerificationCategory__SubCategoriesAssignment_1_1();
 
             	    state._fsp--;
@@ -2839,16 +2857,16 @@ public class InternalCategoriesParser extends AbstractInternalContentAssistParse
 
 
     // $ANTLR start "rule__VerificationCategory__Group_1__2"
-    // ../org.osate.categories.ui/src-gen/org/osate/categories/ui/contentassist/antlr/internal/InternalCategories.g:1102:1: rule__VerificationCategory__Group_1__2 : rule__VerificationCategory__Group_1__2__Impl ;
+    // ../org.osate.categories.ui/src-gen/org/osate/categories/ui/contentassist/antlr/internal/InternalCategoriesParser.g:1113:1: rule__VerificationCategory__Group_1__2 : rule__VerificationCategory__Group_1__2__Impl ;
     public final void rule__VerificationCategory__Group_1__2() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.osate.categories.ui/src-gen/org/osate/categories/ui/contentassist/antlr/internal/InternalCategories.g:1106:1: ( rule__VerificationCategory__Group_1__2__Impl )
-            // ../org.osate.categories.ui/src-gen/org/osate/categories/ui/contentassist/antlr/internal/InternalCategories.g:1107:2: rule__VerificationCategory__Group_1__2__Impl
+            // ../org.osate.categories.ui/src-gen/org/osate/categories/ui/contentassist/antlr/internal/InternalCategoriesParser.g:1117:1: ( rule__VerificationCategory__Group_1__2__Impl )
+            // ../org.osate.categories.ui/src-gen/org/osate/categories/ui/contentassist/antlr/internal/InternalCategoriesParser.g:1118:2: rule__VerificationCategory__Group_1__2__Impl
             {
-            pushFollow(FOLLOW_rule__VerificationCategory__Group_1__2__Impl_in_rule__VerificationCategory__Group_1__22167);
+            pushFollow(FOLLOW_rule__VerificationCategory__Group_1__2__Impl_in_rule__VerificationCategory__Group_1__22192);
             rule__VerificationCategory__Group_1__2__Impl();
 
             state._fsp--;
@@ -2872,20 +2890,20 @@ public class InternalCategoriesParser extends AbstractInternalContentAssistParse
 
 
     // $ANTLR start "rule__VerificationCategory__Group_1__2__Impl"
-    // ../org.osate.categories.ui/src-gen/org/osate/categories/ui/contentassist/antlr/internal/InternalCategories.g:1113:1: rule__VerificationCategory__Group_1__2__Impl : ( '}' ) ;
+    // ../org.osate.categories.ui/src-gen/org/osate/categories/ui/contentassist/antlr/internal/InternalCategoriesParser.g:1124:1: rule__VerificationCategory__Group_1__2__Impl : ( RightCurlyBracket ) ;
     public final void rule__VerificationCategory__Group_1__2__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.osate.categories.ui/src-gen/org/osate/categories/ui/contentassist/antlr/internal/InternalCategories.g:1117:1: ( ( '}' ) )
-            // ../org.osate.categories.ui/src-gen/org/osate/categories/ui/contentassist/antlr/internal/InternalCategories.g:1118:1: ( '}' )
+            // ../org.osate.categories.ui/src-gen/org/osate/categories/ui/contentassist/antlr/internal/InternalCategoriesParser.g:1128:1: ( ( RightCurlyBracket ) )
+            // ../org.osate.categories.ui/src-gen/org/osate/categories/ui/contentassist/antlr/internal/InternalCategoriesParser.g:1129:1: ( RightCurlyBracket )
             {
-            // ../org.osate.categories.ui/src-gen/org/osate/categories/ui/contentassist/antlr/internal/InternalCategories.g:1118:1: ( '}' )
-            // ../org.osate.categories.ui/src-gen/org/osate/categories/ui/contentassist/antlr/internal/InternalCategories.g:1119:1: '}'
+            // ../org.osate.categories.ui/src-gen/org/osate/categories/ui/contentassist/antlr/internal/InternalCategoriesParser.g:1129:1: ( RightCurlyBracket )
+            // ../org.osate.categories.ui/src-gen/org/osate/categories/ui/contentassist/antlr/internal/InternalCategoriesParser.g:1130:1: RightCurlyBracket
             {
              before(grammarAccess.getVerificationCategoryAccess().getRightCurlyBracketKeyword_1_2()); 
-            match(input,18,FOLLOW_18_in_rule__VerificationCategory__Group_1__2__Impl2195); 
+            match(input,RightCurlyBracket,FOLLOW_RightCurlyBracket_in_rule__VerificationCategory__Group_1__2__Impl2220); 
              after(grammarAccess.getVerificationCategoryAccess().getRightCurlyBracketKeyword_1_2()); 
 
             }
@@ -2909,21 +2927,21 @@ public class InternalCategoriesParser extends AbstractInternalContentAssistParse
 
 
     // $ANTLR start "rule__SelectionCategory__Group__0"
-    // ../org.osate.categories.ui/src-gen/org/osate/categories/ui/contentassist/antlr/internal/InternalCategories.g:1138:1: rule__SelectionCategory__Group__0 : rule__SelectionCategory__Group__0__Impl rule__SelectionCategory__Group__1 ;
+    // ../org.osate.categories.ui/src-gen/org/osate/categories/ui/contentassist/antlr/internal/InternalCategoriesParser.g:1149:1: rule__SelectionCategory__Group__0 : rule__SelectionCategory__Group__0__Impl rule__SelectionCategory__Group__1 ;
     public final void rule__SelectionCategory__Group__0() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.osate.categories.ui/src-gen/org/osate/categories/ui/contentassist/antlr/internal/InternalCategories.g:1142:1: ( rule__SelectionCategory__Group__0__Impl rule__SelectionCategory__Group__1 )
-            // ../org.osate.categories.ui/src-gen/org/osate/categories/ui/contentassist/antlr/internal/InternalCategories.g:1143:2: rule__SelectionCategory__Group__0__Impl rule__SelectionCategory__Group__1
+            // ../org.osate.categories.ui/src-gen/org/osate/categories/ui/contentassist/antlr/internal/InternalCategoriesParser.g:1153:1: ( rule__SelectionCategory__Group__0__Impl rule__SelectionCategory__Group__1 )
+            // ../org.osate.categories.ui/src-gen/org/osate/categories/ui/contentassist/antlr/internal/InternalCategoriesParser.g:1154:2: rule__SelectionCategory__Group__0__Impl rule__SelectionCategory__Group__1
             {
-            pushFollow(FOLLOW_rule__SelectionCategory__Group__0__Impl_in_rule__SelectionCategory__Group__02232);
+            pushFollow(FOLLOW_rule__SelectionCategory__Group__0__Impl_in_rule__SelectionCategory__Group__02257);
             rule__SelectionCategory__Group__0__Impl();
 
             state._fsp--;
 
-            pushFollow(FOLLOW_rule__SelectionCategory__Group__1_in_rule__SelectionCategory__Group__02235);
+            pushFollow(FOLLOW_rule__SelectionCategory__Group__1_in_rule__SelectionCategory__Group__02260);
             rule__SelectionCategory__Group__1();
 
             state._fsp--;
@@ -2947,23 +2965,23 @@ public class InternalCategoriesParser extends AbstractInternalContentAssistParse
 
 
     // $ANTLR start "rule__SelectionCategory__Group__0__Impl"
-    // ../org.osate.categories.ui/src-gen/org/osate/categories/ui/contentassist/antlr/internal/InternalCategories.g:1150:1: rule__SelectionCategory__Group__0__Impl : ( ( rule__SelectionCategory__NameAssignment_0 ) ) ;
+    // ../org.osate.categories.ui/src-gen/org/osate/categories/ui/contentassist/antlr/internal/InternalCategoriesParser.g:1161:1: rule__SelectionCategory__Group__0__Impl : ( ( rule__SelectionCategory__NameAssignment_0 ) ) ;
     public final void rule__SelectionCategory__Group__0__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.osate.categories.ui/src-gen/org/osate/categories/ui/contentassist/antlr/internal/InternalCategories.g:1154:1: ( ( ( rule__SelectionCategory__NameAssignment_0 ) ) )
-            // ../org.osate.categories.ui/src-gen/org/osate/categories/ui/contentassist/antlr/internal/InternalCategories.g:1155:1: ( ( rule__SelectionCategory__NameAssignment_0 ) )
+            // ../org.osate.categories.ui/src-gen/org/osate/categories/ui/contentassist/antlr/internal/InternalCategoriesParser.g:1165:1: ( ( ( rule__SelectionCategory__NameAssignment_0 ) ) )
+            // ../org.osate.categories.ui/src-gen/org/osate/categories/ui/contentassist/antlr/internal/InternalCategoriesParser.g:1166:1: ( ( rule__SelectionCategory__NameAssignment_0 ) )
             {
-            // ../org.osate.categories.ui/src-gen/org/osate/categories/ui/contentassist/antlr/internal/InternalCategories.g:1155:1: ( ( rule__SelectionCategory__NameAssignment_0 ) )
-            // ../org.osate.categories.ui/src-gen/org/osate/categories/ui/contentassist/antlr/internal/InternalCategories.g:1156:1: ( rule__SelectionCategory__NameAssignment_0 )
+            // ../org.osate.categories.ui/src-gen/org/osate/categories/ui/contentassist/antlr/internal/InternalCategoriesParser.g:1166:1: ( ( rule__SelectionCategory__NameAssignment_0 ) )
+            // ../org.osate.categories.ui/src-gen/org/osate/categories/ui/contentassist/antlr/internal/InternalCategoriesParser.g:1167:1: ( rule__SelectionCategory__NameAssignment_0 )
             {
              before(grammarAccess.getSelectionCategoryAccess().getNameAssignment_0()); 
-            // ../org.osate.categories.ui/src-gen/org/osate/categories/ui/contentassist/antlr/internal/InternalCategories.g:1157:1: ( rule__SelectionCategory__NameAssignment_0 )
-            // ../org.osate.categories.ui/src-gen/org/osate/categories/ui/contentassist/antlr/internal/InternalCategories.g:1157:2: rule__SelectionCategory__NameAssignment_0
+            // ../org.osate.categories.ui/src-gen/org/osate/categories/ui/contentassist/antlr/internal/InternalCategoriesParser.g:1168:1: ( rule__SelectionCategory__NameAssignment_0 )
+            // ../org.osate.categories.ui/src-gen/org/osate/categories/ui/contentassist/antlr/internal/InternalCategoriesParser.g:1168:2: rule__SelectionCategory__NameAssignment_0
             {
-            pushFollow(FOLLOW_rule__SelectionCategory__NameAssignment_0_in_rule__SelectionCategory__Group__0__Impl2262);
+            pushFollow(FOLLOW_rule__SelectionCategory__NameAssignment_0_in_rule__SelectionCategory__Group__0__Impl2287);
             rule__SelectionCategory__NameAssignment_0();
 
             state._fsp--;
@@ -2994,16 +3012,16 @@ public class InternalCategoriesParser extends AbstractInternalContentAssistParse
 
 
     // $ANTLR start "rule__SelectionCategory__Group__1"
-    // ../org.osate.categories.ui/src-gen/org/osate/categories/ui/contentassist/antlr/internal/InternalCategories.g:1167:1: rule__SelectionCategory__Group__1 : rule__SelectionCategory__Group__1__Impl ;
+    // ../org.osate.categories.ui/src-gen/org/osate/categories/ui/contentassist/antlr/internal/InternalCategoriesParser.g:1178:1: rule__SelectionCategory__Group__1 : rule__SelectionCategory__Group__1__Impl ;
     public final void rule__SelectionCategory__Group__1() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.osate.categories.ui/src-gen/org/osate/categories/ui/contentassist/antlr/internal/InternalCategories.g:1171:1: ( rule__SelectionCategory__Group__1__Impl )
-            // ../org.osate.categories.ui/src-gen/org/osate/categories/ui/contentassist/antlr/internal/InternalCategories.g:1172:2: rule__SelectionCategory__Group__1__Impl
+            // ../org.osate.categories.ui/src-gen/org/osate/categories/ui/contentassist/antlr/internal/InternalCategoriesParser.g:1182:1: ( rule__SelectionCategory__Group__1__Impl )
+            // ../org.osate.categories.ui/src-gen/org/osate/categories/ui/contentassist/antlr/internal/InternalCategoriesParser.g:1183:2: rule__SelectionCategory__Group__1__Impl
             {
-            pushFollow(FOLLOW_rule__SelectionCategory__Group__1__Impl_in_rule__SelectionCategory__Group__12292);
+            pushFollow(FOLLOW_rule__SelectionCategory__Group__1__Impl_in_rule__SelectionCategory__Group__12317);
             rule__SelectionCategory__Group__1__Impl();
 
             state._fsp--;
@@ -3027,31 +3045,31 @@ public class InternalCategoriesParser extends AbstractInternalContentAssistParse
 
 
     // $ANTLR start "rule__SelectionCategory__Group__1__Impl"
-    // ../org.osate.categories.ui/src-gen/org/osate/categories/ui/contentassist/antlr/internal/InternalCategories.g:1178:1: rule__SelectionCategory__Group__1__Impl : ( ( rule__SelectionCategory__Group_1__0 )? ) ;
+    // ../org.osate.categories.ui/src-gen/org/osate/categories/ui/contentassist/antlr/internal/InternalCategoriesParser.g:1189:1: rule__SelectionCategory__Group__1__Impl : ( ( rule__SelectionCategory__Group_1__0 )? ) ;
     public final void rule__SelectionCategory__Group__1__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.osate.categories.ui/src-gen/org/osate/categories/ui/contentassist/antlr/internal/InternalCategories.g:1182:1: ( ( ( rule__SelectionCategory__Group_1__0 )? ) )
-            // ../org.osate.categories.ui/src-gen/org/osate/categories/ui/contentassist/antlr/internal/InternalCategories.g:1183:1: ( ( rule__SelectionCategory__Group_1__0 )? )
+            // ../org.osate.categories.ui/src-gen/org/osate/categories/ui/contentassist/antlr/internal/InternalCategoriesParser.g:1193:1: ( ( ( rule__SelectionCategory__Group_1__0 )? ) )
+            // ../org.osate.categories.ui/src-gen/org/osate/categories/ui/contentassist/antlr/internal/InternalCategoriesParser.g:1194:1: ( ( rule__SelectionCategory__Group_1__0 )? )
             {
-            // ../org.osate.categories.ui/src-gen/org/osate/categories/ui/contentassist/antlr/internal/InternalCategories.g:1183:1: ( ( rule__SelectionCategory__Group_1__0 )? )
-            // ../org.osate.categories.ui/src-gen/org/osate/categories/ui/contentassist/antlr/internal/InternalCategories.g:1184:1: ( rule__SelectionCategory__Group_1__0 )?
+            // ../org.osate.categories.ui/src-gen/org/osate/categories/ui/contentassist/antlr/internal/InternalCategoriesParser.g:1194:1: ( ( rule__SelectionCategory__Group_1__0 )? )
+            // ../org.osate.categories.ui/src-gen/org/osate/categories/ui/contentassist/antlr/internal/InternalCategoriesParser.g:1195:1: ( rule__SelectionCategory__Group_1__0 )?
             {
              before(grammarAccess.getSelectionCategoryAccess().getGroup_1()); 
-            // ../org.osate.categories.ui/src-gen/org/osate/categories/ui/contentassist/antlr/internal/InternalCategories.g:1185:1: ( rule__SelectionCategory__Group_1__0 )?
+            // ../org.osate.categories.ui/src-gen/org/osate/categories/ui/contentassist/antlr/internal/InternalCategoriesParser.g:1196:1: ( rule__SelectionCategory__Group_1__0 )?
             int alt9=2;
             int LA9_0 = input.LA(1);
 
-            if ( (LA9_0==17) ) {
+            if ( (LA9_0==LeftCurlyBracket) ) {
                 alt9=1;
             }
             switch (alt9) {
                 case 1 :
-                    // ../org.osate.categories.ui/src-gen/org/osate/categories/ui/contentassist/antlr/internal/InternalCategories.g:1185:2: rule__SelectionCategory__Group_1__0
+                    // ../org.osate.categories.ui/src-gen/org/osate/categories/ui/contentassist/antlr/internal/InternalCategoriesParser.g:1196:2: rule__SelectionCategory__Group_1__0
                     {
-                    pushFollow(FOLLOW_rule__SelectionCategory__Group_1__0_in_rule__SelectionCategory__Group__1__Impl2319);
+                    pushFollow(FOLLOW_rule__SelectionCategory__Group_1__0_in_rule__SelectionCategory__Group__1__Impl2344);
                     rule__SelectionCategory__Group_1__0();
 
                     state._fsp--;
@@ -3085,21 +3103,21 @@ public class InternalCategoriesParser extends AbstractInternalContentAssistParse
 
 
     // $ANTLR start "rule__SelectionCategory__Group_1__0"
-    // ../org.osate.categories.ui/src-gen/org/osate/categories/ui/contentassist/antlr/internal/InternalCategories.g:1199:1: rule__SelectionCategory__Group_1__0 : rule__SelectionCategory__Group_1__0__Impl rule__SelectionCategory__Group_1__1 ;
+    // ../org.osate.categories.ui/src-gen/org/osate/categories/ui/contentassist/antlr/internal/InternalCategoriesParser.g:1210:1: rule__SelectionCategory__Group_1__0 : rule__SelectionCategory__Group_1__0__Impl rule__SelectionCategory__Group_1__1 ;
     public final void rule__SelectionCategory__Group_1__0() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.osate.categories.ui/src-gen/org/osate/categories/ui/contentassist/antlr/internal/InternalCategories.g:1203:1: ( rule__SelectionCategory__Group_1__0__Impl rule__SelectionCategory__Group_1__1 )
-            // ../org.osate.categories.ui/src-gen/org/osate/categories/ui/contentassist/antlr/internal/InternalCategories.g:1204:2: rule__SelectionCategory__Group_1__0__Impl rule__SelectionCategory__Group_1__1
+            // ../org.osate.categories.ui/src-gen/org/osate/categories/ui/contentassist/antlr/internal/InternalCategoriesParser.g:1214:1: ( rule__SelectionCategory__Group_1__0__Impl rule__SelectionCategory__Group_1__1 )
+            // ../org.osate.categories.ui/src-gen/org/osate/categories/ui/contentassist/antlr/internal/InternalCategoriesParser.g:1215:2: rule__SelectionCategory__Group_1__0__Impl rule__SelectionCategory__Group_1__1
             {
-            pushFollow(FOLLOW_rule__SelectionCategory__Group_1__0__Impl_in_rule__SelectionCategory__Group_1__02354);
+            pushFollow(FOLLOW_rule__SelectionCategory__Group_1__0__Impl_in_rule__SelectionCategory__Group_1__02379);
             rule__SelectionCategory__Group_1__0__Impl();
 
             state._fsp--;
 
-            pushFollow(FOLLOW_rule__SelectionCategory__Group_1__1_in_rule__SelectionCategory__Group_1__02357);
+            pushFollow(FOLLOW_rule__SelectionCategory__Group_1__1_in_rule__SelectionCategory__Group_1__02382);
             rule__SelectionCategory__Group_1__1();
 
             state._fsp--;
@@ -3123,20 +3141,20 @@ public class InternalCategoriesParser extends AbstractInternalContentAssistParse
 
 
     // $ANTLR start "rule__SelectionCategory__Group_1__0__Impl"
-    // ../org.osate.categories.ui/src-gen/org/osate/categories/ui/contentassist/antlr/internal/InternalCategories.g:1211:1: rule__SelectionCategory__Group_1__0__Impl : ( '{' ) ;
+    // ../org.osate.categories.ui/src-gen/org/osate/categories/ui/contentassist/antlr/internal/InternalCategoriesParser.g:1222:1: rule__SelectionCategory__Group_1__0__Impl : ( LeftCurlyBracket ) ;
     public final void rule__SelectionCategory__Group_1__0__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.osate.categories.ui/src-gen/org/osate/categories/ui/contentassist/antlr/internal/InternalCategories.g:1215:1: ( ( '{' ) )
-            // ../org.osate.categories.ui/src-gen/org/osate/categories/ui/contentassist/antlr/internal/InternalCategories.g:1216:1: ( '{' )
+            // ../org.osate.categories.ui/src-gen/org/osate/categories/ui/contentassist/antlr/internal/InternalCategoriesParser.g:1226:1: ( ( LeftCurlyBracket ) )
+            // ../org.osate.categories.ui/src-gen/org/osate/categories/ui/contentassist/antlr/internal/InternalCategoriesParser.g:1227:1: ( LeftCurlyBracket )
             {
-            // ../org.osate.categories.ui/src-gen/org/osate/categories/ui/contentassist/antlr/internal/InternalCategories.g:1216:1: ( '{' )
-            // ../org.osate.categories.ui/src-gen/org/osate/categories/ui/contentassist/antlr/internal/InternalCategories.g:1217:1: '{'
+            // ../org.osate.categories.ui/src-gen/org/osate/categories/ui/contentassist/antlr/internal/InternalCategoriesParser.g:1227:1: ( LeftCurlyBracket )
+            // ../org.osate.categories.ui/src-gen/org/osate/categories/ui/contentassist/antlr/internal/InternalCategoriesParser.g:1228:1: LeftCurlyBracket
             {
              before(grammarAccess.getSelectionCategoryAccess().getLeftCurlyBracketKeyword_1_0()); 
-            match(input,17,FOLLOW_17_in_rule__SelectionCategory__Group_1__0__Impl2385); 
+            match(input,LeftCurlyBracket,FOLLOW_LeftCurlyBracket_in_rule__SelectionCategory__Group_1__0__Impl2410); 
              after(grammarAccess.getSelectionCategoryAccess().getLeftCurlyBracketKeyword_1_0()); 
 
             }
@@ -3160,21 +3178,21 @@ public class InternalCategoriesParser extends AbstractInternalContentAssistParse
 
 
     // $ANTLR start "rule__SelectionCategory__Group_1__1"
-    // ../org.osate.categories.ui/src-gen/org/osate/categories/ui/contentassist/antlr/internal/InternalCategories.g:1230:1: rule__SelectionCategory__Group_1__1 : rule__SelectionCategory__Group_1__1__Impl rule__SelectionCategory__Group_1__2 ;
+    // ../org.osate.categories.ui/src-gen/org/osate/categories/ui/contentassist/antlr/internal/InternalCategoriesParser.g:1241:1: rule__SelectionCategory__Group_1__1 : rule__SelectionCategory__Group_1__1__Impl rule__SelectionCategory__Group_1__2 ;
     public final void rule__SelectionCategory__Group_1__1() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.osate.categories.ui/src-gen/org/osate/categories/ui/contentassist/antlr/internal/InternalCategories.g:1234:1: ( rule__SelectionCategory__Group_1__1__Impl rule__SelectionCategory__Group_1__2 )
-            // ../org.osate.categories.ui/src-gen/org/osate/categories/ui/contentassist/antlr/internal/InternalCategories.g:1235:2: rule__SelectionCategory__Group_1__1__Impl rule__SelectionCategory__Group_1__2
+            // ../org.osate.categories.ui/src-gen/org/osate/categories/ui/contentassist/antlr/internal/InternalCategoriesParser.g:1245:1: ( rule__SelectionCategory__Group_1__1__Impl rule__SelectionCategory__Group_1__2 )
+            // ../org.osate.categories.ui/src-gen/org/osate/categories/ui/contentassist/antlr/internal/InternalCategoriesParser.g:1246:2: rule__SelectionCategory__Group_1__1__Impl rule__SelectionCategory__Group_1__2
             {
-            pushFollow(FOLLOW_rule__SelectionCategory__Group_1__1__Impl_in_rule__SelectionCategory__Group_1__12416);
+            pushFollow(FOLLOW_rule__SelectionCategory__Group_1__1__Impl_in_rule__SelectionCategory__Group_1__12441);
             rule__SelectionCategory__Group_1__1__Impl();
 
             state._fsp--;
 
-            pushFollow(FOLLOW_rule__SelectionCategory__Group_1__2_in_rule__SelectionCategory__Group_1__12419);
+            pushFollow(FOLLOW_rule__SelectionCategory__Group_1__2_in_rule__SelectionCategory__Group_1__12444);
             rule__SelectionCategory__Group_1__2();
 
             state._fsp--;
@@ -3198,20 +3216,20 @@ public class InternalCategoriesParser extends AbstractInternalContentAssistParse
 
 
     // $ANTLR start "rule__SelectionCategory__Group_1__1__Impl"
-    // ../org.osate.categories.ui/src-gen/org/osate/categories/ui/contentassist/antlr/internal/InternalCategories.g:1242:1: rule__SelectionCategory__Group_1__1__Impl : ( ( rule__SelectionCategory__SubCategoriesAssignment_1_1 )* ) ;
+    // ../org.osate.categories.ui/src-gen/org/osate/categories/ui/contentassist/antlr/internal/InternalCategoriesParser.g:1253:1: rule__SelectionCategory__Group_1__1__Impl : ( ( rule__SelectionCategory__SubCategoriesAssignment_1_1 )* ) ;
     public final void rule__SelectionCategory__Group_1__1__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.osate.categories.ui/src-gen/org/osate/categories/ui/contentassist/antlr/internal/InternalCategories.g:1246:1: ( ( ( rule__SelectionCategory__SubCategoriesAssignment_1_1 )* ) )
-            // ../org.osate.categories.ui/src-gen/org/osate/categories/ui/contentassist/antlr/internal/InternalCategories.g:1247:1: ( ( rule__SelectionCategory__SubCategoriesAssignment_1_1 )* )
+            // ../org.osate.categories.ui/src-gen/org/osate/categories/ui/contentassist/antlr/internal/InternalCategoriesParser.g:1257:1: ( ( ( rule__SelectionCategory__SubCategoriesAssignment_1_1 )* ) )
+            // ../org.osate.categories.ui/src-gen/org/osate/categories/ui/contentassist/antlr/internal/InternalCategoriesParser.g:1258:1: ( ( rule__SelectionCategory__SubCategoriesAssignment_1_1 )* )
             {
-            // ../org.osate.categories.ui/src-gen/org/osate/categories/ui/contentassist/antlr/internal/InternalCategories.g:1247:1: ( ( rule__SelectionCategory__SubCategoriesAssignment_1_1 )* )
-            // ../org.osate.categories.ui/src-gen/org/osate/categories/ui/contentassist/antlr/internal/InternalCategories.g:1248:1: ( rule__SelectionCategory__SubCategoriesAssignment_1_1 )*
+            // ../org.osate.categories.ui/src-gen/org/osate/categories/ui/contentassist/antlr/internal/InternalCategoriesParser.g:1258:1: ( ( rule__SelectionCategory__SubCategoriesAssignment_1_1 )* )
+            // ../org.osate.categories.ui/src-gen/org/osate/categories/ui/contentassist/antlr/internal/InternalCategoriesParser.g:1259:1: ( rule__SelectionCategory__SubCategoriesAssignment_1_1 )*
             {
              before(grammarAccess.getSelectionCategoryAccess().getSubCategoriesAssignment_1_1()); 
-            // ../org.osate.categories.ui/src-gen/org/osate/categories/ui/contentassist/antlr/internal/InternalCategories.g:1249:1: ( rule__SelectionCategory__SubCategoriesAssignment_1_1 )*
+            // ../org.osate.categories.ui/src-gen/org/osate/categories/ui/contentassist/antlr/internal/InternalCategoriesParser.g:1260:1: ( rule__SelectionCategory__SubCategoriesAssignment_1_1 )*
             loop10:
             do {
                 int alt10=2;
@@ -3224,9 +3242,9 @@ public class InternalCategoriesParser extends AbstractInternalContentAssistParse
 
                 switch (alt10) {
             	case 1 :
-            	    // ../org.osate.categories.ui/src-gen/org/osate/categories/ui/contentassist/antlr/internal/InternalCategories.g:1249:2: rule__SelectionCategory__SubCategoriesAssignment_1_1
+            	    // ../org.osate.categories.ui/src-gen/org/osate/categories/ui/contentassist/antlr/internal/InternalCategoriesParser.g:1260:2: rule__SelectionCategory__SubCategoriesAssignment_1_1
             	    {
-            	    pushFollow(FOLLOW_rule__SelectionCategory__SubCategoriesAssignment_1_1_in_rule__SelectionCategory__Group_1__1__Impl2446);
+            	    pushFollow(FOLLOW_rule__SelectionCategory__SubCategoriesAssignment_1_1_in_rule__SelectionCategory__Group_1__1__Impl2471);
             	    rule__SelectionCategory__SubCategoriesAssignment_1_1();
 
             	    state._fsp--;
@@ -3263,16 +3281,16 @@ public class InternalCategoriesParser extends AbstractInternalContentAssistParse
 
 
     // $ANTLR start "rule__SelectionCategory__Group_1__2"
-    // ../org.osate.categories.ui/src-gen/org/osate/categories/ui/contentassist/antlr/internal/InternalCategories.g:1259:1: rule__SelectionCategory__Group_1__2 : rule__SelectionCategory__Group_1__2__Impl ;
+    // ../org.osate.categories.ui/src-gen/org/osate/categories/ui/contentassist/antlr/internal/InternalCategoriesParser.g:1270:1: rule__SelectionCategory__Group_1__2 : rule__SelectionCategory__Group_1__2__Impl ;
     public final void rule__SelectionCategory__Group_1__2() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.osate.categories.ui/src-gen/org/osate/categories/ui/contentassist/antlr/internal/InternalCategories.g:1263:1: ( rule__SelectionCategory__Group_1__2__Impl )
-            // ../org.osate.categories.ui/src-gen/org/osate/categories/ui/contentassist/antlr/internal/InternalCategories.g:1264:2: rule__SelectionCategory__Group_1__2__Impl
+            // ../org.osate.categories.ui/src-gen/org/osate/categories/ui/contentassist/antlr/internal/InternalCategoriesParser.g:1274:1: ( rule__SelectionCategory__Group_1__2__Impl )
+            // ../org.osate.categories.ui/src-gen/org/osate/categories/ui/contentassist/antlr/internal/InternalCategoriesParser.g:1275:2: rule__SelectionCategory__Group_1__2__Impl
             {
-            pushFollow(FOLLOW_rule__SelectionCategory__Group_1__2__Impl_in_rule__SelectionCategory__Group_1__22477);
+            pushFollow(FOLLOW_rule__SelectionCategory__Group_1__2__Impl_in_rule__SelectionCategory__Group_1__22502);
             rule__SelectionCategory__Group_1__2__Impl();
 
             state._fsp--;
@@ -3296,20 +3314,20 @@ public class InternalCategoriesParser extends AbstractInternalContentAssistParse
 
 
     // $ANTLR start "rule__SelectionCategory__Group_1__2__Impl"
-    // ../org.osate.categories.ui/src-gen/org/osate/categories/ui/contentassist/antlr/internal/InternalCategories.g:1270:1: rule__SelectionCategory__Group_1__2__Impl : ( '}' ) ;
+    // ../org.osate.categories.ui/src-gen/org/osate/categories/ui/contentassist/antlr/internal/InternalCategoriesParser.g:1281:1: rule__SelectionCategory__Group_1__2__Impl : ( RightCurlyBracket ) ;
     public final void rule__SelectionCategory__Group_1__2__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.osate.categories.ui/src-gen/org/osate/categories/ui/contentassist/antlr/internal/InternalCategories.g:1274:1: ( ( '}' ) )
-            // ../org.osate.categories.ui/src-gen/org/osate/categories/ui/contentassist/antlr/internal/InternalCategories.g:1275:1: ( '}' )
+            // ../org.osate.categories.ui/src-gen/org/osate/categories/ui/contentassist/antlr/internal/InternalCategoriesParser.g:1285:1: ( ( RightCurlyBracket ) )
+            // ../org.osate.categories.ui/src-gen/org/osate/categories/ui/contentassist/antlr/internal/InternalCategoriesParser.g:1286:1: ( RightCurlyBracket )
             {
-            // ../org.osate.categories.ui/src-gen/org/osate/categories/ui/contentassist/antlr/internal/InternalCategories.g:1275:1: ( '}' )
-            // ../org.osate.categories.ui/src-gen/org/osate/categories/ui/contentassist/antlr/internal/InternalCategories.g:1276:1: '}'
+            // ../org.osate.categories.ui/src-gen/org/osate/categories/ui/contentassist/antlr/internal/InternalCategoriesParser.g:1286:1: ( RightCurlyBracket )
+            // ../org.osate.categories.ui/src-gen/org/osate/categories/ui/contentassist/antlr/internal/InternalCategoriesParser.g:1287:1: RightCurlyBracket
             {
              before(grammarAccess.getSelectionCategoryAccess().getRightCurlyBracketKeyword_1_2()); 
-            match(input,18,FOLLOW_18_in_rule__SelectionCategory__Group_1__2__Impl2505); 
+            match(input,RightCurlyBracket,FOLLOW_RightCurlyBracket_in_rule__SelectionCategory__Group_1__2__Impl2530); 
              after(grammarAccess.getSelectionCategoryAccess().getRightCurlyBracketKeyword_1_2()); 
 
             }
@@ -3333,20 +3351,20 @@ public class InternalCategoriesParser extends AbstractInternalContentAssistParse
 
 
     // $ANTLR start "rule__RequirementCategories__CategoryAssignment_3"
-    // ../org.osate.categories.ui/src-gen/org/osate/categories/ui/contentassist/antlr/internal/InternalCategories.g:1296:1: rule__RequirementCategories__CategoryAssignment_3 : ( ruleRequirementCategory ) ;
+    // ../org.osate.categories.ui/src-gen/org/osate/categories/ui/contentassist/antlr/internal/InternalCategoriesParser.g:1307:1: rule__RequirementCategories__CategoryAssignment_3 : ( ruleRequirementCategory ) ;
     public final void rule__RequirementCategories__CategoryAssignment_3() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.osate.categories.ui/src-gen/org/osate/categories/ui/contentassist/antlr/internal/InternalCategories.g:1300:1: ( ( ruleRequirementCategory ) )
-            // ../org.osate.categories.ui/src-gen/org/osate/categories/ui/contentassist/antlr/internal/InternalCategories.g:1301:1: ( ruleRequirementCategory )
+            // ../org.osate.categories.ui/src-gen/org/osate/categories/ui/contentassist/antlr/internal/InternalCategoriesParser.g:1311:1: ( ( ruleRequirementCategory ) )
+            // ../org.osate.categories.ui/src-gen/org/osate/categories/ui/contentassist/antlr/internal/InternalCategoriesParser.g:1312:1: ( ruleRequirementCategory )
             {
-            // ../org.osate.categories.ui/src-gen/org/osate/categories/ui/contentassist/antlr/internal/InternalCategories.g:1301:1: ( ruleRequirementCategory )
-            // ../org.osate.categories.ui/src-gen/org/osate/categories/ui/contentassist/antlr/internal/InternalCategories.g:1302:1: ruleRequirementCategory
+            // ../org.osate.categories.ui/src-gen/org/osate/categories/ui/contentassist/antlr/internal/InternalCategoriesParser.g:1312:1: ( ruleRequirementCategory )
+            // ../org.osate.categories.ui/src-gen/org/osate/categories/ui/contentassist/antlr/internal/InternalCategoriesParser.g:1313:1: ruleRequirementCategory
             {
              before(grammarAccess.getRequirementCategoriesAccess().getCategoryRequirementCategoryParserRuleCall_3_0()); 
-            pushFollow(FOLLOW_ruleRequirementCategory_in_rule__RequirementCategories__CategoryAssignment_32547);
+            pushFollow(FOLLOW_ruleRequirementCategory_in_rule__RequirementCategories__CategoryAssignment_32572);
             ruleRequirementCategory();
 
             state._fsp--;
@@ -3374,20 +3392,20 @@ public class InternalCategoriesParser extends AbstractInternalContentAssistParse
 
 
     // $ANTLR start "rule__VerificationCategories__CategoryAssignment_3"
-    // ../org.osate.categories.ui/src-gen/org/osate/categories/ui/contentassist/antlr/internal/InternalCategories.g:1311:1: rule__VerificationCategories__CategoryAssignment_3 : ( ruleVerificationCategory ) ;
+    // ../org.osate.categories.ui/src-gen/org/osate/categories/ui/contentassist/antlr/internal/InternalCategoriesParser.g:1322:1: rule__VerificationCategories__CategoryAssignment_3 : ( ruleVerificationCategory ) ;
     public final void rule__VerificationCategories__CategoryAssignment_3() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.osate.categories.ui/src-gen/org/osate/categories/ui/contentassist/antlr/internal/InternalCategories.g:1315:1: ( ( ruleVerificationCategory ) )
-            // ../org.osate.categories.ui/src-gen/org/osate/categories/ui/contentassist/antlr/internal/InternalCategories.g:1316:1: ( ruleVerificationCategory )
+            // ../org.osate.categories.ui/src-gen/org/osate/categories/ui/contentassist/antlr/internal/InternalCategoriesParser.g:1326:1: ( ( ruleVerificationCategory ) )
+            // ../org.osate.categories.ui/src-gen/org/osate/categories/ui/contentassist/antlr/internal/InternalCategoriesParser.g:1327:1: ( ruleVerificationCategory )
             {
-            // ../org.osate.categories.ui/src-gen/org/osate/categories/ui/contentassist/antlr/internal/InternalCategories.g:1316:1: ( ruleVerificationCategory )
-            // ../org.osate.categories.ui/src-gen/org/osate/categories/ui/contentassist/antlr/internal/InternalCategories.g:1317:1: ruleVerificationCategory
+            // ../org.osate.categories.ui/src-gen/org/osate/categories/ui/contentassist/antlr/internal/InternalCategoriesParser.g:1327:1: ( ruleVerificationCategory )
+            // ../org.osate.categories.ui/src-gen/org/osate/categories/ui/contentassist/antlr/internal/InternalCategoriesParser.g:1328:1: ruleVerificationCategory
             {
              before(grammarAccess.getVerificationCategoriesAccess().getCategoryVerificationCategoryParserRuleCall_3_0()); 
-            pushFollow(FOLLOW_ruleVerificationCategory_in_rule__VerificationCategories__CategoryAssignment_32578);
+            pushFollow(FOLLOW_ruleVerificationCategory_in_rule__VerificationCategories__CategoryAssignment_32603);
             ruleVerificationCategory();
 
             state._fsp--;
@@ -3415,20 +3433,20 @@ public class InternalCategoriesParser extends AbstractInternalContentAssistParse
 
 
     // $ANTLR start "rule__SelectionCategories__CategoryAssignment_3"
-    // ../org.osate.categories.ui/src-gen/org/osate/categories/ui/contentassist/antlr/internal/InternalCategories.g:1326:1: rule__SelectionCategories__CategoryAssignment_3 : ( ruleSelectionCategory ) ;
+    // ../org.osate.categories.ui/src-gen/org/osate/categories/ui/contentassist/antlr/internal/InternalCategoriesParser.g:1337:1: rule__SelectionCategories__CategoryAssignment_3 : ( ruleSelectionCategory ) ;
     public final void rule__SelectionCategories__CategoryAssignment_3() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.osate.categories.ui/src-gen/org/osate/categories/ui/contentassist/antlr/internal/InternalCategories.g:1330:1: ( ( ruleSelectionCategory ) )
-            // ../org.osate.categories.ui/src-gen/org/osate/categories/ui/contentassist/antlr/internal/InternalCategories.g:1331:1: ( ruleSelectionCategory )
+            // ../org.osate.categories.ui/src-gen/org/osate/categories/ui/contentassist/antlr/internal/InternalCategoriesParser.g:1341:1: ( ( ruleSelectionCategory ) )
+            // ../org.osate.categories.ui/src-gen/org/osate/categories/ui/contentassist/antlr/internal/InternalCategoriesParser.g:1342:1: ( ruleSelectionCategory )
             {
-            // ../org.osate.categories.ui/src-gen/org/osate/categories/ui/contentassist/antlr/internal/InternalCategories.g:1331:1: ( ruleSelectionCategory )
-            // ../org.osate.categories.ui/src-gen/org/osate/categories/ui/contentassist/antlr/internal/InternalCategories.g:1332:1: ruleSelectionCategory
+            // ../org.osate.categories.ui/src-gen/org/osate/categories/ui/contentassist/antlr/internal/InternalCategoriesParser.g:1342:1: ( ruleSelectionCategory )
+            // ../org.osate.categories.ui/src-gen/org/osate/categories/ui/contentassist/antlr/internal/InternalCategoriesParser.g:1343:1: ruleSelectionCategory
             {
              before(grammarAccess.getSelectionCategoriesAccess().getCategorySelectionCategoryParserRuleCall_3_0()); 
-            pushFollow(FOLLOW_ruleSelectionCategory_in_rule__SelectionCategories__CategoryAssignment_32609);
+            pushFollow(FOLLOW_ruleSelectionCategory_in_rule__SelectionCategories__CategoryAssignment_32634);
             ruleSelectionCategory();
 
             state._fsp--;
@@ -3456,20 +3474,20 @@ public class InternalCategoriesParser extends AbstractInternalContentAssistParse
 
 
     // $ANTLR start "rule__RequirementCategory__NameAssignment_0"
-    // ../org.osate.categories.ui/src-gen/org/osate/categories/ui/contentassist/antlr/internal/InternalCategories.g:1341:1: rule__RequirementCategory__NameAssignment_0 : ( RULE_ID ) ;
+    // ../org.osate.categories.ui/src-gen/org/osate/categories/ui/contentassist/antlr/internal/InternalCategoriesParser.g:1352:1: rule__RequirementCategory__NameAssignment_0 : ( RULE_ID ) ;
     public final void rule__RequirementCategory__NameAssignment_0() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.osate.categories.ui/src-gen/org/osate/categories/ui/contentassist/antlr/internal/InternalCategories.g:1345:1: ( ( RULE_ID ) )
-            // ../org.osate.categories.ui/src-gen/org/osate/categories/ui/contentassist/antlr/internal/InternalCategories.g:1346:1: ( RULE_ID )
+            // ../org.osate.categories.ui/src-gen/org/osate/categories/ui/contentassist/antlr/internal/InternalCategoriesParser.g:1356:1: ( ( RULE_ID ) )
+            // ../org.osate.categories.ui/src-gen/org/osate/categories/ui/contentassist/antlr/internal/InternalCategoriesParser.g:1357:1: ( RULE_ID )
             {
-            // ../org.osate.categories.ui/src-gen/org/osate/categories/ui/contentassist/antlr/internal/InternalCategories.g:1346:1: ( RULE_ID )
-            // ../org.osate.categories.ui/src-gen/org/osate/categories/ui/contentassist/antlr/internal/InternalCategories.g:1347:1: RULE_ID
+            // ../org.osate.categories.ui/src-gen/org/osate/categories/ui/contentassist/antlr/internal/InternalCategoriesParser.g:1357:1: ( RULE_ID )
+            // ../org.osate.categories.ui/src-gen/org/osate/categories/ui/contentassist/antlr/internal/InternalCategoriesParser.g:1358:1: RULE_ID
             {
              before(grammarAccess.getRequirementCategoryAccess().getNameIDTerminalRuleCall_0_0()); 
-            match(input,RULE_ID,FOLLOW_RULE_ID_in_rule__RequirementCategory__NameAssignment_02640); 
+            match(input,RULE_ID,FOLLOW_RULE_ID_in_rule__RequirementCategory__NameAssignment_02665); 
              after(grammarAccess.getRequirementCategoryAccess().getNameIDTerminalRuleCall_0_0()); 
 
             }
@@ -3493,24 +3511,24 @@ public class InternalCategoriesParser extends AbstractInternalContentAssistParse
 
 
     // $ANTLR start "rule__RequirementCategory__SubCategoriesAssignment_1_1"
-    // ../org.osate.categories.ui/src-gen/org/osate/categories/ui/contentassist/antlr/internal/InternalCategories.g:1356:1: rule__RequirementCategory__SubCategoriesAssignment_1_1 : ( ( ruleCatRef ) ) ;
+    // ../org.osate.categories.ui/src-gen/org/osate/categories/ui/contentassist/antlr/internal/InternalCategoriesParser.g:1367:1: rule__RequirementCategory__SubCategoriesAssignment_1_1 : ( ( ruleCatRef ) ) ;
     public final void rule__RequirementCategory__SubCategoriesAssignment_1_1() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.osate.categories.ui/src-gen/org/osate/categories/ui/contentassist/antlr/internal/InternalCategories.g:1360:1: ( ( ( ruleCatRef ) ) )
-            // ../org.osate.categories.ui/src-gen/org/osate/categories/ui/contentassist/antlr/internal/InternalCategories.g:1361:1: ( ( ruleCatRef ) )
+            // ../org.osate.categories.ui/src-gen/org/osate/categories/ui/contentassist/antlr/internal/InternalCategoriesParser.g:1371:1: ( ( ( ruleCatRef ) ) )
+            // ../org.osate.categories.ui/src-gen/org/osate/categories/ui/contentassist/antlr/internal/InternalCategoriesParser.g:1372:1: ( ( ruleCatRef ) )
             {
-            // ../org.osate.categories.ui/src-gen/org/osate/categories/ui/contentassist/antlr/internal/InternalCategories.g:1361:1: ( ( ruleCatRef ) )
-            // ../org.osate.categories.ui/src-gen/org/osate/categories/ui/contentassist/antlr/internal/InternalCategories.g:1362:1: ( ruleCatRef )
+            // ../org.osate.categories.ui/src-gen/org/osate/categories/ui/contentassist/antlr/internal/InternalCategoriesParser.g:1372:1: ( ( ruleCatRef ) )
+            // ../org.osate.categories.ui/src-gen/org/osate/categories/ui/contentassist/antlr/internal/InternalCategoriesParser.g:1373:1: ( ruleCatRef )
             {
              before(grammarAccess.getRequirementCategoryAccess().getSubCategoriesRequirementCategoryCrossReference_1_1_0()); 
-            // ../org.osate.categories.ui/src-gen/org/osate/categories/ui/contentassist/antlr/internal/InternalCategories.g:1363:1: ( ruleCatRef )
-            // ../org.osate.categories.ui/src-gen/org/osate/categories/ui/contentassist/antlr/internal/InternalCategories.g:1364:1: ruleCatRef
+            // ../org.osate.categories.ui/src-gen/org/osate/categories/ui/contentassist/antlr/internal/InternalCategoriesParser.g:1374:1: ( ruleCatRef )
+            // ../org.osate.categories.ui/src-gen/org/osate/categories/ui/contentassist/antlr/internal/InternalCategoriesParser.g:1375:1: ruleCatRef
             {
              before(grammarAccess.getRequirementCategoryAccess().getSubCategoriesRequirementCategoryCatRefParserRuleCall_1_1_0_1()); 
-            pushFollow(FOLLOW_ruleCatRef_in_rule__RequirementCategory__SubCategoriesAssignment_1_12675);
+            pushFollow(FOLLOW_ruleCatRef_in_rule__RequirementCategory__SubCategoriesAssignment_1_12700);
             ruleCatRef();
 
             state._fsp--;
@@ -3542,20 +3560,20 @@ public class InternalCategoriesParser extends AbstractInternalContentAssistParse
 
 
     // $ANTLR start "rule__VerificationCategory__NameAssignment_0"
-    // ../org.osate.categories.ui/src-gen/org/osate/categories/ui/contentassist/antlr/internal/InternalCategories.g:1375:1: rule__VerificationCategory__NameAssignment_0 : ( RULE_ID ) ;
+    // ../org.osate.categories.ui/src-gen/org/osate/categories/ui/contentassist/antlr/internal/InternalCategoriesParser.g:1386:1: rule__VerificationCategory__NameAssignment_0 : ( RULE_ID ) ;
     public final void rule__VerificationCategory__NameAssignment_0() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.osate.categories.ui/src-gen/org/osate/categories/ui/contentassist/antlr/internal/InternalCategories.g:1379:1: ( ( RULE_ID ) )
-            // ../org.osate.categories.ui/src-gen/org/osate/categories/ui/contentassist/antlr/internal/InternalCategories.g:1380:1: ( RULE_ID )
+            // ../org.osate.categories.ui/src-gen/org/osate/categories/ui/contentassist/antlr/internal/InternalCategoriesParser.g:1390:1: ( ( RULE_ID ) )
+            // ../org.osate.categories.ui/src-gen/org/osate/categories/ui/contentassist/antlr/internal/InternalCategoriesParser.g:1391:1: ( RULE_ID )
             {
-            // ../org.osate.categories.ui/src-gen/org/osate/categories/ui/contentassist/antlr/internal/InternalCategories.g:1380:1: ( RULE_ID )
-            // ../org.osate.categories.ui/src-gen/org/osate/categories/ui/contentassist/antlr/internal/InternalCategories.g:1381:1: RULE_ID
+            // ../org.osate.categories.ui/src-gen/org/osate/categories/ui/contentassist/antlr/internal/InternalCategoriesParser.g:1391:1: ( RULE_ID )
+            // ../org.osate.categories.ui/src-gen/org/osate/categories/ui/contentassist/antlr/internal/InternalCategoriesParser.g:1392:1: RULE_ID
             {
              before(grammarAccess.getVerificationCategoryAccess().getNameIDTerminalRuleCall_0_0()); 
-            match(input,RULE_ID,FOLLOW_RULE_ID_in_rule__VerificationCategory__NameAssignment_02710); 
+            match(input,RULE_ID,FOLLOW_RULE_ID_in_rule__VerificationCategory__NameAssignment_02735); 
              after(grammarAccess.getVerificationCategoryAccess().getNameIDTerminalRuleCall_0_0()); 
 
             }
@@ -3579,24 +3597,24 @@ public class InternalCategoriesParser extends AbstractInternalContentAssistParse
 
 
     // $ANTLR start "rule__VerificationCategory__SubCategoriesAssignment_1_1"
-    // ../org.osate.categories.ui/src-gen/org/osate/categories/ui/contentassist/antlr/internal/InternalCategories.g:1390:1: rule__VerificationCategory__SubCategoriesAssignment_1_1 : ( ( ruleCatRef ) ) ;
+    // ../org.osate.categories.ui/src-gen/org/osate/categories/ui/contentassist/antlr/internal/InternalCategoriesParser.g:1401:1: rule__VerificationCategory__SubCategoriesAssignment_1_1 : ( ( ruleCatRef ) ) ;
     public final void rule__VerificationCategory__SubCategoriesAssignment_1_1() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.osate.categories.ui/src-gen/org/osate/categories/ui/contentassist/antlr/internal/InternalCategories.g:1394:1: ( ( ( ruleCatRef ) ) )
-            // ../org.osate.categories.ui/src-gen/org/osate/categories/ui/contentassist/antlr/internal/InternalCategories.g:1395:1: ( ( ruleCatRef ) )
+            // ../org.osate.categories.ui/src-gen/org/osate/categories/ui/contentassist/antlr/internal/InternalCategoriesParser.g:1405:1: ( ( ( ruleCatRef ) ) )
+            // ../org.osate.categories.ui/src-gen/org/osate/categories/ui/contentassist/antlr/internal/InternalCategoriesParser.g:1406:1: ( ( ruleCatRef ) )
             {
-            // ../org.osate.categories.ui/src-gen/org/osate/categories/ui/contentassist/antlr/internal/InternalCategories.g:1395:1: ( ( ruleCatRef ) )
-            // ../org.osate.categories.ui/src-gen/org/osate/categories/ui/contentassist/antlr/internal/InternalCategories.g:1396:1: ( ruleCatRef )
+            // ../org.osate.categories.ui/src-gen/org/osate/categories/ui/contentassist/antlr/internal/InternalCategoriesParser.g:1406:1: ( ( ruleCatRef ) )
+            // ../org.osate.categories.ui/src-gen/org/osate/categories/ui/contentassist/antlr/internal/InternalCategoriesParser.g:1407:1: ( ruleCatRef )
             {
              before(grammarAccess.getVerificationCategoryAccess().getSubCategoriesVerificationCategoryCrossReference_1_1_0()); 
-            // ../org.osate.categories.ui/src-gen/org/osate/categories/ui/contentassist/antlr/internal/InternalCategories.g:1397:1: ( ruleCatRef )
-            // ../org.osate.categories.ui/src-gen/org/osate/categories/ui/contentassist/antlr/internal/InternalCategories.g:1398:1: ruleCatRef
+            // ../org.osate.categories.ui/src-gen/org/osate/categories/ui/contentassist/antlr/internal/InternalCategoriesParser.g:1408:1: ( ruleCatRef )
+            // ../org.osate.categories.ui/src-gen/org/osate/categories/ui/contentassist/antlr/internal/InternalCategoriesParser.g:1409:1: ruleCatRef
             {
              before(grammarAccess.getVerificationCategoryAccess().getSubCategoriesVerificationCategoryCatRefParserRuleCall_1_1_0_1()); 
-            pushFollow(FOLLOW_ruleCatRef_in_rule__VerificationCategory__SubCategoriesAssignment_1_12745);
+            pushFollow(FOLLOW_ruleCatRef_in_rule__VerificationCategory__SubCategoriesAssignment_1_12770);
             ruleCatRef();
 
             state._fsp--;
@@ -3628,20 +3646,20 @@ public class InternalCategoriesParser extends AbstractInternalContentAssistParse
 
 
     // $ANTLR start "rule__SelectionCategory__NameAssignment_0"
-    // ../org.osate.categories.ui/src-gen/org/osate/categories/ui/contentassist/antlr/internal/InternalCategories.g:1409:1: rule__SelectionCategory__NameAssignment_0 : ( RULE_ID ) ;
+    // ../org.osate.categories.ui/src-gen/org/osate/categories/ui/contentassist/antlr/internal/InternalCategoriesParser.g:1420:1: rule__SelectionCategory__NameAssignment_0 : ( RULE_ID ) ;
     public final void rule__SelectionCategory__NameAssignment_0() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.osate.categories.ui/src-gen/org/osate/categories/ui/contentassist/antlr/internal/InternalCategories.g:1413:1: ( ( RULE_ID ) )
-            // ../org.osate.categories.ui/src-gen/org/osate/categories/ui/contentassist/antlr/internal/InternalCategories.g:1414:1: ( RULE_ID )
+            // ../org.osate.categories.ui/src-gen/org/osate/categories/ui/contentassist/antlr/internal/InternalCategoriesParser.g:1424:1: ( ( RULE_ID ) )
+            // ../org.osate.categories.ui/src-gen/org/osate/categories/ui/contentassist/antlr/internal/InternalCategoriesParser.g:1425:1: ( RULE_ID )
             {
-            // ../org.osate.categories.ui/src-gen/org/osate/categories/ui/contentassist/antlr/internal/InternalCategories.g:1414:1: ( RULE_ID )
-            // ../org.osate.categories.ui/src-gen/org/osate/categories/ui/contentassist/antlr/internal/InternalCategories.g:1415:1: RULE_ID
+            // ../org.osate.categories.ui/src-gen/org/osate/categories/ui/contentassist/antlr/internal/InternalCategoriesParser.g:1425:1: ( RULE_ID )
+            // ../org.osate.categories.ui/src-gen/org/osate/categories/ui/contentassist/antlr/internal/InternalCategoriesParser.g:1426:1: RULE_ID
             {
              before(grammarAccess.getSelectionCategoryAccess().getNameIDTerminalRuleCall_0_0()); 
-            match(input,RULE_ID,FOLLOW_RULE_ID_in_rule__SelectionCategory__NameAssignment_02780); 
+            match(input,RULE_ID,FOLLOW_RULE_ID_in_rule__SelectionCategory__NameAssignment_02805); 
              after(grammarAccess.getSelectionCategoryAccess().getNameIDTerminalRuleCall_0_0()); 
 
             }
@@ -3665,24 +3683,24 @@ public class InternalCategoriesParser extends AbstractInternalContentAssistParse
 
 
     // $ANTLR start "rule__SelectionCategory__SubCategoriesAssignment_1_1"
-    // ../org.osate.categories.ui/src-gen/org/osate/categories/ui/contentassist/antlr/internal/InternalCategories.g:1424:1: rule__SelectionCategory__SubCategoriesAssignment_1_1 : ( ( ruleCatRef ) ) ;
+    // ../org.osate.categories.ui/src-gen/org/osate/categories/ui/contentassist/antlr/internal/InternalCategoriesParser.g:1435:1: rule__SelectionCategory__SubCategoriesAssignment_1_1 : ( ( ruleCatRef ) ) ;
     public final void rule__SelectionCategory__SubCategoriesAssignment_1_1() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.osate.categories.ui/src-gen/org/osate/categories/ui/contentassist/antlr/internal/InternalCategories.g:1428:1: ( ( ( ruleCatRef ) ) )
-            // ../org.osate.categories.ui/src-gen/org/osate/categories/ui/contentassist/antlr/internal/InternalCategories.g:1429:1: ( ( ruleCatRef ) )
+            // ../org.osate.categories.ui/src-gen/org/osate/categories/ui/contentassist/antlr/internal/InternalCategoriesParser.g:1439:1: ( ( ( ruleCatRef ) ) )
+            // ../org.osate.categories.ui/src-gen/org/osate/categories/ui/contentassist/antlr/internal/InternalCategoriesParser.g:1440:1: ( ( ruleCatRef ) )
             {
-            // ../org.osate.categories.ui/src-gen/org/osate/categories/ui/contentassist/antlr/internal/InternalCategories.g:1429:1: ( ( ruleCatRef ) )
-            // ../org.osate.categories.ui/src-gen/org/osate/categories/ui/contentassist/antlr/internal/InternalCategories.g:1430:1: ( ruleCatRef )
+            // ../org.osate.categories.ui/src-gen/org/osate/categories/ui/contentassist/antlr/internal/InternalCategoriesParser.g:1440:1: ( ( ruleCatRef ) )
+            // ../org.osate.categories.ui/src-gen/org/osate/categories/ui/contentassist/antlr/internal/InternalCategoriesParser.g:1441:1: ( ruleCatRef )
             {
              before(grammarAccess.getSelectionCategoryAccess().getSubCategoriesSelectionCategoryCrossReference_1_1_0()); 
-            // ../org.osate.categories.ui/src-gen/org/osate/categories/ui/contentassist/antlr/internal/InternalCategories.g:1431:1: ( ruleCatRef )
-            // ../org.osate.categories.ui/src-gen/org/osate/categories/ui/contentassist/antlr/internal/InternalCategories.g:1432:1: ruleCatRef
+            // ../org.osate.categories.ui/src-gen/org/osate/categories/ui/contentassist/antlr/internal/InternalCategoriesParser.g:1442:1: ( ruleCatRef )
+            // ../org.osate.categories.ui/src-gen/org/osate/categories/ui/contentassist/antlr/internal/InternalCategoriesParser.g:1443:1: ruleCatRef
             {
              before(grammarAccess.getSelectionCategoryAccess().getSubCategoriesSelectionCategoryCatRefParserRuleCall_1_1_0_1()); 
-            pushFollow(FOLLOW_ruleCatRef_in_rule__SelectionCategory__SubCategoriesAssignment_1_12815);
+            pushFollow(FOLLOW_ruleCatRef_in_rule__SelectionCategory__SubCategoriesAssignment_1_12840);
             ruleCatRef();
 
             state._fsp--;
@@ -3717,125 +3735,125 @@ public class InternalCategoriesParser extends AbstractInternalContentAssistParse
 
  
 
-    public static final BitSet FOLLOW_ruleCategories_in_entryRuleCategories61 = new BitSet(new long[]{0x0000000000000000L});
-    public static final BitSet FOLLOW_EOF_in_entryRuleCategories68 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__Categories__Alternatives_in_ruleCategories94 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleRequirementCategories_in_entryRuleRequirementCategories121 = new BitSet(new long[]{0x0000000000000000L});
-    public static final BitSet FOLLOW_EOF_in_entryRuleRequirementCategories128 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__RequirementCategories__Group__0_in_ruleRequirementCategories154 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleVerificationCategories_in_entryRuleVerificationCategories181 = new BitSet(new long[]{0x0000000000000000L});
-    public static final BitSet FOLLOW_EOF_in_entryRuleVerificationCategories188 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__VerificationCategories__Group__0_in_ruleVerificationCategories214 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleSelectionCategories_in_entryRuleSelectionCategories241 = new BitSet(new long[]{0x0000000000000000L});
-    public static final BitSet FOLLOW_EOF_in_entryRuleSelectionCategories248 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__SelectionCategories__Group__0_in_ruleSelectionCategories274 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleRequirementCategory_in_entryRuleRequirementCategory303 = new BitSet(new long[]{0x0000000000000000L});
-    public static final BitSet FOLLOW_EOF_in_entryRuleRequirementCategory310 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__RequirementCategory__Group__0_in_ruleRequirementCategory336 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleVerificationCategory_in_entryRuleVerificationCategory363 = new BitSet(new long[]{0x0000000000000000L});
-    public static final BitSet FOLLOW_EOF_in_entryRuleVerificationCategory370 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__VerificationCategory__Group__0_in_ruleVerificationCategory396 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleSelectionCategory_in_entryRuleSelectionCategory423 = new BitSet(new long[]{0x0000000000000000L});
-    public static final BitSet FOLLOW_EOF_in_entryRuleSelectionCategory430 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__SelectionCategory__Group__0_in_ruleSelectionCategory456 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleCatRef_in_entryRuleCatRef483 = new BitSet(new long[]{0x0000000000000000L});
-    public static final BitSet FOLLOW_EOF_in_entryRuleCatRef490 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_RULE_ID_in_ruleCatRef516 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleRequirementCategories_in_rule__Categories__Alternatives551 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleVerificationCategories_in_rule__Categories__Alternatives568 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleSelectionCategories_in_rule__Categories__Alternatives585 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__RequirementCategories__Group__0__Impl_in_rule__RequirementCategories__Group__0616 = new BitSet(new long[]{0x0000000000001000L});
-    public static final BitSet FOLLOW_rule__RequirementCategories__Group__1_in_rule__RequirementCategories__Group__0619 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_11_in_rule__RequirementCategories__Group__0__Impl647 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__RequirementCategories__Group__1__Impl_in_rule__RequirementCategories__Group__1678 = new BitSet(new long[]{0x0000000000002000L});
-    public static final BitSet FOLLOW_rule__RequirementCategories__Group__2_in_rule__RequirementCategories__Group__1681 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_12_in_rule__RequirementCategories__Group__1__Impl709 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__RequirementCategories__Group__2__Impl_in_rule__RequirementCategories__Group__2740 = new BitSet(new long[]{0x0000000000000010L});
-    public static final BitSet FOLLOW_rule__RequirementCategories__Group__3_in_rule__RequirementCategories__Group__2743 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_13_in_rule__RequirementCategories__Group__2__Impl771 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__RequirementCategories__Group__3__Impl_in_rule__RequirementCategories__Group__3802 = new BitSet(new long[]{0x0000000000004000L});
-    public static final BitSet FOLLOW_rule__RequirementCategories__Group__4_in_rule__RequirementCategories__Group__3805 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__RequirementCategories__CategoryAssignment_3_in_rule__RequirementCategories__Group__3__Impl834 = new BitSet(new long[]{0x0000000000000012L});
-    public static final BitSet FOLLOW_rule__RequirementCategories__CategoryAssignment_3_in_rule__RequirementCategories__Group__3__Impl846 = new BitSet(new long[]{0x0000000000000012L});
-    public static final BitSet FOLLOW_rule__RequirementCategories__Group__4__Impl_in_rule__RequirementCategories__Group__4879 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_14_in_rule__RequirementCategories__Group__4__Impl907 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__VerificationCategories__Group__0__Impl_in_rule__VerificationCategories__Group__0948 = new BitSet(new long[]{0x0000000000001000L});
-    public static final BitSet FOLLOW_rule__VerificationCategories__Group__1_in_rule__VerificationCategories__Group__0951 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_15_in_rule__VerificationCategories__Group__0__Impl979 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__VerificationCategories__Group__1__Impl_in_rule__VerificationCategories__Group__11010 = new BitSet(new long[]{0x0000000000002000L});
-    public static final BitSet FOLLOW_rule__VerificationCategories__Group__2_in_rule__VerificationCategories__Group__11013 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_12_in_rule__VerificationCategories__Group__1__Impl1041 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__VerificationCategories__Group__2__Impl_in_rule__VerificationCategories__Group__21072 = new BitSet(new long[]{0x0000000000000010L});
-    public static final BitSet FOLLOW_rule__VerificationCategories__Group__3_in_rule__VerificationCategories__Group__21075 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_13_in_rule__VerificationCategories__Group__2__Impl1103 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__VerificationCategories__Group__3__Impl_in_rule__VerificationCategories__Group__31134 = new BitSet(new long[]{0x0000000000004000L});
-    public static final BitSet FOLLOW_rule__VerificationCategories__Group__4_in_rule__VerificationCategories__Group__31137 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__VerificationCategories__CategoryAssignment_3_in_rule__VerificationCategories__Group__3__Impl1166 = new BitSet(new long[]{0x0000000000000012L});
-    public static final BitSet FOLLOW_rule__VerificationCategories__CategoryAssignment_3_in_rule__VerificationCategories__Group__3__Impl1178 = new BitSet(new long[]{0x0000000000000012L});
-    public static final BitSet FOLLOW_rule__VerificationCategories__Group__4__Impl_in_rule__VerificationCategories__Group__41211 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_14_in_rule__VerificationCategories__Group__4__Impl1239 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__SelectionCategories__Group__0__Impl_in_rule__SelectionCategories__Group__01280 = new BitSet(new long[]{0x0000000000001000L});
-    public static final BitSet FOLLOW_rule__SelectionCategories__Group__1_in_rule__SelectionCategories__Group__01283 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_16_in_rule__SelectionCategories__Group__0__Impl1311 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__SelectionCategories__Group__1__Impl_in_rule__SelectionCategories__Group__11342 = new BitSet(new long[]{0x0000000000002000L});
-    public static final BitSet FOLLOW_rule__SelectionCategories__Group__2_in_rule__SelectionCategories__Group__11345 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_12_in_rule__SelectionCategories__Group__1__Impl1373 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__SelectionCategories__Group__2__Impl_in_rule__SelectionCategories__Group__21404 = new BitSet(new long[]{0x0000000000000010L});
-    public static final BitSet FOLLOW_rule__SelectionCategories__Group__3_in_rule__SelectionCategories__Group__21407 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_13_in_rule__SelectionCategories__Group__2__Impl1435 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__SelectionCategories__Group__3__Impl_in_rule__SelectionCategories__Group__31466 = new BitSet(new long[]{0x0000000000004000L});
-    public static final BitSet FOLLOW_rule__SelectionCategories__Group__4_in_rule__SelectionCategories__Group__31469 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__SelectionCategories__CategoryAssignment_3_in_rule__SelectionCategories__Group__3__Impl1498 = new BitSet(new long[]{0x0000000000000012L});
-    public static final BitSet FOLLOW_rule__SelectionCategories__CategoryAssignment_3_in_rule__SelectionCategories__Group__3__Impl1510 = new BitSet(new long[]{0x0000000000000012L});
-    public static final BitSet FOLLOW_rule__SelectionCategories__Group__4__Impl_in_rule__SelectionCategories__Group__41543 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_14_in_rule__SelectionCategories__Group__4__Impl1571 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__RequirementCategory__Group__0__Impl_in_rule__RequirementCategory__Group__01612 = new BitSet(new long[]{0x0000000000020000L});
-    public static final BitSet FOLLOW_rule__RequirementCategory__Group__1_in_rule__RequirementCategory__Group__01615 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__RequirementCategory__NameAssignment_0_in_rule__RequirementCategory__Group__0__Impl1642 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__RequirementCategory__Group__1__Impl_in_rule__RequirementCategory__Group__11672 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__RequirementCategory__Group_1__0_in_rule__RequirementCategory__Group__1__Impl1699 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__RequirementCategory__Group_1__0__Impl_in_rule__RequirementCategory__Group_1__01734 = new BitSet(new long[]{0x0000000000040010L});
-    public static final BitSet FOLLOW_rule__RequirementCategory__Group_1__1_in_rule__RequirementCategory__Group_1__01737 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_17_in_rule__RequirementCategory__Group_1__0__Impl1765 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__RequirementCategory__Group_1__1__Impl_in_rule__RequirementCategory__Group_1__11796 = new BitSet(new long[]{0x0000000000040010L});
-    public static final BitSet FOLLOW_rule__RequirementCategory__Group_1__2_in_rule__RequirementCategory__Group_1__11799 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__RequirementCategory__SubCategoriesAssignment_1_1_in_rule__RequirementCategory__Group_1__1__Impl1826 = new BitSet(new long[]{0x0000000000000012L});
-    public static final BitSet FOLLOW_rule__RequirementCategory__Group_1__2__Impl_in_rule__RequirementCategory__Group_1__21857 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_18_in_rule__RequirementCategory__Group_1__2__Impl1885 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__VerificationCategory__Group__0__Impl_in_rule__VerificationCategory__Group__01922 = new BitSet(new long[]{0x0000000000020000L});
-    public static final BitSet FOLLOW_rule__VerificationCategory__Group__1_in_rule__VerificationCategory__Group__01925 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__VerificationCategory__NameAssignment_0_in_rule__VerificationCategory__Group__0__Impl1952 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__VerificationCategory__Group__1__Impl_in_rule__VerificationCategory__Group__11982 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__VerificationCategory__Group_1__0_in_rule__VerificationCategory__Group__1__Impl2009 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__VerificationCategory__Group_1__0__Impl_in_rule__VerificationCategory__Group_1__02044 = new BitSet(new long[]{0x0000000000040010L});
-    public static final BitSet FOLLOW_rule__VerificationCategory__Group_1__1_in_rule__VerificationCategory__Group_1__02047 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_17_in_rule__VerificationCategory__Group_1__0__Impl2075 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__VerificationCategory__Group_1__1__Impl_in_rule__VerificationCategory__Group_1__12106 = new BitSet(new long[]{0x0000000000040010L});
-    public static final BitSet FOLLOW_rule__VerificationCategory__Group_1__2_in_rule__VerificationCategory__Group_1__12109 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__VerificationCategory__SubCategoriesAssignment_1_1_in_rule__VerificationCategory__Group_1__1__Impl2136 = new BitSet(new long[]{0x0000000000000012L});
-    public static final BitSet FOLLOW_rule__VerificationCategory__Group_1__2__Impl_in_rule__VerificationCategory__Group_1__22167 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_18_in_rule__VerificationCategory__Group_1__2__Impl2195 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__SelectionCategory__Group__0__Impl_in_rule__SelectionCategory__Group__02232 = new BitSet(new long[]{0x0000000000020000L});
-    public static final BitSet FOLLOW_rule__SelectionCategory__Group__1_in_rule__SelectionCategory__Group__02235 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__SelectionCategory__NameAssignment_0_in_rule__SelectionCategory__Group__0__Impl2262 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__SelectionCategory__Group__1__Impl_in_rule__SelectionCategory__Group__12292 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__SelectionCategory__Group_1__0_in_rule__SelectionCategory__Group__1__Impl2319 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__SelectionCategory__Group_1__0__Impl_in_rule__SelectionCategory__Group_1__02354 = new BitSet(new long[]{0x0000000000040010L});
-    public static final BitSet FOLLOW_rule__SelectionCategory__Group_1__1_in_rule__SelectionCategory__Group_1__02357 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_17_in_rule__SelectionCategory__Group_1__0__Impl2385 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__SelectionCategory__Group_1__1__Impl_in_rule__SelectionCategory__Group_1__12416 = new BitSet(new long[]{0x0000000000040010L});
-    public static final BitSet FOLLOW_rule__SelectionCategory__Group_1__2_in_rule__SelectionCategory__Group_1__12419 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__SelectionCategory__SubCategoriesAssignment_1_1_in_rule__SelectionCategory__Group_1__1__Impl2446 = new BitSet(new long[]{0x0000000000000012L});
-    public static final BitSet FOLLOW_rule__SelectionCategory__Group_1__2__Impl_in_rule__SelectionCategory__Group_1__22477 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_18_in_rule__SelectionCategory__Group_1__2__Impl2505 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleRequirementCategory_in_rule__RequirementCategories__CategoryAssignment_32547 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleVerificationCategory_in_rule__VerificationCategories__CategoryAssignment_32578 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleSelectionCategory_in_rule__SelectionCategories__CategoryAssignment_32609 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_RULE_ID_in_rule__RequirementCategory__NameAssignment_02640 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleCatRef_in_rule__RequirementCategory__SubCategoriesAssignment_1_12675 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_RULE_ID_in_rule__VerificationCategory__NameAssignment_02710 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleCatRef_in_rule__VerificationCategory__SubCategoriesAssignment_1_12745 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_RULE_ID_in_rule__SelectionCategory__NameAssignment_02780 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleCatRef_in_rule__SelectionCategory__SubCategoriesAssignment_1_12815 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleCategories_in_entryRuleCategories54 = new BitSet(new long[]{0x0000000000000000L});
+    public static final BitSet FOLLOW_EOF_in_entryRuleCategories61 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__Categories__Alternatives_in_ruleCategories91 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleRequirementCategories_in_entryRuleRequirementCategories118 = new BitSet(new long[]{0x0000000000000000L});
+    public static final BitSet FOLLOW_EOF_in_entryRuleRequirementCategories125 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__RequirementCategories__Group__0_in_ruleRequirementCategories155 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleVerificationCategories_in_entryRuleVerificationCategories182 = new BitSet(new long[]{0x0000000000000000L});
+    public static final BitSet FOLLOW_EOF_in_entryRuleVerificationCategories189 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__VerificationCategories__Group__0_in_ruleVerificationCategories219 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleSelectionCategories_in_entryRuleSelectionCategories246 = new BitSet(new long[]{0x0000000000000000L});
+    public static final BitSet FOLLOW_EOF_in_entryRuleSelectionCategories253 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__SelectionCategories__Group__0_in_ruleSelectionCategories283 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleRequirementCategory_in_entryRuleRequirementCategory312 = new BitSet(new long[]{0x0000000000000000L});
+    public static final BitSet FOLLOW_EOF_in_entryRuleRequirementCategory319 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__RequirementCategory__Group__0_in_ruleRequirementCategory349 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleVerificationCategory_in_entryRuleVerificationCategory376 = new BitSet(new long[]{0x0000000000000000L});
+    public static final BitSet FOLLOW_EOF_in_entryRuleVerificationCategory383 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__VerificationCategory__Group__0_in_ruleVerificationCategory413 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleSelectionCategory_in_entryRuleSelectionCategory440 = new BitSet(new long[]{0x0000000000000000L});
+    public static final BitSet FOLLOW_EOF_in_entryRuleSelectionCategory447 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__SelectionCategory__Group__0_in_ruleSelectionCategory477 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleCatRef_in_entryRuleCatRef504 = new BitSet(new long[]{0x0000000000000000L});
+    public static final BitSet FOLLOW_EOF_in_entryRuleCatRef511 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_RULE_ID_in_ruleCatRef541 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleRequirementCategories_in_rule__Categories__Alternatives576 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleVerificationCategories_in_rule__Categories__Alternatives593 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleSelectionCategories_in_rule__Categories__Alternatives610 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__RequirementCategories__Group__0__Impl_in_rule__RequirementCategories__Group__0641 = new BitSet(new long[]{0x0000000000000040L});
+    public static final BitSet FOLLOW_rule__RequirementCategories__Group__1_in_rule__RequirementCategories__Group__0644 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_Requirement_in_rule__RequirementCategories__Group__0__Impl672 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__RequirementCategories__Group__1__Impl_in_rule__RequirementCategories__Group__1703 = new BitSet(new long[]{0x0000000000000100L});
+    public static final BitSet FOLLOW_rule__RequirementCategories__Group__2_in_rule__RequirementCategories__Group__1706 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_Categories_in_rule__RequirementCategories__Group__1__Impl734 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__RequirementCategories__Group__2__Impl_in_rule__RequirementCategories__Group__2765 = new BitSet(new long[]{0x0000000000001000L});
+    public static final BitSet FOLLOW_rule__RequirementCategories__Group__3_in_rule__RequirementCategories__Group__2768 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_LeftSquareBracket_in_rule__RequirementCategories__Group__2__Impl796 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__RequirementCategories__Group__3__Impl_in_rule__RequirementCategories__Group__3827 = new BitSet(new long[]{0x0000000000000200L});
+    public static final BitSet FOLLOW_rule__RequirementCategories__Group__4_in_rule__RequirementCategories__Group__3830 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__RequirementCategories__CategoryAssignment_3_in_rule__RequirementCategories__Group__3__Impl859 = new BitSet(new long[]{0x0000000000001002L});
+    public static final BitSet FOLLOW_rule__RequirementCategories__CategoryAssignment_3_in_rule__RequirementCategories__Group__3__Impl871 = new BitSet(new long[]{0x0000000000001002L});
+    public static final BitSet FOLLOW_rule__RequirementCategories__Group__4__Impl_in_rule__RequirementCategories__Group__4904 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_RightSquareBracket_in_rule__RequirementCategories__Group__4__Impl932 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__VerificationCategories__Group__0__Impl_in_rule__VerificationCategories__Group__0973 = new BitSet(new long[]{0x0000000000000040L});
+    public static final BitSet FOLLOW_rule__VerificationCategories__Group__1_in_rule__VerificationCategories__Group__0976 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_Verification_in_rule__VerificationCategories__Group__0__Impl1004 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__VerificationCategories__Group__1__Impl_in_rule__VerificationCategories__Group__11035 = new BitSet(new long[]{0x0000000000000100L});
+    public static final BitSet FOLLOW_rule__VerificationCategories__Group__2_in_rule__VerificationCategories__Group__11038 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_Categories_in_rule__VerificationCategories__Group__1__Impl1066 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__VerificationCategories__Group__2__Impl_in_rule__VerificationCategories__Group__21097 = new BitSet(new long[]{0x0000000000001000L});
+    public static final BitSet FOLLOW_rule__VerificationCategories__Group__3_in_rule__VerificationCategories__Group__21100 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_LeftSquareBracket_in_rule__VerificationCategories__Group__2__Impl1128 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__VerificationCategories__Group__3__Impl_in_rule__VerificationCategories__Group__31159 = new BitSet(new long[]{0x0000000000000200L});
+    public static final BitSet FOLLOW_rule__VerificationCategories__Group__4_in_rule__VerificationCategories__Group__31162 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__VerificationCategories__CategoryAssignment_3_in_rule__VerificationCategories__Group__3__Impl1191 = new BitSet(new long[]{0x0000000000001002L});
+    public static final BitSet FOLLOW_rule__VerificationCategories__CategoryAssignment_3_in_rule__VerificationCategories__Group__3__Impl1203 = new BitSet(new long[]{0x0000000000001002L});
+    public static final BitSet FOLLOW_rule__VerificationCategories__Group__4__Impl_in_rule__VerificationCategories__Group__41236 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_RightSquareBracket_in_rule__VerificationCategories__Group__4__Impl1264 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__SelectionCategories__Group__0__Impl_in_rule__SelectionCategories__Group__01305 = new BitSet(new long[]{0x0000000000000040L});
+    public static final BitSet FOLLOW_rule__SelectionCategories__Group__1_in_rule__SelectionCategories__Group__01308 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_Selection_in_rule__SelectionCategories__Group__0__Impl1336 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__SelectionCategories__Group__1__Impl_in_rule__SelectionCategories__Group__11367 = new BitSet(new long[]{0x0000000000000100L});
+    public static final BitSet FOLLOW_rule__SelectionCategories__Group__2_in_rule__SelectionCategories__Group__11370 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_Categories_in_rule__SelectionCategories__Group__1__Impl1398 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__SelectionCategories__Group__2__Impl_in_rule__SelectionCategories__Group__21429 = new BitSet(new long[]{0x0000000000001000L});
+    public static final BitSet FOLLOW_rule__SelectionCategories__Group__3_in_rule__SelectionCategories__Group__21432 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_LeftSquareBracket_in_rule__SelectionCategories__Group__2__Impl1460 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__SelectionCategories__Group__3__Impl_in_rule__SelectionCategories__Group__31491 = new BitSet(new long[]{0x0000000000000200L});
+    public static final BitSet FOLLOW_rule__SelectionCategories__Group__4_in_rule__SelectionCategories__Group__31494 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__SelectionCategories__CategoryAssignment_3_in_rule__SelectionCategories__Group__3__Impl1523 = new BitSet(new long[]{0x0000000000001002L});
+    public static final BitSet FOLLOW_rule__SelectionCategories__CategoryAssignment_3_in_rule__SelectionCategories__Group__3__Impl1535 = new BitSet(new long[]{0x0000000000001002L});
+    public static final BitSet FOLLOW_rule__SelectionCategories__Group__4__Impl_in_rule__SelectionCategories__Group__41568 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_RightSquareBracket_in_rule__SelectionCategories__Group__4__Impl1596 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__RequirementCategory__Group__0__Impl_in_rule__RequirementCategory__Group__01637 = new BitSet(new long[]{0x0000000000000400L});
+    public static final BitSet FOLLOW_rule__RequirementCategory__Group__1_in_rule__RequirementCategory__Group__01640 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__RequirementCategory__NameAssignment_0_in_rule__RequirementCategory__Group__0__Impl1667 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__RequirementCategory__Group__1__Impl_in_rule__RequirementCategory__Group__11697 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__RequirementCategory__Group_1__0_in_rule__RequirementCategory__Group__1__Impl1724 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__RequirementCategory__Group_1__0__Impl_in_rule__RequirementCategory__Group_1__01759 = new BitSet(new long[]{0x0000000000001800L});
+    public static final BitSet FOLLOW_rule__RequirementCategory__Group_1__1_in_rule__RequirementCategory__Group_1__01762 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_LeftCurlyBracket_in_rule__RequirementCategory__Group_1__0__Impl1790 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__RequirementCategory__Group_1__1__Impl_in_rule__RequirementCategory__Group_1__11821 = new BitSet(new long[]{0x0000000000001800L});
+    public static final BitSet FOLLOW_rule__RequirementCategory__Group_1__2_in_rule__RequirementCategory__Group_1__11824 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__RequirementCategory__SubCategoriesAssignment_1_1_in_rule__RequirementCategory__Group_1__1__Impl1851 = new BitSet(new long[]{0x0000000000001002L});
+    public static final BitSet FOLLOW_rule__RequirementCategory__Group_1__2__Impl_in_rule__RequirementCategory__Group_1__21882 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_RightCurlyBracket_in_rule__RequirementCategory__Group_1__2__Impl1910 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__VerificationCategory__Group__0__Impl_in_rule__VerificationCategory__Group__01947 = new BitSet(new long[]{0x0000000000000400L});
+    public static final BitSet FOLLOW_rule__VerificationCategory__Group__1_in_rule__VerificationCategory__Group__01950 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__VerificationCategory__NameAssignment_0_in_rule__VerificationCategory__Group__0__Impl1977 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__VerificationCategory__Group__1__Impl_in_rule__VerificationCategory__Group__12007 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__VerificationCategory__Group_1__0_in_rule__VerificationCategory__Group__1__Impl2034 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__VerificationCategory__Group_1__0__Impl_in_rule__VerificationCategory__Group_1__02069 = new BitSet(new long[]{0x0000000000001800L});
+    public static final BitSet FOLLOW_rule__VerificationCategory__Group_1__1_in_rule__VerificationCategory__Group_1__02072 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_LeftCurlyBracket_in_rule__VerificationCategory__Group_1__0__Impl2100 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__VerificationCategory__Group_1__1__Impl_in_rule__VerificationCategory__Group_1__12131 = new BitSet(new long[]{0x0000000000001800L});
+    public static final BitSet FOLLOW_rule__VerificationCategory__Group_1__2_in_rule__VerificationCategory__Group_1__12134 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__VerificationCategory__SubCategoriesAssignment_1_1_in_rule__VerificationCategory__Group_1__1__Impl2161 = new BitSet(new long[]{0x0000000000001002L});
+    public static final BitSet FOLLOW_rule__VerificationCategory__Group_1__2__Impl_in_rule__VerificationCategory__Group_1__22192 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_RightCurlyBracket_in_rule__VerificationCategory__Group_1__2__Impl2220 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__SelectionCategory__Group__0__Impl_in_rule__SelectionCategory__Group__02257 = new BitSet(new long[]{0x0000000000000400L});
+    public static final BitSet FOLLOW_rule__SelectionCategory__Group__1_in_rule__SelectionCategory__Group__02260 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__SelectionCategory__NameAssignment_0_in_rule__SelectionCategory__Group__0__Impl2287 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__SelectionCategory__Group__1__Impl_in_rule__SelectionCategory__Group__12317 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__SelectionCategory__Group_1__0_in_rule__SelectionCategory__Group__1__Impl2344 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__SelectionCategory__Group_1__0__Impl_in_rule__SelectionCategory__Group_1__02379 = new BitSet(new long[]{0x0000000000001800L});
+    public static final BitSet FOLLOW_rule__SelectionCategory__Group_1__1_in_rule__SelectionCategory__Group_1__02382 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_LeftCurlyBracket_in_rule__SelectionCategory__Group_1__0__Impl2410 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__SelectionCategory__Group_1__1__Impl_in_rule__SelectionCategory__Group_1__12441 = new BitSet(new long[]{0x0000000000001800L});
+    public static final BitSet FOLLOW_rule__SelectionCategory__Group_1__2_in_rule__SelectionCategory__Group_1__12444 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__SelectionCategory__SubCategoriesAssignment_1_1_in_rule__SelectionCategory__Group_1__1__Impl2471 = new BitSet(new long[]{0x0000000000001002L});
+    public static final BitSet FOLLOW_rule__SelectionCategory__Group_1__2__Impl_in_rule__SelectionCategory__Group_1__22502 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_RightCurlyBracket_in_rule__SelectionCategory__Group_1__2__Impl2530 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleRequirementCategory_in_rule__RequirementCategories__CategoryAssignment_32572 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleVerificationCategory_in_rule__VerificationCategories__CategoryAssignment_32603 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleSelectionCategory_in_rule__SelectionCategories__CategoryAssignment_32634 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_RULE_ID_in_rule__RequirementCategory__NameAssignment_02665 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleCatRef_in_rule__RequirementCategory__SubCategoriesAssignment_1_12700 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_RULE_ID_in_rule__VerificationCategory__NameAssignment_02735 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleCatRef_in_rule__VerificationCategory__SubCategoriesAssignment_1_12770 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_RULE_ID_in_rule__SelectionCategory__NameAssignment_02805 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleCatRef_in_rule__SelectionCategory__SubCategoriesAssignment_1_12840 = new BitSet(new long[]{0x0000000000000002L});
 
 }

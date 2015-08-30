@@ -5,6 +5,7 @@ package org.osate.organization.organization.impl;
 import org.eclipse.emf.common.notify.Notification;
 
 import org.eclipse.emf.ecore.EClass;
+import org.eclipse.emf.ecore.InternalEObject;
 
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.eclipse.emf.ecore.impl.MinimalEObjectImpl;
@@ -26,6 +27,7 @@ import org.osate.organization.organization.Stakeholder;
  *   <li>{@link org.osate.organization.organization.impl.StakeholderImpl#getRole <em>Role</em>}</li>
  *   <li>{@link org.osate.organization.organization.impl.StakeholderImpl#getEmail <em>Email</em>}</li>
  *   <li>{@link org.osate.organization.organization.impl.StakeholderImpl#getPhone <em>Phone</em>}</li>
+ *   <li>{@link org.osate.organization.organization.impl.StakeholderImpl#getSupervisor <em>Supervisor</em>}</li>
  * </ul>
  * </p>
  *
@@ -172,6 +174,16 @@ public class StakeholderImpl extends MinimalEObjectImpl.Container implements Sta
    * @ordered
    */
   protected String phone = PHONE_EDEFAULT;
+
+  /**
+   * The cached value of the '{@link #getSupervisor() <em>Supervisor</em>}' reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see #getSupervisor()
+   * @generated
+   * @ordered
+   */
+  protected Stakeholder supervisor;
 
   /**
    * <!-- begin-user-doc -->
@@ -360,6 +372,49 @@ public class StakeholderImpl extends MinimalEObjectImpl.Container implements Sta
    * <!-- end-user-doc -->
    * @generated
    */
+  public Stakeholder getSupervisor()
+  {
+    if (supervisor != null && supervisor.eIsProxy())
+    {
+      InternalEObject oldSupervisor = (InternalEObject)supervisor;
+      supervisor = (Stakeholder)eResolveProxy(oldSupervisor);
+      if (supervisor != oldSupervisor)
+      {
+        if (eNotificationRequired())
+          eNotify(new ENotificationImpl(this, Notification.RESOLVE, OrganizationPackage.STAKEHOLDER__SUPERVISOR, oldSupervisor, supervisor));
+      }
+    }
+    return supervisor;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public Stakeholder basicGetSupervisor()
+  {
+    return supervisor;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public void setSupervisor(Stakeholder newSupervisor)
+  {
+    Stakeholder oldSupervisor = supervisor;
+    supervisor = newSupervisor;
+    if (eNotificationRequired())
+      eNotify(new ENotificationImpl(this, Notification.SET, OrganizationPackage.STAKEHOLDER__SUPERVISOR, oldSupervisor, supervisor));
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
   @Override
   public Object eGet(int featureID, boolean resolve, boolean coreType)
   {
@@ -379,6 +434,9 @@ public class StakeholderImpl extends MinimalEObjectImpl.Container implements Sta
         return getEmail();
       case OrganizationPackage.STAKEHOLDER__PHONE:
         return getPhone();
+      case OrganizationPackage.STAKEHOLDER__SUPERVISOR:
+        if (resolve) return getSupervisor();
+        return basicGetSupervisor();
     }
     return super.eGet(featureID, resolve, coreType);
   }
@@ -413,6 +471,9 @@ public class StakeholderImpl extends MinimalEObjectImpl.Container implements Sta
         return;
       case OrganizationPackage.STAKEHOLDER__PHONE:
         setPhone((String)newValue);
+        return;
+      case OrganizationPackage.STAKEHOLDER__SUPERVISOR:
+        setSupervisor((Stakeholder)newValue);
         return;
     }
     super.eSet(featureID, newValue);
@@ -449,6 +510,9 @@ public class StakeholderImpl extends MinimalEObjectImpl.Container implements Sta
       case OrganizationPackage.STAKEHOLDER__PHONE:
         setPhone(PHONE_EDEFAULT);
         return;
+      case OrganizationPackage.STAKEHOLDER__SUPERVISOR:
+        setSupervisor((Stakeholder)null);
+        return;
     }
     super.eUnset(featureID);
   }
@@ -477,6 +541,8 @@ public class StakeholderImpl extends MinimalEObjectImpl.Container implements Sta
         return EMAIL_EDEFAULT == null ? email != null : !EMAIL_EDEFAULT.equals(email);
       case OrganizationPackage.STAKEHOLDER__PHONE:
         return PHONE_EDEFAULT == null ? phone != null : !PHONE_EDEFAULT.equals(phone);
+      case OrganizationPackage.STAKEHOLDER__SUPERVISOR:
+        return supervisor != null;
     }
     return super.eIsSet(featureID);
   }

@@ -19,6 +19,7 @@
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Organization.ecore#//Stakeholder/role"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Organization.ecore#//Stakeholder/email"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Organization.ecore#//Stakeholder/phone"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference Organization.ecore#//Stakeholder/supervisor"/>
     </genClasses>
   </genPackages>
 </genmodel:GenModel>

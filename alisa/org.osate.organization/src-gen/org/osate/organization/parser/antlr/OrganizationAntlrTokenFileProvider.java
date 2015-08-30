@@ -11,6 +11,6 @@ public class OrganizationAntlrTokenFileProvider implements IAntlrTokenFileProvid
 	@Override
 	public InputStream getAntlrTokenFile() {
 		ClassLoader classLoader = getClass().getClassLoader();
-    	return classLoader.getResourceAsStream("org/osate/organization/parser/antlr/internal/InternalOrganization.tokens");
+    	return classLoader.getResourceAsStream("org/osate/organization/parser/antlr/internal/InternalOrganizationParser.tokens");
 	}
 }

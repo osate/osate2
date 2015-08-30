@@ -19,6 +19,7 @@ import org.eclipse.emf.ecore.EObject;
  *   <li>{@link org.osate.organization.organization.Stakeholder#getRole <em>Role</em>}</li>
  *   <li>{@link org.osate.organization.organization.Stakeholder#getEmail <em>Email</em>}</li>
  *   <li>{@link org.osate.organization.organization.Stakeholder#getPhone <em>Phone</em>}</li>
+ *   <li>{@link org.osate.organization.organization.Stakeholder#getSupervisor <em>Supervisor</em>}</li>
  * </ul>
  * </p>
  *
@@ -209,5 +210,31 @@ public interface Stakeholder extends EObject
    * @generated
    */
   void setPhone(String value);
+
+  /**
+   * Returns the value of the '<em><b>Supervisor</b></em>' reference.
+   * <!-- begin-user-doc -->
+   * <p>
+   * If the meaning of the '<em>Supervisor</em>' reference isn't clear,
+   * there really should be more of a description here...
+   * </p>
+   * <!-- end-user-doc -->
+   * @return the value of the '<em>Supervisor</em>' reference.
+   * @see #setSupervisor(Stakeholder)
+   * @see org.osate.organization.organization.OrganizationPackage#getStakeholder_Supervisor()
+   * @model
+   * @generated
+   */
+  Stakeholder getSupervisor();
+
+  /**
+   * Sets the value of the '{@link org.osate.organization.organization.Stakeholder#getSupervisor <em>Supervisor</em>}' reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @param value the new value of the '<em>Supervisor</em>' reference.
+   * @see #getSupervisor()
+   * @generated
+   */
+  void setSupervisor(Stakeholder value);
 
 } // Stakeholder

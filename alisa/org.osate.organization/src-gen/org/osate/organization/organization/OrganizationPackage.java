@@ -167,13 +167,22 @@ public interface OrganizationPackage extends EPackage
   int STAKEHOLDER__PHONE = 6;
 
   /**
+   * The feature id for the '<em><b>Supervisor</b></em>' reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int STAKEHOLDER__SUPERVISOR = 7;
+
+  /**
    * The number of structural features of the '<em>Stakeholder</em>' class.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    * @ordered
    */
-  int STAKEHOLDER_FEATURE_COUNT = 7;
+  int STAKEHOLDER_FEATURE_COUNT = 8;
 
 
   /**
@@ -296,6 +305,17 @@ public interface OrganizationPackage extends EPackage
   EAttribute getStakeholder_Phone();
 
   /**
+   * Returns the meta object for the reference '{@link org.osate.organization.organization.Stakeholder#getSupervisor <em>Supervisor</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the reference '<em>Supervisor</em>'.
+   * @see org.osate.organization.organization.Stakeholder#getSupervisor()
+   * @see #getStakeholder()
+   * @generated
+   */
+  EReference getStakeholder_Supervisor();
+
+  /**
    * Returns the factory that creates the instances of the model.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -409,6 +429,14 @@ public interface OrganizationPackage extends EPackage
      * @generated
      */
     EAttribute STAKEHOLDER__PHONE = eINSTANCE.getStakeholder_Phone();
+
+    /**
+     * The meta object literal for the '<em><b>Supervisor</b></em>' reference feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EReference STAKEHOLDER__SUPERVISOR = eINSTANCE.getStakeholder_Supervisor();
 
   }
 

@@ -214,6 +214,16 @@ public class OrganizationPackageImpl extends EPackageImpl implements Organizatio
    * <!-- end-user-doc -->
    * @generated
    */
+  public EReference getStakeholder_Supervisor()
+  {
+    return (EReference)stakeholderEClass.getEStructuralFeatures().get(7);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
   public OrganizationFactory getOrganizationFactory()
   {
     return (OrganizationFactory)getEFactoryInstance();
@@ -251,6 +261,7 @@ public class OrganizationPackageImpl extends EPackageImpl implements Organizatio
     createEAttribute(stakeholderEClass, STAKEHOLDER__ROLE);
     createEAttribute(stakeholderEClass, STAKEHOLDER__EMAIL);
     createEAttribute(stakeholderEClass, STAKEHOLDER__PHONE);
+    createEReference(stakeholderEClass, STAKEHOLDER__SUPERVISOR);
   }
 
   /**
@@ -296,6 +307,7 @@ public class OrganizationPackageImpl extends EPackageImpl implements Organizatio
     initEAttribute(getStakeholder_Role(), ecorePackage.getEString(), "role", null, 0, 1, Stakeholder.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEAttribute(getStakeholder_Email(), ecorePackage.getEString(), "email", null, 0, 1, Stakeholder.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEAttribute(getStakeholder_Phone(), ecorePackage.getEString(), "phone", null, 0, 1, Stakeholder.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEReference(getStakeholder_Supervisor(), this.getStakeholder(), null, "supervisor", null, 0, 1, Stakeholder.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
     // Create resource
     createResource(eNS_URI);

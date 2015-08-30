@@ -1,0 +1,15 @@
+'['=8
+']'=9
+'categories'=6
+'requirement'=5
+'selection'=7
+'verification'=4
+'{'=10
+'}'=11
+RULE_ANY_OTHER=18
+RULE_ID=12
+RULE_INT=13
+RULE_ML_COMMENT=15
+RULE_SL_COMMENT=16
+RULE_STRING=14
+RULE_WS=17

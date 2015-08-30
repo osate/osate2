@@ -32,4 +32,6 @@ Export-Package: org.osate.organization,
  org.osate.organization.serializer,
  org.osate.organization.services,
  org.osate.organization.util,
- org.osate.organization.validation
+ org.osate.organization.validation,
+ org.osate.organization.parser.antlr.lexer
+

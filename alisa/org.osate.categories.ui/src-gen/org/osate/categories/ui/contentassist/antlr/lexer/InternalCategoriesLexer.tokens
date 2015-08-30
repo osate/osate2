@@ -1,0 +1,15 @@
+Categories=6
+LeftCurlyBracket=10
+LeftSquareBracket=8
+RULE_ANY_OTHER=18
+RULE_ID=12
+RULE_INT=13
+RULE_ML_COMMENT=15
+RULE_SL_COMMENT=16
+RULE_STRING=14
+RULE_WS=17
+Requirement=5
+RightCurlyBracket=11
+RightSquareBracket=9
+Selection=7
+Verification=4

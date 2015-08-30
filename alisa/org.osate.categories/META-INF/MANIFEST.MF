@@ -32,4 +32,5 @@ Export-Package: org.osate.categories,
  org.osate.categories.serializer,
  org.osate.categories.services,
  org.osate.categories.util,
- org.osate.categories.validation
+ org.osate.categories.validation,
+ org.osate.categories.parser.antlr.lexer

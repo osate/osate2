@@ -55,7 +55,8 @@ public class OrganizationSemanticSequencer extends AbstractDelegatingSemanticSeq
 	 *         description=STRING? 
 	 *         role=STRING? 
 	 *         email=STRING? 
-	 *         phone=STRING?
+	 *         phone=STRING? 
+	 *         supervisor=[Stakeholder|QID]?
 	 *     )
 	 */
 	protected void sequence_Stakeholder(EObject context, Stakeholder semanticObject) {

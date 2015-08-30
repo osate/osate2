@@ -19,5 +19,8 @@ Stakeholder:
 	&('role'  role=STRING )?
 	&('email'  email=STRING)?
 	&('phone'  phone=STRING)?)
+	&('supervisor'  supervisor=[Stakeholder|QID])?
 	']' 
 ;
+
+QID : ID ('.' ID)?;
