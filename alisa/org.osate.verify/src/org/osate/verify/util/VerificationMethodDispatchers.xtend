@@ -15,6 +15,8 @@ import org.osate.verify.verify.PluginMethod
 import static extension org.osate.verify.analysisplugins.AnalysisPluginInterface.*
 import org.eclipse.emf.common.util.EList
 import org.eclipse.xtext.common.types.JvmFormalParameter
+import java.util.Map
+import java.util.concurrent.ConcurrentHashMap
 
 class VerificationMethodDispatchers  {
 
@@ -197,7 +199,8 @@ class VerificationMethodDispatchers  {
 			{
 				val pt = o.parameterType
 				val x = pt.type
-				newClasses.add(Object)
+				val cl = fastForName(x.simpleName)
+				newClasses.add(cl)
 				println ("has to load class " + x.class.name)
 			}	
 			
@@ -211,6 +214,33 @@ class VerificationMethodDispatchers  {
 		}
 		return null
 	}
+
+	private static final Map<String, Class> BUILT_IN_MAP = 
+    	new ConcurrentHashMap<String, Class>();
+
+
+	def Class forName(String name) throws ClassNotFoundException {
+		switch (name){
+			case typeof(void).name: return typeof(void)
+			case typeof(boolean).name: return typeof(boolean)
+			case typeof(byte).name: return typeof(byte)
+			case typeof(char).name: return typeof(char)
+			case typeof(short).name: return typeof(short)
+			case typeof(int).name: return typeof(int)
+			case typeof(float).name: return typeof(float)
+			case typeof(long).name: return typeof(long)
+			case typeof(double).name: return typeof(double)
+			default: return Class.forName(name)
+		}
+	}	
 	
+	def Class fastForName(String name) throws ClassNotFoundException {
+		var Class c = BUILT_IN_MAP.get(name);
+		if (c == null)
+			// assumes you have only one class loader!
+			BUILT_IN_MAP.put(name, c = forName(name));
+		return c;
+		
+	}
 
 }
