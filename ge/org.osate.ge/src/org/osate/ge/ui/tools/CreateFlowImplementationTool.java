@@ -491,19 +491,17 @@ public class CreateFlowImplementationTool {
 						if (prevEle instanceof FlowSpecification) {
 							return getValidConnectionAfterFlowSpecification((FlowSpecification)prevEle, con, context);
 						} else if (prevEle instanceof Subcomponent) {
-							final Context subContext = (Context)getRefinedElement(context);
-							if (con.getDestination().getContext() != null && con.getSource().getContext() != null) {
-								if (con.isBidirectional()) {
-									if (getRefinedElement(con.getDestination().getContext()) == subContext
-											|| getRefinedElement(con.getSource().getContext()) == subContext) {
-										return true;
-									}
-								} else {
-									if (getRefinedElement(con.getSource().getContext()) == subContext) {
-										return true;
-									}
+							final Context subContext = (Context)getRefinedElement(prevEle);
+							final FlowEnd flowEnd = flowImplFlowSpec.getOutEnd();
+							if (context == null) {
+								if (getRefinedElement(con.getSource().getContext()) == subContext && ((con.getDestination().getConnectionEnd() instanceof DataAccess || checkSubcomponentOwner((Context)getRefinedElement(con.getDestination().getContext()))) || (con.getDestination().getConnectionEnd() == flowEnd.getFeature() && con.getDestination().getContext() == null))
+									|| (getRefinedElement(con.getDestination().getContext()) == subContext && ((con.getSource().getConnectionEnd() instanceof DataAccess || checkSubcomponentOwner((Context)con.getSource().getConnectionEnd()))) || con.getSource().getConnectionEnd() == flowEnd.getFeature() && con.getSource().getContext() == null)) {
+									return true;
 								}
-							} return false;
+							} else {
+								return getRefinedElement(con.getSource().getContext()) == subContext
+										&& getRefinedElement(con.getDestination().getContext()) == subContext;
+							}
 						} else {
 							return prevEle instanceof DataAccess;
 						}
