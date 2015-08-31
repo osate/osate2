@@ -119,6 +119,7 @@ public class CreateEndToEndFlowTool {
 			if (createEndToEndFlowDialog.open() == Dialog.CANCEL) {
 				uiService.deactivateActiveTool();
 				canActivate = true;
+				previouslySelectedPes.clear();
 				return;
 			}
 
@@ -363,7 +364,7 @@ public class CreateEndToEndFlowTool {
 		}
 		
 		public Object getPreviousSegmentElement() {
-			return eTEFlow.getAllFlowSegments().size() > 0 ? eTEFlow.getAllFlowSegments().get(eTEFlow.getAllFlowSegments().size()-1).getFlowElement() : null;
+			return eTEFlow.getAllFlowSegments().size() > 0 ? getRefinedElement(eTEFlow.getAllFlowSegments().get(eTEFlow.getAllFlowSegments().size()-1).getFlowElement()) : null;
 		}
 
 		private boolean isValid(final Element selectedEle, final Context context) {
@@ -382,7 +383,6 @@ public class CreateEndToEndFlowTool {
 							if (con.isBidirectional()) {
 								if (con.getDestination().getConnectionEnd() == segFs.getInEnd().getFeature()
 									|| con.getSource().getConnectionEnd() == segFs.getInEnd().getFeature()) {
-										
 										return true;
 									}
 							} else {
