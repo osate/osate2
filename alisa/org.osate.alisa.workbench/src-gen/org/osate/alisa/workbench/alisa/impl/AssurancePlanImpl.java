@@ -41,8 +41,9 @@ import org.osate.verify.verify.VerificationPlan;
  *   <li>{@link org.osate.alisa.workbench.alisa.impl.AssurancePlanImpl#getDescription <em>Description</em>}</li>
  *   <li>{@link org.osate.alisa.workbench.alisa.impl.AssurancePlanImpl#getAssureOwn <em>Assure Own</em>}</li>
  *   <li>{@link org.osate.alisa.workbench.alisa.impl.AssurancePlanImpl#getAssureGlobal <em>Assure Global</em>}</li>
- *   <li>{@link org.osate.alisa.workbench.alisa.impl.AssurancePlanImpl#getAssurePlans <em>Assure Plans</em>}</li>
+ *   <li>{@link org.osate.alisa.workbench.alisa.impl.AssurancePlanImpl#getAssureSubsystemPlans <em>Assure Subsystem Plans</em>}</li>
  *   <li>{@link org.osate.alisa.workbench.alisa.impl.AssurancePlanImpl#getAssumeSubsystems <em>Assume Subsystems</em>}</li>
+ *   <li>{@link org.osate.alisa.workbench.alisa.impl.AssurancePlanImpl#isAssumeAll <em>Assume All</em>}</li>
  *   <li>{@link org.osate.alisa.workbench.alisa.impl.AssurancePlanImpl#getIssues <em>Issues</em>}</li>
  * </ul>
  * </p>
@@ -132,14 +133,14 @@ public class AssurancePlanImpl extends MinimalEObjectImpl.Container implements A
   protected EList<VerificationPlan> assureGlobal;
 
   /**
-   * The cached value of the '{@link #getAssurePlans() <em>Assure Plans</em>}' reference list.
+   * The cached value of the '{@link #getAssureSubsystemPlans() <em>Assure Subsystem Plans</em>}' reference list.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @see #getAssurePlans()
+   * @see #getAssureSubsystemPlans()
    * @generated
    * @ordered
    */
-  protected EList<AssurancePlan> assurePlans;
+  protected EList<AssurancePlan> assureSubsystemPlans;
 
   /**
    * The cached value of the '{@link #getAssumeSubsystems() <em>Assume Subsystems</em>}' reference list.
@@ -150,6 +151,26 @@ public class AssurancePlanImpl extends MinimalEObjectImpl.Container implements A
    * @ordered
    */
   protected EList<ComponentClassifier> assumeSubsystems;
+
+  /**
+   * The default value of the '{@link #isAssumeAll() <em>Assume All</em>}' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see #isAssumeAll()
+   * @generated
+   * @ordered
+   */
+  protected static final boolean ASSUME_ALL_EDEFAULT = false;
+
+  /**
+   * The cached value of the '{@link #isAssumeAll() <em>Assume All</em>}' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see #isAssumeAll()
+   * @generated
+   * @ordered
+   */
+  protected boolean assumeAll = ASSUME_ALL_EDEFAULT;
 
   /**
    * The cached value of the '{@link #getIssues() <em>Issues</em>}' attribute list.
@@ -352,13 +373,13 @@ public class AssurancePlanImpl extends MinimalEObjectImpl.Container implements A
    * <!-- end-user-doc -->
    * @generated
    */
-  public EList<AssurancePlan> getAssurePlans()
+  public EList<AssurancePlan> getAssureSubsystemPlans()
   {
-    if (assurePlans == null)
+    if (assureSubsystemPlans == null)
     {
-      assurePlans = new EObjectResolvingEList<AssurancePlan>(AssurancePlan.class, this, AlisaPackage.ASSURANCE_PLAN__ASSURE_PLANS);
+      assureSubsystemPlans = new EObjectResolvingEList<AssurancePlan>(AssurancePlan.class, this, AlisaPackage.ASSURANCE_PLAN__ASSURE_SUBSYSTEM_PLANS);
     }
-    return assurePlans;
+    return assureSubsystemPlans;
   }
 
   /**
@@ -373,6 +394,29 @@ public class AssurancePlanImpl extends MinimalEObjectImpl.Container implements A
       assumeSubsystems = new EObjectResolvingEList<ComponentClassifier>(ComponentClassifier.class, this, AlisaPackage.ASSURANCE_PLAN__ASSUME_SUBSYSTEMS);
     }
     return assumeSubsystems;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public boolean isAssumeAll()
+  {
+    return assumeAll;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public void setAssumeAll(boolean newAssumeAll)
+  {
+    boolean oldAssumeAll = assumeAll;
+    assumeAll = newAssumeAll;
+    if (eNotificationRequired())
+      eNotify(new ENotificationImpl(this, Notification.SET, AlisaPackage.ASSURANCE_PLAN__ASSUME_ALL, oldAssumeAll, assumeAll));
   }
 
   /**
@@ -428,10 +472,12 @@ public class AssurancePlanImpl extends MinimalEObjectImpl.Container implements A
         return getAssureOwn();
       case AlisaPackage.ASSURANCE_PLAN__ASSURE_GLOBAL:
         return getAssureGlobal();
-      case AlisaPackage.ASSURANCE_PLAN__ASSURE_PLANS:
-        return getAssurePlans();
+      case AlisaPackage.ASSURANCE_PLAN__ASSURE_SUBSYSTEM_PLANS:
+        return getAssureSubsystemPlans();
       case AlisaPackage.ASSURANCE_PLAN__ASSUME_SUBSYSTEMS:
         return getAssumeSubsystems();
+      case AlisaPackage.ASSURANCE_PLAN__ASSUME_ALL:
+        return isAssumeAll();
       case AlisaPackage.ASSURANCE_PLAN__ISSUES:
         return getIssues();
     }
@@ -469,13 +515,16 @@ public class AssurancePlanImpl extends MinimalEObjectImpl.Container implements A
         getAssureGlobal().clear();
         getAssureGlobal().addAll((Collection<? extends VerificationPlan>)newValue);
         return;
-      case AlisaPackage.ASSURANCE_PLAN__ASSURE_PLANS:
-        getAssurePlans().clear();
-        getAssurePlans().addAll((Collection<? extends AssurancePlan>)newValue);
+      case AlisaPackage.ASSURANCE_PLAN__ASSURE_SUBSYSTEM_PLANS:
+        getAssureSubsystemPlans().clear();
+        getAssureSubsystemPlans().addAll((Collection<? extends AssurancePlan>)newValue);
         return;
       case AlisaPackage.ASSURANCE_PLAN__ASSUME_SUBSYSTEMS:
         getAssumeSubsystems().clear();
         getAssumeSubsystems().addAll((Collection<? extends ComponentClassifier>)newValue);
+        return;
+      case AlisaPackage.ASSURANCE_PLAN__ASSUME_ALL:
+        setAssumeAll((Boolean)newValue);
         return;
       case AlisaPackage.ASSURANCE_PLAN__ISSUES:
         getIssues().clear();
@@ -513,11 +562,14 @@ public class AssurancePlanImpl extends MinimalEObjectImpl.Container implements A
       case AlisaPackage.ASSURANCE_PLAN__ASSURE_GLOBAL:
         getAssureGlobal().clear();
         return;
-      case AlisaPackage.ASSURANCE_PLAN__ASSURE_PLANS:
-        getAssurePlans().clear();
+      case AlisaPackage.ASSURANCE_PLAN__ASSURE_SUBSYSTEM_PLANS:
+        getAssureSubsystemPlans().clear();
         return;
       case AlisaPackage.ASSURANCE_PLAN__ASSUME_SUBSYSTEMS:
         getAssumeSubsystems().clear();
+        return;
+      case AlisaPackage.ASSURANCE_PLAN__ASSUME_ALL:
+        setAssumeAll(ASSUME_ALL_EDEFAULT);
         return;
       case AlisaPackage.ASSURANCE_PLAN__ISSUES:
         getIssues().clear();
@@ -548,10 +600,12 @@ public class AssurancePlanImpl extends MinimalEObjectImpl.Container implements A
         return assureOwn != null && !assureOwn.isEmpty();
       case AlisaPackage.ASSURANCE_PLAN__ASSURE_GLOBAL:
         return assureGlobal != null && !assureGlobal.isEmpty();
-      case AlisaPackage.ASSURANCE_PLAN__ASSURE_PLANS:
-        return assurePlans != null && !assurePlans.isEmpty();
+      case AlisaPackage.ASSURANCE_PLAN__ASSURE_SUBSYSTEM_PLANS:
+        return assureSubsystemPlans != null && !assureSubsystemPlans.isEmpty();
       case AlisaPackage.ASSURANCE_PLAN__ASSUME_SUBSYSTEMS:
         return assumeSubsystems != null && !assumeSubsystems.isEmpty();
+      case AlisaPackage.ASSURANCE_PLAN__ASSUME_ALL:
+        return assumeAll != ASSUME_ALL_EDEFAULT;
       case AlisaPackage.ASSURANCE_PLAN__ISSUES:
         return issues != null && !issues.isEmpty();
     }
@@ -573,6 +627,8 @@ public class AssurancePlanImpl extends MinimalEObjectImpl.Container implements A
     result.append(name);
     result.append(", title: ");
     result.append(title);
+    result.append(", assumeAll: ");
+    result.append(assumeAll);
     result.append(", issues: ");
     result.append(issues);
     result.append(')');

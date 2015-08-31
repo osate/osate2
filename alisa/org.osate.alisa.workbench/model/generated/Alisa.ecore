@@ -16,10 +16,11 @@
         upperBound="-1" eType="ecore:EClass platform:/resource/org.osate.verify/model/generated/Verify.ecore#//VerificationPlan"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="assureGlobal" unique="false"
         upperBound="-1" eType="ecore:EClass platform:/resource/org.osate.verify/model/generated/Verify.ecore#//VerificationPlan"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="assurePlans" unique="false"
+    <eStructuralFeatures xsi:type="ecore:EReference" name="assureSubsystemPlans" unique="false"
         upperBound="-1" eType="#//AssurancePlan"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="assumeSubsystems" unique="false"
         upperBound="-1" eType="ecore:EClass platform:/resource/org.osate.aadl2/model/aadl2.ecore#//ComponentClassifier"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="assumeAll" eType="ecore:EDataType platform:/plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//EBoolean"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="issues" unique="false"
         upperBound="-1" eType="ecore:EDataType platform:/plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//EString"/>
   </eClassifiers>

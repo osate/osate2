@@ -35,6 +35,7 @@ import org.osate.verify.verify.VerificationPrecondition
 import org.osate.verify.verify.VerificationValidation
 
 import static extension org.osate.alisa.common.util.CommonUtilExtension.*
+import static extension org.osate.alisa.workbench.util.AlisaWorkbenchUtilExtension.*
 import static extension org.osate.verify.util.VerifyUtilExtension.*
 import org.osate.aadl2.Subcomponent
 
@@ -86,11 +87,10 @@ class AlisaGenerator implements IGenerator {
 			allPlans = acp.assureGlobal
 		}
 		rootAssuranceCase = acp
-		generateCase(acp, null, null)
+		generateCase(acp, null)
 	}
 
 @Inject extension IVerifyGlobalReferenceFinder referenceFinder
-
 
 	/**
 	 * acp: AssurancePlan of the system of interest
@@ -98,7 +98,7 @@ class AlisaGenerator implements IGenerator {
 	 * either acp or sub may be null, but not both
 	 * they can both be set, in this case acp takes precedence
 	 */
-	def CharSequence generateCase(AssurancePlan acp, Subcomponent sub, ComponentImplementation cimpl) {
+	def CharSequence generateCase(AssurancePlan acp, Subcomponent sub){
 		var Iterable<VerificationPlan> myplans = Collections.EMPTY_LIST
 		var ComponentClassifier cc
 		if (acp != null){
@@ -110,10 +110,14 @@ class AlisaGenerator implements IGenerator {
 		}
 		if (myplans.empty && sub != null){
 			cc = sub.allClassifier
-		 myplans = cc?.getVerificationPlans(rootAssuranceCase);
+		 	if (cc != null) {
+		 	myplans = cc.getVerificationPlans(rootAssuranceCase);
+		 	} else {
+		 	myplans =Collections.EMPTY_LIST
+		 	}
 		}
+		if( myplans.empty) return ''''''
 		'''	
-			«IF !myplans.empty»
 			«IF sub == null»
 				case «acp.name» 
 			«ELSE»
@@ -128,7 +132,7 @@ class AlisaGenerator implements IGenerator {
 				[
 					tbdcount 0
 					«FOR myplan : myplans»
-						«FOR claim : (myplan as VerificationPlan).claim»
+						«FOR claim : myplan.claim»
 						«IF claim.evaluateRequirementFilter(requirementFilter)»
 							«claim.generate()»
 						«ENDIF»
@@ -143,27 +147,27 @@ class AlisaGenerator implements IGenerator {
 					«ENDFOR»
 			    «IF cc instanceof ComponentImplementation»
 					«FOR subc : cc.allSubcomponents»
-						«subc.filterplans(acp, cc)»
+						«subc.filterplans(acp)»
 					«ENDFOR»
 			    «ENDIF»
 				]
-			«ENDIF»
 		'''
 	}
 	
-	def CharSequence filterplans(Subcomponent subc, AssurancePlan parentacp, ComponentImplementation cimpl){
+	def CharSequence filterplans(Subcomponent subc, AssurancePlan parentacp){
 		val cc = subc.allClassifier
 		if (cc.skipAssuranceplans(parentacp)) return ''''''
 		if (cc instanceof ComponentType){
-			generateCase(null,subc, cimpl)
+			generateCase(null,subc)
 		} else {
 		val subacp = cc.getSubsystemAssuranceplan(parentacp)
-		generateCase(subacp,subc, cimpl)
+		generateCase(subacp,subc)
 		}
 	}
 	
 	def boolean skipAssuranceplans(ComponentClassifier cc, AssurancePlan parentacp){
 		if (parentacp == null) return false
+		if (parentacp.assumeAll) return true
 		val assumes = parentacp.assumeSubsystems
 		for (cl: assumes){
 			if (cc.isSameorExtends(cl)) return true;
@@ -173,7 +177,7 @@ class AlisaGenerator implements IGenerator {
 	
 	def AssurancePlan getSubsystemAssuranceplan(ComponentClassifier cc, AssurancePlan parentacp){
 		if (parentacp == null) return null
-		val assure = parentacp.assurePlans
+		val assure = parentacp.assureSubsystemPlans
 		for (ap: assure){
 			if (cc.isSameorExtends(ap.target)) return ap;
 		}
@@ -299,15 +303,6 @@ class AlisaGenerator implements IGenerator {
 		}
 	}
 	
-	def subcomponentClassifiers(ComponentClassifier cl){
-		if (cl instanceof ComponentImplementation){
-			val List<ComponentClassifier> result = new UniqueEList<ComponentClassifier>()
-			result += cl.allSubcomponents.map[sub|sub.classifier]
-			result
-		} else {
-			Collections.emptyList
-		}
-	}
 	
 
 }

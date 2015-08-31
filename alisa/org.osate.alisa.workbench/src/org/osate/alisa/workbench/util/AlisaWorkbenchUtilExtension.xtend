@@ -4,6 +4,9 @@ import org.eclipse.emf.ecore.EObject
 import org.osate.alisa.workbench.alisa.AssurancePlan
 import org.osate.verify.verify.VerificationPlan
 import org.osate.aadl2.ComponentClassifier
+import java.util.List
+import org.osate.categories.categories.SelectionCategory
+import org.osate.categories.util.CategoriesUtil
 
 class AlisaWorkbenchUtilExtension {
 		

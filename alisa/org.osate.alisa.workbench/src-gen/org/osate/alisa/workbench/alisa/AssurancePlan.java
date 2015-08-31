@@ -25,8 +25,9 @@ import org.osate.verify.verify.VerificationPlan;
  *   <li>{@link org.osate.alisa.workbench.alisa.AssurancePlan#getDescription <em>Description</em>}</li>
  *   <li>{@link org.osate.alisa.workbench.alisa.AssurancePlan#getAssureOwn <em>Assure Own</em>}</li>
  *   <li>{@link org.osate.alisa.workbench.alisa.AssurancePlan#getAssureGlobal <em>Assure Global</em>}</li>
- *   <li>{@link org.osate.alisa.workbench.alisa.AssurancePlan#getAssurePlans <em>Assure Plans</em>}</li>
+ *   <li>{@link org.osate.alisa.workbench.alisa.AssurancePlan#getAssureSubsystemPlans <em>Assure Subsystem Plans</em>}</li>
  *   <li>{@link org.osate.alisa.workbench.alisa.AssurancePlan#getAssumeSubsystems <em>Assume Subsystems</em>}</li>
+ *   <li>{@link org.osate.alisa.workbench.alisa.AssurancePlan#isAssumeAll <em>Assume All</em>}</li>
  *   <li>{@link org.osate.alisa.workbench.alisa.AssurancePlan#getIssues <em>Issues</em>}</li>
  * </ul>
  * </p>
@@ -174,20 +175,20 @@ public interface AssurancePlan extends EObject
   EList<VerificationPlan> getAssureGlobal();
 
   /**
-   * Returns the value of the '<em><b>Assure Plans</b></em>' reference list.
+   * Returns the value of the '<em><b>Assure Subsystem Plans</b></em>' reference list.
    * The list contents are of type {@link org.osate.alisa.workbench.alisa.AssurancePlan}.
    * <!-- begin-user-doc -->
    * <p>
-   * If the meaning of the '<em>Assure Plans</em>' reference list isn't clear,
+   * If the meaning of the '<em>Assure Subsystem Plans</em>' reference list isn't clear,
    * there really should be more of a description here...
    * </p>
    * <!-- end-user-doc -->
-   * @return the value of the '<em>Assure Plans</em>' reference list.
-   * @see org.osate.alisa.workbench.alisa.AlisaPackage#getAssurancePlan_AssurePlans()
+   * @return the value of the '<em>Assure Subsystem Plans</em>' reference list.
+   * @see org.osate.alisa.workbench.alisa.AlisaPackage#getAssurancePlan_AssureSubsystemPlans()
    * @model
    * @generated
    */
-  EList<AssurancePlan> getAssurePlans();
+  EList<AssurancePlan> getAssureSubsystemPlans();
 
   /**
    * Returns the value of the '<em><b>Assume Subsystems</b></em>' reference list.
@@ -204,6 +205,32 @@ public interface AssurancePlan extends EObject
    * @generated
    */
   EList<ComponentClassifier> getAssumeSubsystems();
+
+  /**
+   * Returns the value of the '<em><b>Assume All</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <p>
+   * If the meaning of the '<em>Assume All</em>' attribute isn't clear,
+   * there really should be more of a description here...
+   * </p>
+   * <!-- end-user-doc -->
+   * @return the value of the '<em>Assume All</em>' attribute.
+   * @see #setAssumeAll(boolean)
+   * @see org.osate.alisa.workbench.alisa.AlisaPackage#getAssurancePlan_AssumeAll()
+   * @model
+   * @generated
+   */
+  boolean isAssumeAll();
+
+  /**
+   * Sets the value of the '{@link org.osate.alisa.workbench.alisa.AssurancePlan#isAssumeAll <em>Assume All</em>}' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @param value the new value of the '<em>Assume All</em>' attribute.
+   * @see #isAssumeAll()
+   * @generated
+   */
+  void setAssumeAll(boolean value);
 
   /**
    * Returns the value of the '<em><b>Issues</b></em>' attribute list.

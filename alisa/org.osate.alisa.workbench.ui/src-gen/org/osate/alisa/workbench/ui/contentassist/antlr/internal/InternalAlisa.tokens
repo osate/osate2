@@ -3,6 +3,7 @@
 '::'=31
 '['=14
 ']'=15
+'all'=33
 'assume'=23
 'assurance'=11
 'assure'=18
@@ -19,7 +20,7 @@
 'subsystem'=21
 'subsystems'=24
 'task'=26
-'this'=33
+'this'=34
 'verifications'=29
 RULE_ANY_OTHER=10
 RULE_ID=4
@@ -51,3 +52,4 @@ T__30=30
 T__31=31
 T__32=32
 T__33=33
+T__34=34

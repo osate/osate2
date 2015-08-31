@@ -136,7 +136,7 @@ public class AlisaSyntacticSequencer extends AbstractSyntacticSequencer {
 	 *     ('assure' 'subsystem' 'plans')?
 	 *
 	 * This ambiguous syntax occurs at:
-	 *     assurePlans+=[AssurancePlan|QualifiedName] (ambiguity) assurePlans+=[AssurancePlan|QualifiedName]
+	 *     assureSubsystemPlans+=[AssurancePlan|QualifiedName] (ambiguity) assureSubsystemPlans+=[AssurancePlan|QualifiedName]
 	 */
 	protected void emit_AssurancePlan___AssureKeyword_7_3_0_SubsystemKeyword_7_3_1_PlansKeyword_7_3_2__q(EObject semanticObject, ISynNavigable transition, List<INode> nodes) {
 		acceptNodes(transition, nodes);
