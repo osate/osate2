@@ -21,6 +21,7 @@ import org.osate.verify.verify.VerificationPlan
 import org.osate.verify.verify.VerifyPackage
 
 import static org.osate.verify.util.VerifyUtilExtension.*
+import org.osate.verify.verify.VerificationMethod
 
 /**
  * Custom validation rules. 
@@ -43,9 +44,10 @@ class VerifyValidator extends AbstractVerifyValidator {
 
 	@Check
 	def checkMethodPath(JavaMethod method) {
-		val result = VerificationMethodDispatchers.eInstance.methodExists(method)
+		val VerificationMethod vm = method.eContainer as VerificationMethod
+		val result = VerificationMethodDispatchers.eInstance.methodExists(method, vm.params)
 		if (result!=null) {
-			warning("Could not method: "+result, 
+			warning("Could not find method: "+result, 
 					VerifyPackage.Literals.JAVA_METHOD__METHOD_PATH,
 					INCORRECT_METHOD_PATH)
 		}

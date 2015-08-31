@@ -13,6 +13,8 @@ import org.osate.verify.verify.JavaMethod
 import org.osate.verify.verify.PluginMethod
 
 import static extension org.osate.verify.analysisplugins.AnalysisPluginInterface.*
+import org.eclipse.emf.common.util.EList
+import org.eclipse.xtext.common.types.JvmFormalParameter
 
 class VerificationMethodDispatchers  {
 
@@ -155,7 +157,7 @@ class VerificationMethodDispatchers  {
 	}
 	
 		// invoke method in workspace project
-	def String methodExists(JavaMethod vm){
+	def String methodExists(JavaMethod vm, EList<JvmFormalParameter> parameters){
 		val i = vm.methodPath.lastIndexOf('.')
 		if ( i == -1)
 		return null;
@@ -191,6 +193,13 @@ class VerificationMethodDispatchers  {
 			val instance = clazz.newInstance
 			val newClasses = newArrayList()
 			newClasses.add(ComponentInstance)
+			for (o : parameters)
+			{
+				val pt = o.parameterType
+				val x = pt.type
+				newClasses.add(Object)
+				println ("has to load class " + x.class.name)
+			}	
 			
 			val method = clazz.getMethod(methodName, newClasses)
 			if (method == null) return "Method "+methodName+" not found in class instance"

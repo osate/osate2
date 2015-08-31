@@ -40,12 +40,6 @@ class VerifyGlobalReferenceFinder implements IVerifyGlobalReferenceFinder{
 			EcoreUtil.resolve(eod.EObjectOrProxy, context) as VerificationPlan].filter[vp|cc.isSameorExtends(vp.systemRequirements?.target)]
 	}
 		
-//		override Iterable<VerificationPlan> getVerificationPlans(ComponentClassifier cc, EObject context){
-//			val srURIs = refFinder.getEObjectReferences(cc, ReqSpecPackage.eINSTANCE.systemRequirements_Target, "reqspec")
-//			val vpURIs = srURIs.map[srURI|refFinder.getEObjectReferences(srURI, VerifyPackage.Literals.VERIFICATION_PLAN__SYSTEM_REQUIREMENTS, "verify")].flatten
-//			val resset = context.eResource.resourceSet
-//			return vpURIs.map[ vpURI | resset.getEObject(vpURI, true) as VerificationPlan]
-//	}
 
 		
 		override Iterable<VerificationPlan> getGlobalReqVerificationPlans(EObject context){
