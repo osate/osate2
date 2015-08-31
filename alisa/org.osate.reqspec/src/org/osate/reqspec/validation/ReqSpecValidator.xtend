@@ -415,9 +415,6 @@ class ReqSpecValidator extends AbstractReqSpecValidator {
 		}
 	}
 
-////TODO: This should work but not successfully tested yet because there is an exception thrown
-////      in the call to allParents that seems to be a problem with EOCL 
-////      "Error executing EValidator java.lang.UnsupportedOperationException: 2:1:2:65 missing ")" to complete scope	
 	@Check(CheckType.FAST)
 	def void checkRequirementShadowing(Requirement req){
 		val reqName = req.name.toLowerCase
@@ -453,6 +450,26 @@ class ReqSpecValidator extends AbstractReqSpecValidator {
 			var type = compClassifier.type
 			ancestors.add(type)
 			type.buildExtended(ancestors)
+		}
+	}
+	
+	@Check(CheckType.FAST)
+	def void checkRequirementRefinement(Requirement req){
+		switch req {
+			case req.refinesReference.nullOrEmpty : {}
+			case req.refinesReference.head.containingSystemRequirements === req.containingSystemRequirements : {}
+			default : {
+				val classifierParents = new ArrayList<ComponentClassifier>
+				req.containingSystemRequirements.target.buildExtended(classifierParents)
+				val refTarget = req.refinesReference.head.containingSystemRequirements.target
+				if (classifierParents.contains(refTarget)) return;
+				error("Requirement '" + req.name + "' refined from '" + req.refinesReference.head.name + 
+						"' and must either be in the same System Requirements or '" +
+						req.name + "' must be for an extension or implementation of the component '" + 
+						req.refinesReference.head.name + "' is for. '", req,  
+						ReqSpecPackage.Literals.CONTRACTUAL_ELEMENT__NAME)
+				
+			}	
 		}
 	}
 		
