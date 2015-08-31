@@ -133,6 +133,7 @@ class AssureConstructor {
 	}
 
 	def boolean skipAssuranceplans(ComponentClassifier cc, AssurancePlan parentacp) {
+		if (parentacp.assumeAll) return true
 		val assumes = parentacp.assumeSubsystems
 		for (cl : assumes) {
 			if(cc.isSameorExtends(cl)) return true;
@@ -141,7 +142,7 @@ class AssureConstructor {
 	}
 
 	def AssurancePlan getSubsystemAssuranceplan(ComponentClassifier cc, AssurancePlan parentacp) {
-		val assure = parentacp.assurePlans
+		val assure = parentacp.assureSubsystemPlans
 		for (ap : assure) {
 			if(cc.isSameorExtends(ap.target)) return ap;
 		}

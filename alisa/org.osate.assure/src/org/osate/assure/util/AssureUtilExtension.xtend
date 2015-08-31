@@ -70,9 +70,18 @@ class AssureUtilExtension {
 		return result as AssuranceCase
 	}
 
-//	def static ComponentImplementation getTargetClassifier(AssuranceCase ae) {
-//		return ae.targetSystem?.componentImplementation?:ae.target?.target
-//	}
+	def static AssuranceCase getAssuranceCaseTarget(EObject assureObject) {
+		var ac = assureObject
+		while (ac != null) {
+			ac = ac.eContainer
+			if (ac instanceof AssuranceCase){
+				if (ac.target?.target != null){
+					return ac
+				}
+			}
+		}
+		return null
+	}
 
 	def static ClaimResult getEnclosingClaimResult(EObject assureObject) {
 		var result = assureObject.eContainer
@@ -95,20 +104,9 @@ class AssureUtilExtension {
 		if (ci != null){
 			return ci.instanceModel
 		}
-		val rac = assureObject.rootAssuranceCase
+		val rac = assureObject.assuranceCaseTarget
 		if (rac == null ) return null
 		rac.target?.target?.instanceModel
-//		switch (assureObject) {
-//			VerificationActivityResult:
-//				assureObject.target?.target?.instanceModel ?:
-//					assureObject.enclosingAssuranceCase?.targetClassifier.instanceModel
-//			ValidationResult:
-//				(assureObject.eContainer as VerificationActivityResult).target?.target?.instanceModel ?:
-//					assureObject.enclosingAssuranceCase?.target?.target?.instanceModel
-//			PreconditionResult:
-//				(assureObject.eContainer as VerificationActivityResult).target?.target?.instanceModel ?:
-//					assureObject.enclosingAssuranceCase?.target?.target?.instanceModel
-//		}
 	}
 
 	def static ComponentInstance findComponentInstance(SystemInstance si,AssuranceCase ac){
