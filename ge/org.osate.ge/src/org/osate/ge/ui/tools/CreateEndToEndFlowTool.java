@@ -74,6 +74,7 @@ import org.osate.aadl2.FlowSpecification;
 import org.osate.aadl2.ModeFeature;
 import org.osate.aadl2.NamedElement;
 import org.osate.aadl2.RefinableElement;
+import org.osate.aadl2.Subcomponent;
 import org.osate.ge.ui.tools.CreateEndToEndFlowTool;
 
 public class CreateEndToEndFlowTool {
@@ -261,11 +262,16 @@ public class CreateEndToEndFlowTool {
 
 		private boolean validFirstElement(final Element selectedEle, final Context context) {
 			return (selectedEle instanceof FlowSpecification) && ((FlowSpecification)selectedEle).getKind().equals(FlowKind.SOURCE)
-					&& checkFlowSpecificationNamespace(context);
+					&& checkSubcomponentOwner((Context)getRefinedElement(context));
 		}
-
-		private boolean checkFlowSpecificationNamespace(final Context context) {
-			return context != null && context.getNamespace() == ci;
+		
+		private boolean checkSubcomponentOwner(final Context context) {
+			for (Subcomponent subC : ci.getAllSubcomponents()) {
+				if (getRefinedElement(subC) == context) {
+					return true;
+				}
+			}
+			return false;
 		}
 
 		private String getSegmentName(final Context ctx,
@@ -376,7 +382,7 @@ public class CreateEndToEndFlowTool {
 				final Object prevEle = getRefinedElement(getPreviousSegmentElement());
 				if (prevEle != null) {
 					if ((prevEle instanceof org.osate.aadl2.Connection)
-							&& (selectedEle instanceof FlowSpecification) && checkFlowSpecificationNamespace(context)) {
+							&& (selectedEle instanceof FlowSpecification) && checkSubcomponentOwner((Context) getRefinedElement(context))) {
 						final FlowSpecification segFs = (FlowSpecification)selectedEle;
 						final org.osate.aadl2.Connection con = (org.osate.aadl2.Connection)prevEle;
 						 if (segFs.getKind() == FlowKind.SINK || segFs.getKind() == FlowKind.PATH) {
@@ -419,7 +425,7 @@ public class CreateEndToEndFlowTool {
 
 			final FlowEnd flowOutEnd = fs.getOutEnd();
 			final FlowEnd flowInEnd =  fs.getInEnd();
-			if (context != null && context.getNamespace() != ci) {
+			if (context != null && !checkSubcomponentOwner((Context)getRefinedElement(context))) {
 				return false;
 			}
 			if (destCE.getContext() != null && srcCE.getContext() != null) {
@@ -526,7 +532,6 @@ public class CreateEndToEndFlowTool {
 				@Override
 				public void widgetSelected(SelectionEvent e) {
 					int prevPesSize = previouslySelectedPes.size();
-					//System.err.println(prevPesSize + " size");
 					if (prevPesSize > 0) {
 						final PictogramElement removedPe = previouslySelectedPes.get(prevPesSize-1);
 						setRemovedFlowSegment(removedPe);
