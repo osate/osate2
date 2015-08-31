@@ -526,7 +526,7 @@ public class CreateFlowImplementationTool {
 							return prevEle instanceof org.osate.aadl2.Connection && context == null;
 						}
 					}
-				} else if (flowImplFlowSpec.getKind() == FlowKind.SOURCE) {
+				} else {
 					if (context != null && selectedEle instanceof FlowSpecification && prevEle instanceof org.osate.aadl2.Connection
 							&& checkSubcomponentOwner((Context)getRefinedElement(context))) {
 						final org.osate.aadl2.Connection con = (org.osate.aadl2.Connection)getRefinedElement(prevEle);
@@ -546,18 +546,17 @@ public class CreateFlowImplementationTool {
 						if (prevEle instanceof FlowSpecification) {
 							return getValidConnectionAfterFlowSpecification((FlowSpecification)prevEle, con, context);
 						} else if (prevEle instanceof Subcomponent) {
-								if (con.getSource().getContext() == null && con.getDestination().getContext() != null) {
-									return con.getSource().getConnectionEnd() == flowImplFlowSpec.getOutEnd().getFeature()
-											|| con.getSource().getConnectionEnd() instanceof DataAccess;
-								} else if (con.getDestination().getContext() == null && con.getSource().getContext() != null) {
-									return con.getDestination().getConnectionEnd() == flowImplFlowSpec.getOutEnd().getFeature()
-											|| con.getDestination().getConnectionEnd() instanceof DataAccess;
+							final Context subContext = (Context)getRefinedElement(prevEle);
+							final FlowEnd flowEnd = flowImplFlowSpec.getKind() == FlowKind.SINK ? flowImplFlowSpec.getInEnd() : flowImplFlowSpec.getOutEnd();
+							if (context == null) {
+								if (getRefinedElement(con.getSource().getContext()) == subContext && ((con.getDestination().getConnectionEnd() instanceof DataAccess || checkSubcomponentOwner((Context)getRefinedElement(con.getDestination().getContext()))) || (con.getDestination().getConnectionEnd() == flowEnd.getFeature() && con.getDestination().getContext() == null))
+									|| (getRefinedElement(con.getDestination().getContext()) == subContext && ((con.getSource().getConnectionEnd() instanceof DataAccess || checkSubcomponentOwner((Context)con.getSource().getConnectionEnd()))) || con.getSource().getConnectionEnd() == flowEnd.getFeature() && con.getSource().getContext() == null)) {
+									return true;
 								}
-/*								if (con.getDestination().getContext() == null && con.getSource().getContext() != null) {
-									return con.getDestination().getConnectionEnd() == flowImplFlowSpec.getOutEnd().getFeature()
-											|| con.getDestination().getConnectionEnd() instanceof DataAccess;
-								}*/
-							
+							} else {
+								return getRefinedElement(con.getSource().getContext()) == subContext
+										&& getRefinedElement(con.getDestination().getContext()) == subContext;
+							}
 						} else if (prevEle instanceof DataAccess) {
 							return true;
 						}
@@ -567,74 +566,9 @@ public class CreateFlowImplementationTool {
 						if (prevEle instanceof org.osate.aadl2.Connection) {
 							final org.osate.aadl2.Connection con = (org.osate.aadl2.Connection)prevEle;
 							final Context subContext = (Context)getRefinedElement(context);
-							//if (con.isBidirectional()) {
 								return (getRefinedElement(con.getSource().getContext()) == subContext
 										|| getRefinedElement(con.getDestination().getContext()) == subContext);
-							/*} else {
-								return getRefinedElement(con.getDestination().getContext()) == subContext;
-							}*/
 						}
-					}
-				} else if (flowImplFlowSpec.getKind() == FlowKind.SINK) {
-					if (context != null && selectedEle instanceof FlowSpecification && prevEle instanceof org.osate.aadl2.Connection
-							&& checkSubcomponentOwner((Context)getRefinedElement(context))) {
-						final org.osate.aadl2.Connection con = (org.osate.aadl2.Connection)getRefinedElement(prevEle);
-						FlowSpecification fs = ((FlowSpecification)selectedEle);
-						FlowEnd flowEnd = fs.getKind() == FlowKind.SINK ? fs.getInEnd() : fs.getOutEnd();
-						if (fs.getKind() == FlowKind.PATH) {
-							final FlowEnd flowinEnd = fs.getInEnd();
-							return con.getDestination().getConnectionEnd() == flowEnd.getFeature() ||
-									con.getSource().getConnectionEnd() == flowEnd.getFeature() ||
-									con.getDestination().getConnectionEnd() == flowinEnd.getFeature() ||
-									con.getSource().getConnectionEnd() == flowinEnd.getFeature();
-						} else /*if (con.isBidirectional())*/ {
-							return con.getSource().getConnectionEnd() == flowEnd.getFeature() || con.getDestination().getConnectionEnd() == flowEnd.getFeature();
-						}/* else {
-							return con.getDestination().getConnectionEnd() == flowEnd.getFeature();
-						}*/
-					} else if (selectedEle instanceof org.osate.aadl2.Connection) {
-						final org.osate.aadl2.Connection con = (org.osate.aadl2.Connection)(getRefinedElement(selectedEle));
-						if (prevEle instanceof FlowSpecification) {
-							return getValidConnectionAfterFlowSpecification((FlowSpecification)prevEle, con, context);
-						} else if (prevEle instanceof Subcomponent) {
-							final Context subContext = (Context)getRefinedElement(prevEle);
-							/*if (con.isBidirectional()) {
-								if (context == null) {
-									if ((getRefinedElement(con.getSource().getContext()) == subContext && (con.getDestination().getConnectionEnd() instanceof DataAccess || checkSubcomponentOwner((Context)getRefinedElement(con.getDestination().getContext()))))
-											|| (getRefinedElement(con.getDestination().getContext()) == subContext && (con.getDestination().getConnectionEnd() instanceof DataAccess || checkSubcomponentOwner((Context)getRefinedElement(con.getSource().getContext()))))) {
-										return true;
-									}
-								} else {
-									return getRefinedElement(con.getSource().getContext()) == subContext
-											&& getRefinedElement(con.getDestination().getContext()) == subContext;
-								}
-							} else {*/
-								if (context == null) {
-									if (getRefinedElement(con.getSource().getContext()) == subContext && (con.getDestination().getConnectionEnd() instanceof DataAccess || checkSubcomponentOwner((Context)getRefinedElement(con.getDestination().getContext())))
-										|| (getRefinedElement(con.getDestination().getContext()) == subContext && (con.getSource().getConnectionEnd() instanceof DataAccess || checkSubcomponentOwner((Context)con.getSource().getConnectionEnd())))) {
-										return true;
-									}
-								} else {
-									return getRefinedElement(con.getSource().getContext()) == subContext
-											&& getRefinedElement(con.getDestination().getContext()) == subContext;
-								}
-							//}
-						} else {
-							return prevEle instanceof DataAccess;
-						}
-					} else if (selectedEle instanceof Subcomponent) {
-						if (prevEle instanceof org.osate.aadl2.Connection) {
-							final org.osate.aadl2.Connection con = (org.osate.aadl2.Connection)prevEle;
-							final Context subContext = (Context)getRefinedElement(context);
-							//if (con.isBidirectional()) {
-								return (getRefinedElement(con.getSource().getContext()) == subContext
-										|| getRefinedElement(con.getDestination().getContext()) == subContext);
-							/*} else {
-								return getRefinedElement(con.getDestination().getContext()) == subContext;
-							}*/
-						}
-					} else if (selectedEle instanceof DataAccess) {
-						return context == null && prevEle instanceof org.osate.aadl2.Connection;
 					}
 				}
 			} else if (((selectedEle instanceof FlowSpecification) && context == null)) {
@@ -655,41 +589,31 @@ public class CreateFlowImplementationTool {
 				final ConnectionEnd srcCE = con.getSource().getConnectionEnd();
 				if (fs.getKind() == FlowKind.PATH) {
 					FlowEnd flowInEnd = fs.getInEnd();
-					if (con.isBidirectional()) {
-						if ((flowImplFlowEnd.getFeature() == con.getDestination().getConnectionEnd()
-								|| flowImplFlowEnd.getFeature() == con.getSource().getConnectionEnd())
-								&& ((flowEnd.getFeature() == con.getDestination().getConnectionEnd()
-								|| flowEnd.getFeature() == con.getSource().getConnectionEnd())
-								|| flowInEnd.getFeature() == con.getDestination().getConnectionEnd()
-								|| flowInEnd.getFeature() == con.getSource().getConnectionEnd())
-								|| (con.getSource().getConnectionEnd() instanceof DataAccess && con.getSource().getContext() == null)
-								|| (con.getDestination().getConnectionEnd() instanceof DataAccess && con.getDestination().getContext() == null)) {
+					//if (con.isBidirectional()) {
+						if ((flowEnd.getFeature() == con.getSource().getConnectionEnd() && flowImplFlowEnd.getFeature() == con.getDestination().getConnectionEnd() && con.getDestination().getContext() == null)
+							|| (flowEnd.getFeature() == con.getDestination().getConnectionEnd() && flowImplFlowEnd.getFeature() == con.getSource().getConnectionEnd() && con.getSource().getContext() == null)
+							/*&& ((flowEnd.getFeature() == con.getDestination().getConnectionEnd()
+							|| flowEnd.getFeature() == con.getSource().getConnectionEnd())*/
+							|| (flowInEnd.getFeature() == con.getDestination().getConnectionEnd() && flowImplFlowEnd.getFeature() == con.getSource().getConnectionEnd() && con.getSource().getContext() == null)
+							|| (flowInEnd.getFeature() == con.getSource().getConnectionEnd() && flowImplFlowEnd.getFeature() == con.getDestination().getContext() && con.getDestination().getContext() == null)
+							|| (con.getSource().getConnectionEnd() instanceof DataAccess && con.getSource().getContext() == null)
+							|| (con.getDestination().getConnectionEnd() instanceof DataAccess && con.getDestination().getContext() == null)) {
 							return true;
 						}
-					} else {
-						if (flowImplFlowEnd.getFeature() == con.getDestination().getConnectionEnd()
-								&& ((flowEnd.getFeature() == con.getSource().getConnectionEnd())
-										|| flowInEnd.getFeature() == con.getDestination().getConnectionEnd())
-										|| (con.getDestination().getConnectionEnd() instanceof DataAccess && con.getDestination().getContext() == null)
-										|| (con.getSource().getConnectionEnd() instanceof DataAccess && con.getSource().getContext() == null)) {
+					//} else {
+						/*if ((flowImplFlowEnd.getFeature() == con.getDestination().getConnectionEnd() && flowEnd.getFeature() == con.getSource().getConnectionEnd() && con.getDestination().getContext() == null)
+								|| (flowInEnd.getFeature() == con.getDestination().getConnectionEnd() && flowImplFlowEnd.getFeature() == con.getSource().getConnectionEnd() && con.getSource().getContext() == null)
+								|| (con.getSource().getConnectionEnd() == flowInEnd.getFeature() && con.getDestination().getConnectionEnd() instanceof DataAccess && con.getDestination().getContext() == null)
+								|| (con.getDestination().getConnectionEnd() == flowEnd.getFeature() && con.getSource().getConnectionEnd() instanceof DataAccess && con.getSource().getContext() == null)) {
 							return true;
-						}
-					}
+						}*/
+					//}
 				} else {
-					if (con.isBidirectional()) {
-						if ((flowEnd.getFeature() == destCE
-								|| flowEnd.getFeature() == srcCE)
-								&& (flowImplFlowEnd.getFeature() == destCE
-								|| flowImplFlowEnd.getFeature() == srcCE)
-								|| (srcCE == flowEnd.getFeature() && destCE instanceof DataAccess && con.getDestination().getContext() == null)
-								|| (destCE == flowEnd.getFeature() && srcCE instanceof DataAccess && con.getSource().getContext() == null)) {
-							return true;
-						}
-					} else {
-						if ((flowEnd.getFeature() == srcCE) && (flowImplFlowEnd.getFeature() == destCE || (destCE instanceof DataAccess
-								&& con.getDestination().getContext() == null))) {
-							return true;
-						} 
+					if ((flowEnd.getFeature() == srcCE && flowImplFlowEnd.getFeature() == destCE && con.getDestination().getContext() == null)
+							|| (flowEnd.getFeature() == destCE && flowImplFlowEnd.getFeature() == srcCE && con.getSource().getContext() == null)
+							|| (srcCE == flowEnd.getFeature() && destCE instanceof DataAccess && con.getDestination().getContext() == null)
+							|| (destCE == flowEnd.getFeature() && srcCE instanceof DataAccess && con.getSource().getContext() == null)) {
+						return true;
 					}
 				}
 				return checkValidConnection(fs, con);

@@ -208,14 +208,17 @@ public class CreateEndToEndFlowTool {
 		});
 	}
 
-	private String getMessage(final Object bo) {
-		final String addModeFeaturesString = "mode feature if neccessary.";
+	public String getMessage(final Object bo) {
+		final String addModeFeaturesString = "mode feature.";
 		if (bo instanceof FlowSpecification) {
 			final FlowSpecification fs = (FlowSpecification)bo;
 			if (fs.getKind() != FlowKind.SINK) {
 				return "Select a valid connection or " + addModeFeaturesString;
 			} else {
-				return "Select" + addModeFeaturesString;
+				if (createEndToEndFlowDialog.eTEFlow.getName() == "") {
+					return "Select a valid mode feature if neccessary or name the End-To-End Flow and click OK.";
+				}
+				return "Select a mode feature if neccessary or click OK.";
 			}
 		} else if (bo instanceof org.osate.aadl2.Connection) {
 			return "Select a valid flow specification or " + addModeFeaturesString;
@@ -233,6 +236,7 @@ public class CreateEndToEndFlowTool {
 		NamingService namingService;
 		private PictogramElement removedPictogramElement = null;
 		final Aadl2Package pkg = Aadl2Factory.eINSTANCE.getAadl2Package();
+		private String nameError = "";
 		private final EndToEndFlow eTEFlow = (EndToEndFlow) pkg.getEFactoryInstance().create(pkg.getEndToEndFlow());
 		public CreateFlowsToolsDialog(final Shell parentShell, final NamingService namingService) {
 			super(parentShell);
@@ -353,6 +357,7 @@ public class CreateEndToEndFlowTool {
 		}
 
 		private void updateWidgets() {
+			createEndToEndFlowDialog.setMessage(CreateEndToEndFlowTool.this.getMessage(eTEFlow.getAllFlowSegments().size() > 0 ? eTEFlow.getAllFlowSegments().get(eTEFlow.getAllFlowSegments().size()-1).getFlowElement() : "Select start subcomponent flow identifier or mode feature if neccessary.") + nameError);
 			setNavigationButtonsEnabled(isCompleteAndValid() && !eTEFlow.getName().equals(""));
 		}
 
@@ -464,7 +469,7 @@ public class CreateEndToEndFlowTool {
 		public void create() {
 			super.create();
 			setTitle("Select Elements");
-			setMessage("Select start subcomponent flow identifier or mode feature if neccessary.");
+			setMessage("Select start subcomponent flow identifier or mode feature.");
 		}
 		
 		@Override
@@ -518,9 +523,11 @@ public class CreateEndToEndFlowTool {
 				public void keyReleased(final KeyEvent e) {
 					if(!namingService.isValidIdentifier(newETEFlowName.getText()) || namingService.isNameInUse(ci, newETEFlowName.getText())) {
 						eTEFlow.setName("");
+						nameError = "  The End-To-End Flow name is invalid.";
 						updateWidgets();
 					} else {
 						eTEFlow.setName(newETEFlowName.getText());
+						nameError = "";
 						updateWidgets();
 					}
 				}
@@ -586,6 +593,7 @@ public class CreateEndToEndFlowTool {
 			return buttonBar;
 		}
 	}
+
 
 
 }
