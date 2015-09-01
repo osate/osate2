@@ -393,7 +393,7 @@ class ReqSpecValidator extends AbstractReqSpecValidator {
 		]
 	}
 	
-	@Check(CheckType.FAST)
+	@Check//(CheckType.FAST)
 	def void checkSystemRequirementsUniqueToComponentClassifier(SystemRequirements sysReq) {
 		if (sysReq.global) return
 		val target = sysReq.target
@@ -405,7 +405,7 @@ class ReqSpecValidator extends AbstractReqSpecValidator {
 		}
 	}
 	
-	@Check(CheckType.FAST)
+	@Check//(CheckType.FAST)
 	def void checkStakeholderGoalsUniqueToComponentClassifier(StakeholderGoals shg) {
 		val target = shg.target
 		val allStakeholderGoals = reqSpecrefFinder.getStakeholderGoals(target)
