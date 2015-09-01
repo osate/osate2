@@ -668,6 +668,7 @@ public class ErrorModelJavaValidator extends AbstractErrorModelJavaValidator {
 	private void checkBranches(ErrorBehaviorTransition ebt) {
 		EList<TransitionBranch> branches = ebt.getDestinationBranches();
 		boolean foundsteady = false;
+		boolean foundothers = false;
 		double prob = 0;
 		if (branches.isEmpty()) {
 			return;
@@ -680,11 +681,22 @@ public class ErrorModelJavaValidator extends AbstractErrorModelJavaValidator {
 					foundsteady = true;
 				}
 			}
+			if (transitionBranch.getValue().isOthers()) {
+				if (foundothers) {
+					error(ebt, "More than one other branch");
+				} else {
+					foundothers = true;
+				}
+			}
 			String bv = transitionBranch.getValue().getRealvalue();
-			prob = prob + Double.valueOf(bv);
+			if (bv != null)
+				prob = prob + Double.valueOf(bv);
 		}
-		if (prob != 1) {
+		if (!foundothers && prob != 1) {
 			error(ebt, "Sum of branch probabilities must be 1");
+		}
+		if (foundothers && prob >= 1) {
+			error(ebt, "Sum of branch probabilities must be less than 1 due to 'others'");
 		}
 	}
 
