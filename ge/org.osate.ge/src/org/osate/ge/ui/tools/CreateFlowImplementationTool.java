@@ -216,16 +216,14 @@ public class CreateFlowImplementationTool {
 	 * @return
 	 */
 	private String getDialogMessage(final Object bo) {
-		final String addModeFeaturesString = "mode feature.";
 		if ((bo instanceof FlowSpecification && ((FlowSpecification)(bo)).getKind() != FlowKind.SOURCE) || bo instanceof DataAccess
 				|| bo instanceof Subcomponent) {
-			return "Select a valid connection or " + addModeFeaturesString;
+			return "Select a valid connection or mode feature.";
 		} else if (bo instanceof FlowSpecification || bo instanceof org.osate.aadl2.Connection) {
-			return "Select a valid subcomponent flow specification, subcomponent, data access or " + addModeFeaturesString;
-		} else if (bo instanceof ModeFeature) {
+			return "Select a valid subcomponent flow specification, subcomponent, data access or mode feature.";
+		} else {
 			return createFlowImplementationDialog.getMessage();
 		}
-		return "Select a valid element";
 	}
 
 	private class CreateFlowImplementationDialog extends TitleAreaDialog {

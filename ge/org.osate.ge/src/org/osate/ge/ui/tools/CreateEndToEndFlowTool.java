@@ -207,7 +207,7 @@ public class CreateEndToEndFlowTool {
 								coloring.setForeground(pe, Color.MAGENTA.darker());
 							}
 							previouslySelectedPes.add(pe);
-							createEndToEndFlowDialog.setMessage(getMessage(bo));
+							createEndToEndFlowDialog.setMessage(getDialogMessage(bo));
 						}
 					}
 				}
@@ -216,24 +216,31 @@ public class CreateEndToEndFlowTool {
 	}
 
 	//Determine message based on currently selected element
-	private String getMessage(final Object bo) {
-		final String addModeFeaturesString = "mode feature.";
+	private String getDialogMessage(final Object bo) {
+		//final String addModeFeaturesString = "mode feature.";
 		if (bo instanceof FlowSpecification) {
 			final FlowSpecification fs = (FlowSpecification)bo;
 			if (fs.getKind() != FlowKind.SINK) {
-				return "Select a valid connection or " + addModeFeaturesString;
+				if (createEndToEndFlowDialog.eTEFlow.getName() == "") {
+					return "Select a valid connection or mode feature.  Name the flow and click OK when done.";
+				} else {
+					return "Select a valid connection or mode feature.  Click OK when done.";
+				}
 			} else {
 				if (createEndToEndFlowDialog.eTEFlow.getName() == "") {
-					return "Select a valid mode feature if neccessary or name the End-To-End Flow and click OK.";
+					return "Select a valid mode feature if neccessary or name the flow and click OK.";
 				}
-				return "Select a valid mode feature if neccessary or click OK.";
+				return "Select a valid mode feature if neccessary.  Click OK when done.";
 			}
 		} else if (bo instanceof org.osate.aadl2.Connection) {
-			return "Select a valid flow specification or " + addModeFeaturesString;
-		} else if (bo instanceof ModeFeature) {
-			return createEndToEndFlowDialog.getMessage();
+			if (createEndToEndFlowDialog.eTEFlow.getName() == "") {
+				return "Select a valid flow specification or mode feature.  Name the flow and click OK when done.";
+			} else {
+				return "Select a valid flow specification or mode feature.  Click OK when done.";
+			}
+		} else {
+			return createEndToEndFlowDialog.updatedDialogMessage;
 		}
-		return "Select a valid element.";
 	}
 
 	private class CreateFlowsToolsDialog extends TitleAreaDialog {
@@ -246,6 +253,7 @@ public class CreateEndToEndFlowTool {
 		private PictogramElement removedPictogramElement = null;
 		private final Aadl2Package pkg = Aadl2Factory.eINSTANCE.getAadl2Package();
 		private String nameError = "";
+		private String updatedDialogMessage;
 		final List<String> segmentList = new ArrayList<String>();
 		final List<String> modeList = new ArrayList<String>();
 		private final EndToEndFlow eTEFlow = (EndToEndFlow) pkg.getEFactoryInstance().create(pkg.getEndToEndFlow());
@@ -397,7 +405,8 @@ public class CreateEndToEndFlowTool {
 		}
 
 		private void updateWidgets() {
-			createEndToEndFlowDialog.setMessage(previouslySelectedPes.size() > 0 ? CreateEndToEndFlowTool.this.getMessage(dtp.getFeatureProvider().getBusinessObjectForPictogramElement(previouslySelectedPes.get(previouslySelectedPes.size()-1))) : "Select start subcomponent flow identifier or mode feature if neccessary.  Click OK when done." + nameError);
+			updatedDialogMessage = previouslySelectedPes.size() > 0 ? CreateEndToEndFlowTool.this.getDialogMessage(dtp.getFeatureProvider().getBusinessObjectForPictogramElement(previouslySelectedPes.get(previouslySelectedPes.size()-1))) : "Select a start flow identifier or mode feature if neccessary.  Name the flow and click OK when done.";
+			createEndToEndFlowDialog.setMessage(updatedDialogMessage + nameError);
 			setNavigationButtonsEnabled(isCompleteAndValid() && !eTEFlow.getName().equals(""));
 		}
 
@@ -524,7 +533,7 @@ public class CreateEndToEndFlowTool {
 		public void create() {
 			super.create();
 			setTitle("Select Elements");
-			setMessage("Select start subcomponent flow identifier or mode feature.");
+			setMessage("Select a start flow identifier or mode feature.  Name the flow and click OK when done.");
 		}
 		
 		@Override
@@ -578,7 +587,7 @@ public class CreateEndToEndFlowTool {
 				public void keyReleased(final KeyEvent e) {
 					if(!namingService.isValidIdentifier(newETEFlowName.getText()) || namingService.isNameInUse(ci, newETEFlowName.getText())) {
 						eTEFlow.setName("");
-						nameError = "  The End-To-End Flow name is invalid.";
+						nameError = "  The name is invalid.";
 						updateWidgets();
 					} else {
 						eTEFlow.setName(newETEFlowName.getText());
