@@ -12,6 +12,7 @@
 'for'=13
 'global'=20
 'issues'=25
+'only'=34
 'own'=19
 'plan'=12
 'plans'=22
@@ -20,7 +21,7 @@
 'subsystem'=21
 'subsystems'=24
 'task'=26
-'this'=34
+'this'=35
 'verifications'=29
 RULE_ANY_OTHER=10
 RULE_ID=4
@@ -53,3 +54,4 @@ T__31=31
 T__32=32
 T__33=33
 T__34=34
+T__35=35

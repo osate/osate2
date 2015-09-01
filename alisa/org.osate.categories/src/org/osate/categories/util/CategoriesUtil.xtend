@@ -73,10 +73,13 @@ class CategoriesUtil {
 		return null;
 	}
 	
-	def static boolean intersects(Iterable<? extends Category>  first, Iterable<? extends Category> second){
-		if (first.empty || second.empty) return true
-		for (f: first){
-			for (s: second){
+	def static boolean intersects(Iterable<? extends Category> elementcat, Iterable<? extends Category> criteria , boolean strict){
+		if (criteria.empty ) return true  // elementcat can be empty or non-empty
+		if (elementcat.empty) {
+			return !strict 
+		}
+		for (f: criteria){
+			for (s: elementcat){
 				if (f.isSameorContains(s)|| s.isSameorContains(f)) return true
 			}
 		}

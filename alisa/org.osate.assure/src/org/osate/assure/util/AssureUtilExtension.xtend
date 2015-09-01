@@ -129,7 +129,7 @@ class AssureUtilExtension {
 	/**
 	 * methods to process results from verification methods
 	 */
-	def static boolean addMarkers(VerificationResult verificationActivityResult, InstanceObject instance,
+	def static boolean addMarkersAsResult(VerificationResult verificationActivityResult, InstanceObject instance,
 		String markertype, VerificationMethod vm) {
 		val res = instance.eResource
 		val IResource irsrc = OsateResourceUtil.convertToIResource(res);

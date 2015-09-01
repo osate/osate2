@@ -63,19 +63,19 @@ class VerifyUtilExtension {
 	}
 	
 	
-	def static evaluateSelectionFilter(VerificationActivity expr, List<SelectionCategory> selectionFilter) {
+	def static evaluateSelectionFilter(VerificationActivity expr, List<SelectionCategory> selectionFilter, boolean strict) {
 		val selection = expr.condition
-		return CategoriesUtil.intersects(selection,selectionFilter)
+		return CategoriesUtil.intersects(selection,selectionFilter,strict)
 	}
 
-	def static evaluateRequirementFilter(Claim claim, Iterable<RequirementCategory> requirementFilter) {
+	def static evaluateRequirementFilter(Claim claim, Iterable<RequirementCategory> requirementFilter, boolean strict) {
 		val req = claim.requirement.category 
-		return CategoriesUtil.intersects(req,requirementFilter)
+		return CategoriesUtil.intersects(req,requirementFilter,strict)
 	}
 
-	def static evaluateVerificationFilter(VerificationActivity va, List<VerificationCategory> verificationFilter) {
+	def static evaluateVerificationFilter(VerificationActivity va, List<VerificationCategory> verificationFilter, boolean strict) {
 		val vcs = va.method.category
-		return CategoriesUtil.intersects(vcs,verificationFilter)
+		return CategoriesUtil.intersects(vcs,verificationFilter,strict)
 	}
 	
 	

@@ -260,7 +260,7 @@ class AssureProcessor implements IAssureProcessor {
 				PluginMethod: {
 					res = VerificationMethodDispatchers.eInstance.dispatchVerificationMethod(methodtype, instanceroot, parameters) // returning the marker or diagnostic id as string
 					if (res instanceof String) {
-						val errors = addMarkers(verificationResult, target, res, method)
+						val errors = addMarkersAsResult(verificationResult, target, res, method)
 						if (errors) {
 							setToFail(verificationResult);
 						} else {

@@ -170,6 +170,21 @@ public class AlisaSyntacticSequencer extends AbstractSyntacticSequencer {
 	 *     selectionFilter+=[SelectionCategory|ID] (ambiguity) 'description' description=Description
 	 *     selectionFilter+=[SelectionCategory|ID] (ambiguity) 'issues' issues+=STRING
 	 *     selectionFilter+=[SelectionCategory|ID] (ambiguity) 'verifications' verificationFilter+=[VerificationCategory|ID]
+	 *     strictRequirementCategories?='only' (ambiguity) ']' (rule end)
+	 *     strictRequirementCategories?='only' (ambiguity) 'description' description=Description
+	 *     strictRequirementCategories?='only' (ambiguity) 'issues' issues+=STRING
+	 *     strictRequirementCategories?='only' (ambiguity) 'selections' selectionFilter+=[SelectionCategory|ID]
+	 *     strictRequirementCategories?='only' (ambiguity) 'verifications' verificationFilter+=[VerificationCategory|ID]
+	 *     strictSelectionCategories?='only' (ambiguity) ']' (rule end)
+	 *     strictSelectionCategories?='only' (ambiguity) 'description' description=Description
+	 *     strictSelectionCategories?='only' (ambiguity) 'issues' issues+=STRING
+	 *     strictSelectionCategories?='only' (ambiguity) 'selections' selectionFilter+=[SelectionCategory|ID]
+	 *     strictSelectionCategories?='only' (ambiguity) 'verifications' verificationFilter+=[VerificationCategory|ID]
+	 *     strictVerificationCategories?='only' (ambiguity) ']' (rule end)
+	 *     strictVerificationCategories?='only' (ambiguity) 'description' description=Description
+	 *     strictVerificationCategories?='only' (ambiguity) 'issues' issues+=STRING
+	 *     strictVerificationCategories?='only' (ambiguity) 'selections' selectionFilter+=[SelectionCategory|ID]
+	 *     strictVerificationCategories?='only' (ambiguity) 'verifications' verificationFilter+=[VerificationCategory|ID]
 	 *     verificationFilter+=[VerificationCategory|ID] (ambiguity) ']' (rule end)
 	 *     verificationFilter+=[VerificationCategory|ID] (ambiguity) 'description' description=Description
 	 *     verificationFilter+=[VerificationCategory|ID] (ambiguity) 'issues' issues+=STRING
@@ -188,6 +203,9 @@ public class AlisaSyntacticSequencer extends AbstractSyntacticSequencer {
 	 *     description=Description (ambiguity) 'requirements' requirementFilter+=[RequirementCategory|ID]
 	 *     issues+=STRING (ambiguity) 'requirements' requirementFilter+=[RequirementCategory|ID]
 	 *     selectionFilter+=[SelectionCategory|ID] (ambiguity) 'requirements' requirementFilter+=[RequirementCategory|ID]
+	 *     strictRequirementCategories?='only' (ambiguity) 'requirements' requirementFilter+=[RequirementCategory|ID]
+	 *     strictSelectionCategories?='only' (ambiguity) 'requirements' requirementFilter+=[RequirementCategory|ID]
+	 *     strictVerificationCategories?='only' (ambiguity) 'requirements' requirementFilter+=[RequirementCategory|ID]
 	 *     verificationFilter+=[VerificationCategory|ID] (ambiguity) 'requirements' requirementFilter+=[RequirementCategory|ID]
 	 */
 	protected void emit_AssuranceTask_FilterKeyword_7_1_0_0_p(EObject semanticObject, ISynNavigable transition, List<INode> nodes) {

@@ -61,6 +61,9 @@ class AlisaGenerator implements IGenerator {
 	var List<SelectionCategory> selectionFilter = Collections.EMPTY_LIST
 	var List<RequirementCategory> requirementFilter = Collections.EMPTY_LIST
 	var List<VerificationCategory> verificationFilter = Collections.EMPTY_LIST
+	var boolean strictSelectionCategories = false
+	var boolean strictRequirementCategories = false
+	var boolean strictVerificationCategories = false
 	
 	var AssurancePlan rootAssuranceCase;
 	
@@ -68,6 +71,9 @@ class AlisaGenerator implements IGenerator {
 		selectionFilter = at.selectionFilter
 		requirementFilter = at.requirementFilter
 		verificationFilter = at.verificationFilter
+		strictSelectionCategories = at.strictSelectionCategories
+		strictRequirementCategories = at.strictRequirementCategories
+		strictVerificationCategories = at.strictVerificationCategories
 		at.assurancePlan?.generateRootCase
 	}
 	
@@ -77,6 +83,9 @@ class AlisaGenerator implements IGenerator {
 		selectionFilter = Collections.EMPTY_LIST
 		requirementFilter = Collections.EMPTY_LIST
 		verificationFilter = Collections.EMPTY_LIST
+		strictSelectionCategories = false
+		strictRequirementCategories = false
+		strictVerificationCategories = false
 		generateRootCase(acp)
 	}
 
@@ -133,14 +142,14 @@ class AlisaGenerator implements IGenerator {
 					tbdcount 0
 					«FOR myplan : myplans»
 						«FOR claim : myplan.claim»
-						«IF claim.evaluateRequirementFilter(requirementFilter)»
+						«IF claim.evaluateRequirementFilter(requirementFilter,strictRequirementCategories)»
 							«claim.generate()»
 						«ENDIF»
 						«ENDFOR»
 					«ENDFOR»
 					«FOR myplan : allPlans»
 						«FOR claim : (myplan as VerificationPlan).claim»
-						«IF claim.evaluateRequirementFilter(requirementFilter)»
+						«IF claim.evaluateRequirementFilter(requirementFilter,strictRequirementCategories)»
 							«claim.generate()»
 						«ENDIF»
 						«ENDFOR»
@@ -205,7 +214,7 @@ class AlisaGenerator implements IGenerator {
 
 	def doGenerate(VerificationActivity va) {
 		'''
-			«IF va.evaluateSelectionFilter(selectionFilter) && va.evaluateVerificationFilter(verificationFilter) »
+			«IF va.evaluateSelectionFilter(selectionFilter,strictSelectionCategories) && va.evaluateVerificationFilter(verificationFilter,strictVerificationCategories) »
 			verification «va.fullyQualifiedName»
 			[
 				executionstate todo

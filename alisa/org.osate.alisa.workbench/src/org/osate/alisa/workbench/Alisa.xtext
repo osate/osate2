@@ -29,9 +29,9 @@ AssurancePlan:
 	(
 	('description' description=Description)?
 	&( 'filter'
-	( 'requirements' requirementFilter+=[categories::RequirementCategory|ID]+ )?
-	&('verifications' verificationFilter+=[categories::VerificationCategory|ID]+ )?
-	&( 'selections' selectionFilter+=[categories::SelectionCategory|ID]+ )?
+	( 'requirements'  requirementFilter+=[categories::RequirementCategory|ID]+ strictRequirementCategories?='only'?)?
+	&('verifications'  verificationFilter+=[categories::VerificationCategory|ID]+ strictVerificationCategories?='only'?)?
+	&( 'selections'  selectionFilter+=[categories::SelectionCategory|ID]+ strictSelectionCategories?='only'?)?
 	)
 	&('issues' issues+=STRING+ )?
 	

@@ -249,13 +249,31 @@ public interface AlisaPackage extends EPackage
   int ASSURANCE_TASK__REQUIREMENT_FILTER = 4;
 
   /**
+   * The feature id for the '<em><b>Strict Requirement Categories</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int ASSURANCE_TASK__STRICT_REQUIREMENT_CATEGORIES = 5;
+
+  /**
    * The feature id for the '<em><b>Verification Filter</b></em>' reference list.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    * @ordered
    */
-  int ASSURANCE_TASK__VERIFICATION_FILTER = 5;
+  int ASSURANCE_TASK__VERIFICATION_FILTER = 6;
+
+  /**
+   * The feature id for the '<em><b>Strict Verification Categories</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int ASSURANCE_TASK__STRICT_VERIFICATION_CATEGORIES = 7;
 
   /**
    * The feature id for the '<em><b>Selection Filter</b></em>' reference list.
@@ -264,7 +282,16 @@ public interface AlisaPackage extends EPackage
    * @generated
    * @ordered
    */
-  int ASSURANCE_TASK__SELECTION_FILTER = 6;
+  int ASSURANCE_TASK__SELECTION_FILTER = 8;
+
+  /**
+   * The feature id for the '<em><b>Strict Selection Categories</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int ASSURANCE_TASK__STRICT_SELECTION_CATEGORIES = 9;
 
   /**
    * The feature id for the '<em><b>Issues</b></em>' attribute list.
@@ -273,7 +300,7 @@ public interface AlisaPackage extends EPackage
    * @generated
    * @ordered
    */
-  int ASSURANCE_TASK__ISSUES = 7;
+  int ASSURANCE_TASK__ISSUES = 10;
 
   /**
    * The number of structural features of the '<em>Assurance Task</em>' class.
@@ -282,7 +309,7 @@ public interface AlisaPackage extends EPackage
    * @generated
    * @ordered
    */
-  int ASSURANCE_TASK_FEATURE_COUNT = 8;
+  int ASSURANCE_TASK_FEATURE_COUNT = 11;
 
   /**
    * The meta object id for the '{@link org.osate.alisa.workbench.alisa.impl.DescriptionImpl <em>Description</em>}' class.
@@ -557,6 +584,17 @@ public interface AlisaPackage extends EPackage
   EReference getAssuranceTask_RequirementFilter();
 
   /**
+   * Returns the meta object for the attribute '{@link org.osate.alisa.workbench.alisa.AssuranceTask#isStrictRequirementCategories <em>Strict Requirement Categories</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the attribute '<em>Strict Requirement Categories</em>'.
+   * @see org.osate.alisa.workbench.alisa.AssuranceTask#isStrictRequirementCategories()
+   * @see #getAssuranceTask()
+   * @generated
+   */
+  EAttribute getAssuranceTask_StrictRequirementCategories();
+
+  /**
    * Returns the meta object for the reference list '{@link org.osate.alisa.workbench.alisa.AssuranceTask#getVerificationFilter <em>Verification Filter</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -568,6 +606,17 @@ public interface AlisaPackage extends EPackage
   EReference getAssuranceTask_VerificationFilter();
 
   /**
+   * Returns the meta object for the attribute '{@link org.osate.alisa.workbench.alisa.AssuranceTask#isStrictVerificationCategories <em>Strict Verification Categories</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the attribute '<em>Strict Verification Categories</em>'.
+   * @see org.osate.alisa.workbench.alisa.AssuranceTask#isStrictVerificationCategories()
+   * @see #getAssuranceTask()
+   * @generated
+   */
+  EAttribute getAssuranceTask_StrictVerificationCategories();
+
+  /**
    * Returns the meta object for the reference list '{@link org.osate.alisa.workbench.alisa.AssuranceTask#getSelectionFilter <em>Selection Filter</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -577,6 +626,17 @@ public interface AlisaPackage extends EPackage
    * @generated
    */
   EReference getAssuranceTask_SelectionFilter();
+
+  /**
+   * Returns the meta object for the attribute '{@link org.osate.alisa.workbench.alisa.AssuranceTask#isStrictSelectionCategories <em>Strict Selection Categories</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the attribute '<em>Strict Selection Categories</em>'.
+   * @see org.osate.alisa.workbench.alisa.AssuranceTask#isStrictSelectionCategories()
+   * @see #getAssuranceTask()
+   * @generated
+   */
+  EAttribute getAssuranceTask_StrictSelectionCategories();
 
   /**
    * Returns the meta object for the attribute list '{@link org.osate.alisa.workbench.alisa.AssuranceTask#getIssues <em>Issues</em>}'.
@@ -824,6 +884,14 @@ public interface AlisaPackage extends EPackage
     EReference ASSURANCE_TASK__REQUIREMENT_FILTER = eINSTANCE.getAssuranceTask_RequirementFilter();
 
     /**
+     * The meta object literal for the '<em><b>Strict Requirement Categories</b></em>' attribute feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EAttribute ASSURANCE_TASK__STRICT_REQUIREMENT_CATEGORIES = eINSTANCE.getAssuranceTask_StrictRequirementCategories();
+
+    /**
      * The meta object literal for the '<em><b>Verification Filter</b></em>' reference list feature.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
@@ -832,12 +900,28 @@ public interface AlisaPackage extends EPackage
     EReference ASSURANCE_TASK__VERIFICATION_FILTER = eINSTANCE.getAssuranceTask_VerificationFilter();
 
     /**
+     * The meta object literal for the '<em><b>Strict Verification Categories</b></em>' attribute feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EAttribute ASSURANCE_TASK__STRICT_VERIFICATION_CATEGORIES = eINSTANCE.getAssuranceTask_StrictVerificationCategories();
+
+    /**
      * The meta object literal for the '<em><b>Selection Filter</b></em>' reference list feature.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @generated
      */
     EReference ASSURANCE_TASK__SELECTION_FILTER = eINSTANCE.getAssuranceTask_SelectionFilter();
+
+    /**
+     * The meta object literal for the '<em><b>Strict Selection Categories</b></em>' attribute feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EAttribute ASSURANCE_TASK__STRICT_SELECTION_CATEGORIES = eINSTANCE.getAssuranceTask_StrictSelectionCategories();
 
     /**
      * The meta object literal for the '<em><b>Issues</b></em>' attribute list feature.

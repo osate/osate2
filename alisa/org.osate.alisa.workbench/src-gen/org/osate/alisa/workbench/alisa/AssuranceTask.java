@@ -23,8 +23,11 @@ import org.osate.categories.categories.VerificationCategory;
  *   <li>{@link org.osate.alisa.workbench.alisa.AssuranceTask#getAssurancePlan <em>Assurance Plan</em>}</li>
  *   <li>{@link org.osate.alisa.workbench.alisa.AssuranceTask#getDescription <em>Description</em>}</li>
  *   <li>{@link org.osate.alisa.workbench.alisa.AssuranceTask#getRequirementFilter <em>Requirement Filter</em>}</li>
+ *   <li>{@link org.osate.alisa.workbench.alisa.AssuranceTask#isStrictRequirementCategories <em>Strict Requirement Categories</em>}</li>
  *   <li>{@link org.osate.alisa.workbench.alisa.AssuranceTask#getVerificationFilter <em>Verification Filter</em>}</li>
+ *   <li>{@link org.osate.alisa.workbench.alisa.AssuranceTask#isStrictVerificationCategories <em>Strict Verification Categories</em>}</li>
  *   <li>{@link org.osate.alisa.workbench.alisa.AssuranceTask#getSelectionFilter <em>Selection Filter</em>}</li>
+ *   <li>{@link org.osate.alisa.workbench.alisa.AssuranceTask#isStrictSelectionCategories <em>Strict Selection Categories</em>}</li>
  *   <li>{@link org.osate.alisa.workbench.alisa.AssuranceTask#getIssues <em>Issues</em>}</li>
  * </ul>
  * </p>
@@ -156,6 +159,32 @@ public interface AssuranceTask extends EObject
   EList<RequirementCategory> getRequirementFilter();
 
   /**
+   * Returns the value of the '<em><b>Strict Requirement Categories</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <p>
+   * If the meaning of the '<em>Strict Requirement Categories</em>' attribute isn't clear,
+   * there really should be more of a description here...
+   * </p>
+   * <!-- end-user-doc -->
+   * @return the value of the '<em>Strict Requirement Categories</em>' attribute.
+   * @see #setStrictRequirementCategories(boolean)
+   * @see org.osate.alisa.workbench.alisa.AlisaPackage#getAssuranceTask_StrictRequirementCategories()
+   * @model
+   * @generated
+   */
+  boolean isStrictRequirementCategories();
+
+  /**
+   * Sets the value of the '{@link org.osate.alisa.workbench.alisa.AssuranceTask#isStrictRequirementCategories <em>Strict Requirement Categories</em>}' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @param value the new value of the '<em>Strict Requirement Categories</em>' attribute.
+   * @see #isStrictRequirementCategories()
+   * @generated
+   */
+  void setStrictRequirementCategories(boolean value);
+
+  /**
    * Returns the value of the '<em><b>Verification Filter</b></em>' reference list.
    * The list contents are of type {@link org.osate.categories.categories.VerificationCategory}.
    * <!-- begin-user-doc -->
@@ -172,6 +201,32 @@ public interface AssuranceTask extends EObject
   EList<VerificationCategory> getVerificationFilter();
 
   /**
+   * Returns the value of the '<em><b>Strict Verification Categories</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <p>
+   * If the meaning of the '<em>Strict Verification Categories</em>' attribute isn't clear,
+   * there really should be more of a description here...
+   * </p>
+   * <!-- end-user-doc -->
+   * @return the value of the '<em>Strict Verification Categories</em>' attribute.
+   * @see #setStrictVerificationCategories(boolean)
+   * @see org.osate.alisa.workbench.alisa.AlisaPackage#getAssuranceTask_StrictVerificationCategories()
+   * @model
+   * @generated
+   */
+  boolean isStrictVerificationCategories();
+
+  /**
+   * Sets the value of the '{@link org.osate.alisa.workbench.alisa.AssuranceTask#isStrictVerificationCategories <em>Strict Verification Categories</em>}' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @param value the new value of the '<em>Strict Verification Categories</em>' attribute.
+   * @see #isStrictVerificationCategories()
+   * @generated
+   */
+  void setStrictVerificationCategories(boolean value);
+
+  /**
    * Returns the value of the '<em><b>Selection Filter</b></em>' reference list.
    * The list contents are of type {@link org.osate.categories.categories.SelectionCategory}.
    * <!-- begin-user-doc -->
@@ -186,6 +241,32 @@ public interface AssuranceTask extends EObject
    * @generated
    */
   EList<SelectionCategory> getSelectionFilter();
+
+  /**
+   * Returns the value of the '<em><b>Strict Selection Categories</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <p>
+   * If the meaning of the '<em>Strict Selection Categories</em>' attribute isn't clear,
+   * there really should be more of a description here...
+   * </p>
+   * <!-- end-user-doc -->
+   * @return the value of the '<em>Strict Selection Categories</em>' attribute.
+   * @see #setStrictSelectionCategories(boolean)
+   * @see org.osate.alisa.workbench.alisa.AlisaPackage#getAssuranceTask_StrictSelectionCategories()
+   * @model
+   * @generated
+   */
+  boolean isStrictSelectionCategories();
+
+  /**
+   * Sets the value of the '{@link org.osate.alisa.workbench.alisa.AssuranceTask#isStrictSelectionCategories <em>Strict Selection Categories</em>}' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @param value the new value of the '<em>Strict Selection Categories</em>' attribute.
+   * @see #isStrictSelectionCategories()
+   * @generated
+   */
+  void setStrictSelectionCategories(boolean value);
 
   /**
    * Returns the value of the '<em><b>Issues</b></em>' attribute list.
