@@ -389,12 +389,18 @@
 				<para>When editing a component implementation, flow implementations and end-to-end flows can be created using the Create Flow Implementation and Create End-To-End Flow buttons on the toolbar.</para>
 			<section>
 				<title>Creating Flow Implementations</title>
-				<orderedlist>
+				<para>Select <emphasis>Create Flow Implementation</emphasis> from the toolbar.  The Create Flow Implementation dialog will appear.  The <emphasis>Undo</emphasis> button will remove the elements shown in the dialog in the order they were selected.</para>
+				<section>
+				<title>Creating Source Flow Implementations</title>
+					<orderedlist>
 					<listitem>
-						<para>Select <emphasis>Create Flow Implementation</emphasis> from the toolbar.</para>
+						<para>Select a valid start source flow specification on the diagram.  The source flow specification will highlight dark orange if valid.</para>
 					</listitem>
 					<listitem>
-						<para>Select a valid starting flow specification on the diagram</para>
+						<para>Select a valid end element on the diagram that will lead to the start source flow specification.  The selected element will highlight purple if valid.</para>
+					</listitem>
+					<listitem>
+						<para>Select the remaining valid elements that will lead from the end element to the start source flow specification.  These elements will highlight purple if valid. </para>
 					</listitem>
 				</orderedlist>
 			</section>
