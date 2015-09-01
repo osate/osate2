@@ -196,7 +196,7 @@ public class CreateFlowImplementationTool {
 						if (pe != null && createFlowImplementationDialog.canAddSelectedElement(bo, context)) {
 							if (bo.equals(createFlowImplementationDialog.getFlow().getSpecification())) {
 								coloring.setForeground(pe, Color.ORANGE.darker());
-							} else if(bo instanceof ModeFeature) {
+							} else if (bo instanceof ModeFeature) {
 								coloring.setForeground(pe, Color.MAGENTA.brighter());
 							} else {
 								coloring.setForeground(pe, Color.MAGENTA.darker());

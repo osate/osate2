@@ -200,11 +200,11 @@ public class CreateEndToEndFlowTool {
 						}
 						if (pe != null && createEndToEndFlowDialog.canAddSelectedElement(bo, context)) {
 							if (bo instanceof ModeFeature) {
-								coloring.setForeground(pe, Color.CYAN);
+								coloring.setForeground(pe, Color.MAGENTA.brighter());
 							} else if (createEndToEndFlowDialog.eTEFlow != null && createEndToEndFlowDialog.eTEFlow.getAllFlowSegments().size() == 1) {
-								coloring.setForeground(pe, Color.MAGENTA.darker());
+								coloring.setForeground(pe, Color.ORANGE.darker());
 							} else {
-								coloring.setForeground(pe, Color.CYAN.darker());
+								coloring.setForeground(pe, Color.MAGENTA.darker());
 							}
 							previouslySelectedPes.add(pe);
 							createEndToEndFlowDialog.setMessage(getMessage(bo));
