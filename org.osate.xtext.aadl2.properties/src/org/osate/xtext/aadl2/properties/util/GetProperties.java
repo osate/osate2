@@ -1363,7 +1363,7 @@ public class GetProperties {
 
 	public static String getMeasurementUnit(final NamedElement ne) {
 		Property mUnit = lookupPropertyDefinition(ne, DataModel._NAME, DataModel.MEASUREMENT_UNIT);
-		String propertyValue = PropertyUtils.getStringValue(ne, mUnit);
+		String propertyValue = PropertyUtils.getStringValue(ne, mUnit, "");
 		return propertyValue;
 	}
 
