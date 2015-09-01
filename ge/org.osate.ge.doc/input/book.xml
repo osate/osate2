@@ -387,6 +387,17 @@
 			<section>
 				<title>Creating Flow Implementations and End-To-End Flows</title>
 				<para>When editing a component implementation, flow implementations and end-to-end flows can be created using the Create Flow Implementation and Create End-To-End Flow buttons on the toolbar.</para>
+			<section>
+				<title>Creating Flow Implementations</title>
+				<orderedlist>
+					<listitem>
+						<para>Select <emphasis>Create Flow Implementation</emphasis> from the toolbar.</para>
+					</listitem>
+					<listitem>
+						<para>Select a valid starting flow specification on the diagram</para>
+					</listitem>
+				</orderedlist>
+			</section>
 			</section>
 			<section>
 				<title>Editing Flow Implementations and End-to-End Flows</title>
