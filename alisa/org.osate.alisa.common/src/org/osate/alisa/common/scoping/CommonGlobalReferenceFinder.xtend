@@ -84,6 +84,7 @@ class CommonGlobalReferenceFinder implements ICommonGlobalReferenceFinder {
 	override Iterable<IEObjectDescription> getEObjectDescriptions(EObject context, EClass eclass, String URIExtension){
 		val result = new ArrayList<IEObjectDescription> 
         val IResourceDescription descr = rds.getResourceDescription(context.eResource.getURI());
+      if (descr == null) return result
       for(IContainer visibleContainer:
             manager.getVisibleContainers(descr, rds)) {
         for(IResourceDescription rd:
@@ -109,6 +110,7 @@ class CommonGlobalReferenceFinder implements ICommonGlobalReferenceFinder {
 		val qn = qualifiedNameProvider?.getFullyQualifiedName(target)
 		if(qn == null) return Collections.EMPTY_LIST;
         val IResourceDescription descr = rds.getResourceDescription(context.getURI());
+        if (descr == null) return res
         for(IContainer container:
             manager.getVisibleContainers(descr, rds)) {
 			val eds = container.getExportedObjects(target.eClass(), qn, true)
