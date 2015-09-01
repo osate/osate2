@@ -126,6 +126,8 @@ class AlisaGenerator implements IGenerator {
 		 	}
 		}
 		if( myplans.empty) return ''''''
+		val APparts = doAssurancePlanParts(acp, myplans, cc)
+		if(APparts.length == 0) return ''''''
 		'''	
 			«IF sub == null»
 				case «acp.name» 
@@ -140,26 +142,51 @@ class AlisaGenerator implements IGenerator {
 			«ENDIF»
 				[
 					tbdcount 0
-					«FOR myplan : myplans»
-						«FOR claim : myplan.claim»
-						«IF claim.evaluateRequirementFilter(requirementFilter,strictRequirementCategories)»
-							«claim.generate()»
-						«ENDIF»
-						«ENDFOR»
-					«ENDFOR»
-					«FOR myplan : allPlans»
-						«FOR claim : (myplan as VerificationPlan).claim»
-						«IF claim.evaluateRequirementFilter(requirementFilter,strictRequirementCategories)»
-							«claim.generate()»
-						«ENDIF»
-						«ENDFOR»
-					«ENDFOR»
-			    «IF cc instanceof ComponentImplementation»
-					«FOR subc : cc.allSubcomponents»
-						«subc.filterplans(acp)»
-					«ENDFOR»
-			    «ENDIF»
+					«APparts»
+«««					«FOR myplan : myplans»
+«««						«FOR claim : myplan.claim»
+«««						«IF claim.evaluateRequirementFilter(requirementFilter,strictRequirementCategories)»
+«««							«claim.generate()»
+«««						«ENDIF»
+«««						«ENDFOR»
+«««					«ENDFOR»
+«««					«FOR myplan : allPlans»
+«««						«FOR claim : (myplan as VerificationPlan).claim»
+«««						«IF claim.evaluateRequirementFilter(requirementFilter,strictRequirementCategories)»
+«««							«claim.generate()»
+«««						«ENDIF»
+«««						«ENDFOR»
+«««					«ENDFOR»
+«««			    «IF cc instanceof ComponentImplementation»
+«««					«FOR subc : cc.allSubcomponents»
+«««						«subc.filterplans(acp)»
+«««					«ENDFOR»
+«««			    «ENDIF»
 				]
+		'''
+	}
+	
+	def doAssurancePlanParts(AssurancePlan acp, Iterable<VerificationPlan> myplans,ComponentClassifier cc){
+		'''
+		«FOR myplan : myplans»
+		«FOR claim : myplan.claim»
+		«IF claim.evaluateRequirementFilter(requirementFilter,strictRequirementCategories)»
+		«claim.generate()»
+		«ENDIF»
+		«ENDFOR»
+		«ENDFOR»
+		«FOR myplan : allPlans»
+		«FOR claim : (myplan as VerificationPlan).claim»
+		«IF claim.evaluateRequirementFilter(requirementFilter,strictRequirementCategories)»
+			«claim.generate()»
+		«ENDIF»
+		«ENDFOR»
+		«ENDFOR»
+	    «IF cc instanceof ComponentImplementation»
+		«FOR subc : cc.allSubcomponents»
+			«subc.filterplans(acp)»
+		«ENDFOR»
+	    «ENDIF»
 		'''
 	}
 	
@@ -194,22 +221,45 @@ class AlisaGenerator implements IGenerator {
 	}
 
 	def CharSequence generate(Claim claim) {
+		val claimvas = doGenerateVA(claim)
+		val subclaims = if (claim.assert == null) doGenerateSubclaims(claim)
+		val claimassert = if (claim.assert != null) claim.assert.generate else ''''''
+		if (claimvas.length == 0 && subclaims.length == 0 && claimassert.length == 0) return ''''''
 		'''
 			claim «claim.requirement.fullyQualifiedName»
 			[
 				tbdcount 0
-			    «FOR subclaim : claim?.subclaim»
-				«subclaim.generate()»
-				«ENDFOR»
+			    «subclaims»
+«««			    «FOR subclaim : claim?.subclaim»
+«««				«subclaim.generate()»
+«««				«ENDFOR»
 			    «IF claim.assert != null»
-			    «claim.assert.generate»
+			    «claimassert»
+«««			    «claim.assert.generate»
 			    «ELSE»
-			    «FOR va : claim.activities»
-				«va.doGenerate»
-			    «ENDFOR»
+			    «claimvas»
+«««			    «FOR va : claim.activities»
+«««				«va.doGenerate»
+«««			    «ENDFOR»
 			    «ENDIF»
 				]
 			'''
+	}
+	
+	def doGenerateVA(Claim claim){
+	'''
+	«FOR va : claim.activities»
+		«va.doGenerate»
+	«ENDFOR»
+	'''	
+	}
+	
+	def doGenerateSubclaims(Claim claim){
+	'''
+	«FOR subclaim : claim?.subclaim»
+		«subclaim.generate»
+	«ENDFOR»
+	'''	
 	}
 
 	def doGenerate(VerificationActivity va) {
