@@ -162,13 +162,15 @@ public class Aadl2RuntimeModule extends org.osate.xtext.aadl2.AbstractAadl2Runti
 				.toInstance(Boolean.FALSE);
 	}
 
+	@SuppressWarnings("restriction")
 	@Override
 	public Class<? extends XtextResource> bindXtextResource() {
-		return org.eclipse.xtext.resource.DerivedStateAwareResource.class;
+		return org.eclipse.xtext.resource.persistence.StorageAwareResource.class;
 	}
 
+	@SuppressWarnings("restriction")
 	public Class<? extends IResourceDescription.Manager> bindIResourceDescriptionManager() {
-		return org.eclipse.xtext.resource.DerivedStateAwareResourceDescriptionManager.class;
+		return org.eclipse.xtext.resource.persistence.StorageAwareResourceDescriptionManager.class;
 	}
 
 	@SuppressWarnings("restriction")
