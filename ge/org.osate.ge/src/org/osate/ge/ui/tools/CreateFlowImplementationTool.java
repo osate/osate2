@@ -189,7 +189,7 @@ public class CreateFlowImplementationTool {
 						if (createFlowImplementationDialog.getRemovedElement() != null) {
 							//if PE has been deleted, color it black
 							coloring.setForeground(createFlowImplementationDialog.getRemovedElement(), Color.BLACK);
-							createFlowImplementationDialog.setMessage((previouslySelectedPes.size() > 0 ? getDialogMessage(AadlElementWrapper.unwrap(fp.getBusinessObjectForPictogramElement(previouslySelectedPes.get(previouslySelectedPes.size()-1)))) : "Select a valid start flow specification.") + "  Click OK when done.");
+							createFlowImplementationDialog.setMessage((previouslySelectedPes.size() > 0 ? getDialogMessage(AadlElementWrapper.unwrap(fp.getBusinessObjectForPictogramElement(previouslySelectedPes.get(previouslySelectedPes.size()-1)))) : "Select a valid flow specification.") + "  Click OK when done.");
 							createFlowImplementationDialog.setRemovedElement(null);
 							return;
 						}
@@ -663,7 +663,7 @@ public class CreateFlowImplementationTool {
 		public void create() {
 			super.create();
 			setTitle("Select Elements");
-			setMessage("Select a valid start flow specification.  Click OK when done.");
+			setMessage("Select a valid flow specification.  Click OK when done.");
 		}
 
 		@Override
