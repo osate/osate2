@@ -7,7 +7,6 @@ import java.util.List;
 
 import javax.inject.Named;
 
-import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.emf.transaction.TransactionalEditingDomain;
@@ -26,7 +25,6 @@ import org.eclipse.swt.custom.StyleRange;
 import org.eclipse.swt.custom.StyledText;
 import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
-import org.eclipse.swt.graphics.Rectangle;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.layout.RowData;
@@ -56,7 +54,6 @@ import org.osate.aadl2.NamedElement;
 import org.osate.aadl2.RefinableElement;
 import org.osate.aadl2.Subcomponent;
 import org.osate.ge.Activator;
-import org.osate.ge.diagrams.common.AadlElementWrapper;
 import org.osate.ge.ext.ExtensionConstants;
 import org.osate.ge.ext.annotations.Activate;
 import org.osate.ge.ext.annotations.CanActivate;
@@ -72,9 +69,16 @@ import org.osate.ge.services.ConnectionService;
 import org.osate.ge.services.ShapeService;
 import org.osate.ge.services.UiService;
 import org.osate.ge.services.AadlModificationService.AbstractModifier;
-import org.osate.ge.ui.editor.AgeDiagramEditor;
 
 public class CreateFlowImplementationTool {
+	private ColoringService.Coloring coloring = null;
+	private ComponentImplementation ci;
+	private CreateFlowImplementationDialog createFlowImplementationDialog;
+	private IFeatureProvider fp;
+	private List<PictogramElement> previouslySelectedPes = new ArrayList<PictogramElement>();
+	boolean canActivate = true;
+	private BusinessObjectResolutionService bor;
+	
 	@Id
 	public final static String ID = "org.osate.ge.ui.tools.CreateFlowImplementationTool";
 
@@ -83,13 +87,6 @@ public class CreateFlowImplementationTool {
 
 	@Icon
 	public final static ImageDescriptor ICON = Activator.getImageDescriptor("icons/CreateFlowImplementation.gif");
-
-	private ColoringService.Coloring coloring = null;
-	private ComponentImplementation ci;
-	private CreateFlowImplementationDialog createFlowImplementationDialog;
-	private IFeatureProvider fp;
-	private List<PictogramElement> previouslySelectedPes = new ArrayList<PictogramElement>();
-	boolean canActivate = true;
 
 	@CanActivate
 	public boolean canActivate(final IDiagramTypeProvider dtp, final BusinessObjectResolutionService bor) {
@@ -105,16 +102,12 @@ public class CreateFlowImplementationTool {
 			final IDiagramTypeProvider dtp, final IFeatureProvider fp) {
 		this.coloring = highlightingService.adjustColors();
 		this.fp = fp;
-		final AgeDiagramEditor editor = (AgeDiagramEditor)dtp.getDiagramBehavior().getDiagramContainer();
-		editor.getActionRegistry().getAction(CreateFlowImplementationTool.ID).setEnabled(false);
+		this.bor = bor;
 		ci = (ComponentImplementation)bor.getBusinessObjectForPictogramElement(dtp.getDiagram());
 		if (ci != null) {
 			canActivate = false;
 			clearSelection(dtp);
-			final Shell dialogShell = new Shell();
-			final Rectangle rect = editor.getSite().getShell().getBounds();
-			dialogShell.setLocation((rect.x - 150), (rect.y - 100));
-			createFlowImplementationDialog = new CreateFlowImplementationDialog(dialogShell);
+			createFlowImplementationDialog = new CreateFlowImplementationDialog(Display.getCurrent().getActiveShell());
 			if (createFlowImplementationDialog.open() == Dialog.CANCEL) {
 				uiService.deactivateActiveTool();
 				canActivate = true;
@@ -155,12 +148,10 @@ public class CreateFlowImplementationTool {
 				canActivate = true;
 			}
 		});
-		clearSelection(dtp);
 	}
 
 	private void clearSelection(final IDiagramTypeProvider dtp) {
 		dtp.getDiagramBehavior().getDiagramContainer().selectPictogramElements(new PictogramElement[0]);
-		//dtp.getDiagramBehavior().refresh();
 	}
 
 	@SelectionChanged
@@ -189,12 +180,9 @@ public class CreateFlowImplementationTool {
 						if (createFlowImplementationDialog.getRemovedElement() != null) {
 							//if PE has been deleted, color it black
 							coloring.setForeground(createFlowImplementationDialog.getRemovedElement(), Color.BLACK);
-							createFlowImplementationDialog.setMessage((previouslySelectedPes.size() > 0 ? getDialogMessage(AadlElementWrapper.unwrap(fp.getBusinessObjectForPictogramElement(previouslySelectedPes.get(previouslySelectedPes.size()-1)))) : "Select a valid flow specification.") + "  Click OK when done.");
 							createFlowImplementationDialog.setRemovedElement(null);
-							return;
-						}
-						if (pe != null && createFlowImplementationDialog.canAddSelectedElement(bo, context)) {
-							if (bo.equals(createFlowImplementationDialog.getFlow().getSpecification())) {
+						} else if (pe != null && createFlowImplementationDialog.canAddSelectedElement(bo, context)) {
+							if (bo == createFlowImplementationDialog.getFlow().getSpecification()) {
 								coloring.setForeground(pe, Color.ORANGE.darker());
 							} else if (bo instanceof ModeFeature) {
 								coloring.setForeground(pe, Color.MAGENTA.brighter());
@@ -202,7 +190,9 @@ public class CreateFlowImplementationTool {
 								coloring.setForeground(pe, Color.MAGENTA.darker());
 							}
 							previouslySelectedPes.add(pe);
-							createFlowImplementationDialog.setMessage(getDialogMessage(bo) + "  Click OK when done.");
+						}
+						if (createFlowImplementationDialog.flowSegmentComposite != null && !createFlowImplementationDialog.flowSegmentComposite.isDisposed()) {
+							createFlowImplementationDialog.setMessage(getDialogMessage());
 						}
 					}
 				}
@@ -215,15 +205,23 @@ public class CreateFlowImplementationTool {
 	 * @param bo - last element in list
 	 * @return
 	 */
-	private String getDialogMessage(final Object bo) {
-		if ((bo instanceof FlowSpecification && ((FlowSpecification)(bo)).getKind() != FlowKind.SOURCE) || bo instanceof DataAccess
-				|| bo instanceof Subcomponent) {
-			return "Select a valid connection or mode feature.";
-		} else if (bo instanceof FlowSpecification || bo instanceof org.osate.aadl2.Connection) {
-			return "Select a valid subcomponent flow specification, subcomponent, data access or mode feature.";
-		} else {
-			return createFlowImplementationDialog.getMessage();
+	private String getDialogMessage() {
+		if (previouslySelectedPes.size() > 0) {
+			//Get last element selected to determine message
+			final Object bo = bor.getBusinessObjectForPictogramElement(previouslySelectedPes.get(previouslySelectedPes.size()-1));
+			if ((bo instanceof FlowSpecification && (FlowSpecification)bo == createFlowImplementationDialog.flowImpl.getSpecification()
+				&& ((FlowSpecification)bo).getKind() == FlowKind.SOURCE) || bo instanceof org.osate.aadl2.Connection) {
+				return "Select a valid subcomponent flow specification, subcomponent, data access, mode, or mode transition.  Select OK when done.";
+			} else if (bo instanceof FlowSpecification || bo instanceof DataAccess
+					|| bo instanceof Subcomponent) {
+				return "Select a valid connection, mode, or mode transition.  Select OK when done.";
+			}  else {
+				//Return same message if the selected element was a mode feature
+				return createFlowImplementationDialog.getMessage();
+			}
 		}
+		//Starting message
+		return "Select a valid flow specification. Select OK when done.";
 	}
 
 	private class CreateFlowImplementationDialog extends TitleAreaDialog {
@@ -270,11 +268,12 @@ public class CreateFlowImplementationTool {
 		public boolean canAddSelectedElement(final Object bo, final Context context) {
 			final Element selectedEle = (Element)bo;
 			if (isValid((Element)getRefinedElement(selectedEle), context)) {
-				if (selectedEle.equals(flowImpl.getSpecification()) && context == null) {
+				if (selectedEle == flowImpl.getSpecification() && context == null) {
 					return canAddFlowSegmentOrModeFeature(selectedEle);
 				} else if (selectedEle instanceof FlowSpecification || selectedEle instanceof DataAccess) {
 					return canAddFlowSegmentOrModeFeature(createOwnedFlowSegment((Element)bo, context));
 				} else if (selectedEle instanceof Subcomponent || selectedEle instanceof org.osate.aadl2.Connection) {
+					//Create flow segment with context = null because all valid connections and subcomponents belong to diagram
 					return canAddFlowSegmentOrModeFeature(createOwnedFlowSegment((Element)bo, null));
 				} else {
 					return canAddFlowSegmentOrModeFeature(selectedEle);
@@ -309,7 +308,7 @@ public class CreateFlowImplementationTool {
 
 		/**
 		 * Determines if the flow implementation is complete and valid based on it's
-		 * flow segment information.  Used for updating the dialog widgets
+		 * flow segment information. Used for updating the dialog widgets
 		 * @return true or false
 		 */
 		private boolean isCompleteAndValid() {
@@ -317,7 +316,7 @@ public class CreateFlowImplementationTool {
 				if (flowImpl.getOwnedElements().isEmpty()) {
 					return true;
 				} else {
-					if (flowImpl.getKind().equals(FlowKind.PATH)) {
+					if (flowImpl.getKind() == FlowKind.PATH) {
 						final Object prevEle = getRefinedElement(getPreviousSegmentElement());
 						if (prevEle instanceof org.osate.aadl2.Connection) {
 							final org.osate.aadl2.Connection con = (org.osate.aadl2.Connection)prevEle;
@@ -366,7 +365,7 @@ public class CreateFlowImplementationTool {
 					final FlowEnd flowInEnd = fs.getInEnd();
 					if (!(object instanceof ModeFeature)) {
 						//path
-						if (fs.getKind().equals(FlowKind.PATH) && flowInEnd != null && flowOutEnd != null) {
+						if (fs.getKind() == FlowKind.PATH) {
 							if (flowImpl.getSpecification() == (object)) {
 								flowSegmentList.add(getSegmentName(flowInEnd.getContext(), flowInEnd.getFeature()) + "  ->");
 								flowSegmentList.add(getSegmentName(flowOutEnd.getContext(), flowOutEnd.getFeature()));
@@ -376,8 +375,8 @@ public class CreateFlowImplementationTool {
 							}
 						}
 						//source
-						else if (fs.getKind().equals(FlowKind.SOURCE) && flowOutEnd != null) {
-							if (flowImpl.getSpecification().equals(object)) {
+						else if (fs.getKind() == FlowKind.SOURCE) {
+							if (flowImpl.getSpecification() == object) {
 								flowSegmentList.add(getSegmentName(flowOutEnd.getContext(), flowOutEnd.getFeature()));
 							} else if (object instanceof FlowSegment) {
 								final FlowSegment flowSegment = (FlowSegment)object;
@@ -386,8 +385,8 @@ public class CreateFlowImplementationTool {
 							}
 						}
 						//sink
-						else if (fs.getKind().equals(FlowKind.SINK) && flowInEnd != null) {
-							if (flowImpl.getSpecification().equals(object)) {
+						else if (fs.getKind() == FlowKind.SINK) {
+							if (flowImpl.getSpecification() == object) {
 								flowSegmentList.add(getSegmentName(flowInEnd.getContext(), flowInEnd.getFeature()) + "  ->");		
 							} else if (object instanceof FlowSegment) {
 								final FlowSegment flowSegment = (FlowSegment)object;
@@ -663,7 +662,7 @@ public class CreateFlowImplementationTool {
 		public void create() {
 			super.create();
 			setTitle("Select Elements");
-			setMessage("Select a valid flow specification.  Click OK when done.");
+			setMessage(CreateFlowImplementationTool.this.getDialogMessage());
 		}
 
 		@Override
@@ -710,7 +709,7 @@ public class CreateFlowImplementationTool {
 					if (prevPesSize > 0) {
 						final PictogramElement removedPe = previouslySelectedPes.get(prevPesSize-1);
 						setRemovedElement(removedPe);
-						final EObject ob = (EObject)AadlElementWrapper.unwrap(fp.getBusinessObjectForPictogramElement(removedPe));
+						final Object ob = bor.getBusinessObjectForPictogramElement(removedPe);
 						if (ob == flowImpl.getSpecification() && prevPesSize == 1) {
 							flowImpl.setSpecification(null);
 							flowImpl = null;

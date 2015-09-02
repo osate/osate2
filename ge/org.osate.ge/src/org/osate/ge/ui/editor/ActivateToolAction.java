@@ -26,7 +26,7 @@ public class ActivateToolAction extends SelectionAction {
 	
 	@Override
 	public void run() {
-		toolHandler.activate(tool);
+		toolHandler.activate(tool, this);
 	}
 	
 	public ToolHandler getToolHandler() {

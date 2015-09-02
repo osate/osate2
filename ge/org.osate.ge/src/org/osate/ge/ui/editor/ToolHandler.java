@@ -6,6 +6,7 @@ import org.eclipse.e4.core.contexts.ContextInjectionFactory;
 import org.eclipse.e4.core.contexts.IEclipseContext;
 import org.eclipse.graphiti.mm.pictograms.PictogramElement;
 import org.eclipse.graphiti.ui.editor.DefaultPaletteBehavior;
+import org.eclipse.jface.action.IAction;
 import org.osate.ge.ext.ExtensionConstants;
 import org.osate.ge.ext.annotations.Activate;
 import org.osate.ge.ext.annotations.CanActivate;
@@ -22,6 +23,7 @@ public class ToolHandler {
 	private final DefaultPaletteBehavior paletteBehavior;
 	private final IEclipseContext context;
 	private Object activeTool = null;
+	private ActivateToolAction activeToolAction = null; // Action that was used to activate the active tool
 	
 	public ToolHandler(final ExtensionService extensionService, final DefaultPaletteBehavior paletteBehavior) {
 		this.paletteBehavior = paletteBehavior;
@@ -41,13 +43,14 @@ public class ToolHandler {
 		return ((Boolean) result).booleanValue();
 	}
 	
-	public void activate(final Object tool) {
+	public void activate(final Object tool, final ActivateToolAction action) {
 		// Deactivate the current tool
 		if(activeTool != null) {
 			deactivate(activeTool);
 		}
 
 		activeTool = tool;
+		activeToolAction = action;
 		
 		paletteBehavior.refreshPalette();
 		ContextInjectionFactory.invoke(tool, Activate.class, context);
@@ -63,6 +66,9 @@ public class ToolHandler {
 		ContextInjectionFactory.invoke(tool, Deactivate.class, context);
 		activeTool = null;
 		paletteBehavior.refreshPalette();
+		
+		activeToolAction.update();
+		activeToolAction = null;
 	}
 	
 	public void setSelectedPictogramElements(final PictogramElement[] pes) {

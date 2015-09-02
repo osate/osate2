@@ -400,19 +400,19 @@
   						</imageobject>
 					</listitem>
 					<listitem>
-						<para>Select a valid subcomponent flow.</para>
+						<para>Select a valid subcomponent flow specification, subcomponent, or data access.</para>
 						<imageobject>
     						<imagedata fileref="images/Source2.png" format="PNG"/>
   						</imageobject>
 					</listitem>
 					<listitem>
-					<para>Select valid flow segments leading to the source flow specification.</para>
+					<para>Select valid flow segments leading to the source flow specification, modes, or mode transitions.</para>
 					<imageobject>
     					<imagedata fileref="images/Source3.png" format="PNG"/>
   					</imageobject>
 					</listitem>
 					<listitem>
-						<para>Click <emphasis>OK</emphasis>.</para>
+						<para>Select <emphasis>OK</emphasis> when done.</para>
 					</listitem>
 					</orderedlist>
 				</section>
@@ -420,7 +420,7 @@
 				<title>Creating Sink Flow Implementations</title>
 				<orderedlist>
 					<listitem>
-					<para>Select a valid sink flow specification .</para>
+					<para>Select a valid sink flow specification.</para>
 					<imageobject>
     					<imagedata fileref="images/Sink1.png" format="PNG"/>
   					</imageobject>
@@ -432,13 +432,13 @@
   						</imageobject>
 					</listitem>
 					<listitem>
-					<para>Select valid flow segments.</para>
+					<para>Select valid flow segments leading to the end subcomponent flow, modes, or mode transitions.</para>
 					<imageobject>
     					<imagedata fileref="images/Sink3.png" format="PNG"/>
   					</imageobject>
 					</listitem>
 					<listitem>
-					<para>Click <emphasis>OK</emphasis>.</para>
+						<para>Select <emphasis>OK</emphasis> when done.</para>
 					</listitem>
 				</orderedlist>
 				</section>
@@ -458,13 +458,13 @@
   					</imageobject>
 					</listitem>
 					<listitem>
-					<para>Select valid flow segments leading to the path flow specification's out flow end.</para>
+					<para>Select valid flow segments leading to the path flow specification's out flow end, modes, or mode features.</para>
 					<imageobject>
     					<imagedata fileref="images/Path3.png" format="PNG"/>
   					</imageobject>
 					</listitem>
 					<listitem>
-					<para>Click <emphasis>OK</emphasis>.</para>
+						<para>Select <emphasis>OK</emphasis> when done.</para>
 					</listitem>
 				</orderedlist>
 				</section>
@@ -480,10 +480,10 @@
 						<para>Select a valid connection.</para>
 					</listitem>
 					<listitem>
-						<para>Select valid flow segments.</para>
+						<para>Select valid flow segments, modes, or mode transitions.</para>
 					</listitem>
 					<listitem>
-						<para>Name the End-To-End Flow and click <emphasis>OK</emphasis>.</para>
+						<para>Name the End-To-End Flow and select <emphasis>OK</emphasis> when done.</para>
 					</listitem>
 				</orderedlist>
 			</section>
