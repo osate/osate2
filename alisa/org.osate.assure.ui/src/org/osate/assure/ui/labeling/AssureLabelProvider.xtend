@@ -69,14 +69,14 @@ class AssureLabelProvider extends org.eclipse.xtext.ui.label.DefaultEObjectLabel
 	def image(ClaimResult ele) {
 		if (ele.isSuccessful) return 'valid.png'//'claimsuccess.png'
 		if (ele.noSuccess) return 'error.png'//'claimfail.png'
-		if (ele.isZeroCount) return 'questionmark.png'//'validationfail.png'
+		if (ele.isZeroCount) return 'info.png'//'validationfail.png'
 		return 'questionmark.png'//'claim.png'
 	}
 	
 	def image(VerificationActivityResult ele) {
 		if (ele.isSuccessful) return 'valid.png'//'evidencesuccess.png'
 		if (ele.noSuccess) return 'error.png'//'evidencefail.png'
-		if (ele.isZeroCount) return 'questionmark.png'//'validationfail.png'
+		if (ele.isZeroCount) return 'info.png'//'validationfail.png'
 		return 'questionmark.png'//'evidence.png'
 	}
 	
