@@ -58,49 +58,50 @@
             <topic label="Creating Flow Sources" href="output/ch03s06.html#d0e517"/>
          </topic>
          <topic label="Creating Flow Implementations and End-To-End Flows" href="output/ch03s06.html#d0e530">
-            <topic label="Creating Flow Implementations" href="output/ch03s06.html#d0e535">
-               <topic label="Creating Source Flow Implementations" href="output/ch03s06.html#d0e546"/>
-               <topic label="Creating Sink Flow Implementations" href="output/ch03s06.html#d0e573"/>
-               <topic label="Creating Path Flow Implementations" href="output/ch03s06.html#d0e598"/>
+            <topic label="Creating Flow Implementations" href="output/ch03s06.html#d0e538">
+               <topic label="Creating Source Flow Implementations" href="output/ch03s06.html#d0e549"/>
+               <topic label="Creating Sink Flow Implementations" href="output/ch03s06.html#d0e574"/>
+               <topic label="Creating Path Flow Implementations" href="output/ch03s06.html#d0e599"/>
             </topic>
+            <topic label="Creating End-To-End Flows" href="output/ch03s06.html#d0e624"/>
          </topic>
-         <topic label="Editing Flow Implementations and End-to-End Flows" href="output/ch03s06.html#d0e623"/>
-         <topic label="Highlighting Flow Implementations and End-to-End Flows" href="output/ch03s06.html#d0e633"/>
+         <topic label="Editing Flow Implementations and End-to-End Flows" href="output/ch03s06.html#d0e651"/>
+         <topic label="Highlighting Flow Implementations and End-to-End Flows" href="output/ch03s06.html#d0e661"/>
       </topic>
       <topic label="Modes" href="output/ch03s07.html">
-         <topic label="Creating Modes" href="output/ch03s07.html#d0e643"/>
-         <topic label="Setting the Initial Mode" href="output/ch03s07.html#d0e651"/>
-         <topic label="Creating Mode Transitions" href="output/ch03s07.html#d0e659"/>
-         <topic label="Setting Mode Transition Triggers" href="output/ch03s07.html#d0e694"/>
-         <topic label="Switching Between Derived and Non-derived Modes" href="output/ch03s07.html#d0e702"/>
-         <topic label="Highlighting" href="output/ch03s07.html#d0e721"/>
+         <topic label="Creating Modes" href="output/ch03s07.html#d0e671"/>
+         <topic label="Setting the Initial Mode" href="output/ch03s07.html#d0e679"/>
+         <topic label="Creating Mode Transitions" href="output/ch03s07.html#d0e687"/>
+         <topic label="Setting Mode Transition Triggers" href="output/ch03s07.html#d0e722"/>
+         <topic label="Switching Between Derived and Non-derived Modes" href="output/ch03s07.html#d0e730"/>
+         <topic label="Highlighting" href="output/ch03s07.html#d0e749"/>
          <topic label="Selecting Active Components" href="output/ch03s07.html#modes_configuring_in_modes"/>
       </topic>
       <topic label="Bindings" href="output/ch03s08.html">
-         <topic label="Creating Bindings" href="output/ch03s08.html#d0e737"/>
-         <topic label="Setting Bindings" href="output/ch03s08.html#d0e742">
-            <topic label="Using the Toolbar to Set Bindings" href="output/ch03s08.html#d0e745"/>
-            <topic label="Using the Context Menu to Set Bindings" href="output/ch03s08.html#d0e772"/>
+         <topic label="Creating Bindings" href="output/ch03s08.html#d0e765"/>
+         <topic label="Setting Bindings" href="output/ch03s08.html#d0e770">
+            <topic label="Using the Toolbar to Set Bindings" href="output/ch03s08.html#d0e773"/>
+            <topic label="Using the Context Menu to Set Bindings" href="output/ch03s08.html#d0e800"/>
          </topic>
-         <topic label="Bindings Diagram Properties" href="output/ch03s08.html#d0e799"/>
+         <topic label="Bindings Diagram Properties" href="output/ch03s08.html#d0e827"/>
       </topic>
       <topic label="Arrays" href="output/ch03s09.html">
-         <topic label="Creating Arrays" href="output/ch03s09.html#d0e830"/>
-         <topic label="Editing Arrays" href="output/ch03s09.html#d0e867">
-            <topic label="Add Dimension" href="output/ch03s09.html#d0e875"/>
-            <topic label="Change Dimension Order" href="output/ch03s09.html#d0e903"/>
-            <topic label="Delete Dimension" href="output/ch03s09.html#d0e917"/>
+         <topic label="Creating Arrays" href="output/ch03s09.html#d0e858"/>
+         <topic label="Editing Arrays" href="output/ch03s09.html#d0e895">
+            <topic label="Add Dimension" href="output/ch03s09.html#d0e903"/>
+            <topic label="Change Dimension Order" href="output/ch03s09.html#d0e931"/>
+            <topic label="Delete Dimension" href="output/ch03s09.html#d0e945"/>
          </topic>
       </topic>
       <topic label="Subprogram Call Sequences" href="output/ch03s10.html">
-         <topic label="Creating Subprogram Call Sequences" href="output/ch03s10.html#d0e933">
-            <topic label="Adding Subprogram Calls" href="output/ch03s10.html#d0e959"/>
+         <topic label="Creating Subprogram Call Sequences" href="output/ch03s10.html#d0e961">
+            <topic label="Adding Subprogram Calls" href="output/ch03s10.html#d0e987"/>
          </topic>
-         <topic label="Editing Subprogram Call Sequences" href="output/ch03s10.html#d0e985"/>
+         <topic label="Editing Subprogram Call Sequences" href="output/ch03s10.html#d0e1013"/>
       </topic>
    </topic>
    <topic label="Troubleshooting" href="output/ch04.html">
-      <topic label="Build Automatically" href="output/ch04.html#d0e1001"/>
+      <topic label="Build Automatically" href="output/ch04.html#d0e1029"/>
       <topic label="Updating a Diagram" href="output/ch04s02.html"/>
       <topic label="Reporting Bugs" href="output/ch04s03.html"/>
    </topic>

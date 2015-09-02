@@ -166,7 +166,7 @@ public class CreateEndToEndFlowTool {
 	 */
 	private void clearSelection(final IDiagramTypeProvider dtp) {
 		dtp.getDiagramBehavior().getDiagramContainer().selectPictogramElements(new PictogramElement[0]);
-		dtp.getDiagramBehavior().refresh();
+		//dtp.getDiagramBehavior().refresh();
 	}
 
 	
