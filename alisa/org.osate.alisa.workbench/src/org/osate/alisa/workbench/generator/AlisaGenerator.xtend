@@ -38,6 +38,7 @@ import static extension org.osate.alisa.common.util.CommonUtilExtension.*
 import static extension org.osate.alisa.workbench.util.AlisaWorkbenchUtilExtension.*
 import static extension org.osate.verify.util.VerifyUtilExtension.*
 import org.osate.aadl2.Subcomponent
+import org.osate.aadl2.util.Aadl2Util
 
 /**
  * Generates code from your model files on save.
@@ -96,7 +97,21 @@ class AlisaGenerator implements IGenerator {
 			allPlans = acp.assureGlobal
 		}
 		rootAssuranceCase = acp
-		generateCase(acp, null)
+		val res = generateCase(acp, null)
+		if (res.length == 0 ){
+			acp.emptyCase("Empty case due to unresolved target reference or empty filter result")
+		}
+	}
+	
+	def emptyCase(AssurancePlan acp,String msg){
+	'''
+	case  «acp.name»
+	for  «acp.name»
+	[
+		tbdcount 0
+		message «msg»
+	]
+	'''
 	}
 
 @Inject extension IVerifyGlobalReferenceFinder referenceFinder
@@ -113,13 +128,13 @@ class AlisaGenerator implements IGenerator {
 		if (acp != null){
 			myplans = acp.assureOwn
 			cc = acp.target
-			if (myplans.empty && cc != null){
+			if (myplans.empty && !Aadl2Util.isNull(cc)){
 				myplans = cc.getVerificationPlans(rootAssuranceCase)
 			}
 		}
-		if (myplans.empty && sub != null){
+		if (myplans.empty && !Aadl2Util.isNull(sub)){
 			cc = sub.allClassifier
-		 	if (cc != null) {
+		 	if (!Aadl2Util.isNull(cc)) {
 		 	myplans = cc.getVerificationPlans(rootAssuranceCase);
 		 	} else {
 		 	myplans =Collections.EMPTY_LIST
