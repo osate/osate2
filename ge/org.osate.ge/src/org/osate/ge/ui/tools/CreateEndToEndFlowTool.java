@@ -515,8 +515,8 @@ public class CreateEndToEndFlowTool {
 								|| flowFeature == destCE
 								|| flowFeature == srcCE;
 					} else {
-						return flowFeature == destCE
-								|| inFlowFeature == srcCE;
+						return flowFeature == srcCE
+								|| inFlowFeature == destCE;
 					}
 				} else if (fs.getKind() == FlowKind.SINK) {
 					return flowFeature == srcCE || flowFeature == destCE;
