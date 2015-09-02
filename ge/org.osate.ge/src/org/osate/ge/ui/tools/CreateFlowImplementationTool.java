@@ -26,7 +26,6 @@ import org.eclipse.swt.custom.StyleRange;
 import org.eclipse.swt.custom.StyledText;
 import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
-import org.eclipse.swt.graphics.Rectangle;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.layout.RowData;
@@ -72,7 +71,6 @@ import org.osate.ge.services.ConnectionService;
 import org.osate.ge.services.ShapeService;
 import org.osate.ge.services.UiService;
 import org.osate.ge.services.AadlModificationService.AbstractModifier;
-import org.osate.ge.ui.editor.AgeDiagramEditor;
 
 public class CreateFlowImplementationTool {
 	@Id
@@ -105,16 +103,11 @@ public class CreateFlowImplementationTool {
 			final IDiagramTypeProvider dtp, final IFeatureProvider fp) {
 		this.coloring = highlightingService.adjustColors();
 		this.fp = fp;
-		final AgeDiagramEditor editor = (AgeDiagramEditor)dtp.getDiagramBehavior().getDiagramContainer();
-		editor.getActionRegistry().getAction(CreateFlowImplementationTool.ID).setEnabled(false);
 		ci = (ComponentImplementation)bor.getBusinessObjectForPictogramElement(dtp.getDiagram());
 		if (ci != null) {
 			canActivate = false;
 			clearSelection(dtp);
-			final Shell dialogShell = new Shell();
-			final Rectangle rect = editor.getSite().getShell().getBounds();
-			dialogShell.setLocation((rect.x - 150), (rect.y - 100));
-			createFlowImplementationDialog = new CreateFlowImplementationDialog(dialogShell);
+			createFlowImplementationDialog = new CreateFlowImplementationDialog(Display.getCurrent().getActiveShell());
 			if (createFlowImplementationDialog.open() == Dialog.CANCEL) {
 				uiService.deactivateActiveTool();
 				canActivate = true;
@@ -155,12 +148,10 @@ public class CreateFlowImplementationTool {
 				canActivate = true;
 			}
 		});
-		clearSelection(dtp);
 	}
 
 	private void clearSelection(final IDiagramTypeProvider dtp) {
 		dtp.getDiagramBehavior().getDiagramContainer().selectPictogramElements(new PictogramElement[0]);
-		dtp.getDiagramBehavior().refresh();
 	}
 
 	@SelectionChanged
@@ -189,7 +180,7 @@ public class CreateFlowImplementationTool {
 						if (createFlowImplementationDialog.getRemovedElement() != null) {
 							//if PE has been deleted, color it black
 							coloring.setForeground(createFlowImplementationDialog.getRemovedElement(), Color.BLACK);
-							createFlowImplementationDialog.setMessage((previouslySelectedPes.size() > 0 ? getDialogMessage(AadlElementWrapper.unwrap(fp.getBusinessObjectForPictogramElement(previouslySelectedPes.get(previouslySelectedPes.size()-1)))) : "Select a valid flow specification.") + "  Click OK when done.");
+							createFlowImplementationDialog.setMessage((previouslySelectedPes.size() > 0 ? getDialogMessage(AadlElementWrapper.unwrap(fp.getBusinessObjectForPictogramElement(previouslySelectedPes.get(previouslySelectedPes.size()-1)))) : "Select a valid flow specification.") + " Select OK when done.");
 							createFlowImplementationDialog.setRemovedElement(null);
 							return;
 						}
@@ -202,7 +193,7 @@ public class CreateFlowImplementationTool {
 								coloring.setForeground(pe, Color.MAGENTA.darker());
 							}
 							previouslySelectedPes.add(pe);
-							createFlowImplementationDialog.setMessage(getDialogMessage(bo) + "  Click OK when done.");
+							createFlowImplementationDialog.setMessage(getDialogMessage(bo) + " Select OK when done.");
 						}
 					}
 				}
@@ -218,9 +209,9 @@ public class CreateFlowImplementationTool {
 	private String getDialogMessage(final Object bo) {
 		if ((bo instanceof FlowSpecification && ((FlowSpecification)(bo)).getKind() != FlowKind.SOURCE) || bo instanceof DataAccess
 				|| bo instanceof Subcomponent) {
-			return "Select a valid connection or mode feature.";
+			return "Select a valid connection, mode, or mode transition.";
 		} else if (bo instanceof FlowSpecification || bo instanceof org.osate.aadl2.Connection) {
-			return "Select a valid subcomponent flow specification, subcomponent, data access or mode feature.";
+			return "Select a valid subcomponent flow specification, subcomponent, data access, mode, or mode transition.";
 		} else {
 			return createFlowImplementationDialog.getMessage();
 		}
@@ -309,7 +300,7 @@ public class CreateFlowImplementationTool {
 
 		/**
 		 * Determines if the flow implementation is complete and valid based on it's
-		 * flow segment information.  Used for updating the dialog widgets
+		 * flow segment information. Used for updating the dialog widgets
 		 * @return true or false
 		 */
 		private boolean isCompleteAndValid() {
@@ -663,7 +654,7 @@ public class CreateFlowImplementationTool {
 		public void create() {
 			super.create();
 			setTitle("Select Elements");
-			setMessage("Select a valid flow specification.  Click OK when done.");
+			setMessage("Select a valid flow specification. Select OK when done.");
 		}
 
 		@Override
