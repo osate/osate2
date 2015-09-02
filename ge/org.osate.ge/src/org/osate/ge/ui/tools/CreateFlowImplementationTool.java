@@ -202,7 +202,6 @@ public class CreateFlowImplementationTool {
 
 	/**
 	 * Determine message based on currently selected element
-	 * @param bo - last element in list
 	 * @return
 	 */
 	private String getDialogMessage() {
