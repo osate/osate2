@@ -386,23 +386,92 @@
 			</section>
 			<section>
 				<title>Creating Flow Implementations and End-To-End Flows</title>
-				<para>When editing a component implementation, flow implementations and end-to-end flows can be created using the Create Flow Implementation and Create End-To-End Flow buttons on the toolbar.</para>
+				<para>When editing a component implementation, flow implementations and end-to-end flows can be created using the Create Flow Implementation and Create End-To-End Flow buttons on the toolbar and selecting valid elements on the diagram.</para>
 			<section>
 				<title>Creating Flow Implementations</title>
-				<para>Select <emphasis>Create Flow Implementation</emphasis> from the toolbar.  The Create Flow Implementation dialog will appear.  The <emphasis>Undo</emphasis> button will remove the elements shown in the dialog in the order they were selected.</para>
+				<para>Select <emphasis>Create Flow Implementation</emphasis> from the toolbar.  The Create Flow Implementation dialog will appear.  The <emphasis>Undo</emphasis> button will remove the flow elements in the order they were selected.</para>
 				<section>
 				<title>Creating Source Flow Implementations</title>
+				<para>If valid, the flow implementation's flow specification will highlight dark orange, and flow elements will highlight purple when selected.</para>
 					<orderedlist>
 					<listitem>
-						<para>Select a valid start source flow specification on the diagram.  The source flow specification will highlight dark orange if valid.</para>
+						<para>Select a valid end source flow specification.</para>
+						<imageobject>
+    						<imagedata fileref="images/Source1.png" format="PNG"/>
+  						</imageobject>
 					</listitem>
 					<listitem>
-						<para>Select a valid end element on the diagram that will lead to the start source flow specification.  The selected element will highlight purple if valid.</para>
+						<para>Select a valid start element that will lead to the end source flow specification.</para>
+						<imageobject>
+    						<imagedata fileref="images/Source2.png" format="PNG"/>
+  						</imageobject>
 					</listitem>
 					<listitem>
-						<para>Select the remaining valid elements that will lead from the end element to the start source flow specification.  These elements will highlight purple if valid. </para>
+					<para>Select the remaining elements in order leading to the end source flow specification.  Select modes or mode transitions if necessary.</para>
+					<imageobject>
+    					<imagedata fileref="images/Source3.png" format="PNG"/>
+  					</imageobject>
+					</listitem>
+					<listitem>
+						<para>Click <emphasis>OK</emphasis>.</para>
+					</listitem>
+					</orderedlist>
+				</section>
+				<section>
+				<title>Creating Sink Flow Implementations</title>
+				<orderedlist>
+					<listitem>
+					<para>Select a valid start sink flow specification on the diagram.</para>
+					<imageobject>
+    					<imagedata fileref="images/Sink1.png" format="PNG"/>
+  					</imageobject>
+					</listitem>
+					<listitem>
+					<para>Select a connection leading from the start sink flow specification to the next desired flow segment.</para>
+					<imageobject>
+    					<imagedata fileref="images/Sink2.png" format="PNG"/>
+  					</imageobject>
+					</listitem>
+					<listitem>
+						<para>Select modes or mode transitions if necessary.</para>
+					</listitem>
+					<listitem>
+					<para>Select the remaining flow segments in order leading to the end flow segment.</para>
+					<imageobject>
+    					<imagedata fileref="images/Sink3.png" format="PNG"/>
+  					</imageobject>
+					</listitem>
+					<listitem>
+					<para>Click <emphasis>OK</emphasis>.</para>
 					</listitem>
 				</orderedlist>
+				</section>
+				<section>
+				<title>Creating Path Flow Implementations</title>
+				<orderedlist>
+					<listitem>
+					<para>Select a valid start path flow specification on the diagram.</para>
+					<imageobject>
+    					<imagedata fileref="images/Path1.png" format="PNG"/>
+  					</imageobject>
+					</listitem>
+					<listitem>
+					<para>Select a valid connection leading from the start path flow specification's in flow end.</para>
+					<imageobject>
+    					<imagedata fileref="images/Path2.png" format="PNG"/>
+  					</imageobject>
+					</listitem>
+					<listitem>
+					<para>Select the remaining elements in order leading to the start path flow specification's out flow end.  Select modes or mode transitions if necessary.</para>
+					<imageobject>
+    					<imagedata fileref="images/Path3.png" format="PNG"/>
+  					</imageobject>
+					</listitem>
+					<listitem>
+					<para>Click <emphasis>OK</emphasis>.</para>
+					</listitem>
+				</orderedlist>
+				</section>
 			</section>
 			</section>
 			<section>
