@@ -396,19 +396,19 @@
 					<listitem>
 						<para>Select a valid source flow specification.</para>
 						<imageobject>
-    						<imagedata fileref="images/Source1.png" format="PNG"/>
+    						<imagedata fileref="images/SourceFlowImplStep1.png" format="PNG"/>
   						</imageobject>
 					</listitem>
 					<listitem>
 						<para>Select a valid subcomponent flow specification, subcomponent, or data access.</para>
 						<imageobject>
-    						<imagedata fileref="images/Source2.png" format="PNG"/>
+    						<imagedata fileref="images/SourceFlowImplStep2.png" format="PNG"/>
   						</imageobject>
 					</listitem>
 					<listitem>
-					<para>Select valid flow segments leading to the source flow specification, modes, or mode transitions.</para>
+					<para>Select valid flow segments leading to the source flow specification.  Optionally, select modes or mode transitions.</para>
 					<imageobject>
-    					<imagedata fileref="images/Source3.png" format="PNG"/>
+    					<imagedata fileref="images/SourceFlowImplStep3.png" format="PNG"/>
   					</imageobject>
 					</listitem>
 					<listitem>
@@ -422,19 +422,19 @@
 					<listitem>
 					<para>Select a valid sink flow specification.</para>
 					<imageobject>
-    					<imagedata fileref="images/Sink1.png" format="PNG"/>
+    					<imagedata fileref="images/SinkFlowImplStep1.png" format="PNG"/>
   					</imageobject>
 					</listitem>
 					<listitem>
 						<para>Select a valid connection.</para>
 						<imageobject>
-    					<imagedata fileref="images/Sink2.png" format="PNG"/>
+    					<imagedata fileref="images/SinkFlowImplStep2.png" format="PNG"/>
   						</imageobject>
 					</listitem>
 					<listitem>
-					<para>Select valid flow segments leading to the end subcomponent flow, modes, or mode transitions.</para>
+					<para>Select valid flow segments leading to the end subcomponent flow.  Optionally, select modes or mode transitions.</para>
 					<imageobject>
-    					<imagedata fileref="images/Sink3.png" format="PNG"/>
+    					<imagedata fileref="images/SinkFlowImplStep3.png" format="PNG"/>
   					</imageobject>
 					</listitem>
 					<listitem>
@@ -448,19 +448,19 @@
 					<listitem>
 					<para>Select a valid path flow specification.</para>
 					<imageobject>
-    					<imagedata fileref="images/Path1.png" format="PNG"/>
+    					<imagedata fileref="images/PathFlowImplStep1.png" format="PNG"/>
   					</imageobject>
 					</listitem>
 					<listitem>
 					<para>Select a valid connection.</para>
 					<imageobject>
-    					<imagedata fileref="images/Path2.png" format="PNG"/>
+    					<imagedata fileref="images/PathFlowImplStep2.png" format="PNG"/>
   					</imageobject>
 					</listitem>
 					<listitem>
-					<para>Select valid flow segments leading to the path flow specification's out flow end, modes, or mode features.</para>
+					<para>Select valid flow segments leading to the path flow specification's out flow end.  Optionally, select modes or mode transitions.</para>
 					<imageobject>
-    					<imagedata fileref="images/Path3.png" format="PNG"/>
+    					<imagedata fileref="images/PathFlowImplStep3.png" format="PNG"/>
   					</imageobject>
 					</listitem>
 					<listitem>
@@ -475,12 +475,21 @@
 				<orderedlist>
 					<listitem>
 						<para>Select a valid subcomponent source flow specification.</para>
+						<imageobject>
+    						<imagedata fileref="images/EndToEndFlowStep1.png" format="PNG"/>
+  						</imageobject>
 					</listitem>
 					<listitem>
 						<para>Select a valid connection.</para>
+						<imageobject>
+    						<imagedata fileref="images/EndToEndFlowStep2.png" format="PNG"/>
+  						</imageobject>
 					</listitem>
 					<listitem>
-						<para>Select valid flow segments, modes, or mode transitions.</para>
+						<para>Select valid flow segments.  Optionally, select modes or mode transitions.</para>
+						<imageobject>
+    						<imagedata fileref="images/EndToEndFlowStep3.png" format="PNG"/>
+  						</imageobject>
 					</listitem>
 					<listitem>
 						<para>Name the End-To-End Flow and select <emphasis>OK</emphasis> when done.</para>
