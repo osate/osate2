@@ -99,7 +99,9 @@ class AlisaGenerator implements IGenerator {
 		rootAssuranceCase = acp
 		val res = generateCase(acp, null)
 		if (res.length == 0 ){
-			acp.emptyCase("Empty case due to unresolved target reference or empty filter result")
+			acp.emptyCase("\"Empty case due to unresolved target reference or empty filter result\"")
+		} else {
+			res
 		}
 	}
 	
