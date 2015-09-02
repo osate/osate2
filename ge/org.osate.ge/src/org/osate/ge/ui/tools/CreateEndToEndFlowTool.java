@@ -4,9 +4,7 @@ import java.awt.Color;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Collections;
-
 import javax.inject.Named;
-
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.emf.transaction.TransactionalEditingDomain;
@@ -207,51 +205,31 @@ public class CreateEndToEndFlowTool {
 
 	//Determine message based on currently selected element
 	private String getDialogMessage() {
+		String msg = "";
 		if (previouslySelectedPes.size() > 0) {
 			final Object bo = bor.getBusinessObjectForPictogramElement(previouslySelectedPes.get(previouslySelectedPes.size()-1));
-			if (bo instanceof FlowSpecification) {
-				final FlowSpecification fs = (FlowSpecification)bo;
-				if (fs.getKind() != FlowKind.SINK) {
-					if (createEndToEndFlowDialog.eTEFlow.getName().length() == 0) {
-						if (createEndToEndFlowDialog.nameError) {
-							return "Select a valid connection, mode, or mode transition and specify a name for the flow. Select OK when done.  The name is invalid.";
-						} else {
-							return "Select a valid connection, mode, or mode transition and specify a name for the flow. Select OK when done.";
-						}
-					} else {
-						return "Select a valid connection, mode, or mode transition. Select OK when done.";
+			if(bo instanceof FlowSpecification || bo instanceof org.osate.aadl2.Connection) {
+				if (bo instanceof FlowSpecification) {
+					final FlowSpecification fs = (FlowSpecification)bo;
+					if (fs.getKind() != FlowKind.SINK) {
+						msg = "Select a connection.";
 					}
-				} else {
-					if (createEndToEndFlowDialog.eTEFlow.getName().length() == 0) {
-						if (createEndToEndFlowDialog.nameError) {
-							return "Select a valid mode or mode transition if necessary or name the flow and select OK.  The name is invalid.";
-						} else {
-							return "Select a valid mode or mode transition if necessary or name the flow and select OK.";
-						}
-					} else {
-						return "Select a valid mode or mode transition if necessary. Select OK when done.";
-					}
-				}
-			} else if (bo instanceof org.osate.aadl2.Connection) {
-				if (createEndToEndFlowDialog.eTEFlow.getName().length() == 0) {
-					if (createEndToEndFlowDialog.nameError) {
-						return "Select a valid flow specification, mode, or mode transition. Name the flow and select OK when done.  The name is invalid.";
-					} else {
-						return "Select a valid flow specification, mode, or mode transition. Name the flow and select OK when done.";
-					}
-				} else {
-					return "Select a valid flow specification, mode, or mode transition. Select OK when done.";
+				} else if (bo instanceof org.osate.aadl2.Connection) {
+					msg = "Select a flow specification.";
 				}
 			} else {
 				return createEndToEndFlowDialog.getMessage();
 			}
 		} else {
-			if (createEndToEndFlowDialog.nameError) {
-				return "Select a staring flow identifier, mode, or mode transition. Name the flow and select OK when done.  The name is invalid.";
-			} else {
-				return "Select a staring flow identifier, mode, or mode transition. Name the flow and select OK when done.";
-			}
+			msg = "Select a starting flow specification.";
 		}
+				
+		if(msg.length() != 0) {
+			msg += "\n";
+		}
+		msg += "Optionally, select a mode or mode transition.";
+		
+		return msg;
 	}
 
 	private class CreateFlowsToolsDialog extends TitleAreaDialog {
@@ -263,7 +241,6 @@ public class CreateEndToEndFlowTool {
 		private NamingService namingService;
 		private PictogramElement removedPictogramElement = null;
 		private final Aadl2Package pkg = Aadl2Factory.eINSTANCE.getAadl2Package();
-		private boolean nameError = false;
 		final List<String> segmentList = new ArrayList<String>();
 		final List<String> modeList = new ArrayList<String>();
 		private final EndToEndFlow eTEFlow = (EndToEndFlow) pkg.getEFactoryInstance().create(pkg.getEndToEndFlow());
@@ -595,15 +572,18 @@ public class CreateEndToEndFlowTool {
 			newETEFlowName.addKeyListener(new KeyAdapter() {
 				@Override
 				public void keyReleased(final KeyEvent e) {
-					if(!namingService.isValidIdentifier(newETEFlowName.getText()) || namingService.isNameInUse(ci, newETEFlowName.getText())) {
-						eTEFlow.setName("");
-						nameError = true;
-						updateWidgets();
+					final String errorMsg;
+					if(!namingService.isValidIdentifier(newETEFlowName.getText())) {
+						errorMsg = "Name is not a valid identifier";	
+					} else if(namingService.isNameInUse(ci, newETEFlowName.getText())) {
+						errorMsg = "The specified name is already is use.";
 					} else {
-						eTEFlow.setName(newETEFlowName.getText());
-						nameError = false;
-						updateWidgets();
+						errorMsg = null;
 					}
+					
+					createEndToEndFlowDialog.setErrorMessage(errorMsg);
+					eTEFlow.setName(newETEFlowName.getText());
+					updateWidgets();
 				}
 			});
 
@@ -618,14 +598,14 @@ public class CreateEndToEndFlowTool {
 						final PictogramElement removedPe = previouslySelectedPes.get(prevPesSize-1);
 						setRemovedElement(removedPe);
 						final Object ob = bor.getBusinessObjectForPictogramElement(removedPe);
-						if (!(ob instanceof ModeFeature)) {
+						if (ob instanceof ModeFeature)  {
+							eTEFlow.getInModeOrTransitions().remove(eTEFlow.getInModeOrTransitions().size()-1);
+						} else {
 							final EndToEndFlowSegment flowSegment = eTEFlow.getAllFlowSegments().get(eTEFlow.getAllFlowSegments().size()-1);
 							eTEFlow.getAllFlowSegments().remove(flowSegment);
 							EcoreUtil.remove(flowSegment);
-						} else {
-							eTEFlow.getInModeOrTransitions().remove(eTEFlow.getInModeOrTransitions().size()-1);
 						}
-
+						
 						//Clear strings for refresh
 						segmentList.clear();
 						modeList.clear();
