@@ -19,8 +19,12 @@ public class AlisaUiModule extends org.osate.alisa.workbench.ui.AbstractAlisaUiM
 		return AlisaEObjectHoverProvider.class;
 	}
 
-//	@Override
-//	public Class<? extends org.eclipse.xtext.ui.editor.hyperlinking.IHyperlinkHelper> bindIHyperlinkHelper() {
-//		return org.osate.alisa.common.ui.util.AlisaHyperLinkHelper.class;
-//	}
+	public Class<? extends org.eclipse.xtext.ui.editor.hyperlinking.IHyperlinkHelper> bindIHyperlinkHelper() {
+		return org.osate.alisa.common.ui.util.AlisaHyperLinkHelper.class;
+	}
+
+	public Class<? extends org.eclipse.xtext.linking.ILinkingDiagnosticMessageProvider> bindILinkingDiagnosticMessageProvider() {
+		return org.osate.alisa.workbench.ui.linking.AlisaLinkingDiagnosticMessageProvider.class;
+	}
+
 }

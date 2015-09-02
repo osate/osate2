@@ -31,4 +31,9 @@ public class ReqSpecUiModule extends org.osate.reqspec.ui.AbstractReqSpecUiModul
 	public Class<? extends OutlineNodeLabelProvider> bindOutlineNodeLabelProvider() {
 		return ReqSpecOutlineNodeLabelProvider.class;
 	}
+
+	public Class<? extends org.eclipse.xtext.linking.ILinkingDiagnosticMessageProvider> bindILinkingDiagnosticMessageProvider() {
+		return org.osate.reqspec.ui.linking.ReqSpecLinkingDiagnosticMessageProvider.class;
+	}
+
 }
