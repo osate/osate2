@@ -209,12 +209,13 @@ public class CreateFlowImplementationTool {
 		if (previouslySelectedPes.size() > 0) {
 			//Get last element selected to determine message
 			final Object bo = bor.getBusinessObjectForPictogramElement(previouslySelectedPes.get(previouslySelectedPes.size()-1));
-			if ((bo instanceof FlowSpecification && ((FlowSpecification)(bo)).getKind() != FlowKind.SOURCE) || bo instanceof DataAccess
+			if ((bo instanceof FlowSpecification && (FlowSpecification)bo == createFlowImplementationDialog.flowImpl.getSpecification()
+				&& ((FlowSpecification)bo).getKind() == FlowKind.SOURCE) || bo instanceof org.osate.aadl2.Connection) {
+				return "Select a valid subcomponent flow specification, subcomponent, data access, mode, or mode transition.  Select OK when done.";
+			} else if (bo instanceof FlowSpecification || bo instanceof DataAccess
 					|| bo instanceof Subcomponent) {
 				return "Select a valid connection, mode, or mode transition.  Select OK when done.";
-			} else if (bo instanceof FlowSpecification || bo instanceof org.osate.aadl2.Connection) {
-				return "Select a valid subcomponent flow specification, subcomponent, data access, mode, or mode transition.  Select OK when done.";
-			} else {
+			}  else {
 				//Return same message if the selected element was a mode feature
 				return createFlowImplementationDialog.getMessage();
 			}
