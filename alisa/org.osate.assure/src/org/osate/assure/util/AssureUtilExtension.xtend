@@ -310,6 +310,7 @@ class AssureUtilExtension {
 	def static isSuccessful(AssureResult ar) {
 		val counts = ar.metrics
 		counts.failCount == 0 && counts.otherCount == 0 && counts.timeoutCount == 0 && counts.tbdCount == 0
+		&& counts.successCount > 0
 	}
 
 	def static isNoSuccess(AssureResult ar) {
