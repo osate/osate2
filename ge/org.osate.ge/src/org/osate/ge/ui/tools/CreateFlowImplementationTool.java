@@ -212,7 +212,7 @@ public class CreateFlowImplementationTool {
 			final Object bo = bor.getBusinessObjectForPictogramElement(previouslySelectedPes.get(previouslySelectedPes.size()-1));
 			if ((bo instanceof FlowSpecification && (FlowSpecification)bo == createFlowImplementationDialog.flowImpl.getSpecification()
 				&& ((FlowSpecification)bo).getKind() == FlowKind.SOURCE) || bo instanceof org.osate.aadl2.Connection) {
-				msg = "Select a subcomponent flow specification, subcomponent, or data access";
+				msg = "Select a subcomponent flow specification, subcomponent, or a data access feature";
 			} else if (bo instanceof FlowSpecification || bo instanceof DataAccess
 					|| bo instanceof Subcomponent) {
 				msg = "Select a connection.";
@@ -221,7 +221,7 @@ public class CreateFlowImplementationTool {
 				return createFlowImplementationDialog.getMessage();
 			}
 		} else{
-			msg = "Select a valid flow specification to implement.";
+			msg = "Select a flow specification to implement.";
 		}
 		
 		msg += "\nOptionally, select a mode or mode transition.";
