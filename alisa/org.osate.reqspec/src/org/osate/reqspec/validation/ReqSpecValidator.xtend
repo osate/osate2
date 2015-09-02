@@ -175,7 +175,7 @@ class ReqSpecValidator extends AbstractReqSpecValidator {
 		] 
 	}
 
-	@Check//(CheckType.FAST)
+	@Check(CheckType.NORMAL)
 	def void checkSpecGoalTargetConsistency(SystemRequirements sysReqs) {
 		val reqSpecTarget = sysReqs.target
 		val requirements = sysReqs.content
