@@ -50,6 +50,9 @@ import org.osate.verify.verify.VerificationMethod
 import static extension org.osate.aadl2.instantiation.InstantiateModel.buildInstanceModelFile
 import static extension org.osate.alisa.common.util.CommonUtilExtension.*
 import static extension org.osate.reqspec.util.ReqSpecUtilExtension.*
+import org.osate.aadl2.ComponentClassifier
+import org.osate.aadl2.Subcomponent
+import org.osate.aadl2.util.Aadl2Util
 
 class AssureUtilExtension {
 
@@ -698,6 +701,12 @@ class AssureUtilExtension {
 		if (verificationActivityResult.updateOwnResultState(VerificationResultState.SUCCESS))
 			verificationActivityResult.propagateCountChangeUp
 	}
+
+	def static void setToSuccess(VerificationResult verificationActivityResult, String message, EObject target) {
+		if (message != null && !message.isEmpty) verificationActivityResult.addSuccessIssue(target, message, null);
+		if (verificationActivityResult.updateOwnResultState(VerificationResultState.SUCCESS))
+			verificationActivityResult.propagateCountChangeUp
+	}
 	
 
 	def static void setToSuccess(VerificationResult verificationActivityResult, List<ResultIssue> rl) {
@@ -716,8 +725,8 @@ class AssureUtilExtension {
 			verificationActivityResult.propagateCountChangeUp
 	}
 
-	def static void setToFail(VerificationResult verificationActivityResult, String message) {
-		if (message != null && !message.isEmpty) verificationActivityResult.addErrorIssue(null, message, null);
+	def static void setToFail(VerificationResult verificationActivityResult, String message, EObject target) {
+		if (message != null && !message.isEmpty) verificationActivityResult.addErrorIssue(target, message, null);
 		if (verificationActivityResult.updateOwnResultState(VerificationResultState.FAIL))
 			verificationActivityResult.propagateCountChangeUp
 	}

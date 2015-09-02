@@ -230,9 +230,7 @@ class AssureProcessor implements IAssureProcessor {
 					println("Mismatch parameters types")
 					return
 				}
-
 				i = i + 1
-
 			}
 		}
 
@@ -242,18 +240,19 @@ class AssureProcessor implements IAssureProcessor {
 				JavaMethod: {
 					res = VerificationMethodDispatchers.eInstance.workspaceInvoke(methodtype, target, parameters)
 					if (res != null) {
-
 						if (res instanceof Boolean) {
-
 							if (res != true) {
-								setToFail(verificationResult, "");
+								setToFail(verificationResult, "",target);
 							} else {
 								setToSuccess(verificationResult)
 							}
-						} else if (res instanceof ResultReport) {
+						} else if (res instanceof String){
+								setToSuccess(verificationResult,res,target)
+						}
+						 else if (res instanceof ResultReport) {
 							verificationResult.resultReport = res
 						} else {
-							setToFail(verificationResult, "No result report from analysis");
+							setToFail(verificationResult, "No result report from analysis",target);
 						}
 					}
 				}
@@ -267,7 +266,7 @@ class AssureProcessor implements IAssureProcessor {
 							setToSuccess(verificationResult)
 						}
 					} else {
-						setToFail(verificationResult, "Analysis return type is not a string of MarkerType");
+						setToFail(verificationResult, "Analysis return type is not a string of MarkerType",target);
 					}
 				}
 				ResoluteMethod: {
