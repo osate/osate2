@@ -51,7 +51,7 @@ class AlisaGenerator implements IGenerator {
 		val workarea = resource.contents.get(0) as AlisaWorkArea
 		workarea.cases.forEach [ mycase |
 			switch (mycase){
-			AssurancePlan: fsa.generateFile('''«mycase.name».assure''', generateRootCase(mycase))
+			AssurancePlan: fsa.generateFile('''«mycase.name».assure''', generateFullRootCase(mycase))
 			AssuranceTask: fsa.generateFile('''«mycase.name».assure''', generateAssuranceTask(mycase))
 			}
 		]
