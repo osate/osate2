@@ -110,41 +110,14 @@ class ReqSpecScopeProvider extends AlisaAbstractDeclarativeScopeProvider {
 
 	// TODO: probably want validation to take care of Refining itself. Need to take care of inheritance
 	def scope_Requirement_refinesReference(Requirement context, EReference reference) {
-//		println("scope_Requirement_RefinesReference: " + context.toString)
 // use delegate to get other scopes including the global scope
 		var result = delegateGetScope(context,reference)//IScope.NULLSCOPE
 
-		// TODO: when target is all
 		val targetComponentClassifier = containingSystemRequirements(context).target
-//		val allAncestors = targetComponentClassifier.getSelfPlusAncestors
-//		val listAccessibleSystemRequirements = newArrayList();
-//
-//		// This works best
-//		for (cc : allAncestors) {
-////			//ReqSpecReferenceFinder
-//			// System.out.println("     scope_Requirement_RefinesReference FOR: " + cc);
-//			val temp1 = (scopeProvider as CommonGlobalScopeProvider).getGlobalEObjectDescriptions(cc,
-//				ReqSpecPackage.eINSTANCE.systemRequirements, null)
-//			// System.out.println("     scope_Requirement_RefinesReference temp1: " + temp1);
-//			for (objDis : temp1) {
-//				val EObject obj = EcoreUtil.resolve(objDis.EObjectOrProxy, context.eResource().getResourceSet())
-//				if (isSame((obj as SystemRequirements).target, cc)) {
-//					listAccessibleSystemRequirements.add(obj as SystemRequirements)
-//				}
-//			}
-//		}
-//		listAccessibleSystemRequirements.addAll(commonRefFinder.getEObjectDescriptions(targetComponentClassifier, ReqSpecPackage.Literals.SYSTEM_REQUIREMENTS,"reqspec")
-//			.map[eod| EcoreUtil.resolve(eod.EObjectOrProxy, context) as SystemRequirements]
-//						.filter[sysreqs| isSameorExtends(targetComponentClassifier, sysreqs.target)])
 		val Iterable<SystemRequirements> listAccessibleSystemRequirements = commonRefFinder.getEObjectDescriptions(
 			targetComponentClassifier, ReqSpecPackage.Literals.SYSTEM_REQUIREMENTS, "reqspec").map [ eod |
 			EcoreUtil.resolve(eod.EObjectOrProxy, context) as SystemRequirements
 		].filter[sysreqs|isSameorExtends(targetComponentClassifier, sysreqs.target)]
-// indicates not resolved although it returns the systemrequirements object
-//		val listAccessibleSystemRequirements = refFinder.getSystemRequirements(targetComponentClassifier)
-		// Need to go through all system requirements and see if target is in allAncestor
-		// and if it is, then add content to the Scope
-		
 		// TODO sort in extends hierarchy order
 		for (sr : listAccessibleSystemRequirements) {
 			if (!sr.content.empty) {
