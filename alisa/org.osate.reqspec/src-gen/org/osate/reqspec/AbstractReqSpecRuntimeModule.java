@@ -98,16 +98,6 @@ public abstract class AbstractReqSpecRuntimeModule extends org.eclipse.xtext.xba
 		return org.eclipse.xtext.parser.antlr.UnorderedGroupHelper.class;
 	}
 
-	// contributed by org.eclipse.xtext.generator.parser.antlr.ex.rt.AntlrGeneratorFragment
-	public Class<? extends org.eclipse.xtext.parsetree.reconstr.ITokenSerializer.IKeywordSerializer> bindITokenSerializer$IKeywordSerializer() {
-		return org.eclipse.xtext.parsetree.reconstr.impl.IgnoreCaseKeywordSerializer.class;
-	}
-
-	// contributed by org.eclipse.xtext.generator.parser.antlr.ex.rt.AntlrGeneratorFragment
-	public Class<? extends org.eclipse.xtext.conversion.impl.AbstractIDValueConverter> bindAbstractIDValueConverter() {
-		return org.eclipse.xtext.conversion.impl.IgnoreCaseIDValueConverter.class;
-	}
-
 	// contributed by org.eclipse.xtext.generator.validation.ValidatorFragment
 	@org.eclipse.xtext.service.SingletonBinding(eager=true)	public Class<? extends org.osate.reqspec.validation.ReqSpecValidator> bindReqSpecValidator() {
 		return org.osate.reqspec.validation.ReqSpecValidator.class;

@@ -16,25 +16,25 @@ import org.eclipse.xtext.parser.antlr.Lexer;
 
 
 
-Organization : ('O'|'o')('R'|'r')('G'|'g')('A'|'a')('N'|'n')('I'|'i')('Z'|'z')('A'|'a')('T'|'t')('I'|'i')('O'|'o')('N'|'n');
+Organization : 'organization';
 
-Description : ('D'|'d')('E'|'e')('S'|'s')('C'|'c')('R'|'r')('I'|'i')('P'|'p')('T'|'t')('I'|'i')('O'|'o')('N'|'n');
+Description : 'description';
 
-Stakeholder : ('S'|'s')('T'|'t')('A'|'a')('K'|'k')('E'|'e')('H'|'h')('O'|'o')('L'|'l')('D'|'d')('E'|'e')('R'|'r');
+Stakeholder : 'stakeholder';
 
-Supervisor : ('S'|'s')('U'|'u')('P'|'p')('E'|'e')('R'|'r')('V'|'v')('I'|'i')('S'|'s')('O'|'o')('R'|'r');
+Supervisor : 'supervisor';
 
-Email : ('E'|'e')('M'|'m')('A'|'a')('I'|'i')('L'|'l');
+Email : 'email';
 
-Phone : ('P'|'p')('H'|'h')('O'|'o')('N'|'n')('E'|'e');
+Phone : 'phone';
 
-Title : ('T'|'t')('I'|'i')('T'|'t')('L'|'l')('E'|'e');
+Title : 'title';
 
-Full : ('F'|'f')('U'|'u')('L'|'l')('L'|'l');
+Full : 'full';
 
-Name : ('N'|'n')('A'|'a')('M'|'m')('E'|'e');
+Name : 'name';
 
-Role : ('R'|'r')('O'|'o')('L'|'l')('E'|'e');
+Role : 'role';
 
 FullStop : '.';
 

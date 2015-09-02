@@ -68,10 +68,10 @@ Workflow {
 //    		}
     		fragment = parser.antlr.ex.rt.AntlrGeneratorFragment auto-inject {
 
-    		  options = {
-    		//      backtrack = true
-        		ignoreCase = true
-     		  }
+//    		  options = {
+//    		//      backtrack = true
+//        		ignoreCase = true
+//     		  }
     		}
     
     		// Xtend-based API for validation
@@ -111,9 +111,9 @@ Workflow {
     		// generates a more lightweight Antlr parser and lexer tailored for content assist
 //    		fragment = parser.antlr.XtextAntlrUiGeneratorFragment auto-inject {}
  			fragment = parser.antlr.ex.ca.ContentAssistParserGeneratorFragment {
-				    options = {
-        		ignoreCase = true
-  		  }
+//				    options = {
+//        		ignoreCase = true
+//  		  }
      		}
     
     		// generates junit test support classes into Generator#pathTestProject

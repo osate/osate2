@@ -16,13 +16,13 @@ import org.eclipse.xtext.ui.editor.contentassist.antlr.internal.Lexer;
 
 
 
-Verification : ('V'|'v')('E'|'e')('R'|'r')('I'|'i')('F'|'f')('I'|'i')('C'|'c')('A'|'a')('T'|'t')('I'|'i')('O'|'o')('N'|'n');
+Verification : 'verification';
 
-Requirement : ('R'|'r')('E'|'e')('Q'|'q')('U'|'u')('I'|'i')('R'|'r')('E'|'e')('M'|'m')('E'|'e')('N'|'n')('T'|'t');
+Requirement : 'requirement';
 
-Categories : ('C'|'c')('A'|'a')('T'|'t')('E'|'e')('G'|'g')('O'|'o')('R'|'r')('I'|'i')('E'|'e')('S'|'s');
+Categories : 'categories';
 
-Selection : ('S'|'s')('E'|'e')('L'|'l')('E'|'e')('C'|'c')('T'|'t')('I'|'i')('O'|'o')('N'|'n');
+Selection : 'selection';
 
 LeftSquareBracket : '[';
 

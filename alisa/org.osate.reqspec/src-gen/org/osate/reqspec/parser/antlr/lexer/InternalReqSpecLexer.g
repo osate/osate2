@@ -16,183 +16,183 @@ import org.eclipse.xtext.parser.antlr.Lexer;
 
 
 
-Timecriticality : ('T'|'t')('I'|'i')('M'|'m')('E'|'e')('C'|'c')('R'|'r')('I'|'i')('T'|'t')('I'|'i')('C'|'c')('A'|'a')('L'|'l')('I'|'i')('T'|'t')('Y'|'y');
+Timecriticality : 'timecriticality';
 
-Scheduleimpact : ('S'|'s')('C'|'c')('H'|'h')('E'|'e')('D'|'d')('U'|'u')('L'|'l')('E'|'e')('I'|'i')('M'|'m')('P'|'p')('A'|'a')('C'|'c')('T'|'t');
+Scheduleimpact : 'scheduleimpact';
 
-Maturityindex : ('M'|'m')('A'|'a')('T'|'t')('U'|'u')('R'|'r')('I'|'i')('T'|'t')('Y'|'y')('I'|'i')('N'|'n')('D'|'d')('E'|'e')('X'|'x');
+Maturityindex : 'maturityindex';
 
-Requirements : ('R'|'r')('E'|'e')('Q'|'q')('U'|'u')('I'|'i')('R'|'r')('E'|'e')('M'|'m')('E'|'e')('N'|'n')('T'|'t')('S'|'s');
+Requirements : 'requirements';
 
-Synchronized : ('S'|'s')('Y'|'y')('N'|'n')('C'|'c')('H'|'h')('R'|'r')('O'|'o')('N'|'n')('I'|'i')('Z'|'z')('E'|'e')('D'|'d');
+Synchronized : 'synchronized';
 
-Description : ('D'|'d')('E'|'e')('S'|'s')('C'|'c')('R'|'r')('I'|'i')('P'|'p')('T'|'t')('I'|'i')('O'|'o')('N'|'n');
+Description : 'description';
 
-Development : ('D'|'d')('E'|'e')('V'|'v')('E'|'e')('L'|'l')('O'|'o')('P'|'p')('M'|'m')('E'|'e')('N'|'n')('T'|'t');
+Development : 'development';
 
-Familiarity : ('F'|'f')('A'|'a')('M'|'m')('I'|'i')('L'|'l')('I'|'i')('A'|'a')('R'|'r')('I'|'i')('T'|'t')('Y'|'y');
+Familiarity : 'familiarity';
 
-Requirement : ('R'|'r')('E'|'e')('Q'|'q')('U'|'u')('I'|'i')('R'|'r')('E'|'e')('M'|'m')('E'|'e')('N'|'n')('T'|'t');
+Requirement : 'requirement';
 
-Stakeholder : ('S'|'s')('T'|'t')('A'|'a')('K'|'k')('E'|'e')('H'|'h')('O'|'o')('L'|'l')('D'|'d')('E'|'e')('R'|'r');
+Stakeholder : 'stakeholder';
 
-Uncertainty : ('U'|'u')('N'|'n')('C'|'c')('E'|'e')('R'|'r')('T'|'t')('A'|'a')('I'|'i')('N'|'n')('T'|'t')('Y'|'y');
+Uncertainty : 'uncertainty';
 
-Costimpact : ('C'|'c')('O'|'o')('S'|'s')('T'|'t')('I'|'i')('M'|'m')('P'|'p')('A'|'a')('C'|'c')('T'|'t');
+Costimpact : 'costimpact';
 
-Decomposes : ('D'|'d')('E'|'e')('C'|'c')('O'|'o')('M'|'m')('P'|'p')('O'|'o')('S'|'s')('E'|'e')('S'|'s');
+Decomposes : 'decomposes';
 
-Instanceof : ('I'|'i')('N'|'n')('S'|'s')('T'|'t')('A'|'a')('N'|'n')('C'|'c')('E'|'e')('O'|'o')('F'|'f');
+Instanceof : 'instanceof';
 
-Volatility : ('V'|'v')('O'|'o')('L'|'l')('A'|'a')('T'|'t')('I'|'i')('L'|'l')('I'|'i')('T'|'t')('Y'|'y');
+Volatility : 'volatility';
 
-Conflicts : ('C'|'c')('O'|'o')('N'|'n')('F'|'f')('L'|'l')('I'|'i')('C'|'c')('T'|'t')('S'|'s');
+Conflicts : 'conflicts';
 
-Constants : ('C'|'c')('O'|'o')('N'|'n')('S'|'s')('T'|'t')('A'|'a')('N'|'n')('T'|'t')('S'|'s');
+Constants : 'constants';
 
-Extension : ('E'|'e')('X'|'x')('T'|'t')('E'|'e')('N'|'n')('S'|'s')('I'|'i')('O'|'o')('N'|'n');
+Extension : 'extension';
 
-Mitigates : ('M'|'m')('I'|'i')('T'|'t')('I'|'i')('G'|'g')('A'|'a')('T'|'t')('E'|'e')('S'|'s');
+Mitigates : 'mitigates';
 
-Predicate : ('P'|'p')('R'|'r')('E'|'e')('D'|'d')('I'|'i')('C'|'c')('A'|'a')('T'|'t')('E'|'e');
+Predicate : 'predicate';
 
-Rationale : ('R'|'r')('A'|'a')('T'|'t')('I'|'i')('O'|'o')('N'|'n')('A'|'a')('L'|'l')('E'|'e');
+Rationale : 'rationale';
 
-Riskindex : ('R'|'r')('I'|'i')('S'|'s')('K'|'k')('I'|'i')('N'|'n')('D'|'d')('E'|'e')('X'|'x');
+Riskindex : 'riskindex';
 
-Category : ('C'|'c')('A'|'a')('T'|'t')('E'|'e')('G'|'g')('O'|'o')('R'|'r')('Y'|'y');
+Category : 'category';
 
-Document : ('D'|'d')('O'|'o')('C'|'c')('U'|'u')('M'|'m')('E'|'e')('N'|'n')('T'|'t');
+Document : 'document';
 
-Informal : ('I'|'i')('N'|'n')('F'|'f')('O'|'o')('R'|'r')('M'|'m')('A'|'a')('L'|'l');
+Informal : 'informal';
 
-Compute : ('C'|'c')('O'|'o')('M'|'m')('P'|'p')('U'|'u')('T'|'t')('E'|'e');
+Compute : 'compute';
 
-Default : ('D'|'d')('E'|'e')('F'|'f')('A'|'a')('U'|'u')('L'|'l')('T'|'t');
+Default : 'default';
 
-Dropped : ('D'|'d')('R'|'r')('O'|'o')('P'|'p')('P'|'p')('E'|'e')('D'|'d');
+Dropped : 'dropped';
 
-Evolves : ('E'|'e')('V'|'v')('O'|'o')('L'|'l')('V'|'v')('E'|'e')('S'|'s');
+Evolves : 'evolves';
 
-Extends : ('E'|'e')('X'|'x')('T'|'t')('E'|'e')('N'|'n')('D'|'d')('S'|'s');
+Extends : 'extends';
 
-Finally : ('F'|'f')('I'|'i')('N'|'n')('A'|'a')('L'|'l')('L'|'l')('Y'|'y');
+Finally : 'finally';
 
-Refines : ('R'|'r')('E'|'e')('F'|'f')('I'|'i')('N'|'n')('E'|'e')('S'|'s');
+Refines : 'refines';
 
-Section : ('S'|'s')('E'|'e')('C'|'c')('T'|'t')('I'|'i')('O'|'o')('N'|'n');
+Section : 'section';
 
-Import : ('I'|'i')('M'|'m')('P'|'p')('O'|'o')('R'|'r')('T'|'t');
+Import : 'import';
 
-Issues : ('I'|'i')('S'|'s')('S'|'s')('U'|'u')('E'|'e')('S'|'s');
+Issues : 'issues';
 
-Return : ('R'|'r')('E'|'e')('T'|'t')('U'|'u')('R'|'r')('N'|'n');
+Return : 'return';
 
-Static : ('S'|'s')('T'|'t')('A'|'a')('T'|'t')('I'|'i')('C'|'c');
+Static : 'static';
 
-Switch : ('S'|'s')('W'|'w')('I'|'i')('T'|'t')('C'|'c')('H'|'h');
+Switch : 'switch';
 
-KW_System : ('S'|'s')('Y'|'y')('S'|'s')('T'|'t')('E'|'e')('M'|'m');
+KW_System : 'system';
 
-Typeof : ('T'|'t')('Y'|'y')('P'|'p')('E'|'e')('O'|'o')('F'|'f');
+Typeof : 'typeof';
 
-Catch : ('C'|'c')('A'|'a')('T'|'t')('C'|'c')('H'|'h');
+Catch : 'catch';
 
-False : ('F'|'f')('A'|'a')('L'|'l')('S'|'s')('E'|'e');
+False : 'false';
 
-Goals : ('G'|'g')('O'|'o')('A'|'a')('L'|'l')('S'|'s');
+Goals : 'goals';
 
-Super : ('S'|'s')('U'|'u')('P'|'p')('E'|'e')('R'|'r');
+Super : 'super';
 
-Throw : ('T'|'t')('H'|'h')('R'|'r')('O'|'o')('W'|'w');
+Throw : 'throw';
 
-Value : ('V'|'v')('A'|'a')('L'|'l')('U'|'u')('E'|'e');
+Value : 'value';
 
-While : ('W'|'w')('H'|'h')('I'|'i')('L'|'l')('E'|'e');
+While : 'while';
 
-Case : ('C'|'c')('A'|'a')('S'|'s')('E'|'e');
+Case : 'case';
 
-Else : ('E'|'e')('L'|'l')('S'|'s')('E'|'e');
+Else : 'else';
 
-Goal : ('G'|'g')('O'|'o')('A'|'a')('L'|'l');
+Goal : 'goal';
 
-Null : ('N'|'n')('U'|'u')('L'|'l')('L'|'l');
+Null : 'null';
 
-This : ('T'|'t')('H'|'h')('I'|'i')('S'|'s');
+This : 'this';
 
-True : ('T'|'t')('R'|'r')('U'|'u')('E'|'e');
+True : 'true';
 
-With : ('W'|'w')('I'|'i')('T'|'t')('H'|'h');
+With : 'with';
 
-ExclamationMarkEqualsSignEqualsSign : '!''=''=';
+ExclamationMarkEqualsSignEqualsSign : '!==';
 
-FullStopFullStopLessThanSign : '.''.''<';
+FullStopFullStopLessThanSign : '..<';
 
-EqualsSignEqualsSignEqualsSign : '=''=''=';
+EqualsSignEqualsSignEqualsSign : '===';
 
-All : ('A'|'a')('L'|'l')('L'|'l');
+All : 'all';
 
-For : ('F'|'f')('O'|'o')('R'|'r');
+For : 'for';
 
-Img : ('I'|'i')('M'|'m')('G'|'g');
+Img : 'img';
 
-New : ('N'|'n')('E'|'e')('W'|'w');
+New : 'new';
 
-See : ('S'|'s')('E'|'e')('E'|'e');
+See : 'see';
 
-Try : ('T'|'t')('R'|'r')('Y'|'y');
+Try : 'try';
 
-Use : ('U'|'u')('S'|'s')('E'|'e');
+Use : 'use';
 
-Val : ('V'|'v')('A'|'a')('L'|'l');
+Val : 'val';
 
-Var : ('V'|'v')('A'|'a')('R'|'r');
+Var : 'var';
 
-ExclamationMarkEqualsSign : '!''=';
+ExclamationMarkEqualsSign : '!=';
 
-PercentSignEqualsSign : '%''=';
+PercentSignEqualsSign : '%=';
 
-AmpersandAmpersand : '&''&';
+AmpersandAmpersand : '&&';
 
-AsteriskAsterisk : '*''*';
+AsteriskAsterisk : '**';
 
-AsteriskEqualsSign : '*''=';
+AsteriskEqualsSign : '*=';
 
-PlusSignPlusSign : '+''+';
+PlusSignPlusSign : '++';
 
-PlusSignEqualsSign : '+''=';
+PlusSignEqualsSign : '+=';
 
-HyphenMinusHyphenMinus : '-''-';
+HyphenMinusHyphenMinus : '--';
 
-HyphenMinusEqualsSign : '-''=';
+HyphenMinusEqualsSign : '-=';
 
-HyphenMinusGreaterThanSign : '-''>';
+HyphenMinusGreaterThanSign : '->';
 
-FullStopFullStop : '.''.';
+FullStopFullStop : '..';
 
-SolidusEqualsSign : '/''=';
+SolidusEqualsSign : '/=';
 
-ColonColon : ':'':';
+ColonColon : '::';
 
-LessThanSignGreaterThanSign : '<''>';
+LessThanSignGreaterThanSign : '<>';
 
-EqualsSignEqualsSign : '=''=';
+EqualsSignEqualsSign : '==';
 
-EqualsSignGreaterThanSign : '=''>';
+EqualsSignGreaterThanSign : '=>';
 
-GreaterThanSignEqualsSign : '>''=';
+GreaterThanSignEqualsSign : '>=';
 
-QuestionMarkFullStop : '?''.';
+QuestionMarkFullStop : '?.';
 
-QuestionMarkColon : '?'':';
+QuestionMarkColon : '?:';
 
-As : ('A'|'a')('S'|'s');
+As : 'as';
 
-Do : ('D'|'d')('O'|'o');
+Do : 'do';
 
-If : ('I'|'i')('F'|'f');
+If : 'if';
 
-VerticalLineVerticalLine : '|''|';
+VerticalLineVerticalLine : '||';
 
 ExclamationMark : '!';
 

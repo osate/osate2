@@ -128,12 +128,11 @@ Workflow {
     		fragment = resourceFactory.ResourceFactoryFragment auto-inject {}
     
     		// The antlr parser generator fragment.
-//    		fragment = parser.antlr.XtextAntlrGeneratorFragment auto-inject {
+//    		fragment = parser.antlr.XtextAntlrGeneratorFragment auto-inject {}
     		fragment = parser.antlr.ex.rt.AntlrGeneratorFragment auto-inject {
 
     		  options = {
-    		//      backtrack = true
-        		ignoreCase = true
+//        		ignoreCase = true
  					classSplitting = true
     		  }
     		}
@@ -179,9 +178,10 @@ Workflow {
     		}
     
     		// generates a more lightweight Antlr parser and lexer tailored for content assist
+//    		fragment = parser.antlr.XtextAntlrUiGeneratorFragment auto-inject {}
 			fragment = parser.antlr.ex.ca.ContentAssistParserGeneratorFragment {
 				    options = {
-        		ignoreCase = true
+//        		ignoreCase = true
 					classSplitting = true
    		  }
      		}
