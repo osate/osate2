@@ -202,26 +202,30 @@ public class CreateFlowImplementationTool {
 
 	/**
 	 * Determine message based on currently selected element
-	 * @param bo - last element in list
 	 * @return
 	 */
 	private String getDialogMessage() {
+		String msg;
 		if (previouslySelectedPes.size() > 0) {
 			//Get last element selected to determine message
 			final Object bo = bor.getBusinessObjectForPictogramElement(previouslySelectedPes.get(previouslySelectedPes.size()-1));
 			if ((bo instanceof FlowSpecification && (FlowSpecification)bo == createFlowImplementationDialog.flowImpl.getSpecification()
 				&& ((FlowSpecification)bo).getKind() == FlowKind.SOURCE) || bo instanceof org.osate.aadl2.Connection) {
-				return "Select a valid subcomponent flow specification, subcomponent, data access, mode, or mode transition.  Select OK when done.";
+				msg = "Select a subcomponent flow specification, subcomponent, or a data access feature";
 			} else if (bo instanceof FlowSpecification || bo instanceof DataAccess
 					|| bo instanceof Subcomponent) {
-				return "Select a valid connection, mode, or mode transition.  Select OK when done.";
+				msg = "Select a connection.";
 			}  else {
 				//Return same message if the selected element was a mode feature
 				return createFlowImplementationDialog.getMessage();
 			}
+		} else{
+			msg = "Select a flow specification to implement.";
 		}
-		//Starting message
-		return "Select a valid flow specification. Select OK when done.";
+		
+		msg += "\nOptionally, select a mode or mode transition.";
+		
+		return msg;
 	}
 
 	private class CreateFlowImplementationDialog extends TitleAreaDialog {
@@ -363,7 +367,11 @@ public class CreateFlowImplementationTool {
 				if (fs != null) {
 					final FlowEnd flowOutEnd = fs.getOutEnd();
 					final FlowEnd flowInEnd = fs.getInEnd();
-					if (!(object instanceof ModeFeature)) {
+					if (object instanceof ModeFeature) {
+						final ModeFeature mf = (ModeFeature)object;
+						flowImpl.getInModeOrTransitions().add(mf);
+						modeList.add(flowImpl.getInModeOrTransitions().indexOf(mf) == 0 ? "  in modes  (" + mf.getName() : ", " + mf.getName());
+					} else {
 						//path
 						if (fs.getKind() == FlowKind.PATH) {
 							if (flowImpl.getSpecification() == (object)) {
@@ -395,11 +403,8 @@ public class CreateFlowImplementationTool {
 											"->  " + getSegmentName(flowSegment.getContext(), flowSegment.getFlowElement()));
 							}
 						}
-					} else {
-						final ModeFeature mf = (ModeFeature)object;
-						flowImpl.getInModeOrTransitions().add(mf);
-						modeList.add(flowImpl.getInModeOrTransitions().indexOf(mf) == 0 ? "  in modes  (" + mf.getName() : ", " + mf.getName());
-					}
+					} 
+					
 					//Updates the dialog flow implementation segments
 					setFlowImplementationString();
 					//Update OK button
