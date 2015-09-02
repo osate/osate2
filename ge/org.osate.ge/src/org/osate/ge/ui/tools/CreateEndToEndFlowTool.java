@@ -7,7 +7,6 @@ import java.util.Collections;
 
 import javax.inject.Named;
 
-import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.emf.transaction.TransactionalEditingDomain;
@@ -20,7 +19,6 @@ import org.eclipse.swt.widgets.Display;
 import org.osate.aadl2.ComponentImplementation;
 import org.osate.aadl2.EndToEndFlow;
 import org.osate.ge.Activator;
-import org.osate.ge.diagrams.common.AadlElementWrapper;
 import org.osate.ge.ext.ExtensionConstants;
 import org.osate.ge.ext.annotations.Activate;
 import org.osate.ge.ext.annotations.CanActivate;
@@ -619,7 +617,7 @@ public class CreateEndToEndFlowTool {
 					if (prevPesSize > 0) {
 						final PictogramElement removedPe = previouslySelectedPes.get(prevPesSize-1);
 						setRemovedElement(removedPe);
-						final EObject ob = (EObject)AadlElementWrapper.unwrap(dtp.getFeatureProvider().getBusinessObjectForPictogramElement(removedPe));
+						final Object ob = bor.getBusinessObjectForPictogramElement(removedPe);
 						if (!(ob instanceof ModeFeature)) {
 							final EndToEndFlowSegment flowSegment = eTEFlow.getAllFlowSegments().get(eTEFlow.getAllFlowSegments().size()-1);
 							eTEFlow.getAllFlowSegments().remove(flowSegment);
