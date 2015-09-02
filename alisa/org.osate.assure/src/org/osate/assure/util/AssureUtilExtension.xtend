@@ -1063,6 +1063,7 @@ class AssureUtilExtension {
 	}
 	
 	def static SystemInstance getInstanceModel(ComponentImplementation cimpl){
+		if (Aadl2Util.isNull(cimpl)) return null
 		var si = instanceModelRecord.get(cimpl.name) as SystemInstance
 		if (si == null){
 			si = cimpl.buildInstanceModelFile

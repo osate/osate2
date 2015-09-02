@@ -103,7 +103,7 @@ class AssureProcessor implements IAssureProcessor {
 		}
 		progressmonitor.subTask(vaResult.target.method.name+ " on "+ vaResult.claimSubject.name)
 		runVerificationMethod(vaResult)
-		progressmonitor.worked(1)
+		progressmonitor.worked(2)
 	}
 
 	def void doProcess(ElseResult vaResult) {
@@ -164,8 +164,20 @@ class AssureProcessor implements IAssureProcessor {
 		var Object res = null
 		val targetElement = verificationResult.claimSubject
 		val instanceroot = verificationResult.instanceModel
+		if(instanceroot == null){
+			setToFail(verificationResult, "Unresolved target component for instance model",null)
+			return
+		}
 		var ComponentInstance targetComponent = findComponentInstance(instanceroot,verificationResult.enclosingAssuranceCase)
+		if(targetComponent == null){
+			setToFail(verificationResult, "Unresolved target component for claim",null)
+			return
+		}
 		var InstanceObject target = targetComponent;
+		if(targetElement.eIsProxy){
+			setToFail(verificationResult, "Unresolved target element for claim",targetComponent)
+			return
+		}
 		if (!(targetElement instanceof ComponentClassifier)){
 			val x = targetComponent.findElementInstance(targetElement)
 			target = x?:targetComponent
