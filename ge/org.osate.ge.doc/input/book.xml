@@ -386,7 +386,7 @@
 			</section>
 			<section>
 				<title>Creating Flow Implementations and End-To-End Flows</title>
-				<para>When editing a component implementation, flow implementations and end-to-end flows can be created using the Create Flow Implementation and Create End-To-End Flow buttons on the toolbar and selecting valid elements on the diagram.  If the selected element is valid, the starting flow specification will highlight dark orange, while flow elements highlight purple.  The <emphasis>Undo</emphasis> button will remove the elements in the order they were selected.</para>
+				<para>When editing a component implementation, flow implementations and end-to-end flows can be created graphically by selecting the <emphasis>Create Flow Implementation</emphasis> and <emphasis>Create End-To-End Flow</emphasis> tools from the toolbar and following the prompts to select a series of elements from the diagram.  The dialog and colors of elements in the diagram will update as valid selections are made. The starting flow specification will be highlighted dark orange and flow elements will be highlighted purple.  The <emphasis>Undo</emphasis> button will remove the elements in the order they were selected.</para>
 			<section>
 				<title>Creating Flow Implementations</title>
 				<para>Select <emphasis>Create Flow Implementation</emphasis> from the toolbar, the dialog will appear.</para>
@@ -492,7 +492,7 @@
   						</imageobject>
 					</listitem>
 					<listitem>
-						<para>Name the End-To-End Flow and select <emphasis>OK</emphasis> when done.</para>
+						<para>Specify a name for the End-To-End Flow and select <emphasis>OK</emphasis> when done.</para>
 					</listitem>
 				</orderedlist>
 			</section>
