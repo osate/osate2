@@ -101,8 +101,10 @@ public class DistributeHorizontallyAction extends SelectionAction {
 	private static int getXDistribution(final Shape[] shapes) {
 		final int arrayLength = shapes.length-1;
 		final int widthOfShapes = getWidthOfShapes(shapes);
+		final GraphicsAlgorithm firstEleGA = shapes[0].getGraphicsAlgorithm();
+		final GraphicsAlgorithm lastEleGA = shapes[arrayLength].getGraphicsAlgorithm();
 		
-		return (shapes[arrayLength].getGraphicsAlgorithm().getX()-(shapes[0].getGraphicsAlgorithm().getX()+shapes[0].getGraphicsAlgorithm().getWidth())-widthOfShapes)/arrayLength;
+		return (lastEleGA.getX()-(firstEleGA.getX()+firstEleGA.getWidth())-widthOfShapes)/arrayLength;
 	}
 	
 	private static Collection<MoveShapeContext> getMoveShapeContexts(final Shape[] shapes) {

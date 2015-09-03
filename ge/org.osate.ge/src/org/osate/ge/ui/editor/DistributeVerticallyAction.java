@@ -30,7 +30,7 @@ public class DistributeVerticallyAction extends SelectionAction {
 		setDisabledImageDescriptor(verticalDisabledImageDescriptor);
 		setId(DISTRIBUTE_VERTICALLY);
 	}
-
+	
 	//Distributes shapes along the Y axis so each shape has an equal distance between them.
 	@Override
 	public void run() {
@@ -118,8 +118,10 @@ public class DistributeVerticallyAction extends SelectionAction {
 	private static int getYDistribution(final Shape[] shapes) {
 		final int arrayLength = shapes.length-1;
 		final int heightOfShapes = getHeightOfShapes(shapes);
+		final GraphicsAlgorithm firstEleGA = shapes[0].getGraphicsAlgorithm();
+		final GraphicsAlgorithm lastEleGA = shapes[arrayLength].getGraphicsAlgorithm();
 		
-		return (shapes[arrayLength].getGraphicsAlgorithm().getY()-(shapes[0].getGraphicsAlgorithm().getY()+shapes[0].getGraphicsAlgorithm().getHeight())-heightOfShapes)/arrayLength;
+		return (lastEleGA.getY()-(firstEleGA.getY()+firstEleGA.getHeight())-heightOfShapes)/arrayLength;
 	}
 
 	private static final Comparator<Shape> YValueComparator 
