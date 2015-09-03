@@ -511,9 +511,9 @@ public class CreateEndToEndFlowTool {
 		@Override
 		protected void configureShell(final Shell newShell) {
 			super.configureShell(newShell);
-
 			newShell.setText("Create End To End Flow");
 			newShell.setSize(475, 275);
+			newShell.setImage(ICON.createImage());
 		}
 
 		@Override
