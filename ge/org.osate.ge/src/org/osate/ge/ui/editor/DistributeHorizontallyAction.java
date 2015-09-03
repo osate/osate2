@@ -41,10 +41,10 @@ public class DistributeHorizontallyAction extends SelectionAction {
 		editor.getEditingDomain().getCommandStack().execute(new RecordingCommand(editor.getEditingDomain(), "Distribute Horizontally") {
 			@Override
 			protected void doExecute() {
-				for (MoveShapeContext moveContext : moveContextList) {
+				for (final MoveShapeContext moveContext : moveContextList) {
 					moveFeature.moveShape(moveContext);
 				}
-				PictogramElement[] pes = new PictogramElement[0];
+				final PictogramElement[] pes = new PictogramElement[0];
 				editor.selectPictogramElements(pes);
 			}
 		});	
@@ -58,10 +58,9 @@ public class DistributeHorizontallyAction extends SelectionAction {
 					return false;
 				}
 			}
-		} else {
-			return false;
+			return true;
 		}
-		return true;
+		return false;
 	}
 
 	//Updates action being available based on how many pictograms are selected
@@ -89,7 +88,6 @@ public class DistributeHorizontallyAction extends SelectionAction {
 					moveContext.setTargetContainer(s.getContainer());
 					moveContext.setDeltaX(xValue);
 					moveContext.setDeltaY(pes[i].getGraphicsAlgorithm().getY());
-					moveFeature = editor.getDiagramTypeProvider().getFeatureProvider().getMoveShapeFeature(moveContext);
 					moveFeature = fp.getMoveShapeFeature(moveContext);
 					if (moveFeature != null && moveFeature.canMoveShape(moveContext)) {
 						moveContextList.add(moveContext);

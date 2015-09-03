@@ -42,7 +42,7 @@ public class DistributeVerticallyAction extends SelectionAction {
 			editor.getEditingDomain().getCommandStack().execute(new RecordingCommand(editor.getEditingDomain(), "Distribute Vertically") {
 				@Override
 				protected void doExecute() {
-					for (MoveShapeContext moveContext : moveContextList) {
+					for (final MoveShapeContext moveContext : moveContextList) {
 						moveFeature.moveShape(moveContext);
 					}
 					final PictogramElement[] pes = new PictogramElement[0];
@@ -60,10 +60,9 @@ public class DistributeVerticallyAction extends SelectionAction {
 					return false;
 				}
 			}
-		} else {
-			return false;
+			return true;
 		}
-		return true;
+		return false;
 	}
 
 	//Updates action being available based on how many pictograms are selected
@@ -90,7 +89,6 @@ public class DistributeVerticallyAction extends SelectionAction {
 					moveContext.setTargetContainer(s.getContainer());
 					moveContext.setDeltaX(pes[i].getGraphicsAlgorithm().getX());
 					moveContext.setDeltaY(yValue);
-					moveFeature = editor.getDiagramTypeProvider().getFeatureProvider().getMoveShapeFeature(moveContext);
 					moveFeature = fp.getMoveShapeFeature(moveContext);
 					if (moveFeature != null && moveFeature.canMoveShape(moveContext)) {
 						moveContextList.add(moveContext);
