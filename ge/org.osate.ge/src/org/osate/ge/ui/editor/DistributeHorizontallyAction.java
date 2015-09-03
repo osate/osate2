@@ -109,7 +109,7 @@ public class DistributeHorizontallyAction extends SelectionAction {
 	private static final Comparator<PictogramElement> XValueComparator 
 	= new Comparator<PictogramElement>() {
 		@Override
-		public int compare(PictogramElement xValueArg1, PictogramElement xValueArg2) {
+		public int compare(final PictogramElement xValueArg1, final PictogramElement xValueArg2) {
 			return Integer.valueOf(xValueArg1.getGraphicsAlgorithm().getX()).compareTo(xValueArg2.getGraphicsAlgorithm().getX());
 		}
 	};
