@@ -6,7 +6,6 @@ import org.eclipse.e4.core.contexts.ContextInjectionFactory;
 import org.eclipse.e4.core.contexts.IEclipseContext;
 import org.eclipse.graphiti.mm.pictograms.PictogramElement;
 import org.eclipse.graphiti.ui.editor.DefaultPaletteBehavior;
-import org.eclipse.jface.action.IAction;
 import org.osate.ge.ext.ExtensionConstants;
 import org.osate.ge.ext.annotations.Activate;
 import org.osate.ge.ext.annotations.CanActivate;

@@ -39,7 +39,6 @@ import org.osate.aadl2.ProcessorFeature;
 import org.osate.ge.diagrams.common.AgeResizeConfiguration;
 import org.osate.ge.layout.MonteCarloLayout;
 import org.osate.ge.layout.MonteCarloLayout.LayoutOperation;
-import org.osate.ge.layout.Shape.PositionMode;
 import org.osate.ge.services.BusinessObjectResolutionService;
 import org.osate.ge.services.LayoutService;
 import org.osate.ge.services.PropertyService;
@@ -169,7 +168,7 @@ public class LayoutDiagramFeature extends AbstractCustomFeature {
 		Log.info("Layout finished. Elapsed time: " + elapsedTime + ". Number of samples: " + sampleCount + ". Seed: " + op.getBestSeed() + ". Score: " + op.getBestScore());
 		op.accept();		
 
-		// Update the layout shapes
+		// Update the diagram's shapes
 		for(final org.osate.ge.layout.Shape layoutShape : rootLayoutShapes) {
 			updateShape(layoutShape, shapeMap);
 		}
@@ -181,25 +180,23 @@ public class LayoutDiagramFeature extends AbstractCustomFeature {
 		// Restrict what shapes are positioned
 		final Object bo = bor.getBusinessObjectForPictogramElement(diagramShape);
 		
-		// Determine the position mode to use for the new layout shape			
+		// Determine whether the shape may be moved 			
 		// Don't change the position of shapes that have already been positioned if not repositioning all shapes
-		final PositionMode positionMode;
+		final boolean locked;
 		if(bo == null || propertyService.isManuallyPositioned(diagramShape) || (propertyService.isLayedOut(diagramShape) && !relayoutShapes)) {
-			positionMode = PositionMode.LOCKED;
+			locked = true;
 		} else {
-			if(bo instanceof Feature || bo instanceof InternalFeature || bo instanceof ProcessorFeature) {
-				positionMode = PositionMode.SNAP_LEFT_RIGHT;
-			} else {
-				positionMode = PositionMode.FREE;
-			}
+			locked = false;
 		}
+		
+		final boolean positionOnEdge = bo instanceof Feature || bo instanceof InternalFeature || bo instanceof ProcessorFeature;
 		
 		// Create the layout shape
 		final GraphicsAlgorithm ga = diagramShape.getGraphicsAlgorithm();
 		final IResizeShapeContext resizeContext = createNoOpResizeShapeContext(diagramShape);
 		final IResizeShapeFeature resizeFeature = getFeatureProvider().getResizeShapeFeature(resizeContext);
 		final boolean canResize = resizeFeature != null && resizeFeature.canResizeShape(resizeContext);
-		final org.osate.ge.layout.Shape newLayoutShape = new org.osate.ge.layout.Shape(parentLayoutShape, ga.getX(), ga.getY(), ga.getWidth(), ga.getHeight(), canResize, positionMode);
+		final org.osate.ge.layout.Shape newLayoutShape = new org.osate.ge.layout.Shape(parentLayoutShape, ga.getX(), ga.getY(), ga.getWidth(), ga.getHeight(), canResize, locked, positionOnEdge);
 
 		final IResizeConfiguration resizeConfiguration = resizeFeature == null ? null : resizeFeature.getResizeConfiguration(resizeContext);
 		if(resizeConfiguration instanceof AgeResizeConfiguration) {
@@ -229,7 +226,7 @@ public class LayoutDiagramFeature extends AbstractCustomFeature {
 	
 	private boolean hasUnlockedShapes(final List<org.osate.ge.layout.Shape> shapes) {
 		for(final org.osate.ge.layout.Shape shape : shapes) {
-			if(shape.getPositionMode() != PositionMode.LOCKED || hasUnlockedShapes(shape.getChildren())) {
+			if(shape.isUnlocked() || hasUnlockedShapes(shape.getChildren())) {
 				return true;
 			}
 		}
@@ -261,7 +258,7 @@ public class LayoutDiagramFeature extends AbstractCustomFeature {
 		}
 
 		final Shape diagramShape = (Shape)shapeMap.get(layoutShape);
-		if(layoutShape.getPositionMode() != PositionMode.LOCKED) {
+		if(layoutShape.isUnlocked()) {
 			final ResizeShapeContext context = new ResizeShapeContext(diagramShape);
 			context.setSize(layoutShape.getWidth(), layoutShape.getHeight());
 			context.setLocation(layoutShape.getX(), layoutShape.getY());
