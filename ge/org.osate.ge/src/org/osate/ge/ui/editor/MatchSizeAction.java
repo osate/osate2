@@ -1,6 +1,9 @@
 package org.osate.ge.ui.editor;
 
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collection;
+import java.util.Objects;
 
 import org.eclipse.emf.transaction.RecordingCommand;
 import org.eclipse.gef.ui.actions.SelectionAction;
@@ -15,17 +18,12 @@ import org.eclipse.graphiti.features.context.impl.ResizeShapeContext;
 
 public class MatchSizeAction extends SelectionAction {	
 	final private AgeDiagramEditor editor;
-	private ResizeShapeContext resizeContext;
-	private ArrayList<ResizeShapeContext> resizeContextList;
-	private IResizeShapeFeature resizeFeature;
-	private IFeatureProvider fp;
-	PictogramElement[] pes;
 	final public static String MATCH_SIZE = "org.osate.ge.ui.editor.items.match_size";
 	final public static ImageDescriptor matchSizeImageDescriptor = Activator.getImageDescriptor("icons/Match.gif");
 	final public static ImageDescriptor matchSizeDisabledImageDescriptor = Activator.getImageDescriptor("icons/Match_Disabled.gif");
 	protected MatchSizeAction(final IWorkbenchPart part) {
 		super(part);
-		editor = (AgeDiagramEditor)part;
+		editor = Objects.requireNonNull((AgeDiagramEditor)part, "part must be a AgeDiagramEditor");
 		setHoverImageDescriptor(matchSizeImageDescriptor);
 		setDisabledImageDescriptor(matchSizeDisabledImageDescriptor);
 		setId(MATCH_SIZE);
@@ -37,8 +35,13 @@ public class MatchSizeAction extends SelectionAction {
 		editor.getEditingDomain().getCommandStack().execute(new RecordingCommand(editor.getEditingDomain(), "Match Height and Width") {
 			@Override
 			protected void doExecute() {
-				for (ResizeShapeContext resizeContext : resizeContextList) {
-					resizeFeature.resizeShape(resizeContext);
+				final Collection<ResizeShapeContext> ctxs = getContextsFromEditorSelection();
+				if(ctxs != null) {
+					final IFeatureProvider fp = editor.getDiagramTypeProvider().getFeatureProvider();
+					for(final ResizeShapeContext ctx : ctxs) {
+						final IResizeShapeFeature feature = fp.getResizeShapeFeature(ctx);
+						feature.execute(ctx);
+					}
 				}
 			}
 		});
@@ -47,34 +50,52 @@ public class MatchSizeAction extends SelectionAction {
 	//Updates action being available based on how many pictograms are selected
 	@Override
 	protected boolean calculateEnabled() {
-		if (editor != null && editor.getSelectedPictogramElements().length >= 2) {
-			pes = new PictogramElement[editor.getSelectedPictogramElements().length];
-			pes = editor.getSelectedPictogramElements();
-			resizeContextList = new ArrayList<ResizeShapeContext>();
-			for (final PictogramElement pe : pes) {
-				if (pe instanceof Shape) {
-					for (final PictogramElement containerCheck : pes) {
-						if (containerCheck instanceof Shape && (!(((Shape)containerCheck).getContainer().equals(((Shape)pe).getContainer())))) {
-							return false;
-						}
-					}
-				} else {
-					return false;
-				}
-				final Shape s = (Shape)pe;
-				resizeContext = new ResizeShapeContext(s);
-				resizeContext.setLocation(s.getGraphicsAlgorithm().getX(), s.getGraphicsAlgorithm().getY());
-				resizeContext.setHeight(pes[pes.length-1].getGraphicsAlgorithm().getHeight());
-				resizeContext.setWidth(pes[pes.length-1].getGraphicsAlgorithm().getWidth());
-				fp = editor.getDiagramTypeProvider().getFeatureProvider();
-				resizeFeature = fp.getResizeShapeFeature(resizeContext);
-				if(!(resizeFeature != null && resizeFeature.canResizeShape(resizeContext))) {
-					return false;
-				}
-				resizeContextList.add(resizeContext);
-			}
-			return true;
+		return getContextsFromEditorSelection() != null;
+	}
+	
+	/**
+	 * Performs validation and builds and returns a collection of contexts
+	 * @return the contexts. Returns null if validation fails.
+	 */
+	private Collection<ResizeShapeContext> getContextsFromEditorSelection() {
+		final PictogramElement[] pes = editor.getSelectedPictogramElements();
+		if(pes.length < 2) {
+			return null;
 		}
-		return false;
+		
+		if(!LayoutUtil.areAllShapes(pes)) {
+			return null;
+		}
+				
+		final Shape[] shapes = Arrays.copyOf(pes, pes.length, Shape[].class);
+		if(!LayoutUtil.haveSameContainerShapes(shapes)) {
+			return null;
+		}
+			
+		final Collection<ResizeShapeContext> resizeContexts = getResizeContexts(shapes);
+		final IFeatureProvider fp = editor.getDiagramTypeProvider().getFeatureProvider();
+		for(final ResizeShapeContext ctx : resizeContexts) {
+			final IResizeShapeFeature feature = fp.getResizeShapeFeature(ctx);
+			if(feature == null || !feature.canExecute(ctx)) {
+				return null;
+			}
+		}
+		
+		return resizeContexts;
+	}
+	
+	private static Collection<ResizeShapeContext> getResizeContexts(final Shape[] shapes) {
+		final Collection<ResizeShapeContext> result = new ArrayList<ResizeShapeContext>(); 
+		
+		for (final PictogramElement shape : shapes) {
+			final Shape s = (Shape)shape;
+			final ResizeShapeContext newResizeContext = new ResizeShapeContext(s);
+			newResizeContext.setLocation(s.getGraphicsAlgorithm().getX(), s.getGraphicsAlgorithm().getY());
+			newResizeContext.setHeight(shapes[shapes.length-1].getGraphicsAlgorithm().getHeight());
+			newResizeContext.setWidth(shapes[shapes.length-1].getGraphicsAlgorithm().getWidth());
+			result.add(newResizeContext);
+		}
+		
+		return result;
 	}
 }
