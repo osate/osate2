@@ -48,11 +48,13 @@ class CommonUtilExtension {
 		}
 		if (de.showValue != null) {
 			val decl = de.showValue?.ref
+			if (decl.eIsProxy) return "TBD"
 			if (decl instanceof ComputeDeclaration) {
 				// TODO convert scaled to unit specified, or to most appropriate unit without too many 999999999
 			}
 			// TODO handle unit specified at ShowValue level
 			val x = decl?.right
+			if (x == null) return "TBD"
 			if (x instanceof APropertyReference) {
 				val pd = x.property
 				try {

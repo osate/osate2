@@ -1789,7 +1789,7 @@ public class VerifyGrammarAccess extends AbstractGrammarElementFinder {
 
 	//// New rule for val only
 	//XValDeclaration returns xbase::XVariableDeclaration:
-	//	"val" (=> (type=JvmTypeReference name=ID) | name=ID) "=" right=XExpression;
+	//	writeable?="val" (=> (type=JvmTypeReference name=ID) | name=ID) ("=" right=XExpression)?;
 	public CommonGrammarAccess.XValDeclarationElements getXValDeclarationAccess() {
 		return gaCommon.getXValDeclarationAccess();
 	}

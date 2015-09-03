@@ -455,7 +455,7 @@ public class CommonSemanticSequencer extends XbaseSemanticSequencer {
 	
 	/**
 	 * Constraint:
-	 *     (((type=JvmTypeReference name=ID) | name=ID) right=XExpression)
+	 *     (writeable?='val' ((type=JvmTypeReference name=ID) | name=ID) right=XExpression?)
 	 */
 	protected void sequence_XValDeclaration(EObject context, XVariableDeclaration semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);

@@ -4826,12 +4826,23 @@ ruleXValDeclaration returns [EObject current=null]
     @init { enterRule(); 
     }
     @after { leaveRule(); }:
+((
 (
-	otherlv_0=Val
+		lv_writeable_0_0=
+	Val
     {
-    	newLeafNode(otherlv_0, grammarAccess.getXValDeclarationAccess().getValKeyword_0());
+        newLeafNode(lv_writeable_0_0, grammarAccess.getXValDeclarationAccess().getWriteableValKeyword_0_0());
     }
-(((((
+
+	    {
+	        if ($current==null) {
+	            $current = createModelElement(grammarAccess.getXValDeclarationRule());
+	        }
+       		setWithLastConsumed($current, "writeable", true, "val");
+	    }
+
+)
+)(((((
 (
 ruleJvmTypeReference
 )
@@ -4895,15 +4906,15 @@ RULE_ID
 	    }
 
 )
-))
+))(
 	otherlv_4=EqualsSign
     {
-    	newLeafNode(otherlv_4, grammarAccess.getXValDeclarationAccess().getEqualsSignKeyword_2());
+    	newLeafNode(otherlv_4, grammarAccess.getXValDeclarationAccess().getEqualsSignKeyword_2_0());
     }
 (
 (
 		{ 
-	        newCompositeNode(grammarAccess.getXValDeclarationAccess().getRightXExpressionParserRuleCall_3_0()); 
+	        newCompositeNode(grammarAccess.getXValDeclarationAccess().getRightXExpressionParserRuleCall_2_1_0()); 
 	    }
 		lv_right_5_0=ruleXExpression		{
 	        if ($current==null) {
@@ -4918,7 +4929,7 @@ RULE_ID
 	    }
 
 )
-))
+))?)
 ;
 
 

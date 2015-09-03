@@ -10055,6 +10055,7 @@ finally {
 
 
 
+
 rule__XNumberLiteral__Group__0
     @init {
 		int stackSize = keepStackSize();
@@ -26101,6 +26102,7 @@ rule__Rationale__TextAssignment_1
 finally {
 	restoreStackSize(stackSize);
 }
+
 
 
 

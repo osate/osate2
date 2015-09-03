@@ -260,7 +260,8 @@ public class CommonGrammarAccess extends AbstractGrammarElementFinder {
 	public class XValDeclarationElements extends AbstractParserRuleElementFinder {
 		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "XValDeclaration");
 		private final Group cGroup = (Group)rule.eContents().get(1);
-		private final Keyword cValKeyword_0 = (Keyword)cGroup.eContents().get(0);
+		private final Assignment cWriteableAssignment_0 = (Assignment)cGroup.eContents().get(0);
+		private final Keyword cWriteableValKeyword_0_0 = (Keyword)cWriteableAssignment_0.eContents().get(0);
 		private final Alternatives cAlternatives_1 = (Alternatives)cGroup.eContents().get(1);
 		private final Group cGroup_1_0 = (Group)cAlternatives_1.eContents().get(0);
 		private final Group cGroup_1_0_0 = (Group)cGroup_1_0.eContents().get(0);
@@ -270,20 +271,24 @@ public class CommonGrammarAccess extends AbstractGrammarElementFinder {
 		private final RuleCall cNameIDTerminalRuleCall_1_0_0_1_0 = (RuleCall)cNameAssignment_1_0_0_1.eContents().get(0);
 		private final Assignment cNameAssignment_1_1 = (Assignment)cAlternatives_1.eContents().get(1);
 		private final RuleCall cNameIDTerminalRuleCall_1_1_0 = (RuleCall)cNameAssignment_1_1.eContents().get(0);
-		private final Keyword cEqualsSignKeyword_2 = (Keyword)cGroup.eContents().get(2);
-		private final Assignment cRightAssignment_3 = (Assignment)cGroup.eContents().get(3);
-		private final RuleCall cRightXExpressionParserRuleCall_3_0 = (RuleCall)cRightAssignment_3.eContents().get(0);
+		private final Group cGroup_2 = (Group)cGroup.eContents().get(2);
+		private final Keyword cEqualsSignKeyword_2_0 = (Keyword)cGroup_2.eContents().get(0);
+		private final Assignment cRightAssignment_2_1 = (Assignment)cGroup_2.eContents().get(1);
+		private final RuleCall cRightXExpressionParserRuleCall_2_1_0 = (RuleCall)cRightAssignment_2_1.eContents().get(0);
 		
 		//// New rule for val only
 		//XValDeclaration returns xbase::XVariableDeclaration:
-		//	"val" (=> (type=JvmTypeReference name=ID) | name=ID) "=" right=XExpression;
+		//	writeable?="val" (=> (type=JvmTypeReference name=ID) | name=ID) ("=" right=XExpression)?;
 		@Override public ParserRule getRule() { return rule; }
 
-		//"val" (=> (type=JvmTypeReference name=ID) | name=ID) "=" right=XExpression
+		//writeable?="val" (=> (type=JvmTypeReference name=ID) | name=ID) ("=" right=XExpression)?
 		public Group getGroup() { return cGroup; }
 
+		//writeable?="val"
+		public Assignment getWriteableAssignment_0() { return cWriteableAssignment_0; }
+
 		//"val"
-		public Keyword getValKeyword_0() { return cValKeyword_0; }
+		public Keyword getWriteableValKeyword_0_0() { return cWriteableValKeyword_0_0; }
 
 		//=> (type=JvmTypeReference name=ID) | name=ID
 		public Alternatives getAlternatives_1() { return cAlternatives_1; }
@@ -312,14 +317,17 @@ public class CommonGrammarAccess extends AbstractGrammarElementFinder {
 		//ID
 		public RuleCall getNameIDTerminalRuleCall_1_1_0() { return cNameIDTerminalRuleCall_1_1_0; }
 
+		//("=" right=XExpression)?
+		public Group getGroup_2() { return cGroup_2; }
+
 		//"="
-		public Keyword getEqualsSignKeyword_2() { return cEqualsSignKeyword_2; }
+		public Keyword getEqualsSignKeyword_2_0() { return cEqualsSignKeyword_2_0; }
 
 		//right=XExpression
-		public Assignment getRightAssignment_3() { return cRightAssignment_3; }
+		public Assignment getRightAssignment_2_1() { return cRightAssignment_2_1; }
 
 		//XExpression
-		public RuleCall getRightXExpressionParserRuleCall_3_0() { return cRightXExpressionParserRuleCall_3_0; }
+		public RuleCall getRightXExpressionParserRuleCall_2_1_0() { return cRightXExpressionParserRuleCall_2_1_0; }
 	}
 
 	public class ComputeDeclarationElements extends AbstractParserRuleElementFinder {
@@ -753,7 +761,7 @@ public class CommonGrammarAccess extends AbstractGrammarElementFinder {
 
 	//// New rule for val only
 	//XValDeclaration returns xbase::XVariableDeclaration:
-	//	"val" (=> (type=JvmTypeReference name=ID) | name=ID) "=" right=XExpression;
+	//	writeable?="val" (=> (type=JvmTypeReference name=ID) | name=ID) ("=" right=XExpression)?;
 	public XValDeclarationElements getXValDeclarationAccess() {
 		return pXValDeclaration;
 	}
