@@ -24,6 +24,7 @@ import org.osate.alisa.common.common.Rationale;
  *   <li>{@link org.osate.verify.verify.VerificationCondition#getDescription <em>Description</em>}</li>
  *   <li>{@link org.osate.verify.verify.VerificationCondition#getMethod <em>Method</em>}</li>
  *   <li>{@link org.osate.verify.verify.VerificationCondition#getParameters <em>Parameters</em>}</li>
+ *   <li>{@link org.osate.verify.verify.VerificationCondition#getPropertyValues <em>Property Values</em>}</li>
  *   <li>{@link org.osate.verify.verify.VerificationCondition#getTimeout <em>Timeout</em>}</li>
  *   <li>{@link org.osate.verify.verify.VerificationCondition#getRationale <em>Rationale</em>}</li>
  * </ul>
@@ -154,6 +155,22 @@ public interface VerificationCondition extends EObject
    * @generated
    */
   EList<XExpression> getParameters();
+
+  /**
+   * Returns the value of the '<em><b>Property Values</b></em>' reference list.
+   * The list contents are of type {@link org.eclipse.xtext.xbase.XExpression}.
+   * <!-- begin-user-doc -->
+   * <p>
+   * If the meaning of the '<em>Property Values</em>' reference list isn't clear,
+   * there really should be more of a description here...
+   * </p>
+   * <!-- end-user-doc -->
+   * @return the value of the '<em>Property Values</em>' reference list.
+   * @see org.osate.verify.verify.VerifyPackage#getVerificationCondition_PropertyValues()
+   * @model
+   * @generated
+   */
+  EList<XExpression> getPropertyValues();
 
   /**
    * Returns the value of the '<em><b>Timeout</b></em>' attribute.

@@ -579,6 +579,7 @@ public class VerifySemanticSequencer extends CommonSemanticSequencer {
 	 *         (result+=[ComputeDeclaration|ID] result+=[ComputeDeclaration|ID]*)? 
 	 *         method=[VerificationMethod|QualifiedName] 
 	 *         (parameters+=[XExpression|ID] parameters+=[XExpression|ID]*)? 
+	 *         (propertyValues+=[XExpression|ID] propertyValues+=[XExpression|ID]*)? 
 	 *         condition+=[SelectionCategory|ID]* 
 	 *         timeout=INT?
 	 *     )
@@ -596,6 +597,7 @@ public class VerifySemanticSequencer extends CommonSemanticSequencer {
 	 *         description=Description? 
 	 *         method=[VerificationMethod|QualifiedName] 
 	 *         (parameters+=[XExpression|ID] parameters+=[XExpression|ID]*)? 
+	 *         (propertyValues+=[XExpression|ID] propertyValues+=[XExpression|ID]*)? 
 	 *         timeout=INT? 
 	 *         rationale=Rationale?
 	 *     )
@@ -613,6 +615,7 @@ public class VerifySemanticSequencer extends CommonSemanticSequencer {
 	 *         description=Description? 
 	 *         method=[VerificationMethod|QualifiedName] 
 	 *         (parameters+=[XExpression|ID] parameters+=[XExpression|ID]*)? 
+	 *         (propertyValues+=[XExpression|ID] propertyValues+=[XExpression|ID]*)? 
 	 *         timeout=INT? 
 	 *         rationale=Rationale?
 	 *     )
@@ -635,7 +638,11 @@ public class VerifySemanticSequencer extends CommonSemanticSequencer {
 	 * Constraint:
 	 *     (
 	 *         name=ID 
-	 *         ((params+=FullJvmFormalParameter params+=FullJvmFormalParameter*)? (isPredicate?='boolean' | isResultReport?='report')?)? 
+	 *         (
+	 *             (params+=FullJvmFormalParameter params+=FullJvmFormalParameter*)? 
+	 *             (properties+=[Property|AADLPROPERTYREFERENCE] properties+=[Property|AADLPROPERTYREFERENCE]*)? 
+	 *             (isPredicate?='boolean' | isResultReport?='report')?
+	 *         )? 
 	 *         title=STRING? 
 	 *         methodType=MethodType 
 	 *         description=Description? 

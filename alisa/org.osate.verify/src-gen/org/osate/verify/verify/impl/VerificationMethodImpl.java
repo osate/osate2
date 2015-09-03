@@ -21,6 +21,8 @@ import org.eclipse.emf.ecore.util.InternalEList;
 
 import org.eclipse.xtext.common.types.JvmFormalParameter;
 
+import org.osate.aadl2.Property;
+
 import org.osate.alisa.common.common.Description;
 
 import org.osate.categories.categories.VerificationCategory;
@@ -39,6 +41,7 @@ import org.osate.verify.verify.VerifyPackage;
  * <ul>
  *   <li>{@link org.osate.verify.verify.impl.VerificationMethodImpl#getName <em>Name</em>}</li>
  *   <li>{@link org.osate.verify.verify.impl.VerificationMethodImpl#getParams <em>Params</em>}</li>
+ *   <li>{@link org.osate.verify.verify.impl.VerificationMethodImpl#getProperties <em>Properties</em>}</li>
  *   <li>{@link org.osate.verify.verify.impl.VerificationMethodImpl#isIsPredicate <em>Is Predicate</em>}</li>
  *   <li>{@link org.osate.verify.verify.impl.VerificationMethodImpl#isIsResultReport <em>Is Result Report</em>}</li>
  *   <li>{@link org.osate.verify.verify.impl.VerificationMethodImpl#getTitle <em>Title</em>}</li>
@@ -82,6 +85,16 @@ public class VerificationMethodImpl extends MinimalEObjectImpl.Container impleme
    * @ordered
    */
   protected EList<JvmFormalParameter> params;
+
+  /**
+   * The cached value of the '{@link #getProperties() <em>Properties</em>}' reference list.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see #getProperties()
+   * @generated
+   * @ordered
+   */
+  protected EList<Property> properties;
 
   /**
    * The default value of the '{@link #isIsPredicate() <em>Is Predicate</em>}' attribute.
@@ -239,6 +252,20 @@ public class VerificationMethodImpl extends MinimalEObjectImpl.Container impleme
       params = new EObjectContainmentEList<JvmFormalParameter>(JvmFormalParameter.class, this, VerifyPackage.VERIFICATION_METHOD__PARAMS);
     }
     return params;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EList<Property> getProperties()
+  {
+    if (properties == null)
+    {
+      properties = new EObjectResolvingEList<Property>(Property.class, this, VerifyPackage.VERIFICATION_METHOD__PROPERTIES);
+    }
+    return properties;
   }
 
   /**
@@ -504,6 +531,8 @@ public class VerificationMethodImpl extends MinimalEObjectImpl.Container impleme
         return getName();
       case VerifyPackage.VERIFICATION_METHOD__PARAMS:
         return getParams();
+      case VerifyPackage.VERIFICATION_METHOD__PROPERTIES:
+        return getProperties();
       case VerifyPackage.VERIFICATION_METHOD__IS_PREDICATE:
         return isIsPredicate();
       case VerifyPackage.VERIFICATION_METHOD__IS_RESULT_REPORT:
@@ -539,6 +568,10 @@ public class VerificationMethodImpl extends MinimalEObjectImpl.Container impleme
       case VerifyPackage.VERIFICATION_METHOD__PARAMS:
         getParams().clear();
         getParams().addAll((Collection<? extends JvmFormalParameter>)newValue);
+        return;
+      case VerifyPackage.VERIFICATION_METHOD__PROPERTIES:
+        getProperties().clear();
+        getProperties().addAll((Collection<? extends Property>)newValue);
         return;
       case VerifyPackage.VERIFICATION_METHOD__IS_PREDICATE:
         setIsPredicate((Boolean)newValue);
@@ -582,6 +615,9 @@ public class VerificationMethodImpl extends MinimalEObjectImpl.Container impleme
       case VerifyPackage.VERIFICATION_METHOD__PARAMS:
         getParams().clear();
         return;
+      case VerifyPackage.VERIFICATION_METHOD__PROPERTIES:
+        getProperties().clear();
+        return;
       case VerifyPackage.VERIFICATION_METHOD__IS_PREDICATE:
         setIsPredicate(IS_PREDICATE_EDEFAULT);
         return;
@@ -621,6 +657,8 @@ public class VerificationMethodImpl extends MinimalEObjectImpl.Container impleme
         return NAME_EDEFAULT == null ? name != null : !NAME_EDEFAULT.equals(name);
       case VerifyPackage.VERIFICATION_METHOD__PARAMS:
         return params != null && !params.isEmpty();
+      case VerifyPackage.VERIFICATION_METHOD__PROPERTIES:
+        return properties != null && !properties.isEmpty();
       case VerifyPackage.VERIFICATION_METHOD__IS_PREDICATE:
         return isPredicate != IS_PREDICATE_EDEFAULT;
       case VerifyPackage.VERIFICATION_METHOD__IS_RESULT_REPORT:
