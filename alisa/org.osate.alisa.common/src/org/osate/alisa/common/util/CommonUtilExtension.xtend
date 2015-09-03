@@ -20,19 +20,32 @@ import org.osate.aadl2.EndToEndFlow
 import org.osate.aadl2.Subcomponent
 import org.osate.aadl2.Feature
 import org.osate.aadl2.util.Aadl2Util
+import org.eclipse.xtext.xbase.XFeatureCall
+import org.eclipse.xtext.xbase.impl.XFeatureCallImplCustom
 
 class CommonUtilExtension {
 
 	def static String toText(Description desc, NamedElement target) {
-		desc.description.map[de|de.toText(target)].reduce[a, b|a + b]
+		var String res = "";
+		for (de : desc.description) {
+			res = res + de.toText(target)
+		}
+		return res
+//		desc.description.map[de|de.toText(target)].reduce[a, b|a + b]
 	}
 
 	private def static stripNewlineTab(String s) {
-		return s.replaceAll("\n", "").replaceAll("\t", "")
+		if (s.contains('\n'))
+			return s.replaceAll("\n", " ").replaceAll("\r", "").replaceAll("\t", "")
+		if (s.contains('\r'))
+			return s.replaceAll("\r", " ").replaceAll("\t", "")
+		return s.replace("\t"," ").replaceAll("\t","")
 	}
 
-	def static toText(DescriptionElement de, NamedElement target) {
-		if(de.text != null) return de.text.stripNewlineTab
+	def static String toText(DescriptionElement de, NamedElement target) {
+		if (de.text != null) {
+			return de.text.stripNewlineTab
+		}
 		if (de.showValue != null) {
 			val decl = de.showValue?.ref
 			if (decl instanceof ComputeDeclaration) {
@@ -50,7 +63,14 @@ class CommonUtilExtension {
 				}
 			}
 			if (x instanceof XNumberLiteralUnit) {
-				return x.value + x.unit?.name ?: ""
+				if (x.unit != null)
+					return x.value + x.unit?.name
+				else
+					return x.value
+			}
+			if (x instanceof XFeatureCall) {
+				val y = x.concreteSyntaxFeatureName
+				return y
 			}
 			return x?.toString ?: ""
 		}
@@ -117,7 +137,7 @@ class CommonUtilExtension {
 		}
 		return null
 	}
-	
+
 	def static InstanceObject findElementInstanceInList(EList<? extends InstanceObject> instancelist, String name) {
 		for (ei : instancelist) {
 			val n1 = ei.name
