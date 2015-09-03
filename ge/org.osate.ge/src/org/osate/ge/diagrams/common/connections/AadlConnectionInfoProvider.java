@@ -8,11 +8,7 @@
  *******************************************************************************/
 package org.osate.ge.diagrams.common.connections;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import javax.inject.Inject;
-
 import org.eclipse.graphiti.mm.pictograms.Anchor;
 import org.eclipse.graphiti.mm.pictograms.AnchorContainer;
 import org.eclipse.graphiti.mm.pictograms.Connection;
@@ -23,10 +19,8 @@ import org.eclipse.graphiti.mm.pictograms.Shape;
 import org.eclipse.graphiti.services.Graphiti;
 import org.eclipse.graphiti.services.IPeService;
 import org.osate.aadl2.ComponentImplementation;
-import org.osate.aadl2.ComponentType;
 import org.osate.aadl2.ConnectionEnd;
 import org.osate.aadl2.Context;
-import org.osate.aadl2.FeatureGroup;
 import org.osate.aadl2.NamedElement;
 import org.osate.aadl2.Subcomponent;
 import org.osate.aadl2.SubprogramCall;

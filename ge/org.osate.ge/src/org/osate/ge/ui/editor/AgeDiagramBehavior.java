@@ -21,6 +21,8 @@ import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.transaction.RecordingCommand;
 import org.eclipse.emf.transaction.TransactionalEditingDomain;
 import org.eclipse.gef.ContextMenuProvider;
+import org.eclipse.gef.palette.PaletteDrawer;
+import org.eclipse.gef.palette.PaletteRoot;
 import org.eclipse.gef.ui.actions.ActionRegistry;
 import org.eclipse.gef.ui.actions.GEFActionConstants;
 import org.eclipse.graphiti.dt.IDiagramTypeProvider;
@@ -33,6 +35,7 @@ import org.eclipse.graphiti.mm.pictograms.Connection;
 import org.eclipse.graphiti.mm.pictograms.Diagram;
 import org.eclipse.graphiti.mm.pictograms.PictogramElement;
 import org.eclipse.graphiti.mm.pictograms.Shape;
+import org.eclipse.graphiti.ui.editor.DefaultPaletteBehavior;
 import org.eclipse.graphiti.ui.editor.DefaultPersistencyBehavior;
 import org.eclipse.graphiti.ui.editor.DefaultRefreshBehavior;
 import org.eclipse.graphiti.ui.editor.DefaultUpdateBehavior;
@@ -41,9 +44,13 @@ import org.eclipse.graphiti.ui.editor.DiagramEditorContextMenuProvider;
 import org.eclipse.graphiti.ui.editor.IDiagramContainerUI;
 import org.eclipse.jface.action.IAction;
 import org.eclipse.jface.action.IMenuManager;
+import org.eclipse.jface.viewers.ISelectionChangedListener;
+import org.eclipse.jface.viewers.SelectionChangedEvent;
 import org.eclipse.swt.events.PaintEvent;
 import org.eclipse.swt.events.PaintListener;
 import org.eclipse.swt.widgets.Display;
+import org.eclipse.ui.IPartListener;
+import org.eclipse.ui.IWorkbenchPart;
 import org.eclipse.ui.part.EditorPart;
 import org.eclipse.xtext.resource.XtextResource;
 import org.eclipse.xtext.ui.editor.model.IXtextModelListener;
@@ -57,6 +64,7 @@ import org.osate.ge.services.CachingService;
 import org.osate.ge.services.ConnectionService;
 import org.osate.ge.services.DiagramModificationService;
 import org.osate.ge.services.DiagramService;
+import org.osate.ge.services.ExtensionService;
 import org.osate.ge.services.PropertyService;
 import org.osate.ge.ui.util.GhostPurger;
 import org.osate.ge.ui.xtext.AgeXtextUtil;
@@ -74,6 +82,7 @@ public class AgeDiagramBehavior extends DiagramBehavior {
 	private boolean updateWhenVisible = false;
 	private boolean forceNotDirty = false;
 	private boolean updatingFeatureWhileForcingNotDirty = false;
+	private ToolHandler toolHandler;
 	private PaintListener paintListener = new PaintListener() {
 		@Override
 		public void paintControl(PaintEvent e) {
@@ -95,31 +104,82 @@ public class AgeDiagramBehavior extends DiagramBehavior {
 	public void configureGraphicalViewer() {
 		super.configureGraphicalViewer();
 
-		final AgeDiagramEditor parentPart = (AgeDiagramEditor)this.getParentPart();
-		if(parentPart != null) {
+		final AgeDiagramEditor editor = (AgeDiagramEditor)this.getParentPart();
+		if(editor != null) {
 			final ActionRegistry actionRegistry = getDiagramContainer().getActionRegistry();
 			@SuppressWarnings("unchecked")
 			final List<String> selectionActions = getDiagramContainer().getSelectionActions();
 			IAction action;
-			action = new MatchSizeAction(parentPart);
+			action = new MatchSizeAction(editor);
 			actionRegistry.registerAction(action);
 			selectionActions.add(action.getId());
-			action = new DistributeHorizontallyAction(parentPart);
+			action = new DistributeHorizontallyAction(editor);
 			actionRegistry.registerAction(action);
 			selectionActions.add(action.getId());
-			action = new DistributeVerticallyAction(parentPart);
+			action = new DistributeVerticallyAction(editor);
 			actionRegistry.registerAction(action);
 			selectionActions.add(action.getId());
 			
-			registerAction(new IncreaseNestingDepthAction(parentPart, propertyService));
-	 		registerAction(new DecreaseNestingDepthAction(parentPart, propertyService));
+			registerAction(new IncreaseNestingDepthAction(editor, propertyService));
+	 		registerAction(new DecreaseNestingDepthAction(editor, propertyService));
 
 			final AadlModificationService aadlModService = (AadlModificationService)getAdapter(AadlModificationService.class);		
 			final DiagramModificationService diagramModService = (DiagramModificationService)getAdapter(DiagramModificationService.class);
 			final ConnectionService connectionService = (ConnectionService)getAdapter(ConnectionService.class);
 			final BusinessObjectResolutionService bor = (BusinessObjectResolutionService)getAdapter(BusinessObjectResolutionService.class);		
-	 		registerAction(new SetBindingAction(parentPart, aadlModService, diagramModService, connectionService, bor));
+	 		registerAction(new SetBindingAction(editor, aadlModService, diagramModService, connectionService, bor));
+
+ 			// Register an action for each tool
+	 		final ExtensionService extService = (ExtensionService)getAdapter(ExtensionService.class);
+	 		toolHandler = new ToolHandler(extService, getPaletteBehavior());
+	 		for(final Object tool : extService.getTools()) {
+	 			registerAction(new ActivateToolAction(editor, toolHandler, tool));
+	 		}
+	 		
+	 		editor.getGraphicalViewer().addSelectionChangedListener(new ISelectionChangedListener() {
+				@Override
+				public void selectionChanged(final SelectionChangedEvent event) {
+					final PictogramElement[] selectedPes = editor.getSelectedPictogramElements();
+					if(selectedPes != null) {
+						toolHandler.setSelectedPictogramElements(selectedPes);
+					}
+				}	 			
+	 		});	 		
+	 		toolHandler.setSelectedPictogramElements(editor.getSelectedPictogramElements());
+	 			 		
+	 		// Deactivate the tool when the part is deactivated or closed
+	 		editor.getSite().getWorkbenchWindow().getPartService().addPartListener(new IPartListener() {
+	 			@Override
+	 			public void partClosed(final IWorkbenchPart part) {
+	 				if (editor == part) {
+	 					toolHandler.deactivateActiveTool();
+	 					
+	 					// Stop listening for part events
+	 					editor.getSite().getWorkbenchWindow().getPartService().removePartListener(this);
+	 				}	 				
+	 			}
+
+	 			@Override
+	 			public void partDeactivated(final IWorkbenchPart part) {
+	 				if (editor == part) {
+	 					toolHandler.deactivateActiveTool();
+	 				}
+	 			}
+
+	 			@Override
+	 			public void partActivated(final IWorkbenchPart part) {}
+	 			
+	 			@Override
+	 			public void partBroughtToTop(final IWorkbenchPart part) {}
+	 			
+	 			@Override
+	 			public void partOpened(final IWorkbenchPart part) {}
+	 		});
 		}
+	}
+	
+	public void deactivateActiveTool() {
+		toolHandler.deactivateActiveTool();
 	}
 	
 	@Override
@@ -223,6 +283,27 @@ public class AgeDiagramBehavior extends DiagramBehavior {
 	}	
 	
 	@Override
+	protected DefaultPaletteBehavior createPaletteBehaviour() {
+		return new DefaultPaletteBehavior(this) {
+			@Override
+			public void refreshPalette() {
+				super.refreshPalette();
+				
+				// Hide palette drawers if a tool is active
+				if(toolHandler != null && toolHandler.isToolActive()) {
+					final PaletteRoot root = getPaletteRoot();
+					for(final Object child : root.getChildren()) {
+						if(child instanceof PaletteDrawer) {
+							final PaletteDrawer drawer = (PaletteDrawer)child;
+							drawer.setVisible(false);
+						}
+					}
+				}
+			}
+		};
+	}
+	
+	@Override
 	protected DefaultRefreshBehavior createRefreshBehavior() {		
 		return new DefaultRefreshBehavior(this) {
 			@Override
@@ -262,6 +343,14 @@ public class AgeDiagramBehavior extends DiagramBehavior {
 				super.addDefaultMenuGroupRest(manager);
 				addActionToMenu(manager, SetBindingAction.ID, GEFActionConstants.GROUP_REST);
 			}
+			
+			@Override
+			public void buildContextMenu(final IMenuManager manager) {
+				// Don't populate context menu when a tool is active
+				if(toolHandler == null  || !toolHandler.isToolActive()) {
+					super.buildContextMenu(manager);
+				}
+			}					
 		};
 	}
 	
@@ -399,5 +488,11 @@ public class AgeDiagramBehavior extends DiagramBehavior {
 	@Override
 	protected void unregisterDiagramResourceSetListener() {
 		AgeXtextUtil.removeModelListener(modelListener);
+	}
+	
+	// This prevents cluttering the context menu with global eclipse menu items
+	@Override
+	protected boolean shouldRegisterContextMenu() {
+		return false;
 	}
 }

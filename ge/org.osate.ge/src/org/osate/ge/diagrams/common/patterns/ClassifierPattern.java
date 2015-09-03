@@ -87,7 +87,7 @@ import org.osate.ge.services.ConnectionCreationService;
 import org.osate.ge.services.ConnectionService;
 import org.osate.ge.services.DiagramModificationService;
 import org.osate.ge.services.GraphicsAlgorithmCreationService;
-import org.osate.ge.services.HighlightingService;
+import org.osate.ge.services.ColoringService;
 import org.osate.ge.services.LayoutService;
 import org.osate.ge.services.NamingService;
 import org.osate.ge.services.PropertyService;
@@ -125,7 +125,7 @@ public class ClassifierPattern extends AgePattern implements Categorized {
 	private final GraphicsAlgorithmCreationService graphicsAlgorithmCreator;
 	private final PropertyService propertyService;
 	private final AadlArrayService arrayService;
-	private final HighlightingService highlightingService;
+	private final ColoringService highlightingService;
 	private final AnchorService anchorService;
 	private final AadlModificationService aadlModService;
 	private final NamingService namingService;
@@ -165,7 +165,7 @@ public class ClassifierPattern extends AgePattern implements Categorized {
 	public ClassifierPattern(final GhostingService ghostingService, final LayoutService layoutService, final ShapeService shapeService, final ShapeCreationService shapeCreationService,
 			final AadlFeatureService featureService, final SubcomponentService subcomponentService, final ConnectionCreationService connectionCreationService, final StyleService styleUtil,
 			final GraphicsAlgorithmCreationService graphicsAlgorithmCreator, final PropertyService propertyService, final AadlArrayService arrayService,
-			final HighlightingService highlightingService, final AnchorService anchorService, final AadlModificationService aadlModService, final NamingService namingService, 
+			final ColoringService highlightingService, final AnchorService anchorService, final AadlModificationService aadlModService, final NamingService namingService, 
 			final DiagramModificationService diagramModService, final UserInputService userInputService, final RefactoringService refactoringService, 
 			final ConnectionService connectionService, final ComponentImplementationService componentImplementationService, final BusinessObjectResolutionService bor, 
 			final @Named("Subcomponent Type") EClass subcomponentType) {
@@ -795,9 +795,6 @@ public class ClassifierPattern extends AgePattern implements Categorized {
 			// Set the position and size of the text	        
 			gaService.setLocation(labelBackground, (ga.getWidth() - paddedLabelTextWidth) / 2, 2);
 			gaService.setLocation(subcomponentTypeLabelBackground, (ga.getWidth() - paddedTypeTextWidth) / 2, labelText.getY()+paddedLabelTextHeight);
-			
-			// Set color based on current mode
-			highlightingService.highlight((Subcomponent)bo, null, ga);
 		} else {
 			final Classifier classifier = getClassifier(shape);
 			final int newSize[] = layoutService.adjustChildShapePositions(shape);
@@ -815,6 +812,8 @@ public class ClassifierPattern extends AgePattern implements Categorized {
 				gaService.setLocation(ga, x, y);
 			}
 		}
+		
+		highlightingService.applyColoring(shape);
 		
 		layoutService.layoutChildren(shape);
 		

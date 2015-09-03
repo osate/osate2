@@ -92,6 +92,10 @@ public class AgeToolBehaviorProvider extends DefaultToolBehaviorProvider {
 	 */
 	@Override
 	public Object getAdapter(Class<?> type) {
+		if(type == IEclipseContext.class) {
+			return context;
+		}
+		
 		final Object result = context.get(type);
 		if(result != null) {
 			return result;
