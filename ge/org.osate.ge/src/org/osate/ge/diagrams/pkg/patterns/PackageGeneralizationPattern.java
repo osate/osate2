@@ -52,6 +52,7 @@ import org.osate.ge.diagrams.common.patterns.AgeConnectionPattern;
 import org.osate.ge.services.AadlModificationService;
 import org.osate.ge.services.AadlModificationService.AbstractModifier;
 import org.osate.ge.services.BusinessObjectResolutionService;
+import org.osate.ge.services.ColoringService;
 import org.osate.ge.services.ConnectionCreationService;
 import org.osate.ge.services.ConnectionService;
 import org.osate.ge.services.DiagramModificationService;
@@ -68,11 +69,11 @@ public class PackageGeneralizationPattern extends AgeConnectionPattern implement
 	private final BusinessObjectResolutionService bor;
 
 	@Inject
-	public PackageGeneralizationPattern(final GhostingService ghostingService, final StyleService styleUtil,
+	public PackageGeneralizationPattern(final ColoringService coloringService, final GhostingService ghostingService, final StyleService styleUtil,
 			final AadlModificationService modificationService, final ConnectionService connectionService,
 			final ConnectionCreationService connectionCreationService, final UserInputService userInputService, 
 			final DiagramModificationService diagramModService, final BusinessObjectResolutionService bor) {
-		super(ghostingService, connectionService, bor);
+		super(coloringService, ghostingService, connectionService, bor);
 		this.styleUtil = styleUtil;
 		this.modificationService = modificationService;
 		this.connectionCreationService = connectionCreationService;
@@ -143,7 +144,7 @@ public class PackageGeneralizationPattern extends AgeConnectionPattern implement
 	@Override
 	public String getCreateImageId(){
 		final Aadl2Package p = Aadl2Factory.eINSTANCE.getAadl2Package();
-		return AgeImageProvider.getImage(p.getGeneralization());
+		return AgeImageProvider.getImage(p.getGeneralization().getName());
 	}
 	@Override
 	public String getCreateName() {

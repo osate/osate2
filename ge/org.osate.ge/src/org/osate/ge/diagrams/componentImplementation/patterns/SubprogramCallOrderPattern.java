@@ -21,6 +21,7 @@ import org.eclipse.graphiti.services.IPeCreateService;
 import org.osate.ge.diagrams.common.AadlElementWrapper;
 import org.osate.ge.diagrams.common.patterns.AgeConnectionPattern;
 import org.osate.ge.services.BusinessObjectResolutionService;
+import org.osate.ge.services.ColoringService;
 import org.osate.ge.services.ConnectionService;
 import org.osate.ge.services.StyleService;
 import org.osate.ge.services.GhostingService;
@@ -29,8 +30,8 @@ public class SubprogramCallOrderPattern extends AgeConnectionPattern {
 	private final StyleService styleUtil;
 
 	@Inject
-	public SubprogramCallOrderPattern(final GhostingService ghostingService, final StyleService styleUtil, final ConnectionService connectionService, final BusinessObjectResolutionService bor) {
-		super(ghostingService, connectionService, bor);
+	public SubprogramCallOrderPattern(final ColoringService coloringService, final GhostingService ghostingService, final StyleService styleUtil, final ConnectionService connectionService, final BusinessObjectResolutionService bor) {
+		super(coloringService, ghostingService, connectionService, bor);
 		this.styleUtil = styleUtil;
 	}
 

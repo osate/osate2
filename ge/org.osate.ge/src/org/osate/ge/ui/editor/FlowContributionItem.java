@@ -164,13 +164,12 @@ public class FlowContributionItem extends ComboContributionItem implements Compo
 			if(!transformedTxt.equalsIgnoreCase(propertyUtil.getSelectedFlow(editor.getDiagramTypeProvider().getDiagram()))) {
 				final UpdateContext ctx = new UpdateContext(editor.getDiagramTypeProvider().getDiagram());
 				final IUpdateFeature feature = editor.getDiagramTypeProvider().getFeatureProvider().getUpdateFeature(ctx);
-				
+
 				// Set the selected flow property on the diagram and then update it
 				editor.getEditingDomain().getCommandStack().execute(new RecordingCommand(editor.getEditingDomain()) {
 					@Override
 					protected void doExecute() {
 						propertyUtil.setSelectedFlow(editor.getDiagramTypeProvider().getDiagram(), transformedTxt);
-						
 						if(feature != null && feature.canUpdate(ctx)) {
 							feature.execute(ctx);
 						}

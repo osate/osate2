@@ -52,7 +52,6 @@ import org.osate.aadl2.ArrayableElement;
 import org.osate.aadl2.Classifier;
 import org.osate.aadl2.ComponentImplementation;
 import org.osate.aadl2.ComponentType;
-import org.osate.aadl2.Context;
 import org.osate.aadl2.DeviceImplementation;
 import org.osate.aadl2.DirectedFeature;
 import org.osate.aadl2.DirectionType;
@@ -89,7 +88,7 @@ import org.osate.ge.services.ConnectionService;
 import org.osate.ge.services.DiagramModificationService;
 import org.osate.ge.services.GraphicsAlgorithmCreationService;
 import org.osate.ge.services.GraphicsAlgorithmManipulationService;
-import org.osate.ge.services.HighlightingService;
+import org.osate.ge.services.ColoringService;
 import org.osate.ge.services.LayoutService;
 import org.osate.ge.services.NamingService;
 import org.osate.ge.services.PropertyService;
@@ -133,7 +132,7 @@ public class FeaturePattern extends AgeLeafShapePattern implements Categorized {
 	private final DiagramModificationService diagramModService;
 	private final BusinessObjectResolutionService bor;
 	private final ShapeCreationService shapeCreationService;
-	private final HighlightingService highlightingService;
+	private final ColoringService highlightingService;
 	private final RefactoringService refactoringService;
 	private final AadlArrayService arrayService;
 	private final ConnectionService connectionService;
@@ -177,7 +176,7 @@ public class FeaturePattern extends AgeLeafShapePattern implements Categorized {
 			final AadlFeatureService featureService, final PrototypeService prototypeService, final UserInputService userInputService, 
 			final LayoutService layoutService, final AadlModificationService modificationService, final NamingService namingService,
 			final DiagramModificationService diagramModService, final BusinessObjectResolutionService bor, final ShapeCreationService shapeCreationService,
-			final HighlightingService highlightingService, final RefactoringService refactoringService, final AadlArrayService arrayService,
+			final ColoringService highlightingService, final RefactoringService refactoringService, final AadlArrayService arrayService,
 			final ConnectionService connectionService, final @Named("Feature Type") EClass featureType) {
 		super(anchorUtil, ghostingService);
 		this.anchorUtil = anchorUtil;
@@ -404,7 +403,6 @@ public class FeaturePattern extends AgeLeafShapePattern implements Categorized {
 			if(featureShape != childIt.next()) {
 				childIt.remove();
 			}
-
 		}
 
 		// Set the graphics algorithm for the container to an invisible rectangle to set the bounds	of the child shapes
@@ -422,8 +420,13 @@ public class FeaturePattern extends AgeLeafShapePattern implements Categorized {
         	ghostingService.ghostInvalidChildShapes(featureShape);
         }
         
+       
         // Set the feature shape as an inner shape
         propertyUtil.setIsInnerShape(featureShape, true);
+
+        // Adjust properties on shapes os that the feature shape will be the one which is colored
+        propertyUtil.setIsColoringContainer(shape, true);
+        propertyUtil.setIsColoringChild(featureShape, true);
 
 		if(callDepth > 2) {
 			return;
@@ -572,10 +575,9 @@ public class FeaturePattern extends AgeLeafShapePattern implements Categorized {
         	gaService.setLocationAndSize(annotation, 0, 0, annotationSize.getWidth(), annotationSize.getHeight());
         	gaService.setLocationAndSize(annotationBackground, 0, featureShape.getGraphicsAlgorithm().getY() + featureShape.getGraphicsAlgorithm().getHeight(), annotationSize.getWidth(), annotationSize.getHeight());
         }				
-		
-		// Determine whether the feature has a "context" and then highlight it
-		final Element possibleContext = shapeService.getClosestBusinessObjectOfType(shape, Context.class, Classifier.class);
-     	highlightingService.highlight(feature, possibleContext instanceof Context ? (Context)possibleContext : null, featureShape.getGraphicsAlgorithm());		
+
+        // Apply coloring
+     	highlightingService.applyColoring(shape);		
      	
         // Set size as appropriate
      	final int maxWidth =  Math.max(getWidth(annotationBackground)+annotationPadding, Math.max(getWidth(label)+labelPadding, getWidth(featureShape.getGraphicsAlgorithm())));
@@ -753,7 +755,7 @@ public class FeaturePattern extends AgeLeafShapePattern implements Categorized {
 	
 	@Override
 	public String getCreateImageId() { 
-		return AgeImageProvider.getImage(featureType);
+		return AgeImageProvider.getImage(featureType.getName());
 	}
 	
 	@Override
