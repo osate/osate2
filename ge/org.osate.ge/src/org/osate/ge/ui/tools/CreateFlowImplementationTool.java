@@ -661,6 +661,7 @@ public class CreateFlowImplementationTool {
 			super.configureShell(newShell);
 			newShell.setText("Create Flow Implementation");
 			newShell.setSize(450, 250);
+			newShell.setImage(ICON.createImage());
 		}
 
 		@Override
