@@ -396,19 +396,19 @@
 					<listitem>
 						<para>Select a valid source flow specification.</para>
 						<imageobject>
-    						<imagedata fileref="images/SourceFlowImplStep1.png" format="PNG"/>
+    						<imagedata fileref="images/FlowImplSourceStep1.png" format="PNG"/>
   						</imageobject>
 					</listitem>
 					<listitem>
 						<para>Select a valid subcomponent flow specification, subcomponent, or data access.</para>
 						<imageobject>
-    						<imagedata fileref="images/SourceFlowImplStep2.png" format="PNG"/>
+    						<imagedata fileref="images/FlowImplSourceStep2.png" format="PNG"/>
   						</imageobject>
 					</listitem>
 					<listitem>
 					<para>Select valid flow segments leading to the source flow specification.  Optionally, select modes or mode transitions.</para>
 					<imageobject>
-    					<imagedata fileref="images/SourceFlowImplStep3.png" format="PNG"/>
+    					<imagedata fileref="images/FlowImplSourceStep3.png" format="PNG"/>
   					</imageobject>
 					</listitem>
 					<listitem>
@@ -422,19 +422,19 @@
 					<listitem>
 					<para>Select a valid sink flow specification.</para>
 					<imageobject>
-    					<imagedata fileref="images/SinkFlowImplStep1.png" format="PNG"/>
+    					<imagedata fileref="images/FlowImplSinkStep1.png" format="PNG"/>
   					</imageobject>
 					</listitem>
 					<listitem>
 						<para>Select a valid connection.</para>
 						<imageobject>
-    					<imagedata fileref="images/SinkFlowImplStep2.png" format="PNG"/>
+    					<imagedata fileref="images/FlowImplSinkStep2.png" format="PNG"/>
   						</imageobject>
 					</listitem>
 					<listitem>
 					<para>Select valid flow segments leading to the end subcomponent flow.  Optionally, select modes or mode transitions.</para>
 					<imageobject>
-    					<imagedata fileref="images/SinkFlowImplStep3.png" format="PNG"/>
+    					<imagedata fileref="images/FlowImplSinkStep3.png" format="PNG"/>
   					</imageobject>
 					</listitem>
 					<listitem>
@@ -448,19 +448,19 @@
 					<listitem>
 					<para>Select a valid path flow specification.</para>
 					<imageobject>
-    					<imagedata fileref="images/PathFlowImplStep1.png" format="PNG"/>
+    					<imagedata fileref="images/FlowImplPathStep1.png" format="PNG"/>
   					</imageobject>
 					</listitem>
 					<listitem>
 					<para>Select a valid connection.</para>
 					<imageobject>
-    					<imagedata fileref="images/PathFlowImplStep2.png" format="PNG"/>
+    					<imagedata fileref="images/FlowImplPathStep2.png" format="PNG"/>
   					</imageobject>
 					</listitem>
 					<listitem>
 					<para>Select valid flow segments leading to the path flow specification's out flow end.  Optionally, select modes or mode transitions.</para>
 					<imageobject>
-    					<imagedata fileref="images/PathFlowImplStep3.png" format="PNG"/>
+    					<imagedata fileref="images/FlowImplPathStep3.png" format="PNG"/>
   					</imageobject>
 					</listitem>
 					<listitem>
