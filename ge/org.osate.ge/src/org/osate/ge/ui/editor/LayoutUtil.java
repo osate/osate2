@@ -1,5 +1,6 @@
 package org.osate.ge.ui.editor;
 
+import org.eclipse.graphiti.features.context.impl.MoveShapeContext;
 import org.eclipse.graphiti.mm.pictograms.ContainerShape;
 import org.eclipse.graphiti.mm.pictograms.PictogramElement;
 import org.eclipse.graphiti.mm.pictograms.Shape;
@@ -28,5 +29,15 @@ class LayoutUtil {
 		}
 		
 		return true;
+	}
+	
+	public static MoveShapeContext getDistributeMoveShapeContext(final Shape shape, final int xValue, final int yValue, final ContainerShape container) {
+		final MoveShapeContext moveCtx = new MoveShapeContext(shape);
+		moveCtx.setLocation(xValue, yValue);
+		moveCtx.setSourceContainer(container);
+		moveCtx.setTargetContainer(container);
+		moveCtx.setDeltaX(xValue);
+		moveCtx.setDeltaY(yValue);
+		return moveCtx;
 	}
 }

@@ -2,13 +2,16 @@ package org.osate.ge.ui.editor;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collection;
 import java.util.Comparator;
+import java.util.Objects;
 
 import org.eclipse.emf.transaction.RecordingCommand;
 import org.eclipse.gef.ui.actions.SelectionAction;
 import org.eclipse.graphiti.features.IFeatureProvider;
 import org.eclipse.graphiti.features.IMoveShapeFeature;
 import org.eclipse.graphiti.features.context.impl.MoveShapeContext;
+import org.eclipse.graphiti.mm.algorithms.GraphicsAlgorithm;
 import org.eclipse.graphiti.mm.pictograms.ContainerShape;
 import org.eclipse.graphiti.mm.pictograms.PictogramElement;
 import org.eclipse.graphiti.mm.pictograms.Shape;
@@ -18,18 +21,13 @@ import org.osate.ge.Activator;
 
 public class DistributeHorizontallyAction extends SelectionAction {
 	private AgeDiagramEditor editor;
-	private IFeatureProvider fp;
-	private PictogramElement[] pes;
-	private IMoveShapeFeature moveFeature;
-	private final ArrayList<MoveShapeContext> moveContextList = new ArrayList<MoveShapeContext>();
 	public static final String DISTRIBUTE_HORIZONTALLY = "org.osate.ge.ui.editor.items.distribute_horizontally";
 	public static final ImageDescriptor horizontalImageDescriptor = Activator.getImageDescriptor("icons/DistributeHorizontally.gif");
 	public static final ImageDescriptor horizontalDisabledImageDescriptor = Activator.getImageDescriptor("icons/DistributeHorizontally_Disabled.gif");
 
 	public DistributeHorizontallyAction(final IWorkbenchPart part) {
 		super(part); 
-		editor = (AgeDiagramEditor)part;
-		fp = editor.getDiagramTypeProvider().getFeatureProvider();
+		editor = Objects.requireNonNull((AgeDiagramEditor)part, "part must be a AgeDiagramEditor");
 		setHoverImageDescriptor(horizontalImageDescriptor);
 		setDisabledImageDescriptor(horizontalDisabledImageDescriptor);
 		setId(DISTRIBUTE_HORIZONTALLY);
@@ -41,73 +39,96 @@ public class DistributeHorizontallyAction extends SelectionAction {
 		editor.getEditingDomain().getCommandStack().execute(new RecordingCommand(editor.getEditingDomain(), "Distribute Horizontally") {
 			@Override
 			protected void doExecute() {
-				for (final MoveShapeContext moveContext : moveContextList) {
-					moveFeature.moveShape(moveContext);
+				final Collection<MoveShapeContext> ctxs = getMoveShapeContextsFromEditorSelection();
+				if(ctxs != null) {
+					for (final MoveShapeContext ctx : ctxs) {
+						final IFeatureProvider fp = editor.getDiagramTypeProvider().getFeatureProvider();
+						final IMoveShapeFeature feature = fp.getMoveShapeFeature(ctx);
+						feature.execute(ctx);
+					}	
 				}
-				final PictogramElement[] pes = new PictogramElement[0];
-				editor.selectPictogramElements(pes);
 			}
 		});	
-	}
-
-	private boolean isSameContainerShapes() {
-		if (pes[0] instanceof Shape) {
-			final ContainerShape containerShape = ((Shape)pes[0]).getContainer();
-			for (int i=1;i<pes.length;i++) {
-				if ((!(pes[i] instanceof Shape)) || ((Shape)pes[i]).getContainer() != containerShape) {
-					return false;
-				}
-			}
-			return true;
-		}
-		return false;
 	}
 
 	//Updates action being available based on how many pictograms are selected
 	@Override
 	protected boolean calculateEnabled() {
-		moveContextList.clear();
-		if(editor != null && editor.getSelectedPictogramElements().length >= 3) {
-			pes = editor.getSelectedPictogramElements();
-			if (isSameContainerShapes()) {
-				//Sort
-				Arrays.sort(pes, XValueComparator);
-				final int arrayLength = pes.length-1;
-				//Distribute each shape between the head and the tail evenly.
-				int widthOfShapes = 0;
-				for (int i = arrayLength-1;i>0;i--) {
-					widthOfShapes = pes[i].getGraphicsAlgorithm().getWidth()+widthOfShapes;
-				}
-				int xDistribution = (pes[arrayLength].getGraphicsAlgorithm().getX() - (pes[0].getGraphicsAlgorithm().getX()+pes[0].getGraphicsAlgorithm().getWidth()) - widthOfShapes)/arrayLength;
-				for(int i=1;i<arrayLength;i++) {
-					final Shape s = (Shape)pes[i];
-					final int xValue = pes[i-1].getGraphicsAlgorithm().getX()+pes[i-1].getGraphicsAlgorithm().getWidth()+xDistribution;
-					final MoveShapeContext moveContext = new MoveShapeContext(s);
-					moveContext.setLocation(xValue, pes[i].getGraphicsAlgorithm().getY());
-					moveContext.setSourceContainer(s.getContainer());
-					moveContext.setTargetContainer(s.getContainer());
-					moveContext.setDeltaX(xValue);
-					moveContext.setDeltaY(pes[i].getGraphicsAlgorithm().getY());
-					moveFeature = fp.getMoveShapeFeature(moveContext);
-					if (moveFeature != null && moveFeature.canMoveShape(moveContext)) {
-						moveContextList.add(moveContext);
-					} else {
-						return false;
-					}
-				}
-				return true;
-			}
-
+		return getMoveShapeContextsFromEditorSelection() != null;
+	}
+	
+	private static int getWidthOfShapes(final Shape[] shapes) {
+		int result = 0;
+		//Iterate on shapes between first and last
+		for (int i=shapes.length-2;i>0;i--) {
+			result = shapes[i].getGraphicsAlgorithm().getWidth()+result;
 		}
-		return false;
+		
+		return result;
+	}
+	
+	
+	
+	private Collection<MoveShapeContext> getMoveShapeContextsFromEditorSelection() {
+		final PictogramElement[] pes = editor.getSelectedPictogramElements();
+		if(pes.length<3) {
+			return null;
+		}
+		
+		final Shape[] shapes = Arrays.copyOf(editor.getSelectedPictogramElements(), pes.length, Shape[].class);
+		if(!LayoutUtil.areAllShapes(shapes)) {
+			return null;
+		}
+		
+		if(!LayoutUtil.haveSameContainerShapes(shapes)) {
+			return null;
+		}
 
+		Arrays.sort(shapes, XValueComparator);
+		
+		final Collection<MoveShapeContext> moveShapeCtxs = getMoveShapeContexts(shapes);
+		final IFeatureProvider fp = editor.getDiagramTypeProvider().getFeatureProvider();
+		for (final MoveShapeContext ctx : moveShapeCtxs) {
+			final IMoveShapeFeature moveFeature = fp.getMoveShapeFeature(ctx);
+			if (moveFeature == null || !moveFeature.canExecute(ctx)) {
+				return null;
+			}
+		}
+		
+		return moveShapeCtxs;
+	}
+	
+	private static int getXDistribution(final Shape[] shapes) {
+		final int arrayLength = shapes.length-1;
+		final int widthOfShapes = getWidthOfShapes(shapes);
+		
+		return (shapes[arrayLength].getGraphicsAlgorithm().getX()-(shapes[0].getGraphicsAlgorithm().getX()+shapes[0].getGraphicsAlgorithm().getWidth())-widthOfShapes)/arrayLength;
+	}
+	
+	private static Collection<MoveShapeContext> getMoveShapeContexts(final Shape[] shapes) {
+		final Collection<MoveShapeContext> result = new ArrayList<MoveShapeContext>();
+		final int xDistribution = getXDistribution(shapes);
+		for (int i=1;i<shapes.length-1;i++) {
+			final Shape shape = shapes[i];
+			final int xValue = getXValue(shapes[i-1].getGraphicsAlgorithm(), xDistribution);
+			final int yValue = shape.getGraphicsAlgorithm().getY();
+			final ContainerShape container = shape.getContainer();
+
+			result.add(LayoutUtil.getDistributeMoveShapeContext(shape, xValue, yValue, container));
+		}
+		
+		return result;
+	}
+	
+	private static int getXValue(final GraphicsAlgorithm prevShapeGA, final int xDistribution) {
+		return prevShapeGA.getX()+prevShapeGA.getWidth()+xDistribution;
 	}
 
-	private static final Comparator<PictogramElement> XValueComparator 
-	= new Comparator<PictogramElement>() {
+	private static final Comparator<Shape> XValueComparator 
+	= new Comparator<Shape>() {
 		@Override
-		public int compare(final PictogramElement xValueArg1, final PictogramElement xValueArg2) {
-			return Integer.valueOf(xValueArg1.getGraphicsAlgorithm().getX()).compareTo(xValueArg2.getGraphicsAlgorithm().getX());
+		public int compare(final Shape xShape1, final Shape xShape2) {
+			return Integer.valueOf(xShape1.getGraphicsAlgorithm().getX()).compareTo(xShape2.getGraphicsAlgorithm().getX());
 		}
 	};
 }

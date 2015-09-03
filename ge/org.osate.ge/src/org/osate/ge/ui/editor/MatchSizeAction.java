@@ -35,7 +35,7 @@ public class MatchSizeAction extends SelectionAction {
 		editor.getEditingDomain().getCommandStack().execute(new RecordingCommand(editor.getEditingDomain(), "Match Height and Width") {
 			@Override
 			protected void doExecute() {
-				final Collection<ResizeShapeContext> ctxs = getContextsFromEditorSelection();
+				final Collection<ResizeShapeContext> ctxs = getResizeContextsFromEditorSelection();
 				if(ctxs != null) {
 					final IFeatureProvider fp = editor.getDiagramTypeProvider().getFeatureProvider();
 					for(final ResizeShapeContext ctx : ctxs) {
@@ -50,14 +50,14 @@ public class MatchSizeAction extends SelectionAction {
 	//Updates action being available based on how many pictograms are selected
 	@Override
 	protected boolean calculateEnabled() {
-		return getContextsFromEditorSelection() != null;
+		return getResizeContextsFromEditorSelection() != null;
 	}
 	
 	/**
 	 * Performs validation and builds and returns a collection of contexts
 	 * @return the contexts. Returns null if validation fails.
 	 */
-	private Collection<ResizeShapeContext> getContextsFromEditorSelection() {
+	private Collection<ResizeShapeContext> getResizeContextsFromEditorSelection() {
 		final PictogramElement[] pes = editor.getSelectedPictogramElements();
 		if(pes.length < 2) {
 			return null;
@@ -87,10 +87,9 @@ public class MatchSizeAction extends SelectionAction {
 	private static Collection<ResizeShapeContext> getResizeContexts(final Shape[] shapes) {
 		final Collection<ResizeShapeContext> result = new ArrayList<ResizeShapeContext>(); 
 		
-		for (final PictogramElement shape : shapes) {
-			final Shape s = (Shape)shape;
-			final ResizeShapeContext newResizeContext = new ResizeShapeContext(s);
-			newResizeContext.setLocation(s.getGraphicsAlgorithm().getX(), s.getGraphicsAlgorithm().getY());
+		for (final Shape shape : shapes) {
+			final ResizeShapeContext newResizeContext = new ResizeShapeContext(shape);
+			newResizeContext.setLocation(shape.getGraphicsAlgorithm().getX(), shape.getGraphicsAlgorithm().getY());
 			newResizeContext.setHeight(shapes[shapes.length-1].getGraphicsAlgorithm().getHeight());
 			newResizeContext.setWidth(shapes[shapes.length-1].getGraphicsAlgorithm().getWidth());
 			result.add(newResizeContext);
