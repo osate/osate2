@@ -18,18 +18,18 @@ import org.osate.ge.Activator;
 
 public class DistributeHorizontallyAction extends SelectionAction {
 	private AgeDiagramEditor editor;
+	private IFeatureProvider fp;
 	private PictogramElement[] pes;
-	private MoveShapeContext moveContext;
 	private IMoveShapeFeature moveFeature;
 	private final ArrayList<MoveShapeContext> moveContextList = new ArrayList<MoveShapeContext>();
-	private IFeatureProvider fp;
 	public static final String DISTRIBUTE_HORIZONTALLY = "org.osate.ge.ui.editor.items.distribute_horizontally";
 	public static final ImageDescriptor horizontalImageDescriptor = Activator.getImageDescriptor("icons/DistributeHorizontally.gif");
 	public static final ImageDescriptor horizontalDisabledImageDescriptor = Activator.getImageDescriptor("icons/DistributeHorizontally_Disabled.gif");
 
-	protected DistributeHorizontallyAction(final IWorkbenchPart part) {
+	public DistributeHorizontallyAction(final IWorkbenchPart part) {
 		super(part); 
 		editor = (AgeDiagramEditor)part;
+		fp = editor.getDiagramTypeProvider().getFeatureProvider();
 		setHoverImageDescriptor(horizontalImageDescriptor);
 		setDisabledImageDescriptor(horizontalDisabledImageDescriptor);
 		setId(DISTRIBUTE_HORIZONTALLY);
@@ -83,14 +83,13 @@ public class DistributeHorizontallyAction extends SelectionAction {
 				for(int i=1;i<arrayLength;i++) {
 					final Shape s = (Shape)pes[i];
 					final int xValue = pes[i-1].getGraphicsAlgorithm().getX()+pes[i-1].getGraphicsAlgorithm().getWidth()+xDistribution;
-					moveContext = new MoveShapeContext(s);
+					final MoveShapeContext moveContext = new MoveShapeContext(s);
 					moveContext.setLocation(xValue, pes[i].getGraphicsAlgorithm().getY());
 					moveContext.setSourceContainer(s.getContainer());
 					moveContext.setTargetContainer(s.getContainer());
 					moveContext.setDeltaX(xValue);
 					moveContext.setDeltaY(pes[i].getGraphicsAlgorithm().getY());
 					moveFeature = editor.getDiagramTypeProvider().getFeatureProvider().getMoveShapeFeature(moveContext);
-					fp = editor.getDiagramTypeProvider().getFeatureProvider();
 					moveFeature = fp.getMoveShapeFeature(moveContext);
 					if (moveFeature != null && moveFeature.canMoveShape(moveContext)) {
 						moveContextList.add(moveContext);
@@ -109,7 +108,7 @@ public class DistributeHorizontallyAction extends SelectionAction {
 	private static final Comparator<PictogramElement> XValueComparator 
 	= new Comparator<PictogramElement>() {
 		@Override
-		public int compare(PictogramElement xValueArg1, PictogramElement xValueArg2) {
+		public int compare(final PictogramElement xValueArg1, final PictogramElement xValueArg2) {
 			return Integer.valueOf(xValueArg1.getGraphicsAlgorithm().getX()).compareTo(xValueArg2.getGraphicsAlgorithm().getX());
 		}
 	};
