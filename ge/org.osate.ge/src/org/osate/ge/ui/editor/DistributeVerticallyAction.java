@@ -142,10 +142,10 @@ public class DistributeVerticallyAction extends SelectionAction {
 	private static int getYDistribution(final Shape[] shapes) {
 		final int arrayLength = shapes.length-1;
 		final int heightOfShapes = getHeightOfShapes(shapes);
-		final GraphicsAlgorithm firstShapeeGA = shapes[0].getGraphicsAlgorithm();
+		final GraphicsAlgorithm firstShapeGA = shapes[0].getGraphicsAlgorithm();
 		final GraphicsAlgorithm lastShapeGA = shapes[arrayLength].getGraphicsAlgorithm();
 		
-		return (lastShapeGA.getY()-(firstShapeeGA.getY()+firstShapeeGA.getHeight())-heightOfShapes)/arrayLength;
+		return (lastShapeGA.getY()-(firstShapeGA.getY()+firstShapeGA.getHeight())-heightOfShapes)/arrayLength;
 	}
 	
 	/**
