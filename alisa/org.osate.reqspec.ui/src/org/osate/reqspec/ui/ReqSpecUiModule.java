@@ -5,7 +5,9 @@ package org.osate.reqspec.ui;
 
 import org.eclipse.ui.plugin.AbstractUIPlugin;
 import org.eclipse.ui.views.contentoutline.IContentOutlinePage;
+import org.eclipse.xtext.ui.editor.hover.IEObjectHoverProvider;
 import org.eclipse.xtext.ui.editor.outline.impl.OutlineNodeLabelProvider;
+import org.osate.reqspec.ui.outline.ReqSpecEObjectHoverProvider;
 import org.osate.reqspec.ui.outline.ReqSpecOutlineNodeLabelProvider;
 import org.osate.reqspec.ui.outline.ReqSpecOutlinePage;
 
@@ -34,6 +36,10 @@ public class ReqSpecUiModule extends org.osate.reqspec.ui.AbstractReqSpecUiModul
 
 	public Class<? extends org.eclipse.xtext.linking.ILinkingDiagnosticMessageProvider> bindILinkingDiagnosticMessageProvider() {
 		return org.osate.reqspec.ui.linking.ReqSpecLinkingDiagnosticMessageProvider.class;
+	}
+
+	public Class<? extends IEObjectHoverProvider> bindIEObjectHoverProvider() {
+		return ReqSpecEObjectHoverProvider.class;
 	}
 
 }

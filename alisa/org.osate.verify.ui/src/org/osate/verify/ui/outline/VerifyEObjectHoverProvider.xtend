@@ -10,7 +10,7 @@ import org.osate.reqspec.reqSpec.Requirement
 import org.osate.verify.verify.Claim
 
 class VerifyEObjectHoverProvider extends DefaultEObjectHoverProvider {
-		override getHoverInfoAsHtml(EObject o){
+		override getHoverInfoAsHtml (EObject o){ 
 		switch (o){
 			VerificationActivity: {
 				val Requirement req = o.containingClaim.requirement
@@ -24,10 +24,11 @@ class VerifyEObjectHoverProvider extends DefaultEObjectHoverProvider {
 		return "No message!!"
 	}
 	
+	
 	def reqText(Requirement req){
 				val z =  (req.title?:"") 
 				val zz = req.description?.toText(req.targetClassifier)
-				val res = "Requirement: "+ z + ": " + zz
+				val res = "Requirement "+req.name+": "+ z + ": " + zz
 				return res
 	}
 	
