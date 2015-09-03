@@ -58,6 +58,8 @@ public class DistributeHorizontallyAction extends SelectionAction {
 					return false;
 				}
 			}
+		} else {
+			return false;
 		}
 		return true;
 	}

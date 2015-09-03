@@ -59,6 +59,8 @@ public class DistributeVerticallyAction extends SelectionAction {
 					return false;
 				}
 			}
+		} else {
+			return false;
 		}
 		return true;
 	}
