@@ -33,7 +33,9 @@ public class DistributeHorizontallyAction extends SelectionAction {
 		setId(DISTRIBUTE_HORIZONTALLY);
 	}
 
-	//Distributes shapes along the X axis so each shape has an equal distance between them
+	/**
+	 * Distributes shapes along the X axis so each shape has an equal distance between them
+	 */
 	@Override
 	public void run(){
 		editor.getEditingDomain().getCommandStack().execute(new RecordingCommand(editor.getEditingDomain(), "Distribute Horizontally") {
@@ -51,15 +53,22 @@ public class DistributeHorizontallyAction extends SelectionAction {
 		});	
 	}
 
-	//Updates action being available based on how many pictograms are selected
+	/**
+	 * Updates whether action is available based on if shapes selected are valid
+	 */
 	@Override
 	protected boolean calculateEnabled() {
 		return getMoveShapeContextsFromEditorSelection() != null;
 	}
 	
+	/**
+	 * Calculate the width of the middle shapes, used for distribution calculations
+	 * @param shapes the selected shapes
+	 * @return the width of the middle shapes
+	 */
 	private static int getWidthOfShapes(final Shape[] shapes) {
 		int result = 0;
-		//Iterate on shapes between first and last
+		//Iterate on shapes between first and last shape selected
 		for (int i=shapes.length-2;i>0;i--) {
 			result = shapes[i].getGraphicsAlgorithm().getWidth()+result;
 		}
@@ -67,8 +76,10 @@ public class DistributeHorizontallyAction extends SelectionAction {
 		return result;
 	}
 	
-	
-	
+	/**
+	 * Performs validation, builds, and returns a collection of contexts
+	 * @return the contexts. Returns null if validation fails.
+	 */
 	private Collection<MoveShapeContext> getMoveShapeContextsFromEditorSelection() {
 		final PictogramElement[] pes = editor.getSelectedPictogramElements();
 		if(pes.length<3) {
@@ -98,15 +109,25 @@ public class DistributeHorizontallyAction extends SelectionAction {
 		return moveShapeCtxs;
 	}
 	
+	/**
+	 * Calculate the distance between each selected shape after distribution
+	 * @param shapes the selected shapes
+	 * @return the distance between each shape after distribution
+	 */
 	private static int getXDistribution(final Shape[] shapes) {
 		final int arrayLength = shapes.length-1;
 		final int widthOfShapes = getWidthOfShapes(shapes);
-		final GraphicsAlgorithm firstEleGA = shapes[0].getGraphicsAlgorithm();
-		final GraphicsAlgorithm lastEleGA = shapes[arrayLength].getGraphicsAlgorithm();
+		final GraphicsAlgorithm firstShapeGA = shapes[0].getGraphicsAlgorithm();
+		final GraphicsAlgorithm lastShapeGA = shapes[arrayLength].getGraphicsAlgorithm();
 		
-		return (lastEleGA.getX()-(firstEleGA.getX()+firstEleGA.getWidth())-widthOfShapes)/arrayLength;
+		return (lastShapeGA.getX()-(firstShapeGA.getX()+firstShapeGA.getWidth())-widthOfShapes)/arrayLength;
 	}
 	
+	/**
+	 * Calculate the selected shapes new distribution location information
+	 * @param shapes the selected shapes
+	 * @return the list contexts that contain the shapes new locations
+	 */
 	private static Collection<MoveShapeContext> getMoveShapeContexts(final Shape[] shapes) {
 		final Collection<MoveShapeContext> result = new ArrayList<MoveShapeContext>();
 		final int xDistribution = getXDistribution(shapes);
@@ -122,10 +143,19 @@ public class DistributeHorizontallyAction extends SelectionAction {
 		return result;
 	}
 	
+	/**
+	 * Calculate the X-coordinate value for the shape being evaluated
+	 * @param prevShapeGA the GraphicsAlgorithm of the shape just before the current shape being evaluated
+	 * @param xDistribution the X-coordinate distance that needs to be between each shape
+	 * @return the X-coordinate value for the shape being evaluated
+	 */
 	private static int getXValue(final GraphicsAlgorithm prevShapeGA, final int xDistribution) {
 		return prevShapeGA.getX()+prevShapeGA.getWidth()+xDistribution;
 	}
 
+	/**
+	 * Sort the selected shapes based on X-coordinate value
+	 */
 	private static final Comparator<Shape> XValueComparator 
 	= new Comparator<Shape>() {
 		@Override

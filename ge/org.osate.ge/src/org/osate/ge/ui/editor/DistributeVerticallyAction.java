@@ -31,7 +31,9 @@ public class DistributeVerticallyAction extends SelectionAction {
 		setId(DISTRIBUTE_VERTICALLY);
 	}
 	
-	//Distributes shapes along the Y axis so each shape has an equal distance between them.
+	/**
+	 * Distributes shapes along the Y axis so each shape has an equal distance between them
+	 */
 	@Override
 	public void run() {
 		if (editor != null && editor.getSelectedPictogramElements().length >= 3){
@@ -51,12 +53,18 @@ public class DistributeVerticallyAction extends SelectionAction {
 		}
 	}
 
-	//Updates action being available based on how many pictograms are selected
+	/**
+	 * Updates whether action is available based on if shapes selected are valid
+	 */
 	@Override
 	protected boolean calculateEnabled() {
 		return getMoveShapeContextsFromEditorSelection() != null;
 	}
 
+	/**
+	 * Performs validation, builds, and returns a collection of contexts
+	 * @return the contexts. Returns null if validation fails.
+	 */
 	private Collection<MoveShapeContext> getMoveShapeContextsFromEditorSelection() {
 		final PictogramElement[] pes = editor.getSelectedPictogramElements();
 		if(pes.length<3) {
@@ -101,9 +109,14 @@ public class DistributeVerticallyAction extends SelectionAction {
 		return result;
 	}
 	
+	/**
+	 * Calculate the height of the middle shapes, used for distribution calculations
+	 * @param shapes the selected shapes
+	 * @return the height of the middle shapes
+	 */
 	private static int getHeightOfShapes(final Shape[] shapes) {
 		int result = 0;
-		//Iterate on shapes between first and last
+		//Iterate on shapes between first and last shape selected
 		for (int i=shapes.length-2;i>0;i--) {
 			result = shapes[i].getGraphicsAlgorithm().getHeight()+result;
 		}
@@ -111,19 +124,33 @@ public class DistributeVerticallyAction extends SelectionAction {
 		return result;
 	}
 	
+	/**
+	 * Calculate the Y-coordinate value for the shape being evaluated
+	 * @param prevShapeGA the GraphicsAlgorithm of the shape just before the current shape being evaluated
+	 * @param yDistribution the Y-coordinate distance that needs to be between each shape
+	 * @return the Y-coordinate value for the shape being evaluated
+	 */
 	private static int getYValue(final GraphicsAlgorithm prevShapeGA, final int yDistribution) {
 		return prevShapeGA.getY()+prevShapeGA.getHeight()+yDistribution;
 	}
 	
+	/**
+	 * Calculate the distance between each selected shape after distribution
+	 * @param shapes the selected shapes
+	 * @return the distance between each shape after distribution
+	 */
 	private static int getYDistribution(final Shape[] shapes) {
 		final int arrayLength = shapes.length-1;
 		final int heightOfShapes = getHeightOfShapes(shapes);
-		final GraphicsAlgorithm firstEleGA = shapes[0].getGraphicsAlgorithm();
-		final GraphicsAlgorithm lastEleGA = shapes[arrayLength].getGraphicsAlgorithm();
+		final GraphicsAlgorithm firstShapeeGA = shapes[0].getGraphicsAlgorithm();
+		final GraphicsAlgorithm lastShapeGA = shapes[arrayLength].getGraphicsAlgorithm();
 		
-		return (lastEleGA.getY()-(firstEleGA.getY()+firstEleGA.getHeight())-heightOfShapes)/arrayLength;
+		return (lastShapeGA.getY()-(firstShapeeGA.getY()+firstShapeeGA.getHeight())-heightOfShapes)/arrayLength;
 	}
-
+	
+	/**
+	 * Sort the selected shapes based on Y-coordinate value
+	 */
 	private static final Comparator<Shape> YValueComparator 
 	= new Comparator<Shape>() {
 		@Override
