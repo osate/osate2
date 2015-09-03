@@ -8,6 +8,8 @@ import org.eclipse.emf.ecore.EObject;
 
 import org.eclipse.xtext.common.types.JvmFormalParameter;
 
+import org.osate.aadl2.Property;
+
 import org.osate.alisa.common.common.Description;
 
 import org.osate.categories.categories.VerificationCategory;
@@ -22,6 +24,7 @@ import org.osate.categories.categories.VerificationCategory;
  * <ul>
  *   <li>{@link org.osate.verify.verify.VerificationMethod#getName <em>Name</em>}</li>
  *   <li>{@link org.osate.verify.verify.VerificationMethod#getParams <em>Params</em>}</li>
+ *   <li>{@link org.osate.verify.verify.VerificationMethod#getProperties <em>Properties</em>}</li>
  *   <li>{@link org.osate.verify.verify.VerificationMethod#isIsPredicate <em>Is Predicate</em>}</li>
  *   <li>{@link org.osate.verify.verify.VerificationMethod#isIsResultReport <em>Is Result Report</em>}</li>
  *   <li>{@link org.osate.verify.verify.VerificationMethod#getTitle <em>Title</em>}</li>
@@ -79,6 +82,22 @@ public interface VerificationMethod extends EObject
    * @generated
    */
   EList<JvmFormalParameter> getParams();
+
+  /**
+   * Returns the value of the '<em><b>Properties</b></em>' reference list.
+   * The list contents are of type {@link org.osate.aadl2.Property}.
+   * <!-- begin-user-doc -->
+   * <p>
+   * If the meaning of the '<em>Properties</em>' reference list isn't clear,
+   * there really should be more of a description here...
+   * </p>
+   * <!-- end-user-doc -->
+   * @return the value of the '<em>Properties</em>' reference list.
+   * @see org.osate.verify.verify.VerifyPackage#getVerificationMethod_Properties()
+   * @model
+   * @generated
+   */
+  EList<Property> getProperties();
 
   /**
    * Returns the value of the '<em><b>Is Predicate</b></em>' attribute.

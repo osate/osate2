@@ -28,6 +28,7 @@ import org.osate.categories.categories.SelectionCategory;
  *   <li>{@link org.osate.verify.verify.VerificationActivity#getResult <em>Result</em>}</li>
  *   <li>{@link org.osate.verify.verify.VerificationActivity#getMethod <em>Method</em>}</li>
  *   <li>{@link org.osate.verify.verify.VerificationActivity#getParameters <em>Parameters</em>}</li>
+ *   <li>{@link org.osate.verify.verify.VerificationActivity#getPropertyValues <em>Property Values</em>}</li>
  *   <li>{@link org.osate.verify.verify.VerificationActivity#getCondition <em>Condition</em>}</li>
  *   <li>{@link org.osate.verify.verify.VerificationActivity#getTimeout <em>Timeout</em>}</li>
  * </ul>
@@ -174,6 +175,22 @@ public interface VerificationActivity extends EObject
    * @generated
    */
   EList<XExpression> getParameters();
+
+  /**
+   * Returns the value of the '<em><b>Property Values</b></em>' reference list.
+   * The list contents are of type {@link org.eclipse.xtext.xbase.XExpression}.
+   * <!-- begin-user-doc -->
+   * <p>
+   * If the meaning of the '<em>Property Values</em>' reference list isn't clear,
+   * there really should be more of a description here...
+   * </p>
+   * <!-- end-user-doc -->
+   * @return the value of the '<em>Property Values</em>' reference list.
+   * @see org.osate.verify.verify.VerifyPackage#getVerificationActivity_PropertyValues()
+   * @model
+   * @generated
+   */
+  EList<XExpression> getPropertyValues();
 
   /**
    * Returns the value of the '<em><b>Condition</b></em>' reference list.

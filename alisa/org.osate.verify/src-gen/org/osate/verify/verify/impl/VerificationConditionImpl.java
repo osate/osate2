@@ -38,6 +38,7 @@ import org.osate.verify.verify.VerifyPackage;
  *   <li>{@link org.osate.verify.verify.impl.VerificationConditionImpl#getDescription <em>Description</em>}</li>
  *   <li>{@link org.osate.verify.verify.impl.VerificationConditionImpl#getMethod <em>Method</em>}</li>
  *   <li>{@link org.osate.verify.verify.impl.VerificationConditionImpl#getParameters <em>Parameters</em>}</li>
+ *   <li>{@link org.osate.verify.verify.impl.VerificationConditionImpl#getPropertyValues <em>Property Values</em>}</li>
  *   <li>{@link org.osate.verify.verify.impl.VerificationConditionImpl#getTimeout <em>Timeout</em>}</li>
  *   <li>{@link org.osate.verify.verify.impl.VerificationConditionImpl#getRationale <em>Rationale</em>}</li>
  * </ul>
@@ -116,6 +117,16 @@ public class VerificationConditionImpl extends MinimalEObjectImpl.Container impl
    * @ordered
    */
   protected EList<XExpression> parameters;
+
+  /**
+   * The cached value of the '{@link #getPropertyValues() <em>Property Values</em>}' reference list.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see #getPropertyValues()
+   * @generated
+   * @ordered
+   */
+  protected EList<XExpression> propertyValues;
 
   /**
    * The default value of the '{@link #getTimeout() <em>Timeout</em>}' attribute.
@@ -324,6 +335,20 @@ public class VerificationConditionImpl extends MinimalEObjectImpl.Container impl
    * <!-- end-user-doc -->
    * @generated
    */
+  public EList<XExpression> getPropertyValues()
+  {
+    if (propertyValues == null)
+    {
+      propertyValues = new EObjectResolvingEList<XExpression>(XExpression.class, this, VerifyPackage.VERIFICATION_CONDITION__PROPERTY_VALUES);
+    }
+    return propertyValues;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
   public int getTimeout()
   {
     return timeout;
@@ -429,6 +454,8 @@ public class VerificationConditionImpl extends MinimalEObjectImpl.Container impl
         return basicGetMethod();
       case VerifyPackage.VERIFICATION_CONDITION__PARAMETERS:
         return getParameters();
+      case VerifyPackage.VERIFICATION_CONDITION__PROPERTY_VALUES:
+        return getPropertyValues();
       case VerifyPackage.VERIFICATION_CONDITION__TIMEOUT:
         return getTimeout();
       case VerifyPackage.VERIFICATION_CONDITION__RATIONALE:
@@ -463,6 +490,10 @@ public class VerificationConditionImpl extends MinimalEObjectImpl.Container impl
       case VerifyPackage.VERIFICATION_CONDITION__PARAMETERS:
         getParameters().clear();
         getParameters().addAll((Collection<? extends XExpression>)newValue);
+        return;
+      case VerifyPackage.VERIFICATION_CONDITION__PROPERTY_VALUES:
+        getPropertyValues().clear();
+        getPropertyValues().addAll((Collection<? extends XExpression>)newValue);
         return;
       case VerifyPackage.VERIFICATION_CONDITION__TIMEOUT:
         setTimeout((Integer)newValue);
@@ -499,6 +530,9 @@ public class VerificationConditionImpl extends MinimalEObjectImpl.Container impl
       case VerifyPackage.VERIFICATION_CONDITION__PARAMETERS:
         getParameters().clear();
         return;
+      case VerifyPackage.VERIFICATION_CONDITION__PROPERTY_VALUES:
+        getPropertyValues().clear();
+        return;
       case VerifyPackage.VERIFICATION_CONDITION__TIMEOUT:
         setTimeout(TIMEOUT_EDEFAULT);
         return;
@@ -529,6 +563,8 @@ public class VerificationConditionImpl extends MinimalEObjectImpl.Container impl
         return method != null;
       case VerifyPackage.VERIFICATION_CONDITION__PARAMETERS:
         return parameters != null && !parameters.isEmpty();
+      case VerifyPackage.VERIFICATION_CONDITION__PROPERTY_VALUES:
+        return propertyValues != null && !propertyValues.isEmpty();
       case VerifyPackage.VERIFICATION_CONDITION__TIMEOUT:
         return timeout != TIMEOUT_EDEFAULT;
       case VerifyPackage.VERIFICATION_CONDITION__RATIONALE:

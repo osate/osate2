@@ -322,13 +322,22 @@ public interface VerifyPackage extends EPackage
   int VERIFICATION_ACTIVITY__PARAMETERS = 5;
 
   /**
+   * The feature id for the '<em><b>Property Values</b></em>' reference list.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int VERIFICATION_ACTIVITY__PROPERTY_VALUES = 6;
+
+  /**
    * The feature id for the '<em><b>Condition</b></em>' reference list.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    * @ordered
    */
-  int VERIFICATION_ACTIVITY__CONDITION = 6;
+  int VERIFICATION_ACTIVITY__CONDITION = 7;
 
   /**
    * The feature id for the '<em><b>Timeout</b></em>' attribute.
@@ -337,7 +346,7 @@ public interface VerifyPackage extends EPackage
    * @generated
    * @ordered
    */
-  int VERIFICATION_ACTIVITY__TIMEOUT = 7;
+  int VERIFICATION_ACTIVITY__TIMEOUT = 8;
 
   /**
    * The number of structural features of the '<em>Verification Activity</em>' class.
@@ -346,7 +355,7 @@ public interface VerifyPackage extends EPackage
    * @generated
    * @ordered
    */
-  int VERIFICATION_ACTIVITY_FEATURE_COUNT = 8;
+  int VERIFICATION_ACTIVITY_FEATURE_COUNT = 9;
 
   /**
    * The meta object id for the '{@link org.osate.verify.verify.impl.ArgumentExprImpl <em>Argument Expr</em>}' class.
@@ -451,13 +460,22 @@ public interface VerifyPackage extends EPackage
   int VERIFICATION_METHOD__PARAMS = 1;
 
   /**
+   * The feature id for the '<em><b>Properties</b></em>' reference list.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int VERIFICATION_METHOD__PROPERTIES = 2;
+
+  /**
    * The feature id for the '<em><b>Is Predicate</b></em>' attribute.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    * @ordered
    */
-  int VERIFICATION_METHOD__IS_PREDICATE = 2;
+  int VERIFICATION_METHOD__IS_PREDICATE = 3;
 
   /**
    * The feature id for the '<em><b>Is Result Report</b></em>' attribute.
@@ -466,7 +484,7 @@ public interface VerifyPackage extends EPackage
    * @generated
    * @ordered
    */
-  int VERIFICATION_METHOD__IS_RESULT_REPORT = 3;
+  int VERIFICATION_METHOD__IS_RESULT_REPORT = 4;
 
   /**
    * The feature id for the '<em><b>Title</b></em>' attribute.
@@ -475,7 +493,7 @@ public interface VerifyPackage extends EPackage
    * @generated
    * @ordered
    */
-  int VERIFICATION_METHOD__TITLE = 4;
+  int VERIFICATION_METHOD__TITLE = 5;
 
   /**
    * The feature id for the '<em><b>Method Type</b></em>' containment reference.
@@ -484,7 +502,7 @@ public interface VerifyPackage extends EPackage
    * @generated
    * @ordered
    */
-  int VERIFICATION_METHOD__METHOD_TYPE = 5;
+  int VERIFICATION_METHOD__METHOD_TYPE = 6;
 
   /**
    * The feature id for the '<em><b>Description</b></em>' containment reference.
@@ -493,7 +511,7 @@ public interface VerifyPackage extends EPackage
    * @generated
    * @ordered
    */
-  int VERIFICATION_METHOD__DESCRIPTION = 6;
+  int VERIFICATION_METHOD__DESCRIPTION = 7;
 
   /**
    * The feature id for the '<em><b>Condition</b></em>' containment reference.
@@ -502,7 +520,7 @@ public interface VerifyPackage extends EPackage
    * @generated
    * @ordered
    */
-  int VERIFICATION_METHOD__CONDITION = 7;
+  int VERIFICATION_METHOD__CONDITION = 8;
 
   /**
    * The feature id for the '<em><b>Category</b></em>' reference list.
@@ -511,7 +529,7 @@ public interface VerifyPackage extends EPackage
    * @generated
    * @ordered
    */
-  int VERIFICATION_METHOD__CATEGORY = 8;
+  int VERIFICATION_METHOD__CATEGORY = 9;
 
   /**
    * The number of structural features of the '<em>Verification Method</em>' class.
@@ -520,7 +538,7 @@ public interface VerifyPackage extends EPackage
    * @generated
    * @ordered
    */
-  int VERIFICATION_METHOD_FEATURE_COUNT = 9;
+  int VERIFICATION_METHOD_FEATURE_COUNT = 10;
 
   /**
    * The meta object id for the '{@link org.osate.verify.verify.impl.MethodTypeImpl <em>Method Type</em>}' class.
@@ -709,13 +727,22 @@ public interface VerifyPackage extends EPackage
   int VERIFICATION_CONDITION__PARAMETERS = 4;
 
   /**
+   * The feature id for the '<em><b>Property Values</b></em>' reference list.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int VERIFICATION_CONDITION__PROPERTY_VALUES = 5;
+
+  /**
    * The feature id for the '<em><b>Timeout</b></em>' attribute.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    * @ordered
    */
-  int VERIFICATION_CONDITION__TIMEOUT = 5;
+  int VERIFICATION_CONDITION__TIMEOUT = 6;
 
   /**
    * The feature id for the '<em><b>Rationale</b></em>' containment reference.
@@ -724,7 +751,7 @@ public interface VerifyPackage extends EPackage
    * @generated
    * @ordered
    */
-  int VERIFICATION_CONDITION__RATIONALE = 6;
+  int VERIFICATION_CONDITION__RATIONALE = 7;
 
   /**
    * The number of structural features of the '<em>Verification Condition</em>' class.
@@ -733,7 +760,7 @@ public interface VerifyPackage extends EPackage
    * @generated
    * @ordered
    */
-  int VERIFICATION_CONDITION_FEATURE_COUNT = 7;
+  int VERIFICATION_CONDITION_FEATURE_COUNT = 8;
 
   /**
    * The meta object id for the '{@link org.osate.verify.verify.impl.ThenExprImpl <em>Then Expr</em>}' class.
@@ -948,6 +975,15 @@ public interface VerifyPackage extends EPackage
   int VERIFICATION_VALIDATION__PARAMETERS = VERIFICATION_CONDITION__PARAMETERS;
 
   /**
+   * The feature id for the '<em><b>Property Values</b></em>' reference list.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int VERIFICATION_VALIDATION__PROPERTY_VALUES = VERIFICATION_CONDITION__PROPERTY_VALUES;
+
+  /**
    * The feature id for the '<em><b>Timeout</b></em>' attribute.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -1028,6 +1064,15 @@ public interface VerifyPackage extends EPackage
    * @ordered
    */
   int VERIFICATION_PRECONDITION__PARAMETERS = VERIFICATION_CONDITION__PARAMETERS;
+
+  /**
+   * The feature id for the '<em><b>Property Values</b></em>' reference list.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int VERIFICATION_PRECONDITION__PROPERTY_VALUES = VERIFICATION_CONDITION__PROPERTY_VALUES;
 
   /**
    * The feature id for the '<em><b>Timeout</b></em>' attribute.
@@ -1340,6 +1385,17 @@ public interface VerifyPackage extends EPackage
   EReference getVerificationActivity_Parameters();
 
   /**
+   * Returns the meta object for the reference list '{@link org.osate.verify.verify.VerificationActivity#getPropertyValues <em>Property Values</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the reference list '<em>Property Values</em>'.
+   * @see org.osate.verify.verify.VerificationActivity#getPropertyValues()
+   * @see #getVerificationActivity()
+   * @generated
+   */
+  EReference getVerificationActivity_PropertyValues();
+
+  /**
    * Returns the meta object for the reference list '{@link org.osate.verify.verify.VerificationActivity#getCondition <em>Condition</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -1456,6 +1512,17 @@ public interface VerifyPackage extends EPackage
    * @generated
    */
   EReference getVerificationMethod_Params();
+
+  /**
+   * Returns the meta object for the reference list '{@link org.osate.verify.verify.VerificationMethod#getProperties <em>Properties</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the reference list '<em>Properties</em>'.
+   * @see org.osate.verify.verify.VerificationMethod#getProperties()
+   * @see #getVerificationMethod()
+   * @generated
+   */
+  EReference getVerificationMethod_Properties();
 
   /**
    * Returns the meta object for the attribute '{@link org.osate.verify.verify.VerificationMethod#isIsPredicate <em>Is Predicate</em>}'.
@@ -1692,6 +1759,17 @@ public interface VerifyPackage extends EPackage
    * @generated
    */
   EReference getVerificationCondition_Parameters();
+
+  /**
+   * Returns the meta object for the reference list '{@link org.osate.verify.verify.VerificationCondition#getPropertyValues <em>Property Values</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the reference list '<em>Property Values</em>'.
+   * @see org.osate.verify.verify.VerificationCondition#getPropertyValues()
+   * @see #getVerificationCondition()
+   * @generated
+   */
+  EReference getVerificationCondition_PropertyValues();
 
   /**
    * Returns the meta object for the attribute '{@link org.osate.verify.verify.VerificationCondition#getTimeout <em>Timeout</em>}'.
@@ -2114,6 +2192,14 @@ public interface VerifyPackage extends EPackage
     EReference VERIFICATION_ACTIVITY__PARAMETERS = eINSTANCE.getVerificationActivity_Parameters();
 
     /**
+     * The meta object literal for the '<em><b>Property Values</b></em>' reference list feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EReference VERIFICATION_ACTIVITY__PROPERTY_VALUES = eINSTANCE.getVerificationActivity_PropertyValues();
+
+    /**
      * The meta object literal for the '<em><b>Condition</b></em>' reference list feature.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
@@ -2206,6 +2292,14 @@ public interface VerifyPackage extends EPackage
      * @generated
      */
     EReference VERIFICATION_METHOD__PARAMS = eINSTANCE.getVerificationMethod_Params();
+
+    /**
+     * The meta object literal for the '<em><b>Properties</b></em>' reference list feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EReference VERIFICATION_METHOD__PROPERTIES = eINSTANCE.getVerificationMethod_Properties();
 
     /**
      * The meta object literal for the '<em><b>Is Predicate</b></em>' attribute feature.
@@ -2394,6 +2488,14 @@ public interface VerifyPackage extends EPackage
      * @generated
      */
     EReference VERIFICATION_CONDITION__PARAMETERS = eINSTANCE.getVerificationCondition_Parameters();
+
+    /**
+     * The meta object literal for the '<em><b>Property Values</b></em>' reference list feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EReference VERIFICATION_CONDITION__PROPERTY_VALUES = eINSTANCE.getVerificationCondition_PropertyValues();
 
     /**
      * The meta object literal for the '<em><b>Timeout</b></em>' attribute feature.

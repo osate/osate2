@@ -41,14 +41,20 @@ Claim:
 
 
 VerificationActivity:
-	name=ID  ( ':' title=STRING)? 
-	('for' target=[aadl2::ComponentImplementation|AadlClassifierReference])? // for specific AADL model configuration
-	':' (
-		( result+=[common::ComputeDeclaration|ID] (',' result+=[common::ComputeDeclaration|ID])* '=')?
-	   method=[VerificationMethod|QualifiedName] '(' (parameters+=[xbase::XExpression| ID] (',' parameters+=[xbase::XExpression| ID])*)?')'
-	('when' condition+=[categories::SelectionCategory|ID]+)?
-	('timeout' timeout=INT)? 
-)
+	name=ID (':' title=STRING)? 
+	(
+		'for' target=[aadl2::ComponentImplementation|AadlClassifierReference])? // for specific AADL model configuration
+		':'
+		(result+=[common::ComputeDeclaration|ID] (',' result+=[common::ComputeDeclaration|ID])* '=')?
+		method=[VerificationMethod|QualifiedName] 
+		'(' (parameters+=[xbase::XExpression| ID] (',' parameters+=[xbase::XExpression| ID])*)? ')' 
+		(
+			'property' 'values' '(' 
+			(propertyValues+=[xbase::XExpression|ID] (',' propertyValues+=[xbase::XExpression|ID])*)? 
+			')'
+		)?
+		('when' condition+=[categories::SelectionCategory|ID]+)?
+		('timeout' timeout=INT)?
 	;
 
 ArgumentExpr:
@@ -106,18 +112,26 @@ VerificationMethodRegistry returns VerificationMethodRegistry:
 	']';
 
 VerificationMethod:
-	'method' name=ID ('(' (params+=FullJvmFormalParameter (',' params+=FullJvmFormalParameter)*)? ')' 
+	'method' name=ID
+	(
+		'(' (params+=FullJvmFormalParameter (',' params+=FullJvmFormalParameter)*)? ')'
+		(
+			'properties' '('
+			(properties+=[aadl2::Property|AADLPROPERTYREFERENCE] (',' properties+=[aadl2::Property|AADLPROPERTYREFERENCE])*)? 
+			')'
+		)?
 		(isPredicate?='boolean'|isResultReport?='report')?
 	)? 
 	(':' title=STRING)?
 	'['
 	(
-	methodType=MethodType 
-	& description=Description?
-	& condition=VerificationCondition?
-	& ('category' category+=[categories::VerificationCategory|ID]+)?
+		  methodType=MethodType 
+		& description=Description?
+		& condition=VerificationCondition?
+		& ('category' category+=[categories::VerificationCategory|ID]+)?
 	)
-	']';
+	']'
+	;
 
 MethodType:
 	ResoluteMethod | JavaMethod | ManualMethod | PluginMethod
@@ -142,15 +156,25 @@ MethodType:
 
 VerificationCondition:
 	('validation' {VerificationValidation} | 'precondition' {VerificationPrecondition}) 
- 	 name=ID
+	name=ID
 	(':' title=STRING)?
-	'[' (
-	 ( description=Description)?
-	 &  (method=[VerificationMethod|QualifiedName] '(' (parameters+=[xbase::XExpression| ID] (',' parameters+=[xbase::XExpression| ID])*)?')'
-	('timeout' timeout=INT)?)
-	& rationale=Rationale?
+	'[' 
+	(
+		  description=Description?
+		& (
+			method=[VerificationMethod|QualifiedName] 
+			'(' (parameters+=[xbase::XExpression|ID] (',' parameters+=[xbase::XExpression| ID])*)? ')'
+			(
+				'property' 'values' '(' 
+				(propertyValues+=[xbase::XExpression|ID] (',' propertyValues+=[xbase::XExpression|ID])*)? 
+				')'
+			)?
+			('timeout' timeout=INT)?
+		)
+		& rationale=Rationale?
 	)
-	']';
+	']'
+	;
 
 
 	

@@ -42,6 +42,7 @@ import org.osate.verify.verify.VerifyPackage;
  *   <li>{@link org.osate.verify.verify.impl.VerificationActivityImpl#getResult <em>Result</em>}</li>
  *   <li>{@link org.osate.verify.verify.impl.VerificationActivityImpl#getMethod <em>Method</em>}</li>
  *   <li>{@link org.osate.verify.verify.impl.VerificationActivityImpl#getParameters <em>Parameters</em>}</li>
+ *   <li>{@link org.osate.verify.verify.impl.VerificationActivityImpl#getPropertyValues <em>Property Values</em>}</li>
  *   <li>{@link org.osate.verify.verify.impl.VerificationActivityImpl#getCondition <em>Condition</em>}</li>
  *   <li>{@link org.osate.verify.verify.impl.VerificationActivityImpl#getTimeout <em>Timeout</em>}</li>
  * </ul>
@@ -130,6 +131,16 @@ public class VerificationActivityImpl extends MinimalEObjectImpl.Container imple
    * @ordered
    */
   protected EList<XExpression> parameters;
+
+  /**
+   * The cached value of the '{@link #getPropertyValues() <em>Property Values</em>}' reference list.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see #getPropertyValues()
+   * @generated
+   * @ordered
+   */
+  protected EList<XExpression> propertyValues;
 
   /**
    * The cached value of the '{@link #getCondition() <em>Condition</em>}' reference list.
@@ -347,6 +358,20 @@ public class VerificationActivityImpl extends MinimalEObjectImpl.Container imple
    * <!-- end-user-doc -->
    * @generated
    */
+  public EList<XExpression> getPropertyValues()
+  {
+    if (propertyValues == null)
+    {
+      propertyValues = new EObjectResolvingEList<XExpression>(XExpression.class, this, VerifyPackage.VERIFICATION_ACTIVITY__PROPERTY_VALUES);
+    }
+    return propertyValues;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
   public EList<SelectionCategory> getCondition()
   {
     if (condition == null)
@@ -403,6 +428,8 @@ public class VerificationActivityImpl extends MinimalEObjectImpl.Container imple
         return basicGetMethod();
       case VerifyPackage.VERIFICATION_ACTIVITY__PARAMETERS:
         return getParameters();
+      case VerifyPackage.VERIFICATION_ACTIVITY__PROPERTY_VALUES:
+        return getPropertyValues();
       case VerifyPackage.VERIFICATION_ACTIVITY__CONDITION:
         return getCondition();
       case VerifyPackage.VERIFICATION_ACTIVITY__TIMEOUT:
@@ -441,6 +468,10 @@ public class VerificationActivityImpl extends MinimalEObjectImpl.Container imple
       case VerifyPackage.VERIFICATION_ACTIVITY__PARAMETERS:
         getParameters().clear();
         getParameters().addAll((Collection<? extends XExpression>)newValue);
+        return;
+      case VerifyPackage.VERIFICATION_ACTIVITY__PROPERTY_VALUES:
+        getPropertyValues().clear();
+        getPropertyValues().addAll((Collection<? extends XExpression>)newValue);
         return;
       case VerifyPackage.VERIFICATION_ACTIVITY__CONDITION:
         getCondition().clear();
@@ -481,6 +512,9 @@ public class VerificationActivityImpl extends MinimalEObjectImpl.Container imple
       case VerifyPackage.VERIFICATION_ACTIVITY__PARAMETERS:
         getParameters().clear();
         return;
+      case VerifyPackage.VERIFICATION_ACTIVITY__PROPERTY_VALUES:
+        getPropertyValues().clear();
+        return;
       case VerifyPackage.VERIFICATION_ACTIVITY__CONDITION:
         getCondition().clear();
         return;
@@ -513,6 +547,8 @@ public class VerificationActivityImpl extends MinimalEObjectImpl.Container imple
         return method != null;
       case VerifyPackage.VERIFICATION_ACTIVITY__PARAMETERS:
         return parameters != null && !parameters.isEmpty();
+      case VerifyPackage.VERIFICATION_ACTIVITY__PROPERTY_VALUES:
+        return propertyValues != null && !propertyValues.isEmpty();
       case VerifyPackage.VERIFICATION_ACTIVITY__CONDITION:
         return condition != null && !condition.isEmpty();
       case VerifyPackage.VERIFICATION_ACTIVITY__TIMEOUT:
