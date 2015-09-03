@@ -51,6 +51,9 @@ class ReqSpecUtilExtension {
 
 	def static IScope scopeForValComputeReq(Requirement req, IScope parentscope) {
 		var result = parentscope
+			for (r : req.decomposesReference) {
+				result = scopeForValComputeReq(r, result)
+			}
 		for (r : req.refinesReference) {
 			result = scopeForValComputeReq(r, result)
 		}
@@ -112,6 +115,9 @@ class ReqSpecUtilExtension {
 		 */
 		def static IScope scopeForValReq(Requirement req, IScope parentscope) {
 			var result = parentscope
+			for (r : req.decomposesReference) {
+				result = scopeForValReq(r, result)
+			}
 			for (r : req.refinesReference) {
 				result = scopeForValReq(r, result)
 			}
