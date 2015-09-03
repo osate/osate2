@@ -18,17 +18,18 @@ import org.osate.ge.Activator;
 
 public class DistributeVerticallyAction extends SelectionAction {
 	private AgeDiagramEditor editor;
-	private PictogramElement[] pes;
-	private MoveShapeContext moveContext;	
-	private IMoveShapeFeature moveFeature;
-	private ArrayList<MoveShapeContext> moveContextList = new ArrayList<MoveShapeContext>();
 	private IFeatureProvider fp;
+	private PictogramElement[] pes;
+	private IMoveShapeFeature moveFeature;
+	private final ArrayList<MoveShapeContext> moveContextList = new ArrayList<MoveShapeContext>();
 	public final static String DISTRIBUTE_VERTICALLY = "org.osate.ge.ui.editor.items.distribute_vertically";
 	public static final ImageDescriptor verticalImageDescriptor = Activator.getImageDescriptor("icons/DistributeVertically.gif");
 	public static final ImageDescriptor verticalDisabledImageDescriptor = Activator.getImageDescriptor("icons/DistributeVertically_Disabled.gif");
-	protected DistributeVerticallyAction(final IWorkbenchPart part) {
+	
+	public DistributeVerticallyAction(final IWorkbenchPart part) {
 		super(part);
 		this.editor = (AgeDiagramEditor)part;
+		this.fp = editor.getDiagramTypeProvider().getFeatureProvider();
 		setHoverImageDescriptor(verticalImageDescriptor);
 		setDisabledImageDescriptor(verticalDisabledImageDescriptor);
 		setId(DISTRIBUTE_VERTICALLY);
@@ -44,7 +45,7 @@ public class DistributeVerticallyAction extends SelectionAction {
 					for (MoveShapeContext moveContext : moveContextList) {
 						moveFeature.moveShape(moveContext);
 					}
-					PictogramElement[] pes = new PictogramElement[0];
+					final PictogramElement[] pes = new PictogramElement[0];
 					editor.selectPictogramElements(pes);
 				}
 			});
@@ -83,14 +84,13 @@ public class DistributeVerticallyAction extends SelectionAction {
 				for(int i=1;i<arrayLength;i++) {
 					final Shape s = (Shape)pes[i];
 					final int yValue = pes[i-1].getGraphicsAlgorithm().getY()+pes[i-1].getGraphicsAlgorithm().getHeight()+yDistribution;
-					moveContext = new MoveShapeContext(s);
+					final MoveShapeContext moveContext = new MoveShapeContext(s);
 					moveContext.setLocation(pes[i].getGraphicsAlgorithm().getX(), yValue);
 					moveContext.setSourceContainer(s.getContainer());
 					moveContext.setTargetContainer(s.getContainer());
 					moveContext.setDeltaX(pes[i].getGraphicsAlgorithm().getX());
 					moveContext.setDeltaY(yValue);
 					moveFeature = editor.getDiagramTypeProvider().getFeatureProvider().getMoveShapeFeature(moveContext);
-					fp = editor.getDiagramTypeProvider().getFeatureProvider();
 					moveFeature = fp.getMoveShapeFeature(moveContext);
 					if (moveFeature != null && moveFeature.canMoveShape(moveContext)) {
 						moveContextList.add(moveContext);
