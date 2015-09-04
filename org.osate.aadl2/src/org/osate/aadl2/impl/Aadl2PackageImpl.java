@@ -8836,6 +8836,16 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 	 * @generated
 	 */
 	@Override
+	public EReference getRangeType_ReferencedNumberType() {
+		return (EReference) rangeTypeEClass.getEStructuralFeatures().get(2);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
 	public EClass getRecordType() {
 		return recordTypeEClass;
 	}
@@ -10004,6 +10014,7 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 		rangeTypeEClass = createEClass(RANGE_TYPE);
 		createEReference(rangeTypeEClass, RANGE_TYPE__OWNED_NUMBER_TYPE);
 		createEReference(rangeTypeEClass, RANGE_TYPE__NUMBER_TYPE);
+		createEReference(rangeTypeEClass, RANGE_TYPE__REFERENCED_NUMBER_TYPE);
 
 		recordTypeEClass = createEClass(RECORD_TYPE);
 		createEReference(recordTypeEClass, RECORD_TYPE__OWNED_FIELD);
@@ -12674,8 +12685,11 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 				RangeType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES,
 				!IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, !IS_ORDERED);
 		initEReference(getRangeType_NumberType(), getNumberType(), null, "numberType", null, 1, 1, RangeType.class,
-				!IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE,
-				IS_UNIQUE, !IS_DERIVED, !IS_ORDERED);
+				IS_TRANSIENT, IS_VOLATILE, !IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE,
+				IS_UNIQUE, IS_DERIVED, !IS_ORDERED);
+		initEReference(getRangeType_ReferencedNumberType(), getNumberType(), null, "referencedNumberType", null, 0, 1,
+				RangeType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES,
+				!IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, !IS_ORDERED);
 
 		initEClass(recordTypeEClass, RecordType.class, "RecordType", !IS_ABSTRACT, !IS_INTERFACE,
 				IS_GENERATED_INSTANCE_CLASS);
@@ -13369,6 +13383,8 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 		addAnnotation(getEnumerationType_OwnedLiteral(), source, new String[] {}, new URI[] { URI.createURI(eNS_URI)
 				.appendFragment("//Namespace/ownedMember") });
 		addAnnotation(getRangeType_OwnedNumberType(), source, new String[] {}, new URI[] { URI.createURI(eNS_URI)
+				.appendFragment("//RangeType/numberType") });
+		addAnnotation(getRangeType_ReferencedNumberType(), source, new String[] {}, new URI[] { URI.createURI(eNS_URI)
 				.appendFragment("//RangeType/numberType") });
 		addAnnotation(getRecordType_OwnedField(), source, new String[] {}, new URI[] { URI.createURI(eNS_URI)
 				.appendFragment("//Namespace/ownedMember") });

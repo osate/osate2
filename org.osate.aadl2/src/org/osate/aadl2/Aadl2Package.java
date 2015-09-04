@@ -35185,13 +35185,22 @@ public interface Aadl2Package extends EPackage {
 	int RANGE_TYPE__NUMBER_TYPE = NON_LIST_TYPE_FEATURE_COUNT + 1;
 
 	/**
+	 * The feature id for the '<em><b>Referenced Number Type</b></em>' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int RANGE_TYPE__REFERENCED_NUMBER_TYPE = NON_LIST_TYPE_FEATURE_COUNT + 2;
+
+	/**
 	 * The number of structural features of the '<em>Range Type</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int RANGE_TYPE_FEATURE_COUNT = NON_LIST_TYPE_FEATURE_COUNT + 2;
+	int RANGE_TYPE_FEATURE_COUNT = NON_LIST_TYPE_FEATURE_COUNT + 3;
 
 	/**
 	 * The meta object id for the '{@link org.osate.aadl2.impl.RecordTypeImpl <em>Record Type</em>}' class.
@@ -42890,6 +42899,17 @@ public interface Aadl2Package extends EPackage {
 	 * @generated
 	 */
 	EReference getRangeType_NumberType();
+
+	/**
+	 * Returns the meta object for the reference '{@link org.osate.aadl2.RangeType#getReferencedNumberType <em>Referenced Number Type</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the reference '<em>Referenced Number Type</em>'.
+	 * @see org.osate.aadl2.RangeType#getReferencedNumberType()
+	 * @see #getRangeType()
+	 * @generated
+	 */
+	EReference getRangeType_ReferencedNumberType();
 
 	/**
 	 * Returns the meta object for class '{@link org.osate.aadl2.RecordType <em>Record Type</em>}'.

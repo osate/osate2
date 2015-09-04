@@ -2761,7 +2761,7 @@ public abstract class AbstractAadl2SemanticSequencer extends PropertiesSemanticS
 	
 	/**
 	 * Constraint:
-	 *     (name=ID (ownedNumberType=UnnamedIntegerType | ownedNumberType=UnnamedRealType | numberType=[NumberType|QPREF]))
+	 *     (name=ID (ownedNumberType=UnnamedIntegerType | ownedNumberType=UnnamedRealType | referencedNumberType=[NumberType|QPREF]))
 	 */
 	protected void sequence_RangeType(EObject context, RangeType semanticObject) {
 		genericSequencer.createSequence(context, (EObject)semanticObject);
@@ -3497,7 +3497,7 @@ public abstract class AbstractAadl2SemanticSequencer extends PropertiesSemanticS
 	
 	/**
 	 * Constraint:
-	 *     (ownedNumberType=UnnamedIntegerType | ownedNumberType=UnnamedRealType | numberType=[NumberType|QPREF])
+	 *     (ownedNumberType=UnnamedIntegerType | ownedNumberType=UnnamedRealType | referencedNumberType=[NumberType|QPREF])
 	 */
 	protected void sequence_UnnamedRangeType(EObject context, RangeType semanticObject) {
 		genericSequencer.createSequence(context, (EObject)semanticObject);

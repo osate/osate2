@@ -16887,9 +16887,9 @@ rule__RangeType__Alternatives_5
 )
 
     |(
-{ before(grammarAccess.getRangeTypeAccess().getNumberTypeAssignment_5_1()); }
-(rule__RangeType__NumberTypeAssignment_5_1)
-{ after(grammarAccess.getRangeTypeAccess().getNumberTypeAssignment_5_1()); }
+{ before(grammarAccess.getRangeTypeAccess().getReferencedNumberTypeAssignment_5_1()); }
+(rule__RangeType__ReferencedNumberTypeAssignment_5_1)
+{ after(grammarAccess.getRangeTypeAccess().getReferencedNumberTypeAssignment_5_1()); }
 )
 
 ;
@@ -16931,9 +16931,9 @@ rule__UnnamedRangeType__Alternatives_3
 )
 
     |(
-{ before(grammarAccess.getUnnamedRangeTypeAccess().getNumberTypeAssignment_3_1()); }
-(rule__UnnamedRangeType__NumberTypeAssignment_3_1)
-{ after(grammarAccess.getUnnamedRangeTypeAccess().getNumberTypeAssignment_3_1()); }
+{ before(grammarAccess.getUnnamedRangeTypeAccess().getReferencedNumberTypeAssignment_3_1()); }
+(rule__UnnamedRangeType__ReferencedNumberTypeAssignment_3_1)
+{ after(grammarAccess.getUnnamedRangeTypeAccess().getReferencedNumberTypeAssignment_3_1()); }
 )
 
 ;
@@ -139802,18 +139802,18 @@ finally {
 	restoreStackSize(stackSize);
 }
 
-rule__RangeType__NumberTypeAssignment_5_1
+rule__RangeType__ReferencedNumberTypeAssignment_5_1
     @init {
 		int stackSize = keepStackSize();
     }
 :
 (
-{ before(grammarAccess.getRangeTypeAccess().getNumberTypeNumberTypeCrossReference_5_1_0()); }
+{ before(grammarAccess.getRangeTypeAccess().getReferencedNumberTypeNumberTypeCrossReference_5_1_0()); }
 (
-{ before(grammarAccess.getRangeTypeAccess().getNumberTypeNumberTypeQPREFParserRuleCall_5_1_0_1()); }
-	ruleQPREF{ after(grammarAccess.getRangeTypeAccess().getNumberTypeNumberTypeQPREFParserRuleCall_5_1_0_1()); }
+{ before(grammarAccess.getRangeTypeAccess().getReferencedNumberTypeNumberTypeQPREFParserRuleCall_5_1_0_1()); }
+	ruleQPREF{ after(grammarAccess.getRangeTypeAccess().getReferencedNumberTypeNumberTypeQPREFParserRuleCall_5_1_0_1()); }
 )
-{ after(grammarAccess.getRangeTypeAccess().getNumberTypeNumberTypeCrossReference_5_1_0()); }
+{ after(grammarAccess.getRangeTypeAccess().getReferencedNumberTypeNumberTypeCrossReference_5_1_0()); }
 )
 
 ;
@@ -139837,18 +139837,18 @@ finally {
 	restoreStackSize(stackSize);
 }
 
-rule__UnnamedRangeType__NumberTypeAssignment_3_1
+rule__UnnamedRangeType__ReferencedNumberTypeAssignment_3_1
     @init {
 		int stackSize = keepStackSize();
     }
 :
 (
-{ before(grammarAccess.getUnnamedRangeTypeAccess().getNumberTypeNumberTypeCrossReference_3_1_0()); }
+{ before(grammarAccess.getUnnamedRangeTypeAccess().getReferencedNumberTypeNumberTypeCrossReference_3_1_0()); }
 (
-{ before(grammarAccess.getUnnamedRangeTypeAccess().getNumberTypeNumberTypeQPREFParserRuleCall_3_1_0_1()); }
-	ruleQPREF{ after(grammarAccess.getUnnamedRangeTypeAccess().getNumberTypeNumberTypeQPREFParserRuleCall_3_1_0_1()); }
+{ before(grammarAccess.getUnnamedRangeTypeAccess().getReferencedNumberTypeNumberTypeQPREFParserRuleCall_3_1_0_1()); }
+	ruleQPREF{ after(grammarAccess.getUnnamedRangeTypeAccess().getReferencedNumberTypeNumberTypeQPREFParserRuleCall_3_1_0_1()); }
 )
-{ after(grammarAccess.getUnnamedRangeTypeAccess().getNumberTypeNumberTypeCrossReference_3_1_0()); }
+{ after(grammarAccess.getUnnamedRangeTypeAccess().getReferencedNumberTypeNumberTypeCrossReference_3_1_0()); }
 )
 
 ;

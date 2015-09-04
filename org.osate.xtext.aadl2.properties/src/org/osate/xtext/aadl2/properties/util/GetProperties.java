@@ -47,6 +47,8 @@ import org.osate.aadl2.Classifier;
 import org.osate.aadl2.ClassifierValue;
 import org.osate.aadl2.ComponentClassifier;
 import org.osate.aadl2.ComponentImplementation;
+import org.osate.aadl2.DataImplementation;
+import org.osate.aadl2.DataSubcomponent;
 import org.osate.aadl2.Element;
 import org.osate.aadl2.EnumerationLiteral;
 import org.osate.aadl2.EnumerationType;
@@ -70,6 +72,7 @@ import org.osate.aadl2.impl.BooleanLiteralImpl;
 import org.osate.aadl2.impl.ClassifierValueImpl;
 import org.osate.aadl2.instance.ComponentInstance;
 import org.osate.aadl2.instance.ConnectionInstance;
+import org.osate.aadl2.instance.FeatureInstance;
 import org.osate.aadl2.instance.InstanceObject;
 import org.osate.aadl2.instance.InstanceReferenceValue;
 import org.osate.aadl2.properties.PropertyAcc;
@@ -1043,6 +1046,20 @@ public class GetProperties {
 		}
 	}
 
+	public static String getConcurrencyControlProtocol(final NamedElement ne) {
+		try {
+			Property concurrencyControlProtocol = lookupPropertyDefinition(ne, ThreadProperties._NAME,
+					DeploymentProperties.SCHEDULING_PROTOCOL);
+			List<? extends PropertyExpression> propertyValues = ne.getPropertyValueList(concurrencyControlProtocol);
+			for (PropertyExpression propertyExpression : propertyValues) {
+				return ((EnumerationLiteral) ((NamedValue) propertyExpression).getNamedValue()).getName();
+			}
+			return null;
+		} catch (PropertyLookupException e) {
+			return null;
+		}
+	}
+
 	public static EnumerationLiteral getDispatchProtocol(final NamedElement ne) {
 		try {
 			Property dispatchProtocol = lookupPropertyDefinition(ne, ThreadProperties._NAME,
@@ -1086,14 +1103,32 @@ public class GetProperties {
 		Property SourceDataSize = lookupPropertyDefinition(ne, MemoryProperties._NAME,
 				MemoryProperties.SOURCE_DATA_SIZE);
 		double res = PropertyUtils.getScaledNumberValue(ne, SourceDataSize, unit, 0.0);
-		if (res == 0.0 && ne instanceof FeatureGroupType) {
-			EList fl = ((FeatureGroupType) ne).getAllFeatures();
-			for (Object f : fl) {
-				Classifier c = ((Feature) f).getAllClassifier();
-				if (c == null) {
-//						res = res + 1.0;
-				} else {
-					res = res + getSourceDataSize(c, unit);
+		if (res == 0.0) {
+			Classifier cl = null;
+			if (ne instanceof Classifier) {
+				cl = (Classifier) ne;
+			} else if (ne instanceof FeatureInstance) {
+				cl = ((FeatureInstance) ne).getFeature().getClassifier();
+			} else if (ne instanceof Feature) {
+				cl = ((Feature) ne).getClassifier();
+			} else if (ne instanceof DataSubcomponent) {
+				cl = ((DataSubcomponent) ne).getClassifier();
+			}
+			if (cl != null) {
+				if (cl instanceof FeatureGroupType) {
+					EList fl = ((FeatureGroupType) cl).getAllFeatures();
+					for (Object f : fl) {
+						Classifier c = ((Feature) f).getAllClassifier();
+						if (c == null) {
+//							res = res + 1.0;
+						} else {
+							res = res + getSourceDataSize(c, unit);
+						}
+					}
+				} else if (cl instanceof DataImplementation) {
+					for (Subcomponent ds : ((DataImplementation) cl).getAllSubcomponents()) {
+						res = res + getSourceDataSize(ds, unit);
+					}
 				}
 			}
 		}
@@ -1328,7 +1363,7 @@ public class GetProperties {
 
 	public static String getMeasurementUnit(final NamedElement ne) {
 		Property mUnit = lookupPropertyDefinition(ne, DataModel._NAME, DataModel.MEASUREMENT_UNIT);
-		String propertyValue = PropertyUtils.getStringValue(ne, mUnit);
+		String propertyValue = PropertyUtils.getStringValue(ne, mUnit, "");
 		return propertyValue;
 	}
 
@@ -1496,6 +1531,83 @@ public class GetProperties {
 			components.add((ComponentClassifier) ((ClassifierValue) propertyExpression).getClassifier());
 		}
 		return components;
+	}
+
+	public static EnumerationLiteral getDataRepresentation(final NamedElement ne) {
+		try {
+			Property dataRepresentation = lookupPropertyDefinition(ne, DataModel._NAME, DataModel.Data_Representation);
+			return PropertyUtils.getEnumLiteral(ne, dataRepresentation);
+		} catch (final PropertyLookupException e) {
+			return null;
+		}
+	}
+
+	public static RangeValue getDataIntegerRange(final NamedElement ne) {
+		try {
+			Property integerRange = lookupPropertyDefinition(ne, DataModel._NAME, DataModel.INTEGER_RANGE);
+			return (RangeValue) ne.getSimplePropertyValue(integerRange);
+		} catch (final PropertyLookupException e) {
+			return null;
+		}
+	}
+
+	public static RangeValue getDataRealRange(final NamedElement ne) {
+		try {
+			Property realRange = lookupPropertyDefinition(ne, DataModel._NAME, DataModel.REAL_RANGE);
+			return (RangeValue) ne.getSimplePropertyValue(realRange);
+		} catch (final PropertyLookupException e) {
+			return null;
+		}
+	}
+
+	public static double getMaxDataRate(RecordValue rate) {
+		BasicPropertyAssociation vr = GetProperties.getRecordField(rate.getOwnedFieldValues(), "Value_Range");
+		if (vr == null)
+			return 0;
+		RangeValue rv = (RangeValue) vr.getOwnedValue();
+		PropertyExpression maximum = rv.getMaximum().evaluate(null).first().getValue();
+		return ((NumberValue) maximum).getScaledValue();
+	}
+
+	public static double getMinDataRate(RecordValue rate) {
+		BasicPropertyAssociation vr = GetProperties.getRecordField(rate.getOwnedFieldValues(), "Value_Range");
+		if (vr == null)
+			return 0;
+		RangeValue rv = (RangeValue) vr.getOwnedValue();
+		PropertyExpression minimum = rv.getMinimum().evaluate(null).first().getValue();
+		return ((NumberValue) minimum).getScaledValue();
+	}
+
+	public static double getSEIDataRate(NamedElement ne) {
+		Property dr = GetProperties.lookupPropertyDefinition(ne, SEI._NAME, SEI.DATA_RATE);
+		if (dr == null)
+			return 0;
+		return PropertyUtils.getRealValue(ne, dr, 0.0);
+	}
+
+	public static double getDataRate(final NamedElement ne) {
+		double res = GetProperties.getSEIDataRate(ne);
+		if (res > 0) {
+			return res;
+		}
+		RecordValue rec = GetProperties.getOutPutRate(ne);
+		if (rec != null) {
+			res = GetProperties.getMaxDataRate(rec);
+			EnumerationLiteral unit = GetProperties.getRateUnit(rec);
+			if (unit == null || unit.getName().equalsIgnoreCase("PerDispatch")) {
+				double period = 0;
+				if (ne instanceof InstanceObject) {
+					period = GetProperties
+							.getPeriodInSeconds(((InstanceObject) ne).getContainingComponentInstance(), 0);
+				} else {
+					period = GetProperties.getPeriodInSeconds(ne.getContainingClassifier(), 0);
+				}
+				if (period == 0)
+					return res;
+				res = res / period;
+			}
+		}
+		return res;
 	}
 
 }

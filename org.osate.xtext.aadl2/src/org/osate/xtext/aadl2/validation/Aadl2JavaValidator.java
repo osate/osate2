@@ -676,68 +676,71 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 	public void checkWithsAreUsed(PackageSection packageSection) {
 		List<ModelUnit> importedUnits = packageSection.getImportedUnits();
 		ImportedUnitsLoop: for (ModelUnit nextImportedUnit : importedUnits) {
-			if (nextImportedUnit.equals(packageSection.eContainer())) {
-				StringBuilder errMsg = new StringBuilder(nextImportedUnit.getName());
-				errMsg.append(" in 'with' clause of ");
-				String publicOrPrivate = "public";
-				if (packageSection instanceof PrivatePackageSection) {
-					publicOrPrivate = "private";
+			if (!Aadl2Util.isNull(nextImportedUnit)) {
+				if (nextImportedUnit.equals(packageSection.eContainer())) {
+					StringBuilder errMsg = new StringBuilder(nextImportedUnit.getName());
+					errMsg.append(" in 'with' clause of ");
+					String publicOrPrivate = "public";
+					if (packageSection instanceof PrivatePackageSection) {
+						publicOrPrivate = "private";
+					}
+					errMsg.append(publicOrPrivate);
+					errMsg.append(" package section refers to the containing package and is not needed.");
+					String importedUnitURI = EcoreUtil.getURI(nextImportedUnit).toString();
+					warning(errMsg.toString(), packageSection, Aadl2Package.eINSTANCE.getPackageSection_ImportedUnit(),
+							importedUnits.indexOf(nextImportedUnit), WITH_NOT_USED, nextImportedUnit.getName(),
+							importedUnitURI);
+					continue ImportedUnitsLoop;
 				}
-				errMsg.append(publicOrPrivate);
-				errMsg.append(" package section refers to the containing package and is not needed.");
-				String importedUnitURI = EcoreUtil.getURI(nextImportedUnit).toString();
-				warning(errMsg.toString(), packageSection, Aadl2Package.eINSTANCE.getPackageSection_ImportedUnit(),
-						importedUnits.indexOf(nextImportedUnit), WITH_NOT_USED, nextImportedUnit.getName(),
-						importedUnitURI);
-				continue ImportedUnitsLoop;
-			}
-			if (AadlUtil.isPredeclaredPropertySet(nextImportedUnit.getName())) {
-				StringBuilder errMsg = new StringBuilder(nextImportedUnit.getName());
-				errMsg.append(" in 'with' clause of ");
-				String publicOrPrivate = "public";
-				if (packageSection instanceof PrivatePackageSection) {
-					publicOrPrivate = "private";
+				if (AadlUtil.isPredeclaredPropertySet(nextImportedUnit.getName())) {
+					StringBuilder errMsg = new StringBuilder(nextImportedUnit.getName());
+					errMsg.append(" in 'with' clause of ");
+					String publicOrPrivate = "public";
+					if (packageSection instanceof PrivatePackageSection) {
+						publicOrPrivate = "private";
+					}
+					errMsg.append(publicOrPrivate);
+					errMsg.append(" package section is a predeclared property set and is not needed.");
+					String importedUnitURI = EcoreUtil.getURI(nextImportedUnit).toString();
+					warning(errMsg.toString(), packageSection, Aadl2Package.eINSTANCE.getPackageSection_ImportedUnit(),
+							importedUnits.indexOf(nextImportedUnit), WITH_NOT_USED, nextImportedUnit.getName(),
+							importedUnitURI);
+					continue ImportedUnitsLoop;
+
 				}
-				errMsg.append(publicOrPrivate);
-				errMsg.append(" package section is a predeclared property set and is not needed.");
-				String importedUnitURI = EcoreUtil.getURI(nextImportedUnit).toString();
-				warning(errMsg.toString(), packageSection, Aadl2Package.eINSTANCE.getPackageSection_ImportedUnit(),
-						importedUnits.indexOf(nextImportedUnit), WITH_NOT_USED, nextImportedUnit.getName(),
-						importedUnitURI);
-				continue ImportedUnitsLoop;
 
-			}
-
-			TreeIterator<EObject> packageContents = packageSection.eAllContents();
-			while (packageContents.hasNext()) {
-				EObject nextObject = packageContents.next();
-				EList<EObject> crossReferences = nextObject.eCrossReferences();
-				for (EObject crossReference : crossReferences) {
-					EObject container = crossReference.eContainer();
-					if (nextImportedUnit.equals(container)) {
-						continue ImportedUnitsLoop;
-					} else {
-						while (container != null && !(container instanceof AadlPackage)
-								&& !(container instanceof PropertySet)) {
-							container = container.eContainer();
-							if (container.equals(nextImportedUnit)) {
-								continue ImportedUnitsLoop;
+				TreeIterator<EObject> packageContents = packageSection.eAllContents();
+				while (packageContents.hasNext()) {
+					EObject nextObject = packageContents.next();
+					EList<EObject> crossReferences = nextObject.eCrossReferences();
+					for (EObject crossReference : crossReferences) {
+						EObject container = crossReference.eContainer();
+						if (nextImportedUnit.equals(container)) {
+							continue ImportedUnitsLoop;
+						} else {
+							while (container != null && !(container instanceof AadlPackage)
+									&& !(container instanceof PropertySet)) {
+								container = container.eContainer();
+								if (container.equals(nextImportedUnit)) {
+									continue ImportedUnitsLoop;
+								}
 							}
 						}
 					}
 				}
+				StringBuilder errMsg = new StringBuilder(nextImportedUnit.getName());
+				errMsg.append(" in 'with' clause of ");
+				String publicOrPrivate = "public";
+				if (packageSection instanceof PrivatePackageSection) {
+					publicOrPrivate = "private";
+				}
+				errMsg.append(publicOrPrivate);
+				errMsg.append(" package section is not used.");
+				String importedUnitURI = EcoreUtil.getURI(nextImportedUnit).toString();
+				warning(errMsg.toString(), packageSection, Aadl2Package.eINSTANCE.getPackageSection_ImportedUnit(),
+						importedUnits.indexOf(nextImportedUnit), WITH_NOT_USED, nextImportedUnit.getName(),
+						importedUnitURI);
 			}
-			StringBuilder errMsg = new StringBuilder(nextImportedUnit.getName());
-			errMsg.append(" in 'with' clause of ");
-			String publicOrPrivate = "public";
-			if (packageSection instanceof PrivatePackageSection) {
-				publicOrPrivate = "private";
-			}
-			errMsg.append(publicOrPrivate);
-			errMsg.append(" package section is not used.");
-			String importedUnitURI = EcoreUtil.getURI(nextImportedUnit).toString();
-			warning(errMsg.toString(), packageSection, Aadl2Package.eINSTANCE.getPackageSection_ImportedUnit(),
-					importedUnits.indexOf(nextImportedUnit), WITH_NOT_USED, nextImportedUnit.getName(), importedUnitURI);
 		}
 	}
 
