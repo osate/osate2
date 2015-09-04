@@ -59,4 +59,23 @@ class AlisaQuickfixProvider extends DefaultQuickfixProvider {
 				});
 	}
 
+	/**
+	 * QuickFix for invalid verification plans in assureOwn
+	 * The issue data array is expected to have multiple data elements:
+	 * issue.getData()[Even]: The name of a invalid verification plan
+	 * issue.getData()[Odd]: The URI of the invlaid verification plan named prior
+	 */
+	@Fix(AlisaValidator.ASSURANCE_PLAN_OWN_INVALID_VERIFICATION_PLANS)
+	def public void fixInvalidOwnVerificationPlans(Issue issue, IssueResolutionAcceptor acceptor) {
+		val name = issue.getData.head
+		val vpUri = issue.getData.get(1)
+		acceptor.accept(issue, "Remove verification plan '" + name + "' from 'assure own'", null, null,
+				new ISemanticModification() {
+					override apply(EObject element, IModificationContext context) throws Exception {
+						val assurancePlan = element as AssurancePlan
+						val ResourceSet resourceSet = element.eResource().getResourceSet()
+						assurancePlan.assureOwn.remove(resourceSet.getEObject(URI.createURI(vpUri), true) as VerificationPlan)
+					}
+				});
+	}
 }
