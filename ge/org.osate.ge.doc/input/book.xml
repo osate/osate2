@@ -385,6 +385,119 @@
 				</section>
 			</section>
 			<section>
+				<title>Creating Flow Implementations and End-To-End Flows</title>
+				<para>When editing a component implementation, flow implementations and end-to-end flows can be created graphically by selecting the <emphasis>Create Flow Implementation</emphasis> and <emphasis>Create End-To-End Flow</emphasis> tools from the toolbar and following the prompts to select a series of elements from the diagram.  The dialog and colors of elements in the diagram will update as valid selections are made. The starting flow specification will be highlighted dark orange and flow elements will be highlighted purple.  The <emphasis>Undo</emphasis> button will remove the elements in the order they were selected.</para>
+			<section>
+				<title>Creating Flow Implementations</title>
+				<para>Select <emphasis>Create Flow Implementation</emphasis> from the toolbar, the dialog will appear.</para>
+				<section>
+				<title>Creating Source Flow Implementations</title>
+					<orderedlist>
+					<listitem>
+						<para>Select a valid source flow specification.</para>
+						<imageobject>
+    						<imagedata fileref="images/FlowImplSourceStep1.png" format="PNG"/>
+  						</imageobject>
+					</listitem>
+					<listitem>
+						<para>Select a valid subcomponent flow specification, subcomponent, or data access.</para>
+						<imageobject>
+    						<imagedata fileref="images/FlowImplSourceStep2.png" format="PNG"/>
+  						</imageobject>
+					</listitem>
+					<listitem>
+					<para>Select valid flow segments leading to the source flow specification.  Optionally, select modes or mode transitions.</para>
+					<imageobject>
+    					<imagedata fileref="images/FlowImplSourceStep3.png" format="PNG"/>
+  					</imageobject>
+					</listitem>
+					<listitem>
+						<para>Select <emphasis>OK</emphasis> when done.</para>
+					</listitem>
+					</orderedlist>
+				</section>
+				<section>
+				<title>Creating Sink Flow Implementations</title>
+				<orderedlist>
+					<listitem>
+					<para>Select a valid sink flow specification.</para>
+					<imageobject>
+    					<imagedata fileref="images/FlowImplSinkStep1.png" format="PNG"/>
+  					</imageobject>
+					</listitem>
+					<listitem>
+						<para>Select a valid connection.</para>
+						<imageobject>
+    					<imagedata fileref="images/FlowImplSinkStep2.png" format="PNG"/>
+  						</imageobject>
+					</listitem>
+					<listitem>
+					<para>Select valid flow segments leading to the end subcomponent flow.  Optionally, select modes or mode transitions.</para>
+					<imageobject>
+    					<imagedata fileref="images/FlowImplSinkStep3.png" format="PNG"/>
+  					</imageobject>
+					</listitem>
+					<listitem>
+						<para>Select <emphasis>OK</emphasis> when done.</para>
+					</listitem>
+				</orderedlist>
+				</section>
+				<section>
+				<title>Creating Path Flow Implementations</title>
+				<orderedlist>
+					<listitem>
+					<para>Select a valid path flow specification.</para>
+					<imageobject>
+    					<imagedata fileref="images/FlowImplPathStep1.png" format="PNG"/>
+  					</imageobject>
+					</listitem>
+					<listitem>
+					<para>Select a valid connection.</para>
+					<imageobject>
+    					<imagedata fileref="images/FlowImplPathStep2.png" format="PNG"/>
+  					</imageobject>
+					</listitem>
+					<listitem>
+					<para>Select valid flow segments leading to the path flow specification's out flow end.  Optionally, select modes or mode transitions.</para>
+					<imageobject>
+    					<imagedata fileref="images/FlowImplPathStep3.png" format="PNG"/>
+  					</imageobject>
+					</listitem>
+					<listitem>
+						<para>Select <emphasis>OK</emphasis> when done.</para>
+					</listitem>
+				</orderedlist>
+				</section>
+			</section>
+			<section>
+				<title>Creating End-To-End Flows</title>
+				<para>Select <emphasis>Create End-To-End Flow</emphasis> from the toolbar, the dialog will appear.</para>
+				<orderedlist>
+					<listitem>
+						<para>Select a valid subcomponent source flow specification.</para>
+						<imageobject>
+    						<imagedata fileref="images/EndToEndFlowStep1.png" format="PNG"/>
+  						</imageobject>
+					</listitem>
+					<listitem>
+						<para>Select a valid connection.</para>
+						<imageobject>
+    						<imagedata fileref="images/EndToEndFlowStep2.png" format="PNG"/>
+  						</imageobject>
+					</listitem>
+					<listitem>
+						<para>Select valid flow segments.  Optionally, select modes or mode transitions.</para>
+						<imageobject>
+    						<imagedata fileref="images/EndToEndFlowStep3.png" format="PNG"/>
+  						</imageobject>
+					</listitem>
+					<listitem>
+						<para>Specify a name for the End-To-End Flow and select <emphasis>OK</emphasis> when done.</para>
+					</listitem>
+				</orderedlist>
+			</section>
+			</section>
+			<section>
 				<title>Editing Flow Implementations and End-to-End Flows</title>
 				<para>When editing a component implementation, flow implementations and end-to-end flow can be edited using the flow editor. It can be accessed by right-clicking in the diagram and selecting <emphasis>Edit Flows...</emphasis> from the context menu.</para>
 				<imageobject>

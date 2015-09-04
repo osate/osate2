@@ -11,12 +11,11 @@ import java.awt.Rectangle;
 import java.awt.geom.Line2D;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Random;
-
-import org.osate.ge.layout.Shape.PositionMode;
 
 /**
  * An instance of this class is used to arrange shapes in an optimal manner. It arranges the shapes a number of times in a random layout. It produces a score for each layout based on
@@ -28,13 +27,20 @@ public class MonteCarloLayout
 {
 	private int shapePadding; // Additional padding used for shapes when determining if shapes are too close to one another.
 	private int minimumSidePadding; // The minimum padding between a shape and a side to which the shape is not docked.
-	private int snappedShapePadding = 30; // Spacing between snapped shapes. For left and right snapped shapes it is the vertical spacing.
+	private int snappedShapePadding = 4; // Spacing between snapped shapes. For left and right snapped shapes it is the vertical spacing.
 	private double targetConnectionLength;
 	private double shapeIntersectionsWeight = 1;
 	private double connectionIntersectionsWeight = 1;
 	private double shapeConnectionIntersectionsWeight = 1;
 	private double targetConnectionLengthWeight = 1;
 	private int[] diagramSize;
+	
+	private final Comparator<Shape> yComparator = new Comparator<Shape>() {
+		@Override
+		public int compare(final Shape s1, final Shape s2) {
+			return Integer.compare(s1.getY(), s2.getY());
+		}		
+	};
 	
 	public MonteCarloLayout(int shapePadding, int minimumSidePadding, double targetConnectionLength) 
 	{
@@ -160,35 +166,55 @@ public class MonteCarloLayout
 		}
 	}
 	
-	private void positionShapes(final List<Shape> shapes, final Random rand) {
-		// Position shapes that are snapped to the left/right
-		// Get all the snapped shapes
-		final List<Shape> snappedShapes = new ArrayList<Shape>(shapes.size());
-		for(final Shape shape : shapes) {
-			if(shape.getPositionMode() == PositionMode.SNAP_LEFT_RIGHT) {
-				snappedShapes.add(shape);
+	private int getNextY(final List<Shape> lockedEdgeShapes, final boolean left, int minY) {
+		for(final Shape lockedEdgeShape : lockedEdgeShapes) {
+			if((left && lockedEdgeShape.getX() == 0) || (!left && lockedEdgeShape.getX() != 0)) {
+				final int lockedEdgeShapeEndReservedY = lockedEdgeShape.getY() + lockedEdgeShape.getHeight() + snappedShapePadding;
+				if(minY >= lockedEdgeShape.getY() && minY < lockedEdgeShapeEndReservedY) {
+					minY = lockedEdgeShapeEndReservedY;
+				}
 			}
 		}
 		
+		return minY;
+	}
+	
+	private void positionShapes(final List<Shape> shapes, final Random rand) {
+		// Position shapes that are snapped to the left/right
+		// Get all the snapped shapes
+		final List<Shape> freeEdgeShapes = new ArrayList<Shape>(shapes.size());
+		final List<Shape> lockedEdgeShapes = new ArrayList<Shape>(shapes.size());
+		for(final Shape shape : shapes) {
+			if(shape.positionOnEdge()) {
+				if(shape.isUnlocked()) {
+					freeEdgeShapes.add(shape);
+				} else {
+					lockedEdgeShapes.add(shape);
+				}				
+			}
+		}
+		
+		Collections.sort(lockedEdgeShapes, yComparator);
+		
 		// Shuffle Them
-		Collections.shuffle(snappedShapes, rand);
+		Collections.shuffle(freeEdgeShapes, rand);
 		
 		// Position Them
-		int leftY = minimumSidePadding;
-		int rightY = minimumSidePadding;
-		for(int snappedShapeIndex = 0; snappedShapeIndex < snappedShapes.size(); snappedShapeIndex++) {
-			final Shape shape = snappedShapes.get(snappedShapeIndex);
+		int leftY = getNextY(lockedEdgeShapes, true, minimumSidePadding);
+		int rightY = getNextY(lockedEdgeShapes, false, minimumSidePadding);
+		for(int snappedShapeIndex = 0; snappedShapeIndex < freeEdgeShapes.size(); snappedShapeIndex++) {
+			final Shape shape = freeEdgeShapes.get(snappedShapeIndex);
 			
 			// Randomly choose left or right..
 			if((snappedShapeIndex % 2) == 0) {
 				shape.setX(0);	
 				shape.setY(leftY);
-				leftY += shape.getHeight() + snappedShapePadding;
+				leftY = getNextY(lockedEdgeShapes, true, leftY + shape.getHeight() + snappedShapePadding);
 			} else {
 				final Shape parent = shape.getParent();
 				shape.setX(Math.max(0, parent.getWidth() - shape.getWidth()));
 				shape.setY(rightY);
-				rightY += shape.getHeight() + snappedShapePadding;
+				rightY = getNextY(lockedEdgeShapes, false, rightY + shape.getHeight() + snappedShapePadding);
 			}
 		}
 		
@@ -205,24 +231,7 @@ public class MonteCarloLayout
 				maxY = Math.max(minimumSidePadding, parent.getHeight() - shape.getHeight());
 			}
 			
-			switch(shape.getPositionMode())
-			{
-			case SNAP_LEFT_RIGHT:
-				/*
-				// Randomly choose left or right..
-				if(rand.nextBoolean()) {
-					shape.setX(0);	
-				} else {
-					shape.setX(maxX);
-				}
-
-				shape.setY(nextInt(rand, minimumSidePadding, maxY - minimumSidePadding));
-				*/
-				break;
-			case LOCKED:
-				//Do Nothing
-				break;
-			case FREE:
+			if(shape.isUnlocked() && !shape.positionOnEdge()) {
 				if(shapes.size() == 1) {
 					shape.setX(minimumSidePadding);
 					shape.setY(minimumSidePadding);
@@ -230,8 +239,6 @@ public class MonteCarloLayout
 					shape.setX(nextInt(rand, minimumSidePadding, maxX - minimumSidePadding));
 					shape.setY(nextInt(rand, minimumSidePadding, maxY - minimumSidePadding));
 				}
-				
-				break;
 			}
 			
 			positionShapes(shape.getChildren(), rand);
@@ -281,7 +288,7 @@ public class MonteCarloLayout
 			final Rectangle r1 = shapeToRectangleMap.get(shape);
 			for(int j = i+1; j < shapes.size(); j++) {
 				final Shape shape2 = shapes.get(j);
-				if(shape.getPositionMode() != PositionMode.LOCKED || shape2.getPositionMode() != PositionMode.LOCKED) {
+				if(shape.isUnlocked() || shape2.isUnlocked()) {
 					final Rectangle r2 = shapeToRectangleMap.get(shape2);
 					result.maxNumberOfIntersections++;
 					if(r1.intersects(r2)) {
@@ -343,11 +350,7 @@ public class MonteCarloLayout
 			
 			if(shape.isResizable()) {
 				final int[] minContainerSize = getMinimumContainerSize(shape);
-				if(shape.getPositionMode() == PositionMode.LOCKED) {
-					// This interferes with setting size of shape...
-					shape.setWidth(Math.max(shape.getWidth(), minContainerSize[0]));
-					shape.setHeight(Math.max(shape.getHeight(), minContainerSize[1]));
-				} else {
+				if(shape.isUnlocked()) {
 					final int totalArea = shape.getChildren().size() == 0 ? 100 : getTotalArea(shape.getChildren());
 					final int targetArea = totalArea * 6;
 					final int squareSize = (int)Math.sqrt(targetArea);
@@ -362,7 +365,11 @@ public class MonteCarloLayout
 				
 					shape.setWidth((int)Math.max(minContainerSize[0], width));
 					shape.setHeight((int)Math.max(minContainerSize[1], height));
-				}
+				} else {
+					// This interferes with setting size of shape...
+					shape.setWidth(Math.max(shape.getWidth(), minContainerSize[0]));
+					shape.setHeight(Math.max(shape.getHeight(), minContainerSize[1]));
+				} 
 			}
 		}
 	}
@@ -386,15 +393,17 @@ public class MonteCarloLayout
 			final int newMinWidth;
 			final int newMinHeight;
 			
-			if(shape.getPositionMode() == PositionMode.LOCKED) {
-				newMinWidth = shape.getX() + shape.getWidth();
-				newMinHeight = shape.getY() + shape.getHeight();
-			} else if(shape.getPositionMode() == PositionMode.FREE) {
-				newMinWidth = minimumSidePadding + shape.getWidth();
-				newMinHeight = minimumSidePadding + shape.getHeight();
-			} else {
+			if(shape.positionOnEdge()) {
 				newMinWidth = shape.getWidth();
 				newMinHeight = shape.getHeight();
+			} else {
+				if(shape.isUnlocked()) {
+					newMinWidth = minimumSidePadding + shape.getWidth();
+					newMinHeight = minimumSidePadding + shape.getHeight();
+				} else {				
+					newMinWidth = shape.getX() + shape.getWidth();
+					newMinHeight = shape.getY() + shape.getHeight();
+				}	
 			}
 			
 			// Find the max with the previous value

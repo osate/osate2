@@ -121,7 +121,6 @@ public class ConfigureInModesFeature extends AbstractCustomFeature {
 	public void execute(final ICustomContext context) {
 		final PictogramElement pe = (PictogramElement)context.getPictogramElements()[0];
 		final ModalElement me = (ModalElement)bor.getBusinessObjectForPictogramElement(pe);
-		
 		// Build a list of all modes in the containing classifier
 		final ComponentClassifier cc = (ComponentClassifier)me.getContainingClassifier();
 		final List<ModeFeature> localModeFeatures = new ArrayList<ModeFeature>(cc.getAllModes());

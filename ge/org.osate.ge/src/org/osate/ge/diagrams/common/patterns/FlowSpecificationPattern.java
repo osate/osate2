@@ -41,7 +41,6 @@ import org.osate.aadl2.FlowKind;
 import org.osate.aadl2.FlowSpecification;
 import org.osate.aadl2.Parameter;
 import org.osate.aadl2.Port;
-import org.osate.aadl2.Subcomponent;
 import org.osate.ge.diagrams.common.AadlElementWrapper;
 import org.osate.ge.diagrams.common.AgeImageProvider;
 import org.osate.ge.diagrams.common.Categorized;
@@ -51,7 +50,7 @@ import org.osate.ge.services.BusinessObjectResolutionService;
 import org.osate.ge.services.ConnectionService;
 import org.osate.ge.services.DiagramModificationService;
 import org.osate.ge.services.GraphicsAlgorithmManipulationService;
-import org.osate.ge.services.HighlightingService;
+import org.osate.ge.services.ColoringService;
 import org.osate.ge.services.NamingService;
 import org.osate.ge.services.ShapeService;
 import org.osate.ge.services.StyleService;
@@ -62,7 +61,6 @@ import org.osate.ge.services.AadlModificationService.AbstractModifier;
 public class FlowSpecificationPattern extends AgeConnectionPattern implements Categorized {
 	private final StyleService styleUtil;
 	private final GraphicsAlgorithmManipulationService graphicsAlgorithmUtil;
-	private final HighlightingService highlightingHelper;
 	private final ShapeService shapeService;
 	private final AadlModificationService aadlModService;
 	private final DiagramModificationService diagramModService;
@@ -73,13 +71,12 @@ public class FlowSpecificationPattern extends AgeConnectionPattern implements Ca
 	
 	@Inject
 	public FlowSpecificationPattern(final GhostingService ghostingService, final StyleService styleUtil, final GraphicsAlgorithmManipulationService graphicsAlgorithmUtil, 
-			final HighlightingService highlightingHelper, final ConnectionService connectionHelper, final ShapeService shapeService, AadlModificationService aadlModService, 
+			final ColoringService coloringService, final ConnectionService connectionHelper, final ShapeService shapeService, AadlModificationService aadlModService, 
 			final DiagramModificationService diagramModService, final UserInputService userInputService, final AadlFeatureService featureService, 
 			final NamingService namingService, final BusinessObjectResolutionService bor) {
-		super(ghostingService, connectionHelper, bor);
+		super(coloringService, ghostingService, connectionHelper, bor);
 		this.styleUtil = styleUtil;
 		this.graphicsAlgorithmUtil = graphicsAlgorithmUtil;
-		this.highlightingHelper = highlightingHelper;
 		this.shapeService = shapeService;
 		this.aadlModService = aadlModService;
 		this.diagramModService = diagramModService;
@@ -146,11 +143,6 @@ public class FlowSpecificationPattern extends AgeConnectionPattern implements Ca
 			}
 		}
 		
-		// Set color for the decorators
-		for(final ConnectionDecorator cd : connection.getConnectionDecorators()) {
-			highlightingHelper.highlight(fs, getSubcomponent(connection), cd.getGraphicsAlgorithm());
-		}
-		
 		// Create Label
 		final IGaService gaService = Graphiti.getGaService();
 		final ConnectionDecorator textDecorator = peCreateService.createConnectionDecorator(connection, true, 0.5, true);
@@ -163,12 +155,10 @@ public class FlowSpecificationPattern extends AgeConnectionPattern implements Ca
 	
 	@Override
 	protected void createGraphicsAlgorithm(final Connection connection) {
-		final FlowSpecification fs = getFlowSpecification(connection);
 		final IGaService gaService = Graphiti.getGaService();
 		final Polyline polyline = gaService.createPlainPolyline(connection);
 		final Style style = styleUtil.getFlowSpecificationStyle();
 		polyline.setStyle(style);
-		highlightingHelper.highlight(fs, getSubcomponent(connection), polyline);
 	}
 	
 	private GraphicsAlgorithm createArrow(final GraphicsAlgorithmContainer gaContainer, final Style style) {
@@ -256,20 +246,6 @@ public class FlowSpecificationPattern extends AgeConnectionPattern implements Ca
 	private ComponentClassifier getComponentClassifier(final Shape shape) {
 		return shapeService.getClosestBusinessObjectOfType(shape, ComponentClassifier.class);
 	}	
-	
-	private Subcomponent getSubcomponent(final Connection connection) {
-		if(connection.getStart() == null) {
-			return null;
-		}
-		
-		final AnchorContainer startContainer = connection.getStart().getParent();
-		if(!(startContainer instanceof Shape)) {
-			return null;
-		}
-		
-		
-		return shapeService.getClosestBusinessObjectOfType((Shape)startContainer, Subcomponent.class);
-	}
 	
 	// This pattern only handles the creation of flow paths. Flow sources and flow sinks are handled by features via context menus.
 	@Override

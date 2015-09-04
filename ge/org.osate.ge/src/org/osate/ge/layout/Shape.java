@@ -17,13 +17,6 @@ import java.util.List;
  */
 public final class Shape 
 {
-	public enum PositionMode 
-	{
-		SNAP_LEFT_RIGHT, // Snapped to the left or right side of the container 
-		LOCKED, 
-		FREE
-	}
-	
 	private Shape parent;
 	private int x;
 	private int y;
@@ -32,8 +25,9 @@ public final class Shape
 	private boolean minimumSizeIsSet = false;
 	private int minimumWidth;
 	private int minimumHeight;
-	private boolean resizable;
-	private PositionMode positionMode;
+	private final boolean resizable;
+	private final boolean locked; // Whether the shape is locked
+	private final boolean positionOnEdge; // Whether the shape should be positioned on the edge of the parent.
 	private final List<Shape> children = new ArrayList<Shape>();
 	
 	/**
@@ -45,24 +39,30 @@ public final class Shape
 	 * @param height
 	 * @param positionMode
 	 */
-	public Shape(final Shape parent, final int x, final int y, final int width, final int height, final boolean resizable, final PositionMode positionMode) 
+	public Shape(final Shape parent, final int x, final int y, final int width, final int height, final boolean resizable, final boolean locked, final boolean positionOnEdge) 
 	{
 		this.parent = parent;
 		this.setX(x);
 		this.setY(y);
 		this.width = width;
 		this.height = height;
-		this.positionMode = positionMode;
+		this.locked = locked;
 		this.resizable = resizable;
+		this.positionOnEdge = positionOnEdge;
 
 		if(parent != null) {
 			parent.children.add(this);
 		}
 	}
 
-	public final PositionMode getPositionMode()
+	public final boolean isLocked()
 	{
-		return positionMode;
+		return locked;
+	}
+	
+	public final boolean isUnlocked()
+	{
+		return !locked;
 	}
 	
 	public final Shape getParent() {
@@ -133,5 +133,9 @@ public final class Shape
 	
 	public final int getAbsoluteY() {
 		return ((parent == null) ? 0 : parent.getAbsoluteY()) + y;		
+	}
+	
+	public final boolean positionOnEdge() {
+		return positionOnEdge;
 	}
 }

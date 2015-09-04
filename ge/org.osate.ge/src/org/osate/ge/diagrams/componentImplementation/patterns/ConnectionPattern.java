@@ -72,7 +72,7 @@ import org.osate.ge.services.AadlModificationService;
 import org.osate.ge.services.BusinessObjectResolutionService;
 import org.osate.ge.services.ConnectionService;
 import org.osate.ge.services.DiagramModificationService;
-import org.osate.ge.services.HighlightingService;
+import org.osate.ge.services.ColoringService;
 import org.osate.ge.services.NamingService;
 import org.osate.ge.services.PropertyService;
 import org.osate.ge.services.ShapeService;
@@ -90,7 +90,6 @@ public class ConnectionPattern extends AgeConnectionPattern implements Categoriz
 	private static final String connectionPatternDecoratorName = "connection_pattern";
 	private final AadlFeatureService featureService;
 	private final StyleService styleUtil;
-	private final HighlightingService highlightingHelper;
 	private final BusinessObjectResolutionService bor;
 	private final AadlModificationService aadlModService;
 	private final NamingService namingService;
@@ -118,14 +117,13 @@ public class ConnectionPattern extends AgeConnectionPattern implements Categoriz
 	}
 	
 	@Inject
-	public ConnectionPattern(final AadlFeatureService featureService, final GhostingService ghostingService, final StyleService styleUtil,final HighlightingService highlightingHelper, 
+	public ConnectionPattern(final AadlFeatureService featureService, final GhostingService ghostingService, final StyleService styleUtil,final ColoringService coloringService, 
 			final ConnectionService connectionHelper, final BusinessObjectResolutionService bor, AadlModificationService aadlModService, NamingService namingService,
 			final DiagramModificationService diagramModService, final ShapeService shapeService, final UserInputService userInputService, final PropertyService propertyService,
 			final @Named("Connection Type") EClass connectionType) {
-		super(ghostingService, connectionHelper, bor);
+		super(coloringService, ghostingService, connectionHelper, bor);
 		this.featureService = featureService;
 		this.styleUtil = styleUtil;
-		this.highlightingHelper = highlightingHelper;
 		this.bor = bor;
 		this.aadlModService = aadlModService;
 		this.namingService = namingService;
@@ -248,7 +246,6 @@ public class ConnectionPattern extends AgeConnectionPattern implements Categoriz
 		
 		// Determine how much to shift the decorators incase multiple decorators will be displayed
 		final int decoratorXShift = (showDelayedDecoration && showDirectionDecoration) ? 10 : 0;
-
 		if(showDelayedDecoration) {
 			final int delayedSpacing = 3;
 			final ConnectionDecorator timingDecorator1 = peCreateService.createConnectionDecorator(connection, false, 0.5, true);
@@ -287,9 +284,6 @@ public class ConnectionPattern extends AgeConnectionPattern implements Categoriz
 		patternTxt.setValue(connectionPatternTxtValue);
 		gaService.setLocation(patternTxt, connectionPatternX, connectionPatternY);
 	    getFeatureProvider().link(patternTxtDecorator, new AadlElementWrapper(aadlConnection));
-	    
-	    // Set color based on current mode/mode transition
-	    highlightingHelper.highlight(aadlConnection, null, connection.getGraphicsAlgorithm());
 	}
 	
 	/**

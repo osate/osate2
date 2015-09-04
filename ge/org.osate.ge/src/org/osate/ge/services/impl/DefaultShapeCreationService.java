@@ -16,7 +16,6 @@ import org.eclipse.graphiti.features.IFeatureProvider;
 import org.eclipse.graphiti.features.IUpdateFeature;
 import org.eclipse.graphiti.features.context.impl.AddContext;
 import org.eclipse.graphiti.features.context.impl.UpdateContext;
-import org.eclipse.graphiti.mm.algorithms.GraphicsAlgorithm;
 import org.eclipse.graphiti.mm.pictograms.ContainerShape;
 import org.eclipse.graphiti.mm.pictograms.PictogramElement;
 import org.eclipse.graphiti.mm.pictograms.Shape;
@@ -44,7 +43,7 @@ public class DefaultShapeCreationService implements ShapeCreationService {
 
 	@Override
 	public void createUpdateFeatureShapes(final ContainerShape shape, final List<? extends NamedElement> features, final Collection<Shape> touchedShapes) {	
-		createUpdateShapesForElements(shape, features, 0, false, 25, 45, true, 5, true, touchedShapes);
+		createUpdateShapesForElements(shape, features, 0, false, 25, 45, true, 5, touchedShapes);
 	}
 
 	@Override
@@ -54,23 +53,6 @@ public class DefaultShapeCreationService implements ShapeCreationService {
 	
 	@Override
 	public void createUpdateShapesForElements(final ContainerShape shape, final List<? extends NamedElement> elements, final int startX, final boolean incX, final int xPadding, final int startY, final boolean incY, final int yPadding, final Collection<Shape> touchedShapes) {
-		createUpdateShapesForElements(shape, elements, startX, incX, xPadding, startY, incY, yPadding, false, touchedShapes);
-	}
-	
-	/**
-	 * 
-	 * @param shape
-	 * @param elements
-	 * @param fp
-	 * @param startX
-	 * @param incX
-	 * @param xPadding
-	 * @param startY
-	 * @param incY
-	 * @param yPadding
-	 * @param touchedShapes a list to populate with the shapes that were created/updated. Can be null.
-	 */
-	private void createUpdateShapesForElements(final ContainerShape shape, final List<? extends NamedElement> elements, final int startX, final boolean incX, final int xPadding, final int startY, final boolean incY, final int yPadding, final boolean checkForOverlapOnCreate, final Collection<Shape> touchedShapes) {
 		int childX = startX;
 		int childY = startY;
 
@@ -92,42 +74,6 @@ public class DefaultShapeCreationService implements ShapeCreationService {
 					
 					if(incY) {
 						childY += pictogramElement.getGraphicsAlgorithm().getHeight() + yPadding;
-					}
-					
-					if(checkForOverlapOnCreate) {
-						final GraphicsAlgorithm newGa = pictogramElement.getGraphicsAlgorithm();
-						
-						boolean intersects;
-						do	{
-							final int minX1 = newGa.getX();
-							final int minY1 = newGa.getY();
-							final int maxX1 = newGa.getX() + newGa.getWidth();
-							final int maxY1 = newGa.getY() + newGa.getHeight();
-							
-							intersects = false;
-							for(final Shape child : shape.getChildren()) {
-								if(child != pictogramElement && !propertyService.isBackground(child)) {
-									final GraphicsAlgorithm childGa = child.getGraphicsAlgorithm();
-									final int minX2 = childGa.getX();
-									final int minY2 = childGa.getY();
-									final int maxX2 = childGa.getX() + childGa.getWidth();
-									final int maxY2 = childGa.getY() + childGa.getHeight();
-									
-									if(minX1 < maxX2 && maxX1 > minX2 && minY1 < maxY2 && maxY1 > minY2) {
-										if(incX) {
-											newGa.setX(maxX2 + xPadding);
-										}
-		
-										if(incY) {
-											newGa.setY(maxY2 + yPadding);
-										}
-	
-										intersects = true;
-										break;
-									}
-								}
-							}
-						} while(intersects);
 					}
 				}
 			} else {

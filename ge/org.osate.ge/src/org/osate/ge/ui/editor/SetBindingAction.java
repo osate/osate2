@@ -81,11 +81,14 @@ public class SetBindingAction extends SelectionAction {
 	private SetBindingWindow.CloseListener windowCloseListener = new SetBindingWindow.CloseListener() {
 		@Override
 		public void onClosed() {
+			// Remove listeners
+			editor.getSite().getWorkbenchWindow().getSelectionService().removePostSelectionListener(selectionListener);
+			editor.getSite().getWorkbenchWindow().getPartService().removePartListener(partListener);
+			
+			// Reset the diagram's selection
 			final PictogramElement[] pes = new PictogramElement[1];
 			pes[0] = (PictogramElement)((Diagram)editor.getDiagramTypeProvider().getDiagram());
 			editor.selectPictogramElements(pes);
-			editor.getSite().getWorkbenchWindow().getSelectionService().removePostSelectionListener(selectionListener);
-			editor.getSite().getWorkbenchWindow().getPartService().removePartListener(partListener);
 
 			if(currentWindow.getReturnCode() == Dialog.OK) {
 				createPropertyAssociation();			

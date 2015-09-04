@@ -19,10 +19,13 @@ import org.eclipse.jface.action.MenuManager;
 import org.eclipse.jface.action.Separator;
 import org.eclipse.jface.action.SubContributionItem;
 import org.eclipse.ui.IEditorPart;
+import org.eclipse.ui.PlatformUI;
 import org.osate.aadl2.ComponentClassifier;
 import org.osate.aadl2.ComponentImplementation;
+import org.osate.ge.ext.ExtensionUtil;
 import org.osate.ge.services.BusinessObjectResolutionService;
 import org.osate.ge.services.PropertyService;
+import org.osate.ge.services.ExtensionRegistryService;
 import org.osate.ge.services.impl.DefaultPropertyService;
 
 @SuppressWarnings({ "restriction" })
@@ -47,6 +50,11 @@ public class AgeDiagramEditorActionBarContributor extends org.eclipse.graphiti.u
 		addRetargetAction(new DecreaseNestingDepthRetargetAction());
 		addRetargetAction(new IncreaseNestingDepthRetargetAction());
 		addRetargetAction(new SetBindingRetargetAction());
+		
+		// Create retarget actions of each tool
+		for(final Object tool : getExtensionRegistryService().getTools()) {
+			addRetargetAction(new ActivateToolRetargetAction(tool));
+		}
 	}
 	
 	@Override
@@ -74,6 +82,12 @@ public class AgeDiagramEditorActionBarContributor extends org.eclipse.graphiti.u
 		tbm.insertAfter(bindingInsertionPoint, getAction(SetBindingAction.ID));
 		tbm.insertAfter(bindingInsertionPoint, new Separator());
 		
+		// Insert the actions for each tool
+		final String toolsInsertionPoint = MatchSizeAction.MATCH_SIZE;
+		for(final Object tool : getExtensionRegistryService().getTools()) {
+			tbm.insertAfter(toolsInsertionPoint, getAction(ExtensionUtil.getId(tool)));
+		}
+		
 		tbm.remove(ToggleContextButtonPadAction.ACTION_ID);
 	}
 	
@@ -98,8 +112,6 @@ public class AgeDiagramEditorActionBarContributor extends org.eclipse.graphiti.u
 			}
 		}
 	}
-	
-	
 	
 	@Override
 	public final void setActiveEditor(final IEditorPart editor) {
@@ -133,4 +145,9 @@ public class AgeDiagramEditorActionBarContributor extends org.eclipse.graphiti.u
 		}
 		mgr.update(true);
 	}
+	
+	private ExtensionRegistryService getExtensionRegistryService() {
+		return (ExtensionRegistryService)PlatformUI.getWorkbench().getActiveWorkbenchWindow().getService(ExtensionRegistryService.class);
+	}
+	
 }

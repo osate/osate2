@@ -211,6 +211,10 @@ public class ModePattern extends AgeLeafShapePattern implements Categorized {
 		}
 		propertyService.setIsInnerShape(innerModeShape, true);
 		
+		 // Adjust properties on shapes so that the inner mode shape will be the one which is colored
+		propertyService.setIsColoringContainer(shape, true);
+        propertyService.setIsColoringChild(innerModeShape, true);
+		
 		// Ensure the inner mode shape has a chopbox anchor
 		anchorService.createOrUpdateChopboxAnchor(innerModeShape, chopboxAnchorName);
 		
