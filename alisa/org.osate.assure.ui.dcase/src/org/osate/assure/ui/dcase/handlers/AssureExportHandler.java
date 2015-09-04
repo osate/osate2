@@ -30,6 +30,7 @@ import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.NullProgressMonitor;
 import org.eclipse.core.runtime.Status;
+import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.resource.Resource;
@@ -46,24 +47,28 @@ import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.ui.IEditorPart;
 import org.eclipse.ui.IWorkbenchWindow;
 import org.eclipse.ui.handlers.HandlerUtil;
+import org.eclipse.xtext.resource.IResourceServiceProvider;
 import org.eclipse.xtext.resource.XtextResource;
+import org.eclipse.xtext.serializer.ISerializer;
 import org.eclipse.xtext.ui.editor.XtextEditor;
 import org.eclipse.xtext.ui.editor.outline.impl.EObjectNode;
 import org.eclipse.xtext.ui.editor.utils.EditorUtils;
 import org.eclipse.xtext.ui.util.ResourceUtil;
 import org.eclipse.xtext.util.concurrent.IUnitOfWork;
-import org.osate.aadl2.util.OsateDebug;
 import org.osate.assure.assure.AssuranceCase;
 import org.osate.assure.assure.AssureResult;
 import org.osate.assure.assure.ClaimResult;
+import org.osate.assure.assure.ElseResult;
 import org.osate.assure.assure.Metrics;
+import org.osate.assure.assure.ThenResult;
 import org.osate.assure.assure.VerificationActivityResult;
 import org.osate.assure.assure.VerificationExpr;
-import org.osate.assure.assure.VerificationResultState;
 import org.osate.assure.assure.impl.AssuranceCaseImpl;
 import org.osate.assure.evaluator.IAssureProcessor;
 import org.osate.organization.organization.Stakeholder;
 import org.osate.reqspec.reqSpec.Requirement;
+import org.osate.verify.util.VerifyUtilExtension;
+import org.osate.verify.verify.Claim;
 
 import com.google.inject.Inject;
 
@@ -179,15 +184,14 @@ public class AssureExportHandler extends AbstractHandler {
 		model = createInitialModel();
 
 		Goal goal = DcaseFactory.eINSTANCE.createGoal();
-		goal.setDesc("Assurance Plan " + rootCaseResult.getName() + " validated");
+		goal.setDesc("Assurance Case for " + rootCaseResult.getTarget().getTarget().getQualifiedName());
 		goal.setMessage(rootCaseResult.getMessage());
-		OsateDebug.osateDebug("Goal name=" + rootCaseResult.getName());
-		OsateDebug.osateDebug("Goal msg=" + rootCaseResult.getMessage());
 		model.getRootBasicNode().add(goal);
 
 		for (ClaimResult cr : rootCaseResult.getClaimResult()) {
-			export(goal, cr);
+			exportClaim(goal, cr);
 		}
+		exportCases(goal, rootCaseResult.getSubAssuranceCase());
 
 		URI diagramURI;
 		URI modelURI;
@@ -195,16 +199,16 @@ public class AssureExportHandler extends AbstractHandler {
 		diagramURI = getDiagramURI(rootCaseResult);
 		modelURI = getModelURI(rootCaseResult);
 		Resource diagram = createDiagram(model, diagramURI, modelURI);
-		System.out.println("diagram = " + diagram);
 		return Status.OK_STATUS;
 	}
 
-	public static void export(BasicNode parent, ClaimResult cr) {
+	private void exportClaim(BasicNode parent, ClaimResult cr) {
 		Requirement requirement = cr.getTarget();
 
 		Goal subgoal = DcaseFactory.eINSTANCE.createGoal();
 		subgoal.setMessage(requirement.getTitle());
-		subgoal.setDesc(cr.getTarget().getName());
+		subgoal.setDesc(requirement.getName());
+		subgoal.setStatus(getMetricsAsText(cr));
 
 		model.getRootBasicNode().add(subgoal);
 
@@ -215,13 +219,9 @@ public class AssureExportHandler extends AbstractHandler {
 		model.getRootBasicLink().add(link);
 
 		for (ClaimResult subCR : cr.getSubClaimResult()) {
-			export(subgoal, subCR);
+			exportClaim(subgoal, subCR);
 		}
-
-		for (VerificationExpr ve : cr.getVerificationActivityResult()) {
-			export(subgoal, ve);
-
-		}
+		exportEvidence(subgoal, cr);
 
 		for (org.osate.reqspec.reqSpec.Goal initialGoal : requirement.getGoalReference()) {
 			Goal dcaseInitialGoal = DcaseFactory.eINSTANCE.createGoal();
@@ -254,87 +254,137 @@ public class AssureExportHandler extends AbstractHandler {
 		}
 	}
 
-	public static void export(BasicNode parent, VerificationExpr ve) {
-		Evidence evidence;
-		DcaseLink001 link;
-		String nodeName;
-		String nodeDescription;
-
-		System.out.println("Verification expr = " + ve);
-		VerificationActivityResult result = (VerificationActivityResult) ve;
+	private void exportCases(BasicNode parent, Iterable<AssuranceCase> aclist) {
 		Strategy strategy = DcaseFactory.eINSTANCE.createStrategy();
-		strategy.setMessage(result.getTarget().getMethod().getTitle());
-		strategy.setDesc(result.getTarget().getName());
-//		justification.setMessage(ve.);
-//		justification.setDesc(ve.getName());
-
 		model.getRootBasicNode().add(strategy);
-		nodeName = "";
-		nodeDescription = "";
-
-		link = DcaseFactory.eINSTANCE.createDcaseLink001();
+		DcaseLink001 link = DcaseFactory.eINSTANCE.createDcaseLink001();
 		link.setTarget(strategy);
 		link.setSource(parent);
 		model.getRootBasicLink().add(link);
+		strategy.setDesc("Assurance case for the following subsystems");
+		for (AssuranceCase ac : aclist) {
+			exportCase(strategy, ac);
+		}
+	}
 
-		switch (result.getResultState().getValue()) {
-		case VerificationResultState.FAIL_VALUE: {
-			nodeName = "FAIL";
-			break;
-		}
+	private void exportCase(BasicNode parent, AssuranceCase ac) {
+		Goal goal = DcaseFactory.eINSTANCE.createGoal();
+		goal.setDesc("Assurance Case for " + ac.getTarget().getTarget().getQualifiedName());
+		goal.setMessage(ac.getMessage());
+		model.getRootBasicNode().add(goal);
+		DcaseLink001 link = DcaseFactory.eINSTANCE.createDcaseLink001();
+		link.setTarget(goal);
+		link.setSource(parent);
+		model.getRootBasicLink().add(link);
 
-		case VerificationResultState.SUCCESS_VALUE: {
-			nodeName = "SUCCESS";
-			break;
+		for (ClaimResult cr : ac.getClaimResult()) {
+			exportClaim(goal, cr);
 		}
+		exportCases(goal, ac.getSubAssuranceCase());
+	}
 
-		case VerificationResultState.TBD_VALUE: {
-			nodeName = "TBD";
-			break;
+	private boolean isAllVAResults(Iterable<VerificationExpr> velist) {
+		for (VerificationExpr verificationExpr : velist) {
+			if (!(verificationExpr instanceof VerificationActivityResult)) {
+				return false;
+			}
 		}
+		return true;
+	}
 
-		case VerificationResultState.OTHER_VALUE: {
-			nodeName = "OTHER";
-			break;
+	private Claim getClaim(ClaimResult cr) {
+		for (VerificationExpr verificationExpr : cr.getVerificationActivityResult()) {
+			if (verificationExpr instanceof VerificationActivityResult) {
+				return VerifyUtilExtension.getContainingClaim(((VerificationActivityResult) verificationExpr)
+						.getTarget());
+			}
 		}
+		return null;
+	}
 
-		case VerificationResultState.TIMEOUT_VALUE: {
-			nodeName = "TIMEOUT";
-			break;
+	private String getArgument(Claim claim) {
+		IResourceServiceProvider rsp = IResourceServiceProvider.Registry.INSTANCE.getResourceServiceProvider(URI
+				.createURI("fake.verify"));
+		ISerializer serializer = rsp.get(ISerializer.class);
+		String s = serializer.serialize(claim.getAssert());
+		return s;
+	}
+
+	private void exportEvidence(BasicNode parent, ClaimResult cr) {
+		EList<VerificationExpr> velist = cr.getVerificationActivityResult();
+		if (isAllVAResults(velist)) {
+			for (VerificationExpr verificationExpr : velist) {
+				export(parent, (VerificationActivityResult) verificationExpr);
+			}
+		} else {
+			Claim claim = getClaim(cr);
+			Strategy strategy = DcaseFactory.eINSTANCE.createStrategy();
+			model.getRootBasicNode().add(strategy);
+			DcaseLink001 link = DcaseFactory.eINSTANCE.createDcaseLink001();
+			link.setTarget(strategy);
+			link.setSource(parent);
+			model.getRootBasicLink().add(link);
+			strategy.setMessage(claim.getRationale().getText());
+			strategy.setDesc(getArgument(claim));
+			process(parent, velist);
 		}
+	}
+
+	private void process(BasicNode parent, Iterable<VerificationExpr> velist) {
+		for (VerificationExpr var : velist) {
+
+			if (var instanceof VerificationActivityResult) {
+				export(parent, (VerificationActivityResult) var);
+			} else if (var instanceof ThenResult) {
+				process(parent, ((ThenResult) var).getFirst());
+				process(parent, ((ThenResult) var).getSecond());
+			} else if (var instanceof ElseResult) {
+				process(parent, ((ElseResult) var).getFirst());
+			}
 		}
-		Metrics counts = ((AssureResult) ve).getMetrics();
-		nodeDescription += "(";
+	}
+
+	private String getMetricsAsText(AssureResult ar) {
+		String result = "";
+		Metrics counts = ar.getMetrics();
+		result += "(";
 		if (counts.getTbdCount() > 0) {
-			nodeDescription += "TDB " + counts.getTbdCount() + " time(s)";
+			result += "TDB " + counts.getTbdCount() + " time(s)";
 		}
 
 		if (counts.getSuccessCount() > 0) {
-			nodeDescription += " success " + counts.getSuccessCount() + " time(s)";
+			result += " success " + counts.getSuccessCount() + " time(s)";
 		}
 
 		if (counts.getFailCount() > 0) {
-			nodeDescription += " failed " + counts.getFailCount() + " time(s)";
+			result += " failed " + counts.getFailCount() + " time(s)";
 		}
 
 		if (counts.getTimeoutCount() > 0) {
-			nodeDescription += " timeout " + counts.getTimeoutCount() + " time(s)";
+			result += " timeout " + counts.getTimeoutCount() + " time(s)";
 		}
 
 		if (counts.getOtherCount() > 0) {
-			nodeDescription += " nocompletion " + counts.getOtherCount() + " time(s)";
+			result += " nocompletion " + counts.getOtherCount() + " time(s)";
 		}
-		nodeDescription += ")";
+		result += ")";
+		return result;
+	}
+
+	public void export(BasicNode parent, VerificationActivityResult var) {
+		Evidence evidence;
+		DcaseLink001 link;
 
 		evidence = DcaseFactory.eINSTANCE.createEvidence();
-		evidence.setName(nodeName);
-		evidence.setDesc(nodeDescription);
-
+		evidence.setName(var.getTarget().getName());
+		evidence.setDesc(var.getTarget().getMethod().getTitle());
+		evidence.setStatus("[" + var.getResultState().getLiteral() + "]");
+		evidence.setMessage(var.getMessage());
 		model.getRootBasicNode().add(evidence);
 
 		link = DcaseFactory.eINSTANCE.createDcaseLink001();
 		link.setTarget(evidence);
-		link.setSource(strategy);
+		link.setSource(parent);
 		model.getRootBasicLink().add(link);
 
 	}
