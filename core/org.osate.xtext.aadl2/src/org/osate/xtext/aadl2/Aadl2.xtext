@@ -2090,14 +2090,14 @@ UnnamedIntegerType returns aadl2::AadlInteger:
 RangeType returns aadl2::RangeType:
 	name=ID ':' 'type' 
 	'range' 'of' (ownedNumberType=(UnnamedIntegerType|UnnamedRealType)
-		| numberType=[aadl2::NumberType|QPREF]
+		| referencedNumberType=[aadl2::NumberType|QPREF]
 	)
 	 ;
 
 UnnamedRangeType returns aadl2::RangeType:
 	{aadl2::RangeType}
 	'range' 'of' (ownedNumberType=(UnnamedIntegerType|UnnamedRealType)
-		| numberType=[aadl2::NumberType|QPREF]
+		| referencedNumberType=[aadl2::NumberType|QPREF]
 	)
 	 ;
 

@@ -525,7 +525,7 @@ public abstract class ClassifierImpl extends NamespaceImpl implements Classifier
 	 */
 	@Override
 	public DefaultAnnexSubclause createOwnedAnnexSubclause() {
-		return (DefaultAnnexSubclause)createOwnedAnnexSubclause(Aadl2Package.eINSTANCE.getDefaultAnnexSubclause());
+		return (DefaultAnnexSubclause) createOwnedAnnexSubclause(Aadl2Package.eINSTANCE.getDefaultAnnexSubclause());
 	}
 
 	/**

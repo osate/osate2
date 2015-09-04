@@ -76,7 +76,7 @@ class PropertiesProposalProvider extends AbstractPropertiesProposalProvider {
 			val proposedObj =  EcoreUtil.resolve(EObjectOrProxy, model)
 			switch model {
 				RecordValue: ! model.ownedFieldValues.exists[property == proposedObj]
-				default: false
+				default: true
 			}
 		])
 	}

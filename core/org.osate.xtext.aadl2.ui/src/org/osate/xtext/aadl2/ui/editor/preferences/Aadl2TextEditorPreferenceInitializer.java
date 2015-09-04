@@ -12,5 +12,6 @@ public class Aadl2TextEditorPreferenceInitializer extends AbstractPreferenceInit
 		store.setDefault(WorkspacePlugin.AUTO_INDENT, true);
 		store.setDefault(WorkspacePlugin.AUTO_COMPLETE, true);
 		store.setDefault(WorkspacePlugin.CAPITALIZE, false);
+		store.setDefault(WorkspacePlugin.INDENT_SECTIONS, true);
 	}
 }

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <?pde version="3.5"?>
 
-<product name="OSATE2" uid="osate2" id="org.osate.branding.osate2" application="org.eclipse.ui.ide.workbench" version="2.1.1" useFeatures="true" includeLaunchers="true">
+<product name="OSATE2" uid="osate2" id="org.osate.branding.osate2" application="org.eclipse.ui.ide.workbench" version="2.1.2" useFeatures="true" includeLaunchers="true">
 
    <aboutInfo>
       <image path="icons/osateAbout_hc90.jpg"/>
@@ -14,10 +14,7 @@
    </configIni>
 
    <launcherArgs>
-      <programArgs>--launcher.XXPermSize 64M
---launcher.XXMaxPermSize 256M
-      </programArgs>
-      <vmArgs>-XX:PermSize=64m -XX:MaxPermSize=256m -Xms40m -Xmx768m
+      <vmArgs>-Xms40m -Xmx768m
       </vmArgs>
    </launcherArgs>
 
@@ -35,10 +32,8 @@
       </win>
    </launcher>
 
-
    <vm>
    </vm>
-
 
    <plugins>
    </plugins>

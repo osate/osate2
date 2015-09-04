@@ -46,6 +46,7 @@ import java.util.Stack;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.emf.common.util.BasicEList;
 import org.eclipse.emf.common.util.EList;
+import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.osate.aadl2.ComponentCategory;
 import org.osate.aadl2.ComponentImplementation;
@@ -978,11 +979,21 @@ public class CreateEndToEndFlowsSwitch extends AadlProcessingSwitchWithProgress 
 				FeatureInstance firstFeature = (FeatureInstance) src;
 				FeatureInstance lastFeature = getLastFeature(etei);
 				if (lastFeature != null) {
-					match = lastFeature == firstFeature;
+					match = isSameorContains(lastFeature, firstFeature);
 				}
 			}
 		}
 		return match;
+	}
+
+	private boolean isSameorContains(FeatureInstance flowFeature, FeatureInstance connFeature) {
+		EObject matchme = connFeature;
+		while (matchme instanceof FeatureInstance) {
+			if (matchme == flowFeature)
+				return true;
+			matchme = matchme.eContainer();
+		}
+		return false;
 	}
 
 	private FeatureInstance getLastFeature(EndToEndFlowInstance etei) {

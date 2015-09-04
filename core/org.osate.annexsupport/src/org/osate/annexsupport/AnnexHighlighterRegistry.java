@@ -42,7 +42,10 @@ public class AnnexHighlighterRegistry extends AnnexRegistry {
 	}
 
 	public AnnexHighlighter getAnnexHighlighter(String annexName) {
-		AnnexHighlighter highlighter = (AnnexHighlighter) extensions.get(annexName.toLowerCase());
+		AnnexHighlighter highlighter = null;
+		if (null != annexName) {
+			highlighter = (AnnexHighlighter) extensions.get(annexName.toLowerCase());
+		}
 
 		return highlighter;
 	}

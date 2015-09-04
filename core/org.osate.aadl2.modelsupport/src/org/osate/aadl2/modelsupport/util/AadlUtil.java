@@ -187,7 +187,7 @@ public final class AadlUtil {
 
 	public static boolean isPredeclaredPropertySet(String psname) {
 		for (String predeclaredPSName : PREDECLARED_PROPERTY_SET_NAMES) {
-			if (psname.equalsIgnoreCase(predeclaredPSName)) {
+			if (predeclaredPSName.equalsIgnoreCase(psname)) {
 				return true;
 			}
 		}
@@ -1778,8 +1778,10 @@ public final class AadlUtil {
 	 * @return boolean true if outgoing
 	 */
 	public static boolean isOutgoingFeature(Feature f) {
-		return (f instanceof Port && ((Port) f).getDirection().outgoing()) || (f instanceof Access)// && ((Access) f).getKind() == AccessType.REQUIRED)
-				|| (f instanceof FeatureGroup) || (f instanceof AbstractFeature && ((AbstractFeature) f).getDirection().outgoing());
+		return (f instanceof Port && ((Port) f).getDirection().outgoing())
+				|| (f instanceof Access)// && ((Access) f).getKind() == AccessType.REQUIRED)
+				|| (f instanceof FeatureGroup)
+				|| (f instanceof AbstractFeature && ((AbstractFeature) f).getDirection().outgoing());
 	}
 
 	/**
@@ -1789,8 +1791,10 @@ public final class AadlUtil {
 	 * @return boolean true if incoming
 	 */
 	public static boolean isIncomingFeature(Feature f) {
-		return (f instanceof Port && ((Port) f).getDirection().incoming()) || (f instanceof Access)// && ((Access) f).getKind() == AccessType.REQUIRED)
-				|| (f instanceof FeatureGroup) || (f instanceof AbstractFeature && ((AbstractFeature) f).getDirection().incoming());
+		return (f instanceof Port && ((Port) f).getDirection().incoming())
+				|| (f instanceof Access)// && ((Access) f).getKind() == AccessType.REQUIRED)
+				|| (f instanceof FeatureGroup)
+				|| (f instanceof AbstractFeature && ((AbstractFeature) f).getDirection().incoming());
 	}
 
 	/**

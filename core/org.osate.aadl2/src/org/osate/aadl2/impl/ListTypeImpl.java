@@ -104,17 +104,6 @@ public class ListTypeImpl extends PropertyTypeImpl implements ListType {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public PropertyType getElementTypeGen() {
-		PropertyType elementType = basicGetElementType();
-		return elementType != null && ((EObject) elementType).eIsProxy() ? (PropertyType) eResolveProxy((InternalEObject) elementType)
-				: elementType;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
 	@Override
 	public PropertyType getElementType() {
 		PropertyType elementType = basicGetElementType();

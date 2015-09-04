@@ -297,12 +297,16 @@
           <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Types-RangeType-ownedNumberType-_upperValue" value="1"/>
           <lowerValue xmi:type="uml:LiteralInteger" xmi:id="Types-RangeType-ownedNumberType-_lowerValue"/>
         </ownedAttribute>
-        <ownedAttribute xmi:id="Types-RangeType-numberType" name="numberType" type="Types-NumberType" association="Types-A_rangeType_numberType">
+        <ownedAttribute xmi:id="Types-RangeType-numberType" name="numberType" type="Types-NumberType" isReadOnly="true" isDerived="true" association="Types-A_rangeType_numberType">
           <ownedComment xmi:id="Types-RangeType-numberType-_ownedComment.0">
             <body>References the number type of this range type.</body>
           </ownedComment>
           <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Types-RangeType-numberType-_upperValue" value="1"/>
           <lowerValue xmi:type="uml:LiteralInteger" xmi:id="Types-RangeType-numberType-_lowerValue" value="1"/>
+        </ownedAttribute>
+        <ownedAttribute xmi:id="_S5nEVDYgEeW7UdyEyvjiPw" name="referencedNumberType" visibility="public" type="Types-NumberType" subsettedProperty="Types-RangeType-numberType" association="_S5nEUDYgEeW7UdyEyvjiPw">
+          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_S5nEVTYgEeW7UdyEyvjiPw" value="1"/>
+          <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_S5nEVjYgEeW7UdyEyvjiPw"/>
         </ownedAttribute>
       </packagedElement>
       <packagedElement xmi:type="uml:Association" xmi:id="Types-A_rangeType_ownedNumberType" name="A_rangeType_ownedNumberType" memberEnd="Types-A_rangeType_ownedNumberType-owner Types-RangeType-ownedNumberType">
@@ -312,8 +316,8 @@
         </ownedEnd>
       </packagedElement>
       <packagedElement xmi:type="uml:Association" xmi:id="Types-A_rangeType_numberType" name="A_rangeType_numberType" memberEnd="Types-A_rangeType_numberType-rangeType Types-RangeType-numberType">
-        <ownedEnd xmi:id="Types-A_rangeType_numberType-rangeType" name="rangeType" type="Types-RangeType" association="Types-A_rangeType_numberType">
-          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Types-A_rangeType_numberType-rangeType-_upperValue" value="1"/>
+        <ownedEnd xmi:id="Types-A_rangeType_numberType-rangeType" name="rangeType" visibility="private" type="Types-RangeType" association="Types-A_rangeType_numberType">
+          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Types-A_rangeType_numberType-rangeType-_upperValue" value="*"/>
           <lowerValue xmi:type="uml:LiteralInteger" xmi:id="Types-A_rangeType_numberType-rangeType-_lowerValue"/>
         </ownedEnd>
       </packagedElement>
@@ -466,6 +470,12 @@
         <ownedEnd xmi:id="_sYy-MUvxEeSNAfeIIJ0qNQ" name="listType" type="_g3h74LMDEeCzMYz5ww7glA" association="_sYy-MEvxEeSNAfeIIJ0qNQ">
           <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_sYy-MkvxEeSNAfeIIJ0qNQ" value="1"/>
           <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_sYy-M0vxEeSNAfeIIJ0qNQ"/>
+        </ownedEnd>
+      </packagedElement>
+      <packagedElement xmi:type="uml:Association" xmi:id="_S5nEUDYgEeW7UdyEyvjiPw" name="A_rangeType_referencedNumberType" memberEnd="_S5nEUTYgEeW7UdyEyvjiPw _S5nEVDYgEeW7UdyEyvjiPw">
+        <ownedEnd xmi:id="_S5nEUTYgEeW7UdyEyvjiPw" name="rangeType" type="Types-RangeType" association="_S5nEUDYgEeW7UdyEyvjiPw">
+          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_S5nEUjYgEeW7UdyEyvjiPw" value="*"/>
+          <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_S5nEUzYgEeW7UdyEyvjiPw"/>
         </ownedEnd>
       </packagedElement>
     </packagedElement>
