@@ -13,6 +13,7 @@ import org.osate.reqspec.reqSpec.StakeholderGoals
 import org.osate.reqspec.reqSpec.SystemRequirements
 
 import static extension org.eclipse.xtext.EcoreUtil2.*
+import org.osate.alisa.common.util.CommonUtilExtension
 
 class ReqSpecUtilExtension {
 
@@ -154,5 +155,18 @@ class ReqSpecUtilExtension {
 				QualifiedName::wrapper(SimpleAttributeResolver::NAME_RESOLVER)), true)
 			return result
 		}
+		
+		
+	def static String constructDescription(ContractualElement r) {
+		if(r.description != null) return CommonUtilExtension.toText(r.description,r.contractualElementSubject)
+		if(r.title != null) return r.title
+		""
+	}
+	
+	def static getContractualElementSubject(ContractualElement req){
+				req?.targetElement ?: req.targetClassifier
+		
+	}
+		
 
 	}

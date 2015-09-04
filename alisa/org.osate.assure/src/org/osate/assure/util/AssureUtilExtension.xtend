@@ -53,6 +53,8 @@ import static extension org.osate.reqspec.util.ReqSpecUtilExtension.*
 import org.osate.aadl2.ComponentClassifier
 import org.osate.aadl2.Subcomponent
 import org.osate.aadl2.util.Aadl2Util
+import org.osate.alisa.common.common.Description
+import org.osate.alisa.workbench.util.AlisaWorkbenchUtilExtension
 
 class AssureUtilExtension {
 
@@ -993,30 +995,69 @@ class AssureUtilExtension {
 		return "unknown assure result type"
 	}
 
+	
+	def static String getName(VerificationActivityResult cr){
+		if (!Aadl2Util.isNull(cr.target)){
+			return cr.target?.name
+		}
+		return "[unresolved:"+cr.target.toString+"]"
+	}
+
+
 	def static String constructMessage(VerificationActivityResult vr) {
 		if(vr.message != null) return vr.message
+		return vr.constructDescription
+	}
+
+	def static String constructDescription(VerificationActivityResult vr) {
 		val va = vr.target
 		if (va.title != null) return va.title
 		val vm = va.method
 		if (vm.description != null) return vm.description.toText(va.target)
 		if (vm.title != null) return vm.title
-		return vm.name
+		return ""
 	}
 
 	def static String constructMessage(AssuranceCase ce) {
 		if(ce.message != null) return ce.message
+		return ""
+	}
+
+	def static String constructDescription(AssuranceCase ar) {
+		val ap = ar.target
+		if (ap == null){
+			return ""
+		}
+		if(ap.description != null) {
+			val d = ap.description
+			return AlisaWorkbenchUtilExtension.toText(d,ar.claimSubject)
+			}
+		if(ap.title != null) return ap.title
+		""
+	}
+
+	def static String getName(AssuranceCase ce) {
 		if (ce.target != null && ce.target.target != null) return ce.target.target.name
 		return ce.targetSystem
+	}
+	
+	def static String getName(ClaimResult cr){
+		if (!Aadl2Util.isNull(cr.target)){
+			return cr.target?.name
+		}
+		return "[unresolved:"+cr.target.toString+"]"
+	}
+
+	def static String constructDescription(ClaimResult cr) {
+		val r = cr.target
+		if(r.description != null) return r.description.toText(cr.claimSubject)
+		if(r.title != null) return r.title
+		""
 	}
 
 	def static String constructMessage(ClaimResult cr) {
 		if(cr.message != null) return cr.message
-		
-		val r = cr.target
-		if(r.description != null) return r.description.toText(cr.claimSubject)
-		if(r.title != null) return r.title
-		if(r.name != null) return r.name
-		""
+		constructDescription(cr)
 	}
 
 	def static String constructMessage(ValidationResult cr) {

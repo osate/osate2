@@ -29,18 +29,18 @@ class AssureLabelProvider extends org.eclipse.xtext.ui.label.DefaultEObjectLabel
 	// Labels and icons can be computed like this:
 	
 	def text(ClaimResult ele) {
-		"Claim: "+ele.constructMessage
+		"Claim"+ele.name +": "+ele.constructMessage
 		+ ele.assureResultCounts
 	}
 	
 	def text(VerificationActivityResult ele) {
-		"Evidence: "+ ele.constructMessage	+ ele.resultState.toTextLabel
+		"Evidence "+ele.name +": "+ ele.constructMessage + ele.resultState.toTextLabel
 		+ ele.assureResultCounts
 
 	}
 	
 	def text(AssuranceCase ele) {
-		"System "+ele.constructMessage		
+		"System "+ele.name +": "+ele.constructMessage		
 		+ ele.assureResultCounts
 	}
 	
