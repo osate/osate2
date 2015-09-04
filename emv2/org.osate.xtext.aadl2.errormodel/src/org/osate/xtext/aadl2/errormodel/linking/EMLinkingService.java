@@ -7,6 +7,7 @@ import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EReference;
+import org.eclipse.xtext.EcoreUtil2;
 import org.eclipse.xtext.linking.impl.IllegalNodeException;
 import org.eclipse.xtext.nodemodel.INode;
 import org.osate.aadl2.Aadl2Package;
@@ -121,7 +122,7 @@ public class EMLinkingService extends PropertiesLinkingService {
 					} else if (ne instanceof ErrorPropagation) {
 						// we resolved previous entry to an error propagation
 						// It may represent the context of the feature, e.g., when both the fg and the feature have an error propagation
-						EList<FeatureorPPReference> flist = EMV2Util.getFeatureorPPRefs((ErrorPropagation)ne);
+						EList<FeatureorPPReference> flist = EMV2Util.getFeatureorPPRefs((ErrorPropagation) ne);
 						if (!flist.isEmpty()) {
 							FeatureorPPReference fop = flist.get(flist.size() - 1);
 							if (fop instanceof FeatureGroup) {
@@ -221,9 +222,9 @@ public class EMLinkingService extends PropertiesLinkingService {
 				if (context.eContainer() instanceof ErrorPropagation) {
 					cl = AadlUtil.getContainingClassifier(context);
 				} else if (context.eContainer() instanceof FeatureorPPReference) {
-					NamedElement fg = ((FeatureorPPReference)context.eContainer()).getFeatureorPP();
+					NamedElement fg = ((FeatureorPPReference) context.eContainer()).getFeatureorPP();
 					if (fg instanceof FeatureGroup) {
-						cl = ((FeatureGroup)fg).getFeatureGroupType();
+						cl = ((FeatureGroup) fg).getFeatureGroupType();
 					}
 				}
 				if (cl != null) {
@@ -289,11 +290,10 @@ public class EMLinkingService extends PropertiesLinkingService {
 			searchResult = EMV2Util.findErrorBehaviorState((Element) context, name);
 
 		} else if (ErrorModelPackage.eINSTANCE.getEventOrPropagation() == requiredType) {
-			searchResult = EMV2Util.findErrorPropagation(cxt, name, DirectionType.IN);
+			searchResult = EMV2Util.findSubcomponentOrIncomingErrorProparation(cxt, name);
 			if (searchResult == null) {
-				if (context instanceof ConditionExpression
-						&& (EMV2Util.getConditionExpressionContext((ConditionExpression) context) instanceof ErrorDetection || EMV2Util
-								.getConditionExpressionContext((ConditionExpression) context) instanceof ErrorBehaviorTransition)) {
+				if ((EMV2Util.getConditionExpressionContext((ConditionExpression) context) instanceof ErrorDetection || EMV2Util
+						.getConditionExpressionContext((ConditionExpression) context) instanceof ErrorBehaviorTransition)) {
 					// find it only for transitions
 					searchResult = EMV2Util.findErrorBehaviorEvent(cxt, name);
 				}
@@ -420,7 +420,13 @@ public class EMLinkingService extends PropertiesLinkingService {
 	}
 
 	public TypeTransformationSet findTypeTransformationSet(EObject context, String name) {
-		ErrorModelLibrary eml = findErrorModelLibrary(context, Aadl2Util.getPackageName(name));
+		String packageName = Aadl2Util.getPackageName(name);
+		ErrorModelLibrary eml;
+		if (packageName != null) {
+			eml = findErrorModelLibrary(context, packageName);
+		} else {
+			eml = EcoreUtil2.getContainerOfType(context, ErrorModelLibrary.class);
+		}
 		if (eml != null) {
 			EList<TypeTransformationSet> tmsl = eml.getTransformations();
 			for (TypeTransformationSet tms : tmsl) {

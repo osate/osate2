@@ -301,6 +301,38 @@ public class EMV2Util {
 		return null;
 	}
 
+	public static ErrorPropagation findSubcomponentOrIncomingErrorProparation(Element elem, String name) {
+		Classifier cl = elem.getContainingClassifier();
+		if (cl == null)
+			return null;
+		EList<Subcomponent> subs;
+		int idx = name.indexOf('.');
+		boolean foundSub = false;
+		boolean findMore = true;
+		while (idx != -1 && findMore) {
+			String subname = name.substring(0, idx);
+			findMore = false;
+			if (cl instanceof ComponentImplementation) {
+				subs = ((ComponentImplementation) cl).getAllSubcomponents();
+				for (Subcomponent sub : subs) {
+					if (sub.getName().equalsIgnoreCase(subname)) {
+						name = name.substring(idx + 1);
+						cl = sub.getClassifier();
+						idx = name.indexOf('.');
+						foundSub = true;
+						findMore = true;
+					}
+				}
+			}
+		}
+
+		if (foundSub) {
+			return EMV2Util.findErrorPropagation(cl, name, DirectionType.OUT);
+		} else {
+			return EMV2Util.findErrorPropagation(cl, name, DirectionType.IN);
+		}
+	}
+
 	/**
 	 * Find error propagation in classifier hierarchy
 	 * name can be a dotted name
@@ -2437,10 +2469,11 @@ public class EMV2Util {
 		}
 		return null;
 	}
-	
+
 	public static EList<FeatureorPPReference> getFeatureorPPRefs(ErrorPropagation errorPropagation) {
 		final EList<FeatureorPPReference> list = new BasicEList<>();
-		for (FeatureorPPReference current = errorPropagation.getFeatureorPPRef(); current != null; current = current.getNext()) {
+		for (FeatureorPPReference current = errorPropagation.getFeatureorPPRef(); current != null; current = current
+				.getNext()) {
 			list.add(current);
 		}
 		return list;

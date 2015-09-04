@@ -58,7 +58,7 @@ public class FTAUtils {
 
 		propertyDescription = EMV2Properties.getDescription(errorModelArtifact, component);
 		if (propertyDescription != null) {
-			event.setDescription(propertyDescription);
+			event.setDescription(propertyDescription + "(component " + component.getName() + ")");
 		}
 
 		event.setProbability(EMV2Properties.getProbability(component, errorModelArtifact, typeSet));
@@ -113,10 +113,12 @@ public class FTAUtils {
 			remoteComponent = ppe.getComponentInstance();
 			remotePropagation = ppe.getErrorPropagation();
 			newEvent = new Event();
-			description = "Error from component " + ppe.getComponentInstance().getName();
+			description = "Error from component " + remoteComponent.getName();
 
-			if ((EMV2Util.getFeatureorPPRefs(remotePropagation) != null) && (EMV2Util.getFeatureorPPRefs(remotePropagation).size() > 0)) {
-				description += " on " + EMV2Util.getFeatureorPPRefs(remotePropagation).get(0).getFeatureorPP().getName();
+			if ((EMV2Util.getFeatureorPPRefs(remotePropagation) != null)
+					&& (EMV2Util.getFeatureorPPRefs(remotePropagation).size() > 0)) {
+				description += " on "
+						+ EMV2Util.getFeatureorPPRefs(remotePropagation).get(0).getFeatureorPP().getName();
 			}
 
 			if ((typeSet != null) && (typeSet.getTypeTokens().size() > 0)) {
@@ -145,6 +147,22 @@ public class FTAUtils {
 
 				if (ef instanceof ErrorPath) {
 					ErrorPath errorPath = (ErrorPath) ef;
+
+					/**
+					 * This is a bugfix done for the MoDELS 2015 tutorial. Typially, we want to make
+					 * sure we are looking for the right propagation from the same feature.
+					 * 
+					 * To investigate: we might want to parse flow recursively and not stop with the first one.
+					 */
+					if (EMV2Util.getFeatureorPPRefs(remotePropagation).get(0).getFeatureorPP() != errorPath
+							.getOutgoing().getFeatureorPPRef().getFeatureorPP()) {
+						continue;
+					}
+
+//					System.out.println("Looking for  : "
+//							+ EMV2Util.getFeatureorPPRefs(remotePropagation).get(0).getFeatureorPP());
+//					System.out
+//							.println("We have      : " + errorPath.getOutgoing().getFeatureorPPRef().getFeatureorPP());
 
 //					OsateDebug.osateDebug("FTAUtils", "path kind=" + errorPath.getIncoming().getKind());
 //					OsateDebug.osateDebug("FTAUtils", "report token" + EMV2Util.getPrintName(reportedTypeSet));
