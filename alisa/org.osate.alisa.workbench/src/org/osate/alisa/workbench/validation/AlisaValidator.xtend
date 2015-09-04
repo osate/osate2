@@ -21,6 +21,7 @@ import org.osate.verify.util.IVerifyGlobalReferenceFinder
 class AlisaValidator extends AbstractAlisaValidator {
 
 public static val ASSURANCE_PLAN_OWN_MISSING_VERIFICATION_PLANS = 'org.osate.alisa.workbench.validation.assurance.plan.own.missing.verification.plans'
+public static val ASSURANCE_PLAN_OWN_INVALID_VERIFICATION_PLANS = 'org.osate.alisa.workbench.validation.assurance.plan.own.invalid.verification.plans'
 
 //  public static val INVALID_NAME = 'invalidName'
 //
@@ -35,7 +36,15 @@ public static val ASSURANCE_PLAN_OWN_MISSING_VERIFICATION_PLANS = 'org.osate.ali
 	@Inject extension IVerifyGlobalReferenceFinder referenceFinder
 
 	@Check(CheckType.NORMAL)
-	def void checkAssurancePlanOwn(AssurancePlan assurancePlan) {
+	def void checkAssurancePlanNormal(AssurancePlan assurancePlan) {
+		checkAssurancePlanOwnOmissions(assurancePlan)
+	}
+	@Check(CheckType.FAST)
+	def void checkAssurancePlanFast(AssurancePlan assurancePlan) {
+		checkAssurancePlanOwnForInvalid(assurancePlan) 
+	}
+
+	def void checkAssurancePlanOwnOmissions(AssurancePlan assurancePlan) {
 		val res = referenceFinder.getVerificationPlans(assurancePlan.target, assurancePlan).filter([avp | !assurancePlan.assureOwn.contains(avp)])		
 		if (res.size > 0){
 			val String[] namesAndURI = newArrayOfSize(res.length * 2)
@@ -44,8 +53,22 @@ public static val ASSURANCE_PLAN_OWN_MISSING_VERIFICATION_PLANS = 'org.osate.ali
 				namesAndURI.set((counter * 2) + 1, EcoreUtil.getURI(vp).toString())
 			])
 			warning("Assurance Plan '" + assurancePlan.name + "' missing Verification Plans in 'assure own' statement '",
-				assurancePlan, AlisaPackage.Literals.ASSURANCE_PLAN__NAME, ASSURANCE_PLAN_OWN_MISSING_VERIFICATION_PLANS, namesAndURI
-			)
+				assurancePlan, AlisaPackage.Literals.ASSURANCE_PLAN__NAME, ASSURANCE_PLAN_OWN_MISSING_VERIFICATION_PLANS, namesAndURI)
+		}
+	}
+
+	def void checkAssurancePlanOwnForInvalid(AssurancePlan assurancePlan) {
+		val res = assurancePlan.assureOwn.filter([avp |
+			!referenceFinder.getVerificationPlans(assurancePlan.target, assurancePlan).toList.contains(avp)
+		])
+		if (res.size > 0){
+			res.forEach([vp, counter |
+				val idx = assurancePlan.assureOwn.indexed.filter([value == vp]).head.key
+				error("Verification Plan '" + vp.name  + "' is not valid for Assurance Plan '" +assurancePlan.name,
+						assurancePlan, AlisaPackage.Literals.ASSURANCE_PLAN__ASSURE_OWN, idx, 
+						ASSURANCE_PLAN_OWN_INVALID_VERIFICATION_PLANS, vp.name, EcoreUtil.getURI(vp).toString())
+				
+			])
 		}
 	}
 
