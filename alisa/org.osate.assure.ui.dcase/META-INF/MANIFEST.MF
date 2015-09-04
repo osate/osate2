@@ -22,7 +22,8 @@ Require-Bundle: org.osate.assure;visibility:=reexport,
  org.junit,
  org.osate.verify;bundle-version="1.0.0",
  org.osate.aadl2;bundle-version="1.0.0",
- org.eclipse.gmf.runtime.emf.core
+ org.eclipse.gmf.runtime.emf.core,
+ org.osate.reqspec;bundle-version="1.0.0"
 Import-Package: net.dependableos.dcase,
  net.dependableos.dcase.diagram.common.util,
  net.dependableos.dcase.diagram.edit.parts,

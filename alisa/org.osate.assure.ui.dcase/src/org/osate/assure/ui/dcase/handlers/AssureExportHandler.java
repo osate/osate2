@@ -8,6 +8,7 @@ import net.dependableos.dcase.Argument;
 import net.dependableos.dcase.BasicNode;
 import net.dependableos.dcase.DcaseFactory;
 import net.dependableos.dcase.DcaseLink001;
+import net.dependableos.dcase.DcaseLink002;
 import net.dependableos.dcase.DcaseLink003;
 import net.dependableos.dcase.Evidence;
 import net.dependableos.dcase.Goal;
@@ -65,8 +66,10 @@ import org.osate.assure.assure.VerificationActivityResult;
 import org.osate.assure.assure.VerificationExpr;
 import org.osate.assure.assure.impl.AssuranceCaseImpl;
 import org.osate.assure.evaluator.IAssureProcessor;
+import org.osate.assure.util.AssureUtilExtension;
 import org.osate.organization.organization.Stakeholder;
 import org.osate.reqspec.reqSpec.Requirement;
+import org.osate.reqspec.util.ReqSpecUtilExtension;
 import org.osate.verify.util.VerifyUtilExtension;
 import org.osate.verify.verify.Claim;
 
@@ -180,12 +183,13 @@ public class AssureExportHandler extends AbstractHandler {
 
 //		long stop = System.currentTimeMillis();
 //		System.out.println("Evaluation time: " + (stop - start) / 1000.0 + "s");
-		System.out.println("export2");
 		model = createInitialModel();
 
 		Goal goal = DcaseFactory.eINSTANCE.createGoal();
-		goal.setDesc("Assurance Case for " + rootCaseResult.getTarget().getTarget().getQualifiedName());
-		goal.setMessage(rootCaseResult.getMessage());
+		goal.setName("Assurance Case " + rootCaseResult.getName() + " for "
+				+ rootCaseResult.getTarget().getTarget().getQualifiedName());
+		goal.setDesc(AssureUtilExtension.constructDescription(rootCaseResult));
+		goal.setMessage(getMetricsAsText(rootCaseResult));
 		model.getRootBasicNode().add(goal);
 
 		for (ClaimResult cr : rootCaseResult.getClaimResult()) {
@@ -206,9 +210,12 @@ public class AssureExportHandler extends AbstractHandler {
 		Requirement requirement = cr.getTarget();
 
 		Goal subgoal = DcaseFactory.eINSTANCE.createGoal();
-		subgoal.setMessage(requirement.getTitle());
-		subgoal.setDesc(requirement.getName());
-		subgoal.setStatus(getMetricsAsText(cr));
+		subgoal.setName("Requirement " + AssureUtilExtension.getName(cr));
+		subgoal.setMessage(getMetricsAsText(cr));
+		String msg = AssureUtilExtension.constructDescription(cr);
+		if (!msg.isEmpty()) {
+			subgoal.setDesc(msg);
+		}
 
 		model.getRootBasicNode().add(subgoal);
 
@@ -225,12 +232,12 @@ public class AssureExportHandler extends AbstractHandler {
 
 		for (org.osate.reqspec.reqSpec.Goal initialGoal : requirement.getGoalReference()) {
 			Goal dcaseInitialGoal = DcaseFactory.eINSTANCE.createGoal();
-			dcaseInitialGoal.setMessage(initialGoal.getTitle());
-			dcaseInitialGoal.setDesc(initialGoal.getName());
+			dcaseInitialGoal.setName("Goal " + initialGoal.getName());
+			dcaseInitialGoal.setDesc(ReqSpecUtilExtension.constructDescription(initialGoal));
 
 			model.getRootBasicNode().add(dcaseInitialGoal);
 
-			DcaseLink001 link2 = DcaseFactory.eINSTANCE.createDcaseLink001();
+			DcaseLink002 link2 = DcaseFactory.eINSTANCE.createDcaseLink002();
 			link2.setTarget(subgoal);
 			link2.setSource(dcaseInitialGoal);
 
@@ -269,8 +276,13 @@ public class AssureExportHandler extends AbstractHandler {
 
 	private void exportCase(BasicNode parent, AssuranceCase ac) {
 		Goal goal = DcaseFactory.eINSTANCE.createGoal();
-		goal.setDesc("Assurance Case for " + ac.getTarget().getTarget().getQualifiedName());
-		goal.setMessage(ac.getMessage());
+		if (ac.getTarget() != null) {
+			goal.setName("Assurance Case for " + ac.getTarget().getTarget().getQualifiedName());
+		} else {
+			goal.setName("Assurance Case for subsystem " + ac.getTargetSystem());
+		}
+		goal.setDesc(AssureUtilExtension.constructDescription(ac));
+		goal.setMessage(getMetricsAsText(ac));
 		model.getRootBasicNode().add(goal);
 		DcaseLink001 link = DcaseFactory.eINSTANCE.createDcaseLink001();
 		link.setTarget(goal);
@@ -314,7 +326,7 @@ public class AssureExportHandler extends AbstractHandler {
 		EList<VerificationExpr> velist = cr.getVerificationActivityResult();
 		if (isAllVAResults(velist)) {
 			for (VerificationExpr verificationExpr : velist) {
-				export(parent, (VerificationActivityResult) verificationExpr);
+				exportVerificationActivityResult(parent, (VerificationActivityResult) verificationExpr);
 			}
 		} else {
 			Claim claim = getClaim(cr);
@@ -324,6 +336,7 @@ public class AssureExportHandler extends AbstractHandler {
 			link.setTarget(strategy);
 			link.setSource(parent);
 			model.getRootBasicLink().add(link);
+			strategy.setName("Argument for " + AssureUtilExtension.getName(cr));
 			strategy.setMessage(claim.getRationale().getText());
 			strategy.setDesc(getArgument(claim));
 			process(parent, velist);
@@ -334,7 +347,7 @@ public class AssureExportHandler extends AbstractHandler {
 		for (VerificationExpr var : velist) {
 
 			if (var instanceof VerificationActivityResult) {
-				export(parent, (VerificationActivityResult) var);
+				exportVerificationActivityResult(parent, (VerificationActivityResult) var);
 			} else if (var instanceof ThenResult) {
 				process(parent, ((ThenResult) var).getFirst());
 				process(parent, ((ThenResult) var).getSecond());
@@ -349,7 +362,7 @@ public class AssureExportHandler extends AbstractHandler {
 		Metrics counts = ar.getMetrics();
 		result += "(";
 		if (counts.getTbdCount() > 0) {
-			result += "TDB " + counts.getTbdCount() + " time(s)";
+			result += " tbd " + counts.getTbdCount() + " time(s)";
 		}
 
 		if (counts.getSuccessCount() > 0) {
@@ -367,17 +380,17 @@ public class AssureExportHandler extends AbstractHandler {
 		if (counts.getOtherCount() > 0) {
 			result += " nocompletion " + counts.getOtherCount() + " time(s)";
 		}
-		result += ")";
+		result += " )";
 		return result;
 	}
 
-	public void export(BasicNode parent, VerificationActivityResult var) {
+	public void exportVerificationActivityResult(BasicNode parent, VerificationActivityResult var) {
 		Evidence evidence;
 		DcaseLink001 link;
 
 		evidence = DcaseFactory.eINSTANCE.createEvidence();
 		evidence.setName(var.getTarget().getName());
-		evidence.setDesc(var.getTarget().getMethod().getTitle());
+		evidence.setDesc(var.getTarget().getMethod().getName() + ": " + var.getResultState().getLiteral());
 		evidence.setStatus("[" + var.getResultState().getLiteral() + "]");
 		evidence.setMessage(var.getMessage());
 		model.getRootBasicNode().add(evidence);
