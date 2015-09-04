@@ -66,7 +66,6 @@ import org.osate.ge.diagrams.common.features.ComponentImplementationToTypeFeatur
 import org.osate.ge.diagrams.common.features.ComponentToPackageFeature;
 import org.osate.ge.diagrams.common.features.ConfigureInModesFeature;
 import org.osate.ge.diagrams.common.features.DrillDownFeature;
-import org.osate.ge.diagrams.common.features.EMVModTestFeature;
 import org.osate.ge.diagrams.common.features.GraphicalToTextualFeature;
 import org.osate.ge.diagrams.common.features.InstantiateComponentImplementationFeature;
 import org.osate.ge.diagrams.common.features.LayoutDiagramFeature;
@@ -290,9 +289,6 @@ public class AgeFeatureProvider extends DefaultFeatureProviderWithPatterns {
 		// Subprogram Call
 		features.add(make(MoveSubprogramCallUpFeature.class));
 		features.add(make(MoveSubprogramCallDownFeature.class));
-		
-		// TODO: Remove
-		features.add(make(EMVModTestFeature.class));
 	}
 	
 	private ICustomFeature createSetInitialModeFeature(final Boolean isInitial) {
