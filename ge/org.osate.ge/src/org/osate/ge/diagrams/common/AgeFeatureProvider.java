@@ -140,23 +140,27 @@ public class AgeFeatureProvider extends DefaultFeatureProviderWithPatterns {
 		addAadlFeaturePatterns();
 		addConnectionPattern(make(FlowSpecificationPattern.class));
 		addPattern(make(ModePattern.class));
-		addPattern(make(AnnexPattern.class));
 		addConnectionPattern(make(ModeTransitionPattern.class));
 		// Package
 		addConnectionPattern(make(PackageGeneralizationPattern.class));
 		
-		addPackageClassifierPatterns();		
+		addPackageClassifierPatterns();	
 		addAadlConnectionPatterns();
 		
 		// Classifiers
 		addPattern(createClassifierPattern(null));
-		addSubcomponentPatterns();		
+		addSubcomponentPatterns();
+		
+		addPattern(createAnnexPattern(null));
+		addAnnexPatterns();
 		
 		// Subprogram Calls
 		addPattern(make(SubprogramCallSequencePattern.class));
 		addPattern(make(SubprogramCallPattern.class));
 		addConnectionPattern(make(SubprogramCallOrderPattern.class));
 	}
+
+	
 
 	private IEclipseContext getContext() {
 		return context;
@@ -535,6 +539,20 @@ public class AgeFeatureProvider extends DefaultFeatureProviderWithPatterns {
 		childCtx.set("Subcomponent Type", scType);
 		return ContextInjectionFactory.make(ClassifierPattern.class, childCtx);
 	}
+	
+	private void addAnnexPatterns() {
+		EClass annexType = Aadl2Factory.eINSTANCE.getAadl2Package().getAnnexLibrary();
+		this.addPattern(createAnnexPattern(annexType));
+		
+		annexType = Aadl2Factory.eINSTANCE.getAadl2Package().getAnnexSubclause();
+		this.addPattern(createAnnexPattern(annexType));
+	}
+	
+	private IPattern createAnnexPattern(final EClass annexType) {
+		final IEclipseContext childCtx = getContext().createChild();
+		childCtx.set("Annex Type", annexType);
+		return ContextInjectionFactory.make(AnnexPattern.class, childCtx);
+	}
 		
 	/**
 	 * Creates and adds patterns related to AADL Features
@@ -542,7 +560,7 @@ public class AgeFeatureProvider extends DefaultFeatureProviderWithPatterns {
 	protected final void addSubcomponentPatterns() {
 		// Create the subcomponent patterns
 		for(final EClass scType : ClassifierPattern.getSubcomponentTypes()) {
-			this.addPattern(createClassifierPattern(scType));	
+			this.addPattern(createClassifierPattern(scType));
 		}
 	}
 	
