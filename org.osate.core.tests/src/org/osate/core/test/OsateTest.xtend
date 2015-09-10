@@ -4,9 +4,12 @@ import com.google.inject.Inject
 import java.io.ByteArrayInputStream
 import java.util.Comparator
 import java.util.List
+import java.util.Set
 import org.apache.log4j.Logger
+import org.eclipse.core.resources.IContainer
 import org.eclipse.core.resources.IFile
 import org.eclipse.core.resources.IProject
+import org.eclipse.core.resources.IResource
 import org.eclipse.core.resources.IncrementalProjectBuilder
 import org.eclipse.core.resources.ResourcesPlugin
 import org.eclipse.core.runtime.Assert
@@ -28,7 +31,7 @@ import org.eclipselabs.xtext.utils.unittesting.XtextTest
 import org.junit.After
 import org.junit.Before
 import org.junit.ComparisonFailure
-import org.osate.aadl2.modelsupport.resources.OsateResourceUtil
+import org.osate.aadl2.ModelUnit
 import org.osate.aadl2.modelsupport.resources.PredeclaredProperties
 import org.osate.aadl2.modelsupport.util.AadlUtil
 import org.osate.core.AadlNature
@@ -52,7 +55,7 @@ abstract class OsateTest extends XtextTest {
 
 	protected val workspaceRoot = ResourcesPlugin.workspace.root
 	
-	var Iterable<String> pluginResourcesNames = null
+	Set<String> pluginResourcesNames
 	
 	@Before
 	def setUp() {
@@ -224,27 +227,34 @@ abstract class OsateTest extends XtextTest {
 	}
 	
 	def private assertScope(IScopeProvider scopeProvider, EObject context, EReference reference,
-		boolean applyFilterToUnqualifiedNames, Iterable<String> expected
+		boolean scopingForModelUnits, Iterable<String> expected
 	) {
 		if (pluginResourcesNames == null) {
-			val fileNames = pluginResources.members.filter(IFile).map[name]
-			pluginResourcesNames = fileNames.filter[toLowerCase.endsWith(".aadl")].map[substring(0, lastIndexOf("."))]
+			pluginResourcesNames = pluginResources.allMembers.filter(IFile).filter[name.toLowerCase.endsWith(".aadl")].map[
+				val uri = URI.createPlatformResourceURI(it.fullPath.toString, false)
+				val modelUnit = context.eResource.resourceSet.getResource(uri, true).contents.head as ModelUnit
+				modelUnit.name.toLowerCase
+			].toSet
 		}
 		val expectedNames = expected.sortWith(CUSTOM_NAME_COMPARATOR).join(", ")
 		val actualNames = scopeProvider.getScope(context, reference).allElements.map[name.toString("::")].filter[
-			val separatorIndex = indexOf("::")
-			if (separatorIndex != -1 || applyFilterToUnqualifiedNames) {
-				val modelUnitName = if (separatorIndex != -1) {
-					substring(0, separatorIndex)
-				} else {
-					it
-				}
-				modelUnitName.predeclaredPropertySet || !pluginResourcesNames.exists[equalsIgnoreCase(modelUnitName)]
+			val separatorIndex = lastIndexOf("::")
+			val modelUnitName = if (scopingForModelUnits || separatorIndex == -1) {
+				it
 			} else {
-				true
+				substring(0, separatorIndex)
 			}
+			modelUnitName.predeclaredPropertySet || !pluginResourcesNames.contains(modelUnitName.toLowerCase)
 		].sortWith(CUSTOM_NAME_COMPARATOR).join(", ")
 		expectedNames.assertEquals(actualNames)
+	}
+	
+	def private static Iterable<IResource> getAllMembers(IContainer container) {
+		container.members.map[if (it instanceof IContainer) {
+			allMembers
+		} else {
+			#[it]
+		}].flatten
 	}
 	
 	/*
