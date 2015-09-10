@@ -458,14 +458,16 @@ public class AnnexPattern extends AgePattern {
 
 	private static class AnnexNameDialog extends InputDialog {
 		public AnnexNameDialog(final Shell parentShell, final NamedElement targetContainer, final NamingService namingService, final String[] dialogTitleAndMessage) {
-			
-			
 			super(parentShell, dialogTitleAndMessage[0], dialogTitleAndMessage[1], "", new IInputValidator() {
 				@Override
 				public String isValid(final String newName) {
 					boolean invalid = false;
 					//Check if target has name in use
-					if(isNameInUse(targetContainer, newName) || !namingService.isValidIdentifier(newName)) {
+					System.err.println(targetContainer.getNamespace());
+					if(targetContainer.getNamespace() != null) {
+						namingService.isNameInUse(targetContainer.getNamespace(), newName);
+					}
+					if(/*isNameInUse(targetContainer, newName) || */!namingService.isValidIdentifier(newName)) {
 						invalid = true;
 					}
 
@@ -478,6 +480,7 @@ public class AnnexPattern extends AgePattern {
 			for (final Element element : namedElement.allOwnedElements()) {
 				if(element instanceof NamedElement) {
 					if(((NamedElement)element).getName().equalsIgnoreCase(newName)) {
+						
 						return true;
 					}
 				}
