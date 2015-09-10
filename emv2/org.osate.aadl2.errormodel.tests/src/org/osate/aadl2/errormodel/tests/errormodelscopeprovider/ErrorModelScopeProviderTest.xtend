@@ -86,30 +86,30 @@ class ErrorModelScopeProviderTest extends OsateTest {
 			publicSection => [
 				(ownedAnnexLibraries.head as DefaultAnnexLibrary).parsedAnnexLibrary as ErrorModelLibrary => [
 					//Tests scope_ErrorModelLibrary
-					assertScope(ErrorModelPackage.eINSTANCE.errorModelLibrary_Extends, #["ErrorLibrary", "pkg"])
+					assertScopeModelUnitNamesOnly(ErrorModelPackage.eINSTANCE.errorModelLibrary_Extends, #["pkg"])
 					behaviors.head => [
 						"b".assertEquals(name)
 						//Tests scope_ErrorModelLibrary
-						assertScope(ErrorModelPackage.eINSTANCE.errorBehaviorStateMachine_UseTypes, #["ErrorLibrary", "pkg"])
+						assertScopeModelUnitNamesOnly(ErrorModelPackage.eINSTANCE.errorBehaviorStateMachine_UseTypes, #["pkg"])
 						//Tests scope_TypeTransformationSet
 						assertScope(ErrorModelPackage.eINSTANCE.errorBehaviorStateMachine_UseTransformation, #["t", "pkg::t"])
 					]
 					mappings.head => [
 						"m".assertEquals(name)
 						//Tests scope_ErrorModelLibrary
-						assertScope(ErrorModelPackage.eINSTANCE.typeMappingSet_UseTypes, #["ErrorLibrary", "pkg"])
+						assertScopeModelUnitNamesOnly(ErrorModelPackage.eINSTANCE.typeMappingSet_UseTypes, #["pkg"])
 					]
 					transformations.head => [
 						"t".assertEquals(name)
 						//Tests scope_ErrorModelLibrary
-						assertScope(ErrorModelPackage.eINSTANCE.typeTransformationSet_UseTypes, #["ErrorLibrary", "pkg"])
+						assertScopeModelUnitNamesOnly(ErrorModelPackage.eINSTANCE.typeTransformationSet_UseTypes, #["pkg"])
 					]
 				]
 				ownedClassifiers.head => [
 					"a".assertEquals(name)
 					(ownedAnnexSubclauses.head as DefaultAnnexSubclause).parsedAnnexSubclause as ErrorModelSubclause => [
 						//Tests scope_ErrorModelLibrary
-						assertScope(ErrorModelPackage.eINSTANCE.errorModelSubclause_UseTypes, #["ErrorLibrary", "pkg"])
+						assertScopeModelUnitNamesOnly(ErrorModelPackage.eINSTANCE.errorModelSubclause_UseTypes, #["pkg"])
 						//Tests scope_TypeMappingSet
 						assertScope(ErrorModelPackage.eINSTANCE.errorModelSubclause_TypeEquivalence, #["pkg::m"])
 						//Tests scope_TypeMappingSet
