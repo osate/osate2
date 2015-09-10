@@ -86,46 +86,46 @@ class ErrorModelScopeProviderTest extends OsateTest {
 			publicSection => [
 				(ownedAnnexLibraries.head as DefaultAnnexLibrary).parsedAnnexLibrary as ErrorModelLibrary => [
 					//Tests scope_ErrorModelLibrary
-					assertScope(ErrorModelPackage.eINSTANCE.errorModelLibrary_Extends, false, #["ErrorLibrary", "pkg"])
+					assertScope(ErrorModelPackage.eINSTANCE.errorModelLibrary_Extends, #["ErrorLibrary", "pkg"])
 					behaviors.head => [
 						"b".assertEquals(name)
 						//Tests scope_ErrorModelLibrary
-						assertScope(ErrorModelPackage.eINSTANCE.errorBehaviorStateMachine_UseTypes, false, #["ErrorLibrary", "pkg"])
+						assertScope(ErrorModelPackage.eINSTANCE.errorBehaviorStateMachine_UseTypes, #["ErrorLibrary", "pkg"])
 						//Tests scope_TypeTransformationSet
-						assertScope(ErrorModelPackage.eINSTANCE.errorBehaviorStateMachine_UseTransformation, false, #["t", "pkg::t"])
+						assertScope(ErrorModelPackage.eINSTANCE.errorBehaviorStateMachine_UseTransformation, #["t", "pkg::t"])
 					]
 					mappings.head => [
 						"m".assertEquals(name)
 						//Tests scope_ErrorModelLibrary
-						assertScope(ErrorModelPackage.eINSTANCE.typeMappingSet_UseTypes, false, #["ErrorLibrary", "pkg"])
+						assertScope(ErrorModelPackage.eINSTANCE.typeMappingSet_UseTypes, #["ErrorLibrary", "pkg"])
 					]
 					transformations.head => [
 						"t".assertEquals(name)
 						//Tests scope_ErrorModelLibrary
-						assertScope(ErrorModelPackage.eINSTANCE.typeTransformationSet_UseTypes, false, #["ErrorLibrary", "pkg"])
+						assertScope(ErrorModelPackage.eINSTANCE.typeTransformationSet_UseTypes, #["ErrorLibrary", "pkg"])
 					]
 				]
 				ownedClassifiers.head => [
 					"a".assertEquals(name)
 					(ownedAnnexSubclauses.head as DefaultAnnexSubclause).parsedAnnexSubclause as ErrorModelSubclause => [
 						//Tests scope_ErrorModelLibrary
-						assertScope(ErrorModelPackage.eINSTANCE.errorModelSubclause_UseTypes, false, #["ErrorLibrary", "pkg"])
+						assertScope(ErrorModelPackage.eINSTANCE.errorModelSubclause_UseTypes, #["ErrorLibrary", "pkg"])
 						//Tests scope_TypeMappingSet
-						assertScope(ErrorModelPackage.eINSTANCE.errorModelSubclause_TypeEquivalence, false, #["pkg::m"])
+						assertScope(ErrorModelPackage.eINSTANCE.errorModelSubclause_TypeEquivalence, #["pkg::m"])
 						//Tests scope_TypeMappingSet
-						assertScope(ErrorModelPackage.eINSTANCE.errorModelSubclause_TypeMappingSet, false, #["pkg::m"])
+						assertScope(ErrorModelPackage.eINSTANCE.errorModelSubclause_TypeMappingSet, #["pkg::m"])
 						//Tests scope_ErrorModelSubclause_useBehavior
-						assertScope(ErrorModelPackage.eINSTANCE.errorModelSubclause_UseBehavior, false, #["pkg::b"])
+						assertScope(ErrorModelPackage.eINSTANCE.errorModelSubclause_UseBehavior, #["pkg::b"])
 						flows.head => [
 							"p".assertEquals(name)
 							assertWarning(testFileResult.issues, issueCollection, "Legacy support: please declare 'use mappings' at subclause level.")
 							//Tests scope_TypeMappingSet
-							assertScope(ErrorModelPackage.eINSTANCE.errorPath_TypeMappingSet, false, #["pkg::m"])
+							assertScope(ErrorModelPackage.eINSTANCE.errorPath_TypeMappingSet, #["pkg::m"])
 						]
 						//Tests scope_TypeTransformationSet
-						assertScope(ErrorModelPackage.eINSTANCE.errorModelSubclause_UseTransformation, false, #["pkg::t"])
+						assertScope(ErrorModelPackage.eINSTANCE.errorModelSubclause_UseTransformation, #["pkg::t"])
 						//Tests scope_TypeTransformationSet
-						assertScope(ErrorModelPackage.eINSTANCE.errorModelSubclause_TypeTransformationSet, false, #["pkg::t"])
+						assertScope(ErrorModelPackage.eINSTANCE.errorModelSubclause_TypeTransformationSet, #["pkg::t"])
 					]
 				]
 			]
@@ -170,14 +170,14 @@ class ErrorModelScopeProviderTest extends OsateTest {
 					"t1".assertEquals(name)
 					val expectedScope = #["t1", "lib1::t1", "lib2::t1", "lib2::t2"]
 					//Tests scope_ErrorType
-					assertScope(ErrorModelPackage.eINSTANCE.errorType_SuperType, false, expectedScope)
+					assertScope(ErrorModelPackage.eINSTANCE.errorType_SuperType, expectedScope)
 					//Tests scope_ErrorType
-					assertScope(ErrorModelPackage.eINSTANCE.errorType_AliasedType, false, expectedScope)
+					assertScope(ErrorModelPackage.eINSTANCE.errorType_AliasedType, expectedScope)
 				]
 				typesets.head => [
 					"ts1".assertEquals(name)
 					//Tests scope_TypeSet_aliasedType
-					assertScope(ErrorModelPackage.eINSTANCE.typeSet_AliasedType, false, #["ts1", "lib1::ts1", "lib2::ts1", "lib2::ts2"])
+					assertScope(ErrorModelPackage.eINSTANCE.typeSet_AliasedType, #["ts1", "lib1::ts1", "lib2::ts1", "lib2::ts2"])
 				]
 			]
 		]
@@ -188,14 +188,14 @@ class ErrorModelScopeProviderTest extends OsateTest {
 					"t2".assertEquals(name)
 					val expectedScope = #["t1", "t2", "lib1::t1", "lib2::t1", "lib2::t2"]
 					//Tests scope_ErrorType
-					assertScope(ErrorModelPackage.eINSTANCE.errorType_SuperType, false, expectedScope)
+					assertScope(ErrorModelPackage.eINSTANCE.errorType_SuperType, expectedScope)
 					//Tests scope_ErrorType
-					assertScope(ErrorModelPackage.eINSTANCE.errorType_AliasedType, false, expectedScope)
+					assertScope(ErrorModelPackage.eINSTANCE.errorType_AliasedType, expectedScope)
 				]
 				typesets.head => [
 					"ts2".assertEquals(name)
 					//Tests scope_TypeSet_aliasedType
-					assertScope(ErrorModelPackage.eINSTANCE.typeSet_AliasedType, false, #["ts1", "ts2", "lib1::ts1", "lib2::ts1", "lib2::ts2"])
+					assertScope(ErrorModelPackage.eINSTANCE.typeSet_AliasedType, #["ts1", "ts2", "lib1::ts1", "lib2::ts1", "lib2::ts2"])
 				]
 			]
 		]
@@ -254,25 +254,25 @@ class ErrorModelScopeProviderTest extends OsateTest {
 				"a.i".assertEquals(name)
 				((ownedAnnexSubclauses.head as DefaultAnnexSubclause).parsedAnnexSubclause as ErrorModelSubclause).propagations.head => [
 					//Tests ErrorModelScopeProvider.scope_FeatureorPPReference_featureorPP(Classifier, EReference)
-					assertScope(ErrorModelPackage.eINSTANCE.featureorPPReference_FeatureorPP, false, #["eds", "es", "fg1", "op1", "point1", "point2"])
+					assertScope(ErrorModelPackage.eINSTANCE.featureorPPReference_FeatureorPP, #["eds", "es", "fg1", "op1", "point1", "point2"])
 					featureorPPRef => [
 						"fg1".assertEquals(featureorPP.name)
 						//Tests ErrorModelScopeProvider.scope_FeatureorPPReference_featureorPP(FeatureorPPReference, EReference)
-						assertScope(ErrorModelPackage.eINSTANCE.featureorPPReference_FeatureorPP, false, #["fg2", "op2"])
+						assertScope(ErrorModelPackage.eINSTANCE.featureorPPReference_FeatureorPP, #["fg2", "op2"])
 						//Tests ErrorModelSerializerScopeProvider.scope_FeatureorPPReference_featureorPP(FeatureorPPReference, EReference)
-						assertSerializerScope(ErrorModelPackage.eINSTANCE.featureorPPReference_FeatureorPP, false, #["eds", "es", "fg1", "op1", "point1", "point2"])
+						assertSerializerScope(ErrorModelPackage.eINSTANCE.featureorPPReference_FeatureorPP, #["eds", "es", "fg1", "op1", "point1", "point2"])
 						next => [
 							"fg2".assertEquals(featureorPP.name)
 							//Tests ErrorModelScopeProvider.scope_FeatureorPPReference_featureorPP(FeatureorPPReference, EReference)
-							assertScope(ErrorModelPackage.eINSTANCE.featureorPPReference_FeatureorPP, false, #["op3"])
+							assertScope(ErrorModelPackage.eINSTANCE.featureorPPReference_FeatureorPP, #["op3"])
 							//Tests ErrorModelSerializerScopeProvider.scope_FeatureorPPReference_featureorPP(FeatureorPPReference, EReference)
-							assertSerializerScope(ErrorModelPackage.eINSTANCE.featureorPPReference_FeatureorPP, false, #["fg2", "op2"])
+							assertSerializerScope(ErrorModelPackage.eINSTANCE.featureorPPReference_FeatureorPP, #["fg2", "op2"])
 							next => [
 								"op3".assertEquals(featureorPP.name)
 								//Tests ErrorModelScopeProvider.scope_FeatureorPPReference_featureorPP(FeatureorPPReference, EReference)
-								assertScope(ErrorModelPackage.eINSTANCE.featureorPPReference_FeatureorPP, false, #[])
+								assertScope(ErrorModelPackage.eINSTANCE.featureorPPReference_FeatureorPP, #[])
 								//Tests ErrorModelSerializerScopeProvider.scope_FeatureorPPReference_featureorPP(FeatureorPPReference, EReference)
-								assertSerializerScope(ErrorModelPackage.eINSTANCE.featureorPPReference_FeatureorPP, false, #["op3"])
+								assertSerializerScope(ErrorModelPackage.eINSTANCE.featureorPPReference_FeatureorPP, #["op3"])
 								next.assertNull
 							]
 						]
@@ -329,7 +329,7 @@ class ErrorModelScopeProviderTest extends OsateTest {
 				((ownedAnnexSubclauses.head as DefaultAnnexSubclause).parsedAnnexSubclause as ErrorModelSubclause).flows.head => [
 					"s".assertEquals(name)
 					//Tests scope_ErrorSource_outgoing
-					assertScope(ErrorModelPackage.eINSTANCE.errorSource_Outgoing, false, #["binding", "fg1.fg2.p4", "fg1.p3", "memory", "p1", "p2"])
+					assertScope(ErrorModelPackage.eINSTANCE.errorSource_Outgoing, #["binding", "fg1.fg2.p4", "fg1.p3", "memory", "p1", "p2"])
 				]
 			]
 		]
