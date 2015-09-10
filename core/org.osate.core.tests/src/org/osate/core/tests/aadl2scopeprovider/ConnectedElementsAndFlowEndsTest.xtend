@@ -247,49 +247,49 @@ class ConnectedElementsAndFlowEndsTest extends OsateTest {
 				ownedFlowSpecifications.get(0) => [
 					"fsource1".assertEquals(name)
 					//Tests scope_FlowEnd_feature(FlowSpecification, EReference)
-					assertScope(Aadl2Package::eINSTANCE.flowEnd_Feature, false, #["af1", "ba1", "da1", "dp1", "dp2", "edp1", "ep1", "fg1", "fg4"])
+					assertScope(Aadl2Package::eINSTANCE.flowEnd_Feature, #["af1", "ba1", "da1", "dp1", "dp2", "edp1", "ep1", "fg1", "fg4"])
 					//Tests scope_FlowEnd_context
-					outEnd.assertScope(Aadl2Package::eINSTANCE.flowEnd_Context, false, #["dp1", "dp2", "edp1", "fg1", "fg4"])
+					outEnd.assertScope(Aadl2Package::eINSTANCE.flowEnd_Context, #["dp1", "dp2", "edp1", "fg1", "fg4"])
 					//Tests scope_FlowEnd_feature(FlowEnd, EReference)
-					outEnd.assertScope(Aadl2Package::eINSTANCE.flowEnd_Feature, false, #["af1", "ba1", "da1", "dp1", "dp2", "edp1", "ep1", "fg1", "fg4"])
+					outEnd.assertScope(Aadl2Package::eINSTANCE.flowEnd_Feature, #["af1", "ba1", "da1", "dp1", "dp2", "edp1", "ep1", "fg1", "fg4"])
 				]
 				ownedFlowSpecifications.get(1) => [
 					"fsource2".assertEquals(name)
 					//Tests scope_FlowEnd_feature(FlowSpecification, EReference)
-					assertScope(Aadl2Package::eINSTANCE.flowEnd_Feature, false, #["af1", "ba1", "da1", "dp1", "dp2", "edp1", "ep1", "fg1", "fg4"])
+					assertScope(Aadl2Package::eINSTANCE.flowEnd_Feature, #["af1", "ba1", "da1", "dp1", "dp2", "edp1", "ep1", "fg1", "fg4"])
 					//Tests scope_FlowEnd_context
-					outEnd.assertScope(Aadl2Package::eINSTANCE.flowEnd_Context, false, #["dp1", "dp2", "edp1", "fg1", "fg4"])
+					outEnd.assertScope(Aadl2Package::eINSTANCE.flowEnd_Context, #["dp1", "dp2", "edp1", "fg1", "fg4"])
 					//Tests scope_FlowEnd_feature(FlowEnd, EReference)
-					outEnd.assertScope(Aadl2Package::eINSTANCE.flowEnd_Feature, false, #["af2", "ba2", "da2", "dp2", "edp2", "ep2", "fg3", "param2"])
+					outEnd.assertScope(Aadl2Package::eINSTANCE.flowEnd_Feature, #["af2", "ba2", "da2", "dp2", "edp2", "ep2", "fg3", "param2"])
 				]
 				ownedFlowSpecifications.get(2) => [
 					"fsource3".assertEquals(name)
 					//Tests scope_FlowEnd_feature(FlowSpecification, EReference)
-					assertScope(Aadl2Package::eINSTANCE.flowEnd_Feature, false, #["af1", "ba1", "da1", "dp1", "dp2", "edp1", "ep1", "fg1", "fg4"])
+					assertScope(Aadl2Package::eINSTANCE.flowEnd_Feature, #["af1", "ba1", "da1", "dp1", "dp2", "edp1", "ep1", "fg1", "fg4"])
 					//Tests scope_FlowEnd_context
-					outEnd.assertScope(Aadl2Package::eINSTANCE.flowEnd_Context, false, #["dp1", "dp2", "edp1", "fg1", "fg4"])
+					outEnd.assertScope(Aadl2Package::eINSTANCE.flowEnd_Context, #["dp1", "dp2", "edp1", "fg1", "fg4"])
 					//Tests scope_FlowEnd_feature(FlowEnd, EReference)
-					outEnd.assertScope(Aadl2Package::eINSTANCE.flowEnd_Feature, false, #["af2", "ba2", "da2", "dp2", "edp2", "ep2", "fg3", "param2"])
+					outEnd.assertScope(Aadl2Package::eINSTANCE.flowEnd_Feature, #["af2", "ba2", "da2", "dp2", "edp2", "ep2", "fg3", "param2"])
 				]
 				ownedFlowSpecifications.get(3) => [
 					"fsource4".assertEquals(name)
 					//Tests scope_FlowEnd_feature(FlowSpecification, EReference)
-					assertScope(Aadl2Package::eINSTANCE.flowEnd_Feature, false, #["af1", "ba1", "da1", "dp1", "dp2", "edp1", "ep1", "fg1", "fg4"])
+					assertScope(Aadl2Package::eINSTANCE.flowEnd_Feature, #["af1", "ba1", "da1", "dp1", "dp2", "edp1", "ep1", "fg1", "fg4"])
 					//Tests scope_FlowEnd_context
-					outEnd.assertScope(Aadl2Package::eINSTANCE.flowEnd_Context, false, #["dp1", "dp2", "edp1", "fg1", "fg4"])
+					outEnd.assertScope(Aadl2Package::eINSTANCE.flowEnd_Context, #["dp1", "dp2", "edp1", "fg1", "fg4"])
 					//Tests scope_FlowEnd_feature(FlowEnd, EReference)
-					outEnd.assertScope(Aadl2Package::eINSTANCE.flowEnd_Feature, false, #["af3", "ba3", "da3", "dp2", "edp3", "ep3", "fg2", "subpa1"])
+					outEnd.assertScope(Aadl2Package::eINSTANCE.flowEnd_Feature, #["af3", "ba3", "da3", "dp2", "edp3", "ep3", "fg2", "subpa1"])
 					//Not testing for this error, but the assert is here so that we can test the scope when the context is a data port.
 					outEnd.assertError(testFileResult.issues, issueCollection, "Anything in a 'data port' is not a valid flow specification feature.")
 				]
 				ownedFlowSpecifications.get(4) => [
 					"fsource5".assertEquals(name)
 					//Tests scope_FlowEnd_feature(FlowSpecification, EReference)
-					assertScope(Aadl2Package::eINSTANCE.flowEnd_Feature, false, #["af1", "ba1", "da1", "dp1", "dp2", "edp1", "ep1", "fg1", "fg4"])
+					assertScope(Aadl2Package::eINSTANCE.flowEnd_Feature, #["af1", "ba1", "da1", "dp1", "dp2", "edp1", "ep1", "fg1", "fg4"])
 					//Tests scope_FlowEnd_context
-					outEnd.assertScope(Aadl2Package::eINSTANCE.flowEnd_Context, false, #["dp1", "dp2", "edp1", "fg1", "fg4"])
+					outEnd.assertScope(Aadl2Package::eINSTANCE.flowEnd_Context, #["dp1", "dp2", "edp1", "fg1", "fg4"])
 					//Tests scope_FlowEnd_feature(FlowEnd, EReference)
-					outEnd.assertScope(Aadl2Package::eINSTANCE.flowEnd_Feature, false, #["af3", "ba3", "da3", "dp2", "edp3", "ep3", "fg2", "subpa1"])
+					outEnd.assertScope(Aadl2Package::eINSTANCE.flowEnd_Feature, #["af3", "ba3", "da3", "dp2", "edp3", "ep3", "fg2", "subpa1"])
 					//Not testing for this error, but the assert is here so that we can test the scope when the context is a data port.
 					outEnd.assertError(testFileResult.issues, issueCollection, "Anything in a 'data port' is not a valid flow specification feature.")
 				]
@@ -299,322 +299,322 @@ class ConnectedElementsAndFlowEndsTest extends OsateTest {
 				ownedFeatureGroupConnections.get(0) => [
 					"conn1".assertEquals(name)
 					//Tests scope_ConnectedElement_connectionEnd(Connection, EReference)
-					assertScope(Aadl2Package::eINSTANCE.connectedElement_ConnectionEnd, false, #["af1", "ba1", "bsub1", "da1", "dp1", "dp2", "dsub1", "edp1",
+					assertScope(Aadl2Package::eINSTANCE.connectedElement_ConnectionEnd, #["af1", "ba1", "bsub1", "da1", "dp1", "dp2", "dsub1", "edp1",
 						"eds1", "ep1", "fg1", "fg4", "pp1", "sp1", "subpgsub1", "subpgsub2", "subpgsub3", "subpsub1", "subpsub2"
 					])
 					//Tests scope_ConnectedElement_context
-					source.assertScope(Aadl2Package::eINSTANCE.connectedElement_Context, false, #["asub1", "asub2", "bsub1", "call1", "call13", "call14",
+					source.assertScope(Aadl2Package::eINSTANCE.connectedElement_Context, #["asub1", "asub2", "bsub1", "call1", "call13", "call14",
 						"dp1", "dp2", "dsub1", "edp1", "fg1", "fg4", "subpgsub1", "subpgsub2", "subpgsub3", "subpsub1", "subpsub2"
 					])
 					//Tests scope_ConnectedElement_connectionEnd(ConnectedElement, EReference)
-					source.assertScope(Aadl2Package::eINSTANCE.connectedElement_ConnectionEnd, false, #["af3", "ba3", "bsub2", "da3", "dp2", "dsub2", "edp3",
+					source.assertScope(Aadl2Package::eINSTANCE.connectedElement_ConnectionEnd, #["af3", "ba3", "bsub2", "da3", "dp2", "dsub2", "edp3",
 						"eds1", "ep3", "fg2", "pp1", "sp1", "subpa1", "subpgsub2", "subpsub2"
 					])
 					//Tests scope_ConnectedElement_context
-					destination.assertScope(Aadl2Package::eINSTANCE.connectedElement_Context, false, #["asub1", "asub2", "bsub1", "call1", "call13", "call14",
+					destination.assertScope(Aadl2Package::eINSTANCE.connectedElement_Context, #["asub1", "asub2", "bsub1", "call1", "call13", "call14",
 						"dp1", "dp2", "dsub1", "edp1", "fg1", "fg4", "subpgsub1", "subpgsub2", "subpgsub3", "subpsub1", "subpsub2"
 					])
 					//Tests scope_ConnectedElement_connectionEnd(ConnectedElement, EReference)
-					destination.assertScope(Aadl2Package::eINSTANCE.connectedElement_ConnectionEnd, false, #["af3", "ba3", "bsub2", "da3", "dp2", "dsub2",
+					destination.assertScope(Aadl2Package::eINSTANCE.connectedElement_ConnectionEnd, #["af3", "ba3", "bsub2", "da3", "dp2", "dsub2",
 						"edp3", "eds1", "ep3", "fg2", "pp1", "sp1", "subpa1", "subpgsub2", "subpsub2"
 					])
 				]
 				ownedFeatureGroupConnections.get(1) => [
 					"conn2".assertEquals(name)
 					//Tests scope_ConnectedElement_connectionEnd(Connection, EReference)
-					assertScope(Aadl2Package::eINSTANCE.connectedElement_ConnectionEnd, false, #["af1", "ba1", "bsub1", "da1", "dp1", "dp2", "dsub1", "edp1",
+					assertScope(Aadl2Package::eINSTANCE.connectedElement_ConnectionEnd, #["af1", "ba1", "bsub1", "da1", "dp1", "dp2", "dsub1", "edp1",
 						"eds1", "ep1", "fg1", "fg4", "pp1", "sp1", "subpgsub1", "subpgsub2", "subpgsub3", "subpsub1", "subpsub2"
 					])
 					//Tests scope_ConnectedElement_context
-					source.assertScope(Aadl2Package::eINSTANCE.connectedElement_Context, false, #["asub1", "asub2", "bsub1", "call1", "call13", "call14",
+					source.assertScope(Aadl2Package::eINSTANCE.connectedElement_Context, #["asub1", "asub2", "bsub1", "call1", "call13", "call14",
 						"dp1", "dp2", "dsub1", "edp1", "fg1", "fg4", "subpgsub1", "subpgsub2", "subpgsub3", "subpsub1", "subpsub2"
 					])
 					//Tests scope_ConnectedElement_connectionEnd(ConnectedElement, EReference)
-					source.assertScope(Aadl2Package::eINSTANCE.connectedElement_ConnectionEnd, false, #["af3", "ba3", "bsub2", "da3", "dp2", "dsub2", "edp3",
+					source.assertScope(Aadl2Package::eINSTANCE.connectedElement_ConnectionEnd, #["af3", "ba3", "bsub2", "da3", "dp2", "dsub2", "edp3",
 						"eds1", "ep3", "fg2", "pp1", "sp1", "subpa1", "subpgsub2", "subpsub2"
 					])
 					//Tests scope_ConnectedElement_context
-					destination.assertScope(Aadl2Package::eINSTANCE.connectedElement_Context, false, #["asub1", "asub2", "bsub1", "call1", "call13", "call14",
+					destination.assertScope(Aadl2Package::eINSTANCE.connectedElement_Context, #["asub1", "asub2", "bsub1", "call1", "call13", "call14",
 						"dp1", "dp2", "dsub1", "edp1", "fg1", "fg4", "subpgsub1", "subpgsub2", "subpgsub3", "subpsub1", "subpsub2"
 					])
 					//Tests scope_ConnectedElement_connectionEnd(ConnectedElement, EReference)
-					destination.assertScope(Aadl2Package::eINSTANCE.connectedElement_ConnectionEnd, false, #["af3", "ba3", "bsub2", "da3", "dp2", "dsub2",
+					destination.assertScope(Aadl2Package::eINSTANCE.connectedElement_ConnectionEnd, #["af3", "ba3", "bsub2", "da3", "dp2", "dsub2",
 						"edp3", "eds1", "ep3", "fg2", "pp1", "sp1", "subpa1", "subpgsub2", "subpsub2"
 					])
 				]
 				ownedFeatureGroupConnections.get(2) => [
 					"conn3".assertEquals(name)
 					//Tests scope_ConnectedElement_connectionEnd(Connection, EReference)
-					assertScope(Aadl2Package::eINSTANCE.connectedElement_ConnectionEnd, false, #["af1", "ba1", "bsub1", "da1", "dp1", "dp2", "dsub1", "edp1",
+					assertScope(Aadl2Package::eINSTANCE.connectedElement_ConnectionEnd, #["af1", "ba1", "bsub1", "da1", "dp1", "dp2", "dsub1", "edp1",
 						"eds1", "ep1", "fg1", "fg4", "pp1", "sp1", "subpgsub1", "subpgsub2", "subpgsub3", "subpsub1", "subpsub2"
 					])
 					//Tests scope_ConnectedElement_context
-					source.assertScope(Aadl2Package::eINSTANCE.connectedElement_Context, false, #["asub1", "asub2", "bsub1", "call1", "call13", "call14",
+					source.assertScope(Aadl2Package::eINSTANCE.connectedElement_Context, #["asub1", "asub2", "bsub1", "call1", "call13", "call14",
 						"dp1", "dp2", "dsub1", "edp1", "fg1", "fg4", "subpgsub1", "subpgsub2", "subpgsub3", "subpsub1", "subpsub2"
 					])
 					//Tests scope_ConnectedElement_connectionEnd(ConnectedElement, EReference)
-					source.assertScope(Aadl2Package::eINSTANCE.connectedElement_ConnectionEnd, false, #["af1", "ba1", "bsub1", "da1", "dp1", "dp2", "dsub1",
+					source.assertScope(Aadl2Package::eINSTANCE.connectedElement_ConnectionEnd, #["af1", "ba1", "bsub1", "da1", "dp1", "dp2", "dsub1",
 						"edp1", "eds1", "ep1", "fg1", "fg4", "pp1", "sp1", "subpgsub1", "subpgsub2", "subpgsub3", "subpsub1", "subpsub2"
 					])
 					//Tests scope_ConnectedElement_context
-					destination.assertScope(Aadl2Package::eINSTANCE.connectedElement_Context, false, #["asub1", "asub2", "bsub1", "call1", "call13", "call14",
+					destination.assertScope(Aadl2Package::eINSTANCE.connectedElement_Context, #["asub1", "asub2", "bsub1", "call1", "call13", "call14",
 						"dp1", "dp2", "dsub1", "edp1", "fg1", "fg4", "subpgsub1", "subpgsub2", "subpgsub3", "subpsub1", "subpsub2"
 					])
 					//Tests scope_ConnectedElement_connectionEnd(ConnectedElement, EReference)
-					destination.assertScope(Aadl2Package::eINSTANCE.connectedElement_ConnectionEnd, false, #["af3", "ba3", "bsub2", "da3", "dp2", "dsub2",
+					destination.assertScope(Aadl2Package::eINSTANCE.connectedElement_ConnectionEnd, #["af3", "ba3", "bsub2", "da3", "dp2", "dsub2",
 						"edp3", "eds1", "ep3", "fg2", "pp1", "sp1", "subpa1", "subpgsub2", "subpsub2"
 					])
 				]
 				ownedFeatureGroupConnections.get(3) => [
 					"conn4".assertEquals(name)
 					//Tests scope_ConnectedElement_connectionEnd(Connection, EReference)
-					assertScope(Aadl2Package::eINSTANCE.connectedElement_ConnectionEnd, false, #["af1", "ba1", "bsub1", "da1", "dp1", "dp2", "dsub1", "edp1",
+					assertScope(Aadl2Package::eINSTANCE.connectedElement_ConnectionEnd, #["af1", "ba1", "bsub1", "da1", "dp1", "dp2", "dsub1", "edp1",
 						"eds1", "ep1", "fg1", "fg4", "pp1", "sp1", "subpgsub1", "subpgsub2", "subpgsub3", "subpsub1", "subpsub2"
 					])
 					//Tests scope_ConnectedElement_context
-					source.assertScope(Aadl2Package::eINSTANCE.connectedElement_Context, false, #["asub1", "asub2", "bsub1", "call1", "call13", "call14",
+					source.assertScope(Aadl2Package::eINSTANCE.connectedElement_Context, #["asub1", "asub2", "bsub1", "call1", "call13", "call14",
 						"dp1", "dp2", "dsub1", "edp1", "fg1", "fg4", "subpgsub1", "subpgsub2", "subpgsub3", "subpsub1", "subpsub2"
 					])
 					//Tests scope_ConnectedElement_connectionEnd(ConnectedElement, EReference)
-					source.assertScope(Aadl2Package::eINSTANCE.connectedElement_ConnectionEnd, false, #["af2", "ba2", "da2", "dp2", "edp2", "ep2", "fg3",
+					source.assertScope(Aadl2Package::eINSTANCE.connectedElement_ConnectionEnd, #["af2", "ba2", "da2", "dp2", "edp2", "ep2", "fg3",
 						"param2"
 					])
 					//Tests scope_ConnectedElement_context
-					destination.assertScope(Aadl2Package::eINSTANCE.connectedElement_Context, false, #["asub1", "asub2", "bsub1", "call1", "call13", "call14",
+					destination.assertScope(Aadl2Package::eINSTANCE.connectedElement_Context, #["asub1", "asub2", "bsub1", "call1", "call13", "call14",
 						"dp1", "dp2", "dsub1", "edp1", "fg1", "fg4", "subpgsub1", "subpgsub2", "subpgsub3", "subpsub1", "subpsub2"
 					])
 					//Tests scope_ConnectedElement_connectionEnd(ConnectedElement, EReference)
-					destination.assertScope(Aadl2Package::eINSTANCE.connectedElement_ConnectionEnd, false, #["af3", "ba3", "bsub2", "da3", "dp2", "dsub2",
+					destination.assertScope(Aadl2Package::eINSTANCE.connectedElement_ConnectionEnd, #["af3", "ba3", "bsub2", "da3", "dp2", "dsub2",
 						"edp3", "eds1", "ep3", "fg2", "pp1", "sp1", "subpa1", "subpgsub2", "subpsub2"
 					])
 				]
 				ownedFeatureGroupConnections.get(4) => [
 					"conn5".assertEquals(name)
 					//Tests scope_ConnectedElement_connectionEnd(Connection, EReference)
-					assertScope(Aadl2Package::eINSTANCE.connectedElement_ConnectionEnd, false, #["af1", "ba1", "bsub1", "da1", "dp1", "dp2", "dsub1", "edp1",
+					assertScope(Aadl2Package::eINSTANCE.connectedElement_ConnectionEnd, #["af1", "ba1", "bsub1", "da1", "dp1", "dp2", "dsub1", "edp1",
 						"eds1", "ep1", "fg1", "fg4", "pp1", "sp1", "subpgsub1", "subpgsub2", "subpgsub3", "subpsub1", "subpsub2"
 					])
 					//Tests scope_ConnectedElement_context
-					source.assertScope(Aadl2Package::eINSTANCE.connectedElement_Context, false, #["asub1", "asub2", "bsub1", "call1", "call13", "call14",
+					source.assertScope(Aadl2Package::eINSTANCE.connectedElement_Context, #["asub1", "asub2", "bsub1", "call1", "call13", "call14",
 						"dp1", "dp2", "dsub1", "edp1", "fg1", "fg4", "subpgsub1", "subpgsub2", "subpgsub3", "subpsub1", "subpsub2"
 					])
 					//Tests scope_ConnectedElement_connectionEnd(ConnectedElement, EReference)
-					source.assertScope(Aadl2Package::eINSTANCE.connectedElement_ConnectionEnd, false, #["af2", "ba2", "da2", "dp2", "edp2", "ep2", "fg3",
+					source.assertScope(Aadl2Package::eINSTANCE.connectedElement_ConnectionEnd, #["af2", "ba2", "da2", "dp2", "edp2", "ep2", "fg3",
 						"param2"
 					])
 					//Tests scope_ConnectedElement_context
-					destination.assertScope(Aadl2Package::eINSTANCE.connectedElement_Context, false, #["asub1", "asub2", "bsub1", "call1", "call13", "call14",
+					destination.assertScope(Aadl2Package::eINSTANCE.connectedElement_Context, #["asub1", "asub2", "bsub1", "call1", "call13", "call14",
 						"dp1", "dp2", "dsub1", "edp1", "fg1", "fg4", "subpgsub1", "subpgsub2", "subpgsub3", "subpsub1", "subpsub2"
 					])
 					//Tests scope_ConnectedElement_connectionEnd(ConnectedElement, EReference)
-					destination.assertScope(Aadl2Package::eINSTANCE.connectedElement_ConnectionEnd, false, #["af3", "ba3", "bsub2", "da3", "dp2", "dsub2",
+					destination.assertScope(Aadl2Package::eINSTANCE.connectedElement_ConnectionEnd, #["af3", "ba3", "bsub2", "da3", "dp2", "dsub2",
 						"edp3", "eds1", "ep3", "fg2", "pp1", "sp1", "subpa1", "subpgsub2", "subpsub2"
 					])
 				]
 				ownedPortConnections.get(0) => [
 					"conn6".assertEquals(name)
 					//Tests scope_ConnectedElement_connectionEnd(Connection, EReference)
-					assertScope(Aadl2Package::eINSTANCE.connectedElement_ConnectionEnd, false, #["af1", "ba1", "bsub1", "da1", "dp1", "dp2", "dsub1", "edp1",
+					assertScope(Aadl2Package::eINSTANCE.connectedElement_ConnectionEnd, #["af1", "ba1", "bsub1", "da1", "dp1", "dp2", "dsub1", "edp1",
 						"eds1", "ep1", "fg1", "fg4", "pp1", "sp1", "subpgsub1", "subpgsub2", "subpgsub3", "subpsub1", "subpsub2"
 					])
 					//Tests scope_ConnectedElement_context
-					source.assertScope(Aadl2Package::eINSTANCE.connectedElement_Context, false, #["asub1", "asub2", "bsub1", "call1", "call13", "call14",
+					source.assertScope(Aadl2Package::eINSTANCE.connectedElement_Context, #["asub1", "asub2", "bsub1", "call1", "call13", "call14",
 						"dp1", "dp2", "dsub1", "edp1", "fg1", "fg4", "subpgsub1", "subpgsub2", "subpgsub3", "subpsub1", "subpsub2"
 					])
 					//Tests scope_ConnectedElement_connectionEnd(ConnectedElement, EReference)
-					source.assertScope(Aadl2Package::eINSTANCE.connectedElement_ConnectionEnd, false, #["af3", "ba3", "bsub2", "da3", "dp2", "dsub2", "edp3",
+					source.assertScope(Aadl2Package::eINSTANCE.connectedElement_ConnectionEnd, #["af3", "ba3", "bsub2", "da3", "dp2", "dsub2", "edp3",
 						"eds1", "ep3", "fg2", "pp1", "sp1", "subpa1", "subpgsub2", "subpsub2"
 					])
 					//Tests scope_ConnectedElement_context
-					destination.assertScope(Aadl2Package::eINSTANCE.connectedElement_Context, false, #["asub1", "asub2", "bsub1", "call1", "call13", "call14",
+					destination.assertScope(Aadl2Package::eINSTANCE.connectedElement_Context, #["asub1", "asub2", "bsub1", "call1", "call13", "call14",
 						"dp1", "dp2", "dsub1", "edp1", "fg1", "fg4", "subpgsub1", "subpgsub2", "subpgsub3", "subpsub1", "subpsub2"
 					])
 					//Tests scope_ConnectedElement_connectionEnd(ConnectedElement, EReference)
-					destination.assertScope(Aadl2Package::eINSTANCE.connectedElement_ConnectionEnd, false, #["af3", "ba3", "bsub2", "da3", "dp2", "dsub2",
+					destination.assertScope(Aadl2Package::eINSTANCE.connectedElement_ConnectionEnd, #["af3", "ba3", "bsub2", "da3", "dp2", "dsub2",
 						"edp3", "eds1", "ep3", "fg2", "pp1", "sp1", "subpa1", "subpgsub2", "subpsub2"
 					])
 				]
 				ownedPortConnections.get(1) => [
 					"conn7".assertEquals(name)
 					//Tests scope_ConnectedElement_connectionEnd(Connection, EReference)
-					assertScope(Aadl2Package::eINSTANCE.connectedElement_ConnectionEnd, false, #["af1", "ba1", "bsub1", "da1", "dp1", "dp2", "dsub1", "edp1",
+					assertScope(Aadl2Package::eINSTANCE.connectedElement_ConnectionEnd, #["af1", "ba1", "bsub1", "da1", "dp1", "dp2", "dsub1", "edp1",
 						"eds1", "ep1", "fg1", "fg4", "pp1", "sp1", "subpgsub1", "subpgsub2", "subpgsub3", "subpsub1", "subpsub2"
 					])
 					//Tests scope_ConnectedElement_context
-					source.assertScope(Aadl2Package::eINSTANCE.connectedElement_Context, false, #["asub1", "asub2", "bsub1", "call1", "call13", "call14",
+					source.assertScope(Aadl2Package::eINSTANCE.connectedElement_Context, #["asub1", "asub2", "bsub1", "call1", "call13", "call14",
 						"dp1", "dp2", "dsub1", "edp1", "fg1", "fg4", "subpgsub1", "subpgsub2", "subpgsub3", "subpsub1", "subpsub2"
 					])
 					//Tests scope_ConnectedElement_connectionEnd(ConnectedElement, EReference)
-					source.assertScope(Aadl2Package::eINSTANCE.connectedElement_ConnectionEnd, false, #["af3", "ba3", "bsub2", "da3", "dp2", "dsub2", "edp3", "eds1",
+					source.assertScope(Aadl2Package::eINSTANCE.connectedElement_ConnectionEnd, #["af3", "ba3", "bsub2", "da3", "dp2", "dsub2", "edp3", "eds1",
 						"ep3", "fg2", "pp1", "sp1", "subpa1", "subpgsub2", "subpsub2"
 					])
 					//Tests scope_ConnectedElement_context
-					destination.assertScope(Aadl2Package::eINSTANCE.connectedElement_Context, false, #["asub1", "asub2", "bsub1", "call1", "call13", "call14", "dp1",
+					destination.assertScope(Aadl2Package::eINSTANCE.connectedElement_Context, #["asub1", "asub2", "bsub1", "call1", "call13", "call14", "dp1",
 						"dp2", "dsub1", "edp1", "fg1", "fg4", "subpgsub1", "subpgsub2", "subpgsub3", "subpsub1", "subpsub2"
 					])
 					//Tests scope_ConnectedElement_connectionEnd(ConnectedElement, EReference)
-					destination.assertScope(Aadl2Package::eINSTANCE.connectedElement_ConnectionEnd, false, #["af3", "ba3", "bsub2", "da3", "dp2", "dsub2", "edp3",
+					destination.assertScope(Aadl2Package::eINSTANCE.connectedElement_ConnectionEnd, #["af3", "ba3", "bsub2", "da3", "dp2", "dsub2", "edp3",
 						"eds1", "ep3", "fg2", "pp1", "sp1", "subpa1", "subpgsub2", "subpsub2"
 					])
 				]
 				ownedPortConnections.get(2) => [
 					"conn8".assertEquals(name)
 					//Tests scope_ConnectedElement_connectionEnd(Connection, EReference)
-					assertScope(Aadl2Package::eINSTANCE.connectedElement_ConnectionEnd, false, #["af1", "ba1", "bsub1", "da1", "dp1", "dp2", "dsub1", "edp1", "eds1",
+					assertScope(Aadl2Package::eINSTANCE.connectedElement_ConnectionEnd, #["af1", "ba1", "bsub1", "da1", "dp1", "dp2", "dsub1", "edp1", "eds1",
 						"ep1", "fg1", "fg4", "pp1", "sp1", "subpgsub1", "subpgsub2", "subpgsub3", "subpsub1", "subpsub2"
 					])
 					//Tests scope_ConnectedElement_context
-					source.assertScope(Aadl2Package::eINSTANCE.connectedElement_Context, false, #["asub1", "asub2", "bsub1", "call1", "call13", "call14", "dp1",
+					source.assertScope(Aadl2Package::eINSTANCE.connectedElement_Context, #["asub1", "asub2", "bsub1", "call1", "call13", "call14", "dp1",
 						"dp2", "dsub1", "edp1", "fg1", "fg4", "subpgsub1", "subpgsub2", "subpgsub3", "subpsub1", "subpsub2"
 					])
 					//Tests scope_ConnectedElement_connectionEnd(ConnectedElement, EReference)
-					source.assertScope(Aadl2Package::eINSTANCE.connectedElement_ConnectionEnd, false, #["af1", "ba1", "bsub1", "da1", "dp1", "dp2", "dsub1", "edp1",
+					source.assertScope(Aadl2Package::eINSTANCE.connectedElement_ConnectionEnd, #["af1", "ba1", "bsub1", "da1", "dp1", "dp2", "dsub1", "edp1",
 						"eds1", "ep1", "fg1", "fg4", "pp1", "sp1", "subpgsub1", "subpgsub2", "subpgsub3", "subpsub1", "subpsub2"
 					])
 					//Tests scope_ConnectedElement_context
-					destination.assertScope(Aadl2Package::eINSTANCE.connectedElement_Context, false, #["asub1", "asub2", "bsub1", "call1", "call13", "call14", "dp1",
+					destination.assertScope(Aadl2Package::eINSTANCE.connectedElement_Context, #["asub1", "asub2", "bsub1", "call1", "call13", "call14", "dp1",
 						"dp2", "dsub1", "edp1", "fg1", "fg4", "subpgsub1", "subpgsub2", "subpgsub3", "subpsub1", "subpsub2"
 					])
 					//Tests scope_ConnectedElement_connectionEnd(ConnectedElement, EReference)
-					destination.assertScope(Aadl2Package::eINSTANCE.connectedElement_ConnectionEnd, false, #["af3", "ba3", "bsub2", "da3", "dp2", "dsub2", "edp3",
+					destination.assertScope(Aadl2Package::eINSTANCE.connectedElement_ConnectionEnd, #["af3", "ba3", "bsub2", "da3", "dp2", "dsub2", "edp3",
 						"eds1", "ep3", "fg2", "pp1", "sp1", "subpa1", "subpgsub2", "subpsub2"
 					])
 				]
 				ownedPortConnections.get(3) => [
 					"conn9".assertEquals(name)
 					//Tests scope_ConnectedElement_connectionEnd(Connection, EReference)
-					assertScope(Aadl2Package::eINSTANCE.connectedElement_ConnectionEnd, false, #["af1", "ba1", "bsub1", "da1", "dp1", "dp2", "dsub1", "edp1", "eds1",
+					assertScope(Aadl2Package::eINSTANCE.connectedElement_ConnectionEnd, #["af1", "ba1", "bsub1", "da1", "dp1", "dp2", "dsub1", "edp1", "eds1",
 						"ep1", "fg1", "fg4", "pp1", "sp1", "subpgsub1", "subpgsub2", "subpgsub3", "subpsub1", "subpsub2"
 					])
 					//Tests scope_ConnectedElement_context
-					source.assertScope(Aadl2Package::eINSTANCE.connectedElement_Context, false, #["asub1", "asub2", "bsub1", "call1", "call13", "call14", "dp1",
+					source.assertScope(Aadl2Package::eINSTANCE.connectedElement_Context, #["asub1", "asub2", "bsub1", "call1", "call13", "call14", "dp1",
 						"dp2", "dsub1", "edp1", "fg1", "fg4", "subpgsub1", "subpgsub2", "subpgsub3", "subpsub1", "subpsub2"
 					])
 					//Tests scope_ConnectedElement_connectionEnd(ConnectedElement, EReference)
-					source.assertScope(Aadl2Package::eINSTANCE.connectedElement_ConnectionEnd, false, #["af1", "ba1", "bsub1", "da1", "dp1", "dp2", "dsub1", "edp1",
+					source.assertScope(Aadl2Package::eINSTANCE.connectedElement_ConnectionEnd, #["af1", "ba1", "bsub1", "da1", "dp1", "dp2", "dsub1", "edp1",
 						"eds1", "ep1", "fg1", "fg4", "pp1", "sp1", "subpgsub1", "subpgsub2", "subpgsub3", "subpsub1", "subpsub2"
 					])
 					//Tests scope_ConnectedElement_context
-					destination.assertScope(Aadl2Package::eINSTANCE.connectedElement_Context, false, #["asub1", "asub2", "bsub1", "call1", "call13", "call14", "dp1",
+					destination.assertScope(Aadl2Package::eINSTANCE.connectedElement_Context, #["asub1", "asub2", "bsub1", "call1", "call13", "call14", "dp1",
 						"dp2", "dsub1", "edp1", "fg1", "fg4", "subpgsub1", "subpgsub2", "subpgsub3", "subpsub1", "subpsub2"
 					])
 					//Tests scope_ConnectedElement_connectionEnd(ConnectedElement, EReference)
-					destination.assertScope(Aadl2Package::eINSTANCE.connectedElement_ConnectionEnd, false, #["af3", "ba3", "bsub2", "da3", "dp2", "dsub2", "edp3",
+					destination.assertScope(Aadl2Package::eINSTANCE.connectedElement_ConnectionEnd, #["af3", "ba3", "bsub2", "da3", "dp2", "dsub2", "edp3",
 						"eds1", "ep3", "fg2", "pp1", "sp1", "subpa1", "subpgsub2", "subpsub2"
 					])
 				]
 				ownedFeatureConnections.get(0) => [
 					"conn10".assertEquals(name)
 					//Tests scope_ConnectedElement_connectionEnd(Connection, EReference)
-					assertScope(Aadl2Package::eINSTANCE.connectedElement_ConnectionEnd, false, #["af1", "ba1", "bsub1", "da1", "dp1", "dp2", "dsub1", "edp1", "eds1",
+					assertScope(Aadl2Package::eINSTANCE.connectedElement_ConnectionEnd, #["af1", "ba1", "bsub1", "da1", "dp1", "dp2", "dsub1", "edp1", "eds1",
 						"ep1", "fg1", "fg4", "pp1", "sp1", "subpgsub1", "subpgsub2", "subpgsub3", "subpsub1", "subpsub2"
 					])
 					//Tests scope_ConnectedElement_context
-					source.assertScope(Aadl2Package::eINSTANCE.connectedElement_Context, false, #["asub1", "asub2", "bsub1", "call1", "call13", "call14", "dp1",
+					source.assertScope(Aadl2Package::eINSTANCE.connectedElement_Context, #["asub1", "asub2", "bsub1", "call1", "call13", "call14", "dp1",
 						"dp2", "dsub1", "edp1", "fg1", "fg4", "subpgsub1", "subpgsub2", "subpgsub3", "subpsub1", "subpsub2"
 					])
 					//Tests scope_ConnectedElement_connectionEnd(ConnectedElement, EReference)
-					source.assertScope(Aadl2Package::eINSTANCE.connectedElement_ConnectionEnd, false, #["af4", "da4", "edp4", "ep4", "fg4", "fg5", "param1", "subpa2",
+					source.assertScope(Aadl2Package::eINSTANCE.connectedElement_ConnectionEnd, #["af4", "da4", "edp4", "ep4", "fg4", "fg5", "param1", "subpa2",
 						"subpa3", "subpga1", "subpga2"
 					])
 					//Tests scope_ConnectedElement_context
-					destination.assertScope(Aadl2Package::eINSTANCE.connectedElement_Context, false, #["asub1", "asub2", "bsub1", "call1", "call13", "call14", "dp1",
+					destination.assertScope(Aadl2Package::eINSTANCE.connectedElement_Context, #["asub1", "asub2", "bsub1", "call1", "call13", "call14", "dp1",
 						"dp2", "dsub1", "edp1", "fg1", "fg4", "subpgsub1", "subpgsub2", "subpgsub3", "subpsub1", "subpsub2"
 					])
 					//Tests scope_ConnectedElement_connectionEnd(ConnectedElement, EReference)
-					destination.assertScope(Aadl2Package::eINSTANCE.connectedElement_ConnectionEnd, false, #["af3", "ba3", "bsub2", "da3", "dp2", "dsub2", "edp3",
+					destination.assertScope(Aadl2Package::eINSTANCE.connectedElement_ConnectionEnd, #["af3", "ba3", "bsub2", "da3", "dp2", "dsub2", "edp3",
 						"eds1", "ep3", "fg2", "pp1", "sp1", "subpa1", "subpgsub2", "subpsub2"
 					])
 				]
 				ownedFeatureConnections.get(1) => [
 					"conn11".assertEquals(name)
 					//Tests scope_ConnectedElement_connectionEnd(Connection, EReference)
-					assertScope(Aadl2Package::eINSTANCE.connectedElement_ConnectionEnd, false, #["af1", "ba1", "bsub1", "da1", "dp1", "dp2", "dsub1", "edp1", "eds1",
+					assertScope(Aadl2Package::eINSTANCE.connectedElement_ConnectionEnd, #["af1", "ba1", "bsub1", "da1", "dp1", "dp2", "dsub1", "edp1", "eds1",
 						"ep1", "fg1", "fg4", "pp1", "sp1", "subpgsub1", "subpgsub2", "subpgsub3", "subpsub1", "subpsub2"
 					])
 					//Tests scope_ConnectedElement_context
-					source.assertScope(Aadl2Package::eINSTANCE.connectedElement_Context, false, #["asub1", "asub2", "bsub1", "call1", "call13", "call14", "dp1",
+					source.assertScope(Aadl2Package::eINSTANCE.connectedElement_Context, #["asub1", "asub2", "bsub1", "call1", "call13", "call14", "dp1",
 						"dp2", "dsub1", "edp1", "fg1", "fg4", "subpgsub1", "subpgsub2", "subpgsub3", "subpsub1", "subpsub2"
 					])
 					//Tests scope_ConnectedElement_connectionEnd(ConnectedElement, EReference)
-					source.assertScope(Aadl2Package::eINSTANCE.connectedElement_ConnectionEnd, false, #["af4", "da4", "edp4", "ep4", "fg4", "fg5", "param1", "subpa2",
+					source.assertScope(Aadl2Package::eINSTANCE.connectedElement_ConnectionEnd, #["af4", "da4", "edp4", "ep4", "fg4", "fg5", "param1", "subpa2",
 						"subpa3", "subpga1", "subpga2"
 					])
 					//Tests scope_ConnectedElement_context
-					destination.assertScope(Aadl2Package::eINSTANCE.connectedElement_Context, false, #["asub1", "asub2", "bsub1", "call1", "call13", "call14", "dp1",
+					destination.assertScope(Aadl2Package::eINSTANCE.connectedElement_Context, #["asub1", "asub2", "bsub1", "call1", "call13", "call14", "dp1",
 						"dp2", "dsub1", "edp1", "fg1", "fg4", "subpgsub1", "subpgsub2", "subpgsub3", "subpsub1", "subpsub2"
 					])
 					//Tests scope_ConnectedElement_connectionEnd(ConnectedElement, EReference)
-					destination.assertScope(Aadl2Package::eINSTANCE.connectedElement_ConnectionEnd, false, #["af3", "ba3", "bsub2", "da3", "dp2", "dsub2", "edp3",
+					destination.assertScope(Aadl2Package::eINSTANCE.connectedElement_ConnectionEnd, #["af3", "ba3", "bsub2", "da3", "dp2", "dsub2", "edp3",
 						"eds1", "ep3", "fg2", "pp1", "sp1", "subpa1", "subpgsub2", "subpsub2"
 					])
 				]
 				ownedAccessConnections.head => [
 					"conn12".assertEquals(name)
 					//Tests scope_ConnectedElement_connectionEnd(Connection, EReference)
-					assertScope(Aadl2Package::eINSTANCE.connectedElement_ConnectionEnd, false, #["af1", "ba1", "bsub1", "da1", "dp1", "dp2", "dsub1", "edp1", "eds1",
+					assertScope(Aadl2Package::eINSTANCE.connectedElement_ConnectionEnd, #["af1", "ba1", "bsub1", "da1", "dp1", "dp2", "dsub1", "edp1", "eds1",
 						"ep1", "fg1", "fg4", "pp1", "sp1", "subpgsub1", "subpgsub2", "subpgsub3", "subpsub1", "subpsub2"
 					])
 					//Tests scope_ConnectedElement_context
-					source.assertScope(Aadl2Package::eINSTANCE.connectedElement_Context, false, #["asub1", "asub2", "bsub1", "call1", "call13", "call14", "dp1",
+					source.assertScope(Aadl2Package::eINSTANCE.connectedElement_Context, #["asub1", "asub2", "bsub1", "call1", "call13", "call14", "dp1",
 						"dp2", "dsub1", "edp1", "fg1", "fg4", "subpgsub1", "subpgsub2", "subpgsub3", "subpsub1", "subpsub2"
 					])
 					//Tests scope_ConnectedElement_connectionEnd(ConnectedElement, EReference)
-					source.assertScope(Aadl2Package::eINSTANCE.connectedElement_ConnectionEnd, false, #["af1", "ba1", "bsub1", "da1", "dp1", "dp2", "dsub1", "edp1",
+					source.assertScope(Aadl2Package::eINSTANCE.connectedElement_ConnectionEnd, #["af1", "ba1", "bsub1", "da1", "dp1", "dp2", "dsub1", "edp1",
 						"eds1", "ep1", "fg1", "fg4", "pp1", "sp1", "subpgsub1", "subpgsub2", "subpgsub3", "subpsub1", "subpsub2"
 					])
 					//Tests scope_ConnectedElement_context
-					destination.assertScope(Aadl2Package::eINSTANCE.connectedElement_Context, false, #["asub1", "asub2", "bsub1", "call1", "call13", "call14", "dp1",
+					destination.assertScope(Aadl2Package::eINSTANCE.connectedElement_Context, #["asub1", "asub2", "bsub1", "call1", "call13", "call14", "dp1",
 						"dp2", "dsub1", "edp1", "fg1", "fg4", "subpgsub1", "subpgsub2", "subpgsub3", "subpsub1", "subpsub2"
 					])
 					//Tests scope_ConnectedElement_connectionEnd(ConnectedElement, EReference)
-					destination.assertScope(Aadl2Package::eINSTANCE.connectedElement_ConnectionEnd, false, #["af3", "ba3", "bsub2", "da3", "dp2", "dsub2", "edp3",
+					destination.assertScope(Aadl2Package::eINSTANCE.connectedElement_ConnectionEnd, #["af3", "ba3", "bsub2", "da3", "dp2", "dsub2", "edp3",
 						"eds1", "ep3", "fg2", "pp1", "sp1", "subpa1", "subpgsub2", "subpsub2"
 					])
 				]
 				ownedParameterConnections.get(0) => [
 					"conn24".assertEquals(name)
 					//Tests scope_ConnectedElement_connectionEnd(Connection, EReference)
-					assertScope(Aadl2Package::eINSTANCE.connectedElement_ConnectionEnd, false, #["af1", "ba1", "bsub1", "da1", "dp1", "dp2", "dsub1", "edp1", "eds1",
+					assertScope(Aadl2Package::eINSTANCE.connectedElement_ConnectionEnd, #["af1", "ba1", "bsub1", "da1", "dp1", "dp2", "dsub1", "edp1", "eds1",
 						"ep1", "fg1", "fg4", "pp1", "sp1", "subpgsub1", "subpgsub2", "subpgsub3", "subpsub1", "subpsub2"
 					])
 					//Tests scope_ConnectedElement_context
-					source.assertScope(Aadl2Package::eINSTANCE.connectedElement_Context, false, #["asub1", "asub2", "bsub1", "call1", "call13", "call14", "dp1",
+					source.assertScope(Aadl2Package::eINSTANCE.connectedElement_Context, #["asub1", "asub2", "bsub1", "call1", "call13", "call14", "dp1",
 						"dp2", "dsub1", "edp1", "fg1", "fg4", "subpgsub1", "subpgsub2", "subpgsub3", "subpsub1", "subpsub2"
 					])
 					//Tests scope_ConnectedElement_connectionEnd(ConnectedElement, EReference)
-					source.assertScope(Aadl2Package::eINSTANCE.connectedElement_ConnectionEnd, false, #["af1", "ba1", "bsub1", "da1", "dp1", "dp2", "dsub1", "edp1",
+					source.assertScope(Aadl2Package::eINSTANCE.connectedElement_ConnectionEnd, #["af1", "ba1", "bsub1", "da1", "dp1", "dp2", "dsub1", "edp1",
 						"eds1", "ep1", "fg1", "fg4", "pp1", "sp1", "subpgsub1", "subpgsub2", "subpgsub3", "subpsub1", "subpsub2"
 					])
 					//Tests scope_ConnectedElement_context
-					destination.assertScope(Aadl2Package::eINSTANCE.connectedElement_Context, false, #["asub1", "asub2", "bsub1", "call1", "call13", "call14", "dp1",
+					destination.assertScope(Aadl2Package::eINSTANCE.connectedElement_Context, #["asub1", "asub2", "bsub1", "call1", "call13", "call14", "dp1",
 						"dp2", "dsub1", "edp1", "fg1", "fg4", "subpgsub1", "subpgsub2", "subpgsub3", "subpsub1", "subpsub2"
 					])
 					//Tests scope_ConnectedElement_connectionEnd(ConnectedElement, EReference)
-					destination.assertScope(Aadl2Package::eINSTANCE.connectedElement_ConnectionEnd, false, #["af4", "da4", "dsub3", "edp4", "eds2", "ep4", "fg4",
+					destination.assertScope(Aadl2Package::eINSTANCE.connectedElement_ConnectionEnd, #["af4", "da4", "dsub3", "edp4", "eds2", "ep4", "fg4",
 						"fg5", "param1", "pp2", "sp2", "subpa2", "subpa3", "subpga1", "subpga2", "subpsub3"
 					])
 				]
 				ownedParameterConnections.get(1) => [
 					"conn25".assertEquals(name)
 					//Tests scope_ConnectedElement_connectionEnd(Connection, EReference)
-					assertScope(Aadl2Package::eINSTANCE.connectedElement_ConnectionEnd, false, #["af1", "ba1", "bsub1", "da1", "dp1", "dp2", "dsub1", "edp1", "eds1",
+					assertScope(Aadl2Package::eINSTANCE.connectedElement_ConnectionEnd, #["af1", "ba1", "bsub1", "da1", "dp1", "dp2", "dsub1", "edp1", "eds1",
 						"ep1", "fg1", "fg4", "pp1", "sp1", "subpgsub1", "subpgsub2", "subpgsub3", "subpsub1", "subpsub2"
 					])
 					//Tests scope_ConnectedElement_context
-					source.assertScope(Aadl2Package::eINSTANCE.connectedElement_Context, false, #["asub1", "asub2", "bsub1", "call1", "call13", "call14", "dp1",
+					source.assertScope(Aadl2Package::eINSTANCE.connectedElement_Context, #["asub1", "asub2", "bsub1", "call1", "call13", "call14", "dp1",
 						"dp2", "dsub1", "edp1", "fg1", "fg4", "subpgsub1", "subpgsub2", "subpgsub3", "subpsub1", "subpsub2"
 					])
 					//Tests scope_ConnectedElement_connectionEnd(ConnectedElement, EReference)
-					source.assertScope(Aadl2Package::eINSTANCE.connectedElement_ConnectionEnd, false, #["af1", "ba1", "bsub1", "da1", "dp1", "dp2", "dsub1", "edp1",
+					source.assertScope(Aadl2Package::eINSTANCE.connectedElement_ConnectionEnd, #["af1", "ba1", "bsub1", "da1", "dp1", "dp2", "dsub1", "edp1",
 						"eds1", "ep1", "fg1", "fg4", "pp1", "sp1", "subpgsub1", "subpgsub2", "subpgsub3", "subpsub1", "subpsub2"
 					])
 					//Tests scope_ConnectedElement_context
-					destination.assertScope(Aadl2Package::eINSTANCE.connectedElement_Context, false, #["asub1", "asub2", "bsub1", "call1", "call13", "call14", "dp1",
+					destination.assertScope(Aadl2Package::eINSTANCE.connectedElement_Context, #["asub1", "asub2", "bsub1", "call1", "call13", "call14", "dp1",
 						"dp2", "dsub1", "edp1", "fg1", "fg4", "subpgsub1", "subpgsub2", "subpgsub3", "subpsub1", "subpsub2"
 					])
 					//Tests scope_ConnectedElement_connectionEnd(ConnectedElement, EReference)
-					destination.assertScope(Aadl2Package::eINSTANCE.connectedElement_ConnectionEnd, false, #["af4", "da4", "dsub3", "edp4", "eds2", "ep4", "fg4",
+					destination.assertScope(Aadl2Package::eINSTANCE.connectedElement_ConnectionEnd, #["af4", "da4", "dsub3", "edp4", "eds2", "ep4", "fg4",
 						"fg5", "param1", "pp2", "sp2", "subpa2", "subpa3", "subpga1", "subpga2", "subpsub3"
 					])
 				]
@@ -624,184 +624,184 @@ class ConnectedElementsAndFlowEndsTest extends OsateTest {
 				ownedParameterConnections.get(0) => [
 					"conn13".assertEquals(name)
 					//Tests scope_ConnectedElement_connectionEnd(Connection, EReference)
-					assertScope(Aadl2Package::eINSTANCE.connectedElement_ConnectionEnd, false, #["af4", "da4", "edp4", "ep4", "fg4", "fg5", "param1", "subpa2",
+					assertScope(Aadl2Package::eINSTANCE.connectedElement_ConnectionEnd, #["af4", "da4", "edp4", "ep4", "fg4", "fg5", "param1", "subpa2",
 						"subpa3", "subpga1", "subpga2", "subpsub3", "subpsub4"
 					])
 					//Tests scope_ConnectedElement_context
-					source.assertScope(Aadl2Package::eINSTANCE.connectedElement_Context, false, #["call2", "call3", "call4", "call5", "call6", "call7", "call8",
+					source.assertScope(Aadl2Package::eINSTANCE.connectedElement_Context, #["call2", "call3", "call4", "call5", "call6", "call7", "call8",
 						"call9", "edp4", "fg4", "fg5", "param1", "subpsub3", "subpsub4"
 					])
 					//Tests scope_ConnectedElement_connectionEnd(ConnectedElement, EReference)
-					source.assertScope(Aadl2Package::eINSTANCE.connectedElement_ConnectionEnd, false, #["af4", "da4", "edp4", "ep4", "fg4", "fg5", "param1", "subpa2",
+					source.assertScope(Aadl2Package::eINSTANCE.connectedElement_ConnectionEnd, #["af4", "da4", "edp4", "ep4", "fg4", "fg5", "param1", "subpa2",
 						"subpa3", "subpga1", "subpga2", "subpsub3", "subpsub4"
 					])
 					//Tests scope_ConnectedElement_context
-					destination.assertScope(Aadl2Package::eINSTANCE.connectedElement_Context, false, #["call2", "call3", "call4", "call5", "call6", "call7", "call8",
+					destination.assertScope(Aadl2Package::eINSTANCE.connectedElement_Context, #["call2", "call3", "call4", "call5", "call6", "call7", "call8",
 						"call9", "edp4", "fg4", "fg5", "param1", "subpsub3", "subpsub4"
 					])
 					//Tests scope_ConnectedElement_connectionEnd(ConnectedElement, EReference)
-					destination.assertScope(Aadl2Package::eINSTANCE.connectedElement_ConnectionEnd, false, #["af4", "da4", "dsub3", "edp4", "eds2", "ep4", "fg4",
+					destination.assertScope(Aadl2Package::eINSTANCE.connectedElement_ConnectionEnd, #["af4", "da4", "dsub3", "edp4", "eds2", "ep4", "fg4",
 						"fg5", "param1", "pp2", "sp2", "subpa2", "subpa3", "subpga1", "subpga2", "subpsub3"
 					])
 				]
 				ownedParameterConnections.get(1) => [
 					"conn14".assertEquals(name)
 					//Tests scope_ConnectedElement_connectionEnd(Connection, EReference)
-					assertScope(Aadl2Package::eINSTANCE.connectedElement_ConnectionEnd, false, #["af4", "da4", "edp4", "ep4", "fg4", "fg5", "param1", "subpa2",
+					assertScope(Aadl2Package::eINSTANCE.connectedElement_ConnectionEnd, #["af4", "da4", "edp4", "ep4", "fg4", "fg5", "param1", "subpa2",
 						"subpa3", "subpga1", "subpga2", "subpsub3", "subpsub4"
 					])
 					//Tests scope_ConnectedElement_context
-					source.assertScope(Aadl2Package::eINSTANCE.connectedElement_Context, false, #["call2", "call3", "call4", "call5", "call6", "call7", "call8",
+					source.assertScope(Aadl2Package::eINSTANCE.connectedElement_Context, #["call2", "call3", "call4", "call5", "call6", "call7", "call8",
 						"call9", "edp4", "fg4", "fg5", "param1", "subpsub3", "subpsub4"
 					])
 					//Tests scope_ConnectedElement_connectionEnd(ConnectedElement, EReference)
-					source.assertScope(Aadl2Package::eINSTANCE.connectedElement_ConnectionEnd, false, #["af4", "da4", "edp4", "ep4", "fg4", "fg5", "param1", "subpa2",
+					source.assertScope(Aadl2Package::eINSTANCE.connectedElement_ConnectionEnd, #["af4", "da4", "edp4", "ep4", "fg4", "fg5", "param1", "subpa2",
 						"subpa3", "subpga1", "subpga2", "subpsub3", "subpsub4"
 					])
 					//Tests scope_ConnectedElement_context
-					destination.assertScope(Aadl2Package::eINSTANCE.connectedElement_Context, false, #["call2", "call3", "call4", "call5", "call6", "call7", "call8",
+					destination.assertScope(Aadl2Package::eINSTANCE.connectedElement_Context, #["call2", "call3", "call4", "call5", "call6", "call7", "call8",
 						"call9", "edp4", "fg4", "fg5", "param1", "subpsub3", "subpsub4"
 					])
 					//Tests scope_ConnectedElement_connectionEnd(ConnectedElement, EReference)
-					destination.assertScope(Aadl2Package::eINSTANCE.connectedElement_ConnectionEnd, false, #["af4", "da4", "dsub3", "edp4", "eds2", "ep4", "fg4",
+					destination.assertScope(Aadl2Package::eINSTANCE.connectedElement_ConnectionEnd, #["af4", "da4", "dsub3", "edp4", "eds2", "ep4", "fg4",
 						"fg5", "param1", "pp2", "sp2", "subpa2", "subpa3", "subpga1", "subpga2", "subpsub3"
 					])
 				]
 				ownedParameterConnections.get(2) => [
 					"conn15".assertEquals(name)
 					//Tests scope_ConnectedElement_connectionEnd(Connection, EReference)
-					assertScope(Aadl2Package::eINSTANCE.connectedElement_ConnectionEnd, false, #["af4", "da4", "edp4", "ep4", "fg4", "fg5", "param1", "subpa2",
+					assertScope(Aadl2Package::eINSTANCE.connectedElement_ConnectionEnd, #["af4", "da4", "edp4", "ep4", "fg4", "fg5", "param1", "subpa2",
 						"subpa3", "subpga1", "subpga2", "subpsub3", "subpsub4"
 					])
 					//Tests scope_ConnectedElement_context
-					source.assertScope(Aadl2Package::eINSTANCE.connectedElement_Context, false, #["call2", "call3", "call4", "call5", "call6", "call7", "call8",
+					source.assertScope(Aadl2Package::eINSTANCE.connectedElement_Context, #["call2", "call3", "call4", "call5", "call6", "call7", "call8",
 						"call9", "edp4", "fg4", "fg5", "param1", "subpsub3", "subpsub4"
 					])
 					//Tests scope_ConnectedElement_connectionEnd(ConnectedElement, EReference)
-					source.assertScope(Aadl2Package::eINSTANCE.connectedElement_ConnectionEnd, false, #["af4", "da4", "edp4", "ep4", "fg4", "fg5", "param1", "subpa2",
+					source.assertScope(Aadl2Package::eINSTANCE.connectedElement_ConnectionEnd, #["af4", "da4", "edp4", "ep4", "fg4", "fg5", "param1", "subpa2",
 						"subpa3", "subpga1", "subpga2", "subpsub3", "subpsub4"
 					])
 					//Tests scope_ConnectedElement_context
-					destination.assertScope(Aadl2Package::eINSTANCE.connectedElement_Context, false, #["call2", "call3", "call4", "call5", "call6", "call7", "call8",
+					destination.assertScope(Aadl2Package::eINSTANCE.connectedElement_Context, #["call2", "call3", "call4", "call5", "call6", "call7", "call8",
 						"call9", "edp4", "fg4", "fg5", "param1", "subpsub3", "subpsub4"
 					])
 					//Tests scope_ConnectedElement_connectionEnd(ConnectedElement, EReference)
-					destination.assertScope(Aadl2Package::eINSTANCE.connectedElement_ConnectionEnd, false, #["af4", "da4", "dsub3", "edp4", "eds2", "ep4", "fg4",
+					destination.assertScope(Aadl2Package::eINSTANCE.connectedElement_ConnectionEnd, #["af4", "da4", "dsub3", "edp4", "eds2", "ep4", "fg4",
 						"fg5", "param1", "pp2", "sp2", "subpa2", "subpa3", "subpga1", "subpga2", "subpsub3"
 					])
 				]
 				ownedParameterConnections.get(3) => [
 					"conn16".assertEquals(name)
 					//Tests scope_ConnectedElement_connectionEnd(Connection, EReference)
-					assertScope(Aadl2Package::eINSTANCE.connectedElement_ConnectionEnd, false, #["af4", "da4", "edp4", "ep4", "fg4", "fg5", "param1", "subpa2",
+					assertScope(Aadl2Package::eINSTANCE.connectedElement_ConnectionEnd, #["af4", "da4", "edp4", "ep4", "fg4", "fg5", "param1", "subpa2",
 						"subpa3", "subpga1", "subpga2", "subpsub3", "subpsub4"
 					])
 					//Tests scope_ConnectedElement_context
-					source.assertScope(Aadl2Package::eINSTANCE.connectedElement_Context, false, #["call2", "call3", "call4", "call5", "call6", "call7", "call8",
+					source.assertScope(Aadl2Package::eINSTANCE.connectedElement_Context, #["call2", "call3", "call4", "call5", "call6", "call7", "call8",
 						"call9", "edp4", "fg4", "fg5", "param1", "subpsub3", "subpsub4"
 					])
 					//Tests scope_ConnectedElement_connectionEnd(ConnectedElement, EReference)
-					source.assertScope(Aadl2Package::eINSTANCE.connectedElement_ConnectionEnd, false, #["af4", "da4", "edp4", "ep4", "fg4", "fg5", "param1", "subpa2",
+					source.assertScope(Aadl2Package::eINSTANCE.connectedElement_ConnectionEnd, #["af4", "da4", "edp4", "ep4", "fg4", "fg5", "param1", "subpa2",
 						"subpa3", "subpga1", "subpga2", "subpsub3", "subpsub4"
 					])
 					//Tests scope_ConnectedElement_context
-					destination.assertScope(Aadl2Package::eINSTANCE.connectedElement_Context, false, #["call2", "call3", "call4", "call5", "call6", "call7", "call8",
+					destination.assertScope(Aadl2Package::eINSTANCE.connectedElement_Context, #["call2", "call3", "call4", "call5", "call6", "call7", "call8",
 						"call9", "edp4", "fg4", "fg5", "param1", "subpsub3", "subpsub4"
 					])
 					//Tests scope_ConnectedElement_connectionEnd(ConnectedElement, EReference)
-					destination.assertScope(Aadl2Package::eINSTANCE.connectedElement_ConnectionEnd, false, #["af4", "da4", "dsub3", "edp4", "eds2", "ep4", "fg4",
+					destination.assertScope(Aadl2Package::eINSTANCE.connectedElement_ConnectionEnd, #["af4", "da4", "dsub3", "edp4", "eds2", "ep4", "fg4",
 						"fg5", "param1", "pp2", "sp2", "subpa2", "subpa3", "subpga1", "subpga2", "subpsub3"
 					])
 				]
 				ownedParameterConnections.get(4) => [
 					"conn17".assertEquals(name)
 					//Tests scope_ConnectedElement_connectionEnd(Connection, EReference)
-					assertScope(Aadl2Package::eINSTANCE.connectedElement_ConnectionEnd, false, #["af4", "da4", "edp4", "ep4", "fg4", "fg5", "param1", "subpa2",
+					assertScope(Aadl2Package::eINSTANCE.connectedElement_ConnectionEnd, #["af4", "da4", "edp4", "ep4", "fg4", "fg5", "param1", "subpa2",
 						"subpa3", "subpga1", "subpga2", "subpsub3", "subpsub4"
 					])
 					//Tests scope_ConnectedElement_context
-					source.assertScope(Aadl2Package::eINSTANCE.connectedElement_Context, false, #["call2", "call3", "call4", "call5", "call6", "call7", "call8",
+					source.assertScope(Aadl2Package::eINSTANCE.connectedElement_Context, #["call2", "call3", "call4", "call5", "call6", "call7", "call8",
 						"call9", "edp4", "fg4", "fg5", "param1", "subpsub3", "subpsub4"
 					])
 					//Tests scope_ConnectedElement_connectionEnd(ConnectedElement, EReference)
-					source.assertScope(Aadl2Package::eINSTANCE.connectedElement_ConnectionEnd, false, #["af4", "da4", "edp4", "ep4", "fg4", "fg5", "param1", "subpa2",
+					source.assertScope(Aadl2Package::eINSTANCE.connectedElement_ConnectionEnd, #["af4", "da4", "edp4", "ep4", "fg4", "fg5", "param1", "subpa2",
 						"subpa3", "subpga1", "subpga2", "subpsub3", "subpsub4"
 					])
 					//Tests scope_ConnectedElement_context
-					destination.assertScope(Aadl2Package::eINSTANCE.connectedElement_Context, false, #["call2", "call3", "call4", "call5", "call6", "call7", "call8",
+					destination.assertScope(Aadl2Package::eINSTANCE.connectedElement_Context, #["call2", "call3", "call4", "call5", "call6", "call7", "call8",
 						"call9", "edp4", "fg4", "fg5", "param1", "subpsub3", "subpsub4"
 					])
 					//Tests scope_ConnectedElement_connectionEnd(ConnectedElement, EReference)
-					destination.assertScope(Aadl2Package::eINSTANCE.connectedElement_ConnectionEnd, false, #["af4", "da4", "dsub3", "edp4", "eds2", "ep4", "fg4",
+					destination.assertScope(Aadl2Package::eINSTANCE.connectedElement_ConnectionEnd, #["af4", "da4", "dsub3", "edp4", "eds2", "ep4", "fg4",
 						"fg5", "param1", "pp2", "sp2", "subpa2", "subpa3", "subpga1", "subpga2", "subpsub3"
 					])
 				]
 				ownedParameterConnections.get(5) => [
 					"conn18".assertEquals(name)
 					//Tests scope_ConnectedElement_connectionEnd(Connection, EReference)
-					assertScope(Aadl2Package::eINSTANCE.connectedElement_ConnectionEnd, false, #["af4", "da4", "edp4", "ep4", "fg4", "fg5", "param1", "subpa2",
+					assertScope(Aadl2Package::eINSTANCE.connectedElement_ConnectionEnd, #["af4", "da4", "edp4", "ep4", "fg4", "fg5", "param1", "subpa2",
 						"subpa3", "subpga1", "subpga2", "subpsub3", "subpsub4"
 					])
 					//Tests scope_ConnectedElement_context
-					source.assertScope(Aadl2Package::eINSTANCE.connectedElement_Context, false, #["call2", "call3", "call4", "call5", "call6", "call7", "call8",
+					source.assertScope(Aadl2Package::eINSTANCE.connectedElement_Context, #["call2", "call3", "call4", "call5", "call6", "call7", "call8",
 						"call9", "edp4", "fg4", "fg5", "param1", "subpsub3", "subpsub4"
 					])
 					//Tests scope_ConnectedElement_connectionEnd(ConnectedElement, EReference)
-					source.assertScope(Aadl2Package::eINSTANCE.connectedElement_ConnectionEnd, false, #["af4", "da4", "edp4", "ep4", "fg4", "fg5", "param1", "subpa2",
+					source.assertScope(Aadl2Package::eINSTANCE.connectedElement_ConnectionEnd, #["af4", "da4", "edp4", "ep4", "fg4", "fg5", "param1", "subpa2",
 						"subpa3", "subpga1", "subpga2", "subpsub3", "subpsub4"
 					])
 					//Tests scope_ConnectedElement_context
-					destination.assertScope(Aadl2Package::eINSTANCE.connectedElement_Context, false, #["call2", "call3", "call4", "call5", "call6", "call7", "call8",
+					destination.assertScope(Aadl2Package::eINSTANCE.connectedElement_Context, #["call2", "call3", "call4", "call5", "call6", "call7", "call8",
 						"call9", "edp4", "fg4", "fg5", "param1", "subpsub3", "subpsub4"
 					])
 					//Tests scope_ConnectedElement_connectionEnd(ConnectedElement, EReference)
-					destination.assertScope(Aadl2Package::eINSTANCE.connectedElement_ConnectionEnd, false, #["af4", "da4", "dsub3", "edp4", "eds2", "ep4", "fg4",
+					destination.assertScope(Aadl2Package::eINSTANCE.connectedElement_ConnectionEnd, #["af4", "da4", "dsub3", "edp4", "eds2", "ep4", "fg4",
 						"fg5", "param1", "pp2", "sp2", "subpa2", "subpa3", "subpga1", "subpga2", "subpsub3"
 					])
 				]
 				ownedParameterConnections.get(6) => [
 					"conn19".assertEquals(name)
 					//Tests scope_ConnectedElement_connectionEnd(Connection, EReference)
-					assertScope(Aadl2Package::eINSTANCE.connectedElement_ConnectionEnd, false, #["af4", "da4", "edp4", "ep4", "fg4", "fg5", "param1", "subpa2",
+					assertScope(Aadl2Package::eINSTANCE.connectedElement_ConnectionEnd, #["af4", "da4", "edp4", "ep4", "fg4", "fg5", "param1", "subpa2",
 						"subpa3", "subpga1", "subpga2", "subpsub3", "subpsub4"
 					])
 					//Tests scope_ConnectedElement_context
-					source.assertScope(Aadl2Package::eINSTANCE.connectedElement_Context, false, #["call2", "call3", "call4", "call5", "call6", "call7", "call8",
+					source.assertScope(Aadl2Package::eINSTANCE.connectedElement_Context, #["call2", "call3", "call4", "call5", "call6", "call7", "call8",
 						"call9", "edp4", "fg4", "fg5", "param1", "subpsub3", "subpsub4"
 					])
 					//Tests scope_ConnectedElement_connectionEnd(ConnectedElement, EReference)
-					source.assertScope(Aadl2Package::eINSTANCE.connectedElement_ConnectionEnd, false, #["af4", "da4", "edp4", "ep4", "fg4", "fg5", "param1", "subpa2",
+					source.assertScope(Aadl2Package::eINSTANCE.connectedElement_ConnectionEnd, #["af4", "da4", "edp4", "ep4", "fg4", "fg5", "param1", "subpa2",
 						"subpa3", "subpga1", "subpga2", "subpsub3", "subpsub4"
 					])
 					//Tests scope_ConnectedElement_context
-					destination.assertScope(Aadl2Package::eINSTANCE.connectedElement_Context, false, #["call2", "call3", "call4", "call5", "call6", "call7", "call8",
+					destination.assertScope(Aadl2Package::eINSTANCE.connectedElement_Context, #["call2", "call3", "call4", "call5", "call6", "call7", "call8",
 						"call9", "edp4", "fg4", "fg5", "param1", "subpsub3", "subpsub4"
 					])
 					//Tests scope_ConnectedElement_connectionEnd(ConnectedElement, EReference)
-					destination.assertScope(Aadl2Package::eINSTANCE.connectedElement_ConnectionEnd, false, #["af4", "da4", "dsub3", "edp4", "eds2", "ep4", "fg4",
+					destination.assertScope(Aadl2Package::eINSTANCE.connectedElement_ConnectionEnd, #["af4", "da4", "dsub3", "edp4", "eds2", "ep4", "fg4",
 						"fg5", "param1", "pp2", "sp2", "subpa2", "subpa3", "subpga1", "subpga2", "subpsub3"
 					])
 				]
 				ownedParameterConnections.get(7) => [
 					"conn20".assertEquals(name)
 					//Tests scope_ConnectedElement_connectionEnd(Connection, EReference)
-					assertScope(Aadl2Package::eINSTANCE.connectedElement_ConnectionEnd, false, #["af4", "da4", "edp4", "ep4", "fg4", "fg5", "param1", "subpa2",
+					assertScope(Aadl2Package::eINSTANCE.connectedElement_ConnectionEnd, #["af4", "da4", "edp4", "ep4", "fg4", "fg5", "param1", "subpa2",
 						"subpa3", "subpga1", "subpga2", "subpsub3", "subpsub4"
 					])
 					//Tests scope_ConnectedElement_context
-					source.assertScope(Aadl2Package::eINSTANCE.connectedElement_Context, false, #["call2", "call3", "call4", "call5", "call6", "call7", "call8",
+					source.assertScope(Aadl2Package::eINSTANCE.connectedElement_Context, #["call2", "call3", "call4", "call5", "call6", "call7", "call8",
 						"call9", "edp4", "fg4", "fg5", "param1", "subpsub3", "subpsub4"
 					])
 					//Tests scope_ConnectedElement_connectionEnd(ConnectedElement, EReference)
-					source.assertScope(Aadl2Package::eINSTANCE.connectedElement_ConnectionEnd, false, #["af4", "da4", "edp4", "ep4", "fg4", "fg5", "param1", "subpa2",
+					source.assertScope(Aadl2Package::eINSTANCE.connectedElement_ConnectionEnd, #["af4", "da4", "edp4", "ep4", "fg4", "fg5", "param1", "subpa2",
 						"subpa3", "subpga1", "subpga2", "subpsub3", "subpsub4"
 					])
 					//Tests scope_ConnectedElement_context
-					destination.assertScope(Aadl2Package::eINSTANCE.connectedElement_Context, false, #["call2", "call3", "call4", "call5", "call6", "call7", "call8",
+					destination.assertScope(Aadl2Package::eINSTANCE.connectedElement_Context, #["call2", "call3", "call4", "call5", "call6", "call7", "call8",
 						"call9", "edp4", "fg4", "fg5", "param1", "subpsub3", "subpsub4"
 					])
 					//Tests scope_ConnectedElement_connectionEnd(ConnectedElement, EReference)
-					destination.assertScope(Aadl2Package::eINSTANCE.connectedElement_ConnectionEnd, false, #["af4", "da4", "dsub3", "edp4", "eds2", "ep4", "fg4",
+					destination.assertScope(Aadl2Package::eINSTANCE.connectedElement_ConnectionEnd, #["af4", "da4", "dsub3", "edp4", "eds2", "ep4", "fg4",
 						"fg5", "param1", "pp2", "sp2", "subpa2", "subpa3", "subpga1", "subpga2", "subpsub3"
 					])
 				]
