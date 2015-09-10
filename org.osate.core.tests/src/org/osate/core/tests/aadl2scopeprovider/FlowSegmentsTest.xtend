@@ -239,7 +239,7 @@ class FlowSegmentsTest extends OsateTest {
 				ownedFlowImplementations.get(0) => [
 					"fsource1".assertEquals(specification.name)
 					//Tests scope_FlowSegment_flowElement(FlowImplementation, EReference)
-					assertScope(Aadl2Package::eINSTANCE.flowSegment_FlowElement, false, #["asub1", "asub2", "da1", "fconn1", "fconn2", "fsource1", "fsource10",
+					assertScope(Aadl2Package::eINSTANCE.flowSegment_FlowElement, #["asub1", "asub2", "da1", "fconn1", "fconn2", "fsource1", "fsource10",
 						"fsource11", "fsource12", "fsource13", "fsource14", "fsource15", "fsource16", "fsource17", "fsource18", "fsource19", "fsource2",
 						"fsource3", "fsource4", "fsource5", "fsource6", "fsource7", "fsource8", "fsource9", "subpgsub1", "subpgsub2", "subpgsub3", "subpsub1",
 						"subpsub2"
@@ -249,11 +249,11 @@ class FlowSegmentsTest extends OsateTest {
 						"asub1".assertEquals(flowElement.name)
 						assertError(testFileResult.issues, issueCollection, "Connection 'fconn1' continues inside subcomponent 'asub1'")
 						//Tests scope_FlowSegment_context
-						assertScope(Aadl2Package::eINSTANCE.flowSegment_Context, false, #["asub1", "asub2", "call1", "call12", "call13", "call2", "call3", "call4",
+						assertScope(Aadl2Package::eINSTANCE.flowSegment_Context, #["asub1", "asub2", "call1", "call12", "call13", "call2", "call3", "call4",
 							"call5", "call6", "call7", "call8", "dp1", "edp1", "fg1", "fg2", "subpgsub1", "subpgsub2", "subpgsub3", "subpsub1", "subpsub2"
 						])
 						//Tests scope_FlowSegment_flowElement(FlowSegment, EReference)
-						assertScope(Aadl2Package::eINSTANCE.flowSegment_FlowElement, false, #["asub1", "asub2", "da1", "fconn1", "fconn2", "fsource1", "fsource10",
+						assertScope(Aadl2Package::eINSTANCE.flowSegment_FlowElement, #["asub1", "asub2", "da1", "fconn1", "fconn2", "fsource1", "fsource10",
 							"fsource11", "fsource12", "fsource13", "fsource14", "fsource15", "fsource16", "fsource17", "fsource18", "fsource19", "fsource2",
 							"fsource3", "fsource4", "fsource5", "fsource6", "fsource7", "fsource8", "fsource9", "subpgsub1", "subpgsub2", "subpgsub3",
 							"subpsub1", "subpsub2"
@@ -263,11 +263,11 @@ class FlowSegmentsTest extends OsateTest {
 						context.assertNull
 						"fconn1".assertEquals(flowElement.name)
 						//Tests scope_FlowSegment_context
-						assertScope(Aadl2Package::eINSTANCE.flowSegment_Context, false, #["asub1", "asub2", "call1", "call12", "call13", "call2", "call3", "call4",
+						assertScope(Aadl2Package::eINSTANCE.flowSegment_Context, #["asub1", "asub2", "call1", "call12", "call13", "call2", "call3", "call4",
 							"call5", "call6", "call7", "call8", "dp1", "edp1", "fg1", "fg2", "subpgsub1", "subpgsub2", "subpgsub3", "subpsub1", "subpsub2"
 						])
 						//Tests scope_FlowSegment_flowElement(FlowSegment, EReference)
-						assertScope(Aadl2Package::eINSTANCE.flowSegment_FlowElement, false, #["asub1", "asub2", "da1", "fconn1", "fconn2", "fsource1", "fsource10",
+						assertScope(Aadl2Package::eINSTANCE.flowSegment_FlowElement, #["asub1", "asub2", "da1", "fconn1", "fconn2", "fsource1", "fsource10",
 							"fsource11", "fsource12", "fsource13", "fsource14", "fsource15", "fsource16", "fsource17", "fsource18", "fsource19", "fsource2",
 							"fsource3", "fsource4", "fsource5", "fsource6", "fsource7", "fsource8", "fsource9", "subpgsub1", "subpgsub2", "subpgsub3",
 							"subpsub1", "subpsub2"
@@ -277,7 +277,7 @@ class FlowSegmentsTest extends OsateTest {
 				ownedFlowImplementations.get(1) => [
 					"fsource2".assertEquals(specification.name)
 					//Tests scope_FlowSegment_flowElement(FlowImplementation, EReference)
-					assertScope(Aadl2Package::eINSTANCE.flowSegment_FlowElement, false, #["asub1", "asub2", "da1", "fconn1", "fconn2", "fsource1", "fsource10",
+					assertScope(Aadl2Package::eINSTANCE.flowSegment_FlowElement, #["asub1", "asub2", "da1", "fconn1", "fconn2", "fsource1", "fsource10",
 						"fsource11", "fsource12", "fsource13", "fsource14", "fsource15", "fsource16", "fsource17", "fsource18", "fsource19", "fsource2",
 						"fsource3", "fsource4", "fsource5", "fsource6", "fsource7", "fsource8", "fsource9", "subpgsub1", "subpgsub2", "subpgsub3", "subpsub1",
 						"subpsub2"
@@ -287,21 +287,21 @@ class FlowSegmentsTest extends OsateTest {
 						"da3".assertEquals(flowElement.name)
 						assertError(testFileResult.issues, issueCollection, "Expected Data Access, Subcomponent, or Subcomponent.Flow Specification; found Feature Group.Data Access 'fg1.da3'")
 						//Tests scope_FlowSegment_context
-						assertScope(Aadl2Package::eINSTANCE.flowSegment_Context, false, #["asub1", "asub2", "call1", "call12", "call13", "call2", "call3", "call4",
+						assertScope(Aadl2Package::eINSTANCE.flowSegment_Context, #["asub1", "asub2", "call1", "call12", "call13", "call2", "call3", "call4",
 							"call5", "call6", "call7", "call8", "dp1", "edp1", "fg1", "fg2", "subpgsub1", "subpgsub2", "subpgsub3", "subpsub1", "subpsub2"
 						])
 						//Tests scope_FlowSegment_flowElement(FlowSegment, EReference)
-						assertScope(Aadl2Package::eINSTANCE.flowSegment_FlowElement, false, #["da3"])
+						assertScope(Aadl2Package::eINSTANCE.flowSegment_FlowElement, #["da3"])
 					]
 					ownedFlowSegments.get(1) => [
 						context.assertNull
 						"fconn1".assertEquals(flowElement.name)
 						//Tests scope_FlowSegment_context
-						assertScope(Aadl2Package::eINSTANCE.flowSegment_Context, false, #["asub1", "asub2", "call1", "call12", "call13", "call2", "call3", "call4",
+						assertScope(Aadl2Package::eINSTANCE.flowSegment_Context, #["asub1", "asub2", "call1", "call12", "call13", "call2", "call3", "call4",
 							"call5", "call6", "call7", "call8", "dp1", "edp1", "fg1", "fg2", "subpgsub1", "subpgsub2", "subpgsub3", "subpsub1", "subpsub2"
 						])
 						//Tests scope_FlowSegment_flowElement(FlowSegment, EReference)
-						assertScope(Aadl2Package::eINSTANCE.flowSegment_FlowElement, false, #["asub1", "asub2", "da1", "fconn1", "fconn2", "fsource1", "fsource10",
+						assertScope(Aadl2Package::eINSTANCE.flowSegment_FlowElement, #["asub1", "asub2", "da1", "fconn1", "fconn2", "fsource1", "fsource10",
 							"fsource11", "fsource12", "fsource13", "fsource14", "fsource15", "fsource16", "fsource17", "fsource18", "fsource19", "fsource2",
 							"fsource3", "fsource4", "fsource5", "fsource6", "fsource7", "fsource8", "fsource9", "subpgsub1", "subpgsub2", "subpgsub3",
 							"subpsub1", "subpsub2"
@@ -311,7 +311,7 @@ class FlowSegmentsTest extends OsateTest {
 				ownedFlowImplementations.get(2) => [
 					"fsource3".assertEquals(specification.name)
 					//Tests scope_FlowSegment_flowElement(FlowImplementation, EReference)
-					assertScope(Aadl2Package::eINSTANCE.flowSegment_FlowElement, false, #["asub1", "asub2", "da1", "fconn1", "fconn2", "fsource1", "fsource10",
+					assertScope(Aadl2Package::eINSTANCE.flowSegment_FlowElement, #["asub1", "asub2", "da1", "fconn1", "fconn2", "fsource1", "fsource10",
 						"fsource11", "fsource12", "fsource13", "fsource14", "fsource15", "fsource16", "fsource17", "fsource18", "fsource19", "fsource2",
 						"fsource3", "fsource4", "fsource5", "fsource6", "fsource7", "fsource8", "fsource9", "subpgsub1", "subpgsub2", "subpgsub3", "subpsub1",
 						"subpsub2"
@@ -321,21 +321,21 @@ class FlowSegmentsTest extends OsateTest {
 						"da3".assertEquals(flowElement.name)
 						assertError(testFileResult.issues, issueCollection, "Expected Data Access, Subcomponent, or Subcomponent.Flow Specification; found Feature Group.Data Access 'fg2.da3'")
 						//Tests scope_FlowSegment_context
-						assertScope(Aadl2Package::eINSTANCE.flowSegment_Context, false, #["asub1", "asub2", "call1", "call12", "call13", "call2", "call3", "call4",
+						assertScope(Aadl2Package::eINSTANCE.flowSegment_Context, #["asub1", "asub2", "call1", "call12", "call13", "call2", "call3", "call4",
 							"call5", "call6", "call7", "call8", "dp1", "edp1", "fg1", "fg2", "subpgsub1", "subpgsub2", "subpgsub3", "subpsub1", "subpsub2"
 						])
 						//Tests scope_FlowSegment_flowElement(FlowSegment, EReference)
-						assertScope(Aadl2Package::eINSTANCE.flowSegment_FlowElement, false, #["da3"])
+						assertScope(Aadl2Package::eINSTANCE.flowSegment_FlowElement, #["da3"])
 					]
 					ownedFlowSegments.get(1) => [
 						context.assertNull
 						"fconn1".assertEquals(flowElement.name)
 						//Tests scope_FlowSegment_context
-						assertScope(Aadl2Package::eINSTANCE.flowSegment_Context, false, #["asub1", "asub2", "call1", "call12", "call13", "call2", "call3", "call4",
+						assertScope(Aadl2Package::eINSTANCE.flowSegment_Context, #["asub1", "asub2", "call1", "call12", "call13", "call2", "call3", "call4",
 							"call5", "call6", "call7", "call8", "dp1", "edp1", "fg1", "fg2", "subpgsub1", "subpgsub2", "subpgsub3", "subpsub1", "subpsub2"
 						])
 						//Tests scope_FlowSegment_flowElement(FlowSegment, EReference)
-						assertScope(Aadl2Package::eINSTANCE.flowSegment_FlowElement, false, #["asub1", "asub2", "da1", "fconn1", "fconn2", "fsource1", "fsource10",
+						assertScope(Aadl2Package::eINSTANCE.flowSegment_FlowElement, #["asub1", "asub2", "da1", "fconn1", "fconn2", "fsource1", "fsource10",
 							"fsource11", "fsource12", "fsource13", "fsource14", "fsource15", "fsource16", "fsource17", "fsource18", "fsource19", "fsource2",
 							"fsource3", "fsource4", "fsource5", "fsource6", "fsource7", "fsource8", "fsource9", "subpgsub1", "subpgsub2", "subpgsub3",
 							"subpsub1", "subpsub2"
@@ -345,7 +345,7 @@ class FlowSegmentsTest extends OsateTest {
 				ownedFlowImplementations.get(3) => [
 					"fsource4".assertEquals(specification.name)
 					//Tests scope_FlowSegment_flowElement(FlowImplementation, EReference)
-					assertScope(Aadl2Package::eINSTANCE.flowSegment_FlowElement, false, #["asub1", "asub2", "da1", "fconn1", "fconn2", "fsource1", "fsource10",
+					assertScope(Aadl2Package::eINSTANCE.flowSegment_FlowElement, #["asub1", "asub2", "da1", "fconn1", "fconn2", "fsource1", "fsource10",
 						"fsource11", "fsource12", "fsource13", "fsource14", "fsource15", "fsource16", "fsource17", "fsource18", "fsource19", "fsource2",
 						"fsource3", "fsource4", "fsource5", "fsource6", "fsource7", "fsource8", "fsource9", "subpgsub1", "subpgsub2", "subpgsub3", "subpsub1",
 						"subpsub2"
@@ -354,21 +354,21 @@ class FlowSegmentsTest extends OsateTest {
 						"asub1".assertEquals(context.name)
 						"fsource20".assertEquals(flowElement.name)
 						//Tests scope_FlowSegment_context
-						assertScope(Aadl2Package::eINSTANCE.flowSegment_Context, false, #["asub1", "asub2", "call1", "call12", "call13", "call2", "call3", "call4",
+						assertScope(Aadl2Package::eINSTANCE.flowSegment_Context, #["asub1", "asub2", "call1", "call12", "call13", "call2", "call3", "call4",
 							"call5", "call6", "call7", "call8", "dp1", "edp1", "fg1", "fg2", "subpgsub1", "subpgsub2", "subpgsub3", "subpsub1", "subpsub2"
 						])
 						//Tests scope_FlowSegment_flowElement(FlowSegment, EReference)
-						assertScope(Aadl2Package::eINSTANCE.flowSegment_FlowElement, false, #["asub3", "da2", "fconn3", "fconn4", "fsink1", "fsource20"])
+						assertScope(Aadl2Package::eINSTANCE.flowSegment_FlowElement, #["asub3", "da2", "fconn3", "fconn4", "fsink1", "fsource20"])
 					]
 					ownedFlowSegments.get(1) => [
 						context.assertNull
 						"fconn1".assertEquals(flowElement.name)
 						//Tests scope_FlowSegment_context
-						assertScope(Aadl2Package::eINSTANCE.flowSegment_Context, false, #["asub1", "asub2", "call1", "call12", "call13", "call2", "call3", "call4",
+						assertScope(Aadl2Package::eINSTANCE.flowSegment_Context, #["asub1", "asub2", "call1", "call12", "call13", "call2", "call3", "call4",
 							"call5", "call6", "call7", "call8", "dp1", "edp1", "fg1", "fg2", "subpgsub1", "subpgsub2", "subpgsub3", "subpsub1", "subpsub2"
 						])
 						//Tests scope_FlowSegment_flowElement(FlowSegment, EReference)
-						assertScope(Aadl2Package::eINSTANCE.flowSegment_FlowElement, false, #["asub1", "asub2", "da1", "fconn1", "fconn2", "fsource1", "fsource10",
+						assertScope(Aadl2Package::eINSTANCE.flowSegment_FlowElement, #["asub1", "asub2", "da1", "fconn1", "fconn2", "fsource1", "fsource10",
 							"fsource11", "fsource12", "fsource13", "fsource14", "fsource15", "fsource16", "fsource17", "fsource18", "fsource19", "fsource2",
 							"fsource3", "fsource4", "fsource5", "fsource6", "fsource7", "fsource8", "fsource9", "subpgsub1", "subpgsub2", "subpgsub3",
 							"subpsub1", "subpsub2"
@@ -378,7 +378,7 @@ class FlowSegmentsTest extends OsateTest {
 				ownedFlowImplementations.get(4) => [
 					"fsource5".assertEquals(specification.name)
 					//Tests scope_FlowSegment_flowElement(FlowImplementation, EReference)
-					assertScope(Aadl2Package::eINSTANCE.flowSegment_FlowElement, false, #["asub1", "asub2", "da1", "fconn1", "fconn2", "fsource1", "fsource10",
+					assertScope(Aadl2Package::eINSTANCE.flowSegment_FlowElement, #["asub1", "asub2", "da1", "fconn1", "fconn2", "fsource1", "fsource10",
 						"fsource11", "fsource12", "fsource13", "fsource14", "fsource15", "fsource16", "fsource17", "fsource18", "fsource19", "fsource2",
 						"fsource3", "fsource4", "fsource5", "fsource6", "fsource7", "fsource8", "fsource9", "subpgsub1", "subpgsub2", "subpgsub3", "subpsub1",
 						"subpsub2"
@@ -387,21 +387,21 @@ class FlowSegmentsTest extends OsateTest {
 						"asub2".assertEquals(context.name)
 						"fsource20".assertEquals(flowElement.name)
 						//Tests scope_FlowSegment_context
-						assertScope(Aadl2Package::eINSTANCE.flowSegment_Context, false, #["asub1", "asub2", "call1", "call12", "call13", "call2", "call3", "call4",
+						assertScope(Aadl2Package::eINSTANCE.flowSegment_Context, #["asub1", "asub2", "call1", "call12", "call13", "call2", "call3", "call4",
 							"call5", "call6", "call7", "call8", "dp1", "edp1", "fg1", "fg2", "subpgsub1", "subpgsub2", "subpgsub3", "subpsub1", "subpsub2"
 						])
 						//Tests scope_FlowSegment_flowElement(FlowSegment, EReference)
-						assertScope(Aadl2Package::eINSTANCE.flowSegment_FlowElement, false, #["asub3", "da2", "fconn3", "fconn4", "fsink1", "fsource20"])
+						assertScope(Aadl2Package::eINSTANCE.flowSegment_FlowElement, #["asub3", "da2", "fconn3", "fconn4", "fsink1", "fsource20"])
 					]
 					ownedFlowSegments.get(1) => [
 						context.assertNull
 						"fconn1".assertEquals(flowElement.name)
 						//Tests scope_FlowSegment_context
-						assertScope(Aadl2Package::eINSTANCE.flowSegment_Context, false, #["asub1", "asub2", "call1", "call12", "call13", "call2", "call3", "call4",
+						assertScope(Aadl2Package::eINSTANCE.flowSegment_Context, #["asub1", "asub2", "call1", "call12", "call13", "call2", "call3", "call4",
 							"call5", "call6", "call7", "call8", "dp1", "edp1", "fg1", "fg2", "subpgsub1", "subpgsub2", "subpgsub3", "subpsub1", "subpsub2"
 						])
 						//Tests scope_FlowSegment_flowElement(FlowSegment, EReference)
-						assertScope(Aadl2Package::eINSTANCE.flowSegment_FlowElement, false, #["asub1", "asub2", "da1", "fconn1", "fconn2", "fsource1", "fsource10",
+						assertScope(Aadl2Package::eINSTANCE.flowSegment_FlowElement, #["asub1", "asub2", "da1", "fconn1", "fconn2", "fsource1", "fsource10",
 							"fsource11", "fsource12", "fsource13", "fsource14", "fsource15", "fsource16", "fsource17", "fsource18", "fsource19", "fsource2",
 							"fsource3", "fsource4", "fsource5", "fsource6", "fsource7", "fsource8", "fsource9", "subpgsub1", "subpgsub2", "subpgsub3",
 							"subpsub1", "subpsub2"
@@ -411,7 +411,7 @@ class FlowSegmentsTest extends OsateTest {
 				ownedFlowImplementations.get(5) => [
 					"fsource6".assertEquals(specification.name)
 					//Tests scope_FlowSegment_flowElement(FlowImplementation, EReference)
-					assertScope(Aadl2Package::eINSTANCE.flowSegment_FlowElement, false, #["asub1", "asub2", "da1", "fconn1", "fconn2", "fsource1", "fsource10",
+					assertScope(Aadl2Package::eINSTANCE.flowSegment_FlowElement, #["asub1", "asub2", "da1", "fconn1", "fconn2", "fsource1", "fsource10",
 						"fsource11", "fsource12", "fsource13", "fsource14", "fsource15", "fsource16", "fsource17", "fsource18", "fsource19", "fsource2",
 						"fsource3", "fsource4", "fsource5", "fsource6", "fsource7", "fsource8", "fsource9", "subpgsub1", "subpgsub2", "subpgsub3", "subpsub1",
 						"subpsub2"
@@ -421,21 +421,21 @@ class FlowSegmentsTest extends OsateTest {
 						"da4".assertEquals(flowElement.name)
 						assertError(testFileResult.issues, issueCollection, "Expected Data Access, Subcomponent, or Subcomponent.Flow Specification; found Subprogram Call.Data Access 'call1.da4'")
 						//Tests scope_FlowSegment_context
-						assertScope(Aadl2Package::eINSTANCE.flowSegment_Context, false, #["asub1", "asub2", "call1", "call12", "call13", "call2", "call3", "call4",
+						assertScope(Aadl2Package::eINSTANCE.flowSegment_Context, #["asub1", "asub2", "call1", "call12", "call13", "call2", "call3", "call4",
 							"call5", "call6", "call7", "call8", "dp1", "edp1", "fg1", "fg2", "subpgsub1", "subpgsub2", "subpgsub3", "subpsub1", "subpsub2"
 						])
 						//Tests scope_FlowSegment_flowElement(FlowSegment, EReference)
-						assertScope(Aadl2Package::eINSTANCE.flowSegment_FlowElement, false, #["asub4", "da4", "fconn5", "fconn6", "fsource21", "fsource22"])
+						assertScope(Aadl2Package::eINSTANCE.flowSegment_FlowElement, #["asub4", "da4", "fconn5", "fconn6", "fsource21", "fsource22"])
 					]
 					ownedFlowSegments.get(1) => [
 						context.assertNull
 						"fconn1".assertEquals(flowElement.name)
 						//Tests scope_FlowSegment_context
-						assertScope(Aadl2Package::eINSTANCE.flowSegment_Context, false, #["asub1", "asub2", "call1", "call12", "call13", "call2", "call3", "call4",
+						assertScope(Aadl2Package::eINSTANCE.flowSegment_Context, #["asub1", "asub2", "call1", "call12", "call13", "call2", "call3", "call4",
 							"call5", "call6", "call7", "call8", "dp1", "edp1", "fg1", "fg2", "subpgsub1", "subpgsub2", "subpgsub3", "subpsub1", "subpsub2"
 						])
 						//Tests scope_FlowSegment_flowElement(FlowSegment, EReference)
-						assertScope(Aadl2Package::eINSTANCE.flowSegment_FlowElement, false, #["asub1", "asub2", "da1", "fconn1", "fconn2", "fsource1", "fsource10",
+						assertScope(Aadl2Package::eINSTANCE.flowSegment_FlowElement, #["asub1", "asub2", "da1", "fconn1", "fconn2", "fsource1", "fsource10",
 							"fsource11", "fsource12", "fsource13", "fsource14", "fsource15", "fsource16", "fsource17", "fsource18", "fsource19", "fsource2",
 							"fsource3", "fsource4", "fsource5", "fsource6", "fsource7", "fsource8", "fsource9", "subpgsub1", "subpgsub2", "subpgsub3",
 							"subpsub1", "subpsub2"
@@ -445,7 +445,7 @@ class FlowSegmentsTest extends OsateTest {
 				ownedFlowImplementations.get(6) => [
 					"fsource7".assertEquals(specification.name)
 					//Tests scope_FlowSegment_flowElement(FlowImplementation, EReference)
-					assertScope(Aadl2Package::eINSTANCE.flowSegment_FlowElement, false, #["asub1", "asub2", "da1", "fconn1", "fconn2", "fsource1", "fsource10",
+					assertScope(Aadl2Package::eINSTANCE.flowSegment_FlowElement, #["asub1", "asub2", "da1", "fconn1", "fconn2", "fsource1", "fsource10",
 						"fsource11", "fsource12", "fsource13", "fsource14", "fsource15", "fsource16", "fsource17", "fsource18", "fsource19", "fsource2",
 						"fsource3", "fsource4", "fsource5", "fsource6", "fsource7", "fsource8", "fsource9", "subpgsub1", "subpgsub2", "subpgsub3", "subpsub1",
 						"subpsub2"
@@ -455,21 +455,21 @@ class FlowSegmentsTest extends OsateTest {
 						"da4".assertEquals(flowElement.name)
 						assertError(testFileResult.issues, issueCollection, "Expected Data Access, Subcomponent, or Subcomponent.Flow Specification; found Subprogram Call.Data Access 'call2.da4'")
 						//Tests scope_FlowSegment_context
-						assertScope(Aadl2Package::eINSTANCE.flowSegment_Context, false, #["asub1", "asub2", "call1", "call12", "call13", "call2", "call3", "call4",
+						assertScope(Aadl2Package::eINSTANCE.flowSegment_Context, #["asub1", "asub2", "call1", "call12", "call13", "call2", "call3", "call4",
 							"call5", "call6", "call7", "call8", "dp1", "edp1", "fg1", "fg2", "subpgsub1", "subpgsub2", "subpgsub3", "subpsub1", "subpsub2"
 						])
 						//Tests scope_FlowSegment_flowElement(FlowSegment, EReference)
-						assertScope(Aadl2Package::eINSTANCE.flowSegment_FlowElement, false, #["asub4", "da4", "fconn5", "fconn6", "fsource21", "fsource22"])
+						assertScope(Aadl2Package::eINSTANCE.flowSegment_FlowElement, #["asub4", "da4", "fconn5", "fconn6", "fsource21", "fsource22"])
 					]
 					ownedFlowSegments.get(1) => [
 						context.assertNull
 						"fconn1".assertEquals(flowElement.name)
 						//Tests scope_FlowSegment_context
-						assertScope(Aadl2Package::eINSTANCE.flowSegment_Context, false, #["asub1", "asub2", "call1", "call12", "call13", "call2", "call3", "call4",
+						assertScope(Aadl2Package::eINSTANCE.flowSegment_Context, #["asub1", "asub2", "call1", "call12", "call13", "call2", "call3", "call4",
 							"call5", "call6", "call7", "call8", "dp1", "edp1", "fg1", "fg2", "subpgsub1", "subpgsub2", "subpgsub3", "subpsub1", "subpsub2"
 						])
 						//Tests scope_FlowSegment_flowElement(FlowSegment, EReference)
-						assertScope(Aadl2Package::eINSTANCE.flowSegment_FlowElement, false, #["asub1", "asub2", "da1", "fconn1", "fconn2", "fsource1", "fsource10",
+						assertScope(Aadl2Package::eINSTANCE.flowSegment_FlowElement, #["asub1", "asub2", "da1", "fconn1", "fconn2", "fsource1", "fsource10",
 							"fsource11", "fsource12", "fsource13", "fsource14", "fsource15", "fsource16", "fsource17", "fsource18", "fsource19", "fsource2",
 							"fsource3", "fsource4", "fsource5", "fsource6", "fsource7", "fsource8", "fsource9", "subpgsub1", "subpgsub2", "subpgsub3",
 							"subpsub1", "subpsub2"
@@ -479,7 +479,7 @@ class FlowSegmentsTest extends OsateTest {
 				ownedFlowImplementations.get(7) => [
 					"fsource8".assertEquals(specification.name)
 					//Tests scope_FlowSegment_flowElement(FlowImplementation, EReference)
-					assertScope(Aadl2Package::eINSTANCE.flowSegment_FlowElement, false, #["asub1", "asub2", "da1", "fconn1", "fconn2", "fsource1", "fsource10",
+					assertScope(Aadl2Package::eINSTANCE.flowSegment_FlowElement, #["asub1", "asub2", "da1", "fconn1", "fconn2", "fsource1", "fsource10",
 						"fsource11", "fsource12", "fsource13", "fsource14", "fsource15", "fsource16", "fsource17", "fsource18", "fsource19", "fsource2",
 						"fsource3", "fsource4", "fsource5", "fsource6", "fsource7", "fsource8", "fsource9", "subpgsub1", "subpgsub2", "subpgsub3", "subpsub1",
 						"subpsub2"
@@ -489,21 +489,21 @@ class FlowSegmentsTest extends OsateTest {
 						"da4".assertEquals(flowElement.name)
 						assertError(testFileResult.issues, issueCollection, "Expected Data Access, Subcomponent, or Subcomponent.Flow Specification; found Subprogram Call.Data Access 'call3.da4'")
 						//Tests scope_FlowSegment_context
-						assertScope(Aadl2Package::eINSTANCE.flowSegment_Context, false, #["asub1", "asub2", "call1", "call12", "call13", "call2", "call3", "call4",
+						assertScope(Aadl2Package::eINSTANCE.flowSegment_Context, #["asub1", "asub2", "call1", "call12", "call13", "call2", "call3", "call4",
 							"call5", "call6", "call7", "call8", "dp1", "edp1", "fg1", "fg2", "subpgsub1", "subpgsub2", "subpgsub3", "subpsub1", "subpsub2"
 						])
 						//Tests scope_FlowSegment_flowElement(FlowSegment, EReference)
-						assertScope(Aadl2Package::eINSTANCE.flowSegment_FlowElement, false, #["asub4", "da4", "fconn5", "fconn6", "fsource21", "fsource22"])
+						assertScope(Aadl2Package::eINSTANCE.flowSegment_FlowElement, #["asub4", "da4", "fconn5", "fconn6", "fsource21", "fsource22"])
 					]
 					ownedFlowSegments.get(1) => [
 						context.assertNull
 						"fconn1".assertEquals(flowElement.name)
 						//Tests scope_FlowSegment_context
-						assertScope(Aadl2Package::eINSTANCE.flowSegment_Context, false, #["asub1", "asub2", "call1", "call12", "call13", "call2", "call3", "call4",
+						assertScope(Aadl2Package::eINSTANCE.flowSegment_Context, #["asub1", "asub2", "call1", "call12", "call13", "call2", "call3", "call4",
 							"call5", "call6", "call7", "call8", "dp1", "edp1", "fg1", "fg2", "subpgsub1", "subpgsub2", "subpgsub3", "subpsub1", "subpsub2"
 						])
 						//Tests scope_FlowSegment_flowElement(FlowSegment, EReference)
-						assertScope(Aadl2Package::eINSTANCE.flowSegment_FlowElement, false, #["asub1", "asub2", "da1", "fconn1", "fconn2", "fsource1", "fsource10",
+						assertScope(Aadl2Package::eINSTANCE.flowSegment_FlowElement, #["asub1", "asub2", "da1", "fconn1", "fconn2", "fsource1", "fsource10",
 							"fsource11", "fsource12", "fsource13", "fsource14", "fsource15", "fsource16", "fsource17", "fsource18", "fsource19", "fsource2",
 							"fsource3", "fsource4", "fsource5", "fsource6", "fsource7", "fsource8", "fsource9", "subpgsub1", "subpgsub2", "subpgsub3",
 							"subpsub1", "subpsub2"
@@ -513,7 +513,7 @@ class FlowSegmentsTest extends OsateTest {
 				ownedFlowImplementations.get(8) => [
 					"fsource9".assertEquals(specification.name)
 					//Tests scope_FlowSegment_flowElement(FlowImplementation, EReference)
-					assertScope(Aadl2Package::eINSTANCE.flowSegment_FlowElement, false, #["asub1", "asub2", "da1", "fconn1", "fconn2", "fsource1", "fsource10",
+					assertScope(Aadl2Package::eINSTANCE.flowSegment_FlowElement, #["asub1", "asub2", "da1", "fconn1", "fconn2", "fsource1", "fsource10",
 						"fsource11", "fsource12", "fsource13", "fsource14", "fsource15", "fsource16", "fsource17", "fsource18", "fsource19", "fsource2",
 						"fsource3", "fsource4", "fsource5", "fsource6", "fsource7", "fsource8", "fsource9", "subpgsub1", "subpgsub2", "subpgsub3", "subpsub1",
 						"subpsub2"
@@ -523,21 +523,21 @@ class FlowSegmentsTest extends OsateTest {
 						"da4".assertEquals(flowElement.name)
 						assertError(testFileResult.issues, issueCollection, "Expected Data Access, Subcomponent, or Subcomponent.Flow Specification; found Subprogram Call.Data Access 'call4.da4'")
 						//Tests scope_FlowSegment_context
-						assertScope(Aadl2Package::eINSTANCE.flowSegment_Context, false, #["asub1", "asub2", "call1", "call12", "call13", "call2", "call3", "call4",
+						assertScope(Aadl2Package::eINSTANCE.flowSegment_Context, #["asub1", "asub2", "call1", "call12", "call13", "call2", "call3", "call4",
 							"call5", "call6", "call7", "call8", "dp1", "edp1", "fg1", "fg2", "subpgsub1", "subpgsub2", "subpgsub3", "subpsub1", "subpsub2"
 						])
 						//Tests scope_FlowSegment_flowElement(FlowSegment, EReference)
-						assertScope(Aadl2Package::eINSTANCE.flowSegment_FlowElement, false, #["asub4", "da4", "fconn5", "fconn6", "fsource21", "fsource22"])
+						assertScope(Aadl2Package::eINSTANCE.flowSegment_FlowElement, #["asub4", "da4", "fconn5", "fconn6", "fsource21", "fsource22"])
 					]
 					ownedFlowSegments.get(1) => [
 						context.assertNull
 						"fconn1".assertEquals(flowElement.name)
 						//Tests scope_FlowSegment_context
-						assertScope(Aadl2Package::eINSTANCE.flowSegment_Context, false, #["asub1", "asub2", "call1", "call12", "call13", "call2", "call3", "call4",
+						assertScope(Aadl2Package::eINSTANCE.flowSegment_Context, #["asub1", "asub2", "call1", "call12", "call13", "call2", "call3", "call4",
 							"call5", "call6", "call7", "call8", "dp1", "edp1", "fg1", "fg2", "subpgsub1", "subpgsub2", "subpgsub3", "subpsub1", "subpsub2"
 						])
 						//Tests scope_FlowSegment_flowElement(FlowSegment, EReference)
-						assertScope(Aadl2Package::eINSTANCE.flowSegment_FlowElement, false, #["asub1", "asub2", "da1", "fconn1", "fconn2", "fsource1", "fsource10",
+						assertScope(Aadl2Package::eINSTANCE.flowSegment_FlowElement, #["asub1", "asub2", "da1", "fconn1", "fconn2", "fsource1", "fsource10",
 							"fsource11", "fsource12", "fsource13", "fsource14", "fsource15", "fsource16", "fsource17", "fsource18", "fsource19", "fsource2",
 							"fsource3", "fsource4", "fsource5", "fsource6", "fsource7", "fsource8", "fsource9", "subpgsub1", "subpgsub2", "subpgsub3",
 							"subpsub1", "subpsub2"
@@ -547,7 +547,7 @@ class FlowSegmentsTest extends OsateTest {
 				ownedFlowImplementations.get(9) => [
 					"fsource10".assertEquals(specification.name)
 					//Tests scope_FlowSegment_flowElement(FlowImplementation, EReference)
-					assertScope(Aadl2Package::eINSTANCE.flowSegment_FlowElement, false, #["asub1", "asub2", "da1", "fconn1", "fconn2", "fsource1", "fsource10",
+					assertScope(Aadl2Package::eINSTANCE.flowSegment_FlowElement, #["asub1", "asub2", "da1", "fconn1", "fconn2", "fsource1", "fsource10",
 						"fsource11", "fsource12", "fsource13", "fsource14", "fsource15", "fsource16", "fsource17", "fsource18", "fsource19", "fsource2",
 						"fsource3", "fsource4", "fsource5", "fsource6", "fsource7", "fsource8", "fsource9", "subpgsub1", "subpgsub2", "subpgsub3", "subpsub1",
 						"subpsub2"
@@ -557,21 +557,21 @@ class FlowSegmentsTest extends OsateTest {
 						"da4".assertEquals(flowElement.name)
 						assertError(testFileResult.issues, issueCollection, "Expected Data Access, Subcomponent, or Subcomponent.Flow Specification; found Subprogram Call.Data Access 'call5.da4'")
 						//Tests scope_FlowSegment_context
-						assertScope(Aadl2Package::eINSTANCE.flowSegment_Context, false, #["asub1", "asub2", "call1", "call12", "call13", "call2", "call3", "call4",
+						assertScope(Aadl2Package::eINSTANCE.flowSegment_Context, #["asub1", "asub2", "call1", "call12", "call13", "call2", "call3", "call4",
 							"call5", "call6", "call7", "call8", "dp1", "edp1", "fg1", "fg2", "subpgsub1", "subpgsub2", "subpgsub3", "subpsub1", "subpsub2"
 						])
 						//Tests scope_FlowSegment_flowElement(FlowSegment, EReference)
-						assertScope(Aadl2Package::eINSTANCE.flowSegment_FlowElement, false, #["asub4", "da4", "fconn5", "fconn6", "fsource21", "fsource22"])
+						assertScope(Aadl2Package::eINSTANCE.flowSegment_FlowElement, #["asub4", "da4", "fconn5", "fconn6", "fsource21", "fsource22"])
 					]
 					ownedFlowSegments.get(1) => [
 						context.assertNull
 						"fconn1".assertEquals(flowElement.name)
 						//Tests scope_FlowSegment_context
-						assertScope(Aadl2Package::eINSTANCE.flowSegment_Context, false, #["asub1", "asub2", "call1", "call12", "call13", "call2", "call3", "call4",
+						assertScope(Aadl2Package::eINSTANCE.flowSegment_Context, #["asub1", "asub2", "call1", "call12", "call13", "call2", "call3", "call4",
 							"call5", "call6", "call7", "call8", "dp1", "edp1", "fg1", "fg2", "subpgsub1", "subpgsub2", "subpgsub3", "subpsub1", "subpsub2"
 						])
 						//Tests scope_FlowSegment_flowElement(FlowSegment, EReference)
-						assertScope(Aadl2Package::eINSTANCE.flowSegment_FlowElement, false, #["asub1", "asub2", "da1", "fconn1", "fconn2", "fsource1", "fsource10",
+						assertScope(Aadl2Package::eINSTANCE.flowSegment_FlowElement, #["asub1", "asub2", "da1", "fconn1", "fconn2", "fsource1", "fsource10",
 							"fsource11", "fsource12", "fsource13", "fsource14", "fsource15", "fsource16", "fsource17", "fsource18", "fsource19", "fsource2",
 							"fsource3", "fsource4", "fsource5", "fsource6", "fsource7", "fsource8", "fsource9", "subpgsub1", "subpgsub2", "subpgsub3",
 							"subpsub1", "subpsub2"
@@ -581,7 +581,7 @@ class FlowSegmentsTest extends OsateTest {
 				ownedFlowImplementations.get(10) => [
 					"fsource11".assertEquals(specification.name)
 					//Tests scope_FlowSegment_flowElement(FlowImplementation, EReference)
-					assertScope(Aadl2Package::eINSTANCE.flowSegment_FlowElement, false, #["asub1", "asub2", "da1", "fconn1", "fconn2", "fsource1", "fsource10",
+					assertScope(Aadl2Package::eINSTANCE.flowSegment_FlowElement, #["asub1", "asub2", "da1", "fconn1", "fconn2", "fsource1", "fsource10",
 						"fsource11", "fsource12", "fsource13", "fsource14", "fsource15", "fsource16", "fsource17", "fsource18", "fsource19", "fsource2",
 						"fsource3", "fsource4", "fsource5", "fsource6", "fsource7", "fsource8", "fsource9", "subpgsub1", "subpgsub2", "subpgsub3", "subpsub1",
 						"subpsub2"
@@ -591,21 +591,21 @@ class FlowSegmentsTest extends OsateTest {
 						"da4".assertEquals(flowElement.name)
 						assertError(testFileResult.issues, issueCollection, "Expected Data Access, Subcomponent, or Subcomponent.Flow Specification; found Subprogram Call.Data Access 'call6.da4'")
 						//Tests scope_FlowSegment_context
-						assertScope(Aadl2Package::eINSTANCE.flowSegment_Context, false, #["asub1", "asub2", "call1", "call12", "call13", "call2", "call3", "call4",
+						assertScope(Aadl2Package::eINSTANCE.flowSegment_Context, #["asub1", "asub2", "call1", "call12", "call13", "call2", "call3", "call4",
 							"call5", "call6", "call7", "call8", "dp1", "edp1", "fg1", "fg2", "subpgsub1", "subpgsub2", "subpgsub3", "subpsub1", "subpsub2"
 						])
 						//Tests scope_FlowSegment_flowElement(FlowSegment, EReference)
-						assertScope(Aadl2Package::eINSTANCE.flowSegment_FlowElement, false, #["asub4", "da4", "fconn5", "fconn6", "fsource21", "fsource22"])
+						assertScope(Aadl2Package::eINSTANCE.flowSegment_FlowElement, #["asub4", "da4", "fconn5", "fconn6", "fsource21", "fsource22"])
 					]
 					ownedFlowSegments.get(1) => [
 						context.assertNull
 						"fconn1".assertEquals(flowElement.name)
 						//Tests scope_FlowSegment_context
-						assertScope(Aadl2Package::eINSTANCE.flowSegment_Context, false, #["asub1", "asub2", "call1", "call12", "call13", "call2", "call3", "call4",
+						assertScope(Aadl2Package::eINSTANCE.flowSegment_Context, #["asub1", "asub2", "call1", "call12", "call13", "call2", "call3", "call4",
 							"call5", "call6", "call7", "call8", "dp1", "edp1", "fg1", "fg2", "subpgsub1", "subpgsub2", "subpgsub3", "subpsub1", "subpsub2"
 						])
 						//Tests scope_FlowSegment_flowElement(FlowSegment, EReference)
-						assertScope(Aadl2Package::eINSTANCE.flowSegment_FlowElement, false, #["asub1", "asub2", "da1", "fconn1", "fconn2", "fsource1", "fsource10",
+						assertScope(Aadl2Package::eINSTANCE.flowSegment_FlowElement, #["asub1", "asub2", "da1", "fconn1", "fconn2", "fsource1", "fsource10",
 							"fsource11", "fsource12", "fsource13", "fsource14", "fsource15", "fsource16", "fsource17", "fsource18", "fsource19", "fsource2",
 							"fsource3", "fsource4", "fsource5", "fsource6", "fsource7", "fsource8", "fsource9", "subpgsub1", "subpgsub2", "subpgsub3",
 							"subpsub1", "subpsub2"
@@ -615,7 +615,7 @@ class FlowSegmentsTest extends OsateTest {
 				ownedFlowImplementations.get(11) => [
 					"fsource12".assertEquals(specification.name)
 					//Tests scope_FlowSegment_flowElement(FlowImplementation, EReference)
-					assertScope(Aadl2Package::eINSTANCE.flowSegment_FlowElement, false, #["asub1", "asub2", "da1", "fconn1", "fconn2", "fsource1", "fsource10",
+					assertScope(Aadl2Package::eINSTANCE.flowSegment_FlowElement, #["asub1", "asub2", "da1", "fconn1", "fconn2", "fsource1", "fsource10",
 						"fsource11", "fsource12", "fsource13", "fsource14", "fsource15", "fsource16", "fsource17", "fsource18", "fsource19", "fsource2",
 						"fsource3", "fsource4", "fsource5", "fsource6", "fsource7", "fsource8", "fsource9", "subpgsub1", "subpgsub2", "subpgsub3", "subpsub1",
 						"subpsub2"
@@ -625,21 +625,21 @@ class FlowSegmentsTest extends OsateTest {
 						"da4".assertEquals(flowElement.name)
 						assertError(testFileResult.issues, issueCollection, "Expected Data Access, Subcomponent, or Subcomponent.Flow Specification; found Subprogram Call.Data Access 'call7.da4'")
 						//Tests scope_FlowSegment_context
-						assertScope(Aadl2Package::eINSTANCE.flowSegment_Context, false, #["asub1", "asub2", "call1", "call12", "call13", "call2", "call3", "call4",
+						assertScope(Aadl2Package::eINSTANCE.flowSegment_Context, #["asub1", "asub2", "call1", "call12", "call13", "call2", "call3", "call4",
 							"call5", "call6", "call7", "call8", "dp1", "edp1", "fg1", "fg2", "subpgsub1", "subpgsub2", "subpgsub3", "subpsub1", "subpsub2"
 						])
 						//Tests scope_FlowSegment_flowElement(FlowSegment, EReference)
-						assertScope(Aadl2Package::eINSTANCE.flowSegment_FlowElement, false, #["asub4", "da4", "fconn5", "fconn6", "fsource21", "fsource22"])
+						assertScope(Aadl2Package::eINSTANCE.flowSegment_FlowElement, #["asub4", "da4", "fconn5", "fconn6", "fsource21", "fsource22"])
 					]
 					ownedFlowSegments.get(1) => [
 						context.assertNull
 						"fconn1".assertEquals(flowElement.name)
 						//Tests scope_FlowSegment_context
-						assertScope(Aadl2Package::eINSTANCE.flowSegment_Context, false, #["asub1", "asub2", "call1", "call12", "call13", "call2", "call3", "call4",
+						assertScope(Aadl2Package::eINSTANCE.flowSegment_Context, #["asub1", "asub2", "call1", "call12", "call13", "call2", "call3", "call4",
 							"call5", "call6", "call7", "call8", "dp1", "edp1", "fg1", "fg2", "subpgsub1", "subpgsub2", "subpgsub3", "subpsub1", "subpsub2"
 						])
 						//Tests scope_FlowSegment_flowElement(FlowSegment, EReference)
-						assertScope(Aadl2Package::eINSTANCE.flowSegment_FlowElement, false, #["asub1", "asub2", "da1", "fconn1", "fconn2", "fsource1", "fsource10",
+						assertScope(Aadl2Package::eINSTANCE.flowSegment_FlowElement, #["asub1", "asub2", "da1", "fconn1", "fconn2", "fsource1", "fsource10",
 							"fsource11", "fsource12", "fsource13", "fsource14", "fsource15", "fsource16", "fsource17", "fsource18", "fsource19", "fsource2",
 							"fsource3", "fsource4", "fsource5", "fsource6", "fsource7", "fsource8", "fsource9", "subpgsub1", "subpgsub2", "subpgsub3",
 							"subpsub1", "subpsub2"
@@ -649,7 +649,7 @@ class FlowSegmentsTest extends OsateTest {
 				ownedFlowImplementations.get(12) => [
 					"fsource13".assertEquals(specification.name)
 					//Tests scope_FlowSegment_flowElement(FlowImplementation, EReference)
-					assertScope(Aadl2Package::eINSTANCE.flowSegment_FlowElement, false, #["asub1", "asub2", "da1", "fconn1", "fconn2", "fsource1", "fsource10",
+					assertScope(Aadl2Package::eINSTANCE.flowSegment_FlowElement, #["asub1", "asub2", "da1", "fconn1", "fconn2", "fsource1", "fsource10",
 						"fsource11", "fsource12", "fsource13", "fsource14", "fsource15", "fsource16", "fsource17", "fsource18", "fsource19", "fsource2",
 						"fsource3", "fsource4", "fsource5", "fsource6", "fsource7", "fsource8", "fsource9", "subpgsub1", "subpgsub2", "subpgsub3", "subpsub1",
 						"subpsub2"
@@ -659,21 +659,21 @@ class FlowSegmentsTest extends OsateTest {
 						"da4".assertEquals(flowElement.name)
 						assertError(testFileResult.issues, issueCollection, "Expected Data Access, Subcomponent, or Subcomponent.Flow Specification; found Subprogram Call.Data Access 'call8.da4'")
 						//Tests scope_FlowSegment_context
-						assertScope(Aadl2Package::eINSTANCE.flowSegment_Context, false, #["asub1", "asub2", "call1", "call12", "call13", "call2", "call3", "call4",
+						assertScope(Aadl2Package::eINSTANCE.flowSegment_Context, #["asub1", "asub2", "call1", "call12", "call13", "call2", "call3", "call4",
 							"call5", "call6", "call7", "call8", "dp1", "edp1", "fg1", "fg2", "subpgsub1", "subpgsub2", "subpgsub3", "subpsub1", "subpsub2"
 						])
 						//Tests scope_FlowSegment_flowElement(FlowSegment, EReference)
-						assertScope(Aadl2Package::eINSTANCE.flowSegment_FlowElement, false, #["asub4", "da4", "fconn5", "fconn6", "fsource21", "fsource22"])
+						assertScope(Aadl2Package::eINSTANCE.flowSegment_FlowElement, #["asub4", "da4", "fconn5", "fconn6", "fsource21", "fsource22"])
 					]
 					ownedFlowSegments.get(1) => [
 						context.assertNull
 						"fconn1".assertEquals(flowElement.name)
 						//Tests scope_FlowSegment_context
-						assertScope(Aadl2Package::eINSTANCE.flowSegment_Context, false, #["asub1", "asub2", "call1", "call12", "call13", "call2", "call3", "call4",
+						assertScope(Aadl2Package::eINSTANCE.flowSegment_Context, #["asub1", "asub2", "call1", "call12", "call13", "call2", "call3", "call4",
 							"call5", "call6", "call7", "call8", "dp1", "edp1", "fg1", "fg2", "subpgsub1", "subpgsub2", "subpgsub3", "subpsub1", "subpsub2"
 						])
 						//Tests scope_FlowSegment_flowElement(FlowSegment, EReference)
-						assertScope(Aadl2Package::eINSTANCE.flowSegment_FlowElement, false, #["asub1", "asub2", "da1", "fconn1", "fconn2", "fsource1", "fsource10",
+						assertScope(Aadl2Package::eINSTANCE.flowSegment_FlowElement, #["asub1", "asub2", "da1", "fconn1", "fconn2", "fsource1", "fsource10",
 							"fsource11", "fsource12", "fsource13", "fsource14", "fsource15", "fsource16", "fsource17", "fsource18", "fsource19", "fsource2",
 							"fsource3", "fsource4", "fsource5", "fsource6", "fsource7", "fsource8", "fsource9", "subpgsub1", "subpgsub2", "subpgsub3",
 							"subpsub1", "subpsub2"
@@ -683,7 +683,7 @@ class FlowSegmentsTest extends OsateTest {
 				ownedFlowImplementations.get(13) => [
 					"fsource17".assertEquals(specification.name)
 					//Tests scope_FlowSegment_flowElement(FlowImplementation, EReference)
-					assertScope(Aadl2Package::eINSTANCE.flowSegment_FlowElement, false, #["asub1", "asub2", "da1", "fconn1", "fconn2", "fsource1", "fsource10",
+					assertScope(Aadl2Package::eINSTANCE.flowSegment_FlowElement, #["asub1", "asub2", "da1", "fconn1", "fconn2", "fsource1", "fsource10",
 						"fsource11", "fsource12", "fsource13", "fsource14", "fsource15", "fsource16", "fsource17", "fsource18", "fsource19", "fsource2",
 						"fsource3", "fsource4", "fsource5", "fsource6", "fsource7", "fsource8", "fsource9", "subpgsub1", "subpgsub2", "subpgsub3", "subpsub1",
 						"subpsub2"
@@ -693,21 +693,21 @@ class FlowSegmentsTest extends OsateTest {
 						"da4".assertEquals(flowElement.name)
 						assertError(testFileResult.issues, issueCollection, "Expected Data Access, Subcomponent, or Subcomponent.Flow Specification; found Subprogram Call.Data Access 'call12.da4'")
 						//Tests scope_FlowSegment_context
-						assertScope(Aadl2Package::eINSTANCE.flowSegment_Context, false, #["asub1", "asub2", "call1", "call12", "call13", "call2", "call3", "call4",
+						assertScope(Aadl2Package::eINSTANCE.flowSegment_Context, #["asub1", "asub2", "call1", "call12", "call13", "call2", "call3", "call4",
 							"call5", "call6", "call7", "call8", "dp1", "edp1", "fg1", "fg2", "subpgsub1", "subpgsub2", "subpgsub3", "subpsub1", "subpsub2"
 						])
 						//Tests scope_FlowSegment_flowElement(FlowSegment, EReference)
-						assertScope(Aadl2Package::eINSTANCE.flowSegment_FlowElement, false, #["asub4", "da4", "fconn5", "fconn6", "fsource21", "fsource22"])
+						assertScope(Aadl2Package::eINSTANCE.flowSegment_FlowElement, #["asub4", "da4", "fconn5", "fconn6", "fsource21", "fsource22"])
 					]
 					ownedFlowSegments.get(1) => [
 						context.assertNull
 						"fconn1".assertEquals(flowElement.name)
 						//Tests scope_FlowSegment_context
-						assertScope(Aadl2Package::eINSTANCE.flowSegment_Context, false, #["asub1", "asub2", "call1", "call12", "call13", "call2", "call3", "call4",
+						assertScope(Aadl2Package::eINSTANCE.flowSegment_Context, #["asub1", "asub2", "call1", "call12", "call13", "call2", "call3", "call4",
 							"call5", "call6", "call7", "call8", "dp1", "edp1", "fg1", "fg2", "subpgsub1", "subpgsub2", "subpgsub3", "subpsub1", "subpsub2"
 						])
 						//Tests scope_FlowSegment_flowElement(FlowSegment, EReference)
-						assertScope(Aadl2Package::eINSTANCE.flowSegment_FlowElement, false, #["asub1", "asub2", "da1", "fconn1", "fconn2", "fsource1", "fsource10",
+						assertScope(Aadl2Package::eINSTANCE.flowSegment_FlowElement, #["asub1", "asub2", "da1", "fconn1", "fconn2", "fsource1", "fsource10",
 							"fsource11", "fsource12", "fsource13", "fsource14", "fsource15", "fsource16", "fsource17", "fsource18", "fsource19", "fsource2",
 							"fsource3", "fsource4", "fsource5", "fsource6", "fsource7", "fsource8", "fsource9", "subpgsub1", "subpgsub2", "subpgsub3",
 							"subpsub1", "subpsub2"
@@ -717,7 +717,7 @@ class FlowSegmentsTest extends OsateTest {
 				ownedFlowImplementations.get(14) => [
 					"fsource18".assertEquals(specification.name)
 					//Tests scope_FlowSegment_flowElement(FlowImplementation, EReference)
-					assertScope(Aadl2Package::eINSTANCE.flowSegment_FlowElement, false, #["asub1", "asub2", "da1", "fconn1", "fconn2", "fsource1", "fsource10",
+					assertScope(Aadl2Package::eINSTANCE.flowSegment_FlowElement, #["asub1", "asub2", "da1", "fconn1", "fconn2", "fsource1", "fsource10",
 						"fsource11", "fsource12", "fsource13", "fsource14", "fsource15", "fsource16", "fsource17", "fsource18", "fsource19", "fsource2",
 						"fsource3", "fsource4", "fsource5", "fsource6", "fsource7", "fsource8", "fsource9", "subpgsub1", "subpgsub2", "subpgsub3", "subpsub1",
 						"subpsub2"
@@ -727,21 +727,21 @@ class FlowSegmentsTest extends OsateTest {
 						"da4".assertEquals(flowElement.name)
 						assertError(testFileResult.issues, issueCollection, "Expected Data Access, Subcomponent, or Subcomponent.Flow Specification; found Subprogram Call.Data Access 'call13.da4'")
 						//Tests scope_FlowSegment_context
-						assertScope(Aadl2Package::eINSTANCE.flowSegment_Context, false, #["asub1", "asub2", "call1", "call12", "call13", "call2", "call3", "call4",
+						assertScope(Aadl2Package::eINSTANCE.flowSegment_Context, #["asub1", "asub2", "call1", "call12", "call13", "call2", "call3", "call4",
 							"call5", "call6", "call7", "call8", "dp1", "edp1", "fg1", "fg2", "subpgsub1", "subpgsub2", "subpgsub3", "subpsub1", "subpsub2"
 						])
 						//Tests scope_FlowSegment_flowElement(FlowSegment, EReference)
-						assertScope(Aadl2Package::eINSTANCE.flowSegment_FlowElement, false, #["asub4", "da4", "fconn5", "fconn6", "fsource21", "fsource22"])
+						assertScope(Aadl2Package::eINSTANCE.flowSegment_FlowElement, #["asub4", "da4", "fconn5", "fconn6", "fsource21", "fsource22"])
 					]
 					ownedFlowSegments.get(1) => [
 						context.assertNull
 						"fconn1".assertEquals(flowElement.name)
 						//Tests scope_FlowSegment_context
-						assertScope(Aadl2Package::eINSTANCE.flowSegment_Context, false, #["asub1", "asub2", "call1", "call12", "call13", "call2", "call3", "call4",
+						assertScope(Aadl2Package::eINSTANCE.flowSegment_Context, #["asub1", "asub2", "call1", "call12", "call13", "call2", "call3", "call4",
 							"call5", "call6", "call7", "call8", "dp1", "edp1", "fg1", "fg2", "subpgsub1", "subpgsub2", "subpgsub3", "subpsub1", "subpsub2"
 						])
 						//Tests scope_FlowSegment_flowElement(FlowSegment, EReference)
-						assertScope(Aadl2Package::eINSTANCE.flowSegment_FlowElement, false, #["asub1", "asub2", "da1", "fconn1", "fconn2", "fsource1", "fsource10",
+						assertScope(Aadl2Package::eINSTANCE.flowSegment_FlowElement, #["asub1", "asub2", "da1", "fconn1", "fconn2", "fsource1", "fsource10",
 							"fsource11", "fsource12", "fsource13", "fsource14", "fsource15", "fsource16", "fsource17", "fsource18", "fsource19", "fsource2",
 							"fsource3", "fsource4", "fsource5", "fsource6", "fsource7", "fsource8", "fsource9", "subpgsub1", "subpgsub2", "subpgsub3",
 							"subpsub1", "subpsub2"
@@ -751,7 +751,7 @@ class FlowSegmentsTest extends OsateTest {
 				ownedEndToEndFlows.get(0) => [
 					"etef1".assertEquals(name)
 					//Tests scope_EndToEndFlowSegment_flowElement(EndToEndFlow, EReference)
-					assertScope(Aadl2Package::eINSTANCE.endToEndFlowSegment_FlowElement, false, #["asub1", "asub2", "da1", "etef1", "etef10", "etef11", "etef15",
+					assertScope(Aadl2Package::eINSTANCE.endToEndFlowSegment_FlowElement, #["asub1", "asub2", "da1", "etef1", "etef10", "etef11", "etef15",
 						"etef16", "etef2", "etef3", "etef4", "etef5", "etef6", "etef7", "etef8", "etef9", "fconn1", "fconn2", "fsource1", "fsource10",
 						"fsource11", "fsource12", "fsource13", "fsource14", "fsource15", "fsource16", "fsource17", "fsource18", "fsource19", "fsource2",
 						"fsource3", "fsource4", "fsource5", "fsource6", "fsource7", "fsource8", "fsource9", "subpgsub1", "subpgsub2", "subpgsub3", "subpsub1",
@@ -761,12 +761,12 @@ class FlowSegmentsTest extends OsateTest {
 						"asub1".assertEquals(context.name)
 						"fsource20".assertEquals(flowElement.name)
 						//Tests scope_EndToEndFlowSegment_context
-						assertScope(Aadl2Package::eINSTANCE.endToEndFlowSegment_Context, false, #["asub1", "asub2", "call1", "call12", "call13", "call2", "call3",
+						assertScope(Aadl2Package::eINSTANCE.endToEndFlowSegment_Context, #["asub1", "asub2", "call1", "call12", "call13", "call2", "call3",
 							"call4", "call5", "call6", "call7", "call8", "dp1", "edp1", "fg1", "fg2", "subpgsub1", "subpgsub2", "subpgsub3", "subpsub1",
 							"subpsub2"
 						])
 						//Tests scope_EndToEndFlowSegment_flowElement(EndToEndFlowSegment, EReference)
-						assertScope(Aadl2Package::eINSTANCE.endToEndFlowSegment_FlowElement, false, #["asub3", "da2", "etef18", "fconn3", "fconn4", "fsink1",
+						assertScope(Aadl2Package::eINSTANCE.endToEndFlowSegment_FlowElement, #["asub3", "da2", "etef18", "fconn3", "fconn4", "fsink1",
 							"fsource20"
 						])
 					]
@@ -774,12 +774,12 @@ class FlowSegmentsTest extends OsateTest {
 						context.assertNull
 						"fconn2".assertEquals(flowElement.name)
 						//Tests scope_EndToEndFlowSegment_context
-						assertScope(Aadl2Package::eINSTANCE.endToEndFlowSegment_Context, false, #["asub1", "asub2", "call1", "call12", "call13", "call2", "call3",
+						assertScope(Aadl2Package::eINSTANCE.endToEndFlowSegment_Context, #["asub1", "asub2", "call1", "call12", "call13", "call2", "call3",
 							"call4", "call5", "call6", "call7", "call8", "dp1", "edp1", "fg1", "fg2", "subpgsub1", "subpgsub2", "subpgsub3", "subpsub1",
 							"subpsub2"
 						])
 						//Tests scope_EndToEndFlowSegment_flowElement(EndToEndFlowSegment, EReference)
-						assertScope(Aadl2Package::eINSTANCE.endToEndFlowSegment_FlowElement, false, #["asub1", "asub2", "da1", "etef1", "etef10", "etef11", "etef15",
+						assertScope(Aadl2Package::eINSTANCE.endToEndFlowSegment_FlowElement, #["asub1", "asub2", "da1", "etef1", "etef10", "etef11", "etef15",
 							"etef16", "etef2", "etef3", "etef4", "etef5", "etef6", "etef7", "etef8", "etef9", "fconn1", "fconn2", "fsource1", "fsource10",
 							"fsource11", "fsource12", "fsource13", "fsource14", "fsource15", "fsource16", "fsource17", "fsource18", "fsource19", "fsource2",
 							"fsource3", "fsource4", "fsource5", "fsource6", "fsource7", "fsource8", "fsource9", "subpgsub1", "subpgsub2", "subpgsub3",
@@ -790,12 +790,12 @@ class FlowSegmentsTest extends OsateTest {
 						"asub2".assertEquals(context.name)
 						"fsink1".assertEquals(flowElement.name)
 						//Tests scope_EndToEndFlowSegment_context
-						assertScope(Aadl2Package::eINSTANCE.endToEndFlowSegment_Context, false, #["asub1", "asub2", "call1", "call12", "call13", "call2", "call3",
+						assertScope(Aadl2Package::eINSTANCE.endToEndFlowSegment_Context, #["asub1", "asub2", "call1", "call12", "call13", "call2", "call3",
 							"call4", "call5", "call6", "call7", "call8", "dp1", "edp1", "fg1", "fg2", "subpgsub1", "subpgsub2", "subpgsub3", "subpsub1",
 							"subpsub2"
 						])
 						//Tests scope_EndToEndFlowSegment_flowElement(EndToEndFlowSegment, EReference)
-						assertScope(Aadl2Package::eINSTANCE.endToEndFlowSegment_FlowElement, false, #["asub3", "da2", "etef18", "fconn3", "fconn4", "fsink1",
+						assertScope(Aadl2Package::eINSTANCE.endToEndFlowSegment_FlowElement, #["asub3", "da2", "etef18", "fconn3", "fconn4", "fsink1",
 							"fsource20"
 						])
 					]
@@ -803,7 +803,7 @@ class FlowSegmentsTest extends OsateTest {
 				ownedEndToEndFlows.get(1) => [
 					"etef2".assertEquals(name)
 					//Tests scope_EndToEndFlowSegment_flowElement(EndToEndFlow, EReference)
-					assertScope(Aadl2Package::eINSTANCE.endToEndFlowSegment_FlowElement, false, #["asub1", "asub2", "da1", "etef1", "etef10", "etef11", "etef15",
+					assertScope(Aadl2Package::eINSTANCE.endToEndFlowSegment_FlowElement, #["asub1", "asub2", "da1", "etef1", "etef10", "etef11", "etef15",
 						"etef16", "etef2", "etef3", "etef4", "etef5", "etef6", "etef7", "etef8", "etef9", "fconn1", "fconn2", "fsource1", "fsource10",
 						"fsource11", "fsource12", "fsource13", "fsource14", "fsource15", "fsource16", "fsource17", "fsource18", "fsource19", "fsource2",
 						"fsource3", "fsource4", "fsource5", "fsource6", "fsource7", "fsource8", "fsource9", "subpgsub1", "subpgsub2", "subpgsub3", "subpsub1",
@@ -814,23 +814,23 @@ class FlowSegmentsTest extends OsateTest {
 						"da3".assertEquals(flowElement.name)
 						assertError(testFileResult.issues, issueCollection, "Anything in a 'feature group' is not a valid subcomponent flow.")
 						//Tests scope_EndToEndFlowSegment_context
-						assertScope(Aadl2Package::eINSTANCE.endToEndFlowSegment_Context, false, #["asub1", "asub2", "call1", "call12", "call13", "call2", "call3",
+						assertScope(Aadl2Package::eINSTANCE.endToEndFlowSegment_Context, #["asub1", "asub2", "call1", "call12", "call13", "call2", "call3",
 							"call4", "call5", "call6", "call7", "call8", "dp1", "edp1", "fg1", "fg2", "subpgsub1", "subpgsub2", "subpgsub3", "subpsub1",
 							"subpsub2"
 						])
 						//Tests scope_EndToEndFlowSegment_flowElement(EndToEndFlowSegment, EReference)
-						assertScope(Aadl2Package::eINSTANCE.endToEndFlowSegment_FlowElement, false, #["da3"])
+						assertScope(Aadl2Package::eINSTANCE.endToEndFlowSegment_FlowElement, #["da3"])
 					]
 					ownedEndToEndFlowSegments.get(1) => [
 						context.assertNull
 						"fconn2".assertEquals(flowElement.name)
 						//Tests scope_EndToEndFlowSegment_context
-						assertScope(Aadl2Package::eINSTANCE.endToEndFlowSegment_Context, false, #["asub1", "asub2", "call1", "call12", "call13", "call2", "call3",
+						assertScope(Aadl2Package::eINSTANCE.endToEndFlowSegment_Context, #["asub1", "asub2", "call1", "call12", "call13", "call2", "call3",
 							"call4", "call5", "call6", "call7", "call8", "dp1", "edp1", "fg1", "fg2", "subpgsub1", "subpgsub2", "subpgsub3", "subpsub1",
 							"subpsub2"
 						])
 						//Tests scope_EndToEndFlowSegment_flowElement(EndToEndFlowSegment, EReference)
-						assertScope(Aadl2Package::eINSTANCE.endToEndFlowSegment_FlowElement, false, #["asub1", "asub2", "da1", "etef1", "etef10", "etef11", "etef15",
+						assertScope(Aadl2Package::eINSTANCE.endToEndFlowSegment_FlowElement, #["asub1", "asub2", "da1", "etef1", "etef10", "etef11", "etef15",
 							"etef16", "etef2", "etef3", "etef4", "etef5", "etef6", "etef7", "etef8", "etef9", "fconn1", "fconn2", "fsource1", "fsource10",
 							"fsource11", "fsource12", "fsource13", "fsource14", "fsource15", "fsource16", "fsource17", "fsource18", "fsource19", "fsource2",
 							"fsource3", "fsource4", "fsource5", "fsource6", "fsource7", "fsource8", "fsource9", "subpgsub1", "subpgsub2", "subpgsub3",
@@ -841,12 +841,12 @@ class FlowSegmentsTest extends OsateTest {
 						"asub1".assertEquals(context.name)
 						"fsink1".assertEquals(flowElement.name)
 						//Tests scope_EndToEndFlowSegment_context
-						assertScope(Aadl2Package::eINSTANCE.endToEndFlowSegment_Context, false, #["asub1", "asub2", "call1", "call12", "call13", "call2", "call3",
+						assertScope(Aadl2Package::eINSTANCE.endToEndFlowSegment_Context, #["asub1", "asub2", "call1", "call12", "call13", "call2", "call3",
 							"call4", "call5", "call6", "call7", "call8", "dp1", "edp1", "fg1", "fg2", "subpgsub1", "subpgsub2", "subpgsub3", "subpsub1",
 							"subpsub2"
 						])
 						//Tests scope_EndToEndFlowSegment_flowElement(EndToEndFlowSegment, EReference)
-						assertScope(Aadl2Package::eINSTANCE.endToEndFlowSegment_FlowElement, false, #["asub3", "da2", "etef18", "fconn3", "fconn4", "fsink1",
+						assertScope(Aadl2Package::eINSTANCE.endToEndFlowSegment_FlowElement, #["asub3", "da2", "etef18", "fconn3", "fconn4", "fsink1",
 							"fsource20"
 						])
 					]
@@ -854,7 +854,7 @@ class FlowSegmentsTest extends OsateTest {
 				ownedEndToEndFlows.get(2) => [
 					"etef3".assertEquals(name)
 					//Tests scope_EndToEndFlowSegment_flowElement(EndToEndFlow, EReference)
-					assertScope(Aadl2Package::eINSTANCE.endToEndFlowSegment_FlowElement, false, #["asub1", "asub2", "da1", "etef1", "etef10", "etef11", "etef15",
+					assertScope(Aadl2Package::eINSTANCE.endToEndFlowSegment_FlowElement, #["asub1", "asub2", "da1", "etef1", "etef10", "etef11", "etef15",
 						"etef16", "etef2", "etef3", "etef4", "etef5", "etef6", "etef7", "etef8", "etef9", "fconn1", "fconn2", "fsource1", "fsource10",
 						"fsource11", "fsource12", "fsource13", "fsource14", "fsource15", "fsource16", "fsource17", "fsource18", "fsource19", "fsource2",
 						"fsource3", "fsource4", "fsource5", "fsource6", "fsource7", "fsource8", "fsource9", "subpgsub1", "subpgsub2", "subpgsub3", "subpsub1",
@@ -865,23 +865,23 @@ class FlowSegmentsTest extends OsateTest {
 						"da3".assertEquals(flowElement.name)
 						assertError(testFileResult.issues, issueCollection, "Anything in a 'feature group' is not a valid subcomponent flow.")
 						//Tests scope_EndToEndFlowSegment_context
-						assertScope(Aadl2Package::eINSTANCE.endToEndFlowSegment_Context, false, #["asub1", "asub2", "call1", "call12", "call13", "call2", "call3",
+						assertScope(Aadl2Package::eINSTANCE.endToEndFlowSegment_Context, #["asub1", "asub2", "call1", "call12", "call13", "call2", "call3",
 							"call4", "call5", "call6", "call7", "call8", "dp1", "edp1", "fg1", "fg2", "subpgsub1", "subpgsub2", "subpgsub3", "subpsub1",
 							"subpsub2"
 						])
 						//Tests scope_EndToEndFlowSegment_flowElement(EndToEndFlowSegment, EReference)
-						assertScope(Aadl2Package::eINSTANCE.endToEndFlowSegment_FlowElement, false, #["da3"])
+						assertScope(Aadl2Package::eINSTANCE.endToEndFlowSegment_FlowElement, #["da3"])
 					]
 					ownedEndToEndFlowSegments.get(1) => [
 						context.assertNull
 						"fconn2".assertEquals(flowElement.name)
 						//Tests scope_EndToEndFlowSegment_context
-						assertScope(Aadl2Package::eINSTANCE.endToEndFlowSegment_Context, false, #["asub1", "asub2", "call1", "call12", "call13", "call2", "call3",
+						assertScope(Aadl2Package::eINSTANCE.endToEndFlowSegment_Context, #["asub1", "asub2", "call1", "call12", "call13", "call2", "call3",
 							"call4", "call5", "call6", "call7", "call8", "dp1", "edp1", "fg1", "fg2", "subpgsub1", "subpgsub2", "subpgsub3", "subpsub1",
 							"subpsub2"
 						])
 						//Tests scope_EndToEndFlowSegment_flowElement(EndToEndFlowSegment, EReference)
-						assertScope(Aadl2Package::eINSTANCE.endToEndFlowSegment_FlowElement, false, #["asub1", "asub2", "da1", "etef1", "etef10", "etef11", "etef15",
+						assertScope(Aadl2Package::eINSTANCE.endToEndFlowSegment_FlowElement, #["asub1", "asub2", "da1", "etef1", "etef10", "etef11", "etef15",
 							"etef16", "etef2", "etef3", "etef4", "etef5", "etef6", "etef7", "etef8", "etef9", "fconn1", "fconn2", "fsource1", "fsource10",
 							"fsource11", "fsource12", "fsource13", "fsource14", "fsource15", "fsource16", "fsource17", "fsource18", "fsource19", "fsource2",
 							"fsource3", "fsource4", "fsource5", "fsource6", "fsource7", "fsource8", "fsource9", "subpgsub1", "subpgsub2", "subpgsub3",
@@ -892,12 +892,12 @@ class FlowSegmentsTest extends OsateTest {
 						"asub1".assertEquals(context.name)
 						"fsink1".assertEquals(flowElement.name)
 						//Tests scope_EndToEndFlowSegment_context
-						assertScope(Aadl2Package::eINSTANCE.endToEndFlowSegment_Context, false, #["asub1", "asub2", "call1", "call12", "call13", "call2", "call3",
+						assertScope(Aadl2Package::eINSTANCE.endToEndFlowSegment_Context, #["asub1", "asub2", "call1", "call12", "call13", "call2", "call3",
 							"call4", "call5", "call6", "call7", "call8", "dp1", "edp1", "fg1", "fg2", "subpgsub1", "subpgsub2", "subpgsub3", "subpsub1",
 							"subpsub2"
 						])
 						//Tests scope_EndToEndFlowSegment_flowElement(EndToEndFlowSegment, EReference)
-						assertScope(Aadl2Package::eINSTANCE.endToEndFlowSegment_FlowElement, false, #["asub3", "da2", "etef18", "fconn3", "fconn4", "fsink1",
+						assertScope(Aadl2Package::eINSTANCE.endToEndFlowSegment_FlowElement, #["asub3", "da2", "etef18", "fconn3", "fconn4", "fsink1",
 							"fsource20"
 						])
 					]
@@ -905,7 +905,7 @@ class FlowSegmentsTest extends OsateTest {
 				ownedEndToEndFlows.get(3) => [
 					"etef4".assertEquals(name)
 					//Tests scope_EndToEndFlowSegment_flowElement(EndToEndFlow, EReference)
-					assertScope(Aadl2Package::eINSTANCE.endToEndFlowSegment_FlowElement, false, #["asub1", "asub2", "da1", "etef1", "etef10", "etef11", "etef15",
+					assertScope(Aadl2Package::eINSTANCE.endToEndFlowSegment_FlowElement, #["asub1", "asub2", "da1", "etef1", "etef10", "etef11", "etef15",
 						"etef16", "etef2", "etef3", "etef4", "etef5", "etef6", "etef7", "etef8", "etef9", "fconn1", "fconn2", "fsource1", "fsource10",
 						"fsource11", "fsource12", "fsource13", "fsource14", "fsource15", "fsource16", "fsource17", "fsource18", "fsource19", "fsource2",
 						"fsource3", "fsource4", "fsource5", "fsource6", "fsource7", "fsource8", "fsource9", "subpgsub1", "subpgsub2", "subpgsub3", "subpsub1",
@@ -916,12 +916,12 @@ class FlowSegmentsTest extends OsateTest {
 						"da4".assertEquals(flowElement.name)
 						assertError(testFileResult.issues, issueCollection, "Anything in a 'subprogram call' is not a valid subcomponent flow.")
 						//Tests scope_EndToEndFlowSegment_context
-						assertScope(Aadl2Package::eINSTANCE.endToEndFlowSegment_Context, false, #["asub1", "asub2", "call1", "call12", "call13", "call2", "call3",
+						assertScope(Aadl2Package::eINSTANCE.endToEndFlowSegment_Context, #["asub1", "asub2", "call1", "call12", "call13", "call2", "call3",
 							"call4", "call5", "call6", "call7", "call8", "dp1", "edp1", "fg1", "fg2", "subpgsub1", "subpgsub2", "subpgsub3", "subpsub1",
 							"subpsub2"
 						])
 						//Tests scope_EndToEndFlowSegment_flowElement(EndToEndFlowSegment, EReference)
-						assertScope(Aadl2Package::eINSTANCE.endToEndFlowSegment_FlowElement, false, #["asub4", "da4", "etef19", "etef20", "fconn5", "fconn6",
+						assertScope(Aadl2Package::eINSTANCE.endToEndFlowSegment_FlowElement, #["asub4", "da4", "etef19", "etef20", "fconn5", "fconn6",
 							"fsource21", "fsource22"
 						])
 					]
@@ -929,12 +929,12 @@ class FlowSegmentsTest extends OsateTest {
 						context.assertNull
 						"fconn2".assertEquals(flowElement.name)
 						//Tests scope_EndToEndFlowSegment_context
-						assertScope(Aadl2Package::eINSTANCE.endToEndFlowSegment_Context, false, #["asub1", "asub2", "call1", "call12", "call13", "call2", "call3",
+						assertScope(Aadl2Package::eINSTANCE.endToEndFlowSegment_Context, #["asub1", "asub2", "call1", "call12", "call13", "call2", "call3",
 							"call4", "call5", "call6", "call7", "call8", "dp1", "edp1", "fg1", "fg2", "subpgsub1", "subpgsub2", "subpgsub3", "subpsub1",
 							"subpsub2"
 						])
 						//Tests scope_EndToEndFlowSegment_flowElement(EndToEndFlowSegment, EReference)
-						assertScope(Aadl2Package::eINSTANCE.endToEndFlowSegment_FlowElement, false, #["asub1", "asub2", "da1", "etef1", "etef10", "etef11", "etef15",
+						assertScope(Aadl2Package::eINSTANCE.endToEndFlowSegment_FlowElement, #["asub1", "asub2", "da1", "etef1", "etef10", "etef11", "etef15",
 							"etef16", "etef2", "etef3", "etef4", "etef5", "etef6", "etef7", "etef8", "etef9", "fconn1", "fconn2", "fsource1", "fsource10",
 							"fsource11", "fsource12", "fsource13", "fsource14", "fsource15", "fsource16", "fsource17", "fsource18", "fsource19", "fsource2",
 							"fsource3", "fsource4", "fsource5", "fsource6", "fsource7", "fsource8", "fsource9", "subpgsub1", "subpgsub2", "subpgsub3",
@@ -945,12 +945,12 @@ class FlowSegmentsTest extends OsateTest {
 						"asub1".assertEquals(context.name)
 						"fsink1".assertEquals(flowElement.name)
 						//Tests scope_EndToEndFlowSegment_context
-						assertScope(Aadl2Package::eINSTANCE.endToEndFlowSegment_Context, false, #["asub1", "asub2", "call1", "call12", "call13", "call2", "call3",
+						assertScope(Aadl2Package::eINSTANCE.endToEndFlowSegment_Context, #["asub1", "asub2", "call1", "call12", "call13", "call2", "call3",
 							"call4", "call5", "call6", "call7", "call8", "dp1", "edp1", "fg1", "fg2", "subpgsub1", "subpgsub2", "subpgsub3", "subpsub1",
 							"subpsub2"
 						])
 						//Tests scope_EndToEndFlowSegment_flowElement(EndToEndFlowSegment, EReference)
-						assertScope(Aadl2Package::eINSTANCE.endToEndFlowSegment_FlowElement, false, #["asub3", "da2", "etef18", "fconn3", "fconn4", "fsink1",
+						assertScope(Aadl2Package::eINSTANCE.endToEndFlowSegment_FlowElement, #["asub3", "da2", "etef18", "fconn3", "fconn4", "fsink1",
 							"fsource20"
 						])
 					]
@@ -958,7 +958,7 @@ class FlowSegmentsTest extends OsateTest {
 				ownedEndToEndFlows.get(4) => [
 					"etef5".assertEquals(name)
 					//Tests scope_EndToEndFlowSegment_flowElement(EndToEndFlow, EReference)
-					assertScope(Aadl2Package::eINSTANCE.endToEndFlowSegment_FlowElement, false, #["asub1", "asub2", "da1", "etef1", "etef10", "etef11", "etef15",
+					assertScope(Aadl2Package::eINSTANCE.endToEndFlowSegment_FlowElement, #["asub1", "asub2", "da1", "etef1", "etef10", "etef11", "etef15",
 						"etef16", "etef2", "etef3", "etef4", "etef5", "etef6", "etef7", "etef8", "etef9", "fconn1", "fconn2", "fsource1", "fsource10",
 						"fsource11", "fsource12", "fsource13", "fsource14", "fsource15", "fsource16", "fsource17", "fsource18", "fsource19", "fsource2",
 						"fsource3", "fsource4", "fsource5", "fsource6", "fsource7", "fsource8", "fsource9", "subpgsub1", "subpgsub2", "subpgsub3", "subpsub1",
@@ -969,12 +969,12 @@ class FlowSegmentsTest extends OsateTest {
 						"da4".assertEquals(flowElement.name)
 						assertError(testFileResult.issues, issueCollection, "Anything in a 'subprogram call' is not a valid subcomponent flow.")
 						//Tests scope_EndToEndFlowSegment_context
-						assertScope(Aadl2Package::eINSTANCE.endToEndFlowSegment_Context, false, #["asub1", "asub2", "call1", "call12", "call13", "call2", "call3",
+						assertScope(Aadl2Package::eINSTANCE.endToEndFlowSegment_Context, #["asub1", "asub2", "call1", "call12", "call13", "call2", "call3",
 							"call4", "call5", "call6", "call7", "call8", "dp1", "edp1", "fg1", "fg2", "subpgsub1", "subpgsub2", "subpgsub3", "subpsub1",
 							"subpsub2"
 						])
 						//Tests scope_EndToEndFlowSegment_flowElement(EndToEndFlowSegment, EReference)
-						assertScope(Aadl2Package::eINSTANCE.endToEndFlowSegment_FlowElement, false, #["asub4", "da4", "etef19", "etef20", "fconn5", "fconn6",
+						assertScope(Aadl2Package::eINSTANCE.endToEndFlowSegment_FlowElement, #["asub4", "da4", "etef19", "etef20", "fconn5", "fconn6",
 							"fsource21", "fsource22"
 						])
 					]
@@ -982,12 +982,12 @@ class FlowSegmentsTest extends OsateTest {
 						context.assertNull
 						"fconn2".assertEquals(flowElement.name)
 						//Tests scope_EndToEndFlowSegment_context
-						assertScope(Aadl2Package::eINSTANCE.endToEndFlowSegment_Context, false, #["asub1", "asub2", "call1", "call12", "call13", "call2", "call3",
+						assertScope(Aadl2Package::eINSTANCE.endToEndFlowSegment_Context, #["asub1", "asub2", "call1", "call12", "call13", "call2", "call3",
 							"call4", "call5", "call6", "call7", "call8", "dp1", "edp1", "fg1", "fg2", "subpgsub1", "subpgsub2", "subpgsub3", "subpsub1",
 							"subpsub2"
 						])
 						//Tests scope_EndToEndFlowSegment_flowElement(EndToEndFlowSegment, EReference)
-						assertScope(Aadl2Package::eINSTANCE.endToEndFlowSegment_FlowElement, false, #["asub1", "asub2", "da1", "etef1", "etef10", "etef11", "etef15",
+						assertScope(Aadl2Package::eINSTANCE.endToEndFlowSegment_FlowElement, #["asub1", "asub2", "da1", "etef1", "etef10", "etef11", "etef15",
 							"etef16", "etef2", "etef3", "etef4", "etef5", "etef6", "etef7", "etef8", "etef9", "fconn1", "fconn2", "fsource1", "fsource10",
 							"fsource11", "fsource12", "fsource13", "fsource14", "fsource15", "fsource16", "fsource17", "fsource18", "fsource19", "fsource2",
 							"fsource3", "fsource4", "fsource5", "fsource6", "fsource7", "fsource8", "fsource9", "subpgsub1", "subpgsub2", "subpgsub3",
@@ -998,12 +998,12 @@ class FlowSegmentsTest extends OsateTest {
 						"asub1".assertEquals(context.name)
 						"fsink1".assertEquals(flowElement.name)
 						//Tests scope_EndToEndFlowSegment_context
-						assertScope(Aadl2Package::eINSTANCE.endToEndFlowSegment_Context, false, #["asub1", "asub2", "call1", "call12", "call13", "call2", "call3",
+						assertScope(Aadl2Package::eINSTANCE.endToEndFlowSegment_Context, #["asub1", "asub2", "call1", "call12", "call13", "call2", "call3",
 							"call4", "call5", "call6", "call7", "call8", "dp1", "edp1", "fg1", "fg2", "subpgsub1", "subpgsub2", "subpgsub3", "subpsub1",
 							"subpsub2"
 						])
 						//Tests scope_EndToEndFlowSegment_flowElement(EndToEndFlowSegment, EReference)
-						assertScope(Aadl2Package::eINSTANCE.endToEndFlowSegment_FlowElement, false, #["asub3", "da2", "etef18", "fconn3", "fconn4", "fsink1",
+						assertScope(Aadl2Package::eINSTANCE.endToEndFlowSegment_FlowElement, #["asub3", "da2", "etef18", "fconn3", "fconn4", "fsink1",
 							"fsource20"
 						])
 					]
@@ -1011,7 +1011,7 @@ class FlowSegmentsTest extends OsateTest {
 				ownedEndToEndFlows.get(5) => [
 					"etef6".assertEquals(name)
 					//Tests scope_EndToEndFlowSegment_flowElement(EndToEndFlow, EReference)
-					assertScope(Aadl2Package::eINSTANCE.endToEndFlowSegment_FlowElement, false, #["asub1", "asub2", "da1", "etef1", "etef10", "etef11", "etef15",
+					assertScope(Aadl2Package::eINSTANCE.endToEndFlowSegment_FlowElement, #["asub1", "asub2", "da1", "etef1", "etef10", "etef11", "etef15",
 						"etef16", "etef2", "etef3", "etef4", "etef5", "etef6", "etef7", "etef8", "etef9", "fconn1", "fconn2", "fsource1", "fsource10",
 						"fsource11", "fsource12", "fsource13", "fsource14", "fsource15", "fsource16", "fsource17", "fsource18", "fsource19", "fsource2",
 						"fsource3", "fsource4", "fsource5", "fsource6", "fsource7", "fsource8", "fsource9", "subpgsub1", "subpgsub2", "subpgsub3", "subpsub1",
@@ -1022,12 +1022,12 @@ class FlowSegmentsTest extends OsateTest {
 						"da4".assertEquals(flowElement.name)
 						assertError(testFileResult.issues, issueCollection, "Anything in a 'subprogram call' is not a valid subcomponent flow.")
 						//Tests scope_EndToEndFlowSegment_context
-						assertScope(Aadl2Package::eINSTANCE.endToEndFlowSegment_Context, false, #["asub1", "asub2", "call1", "call12", "call13", "call2", "call3",
+						assertScope(Aadl2Package::eINSTANCE.endToEndFlowSegment_Context, #["asub1", "asub2", "call1", "call12", "call13", "call2", "call3",
 							"call4", "call5", "call6", "call7", "call8", "dp1", "edp1", "fg1", "fg2", "subpgsub1", "subpgsub2", "subpgsub3", "subpsub1",
 							"subpsub2"
 						])
 						//Tests scope_EndToEndFlowSegment_flowElement(EndToEndFlowSegment, EReference)
-						assertScope(Aadl2Package::eINSTANCE.endToEndFlowSegment_FlowElement, false, #["asub4", "da4", "etef19", "etef20", "fconn5", "fconn6",
+						assertScope(Aadl2Package::eINSTANCE.endToEndFlowSegment_FlowElement, #["asub4", "da4", "etef19", "etef20", "fconn5", "fconn6",
 							"fsource21", "fsource22"
 						])
 					]
@@ -1035,12 +1035,12 @@ class FlowSegmentsTest extends OsateTest {
 						context.assertNull
 						"fconn2".assertEquals(flowElement.name)
 						//Tests scope_EndToEndFlowSegment_context
-						assertScope(Aadl2Package::eINSTANCE.endToEndFlowSegment_Context, false, #["asub1", "asub2", "call1", "call12", "call13", "call2", "call3",
+						assertScope(Aadl2Package::eINSTANCE.endToEndFlowSegment_Context, #["asub1", "asub2", "call1", "call12", "call13", "call2", "call3",
 							"call4", "call5", "call6", "call7", "call8", "dp1", "edp1", "fg1", "fg2", "subpgsub1", "subpgsub2", "subpgsub3", "subpsub1",
 							"subpsub2"
 						])
 						//Tests scope_EndToEndFlowSegment_flowElement(EndToEndFlowSegment, EReference)
-						assertScope(Aadl2Package::eINSTANCE.endToEndFlowSegment_FlowElement, false, #["asub1", "asub2", "da1", "etef1", "etef10", "etef11", "etef15",
+						assertScope(Aadl2Package::eINSTANCE.endToEndFlowSegment_FlowElement, #["asub1", "asub2", "da1", "etef1", "etef10", "etef11", "etef15",
 							"etef16", "etef2", "etef3", "etef4", "etef5", "etef6", "etef7", "etef8", "etef9", "fconn1", "fconn2", "fsource1", "fsource10",
 							"fsource11", "fsource12", "fsource13", "fsource14", "fsource15", "fsource16", "fsource17", "fsource18", "fsource19", "fsource2",
 							"fsource3", "fsource4", "fsource5", "fsource6", "fsource7", "fsource8", "fsource9", "subpgsub1", "subpgsub2", "subpgsub3",
@@ -1051,12 +1051,12 @@ class FlowSegmentsTest extends OsateTest {
 						"asub1".assertEquals(context.name)
 						"fsink1".assertEquals(flowElement.name)
 						//Tests scope_EndToEndFlowSegment_context
-						assertScope(Aadl2Package::eINSTANCE.endToEndFlowSegment_Context, false, #["asub1", "asub2", "call1", "call12", "call13", "call2", "call3",
+						assertScope(Aadl2Package::eINSTANCE.endToEndFlowSegment_Context, #["asub1", "asub2", "call1", "call12", "call13", "call2", "call3",
 							"call4", "call5", "call6", "call7", "call8", "dp1", "edp1", "fg1", "fg2", "subpgsub1", "subpgsub2", "subpgsub3", "subpsub1",
 							"subpsub2"
 						])
 						//Tests scope_EndToEndFlowSegment_flowElement(EndToEndFlowSegment, EReference)
-						assertScope(Aadl2Package::eINSTANCE.endToEndFlowSegment_FlowElement, false, #["asub3", "da2", "etef18", "fconn3", "fconn4", "fsink1",
+						assertScope(Aadl2Package::eINSTANCE.endToEndFlowSegment_FlowElement, #["asub3", "da2", "etef18", "fconn3", "fconn4", "fsink1",
 							"fsource20"
 						])
 					]
@@ -1064,7 +1064,7 @@ class FlowSegmentsTest extends OsateTest {
 				ownedEndToEndFlows.get(6) => [
 					"etef7".assertEquals(name)
 					//Tests scope_EndToEndFlowSegment_flowElement(EndToEndFlow, EReference)
-					assertScope(Aadl2Package::eINSTANCE.endToEndFlowSegment_FlowElement, false, #["asub1", "asub2", "da1", "etef1", "etef10", "etef11", "etef15",
+					assertScope(Aadl2Package::eINSTANCE.endToEndFlowSegment_FlowElement, #["asub1", "asub2", "da1", "etef1", "etef10", "etef11", "etef15",
 						"etef16", "etef2", "etef3", "etef4", "etef5", "etef6", "etef7", "etef8", "etef9", "fconn1", "fconn2", "fsource1", "fsource10",
 						"fsource11", "fsource12", "fsource13", "fsource14", "fsource15", "fsource16", "fsource17", "fsource18", "fsource19", "fsource2",
 						"fsource3", "fsource4", "fsource5", "fsource6", "fsource7", "fsource8", "fsource9", "subpgsub1", "subpgsub2", "subpgsub3", "subpsub1",
@@ -1075,12 +1075,12 @@ class FlowSegmentsTest extends OsateTest {
 						"da4".assertEquals(flowElement.name)
 						assertError(testFileResult.issues, issueCollection, "Anything in a 'subprogram call' is not a valid subcomponent flow.")
 						//Tests scope_EndToEndFlowSegment_context
-						assertScope(Aadl2Package::eINSTANCE.endToEndFlowSegment_Context, false, #["asub1", "asub2", "call1", "call12", "call13", "call2", "call3",
+						assertScope(Aadl2Package::eINSTANCE.endToEndFlowSegment_Context, #["asub1", "asub2", "call1", "call12", "call13", "call2", "call3",
 							"call4", "call5", "call6", "call7", "call8", "dp1", "edp1", "fg1", "fg2", "subpgsub1", "subpgsub2", "subpgsub3", "subpsub1",
 							"subpsub2"
 						])
 						//Tests scope_EndToEndFlowSegment_flowElement(EndToEndFlowSegment, EReference)
-						assertScope(Aadl2Package::eINSTANCE.endToEndFlowSegment_FlowElement, false, #["asub4", "da4", "etef19", "etef20", "fconn5", "fconn6",
+						assertScope(Aadl2Package::eINSTANCE.endToEndFlowSegment_FlowElement, #["asub4", "da4", "etef19", "etef20", "fconn5", "fconn6",
 							"fsource21", "fsource22"
 						])
 					]
@@ -1088,12 +1088,12 @@ class FlowSegmentsTest extends OsateTest {
 						context.assertNull
 						"fconn2".assertEquals(flowElement.name)
 						//Tests scope_EndToEndFlowSegment_context
-						assertScope(Aadl2Package::eINSTANCE.endToEndFlowSegment_Context, false, #["asub1", "asub2", "call1", "call12", "call13", "call2", "call3",
+						assertScope(Aadl2Package::eINSTANCE.endToEndFlowSegment_Context, #["asub1", "asub2", "call1", "call12", "call13", "call2", "call3",
 							"call4", "call5", "call6", "call7", "call8", "dp1", "edp1", "fg1", "fg2", "subpgsub1", "subpgsub2", "subpgsub3", "subpsub1",
 							"subpsub2"
 						])
 						//Tests scope_EndToEndFlowSegment_flowElement(EndToEndFlowSegment, EReference)
-						assertScope(Aadl2Package::eINSTANCE.endToEndFlowSegment_FlowElement, false, #["asub1", "asub2", "da1", "etef1", "etef10", "etef11", "etef15",
+						assertScope(Aadl2Package::eINSTANCE.endToEndFlowSegment_FlowElement, #["asub1", "asub2", "da1", "etef1", "etef10", "etef11", "etef15",
 							"etef16", "etef2", "etef3", "etef4", "etef5", "etef6", "etef7", "etef8", "etef9", "fconn1", "fconn2", "fsource1", "fsource10",
 							"fsource11", "fsource12", "fsource13", "fsource14", "fsource15", "fsource16", "fsource17", "fsource18", "fsource19", "fsource2",
 							"fsource3", "fsource4", "fsource5", "fsource6", "fsource7", "fsource8", "fsource9", "subpgsub1", "subpgsub2", "subpgsub3",
@@ -1104,12 +1104,12 @@ class FlowSegmentsTest extends OsateTest {
 						"asub1".assertEquals(context.name)
 						"fsink1".assertEquals(flowElement.name)
 						//Tests scope_EndToEndFlowSegment_context
-						assertScope(Aadl2Package::eINSTANCE.endToEndFlowSegment_Context, false, #["asub1", "asub2", "call1", "call12", "call13", "call2", "call3",
+						assertScope(Aadl2Package::eINSTANCE.endToEndFlowSegment_Context, #["asub1", "asub2", "call1", "call12", "call13", "call2", "call3",
 							"call4", "call5", "call6", "call7", "call8", "dp1", "edp1", "fg1", "fg2", "subpgsub1", "subpgsub2", "subpgsub3", "subpsub1",
 							"subpsub2"
 						])
 						//Tests scope_EndToEndFlowSegment_flowElement(EndToEndFlowSegment, EReference)
-						assertScope(Aadl2Package::eINSTANCE.endToEndFlowSegment_FlowElement, false, #["asub3", "da2", "etef18", "fconn3", "fconn4", "fsink1",
+						assertScope(Aadl2Package::eINSTANCE.endToEndFlowSegment_FlowElement, #["asub3", "da2", "etef18", "fconn3", "fconn4", "fsink1",
 							"fsource20"
 						])
 					]
@@ -1117,7 +1117,7 @@ class FlowSegmentsTest extends OsateTest {
 				ownedEndToEndFlows.get(7) => [
 					"etef8".assertEquals(name)
 					//Tests scope_EndToEndFlowSegment_flowElement(EndToEndFlow, EReference)
-					assertScope(Aadl2Package::eINSTANCE.endToEndFlowSegment_FlowElement, false, #["asub1", "asub2", "da1", "etef1", "etef10", "etef11", "etef15",
+					assertScope(Aadl2Package::eINSTANCE.endToEndFlowSegment_FlowElement, #["asub1", "asub2", "da1", "etef1", "etef10", "etef11", "etef15",
 						"etef16", "etef2", "etef3", "etef4", "etef5", "etef6", "etef7", "etef8", "etef9", "fconn1", "fconn2", "fsource1", "fsource10",
 						"fsource11", "fsource12", "fsource13", "fsource14", "fsource15", "fsource16", "fsource17", "fsource18", "fsource19", "fsource2",
 						"fsource3", "fsource4", "fsource5", "fsource6", "fsource7", "fsource8", "fsource9", "subpgsub1", "subpgsub2", "subpgsub3", "subpsub1",
@@ -1128,12 +1128,12 @@ class FlowSegmentsTest extends OsateTest {
 						"da4".assertEquals(flowElement.name)
 						assertError(testFileResult.issues, issueCollection, "Anything in a 'subprogram call' is not a valid subcomponent flow.")
 						//Tests scope_EndToEndFlowSegment_context
-						assertScope(Aadl2Package::eINSTANCE.endToEndFlowSegment_Context, false, #["asub1", "asub2", "call1", "call12", "call13", "call2", "call3",
+						assertScope(Aadl2Package::eINSTANCE.endToEndFlowSegment_Context, #["asub1", "asub2", "call1", "call12", "call13", "call2", "call3",
 							"call4", "call5", "call6", "call7", "call8", "dp1", "edp1", "fg1", "fg2", "subpgsub1", "subpgsub2", "subpgsub3", "subpsub1",
 							"subpsub2"
 						])
 						//Tests scope_EndToEndFlowSegment_flowElement(EndToEndFlowSegment, EReference)
-						assertScope(Aadl2Package::eINSTANCE.endToEndFlowSegment_FlowElement, false, #["asub4", "da4", "etef19", "etef20", "fconn5", "fconn6",
+						assertScope(Aadl2Package::eINSTANCE.endToEndFlowSegment_FlowElement, #["asub4", "da4", "etef19", "etef20", "fconn5", "fconn6",
 							"fsource21", "fsource22"
 						])
 					]
@@ -1141,12 +1141,12 @@ class FlowSegmentsTest extends OsateTest {
 						context.assertNull
 						"fconn2".assertEquals(flowElement.name)
 						//Tests scope_EndToEndFlowSegment_context
-						assertScope(Aadl2Package::eINSTANCE.endToEndFlowSegment_Context, false, #["asub1", "asub2", "call1", "call12", "call13", "call2", "call3",
+						assertScope(Aadl2Package::eINSTANCE.endToEndFlowSegment_Context, #["asub1", "asub2", "call1", "call12", "call13", "call2", "call3",
 							"call4", "call5", "call6", "call7", "call8", "dp1", "edp1", "fg1", "fg2", "subpgsub1", "subpgsub2", "subpgsub3", "subpsub1",
 							"subpsub2"
 						])
 						//Tests scope_EndToEndFlowSegment_flowElement(EndToEndFlowSegment, EReference)
-						assertScope(Aadl2Package::eINSTANCE.endToEndFlowSegment_FlowElement, false, #["asub1", "asub2", "da1", "etef1", "etef10", "etef11", "etef15",
+						assertScope(Aadl2Package::eINSTANCE.endToEndFlowSegment_FlowElement, #["asub1", "asub2", "da1", "etef1", "etef10", "etef11", "etef15",
 							"etef16", "etef2", "etef3", "etef4", "etef5", "etef6", "etef7", "etef8", "etef9", "fconn1", "fconn2", "fsource1", "fsource10",
 							"fsource11", "fsource12", "fsource13", "fsource14", "fsource15", "fsource16", "fsource17", "fsource18", "fsource19", "fsource2",
 							"fsource3", "fsource4", "fsource5", "fsource6", "fsource7", "fsource8", "fsource9", "subpgsub1", "subpgsub2", "subpgsub3",
@@ -1157,12 +1157,12 @@ class FlowSegmentsTest extends OsateTest {
 						"asub1".assertEquals(context.name)
 						"fsink1".assertEquals(flowElement.name)
 						//Tests scope_EndToEndFlowSegment_context
-						assertScope(Aadl2Package::eINSTANCE.endToEndFlowSegment_Context, false, #["asub1", "asub2", "call1", "call12", "call13", "call2", "call3",
+						assertScope(Aadl2Package::eINSTANCE.endToEndFlowSegment_Context, #["asub1", "asub2", "call1", "call12", "call13", "call2", "call3",
 							"call4", "call5", "call6", "call7", "call8", "dp1", "edp1", "fg1", "fg2", "subpgsub1", "subpgsub2", "subpgsub3", "subpsub1",
 							"subpsub2"
 						])
 						//Tests scope_EndToEndFlowSegment_flowElement(EndToEndFlowSegment, EReference)
-						assertScope(Aadl2Package::eINSTANCE.endToEndFlowSegment_FlowElement, false, #["asub3", "da2", "etef18", "fconn3", "fconn4", "fsink1",
+						assertScope(Aadl2Package::eINSTANCE.endToEndFlowSegment_FlowElement, #["asub3", "da2", "etef18", "fconn3", "fconn4", "fsink1",
 							"fsource20"
 						])
 					]
@@ -1170,7 +1170,7 @@ class FlowSegmentsTest extends OsateTest {
 				ownedEndToEndFlows.get(8) => [
 					"etef9".assertEquals(name)
 					//Tests scope_EndToEndFlowSegment_flowElement(EndToEndFlow, EReference)
-					assertScope(Aadl2Package::eINSTANCE.endToEndFlowSegment_FlowElement, false, #["asub1", "asub2", "da1", "etef1", "etef10", "etef11", "etef15",
+					assertScope(Aadl2Package::eINSTANCE.endToEndFlowSegment_FlowElement, #["asub1", "asub2", "da1", "etef1", "etef10", "etef11", "etef15",
 						"etef16", "etef2", "etef3", "etef4", "etef5", "etef6", "etef7", "etef8", "etef9", "fconn1", "fconn2", "fsource1", "fsource10",
 						"fsource11", "fsource12", "fsource13", "fsource14", "fsource15", "fsource16", "fsource17", "fsource18", "fsource19", "fsource2",
 						"fsource3", "fsource4", "fsource5", "fsource6", "fsource7", "fsource8", "fsource9", "subpgsub1", "subpgsub2", "subpgsub3", "subpsub1",
@@ -1181,12 +1181,12 @@ class FlowSegmentsTest extends OsateTest {
 						"da4".assertEquals(flowElement.name)
 						assertError(testFileResult.issues, issueCollection, "Anything in a 'subprogram call' is not a valid subcomponent flow.")
 						//Tests scope_EndToEndFlowSegment_context
-						assertScope(Aadl2Package::eINSTANCE.endToEndFlowSegment_Context, false, #["asub1", "asub2", "call1", "call12", "call13", "call2", "call3",
+						assertScope(Aadl2Package::eINSTANCE.endToEndFlowSegment_Context, #["asub1", "asub2", "call1", "call12", "call13", "call2", "call3",
 							"call4", "call5", "call6", "call7", "call8", "dp1", "edp1", "fg1", "fg2", "subpgsub1", "subpgsub2", "subpgsub3", "subpsub1",
 							"subpsub2"
 						])
 						//Tests scope_EndToEndFlowSegment_flowElement(EndToEndFlowSegment, EReference)
-						assertScope(Aadl2Package::eINSTANCE.endToEndFlowSegment_FlowElement, false, #["asub4", "da4", "etef19", "etef20", "fconn5", "fconn6",
+						assertScope(Aadl2Package::eINSTANCE.endToEndFlowSegment_FlowElement, #["asub4", "da4", "etef19", "etef20", "fconn5", "fconn6",
 							"fsource21", "fsource22"
 						])
 					]
@@ -1194,12 +1194,12 @@ class FlowSegmentsTest extends OsateTest {
 						context.assertNull
 						"fconn2".assertEquals(flowElement.name)
 						//Tests scope_EndToEndFlowSegment_context
-						assertScope(Aadl2Package::eINSTANCE.endToEndFlowSegment_Context, false, #["asub1", "asub2", "call1", "call12", "call13", "call2", "call3",
+						assertScope(Aadl2Package::eINSTANCE.endToEndFlowSegment_Context, #["asub1", "asub2", "call1", "call12", "call13", "call2", "call3",
 							"call4", "call5", "call6", "call7", "call8", "dp1", "edp1", "fg1", "fg2", "subpgsub1", "subpgsub2", "subpgsub3", "subpsub1",
 							"subpsub2"
 						])
 						//Tests scope_EndToEndFlowSegment_flowElement(EndToEndFlowSegment, EReference)
-						assertScope(Aadl2Package::eINSTANCE.endToEndFlowSegment_FlowElement, false, #["asub1", "asub2", "da1", "etef1", "etef10", "etef11", "etef15",
+						assertScope(Aadl2Package::eINSTANCE.endToEndFlowSegment_FlowElement, #["asub1", "asub2", "da1", "etef1", "etef10", "etef11", "etef15",
 							"etef16", "etef2", "etef3", "etef4", "etef5", "etef6", "etef7", "etef8", "etef9", "fconn1", "fconn2", "fsource1", "fsource10",
 							"fsource11", "fsource12", "fsource13", "fsource14", "fsource15", "fsource16", "fsource17", "fsource18", "fsource19", "fsource2",
 							"fsource3", "fsource4", "fsource5", "fsource6", "fsource7", "fsource8", "fsource9", "subpgsub1", "subpgsub2", "subpgsub3",
@@ -1210,12 +1210,12 @@ class FlowSegmentsTest extends OsateTest {
 						"asub1".assertEquals(context.name)
 						"fsink1".assertEquals(flowElement.name)
 						//Tests scope_EndToEndFlowSegment_context
-						assertScope(Aadl2Package::eINSTANCE.endToEndFlowSegment_Context, false, #["asub1", "asub2", "call1", "call12", "call13", "call2", "call3",
+						assertScope(Aadl2Package::eINSTANCE.endToEndFlowSegment_Context, #["asub1", "asub2", "call1", "call12", "call13", "call2", "call3",
 							"call4", "call5", "call6", "call7", "call8", "dp1", "edp1", "fg1", "fg2", "subpgsub1", "subpgsub2", "subpgsub3", "subpsub1",
 							"subpsub2"
 						])
 						//Tests scope_EndToEndFlowSegment_flowElement(EndToEndFlowSegment, EReference)
-						assertScope(Aadl2Package::eINSTANCE.endToEndFlowSegment_FlowElement, false, #["asub3", "da2", "etef18", "fconn3", "fconn4", "fsink1",
+						assertScope(Aadl2Package::eINSTANCE.endToEndFlowSegment_FlowElement, #["asub3", "da2", "etef18", "fconn3", "fconn4", "fsink1",
 							"fsource20"
 						])
 					]
@@ -1223,7 +1223,7 @@ class FlowSegmentsTest extends OsateTest {
 				ownedEndToEndFlows.get(9) => [
 					"etef10".assertEquals(name)
 					//Tests scope_EndToEndFlowSegment_flowElement(EndToEndFlow, EReference)
-					assertScope(Aadl2Package::eINSTANCE.endToEndFlowSegment_FlowElement, false, #["asub1", "asub2", "da1", "etef1", "etef10", "etef11", "etef15",
+					assertScope(Aadl2Package::eINSTANCE.endToEndFlowSegment_FlowElement, #["asub1", "asub2", "da1", "etef1", "etef10", "etef11", "etef15",
 						"etef16", "etef2", "etef3", "etef4", "etef5", "etef6", "etef7", "etef8", "etef9", "fconn1", "fconn2", "fsource1", "fsource10",
 						"fsource11", "fsource12", "fsource13", "fsource14", "fsource15", "fsource16", "fsource17", "fsource18", "fsource19", "fsource2",
 						"fsource3", "fsource4", "fsource5", "fsource6", "fsource7", "fsource8", "fsource9", "subpgsub1", "subpgsub2", "subpgsub3", "subpsub1",
@@ -1234,12 +1234,12 @@ class FlowSegmentsTest extends OsateTest {
 						"da4".assertEquals(flowElement.name)
 						assertError(testFileResult.issues, issueCollection, "Anything in a 'subprogram call' is not a valid subcomponent flow.")
 						//Tests scope_EndToEndFlowSegment_context
-						assertScope(Aadl2Package::eINSTANCE.endToEndFlowSegment_Context, false, #["asub1", "asub2", "call1", "call12", "call13", "call2", "call3",
+						assertScope(Aadl2Package::eINSTANCE.endToEndFlowSegment_Context, #["asub1", "asub2", "call1", "call12", "call13", "call2", "call3",
 							"call4", "call5", "call6", "call7", "call8", "dp1", "edp1", "fg1", "fg2", "subpgsub1", "subpgsub2", "subpgsub3", "subpsub1",
 							"subpsub2"
 						])
 						//Tests scope_EndToEndFlowSegment_flowElement(EndToEndFlowSegment, EReference)
-						assertScope(Aadl2Package::eINSTANCE.endToEndFlowSegment_FlowElement, false, #["asub4", "da4", "etef19", "etef20", "fconn5", "fconn6",
+						assertScope(Aadl2Package::eINSTANCE.endToEndFlowSegment_FlowElement, #["asub4", "da4", "etef19", "etef20", "fconn5", "fconn6",
 							"fsource21", "fsource22"
 						])
 					]
@@ -1247,12 +1247,12 @@ class FlowSegmentsTest extends OsateTest {
 						context.assertNull
 						"fconn2".assertEquals(flowElement.name)
 						//Tests scope_EndToEndFlowSegment_context
-						assertScope(Aadl2Package::eINSTANCE.endToEndFlowSegment_Context, false, #["asub1", "asub2", "call1", "call12", "call13", "call2", "call3",
+						assertScope(Aadl2Package::eINSTANCE.endToEndFlowSegment_Context, #["asub1", "asub2", "call1", "call12", "call13", "call2", "call3",
 							"call4", "call5", "call6", "call7", "call8", "dp1", "edp1", "fg1", "fg2", "subpgsub1", "subpgsub2", "subpgsub3", "subpsub1",
 							"subpsub2"
 						])
 						//Tests scope_EndToEndFlowSegment_flowElement(EndToEndFlowSegment, EReference)
-						assertScope(Aadl2Package::eINSTANCE.endToEndFlowSegment_FlowElement, false, #["asub1", "asub2", "da1", "etef1", "etef10", "etef11", "etef15",
+						assertScope(Aadl2Package::eINSTANCE.endToEndFlowSegment_FlowElement, #["asub1", "asub2", "da1", "etef1", "etef10", "etef11", "etef15",
 							"etef16", "etef2", "etef3", "etef4", "etef5", "etef6", "etef7", "etef8", "etef9", "fconn1", "fconn2", "fsource1", "fsource10",
 							"fsource11", "fsource12", "fsource13", "fsource14", "fsource15", "fsource16", "fsource17", "fsource18", "fsource19", "fsource2",
 							"fsource3", "fsource4", "fsource5", "fsource6", "fsource7", "fsource8", "fsource9", "subpgsub1", "subpgsub2", "subpgsub3",
@@ -1263,12 +1263,12 @@ class FlowSegmentsTest extends OsateTest {
 						"asub1".assertEquals(context.name)
 						"fsink1".assertEquals(flowElement.name)
 						//Tests scope_EndToEndFlowSegment_context
-						assertScope(Aadl2Package::eINSTANCE.endToEndFlowSegment_Context, false, #["asub1", "asub2", "call1", "call12", "call13", "call2", "call3",
+						assertScope(Aadl2Package::eINSTANCE.endToEndFlowSegment_Context, #["asub1", "asub2", "call1", "call12", "call13", "call2", "call3",
 							"call4", "call5", "call6", "call7", "call8", "dp1", "edp1", "fg1", "fg2", "subpgsub1", "subpgsub2", "subpgsub3", "subpsub1",
 							"subpsub2"
 						])
 						//Tests scope_EndToEndFlowSegment_flowElement(EndToEndFlowSegment, EReference)
-						assertScope(Aadl2Package::eINSTANCE.endToEndFlowSegment_FlowElement, false, #["asub3", "da2", "etef18", "fconn3", "fconn4", "fsink1",
+						assertScope(Aadl2Package::eINSTANCE.endToEndFlowSegment_FlowElement, #["asub3", "da2", "etef18", "fconn3", "fconn4", "fsink1",
 							"fsource20"
 						])
 					]
@@ -1276,7 +1276,7 @@ class FlowSegmentsTest extends OsateTest {
 				ownedEndToEndFlows.get(10) => [
 					"etef11".assertEquals(name)
 					//Tests scope_EndToEndFlowSegment_flowElement(EndToEndFlow, EReference)
-					assertScope(Aadl2Package::eINSTANCE.endToEndFlowSegment_FlowElement, false, #["asub1", "asub2", "da1", "etef1", "etef10", "etef11", "etef15",
+					assertScope(Aadl2Package::eINSTANCE.endToEndFlowSegment_FlowElement, #["asub1", "asub2", "da1", "etef1", "etef10", "etef11", "etef15",
 						"etef16", "etef2", "etef3", "etef4", "etef5", "etef6", "etef7", "etef8", "etef9", "fconn1", "fconn2", "fsource1", "fsource10",
 						"fsource11", "fsource12", "fsource13", "fsource14", "fsource15", "fsource16", "fsource17", "fsource18", "fsource19", "fsource2",
 						"fsource3", "fsource4", "fsource5", "fsource6", "fsource7", "fsource8", "fsource9", "subpgsub1", "subpgsub2", "subpgsub3", "subpsub1",
@@ -1287,12 +1287,12 @@ class FlowSegmentsTest extends OsateTest {
 						"da4".assertEquals(flowElement.name)
 						assertError(testFileResult.issues, issueCollection, "Anything in a 'subprogram call' is not a valid subcomponent flow.")
 						//Tests scope_EndToEndFlowSegment_context
-						assertScope(Aadl2Package::eINSTANCE.endToEndFlowSegment_Context, false, #["asub1", "asub2", "call1", "call12", "call13", "call2", "call3",
+						assertScope(Aadl2Package::eINSTANCE.endToEndFlowSegment_Context, #["asub1", "asub2", "call1", "call12", "call13", "call2", "call3",
 							"call4", "call5", "call6", "call7", "call8", "dp1", "edp1", "fg1", "fg2", "subpgsub1", "subpgsub2", "subpgsub3", "subpsub1",
 							"subpsub2"
 						])
 						//Tests scope_EndToEndFlowSegment_flowElement(EndToEndFlowSegment, EReference)
-						assertScope(Aadl2Package::eINSTANCE.endToEndFlowSegment_FlowElement, false, #["asub4", "da4", "etef19", "etef20", "fconn5", "fconn6",
+						assertScope(Aadl2Package::eINSTANCE.endToEndFlowSegment_FlowElement, #["asub4", "da4", "etef19", "etef20", "fconn5", "fconn6",
 							"fsource21", "fsource22"
 						])
 					]
@@ -1300,12 +1300,12 @@ class FlowSegmentsTest extends OsateTest {
 						context.assertNull
 						"fconn2".assertEquals(flowElement.name)
 						//Tests scope_EndToEndFlowSegment_context
-						assertScope(Aadl2Package::eINSTANCE.endToEndFlowSegment_Context, false, #["asub1", "asub2", "call1", "call12", "call13", "call2", "call3",
+						assertScope(Aadl2Package::eINSTANCE.endToEndFlowSegment_Context, #["asub1", "asub2", "call1", "call12", "call13", "call2", "call3",
 							"call4", "call5", "call6", "call7", "call8", "dp1", "edp1", "fg1", "fg2", "subpgsub1", "subpgsub2", "subpgsub3", "subpsub1",
 							"subpsub2"
 						])
 						//Tests scope_EndToEndFlowSegment_flowElement(EndToEndFlowSegment, EReference)
-						assertScope(Aadl2Package::eINSTANCE.endToEndFlowSegment_FlowElement, false, #["asub1", "asub2", "da1", "etef1", "etef10", "etef11", "etef15",
+						assertScope(Aadl2Package::eINSTANCE.endToEndFlowSegment_FlowElement, #["asub1", "asub2", "da1", "etef1", "etef10", "etef11", "etef15",
 							"etef16", "etef2", "etef3", "etef4", "etef5", "etef6", "etef7", "etef8", "etef9", "fconn1", "fconn2", "fsource1", "fsource10",
 							"fsource11", "fsource12", "fsource13", "fsource14", "fsource15", "fsource16", "fsource17", "fsource18", "fsource19", "fsource2",
 							"fsource3", "fsource4", "fsource5", "fsource6", "fsource7", "fsource8", "fsource9", "subpgsub1", "subpgsub2", "subpgsub3",
@@ -1316,12 +1316,12 @@ class FlowSegmentsTest extends OsateTest {
 						"asub1".assertEquals(context.name)
 						"fsink1".assertEquals(flowElement.name)
 						//Tests scope_EndToEndFlowSegment_context
-						assertScope(Aadl2Package::eINSTANCE.endToEndFlowSegment_Context, false, #["asub1", "asub2", "call1", "call12", "call13", "call2", "call3",
+						assertScope(Aadl2Package::eINSTANCE.endToEndFlowSegment_Context, #["asub1", "asub2", "call1", "call12", "call13", "call2", "call3",
 							"call4", "call5", "call6", "call7", "call8", "dp1", "edp1", "fg1", "fg2", "subpgsub1", "subpgsub2", "subpgsub3", "subpsub1",
 							"subpsub2"
 						])
 						//Tests scope_EndToEndFlowSegment_flowElement(EndToEndFlowSegment, EReference)
-						assertScope(Aadl2Package::eINSTANCE.endToEndFlowSegment_FlowElement, false, #["asub3", "da2", "etef18", "fconn3", "fconn4", "fsink1",
+						assertScope(Aadl2Package::eINSTANCE.endToEndFlowSegment_FlowElement, #["asub3", "da2", "etef18", "fconn3", "fconn4", "fsink1",
 							"fsource20"
 						])
 					]
@@ -1329,7 +1329,7 @@ class FlowSegmentsTest extends OsateTest {
 				ownedEndToEndFlows.get(11) => [
 					"etef15".assertEquals(name)
 					//Tests scope_EndToEndFlowSegment_flowElement(EndToEndFlow, EReference)
-					assertScope(Aadl2Package::eINSTANCE.endToEndFlowSegment_FlowElement, false, #["asub1", "asub2", "da1", "etef1", "etef10", "etef11", "etef15",
+					assertScope(Aadl2Package::eINSTANCE.endToEndFlowSegment_FlowElement, #["asub1", "asub2", "da1", "etef1", "etef10", "etef11", "etef15",
 						"etef16", "etef2", "etef3", "etef4", "etef5", "etef6", "etef7", "etef8", "etef9", "fconn1", "fconn2", "fsource1", "fsource10",
 						"fsource11", "fsource12", "fsource13", "fsource14", "fsource15", "fsource16", "fsource17", "fsource18", "fsource19", "fsource2",
 						"fsource3", "fsource4", "fsource5", "fsource6", "fsource7", "fsource8", "fsource9", "subpgsub1", "subpgsub2", "subpgsub3", "subpsub1",
@@ -1340,12 +1340,12 @@ class FlowSegmentsTest extends OsateTest {
 						"da4".assertEquals(flowElement.name)
 						assertError(testFileResult.issues, issueCollection, "Anything in a 'subprogram call' is not a valid subcomponent flow.")
 						//Tests scope_EndToEndFlowSegment_context
-						assertScope(Aadl2Package::eINSTANCE.endToEndFlowSegment_Context, false, #["asub1", "asub2", "call1", "call12", "call13", "call2", "call3",
+						assertScope(Aadl2Package::eINSTANCE.endToEndFlowSegment_Context, #["asub1", "asub2", "call1", "call12", "call13", "call2", "call3",
 							"call4", "call5", "call6", "call7", "call8", "dp1", "edp1", "fg1", "fg2", "subpgsub1", "subpgsub2", "subpgsub3", "subpsub1",
 							"subpsub2"
 						])
 						//Tests scope_EndToEndFlowSegment_flowElement(EndToEndFlowSegment, EReference)
-						assertScope(Aadl2Package::eINSTANCE.endToEndFlowSegment_FlowElement, false, #["asub4", "da4", "etef19", "etef20", "fconn5", "fconn6",
+						assertScope(Aadl2Package::eINSTANCE.endToEndFlowSegment_FlowElement, #["asub4", "da4", "etef19", "etef20", "fconn5", "fconn6",
 							"fsource21", "fsource22"
 						])
 					]
@@ -1353,12 +1353,12 @@ class FlowSegmentsTest extends OsateTest {
 						context.assertNull
 						"fconn2".assertEquals(flowElement.name)
 						//Tests scope_EndToEndFlowSegment_context
-						assertScope(Aadl2Package::eINSTANCE.endToEndFlowSegment_Context, false, #["asub1", "asub2", "call1", "call12", "call13", "call2", "call3",
+						assertScope(Aadl2Package::eINSTANCE.endToEndFlowSegment_Context, #["asub1", "asub2", "call1", "call12", "call13", "call2", "call3",
 							"call4", "call5", "call6", "call7", "call8", "dp1", "edp1", "fg1", "fg2", "subpgsub1", "subpgsub2", "subpgsub3", "subpsub1",
 							"subpsub2"
 						])
 						//Tests scope_EndToEndFlowSegment_flowElement(EndToEndFlowSegment, EReference)
-						assertScope(Aadl2Package::eINSTANCE.endToEndFlowSegment_FlowElement, false, #["asub1", "asub2", "da1", "etef1", "etef10", "etef11", "etef15",
+						assertScope(Aadl2Package::eINSTANCE.endToEndFlowSegment_FlowElement, #["asub1", "asub2", "da1", "etef1", "etef10", "etef11", "etef15",
 							"etef16", "etef2", "etef3", "etef4", "etef5", "etef6", "etef7", "etef8", "etef9", "fconn1", "fconn2", "fsource1", "fsource10",
 							"fsource11", "fsource12", "fsource13", "fsource14", "fsource15", "fsource16", "fsource17", "fsource18", "fsource19", "fsource2",
 							"fsource3", "fsource4", "fsource5", "fsource6", "fsource7", "fsource8", "fsource9", "subpgsub1", "subpgsub2", "subpgsub3",
@@ -1369,12 +1369,12 @@ class FlowSegmentsTest extends OsateTest {
 						"asub1".assertEquals(context.name)
 						"fsink1".assertEquals(flowElement.name)
 						//Tests scope_EndToEndFlowSegment_context
-						assertScope(Aadl2Package::eINSTANCE.endToEndFlowSegment_Context, false, #["asub1", "asub2", "call1", "call12", "call13", "call2", "call3",
+						assertScope(Aadl2Package::eINSTANCE.endToEndFlowSegment_Context, #["asub1", "asub2", "call1", "call12", "call13", "call2", "call3",
 							"call4", "call5", "call6", "call7", "call8", "dp1", "edp1", "fg1", "fg2", "subpgsub1", "subpgsub2", "subpgsub3", "subpsub1",
 							"subpsub2"
 						])
 						//Tests scope_EndToEndFlowSegment_flowElement(EndToEndFlowSegment, EReference)
-						assertScope(Aadl2Package::eINSTANCE.endToEndFlowSegment_FlowElement, false, #["asub3", "da2", "etef18", "fconn3", "fconn4", "fsink1",
+						assertScope(Aadl2Package::eINSTANCE.endToEndFlowSegment_FlowElement, #["asub3", "da2", "etef18", "fconn3", "fconn4", "fsink1",
 							"fsource20"
 						])
 					]
@@ -1382,7 +1382,7 @@ class FlowSegmentsTest extends OsateTest {
 				ownedEndToEndFlows.get(12) => [
 					"etef16".assertEquals(name)
 					//Tests scope_EndToEndFlowSegment_flowElement(EndToEndFlow, EReference)
-					assertScope(Aadl2Package::eINSTANCE.endToEndFlowSegment_FlowElement, false, #["asub1", "asub2", "da1", "etef1", "etef10", "etef11", "etef15",
+					assertScope(Aadl2Package::eINSTANCE.endToEndFlowSegment_FlowElement, #["asub1", "asub2", "da1", "etef1", "etef10", "etef11", "etef15",
 						"etef16", "etef2", "etef3", "etef4", "etef5", "etef6", "etef7", "etef8", "etef9", "fconn1", "fconn2", "fsource1", "fsource10",
 						"fsource11", "fsource12", "fsource13", "fsource14", "fsource15", "fsource16", "fsource17", "fsource18", "fsource19", "fsource2",
 						"fsource3", "fsource4", "fsource5", "fsource6", "fsource7", "fsource8", "fsource9", "subpgsub1", "subpgsub2", "subpgsub3", "subpsub1",
@@ -1393,12 +1393,12 @@ class FlowSegmentsTest extends OsateTest {
 						"da4".assertEquals(flowElement.name)
 						assertError(testFileResult.issues, issueCollection, "Anything in a 'subprogram call' is not a valid subcomponent flow.")
 						//Tests scope_EndToEndFlowSegment_context
-						assertScope(Aadl2Package::eINSTANCE.endToEndFlowSegment_Context, false, #["asub1", "asub2", "call1", "call12", "call13", "call2", "call3",
+						assertScope(Aadl2Package::eINSTANCE.endToEndFlowSegment_Context, #["asub1", "asub2", "call1", "call12", "call13", "call2", "call3",
 							"call4", "call5", "call6", "call7", "call8", "dp1", "edp1", "fg1", "fg2", "subpgsub1", "subpgsub2", "subpgsub3", "subpsub1",
 							"subpsub2"
 						])
 						//Tests scope_EndToEndFlowSegment_flowElement(EndToEndFlowSegment, EReference)
-						assertScope(Aadl2Package::eINSTANCE.endToEndFlowSegment_FlowElement, false, #["asub4", "da4", "etef19", "etef20", "fconn5", "fconn6",
+						assertScope(Aadl2Package::eINSTANCE.endToEndFlowSegment_FlowElement, #["asub4", "da4", "etef19", "etef20", "fconn5", "fconn6",
 							"fsource21", "fsource22"
 						])
 					]
@@ -1406,12 +1406,12 @@ class FlowSegmentsTest extends OsateTest {
 						context.assertNull
 						"fconn2".assertEquals(flowElement.name)
 						//Tests scope_EndToEndFlowSegment_context
-						assertScope(Aadl2Package::eINSTANCE.endToEndFlowSegment_Context, false, #["asub1", "asub2", "call1", "call12", "call13", "call2", "call3",
+						assertScope(Aadl2Package::eINSTANCE.endToEndFlowSegment_Context, #["asub1", "asub2", "call1", "call12", "call13", "call2", "call3",
 							"call4", "call5", "call6", "call7", "call8", "dp1", "edp1", "fg1", "fg2", "subpgsub1", "subpgsub2", "subpgsub3", "subpsub1",
 							"subpsub2"
 						])
 						//Tests scope_EndToEndFlowSegment_flowElement(EndToEndFlowSegment, EReference)
-						assertScope(Aadl2Package::eINSTANCE.endToEndFlowSegment_FlowElement, false, #["asub1", "asub2", "da1", "etef1", "etef10", "etef11", "etef15",
+						assertScope(Aadl2Package::eINSTANCE.endToEndFlowSegment_FlowElement, #["asub1", "asub2", "da1", "etef1", "etef10", "etef11", "etef15",
 							"etef16", "etef2", "etef3", "etef4", "etef5", "etef6", "etef7", "etef8", "etef9", "fconn1", "fconn2", "fsource1", "fsource10",
 							"fsource11", "fsource12", "fsource13", "fsource14", "fsource15", "fsource16", "fsource17", "fsource18", "fsource19", "fsource2",
 							"fsource3", "fsource4", "fsource5", "fsource6", "fsource7", "fsource8", "fsource9", "subpgsub1", "subpgsub2", "subpgsub3",
@@ -1422,12 +1422,12 @@ class FlowSegmentsTest extends OsateTest {
 						"asub1".assertEquals(context.name)
 						"fsink1".assertEquals(flowElement.name)
 						//Tests scope_EndToEndFlowSegment_context
-						assertScope(Aadl2Package::eINSTANCE.endToEndFlowSegment_Context, false, #["asub1", "asub2", "call1", "call12", "call13", "call2", "call3",
+						assertScope(Aadl2Package::eINSTANCE.endToEndFlowSegment_Context, #["asub1", "asub2", "call1", "call12", "call13", "call2", "call3",
 							"call4", "call5", "call6", "call7", "call8", "dp1", "edp1", "fg1", "fg2", "subpgsub1", "subpgsub2", "subpgsub3", "subpsub1",
 							"subpsub2"
 						])
 						//Tests scope_EndToEndFlowSegment_flowElement(EndToEndFlowSegment, EReference)
-						assertScope(Aadl2Package::eINSTANCE.endToEndFlowSegment_FlowElement, false, #["asub3", "da2", "etef18", "fconn3", "fconn4", "fsink1",
+						assertScope(Aadl2Package::eINSTANCE.endToEndFlowSegment_FlowElement, #["asub3", "da2", "etef18", "fconn3", "fconn4", "fsink1",
 							"fsource20"
 						])
 					]
@@ -1438,24 +1438,24 @@ class FlowSegmentsTest extends OsateTest {
 				ownedEndToEndFlows.get(0) => [
 					"etef18".assertEquals(name)
 					//Tests scope_EndToEndFlowSegment_flowElement(EndToEndFlow, EReference)
-					assertScope(Aadl2Package::eINSTANCE.endToEndFlowSegment_FlowElement, false, #["asub3", "da2", "etef18", "fconn3", "fconn4", "fsink1",
+					assertScope(Aadl2Package::eINSTANCE.endToEndFlowSegment_FlowElement, #["asub3", "da2", "etef18", "fconn3", "fconn4", "fsink1",
 						"fsource20"
 					])
 					ownedEndToEndFlowSegments.get(0) => [
 						"asub3".assertEquals(context.name)
 						"fsource20".assertEquals(flowElement.name)
 						//Tests scope_EndToEndFlowSegment_context
-						assertScope(Aadl2Package::eINSTANCE.endToEndFlowSegment_Context, false, #["asub3"])
+						assertScope(Aadl2Package::eINSTANCE.endToEndFlowSegment_Context, #["asub3"])
 						//Tests scope_EndToEndFlowSegment_flowElement(EndToEndFlowSegment, EReference)
-						assertScope(Aadl2Package::eINSTANCE.endToEndFlowSegment_FlowElement, false, #["da2", "fsink1", "fsource20"])
+						assertScope(Aadl2Package::eINSTANCE.endToEndFlowSegment_FlowElement, #["da2", "fsink1", "fsource20"])
 					]
 					ownedEndToEndFlowSegments.get(1) => [
 						context.assertNull
 						"fconn4".assertEquals(flowElement.name)
 						//Tests scope_EndToEndFlowSegment_context
-						assertScope(Aadl2Package::eINSTANCE.endToEndFlowSegment_Context, false, #["asub3"])
+						assertScope(Aadl2Package::eINSTANCE.endToEndFlowSegment_Context, #["asub3"])
 						//Tests scope_EndToEndFlowSegment_flowElement(EndToEndFlowSegment, EReference)
-						assertScope(Aadl2Package::eINSTANCE.endToEndFlowSegment_FlowElement, false, #["asub3", "da2", "etef18", "fconn3", "fconn4", "fsink1",
+						assertScope(Aadl2Package::eINSTANCE.endToEndFlowSegment_FlowElement, #["asub3", "da2", "etef18", "fconn3", "fconn4", "fsink1",
 							"fsource20"
 						])
 					]
@@ -1463,9 +1463,9 @@ class FlowSegmentsTest extends OsateTest {
 						"asub3".assertEquals(context.name)
 						"fsink1".assertEquals(flowElement.name)
 						//Tests scope_EndToEndFlowSegment_context
-						assertScope(Aadl2Package::eINSTANCE.endToEndFlowSegment_Context, false, #["asub3"])
+						assertScope(Aadl2Package::eINSTANCE.endToEndFlowSegment_Context, #["asub3"])
 						//Tests scope_EndToEndFlowSegment_flowElement(EndToEndFlowSegment, EReference)
-						assertScope(Aadl2Package::eINSTANCE.endToEndFlowSegment_FlowElement, false, #["da2", "fsink1", "fsource20"])
+						assertScope(Aadl2Package::eINSTANCE.endToEndFlowSegment_FlowElement, #["da2", "fsink1", "fsource20"])
 					]
 				]
 			]
@@ -1474,51 +1474,51 @@ class FlowSegmentsTest extends OsateTest {
 				ownedFlowImplementations.get(0) => [
 					"fsource21".assertEquals(specification.name)
 					//Tests scope_FlowSegment_flowElement(FlowImplementation, EReference)
-					assertScope(Aadl2Package::eINSTANCE.flowSegment_FlowElement, false, #["asub4", "da4", "fconn5", "fconn6", "fsource21", "fsource22"])
+					assertScope(Aadl2Package::eINSTANCE.flowSegment_FlowElement, #["asub4", "da4", "fconn5", "fconn6", "fsource21", "fsource22"])
 					ownedFlowSegments.get(0) => [
 						"param1".assertEquals(context.name)
 						"da2".assertEquals(flowElement.name)
 						assertError(testFileResult.issues, issueCollection, "Expected Data Access, Subcomponent, or Subcomponent.Flow Specification; found Parameter.Data Access 'param1.da2'")
 						//Tests scope_FlowSegment_context
-						assertScope(Aadl2Package::eINSTANCE.flowSegment_Context, false, #["asub4", "param1", "param2"])
+						assertScope(Aadl2Package::eINSTANCE.flowSegment_Context, #["asub4", "param1", "param2"])
 						//Tests scope_FlowSegment_flowElement(FlowSegment, EReference)
-						assertScope(Aadl2Package::eINSTANCE.flowSegment_FlowElement, false, #["asub3", "da2", "fconn3", "fconn4", "fsink1", "fsource20"])
+						assertScope(Aadl2Package::eINSTANCE.flowSegment_FlowElement, #["asub3", "da2", "fconn3", "fconn4", "fsink1", "fsource20"])
 					]
 					ownedFlowSegments.get(1) => [
 						context.assertNull
 						"fconn5".assertEquals(flowElement.name)
 						//Tests scope_FlowSegment_context
-						assertScope(Aadl2Package::eINSTANCE.flowSegment_Context, false, #["asub4", "param1", "param2"])
+						assertScope(Aadl2Package::eINSTANCE.flowSegment_Context, #["asub4", "param1", "param2"])
 						//Tests scope_FlowSegment_flowElement(FlowSegment, EReference)
-						assertScope(Aadl2Package::eINSTANCE.flowSegment_FlowElement, false, #["asub4", "da4", "fconn5", "fconn6", "fsource21", "fsource22"])
+						assertScope(Aadl2Package::eINSTANCE.flowSegment_FlowElement, #["asub4", "da4", "fconn5", "fconn6", "fsource21", "fsource22"])
 					]
 				]
 				ownedFlowImplementations.get(1) => [
 					"fsource22".assertEquals(specification.name)
 					//Tests scope_FlowSegment_flowElement(FlowImplementation, EReference)
-					assertScope(Aadl2Package::eINSTANCE.flowSegment_FlowElement, false, #["asub4", "da4", "fconn5", "fconn6", "fsource21", "fsource22"])
+					assertScope(Aadl2Package::eINSTANCE.flowSegment_FlowElement, #["asub4", "da4", "fconn5", "fconn6", "fsource21", "fsource22"])
 					ownedFlowSegments.get(0) => [
 						"param2".assertEquals(context.name)
 						"da2".assertEquals(flowElement.name)
 						assertError(testFileResult.issues, issueCollection, "Expected Data Access, Subcomponent, or Subcomponent.Flow Specification; found Parameter.Data Access 'param2.da2'")
 						//Tests scope_FlowSegment_context
-						assertScope(Aadl2Package::eINSTANCE.flowSegment_Context, false, #["asub4", "param1", "param2"])
+						assertScope(Aadl2Package::eINSTANCE.flowSegment_Context, #["asub4", "param1", "param2"])
 						//Tests scope_FlowSegment_flowElement(FlowSegment, EReference)
-						assertScope(Aadl2Package::eINSTANCE.flowSegment_FlowElement, false, #["asub3", "da2", "fconn3", "fconn4", "fsink1", "fsource20"])
+						assertScope(Aadl2Package::eINSTANCE.flowSegment_FlowElement, #["asub3", "da2", "fconn3", "fconn4", "fsink1", "fsource20"])
 					]
 					ownedFlowSegments.get(1) => [
 						context.assertNull
 						"fconn5".assertEquals(flowElement.name)
 						//Tests scope_FlowSegment_context
-						assertScope(Aadl2Package::eINSTANCE.flowSegment_Context, false, #["asub4", "param1", "param2"])
+						assertScope(Aadl2Package::eINSTANCE.flowSegment_Context, #["asub4", "param1", "param2"])
 						//Tests scope_FlowSegment_flowElement(FlowSegment, EReference)
-						assertScope(Aadl2Package::eINSTANCE.flowSegment_FlowElement, false, #["asub4", "da4", "fconn5", "fconn6", "fsource21", "fsource22"])
+						assertScope(Aadl2Package::eINSTANCE.flowSegment_FlowElement, #["asub4", "da4", "fconn5", "fconn6", "fsource21", "fsource22"])
 					]
 				]
 				ownedEndToEndFlows.get(0) => [
 					"etef19".assertEquals(name)
 					//Tests scope_EndToEndFlowSegment_flowElement(EndToEndFlow, EReference)
-					assertScope(Aadl2Package::eINSTANCE.endToEndFlowSegment_FlowElement, false, #["asub4", "da4", "etef19", "etef20", "fconn5", "fconn6", "fsource21",
+					assertScope(Aadl2Package::eINSTANCE.endToEndFlowSegment_FlowElement, #["asub4", "da4", "etef19", "etef20", "fconn5", "fconn6", "fsource21",
 						"fsource22"
 					])
 					ownedEndToEndFlowSegments.get(0) => [
@@ -1526,9 +1526,9 @@ class FlowSegmentsTest extends OsateTest {
 						"da2".assertEquals(flowElement.name)
 						assertError(testFileResult.issues, issueCollection, "Anything in a 'parameter' is not a valid subcomponent flow.")
 						//Tests scope_EndToEndFlowSegment_context
-						assertScope(Aadl2Package::eINSTANCE.endToEndFlowSegment_Context, false, #["asub4", "param1", "param2"])
+						assertScope(Aadl2Package::eINSTANCE.endToEndFlowSegment_Context, #["asub4", "param1", "param2"])
 						//Tests scope_EndToEndFlowSegment_flowElement(EndToEndFlowSegment, EReference)
-						assertScope(Aadl2Package::eINSTANCE.endToEndFlowSegment_FlowElement, false, #["asub3", "da2", "etef18", "fconn3", "fconn4", "fsink1",
+						assertScope(Aadl2Package::eINSTANCE.endToEndFlowSegment_FlowElement, #["asub3", "da2", "etef18", "fconn3", "fconn4", "fsink1",
 							"fsource20"
 						])
 					]
@@ -1536,9 +1536,9 @@ class FlowSegmentsTest extends OsateTest {
 						context.assertNull
 						"fconn6".assertEquals(flowElement.name)
 						//Tests scope_EndToEndFlowSegment_context
-						assertScope(Aadl2Package::eINSTANCE.endToEndFlowSegment_Context, false, #["asub4", "param1", "param2"])
+						assertScope(Aadl2Package::eINSTANCE.endToEndFlowSegment_Context, #["asub4", "param1", "param2"])
 						//Tests scope_EndToEndFlowSegment_flowElement(EndToEndFlowSegment, EReference)
-						assertScope(Aadl2Package::eINSTANCE.endToEndFlowSegment_FlowElement, false, #["asub4", "da4", "etef19", "etef20", "fconn5", "fconn6",
+						assertScope(Aadl2Package::eINSTANCE.endToEndFlowSegment_FlowElement, #["asub4", "da4", "etef19", "etef20", "fconn5", "fconn6",
 							"fsource21", "fsource22"
 						])
 					]
@@ -1546,9 +1546,9 @@ class FlowSegmentsTest extends OsateTest {
 						"asub4".assertEquals(context.name)
 						"fsink1".assertEquals(flowElement.name)
 						//Tests scope_EndToEndFlowSegment_context
-						assertScope(Aadl2Package::eINSTANCE.endToEndFlowSegment_Context, false, #["asub4", "param1", "param2"])
+						assertScope(Aadl2Package::eINSTANCE.endToEndFlowSegment_Context, #["asub4", "param1", "param2"])
 						//Tests scope_EndToEndFlowSegment_flowElement(EndToEndFlowSegment, EReference)
-						assertScope(Aadl2Package::eINSTANCE.endToEndFlowSegment_FlowElement, false, #["asub3", "da2", "etef18", "fconn3", "fconn4", "fsink1",
+						assertScope(Aadl2Package::eINSTANCE.endToEndFlowSegment_FlowElement, #["asub3", "da2", "etef18", "fconn3", "fconn4", "fsink1",
 							"fsource20"
 						])
 					]
@@ -1556,7 +1556,7 @@ class FlowSegmentsTest extends OsateTest {
 				ownedEndToEndFlows.get(1) => [
 					"etef20".assertEquals(name)
 					//Tests scope_EndToEndFlowSegment_flowElement(EndToEndFlow, EReference)
-					assertScope(Aadl2Package::eINSTANCE.endToEndFlowSegment_FlowElement, false, #["asub4", "da4", "etef19", "etef20", "fconn5", "fconn6", "fsource21",
+					assertScope(Aadl2Package::eINSTANCE.endToEndFlowSegment_FlowElement, #["asub4", "da4", "etef19", "etef20", "fconn5", "fconn6", "fsource21",
 						"fsource22"
 					])
 					ownedEndToEndFlowSegments.get(0) => [
@@ -1564,9 +1564,9 @@ class FlowSegmentsTest extends OsateTest {
 						"da2".assertEquals(flowElement.name)
 						assertError(testFileResult.issues, issueCollection, "Anything in a 'parameter' is not a valid subcomponent flow.")
 						//Tests scope_EndToEndFlowSegment_context
-						assertScope(Aadl2Package::eINSTANCE.endToEndFlowSegment_Context, false, #["asub4", "param1", "param2"])
+						assertScope(Aadl2Package::eINSTANCE.endToEndFlowSegment_Context, #["asub4", "param1", "param2"])
 						//Tests scope_EndToEndFlowSegment_flowElement(EndToEndFlowSegment, EReference)
-						assertScope(Aadl2Package::eINSTANCE.endToEndFlowSegment_FlowElement, false, #["asub3", "da2", "etef18", "fconn3", "fconn4", "fsink1",
+						assertScope(Aadl2Package::eINSTANCE.endToEndFlowSegment_FlowElement, #["asub3", "da2", "etef18", "fconn3", "fconn4", "fsink1",
 							"fsource20"
 						])
 					]
@@ -1574,9 +1574,9 @@ class FlowSegmentsTest extends OsateTest {
 						context.assertNull
 						"fconn6".assertEquals(flowElement.name)
 						//Tests scope_EndToEndFlowSegment_context
-						assertScope(Aadl2Package::eINSTANCE.endToEndFlowSegment_Context, false, #["asub4", "param1", "param2"])
+						assertScope(Aadl2Package::eINSTANCE.endToEndFlowSegment_Context, #["asub4", "param1", "param2"])
 						//Tests scope_EndToEndFlowSegment_flowElement(EndToEndFlowSegment, EReference)
-						assertScope(Aadl2Package::eINSTANCE.endToEndFlowSegment_FlowElement, false, #["asub4", "da4", "etef19", "etef20", "fconn5", "fconn6",
+						assertScope(Aadl2Package::eINSTANCE.endToEndFlowSegment_FlowElement, #["asub4", "da4", "etef19", "etef20", "fconn5", "fconn6",
 							"fsource21", "fsource22"
 						])
 					]
@@ -1584,9 +1584,9 @@ class FlowSegmentsTest extends OsateTest {
 						"asub4".assertEquals(context.name)
 						"fsink1".assertEquals(flowElement.name)
 						//Tests scope_EndToEndFlowSegment_context
-						assertScope(Aadl2Package::eINSTANCE.endToEndFlowSegment_Context, false, #["asub4", "param1", "param2"])
+						assertScope(Aadl2Package::eINSTANCE.endToEndFlowSegment_Context, #["asub4", "param1", "param2"])
 						//Tests scope_EndToEndFlowSegment_flowElement(EndToEndFlowSegment, EReference)
-						assertScope(Aadl2Package::eINSTANCE.endToEndFlowSegment_FlowElement, false, #["asub3", "da2", "etef18", "fconn3", "fconn4", "fsink1",
+						assertScope(Aadl2Package::eINSTANCE.endToEndFlowSegment_FlowElement, #["asub3", "da2", "etef18", "fconn3", "fconn4", "fsink1",
 							"fsource20"
 						])
 					]

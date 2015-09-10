@@ -218,12 +218,16 @@ abstract class OsateTest extends XtextTest {
 		issuesForEObject.forEach[issueCollection.addIssue(it)]
 	}
 	
-	def protected assertScope(EObject context, EReference reference, boolean applyFilterToUnqualifiedNames, Iterable<String> expected) {
-		assertScope(scopeProvider, context, reference, applyFilterToUnqualifiedNames, expected)
+	def protected assertScope(EObject context, EReference reference, Iterable<String> expected) {
+		assertScope(scopeProvider, context, reference, false, expected)
 	}
 	
-	def protected assertSerializerScope(EObject context, EReference reference, boolean applyFilterToUnqualifiedNames, Iterable<String> expected) {
-		assertScope(serializerScopeProvider, context, reference, applyFilterToUnqualifiedNames, expected)
+	def protected assertScopeModelUnitNamesOnly(EObject context, EReference reference, Iterable<String> expected) {
+		assertScope(scopeProvider, context, reference, true, expected)
+	}
+	
+	def protected assertSerializerScope(EObject context, EReference reference, Iterable<String> expected) {
+		assertScope(serializerScopeProvider, context, reference, false, expected)
 	}
 	
 	def private assertScope(IScopeProvider scopeProvider, EObject context, EReference reference,
