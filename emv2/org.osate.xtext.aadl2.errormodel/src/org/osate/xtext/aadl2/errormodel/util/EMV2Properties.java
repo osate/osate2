@@ -28,8 +28,10 @@ import org.osate.aadl2.RealLiteral;
 import org.osate.aadl2.RecordValue;
 import org.osate.aadl2.StringLiteral;
 import org.osate.aadl2.Subcomponent;
+import org.osate.aadl2.impl.PropertyImpl;
 import org.osate.aadl2.instance.ComponentInstance;
 import org.osate.aadl2.modelsupport.util.AadlUtil;
+import org.osate.aadl2.util.OsateDebug;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorBehaviorState;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorBehaviorStateMachine;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorEvent;
@@ -339,6 +341,37 @@ public class EMV2Properties {
 						}
 					}
 				}
+			}
+			
+			if (val instanceof NamedValue)
+			{
+//				OsateDebug.osateDebug("EMV2Properties", "debug val" + val);
+				NamedValue nv = (NamedValue)val;
+				AbstractNamedValue anv = (AbstractNamedValue) nv.getNamedValue();
+				if (anv instanceof PropertyConstant)
+				{
+
+					PropertyConstant pc = (PropertyConstant) nv.getNamedValue();
+//					OsateDebug.osateDebug("EMV2Properties", "pc" + pc);
+					if (pc.getConstantValue() instanceof RecordValue) {
+
+						RecordValue rv = (RecordValue) pc.getConstantValue();
+						EList<BasicPropertyAssociation> fields = rv.getOwnedFieldValues();
+						// for all error types/aliases in type set or the element identified in the containment clause
+						for (BasicPropertyAssociation bpa : fields) {
+							if (bpa.getProperty().getName().equalsIgnoreCase("probabilityvalue")) {
+								if (bpa.getValue() instanceof RealLiteral) {
+									RealLiteral rl = (RealLiteral) bpa.getValue();
+									result = rl.getScaledValue();
+//									OsateDebug.osateDebug("EMV2Properties", "returns" + result);
+
+								}
+							}
+						}
+					}
+				}
+				
+	
 			}
 		}
 		return result;
