@@ -104,5 +104,6 @@ public class AgeImageProvider extends AbstractImageProvider implements
 		addImageFilePath(p.getGeneralization(), p.getModeTransition());
 		addImageFilePath(p.getSubprogramCall(), p.getSubprogramSubcomponent());
 		addImageFilePath(p.getSubprogramCallSequence());
+		addImageFilePath("Annex");
 	}
 }

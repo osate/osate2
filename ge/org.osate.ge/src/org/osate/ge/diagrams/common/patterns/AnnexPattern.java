@@ -11,7 +11,7 @@ import javax.inject.Named;
 
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.resource.Resource;
-import org.eclipse.graphiti.features.IAddFeature;
+import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.graphiti.features.context.IAddContext;
 import org.eclipse.graphiti.features.context.ICreateContext;
 import org.eclipse.graphiti.features.context.IDeleteContext;
@@ -19,9 +19,8 @@ import org.eclipse.graphiti.features.context.IDirectEditingContext;
 import org.eclipse.graphiti.features.context.ILayoutContext;
 import org.eclipse.graphiti.features.context.IResizeShapeContext;
 import org.eclipse.graphiti.features.context.IUpdateContext;
-import org.eclipse.graphiti.features.context.impl.AddContext;
 import org.eclipse.graphiti.mm.algorithms.GraphicsAlgorithm;
-import org.eclipse.graphiti.mm.algorithms.Rectangle;
+import org.eclipse.graphiti.mm.algorithms.Text;
 import org.eclipse.graphiti.mm.algorithms.styles.LineStyle;
 import org.eclipse.graphiti.mm.pictograms.ContainerShape;
 import org.eclipse.graphiti.mm.pictograms.Diagram;
@@ -43,9 +42,10 @@ import org.osate.aadl2.AnnexSubclause;
 import org.osate.aadl2.Classifier;
 import org.osate.aadl2.DefaultAnnexLibrary;
 import org.osate.aadl2.DefaultAnnexSubclause;
-import org.osate.aadl2.Element;
 import org.osate.aadl2.NamedElement;
+import org.osate.aadl2.Subcomponent;
 import org.osate.ge.diagrams.common.AadlElementWrapper;
+import org.osate.ge.diagrams.common.AgeImageProvider;
 import org.osate.ge.services.AadlModificationService;
 import org.osate.ge.services.AnchorService;
 import org.osate.ge.services.BusinessObjectResolutionService;
@@ -57,18 +57,20 @@ import org.osate.ge.services.NamingService;
 import org.osate.ge.services.PropertyService;
 import org.osate.ge.services.ShapeCreationService;
 import org.osate.ge.services.ShapeService;
+import org.osate.ge.services.UserInputService;
 import org.osate.ge.services.AadlModificationService.AbstractModifier;
 import org.osate.ge.util.StringUtil;
 
 /**
- * Pattern for handling Annex libraries and subclauses
- *
+ * Pattern for handling AnnexLibraries and AnnexSubclauses
  */
 public class AnnexPattern extends AgePattern {
 	private final static String annexLabelName = "annex_label";
 	private final static double topOfFolderOffsetValue = 0.1;
 	private final static double tabStartOffsetValue = 0.05;
 	private final static double topOfTabOffsetValue = 0.3;
+	private static final String annexLabelStartBracket = "{**";
+	private static final String annexLabelEndBracket = "**}";
 	private final GhostingService ghostingService;
 	private final AnchorService anchorService;
 	private final ShapeService shapeService;
@@ -81,9 +83,10 @@ public class AnnexPattern extends AgePattern {
 	private final ShapeCreationService shapeCreationService;
 	private final NamingService namingService;
 	private final EClass annexType;
+	private final UserInputService userInputService;
 
 	@Inject
-	public AnnexPattern(final GhostingService ghostingService, final AnchorService anchorService, final ShapeService shapeService, final LabelService labelService, 
+	public AnnexPattern(final GhostingService ghostingService, final AnchorService anchorService, final ShapeService shapeService, final LabelService labelService, final UserInputService userInputService, 
 			final LayoutService layoutService, final BusinessObjectResolutionService bor, final PropertyService propertyService, final AadlModificationService aadlModService,
 			final DiagramModificationService diagramModService, final ShapeCreationService shapeCreationService, final NamingService namingService, final @Named("Annex Type") EClass annexType) {
 		this.ghostingService = ghostingService;
@@ -98,6 +101,7 @@ public class AnnexPattern extends AgePattern {
 		this.namingService = namingService;
 		this.bor = bor;
 		this.annexType = annexType;
+		this.userInputService = userInputService;
 	}
 
 	@Override
@@ -105,10 +109,10 @@ public class AnnexPattern extends AgePattern {
 		return StringUtil.camelCaseToUser(annexType.getName());
 	}
 
-	/*@Override
+	@Override
 	public String getCreateImageId(){
-		return AgeImageProvider.getImage(annexType.getName());
-	}*/
+		return AgeImageProvider.getImage("Annex");
+	}
 
 	@Override
 	public boolean isMainBusinessObjectApplicable(final Object mainBusinessObject) {
@@ -123,7 +127,7 @@ public class AnnexPattern extends AgePattern {
 		} else if(isAnnexLibrary(annexType, getAnnexLibrary())) {
 			return isPackageDiagram();
 		} else {
-			return /*isAnnexSubclauseType(annexType, getAnnexSubclause()) && */isClassifierDiagram();
+			return isClassifierDiagram();
 		}
 	}
 
@@ -131,7 +135,7 @@ public class AnnexPattern extends AgePattern {
 	 * Determine if the current annex type is a AnnexLibrary
 	 * @param annexType the current annex type EClass
 	 * @param annexSubclause the AnnexLibrary EClass
-	 * @return
+	 * @return true if the current annex type is an AnnexLibrary, false if it is an AnnexSubclause
 	 */
 	private static boolean isAnnexLibrary(final EClass annexType, final EClass annexLibrary) {
 		return annexType == annexLibrary;
@@ -147,13 +151,63 @@ public class AnnexPattern extends AgePattern {
 		return false;
 	}
 
-	//TODO: delete
 	@Override
 	public boolean canDelete(final IDeleteContext context) {
-		return true;
+		final PictogramElement pe = context.getPictogramElement();
+		final Shape shape = (Shape)pe;
+		final Object bo = bor.getBusinessObjectForPictogramElement(pe);
+		if(pe instanceof Shape) {
+			if(bo instanceof AnnexLibrary) {
+				final AnnexLibrary annexLibrary = (AnnexLibrary)bo;
+				final NamedElement containerBo = (NamedElement)bor.getBusinessObjectForPictogramElement(shape.getContainer());
+				if(containerBo instanceof AadlPackage) {
+					final AadlPackage aadlPackage = getAadlPackage(containerBo);
+					
+					return annexLibrary.getOwner() == aadlPackage.getOwnedPublicSection();
+				}
+			} else if(bo instanceof AnnexSubclause) {
+				final AnnexSubclause annexSubclause = (AnnexSubclause)bo;
+				final Object containerBo = bor.getBusinessObjectForPictogramElement(shape.getContainer());
+				
+				return annexSubclause.getContainingClassifier() == containerBo;
+			}
+		}
+		
+		return false;
+	}
+	
+	@Override
+	public void delete(final IDeleteContext context) {
+		if(!userInputService.confirmDelete(context)) {
+			return;
+		}
+		
+		final NamedElement annex = (NamedElement)bor.getBusinessObjectForPictogramElement(context.getPictogramElement());
+		aadlModService.modify(annex, new AbstractModifier<NamedElement, NamedElement>() {
+			private DiagramModificationService.Modification diagramMod;
+			
+			@Override
+			public NamedElement modify(final Resource resource, final NamedElement annex) {
+	 			diagramMod = diagramModService.startModification();
+	 			if(annex.getContainingClassifier() != null) {
+	 				diagramMod.markOpenRelatedDiagramsAsDirty(annex.getContainingClassifier());
+	 			}
+	 			
+				EcoreUtil.remove(annex);
+				
+				return null;
+			}		
+			
+	 		@Override
+			public void beforeCommit(final Resource resource, final NamedElement annex, final NamedElement modificationResult) {
+				diagramMod.commit();
+			}
+		});
+	
+		// Clear selection
+		getFeatureProvider().getDiagramTypeProvider().getDiagramBehavior().getDiagramContainer().selectPictogramElements(new PictogramElement[0]);
 	}
 
-	//TODO: fix size when added to diagram
 	@Override
 	public final PictogramElement add(final IAddContext context) {
 		final NamedElement neNewAnnex = (NamedElement)AadlElementWrapper.unwrap(context.getNewObject());
@@ -162,10 +216,8 @@ public class AnnexPattern extends AgePattern {
 		
 		// Create the container shape for the generic representation
 		final ContainerShape containerShape = peCreateService.createContainerShape(context.getTargetContainer(), true);
-		final Rectangle invisRect = gaService.createInvisibleRectangle(containerShape);
-
-		gaService.setLocation(invisRect, context.getX(), context.getY());
-
+		gaService.createInvisibleRectangle(containerShape);
+		gaService.createText(containerShape.getGraphicsAlgorithm());
 		link(containerShape, new AadlElementWrapper(neNewAnnex));
 
 		// Create Graphics Algorithm
@@ -191,7 +243,7 @@ public class AnnexPattern extends AgePattern {
 		final int width = csGraphicsAlgorithm.getWidth();
 		final int height = csGraphicsAlgorithm.getHeight();
 		final GraphicsAlgorithm ga = createFolderShape(containerShape, width, height, diagram);
-
+		
 		gaService.setLocationAndSize(ga, x, y, width, height);
 	}
 
@@ -246,8 +298,6 @@ public class AnnexPattern extends AgePattern {
 	// Update
 	@Override
 	public final boolean update(final IUpdateContext context) {
-		// TODO: Probably need a way of tagging shapes as being generic...
-		// Update the generic representation
 		final PictogramElement pe = context.getPictogramElement();
 		if(pe instanceof ContainerShape) {
 			final ContainerShape shape = (ContainerShape)pe;
@@ -277,13 +327,13 @@ public class AnnexPattern extends AgePattern {
 		}
 
 		// Create label shape
-		labelService.createLabelShape(shape, annexLabelName,  annexElement, annexElement.getName());
-
+		labelService.createLabelShape(shape, annexLabelName,  annexElement, getLabelText(getAnnexName(annexElement)));
+		
 		// Layout
 		layoutPictogramElement(shape);
 
 		anchorService.createOrUpdateChopboxAnchor(shape, chopboxAnchorName);
-	}	
+	}
 
 	// Layout
 	@Override
@@ -294,9 +344,51 @@ public class AnnexPattern extends AgePattern {
 	//TODO: change annex library name?
 	@Override
 	public boolean canDirectEdit(final IDirectEditingContext context) {
-		return true;
-	};
+		final PictogramElement pe = context.getPictogramElement();
+        final Object bo = bor.getBusinessObjectForPictogramElement(pe);
+        final GraphicsAlgorithm ga = context.getGraphicsAlgorithm();
+        System.err.println(ga + " ga");
+        if((bo instanceof AnnexLibrary || bo instanceof AnnexSubclause) && ga instanceof Text) {
+        	System.err.println("HERE");
+        	return true;
+        }
 
+		return false;
+	}
+	
+	@Override
+	public boolean stretchFieldToFitText() {
+		return true;
+	}
+	
+	@Override
+	 public String getInitialValue(final IDirectEditingContext context) {
+		final String annexName = getAnnexName(((NamedElement)bor.getBusinessObjectForPictogramElement(context.getPictogramElement())));
+	    System.err.println(annexName + " AAA");
+		return annexName;
+	 }
+	
+	private static String getAnnexName(final NamedElement annex) {
+		return annex.getName();
+	}
+
+	@Override
+	public void setValue(final String value, final IDirectEditingContext context) {
+		System.err.println("1BBBB");
+	}
+	
+	@Override
+	public int getEditingType() {
+		return TYPE_TEXT;
+	}
+	
+    @Override
+    public String checkValueValid(final String newAnnexName, final IDirectEditingContext context) {
+    	//return namingService.checkNameValidity((NamedElement)bor.getBusinessObjectForPictogramElement(context.getPictogramElement()), value);
+    	System.err.println(newAnnexName + " newAnnexName BBB");
+    	return isValidAnnexName(newAnnexName, namingService) ? newAnnexName : null;
+    }
+	
 	@Override
 	public boolean canResizeShape(final IResizeShapeContext context) {
 		return true;
@@ -321,7 +413,6 @@ public class AnnexPattern extends AgePattern {
 		final ContainerShape containerShape = (ContainerShape)context.getPictogramElement();
 		final int x = containerShape.getGraphicsAlgorithm().getX();
 		final int y = containerShape.getGraphicsAlgorithm().getY();
-		/*final NamedElement neNewAnnex = (NamedElement)bor.getBusinessObjectForPictogramElement(containerShape);*/
 
 		final IGaService gaService = Graphiti.getGaService();
 		final Shape nameShape = Objects.requireNonNull(getNameShape(containerShape), "unable to retrieve name shape");
@@ -331,6 +422,7 @@ public class AnnexPattern extends AgePattern {
 		final int[] newSize = layoutService.adjustChildShapePositions(containerShape); 
 
 		final GraphicsAlgorithm nameShapeGraphicsAlgorithm = nameShape.getGraphicsAlgorithm();
+		
 		// Enforce a minimum size for classifiers
 		newSize[0] = Math.max(Math.max(newSize[0], layoutService.getMinimumWidth()), nameShapeGraphicsAlgorithm.getWidth() + 30);
 		newSize[1] = Math.max(Math.max(newSize[1], layoutService.getMinimumHeight()), nameShapeGraphicsAlgorithm.getHeight() + 30);
@@ -380,60 +472,29 @@ public class AnnexPattern extends AgePattern {
 	@Override
 	public Object[] create(final ICreateContext context) {
 		final NamedElement containerElement = (NamedElement)bor.getBusinessObjectForPictogramElement(context.getTargetContainer());
-		final AnnexNameDialog annexNameDialog = new AnnexNameDialog(Display.getCurrent().getActiveShell(), containerElement, namingService, getDialogTitleAndMessage(annexType));
-		if (annexNameDialog.open() == Dialog.CANCEL || annexNameDialog.getValue() == null) {
-			return null;
-		}
-
-		final Object newAnnexObject = createAndModifyAnnex(context, containerElement, annexNameDialog.getValue(), annexType);
+		final Object newAnnexObject = createAndModifyAnnex(context, containerElement, annexType);
 
 		return newAnnexObject == null ? null : new Object[] {newAnnexObject};
 	}
 
-	private Object createAndModifyAnnex(final ICreateContext context, final NamedElement targetContainer, final String newAnnexName, final EClass annexType) {
+	private Object createAndModifyAnnex(final ICreateContext context, final NamedElement targetContainer, final EClass annexType) {
 		final NamedElement newAnnex = aadlModService.modify(targetContainer, new AbstractModifier<NamedElement, NamedElement>() {
 			private DiagramModificationService.Modification diagramMod;
 
 			@Override
-			public NamedElement modify(final Resource resource, final NamedElement neNewAnnex) {
+			public NamedElement modify(final Resource resource, final NamedElement newAnnex) {
 				diagramMod = diagramModService.startModification();
-				final NamedElement newAnnex = createAnnex(targetContainer, newAnnexName, annexType);
+				final NamedElement newCreatedAnnex = createAnnex(targetContainer, annexType);
 				
-				return newAnnex;
+				return newCreatedAnnex;
 			}
 
 			@Override
-			public void beforeCommit(final Resource resource, final NamedElement aadlPackage, final NamedElement neNewAnnex) {
+			public void beforeCommit(final Resource resource, final NamedElement aadlPackage, final NamedElement newAnnex) {
 				diagramMod.commit();
-				shapeCreationService.createShape(context.getTargetContainer(), neNewAnnex, context.getX(), context.getY());
+				shapeCreationService.createShape(context.getTargetContainer(), newAnnex, context.getX(), context.getY());
 			}
 		});
-
-		// If the shape was dropped on the diagram, set the location of the new shape
-		if(newAnnex != null && context.getTargetContainer() instanceof Diagram) {
-			Shape newShape = shapeService.getDescendantShapeByElementQualifiedName(getDiagram(), newAnnex);
-
-			// If the update feature hasn't been called, add the shape to the diagram
-			if(newShape == null) {
-				final AddContext addContext = new AddContext();
-				addContext.setTargetContainer(getDiagram());
-				addContext.setNewObject(new AadlElementWrapper(newAnnex));				
-
-				// Execute the add feature
-				final IAddFeature addFeature = this.getFeatureProvider().getAddFeature(addContext);
-				if(addFeature != null && addFeature.canAdd(addContext)) {
-					addFeature.execute(addContext);
-				}
-
-				// Try to find the shape again
-				newShape = shapeService.getDescendantShapeByElementQualifiedName(getDiagram(), newAnnex);			
-			}
-
-			if(newShape != null) {
-				Graphiti.getGaService().setLocation(newShape.getGraphicsAlgorithm(), context.getX(), context.getY());
-				propertyService.setIsLayedOut(newShape, true);
-			}
-		}
 
 		return newAnnex;
 	}
@@ -442,14 +503,23 @@ public class AnnexPattern extends AgePattern {
 	 * Determine which type of Annex to create then return the new Annex
 	 * @param targetContainer the element the new AnnexLibrary or AnnexSubclause will be added to
 	 * @param newAnnexName the name of the new AnnexLibrary or AnnexSubclause
-	 * @param annexType the current annex type, either AnnexLibrary or AnnexSubclause
-	 * @return the new AnnexLibrary or AnnexSubclause
 	 */
-	protected static NamedElement createAnnex(final NamedElement targetContainer, final String newAnnexName, final EClass annexType) {
-		final NamedElement neContainer = getClassifier(targetContainer) != null ? getClassifier(targetContainer)
-			: Objects.requireNonNull(getAadlPackage(targetContainer), "AadlPackage cannot be null.");
-		return isAnnexLibrary(annexType, getAnnexLibrary()) ? createAnnexLibrary(neContainer, newAnnexName)
+	protected NamedElement createAnnex(final NamedElement targetContainer, final EClass annexType) {
+		final AnnexNameDialog annexNameDialog = new AnnexNameDialog(Display.getCurrent().getActiveShell(), targetContainer, namingService, getDialogTitleAndMessage(annexType));
+		if (annexNameDialog.open() == Dialog.CANCEL || annexNameDialog.getValue() == null) {
+			return null;
+		}
+		
+		final String newAnnexName = annexNameDialog.getValue();
+		final NamedElement neContainer = getNamedElementContainer(targetContainer);
+
+		return neContainer instanceof AadlPackage ? createAnnexLibrary(neContainer, newAnnexName)
 			: createAnnexSubclause(neContainer, newAnnexName);
+	}
+
+	private static NamedElement getNamedElementContainer(NamedElement targetContainer) {
+		return getClassifier(targetContainer) != null ? getClassifier(targetContainer)
+				: Objects.requireNonNull(getAadlPackage(targetContainer), "AadlPackage cannot be null.");
 	}
 
 	private static EClass getAnnexLibrary() {
@@ -504,35 +574,33 @@ public class AnnexPattern extends AgePattern {
 			super(parentShell, dialogTitleAndMessage[0], dialogTitleAndMessage[1], "", new IInputValidator() {
 				@Override
 				public String isValid(final String newName) {
-					boolean invalid = false;
-					//Check if target has name in use
-				//	System.err.println(targetContainer.getNamespace());
-					if(targetContainer.getNamespace() != null) {
-						namingService.isNameInUse(targetContainer.getNamespace(), newName);
-					}
-					if(/*isNameInUse(targetContainer, newName) || */!namingService.isValidIdentifier(newName)) {
+/*					boolean invalid = false;
+					if(!namingService.isValidIdentifier(newName)) {
 						invalid = true;
 					}
-
-					return invalid ? "The specified name is not valid." : null;
+					
+					boolean invalid = isValidAnnexName(newName, namingService);
+*/
+					return isValidAnnexName(newName, namingService) ? "The specified name is not valid." : null;
 				}
 			});
 		}
-		
-		private static boolean isNameInUse(final NamedElement namedElement, final String newName) {
-			for (final Element element : namedElement.allOwnedElements()) {
-				if(element instanceof NamedElement) {
-					if(((NamedElement)element).getName().equalsIgnoreCase(newName)) {
-						
-						return true;
-					}
-				}
-			}
-			
-			return false;
-		}
 	}
 	
+	/**
+	 * 
+	 * @param newAnnexName
+	 * @param namingService
+	 * @return
+	 */
+	final static boolean isValidAnnexName(final String newAnnexName, final NamingService namingService) {
+		boolean invalid = false;
+		if(!namingService.isValidIdentifier(newAnnexName)) {
+			invalid = true;
+		}
+		
+		return invalid;
+	}
 	/**
 	 * Determine title and message for input dialog
 	 * @param annexType AnnexLibrary or AnnexSubclause
@@ -549,5 +617,14 @@ public class AnnexPattern extends AgePattern {
 		}
 
 		return dialogTitleAndMessage;
+	}
+	
+	/**
+	 * Create the label text
+	 * @param annexName the name of the AnnexLibrary or AnnexSubclause
+	 * @return the label text
+	 */
+	private static String getLabelText(String annexName) {
+		return annexLabelStartBracket + annexName + annexLabelEndBracket;
 	}
 }

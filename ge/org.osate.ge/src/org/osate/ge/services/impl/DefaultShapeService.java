@@ -80,6 +80,31 @@ public class DefaultShapeService implements ShapeService {
 	}
 		
 	@Override
+	public Shape getDescendantShapeByReference(final ContainerShape shape, final Object bo) {
+		final String searchRef = refService.getReference(bo);
+		if(searchRef == null) {
+			return null;
+		}
+		
+		return getDescendantShapeByReferenceString(shape, searchRef);
+	}
+	
+	private Shape getDescendantShapeByReferenceString(final ContainerShape shape, final String searchRef) {
+		for(final Shape c : shape.getChildren()) {
+			Object bo = bor.getBusinessObjectForPictogramElement(c);
+			if(bo == null && c instanceof ContainerShape) {
+				final Shape recResult = getDescendantShapeByReferenceString((ContainerShape)c, searchRef);
+				if(recResult != null) {
+					return recResult;
+				}
+			} else if(searchRef.equals(refService.getReference(bo))) {
+				return c;
+			}
+		}
+		return null;
+	}
+	
+	@Override
 	public Shape getDescendantShapeByElementQualifiedName(final ContainerShape shape, final NamedElement el) {
 		for(final Shape c : shape.getChildren()) {
 			final Object childBo = bor.getBusinessObjectForPictogramElement(c);			

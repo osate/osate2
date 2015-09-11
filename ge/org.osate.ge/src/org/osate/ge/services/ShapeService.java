@@ -41,6 +41,15 @@ public interface ShapeService {
 			NamedElement el);
 
 	/**
+	 * Gets a descendant shape tied to a particular business object. The business object comparison is done using serializable references
+	 * Does not look at children if the child shape is associated with another object.
+	 * @param shape
+	 * @param el
+	 * @return
+	 */
+	Shape getDescendantShapeByReference(final ContainerShape shape, final Object bo);
+	
+	/**
 	 * Gets a descendant shape that is linked to a an AADL element with the same qualified same as the specified element. Does not look at children if the child shape is associated with another object.
 	 * @param shape
 	 * @param el

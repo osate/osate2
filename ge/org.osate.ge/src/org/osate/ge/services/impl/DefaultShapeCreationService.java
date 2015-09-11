@@ -123,7 +123,7 @@ public class DefaultShapeCreationService implements ShapeCreationService {
 			return null;
 		}
 			
-		Shape newShape = (ContainerShape)shapeService.getDescendantShapeByElementQualifiedName(container, el);
+		Shape newShape = (ContainerShape)shapeService.getDescendantShapeByReference(container, el);
 
 		// If the update feature hasn't been called, add the shape to the diagram. This is preferred rather than waiting because otherwise the container
 		// will be resized based on the original location for the shape.
@@ -139,7 +139,7 @@ public class DefaultShapeCreationService implements ShapeCreationService {
 			}
 
 			// Try to find the shape again
-			newShape = shapeService.getDescendantShapeByElementQualifiedName(container, el);			
+			newShape = shapeService.getDescendantShapeByReference(container, el);			
 		}
 			
 		if(newShape != null) {
