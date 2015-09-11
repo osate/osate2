@@ -539,19 +539,24 @@ public class FTAUtils {
 		 * to the main event.
 		 */
 		if (subEvents.size() == 1) {
+			return subEvents.get(0);
 
-			if (subEvents.get(0).getEventType() == EventType.NORMAL) {
-				/**
-				 * If the subevent is also a normal event, we directly return
-				 * it and bypass the other one.
-				 */
-				return subEvents.get(0);
-			} else {
-				/**
-				 * In that case, here, we have an event. We add it directly.
-				 */
-				returnedEvent.addSubEvent(subEvents.get(0));
-			}
+			
+			// The following code is commented. When we have only one sub event, it does
+			// not seem to make sense to continue and try to process more events.
+			
+//			if (subEvents.get(0).getEventType() == EventType.NORMAL) {
+//				/**
+//				 * If the subevent is also a normal event, we directly return
+//				 * it and bypass the other one.
+//				 */
+//				return subEvents.get(0);
+//			} else {
+//				/**
+//				 * In that case, here, we have an event. We add it directly.
+//				 */
+//				returnedEvent.addSubEvent(subEvents.get(0));
+//			}
 		}
 
 		/**
