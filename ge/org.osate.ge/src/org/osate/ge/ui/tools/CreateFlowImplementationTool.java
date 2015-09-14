@@ -69,7 +69,7 @@ import org.osate.ge.services.ConnectionService;
 import org.osate.ge.services.ShapeService;
 import org.osate.ge.services.UiService;
 import org.osate.ge.services.AadlModificationService.AbstractModifier;
-import org.osate.ge.ui.util.ToolsDialogPlacementHelper;
+import org.osate.ge.ui.util.DialogPlacementHelper;
 
 public class CreateFlowImplementationTool {
 	private ColoringService.Coloring coloring = null;
@@ -661,7 +661,7 @@ public class CreateFlowImplementationTool {
 		protected void configureShell(final Shell newShell) {
 			super.configureShell(newShell);
 			newShell.setText("Create Flow Implementation");
-			newShell.setLocation(ToolsDialogPlacementHelper.getOffsetRectangleLocation(Display.getCurrent().getActiveShell().getBounds(), 50, 50));
+			newShell.setLocation(DialogPlacementHelper.getOffsetRectangleLocation(Display.getCurrent().getActiveShell().getBounds(), 50, 50));
 			newShell.setSize(450, 250);
 			newShell.setImage(ICON.createImage());
 		}
