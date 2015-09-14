@@ -5,13 +5,13 @@ import org.eclipse.swt.graphics.Rectangle;
 
 public class ToolsDialogPlacementHelper {
 	/**
-	 * Sets a dialog's location relative to the active shell's bounds
-	 * @param activeShellBounds the active shell's bounds
+	 * Calculates the offset point relative to the top left of a specified rectangle.
+	 * @param rect to be offset
 	 * @param xOffset the amount to offset the x coordinate 
 	 * @param yOffset the amount to offset the y coordinate
-	 * @return the new point to place the dialog
+	 * @return the new point to place the rectangle
 	 */
-	public static Point getOffsetDialogLocation(final Rectangle activeShellBounds, final int xOffset, final int yOffset) {
-		return new Point(activeShellBounds.x + xOffset, activeShellBounds.y + yOffset);
+	public static Point getOffsetRectangleLocation(final Rectangle rect, final int xOffset, final int yOffset) {
+		return new Point(rect.x + xOffset, rect.y + yOffset);
 	}
 }

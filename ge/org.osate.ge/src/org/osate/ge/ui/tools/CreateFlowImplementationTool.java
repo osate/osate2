@@ -661,7 +661,7 @@ public class CreateFlowImplementationTool {
 		protected void configureShell(final Shell newShell) {
 			super.configureShell(newShell);
 			newShell.setText("Create Flow Implementation");
-			newShell.setLocation(ToolsDialogPlacementHelper.getOffsetDialogLocation(Display.getCurrent().getActiveShell().getBounds(), 50, 50));
+			newShell.setLocation(ToolsDialogPlacementHelper.getOffsetRectangleLocation(Display.getCurrent().getActiveShell().getBounds(), 50, 50));
 			newShell.setSize(450, 250);
 			newShell.setImage(ICON.createImage());
 		}
