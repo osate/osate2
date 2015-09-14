@@ -71,6 +71,7 @@ import org.osate.aadl2.NamedElement;
 import org.osate.aadl2.RefinableElement;
 import org.osate.aadl2.Subcomponent;
 import org.osate.ge.ui.tools.CreateEndToEndFlowTool;
+import org.osate.ge.ui.util.DialogPlacementHelper;
 
 public class CreateEndToEndFlowTool {
 	private ColoringService.Coloring coloring = null;
@@ -514,7 +515,7 @@ public class CreateEndToEndFlowTool {
 		protected void configureShell(final Shell newShell) {
 			super.configureShell(newShell);
 			newShell.setText("Create End To End Flow");
-			newShell.setLocation(ToolsDialogPlacementHelper.getOffsetDialogLocation(Display.getCurrent().getActiveShell().getBounds(), 50, 50));
+			newShell.setLocation(DialogPlacementHelper.getOffsetRectangleLocation(Display.getCurrent().getActiveShell().getBounds(), 50, 50));
 			newShell.setSize(475, 275);
 			newShell.setImage(ICON.createImage());
 		}
