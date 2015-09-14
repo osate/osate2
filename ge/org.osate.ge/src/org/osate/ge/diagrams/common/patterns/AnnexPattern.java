@@ -12,6 +12,7 @@ import javax.inject.Named;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.util.EcoreUtil;
+import org.eclipse.graphiti.datatypes.IDimension;
 import org.eclipse.graphiti.features.context.IAddContext;
 import org.eclipse.graphiti.features.context.ICreateContext;
 import org.eclipse.graphiti.features.context.IDeleteContext;
@@ -22,6 +23,8 @@ import org.eclipse.graphiti.features.context.IUpdateContext;
 import org.eclipse.graphiti.mm.algorithms.GraphicsAlgorithm;
 import org.eclipse.graphiti.mm.algorithms.Text;
 import org.eclipse.graphiti.mm.algorithms.styles.LineStyle;
+import org.eclipse.graphiti.mm.algorithms.styles.Orientation;
+import org.eclipse.graphiti.mm.algorithms.styles.Style;
 import org.eclipse.graphiti.mm.pictograms.ContainerShape;
 import org.eclipse.graphiti.mm.pictograms.Diagram;
 import org.eclipse.graphiti.mm.pictograms.PictogramElement;
@@ -43,7 +46,6 @@ import org.osate.aadl2.Classifier;
 import org.osate.aadl2.DefaultAnnexLibrary;
 import org.osate.aadl2.DefaultAnnexSubclause;
 import org.osate.aadl2.NamedElement;
-import org.osate.aadl2.Subcomponent;
 import org.osate.ge.diagrams.common.AadlElementWrapper;
 import org.osate.ge.diagrams.common.AgeImageProvider;
 import org.osate.ge.services.AadlModificationService;
@@ -55,6 +57,7 @@ import org.osate.ge.services.LabelService;
 import org.osate.ge.services.LayoutService;
 import org.osate.ge.services.NamingService;
 import org.osate.ge.services.PropertyService;
+import org.osate.ge.services.RefactoringService;
 import org.osate.ge.services.ShapeCreationService;
 import org.osate.ge.services.ShapeService;
 import org.osate.ge.services.UserInputService;
@@ -66,7 +69,7 @@ import org.osate.ge.util.StringUtil;
  */
 public class AnnexPattern extends AgePattern {
 	private final static String annexLabelName = "annex_label";
-	private final static double topOfFolderOffsetValue = 0.1;
+	private final static double topOfFolderOffsetValue = 0.15;
 	private final static double tabStartOffsetValue = 0.05;
 	private final static double topOfTabOffsetValue = 0.3;
 	private static final String annexLabelStartBracket = "{**";
@@ -84,10 +87,11 @@ public class AnnexPattern extends AgePattern {
 	private final NamingService namingService;
 	private final EClass annexType;
 	private final UserInputService userInputService;
+	private final RefactoringService refactoringService;
 
 	@Inject
 	public AnnexPattern(final GhostingService ghostingService, final AnchorService anchorService, final ShapeService shapeService, final LabelService labelService, final UserInputService userInputService, 
-			final LayoutService layoutService, final BusinessObjectResolutionService bor, final PropertyService propertyService, final AadlModificationService aadlModService,
+			final LayoutService layoutService, final BusinessObjectResolutionService bor, final PropertyService propertyService, final AadlModificationService aadlModService, final RefactoringService refactoringService,
 			final DiagramModificationService diagramModService, final ShapeCreationService shapeCreationService, final NamingService namingService, final @Named("Annex Type") EClass annexType) {
 		this.ghostingService = ghostingService;
 		this.anchorService = anchorService;
@@ -102,6 +106,7 @@ public class AnnexPattern extends AgePattern {
 		this.bor = bor;
 		this.annexType = annexType;
 		this.userInputService = userInputService;
+		this.refactoringService = refactoringService;
 	}
 
 	@Override
@@ -217,12 +222,13 @@ public class AnnexPattern extends AgePattern {
 		// Create the container shape for the generic representation
 		final ContainerShape containerShape = peCreateService.createContainerShape(context.getTargetContainer(), true);
 		gaService.createInvisibleRectangle(containerShape);
-		gaService.createText(containerShape.getGraphicsAlgorithm());
+		
+		
 		link(containerShape, new AadlElementWrapper(neNewAnnex));
 
 		// Create Graphics Algorithm
 		createGraphicsAlgorithm(containerShape, context.getX(), context.getY(), getDiagram());
-
+		
 		// Finish creating
 		refresh(containerShape);
 
@@ -242,8 +248,8 @@ public class AnnexPattern extends AgePattern {
 		final GraphicsAlgorithm csGraphicsAlgorithm = containerShape.getGraphicsAlgorithm();
 		final int width = csGraphicsAlgorithm.getWidth();
 		final int height = csGraphicsAlgorithm.getHeight();
-		final GraphicsAlgorithm ga = createFolderShape(containerShape, width, height, diagram);
 		
+		final GraphicsAlgorithm ga = createFolderShape(containerShape, width, height, diagram);
 		gaService.setLocationAndSize(ga, x, y, width, height);
 	}
 
@@ -258,12 +264,28 @@ public class AnnexPattern extends AgePattern {
 	private static GraphicsAlgorithm createFolderShape(final ContainerShape containerShape, final int width, final int height, final Diagram diagram) {
 		final IGaService gaService = Graphiti.getGaService();
 		//Height of tab on folder shape
-		final int heightOfTab = (int)(height*topOfFolderOffsetValue);
+		int heightOfTab = (int)(height*topOfFolderOffsetValue);
 		//Width from left side of shape to top of tab
-		final int tabStartOffset = (int)(width*tabStartOffsetValue);
+		int tabStartOffset = (int)(width*tabStartOffsetValue);
 		//Width of tab
-		final int widthOfTab = (int)(width*topOfTabOffsetValue);
+		int widthOfTab = (int)(width*topOfTabOffsetValue);
 
+		int ratio = getRatio(width, height);
+
+		double multiplier = (double)height/width;
+		System.err.println(multiplier);
+		if(ratio > 4) {
+			heightOfTab = (int) ((double)(height*topOfFolderOffsetValue)*1.3);
+			tabStartOffset = (int) ((double)(width*tabStartOffsetValue)*.5);
+			//Width of tab
+			widthOfTab = (int) ((double)(width*topOfTabOffsetValue)*.5);
+		}
+		
+		System.err.println(heightOfTab + " AAA");
+		System.err.println(tabStartOffset + " BBB");
+		System.err.println(widthOfTab + " CCC");
+		
+		
 		final GraphicsAlgorithm ga = gaService.createPlainPolygon(containerShape, 
 				new int[] {
 				0, height,
@@ -274,9 +296,14 @@ public class AnnexPattern extends AgePattern {
 				width, heightOfTab,
 				width, height});
 		
-		setStyle(ga, diagram, gaService);
+		ga.setStyle(getStyle(diagram, gaService));
 
 		return ga;
+	}
+
+	private static int getRatio(final int width, final int height) {
+		System.err.println(width/height + " w/h");
+		return width/height;
 	}
 
 	/**
@@ -284,15 +311,19 @@ public class AnnexPattern extends AgePattern {
 	 * @param ga the new GraphicsAlgorithm
 	 * @param diagram the current diagram
 	 * @param gaService service for managing GraphicsAlgorithms
+	 * @return 
 	 */
-	private static void setStyle(final GraphicsAlgorithm ga, final Diagram diagram, final IGaService gaService) {
-		ga.setFilled(true);
-		ga.setBackground(gaService.manageColor(diagram, IColorConstant.WHITE));
-		ga.setForeground(gaService.manageColor(diagram, IColorConstant.BLACK));
-		ga.setLineStyle(LineStyle.SOLID);
-		ga.setLineVisible(true);
-		ga.setLineWidth(2);
-		ga.setTransparency(0.0);
+	private static Style getStyle(final Diagram diagram, final IGaService gaService) {
+		final Style style = gaService.createPlainStyle(diagram, "annex");
+		style.setFilled(true);
+		style.setBackground(gaService.manageColor(diagram, IColorConstant.WHITE));
+		style.setForeground(gaService.manageColor(diagram, IColorConstant.BLACK));
+		style.setLineStyle(LineStyle.SOLID);
+		style.setLineVisible(true);
+		style.setLineWidth(2);
+		style.setTransparency(0.0);
+		
+		return style;
 	}
 
 	// Update
@@ -335,21 +366,16 @@ public class AnnexPattern extends AgePattern {
 		anchorService.createOrUpdateChopboxAnchor(shape, chopboxAnchorName);
 	}
 
-	// Layout
 	@Override
 	public boolean canLayout(final ILayoutContext context) {
 		return isMainBusinessObjectApplicable(getBusinessObjectForPictogramElement(context.getPictogramElement())) && context.getPictogramElement() instanceof ContainerShape;
 	}
 
-	//TODO: change annex library name?
 	@Override
 	public boolean canDirectEdit(final IDirectEditingContext context) {
 		final PictogramElement pe = context.getPictogramElement();
         final Object bo = bor.getBusinessObjectForPictogramElement(pe);
-        final GraphicsAlgorithm ga = context.getGraphicsAlgorithm();
-        System.err.println(ga + " ga");
-        if((bo instanceof AnnexLibrary || bo instanceof AnnexSubclause) && ga instanceof Text) {
-        	System.err.println("HERE");
+        if(bo instanceof AnnexLibrary || bo instanceof AnnexSubclause) {
         	return true;
         }
 
@@ -357,14 +383,8 @@ public class AnnexPattern extends AgePattern {
 	}
 	
 	@Override
-	public boolean stretchFieldToFitText() {
-		return true;
-	}
-	
-	@Override
 	 public String getInitialValue(final IDirectEditingContext context) {
 		final String annexName = getAnnexName(((NamedElement)bor.getBusinessObjectForPictogramElement(context.getPictogramElement())));
-	    System.err.println(annexName + " AAA");
 		return annexName;
 	 }
 	
@@ -374,7 +394,8 @@ public class AnnexPattern extends AgePattern {
 
 	@Override
 	public void setValue(final String value, final IDirectEditingContext context) {
-		System.err.println("1BBBB");
+		final NamedElement annex = (NamedElement)bor.getBusinessObjectForPictogramElement(context.getPictogramElement());
+		refactoringService.renameElement(annex, value);
 	}
 	
 	@Override
@@ -384,8 +405,6 @@ public class AnnexPattern extends AgePattern {
 	
     @Override
     public String checkValueValid(final String newAnnexName, final IDirectEditingContext context) {
-    	//return namingService.checkNameValidity((NamedElement)bor.getBusinessObjectForPictogramElement(context.getPictogramElement()), value);
-    	System.err.println(newAnnexName + " newAnnexName BBB");
     	return isValidAnnexName(newAnnexName, namingService) ? newAnnexName : null;
     }
 	
@@ -417,12 +436,15 @@ public class AnnexPattern extends AgePattern {
 		final IGaService gaService = Graphiti.getGaService();
 		final Shape nameShape = Objects.requireNonNull(getNameShape(containerShape), "unable to retrieve name shape");
 		propertyService.setIsUnselectable(nameShape, true);
+		propertyService.setIsManuallyPositioned(nameShape, true);
 		
 		// Determine size of the shape
 		final int[] newSize = layoutService.adjustChildShapePositions(containerShape); 
 
 		final GraphicsAlgorithm nameShapeGraphicsAlgorithm = nameShape.getGraphicsAlgorithm();
-		
+		/*final Text labelText = (Text)nameShape.getGraphicsAlgorithm().getGraphicsAlgorithmChildren().get(0);
+		labelText.setHorizontalAlignment(Orientation.ALIGNMENT_MIDDLE);*/
+
 		// Enforce a minimum size for classifiers
 		newSize[0] = Math.max(Math.max(newSize[0], layoutService.getMinimumWidth()), nameShapeGraphicsAlgorithm.getWidth() + 30);
 		newSize[1] = Math.max(Math.max(newSize[1], layoutService.getMinimumHeight()), nameShapeGraphicsAlgorithm.getHeight() + 30);
@@ -433,13 +455,12 @@ public class AnnexPattern extends AgePattern {
 		// Create new graphics algorithm
 		createGraphicsAlgorithm(containerShape, x, y, getDiagram());
 
-		
 		final int shapeWidth = csGraphicsAlgorithm.getWidth();
 		//Get offset for height of folder tab
 		final int shapeHeight = csGraphicsAlgorithm.getHeight() + (int)(csGraphicsAlgorithm.getHeight()*topOfFolderOffsetValue);
+		
 		// Layout Labels
 		gaService.setLocation(nameShapeGraphicsAlgorithm, (shapeWidth - nameShapeGraphicsAlgorithm.getWidth()) / 2, ((shapeHeight - (nameShapeGraphicsAlgorithm.getHeight()))/2));		
-
 		// Refresh. For some reason if it is not refreshed, some shapes may not be drawn correctly.
 		getFeatureProvider().getDiagramTypeProvider().getDiagramBehavior().refresh();
 

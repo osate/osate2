@@ -116,7 +116,7 @@ public class DefaultAadlModificationService implements AadlModificationService {
 								return null;
 							}
 							
-							if(elementToModify instanceof DefaultAnnexLibrary || elementToModify instanceof DefaultAnnexSubclause) {
+							if(parsedAnnexRoot != null && (elementToModify instanceof DefaultAnnexLibrary || elementToModify instanceof DefaultAnnexSubclause)) {
 								return modifyAnnexInXtextDocument(res, elementToModify, element, modifier);
 							} else {
 								return modifySafely(res, (E)elementToModify, modifier, false);
@@ -345,13 +345,7 @@ public class DefaultAadlModificationService implements AadlModificationService {
 			// Disabled checking for resource errors because that includes errors that will occur in normal operations(unless refactoring/chain deleting/modification is implemented)
 			if(!modificationSuccessful || (/*resource.getErrors().size() > 0 || */concreteValidationErrors.size() > 0) && domain.getCommandStack().canUndo()) {
 				Log.error("Error. Undoing modification");
-				/*if(resource.getErrors().size() > 0) {
-					Log.error("Errors:");
-					for(final org.eclipse.emf.ecore.resource.Resource.Diagnostic diag : resource.getErrors()) {
-						Log.error(diag.toString());
-					}
-				}
-				*/
+
 				if(concreteValidationErrors.size() > 0) {
 					Log.error("Concrete Syntax Validation Errors:");
 					for(final Diagnostic diag : concreteValidationErrors) {
