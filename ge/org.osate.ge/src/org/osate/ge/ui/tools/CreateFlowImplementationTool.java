@@ -69,6 +69,7 @@ import org.osate.ge.services.ConnectionService;
 import org.osate.ge.services.ShapeService;
 import org.osate.ge.services.UiService;
 import org.osate.ge.services.AadlModificationService.AbstractModifier;
+import org.osate.ge.ui.util.ToolsDialogPlacementHelper;
 
 public class CreateFlowImplementationTool {
 	private ColoringService.Coloring coloring = null;

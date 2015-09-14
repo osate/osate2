@@ -71,6 +71,7 @@ import org.osate.aadl2.NamedElement;
 import org.osate.aadl2.RefinableElement;
 import org.osate.aadl2.Subcomponent;
 import org.osate.ge.ui.tools.CreateEndToEndFlowTool;
+import org.osate.ge.ui.util.ToolsDialogPlacementHelper;
 
 public class CreateEndToEndFlowTool {
 	private ColoringService.Coloring coloring = null;
