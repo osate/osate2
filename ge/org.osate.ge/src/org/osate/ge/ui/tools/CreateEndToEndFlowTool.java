@@ -4,7 +4,9 @@ import java.awt.Color;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Collections;
+
 import javax.inject.Named;
+
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.emf.transaction.TransactionalEditingDomain;
@@ -108,7 +110,8 @@ public class CreateEndToEndFlowTool {
 		if (ci != null) {
 			canActivate = false;
 			clearSelection(dtp);
-			createEndToEndFlowDialog = new CreateFlowsToolsDialog(Display.getCurrent().getActiveShell(), namingService);
+			final Display display = Display.getCurrent();
+			createEndToEndFlowDialog = new CreateFlowsToolsDialog(display.getActiveShell(), namingService);
 			if (createEndToEndFlowDialog.open() == Dialog.CANCEL) {
 				uiService.deactivateActiveTool();
 				canActivate = true;
@@ -244,7 +247,6 @@ public class CreateEndToEndFlowTool {
 		final List<String> segmentList = new ArrayList<String>();
 		final List<String> modeList = new ArrayList<String>();
 		private final EndToEndFlow eTEFlow = (EndToEndFlow) pkg.getEFactoryInstance().create(pkg.getEndToEndFlow());
-
 		public CreateFlowsToolsDialog(final Shell parentShell, final NamingService namingService) {
 			super(parentShell);
 			this.setHelpAvailable(false);
@@ -512,6 +514,7 @@ public class CreateEndToEndFlowTool {
 		protected void configureShell(final Shell newShell) {
 			super.configureShell(newShell);
 			newShell.setText("Create End To End Flow");
+			newShell.setLocation(ToolsDialogPlacementHelper.getOffsetDialogLocation(Display.getCurrent().getActiveShell().getBounds(), 50, 50));
 			newShell.setSize(475, 275);
 			newShell.setImage(ICON.createImage());
 		}
