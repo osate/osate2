@@ -271,15 +271,19 @@ public class AnnexPattern extends AgePattern {
 		int widthOfTab = (int)(width*topOfTabOffsetValue);
 
 		int ratio = getRatio(width, height);
-
-		double multiplier = (double)height/width;
-		System.err.println(multiplier);
 		if(ratio > 4) {
 			heightOfTab = (int) ((double)(height*topOfFolderOffsetValue)*1.3);
-			tabStartOffset = (int) ((double)(width*tabStartOffsetValue)*.5);
+			tabStartOffset = (int) ((double)(width*tabStartOffsetValue)*.75);
 			//Width of tab
-			widthOfTab = (int) ((double)(width*topOfTabOffsetValue)*.5);
+			widthOfTab = (int) ((double)(width*topOfTabOffsetValue)*.75);
+		} else if(getRatio(height, width) > 0) {
+			heightOfTab = (int) ((double)(height*topOfFolderOffsetValue)*.40);
+			tabStartOffset = (int) ((double)(width*tabStartOffsetValue)*1.3);
+			//Width of tab
+			widthOfTab = (int) ((double)(width*topOfTabOffsetValue)*1.3);
 		}
+		
+		System.err.println(getRatio(height, width) + " RATION");
 		
 		System.err.println(heightOfTab + " AAA");
 		System.err.println(tabStartOffset + " BBB");
@@ -302,6 +306,9 @@ public class AnnexPattern extends AgePattern {
 	}
 
 	private static int getRatio(final int width, final int height) {
+		if(height == 0 || width == 0) {
+			return 0;
+		}
 		System.err.println(width/height + " w/h");
 		return width/height;
 	}
