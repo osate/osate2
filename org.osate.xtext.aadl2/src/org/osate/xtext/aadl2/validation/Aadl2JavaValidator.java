@@ -44,9 +44,12 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
+import java.util.Optional;
 import java.util.Set;
 import java.util.SortedMap;
 import java.util.TreeMap;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 import org.eclipse.emf.common.util.BasicEList;
 import org.eclipse.emf.common.util.EList;
@@ -74,6 +77,7 @@ import org.eclipse.xtext.validation.CheckType;
 import org.eclipse.xtext.xbase.lib.StringExtensions;
 import org.osate.aadl2.*;
 import org.osate.aadl2.modelsupport.util.AadlUtil;
+import org.osate.aadl2.properties.PropertyIsModalException;
 import org.osate.aadl2.properties.PropertyLookupException;
 import org.osate.aadl2.properties.PropertyNotPresentException;
 import org.osate.aadl2.util.Aadl2Util;
@@ -277,6 +281,7 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 	@Check(CheckType.FAST)
 	public void caseDataImplementation(DataImplementation dataImplementation) {
 		checkForInheritedFlowsAndModesFromAbstractImplementation(dataImplementation);
+		checkDataSizeProperty(dataImplementation);
 	}
 
 	@Check(CheckType.FAST)
@@ -3552,6 +3557,126 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 		if (parentHasModeTransition) {
 			error(dataImplementation.getOwnedExtension(),
 					"A data implementation cannot extend an abstract implementation that contains a mode transition.");
+		}
+	}
+	
+	private void checkDataSizeProperty(DataImplementation dataImplementation) {
+		Property dataSizeProperty = GetProperties.lookupPropertyDefinition(dataImplementation, MemoryProperties._NAME, MemoryProperties.SOURCE_DATA_SIZE);
+		try {
+			LongWithUnits implementationSize = new LongWithUnits((IntegerLiteral)PropertyUtils.getSimplePropertyValue(dataImplementation, dataSizeProperty));
+			List<Optional<LongWithUnits>> subcomponentSizes = getSizesForSubcomponents(dataImplementation, dataSizeProperty).collect(Collectors.toList());
+			Optional<LongWithUnits> optionalSum = subcomponentSizes.stream().filter(subcomponentSize -> subcomponentSize.isPresent()).map(subcomponentSize -> subcomponentSize.get()).reduce((a, b) -> a.add(b));
+			if (optionalSum.isPresent()) {
+				LongWithUnits sum = optionalSum.get();
+				if (subcomponentSizes.stream().anyMatch(subcomponentSize -> !subcomponentSize.isPresent())) {
+					if (sum.isGreaterThan(implementationSize)) {
+						error("Data size of \"" + dataImplementation.getName() + "\" (" + implementationSize + ") is smaller than the sum of its subcomponents (" + sum +").",
+								dataImplementation, Aadl2Package.eINSTANCE.getNamedElement_Name());
+					}
+				} else if (!implementationSize.equals(sum)) {
+					error("Data size of \"" + dataImplementation.getName() + "\" (" + implementationSize + ") does not match the sum of its subcomponents (" + sum + ").",
+							dataImplementation, Aadl2Package.eINSTANCE.getNamedElement_Name());
+				}
+			}
+		} catch (PropertyIsModalException | PropertyNotPresentException e) {
+			//Do not report any errors in this case.
+		}
+	}
+	
+	private static Stream<Optional<LongWithUnits>> getSizesForSubcomponents(DataImplementation dataImplementation, Property dataSizeProperty) {
+		return dataImplementation.getAllSubcomponents().stream().filter(subcomponent -> subcomponent instanceof DataSubcomponent).flatMap(dataSubcomponent -> {
+			try {
+				return Stream.of(Optional.of(new LongWithUnits((IntegerLiteral)PropertyUtils.getSimplePropertyValue(dataSubcomponent, dataSizeProperty))));
+			} catch (PropertyNotPresentException e) {
+				ComponentImplementation subcomponentClassifier = dataSubcomponent.getComponentImplementation();
+				if (subcomponentClassifier instanceof DataImplementation) {
+					return getSizesForSubcomponents((DataImplementation)subcomponentClassifier, dataSizeProperty);
+				} else {
+					return Stream.of(Optional.empty());
+				}
+			}
+		});
+	}
+	
+	private static class LongWithUnits {
+		private final long value;
+		private final UnitLiteral unit;
+		
+		public LongWithUnits(IntegerLiteral integerLiteral) {
+			value = integerLiteral.getValue();
+			unit = integerLiteral.getUnit();
+		}
+		
+		private LongWithUnits(long value, UnitLiteral unit) {
+			this.value = value;
+			this.unit = unit;
+		}
+		
+		public LongWithUnits add(LongWithUnits other) {
+			if (unit == other.unit) {
+				return new LongWithUnits(value + other.value, unit);
+			} else {
+				UnitLiteral targetUnit = getTargetUnit(unit, other.unit);
+				LongWithUnits thisConverted = convertTo(targetUnit);
+				LongWithUnits otherConverted = other.convertTo(targetUnit);
+				return new LongWithUnits(thisConverted.value + otherConverted.value, targetUnit);
+			}
+		}
+		
+		public boolean isGreaterThan(LongWithUnits other) {
+			if (unit == other.unit) {
+				return value > other.value;
+			} else {
+				UnitLiteral targetUnit = getTargetUnit(unit, other.unit);
+				LongWithUnits thisConverted = convertTo(targetUnit);
+				LongWithUnits otherConverted = other.convertTo(targetUnit);
+				return thisConverted.value > otherConverted.value;
+			}
+		}
+		
+		@Override
+		public boolean equals(Object obj) {
+			if (obj instanceof LongWithUnits) {
+				LongWithUnits other = (LongWithUnits)obj;
+				if (unit == other.unit) {
+					return value == other.value;
+				} else {
+					UnitLiteral targetUnit = getTargetUnit(unit, other.unit);
+					LongWithUnits thisConverted = convertTo(targetUnit);
+					LongWithUnits otherConverted = other.convertTo(targetUnit);
+					return thisConverted.value == otherConverted.value;
+				}
+			} else {
+				return false;
+			}
+		}
+		
+		@Override
+		public String toString() {
+			return value + " " + unit.getName();
+		}
+		
+		private static UnitLiteral getTargetUnit(UnitLiteral a, UnitLiteral b) {
+			final EList<EnumerationLiteral> unitLiterals = ((UnitsType)a.getOwner()).getOwnedLiterals();
+			if (unitLiterals.indexOf(a) < unitLiterals.indexOf(b)) {
+				return a;
+			} else {
+				return b;
+			}
+		}
+		
+		private LongWithUnits convertTo(UnitLiteral targetUnit) {
+			if (unit == targetUnit) {
+				return this;
+			} else {
+				long currentValue = value;
+				UnitLiteral currentUnit = unit;
+				while (currentUnit != targetUnit) {
+					currentValue = currentValue * ((IntegerLiteral)currentUnit.getFactor()).getValue();
+					currentUnit = currentUnit.getBaseUnit();
+				}
+				return new LongWithUnits(currentValue, currentUnit);
+			}
 		}
 	}
 

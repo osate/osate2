@@ -720,7 +720,7 @@ class FeaturesAndSubcomponentsTest extends OsateTest {
 				ownedDataPorts.head => [
 					"dport1".assertEquals(name)
 					//Tests scope_DataPort_dataFeatureClassifier
-					assertScope(Aadl2Package::eINSTANCE.dataPort_DataFeatureClassifier, false, #["a1", "a1.i", "a3", "a3.i", "a5", "aproto1", "container",
+					assertScope(Aadl2Package::eINSTANCE.dataPort_DataFeatureClassifier, #["a1", "a1.i", "a3", "a3.i", "a5", "aproto1", "container",
 						"container.i", "d1", "d1.i", "d3", "d3.i", "d5", "dproto1", "ra", "rd", "pack1::a1", "pack1::a1.i", "pack1::container",
 						"pack1::container.i", "pack1::d1", "pack1::d1.i", "pack2::a2", "pack2::a2.i", "pack2::d2", "pack2::d2.i", "pack3::a3", "pack3::a3.i",
 						"pack3::d3", "pack3::d3.i", "pack4::a4", "pack4::a4.i", "pack4::d4", "pack4::d4.i", "pack5::a5", "pack5::a5.i", "pack5::a6",
@@ -730,7 +730,7 @@ class FeaturesAndSubcomponentsTest extends OsateTest {
 				ownedEventDataPorts.head => [
 					"edport1".assertEquals(name)
 					//Tests scope_EventDataPort_dataFeatureClassifier
-					assertScope(Aadl2Package::eINSTANCE.eventDataPort_DataFeatureClassifier, false, #["a1", "a1.i", "a3", "a3.i", "a5", "aproto1", "container",
+					assertScope(Aadl2Package::eINSTANCE.eventDataPort_DataFeatureClassifier, #["a1", "a1.i", "a3", "a3.i", "a5", "aproto1", "container",
 						"container.i", "d1", "d1.i", "d3", "d3.i", "d5", "dproto1", "ra", "rd", "pack1::a1", "pack1::a1.i", "pack1::container",
 						"pack1::container.i", "pack1::d1", "pack1::d1.i", "pack2::a2", "pack2::a2.i", "pack2::d2", "pack2::d2.i", "pack3::a3", "pack3::a3.i",
 						"pack3::d3", "pack3::d3.i", "pack4::a4", "pack4::a4.i", "pack4::d4", "pack4::d4.i", "pack5::a5", "pack5::a5.i", "pack5::a6",
@@ -740,7 +740,7 @@ class FeaturesAndSubcomponentsTest extends OsateTest {
 				ownedFeatureGroups.head => [
 					"fg1".assertEquals(name)
 					//Tests scope_FeatureGroup_featureType
-					assertScope(Aadl2Package::eINSTANCE.featureGroup_FeatureType, false, #["fgproto1", "fgt1", "fgt3", "fgt5", "fgtcontainer", "rfgt",
+					assertScope(Aadl2Package::eINSTANCE.featureGroup_FeatureType, #["fgproto1", "fgt1", "fgt3", "fgt5", "fgtcontainer", "rfgt",
 						"pack1::fgt1", "pack1::fgtcontainer", "pack2::fgt2", "pack3::fgt3", "pack4::fgt4", "pack5::fgt5", "pack5::fgt6",
 						"renamed_package::fgt4"
 					])
@@ -748,7 +748,7 @@ class FeaturesAndSubcomponentsTest extends OsateTest {
 				ownedSubprogramAccesses.head => [
 					"suba1".assertEquals(name)
 					//Tests scope_SubprogramAccess_subprogramFeatureClassifier
-					assertScope(Aadl2Package::eINSTANCE.subprogramAccess_SubprogramFeatureClassifier, false, #["a1", "a1.i", "a3", "a3.i", "a5", "aproto1",
+					assertScope(Aadl2Package::eINSTANCE.subprogramAccess_SubprogramFeatureClassifier, #["a1", "a1.i", "a3", "a3.i", "a5", "aproto1",
 						"container", "container.i", "ra", "rsub", "sub1", "sub1.i", "sub3", "sub3.i", "sub5", "subcontainer", "subproto1", "pack1::a1",
 						"pack1::a1.i", "pack1::container", "pack1::container.i", "pack1::sub1", "pack1::sub1.i", "pack1::subcontainer", "pack2::a2",
 						"pack2::a2.i", "pack2::sub2", "pack2::sub2.i", "pack3::a3", "pack3::a3.i", "pack3::sub3", "pack3::sub3.i", "pack4::a4", "pack4::a4.i",
@@ -759,7 +759,7 @@ class FeaturesAndSubcomponentsTest extends OsateTest {
 				ownedSubprogramGroupAccesses.head => [
 					"subga1".assertEquals(name)
 					//Tests scope_SubprogramGroupAccess_subprogramGroupFeatureClassifier
-					assertScope(Aadl2Package::eINSTANCE.subprogramGroupAccess_SubprogramGroupFeatureClassifier, false, #["a1", "a1.i", "a3", "a3.i", "a5",
+					assertScope(Aadl2Package::eINSTANCE.subprogramGroupAccess_SubprogramGroupFeatureClassifier, #["a1", "a1.i", "a3", "a3.i", "a5",
 						"aproto1", "container", "container.i", "ra", "rsubg", "subg1", "subg1.i", "subg3", "subg3.i", "subg5", "subgproto1", "pack1::a1",
 						"pack1::a1.i", "pack1::container", "pack1::container.i", "pack1::subg1", "pack1::subg1.i", "pack2::a2", "pack2::a2.i", "pack2::subg2",
 						"pack2::subg2.i", "pack3::a3", "pack3::a3.i", "pack3::subg3", "pack3::subg3.i", "pack4::a4", "pack4::a4.i", "pack4::subg4",
@@ -770,7 +770,7 @@ class FeaturesAndSubcomponentsTest extends OsateTest {
 				ownedBusAccesses.head => [
 					"ba1".assertEquals(name)
 					//Tests scope_BusAccess_busFeatureClassifier
-					assertScope(Aadl2Package::eINSTANCE.busAccess_BusFeatureClassifier, false, #["a1", "a1.i", "a3", "a3.i", "a5", "aproto1", "b1", "b1.i",
+					assertScope(Aadl2Package::eINSTANCE.busAccess_BusFeatureClassifier, #["a1", "a1.i", "a3", "a3.i", "a5", "aproto1", "b1", "b1.i",
 						"b3", "b3.i", "b5", "bproto1", "container", "container.i", "ra", "rb", "pack1::a1", "pack1::a1.i", "pack1::b1", "pack1::b1.i",
 						"pack1::container", "pack1::container.i", "pack2::a2", "pack2::a2.i", "pack2::b2", "pack2::b2.i", "pack3::a3", "pack3::a3.i",
 						"pack3::b3", "pack3::b3.i", "pack4::a4", "pack4::a4.i", "pack4::b4", "pack4::b4.i", "pack5::a5", "pack5::a5.i", "pack5::a6",
@@ -780,7 +780,7 @@ class FeaturesAndSubcomponentsTest extends OsateTest {
 				ownedDataAccesses.head => [
 					"da1".assertEquals(name)
 					//Tests scope_DataAccess_dataFeatureClassifier
-					assertScope(Aadl2Package::eINSTANCE.dataAccess_DataFeatureClassifier, false, #["a1", "a1.i", "a3", "a3.i", "a5", "aproto1", "container",
+					assertScope(Aadl2Package::eINSTANCE.dataAccess_DataFeatureClassifier, #["a1", "a1.i", "a3", "a3.i", "a5", "aproto1", "container",
 						"container.i", "d1", "d1.i", "d3", "d3.i", "d5", "dproto1", "ra", "rd", "pack1::a1", "pack1::a1.i", "pack1::container",
 						"pack1::container.i", "pack1::d1", "pack1::d1.i", "pack2::a2", "pack2::a2.i", "pack2::d2", "pack2::d2.i", "pack3::a3", "pack3::a3.i",
 						"pack3::d3", "pack3::d3.i", "pack4::a4", "pack4::a4.i", "pack4::d4", "pack4::d4.i", "pack5::a5", "pack5::a5.i", "pack5::a6",
@@ -790,7 +790,7 @@ class FeaturesAndSubcomponentsTest extends OsateTest {
 				ownedAbstractFeatures.head => [
 					"af1".assertEquals(name)
 					//Tests scope_AbstractFeature_featurePrototype
-					assertScope(Aadl2Package::eINSTANCE.abstractFeature_FeaturePrototype, false, #["fproto1"])
+					assertScope(Aadl2Package::eINSTANCE.abstractFeature_FeaturePrototype, #["fproto1"])
 				]
 			]
 			publicSection.ownedClassifiers.get(1) as AbstractImplementation => [
@@ -798,7 +798,7 @@ class FeaturesAndSubcomponentsTest extends OsateTest {
 				ownedAbstractSubcomponents.head => [
 					"asub".assertEquals(name)
 					//Tests scope_AbstractSubcomponent_abstractSubcomponentType
-					assertScope(Aadl2Package::eINSTANCE.abstractSubcomponent_AbstractSubcomponentType, false, #["a1", "a1.i", "a3", "a3.i", "a5", "aproto1",
+					assertScope(Aadl2Package::eINSTANCE.abstractSubcomponent_AbstractSubcomponentType, #["a1", "a1.i", "a3", "a3.i", "a5", "aproto1",
 						"container", "container.i", "ra", "pack1::a1", "pack1::a1.i", "pack1::container", "pack1::container.i", "pack2::a2", "pack2::a2.i",
 						"pack3::a3", "pack3::a3.i", "pack4::a4", "pack4::a4.i", "pack5::a5", "pack5::a5.i", "pack5::a6", "renamed_package::a4",
 						"renamed_package::a4.i"
@@ -807,7 +807,7 @@ class FeaturesAndSubcomponentsTest extends OsateTest {
 				ownedSystemSubcomponents.head => [
 					"ssub".assertEquals(name)
 					//Tests scope_SystemSubcomponent_systemSubcomponentType
-					assertScope(Aadl2Package::eINSTANCE.systemSubcomponent_SystemSubcomponentType, false, #["a1", "a1.i", "a3", "a3.i", "a5", "aproto1",
+					assertScope(Aadl2Package::eINSTANCE.systemSubcomponent_SystemSubcomponentType, #["a1", "a1.i", "a3", "a3.i", "a5", "aproto1",
 						"container", "container.i", "ra", "rs", "s1", "s1.i", "s3", "s3.i", "s5", "sproto1", "pack1::a1", "pack1::a1.i", "pack1::container",
 						"pack1::container.i", "pack1::s1", "pack1::s1.i", "pack2::a2", "pack2::a2.i", "pack2::s2", "pack2::s2.i", "pack3::a3", "pack3::a3.i",
 						"pack3::s3", "pack3::s3.i", "pack4::a4", "pack4::a4.i", "pack4::s4", "pack4::s4.i", "pack5::a5", "pack5::a5.i", "pack5::a6",
@@ -817,7 +817,7 @@ class FeaturesAndSubcomponentsTest extends OsateTest {
 				ownedProcessSubcomponents.head => [
 					"psub".assertEquals(name)
 					//Tests scope_ProcessSubcomponent_processSubcomponentType
-					assertScope(Aadl2Package::eINSTANCE.processSubcomponent_ProcessSubcomponentType, false, #["a1", "a1.i", "a3", "a3.i", "a5", "aproto1",
+					assertScope(Aadl2Package::eINSTANCE.processSubcomponent_ProcessSubcomponentType, #["a1", "a1.i", "a3", "a3.i", "a5", "aproto1",
 						"container", "container.i", "p1", "p1.i", "p3", "p3.i", "p5", "pproto1", "ra", "rp", "pack1::a1", "pack1::a1.i", "pack1::container",
 						"pack1::container.i", "pack1::p1", "pack1::p1.i", "pack2::a2", "pack2::a2.i", "pack2::p2", "pack2::p2.i", "pack3::a3", "pack3::a3.i",
 						"pack3::p3", "pack3::p3.i", "pack4::a4", "pack4::a4.i", "pack4::p4", "pack4::p4.i", "pack5::a5", "pack5::a5.i", "pack5::a6",
@@ -827,7 +827,7 @@ class FeaturesAndSubcomponentsTest extends OsateTest {
 				ownedThreadGroupSubcomponents.head => [
 					"tgsub".assertEquals(name)
 					//Tests scope_ThreadGroupSubcomponent_threadGroupSubcomponentType
-					assertScope(Aadl2Package::eINSTANCE.threadGroupSubcomponent_ThreadGroupSubcomponentType, false, #["a1", "a1.i", "a3", "a3.i", "a5",
+					assertScope(Aadl2Package::eINSTANCE.threadGroupSubcomponent_ThreadGroupSubcomponentType, #["a1", "a1.i", "a3", "a3.i", "a5",
 						"aproto1", "container", "container.i", "ra", "rtg", "tg1", "tg1.i", "tg3", "tg3.i", "tg5", "tgproto1", "pack1::a1", "pack1::a1.i",
 						"pack1::container", "pack1::container.i", "pack1::tg1", "pack1::tg1.i", "pack2::a2", "pack2::a2.i", "pack2::tg2", "pack2::tg2.i",
 						"pack3::a3", "pack3::a3.i", "pack3::tg3", "pack3::tg3.i", "pack4::a4", "pack4::a4.i", "pack4::tg4", "pack4::tg4.i", "pack5::a5",
@@ -838,7 +838,7 @@ class FeaturesAndSubcomponentsTest extends OsateTest {
 				ownedThreadSubcomponents.head => [
 					"tsub".assertEquals(name)
 					//Tests scope_ThreadSubcomponent_threadSubcomponentType
-					assertScope(Aadl2Package::eINSTANCE.threadSubcomponent_ThreadSubcomponentType, false, #["a1", "a1.i", "a3", "a3.i", "a5", "aproto1",
+					assertScope(Aadl2Package::eINSTANCE.threadSubcomponent_ThreadSubcomponentType, #["a1", "a1.i", "a3", "a3.i", "a5", "aproto1",
 						"container", "container.i", "ra", "rt", "t1", "t1.i", "t3", "t3.i", "t5", "tproto1", "pack1::a1", "pack1::a1.i", "pack1::container",
 						"pack1::container.i", "pack1::t1", "pack1::t1.i", "pack2::a2", "pack2::a2.i", "pack2::t2", "pack2::t2.i", "pack3::a3", "pack3::a3.i",
 						"pack3::t3", "pack3::t3.i", "pack4::a4", "pack4::a4.i", "pack4::t4", "pack4::t4.i", "pack5::a5", "pack5::a5.i", "pack5::a6",
@@ -848,7 +848,7 @@ class FeaturesAndSubcomponentsTest extends OsateTest {
 				ownedSubprogramSubcomponents.head => [
 					"subsub".assertEquals(name)
 					//Tests scope_SubprogramSubcomponent_subprogramSubcomponentType
-					assertScope(Aadl2Package::eINSTANCE.subprogramSubcomponent_SubprogramSubcomponentType, false, #["a1", "a1.i", "a3", "a3.i", "a5",
+					assertScope(Aadl2Package::eINSTANCE.subprogramSubcomponent_SubprogramSubcomponentType, #["a1", "a1.i", "a3", "a3.i", "a5",
 						"aproto1", "container", "container.i", "ra", "rsub", "sub1", "sub1.i", "sub3", "sub3.i", "sub5", "subcontainer", "subproto1",
 						"pack1::a1", "pack1::a1.i", "pack1::container", "pack1::container.i", "pack1::sub1", "pack1::sub1.i", "pack1::subcontainer",
 						"pack2::a2", "pack2::a2.i", "pack2::sub2", "pack2::sub2.i", "pack3::a3", "pack3::a3.i", "pack3::sub3", "pack3::sub3.i", "pack4::a4",
@@ -859,7 +859,7 @@ class FeaturesAndSubcomponentsTest extends OsateTest {
 				ownedSubprogramGroupSubcomponents.head => [
 					"subgsub".assertEquals(name)
 					//Tests scope_SubprogramGroupSubcomponent_subprogramGroupSubcomponentType
-					assertScope(Aadl2Package::eINSTANCE.subprogramGroupSubcomponent_SubprogramGroupSubcomponentType, false, #["a1", "a1.i", "a3", "a3.i", "a5",
+					assertScope(Aadl2Package::eINSTANCE.subprogramGroupSubcomponent_SubprogramGroupSubcomponentType, #["a1", "a1.i", "a3", "a3.i", "a5",
 						"aproto1", "container", "container.i", "ra", "rsubg", "subg1", "subg1.i", "subg3", "subg3.i", "subg5", "subgproto1", "pack1::a1",
 						"pack1::a1.i", "pack1::container", "pack1::container.i", "pack1::subg1", "pack1::subg1.i", "pack2::a2", "pack2::a2.i", "pack2::subg2",
 						"pack2::subg2.i", "pack3::a3", "pack3::a3.i", "pack3::subg3", "pack3::subg3.i", "pack4::a4", "pack4::a4.i", "pack4::subg4",
@@ -870,7 +870,7 @@ class FeaturesAndSubcomponentsTest extends OsateTest {
 				ownedProcessorSubcomponents.head => [
 					"procsub".assertEquals(name)
 					//Tests scope_ProcessorSubcomponent_processorSubcomponentType
-					assertScope(Aadl2Package::eINSTANCE.processorSubcomponent_ProcessorSubcomponentType, false, #["a1", "a1.i", "a3", "a3.i", "a5", "aproto1",
+					assertScope(Aadl2Package::eINSTANCE.processorSubcomponent_ProcessorSubcomponentType, #["a1", "a1.i", "a3", "a3.i", "a5", "aproto1",
 						"container", "container.i", "proc1", "proc1.i", "proc3", "proc3.i", "proc5", "procproto1", "ra", "rproc", "pack1::a1", "pack1::a1.i",
 						"pack1::container", "pack1::container.i", "pack1::proc1", "pack1::proc1.i", "pack2::a2", "pack2::a2.i", "pack2::proc2",
 						"pack2::proc2.i", "pack3::a3", "pack3::a3.i", "pack3::proc3", "pack3::proc3.i", "pack4::a4", "pack4::a4.i", "pack4::proc4",
@@ -881,7 +881,7 @@ class FeaturesAndSubcomponentsTest extends OsateTest {
 				ownedVirtualProcessorSubcomponents.head => [
 					"vpsub".assertEquals(name)
 					//Tests scope_VirtualProcessorSubcomponent_virtualProcessorSubcomponentType
-					assertScope(Aadl2Package::eINSTANCE.virtualProcessorSubcomponent_VirtualProcessorSubcomponentType, false, #["a1", "a1.i", "a3", "a3.i",
+					assertScope(Aadl2Package::eINSTANCE.virtualProcessorSubcomponent_VirtualProcessorSubcomponentType, #["a1", "a1.i", "a3", "a3.i",
 						"a5", "aproto1", "container", "container.i", "ra", "rvp", "vp1", "vp1.i", "vp3", "vp3.i", "vp5", "vpproto1", "pack1::a1",
 						"pack1::a1.i", "pack1::container", "pack1::container.i", "pack1::vp1", "pack1::vp1.i", "pack2::a2", "pack2::a2.i", "pack2::vp2",
 						"pack2::vp2.i", "pack3::a3", "pack3::a3.i", "pack3::vp3", "pack3::vp3.i", "pack4::a4", "pack4::a4.i", "pack4::vp4", "pack4::vp4.i",
@@ -892,7 +892,7 @@ class FeaturesAndSubcomponentsTest extends OsateTest {
 				ownedDeviceSubcomponents.head => [
 					"devsub".assertEquals(name)
 					//Tests scope_DeviceSubcomponent_deviceSubcomponentType
-					assertScope(Aadl2Package::eINSTANCE.deviceSubcomponent_DeviceSubcomponentType, false, #["a1", "a1.i", "a3", "a3.i", "a5", "aproto1",
+					assertScope(Aadl2Package::eINSTANCE.deviceSubcomponent_DeviceSubcomponentType, #["a1", "a1.i", "a3", "a3.i", "a5", "aproto1",
 						"container", "container.i", "dev1", "dev1.i", "dev3", "dev3.i", "dev5", "devproto1", "ra", "rdev", "pack1::a1", "pack1::a1.i",
 						"pack1::container", "pack1::container.i", "pack1::dev1", "pack1::dev1.i", "pack2::a2", "pack2::a2.i", "pack2::dev2", "pack2::dev2.i",
 						"pack3::a3", "pack3::a3.i", "pack3::dev3", "pack3::dev3.i", "pack4::a4", "pack4::a4.i", "pack4::dev4", "pack4::dev4.i", "pack5::a5",
@@ -903,7 +903,7 @@ class FeaturesAndSubcomponentsTest extends OsateTest {
 				ownedMemorySubcomponents.head => [
 					"msub".assertEquals(name)
 					//Tests scope_MemorySubcomponent_memorySubcomponentType
-					assertScope(Aadl2Package::eINSTANCE.memorySubcomponent_MemorySubcomponentType, false, #["a1", "a1.i", "a3", "a3.i", "a5", "aproto1",
+					assertScope(Aadl2Package::eINSTANCE.memorySubcomponent_MemorySubcomponentType, #["a1", "a1.i", "a3", "a3.i", "a5", "aproto1",
 						"container", "container.i", "m1", "m1.i", "m3", "m3.i", "m5", "mproto1", "ra", "rm", "pack1::a1", "pack1::a1.i", "pack1::container",
 						"pack1::container.i", "pack1::m1", "pack1::m1.i", "pack2::a2", "pack2::a2.i", "pack2::m2", "pack2::m2.i", "pack3::a3",
 						"pack3::a3.i", "pack3::m3", "pack3::m3.i", "pack4::a4", "pack4::a4.i", "pack4::m4", "pack4::m4.i", "pack5::a5", "pack5::a5.i",
@@ -914,7 +914,7 @@ class FeaturesAndSubcomponentsTest extends OsateTest {
 				ownedBusSubcomponents.head => [
 					"bsub".assertEquals(name)
 					//Tests scope_BusSubcomponent_busSubcomponentType
-					assertScope(Aadl2Package::eINSTANCE.busSubcomponent_BusSubcomponentType, false, #["a1", "a1.i", "a3", "a3.i", "a5", "aproto1", "b1",
+					assertScope(Aadl2Package::eINSTANCE.busSubcomponent_BusSubcomponentType, #["a1", "a1.i", "a3", "a3.i", "a5", "aproto1", "b1",
 						"b1.i", "b3", "b3.i", "b5", "bproto1", "container", "container.i", "ra", "rb", "pack1::a1", "pack1::a1.i", "pack1::b1", "pack1::b1.i",
 						"pack1::container", "pack1::container.i", "pack2::a2", "pack2::a2.i", "pack2::b2", "pack2::b2.i", "pack3::a3", "pack3::a3.i",
 						"pack3::b3", "pack3::b3.i", "pack4::a4", "pack4::a4.i", "pack4::b4", "pack4::b4.i", "pack5::a5", "pack5::a5.i", "pack5::a6",
@@ -924,7 +924,7 @@ class FeaturesAndSubcomponentsTest extends OsateTest {
 				ownedVirtualBusSubcomponents.head => [
 					"vbsub".assertEquals(name)
 					//Tests scope_VirtualBusSubcomponent_virtualBusSubcomponentType
-					assertScope(Aadl2Package::eINSTANCE.virtualBusSubcomponent_VirtualBusSubcomponentType, false, #["a1", "a1.i", "a3", "a3.i", "a5",
+					assertScope(Aadl2Package::eINSTANCE.virtualBusSubcomponent_VirtualBusSubcomponentType, #["a1", "a1.i", "a3", "a3.i", "a5",
 						"aproto1", "container", "container.i", "ra", "rvb", "vb1", "vb1.i", "vb3", "vb3.i", "vb5", "vbproto1", "pack1::a1", "pack1::a1.i",
 						"pack1::container", "pack1::container.i", "pack1::vb1", "pack1::vb1.i", "pack2::a2", "pack2::a2.i", "pack2::vb2", "pack2::vb2.i",
 						"pack3::a3", "pack3::a3.i", "pack3::vb3", "pack3::vb3.i", "pack4::a4", "pack4::a4.i", "pack4::vb4", "pack4::vb4.i", "pack5::a5",
@@ -935,7 +935,7 @@ class FeaturesAndSubcomponentsTest extends OsateTest {
 				ownedDataSubcomponents.head => [
 					"dsub".assertEquals(name)
 					//Tests scope_DataSubcomponent_dataSubcomponentType
-					assertScope(Aadl2Package::eINSTANCE.dataSubcomponent_DataSubcomponentType, false, #["a1", "a1.i", "a3", "a3.i", "a5", "aproto1",
+					assertScope(Aadl2Package::eINSTANCE.dataSubcomponent_DataSubcomponentType, #["a1", "a1.i", "a3", "a3.i", "a5", "aproto1",
 						"container", "container.i", "d1", "d1.i", "d3", "d3.i", "d5", "dproto1", "ra", "rd", "pack1::a1", "pack1::a1.i", "pack1::container",
 						"pack1::container.i", "pack1::d1", "pack1::d1.i", "pack2::a2", "pack2::a2.i", "pack2::d2", "pack2::d2.i", "pack3::a3", "pack3::a3.i",
 						"pack3::d3", "pack3::d3.i", "pack4::a4", "pack4::a4.i", "pack4::d4", "pack4::d4.i", "pack5::a5", "pack5::a5.i", "pack5::a6",
@@ -948,7 +948,7 @@ class FeaturesAndSubcomponentsTest extends OsateTest {
 				ownedParameters.head => [
 					"param1".assertEquals(name)
 					//Tests scope_Parameter_dataFeatureClassifier
-					assertScope(Aadl2Package::eINSTANCE.parameter_DataFeatureClassifier, false, #["a1", "a1.i", "a3", "a3.i", "a5", "aproto2", "container",
+					assertScope(Aadl2Package::eINSTANCE.parameter_DataFeatureClassifier, #["a1", "a1.i", "a3", "a3.i", "a5", "aproto2", "container",
 						"container.i", "d1", "d1.i", "d3", "d3.i", "d5", "dproto2", "ra", "rd", "pack1::a1", "pack1::a1.i", "pack1::container",
 						"pack1::container.i", "pack1::d1", "pack1::d1.i", "pack2::a2", "pack2::a2.i", "pack2::d2", "pack2::d2.i", "pack3::a3", "pack3::a3.i",
 						"pack3::d3", "pack3::d3.i", "pack4::a4", "pack4::a4.i", "pack4::d4", "pack4::d4.i", "pack5::a5", "pack5::a5.i", "pack5::a6",
@@ -961,7 +961,7 @@ class FeaturesAndSubcomponentsTest extends OsateTest {
 				ownedDataPorts.head => [
 					"dport2".assertEquals(name)
 					//Tests scope_DataPort_dataFeatureClassifier
-					assertScope(Aadl2Package::eINSTANCE.dataPort_DataFeatureClassifier, false, #["a1", "a1.i", "a3", "a3.i", "a5", "aproto3", "container",
+					assertScope(Aadl2Package::eINSTANCE.dataPort_DataFeatureClassifier, #["a1", "a1.i", "a3", "a3.i", "a5", "aproto3", "container",
 						"container.i", "d1", "d1.i", "d3", "d3.i", "d5", "dproto3", "ra", "rd", "pack1::a1", "pack1::a1.i", "pack1::container",
 						"pack1::container.i", "pack1::d1", "pack1::d1.i", "pack2::a2", "pack2::a2.i", "pack2::d2", "pack2::d2.i", "pack3::a3", "pack3::a3.i",
 						"pack3::d3", "pack3::d3.i", "pack4::a4", "pack4::a4.i", "pack4::d4", "pack4::d4.i", "pack5::a5", "pack5::a5.i", "pack5::a6",
@@ -971,7 +971,7 @@ class FeaturesAndSubcomponentsTest extends OsateTest {
 				ownedEventDataPorts.head => [
 					"edport2".assertEquals(name)
 					//Tests scope_EventDataPort_dataFeatureClassifier
-					assertScope(Aadl2Package::eINSTANCE.eventDataPort_DataFeatureClassifier, false, #["a1", "a1.i", "a3", "a3.i", "a5", "aproto3", "container",
+					assertScope(Aadl2Package::eINSTANCE.eventDataPort_DataFeatureClassifier, #["a1", "a1.i", "a3", "a3.i", "a5", "aproto3", "container",
 						"container.i", "d1", "d1.i", "d3", "d3.i", "d5", "dproto3", "ra", "rd", "pack1::a1", "pack1::a1.i", "pack1::container",
 						"pack1::container.i", "pack1::d1", "pack1::d1.i", "pack2::a2", "pack2::a2.i", "pack2::d2", "pack2::d2.i", "pack3::a3", "pack3::a3.i",
 						"pack3::d3", "pack3::d3.i", "pack4::a4", "pack4::a4.i", "pack4::d4", "pack4::d4.i", "pack5::a5", "pack5::a5.i", "pack5::a6",
@@ -981,7 +981,7 @@ class FeaturesAndSubcomponentsTest extends OsateTest {
 				ownedFeatureGroups.head => [
 					"fg2".assertEquals(name)
 					//Tests scope_FeatureGroup_featureType
-					assertScope(Aadl2Package::eINSTANCE.featureGroup_FeatureType, false, #["fgproto3", "fgt1", "fgt3", "fgt5", "fgtcontainer", "rfgt",
+					assertScope(Aadl2Package::eINSTANCE.featureGroup_FeatureType, #["fgproto3", "fgt1", "fgt3", "fgt5", "fgtcontainer", "rfgt",
 						"pack1::fgt1", "pack1::fgtcontainer", "pack2::fgt2", "pack3::fgt3", "pack4::fgt4", "pack5::fgt5", "pack5::fgt6",
 						"renamed_package::fgt4"
 					])
@@ -989,7 +989,7 @@ class FeaturesAndSubcomponentsTest extends OsateTest {
 				ownedParameters.head => [
 					"param2".assertEquals(name)
 					//Tests scope_Parameter_dataFeatureClassifier
-					assertScope(Aadl2Package::eINSTANCE.parameter_DataFeatureClassifier, false, #["a1", "a1.i", "a3", "a3.i", "a5", "aproto3", "container",
+					assertScope(Aadl2Package::eINSTANCE.parameter_DataFeatureClassifier, #["a1", "a1.i", "a3", "a3.i", "a5", "aproto3", "container",
 						"container.i", "d1", "d1.i", "d3", "d3.i", "d5", "dproto3", "ra", "rd", "pack1::a1", "pack1::a1.i", "pack1::container",
 						"pack1::container.i", "pack1::d1", "pack1::d1.i", "pack2::a2", "pack2::a2.i", "pack2::d2", "pack2::d2.i", "pack3::a3", "pack3::a3.i",
 						"pack3::d3", "pack3::d3.i", "pack4::a4", "pack4::a4.i", "pack4::d4", "pack4::d4.i", "pack5::a5", "pack5::a5.i", "pack5::a6",
@@ -999,7 +999,7 @@ class FeaturesAndSubcomponentsTest extends OsateTest {
 				ownedSubprogramAccesses.head => [
 					"suba2".assertEquals(name)
 					//Tests scope_SubprogramAccess_subprogramFeatureClassifier
-					assertScope(Aadl2Package::eINSTANCE.subprogramAccess_SubprogramFeatureClassifier, false, #["a1", "a1.i", "a3", "a3.i", "a5", "aproto3",
+					assertScope(Aadl2Package::eINSTANCE.subprogramAccess_SubprogramFeatureClassifier, #["a1", "a1.i", "a3", "a3.i", "a5", "aproto3",
 						"container", "container.i", "ra", "rsub", "sub1", "sub1.i", "sub3", "sub3.i", "sub5", "subcontainer", "subproto3", "pack1::a1",
 						"pack1::a1.i", "pack1::container", "pack1::container.i", "pack1::sub1", "pack1::sub1.i", "pack1::subcontainer", "pack2::a2",
 						"pack2::a2.i", "pack2::sub2", "pack2::sub2.i", "pack3::a3", "pack3::a3.i", "pack3::sub3", "pack3::sub3.i", "pack4::a4", "pack4::a4.i",
@@ -1010,7 +1010,7 @@ class FeaturesAndSubcomponentsTest extends OsateTest {
 				ownedSubprogramGroupAccesses.head => [
 					"subga2".assertEquals(name)
 					//Tests scope_SubprogramGroupAccess_subprogramGroupFeatureClassifier
-					assertScope(Aadl2Package::eINSTANCE.subprogramGroupAccess_SubprogramGroupFeatureClassifier, false, #["a1", "a1.i", "a3", "a3.i", "a5",
+					assertScope(Aadl2Package::eINSTANCE.subprogramGroupAccess_SubprogramGroupFeatureClassifier, #["a1", "a1.i", "a3", "a3.i", "a5",
 						"aproto3", "container", "container.i", "ra", "rsubg", "subg1", "subg1.i", "subg3", "subg3.i", "subg5", "subgproto3", "pack1::a1",
 						"pack1::a1.i", "pack1::container", "pack1::container.i", "pack1::subg1", "pack1::subg1.i", "pack2::a2", "pack2::a2.i", "pack2::subg2",
 						"pack2::subg2.i", "pack3::a3", "pack3::a3.i", "pack3::subg3", "pack3::subg3.i", "pack4::a4", "pack4::a4.i", "pack4::subg4",
@@ -1021,7 +1021,7 @@ class FeaturesAndSubcomponentsTest extends OsateTest {
 				ownedBusAccesses.head => [
 					"ba2".assertEquals(name)
 					//Tests scope_BusAccess_busFeatureClassifier
-					assertScope(Aadl2Package::eINSTANCE.busAccess_BusFeatureClassifier, false, #["a1", "a1.i", "a3", "a3.i", "a5", "aproto3", "b1", "b1.i",
+					assertScope(Aadl2Package::eINSTANCE.busAccess_BusFeatureClassifier, #["a1", "a1.i", "a3", "a3.i", "a5", "aproto3", "b1", "b1.i",
 						"b3", "b3.i", "b5", "bproto3", "container", "container.i", "ra", "rb", "pack1::a1", "pack1::a1.i", "pack1::b1", "pack1::b1.i",
 						"pack1::container", "pack1::container.i", "pack2::a2", "pack2::a2.i", "pack2::b2", "pack2::b2.i", "pack3::a3", "pack3::a3.i",
 						"pack3::b3", "pack3::b3.i", "pack4::a4", "pack4::a4.i", "pack4::b4", "pack4::b4.i", "pack5::a5", "pack5::a5.i", "pack5::a6",
@@ -1031,7 +1031,7 @@ class FeaturesAndSubcomponentsTest extends OsateTest {
 				ownedDataAccesses.head => [
 					"da2".assertEquals(name)
 					//Tests scope_DataAccess_dataFeatureClassifier
-					assertScope(Aadl2Package::eINSTANCE.dataAccess_DataFeatureClassifier, false, #["a1", "a1.i", "a3", "a3.i", "a5", "aproto3", "container",
+					assertScope(Aadl2Package::eINSTANCE.dataAccess_DataFeatureClassifier, #["a1", "a1.i", "a3", "a3.i", "a5", "aproto3", "container",
 						"container.i", "d1", "d1.i", "d3", "d3.i", "d5", "dproto3", "ra", "rd", "pack1::a1", "pack1::a1.i", "pack1::container",
 						"pack1::container.i", "pack1::d1", "pack1::d1.i", "pack2::a2", "pack2::a2.i", "pack2::d2", "pack2::d2.i", "pack3::a3", "pack3::a3.i",
 						"pack3::d3", "pack3::d3.i", "pack4::a4", "pack4::a4.i", "pack4::d4", "pack4::d4.i", "pack5::a5", "pack5::a5.i", "pack5::a6",
@@ -1041,7 +1041,7 @@ class FeaturesAndSubcomponentsTest extends OsateTest {
 				ownedAbstractFeatures.head => [
 					"af2".assertEquals(name)
 					//Tests scope_AbstractFeature_featurePrototype
-					assertScope(Aadl2Package::eINSTANCE.abstractFeature_FeaturePrototype, false, #["fproto3"])
+					assertScope(Aadl2Package::eINSTANCE.abstractFeature_FeaturePrototype, #["fproto3"])
 				]
 			]
 		]
