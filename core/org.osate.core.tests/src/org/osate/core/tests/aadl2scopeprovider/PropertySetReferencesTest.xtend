@@ -125,7 +125,7 @@ class PropertySetReferencesTest extends OsateTest {
 		testFile("ps.aadl").resource.contents.head as PropertySet => [
 			"ps".assertEquals(name)
 			//Tests the reference PropertySet_ImportedUnit
-			assertScope(Aadl2Package::eINSTANCE.propertySet_ImportedUnit, true, #["AADL_Project", "Communication_Properties", "Deployment_Properties",
+			assertScopeModelUnitNamesOnly(Aadl2Package::eINSTANCE.propertySet_ImportedUnit, #["AADL_Project", "Communication_Properties", "Deployment_Properties",
 				"Memory_Properties", "Modeling_Properties", "Programming_Properties", "Thread_Properties", "Timing_Properties", "pack1", "pack2", "ps"
 			])
 			ownedPropertyTypes.get(0) as UnitsType => [
@@ -133,28 +133,28 @@ class PropertySetReferencesTest extends OsateTest {
 				ownedLiterals.get(0) => [
 					"ul1".assertEquals(name)
 					//Tests scope_UnitLiteral_baseUnit
-					assertScope(Aadl2Package::eINSTANCE.unitLiteral_BaseUnit, false, #["ul1", "ul2", "ul3", "ul4"])
+					assertScope(Aadl2Package::eINSTANCE.unitLiteral_BaseUnit, #["ul1", "ul2", "ul3", "ul4"])
 				]
 				ownedLiterals.get(1) => [
 					"ul2".assertEquals(name)
 					//Tests scope_UnitLiteral_baseUnit
-					assertScope(Aadl2Package::eINSTANCE.unitLiteral_BaseUnit, false, #["ul1", "ul2", "ul3", "ul4"])
+					assertScope(Aadl2Package::eINSTANCE.unitLiteral_BaseUnit, #["ul1", "ul2", "ul3", "ul4"])
 				]
 				ownedLiterals.get(2) => [
 					"ul3".assertEquals(name)
 					//Tests scope_UnitLiteral_baseUnit
-					assertScope(Aadl2Package::eINSTANCE.unitLiteral_BaseUnit, false, #["ul1", "ul2", "ul3", "ul4"])
+					assertScope(Aadl2Package::eINSTANCE.unitLiteral_BaseUnit, #["ul1", "ul2", "ul3", "ul4"])
 				]
 				ownedLiterals.get(3) => [
 					"ul4".assertEquals(name)
 					//Tests scope_UnitLiteral_baseUnit
-					assertScope(Aadl2Package::eINSTANCE.unitLiteral_BaseUnit, false, #["ul1", "ul2", "ul3", "ul4"])
+					assertScope(Aadl2Package::eINSTANCE.unitLiteral_BaseUnit, #["ul1", "ul2", "ul3", "ul4"])
 				]
 			]
 			ownedPropertyTypes.get(1) => [
 				"pt1".assertEquals(name)
 				//Tests scope_NumberType_referencedUnitsType
-				assertScope(Aadl2Package::eINSTANCE.numberType_ReferencedUnitsType, false, #["Data_Rate_Units", "Data_Volume_Units", "Processor_Speed_Units",
+				assertScope(Aadl2Package::eINSTANCE.numberType_ReferencedUnitsType, #["Data_Rate_Units", "Data_Volume_Units", "Processor_Speed_Units",
 					"Size_Units", "Time_Units", "ps::ut1", "AADL_Project::Data_Rate_Units", "AADL_Project::Data_Volume_Units",
 					"AADL_Project::Processor_Speed_Units", "AADL_Project::Size_Units", "AADL_Project::Time_Units"
 				])
@@ -162,7 +162,7 @@ class PropertySetReferencesTest extends OsateTest {
 			ownedPropertyTypes.get(2) => [
 				"pt2".assertEquals(name)
 				//Tests scope_NumberType_referencedUnitsType
-				assertScope(Aadl2Package::eINSTANCE.numberType_ReferencedUnitsType, false, #["Data_Rate_Units", "Data_Volume_Units", "Processor_Speed_Units",
+				assertScope(Aadl2Package::eINSTANCE.numberType_ReferencedUnitsType, #["Data_Rate_Units", "Data_Volume_Units", "Processor_Speed_Units",
 					"Size_Units", "Time_Units", "ps::ut1", "AADL_Project::Data_Rate_Units", "AADL_Project::Data_Volume_Units",
 					"AADL_Project::Processor_Speed_Units", "AADL_Project::Size_Units", "AADL_Project::Time_Units"
 				])
@@ -170,7 +170,7 @@ class PropertySetReferencesTest extends OsateTest {
 			ownedPropertyTypes.get(3) => [
 				"pt3".assertEquals(name)
 				//Tests scope_RangeType_numberType
-				assertScope(Aadl2Package::eINSTANCE.rangeType_NumberType, false, #["Data_Volume", "Size", "Time", "ps::pt1", "ps::pt2",
+				assertScope(Aadl2Package::eINSTANCE.rangeType_NumberType, #["Data_Volume", "Size", "Time", "ps::pt1", "ps::pt2",
 					"AADL_Project::Data_Volume", "Memory_Properties::Size", "Timing_Properties::Time"
 				])
 			]
@@ -179,7 +179,7 @@ class PropertySetReferencesTest extends OsateTest {
 				ownedFields.get(0) => [
 					"f1".assertEquals(name)
 					//Tests scope_BasicProperty_referencedPropertyType
-					assertScope(Aadl2Package::eINSTANCE.basicProperty_ReferencedPropertyType, false, #["Access_Rights", "Connection_Pair", "Data_Rate_Units",
+					assertScope(Aadl2Package::eINSTANCE.basicProperty_ReferencedPropertyType, #["Access_Rights", "Connection_Pair", "Data_Rate_Units",
 						"Data_Volume", "Data_Volume_Units", "IO_Reference_Time", "IO_Time_Spec", "Priority_Mapping", "Processor_Speed_Units", "Rate_Spec",
 						"Size", "Size_Range", "Size_Units", "Supported_Active_Thread_Handling_Protocols", "Supported_Classifier_Substitutions",
 						"Supported_Concurrency_Control_Protocols", "Supported_Connection_Patterns", "Supported_Connection_QoS", "Supported_Dispatch_Protocols",
@@ -200,7 +200,7 @@ class PropertySetReferencesTest extends OsateTest {
 				ownedFields.get(1) => [
 					"f2".assertEquals(name)
 					//Tests scope_BasicProperty_referencedPropertyType
-					assertScope(Aadl2Package::eINSTANCE.basicProperty_ReferencedPropertyType, false, #["Access_Rights", "Connection_Pair", "Data_Rate_Units",
+					assertScope(Aadl2Package::eINSTANCE.basicProperty_ReferencedPropertyType, #["Access_Rights", "Connection_Pair", "Data_Rate_Units",
 						"Data_Volume", "Data_Volume_Units", "IO_Reference_Time", "IO_Time_Spec", "Priority_Mapping", "Processor_Speed_Units", "Rate_Spec",
 						"Size", "Size_Range", "Size_Units", "Supported_Active_Thread_Handling_Protocols", "Supported_Classifier_Substitutions",
 						"Supported_Concurrency_Control_Protocols", "Supported_Connection_Patterns", "Supported_Connection_QoS", "Supported_Dispatch_Protocols",
@@ -223,7 +223,7 @@ class PropertySetReferencesTest extends OsateTest {
 				"def2".assertEquals(name)
 				ownedPropertyType => [
 					//Tests scope_NumberType_referencedUnitsType
-					assertScope(Aadl2Package::eINSTANCE.numberType_ReferencedUnitsType, false, #["Data_Rate_Units", "Data_Volume_Units",
+					assertScope(Aadl2Package::eINSTANCE.numberType_ReferencedUnitsType, #["Data_Rate_Units", "Data_Volume_Units",
 						"Processor_Speed_Units", "Size_Units", "Time_Units", "ps::ut1", "AADL_Project::Data_Rate_Units", "AADL_Project::Data_Volume_Units",
 						"AADL_Project::Processor_Speed_Units", "AADL_Project::Size_Units", "AADL_Project::Time_Units"
 					])
@@ -233,7 +233,7 @@ class PropertySetReferencesTest extends OsateTest {
 				"def3".assertEquals(name)
 				ownedPropertyType => [
 					//Tests scope_NumberType_referencedUnitsType
-					assertScope(Aadl2Package::eINSTANCE.numberType_ReferencedUnitsType, false, #["Data_Rate_Units", "Data_Volume_Units",
+					assertScope(Aadl2Package::eINSTANCE.numberType_ReferencedUnitsType, #["Data_Rate_Units", "Data_Volume_Units",
 						"Processor_Speed_Units", "Size_Units", "Time_Units", "ps::ut1", "AADL_Project::Data_Rate_Units", "AADL_Project::Data_Volume_Units",
 						"AADL_Project::Processor_Speed_Units", "AADL_Project::Size_Units", "AADL_Project::Time_Units"
 					])
@@ -243,7 +243,7 @@ class PropertySetReferencesTest extends OsateTest {
 				"def4".assertEquals(name)
 				ownedPropertyType => [
 					//Tests scope_RangeType_numberType
-					assertScope(Aadl2Package::eINSTANCE.rangeType_NumberType, false, #["Data_Volume", "Size", "Time", "ps::pt1", "ps::pt2",
+					assertScope(Aadl2Package::eINSTANCE.rangeType_NumberType, #["Data_Volume", "Size", "Time", "ps::pt1", "ps::pt2",
 						"AADL_Project::Data_Volume", "Memory_Properties::Size", "Timing_Properties::Time"
 					])
 				]
@@ -253,13 +253,13 @@ class PropertySetReferencesTest extends OsateTest {
 				appliesTos.head as ClassifierValue => [
 					"pack2::a2.i".assertEquals(classifier.getQualifiedName())
 					//Tests the reference ClassifierValue_classifier
-					assertScope(Aadl2Package::eINSTANCE.classifierValue_Classifier, false, #["pack1::a1", "pack2::a2", "pack2::a2.i"])
+					assertScope(Aadl2Package::eINSTANCE.classifierValue_Classifier, #["pack1::a1", "pack2::a2", "pack2::a2.i"])
 				]
 			]
 			ownedProperties.get(5) => [
 				"def6".assertEquals(name)
 				//Tests scope_BasicProperty_referencedPropertyType
-				assertScope(Aadl2Package::eINSTANCE.basicProperty_ReferencedPropertyType, false, #["Access_Rights", "Connection_Pair", "Data_Rate_Units",
+				assertScope(Aadl2Package::eINSTANCE.basicProperty_ReferencedPropertyType, #["Access_Rights", "Connection_Pair", "Data_Rate_Units",
 					"Data_Volume", "Data_Volume_Units", "IO_Reference_Time", "IO_Time_Spec", "Priority_Mapping", "Processor_Speed_Units", "Rate_Spec", "Size",
 					"Size_Range", "Size_Units", "Supported_Active_Thread_Handling_Protocols", "Supported_Classifier_Substitutions",
 					"Supported_Concurrency_Control_Protocols", "Supported_Connection_Patterns", "Supported_Connection_QoS", "Supported_Dispatch_Protocols",
@@ -281,7 +281,7 @@ class PropertySetReferencesTest extends OsateTest {
 				ownedPropertyType as ListType => [
 					"ps::pt1".assertEquals(elementType.getQualifiedName())
 					//Tests scope_ListType_referencedElementType
-					assertScope(Aadl2Package::eINSTANCE.listType_ReferencedElementType, false, #["Access_Rights", "Connection_Pair", "Data_Rate_Units",
+					assertScope(Aadl2Package::eINSTANCE.listType_ReferencedElementType, #["Access_Rights", "Connection_Pair", "Data_Rate_Units",
 						"Data_Volume", "Data_Volume_Units", "IO_Reference_Time", "IO_Time_Spec", "Priority_Mapping", "Processor_Speed_Units", "Rate_Spec",
 						"Size", "Size_Range", "Size_Units", "Supported_Active_Thread_Handling_Protocols", "Supported_Classifier_Substitutions",
 						"Supported_Concurrency_Control_Protocols", "Supported_Connection_Patterns", "Supported_Connection_QoS", "Supported_Dispatch_Protocols",
@@ -303,7 +303,7 @@ class PropertySetReferencesTest extends OsateTest {
 			ownedPropertyConstants.get(1) => [
 				"const2".assertEquals(name)
 				//Tests scope_PropertyConstant_referencedPropertyType
-				assertScope(Aadl2Package::eINSTANCE.propertyConstant_ReferencedPropertyType, false, #["Access_Rights", "Connection_Pair", "Data_Rate_Units",
+				assertScope(Aadl2Package::eINSTANCE.propertyConstant_ReferencedPropertyType, #["Access_Rights", "Connection_Pair", "Data_Rate_Units",
 					"Data_Volume", "Data_Volume_Units", "IO_Reference_Time", "IO_Time_Spec", "Priority_Mapping", "Processor_Speed_Units", "Rate_Spec", "Size",
 					"Size_Range", "Size_Units", "Supported_Active_Thread_Handling_Protocols", "Supported_Classifier_Substitutions",
 					"Supported_Concurrency_Control_Protocols", "Supported_Connection_Patterns", "Supported_Connection_QoS", "Supported_Dispatch_Protocols",
@@ -330,7 +330,7 @@ class PropertySetReferencesTest extends OsateTest {
 					arrayDimensions.head.size => [
 						"ps::def1".assertEquals((sizeProperty as NamedElement).qualifiedName())
 						//Tests the reference ArraySize_SizeProperty
-						assertScope(Aadl2Package::eINSTANCE.arraySize_SizeProperty, false, #["Acceptable_Array_Size", "Access_Right", "Access_Time",
+						assertScope(Aadl2Package::eINSTANCE.arraySize_SizeProperty, #["Acceptable_Array_Size", "Access_Right", "Access_Time",
 							"Activate_Deadline", "Activate_Entrypoint", "Activate_Entrypoint_Call_Sequence", "Activate_Entrypoint_Source_Text",
 							"Activate_Execution_Time", "Active_Thread_Handling_Protocol", "Active_Thread_Queue_Handling_Protocol", "Actual_Connection_Binding",
 							"Actual_Function_Binding", "Actual_Latency", "Actual_Memory_Binding", "Actual_Processor_Binding", "Actual_Subprogram_Call",
