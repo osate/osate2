@@ -8,6 +8,7 @@ import org.osate.aadl2.NamedElement;
 import org.osate.aadl2.Port;
 import org.osate.aadl2.Subcomponent;
 import org.osate.aadl2.instance.ComponentInstance;
+import org.osate.aadl2.util.OsateDebug;
 import org.osate.xtext.aadl2.errormodel.errorModel.AndExpression;
 import org.osate.xtext.aadl2.errormodel.errorModel.CompositeState;
 import org.osate.xtext.aadl2.errormodel.errorModel.ConditionElement;
@@ -63,7 +64,13 @@ public class FTAUtils {
 
 		event.setProbability(EMV2Properties.getProbability(component, errorModelArtifact, typeSet));
 	}
-
+	
+	public static List<Event> getAllEventsFromPropagationSource(ComponentInstance component,
+			ErrorPropagation errorPropagation, TypeSet typeSet) {
+		return getAllEventsFromPropagationSource(component, errorPropagation, typeSet, new ArrayList<String>());
+	}
+	
+	
 	/**
 	 * For one incoming error propagation and one component, returns all the potential
 	 * errors contributors.
@@ -72,7 +79,8 @@ public class FTAUtils {
 	 * @return                  - a list of event that has all the error contributors
 	 */
 	public static List<Event> getAllEventsFromPropagationSource(ComponentInstance component,
-			ErrorPropagation errorPropagation, TypeSet typeSet) {
+			ErrorPropagation errorPropagation, TypeSet typeSet, List<String> history) {
+		String strIdentifier;
 		List<PropagationPathEnd> propagationSources;
 		Event newEvent;
 		List<Event> returnedEvents;
@@ -83,6 +91,9 @@ public class FTAUtils {
 
 		returnedEvents = new ArrayList<Event>();
 
+		
+		OsateDebug.osateDebug("[FTAUtils] Try to find on component " + component.getName() + " propagation " + errorPropagation.getName());
+		
 		/**
 		 * Right now, the analysis model does not return the source ends for a processor
 		 * error propagation. So, we just add a new event.
@@ -174,9 +185,22 @@ public class FTAUtils {
 						ErrorPropagation incomingPropagation = errorPath.getIncoming();
 
 //						OsateDebug.osateDebug("FTAUtils", "Should consider incoming" + incomingPropagation);
-						subEvents.addAll(getAllEventsFromPropagationSource(remoteComponent, incomingPropagation,
-								errorPath.getTypeTokenConstraint()));
 
+						
+						strIdentifier = remoteComponent.getName() + "-" + incomingPropagation.getName() + "-" + EMV2Util.getPrintName(errorPath.getTypeTokenConstraint());
+						if (! history.contains(strIdentifier))
+						{
+							history.add(strIdentifier);
+							subEvents.addAll(getAllEventsFromPropagationSource(remoteComponent, incomingPropagation,
+									errorPath.getTypeTokenConstraint(), history)   );
+						}
+						else
+						{
+							OsateDebug.osateDebug("[FTAUtils] loop detected with component " + component.getName());
+						}
+						
+						
+						
 					}
 				}
 			}
@@ -213,6 +237,7 @@ public class FTAUtils {
 		}
 		return "unknown feature";
 	}
+	
 
 	/**
 	 * Process a condition, either from a component error behavior or
