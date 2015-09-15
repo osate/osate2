@@ -37,6 +37,7 @@ package org.osate.aadl2.operations;
 import org.osate.aadl2.IntegerLiteral;
 import org.osate.aadl2.RealLiteral;
 import org.osate.aadl2.UnitLiteral;
+import org.osate.aadl2.util.Aadl2Util;
 
 /**
  * <!-- begin-user-doc -->
@@ -69,28 +70,28 @@ public class UnitLiteralOperations extends NamedElementOperations {
 	 */
 	public static double getAbsoluteFactor(UnitLiteral unitLiteral, UnitLiteral target) {
 		double factor = 1.0;
-		if (unitLiteral == target) {
+		if (Aadl2Util.sameUnit(unitLiteral, target)) {
 			return factor;
 		}
 		UnitLiteral current = unitLiteral;
-		while (current.getBaseUnit() != null && current.getBaseUnit() != current) {
+		while (current.getBaseUnit() != null && !Aadl2Util.sameUnit(current.getBaseUnit(), current)) {
 			double val = (current.getFactor() instanceof IntegerLiteral ? (double) ((IntegerLiteral) current
 					.getFactor()).getValue() : ((RealLiteral) current.getFactor()).getValue());
 			factor *= val;
 			current = current.getBaseUnit();
-			if (current == target) {
+			if (Aadl2Util.sameUnit(current, target)) {
 				return factor;
 			}
 		}
 		// did not find target. Let's go in opposite direction
 		factor = 1.0;
 		current = target;
-		while (current.getBaseUnit() != null && current.getBaseUnit() != current) {
+		while (current.getBaseUnit() != null && !Aadl2Util.sameUnit(current.getBaseUnit(), current)) {
 			double val = (current.getFactor() instanceof IntegerLiteral ? (double) ((IntegerLiteral) current
 					.getFactor()).getValue() : ((RealLiteral) current.getFactor()).getValue());
 			factor /= val;
 			current = current.getBaseUnit();
-			if (current == unitLiteral) {
+			if (Aadl2Util.sameUnit(current, unitLiteral)) {
 				return factor;
 			}
 		}

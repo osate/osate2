@@ -13,6 +13,7 @@ import org.osate.aadl2.Property;
 import org.osate.aadl2.PropertySet;
 import org.osate.aadl2.RefinableElement;
 import org.osate.aadl2.SubprogramCall;
+import org.osate.aadl2.UnitLiteral;
 import org.osate.aadl2.instance.SystemOperationMode;
 import org.osate.aadl2.instance.util.InstanceUtil;
 
@@ -223,6 +224,12 @@ public class Aadl2Util {
 			return qualname.substring(0, idx);
 		}
 		return null;
+	}
+
+	public static boolean sameUnit(UnitLiteral l1, UnitLiteral l2) {
+		String p1Name = l1.getName();
+		String p2Name = l2.getName();
+		return p1Name.equalsIgnoreCase(p2Name);
 	}
 
 }
