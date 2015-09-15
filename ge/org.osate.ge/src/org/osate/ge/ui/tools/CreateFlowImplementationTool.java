@@ -242,7 +242,7 @@ public class CreateFlowImplementationTool {
 		CreateFlowImplementationDialog(final Shell parentShell) {
 			super(parentShell);
 			this.setHelpAvailable(false);
-			setShellStyle(SWT.MODELESS | SWT.BORDER | SWT.TITLE | SWT.ON_TOP| SWT.DIALOG_TRIM | SWT.MIN);
+			setShellStyle(SWT.CLOSE | SWT.MODELESS | SWT.BORDER | SWT.TITLE);
 		}
 
 		private void setRemovedElement(final PictogramElement setValue) {
