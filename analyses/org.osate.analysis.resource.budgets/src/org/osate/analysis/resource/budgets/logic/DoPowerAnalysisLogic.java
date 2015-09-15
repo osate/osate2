@@ -209,12 +209,17 @@ public class DoPowerAnalysisLogic {
 		String modelExceeds = "";
 		String modelStats = "";
 		hasPower++;
-		if (capacity > 0.0 && supply > 0.0) {
-			if (supply > capacity) {
-				modelExceeds = "** " + resourceName + " supply " + toString(supply) + " exceeds capacity "
+		if (capacity > 0.0 && budget > 0.0) {
+			if (budget > capacity) {
+				modelExceeds = "** " + resourceName + " budget total " + toString(budget) + " exceeds capacity "
 						+ toString(capacity);
 				errManager.error(ci, somName + modelExceeds);
 				powerComponentError(section, modelExceeds);
+			} else {
+				modelExceeds = resourceName + " budget total " + toString(budget) + " within capacity "
+						+ toString(capacity);
+				errManager.info(ci, somName + modelStats);
+				powerComponentSuccess(section, modelStats);
 			}
 		}
 		String suppliedmsg = "";
@@ -227,15 +232,12 @@ public class DoPowerAnalysisLogic {
 			suppliedmsg = " supply ";
 		}
 
-		if (available > 2000.0 && budget > 2000.0) {
-			modelStats = suppliedmsg + available / 1000 + " W vs. budget total " + budget / 1000 + " W";
-		} else {
-			modelStats = suppliedmsg + available + " mW vs. budget total " + budget + " mW";
-		}
 		if (budget > available) {
-			powerComponentError(section, "Overage: " + modelStats);
-			errManager.error(ci, somName + "Overage: " + modelStats);
+			modelStats = "** " + "budget total " + toString(budget) + " exceeds" + suppliedmsg + toString(available);
+			powerComponentError(section, modelStats);
+			errManager.error(ci, somName + modelStats);
 		} else {
+			modelStats = "budget total " + toString(budget) + " within" + suppliedmsg + toString(available);
 			errManager.info(ci, somName + modelStats);
 			powerComponentSuccess(section, modelStats);
 		}
