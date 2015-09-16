@@ -2,8 +2,8 @@ package org.osate.ge.ui.tools;
 
 import java.awt.Color;
 import java.util.ArrayList;
-import java.util.List;
 import java.util.Collections;
+import java.util.List;
 
 import javax.inject.Named;
 
@@ -11,31 +11,11 @@ import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.emf.transaction.TransactionalEditingDomain;
 import org.eclipse.graphiti.dt.IDiagramTypeProvider;
+import org.eclipse.graphiti.mm.pictograms.Connection;
 import org.eclipse.graphiti.mm.pictograms.ConnectionDecorator;
 import org.eclipse.graphiti.mm.pictograms.PictogramElement;
 import org.eclipse.graphiti.mm.pictograms.Shape;
 import org.eclipse.jface.dialogs.Dialog;
-import org.eclipse.swt.widgets.Display;
-import org.osate.aadl2.ComponentImplementation;
-import org.osate.aadl2.EndToEndFlow;
-import org.osate.ge.Activator;
-import org.osate.ge.ext.ExtensionConstants;
-import org.osate.ge.ext.annotations.Activate;
-import org.osate.ge.ext.annotations.CanActivate;
-import org.osate.ge.ext.annotations.Deactivate;
-import org.osate.ge.ext.annotations.Description;
-import org.osate.ge.ext.annotations.Icon;
-import org.osate.ge.ext.annotations.Id;
-import org.osate.ge.ext.annotations.SelectionChanged;
-import org.osate.ge.services.AadlModificationService;
-import org.osate.ge.services.BusinessObjectResolutionService;
-import org.osate.ge.services.ColoringService;
-import org.osate.ge.services.ConnectionService;
-import org.osate.ge.services.NamingService;
-import org.osate.ge.services.ShapeService;
-import org.osate.ge.services.UiService;
-import org.osate.ge.services.AadlModificationService.AbstractModifier;
-import org.eclipse.graphiti.mm.pictograms.Connection;
 import org.eclipse.jface.dialogs.IDialogConstants;
 import org.eclipse.jface.dialogs.TitleAreaDialog;
 import org.eclipse.jface.resource.ImageDescriptor;
@@ -48,19 +28,20 @@ import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
-import org.eclipse.swt.layout.RowData;
-import org.eclipse.swt.layout.RowLayout;
 import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Control;
+import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.widgets.Text;
 import org.osate.aadl2.Aadl2Factory;
 import org.osate.aadl2.Aadl2Package;
+import org.osate.aadl2.ComponentImplementation;
 import org.osate.aadl2.ConnectionEnd;
 import org.osate.aadl2.Context;
 import org.osate.aadl2.Element;
+import org.osate.aadl2.EndToEndFlow;
 import org.osate.aadl2.EndToEndFlowElement;
 import org.osate.aadl2.EndToEndFlowSegment;
 import org.osate.aadl2.Feature;
@@ -70,7 +51,23 @@ import org.osate.aadl2.ModeFeature;
 import org.osate.aadl2.NamedElement;
 import org.osate.aadl2.RefinableElement;
 import org.osate.aadl2.Subcomponent;
-import org.osate.ge.ui.tools.CreateEndToEndFlowTool;
+import org.osate.ge.Activator;
+import org.osate.ge.ext.ExtensionConstants;
+import org.osate.ge.ext.annotations.Activate;
+import org.osate.ge.ext.annotations.CanActivate;
+import org.osate.ge.ext.annotations.Deactivate;
+import org.osate.ge.ext.annotations.Description;
+import org.osate.ge.ext.annotations.Icon;
+import org.osate.ge.ext.annotations.Id;
+import org.osate.ge.ext.annotations.SelectionChanged;
+import org.osate.ge.services.AadlModificationService;
+import org.osate.ge.services.AadlModificationService.AbstractModifier;
+import org.osate.ge.services.BusinessObjectResolutionService;
+import org.osate.ge.services.ColoringService;
+import org.osate.ge.services.ConnectionService;
+import org.osate.ge.services.NamingService;
+import org.osate.ge.services.ShapeService;
+import org.osate.ge.services.UiService;
 import org.osate.ge.ui.util.DialogPlacementHelper;
 
 public class CreateEndToEndFlowTool {
@@ -529,25 +526,19 @@ public class CreateEndToEndFlowTool {
 
 		@Override
 		protected Control createDialogArea(final Composite parent) {
-			final Composite container = (Composite)super.createDialogArea(parent);
-			flowSegmentComposite = new Composite(container, SWT.CENTER);
-			final RowLayout rowLayout = new RowLayout();
-			rowLayout.marginLeft = 10;
-			rowLayout.marginTop = 5;
-			flowSegmentComposite.setLayout(rowLayout);
-
+			flowSegmentComposite = (Composite)super.createDialogArea(parent);
+			GridLayout layout = (GridLayout)flowSegmentComposite.getLayout();
+			layout.marginLeft = 10;
+			layout.marginTop = 5;
+			
 			flowSegmentLabel = new StyledText(flowSegmentComposite, SWT.BORDER | SWT.WRAP | SWT.V_SCROLL | SWT.MULTI);
 			flowSegmentLabel.setEditable(false);
 			flowSegmentLabel.setEnabled(false);
 			flowSegmentLabel.setBackground(Display.getCurrent().getSystemColor(SWT.COLOR_WIDGET_BACKGROUND));
 			flowSegmentLabel.setMargins(5, 5, 5, 5);
-			final RowData rowData = new RowData();
-			rowData.height = 100;
-			rowData.width = 415;
-			flowSegmentLabel.setLayoutData(rowData);
-			flowSegmentLabel.setLayout(new RowLayout());
+			flowSegmentLabel.setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, true));
 
-			return container;
+			return flowSegmentComposite;
 		}
 
 		@Override
