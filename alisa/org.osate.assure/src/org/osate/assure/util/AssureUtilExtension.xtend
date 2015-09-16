@@ -75,13 +75,13 @@ class AssureUtilExtension {
 		return result as AssuranceCase
 	}
 
-	def static AssuranceCase getAssuranceCaseTarget(EObject assureObject) {
+	def static ComponentImplementation getAssuranceCaseTarget(EObject assureObject) {
 		var ac = assureObject
 		while (ac != null) {
 			ac = ac.eContainer
 			if (ac instanceof AssuranceCase){
 				if (ac.target?.target != null){
-					return ac
+					return ac.target?.target
 				}
 			}
 		}
@@ -102,21 +102,30 @@ class AssureUtilExtension {
 		req?.targetElement ?: req.targetClassifier
 	}
 
-	def static SystemInstance getInstanceModel(VerificationResult assureObject) {
+	def static NamedElement getTargetElement(EObject assureObject) {
+		val req = if (assureObject instanceof ClaimResult) assureObject.target else assureObject.enclosingClaimResult.target
+		req?.targetElement
+	}
+
+	def static SystemInstance getVerificationActivityInstanceModel(VerificationResult assureObject) {
 		val ci = if (assureObject instanceof VerificationActivityResult) {assureObject.target?.target} else {
 			(assureObject.eContainer as VerificationActivityResult).target?.target
 		}
 		if (ci != null){
 			return ci.instanceModel
 		}
-		val rac = assureObject.assuranceCaseTarget
-		if (rac == null ) return null
-		rac.target?.target?.instanceModel
+		return null
 	}
 
-	def static ComponentInstance findComponentInstance(SystemInstance si,AssuranceCase ac){
+	def static SystemInstance getAssuranceCaseInstanceModel(VerificationResult assureObject) {
+		val rac = assureObject.assuranceCaseTarget
+		if (rac == null ) return null
+		rac.instanceModel
+	}
+
+	def static ComponentInstance findTargetSystemComponentInstance(SystemInstance si,AssuranceCase ac){
 		if (ac.targetSystem != null){
-			val ci = findComponentInstance(si,ac.enclosingAssuranceCase)
+			val ci = findTargetSystemComponentInstance(si,ac.enclosingAssuranceCase)
 			findElementInstance(ci,ac.targetSystem) as ComponentInstance
 		} else {
 			si
@@ -164,7 +173,11 @@ class AssureUtilExtension {
 				msg.contains(matchstr)
 			]
 		}
-		targetmarkers.forEach[em|verificationActivityResult.addMarkerIssue(instance, em)]
+		if (!targetmarkers.empty){
+			targetmarkers.forEach[em|verificationActivityResult.addMarkerIssue(instance, em)]
+		} else {
+			markers.forEach[em|verificationActivityResult.addMarkerIssue(instance, em)]
+		}
 		return verificationActivityResult.issues.exists[ri|ri.issueType == ResultIssueType.ERROR]
 	}
 	
@@ -1111,6 +1124,10 @@ class AssureUtilExtension {
 			setInstanceModel(cimpl,si)
 		}
 		return si	
+	}
+	
+	def static int  numberVerificationResults(AssuranceCase ac){
+		return EcoreUtil2.eAllOfType(ac, typeof(VerificationActivityResult)).size();
 	}
 	
 
