@@ -27,8 +27,6 @@ import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
-import org.eclipse.swt.layout.RowData;
-import org.eclipse.swt.layout.RowLayout;
 import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Control;
@@ -63,12 +61,12 @@ import org.osate.ge.ext.annotations.Icon;
 import org.osate.ge.ext.annotations.Id;
 import org.osate.ge.ext.annotations.SelectionChanged;
 import org.osate.ge.services.AadlModificationService;
+import org.osate.ge.services.AadlModificationService.AbstractModifier;
 import org.osate.ge.services.BusinessObjectResolutionService;
 import org.osate.ge.services.ColoringService;
 import org.osate.ge.services.ConnectionService;
 import org.osate.ge.services.ShapeService;
 import org.osate.ge.services.UiService;
-import org.osate.ge.services.AadlModificationService.AbstractModifier;
 import org.osate.ge.ui.util.DialogPlacementHelper;
 
 public class CreateFlowImplementationTool {
@@ -675,26 +673,19 @@ public class CreateFlowImplementationTool {
 
 		@Override
 		protected Control createDialogArea(final Composite parent) {
-			final Composite container = (Composite)super.createDialogArea(parent);
-			flowSegmentComposite = new Composite(container, SWT.CENTER);
-			final RowLayout rowLayout = new RowLayout();
-			rowLayout.marginLeft = 10;
-			rowLayout.marginTop = 5;
-			rowLayout.marginRight = 10;
-			flowSegmentComposite.setLayout(rowLayout);
-
+			flowSegmentComposite = (Composite)super.createDialogArea(parent);
+			GridLayout layout = (GridLayout)flowSegmentComposite.getLayout();
+			layout.marginLeft = 10;
+			layout.marginTop = 5;
+			
 			flowSegmentLabel = new StyledText(flowSegmentComposite, SWT.BORDER | SWT.WRAP | SWT.V_SCROLL | SWT.MULTI);
 			flowSegmentLabel.setEditable(false);
 			flowSegmentLabel.setEnabled(false);
 			flowSegmentLabel.setBackground(Display.getCurrent().getSystemColor(SWT.COLOR_WIDGET_BACKGROUND));
 			flowSegmentLabel.setMargins(5, 5, 5, 5);
-			final RowData rowData = new RowData();
-			rowData.height = 75;
-			rowData.width = 392;
-			flowSegmentLabel.setLayoutData(rowData);
-			flowSegmentLabel.setLayout(new RowLayout());
+			flowSegmentLabel.setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, true));
 
-			return container;
+			return flowSegmentComposite;
 		}
 
 		@Override
