@@ -237,10 +237,11 @@ public class CreateFlowImplementationTool {
 		private PictogramElement removedPictogramElement = null;
 		final private List<String> flowSegmentList = new ArrayList<String>();
 		final private List<String> modeList = new ArrayList<String>();
+		
 		CreateFlowImplementationDialog(final Shell parentShell) {
 			super(parentShell);
 			this.setHelpAvailable(false);
-			setShellStyle(SWT.CLOSE | SWT.MODELESS | SWT.BORDER | SWT.TITLE);
+			setShellStyle(SWT.CLOSE | SWT.MODELESS | SWT.BORDER | SWT.TITLE | SWT.RESIZE);
 		}
 
 		private void setRemovedElement(final PictogramElement setValue) {
