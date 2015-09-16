@@ -166,18 +166,14 @@ class AssureUtilExtension {
 		val targetURI = EcoreUtil.getURI(instance).toString()
 		var targetmarkers = markers.filter [ IMarker m |
 			m.getAttribute(AadlConstants.AADLURI) == targetURI]
-//		if (targetmarkers.empty) targetmarkers = markers
+//	enable if we want to default to all messages.	if (targetmarkers.empty) targetmarkers = markers
 		val matchstr = matchMessage(vm)
 		if (!matchstr.empty){
 			targetmarkers = targetmarkers.filter[IMarker m| val msg = m.getAttribute(IMarker.MESSAGE) as String; 
 				msg.contains(matchstr)
 			]
 		}
-		if (!targetmarkers.empty){
-			targetmarkers.forEach[em|verificationActivityResult.addMarkerIssue(instance, em)]
-		} else {
-			markers.forEach[em|verificationActivityResult.addMarkerIssue(instance, em)]
-		}
+		targetmarkers.forEach[em|verificationActivityResult.addMarkerIssue(instance, em)]
 		return verificationActivityResult.issues.exists[ri|ri.issueType == ResultIssueType.ERROR]
 	}
 	
