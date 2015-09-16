@@ -3584,7 +3584,7 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 	}
 	
 	private static Stream<Optional<LongWithUnits>> getSizesForSubcomponents(DataImplementation dataImplementation, Property dataSizeProperty) {
-		return dataImplementation.getAllSubcomponents().stream().filter(subcomponent -> subcomponent instanceof DataSubcomponent).flatMap(dataSubcomponent -> {
+		return dataImplementation.getAllSubcomponents().stream().filter(subcomponent -> subcomponent instanceof DataSubcomponent).<Optional<LongWithUnits>>flatMap(dataSubcomponent -> {
 			try {
 				return Stream.of(Optional.of(new LongWithUnits((IntegerLiteral)PropertyUtils.getSimplePropertyValue(dataSubcomponent, dataSizeProperty))));
 			} catch (PropertyNotPresentException e) {
