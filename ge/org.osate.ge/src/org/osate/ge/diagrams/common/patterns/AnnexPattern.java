@@ -69,8 +69,9 @@ import org.osate.ge.util.StringUtil;
  */
 public class AnnexPattern extends AgePattern {
 	private final static String annexLabelName = "annex_label";
-	private final static double topOfFolderOffsetValue = 0.15;
-	private final static double tabStartOffsetValue = 0.05;
+	private final static double topOfFolderOffsetValue = 0.1;
+	private final static int minFolderHeight = 10;
+	private final static double tabStartOffsetValue = 0.04;
 	private final static double topOfTabOffsetValue = 0.3;
 	private static final String annexLabelStartBracket = "{**";
 	private static final String annexLabelEndBracket = "**}";
@@ -263,45 +264,14 @@ public class AnnexPattern extends AgePattern {
 	 */
 	private static GraphicsAlgorithm createFolderShape(final ContainerShape containerShape, final int width, final int height, final Diagram diagram) {
 		final IGaService gaService = Graphiti.getGaService();
+		double heightWidthRatio = getRatio(height, width);
 		//Height of tab on folder shape
-	//	int heightOfTab = (int)(height*topOfFolderOffsetValue);
-		int heightOfTab = (int)(height/getRatio(width, height));
-		
+		int heightOfTab = heightWidthRatio > 1 ? (int)((height*topOfFolderOffsetValue)/heightWidthRatio) : Math.max((int)(height*topOfFolderOffsetValue), minFolderHeight);
 		//Width from left side of shape to top of tab
-		int tabStartOffset = (int)(width*tabStartOffsetValue);
+		int tabStartOffset = (int)(Math.ceil(Math.tan(Math.toRadians(30.0))*heightOfTab));
+		
 		//Width of tab
 		int widthOfTab = (int)(width*topOfTabOffsetValue);
-		
-		
-		System.err.println(height + " height");
-		System.err.println(width + " width");
-		
-		System.err.println(getRatio(width, height));
-		System.err.println(getRatio(height, width));
-
-		int nHeight = (int)(height * getRatio(width, height));
-		
-		System.err.println(nHeight + " nHeight");
-		
-		double ratio = getRatio(width, height);
-		if(ratio > 4) {
-/*			heightOfTab = (int) ((double)(height*topOfFolderOffsetValue)*1.3);
-			tabStartOffset = (int) ((double)(width*tabStartOffsetValue)*.75);
-			//Width of tab
-			widthOfTab = (int) ((double)(width*topOfTabOffsetValue)*.75);*/
-		} else if(getRatio(height, width) > 0) {
-		/*	heightOfTab = (int) ((double)(height*topOfFolderOffsetValue)*.40);
-			tabStartOffset = (int) ((double)(width*tabStartOffsetValue)*1.3);
-			//Width of tab
-			widthOfTab = (int) ((double)(width*topOfTabOffsetValue)*1.3);*/
-		}
-		
-/*		System.err.println(getRatio(height, width) + " RATION");
-		
-		System.err.println(heightOfTab + " AAA");
-		System.err.println(tabStartOffset + " BBB");
-		System.err.println(widthOfTab + " CCC");*/
-		
 		
 		final GraphicsAlgorithm ga = gaService.createPlainPolygon(containerShape, 
 				new int[] {
@@ -318,12 +288,15 @@ public class AnnexPattern extends AgePattern {
 		return ga;
 	}
 
-	private static double getRatio(final float width, final float height) {
-		if(height == 0 || width == 0) {
+	/**
+	 * Gets ratio of two values
+	 */
+	private static double getRatio(final float arg1, final float arg2) {
+		if(arg1 == 0 || arg2 == 0) {
 			return 0;
 		}
 		
-		return width/height;
+		return arg1/arg2;
 	}
 
 	/**
@@ -393,27 +366,31 @@ public class AnnexPattern extends AgePattern {
 
 	@Override
 	public boolean canDirectEdit(final IDirectEditingContext context) {
+		System.err.println("CALLED");
 		final PictogramElement pe = context.getPictogramElement();
         final Object bo = bor.getBusinessObjectForPictogramElement(pe);
         if(bo instanceof AnnexLibrary || bo instanceof AnnexSubclause) {
         	return true;
         }
-
+System.err.println("returning False");
 		return false;
 	}
 	
 	@Override
 	 public String getInitialValue(final IDirectEditingContext context) {
+		System.err.println("AAA");
 		final String annexName = getAnnexName(((NamedElement)bor.getBusinessObjectForPictogramElement(context.getPictogramElement())));
 		return annexName;
 	 }
 	
 	private static String getAnnexName(final NamedElement annex) {
+		System.err.println("BBB");
 		return annex.getName();
 	}
 
 	@Override
 	public void setValue(final String value, final IDirectEditingContext context) {
+		System.err.println("CCC");
 		final NamedElement annex = (NamedElement)bor.getBusinessObjectForPictogramElement(context.getPictogramElement());
 		refactoringService.renameElement(annex, value);
 	}
