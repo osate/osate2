@@ -80,7 +80,6 @@ import org.osate.aadl2.instance.InstancePackage;
 import org.osate.aadl2.instance.ModeInstance;
 import org.osate.aadl2.instance.ModeTransitionInstance;
 import org.osate.aadl2.instance.SystemOperationMode;
-import org.osate.aadl2.util.Aadl2Util;
 
 /**
  * <!-- begin-user-doc -->
@@ -1056,7 +1055,7 @@ public class ComponentInstanceImpl extends ConnectionInstanceEndImpl implements 
 	@Override
 	public ComponentClassifier getComponentClassifier() {
 		Subcomponent sub = getSubcomponent();
-		if (Aadl2Util.isNull(sub)) {
+		if (sub == null) {
 			return null;
 		}
 		return sub.getClassifier();
@@ -1064,7 +1063,7 @@ public class ComponentInstanceImpl extends ConnectionInstanceEndImpl implements 
 
 	/*
 	 * (non-Javadoc)
-	 *
+	 * 
 	 * @see org.osate.aadl2.instance.impl.InstanceObjectImpl#getPathName()
 	 */
 	@Override
@@ -1080,7 +1079,7 @@ public class ComponentInstanceImpl extends ConnectionInstanceEndImpl implements 
 
 	/*
 	 * (non-Javadoc)
-	 *
+	 * 
 	 * @see org.osate.aadl2.instance.impl.InstanceObjectImpl#findInstanceObjectsHelper(java.util.ListIterator, java.util.List)
 	 */
 	@Override
@@ -1103,7 +1102,7 @@ public class ComponentInstanceImpl extends ConnectionInstanceEndImpl implements 
 
 	/*
 	 * (non-Javadoc)
-	 *
+	 * 
 	 * @see org.osate.aadl2.instance.InstanceObject#matchesIndex(java.util.List)
 	 */
 	@Override
