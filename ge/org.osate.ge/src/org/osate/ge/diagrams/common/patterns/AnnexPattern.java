@@ -12,7 +12,6 @@ import javax.inject.Named;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.util.EcoreUtil;
-import org.eclipse.graphiti.datatypes.IDimension;
 import org.eclipse.graphiti.features.context.IAddContext;
 import org.eclipse.graphiti.features.context.ICreateContext;
 import org.eclipse.graphiti.features.context.IDeleteContext;
@@ -21,9 +20,7 @@ import org.eclipse.graphiti.features.context.ILayoutContext;
 import org.eclipse.graphiti.features.context.IResizeShapeContext;
 import org.eclipse.graphiti.features.context.IUpdateContext;
 import org.eclipse.graphiti.mm.algorithms.GraphicsAlgorithm;
-import org.eclipse.graphiti.mm.algorithms.Text;
 import org.eclipse.graphiti.mm.algorithms.styles.LineStyle;
-import org.eclipse.graphiti.mm.algorithms.styles.Orientation;
 import org.eclipse.graphiti.mm.algorithms.styles.Style;
 import org.eclipse.graphiti.mm.pictograms.ContainerShape;
 import org.eclipse.graphiti.mm.pictograms.Diagram;
@@ -69,9 +66,9 @@ import org.osate.ge.util.StringUtil;
  */
 public class AnnexPattern extends AgePattern {
 	private final static String annexLabelName = "annex_label";
-	private final static double topOfFolderOffsetValue = 0.1;
-	private final static int minFolderHeight = 10;
-	private final static double tabStartOffsetValue = 0.04;
+	private final static int tabHeight = 9;
+	private final static int maxTabWidth = 100;
+	private final static double tabOffsetAngle = 30.0;
 	private final static double topOfTabOffsetValue = 0.3;
 	private static final String annexLabelStartBracket = "{**";
 	private static final String annexLabelEndBracket = "**}";
@@ -224,12 +221,10 @@ public class AnnexPattern extends AgePattern {
 		final ContainerShape containerShape = peCreateService.createContainerShape(context.getTargetContainer(), true);
 		gaService.createInvisibleRectangle(containerShape);
 		
-		
-		link(containerShape, new AadlElementWrapper(neNewAnnex));
-
 		// Create Graphics Algorithm
 		createGraphicsAlgorithm(containerShape, context.getX(), context.getY(), getDiagram());
 		
+		link(containerShape, new AadlElementWrapper(neNewAnnex));
 		// Finish creating
 		refresh(containerShape);
 
@@ -264,39 +259,23 @@ public class AnnexPattern extends AgePattern {
 	 */
 	private static GraphicsAlgorithm createFolderShape(final ContainerShape containerShape, final int width, final int height, final Diagram diagram) {
 		final IGaService gaService = Graphiti.getGaService();
-		double heightWidthRatio = getRatio(height, width);
-		//Height of tab on folder shape
-		int heightOfTab = heightWidthRatio > 1 ? (int)((height*topOfFolderOffsetValue)/heightWidthRatio) : Math.max((int)(height*topOfFolderOffsetValue), minFolderHeight);
-		//Width from left side of shape to top of tab
-		int tabStartOffset = (int)(Math.ceil(Math.tan(Math.toRadians(30.0))*heightOfTab));
-		
 		//Width of tab
-		int widthOfTab = (int)(width*topOfTabOffsetValue);
-		
+		int widthOfTab = Math.min(maxTabWidth, (int)(width*topOfTabOffsetValue));
+		//The tab start and end slope 
+		int tabOffset = getShapeOffsetHeight(tabOffsetAngle);
 		final GraphicsAlgorithm ga = gaService.createPlainPolygon(containerShape, 
 				new int[] {
 				0, height,
-				0, heightOfTab,
-				tabStartOffset, 0,
+				0, tabHeight,
+				tabOffset, 0,
 				widthOfTab, 0,
-				widthOfTab+tabStartOffset, heightOfTab,
-				width, heightOfTab,
+				widthOfTab+tabOffset, tabHeight,
+				width, tabHeight,
 				width, height});
 		
 		ga.setStyle(getStyle(diagram, gaService));
 
 		return ga;
-	}
-
-	/**
-	 * Gets ratio of two values
-	 */
-	private static double getRatio(final float arg1, final float arg2) {
-		if(arg1 == 0 || arg2 == 0) {
-			return 0;
-		}
-		
-		return arg1/arg2;
 	}
 
 	/**
@@ -366,31 +345,27 @@ public class AnnexPattern extends AgePattern {
 
 	@Override
 	public boolean canDirectEdit(final IDirectEditingContext context) {
-		System.err.println("CALLED");
 		final PictogramElement pe = context.getPictogramElement();
         final Object bo = bor.getBusinessObjectForPictogramElement(pe);
-        if(bo instanceof AnnexLibrary || bo instanceof AnnexSubclause) {
+        if((bo instanceof AnnexLibrary || bo instanceof AnnexSubclause) && annexLabelName.equals(propertyService.getName(pe))) {
         	return true;
         }
-System.err.println("returning False");
+        
 		return false;
 	}
 	
 	@Override
 	 public String getInitialValue(final IDirectEditingContext context) {
-		System.err.println("AAA");
 		final String annexName = getAnnexName(((NamedElement)bor.getBusinessObjectForPictogramElement(context.getPictogramElement())));
 		return annexName;
 	 }
 	
 	private static String getAnnexName(final NamedElement annex) {
-		System.err.println("BBB");
 		return annex.getName();
 	}
 
 	@Override
 	public void setValue(final String value, final IDirectEditingContext context) {
-		System.err.println("CCC");
 		final NamedElement annex = (NamedElement)bor.getBusinessObjectForPictogramElement(context.getPictogramElement());
 		refactoringService.renameElement(annex, value);
 	}
@@ -407,7 +382,7 @@ System.err.println("returning False");
 	
 	@Override
 	public boolean canResizeShape(final IResizeShapeContext context) {
-		return true;
+		return !propertyService.isTransient(context.getPictogramElement()); // Don't allow resizing of transient shapes such as labels
 	};
 
 	@Override
@@ -432,15 +407,11 @@ System.err.println("returning False");
 
 		final IGaService gaService = Graphiti.getGaService();
 		final Shape nameShape = Objects.requireNonNull(getNameShape(containerShape), "unable to retrieve name shape");
-		propertyService.setIsUnselectable(nameShape, true);
-		propertyService.setIsManuallyPositioned(nameShape, true);
-		
+
 		// Determine size of the shape
 		final int[] newSize = layoutService.adjustChildShapePositions(containerShape); 
 
 		final GraphicsAlgorithm nameShapeGraphicsAlgorithm = nameShape.getGraphicsAlgorithm();
-		/*final Text labelText = (Text)nameShape.getGraphicsAlgorithm().getGraphicsAlgorithmChildren().get(0);
-		labelText.setHorizontalAlignment(Orientation.ALIGNMENT_MIDDLE);*/
 
 		// Enforce a minimum size for classifiers
 		newSize[0] = Math.max(Math.max(newSize[0], layoutService.getMinimumWidth()), nameShapeGraphicsAlgorithm.getWidth() + 30);
@@ -453,15 +424,21 @@ System.err.println("returning False");
 		createGraphicsAlgorithm(containerShape, x, y, getDiagram());
 
 		final int shapeWidth = csGraphicsAlgorithm.getWidth();
+		
 		//Get offset for height of folder tab
-		final int shapeHeight = csGraphicsAlgorithm.getHeight() + (int)(csGraphicsAlgorithm.getHeight()*topOfFolderOffsetValue);
+		final int shapeHeight = csGraphicsAlgorithm.getHeight() + getShapeOffsetHeight(tabOffsetAngle);
 		
 		// Layout Labels
 		gaService.setLocation(nameShapeGraphicsAlgorithm, (shapeWidth - nameShapeGraphicsAlgorithm.getWidth()) / 2, ((shapeHeight - (nameShapeGraphicsAlgorithm.getHeight()))/2));		
+	
 		// Refresh. For some reason if it is not refreshed, some shapes may not be drawn correctly.
 		getFeatureProvider().getDiagramTypeProvider().getDiagramBehavior().refresh();
 
 		return true;
+	}
+
+	private static int getShapeOffsetHeight(final double deg) {
+		return (int)(Math.ceil(Math.tan(Math.toRadians(deg))*tabHeight));
 	}
 
 	private Shape getNameShape(final ContainerShape shape) {
@@ -592,13 +569,6 @@ System.err.println("returning False");
 			super(parentShell, dialogTitleAndMessage[0], dialogTitleAndMessage[1], "", new IInputValidator() {
 				@Override
 				public String isValid(final String newName) {
-/*					boolean invalid = false;
-					if(!namingService.isValidIdentifier(newName)) {
-						invalid = true;
-					}
-					
-					boolean invalid = isValidAnnexName(newName, namingService);
-*/
 					return isValidAnnexName(newName, namingService) ? "The specified name is not valid." : null;
 				}
 			});
