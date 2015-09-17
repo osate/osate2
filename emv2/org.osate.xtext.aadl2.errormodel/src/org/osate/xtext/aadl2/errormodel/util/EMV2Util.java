@@ -123,14 +123,16 @@ public class EMV2Util {
 	 * @return ErrorModelSubclause
 	 */
 	public static EList<ErrorModelSubclause> getAllContainingClassifierEMV2Subclauses(Element element) {
-		Classifier cl;
+		Classifier cl = null;
 		if (element instanceof InstanceObject) {
 			ComponentInstance ci = ((InstanceObject) element).getComponentInstance();
 			cl = ci.getComponentClassifier();
-		} else {
+		} else if (element != null) {
 			cl = element.getContainingClassifier();
 		}
 		EList<ErrorModelSubclause> result = new BasicEList<ErrorModelSubclause>();
+		if (cl == null)
+			return result;
 		if (cl instanceof ComponentImplementation) {
 			getAllClassifierEMV2Subclause(cl, result);
 			getAllClassifierEMV2Subclause(((ComponentImplementation) cl).getType(), result);
@@ -1546,6 +1548,8 @@ public class EMV2Util {
 		Collection<ErrorBehaviorTransition> res = getAllErrorBehaviorTransitions(cl, unlist).values();
 
 		BasicEList<ErrorBehaviorTransition> result = new BasicEList<ErrorBehaviorTransition>();
+		if (cl == null)
+			return result;
 		result.addAll(res);
 		result.addAll(unlist);
 		return result;

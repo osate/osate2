@@ -131,7 +131,7 @@ public class EMV2Properties {
 				if (xref != null) {
 					PropertyExpression peVal = xref.getOwnedValue();
 					if (peVal instanceof StringLiteral) {
-						return ((StringLiteral)peVal).getValue();
+						return ((StringLiteral) peVal).getValue();
 					}
 				}
 			}
@@ -145,7 +145,7 @@ public class EMV2Properties {
 						if (xref != null) {
 							PropertyExpression peVal = xref.getOwnedValue();
 							if (peVal instanceof StringLiteral) {
-								return ((StringLiteral)peVal).getValue();
+								return ((StringLiteral) peVal).getValue();
 							}
 						}
 					}
@@ -192,7 +192,7 @@ public class EMV2Properties {
 				if (xref != null) {
 					PropertyExpression peVal = xref.getOwnedValue();
 					if (peVal instanceof StringLiteral) {
-						return ((StringLiteral)peVal).getValue();
+						return ((StringLiteral) peVal).getValue();
 					}
 				}
 			}
@@ -206,7 +206,7 @@ public class EMV2Properties {
 						if (xref != null) {
 							PropertyExpression peVal = xref.getOwnedValue();
 							if (peVal instanceof StringLiteral) {
-								return ((StringLiteral)peVal).getValue();
+								return ((StringLiteral) peVal).getValue();
 							}
 						}
 					}
@@ -327,7 +327,6 @@ public class EMV2Properties {
 				.getOwnedValues()) {
 			PropertyExpression val = modalPropertyValue.getOwnedValue();
 
-			
 			if (val instanceof RecordValue) {
 
 				RecordValue rv = (RecordValue) val;
@@ -687,8 +686,10 @@ public class EMV2Properties {
 	 */
 	public static EList<ContainedNamedElement> getSeverityProperty(NamedElement ci, Element target, TypeSet ts) {
 		EList<ContainedNamedElement> result = EMV2Properties.getProperty("EMV2::Severity", ci, target, ts);
-//		if (result==null)result = EMV2Properties.getProperty("ARP4761::Severity",ci,target,ts);
-//		if (result==null)result = EMV2Properties.getProperty("MILSTD882::Severity",ci,target,ts);
+//		if (result.isEmpty())
+//			result = EMV2Properties.getProperty("ARP4761::FailureConditionClassification", ci, target, ts);
+//		if (result.isEmpty())
+//			result = EMV2Properties.getProperty("MILSTD882::SeverityLevel", ci, target, ts);
 		return result;
 	}
 
@@ -701,8 +702,10 @@ public class EMV2Properties {
 	 */
 	public static EList<ContainedNamedElement> getLikelihoodProperty(NamedElement ci, Element target, TypeSet ts) {
 		EList<ContainedNamedElement> result = EMV2Properties.getProperty("EMV2::Likelihood", ci, target, ts);
-//		if (result==null)result = EMV2Properties.getProperty("ARP4761::Likelihood",ci,target,ts);
-//		if (result==null)result = EMV2Properties.getProperty("MILSTD882::Likelihood",ci,target,ts);
+//		if (result.isEmpty())
+//			result = EMV2Properties.getProperty("ARP4761::QualitativeProbability", ci, target, ts);
+//		if (result.isEmpty())
+//			result = EMV2Properties.getProperty("MILSTD882::QualitativeProbability", ci, target, ts);
 		return result;
 	}
 
