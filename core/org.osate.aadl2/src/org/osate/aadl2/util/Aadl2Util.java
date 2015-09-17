@@ -227,8 +227,8 @@ public class Aadl2Util {
 	}
 
 	public static boolean sameUnit(UnitLiteral l1, UnitLiteral l2) {
-		String p1Name = l1.getName();
-		String p2Name = l2.getName();
+		String p1Name = l1.getQualifiedName();
+		String p2Name = l2.getQualifiedName();
 		return p1Name.equalsIgnoreCase(p2Name);
 	}
 
