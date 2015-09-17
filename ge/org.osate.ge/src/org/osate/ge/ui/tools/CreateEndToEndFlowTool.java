@@ -555,12 +555,12 @@ public class CreateEndToEndFlowTool {
 
 			final Label nameLabel = new Label(buttonBar, SWT.NONE);
 			nameLabel.setText("Name: ");
-			final GridData nameLabelData = new GridData(SWT.LEFT, SWT.CENTER, true, true);
+			final GridData nameLabelData = new GridData(SWT.LEFT, SWT.CENTER, false, true);
 			nameLabelData.horizontalIndent = convertHorizontalDLUsToPixels(IDialogConstants.HORIZONTAL_MARGIN);
 			nameLabel.setLayoutData(nameLabelData);
 
 			newETEFlowName = new Text(buttonBar, SWT.SINGLE | SWT.LEFT | SWT.BORDER);
-			final GridData nameTextData = new GridData(SWT.RIGHT, SWT.CENTER, true, false);
+			final GridData nameTextData = new GridData(SWT.FILL, SWT.CENTER, true, false);
 			nameTextData.widthHint = 180;
 			newETEFlowName.setLayoutData(nameTextData);
 			newETEFlowName.setEditable(true);
