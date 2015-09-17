@@ -3,7 +3,6 @@
 --Appendix A: Predeclared Property Sets
 
 property set Timing_Properties is
-	with AADL_Project;
 	
 	Time: type aadlinteger 0 ps .. Max_Time units Time_Units;
 	
