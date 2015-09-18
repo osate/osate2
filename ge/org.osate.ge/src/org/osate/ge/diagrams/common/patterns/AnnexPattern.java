@@ -20,8 +20,6 @@ import org.eclipse.graphiti.features.context.ILayoutContext;
 import org.eclipse.graphiti.features.context.IResizeShapeContext;
 import org.eclipse.graphiti.features.context.IUpdateContext;
 import org.eclipse.graphiti.mm.algorithms.GraphicsAlgorithm;
-import org.eclipse.graphiti.mm.algorithms.styles.LineStyle;
-import org.eclipse.graphiti.mm.algorithms.styles.Style;
 import org.eclipse.graphiti.mm.pictograms.ContainerShape;
 import org.eclipse.graphiti.mm.pictograms.Diagram;
 import org.eclipse.graphiti.mm.pictograms.PictogramElement;
@@ -29,7 +27,6 @@ import org.eclipse.graphiti.mm.pictograms.Shape;
 import org.eclipse.graphiti.services.Graphiti;
 import org.eclipse.graphiti.services.IGaService;
 import org.eclipse.graphiti.services.IPeCreateService;
-import org.eclipse.graphiti.util.IColorConstant;
 import org.eclipse.jface.dialogs.Dialog;
 import org.eclipse.jface.dialogs.IInputValidator;
 import org.eclipse.jface.dialogs.InputDialog;
@@ -58,6 +55,7 @@ import org.osate.ge.services.PropertyService;
 import org.osate.ge.services.RefactoringService;
 import org.osate.ge.services.ShapeCreationService;
 import org.osate.ge.services.ShapeService;
+import org.osate.ge.services.StyleService;
 import org.osate.ge.services.UserInputService;
 import org.osate.ge.services.AadlModificationService.AbstractModifier;
 
@@ -86,9 +84,10 @@ public class AnnexPattern extends AgePattern {
 	private final EClass annexType;
 	private final UserInputService userInputService;
 	private final RefactoringService refactoringService;
+	private final StyleService styleService;
 
 	@Inject
-	public AnnexPattern(final GhostingService ghostingService, final AnchorService anchorService, final ShapeService shapeService, final LabelService labelService, final UserInputService userInputService, 
+	public AnnexPattern(final GhostingService ghostingService, final AnchorService anchorService, final ShapeService shapeService, final LabelService labelService, final UserInputService userInputService, final StyleService styleService, 
 			final LayoutService layoutService, final BusinessObjectResolutionService bor, final PropertyService propertyService, final AadlModificationService aadlModService, final RefactoringService refactoringService,
 			final DiagramModificationService diagramModService, final ShapeCreationService shapeCreationService, final NamingService namingService, final @Named("Annex Type") EClass annexType) {
 		this.ghostingService = ghostingService;
@@ -105,6 +104,7 @@ public class AnnexPattern extends AgePattern {
 		this.annexType = annexType;
 		this.userInputService = userInputService;
 		this.refactoringService = refactoringService;
+		this.styleService = styleService;
 	}
 
 	@Override
@@ -245,7 +245,7 @@ public class AnnexPattern extends AgePattern {
 	 * @param y the y-coordinate the new shape will be placed
 	 * @param diagram the current diagram
 	 */
-	private static void createGraphicsAlgorithm(final ContainerShape containerShape, final int x, final int y, final Diagram diagram) {
+	private void createGraphicsAlgorithm(final ContainerShape containerShape, final int x, final int y, final Diagram diagram) {
 		final IGaService gaService = Graphiti.getGaService();
 		final GraphicsAlgorithm csGraphicsAlgorithm = containerShape.getGraphicsAlgorithm();
 		final int width = csGraphicsAlgorithm.getWidth();
@@ -263,7 +263,7 @@ public class AnnexPattern extends AgePattern {
 	 * @param diagram the current diagram
 	 * @return the drawn graphics algorithm
 	 */
-	private static GraphicsAlgorithm createFolderShape(final ContainerShape containerShape, final int width, final int height, final Diagram diagram) {
+	private GraphicsAlgorithm createFolderShape(final ContainerShape containerShape, final int width, final int height, final Diagram diagram) {
 		final IGaService gaService = Graphiti.getGaService();
 		//Width of tab
 		int widthOfTab = Math.min(maxTabWidth, (int)(width*topOfTabOffsetValue));
@@ -279,31 +279,11 @@ public class AnnexPattern extends AgePattern {
 				width, tabHeight,
 				width, height});
 		
-		ga.setStyle(getStyle(diagram, gaService));
+		ga.setStyle(styleService.getDefaultAnnexStyle());
 
 		return ga;
 	}
-
-	/**
-	 * Set the style for the new GraphicsAlgorithm
-	 * @param ga the new GraphicsAlgorithm
-	 * @param diagram the current diagram
-	 * @param gaService service for managing GraphicsAlgorithms
-	 * @return 
-	 */
-	private static Style getStyle(final Diagram diagram, final IGaService gaService) {
-		final Style style = gaService.createPlainStyle(diagram, "annex");
-		style.setFilled(true);
-		style.setBackground(gaService.manageColor(diagram, IColorConstant.WHITE));
-		style.setForeground(gaService.manageColor(diagram, IColorConstant.BLACK));
-		style.setLineStyle(LineStyle.SOLID);
-		style.setLineVisible(true);
-		style.setLineWidth(2);
-		style.setTransparency(0.0);
-		
-		return style;
-	}
-
+	
 	// Update
 	@Override
 	public final boolean update(final IUpdateContext context) {

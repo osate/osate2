@@ -261,6 +261,13 @@ public class DefaultStyleService implements StyleService {
 	public Style getSubprogramGroupAccessStyle() {
 		return getStyle("subprogram_group_access");
     }
+	/* (non-Javadoc)
+	 * @see org.osate.ge.diagrams.common.util.StyleService#getDefaultAnnexStyle(org.eclipse.graphiti.mm.pictograms.Diagram)
+	 */
+	@Override
+	public Style getDefaultAnnexStyle() {
+		return getStyle("default_annex");
+    }
 	
 	@Override
 	public Style getSubprogramCallOrderStyle() {
