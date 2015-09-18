@@ -60,7 +60,6 @@ import org.osate.ge.services.ShapeCreationService;
 import org.osate.ge.services.ShapeService;
 import org.osate.ge.services.UserInputService;
 import org.osate.ge.services.AadlModificationService.AbstractModifier;
-import org.osate.ge.util.StringUtil;
 
 /**
  * Pattern for handling AnnexLibraries and AnnexSubclauses
@@ -110,12 +109,22 @@ public class AnnexPattern extends AgePattern {
 
 	@Override
 	public String getCreateName() {
-		return StringUtil.camelCaseToUser(annexType.getName());
+		if(annexType == getDefaultAnnexLibrary()) {
+			return "Annex Library";
+		} else if(annexType == getDefaultAnnexSubclause()) {
+			return "Annex Subclause";
+		} else {
+			throw runtimeException();
+		}
 	}
 
 	@Override
 	public String getCreateImageId(){
-		return null;//AgeImageProvider.getImage("Annex");
+		if(annexType == getDefaultAnnexLibrary() || annexType == getDefaultAnnexSubclause()) {
+			return AgeImageProvider.getImage(annexType.getName());
+		}
+		
+		return null;
 	}
 
 	@Override
@@ -128,21 +137,13 @@ public class AnnexPattern extends AgePattern {
 	public boolean isPaletteApplicable() {
 		if(annexType == null) {
 			return false;
-		} else if(isAnnexLibrary(annexType, getAnnexLibrary())) {
+		} else if(annexType == getDefaultAnnexLibrary()) {
 			return isPackageDiagram();
-		} else {
+		} else if(annexType == getDefaultAnnexSubclause()) {
 			return isClassifierDiagram();
+		} else {
+			throw runtimeException();
 		}
-	}
-
-	/**
-	 * Determine if the current annex type is a AnnexLibrary
-	 * @param annexType the current annex type EClass
-	 * @param annexSubclause the AnnexLibrary EClass
-	 * @return true if the current annex type is an AnnexLibrary, false if it is an AnnexSubclause
-	 */
-	private static boolean isAnnexLibrary(final EClass annexType, final EClass annexLibrary) {
-		return annexType == annexLibrary;
 	}
 
 	@Override
@@ -216,7 +217,6 @@ public class AnnexPattern extends AgePattern {
 	public final PictogramElement add(final IAddContext context) {
 		final NamedElement neNewAnnex = (NamedElement)AadlElementWrapper.unwrap(context.getNewObject());
 		final IPeCreateService peCreateService = Graphiti.getPeCreateService();
-		final IGaService gaService = Graphiti.getGaService();
 		
 		// Create the container shape for the generic representation
 		final ContainerShape containerShape = peCreateService.createContainerShape(context.getTargetContainer(), true);
@@ -436,11 +436,8 @@ public class AnnexPattern extends AgePattern {
 
 		final int shapeWidth = csGraphicsAlgorithm.getWidth();
 		
-		//Get offset for height of folder tab
-		final int shapeHeight = csGraphicsAlgorithm.getHeight() + getShapeOffsetHeight(tabOffsetAngle);
-		
 		// Layout Labels
-		gaService.setLocation(nameShapeGraphicsAlgorithm, (shapeWidth - nameShapeGraphicsAlgorithm.getWidth()) / 2, ((shapeHeight - (nameShapeGraphicsAlgorithm.getHeight()))/2));		
+		gaService.setLocation(nameShapeGraphicsAlgorithm, (shapeWidth - nameShapeGraphicsAlgorithm.getWidth()) / 2, 17);		
 	
 		// Refresh. For some reason if it is not refreshed, some shapes may not be drawn correctly.
 		getFeatureProvider().getDiagramTypeProvider().getDiagramBehavior().refresh();
@@ -458,13 +455,16 @@ public class AnnexPattern extends AgePattern {
 
 	@Override
 	public boolean canCreate(final ICreateContext context) {
+		//Connection highlights when hovering, cannot drop on connection
 		if(context.getTargetConnection() == null) {
 			if(annexType == null) {
 				return false;
-			} else if(isAnnexLibrary(annexType, getAnnexLibrary())) {
+			} else if(annexType == getDefaultAnnexLibrary()) {
 				return isPackageDiagram() && context.getTargetContainer() instanceof Diagram;
-			} else {
+			} else if(annexType == getDefaultAnnexSubclause()) {
 				return isClassifierDiagram() && isValidClassifier(context);
+			} else {
+				throw runtimeException();
 			}
 		}
 
@@ -528,8 +528,8 @@ public class AnnexPattern extends AgePattern {
 				: Objects.requireNonNull(getAadlPackage(targetContainer), "AadlPackage cannot be null.");
 	}
 
-	private static EClass getAnnexLibrary() {
-		return Aadl2Factory.eINSTANCE.getAadl2Package().getAnnexLibrary();
+	private static EClass getDefaultAnnexLibrary() {
+		return Aadl2Factory.eINSTANCE.getAadl2Package().getDefaultAnnexLibrary();
 	}
 
 	private static Classifier getClassifier(final NamedElement targetContainer) {
@@ -543,7 +543,7 @@ public class AnnexPattern extends AgePattern {
 	 * @return
 	 */
 	private static AnnexLibrary createAnnexLibrary(final NamedElement neContainer, final String newAnnexLibraryName) {
-		final DefaultAnnexLibrary annexLibrary = (DefaultAnnexLibrary)((AadlPackage)neContainer).getPublicSection().createOwnedAnnexLibrary(getAnnexLibrary());
+		final DefaultAnnexLibrary annexLibrary = (DefaultAnnexLibrary)((AadlPackage)neContainer).getPublicSection().createOwnedAnnexLibrary(getDefaultAnnexLibrary());
 		annexLibrary.setSourceText("{** **}");
 		annexLibrary.setName(newAnnexLibraryName);
 
@@ -557,15 +557,15 @@ public class AnnexPattern extends AgePattern {
 	 * @return
 	 */
 	private static AnnexSubclause createAnnexSubclause(final NamedElement neContainer, final String newAnnexSubclauseName) {
-		final DefaultAnnexSubclause annexSubclause = (DefaultAnnexSubclause)((Classifier)neContainer).createOwnedAnnexSubclause(getAnnexSubclause());
+		final DefaultAnnexSubclause annexSubclause = (DefaultAnnexSubclause)((Classifier)neContainer).createOwnedAnnexSubclause(getDefaultAnnexSubclause());
 		annexSubclause.setName(newAnnexSubclauseName);
 		annexSubclause.setSourceText("{** **}");
 
 		return annexSubclause;
 	}
 
-	private static EClass getAnnexSubclause() {
-		return Aadl2Factory.eINSTANCE.getAadl2Package().getAnnexSubclause();
+	private static EClass getDefaultAnnexSubclause() {
+		return Aadl2Factory.eINSTANCE.getAadl2Package().getDefaultAnnexSubclause();
 	}
 
 	private static AadlPackage getAadlPackage(final NamedElement targetContainer) {
@@ -607,15 +607,21 @@ public class AnnexPattern extends AgePattern {
 	 */
 	private static String[] getDialogTitleAndMessage(final EClass annexType) {
 		final String[] dialogTitleAndMessage = new String[2];
-		if(isAnnexLibrary(annexType, getAnnexLibrary())) {
+		if(annexType == getDefaultAnnexLibrary()) {
 			dialogTitleAndMessage[0] = "Create Annex Library";
 			dialogTitleAndMessage[1] = "Enter a name for the new Annex Library.";
-		} else {
+		} else if(annexType == getDefaultAnnexSubclause()) {
 			dialogTitleAndMessage[0] = "Create Annex Subclause";
 			dialogTitleAndMessage[1] = "Enter a name for the new Annex Subclause.";
+		} else {
+			throw runtimeException();
 		}
 
 		return dialogTitleAndMessage;
+	}
+	
+	private static RuntimeException runtimeException() {
+		return new RuntimeException("Unhandled case.  Must be DefaultAnnexLibrary or DefaultAnnexSubclause.");
 	}
 	
 	/**

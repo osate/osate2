@@ -541,10 +541,10 @@ public class AgeFeatureProvider extends DefaultFeatureProviderWithPatterns {
 	}
 	
 	private void addAnnexPatterns() {
-		EClass annexType = Aadl2Factory.eINSTANCE.getAadl2Package().getAnnexLibrary();
+		EClass annexType = Aadl2Factory.eINSTANCE.getAadl2Package().getDefaultAnnexLibrary();
 		this.addPattern(createAnnexPattern(annexType));
 		
-		annexType = Aadl2Factory.eINSTANCE.getAadl2Package().getAnnexSubclause();
+		annexType = Aadl2Factory.eINSTANCE.getAadl2Package().getDefaultAnnexSubclause();
 		this.addPattern(createAnnexPattern(annexType));
 	}
 	
