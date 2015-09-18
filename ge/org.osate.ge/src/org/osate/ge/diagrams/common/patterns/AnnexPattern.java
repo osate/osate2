@@ -114,7 +114,7 @@ public class AnnexPattern extends AgePattern {
 		} else if(annexType == getDefaultAnnexSubclause()) {
 			return "Annex Subclause";
 		} else {
-			throw runtimeException();
+			throw throwUnhandledTypeRuntimeException();
 		}
 	}
 
@@ -135,14 +135,12 @@ public class AnnexPattern extends AgePattern {
 
 	@Override
 	public boolean isPaletteApplicable() {
-		if(annexType == null) {
-			return false;
-		} else if(annexType == getDefaultAnnexLibrary()) {
+		if(annexType == getDefaultAnnexLibrary()) {
 			return isPackageDiagram();
 		} else if(annexType == getDefaultAnnexSubclause()) {
 			return isClassifierDiagram();
 		} else {
-			throw runtimeException();
+			throw throwUnhandledTypeRuntimeException();
 		}
 	}
 
@@ -444,7 +442,7 @@ public class AnnexPattern extends AgePattern {
 			} else if(annexType == getDefaultAnnexSubclause()) {
 				return isClassifierDiagram() && isValidClassifier(context);
 			} else {
-				throw runtimeException();
+				throw throwUnhandledTypeRuntimeException();
 			}
 		}
 
@@ -594,13 +592,13 @@ public class AnnexPattern extends AgePattern {
 			dialogTitleAndMessage[0] = "Create Annex Subclause";
 			dialogTitleAndMessage[1] = "Enter a name for the new Annex Subclause.";
 		} else {
-			throw runtimeException();
+			throw throwUnhandledTypeRuntimeException();
 		}
 
 		return dialogTitleAndMessage;
 	}
 	
-	private static RuntimeException runtimeException() {
+	private static RuntimeException throwUnhandledTypeRuntimeException() {
 		return new RuntimeException("Unhandled case.  Must be DefaultAnnexLibrary or DefaultAnnexSubclause.");
 	}
 	

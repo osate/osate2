@@ -151,7 +151,6 @@ public class AgeFeatureProvider extends DefaultFeatureProviderWithPatterns {
 		addPattern(createClassifierPattern(null));
 		addSubcomponentPatterns();
 		
-		addPattern(createAnnexPattern(null));
 		addAnnexPatterns();
 		
 		// Subprogram Calls
