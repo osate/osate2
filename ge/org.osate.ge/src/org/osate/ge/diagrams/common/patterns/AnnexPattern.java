@@ -43,6 +43,7 @@ import org.osate.aadl2.Classifier;
 import org.osate.aadl2.DefaultAnnexLibrary;
 import org.osate.aadl2.DefaultAnnexSubclause;
 import org.osate.aadl2.NamedElement;
+import org.osate.aadl2.Subcomponent;
 import org.osate.ge.diagrams.common.AadlElementWrapper;
 import org.osate.ge.diagrams.common.AgeImageProvider;
 import org.osate.ge.services.AadlModificationService;
@@ -114,7 +115,7 @@ public class AnnexPattern extends AgePattern {
 
 	@Override
 	public String getCreateImageId(){
-		return AgeImageProvider.getImage("Annex");
+		return null;//AgeImageProvider.getImage("Annex");
 	}
 
 	@Override
@@ -148,7 +149,7 @@ public class AnnexPattern extends AgePattern {
 	public boolean canAdd(final IAddContext context) {
 		if(isMainBusinessObjectApplicable(context.getNewObject())) {
 			final Object targetBo = bor.getBusinessObjectForPictogramElement(context.getTargetContainer());
-			return targetBo instanceof Classifier || targetBo instanceof AadlPackage;
+			return targetBo instanceof Classifier || targetBo instanceof Subcomponent || targetBo instanceof AadlPackage;
 		}
 
 		return false;
@@ -219,18 +220,23 @@ public class AnnexPattern extends AgePattern {
 		
 		// Create the container shape for the generic representation
 		final ContainerShape containerShape = peCreateService.createContainerShape(context.getTargetContainer(), true);
-		gaService.createInvisibleRectangle(containerShape);
-		
-		// Create Graphics Algorithm
-		createGraphicsAlgorithm(containerShape, context.getX(), context.getY(), getDiagram());
-		
 		link(containerShape, new AadlElementWrapper(neNewAnnex));
+		
+		createStubGraphicsAlgorithm(containerShape, context.getX(), context.getY());		
+		
 		// Finish creating
 		refresh(containerShape);
 
 		return containerShape;
 	}
 
+	private GraphicsAlgorithm createStubGraphicsAlgorithm(final Shape shape, final int x, final int y) {
+		final IGaService gaService = Graphiti.getGaService();
+        final GraphicsAlgorithm ga = gaService.createInvisibleRectangle(shape);
+        gaService.setLocation(ga, x, y);
+        return ga;
+	}
+	
 	/**
 	 * Creating the graphics algorithm and setting the location for the new pictogram element
 	 * @param containerShape the ContainerShape we are attaching the graphics algorithm to
@@ -306,7 +312,7 @@ public class AnnexPattern extends AgePattern {
 			final ContainerShape shape = (ContainerShape)pe;
 			final GraphicsAlgorithm ga = pe.getGraphicsAlgorithm();
 			if(ga == null) {
-				createGraphicsAlgorithm(shape, 25, 25, getDiagram());
+				createStubGraphicsAlgorithm(shape, 25, 25);
 			}
 
 			refresh((ContainerShape)pe);
@@ -373,6 +379,11 @@ public class AnnexPattern extends AgePattern {
 	@Override
 	public int getEditingType() {
 		return TYPE_TEXT;
+	}
+	
+	@Override
+	public boolean stretchFieldToFitText() {
+		return true;
 	}
 	
     @Override

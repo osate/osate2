@@ -380,11 +380,11 @@ public class ClassifierPattern extends AgePattern implements Categorized {
 				final ComponentClassifier cc = (ComponentClassifier)classifier;			
 				shapeCreationService.createUpdateModeShapes(shape, cc.getAllModes(), touchedShapes);
 			}
-		}
-		
-		// Annex Subclauses
-		if(bo instanceof Classifier) {
-			shapeCreationService.createUpdateShapesForElements(shape, getAllDefaultAnnexSubclauses((Classifier)bo), 25, true, 30, 25, true, 20, touchedShapes);
+			
+			// Annex Subclauses
+			if(classifier instanceof Classifier) {
+				shapeCreationService.createUpdateShapesForElements(shape, getAllDefaultAnnexSubclauses((Classifier)classifier), 25, true, 30, 25, true, 20, touchedShapes);			
+			}
 		}
 
 		// Ghost child shapes that were not updated. This is done before updating connections because the connections may refer to invisible or ghosted shapes

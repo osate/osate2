@@ -45,7 +45,6 @@ import org.osate.aadl2.Realization;
 import org.osate.aadl2.TypeExtension;
 import org.osate.aadl2.modelsupport.Activator;
 import org.osate.aadl2.util.Aadl2Util;
-import org.osate.annexsupport.AnnexUtil;
 import org.osate.ge.diagrams.common.AadlElementWrapper;
 import org.osate.ge.diagrams.common.features.DiagramUpdateFeature;
 import org.osate.ge.diagrams.common.features.LayoutDiagramFeature;
