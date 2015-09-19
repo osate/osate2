@@ -503,13 +503,13 @@ public class DoBoundResourceAnalysisLogic extends DoResourceBudgetLogic {
 		}
 		if (Buscapacity == 0) {
 			if (!budgetedConnections.isEmpty()) {
-				errManager.warningSummary(curBus, som.getName(), curBus.getComponentInstancePath()
+				errManager.errorSummary(curBus, som.getName(), curBus.getComponentInstancePath()
 						+ " has no capacity but bound connections");
 			} else {
-				errManager
-						.warningSummary(curBus, som.getName(), curBus.getComponentInstancePath() + " has no capacity");
-				return;
+				errManager.warningSummary(curBus, som.getName(), curBus.getComponentInstancePath()
+						+ " has no capacity and no demand");
 			}
+			return;
 		}
 		if (budgetedConnections.isEmpty()) {
 			errManager.infoSummary(curBus, som.getName(), curBus.getComponentInstancePath()
@@ -560,10 +560,13 @@ public class DoBoundResourceAnalysisLogic extends DoResourceBudgetLogic {
 			errManager.errorSummary(curBus, som.getName(), curBus.getComponentInstancePath() + " bandwidth capacity "
 					+ Buscapacity + " KBytesps exceeded by connection bandwidth budget totals " + totalBandWidth
 					+ " Kbps");
-		} else if (totalBandWidth > 0.0 && Buscapacity > 0.0) {
+		} else if (totalBandWidth > 0.0) {
 			errManager.infoSummary(curBus, som.getName(), curBus.getComponentInstancePath() + " bandwidth capacity "
 					+ Buscapacity + " KBytesps sufficient for connection bandwidth  budget totals " + totalBandWidth
 					+ " Kbps");
+		} else {
+			errManager.warningSummary(curBus, som.getName(), curBus.getComponentInstancePath() + " bandwidth capacity "
+					+ Buscapacity + " KBytesps and bound connections without bandwidth budget");
 		}
 	}
 
