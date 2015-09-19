@@ -95,7 +95,7 @@ public class DoBoundResourceAnalysis extends AaxlReadOnlyActionAsJob {
 		InstanceModelUtil.clearCache();
 		InstanceValidation iv = new InstanceValidation(this);
 		if (!iv.checkReferenceProcessor(((InstanceObject) obj).getSystemInstance())) {
-			errManager.warning(obj, "Model contains thread execution times without reference processor.");
+			errManager.error(obj, "Model contains thread execution times without reference processor.");
 //			Dialog.showWarning("Resource Budget Analysis",
 //					"Model contains thread execution times without reference processor.");
 			return;
