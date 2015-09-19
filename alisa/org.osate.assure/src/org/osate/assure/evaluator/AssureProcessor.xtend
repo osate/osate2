@@ -148,25 +148,21 @@ class AssureProcessor implements IAssureProcessor {
 		val method = verificationResult.method;
 		var Object res = null
 		val targetElement = verificationResult.targetElement
-		var instanceroot = verificationResult.verificationActivityInstanceModel
-		var ComponentInstance targetComponent = instanceroot
-		// may need to find requirement target inside (test harness scenario)
+		var instanceroot = verificationResult.assuranceCaseInstanceModel //verificationResult.verificationActivityInstanceModel // get instance model from VA for clause
 		if (instanceroot == null) {
-			instanceroot = verificationResult.assuranceCaseInstanceModel
-			targetComponent = findTargetSystemComponentInstance(instanceroot, verificationResult.enclosingAssuranceCase)
-			if (targetComponent == null) {
-				setToFail(verificationResult, "Unresolved target system for claim", null)
-				return
-			}
-		}
-		if (instanceroot == null) {
-			setToFail(verificationResult, "Could not find instance model", null)
+			setToError(verificationResult, "Could not find instance model", null)
 			return
 		}
+		var ComponentInstance targetComponent = instanceroot
+			targetComponent = findTargetSystemComponentInstance(instanceroot, verificationResult.enclosingAssuranceCase)
+			if (targetComponent == null) {
+				setToError(verificationResult, "Unresolved target system for claim", null)
+				return
+			}
 		var InstanceObject target = targetComponent;
 		if (targetElement != null) {
 			if (targetElement.eIsProxy) {
-				setToFail(verificationResult, "Unresolved target element for claim", targetComponent)
+				setToError(verificationResult, "Unresolved target element for claim", targetComponent)
 				return
 			}
 			val x = targetComponent.findElementInstance(targetElement)
@@ -257,7 +253,7 @@ class AssureProcessor implements IAssureProcessor {
 						} else if (res instanceof ResultReport) {
 							verificationResult.resultReport = res
 						} else {
-							setToFail(verificationResult, "No result report from analysis", target);
+							setToError(verificationResult, "No result report from analysis", target);
 						}
 					}
 				}
