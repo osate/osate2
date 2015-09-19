@@ -177,7 +177,7 @@ class AssureUtilExtension {
 		if( verificationActivityResult.issues.exists[ri|ri.issueType == ResultIssueType.ERROR]){
 			verificationActivityResult.setToFail
 		} else if (verificationActivityResult.issues.exists[ri|ri.issueType == ResultIssueType.WARNING]){
-			verificationActivityResult.setToTBD
+			verificationActivityResult.setToError
 		} else {
 			verificationActivityResult.setToSuccess
 		}
@@ -337,6 +337,16 @@ class AssureUtilExtension {
 	def static isNoSuccess(AssureResult ar) {
 		val counts = ar.metrics
 		counts.failCount != 0 || counts.errorCount != 0 || counts.timeoutCount != 0
+	}
+
+	def static isFail(AssureResult ar) {
+		val counts = ar.metrics
+		counts.failCount != 0 
+	}
+
+	def static isErrorTimeOut(AssureResult ar) {
+		val counts = ar.metrics
+		 counts.errorCount != 0 || counts.timeoutCount != 0
 	}
 
 	def static isTBD(AssureResult ar) {
