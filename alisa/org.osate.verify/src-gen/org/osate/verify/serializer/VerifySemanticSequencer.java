@@ -447,9 +447,9 @@ public class VerifySemanticSequencer extends CommonSemanticSequencer {
 	 *     (
 	 *         (
 	 *             left=SingleElseEvidenceExpr_ElseExpr_1_0_0_0 
-	 *             (other=ElseEvidenceExpr | (fail=ThenEvidenceExpr? timeout=ThenEvidenceExpr? other=ThenEvidenceExpr?))
+	 *             (error=ElseEvidenceExpr | (fail=ThenEvidenceExpr? timeout=ThenEvidenceExpr? error=ThenEvidenceExpr?))
 	 *         ) | 
-	 *         (left=CompositeElseEvidenceExpr_ElseExpr_1_0_0_0 other=ElseEvidenceExpr)
+	 *         (left=CompositeElseEvidenceExpr_ElseExpr_1_0_0_0 error=ElseEvidenceExpr)
 	 *     )
 	 */
 	protected void sequence_CompositeElseEvidenceExpr_ElseEvidenceExpr_SingleElseEvidenceExpr(EObject context, ElseExpr semanticObject) {
@@ -534,7 +534,7 @@ public class VerifySemanticSequencer extends CommonSemanticSequencer {
 	 * Constraint:
 	 *     (
 	 *         left=SingleElseEvidenceExpr_ElseExpr_1_0_0_0 
-	 *         (other=ElseEvidenceExpr | (fail=ThenEvidenceExpr? timeout=ThenEvidenceExpr? other=ThenEvidenceExpr?))
+	 *         (error=ElseEvidenceExpr | (fail=ThenEvidenceExpr? timeout=ThenEvidenceExpr? error=ThenEvidenceExpr?))
 	 *     )
 	 */
 	protected void sequence_SingleElseEvidenceExpr(EObject context, ElseExpr semanticObject) {

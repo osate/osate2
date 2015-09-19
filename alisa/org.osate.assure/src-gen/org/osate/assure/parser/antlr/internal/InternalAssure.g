@@ -847,23 +847,23 @@ ruleElseResult returns [EObject current=null]
 	    }
 
 )
-)+(	otherlv_2='other' 
+)+(	otherlv_2='error' 
     {
-    	newLeafNode(otherlv_2, grammarAccess.getElseResultAccess().getOtherKeyword_2_0());
+    	newLeafNode(otherlv_2, grammarAccess.getElseResultAccess().getErrorKeyword_2_0());
     }
 (
 (
 		{ 
-	        newCompositeNode(grammarAccess.getElseResultAccess().getOtherVerificationExprParserRuleCall_2_1_0()); 
+	        newCompositeNode(grammarAccess.getElseResultAccess().getErrorVerificationExprParserRuleCall_2_1_0()); 
 	    }
-		lv_other_3_0=ruleVerificationExpr		{
+		lv_error_3_0=ruleVerificationExpr		{
 	        if ($current==null) {
 	            $current = createModelElementForParent(grammarAccess.getElseResultRule());
 	        }
        		add(
        			$current, 
-       			"other",
-        		lv_other_3_0, 
+       			"error",
+        		lv_error_3_0, 
         		"VerificationExpr");
 	        afterParserOrEnumRuleCall();
 	    }
@@ -1172,15 +1172,15 @@ ruleMetrics returns [EObject current=null]
 	    }
 
 )
-))?(	otherlv_8='othercount' 
+))?(	otherlv_8='errorcount' 
     {
-    	newLeafNode(otherlv_8, grammarAccess.getMetricsAccess().getOthercountKeyword_4_0());
+    	newLeafNode(otherlv_8, grammarAccess.getMetricsAccess().getErrorcountKeyword_4_0());
     }
 (
 (
-		lv_otherCount_9_0=RULE_INT
+		lv_errorCount_9_0=RULE_INT
 		{
-			newLeafNode(lv_otherCount_9_0, grammarAccess.getMetricsAccess().getOtherCountINTTerminalRuleCall_4_1_0()); 
+			newLeafNode(lv_errorCount_9_0, grammarAccess.getMetricsAccess().getErrorCountINTTerminalRuleCall_4_1_0()); 
 		}
 		{
 	        if ($current==null) {
@@ -1188,8 +1188,8 @@ ruleMetrics returns [EObject current=null]
 	        }
        		setWithLastConsumed(
        			$current, 
-       			"otherCount",
-        		lv_otherCount_9_0, 
+       			"errorCount",
+        		lv_errorCount_9_0, 
         		"INT");
 	    }
 
@@ -1546,10 +1546,10 @@ ruleElseType returns [Enumerator current=null]
         newLeafNode(enumLiteral_1, grammarAccess.getElseTypeAccess().getTIMEOUTEnumLiteralDeclaration_1()); 
     }
 )
-    |(	enumLiteral_2='other' 
+    |(	enumLiteral_2='error' 
 	{
-        $current = grammarAccess.getElseTypeAccess().getOTHEREnumLiteralDeclaration_2().getEnumLiteral().getInstance();
-        newLeafNode(enumLiteral_2, grammarAccess.getElseTypeAccess().getOTHEREnumLiteralDeclaration_2()); 
+        $current = grammarAccess.getElseTypeAccess().getERROREnumLiteralDeclaration_2().getEnumLiteral().getInstance();
+        newLeafNode(enumLiteral_2, grammarAccess.getElseTypeAccess().getERROREnumLiteralDeclaration_2()); 
     }
 ));
 
@@ -1608,10 +1608,10 @@ ruleVerificationResultState returns [Enumerator current=null]
         newLeafNode(enumLiteral_2, grammarAccess.getVerificationResultStateAccess().getFAILEnumLiteralDeclaration_2()); 
     }
 )
-    |(	enumLiteral_3='other' 
+    |(	enumLiteral_3='error' 
 	{
-        $current = grammarAccess.getVerificationResultStateAccess().getOTHEREnumLiteralDeclaration_3().getEnumLiteral().getInstance();
-        newLeafNode(enumLiteral_3, grammarAccess.getVerificationResultStateAccess().getOTHEREnumLiteralDeclaration_3()); 
+        $current = grammarAccess.getVerificationResultStateAccess().getERROREnumLiteralDeclaration_3().getEnumLiteral().getInstance();
+        newLeafNode(enumLiteral_3, grammarAccess.getVerificationResultStateAccess().getERROREnumLiteralDeclaration_3()); 
     }
 )
     |(	enumLiteral_4='timeout' 

@@ -819,13 +819,13 @@ public interface VerifyPackage extends EPackage
   int ELSE_EXPR__LEFT = ARGUMENT_EXPR_FEATURE_COUNT + 0;
 
   /**
-   * The feature id for the '<em><b>Other</b></em>' containment reference.
+   * The feature id for the '<em><b>Error</b></em>' containment reference.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    * @ordered
    */
-  int ELSE_EXPR__OTHER = ARGUMENT_EXPR_FEATURE_COUNT + 1;
+  int ELSE_EXPR__ERROR = ARGUMENT_EXPR_FEATURE_COUNT + 1;
 
   /**
    * The feature id for the '<em><b>Fail</b></em>' containment reference.
@@ -1847,15 +1847,15 @@ public interface VerifyPackage extends EPackage
   EReference getElseExpr_Left();
 
   /**
-   * Returns the meta object for the containment reference '{@link org.osate.verify.verify.ElseExpr#getOther <em>Other</em>}'.
+   * Returns the meta object for the containment reference '{@link org.osate.verify.verify.ElseExpr#getError <em>Error</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @return the meta object for the containment reference '<em>Other</em>'.
-   * @see org.osate.verify.verify.ElseExpr#getOther()
+   * @return the meta object for the containment reference '<em>Error</em>'.
+   * @see org.osate.verify.verify.ElseExpr#getError()
    * @see #getElseExpr()
    * @generated
    */
-  EReference getElseExpr_Other();
+  EReference getElseExpr_Error();
 
   /**
    * Returns the meta object for the containment reference '{@link org.osate.verify.verify.ElseExpr#getFail <em>Fail</em>}'.
@@ -2558,12 +2558,12 @@ public interface VerifyPackage extends EPackage
     EReference ELSE_EXPR__LEFT = eINSTANCE.getElseExpr_Left();
 
     /**
-     * The meta object literal for the '<em><b>Other</b></em>' containment reference feature.
+     * The meta object literal for the '<em><b>Error</b></em>' containment reference feature.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @generated
      */
-    EReference ELSE_EXPR__OTHER = eINSTANCE.getElseExpr_Other();
+    EReference ELSE_EXPR__ERROR = eINSTANCE.getElseExpr_Error();
 
     /**
      * The meta object literal for the '<em><b>Fail</b></em>' containment reference feature.

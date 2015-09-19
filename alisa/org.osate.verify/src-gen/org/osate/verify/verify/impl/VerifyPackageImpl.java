@@ -949,7 +949,7 @@ public class VerifyPackageImpl extends EPackageImpl implements VerifyPackage
    * <!-- end-user-doc -->
    * @generated
    */
-  public EReference getElseExpr_Other()
+  public EReference getElseExpr_Error()
   {
     return (EReference)elseExprEClass.getEStructuralFeatures().get(1);
   }
@@ -1157,7 +1157,7 @@ public class VerifyPackageImpl extends EPackageImpl implements VerifyPackage
 
     elseExprEClass = createEClass(ELSE_EXPR);
     createEReference(elseExprEClass, ELSE_EXPR__LEFT);
-    createEReference(elseExprEClass, ELSE_EXPR__OTHER);
+    createEReference(elseExprEClass, ELSE_EXPR__ERROR);
     createEReference(elseExprEClass, ELSE_EXPR__FAIL);
     createEReference(elseExprEClass, ELSE_EXPR__TIMEOUT);
 
@@ -1307,7 +1307,7 @@ public class VerifyPackageImpl extends EPackageImpl implements VerifyPackage
 
     initEClass(elseExprEClass, ElseExpr.class, "ElseExpr", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
     initEReference(getElseExpr_Left(), this.getArgumentExpr(), null, "left", null, 0, 1, ElseExpr.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-    initEReference(getElseExpr_Other(), this.getArgumentExpr(), null, "other", null, 0, 1, ElseExpr.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEReference(getElseExpr_Error(), this.getArgumentExpr(), null, "error", null, 0, 1, ElseExpr.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEReference(getElseExpr_Fail(), this.getArgumentExpr(), null, "fail", null, 0, 1, ElseExpr.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEReference(getElseExpr_Timeout(), this.getArgumentExpr(), null, "timeout", null, 0, 1, ElseExpr.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 

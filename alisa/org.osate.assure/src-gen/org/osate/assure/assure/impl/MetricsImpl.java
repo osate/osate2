@@ -23,7 +23,7 @@ import org.osate.assure.assure.Metrics;
  *   <li>{@link org.osate.assure.assure.impl.MetricsImpl#getSuccessCount <em>Success Count</em>}</li>
  *   <li>{@link org.osate.assure.assure.impl.MetricsImpl#getFailCount <em>Fail Count</em>}</li>
  *   <li>{@link org.osate.assure.assure.impl.MetricsImpl#getTimeoutCount <em>Timeout Count</em>}</li>
- *   <li>{@link org.osate.assure.assure.impl.MetricsImpl#getOtherCount <em>Other Count</em>}</li>
+ *   <li>{@link org.osate.assure.assure.impl.MetricsImpl#getErrorCount <em>Error Count</em>}</li>
  *   <li>{@link org.osate.assure.assure.impl.MetricsImpl#getDidelseCount <em>Didelse Count</em>}</li>
  *   <li>{@link org.osate.assure.assure.impl.MetricsImpl#getThenskipCount <em>Thenskip Count</em>}</li>
  *   <li>{@link org.osate.assure.assure.impl.MetricsImpl#getPreconditionfailCount <em>Preconditionfail Count</em>}</li>
@@ -117,24 +117,24 @@ public class MetricsImpl extends MinimalEObjectImpl.Container implements Metrics
   protected int timeoutCount = TIMEOUT_COUNT_EDEFAULT;
 
   /**
-   * The default value of the '{@link #getOtherCount() <em>Other Count</em>}' attribute.
+   * The default value of the '{@link #getErrorCount() <em>Error Count</em>}' attribute.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @see #getOtherCount()
+   * @see #getErrorCount()
    * @generated
    * @ordered
    */
-  protected static final int OTHER_COUNT_EDEFAULT = 0;
+  protected static final int ERROR_COUNT_EDEFAULT = 0;
 
   /**
-   * The cached value of the '{@link #getOtherCount() <em>Other Count</em>}' attribute.
+   * The cached value of the '{@link #getErrorCount() <em>Error Count</em>}' attribute.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @see #getOtherCount()
+   * @see #getErrorCount()
    * @generated
    * @ordered
    */
-  protected int otherCount = OTHER_COUNT_EDEFAULT;
+  protected int errorCount = ERROR_COUNT_EDEFAULT;
 
   /**
    * The default value of the '{@link #getDidelseCount() <em>Didelse Count</em>}' attribute.
@@ -354,9 +354,9 @@ public class MetricsImpl extends MinimalEObjectImpl.Container implements Metrics
    * <!-- end-user-doc -->
    * @generated
    */
-  public int getOtherCount()
+  public int getErrorCount()
   {
-    return otherCount;
+    return errorCount;
   }
 
   /**
@@ -364,12 +364,12 @@ public class MetricsImpl extends MinimalEObjectImpl.Container implements Metrics
    * <!-- end-user-doc -->
    * @generated
    */
-  public void setOtherCount(int newOtherCount)
+  public void setErrorCount(int newErrorCount)
   {
-    int oldOtherCount = otherCount;
-    otherCount = newOtherCount;
+    int oldErrorCount = errorCount;
+    errorCount = newErrorCount;
     if (eNotificationRequired())
-      eNotify(new ENotificationImpl(this, Notification.SET, AssurePackage.METRICS__OTHER_COUNT, oldOtherCount, otherCount));
+      eNotify(new ENotificationImpl(this, Notification.SET, AssurePackage.METRICS__ERROR_COUNT, oldErrorCount, errorCount));
   }
 
   /**
@@ -505,8 +505,8 @@ public class MetricsImpl extends MinimalEObjectImpl.Container implements Metrics
         return getFailCount();
       case AssurePackage.METRICS__TIMEOUT_COUNT:
         return getTimeoutCount();
-      case AssurePackage.METRICS__OTHER_COUNT:
-        return getOtherCount();
+      case AssurePackage.METRICS__ERROR_COUNT:
+        return getErrorCount();
       case AssurePackage.METRICS__DIDELSE_COUNT:
         return getDidelseCount();
       case AssurePackage.METRICS__THENSKIP_COUNT:
@@ -543,8 +543,8 @@ public class MetricsImpl extends MinimalEObjectImpl.Container implements Metrics
       case AssurePackage.METRICS__TIMEOUT_COUNT:
         setTimeoutCount((Integer)newValue);
         return;
-      case AssurePackage.METRICS__OTHER_COUNT:
-        setOtherCount((Integer)newValue);
+      case AssurePackage.METRICS__ERROR_COUNT:
+        setErrorCount((Integer)newValue);
         return;
       case AssurePackage.METRICS__DIDELSE_COUNT:
         setDidelseCount((Integer)newValue);
@@ -587,8 +587,8 @@ public class MetricsImpl extends MinimalEObjectImpl.Container implements Metrics
       case AssurePackage.METRICS__TIMEOUT_COUNT:
         setTimeoutCount(TIMEOUT_COUNT_EDEFAULT);
         return;
-      case AssurePackage.METRICS__OTHER_COUNT:
-        setOtherCount(OTHER_COUNT_EDEFAULT);
+      case AssurePackage.METRICS__ERROR_COUNT:
+        setErrorCount(ERROR_COUNT_EDEFAULT);
         return;
       case AssurePackage.METRICS__DIDELSE_COUNT:
         setDidelseCount(DIDELSE_COUNT_EDEFAULT);
@@ -627,8 +627,8 @@ public class MetricsImpl extends MinimalEObjectImpl.Container implements Metrics
         return failCount != FAIL_COUNT_EDEFAULT;
       case AssurePackage.METRICS__TIMEOUT_COUNT:
         return timeoutCount != TIMEOUT_COUNT_EDEFAULT;
-      case AssurePackage.METRICS__OTHER_COUNT:
-        return otherCount != OTHER_COUNT_EDEFAULT;
+      case AssurePackage.METRICS__ERROR_COUNT:
+        return errorCount != ERROR_COUNT_EDEFAULT;
       case AssurePackage.METRICS__DIDELSE_COUNT:
         return didelseCount != DIDELSE_COUNT_EDEFAULT;
       case AssurePackage.METRICS__THENSKIP_COUNT:
@@ -662,8 +662,8 @@ public class MetricsImpl extends MinimalEObjectImpl.Container implements Metrics
     result.append(failCount);
     result.append(", timeoutCount: ");
     result.append(timeoutCount);
-    result.append(", otherCount: ");
-    result.append(otherCount);
+    result.append(", errorCount: ");
+    result.append(errorCount);
     result.append(", didelseCount: ");
     result.append(didelseCount);
     result.append(", thenskipCount: ");

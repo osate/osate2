@@ -377,8 +377,8 @@ public class AssureExportHandler extends AbstractHandler {
 			result += " timeout " + counts.getTimeoutCount() + " time(s)";
 		}
 
-		if (counts.getOtherCount() > 0) {
-			result += " nocompletion " + counts.getOtherCount() + " time(s)";
+		if (counts.getErrorCount() > 0) {
+			result += " nocompletion " + counts.getErrorCount() + " time(s)";
 		}
 		result += " )";
 		return result;

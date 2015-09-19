@@ -391,11 +391,11 @@ public class VerifyParser extends AbstractContentAssistParser {
 					put(grammarAccess.getVerificationActivityAccess().getConditionAssignment_10_1(), "rule__VerificationActivity__ConditionAssignment_10_1");
 					put(grammarAccess.getVerificationActivityAccess().getTimeoutAssignment_11_1(), "rule__VerificationActivity__TimeoutAssignment_11_1");
 					put(grammarAccess.getThenEvidenceExprAccess().getSuccessorAssignment_1_1(), "rule__ThenEvidenceExpr__SuccessorAssignment_1_1");
-					put(grammarAccess.getSingleElseEvidenceExprAccess().getOtherAssignment_1_1_0(), "rule__SingleElseEvidenceExpr__OtherAssignment_1_1_0");
+					put(grammarAccess.getSingleElseEvidenceExprAccess().getErrorAssignment_1_1_0(), "rule__SingleElseEvidenceExpr__ErrorAssignment_1_1_0");
 					put(grammarAccess.getSingleElseEvidenceExprAccess().getFailAssignment_1_1_1_1_2(), "rule__SingleElseEvidenceExpr__FailAssignment_1_1_1_1_2");
 					put(grammarAccess.getSingleElseEvidenceExprAccess().getTimeoutAssignment_1_1_1_2_2(), "rule__SingleElseEvidenceExpr__TimeoutAssignment_1_1_1_2_2");
-					put(grammarAccess.getSingleElseEvidenceExprAccess().getOtherAssignment_1_1_1_3_2(), "rule__SingleElseEvidenceExpr__OtherAssignment_1_1_1_3_2");
-					put(grammarAccess.getCompositeElseEvidenceExprAccess().getOtherAssignment_1_1(), "rule__CompositeElseEvidenceExpr__OtherAssignment_1_1");
+					put(grammarAccess.getSingleElseEvidenceExprAccess().getErrorAssignment_1_1_1_3_2(), "rule__SingleElseEvidenceExpr__ErrorAssignment_1_1_1_3_2");
+					put(grammarAccess.getCompositeElseEvidenceExprAccess().getErrorAssignment_1_1(), "rule__CompositeElseEvidenceExpr__ErrorAssignment_1_1");
 					put(grammarAccess.getQuantifiedEvidenceExprAccess().getElementsAssignment_3(), "rule__QuantifiedEvidenceExpr__ElementsAssignment_3");
 					put(grammarAccess.getQuantifiedEvidenceExprAccess().getElementsAssignment_4_1(), "rule__QuantifiedEvidenceExpr__ElementsAssignment_4_1");
 					put(grammarAccess.getVAReferenceAccess().getVerificationAssignment_1(), "rule__VAReference__VerificationAssignment_1");

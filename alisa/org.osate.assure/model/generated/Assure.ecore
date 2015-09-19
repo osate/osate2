@@ -34,13 +34,13 @@
   <eClassifiers xsi:type="ecore:EEnum" name="ElseType">
     <eLiterals name="FAIL" literal="fail"/>
     <eLiterals name="TIMEOUT" value="1" literal="timeout"/>
-    <eLiterals name="OTHER" value="2" literal="other"/>
+    <eLiterals name="ERROR" value="2" literal="error"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="VerificationExpr" eSuperTypes="#//AssureResult"/>
   <eClassifiers xsi:type="ecore:EClass" name="ElseResult" eSuperTypes="#//VerificationExpr">
     <eStructuralFeatures xsi:type="ecore:EReference" name="first" upperBound="-1"
         eType="#//VerificationExpr" containment="true"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="other" upperBound="-1"
+    <eStructuralFeatures xsi:type="ecore:EReference" name="error" upperBound="-1"
         eType="#//VerificationExpr" containment="true"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="fail" upperBound="-1" eType="#//VerificationExpr"
         containment="true"/>
@@ -60,7 +60,7 @@
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="successCount" eType="ecore:EDataType platform:/plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//EInt"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="failCount" eType="ecore:EDataType platform:/plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//EInt"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="timeoutCount" eType="ecore:EDataType platform:/plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//EInt"/>
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="otherCount" eType="ecore:EDataType platform:/plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//EInt"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="errorCount" eType="ecore:EDataType platform:/plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//EInt"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="didelseCount" eType="ecore:EDataType platform:/plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//EInt"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="thenskipCount" eType="ecore:EDataType platform:/plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//EInt"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="preconditionfailCount"
@@ -87,7 +87,7 @@
     <eLiterals name="TBD" literal="tbd"/>
     <eLiterals name="SUCCESS" value="1" literal="success"/>
     <eLiterals name="FAIL" value="2" literal="fail"/>
-    <eLiterals name="OTHER" value="3" literal="other"/>
+    <eLiterals name="ERROR" value="3" literal="error"/>
     <eLiterals name="TIMEOUT" value="4" literal="timeout"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EEnum" name="VerificationExecutionState">

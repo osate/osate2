@@ -71,9 +71,9 @@ ElseEvidenceExpr returns ArgumentExpr:
 	
 SingleElseEvidenceExpr returns ArgumentExpr:	
 	VAReference (=> ({ElseExpr.left=current} 'else') 
-		(other=ElseEvidenceExpr | 
+		(error=ElseEvidenceExpr | 
 				'[' ('fail' ':' fail=ThenEvidenceExpr)? ('timeout' ':' timeout=ThenEvidenceExpr)? 
-				('other' ':' other=ThenEvidenceExpr)? 
+				('error' ':' error=ThenEvidenceExpr)? 
 				 ']'
 		)
 	)*
@@ -81,7 +81,7 @@ SingleElseEvidenceExpr returns ArgumentExpr:
 
 CompositeElseEvidenceExpr returns ArgumentExpr:	
 	CompositeEvidenceExpr (=> ({ElseExpr.left=current} 'else') 
-		other=ElseEvidenceExpr 
+		error=ElseEvidenceExpr 
 	)*
 	;
 

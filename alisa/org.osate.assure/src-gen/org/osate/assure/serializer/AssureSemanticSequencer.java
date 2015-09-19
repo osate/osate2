@@ -129,7 +129,7 @@ public class AssureSemanticSequencer extends AbstractDelegatingSemanticSequencer
 	 * Constraint:
 	 *     (
 	 *         first+=VerificationExpr+ 
-	 *         other+=VerificationExpr* 
+	 *         error+=VerificationExpr* 
 	 *         fail+=VerificationExpr* 
 	 *         timeout+=VerificationExpr* 
 	 *         didFail=ElseType? 
@@ -148,7 +148,7 @@ public class AssureSemanticSequencer extends AbstractDelegatingSemanticSequencer
 	 *         successCount=INT? 
 	 *         failCount=INT? 
 	 *         timeoutCount=INT? 
-	 *         otherCount=INT? 
+	 *         errorCount=INT? 
 	 *         didelseCount=INT? 
 	 *         thenskipCount=INT? 
 	 *         preconditionfailCount=INT? 

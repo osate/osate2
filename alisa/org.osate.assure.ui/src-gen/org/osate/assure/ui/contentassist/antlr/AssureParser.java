@@ -114,7 +114,7 @@ public class AssureParser extends AbstractContentAssistParser {
 					put(grammarAccess.getVerificationActivityResultAccess().getMessageAssignment_11_1(), "rule__VerificationActivityResult__MessageAssignment_11_1");
 					put(grammarAccess.getVerificationActivityResultAccess().getConditionResultAssignment_12(), "rule__VerificationActivityResult__ConditionResultAssignment_12");
 					put(grammarAccess.getElseResultAccess().getFirstAssignment_1(), "rule__ElseResult__FirstAssignment_1");
-					put(grammarAccess.getElseResultAccess().getOtherAssignment_2_1(), "rule__ElseResult__OtherAssignment_2_1");
+					put(grammarAccess.getElseResultAccess().getErrorAssignment_2_1(), "rule__ElseResult__ErrorAssignment_2_1");
 					put(grammarAccess.getElseResultAccess().getFailAssignment_3_1(), "rule__ElseResult__FailAssignment_3_1");
 					put(grammarAccess.getElseResultAccess().getTimeoutAssignment_4_1(), "rule__ElseResult__TimeoutAssignment_4_1");
 					put(grammarAccess.getElseResultAccess().getDidFailAssignment_6(), "rule__ElseResult__DidFailAssignment_6");
@@ -127,7 +127,7 @@ public class AssureParser extends AbstractContentAssistParser {
 					put(grammarAccess.getMetricsAccess().getSuccessCountAssignment_1_1(), "rule__Metrics__SuccessCountAssignment_1_1");
 					put(grammarAccess.getMetricsAccess().getFailCountAssignment_2_1(), "rule__Metrics__FailCountAssignment_2_1");
 					put(grammarAccess.getMetricsAccess().getTimeoutCountAssignment_3_1(), "rule__Metrics__TimeoutCountAssignment_3_1");
-					put(grammarAccess.getMetricsAccess().getOtherCountAssignment_4_1(), "rule__Metrics__OtherCountAssignment_4_1");
+					put(grammarAccess.getMetricsAccess().getErrorCountAssignment_4_1(), "rule__Metrics__ErrorCountAssignment_4_1");
 					put(grammarAccess.getMetricsAccess().getDidelseCountAssignment_5_1(), "rule__Metrics__DidelseCountAssignment_5_1");
 					put(grammarAccess.getMetricsAccess().getThenskipCountAssignment_6_1(), "rule__Metrics__ThenskipCountAssignment_6_1");
 					put(grammarAccess.getMetricsAccess().getPreconditionfailCountAssignment_7_1(), "rule__Metrics__PreconditionfailCountAssignment_7_1");

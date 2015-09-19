@@ -22,7 +22,7 @@ import org.osate.verify.verify.VerifyPackage;
  * The following features are implemented:
  * <ul>
  *   <li>{@link org.osate.verify.verify.impl.ElseExprImpl#getLeft <em>Left</em>}</li>
- *   <li>{@link org.osate.verify.verify.impl.ElseExprImpl#getOther <em>Other</em>}</li>
+ *   <li>{@link org.osate.verify.verify.impl.ElseExprImpl#getError <em>Error</em>}</li>
  *   <li>{@link org.osate.verify.verify.impl.ElseExprImpl#getFail <em>Fail</em>}</li>
  *   <li>{@link org.osate.verify.verify.impl.ElseExprImpl#getTimeout <em>Timeout</em>}</li>
  * </ul>
@@ -43,14 +43,14 @@ public class ElseExprImpl extends ArgumentExprImpl implements ElseExpr
   protected ArgumentExpr left;
 
   /**
-   * The cached value of the '{@link #getOther() <em>Other</em>}' containment reference.
+   * The cached value of the '{@link #getError() <em>Error</em>}' containment reference.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @see #getOther()
+   * @see #getError()
    * @generated
    * @ordered
    */
-  protected ArgumentExpr other;
+  protected ArgumentExpr error;
 
   /**
    * The cached value of the '{@link #getFail() <em>Fail</em>}' containment reference.
@@ -146,9 +146,9 @@ public class ElseExprImpl extends ArgumentExprImpl implements ElseExpr
    * <!-- end-user-doc -->
    * @generated
    */
-  public ArgumentExpr getOther()
+  public ArgumentExpr getError()
   {
-    return other;
+    return error;
   }
 
   /**
@@ -156,13 +156,13 @@ public class ElseExprImpl extends ArgumentExprImpl implements ElseExpr
    * <!-- end-user-doc -->
    * @generated
    */
-  public NotificationChain basicSetOther(ArgumentExpr newOther, NotificationChain msgs)
+  public NotificationChain basicSetError(ArgumentExpr newError, NotificationChain msgs)
   {
-    ArgumentExpr oldOther = other;
-    other = newOther;
+    ArgumentExpr oldError = error;
+    error = newError;
     if (eNotificationRequired())
     {
-      ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, VerifyPackage.ELSE_EXPR__OTHER, oldOther, newOther);
+      ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, VerifyPackage.ELSE_EXPR__ERROR, oldError, newError);
       if (msgs == null) msgs = notification; else msgs.add(notification);
     }
     return msgs;
@@ -173,20 +173,20 @@ public class ElseExprImpl extends ArgumentExprImpl implements ElseExpr
    * <!-- end-user-doc -->
    * @generated
    */
-  public void setOther(ArgumentExpr newOther)
+  public void setError(ArgumentExpr newError)
   {
-    if (newOther != other)
+    if (newError != error)
     {
       NotificationChain msgs = null;
-      if (other != null)
-        msgs = ((InternalEObject)other).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - VerifyPackage.ELSE_EXPR__OTHER, null, msgs);
-      if (newOther != null)
-        msgs = ((InternalEObject)newOther).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - VerifyPackage.ELSE_EXPR__OTHER, null, msgs);
-      msgs = basicSetOther(newOther, msgs);
+      if (error != null)
+        msgs = ((InternalEObject)error).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - VerifyPackage.ELSE_EXPR__ERROR, null, msgs);
+      if (newError != null)
+        msgs = ((InternalEObject)newError).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - VerifyPackage.ELSE_EXPR__ERROR, null, msgs);
+      msgs = basicSetError(newError, msgs);
       if (msgs != null) msgs.dispatch();
     }
     else if (eNotificationRequired())
-      eNotify(new ENotificationImpl(this, Notification.SET, VerifyPackage.ELSE_EXPR__OTHER, newOther, newOther));
+      eNotify(new ENotificationImpl(this, Notification.SET, VerifyPackage.ELSE_EXPR__ERROR, newError, newError));
   }
 
   /**
@@ -297,8 +297,8 @@ public class ElseExprImpl extends ArgumentExprImpl implements ElseExpr
     {
       case VerifyPackage.ELSE_EXPR__LEFT:
         return basicSetLeft(null, msgs);
-      case VerifyPackage.ELSE_EXPR__OTHER:
-        return basicSetOther(null, msgs);
+      case VerifyPackage.ELSE_EXPR__ERROR:
+        return basicSetError(null, msgs);
       case VerifyPackage.ELSE_EXPR__FAIL:
         return basicSetFail(null, msgs);
       case VerifyPackage.ELSE_EXPR__TIMEOUT:
@@ -319,8 +319,8 @@ public class ElseExprImpl extends ArgumentExprImpl implements ElseExpr
     {
       case VerifyPackage.ELSE_EXPR__LEFT:
         return getLeft();
-      case VerifyPackage.ELSE_EXPR__OTHER:
-        return getOther();
+      case VerifyPackage.ELSE_EXPR__ERROR:
+        return getError();
       case VerifyPackage.ELSE_EXPR__FAIL:
         return getFail();
       case VerifyPackage.ELSE_EXPR__TIMEOUT:
@@ -342,8 +342,8 @@ public class ElseExprImpl extends ArgumentExprImpl implements ElseExpr
       case VerifyPackage.ELSE_EXPR__LEFT:
         setLeft((ArgumentExpr)newValue);
         return;
-      case VerifyPackage.ELSE_EXPR__OTHER:
-        setOther((ArgumentExpr)newValue);
+      case VerifyPackage.ELSE_EXPR__ERROR:
+        setError((ArgumentExpr)newValue);
         return;
       case VerifyPackage.ELSE_EXPR__FAIL:
         setFail((ArgumentExpr)newValue);
@@ -368,8 +368,8 @@ public class ElseExprImpl extends ArgumentExprImpl implements ElseExpr
       case VerifyPackage.ELSE_EXPR__LEFT:
         setLeft((ArgumentExpr)null);
         return;
-      case VerifyPackage.ELSE_EXPR__OTHER:
-        setOther((ArgumentExpr)null);
+      case VerifyPackage.ELSE_EXPR__ERROR:
+        setError((ArgumentExpr)null);
         return;
       case VerifyPackage.ELSE_EXPR__FAIL:
         setFail((ArgumentExpr)null);
@@ -393,8 +393,8 @@ public class ElseExprImpl extends ArgumentExprImpl implements ElseExpr
     {
       case VerifyPackage.ELSE_EXPR__LEFT:
         return left != null;
-      case VerifyPackage.ELSE_EXPR__OTHER:
-        return other != null;
+      case VerifyPackage.ELSE_EXPR__ERROR:
+        return error != null;
       case VerifyPackage.ELSE_EXPR__FAIL:
         return fail != null;
       case VerifyPackage.ELSE_EXPR__TIMEOUT:

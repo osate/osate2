@@ -113,7 +113,7 @@
   <eClassifiers xsi:type="ecore:EClass" name="ElseExpr" eSuperTypes="#//ArgumentExpr">
     <eStructuralFeatures xsi:type="ecore:EReference" name="left" eType="#//ArgumentExpr"
         containment="true"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="other" eType="#//ArgumentExpr"
+    <eStructuralFeatures xsi:type="ecore:EReference" name="error" eType="#//ArgumentExpr"
         containment="true"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="fail" eType="#//ArgumentExpr"
         containment="true"/>

@@ -143,7 +143,7 @@ class AssureUtilExtension {
 	/**
 	 * methods to process results from verification methods
 	 */
-	def static boolean addMarkersAsResult(VerificationResult verificationActivityResult, InstanceObject instance,
+	def static void addMarkersAsResult(VerificationResult verificationActivityResult, InstanceObject instance,
 		String markertype, VerificationMethod vm) {
 		val res = instance.eResource
 		val IResource irsrc = OsateResourceUtil.convertToIResource(res);
@@ -174,7 +174,13 @@ class AssureUtilExtension {
 			]
 		}
 		targetmarkers.forEach[em|verificationActivityResult.addMarkerIssue(instance, em)]
-		return verificationActivityResult.issues.exists[ri|ri.issueType == ResultIssueType.ERROR]
+		if( verificationActivityResult.issues.exists[ri|ri.issueType == ResultIssueType.ERROR]){
+			verificationActivityResult.setToFail
+		} else if (verificationActivityResult.issues.exists[ri|ri.issueType == ResultIssueType.WARNING]){
+			verificationActivityResult.setToTBD
+		} else {
+			verificationActivityResult.setToSuccess
+		}
 	}
 	
 	def private static boolean matchURI(String uri1, String uri2){
@@ -318,29 +324,29 @@ class AssureUtilExtension {
 
 	def static getTotalCount(AssureResult ar) {
 		val counts = ar.metrics
-		counts.timeoutCount + counts.otherCount + counts.failCount + counts.successCount + counts.tbdCount +
+		counts.timeoutCount + counts.errorCount + counts.failCount + counts.successCount + counts.tbdCount +
 			counts.didelseCount + counts.thenskipCount
 	}
 
 	def static isSuccessful(AssureResult ar) {
 		val counts = ar.metrics
-		counts.failCount == 0 && counts.otherCount == 0 && counts.timeoutCount == 0 && counts.tbdCount == 0
+		counts.failCount == 0 && counts.errorCount == 0 && counts.timeoutCount == 0 && counts.tbdCount == 0
 		&& counts.successCount > 0
 	}
 
 	def static isNoSuccess(AssureResult ar) {
 		val counts = ar.metrics
-		counts.failCount != 0 || counts.otherCount != 0 || counts.timeoutCount != 0
+		counts.failCount != 0 || counts.errorCount != 0 || counts.timeoutCount != 0
 	}
 
 	def static isTBD(AssureResult ar) {
 		val counts = ar.metrics
-		counts.failCount == 0 && counts.otherCount == 0 && counts.timeoutCount == 0 && counts.tbdCount > 0
+		counts.failCount == 0 && counts.errorCount == 0 && counts.timeoutCount == 0 && counts.tbdCount > 0
 	}
 
 	def static isZeroCount(AssureResult ar) {
 		val counts = ar.metrics
-		counts.failCount == 0 && counts.otherCount == 0 && counts.timeoutCount == 0 && counts.tbdCount == 0
+		counts.failCount == 0 && counts.errorCount == 0 && counts.timeoutCount == 0 && counts.tbdCount == 0
 	}
 
 	/** 
@@ -350,8 +356,8 @@ class AssureUtilExtension {
 		vr.resultState == VerificationResultState.SUCCESS
 	}
 
-	def static boolean isOther(VerificationResult vr) {
-		vr.resultState == VerificationResultState.OTHER
+	def static boolean isError(VerificationResult vr) {
+		vr.resultState == VerificationResultState.ERROR
 	}
 
 	def static boolean isFailed(VerificationResult vr) {
@@ -392,9 +398,9 @@ class AssureUtilExtension {
 		return false
 	}
 
-	def static boolean hasOther(EList<VerificationExpr> vel) {
+	def static boolean hasError(EList<VerificationExpr> vel) {
 		if (vel.size == 1 && vel.head instanceof VerificationActivityResult) {
-			return (vel.head as VerificationActivityResult).isOther
+			return (vel.head as VerificationActivityResult).isError
 		} else {
 			return isNoSuccess(vel)
 		}
@@ -544,7 +550,7 @@ class AssureUtilExtension {
 		val counts = result.metrics
 		counts.failCount = 0
 		counts.successCount = 0
-		counts.otherCount = 0
+		counts.errorCount = 0
 		counts.timeoutCount = 0
 		counts.thenskipCount = 0
 		counts.didelseCount = 0
@@ -564,8 +570,8 @@ class AssureUtilExtension {
 				counts.successCount = counts.successCount + 1
 			case VerificationResultState.FAIL:
 				counts.failCount = counts.failCount + 1
-			case VerificationResultState.OTHER:
-				counts.otherCount = counts.otherCount + 1
+			case VerificationResultState.ERROR:
+				counts.errorCount = counts.errorCount + 1
 			case VerificationResultState.TIMEOUT:
 				counts.timeoutCount = counts.timeoutCount + 1
 			case VerificationResultState.TBD:
@@ -582,7 +588,7 @@ class AssureUtilExtension {
 				counts.successCount = counts.successCount + 1
 			case VerificationResultState.FAIL:
 				counts.preconditionfailCount = counts.preconditionfailCount + 1
-			case VerificationResultState.OTHER:
+			case VerificationResultState.ERROR:
 				counts.preconditionfailCount = counts.preconditionfailCount + 1
 			case VerificationResultState.TIMEOUT:
 				counts.preconditionfailCount = counts.preconditionfailCount + 1
@@ -599,7 +605,7 @@ class AssureUtilExtension {
 				counts.successCount = counts.successCount + 1
 			case VerificationResultState.FAIL:
 				counts.validationfailCount = counts.validationfailCount + 1
-			case VerificationResultState.OTHER:
+			case VerificationResultState.ERROR:
 				counts.validationfailCount = counts.validationfailCount + 1
 			case VerificationResultState.TIMEOUT:
 				counts.validationfailCount = counts.validationfailCount + 1
@@ -618,7 +624,7 @@ class AssureUtilExtension {
 		val subcounts = subresult.metrics
 		counts.failCount = counts.failCount + subcounts.failCount
 		counts.successCount = counts.successCount + subcounts.successCount
-		counts.otherCount = counts.otherCount + subcounts.otherCount
+		counts.errorCount = counts.errorCount + subcounts.errorCount
 		counts.timeoutCount = counts.timeoutCount + subcounts.timeoutCount
 		counts.thenskipCount = counts.thenskipCount + subcounts.thenskipCount
 		counts.didelseCount = counts.didelseCount + subcounts.didelseCount
@@ -664,8 +670,8 @@ class AssureUtilExtension {
 		} else {
 			if (vaResult.first.isFailed) vaResult.recordElse(ElseType.FAIL)
 			else if (vaResult.first.isTimeout) vaResult.recordElse(ElseType.TIMEOUT)
-			else vaResult.recordElse(ElseType.OTHER)
-			vaResult.recomputeAllCounts(vaResult.other)
+			else vaResult.recordElse(ElseType.ERROR)
+			vaResult.recomputeAllCounts(vaResult.error)
 			vaResult.recomputeAllCounts(vaResult.fail)
 			vaResult.recomputeAllCounts(vaResult.timeout)
 		}
@@ -736,6 +742,21 @@ class AssureUtilExtension {
 			verificationActivityResult.propagateCountChangeUp
 	}
 
+	def static void setToTimeout(VerificationResult verificationActivityResult) {
+		if (verificationActivityResult.updateOwnResultState(VerificationResultState.TIMEOUT))
+			verificationActivityResult.propagateCountChangeUp
+	}
+
+	def static void setToError(VerificationResult verificationActivityResult) {
+		if (verificationActivityResult.updateOwnResultState(VerificationResultState.ERROR))
+			verificationActivityResult.propagateCountChangeUp
+	}
+
+	def static void setToError(VerificationResult verificationActivityResult, String message, EObject target) {
+		if (message != null && !message.isEmpty) verificationActivityResult.addErrorIssue(target, message, null);
+		verificationActivityResult.setToError
+	}
+
 	def static void setToFail(VerificationResult verificationActivityResult) {
 		if (verificationActivityResult.updateOwnResultState(VerificationResultState.FAIL))
 			verificationActivityResult.propagateCountChangeUp
@@ -743,38 +764,32 @@ class AssureUtilExtension {
 
 	def static void setToFail(VerificationResult verificationActivityResult, String message, EObject target) {
 		if (message != null && !message.isEmpty) verificationActivityResult.addErrorIssue(target, message, null);
-		if (verificationActivityResult.updateOwnResultState(VerificationResultState.FAIL))
-			verificationActivityResult.propagateCountChangeUp
+		verificationActivityResult.setToFail
 	}
 
 	def static void setToFail(VerificationResult verificationActivityResult, List<ResultIssue> rl) {
 		verificationActivityResult.issues.addAll(rl);
-		if (verificationActivityResult.updateOwnResultState(VerificationResultState.FAIL))
-			verificationActivityResult.propagateCountChangeUp
+		verificationActivityResult.setToFail
 	}
 
 	def static void setToFail(VerificationResult verificationActivityResult, EObject target, String message) {
 		verificationActivityResult.addErrorIssue(target, message, null);
-		if (verificationActivityResult.updateOwnResultState(VerificationResultState.FAIL))
-			verificationActivityResult.propagateCountChangeUp
+		verificationActivityResult.setToFail
 	}
 
 	def static void setToFail(VerificationResult verificationActivityResult, Throwable e) {
 		verificationActivityResult.addErrorIssue(null, e.message?:e.toString, null);//e.getClass().getName());
-		if (verificationActivityResult.updateOwnResultState(VerificationResultState.FAIL))
-			verificationActivityResult.propagateCountChangeUp
+		verificationActivityResult.setToFail
 	}
 
 	def static void setToError(VerificationResult verificationActivityResult, Throwable e) {
 		verificationActivityResult.addErrorIssue(null, e.message?:e.toString, null);//e.getClass().getName());
-		if (verificationActivityResult.updateOwnResultState(VerificationResultState.FAIL))
-			verificationActivityResult.propagateCountChangeUp
+		verificationActivityResult.setToError
 	}
 
 	def static void setToError(VerificationResult verificationActivityResult, String message) {
 		verificationActivityResult.addErrorIssue(null, message, null);
-		if (verificationActivityResult.updateOwnResultState(VerificationResultState.FAIL))
-			verificationActivityResult.propagateCountChangeUp
+		verificationActivityResult.setToError
 	}
 //	
 //	def static String stackTrace(Throwable e){
@@ -854,8 +869,8 @@ class AssureUtilExtension {
 					counts.successCount = counts.successCount + 1
 				case VerificationResultState.FAIL:
 					counts.failCount = counts.failCount + 1
-				case VerificationResultState.OTHER:
-					counts.otherCount = counts.otherCount + 1
+				case VerificationResultState.ERROR:
+					counts.errorCount = counts.errorCount + 1
 				case VerificationResultState.TIMEOUT:
 					counts.timeoutCount = counts.timeoutCount + 1
 				case VerificationResultState.TBD: {
@@ -869,8 +884,8 @@ class AssureUtilExtension {
 					counts.successCount = counts.successCount - 1
 				case VerificationResultState.FAIL:
 					counts.failCount = counts.failCount - 1
-				case VerificationResultState.OTHER:
-					counts.otherCount = counts.otherCount - 1
+				case VerificationResultState.ERROR:
+					counts.errorCount = counts.errorCount - 1
 				case VerificationResultState.TIMEOUT:
 					counts.timeoutCount = counts.timeoutCount - 1
 				case VerificationResultState.TBD:
@@ -929,8 +944,8 @@ class AssureUtilExtension {
 		} else {
 			if (vaResult.first.isFailed) vaResult.recordElse(ElseType.FAIL)
 			else if (vaResult.first.isTimeout) vaResult.recordElse(ElseType.TIMEOUT)
-			else vaResult.recordElse(ElseType.OTHER)
-			vaResult.other.forEach[e|e.addTo(vaResult)]
+			else vaResult.recordElse(ElseType.ERROR)
+			vaResult.error.forEach[e|e.addTo(vaResult)]
 			vaResult.fail.forEach[e|e.addTo(vaResult)]
 			vaResult.timeout.forEach[e|e.addTo(vaResult)]
 		}
@@ -983,7 +998,7 @@ class AssureUtilExtension {
 		switch (vs) {
 			case VerificationResultState.SUCCESS: return "[S]"
 			case VerificationResultState.FAIL: return "[F]"
-			case VerificationResultState.OTHER: return "[O]"
+			case VerificationResultState.ERROR: return "[E]"
 			case VerificationResultState.TIMEOUT: return "[T]"
 			case VerificationResultState.TBD: return "[tbd]"
 		}
@@ -1099,7 +1114,7 @@ class AssureUtilExtension {
 			ele.resetCounts
 			ele.recomputeAllCounts
 		}
-		" (S" + elec.successCount + " F" + elec.failCount + " T" + elec.timeoutCount + " O" + elec.otherCount + " tbd" + elec.tbdCount 
+		" (S" + elec.successCount + " F" + elec.failCount + " T" + elec.timeoutCount + " O" + elec.errorCount + " tbd" + elec.tbdCount 
 		+ " DE" + elec.didelseCount + " TS" + elec.thenskipCount+ ")"
 	}
 	

@@ -109,9 +109,9 @@ class AssureProcessor implements IAssureProcessor {
 
 	def void doProcess(ElseResult vaResult) {
 		vaResult.first.forEach[expr|expr.process]
-		if (vaResult.first.hasOther) {
-			vaResult.recordElse(ElseType.OTHER)
-			vaResult.other.forEach[expr|expr.process]
+		if (vaResult.first.hasError) {
+			vaResult.recordElse(ElseType.ERROR)
+			vaResult.error.forEach[expr|expr.process]
 		} else if (vaResult.first.isFailed) {
 			vaResult.recordElse(ElseType.FAIL)
 			vaResult.fail.forEach[expr|expr.process]
@@ -277,14 +277,9 @@ class AssureProcessor implements IAssureProcessor {
 					res = VerificationMethodDispatchers.eInstance.dispatchVerificationMethod(methodtype, instanceroot,
 						parameters) // returning the marker or diagnostic id as string
 					if (res instanceof String) {
-						val errors = addMarkersAsResult(verificationResult, target, res, method)
-						if (errors) {
-							setToFail(verificationResult);
-						} else {
-							setToSuccess(verificationResult)
-						}
+						addMarkersAsResult(verificationResult, target, res, method)
 					} else {
-						setToFail(verificationResult, "Analysis return type is not a string of MarkerType", target);
+						setToError(verificationResult, "Analysis return type is not a string of MarkerType", target);
 					}
 				}
 				ResoluteMethod: {

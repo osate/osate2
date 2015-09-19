@@ -53,6 +53,7 @@
 'description'=83
 'do'=98
 'else'=69
+'error'=71
 'extends'=45
 'extension'=48
 'fail'=70
@@ -70,7 +71,6 @@
 'methods'=73
 'new'=99
 'null'=100
-'other'=71
 'plan'=52
 'plugin'=80
 'precondition'=82
