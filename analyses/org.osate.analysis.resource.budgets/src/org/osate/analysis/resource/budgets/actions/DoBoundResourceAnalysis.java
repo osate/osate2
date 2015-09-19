@@ -49,7 +49,6 @@ import org.osate.analysis.architecture.InstanceValidation;
 import org.osate.analysis.resource.budgets.ResourceBudgetPlugin;
 import org.osate.analysis.resource.budgets.logic.DoBoundResourceAnalysisLogic;
 import org.osate.ui.actions.AaxlReadOnlyActionAsJob;
-import org.osate.ui.dialogs.Dialog;
 import org.osate.xtext.aadl2.properties.util.InstanceModelUtil;
 import org.osgi.framework.Bundle;
 
@@ -79,7 +78,7 @@ public class DoBoundResourceAnalysis extends AaxlReadOnlyActionAsJob {
 		setCSVLog("BoundResourceBudgets", obj);
 		return true;
 	}
-	
+
 	public void setErrManager() {
 		this.errManager = new AnalysisErrorReporterManager(this.getAnalysisErrorReporterFactory());
 	}
@@ -91,13 +90,14 @@ public class DoBoundResourceAnalysis extends AaxlReadOnlyActionAsJob {
 	public void saveReport() {
 		this.getCSVLog().saveToFile();
 	}
-	
+
 	public final void doAaxlAction(final IProgressMonitor monitor, final Element obj) {
 		InstanceModelUtil.clearCache();
 		InstanceValidation iv = new InstanceValidation(this);
 		if (!iv.checkReferenceProcessor(((InstanceObject) obj).getSystemInstance())) {
-			Dialog.showWarning("Resource Budget Analysis",
-					"Model contains thread execution times without reference processor.");
+			errManager.warning(obj, "Model contains thread execution times without reference processor.");
+//			Dialog.showWarning("Resource Budget Analysis",
+//					"Model contains thread execution times without reference processor.");
 			return;
 		}
 		getLogicObject().analysisBody(monitor, obj);
