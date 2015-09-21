@@ -233,6 +233,8 @@ public class SetBindingAction extends SelectionAction {
 			addPropertyIfApplicable(bindingProperties, GetProperties.lookupPropertyDefinition(elementToBind,
 					DeploymentProperties._NAME, DeploymentProperties.ALLOWED_CONNECTION_BINDING));
 			addPropertyIfApplicable(bindingProperties, GetProperties.lookupPropertyDefinition(elementToBind,
+					DeploymentProperties._NAME, DeploymentProperties.ACTUAL_FUNCTION_BINDING));
+			addPropertyIfApplicable(bindingProperties, GetProperties.lookupPropertyDefinition(elementToBind,
 					DeploymentProperties._NAME, DeploymentProperties.ACTUAL_MEMORY_BINDING));
 			addPropertyIfApplicable(bindingProperties, GetProperties.lookupPropertyDefinition(elementToBind,
 					DeploymentProperties._NAME, DeploymentProperties.ALLOWED_MEMORY_BINDING));

@@ -491,6 +491,7 @@ public class ClassifierPattern extends AgePattern implements Categorized {
 		final Map<Property, BindingTracker> bindingTrackerMap = new HashMap<Property, BindingTracker>();
 		bindingTrackerMap.put(GetProperties.lookupPropertyDefinition(classifierShape, DeploymentProperties._NAME, DeploymentProperties.ACTUAL_CONNECTION_BINDING), new BindingTracker(BindingType.ACTUAL_CONNECTION));
 		bindingTrackerMap.put(GetProperties.lookupPropertyDefinition(classifierShape, DeploymentProperties._NAME, DeploymentProperties.ALLOWED_CONNECTION_BINDING), new BindingTracker(BindingType.ALLOWED_CONNECTION));
+		bindingTrackerMap.put(GetProperties.lookupPropertyDefinition(classifierShape, DeploymentProperties._NAME, DeploymentProperties.ACTUAL_FUNCTION_BINDING), new BindingTracker(BindingType.ACTUAL_FUNCTION));
 		bindingTrackerMap.put(GetProperties.lookupPropertyDefinition(classifierShape, DeploymentProperties._NAME, DeploymentProperties.ACTUAL_MEMORY_BINDING), new BindingTracker(BindingType.ACTUAL_MEMORY));
 		bindingTrackerMap.put(GetProperties.lookupPropertyDefinition(classifierShape, DeploymentProperties._NAME, DeploymentProperties.ALLOWED_MEMORY_BINDING), new BindingTracker(BindingType.ALLOWED_MEMORY));
 		bindingTrackerMap.put(GetProperties.lookupPropertyDefinition(classifierShape, DeploymentProperties._NAME, DeploymentProperties.ACTUAL_PROCESSOR_BINDING), new BindingTracker(BindingType.ACTUAL_PROCESSOR));

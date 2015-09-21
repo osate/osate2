@@ -51,9 +51,9 @@ public class BindingsSection extends GFPropertySection implements ITabbedPropert
         
         final TreeNode[] treeNodes = new TreeNode[2];
         treeNodes[0] = new TreeNode("Actual");
-        createChildren(treeNodes[0],new BindingTypeNodeData("Connection", BindingType.ACTUAL_CONNECTION), new BindingTypeNodeData("Memory", BindingType.ACTUAL_MEMORY), new BindingTypeNodeData("Processor", BindingType.ACTUAL_PROCESSOR));     
+        createChildren(treeNodes[0], new BindingTypeNodeData("Connection", BindingType.ACTUAL_CONNECTION), new BindingTypeNodeData("Function", BindingType.ACTUAL_FUNCTION), new BindingTypeNodeData("Memory", BindingType.ACTUAL_MEMORY), new BindingTypeNodeData("Processor", BindingType.ACTUAL_PROCESSOR));     
         treeNodes[1] = new TreeNode("Allowed");        
-        createChildren(treeNodes[1],new BindingTypeNodeData("Connection", BindingType.ALLOWED_CONNECTION), new BindingTypeNodeData("Memory", BindingType.ALLOWED_MEMORY), new BindingTypeNodeData("Processor", BindingType.ALLOWED_PROCESSOR));
+        createChildren(treeNodes[1], new BindingTypeNodeData("Connection", BindingType.ALLOWED_CONNECTION), new BindingTypeNodeData("Memory", BindingType.ALLOWED_MEMORY), new BindingTypeNodeData("Processor", BindingType.ALLOWED_PROCESSOR));
         treeViewer.setAutoExpandLevel(TreeViewer.ALL_LEVELS);
         treeViewer.setInput(treeNodes);
         
