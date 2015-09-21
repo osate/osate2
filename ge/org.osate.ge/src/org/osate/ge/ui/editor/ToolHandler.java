@@ -75,7 +75,7 @@ public class ToolHandler {
 		context.set(ExtensionConstants.SELECTED_PICTOGRAM_ELEMENTS, pes);
 		// Notify the active tool
 		if(activeTool != null) {
-			ContextInjectionFactory.invoke(activeTool, SelectionChanged.class, context);
+			ContextInjectionFactory.invoke(activeTool, SelectionChanged.class, context, null);
 		}
 	}
 }

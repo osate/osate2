@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8" standalone="no"?>
-<toc label="OSATE Graphical Editor User Guide" topic="output/index.html">
+<toc label="OSATE Graphical Editor Documentation" topic="output/index.html">
    <topic label="Getting Started" href="output/ch01.html">
       <topic label="Creating a new AADL Package" href="output/ch01.html#d0e12"/>
       <topic label="Opening an Existing AADL Model" href="output/ch01s02.html"/>
@@ -100,9 +100,21 @@
          <topic label="Editing Subprogram Call Sequences" href="output/ch03s10.html#d0e1019"/>
       </topic>
    </topic>
-   <topic label="Troubleshooting" href="output/ch04.html">
-      <topic label="Build Automatically" href="output/ch04.html#d0e1035"/>
-      <topic label="Updating a Diagram" href="output/ch04s02.html"/>
-      <topic label="Reporting Bugs" href="output/ch04s03.html"/>
+   <topic label="Developing Extensions" href="output/ch04.html">
+      <topic label="General Information" href="output/ch04.html#d0e1040">
+         <topic label="Services" href="output/ch04.html#d0e1047"/>
+         <topic label="Annotations" href="output/ch04.html#d0e1058"/>
+      </topic>
+      <topic label="Extension Points" href="output/ch04s02.html">
+         <topic label="Tools" href="output/ch04s02.html#d0e1074"/>
+         <topic label="Adding Support for a new Business Object" href="output/ch04s02.html#d0e1117">
+            <topic label="Styles" href="output/ch04s02.html#d0e1123"/>
+         </topic>
+      </topic>
+   </topic>
+   <topic label="Troubleshooting" href="output/ch05.html">
+      <topic label="Build Automatically" href="output/ch05.html#d0e1134"/>
+      <topic label="Updating a Diagram" href="output/ch05s02.html"/>
+      <topic label="Reporting Bugs" href="output/ch05s03.html"/>
    </topic>
 </toc>

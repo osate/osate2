@@ -375,7 +375,7 @@
    </extension>
     <extension
           point="org.osate.ge.tools">
-       <tool class="org.osate.ge.ui.tools.CreateEndToEndFlowTool"/>
-       <tool class="org.osate.ge.ui.tools.CreateFlowImplementationTool"/>
+       <tool class="org.osate.ge.tools.CreateEndToEndFlowTool"/>
+       <tool class="org.osate.ge.tools.CreateFlowImplementationTool"/>
     </extension>
 </plugin>

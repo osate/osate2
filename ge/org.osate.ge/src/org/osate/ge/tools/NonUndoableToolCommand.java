@@ -1,4 +1,4 @@
-package org.osate.ge.ui.tools;
+package org.osate.ge.tools;
 
 import org.eclipse.emf.common.command.AbstractCommand;
 

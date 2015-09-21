@@ -1,4 +1,4 @@
-package org.osate.ge.ui.tools;
+package org.osate.ge.tools;
 
 import java.awt.Color;
 import java.util.ArrayList;
