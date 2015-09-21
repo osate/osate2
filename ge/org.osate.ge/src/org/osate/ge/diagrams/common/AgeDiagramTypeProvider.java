@@ -125,7 +125,7 @@ public class AgeDiagramTypeProvider extends AbstractDiagramTypeProvider {
 		final DefaultGraphicsAlgorithmCreationService graphicsAlgorithmCreator = new DefaultGraphicsAlgorithmCreationService(styleUtil, featureService, subcomponentService, graphicsAlgorithmUtil);		
 		final DefaultColoringService highlightingHelper = new DefaultColoringService(shapeHelper, propertyUtil, styleUtil, bor, fp);		
 		final DefaultLabelService labelService = new DefaultLabelService(propertyUtil, graphicsAlgorithmCreator, fp);
-		final ExtensionService extensionService = new DefaultExtensionService((ExtensionRegistryService)PlatformUI.getWorkbench().getActiveWorkbenchWindow().getService(ExtensionRegistryService.class), context);
+		final ExtensionService extensionService = new DefaultExtensionService((ExtensionRegistryService)PlatformUI.getWorkbench().getActiveWorkbenchWindow().getService(ExtensionRegistryService.class), this, context);
 		
 		// Populate the context.
 		context.set(IDiagramTypeProvider.class, this);
