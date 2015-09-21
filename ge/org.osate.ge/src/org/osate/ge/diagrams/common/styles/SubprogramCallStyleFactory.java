@@ -16,7 +16,7 @@ import org.eclipse.graphiti.services.IGaService;
 import org.eclipse.graphiti.util.ColorConstant;
 import org.osate.ge.styles.StyleFactory;
 
-public class SuprogramCallSequenceStyleFactory implements StyleFactory {
+public class SubprogramCallStyleFactory implements StyleFactory {
 	@Override
 	public Style create(final String styleId, final Diagram diagram) {
 		final IGaService gaService = Graphiti.getGaService();

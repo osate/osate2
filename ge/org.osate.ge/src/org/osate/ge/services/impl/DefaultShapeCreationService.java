@@ -57,7 +57,7 @@ public class DefaultShapeCreationService implements ShapeCreationService {
 		int childY = startY;
 
 		for(final NamedElement element : elements) {
-			PictogramElement pictogramElement = shapeService.getChildShapeByElementQualifiedName(shape, element);
+			PictogramElement pictogramElement = shapeService.getChildShapeByReference(shape, element);
 			if(pictogramElement == null) {
 				final AddContext addContext = new AddContext();
 				addContext.setNewObject(new AadlElementWrapper(element));
@@ -93,12 +93,37 @@ public class DefaultShapeCreationService implements ShapeCreationService {
 	}
 	
 	@Override
+	public void createUpdateShapeForElement(final ContainerShape container, final NamedElement element) {
+		final PictogramElement pictogramElement = shapeService.getChildShapeByReference(container, element);
+		if(pictogramElement == null) {					
+			final AddContext addContext = new AddContext();
+			addContext.setNewObject(new AadlElementWrapper(element));
+			addContext.setTargetContainer(container);
+			addContext.setX(0);
+			addContext.setY(0);
+			
+			final IAddFeature addFeature = fp.getAddFeature(addContext);
+			if(addFeature != null && addFeature.canAdd(addContext)) {			
+				addFeature.add(addContext);
+			}
+		} else {				
+			final UpdateContext updateContext = new UpdateContext(pictogramElement);
+			final IUpdateFeature updateFeature = fp.getUpdateFeature(updateContext);
+			
+			// Update the classifier regardless of whether it is "needed" or not.
+			if(updateFeature != null && updateFeature.canUpdate(updateContext)) {
+				updateFeature.update(updateContext);
+			}
+		}
+	}
+	
+	@Override
 	public Shape createShape(final ContainerShape container, final NamedElement el, final int x, final int y) {
 		if(el == null) {
 			return null;
 		}
 			
-		Shape newShape = (ContainerShape)shapeService.getDescendantShapeByElementQualifiedName(container, el);
+		Shape newShape = (ContainerShape)shapeService.getDescendantShapeByReference(container, el);
 
 		// If the update feature hasn't been called, add the shape to the diagram. This is preferred rather than waiting because otherwise the container
 		// will be resized based on the original location for the shape.
@@ -114,7 +139,7 @@ public class DefaultShapeCreationService implements ShapeCreationService {
 			}
 
 			// Try to find the shape again
-			newShape = shapeService.getDescendantShapeByElementQualifiedName(container, el);			
+			newShape = shapeService.getDescendantShapeByReference(container, el);			
 		}
 			
 		if(newShape != null) {

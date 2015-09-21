@@ -9,7 +9,7 @@ import org.eclipse.emf.common.util.URI;
 
 public class AgeImageProvider extends AbstractImageProvider implements
 		IImageProvider {
-	final String plugIinImagePath = "org.osate.aadl2.edit/icons/full/obj16/";
+	private final String pluginImagePath = "org.osate.aadl2.edit/icons/full/obj16/";
 	protected static final String PREFIX = "org.osate.ge.diagrams.common.";
 	public static String getImage(final String imageId) {
 		return PREFIX + imageId;
@@ -21,13 +21,13 @@ public class AgeImageProvider extends AbstractImageProvider implements
 	//Using EClass IC to hold name for the correct icon to be registered to EClass c
 	private void addImageFilePath(final EClass c, final EClass ic) {
 		//Using URI plugInImage to access images registered in plug-in dependency
-		final URI plugInImage = URI.createPlatformPluginURI("org.osate.aadl2.edit/icons/full/obj16/"+ ic.getName() + ".gif", true);
+		final URI plugInImage = URI.createPlatformPluginURI(pluginImagePath + ic.getName() + ".gif", true);
 		addImageFilePath(PREFIX + c.getName(), plugInImage.toString());
 	}
 	
 	
 	private void addImageFilePath(final String imageName) {
-		final URI plugInImage = URI.createPlatformPluginURI("org.osate.aadl2.edit/icons/full/obj16/"+ imageName + ".gif", true);
+		final URI plugInImage = URI.createPlatformPluginURI(pluginImagePath + imageName + ".gif", true);
 		addImageFilePath(PREFIX + imageName, plugInImage.toString());
 	}
 	
@@ -104,5 +104,7 @@ public class AgeImageProvider extends AbstractImageProvider implements
 		addImageFilePath(p.getGeneralization(), p.getModeTransition());
 		addImageFilePath(p.getSubprogramCall(), p.getSubprogramSubcomponent());
 		addImageFilePath(p.getSubprogramCallSequence());
+		addImageFilePath(p.getDefaultAnnexLibrary());
+		addImageFilePath(p.getDefaultAnnexSubclause());
 	}
 }

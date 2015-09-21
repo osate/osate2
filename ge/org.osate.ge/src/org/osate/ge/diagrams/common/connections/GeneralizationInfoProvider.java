@@ -50,8 +50,8 @@ public class GeneralizationInfoProvider extends AbstractConnectionInfoProvider {
 		final Classifier specificClassifier = generalization.getSpecific();
 
 		// Get the pictogram objects for them
-		final PictogramElement generalPictogramEl = shapeHelper.getChildShapeByElementQualifiedName(ownerShape, generalClassifier);
-		final PictogramElement specificPictogramEl = shapeHelper.getChildShapeByElementQualifiedName(ownerShape, specificClassifier);
+		final PictogramElement generalPictogramEl = shapeHelper.getChildShapeByReference(ownerShape, generalClassifier);
+		final PictogramElement specificPictogramEl = shapeHelper.getChildShapeByReference(ownerShape, specificClassifier);
 		
 		if(generalPictogramEl == null) {
 			return null;

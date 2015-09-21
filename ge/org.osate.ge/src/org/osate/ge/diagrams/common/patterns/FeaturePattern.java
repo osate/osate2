@@ -488,7 +488,7 @@ public class FeaturePattern extends AgeLeafShapePattern implements Categorized {
 					}
 
 			        if(showChild) {
-						ContainerShape childFeatureContainer = (ContainerShape)shapeService.getChildShapeByElementQualifiedName(featureShape, childFeature);
+						ContainerShape childFeatureContainer = (ContainerShape)shapeService.getChildShapeByReference(featureShape, childFeature);
 						
 						// Get existing shape instead of always creating
 						if(childFeatureContainer == null) {

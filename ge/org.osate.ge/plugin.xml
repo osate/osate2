@@ -149,9 +149,10 @@
  	<factory class="org.osate.ge.diagrams.common.styles.BasicComponentTypeStyleFactory" styleId="mode"/>
  	<factory class="org.osate.ge.diagrams.common.styles.SolidLineStyleFactory" styleId="mode-initial"/>
  	<factory class="org.osate.ge.diagrams.common.styles.DashedLineStyleFactory" styleId="mode_transition_trigger"/>
- 	<factory class="org.osate.ge.diagrams.common.styles.SuprogramCallSequenceStyleFactory" styleId="subprogram_call_sequence"/>
- 	<factory class="org.osate.ge.diagrams.common.styles.SuprogramCallStyleFactory" styleId="subprogram_call"/> 	
+ 	<factory class="org.osate.ge.diagrams.common.styles.SubprogramCallSequenceStyleFactory" styleId="subprogram_call_sequence"/>
+ 	<factory class="org.osate.ge.diagrams.common.styles.SubprogramCallStyleFactory" styleId="subprogram_call"/> 	
  	<factory class="org.osate.ge.diagrams.common.styles.SolidLineStyleFactory" styleId="subprogram_call_order"/>
+ 	<factory class="org.osate.ge.diagrams.common.styles.DefaultAnnexStyleFactory" styleId="default_annex"/>
  </extension>
  
  <extension point="org.eclipse.ui.services">

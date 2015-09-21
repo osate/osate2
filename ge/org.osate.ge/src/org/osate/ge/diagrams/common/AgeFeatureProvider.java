@@ -79,6 +79,7 @@ import org.osate.ge.diagrams.common.features.SetInitialModeFeature;
 import org.osate.ge.diagrams.common.features.SetModeTransitionTriggersFeature;
 import org.osate.ge.diagrams.common.features.UpdateClassifierDiagramFeature;
 import org.osate.ge.diagrams.common.patterns.AgeConnectionPattern;
+import org.osate.ge.diagrams.common.patterns.AnnexPattern;
 import org.osate.ge.diagrams.common.patterns.ClassifierPattern;
 import org.osate.ge.diagrams.common.patterns.FeaturePattern;
 import org.osate.ge.diagrams.common.patterns.FlowSpecificationPattern;
@@ -143,18 +144,22 @@ public class AgeFeatureProvider extends DefaultFeatureProviderWithPatterns {
 		// Package
 		addConnectionPattern(make(PackageGeneralizationPattern.class));
 		
-		addPackageClassifierPatterns();		
+		addPackageClassifierPatterns();	
 		addAadlConnectionPatterns();
 		
 		// Classifiers
 		addPattern(createClassifierPattern(null));
-		addSubcomponentPatterns();		
+		addSubcomponentPatterns();
+		
+		addAnnexPatterns();
 		
 		// Subprogram Calls
 		addPattern(make(SubprogramCallSequencePattern.class));
 		addPattern(make(SubprogramCallPattern.class));
 		addConnectionPattern(make(SubprogramCallOrderPattern.class));
 	}
+
+	
 
 	private IEclipseContext getContext() {
 		return context;
@@ -283,7 +288,6 @@ public class AgeFeatureProvider extends DefaultFeatureProviderWithPatterns {
 		features.add(createSetFeatureDirectionFeature(DirectionType.IN_OUT));		
 		features.add(createSetFeatureKindFeature(AccessType.PROVIDES));
 		features.add(createSetFeatureKindFeature(AccessType.REQUIRES));
-		
 		
 		// Subprogram Call
 		features.add(make(MoveSubprogramCallUpFeature.class));
@@ -534,6 +538,20 @@ public class AgeFeatureProvider extends DefaultFeatureProviderWithPatterns {
 		childCtx.set("Subcomponent Type", scType);
 		return ContextInjectionFactory.make(ClassifierPattern.class, childCtx);
 	}
+	
+	private void addAnnexPatterns() {
+		EClass annexType = Aadl2Factory.eINSTANCE.getAadl2Package().getDefaultAnnexLibrary();
+		this.addPattern(createAnnexPattern(annexType));
+		
+		annexType = Aadl2Factory.eINSTANCE.getAadl2Package().getDefaultAnnexSubclause();
+		this.addPattern(createAnnexPattern(annexType));
+	}
+	
+	private IPattern createAnnexPattern(final EClass annexType) {
+		final IEclipseContext childCtx = getContext().createChild();
+		childCtx.set("Annex Type", annexType);
+		return ContextInjectionFactory.make(AnnexPattern.class, childCtx);
+	}
 		
 	/**
 	 * Creates and adds patterns related to AADL Features
@@ -541,7 +559,7 @@ public class AgeFeatureProvider extends DefaultFeatureProviderWithPatterns {
 	protected final void addSubcomponentPatterns() {
 		// Create the subcomponent patterns
 		for(final EClass scType : ClassifierPattern.getSubcomponentTypes()) {
-			this.addPattern(createClassifierPattern(scType));	
+			this.addPattern(createClassifierPattern(scType));
 		}
 	}
 	

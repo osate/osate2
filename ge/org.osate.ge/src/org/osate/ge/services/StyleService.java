@@ -85,6 +85,8 @@ public interface StyleService {
 	Style getModeStyle();
 
 	Style getInitialModeStyle();
+	
+	Style getDefaultAnnexStyle();
 
 	IColorConstant getInSelectedModeColor();
 	IColorConstant getInSelectedFlowColor();
@@ -95,5 +97,7 @@ public interface StyleService {
 	 * @param diagram
 	 */
 	void refreshStyles();
+
+	
 
 }
