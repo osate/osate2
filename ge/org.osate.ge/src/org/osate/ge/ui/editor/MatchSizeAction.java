@@ -21,6 +21,7 @@ public class MatchSizeAction extends SelectionAction {
 	final public static String MATCH_SIZE = "org.osate.ge.ui.editor.items.match_size";
 	final public static ImageDescriptor matchSizeImageDescriptor = Activator.getImageDescriptor("icons/Match.gif");
 	final public static ImageDescriptor matchSizeDisabledImageDescriptor = Activator.getImageDescriptor("icons/Match_Disabled.gif");
+	
 	protected MatchSizeAction(final IWorkbenchPart part) {
 		super(part);
 		editor = Objects.requireNonNull((AgeDiagramEditor)part, "part must be a AgeDiagramEditor");
@@ -92,6 +93,7 @@ public class MatchSizeAction extends SelectionAction {
 			newResizeContext.setLocation(shape.getGraphicsAlgorithm().getX(), shape.getGraphicsAlgorithm().getY());
 			newResizeContext.setHeight(shapes[shapes.length-1].getGraphicsAlgorithm().getHeight());
 			newResizeContext.setWidth(shapes[shapes.length-1].getGraphicsAlgorithm().getWidth());
+			
 			result.add(newResizeContext);
 		}
 		

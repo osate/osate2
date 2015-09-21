@@ -1,39 +1,21 @@
-package org.osate.ge.ui.tools;
+package org.osate.ge.tools;
 
 import java.awt.Color;
 import java.util.ArrayList;
-import java.util.List;
 import java.util.Collections;
+import java.util.List;
+
 import javax.inject.Named;
+
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.emf.transaction.TransactionalEditingDomain;
 import org.eclipse.graphiti.dt.IDiagramTypeProvider;
+import org.eclipse.graphiti.mm.pictograms.Connection;
 import org.eclipse.graphiti.mm.pictograms.ConnectionDecorator;
 import org.eclipse.graphiti.mm.pictograms.PictogramElement;
 import org.eclipse.graphiti.mm.pictograms.Shape;
 import org.eclipse.jface.dialogs.Dialog;
-import org.eclipse.swt.widgets.Display;
-import org.osate.aadl2.ComponentImplementation;
-import org.osate.aadl2.EndToEndFlow;
-import org.osate.ge.Activator;
-import org.osate.ge.ext.ExtensionConstants;
-import org.osate.ge.ext.annotations.Activate;
-import org.osate.ge.ext.annotations.CanActivate;
-import org.osate.ge.ext.annotations.Deactivate;
-import org.osate.ge.ext.annotations.Description;
-import org.osate.ge.ext.annotations.Icon;
-import org.osate.ge.ext.annotations.Id;
-import org.osate.ge.ext.annotations.SelectionChanged;
-import org.osate.ge.services.AadlModificationService;
-import org.osate.ge.services.BusinessObjectResolutionService;
-import org.osate.ge.services.ColoringService;
-import org.osate.ge.services.ConnectionService;
-import org.osate.ge.services.NamingService;
-import org.osate.ge.services.ShapeService;
-import org.osate.ge.services.UiService;
-import org.osate.ge.services.AadlModificationService.AbstractModifier;
-import org.eclipse.graphiti.mm.pictograms.Connection;
 import org.eclipse.jface.dialogs.IDialogConstants;
 import org.eclipse.jface.dialogs.TitleAreaDialog;
 import org.eclipse.jface.resource.ImageDescriptor;
@@ -46,19 +28,20 @@ import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
-import org.eclipse.swt.layout.RowData;
-import org.eclipse.swt.layout.RowLayout;
 import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Control;
+import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.widgets.Text;
 import org.osate.aadl2.Aadl2Factory;
 import org.osate.aadl2.Aadl2Package;
+import org.osate.aadl2.ComponentImplementation;
 import org.osate.aadl2.ConnectionEnd;
 import org.osate.aadl2.Context;
 import org.osate.aadl2.Element;
+import org.osate.aadl2.EndToEndFlow;
 import org.osate.aadl2.EndToEndFlowElement;
 import org.osate.aadl2.EndToEndFlowSegment;
 import org.osate.aadl2.Feature;
@@ -68,7 +51,24 @@ import org.osate.aadl2.ModeFeature;
 import org.osate.aadl2.NamedElement;
 import org.osate.aadl2.RefinableElement;
 import org.osate.aadl2.Subcomponent;
-import org.osate.ge.ui.tools.CreateEndToEndFlowTool;
+import org.osate.ge.Activator;
+import org.osate.ge.ext.ExtensionConstants;
+import org.osate.ge.ext.annotations.Activate;
+import org.osate.ge.ext.annotations.CanActivate;
+import org.osate.ge.ext.annotations.Deactivate;
+import org.osate.ge.ext.annotations.Description;
+import org.osate.ge.ext.annotations.Icon;
+import org.osate.ge.ext.annotations.Id;
+import org.osate.ge.ext.annotations.SelectionChanged;
+import org.osate.ge.services.AadlModificationService;
+import org.osate.ge.services.AadlModificationService.AbstractModifier;
+import org.osate.ge.services.BusinessObjectResolutionService;
+import org.osate.ge.services.ColoringService;
+import org.osate.ge.services.ConnectionService;
+import org.osate.ge.services.NamingService;
+import org.osate.ge.services.ShapeService;
+import org.osate.ge.services.UiService;
+import org.osate.ge.ui.util.DialogPlacementHelper;
 
 public class CreateEndToEndFlowTool {
 	private ColoringService.Coloring coloring = null;
@@ -108,7 +108,8 @@ public class CreateEndToEndFlowTool {
 		if (ci != null) {
 			canActivate = false;
 			clearSelection(dtp);
-			createEndToEndFlowDialog = new CreateFlowsToolsDialog(Display.getCurrent().getActiveShell(), namingService);
+			final Display display = Display.getCurrent();
+			createEndToEndFlowDialog = new CreateFlowsToolsDialog(display.getActiveShell(), namingService);
 			if (createEndToEndFlowDialog.open() == Dialog.CANCEL) {
 				uiService.deactivateActiveTool();
 				canActivate = true;
@@ -244,12 +245,12 @@ public class CreateEndToEndFlowTool {
 		final List<String> segmentList = new ArrayList<String>();
 		final List<String> modeList = new ArrayList<String>();
 		private final EndToEndFlow eTEFlow = (EndToEndFlow) pkg.getEFactoryInstance().create(pkg.getEndToEndFlow());
-
+		
 		public CreateFlowsToolsDialog(final Shell parentShell, final NamingService namingService) {
 			super(parentShell);
 			this.setHelpAvailable(false);
 			this.namingService = namingService;
-			setShellStyle(SWT.MODELESS | SWT.BORDER | SWT.TITLE | SWT.ON_TOP | SWT.DIALOG_TRIM | SWT.MIN);
+			setShellStyle(SWT.CLOSE | SWT.MODELESS | SWT.BORDER | SWT.TITLE | SWT.RESIZE);
 		}
 
 		private List<EndToEndFlow> getFlows() {
@@ -512,6 +513,7 @@ public class CreateEndToEndFlowTool {
 		protected void configureShell(final Shell newShell) {
 			super.configureShell(newShell);
 			newShell.setText("Create End To End Flow");
+			newShell.setLocation(DialogPlacementHelper.getOffsetRectangleLocation(Display.getCurrent().getActiveShell().getBounds(), 50, 50));
 			newShell.setSize(475, 275);
 			newShell.setImage(ICON.createImage());
 		}
@@ -525,25 +527,19 @@ public class CreateEndToEndFlowTool {
 
 		@Override
 		protected Control createDialogArea(final Composite parent) {
-			final Composite container = (Composite)super.createDialogArea(parent);
-			flowSegmentComposite = new Composite(container, SWT.CENTER);
-			final RowLayout rowLayout = new RowLayout();
-			rowLayout.marginLeft = 10;
-			rowLayout.marginTop = 5;
-			flowSegmentComposite.setLayout(rowLayout);
-
+			flowSegmentComposite = (Composite)super.createDialogArea(parent);
+			GridLayout layout = (GridLayout)flowSegmentComposite.getLayout();
+			layout.marginLeft = 10;
+			layout.marginTop = 5;
+			
 			flowSegmentLabel = new StyledText(flowSegmentComposite, SWT.BORDER | SWT.WRAP | SWT.V_SCROLL | SWT.MULTI);
 			flowSegmentLabel.setEditable(false);
 			flowSegmentLabel.setEnabled(false);
 			flowSegmentLabel.setBackground(Display.getCurrent().getSystemColor(SWT.COLOR_WIDGET_BACKGROUND));
 			flowSegmentLabel.setMargins(5, 5, 5, 5);
-			final RowData rowData = new RowData();
-			rowData.height = 100;
-			rowData.width = 415;
-			flowSegmentLabel.setLayoutData(rowData);
-			flowSegmentLabel.setLayout(new RowLayout());
+			flowSegmentLabel.setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, true));
 
-			return container;
+			return flowSegmentComposite;
 		}
 
 		@Override
@@ -559,12 +555,12 @@ public class CreateEndToEndFlowTool {
 
 			final Label nameLabel = new Label(buttonBar, SWT.NONE);
 			nameLabel.setText("Name: ");
-			final GridData nameLabelData = new GridData(SWT.LEFT, SWT.CENTER, true, true);
+			final GridData nameLabelData = new GridData(SWT.LEFT, SWT.CENTER, false, true);
 			nameLabelData.horizontalIndent = convertHorizontalDLUsToPixels(IDialogConstants.HORIZONTAL_MARGIN);
 			nameLabel.setLayoutData(nameLabelData);
 
-			newETEFlowName = new Text(buttonBar, SWT.DEFAULT);
-			final GridData nameTextData = new GridData(SWT.RIGHT, SWT.CENTER, true, false);
+			newETEFlowName = new Text(buttonBar, SWT.SINGLE | SWT.LEFT | SWT.BORDER);
+			final GridData nameTextData = new GridData(SWT.FILL, SWT.CENTER, true, false);
 			nameTextData.widthHint = 180;
 			newETEFlowName.setLayoutData(nameTextData);
 			newETEFlowName.setEditable(true);

@@ -513,7 +513,7 @@ public class AgeFeatureProvider extends DefaultFeatureProviderWithPatterns {
 	private boolean allowBendpointManipulation(final PictogramElement pe) {
 		final BusinessObjectResolutionService bor = getContext().get(BusinessObjectResolutionService.class);
 		final Object bo = bor.getBusinessObjectForPictogramElement(pe);
-		return bo instanceof org.osate.aadl2.Connection || bo instanceof SubprogramCallOrder;
+		return bo instanceof org.osate.aadl2.Connection || bo instanceof org.osate.aadl2.FlowSpecification || bo instanceof SubprogramCallOrder;
 	}
 	
 	// ComponentImplementation

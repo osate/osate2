@@ -7,7 +7,7 @@ import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
 /**
- * Use this annotation to tag static fields which specify the id of a tool. An id is a string which is a unique identifier that may be used to reference the tool.
+ * Use this annotation to tag static fields which specify the id used in relation to an extension. An id is a string which is a unique identifier that may be used to reference to the extension.
  * This annotation must not be applied to more than one field per class.
  */
 @Documented

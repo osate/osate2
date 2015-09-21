@@ -23,7 +23,6 @@ import org.eclipse.graphiti.services.Graphiti;
 import org.eclipse.graphiti.services.IGaService;
 import org.osate.ge.services.StyleProviderService;
 import org.osate.ge.styles.StyleFactory;
-import org.osate.ge.util.Log;
 
 public class DefaultStyleProviderService implements StyleProviderService {
 	/**
@@ -47,7 +46,7 @@ public class DefaultStyleProviderService implements StyleProviderService {
 								final StyleFactory styleFactory = (StyleFactory)ce.createExecutableExtension("class");
 								styleFactoryMap.put(styleId,  styleFactory);
 							} catch(final CoreException ex) {
-								Log.error("Error creating AGE style factory for style: " + styleId, ex);
+								throw new RuntimeException("Error creating AGE style factory for style: " + styleId, ex);
 							}
 						}
 					}
