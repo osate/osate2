@@ -725,17 +725,39 @@
 						</listitem>
 						<listitem>
 							<para>Select <emphasis>OK</emphasis>.  The new subprogram call will appear.</para>
+							<mediaobject>
 							<imageobject>
     							<imagedata fileref="images/SubprogramCallSequenceDiagram.png" format="PNG"/>
   							</imageobject>
+  							</mediaobject>
 						</listitem>
 					</orderedlist>
 				</section>
 			</section>
-			
 			<section>
 				<title>Editing Subprogram Call Sequences</title>
 				<para>To change a subprogram call's place in the order of a subprogram call sequence, right-click on the desired subprogram call and select <emphasis>Move Up</emphasis> or <emphasis>Move Down</emphasis>.</para>
+			</section>
+		</section>
+		<section>
+			<title>Annexes</title>
+			<para>The graphical editor supports creating Annex Libraries and Annex Subclauses in appropriate AADL packages and classifiers, respectively.</para>
+			<section>
+				<title>Creating Annex Libraries and Annex Subclauses</title>
+				<para>Annex Libraries and Annex Libraries can be created by using the palette.</para>
+				<orderedlist>
+					<listitem>
+						<para>Drag the appropriate annex type from the palette onto the diagram, a dialog will appear.</para>
+					</listitem>
+					<listitem>
+						<para>Type in a valid name for the new annex and select <emphasis>OK</emphasis>.</para>
+						<mediaobject>
+							<imageobject>
+								<imagedata fileref="images/AnnexDialog.png" format="PNG"/>
+							</imageobject>
+						</mediaobject>
+					</listitem>
+				</orderedlist>
 			</section>
 		</section>
 	</chapter>

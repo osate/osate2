@@ -97,23 +97,26 @@
          <topic label="Creating Subprogram Call Sequences" href="output/ch03s10.html#d0e967">
             <topic label="Adding Subprogram Calls" href="output/ch03s10.html#d0e993"/>
          </topic>
-         <topic label="Editing Subprogram Call Sequences" href="output/ch03s10.html#d0e1019"/>
+         <topic label="Editing Subprogram Call Sequences" href="output/ch03s10.html#d0e1020"/>
+      </topic>
+      <topic label="Annexes" href="output/ch03s11.html">
+         <topic label="Creating Annex Libraries and Annex Subclauses" href="output/ch03s11.html#d0e1036"/>
       </topic>
    </topic>
    <topic label="Developing Extensions" href="output/ch04.html">
-      <topic label="General Information" href="output/ch04.html#d0e1040">
-         <topic label="Services" href="output/ch04.html#d0e1047"/>
-         <topic label="Annotations" href="output/ch04.html#d0e1058"/>
+      <topic label="General Information" href="output/ch04.html#d0e1064">
+         <topic label="Services" href="output/ch04.html#d0e1071"/>
+         <topic label="Annotations" href="output/ch04.html#d0e1082"/>
       </topic>
       <topic label="Extension Points" href="output/ch04s02.html">
-         <topic label="Tools" href="output/ch04s02.html#d0e1074"/>
-         <topic label="Adding Support for a new Business Object" href="output/ch04s02.html#d0e1117">
-            <topic label="Styles" href="output/ch04s02.html#d0e1123"/>
+         <topic label="Tools" href="output/ch04s02.html#d0e1098"/>
+         <topic label="Adding Support for a new Business Object" href="output/ch04s02.html#d0e1147">
+            <topic label="Styles" href="output/ch04s02.html#d0e1153"/>
          </topic>
       </topic>
    </topic>
    <topic label="Troubleshooting" href="output/ch05.html">
-      <topic label="Build Automatically" href="output/ch05.html#d0e1134"/>
+      <topic label="Build Automatically" href="output/ch05.html#d0e1164"/>
       <topic label="Updating a Diagram" href="output/ch05s02.html"/>
       <topic label="Reporting Bugs" href="output/ch05s03.html"/>
    </topic>
