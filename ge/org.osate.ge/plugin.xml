@@ -132,7 +132,8 @@
  	<factory class="org.osate.ge.styles.DashedComponentTypeStyleFactory" styleId="virtual-bus-implementation"/>
  	<factory class="org.osate.ge.styles.DashedComponentTypeStyleFactory" styleId="virtual-processor"/>
  	<factory class="org.osate.ge.styles.DashedComponentTypeStyleFactory" styleId="virtual-processor-implementation"/> 	
- 	<factory class="org.osate.ge.styles.FeatureGroupStyleFactory" styleId="feature-group"/> 	
+ 	<factory class="org.osate.ge.styles.FeatureGroupStyleFactory" styleId="feature-group"/>
+ 	<factory class="org.osate.ge.styles.BasicComponentTypeStyleFactory" styleId="feature-group-type-edit"/>
  	<factory class="org.osate.ge.styles.ShadedStyleFactory" styleId="shaded"/>
  	<factory class="org.osate.ge.styles.ImplementsStyleFactory" styleId="implements"/>
  	<factory class="org.osate.ge.styles.SolidLineStyleFactory" styleId="flow_specification"/>

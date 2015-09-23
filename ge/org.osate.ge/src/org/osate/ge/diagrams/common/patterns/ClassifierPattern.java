@@ -814,7 +814,7 @@ public class ClassifierPattern extends AgePattern implements Categorized {
 			
 			if(classifier instanceof FeatureGroupType) { // Use a rectangle for feature group types because the feature group shape is not ideal as a container for features.
 				ga = gaService.createRectangle(shape);
-				ga.setStyle(styleUtil.getSystemStyle(false));
+				ga.setStyle(styleUtil.getStyle("feature-group-type-edit"));
 				gaService.setLocationAndSize(ga, x, y, newSize[0], newSize[1]);
 			} else {
 				ga = graphicsAlgorithmCreator.createClassifierGraphicsAlgorithm(shape, classifier, newSize[0], newSize[1]);
