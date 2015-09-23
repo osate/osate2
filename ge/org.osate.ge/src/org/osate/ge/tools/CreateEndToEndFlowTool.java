@@ -250,7 +250,7 @@ public class CreateEndToEndFlowTool {
 			super(parentShell);
 			this.setHelpAvailable(false);
 			this.namingService = namingService;
-			setShellStyle(getShellStyle() | SWT.CLOSE | SWT.MODELESS | SWT.BORDER | SWT.TITLE | SWT.RESIZE);
+			setShellStyle(SWT.CLOSE | SWT.MODELESS | SWT.BORDER | SWT.TITLE | SWT.RESIZE);
 		}
 
 		private List<EndToEndFlow> getFlows() {
