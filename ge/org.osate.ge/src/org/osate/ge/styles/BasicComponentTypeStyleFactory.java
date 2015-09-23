@@ -16,21 +16,20 @@ import org.eclipse.graphiti.services.Graphiti;
 import org.eclipse.graphiti.services.IGaService;
 import org.osate.ge.ext.ExtensionConstants;
 import org.osate.ge.ext.annotations.Activate;
-import org.osate.ge.services.ExtensionService;
-import org.osate.ge.services.impl.DefaultExtensionRegistryService;
+import org.osate.ge.services.StyleService;
 
 public class BasicComponentTypeStyleFactory {
 	@Activate
-	public Style create(final @Named(ExtensionConstants.STYLE_ID) String styleId, final Diagram diagram, final ExtensionService extensionService) {
+	public Style create(final @Named(ExtensionConstants.STYLE_ID) String styleId, final Diagram diagram, final StyleService styleService) {
 		final IGaService gaService = Graphiti.getGaService();
 		final String implSuffix = "-implementation";
 		if(styleId.endsWith(implSuffix)) {
-			final Style baseStyle = DefaultExtensionRegistryService.getStyle(diagram, styleId.substring(0, styleId.length()-implSuffix.length()), extensionService);
+			final Style baseStyle = styleService.getStyle(styleId.substring(0, styleId.length()-implSuffix.length()));
 			final Style style = gaService.createPlainStyle(baseStyle, styleId);
 			style.setLineWidth(3);
 			return style;
 		} else {
-			final Style classifierStyle = DefaultExtensionRegistryService.getStyle(diagram, "classifier", extensionService);
+			final Style classifierStyle = styleService.getStyle("classifier");
 			final Style style = gaService.createPlainStyle(classifierStyle, styleId);
 			style.setLineWidth(2);
 			return style;

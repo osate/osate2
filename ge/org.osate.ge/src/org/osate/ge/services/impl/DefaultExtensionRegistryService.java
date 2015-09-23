@@ -5,7 +5,6 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Objects;
 
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IConfigurationElement;
@@ -13,16 +12,7 @@ import org.eclipse.core.runtime.IExtension;
 import org.eclipse.core.runtime.IExtensionPoint;
 import org.eclipse.core.runtime.IExtensionRegistry;
 import org.eclipse.core.runtime.Platform;
-import org.eclipse.e4.core.contexts.ContextInjectionFactory;
-import org.eclipse.e4.core.contexts.IEclipseContext;
-import org.eclipse.graphiti.mm.algorithms.styles.Style;
-import org.eclipse.graphiti.mm.pictograms.Diagram;
-import org.eclipse.graphiti.services.Graphiti;
-import org.eclipse.graphiti.services.IGaService;
-import org.osate.ge.ext.ExtensionConstants;
-import org.osate.ge.ext.annotations.Activate;
 import org.osate.ge.services.ExtensionRegistryService;
-import org.osate.ge.services.ExtensionService;
 /**
  * Instantiates extensions which are registered via extension points.
  */
@@ -103,23 +93,5 @@ public class DefaultExtensionRegistryService implements ExtensionRegistryService
 				}
 			}
 		}
-	}
-	
-	public static Style getStyle(final Diagram diagram, final String styleId, ExtensionService extensionService) {
-		// Find the style
-		final IGaService gaService = Graphiti.getGaService();
-        final Style style = gaService.findStyle(diagram, styleId);
-    	
-        // If it does not exist, create it
-        if(style == null) {
-        	final Object styleFactory = styleFactoryMap.get(styleId);
-        	final IEclipseContext context = Objects.requireNonNull(extensionService, "extensionService must not be null").createChildContext();
-        	context.set(ExtensionConstants.STYLE_ID, styleId);
-        	context.set(Diagram.class, diagram);
-        	context.set(ExtensionService.class, extensionService);
-        	ContextInjectionFactory.invoke(styleFactory, Activate.class, context);
-        }
-		
-		return style;
 	}
 }

@@ -143,7 +143,7 @@ public class PackageClassifierPattern extends AgeLeafShapePattern implements Cat
         this.link(labelShape, new AadlElementWrapper(classifier));
         final Text text = graphicsAlgorithmCreator.createLabelGraphicsAlgorithm(labelShape, labelTxt);
         
-        // Set the size        
+        // Set the size
         final IDimension textSize = GraphitiUi.getUiLayoutService().calculateTextSize(labelTxt, text.getStyle().getFont());
 		final int textWidth = Math.max(100, textSize == null ? 0 : textSize.getWidth() + 30); 
 		final int height = 50; 
