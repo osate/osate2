@@ -8,6 +8,10 @@
  *******************************************************************************/
 package org.osate.ge.services.impl;
 
+import java.util.Objects;
+
+import org.eclipse.e4.core.contexts.ContextInjectionFactory;
+import org.eclipse.e4.core.contexts.IEclipseContext;
 import org.eclipse.graphiti.features.IFeatureProvider;
 import org.eclipse.graphiti.mm.algorithms.GraphicsAlgorithm;
 import org.eclipse.graphiti.mm.algorithms.styles.Style;
@@ -17,18 +21,22 @@ import org.eclipse.graphiti.mm.pictograms.ConnectionDecorator;
 import org.eclipse.graphiti.mm.pictograms.ContainerShape;
 import org.eclipse.graphiti.mm.pictograms.Diagram;
 import org.eclipse.graphiti.mm.pictograms.Shape;
+import org.eclipse.graphiti.services.Graphiti;
+import org.eclipse.graphiti.services.IGaService;
 import org.eclipse.graphiti.util.ColorConstant;
 import org.eclipse.graphiti.util.IColorConstant;
-import org.osate.ge.services.StyleProviderService;
+import org.osate.ge.ext.ExtensionConstants;
+import org.osate.ge.ext.annotations.Activate;
+import org.osate.ge.services.ExtensionService;
 import org.osate.ge.services.StyleService;
 
 public class DefaultStyleService implements StyleService {
 	private final IFeatureProvider fp;
-	private final StyleProviderService styleProviderService;
+	private final ExtensionService extensionService;
 	
-	public DefaultStyleService(final IFeatureProvider fp, final StyleProviderService styleProviderService) {
+	public DefaultStyleService(final IFeatureProvider fp, final ExtensionService extensionService) {
 		this.fp = fp;
-		this.styleProviderService = styleProviderService;
+		this.extensionService = extensionService;
 	}
 	
 	/* (non-Javadoc)
@@ -36,7 +44,19 @@ public class DefaultStyleService implements StyleService {
 	 */
 	@Override
 	public Style getStyle(final String styleId) {
-		return styleProviderService.getStyle(getDiagram(), styleId);
+		final IGaService gaService = Graphiti.getGaService();
+		final Diagram diagram  = getDiagram();
+        final Style style = gaService.findStyle(diagram, styleId);
+    	
+        // If it does not exist, create it
+        if(style == null) {
+        	final Object styleFactory = extensionService.getStyleFactory(styleId);
+        	final IEclipseContext context = Objects.requireNonNull(extensionService, "extensionService must not be null").createChildContext();
+        	context.set(ExtensionConstants.STYLE_ID, styleId);
+        	return (Style)ContextInjectionFactory.invoke(styleFactory, Activate.class, context);
+        }
+		
+		return style;
 	}
 	
 	private Style getImplementationStyleConditionally(final String styleId, final boolean getImplementation) {

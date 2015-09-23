@@ -41,7 +41,6 @@ import org.osate.ge.services.RefactoringService;
 import org.osate.ge.services.SerializableReferenceService;
 import org.osate.ge.services.ShapeCreationService;
 import org.osate.ge.services.ShapeService;
-import org.osate.ge.services.StyleProviderService;
 import org.osate.ge.services.StyleService;
 import org.osate.ge.services.SubcomponentService;
 import org.osate.ge.services.ExtensionRegistryService;
@@ -109,13 +108,13 @@ public class AgeDiagramTypeProvider extends AbstractDiagramTypeProvider {
 		final ConnectionService connectionService = new DefaultConnectionService(anchorUtil, serializableReferenceService, shapeHelper, propertyUtil, bor, fp);
 		final DefaultGhostingService ghostingService = new DefaultGhostingService(propertyUtil, connectionService, bor, fp);
 		final DefaultDiagramModificationService diagramModificationService = new DefaultDiagramModificationService(diagramService, ghostPurger, bor);
-		final StyleProviderService styleProviderService = (StyleProviderService)PlatformUI.getWorkbench().getActiveWorkbenchWindow().getService(StyleProviderService.class);
 		final DefaultNamingService namingService = new DefaultNamingService();
 		final DefaultUserInputService userInputService = new DefaultUserInputService(bor);
 		final DefaultAadlModificationService modificationService = new DefaultAadlModificationService(fp);
 		final DefaultRefactoringService refactoringService = new DefaultRefactoringService(modificationService, diagramModificationService);
 		final DefaultGraphicsAlgorithmManipulationService graphicsAlgorithmUtil = new DefaultGraphicsAlgorithmManipulationService();
-		final DefaultStyleService styleUtil = new DefaultStyleService(fp, styleProviderService);
+		final ExtensionService extensionService = new DefaultExtensionService((ExtensionRegistryService)PlatformUI.getWorkbench().getActiveWorkbenchWindow().getService(ExtensionRegistryService.class), this, context);
+		final DefaultStyleService styleUtil = new DefaultStyleService(fp, extensionService);
 		final DefaultLayoutService layoutService = new DefaultLayoutService(propertyUtil, shapeHelper, bor, fp);
 		final DefaultPrototypeService prototypeService = new DefaultPrototypeService(bor);
 		final DefaultAadlFeatureService featureService = new DefaultAadlFeatureService(prototypeService, bor);
@@ -125,7 +124,7 @@ public class AgeDiagramTypeProvider extends AbstractDiagramTypeProvider {
 		final DefaultGraphicsAlgorithmCreationService graphicsAlgorithmCreator = new DefaultGraphicsAlgorithmCreationService(styleUtil, featureService, subcomponentService, graphicsAlgorithmUtil);		
 		final DefaultColoringService highlightingHelper = new DefaultColoringService(shapeHelper, propertyUtil, styleUtil, bor, fp);		
 		final DefaultLabelService labelService = new DefaultLabelService(propertyUtil, graphicsAlgorithmCreator, fp);
-		final ExtensionService extensionService = new DefaultExtensionService((ExtensionRegistryService)PlatformUI.getWorkbench().getActiveWorkbenchWindow().getService(ExtensionRegistryService.class), this, context);
+		
 		
 		// Populate the context.
 		context.set(IDiagramTypeProvider.class, this);
@@ -139,7 +138,6 @@ public class AgeDiagramTypeProvider extends AbstractDiagramTypeProvider {
 		context.set(AadlArrayService.class, arrayService);
 		context.set(DiagramService.class, diagramService);
 		context.set(DiagramModificationService.class, diagramModificationService);
-		context.set(StyleProviderService.class, styleProviderService);
 		context.set(NamingService.class, namingService);
 		context.set(UserInputService.class, userInputService);
 		context.set(AadlModificationService.class, modificationService);

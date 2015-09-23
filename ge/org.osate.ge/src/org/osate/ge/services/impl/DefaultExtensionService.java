@@ -31,4 +31,10 @@ public class DefaultExtensionService implements ExtensionService {
 		ctx.set(Diagram.class, diagramTypeProvider.getDiagram());
 		return ctx;
 	}
+
+	@Override
+	public Object getStyleFactory(final String styleId) {
+		return globalExtService.getStyleFactory(styleId);
+	}
+
 }

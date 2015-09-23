@@ -6,7 +6,9 @@
  * http://www.eclipse.org/legal/epl-v10.html
  * The US Government has unlimited rights in this work in accordance with W31P4Q-10-D-0092 DO 0073.
  *******************************************************************************/
-package org.osate.ge.diagrams.common.styles;
+package org.osate.ge.styles;
+
+import javax.inject.Named;
 
 import org.eclipse.graphiti.mm.algorithms.styles.Orientation;
 import org.eclipse.graphiti.mm.algorithms.styles.Style;
@@ -14,16 +16,12 @@ import org.eclipse.graphiti.mm.pictograms.Diagram;
 import org.eclipse.graphiti.services.Graphiti;
 import org.eclipse.graphiti.services.IGaService;
 import org.eclipse.graphiti.util.IColorConstant;
-import org.osate.ge.styles.StyleFactory;
+import org.osate.ge.ext.ExtensionConstants;
+import org.osate.ge.ext.annotations.Activate;
 
-/**
- * Style used for annotations such as feature annotations that specify that a feature is an internal or processor feature
- * @author philip.alldredge
- *
- */
-public class AnnotationStyleFactory implements StyleFactory {
-	@Override
-	public Style create(final String styleId, final Diagram diagram) {
+public class LabelStyleFactory {
+	@Activate
+	public Style create(final @Named(ExtensionConstants.STYLE_ID) String styleId, final Diagram diagram) {
 		final IGaService gaService = Graphiti.getGaService();
 		final Style style = gaService.createPlainStyle(diagram, styleId);
 		style.setForeground(gaService.manageColor(diagram, IColorConstant.BLACK));
