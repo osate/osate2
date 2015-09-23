@@ -8,22 +8,22 @@
  *******************************************************************************/
 package org.osate.ge.diagrams.common.styles;
 
+import javax.inject.Named;
+
 import org.eclipse.graphiti.mm.algorithms.styles.Style;
 import org.eclipse.graphiti.mm.pictograms.Diagram;
 import org.eclipse.graphiti.services.Graphiti;
 import org.eclipse.graphiti.services.IGaService;
 import org.eclipse.graphiti.util.ColorConstant;
-import org.eclipse.ui.PlatformUI;
-import org.osate.ge.services.StyleProviderService;
-import org.osate.ge.styles.StyleFactory;
+import org.osate.ge.ext.ExtensionConstants;
+import org.osate.ge.ext.annotations.Activate;
+import org.osate.ge.services.impl.DefaultExtensionRegistryService;
 
-public class FeatureGroupStyleFactory implements StyleFactory {
-	@Override
-	public Style create(final String styleId, final Diagram diagram) {
+public class FeatureGroupStyleFactory {
+	@Activate
+	public Style create(final @Named(ExtensionConstants.STYLE_ID) String styleId, final Diagram diagram) {
 		final IGaService gaService = Graphiti.getGaService();
-		final StyleProviderService styleProvider = (StyleProviderService) PlatformUI.getWorkbench().getActiveWorkbenchWindow().getService(StyleProviderService.class);
-
-		final Style classifierStyle = styleProvider.getStyle(diagram, "classifier");
+		final Style classifierStyle = DefaultExtensionRegistryService.getStyle(diagram, "classifier");
 		final Style style = gaService.createPlainStyle(classifierStyle, styleId);
 		style.setBackground(Graphiti.getGaService().manageColor(diagram, ColorConstant.BLACK));
 		return style;

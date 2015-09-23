@@ -5,12 +5,14 @@
  * which accompanies this distribution, and is available at
  * http://www.eclipse.org/legal/epl-v10.html
  * The US Government has unlimited rights in this work in accordance with W31P4Q-10-D-0092 DO 0073.
- *******************************************************************************/
+ *******************************************************************************//*
 package org.osate.ge.styles;
 
 import org.eclipse.graphiti.mm.algorithms.styles.Style;
 import org.eclipse.graphiti.mm.pictograms.Diagram;
+import org.osate.ge.services.ExtensionService;
 
 public interface StyleFactory {
 	Style create(String styleId, Diagram diagram);
 }
+*/

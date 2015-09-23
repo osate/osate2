@@ -25,4 +25,6 @@ public interface ExtensionRegistryService {
 	 * SelectionChanged - Optional
 	 */
     Collection<Object> getTools();
+
+	Object getStyleFactory(String styleId);
 }

@@ -5,7 +5,7 @@
  * which accompanies this distribution, and is available at
  * http://www.eclipse.org/legal/epl-v10.html
  * The US Government has unlimited rights in this work in accordance with W31P4Q-10-D-0092 DO 0073.
- *******************************************************************************/
+ *******************************************************************************//*
 package org.osate.ge.services;
 
 import org.eclipse.graphiti.mm.algorithms.styles.Style;
@@ -23,3 +23,4 @@ public interface StyleProviderService {
 	
 	Style getStyle(Diagram diagram, String id);
 }
+*/

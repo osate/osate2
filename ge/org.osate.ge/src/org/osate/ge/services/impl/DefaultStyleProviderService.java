@@ -5,7 +5,7 @@
  * which accompanies this distribution, and is available at
  * http://www.eclipse.org/legal/epl-v10.html
  * The US Government has unlimited rights in this work in accordance with W31P4Q-10-D-0092 DO 0073.
- *******************************************************************************/
+ *******************************************************************************//*
 package org.osate.ge.services.impl;
 
 import java.util.HashMap;
@@ -25,9 +25,9 @@ import org.osate.ge.services.StyleProviderService;
 import org.osate.ge.styles.StyleFactory;
 
 public class DefaultStyleProviderService implements StyleProviderService {
-	/**
+	*//**
 	 * Mapping from style id's to style factories.
-	 */
+	 *//*
 	private Map<String, StyleFactory> styleFactoryMap = new HashMap<String, StyleFactory>();
 	
 	public DefaultStyleProviderService() {
@@ -42,7 +42,8 @@ public class DefaultStyleProviderService implements StyleProviderService {
 					if(ce.getName().equals("factory")) {
 						final String styleId = ce.getAttribute("styleId");
 						if(styleId != null) {
-							try {								
+							try {				
+								System.err.println("AAAAA");
 								final StyleFactory styleFactory = (StyleFactory)ce.createExecutableExtension("class");
 								styleFactoryMap.put(styleId,  styleFactory);
 							} catch(final CoreException ex) {
@@ -74,3 +75,4 @@ public class DefaultStyleProviderService implements StyleProviderService {
 		return style;
 	}
 }
+*/

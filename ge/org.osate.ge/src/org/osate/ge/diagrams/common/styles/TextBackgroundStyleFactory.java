@@ -8,16 +8,19 @@
  *******************************************************************************/
 package org.osate.ge.diagrams.common.styles;
 
+import javax.inject.Named;
+
 import org.eclipse.graphiti.mm.algorithms.styles.Style;
 import org.eclipse.graphiti.mm.pictograms.Diagram;
 import org.eclipse.graphiti.services.Graphiti;
 import org.eclipse.graphiti.services.IGaService;
 import org.eclipse.graphiti.util.IColorConstant;
-import org.osate.ge.styles.StyleFactory;
+import org.osate.ge.ext.ExtensionConstants;
+import org.osate.ge.ext.annotations.Activate;
 
-public class TextBackgroundStyleFactory implements StyleFactory {
-	@Override
-	public Style create(final String styleId, final Diagram diagram) {
+public class TextBackgroundStyleFactory {
+	@Activate
+	public Style create(final @Named(ExtensionConstants.STYLE_ID) String styleId, final Diagram diagram) {
 		final IGaService gaService = Graphiti.getGaService();
 		final Style style = gaService.createPlainStyle(diagram, styleId);
 		style.setBackground(gaService.manageColor(diagram, IColorConstant.WHITE));
