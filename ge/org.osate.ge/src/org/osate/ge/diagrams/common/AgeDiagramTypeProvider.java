@@ -114,7 +114,7 @@ public class AgeDiagramTypeProvider extends AbstractDiagramTypeProvider {
 		final DefaultRefactoringService refactoringService = new DefaultRefactoringService(modificationService, diagramModificationService);
 		final DefaultGraphicsAlgorithmManipulationService graphicsAlgorithmUtil = new DefaultGraphicsAlgorithmManipulationService();
 		final ExtensionService extensionService = new DefaultExtensionService((ExtensionRegistryService)PlatformUI.getWorkbench().getActiveWorkbenchWindow().getService(ExtensionRegistryService.class), this, context);
-		final DefaultStyleService styleUtil = new DefaultStyleService(fp);
+		final DefaultStyleService styleUtil = new DefaultStyleService(fp, extensionService);
 		final DefaultLayoutService layoutService = new DefaultLayoutService(propertyUtil, shapeHelper, bor, fp);
 		final DefaultPrototypeService prototypeService = new DefaultPrototypeService(bor);
 		final DefaultAadlFeatureService featureService = new DefaultAadlFeatureService(prototypeService, bor);

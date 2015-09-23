@@ -6,7 +6,7 @@
  * http://www.eclipse.org/legal/epl-v10.html
  * The US Government has unlimited rights in this work in accordance with W31P4Q-10-D-0092 DO 0073.
  *******************************************************************************/
-package org.osate.ge.diagrams.common.styles;
+package org.osate.ge.styles;
 
 import javax.inject.Named;
 
@@ -19,17 +19,12 @@ import org.eclipse.graphiti.util.IColorConstant;
 import org.osate.ge.ext.ExtensionConstants;
 import org.osate.ge.ext.annotations.Activate;
 
-/**
- * A style that has a color that matches the background of the diagram
- * @author philip.alldredge
- *
- */
-public class BackgroundStyleFactory {
+public class GeneralizationArrowheadStyleFactory {
 	@Activate
 	public Style create(final @Named(ExtensionConstants.STYLE_ID) String styleId, final Diagram diagram) {
 		final IGaService gaService = Graphiti.getGaService();
 		final Style style = gaService.createPlainStyle(diagram, styleId);
-		style.setForeground(gaService.manageColor(diagram, IColorConstant.WHITE));
+		style.setForeground(gaService.manageColor(diagram, IColorConstant.BLACK));
         style.setBackground(gaService.manageColor(diagram, IColorConstant.WHITE));
         style.setLineStyle(LineStyle.SOLID);
         style.setLineVisible(true);

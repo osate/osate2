@@ -19,13 +19,16 @@ import org.eclipse.graphiti.mm.pictograms.Diagram;
 import org.eclipse.graphiti.mm.pictograms.Shape;
 import org.eclipse.graphiti.util.ColorConstant;
 import org.eclipse.graphiti.util.IColorConstant;
+import org.osate.ge.services.ExtensionService;
 import org.osate.ge.services.StyleService;
 
 public class DefaultStyleService implements StyleService {
 	private final IFeatureProvider fp;
+	private final ExtensionService extensionService;
 	
-	public DefaultStyleService(final IFeatureProvider fp) {
+	public DefaultStyleService(final IFeatureProvider fp, final ExtensionService extensionService) {
 		this.fp = fp;
+		this.extensionService = extensionService;
 	}
 	
 	/* (non-Javadoc)
@@ -33,7 +36,7 @@ public class DefaultStyleService implements StyleService {
 	 */
 	@Override
 	public Style getStyle(final String styleId) {
-		return DefaultExtensionRegistryService.getStyle(getDiagram(), styleId);
+		return DefaultExtensionRegistryService.getStyle(getDiagram(), styleId, extensionService);
 	}
 	
 	private Style getImplementationStyleConditionally(final String styleId, final boolean getImplementation) {

@@ -1,4 +1,4 @@
-package org.osate.ge.diagrams.common.styles;
+package org.osate.ge.styles;
 
 import javax.inject.Named;
 

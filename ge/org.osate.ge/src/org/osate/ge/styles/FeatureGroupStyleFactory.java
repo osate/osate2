@@ -6,30 +6,27 @@
  * http://www.eclipse.org/legal/epl-v10.html
  * The US Government has unlimited rights in this work in accordance with W31P4Q-10-D-0092 DO 0073.
  *******************************************************************************/
-package org.osate.ge.diagrams.common.styles;
+package org.osate.ge.styles;
 
 import javax.inject.Named;
 
-import org.eclipse.graphiti.mm.algorithms.styles.LineStyle;
 import org.eclipse.graphiti.mm.algorithms.styles.Style;
 import org.eclipse.graphiti.mm.pictograms.Diagram;
 import org.eclipse.graphiti.services.Graphiti;
 import org.eclipse.graphiti.services.IGaService;
-import org.eclipse.graphiti.util.IColorConstant;
+import org.eclipse.graphiti.util.ColorConstant;
 import org.osate.ge.ext.ExtensionConstants;
 import org.osate.ge.ext.annotations.Activate;
+import org.osate.ge.services.ExtensionService;
+import org.osate.ge.services.impl.DefaultExtensionRegistryService;
 
-public class DashedLineStyleFactory {
+public class FeatureGroupStyleFactory {
 	@Activate
-	public Style create(final @Named(ExtensionConstants.STYLE_ID) String styleId, final Diagram diagram) {
+	public Style create(final @Named(ExtensionConstants.STYLE_ID) String styleId, final Diagram diagram, final ExtensionService extensionService) {
 		final IGaService gaService = Graphiti.getGaService();
-		final Style style = gaService.createPlainStyle(diagram, styleId);
-		style.setForeground(gaService.manageColor(diagram, IColorConstant.BLACK));
-        style.setBackground(gaService.manageColor(diagram, IColorConstant.BLACK));
-        style.setLineStyle(LineStyle.DASH);
-        
-        style.setLineVisible(true);
-        style.setLineWidth(2);
+		final Style classifierStyle = DefaultExtensionRegistryService.getStyle(diagram, "classifier", extensionService);
+		final Style style = gaService.createPlainStyle(classifierStyle, styleId);
+		style.setBackground(Graphiti.getGaService().manageColor(diagram, ColorConstant.BLACK));
 		return style;
 	}
 }

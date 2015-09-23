@@ -6,33 +6,34 @@
  * http://www.eclipse.org/legal/epl-v10.html
  * The US Government has unlimited rights in this work in accordance with W31P4Q-10-D-0092 DO 0073.
  *******************************************************************************/
-package org.osate.ge.diagrams.common.styles;
+package org.osate.ge.styles;
 
 import javax.inject.Named;
 
+import org.eclipse.graphiti.mm.algorithms.styles.LineStyle;
 import org.eclipse.graphiti.mm.algorithms.styles.Style;
 import org.eclipse.graphiti.mm.pictograms.Diagram;
 import org.eclipse.graphiti.services.Graphiti;
 import org.eclipse.graphiti.services.IGaService;
 import org.osate.ge.ext.ExtensionConstants;
 import org.osate.ge.ext.annotations.Activate;
+import org.osate.ge.services.ExtensionService;
 import org.osate.ge.services.impl.DefaultExtensionRegistryService;
 
-public class BasicComponentTypeStyleFactory {
+public class DashedComponentTypeStyleFactory {
 	@Activate
-	public Style create(final @Named(ExtensionConstants.STYLE_ID) String styleId, final Diagram diagram) {
+	public Style create(final @Named(ExtensionConstants.STYLE_ID) String styleId, final Diagram diagram, final ExtensionService extensionService) {
 		final IGaService gaService = Graphiti.getGaService();
-		//final ExtensionService styleProvider = (ExtensionService) PlatformUI.getWorkbench().getActiveWorkbenchWindow().getService(ExtensionService.class);
-		//final DefaultExtensionRegistryService defaultExtensionRegistryService = (DefaultExtensionRegistryService)PlatformUI.getWorkbench().getActiveWorkbenchWindow().getService(DefaultExtensionRegistryService.class);
 		final String implSuffix = "-implementation";
 		if(styleId.endsWith(implSuffix)) {
-			final Style baseStyle = DefaultExtensionRegistryService.getStyle(diagram, styleId.substring(0, styleId.length()-implSuffix.length()));
+			final Style baseStyle = DefaultExtensionRegistryService.getStyle(diagram, styleId.substring(0, styleId.length()-implSuffix.length()), extensionService);
 			final Style style = gaService.createPlainStyle(baseStyle, styleId);
 			style.setLineWidth(3);
 			return style;
 		} else {
-			final Style classifierStyle = DefaultExtensionRegistryService.getStyle(diagram, "classifier");
+			final Style classifierStyle = DefaultExtensionRegistryService.getStyle(diagram, "classifier", extensionService);
 			final Style style = gaService.createPlainStyle(classifierStyle, styleId);
+			style.setLineStyle(LineStyle.DASH);
 			style.setLineWidth(2);
 			return style;
 		}

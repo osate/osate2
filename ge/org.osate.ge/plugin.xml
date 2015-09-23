@@ -103,64 +103,61 @@
 	</extension>
 	
  <extension point="org.osate.ge.styles">
- 	<factory class="org.osate.ge.diagrams.common.styles.ClassifierStyleFactory" styleId="classifier"/>
- 	<factory class="org.osate.ge.diagrams.common.styles.BasicComponentTypeStyleFactory" styleId="system"/>
- 	<factory class="org.osate.ge.diagrams.common.styles.BasicComponentTypeStyleFactory" styleId="system-implementation"/>
- 	<factory class="org.osate.ge.diagrams.common.styles.BasicComponentTypeStyleFactory" styleId="process"/>
- 	<factory class="org.osate.ge.diagrams.common.styles.BasicComponentTypeStyleFactory" styleId="process-implementation"/>
- 	<factory class="org.osate.ge.diagrams.common.styles.BasicComponentTypeStyleFactory" styleId="subprogram"/>
- 	<factory class="org.osate.ge.diagrams.common.styles.BasicComponentTypeStyleFactory" styleId="subprogram-implementation"/> 	
- 	<factory class="org.osate.ge.diagrams.common.styles.BasicComponentTypeStyleFactory" styleId="data"/>
- 	<factory class="org.osate.ge.diagrams.common.styles.BasicComponentTypeStyleFactory" styleId="data-implementation"/>
- 	<factory class="org.osate.ge.diagrams.common.styles.BasicComponentTypeStyleFactory" styleId="bus"/>
- 	<factory class="org.osate.ge.diagrams.common.styles.BasicComponentTypeStyleFactory" styleId="bus-implementation"/>
- 	<factory class="org.osate.ge.diagrams.common.styles.BasicComponentTypeStyleFactory" styleId="processor"/>
- 	<factory class="org.osate.ge.diagrams.common.styles.BasicComponentTypeStyleFactory" styleId="processor-implementation"/>
- 	<factory class="org.osate.ge.diagrams.common.styles.BasicComponentTypeStyleFactory" styleId="device"/>
- 	<factory class="org.osate.ge.diagrams.common.styles.BasicComponentTypeStyleFactory" styleId="device-implementation"/>
- 	<factory class="org.osate.ge.diagrams.common.styles.BasicComponentTypeStyleFactory" styleId="memory"/>
- 	<factory class="org.osate.ge.diagrams.common.styles.BasicComponentTypeStyleFactory" styleId="memory-implementation"/> 	
- 	<factory class="org.osate.ge.diagrams.common.styles.DashedComponentTypeStyleFactory" styleId="thread-group"/>
- 	<factory class="org.osate.ge.diagrams.common.styles.DashedComponentTypeStyleFactory" styleId="thread-group-implementation"/>
- 	<factory class="org.osate.ge.diagrams.common.styles.DashedComponentTypeStyleFactory" styleId="thread"/>
- 	<factory class="org.osate.ge.diagrams.common.styles.DashedComponentTypeStyleFactory" styleId="thread-implementation"/>
- 	<factory class="org.osate.ge.diagrams.common.styles.DashedComponentTypeStyleFactory" styleId="subprogram-group"/>
- 	<factory class="org.osate.ge.diagrams.common.styles.DashedComponentTypeStyleFactory" styleId="subprogram-group-implementation"/> 	
- 	<factory class="org.osate.ge.diagrams.common.styles.DashedComponentTypeStyleFactory" styleId="abstract"/>
- 	<factory class="org.osate.ge.diagrams.common.styles.DashedComponentTypeStyleFactory" styleId="abstract-implementation"/>
- 	<factory class="org.osate.ge.diagrams.common.styles.DashedComponentTypeStyleFactory" styleId="virtual-bus"/>
- 	<factory class="org.osate.ge.diagrams.common.styles.DashedComponentTypeStyleFactory" styleId="virtual-bus-implementation"/>
- 	<factory class="org.osate.ge.diagrams.common.styles.DashedComponentTypeStyleFactory" styleId="virtual-processor"/>
- 	<factory class="org.osate.ge.diagrams.common.styles.DashedComponentTypeStyleFactory" styleId="virtual-processor-implementation"/> 	
- 	<factory class="org.osate.ge.diagrams.common.styles.FeatureGroupStyleFactory" styleId="feature-group"/> 	
- 	<factory class="org.osate.ge.diagrams.common.styles.ShadedStyleFactory" styleId="shaded"/>
- 	<factory class="org.osate.ge.diagrams.common.styles.ImplementsStyleFactory" styleId="implements"/>
- 	<factory class="org.osate.ge.diagrams.common.styles.SolidLineStyleFactory" styleId="flow_specification"/>
- 	<factory class="org.osate.ge.diagrams.common.styles.ExtendsStyleFactory" styleId="extends"/>
- 	<factory class="org.osate.ge.diagrams.common.styles.GeneralizationArrowheadStyleFactory" styleId="generalization-arrowhead"/>
- 	<factory class="org.osate.ge.diagrams.common.styles.SolidLineStyleFactory" styleId="decorator"/>
- 	<factory class="org.osate.ge.diagrams.common.styles.SolidLineStyleFactory" styleId="feature"/>
- 	<factory class="org.osate.ge.diagrams.common.styles.LabelStyleFactory" styleId="label"/>
- 	<factory class="org.osate.ge.diagrams.common.styles.AnnotationStyleFactory" styleId="annotation"/>
- 	<factory class="org.osate.ge.diagrams.common.styles.TextBackgroundStyleFactory" styleId="text-background"/>
- 	<factory class="org.osate.ge.diagrams.common.styles.SubprogramAccessStyleFactory" styleId="subprogram_access"/>
- 	<factory class="org.osate.ge.diagrams.common.styles.SubprogramGroupAccessStyleFactory" styleId="subprogram_group_access"/>
- 	<factory class="org.osate.ge.diagrams.common.styles.BackgroundStyleFactory" styleId="background"/>
- 	<factory class="org.osate.ge.diagrams.common.styles.BasicComponentTypeStyleFactory" styleId="mode"/>
- 	<factory class="org.osate.ge.diagrams.common.styles.SolidLineStyleFactory" styleId="mode-initial"/>
- 	<factory class="org.osate.ge.diagrams.common.styles.DashedLineStyleFactory" styleId="mode_transition_trigger"/>
- 	<factory class="org.osate.ge.diagrams.common.styles.SubprogramCallSequenceStyleFactory" styleId="subprogram_call_sequence"/>
- 	<factory class="org.osate.ge.diagrams.common.styles.SubprogramCallStyleFactory" styleId="subprogram_call"/> 	
- 	<factory class="org.osate.ge.diagrams.common.styles.SolidLineStyleFactory" styleId="subprogram_call_order"/>
- 	<factory class="org.osate.ge.diagrams.common.styles.DefaultAnnexStyleFactory" styleId="default_annex"/>
+ 	<factory class="org.osate.ge.styles.ClassifierStyleFactory" styleId="classifier"/>
+ 	<factory class="org.osate.ge.styles.BasicComponentTypeStyleFactory" styleId="system"/>
+ 	<factory class="org.osate.ge.styles.BasicComponentTypeStyleFactory" styleId="system-implementation"/>
+ 	<factory class="org.osate.ge.styles.BasicComponentTypeStyleFactory" styleId="process"/>
+ 	<factory class="org.osate.ge.styles.BasicComponentTypeStyleFactory" styleId="process-implementation"/>
+ 	<factory class="org.osate.ge.styles.BasicComponentTypeStyleFactory" styleId="subprogram"/>
+ 	<factory class="org.osate.ge.styles.BasicComponentTypeStyleFactory" styleId="subprogram-implementation"/> 	
+ 	<factory class="org.osate.ge.styles.BasicComponentTypeStyleFactory" styleId="data"/>
+ 	<factory class="org.osate.ge.styles.BasicComponentTypeStyleFactory" styleId="data-implementation"/>
+ 	<factory class="org.osate.ge.styles.BasicComponentTypeStyleFactory" styleId="bus"/>
+ 	<factory class="org.osate.ge.styles.BasicComponentTypeStyleFactory" styleId="bus-implementation"/>
+ 	<factory class="org.osate.ge.styles.BasicComponentTypeStyleFactory" styleId="processor"/>
+ 	<factory class="org.osate.ge.styles.BasicComponentTypeStyleFactory" styleId="processor-implementation"/>
+ 	<factory class="org.osate.ge.styles.BasicComponentTypeStyleFactory" styleId="device"/>
+ 	<factory class="org.osate.ge.styles.BasicComponentTypeStyleFactory" styleId="device-implementation"/>
+ 	<factory class="org.osate.ge.styles.BasicComponentTypeStyleFactory" styleId="memory"/>
+ 	<factory class="org.osate.ge.styles.BasicComponentTypeStyleFactory" styleId="memory-implementation"/> 	
+ 	<factory class="org.osate.ge.styles.DashedComponentTypeStyleFactory" styleId="thread-group"/>
+ 	<factory class="org.osate.ge.styles.DashedComponentTypeStyleFactory" styleId="thread-group-implementation"/>
+ 	<factory class="org.osate.ge.styles.DashedComponentTypeStyleFactory" styleId="thread"/>
+ 	<factory class="org.osate.ge.styles.DashedComponentTypeStyleFactory" styleId="thread-implementation"/>
+ 	<factory class="org.osate.ge.styles.DashedComponentTypeStyleFactory" styleId="subprogram-group"/>
+ 	<factory class="org.osate.ge.styles.DashedComponentTypeStyleFactory" styleId="subprogram-group-implementation"/> 	
+ 	<factory class="org.osate.ge.styles.DashedComponentTypeStyleFactory" styleId="abstract"/>
+ 	<factory class="org.osate.ge.styles.DashedComponentTypeStyleFactory" styleId="abstract-implementation"/>
+ 	<factory class="org.osate.ge.styles.DashedComponentTypeStyleFactory" styleId="virtual-bus"/>
+ 	<factory class="org.osate.ge.styles.DashedComponentTypeStyleFactory" styleId="virtual-bus-implementation"/>
+ 	<factory class="org.osate.ge.styles.DashedComponentTypeStyleFactory" styleId="virtual-processor"/>
+ 	<factory class="org.osate.ge.styles.DashedComponentTypeStyleFactory" styleId="virtual-processor-implementation"/> 	
+ 	<factory class="org.osate.ge.styles.FeatureGroupStyleFactory" styleId="feature-group"/> 	
+ 	<factory class="org.osate.ge.styles.ShadedStyleFactory" styleId="shaded"/>
+ 	<factory class="org.osate.ge.styles.ImplementsStyleFactory" styleId="implements"/>
+ 	<factory class="org.osate.ge.styles.SolidLineStyleFactory" styleId="flow_specification"/>
+ 	<factory class="org.osate.ge.styles.ExtendsStyleFactory" styleId="extends"/>
+ 	<factory class="org.osate.ge.styles.GeneralizationArrowheadStyleFactory" styleId="generalization-arrowhead"/>
+ 	<factory class="org.osate.ge.styles.SolidLineStyleFactory" styleId="decorator"/>
+ 	<factory class="org.osate.ge.styles.SolidLineStyleFactory" styleId="feature"/>
+ 	<factory class="org.osate.ge.styles.LabelStyleFactory" styleId="label"/>
+ 	<factory class="org.osate.ge.styles.AnnotationStyleFactory" styleId="annotation"/>
+ 	<factory class="org.osate.ge.styles.TextBackgroundStyleFactory" styleId="text-background"/>
+ 	<factory class="org.osate.ge.styles.SubprogramAccessStyleFactory" styleId="subprogram_access"/>
+ 	<factory class="org.osate.ge.styles.SubprogramGroupAccessStyleFactory" styleId="subprogram_group_access"/>
+ 	<factory class="org.osate.ge.styles.BackgroundStyleFactory" styleId="background"/>
+ 	<factory class="org.osate.ge.styles.BasicComponentTypeStyleFactory" styleId="mode"/>
+ 	<factory class="org.osate.ge.styles.SolidLineStyleFactory" styleId="mode-initial"/>
+ 	<factory class="org.osate.ge.styles.DashedLineStyleFactory" styleId="mode_transition_trigger"/>
+ 	<factory class="org.osate.ge.styles.SubprogramCallSequenceStyleFactory" styleId="subprogram_call_sequence"/>
+ 	<factory class="org.osate.ge.styles.SubprogramCallStyleFactory" styleId="subprogram_call"/> 	
+ 	<factory class="org.osate.ge.styles.SolidLineStyleFactory" styleId="subprogram_call_order"/>
+ 	<factory class="org.osate.ge.styles.DefaultAnnexStyleFactory" styleId="default_annex"/>
  </extension>
  
  <extension point="org.eclipse.ui.services">
      <serviceFactory factoryClass="org.osate.ge.services.ExtensionRegistryService$Factory">
        <service serviceClass="org.osate.ge.services.ExtensionRegistryService"></service>
-    </serviceFactory>
-    <serviceFactory factoryClass="org.osate.ge.services.StyleProviderService$Factory">
-       <service serviceClass="org.osate.ge.services.StyleProviderService"></service>
     </serviceFactory>
     <serviceFactory factoryClass="org.osate.ge.services.DiagramService$Factory">
        <service serviceClass="org.osate.ge.services.DiagramService"></service>
