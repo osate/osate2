@@ -56,12 +56,14 @@ public class SelectSubprogramDialog extends TitleAreaDialog {
 		super(parentShell);
 		this.model = model;
 		setHelpAvailable(false);
+		setShellStyle(getShellStyle() | SWT.RESIZE);
 	}	
 	
 	@Override
 	protected void configureShell(final Shell newShell) {
 		super.configureShell(newShell);
 		newShell.setText("Select Subprogram");
+		newShell.setMinimumSize(650, 190);
 	}
 	
 	@Override

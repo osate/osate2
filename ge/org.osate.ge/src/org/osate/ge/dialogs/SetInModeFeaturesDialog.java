@@ -52,6 +52,7 @@ public class SetInModeFeaturesDialog extends TitleAreaDialog {
 	 */
 	public SetInModeFeaturesDialog(final Shell parentShell, final List<String> localModeFeatures, final List<String> localModeTransitionFeatures, final List<String> childModes, final Map<String, String> localToChildModeMap) {
 		super(parentShell);
+		setShellStyle(getShellStyle() | SWT.RESIZE);
 		this.localModes = localModeFeatures;
 		this.localModeTransitions = localModeTransitionFeatures;
 		this.childModes = childModes;
@@ -63,13 +64,14 @@ public class SetInModeFeaturesDialog extends TitleAreaDialog {
 	public void create() {
 		super.create();
 		setTitle("Modes");
-	    setMessage("Select the modes for the element.", IMessageProvider.INFORMATION);	
+	    setMessage("Select the modes for the element.", IMessageProvider.INFORMATION);
 	}	
 	
 	@Override
 	protected void configureShell(final Shell newShell) {
 		super.configureShell(newShell);
 		newShell.setText("Configure In Modes");
+		newShell.setMinimumSize(400, 225);
 	}
 	
 	public Map<String, String> getLocalToChildModeMap() {

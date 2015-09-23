@@ -250,7 +250,7 @@ public class CreateEndToEndFlowTool {
 			super(parentShell);
 			this.setHelpAvailable(false);
 			this.namingService = namingService;
-			setShellStyle(SWT.CLOSE | SWT.MODELESS | SWT.BORDER | SWT.TITLE | SWT.RESIZE);
+			setShellStyle(getShellStyle() | SWT.CLOSE | SWT.MODELESS | SWT.BORDER | SWT.TITLE | SWT.RESIZE);
 		}
 
 		private List<EndToEndFlow> getFlows() {
@@ -516,6 +516,7 @@ public class CreateEndToEndFlowTool {
 			newShell.setLocation(DialogPlacementHelper.getOffsetRectangleLocation(Display.getCurrent().getActiveShell().getBounds(), 50, 50));
 			newShell.setSize(475, 275);
 			newShell.setImage(ICON.createImage());
+			newShell.setMinimumSize(460, 215);
 		}
 
 		@Override

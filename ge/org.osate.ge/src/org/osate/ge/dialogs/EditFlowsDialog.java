@@ -121,6 +121,7 @@ public class EditFlowsDialog extends TitleAreaDialog {
 	protected void configureShell(final Shell newShell) {
 		super.configureShell(newShell);
 		newShell.setText("Edit Flows");
+		newShell.setMinimumSize(550, 250);
 	}
 	
 	private void populatePotentialFlowSegmentList() {
@@ -331,7 +332,7 @@ public class EditFlowsDialog extends TitleAreaDialog {
 			@Override
 			public void widgetSelected(SelectionEvent e) {
 				// Prompt the user for a name for the new end to end flow
-				final InputDialog namePromptDlg = new InputDialog(getShell(), "Create End-to-End Flow", "Enter a name for the new End-to-End flow", "", new IInputValidator() {
+				final InputDialog namePromptDlg = new NameInputDialog(getShell(), "Create End-to-End Flow", "Enter a name for the new End-to-End flow", "", new IInputValidator() {
 					@Override
 					public String isValid(final String newText) {
 						// Check if the name is a valid identifier and is not being used
@@ -349,7 +350,8 @@ public class EditFlowsDialog extends TitleAreaDialog {
 						}
 						
 						return invalid ? "The specified name is not valid." : null;
-					}					
+					}	
+			
 				});
 				
 				if(namePromptDlg.open() == Dialog.CANCEL) {
@@ -806,4 +808,16 @@ public class EditFlowsDialog extends TitleAreaDialog {
 	    }
 	}
 	
+	private class NameInputDialog extends InputDialog {
+		public NameInputDialog(final Shell parentShell, final String dialogTitle, final String dialogMessage, final String initialValue, final IInputValidator validator) {
+			super(parentShell, dialogTitle, dialogMessage, initialValue, validator);
+			setShellStyle(getShellStyle() | SWT.RESIZE);
+		}
+		
+		@Override
+		protected void configureShell(Shell shell) {
+			super.configureShell(shell);
+			shell.setMinimumSize(225, 200);
+		}
+	}
 }

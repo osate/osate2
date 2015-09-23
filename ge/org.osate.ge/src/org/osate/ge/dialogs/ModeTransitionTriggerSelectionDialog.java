@@ -33,7 +33,7 @@ public abstract class ModeTransitionTriggerSelectionDialog {
 		final List<ModeTransitionTriggerInfo> ports = getPossibleModeTransitionTriggerPorts(cc, componentImplementationService);
 		final ElementSelectionDialog triggerSelectionDlg = new ElementSelectionDialog(Display.getCurrent().getActiveShell(), "Select Trigger Ports", "Select mode transition triggers", ports);
 		triggerSelectionDlg.setMultipleSelection(true);
-		
+
 		// Set initial selections
 		if(mt != null) {
 			final List<ModeTransitionTriggerInfo> currentTriggerPorts = new ArrayList<ModeTransitionTriggerInfo>();
