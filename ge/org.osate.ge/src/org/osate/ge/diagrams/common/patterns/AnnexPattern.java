@@ -30,6 +30,7 @@ import org.eclipse.graphiti.services.IPeCreateService;
 import org.eclipse.jface.dialogs.Dialog;
 import org.eclipse.jface.dialogs.IInputValidator;
 import org.eclipse.jface.dialogs.InputDialog;
+import org.eclipse.swt.SWT;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Shell;
 import org.osate.aadl2.Aadl2Factory;
@@ -561,9 +562,16 @@ public class AnnexPattern extends AgePattern {
 					return isValidAnnexName(newName, namingService) ? "The specified name is not valid." : null;
 				}
 			});
+			setShellStyle(getShellStyle() | SWT.RESIZE);
+		}
+		
+		@Override
+		protected void configureShell(Shell shell) {
+			super.configureShell(shell);
+		    shell.setMinimumSize(225, 185);
 		}
 	}
-	
+
 	/**
 	 * 
 	 * @param newAnnexName

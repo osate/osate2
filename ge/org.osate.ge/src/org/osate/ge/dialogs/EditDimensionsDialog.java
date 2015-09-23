@@ -59,6 +59,7 @@ public class EditDimensionsDialog extends TitleAreaDialog {
     
 	public EditDimensionsDialog(final Shell parentShell, List<ArrayDimension> initialDimensions, boolean allowMultipleDimensions) {
 		super(parentShell);
+		setShellStyle(getShellStyle() | SWT.RESIZE);
 		
 		this.allowMultipleDimensions = allowMultipleDimensions;
 		
@@ -70,6 +71,7 @@ public class EditDimensionsDialog extends TitleAreaDialog {
 	protected void configureShell(Shell shell) {
 		super.configureShell(shell);
 		shell.setText("Modify Dimensions");
+		shell.setMinimumSize(425, 500);
 	}
 	
 	@Override

@@ -516,6 +516,7 @@ public class CreateEndToEndFlowTool {
 			newShell.setLocation(DialogPlacementHelper.getOffsetRectangleLocation(Display.getCurrent().getActiveShell().getBounds(), 50, 50));
 			newShell.setSize(475, 275);
 			newShell.setImage(ICON.createImage());
+			newShell.setMinimumSize(460, 215);
 		}
 
 		@Override

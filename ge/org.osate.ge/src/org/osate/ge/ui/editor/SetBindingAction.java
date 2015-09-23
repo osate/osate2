@@ -201,7 +201,7 @@ public class SetBindingAction extends SelectionAction {
 			this.elementToBind = (NamedElement) bor.getBusinessObjectForPictogramElement(pictogramToBind);
 			this.closeListener = closeListener;
 
-			setShellStyle(SWT.CLOSE | SWT.MODELESS | SWT.BORDER | SWT.TITLE);
+			setShellStyle(SWT.RESIZE | SWT.CLOSE | SWT.MODELESS | SWT.BORDER | SWT.TITLE);
 			setBlockOnOpen(false);
 			setHelpAvailable(false);
 		}
@@ -333,6 +333,7 @@ public class SetBindingAction extends SelectionAction {
 			super.configureShell(newShell);
 			newShell.setText("Bind");
 			newShell.setSize(400, 225);
+			newShell.setMinimumSize(250, 220);
 		}
 
 		public void cancel() {

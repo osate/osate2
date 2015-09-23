@@ -663,6 +663,7 @@ public class CreateFlowImplementationTool {
 			newShell.setLocation(DialogPlacementHelper.getOffsetRectangleLocation(Display.getCurrent().getActiveShell().getBounds(), 50, 50));
 			newShell.setSize(450, 250);
 			newShell.setImage(ICON.createImage());
+			newShell.setMinimumSize(300, 215);
 		}
 
 		@Override

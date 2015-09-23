@@ -12,6 +12,8 @@ import java.lang.reflect.Array;
 import java.util.List;
 
 import org.eclipse.emf.ecore.EObject;
+import org.eclipse.jface.viewers.ILabelProvider;
+import org.eclipse.swt.SWT;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.xtext.resource.IEObjectDescription;
 
@@ -26,7 +28,7 @@ public class ElementSelectionDialog {
 	private final org.eclipse.ui.dialogs.ElementListSelectionDialog dlg;
 	
 	public ElementSelectionDialog(final Shell parentShell, final String dlgTitle, final String prompt, final List<?> elementDescriptions) {
-		dlg = new org.eclipse.ui.dialogs.ElementListSelectionDialog(parentShell, new ElementLabelProvider(nullObject));		
+		dlg = new ElementListSelectionDialogs(parentShell, new ElementLabelProvider(nullObject));		
 		dlg.setTitle(dlgTitle);
 		dlg.setMessage(prompt);
 		
@@ -116,4 +118,20 @@ public class ElementSelectionDialog {
 	public void setInitialSelections(Object[] elements) {
 		dlg.setInitialSelections(convertToNullObject(elements));
 	}
+	
+	private class ElementListSelectionDialogs extends org.eclipse.ui.dialogs.ElementListSelectionDialog {
+
+		public ElementListSelectionDialogs(final Shell parentShell, ILabelProvider renderer) {
+			super(parentShell, renderer);
+			setShellStyle(getShellStyle() | SWT.RESIZE);
+		}
+		
+		@Override
+		protected void configureShell(Shell shell) {
+			super.configureShell(shell);
+			shell.setMinimumSize(275, 250);
+		}
+		
+	}
+	
 }
