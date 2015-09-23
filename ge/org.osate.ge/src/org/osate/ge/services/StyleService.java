@@ -12,12 +12,9 @@ import org.eclipse.graphiti.mm.algorithms.styles.Style;
 import org.eclipse.graphiti.util.IColorConstant;
 
 /**
- * Contains methods for accessing styles
- * @author philip.alldredge
+ * Contains methods for working with styles.
  *
  */
-// CLEAN-UP: Needs to be merged with StyleProviderService
-// TODO: Move architecture in a direction so that the style interface will only provide generic functionality
 public interface StyleService {
 
 	Style getStyle(String styleId);
