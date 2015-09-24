@@ -54,6 +54,13 @@ import org.osate.ge.ui.util.SelectionHelper;
 import org.osate.ge.util.Log;
 
 public class DefaultDiagramService implements DiagramService {
+	public static class ContextFunction extends SimpleServiceContextFunction<DiagramService> {
+		@Override
+		public DiagramService createService() {
+			return new DefaultDiagramService();
+		}		
+	}
+	
 	private static class ClosedDiagramReference implements DiagramReference {
 		private final ResourceSet rs;
 		private final URI uri;

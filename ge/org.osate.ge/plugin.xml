@@ -156,15 +156,6 @@
  	<factory class="org.osate.ge.styles.DefaultAnnexStyleFactory" styleId="default_annex"/>
  </extension>
  
- <extension point="org.eclipse.ui.services">
-     <serviceFactory factoryClass="org.osate.ge.services.ExtensionRegistryService$Factory">
-       <service serviceClass="org.osate.ge.services.ExtensionRegistryService"></service>
-    </serviceFactory>
-    <serviceFactory factoryClass="org.osate.ge.services.DiagramService$Factory">
-       <service serviceClass="org.osate.ge.services.DiagramService"></service>
-    </serviceFactory>
- </extension>
- 
   <extension
         point="org.eclipse.ui.navigator.navigatorContent">
      <navigatorContent

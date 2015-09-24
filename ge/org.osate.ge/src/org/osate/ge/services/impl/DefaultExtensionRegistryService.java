@@ -17,6 +17,13 @@ import org.osate.ge.services.ExtensionRegistryService;
  * Instantiates extensions which are registered via extension points.
  */
 public class DefaultExtensionRegistryService implements ExtensionRegistryService {
+	public static class ContextFunction extends SimpleServiceContextFunction<ExtensionRegistryService> {
+		@Override
+		public ExtensionRegistryService createService() {
+			return new DefaultExtensionRegistryService();
+		}		
+	}
+	
 	private static final String TOOL_EXTENSION_POINT_ID = "org.osate.ge.tools";
 	private static final String STYLE_EXTENSION_POINT_ID = "org.osate.ge.styles";
 	
