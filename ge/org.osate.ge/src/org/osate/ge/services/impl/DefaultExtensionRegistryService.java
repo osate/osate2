@@ -30,13 +30,13 @@ public class DefaultExtensionRegistryService implements ExtensionRegistryService
 	/**
 	 * Mapping from style id's to style factories.
 	 */
-	public static Map<String, Object> styleFactoryMap = new HashMap<String, Object>();
 	private final Collection<Object> tools;
+	private final Map<String, Object> styleFactoryMap;
 
 	public DefaultExtensionRegistryService() {
 		final IExtensionRegistry registry = Platform.getExtensionRegistry();		
 		tools = instantiateTools(registry);
-		instantiateStyles(registry);
+		styleFactoryMap = instantiateStyles(registry);
 	}
 
 	@Override
@@ -78,7 +78,9 @@ public class DefaultExtensionRegistryService implements ExtensionRegistryService
 		return Collections.unmodifiableCollection(extensions);
 	}
 	
-	public static void instantiateStyles(final IExtensionRegistry registry) {
+	public static Map<String, Object> instantiateStyles(final IExtensionRegistry registry) {
+		final Map<String, Object> styleFactoryMap = new HashMap<>();
+		
 		// Get the extension point
 		final IExtensionPoint point = registry.getExtensionPoint(STYLE_EXTENSION_POINT_ID);
 		if(point != null) {
@@ -100,5 +102,7 @@ public class DefaultExtensionRegistryService implements ExtensionRegistryService
 				}
 			}
 		}
+		
+		return styleFactoryMap;
 	}
 }
