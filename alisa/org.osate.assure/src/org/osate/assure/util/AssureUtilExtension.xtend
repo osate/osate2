@@ -1124,8 +1124,8 @@ class AssureUtilExtension {
 			ele.resetCounts
 			ele.recomputeAllCounts
 		}
-		" (S" + elec.successCount + " F" + elec.failCount + " T" + elec.timeoutCount + " O" + elec.errorCount + " tbd" + elec.tbdCount 
-		+ " DE" + elec.didelseCount + " TS" + elec.thenskipCount+ ")"
+		" (S" + elec.successCount + " F" + elec.failCount + " T" + elec.timeoutCount + " E" + elec.errorCount + " tbd" + elec.tbdCount 
+		+ " EL" + elec.didelseCount + " TS" + elec.thenskipCount+ ")"
 	}
 	
 	// manage instance model generation
