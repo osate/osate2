@@ -30,7 +30,7 @@ import org.osate.assure.assure.VerificationExpr;
  * The following features are implemented:
  * <ul>
  *   <li>{@link org.osate.assure.assure.impl.ElseResultImpl#getFirst <em>First</em>}</li>
- *   <li>{@link org.osate.assure.assure.impl.ElseResultImpl#getOther <em>Other</em>}</li>
+ *   <li>{@link org.osate.assure.assure.impl.ElseResultImpl#getError <em>Error</em>}</li>
  *   <li>{@link org.osate.assure.assure.impl.ElseResultImpl#getFail <em>Fail</em>}</li>
  *   <li>{@link org.osate.assure.assure.impl.ElseResultImpl#getTimeout <em>Timeout</em>}</li>
  *   <li>{@link org.osate.assure.assure.impl.ElseResultImpl#getDidFail <em>Did Fail</em>}</li>
@@ -52,14 +52,14 @@ public class ElseResultImpl extends VerificationExprImpl implements ElseResult
   protected EList<VerificationExpr> first;
 
   /**
-   * The cached value of the '{@link #getOther() <em>Other</em>}' containment reference list.
+   * The cached value of the '{@link #getError() <em>Error</em>}' containment reference list.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @see #getOther()
+   * @see #getError()
    * @generated
    * @ordered
    */
-  protected EList<VerificationExpr> other;
+  protected EList<VerificationExpr> error;
 
   /**
    * The cached value of the '{@link #getFail() <em>Fail</em>}' containment reference list.
@@ -141,13 +141,13 @@ public class ElseResultImpl extends VerificationExprImpl implements ElseResult
    * <!-- end-user-doc -->
    * @generated
    */
-  public EList<VerificationExpr> getOther()
+  public EList<VerificationExpr> getError()
   {
-    if (other == null)
+    if (error == null)
     {
-      other = new EObjectContainmentEList<VerificationExpr>(VerificationExpr.class, this, AssurePackage.ELSE_RESULT__OTHER);
+      error = new EObjectContainmentEList<VerificationExpr>(VerificationExpr.class, this, AssurePackage.ELSE_RESULT__ERROR);
     }
-    return other;
+    return error;
   }
 
   /**
@@ -213,8 +213,8 @@ public class ElseResultImpl extends VerificationExprImpl implements ElseResult
     {
       case AssurePackage.ELSE_RESULT__FIRST:
         return ((InternalEList<?>)getFirst()).basicRemove(otherEnd, msgs);
-      case AssurePackage.ELSE_RESULT__OTHER:
-        return ((InternalEList<?>)getOther()).basicRemove(otherEnd, msgs);
+      case AssurePackage.ELSE_RESULT__ERROR:
+        return ((InternalEList<?>)getError()).basicRemove(otherEnd, msgs);
       case AssurePackage.ELSE_RESULT__FAIL:
         return ((InternalEList<?>)getFail()).basicRemove(otherEnd, msgs);
       case AssurePackage.ELSE_RESULT__TIMEOUT:
@@ -235,8 +235,8 @@ public class ElseResultImpl extends VerificationExprImpl implements ElseResult
     {
       case AssurePackage.ELSE_RESULT__FIRST:
         return getFirst();
-      case AssurePackage.ELSE_RESULT__OTHER:
-        return getOther();
+      case AssurePackage.ELSE_RESULT__ERROR:
+        return getError();
       case AssurePackage.ELSE_RESULT__FAIL:
         return getFail();
       case AssurePackage.ELSE_RESULT__TIMEOUT:
@@ -262,9 +262,9 @@ public class ElseResultImpl extends VerificationExprImpl implements ElseResult
         getFirst().clear();
         getFirst().addAll((Collection<? extends VerificationExpr>)newValue);
         return;
-      case AssurePackage.ELSE_RESULT__OTHER:
-        getOther().clear();
-        getOther().addAll((Collection<? extends VerificationExpr>)newValue);
+      case AssurePackage.ELSE_RESULT__ERROR:
+        getError().clear();
+        getError().addAll((Collection<? extends VerificationExpr>)newValue);
         return;
       case AssurePackage.ELSE_RESULT__FAIL:
         getFail().clear();
@@ -294,8 +294,8 @@ public class ElseResultImpl extends VerificationExprImpl implements ElseResult
       case AssurePackage.ELSE_RESULT__FIRST:
         getFirst().clear();
         return;
-      case AssurePackage.ELSE_RESULT__OTHER:
-        getOther().clear();
+      case AssurePackage.ELSE_RESULT__ERROR:
+        getError().clear();
         return;
       case AssurePackage.ELSE_RESULT__FAIL:
         getFail().clear();
@@ -322,8 +322,8 @@ public class ElseResultImpl extends VerificationExprImpl implements ElseResult
     {
       case AssurePackage.ELSE_RESULT__FIRST:
         return first != null && !first.isEmpty();
-      case AssurePackage.ELSE_RESULT__OTHER:
-        return other != null && !other.isEmpty();
+      case AssurePackage.ELSE_RESULT__ERROR:
+        return error != null && !error.isEmpty();
       case AssurePackage.ELSE_RESULT__FAIL:
         return fail != null && !fail.isEmpty();
       case AssurePackage.ELSE_RESULT__TIMEOUT:

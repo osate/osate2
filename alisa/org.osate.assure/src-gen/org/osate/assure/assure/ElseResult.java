@@ -13,7 +13,7 @@ import org.eclipse.emf.common.util.EList;
  * The following features are supported:
  * <ul>
  *   <li>{@link org.osate.assure.assure.ElseResult#getFirst <em>First</em>}</li>
- *   <li>{@link org.osate.assure.assure.ElseResult#getOther <em>Other</em>}</li>
+ *   <li>{@link org.osate.assure.assure.ElseResult#getError <em>Error</em>}</li>
  *   <li>{@link org.osate.assure.assure.ElseResult#getFail <em>Fail</em>}</li>
  *   <li>{@link org.osate.assure.assure.ElseResult#getTimeout <em>Timeout</em>}</li>
  *   <li>{@link org.osate.assure.assure.ElseResult#getDidFail <em>Did Fail</em>}</li>
@@ -43,20 +43,20 @@ public interface ElseResult extends VerificationExpr
   EList<VerificationExpr> getFirst();
 
   /**
-   * Returns the value of the '<em><b>Other</b></em>' containment reference list.
+   * Returns the value of the '<em><b>Error</b></em>' containment reference list.
    * The list contents are of type {@link org.osate.assure.assure.VerificationExpr}.
    * <!-- begin-user-doc -->
    * <p>
-   * If the meaning of the '<em>Other</em>' containment reference list isn't clear,
+   * If the meaning of the '<em>Error</em>' containment reference list isn't clear,
    * there really should be more of a description here...
    * </p>
    * <!-- end-user-doc -->
-   * @return the value of the '<em>Other</em>' containment reference list.
-   * @see org.osate.assure.assure.AssurePackage#getElseResult_Other()
+   * @return the value of the '<em>Error</em>' containment reference list.
+   * @see org.osate.assure.assure.AssurePackage#getElseResult_Error()
    * @model containment="true"
    * @generated
    */
-  EList<VerificationExpr> getOther();
+  EList<VerificationExpr> getError();
 
   /**
    * Returns the value of the '<em><b>Fail</b></em>' containment reference list.

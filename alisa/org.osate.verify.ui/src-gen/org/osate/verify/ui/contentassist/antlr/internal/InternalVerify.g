@@ -3036,9 +3036,9 @@ rule__SingleElseEvidenceExpr__Alternatives_1_1
     }
 :
 (
-{ before(grammarAccess.getSingleElseEvidenceExprAccess().getOtherAssignment_1_1_0()); }
-(rule__SingleElseEvidenceExpr__OtherAssignment_1_1_0)
-{ after(grammarAccess.getSingleElseEvidenceExprAccess().getOtherAssignment_1_1_0()); }
+{ before(grammarAccess.getSingleElseEvidenceExprAccess().getErrorAssignment_1_1_0()); }
+(rule__SingleElseEvidenceExpr__ErrorAssignment_1_1_0)
+{ after(grammarAccess.getSingleElseEvidenceExprAccess().getErrorAssignment_1_1_0()); }
 )
 
     |(
@@ -7391,11 +7391,11 @@ rule__SingleElseEvidenceExpr__Group_1_1_1_3__0__Impl
     }
 :
 (
-{ before(grammarAccess.getSingleElseEvidenceExprAccess().getOtherKeyword_1_1_1_3_0()); }
+{ before(grammarAccess.getSingleElseEvidenceExprAccess().getErrorKeyword_1_1_1_3_0()); }
 
-	'other' 
+	'error' 
 
-{ after(grammarAccess.getSingleElseEvidenceExprAccess().getOtherKeyword_1_1_1_3_0()); }
+{ after(grammarAccess.getSingleElseEvidenceExprAccess().getErrorKeyword_1_1_1_3_0()); }
 )
 
 ;
@@ -7452,9 +7452,9 @@ rule__SingleElseEvidenceExpr__Group_1_1_1_3__2__Impl
     }
 :
 (
-{ before(grammarAccess.getSingleElseEvidenceExprAccess().getOtherAssignment_1_1_1_3_2()); }
-(rule__SingleElseEvidenceExpr__OtherAssignment_1_1_1_3_2)
-{ after(grammarAccess.getSingleElseEvidenceExprAccess().getOtherAssignment_1_1_1_3_2()); }
+{ before(grammarAccess.getSingleElseEvidenceExprAccess().getErrorAssignment_1_1_1_3_2()); }
+(rule__SingleElseEvidenceExpr__ErrorAssignment_1_1_1_3_2)
+{ after(grammarAccess.getSingleElseEvidenceExprAccess().getErrorAssignment_1_1_1_3_2()); }
 )
 
 ;
@@ -7576,9 +7576,9 @@ rule__CompositeElseEvidenceExpr__Group_1__1__Impl
     }
 :
 (
-{ before(grammarAccess.getCompositeElseEvidenceExprAccess().getOtherAssignment_1_1()); }
-(rule__CompositeElseEvidenceExpr__OtherAssignment_1_1)
-{ after(grammarAccess.getCompositeElseEvidenceExprAccess().getOtherAssignment_1_1()); }
+{ before(grammarAccess.getCompositeElseEvidenceExprAccess().getErrorAssignment_1_1()); }
+(rule__CompositeElseEvidenceExpr__ErrorAssignment_1_1)
+{ after(grammarAccess.getCompositeElseEvidenceExprAccess().getErrorAssignment_1_1()); }
 )
 
 ;
@@ -26366,14 +26366,14 @@ finally {
 	restoreStackSize(stackSize);
 }
 
-rule__SingleElseEvidenceExpr__OtherAssignment_1_1_0
+rule__SingleElseEvidenceExpr__ErrorAssignment_1_1_0
     @init {
 		int stackSize = keepStackSize();
     }
 :
 (
-{ before(grammarAccess.getSingleElseEvidenceExprAccess().getOtherElseEvidenceExprParserRuleCall_1_1_0_0()); }
-	ruleElseEvidenceExpr{ after(grammarAccess.getSingleElseEvidenceExprAccess().getOtherElseEvidenceExprParserRuleCall_1_1_0_0()); }
+{ before(grammarAccess.getSingleElseEvidenceExprAccess().getErrorElseEvidenceExprParserRuleCall_1_1_0_0()); }
+	ruleElseEvidenceExpr{ after(grammarAccess.getSingleElseEvidenceExprAccess().getErrorElseEvidenceExprParserRuleCall_1_1_0_0()); }
 )
 
 ;
@@ -26411,14 +26411,14 @@ finally {
 	restoreStackSize(stackSize);
 }
 
-rule__SingleElseEvidenceExpr__OtherAssignment_1_1_1_3_2
+rule__SingleElseEvidenceExpr__ErrorAssignment_1_1_1_3_2
     @init {
 		int stackSize = keepStackSize();
     }
 :
 (
-{ before(grammarAccess.getSingleElseEvidenceExprAccess().getOtherThenEvidenceExprParserRuleCall_1_1_1_3_2_0()); }
-	ruleThenEvidenceExpr{ after(grammarAccess.getSingleElseEvidenceExprAccess().getOtherThenEvidenceExprParserRuleCall_1_1_1_3_2_0()); }
+{ before(grammarAccess.getSingleElseEvidenceExprAccess().getErrorThenEvidenceExprParserRuleCall_1_1_1_3_2_0()); }
+	ruleThenEvidenceExpr{ after(grammarAccess.getSingleElseEvidenceExprAccess().getErrorThenEvidenceExprParserRuleCall_1_1_1_3_2_0()); }
 )
 
 ;
@@ -26426,14 +26426,14 @@ finally {
 	restoreStackSize(stackSize);
 }
 
-rule__CompositeElseEvidenceExpr__OtherAssignment_1_1
+rule__CompositeElseEvidenceExpr__ErrorAssignment_1_1
     @init {
 		int stackSize = keepStackSize();
     }
 :
 (
-{ before(grammarAccess.getCompositeElseEvidenceExprAccess().getOtherElseEvidenceExprParserRuleCall_1_1_0()); }
-	ruleElseEvidenceExpr{ after(grammarAccess.getCompositeElseEvidenceExprAccess().getOtherElseEvidenceExprParserRuleCall_1_1_0()); }
+{ before(grammarAccess.getCompositeElseEvidenceExprAccess().getErrorElseEvidenceExprParserRuleCall_1_1_0()); }
+	ruleElseEvidenceExpr{ after(grammarAccess.getCompositeElseEvidenceExprAccess().getErrorElseEvidenceExprParserRuleCall_1_1_0()); }
 )
 
 ;

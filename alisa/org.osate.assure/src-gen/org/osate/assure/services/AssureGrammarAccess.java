@@ -575,9 +575,9 @@ public class AssureGrammarAccess extends AbstractGrammarElementFinder {
 		private final Assignment cFirstAssignment_1 = (Assignment)cGroup.eContents().get(1);
 		private final RuleCall cFirstVerificationExprParserRuleCall_1_0 = (RuleCall)cFirstAssignment_1.eContents().get(0);
 		private final Group cGroup_2 = (Group)cGroup.eContents().get(2);
-		private final Keyword cOtherKeyword_2_0 = (Keyword)cGroup_2.eContents().get(0);
-		private final Assignment cOtherAssignment_2_1 = (Assignment)cGroup_2.eContents().get(1);
-		private final RuleCall cOtherVerificationExprParserRuleCall_2_1_0 = (RuleCall)cOtherAssignment_2_1.eContents().get(0);
+		private final Keyword cErrorKeyword_2_0 = (Keyword)cGroup_2.eContents().get(0);
+		private final Assignment cErrorAssignment_2_1 = (Assignment)cGroup_2.eContents().get(1);
+		private final RuleCall cErrorVerificationExprParserRuleCall_2_1_0 = (RuleCall)cErrorAssignment_2_1.eContents().get(0);
 		private final Group cGroup_3 = (Group)cGroup.eContents().get(3);
 		private final Keyword cFailKeyword_3_0 = (Keyword)cGroup_3.eContents().get(0);
 		private final Assignment cFailAssignment_3_1 = (Assignment)cGroup_3.eContents().get(1);
@@ -594,11 +594,11 @@ public class AssureGrammarAccess extends AbstractGrammarElementFinder {
 		private final Keyword cRightSquareBracketKeyword_8 = (Keyword)cGroup.eContents().get(8);
 		
 		//ElseResult:
-		//	"else" first+=VerificationExpr+ ("other" other+=VerificationExpr+)? ("fail" fail+=VerificationExpr+)? ("timeout"
+		//	"else" first+=VerificationExpr+ ("error" error+=VerificationExpr+)? ("fail" fail+=VerificationExpr+)? ("timeout"
 		//	timeout+=VerificationExpr+)? "[" didFail=ElseType? metrics=Metrics "]";
 		@Override public ParserRule getRule() { return rule; }
 
-		//"else" first+=VerificationExpr+ ("other" other+=VerificationExpr+)? ("fail" fail+=VerificationExpr+)? ("timeout"
+		//"else" first+=VerificationExpr+ ("error" error+=VerificationExpr+)? ("fail" fail+=VerificationExpr+)? ("timeout"
 		//timeout+=VerificationExpr+)? "[" didFail=ElseType? metrics=Metrics "]"
 		public Group getGroup() { return cGroup; }
 
@@ -611,17 +611,17 @@ public class AssureGrammarAccess extends AbstractGrammarElementFinder {
 		//VerificationExpr
 		public RuleCall getFirstVerificationExprParserRuleCall_1_0() { return cFirstVerificationExprParserRuleCall_1_0; }
 
-		//("other" other+=VerificationExpr+)?
+		//("error" error+=VerificationExpr+)?
 		public Group getGroup_2() { return cGroup_2; }
 
-		//"other"
-		public Keyword getOtherKeyword_2_0() { return cOtherKeyword_2_0; }
+		//"error"
+		public Keyword getErrorKeyword_2_0() { return cErrorKeyword_2_0; }
 
-		//other+=VerificationExpr+
-		public Assignment getOtherAssignment_2_1() { return cOtherAssignment_2_1; }
+		//error+=VerificationExpr+
+		public Assignment getErrorAssignment_2_1() { return cErrorAssignment_2_1; }
 
 		//VerificationExpr
-		public RuleCall getOtherVerificationExprParserRuleCall_2_1_0() { return cOtherVerificationExprParserRuleCall_2_1_0; }
+		public RuleCall getErrorVerificationExprParserRuleCall_2_1_0() { return cErrorVerificationExprParserRuleCall_2_1_0; }
 
 		//("fail" fail+=VerificationExpr+)?
 		public Group getGroup_3() { return cGroup_3; }
@@ -746,9 +746,9 @@ public class AssureGrammarAccess extends AbstractGrammarElementFinder {
 		private final Assignment cTimeoutCountAssignment_3_1 = (Assignment)cGroup_3.eContents().get(1);
 		private final RuleCall cTimeoutCountINTTerminalRuleCall_3_1_0 = (RuleCall)cTimeoutCountAssignment_3_1.eContents().get(0);
 		private final Group cGroup_4 = (Group)cGroup.eContents().get(4);
-		private final Keyword cOthercountKeyword_4_0 = (Keyword)cGroup_4.eContents().get(0);
-		private final Assignment cOtherCountAssignment_4_1 = (Assignment)cGroup_4.eContents().get(1);
-		private final RuleCall cOtherCountINTTerminalRuleCall_4_1_0 = (RuleCall)cOtherCountAssignment_4_1.eContents().get(0);
+		private final Keyword cErrorcountKeyword_4_0 = (Keyword)cGroup_4.eContents().get(0);
+		private final Assignment cErrorCountAssignment_4_1 = (Assignment)cGroup_4.eContents().get(1);
+		private final RuleCall cErrorCountINTTerminalRuleCall_4_1_0 = (RuleCall)cErrorCountAssignment_4_1.eContents().get(0);
 		private final Group cGroup_5 = (Group)cGroup.eContents().get(5);
 		private final Keyword cDidelsecountKeyword_5_0 = (Keyword)cGroup_5.eContents().get(0);
 		private final Assignment cDidelseCountAssignment_5_1 = (Assignment)cGroup_5.eContents().get(1);
@@ -772,13 +772,13 @@ public class AssureGrammarAccess extends AbstractGrammarElementFinder {
 		
 		//Metrics:
 		//	("tbdcount" tbdCount=INT)? ("successcount" successCount=INT)? ("failcount" failCount=INT)? ("timeoutcount"
-		//	timeoutCount=INT)? ("othercount" otherCount=INT)? ("didelsecount" didelseCount=INT)? // else branch executed
+		//	timeoutCount=INT)? ("errorcount" errorCount=INT)? ("didelsecount" didelseCount=INT)? // else branch executed
 		//	("thenskipcount" thenskipCount=INT)? ("prefailcount" preconditionfailCount=INT)? ("validfailcount"
 		//	validationfailCount=INT)? ("weight" weight=INT)?;
 		@Override public ParserRule getRule() { return rule; }
 
 		//("tbdcount" tbdCount=INT)? ("successcount" successCount=INT)? ("failcount" failCount=INT)? ("timeoutcount"
-		//timeoutCount=INT)? ("othercount" otherCount=INT)? ("didelsecount" didelseCount=INT)? // else branch executed
+		//timeoutCount=INT)? ("errorcount" errorCount=INT)? ("didelsecount" didelseCount=INT)? // else branch executed
 		//("thenskipcount" thenskipCount=INT)? ("prefailcount" preconditionfailCount=INT)? ("validfailcount"
 		//validationfailCount=INT)? ("weight" weight=INT)?
 		public Group getGroup() { return cGroup; }
@@ -831,17 +831,17 @@ public class AssureGrammarAccess extends AbstractGrammarElementFinder {
 		//INT
 		public RuleCall getTimeoutCountINTTerminalRuleCall_3_1_0() { return cTimeoutCountINTTerminalRuleCall_3_1_0; }
 
-		//("othercount" otherCount=INT)?
+		//("errorcount" errorCount=INT)?
 		public Group getGroup_4() { return cGroup_4; }
 
-		//"othercount"
-		public Keyword getOthercountKeyword_4_0() { return cOthercountKeyword_4_0; }
+		//"errorcount"
+		public Keyword getErrorcountKeyword_4_0() { return cErrorcountKeyword_4_0; }
 
-		//otherCount=INT
-		public Assignment getOtherCountAssignment_4_1() { return cOtherCountAssignment_4_1; }
+		//errorCount=INT
+		public Assignment getErrorCountAssignment_4_1() { return cErrorCountAssignment_4_1; }
 
 		//INT
-		public RuleCall getOtherCountINTTerminalRuleCall_4_1_0() { return cOtherCountINTTerminalRuleCall_4_1_0; }
+		public RuleCall getErrorCountINTTerminalRuleCall_4_1_0() { return cErrorCountINTTerminalRuleCall_4_1_0; }
 
 		//("didelsecount" didelseCount=INT)?
 		public Group getGroup_5() { return cGroup_5; }
@@ -1095,14 +1095,14 @@ public class AssureGrammarAccess extends AbstractGrammarElementFinder {
 		private final Keyword cFAILFailKeyword_0_0 = (Keyword)cFAILEnumLiteralDeclaration_0.eContents().get(0);
 		private final EnumLiteralDeclaration cTIMEOUTEnumLiteralDeclaration_1 = (EnumLiteralDeclaration)cAlternatives.eContents().get(1);
 		private final Keyword cTIMEOUTTimeoutKeyword_1_0 = (Keyword)cTIMEOUTEnumLiteralDeclaration_1.eContents().get(0);
-		private final EnumLiteralDeclaration cOTHEREnumLiteralDeclaration_2 = (EnumLiteralDeclaration)cAlternatives.eContents().get(2);
-		private final Keyword cOTHEROtherKeyword_2_0 = (Keyword)cOTHEREnumLiteralDeclaration_2.eContents().get(0);
+		private final EnumLiteralDeclaration cERROREnumLiteralDeclaration_2 = (EnumLiteralDeclaration)cAlternatives.eContents().get(2);
+		private final Keyword cERRORErrorKeyword_2_0 = (Keyword)cERROREnumLiteralDeclaration_2.eContents().get(0);
 		
 		//enum ElseType:
-		//	FAIL="fail" | TIMEOUT="timeout" | OTHER="other";
+		//	FAIL="fail" | TIMEOUT="timeout" | ERROR="error";
 		public EnumRule getRule() { return rule; }
 
-		//FAIL="fail" | TIMEOUT="timeout" | OTHER="other"
+		//FAIL="fail" | TIMEOUT="timeout" | ERROR="error"
 		public Alternatives getAlternatives() { return cAlternatives; }
 
 		//FAIL="fail"
@@ -1117,11 +1117,11 @@ public class AssureGrammarAccess extends AbstractGrammarElementFinder {
 		//"timeout"
 		public Keyword getTIMEOUTTimeoutKeyword_1_0() { return cTIMEOUTTimeoutKeyword_1_0; }
 
-		//OTHER="other"
-		public EnumLiteralDeclaration getOTHEREnumLiteralDeclaration_2() { return cOTHEREnumLiteralDeclaration_2; }
+		//ERROR="error"
+		public EnumLiteralDeclaration getERROREnumLiteralDeclaration_2() { return cERROREnumLiteralDeclaration_2; }
 
-		//"other"
-		public Keyword getOTHEROtherKeyword_2_0() { return cOTHEROtherKeyword_2_0; }
+		//"error"
+		public Keyword getERRORErrorKeyword_2_0() { return cERRORErrorKeyword_2_0; }
 	}
 
 	public class ResultIssueTypeElements extends AbstractEnumRuleElementFinder {
@@ -1177,16 +1177,16 @@ public class AssureGrammarAccess extends AbstractGrammarElementFinder {
 		private final Keyword cSUCCESSSuccessKeyword_1_0 = (Keyword)cSUCCESSEnumLiteralDeclaration_1.eContents().get(0);
 		private final EnumLiteralDeclaration cFAILEnumLiteralDeclaration_2 = (EnumLiteralDeclaration)cAlternatives.eContents().get(2);
 		private final Keyword cFAILFailKeyword_2_0 = (Keyword)cFAILEnumLiteralDeclaration_2.eContents().get(0);
-		private final EnumLiteralDeclaration cOTHEREnumLiteralDeclaration_3 = (EnumLiteralDeclaration)cAlternatives.eContents().get(3);
-		private final Keyword cOTHEROtherKeyword_3_0 = (Keyword)cOTHEREnumLiteralDeclaration_3.eContents().get(0);
+		private final EnumLiteralDeclaration cERROREnumLiteralDeclaration_3 = (EnumLiteralDeclaration)cAlternatives.eContents().get(3);
+		private final Keyword cERRORErrorKeyword_3_0 = (Keyword)cERROREnumLiteralDeclaration_3.eContents().get(0);
 		private final EnumLiteralDeclaration cTIMEOUTEnumLiteralDeclaration_4 = (EnumLiteralDeclaration)cAlternatives.eContents().get(4);
 		private final Keyword cTIMEOUTTimeoutKeyword_4_0 = (Keyword)cTIMEOUTEnumLiteralDeclaration_4.eContents().get(0);
 		
 		//enum VerificationResultState:
-		//	TBD="tbd" | SUCCESS="success" | FAIL="fail" | OTHER="other" | TIMEOUT="timeout";
+		//	TBD="tbd" | SUCCESS="success" | FAIL="fail" | ERROR="error" | TIMEOUT="timeout";
 		public EnumRule getRule() { return rule; }
 
-		//TBD="tbd" | SUCCESS="success" | FAIL="fail" | OTHER="other" | TIMEOUT="timeout"
+		//TBD="tbd" | SUCCESS="success" | FAIL="fail" | ERROR="error" | TIMEOUT="timeout"
 		public Alternatives getAlternatives() { return cAlternatives; }
 
 		//TBD="tbd"
@@ -1207,11 +1207,11 @@ public class AssureGrammarAccess extends AbstractGrammarElementFinder {
 		//"fail"
 		public Keyword getFAILFailKeyword_2_0() { return cFAILFailKeyword_2_0; }
 
-		//OTHER="other"
-		public EnumLiteralDeclaration getOTHEREnumLiteralDeclaration_3() { return cOTHEREnumLiteralDeclaration_3; }
+		//ERROR="error"
+		public EnumLiteralDeclaration getERROREnumLiteralDeclaration_3() { return cERROREnumLiteralDeclaration_3; }
 
-		//"other"
-		public Keyword getOTHEROtherKeyword_3_0() { return cOTHEROtherKeyword_3_0; }
+		//"error"
+		public Keyword getERRORErrorKeyword_3_0() { return cERRORErrorKeyword_3_0; }
 
 		//TIMEOUT="timeout"
 		public EnumLiteralDeclaration getTIMEOUTEnumLiteralDeclaration_4() { return cTIMEOUTEnumLiteralDeclaration_4; }
@@ -1416,7 +1416,7 @@ public class AssureGrammarAccess extends AbstractGrammarElementFinder {
 	}
 
 	//enum ElseType:
-	//	FAIL="fail" | TIMEOUT="timeout" | OTHER="other";
+	//	FAIL="fail" | TIMEOUT="timeout" | ERROR="error";
 	public ElseTypeElements getElseTypeAccess() {
 		return unknownRuleElseType;
 	}
@@ -1436,7 +1436,7 @@ public class AssureGrammarAccess extends AbstractGrammarElementFinder {
 	}
 
 	//ElseResult:
-	//	"else" first+=VerificationExpr+ ("other" other+=VerificationExpr+)? ("fail" fail+=VerificationExpr+)? ("timeout"
+	//	"else" first+=VerificationExpr+ ("error" error+=VerificationExpr+)? ("fail" fail+=VerificationExpr+)? ("timeout"
 	//	timeout+=VerificationExpr+)? "[" didFail=ElseType? metrics=Metrics "]";
 	public ElseResultElements getElseResultAccess() {
 		return pElseResult;
@@ -1458,7 +1458,7 @@ public class AssureGrammarAccess extends AbstractGrammarElementFinder {
 
 	//Metrics:
 	//	("tbdcount" tbdCount=INT)? ("successcount" successCount=INT)? ("failcount" failCount=INT)? ("timeoutcount"
-	//	timeoutCount=INT)? ("othercount" otherCount=INT)? ("didelsecount" didelseCount=INT)? // else branch executed
+	//	timeoutCount=INT)? ("errorcount" errorCount=INT)? ("didelsecount" didelseCount=INT)? // else branch executed
 	//	("thenskipcount" thenskipCount=INT)? ("prefailcount" preconditionfailCount=INT)? ("validfailcount"
 	//	validationfailCount=INT)? ("weight" weight=INT)?;
 	public MetricsElements getMetricsAccess() {
@@ -1492,7 +1492,7 @@ public class AssureGrammarAccess extends AbstractGrammarElementFinder {
 	}
 
 	//enum VerificationResultState:
-	//	TBD="tbd" | SUCCESS="success" | FAIL="fail" | OTHER="other" | TIMEOUT="timeout";
+	//	TBD="tbd" | SUCCESS="success" | FAIL="fail" | ERROR="error" | TIMEOUT="timeout";
 	public VerificationResultStateElements getVerificationResultStateAccess() {
 		return unknownRuleVerificationResultState;
 	}

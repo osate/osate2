@@ -361,13 +361,13 @@ public interface AssurePackage extends EPackage
   int ELSE_RESULT__FIRST = VERIFICATION_EXPR_FEATURE_COUNT + 0;
 
   /**
-   * The feature id for the '<em><b>Other</b></em>' containment reference list.
+   * The feature id for the '<em><b>Error</b></em>' containment reference list.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    * @ordered
    */
-  int ELSE_RESULT__OTHER = VERIFICATION_EXPR_FEATURE_COUNT + 1;
+  int ELSE_RESULT__ERROR = VERIFICATION_EXPR_FEATURE_COUNT + 1;
 
   /**
    * The feature id for the '<em><b>Fail</b></em>' containment reference list.
@@ -507,13 +507,13 @@ public interface AssurePackage extends EPackage
   int METRICS__TIMEOUT_COUNT = 3;
 
   /**
-   * The feature id for the '<em><b>Other Count</b></em>' attribute.
+   * The feature id for the '<em><b>Error Count</b></em>' attribute.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    * @ordered
    */
-  int METRICS__OTHER_COUNT = 4;
+  int METRICS__ERROR_COUNT = 4;
 
   /**
    * The feature id for the '<em><b>Didelse Count</b></em>' attribute.
@@ -1186,15 +1186,15 @@ public interface AssurePackage extends EPackage
   EReference getElseResult_First();
 
   /**
-   * Returns the meta object for the containment reference list '{@link org.osate.assure.assure.ElseResult#getOther <em>Other</em>}'.
+   * Returns the meta object for the containment reference list '{@link org.osate.assure.assure.ElseResult#getError <em>Error</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @return the meta object for the containment reference list '<em>Other</em>'.
-   * @see org.osate.assure.assure.ElseResult#getOther()
+   * @return the meta object for the containment reference list '<em>Error</em>'.
+   * @see org.osate.assure.assure.ElseResult#getError()
    * @see #getElseResult()
    * @generated
    */
-  EReference getElseResult_Other();
+  EReference getElseResult_Error();
 
   /**
    * Returns the meta object for the containment reference list '{@link org.osate.assure.assure.ElseResult#getFail <em>Fail</em>}'.
@@ -1327,15 +1327,15 @@ public interface AssurePackage extends EPackage
   EAttribute getMetrics_TimeoutCount();
 
   /**
-   * Returns the meta object for the attribute '{@link org.osate.assure.assure.Metrics#getOtherCount <em>Other Count</em>}'.
+   * Returns the meta object for the attribute '{@link org.osate.assure.assure.Metrics#getErrorCount <em>Error Count</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @return the meta object for the attribute '<em>Other Count</em>'.
-   * @see org.osate.assure.assure.Metrics#getOtherCount()
+   * @return the meta object for the attribute '<em>Error Count</em>'.
+   * @see org.osate.assure.assure.Metrics#getErrorCount()
    * @see #getMetrics()
    * @generated
    */
-  EAttribute getMetrics_OtherCount();
+  EAttribute getMetrics_ErrorCount();
 
   /**
    * Returns the meta object for the attribute '{@link org.osate.assure.assure.Metrics#getDidelseCount <em>Didelse Count</em>}'.
@@ -1802,12 +1802,12 @@ public interface AssurePackage extends EPackage
     EReference ELSE_RESULT__FIRST = eINSTANCE.getElseResult_First();
 
     /**
-     * The meta object literal for the '<em><b>Other</b></em>' containment reference list feature.
+     * The meta object literal for the '<em><b>Error</b></em>' containment reference list feature.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @generated
      */
-    EReference ELSE_RESULT__OTHER = eINSTANCE.getElseResult_Other();
+    EReference ELSE_RESULT__ERROR = eINSTANCE.getElseResult_Error();
 
     /**
      * The meta object literal for the '<em><b>Fail</b></em>' containment reference list feature.
@@ -1910,12 +1910,12 @@ public interface AssurePackage extends EPackage
     EAttribute METRICS__TIMEOUT_COUNT = eINSTANCE.getMetrics_TimeoutCount();
 
     /**
-     * The meta object literal for the '<em><b>Other Count</b></em>' attribute feature.
+     * The meta object literal for the '<em><b>Error Count</b></em>' attribute feature.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @generated
      */
-    EAttribute METRICS__OTHER_COUNT = eINSTANCE.getMetrics_OtherCount();
+    EAttribute METRICS__ERROR_COUNT = eINSTANCE.getMetrics_ErrorCount();
 
     /**
      * The meta object literal for the '<em><b>Didelse Count</b></em>' attribute feature.

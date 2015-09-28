@@ -10,7 +10,7 @@
     <genEnums typeSafeEnumCompatible="false" ecoreEnum="Assure.ecore#//ElseType">
       <genEnumLiterals ecoreEnumLiteral="Assure.ecore#//ElseType/FAIL"/>
       <genEnumLiterals ecoreEnumLiteral="Assure.ecore#//ElseType/TIMEOUT"/>
-      <genEnumLiterals ecoreEnumLiteral="Assure.ecore#//ElseType/OTHER"/>
+      <genEnumLiterals ecoreEnumLiteral="Assure.ecore#//ElseType/ERROR"/>
     </genEnums>
     <genEnums typeSafeEnumCompatible="false" ecoreEnum="Assure.ecore#//ResultIssueType">
       <genEnumLiterals ecoreEnumLiteral="Assure.ecore#//ResultIssueType/ERROR"/>
@@ -22,7 +22,7 @@
       <genEnumLiterals ecoreEnumLiteral="Assure.ecore#//VerificationResultState/TBD"/>
       <genEnumLiterals ecoreEnumLiteral="Assure.ecore#//VerificationResultState/SUCCESS"/>
       <genEnumLiterals ecoreEnumLiteral="Assure.ecore#//VerificationResultState/FAIL"/>
-      <genEnumLiterals ecoreEnumLiteral="Assure.ecore#//VerificationResultState/OTHER"/>
+      <genEnumLiterals ecoreEnumLiteral="Assure.ecore#//VerificationResultState/ERROR"/>
       <genEnumLiterals ecoreEnumLiteral="Assure.ecore#//VerificationResultState/TIMEOUT"/>
     </genEnums>
     <genEnums typeSafeEnumCompatible="false" ecoreEnum="Assure.ecore#//VerificationExecutionState">
@@ -58,7 +58,7 @@
     <genClasses ecoreClass="Assure.ecore#//VerificationExpr"/>
     <genClasses ecoreClass="Assure.ecore#//ElseResult">
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Assure.ecore#//ElseResult/first"/>
-      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Assure.ecore#//ElseResult/other"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Assure.ecore#//ElseResult/error"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Assure.ecore#//ElseResult/fail"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Assure.ecore#//ElseResult/timeout"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Assure.ecore#//ElseResult/didFail"/>
@@ -73,7 +73,7 @@
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Assure.ecore#//Metrics/successCount"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Assure.ecore#//Metrics/failCount"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Assure.ecore#//Metrics/timeoutCount"/>
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Assure.ecore#//Metrics/otherCount"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Assure.ecore#//Metrics/errorCount"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Assure.ecore#//Metrics/didelseCount"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Assure.ecore#//Metrics/thenskipCount"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Assure.ecore#//Metrics/preconditionfailCount"/>

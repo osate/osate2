@@ -12,7 +12,7 @@ package org.osate.verify.verify;
  * The following features are supported:
  * <ul>
  *   <li>{@link org.osate.verify.verify.ElseExpr#getLeft <em>Left</em>}</li>
- *   <li>{@link org.osate.verify.verify.ElseExpr#getOther <em>Other</em>}</li>
+ *   <li>{@link org.osate.verify.verify.ElseExpr#getError <em>Error</em>}</li>
  *   <li>{@link org.osate.verify.verify.ElseExpr#getFail <em>Fail</em>}</li>
  *   <li>{@link org.osate.verify.verify.ElseExpr#getTimeout <em>Timeout</em>}</li>
  * </ul>
@@ -51,30 +51,30 @@ public interface ElseExpr extends ArgumentExpr
   void setLeft(ArgumentExpr value);
 
   /**
-   * Returns the value of the '<em><b>Other</b></em>' containment reference.
+   * Returns the value of the '<em><b>Error</b></em>' containment reference.
    * <!-- begin-user-doc -->
    * <p>
-   * If the meaning of the '<em>Other</em>' containment reference isn't clear,
+   * If the meaning of the '<em>Error</em>' containment reference isn't clear,
    * there really should be more of a description here...
    * </p>
    * <!-- end-user-doc -->
-   * @return the value of the '<em>Other</em>' containment reference.
-   * @see #setOther(ArgumentExpr)
-   * @see org.osate.verify.verify.VerifyPackage#getElseExpr_Other()
+   * @return the value of the '<em>Error</em>' containment reference.
+   * @see #setError(ArgumentExpr)
+   * @see org.osate.verify.verify.VerifyPackage#getElseExpr_Error()
    * @model containment="true"
    * @generated
    */
-  ArgumentExpr getOther();
+  ArgumentExpr getError();
 
   /**
-   * Sets the value of the '{@link org.osate.verify.verify.ElseExpr#getOther <em>Other</em>}' containment reference.
+   * Sets the value of the '{@link org.osate.verify.verify.ElseExpr#getError <em>Error</em>}' containment reference.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @param value the new value of the '<em>Other</em>' containment reference.
-   * @see #getOther()
+   * @param value the new value of the '<em>Error</em>' containment reference.
+   * @see #getError()
    * @generated
    */
-  void setOther(ArgumentExpr value);
+  void setError(ArgumentExpr value);
 
   /**
    * Returns the value of the '<em><b>Fail</b></em>' containment reference.

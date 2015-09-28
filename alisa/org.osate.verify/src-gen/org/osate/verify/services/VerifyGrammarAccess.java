@@ -77,8 +77,9 @@ public class VerifyGrammarAccess extends AbstractGrammarElementFinder {
 		//// plan for a classifier. Will add import to allow for non-qualified requirement references 
 		//// Also allows for cross checking that we have covered requirements with claims
 		//VerificationPlan:
-		//	"verification" "plan" name=ID (":" title=STRING)? "for" systemRequirements=[ReqSpec::SystemRequirements|QualifiedName]
-		//	"[" (description=Description? & claim+=Claim* & rationale=Rationale? & ("issues" issues+=STRING+)?) "]";
+		//	"verification" "plan" name=ID (":" title=STRING)? "for"
+		//	systemRequirements=[ReqSpec::SystemRequirements|QualifiedName] "[" (description=Description? & claim+=Claim* &
+		//	rationale=Rationale? & ("issues" issues+=STRING+)?) "]";
 		@Override public ParserRule getRule() { return rule; }
 
 		//"verification" "plan" name=ID (":" title=STRING)? "for" systemRequirements=[ReqSpec::SystemRequirements|QualifiedName]
@@ -652,8 +653,8 @@ public class VerifyGrammarAccess extends AbstractGrammarElementFinder {
 		private final Action cElseExprLeftAction_1_0_0_0 = (Action)cGroup_1_0_0.eContents().get(0);
 		private final Keyword cElseKeyword_1_0_0_1 = (Keyword)cGroup_1_0_0.eContents().get(1);
 		private final Alternatives cAlternatives_1_1 = (Alternatives)cGroup_1.eContents().get(1);
-		private final Assignment cOtherAssignment_1_1_0 = (Assignment)cAlternatives_1_1.eContents().get(0);
-		private final RuleCall cOtherElseEvidenceExprParserRuleCall_1_1_0_0 = (RuleCall)cOtherAssignment_1_1_0.eContents().get(0);
+		private final Assignment cErrorAssignment_1_1_0 = (Assignment)cAlternatives_1_1.eContents().get(0);
+		private final RuleCall cErrorElseEvidenceExprParserRuleCall_1_1_0_0 = (RuleCall)cErrorAssignment_1_1_0.eContents().get(0);
 		private final Group cGroup_1_1_1 = (Group)cAlternatives_1_1.eContents().get(1);
 		private final Keyword cLeftSquareBracketKeyword_1_1_1_0 = (Keyword)cGroup_1_1_1.eContents().get(0);
 		private final Group cGroup_1_1_1_1 = (Group)cGroup_1_1_1.eContents().get(1);
@@ -667,26 +668,26 @@ public class VerifyGrammarAccess extends AbstractGrammarElementFinder {
 		private final Assignment cTimeoutAssignment_1_1_1_2_2 = (Assignment)cGroup_1_1_1_2.eContents().get(2);
 		private final RuleCall cTimeoutThenEvidenceExprParserRuleCall_1_1_1_2_2_0 = (RuleCall)cTimeoutAssignment_1_1_1_2_2.eContents().get(0);
 		private final Group cGroup_1_1_1_3 = (Group)cGroup_1_1_1.eContents().get(3);
-		private final Keyword cOtherKeyword_1_1_1_3_0 = (Keyword)cGroup_1_1_1_3.eContents().get(0);
+		private final Keyword cErrorKeyword_1_1_1_3_0 = (Keyword)cGroup_1_1_1_3.eContents().get(0);
 		private final Keyword cColonKeyword_1_1_1_3_1 = (Keyword)cGroup_1_1_1_3.eContents().get(1);
-		private final Assignment cOtherAssignment_1_1_1_3_2 = (Assignment)cGroup_1_1_1_3.eContents().get(2);
-		private final RuleCall cOtherThenEvidenceExprParserRuleCall_1_1_1_3_2_0 = (RuleCall)cOtherAssignment_1_1_1_3_2.eContents().get(0);
+		private final Assignment cErrorAssignment_1_1_1_3_2 = (Assignment)cGroup_1_1_1_3.eContents().get(2);
+		private final RuleCall cErrorThenEvidenceExprParserRuleCall_1_1_1_3_2_0 = (RuleCall)cErrorAssignment_1_1_1_3_2.eContents().get(0);
 		private final Keyword cRightSquareBracketKeyword_1_1_1_4 = (Keyword)cGroup_1_1_1.eContents().get(4);
 		
 		//SingleElseEvidenceExpr returns ArgumentExpr:
-		//	VAReference (=> ({ElseExpr.left=current} "else") (other=ElseEvidenceExpr | "[" ("fail" ":" fail=ThenEvidenceExpr)?
-		//	("timeout" ":" timeout=ThenEvidenceExpr)? ("other" ":" other=ThenEvidenceExpr)? "]"))*;
+		//	VAReference (=> ({ElseExpr.left=current} "else") (error=ElseEvidenceExpr | "[" ("fail" ":" fail=ThenEvidenceExpr)?
+		//	("timeout" ":" timeout=ThenEvidenceExpr)? ("error" ":" error=ThenEvidenceExpr)? "]"))*;
 		@Override public ParserRule getRule() { return rule; }
 
-		//VAReference (=> ({ElseExpr.left=current} "else") (other=ElseEvidenceExpr | "[" ("fail" ":" fail=ThenEvidenceExpr)?
-		//("timeout" ":" timeout=ThenEvidenceExpr)? ("other" ":" other=ThenEvidenceExpr)? "]"))*
+		//VAReference (=> ({ElseExpr.left=current} "else") (error=ElseEvidenceExpr | "[" ("fail" ":" fail=ThenEvidenceExpr)?
+		//("timeout" ":" timeout=ThenEvidenceExpr)? ("error" ":" error=ThenEvidenceExpr)? "]"))*
 		public Group getGroup() { return cGroup; }
 
 		//VAReference
 		public RuleCall getVAReferenceParserRuleCall_0() { return cVAReferenceParserRuleCall_0; }
 
-		//(=> ({ElseExpr.left=current} "else") (other=ElseEvidenceExpr | "[" ("fail" ":" fail=ThenEvidenceExpr)? ("timeout" ":"
-		//timeout=ThenEvidenceExpr)? ("other" ":" other=ThenEvidenceExpr)? "]"))*
+		//(=> ({ElseExpr.left=current} "else") (error=ElseEvidenceExpr | "[" ("fail" ":" fail=ThenEvidenceExpr)? ("timeout" ":"
+		//timeout=ThenEvidenceExpr)? ("error" ":" error=ThenEvidenceExpr)? "]"))*
 		public Group getGroup_1() { return cGroup_1; }
 
 		//=> ({ElseExpr.left=current} "else")
@@ -701,17 +702,17 @@ public class VerifyGrammarAccess extends AbstractGrammarElementFinder {
 		//"else"
 		public Keyword getElseKeyword_1_0_0_1() { return cElseKeyword_1_0_0_1; }
 
-		//other=ElseEvidenceExpr | "[" ("fail" ":" fail=ThenEvidenceExpr)? ("timeout" ":" timeout=ThenEvidenceExpr)? ("other" ":"
-		//other=ThenEvidenceExpr)? "]"
+		//error=ElseEvidenceExpr | "[" ("fail" ":" fail=ThenEvidenceExpr)? ("timeout" ":" timeout=ThenEvidenceExpr)? ("error" ":"
+		//error=ThenEvidenceExpr)? "]"
 		public Alternatives getAlternatives_1_1() { return cAlternatives_1_1; }
 
-		//other=ElseEvidenceExpr
-		public Assignment getOtherAssignment_1_1_0() { return cOtherAssignment_1_1_0; }
+		//error=ElseEvidenceExpr
+		public Assignment getErrorAssignment_1_1_0() { return cErrorAssignment_1_1_0; }
 
 		//ElseEvidenceExpr
-		public RuleCall getOtherElseEvidenceExprParserRuleCall_1_1_0_0() { return cOtherElseEvidenceExprParserRuleCall_1_1_0_0; }
+		public RuleCall getErrorElseEvidenceExprParserRuleCall_1_1_0_0() { return cErrorElseEvidenceExprParserRuleCall_1_1_0_0; }
 
-		//"[" ("fail" ":" fail=ThenEvidenceExpr)? ("timeout" ":" timeout=ThenEvidenceExpr)? ("other" ":" other=ThenEvidenceExpr)?
+		//"[" ("fail" ":" fail=ThenEvidenceExpr)? ("timeout" ":" timeout=ThenEvidenceExpr)? ("error" ":" error=ThenEvidenceExpr)?
 		//"]"
 		public Group getGroup_1_1_1() { return cGroup_1_1_1; }
 
@@ -748,20 +749,20 @@ public class VerifyGrammarAccess extends AbstractGrammarElementFinder {
 		//ThenEvidenceExpr
 		public RuleCall getTimeoutThenEvidenceExprParserRuleCall_1_1_1_2_2_0() { return cTimeoutThenEvidenceExprParserRuleCall_1_1_1_2_2_0; }
 
-		//("other" ":" other=ThenEvidenceExpr)?
+		//("error" ":" error=ThenEvidenceExpr)?
 		public Group getGroup_1_1_1_3() { return cGroup_1_1_1_3; }
 
-		//"other"
-		public Keyword getOtherKeyword_1_1_1_3_0() { return cOtherKeyword_1_1_1_3_0; }
+		//"error"
+		public Keyword getErrorKeyword_1_1_1_3_0() { return cErrorKeyword_1_1_1_3_0; }
 
 		//":"
 		public Keyword getColonKeyword_1_1_1_3_1() { return cColonKeyword_1_1_1_3_1; }
 
-		//other=ThenEvidenceExpr
-		public Assignment getOtherAssignment_1_1_1_3_2() { return cOtherAssignment_1_1_1_3_2; }
+		//error=ThenEvidenceExpr
+		public Assignment getErrorAssignment_1_1_1_3_2() { return cErrorAssignment_1_1_1_3_2; }
 
 		//ThenEvidenceExpr
-		public RuleCall getOtherThenEvidenceExprParserRuleCall_1_1_1_3_2_0() { return cOtherThenEvidenceExprParserRuleCall_1_1_1_3_2_0; }
+		public RuleCall getErrorThenEvidenceExprParserRuleCall_1_1_1_3_2_0() { return cErrorThenEvidenceExprParserRuleCall_1_1_1_3_2_0; }
 
 		//"]"
 		public Keyword getRightSquareBracketKeyword_1_1_1_4() { return cRightSquareBracketKeyword_1_1_1_4; }
@@ -776,20 +777,20 @@ public class VerifyGrammarAccess extends AbstractGrammarElementFinder {
 		private final Group cGroup_1_0_0 = (Group)cGroup_1_0.eContents().get(0);
 		private final Action cElseExprLeftAction_1_0_0_0 = (Action)cGroup_1_0_0.eContents().get(0);
 		private final Keyword cElseKeyword_1_0_0_1 = (Keyword)cGroup_1_0_0.eContents().get(1);
-		private final Assignment cOtherAssignment_1_1 = (Assignment)cGroup_1.eContents().get(1);
-		private final RuleCall cOtherElseEvidenceExprParserRuleCall_1_1_0 = (RuleCall)cOtherAssignment_1_1.eContents().get(0);
+		private final Assignment cErrorAssignment_1_1 = (Assignment)cGroup_1.eContents().get(1);
+		private final RuleCall cErrorElseEvidenceExprParserRuleCall_1_1_0 = (RuleCall)cErrorAssignment_1_1.eContents().get(0);
 		
 		//CompositeElseEvidenceExpr returns ArgumentExpr:
-		//	CompositeEvidenceExpr (=> ({ElseExpr.left=current} "else") other=ElseEvidenceExpr)*;
+		//	CompositeEvidenceExpr (=> ({ElseExpr.left=current} "else") error=ElseEvidenceExpr)*;
 		@Override public ParserRule getRule() { return rule; }
 
-		//CompositeEvidenceExpr (=> ({ElseExpr.left=current} "else") other=ElseEvidenceExpr)*
+		//CompositeEvidenceExpr (=> ({ElseExpr.left=current} "else") error=ElseEvidenceExpr)*
 		public Group getGroup() { return cGroup; }
 
 		//CompositeEvidenceExpr
 		public RuleCall getCompositeEvidenceExprParserRuleCall_0() { return cCompositeEvidenceExprParserRuleCall_0; }
 
-		//(=> ({ElseExpr.left=current} "else") other=ElseEvidenceExpr)*
+		//(=> ({ElseExpr.left=current} "else") error=ElseEvidenceExpr)*
 		public Group getGroup_1() { return cGroup_1; }
 
 		//=> ({ElseExpr.left=current} "else")
@@ -804,11 +805,11 @@ public class VerifyGrammarAccess extends AbstractGrammarElementFinder {
 		//"else"
 		public Keyword getElseKeyword_1_0_0_1() { return cElseKeyword_1_0_0_1; }
 
-		//other=ElseEvidenceExpr
-		public Assignment getOtherAssignment_1_1() { return cOtherAssignment_1_1; }
+		//error=ElseEvidenceExpr
+		public Assignment getErrorAssignment_1_1() { return cErrorAssignment_1_1; }
 
 		//ElseEvidenceExpr
-		public RuleCall getOtherElseEvidenceExprParserRuleCall_1_1_0() { return cOtherElseEvidenceExprParserRuleCall_1_1_0; }
+		public RuleCall getErrorElseEvidenceExprParserRuleCall_1_1_0() { return cErrorElseEvidenceExprParserRuleCall_1_1_0; }
 	}
 
 	public class QuantifiedEvidenceExprElements extends AbstractParserRuleElementFinder {
@@ -1079,8 +1080,8 @@ public class VerifyGrammarAccess extends AbstractGrammarElementFinder {
 		@Override public ParserRule getRule() { return rule; }
 
 		//"method" name=ID ("(" (params+=FullJvmFormalParameter ("," params+=FullJvmFormalParameter)*)? ")" ("properties" "("
-		//(properties+=[aadl2::Property|AADLPROPERTYREFERENCE] ("," properties+=[aadl2::Property|AADLPROPERTYREFERENCE])*)? ")")?
-		//(isPredicate?="boolean" | isResultReport?="report")?)? (":" title=STRING)? "[" (methodType=MethodType &
+		//(properties+=[aadl2::Property|AADLPROPERTYREFERENCE] ("," properties+=[aadl2::Property|AADLPROPERTYREFERENCE])*)?
+		//")")? (isPredicate?="boolean" | isResultReport?="report")?)? (":" title=STRING)? "[" (methodType=MethodType &
 		//description=Description? & condition=VerificationCondition? & ("category"
 		//category+=[categories::VerificationCategory]+)?) "]"
 		public Group getGroup() { return cGroup; }
@@ -1095,8 +1096,8 @@ public class VerifyGrammarAccess extends AbstractGrammarElementFinder {
 		public RuleCall getNameIDTerminalRuleCall_1_0() { return cNameIDTerminalRuleCall_1_0; }
 
 		//("(" (params+=FullJvmFormalParameter ("," params+=FullJvmFormalParameter)*)? ")" ("properties" "("
-		//(properties+=[aadl2::Property|AADLPROPERTYREFERENCE] ("," properties+=[aadl2::Property|AADLPROPERTYREFERENCE])*)? ")")?
-		//(isPredicate?="boolean" | isResultReport?="report")?)?
+		//(properties+=[aadl2::Property|AADLPROPERTYREFERENCE] ("," properties+=[aadl2::Property|AADLPROPERTYREFERENCE])*)?
+		//")")? (isPredicate?="boolean" | isResultReport?="report")?)?
 		public Group getGroup_2() { return cGroup_2; }
 
 		//"("
@@ -1699,8 +1700,9 @@ public class VerifyGrammarAccess extends AbstractGrammarElementFinder {
 	//// plan for a classifier. Will add import to allow for non-qualified requirement references 
 	//// Also allows for cross checking that we have covered requirements with claims
 	//VerificationPlan:
-	//	"verification" "plan" name=ID (":" title=STRING)? "for" systemRequirements=[ReqSpec::SystemRequirements|QualifiedName]
-	//	"[" (description=Description? & claim+=Claim* & rationale=Rationale? & ("issues" issues+=STRING+)?) "]";
+	//	"verification" "plan" name=ID (":" title=STRING)? "for"
+	//	systemRequirements=[ReqSpec::SystemRequirements|QualifiedName] "[" (description=Description? & claim+=Claim* &
+	//	rationale=Rationale? & ("issues" issues+=STRING+)?) "]";
 	public VerificationPlanElements getVerificationPlanAccess() {
 		return pVerificationPlan;
 	}
@@ -1769,8 +1771,8 @@ public class VerifyGrammarAccess extends AbstractGrammarElementFinder {
 	}
 
 	//SingleElseEvidenceExpr returns ArgumentExpr:
-	//	VAReference (=> ({ElseExpr.left=current} "else") (other=ElseEvidenceExpr | "[" ("fail" ":" fail=ThenEvidenceExpr)?
-	//	("timeout" ":" timeout=ThenEvidenceExpr)? ("other" ":" other=ThenEvidenceExpr)? "]"))*;
+	//	VAReference (=> ({ElseExpr.left=current} "else") (error=ElseEvidenceExpr | "[" ("fail" ":" fail=ThenEvidenceExpr)?
+	//	("timeout" ":" timeout=ThenEvidenceExpr)? ("error" ":" error=ThenEvidenceExpr)? "]"))*;
 	public SingleElseEvidenceExprElements getSingleElseEvidenceExprAccess() {
 		return pSingleElseEvidenceExpr;
 	}
@@ -1780,7 +1782,7 @@ public class VerifyGrammarAccess extends AbstractGrammarElementFinder {
 	}
 
 	//CompositeElseEvidenceExpr returns ArgumentExpr:
-	//	CompositeEvidenceExpr (=> ({ElseExpr.left=current} "else") other=ElseEvidenceExpr)*;
+	//	CompositeEvidenceExpr (=> ({ElseExpr.left=current} "else") error=ElseEvidenceExpr)*;
 	public CompositeElseEvidenceExprElements getCompositeElseEvidenceExprAccess() {
 		return pCompositeElseEvidenceExpr;
 	}
@@ -2309,8 +2311,8 @@ public class VerifyGrammarAccess extends AbstractGrammarElementFinder {
 	//	feature=[types::JvmIdentifiableElement|FeatureCallID] OpSingleAssign) value=XAssignment | =>
 	//	({XMemberFeatureCall.memberCallTarget=current} ("." | nullSafe?="?." | explicitStatic?="::")) ("<"
 	//	typeArguments+=JvmArgumentTypeReference ("," typeArguments+=JvmArgumentTypeReference)* ">")?
-	//	feature=[types::JvmIdentifiableElement|IdOrSuper] (=> explicitOperationCall?="(" (memberCallArguments+=XShortClosure |
-	//	memberCallArguments+=XExpression ("," memberCallArguments+=XExpression)*)? ")")? memberCallArguments+=XClosure?)*;
+	//	feature=[types::JvmIdentifiableElement|IdOrSuper] (=> explicitOperationCall?="(" (memberCallArguments+=XShortClosure
+	//	| memberCallArguments+=XExpression ("," memberCallArguments+=XExpression)*)? ")")? memberCallArguments+=XClosure?)*;
 	public XbaseGrammarAccess.XMemberFeatureCallElements getXMemberFeatureCallAccess() {
 		return gaCommon.getXMemberFeatureCallAccess();
 	}
@@ -2425,8 +2427,8 @@ public class VerifyGrammarAccess extends AbstractGrammarElementFinder {
 
 	//XSwitchExpression returns XExpression:
 	//	{XSwitchExpression} "switch" (=> ("(" declaredParam=JvmFormalParameter ":") switch=XExpression ")" | =>
-	//	(declaredParam=JvmFormalParameter ":")? switch=XExpression) "{" cases+=XCasePart* ("default" ":" default=XExpression)?
-	//	"}";
+	//	(declaredParam=JvmFormalParameter ":")? switch=XExpression) "{" cases+=XCasePart* ("default" ":"
+	//	default=XExpression)? "}";
 	public XbaseGrammarAccess.XSwitchExpressionElements getXSwitchExpressionAccess() {
 		return gaCommon.getXSwitchExpressionAccess();
 	}
@@ -2698,7 +2700,8 @@ public class VerifyGrammarAccess extends AbstractGrammarElementFinder {
 	/// **
 	// * Dummy rule, for "better" downwards compatibility, since GrammarAccess generates non-static inner classes, 
 	// * which makes downstream grammars break on classloading, when a rule is removed.
-	// * / StaticQualifier:
+	// * /
+	//StaticQualifier:
 	//	(ValidID "::")+;
 	public XbaseGrammarAccess.StaticQualifierElements getStaticQualifierAccess() {
 		return gaCommon.getStaticQualifierAccess();

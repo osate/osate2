@@ -40,14 +40,14 @@ public enum ElseType implements Enumerator
   TIMEOUT(1, "TIMEOUT", "timeout"),
 
   /**
-   * The '<em><b>OTHER</b></em>' literal object.
+   * The '<em><b>ERROR</b></em>' literal object.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @see #OTHER_VALUE
+   * @see #ERROR_VALUE
    * @generated
    * @ordered
    */
-  OTHER(2, "OTHER", "other");
+  ERROR(2, "ERROR", "error");
 
   /**
    * The '<em><b>FAIL</b></em>' literal value.
@@ -80,19 +80,19 @@ public enum ElseType implements Enumerator
   public static final int TIMEOUT_VALUE = 1;
 
   /**
-   * The '<em><b>OTHER</b></em>' literal value.
+   * The '<em><b>ERROR</b></em>' literal value.
    * <!-- begin-user-doc -->
    * <p>
-   * If the meaning of '<em><b>OTHER</b></em>' literal object isn't clear,
+   * If the meaning of '<em><b>ERROR</b></em>' literal object isn't clear,
    * there really should be more of a description here...
    * </p>
    * <!-- end-user-doc -->
-   * @see #OTHER
-   * @model literal="other"
+   * @see #ERROR
+   * @model literal="error"
    * @generated
    * @ordered
    */
-  public static final int OTHER_VALUE = 2;
+  public static final int ERROR_VALUE = 2;
 
   /**
    * An array of all the '<em><b>Else Type</b></em>' enumerators.
@@ -105,7 +105,7 @@ public enum ElseType implements Enumerator
     {
       FAIL,
       TIMEOUT,
-      OTHER,
+      ERROR,
     };
 
   /**
@@ -166,7 +166,7 @@ public enum ElseType implements Enumerator
     {
       case FAIL_VALUE: return FAIL;
       case TIMEOUT_VALUE: return TIMEOUT;
-      case OTHER_VALUE: return OTHER;
+      case ERROR_VALUE: return ERROR;
     }
     return null;
   }

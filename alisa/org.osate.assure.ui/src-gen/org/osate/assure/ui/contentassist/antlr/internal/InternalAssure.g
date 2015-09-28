@@ -517,10 +517,10 @@ rule__ElseType__Alternatives
 )
 
     |(
-{ before(grammarAccess.getElseTypeAccess().getOTHEREnumLiteralDeclaration_2()); }
-(	'other' 
+{ before(grammarAccess.getElseTypeAccess().getERROREnumLiteralDeclaration_2()); }
+(	'error' 
 )
-{ after(grammarAccess.getElseTypeAccess().getOTHEREnumLiteralDeclaration_2()); }
+{ after(grammarAccess.getElseTypeAccess().getERROREnumLiteralDeclaration_2()); }
 )
 
 ;
@@ -593,10 +593,10 @@ rule__VerificationResultState__Alternatives
 )
 
     |(
-{ before(grammarAccess.getVerificationResultStateAccess().getOTHEREnumLiteralDeclaration_3()); }
-(	'other' 
+{ before(grammarAccess.getVerificationResultStateAccess().getERROREnumLiteralDeclaration_3()); }
+(	'error' 
 )
-{ after(grammarAccess.getVerificationResultStateAccess().getOTHEREnumLiteralDeclaration_3()); }
+{ after(grammarAccess.getVerificationResultStateAccess().getERROREnumLiteralDeclaration_3()); }
 )
 
     |(
@@ -3244,11 +3244,11 @@ rule__ElseResult__Group_2__0__Impl
     }
 :
 (
-{ before(grammarAccess.getElseResultAccess().getOtherKeyword_2_0()); }
+{ before(grammarAccess.getElseResultAccess().getErrorKeyword_2_0()); }
 
-	'other' 
+	'error' 
 
-{ after(grammarAccess.getElseResultAccess().getOtherKeyword_2_0()); }
+{ after(grammarAccess.getElseResultAccess().getErrorKeyword_2_0()); }
 )
 
 ;
@@ -3275,14 +3275,14 @@ rule__ElseResult__Group_2__1__Impl
 :
 (
 (
-{ before(grammarAccess.getElseResultAccess().getOtherAssignment_2_1()); }
-(rule__ElseResult__OtherAssignment_2_1)
-{ after(grammarAccess.getElseResultAccess().getOtherAssignment_2_1()); }
+{ before(grammarAccess.getElseResultAccess().getErrorAssignment_2_1()); }
+(rule__ElseResult__ErrorAssignment_2_1)
+{ after(grammarAccess.getElseResultAccess().getErrorAssignment_2_1()); }
 )
 (
-{ before(grammarAccess.getElseResultAccess().getOtherAssignment_2_1()); }
-(rule__ElseResult__OtherAssignment_2_1)*
-{ after(grammarAccess.getElseResultAccess().getOtherAssignment_2_1()); }
+{ before(grammarAccess.getElseResultAccess().getErrorAssignment_2_1()); }
+(rule__ElseResult__ErrorAssignment_2_1)*
+{ after(grammarAccess.getElseResultAccess().getErrorAssignment_2_1()); }
 )
 )
 
@@ -4284,11 +4284,11 @@ rule__Metrics__Group_4__0__Impl
     }
 :
 (
-{ before(grammarAccess.getMetricsAccess().getOthercountKeyword_4_0()); }
+{ before(grammarAccess.getMetricsAccess().getErrorcountKeyword_4_0()); }
 
-	'othercount' 
+	'errorcount' 
 
-{ after(grammarAccess.getMetricsAccess().getOthercountKeyword_4_0()); }
+{ after(grammarAccess.getMetricsAccess().getErrorcountKeyword_4_0()); }
 )
 
 ;
@@ -4314,9 +4314,9 @@ rule__Metrics__Group_4__1__Impl
     }
 :
 (
-{ before(grammarAccess.getMetricsAccess().getOtherCountAssignment_4_1()); }
-(rule__Metrics__OtherCountAssignment_4_1)
-{ after(grammarAccess.getMetricsAccess().getOtherCountAssignment_4_1()); }
+{ before(grammarAccess.getMetricsAccess().getErrorCountAssignment_4_1()); }
+(rule__Metrics__ErrorCountAssignment_4_1)
+{ after(grammarAccess.getMetricsAccess().getErrorCountAssignment_4_1()); }
 )
 
 ;
@@ -5693,14 +5693,14 @@ finally {
 	restoreStackSize(stackSize);
 }
 
-rule__ElseResult__OtherAssignment_2_1
+rule__ElseResult__ErrorAssignment_2_1
     @init {
 		int stackSize = keepStackSize();
     }
 :
 (
-{ before(grammarAccess.getElseResultAccess().getOtherVerificationExprParserRuleCall_2_1_0()); }
-	ruleVerificationExpr{ after(grammarAccess.getElseResultAccess().getOtherVerificationExprParserRuleCall_2_1_0()); }
+{ before(grammarAccess.getElseResultAccess().getErrorVerificationExprParserRuleCall_2_1_0()); }
+	ruleVerificationExpr{ after(grammarAccess.getElseResultAccess().getErrorVerificationExprParserRuleCall_2_1_0()); }
 )
 
 ;
@@ -5896,14 +5896,14 @@ finally {
 	restoreStackSize(stackSize);
 }
 
-rule__Metrics__OtherCountAssignment_4_1
+rule__Metrics__ErrorCountAssignment_4_1
     @init {
 		int stackSize = keepStackSize();
     }
 :
 (
-{ before(grammarAccess.getMetricsAccess().getOtherCountINTTerminalRuleCall_4_1_0()); }
-	RULE_INT{ after(grammarAccess.getMetricsAccess().getOtherCountINTTerminalRuleCall_4_1_0()); }
+{ before(grammarAccess.getMetricsAccess().getErrorCountINTTerminalRuleCall_4_1_0()); }
+	RULE_INT{ after(grammarAccess.getMetricsAccess().getErrorCountINTTerminalRuleCall_4_1_0()); }
 )
 
 ;

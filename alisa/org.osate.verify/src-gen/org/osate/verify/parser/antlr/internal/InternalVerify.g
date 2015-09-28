@@ -1054,16 +1054,16 @@ ruleSingleElseEvidenceExpr returns [EObject current=null]
 ))((
 (
 		{ 
-	        newCompositeNode(grammarAccess.getSingleElseEvidenceExprAccess().getOtherElseEvidenceExprParserRuleCall_1_1_0_0()); 
+	        newCompositeNode(grammarAccess.getSingleElseEvidenceExprAccess().getErrorElseEvidenceExprParserRuleCall_1_1_0_0()); 
 	    }
-		lv_other_3_0=ruleElseEvidenceExpr		{
+		lv_error_3_0=ruleElseEvidenceExpr		{
 	        if ($current==null) {
 	            $current = createModelElementForParent(grammarAccess.getSingleElseEvidenceExprRule());
 	        }
        		set(
        			$current, 
-       			"other",
-        		lv_other_3_0, 
+       			"error",
+        		lv_error_3_0, 
         		"ElseEvidenceExpr");
 	        afterParserOrEnumRuleCall();
 	    }
@@ -1126,9 +1126,9 @@ ruleSingleElseEvidenceExpr returns [EObject current=null]
 	    }
 
 )
-))?(	otherlv_11='other' 
+))?(	otherlv_11='error' 
     {
-    	newLeafNode(otherlv_11, grammarAccess.getSingleElseEvidenceExprAccess().getOtherKeyword_1_1_1_3_0());
+    	newLeafNode(otherlv_11, grammarAccess.getSingleElseEvidenceExprAccess().getErrorKeyword_1_1_1_3_0());
     }
 	otherlv_12=':' 
     {
@@ -1137,16 +1137,16 @@ ruleSingleElseEvidenceExpr returns [EObject current=null]
 (
 (
 		{ 
-	        newCompositeNode(grammarAccess.getSingleElseEvidenceExprAccess().getOtherThenEvidenceExprParserRuleCall_1_1_1_3_2_0()); 
+	        newCompositeNode(grammarAccess.getSingleElseEvidenceExprAccess().getErrorThenEvidenceExprParserRuleCall_1_1_1_3_2_0()); 
 	    }
-		lv_other_13_0=ruleThenEvidenceExpr		{
+		lv_error_13_0=ruleThenEvidenceExpr		{
 	        if ($current==null) {
 	            $current = createModelElementForParent(grammarAccess.getSingleElseEvidenceExprRule());
 	        }
        		set(
        			$current, 
-       			"other",
-        		lv_other_13_0, 
+       			"error",
+        		lv_error_13_0, 
         		"ThenEvidenceExpr");
 	        afterParserOrEnumRuleCall();
 	    }
@@ -1201,16 +1201,16 @@ ruleCompositeElseEvidenceExpr returns [EObject current=null]
 ))(
 (
 		{ 
-	        newCompositeNode(grammarAccess.getCompositeElseEvidenceExprAccess().getOtherElseEvidenceExprParserRuleCall_1_1_0()); 
+	        newCompositeNode(grammarAccess.getCompositeElseEvidenceExprAccess().getErrorElseEvidenceExprParserRuleCall_1_1_0()); 
 	    }
-		lv_other_3_0=ruleElseEvidenceExpr		{
+		lv_error_3_0=ruleElseEvidenceExpr		{
 	        if ($current==null) {
 	            $current = createModelElementForParent(grammarAccess.getCompositeElseEvidenceExprRule());
 	        }
        		set(
        			$current, 
-       			"other",
-        		lv_other_3_0, 
+       			"error",
+        		lv_error_3_0, 
         		"ElseEvidenceExpr");
 	        afterParserOrEnumRuleCall();
 	    }

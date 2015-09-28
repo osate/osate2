@@ -50,14 +50,14 @@ public enum VerificationResultState implements Enumerator
   FAIL(2, "FAIL", "fail"),
 
   /**
-   * The '<em><b>OTHER</b></em>' literal object.
+   * The '<em><b>ERROR</b></em>' literal object.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @see #OTHER_VALUE
+   * @see #ERROR_VALUE
    * @generated
    * @ordered
    */
-  OTHER(3, "OTHER", "other"),
+  ERROR(3, "ERROR", "error"),
 
   /**
    * The '<em><b>TIMEOUT</b></em>' literal object.
@@ -115,19 +115,19 @@ public enum VerificationResultState implements Enumerator
   public static final int FAIL_VALUE = 2;
 
   /**
-   * The '<em><b>OTHER</b></em>' literal value.
+   * The '<em><b>ERROR</b></em>' literal value.
    * <!-- begin-user-doc -->
    * <p>
-   * If the meaning of '<em><b>OTHER</b></em>' literal object isn't clear,
+   * If the meaning of '<em><b>ERROR</b></em>' literal object isn't clear,
    * there really should be more of a description here...
    * </p>
    * <!-- end-user-doc -->
-   * @see #OTHER
-   * @model literal="other"
+   * @see #ERROR
+   * @model literal="error"
    * @generated
    * @ordered
    */
-  public static final int OTHER_VALUE = 3;
+  public static final int ERROR_VALUE = 3;
 
   /**
    * The '<em><b>TIMEOUT</b></em>' literal value.
@@ -156,7 +156,7 @@ public enum VerificationResultState implements Enumerator
       TBD,
       SUCCESS,
       FAIL,
-      OTHER,
+      ERROR,
       TIMEOUT,
     };
 
@@ -219,7 +219,7 @@ public enum VerificationResultState implements Enumerator
       case TBD_VALUE: return TBD;
       case SUCCESS_VALUE: return SUCCESS;
       case FAIL_VALUE: return FAIL;
-      case OTHER_VALUE: return OTHER;
+      case ERROR_VALUE: return ERROR;
       case TIMEOUT_VALUE: return TIMEOUT;
     }
     return null;

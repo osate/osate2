@@ -29,18 +29,18 @@ class AssureLabelProvider extends org.eclipse.xtext.ui.label.DefaultEObjectLabel
 	// Labels and icons can be computed like this:
 	
 	def text(ClaimResult ele) {
-		"Claim: "+ele.constructMessage
+		"Claim"+ele.name +": "+ele.constructMessage
 		+ ele.assureResultCounts
 	}
 	
 	def text(VerificationActivityResult ele) {
-		"Evidence: "+ ele.constructMessage	+ ele.resultState.toTextLabel
+		"Evidence "+ele.name +": "+ ele.constructMessage + ele.resultState.toTextLabel
 		+ ele.assureResultCounts
 
 	}
 	
 	def text(AssuranceCase ele) {
-		"System "+ele.constructMessage		
+		"System "+ele.name +": "+ele.constructMessage		
 		+ ele.assureResultCounts
 	}
 	
@@ -58,7 +58,7 @@ class AssureLabelProvider extends org.eclipse.xtext.ui.label.DefaultEObjectLabel
 
 	def image(ResultIssue ele) {
 		switch(ele.issueType){
-			case ResultIssueType.ERROR: 'error.png'
+			case ResultIssueType.ERROR: 'invalid.png'
 			case ResultIssueType.SUCCESS: 'valid.png'
 			case ResultIssueType.WARNING: 'warning.png'
 			case ResultIssueType.INFO: 'info.png'
@@ -68,42 +68,48 @@ class AssureLabelProvider extends org.eclipse.xtext.ui.label.DefaultEObjectLabel
 	
 	def image(ClaimResult ele) {
 		if (ele.isSuccessful) return 'valid.png'//'claimsuccess.png'
-		if (ele.noSuccess) return 'error.png'//'claimfail.png'
+		if (ele.isFail) return 'invalid.png'//'validationfail.png'
+		if (ele.isErrorTimeOut) return 'error.png'//'validationfail.png'
 		if (ele.isZeroCount) return 'info.png'//'validationfail.png'
 		return 'questionmark.png'//'claim.png'
 	}
 	
 	def image(VerificationActivityResult ele) {
 		if (ele.isSuccessful) return 'valid.png'//'evidencesuccess.png'
-		if (ele.noSuccess) return 'error.png'//'evidencefail.png'
+		if (ele.isFail) return 'invalid.png'//'validationfail.png'
+		if (ele.isErrorTimeOut) return 'error.png'//'validationfail.png'
 		if (ele.isZeroCount) return 'info.png'//'validationfail.png'
 		return 'questionmark.png'//'evidence.png'
 	}
 	
 	def image(AssuranceCase ele) {
 		if (ele.isSuccessful) return 'valid.png'//'assuresuccess.png'
-		if (ele.noSuccess) return 'error.png'//'assurefail.png'
+		if (ele.isFail) return 'invalid.png'//'validationfail.png'
+		if (ele.isErrorTimeOut) return 'error.png'//'validationfail.png'
 		if (ele.isZeroCount) return 'info.png'//'validationfail.png'
 		return 'questionmark.png'//'assure.png'
 	}
 	
 	def image(ValidationResult ele) {
 		if (ele.isSuccessful) return 'valid.png'//'validationsuccess.png'
-		if (ele.noSuccess) return 'error.png'//'validationfail.png'
+		if (ele.isFail) return 'invalid.png'//'validationfail.png'
+		if (ele.isErrorTimeOut) return 'error.png'//'validationfail.png'
 		if (ele.isZeroCount) return 'info.png'//'validationfail.png'
 		return 'questionmark.png'//'validation.png'
 	}
 	
 	def image(ThenResult ele) {
 		if (ele.isSuccessful) return 'valid.png'
-		if (ele.noSuccess) return 'error.png'
+		if (ele.isFail) return 'invalid.png'//'validationfail.png'
+		if (ele.isErrorTimeOut) return 'error.png'//'validationfail.png'
 		if (ele.isZeroCount) return 'info.png'//'validationfail.png'
 		return 'questionmark.png'
 	}
 	
 	def image(ElseResult ele) {
 		if (ele.isSuccessful) return 'valid.png'
-		if (ele.noSuccess) return 'error.png'
+		if (ele.isFail) return 'invalid.png'//'validationfail.png'
+		if (ele.isErrorTimeOut) return 'error.png'//'validationfail.png'
 		if (ele.isZeroCount) return 'info.png'//'validationfail.png'
 		return 'questionmark.png'
 	}

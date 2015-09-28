@@ -3,30 +3,27 @@
  */
 package org.osate.verify.scoping
 
+import com.google.inject.Inject
+import com.rockwellcollins.atc.resolute.resolute.ClaimBody
+import com.rockwellcollins.atc.resolute.resolute.FunctionDefinition
+import com.rockwellcollins.atc.resolute.resolute.ResolutePackage
+import org.eclipse.emf.ecore.EObject
 import org.eclipse.emf.ecore.EReference
+import org.eclipse.emf.ecore.util.EcoreUtil
+import org.eclipse.xtext.naming.QualifiedName
 import org.eclipse.xtext.scoping.IScope
+import org.eclipse.xtext.scoping.Scopes
+import org.eclipse.xtext.scoping.impl.SimpleScope
+import org.eclipse.xtext.util.SimpleAttributeResolver
+import org.osate.aadl2.Aadl2Package
 import org.osate.alisa.common.scoping.AlisaAbstractDeclarativeScopeProvider
+import org.osate.alisa.common.scoping.ICommonGlobalReferenceFinder
 import org.osate.verify.verify.Claim
+import org.osate.verify.verify.ResoluteMethod
 import org.osate.verify.verify.VerificationActivity
 
 import static org.osate.reqspec.util.ReqSpecUtilExtension.*
 import static org.osate.verify.util.VerifyUtilExtension.*
-import org.eclipse.xtext.scoping.impl.SimpleScope
-import org.eclipse.xtext.scoping.Scopes
-import org.eclipse.xtext.naming.QualifiedName
-import org.eclipse.xtext.util.SimpleAttributeResolver
-import org.osate.verify.verify.ResoluteMethod
-import com.google.inject.Inject
-import org.osate.alisa.common.scoping.ICommonGlobalReferenceFinder
-import org.eclipse.emf.ecore.EObject
-import com.rockwellcollins.atc.resolute.resolute.ResolutePackage
-import org.eclipse.emf.ecore.util.EcoreUtil
-import com.rockwellcollins.atc.resolute.resolute.FunctionDefinition
-import com.rockwellcollins.atc.resolute.resolute.ClaimBody
-import org.osate.verify.verify.VerificationMethod
-import org.eclipse.emf.common.util.CommonUtil
-import org.osate.categories.categories.VerificationCategory
-import org.osate.categories.categories.CategoriesPackage
 
 /**
  * This class contains custom scoping description.
@@ -36,6 +33,8 @@ import org.osate.categories.categories.CategoriesPackage
  * 
  */
 class VerifyScopeProvider extends AlisaAbstractDeclarativeScopeProvider {
+
+	@Inject ICommonGlobalReferenceFinder refFinder
 
 	def scope_XExpression(VerificationActivity context, EReference reference) {
 		val claim = getContainingClaim(context)
@@ -50,7 +49,7 @@ class VerifyScopeProvider extends AlisaAbstractDeclarativeScopeProvider {
 	}
 
 	def scope_Claim_requirement(Claim context, EReference reference) {
-		var result = delegateGetScope(context,reference)
+		var result = delegateGetScope(context, reference)
 		val forSystemRequirements = containingVerificationPlan(context).systemRequirements
 		if (!forSystemRequirements.content.empty) {
 			result = new SimpleScope(result,
@@ -59,20 +58,20 @@ class VerifyScopeProvider extends AlisaAbstractDeclarativeScopeProvider {
 		}
 		return result
 	}
-	
-	
-		@Inject ICommonGlobalReferenceFinder refFinder
-		
-	def scope_FunctionDefinition(ResoluteMethod context, EReference reference){
-		var result = IScope.NULLSCOPE
+
+	def scope_FunctionDefinition(ResoluteMethod context, EReference reference) {
 		val foundlist = refFinder.getEObjectDescriptions(context, ResolutePackage.Literals.FUNCTION_DEFINITION, "aadl")
-		if (foundlist.isEmpty) 
+		if (foundlist.isEmpty)
 			return IScope.NULLSCOPE
-		val fcns =  foundlist.map[f|EcoreUtil.resolve(f.EObjectOrProxy,context) as FunctionDefinition]
-		.filter[fd|fd.body instanceof ClaimBody]
-		return new SimpleScope(IScope.NULLSCOPE,Scopes::scopedElementsFor(fcns,
-					QualifiedName::wrapper(SimpleAttributeResolver::NAME_RESOLVER)), true)
+		val fcns = foundlist.map[f|EcoreUtil.resolve(f.EObjectOrProxy, context) as FunctionDefinition].filter [ fd |
+			fd.body instanceof ClaimBody
+		]
+		return new SimpleScope(IScope.NULLSCOPE, Scopes::scopedElementsFor(fcns,
+			QualifiedName::wrapper(SimpleAttributeResolver::NAME_RESOLVER)), true)
 	}
 
-
+	def scope_Property(EObject context, EReference reference) {
+		val props = refFinder.getEObjectDescriptions(context, Aadl2Package.eINSTANCE.property, "aadl")
+		new SimpleScope(IScope::NULLSCOPE, props, true)
+	}
 }

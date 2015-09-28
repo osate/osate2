@@ -46,8 +46,8 @@ class VerifyUtilExtension {
 		cee.timeout != null 
 	}
 	
-	def static boolean hasOther(ElseExpr cee){
-		cee.other != null 
+	def static boolean hasError(ElseExpr cee){
+		cee.error != null 
 	}
 	
 	def static Claim getContainingClaim(VerificationActivity va){

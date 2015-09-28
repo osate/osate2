@@ -78,13 +78,13 @@ AssureResult:
 	;
 
 enum ElseType: 
-	FAIL='fail' | TIMEOUT='timeout' | OTHER='other'
+	FAIL='fail' | TIMEOUT='timeout' | ERROR='error'
 ;
 	
 VerificationExpr : VerificationActivityResult | ElseResult | ThenResult;
 
 ElseResult returns ElseResult:
-	'else'  first+=VerificationExpr+ ('other' other+=VerificationExpr+)?
+	'else'  first+=VerificationExpr+ ('error' error+=VerificationExpr+)?
 	('fail' fail+=VerificationExpr+)? ('timeout' timeout+=VerificationExpr+)?
 	'['
 	didFail=ElseType?
@@ -105,7 +105,7 @@ Metrics returns Metrics:
 	('successcount'  successCount=INT)?
 	('failcount'  failCount=INT)?
 	('timeoutcount'  timeoutCount=INT)?
-	('othercount' otherCount=INT)? 
+	('errorcount' errorCount=INT)? 
 	('didelsecount' didelseCount=INT)?  // else branch executed
 	('thenskipcount' thenskipCount=INT)?
 	('prefailcount'  preconditionfailCount=INT)?
@@ -128,7 +128,7 @@ enum ResultIssueType:
 
 
 enum VerificationResultState :
-	TBD='tbd'| SUCCESS='success' | FAIL='fail' | OTHER='other' | TIMEOUT='timeout' ;
+	TBD='tbd'| SUCCESS='success' | FAIL='fail' | ERROR='error' | TIMEOUT='timeout' ;
 
 
 

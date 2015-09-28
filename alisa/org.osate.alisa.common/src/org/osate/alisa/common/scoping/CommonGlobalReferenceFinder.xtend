@@ -27,14 +27,17 @@ interface ICommonGlobalReferenceFinder {
 	 * getEObjectReferences assume that references have been resolved. Therefore do not use them to construct scopes.
 	 */
 	def Iterable<URI> getEObjectReferences(ComponentClassifier target, EReference ereference, String URIExtension);
+
 	/**
 	 * getEObjectReferences assume that references have been resolved. Therefore do not use them to construct scopes.
 	 */
 	def Iterable<URI> getEObjectReferences(URI target, EReference ereference, String URIExtension);
+
 	/**
 	 * getEObjectDescriptions can be used to construct scopes, which themselves are used to resolve references.
 	 */
 	def Iterable<IEObjectDescription> getEObjectDescriptions(EObject context, EClass eclass, String URIExtension);
+
 	/**
 	 * getDuplicates is a method that finds duplicates for the target object, which is assumed to exist in the global scope
 	 */
@@ -45,14 +48,15 @@ class CommonGlobalReferenceFinder implements ICommonGlobalReferenceFinder {
 
 	@Inject
 	protected IResourceDescriptions rds
-	
-	override Iterable<URI> getEObjectReferences(ComponentClassifier target, EReference ereference, String URIExtension){
+
+	override Iterable<URI> getEObjectReferences(ComponentClassifier target, EReference ereference,
+		String URIExtension) {
 		val result = new BasicEList
-		for (rd : rds.allResourceDescriptions.filter[d|isURIExtension(d.URI,URIExtension)]) {
+		for (rd : rds.allResourceDescriptions.filter[d|isURIExtension(d.URI, URIExtension)]) {
 			for (reference : rd.referenceDescriptions) {
 				val referencetargetURI = reference.targetEObjectUri
 				val referencesourceURI = reference.sourceEObjectUri
-				if ( ereference == reference.EReference && isSameorExtends(target, referencetargetURI)) {
+				if (ereference == reference.EReference && isSameorExtends(target, referencetargetURI)) {
 					result += referencesourceURI
 				}
 			}
@@ -60,42 +64,42 @@ class CommonGlobalReferenceFinder implements ICommonGlobalReferenceFinder {
 		return result
 	}
 
-	override Iterable<URI> getEObjectReferences(URI targetURI, EReference ereference, String URIExtension){
+	override Iterable<URI> getEObjectReferences(URI targetURI, EReference ereference, String URIExtension) {
 		val result = new BasicEList
-		for (rd : rds.allResourceDescriptions.filter[d|isURIExtension(d.URI,URIExtension)]) {
+		for (rd : rds.allResourceDescriptions.filter[d|isURIExtension(d.URI, URIExtension)]) {
 			for (reference : rd.referenceDescriptions) {
 				val referencetargetURI = reference.targetEObjectUri
 				val referencesourceURI = reference.sourceEObjectUri
-				if ( ereference == reference.EReference && targetURI == referencetargetURI) {
+				if (ereference == reference.EReference && targetURI == referencetargetURI) {
 					result += referencesourceURI
 				}
 			}
 		}
 		return result
 	}
-	
-	private def boolean isURIExtension(URI uri, String URIExtension){
+
+	private def boolean isURIExtension(URI uri, String URIExtension) {
 		URIExtension.equalsIgnoreCase(uri.fileExtension)
 	}
 
-    @Inject
-    IContainer.Manager manager;
+	@Inject
+	IContainer.Manager manager;
 
-	override Iterable<IEObjectDescription> getEObjectDescriptions(EObject context, EClass eclass, String URIExtension){
-		val result = new ArrayList<IEObjectDescription> 
-        val IResourceDescription descr = rds.getResourceDescription(context.eResource.getURI());
-      if (descr == null) return result
-      for(IContainer visibleContainer:
-            manager.getVisibleContainers(descr, rds)) {
-        for(IResourceDescription rd:
-                visibleContainer.getResourceDescriptions().filter[d|isURIExtension(d.URI,URIExtension)]) {
-		 	result += rd.getExportedObjectsByType(eclass);
-        }
-        return result
-      }
+	override Iterable<IEObjectDescription> getEObjectDescriptions(EObject context, EClass eclass, String URIExtension) {
+		val result = new ArrayList<IEObjectDescription>
+		val IResourceDescription descr = rds.getResourceDescription(context.eResource.getURI());
+		if(descr == null) return result
+		for (IContainer visibleContainer : manager.getVisibleContainers(descr, rds)) {
+			for (IResourceDescription rd : visibleContainer.getResourceDescriptions().filter [ d |
+				isURIExtension(d.URI, URIExtension)
+			]) {
+				result += rd.getExportedObjectsByType(eclass);
+			}
+		}
+		return result
 	}
-     
-	@Inject 
+
+	@Inject
 	private IQualifiedNameProvider qualifiedNameProvider ;
 
 	/**
@@ -109,10 +113,9 @@ class CommonGlobalReferenceFinder implements ICommonGlobalReferenceFinder {
 		}
 		val qn = qualifiedNameProvider?.getFullyQualifiedName(target)
 		if(qn == null) return Collections.EMPTY_LIST;
-        val IResourceDescription descr = rds.getResourceDescription(context.getURI());
-        if (descr == null) return res
-        for(IContainer container:
-            manager.getVisibleContainers(descr, rds)) {
+		val IResourceDescription descr = rds.getResourceDescription(context.getURI());
+		if(descr == null) return res
+		for (IContainer container : manager.getVisibleContainers(descr, rds)) {
 			val eds = container.getExportedObjects(target.eClass(), qn, true)
 			if (!container.hasResourceDescription(context.getURI())) {
 				res += eds
@@ -126,6 +129,5 @@ class CommonGlobalReferenceFinder implements ICommonGlobalReferenceFinder {
 		}
 		return res
 	}
-	
 
 }

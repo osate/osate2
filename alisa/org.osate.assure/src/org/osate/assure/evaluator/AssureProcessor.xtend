@@ -4,13 +4,11 @@ import com.google.inject.ImplementedBy
 import com.google.inject.Inject
 import com.rockwellcollins.atc.resolute.analysis.execution.EvaluationContext
 import com.rockwellcollins.atc.resolute.analysis.execution.ResoluteInterpreter
+import com.rockwellcollins.atc.resolute.analysis.results.ClaimResult
 import com.rockwellcollins.atc.resolute.resolute.FnCallExpr
-import com.rockwellcollins.atc.resolute.resolute.FunctionDefinition
 import com.rockwellcollins.atc.resolute.resolute.ProveStatement
 import com.rockwellcollins.atc.resolute.resolute.ResoluteFactory
-import com.rockwellcollins.atc.resolute.resolute.ResolutePackage
-import org.eclipse.emf.ecore.EObject
-import org.eclipse.emf.ecore.util.EcoreUtil
+import org.eclipse.core.runtime.IProgressMonitor
 import org.eclipse.xtext.common.types.JvmFormalParameter
 import org.eclipse.xtext.common.types.JvmType
 import org.eclipse.xtext.naming.QualifiedName
@@ -20,14 +18,14 @@ import org.eclipse.xtext.xbase.interpreter.IEvaluationResult
 import org.eclipse.xtext.xbase.interpreter.impl.DefaultEvaluationContext
 import org.eclipse.xtext.xbase.interpreter.impl.XbaseInterpreter
 import org.osate.aadl2.Aadl2Factory
-import org.osate.aadl2.ComponentImplementation
+import org.osate.aadl2.ComponentClassifier
+import org.osate.aadl2.instance.ComponentInstance
 import org.osate.aadl2.instance.InstanceObject
 import org.osate.aadl2.util.OsateDebug
 import org.osate.alisa.common.common.ComputeDeclaration
-import org.osate.alisa.common.scoping.ICommonGlobalReferenceFinder
+import org.osate.alisa.common.common.XNumberLiteralUnit
+import org.osate.assure.assure.AssuranceCase
 import org.osate.assure.assure.AssureFactory
-import org.osate.assure.assure.AssureResult
-import org.osate.assure.assure.ClaimResult
 import org.osate.assure.assure.ElseResult
 import org.osate.assure.assure.ElseType
 import org.osate.assure.assure.PreconditionResult
@@ -38,6 +36,7 @@ import org.osate.assure.assure.VerificationExecutionState
 import org.osate.assure.assure.VerificationResult
 import org.osate.assure.util.AssureUtilExtension
 import org.osate.results.results.ResultReport
+import org.osate.verify.util.VerificationMethodDispatchers
 import org.osate.verify.verify.JavaMethod
 import org.osate.verify.verify.ManualMethod
 import org.osate.verify.verify.PluginMethod
@@ -47,11 +46,8 @@ import org.osate.verify.verify.VerificationMethod
 
 import static extension org.osate.alisa.common.util.CommonUtilExtension.*
 import static extension org.osate.assure.util.AssureUtilExtension.*
-import org.osate.verify.util.VerificationMethodDispatchers
-import org.osate.aadl2.ComponentClassifier
-import org.osate.assure.assure.AssuranceCase
-import org.osate.aadl2.instance.ComponentInstance
-import org.eclipse.core.runtime.IProgressMonitor
+import org.osate.xtext.aadl2.properties.util.PropertyUtils
+import org.osate.xtext.aadl2.properties.util.GetProperties
 
 @ImplementedBy(AssureProcessor)
 interface IAssureProcessor {
@@ -74,43 +70,44 @@ class AssureProcessor implements IAssureProcessor {
 	 */
 //	@Inject XbaseCompiler xbaseCompiler
 	@Inject XbaseInterpreter xbaseInterpreter
-	
+
 	var IProgressMonitor progressmonitor
-	
-	override processCase(AssuranceCase assureResult, IProgressMonitor monitor){
+
+	override processCase(AssuranceCase assureResult, IProgressMonitor monitor) {
 		progressmonitor = monitor
-		progressmonitor.beginTask(assureResult.target.name, 100)
-		assureResult.doProcess
+		val count = AssureUtilExtension.numberVerificationResults(assureResult)
+		progressmonitor.beginTask(assureResult.target.name, count)
+		assureResult.process
 	}
 
-	def void doProcess(AssuranceCase caseResult) {
+	def dispatch void process(AssuranceCase caseResult) {
 		caseResult.claimResult.forEach[claimResult|claimResult.process]
 		caseResult.subAssuranceCase.forEach[subcaseResult|subcaseResult.process]
 	}
 
-	def void doProcess(ClaimResult claimResult) {
+	def dispatch void process(org.osate.assure.assure.ClaimResult claimResult) {
 		claimResult.verificationActivityResult.forEach[vaResult|vaResult.process]
 		claimResult.subClaimResult.forEach[subclaimResult|subclaimResult.process]
 	}
 
-	def void doProcess(VerificationActivityResult vaResult) {
-		if (vaResult.executionState != VerificationExecutionState.TODO) return;
+	def dispatch void process(VerificationActivityResult vaResult) {
+		if(vaResult.executionState != VerificationExecutionState.TODO) return;
 		if (vaResult.conditionResult != null) {
 			vaResult.conditionResult.process
 			if (vaResult.conditionResult instanceof PreconditionResult && !vaResult.conditionResult.isSuccess) {
 				return
 			}
 		}
-		progressmonitor.subTask(vaResult.target.method.name+ " on "+ vaResult.claimSubject.name)
+		progressmonitor.subTask(vaResult.target.method.name + " on " + vaResult.claimSubject.name)
 		runVerificationMethod(vaResult)
-		progressmonitor.worked(2)
+		progressmonitor.worked(1)
 	}
 
-	def void doProcess(ElseResult vaResult) {
+	def dispatch void process(ElseResult vaResult) {
 		vaResult.first.forEach[expr|expr.process]
-		if (vaResult.first.hasOther) {
-			vaResult.recordElse(ElseType.OTHER)
-			vaResult.other.forEach[expr|expr.process]
+		if (vaResult.first.hasError) {
+			vaResult.recordElse(ElseType.ERROR)
+			vaResult.error.forEach[expr|expr.process]
 		} else if (vaResult.first.isFailed) {
 			vaResult.recordElse(ElseType.FAIL)
 			vaResult.fail.forEach[expr|expr.process]
@@ -122,7 +119,7 @@ class AssureProcessor implements IAssureProcessor {
 		}
 	}
 
-	def void doProcess(ThenResult vaResult) {
+	def dispatch void process(ThenResult vaResult) {
 		vaResult.first.forEach[expr|expr.process]
 		if (vaResult.first.isSuccess) {
 			vaResult.recordNoSkip
@@ -132,24 +129,12 @@ class AssureProcessor implements IAssureProcessor {
 		}
 	}
 
-	def void doProcess(ValidationResult assumptionResult) {
+	def dispatch void process(ValidationResult assumptionResult) {
 		runVerificationMethod(assumptionResult)
 	}
 
-	def void doProcess(PreconditionResult preconditionResult) {
+	def dispatch void process(PreconditionResult preconditionResult) {
 		runVerificationMethod(preconditionResult)
-	}
-
-	def void process(AssureResult assureResult) {
-		switch (assureResult) {
-			AssuranceCase: assureResult.doProcess
-			ClaimResult: assureResult.doProcess
-			VerificationActivityResult: assureResult.doProcess
-			ElseResult: assureResult.doProcess
-			ThenResult: assureResult.doProcess
-			ValidationResult: assureResult.doProcess
-			PreconditionResult: assureResult.doProcess
-		}
 	}
 
 	/**
@@ -162,25 +147,26 @@ class AssureProcessor implements IAssureProcessor {
 	def void runVerificationMethod(VerificationResult verificationResult) {
 		val method = verificationResult.method;
 		var Object res = null
-		val targetElement = verificationResult.claimSubject
-		val instanceroot = verificationResult.instanceModel
-		if(instanceroot == null){
-			setToFail(verificationResult, "Unresolved target component for instance model",null)
+		val targetElement = verificationResult.targetElement
+		var instanceroot = verificationResult.assuranceCaseInstanceModel //verificationResult.verificationActivityInstanceModel // get instance model from VA for clause
+		if (instanceroot == null) {
+			setToError(verificationResult, "Could not find instance model", null)
 			return
 		}
-		var ComponentInstance targetComponent = findComponentInstance(instanceroot,verificationResult.enclosingAssuranceCase)
-		if(targetComponent == null){
-			setToFail(verificationResult, "Unresolved target component for claim",null)
-			return
-		}
+		var ComponentInstance targetComponent = instanceroot
+			targetComponent = findTargetSystemComponentInstance(instanceroot, verificationResult.enclosingAssuranceCase)
+			if (targetComponent == null) {
+				setToError(verificationResult, "Unresolved target system for claim", null)
+				return
+			}
 		var InstanceObject target = targetComponent;
-		if(targetElement.eIsProxy){
-			setToFail(verificationResult, "Unresolved target element for claim",targetComponent)
-			return
-		}
-		if (!(targetElement instanceof ComponentClassifier)){
+		if (targetElement != null) {
+			if (targetElement.eIsProxy) {
+				setToError(verificationResult, "Unresolved target element for claim", targetComponent)
+				return
+			}
 			val x = targetComponent.findElementInstance(targetElement)
-			target = x?:targetComponent
+			target = x ?: targetComponent
 		}
 
 		var Object[] parameters
@@ -238,7 +224,7 @@ class AssureProcessor implements IAssureProcessor {
 //				println ("Param var" + i + ":" + varType.identifier)
 //				println ("Param par" + i + ":" + paramType.identifier)
 				parameters.set(i, param)
-				if (varType!= null && paramType != null && ! varType.equals(paramType)) {
+				if (varType != null && paramType != null && ! varType.equals(paramType)) {
 					println("Mismatch parameters types")
 					return
 				}
@@ -246,69 +232,64 @@ class AssureProcessor implements IAssureProcessor {
 			}
 		}
 
+		if (verificationResult instanceof VerificationActivityResult) {
+			val result = checkProperties(target, verificationResult)
+		}
+
 		try {
-			val methodtype  =method.methodType
+			val methodtype = method.methodType
 			switch (methodtype) {
 				JavaMethod: {
 					res = VerificationMethodDispatchers.eInstance.workspaceInvoke(methodtype, target, parameters)
 					if (res != null) {
 						if (res instanceof Boolean) {
 							if (res != true) {
-								setToFail(verificationResult, "",target);
+								setToFail(verificationResult, "", target);
 							} else {
 								setToSuccess(verificationResult)
 							}
-						} else if (res instanceof String){
-								setToSuccess(verificationResult,res,target)
-						}
-						 else if (res instanceof ResultReport) {
+						} else if (res instanceof String) {
+							setToSuccess(verificationResult, res, target)
+						} else if (res instanceof ResultReport) {
 							verificationResult.resultReport = res
 						} else {
-							setToFail(verificationResult, "No result report from analysis",target);
+							setToError(verificationResult, "No result report from analysis", target);
 						}
 					}
 				}
 				PluginMethod: {
-					res = VerificationMethodDispatchers.eInstance.dispatchVerificationMethod(methodtype, instanceroot, parameters) // returning the marker or diagnostic id as string
+					res = VerificationMethodDispatchers.eInstance.dispatchVerificationMethod(methodtype, instanceroot,
+						parameters) // returning the marker or diagnostic id as string
 					if (res instanceof String) {
-						val errors = addMarkersAsResult(verificationResult, target, res, method)
-						if (errors) {
-							setToFail(verificationResult);
-						} else {
-							setToSuccess(verificationResult)
-						}
+						addMarkersAsResult(verificationResult, target, res, method)
 					} else {
-						setToFail(verificationResult, "Analysis return type is not a string of MarkerType",target);
+						setToError(verificationResult, "Analysis return type is not a string of MarkerType", target);
 					}
 				}
 				ResoluteMethod: {
-
 					// Resolute handling See AssureUtil for setup	
 					AssureUtilExtension.initializeResoluteContext(instanceroot);
 					val EvaluationContext context = new EvaluationContext(instanceroot, sets, featToConnsMap);
 					val ResoluteInterpreter interpreter = new ResoluteInterpreter(context);
-					val provecall = createWrapperProveCall(methodtype,parameters)
+					val provecall = createWrapperProveCall(methodtype, parameters)
 					if (provecall == null) {
 						setToError(verificationResult,
 							"Could not find Resolute Function " + verificationResult.method.name)
 					} else {
 
 						// using com.rockwellcollins.atc.resolute.analysis.results.ClaimResult
-						val com.rockwellcollins.atc.resolute.analysis.results.ClaimResult proof = interpreter.
-							evaluateProveStatement(
-								provecall) as com.rockwellcollins.atc.resolute.analysis.results.ClaimResult
-							if (proof.valid) {
-								setToSuccess(verificationResult)
-							} else {
-								val proveri = AssureFactory.eINSTANCE.createResultIssue
-								proof.doResoluteResults(proveri)
-								setToFail(verificationResult, proveri.issues)
-							}
+						val ClaimResult proof = interpreter.evaluateProveStatement(provecall) as ClaimResult
+						if (proof.valid) {
+							setToSuccess(verificationResult)
+						} else {
+							val proveri = AssureFactory.eINSTANCE.createResultIssue
+							proof.doResoluteResults(proveri)
+							setToFail(verificationResult, proveri.issues)
 						}
 					}
+				}
 //					case SupportedTypes.RESOLUTEPREDICATE: {
 //					AssureUtilExtension.initializeResoluteContext(instance);
-
 //						val EvaluationContext context = new EvaluationContext(instance, sets, featToConnsMap);
 //						val ResoluteEvaluator evaluator = new ResoluteEvaluator(context, null);
 //						val fncall = createWrapperFnCall(verificationResult,parameters)
@@ -333,76 +314,113 @@ class AssureProcessor implements IAssureProcessor {
 //							}
 //						}
 //					}
-					case ManualMethod: {
-					}
-				} // end switch on method
-			} catch (AssertionError e) {
-				setToFail(verificationResult, e);
-			} catch (ThreadDeath e) { // don't catch ThreadDeath by accident
-				throw e;
-			} catch (Throwable e) {
-				setToError(verificationResult, e);
-			}
-			verificationResult.eResource.save(null)
+				case ManualMethod: {
+				}
+			} // end switch on method
+		} catch (AssertionError e) {
+			setToFail(verificationResult, e);
+		} catch (ThreadDeath e) { // don't catch ThreadDeath by accident
+			throw e;
+		} catch (Throwable e) {
+			setToError(verificationResult, e);
 		}
+		verificationResult.eResource.save(null)
+	}
 
-		def ProveStatement createWrapperProveCall(ResoluteMethod rm, Object[] params) {
-			val found = rm.methodReference
-			val factory = ResoluteFactory.eINSTANCE
-			if(found == null) return null
-			val call = factory.createFnCallExpr
-			call.fn = found
-			call.args.add(factory.createThisExpr)
-			addParams(call,params)
-			val prove = factory.createProveStatement
-			prove.expr = call
-			prove
+	def ProveStatement createWrapperProveCall(ResoluteMethod rm, Object[] params) {
+		val found = rm.methodReference
+		val factory = ResoluteFactory.eINSTANCE
+		if(found == null) return null
+		val call = factory.createFnCallExpr
+		call.fn = found
+		call.args.add(factory.createThisExpr)
+		addParams(call, params)
+		val prove = factory.createProveStatement
+		prove.expr = call
+		prove
+	}
+
+	def addParams(FnCallExpr call, Object[] params) {
+		for (p : params) {
+			if (p instanceof Double) {
+				val realval = ResoluteFactory.eINSTANCE.createRealExpr
+				val reallit = Aadl2Factory.eINSTANCE.createRealLiteral
+				reallit.value = p;
+				realval.^val = reallit
+				call.args.add(realval)
+			} else if (p instanceof Long) {
+				val intval = ResoluteFactory.eINSTANCE.createIntExpr
+				val intlit = Aadl2Factory.eINSTANCE.createIntegerLiteral
+				intlit.value = p;
+				intval.^val = intlit
+				call.args.add(intval)
+			} else if (p instanceof String) {
+				val stringval = ResoluteFactory.eINSTANCE.createStringExpr
+				val stringlit = Aadl2Factory.eINSTANCE.createStringLiteral
+				stringlit.value = p;
+				stringval.^val = stringlit
+				call.args.add(stringval)
+			}
 		}
+	}
+
+	def createWrapperFnCall(ResoluteMethod vr, Object[] params) {
+		val found = vr.methodReference
+		val factory = ResoluteFactory.eINSTANCE
+		val target = factory.createIdExpr
+		target.id = vr.claimSubject
+		val call = factory.createFnCallExpr
+		call.fn = found
+		call.args.add(target)
+		addParams(call, params)
+		call
+	}
+
+	def String toString(Object o) {
+		switch (o) {
+			Integer: o.toString
+			Long: o.toString
+			Double: o.toString
+			String: o
+			default: "an object"
+		}
+	}
+
+	def boolean checkProperties(InstanceObject object, VerificationActivityResult result) {
+		val method = result.method
+		val properties = method.properties
+		val values = result.target.propertyValues
+
+		val iter1 = properties.iterator
+		val iter2 = values.iterator
+		val ctx = new DefaultEvaluationContext()
+
+		var success = true;
 		
-		def addParams(FnCallExpr call, Object[] params){
-			for (p : params){
-				if (p instanceof Double){
-					val realval = ResoluteFactory.eINSTANCE.createRealExpr
-					val reallit = Aadl2Factory.eINSTANCE.createRealLiteral
-					reallit.value = p;
-					realval.^val = reallit
-					call.args.add(realval)
-				} else if (p instanceof Long){
-					val intval = ResoluteFactory.eINSTANCE.createIntExpr
-					val intlit = Aadl2Factory.eINSTANCE.createIntegerLiteral
-					intlit.value = p;
-					intval.^val = intlit
-					call.args.add(intval)
-				} else if (p instanceof String){
-					val stringval = ResoluteFactory.eINSTANCE.createStringExpr
-					val stringlit = Aadl2Factory.eINSTANCE.createStringLiteral
-					stringlit.value = p;
-					stringval.^val = stringlit
-					call.args.add(stringval)
+		while (iter1.hasNext && iter2.hasNext) {
+			val property = iter1.next
+			val variable = iter2.next
+
+			if (variable instanceof XVariableDeclaration) {
+				try {
+					val IEvaluationResult r = xbaseInterpreter.evaluate(variable, ctx, null)
+					val value = ctx.getValue(QualifiedName.create(variable.name))
+					val unit = (variable.right as XNumberLiteralUnit).unit
+					val modelValue = PropertyUtils.getScaledNumberValue(object, property, unit)
+
+					if (!value.equals(modelValue)) {
+						println("no match " + modelValue + " != " + value)
+					} else {
+						println("   match " + modelValue + " == " + value)
+					}
+				} catch (Exception e) {
+					e.printStackTrace
 				}
 			}
-		}
 
-		def createWrapperFnCall(ResoluteMethod vr, Object[] params) {
-			val found = vr.methodReference
-			val factory = ResoluteFactory.eINSTANCE
-			val target = factory.createIdExpr
-			target.id = vr.claimSubject
-			val call = factory.createFnCallExpr
-			call.fn = found
-			call.args.add(target)
-			addParams(call, params)
-			call
+		// val vm = PropertyUtils.getScaledNumberValue(object, property, unit)
 		}
-
-		def String toString(Object o) {
-			switch (o) {
-				Integer: o.toString
-				Long: o.toString
-				Double: o.toString
-				String: o
-				default: "an object"
-			}
-		}
-
+		return success;
 	}
+
+}

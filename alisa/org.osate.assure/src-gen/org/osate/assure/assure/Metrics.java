@@ -16,7 +16,7 @@ import org.eclipse.emf.ecore.EObject;
  *   <li>{@link org.osate.assure.assure.Metrics#getSuccessCount <em>Success Count</em>}</li>
  *   <li>{@link org.osate.assure.assure.Metrics#getFailCount <em>Fail Count</em>}</li>
  *   <li>{@link org.osate.assure.assure.Metrics#getTimeoutCount <em>Timeout Count</em>}</li>
- *   <li>{@link org.osate.assure.assure.Metrics#getOtherCount <em>Other Count</em>}</li>
+ *   <li>{@link org.osate.assure.assure.Metrics#getErrorCount <em>Error Count</em>}</li>
  *   <li>{@link org.osate.assure.assure.Metrics#getDidelseCount <em>Didelse Count</em>}</li>
  *   <li>{@link org.osate.assure.assure.Metrics#getThenskipCount <em>Thenskip Count</em>}</li>
  *   <li>{@link org.osate.assure.assure.Metrics#getPreconditionfailCount <em>Preconditionfail Count</em>}</li>
@@ -136,30 +136,30 @@ public interface Metrics extends EObject
   void setTimeoutCount(int value);
 
   /**
-   * Returns the value of the '<em><b>Other Count</b></em>' attribute.
+   * Returns the value of the '<em><b>Error Count</b></em>' attribute.
    * <!-- begin-user-doc -->
    * <p>
-   * If the meaning of the '<em>Other Count</em>' attribute isn't clear,
+   * If the meaning of the '<em>Error Count</em>' attribute isn't clear,
    * there really should be more of a description here...
    * </p>
    * <!-- end-user-doc -->
-   * @return the value of the '<em>Other Count</em>' attribute.
-   * @see #setOtherCount(int)
-   * @see org.osate.assure.assure.AssurePackage#getMetrics_OtherCount()
+   * @return the value of the '<em>Error Count</em>' attribute.
+   * @see #setErrorCount(int)
+   * @see org.osate.assure.assure.AssurePackage#getMetrics_ErrorCount()
    * @model
    * @generated
    */
-  int getOtherCount();
+  int getErrorCount();
 
   /**
-   * Sets the value of the '{@link org.osate.assure.assure.Metrics#getOtherCount <em>Other Count</em>}' attribute.
+   * Sets the value of the '{@link org.osate.assure.assure.Metrics#getErrorCount <em>Error Count</em>}' attribute.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @param value the new value of the '<em>Other Count</em>' attribute.
-   * @see #getOtherCount()
+   * @param value the new value of the '<em>Error Count</em>' attribute.
+   * @see #getErrorCount()
    * @generated
    */
-  void setOtherCount(int value);
+  void setErrorCount(int value);
 
   /**
    * Returns the value of the '<em><b>Didelse Count</b></em>' attribute.

@@ -28,34 +28,34 @@ VerificationPlan:
 
 Claim:
 	'claim' requirement=[ReqSpec::Requirement|QualifiedName]  (':' title=STRING)?
-	( '(' weight=Number ')' )?
+	('(' weight=Number ')')?
 	'['
 	(
-		('activities' activities += VerificationActivity*)?
-		&('assert' assert=ArgumentExpr)?
-	& rationale=Rationale?
-	& subclaim+=Claim*
-	& ('issues' issues+=STRING+ )?
+		  ('activities' activities += VerificationActivity*)?
+		& ('assert' assert=ArgumentExpr)?
+		& rationale=Rationale?
+		& subclaim+=Claim*
+		& ('issues' issues+=STRING+ )?
 	)  
-	']';
+	']'
+;
 
 
 VerificationActivity:
 	name=ID (':' title=STRING)? 
+	('for' target=[aadl2::ComponentImplementation|AadlClassifierReference])? // for specific AADL model configuration
+	':'
+	(result+=[common::ComputeDeclaration|ID] (',' result+=[common::ComputeDeclaration|ID])* '=')?
+	method=[VerificationMethod|QualifiedName] 
+	'(' (parameters+=[xbase::XExpression| ID] (',' parameters+=[xbase::XExpression| ID])*)? ')' 
 	(
-		'for' target=[aadl2::ComponentImplementation|AadlClassifierReference])? // for specific AADL model configuration
-		':'
-		(result+=[common::ComputeDeclaration|ID] (',' result+=[common::ComputeDeclaration|ID])* '=')?
-		method=[VerificationMethod|QualifiedName] 
-		'(' (parameters+=[xbase::XExpression| ID] (',' parameters+=[xbase::XExpression| ID])*)? ')' 
-		(
-			'property' 'values' '(' 
-			(propertyValues+=[xbase::XExpression|ID] (',' propertyValues+=[xbase::XExpression|ID])*)? 
-			')'
-		)?
-		('when' condition+=[categories::SelectionCategory|ID]+)?
-		('timeout' timeout=INT)?
-	;
+		'property' 'values' '(' 
+		(propertyValues+=[xbase::XExpression|ID] (',' propertyValues+=[xbase::XExpression|ID])*)? 
+		')'
+	)?
+	('when' condition+=[categories::SelectionCategory|ID]+)?
+	('timeout' timeout=INT)?
+;
 
 ArgumentExpr:
 	ThenEvidenceExpr;
@@ -71,9 +71,9 @@ ElseEvidenceExpr returns ArgumentExpr:
 	
 SingleElseEvidenceExpr returns ArgumentExpr:	
 	VAReference (=> ({ElseExpr.left=current} 'else') 
-		(other=ElseEvidenceExpr | 
+		(error=ElseEvidenceExpr | 
 				'[' ('fail' ':' fail=ThenEvidenceExpr)? ('timeout' ':' timeout=ThenEvidenceExpr)? 
-				('other' ':' other=ThenEvidenceExpr)? 
+				('error' ':' error=ThenEvidenceExpr)? 
 				 ']'
 		)
 	)*
@@ -81,7 +81,7 @@ SingleElseEvidenceExpr returns ArgumentExpr:
 
 CompositeElseEvidenceExpr returns ArgumentExpr:	
 	CompositeEvidenceExpr (=> ({ElseExpr.left=current} 'else') 
-		other=ElseEvidenceExpr 
+		error=ElseEvidenceExpr 
 	)*
 	;
 
