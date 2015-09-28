@@ -475,7 +475,7 @@ public interface ComponentInstance extends ConnectionInstanceEnd, FlowElementIns
 	ComponentClassifier getComponentClassifier();
 
 	/**
-	 * return all feature instances in the component instance.  
+	 * return all leaf feature instances in the component instance.  
 	 * For feature groups recursively traverse all elements of the feature group
 	 */
 	EList<FeatureInstance> getAllFeatureInstances();
