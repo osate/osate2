@@ -5,13 +5,21 @@ import org.osate.analysis.flows.FlowanalysisPlugin;
 
 public class Values {
 
+	private static String[] prefs;
+	
 	public static boolean doSynchronousSystem() {
+		if (prefs != null && prefs.length > 0){
+			return prefs[0].equals("SS"); 
+		}
 		IPreferenceStore store = FlowanalysisPlugin.getDefault().getPreferenceStore();
 		String policy = store.getString(Constants.SYNCHRONOUS_SYSTEM);
 		return policy.equalsIgnoreCase(Constants.SYNCHRONOUS_SYSTEM_YES);
 	}
 
 	public static boolean doMajorFrameDelay() {
+		if (prefs != null && prefs.length > 1){
+			return prefs[1].equals("MF"); 
+		}
 		IPreferenceStore store = FlowanalysisPlugin.getDefault().getPreferenceStore();
 		String policy = store.getString(Constants.PARTITONING_POLICY);
 		return policy.equalsIgnoreCase(Constants.PARTITIONING_POLICY_MAJOR_FRAME_DELAYED_STR);
@@ -24,6 +32,9 @@ public class Values {
 	}
 
 	public static boolean doWorstCaseDeadline() {
+		if (prefs != null && prefs.length > 2){
+			return prefs[2].equals("DL"); 
+		}
 		IPreferenceStore store = FlowanalysisPlugin.getDefault().getPreferenceStore();
 		String policy = store.getString(Constants.WORST_CASE_DEADLINE);
 		return policy.equalsIgnoreCase(Constants.WORST_CASE_DEADLINE_YES);
@@ -42,6 +53,9 @@ public class Values {
 	}
 
 	public static boolean doBestcaseEmptyQueue() {
+		if (prefs != null && prefs.length > 3){
+			return prefs[3].equals("EQ"); 
+		}
 		IPreferenceStore store = FlowanalysisPlugin.getDefault().getPreferenceStore();
 		String policy = store.getString(Constants.BESTCASE_EMPTY_QUEUE);
 		return policy.equalsIgnoreCase(Constants.BESTCASE_EMPTY_QUEUE_YES);
@@ -90,6 +104,14 @@ public class Values {
 	public static String getDataSetProcessingName() {
 		IPreferenceStore store = FlowanalysisPlugin.getDefault().getPreferenceStore();
 		return store.getString(Constants.DATASET_PROCESSING);
+	}
+
+	public static String[] getPrefs() {
+		return prefs;
+	}
+
+	public static void setPrefs(String[] prefs) {
+		Values.prefs = prefs;
 	}
 
 }
