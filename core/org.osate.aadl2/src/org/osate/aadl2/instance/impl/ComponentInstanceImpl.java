@@ -1059,8 +1059,8 @@ public class ComponentInstanceImpl extends ConnectionInstanceEndImpl implements 
 	}
 
 	/**
-	 * return all feature instances in the component instance  
-	 * if it is of the specified category. For feature groups recursively traverse all elements of the feature group
+	 * return all feature instances in the component instance
+	 * For feature groups include only the contained leaf feature instances
 	 */
 	@Override
 	public EList<FeatureInstance> getAllFeatureInstances() {
@@ -1072,8 +1072,9 @@ public class ComponentInstanceImpl extends ConnectionInstanceEndImpl implements 
 	}
 
 	private void doAddFeatureInstances(EList<FeatureInstance> result, FeatureInstance fi) {
-		result.add(fi);
 		EList<FeatureInstance> children = getFeatureInstances();
+		if (children.isEmpty())
+			result.add(fi);
 		for (Iterator<FeatureInstance> it = children.iterator(); it.hasNext();) {
 			doAddFeatureInstances(result, fi);
 		}
@@ -1093,9 +1094,9 @@ public class ComponentInstanceImpl extends ConnectionInstanceEndImpl implements 
 	}
 
 	private void doAddFeatureInstances(EList<FeatureInstance> result, FeatureInstance fi, FeatureCategory category) {
+		EList<FeatureInstance> children = getFeatureInstances();
 		if (fi.getCategory() == category)
 			result.add(fi);
-		EList<FeatureInstance> children = getFeatureInstances();
 		for (Iterator<FeatureInstance> it = children.iterator(); it.hasNext();) {
 			doAddFeatureInstances(result, fi, category);
 		}
