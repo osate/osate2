@@ -1,36 +1,42 @@
 package org.osate.verify.analysisplugins
 
+import org.eclipse.core.runtime.NullProgressMonitor
 import org.osate.aadl2.instance.InstanceObject
 import org.osate.aadl2.instance.SystemInstance
-import org.eclipse.core.runtime.NullProgressMonitor
-import org.osate.analysis.architecture.actions.DoPortConnectionConsistency
 import org.osate.analysis.architecture.actions.CheckA429PortConnectionConsistency
 import org.osate.analysis.architecture.actions.CheckConnectionBindingConsistency
-import org.osate.analysis.resource.budgets.actions.DoPowerAnalysis
+import org.osate.analysis.architecture.actions.DoPortConnectionConsistency
 import org.osate.analysis.architecture.actions.DoPropertyTotals
 import org.osate.analysis.flows.actions.CheckFlowLatency
-import static extension org.osate.verify.util.VerifyUtilExtension.*
+import org.osate.analysis.flows.preferences.Values
 import org.osate.analysis.resource.budgets.actions.DoBoundResourceAnalysis
+import org.osate.analysis.resource.budgets.actions.DoBoundSwitchBandWidthAnalysis
+import org.osate.analysis.resource.budgets.actions.DoPowerAnalysis
 import org.osate.analysis.resource.budgets.actions.DoResourceBudget
 import org.osate.analysis.resource.management.actions.Binpack
 import org.osate.analysis.security.actions.CheckSafety
 import org.osate.analysis.security.actions.CheckSecurity
-import org.osate.analysis.resource.budgets.actions.DoBoundSwitchBandWidthAnalysis
+
+import static org.osate.verify.util.VerifyUtilExtension.*
 
 class AnalysisPluginInterface {
 	
-	def static String flowLatencyAnalysis(InstanceObject etefi) {
+	def static String flowLatencyAnalysis(InstanceObject etefi, String[] prefs) {
 			val checker = new CheckFlowLatency()
 		val markerType = checker.getMarkerType
 		val instance = etefi.elementRoot as SystemInstance
 		if (!getHasRun(markerType, instance)) {
 			val som = instance.systemOperationModes.head
+			if (!prefs.nullOrEmpty){
+				Values.prefs = prefs
+			}
 			try{
 			checker.invoke(new NullProgressMonitor,  instance, som)
 				setHasRun(markerType, instance)
+				Values.prefs = null
 			} catch (Throwable e) {
 				unsetHasRun(markerType, instance)
-			}
+			} 
 		}
 		markerType
 	}

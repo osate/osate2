@@ -30,19 +30,19 @@ class VerificationMethodDispatchers {
 		switch (vm.methodID) {
 			case "FlowLatencyAnalysis": {
 				if(target == null) return true
-				return target?.flowLatencyAnalysis
+				return target?.flowLatencyAnalysis(parameters as String[])
 			}
 			case "MaxFlowLatencyAnalysis": {
 				if(target == null) return true
-				return target?.flowLatencyAnalysis
+				return target?.flowLatencyAnalysis(parameters as String[])
 			}
 			case "MinFlowLatencyAnalysis": {
 				if(target == null) return true
-				return target?.flowLatencyAnalysis
+				return target?.flowLatencyAnalysis(parameters as String[])
 			}
 			case "FlowLatencyJitterAnalysis": {
 				if(target == null) return true
-				return target?.flowLatencyAnalysis
+				return target?.flowLatencyAnalysis(parameters as String[])
 			}
 			case "A429Consistency": {
 				if(target == null) return true
