@@ -33,7 +33,8 @@ import static extension org.osate.xtext.aadl2.errormodel.util.EMV2Util.getAllCon
 import static extension org.osate.xtext.aadl2.errormodel.util.EMV2Util.getAllErrorFlows
 import static extension org.osate.xtext.aadl2.errormodel.util.EMV2Util.getAllPropagationPoints
 import static extension org.osate.xtext.aadl2.errormodel.util.EMV2Util.getFeatureorPPRefs
-
+import static extension org.osate.xtext.aadl2.errormodel.util.ErrorModelUtil.getAllErrorTypes
+import static extension org.osate.xtext.aadl2.errormodel.util.ErrorModelUtil.getAllTypesets
 /**
  * This class contains custom scoping description.
  * 
@@ -74,7 +75,17 @@ class ErrorModelScopeProvider extends PropertiesScopeProvider {
 		val errorTypes = (
 			errorLibs.map[it | getErrorTypesFromLib(it)] +
 			errorLibs.map[it | getTypesetsFromLib(it)]).flatten();
-		return errorTypes.scopeFor(parentScope);
+		val tempScope = errorTypes.scopeFor(parentScope);
+		new SimpleScope(tempScope.allElements.map[
+			val nameAsString = name.toString("::")
+			if (nameAsString.startsWith(ErrorModelCrossReferenceSerializer.PREFIX)) {
+				val strippedName = nameAsString.substring(ErrorModelCrossReferenceSerializer.PREFIX.length)
+				EObjectDescription.create(qualifiedNameConverter.toQualifiedName(strippedName), EObjectOrProxy)
+			} else {
+				it
+			}
+		], true)
+		
 	}
 	
 	def get_ErrorBehaviorStateMachines_from_context(EObject context) {
@@ -198,13 +209,5 @@ class ErrorModelScopeProvider extends PropertiesScopeProvider {
 		val descriptions = typesOrTypesets.map[EObjectDescription.create(QualifiedName.create(key, value.name), value)]
 		val qualifiedNameScope = new SimpleScope(descriptions, true)
 		elementGetter.apply(context).scopeFor(qualifiedNameScope)
-	}
-	
-	def private static Iterable<ErrorType> getAllErrorTypes(ErrorModelLibrary library) {
-		library.extends.map[allErrorTypes].flatten.toSet + library.types
-	}
-	
-	def private static Iterable<TypeSet> getAllTypesets(ErrorModelLibrary library) {
-		library.extends.map[allTypesets].flatten.toSet + library.typesets
 	}
 }
