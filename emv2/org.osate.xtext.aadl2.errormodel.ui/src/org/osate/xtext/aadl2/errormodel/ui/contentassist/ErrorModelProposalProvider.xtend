@@ -26,9 +26,13 @@ import org.eclipse.xtext.CrossReference
 import org.eclipse.xtext.ui.editor.contentassist.ContentAssistContext
 import org.eclipse.xtext.ui.editor.contentassist.ICompletionProposalAcceptor
 import org.osate.aadl2.AadlPackage
+import org.osate.xtext.aadl2.errormodel.errorModel.ErrorBehaviorStateMachine
+import org.osate.xtext.aadl2.errormodel.errorModel.ErrorEvent
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorModelLibrary
+import org.osate.xtext.aadl2.errormodel.errorModel.TypeSet
 
 import static extension org.eclipse.xtext.EcoreUtil2.getContainerOfType
+import static extension org.osate.xtext.aadl2.errormodel.util.ErrorModelUtil.getAllErrorTypes
 
 /**
  * see http://www.eclipse.org/Xtext/documentation/latest/xtext.html#contentAssist on how to customize content assistant
@@ -63,5 +67,17 @@ class ErrorModelProposalProvider extends AbstractErrorModelProposalProvider {
 		results
 	}
 	
+	override completeTypeSetElement_Type(EObject model, Assignment assignment, ContentAssistContext context, ICompletionProposalAcceptor acceptor) {
+		if (model instanceof TypeSet && model.eContainer instanceof ErrorEvent && model.getContainerOfType(ErrorBehaviorStateMachine) != null) {
+			val emls = model.getContainerOfType(ErrorBehaviorStateMachine).useTypes 
+			lookupCrossReference(assignment.terminal as CrossReference, context, acceptor,
+			[
+				val proposedObj = EcoreUtil.resolve(EObjectOrProxy, model)
+				emls.map([eml | eml.allErrorTypes]).flatten.exists[it == proposedObj]
+			])
+		} else {
+			super.completeTypeSetElement_Type(model, assignment, context, acceptor)
+		}
+	}
 
 }
