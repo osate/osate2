@@ -156,9 +156,9 @@ public final class FHAAction extends AaxlReadOnlyActionAsJob {
 		// report all error sources as hazards if they have the property
 		Collection<ErrorSource> eslist = EMV2Util.getAllErrorSources(ci.getComponentClassifier());
 		Collection<ErrorPropagation> oeplist = EMV2Util.getAllOutgoingErrorPropagations(ci.getComponentClassifier());
+
 		for (ErrorSource errorSource : eslist) {
 			ErrorPropagation ep = errorSource.getOutgoing();
-			oeplist.remove(ep);
 			ErrorBehaviorStateOrTypeSet fmr = errorSource.getFailureModeReference();
 			EList<ContainedNamedElement> HazardPA = null;
 			EList<ContainedNamedElement> Sev = null;
@@ -180,18 +180,6 @@ public final class FHAAction extends AaxlReadOnlyActionAsJob {
 				localContext = errorSource;
 			}
 			if ((HazardPA == null) || (HazardPA.isEmpty())) {
-				// error propagation is originating hazard
-				ts = ep.getTypeSet();
-				if (ts == null && failureMode != null) {
-					ts = failureMode.getTypeSet();
-				}
-				HazardPA = EMV2Properties.getHazardsProperty(ci, ep, ts);
-				Sev = EMV2Properties.getSeverityProperty(ci, ep, ts);
-				Like = EMV2Properties.getLikelihoodProperty(ci, ep, ts);
-				target = ep;
-				localContext = null;
-			}
-			if ((HazardPA == null) || (HazardPA.isEmpty())) {
 				// error source is originating hazard
 				ts = errorSource.getTypeTokenConstraint();
 				if (ts == null) {
@@ -206,6 +194,19 @@ public final class FHAAction extends AaxlReadOnlyActionAsJob {
 				target = errorSource;
 				localContext = null;
 			}
+			// Will be handled in next section processing error propagations
+//			if ((HazardPA == null) || (HazardPA.isEmpty())) {
+//				// error propagation is originating hazard
+//				ts = ep.getTypeSet();
+//				if (ts == null && failureMode != null) {
+//					ts = failureMode.getTypeSet();
+//				}
+//				HazardPA = EMV2Properties.getHazardsProperty(ci, ep, ts);
+//				Sev = EMV2Properties.getSeverityProperty(ci, ep, ts);
+//				Like = EMV2Properties.getLikelihoodProperty(ci, ep, ts);
+//				target = ep;
+//				localContext = null;
+//			}
 			if (HazardPA != null) {
 				for (ContainedNamedElement hazProp : HazardPA) {
 					reportHazardProperty(ci, hazProp, EMV2Util.findMatchingErrorType(hazProp, Sev),
