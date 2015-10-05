@@ -24,20 +24,22 @@ import org.osate.aadl2.ComponentClassifier;
 import org.osate.aadl2.ComponentImplementation;
 import org.osate.ge.ext.ExtensionUtil;
 import org.osate.ge.services.BusinessObjectResolutionService;
-import org.osate.ge.services.PropertyService;
 import org.osate.ge.services.ExtensionRegistryService;
+import org.osate.ge.services.PropertyService;
 import org.osate.ge.services.impl.DefaultPropertyService;
 
 @SuppressWarnings({ "restriction" })
 public class AgeDiagramEditorActionBarContributor extends org.eclipse.graphiti.ui.editor.DiagramEditorActionBarContributor {
 	final ModeContributionItem selectedModeItem;
 	final FlowContributionItem selectedFlowItem;
+	DummyContributionItem dummyItem;
 	final NestingDepthSelectorContributionItem nestingDepthSelectorItem;
 	
 	public AgeDiagramEditorActionBarContributor() {
 		final PropertyService propService = new DefaultPropertyService();
 		selectedModeItem = new ModeContributionItem("org.osate.ge.ui.editor.items.selected_mode", propService);
 		selectedFlowItem = new FlowContributionItem("org.osate.ge.ui.editor.items.selected_flow", propService);
+		dummyItem = new DummyContributionItem("org.osate.ge.ui.editor.items.dummy");
 		nestingDepthSelectorItem = new NestingDepthSelectorContributionItem("org.osate.ge.ui.editor.items.nesting_depth", propService);
 	}
 	
@@ -69,6 +71,7 @@ public class AgeDiagramEditorActionBarContributor extends org.eclipse.graphiti.u
 		tbm.add(new Separator());
 		tbm.add(selectedFlowItem);
 		tbm.add(new Separator());
+		tbm.add(dummyItem);
 		
 		// Add nesting depth control actions
 		final String nestingControlInsertionPoint = MatchSizeAction.MATCH_SIZE;
