@@ -162,6 +162,15 @@ public class AgeDiagramTypeProvider extends AbstractDiagramTypeProvider {
 	}
 	
 	@Override
+	public void dispose() {
+		if(context != null) {
+			context.dispose();
+		}
+		
+		super.dispose();
+	}
+	
+	@Override
 	public boolean isAutoUpdateAtStartup() {
 		return true;
 	}	

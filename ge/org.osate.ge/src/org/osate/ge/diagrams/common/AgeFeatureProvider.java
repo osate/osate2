@@ -255,8 +255,16 @@ public class AgeFeatureProvider extends DefaultFeatureProviderWithPatterns {
 		
 		for(final EClass featureType : FeaturePattern.getFeatureTypes()) {
 			final IEclipseContext childCtx = getContext().createChild();
-			childCtx.set("Feature Type", featureType);
-			features.add(ContextInjectionFactory.make(ChangeFeatureTypeFeature.class, childCtx));
+			try {
+				try {
+					childCtx.set("Feature Type", featureType);
+					features.add(ContextInjectionFactory.make(ChangeFeatureTypeFeature.class, childCtx));
+				} finally {
+					childCtx.dispose();
+				}
+			} finally {
+				childCtx.dispose();
+			}
 		}
 		
 		// Component Implementation
@@ -267,8 +275,12 @@ public class AgeFeatureProvider extends DefaultFeatureProviderWithPatterns {
 		
 		for(final EClass subcomponentType : ClassifierPattern.getSubcomponentTypes()) {
 			final IEclipseContext childCtx = getContext().createChild();
-			childCtx.set("Subcomponent Type", subcomponentType);
-			features.add(ContextInjectionFactory.make(ChangeSubcomponentTypeFeature.class, childCtx));	
+			try {
+				childCtx.set("Subcomponent Type", subcomponentType);
+				features.add(ContextInjectionFactory.make(ChangeSubcomponentTypeFeature.class, childCtx));	
+			} finally {
+				childCtx.dispose();
+			}
 		}
 		
 		features.add(createSetConnectionBidirectionalityFeature(false));
@@ -296,14 +308,22 @@ public class AgeFeatureProvider extends DefaultFeatureProviderWithPatterns {
 	
 	private ICustomFeature createSetInitialModeFeature(final Boolean isInitial) {
 		final IEclipseContext childCtx = getContext().createChild();
-		childCtx.set("Is Initial", isInitial);
-		return ContextInjectionFactory.make(SetInitialModeFeature.class, childCtx);
+		try {
+			childCtx.set("Is Initial", isInitial);
+			return ContextInjectionFactory.make(SetInitialModeFeature.class, childCtx);
+		} finally {
+			childCtx.dispose();
+		}
 	}
 	
 	private ICustomFeature createSetDerivedModesFeature(final Boolean derivedModes) {
 		final IEclipseContext childCtx = getContext().createChild();
-		childCtx.set("Derived Modes", derivedModes);
-		return ContextInjectionFactory.make(SetDerivedModesFeature.class, childCtx);
+		try {
+			childCtx.set("Derived Modes", derivedModes);
+			return ContextInjectionFactory.make(SetDerivedModesFeature.class, childCtx);
+		} finally {
+			childCtx.dispose();
+		}
 	}
 	
 	@Override
@@ -359,8 +379,12 @@ public class AgeFeatureProvider extends DefaultFeatureProviderWithPatterns {
 	
 	private IPattern createFeaturePattern(final EClass featureType) {
 		final IEclipseContext childCtx = getContext().createChild();
-		childCtx.set("Feature Type", featureType);
-		return ContextInjectionFactory.make(FeaturePattern.class, childCtx);
+		try {
+			childCtx.set("Feature Type", featureType);
+			return ContextInjectionFactory.make(FeaturePattern.class, childCtx);
+		} finally {
+			childCtx.dispose();
+		}
 	}
 	
 	/**
@@ -529,14 +553,22 @@ public class AgeFeatureProvider extends DefaultFeatureProviderWithPatterns {
 	
 	private IConnectionPattern createConnectionPattern(final EClass connectionType) {
 		final IEclipseContext childCtx = getContext().createChild();
-		childCtx.set("Connection Type", connectionType);
-		return ContextInjectionFactory.make(ConnectionPattern.class, childCtx);
+		try {
+			childCtx.set("Connection Type", connectionType);
+			return ContextInjectionFactory.make(ConnectionPattern.class, childCtx);
+		} finally {
+			childCtx.dispose();
+		}
 	}
 	
 	private IPattern createClassifierPattern(final EClass scType) {
 		final IEclipseContext childCtx = getContext().createChild();
-		childCtx.set("Subcomponent Type", scType);
-		return ContextInjectionFactory.make(ClassifierPattern.class, childCtx);
+		try {
+			childCtx.set("Subcomponent Type", scType);
+			return ContextInjectionFactory.make(ClassifierPattern.class, childCtx);
+		} finally {
+			childCtx.dispose();
+		}
 	}
 	
 	private void addAnnexPatterns() {
@@ -549,8 +581,12 @@ public class AgeFeatureProvider extends DefaultFeatureProviderWithPatterns {
 	
 	private IPattern createAnnexPattern(final EClass annexType) {
 		final IEclipseContext childCtx = getContext().createChild();
-		childCtx.set("Annex Type", annexType);
-		return ContextInjectionFactory.make(AnnexPattern.class, childCtx);
+		try {
+			childCtx.set("Annex Type", annexType);
+			return ContextInjectionFactory.make(AnnexPattern.class, childCtx);
+		} finally {
+			childCtx.dispose();
+		}
 	}
 		
 	/**
@@ -565,8 +601,12 @@ public class AgeFeatureProvider extends DefaultFeatureProviderWithPatterns {
 	
 	private ICustomFeature createSetConnectionBidirectionalityFeature(final Boolean bidirectionalityValue) {
 		final IEclipseContext childCtx = getContext().createChild();
-		childCtx.set("Value", bidirectionalityValue);
-		return ContextInjectionFactory.make(SetConnectionBidirectionalityFeature.class, childCtx);
+		try {
+			childCtx.set("Value", bidirectionalityValue);
+			return ContextInjectionFactory.make(SetConnectionBidirectionalityFeature.class, childCtx);
+		} finally {
+			childCtx.dispose();
+		}
 	}
 	
 	// Package
@@ -605,36 +645,56 @@ public class AgeFeatureProvider extends DefaultFeatureProviderWithPatterns {
 	
 	private IPattern createPackageClassifierPattern(final EClass classifierType) {
 		final IEclipseContext childCtx = getContext().createChild();
-		childCtx.set("Classifier Type", classifierType);
-		return ContextInjectionFactory.make(PackageClassifierPattern.class, childCtx);
+		try {
+			childCtx.set("Classifier Type", classifierType);
+			return ContextInjectionFactory.make(PackageClassifierPattern.class, childCtx);
+		} finally {
+			childCtx.dispose();
+		}
 	}
 	
 	// Type
 	private SetFeatureDirectionFeature createSetFeatureDirectionFeature(final DirectionType dirType) 
 	{
 		final IEclipseContext childCtx = getContext().createChild();
-		childCtx.set("Direction", dirType);
-		return ContextInjectionFactory.make(SetFeatureDirectionFeature.class, childCtx);
+		try {
+			childCtx.set("Direction", dirType);
+			return ContextInjectionFactory.make(SetFeatureDirectionFeature.class, childCtx);
+		} finally {
+			childCtx.dispose();
+		}
 	}
 	
 	private SetFeatureGroupInverseFeature createSetFeatureGroupInverseFeature(final boolean inverse) 
 	{
 		final IEclipseContext childCtx = getContext().createChild();
-		childCtx.set("Inverse", inverse);
-		return ContextInjectionFactory.make(SetFeatureGroupInverseFeature.class, childCtx);
+		try {
+			childCtx.set("Inverse", inverse);
+			return ContextInjectionFactory.make(SetFeatureGroupInverseFeature.class, childCtx);
+		} finally {
+			childCtx.dispose();
+		}
 	}
 	
 	private SetAccessFeatureKindFeature createSetFeatureKindFeature(final AccessType accType) 
 	{
 		final IEclipseContext childCtx = getContext().createChild();
-		childCtx.set("Access", accType);
-		return ContextInjectionFactory.make(SetAccessFeatureKindFeature.class, childCtx);
+		try {
+			childCtx.set("Access", accType);
+			return ContextInjectionFactory.make(SetAccessFeatureKindFeature.class, childCtx);
+		} finally {
+			childCtx.dispose();
+		}
 	}
 	
 	private CreateSimpleFlowSpecificationFeature createCreateSimpleFlowSpecificationFeature(final FlowKind flowKind) 
 	{
 		final IEclipseContext childCtx = getContext().createChild();
-		childCtx.set("Kind", flowKind);
-		return ContextInjectionFactory.make(CreateSimpleFlowSpecificationFeature.class, childCtx);
+		try {			
+			childCtx.set("Kind", flowKind);
+			return ContextInjectionFactory.make(CreateSimpleFlowSpecificationFeature.class, childCtx);
+		} finally {
+			childCtx.dispose();
+		}
 	}
 }

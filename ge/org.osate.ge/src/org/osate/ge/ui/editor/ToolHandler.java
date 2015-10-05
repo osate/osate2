@@ -29,6 +29,10 @@ public class ToolHandler {
 		this.context = Objects.requireNonNull(extensionService, "extensionService must not be null").createChildContext();
 	}
 	
+	public void dispose() {
+		this.context.dispose();
+	}
+	
 	public boolean isToolActive() {
 		return activeTool != null;
 	}

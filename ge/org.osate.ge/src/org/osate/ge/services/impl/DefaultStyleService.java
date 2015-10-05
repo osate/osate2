@@ -52,8 +52,12 @@ public class DefaultStyleService implements StyleService {
         if(style == null) {
         	final Object styleFactory = extensionService.getStyleFactory(styleId);
         	final IEclipseContext context = Objects.requireNonNull(extensionService, "extensionService must not be null").createChildContext();
-        	context.set(ExtensionConstants.STYLE_ID, styleId);
-        	return (Style)ContextInjectionFactory.invoke(styleFactory, Activate.class, context);
+        	try {
+	        	context.set(ExtensionConstants.STYLE_ID, styleId);
+	        	return (Style)ContextInjectionFactory.invoke(styleFactory, Activate.class, context);
+        	} finally {
+        		context.dispose();
+        	}
         }
 		
 		return style;

@@ -188,6 +188,15 @@ public class AgeDiagramBehavior extends DiagramBehavior {
 		getContentEditPart().getViewer().getControl().addPaintListener(paintListener);
 	}
 	
+	@Override
+	protected void disposeAfterGefDispose() { 
+		super.disposeAfterGefDispose();
+		
+		if(toolHandler != null) {
+			toolHandler.dispose();
+		}
+	}
+	
 	private IXtextModelListener modelListener = new IXtextModelListener() {
 		@Override
 		public void modelChanged(final XtextResource resource) {
