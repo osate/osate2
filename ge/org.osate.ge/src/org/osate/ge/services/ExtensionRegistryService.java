@@ -17,5 +17,10 @@ public interface ExtensionRegistryService {
 	 */
     Collection<Object> getTools();
 
+	/**
+	 * Style factories create styles.  
+	 * The following annotations are used with style factories:
+	 * Activate - Required
+	 */
 	Object getStyleFactory(String styleId);
 }
