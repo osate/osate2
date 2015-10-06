@@ -142,72 +142,71 @@ public class EMLinkingService extends PropertiesLinkingService {
 				}
 				// find annex subclause as context for error model identifier lookup
 				if (!Aadl2Util.isNull(cxtElement)) {
-					searchResult = EMV2Util.findErrorPropagation(cxtElement, epFGPrefix + name, DirectionType.OUT);
-					if (searchResult != null) {
-						return Collections.singletonList(searchResult);
-					}
-					searchResult = EMV2Util.findErrorPropagation(cxtElement, epFGPrefix + name, DirectionType.IN);
-					if (searchResult != null) {
-						return Collections.singletonList(searchResult);
-					}
-					searchResult = EMV2Util.findPropagationPoint(cxtElement, name);
-					if (searchResult != null) {
-						return Collections.singletonList(searchResult);
-					}
-					searchResult = EMV2Util.findErrorFlow(cxtElement, name);
-					if (searchResult != null) {
-						return Collections.singletonList(searchResult);
-					}
-					searchResult = EMV2Util.findErrorBehaviorEvent(cxtElement, name);
-					if (searchResult != null) {
-						return Collections.singletonList(searchResult);
-					}
-					searchResult = EMV2Util.findErrorBehaviorState(cxtElement, name);
-					if (searchResult != null) {
-						return Collections.singletonList(searchResult);
-					}
-					searchResult = EMV2Util.findErrorBehaviorTransition(cxtElement, name);
-					if (searchResult != null) {
-						return Collections.singletonList(searchResult);
-					}
-					searchResult = EMV2Util.findErrorDetection(cxtElement, name);
-					if (searchResult != null) {
-						return Collections.singletonList(searchResult);
-					}
-					searchResult = EMV2Util.findOutgoingPropagationCondition(cxtElement, name);
-					if (searchResult != null) {
-						return Collections.singletonList(searchResult);
-					}
-					searchResult = EMV2Util.findConnectionErrorSource(cxtElement, name);
-					if (searchResult != null) {
-						return Collections.singletonList(searchResult);
-					}
 					if (cxtFGT != null) {
 						// if previous element was feature group, look up next feature group in its type
 						// we do not want to return features as they should get resolved to an error propagation
-						NamedElement finding = cxtFGT.findNamedElement(name);
-						if (finding instanceof FeatureGroup) {
-							searchResult = finding;
+						searchResult = cxtFGT.findNamedElement(name);
+						if (searchResult != null) {
+							return Collections.singletonList(searchResult);
 						}
 					}
-					if (cxtElement instanceof Classifier) {
+					if (cxtElement instanceof ComponentClassifier) {
+						searchResult = EMV2Util.findErrorPropagation(cxtElement, epFGPrefix + name, DirectionType.OUT);
+						if (searchResult != null) {
+							return Collections.singletonList(searchResult);
+						}
+						searchResult = EMV2Util.findErrorPropagation(cxtElement, epFGPrefix + name, DirectionType.IN);
+						if (searchResult != null) {
+							return Collections.singletonList(searchResult);
+						}
+						searchResult = EMV2Util.findPropagationPoint(cxtElement, name);
+						if (searchResult != null) {
+							return Collections.singletonList(searchResult);
+						}
+						searchResult = EMV2Util.findErrorFlow(cxtElement, name);
+						if (searchResult != null) {
+							return Collections.singletonList(searchResult);
+						}
+						searchResult = EMV2Util.findErrorBehaviorEvent(cxtElement, name);
+						if (searchResult != null) {
+							return Collections.singletonList(searchResult);
+						}
+						searchResult = EMV2Util.findErrorBehaviorState(cxtElement, name);
+						if (searchResult != null) {
+							return Collections.singletonList(searchResult);
+						}
+						searchResult = EMV2Util.findErrorBehaviorTransition(cxtElement, name);
+						if (searchResult != null) {
+							return Collections.singletonList(searchResult);
+						}
+						searchResult = EMV2Util.findErrorDetection(cxtElement, name);
+						if (searchResult != null) {
+							return Collections.singletonList(searchResult);
+						}
+						searchResult = EMV2Util.findOutgoingPropagationCondition(cxtElement, name);
+						if (searchResult != null) {
+							return Collections.singletonList(searchResult);
+						}
+						searchResult = EMV2Util.findConnectionErrorSource(cxtElement, name);
+						if (searchResult != null) {
+							return Collections.singletonList(searchResult);
+						}
+//					if (cxtElement instanceof Classifier) {
 						// look up subcomponent in classifier of previous subcomponent, or feature group
 						// we do not want to return features as they should get resolved to an error propagation
-						NamedElement finding = ((Classifier) cxtElement).findNamedElement(name);
-						if (finding != null) {
-							searchResult = finding;
+						searchResult = ((Classifier) cxtElement).findNamedElement(name);
+						if (searchResult != null) {
+							return Collections.singletonList(searchResult);
 						}
-					}
-					if (searchResult != null) {
-						return Collections.singletonList(searchResult);
-					}
-					searchResult = findErrorType(cxtElement, name);
-					if (searchResult != null) {
-						return Collections.singletonList(searchResult);
-					}
-					searchResult = findTypeSet(cxtElement, name);
-					if (searchResult != null) {
-						return Collections.singletonList(searchResult);
+					} else {
+						searchResult = findErrorType(cxtElement, name);
+						if (searchResult != null) {
+							return Collections.singletonList(searchResult);
+						}
+						searchResult = findTypeSet(cxtElement, name);
+						if (searchResult != null) {
+							return Collections.singletonList(searchResult);
+						}
 					}
 				}
 			} else if (context instanceof RecoverEvent || context instanceof RepairEvent) {
