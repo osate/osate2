@@ -87,7 +87,13 @@ public class NestingDepthSelectorContributionItem extends ComboContributionItem 
 			} else {
 				// Set the value of the combo box
 				final Diagram diagram = editor.getDiagramTypeProvider().getDiagram();
-				cmb.setText(Integer.toString(propertyService.getNestingDepth(diagram)));
+				final int nestingDepth = propertyService.getNestingDepth(diagram);
+				
+				// Add items to the combo box so that the current nesting depth is available in the list.
+				while(nestingDepth >= cmb.getItemCount()) {
+					cmb.add(Integer.toString(cmb.getItemCount()));
+				}
+				cmb.setText(Integer.toString(nestingDepth));
 			}
 		}
 	}
