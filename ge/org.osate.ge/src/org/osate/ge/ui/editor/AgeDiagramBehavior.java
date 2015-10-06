@@ -218,9 +218,12 @@ public class AgeDiagramBehavior extends DiagramBehavior {
 							final Object bo = AadlElementWrapper.unwrap(getDiagramTypeProvider().getFeatureProvider().getBusinessObjectForPictogramElement(getDiagramTypeProvider().getDiagram()));
 							if(bo instanceof NamedElement) {
 								final NamedElement namedElement = (NamedElement)bo;
-								final AadlPackage relevantPkg = bo instanceof AadlPackage ? (AadlPackage)bo : (AadlPackage)namedElement.getNamespace().getOwner();
-								if(resourceContentsName.equalsIgnoreCase(relevantPkg.getQualifiedName())) {
-									update();
+								final NamedElement elementRoot = namedElement.getElementRoot();
+								if(elementRoot instanceof AadlPackage) {
+									final AadlPackage relevantPkg = (AadlPackage)elementRoot;									
+									if(resourceContentsName.equalsIgnoreCase(relevantPkg.getQualifiedName())) {
+										update();
+									}
 								}
 							}							
 						}						
