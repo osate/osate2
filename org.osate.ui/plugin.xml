@@ -455,7 +455,7 @@
            class="org.osate.ui.wizards.AadlExamplesWizard"
            icon="icons/aadl.gif"
            id="org.osate.wizard.examples"
-           name="AADL examples"
+           name="AADL Examples"
            project="true">
      </wizard>
      </extension>
