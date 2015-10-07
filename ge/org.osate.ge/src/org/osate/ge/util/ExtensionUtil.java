@@ -1,4 +1,4 @@
-package org.osate.ge.ext;
+package org.osate.ge.util;
 
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Field;

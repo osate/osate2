@@ -22,11 +22,11 @@ import org.eclipse.ui.IEditorPart;
 import org.eclipse.ui.PlatformUI;
 import org.osate.aadl2.ComponentClassifier;
 import org.osate.aadl2.ComponentImplementation;
-import org.osate.ge.ext.ExtensionUtil;
 import org.osate.ge.services.BusinessObjectResolutionService;
 import org.osate.ge.services.ExtensionRegistryService;
 import org.osate.ge.services.PropertyService;
 import org.osate.ge.services.impl.DefaultPropertyService;
+import org.osate.ge.util.ExtensionUtil;
 
 @SuppressWarnings({ "restriction" })
 public class AgeDiagramEditorActionBarContributor extends org.eclipse.graphiti.ui.editor.DiagramEditorActionBarContributor {
