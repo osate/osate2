@@ -52,7 +52,7 @@ import org.osate.aadl2.NamedElement;
 import org.osate.aadl2.RefinableElement;
 import org.osate.aadl2.Subcomponent;
 import org.osate.ge.Activator;
-import org.osate.ge.ext.ExtensionConstants;
+import org.osate.ge.ext.Names;
 import org.osate.ge.ext.annotations.Activate;
 import org.osate.ge.ext.annotations.CanActivate;
 import org.osate.ge.ext.annotations.Deactivate;
@@ -160,7 +160,7 @@ public class CreateEndToEndFlowTool {
 	}
 
 	@SelectionChanged
-	public void onSelectionChanged(@Named(ExtensionConstants.SELECTED_PICTOGRAM_ELEMENTS) final PictogramElement[] selectedPes,
+	public void onSelectionChanged(@Named(Names.SELECTED_PICTOGRAM_ELEMENTS) final PictogramElement[] selectedPes,
 			final BusinessObjectResolutionService bor, final ShapeService shapeService, final ConnectionService connectionService) {
 		// Highlight all selected shapes
 		final TransactionalEditingDomain editingDomain = dtp.getDiagramBehavior().getEditingDomain();

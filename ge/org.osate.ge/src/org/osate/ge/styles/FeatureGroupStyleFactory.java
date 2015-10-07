@@ -15,13 +15,13 @@ import org.eclipse.graphiti.mm.pictograms.Diagram;
 import org.eclipse.graphiti.services.Graphiti;
 import org.eclipse.graphiti.services.IGaService;
 import org.eclipse.graphiti.util.ColorConstant;
-import org.osate.ge.ext.ExtensionConstants;
+import org.osate.ge.ext.Names;
 import org.osate.ge.ext.annotations.Activate;
 import org.osate.ge.services.StyleService;
 
 public class FeatureGroupStyleFactory {
 	@Activate
-	public Style create(final @Named(ExtensionConstants.STYLE_ID) String styleId, final Diagram diagram, final StyleService styleService) {
+	public Style create(final @Named(Names.STYLE_ID) String styleId, final Diagram diagram, final StyleService styleService) {
 		final IGaService gaService = Graphiti.getGaService();
 		final Style classifierStyle = styleService.getStyle("classifier");
 		final Style style = gaService.createPlainStyle(classifierStyle, styleId);

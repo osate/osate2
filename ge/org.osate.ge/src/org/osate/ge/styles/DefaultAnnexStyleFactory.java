@@ -8,12 +8,12 @@ import org.eclipse.graphiti.mm.pictograms.Diagram;
 import org.eclipse.graphiti.services.Graphiti;
 import org.eclipse.graphiti.services.IGaService;
 import org.eclipse.graphiti.util.IColorConstant;
-import org.osate.ge.ext.ExtensionConstants;
+import org.osate.ge.ext.Names;
 import org.osate.ge.ext.annotations.Activate;
 
 public class DefaultAnnexStyleFactory {
 	@Activate
-	public Style create(final @Named(ExtensionConstants.STYLE_ID) String styleId, Diagram diagram) {
+	public Style create(final @Named(Names.STYLE_ID) String styleId, Diagram diagram) {
 		final IGaService gaService = Graphiti.getGaService();
 		final Style style = gaService.createPlainStyle(diagram, styleId);
 		style.setFilled(false);

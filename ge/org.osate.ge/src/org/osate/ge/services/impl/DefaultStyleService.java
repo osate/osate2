@@ -25,7 +25,7 @@ import org.eclipse.graphiti.services.Graphiti;
 import org.eclipse.graphiti.services.IGaService;
 import org.eclipse.graphiti.util.ColorConstant;
 import org.eclipse.graphiti.util.IColorConstant;
-import org.osate.ge.ext.ExtensionConstants;
+import org.osate.ge.ext.Names;
 import org.osate.ge.ext.annotations.Activate;
 import org.osate.ge.services.ExtensionService;
 import org.osate.ge.services.StyleService;
@@ -53,7 +53,7 @@ public class DefaultStyleService implements StyleService {
         	final Object styleFactory = extensionService.getStyleFactory(styleId);
         	final IEclipseContext context = Objects.requireNonNull(extensionService, "extensionService must not be null").createChildContext();
         	try {
-	        	context.set(ExtensionConstants.STYLE_ID, styleId);
+	        	context.set(Names.STYLE_ID, styleId);
 	        	return (Style)ContextInjectionFactory.invoke(styleFactory, Activate.class, context);
         	} finally {
         		context.dispose();
