@@ -80,6 +80,7 @@ import org.osate.ge.services.StyleService;
 import org.osate.ge.services.UserInputService;
 import org.osate.ge.services.GhostingService;
 import org.osate.ge.services.AadlModificationService.AbstractModifier;
+import org.osate.ge.styles.StyleConstants;
 import org.osate.ge.util.StringUtil;
 import org.osate.xtext.aadl2.properties.util.CommunicationProperties;
 import org.osate.xtext.aadl2.properties.util.GetProperties;
@@ -249,21 +250,21 @@ public class ConnectionPattern extends AgeConnectionPattern implements Categoriz
 		if(showDelayedDecoration) {
 			final int delayedSpacing = 3;
 			final ConnectionDecorator timingDecorator1 = peCreateService.createConnectionDecorator(connection, false, 0.5, true);
-			createDelayedIndicator(timingDecorator1, -delayedSpacing - decoratorXShift, styleUtil.getDecoratorStyle());
+			createDelayedIndicator(timingDecorator1, -delayedSpacing - decoratorXShift, styleUtil.getStyle(StyleConstants.DECORATOR_STYLE));
 			final ConnectionDecorator timingDecorator2 = peCreateService.createConnectionDecorator(connection, false, 0.5, true);
-			createDelayedIndicator(timingDecorator2, delayedSpacing - decoratorXShift, styleUtil.getDecoratorStyle());
+			createDelayedIndicator(timingDecorator2, delayedSpacing - decoratorXShift, styleUtil.getStyle(StyleConstants.DECORATOR_STYLE));
 		} else if(showImmediateDecoration) {
 			final int immediateSpacing = 5;
 			final ConnectionDecorator timingDecorator1 = peCreateService.createConnectionDecorator(connection, false, 0.5, true);
-			createDirectionIndicator(timingDecorator1, -immediateSpacing, styleUtil.getDecoratorStyle());
+			createDirectionIndicator(timingDecorator1, -immediateSpacing, styleUtil.getStyle(StyleConstants.DECORATOR_STYLE));
 			final ConnectionDecorator timingDecorator2 = peCreateService.createConnectionDecorator(connection, false, 0.5, true);
-			createDirectionIndicator(timingDecorator2, immediateSpacing, styleUtil.getDecoratorStyle());
+			createDirectionIndicator(timingDecorator2, immediateSpacing, styleUtil.getStyle(StyleConstants.DECORATOR_STYLE));
 		}
 
 		// Draw a direction indicator
 		if(showDirectionDecoration) {
 	        final ConnectionDecorator directionDecorator = peCreateService.createConnectionDecorator(connection, false, 0.5, true);    
-	        createDirectionIndicator(directionDecorator, decoratorXShift, styleUtil.getDecoratorStyle());
+	        createDirectionIndicator(directionDecorator, decoratorXShift, styleUtil.getStyle(StyleConstants.DECORATOR_STYLE));
 		}
 		
 		// Create Label
@@ -271,7 +272,7 @@ public class ConnectionPattern extends AgeConnectionPattern implements Categoriz
 		final ConnectionDecorator textDecorator = peCreateService.createConnectionDecorator(connection, true, 0.5, true);
 		propertyService.setName(textDecorator, labelDecoratorName);
 		final Text text = gaService.createDefaultText(getDiagram(), textDecorator);
-		text.setStyle(styleUtil.getLabelStyle());
+		text.setStyle(styleUtil.getStyle(StyleConstants.LABEL_STYLE));
 		gaService.setLocation(text, labelX, labelY);
 	    text.setValue(labelTxtValue);
 	    getFeatureProvider().link(textDecorator, new AadlElementWrapper(aadlConnection));
@@ -280,7 +281,7 @@ public class ConnectionPattern extends AgeConnectionPattern implements Categoriz
 		final ConnectionDecorator patternTxtDecorator = peCreateService.createConnectionDecorator(connection, true, 0.5, true);
 		propertyService.setName(patternTxtDecorator, connectionPatternDecoratorName);
 		final Text patternTxt = gaService.createDefaultText(getDiagram(), patternTxtDecorator);
-		patternTxt.setStyle(styleUtil.getLabelStyle());
+		patternTxt.setStyle(styleUtil.getStyle(StyleConstants.LABEL_STYLE));
 		patternTxt.setValue(connectionPatternTxtValue);
 		gaService.setLocation(patternTxt, connectionPatternX, connectionPatternY);
 	    getFeatureProvider().link(patternTxtDecorator, new AadlElementWrapper(aadlConnection));
@@ -326,7 +327,7 @@ public class ConnectionPattern extends AgeConnectionPattern implements Categoriz
 	protected void createGraphicsAlgorithm(final org.eclipse.graphiti.mm.pictograms.Connection connection) {
 		final IGaService gaService = Graphiti.getGaService();
 		final Polyline polyline = gaService.createPlainPolyline(connection);
-		final Style style = styleUtil.getDecoratorStyle();
+		final Style style = styleUtil.getStyle(StyleConstants.DECORATOR_STYLE);
 		polyline.setStyle(style);
 	}
 	

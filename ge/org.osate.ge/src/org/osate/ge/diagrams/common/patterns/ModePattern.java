@@ -63,6 +63,7 @@ import org.osate.ge.services.StyleService;
 import org.osate.ge.services.UserInputService;
 import org.osate.ge.services.GhostingService;
 import org.osate.ge.services.AadlModificationService.AbstractModifier;
+import org.osate.ge.styles.StyleConstants;
 
 public class ModePattern extends AgeLeafShapePattern implements Categorized {
 	public static String INITIAL_MODE_CONNECTION_TYPE = "initial_mode";
@@ -250,12 +251,12 @@ public class ModePattern extends AgeLeafShapePattern implements Categorized {
 			
 			// Create the line
 			final Polyline polyline = gaService.createPlainPolyline(initialModeConnection);
-			final Style style = styleUtil.getDecoratorStyle();
+			final Style style = styleUtil.getStyle(StyleConstants.DECORATOR_STYLE);
 			polyline.setStyle(style);
 			
 			// Create the arrow decorator
 			final ConnectionDecorator arrowDecorator = peCreateService.createConnectionDecorator(initialModeConnection, false, 1.0, true);    
-	        createArrow(arrowDecorator, styleUtil.getDecoratorStyle());		
+	        createArrow(arrowDecorator, styleUtil.getStyle(StyleConstants.DECORATOR_STYLE));		
 		}
 	}
 	

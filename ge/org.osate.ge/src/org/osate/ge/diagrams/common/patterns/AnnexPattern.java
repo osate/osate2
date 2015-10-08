@@ -20,6 +20,7 @@ import org.eclipse.graphiti.features.context.ILayoutContext;
 import org.eclipse.graphiti.features.context.IResizeShapeContext;
 import org.eclipse.graphiti.features.context.IUpdateContext;
 import org.eclipse.graphiti.mm.algorithms.GraphicsAlgorithm;
+import org.eclipse.graphiti.mm.algorithms.styles.Style;
 import org.eclipse.graphiti.mm.pictograms.ContainerShape;
 import org.eclipse.graphiti.mm.pictograms.Diagram;
 import org.eclipse.graphiti.mm.pictograms.PictogramElement;
@@ -278,10 +279,14 @@ public class AnnexPattern extends AgePattern {
 				width, tabHeight,
 				width, height});
 		
-		ga.setStyle(styleService.getDefaultAnnexStyle());
+		ga.setStyle(getDefaultAnnexStyle());
 
 		return ga;
 	}
+	
+	public Style getDefaultAnnexStyle() {
+		return styleService.getStyle("default_annex");
+    }
 	
 	// Update
 	@Override
