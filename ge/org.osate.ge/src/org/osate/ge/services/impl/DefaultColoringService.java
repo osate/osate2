@@ -23,6 +23,8 @@ import org.eclipse.graphiti.mm.pictograms.Diagram;
 import org.eclipse.graphiti.mm.pictograms.PictogramElement;
 import org.eclipse.graphiti.mm.pictograms.Shape;
 import org.eclipse.graphiti.services.Graphiti;
+import org.eclipse.graphiti.util.ColorConstant;
+import org.eclipse.graphiti.util.IColorConstant;
 import org.osate.aadl2.Classifier;
 import org.osate.aadl2.ComponentImplementation;
 import org.osate.aadl2.ComponentType;
@@ -42,12 +44,10 @@ import org.osate.ge.services.BusinessObjectResolutionService;
 import org.osate.ge.services.ColoringService;
 import org.osate.ge.services.PropertyService;
 import org.osate.ge.services.ShapeService;
-import org.osate.ge.services.StyleService;
 
 public class DefaultColoringService implements ColoringService {
 	private final ShapeService shapeService;
 	private final PropertyService propertyService;
-	private final StyleService styleService;
 	private final BusinessObjectResolutionService bor;
 	private final IFeatureProvider fp;
 	private final LinkedList<ColoringCalculator> coloringCalculators = new LinkedList<ColoringCalculator>();
@@ -214,11 +214,11 @@ public class DefaultColoringService implements ColoringService {
 
 			// Highlight accordingly
 	 		if(inSelectedMode && (inSelectedFlow && isFlowInMode)) {
-	 			return Graphiti.getGaService().manageColor(getDiagram(), styleService.getInSelectedModeAndFlowColor());
+	 			return Graphiti.getGaService().manageColor(getDiagram(), getInSelectedModeAndFlowColor());
 	 		} else if(inSelectedMode) {
-	 			return Graphiti.getGaService().manageColor(getDiagram(), styleService.getInSelectedModeColor());
+	 			return Graphiti.getGaService().manageColor(getDiagram(), getInSelectedModeColor());
 	 		} else if(inSelectedFlow && isFlowInMode) {
-	 			return Graphiti.getGaService().manageColor(getDiagram(), styleService.getInSelectedFlowColor());
+	 			return Graphiti.getGaService().manageColor(getDiagram(), getInSelectedFlowColor());
 	 		}
 	 		
 	 		return null;
@@ -238,10 +238,9 @@ public class DefaultColoringService implements ColoringService {
 		}
 	};
 	
-	public DefaultColoringService(final ShapeService shapeService, final PropertyService propertyService, final StyleService styleService, final BusinessObjectResolutionService bor, final IFeatureProvider fp) {
+	public DefaultColoringService(final ShapeService shapeService, final PropertyService propertyService, final BusinessObjectResolutionService bor, final IFeatureProvider fp) {
 		this.shapeService = shapeService;
 		this.propertyService = propertyService;
-		this.styleService = styleService;
 		this.bor = bor;
 		this.fp = fp;
 		
@@ -372,4 +371,16 @@ public class DefaultColoringService implements ColoringService {
 	private Diagram getDiagram() {
 		return fp.getDiagramTypeProvider().getDiagram();
 	}
+	
+	private IColorConstant getInSelectedModeColor() {
+		return ColorConstant.BLUE;
+	}
+	
+	private IColorConstant getInSelectedFlowColor() {
+		return ColorConstant.GREEN;
+	}
+	
+	private IColorConstant getInSelectedModeAndFlowColor() {
+		return ColorConstant.CYAN;
+	};
 }

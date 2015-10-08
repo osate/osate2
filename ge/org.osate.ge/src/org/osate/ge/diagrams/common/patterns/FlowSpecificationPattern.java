@@ -57,6 +57,7 @@ import org.osate.ge.services.StyleService;
 import org.osate.ge.services.UserInputService;
 import org.osate.ge.services.GhostingService;
 import org.osate.ge.services.AadlModificationService.AbstractModifier;
+import org.osate.ge.styles.StyleConstants;
 
 public class FlowSpecificationPattern extends AgeConnectionPattern implements Categorized {
 	private final StyleService styleUtil;
@@ -120,25 +121,25 @@ public class FlowSpecificationPattern extends AgeConnectionPattern implements Ca
 			{
 				// Create the arrow
 		        final ConnectionDecorator arrowConnectionDecorator = peCreateService.createConnectionDecorator(connection, false, 1.0, true);    
-		        createArrow(arrowConnectionDecorator, styleUtil.getDecoratorStyle());	
+		        createArrow(arrowConnectionDecorator, styleUtil.getStyle(StyleConstants.DECORATOR_STYLE));	
 				break;
 			}
 			
 		case SOURCE:
 			{
 				final ConnectionDecorator arrowConnectionDecorator = peCreateService.createConnectionDecorator(connection, false, 0.0, true);
-				createArrow(arrowConnectionDecorator, styleUtil.getDecoratorStyle());
+				createArrow(arrowConnectionDecorator, styleUtil.getStyle(StyleConstants.DECORATOR_STYLE));
 				final ConnectionDecorator vbarConnectionDecorator = peCreateService.createConnectionDecorator(connection, false, 1.0, true);
-				createVbar(vbarConnectionDecorator, styleUtil.getDecoratorStyle());	
+				createVbar(vbarConnectionDecorator, styleUtil.getStyle(StyleConstants.DECORATOR_STYLE));	
 				break;
 			}
 			
 		case SINK:
 			{
 				final ConnectionDecorator arrowConnectionDecorator = peCreateService.createConnectionDecorator(connection, false, 0.0, true);
-				graphicsAlgorithmUtil.mirror(createArrow(arrowConnectionDecorator, styleUtil.getDecoratorStyle()));
+				graphicsAlgorithmUtil.mirror(createArrow(arrowConnectionDecorator, styleUtil.getStyle(StyleConstants.DECORATOR_STYLE)));
 				final ConnectionDecorator vbarConnectionDecorator = peCreateService.createConnectionDecorator(connection, false, 1.0, true);
-				createVbar(vbarConnectionDecorator, styleUtil.getDecoratorStyle());	
+				createVbar(vbarConnectionDecorator, styleUtil.getStyle(StyleConstants.DECORATOR_STYLE));	
 				break;
 			}
 		}
@@ -147,7 +148,7 @@ public class FlowSpecificationPattern extends AgeConnectionPattern implements Ca
 		final IGaService gaService = Graphiti.getGaService();
 		final ConnectionDecorator textDecorator = peCreateService.createConnectionDecorator(connection, true, 0.5, true);
 		final Text text = gaService.createDefaultText(getDiagram(), textDecorator);
-		text.setStyle(styleUtil.getLabelStyle());
+		text.setStyle(styleUtil.getStyle(StyleConstants.LABEL_STYLE));
 		gaService.setLocation(text, labelX, labelY);
 	    text.setValue(fs.getName());
 	    getFeatureProvider().link(textDecorator, new AadlElementWrapper(fs));
@@ -157,7 +158,7 @@ public class FlowSpecificationPattern extends AgeConnectionPattern implements Ca
 	protected void createGraphicsAlgorithm(final Connection connection) {
 		final IGaService gaService = Graphiti.getGaService();
 		final Polyline polyline = gaService.createPlainPolyline(connection);
-		final Style style = styleUtil.getFlowSpecificationStyle();
+		final Style style = getFlowSpecificationStyle();
 		polyline.setStyle(style);
 	}
 	
@@ -384,4 +385,8 @@ public class FlowSpecificationPattern extends AgeConnectionPattern implements Ca
 	public Category getCategory() {
 		return Category.FLOWS;
 	}
+	
+	private Style getFlowSpecificationStyle() {
+		return styleUtil.getStyle("flow_specification");
+    }
 }

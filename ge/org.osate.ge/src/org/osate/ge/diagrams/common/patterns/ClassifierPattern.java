@@ -106,6 +106,7 @@ import org.osate.ge.services.AadlModificationService.AbstractModifier;
 import org.osate.ge.util.StringUtil;
 import org.osate.xtext.aadl2.properties.util.DeploymentProperties;
 import org.osate.xtext.aadl2.properties.util.GetProperties;
+import org.osate.ge.styles.StyleConstants;
 
 /**
  * A pattern for top level classifier shapes as well as subcomponents.
@@ -530,7 +531,7 @@ public class ClassifierPattern extends AgePattern implements Categorized {
 							final ConnectionDecorator textDecorator = peCreateService.createConnectionDecorator(bindingConnection, true, 0.5, true);
 							propertyService.setIsUnselectable(textDecorator, true);
 							final Text text = gaService.createDefaultText(getDiagram(), textDecorator);
-							text.setStyle(styleUtil.getLabelStyle());
+							text.setStyle(styleUtil.getStyle(StyleConstants.LABEL_STYLE));
 							int labelTxtWidth = GraphitiUi.getUiLayoutService().calculateTextSize(labelTxtValue, decoratorFont).getWidth();
 							gaService.setLocation(text, -labelTxtWidth/2, 10);
 						    text.setValue(labelTxtValue);
@@ -538,7 +539,7 @@ public class ClassifierPattern extends AgePattern implements Categorized {
 						    
 							// Create the arrow
 					        final ConnectionDecorator arrowConnectionDecorator = peCreateService.createConnectionDecorator(bindingConnection, false, 1.0, true);    
-					        createBindingArrow(arrowConnectionDecorator, styleUtil.getDecoratorStyle());
+					        createBindingArrow(arrowConnectionDecorator, styleUtil.getStyle(StyleConstants.DECORATOR_STYLE));
 						}
 					}
 					
@@ -689,7 +690,7 @@ public class ClassifierPattern extends AgePattern implements Categorized {
 	private void createBindingGraphicsAlgorithm(final Connection connection) {
 		final IGaService gaService = Graphiti.getGaService();
 		final Polyline polyline = gaService.createPlainPolyline(connection);
-		final Style style = styleUtil.getModeTransitionTrigger();
+		final Style style = styleUtil.getStyle(StyleConstants.MODE_TRANSITION_TRIGGER_STYLE);
 		polyline.setStyle(style);
 	}
 	

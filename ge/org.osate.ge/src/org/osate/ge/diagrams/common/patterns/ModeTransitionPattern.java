@@ -70,6 +70,7 @@ import org.osate.ge.services.SubcomponentService;
 import org.osate.ge.services.UserInputService;
 import org.osate.ge.services.GhostingService;
 import org.osate.ge.services.AadlModificationService.AbstractModifier;
+import org.osate.ge.styles.StyleConstants;
 
 public class ModeTransitionPattern extends AgeConnectionPattern implements Categorized {
 	public static String MODE_TRANSITION_TRIGGER_CONNECTION_TYPE = "mode_transition_trigger";
@@ -211,7 +212,7 @@ public class ModeTransitionPattern extends AgeConnectionPattern implements Categ
 		
 		// Create the arrow
         final ConnectionDecorator arrowConnectionDecorator = peCreateService.createConnectionDecorator(connection, false, 1.0, true);    
-        createArrow(arrowConnectionDecorator, styleService.getDecoratorStyle());
+        createArrow(arrowConnectionDecorator, styleService.getStyle(StyleConstants.DECORATOR_STYLE));
         
 		// Create Label
         final ModeTransition mt = (ModeTransition)bor.getBusinessObjectForPictogramElement(connection);
@@ -219,7 +220,7 @@ public class ModeTransitionPattern extends AgeConnectionPattern implements Categ
 	        final IGaService gaService = Graphiti.getGaService();
 			final ConnectionDecorator textDecorator = peCreateService.createConnectionDecorator(connection, true, 0.5, true);
 			final Text text = gaService.createDefaultText(getDiagram(), textDecorator);
-			text.setStyle(styleService.getLabelStyle());
+			text.setStyle(styleService.getStyle(StyleConstants.LABEL_STYLE));
 	 		gaService.setLocation(text, labelX, labelY);
 		    text.setValue(mt.getName() == null ? "" : mt.getName());
 		    getFeatureProvider().link(textDecorator, new AadlElementWrapper(mt));
@@ -231,14 +232,14 @@ public class ModeTransitionPattern extends AgeConnectionPattern implements Categ
 		updateControlPoints(connection);
 		final IGaService gaService = Graphiti.getGaService();
 		final Polyline polyline = gaService.createPlainPolyline(connection);
-		final Style style = styleService.getDecoratorStyle();
+		final Style style = styleService.getStyle(StyleConstants.DECORATOR_STYLE);
 		polyline.setStyle(style);
 	}
 	
 	private void createTriggerGraphicsAlgorithm(final Connection connection) {
 		final IGaService gaService = Graphiti.getGaService();
 		final Polyline polyline = gaService.createPlainPolyline(connection);
-		final Style style = styleService.getModeTransitionTrigger();
+		final Style style = styleService.getStyle(StyleConstants.MODE_TRANSITION_TRIGGER_STYLE);
 		polyline.setStyle(style);
 	}
 	

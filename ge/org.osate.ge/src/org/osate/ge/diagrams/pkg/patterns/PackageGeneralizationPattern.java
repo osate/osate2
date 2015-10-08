@@ -102,7 +102,7 @@ public class PackageGeneralizationPattern extends AgeConnectionPattern implement
 		// Create the arrow
 		final ConnectionDecorator arrowConnectionDecorator = Graphiti.getPeCreateService().createConnectionDecorator(
 				connection, false, 1.0, true);
-		createArrow(arrowConnectionDecorator, styleUtil.getGeneralizationArrowHeadStyle());
+		createArrow(arrowConnectionDecorator, getGeneralizationArrowHeadStyle());
 	}
 
 	@Override
@@ -115,7 +115,7 @@ public class PackageGeneralizationPattern extends AgeConnectionPattern implement
 
 	private void setGraphicsAlgorithmStyle(final GraphicsAlgorithm ga, final Generalization generalization) {
 		final boolean isImplements = generalization instanceof Realization;
-		final Style style = isImplements ? styleUtil.getImplementsStyle() : styleUtil.getExtendsStyle();
+		final Style style = isImplements ? getImplementsStyle() : getExtendsStyle();
 		ga.setStyle(style);
 	}
 
@@ -476,4 +476,15 @@ public class PackageGeneralizationPattern extends AgeConnectionPattern implement
 		return Category.RELATIONSHIPS;
 	}
 	
+	private Style getGeneralizationArrowHeadStyle() {
+		return styleUtil.getStyle("generalization-arrowhead");
+    }
+	
+	private Style getExtendsStyle() {
+		return styleUtil.getStyle("extends");
+    }
+	
+	private Style getImplementsStyle() {
+		return styleUtil.getStyle("implements");
+    }
 }
