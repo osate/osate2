@@ -79,7 +79,7 @@ import org.osate.aadl2.Subcomponent;
 import org.osate.aadl2.SubcomponentType;
 import org.osate.ge.diagrams.common.AadlElementWrapper;
 import org.osate.ge.diagrams.common.AgeImageProvider;
-import org.osate.ge.diagrams.common.Categorized;
+import org.osate.ge.ext.Categorized;
 import org.osate.ge.services.AadlArrayService;
 import org.osate.ge.services.AadlFeatureService;
 import org.osate.ge.services.AadlModificationService;
@@ -107,6 +107,7 @@ import org.osate.ge.util.StringUtil;
 import org.osate.xtext.aadl2.properties.util.DeploymentProperties;
 import org.osate.xtext.aadl2.properties.util.GetProperties;
 import org.osate.ge.styles.StyleConstants;
+import org.osate.ge.ext.Categories;
 
 /**
  * A pattern for top level classifier shapes as well as subcomponents.
@@ -1075,8 +1076,8 @@ public class ClassifierPattern extends AgePattern implements Categorized {
     }
 
 	@Override
-	public Category getCategory() {
-		return Category.SUBCOMPONENTS;
+	public String getCategory() {
+		return Categories.SUBCOMPONENTS;
 	}
 	
 	/**

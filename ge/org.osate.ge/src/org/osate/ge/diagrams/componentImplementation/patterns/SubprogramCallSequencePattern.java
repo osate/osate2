@@ -50,10 +50,11 @@ import org.osate.aadl2.SubprogramCallSequence;
 import org.osate.ge.diagrams.common.AadlElementWrapper;
 import org.osate.ge.diagrams.common.DefaultAgeResizeConfiguration;
 import org.osate.ge.diagrams.common.AgeImageProvider;
-import org.osate.ge.diagrams.common.Categorized;
 import org.osate.ge.diagrams.common.patterns.AgePattern;
 import org.osate.ge.dialogs.DefaultSelectSubprogramDialogModel;
 import org.osate.ge.dialogs.SelectSubprogramDialog;
+import org.osate.ge.ext.Categorized;
+import org.osate.ge.ext.Categories;
 import org.osate.ge.services.AadlFeatureService;
 import org.osate.ge.services.AadlModificationService;
 import org.osate.ge.services.BusinessObjectResolutionService;
@@ -117,8 +118,8 @@ public class SubprogramCallSequencePattern extends AgePattern implements Categor
 	}
 	
 	@Override
-	public Category getCategory() {
-		return Category.SUBPROGRAM_CALLS;
+	public String getCategory() {
+		return Categories.SUBPROGRAM_CALLS;
 	}
 
 	@Override

@@ -47,8 +47,9 @@ import org.osate.aadl2.Realization;
 import org.osate.aadl2.TypeExtension;
 import org.osate.ge.diagrams.common.AadlElementWrapper;
 import org.osate.ge.diagrams.common.AgeImageProvider;
-import org.osate.ge.diagrams.common.Categorized;
 import org.osate.ge.diagrams.common.patterns.AgeConnectionPattern;
+import org.osate.ge.ext.Categorized;
+import org.osate.ge.ext.Categories;
 import org.osate.ge.services.AadlModificationService;
 import org.osate.ge.services.AadlModificationService.AbstractModifier;
 import org.osate.ge.services.BusinessObjectResolutionService;
@@ -472,8 +473,8 @@ public class PackageGeneralizationPattern extends AgeConnectionPattern implement
 	}
 
 	@Override
-	public Category getCategory() {
-		return Category.RELATIONSHIPS;
+	public String getCategory() {
+		return Categories.RELATIONSHIPS;
 	}
 	
 	private Style getGeneralizationArrowHeadStyle() {

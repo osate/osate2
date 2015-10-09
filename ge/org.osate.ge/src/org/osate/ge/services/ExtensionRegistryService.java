@@ -1,6 +1,9 @@
 package org.osate.ge.services;
 
 import java.util.Collection;
+import java.util.List;
+
+import org.osate.ge.services.impl.DefaultExtensionRegistryService.SimpleCategory;
 
 public interface ExtensionRegistryService {
 	/**
@@ -23,4 +26,10 @@ public interface ExtensionRegistryService {
 	 * Activate - Required
 	 */
 	Object getStyleFactory(String styleId);
+
+	
+	/**
+	 * Returns a list of registered categories for the palette.
+	 */
+	List<SimpleCategory> getCategories();
 }

@@ -813,8 +813,9 @@
 				<para><emphasis role="bold">This capability is currently in development. The documentation will be updated as the extension points are finalized. </emphasis></para>
 				<section>
 					<title>Styles</title>
-					<para>The graphical editor manages creating and updated the styles needed by the diagram. Styles are created by style factories which are registered using the org.osate.ge.styles extension point. A style factory is registered for a particular style ID. The appropriate style factory is activated whenever the graphical editor needs to instantiate a style. </para>
+					<para>The graphical editor manages creating and updating the styles needed by the diagram. Styles are created by style factories which are registered using the org.osate.ge.styles extension point. A style factory is registered for a particular style ID. The appropriate style factory is activated whenever the graphical editor needs to instantiate a style. </para>
 					<para>The graphical editor implements style factories which may be used as examples. Those style factories are contained in the <emphasis>org.osate.ge.styles</emphasis> package.</para>
+					<para>Required Annotations:</para>
 					<itemizedlist>
 						<listitem><para>Activate</para></listitem>
 					</itemizedlist>
@@ -826,6 +827,11 @@
 					<itemizedlist>
 						<listitem><para>STYLE_ID(Activate)</para></listitem>
 					</itemizedlist>
+				</section>
+				<section>
+					<title>Categories</title>
+					<para>The graphical editor manages creating and ordering categories needed for the palette.  Categories are created by registering the category using org.osate.ge.categories extension point.  A category id, name, and order is registered for a particular category.</para>
+					<para>The graphical editor creates category id, name, and order which may be used as examples.  Those categories are contained in the <emphasis>org.osate.categories</emphasis> package.</para>
 				</section>
 			</section>
 		</section>
