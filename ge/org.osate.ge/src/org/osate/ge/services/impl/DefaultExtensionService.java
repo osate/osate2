@@ -39,7 +39,7 @@ public class DefaultExtensionService implements ExtensionService {
 	}
 
 	@Override
-	public List<DefaultExtensionRegistryService.SimpleCategory> getCategories() {
+	public List<Category> getCategories() {
 		return globalExtService.getCategories();
 	}
 }

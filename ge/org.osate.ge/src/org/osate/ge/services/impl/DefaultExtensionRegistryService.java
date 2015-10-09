@@ -37,7 +37,7 @@ public class DefaultExtensionRegistryService implements ExtensionRegistryService
 	 */
 	private final Collection<Object> tools;
 	private final Map<String, Object> styleFactoryMap;
-	private final List<SimpleCategory> categories;
+	private final List<Category> categories;
 	
 	public DefaultExtensionRegistryService() {
 		final IExtensionRegistry registry = Platform.getExtensionRegistry();		
@@ -57,7 +57,7 @@ public class DefaultExtensionRegistryService implements ExtensionRegistryService
 	}
 	
 	@Override
-	public List<SimpleCategory> getCategories() {
+	public List<Category> getCategories() {
 		return categories;
 	}
 	
@@ -120,7 +120,7 @@ public class DefaultExtensionRegistryService implements ExtensionRegistryService
 	
 	// Returns an unmodifiable collection containing the objects created by the id and name attribute of all configuration elements
 	// with the specified name for a specified extension point.
-	private List<SimpleCategory> instantiateCategories(IExtensionRegistry registry) {
+	private static List<Category> instantiateCategories(IExtensionRegistry registry) {
 		final List<SimpleCategory> extensions = new ArrayList<SimpleCategory>();
 		final IExtensionPoint point = registry.getExtensionPoint(CATEGORIES_EXTENSION_POINT_ID);
 		if(point != null) {
@@ -148,12 +148,7 @@ public class DefaultExtensionRegistryService implements ExtensionRegistryService
 		}
 	};
 	
-	static interface Category {
-		String getId();
-		String getName();
-	}
-	
-	public class SimpleCategory implements Category {
+	private static class SimpleCategory implements Category {
 		private String id;
 		private String name;
 		

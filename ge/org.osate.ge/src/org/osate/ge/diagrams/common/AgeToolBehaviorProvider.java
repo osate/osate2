@@ -22,6 +22,7 @@ import org.eclipse.graphiti.features.ICreateFeature;
 import org.eclipse.graphiti.features.IFeatureProvider;
 import org.eclipse.graphiti.features.context.IDoubleClickContext;
 import org.eclipse.graphiti.features.context.IPictogramElementContext;
+import org.eclipse.graphiti.features.context.impl.CustomContext;
 import org.eclipse.graphiti.features.custom.ICustomFeature;
 import org.eclipse.graphiti.mm.algorithms.GraphicsAlgorithm;
 import org.eclipse.graphiti.mm.pictograms.ConnectionDecorator;
@@ -47,13 +48,11 @@ import org.osate.aadl2.PortProxy;
 import org.osate.aadl2.ProcessorFeature;
 import org.osate.aadl2.SubprogramProxy;
 import org.osate.ge.diagrams.common.features.DrillDownFeature;
-import org.osate.ge.services.ExtensionService;
-import org.osate.ge.services.PropertyService;
-import org.osate.ge.services.impl.DefaultExtensionRegistryService;
-import org.osate.ge.services.impl.DefaultExtensionRegistryService.SimpleCategory;
-import org.eclipse.graphiti.features.context.impl.CustomContext;
 import org.osate.ge.diagrams.common.features.GraphicalToTextualFeature;
 import org.osate.ge.ext.Categorized;
+import org.osate.ge.services.ExtensionRegistryService.Category;
+import org.osate.ge.services.ExtensionService;
+import org.osate.ge.services.PropertyService;
 
 public class AgeToolBehaviorProvider extends DefaultToolBehaviorProvider {
 	private final PropertyService propertyService;
@@ -203,8 +202,8 @@ public class AgeToolBehaviorProvider extends DefaultToolBehaviorProvider {
 			private final ArrayList<PaletteCompartmentEntry> compartments = createCompartmentEntries();
 			private ArrayList<PaletteCompartmentEntry> createCompartmentEntries() {
 				final ArrayList<PaletteCompartmentEntry> compartmentEntries= new ArrayList<PaletteCompartmentEntry>();
-				for(final SimpleCategory category : extensionService.getCategories()) {
-					final PaletteCompartmentEntry newEntry = new PaletteCompartmentEntry(((DefaultExtensionRegistryService.SimpleCategory)category).getName(), null);
+				for(final Category category : extensionService.getCategories()) {
+					final PaletteCompartmentEntry newEntry = new PaletteCompartmentEntry(((Category)category).getName(), null);
 					compartmentEntries.add(newEntry);
 				}
 
@@ -217,10 +216,10 @@ public class AgeToolBehaviorProvider extends DefaultToolBehaviorProvider {
 			 * @param featureOrPattern the object that holds which category the tool should be added to
 			 */
 			public void addToolEntry(final IToolEntry toolEntry, final Object featureOrPattern) {
-				final SimpleCategory simpleCategory = getSimpleCategory(featureOrPattern);
-				if(simpleCategory != null) {
+				final Category category = getCategory(featureOrPattern);
+				if(category != null) {
 					for(final PaletteCompartmentEntry compartmentEntry : compartments) {
-						if(compartmentEntry.getLabel().equals(simpleCategory.getName())) {
+						if(compartmentEntry.getLabel().equals(category.getName())) {
 							compartmentEntry.addToolEntry(toolEntry);
 						}
 					}
@@ -231,11 +230,11 @@ public class AgeToolBehaviorProvider extends DefaultToolBehaviorProvider {
 			}
 			
 			/**
-			 * Get the simple category
+			 * Get the category
 			 * @param featureOrPattern
-			 * @return the simple category in which the toolEntry will be added to
+			 * @return the category in which the toolEntry will be added to
 			 */
-			private SimpleCategory getSimpleCategory(final Object featureOrPattern) {
+			private Category getCategory(final Object featureOrPattern) {
 				if(featureOrPattern instanceof Categorized) {
 					return getCategoryById(((Categorized)featureOrPattern).getCategory());
 				} else {
@@ -244,13 +243,13 @@ public class AgeToolBehaviorProvider extends DefaultToolBehaviorProvider {
 			}
 
 			/**
-			 * Get the SimpleCategory based on id
+			 * Get the Category based on id
 			 * @param id is the compartment/category id
-			 * @return the SimpleCategory
+			 * @return the Category
 			 */
-			private SimpleCategory getCategoryById(final String id) {
-				final List<SimpleCategory> categories = extensionService.getCategories();
-				for(final SimpleCategory category : categories) {
+			private Category getCategoryById(final String id) {
+				final List<Category> categories = extensionService.getCategories();
+				for(final Category category : categories) {
 					if(category.getId().equals(id)) {
 						return category;
 					}

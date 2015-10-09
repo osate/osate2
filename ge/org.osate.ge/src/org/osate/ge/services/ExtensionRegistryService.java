@@ -3,8 +3,6 @@ package org.osate.ge.services;
 import java.util.Collection;
 import java.util.List;
 
-import org.osate.ge.services.impl.DefaultExtensionRegistryService.SimpleCategory;
-
 public interface ExtensionRegistryService {
 	/**
 	 * Tools are objects that allow the user to perform a specific action using the editor. Only a single tool may be active at a time and tools should have their own 
@@ -31,5 +29,13 @@ public interface ExtensionRegistryService {
 	/**
 	 * Returns a list of registered categories for the palette.
 	 */
-	List<SimpleCategory> getCategories();
+	List<Category> getCategories();
+	
+	/**
+	 * Interface for palette categories
+	 */
+	public static interface Category {
+		String getId();
+		String getName();
+	}
 }
