@@ -74,4 +74,10 @@ class VerifyScopeProvider extends AlisaAbstractDeclarativeScopeProvider {
 		val props = refFinder.getEObjectDescriptions(context, Aadl2Package.eINSTANCE.property, "aadl")
 		new SimpleScope(IScope::NULLSCOPE, props, true)
 	}
+
+	def scope_VerificationActivity(EObject context, EReference reference) {
+		val vas = getContainingClaim(context).activities
+		new SimpleScope(IScope::NULLSCOPE, Scopes::scopedElementsFor(vas,
+					QualifiedName::wrapper(SimpleAttributeResolver::NAME_RESOLVER)), true)
+	}
 }

@@ -81,7 +81,7 @@ CompositeEvidenceExpr returns ArgumentExpr:
 //	VAReference (=> ({WhenExpr.verification=current} 'when') condition+=[categories::VerificationCategory|ID]+)?; // should it be a selection category as well
 
 VAReference returns ArgumentExpr:
-	{RefExpr} verification=[VerificationActivity|QualifiedName]
+	{RefExpr} verification=[VerificationActivity|ID]
 	('(' weight=INT ')')?;
 
 

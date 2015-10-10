@@ -51,16 +51,16 @@ class VerifyUtilExtension {
 		cee.error != null 
 	}
 	
-	def static Claim getContainingClaim(VerificationActivity va){
-		return va.eContainer as Claim
-	}
-	
 	def static ComponentClassifier getTargetComponentClassifier(VerificationPlan vp){
 		vp.systemRequirements?.target
 	}
 	
 	def static containingVerificationPlan(EObject sh) {
 		sh.getContainerOfType(VerificationPlan)
+	}
+	
+	def static getContainingClaim(EObject sh) {
+		sh.getContainerOfType(Claim)
 	}
 	
 	
