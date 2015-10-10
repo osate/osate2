@@ -16,13 +16,13 @@ import org.eclipse.xtext.ui.editor.contentassist.antlr.internal.Lexer;
 
 
 
-Verification : 'verification';
-
 Requirement : 'requirement';
 
 Categories : 'categories';
 
 Selection : 'selection';
+
+Method : 'method';
 
 LeftSquareBracket : '[';
 

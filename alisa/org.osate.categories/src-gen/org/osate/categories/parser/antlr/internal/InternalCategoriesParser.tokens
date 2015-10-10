@@ -1,9 +1,9 @@
 '['=8
 ']'=9
-'categories'=6
-'requirement'=5
-'selection'=7
-'verification'=4
+'categories'=5
+'method'=7
+'requirement'=4
+'selection'=6
 '{'=10
 '}'=11
 RULE_ANY_OTHER=18

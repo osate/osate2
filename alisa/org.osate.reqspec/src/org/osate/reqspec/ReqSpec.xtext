@@ -81,7 +81,7 @@ DocGoal returns Goal:
 		)
 	)?
 '['  (
-	 ('category'  category+=[categories::RequirementCategory|ID]+)?
+	 ('category'  category+=[categories::Category|ID]+)?
 	 & description=Description? 
 	&constants+=XValDeclaration* 
 	 &rationale=Rationale? 
@@ -103,7 +103,7 @@ Goal returns Goal:
 	( 'for'  targetElement=[aadl2::NamedElement|ID]
 	)?
 '['  (
-	 ('category'  category+=[categories::RequirementCategory|ID]+)?
+	 ('category'  category+=[categories::Category|ID]+)?
 	 &(  description=Description)? 
 	& (  constants+=XValDeclaration* )
 	 &(rationale=Rationale)? 
@@ -128,7 +128,7 @@ Requirement returns Requirement:
 	( 'for'  targetElement=[aadl2::NamedElement|ID]
 	)?
 '['	(
- 	('category'  category+=[categories::RequirementCategory|ID]+ )?
+ 	('category'  category+=[categories::Category|ID]+ )?
 	&(  description=Description)? 
 	& (  constants+=XValDeclaration* )
 	& (  computes+=ComputeDeclaration* )
@@ -159,7 +159,7 @@ DocRequirement returns Requirement:
 		)
 	)?
 '['	(
- 	('category'  category+=[categories::RequirementCategory|ID]+ )?
+ 	('category'  category+=[categories::Category|ID]+ )?
 	&(  description=Description)? 
 	& (  constants+=XValDeclaration* )
 	& (  computes+=ComputeDeclaration* )

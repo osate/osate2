@@ -261,7 +261,7 @@ public class ReqSpecSyntacticSequencer extends AbstractSyntacticSequencer {
 	 *     'category'?
 	 *
 	 * This ambiguous syntax occurs at:
-	 *     category+=[RequirementCategory|ID] (ambiguity) category+=[RequirementCategory|ID]
+	 *     category+=[Category|ID] (ambiguity) category+=[Category|ID]
 	 */
 	protected void emit_DocGoal_CategoryKeyword_5_0_0_q(EObject semanticObject, ISynNavigable transition, List<INode> nodes) {
 		acceptNodes(transition, nodes);
@@ -349,7 +349,7 @@ public class ReqSpecSyntacticSequencer extends AbstractSyntacticSequencer {
 	 *     'category'?
 	 *
 	 * This ambiguous syntax occurs at:
-	 *     category+=[RequirementCategory|ID] (ambiguity) category+=[RequirementCategory|ID]
+	 *     category+=[Category|ID] (ambiguity) category+=[Category|ID]
 	 */
 	protected void emit_DocRequirement_CategoryKeyword_5_0_0_q(EObject semanticObject, ISynNavigable transition, List<INode> nodes) {
 		acceptNodes(transition, nodes);
@@ -459,7 +459,7 @@ public class ReqSpecSyntacticSequencer extends AbstractSyntacticSequencer {
 	 *     'category'?
 	 *
 	 * This ambiguous syntax occurs at:
-	 *     category+=[RequirementCategory|ID] (ambiguity) category+=[RequirementCategory|ID]
+	 *     category+=[Category|ID] (ambiguity) category+=[Category|ID]
 	 */
 	protected void emit_Goal_CategoryKeyword_5_0_0_q(EObject semanticObject, ISynNavigable transition, List<INode> nodes) {
 		acceptNodes(transition, nodes);
@@ -558,7 +558,7 @@ public class ReqSpecSyntacticSequencer extends AbstractSyntacticSequencer {
 	 *     'category'?
 	 *
 	 * This ambiguous syntax occurs at:
-	 *     category+=[RequirementCategory|ID] (ambiguity) category+=[RequirementCategory|ID]
+	 *     category+=[Category|ID] (ambiguity) category+=[Category|ID]
 	 */
 	protected void emit_Requirement_CategoryKeyword_5_0_0_q(EObject semanticObject, ISynNavigable transition, List<INode> nodes) {
 		acceptNodes(transition, nodes);

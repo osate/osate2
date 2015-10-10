@@ -30,18 +30,9 @@
     <eStructuralFeatures xsi:type="ecore:EReference" name="assurancePlan" eType="#//AssurancePlan"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="description" eType="#//Description"
         containment="true"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="requirementFilter" unique="false"
-        upperBound="-1" eType="ecore:EClass platform:/resource/org.osate.categories/model/generated/Categories.ecore#//RequirementCategory"/>
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="strictRequirementCategories"
-        eType="ecore:EDataType platform:/plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//EBoolean"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="verificationFilter" unique="false"
-        upperBound="-1" eType="ecore:EClass platform:/resource/org.osate.categories/model/generated/Categories.ecore#//VerificationCategory"/>
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="strictVerificationCategories"
-        eType="ecore:EDataType platform:/plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//EBoolean"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="selectionFilter" unique="false"
-        upperBound="-1" eType="ecore:EClass platform:/resource/org.osate.categories/model/generated/Categories.ecore#//SelectionCategory"/>
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="strictSelectionCategories"
-        eType="ecore:EDataType platform:/plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//EBoolean"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="filter" unique="false"
+        upperBound="-1" eType="ecore:EClass platform:/resource/org.osate.categories/model/generated/Categories.ecore#//Category"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="strictFilter" eType="ecore:EDataType platform:/plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//EBoolean"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="issues" unique="false"
         upperBound="-1" eType="ecore:EDataType platform:/plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//EString"/>
   </eClassifiers>

@@ -87,11 +87,11 @@ public class CategoriesSwitch<T> extends Switch<T>
         if (result == null) result = defaultCase(theEObject);
         return result;
       }
-      case CategoriesPackage.VERIFICATION_CATEGORIES:
+      case CategoriesPackage.METHOD_CATEGORIES:
       {
-        VerificationCategories verificationCategories = (VerificationCategories)theEObject;
-        T result = caseVerificationCategories(verificationCategories);
-        if (result == null) result = caseCategories(verificationCategories);
+        MethodCategories methodCategories = (MethodCategories)theEObject;
+        T result = caseMethodCategories(methodCategories);
+        if (result == null) result = caseCategories(methodCategories);
         if (result == null) result = defaultCase(theEObject);
         return result;
       }
@@ -118,11 +118,11 @@ public class CategoriesSwitch<T> extends Switch<T>
         if (result == null) result = defaultCase(theEObject);
         return result;
       }
-      case CategoriesPackage.VERIFICATION_CATEGORY:
+      case CategoriesPackage.METHOD_CATEGORY:
       {
-        VerificationCategory verificationCategory = (VerificationCategory)theEObject;
-        T result = caseVerificationCategory(verificationCategory);
-        if (result == null) result = caseCategory(verificationCategory);
+        MethodCategory methodCategory = (MethodCategory)theEObject;
+        T result = caseMethodCategory(methodCategory);
+        if (result == null) result = caseCategory(methodCategory);
         if (result == null) result = defaultCase(theEObject);
         return result;
       }
@@ -171,17 +171,17 @@ public class CategoriesSwitch<T> extends Switch<T>
   }
 
   /**
-   * Returns the result of interpreting the object as an instance of '<em>Verification Categories</em>'.
+   * Returns the result of interpreting the object as an instance of '<em>Method Categories</em>'.
    * <!-- begin-user-doc -->
    * This implementation returns null;
    * returning a non-null result will terminate the switch.
    * <!-- end-user-doc -->
    * @param object the target of the switch.
-   * @return the result of interpreting the object as an instance of '<em>Verification Categories</em>'.
+   * @return the result of interpreting the object as an instance of '<em>Method Categories</em>'.
    * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
    * @generated
    */
-  public T caseVerificationCategories(VerificationCategories object)
+  public T caseMethodCategories(MethodCategories object)
   {
     return null;
   }
@@ -235,17 +235,17 @@ public class CategoriesSwitch<T> extends Switch<T>
   }
 
   /**
-   * Returns the result of interpreting the object as an instance of '<em>Verification Category</em>'.
+   * Returns the result of interpreting the object as an instance of '<em>Method Category</em>'.
    * <!-- begin-user-doc -->
    * This implementation returns null;
    * returning a non-null result will terminate the switch.
    * <!-- end-user-doc -->
    * @param object the target of the switch.
-   * @return the result of interpreting the object as an instance of '<em>Verification Category</em>'.
+   * @return the result of interpreting the object as an instance of '<em>Method Category</em>'.
    * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
    * @generated
    */
-  public T caseVerificationCategory(VerificationCategory object)
+  public T caseMethodCategory(MethodCategory object)
   {
     return null;
   }

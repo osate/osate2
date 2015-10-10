@@ -6,25 +6,25 @@ import org.eclipse.emf.common.util.EList;
 
 /**
  * <!-- begin-user-doc -->
- * A representation of the model object '<em><b>Verification Category</b></em>'.
+ * A representation of the model object '<em><b>Method Category</b></em>'.
  * <!-- end-user-doc -->
  *
  * <p>
  * The following features are supported:
  * <ul>
- *   <li>{@link org.osate.categories.categories.VerificationCategory#getSubCategories <em>Sub Categories</em>}</li>
+ *   <li>{@link org.osate.categories.categories.MethodCategory#getSubCategories <em>Sub Categories</em>}</li>
  * </ul>
  * </p>
  *
- * @see org.osate.categories.categories.CategoriesPackage#getVerificationCategory()
+ * @see org.osate.categories.categories.CategoriesPackage#getMethodCategory()
  * @model
  * @generated
  */
-public interface VerificationCategory extends Category
+public interface MethodCategory extends Category
 {
   /**
    * Returns the value of the '<em><b>Sub Categories</b></em>' reference list.
-   * The list contents are of type {@link org.osate.categories.categories.VerificationCategory}.
+   * The list contents are of type {@link org.osate.categories.categories.MethodCategory}.
    * <!-- begin-user-doc -->
    * <p>
    * If the meaning of the '<em>Sub Categories</em>' reference list isn't clear,
@@ -32,10 +32,10 @@ public interface VerificationCategory extends Category
    * </p>
    * <!-- end-user-doc -->
    * @return the value of the '<em>Sub Categories</em>' reference list.
-   * @see org.osate.categories.categories.CategoriesPackage#getVerificationCategory_SubCategories()
+   * @see org.osate.categories.categories.CategoriesPackage#getMethodCategory_SubCategories()
    * @model
    * @generated
    */
-  EList<VerificationCategory> getSubCategories();
+  EList<MethodCategory> getSubCategories();
 
-} // VerificationCategory
+} // MethodCategory

@@ -12,7 +12,7 @@ import org.osate.aadl2.Property;
 
 import org.osate.alisa.common.common.Description;
 
-import org.osate.categories.categories.VerificationCategory;
+import org.osate.categories.categories.Category;
 
 /**
  * <!-- begin-user-doc -->
@@ -257,7 +257,7 @@ public interface VerificationMethod extends EObject
 
   /**
    * Returns the value of the '<em><b>Category</b></em>' reference list.
-   * The list contents are of type {@link org.osate.categories.categories.VerificationCategory}.
+   * The list contents are of type {@link org.osate.categories.categories.Category}.
    * <!-- begin-user-doc -->
    * <p>
    * If the meaning of the '<em>Category</em>' reference list isn't clear,
@@ -269,6 +269,6 @@ public interface VerificationMethod extends EObject
    * @model
    * @generated
    */
-  EList<VerificationCategory> getCategory();
+  EList<Category> getCategory();
 
 } // VerificationMethod

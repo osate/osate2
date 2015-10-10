@@ -11,8 +11,8 @@
     <genClasses ecoreClass="Categories.ecore#//RequirementCategories">
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Categories.ecore#//RequirementCategories/category"/>
     </genClasses>
-    <genClasses ecoreClass="Categories.ecore#//VerificationCategories">
-      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Categories.ecore#//VerificationCategories/category"/>
+    <genClasses ecoreClass="Categories.ecore#//MethodCategories">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Categories.ecore#//MethodCategories/category"/>
     </genClasses>
     <genClasses ecoreClass="Categories.ecore#//SelectionCategories">
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Categories.ecore#//SelectionCategories/category"/>
@@ -23,8 +23,8 @@
     <genClasses ecoreClass="Categories.ecore#//RequirementCategory">
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference Categories.ecore#//RequirementCategory/subCategories"/>
     </genClasses>
-    <genClasses ecoreClass="Categories.ecore#//VerificationCategory">
-      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference Categories.ecore#//VerificationCategory/subCategories"/>
+    <genClasses ecoreClass="Categories.ecore#//MethodCategory">
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference Categories.ecore#//MethodCategory/subCategories"/>
     </genClasses>
     <genClasses ecoreClass="Categories.ecore#//SelectionCategory">
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference Categories.ecore#//SelectionCategory/subCategories"/>

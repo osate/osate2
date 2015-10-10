@@ -50,6 +50,15 @@ public interface VerifyFactory extends EFactory
   Claim createClaim();
 
   /**
+   * Returns a new object of class '<em>Argument Expr</em>'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return a new object of class '<em>Argument Expr</em>'.
+   * @generated
+   */
+  ArgumentExpr createArgumentExpr();
+
+  /**
    * Returns a new object of class '<em>Verification Activity</em>'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -59,13 +68,13 @@ public interface VerifyFactory extends EFactory
   VerificationActivity createVerificationActivity();
 
   /**
-   * Returns a new object of class '<em>Argument Expr</em>'.
+   * Returns a new object of class '<em>Verification Condition</em>'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @return a new object of class '<em>Argument Expr</em>'.
+   * @return a new object of class '<em>Verification Condition</em>'.
    * @generated
    */
-  ArgumentExpr createArgumentExpr();
+  VerificationCondition createVerificationCondition();
 
   /**
    * Returns a new object of class '<em>Verification Method Registry</em>'.
@@ -129,15 +138,6 @@ public interface VerifyFactory extends EFactory
    * @generated
    */
   PluginMethod createPluginMethod();
-
-  /**
-   * Returns a new object of class '<em>Verification Condition</em>'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return a new object of class '<em>Verification Condition</em>'.
-   * @generated
-   */
-  VerificationCondition createVerificationCondition();
 
   /**
    * Returns a new object of class '<em>Then Expr</em>'.

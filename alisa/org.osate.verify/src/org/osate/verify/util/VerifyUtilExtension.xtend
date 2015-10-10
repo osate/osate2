@@ -7,7 +7,7 @@ import org.eclipse.emf.ecore.util.EcoreUtil
 import org.osate.aadl2.ComponentClassifier
 import org.osate.categories.categories.RequirementCategory
 import org.osate.categories.categories.SelectionCategory
-import org.osate.categories.categories.VerificationCategory
+import org.osate.categories.categories.MethodCategory
 import org.osate.categories.util.CategoriesUtil
 import org.osate.verify.verify.Claim
 import org.osate.verify.verify.ElseExpr
@@ -16,6 +16,7 @@ import org.osate.verify.verify.VerificationPlan
 
 import static extension org.eclipse.emf.ecore.util.EcoreUtil.*
 import static extension org.eclipse.xtext.EcoreUtil2.*
+import org.osate.categories.categories.Category
 
 class VerifyUtilExtension {
 
@@ -63,17 +64,17 @@ class VerifyUtilExtension {
 	}
 	
 	
-	def static evaluateSelectionFilter(VerificationActivity expr, List<SelectionCategory> selectionFilter, boolean strict) {
+	def static evaluateSelectionFilter(VerificationActivity expr, List<Category> selectionFilter, boolean strict) {
 		val selection = expr.condition
 		return CategoriesUtil.intersects(selection,selectionFilter,strict)
 	}
 
-	def static evaluateRequirementFilter(Claim claim, Iterable<RequirementCategory> requirementFilter, boolean strict) {
+	def static evaluateRequirementFilter(Claim claim, Iterable<Category> requirementFilter, boolean strict) {
 		val req = claim.requirement.category 
 		return CategoriesUtil.intersects(req,requirementFilter,strict)
 	}
 
-	def static evaluateVerificationFilter(VerificationActivity va, List<VerificationCategory> verificationFilter, boolean strict) {
+	def static evaluateVerificationFilter(VerificationActivity va, List<Category> verificationFilter, boolean strict) {
 		val vcs = va.method.category
 		return CategoriesUtil.intersects(vcs,verificationFilter,strict)
 	}

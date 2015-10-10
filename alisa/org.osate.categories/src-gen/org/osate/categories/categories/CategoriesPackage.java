@@ -104,14 +104,14 @@ public interface CategoriesPackage extends EPackage
   int REQUIREMENT_CATEGORIES_FEATURE_COUNT = CATEGORIES_FEATURE_COUNT + 1;
 
   /**
-   * The meta object id for the '{@link org.osate.categories.categories.impl.VerificationCategoriesImpl <em>Verification Categories</em>}' class.
+   * The meta object id for the '{@link org.osate.categories.categories.impl.MethodCategoriesImpl <em>Method Categories</em>}' class.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @see org.osate.categories.categories.impl.VerificationCategoriesImpl
-   * @see org.osate.categories.categories.impl.CategoriesPackageImpl#getVerificationCategories()
+   * @see org.osate.categories.categories.impl.MethodCategoriesImpl
+   * @see org.osate.categories.categories.impl.CategoriesPackageImpl#getMethodCategories()
    * @generated
    */
-  int VERIFICATION_CATEGORIES = 2;
+  int METHOD_CATEGORIES = 2;
 
   /**
    * The feature id for the '<em><b>Category</b></em>' containment reference list.
@@ -120,16 +120,16 @@ public interface CategoriesPackage extends EPackage
    * @generated
    * @ordered
    */
-  int VERIFICATION_CATEGORIES__CATEGORY = CATEGORIES_FEATURE_COUNT + 0;
+  int METHOD_CATEGORIES__CATEGORY = CATEGORIES_FEATURE_COUNT + 0;
 
   /**
-   * The number of structural features of the '<em>Verification Categories</em>' class.
+   * The number of structural features of the '<em>Method Categories</em>' class.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    * @ordered
    */
-  int VERIFICATION_CATEGORIES_FEATURE_COUNT = CATEGORIES_FEATURE_COUNT + 1;
+  int METHOD_CATEGORIES_FEATURE_COUNT = CATEGORIES_FEATURE_COUNT + 1;
 
   /**
    * The meta object id for the '{@link org.osate.categories.categories.impl.SelectionCategoriesImpl <em>Selection Categories</em>}' class.
@@ -225,14 +225,14 @@ public interface CategoriesPackage extends EPackage
   int REQUIREMENT_CATEGORY_FEATURE_COUNT = CATEGORY_FEATURE_COUNT + 1;
 
   /**
-   * The meta object id for the '{@link org.osate.categories.categories.impl.VerificationCategoryImpl <em>Verification Category</em>}' class.
+   * The meta object id for the '{@link org.osate.categories.categories.impl.MethodCategoryImpl <em>Method Category</em>}' class.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @see org.osate.categories.categories.impl.VerificationCategoryImpl
-   * @see org.osate.categories.categories.impl.CategoriesPackageImpl#getVerificationCategory()
+   * @see org.osate.categories.categories.impl.MethodCategoryImpl
+   * @see org.osate.categories.categories.impl.CategoriesPackageImpl#getMethodCategory()
    * @generated
    */
-  int VERIFICATION_CATEGORY = 6;
+  int METHOD_CATEGORY = 6;
 
   /**
    * The feature id for the '<em><b>Name</b></em>' attribute.
@@ -241,7 +241,7 @@ public interface CategoriesPackage extends EPackage
    * @generated
    * @ordered
    */
-  int VERIFICATION_CATEGORY__NAME = CATEGORY__NAME;
+  int METHOD_CATEGORY__NAME = CATEGORY__NAME;
 
   /**
    * The feature id for the '<em><b>Sub Categories</b></em>' reference list.
@@ -250,16 +250,16 @@ public interface CategoriesPackage extends EPackage
    * @generated
    * @ordered
    */
-  int VERIFICATION_CATEGORY__SUB_CATEGORIES = CATEGORY_FEATURE_COUNT + 0;
+  int METHOD_CATEGORY__SUB_CATEGORIES = CATEGORY_FEATURE_COUNT + 0;
 
   /**
-   * The number of structural features of the '<em>Verification Category</em>' class.
+   * The number of structural features of the '<em>Method Category</em>' class.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    * @ordered
    */
-  int VERIFICATION_CATEGORY_FEATURE_COUNT = CATEGORY_FEATURE_COUNT + 1;
+  int METHOD_CATEGORY_FEATURE_COUNT = CATEGORY_FEATURE_COUNT + 1;
 
   /**
    * The meta object id for the '{@link org.osate.categories.categories.impl.SelectionCategoryImpl <em>Selection Category</em>}' class.
@@ -331,25 +331,25 @@ public interface CategoriesPackage extends EPackage
   EReference getRequirementCategories_Category();
 
   /**
-   * Returns the meta object for class '{@link org.osate.categories.categories.VerificationCategories <em>Verification Categories</em>}'.
+   * Returns the meta object for class '{@link org.osate.categories.categories.MethodCategories <em>Method Categories</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @return the meta object for class '<em>Verification Categories</em>'.
-   * @see org.osate.categories.categories.VerificationCategories
+   * @return the meta object for class '<em>Method Categories</em>'.
+   * @see org.osate.categories.categories.MethodCategories
    * @generated
    */
-  EClass getVerificationCategories();
+  EClass getMethodCategories();
 
   /**
-   * Returns the meta object for the containment reference list '{@link org.osate.categories.categories.VerificationCategories#getCategory <em>Category</em>}'.
+   * Returns the meta object for the containment reference list '{@link org.osate.categories.categories.MethodCategories#getCategory <em>Category</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @return the meta object for the containment reference list '<em>Category</em>'.
-   * @see org.osate.categories.categories.VerificationCategories#getCategory()
-   * @see #getVerificationCategories()
+   * @see org.osate.categories.categories.MethodCategories#getCategory()
+   * @see #getMethodCategories()
    * @generated
    */
-  EReference getVerificationCategories_Category();
+  EReference getMethodCategories_Category();
 
   /**
    * Returns the meta object for class '{@link org.osate.categories.categories.SelectionCategories <em>Selection Categories</em>}'.
@@ -415,25 +415,25 @@ public interface CategoriesPackage extends EPackage
   EReference getRequirementCategory_SubCategories();
 
   /**
-   * Returns the meta object for class '{@link org.osate.categories.categories.VerificationCategory <em>Verification Category</em>}'.
+   * Returns the meta object for class '{@link org.osate.categories.categories.MethodCategory <em>Method Category</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @return the meta object for class '<em>Verification Category</em>'.
-   * @see org.osate.categories.categories.VerificationCategory
+   * @return the meta object for class '<em>Method Category</em>'.
+   * @see org.osate.categories.categories.MethodCategory
    * @generated
    */
-  EClass getVerificationCategory();
+  EClass getMethodCategory();
 
   /**
-   * Returns the meta object for the reference list '{@link org.osate.categories.categories.VerificationCategory#getSubCategories <em>Sub Categories</em>}'.
+   * Returns the meta object for the reference list '{@link org.osate.categories.categories.MethodCategory#getSubCategories <em>Sub Categories</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @return the meta object for the reference list '<em>Sub Categories</em>'.
-   * @see org.osate.categories.categories.VerificationCategory#getSubCategories()
-   * @see #getVerificationCategory()
+   * @see org.osate.categories.categories.MethodCategory#getSubCategories()
+   * @see #getMethodCategory()
    * @generated
    */
-  EReference getVerificationCategory_SubCategories();
+  EReference getMethodCategory_SubCategories();
 
   /**
    * Returns the meta object for class '{@link org.osate.categories.categories.SelectionCategory <em>Selection Category</em>}'.
@@ -508,14 +508,14 @@ public interface CategoriesPackage extends EPackage
     EReference REQUIREMENT_CATEGORIES__CATEGORY = eINSTANCE.getRequirementCategories_Category();
 
     /**
-     * The meta object literal for the '{@link org.osate.categories.categories.impl.VerificationCategoriesImpl <em>Verification Categories</em>}' class.
+     * The meta object literal for the '{@link org.osate.categories.categories.impl.MethodCategoriesImpl <em>Method Categories</em>}' class.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @see org.osate.categories.categories.impl.VerificationCategoriesImpl
-     * @see org.osate.categories.categories.impl.CategoriesPackageImpl#getVerificationCategories()
+     * @see org.osate.categories.categories.impl.MethodCategoriesImpl
+     * @see org.osate.categories.categories.impl.CategoriesPackageImpl#getMethodCategories()
      * @generated
      */
-    EClass VERIFICATION_CATEGORIES = eINSTANCE.getVerificationCategories();
+    EClass METHOD_CATEGORIES = eINSTANCE.getMethodCategories();
 
     /**
      * The meta object literal for the '<em><b>Category</b></em>' containment reference list feature.
@@ -523,7 +523,7 @@ public interface CategoriesPackage extends EPackage
      * <!-- end-user-doc -->
      * @generated
      */
-    EReference VERIFICATION_CATEGORIES__CATEGORY = eINSTANCE.getVerificationCategories_Category();
+    EReference METHOD_CATEGORIES__CATEGORY = eINSTANCE.getMethodCategories_Category();
 
     /**
      * The meta object literal for the '{@link org.osate.categories.categories.impl.SelectionCategoriesImpl <em>Selection Categories</em>}' class.
@@ -580,14 +580,14 @@ public interface CategoriesPackage extends EPackage
     EReference REQUIREMENT_CATEGORY__SUB_CATEGORIES = eINSTANCE.getRequirementCategory_SubCategories();
 
     /**
-     * The meta object literal for the '{@link org.osate.categories.categories.impl.VerificationCategoryImpl <em>Verification Category</em>}' class.
+     * The meta object literal for the '{@link org.osate.categories.categories.impl.MethodCategoryImpl <em>Method Category</em>}' class.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @see org.osate.categories.categories.impl.VerificationCategoryImpl
-     * @see org.osate.categories.categories.impl.CategoriesPackageImpl#getVerificationCategory()
+     * @see org.osate.categories.categories.impl.MethodCategoryImpl
+     * @see org.osate.categories.categories.impl.CategoriesPackageImpl#getMethodCategory()
      * @generated
      */
-    EClass VERIFICATION_CATEGORY = eINSTANCE.getVerificationCategory();
+    EClass METHOD_CATEGORY = eINSTANCE.getMethodCategory();
 
     /**
      * The meta object literal for the '<em><b>Sub Categories</b></em>' reference list feature.
@@ -595,7 +595,7 @@ public interface CategoriesPackage extends EPackage
      * <!-- end-user-doc -->
      * @generated
      */
-    EReference VERIFICATION_CATEGORY__SUB_CATEGORIES = eINSTANCE.getVerificationCategory_SubCategories();
+    EReference METHOD_CATEGORY__SUB_CATEGORIES = eINSTANCE.getMethodCategory_SubCategories();
 
     /**
      * The meta object literal for the '{@link org.osate.categories.categories.impl.SelectionCategoryImpl <em>Selection Category</em>}' class.

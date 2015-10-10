@@ -25,7 +25,7 @@ import org.osate.aadl2.Property;
 
 import org.osate.alisa.common.common.Description;
 
-import org.osate.categories.categories.VerificationCategory;
+import org.osate.categories.categories.Category;
 
 import org.osate.verify.verify.MethodType;
 import org.osate.verify.verify.VerificationCondition;
@@ -194,7 +194,7 @@ public class VerificationMethodImpl extends MinimalEObjectImpl.Container impleme
    * @generated
    * @ordered
    */
-  protected EList<VerificationCategory> category;
+  protected EList<Category> category;
 
   /**
    * <!-- begin-user-doc -->
@@ -486,11 +486,11 @@ public class VerificationMethodImpl extends MinimalEObjectImpl.Container impleme
    * <!-- end-user-doc -->
    * @generated
    */
-  public EList<VerificationCategory> getCategory()
+  public EList<Category> getCategory()
   {
     if (category == null)
     {
-      category = new EObjectResolvingEList<VerificationCategory>(VerificationCategory.class, this, VerifyPackage.VERIFICATION_METHOD__CATEGORY);
+      category = new EObjectResolvingEList<Category>(Category.class, this, VerifyPackage.VERIFICATION_METHOD__CATEGORY);
     }
     return category;
   }
@@ -593,7 +593,7 @@ public class VerificationMethodImpl extends MinimalEObjectImpl.Container impleme
         return;
       case VerifyPackage.VERIFICATION_METHOD__CATEGORY:
         getCategory().clear();
-        getCategory().addAll((Collection<? extends VerificationCategory>)newValue);
+        getCategory().addAll((Collection<? extends Category>)newValue);
         return;
     }
     super.eSet(featureID, newValue);

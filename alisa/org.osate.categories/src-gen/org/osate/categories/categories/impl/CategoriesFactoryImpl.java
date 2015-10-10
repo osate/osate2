@@ -66,11 +66,11 @@ public class CategoriesFactoryImpl extends EFactoryImpl implements CategoriesFac
     {
       case CategoriesPackage.CATEGORIES: return createCategories();
       case CategoriesPackage.REQUIREMENT_CATEGORIES: return createRequirementCategories();
-      case CategoriesPackage.VERIFICATION_CATEGORIES: return createVerificationCategories();
+      case CategoriesPackage.METHOD_CATEGORIES: return createMethodCategories();
       case CategoriesPackage.SELECTION_CATEGORIES: return createSelectionCategories();
       case CategoriesPackage.CATEGORY: return createCategory();
       case CategoriesPackage.REQUIREMENT_CATEGORY: return createRequirementCategory();
-      case CategoriesPackage.VERIFICATION_CATEGORY: return createVerificationCategory();
+      case CategoriesPackage.METHOD_CATEGORY: return createMethodCategory();
       case CategoriesPackage.SELECTION_CATEGORY: return createSelectionCategory();
       default:
         throw new IllegalArgumentException("The class '" + eClass.getName() + "' is not a valid classifier");
@@ -104,10 +104,10 @@ public class CategoriesFactoryImpl extends EFactoryImpl implements CategoriesFac
    * <!-- end-user-doc -->
    * @generated
    */
-  public VerificationCategories createVerificationCategories()
+  public MethodCategories createMethodCategories()
   {
-    VerificationCategoriesImpl verificationCategories = new VerificationCategoriesImpl();
-    return verificationCategories;
+    MethodCategoriesImpl methodCategories = new MethodCategoriesImpl();
+    return methodCategories;
   }
 
   /**
@@ -148,10 +148,10 @@ public class CategoriesFactoryImpl extends EFactoryImpl implements CategoriesFac
    * <!-- end-user-doc -->
    * @generated
    */
-  public VerificationCategory createVerificationCategory()
+  public MethodCategory createMethodCategory()
   {
-    VerificationCategoryImpl verificationCategory = new VerificationCategoryImpl();
-    return verificationCategory;
+    MethodCategoryImpl methodCategory = new MethodCategoryImpl();
+    return methodCategory;
   }
 
   /**

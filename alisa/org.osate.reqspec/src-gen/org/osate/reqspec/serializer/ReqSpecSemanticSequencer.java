@@ -423,7 +423,7 @@ public class ReqSpecSemanticSequencer extends CommonSemanticSequencer {
 	 *             name=ID 
 	 *             title=STRING? 
 	 *             targetElement=[NamedElement|ID]? 
-	 *             category+=[RequirementCategory|ID]* 
+	 *             category+=[Category|ID]* 
 	 *             description=Description? 
 	 *             constants+=XValDeclaration* 
 	 *             rationale=Rationale? 
@@ -441,7 +441,7 @@ public class ReqSpecSemanticSequencer extends CommonSemanticSequencer {
 	 *             name=ID 
 	 *             title=STRING? 
 	 *             (targetDescription=STRING | (target=[ComponentClassifier|AadlClassifierReference] targetElement=[NamedElement|ID]?))? 
-	 *             category+=[RequirementCategory|ID]* 
+	 *             category+=[Category|ID]* 
 	 *             description=Description? 
 	 *             constants+=XValDeclaration* 
 	 *             rationale=Rationale? 
@@ -469,7 +469,7 @@ public class ReqSpecSemanticSequencer extends CommonSemanticSequencer {
 	 *             name=ID 
 	 *             title=STRING? 
 	 *             targetElement=[NamedElement|ID]? 
-	 *             category+=[RequirementCategory|ID]* 
+	 *             category+=[Category|ID]* 
 	 *             description=Description? 
 	 *             constants+=XValDeclaration* 
 	 *             computes+=ComputeDeclaration* 
@@ -492,7 +492,7 @@ public class ReqSpecSemanticSequencer extends CommonSemanticSequencer {
 	 *             name=ID 
 	 *             title=STRING? 
 	 *             (targetDescription=STRING | (target=[ComponentClassifier|AadlClassifierReference] targetElement=[NamedElement|ID]?))? 
-	 *             category+=[RequirementCategory|ID]* 
+	 *             category+=[Category|ID]* 
 	 *             description=Description? 
 	 *             constants+=XValDeclaration* 
 	 *             computes+=ComputeDeclaration* 
@@ -524,7 +524,7 @@ public class ReqSpecSemanticSequencer extends CommonSemanticSequencer {
 	 *         name=ID 
 	 *         title=STRING? 
 	 *         (targetDescription=STRING | (target=[ComponentClassifier|AadlClassifierReference] targetElement=[NamedElement|ID]?))? 
-	 *         category+=[RequirementCategory|ID]* 
+	 *         category+=[Category|ID]* 
 	 *         description=Description? 
 	 *         constants+=XValDeclaration* 
 	 *         rationale=Rationale? 
@@ -550,7 +550,7 @@ public class ReqSpecSemanticSequencer extends CommonSemanticSequencer {
 	 *         name=ID 
 	 *         title=STRING? 
 	 *         (targetDescription=STRING | (target=[ComponentClassifier|AadlClassifierReference] targetElement=[NamedElement|ID]?))? 
-	 *         category+=[RequirementCategory|ID]* 
+	 *         category+=[Category|ID]* 
 	 *         description=Description? 
 	 *         constants+=XValDeclaration* 
 	 *         computes+=ComputeDeclaration* 
@@ -608,7 +608,7 @@ public class ReqSpecSemanticSequencer extends CommonSemanticSequencer {
 	 *         name=ID 
 	 *         title=STRING? 
 	 *         targetElement=[NamedElement|ID]? 
-	 *         category+=[RequirementCategory|ID]* 
+	 *         category+=[Category|ID]* 
 	 *         description=Description? 
 	 *         constants+=XValDeclaration* 
 	 *         rationale=Rationale? 
@@ -674,7 +674,7 @@ public class ReqSpecSemanticSequencer extends CommonSemanticSequencer {
 	 *         name=ID 
 	 *         title=STRING? 
 	 *         targetElement=[NamedElement|ID]? 
-	 *         category+=[RequirementCategory|ID]* 
+	 *         category+=[Category|ID]* 
 	 *         description=Description? 
 	 *         constants+=XValDeclaration* 
 	 *         computes+=ComputeDeclaration* 

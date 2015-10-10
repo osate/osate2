@@ -6,8 +6,8 @@ import org.osate.categories.categories.RequirementCategories
 import org.osate.categories.categories.RequirementCategory
 import org.osate.categories.categories.SelectionCategories
 import org.osate.categories.categories.SelectionCategory
-import org.osate.categories.categories.VerificationCategories
-import org.osate.categories.categories.VerificationCategory
+import org.osate.categories.categories.MethodCategories
+import org.osate.categories.categories.MethodCategory
 import java.util.HashSet
 
 class CategoriesUtil {
@@ -19,7 +19,7 @@ class CategoriesUtil {
 	def static category(Categories cats) {
 		switch (cats) {
 			RequirementCategories: cats.category
-			VerificationCategories: cats.category
+			MethodCategories: cats.category
 			SelectionCategories: cats.category
 		}
 	}
@@ -27,7 +27,7 @@ class CategoriesUtil {
 	def static Iterable<? extends Category> subCategories(Category cat) {
 		switch (cat) {
 			RequirementCategory: cat.subCategories
-			VerificationCategory: cat.subCategories
+			MethodCategory: cat.subCategories
 			SelectionCategory: cat.subCategories
 		}
 	}
@@ -61,7 +61,7 @@ class CategoriesUtil {
 		val obj = cat.findSubcategory(name)
 		switch (cat) {
 			RequirementCategory: cat.subCategories.remove(obj)
-			VerificationCategory: cat.subCategories
+			MethodCategory: cat.subCategories
 			SelectionCategory: cat.subCategories
 		}
 	}

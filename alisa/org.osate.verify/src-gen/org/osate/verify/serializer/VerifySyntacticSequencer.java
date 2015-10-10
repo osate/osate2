@@ -282,7 +282,7 @@ public class VerifySyntacticSequencer extends AbstractSyntacticSequencer {
 	 *     'category'?
 	 *
 	 * This ambiguous syntax occurs at:
-	 *     category+=[VerificationCategory|ID] (ambiguity) category+=[VerificationCategory|ID]
+	 *     category+=[Category|ID] (ambiguity) category+=[Category|ID]
 	 */
 	protected void emit_VerificationMethod_CategoryKeyword_5_3_0_q(EObject semanticObject, ISynNavigable transition, List<INode> nodes) {
 		acceptNodes(transition, nodes);
@@ -295,7 +295,7 @@ public class VerifySyntacticSequencer extends AbstractSyntacticSequencer {
 	 * This ambiguous syntax occurs at:
 	 *     name=ID (ambiguity) ':' title=STRING
 	 *     name=ID (ambiguity) '[' ']' (rule end)
-	 *     name=ID (ambiguity) '[' 'category' category+=[VerificationCategory|ID]
+	 *     name=ID (ambiguity) '[' 'category' category+=[Category|ID]
 	 *     name=ID (ambiguity) '[' condition=VerificationCondition
 	 *     name=ID (ambiguity) '[' description=Description
 	 *     name=ID (ambiguity) '[' methodType=MethodType
@@ -313,7 +313,7 @@ public class VerifySyntacticSequencer extends AbstractSyntacticSequencer {
 	 *     name=ID '(' ')' (ambiguity) isResultReport?='report'
 	 *     params+=FullJvmFormalParameter ')' (ambiguity) ':' title=STRING
 	 *     params+=FullJvmFormalParameter ')' (ambiguity) '[' ']' (rule end)
-	 *     params+=FullJvmFormalParameter ')' (ambiguity) '[' 'category' category+=[VerificationCategory|ID]
+	 *     params+=FullJvmFormalParameter ')' (ambiguity) '[' 'category' category+=[Category|ID]
 	 *     params+=FullJvmFormalParameter ')' (ambiguity) '[' condition=VerificationCondition
 	 *     params+=FullJvmFormalParameter ')' (ambiguity) '[' description=Description
 	 *     params+=FullJvmFormalParameter ')' (ambiguity) '[' methodType=MethodType

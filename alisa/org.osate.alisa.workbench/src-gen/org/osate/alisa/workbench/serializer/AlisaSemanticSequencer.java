@@ -84,9 +84,7 @@ public class AlisaSemanticSequencer extends AbstractDelegatingSemanticSequencer 
 	 *         title=STRING? 
 	 *         assurancePlan=[AssurancePlan|QualifiedName] 
 	 *         description=Description? 
-	 *         (requirementFilter+=[RequirementCategory|ID]+ strictRequirementCategories?='only'?)? 
-	 *         (verificationFilter+=[VerificationCategory|ID]+ strictVerificationCategories?='only'?)? 
-	 *         (selectionFilter+=[SelectionCategory|ID]+ strictSelectionCategories?='only'?)? 
+	 *         (filter+=[Category|ID]+ strictFilter?='only'?)? 
 	 *         issues+=STRING*
 	 *     )
 	 */

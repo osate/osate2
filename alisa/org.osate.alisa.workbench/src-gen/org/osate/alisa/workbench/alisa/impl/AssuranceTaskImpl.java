@@ -23,9 +23,7 @@ import org.osate.alisa.workbench.alisa.AssurancePlan;
 import org.osate.alisa.workbench.alisa.AssuranceTask;
 import org.osate.alisa.workbench.alisa.Description;
 
-import org.osate.categories.categories.RequirementCategory;
-import org.osate.categories.categories.SelectionCategory;
-import org.osate.categories.categories.VerificationCategory;
+import org.osate.categories.categories.Category;
 
 /**
  * <!-- begin-user-doc -->
@@ -38,12 +36,8 @@ import org.osate.categories.categories.VerificationCategory;
  *   <li>{@link org.osate.alisa.workbench.alisa.impl.AssuranceTaskImpl#getTitle <em>Title</em>}</li>
  *   <li>{@link org.osate.alisa.workbench.alisa.impl.AssuranceTaskImpl#getAssurancePlan <em>Assurance Plan</em>}</li>
  *   <li>{@link org.osate.alisa.workbench.alisa.impl.AssuranceTaskImpl#getDescription <em>Description</em>}</li>
- *   <li>{@link org.osate.alisa.workbench.alisa.impl.AssuranceTaskImpl#getRequirementFilter <em>Requirement Filter</em>}</li>
- *   <li>{@link org.osate.alisa.workbench.alisa.impl.AssuranceTaskImpl#isStrictRequirementCategories <em>Strict Requirement Categories</em>}</li>
- *   <li>{@link org.osate.alisa.workbench.alisa.impl.AssuranceTaskImpl#getVerificationFilter <em>Verification Filter</em>}</li>
- *   <li>{@link org.osate.alisa.workbench.alisa.impl.AssuranceTaskImpl#isStrictVerificationCategories <em>Strict Verification Categories</em>}</li>
- *   <li>{@link org.osate.alisa.workbench.alisa.impl.AssuranceTaskImpl#getSelectionFilter <em>Selection Filter</em>}</li>
- *   <li>{@link org.osate.alisa.workbench.alisa.impl.AssuranceTaskImpl#isStrictSelectionCategories <em>Strict Selection Categories</em>}</li>
+ *   <li>{@link org.osate.alisa.workbench.alisa.impl.AssuranceTaskImpl#getFilter <em>Filter</em>}</li>
+ *   <li>{@link org.osate.alisa.workbench.alisa.impl.AssuranceTaskImpl#isStrictFilter <em>Strict Filter</em>}</li>
  *   <li>{@link org.osate.alisa.workbench.alisa.impl.AssuranceTaskImpl#getIssues <em>Issues</em>}</li>
  * </ul>
  * </p>
@@ -113,94 +107,34 @@ public class AssuranceTaskImpl extends MinimalEObjectImpl.Container implements A
   protected Description description;
 
   /**
-   * The cached value of the '{@link #getRequirementFilter() <em>Requirement Filter</em>}' reference list.
+   * The cached value of the '{@link #getFilter() <em>Filter</em>}' reference list.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @see #getRequirementFilter()
+   * @see #getFilter()
    * @generated
    * @ordered
    */
-  protected EList<RequirementCategory> requirementFilter;
+  protected EList<Category> filter;
 
   /**
-   * The default value of the '{@link #isStrictRequirementCategories() <em>Strict Requirement Categories</em>}' attribute.
+   * The default value of the '{@link #isStrictFilter() <em>Strict Filter</em>}' attribute.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @see #isStrictRequirementCategories()
+   * @see #isStrictFilter()
    * @generated
    * @ordered
    */
-  protected static final boolean STRICT_REQUIREMENT_CATEGORIES_EDEFAULT = false;
+  protected static final boolean STRICT_FILTER_EDEFAULT = false;
 
   /**
-   * The cached value of the '{@link #isStrictRequirementCategories() <em>Strict Requirement Categories</em>}' attribute.
+   * The cached value of the '{@link #isStrictFilter() <em>Strict Filter</em>}' attribute.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @see #isStrictRequirementCategories()
+   * @see #isStrictFilter()
    * @generated
    * @ordered
    */
-  protected boolean strictRequirementCategories = STRICT_REQUIREMENT_CATEGORIES_EDEFAULT;
-
-  /**
-   * The cached value of the '{@link #getVerificationFilter() <em>Verification Filter</em>}' reference list.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @see #getVerificationFilter()
-   * @generated
-   * @ordered
-   */
-  protected EList<VerificationCategory> verificationFilter;
-
-  /**
-   * The default value of the '{@link #isStrictVerificationCategories() <em>Strict Verification Categories</em>}' attribute.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @see #isStrictVerificationCategories()
-   * @generated
-   * @ordered
-   */
-  protected static final boolean STRICT_VERIFICATION_CATEGORIES_EDEFAULT = false;
-
-  /**
-   * The cached value of the '{@link #isStrictVerificationCategories() <em>Strict Verification Categories</em>}' attribute.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @see #isStrictVerificationCategories()
-   * @generated
-   * @ordered
-   */
-  protected boolean strictVerificationCategories = STRICT_VERIFICATION_CATEGORIES_EDEFAULT;
-
-  /**
-   * The cached value of the '{@link #getSelectionFilter() <em>Selection Filter</em>}' reference list.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @see #getSelectionFilter()
-   * @generated
-   * @ordered
-   */
-  protected EList<SelectionCategory> selectionFilter;
-
-  /**
-   * The default value of the '{@link #isStrictSelectionCategories() <em>Strict Selection Categories</em>}' attribute.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @see #isStrictSelectionCategories()
-   * @generated
-   * @ordered
-   */
-  protected static final boolean STRICT_SELECTION_CATEGORIES_EDEFAULT = false;
-
-  /**
-   * The cached value of the '{@link #isStrictSelectionCategories() <em>Strict Selection Categories</em>}' attribute.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @see #isStrictSelectionCategories()
-   * @generated
-   * @ordered
-   */
-  protected boolean strictSelectionCategories = STRICT_SELECTION_CATEGORIES_EDEFAULT;
+  protected boolean strictFilter = STRICT_FILTER_EDEFAULT;
 
   /**
    * The cached value of the '{@link #getIssues() <em>Issues</em>}' attribute list.
@@ -375,13 +309,13 @@ public class AssuranceTaskImpl extends MinimalEObjectImpl.Container implements A
    * <!-- end-user-doc -->
    * @generated
    */
-  public EList<RequirementCategory> getRequirementFilter()
+  public EList<Category> getFilter()
   {
-    if (requirementFilter == null)
+    if (filter == null)
     {
-      requirementFilter = new EObjectResolvingEList<RequirementCategory>(RequirementCategory.class, this, AlisaPackage.ASSURANCE_TASK__REQUIREMENT_FILTER);
+      filter = new EObjectResolvingEList<Category>(Category.class, this, AlisaPackage.ASSURANCE_TASK__FILTER);
     }
-    return requirementFilter;
+    return filter;
   }
 
   /**
@@ -389,9 +323,9 @@ public class AssuranceTaskImpl extends MinimalEObjectImpl.Container implements A
    * <!-- end-user-doc -->
    * @generated
    */
-  public boolean isStrictRequirementCategories()
+  public boolean isStrictFilter()
   {
-    return strictRequirementCategories;
+    return strictFilter;
   }
 
   /**
@@ -399,86 +333,12 @@ public class AssuranceTaskImpl extends MinimalEObjectImpl.Container implements A
    * <!-- end-user-doc -->
    * @generated
    */
-  public void setStrictRequirementCategories(boolean newStrictRequirementCategories)
+  public void setStrictFilter(boolean newStrictFilter)
   {
-    boolean oldStrictRequirementCategories = strictRequirementCategories;
-    strictRequirementCategories = newStrictRequirementCategories;
+    boolean oldStrictFilter = strictFilter;
+    strictFilter = newStrictFilter;
     if (eNotificationRequired())
-      eNotify(new ENotificationImpl(this, Notification.SET, AlisaPackage.ASSURANCE_TASK__STRICT_REQUIREMENT_CATEGORIES, oldStrictRequirementCategories, strictRequirementCategories));
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public EList<VerificationCategory> getVerificationFilter()
-  {
-    if (verificationFilter == null)
-    {
-      verificationFilter = new EObjectResolvingEList<VerificationCategory>(VerificationCategory.class, this, AlisaPackage.ASSURANCE_TASK__VERIFICATION_FILTER);
-    }
-    return verificationFilter;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public boolean isStrictVerificationCategories()
-  {
-    return strictVerificationCategories;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public void setStrictVerificationCategories(boolean newStrictVerificationCategories)
-  {
-    boolean oldStrictVerificationCategories = strictVerificationCategories;
-    strictVerificationCategories = newStrictVerificationCategories;
-    if (eNotificationRequired())
-      eNotify(new ENotificationImpl(this, Notification.SET, AlisaPackage.ASSURANCE_TASK__STRICT_VERIFICATION_CATEGORIES, oldStrictVerificationCategories, strictVerificationCategories));
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public EList<SelectionCategory> getSelectionFilter()
-  {
-    if (selectionFilter == null)
-    {
-      selectionFilter = new EObjectResolvingEList<SelectionCategory>(SelectionCategory.class, this, AlisaPackage.ASSURANCE_TASK__SELECTION_FILTER);
-    }
-    return selectionFilter;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public boolean isStrictSelectionCategories()
-  {
-    return strictSelectionCategories;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public void setStrictSelectionCategories(boolean newStrictSelectionCategories)
-  {
-    boolean oldStrictSelectionCategories = strictSelectionCategories;
-    strictSelectionCategories = newStrictSelectionCategories;
-    if (eNotificationRequired())
-      eNotify(new ENotificationImpl(this, Notification.SET, AlisaPackage.ASSURANCE_TASK__STRICT_SELECTION_CATEGORIES, oldStrictSelectionCategories, strictSelectionCategories));
+      eNotify(new ENotificationImpl(this, Notification.SET, AlisaPackage.ASSURANCE_TASK__STRICT_FILTER, oldStrictFilter, strictFilter));
   }
 
   /**
@@ -530,18 +390,10 @@ public class AssuranceTaskImpl extends MinimalEObjectImpl.Container implements A
         return basicGetAssurancePlan();
       case AlisaPackage.ASSURANCE_TASK__DESCRIPTION:
         return getDescription();
-      case AlisaPackage.ASSURANCE_TASK__REQUIREMENT_FILTER:
-        return getRequirementFilter();
-      case AlisaPackage.ASSURANCE_TASK__STRICT_REQUIREMENT_CATEGORIES:
-        return isStrictRequirementCategories();
-      case AlisaPackage.ASSURANCE_TASK__VERIFICATION_FILTER:
-        return getVerificationFilter();
-      case AlisaPackage.ASSURANCE_TASK__STRICT_VERIFICATION_CATEGORIES:
-        return isStrictVerificationCategories();
-      case AlisaPackage.ASSURANCE_TASK__SELECTION_FILTER:
-        return getSelectionFilter();
-      case AlisaPackage.ASSURANCE_TASK__STRICT_SELECTION_CATEGORIES:
-        return isStrictSelectionCategories();
+      case AlisaPackage.ASSURANCE_TASK__FILTER:
+        return getFilter();
+      case AlisaPackage.ASSURANCE_TASK__STRICT_FILTER:
+        return isStrictFilter();
       case AlisaPackage.ASSURANCE_TASK__ISSUES:
         return getIssues();
     }
@@ -571,26 +423,12 @@ public class AssuranceTaskImpl extends MinimalEObjectImpl.Container implements A
       case AlisaPackage.ASSURANCE_TASK__DESCRIPTION:
         setDescription((Description)newValue);
         return;
-      case AlisaPackage.ASSURANCE_TASK__REQUIREMENT_FILTER:
-        getRequirementFilter().clear();
-        getRequirementFilter().addAll((Collection<? extends RequirementCategory>)newValue);
+      case AlisaPackage.ASSURANCE_TASK__FILTER:
+        getFilter().clear();
+        getFilter().addAll((Collection<? extends Category>)newValue);
         return;
-      case AlisaPackage.ASSURANCE_TASK__STRICT_REQUIREMENT_CATEGORIES:
-        setStrictRequirementCategories((Boolean)newValue);
-        return;
-      case AlisaPackage.ASSURANCE_TASK__VERIFICATION_FILTER:
-        getVerificationFilter().clear();
-        getVerificationFilter().addAll((Collection<? extends VerificationCategory>)newValue);
-        return;
-      case AlisaPackage.ASSURANCE_TASK__STRICT_VERIFICATION_CATEGORIES:
-        setStrictVerificationCategories((Boolean)newValue);
-        return;
-      case AlisaPackage.ASSURANCE_TASK__SELECTION_FILTER:
-        getSelectionFilter().clear();
-        getSelectionFilter().addAll((Collection<? extends SelectionCategory>)newValue);
-        return;
-      case AlisaPackage.ASSURANCE_TASK__STRICT_SELECTION_CATEGORIES:
-        setStrictSelectionCategories((Boolean)newValue);
+      case AlisaPackage.ASSURANCE_TASK__STRICT_FILTER:
+        setStrictFilter((Boolean)newValue);
         return;
       case AlisaPackage.ASSURANCE_TASK__ISSUES:
         getIssues().clear();
@@ -622,23 +460,11 @@ public class AssuranceTaskImpl extends MinimalEObjectImpl.Container implements A
       case AlisaPackage.ASSURANCE_TASK__DESCRIPTION:
         setDescription((Description)null);
         return;
-      case AlisaPackage.ASSURANCE_TASK__REQUIREMENT_FILTER:
-        getRequirementFilter().clear();
+      case AlisaPackage.ASSURANCE_TASK__FILTER:
+        getFilter().clear();
         return;
-      case AlisaPackage.ASSURANCE_TASK__STRICT_REQUIREMENT_CATEGORIES:
-        setStrictRequirementCategories(STRICT_REQUIREMENT_CATEGORIES_EDEFAULT);
-        return;
-      case AlisaPackage.ASSURANCE_TASK__VERIFICATION_FILTER:
-        getVerificationFilter().clear();
-        return;
-      case AlisaPackage.ASSURANCE_TASK__STRICT_VERIFICATION_CATEGORIES:
-        setStrictVerificationCategories(STRICT_VERIFICATION_CATEGORIES_EDEFAULT);
-        return;
-      case AlisaPackage.ASSURANCE_TASK__SELECTION_FILTER:
-        getSelectionFilter().clear();
-        return;
-      case AlisaPackage.ASSURANCE_TASK__STRICT_SELECTION_CATEGORIES:
-        setStrictSelectionCategories(STRICT_SELECTION_CATEGORIES_EDEFAULT);
+      case AlisaPackage.ASSURANCE_TASK__STRICT_FILTER:
+        setStrictFilter(STRICT_FILTER_EDEFAULT);
         return;
       case AlisaPackage.ASSURANCE_TASK__ISSUES:
         getIssues().clear();
@@ -665,18 +491,10 @@ public class AssuranceTaskImpl extends MinimalEObjectImpl.Container implements A
         return assurancePlan != null;
       case AlisaPackage.ASSURANCE_TASK__DESCRIPTION:
         return description != null;
-      case AlisaPackage.ASSURANCE_TASK__REQUIREMENT_FILTER:
-        return requirementFilter != null && !requirementFilter.isEmpty();
-      case AlisaPackage.ASSURANCE_TASK__STRICT_REQUIREMENT_CATEGORIES:
-        return strictRequirementCategories != STRICT_REQUIREMENT_CATEGORIES_EDEFAULT;
-      case AlisaPackage.ASSURANCE_TASK__VERIFICATION_FILTER:
-        return verificationFilter != null && !verificationFilter.isEmpty();
-      case AlisaPackage.ASSURANCE_TASK__STRICT_VERIFICATION_CATEGORIES:
-        return strictVerificationCategories != STRICT_VERIFICATION_CATEGORIES_EDEFAULT;
-      case AlisaPackage.ASSURANCE_TASK__SELECTION_FILTER:
-        return selectionFilter != null && !selectionFilter.isEmpty();
-      case AlisaPackage.ASSURANCE_TASK__STRICT_SELECTION_CATEGORIES:
-        return strictSelectionCategories != STRICT_SELECTION_CATEGORIES_EDEFAULT;
+      case AlisaPackage.ASSURANCE_TASK__FILTER:
+        return filter != null && !filter.isEmpty();
+      case AlisaPackage.ASSURANCE_TASK__STRICT_FILTER:
+        return strictFilter != STRICT_FILTER_EDEFAULT;
       case AlisaPackage.ASSURANCE_TASK__ISSUES:
         return issues != null && !issues.isEmpty();
     }
@@ -698,12 +516,8 @@ public class AssuranceTaskImpl extends MinimalEObjectImpl.Container implements A
     result.append(name);
     result.append(", title: ");
     result.append(title);
-    result.append(", strictRequirementCategories: ");
-    result.append(strictRequirementCategories);
-    result.append(", strictVerificationCategories: ");
-    result.append(strictVerificationCategories);
-    result.append(", strictSelectionCategories: ");
-    result.append(strictSelectionCategories);
+    result.append(", strictFilter: ");
+    result.append(strictFilter);
     result.append(", issues: ");
     result.append(issues);
     result.append(')');

@@ -15,7 +15,7 @@ import org.osate.alisa.common.common.Description;
 import org.osate.alisa.common.common.Rationale;
 import org.osate.alisa.common.common.Uncertainty;
 
-import org.osate.categories.categories.RequirementCategory;
+import org.osate.categories.categories.Category;
 
 /**
  * <!-- begin-user-doc -->
@@ -182,7 +182,7 @@ public interface ContractualElement extends EObject
 
   /**
    * Returns the value of the '<em><b>Category</b></em>' reference list.
-   * The list contents are of type {@link org.osate.categories.categories.RequirementCategory}.
+   * The list contents are of type {@link org.osate.categories.categories.Category}.
    * <!-- begin-user-doc -->
    * <p>
    * If the meaning of the '<em>Category</em>' reference list isn't clear,
@@ -194,7 +194,7 @@ public interface ContractualElement extends EObject
    * @model
    * @generated
    */
-  EList<RequirementCategory> getCategory();
+  EList<Category> getCategory();
 
   /**
    * Returns the value of the '<em><b>Description</b></em>' containment reference.

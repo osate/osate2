@@ -40,21 +40,21 @@ public class CategoriesParser extends AbstractContentAssistParser {
 					put(grammarAccess.getCategoriesAccess().getAlternatives(), "rule__Categories__Alternatives");
 					put(grammarAccess.getCategoryAccess().getAlternatives(), "rule__Category__Alternatives");
 					put(grammarAccess.getRequirementCategoriesAccess().getGroup(), "rule__RequirementCategories__Group__0");
-					put(grammarAccess.getVerificationCategoriesAccess().getGroup(), "rule__VerificationCategories__Group__0");
+					put(grammarAccess.getMethodCategoriesAccess().getGroup(), "rule__MethodCategories__Group__0");
 					put(grammarAccess.getSelectionCategoriesAccess().getGroup(), "rule__SelectionCategories__Group__0");
 					put(grammarAccess.getRequirementCategoryAccess().getGroup(), "rule__RequirementCategory__Group__0");
 					put(grammarAccess.getRequirementCategoryAccess().getGroup_1(), "rule__RequirementCategory__Group_1__0");
-					put(grammarAccess.getVerificationCategoryAccess().getGroup(), "rule__VerificationCategory__Group__0");
-					put(grammarAccess.getVerificationCategoryAccess().getGroup_1(), "rule__VerificationCategory__Group_1__0");
+					put(grammarAccess.getMethodCategoryAccess().getGroup(), "rule__MethodCategory__Group__0");
+					put(grammarAccess.getMethodCategoryAccess().getGroup_1(), "rule__MethodCategory__Group_1__0");
 					put(grammarAccess.getSelectionCategoryAccess().getGroup(), "rule__SelectionCategory__Group__0");
 					put(grammarAccess.getSelectionCategoryAccess().getGroup_1(), "rule__SelectionCategory__Group_1__0");
 					put(grammarAccess.getRequirementCategoriesAccess().getCategoryAssignment_3(), "rule__RequirementCategories__CategoryAssignment_3");
-					put(grammarAccess.getVerificationCategoriesAccess().getCategoryAssignment_3(), "rule__VerificationCategories__CategoryAssignment_3");
+					put(grammarAccess.getMethodCategoriesAccess().getCategoryAssignment_3(), "rule__MethodCategories__CategoryAssignment_3");
 					put(grammarAccess.getSelectionCategoriesAccess().getCategoryAssignment_3(), "rule__SelectionCategories__CategoryAssignment_3");
 					put(grammarAccess.getRequirementCategoryAccess().getNameAssignment_0(), "rule__RequirementCategory__NameAssignment_0");
 					put(grammarAccess.getRequirementCategoryAccess().getSubCategoriesAssignment_1_1(), "rule__RequirementCategory__SubCategoriesAssignment_1_1");
-					put(grammarAccess.getVerificationCategoryAccess().getNameAssignment_0(), "rule__VerificationCategory__NameAssignment_0");
-					put(grammarAccess.getVerificationCategoryAccess().getSubCategoriesAssignment_1_1(), "rule__VerificationCategory__SubCategoriesAssignment_1_1");
+					put(grammarAccess.getMethodCategoryAccess().getNameAssignment_0(), "rule__MethodCategory__NameAssignment_0");
+					put(grammarAccess.getMethodCategoryAccess().getSubCategoriesAssignment_1_1(), "rule__MethodCategory__SubCategoriesAssignment_1_1");
 					put(grammarAccess.getSelectionCategoryAccess().getNameAssignment_0(), "rule__SelectionCategory__NameAssignment_0");
 					put(grammarAccess.getSelectionCategoryAccess().getSubCategoriesAssignment_1_1(), "rule__SelectionCategory__SubCategoriesAssignment_1_1");
 				}

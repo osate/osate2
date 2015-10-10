@@ -6,8 +6,6 @@ package org.osate.alisa.workbench.generator
 import com.google.inject.Inject
 import java.util.Collections
 import java.util.List
-import org.eclipse.emf.common.util.EList
-import org.eclipse.emf.common.util.UniqueEList
 import org.eclipse.emf.ecore.resource.Resource
 import org.eclipse.xtext.generator.IFileSystemAccess
 import org.eclipse.xtext.generator.IGenerator
@@ -15,12 +13,14 @@ import org.eclipse.xtext.naming.IQualifiedNameProvider
 import org.osate.aadl2.ComponentClassifier
 import org.osate.aadl2.ComponentImplementation
 import org.osate.aadl2.ComponentType
+import org.osate.aadl2.Subcomponent
+import org.osate.aadl2.util.Aadl2Util
 import org.osate.alisa.workbench.alisa.AlisaWorkArea
 import org.osate.alisa.workbench.alisa.AssurancePlan
 import org.osate.alisa.workbench.alisa.AssuranceTask
+import org.osate.categories.categories.MethodCategory
 import org.osate.categories.categories.RequirementCategory
 import org.osate.categories.categories.SelectionCategory
-import org.osate.categories.categories.VerificationCategory
 import org.osate.verify.util.IVerifyGlobalReferenceFinder
 import org.osate.verify.verify.AllExpr
 import org.osate.verify.verify.ArgumentExpr
@@ -35,10 +35,8 @@ import org.osate.verify.verify.VerificationPrecondition
 import org.osate.verify.verify.VerificationValidation
 
 import static extension org.osate.alisa.common.util.CommonUtilExtension.*
-import static extension org.osate.alisa.workbench.util.AlisaWorkbenchUtilExtension.*
 import static extension org.osate.verify.util.VerifyUtilExtension.*
-import org.osate.aadl2.Subcomponent
-import org.osate.aadl2.util.Aadl2Util
+import org.osate.categories.categories.Category
 
 /**
  * Generates code from your model files on save.
@@ -59,34 +57,22 @@ class AlisaGenerator implements IGenerator {
 
 	@Inject extension IQualifiedNameProvider qualifiedNameProvider
 	
-	var List<SelectionCategory> selectionFilter = Collections.EMPTY_LIST
-	var List<RequirementCategory> requirementFilter = Collections.EMPTY_LIST
-	var List<VerificationCategory> verificationFilter = Collections.EMPTY_LIST
-	var boolean strictSelectionCategories = false
-	var boolean strictRequirementCategories = false
-	var boolean strictVerificationCategories = false
+	var List<Category> filter = Collections.EMPTY_LIST
+	var boolean strictFilter = false
 	
 	var AssurancePlan rootAssuranceCase;
 	
 	def generateAssuranceTask(AssuranceTask at){
-		selectionFilter = at.selectionFilter
-		requirementFilter = at.requirementFilter
-		verificationFilter = at.verificationFilter
-		strictSelectionCategories = at.strictSelectionCategories
-		strictRequirementCategories = at.strictRequirementCategories
-		strictVerificationCategories = at.strictVerificationCategories
+		filter = at.filter
+		strictFilter = at.strictFilter
 		at.assurancePlan?.generateRootCase
 	}
 	
 	var Iterable<VerificationPlan> allPlans = null
 
 	def generateFullRootCase(AssurancePlan acp) {
-		selectionFilter = Collections.EMPTY_LIST
-		requirementFilter = Collections.EMPTY_LIST
-		verificationFilter = Collections.EMPTY_LIST
-		strictSelectionCategories = false
-		strictRequirementCategories = false
-		strictVerificationCategories = false
+		filter = Collections.EMPTY_LIST
+		strictFilter = false
 		generateRootCase(acp)
 	}
 
@@ -187,14 +173,14 @@ class AlisaGenerator implements IGenerator {
 		'''
 		«FOR myplan : myplans»
 		«FOR claim : myplan.claim»
-		«IF claim.evaluateRequirementFilter(requirementFilter,strictRequirementCategories)»
+		«IF claim.evaluateRequirementFilter(filter,strictFilter)»
 		«claim.generate()»
 		«ENDIF»
 		«ENDFOR»
 		«ENDFOR»
 		«FOR myplan : allPlans»
 		«FOR claim : (myplan as VerificationPlan).claim»
-		«IF claim.evaluateRequirementFilter(requirementFilter,strictRequirementCategories)»
+		«IF claim.evaluateRequirementFilter(filter,strictFilter)»
 			«claim.generate()»
 		«ENDIF»
 		«ENDFOR»
@@ -281,7 +267,7 @@ class AlisaGenerator implements IGenerator {
 
 	def doGenerate(VerificationActivity va) {
 		'''
-			«IF va.evaluateSelectionFilter(selectionFilter,strictSelectionCategories) && va.evaluateVerificationFilter(verificationFilter,strictVerificationCategories) »
+			«IF va.evaluateSelectionFilter(filter,strictFilter) && va.evaluateVerificationFilter(filter,strictFilter) »
 			verification «va.fullyQualifiedName»
 			[
 				executionstate todo

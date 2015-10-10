@@ -29,6 +29,7 @@
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Verify.ecore#//Claim/subclaim"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Verify.ecore#//Claim/issues"/>
     </genClasses>
+    <genClasses ecoreClass="Verify.ecore#//ArgumentExpr"/>
     <genClasses ecoreClass="Verify.ecore#//VerificationActivity">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Verify.ecore#//VerificationActivity/name"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Verify.ecore#//VerificationActivity/title"/>
@@ -40,7 +41,16 @@
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference Verify.ecore#//VerificationActivity/condition"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Verify.ecore#//VerificationActivity/timeout"/>
     </genClasses>
-    <genClasses ecoreClass="Verify.ecore#//ArgumentExpr"/>
+    <genClasses ecoreClass="Verify.ecore#//VerificationCondition">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Verify.ecore#//VerificationCondition/name"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Verify.ecore#//VerificationCondition/title"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Verify.ecore#//VerificationCondition/description"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference Verify.ecore#//VerificationCondition/method"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference Verify.ecore#//VerificationCondition/parameters"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference Verify.ecore#//VerificationCondition/propertyValues"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Verify.ecore#//VerificationCondition/timeout"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Verify.ecore#//VerificationCondition/rationale"/>
+    </genClasses>
     <genClasses ecoreClass="Verify.ecore#//VerificationMethodRegistry">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Verify.ecore#//VerificationMethodRegistry/name"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Verify.ecore#//VerificationMethodRegistry/title"/>
@@ -71,16 +81,6 @@
     </genClasses>
     <genClasses ecoreClass="Verify.ecore#//PluginMethod">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Verify.ecore#//PluginMethod/methodID"/>
-    </genClasses>
-    <genClasses ecoreClass="Verify.ecore#//VerificationCondition">
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Verify.ecore#//VerificationCondition/name"/>
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Verify.ecore#//VerificationCondition/title"/>
-      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Verify.ecore#//VerificationCondition/description"/>
-      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference Verify.ecore#//VerificationCondition/method"/>
-      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference Verify.ecore#//VerificationCondition/parameters"/>
-      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference Verify.ecore#//VerificationCondition/propertyValues"/>
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Verify.ecore#//VerificationCondition/timeout"/>
-      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Verify.ecore#//VerificationCondition/rationale"/>
     </genClasses>
     <genClasses ecoreClass="Verify.ecore#//ThenExpr">
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Verify.ecore#//ThenExpr/left"/>

@@ -15,23 +15,23 @@ import org.eclipse.emf.ecore.util.EObjectContainmentEList;
 import org.eclipse.emf.ecore.util.InternalEList;
 
 import org.osate.categories.categories.CategoriesPackage;
-import org.osate.categories.categories.VerificationCategories;
-import org.osate.categories.categories.VerificationCategory;
+import org.osate.categories.categories.MethodCategories;
+import org.osate.categories.categories.MethodCategory;
 
 /**
  * <!-- begin-user-doc -->
- * An implementation of the model object '<em><b>Verification Categories</b></em>'.
+ * An implementation of the model object '<em><b>Method Categories</b></em>'.
  * <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
  * <ul>
- *   <li>{@link org.osate.categories.categories.impl.VerificationCategoriesImpl#getCategory <em>Category</em>}</li>
+ *   <li>{@link org.osate.categories.categories.impl.MethodCategoriesImpl#getCategory <em>Category</em>}</li>
  * </ul>
  * </p>
  *
  * @generated
  */
-public class VerificationCategoriesImpl extends CategoriesImpl implements VerificationCategories
+public class MethodCategoriesImpl extends CategoriesImpl implements MethodCategories
 {
   /**
    * The cached value of the '{@link #getCategory() <em>Category</em>}' containment reference list.
@@ -41,14 +41,14 @@ public class VerificationCategoriesImpl extends CategoriesImpl implements Verifi
    * @generated
    * @ordered
    */
-  protected EList<VerificationCategory> category;
+  protected EList<MethodCategory> category;
 
   /**
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    */
-  protected VerificationCategoriesImpl()
+  protected MethodCategoriesImpl()
   {
     super();
   }
@@ -61,7 +61,7 @@ public class VerificationCategoriesImpl extends CategoriesImpl implements Verifi
   @Override
   protected EClass eStaticClass()
   {
-    return CategoriesPackage.Literals.VERIFICATION_CATEGORIES;
+    return CategoriesPackage.Literals.METHOD_CATEGORIES;
   }
 
   /**
@@ -69,11 +69,11 @@ public class VerificationCategoriesImpl extends CategoriesImpl implements Verifi
    * <!-- end-user-doc -->
    * @generated
    */
-  public EList<VerificationCategory> getCategory()
+  public EList<MethodCategory> getCategory()
   {
     if (category == null)
     {
-      category = new EObjectContainmentEList<VerificationCategory>(VerificationCategory.class, this, CategoriesPackage.VERIFICATION_CATEGORIES__CATEGORY);
+      category = new EObjectContainmentEList<MethodCategory>(MethodCategory.class, this, CategoriesPackage.METHOD_CATEGORIES__CATEGORY);
     }
     return category;
   }
@@ -88,7 +88,7 @@ public class VerificationCategoriesImpl extends CategoriesImpl implements Verifi
   {
     switch (featureID)
     {
-      case CategoriesPackage.VERIFICATION_CATEGORIES__CATEGORY:
+      case CategoriesPackage.METHOD_CATEGORIES__CATEGORY:
         return ((InternalEList<?>)getCategory()).basicRemove(otherEnd, msgs);
     }
     return super.eInverseRemove(otherEnd, featureID, msgs);
@@ -104,7 +104,7 @@ public class VerificationCategoriesImpl extends CategoriesImpl implements Verifi
   {
     switch (featureID)
     {
-      case CategoriesPackage.VERIFICATION_CATEGORIES__CATEGORY:
+      case CategoriesPackage.METHOD_CATEGORIES__CATEGORY:
         return getCategory();
     }
     return super.eGet(featureID, resolve, coreType);
@@ -121,9 +121,9 @@ public class VerificationCategoriesImpl extends CategoriesImpl implements Verifi
   {
     switch (featureID)
     {
-      case CategoriesPackage.VERIFICATION_CATEGORIES__CATEGORY:
+      case CategoriesPackage.METHOD_CATEGORIES__CATEGORY:
         getCategory().clear();
-        getCategory().addAll((Collection<? extends VerificationCategory>)newValue);
+        getCategory().addAll((Collection<? extends MethodCategory>)newValue);
         return;
     }
     super.eSet(featureID, newValue);
@@ -139,7 +139,7 @@ public class VerificationCategoriesImpl extends CategoriesImpl implements Verifi
   {
     switch (featureID)
     {
-      case CategoriesPackage.VERIFICATION_CATEGORIES__CATEGORY:
+      case CategoriesPackage.METHOD_CATEGORIES__CATEGORY:
         getCategory().clear();
         return;
     }
@@ -156,10 +156,10 @@ public class VerificationCategoriesImpl extends CategoriesImpl implements Verifi
   {
     switch (featureID)
     {
-      case CategoriesPackage.VERIFICATION_CATEGORIES__CATEGORY:
+      case CategoriesPackage.METHOD_CATEGORIES__CATEGORY:
         return category != null && !category.isEmpty();
     }
     return super.eIsSet(featureID);
   }
 
-} //VerificationCategoriesImpl
+} //MethodCategoriesImpl

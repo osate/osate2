@@ -67,8 +67,9 @@ public class VerifyFactoryImpl extends EFactoryImpl implements VerifyFactory
       case VerifyPackage.VERIFICATION: return createVerification();
       case VerifyPackage.VERIFICATION_PLAN: return createVerificationPlan();
       case VerifyPackage.CLAIM: return createClaim();
-      case VerifyPackage.VERIFICATION_ACTIVITY: return createVerificationActivity();
       case VerifyPackage.ARGUMENT_EXPR: return createArgumentExpr();
+      case VerifyPackage.VERIFICATION_ACTIVITY: return createVerificationActivity();
+      case VerifyPackage.VERIFICATION_CONDITION: return createVerificationCondition();
       case VerifyPackage.VERIFICATION_METHOD_REGISTRY: return createVerificationMethodRegistry();
       case VerifyPackage.VERIFICATION_METHOD: return createVerificationMethod();
       case VerifyPackage.METHOD_TYPE: return createMethodType();
@@ -76,7 +77,6 @@ public class VerifyFactoryImpl extends EFactoryImpl implements VerifyFactory
       case VerifyPackage.JAVA_METHOD: return createJavaMethod();
       case VerifyPackage.MANUAL_METHOD: return createManualMethod();
       case VerifyPackage.PLUGIN_METHOD: return createPluginMethod();
-      case VerifyPackage.VERIFICATION_CONDITION: return createVerificationCondition();
       case VerifyPackage.THEN_EXPR: return createThenExpr();
       case VerifyPackage.ELSE_EXPR: return createElseExpr();
       case VerifyPackage.ALL_EXPR: return createAllExpr();
@@ -126,6 +126,17 @@ public class VerifyFactoryImpl extends EFactoryImpl implements VerifyFactory
    * <!-- end-user-doc -->
    * @generated
    */
+  public ArgumentExpr createArgumentExpr()
+  {
+    ArgumentExprImpl argumentExpr = new ArgumentExprImpl();
+    return argumentExpr;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
   public VerificationActivity createVerificationActivity()
   {
     VerificationActivityImpl verificationActivity = new VerificationActivityImpl();
@@ -137,10 +148,10 @@ public class VerifyFactoryImpl extends EFactoryImpl implements VerifyFactory
    * <!-- end-user-doc -->
    * @generated
    */
-  public ArgumentExpr createArgumentExpr()
+  public VerificationCondition createVerificationCondition()
   {
-    ArgumentExprImpl argumentExpr = new ArgumentExprImpl();
-    return argumentExpr;
+    VerificationConditionImpl verificationCondition = new VerificationConditionImpl();
+    return verificationCondition;
   }
 
   /**
@@ -218,17 +229,6 @@ public class VerifyFactoryImpl extends EFactoryImpl implements VerifyFactory
   {
     PluginMethodImpl pluginMethod = new PluginMethodImpl();
     return pluginMethod;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public VerificationCondition createVerificationCondition()
-  {
-    VerificationConditionImpl verificationCondition = new VerificationConditionImpl();
-    return verificationCondition;
   }
 
   /**

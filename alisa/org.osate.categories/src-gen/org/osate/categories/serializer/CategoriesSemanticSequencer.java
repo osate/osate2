@@ -14,12 +14,12 @@ import org.eclipse.xtext.serializer.sequencer.GenericSequencer;
 import org.eclipse.xtext.serializer.sequencer.ISemanticSequencer;
 import org.eclipse.xtext.serializer.sequencer.ITransientValueService;
 import org.osate.categories.categories.CategoriesPackage;
+import org.osate.categories.categories.MethodCategories;
+import org.osate.categories.categories.MethodCategory;
 import org.osate.categories.categories.RequirementCategories;
 import org.osate.categories.categories.RequirementCategory;
 import org.osate.categories.categories.SelectionCategories;
 import org.osate.categories.categories.SelectionCategory;
-import org.osate.categories.categories.VerificationCategories;
-import org.osate.categories.categories.VerificationCategory;
 import org.osate.categories.services.CategoriesGrammarAccess;
 
 @SuppressWarnings("all")
@@ -31,6 +31,12 @@ public class CategoriesSemanticSequencer extends AbstractDelegatingSemanticSeque
 	@Override
 	public void createSequence(EObject context, EObject semanticObject) {
 		if(semanticObject.eClass().getEPackage() == CategoriesPackage.eINSTANCE) switch(semanticObject.eClass().getClassifierID()) {
+			case CategoriesPackage.METHOD_CATEGORIES:
+				sequence_MethodCategories(context, (MethodCategories) semanticObject); 
+				return; 
+			case CategoriesPackage.METHOD_CATEGORY:
+				sequence_MethodCategory(context, (MethodCategory) semanticObject); 
+				return; 
 			case CategoriesPackage.REQUIREMENT_CATEGORIES:
 				sequence_RequirementCategories(context, (RequirementCategories) semanticObject); 
 				return; 
@@ -43,15 +49,27 @@ public class CategoriesSemanticSequencer extends AbstractDelegatingSemanticSeque
 			case CategoriesPackage.SELECTION_CATEGORY:
 				sequence_SelectionCategory(context, (SelectionCategory) semanticObject); 
 				return; 
-			case CategoriesPackage.VERIFICATION_CATEGORIES:
-				sequence_VerificationCategories(context, (VerificationCategories) semanticObject); 
-				return; 
-			case CategoriesPackage.VERIFICATION_CATEGORY:
-				sequence_VerificationCategory(context, (VerificationCategory) semanticObject); 
-				return; 
 			}
 		if (errorAcceptor != null) errorAcceptor.accept(diagnosticProvider.createInvalidContextOrTypeDiagnostic(semanticObject, context));
 	}
+	
+	/**
+	 * Constraint:
+	 *     category+=MethodCategory+
+	 */
+	protected void sequence_MethodCategories(EObject context, MethodCategories semanticObject) {
+		genericSequencer.createSequence(context, semanticObject);
+	}
+	
+	
+	/**
+	 * Constraint:
+	 *     (name=ID subCategories+=[MethodCategory|CatRef]*)
+	 */
+	protected void sequence_MethodCategory(EObject context, MethodCategory semanticObject) {
+		genericSequencer.createSequence(context, semanticObject);
+	}
+	
 	
 	/**
 	 * Constraint:
@@ -85,24 +103,6 @@ public class CategoriesSemanticSequencer extends AbstractDelegatingSemanticSeque
 	 *     (name=ID subCategories+=[SelectionCategory|CatRef]*)
 	 */
 	protected void sequence_SelectionCategory(EObject context, SelectionCategory semanticObject) {
-		genericSequencer.createSequence(context, semanticObject);
-	}
-	
-	
-	/**
-	 * Constraint:
-	 *     category+=VerificationCategory+
-	 */
-	protected void sequence_VerificationCategories(EObject context, VerificationCategories semanticObject) {
-		genericSequencer.createSequence(context, semanticObject);
-	}
-	
-	
-	/**
-	 * Constraint:
-	 *     (name=ID subCategories+=[VerificationCategory|CatRef]*)
-	 */
-	protected void sequence_VerificationCategory(EObject context, VerificationCategory semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
 	}
 }

@@ -6,25 +6,25 @@ import org.eclipse.emf.common.util.EList;
 
 /**
  * <!-- begin-user-doc -->
- * A representation of the model object '<em><b>Verification Categories</b></em>'.
+ * A representation of the model object '<em><b>Method Categories</b></em>'.
  * <!-- end-user-doc -->
  *
  * <p>
  * The following features are supported:
  * <ul>
- *   <li>{@link org.osate.categories.categories.VerificationCategories#getCategory <em>Category</em>}</li>
+ *   <li>{@link org.osate.categories.categories.MethodCategories#getCategory <em>Category</em>}</li>
  * </ul>
  * </p>
  *
- * @see org.osate.categories.categories.CategoriesPackage#getVerificationCategories()
+ * @see org.osate.categories.categories.CategoriesPackage#getMethodCategories()
  * @model
  * @generated
  */
-public interface VerificationCategories extends Categories
+public interface MethodCategories extends Categories
 {
   /**
    * Returns the value of the '<em><b>Category</b></em>' containment reference list.
-   * The list contents are of type {@link org.osate.categories.categories.VerificationCategory}.
+   * The list contents are of type {@link org.osate.categories.categories.MethodCategory}.
    * <!-- begin-user-doc -->
    * <p>
    * If the meaning of the '<em>Category</em>' containment reference list isn't clear,
@@ -32,10 +32,10 @@ public interface VerificationCategories extends Categories
    * </p>
    * <!-- end-user-doc -->
    * @return the value of the '<em>Category</em>' containment reference list.
-   * @see org.osate.categories.categories.CategoriesPackage#getVerificationCategories_Category()
+   * @see org.osate.categories.categories.CategoriesPackage#getMethodCategories_Category()
    * @model containment="true"
    * @generated
    */
-  EList<VerificationCategory> getCategory();
+  EList<MethodCategory> getCategory();
 
-} // VerificationCategories
+} // MethodCategories

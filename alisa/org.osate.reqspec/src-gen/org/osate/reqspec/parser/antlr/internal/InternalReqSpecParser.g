@@ -1454,7 +1454,7 @@ ruleDocGoal returns [EObject current=null]
         }
 	otherlv_11=RULE_ID
 	{
-		newLeafNode(otherlv_11, grammarAccess.getDocGoalAccess().getCategoryRequirementCategoryCrossReference_5_0_1_0()); 
+		newLeafNode(otherlv_11, grammarAccess.getDocGoalAccess().getCategoryCategoryCrossReference_5_0_1_0()); 
 	}
 
 )
@@ -2011,7 +2011,7 @@ ruleGoal returns [EObject current=null]
         }
 	otherlv_9=RULE_ID
 	{
-		newLeafNode(otherlv_9, grammarAccess.getGoalAccess().getCategoryRequirementCategoryCrossReference_5_0_1_0()); 
+		newLeafNode(otherlv_9, grammarAccess.getGoalAccess().getCategoryCategoryCrossReference_5_0_1_0()); 
 	}
 
 )
@@ -2568,7 +2568,7 @@ ruleRequirement returns [EObject current=null]
         }
 	otherlv_9=RULE_ID
 	{
-		newLeafNode(otherlv_9, grammarAccess.getRequirementAccess().getCategoryRequirementCategoryCrossReference_5_0_1_0()); 
+		newLeafNode(otherlv_9, grammarAccess.getRequirementAccess().getCategoryCategoryCrossReference_5_0_1_0()); 
 	}
 
 )
@@ -3347,7 +3347,7 @@ ruleDocRequirement returns [EObject current=null]
         }
 	otherlv_11=RULE_ID
 	{
-		newLeafNode(otherlv_11, grammarAccess.getDocRequirementAccess().getCategoryRequirementCategoryCrossReference_5_0_1_0()); 
+		newLeafNode(otherlv_11, grammarAccess.getDocRequirementAccess().getCategoryCategoryCrossReference_5_0_1_0()); 
 	}
 
 )

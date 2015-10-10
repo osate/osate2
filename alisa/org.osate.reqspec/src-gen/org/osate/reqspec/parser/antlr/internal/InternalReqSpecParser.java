@@ -4184,7 +4184,7 @@ public class InternalReqSpecParser extends AbstractInternalAntlrParser {
             	    	    otherlv_11=(Token)match(input,RULE_ID,FollowSets000.FOLLOW_RULE_ID_in_ruleDocGoal3113); if (state.failed) return current;
             	    	    if ( state.backtracking==0 ) {
 
-            	    	      		newLeafNode(otherlv_11, grammarAccess.getDocGoalAccess().getCategoryRequirementCategoryCrossReference_5_0_1_0()); 
+            	    	      		newLeafNode(otherlv_11, grammarAccess.getDocGoalAccess().getCategoryCategoryCrossReference_5_0_1_0()); 
             	    	      	
             	    	    }
 
@@ -5733,7 +5733,7 @@ public class InternalReqSpecParser extends AbstractInternalAntlrParser {
             	    	    otherlv_9=(Token)match(input,RULE_ID,FollowSets000.FOLLOW_RULE_ID_in_ruleGoal4532); if (state.failed) return current;
             	    	    if ( state.backtracking==0 ) {
 
-            	    	      		newLeafNode(otherlv_9, grammarAccess.getGoalAccess().getCategoryRequirementCategoryCrossReference_5_0_1_0()); 
+            	    	      		newLeafNode(otherlv_9, grammarAccess.getGoalAccess().getCategoryCategoryCrossReference_5_0_1_0()); 
             	    	      	
             	    	    }
 
@@ -7294,7 +7294,7 @@ public class InternalReqSpecParser extends AbstractInternalAntlrParser {
             	    	    otherlv_9=(Token)match(input,RULE_ID,FollowSets000.FOLLOW_RULE_ID_in_ruleRequirement5951); if (state.failed) return current;
             	    	    if ( state.backtracking==0 ) {
 
-            	    	      		newLeafNode(otherlv_9, grammarAccess.getRequirementAccess().getCategoryRequirementCategoryCrossReference_5_0_1_0()); 
+            	    	      		newLeafNode(otherlv_9, grammarAccess.getRequirementAccess().getCategoryCategoryCrossReference_5_0_1_0()); 
             	    	      	
             	    	    }
 
@@ -9498,7 +9498,7 @@ public class InternalReqSpecParser extends AbstractInternalAntlrParser {
             	    	    otherlv_11=(Token)match(input,RULE_ID,FollowSets000.FOLLOW_RULE_ID_in_ruleDocRequirement7915); if (state.failed) return current;
             	    	    if ( state.backtracking==0 ) {
 
-            	    	      		newLeafNode(otherlv_11, grammarAccess.getDocRequirementAccess().getCategoryRequirementCategoryCrossReference_5_0_1_0()); 
+            	    	      		newLeafNode(otherlv_11, grammarAccess.getDocRequirementAccess().getCategoryCategoryCrossReference_5_0_1_0()); 
             	    	      	
             	    	    }
 

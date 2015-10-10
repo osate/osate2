@@ -3,41 +3,6 @@
  */
 package org.osate.assure.generator
 
-import com.google.inject.Inject
-import java.util.Collections
-import java.util.List
-import org.eclipse.emf.common.util.UniqueEList
-import org.osate.aadl2.ComponentClassifier
-import org.osate.aadl2.ComponentImplementation
-import org.osate.aadl2.ComponentType
-import org.osate.alisa.workbench.alisa.AssurancePlan
-import org.osate.alisa.workbench.alisa.AssuranceTask
-import org.osate.assure.assure.AssuranceCase
-import org.osate.assure.assure.AssureFactory
-import org.osate.assure.assure.ClaimResult
-import org.osate.assure.assure.VerificationExecutionState
-import org.osate.assure.assure.VerificationExpr
-import org.osate.assure.assure.VerificationResult
-import org.osate.assure.assure.VerificationResultState
-import org.osate.categories.categories.RequirementCategory
-import org.osate.categories.categories.SelectionCategory
-import org.osate.categories.categories.VerificationCategory
-import org.osate.verify.util.IVerifyGlobalReferenceFinder
-import org.osate.verify.verify.AllExpr
-import org.osate.verify.verify.ArgumentExpr
-import org.osate.verify.verify.Claim
-import org.osate.verify.verify.ElseExpr
-import org.osate.verify.verify.RefExpr
-import org.osate.verify.verify.ThenExpr
-import org.osate.verify.verify.VerificationActivity
-import org.osate.verify.verify.VerificationCondition
-import org.osate.verify.verify.VerificationPlan
-import org.osate.verify.verify.VerificationPrecondition
-import org.osate.verify.verify.VerificationValidation
-
-import static extension org.osate.alisa.common.util.CommonUtilExtension.*
-import static extension org.osate.verify.util.VerifyUtilExtension.*
-
 /**
  * Generates code from your model files on save.
  * 

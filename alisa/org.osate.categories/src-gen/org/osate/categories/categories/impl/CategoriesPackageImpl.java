@@ -13,12 +13,12 @@ import org.osate.categories.categories.Categories;
 import org.osate.categories.categories.CategoriesFactory;
 import org.osate.categories.categories.CategoriesPackage;
 import org.osate.categories.categories.Category;
+import org.osate.categories.categories.MethodCategories;
+import org.osate.categories.categories.MethodCategory;
 import org.osate.categories.categories.RequirementCategories;
 import org.osate.categories.categories.RequirementCategory;
 import org.osate.categories.categories.SelectionCategories;
 import org.osate.categories.categories.SelectionCategory;
-import org.osate.categories.categories.VerificationCategories;
-import org.osate.categories.categories.VerificationCategory;
 
 /**
  * <!-- begin-user-doc -->
@@ -47,7 +47,7 @@ public class CategoriesPackageImpl extends EPackageImpl implements CategoriesPac
    * <!-- end-user-doc -->
    * @generated
    */
-  private EClass verificationCategoriesEClass = null;
+  private EClass methodCategoriesEClass = null;
 
   /**
    * <!-- begin-user-doc -->
@@ -75,7 +75,7 @@ public class CategoriesPackageImpl extends EPackageImpl implements CategoriesPac
    * <!-- end-user-doc -->
    * @generated
    */
-  private EClass verificationCategoryEClass = null;
+  private EClass methodCategoryEClass = null;
 
   /**
    * <!-- begin-user-doc -->
@@ -182,9 +182,9 @@ public class CategoriesPackageImpl extends EPackageImpl implements CategoriesPac
    * <!-- end-user-doc -->
    * @generated
    */
-  public EClass getVerificationCategories()
+  public EClass getMethodCategories()
   {
-    return verificationCategoriesEClass;
+    return methodCategoriesEClass;
   }
 
   /**
@@ -192,9 +192,9 @@ public class CategoriesPackageImpl extends EPackageImpl implements CategoriesPac
    * <!-- end-user-doc -->
    * @generated
    */
-  public EReference getVerificationCategories_Category()
+  public EReference getMethodCategories_Category()
   {
-    return (EReference)verificationCategoriesEClass.getEStructuralFeatures().get(0);
+    return (EReference)methodCategoriesEClass.getEStructuralFeatures().get(0);
   }
 
   /**
@@ -262,9 +262,9 @@ public class CategoriesPackageImpl extends EPackageImpl implements CategoriesPac
    * <!-- end-user-doc -->
    * @generated
    */
-  public EClass getVerificationCategory()
+  public EClass getMethodCategory()
   {
-    return verificationCategoryEClass;
+    return methodCategoryEClass;
   }
 
   /**
@@ -272,9 +272,9 @@ public class CategoriesPackageImpl extends EPackageImpl implements CategoriesPac
    * <!-- end-user-doc -->
    * @generated
    */
-  public EReference getVerificationCategory_SubCategories()
+  public EReference getMethodCategory_SubCategories()
   {
-    return (EReference)verificationCategoryEClass.getEStructuralFeatures().get(0);
+    return (EReference)methodCategoryEClass.getEStructuralFeatures().get(0);
   }
 
   /**
@@ -332,8 +332,8 @@ public class CategoriesPackageImpl extends EPackageImpl implements CategoriesPac
     requirementCategoriesEClass = createEClass(REQUIREMENT_CATEGORIES);
     createEReference(requirementCategoriesEClass, REQUIREMENT_CATEGORIES__CATEGORY);
 
-    verificationCategoriesEClass = createEClass(VERIFICATION_CATEGORIES);
-    createEReference(verificationCategoriesEClass, VERIFICATION_CATEGORIES__CATEGORY);
+    methodCategoriesEClass = createEClass(METHOD_CATEGORIES);
+    createEReference(methodCategoriesEClass, METHOD_CATEGORIES__CATEGORY);
 
     selectionCategoriesEClass = createEClass(SELECTION_CATEGORIES);
     createEReference(selectionCategoriesEClass, SELECTION_CATEGORIES__CATEGORY);
@@ -344,8 +344,8 @@ public class CategoriesPackageImpl extends EPackageImpl implements CategoriesPac
     requirementCategoryEClass = createEClass(REQUIREMENT_CATEGORY);
     createEReference(requirementCategoryEClass, REQUIREMENT_CATEGORY__SUB_CATEGORIES);
 
-    verificationCategoryEClass = createEClass(VERIFICATION_CATEGORY);
-    createEReference(verificationCategoryEClass, VERIFICATION_CATEGORY__SUB_CATEGORIES);
+    methodCategoryEClass = createEClass(METHOD_CATEGORY);
+    createEReference(methodCategoryEClass, METHOD_CATEGORY__SUB_CATEGORIES);
 
     selectionCategoryEClass = createEClass(SELECTION_CATEGORY);
     createEReference(selectionCategoryEClass, SELECTION_CATEGORY__SUB_CATEGORIES);
@@ -381,10 +381,10 @@ public class CategoriesPackageImpl extends EPackageImpl implements CategoriesPac
 
     // Add supertypes to classes
     requirementCategoriesEClass.getESuperTypes().add(this.getCategories());
-    verificationCategoriesEClass.getESuperTypes().add(this.getCategories());
+    methodCategoriesEClass.getESuperTypes().add(this.getCategories());
     selectionCategoriesEClass.getESuperTypes().add(this.getCategories());
     requirementCategoryEClass.getESuperTypes().add(this.getCategory());
-    verificationCategoryEClass.getESuperTypes().add(this.getCategory());
+    methodCategoryEClass.getESuperTypes().add(this.getCategory());
     selectionCategoryEClass.getESuperTypes().add(this.getCategory());
 
     // Initialize classes and features; add operations and parameters
@@ -393,8 +393,8 @@ public class CategoriesPackageImpl extends EPackageImpl implements CategoriesPac
     initEClass(requirementCategoriesEClass, RequirementCategories.class, "RequirementCategories", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
     initEReference(getRequirementCategories_Category(), this.getRequirementCategory(), null, "category", null, 0, -1, RequirementCategories.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
-    initEClass(verificationCategoriesEClass, VerificationCategories.class, "VerificationCategories", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-    initEReference(getVerificationCategories_Category(), this.getVerificationCategory(), null, "category", null, 0, -1, VerificationCategories.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEClass(methodCategoriesEClass, MethodCategories.class, "MethodCategories", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+    initEReference(getMethodCategories_Category(), this.getMethodCategory(), null, "category", null, 0, -1, MethodCategories.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
     initEClass(selectionCategoriesEClass, SelectionCategories.class, "SelectionCategories", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
     initEReference(getSelectionCategories_Category(), this.getSelectionCategory(), null, "category", null, 0, -1, SelectionCategories.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
@@ -405,8 +405,8 @@ public class CategoriesPackageImpl extends EPackageImpl implements CategoriesPac
     initEClass(requirementCategoryEClass, RequirementCategory.class, "RequirementCategory", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
     initEReference(getRequirementCategory_SubCategories(), this.getRequirementCategory(), null, "subCategories", null, 0, -1, RequirementCategory.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
-    initEClass(verificationCategoryEClass, VerificationCategory.class, "VerificationCategory", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-    initEReference(getVerificationCategory_SubCategories(), this.getVerificationCategory(), null, "subCategories", null, 0, -1, VerificationCategory.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEClass(methodCategoryEClass, MethodCategory.class, "MethodCategory", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+    initEReference(getMethodCategory_SubCategories(), this.getMethodCategory(), null, "subCategories", null, 0, -1, MethodCategory.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
     initEClass(selectionCategoryEClass, SelectionCategory.class, "SelectionCategory", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
     initEReference(getSelectionCategory_SubCategories(), this.getSelectionCategory(), null, "subCategories", null, 0, -1, SelectionCategory.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED);

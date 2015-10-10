@@ -593,27 +593,9 @@ ruleAssuranceTask returns [EObject current=null]
 					{ 
 	 				  getUnorderedGroupHelper().select(grammarAccess.getAssuranceTaskAccess().getUnorderedGroup_7(), 1);
 	 				}
-					({true}?=>(
-
-(
-	{ 
-	  getUnorderedGroupHelper().enter(grammarAccess.getAssuranceTaskAccess().getUnorderedGroup_7_1());
-	}
-	(
-		(
-
-			( 
-				{getUnorderedGroupHelper().canSelect(grammarAccess.getAssuranceTaskAccess().getUnorderedGroup_7_1(), 0)}?=>(
-					{ 
-	 				  getUnorderedGroupHelper().select(grammarAccess.getAssuranceTaskAccess().getUnorderedGroup_7_1(), 0);
-	 				}
-					({true}?=>(	otherlv_12='filter' 
+					({true}?=>(	otherlv_11='filter' 
     {
-    	newLeafNode(otherlv_12, grammarAccess.getAssuranceTaskAccess().getFilterKeyword_7_1_0_0());
-    }
-(	otherlv_13='requirements' 
-    {
-    	newLeafNode(otherlv_13, grammarAccess.getAssuranceTaskAccess().getRequirementsKeyword_7_1_0_1_0());
+    	newLeafNode(otherlv_11, grammarAccess.getAssuranceTaskAccess().getFilterKeyword_7_1_0());
     }
 (
 (
@@ -622,131 +604,28 @@ ruleAssuranceTask returns [EObject current=null]
 	            $current = createModelElement(grammarAccess.getAssuranceTaskRule());
 	        }
         }
-	otherlv_14=RULE_ID
+	otherlv_12=RULE_ID
 	{
-		newLeafNode(otherlv_14, grammarAccess.getAssuranceTaskAccess().getRequirementFilterRequirementCategoryCrossReference_7_1_0_1_1_0()); 
+		newLeafNode(otherlv_12, grammarAccess.getAssuranceTaskAccess().getFilterCategoryCrossReference_7_1_1_0()); 
 	}
 
 )
 )+(
 (
-		lv_strictRequirementCategories_15_0=	'only' 
+		lv_strictFilter_13_0=	'only' 
     {
-        newLeafNode(lv_strictRequirementCategories_15_0, grammarAccess.getAssuranceTaskAccess().getStrictRequirementCategoriesOnlyKeyword_7_1_0_1_2_0());
+        newLeafNode(lv_strictFilter_13_0, grammarAccess.getAssuranceTaskAccess().getStrictFilterOnlyKeyword_7_1_2_0());
     }
  
 	    {
 	        if ($current==null) {
 	            $current = createModelElement(grammarAccess.getAssuranceTaskRule());
 	        }
-       		setWithLastConsumed($current, "strictRequirementCategories", true, "only");
-	    }
-
-)
-)?)?))
-					{ 
-	 				  getUnorderedGroupHelper().returnFromSelection(grammarAccess.getAssuranceTaskAccess().getUnorderedGroup_7_1());
-	 				}
- 				)
-			)  |
-
-			( 
-				{getUnorderedGroupHelper().canSelect(grammarAccess.getAssuranceTaskAccess().getUnorderedGroup_7_1(), 1)}?=>(
-					{ 
-	 				  getUnorderedGroupHelper().select(grammarAccess.getAssuranceTaskAccess().getUnorderedGroup_7_1(), 1);
-	 				}
-					({true}?=>(	otherlv_16='verifications' 
-    {
-    	newLeafNode(otherlv_16, grammarAccess.getAssuranceTaskAccess().getVerificationsKeyword_7_1_1_0());
-    }
-(
-(
-		{
-			if ($current==null) {
-	            $current = createModelElement(grammarAccess.getAssuranceTaskRule());
-	        }
-        }
-	otherlv_17=RULE_ID
-	{
-		newLeafNode(otherlv_17, grammarAccess.getAssuranceTaskAccess().getVerificationFilterVerificationCategoryCrossReference_7_1_1_1_0()); 
-	}
-
-)
-)+(
-(
-		lv_strictVerificationCategories_18_0=	'only' 
-    {
-        newLeafNode(lv_strictVerificationCategories_18_0, grammarAccess.getAssuranceTaskAccess().getStrictVerificationCategoriesOnlyKeyword_7_1_1_2_0());
-    }
- 
-	    {
-	        if ($current==null) {
-	            $current = createModelElement(grammarAccess.getAssuranceTaskRule());
-	        }
-       		setWithLastConsumed($current, "strictVerificationCategories", true, "only");
+       		setWithLastConsumed($current, "strictFilter", true, "only");
 	    }
 
 )
 )?))
-					{ 
-	 				  getUnorderedGroupHelper().returnFromSelection(grammarAccess.getAssuranceTaskAccess().getUnorderedGroup_7_1());
-	 				}
- 				)
-			)  |
-
-			( 
-				{getUnorderedGroupHelper().canSelect(grammarAccess.getAssuranceTaskAccess().getUnorderedGroup_7_1(), 2)}?=>(
-					{ 
-	 				  getUnorderedGroupHelper().select(grammarAccess.getAssuranceTaskAccess().getUnorderedGroup_7_1(), 2);
-	 				}
-					({true}?=>(	otherlv_19='selections' 
-    {
-    	newLeafNode(otherlv_19, grammarAccess.getAssuranceTaskAccess().getSelectionsKeyword_7_1_2_0());
-    }
-(
-(
-		{
-			if ($current==null) {
-	            $current = createModelElement(grammarAccess.getAssuranceTaskRule());
-	        }
-        }
-	otherlv_20=RULE_ID
-	{
-		newLeafNode(otherlv_20, grammarAccess.getAssuranceTaskAccess().getSelectionFilterSelectionCategoryCrossReference_7_1_2_1_0()); 
-	}
-
-)
-)+(
-(
-		lv_strictSelectionCategories_21_0=	'only' 
-    {
-        newLeafNode(lv_strictSelectionCategories_21_0, grammarAccess.getAssuranceTaskAccess().getStrictSelectionCategoriesOnlyKeyword_7_1_2_2_0());
-    }
- 
-	    {
-	        if ($current==null) {
-	            $current = createModelElement(grammarAccess.getAssuranceTaskRule());
-	        }
-       		setWithLastConsumed($current, "strictSelectionCategories", true, "only");
-	    }
-
-)
-)?))
-					{ 
-	 				  getUnorderedGroupHelper().returnFromSelection(grammarAccess.getAssuranceTaskAccess().getUnorderedGroup_7_1());
-	 				}
- 				)
-			)  
-
-		)+
-	  	{getUnorderedGroupHelper().canLeave(grammarAccess.getAssuranceTaskAccess().getUnorderedGroup_7_1())}?	
-	)
-)
-	{ 
-	  getUnorderedGroupHelper().leave(grammarAccess.getAssuranceTaskAccess().getUnorderedGroup_7_1());
-	}
-
-))
 					{ 
 	 				  getUnorderedGroupHelper().returnFromSelection(grammarAccess.getAssuranceTaskAccess().getUnorderedGroup_7());
 	 				}
@@ -758,15 +637,15 @@ ruleAssuranceTask returns [EObject current=null]
 					{ 
 	 				  getUnorderedGroupHelper().select(grammarAccess.getAssuranceTaskAccess().getUnorderedGroup_7(), 2);
 	 				}
-					({true}?=>(	otherlv_22='issues' 
+					({true}?=>(	otherlv_14='issues' 
     {
-    	newLeafNode(otherlv_22, grammarAccess.getAssuranceTaskAccess().getIssuesKeyword_7_2_0());
+    	newLeafNode(otherlv_14, grammarAccess.getAssuranceTaskAccess().getIssuesKeyword_7_2_0());
     }
 (
 (
-		lv_issues_23_0=RULE_STRING
+		lv_issues_15_0=RULE_STRING
 		{
-			newLeafNode(lv_issues_23_0, grammarAccess.getAssuranceTaskAccess().getIssuesSTRINGTerminalRuleCall_7_2_1_0()); 
+			newLeafNode(lv_issues_15_0, grammarAccess.getAssuranceTaskAccess().getIssuesSTRINGTerminalRuleCall_7_2_1_0()); 
 		}
 		{
 	        if ($current==null) {
@@ -775,7 +654,7 @@ ruleAssuranceTask returns [EObject current=null]
        		addWithLastConsumed(
        			$current, 
        			"issues",
-        		lv_issues_23_0, 
+        		lv_issues_15_0, 
         		"STRING");
 	    }
 
@@ -787,17 +666,16 @@ ruleAssuranceTask returns [EObject current=null]
  				)
 			)  
 
-		)+
-	  	{getUnorderedGroupHelper().canLeave(grammarAccess.getAssuranceTaskAccess().getUnorderedGroup_7())}?	
+		)*	
 	)
 )
 	{ 
 	  getUnorderedGroupHelper().leave(grammarAccess.getAssuranceTaskAccess().getUnorderedGroup_7());
 	}
 
-)	otherlv_24=']' 
+)	otherlv_16=']' 
     {
-    	newLeafNode(otherlv_24, grammarAccess.getAssuranceTaskAccess().getRightSquareBracketKeyword_8());
+    	newLeafNode(otherlv_16, grammarAccess.getAssuranceTaskAccess().getRightSquareBracketKeyword_8());
     }
 )
 ;

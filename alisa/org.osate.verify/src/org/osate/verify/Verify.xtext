@@ -41,22 +41,6 @@ Claim:
 ;
 
 
-VerificationActivity:
-	name=ID (':' title=STRING)? 
-	('for' target=[aadl2::ComponentImplementation|AadlClassifierReference])? // for specific AADL model configuration
-	':'
-	(result+=[common::ComputeDeclaration|ID] (',' result+=[common::ComputeDeclaration|ID])* '=')?
-	method=[VerificationMethod|QualifiedName] 
-	'(' (parameters+=[xbase::XExpression| ID] (',' parameters+=[xbase::XExpression| ID])*)? ')' 
-	(
-		'property' 'values' '(' 
-		(propertyValues+=[xbase::XExpression|ID] (',' propertyValues+=[xbase::XExpression|ID])*)? 
-		')'
-	)?
-	('when' condition+=[categories::SelectionCategory|ID]+)?
-	('timeout' timeout=INT)?
-;
-
 ArgumentExpr:
 	ThenEvidenceExpr;
 
@@ -102,6 +86,44 @@ VAReference returns ArgumentExpr:
 
 
 
+VerificationActivity:
+	name=ID (':' title=STRING)? 
+	('for' target=[aadl2::ComponentImplementation|AadlClassifierReference])? // for specific AADL model configuration
+	':'
+	(result+=[common::ComputeDeclaration|ID] (',' result+=[common::ComputeDeclaration|ID])* '=')?
+	method=[VerificationMethod|QualifiedName] 
+	'(' (parameters+=[xbase::XExpression| ID] (',' parameters+=[xbase::XExpression| ID])*)? ')' 
+	(
+		'property' 'values' '(' 
+		(propertyValues+=[xbase::XExpression|ID] (',' propertyValues+=[xbase::XExpression|ID])*)? 
+		')'
+	)?
+	('when' condition+=[categories::SelectionCategory|ID]+)?
+	('timeout' timeout=INT)?
+;
+
+
+VerificationCondition:
+	('validation' {VerificationValidation} | 'precondition' {VerificationPrecondition}) 
+	name=ID
+	(':' title=STRING)?
+	'[' 
+	(
+		  description=Description?
+		& (
+			method=[VerificationMethod|QualifiedName] 
+			'(' (parameters+=[xbase::XExpression|ID] (',' parameters+=[xbase::XExpression| ID])*)? ')'
+			(
+				'property' 'values' '(' 
+				(propertyValues+=[xbase::XExpression|ID] (',' propertyValues+=[xbase::XExpression|ID])*)? 
+				')'
+			)?
+			('timeout' timeout=INT)?
+		)
+		& rationale=Rationale?
+	)
+	']'
+	;
 
 VerificationMethodRegistry returns VerificationMethodRegistry:
 	'verification' 'methods' name=ID
@@ -128,7 +150,7 @@ VerificationMethod:
 		  methodType=MethodType 
 		& description=Description?
 		& condition=VerificationCondition?
-		& ('category' category+=[categories::VerificationCategory|ID]+)?
+		& ('category' category+=[categories::Category|ID]+)?
 	)
 	']'
 	;
@@ -153,28 +175,6 @@ MethodType:
 		'plugin' methodID=ID
 	;
 
-
-VerificationCondition:
-	('validation' {VerificationValidation} | 'precondition' {VerificationPrecondition}) 
-	name=ID
-	(':' title=STRING)?
-	'[' 
-	(
-		  description=Description?
-		& (
-			method=[VerificationMethod|QualifiedName] 
-			'(' (parameters+=[xbase::XExpression|ID] (',' parameters+=[xbase::XExpression| ID])*)? ')'
-			(
-				'property' 'values' '(' 
-				(propertyValues+=[xbase::XExpression|ID] (',' propertyValues+=[xbase::XExpression|ID])*)? 
-				')'
-			)?
-			('timeout' timeout=INT)?
-		)
-		& rationale=Rationale?
-	)
-	']'
-	;
 
 
 	

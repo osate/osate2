@@ -93,6 +93,13 @@ public class VerifySwitch<T> extends Switch<T>
         if (result == null) result = defaultCase(theEObject);
         return result;
       }
+      case VerifyPackage.ARGUMENT_EXPR:
+      {
+        ArgumentExpr argumentExpr = (ArgumentExpr)theEObject;
+        T result = caseArgumentExpr(argumentExpr);
+        if (result == null) result = defaultCase(theEObject);
+        return result;
+      }
       case VerifyPackage.VERIFICATION_ACTIVITY:
       {
         VerificationActivity verificationActivity = (VerificationActivity)theEObject;
@@ -100,10 +107,10 @@ public class VerifySwitch<T> extends Switch<T>
         if (result == null) result = defaultCase(theEObject);
         return result;
       }
-      case VerifyPackage.ARGUMENT_EXPR:
+      case VerifyPackage.VERIFICATION_CONDITION:
       {
-        ArgumentExpr argumentExpr = (ArgumentExpr)theEObject;
-        T result = caseArgumentExpr(argumentExpr);
+        VerificationCondition verificationCondition = (VerificationCondition)theEObject;
+        T result = caseVerificationCondition(verificationCondition);
         if (result == null) result = defaultCase(theEObject);
         return result;
       }
@@ -157,13 +164,6 @@ public class VerifySwitch<T> extends Switch<T>
         PluginMethod pluginMethod = (PluginMethod)theEObject;
         T result = casePluginMethod(pluginMethod);
         if (result == null) result = caseMethodType(pluginMethod);
-        if (result == null) result = defaultCase(theEObject);
-        return result;
-      }
-      case VerifyPackage.VERIFICATION_CONDITION:
-      {
-        VerificationCondition verificationCondition = (VerificationCondition)theEObject;
-        T result = caseVerificationCondition(verificationCondition);
         if (result == null) result = defaultCase(theEObject);
         return result;
       }
@@ -268,6 +268,22 @@ public class VerifySwitch<T> extends Switch<T>
   }
 
   /**
+   * Returns the result of interpreting the object as an instance of '<em>Argument Expr</em>'.
+   * <!-- begin-user-doc -->
+   * This implementation returns null;
+   * returning a non-null result will terminate the switch.
+   * <!-- end-user-doc -->
+   * @param object the target of the switch.
+   * @return the result of interpreting the object as an instance of '<em>Argument Expr</em>'.
+   * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+   * @generated
+   */
+  public T caseArgumentExpr(ArgumentExpr object)
+  {
+    return null;
+  }
+
+  /**
    * Returns the result of interpreting the object as an instance of '<em>Verification Activity</em>'.
    * <!-- begin-user-doc -->
    * This implementation returns null;
@@ -284,17 +300,17 @@ public class VerifySwitch<T> extends Switch<T>
   }
 
   /**
-   * Returns the result of interpreting the object as an instance of '<em>Argument Expr</em>'.
+   * Returns the result of interpreting the object as an instance of '<em>Verification Condition</em>'.
    * <!-- begin-user-doc -->
    * This implementation returns null;
    * returning a non-null result will terminate the switch.
    * <!-- end-user-doc -->
    * @param object the target of the switch.
-   * @return the result of interpreting the object as an instance of '<em>Argument Expr</em>'.
+   * @return the result of interpreting the object as an instance of '<em>Verification Condition</em>'.
    * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
    * @generated
    */
-  public T caseArgumentExpr(ArgumentExpr object)
+  public T caseVerificationCondition(VerificationCondition object)
   {
     return null;
   }
@@ -407,22 +423,6 @@ public class VerifySwitch<T> extends Switch<T>
    * @generated
    */
   public T casePluginMethod(PluginMethod object)
-  {
-    return null;
-  }
-
-  /**
-   * Returns the result of interpreting the object as an instance of '<em>Verification Condition</em>'.
-   * <!-- begin-user-doc -->
-   * This implementation returns null;
-   * returning a non-null result will terminate the switch.
-   * <!-- end-user-doc -->
-   * @param object the target of the switch.
-   * @return the result of interpreting the object as an instance of '<em>Verification Condition</em>'.
-   * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
-   * @generated
-   */
-  public T caseVerificationCondition(VerificationCondition object)
   {
     return null;
   }

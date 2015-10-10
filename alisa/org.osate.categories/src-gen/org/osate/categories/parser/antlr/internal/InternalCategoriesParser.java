@@ -21,18 +21,18 @@ import java.util.ArrayList;
 @SuppressWarnings("all")
 public class InternalCategoriesParser extends AbstractInternalAntlrParser {
     public static final String[] tokenNames = new String[] {
-        "<invalid>", "<EOR>", "<DOWN>", "<UP>", "Verification", "Requirement", "Categories", "Selection", "LeftSquareBracket", "RightSquareBracket", "LeftCurlyBracket", "RightCurlyBracket", "RULE_ID", "RULE_INT", "RULE_STRING", "RULE_ML_COMMENT", "RULE_SL_COMMENT", "RULE_WS", "RULE_ANY_OTHER"
+        "<invalid>", "<EOR>", "<DOWN>", "<UP>", "Requirement", "Categories", "Selection", "Method", "LeftSquareBracket", "RightSquareBracket", "LeftCurlyBracket", "RightCurlyBracket", "RULE_ID", "RULE_INT", "RULE_STRING", "RULE_ML_COMMENT", "RULE_SL_COMMENT", "RULE_WS", "RULE_ANY_OTHER"
     };
     public static final int RULE_ID=12;
-    public static final int Categories=6;
+    public static final int Categories=5;
     public static final int RULE_WS=17;
-    public static final int Selection=7;
+    public static final int Selection=6;
     public static final int LeftCurlyBracket=10;
-    public static final int Verification=4;
     public static final int RULE_STRING=14;
+    public static final int Method=7;
     public static final int RULE_ANY_OTHER=18;
     public static final int RULE_SL_COMMENT=16;
-    public static final int Requirement=5;
+    public static final int Requirement=4;
     public static final int RULE_INT=13;
     public static final int RULE_ML_COMMENT=15;
     public static final int LeftSquareBracket=8;
@@ -116,13 +116,13 @@ public class InternalCategoriesParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "ruleCategories"
-    // ../org.osate.categories/src-gen/org/osate/categories/parser/antlr/internal/InternalCategoriesParser.g:70:1: ruleCategories returns [EObject current=null] : (this_RequirementCategories_0= ruleRequirementCategories | this_VerificationCategories_1= ruleVerificationCategories | this_SelectionCategories_2= ruleSelectionCategories ) ;
+    // ../org.osate.categories/src-gen/org/osate/categories/parser/antlr/internal/InternalCategoriesParser.g:70:1: ruleCategories returns [EObject current=null] : (this_RequirementCategories_0= ruleRequirementCategories | this_MethodCategories_1= ruleMethodCategories | this_SelectionCategories_2= ruleSelectionCategories ) ;
     public final EObject ruleCategories() throws RecognitionException {
         EObject current = null;
 
         EObject this_RequirementCategories_0 = null;
 
-        EObject this_VerificationCategories_1 = null;
+        EObject this_MethodCategories_1 = null;
 
         EObject this_SelectionCategories_2 = null;
 
@@ -130,10 +130,10 @@ public class InternalCategoriesParser extends AbstractInternalAntlrParser {
          enterRule(); 
             
         try {
-            // ../org.osate.categories/src-gen/org/osate/categories/parser/antlr/internal/InternalCategoriesParser.g:73:28: ( (this_RequirementCategories_0= ruleRequirementCategories | this_VerificationCategories_1= ruleVerificationCategories | this_SelectionCategories_2= ruleSelectionCategories ) )
-            // ../org.osate.categories/src-gen/org/osate/categories/parser/antlr/internal/InternalCategoriesParser.g:74:1: (this_RequirementCategories_0= ruleRequirementCategories | this_VerificationCategories_1= ruleVerificationCategories | this_SelectionCategories_2= ruleSelectionCategories )
+            // ../org.osate.categories/src-gen/org/osate/categories/parser/antlr/internal/InternalCategoriesParser.g:73:28: ( (this_RequirementCategories_0= ruleRequirementCategories | this_MethodCategories_1= ruleMethodCategories | this_SelectionCategories_2= ruleSelectionCategories ) )
+            // ../org.osate.categories/src-gen/org/osate/categories/parser/antlr/internal/InternalCategoriesParser.g:74:1: (this_RequirementCategories_0= ruleRequirementCategories | this_MethodCategories_1= ruleMethodCategories | this_SelectionCategories_2= ruleSelectionCategories )
             {
-            // ../org.osate.categories/src-gen/org/osate/categories/parser/antlr/internal/InternalCategoriesParser.g:74:1: (this_RequirementCategories_0= ruleRequirementCategories | this_VerificationCategories_1= ruleVerificationCategories | this_SelectionCategories_2= ruleSelectionCategories )
+            // ../org.osate.categories/src-gen/org/osate/categories/parser/antlr/internal/InternalCategoriesParser.g:74:1: (this_RequirementCategories_0= ruleRequirementCategories | this_MethodCategories_1= ruleMethodCategories | this_SelectionCategories_2= ruleSelectionCategories )
             int alt1=3;
             switch ( input.LA(1) ) {
             case Requirement:
@@ -141,7 +141,7 @@ public class InternalCategoriesParser extends AbstractInternalAntlrParser {
                 alt1=1;
                 }
                 break;
-            case Verification:
+            case Method:
                 {
                 alt1=2;
                 }
@@ -178,18 +178,18 @@ public class InternalCategoriesParser extends AbstractInternalAntlrParser {
                     }
                     break;
                 case 2 :
-                    // ../org.osate.categories/src-gen/org/osate/categories/parser/antlr/internal/InternalCategoriesParser.g:85:5: this_VerificationCategories_1= ruleVerificationCategories
+                    // ../org.osate.categories/src-gen/org/osate/categories/parser/antlr/internal/InternalCategoriesParser.g:85:5: this_MethodCategories_1= ruleMethodCategories
                     {
                      
-                            newCompositeNode(grammarAccess.getCategoriesAccess().getVerificationCategoriesParserRuleCall_1()); 
+                            newCompositeNode(grammarAccess.getCategoriesAccess().getMethodCategoriesParserRuleCall_1()); 
                         
-                    pushFollow(FOLLOW_ruleVerificationCategories_in_ruleCategories151);
-                    this_VerificationCategories_1=ruleVerificationCategories();
+                    pushFollow(FOLLOW_ruleMethodCategories_in_ruleCategories151);
+                    this_MethodCategories_1=ruleMethodCategories();
 
                     state._fsp--;
 
 
-                            current = this_VerificationCategories_1;
+                            current = this_MethodCategories_1;
                             afterParserOrEnumRuleCall();
                         
 
@@ -380,26 +380,26 @@ public class InternalCategoriesParser extends AbstractInternalAntlrParser {
     // $ANTLR end "ruleRequirementCategories"
 
 
-    // $ANTLR start "entryRuleVerificationCategories"
-    // ../org.osate.categories/src-gen/org/osate/categories/parser/antlr/internal/InternalCategoriesParser.g:170:1: entryRuleVerificationCategories returns [EObject current=null] : iv_ruleVerificationCategories= ruleVerificationCategories EOF ;
-    public final EObject entryRuleVerificationCategories() throws RecognitionException {
+    // $ANTLR start "entryRuleMethodCategories"
+    // ../org.osate.categories/src-gen/org/osate/categories/parser/antlr/internal/InternalCategoriesParser.g:170:1: entryRuleMethodCategories returns [EObject current=null] : iv_ruleMethodCategories= ruleMethodCategories EOF ;
+    public final EObject entryRuleMethodCategories() throws RecognitionException {
         EObject current = null;
 
-        EObject iv_ruleVerificationCategories = null;
+        EObject iv_ruleMethodCategories = null;
 
 
         try {
-            // ../org.osate.categories/src-gen/org/osate/categories/parser/antlr/internal/InternalCategoriesParser.g:171:2: (iv_ruleVerificationCategories= ruleVerificationCategories EOF )
-            // ../org.osate.categories/src-gen/org/osate/categories/parser/antlr/internal/InternalCategoriesParser.g:172:2: iv_ruleVerificationCategories= ruleVerificationCategories EOF
+            // ../org.osate.categories/src-gen/org/osate/categories/parser/antlr/internal/InternalCategoriesParser.g:171:2: (iv_ruleMethodCategories= ruleMethodCategories EOF )
+            // ../org.osate.categories/src-gen/org/osate/categories/parser/antlr/internal/InternalCategoriesParser.g:172:2: iv_ruleMethodCategories= ruleMethodCategories EOF
             {
-             newCompositeNode(grammarAccess.getVerificationCategoriesRule()); 
-            pushFollow(FOLLOW_ruleVerificationCategories_in_entryRuleVerificationCategories352);
-            iv_ruleVerificationCategories=ruleVerificationCategories();
+             newCompositeNode(grammarAccess.getMethodCategoriesRule()); 
+            pushFollow(FOLLOW_ruleMethodCategories_in_entryRuleMethodCategories352);
+            iv_ruleMethodCategories=ruleMethodCategories();
 
             state._fsp--;
 
-             current =iv_ruleVerificationCategories; 
-            match(input,EOF,FOLLOW_EOF_in_entryRuleVerificationCategories362); 
+             current =iv_ruleMethodCategories; 
+            match(input,EOF,FOLLOW_EOF_in_entryRuleMethodCategories362); 
 
             }
 
@@ -413,12 +413,12 @@ public class InternalCategoriesParser extends AbstractInternalAntlrParser {
         }
         return current;
     }
-    // $ANTLR end "entryRuleVerificationCategories"
+    // $ANTLR end "entryRuleMethodCategories"
 
 
-    // $ANTLR start "ruleVerificationCategories"
-    // ../org.osate.categories/src-gen/org/osate/categories/parser/antlr/internal/InternalCategoriesParser.g:179:1: ruleVerificationCategories returns [EObject current=null] : (otherlv_0= Verification otherlv_1= Categories otherlv_2= LeftSquareBracket ( (lv_category_3_0= ruleVerificationCategory ) )+ otherlv_4= RightSquareBracket ) ;
-    public final EObject ruleVerificationCategories() throws RecognitionException {
+    // $ANTLR start "ruleMethodCategories"
+    // ../org.osate.categories/src-gen/org/osate/categories/parser/antlr/internal/InternalCategoriesParser.g:179:1: ruleMethodCategories returns [EObject current=null] : (otherlv_0= Method otherlv_1= Categories otherlv_2= LeftSquareBracket ( (lv_category_3_0= ruleMethodCategory ) )+ otherlv_4= RightSquareBracket ) ;
+    public final EObject ruleMethodCategories() throws RecognitionException {
         EObject current = null;
 
         Token otherlv_0=null;
@@ -431,25 +431,25 @@ public class InternalCategoriesParser extends AbstractInternalAntlrParser {
          enterRule(); 
             
         try {
-            // ../org.osate.categories/src-gen/org/osate/categories/parser/antlr/internal/InternalCategoriesParser.g:182:28: ( (otherlv_0= Verification otherlv_1= Categories otherlv_2= LeftSquareBracket ( (lv_category_3_0= ruleVerificationCategory ) )+ otherlv_4= RightSquareBracket ) )
-            // ../org.osate.categories/src-gen/org/osate/categories/parser/antlr/internal/InternalCategoriesParser.g:183:1: (otherlv_0= Verification otherlv_1= Categories otherlv_2= LeftSquareBracket ( (lv_category_3_0= ruleVerificationCategory ) )+ otherlv_4= RightSquareBracket )
+            // ../org.osate.categories/src-gen/org/osate/categories/parser/antlr/internal/InternalCategoriesParser.g:182:28: ( (otherlv_0= Method otherlv_1= Categories otherlv_2= LeftSquareBracket ( (lv_category_3_0= ruleMethodCategory ) )+ otherlv_4= RightSquareBracket ) )
+            // ../org.osate.categories/src-gen/org/osate/categories/parser/antlr/internal/InternalCategoriesParser.g:183:1: (otherlv_0= Method otherlv_1= Categories otherlv_2= LeftSquareBracket ( (lv_category_3_0= ruleMethodCategory ) )+ otherlv_4= RightSquareBracket )
             {
-            // ../org.osate.categories/src-gen/org/osate/categories/parser/antlr/internal/InternalCategoriesParser.g:183:1: (otherlv_0= Verification otherlv_1= Categories otherlv_2= LeftSquareBracket ( (lv_category_3_0= ruleVerificationCategory ) )+ otherlv_4= RightSquareBracket )
-            // ../org.osate.categories/src-gen/org/osate/categories/parser/antlr/internal/InternalCategoriesParser.g:184:2: otherlv_0= Verification otherlv_1= Categories otherlv_2= LeftSquareBracket ( (lv_category_3_0= ruleVerificationCategory ) )+ otherlv_4= RightSquareBracket
+            // ../org.osate.categories/src-gen/org/osate/categories/parser/antlr/internal/InternalCategoriesParser.g:183:1: (otherlv_0= Method otherlv_1= Categories otherlv_2= LeftSquareBracket ( (lv_category_3_0= ruleMethodCategory ) )+ otherlv_4= RightSquareBracket )
+            // ../org.osate.categories/src-gen/org/osate/categories/parser/antlr/internal/InternalCategoriesParser.g:184:2: otherlv_0= Method otherlv_1= Categories otherlv_2= LeftSquareBracket ( (lv_category_3_0= ruleMethodCategory ) )+ otherlv_4= RightSquareBracket
             {
-            otherlv_0=(Token)match(input,Verification,FOLLOW_Verification_in_ruleVerificationCategories400); 
+            otherlv_0=(Token)match(input,Method,FOLLOW_Method_in_ruleMethodCategories400); 
 
-                	newLeafNode(otherlv_0, grammarAccess.getVerificationCategoriesAccess().getVerificationKeyword_0());
+                	newLeafNode(otherlv_0, grammarAccess.getMethodCategoriesAccess().getMethodKeyword_0());
                 
-            otherlv_1=(Token)match(input,Categories,FOLLOW_Categories_in_ruleVerificationCategories412); 
+            otherlv_1=(Token)match(input,Categories,FOLLOW_Categories_in_ruleMethodCategories412); 
 
-                	newLeafNode(otherlv_1, grammarAccess.getVerificationCategoriesAccess().getCategoriesKeyword_1());
+                	newLeafNode(otherlv_1, grammarAccess.getMethodCategoriesAccess().getCategoriesKeyword_1());
                 
-            otherlv_2=(Token)match(input,LeftSquareBracket,FOLLOW_LeftSquareBracket_in_ruleVerificationCategories424); 
+            otherlv_2=(Token)match(input,LeftSquareBracket,FOLLOW_LeftSquareBracket_in_ruleMethodCategories424); 
 
-                	newLeafNode(otherlv_2, grammarAccess.getVerificationCategoriesAccess().getLeftSquareBracketKeyword_2());
+                	newLeafNode(otherlv_2, grammarAccess.getMethodCategoriesAccess().getLeftSquareBracketKeyword_2());
                 
-            // ../org.osate.categories/src-gen/org/osate/categories/parser/antlr/internal/InternalCategoriesParser.g:198:1: ( (lv_category_3_0= ruleVerificationCategory ) )+
+            // ../org.osate.categories/src-gen/org/osate/categories/parser/antlr/internal/InternalCategoriesParser.g:198:1: ( (lv_category_3_0= ruleMethodCategory ) )+
             int cnt3=0;
             loop3:
             do {
@@ -463,28 +463,28 @@ public class InternalCategoriesParser extends AbstractInternalAntlrParser {
 
                 switch (alt3) {
             	case 1 :
-            	    // ../org.osate.categories/src-gen/org/osate/categories/parser/antlr/internal/InternalCategoriesParser.g:199:1: (lv_category_3_0= ruleVerificationCategory )
+            	    // ../org.osate.categories/src-gen/org/osate/categories/parser/antlr/internal/InternalCategoriesParser.g:199:1: (lv_category_3_0= ruleMethodCategory )
             	    {
-            	    // ../org.osate.categories/src-gen/org/osate/categories/parser/antlr/internal/InternalCategoriesParser.g:199:1: (lv_category_3_0= ruleVerificationCategory )
-            	    // ../org.osate.categories/src-gen/org/osate/categories/parser/antlr/internal/InternalCategoriesParser.g:200:3: lv_category_3_0= ruleVerificationCategory
+            	    // ../org.osate.categories/src-gen/org/osate/categories/parser/antlr/internal/InternalCategoriesParser.g:199:1: (lv_category_3_0= ruleMethodCategory )
+            	    // ../org.osate.categories/src-gen/org/osate/categories/parser/antlr/internal/InternalCategoriesParser.g:200:3: lv_category_3_0= ruleMethodCategory
             	    {
             	     
-            	    	        newCompositeNode(grammarAccess.getVerificationCategoriesAccess().getCategoryVerificationCategoryParserRuleCall_3_0()); 
+            	    	        newCompositeNode(grammarAccess.getMethodCategoriesAccess().getCategoryMethodCategoryParserRuleCall_3_0()); 
             	    	    
-            	    pushFollow(FOLLOW_ruleVerificationCategory_in_ruleVerificationCategories444);
-            	    lv_category_3_0=ruleVerificationCategory();
+            	    pushFollow(FOLLOW_ruleMethodCategory_in_ruleMethodCategories444);
+            	    lv_category_3_0=ruleMethodCategory();
 
             	    state._fsp--;
 
 
             	    	        if (current==null) {
-            	    	            current = createModelElementForParent(grammarAccess.getVerificationCategoriesRule());
+            	    	            current = createModelElementForParent(grammarAccess.getMethodCategoriesRule());
             	    	        }
             	           		add(
             	           			current, 
             	           			"category",
             	            		lv_category_3_0, 
-            	            		"VerificationCategory");
+            	            		"MethodCategory");
             	    	        afterParserOrEnumRuleCall();
             	    	    
 
@@ -503,9 +503,9 @@ public class InternalCategoriesParser extends AbstractInternalAntlrParser {
                 cnt3++;
             } while (true);
 
-            otherlv_4=(Token)match(input,RightSquareBracket,FOLLOW_RightSquareBracket_in_ruleVerificationCategories458); 
+            otherlv_4=(Token)match(input,RightSquareBracket,FOLLOW_RightSquareBracket_in_ruleMethodCategories458); 
 
-                	newLeafNode(otherlv_4, grammarAccess.getVerificationCategoriesAccess().getRightSquareBracketKeyword_4());
+                	newLeafNode(otherlv_4, grammarAccess.getMethodCategoriesAccess().getRightSquareBracketKeyword_4());
                 
 
             }
@@ -524,7 +524,7 @@ public class InternalCategoriesParser extends AbstractInternalAntlrParser {
         }
         return current;
     }
-    // $ANTLR end "ruleVerificationCategories"
+    // $ANTLR end "ruleMethodCategories"
 
 
     // $ANTLR start "entryRuleSelectionCategories"
@@ -845,26 +845,26 @@ public class InternalCategoriesParser extends AbstractInternalAntlrParser {
     // $ANTLR end "ruleRequirementCategory"
 
 
-    // $ANTLR start "entryRuleVerificationCategory"
-    // ../org.osate.categories/src-gen/org/osate/categories/parser/antlr/internal/InternalCategoriesParser.g:354:1: entryRuleVerificationCategory returns [EObject current=null] : iv_ruleVerificationCategory= ruleVerificationCategory EOF ;
-    public final EObject entryRuleVerificationCategory() throws RecognitionException {
+    // $ANTLR start "entryRuleMethodCategory"
+    // ../org.osate.categories/src-gen/org/osate/categories/parser/antlr/internal/InternalCategoriesParser.g:354:1: entryRuleMethodCategory returns [EObject current=null] : iv_ruleMethodCategory= ruleMethodCategory EOF ;
+    public final EObject entryRuleMethodCategory() throws RecognitionException {
         EObject current = null;
 
-        EObject iv_ruleVerificationCategory = null;
+        EObject iv_ruleMethodCategory = null;
 
 
         try {
-            // ../org.osate.categories/src-gen/org/osate/categories/parser/antlr/internal/InternalCategoriesParser.g:355:2: (iv_ruleVerificationCategory= ruleVerificationCategory EOF )
-            // ../org.osate.categories/src-gen/org/osate/categories/parser/antlr/internal/InternalCategoriesParser.g:356:2: iv_ruleVerificationCategory= ruleVerificationCategory EOF
+            // ../org.osate.categories/src-gen/org/osate/categories/parser/antlr/internal/InternalCategoriesParser.g:355:2: (iv_ruleMethodCategory= ruleMethodCategory EOF )
+            // ../org.osate.categories/src-gen/org/osate/categories/parser/antlr/internal/InternalCategoriesParser.g:356:2: iv_ruleMethodCategory= ruleMethodCategory EOF
             {
-             newCompositeNode(grammarAccess.getVerificationCategoryRule()); 
-            pushFollow(FOLLOW_ruleVerificationCategory_in_entryRuleVerificationCategory777);
-            iv_ruleVerificationCategory=ruleVerificationCategory();
+             newCompositeNode(grammarAccess.getMethodCategoryRule()); 
+            pushFollow(FOLLOW_ruleMethodCategory_in_entryRuleMethodCategory777);
+            iv_ruleMethodCategory=ruleMethodCategory();
 
             state._fsp--;
 
-             current =iv_ruleVerificationCategory; 
-            match(input,EOF,FOLLOW_EOF_in_entryRuleVerificationCategory787); 
+             current =iv_ruleMethodCategory; 
+            match(input,EOF,FOLLOW_EOF_in_entryRuleMethodCategory787); 
 
             }
 
@@ -878,12 +878,12 @@ public class InternalCategoriesParser extends AbstractInternalAntlrParser {
         }
         return current;
     }
-    // $ANTLR end "entryRuleVerificationCategory"
+    // $ANTLR end "entryRuleMethodCategory"
 
 
-    // $ANTLR start "ruleVerificationCategory"
-    // ../org.osate.categories/src-gen/org/osate/categories/parser/antlr/internal/InternalCategoriesParser.g:363:1: ruleVerificationCategory returns [EObject current=null] : ( ( (lv_name_0_0= RULE_ID ) ) (otherlv_1= LeftCurlyBracket ( ( ruleCatRef ) )* otherlv_3= RightCurlyBracket )? ) ;
-    public final EObject ruleVerificationCategory() throws RecognitionException {
+    // $ANTLR start "ruleMethodCategory"
+    // ../org.osate.categories/src-gen/org/osate/categories/parser/antlr/internal/InternalCategoriesParser.g:363:1: ruleMethodCategory returns [EObject current=null] : ( ( (lv_name_0_0= RULE_ID ) ) (otherlv_1= LeftCurlyBracket ( ( ruleCatRef ) )* otherlv_3= RightCurlyBracket )? ) ;
+    public final EObject ruleMethodCategory() throws RecognitionException {
         EObject current = null;
 
         Token lv_name_0_0=null;
@@ -905,13 +905,13 @@ public class InternalCategoriesParser extends AbstractInternalAntlrParser {
             // ../org.osate.categories/src-gen/org/osate/categories/parser/antlr/internal/InternalCategoriesParser.g:368:1: (lv_name_0_0= RULE_ID )
             // ../org.osate.categories/src-gen/org/osate/categories/parser/antlr/internal/InternalCategoriesParser.g:369:3: lv_name_0_0= RULE_ID
             {
-            lv_name_0_0=(Token)match(input,RULE_ID,FOLLOW_RULE_ID_in_ruleVerificationCategory829); 
+            lv_name_0_0=(Token)match(input,RULE_ID,FOLLOW_RULE_ID_in_ruleMethodCategory829); 
 
-            			newLeafNode(lv_name_0_0, grammarAccess.getVerificationCategoryAccess().getNameIDTerminalRuleCall_0_0()); 
+            			newLeafNode(lv_name_0_0, grammarAccess.getMethodCategoryAccess().getNameIDTerminalRuleCall_0_0()); 
             		
 
             	        if (current==null) {
-            	            current = createModelElement(grammarAccess.getVerificationCategoryRule());
+            	            current = createModelElement(grammarAccess.getMethodCategoryRule());
             	        }
                    		setWithLastConsumed(
                    			current, 
@@ -936,9 +936,9 @@ public class InternalCategoriesParser extends AbstractInternalAntlrParser {
                 case 1 :
                     // ../org.osate.categories/src-gen/org/osate/categories/parser/antlr/internal/InternalCategoriesParser.g:386:2: otherlv_1= LeftCurlyBracket ( ( ruleCatRef ) )* otherlv_3= RightCurlyBracket
                     {
-                    otherlv_1=(Token)match(input,LeftCurlyBracket,FOLLOW_LeftCurlyBracket_in_ruleVerificationCategory848); 
+                    otherlv_1=(Token)match(input,LeftCurlyBracket,FOLLOW_LeftCurlyBracket_in_ruleMethodCategory848); 
 
-                        	newLeafNode(otherlv_1, grammarAccess.getVerificationCategoryAccess().getLeftCurlyBracketKeyword_1_0());
+                        	newLeafNode(otherlv_1, grammarAccess.getMethodCategoryAccess().getLeftCurlyBracketKeyword_1_0());
                         
                     // ../org.osate.categories/src-gen/org/osate/categories/parser/antlr/internal/InternalCategoriesParser.g:390:1: ( ( ruleCatRef ) )*
                     loop7:
@@ -960,13 +960,13 @@ public class InternalCategoriesParser extends AbstractInternalAntlrParser {
                     	    {
 
                     	    			if (current==null) {
-                    	    	            current = createModelElement(grammarAccess.getVerificationCategoryRule());
+                    	    	            current = createModelElement(grammarAccess.getMethodCategoryRule());
                     	    	        }
                     	            
                     	     
-                    	    	        newCompositeNode(grammarAccess.getVerificationCategoryAccess().getSubCategoriesVerificationCategoryCrossReference_1_1_0()); 
+                    	    	        newCompositeNode(grammarAccess.getMethodCategoryAccess().getSubCategoriesMethodCategoryCrossReference_1_1_0()); 
                     	    	    
-                    	    pushFollow(FOLLOW_ruleCatRef_in_ruleVerificationCategory870);
+                    	    pushFollow(FOLLOW_ruleCatRef_in_ruleMethodCategory870);
                     	    ruleCatRef();
 
                     	    state._fsp--;
@@ -986,9 +986,9 @@ public class InternalCategoriesParser extends AbstractInternalAntlrParser {
                         }
                     } while (true);
 
-                    otherlv_3=(Token)match(input,RightCurlyBracket,FOLLOW_RightCurlyBracket_in_ruleVerificationCategory884); 
+                    otherlv_3=(Token)match(input,RightCurlyBracket,FOLLOW_RightCurlyBracket_in_ruleMethodCategory884); 
 
-                        	newLeafNode(otherlv_3, grammarAccess.getVerificationCategoryAccess().getRightCurlyBracketKeyword_1_2());
+                        	newLeafNode(otherlv_3, grammarAccess.getMethodCategoryAccess().getRightCurlyBracketKeyword_1_2());
                         
 
                     }
@@ -1013,7 +1013,7 @@ public class InternalCategoriesParser extends AbstractInternalAntlrParser {
         }
         return current;
     }
-    // $ANTLR end "ruleVerificationCategory"
+    // $ANTLR end "ruleMethodCategory"
 
 
     // $ANTLR start "entryRuleSelectionCategory"
@@ -1268,25 +1268,25 @@ public class InternalCategoriesParser extends AbstractInternalAntlrParser {
     public static final BitSet FOLLOW_ruleCategories_in_entryRuleCategories67 = new BitSet(new long[]{0x0000000000000000L});
     public static final BitSet FOLLOW_EOF_in_entryRuleCategories77 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_ruleRequirementCategories_in_ruleCategories124 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleVerificationCategories_in_ruleCategories151 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleMethodCategories_in_ruleCategories151 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_ruleSelectionCategories_in_ruleCategories178 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_ruleRequirementCategories_in_entryRuleRequirementCategories212 = new BitSet(new long[]{0x0000000000000000L});
     public static final BitSet FOLLOW_EOF_in_entryRuleRequirementCategories222 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_Requirement_in_ruleRequirementCategories260 = new BitSet(new long[]{0x0000000000000040L});
+    public static final BitSet FOLLOW_Requirement_in_ruleRequirementCategories260 = new BitSet(new long[]{0x0000000000000020L});
     public static final BitSet FOLLOW_Categories_in_ruleRequirementCategories272 = new BitSet(new long[]{0x0000000000000100L});
     public static final BitSet FOLLOW_LeftSquareBracket_in_ruleRequirementCategories284 = new BitSet(new long[]{0x0000000000001000L});
     public static final BitSet FOLLOW_ruleRequirementCategory_in_ruleRequirementCategories304 = new BitSet(new long[]{0x0000000000001200L});
     public static final BitSet FOLLOW_RightSquareBracket_in_ruleRequirementCategories318 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleVerificationCategories_in_entryRuleVerificationCategories352 = new BitSet(new long[]{0x0000000000000000L});
-    public static final BitSet FOLLOW_EOF_in_entryRuleVerificationCategories362 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_Verification_in_ruleVerificationCategories400 = new BitSet(new long[]{0x0000000000000040L});
-    public static final BitSet FOLLOW_Categories_in_ruleVerificationCategories412 = new BitSet(new long[]{0x0000000000000100L});
-    public static final BitSet FOLLOW_LeftSquareBracket_in_ruleVerificationCategories424 = new BitSet(new long[]{0x0000000000001000L});
-    public static final BitSet FOLLOW_ruleVerificationCategory_in_ruleVerificationCategories444 = new BitSet(new long[]{0x0000000000001200L});
-    public static final BitSet FOLLOW_RightSquareBracket_in_ruleVerificationCategories458 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleMethodCategories_in_entryRuleMethodCategories352 = new BitSet(new long[]{0x0000000000000000L});
+    public static final BitSet FOLLOW_EOF_in_entryRuleMethodCategories362 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_Method_in_ruleMethodCategories400 = new BitSet(new long[]{0x0000000000000020L});
+    public static final BitSet FOLLOW_Categories_in_ruleMethodCategories412 = new BitSet(new long[]{0x0000000000000100L});
+    public static final BitSet FOLLOW_LeftSquareBracket_in_ruleMethodCategories424 = new BitSet(new long[]{0x0000000000001000L});
+    public static final BitSet FOLLOW_ruleMethodCategory_in_ruleMethodCategories444 = new BitSet(new long[]{0x0000000000001200L});
+    public static final BitSet FOLLOW_RightSquareBracket_in_ruleMethodCategories458 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_ruleSelectionCategories_in_entryRuleSelectionCategories492 = new BitSet(new long[]{0x0000000000000000L});
     public static final BitSet FOLLOW_EOF_in_entryRuleSelectionCategories502 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_Selection_in_ruleSelectionCategories540 = new BitSet(new long[]{0x0000000000000040L});
+    public static final BitSet FOLLOW_Selection_in_ruleSelectionCategories540 = new BitSet(new long[]{0x0000000000000020L});
     public static final BitSet FOLLOW_Categories_in_ruleSelectionCategories552 = new BitSet(new long[]{0x0000000000000100L});
     public static final BitSet FOLLOW_LeftSquareBracket_in_ruleSelectionCategories564 = new BitSet(new long[]{0x0000000000001000L});
     public static final BitSet FOLLOW_ruleSelectionCategory_in_ruleSelectionCategories584 = new BitSet(new long[]{0x0000000000001200L});
@@ -1297,12 +1297,12 @@ public class InternalCategoriesParser extends AbstractInternalAntlrParser {
     public static final BitSet FOLLOW_LeftCurlyBracket_in_ruleRequirementCategory705 = new BitSet(new long[]{0x0000000000001800L});
     public static final BitSet FOLLOW_ruleCatRef_in_ruleRequirementCategory727 = new BitSet(new long[]{0x0000000000001800L});
     public static final BitSet FOLLOW_RightCurlyBracket_in_ruleRequirementCategory741 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleVerificationCategory_in_entryRuleVerificationCategory777 = new BitSet(new long[]{0x0000000000000000L});
-    public static final BitSet FOLLOW_EOF_in_entryRuleVerificationCategory787 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_RULE_ID_in_ruleVerificationCategory829 = new BitSet(new long[]{0x0000000000000402L});
-    public static final BitSet FOLLOW_LeftCurlyBracket_in_ruleVerificationCategory848 = new BitSet(new long[]{0x0000000000001800L});
-    public static final BitSet FOLLOW_ruleCatRef_in_ruleVerificationCategory870 = new BitSet(new long[]{0x0000000000001800L});
-    public static final BitSet FOLLOW_RightCurlyBracket_in_ruleVerificationCategory884 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleMethodCategory_in_entryRuleMethodCategory777 = new BitSet(new long[]{0x0000000000000000L});
+    public static final BitSet FOLLOW_EOF_in_entryRuleMethodCategory787 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_RULE_ID_in_ruleMethodCategory829 = new BitSet(new long[]{0x0000000000000402L});
+    public static final BitSet FOLLOW_LeftCurlyBracket_in_ruleMethodCategory848 = new BitSet(new long[]{0x0000000000001800L});
+    public static final BitSet FOLLOW_ruleCatRef_in_ruleMethodCategory870 = new BitSet(new long[]{0x0000000000001800L});
+    public static final BitSet FOLLOW_RightCurlyBracket_in_ruleMethodCategory884 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_ruleSelectionCategory_in_entryRuleSelectionCategory920 = new BitSet(new long[]{0x0000000000000000L});
     public static final BitSet FOLLOW_EOF_in_entryRuleSelectionCategory930 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_RULE_ID_in_ruleSelectionCategory972 = new BitSet(new long[]{0x0000000000000402L});

@@ -647,7 +647,7 @@ public class VerifySemanticSequencer extends CommonSemanticSequencer {
 	 *         methodType=MethodType 
 	 *         description=Description? 
 	 *         condition=VerificationCondition? 
-	 *         category+=[VerificationCategory|ID]*
+	 *         category+=[Category|ID]*
 	 *     )
 	 */
 	protected void sequence_VerificationMethod(EObject context, VerificationMethod semanticObject) {

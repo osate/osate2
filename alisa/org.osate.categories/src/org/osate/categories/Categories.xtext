@@ -2,7 +2,7 @@ grammar org.osate.categories.Categories with org.eclipse.xtext.common.Terminals
 
 generate categories "http://www.osate.org/categories/Categories"
 
-Categories : RequirementCategories  | VerificationCategories | SelectionCategories
+Categories : RequirementCategories  | MethodCategories | SelectionCategories
 ;
 /**
  * requirement categories uses a label instead of name to make the category itself global
@@ -13,9 +13,9 @@ RequirementCategories :
 	']'
 ;
 
-VerificationCategories :
-	'verification' 'categories' 
-	'[' category += VerificationCategory+
+MethodCategories :
+	'method' 'categories' 
+	'[' category += MethodCategory+
 	']'
 ;
 
@@ -26,7 +26,9 @@ SelectionCategories :
 ;
 
 
-Category : RequirementCategory | VerificationCategory  | SelectionCategory;
+Category : RequirementCategory | MethodCategory  | SelectionCategory ;
+
+
 
 /**
  * Requirement category indicates the kind of requirement we are dealing with
@@ -39,14 +41,14 @@ RequirementCategory :
 
 
 /**
- * Verification category indicates the kind of verification we are dealing with
+ * Method category indicates the kind of verification we are dealing with
  */
-VerificationCategory :
-	name = ID ('{' subCategories+=[VerificationCategory|CatRef]*'}')? 
+MethodCategory :
+	name = ID ('{' subCategories+=[MethodCategory|CatRef]*'}')? 
 ;
 
 /**
- * selection category indicates a tag for filtered selection of verification activities
+ * selection category indicates a tag for filtered selection 
  */
 SelectionCategory :
 	name = ID ('{' subCategories+=[SelectionCategory|CatRef]*'}')? 

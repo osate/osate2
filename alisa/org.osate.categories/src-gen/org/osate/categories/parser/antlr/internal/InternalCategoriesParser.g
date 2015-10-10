@@ -83,11 +83,11 @@ ruleCategories returns [EObject current=null]
 
     |
     { 
-        newCompositeNode(grammarAccess.getCategoriesAccess().getVerificationCategoriesParserRuleCall_1()); 
+        newCompositeNode(grammarAccess.getCategoriesAccess().getMethodCategoriesParserRuleCall_1()); 
     }
-    this_VerificationCategories_1=ruleVerificationCategories
+    this_MethodCategories_1=ruleMethodCategories
     {
-        $current = $this_VerificationCategories_1.current;
+        $current = $this_MethodCategories_1.current;
         afterParserOrEnumRuleCall();
     }
 
@@ -166,49 +166,49 @@ ruleRequirementCategories returns [EObject current=null]
 
 
 
-// Entry rule entryRuleVerificationCategories
-entryRuleVerificationCategories returns [EObject current=null]
+// Entry rule entryRuleMethodCategories
+entryRuleMethodCategories returns [EObject current=null]
 	:
-	{ newCompositeNode(grammarAccess.getVerificationCategoriesRule()); }
-	 iv_ruleVerificationCategories=ruleVerificationCategories 
-	 { $current=$iv_ruleVerificationCategories.current; } 
+	{ newCompositeNode(grammarAccess.getMethodCategoriesRule()); }
+	 iv_ruleMethodCategories=ruleMethodCategories 
+	 { $current=$iv_ruleMethodCategories.current; } 
 	 EOF 
 ;
 
-// Rule VerificationCategories
-ruleVerificationCategories returns [EObject current=null] 
+// Rule MethodCategories
+ruleMethodCategories returns [EObject current=null] 
     @init { enterRule(); 
     }
     @after { leaveRule(); }:
 (
-	otherlv_0=Verification
+	otherlv_0=Method
     {
-    	newLeafNode(otherlv_0, grammarAccess.getVerificationCategoriesAccess().getVerificationKeyword_0());
+    	newLeafNode(otherlv_0, grammarAccess.getMethodCategoriesAccess().getMethodKeyword_0());
     }
 
 	otherlv_1=Categories
     {
-    	newLeafNode(otherlv_1, grammarAccess.getVerificationCategoriesAccess().getCategoriesKeyword_1());
+    	newLeafNode(otherlv_1, grammarAccess.getMethodCategoriesAccess().getCategoriesKeyword_1());
     }
 
 	otherlv_2=LeftSquareBracket
     {
-    	newLeafNode(otherlv_2, grammarAccess.getVerificationCategoriesAccess().getLeftSquareBracketKeyword_2());
+    	newLeafNode(otherlv_2, grammarAccess.getMethodCategoriesAccess().getLeftSquareBracketKeyword_2());
     }
 (
 (
 		{ 
-	        newCompositeNode(grammarAccess.getVerificationCategoriesAccess().getCategoryVerificationCategoryParserRuleCall_3_0()); 
+	        newCompositeNode(grammarAccess.getMethodCategoriesAccess().getCategoryMethodCategoryParserRuleCall_3_0()); 
 	    }
-		lv_category_3_0=ruleVerificationCategory		{
+		lv_category_3_0=ruleMethodCategory		{
 	        if ($current==null) {
-	            $current = createModelElementForParent(grammarAccess.getVerificationCategoriesRule());
+	            $current = createModelElementForParent(grammarAccess.getMethodCategoriesRule());
 	        }
        		add(
        			$current, 
        			"category",
         		lv_category_3_0, 
-        		"VerificationCategory");
+        		"MethodCategory");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -216,7 +216,7 @@ ruleVerificationCategories returns [EObject current=null]
 )+
 	otherlv_4=RightSquareBracket
     {
-    	newLeafNode(otherlv_4, grammarAccess.getVerificationCategoriesAccess().getRightSquareBracketKeyword_4());
+    	newLeafNode(otherlv_4, grammarAccess.getMethodCategoriesAccess().getRightSquareBracketKeyword_4());
     }
 )
 ;
@@ -350,17 +350,17 @@ ruleRequirementCategory returns [EObject current=null]
 
 
 
-// Entry rule entryRuleVerificationCategory
-entryRuleVerificationCategory returns [EObject current=null]
+// Entry rule entryRuleMethodCategory
+entryRuleMethodCategory returns [EObject current=null]
 	:
-	{ newCompositeNode(grammarAccess.getVerificationCategoryRule()); }
-	 iv_ruleVerificationCategory=ruleVerificationCategory 
-	 { $current=$iv_ruleVerificationCategory.current; } 
+	{ newCompositeNode(grammarAccess.getMethodCategoryRule()); }
+	 iv_ruleMethodCategory=ruleMethodCategory 
+	 { $current=$iv_ruleMethodCategory.current; } 
 	 EOF 
 ;
 
-// Rule VerificationCategory
-ruleVerificationCategory returns [EObject current=null] 
+// Rule MethodCategory
+ruleMethodCategory returns [EObject current=null] 
     @init { enterRule(); 
     }
     @after { leaveRule(); }:
@@ -368,11 +368,11 @@ ruleVerificationCategory returns [EObject current=null]
 (
 		lv_name_0_0=RULE_ID
 		{
-			newLeafNode(lv_name_0_0, grammarAccess.getVerificationCategoryAccess().getNameIDTerminalRuleCall_0_0()); 
+			newLeafNode(lv_name_0_0, grammarAccess.getMethodCategoryAccess().getNameIDTerminalRuleCall_0_0()); 
 		}
 		{
 	        if ($current==null) {
-	            $current = createModelElement(grammarAccess.getVerificationCategoryRule());
+	            $current = createModelElement(grammarAccess.getMethodCategoryRule());
 	        }
        		setWithLastConsumed(
        			$current, 
@@ -385,17 +385,17 @@ ruleVerificationCategory returns [EObject current=null]
 )(
 	otherlv_1=LeftCurlyBracket
     {
-    	newLeafNode(otherlv_1, grammarAccess.getVerificationCategoryAccess().getLeftCurlyBracketKeyword_1_0());
+    	newLeafNode(otherlv_1, grammarAccess.getMethodCategoryAccess().getLeftCurlyBracketKeyword_1_0());
     }
 (
 (
 		{
 			if ($current==null) {
-	            $current = createModelElement(grammarAccess.getVerificationCategoryRule());
+	            $current = createModelElement(grammarAccess.getMethodCategoryRule());
 	        }
         }
 		{ 
-	        newCompositeNode(grammarAccess.getVerificationCategoryAccess().getSubCategoriesVerificationCategoryCrossReference_1_1_0()); 
+	        newCompositeNode(grammarAccess.getMethodCategoryAccess().getSubCategoriesMethodCategoryCrossReference_1_1_0()); 
 	    }
 		ruleCatRef		{ 
 	        afterParserOrEnumRuleCall();
@@ -405,7 +405,7 @@ ruleVerificationCategory returns [EObject current=null]
 )*
 	otherlv_3=RightCurlyBracket
     {
-    	newLeafNode(otherlv_3, grammarAccess.getVerificationCategoryAccess().getRightCurlyBracketKeyword_1_2());
+    	newLeafNode(otherlv_3, grammarAccess.getMethodCategoryAccess().getRightCurlyBracketKeyword_1_2());
     }
 )?)
 ;

@@ -27,12 +27,8 @@
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Alisa.ecore#//AssuranceTask/title"/>
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference Alisa.ecore#//AssuranceTask/assurancePlan"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Alisa.ecore#//AssuranceTask/description"/>
-      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference Alisa.ecore#//AssuranceTask/requirementFilter"/>
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Alisa.ecore#//AssuranceTask/strictRequirementCategories"/>
-      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference Alisa.ecore#//AssuranceTask/verificationFilter"/>
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Alisa.ecore#//AssuranceTask/strictVerificationCategories"/>
-      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference Alisa.ecore#//AssuranceTask/selectionFilter"/>
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Alisa.ecore#//AssuranceTask/strictSelectionCategories"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference Alisa.ecore#//AssuranceTask/filter"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Alisa.ecore#//AssuranceTask/strictFilter"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Alisa.ecore#//AssuranceTask/issues"/>
     </genClasses>
     <genClasses ecoreClass="Alisa.ecore#//Description">

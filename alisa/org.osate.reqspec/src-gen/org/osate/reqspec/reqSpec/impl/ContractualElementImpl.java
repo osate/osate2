@@ -30,7 +30,7 @@ import org.osate.alisa.common.common.Description;
 import org.osate.alisa.common.common.Rationale;
 import org.osate.alisa.common.common.Uncertainty;
 
-import org.osate.categories.categories.RequirementCategory;
+import org.osate.categories.categories.Category;
 
 import org.osate.reqspec.reqSpec.ContractualElement;
 import org.osate.reqspec.reqSpec.ExternalDocument;
@@ -155,7 +155,7 @@ public class ContractualElementImpl extends MinimalEObjectImpl.Container impleme
    * @generated
    * @ordered
    */
-  protected EList<RequirementCategory> category;
+  protected EList<Category> category;
 
   /**
    * The cached value of the '{@link #getDescription() <em>Description</em>}' containment reference.
@@ -458,11 +458,11 @@ public class ContractualElementImpl extends MinimalEObjectImpl.Container impleme
    * <!-- end-user-doc -->
    * @generated
    */
-  public EList<RequirementCategory> getCategory()
+  public EList<Category> getCategory()
   {
     if (category == null)
     {
-      category = new EObjectResolvingEList<RequirementCategory>(RequirementCategory.class, this, ReqSpecPackage.CONTRACTUAL_ELEMENT__CATEGORY);
+      category = new EObjectResolvingEList<Category>(Category.class, this, ReqSpecPackage.CONTRACTUAL_ELEMENT__CATEGORY);
     }
     return category;
   }
@@ -827,7 +827,7 @@ public class ContractualElementImpl extends MinimalEObjectImpl.Container impleme
         return;
       case ReqSpecPackage.CONTRACTUAL_ELEMENT__CATEGORY:
         getCategory().clear();
-        getCategory().addAll((Collection<? extends RequirementCategory>)newValue);
+        getCategory().addAll((Collection<? extends Category>)newValue);
         return;
       case ReqSpecPackage.CONTRACTUAL_ELEMENT__DESCRIPTION:
         setDescription((Description)newValue);

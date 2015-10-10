@@ -40,10 +40,10 @@ import org.osate.categories.services.CategoriesGrammarAccess;
 		tokenNameToValue.put("RightSquareBracket", "']'");
 		tokenNameToValue.put("LeftCurlyBracket", "'{'");
 		tokenNameToValue.put("RightCurlyBracket", "'}'");
+		tokenNameToValue.put("Method", "'method'");
 		tokenNameToValue.put("Selection", "'selection'");
 		tokenNameToValue.put("Categories", "'categories'");
 		tokenNameToValue.put("Requirement", "'requirement'");
-		tokenNameToValue.put("Verification", "'verification'");
  	}
  	
     public void setGrammarAccess(CategoriesGrammarAccess grammarAccess) {
@@ -123,25 +123,25 @@ finally {
 
 
 
-// Entry rule entryRuleVerificationCategories
-entryRuleVerificationCategories 
+// Entry rule entryRuleMethodCategories
+entryRuleMethodCategories 
 :
-{ before(grammarAccess.getVerificationCategoriesRule()); }
-	 ruleVerificationCategories
-{ after(grammarAccess.getVerificationCategoriesRule()); } 
+{ before(grammarAccess.getMethodCategoriesRule()); }
+	 ruleMethodCategories
+{ after(grammarAccess.getMethodCategoriesRule()); } 
 	 EOF 
 ;
 
-// Rule VerificationCategories
-ruleVerificationCategories 
+// Rule MethodCategories
+ruleMethodCategories 
     @init {
 		int stackSize = keepStackSize();
     }
     :
 (
-{ before(grammarAccess.getVerificationCategoriesAccess().getGroup()); }
-(rule__VerificationCategories__Group__0)
-{ after(grammarAccess.getVerificationCategoriesAccess().getGroup()); }
+{ before(grammarAccess.getMethodCategoriesAccess().getGroup()); }
+(rule__MethodCategories__Group__0)
+{ after(grammarAccess.getMethodCategoriesAccess().getGroup()); }
 )
 
 ;
@@ -209,25 +209,25 @@ finally {
 
 
 
-// Entry rule entryRuleVerificationCategory
-entryRuleVerificationCategory 
+// Entry rule entryRuleMethodCategory
+entryRuleMethodCategory 
 :
-{ before(grammarAccess.getVerificationCategoryRule()); }
-	 ruleVerificationCategory
-{ after(grammarAccess.getVerificationCategoryRule()); } 
+{ before(grammarAccess.getMethodCategoryRule()); }
+	 ruleMethodCategory
+{ after(grammarAccess.getMethodCategoryRule()); } 
 	 EOF 
 ;
 
-// Rule VerificationCategory
-ruleVerificationCategory 
+// Rule MethodCategory
+ruleMethodCategory 
     @init {
 		int stackSize = keepStackSize();
     }
     :
 (
-{ before(grammarAccess.getVerificationCategoryAccess().getGroup()); }
-(rule__VerificationCategory__Group__0)
-{ after(grammarAccess.getVerificationCategoryAccess().getGroup()); }
+{ before(grammarAccess.getMethodCategoryAccess().getGroup()); }
+(rule__MethodCategory__Group__0)
+{ after(grammarAccess.getMethodCategoryAccess().getGroup()); }
 )
 
 ;
@@ -306,9 +306,9 @@ rule__Categories__Alternatives
 )
 
     |(
-{ before(grammarAccess.getCategoriesAccess().getVerificationCategoriesParserRuleCall_1()); }
-	ruleVerificationCategories
-{ after(grammarAccess.getCategoriesAccess().getVerificationCategoriesParserRuleCall_1()); }
+{ before(grammarAccess.getCategoriesAccess().getMethodCategoriesParserRuleCall_1()); }
+	ruleMethodCategories
+{ after(grammarAccess.getCategoriesAccess().getMethodCategoriesParserRuleCall_1()); }
 )
 
     |(
@@ -494,29 +494,29 @@ finally {
 
 
 
-rule__VerificationCategories__Group__0
+rule__MethodCategories__Group__0
     @init {
 		int stackSize = keepStackSize();
     }
 :
-	rule__VerificationCategories__Group__0__Impl
-	rule__VerificationCategories__Group__1
+	rule__MethodCategories__Group__0__Impl
+	rule__MethodCategories__Group__1
 ;
 finally {
 	restoreStackSize(stackSize);
 }
 
-rule__VerificationCategories__Group__0__Impl
+rule__MethodCategories__Group__0__Impl
     @init {
 		int stackSize = keepStackSize();
     }
 :
 (
-{ before(grammarAccess.getVerificationCategoriesAccess().getVerificationKeyword_0()); }
+{ before(grammarAccess.getMethodCategoriesAccess().getMethodKeyword_0()); }
 
-	Verification 
+	Method 
 
-{ after(grammarAccess.getVerificationCategoriesAccess().getVerificationKeyword_0()); }
+{ after(grammarAccess.getMethodCategoriesAccess().getMethodKeyword_0()); }
 )
 
 ;
@@ -525,29 +525,29 @@ finally {
 }
 
 
-rule__VerificationCategories__Group__1
+rule__MethodCategories__Group__1
     @init {
 		int stackSize = keepStackSize();
     }
 :
-	rule__VerificationCategories__Group__1__Impl
-	rule__VerificationCategories__Group__2
+	rule__MethodCategories__Group__1__Impl
+	rule__MethodCategories__Group__2
 ;
 finally {
 	restoreStackSize(stackSize);
 }
 
-rule__VerificationCategories__Group__1__Impl
+rule__MethodCategories__Group__1__Impl
     @init {
 		int stackSize = keepStackSize();
     }
 :
 (
-{ before(grammarAccess.getVerificationCategoriesAccess().getCategoriesKeyword_1()); }
+{ before(grammarAccess.getMethodCategoriesAccess().getCategoriesKeyword_1()); }
 
 	Categories 
 
-{ after(grammarAccess.getVerificationCategoriesAccess().getCategoriesKeyword_1()); }
+{ after(grammarAccess.getMethodCategoriesAccess().getCategoriesKeyword_1()); }
 )
 
 ;
@@ -556,29 +556,29 @@ finally {
 }
 
 
-rule__VerificationCategories__Group__2
+rule__MethodCategories__Group__2
     @init {
 		int stackSize = keepStackSize();
     }
 :
-	rule__VerificationCategories__Group__2__Impl
-	rule__VerificationCategories__Group__3
+	rule__MethodCategories__Group__2__Impl
+	rule__MethodCategories__Group__3
 ;
 finally {
 	restoreStackSize(stackSize);
 }
 
-rule__VerificationCategories__Group__2__Impl
+rule__MethodCategories__Group__2__Impl
     @init {
 		int stackSize = keepStackSize();
     }
 :
 (
-{ before(grammarAccess.getVerificationCategoriesAccess().getLeftSquareBracketKeyword_2()); }
+{ before(grammarAccess.getMethodCategoriesAccess().getLeftSquareBracketKeyword_2()); }
 
 	LeftSquareBracket 
 
-{ after(grammarAccess.getVerificationCategoriesAccess().getLeftSquareBracketKeyword_2()); }
+{ after(grammarAccess.getMethodCategoriesAccess().getLeftSquareBracketKeyword_2()); }
 )
 
 ;
@@ -587,33 +587,33 @@ finally {
 }
 
 
-rule__VerificationCategories__Group__3
+rule__MethodCategories__Group__3
     @init {
 		int stackSize = keepStackSize();
     }
 :
-	rule__VerificationCategories__Group__3__Impl
-	rule__VerificationCategories__Group__4
+	rule__MethodCategories__Group__3__Impl
+	rule__MethodCategories__Group__4
 ;
 finally {
 	restoreStackSize(stackSize);
 }
 
-rule__VerificationCategories__Group__3__Impl
+rule__MethodCategories__Group__3__Impl
     @init {
 		int stackSize = keepStackSize();
     }
 :
 (
 (
-{ before(grammarAccess.getVerificationCategoriesAccess().getCategoryAssignment_3()); }
-(rule__VerificationCategories__CategoryAssignment_3)
-{ after(grammarAccess.getVerificationCategoriesAccess().getCategoryAssignment_3()); }
+{ before(grammarAccess.getMethodCategoriesAccess().getCategoryAssignment_3()); }
+(rule__MethodCategories__CategoryAssignment_3)
+{ after(grammarAccess.getMethodCategoriesAccess().getCategoryAssignment_3()); }
 )
 (
-{ before(grammarAccess.getVerificationCategoriesAccess().getCategoryAssignment_3()); }
-(rule__VerificationCategories__CategoryAssignment_3)*
-{ after(grammarAccess.getVerificationCategoriesAccess().getCategoryAssignment_3()); }
+{ before(grammarAccess.getMethodCategoriesAccess().getCategoryAssignment_3()); }
+(rule__MethodCategories__CategoryAssignment_3)*
+{ after(grammarAccess.getMethodCategoriesAccess().getCategoryAssignment_3()); }
 )
 )
 
@@ -623,28 +623,28 @@ finally {
 }
 
 
-rule__VerificationCategories__Group__4
+rule__MethodCategories__Group__4
     @init {
 		int stackSize = keepStackSize();
     }
 :
-	rule__VerificationCategories__Group__4__Impl
+	rule__MethodCategories__Group__4__Impl
 ;
 finally {
 	restoreStackSize(stackSize);
 }
 
-rule__VerificationCategories__Group__4__Impl
+rule__MethodCategories__Group__4__Impl
     @init {
 		int stackSize = keepStackSize();
     }
 :
 (
-{ before(grammarAccess.getVerificationCategoriesAccess().getRightSquareBracketKeyword_4()); }
+{ before(grammarAccess.getMethodCategoriesAccess().getRightSquareBracketKeyword_4()); }
 
 	RightSquareBracket 
 
-{ after(grammarAccess.getVerificationCategoriesAccess().getRightSquareBracketKeyword_4()); }
+{ after(grammarAccess.getMethodCategoriesAccess().getRightSquareBracketKeyword_4()); }
 )
 
 ;
@@ -989,27 +989,27 @@ finally {
 
 
 
-rule__VerificationCategory__Group__0
+rule__MethodCategory__Group__0
     @init {
 		int stackSize = keepStackSize();
     }
 :
-	rule__VerificationCategory__Group__0__Impl
-	rule__VerificationCategory__Group__1
+	rule__MethodCategory__Group__0__Impl
+	rule__MethodCategory__Group__1
 ;
 finally {
 	restoreStackSize(stackSize);
 }
 
-rule__VerificationCategory__Group__0__Impl
+rule__MethodCategory__Group__0__Impl
     @init {
 		int stackSize = keepStackSize();
     }
 :
 (
-{ before(grammarAccess.getVerificationCategoryAccess().getNameAssignment_0()); }
-(rule__VerificationCategory__NameAssignment_0)
-{ after(grammarAccess.getVerificationCategoryAccess().getNameAssignment_0()); }
+{ before(grammarAccess.getMethodCategoryAccess().getNameAssignment_0()); }
+(rule__MethodCategory__NameAssignment_0)
+{ after(grammarAccess.getMethodCategoryAccess().getNameAssignment_0()); }
 )
 
 ;
@@ -1018,26 +1018,26 @@ finally {
 }
 
 
-rule__VerificationCategory__Group__1
+rule__MethodCategory__Group__1
     @init {
 		int stackSize = keepStackSize();
     }
 :
-	rule__VerificationCategory__Group__1__Impl
+	rule__MethodCategory__Group__1__Impl
 ;
 finally {
 	restoreStackSize(stackSize);
 }
 
-rule__VerificationCategory__Group__1__Impl
+rule__MethodCategory__Group__1__Impl
     @init {
 		int stackSize = keepStackSize();
     }
 :
 (
-{ before(grammarAccess.getVerificationCategoryAccess().getGroup_1()); }
-(rule__VerificationCategory__Group_1__0)?
-{ after(grammarAccess.getVerificationCategoryAccess().getGroup_1()); }
+{ before(grammarAccess.getMethodCategoryAccess().getGroup_1()); }
+(rule__MethodCategory__Group_1__0)?
+{ after(grammarAccess.getMethodCategoryAccess().getGroup_1()); }
 )
 
 ;
@@ -1050,29 +1050,29 @@ finally {
 
 
 
-rule__VerificationCategory__Group_1__0
+rule__MethodCategory__Group_1__0
     @init {
 		int stackSize = keepStackSize();
     }
 :
-	rule__VerificationCategory__Group_1__0__Impl
-	rule__VerificationCategory__Group_1__1
+	rule__MethodCategory__Group_1__0__Impl
+	rule__MethodCategory__Group_1__1
 ;
 finally {
 	restoreStackSize(stackSize);
 }
 
-rule__VerificationCategory__Group_1__0__Impl
+rule__MethodCategory__Group_1__0__Impl
     @init {
 		int stackSize = keepStackSize();
     }
 :
 (
-{ before(grammarAccess.getVerificationCategoryAccess().getLeftCurlyBracketKeyword_1_0()); }
+{ before(grammarAccess.getMethodCategoryAccess().getLeftCurlyBracketKeyword_1_0()); }
 
 	LeftCurlyBracket 
 
-{ after(grammarAccess.getVerificationCategoryAccess().getLeftCurlyBracketKeyword_1_0()); }
+{ after(grammarAccess.getMethodCategoryAccess().getLeftCurlyBracketKeyword_1_0()); }
 )
 
 ;
@@ -1081,27 +1081,27 @@ finally {
 }
 
 
-rule__VerificationCategory__Group_1__1
+rule__MethodCategory__Group_1__1
     @init {
 		int stackSize = keepStackSize();
     }
 :
-	rule__VerificationCategory__Group_1__1__Impl
-	rule__VerificationCategory__Group_1__2
+	rule__MethodCategory__Group_1__1__Impl
+	rule__MethodCategory__Group_1__2
 ;
 finally {
 	restoreStackSize(stackSize);
 }
 
-rule__VerificationCategory__Group_1__1__Impl
+rule__MethodCategory__Group_1__1__Impl
     @init {
 		int stackSize = keepStackSize();
     }
 :
 (
-{ before(grammarAccess.getVerificationCategoryAccess().getSubCategoriesAssignment_1_1()); }
-(rule__VerificationCategory__SubCategoriesAssignment_1_1)*
-{ after(grammarAccess.getVerificationCategoryAccess().getSubCategoriesAssignment_1_1()); }
+{ before(grammarAccess.getMethodCategoryAccess().getSubCategoriesAssignment_1_1()); }
+(rule__MethodCategory__SubCategoriesAssignment_1_1)*
+{ after(grammarAccess.getMethodCategoryAccess().getSubCategoriesAssignment_1_1()); }
 )
 
 ;
@@ -1110,28 +1110,28 @@ finally {
 }
 
 
-rule__VerificationCategory__Group_1__2
+rule__MethodCategory__Group_1__2
     @init {
 		int stackSize = keepStackSize();
     }
 :
-	rule__VerificationCategory__Group_1__2__Impl
+	rule__MethodCategory__Group_1__2__Impl
 ;
 finally {
 	restoreStackSize(stackSize);
 }
 
-rule__VerificationCategory__Group_1__2__Impl
+rule__MethodCategory__Group_1__2__Impl
     @init {
 		int stackSize = keepStackSize();
     }
 :
 (
-{ before(grammarAccess.getVerificationCategoryAccess().getRightCurlyBracketKeyword_1_2()); }
+{ before(grammarAccess.getMethodCategoryAccess().getRightCurlyBracketKeyword_1_2()); }
 
 	RightCurlyBracket 
 
-{ after(grammarAccess.getVerificationCategoryAccess().getRightCurlyBracketKeyword_1_2()); }
+{ after(grammarAccess.getMethodCategoryAccess().getRightCurlyBracketKeyword_1_2()); }
 )
 
 ;
@@ -1319,14 +1319,14 @@ finally {
 	restoreStackSize(stackSize);
 }
 
-rule__VerificationCategories__CategoryAssignment_3
+rule__MethodCategories__CategoryAssignment_3
     @init {
 		int stackSize = keepStackSize();
     }
 :
 (
-{ before(grammarAccess.getVerificationCategoriesAccess().getCategoryVerificationCategoryParserRuleCall_3_0()); }
-	ruleVerificationCategory{ after(grammarAccess.getVerificationCategoriesAccess().getCategoryVerificationCategoryParserRuleCall_3_0()); }
+{ before(grammarAccess.getMethodCategoriesAccess().getCategoryMethodCategoryParserRuleCall_3_0()); }
+	ruleMethodCategory{ after(grammarAccess.getMethodCategoriesAccess().getCategoryMethodCategoryParserRuleCall_3_0()); }
 )
 
 ;
@@ -1383,14 +1383,14 @@ finally {
 	restoreStackSize(stackSize);
 }
 
-rule__VerificationCategory__NameAssignment_0
+rule__MethodCategory__NameAssignment_0
     @init {
 		int stackSize = keepStackSize();
     }
 :
 (
-{ before(grammarAccess.getVerificationCategoryAccess().getNameIDTerminalRuleCall_0_0()); }
-	RULE_ID{ after(grammarAccess.getVerificationCategoryAccess().getNameIDTerminalRuleCall_0_0()); }
+{ before(grammarAccess.getMethodCategoryAccess().getNameIDTerminalRuleCall_0_0()); }
+	RULE_ID{ after(grammarAccess.getMethodCategoryAccess().getNameIDTerminalRuleCall_0_0()); }
 )
 
 ;
@@ -1398,18 +1398,18 @@ finally {
 	restoreStackSize(stackSize);
 }
 
-rule__VerificationCategory__SubCategoriesAssignment_1_1
+rule__MethodCategory__SubCategoriesAssignment_1_1
     @init {
 		int stackSize = keepStackSize();
     }
 :
 (
-{ before(grammarAccess.getVerificationCategoryAccess().getSubCategoriesVerificationCategoryCrossReference_1_1_0()); }
+{ before(grammarAccess.getMethodCategoryAccess().getSubCategoriesMethodCategoryCrossReference_1_1_0()); }
 (
-{ before(grammarAccess.getVerificationCategoryAccess().getSubCategoriesVerificationCategoryCatRefParserRuleCall_1_1_0_1()); }
-	ruleCatRef{ after(grammarAccess.getVerificationCategoryAccess().getSubCategoriesVerificationCategoryCatRefParserRuleCall_1_1_0_1()); }
+{ before(grammarAccess.getMethodCategoryAccess().getSubCategoriesMethodCategoryCatRefParserRuleCall_1_1_0_1()); }
+	ruleCatRef{ after(grammarAccess.getMethodCategoryAccess().getSubCategoriesMethodCategoryCatRefParserRuleCall_1_1_0_1()); }
 )
-{ after(grammarAccess.getVerificationCategoryAccess().getSubCategoriesVerificationCategoryCrossReference_1_1_0()); }
+{ after(grammarAccess.getMethodCategoryAccess().getSubCategoriesMethodCategoryCrossReference_1_1_0()); }
 )
 
 ;

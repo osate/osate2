@@ -7,9 +7,9 @@
     <eStructuralFeatures xsi:type="ecore:EReference" name="category" upperBound="-1"
         eType="#//RequirementCategory" containment="true"/>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="VerificationCategories" eSuperTypes="#//Categories">
+  <eClassifiers xsi:type="ecore:EClass" name="MethodCategories" eSuperTypes="#//Categories">
     <eStructuralFeatures xsi:type="ecore:EReference" name="category" upperBound="-1"
-        eType="#//VerificationCategory" containment="true"/>
+        eType="#//MethodCategory" containment="true"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="SelectionCategories" eSuperTypes="#//Categories">
     <eStructuralFeatures xsi:type="ecore:EReference" name="category" upperBound="-1"
@@ -22,9 +22,9 @@
     <eStructuralFeatures xsi:type="ecore:EReference" name="subCategories" unique="false"
         upperBound="-1" eType="#//RequirementCategory"/>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="VerificationCategory" eSuperTypes="#//Category">
+  <eClassifiers xsi:type="ecore:EClass" name="MethodCategory" eSuperTypes="#//Category">
     <eStructuralFeatures xsi:type="ecore:EReference" name="subCategories" unique="false"
-        upperBound="-1" eType="#//VerificationCategory"/>
+        upperBound="-1" eType="#//MethodCategory"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="SelectionCategory" eSuperTypes="#//Category">
     <eStructuralFeatures xsi:type="ecore:EReference" name="subCategories" unique="false"

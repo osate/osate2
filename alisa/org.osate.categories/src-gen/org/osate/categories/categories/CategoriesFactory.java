@@ -41,13 +41,13 @@ public interface CategoriesFactory extends EFactory
   RequirementCategories createRequirementCategories();
 
   /**
-   * Returns a new object of class '<em>Verification Categories</em>'.
+   * Returns a new object of class '<em>Method Categories</em>'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @return a new object of class '<em>Verification Categories</em>'.
+   * @return a new object of class '<em>Method Categories</em>'.
    * @generated
    */
-  VerificationCategories createVerificationCategories();
+  MethodCategories createMethodCategories();
 
   /**
    * Returns a new object of class '<em>Selection Categories</em>'.
@@ -77,13 +77,13 @@ public interface CategoriesFactory extends EFactory
   RequirementCategory createRequirementCategory();
 
   /**
-   * Returns a new object of class '<em>Verification Category</em>'.
+   * Returns a new object of class '<em>Method Category</em>'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @return a new object of class '<em>Verification Category</em>'.
+   * @return a new object of class '<em>Method Category</em>'.
    * @generated
    */
-  VerificationCategory createVerificationCategory();
+  MethodCategory createMethodCategory();
 
   /**
    * Returns a new object of class '<em>Selection Category</em>'.

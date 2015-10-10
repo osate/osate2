@@ -28,13 +28,8 @@ AssurancePlan:
 	'['
 	(
 	('description' description=Description)?
-	&( 'filter'
-	( 'requirements'  requirementFilter+=[categories::RequirementCategory|ID]+ strictRequirementCategories?='only'?)?
-	&('verifications'  verificationFilter+=[categories::VerificationCategory|ID]+ strictVerificationCategories?='only'?)?
-	&( 'selections'  selectionFilter+=[categories::SelectionCategory|ID]+ strictSelectionCategories?='only'?)?
-	)
+	&( 'filter'  filter+=[categories::Category|ID]+ strictFilter?='only'?)?
 	&('issues' issues+=STRING+ )?
-	
 	)
 	']'
 	;
