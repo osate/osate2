@@ -19,6 +19,13 @@
 		<xtext.url>http://download.eclipse.org/modeling/tmf/xtext/updates/releases/${xtext.version}/</xtext.url>
 	</properties>
 
+	<repositories>
+		<repository>
+			<id>reqif</id>
+			<url>http://download.eclipse.org/rmf/updates/releases/0.11.0/</url>
+			<layout>p2</layout>
+		</repository>
+	</repositories>
 	<profiles>
 		<profile>
 			<id>osate2.stable</id>

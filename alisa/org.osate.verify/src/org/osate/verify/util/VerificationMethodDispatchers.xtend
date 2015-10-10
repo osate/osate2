@@ -33,7 +33,7 @@ class VerificationMethodDispatchers {
 			case "MaxFlowLatencyAnalysis",
 			case "MinFlowLatencyAnalysis",
 			case "FlowLatencyJitterAnalysis":
-				if(target == null) true else target.flowLatencyAnalysis
+				if(target == null) true else target.flowLatencyAnalysis(parameters as String[])
 			case "A429Consistency":
 				if(target == null) true else target.A429Consistency
 			case "ConnectionBindingConsistency":
