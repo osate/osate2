@@ -6,7 +6,7 @@ import java.util.Map;
 import org.eclipse.graphiti.features.impl.IIndependenceSolver;
 import org.osate.ge.services.CachingService.Cache;
 
-public class CachingIndependenceProvider implements IIndependenceSolver, Cache {
+class CachingIndependenceProvider implements IIndependenceSolver, Cache {
 	private IIndependenceSolver solver;
 	private Map<String, Object> keyToBusinessObjectMap = new HashMap<String, Object>();
 	
