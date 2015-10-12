@@ -31,7 +31,6 @@ import org.osate.aadl2.FlowKind;
 import org.osate.aadl2.FlowSpecification;
 import org.osate.aadl2.Parameter;
 import org.osate.aadl2.Port;
-import org.osate.ge.diagrams.common.AgeImageProvider;
 import org.osate.ge.ext.Categories;
 import org.osate.ge.ext.Categorized;
 import org.osate.ge.services.AadlFeatureService;
@@ -41,6 +40,7 @@ import org.osate.ge.services.DiagramModificationService;
 import org.osate.ge.services.NamingService;
 import org.osate.ge.services.ShapeService;
 import org.osate.ge.services.AadlModificationService.AbstractModifier;
+import org.osate.ge.ui.util.ImageHelper;
 import org.osate.ge.util.StringUtil;
 
 /**
@@ -76,7 +76,7 @@ public class CreateSimpleFlowSpecificationFeature extends AbstractCreateFeature 
 
 	@Override
 	public String getCreateImageId() {
-		return flowKind == FlowKind.SINK ? AgeImageProvider.getImage("FlowSink") : AgeImageProvider.getImage("FlowSource");
+		return flowKind == FlowKind.SINK ? ImageHelper.getImage("FlowSink") : ImageHelper.getImage("FlowSource");
 	}
 	
 	@Override

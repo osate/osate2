@@ -56,7 +56,6 @@ import org.osate.aadl2.PackageSection;
 import org.osate.aadl2.Realization;
 import org.osate.aadl2.TypeExtension;
 import org.osate.ge.diagrams.common.AadlElementWrapper;
-import org.osate.ge.diagrams.common.AgeImageProvider;
 import org.osate.ge.diagrams.common.patterns.AgeLeafShapePattern;
 import org.osate.ge.dialogs.ElementSelectionDialog;
 import org.osate.ge.ext.Categorized;
@@ -73,6 +72,7 @@ import org.osate.ge.services.ShapeService;
 import org.osate.ge.services.UserInputService;
 import org.osate.ge.services.GhostingService;
 import org.osate.ge.services.AadlModificationService.AbstractModifier;
+import org.osate.ge.ui.util.ImageHelper;
 import org.osate.ge.util.Log;
 import org.osate.ge.util.StringUtil;
 import org.osate.xtext.aadl2.properties.util.EMFIndexRetrieval;
@@ -233,7 +233,7 @@ public class PackageClassifierPattern extends AgeLeafShapePattern implements Cat
 	
 	@Override
 	public String getCreateImageId() {
-		return AgeImageProvider.getImage(classifierType.getName());
+		return ImageHelper.getImage(classifierType.getName());
 	}
 	
 	

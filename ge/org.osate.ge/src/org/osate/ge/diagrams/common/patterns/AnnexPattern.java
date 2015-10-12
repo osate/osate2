@@ -44,7 +44,6 @@ import org.osate.aadl2.DefaultAnnexSubclause;
 import org.osate.aadl2.NamedElement;
 import org.osate.aadl2.Subcomponent;
 import org.osate.ge.diagrams.common.AadlElementWrapper;
-import org.osate.ge.diagrams.common.AgeImageProvider;
 import org.osate.ge.services.AadlModificationService;
 import org.osate.ge.services.AnchorService;
 import org.osate.ge.services.BusinessObjectResolutionService;
@@ -60,6 +59,7 @@ import org.osate.ge.services.ShapeService;
 import org.osate.ge.services.StyleService;
 import org.osate.ge.services.UserInputService;
 import org.osate.ge.services.AadlModificationService.AbstractModifier;
+import org.osate.ge.ui.util.ImageHelper;
 
 /**
  * Pattern for handling AnnexLibraries and AnnexSubclauses
@@ -123,7 +123,7 @@ public class AnnexPattern extends AgePattern {
 	@Override
 	public String getCreateImageId(){
 		if(annexType == getDefaultAnnexLibrary() || annexType == getDefaultAnnexSubclause()) {
-			return AgeImageProvider.getImage(annexType.getName());
+			return ImageHelper.getImage(annexType.getName());
 		}
 		
 		return null;

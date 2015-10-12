@@ -64,7 +64,6 @@ import org.osate.aadl2.SubprogramCall;
 import org.osate.aadl2.SubprogramGroupAccess;
 import org.osate.aadl2.properties.PropertyNotPresentException;
 import org.osate.ge.diagrams.common.AadlElementWrapper;
-import org.osate.ge.diagrams.common.AgeImageProvider;
 import org.osate.ge.diagrams.common.patterns.AgeConnectionPattern;
 import org.osate.ge.ext.Categorized;
 import org.osate.ge.ext.Categories;
@@ -82,6 +81,7 @@ import org.osate.ge.services.UserInputService;
 import org.osate.ge.services.GhostingService;
 import org.osate.ge.services.AadlModificationService.AbstractModifier;
 import org.osate.ge.styles.StyleConstants;
+import org.osate.ge.ui.util.ImageHelper;
 import org.osate.ge.util.StringUtil;
 import org.osate.xtext.aadl2.properties.util.CommunicationProperties;
 import org.osate.xtext.aadl2.properties.util.GetProperties;
@@ -445,7 +445,7 @@ public class ConnectionPattern extends AgeConnectionPattern implements Categoriz
 	}
 	@Override
 	public String getCreateImageId() { 
-		return AgeImageProvider.getImage(connectionType.getName());
+		return ImageHelper.getImage(connectionType.getName());
 	}
 	
 	@Override
