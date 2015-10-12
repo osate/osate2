@@ -3,6 +3,7 @@
 <plugin>
    <extension-point id="org.osate.ge.styles" name="Styles" schema="schema/org.osate.ge.styles.exsd"/>
    <extension-point id="org.osate.ge.tools" name="Tools" schema="schema/org.osate.ge.tools.exsd"/>
+   <extension-point id="org.osate.ge.categories" name="Categories" schema="schema/org.osate.ge.categories.exsd"/>
 	<extension point="org.eclipse.ui.commands">
 	   <command id="org.osate.ge.commands.opendiagram" name="Open Diagram" defaultHandler="org.osate.ge.ui.handlers.OpenDiagramHandler"></command>
 	   <command 
@@ -378,5 +379,48 @@
           point="org.osate.ge.tools">
        <tool class="org.osate.ge.tools.CreateEndToEndFlowTool"/>
        <tool class="org.osate.ge.tools.CreateFlowImplementationTool"/>
+    </extension>
+    <extension
+          point="org.osate.ge.categories">
+          <category
+             id="org.osate.ge.categories.connections"
+             name="Connections"
+             order="20">
+       </category>
+       <category
+             id="org.osate.ge.categories.classifiers"
+             name="Classifiers"
+             order="10">
+       </category>
+       <category
+             id="org.osate.ge.categories.flows"
+             name="Flows"
+             order="40">
+       </category>
+       <category
+             id="org.osate.ge.categories.features"
+             name="Features"
+             order="30">
+       </category>
+       <category
+             id="org.osate.ge.categories.modes"
+             name="Modes"
+             order="50">
+       </category>
+       <category
+             id="org.osate.ge.categories.subcomponents"
+             name="Subcomponents"
+             order="70">
+       </category>
+       <category
+             id="org.osate.ge.categories.subprogram_calls"
+             name="Subprogram Calls"
+             order="80">
+       </category>
+        <category
+             id="org.osate.ge.categories.relationships"
+             name="Relationships"
+             order="60">
+       </category>
     </extension>
 </plugin>

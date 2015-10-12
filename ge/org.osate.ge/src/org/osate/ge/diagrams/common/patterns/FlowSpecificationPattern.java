@@ -43,7 +43,8 @@ import org.osate.aadl2.Parameter;
 import org.osate.aadl2.Port;
 import org.osate.ge.diagrams.common.AadlElementWrapper;
 import org.osate.ge.diagrams.common.AgeImageProvider;
-import org.osate.ge.diagrams.common.Categorized;
+import org.osate.ge.ext.Categorized;
+import org.osate.ge.ext.Categories;
 import org.osate.ge.services.AadlFeatureService;
 import org.osate.ge.services.AadlModificationService;
 import org.osate.ge.services.BusinessObjectResolutionService;
@@ -382,8 +383,8 @@ public class FlowSpecificationPattern extends AgeConnectionPattern implements Ca
 	}
 
 	@Override
-	public Category getCategory() {
-		return Category.FLOWS;
+	public String getCategory() {
+		return Categories.FLOWS;
 	}
 	
 	private Style getFlowSpecificationStyle() {

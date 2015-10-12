@@ -22,6 +22,7 @@ import org.eclipse.graphiti.features.ICreateFeature;
 import org.eclipse.graphiti.features.IFeatureProvider;
 import org.eclipse.graphiti.features.context.IDoubleClickContext;
 import org.eclipse.graphiti.features.context.IPictogramElementContext;
+import org.eclipse.graphiti.features.context.impl.CustomContext;
 import org.eclipse.graphiti.features.custom.ICustomFeature;
 import org.eclipse.graphiti.mm.algorithms.GraphicsAlgorithm;
 import org.eclipse.graphiti.mm.pictograms.ConnectionDecorator;
@@ -47,18 +48,22 @@ import org.osate.aadl2.PortProxy;
 import org.osate.aadl2.ProcessorFeature;
 import org.osate.aadl2.SubprogramProxy;
 import org.osate.ge.diagrams.common.features.DrillDownFeature;
-import org.osate.ge.services.PropertyService;
-import org.eclipse.graphiti.features.context.impl.CustomContext;
 import org.osate.ge.diagrams.common.features.GraphicalToTextualFeature;
+import org.osate.ge.ext.Categorized;
+import org.osate.ge.services.ExtensionRegistryService.Category;
+import org.osate.ge.services.ExtensionService;
+import org.osate.ge.services.PropertyService;
 
 public class AgeToolBehaviorProvider extends DefaultToolBehaviorProvider {
 	private final PropertyService propertyService;
 	private final IEclipseContext context;
+	private final ExtensionService extensionService;
 	
 	@Inject
-	public AgeToolBehaviorProvider(final IDiagramTypeProvider diagramTypeProvider, final PropertyService propertyService, final IEclipseContext context) {
+	public AgeToolBehaviorProvider(final IDiagramTypeProvider diagramTypeProvider, final PropertyService propertyService, final ExtensionService extensionService, final IEclipseContext context) {
 		super(diagramTypeProvider);
 		this.propertyService = propertyService;
+		this.extensionService = extensionService;
 		this.context = context;
 	}
 
@@ -192,75 +197,70 @@ public class AgeToolBehaviorProvider extends DefaultToolBehaviorProvider {
 	}
 	
 	@Override
-	public IPaletteCompartmentEntry[] getPalette() {				
+	public IPaletteCompartmentEntry[] getPalette() {	
 		final class PaletteCompartments {
-			private final List<IPaletteCompartmentEntry> compartments = new ArrayList<IPaletteCompartmentEntry>();
-			private final PaletteCompartmentEntry classifiersCompartmentEntry = createComparmentEntry("Classifiers");
-			private final PaletteCompartmentEntry connectionsCompartmentEntry = createComparmentEntry("Connections");
-			private final PaletteCompartmentEntry featuresCompartmentEntry = createComparmentEntry("Features");
-			private final PaletteCompartmentEntry flowsCompartmentEntry = createComparmentEntry("Flows");
-			private final PaletteCompartmentEntry modesCompartmentEntry = createComparmentEntry( "Modes");
-			private final PaletteCompartmentEntry relationshipsCompartmentEntry = createComparmentEntry("Relationships");
-			private final PaletteCompartmentEntry subcomponentCompartmentEntry = createComparmentEntry("Subcomponents");
-			private final PaletteCompartmentEntry subprogramCallsCompartmentEntry = createComparmentEntry("Subprogram Calls");
-			private final PaletteCompartmentEntry miscCompartmentEntry = createComparmentEntry("Misc");
-			
-			private PaletteCompartmentEntry createComparmentEntry(final String label) {
-				final PaletteCompartmentEntry newEntry = new PaletteCompartmentEntry(label, null);
-				compartments.add(newEntry);
-				return newEntry;
+			private final ArrayList<PaletteCompartmentEntry> compartments = createCompartmentEntries();
+			private ArrayList<PaletteCompartmentEntry> createCompartmentEntries() {
+				final ArrayList<PaletteCompartmentEntry> compartmentEntries= new ArrayList<PaletteCompartmentEntry>();
+				for(final Category category : extensionService.getCategories()) {
+					final PaletteCompartmentEntry newEntry = new PaletteCompartmentEntry(((Category)category).getName(), null);
+					compartmentEntries.add(newEntry);
+				}
+
+				return compartmentEntries;
 			}
-			
+	
+			/**
+			 * Add the tool entry to the correct category
+			 * @param toolEntry the toolEntry to be added to the palette
+			 * @param featureOrPattern the object that holds which category the tool should be added to
+			 */
 			public void addToolEntry(final IToolEntry toolEntry, final Object featureOrPattern) {
-				final PaletteCompartmentEntry compartmentEntry;
-				if(featureOrPattern instanceof Categorized) {
-					final Categorized.Category compartment = ((Categorized) featureOrPattern).getCategory();
-					switch(compartment) {
-					case CLASSIFIERS:
-						compartmentEntry = classifiersCompartmentEntry;
-						break;
-						
-					case CONNECTIONS:
-						compartmentEntry = connectionsCompartmentEntry;
-						break;
-						
-					case FEATURES:
-						compartmentEntry = featuresCompartmentEntry;
-						break;
-						
-					case FLOWS:
-						compartmentEntry = flowsCompartmentEntry;
-						break;
-						
-					case MODES:
-						compartmentEntry = modesCompartmentEntry;
-						break;
-						
-					case RELATIONSHIPS:
-						compartmentEntry = relationshipsCompartmentEntry;
-						break;
-						
-					case SUBCOMPONENTS:
-						compartmentEntry = subcomponentCompartmentEntry;
-						break;	
-						
-					case SUBPROGRAM_CALLS:
-						compartmentEntry = subprogramCallsCompartmentEntry;
-						break;
-						
-					default:
-						compartmentEntry = miscCompartmentEntry;
+				final Category category = getCategory(featureOrPattern);
+				if(category != null) {
+					for(final PaletteCompartmentEntry compartmentEntry : compartments) {
+						if(compartmentEntry.getLabel().equals(category.getName())) {
+							compartmentEntry.addToolEntry(toolEntry);
+						}
 					}
 				} else {
-					compartmentEntry = miscCompartmentEntry;
+					//Add to miscellaneous
+					compartments.get(compartments.size()-1).addToolEntry(toolEntry);
 				}
-				
-				compartmentEntry.addToolEntry(toolEntry);
 			}
 			
+			/**
+			 * Get the category
+			 * @param featureOrPattern
+			 * @return the category in which the toolEntry will be added to
+			 */
+			private Category getCategory(final Object featureOrPattern) {
+				if(featureOrPattern instanceof Categorized) {
+					return getCategoryById(((Categorized)featureOrPattern).getCategory());
+				} else {
+					return null;
+				}
+			}
+
+			/**
+			 * Get the Category based on id
+			 * @param id is the compartment/category id
+			 * @return the Category
+			 */
+			private Category getCategoryById(final String id) {
+				final List<Category> categories = extensionService.getCategories();
+				for(final Category category : categories) {
+					if(category.getId().equals(id)) {
+						return category;
+					}
+				}
+				
+				return null;
+			}
+
 			public void removeEmpty() {
 				// Remove empty compartments		
-				final Iterator<IPaletteCompartmentEntry> it = compartments.iterator(); 
+				final Iterator<PaletteCompartmentEntry> it = compartments.iterator(); 
 				while(it.hasNext()) {
 					final IPaletteCompartmentEntry entry = it.next();
 					if(entry.getToolEntries().isEmpty()) {

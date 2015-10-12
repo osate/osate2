@@ -1,6 +1,7 @@
 package org.osate.ge.services;
 
 import java.util.Collection;
+import java.util.List;
 
 public interface ExtensionRegistryService {
 	/**
@@ -23,4 +24,18 @@ public interface ExtensionRegistryService {
 	 * Activate - Required
 	 */
 	Object getStyleFactory(String styleId);
+
+	
+	/**
+	 * Returns a list of registered categories for the palette.
+	 */
+	List<Category> getCategories();
+	
+	/**
+	 * Interface for palette categories
+	 */
+	public static interface Category {
+		String getId();
+		String getName();
+	}
 }

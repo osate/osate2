@@ -45,7 +45,8 @@ import org.osate.aadl2.NamedElement;
 import org.osate.aadl2.Subcomponent;
 import org.osate.ge.diagrams.common.AadlElementWrapper;
 import org.osate.ge.diagrams.common.AgeImageProvider;
-import org.osate.ge.diagrams.common.Categorized;
+import org.osate.ge.ext.Categorized;
+import org.osate.ge.ext.Categories;
 import org.osate.ge.services.AadlModificationService;
 import org.osate.ge.services.AnchorService;
 import org.osate.ge.services.BusinessObjectResolutionService;
@@ -424,7 +425,7 @@ public class ModePattern extends AgeLeafShapePattern implements Categorized {
     }
 
 	@Override
-	public Category getCategory() {
-		return Category.MODES;
+	public String getCategory() {
+		return Categories.MODES;
 	}
 }

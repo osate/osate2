@@ -65,8 +65,9 @@ import org.osate.aadl2.SubprogramGroupAccess;
 import org.osate.aadl2.properties.PropertyNotPresentException;
 import org.osate.ge.diagrams.common.AadlElementWrapper;
 import org.osate.ge.diagrams.common.AgeImageProvider;
-import org.osate.ge.diagrams.common.Categorized;
 import org.osate.ge.diagrams.common.patterns.AgeConnectionPattern;
+import org.osate.ge.ext.Categorized;
+import org.osate.ge.ext.Categories;
 import org.osate.ge.services.AadlFeatureService;
 import org.osate.ge.services.AadlModificationService;
 import org.osate.ge.services.BusinessObjectResolutionService;
@@ -638,7 +639,7 @@ public class ConnectionPattern extends AgeConnectionPattern implements Categoriz
 	}
 
 	@Override
-	public Category getCategory() {
-		return Category.CONNECTIONS;
+	public String getCategory() {
+		return Categories.CONNECTIONS;
 	}
 }

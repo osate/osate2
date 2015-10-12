@@ -57,9 +57,10 @@ import org.osate.aadl2.Realization;
 import org.osate.aadl2.TypeExtension;
 import org.osate.ge.diagrams.common.AadlElementWrapper;
 import org.osate.ge.diagrams.common.AgeImageProvider;
-import org.osate.ge.diagrams.common.Categorized;
 import org.osate.ge.diagrams.common.patterns.AgeLeafShapePattern;
 import org.osate.ge.dialogs.ElementSelectionDialog;
+import org.osate.ge.ext.Categorized;
+import org.osate.ge.ext.Categories;
 import org.osate.ge.services.AadlModificationService;
 import org.osate.ge.services.AnchorService;
 import org.osate.ge.services.BusinessObjectResolutionService;
@@ -605,7 +606,7 @@ public class PackageClassifierPattern extends AgeLeafShapePattern implements Cat
     }
 
 	@Override
-	public Category getCategory() {
-		return Category.CLASSIFIERS;
+	public String getCategory() {
+		return Categories.CLASSIFIERS;
 	}
 }

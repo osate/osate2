@@ -1,6 +1,7 @@
 package org.osate.ge.services.impl;
 
 import java.util.Collection;
+import java.util.List;
 
 import org.eclipse.e4.core.contexts.IEclipseContext;
 import org.eclipse.graphiti.dt.IDiagramTypeProvider;
@@ -37,4 +38,8 @@ public class DefaultExtensionService implements ExtensionService {
 		return globalExtService.getStyleFactory(styleId);
 	}
 
+	@Override
+	public List<Category> getCategories() {
+		return globalExtService.getCategories();
+	}
 }
