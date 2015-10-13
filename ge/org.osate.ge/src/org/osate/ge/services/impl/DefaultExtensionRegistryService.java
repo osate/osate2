@@ -32,11 +32,8 @@ public class DefaultExtensionRegistryService implements ExtensionRegistryService
 	private static final String STYLE_EXTENSION_POINT_ID = "org.osate.ge.styles";
 	private static final String CATEGORIES_EXTENSION_POINT_ID = "org.osate.ge.categories";
 	
-	/**
-	 * Mapping from style id's to style factories.
-	 */
 	private final Collection<Object> tools;
-	private final Map<String, Object> styleFactoryMap;
+	private final Map<String, Object> styleFactoryMap; // Mapping from style id's to style factories.
 	private final List<Category> categories;
 	
 	public DefaultExtensionRegistryService() {
