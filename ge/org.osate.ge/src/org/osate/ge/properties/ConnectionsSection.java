@@ -2,9 +2,9 @@ package org.osate.ge.properties;
 
 
 import java.util.ArrayList;
-import java.util.Iterator;
 
 import org.eclipse.swt.widgets.Display;
+import org.eclipse.graphiti.dt.IDiagramTypeProvider;
 import org.eclipse.graphiti.features.IFeatureProvider;
 import org.eclipse.graphiti.features.context.impl.CustomContext;
 import org.eclipse.graphiti.features.context.impl.DirectEditingContext;
@@ -40,9 +40,12 @@ import org.osate.ge.diagrams.componentImplementation.features.RenameConnectionFe
 import org.osate.ge.diagrams.componentImplementation.features.SetConnectionBidirectionalityFeature;
 import org.osate.ge.services.AadlModificationService;
 import org.osate.ge.services.BusinessObjectResolutionService;
+import org.osate.ge.services.ConnectionService;
+import org.osate.ge.services.DiagramModificationService;
+import org.osate.ge.services.ExtensionService;
 import org.osate.ge.services.ShapeService;
+import org.osate.ge.tools.SetBindingTool;
 import org.osate.ge.ui.editor.AgeDiagramEditor;
-import org.osate.ge.ui.editor.SetBindingAction;
 
 /**
  * Property section for changing a connection's properties.
@@ -63,7 +66,7 @@ public class ConnectionsSection extends GFPropertySection implements ITabbedProp
 	private Text nameConnectionText;
 
 	private RefineConnectionFeature refineConnectionFeature;
-	private SetBindingAction setBindingAction;
+	private SetBindingTool setBindingTool;
 	private ConfigureInModesFeature configureInModesFeature;
 	private SwitchDirectionOfConnectionFeature switchDirectionOfConnectionFeature;
 	private SetConnectionBidirectionalityFeature setConnectionBidirectionalityFeature;
@@ -188,8 +191,10 @@ public class ConnectionsSection extends GFPropertySection implements ITabbedProp
 		bindPushButton.addSelectionListener(new SelectionAdapter() {
 			@Override
 			public void widgetSelected(final SelectionEvent e) {
-				if ((customCtx.getPictogramElements()[0].isVisible()) && (setBindingAction.isEnabled())) {
-					setBindingAction.run();
+				final BusinessObjectResolutionService bor = getBusinessObjectResolutionService();
+				final IDiagramTypeProvider dtp = getDiagramTypeProvider();
+				if ((customCtx.getPictogramElements()[0].isVisible()) && (setBindingTool.canActivate(dtp, bor))) {
+					setBindingTool.activate(dtp, bor, getAadlModificationService(), getDiagramModificationService(), getConnectionService());
 					editor.setFocus();
 				}
 			} 
@@ -333,14 +338,22 @@ public class ConnectionsSection extends GFPropertySection implements ITabbedProp
 								}
 							}
 							
-							final Iterator<?> it = editor.getActionRegistry().getActions();
-							while (it.hasNext()) {
-								final Object o = it.next();
-								if((o instanceof SetBindingAction) && (((SetBindingAction) o).isEnabled())) {
-									setBindingAction = (SetBindingAction) o;
+							for(final Object tool : getExtensionService().getTools()) {
+								if(tool instanceof SetBindingTool) {
+									setBindingTool = (SetBindingTool)tool;
 									bindPushButton.setVisible(true);
 								}
-							}							
+							}
+							
+							/*final Iterator<?> it = editor.getActionRegistry().getActions();
+							while (it.hasNext()) {
+								final Object o = it.next();
+
+								//if((o instanceof SetBindingTool) && (((SetBindingTool) o).isEnabled())) {
+									//setBindingAction = (SetBindingTool) o;
+									//bindPushButton.setVisible(true);
+								//}
+							}				*/			
 							
 							for (final Control c : optionComposite.getChildren()) {
 								if (c.getVisible()) {
@@ -434,10 +447,22 @@ public class ConnectionsSection extends GFPropertySection implements ITabbedProp
 		return (AadlModificationService) getPart().getAdapter(AadlModificationService.class);
 	}
 	
+	final private ConnectionService getConnectionService() {
+		return (ConnectionService) getPart().getAdapter(ConnectionService.class);
+	}
+	
+	final private DiagramModificationService getDiagramModificationService() {
+		return (DiagramModificationService) getPart().getAdapter(DiagramModificationService.class);
+	}
+	
+	final private ExtensionService getExtensionService() {
+		return (ExtensionService) getPart().getAdapter(ExtensionService.class);
+	}
+	
 	final private IFeatureProvider getFeatureProvider() {
 		return getDiagramTypeProvider().getFeatureProvider();
 	}
-
+	
 	final private boolean getDirectionalValue() {
 		return unidirectionalRadioButton.getSelection() ? true : false;
 	}

@@ -1,4 +1,4 @@
-package org.osate.ge.ui.editor;
+package org.osate.ge.tools;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -7,7 +7,8 @@ import java.util.List;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.util.EcoreUtil;
-import org.eclipse.gef.ui.actions.SelectionAction;
+import org.eclipse.emf.transaction.TransactionalEditingDomain;
+import org.eclipse.graphiti.dt.IDiagramTypeProvider;
 import org.eclipse.graphiti.mm.pictograms.Connection;
 import org.eclipse.graphiti.mm.pictograms.Diagram;
 import org.eclipse.graphiti.mm.pictograms.PictogramElement;
@@ -52,11 +53,18 @@ import org.osate.aadl2.PropertyAssociation;
 import org.osate.aadl2.ReferenceType;
 import org.osate.aadl2.ReferenceValue;
 import org.osate.ge.Activator;
+import org.osate.ge.ext.annotations.Activate;
+import org.osate.ge.ext.annotations.CanActivate;
+import org.osate.ge.ext.annotations.Deactivate;
+import org.osate.ge.ext.annotations.Description;
+import org.osate.ge.ext.annotations.Icon;
+import org.osate.ge.ext.annotations.Id;
 import org.osate.ge.services.AadlModificationService;
 import org.osate.ge.services.AadlModificationService.AbstractModifier;
 import org.osate.ge.services.BusinessObjectResolutionService;
 import org.osate.ge.services.ConnectionService;
 import org.osate.ge.services.DiagramModificationService;
+import org.osate.ge.ui.editor.AgeDiagramEditor;
 import org.osate.xtext.aadl2.properties.util.DeploymentProperties;
 import org.osate.xtext.aadl2.properties.util.GetProperties;
 
@@ -65,18 +73,64 @@ import org.osate.xtext.aadl2.properties.util.GetProperties;
  * @author philip.alldredge
  *
  */
-public class SetBindingAction extends SelectionAction {
-	public static final String ID = "org.osate.ge.ui.editor.SetBindingAction";
-	public static final String TEXT = "Bind...";
-	public static final ImageDescriptor IMAGE_DESCRIPTOR = Activator.getImageDescriptor("icons/SetBinding.gif");
-
-	private final AgeDiagramEditor editor;
-	private final AadlModificationService aadlModService;
-	private final DiagramModificationService diagramModService;
-	private final ConnectionService connectionService;
-	private final BusinessObjectResolutionService bor;
+public class SetBindingTool {
+	private AgeDiagramEditor editor;
+	private AadlModificationService aadlModService;
+	private DiagramModificationService diagramModService;
+	private ConnectionService connectionService;
+	private BusinessObjectResolutionService bor;
 	private SetBindingWindow currentWindow = null;
 
+	@Id
+	public final static String ID = "org.osate.ge.ui.tools.SetBindingTool";
+	
+	@Description
+	public final static String DESCRIPTION = "Bind...";
+
+	@Icon
+	public final static ImageDescriptor ICON = Activator.getImageDescriptor("icons/SetBinding.gif");
+
+	@CanActivate
+	public boolean canActivate(final IDiagramTypeProvider dtp, final BusinessObjectResolutionService bor) {
+		return getSelectedPictogramElement((AgeDiagramEditor)dtp.getDiagramBehavior().getDiagramContainer(), bor) != null && 
+				currentWindow == null && 
+				bor.getBusinessObjectForPictogramElement(dtp.getDiagram()) instanceof ComponentImplementation;
+	}
+	
+	@Activate
+	public void activate(final IDiagramTypeProvider dtp, final BusinessObjectResolutionService bor, final AadlModificationService aadlModService, final DiagramModificationService diagramModService,
+			final ConnectionService connectionService) {
+		this.editor = (AgeDiagramEditor)dtp.getDiagramBehavior().getDiagramContainer();
+		this.aadlModService = aadlModService;
+		this.diagramModService = diagramModService;
+		this.connectionService = connectionService;
+		this.bor = bor;
+
+		// Open Dialog
+			if (currentWindow == null) {
+				currentWindow = new SetBindingWindow(editor.getSite().getShell(), bor, getSelectedPictogramElement(editor, bor),
+						windowCloseListener);
+				editor.selectPictogramElements(new PictogramElement[0]);
+				currentWindow.open();
+
+				editor.getSite().getWorkbenchWindow().getSelectionService().addPostSelectionListener(selectionListener);
+				editor.getSite().getWorkbenchWindow().getPartService().addPartListener(partListener);
+			}
+	}
+	
+	@Deactivate
+	public void deactivate(final IDiagramTypeProvider dtp) {
+		final TransactionalEditingDomain editingDomain = dtp.getDiagramBehavior().getEditingDomain();
+		editingDomain.getCommandStack().execute(new NonUndoableToolCommand() {
+			@Override
+			public void execute() {
+				if(currentWindow != null) {
+					currentWindow = null;
+				}
+			}
+		});
+	}
+	
 	// Used to listen to when the window has been closed
 	private SetBindingWindow.CloseListener windowCloseListener = new SetBindingWindow.CloseListener() {
 		@Override
@@ -93,8 +147,8 @@ public class SetBindingAction extends SelectionAction {
 			if(currentWindow.getReturnCode() == Dialog.OK) {
 				createPropertyAssociation();			
 			}
+			
 			currentWindow = null;
-			update();
 		}
 	};
 
@@ -139,35 +193,6 @@ public class SetBindingAction extends SelectionAction {
 		public void partOpened(final IWorkbenchPart part) {
 		}
 	};
-
-	public SetBindingAction(final AgeDiagramEditor editor, final AadlModificationService aadlModService,
-			final DiagramModificationService diagramModService, final ConnectionService connectionService,
-			final BusinessObjectResolutionService bor) {
-		super(editor);
-		this.editor = editor;
-		this.aadlModService = aadlModService;
-		this.diagramModService = diagramModService;
-		this.connectionService = connectionService;
-		this.bor = bor;
-		setId(ID);
-		setText(TEXT);
-		setHoverImageDescriptor(IMAGE_DESCRIPTOR);
-	}
-
-	@Override
-	public void run() {
-		// Open Dialog
-		if (currentWindow == null) {
-			currentWindow = new SetBindingWindow(editor.getSite().getShell(), bor, getSelectedPictogramElement(),
-					windowCloseListener);
-			editor.selectPictogramElements(new PictogramElement[0]);
-			currentWindow.open();
-			update();
-
-			editor.getSite().getWorkbenchWindow().getSelectionService().addPostSelectionListener(selectionListener);
-			editor.getSite().getWorkbenchWindow().getPartService().addPartListener(partListener);
-		}
-	}
 
 	private static class SetBindingWindow extends TitleAreaDialog {
 		private static interface CloseListener {
@@ -370,18 +395,11 @@ public class SetBindingAction extends SelectionAction {
 		}
 	};
 
-	@Override
-	protected boolean calculateEnabled() {
-		return getSelectedPictogramElement() != null && 
-				currentWindow == null && 
-				bor.getBusinessObjectForPictogramElement(editor.getDiagramTypeProvider().getDiagram()) instanceof ComponentImplementation;
-	}
-
 	/**
 	 * Returns the selected pictogram element. If there is more than one pictogram element selected, or if it is a diagram, then null is returned.
 	 * @return
 	 */
-	private PictogramElement getSelectedPictogramElement() {
+	private static PictogramElement getSelectedPictogramElement(final AgeDiagramEditor editor, final BusinessObjectResolutionService bor) {
 		if (editor.getSelectedPictogramElements().length != 1) {
 			return null;
 		}
@@ -394,7 +412,7 @@ public class SetBindingAction extends SelectionAction {
 		if (bor.getBusinessObjectForPictogramElement(pe) instanceof NamedElement) {
 			return pe;
 		}
-
+		
 		return null;
 	}
 
@@ -453,7 +471,7 @@ public class SetBindingAction extends SelectionAction {
 				}
 
 				// Deletes any existing property associations/removes the bound element from any property associations that matches the property association
-// being created.
+				// being created.
 				private void removeOldPropertyAssociation(final ComponentClassifier cc, final PropertyAssociation newPa) {
 					final List<PropertyAssociation> propertyAssociationsToDelete = new ArrayList<PropertyAssociation>();
 					for (final PropertyAssociation existingPa : cc.getOwnedPropertyAssociations()) {
