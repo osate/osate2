@@ -42,7 +42,6 @@ import org.osate.aadl2.FlowSpecification;
 import org.osate.aadl2.Parameter;
 import org.osate.aadl2.Port;
 import org.osate.ge.diagrams.common.AadlElementWrapper;
-import org.osate.ge.diagrams.common.AgeImageProvider;
 import org.osate.ge.ext.Categorized;
 import org.osate.ge.ext.Categories;
 import org.osate.ge.services.AadlFeatureService;
@@ -59,6 +58,7 @@ import org.osate.ge.services.UserInputService;
 import org.osate.ge.services.GhostingService;
 import org.osate.ge.services.AadlModificationService.AbstractModifier;
 import org.osate.ge.styles.StyleConstants;
+import org.osate.ge.util.ImageHelper;
 
 public class FlowSpecificationPattern extends AgeConnectionPattern implements Categorized {
 	private final StyleService styleUtil;
@@ -252,7 +252,7 @@ public class FlowSpecificationPattern extends AgeConnectionPattern implements Ca
 	// This pattern only handles the creation of flow paths. Flow sources and flow sinks are handled by features via context menus.
 	@Override
 	public String getCreateImageId(){
-		return AgeImageProvider.getImage("FlowPath");
+		return ImageHelper.getImage("FlowPath");
 	}
 	
 	@Override

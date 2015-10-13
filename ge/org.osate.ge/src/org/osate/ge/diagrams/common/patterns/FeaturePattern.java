@@ -77,7 +77,6 @@ import org.osate.aadl2.ThreadImplementation;
 import org.osate.aadl2.VirtualProcessorImplementation;
 import org.osate.aadl2.modelsupport.util.ResolvePrototypeUtil;
 import org.osate.ge.diagrams.common.AadlElementWrapper;
-import org.osate.ge.diagrams.common.AgeImageProvider;
 import org.osate.ge.ext.Categorized;
 import org.osate.ge.ext.Categories;
 import org.osate.ge.services.AadlArrayService;
@@ -100,6 +99,7 @@ import org.osate.ge.services.ShapeService;
 import org.osate.ge.services.UserInputService;
 import org.osate.ge.services.GhostingService;
 import org.osate.ge.services.AadlModificationService.AbstractModifier;
+import org.osate.ge.util.ImageHelper;
 import org.osate.ge.util.StringUtil;
 
 /**
@@ -755,8 +755,8 @@ public class FeaturePattern extends AgeLeafShapePattern implements Categorized {
 	}
 	
 	@Override
-	public String getCreateImageId() { 
-		return AgeImageProvider.getImage(featureType.getName());
+	public String getCreateImageId() {
+		return ImageHelper.getImage(featureType.getName());
 	}
 	
 	@Override

@@ -46,7 +46,6 @@ import org.osate.aadl2.Namespace;
 import org.osate.aadl2.Realization;
 import org.osate.aadl2.TypeExtension;
 import org.osate.ge.diagrams.common.AadlElementWrapper;
-import org.osate.ge.diagrams.common.AgeImageProvider;
 import org.osate.ge.diagrams.common.patterns.AgeConnectionPattern;
 import org.osate.ge.ext.Categorized;
 import org.osate.ge.ext.Categories;
@@ -60,6 +59,7 @@ import org.osate.ge.services.DiagramModificationService;
 import org.osate.ge.services.StyleService;
 import org.osate.ge.services.UserInputService;
 import org.osate.ge.services.GhostingService;
+import org.osate.ge.util.ImageHelper;
 
 public class PackageGeneralizationPattern extends AgeConnectionPattern implements IReconnection, Categorized {
 	private final StyleService styleUtil;
@@ -145,7 +145,7 @@ public class PackageGeneralizationPattern extends AgeConnectionPattern implement
 	@Override
 	public String getCreateImageId(){
 		final Aadl2Package p = Aadl2Factory.eINSTANCE.getAadl2Package();
-		return AgeImageProvider.getImage(p.getGeneralization().getName());
+		return ImageHelper.getImage(p.getGeneralization().getName());
 	}
 	@Override
 	public String getCreateName() {

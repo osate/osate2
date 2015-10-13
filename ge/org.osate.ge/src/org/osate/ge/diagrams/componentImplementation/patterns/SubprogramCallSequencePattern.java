@@ -49,7 +49,6 @@ import org.osate.aadl2.SubprogramCall;
 import org.osate.aadl2.SubprogramCallSequence;
 import org.osate.ge.diagrams.common.AadlElementWrapper;
 import org.osate.ge.diagrams.common.DefaultAgeResizeConfiguration;
-import org.osate.ge.diagrams.common.AgeImageProvider;
 import org.osate.ge.diagrams.common.patterns.AgePattern;
 import org.osate.ge.dialogs.DefaultSelectSubprogramDialogModel;
 import org.osate.ge.dialogs.SelectSubprogramDialog;
@@ -73,6 +72,7 @@ import org.osate.ge.services.ShapeCreationService;
 import org.osate.ge.services.StyleService;
 import org.osate.ge.services.UserInputService;
 import org.osate.ge.util.AadlHelper;
+import org.osate.ge.util.ImageHelper;
 
 public class SubprogramCallSequencePattern extends AgePattern implements Categorized {
 	private static final String nameShapeName = "label";
@@ -314,7 +314,7 @@ public class SubprogramCallSequencePattern extends AgePattern implements Categor
 	@Override
 	public String getCreateImageId(){
 		final Aadl2Package p = Aadl2Factory.eINSTANCE.getAadl2Package();
-		return AgeImageProvider.getImage(p.getSubprogramCallSequence().getName());
+		return ImageHelper.getImage(p.getSubprogramCallSequence().getName());
 	}
 	
 	@Override
