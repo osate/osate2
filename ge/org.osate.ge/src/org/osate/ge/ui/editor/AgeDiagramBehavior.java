@@ -63,6 +63,7 @@ import org.osate.ge.services.ExtensionService;
 import org.osate.ge.services.PropertyService;
 import org.osate.ge.ui.util.GhostPurger;
 import org.osate.ge.ui.xtext.AgeXtextUtil;
+import org.osate.ge.util.ExtensionUtil;
 import org.osate.ge.util.Log;
 import org.eclipse.core.runtime.IProgressMonitor;
 
@@ -164,6 +165,14 @@ public class AgeDiagramBehavior extends DiagramBehavior {
 	 			@Override
 	 			public void partOpened(final IWorkbenchPart part) {}
 	 		});
+		}
+	}
+	
+	public void activateTool(final Object tool) {
+		final ActionRegistry actionRegistry = getDiagramContainer().getActionRegistry();
+		final IAction action = actionRegistry.getAction(ExtensionUtil.getId(tool));
+		if(action != null) {
+			action.run();
 		}
 	}
 	

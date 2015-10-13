@@ -7,5 +7,6 @@ package org.osate.ge.services;
  *
  */
 public interface UiService {
-	public void deactivateActiveTool();
+	void activateTool(Object tool);
+	void deactivateActiveTool();
 }

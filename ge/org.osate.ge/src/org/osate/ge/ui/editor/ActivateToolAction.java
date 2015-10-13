@@ -7,7 +7,7 @@ import org.osate.ge.util.ExtensionUtil;
  * Action to activate a tool provided by the tool service
  *
  */
-public class ActivateToolAction extends SelectionAction {
+class ActivateToolAction extends SelectionAction {
 	private final ToolHandler toolHandler;
 	private final Object tool;
 	public ActivateToolAction(final AgeDiagramEditor editor, final ToolHandler toolHandler, final Object tool) {
@@ -29,8 +29,7 @@ public class ActivateToolAction extends SelectionAction {
 		toolHandler.activate(tool, this);
 	}
 	
-	public ToolHandler getToolHandler() {
-		return toolHandler;
+	public Object getTool() {
+		return tool;
 	}
-	
 }
