@@ -12,13 +12,17 @@ class ActivateToolAction extends SelectionAction {
 	private final Object tool;
 	public ActivateToolAction(final AgeDiagramEditor editor, final ToolHandler toolHandler, final Object tool) {
 		super(editor);
-		setId(ExtensionUtil.getId(tool));
+		setId(getActionId(ExtensionUtil.getId(tool)));
 		setText(ExtensionUtil.getDescription(tool));
 		setHoverImageDescriptor(ExtensionUtil.getIcon(tool));
 		this.toolHandler = toolHandler;
 		this.tool = tool;
 	}
 
+	public static String getActionId(final String toolId) {
+		return toolId; 	// Action IDs match tool IDs
+	}
+	
 	@Override
 	protected boolean calculateEnabled() {
 		return toolHandler.canActivate(tool);

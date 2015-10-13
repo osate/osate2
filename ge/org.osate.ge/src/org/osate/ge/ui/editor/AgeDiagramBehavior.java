@@ -11,6 +11,7 @@ package org.osate.ge.ui.editor;
 import java.util.EventObject;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Objects;
 import java.util.Set;
 
 import org.eclipse.emf.common.command.BasicCommandStack;
@@ -63,7 +64,6 @@ import org.osate.ge.services.ExtensionService;
 import org.osate.ge.services.PropertyService;
 import org.osate.ge.ui.util.GhostPurger;
 import org.osate.ge.ui.xtext.AgeXtextUtil;
-import org.osate.ge.util.ExtensionUtil;
 import org.osate.ge.util.Log;
 import org.eclipse.core.runtime.IProgressMonitor;
 
@@ -168,12 +168,15 @@ public class AgeDiagramBehavior extends DiagramBehavior {
 		}
 	}
 	
-	public void activateTool(final Object tool) {
+	/**
+	 * Throws exception if the action for the specified tool cannot be found.
+	 * @param toolId
+	 * @return
+	 */
+	public IAction getActivateToolAction(final String toolId) {
+		Objects.requireNonNull(toolId, "toolId must not be null");
 		final ActionRegistry actionRegistry = getDiagramContainer().getActionRegistry();
-		final IAction action = actionRegistry.getAction(ExtensionUtil.getId(tool));
-		if(action != null) {
-			action.run();
-		}
+		return Objects.requireNonNull(actionRegistry.getAction(ActivateToolAction.getActionId(toolId)), "unable to retrieve action for tool: " + toolId);
 	}
 	
 	public void deactivateActiveTool() {
