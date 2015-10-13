@@ -1,4 +1,4 @@
-package org.osate.ge.ui.util;
+package org.osate.ge.util;
 
 public class ImageHelper {
 	protected static final String PREFIX = "org.osate.ge.";

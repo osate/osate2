@@ -59,7 +59,7 @@ import org.osate.ge.services.ShapeService;
 import org.osate.ge.services.StyleService;
 import org.osate.ge.services.UserInputService;
 import org.osate.ge.services.AadlModificationService.AbstractModifier;
-import org.osate.ge.ui.util.ImageHelper;
+import org.osate.ge.util.ImageHelper;
 
 /**
  * Pattern for handling AnnexLibraries and AnnexSubclauses

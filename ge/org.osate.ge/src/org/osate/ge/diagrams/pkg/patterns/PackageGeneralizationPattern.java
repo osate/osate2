@@ -59,7 +59,7 @@ import org.osate.ge.services.DiagramModificationService;
 import org.osate.ge.services.StyleService;
 import org.osate.ge.services.UserInputService;
 import org.osate.ge.services.GhostingService;
-import org.osate.ge.ui.util.ImageHelper;
+import org.osate.ge.util.ImageHelper;
 
 public class PackageGeneralizationPattern extends AgeConnectionPattern implements IReconnection, Categorized {
 	private final StyleService styleUtil;

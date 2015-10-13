@@ -64,7 +64,7 @@ import org.osate.ge.services.UserInputService;
 import org.osate.ge.services.GhostingService;
 import org.osate.ge.services.AadlModificationService.AbstractModifier;
 import org.osate.ge.styles.StyleConstants;
-import org.osate.ge.ui.util.ImageHelper;
+import org.osate.ge.util.ImageHelper;
 
 public class ModePattern extends AgeLeafShapePattern implements Categorized {
 	public static String INITIAL_MODE_CONNECTION_TYPE = "initial_mode";

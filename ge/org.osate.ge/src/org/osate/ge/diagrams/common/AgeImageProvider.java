@@ -23,9 +23,14 @@ public class AgeImageProvider extends AbstractImageProvider implements
 					final String imageId = ce.getAttribute("id");
 					final String imagePlugin = ce.getAttribute("plugin");
 					final String imagePath = ce.getAttribute("path");
-					final URI plugInImage = URI.createPlatformPluginURI(imagePlugin + imagePath, true);
+					if(imagePlugin != null) {
+						final URI plugInImage = URI.createPlatformPluginURI(imagePlugin + imagePath, true);
+						
+						addImageFilePath(imageId, plugInImage.toString());
+					} else {
 					
-					addImageFilePath(imageId, plugInImage.toString());
+						addImageFilePath(imageId, imagePath);
+					}
 				}
 			}
 		}

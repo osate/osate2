@@ -40,7 +40,7 @@ import org.osate.ge.services.DiagramModificationService;
 import org.osate.ge.services.NamingService;
 import org.osate.ge.services.ShapeService;
 import org.osate.ge.services.AadlModificationService.AbstractModifier;
-import org.osate.ge.ui.util.ImageHelper;
+import org.osate.ge.util.ImageHelper;
 import org.osate.ge.util.StringUtil;
 
 /**

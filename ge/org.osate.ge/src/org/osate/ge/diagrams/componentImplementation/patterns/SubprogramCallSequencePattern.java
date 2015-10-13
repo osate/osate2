@@ -71,8 +71,8 @@ import org.osate.ge.services.NamingService;
 import org.osate.ge.services.ShapeCreationService;
 import org.osate.ge.services.StyleService;
 import org.osate.ge.services.UserInputService;
-import org.osate.ge.ui.util.ImageHelper;
 import org.osate.ge.util.AadlHelper;
+import org.osate.ge.util.ImageHelper;
 
 public class SubprogramCallSequencePattern extends AgePattern implements Categorized {
 	private static final String nameShapeName = "label";
