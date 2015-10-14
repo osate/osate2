@@ -86,6 +86,7 @@ public class SetBindingTool {
 	private ConnectionService connectionService;
 	private BusinessObjectResolutionService bor;
 	private SetBindingWindow currentWindow = null;
+	private Boolean isActive = false;
 
 	@Id
 	public final static String ID = "org.osate.ge.ui.tools.SetBindingTool";
@@ -116,12 +117,10 @@ public class SetBindingTool {
 			if (currentWindow == null) {
 				currentWindow = new SetBindingWindow(editor.getSite().getShell(), bor, getSelectedPictogramElement(editor, bor),
 						windowCloseListener);
-				//editor.selectPictogramElements(new PictogramElement[0]);
-				
 				currentWindow.open();
 
-				/*editor.getSite().getWorkbenchWindow().getSelectionService().addPostSelectionListener(selectionListener);
-				editor.getSite().getWorkbenchWindow().getPartService().addPartListener(partListener);*/
+				/*editor.getSite().getWorkbenchWindow().getSelectionService().addPostSelectionListener(selectionListener);*/
+				//editor.getSite().getWorkbenchWindow().getPartService().addPartListener(partListener);
 			}
 	}
 	
@@ -155,14 +154,12 @@ public class SetBindingTool {
 	}
 	
 	@Deactivate
-	public void deactivate(final IDiagramTypeProvider dtp) {
+	public void deactivate(final IDiagramTypeProvider dtp, final UiService uiService) {
 		final TransactionalEditingDomain editingDomain = dtp.getDiagramBehavior().getEditingDomain();
 		editingDomain.getCommandStack().execute(new NonUndoableToolCommand() {
 			@Override
 			public void execute() {
-				if(currentWindow != null && !SetBindingTool.this.canActivate(dtp, bor)) {
-					System.err.println("DEACT");
-					System.err.println(currentWindow.getShell() + "SHELL");
+				if(currentWindow != null) {
 					currentWindow.cancel();
 					currentWindow = null;
 				}
@@ -174,23 +171,17 @@ public class SetBindingTool {
 	private SetBindingWindow.CloseListener windowCloseListener = new SetBindingWindow.CloseListener() {
 		@Override
 		public void onClosed() {
+			isActive = false;
 				// Remove listeners
-				/*editor.getSite().getWorkbenchWindow().getSelectionService().removePostSelectionListener(selectionListener);
-				editor.getSite().getWorkbenchWindow().getPartService().removePartListener(partListener);*/
-			
-				// Reset the diagram's selection
-				//final PictogramElement[] pes = new PictogramElement[1];
-				//pes[0] = (PictogramElement)((Diagram)editor.getDiagramTypeProvider().getDiagram());
-				//editor.selectPictogramElements(pes);
-			System.err.println("ONCLOSE");
-			System.err.println(currentWindow + " curwindow");
+				/*editor.getSite().getWorkbenchWindow().getSelectionService().removePostSelectionListener(selectionListener);*/
+				//editor.getSite().getWorkbenchWindow().getPartService().removePartListener(partListener);
+
 				if(currentWindow != null && currentWindow.getReturnCode() == Dialog.OK) {
-					System.err.println(currentWindow.getReturnCode());
 					createPropertyAssociation();			
 				}
 			
 				currentWindow = null;
-				System.err.println(currentWindow + " after ");
+
 				//final PictogramElement[] refresh = new PictogramElement[1];
 				//editor.setPictogramElementForSelection(refresh[0]);
 				//editor.getDiagramBehavior().refresh();
@@ -200,8 +191,8 @@ public class SetBindingTool {
 
 
 
-	// Used to listen to editor changes and closed the action's window if the editor is closed or deactivated.
-	/*private IPartListener partListener = new IPartListener() {
+	/*// Used to listen to editor changes and closed the action's window if the editor is closed or deactivated.
+	private IPartListener partListener = new IPartListener() {
 
 		@Override
 		public void partActivated(final IWorkbenchPart part) {

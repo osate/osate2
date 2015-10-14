@@ -40,10 +40,8 @@ import org.osate.ge.diagrams.componentImplementation.features.RenameConnectionFe
 import org.osate.ge.diagrams.componentImplementation.features.SetConnectionBidirectionalityFeature;
 import org.osate.ge.services.AadlModificationService;
 import org.osate.ge.services.BusinessObjectResolutionService;
-import org.osate.ge.services.ConnectionService;
-import org.osate.ge.services.DiagramModificationService;
-import org.osate.ge.services.ExtensionService;
 import org.osate.ge.services.ShapeService;
+import org.osate.ge.services.UiService;
 import org.osate.ge.tools.SetBindingTool;
 import org.osate.ge.ui.editor.AgeDiagramEditor;
 
@@ -194,7 +192,7 @@ public class ConnectionsSection extends GFPropertySection implements ITabbedProp
 				final BusinessObjectResolutionService bor = getBusinessObjectResolutionService();
 				final IDiagramTypeProvider dtp = getDiagramTypeProvider();
 				if ((customCtx.getPictogramElements()[0].isVisible()) && (setBindingTool.canActivate(dtp, bor))) {
-					//setBindingTool.activate(dtp, bor, getAadlModificationService(), getDiagramModificationService(), getConnectionService());
+					getUiService().activateTool(setBindingTool);
 					editor.setFocus();
 				}
 			} 
@@ -338,23 +336,10 @@ public class ConnectionsSection extends GFPropertySection implements ITabbedProp
 								}
 							}
 							
-							for(final Object tool : getExtensionService().getTools()) {
-								if(tool instanceof SetBindingTool) {
-									setBindingTool = (SetBindingTool)tool;
-									bindPushButton.setVisible(true);
-								}
+							setBindingTool = new SetBindingTool();
+							if(setBindingTool.canActivate(getDiagramTypeProvider(), getBusinessObjectResolutionService())) {
+								bindPushButton.setVisible(true);	
 							}
-							
-							/*final Iterator<?> it = editor.getActionRegistry().getActions();
-							while (it.hasNext()) {
-								final Object o = it.next();
-
-								//if((o instanceof SetBindingTool) && (((SetBindingTool) o).isEnabled())) {
-									//setBindingAction = (SetBindingTool) o;
-									//bindPushButton.setVisible(true);
-								//}
-							}				*/			
-							
 							for (final Control c : optionComposite.getChildren()) {
 								if (c.getVisible()) {
 									optionComposite.setVisible(true);
@@ -447,16 +432,8 @@ public class ConnectionsSection extends GFPropertySection implements ITabbedProp
 		return (AadlModificationService) getPart().getAdapter(AadlModificationService.class);
 	}
 	
-	final private ConnectionService getConnectionService() {
-		return (ConnectionService) getPart().getAdapter(ConnectionService.class);
-	}
-	
-	final private DiagramModificationService getDiagramModificationService() {
-		return (DiagramModificationService) getPart().getAdapter(DiagramModificationService.class);
-	}
-	
-	final private ExtensionService getExtensionService() {
-		return (ExtensionService) getPart().getAdapter(ExtensionService.class);
+	final private UiService getUiService() {
+		return (UiService) getPart().getAdapter(UiService.class);
 	}
 	
 	final private IFeatureProvider getFeatureProvider() {

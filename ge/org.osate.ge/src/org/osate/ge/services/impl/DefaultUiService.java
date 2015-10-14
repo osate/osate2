@@ -12,13 +12,23 @@ public class DefaultUiService implements UiService {
 	}
 	
 	@Override
+	public void activateTool(final Object tool) {
+		getAgeDiagramBehavior().activateTool(tool);
+	}
+	
+	@Override
 	public void deactivateActiveTool() {
+		getAgeDiagramBehavior().deactivateActiveTool();
+	}
+	
+	private AgeDiagramBehavior getAgeDiagramBehavior() {
 		if(!(dtp.getDiagramBehavior() instanceof AgeDiagramBehavior)) {
 			throw new RuntimeException("Diagram behavior is not of type AgeDiagramBehavior");
 		}
 		
 		final AgeDiagramBehavior diagramBehavior = (AgeDiagramBehavior)dtp.getDiagramBehavior();
 		diagramBehavior.deactivateActiveTool();
+		return diagramBehavior;
 	}
 
 }
