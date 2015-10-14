@@ -8,6 +8,8 @@
  *******************************************************************************/
 package org.osate.ge.ui.xtext;
 
+import java.util.Collection;
+
 import org.eclipse.core.resources.IResource;
 import org.eclipse.core.resources.IResourceChangeEvent;
 import org.eclipse.core.resources.IResourceChangeListener;
@@ -27,16 +29,17 @@ import org.eclipse.ui.IWindowListener;
 import org.eclipse.ui.IWorkbenchPage;
 import org.eclipse.ui.IWorkbenchWindow;
 import org.eclipse.ui.PlatformUI;
+import org.eclipse.xtext.resource.IResourceDescription;
+import org.eclipse.xtext.resource.XtextResource;
 import org.eclipse.xtext.resource.XtextResourceSet;
 import org.eclipse.xtext.ui.editor.model.IXtextDocument;
 import org.eclipse.xtext.ui.editor.model.IXtextModelListener;
 import org.osate.ge.services.CachingService;
 import org.osate.ge.ui.editor.AgeDiagramEditor;
-import org.osate.ge.util.StringUtil;
 
 public class AgeXtextUtil {
-	private static final XtextResourceSet defaultResourceSet = new XtextResourceSet();
-	private static final ModelListener modelListener = new ModelListener();
+	private static final XtextResourceSet defaultResourceSet = new XtextResourceSet(); // TOOD: Investigate usage. Especially in relationship with the referencing. 
+	private static final OpenAadlResources openAadlResources = new OpenAadlResources();
 	
 	/**
 	 * Registers listeners to listen to model changes from all Xtext editors and to be notified of newly opened xtext editors.
@@ -109,27 +112,25 @@ public class AgeXtextUtil {
 		 * @param page
 		 */
 		private void registerListenerForPage(final IWorkbenchPage page) {
-			page.addPartListener(new EditorListener(page, modelListener));	
+			page.addPartListener(new EditorListener(page, openAadlResources));	
 		}
 	}
 	
-	// TODO: Handle private vs public sections
 	/**
-	 * Returns the resource set that contains the resource with the package of the element with the specified qualified name
+	 * Returns the resource which as a content whose qualified name matches the specified one and whose IResource is in the specified collection
 	 * @param qualifiedName
 	 * @return
 	 */
-	public static XtextResourceSet getResourceSetByQualifiedName(final String qualifiedName) {
-		// First check if the qualified name corresponds to a package
-		XtextResourceSet rs = modelListener.getResourceSet(qualifiedName);
-		if(rs != null) {
-			return rs;
+	public static XtextResource getXtextResourceByRootQualifiedName(final String qualifiedName, final Collection<IResourceDescription> resourceDescriptions) {
+		for(final IResourceDescription resDesc : resourceDescriptions) {
+			final XtextResource xtextResource = openAadlResources.getXtextResource(qualifiedName, resDesc.getURI());
+			if(xtextResource != null) {
+				return xtextResource;
+			}
 		}
 		
-		final String segs[] = qualifiedName.split("::");
-		final String packageName = StringUtil.join(segs, 0, segs.length-1, "::");
-		rs = modelListener.getResourceSet(packageName);
-		return rs == null ? getDefaultResourceSet() : rs;
+		// TODO: Return a resource from the default resource set if unable to find it?
+		return null;
 	}
 	
 	/**
@@ -141,22 +142,26 @@ public class AgeXtextUtil {
 	}
 	
 	/**
-	 * Returns the Xtext document that contains the packaeg with the specified name
+	 * Returns the Xtext document that contains the package with the specified name
 	 * @param qualifiedName
 	 * @return the last document updated for the qualified name or null if one does not exist
 	 */
 	public static IXtextDocument getDocumentByPackageName(final String qualifiedName) {
-		return modelListener.getDocument(qualifiedName);
+		// TODO: Rework. Need to be able to get the document.
+		//return modelListener.getDocument(qualifiedName);
+		return null;
 	}
 	
+	// TODO: Rework. Needed to trigger an update to the diagram. Could be registered for a specific IResource?
 	public static void addModelListener(final IXtextModelListener listener) {
-		modelListener.addListener(listener);
+		//modelListener.addListener(listener);
 	}
 	
 	public static void removeModelListener(final IXtextModelListener listener) {
-		modelListener.removeListener(listener);
+		//modelListener.removeListener(listener);
 	}
 	
+	// TODO: Will need to consider effect of the default resource set and the referencing service..
 	private static final IResourceChangeListener resourceChangeListener = new IResourceChangeListener() {
 		@Override
 		public void resourceChanged(final IResourceChangeEvent event) {

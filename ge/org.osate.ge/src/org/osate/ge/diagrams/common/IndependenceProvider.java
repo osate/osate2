@@ -28,11 +28,12 @@ public class IndependenceProvider implements IIndependenceSolver {
 	}
 
 	@Override
-	public Object getBusinessObjectForKey(String key) {	
+	public Object getBusinessObjectForKey(String key) {
 		if(key == null) {
 			return null;
 		}
 
-		return serializableReferenceService.getReferencedObject(key);
+		final Object result = serializableReferenceService.getReferencedObject(key);
+		return result;
 	}
 }

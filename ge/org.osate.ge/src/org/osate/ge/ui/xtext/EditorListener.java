@@ -8,26 +8,23 @@
  *******************************************************************************/
 package org.osate.ge.ui.xtext;
 
-import java.util.HashMap;
-import java.util.Map;
+import org.eclipse.core.resources.IFile;
+import org.eclipse.jface.text.IDocument;
+import org.eclipse.jface.text.ITextInputListener;
 import org.eclipse.ui.IEditorPart;
 import org.eclipse.ui.IEditorReference;
 import org.eclipse.ui.IPartListener;
 import org.eclipse.ui.IWorkbenchPage;
 import org.eclipse.ui.IWorkbenchPart;
-import org.eclipse.xtext.resource.XtextResource;
 import org.eclipse.xtext.ui.editor.XtextEditor;
 import org.eclipse.xtext.ui.editor.model.IXtextDocument;
-import org.eclipse.xtext.ui.editor.model.IXtextModelListener;
-import org.eclipse.xtext.util.concurrent.IUnitOfWork;
 
 public class EditorListener implements IPartListener {
-	private ModelListener modelListener;
-	private Map<IXtextDocument, IXtextModelListener> xtextModelListeners = new HashMap<IXtextDocument, IXtextModelListener>();
+	private final String aadlXtextLanguageName = "org.osate.xtext.aadl2.Aadl2";
+	private final OpenAadlResources openAadlResources;
 	
-	public EditorListener(final IWorkbenchPage activePage, final ModelListener modelListener) {
-		this.modelListener = modelListener;
-		
+	public EditorListener(final IWorkbenchPage activePage, final OpenAadlResources openAadlResources) {
+		this.openAadlResources = openAadlResources;
 		for(final IEditorReference editorRef : activePage.getEditorReferences()) {
 			IEditorPart editor = editorRef.getEditor(false);
 			if (editor != null) {
@@ -52,50 +49,39 @@ public class EditorListener implements IPartListener {
 	public void partOpened(IWorkbenchPart part) {
 		if(part instanceof XtextEditor) {
 			final XtextEditor editor = (XtextEditor)part;
-			final IXtextDocument document = editor.getDocument();
-			final IXtextModelListener newListener = createListener(document);
-			xtextModelListeners.put(document, newListener);
-			editor.getDocument().addModelListener(newListener);
-			
-			// Trigger the initial model changed event
-			document.readOnly(new IUnitOfWork<String, XtextResource>() {
-				@Override
-				public String exec(final XtextResource resource) throws Exception {
-					modelListener.modelChanged(document, resource);
-					return null;
-				}
-			});
+			if(aadlXtextLanguageName.equals(editor.getLanguageName()) && editor.getResource() instanceof IFile) {				
+				openAadlResources.onXtextDocumentOpened(editor.getDocument());
+
+				// Listen for input changes such as what occurs when the user saves the document with a different name with Save As...
+				editor.getInternalSourceViewer().addTextInputListener(new ITextInputListener() {
+					@Override
+					public void inputDocumentAboutToBeChanged(final IDocument oldInput, final IDocument newInput) {
+					}
+
+					@Override
+					public void inputDocumentChanged(final IDocument oldInput, final IDocument newInput) {						
+						// Remove the model listener
+						if(oldInput instanceof IXtextDocument) {
+							openAadlResources.onXtextDocumentClosed((IXtextDocument)oldInput);
+						}						
+						
+						if(newInput instanceof IXtextDocument) {
+							openAadlResources.onXtextDocumentOpened((IXtextDocument)newInput);
+						}
+					}					
+				});
+			}
 		}
 	}
-	
+
 	@Override
 	public void partClosed(IWorkbenchPart part) {
 		if(part instanceof XtextEditor) {
 			final XtextEditor editor = (XtextEditor)part;
-			final IXtextDocument document = editor.getDocument();
-			final IXtextModelListener listener = xtextModelListeners.get(document);
-			if(listener != null) {
-				// Execute one last model changed event
-				document.readOnly(new IUnitOfWork<String, XtextResource>() {
-					@Override
-					public String exec(final XtextResource resource) throws Exception {
-						modelListener.modelChanged(document, resource);
-						return null;
-					}
-				});
-				
-				document.removeModelListener(listener);
-				modelListener.removeDocumentInfo(document);
+			if(aadlXtextLanguageName.equals(editor.getLanguageName())) {
+				final IXtextDocument document = editor.getDocument();
+				openAadlResources.onXtextDocumentClosed(document);;
 			}
 		}
-	}
-	
-	private IXtextModelListener createListener(final IXtextDocument document) {
-		return new IXtextModelListener() {
-			@Override
-			public void modelChanged(final XtextResource resource) {
-				modelListener.modelChanged(document, resource);
-			}
-		};
-	}
+	}	
 }
