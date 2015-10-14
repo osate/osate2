@@ -830,8 +830,11 @@
 				</section>
 				<section>
 					<title>Categories</title>
-					<para>The graphical editor manages creating and ordering categories needed for the palette.  Categories are created by registering the category using org.osate.ge.categories extension point.  A category id, name, and order is registered for a particular category.</para>
-					<para>The graphical editor creates categories which may be used as examples.  Those categories are contained in the <emphasis>org.osate.categories</emphasis> package.</para>
+					<para>The graphical editor manages a list of categories. These categories are used to group items in the palette. Categories are registered using the <emphasis>org.osate.ge.categories</emphasis> extension point.</para>
+				</section>
+				<section>
+					<title>Images</title>
+					<para>The graphical editor references images using unique identifiers. Images are registered using the <emphasis>org.osate.go.images</emphasis> extension point.</para>
 				</section>
 			</section>
 		</section>

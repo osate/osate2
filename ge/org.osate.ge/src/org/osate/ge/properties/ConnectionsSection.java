@@ -194,7 +194,7 @@ public class ConnectionsSection extends GFPropertySection implements ITabbedProp
 				final BusinessObjectResolutionService bor = getBusinessObjectResolutionService();
 				final IDiagramTypeProvider dtp = getDiagramTypeProvider();
 				if ((customCtx.getPictogramElements()[0].isVisible()) && (setBindingTool.canActivate(dtp, bor))) {
-					setBindingTool.activate(dtp, bor, getAadlModificationService(), getDiagramModificationService(), getConnectionService());
+					//setBindingTool.activate(dtp, bor, getAadlModificationService(), getDiagramModificationService(), getConnectionService());
 					editor.setFocus();
 				}
 			} 

@@ -50,7 +50,6 @@ import org.osate.aadl2.ModeTransition;
 import org.osate.aadl2.ModeTransitionTrigger;
 import org.osate.aadl2.Subcomponent;
 import org.osate.ge.diagrams.common.AadlElementWrapper;
-import org.osate.ge.diagrams.common.AgeImageProvider;
 import org.osate.ge.dialogs.ModeTransitionTriggerSelectionDialog;
 import org.osate.ge.dialogs.ModeTransitionTriggerSelectionDialog.ModeTransitionTriggerInfo;
 import org.osate.ge.ext.Categorized;
@@ -72,6 +71,7 @@ import org.osate.ge.services.UserInputService;
 import org.osate.ge.services.GhostingService;
 import org.osate.ge.services.AadlModificationService.AbstractModifier;
 import org.osate.ge.styles.StyleConstants;
+import org.osate.ge.util.ImageHelper;
 
 public class ModeTransitionPattern extends AgeConnectionPattern implements Categorized {
 	public static String MODE_TRANSITION_TRIGGER_CONNECTION_TYPE = "mode_transition_trigger";
@@ -446,7 +446,7 @@ public class ModeTransitionPattern extends AgeConnectionPattern implements Categ
 	@Override
 	public String getCreateImageId(){
 		final Aadl2Package p = Aadl2Factory.eINSTANCE.getAadl2Package();
-		return AgeImageProvider.getImage(p.getModeTransition().getName());
+		return ImageHelper.getImage(p.getModeTransition().getName());
 	}
 	@Override
 	public String getCreateName() {

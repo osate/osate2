@@ -11,7 +11,6 @@ package org.osate.ge.ui.editor;
 import java.util.EventObject;
 import java.util.Iterator;
 import java.util.List;
-import java.util.Objects;
 import java.util.Set;
 
 import org.eclipse.emf.common.command.BasicCommandStack;
@@ -166,17 +165,6 @@ public class AgeDiagramBehavior extends DiagramBehavior {
 	 			public void partOpened(final IWorkbenchPart part) {}
 	 		});
 		}
-	}
-	
-	/**
-	 * Throws exception if the action for the specified tool cannot be found.
-	 * @param toolId
-	 * @return
-	 */
-	public IAction getActivateToolAction(final String toolId) {
-		Objects.requireNonNull(toolId, "toolId must not be null");
-		final ActionRegistry actionRegistry = getDiagramContainer().getActionRegistry();
-		return Objects.requireNonNull(actionRegistry.getAction(ActivateToolAction.getActionId(toolId)), "unable to retrieve action for tool: " + toolId);
 	}
 	
 	public void deactivateActiveTool() {

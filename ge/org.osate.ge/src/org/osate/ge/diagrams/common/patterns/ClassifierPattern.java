@@ -78,7 +78,6 @@ import org.osate.aadl2.ReferenceValue;
 import org.osate.aadl2.Subcomponent;
 import org.osate.aadl2.SubcomponentType;
 import org.osate.ge.diagrams.common.AadlElementWrapper;
-import org.osate.ge.diagrams.common.AgeImageProvider;
 import org.osate.ge.ext.Categorized;
 import org.osate.ge.services.AadlArrayService;
 import org.osate.ge.services.AadlFeatureService;
@@ -103,6 +102,7 @@ import org.osate.ge.services.SubcomponentService;
 import org.osate.ge.services.UserInputService;
 import org.osate.ge.services.GhostingService;
 import org.osate.ge.services.AadlModificationService.AbstractModifier;
+import org.osate.ge.util.ImageHelper;
 import org.osate.ge.util.StringUtil;
 import org.osate.xtext.aadl2.properties.util.DeploymentProperties;
 import org.osate.xtext.aadl2.properties.util.GetProperties;
@@ -906,7 +906,7 @@ public class ClassifierPattern extends AgePattern implements Categorized {
 		
 	@Override
 	public String getCreateImageId(){
-		return AgeImageProvider.getImage(subcomponentType.getName());
+		return ImageHelper.getImage(subcomponentType.getName());
 	}
 	
 	@Override

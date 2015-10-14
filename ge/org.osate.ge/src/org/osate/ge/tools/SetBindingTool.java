@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
+import javax.inject.Named;
+
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.util.EcoreUtil;
@@ -53,17 +55,21 @@ import org.osate.aadl2.PropertyAssociation;
 import org.osate.aadl2.ReferenceType;
 import org.osate.aadl2.ReferenceValue;
 import org.osate.ge.Activator;
+import org.osate.ge.ext.Names;
 import org.osate.ge.ext.annotations.Activate;
 import org.osate.ge.ext.annotations.CanActivate;
 import org.osate.ge.ext.annotations.Deactivate;
 import org.osate.ge.ext.annotations.Description;
 import org.osate.ge.ext.annotations.Icon;
 import org.osate.ge.ext.annotations.Id;
+import org.osate.ge.ext.annotations.SelectionChanged;
 import org.osate.ge.services.AadlModificationService;
 import org.osate.ge.services.AadlModificationService.AbstractModifier;
 import org.osate.ge.services.BusinessObjectResolutionService;
 import org.osate.ge.services.ConnectionService;
 import org.osate.ge.services.DiagramModificationService;
+import org.osate.ge.services.ShapeService;
+import org.osate.ge.services.UiService;
 import org.osate.ge.ui.editor.AgeDiagramEditor;
 import org.osate.xtext.aadl2.properties.util.DeploymentProperties;
 import org.osate.xtext.aadl2.properties.util.GetProperties;
@@ -110,12 +116,42 @@ public class SetBindingTool {
 			if (currentWindow == null) {
 				currentWindow = new SetBindingWindow(editor.getSite().getShell(), bor, getSelectedPictogramElement(editor, bor),
 						windowCloseListener);
-				editor.selectPictogramElements(new PictogramElement[0]);
+				//editor.selectPictogramElements(new PictogramElement[0]);
+				
 				currentWindow.open();
 
-				editor.getSite().getWorkbenchWindow().getSelectionService().addPostSelectionListener(selectionListener);
-				editor.getSite().getWorkbenchWindow().getPartService().addPartListener(partListener);
+				/*editor.getSite().getWorkbenchWindow().getSelectionService().addPostSelectionListener(selectionListener);
+				editor.getSite().getWorkbenchWindow().getPartService().addPartListener(partListener);*/
 			}
+	}
+	
+	/*	// Used to listen for selections while the window is open
+	private ISelectionListener selectionListener = new ISelectionListener() {
+		@Override
+		public void selectionChanged(final IWorkbenchPart part, final ISelection selection) {
+			if(part == editor) {
+				if ((editor.getSelectedPictogramElements()) != null) {
+					if(currentWindow != null) {
+						currentWindow.setTargetPictogramElements(editor.getSelectedPictogramElements());
+					}
+				}
+			}
+		}		
+	};*/
+	
+	@SelectionChanged
+	public void onSelectionChanged(@Named(Names.SELECTED_PICTOGRAM_ELEMENTS) final PictogramElement[] selectedPes, final IDiagramTypeProvider dtp,
+			final BusinessObjectResolutionService bor, final ShapeService shapeService, final ConnectionService connectionService) {
+		// Highlight all selected shapes
+		final TransactionalEditingDomain editingDomain = dtp.getDiagramBehavior().getEditingDomain();
+		editingDomain.getCommandStack().execute(new NonUndoableToolCommand() {
+			@Override
+			public void execute() {
+				if(currentWindow != null) {
+					currentWindow.setTargetPictogramElements(selectedPes);
+				}
+			}
+		});
 	}
 	
 	@Deactivate
@@ -124,7 +160,10 @@ public class SetBindingTool {
 		editingDomain.getCommandStack().execute(new NonUndoableToolCommand() {
 			@Override
 			public void execute() {
-				if(currentWindow != null) {
+				if(currentWindow != null && !SetBindingTool.this.canActivate(dtp, bor)) {
+					System.err.println("DEACT");
+					System.err.println(currentWindow.getShell() + "SHELL");
+					currentWindow.cancel();
 					currentWindow = null;
 				}
 			}
@@ -135,37 +174,34 @@ public class SetBindingTool {
 	private SetBindingWindow.CloseListener windowCloseListener = new SetBindingWindow.CloseListener() {
 		@Override
 		public void onClosed() {
-			// Remove listeners
-			editor.getSite().getWorkbenchWindow().getSelectionService().removePostSelectionListener(selectionListener);
-			editor.getSite().getWorkbenchWindow().getPartService().removePartListener(partListener);
+				// Remove listeners
+				/*editor.getSite().getWorkbenchWindow().getSelectionService().removePostSelectionListener(selectionListener);
+				editor.getSite().getWorkbenchWindow().getPartService().removePartListener(partListener);*/
 			
-			// Reset the diagram's selection
-			final PictogramElement[] pes = new PictogramElement[1];
-			pes[0] = (PictogramElement)((Diagram)editor.getDiagramTypeProvider().getDiagram());
-			editor.selectPictogramElements(pes);
-
-			if(currentWindow.getReturnCode() == Dialog.OK) {
-				createPropertyAssociation();			
-			}
-			
-			currentWindow = null;
-		}
-	};
-
-	// Used to listen for selections while the window is open
-	private ISelectionListener selectionListener = new ISelectionListener() {
-		@Override
-		public void selectionChanged(final IWorkbenchPart part, final ISelection selection) {
-			if(part == editor) {
-				if ((editor.getSelectedPictogramElements()) != null) {
-					currentWindow.setTargetPictogramElements(editor.getSelectedPictogramElements());
+				// Reset the diagram's selection
+				//final PictogramElement[] pes = new PictogramElement[1];
+				//pes[0] = (PictogramElement)((Diagram)editor.getDiagramTypeProvider().getDiagram());
+				//editor.selectPictogramElements(pes);
+			System.err.println("ONCLOSE");
+			System.err.println(currentWindow + " curwindow");
+				if(currentWindow != null && currentWindow.getReturnCode() == Dialog.OK) {
+					System.err.println(currentWindow.getReturnCode());
+					createPropertyAssociation();			
 				}
+			
+				currentWindow = null;
+				System.err.println(currentWindow + " after ");
+				//final PictogramElement[] refresh = new PictogramElement[1];
+				//editor.setPictogramElementForSelection(refresh[0]);
+				//editor.getDiagramBehavior().refresh();
 			}
-		}		
+		
 	};
+
+
 
 	// Used to listen to editor changes and closed the action's window if the editor is closed or deactivated.
-	private IPartListener partListener = new IPartListener() {
+	/*private IPartListener partListener = new IPartListener() {
 
 		@Override
 		public void partActivated(final IWorkbenchPart part) {
@@ -192,7 +228,7 @@ public class SetBindingTool {
 		@Override
 		public void partOpened(final IWorkbenchPart part) {
 		}
-	};
+	};*/
 
 	private static class SetBindingWindow extends TitleAreaDialog {
 		private static interface CloseListener {
@@ -387,7 +423,9 @@ public class SetBindingTool {
 
 		public void setTargetPictogramElements(final PictogramElement[] value) {
 			targetPictogramElements = value;
-			validate();
+			if(getShell() != null && !getShell().isDisposed()) {
+				validate();
+			}
 		}
 
 		public PictogramElement[] getTargetPictogramElements() {
@@ -466,7 +504,7 @@ public class SetBindingTool {
 					cc.getOwnedPropertyAssociations().add(newPa);
 
 					diagramMod.markOpenRelatedDiagramsAsDirty(cc);
-
+					
 					return null;
 				}
 
@@ -517,7 +555,6 @@ public class SetBindingTool {
 					diagramMod.commit();
 				}
 			});
-
 		}
 	}
 

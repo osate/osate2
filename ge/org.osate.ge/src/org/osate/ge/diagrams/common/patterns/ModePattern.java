@@ -44,7 +44,6 @@ import org.osate.aadl2.Mode;
 import org.osate.aadl2.NamedElement;
 import org.osate.aadl2.Subcomponent;
 import org.osate.ge.diagrams.common.AadlElementWrapper;
-import org.osate.ge.diagrams.common.AgeImageProvider;
 import org.osate.ge.ext.Categorized;
 import org.osate.ge.ext.Categories;
 import org.osate.ge.services.AadlModificationService;
@@ -65,6 +64,7 @@ import org.osate.ge.services.UserInputService;
 import org.osate.ge.services.GhostingService;
 import org.osate.ge.services.AadlModificationService.AbstractModifier;
 import org.osate.ge.styles.StyleConstants;
+import org.osate.ge.util.ImageHelper;
 
 public class ModePattern extends AgeLeafShapePattern implements Categorized {
 	public static String INITIAL_MODE_CONNECTION_TYPE = "initial_mode";
@@ -300,7 +300,7 @@ public class ModePattern extends AgeLeafShapePattern implements Categorized {
 	@Override
 	public String getCreateImageId(){
 		final Aadl2Package p = Aadl2Factory.eINSTANCE.getAadl2Package();
-		return AgeImageProvider.getImage(p.getMode().getName());
+		return ImageHelper.getImage(p.getMode().getName());
 	}
 	
 	@Override

@@ -102,6 +102,7 @@ public class CreateFlowImplementationTool {
 		this.coloring = highlightingService.adjustColors();
 		this.fp = fp;
 		this.bor = bor;
+		
 		ci = (ComponentImplementation)bor.getBusinessObjectForPictogramElement(dtp.getDiagram());
 		if (ci != null) {
 			canActivate = false;
