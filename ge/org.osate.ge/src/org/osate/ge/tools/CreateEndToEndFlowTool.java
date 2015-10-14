@@ -140,7 +140,6 @@ public class CreateEndToEndFlowTool {
 		editingDomain.getCommandStack().execute(new NonUndoableToolCommand() {
 			@Override
 			public void execute() {
-				System.err.println("DEACTIVATING ETEFLOW");
 				// Dispose of the coloring object
 				if (coloring != null) {
 					if (createEndToEndFlowDialog != null) {

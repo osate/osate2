@@ -21,8 +21,8 @@ import org.eclipse.jface.dialogs.TitleAreaDialog;
 import org.eclipse.jface.resource.ImageDescriptor;
 import org.eclipse.jface.viewers.ArrayContentProvider;
 import org.eclipse.jface.viewers.ComboViewer;
-import org.eclipse.jface.viewers.ISelection;
 import org.eclipse.jface.viewers.ISelectionChangedListener;
+import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.jface.viewers.LabelProvider;
 import org.eclipse.jface.viewers.SelectionChangedEvent;
 import org.eclipse.jface.viewers.StructuredSelection;
@@ -34,9 +34,6 @@ import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Control;
 import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Shell;
-import org.eclipse.ui.IPartListener;
-import org.eclipse.ui.ISelectionListener;
-import org.eclipse.ui.IWorkbenchPart;
 import org.osate.aadl2.Aadl2Factory;
 import org.osate.aadl2.ArrayRange;
 import org.osate.aadl2.Classifier;
@@ -86,7 +83,6 @@ public class SetBindingTool {
 	private ConnectionService connectionService;
 	private BusinessObjectResolutionService bor;
 	private SetBindingWindow currentWindow = null;
-	private Boolean isActive = false;
 
 	@Id
 	public final static String ID = "org.osate.ge.ui.tools.SetBindingTool";
@@ -115,28 +111,14 @@ public class SetBindingTool {
 
 		// Open Dialog
 			if (currentWindow == null) {
-				currentWindow = new SetBindingWindow(editor.getSite().getShell(), bor, getSelectedPictogramElement(editor, bor),
-						windowCloseListener);
-				currentWindow.open();
-
-				/*editor.getSite().getWorkbenchWindow().getSelectionService().addPostSelectionListener(selectionListener);*/
-				//editor.getSite().getWorkbenchWindow().getPartService().addPartListener(partListener);
+				currentWindow = new SetBindingWindow(editor.getSite().getShell(), bor, getSelectedPictogramElement(editor, bor));
+				if(currentWindow.open() == Dialog.OK) {
+					createPropertyAssociation();
+				}
+				
+				currentWindow = null;
 			}
 	}
-	
-	/*	// Used to listen for selections while the window is open
-	private ISelectionListener selectionListener = new ISelectionListener() {
-		@Override
-		public void selectionChanged(final IWorkbenchPart part, final ISelection selection) {
-			if(part == editor) {
-				if ((editor.getSelectedPictogramElements()) != null) {
-					if(currentWindow != null) {
-						currentWindow.setTargetPictogramElements(editor.getSelectedPictogramElements());
-					}
-				}
-			}
-		}		
-	};*/
 	
 	@SelectionChanged
 	public void onSelectionChanged(@Named(Names.SELECTED_PICTOGRAM_ELEMENTS) final PictogramElement[] selectedPes, final IDiagramTypeProvider dtp,
@@ -166,72 +148,14 @@ public class SetBindingTool {
 			}
 		});
 	}
-	
-	// Used to listen to when the window has been closed
-	private SetBindingWindow.CloseListener windowCloseListener = new SetBindingWindow.CloseListener() {
-		@Override
-		public void onClosed() {
-			isActive = false;
-				// Remove listeners
-				/*editor.getSite().getWorkbenchWindow().getSelectionService().removePostSelectionListener(selectionListener);*/
-				//editor.getSite().getWorkbenchWindow().getPartService().removePartListener(partListener);
-
-				if(currentWindow != null && currentWindow.getReturnCode() == Dialog.OK) {
-					createPropertyAssociation();			
-				}
-			
-				currentWindow = null;
-
-				//final PictogramElement[] refresh = new PictogramElement[1];
-				//editor.setPictogramElementForSelection(refresh[0]);
-				//editor.getDiagramBehavior().refresh();
-			}
-		
-	};
-
-
-
-	/*// Used to listen to editor changes and closed the action's window if the editor is closed or deactivated.
-	private IPartListener partListener = new IPartListener() {
-
-		@Override
-		public void partActivated(final IWorkbenchPart part) {
-		}
-
-		@Override
-		public void partBroughtToTop(final IWorkbenchPart part) {
-		}
-
-		@Override
-		public void partClosed(final IWorkbenchPart part) {
-			if (editor == part && currentWindow != null) {
-				currentWindow.cancel();
-			}
-		}
-
-		@Override
-		public void partDeactivated(final IWorkbenchPart part) {
-			if (editor == part && currentWindow != null) {
-				currentWindow.cancel();
-			}
-		}
-
-		@Override
-		public void partOpened(final IWorkbenchPart part) {
-		}
-	};*/
 
 	private static class SetBindingWindow extends TitleAreaDialog {
-		private static interface CloseListener {
-			void onClosed();
-		}
-
 		private final BusinessObjectResolutionService bor;
 		private final PictogramElement pictogramToBind;
 		private final NamedElement elementToBind;
-		private final CloseListener closeListener;
 		private ComboViewer bindingPropertyCombo;
 		private Label selectionStatusLabel;
+		private IStructuredSelection currentPropComboSel;
 		private PictogramElement[] targetPictogramElements = new PictogramElement[0];
 		private final LabelProvider propertyLabelProvider = new LabelProvider() {
 	    	@Override
@@ -245,16 +169,14 @@ public class SetBindingTool {
 	    	}
 	    };
 	    
-		public SetBindingWindow(final Shell parentShell, final BusinessObjectResolutionService bor, final PictogramElement pictogramToBind, final CloseListener closeListener) {
+		public SetBindingWindow(final Shell parentShell, final BusinessObjectResolutionService bor, final PictogramElement pictogramToBind) {
 			super(parentShell);
 
 			this.bor = bor;
 			this.pictogramToBind = pictogramToBind;
 			this.elementToBind = (NamedElement) bor.getBusinessObjectForPictogramElement(pictogramToBind);
-			this.closeListener = closeListener;
 
 			setShellStyle(SWT.RESIZE | SWT.CLOSE | SWT.MODELESS | SWT.BORDER | SWT.TITLE);
-			setBlockOnOpen(false);
 			setHelpAvailable(false);
 		}
 
@@ -304,6 +226,7 @@ public class SetBindingTool {
 			bindingPropertyCombo.addSelectionChangedListener(new ISelectionChangedListener() {
 				@Override
 				public void selectionChanged(SelectionChangedEvent event) {
+					setSelectedProperty((IStructuredSelection) bindingPropertyCombo.getSelection());
 					validate();
 				}
 			});
@@ -375,7 +298,7 @@ public class SetBindingTool {
 					}
 				}
 			}
-
+			
 			final Button okButton = getButton(IDialogConstants.OK_ID);
 			okButton.setEnabled(validationSuccessful);
 		}
@@ -395,7 +318,7 @@ public class SetBindingTool {
 
 		@Override
 		public boolean close() {
-			closeListener.onClosed();
+			//closeListener.onClosed();
 			return super.close();
 		}
 
@@ -404,12 +327,16 @@ public class SetBindingTool {
 		}
 
 		public Property getSelectedProperty() {
-			if (bindingPropertyCombo.getSelection() instanceof StructuredSelection) {
-				final StructuredSelection selection = (StructuredSelection) bindingPropertyCombo.getSelection();
+			if (currentPropComboSel instanceof StructuredSelection) {
+				final StructuredSelection selection = (StructuredSelection) currentPropComboSel;
 				return (Property) selection.getFirstElement();
 			}
 
 			return null;
+		}
+		
+		public void setSelectedProperty(final IStructuredSelection propComboSelection) {
+			currentPropComboSel = propComboSelection;
 		}
 
 		public void setTargetPictogramElements(final PictogramElement[] value) {
@@ -461,7 +388,7 @@ public class SetBindingTool {
 					diagramMod = diagramModService.startModification();
 
 					final PropertyAssociation newPa = Aadl2Factory.eINSTANCE.createPropertyAssociation();
-
+					
 					// Set property
 					newPa.setProperty(currentWindow.getSelectedProperty());
 
