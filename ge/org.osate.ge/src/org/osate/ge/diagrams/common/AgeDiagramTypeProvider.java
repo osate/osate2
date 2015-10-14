@@ -97,7 +97,7 @@ public class AgeDiagramTypeProvider extends AbstractDiagramTypeProvider {
 		// Create objects for the context
 		final UiService uiService = new DefaultUiService(this);
 		final CachingService cachingService = new DefaultCachingService();
-		final SerializableReferenceService serializableReferenceService = new DefaultSerializableReferenceService();
+		final SerializableReferenceService serializableReferenceService = new DefaultSerializableReferenceService(fp);
 		final BusinessObjectResolutionService bor = new DefaultBusinessObjectResolutionService(fp);
 		final ComponentImplementationService componentImplementationService = new DefaultComponentImplementationService();
 		final DiagramService diagramService = Objects.requireNonNull(context.get(DiagramService.class), "Unable to retrieve DiagramService");

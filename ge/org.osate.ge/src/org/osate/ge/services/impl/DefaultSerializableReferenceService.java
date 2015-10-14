@@ -2,10 +2,13 @@ package org.osate.ge.services.impl;
 
 import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.Objects;
 import java.util.Set;
 
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.resource.Resource;
+import org.eclipse.graphiti.features.IFeatureProvider;
+import org.eclipse.graphiti.mm.pictograms.Diagram;
 import org.eclipse.xtext.resource.XtextResourceSet;
 import org.osate.aadl2.AadlPackage;
 import org.osate.aadl2.AnnexLibrary;
@@ -36,14 +39,23 @@ import org.osate.aadl2.SubprogramCall;
 import org.osate.aadl2.SubprogramCallSequence;
 import org.osate.aadl2.TypeExtension;
 import org.osate.annexsupport.AnnexUtil;
+import org.osate.ge.diagrams.common.AadlElementWrapper;
 import org.osate.ge.diagrams.componentImplementation.patterns.SubprogramCallOrder;
 import org.osate.ge.services.SerializableReferenceService;
+import org.osate.ge.ui.xtext.AgeXtextUtil;
 import org.osate.ge.util.Log;
 import org.osate.ge.util.StringUtil;
+import org.osate.xtext.aadl2.properties.util.EMFIndexRetrieval;
 
 public class DefaultSerializableReferenceService implements SerializableReferenceService {
 	private final static String TYPE_ANNEX_LIBRARY = "annex_library";
 	private final static String TYPE_ANNEX_SUBCLAUSE = "annex_subclause";
+	private boolean gettingDiagramObj = false; // Flag to handled reentrancy.
+	private final IFeatureProvider featureProvider;
+	
+	public DefaultSerializableReferenceService(final IFeatureProvider featureProvider) {
+		this.featureProvider = featureProvider;
+	}
 	
 	@Override
 	public String getReference(final Object bo) {
@@ -105,34 +117,88 @@ public class DefaultSerializableReferenceService implements SerializableReferenc
 		}
 	}
 		
-	public Object getReferencedObject(final XtextResourceSet resourceSet, final String reference) {
-		if(reference == null) {
+	public Object getReferencedObject(final String reference) {
+		Objects.requireNonNull(reference, "reference must not be null");
+		
+		// Break the reference into segments
+		final String[] refSegs = reference.split(" ");
+		if(refSegs.length < 2) {
 			return null;
 		}
+		
+		// Check if we are trying to get the element corresponding to the diagram
+		if(gettingDiagramObj) {
+			return new AadlElementWrapper(getDiagramElement(refSegs));
+		} else {
+			final AadlPackage pkg = getPackage();
+			if(pkg == null) {
+				return null;
+			}
+			
+			// Get the resource set
+			final XtextResourceSet resourceSet = AgeXtextUtil.getResourceSetByQualifiedName(pkg.getQualifiedName());
+			if(resourceSet == null) {
+				return null;
+			}
+			
+			Object bo = getReferencedObject(resourceSet, reference, refSegs);
+			if(bo instanceof Element) {
+				bo = new AadlElementWrapper((Element)bo);
+			}
+
+			return bo;
+		}
+	}
+	
+	// Returns the named element for a key from a diagram object
+	private NamedElement getDiagramElement(final String[] refSegs) {
+		final String name = refSegs[1];
+		return (NamedElement)EMFIndexRetrieval.getObjectByQualifiedName(name, AgeXtextUtil.getResourceSetByQualifiedName(name));
+	}
+	
+	private AadlPackage getPackage() {
+		final Diagram diagram = featureProvider.getDiagramTypeProvider().getDiagram();
+		gettingDiagramObj = true;
+		final NamedElement diagramElement = (NamedElement)AadlElementWrapper.unwrap(featureProvider.getBusinessObjectForPictogramElement(diagram));
+		gettingDiagramObj = false;
+		
+		if(diagramElement == null) {
+			return null;
+		}
+
+		if(diagramElement instanceof AadlPackage) {
+			return (AadlPackage)diagramElement;
+		} else {
+			final Element pkg = diagramElement.getNamespace().getOwner();
+			if(pkg instanceof AadlPackage) {
+				return (AadlPackage)pkg;
+			}
+		}
+		
+		return null;
+	}
+	
+	private Object getReferencedObject(final XtextResourceSet resourceSet, final String reference, final String[] refSegs) {
+		assert refSegs != null;
 
 		// Check the resource set
 		if(resourceSet == null) {
 			return null;
 		}
 		
-		final String[] segs = reference.split(" ");
-		if(segs.length < 2) {
-			return null;
-		}		
-		
 		Object referencedObject = null; // The object that will be returned
-		final String type = segs[0];
+		final String type = refSegs[0];
 		
 		if(type.equals("subprogram_call_order")) {
-			if(segs.length == 3) {
-				final Element previousSubprogramCall = getNamedElementByQualifiedName(resourceSet, segs[1]);
-				final Element subprogramCall = getNamedElementByQualifiedName(resourceSet, segs[2]);
+			if(refSegs.length == 3) {
+				final Element previousSubprogramCall = getNamedElementByQualifiedName(resourceSet, refSegs[1]);
+				final Element subprogramCall = getNamedElementByQualifiedName(resourceSet, refSegs[2]);
 				if(previousSubprogramCall instanceof SubprogramCall && subprogramCall instanceof SubprogramCall) {
 					referencedObject = new SubprogramCallOrder((SubprogramCall)previousSubprogramCall, (SubprogramCall)subprogramCall);
 				}
 			}			
 		} else { 
-			final String qualifiedName = segs[1];
+			final String qualifiedName = refSegs[1];
 			final Element relevantElement = getNamedElementByQualifiedName(resourceSet, qualifiedName);
 					
 			if(type.equals("package") ||
@@ -172,17 +238,17 @@ public class DefaultSerializableReferenceService implements SerializableReferenc
 					referencedObject = ((FeatureGroupType)relevantElement).getOwnedExtension();
 				}
 			} else if(type.equals(TYPE_ANNEX_LIBRARY)) {
-				if(segs.length == 4 && relevantElement instanceof AadlPackage) {
+				if(refSegs.length == 4 && relevantElement instanceof AadlPackage) {
 					final AadlPackage pkg = (AadlPackage)relevantElement;
-					final String annexName = segs[2];
-					final int annexIndex = Integer.parseInt(segs[3]);
+					final String annexName = refSegs[2];
+					final int annexIndex = Integer.parseInt(refSegs[3]);
 					referencedObject = findAnnexLibrary(pkg, annexName, annexIndex);
 				}
 			} else if(type.equals(TYPE_ANNEX_SUBCLAUSE)) {
-				if(segs.length == 4 && relevantElement instanceof Classifier) {
+				if(refSegs.length == 4 && relevantElement instanceof Classifier) {
 					final Classifier classifier = (Classifier)relevantElement;
-					final String annexName = segs[2];
-					final int annexIndex = Integer.parseInt(segs[3]);
+					final String annexName = refSegs[2];
+					final int annexIndex = Integer.parseInt(refSegs[3]);
 					referencedObject = findAnnexSubclause(classifier, annexName, annexIndex);
 				}
 			} else {
