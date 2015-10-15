@@ -68,7 +68,7 @@ public class ConnectionsSection extends GFPropertySection implements ITabbedProp
 	private SwitchDirectionOfConnectionFeature switchDirectionOfConnectionFeature;
 	private SetConnectionBidirectionalityFeature setConnectionBidirectionalityFeature;
 	private RenameConnectionFeature renameConnectionFeature;
-	private final IAction setBindingTool = getUiService().getActivateToolAction(SetBindingTool.ID);
+	private IAction setBindingTool;
 
 	private PictogramElement pe;
 	final private CustomContext customCtx = new CustomContext();
@@ -333,7 +333,8 @@ public class ConnectionsSection extends GFPropertySection implements ITabbedProp
 								switchDirectionPushButton.setVisible(true);
 							}
 						}
-
+						
+						setBindingTool = getUiService().getActivateToolAction(SetBindingTool.ID);
 						if(setBindingTool.isEnabled()) {
 							bindPushButton.setVisible(true);
 						}
