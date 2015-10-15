@@ -64,8 +64,10 @@ public class IndependenceProvider implements IIndependenceSolver {
 			return (AadlPackage)diagramElement;
 		} else {
 			final Element pkg = diagramElement.getNamespace().getOwner();
-			if(pkg instanceof AadlPackage) {
-				return (AadlPackage)pkg;
+			if(diagramElement.getNamespace() != null) {
+				if(pkg instanceof AadlPackage) {
+					return (AadlPackage)pkg;
+				}
 			}
 		}
 		
