@@ -110,14 +110,14 @@ public class SetBindingTool {
 		this.bor = bor;
 
 		// Open Dialog
-			if (currentWindow == null) {
-				currentWindow = new SetBindingWindow(editor.getSite().getShell(), bor, getSelectedPictogramElement(editor, bor));
-				if(currentWindow.open() == Dialog.OK) {
-					createPropertyAssociation();
-				}
-				
-				currentWindow = null;
+		if (currentWindow == null) {
+			currentWindow = new SetBindingWindow(editor.getSite().getShell(), bor, getSelectedPictogramElement(editor, bor));
+			if(currentWindow.open() == Dialog.OK) {
+				createPropertyAssociation();
 			}
+			
+			currentWindow = null;
+		}
 	}
 	
 	@SelectionChanged

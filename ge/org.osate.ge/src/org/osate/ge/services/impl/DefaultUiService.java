@@ -1,6 +1,7 @@
 package org.osate.ge.services.impl;
 
 import org.eclipse.graphiti.dt.IDiagramTypeProvider;
+import org.eclipse.jface.action.IAction;
 import org.osate.ge.services.UiService;
 import org.osate.ge.ui.editor.AgeDiagramBehavior;
 
@@ -12,8 +13,8 @@ public class DefaultUiService implements UiService {
 	}
 	
 	@Override
-	public void activateTool(final Object tool) {
-		getAgeDiagramBehavior().activateTool(tool);
+	public IAction getActivateToolAction(final String toolId) {
+		return getAgeDiagramBehavior().getActivateToolAction(toolId);
 	}
 	
 	@Override
