@@ -35,6 +35,8 @@ import static extension org.osate.xtext.aadl2.errormodel.util.EMV2Util.getAllPro
 import static extension org.osate.xtext.aadl2.errormodel.util.EMV2Util.getFeatureorPPRefs
 import static extension org.osate.xtext.aadl2.errormodel.util.ErrorModelUtil.getAllErrorTypes
 import static extension org.osate.xtext.aadl2.errormodel.util.ErrorModelUtil.getAllTypesets
+import org.osate.xtext.aadl2.errormodel.errorModel.TypeMappingSet
+
 /**
  * This class contains custom scoping description.
  * 
@@ -45,24 +47,28 @@ import static extension org.osate.xtext.aadl2.errormodel.util.ErrorModelUtil.get
 class ErrorModelScopeProvider extends PropertiesScopeProvider {
 	@Inject
 	IQualifiedNameConverter qualifiedNameConverter
-	
-	def Iterable<ErrorType> getErrorTypesFromLib(ErrorModelLibrary lib) {
-		return (#[lib.types] + lib.extends.map[it | getErrorTypesFromLib(it)]).flatten();
-	}
-
-	def Iterable<TypeSet> getTypesetsFromLib(ErrorModelLibrary lib) {
-		return (#[lib.typesets] + lib.extends.map[it | getTypesetsFromLib(it)]).flatten();
-	}
+//	
+//	def Iterable<ErrorType> getErrorTypesFromLib(ErrorModelLibrary lib) {
+//		return (#[lib.types] + lib.extends.map[it | getErrorTypesFromLib(it)]).flatten();
+//	}
+//
+//	def Iterable<TypeSet> getTypesetsFromLib(ErrorModelLibrary lib) {
+//		return (#[lib.typesets] + lib.extends.map[it | getTypesetsFromLib(it)]).flatten();
+//	}
 
 	def getErrorLibsFromContext(EObject context) {
 		var EObject parCtx;
 		for (parCtx = context; parCtx != null; parCtx = parCtx.eContainer()) {
 			switch (parCtx) {
-				ErrorModelLibrary:
-					return #[parCtx]	
+				ErrorModelLibrary: 
+					return parCtx.useTypes + #[parCtx] 	
 				ErrorModelSubclause:
 					return parCtx.useTypes	
+				ErrorBehaviorStateMachine:
+					return parCtx.useTypes	
 				TypeTransformationSet:
+					return parCtx.useTypes					
+				TypeMappingSet:
 					return parCtx.useTypes					
 			}
 		}
@@ -70,23 +76,53 @@ class ErrorModelScopeProvider extends PropertiesScopeProvider {
 	}
 
 	def scope_TypeToken_type(EObject context, EReference reference) {
-		val parentScope = delegateGetScope(context, reference);
 		val errorLibs = getErrorLibsFromContext(context);
 		val errorTypes = (
-			errorLibs.map[it | getErrorTypesFromLib(it)] +
-			errorLibs.map[it | getTypesetsFromLib(it)]).flatten();
-		val tempScope = errorTypes.scopeFor(parentScope);
-		new SimpleScope(tempScope.allElements.map[
-			val nameAsString = name.toString("::")
-			if (nameAsString.startsWith(ErrorModelCrossReferenceSerializer.PREFIX)) {
-				val strippedName = nameAsString.substring(ErrorModelCrossReferenceSerializer.PREFIX.length)
-				EObjectDescription.create(qualifiedNameConverter.toQualifiedName(strippedName), EObjectOrProxy)
-			} else {
-				it
-			}
-		], true)
-		
+			errorLibs.map[it | allErrorTypes] +
+			errorLibs.map[it | allTypesets]).flatten();
+		return errorTypes.scopeFor();
 	}
+	
+//	def scope_ErrorType(ErrorModelLibrary context, EReference reference) {
+//		context.scopeForInheritableErrorTypes[allErrorTypes]
+//	}
+	
+	def scope_ErrorType_aliasedType(ErrorType context, EReference reference) {
+//		context.scopeForInheritableErrorTypes[allTypesets]
+//		context.allTypesets.scopeFor
+		val errorLibs = getErrorLibsFromContext(context);
+		val errorType = errorLibs.map[it | allErrorTypes].flatten ;
+		return errorType.scopeFor();
+	}
+	
+	def scope_TypeSet_aliasedType(TypeSet context, EReference reference) {
+//		context.scopeForInheritableErrorTypes[allTypesets]
+//		context.allErrorTypes.scopeFor
+		val errorLibs = getErrorLibsFromContext(context);
+		val errorTypeset = errorLibs.map[it | allTypesets].flatten();
+		return errorTypeset.scopeFor();
+
+	}
+
+// dealing with qualified names
+//	def scope_TypeToken_type(EObject context, EReference reference) {
+//		val parentScope = delegateGetScope(context, reference);
+//		val errorLibs = getErrorLibsFromContext(context);
+//		val errorTypes = (
+//			errorLibs.map[it | getErrorTypesFromLib(it)] +
+//			errorLibs.map[it | getTypesetsFromLib(it)]).flatten();
+//		val tempScope = errorTypes.scopeFor(parentScope);
+//		new SimpleScope(tempScope.allElements.map[
+//			val nameAsString = name.toString("::")
+//			if (nameAsString.startsWith(ErrorModelCrossReferenceSerializer.PREFIX)) {
+//				val strippedName = nameAsString.substring(ErrorModelCrossReferenceSerializer.PREFIX.length)
+//				EObjectDescription.create(qualifiedNameConverter.toQualifiedName(strippedName), EObjectOrProxy)
+//			} else {
+//				it
+//			}
+//		], true)
+//		
+//	}
 	
 	def get_ErrorBehaviorStateMachines_from_context(EObject context) {
 		return #[EcoreUtil2.getContainerOfType(context, ErrorBehaviorStateMachine)];
@@ -136,14 +172,6 @@ class ErrorModelScopeProvider extends PropertiesScopeProvider {
 	
 	def scope_TypeTransformationSet(EObject context, EReference reference) {
 		scopeWithoutEMV2Prefix(context, reference)
-	}
-	
-	def scope_ErrorType(ErrorModelLibrary context, EReference reference) {
-		context.scopeForInheritableErrorTypes[allErrorTypes]
-	}
-	
-	def scope_TypeSet_aliasedType(ErrorModelLibrary context, EReference reference) {
-		context.scopeForInheritableErrorTypes[allTypesets]
 	}
 	
 	def scope_FeatureorPPReference_featureorPP(Classifier context, EReference reference) {

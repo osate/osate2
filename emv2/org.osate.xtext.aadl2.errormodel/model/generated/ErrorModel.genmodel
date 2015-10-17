@@ -33,6 +33,7 @@
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference ErrorModel.ecore#//ErrorModelSubclause/properties"/>
     </genClasses>
     <genClasses ecoreClass="ErrorModel.ecore#//ErrorModelLibrary">
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference ErrorModel.ecore#//ErrorModelLibrary/useTypes"/>
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference ErrorModel.ecore#//ErrorModelLibrary/extends"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference ErrorModel.ecore#//ErrorModelLibrary/types"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference ErrorModel.ecore#//ErrorModelLibrary/typesets"/>
@@ -238,5 +239,6 @@
     <genClasses ecoreClass="ErrorModel.ecore#//SAndExpression">
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference ErrorModel.ecore#//SAndExpression/operands"/>
     </genClasses>
+    <genClasses ecoreClass="ErrorModel.ecore#//DefiningTypeToken"/>
   </genPackages>
 </genmodel:GenModel>

@@ -700,7 +700,7 @@ public class ErrorModelPackageImpl extends EPackageImpl implements ErrorModelPac
    * <!-- end-user-doc -->
    * @generated
    */
-  public EReference getErrorModelLibrary_Extends()
+  public EReference getErrorModelLibrary_UseTypes()
   {
     return (EReference)errorModelLibraryEClass.getEStructuralFeatures().get(0);
   }
@@ -710,7 +710,7 @@ public class ErrorModelPackageImpl extends EPackageImpl implements ErrorModelPac
    * <!-- end-user-doc -->
    * @generated
    */
-  public EReference getErrorModelLibrary_Types()
+  public EReference getErrorModelLibrary_Extends()
   {
     return (EReference)errorModelLibraryEClass.getEStructuralFeatures().get(1);
   }
@@ -720,7 +720,7 @@ public class ErrorModelPackageImpl extends EPackageImpl implements ErrorModelPac
    * <!-- end-user-doc -->
    * @generated
    */
-  public EReference getErrorModelLibrary_Typesets()
+  public EReference getErrorModelLibrary_Types()
   {
     return (EReference)errorModelLibraryEClass.getEStructuralFeatures().get(2);
   }
@@ -730,7 +730,7 @@ public class ErrorModelPackageImpl extends EPackageImpl implements ErrorModelPac
    * <!-- end-user-doc -->
    * @generated
    */
-  public EReference getErrorModelLibrary_Properties()
+  public EReference getErrorModelLibrary_Typesets()
   {
     return (EReference)errorModelLibraryEClass.getEStructuralFeatures().get(3);
   }
@@ -740,7 +740,7 @@ public class ErrorModelPackageImpl extends EPackageImpl implements ErrorModelPac
    * <!-- end-user-doc -->
    * @generated
    */
-  public EReference getErrorModelLibrary_Behaviors()
+  public EReference getErrorModelLibrary_Properties()
   {
     return (EReference)errorModelLibraryEClass.getEStructuralFeatures().get(4);
   }
@@ -750,7 +750,7 @@ public class ErrorModelPackageImpl extends EPackageImpl implements ErrorModelPac
    * <!-- end-user-doc -->
    * @generated
    */
-  public EReference getErrorModelLibrary_Mappings()
+  public EReference getErrorModelLibrary_Behaviors()
   {
     return (EReference)errorModelLibraryEClass.getEStructuralFeatures().get(5);
   }
@@ -760,9 +760,19 @@ public class ErrorModelPackageImpl extends EPackageImpl implements ErrorModelPac
    * <!-- end-user-doc -->
    * @generated
    */
-  public EReference getErrorModelLibrary_Transformations()
+  public EReference getErrorModelLibrary_Mappings()
   {
     return (EReference)errorModelLibraryEClass.getEStructuralFeatures().get(6);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EReference getErrorModelLibrary_Transformations()
+  {
+    return (EReference)errorModelLibraryEClass.getEStructuralFeatures().get(7);
   }
 
   /**
@@ -2390,6 +2400,7 @@ public class ErrorModelPackageImpl extends EPackageImpl implements ErrorModelPac
     createEReference(errorModelSubclauseEClass, ERROR_MODEL_SUBCLAUSE__PROPERTIES);
 
     errorModelLibraryEClass = createEClass(ERROR_MODEL_LIBRARY);
+    createEReference(errorModelLibraryEClass, ERROR_MODEL_LIBRARY__USE_TYPES);
     createEReference(errorModelLibraryEClass, ERROR_MODEL_LIBRARY__EXTENDS);
     createEReference(errorModelLibraryEClass, ERROR_MODEL_LIBRARY__TYPES);
     createEReference(errorModelLibraryEClass, ERROR_MODEL_LIBRARY__TYPESETS);
@@ -2716,6 +2727,7 @@ public class ErrorModelPackageImpl extends EPackageImpl implements ErrorModelPac
     initEReference(getErrorModelSubclause_Properties(), theAadl2Package.getPropertyAssociation(), null, "properties", null, 0, -1, ErrorModelSubclause.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
     initEClass(errorModelLibraryEClass, ErrorModelLibrary.class, "ErrorModelLibrary", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+    initEReference(getErrorModelLibrary_UseTypes(), this.getErrorModelLibrary(), null, "useTypes", null, 0, -1, ErrorModelLibrary.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEReference(getErrorModelLibrary_Extends(), this.getErrorModelLibrary(), null, "extends", null, 0, -1, ErrorModelLibrary.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEReference(getErrorModelLibrary_Types(), this.getErrorType(), null, "types", null, 0, -1, ErrorModelLibrary.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEReference(getErrorModelLibrary_Typesets(), this.getTypeSet(), null, "typesets", null, 0, -1, ErrorModelLibrary.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);

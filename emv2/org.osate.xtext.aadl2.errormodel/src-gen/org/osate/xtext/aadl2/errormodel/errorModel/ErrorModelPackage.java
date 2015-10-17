@@ -386,13 +386,22 @@ public interface ErrorModelPackage extends EPackage
   int ERROR_MODEL_LIBRARY__OWNED_PROPERTY_ASSOCIATION = Aadl2Package.ANNEX_LIBRARY__OWNED_PROPERTY_ASSOCIATION;
 
   /**
+   * The feature id for the '<em><b>Use Types</b></em>' reference list.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int ERROR_MODEL_LIBRARY__USE_TYPES = Aadl2Package.ANNEX_LIBRARY_FEATURE_COUNT + 0;
+
+  /**
    * The feature id for the '<em><b>Extends</b></em>' reference list.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    * @ordered
    */
-  int ERROR_MODEL_LIBRARY__EXTENDS = Aadl2Package.ANNEX_LIBRARY_FEATURE_COUNT + 0;
+  int ERROR_MODEL_LIBRARY__EXTENDS = Aadl2Package.ANNEX_LIBRARY_FEATURE_COUNT + 1;
 
   /**
    * The feature id for the '<em><b>Types</b></em>' containment reference list.
@@ -401,7 +410,7 @@ public interface ErrorModelPackage extends EPackage
    * @generated
    * @ordered
    */
-  int ERROR_MODEL_LIBRARY__TYPES = Aadl2Package.ANNEX_LIBRARY_FEATURE_COUNT + 1;
+  int ERROR_MODEL_LIBRARY__TYPES = Aadl2Package.ANNEX_LIBRARY_FEATURE_COUNT + 2;
 
   /**
    * The feature id for the '<em><b>Typesets</b></em>' containment reference list.
@@ -410,7 +419,7 @@ public interface ErrorModelPackage extends EPackage
    * @generated
    * @ordered
    */
-  int ERROR_MODEL_LIBRARY__TYPESETS = Aadl2Package.ANNEX_LIBRARY_FEATURE_COUNT + 2;
+  int ERROR_MODEL_LIBRARY__TYPESETS = Aadl2Package.ANNEX_LIBRARY_FEATURE_COUNT + 3;
 
   /**
    * The feature id for the '<em><b>Properties</b></em>' containment reference list.
@@ -419,7 +428,7 @@ public interface ErrorModelPackage extends EPackage
    * @generated
    * @ordered
    */
-  int ERROR_MODEL_LIBRARY__PROPERTIES = Aadl2Package.ANNEX_LIBRARY_FEATURE_COUNT + 3;
+  int ERROR_MODEL_LIBRARY__PROPERTIES = Aadl2Package.ANNEX_LIBRARY_FEATURE_COUNT + 4;
 
   /**
    * The feature id for the '<em><b>Behaviors</b></em>' containment reference list.
@@ -428,7 +437,7 @@ public interface ErrorModelPackage extends EPackage
    * @generated
    * @ordered
    */
-  int ERROR_MODEL_LIBRARY__BEHAVIORS = Aadl2Package.ANNEX_LIBRARY_FEATURE_COUNT + 4;
+  int ERROR_MODEL_LIBRARY__BEHAVIORS = Aadl2Package.ANNEX_LIBRARY_FEATURE_COUNT + 5;
 
   /**
    * The feature id for the '<em><b>Mappings</b></em>' containment reference list.
@@ -437,7 +446,7 @@ public interface ErrorModelPackage extends EPackage
    * @generated
    * @ordered
    */
-  int ERROR_MODEL_LIBRARY__MAPPINGS = Aadl2Package.ANNEX_LIBRARY_FEATURE_COUNT + 5;
+  int ERROR_MODEL_LIBRARY__MAPPINGS = Aadl2Package.ANNEX_LIBRARY_FEATURE_COUNT + 6;
 
   /**
    * The feature id for the '<em><b>Transformations</b></em>' containment reference list.
@@ -446,7 +455,7 @@ public interface ErrorModelPackage extends EPackage
    * @generated
    * @ordered
    */
-  int ERROR_MODEL_LIBRARY__TRANSFORMATIONS = Aadl2Package.ANNEX_LIBRARY_FEATURE_COUNT + 6;
+  int ERROR_MODEL_LIBRARY__TRANSFORMATIONS = Aadl2Package.ANNEX_LIBRARY_FEATURE_COUNT + 7;
 
   /**
    * The number of structural features of the '<em>Library</em>' class.
@@ -455,7 +464,7 @@ public interface ErrorModelPackage extends EPackage
    * @generated
    * @ordered
    */
-  int ERROR_MODEL_LIBRARY_FEATURE_COUNT = Aadl2Package.ANNEX_LIBRARY_FEATURE_COUNT + 7;
+  int ERROR_MODEL_LIBRARY_FEATURE_COUNT = Aadl2Package.ANNEX_LIBRARY_FEATURE_COUNT + 8;
 
   /**
    * The meta object id for the '{@link org.osate.xtext.aadl2.errormodel.errorModel.impl.ErrorTypesImpl <em>Error Types</em>}' class.
@@ -4011,6 +4020,17 @@ public interface ErrorModelPackage extends EPackage
   EClass getErrorModelLibrary();
 
   /**
+   * Returns the meta object for the reference list '{@link org.osate.xtext.aadl2.errormodel.errorModel.ErrorModelLibrary#getUseTypes <em>Use Types</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the reference list '<em>Use Types</em>'.
+   * @see org.osate.xtext.aadl2.errormodel.errorModel.ErrorModelLibrary#getUseTypes()
+   * @see #getErrorModelLibrary()
+   * @generated
+   */
+  EReference getErrorModelLibrary_UseTypes();
+
+  /**
    * Returns the meta object for the reference list '{@link org.osate.xtext.aadl2.errormodel.errorModel.ErrorModelLibrary#getExtends <em>Extends</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -5982,6 +6002,14 @@ public interface ErrorModelPackage extends EPackage
      * @generated
      */
     EClass ERROR_MODEL_LIBRARY = eINSTANCE.getErrorModelLibrary();
+
+    /**
+     * The meta object literal for the '<em><b>Use Types</b></em>' reference list feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EReference ERROR_MODEL_LIBRARY__USE_TYPES = eINSTANCE.getErrorModelLibrary_UseTypes();
 
     /**
      * The meta object literal for the '<em><b>Extends</b></em>' reference list feature.

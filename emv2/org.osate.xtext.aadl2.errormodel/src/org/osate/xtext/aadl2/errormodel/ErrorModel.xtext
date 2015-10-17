@@ -107,6 +107,7 @@ ErrorModelLibrary returns ErrorModelLibrary:
   //    '{**' 
 	(
     'error' 'types' 
+   ('use' 'types' useTypes+=[ErrorModelLibrary|QEMREF] (',' useTypes+=[ErrorModelLibrary|QEMREF] )* ';')?
     ('extends' extends+=[ErrorModelLibrary|QEMREF] (','extends+=[ErrorModelLibrary|QEMREF])*
     'with')?     
 (((types+=TypeDefinition)|(typesets+=TypeSetDefinition)))*
@@ -181,8 +182,7 @@ NoErrorTypeToken returns TypeToken:
 
 TypeToken returns TypeToken:
 	{TypeToken}
-//     ('(' type+=[ErrorTypes|QEMREF] (('*') type+=[ErrorTypes|QEMREF])* ')')
-     ('{' type+=[ErrorTypes|QEMREF] (('*') type+=[ErrorTypes|QEMREF])* '}')
+     ('{' type+=[ErrorTypes|ID] (('*') type+=[ErrorTypes|ID])* '}')
 ;
 
 TypeTokenOrNoError returns TypeToken:
