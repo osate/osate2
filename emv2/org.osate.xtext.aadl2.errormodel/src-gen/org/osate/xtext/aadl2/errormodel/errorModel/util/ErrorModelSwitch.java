@@ -90,7 +90,6 @@ public class ErrorModelSwitch<T> extends Switch<T>
         ErrorModelSubclause errorModelSubclause = (ErrorModelSubclause)theEObject;
         T result = caseErrorModelSubclause(errorModelSubclause);
         if (result == null) result = caseAnnexSubclause(errorModelSubclause);
-        if (result == null) result = caseTypeUseContext(errorModelSubclause);
         if (result == null) result = caseModalElement(errorModelSubclause);
         if (result == null) result = caseNamedElement(errorModelSubclause);
         if (result == null) result = caseElement(errorModelSubclause);
@@ -150,7 +149,6 @@ public class ErrorModelSwitch<T> extends Switch<T>
         TypeTransformationSet typeTransformationSet = (TypeTransformationSet)theEObject;
         T result = caseTypeTransformationSet(typeTransformationSet);
         if (result == null) result = caseNamedElement(typeTransformationSet);
-        if (result == null) result = caseTypeUseContext(typeTransformationSet);
         if (result == null) result = caseElement(typeTransformationSet);
         if (result == null) result = defaultCase(theEObject);
         return result;
@@ -168,7 +166,6 @@ public class ErrorModelSwitch<T> extends Switch<T>
         TypeMappingSet typeMappingSet = (TypeMappingSet)theEObject;
         T result = caseTypeMappingSet(typeMappingSet);
         if (result == null) result = caseNamedElement(typeMappingSet);
-        if (result == null) result = caseTypeUseContext(typeMappingSet);
         if (result == null) result = caseElement(typeMappingSet);
         if (result == null) result = defaultCase(theEObject);
         return result;
@@ -276,7 +273,6 @@ public class ErrorModelSwitch<T> extends Switch<T>
         ErrorBehaviorStateMachine errorBehaviorStateMachine = (ErrorBehaviorStateMachine)theEObject;
         T result = caseErrorBehaviorStateMachine(errorBehaviorStateMachine);
         if (result == null) result = caseNamedElement(errorBehaviorStateMachine);
-        if (result == null) result = caseTypeUseContext(errorBehaviorStateMachine);
         if (result == null) result = caseElement(errorBehaviorStateMachine);
         if (result == null) result = defaultCase(theEObject);
         return result;
@@ -365,14 +361,6 @@ public class ErrorModelSwitch<T> extends Switch<T>
         T result = caseConnectionErrorSource(connectionErrorSource);
         if (result == null) result = caseNamedElement(connectionErrorSource);
         if (result == null) result = caseElement(connectionErrorSource);
-        if (result == null) result = defaultCase(theEObject);
-        return result;
-      }
-      case ErrorModelPackage.TYPE_USE_CONTEXT:
-      {
-        TypeUseContext typeUseContext = (TypeUseContext)theEObject;
-        T result = caseTypeUseContext(typeUseContext);
-        if (result == null) result = caseElement(typeUseContext);
         if (result == null) result = defaultCase(theEObject);
         return result;
       }
@@ -1003,22 +991,6 @@ public class ErrorModelSwitch<T> extends Switch<T>
    * @generated
    */
   public T caseConnectionErrorSource(ConnectionErrorSource object)
-  {
-    return null;
-  }
-
-  /**
-   * Returns the result of interpreting the object as an instance of '<em>Type Use Context</em>'.
-   * <!-- begin-user-doc -->
-   * This implementation returns null;
-   * returning a non-null result will terminate the switch.
-   * <!-- end-user-doc -->
-   * @param object the target of the switch.
-   * @return the result of interpreting the object as an instance of '<em>Type Use Context</em>'.
-   * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
-   * @generated
-   */
-  public T caseTypeUseContext(TypeUseContext object)
   {
     return null;
   }

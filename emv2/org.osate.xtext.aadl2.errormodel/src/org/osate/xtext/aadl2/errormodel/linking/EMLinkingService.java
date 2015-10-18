@@ -48,7 +48,6 @@ import org.osate.xtext.aadl2.errormodel.errorModel.SubcomponentElement;
 import org.osate.xtext.aadl2.errormodel.errorModel.TypeMappingSet;
 import org.osate.xtext.aadl2.errormodel.errorModel.TypeSet;
 import org.osate.xtext.aadl2.errormodel.errorModel.TypeTransformationSet;
-import org.osate.xtext.aadl2.errormodel.errorModel.TypeUseContext;
 import org.osate.xtext.aadl2.errormodel.util.EMV2Util;
 import org.osate.xtext.aadl2.properties.linking.PropertiesLinkingService;
 import org.osate.xtext.aadl2.properties.util.EMFIndexRetrieval;
@@ -473,33 +472,19 @@ public class EMLinkingService extends PropertiesLinkingService {
 			// qualified reference; look there only
 			ErrorModelLibrary eml = findErrorModelLibrary(context, packName);
 			// PHF: change to findNamedElementInThisEML if we do not make inherited names externally visible
-			return findEMLNamedTypeElement(eml, typeName, eclass);
+			return findNamedTypeElementInThisEML(eml, typeName, eclass);
 		}
-		ErrorModelLibrary owneml = EMV2Util.getContainingErrorModelLibrary(context);
-		TypeUseContext tuns = EMV2Util.getContainingTypeUseContext(context);
-		List<ErrorModelLibrary> otheremls = null;
-		;
-		if (tuns == null && context instanceof Classifier) {
-			otheremls = EMV2Util.getErrorModelSubclauseWithUseTypes((Classifier) context);
-		} else if (tuns != null) {
-			// we are in a transformation set, mapping set etc.
-			otheremls = EMV2Util.getUseTypes(tuns);
-		} else if (owneml != null) {
-			// lookup in own EML if we are inside an ErrorModelLibrary
-			EObject res = findNamedTypeElementInThisEML(owneml, typeName, eclass);
+		EList<ErrorModelLibrary> usetypes = EMV2Util.getUseTypes(context);
+		for (ErrorModelLibrary etll : usetypes) {
+			// PHF: change to findNamedElementInThisEML if we do not make inherited names externally visible
+			EObject res = findNamedTypeElementInThisEML(etll, typeName, eclass);
 			if (res != null) {
 				return res;
 			}
-			otheremls = owneml.getExtends();
 		}
-		if (otheremls != null) {
-			for (ErrorModelLibrary etll : otheremls) {
-				// PHF: change to findNamedElementInThisEML if we do not make inherited names externally visible
-				EObject res = findEMLNamedTypeElement(etll, typeName, eclass);
-				if (res != null) {
-					return res;
-				}
-			}
+		if (context instanceof ErrorType || context instanceof TypeSet) {
+			ErrorModelLibrary owneml = EMV2Util.getContainingErrorModelLibrary(context);
+			return findNamedTypeElementInThisEML(owneml, typeName, eclass);
 		}
 		return null;
 	}

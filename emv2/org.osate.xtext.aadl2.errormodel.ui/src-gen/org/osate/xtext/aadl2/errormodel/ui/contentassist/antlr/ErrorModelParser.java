@@ -66,7 +66,6 @@ public class ErrorModelParser extends AbstractPartialContentAssistParser {
 					put(grammarAccess.getBranchValueAccess().getAlternatives_1(), "rule__BranchValue__Alternatives_1");
 					put(grammarAccess.getConnectionErrorSourceAccess().getAlternatives_4(), "rule__ConnectionErrorSource__Alternatives_4");
 					put(grammarAccess.getConnectionErrorSourceAccess().getAlternatives_6_1(), "rule__ConnectionErrorSource__Alternatives_6_1");
-					put(grammarAccess.getTypeUseContextAccess().getAlternatives(), "rule__TypeUseContext__Alternatives");
 					put(grammarAccess.getConditionTermAccess().getAlternatives(), "rule__ConditionTerm__Alternatives");
 					put(grammarAccess.getEventOrPropagationAccess().getAlternatives(), "rule__EventOrPropagation__Alternatives");
 					put(grammarAccess.getOutgoingPropagationConditionAccess().getAlternatives_1(), "rule__OutgoingPropagationCondition__Alternatives_1");

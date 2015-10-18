@@ -263,7 +263,7 @@ public final class ConsistencyAction extends AaxlReadOnlyActionAsJob {
 						if (es.getIncoming() == ep) {
 
 							for (TypeToken tt : EM2TypeSetUtil.generateAllLeafTypeTokens(ep.getTypeSet(),
-									EMV2Util.getContainingTypeUseContext(ep))) {
+									EMV2Util.getUseTypes(ep))) {
 
 								if (!EM2TypeSetUtil.contains(es.getTypeTokenConstraint(), tt)) {
 									error(componentInstance, "Incoming propagation " + EMV2Util.getPrintName(ep)
@@ -290,7 +290,7 @@ public final class ConsistencyAction extends AaxlReadOnlyActionAsJob {
 					if (es.getOutgoing() == ep) {
 
 						for (TypeToken tt : EM2TypeSetUtil.generateAllLeafTypeTokens(ep.getTypeSet(),
-								EMV2Util.getContainingTypeUseContext(ep))) {
+								EMV2Util.getUseTypes(ep))) {
 
 							if (!EM2TypeSetUtil.contains(es.getTypeTokenConstraint(), tt)) {
 								error(componentInstance, "Outgoing propagation " + EMV2Util.getPrintName(ep)
@@ -316,7 +316,7 @@ public final class ConsistencyAction extends AaxlReadOnlyActionAsJob {
 //					OsateDebug.osateDebug("epts =" + EMV2Util.getPrintName(ep.getTypeSet()));
 //					OsateDebug.osateDebug("ep2ts =" + EMV2Util.getPrintName(ep2.getTypeSet()));
 					EList<TypeToken> dstTokens = EM2TypeSetUtil.generateAllLeafTypeTokens(ep2.getTypeSet(),
-							EMV2Util.getContainingTypeUseContext(ep));
+							EMV2Util.getUseTypes(ep));
 //
 //					for (TypeToken tt1 : srcTokens)
 //					{
@@ -504,7 +504,7 @@ public final class ConsistencyAction extends AaxlReadOnlyActionAsJob {
 				for (ErrorPropagation ep : EMV2Util.getAllOutgoingErrorPropagations(componentInstance
 						.getComponentClassifier())) {
 					EList<TypeToken> epTokens = EM2TypeSetUtil.generateAllLeafTypeTokens(ep.getTypeSet(),
-							EMV2Util.getContainingTypeUseContext(ep));
+							EMV2Util.getUseTypes(ep));
 
 					for (TypeToken tt : epTokens) {
 						// OsateDebug.osateDebug("check for type" + EMV2Util.getPrintName(tt) );

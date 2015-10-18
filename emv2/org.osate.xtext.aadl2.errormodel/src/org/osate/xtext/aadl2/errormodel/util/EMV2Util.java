@@ -67,7 +67,6 @@ import org.osate.xtext.aadl2.errormodel.errorModel.TypeMappingSet;
 import org.osate.xtext.aadl2.errormodel.errorModel.TypeSet;
 import org.osate.xtext.aadl2.errormodel.errorModel.TypeToken;
 import org.osate.xtext.aadl2.errormodel.errorModel.TypeTransformationSet;
-import org.osate.xtext.aadl2.errormodel.errorModel.TypeUseContext;
 import org.osate.xtext.aadl2.errormodel.errorModel.impl.AndExpressionImpl;
 import org.osate.xtext.aadl2.errormodel.errorModel.impl.OrExpressionImpl;
 
@@ -122,13 +121,13 @@ public class EMV2Util {
 	 * @param element declarative model element or error annex element or instance object
 	 * @return ErrorModelSubclause
 	 */
-	public static EList<ErrorModelSubclause> getAllContainingClassifierEMV2Subclauses(Element element) {
+	public static EList<ErrorModelSubclause> getAllContainingClassifierEMV2Subclauses(EObject element) {
 		Classifier cl = null;
 		if (element instanceof InstanceObject) {
 			ComponentInstance ci = ((InstanceObject) element).getComponentInstance();
 			cl = ci.getComponentClassifier();
 		} else if (element != null) {
-			cl = element.getContainingClassifier();
+			cl = AadlUtil.getContainingClassifier(element);
 		}
 		EList<ErrorModelSubclause> result = new BasicEList<ErrorModelSubclause>();
 		if (cl == null)
@@ -1848,22 +1847,6 @@ public class EMV2Util {
 	}
 
 	/**
-	 * get the enclosing type use context
-	 * A type use context is is the object that contains use references to error model/type libraries
-	 * @param element
-	 * @return Type transformation set, type mapping set, error propagations object, EBSM,
-	 * component error behavior, composite error behavior
-	 * or null if not in any
-	 */
-	public static TypeUseContext getContainingTypeUseContext(Element element) {
-		EObject container = element;
-		while (container != null && !(container instanceof TypeUseContext)) {
-			container = container.eContainer();
-		}
-		return (TypeUseContext) container;
-	}
-
-	/**
 	 * return the feature the error propagation is pointing to or null
 	 * @param ep
 	 * @return Feature
@@ -2098,13 +2081,20 @@ public class EMV2Util {
 		return null;
 	}
 
+	public static EList<ErrorModelLibrary> EmptyElist = new BasicEList<ErrorModelLibrary>();
+
 	/**
 	 * get list of ErrorModelLibraries listed in UseTypes
 	 * @param context Type use context
 	 * @return EList<ErrorModelLibrary>
 	 */
-	public static EList<ErrorModelLibrary> getUseTypes(TypeUseContext context) {
-		if (context instanceof ErrorModelSubclause) {
+	public static EList<ErrorModelLibrary> getUseTypes(EObject context) {
+		EObject useTypesContainer = context;
+		while (!(useTypesContainer instanceof ErrorModelLibrary || useTypesContainer instanceof ErrorModelSubclause
+				|| useTypesContainer instanceof TypeTransformationSet || useTypesContainer instanceof TypeMappingSet || useTypesContainer instanceof ErrorBehaviorStateMachine)) {
+			useTypesContainer = useTypesContainer.eContainer();
+		}
+		if (useTypesContainer instanceof ErrorModelSubclause) {
 			EList<ErrorModelSubclause> emslist = getAllContainingClassifierEMV2Subclauses(context);
 			for (ErrorModelSubclause errorModelSubclause : emslist) {
 				EList<ErrorModelLibrary> eml = errorModelSubclause.getUseTypes();
@@ -2112,18 +2102,21 @@ public class EMV2Util {
 					return eml;
 				}
 			}
-			return null;
+			return EmptyElist;
 		}
-		if (context instanceof TypeTransformationSet) {
-			return ((TypeTransformationSet) context).getUseTypes();
+		if (useTypesContainer instanceof TypeTransformationSet) {
+			return ((TypeTransformationSet) useTypesContainer).getUseTypes();
 		}
-		if (context instanceof TypeMappingSet) {
-			return ((TypeMappingSet) context).getUseTypes();
+		if (useTypesContainer instanceof TypeMappingSet) {
+			return ((TypeMappingSet) useTypesContainer).getUseTypes();
 		}
-		if (context instanceof ErrorBehaviorStateMachine) {
-			return ((ErrorBehaviorStateMachine) context).getUseTypes();
+		if (useTypesContainer instanceof ErrorBehaviorStateMachine) {
+			return ((ErrorBehaviorStateMachine) useTypesContainer).getUseTypes();
 		}
-		return null;
+		if (useTypesContainer instanceof ErrorModelLibrary) {
+			return ((ErrorModelLibrary) useTypesContainer).getUseTypes();
+		}
+		return EmptyElist;
 	}
 
 	/**

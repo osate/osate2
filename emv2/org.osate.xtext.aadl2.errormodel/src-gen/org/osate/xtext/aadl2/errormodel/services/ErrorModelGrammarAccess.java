@@ -202,19 +202,18 @@ public class ErrorModelGrammarAccess extends AbstractGrammarElementFinder {
 		private final RuleCall cErrorStateToModeMappingParserRuleCall_15 = (RuleCall)cAlternatives.eContents().get(15);
 		private final RuleCall cSubcomponentElementParserRuleCall_16 = (RuleCall)cAlternatives.eContents().get(16);
 		private final RuleCall cFeatureorPPReferenceParserRuleCall_17 = (RuleCall)cAlternatives.eContents().get(17);
-		private final RuleCall cTypeUseContextParserRuleCall_18 = (RuleCall)cAlternatives.eContents().get(18);
 		
 		//Element returns aadl2::Element:
 		//	TypeSetElement | TypeToken | TypeTransformation | TypeMapping | QualifiedPropagationPoint | TransitionBranch |
 		//	BranchValue | ErrorCodeValue | ConditionElement | AndExpression | ConditionTerm | ConditionExpression |
 		//	OrmoreExpression | OrlessExpression | OutgoingPropagationCondition | ErrorStateToModeMapping | SubcomponentElement |
-		//	FeatureorPPReference | TypeUseContext;
+		//	FeatureorPPReference;
 		@Override public ParserRule getRule() { return rule; }
 
 		//TypeSetElement | TypeToken | TypeTransformation | TypeMapping | QualifiedPropagationPoint | TransitionBranch |
 		//BranchValue | ErrorCodeValue | ConditionElement | AndExpression | ConditionTerm | ConditionExpression |
 		//OrmoreExpression | OrlessExpression | OutgoingPropagationCondition | ErrorStateToModeMapping | SubcomponentElement |
-		//FeatureorPPReference | TypeUseContext
+		//FeatureorPPReference
 		public Alternatives getAlternatives() { return cAlternatives; }
 
 		//TypeSetElement
@@ -270,9 +269,6 @@ public class ErrorModelGrammarAccess extends AbstractGrammarElementFinder {
 
 		//FeatureorPPReference
 		public RuleCall getFeatureorPPReferenceParserRuleCall_17() { return cFeatureorPPReferenceParserRuleCall_17; }
-
-		//TypeUseContext
-		public RuleCall getTypeUseContextParserRuleCall_18() { return cTypeUseContextParserRuleCall_18; }
 	}
 
 	public class ErrorModelSubclauseElements extends AbstractParserRuleElementFinder {
@@ -3472,34 +3468,6 @@ public class ErrorModelGrammarAccess extends AbstractGrammarElementFinder {
 		public Keyword getSemicolonKeyword_8() { return cSemicolonKeyword_8; }
 	}
 
-	public class TypeUseContextElements extends AbstractParserRuleElementFinder {
-		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "TypeUseContext");
-		private final Alternatives cAlternatives = (Alternatives)rule.eContents().get(1);
-		private final RuleCall cTypeTransformationSetParserRuleCall_0 = (RuleCall)cAlternatives.eContents().get(0);
-		private final RuleCall cTypeMappingSetParserRuleCall_1 = (RuleCall)cAlternatives.eContents().get(1);
-		private final RuleCall cErrorBehaviorStateMachineParserRuleCall_2 = (RuleCall)cAlternatives.eContents().get(2);
-		private final RuleCall cErrorModelSubclauseParserRuleCall_3 = (RuleCall)cAlternatives.eContents().get(3);
-		
-		//TypeUseContext:
-		//	TypeTransformationSet | TypeMappingSet | ErrorBehaviorStateMachine | ErrorModelSubclause;
-		@Override public ParserRule getRule() { return rule; }
-
-		//TypeTransformationSet | TypeMappingSet | ErrorBehaviorStateMachine | ErrorModelSubclause
-		public Alternatives getAlternatives() { return cAlternatives; }
-
-		//TypeTransformationSet
-		public RuleCall getTypeTransformationSetParserRuleCall_0() { return cTypeTransformationSetParserRuleCall_0; }
-
-		//TypeMappingSet
-		public RuleCall getTypeMappingSetParserRuleCall_1() { return cTypeMappingSetParserRuleCall_1; }
-
-		//ErrorBehaviorStateMachine
-		public RuleCall getErrorBehaviorStateMachineParserRuleCall_2() { return cErrorBehaviorStateMachineParserRuleCall_2; }
-
-		//ErrorModelSubclause
-		public RuleCall getErrorModelSubclauseParserRuleCall_3() { return cErrorModelSubclauseParserRuleCall_3; }
-	}
-
 	public class ConditionExpressionElements extends AbstractParserRuleElementFinder {
 		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "ConditionExpression");
 		private final Group cGroup = (Group)rule.eContents().get(1);
@@ -4685,7 +4653,6 @@ public class ErrorModelGrammarAccess extends AbstractGrammarElementFinder {
 	private final TransitionBranchElements pTransitionBranch;
 	private final BranchValueElements pBranchValue;
 	private final ConnectionErrorSourceElements pConnectionErrorSource;
-	private final TypeUseContextElements pTypeUseContext;
 	private final ConditionExpressionElements pConditionExpression;
 	private final AndExpressionElements pAndExpression;
 	private final OrmoreExpressionElements pOrmoreExpression;
@@ -4767,7 +4734,6 @@ public class ErrorModelGrammarAccess extends AbstractGrammarElementFinder {
 		this.pTransitionBranch = new TransitionBranchElements();
 		this.pBranchValue = new BranchValueElements();
 		this.pConnectionErrorSource = new ConnectionErrorSourceElements();
-		this.pTypeUseContext = new TypeUseContextElements();
 		this.pConditionExpression = new ConditionExpressionElements();
 		this.pAndExpression = new AndExpressionElements();
 		this.pOrmoreExpression = new OrmoreExpressionElements();
@@ -4883,7 +4849,7 @@ public class ErrorModelGrammarAccess extends AbstractGrammarElementFinder {
 	//	TypeSetElement | TypeToken | TypeTransformation | TypeMapping | QualifiedPropagationPoint | TransitionBranch |
 	//	BranchValue | ErrorCodeValue | ConditionElement | AndExpression | ConditionTerm | ConditionExpression |
 	//	OrmoreExpression | OrlessExpression | OutgoingPropagationCondition | ErrorStateToModeMapping | SubcomponentElement |
-	//	FeatureorPPReference | TypeUseContext;
+	//	FeatureorPPReference;
 	public ElementElements getElementAccess() {
 		return pElement;
 	}
@@ -5361,16 +5327,6 @@ public class ErrorModelGrammarAccess extends AbstractGrammarElementFinder {
 	
 	public ParserRule getConnectionErrorSourceRule() {
 		return getConnectionErrorSourceAccess().getRule();
-	}
-
-	//TypeUseContext:
-	//	TypeTransformationSet | TypeMappingSet | ErrorBehaviorStateMachine | ErrorModelSubclause;
-	public TypeUseContextElements getTypeUseContextAccess() {
-		return pTypeUseContext;
-	}
-	
-	public ParserRule getTypeUseContextRule() {
-		return getTypeUseContextAccess().getRule();
 	}
 
 	//// condition expression for component specific transitions 

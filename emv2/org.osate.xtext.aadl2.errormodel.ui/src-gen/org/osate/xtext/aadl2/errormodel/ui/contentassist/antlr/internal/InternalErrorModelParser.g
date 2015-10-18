@@ -1305,34 +1305,6 @@ finally {
 
 
 
-// Entry rule entryRuleTypeUseContext
-entryRuleTypeUseContext 
-:
-{ before(grammarAccess.getTypeUseContextRule()); }
-	 ruleTypeUseContext
-{ after(grammarAccess.getTypeUseContextRule()); } 
-	 EOF 
-;
-
-// Rule TypeUseContext
-ruleTypeUseContext 
-    @init {
-		int stackSize = keepStackSize();
-    }
-    :
-(
-{ before(grammarAccess.getTypeUseContextAccess().getAlternatives()); }
-(rule__TypeUseContext__Alternatives)
-{ after(grammarAccess.getTypeUseContextAccess().getAlternatives()); }
-)
-
-;
-finally {
-	restoreStackSize(stackSize);
-}
-
-
-
 // Entry rule entryRuleConditionExpression
 entryRuleConditionExpression 
 :
@@ -3450,40 +3422,6 @@ rule__ConnectionErrorSource__Alternatives_6_1
 { before(grammarAccess.getConnectionErrorSourceAccess().getFailureModeDescriptionAssignment_6_1_1()); }
 (rule__ConnectionErrorSource__FailureModeDescriptionAssignment_6_1_1)
 { after(grammarAccess.getConnectionErrorSourceAccess().getFailureModeDescriptionAssignment_6_1_1()); }
-)
-
-;
-finally {
-	restoreStackSize(stackSize);
-}
-
-rule__TypeUseContext__Alternatives
-    @init {
-		int stackSize = keepStackSize();
-    }
-:
-(
-{ before(grammarAccess.getTypeUseContextAccess().getTypeTransformationSetParserRuleCall_0()); }
-	ruleTypeTransformationSet
-{ after(grammarAccess.getTypeUseContextAccess().getTypeTransformationSetParserRuleCall_0()); }
-)
-
-    |(
-{ before(grammarAccess.getTypeUseContextAccess().getTypeMappingSetParserRuleCall_1()); }
-	ruleTypeMappingSet
-{ after(grammarAccess.getTypeUseContextAccess().getTypeMappingSetParserRuleCall_1()); }
-)
-
-    |(
-{ before(grammarAccess.getTypeUseContextAccess().getErrorBehaviorStateMachineParserRuleCall_2()); }
-	ruleErrorBehaviorStateMachine
-{ after(grammarAccess.getTypeUseContextAccess().getErrorBehaviorStateMachineParserRuleCall_2()); }
-)
-
-    |(
-{ before(grammarAccess.getTypeUseContextAccess().getErrorModelSubclauseParserRuleCall_3()); }
-	ruleErrorModelSubclause
-{ after(grammarAccess.getTypeUseContextAccess().getErrorModelSubclauseParserRuleCall_3()); }
 )
 
 ;

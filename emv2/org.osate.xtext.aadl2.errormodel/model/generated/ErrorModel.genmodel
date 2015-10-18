@@ -31,6 +31,7 @@
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference ErrorModel.ecore#//ErrorModelSubclause/points"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference ErrorModel.ecore#//ErrorModelSubclause/paths"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference ErrorModel.ecore#//ErrorModelSubclause/properties"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference ErrorModel.ecore#//TypeUseContext/useTypes"/>
     </genClasses>
     <genClasses ecoreClass="ErrorModel.ecore#//ErrorModelLibrary">
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference ErrorModel.ecore#//ErrorModelLibrary/useTypes"/>
@@ -41,6 +42,7 @@
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference ErrorModel.ecore#//ErrorModelLibrary/behaviors"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference ErrorModel.ecore#//ErrorModelLibrary/mappings"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference ErrorModel.ecore#//ErrorModelLibrary/transformations"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference ErrorModel.ecore#//TypeUseContext/useTypes"/>
     </genClasses>
     <genClasses ecoreClass="ErrorModel.ecore#//ErrorTypes"/>
     <genClasses ecoreClass="ErrorModel.ecore#//ErrorType">
@@ -58,6 +60,7 @@
     <genClasses ecoreClass="ErrorModel.ecore#//TypeTransformationSet">
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference ErrorModel.ecore#//TypeTransformationSet/useTypes"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference ErrorModel.ecore#//TypeTransformationSet/transformation"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference ErrorModel.ecore#//TypeUseContext/useTypes"/>
     </genClasses>
     <genClasses ecoreClass="ErrorModel.ecore#//TypeTransformation">
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference ErrorModel.ecore#//TypeTransformation/source"/>
@@ -68,6 +71,7 @@
     <genClasses ecoreClass="ErrorModel.ecore#//TypeMappingSet">
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference ErrorModel.ecore#//TypeMappingSet/useTypes"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference ErrorModel.ecore#//TypeMappingSet/mapping"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference ErrorModel.ecore#//TypeUseContext/useTypes"/>
     </genClasses>
     <genClasses ecoreClass="ErrorModel.ecore#//TypeMapping">
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference ErrorModel.ecore#//TypeMapping/source"/>
@@ -125,6 +129,7 @@
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference ErrorModel.ecore#//ErrorBehaviorStateMachine/states"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference ErrorModel.ecore#//ErrorBehaviorStateMachine/transitions"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference ErrorModel.ecore#//ErrorBehaviorStateMachine/properties"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference ErrorModel.ecore#//TypeUseContext/useTypes"/>
     </genClasses>
     <genClasses ecoreClass="ErrorModel.ecore#//ErrorBehaviorEvent"/>
     <genClasses ecoreClass="ErrorModel.ecore#//ErrorEvent">
@@ -172,7 +177,6 @@
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute ErrorModel.ecore#//ConnectionErrorSource/failureModeDescription"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute ErrorModel.ecore#//ConnectionErrorSource/condition"/>
     </genClasses>
-    <genClasses ecoreClass="ErrorModel.ecore#//TypeUseContext"/>
     <genClasses ecoreClass="ErrorModel.ecore#//ConditionExpression"/>
     <genClasses ecoreClass="ErrorModel.ecore#//OrmoreExpression">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute ErrorModel.ecore#//OrmoreExpression/count"/>
@@ -238,6 +242,9 @@
     </genClasses>
     <genClasses ecoreClass="ErrorModel.ecore#//SAndExpression">
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference ErrorModel.ecore#//SAndExpression/operands"/>
+    </genClasses>
+    <genClasses ecoreClass="ErrorModel.ecore#//TypeUseContext">
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference ErrorModel.ecore#//TypeUseContext/useTypes"/>
     </genClasses>
     <genClasses ecoreClass="ErrorModel.ecore#//DefiningTypeToken"/>
   </genPackages>

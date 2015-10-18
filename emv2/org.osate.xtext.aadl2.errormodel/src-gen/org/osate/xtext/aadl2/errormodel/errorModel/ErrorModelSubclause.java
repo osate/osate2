@@ -4,6 +4,8 @@ package org.osate.xtext.aadl2.errormodel.errorModel;
 
 import org.eclipse.emf.common.util.EList;
 
+import org.eclipse.emf.ecore.EObject;
+
 import org.osate.aadl2.AnnexSubclause;
 import org.osate.aadl2.PropertyAssociation;
 
@@ -40,7 +42,7 @@ import org.osate.aadl2.PropertyAssociation;
  * @model
  * @generated
  */
-public interface ErrorModelSubclause extends AnnexSubclause, TypeUseContext
+public interface ErrorModelSubclause extends EObject, AnnexSubclause
 {
   /**
    * Returns the value of the '<em><b>Use Types</b></em>' reference list.

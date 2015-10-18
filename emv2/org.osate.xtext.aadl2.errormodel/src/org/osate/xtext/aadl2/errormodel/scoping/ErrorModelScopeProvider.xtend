@@ -94,6 +94,13 @@ class ErrorModelScopeProvider extends PropertiesScopeProvider {
 		val errorType = errorLibs.map[it | allErrorTypes].flatten ;
 		return errorType.scopeFor();
 	}
+	def scope_ErrorType_superType(ErrorType context, EReference reference) {
+//		context.scopeForInheritableErrorTypes[allTypesets]
+//		context.allTypesets.scopeFor
+		val errorLibs = getErrorLibsFromContext(context);
+		val errorType = errorLibs.map[it | allErrorTypes].flatten ;
+		return errorType.scopeFor();
+	}
 	
 	def scope_TypeSet_aliasedType(TypeSet context, EReference reference) {
 //		context.scopeForInheritableErrorTypes[allTypesets]

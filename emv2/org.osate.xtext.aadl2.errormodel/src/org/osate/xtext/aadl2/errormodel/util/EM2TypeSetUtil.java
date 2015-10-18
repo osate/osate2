@@ -16,7 +16,6 @@ import org.osate.xtext.aadl2.errormodel.errorModel.TypeSet;
 import org.osate.xtext.aadl2.errormodel.errorModel.TypeToken;
 import org.osate.xtext.aadl2.errormodel.errorModel.TypeTransformation;
 import org.osate.xtext.aadl2.errormodel.errorModel.TypeTransformationSet;
-import org.osate.xtext.aadl2.errormodel.errorModel.TypeUseContext;
 
 public class EM2TypeSetUtil {
 
@@ -403,7 +402,7 @@ public class EM2TypeSetUtil {
 	 * @param typeSet
 	 * @return list of type tokens
 	 */
-	public static EList<TypeToken> generateAllLeafTypeTokens(TypeSet typeSet, TypeUseContext tuc) {
+	public static EList<TypeToken> generateAllLeafTypeTokens(TypeSet typeSet, EList<ErrorModelLibrary> usetypes) {
 		EList<TypeToken> result = new BasicEList<TypeToken>();
 		if (typeSet == null) {
 			return result;
@@ -416,7 +415,7 @@ public class EM2TypeSetUtil {
 			for (ErrorTypes errorType : elementtypes) {
 				if (errorType instanceof ErrorType) {
 					// elements of a product type
-					EList<ErrorType> etlist = getAllLeafSubTypes((ErrorType) errorType, tuc);
+					EList<ErrorType> etlist = getAllLeafSubTypes((ErrorType) errorType, usetypes);
 					if (newitems.isEmpty()) {
 						// first/single type: add all leaves
 						for (ErrorType subType : etlist) {
@@ -444,17 +443,17 @@ public class EM2TypeSetUtil {
 	 * @param tuc
 	 * @return
 	 */
-	public static EList<ErrorType> getSubTypes(ErrorType et, TypeUseContext tuc) {
+	public static EList<ErrorType> getSubTypes(ErrorType et, EList<ErrorModelLibrary> usetypes) {
 		UniqueEList<ErrorType> result = new UniqueEList<ErrorType>();
 		ErrorType resolvedet = EMV2Util.resolveAlias(et);
-		for (ErrorModelLibrary etl : EMV2Util.getUseTypes(tuc)) {
+		for (ErrorModelLibrary etl : usetypes) {
 			EList<ErrorType> typeslist = etl.getTypes();
 			for (ErrorType suberrortype : typeslist) {
 				// check if type is a subtype or an alias for which we need to check for subtypes
 				ErrorType resolvedSubErrorType = EMV2Util.resolveAlias(suberrortype);
 				if (resolvedSubErrorType == resolvedet) {
 					// subtype is an alias of ET. need to look for its subtypes
-					EList<ErrorType> aliasresult = getSubTypes(suberrortype, tuc);
+					EList<ErrorType> aliasresult = getSubTypes(suberrortype, usetypes);
 					result.addAll(aliasresult);
 				}
 				if (suberrortype.getSuperType() == et) {
@@ -482,10 +481,10 @@ public class EM2TypeSetUtil {
 	 * @param et
 	 * @return
 	 */
-	public static EList<ErrorType> getAllLeafSubTypes(ErrorType et, TypeUseContext tuc) {
+	public static EList<ErrorType> getAllLeafSubTypes(ErrorType et, EList<ErrorModelLibrary> usetypes) {
 		EList<ErrorType> result = new UniqueEList<ErrorType>();
 		EList<ErrorType> removeMe = new UniqueEList<ErrorType>();
-		for (ErrorModelLibrary etl : EMV2Util.getUseTypes(tuc)) {
+		for (ErrorModelLibrary etl : usetypes) {
 			EList<ErrorType> typeslist = etl.getTypes();
 			for (ErrorType errorType : typeslist) {
 				ErrorType set = EMV2Util.resolveAlias(errorType);

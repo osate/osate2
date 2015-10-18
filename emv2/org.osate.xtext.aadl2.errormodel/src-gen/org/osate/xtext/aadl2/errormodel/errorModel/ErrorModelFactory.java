@@ -302,15 +302,6 @@ public interface ErrorModelFactory extends EFactory
   ConnectionErrorSource createConnectionErrorSource();
 
   /**
-   * Returns a new object of class '<em>Type Use Context</em>'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return a new object of class '<em>Type Use Context</em>'.
-   * @generated
-   */
-  TypeUseContext createTypeUseContext();
-
-  /**
    * Returns a new object of class '<em>Condition Expression</em>'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->

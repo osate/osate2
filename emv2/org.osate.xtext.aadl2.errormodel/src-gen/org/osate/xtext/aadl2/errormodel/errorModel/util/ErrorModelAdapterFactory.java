@@ -236,11 +236,6 @@ public class ErrorModelAdapterFactory extends AdapterFactoryImpl
         return createConnectionErrorSourceAdapter();
       }
       @Override
-      public Adapter caseTypeUseContext(TypeUseContext object)
-      {
-        return createTypeUseContextAdapter();
-      }
-      @Override
       public Adapter caseConditionExpression(ConditionExpression object)
       {
         return createConditionExpressionAdapter();
@@ -823,21 +818,6 @@ public class ErrorModelAdapterFactory extends AdapterFactoryImpl
    * @generated
    */
   public Adapter createConnectionErrorSourceAdapter()
-  {
-    return null;
-  }
-
-  /**
-   * Creates a new adapter for an object of class '{@link org.osate.xtext.aadl2.errormodel.errorModel.TypeUseContext <em>Type Use Context</em>}'.
-   * <!-- begin-user-doc -->
-   * This default implementation returns null so that we can easily ignore cases;
-   * it's useful to ignore a case when inheritance will catch all the cases anyway.
-   * <!-- end-user-doc -->
-   * @return the new adapter.
-   * @see org.osate.xtext.aadl2.errormodel.errorModel.TypeUseContext
-   * @generated
-   */
-  public Adapter createTypeUseContextAdapter()
   {
     return null;
   }

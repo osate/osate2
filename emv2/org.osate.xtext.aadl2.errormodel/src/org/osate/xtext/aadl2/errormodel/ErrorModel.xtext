@@ -48,7 +48,7 @@ TypeSetElement|TypeToken
 |ConditionElement | AndExpression | ConditionTerm
 |ConditionExpression|OrmoreExpression|OrlessExpression|OutgoingPropagationCondition
 	|ErrorStateToModeMapping 
-| SubcomponentElement | FeatureorPPReference  | TypeUseContext
+| SubcomponentElement | FeatureorPPReference  
 ;
 
 
@@ -367,11 +367,6 @@ ConnectionErrorSource returns ConnectionErrorSource:
   	)?
      ( 'if' condition=CONDITION)?
      ';'
-;
-
-TypeUseContext returns TypeUseContext:
-	TypeTransformationSet | TypeMappingSet |  ErrorBehaviorStateMachine  
-	| ErrorModelSubclause
 ;
 
  

@@ -60,7 +60,6 @@ import org.osate.xtext.aadl2.errormodel.errorModel.TypeSet;
 import org.osate.xtext.aadl2.errormodel.errorModel.TypeToken;
 import org.osate.xtext.aadl2.errormodel.errorModel.TypeTransformation;
 import org.osate.xtext.aadl2.errormodel.errorModel.TypeTransformationSet;
-import org.osate.xtext.aadl2.errormodel.errorModel.TypeUseContext;
 
 /**
  * <!-- begin-user-doc -->
@@ -286,13 +285,6 @@ public class ErrorModelPackageImpl extends EPackageImpl implements ErrorModelPac
    * @generated
    */
   private EClass connectionErrorSourceEClass = null;
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  private EClass typeUseContextEClass = null;
 
   /**
    * <!-- begin-user-doc -->
@@ -1820,16 +1812,6 @@ public class ErrorModelPackageImpl extends EPackageImpl implements ErrorModelPac
    * <!-- end-user-doc -->
    * @generated
    */
-  public EClass getTypeUseContext()
-  {
-    return typeUseContextEClass;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
   public EClass getConditionExpression()
   {
     return conditionExpressionEClass;
@@ -2541,8 +2523,6 @@ public class ErrorModelPackageImpl extends EPackageImpl implements ErrorModelPac
     createEAttribute(connectionErrorSourceEClass, CONNECTION_ERROR_SOURCE__FAILURE_MODE_DESCRIPTION);
     createEAttribute(connectionErrorSourceEClass, CONNECTION_ERROR_SOURCE__CONDITION);
 
-    typeUseContextEClass = createEClass(TYPE_USE_CONTEXT);
-
     conditionExpressionEClass = createEClass(CONDITION_EXPRESSION);
 
     ormoreExpressionEClass = createEClass(ORMORE_EXPRESSION);
@@ -2645,7 +2625,6 @@ public class ErrorModelPackageImpl extends EPackageImpl implements ErrorModelPac
 
     // Add supertypes to classes
     errorModelSubclauseEClass.getESuperTypes().add(theAadl2Package.getAnnexSubclause());
-    errorModelSubclauseEClass.getESuperTypes().add(this.getTypeUseContext());
     errorModelLibraryEClass.getESuperTypes().add(theAadl2Package.getAnnexLibrary());
     errorTypesEClass.getESuperTypes().add(theAadl2Package.getNamedElement());
     errorTypeEClass.getESuperTypes().add(this.getErrorTypes());
@@ -2653,10 +2632,8 @@ public class ErrorModelPackageImpl extends EPackageImpl implements ErrorModelPac
     typeSetEClass.getESuperTypes().add(this.getErrorBehaviorStateOrTypeSet());
     typeTokenEClass.getESuperTypes().add(theAadl2Package.getElement());
     typeTransformationSetEClass.getESuperTypes().add(theAadl2Package.getNamedElement());
-    typeTransformationSetEClass.getESuperTypes().add(this.getTypeUseContext());
     typeTransformationEClass.getESuperTypes().add(theAadl2Package.getElement());
     typeMappingSetEClass.getESuperTypes().add(theAadl2Package.getNamedElement());
-    typeMappingSetEClass.getESuperTypes().add(this.getTypeUseContext());
     typeMappingEClass.getESuperTypes().add(theAadl2Package.getElement());
     errorPropagationEClass.getESuperTypes().add(theAadl2Package.getNamedElement());
     errorPropagationEClass.getESuperTypes().add(this.getEventOrPropagation());
@@ -2669,7 +2646,6 @@ public class ErrorModelPackageImpl extends EPackageImpl implements ErrorModelPac
     propagationPathEClass.getESuperTypes().add(theAadl2Package.getNamedElement());
     qualifiedPropagationPointEClass.getESuperTypes().add(theAadl2Package.getElement());
     errorBehaviorStateMachineEClass.getESuperTypes().add(theAadl2Package.getNamedElement());
-    errorBehaviorStateMachineEClass.getESuperTypes().add(this.getTypeUseContext());
     errorBehaviorEventEClass.getESuperTypes().add(theAadl2Package.getNamedElement());
     errorBehaviorEventEClass.getESuperTypes().add(this.getEventOrPropagation());
     errorEventEClass.getESuperTypes().add(this.getErrorBehaviorEvent());
@@ -2681,7 +2657,6 @@ public class ErrorModelPackageImpl extends EPackageImpl implements ErrorModelPac
     transitionBranchEClass.getESuperTypes().add(theAadl2Package.getElement());
     branchValueEClass.getESuperTypes().add(theAadl2Package.getElement());
     connectionErrorSourceEClass.getESuperTypes().add(theAadl2Package.getNamedElement());
-    typeUseContextEClass.getESuperTypes().add(theAadl2Package.getElement());
     conditionExpressionEClass.getESuperTypes().add(theAadl2Package.getElement());
     ormoreExpressionEClass.getESuperTypes().add(theAadl2Package.getElement());
     ormoreExpressionEClass.getESuperTypes().add(this.getConditionExpression());
@@ -2867,8 +2842,6 @@ public class ErrorModelPackageImpl extends EPackageImpl implements ErrorModelPac
     initEReference(getConnectionErrorSource_FailureModeType(), this.getTypeSet(), null, "failureModeType", null, 0, 1, ConnectionErrorSource.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEAttribute(getConnectionErrorSource_FailureModeDescription(), theEcorePackage.getEString(), "failureModeDescription", null, 0, 1, ConnectionErrorSource.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEAttribute(getConnectionErrorSource_Condition(), theEcorePackage.getEString(), "condition", null, 0, 1, ConnectionErrorSource.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-
-    initEClass(typeUseContextEClass, TypeUseContext.class, "TypeUseContext", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 
     initEClass(conditionExpressionEClass, ConditionExpression.class, "ConditionExpression", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 

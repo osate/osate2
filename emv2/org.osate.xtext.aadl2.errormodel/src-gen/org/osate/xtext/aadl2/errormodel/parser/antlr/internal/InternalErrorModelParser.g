@@ -4560,66 +4560,6 @@ ruleConnectionErrorSource returns [EObject current=null]
 
 
 
-// Entry rule entryRuleTypeUseContext
-entryRuleTypeUseContext returns [EObject current=null]
-	:
-	{ newCompositeNode(grammarAccess.getTypeUseContextRule()); }
-	 iv_ruleTypeUseContext=ruleTypeUseContext 
-	 { $current=$iv_ruleTypeUseContext.current; } 
-	 EOF 
-;
-
-// Rule TypeUseContext
-ruleTypeUseContext returns [EObject current=null] 
-    @init { enterRule(); 
-    }
-    @after { leaveRule(); }:
-(
-    { 
-        newCompositeNode(grammarAccess.getTypeUseContextAccess().getTypeTransformationSetParserRuleCall_0()); 
-    }
-    this_TypeTransformationSet_0=ruleTypeTransformationSet
-    {
-        $current = $this_TypeTransformationSet_0.current;
-        afterParserOrEnumRuleCall();
-    }
-
-    |
-    { 
-        newCompositeNode(grammarAccess.getTypeUseContextAccess().getTypeMappingSetParserRuleCall_1()); 
-    }
-    this_TypeMappingSet_1=ruleTypeMappingSet
-    {
-        $current = $this_TypeMappingSet_1.current;
-        afterParserOrEnumRuleCall();
-    }
-
-    |
-    { 
-        newCompositeNode(grammarAccess.getTypeUseContextAccess().getErrorBehaviorStateMachineParserRuleCall_2()); 
-    }
-    this_ErrorBehaviorStateMachine_2=ruleErrorBehaviorStateMachine
-    {
-        $current = $this_ErrorBehaviorStateMachine_2.current;
-        afterParserOrEnumRuleCall();
-    }
-
-    |
-    { 
-        newCompositeNode(grammarAccess.getTypeUseContextAccess().getErrorModelSubclauseParserRuleCall_3()); 
-    }
-    this_ErrorModelSubclause_3=ruleErrorModelSubclause
-    {
-        $current = $this_ErrorModelSubclause_3.current;
-        afterParserOrEnumRuleCall();
-    }
-)
-;
-
-
-
-
-
 // Entry rule entryRuleConditionExpression
 entryRuleConditionExpression returns [EObject current=null]
 	:

@@ -54,7 +54,6 @@ import org.osate.xtext.aadl2.errormodel.errorModel.TypeMappingSet;
 import org.osate.xtext.aadl2.errormodel.errorModel.TypeSet;
 import org.osate.xtext.aadl2.errormodel.errorModel.TypeToken;
 import org.osate.xtext.aadl2.errormodel.errorModel.TypeTransformationSet;
-import org.osate.xtext.aadl2.errormodel.errorModel.TypeUseContext;
 import org.osate.xtext.aadl2.errormodel.util.EM2TypeSetUtil;
 import org.osate.xtext.aadl2.errormodel.util.EMV2Util;
 
@@ -196,12 +195,6 @@ public class ErrorModelJavaValidator extends AbstractErrorModelJavaValidator {
 	@Check(CheckType.NORMAL)
 	public void caseErrorDetection(ErrorDetection ebt) {
 		checkDetectionSourceTypes(ebt);
-	}
-
-	@Check(CheckType.NORMAL)
-	public void caseTypeUseContext(TypeUseContext typeUseContext) {
-		checkMultipleUses(typeUseContext);
-		checkMultipleErrorTypesInUsesTypes(typeUseContext);
 	}
 
 	@Check(CheckType.NORMAL)
@@ -395,11 +388,11 @@ public class ErrorModelJavaValidator extends AbstractErrorModelJavaValidator {
 		}
 	}
 
-	private void checkMultipleUses(TypeUseContext tuc) {
+	private void checkMultipleUses(EObject useTypesContext) {
 		HashSet<ErrorModelLibrary> etlset = new HashSet<ErrorModelLibrary>();
-		for (ErrorModelLibrary etl : EMV2Util.getUseTypes(tuc)) {
+		for (ErrorModelLibrary etl : EMV2Util.getUseTypes(useTypesContext)) {
 			if (etlset.contains(etl)) {
-				error(tuc, "Error type library " + EMV2Util.getPrintName(etl)
+				error(useTypesContext, "Error type library " + EMV2Util.getPrintName(etl)
 						+ " exists more than once in 'uses types' clause");
 			} else {
 				etlset.add(etl);
@@ -407,15 +400,15 @@ public class ErrorModelJavaValidator extends AbstractErrorModelJavaValidator {
 		}
 	}
 
-	private void checkMultipleErrorTypesInUsesTypes(TypeUseContext tuc) {
+	private void checkMultipleErrorTypesInUsesTypes(EObject useTypesContext) {
 		Hashtable<String, EObject> etlset = new Hashtable<String, EObject>(10, 10);
-		for (ErrorModelLibrary etl : EMV2Util.getUseTypes(tuc)) {
+		for (ErrorModelLibrary etl : EMV2Util.getUseTypes(useTypesContext)) {
 			EList<ErrorType> typeslist = etl.getTypes();
 			for (ErrorType errorTypes : typeslist) {
 				if (etlset.containsKey(errorTypes.getName())) {
 					ErrorModelLibrary eml = EMV2Util.getContainingErrorModelLibrary((Element) etlset.get(errorTypes
 							.getName()));
-					error(tuc,
+					error(useTypesContext,
 							"Error type or type set " + errorTypes.getName() + " in library "
 									+ EMV2Util.getPrintName(etl) + " already exists in error type library "
 									+ EMV2Util.getPrintName(eml));
@@ -428,7 +421,7 @@ public class ErrorModelJavaValidator extends AbstractErrorModelJavaValidator {
 				if (etlset.containsKey(typeset.getName())) {
 					ErrorModelLibrary eml = EMV2Util.getContainingErrorModelLibrary((Element) etlset.get(typeset
 							.getName()));
-					error(tuc,
+					error(useTypesContext,
 							"Error type or type set " + typeset.getName() + " in library " + EMV2Util.getPrintName(etl)
 									+ " already exists in error type library " + EMV2Util.getPrintName(eml));
 				} else {
