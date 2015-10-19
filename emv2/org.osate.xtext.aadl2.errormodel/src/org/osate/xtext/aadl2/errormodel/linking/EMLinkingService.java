@@ -83,9 +83,9 @@ public class EMLinkingService extends PropertiesLinkingService {
 		if (requiredType == null) {
 			return Collections.<EObject> emptyList();
 		}
-		List<EObject> result = super.getLinkedObjects(context, reference, node);
-		if (!result.isEmpty())
-			return result;
+//		List<EObject> result = super.getLinkedObjects(context, reference, node);
+//		if (!result.isEmpty())
+//			return result;
 		Element cxt = (Element) context;
 		final String name = getCrossRefNodeAsString(node);
 		if (Aadl2Package.eINSTANCE.getNamedElement() == requiredType) {
@@ -477,12 +477,12 @@ public class EMLinkingService extends PropertiesLinkingService {
 			// PHF: change to findNamedElementInThisEML if we do not make inherited names externally visible
 			return findEMLNamedTypeElement(eml, typeName, eclass);
 		}
-		if (context instanceof ErrorType || context instanceof TypeSet ||
-				context instanceof ErrorModelLibrary) {
+		if (context instanceof ErrorType || context instanceof TypeSet || context instanceof ErrorModelLibrary) {
 			// lookup in own EML if we are inside an ErrorModelLibrary
 			ErrorModelLibrary owneml = EMV2Util.getContainingErrorModelLibrary(context);
 			EObject res = findNamedTypeElementInThisEML(owneml, typeName, eclass);
-			if (res != null) return res;
+			if (res != null)
+				return res;
 			EList<ErrorModelLibrary> otheremls = owneml.getExtends();
 			if (otheremls != null) {
 				for (ErrorModelLibrary etll : otheremls) {
