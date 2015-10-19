@@ -83,6 +83,9 @@ public class EMLinkingService extends PropertiesLinkingService {
 		if (requiredType == null) {
 			return Collections.<EObject> emptyList();
 		}
+		List<EObject> result = super.getLinkedObjects(context, reference, node);
+		if (!result.isEmpty())
+			return result;
 		Element cxt = (Element) context;
 		final String name = getCrossRefNodeAsString(node);
 		if (Aadl2Package.eINSTANCE.getNamedElement() == requiredType) {
