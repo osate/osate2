@@ -36,6 +36,13 @@ import static extension org.osate.xtext.aadl2.errormodel.util.EMV2Util.getFeatur
 import static extension org.osate.xtext.aadl2.errormodel.util.ErrorModelUtil.getAllErrorTypes
 import static extension org.osate.xtext.aadl2.errormodel.util.ErrorModelUtil.getAllTypesets
 import org.osate.xtext.aadl2.errormodel.errorModel.TypeMappingSet
+import org.osate.xtext.aadl2.errormodel.errorModel.ErrorPropagation
+import org.osate.xtext.aadl2.errormodel.util.EMV2Util
+import org.osate.aadl2.Subcomponent
+import org.eclipse.emf.common.util.EList
+import org.osate.xtext.aadl2.errormodel.errorModel.ErrorSource
+import org.osate.xtext.aadl2.errormodel.errorModel.ErrorSink
+import org.osate.xtext.aadl2.errormodel.errorModel.ErrorPath
 
 /**
  * This class contains custom scoping description.
@@ -47,14 +54,6 @@ import org.osate.xtext.aadl2.errormodel.errorModel.TypeMappingSet
 class ErrorModelScopeProvider extends PropertiesScopeProvider {
 	@Inject
 	IQualifiedNameConverter qualifiedNameConverter
-//	
-//	def Iterable<ErrorType> getErrorTypesFromLib(ErrorModelLibrary lib) {
-//		return (#[lib.types] + lib.extends.map[it | getErrorTypesFromLib(it)]).flatten();
-//	}
-//
-//	def Iterable<TypeSet> getTypesetsFromLib(ErrorModelLibrary lib) {
-//		return (#[lib.typesets] + lib.extends.map[it | getTypesetsFromLib(it)]).flatten();
-//	}
 
 	def getErrorLibsFromContext(EObject context) {
 		var EObject parCtx;
@@ -83,28 +82,20 @@ class ErrorModelScopeProvider extends PropertiesScopeProvider {
 		return errorTypes.scopeFor();
 	}
 	
-//	def scope_ErrorType(ErrorModelLibrary context, EReference reference) {
-//		context.scopeForInheritableErrorTypes[allErrorTypes]
-//	}
 	
 	def scope_ErrorType_aliasedType(ErrorType context, EReference reference) {
-//		context.scopeForInheritableErrorTypes[allTypesets]
-//		context.allTypesets.scopeFor
 		val errorLibs = getErrorLibsFromContext(context);
 		val errorType = errorLibs.map[it | allErrorTypes].flatten ;
 		return errorType.scopeFor();
 	}
+	
 	def scope_ErrorType_superType(ErrorType context, EReference reference) {
-//		context.scopeForInheritableErrorTypes[allTypesets]
-//		context.allTypesets.scopeFor
 		val errorLibs = getErrorLibsFromContext(context);
 		val errorType = errorLibs.map[it | allErrorTypes].flatten ;
 		return errorType.scopeFor();
 	}
 	
 	def scope_TypeSet_aliasedType(TypeSet context, EReference reference) {
-//		context.scopeForInheritableErrorTypes[allTypesets]
-//		context.allErrorTypes.scopeFor
 		val errorLibs = getErrorLibsFromContext(context);
 		val errorTypeset = errorLibs.map[it | allTypesets].flatten();
 		return errorTypeset.scopeFor();
@@ -130,29 +121,85 @@ class ErrorModelScopeProvider extends PropertiesScopeProvider {
 //		], true)
 //		
 //	}
-	
-	def get_ErrorBehaviorStateMachines_from_context(EObject context) {
-		return #[EcoreUtil2.getContainerOfType(context, ErrorBehaviorStateMachine)];
-		// TODO: Consider a state machine that extends another state machine.
-		// TODO: Can an ErrorBehaviorState occur outside the scope of a ErrorBehaviorStateMachine?
+
+	def getEBSMfromContext(EObject context){
+		val ebsm =  EcoreUtil2.getContainerOfType(context, ErrorBehaviorStateMachine);
+		if (ebsm != null) return ebsm;
+		val esc = EcoreUtil2.getContainerOfType(context, ErrorModelSubclause);
+		return esc.useBehavior;
 	}
 	
 	def scope_ErrorBehaviorState(EObject context, EReference reference) {
-		val states = get_ErrorBehaviorStateMachines_from_context(context).map[it | it.states].flatten();
-		return states.scopeFor();
+		val ebsm = getEBSMfromContext(context);
+		if (ebsm != null) return ebsm.states.scopeFor
+		return IScope.NULLSCOPE;
 	}
 
-	def scope_ErrorBehaviorEvent(EObject context, EReference reference) {
-		val events = EcoreUtil2.getContainerOfType(context, ErrorBehaviorStateMachine).events;
-		// TODO: same as for scope_ErrorBehaviorState
+	
+	def scope_EventOrPropagation(EObject context, EReference reference) {
+		val ebsm = getEBSMfromContext(context)
+		val esc = EcoreUtil2.getContainerOfType(context, ErrorModelSubclause)
+		val events = ebsm?.events + esc?.events;
 		return events.scopeFor();		
 	}
 	
-	def scope_ErrorEvent(EObject context, EReference reference) {
-		val events = EcoreUtil2.getContainerOfType(context, ErrorBehaviorStateMachine).events;
-		// TODO: same as for scope_ErrorBehaviorState
-		return events.scopeFor();		
+	def scope_ErrorSource_outgoing(ErrorSource context, EReference reference) {
+		return outgoingErrorPropagationScope(context)
 	}
+	
+	def scope_ErrorSink_incoming(ErrorSink context, EReference reference) {
+		return incomingErrorPropagationScope(context)
+	}
+	
+	def scope_ErrorPath_incoming(ErrorPath context, EReference reference) {
+		return incomingErrorPropagationScope(context)
+	}
+	
+	def scope_ErrorPath_outgoing(ErrorPath context, EReference reference) {
+		return outgoingErrorPropagationScope(context)
+	}
+	
+	def outgoingErrorPropagationScope(EObject context) {
+		val propagations = context.allContainingClassifierEMV2Subclauses.map[propagations].flatten.filter[!not && direction == DirectionType.OUT]
+		new SimpleScope(propagations.map[EObjectDescription.create(kind ?: featureorPPRefs.join(".", [featureorPP.name]), it)])
+	}
+	
+	def incomingErrorPropagationScope(EObject context) {
+		val propagations = context.allContainingClassifierEMV2Subclauses.map[propagations].flatten.filter[!not && direction == DirectionType.IN]
+		new SimpleScope(propagations.map[EObjectDescription.create(kind ?: featureorPPRefs.join(".", [featureorPP.name]), it)])
+	}
+
+//	public static ErrorPropagation findSubcomponentOrIncomingErrorProparation(Element elem, String name) {
+//		Classifier cl = elem.getContainingClassifier();
+//		if (cl == null)
+//			return null;
+//		EList<Subcomponent> subs;
+//		int idx = name.indexOf('.');
+//		boolean foundSub = false;
+//		boolean findMore = true;
+//		while (idx != -1 && findMore) {
+//			String subname = name.substring(0, idx);
+//			findMore = false;
+//			if (cl instanceof ComponentImplementation) {
+//				subs = ((ComponentImplementation) cl).getAllSubcomponents();
+//				for (Subcomponent sub : subs) {
+//					if (sub.getName().equalsIgnoreCase(subname)) {
+//						name = name.substring(idx + 1);
+//						cl = sub.getClassifier();
+//						idx = name.indexOf('.');
+//						foundSub = true;
+//						findMore = true;
+//					}
+//				}
+//			}
+//		}
+//
+//		if (foundSub) {
+//			return EMV2Util.findErrorPropagation(cl, name, DirectionType.OUT);
+//		} else {
+//			return EMV2Util.findErrorPropagation(cl, name, DirectionType.IN);
+//		}
+//	}
 	
 	/*
 	 * TODO: FINISH THIS!
@@ -194,11 +241,6 @@ class ErrorModelScopeProvider extends PropertiesScopeProvider {
 			FeatureGroup: fg.featureGroupType.getAllFeatures.scopeFor
 			default: IScope.NULLSCOPE
 		}
-	}
-	
-	def scope_ErrorSource_outgoing(Classifier context, EReference reference) {
-		val propagations = context.allContainingClassifierEMV2Subclauses.map[propagations].flatten.filter[!not && direction == DirectionType.OUT]
-		new SimpleScope(propagations.map[EObjectDescription.create(kind ?: featureorPPRefs.join(".", [featureorPP.name]), it)])
 	}
 	
 	def private scopeWithoutEMV2Prefix(EObject context, EReference reference) {
