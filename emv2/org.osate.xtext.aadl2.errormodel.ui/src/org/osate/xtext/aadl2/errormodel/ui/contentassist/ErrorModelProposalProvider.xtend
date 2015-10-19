@@ -29,10 +29,13 @@ import org.osate.aadl2.AadlPackage
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorBehaviorStateMachine
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorEvent
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorModelLibrary
-import org.osate.xtext.aadl2.errormodel.errorModel.TypeSet
+import org.osate.xtext.aadl2.errormodel.errorModel.ErrorModelSubclause
+import org.osate.xtext.aadl2.errormodel.errorModel.ErrorPath
+import org.osate.xtext.aadl2.errormodel.errorModel.ErrorPropagation
+import org.osate.xtext.aadl2.errormodel.errorModel.ErrorSink
+import org.osate.xtext.aadl2.errormodel.errorModel.ErrorSource
 
 import static extension org.eclipse.xtext.EcoreUtil2.getContainerOfType
-import static extension org.osate.xtext.aadl2.errormodel.util.ErrorModelUtil.getAllErrorTypes
 
 /**
  * see http://www.eclipse.org/Xtext/documentation/latest/xtext.html#contentAssist on how to customize content assistant
@@ -68,18 +71,47 @@ class ErrorModelProposalProvider extends AbstractErrorModelProposalProvider {
 	}
 	
 	override completeTypeSetElement_Type(EObject model, Assignment assignment, ContentAssistContext context, ICompletionProposalAcceptor acceptor) {
-		if (model instanceof TypeSet && model.eContainer instanceof ErrorEvent && model.getContainerOfType(ErrorBehaviorStateMachine) != null) {
-			val emls = model.getContainerOfType(ErrorBehaviorStateMachine).useTypes 
-			lookupCrossReference(assignment.terminal as CrossReference, context, acceptor,
-			[
-				val qName = it.qualifiedName
-				val proposedObj = EcoreUtil.resolve(EObjectOrProxy, model)
-				emls.map([eml | eml.allErrorTypes]).flatten.exists[
-					it == proposedObj && qName.segmentCount == 1
-				]
-			])
-		} else {
-			super.completeTypeSetElement_Type(model, assignment, context, acceptor)
+		switch model.eContainer{
+			ErrorPropagation, ErrorSource, ErrorSink, ErrorPath : {
+				if (model.getContainerOfType(ErrorModelSubclause) != null){
+					lookupCrossReference(assignment.getTerminal() as CrossReference, context, acceptor,
+					[
+						switch it.qualifiedName.segmentCount{
+							case 1 : true
+							default : false
+						}
+					])
+					
+				} else {
+					super.completeTypeSetElement_Type(model, assignment, context, acceptor)
+				}
+			}
+			ErrorEvent : {
+				if (model.getContainerOfType(ErrorBehaviorStateMachine) != null) {
+					val emls = model.getContainerOfType(ErrorBehaviorStateMachine).useTypes 
+					val results = new ArrayList<ErrorModelLibrary>() as List<ErrorModelLibrary>
+					emls.forEach[eml | 
+						results.add(eml)
+						eml.getExtendedLibraries(results)
+					]
+					val extendedNames = results.map([it.getContainerOfType(AadlPackage).name])
+					lookupCrossReference(assignment.getTerminal() as CrossReference, context, acceptor,
+					[
+						if (extendedNames.nullOrEmpty){
+							true
+						} else {
+							switch it.qualifiedName.segmentCount{
+								case 1 : false
+								case 2 : extendedNames.exists[en | qualifiedName.segments.head.equalsIgnoreCase(en)]
+								default : false
+							}
+						}
+					])
+				} else {
+					super.completeTypeSetElement_Type(model, assignment, context, acceptor)
+				}
+			}
+			default : super.completeTypeSetElement_Type(model, assignment, context, acceptor)		
 		}
 	}
 
