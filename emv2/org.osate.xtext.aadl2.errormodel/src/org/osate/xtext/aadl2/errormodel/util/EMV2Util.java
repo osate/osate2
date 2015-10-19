@@ -2475,4 +2475,30 @@ public class EMV2Util {
 		}
 		return list;
 	}
+
+	public static boolean checkCyclicExtends(ErrorModelLibrary etl) {
+		if (etl.getExtends() == null) {
+			return false;
+		}
+		HashSet<ErrorModelLibrary> result = new HashSet<ErrorModelLibrary>();
+		return recursiveCheckCyclicExtends(etl, result);
+	}
+
+	private static boolean recursiveCheckCyclicExtends(ErrorModelLibrary etl, HashSet<ErrorModelLibrary> shetl) {
+		boolean result = false;
+		if (etl.getExtends() != null) {
+			shetl.add(etl);
+			EList<ErrorModelLibrary> etllist = etl.getExtends();
+			for (ErrorModelLibrary xetl : etllist) {
+				if (shetl.contains(xetl)) {
+					result = true;
+				} else {
+					result = result || recursiveCheckCyclicExtends(xetl, shetl);
+				}
+			}
+			shetl.remove(etl);
+		}
+		return result;
+	}
+
 }

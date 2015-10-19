@@ -477,29 +477,31 @@ public class EMLinkingService extends PropertiesLinkingService {
 			// PHF: change to findNamedElementInThisEML if we do not make inherited names externally visible
 			return findEMLNamedTypeElement(eml, typeName, eclass);
 		}
-		if (context instanceof ErrorType || context instanceof TypeSet || context instanceof ErrorModelLibrary) {
-			// lookup in own EML if we are inside an ErrorModelLibrary
-			ErrorModelLibrary owneml = EMV2Util.getContainingErrorModelLibrary(context);
-			EObject res = findNamedTypeElementInThisEML(owneml, typeName, eclass);
-			if (res != null)
-				return res;
-			EList<ErrorModelLibrary> otheremls = owneml.getExtends();
-			if (otheremls != null) {
-				for (ErrorModelLibrary etll : otheremls) {
-					// PHF: change to findNamedElementInThisEML if we do not make inherited names externally visible
-					res = findEMLNamedTypeElement(etll, typeName, eclass);
-					if (res != null) {
-						return res;
-					}
-				}
-			}
-		}
 		EList<ErrorModelLibrary> usetypes = EMV2Util.getUseTypes(context);
 		for (ErrorModelLibrary etll : usetypes) {
 			// PHF: change to findNamedElementInThisEML if we do not make inherited names externally visible
 			EObject res = findEMLNamedTypeElement(etll, typeName, eclass);
 			if (res != null) {
 				return res;
+			}
+		}
+		if (context instanceof ErrorType || context instanceof TypeSet || context instanceof ErrorModelLibrary) {
+			// lookup in own EML if we are inside an ErrorModelLibrary
+			ErrorModelLibrary owneml = EMV2Util.getContainingErrorModelLibrary(context);
+			EObject res = findNamedTypeElementInThisEML(owneml, typeName, eclass);
+			if (res != null)
+				return res;
+			if (!EMV2Util.checkCyclicExtends(owneml)) {
+				EList<ErrorModelLibrary> otheremls = owneml.getExtends();
+				if (otheremls != null) {
+					for (ErrorModelLibrary etll : otheremls) {
+						// PHF: change to findNamedElementInThisEML if we do not make inherited names externally visible
+						res = findEMLNamedTypeElement(etll, typeName, eclass);
+						if (res != null) {
+							return res;
+						}
+					}
+				}
 			}
 		}
 		return null;
