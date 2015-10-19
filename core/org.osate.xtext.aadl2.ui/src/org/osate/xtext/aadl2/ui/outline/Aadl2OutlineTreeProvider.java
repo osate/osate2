@@ -48,8 +48,6 @@ import org.eclipse.xtext.ui.editor.outline.impl.DocumentRootNode;
 import org.eclipse.xtext.ui.editor.outline.impl.IOutlineTreeStructureProvider;
 import org.eclipse.xtext.ui.label.StylerFactory;
 import org.osate.aadl2.AadlPackage;
-import org.osate.aadl2.AnnexLibrary;
-import org.osate.aadl2.AnnexSubclause;
 import org.osate.aadl2.BasicPropertyAssociation;
 import org.osate.aadl2.ContainedNamedElement;
 import org.osate.aadl2.ContainmentPathElement;
@@ -75,6 +73,7 @@ import org.osate.aadl2.modelsupport.AadlConstants;
 import org.osate.aadl2.modelsupport.errorreporting.AnalysisErrorReporterManager;
 import org.osate.aadl2.modelsupport.errorreporting.MarkerAnalysisErrorReporter;
 import org.osate.annexsupport.AnnexParseUtil;
+import org.osate.annexsupport.AnnexUtil;
 import org.osate.core.OsateCorePlugin;
 
 import com.google.inject.ConfigurationException;
@@ -101,31 +100,20 @@ public class Aadl2OutlineTreeProvider extends DefaultOutlineTreeProvider {
 	}
 
 	protected void _createChildren(IOutlineNode parentNode, Element modelElement) {
-		EObject annexRoot = null;
-		EObject annexElement = null;
-		if (modelElement instanceof DefaultAnnexLibrary) {
-			annexElement = annexRoot = ((DefaultAnnexLibrary) modelElement).getParsedAnnexLibrary();
-		} else if (modelElement instanceof DefaultAnnexSubclause) {
-			annexElement = annexRoot = ((DefaultAnnexSubclause) modelElement).getParsedAnnexSubclause();
-		} else {
-			annexRoot = annexElement = modelElement;
-			while (annexRoot != null) {
-				if (annexRoot instanceof AnnexLibrary || annexRoot instanceof AnnexSubclause) {
-					break;
-				}
-				annexRoot = annexRoot.eContainer();
-			}
-		}
+		EObject annexRoot = AnnexUtil.getAnnexRoot(modelElement);
+
 		if (annexRoot != null) {
 			// delegate to annex specific outline tree provider
-			IParseResult annexParseResult = AnnexParseUtil.getParseResult(annexRoot);
+			EObject annexElement = (modelElement instanceof DefaultAnnexLibrary || modelElement instanceof DefaultAnnexSubclause) ? annexRoot
+					: modelElement;
+			IParseResult annexParseResult = AnnexParseUtil.getParseResult(annexElement);
 			if (annexParseResult != null) {
 				String grammarName = getGrammarName(annexParseResult.getRootNode());
 				Injector injector = OsateCorePlugin.getDefault().getInjector(grammarName);
 				if (injector != null) {
 					try {
 						injector.getInstance(IOutlineTreeStructureProvider.class).createChildren(parentNode,
-								annexElement);
+								modelElement);
 					} catch (ConfigurationException e) {
 						// ignore: no outline provider for this annex
 					}
