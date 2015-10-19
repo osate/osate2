@@ -44,8 +44,11 @@ import org.eclipse.xtext.scoping.IScopeProvider
 import org.osate.aadl2.Aadl2Package
 import org.osate.aadl2.NamedElement
 import org.osate.aadl2.PropertySet
+import org.osate.aadl2.instance.InstanceObject
+import org.osate.aadl2.instance.SystemInstance
 
 import static extension org.eclipse.emf.ecore.util.EcoreUtil.getURI
+import static extension org.eclipse.xtext.EcoreUtil2.getContainerOfType
 
 package class CachePropertyLookupJob extends Job {
 	val URI elementURI
@@ -73,7 +76,12 @@ package class CachePropertyLookupJob extends Job {
 				val element = elementURI.getEObject(true) as NamedElement
 				if (element != null) {
 					//Build a collection of PropertySets that are visible from the selected element.  Unresolvable proxies are filtered out.
-					val propertySets = element.getScope(Aadl2Package.eINSTANCE.packageSection_ImportedUnit).allElements.map[
+					val lookupObject = if (element instanceof InstanceObject) {
+						element.getContainerOfType(SystemInstance).componentClassifier
+					} else {
+						element
+					}
+					val propertySets = lookupObject.getScope(Aadl2Package.eINSTANCE.packageSection_ImportedUnit).allElements.map[
 						if (EObjectOrProxy.eIsProxy) {
 							EcoreUtil.resolve(EObjectOrProxy, element)
 						} else {
