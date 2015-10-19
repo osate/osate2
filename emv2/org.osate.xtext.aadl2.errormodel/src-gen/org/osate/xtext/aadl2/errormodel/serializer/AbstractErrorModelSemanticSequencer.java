@@ -463,7 +463,7 @@ public abstract class AbstractErrorModelSemanticSequencer extends PropertiesSema
 	
 	/**
 	 * Constraint:
-	 *     ((type+=[ErrorTypes|QEMREF] type+=[ErrorType|QEMREF]*) | (type+=[ErrorTypes|ID] type+=[ErrorTypes|ID]*))
+	 *     ((type+=[ErrorTypes|QEMREF] type+=[ErrorType|QEMREF]*) | (type+=[ErrorTypes|QEMREF] type+=[ErrorTypes|QEMREF]*))
 	 */
 	protected void sequence_Element_TypeSetElement_TypeToken(EObject context, TypeToken semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
@@ -710,7 +710,7 @@ public abstract class AbstractErrorModelSemanticSequencer extends PropertiesSema
 	
 	/**
 	 * Constraint:
-	 *     ((type+=[ErrorTypes|ID] type+=[ErrorTypes|ID]*) | noError?='noerror')
+	 *     ((type+=[ErrorTypes|QEMREF] type+=[ErrorTypes|QEMREF]*) | noError?='noerror')
 	 */
 	protected void sequence_NoErrorTypeToken_TypeToken_TypeTokenOrNoError(EObject context, TypeToken semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
@@ -917,7 +917,7 @@ public abstract class AbstractErrorModelSemanticSequencer extends PropertiesSema
 	
 	/**
 	 * Constraint:
-	 *     (type+=[ErrorTypes|ID] type+=[ErrorTypes|ID]*)
+	 *     (type+=[ErrorTypes|QEMREF] type+=[ErrorTypes|QEMREF]*)
 	 */
 	protected void sequence_TypeToken(EObject context, TypeToken semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);

@@ -1599,10 +1599,12 @@ ruleTypeToken returns [EObject current=null]
 	            $current = createModelElement(grammarAccess.getTypeTokenRule());
 	        }
         }
-	otherlv_2=RULE_ID
-	{
-		newLeafNode(otherlv_2, grammarAccess.getTypeTokenAccess().getTypeErrorTypesCrossReference_1_1_0()); 
-	}
+		{ 
+	        newCompositeNode(grammarAccess.getTypeTokenAccess().getTypeErrorTypesCrossReference_1_1_0()); 
+	    }
+		ruleQEMREF		{ 
+	        afterParserOrEnumRuleCall();
+	    }
 
 )
 )(
@@ -1617,10 +1619,12 @@ ruleTypeToken returns [EObject current=null]
 	            $current = createModelElement(grammarAccess.getTypeTokenRule());
 	        }
         }
-	otherlv_4=RULE_ID
-	{
-		newLeafNode(otherlv_4, grammarAccess.getTypeTokenAccess().getTypeErrorTypesCrossReference_1_2_1_0()); 
-	}
+		{ 
+	        newCompositeNode(grammarAccess.getTypeTokenAccess().getTypeErrorTypesCrossReference_1_2_1_0()); 
+	    }
+		ruleQEMREF		{ 
+	        afterParserOrEnumRuleCall();
+	    }
 
 )
 ))*

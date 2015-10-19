@@ -10959,11 +10959,11 @@ public class InternalErrorModelParser extends AbstractInternalContentAssistParse
                 {
                 int LA35_2 = input.LA(2);
 
-                if ( (LA35_2==Orless) ) {
-                    alt35=3;
-                }
-                else if ( (LA35_2==Ormore) ) {
+                if ( (LA35_2==Ormore) ) {
                     alt35=2;
+                }
+                else if ( (LA35_2==Orless) ) {
+                    alt35=3;
                 }
                 else {
                     NoViableAltException nvae =
@@ -11828,6 +11828,11 @@ public class InternalErrorModelParser extends AbstractInternalContentAssistParse
             case HyphenMinus:
                 {
                 switch ( input.LA(2) ) {
+                case RULE_INTEGER_LIT:
+                    {
+                    alt43=2;
+                    }
+                    break;
                 case RULE_REAL_LIT:
                     {
                     alt43=1;
@@ -11836,11 +11841,6 @@ public class InternalErrorModelParser extends AbstractInternalContentAssistParse
                 case RULE_ID:
                     {
                     alt43=3;
-                    }
-                    break;
-                case RULE_INTEGER_LIT:
-                    {
-                    alt43=2;
                     }
                     break;
                 default:
@@ -65497,25 +65497,29 @@ public class InternalErrorModelParser extends AbstractInternalContentAssistParse
 
 
     // $ANTLR start "rule__TypeToken__TypeAssignment_1_1"
-    // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:24639:1: rule__TypeToken__TypeAssignment_1_1 : ( ( RULE_ID ) ) ;
+    // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:24639:1: rule__TypeToken__TypeAssignment_1_1 : ( ( ruleQEMREF ) ) ;
     public final void rule__TypeToken__TypeAssignment_1_1() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:24643:1: ( ( ( RULE_ID ) ) )
-            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:24644:1: ( ( RULE_ID ) )
+            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:24643:1: ( ( ( ruleQEMREF ) ) )
+            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:24644:1: ( ( ruleQEMREF ) )
             {
-            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:24644:1: ( ( RULE_ID ) )
-            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:24645:1: ( RULE_ID )
+            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:24644:1: ( ( ruleQEMREF ) )
+            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:24645:1: ( ruleQEMREF )
             {
              before(grammarAccess.getTypeTokenAccess().getTypeErrorTypesCrossReference_1_1_0()); 
-            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:24646:1: ( RULE_ID )
-            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:24647:1: RULE_ID
+            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:24646:1: ( ruleQEMREF )
+            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:24647:1: ruleQEMREF
             {
-             before(grammarAccess.getTypeTokenAccess().getTypeErrorTypesIDTerminalRuleCall_1_1_0_1()); 
-            match(input,RULE_ID,FollowSets002.FOLLOW_RULE_ID_in_rule__TypeToken__TypeAssignment_1_149530); 
-             after(grammarAccess.getTypeTokenAccess().getTypeErrorTypesIDTerminalRuleCall_1_1_0_1()); 
+             before(grammarAccess.getTypeTokenAccess().getTypeErrorTypesQEMREFParserRuleCall_1_1_0_1()); 
+            pushFollow(FollowSets002.FOLLOW_ruleQEMREF_in_rule__TypeToken__TypeAssignment_1_149530);
+            ruleQEMREF();
+
+            state._fsp--;
+
+             after(grammarAccess.getTypeTokenAccess().getTypeErrorTypesQEMREFParserRuleCall_1_1_0_1()); 
 
             }
 
@@ -65542,25 +65546,29 @@ public class InternalErrorModelParser extends AbstractInternalContentAssistParse
 
 
     // $ANTLR start "rule__TypeToken__TypeAssignment_1_2_1"
-    // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:24658:1: rule__TypeToken__TypeAssignment_1_2_1 : ( ( RULE_ID ) ) ;
+    // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:24658:1: rule__TypeToken__TypeAssignment_1_2_1 : ( ( ruleQEMREF ) ) ;
     public final void rule__TypeToken__TypeAssignment_1_2_1() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:24662:1: ( ( ( RULE_ID ) ) )
-            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:24663:1: ( ( RULE_ID ) )
+            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:24662:1: ( ( ( ruleQEMREF ) ) )
+            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:24663:1: ( ( ruleQEMREF ) )
             {
-            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:24663:1: ( ( RULE_ID ) )
-            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:24664:1: ( RULE_ID )
+            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:24663:1: ( ( ruleQEMREF ) )
+            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:24664:1: ( ruleQEMREF )
             {
              before(grammarAccess.getTypeTokenAccess().getTypeErrorTypesCrossReference_1_2_1_0()); 
-            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:24665:1: ( RULE_ID )
-            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:24666:1: RULE_ID
+            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:24665:1: ( ruleQEMREF )
+            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:24666:1: ruleQEMREF
             {
-             before(grammarAccess.getTypeTokenAccess().getTypeErrorTypesIDTerminalRuleCall_1_2_1_0_1()); 
-            match(input,RULE_ID,FollowSets002.FOLLOW_RULE_ID_in_rule__TypeToken__TypeAssignment_1_2_149569); 
-             after(grammarAccess.getTypeTokenAccess().getTypeErrorTypesIDTerminalRuleCall_1_2_1_0_1()); 
+             before(grammarAccess.getTypeTokenAccess().getTypeErrorTypesQEMREFParserRuleCall_1_2_1_0_1()); 
+            pushFollow(FollowSets002.FOLLOW_ruleQEMREF_in_rule__TypeToken__TypeAssignment_1_2_149569);
+            ruleQEMREF();
+
+            state._fsp--;
+
+             after(grammarAccess.getTypeTokenAccess().getTypeErrorTypesQEMREFParserRuleCall_1_2_1_0_1()); 
 
             }
 
@@ -75666,8 +75674,8 @@ public class InternalErrorModelParser extends AbstractInternalContentAssistParse
         public static final BitSet FOLLOW_ruleQEMREF_in_rule__TypeSetElement__TypeAssignment_1_149416 = new BitSet(new long[]{0x0000000000000002L});
         public static final BitSet FOLLOW_ruleNoErrorTypeToken_in_rule__NoErrorTypeSet__TypeTokensAssignment_249451 = new BitSet(new long[]{0x0000000000000002L});
         public static final BitSet FOLLOW_Noerror_in_rule__NoErrorTypeToken__NoErrorAssignment_149487 = new BitSet(new long[]{0x0000000000000002L});
-        public static final BitSet FOLLOW_RULE_ID_in_rule__TypeToken__TypeAssignment_1_149530 = new BitSet(new long[]{0x0000000000000002L});
-        public static final BitSet FOLLOW_RULE_ID_in_rule__TypeToken__TypeAssignment_1_2_149569 = new BitSet(new long[]{0x0000000000000002L});
+        public static final BitSet FOLLOW_ruleQEMREF_in_rule__TypeToken__TypeAssignment_1_149530 = new BitSet(new long[]{0x0000000000000002L});
+        public static final BitSet FOLLOW_ruleQEMREF_in_rule__TypeToken__TypeAssignment_1_2_149569 = new BitSet(new long[]{0x0000000000000002L});
         public static final BitSet FOLLOW_RULE_ID_in_rule__TypeTransformationSet__NameAssignment_249604 = new BitSet(new long[]{0x0000000000000002L});
         public static final BitSet FOLLOW_ruleQEMREF_in_rule__TypeTransformationSet__UseTypesAssignment_3_249639 = new BitSet(new long[]{0x0000000000000002L});
         public static final BitSet FOLLOW_ruleQEMREF_in_rule__TypeTransformationSet__UseTypesAssignment_3_3_149678 = new BitSet(new long[]{0x0000000000000002L});

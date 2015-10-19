@@ -24644,8 +24644,8 @@ rule__TypeToken__TypeAssignment_1_1
 (
 { before(grammarAccess.getTypeTokenAccess().getTypeErrorTypesCrossReference_1_1_0()); }
 (
-{ before(grammarAccess.getTypeTokenAccess().getTypeErrorTypesIDTerminalRuleCall_1_1_0_1()); }
-	RULE_ID{ after(grammarAccess.getTypeTokenAccess().getTypeErrorTypesIDTerminalRuleCall_1_1_0_1()); }
+{ before(grammarAccess.getTypeTokenAccess().getTypeErrorTypesQEMREFParserRuleCall_1_1_0_1()); }
+	ruleQEMREF{ after(grammarAccess.getTypeTokenAccess().getTypeErrorTypesQEMREFParserRuleCall_1_1_0_1()); }
 )
 { after(grammarAccess.getTypeTokenAccess().getTypeErrorTypesCrossReference_1_1_0()); }
 )
@@ -24663,8 +24663,8 @@ rule__TypeToken__TypeAssignment_1_2_1
 (
 { before(grammarAccess.getTypeTokenAccess().getTypeErrorTypesCrossReference_1_2_1_0()); }
 (
-{ before(grammarAccess.getTypeTokenAccess().getTypeErrorTypesIDTerminalRuleCall_1_2_1_0_1()); }
-	RULE_ID{ after(grammarAccess.getTypeTokenAccess().getTypeErrorTypesIDTerminalRuleCall_1_2_1_0_1()); }
+{ before(grammarAccess.getTypeTokenAccess().getTypeErrorTypesQEMREFParserRuleCall_1_2_1_0_1()); }
+	ruleQEMREF{ after(grammarAccess.getTypeTokenAccess().getTypeErrorTypesQEMREFParserRuleCall_1_2_1_0_1()); }
 )
 { after(grammarAccess.getTypeTokenAccess().getTypeErrorTypesCrossReference_1_2_1_0()); }
 )
