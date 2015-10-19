@@ -182,7 +182,7 @@ NoErrorTypeToken returns TypeToken:
 
 TypeToken returns TypeToken:
 	{TypeToken}
-     ('{' type+=[ErrorTypes|ID] (('*') type+=[ErrorTypes|ID])* '}')
+     ('{' type+=[ErrorTypes|QEMREF] (('*') type+=[ErrorTypes|QEMREF])* '}')
 ;
 
 TypeTokenOrNoError returns TypeToken:

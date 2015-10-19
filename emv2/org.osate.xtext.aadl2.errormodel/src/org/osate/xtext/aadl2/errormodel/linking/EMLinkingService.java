@@ -475,19 +475,32 @@ public class EMLinkingService extends PropertiesLinkingService {
 			// qualified reference; look there only
 			ErrorModelLibrary eml = findErrorModelLibrary(context, packName);
 			// PHF: change to findNamedElementInThisEML if we do not make inherited names externally visible
-			return findNamedTypeElementInThisEML(eml, typeName, eclass);
+			return findEMLNamedTypeElement(eml, typeName, eclass);
+		}
+		if (context instanceof ErrorType || context instanceof TypeSet ||
+				context instanceof ErrorModelLibrary) {
+			// lookup in own EML if we are inside an ErrorModelLibrary
+			ErrorModelLibrary owneml = EMV2Util.getContainingErrorModelLibrary(context);
+			EObject res = findNamedTypeElementInThisEML(owneml, typeName, eclass);
+			if (res != null) return res;
+			EList<ErrorModelLibrary> otheremls = owneml.getExtends();
+			if (otheremls != null) {
+				for (ErrorModelLibrary etll : otheremls) {
+					// PHF: change to findNamedElementInThisEML if we do not make inherited names externally visible
+					res = findEMLNamedTypeElement(etll, typeName, eclass);
+					if (res != null) {
+						return res;
+					}
+				}
+			}
 		}
 		EList<ErrorModelLibrary> usetypes = EMV2Util.getUseTypes(context);
 		for (ErrorModelLibrary etll : usetypes) {
 			// PHF: change to findNamedElementInThisEML if we do not make inherited names externally visible
-			EObject res = findNamedTypeElementInThisEML(etll, typeName, eclass);
+			EObject res = findEMLNamedTypeElement(etll, typeName, eclass);
 			if (res != null) {
 				return res;
 			}
-		}
-		if (context instanceof ErrorType || context instanceof TypeSet) {
-			ErrorModelLibrary owneml = EMV2Util.getContainingErrorModelLibrary(context);
-			return findNamedTypeElementInThisEML(owneml, typeName, eclass);
 		}
 		return null;
 	}
