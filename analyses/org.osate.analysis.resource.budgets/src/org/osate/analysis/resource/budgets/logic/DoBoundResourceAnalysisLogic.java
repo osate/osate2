@@ -516,12 +516,12 @@ public class DoBoundResourceAnalysisLogic extends DoResourceBudgetLogic {
 					+ " with bandwidth capacity " + Buscapacity + "KBytesps has no bound connections");
 			return;
 		}
-		if (som != null) {
-			errManager.logInfo("\n\nConnection Budget Details for bus " + curBus.getFullName() + " in mode "
-					+ som.getName() + " with capacity " + Buscapacity + "KBytesps\n");
-		} else {
+		if (Aadl2Util.isNoModes(som)) {
 			errManager.logInfo("\n\nConnection Budget Details for bus " + curBus.getFullName() + " with capacity "
 					+ Buscapacity + "KBytesps\n");
+		} else {
+			errManager.logInfo("\n\nConnection Budget Details for bus " + curBus.getFullName() + " in mode "
+					+ som.getName() + " with capacity " + Buscapacity + "KBytesps\n");
 		}
 
 		errManager.logInfo("Connection,Budget,Actual (Data Size * Sender Rate),Note");
