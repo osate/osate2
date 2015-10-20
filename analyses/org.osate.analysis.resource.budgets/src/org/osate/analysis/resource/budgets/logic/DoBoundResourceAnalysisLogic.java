@@ -589,7 +589,7 @@ public class DoBoundResourceAnalysisLogic extends DoResourceBudgetLogic {
 				double period = GetProperties.getPeriodInSeconds(fi.getContainingComponentInstance(), 0);
 				if (period == 0)
 					return res;
-				srcRate = 1 / GetProperties.getPeriodInSeconds(fi.getContainingComponentInstance(), 1);
+				srcRate = 1 / period;
 			}
 			res = datasize * srcRate;
 			EList fil = fi.getFeatureInstances();
