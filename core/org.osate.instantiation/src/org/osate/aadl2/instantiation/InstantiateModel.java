@@ -1811,38 +1811,47 @@ public class InstantiateModel {
 	// --------------------------------------------------------------------------------------------
 
 	protected InstantiatedClassifier getInstantiatedClassifier(InstanceObject iobj) {
-		return getInstantiatedClassifier(iobj, 0);
+		return getInstantiatedClassifier(iobj, 0, classifierCache);
 	}
 
-	protected InstantiatedClassifier getInstantiatedClassifier(InstanceObject iobj, int index) {
+	protected InstantiatedClassifier getInstantiatedClassifier(InstanceObject iobj, int index,
+			HashMap<InstanceObject, InstantiatedClassifier> classifierCache) {
 		return InstanceUtil.getInstantiatedClassifier(iobj, index, classifierCache);
 	}
 
 	protected ComponentType getComponentType(ComponentInstance ci) {
-		return getComponentType(ci, 0);
+		return getComponentType(ci, 0, classifierCache);
 	}
 
-	protected ComponentType getComponentType(ComponentInstance ci, int index) {
+	protected ComponentType getComponentType(ComponentInstance ci, int index,
+			HashMap<InstanceObject, InstantiatedClassifier> classifierCache) {
 		return InstanceUtil.getComponentType(ci, index, classifierCache);
 	}
 
 	protected ComponentImplementation getComponentImplementation(ComponentInstance ci) {
-		return getComponentImplementation(ci, 0);
+		return getComponentImplementation(ci, 0, classifierCache);
 	}
 
-	protected ComponentImplementation getComponentImplementation(ComponentInstance ci, int index) {
+	protected ComponentImplementation getComponentImplementation(ComponentInstance ci, int index,
+			HashMap<InstanceObject, InstantiatedClassifier> classifierCache) {
 		return InstanceUtil.getComponentImplementation(ci, index, classifierCache);
 	}
 
 	protected FeatureGroupType getFeatureGroupType(FeatureInstance fi) {
-		return getFeatureGroupType(fi, 0);
+		return getFeatureGroupType(fi, 0, classifierCache);
 	}
 
-	protected FeatureGroupType getFeatureGroupType(FeatureInstance fi, int index) {
+	protected FeatureGroupType getFeatureGroupType(FeatureInstance fi, int index,
+			HashMap<InstanceObject, InstantiatedClassifier> classifierCache) {
 		return InstanceUtil.getFeatureGroupType(fi, index, classifierCache);
 	}
 
 	protected FeaturePrototypeActual resolveFeaturePrototype(ComponentPrototype proto, FeatureInstance fi) {
+		return resolveFeaturePrototype(proto, fi, classifierCache);
+	}
+
+	protected FeaturePrototypeActual resolveFeaturePrototype(ComponentPrototype proto, FeatureInstance fi,
+			HashMap<InstanceObject, InstantiatedClassifier> classifierCache) {
 		return InstanceUtil.resolveFeaturePrototype(proto, fi, classifierCache);
 	}
 
