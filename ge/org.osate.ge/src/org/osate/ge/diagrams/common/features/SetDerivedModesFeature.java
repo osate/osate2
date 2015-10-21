@@ -75,7 +75,7 @@ public class SetDerivedModesFeature extends AbstractCustomFeature {
 		
 		// Only allow setting the value if the new value would be different, the classifier contains nodes, and the classifier has not inherited any modes or mode transitions
 		final ComponentClassifier cc = (ComponentClassifier)bo;
-		return cc.isDerivedModes() != derivedModes && (cc.getOwnedModes().size() > 0 || cc.getOwnedModeTransitions().size() > 0) && cc.getAllModes().size() == cc.getOwnedModes().size() && cc.getAllModeTransitions().size() == cc.getOwnedModeTransitions().size() ;
+		return cc.isDerivedModes() != derivedModes && (cc.getOwnedModes().size() > 0 || cc.getOwnedModeTransitions().size() > 0) && cc.getAllModes().size() == cc.getOwnedModes().size() && cc.getAllModeTransitions().size() == cc.getOwnedModeTransitions().size();
 	}
 	
     @Override

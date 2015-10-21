@@ -24,6 +24,7 @@ import org.osate.aadl2.FeatureGroupType;
 import org.osate.aadl2.NamedElement;
 import org.osate.aadl2.Subcomponent;
 import org.osate.ge.diagrams.common.AadlElementWrapper;
+import org.osate.ge.services.BusinessObjectResolutionService;
 import org.osate.ge.services.DiagramService;
 import org.osate.ge.services.SubcomponentService;
 
@@ -35,12 +36,14 @@ import org.osate.ge.services.SubcomponentService;
 public class DrillDownFeature extends AbstractCustomFeature {
 	private final SubcomponentService subcomponentService;
 	private final DiagramService diagramService;
+	private final BusinessObjectResolutionService bor;
 	
 	@Inject
-	public DrillDownFeature(final IFeatureProvider fp, final SubcomponentService subcomponentService, final DiagramService diagramService) {
+	public DrillDownFeature(final IFeatureProvider fp, final SubcomponentService subcomponentService, final DiagramService diagramService, final BusinessObjectResolutionService bor) {
 		super(fp);
 		this.subcomponentService = subcomponentService;
 		this.diagramService = diagramService;
+		this.bor = bor;
 	}
 
 	@Override
@@ -61,8 +64,9 @@ public class DrillDownFeature extends AbstractCustomFeature {
 		if(customCtx.getPictogramElements().length < 1) {
 			return false;
 		}
-		final Object bo = AadlElementWrapper.unwrap(getBusinessObjectForPictogramElement(pes[0]));
-		return bo instanceof ComponentType || bo instanceof ComponentImplementation || bo instanceof FeatureGroupType || bo instanceof Subcomponent;	
+		final Object bo = bor.getBusinessObjectForPictogramElement(pes[0]);
+		return bo != bor.getBusinessObjectForPictogramElement(getDiagram()) && 
+				(bo instanceof ComponentType || bo instanceof ComponentImplementation || bo instanceof FeatureGroupType || bo instanceof Subcomponent);	
 	}
     
     @Override
