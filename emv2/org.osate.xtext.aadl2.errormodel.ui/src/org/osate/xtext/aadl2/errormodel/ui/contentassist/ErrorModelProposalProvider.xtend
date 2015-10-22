@@ -25,15 +25,14 @@ import org.eclipse.xtext.Assignment
 import org.eclipse.xtext.CrossReference
 import org.eclipse.xtext.ui.editor.contentassist.ContentAssistContext
 import org.eclipse.xtext.ui.editor.contentassist.ICompletionProposalAcceptor
-import org.osate.aadl2.AadlPackage
-import org.osate.xtext.aadl2.errormodel.errorModel.ErrorBehaviorStateMachine
-import org.osate.xtext.aadl2.errormodel.errorModel.ErrorEvent
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorModelLibrary
-import org.osate.xtext.aadl2.errormodel.errorModel.ErrorModelSubclause
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorPath
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorPropagation
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorSink
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorSource
+import org.osate.xtext.aadl2.errormodel.errorModel.ErrorType
+import org.osate.xtext.aadl2.errormodel.errorModel.ErrorTypes
+import org.osate.xtext.aadl2.errormodel.errorModel.TypeSet
 
 import static extension org.eclipse.xtext.EcoreUtil2.getContainerOfType
 
@@ -48,19 +47,8 @@ class ErrorModelProposalProvider extends AbstractErrorModelProposalProvider {
 	}
 	
 	override completeTypeDefinition_SuperType(EObject model, Assignment assignment, ContentAssistContext context, ICompletionProposalAcceptor acceptor) {
-		val containingEML = model.getContainerOfType(ErrorModelLibrary)
-		val results = new ArrayList<ErrorModelLibrary>() as List<ErrorModelLibrary>
-		results.add(containingEML)
-		val extendedNames = containingEML.getExtendedLibraries(results).map([it.getContainerOfType(AadlPackage).name])
-
 		lookupCrossReference(assignment.getTerminal() as CrossReference, context, acceptor,
-			[
-				switch it.qualifiedName.segmentCount{
-					case 1 : true
-					case 2 : !extendedNames.exists[en | qualifiedName.segments.head.equalsIgnoreCase(en)]
-					default : false
-				}
-			])
+			[!(name.toString.equalsIgnoreCase((model as ErrorType).name))])
 	}
 	
 	def List<ErrorModelLibrary> getExtendedLibraries(ErrorModelLibrary eml, List<ErrorModelLibrary> results){
@@ -71,48 +59,63 @@ class ErrorModelProposalProvider extends AbstractErrorModelProposalProvider {
 	}
 	
 	override completeTypeSetElement_Type(EObject model, Assignment assignment, ContentAssistContext context, ICompletionProposalAcceptor acceptor) {
-		switch model.eContainer{
-			ErrorPropagation, ErrorSource, ErrorSink, ErrorPath : {
-				if (model.getContainerOfType(ErrorModelSubclause) != null){
-					lookupCrossReference(assignment.getTerminal() as CrossReference, context, acceptor,
-					[
-						switch it.qualifiedName.segmentCount{
-							case 1 : true
-							default : false
-						}
-					])
-					
-				} else {
-					super.completeTypeSetElement_Type(model, assignment, context, acceptor)
-				}
+		val modelContainer = model.eContainer
+		switch modelContainer{
+			ErrorPath case modelContainer.incoming != null : {
+				filterErrorPropagationTokenTypes( modelContainer.incoming, model, assignment, context, acceptor)
 			}
-			ErrorEvent : {
-				if (model.getContainerOfType(ErrorBehaviorStateMachine) != null) {
-					val emls = model.getContainerOfType(ErrorBehaviorStateMachine).useTypes 
-					val results = new ArrayList<ErrorModelLibrary>() as List<ErrorModelLibrary>
-					emls.forEach[eml | 
-						results.add(eml)
-						eml.getExtendedLibraries(results)
-					]
-					val extendedNames = results.map([it.getContainerOfType(AadlPackage).name])
-					lookupCrossReference(assignment.getTerminal() as CrossReference, context, acceptor,
-					[
-						if (extendedNames.nullOrEmpty){
-							true
-						} else {
-							switch it.qualifiedName.segmentCount{
-								case 1 : false
-								case 2 : extendedNames.exists[en | qualifiedName.segments.head.equalsIgnoreCase(en)]
-								default : false
-							}
-						}
-					])
-				} else {
-					super.completeTypeSetElement_Type(model, assignment, context, acceptor)
-				}
+			TypeSet case modelContainer.getContainerOfType(ErrorPath)?.incoming != null : {
+				filterErrorPropagationTokenTypes( modelContainer.getContainerOfType(ErrorPath).incoming, model, assignment, context, acceptor)
 			}
-			default : super.completeTypeSetElement_Type(model, assignment, context, acceptor)		
+			TypeSet case modelContainer.getContainerOfType(ErrorSource)?.outgoing != null : {
+				filterErrorPropagationTokenTypes(modelContainer.getContainerOfType(ErrorSource).outgoing, model, assignment, context, acceptor)
+			}
+			TypeSet case modelContainer.getContainerOfType(ErrorSink)?.incoming != null : {
+				filterErrorPropagationTokenTypes(modelContainer.getContainerOfType(ErrorSink).incoming, model, assignment, context, acceptor)
+			}
+			ErrorSource case modelContainer.outgoing != null : {
+				filterErrorPropagationTokenTypes(modelContainer.outgoing, model, assignment, context, acceptor)
+			}
+			ErrorSink case modelContainer.incoming != null : {
+				filterErrorPropagationTokenTypes(modelContainer.incoming, model, assignment, context, acceptor)
+			}
+			default : super.completeTypeSetElement_Type(model, assignment, context, acceptor)
 		}
+	}
+
+	override void completeTypeToken_Type(EObject model, Assignment assignment, ContentAssistContext context, ICompletionProposalAcceptor acceptor) {
+		val modelContainer = model.eContainer
+		switch modelContainer{
+			ErrorPath case modelContainer.outgoing != null : {
+				filterErrorPropagationTokenTypes( modelContainer.outgoing, model, assignment, context, acceptor)
+			}
+			default : super.completeTypeToken_Type(model, assignment, context, acceptor)
+		}
+	}
+
+	def filterErrorPropagationTokenTypes(ErrorPropagation errorPropagation, EObject model, Assignment assignment, ContentAssistContext context, ICompletionProposalAcceptor acceptor){
+		val validErrorTypesList = new ArrayList<ErrorTypes> 
+		val validWithSuperTypes = new ArrayList<ErrorTypes>
+		errorPropagation.typeSet.typeTokens.forEach[token | token.type.getValidTypes( validErrorTypesList) ]
+		validErrorTypesList.forEach[errorType | errorType.getSuperTypes(validWithSuperTypes)]
+		lookupCrossReference(assignment.getTerminal() as CrossReference, context, acceptor,
+		[validWithSuperTypes.contains(EcoreUtil.resolve(EObjectOrProxy, model))])
+	}
+
+	def List<ErrorTypes> getValidTypes(List<ErrorTypes> etsIn, List<ErrorTypes> validErrorTypesList){
+		etsIn?.forEach[ets | 
+			if (ets != null) {
+				if (!validErrorTypesList.contains(ets)) validErrorTypesList.add(ets)
+				if (ets instanceof TypeSet) ets.typeTokens?.forEach[token | token?.type?.getValidTypes(validErrorTypesList)]
+			}
+		]
+		validErrorTypesList
+	}
+
+	def List<ErrorTypes> getSuperTypes(ErrorTypes et, List<ErrorTypes> results){
+		if (!results.contains(et)) results.add(et)
+		if (et instanceof ErrorType){et.superType?.getSuperTypes(results)}
+		results
 	}
 
 }
