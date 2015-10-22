@@ -36,7 +36,9 @@ class ErrorModelScopeProviderTest extends OsateTest {
 			package pkg
 			public
 				annex EMV2 {**
-					error types extends ErrorLibrary with
+					error types
+						use types ErrorLibrary;
+						extends ErrorLibrary with
 					end types;
 					
 					error behavior b
@@ -86,6 +88,8 @@ class ErrorModelScopeProviderTest extends OsateTest {
 			publicSection => [
 				(ownedAnnexLibraries.head as DefaultAnnexLibrary).parsedAnnexLibrary as ErrorModelLibrary => [
 					//Tests scope_ErrorModelLibrary
+					assertScopeModelUnitNamesOnly(ErrorModelPackage.eINSTANCE.errorModelLibrary_UseTypes, #["pkg"])
+					//Tests scope_ErrorModelLibrary
 					assertScopeModelUnitNamesOnly(ErrorModelPackage.eINSTANCE.errorModelLibrary_Extends, #["pkg"])
 					behaviors.head => [
 						"b".assertEquals(name)
@@ -134,18 +138,23 @@ class ErrorModelScopeProviderTest extends OsateTest {
 		assertConstraints(issueCollection)
 	}
 	
-	//Tests scope_ErrorType and scope_TypeSet_aliasedType
+	//Tests scope_ErrorType
 	@Test
-	def void testErrorTypesReference() {
+	def void testErrorTypeReference() {
 		val lib1FileName = "lib1.aadl"
 		val lib2FileName = "lib2.aadl"
+		val lib3FileName = "lib3.aadl"
+		val lib4FileName = "lib4.aadl"
+		val lib5FileName = "lib5.aadl"
+		val lib6FileName = "lib6.aadl"
 		createFiles(lib1FileName -> '''
 			package lib1
 			public
 				annex EMV2 {**
 					error types
 						t1: type;
-						ts1: type set {t1};
+						conflict1: type;
+						conflict2: type;
 					end types;
 				**};
 			end lib1;
@@ -155,47 +164,142 @@ class ErrorModelScopeProviderTest extends OsateTest {
 				annex EMV2 {**
 					error types extends lib1 with
 						t2: type;
-						ts2: type set {t2};
 					end types;
 				**};
 			end lib2;
+		''', lib3FileName -> '''
+			package lib3
+			public
+				annex EMV2 {**
+					error types
+						t3: type;
+						conflict1: type;
+					end types;
+				**};
+			end lib3;
+		''', lib4FileName -> '''
+			package lib4
+			public
+				annex EMV2 {**
+					error types extends lib3 with
+						t4: type;
+					end types;
+				**};
+			end lib4;
+		''', lib5FileName -> '''
+			package lib5
+			public
+				annex EMV2 {**
+					error types extends lib1 with
+					end types;
+				**};
+			end lib5;
+		''', lib6FileName -> '''
+			package lib6
+			public
+				annex EMV2 {**
+					error types
+						use types lib2, lib5;
+						extends lib4 with
+						
+						conflict2: type;
+						t6: type;
+					end types;
+				**};
+			end lib6;
 		''')
 		suppressSerialization
 		val lib1TestResult = testFile(lib1FileName)
 		val lib2TestResult = testFile(lib2FileName)
+		val lib3TestResult = testFile(lib3FileName)
+		val lib4TestResult = testFile(lib4FileName)
+		val lib6TestResult = testFile(lib6FileName)
 		lib1TestResult.resource.contents.head as AadlPackage => [
 			"lib1".assertEquals(name)
 			(publicSection.ownedAnnexLibraries.head as DefaultAnnexLibrary).parsedAnnexLibrary as ErrorModelLibrary => [
-				types.head => [
+				val expectedTypeScope = #["t1", "conflict1", "conflict2"]
+				types.get(0) => [
 					"t1".assertEquals(name)
-					val expectedScope = #["t1", "lib1::t1", "lib2::t1", "lib2::t2"]
 					//Tests scope_ErrorType
-					assertScope(ErrorModelPackage.eINSTANCE.errorType_SuperType, expectedScope)
+					assertScope(ErrorModelPackage.eINSTANCE.errorType_SuperType, expectedTypeScope)
 					//Tests scope_ErrorType
-					assertScope(ErrorModelPackage.eINSTANCE.errorType_AliasedType, expectedScope)
+					assertScope(ErrorModelPackage.eINSTANCE.errorType_AliasedType, expectedTypeScope)
 				]
-				typesets.head => [
-					"ts1".assertEquals(name)
-					//Tests scope_TypeSet_aliasedType
-					assertScope(ErrorModelPackage.eINSTANCE.typeSet_AliasedType, #["ts1", "lib1::ts1", "lib2::ts1", "lib2::ts2"])
+				types.get(1) => [
+					"conflict1".assertEquals(name)
+					//Tests scope_ErrorType
+					assertScope(ErrorModelPackage.eINSTANCE.errorType_SuperType, expectedTypeScope)
+					//Tests scope_ErrorType
+					assertScope(ErrorModelPackage.eINSTANCE.errorType_AliasedType, expectedTypeScope)
+				]
+				types.get(2) => [
+					"conflict2".assertEquals(name)
+					//Tests scope_ErrorType
+					assertScope(ErrorModelPackage.eINSTANCE.errorType_SuperType, expectedTypeScope)
+					//Tests scope_ErrorType
+					assertScope(ErrorModelPackage.eINSTANCE.errorType_AliasedType, expectedTypeScope)
 				]
 			]
 		]
 		lib2TestResult.resource.contents.head as AadlPackage => [
 			"lib2".assertEquals(name)
+			((publicSection.ownedAnnexLibraries.head as DefaultAnnexLibrary).parsedAnnexLibrary as ErrorModelLibrary).types.head => [
+				"t2".assertEquals(name)
+				val expectedTypeScope = #["t1", "conflict1", "conflict2", "t2"]
+				//Tests scope_ErrorType
+				assertScope(ErrorModelPackage.eINSTANCE.errorType_SuperType, expectedTypeScope)
+				//Tests scope_ErrorType
+				assertScope(ErrorModelPackage.eINSTANCE.errorType_AliasedType, expectedTypeScope)
+			]
+		]
+		lib3TestResult.resource.contents.head as AadlPackage => [
+			"lib3".assertEquals(name)
 			(publicSection.ownedAnnexLibraries.head as DefaultAnnexLibrary).parsedAnnexLibrary as ErrorModelLibrary => [
-				types.head => [
-					"t2".assertEquals(name)
-					val expectedScope = #["t1", "t2", "lib1::t1", "lib2::t1", "lib2::t2"]
+				val expectedTypeScope = #["t3", "conflict1"]
+				types.get(0) => [
+					"t3".assertEquals(name)
 					//Tests scope_ErrorType
-					assertScope(ErrorModelPackage.eINSTANCE.errorType_SuperType, expectedScope)
+					assertScope(ErrorModelPackage.eINSTANCE.errorType_SuperType, expectedTypeScope)
 					//Tests scope_ErrorType
-					assertScope(ErrorModelPackage.eINSTANCE.errorType_AliasedType, expectedScope)
+					assertScope(ErrorModelPackage.eINSTANCE.errorType_AliasedType, expectedTypeScope)
 				]
-				typesets.head => [
-					"ts2".assertEquals(name)
-					//Tests scope_TypeSet_aliasedType
-					assertScope(ErrorModelPackage.eINSTANCE.typeSet_AliasedType, #["ts1", "ts2", "lib1::ts1", "lib2::ts1", "lib2::ts2"])
+				types.get(1) => [
+					"conflict1".assertEquals(name)
+					//Tests scope_ErrorType
+					assertScope(ErrorModelPackage.eINSTANCE.errorType_SuperType, expectedTypeScope)
+					//Tests scope_ErrorType
+					assertScope(ErrorModelPackage.eINSTANCE.errorType_AliasedType, expectedTypeScope)
+				]
+			]
+		]
+		lib4TestResult.resource.contents.head as AadlPackage => [
+			"lib4".assertEquals(name)
+			((publicSection.ownedAnnexLibraries.head as DefaultAnnexLibrary).parsedAnnexLibrary as ErrorModelLibrary).types.head => [
+				"t4".assertEquals(name)
+				val expectedTypeScope = #["t3", "conflict1", "t4"]
+				//Tests scope_ErrorType
+				assertScope(ErrorModelPackage.eINSTANCE.errorType_SuperType, expectedTypeScope)
+				//Tests scope_ErrorType
+				assertScope(ErrorModelPackage.eINSTANCE.errorType_AliasedType, expectedTypeScope)
+			]
+		]
+		lib6TestResult.resource.contents.head as AadlPackage => [
+			"lib6".assertEquals(name)
+			(publicSection.ownedAnnexLibraries.head as DefaultAnnexLibrary).parsedAnnexLibrary as ErrorModelLibrary => [
+				val expectedTypeScope = #["t1", "lib2::conflict1", "lib2::conflict2", "t2", "lib5::conflict1", "lib5::conflict2", "t3", "conflict1", "t4", "conflict2", "t6"]
+				types.get(0) => [
+					"conflict2".assertEquals(name)
+					//Tests scope_ErrorType
+					assertScope(ErrorModelPackage.eINSTANCE.errorType_SuperType, expectedTypeScope)
+					//Tests scope_ErrorType
+					assertScope(ErrorModelPackage.eINSTANCE.errorType_AliasedType, expectedTypeScope)
+				]
+				types.get(1) => [
+					"t6".assertEquals(name)
+					//Tests scope_ErrorType
+					assertScope(ErrorModelPackage.eINSTANCE.errorType_SuperType, expectedTypeScope)
+					//Tests scope_ErrorType
+					assertScope(ErrorModelPackage.eINSTANCE.errorType_AliasedType, expectedTypeScope)
 				]
 			]
 		]
