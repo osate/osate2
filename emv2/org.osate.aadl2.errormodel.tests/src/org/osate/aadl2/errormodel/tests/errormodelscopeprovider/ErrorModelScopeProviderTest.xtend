@@ -138,7 +138,7 @@ class ErrorModelScopeProviderTest extends OsateTest {
 		assertConstraints(issueCollection)
 	}
 	
-	//Tests scope_ErrorType
+	//Tests scope_ErrorType and scope_TypeSet_aliasedType
 	@Test
 	def void testErrorTypeReference() {
 		val lib1FileName = "lib1.aadl"
@@ -155,6 +155,10 @@ class ErrorModelScopeProviderTest extends OsateTest {
 						t1: type;
 						conflict1: type;
 						conflict2: type;
+						
+						ts1: type set {t1};
+						conflict_ts1: type set {t1};
+						conflict_ts2: type set {t1};
 					end types;
 				**};
 			end lib1;
@@ -164,6 +168,8 @@ class ErrorModelScopeProviderTest extends OsateTest {
 				annex EMV2 {**
 					error types extends lib1 with
 						t2: type;
+						
+						ts2: type set {t2};
 					end types;
 				**};
 			end lib2;
@@ -174,6 +180,9 @@ class ErrorModelScopeProviderTest extends OsateTest {
 					error types
 						t3: type;
 						conflict1: type;
+						
+						ts3: type set {t3};
+						conflict_ts1: type set {t3};
 					end types;
 				**};
 			end lib3;
@@ -183,6 +192,8 @@ class ErrorModelScopeProviderTest extends OsateTest {
 				annex EMV2 {**
 					error types extends lib3 with
 						t4: type;
+						
+						ts4: type set {t4};
 					end types;
 				**};
 			end lib4;
@@ -204,6 +215,9 @@ class ErrorModelScopeProviderTest extends OsateTest {
 						
 						conflict2: type;
 						t6: type;
+						
+						conflict_ts2: type set {t6};
+						ts6: type set {t6};
 					end types;
 				**};
 			end lib6;
@@ -239,17 +253,41 @@ class ErrorModelScopeProviderTest extends OsateTest {
 					//Tests scope_ErrorType
 					assertScope(ErrorModelPackage.eINSTANCE.errorType_AliasedType, expectedTypeScope)
 				]
+				
+				val expectedTypeSetScope = #["ts1", "conflict_ts1", "conflict_ts2"]
+				typesets.get(0) => [
+					"ts1".assertEquals(name)
+					//Tests scope_TypeSet_aliasedType
+					assertScope(ErrorModelPackage.eINSTANCE.typeSet_AliasedType, expectedTypeSetScope)
+				]
+				typesets.get(1) => [
+					"conflict_ts1".assertEquals(name)
+					//Tests scope_TypeSet_aliasedType
+					assertScope(ErrorModelPackage.eINSTANCE.typeSet_AliasedType, expectedTypeSetScope)
+				]
+				typesets.get(2) => [
+					"conflict_ts2".assertEquals(name)
+					//Tests scope_TypeSet_aliasedType
+					assertScope(ErrorModelPackage.eINSTANCE.typeSet_AliasedType, expectedTypeSetScope)
+				]
 			]
 		]
 		lib2TestResult.resource.contents.head as AadlPackage => [
 			"lib2".assertEquals(name)
-			((publicSection.ownedAnnexLibraries.head as DefaultAnnexLibrary).parsedAnnexLibrary as ErrorModelLibrary).types.head => [
-				"t2".assertEquals(name)
-				val expectedTypeScope = #["t1", "conflict1", "conflict2", "t2"]
-				//Tests scope_ErrorType
-				assertScope(ErrorModelPackage.eINSTANCE.errorType_SuperType, expectedTypeScope)
-				//Tests scope_ErrorType
-				assertScope(ErrorModelPackage.eINSTANCE.errorType_AliasedType, expectedTypeScope)
+			(publicSection.ownedAnnexLibraries.head as DefaultAnnexLibrary).parsedAnnexLibrary as ErrorModelLibrary => [
+				types.head => [
+					"t2".assertEquals(name)
+					val expectedTypeScope = #["t1", "conflict1", "conflict2", "t2"]
+					//Tests scope_ErrorType
+					assertScope(ErrorModelPackage.eINSTANCE.errorType_SuperType, expectedTypeScope)
+					//Tests scope_ErrorType
+					assertScope(ErrorModelPackage.eINSTANCE.errorType_AliasedType, expectedTypeScope)
+				]
+				typesets.head => [
+					"ts2".assertEquals(name)
+					//Tests scope_TypeSet_aliasedType
+					assertScope(ErrorModelPackage.eINSTANCE.typeSet_AliasedType, #["ts1", "conflict_ts1", "conflict_ts2", "ts2"])
+				]
 			]
 		]
 		lib3TestResult.resource.contents.head as AadlPackage => [
@@ -270,17 +308,36 @@ class ErrorModelScopeProviderTest extends OsateTest {
 					//Tests scope_ErrorType
 					assertScope(ErrorModelPackage.eINSTANCE.errorType_AliasedType, expectedTypeScope)
 				]
+				
+				val expectedTypeSetScope = #["ts3", "conflict_ts1"]
+				typesets.get(0) => [
+					"ts3".assertEquals(name)
+					//Tests scope_TypeSet_aliasedType
+					assertScope(ErrorModelPackage.eINSTANCE.typeSet_AliasedType, expectedTypeSetScope)
+				]
+				typesets.get(1) => [
+					"conflict_ts1".assertEquals(name)
+					//Tests scope_TypeSet_aliasedType
+					assertScope(ErrorModelPackage.eINSTANCE.typeSet_AliasedType, expectedTypeSetScope)
+				]
 			]
 		]
 		lib4TestResult.resource.contents.head as AadlPackage => [
 			"lib4".assertEquals(name)
-			((publicSection.ownedAnnexLibraries.head as DefaultAnnexLibrary).parsedAnnexLibrary as ErrorModelLibrary).types.head => [
-				"t4".assertEquals(name)
-				val expectedTypeScope = #["t3", "conflict1", "t4"]
-				//Tests scope_ErrorType
-				assertScope(ErrorModelPackage.eINSTANCE.errorType_SuperType, expectedTypeScope)
-				//Tests scope_ErrorType
-				assertScope(ErrorModelPackage.eINSTANCE.errorType_AliasedType, expectedTypeScope)
+			(publicSection.ownedAnnexLibraries.head as DefaultAnnexLibrary).parsedAnnexLibrary as ErrorModelLibrary => [
+				types.head => [
+					"t4".assertEquals(name)
+					val expectedTypeScope = #["t3", "conflict1", "t4"]
+					//Tests scope_ErrorType
+					assertScope(ErrorModelPackage.eINSTANCE.errorType_SuperType, expectedTypeScope)
+					//Tests scope_ErrorType
+					assertScope(ErrorModelPackage.eINSTANCE.errorType_AliasedType, expectedTypeScope)
+				]
+				typesets.head => [
+					"ts4".assertEquals(name)
+					//Tests scope_TypeSet_aliasedType
+					assertScope(ErrorModelPackage.eINSTANCE.typeSet_AliasedType, #["ts3", "conflict_ts1", "ts4"])
+				]
 			]
 		]
 		lib6TestResult.resource.contents.head as AadlPackage => [
@@ -300,6 +357,18 @@ class ErrorModelScopeProviderTest extends OsateTest {
 					assertScope(ErrorModelPackage.eINSTANCE.errorType_SuperType, expectedTypeScope)
 					//Tests scope_ErrorType
 					assertScope(ErrorModelPackage.eINSTANCE.errorType_AliasedType, expectedTypeScope)
+				]
+				
+				val expectedTypeSetScope = #["ts1", "lib2::conflict_ts1", "lib2::conflict_ts2", "ts2", "lib5::conflict_ts1", "lib5::conflict_ts2", "ts3", "conflict_ts1", "ts4", "conflict_ts2", "ts6"]
+				typesets.get(0) => [
+					"conflict_ts2".assertEquals(name)
+					//Tests scope_TypeSet_aliasedType
+					assertScope(ErrorModelPackage.eINSTANCE.typeSet_AliasedType, expectedTypeSetScope)
+				]
+				typesets.get(1) => [
+					"ts6".assertEquals(name)
+					//Tests scope_TypeSet_aliasedType
+					assertScope(ErrorModelPackage.eINSTANCE.typeSet_AliasedType, expectedTypeSetScope)
 				]
 			]
 		]

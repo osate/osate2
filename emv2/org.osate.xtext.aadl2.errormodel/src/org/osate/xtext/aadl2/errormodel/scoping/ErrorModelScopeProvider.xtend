@@ -22,9 +22,9 @@ import org.osate.xtext.aadl2.errormodel.errorModel.ErrorModelSubclause
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorPath
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorSink
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorSource
+import org.osate.xtext.aadl2.errormodel.errorModel.ErrorTypes
 import org.osate.xtext.aadl2.errormodel.errorModel.FeatureorPPReference
 import org.osate.xtext.aadl2.errormodel.errorModel.TypeMappingSet
-import org.osate.xtext.aadl2.errormodel.errorModel.TypeSet
 import org.osate.xtext.aadl2.errormodel.errorModel.TypeTransformationSet
 import org.osate.xtext.aadl2.errormodel.serializer.ErrorModelCrossReferenceSerializer
 import org.osate.xtext.aadl2.properties.scoping.PropertiesScopeProvider
@@ -76,13 +76,6 @@ class ErrorModelScopeProvider extends PropertiesScopeProvider {
 	}
 	
 	
-	def scope_TypeSet_aliasedType(TypeSet context, EReference reference) {
-		val errorLibs = getErrorLibsFromContext(context);
-		val errorTypeset = errorLibs.map[it | allTypesets].flatten();
-		return errorTypeset.scopeFor();
-
-	}
-
 	def getEBSMfromContext(EObject context){
 		val ebsm =  EcoreUtil2.getContainerOfType(context, ErrorBehaviorStateMachine);
 		if (ebsm != null) return ebsm;
@@ -157,39 +150,12 @@ class ErrorModelScopeProvider extends PropertiesScopeProvider {
 		scopeWithoutEMV2Prefix(context, reference)
 	}
 	
-	/*
-	 * The general rule of this scope is that ErrorTypes must be referred to by their simple name, not a qualified name.
-	 * A qualified name is only legal if it is used to disambiguate two different ErrorTypes with the same name coming
-	 * from different ErrorModelLibraries in the useTypes.  In the event of a naming conflict, a reference to an ErrorType
-	 * is qualified with the name of the appropriate library listed in the useTypes.  This may not be the same as the
-	 * library which contains the ErrorType definition.
-	 * 
-	 * This probably needs to be redesigned.  It may be better to include all simple names and all qualified names in the
-	 * scope and then have the validator place errors on ambiguous simple names and warnings on unnecessary qualified names.
-	 */
 	def scope_ErrorType(ErrorModelLibrary context, EReference reference) {
-		val useTypesPerLib = newHashMap(context.useTypes.map[getContainerOfType(AadlPackage).name -> allErrorTypes.toSet])
-		
-		val contextTypes = context.allErrorTypes.toSet
-		val partitionResult = (useTypesPerLib.values.flatten + contextTypes).toSet.groupBy[name.toLowerCase].values.stream.collect(Collectors.partitioningBy[size == 1])
-		
-		//Add simple names to the scope for all ErrorTypes that do not have a naming conflict.
-		val noConflictsDescriptions = partitionResult.get(true).flatten.map[EObjectDescription.create(QualifiedName.create(name), it)]
-		
-		val conflictsDescriptions = partitionResult.get(false).map[map[if (contextTypes.contains(it)) {
-			//For ErrorTypes that are locally contained in context or are in the extends hierarchy, they are refered to by their simple name.
-			#[EObjectDescription.create(QualifiedName.create(name), it)]
-		} else {
-			/*
-			 * For conflicting ErrorTypes that are contributed by the useTypes, they are qualified by the library names
-			 * listed in the useTypes which contributes this ErrorType.
-			 */
-			useTypesPerLib.filter[libraryName, visibleTypes | visibleTypes.contains(it)].keySet.map[libraryName |
-				EObjectDescription.create(QualifiedName.create(libraryName, name), it)
-			]
-		}]].flatten.flatten
-		
-		new SimpleScope(noConflictsDescriptions + conflictsDescriptions, true)
+		context.scopeForErrorTypes[allErrorTypes]
+	}
+	
+	def scope_TypeSet_aliasedType(ErrorModelLibrary context, EReference reference) {
+		context.scopeForErrorTypes[allTypesets]
 	}
 	
 	def scope_FeatureorPPReference_featureorPP(Classifier context, EReference reference) {
@@ -217,5 +183,40 @@ class ErrorModelScopeProvider extends PropertiesScopeProvider {
 				it
 			}
 		], true)
+	}
+	
+	/*
+	 * The general rule of this scope is that ErrorTypes must be referred to by their simple name, not a qualified name.
+	 * A qualified name is only legal if it is used to disambiguate two different ErrorTypes with the same name coming
+	 * from different ErrorModelLibraries in the useTypes.  In the event of a naming conflict, a reference to an ErrorTypes
+	 * is qualified with the name of the appropriate library listed in the useTypes.  This may not be the same as the
+	 * library which contains the ErrorTypes definition.
+	 * 
+	 * This probably needs to be redesigned.  It may be better to include all simple names and all qualified names in the
+	 * scope and then have the validator place errors on ambiguous simple names and warnings on unnecessary qualified names. 
+	 */
+	def private scopeForErrorTypes(ErrorModelLibrary context, (ErrorModelLibrary)=>Iterable<? extends ErrorTypes> elementGetter) {
+		val useTypesPerLib = newHashMap(context.useTypes.map[getContainerOfType(AadlPackage).name -> elementGetter.apply(it).toSet])
+		
+		val contextErrorTypes = elementGetter.apply(context).toSet
+		val partitionResult = (useTypesPerLib.values.flatten + contextErrorTypes).toSet.groupBy[name.toLowerCase].values.stream.collect(Collectors.partitioningBy[size == 1])
+		
+		//Add simple names to the scope for all ErrorTyeps that do not have a naming conflict.
+		val noConflictsDescriptions = partitionResult.get(true).flatten.map[EObjectDescription.create(QualifiedName.create(name), it)]
+		
+		val conflictsDescriptions = partitionResult.get(false).map[map[if (contextErrorTypes.contains(it)) {
+			//For ErrorTypes that are locally contained in context for are in the extends hierarchy, they are referred to by their simple name.
+			#[EObjectDescription.create(QualifiedName.create(name), it)]
+		} else {
+			/*
+			 * For conflicting ErrorTypes that are contributed by the useTyeps, they are qualified by the library names
+			 * listed in the useTypes which contributes this ErrorTypes.
+			 */
+			useTypesPerLib.filter[libraryName, visibleErrorTypes | visibleErrorTypes.contains(it)].keySet.map[libraryName |
+				EObjectDescription.create(QualifiedName.create(libraryName, name), it)
+			]
+		}]].flatten.flatten
+		
+		new SimpleScope(noConflictsDescriptions + conflictsDescriptions, true)
 	}
 }
