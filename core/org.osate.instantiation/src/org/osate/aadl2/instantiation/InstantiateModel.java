@@ -925,7 +925,7 @@ public class InstantiateModel {
 								"Could not resolve feature group type of feature group prototype "
 										+ fi.getInstanceObjectPath());
 				return;
-			} else if (ic.bindings.isEmpty()) {
+			} else if (ic.bindings != null && ic.bindings.isEmpty()) {
 				// prototype has not been bound yet
 				errManager.warning(fi, "Feature group prototype  of " + fi.getInstanceObjectPath()
 						+ " is not bound yet to feature group type");
