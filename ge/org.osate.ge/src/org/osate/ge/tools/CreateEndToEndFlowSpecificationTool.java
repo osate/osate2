@@ -70,9 +70,9 @@ import org.osate.ge.services.ShapeService;
 import org.osate.ge.services.UiService;
 import org.osate.ge.ui.util.DialogPlacementHelper;
 
-public class CreateEndToEndFlowTool {
+public class CreateEndToEndFlowSpecificationTool {
 	private ColoringService.Coloring coloring = null;
-	private CreateFlowsToolsDialog createEndToEndFlowDialog;
+	private CreateFlowsToolsDialog createEndToEndFlowSpecificationDialog;
 	private ComponentImplementation ci;
 	private IDiagramTypeProvider dtp;
 	private BusinessObjectResolutionService bor;
@@ -80,13 +80,13 @@ public class CreateEndToEndFlowTool {
 	private final List<PictogramElement> previouslySelectedPes = new ArrayList<PictogramElement>();
 
 	@Id
-	public final static String ID = "org.osate.ge.ui.tools.CreateEndToEndFlowTool";
+	public final static String ID = "org.osate.ge.ui.tools.CreateEndToEndFlowSpecificationTool";
 
 	@Description
 	public final static String DESCRIPTION = "Create End to End Flow Specification";
 
 	@Icon
-	public final static ImageDescriptor ICON = Activator.getImageDescriptor("icons/CreateEndToEndFlow.gif");
+	public final static ImageDescriptor ICON = Activator.getImageDescriptor("icons/CreateEndToEndFlowSpecification.gif");
 
 	@CanActivate
 	public boolean canActivate(final IDiagramTypeProvider dtp, final BusinessObjectResolutionService bor) {
@@ -109,19 +109,19 @@ public class CreateEndToEndFlowTool {
 			canActivate = false;
 			clearSelection(dtp);
 			final Display display = Display.getCurrent();
-			createEndToEndFlowDialog = new CreateFlowsToolsDialog(display.getActiveShell(), namingService);
-			if (createEndToEndFlowDialog.open() == Dialog.CANCEL) {
+			createEndToEndFlowSpecificationDialog = new CreateFlowsToolsDialog(display.getActiveShell(), namingService);
+			if (createEndToEndFlowSpecificationDialog.open() == Dialog.CANCEL) {
 				uiService.deactivateActiveTool();
 				canActivate = true;
 				previouslySelectedPes.clear();
 				return;
 			}
 
-			if (!createEndToEndFlowDialog.getFlows().isEmpty()) {
+			if (!createEndToEndFlowSpecificationDialog.getFlows().isEmpty()) {
 				aadlModService.modify(ci, new AbstractModifier<ComponentImplementation, Object>() {
 					@Override
 					public Object modify(final Resource resource, final ComponentImplementation ci) {
-						for (EndToEndFlow eteFlow : createEndToEndFlowDialog.getFlows()) {
+						for (EndToEndFlow eteFlow : createEndToEndFlowSpecificationDialog.getFlows()) {
 							ci.getOwnedEndToEndFlows().add(eteFlow);
 							ci.setNoFlows(false);
 						}
@@ -142,8 +142,8 @@ public class CreateEndToEndFlowTool {
 			public void execute() {
 				// Dispose of the coloring object
 				if (coloring != null) {
-					if (createEndToEndFlowDialog != null) {
-						createEndToEndFlowDialog.close();
+					if (createEndToEndFlowSpecificationDialog != null) {
+						createEndToEndFlowSpecificationDialog.close();
 					}
 					coloring.dispose();
 				}
@@ -180,23 +180,23 @@ public class CreateEndToEndFlowTool {
 					final Object bo = bor.getBusinessObjectForPictogramElement(pe);
 					final Context context = shapeService.getClosestBusinessObjectOfType(shape, Context.class);
 
-					if (createEndToEndFlowDialog != null) {
+					if (createEndToEndFlowSpecificationDialog != null) {
 						//if a PE has been removed, color it black
-						if(createEndToEndFlowDialog.getRemovedElement() != null) {
-							coloring.setForeground(createEndToEndFlowDialog.getRemovedElement(), Color.BLACK);
-							createEndToEndFlowDialog.setRemovedElement(null);
-						} else if (pe != null && createEndToEndFlowDialog.canAddSelectedElement(bo, context)) {
+						if(createEndToEndFlowSpecificationDialog.getRemovedElement() != null) {
+							coloring.setForeground(createEndToEndFlowSpecificationDialog.getRemovedElement(), Color.BLACK);
+							createEndToEndFlowSpecificationDialog.setRemovedElement(null);
+						} else if (pe != null && createEndToEndFlowSpecificationDialog.canAddSelectedElement(bo, context)) {
 							if (bo instanceof ModeFeature) {
 								coloring.setForeground(pe, Color.MAGENTA.brighter());
-							} else if (createEndToEndFlowDialog.eTEFlow != null && createEndToEndFlowDialog.eTEFlow.getAllFlowSegments().size() == 1) {
+							} else if (createEndToEndFlowSpecificationDialog.eTEFlow != null && createEndToEndFlowSpecificationDialog.eTEFlow.getAllFlowSegments().size() == 1) {
 								coloring.setForeground(pe, Color.ORANGE.darker());
 							} else {
 								coloring.setForeground(pe, Color.MAGENTA.darker());
 							}
 							previouslySelectedPes.add(pe);
 						}
-						if (createEndToEndFlowDialog.flowSegmentComposite != null && !createEndToEndFlowDialog.flowSegmentComposite.isDisposed()) {
-							createEndToEndFlowDialog.setMessage(getDialogMessage());
+						if (createEndToEndFlowSpecificationDialog.flowSegmentComposite != null && !createEndToEndFlowSpecificationDialog.flowSegmentComposite.isDisposed()) {
+							createEndToEndFlowSpecificationDialog.setMessage(getDialogMessage());
 						}
 					}
 				}
@@ -219,7 +219,7 @@ public class CreateEndToEndFlowTool {
 					msg = "Select a flow specification.";
 				}
 			} else {
-				return createEndToEndFlowDialog.getMessage();
+				return createEndToEndFlowSpecificationDialog.getMessage();
 			}
 		} else {
 			msg = "Select a starting flow specification.";
@@ -394,7 +394,7 @@ public class CreateEndToEndFlowTool {
 		}
 
 		private void updateWidgets() {
-			createEndToEndFlowDialog.setMessage(CreateEndToEndFlowTool.this.getDialogMessage());
+			createEndToEndFlowSpecificationDialog.setMessage(CreateEndToEndFlowSpecificationTool.this.getDialogMessage());
 			setNavigationButtonsEnabled(isCompleteAndValid() && eTEFlow.getName().length() != 0);
 		}
 
@@ -512,7 +512,7 @@ public class CreateEndToEndFlowTool {
 		@Override
 		protected void configureShell(final Shell newShell) {
 			super.configureShell(newShell);
-			newShell.setText("Create End To End Flow");
+			newShell.setText("Create End To End Flow Specification");
 			newShell.setLocation(DialogPlacementHelper.getOffsetRectangleLocation(Display.getCurrent().getActiveShell().getBounds(), 50, 50));
 			newShell.setSize(475, 275);
 			newShell.setImage(ICON.createImage());
@@ -523,7 +523,7 @@ public class CreateEndToEndFlowTool {
 		public void create() {
 			super.create();
 			setTitle("Select Elements");
-			setMessage(CreateEndToEndFlowTool.this.getDialogMessage());
+			setMessage(CreateEndToEndFlowSpecificationTool.this.getDialogMessage());
 		}
 
 		@Override
@@ -578,7 +578,7 @@ public class CreateEndToEndFlowTool {
 						errorMsg = null;
 					}
 					
-					createEndToEndFlowDialog.setErrorMessage(errorMsg);
+					createEndToEndFlowSpecificationDialog.setErrorMessage(errorMsg);
 					eTEFlow.setName(newETEFlowName.getText());
 					updateWidgets();
 				}

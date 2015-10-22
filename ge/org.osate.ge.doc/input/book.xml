@@ -321,12 +321,20 @@
 				<para>Internal details of subcomponents such as inner connections and subcomponents can be displayed within a diagram. The number of subcomponent levels to display is determined by the nesting depth. The nesting depth can be set to customize how many subcomponent levels to show. Anything beyond the specified nesting depth is hidden from the diagram.</para>
 				<section>
 					<title>Using the Increase and Decrease Nesting Depth Buttons to Select a Nesting Depth</title>
-					<para>Nesting depth can be set using the Increase and Decrease Nesting Depth buttons on the toolbar.</para>
+					<para>Nesting depth can be set using the Increase and Decrease Nesting Depth buttons on the toolbar.
+						<mediaobject><imageobject>
+    					<imagedata fileref="images/NestingButtonsToolbar.png" format="PNG"/>
+  						</imageobject></mediaobject>
+  					</para>
 				</section>
 				<section>
 					<title>Using the Depth Selector Drop-Down to Select a Nesting Depth</title>
 					<orderedlist>
-					<para>The nesting depth can be set using the depth selector on the toolbar.</para>
+					<para>The nesting depth can be set using the depth selector on the toolbar.
+						<mediaobject><imageobject>
+    						<imagedata fileref="images/NestingDropdownToolbar.png" format="PNG"/>
+  						</imageobject></mediaobject>
+  					</para>
 						<listitem>
 							<para>Select the depth selector drop-down.</para>
 						</listitem>
@@ -384,11 +392,15 @@
 				</section>
 			</section>
 			<section>
-				<title>Creating Flow Implementations and End-To-End Flows</title>
-				<para>When editing a component implementation, flow implementations and end-to-end flows can be created graphically by selecting the <emphasis>Create Flow Implementation</emphasis> and <emphasis>Create End-To-End Flow</emphasis> tools from the toolbar and following the prompts to select a series of elements from the diagram.  The dialog and colors of elements in the diagram will update as valid selections are made. The starting flow specification will be highlighted dark orange and flow elements will be highlighted purple.  The <emphasis>Undo</emphasis> button will remove the elements in the order they were selected.</para>
+				<title>Creating Flow Implementations and End-To-End Flow Specifications</title>
+				<para>When editing a component implementation, flow implementations and end-to-end flow specifications can be created graphically by selecting the <emphasis>Create Flow Implementation</emphasis> and <emphasis>Create End-To-End Flow Specification</emphasis> tools from the toolbar and following the prompts to select a series of elements from the diagram.  The dialog and colors of elements in the diagram will update as valid selections are made. The starting flow specification will be highlighted dark orange and flow elements will be highlighted purple.  The <emphasis>Undo</emphasis> button will remove the elements in the order they were selected.</para>
 			<section>
 				<title>Creating Flow Implementations</title>
-				<para>Select <emphasis>Create Flow Implementation</emphasis> from the toolbar, the dialog will appear.</para>
+				<para>Select <emphasis>Create Flow Implementation</emphasis> from the toolbar, the dialog will appear.
+					<mediaobject><imageobject>
+						<imagedata fileref="images/CreateFlowImplementationToolbar.png" format="PNG"/>
+					</imageobject></mediaobject>
+				</para>
 				<section>
 				<title>Creating Source Flow Implementations</title>
 					<orderedlist>
@@ -469,8 +481,12 @@
 				</section>
 			</section>
 			<section>
-				<title>Creating End-To-End Flows</title>
-				<para>Select <emphasis>Create End-To-End Flow</emphasis> from the toolbar, the dialog will appear.</para>
+				<title>Creating End-To-End Flow Specifications</title>
+				<para>Select <emphasis>Create End-To-End Flow Specification</emphasis> from the toolbar, the dialog will appear.
+					<mediaobject><imageobject>
+						<imagedata fileref="images/CreateEndToEndFlowSpecificationToolbar.png" format="PNG"/>
+					</imageobject></mediaobject>
+				</para>
 				<orderedlist>
 					<listitem>
 						<para>Select a valid subcomponent source flow specification.</para>
@@ -491,7 +507,7 @@
   						</imageobject></mediaobject>
 					</listitem>
 					<listitem>
-						<para>Specify a name for the End-To-End Flow and select <emphasis>OK</emphasis> when done.</para>
+						<para>Specify a name for the End-To-End Flow Specification and select <emphasis>OK</emphasis> when done.</para>
 					</listitem>
 				</orderedlist>
 			</section>
@@ -504,8 +520,8 @@
   				</imageobject></mediaobject>
 			</section>
 			<section>
-				<title>Highlighting Flow Implementations and End-to-End Flows</title>
-				<para>Selecting a flow implementation or end-to-end flow from the flow drop-down in the toolbar will highlight the flow.</para>
+				<title>Highlighting Flow Implementations and End-to-End Flow Specifications</title>
+				<para>Selecting a flow implementation or end-to-end flow specification from the flow drop-down in the toolbar will highlight the flow.</para>
 			</section>
 		</section>
 		<section>
@@ -576,7 +592,11 @@
 							<para>Select the diagram element for which to set the binding.</para>
 						</listitem>
 						<listitem>
-							<para>Select the <emphasis>Bind...</emphasis> button from the toolbar.</para>
+							<para>Select the <emphasis>Bind...</emphasis> button from the toolbar.
+							<mediaobject><imageobject>
+								<imagedata fileref="images/BindToolbar.png" format="PNG"/>
+							</imageobject></mediaobject>
+						</para>
 						</listitem>
 						<listitem>
 							<para>From the Bind dialog, select a binding property from the drop-down menu.</para>
