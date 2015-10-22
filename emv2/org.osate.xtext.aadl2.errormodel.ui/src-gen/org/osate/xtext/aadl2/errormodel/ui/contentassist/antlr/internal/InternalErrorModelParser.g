@@ -24585,12 +24585,12 @@ rule__TypeSetElement__TypeAssignment_1_1
     }
 :
 (
-{ before(grammarAccess.getTypeSetElementAccess().getTypeErrorTypeCrossReference_1_1_0()); }
+{ before(grammarAccess.getTypeSetElementAccess().getTypeErrorTypesCrossReference_1_1_0()); }
 (
-{ before(grammarAccess.getTypeSetElementAccess().getTypeErrorTypeQEMREFParserRuleCall_1_1_0_1()); }
-	ruleQEMREF{ after(grammarAccess.getTypeSetElementAccess().getTypeErrorTypeQEMREFParserRuleCall_1_1_0_1()); }
+{ before(grammarAccess.getTypeSetElementAccess().getTypeErrorTypesQEMREFParserRuleCall_1_1_0_1()); }
+	ruleQEMREF{ after(grammarAccess.getTypeSetElementAccess().getTypeErrorTypesQEMREFParserRuleCall_1_1_0_1()); }
 )
-{ after(grammarAccess.getTypeSetElementAccess().getTypeErrorTypeCrossReference_1_1_0()); }
+{ after(grammarAccess.getTypeSetElementAccess().getTypeErrorTypesCrossReference_1_1_0()); }
 )
 
 ;

@@ -65374,21 +65374,21 @@ public class InternalErrorModelParser extends AbstractInternalContentAssistParse
             // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:24587:1: ( ( ruleQEMREF ) )
             // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:24588:1: ( ruleQEMREF )
             {
-             before(grammarAccess.getTypeSetElementAccess().getTypeErrorTypeCrossReference_1_1_0()); 
+             before(grammarAccess.getTypeSetElementAccess().getTypeErrorTypesCrossReference_1_1_0()); 
             // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:24589:1: ( ruleQEMREF )
             // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:24590:1: ruleQEMREF
             {
-             before(grammarAccess.getTypeSetElementAccess().getTypeErrorTypeQEMREFParserRuleCall_1_1_0_1()); 
+             before(grammarAccess.getTypeSetElementAccess().getTypeErrorTypesQEMREFParserRuleCall_1_1_0_1()); 
             pushFollow(FollowSets002.FOLLOW_ruleQEMREF_in_rule__TypeSetElement__TypeAssignment_1_149416);
             ruleQEMREF();
 
             state._fsp--;
 
-             after(grammarAccess.getTypeSetElementAccess().getTypeErrorTypeQEMREFParserRuleCall_1_1_0_1()); 
+             after(grammarAccess.getTypeSetElementAccess().getTypeErrorTypesQEMREFParserRuleCall_1_1_0_1()); 
 
             }
 
-             after(grammarAccess.getTypeSetElementAccess().getTypeErrorTypeCrossReference_1_1_0()); 
+             after(grammarAccess.getTypeSetElementAccess().getTypeErrorTypesCrossReference_1_1_0()); 
 
             }
 
@@ -73447,20 +73447,15 @@ public class InternalErrorModelParser extends AbstractInternalContentAssistParse
     static final String DFA38_eofS =
         "\10\uffff\1\17\1\21\1\23\3\uffff\1\17\1\uffff\1\21\3\uffff\1\23";
     static final String DFA38_minS =
-        "\1\11\5\uffff\2\133\3\25\3\uffff\1\25\1\uffff\1\25\1\uffff\1\143"+
-        "\1\uffff\1\25";
+        "\1\11\5\uffff\2\133\3\25\3\uffff\1\25\1\uffff\1\25\1\uffff\1\143\1\uffff\1\25";
     static final String DFA38_maxS =
-        "\1\143\5\uffff\4\143\1\125\3\uffff\1\125\1\uffff\1\125\1\uffff"+
-        "\1\143\1\uffff\1\125";
+        "\1\143\5\uffff\4\143\1\125\3\uffff\1\125\1\uffff\1\125\1\uffff\1\143\1\uffff\1\125";
     static final String DFA38_acceptS =
-        "\1\uffff\1\1\1\2\1\3\1\4\1\5\5\uffff\1\11\1\12\1\6\1\uffff\1\7"+
-        "\1\uffff\1\10\1\uffff\1\13\1\uffff";
+        "\1\uffff\1\1\1\2\1\3\1\4\1\5\5\uffff\1\11\1\12\1\6\1\uffff\1\7\1\uffff\1\10\1\uffff\1\13\1\uffff";
     static final String DFA38_specialS =
         "\25\uffff}>";
     static final String[] DFA38_transitionS = {
-            "\1\3\6\uffff\1\2\6\uffff\1\4\22\uffff\1\14\13\uffff\1\14\26"+
-            "\uffff\1\13\2\uffff\1\6\1\uffff\1\7\3\uffff\1\1\4\uffff\1\11"+
-            "\3\uffff\1\10\2\uffff\1\5\1\12",
+            "\1\3\6\uffff\1\2\6\uffff\1\4\22\uffff\1\14\13\uffff\1\14\26\uffff\1\13\2\uffff\1\6\1\uffff\1\7\3\uffff\1\1\4\uffff\1\11\3\uffff\1\10\2\uffff\1\5\1\12",
             "",
             "",
             "",
@@ -73468,25 +73463,19 @@ public class InternalErrorModelParser extends AbstractInternalContentAssistParse
             "",
             "\1\11\3\uffff\1\10\3\uffff\1\15",
             "\1\11\3\uffff\1\10\3\uffff\1\15",
-            "\1\17\57\uffff\1\15\3\uffff\1\17\4\uffff\1\17\2\uffff\1\17"+
-            "\3\uffff\1\17\15\uffff\1\16",
-            "\1\21\57\uffff\1\15\3\uffff\1\21\4\uffff\1\21\2\uffff\1\21"+
-            "\3\uffff\1\21\15\uffff\1\20",
-            "\1\23\57\uffff\1\15\1\22\2\uffff\1\23\4\uffff\1\23\2\uffff"+
-            "\1\23\3\uffff\1\23",
+            "\1\17\57\uffff\1\15\3\uffff\1\17\4\uffff\1\17\2\uffff\1\17\3\uffff\1\17\15\uffff\1\16",
+            "\1\21\57\uffff\1\15\3\uffff\1\21\4\uffff\1\21\2\uffff\1\21\3\uffff\1\21\15\uffff\1\20",
+            "\1\23\57\uffff\1\15\1\22\2\uffff\1\23\4\uffff\1\23\2\uffff\1\23\3\uffff\1\23",
             "",
             "",
             "",
-            "\1\17\57\uffff\1\15\3\uffff\1\17\4\uffff\1\17\2\uffff\1\17"+
-            "\3\uffff\1\17",
+            "\1\17\57\uffff\1\15\3\uffff\1\17\4\uffff\1\17\2\uffff\1\17\3\uffff\1\17",
             "",
-            "\1\21\57\uffff\1\15\3\uffff\1\21\4\uffff\1\21\2\uffff\1\21"+
-            "\3\uffff\1\21",
+            "\1\21\57\uffff\1\15\3\uffff\1\21\4\uffff\1\21\2\uffff\1\21\3\uffff\1\21",
             "",
             "\1\24",
             "",
-            "\1\23\57\uffff\1\15\3\uffff\1\23\4\uffff\1\23\2\uffff\1\23"+
-            "\3\uffff\1\23"
+            "\1\23\57\uffff\1\15\3\uffff\1\23\4\uffff\1\23\2\uffff\1\23\3\uffff\1\23"
     };
 
     static final short[] DFA38_eot = DFA.unpackEncodedString(DFA38_eotS);

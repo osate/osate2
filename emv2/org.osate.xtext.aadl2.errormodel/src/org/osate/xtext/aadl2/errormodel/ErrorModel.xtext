@@ -167,7 +167,7 @@ TypeSetReference returns TypeSet:
 
       
 TypeSetElement returns TypeToken :
-	type+=[ErrorTypes|QEMREF] (('*') type+=[ErrorType|QEMREF])*
+	type+=[ErrorTypes|QEMREF] (('*') type+=[ErrorTypes|QEMREF])*
 ;
 
 NoErrorTypeSet returns TypeSet:

@@ -1455,7 +1455,7 @@ ruleTypeSetElement returns [EObject current=null]
 	        }
         }
 		{ 
-	        newCompositeNode(grammarAccess.getTypeSetElementAccess().getTypeErrorTypeCrossReference_1_1_0()); 
+	        newCompositeNode(grammarAccess.getTypeSetElementAccess().getTypeErrorTypesCrossReference_1_1_0()); 
 	    }
 		ruleQEMREF		{ 
 	        afterParserOrEnumRuleCall();
