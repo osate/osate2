@@ -25,6 +25,9 @@ import org.eclipse.xtext.Assignment
 import org.eclipse.xtext.CrossReference
 import org.eclipse.xtext.ui.editor.contentassist.ContentAssistContext
 import org.eclipse.xtext.ui.editor.contentassist.ICompletionProposalAcceptor
+import org.osate.xtext.aadl2.errormodel.errorModel.ConditionElement
+import org.osate.xtext.aadl2.errormodel.errorModel.ErrorBehaviorTransition
+import org.osate.xtext.aadl2.errormodel.errorModel.ErrorEvent
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorModelLibrary
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorPath
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorPropagation
@@ -62,22 +65,34 @@ class ErrorModelProposalProvider extends AbstractErrorModelProposalProvider {
 		val modelContainer = model.eContainer
 		switch modelContainer{
 			ErrorPath case modelContainer.incoming != null : {
-				filterErrorPropagationTokenTypes( modelContainer.incoming, model, assignment, context, acceptor)
+				filterTypeSetTokenTypes( modelContainer.incoming.typeSet, model, assignment, context, acceptor)
 			}
 			TypeSet case modelContainer.getContainerOfType(ErrorPath)?.incoming != null : {
-				filterErrorPropagationTokenTypes( modelContainer.getContainerOfType(ErrorPath).incoming, model, assignment, context, acceptor)
+				filterTypeSetTokenTypes( modelContainer.getContainerOfType(ErrorPath).incoming.typeSet, model, assignment, context, acceptor)
 			}
 			TypeSet case modelContainer.getContainerOfType(ErrorSource)?.outgoing != null : {
-				filterErrorPropagationTokenTypes(modelContainer.getContainerOfType(ErrorSource).outgoing, model, assignment, context, acceptor)
+				filterTypeSetTokenTypes(modelContainer.getContainerOfType(ErrorSource).outgoing.typeSet, model, assignment, context, acceptor)
 			}
 			TypeSet case modelContainer.getContainerOfType(ErrorSink)?.incoming != null : {
-				filterErrorPropagationTokenTypes(modelContainer.getContainerOfType(ErrorSink).incoming, model, assignment, context, acceptor)
+				filterTypeSetTokenTypes(modelContainer.getContainerOfType(ErrorSink).incoming.typeSet, model, assignment, context, acceptor)
 			}
 			ErrorSource case modelContainer.outgoing != null : {
-				filterErrorPropagationTokenTypes(modelContainer.outgoing, model, assignment, context, acceptor)
+				filterTypeSetTokenTypes(modelContainer.outgoing.typeSet, model, assignment, context, acceptor)
 			}
 			ErrorSink case modelContainer.incoming != null : {
-				filterErrorPropagationTokenTypes(modelContainer.incoming, model, assignment, context, acceptor)
+				filterTypeSetTokenTypes(modelContainer.incoming.typeSet, model, assignment, context, acceptor)
+			}
+			ErrorBehaviorTransition case model instanceof TypeSet: {
+				filterTypeSetTokenTypes(modelContainer.source.typeSet, model, assignment, context, acceptor)
+			}
+			ErrorBehaviorTransition case model instanceof ConditionElement && (model as ConditionElement).incoming != null : {
+				val incoming = (model as ConditionElement).incoming
+				switch incoming {
+					ErrorPropagation : filterTypeSetTokenTypes(incoming.typeSet, model, assignment, context, acceptor)
+					ErrorEvent : filterTypeSetTokenTypes(incoming.typeSet, model, assignment, context, acceptor)
+				}
+				
+				filterTypeSetTokenTypes(((model as ConditionElement).incoming as ErrorPropagation).typeSet, model, assignment, context, acceptor)
 			}
 			default : super.completeTypeSetElement_Type(model, assignment, context, acceptor)
 		}
@@ -87,19 +102,26 @@ class ErrorModelProposalProvider extends AbstractErrorModelProposalProvider {
 		val modelContainer = model.eContainer
 		switch modelContainer{
 			ErrorPath case modelContainer.outgoing != null : {
-				filterErrorPropagationTokenTypes( modelContainer.outgoing, model, assignment, context, acceptor)
+				filterTypeSetTokenTypes( modelContainer.outgoing.typeSet, model, assignment, context, acceptor)
+			}
+			ErrorBehaviorTransition case modelContainer.target != null: {
+				filterTypeSetTokenTypes( modelContainer.target.typeSet, model, assignment, context, acceptor)
 			}
 			default : super.completeTypeToken_Type(model, assignment, context, acceptor)
 		}
 	}
 
-	def filterErrorPropagationTokenTypes(ErrorPropagation errorPropagation, EObject model, Assignment assignment, ContentAssistContext context, ICompletionProposalAcceptor acceptor){
+	def filterTypeSetTokenTypes(TypeSet typeSet, EObject model, Assignment assignment, ContentAssistContext context, ICompletionProposalAcceptor acceptor){
 		val validErrorTypesList = new ArrayList<ErrorTypes> 
-		val validWithSuperTypes = new ArrayList<ErrorTypes>
-		errorPropagation.typeSet.typeTokens.forEach[token | token.type.getValidTypes( validErrorTypesList) ]
-		validErrorTypesList.forEach[errorType | errorType.getSuperTypes(validWithSuperTypes)]
+		typeSet.typeTokens.forEach[token | token.type.getValidTypes( validErrorTypesList) ]
 		lookupCrossReference(assignment.getTerminal() as CrossReference, context, acceptor,
-		[validWithSuperTypes.contains(EcoreUtil.resolve(EObjectOrProxy, model))])
+			[
+				val proposedObj = EcoreUtil.resolve(EObjectOrProxy, model)
+				val validSuperTypesOfProposed = new ArrayList<ErrorTypes>
+				if (proposedObj instanceof ErrorTypes) getProposedObjectSuperTypes(proposedObj as ErrorTypes, validSuperTypesOfProposed, proposedObj)
+				validErrorTypesList.contains(proposedObj) || 
+					validErrorTypesList.exists[type| validSuperTypesOfProposed.contains(type)] 
+			])
 	}
 
 	def List<ErrorTypes> getValidTypes(List<ErrorTypes> etsIn, List<ErrorTypes> validErrorTypesList){
@@ -112,9 +134,9 @@ class ErrorModelProposalProvider extends AbstractErrorModelProposalProvider {
 		validErrorTypesList
 	}
 
-	def List<ErrorTypes> getSuperTypes(ErrorTypes et, List<ErrorTypes> results){
-		if (!results.contains(et)) results.add(et)
-		if (et instanceof ErrorType){et.superType?.getSuperTypes(results)}
+	def List<ErrorTypes> getProposedObjectSuperTypes(ErrorTypes et, List<ErrorTypes> results, EObject proposedObj){
+		if (!results.contains(et) && et != proposedObj) results.add(et)
+		if (et instanceof ErrorType){et.superType?.getProposedObjectSuperTypes(results, proposedObj)}
 		results
 	}
 
