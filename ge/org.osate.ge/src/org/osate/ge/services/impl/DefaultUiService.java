@@ -28,7 +28,6 @@ public class DefaultUiService implements UiService {
 		}
 		
 		final AgeDiagramBehavior diagramBehavior = (AgeDiagramBehavior)dtp.getDiagramBehavior();
-		diagramBehavior.deactivateActiveTool();
 		return diagramBehavior;
 	}
 
