@@ -123,16 +123,17 @@ public class SetBindingTool {
 	@SelectionChanged
 	public void onSelectionChanged(@Named(Names.SELECTED_PICTOGRAM_ELEMENTS) final PictogramElement[] selectedPes, final IDiagramTypeProvider dtp,
 			final BusinessObjectResolutionService bor, final ShapeService shapeService, final ConnectionService connectionService) {
-		// Highlight all selected shapes
-		final TransactionalEditingDomain editingDomain = dtp.getDiagramBehavior().getEditingDomain();
-		editingDomain.getCommandStack().execute(new NonUndoableToolCommand() {
-			@Override
-			public void execute() {
-				if(currentWindow != null) {
-					currentWindow.setTargetPictogramElements(selectedPes);
+		if(currentWindow != null && currentWindow.getShell() != null && currentWindow.getShell().isVisible()) {
+			final TransactionalEditingDomain editingDomain = dtp.getDiagramBehavior().getEditingDomain();
+			editingDomain.getCommandStack().execute(new NonUndoableToolCommand() {
+				@Override
+				public void execute() {
+					if(currentWindow != null) {
+						currentWindow.setTargetPictogramElements(selectedPes);
+					}
 				}
-			}
-		});
+			});
+		}
 	}
 	
 	@Deactivate
