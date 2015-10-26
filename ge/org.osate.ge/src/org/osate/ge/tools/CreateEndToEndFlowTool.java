@@ -214,7 +214,7 @@ public class CreateEndToEndFlowTool {
 				if (bo instanceof FlowSpecification) {
 					final FlowSpecification fs = (FlowSpecification)bo;
 					if (fs.getKind() != FlowKind.SINK) {
-						msg = "Select a connection.";
+						msg = "Select a connection between subcomponents.";
 					}
 				} else if (bo instanceof org.osate.aadl2.Connection) {
 					msg = "Select a flow specification.";
@@ -485,27 +485,31 @@ public class CreateEndToEndFlowTool {
 			if (context != null && !isValidSubcomponent((Context)getRefinedElement(context))) {
 				return false;
 			}
-
-			final Feature flowFeature = (Feature)getRefinedElement(fs.getKind() == FlowKind.SINK ? fs.getInEnd().getFeature() : fs.getOutEnd().getFeature());
-			if (fs.getKind() == FlowKind.PATH) {
-				final Feature inFlowFeature = (Feature)getRefinedElement(fs.getInEnd().getFeature());
-				if (connection.isBidirectional()) {
-					return inFlowFeature == destCE
-							|| inFlowFeature == srcCE
-							|| flowFeature == destCE
-							|| flowFeature == srcCE;
+			
+			if (connection.getDestination().getContext() != null && connection.getSource().getContext() != null) {
+				final Feature flowFeature = (Feature)getRefinedElement(fs.getKind() == FlowKind.SINK ? fs.getInEnd().getFeature() : fs.getOutEnd().getFeature());
+				if (fs.getKind() == FlowKind.PATH) {
+					final Feature inFlowFeature = (Feature)getRefinedElement(fs.getInEnd().getFeature());
+					if (connection.isBidirectional()) {
+						return inFlowFeature == destCE
+								|| inFlowFeature == srcCE
+								|| flowFeature == destCE
+								|| flowFeature == srcCE;
+					} else {
+						return flowFeature == srcCE
+								|| inFlowFeature == destCE;
+					}
+				} else if (fs.getKind() == FlowKind.SINK) {
+					return flowFeature == srcCE || flowFeature == destCE;
 				} else {
-					return flowFeature == srcCE
-							|| inFlowFeature == destCE;
+					if (connection.isBidirectional()) {
+							return flowFeature == destCE || flowFeature == srcCE;
+					}
+					return flowFeature == srcCE;
 				}
-			} else if (fs.getKind() == FlowKind.SINK) {
-				return flowFeature == srcCE || flowFeature == destCE;
-			} else {
-				if (connection.isBidirectional()) {
-						return flowFeature == destCE || flowFeature == srcCE;
-				}
-				return flowFeature == srcCE;
 			}
+			
+			return false;
 		}
 
 
