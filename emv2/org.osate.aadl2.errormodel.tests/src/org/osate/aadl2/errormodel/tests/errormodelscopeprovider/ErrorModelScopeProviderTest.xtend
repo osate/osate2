@@ -724,7 +724,7 @@ class ErrorModelScopeProviderTest extends OsateTest {
 		]
 	}
 	
-	//Tests scope_ErrorSource_outgoing
+	//Tests scope_ErrorSource_outgoing, scope_ErrorSink_incoming, scope_ErrorPath_incoming, and scope_ErrorPath_outgoing
 	@Test
 	def void testErrorPropagationReference() {
 		createFiles("pkg.aadl" -> '''
@@ -734,6 +734,7 @@ class ErrorModelScopeProviderTest extends OsateTest {
 				features
 					p1: out data port;
 					p2: out data port;
+					p5: out data port;
 					fg1: feature group fgt1;
 				annex EMV2 {**
 					use types ErrorLibrary;
@@ -745,8 +746,17 @@ class ErrorModelScopeProviderTest extends OsateTest {
 						fg1.fg2.p4: out propagation {AboveRange};
 						memory: out propagation {AboveRange};
 						binding: out propagation {AboveRange};
+						
+						p1: in propagation {AboveRange};
+						p5: in propagation {AboveRange};
+						fg1.p3: in propagation {AboveRange};
+						fg1.fg2.p4: in propagation {AboveRange};
+						memory: in propagation {AboveRange};
+						binding: in propagation {AboveRange};
 					flows
-						s: error source fg1.p3;
+						errSource: error source fg1.p3;
+						errSink: error sink fg1.p3;
+						errPath: error path fg1.p3 -> fg1.p3;
 					end propagations;
 				**};
 				end a;
@@ -768,10 +778,26 @@ class ErrorModelScopeProviderTest extends OsateTest {
 			"pkg".assertEquals(name)
 			publicSection.ownedClassifiers.head as AbstractType => [
 				"a".assertEquals(name)
-				((ownedAnnexSubclauses.head as DefaultAnnexSubclause).parsedAnnexSubclause as ErrorModelSubclause).flows.head => [
-					"s".assertEquals(name)
-					//Tests scope_ErrorSource_outgoing
-					assertScope(ErrorModelPackage.eINSTANCE.errorSource_Outgoing, #["binding", "fg1.fg2.p4", "fg1.p3", "memory", "p1", "p2"])
+				(ownedAnnexSubclauses.head as DefaultAnnexSubclause).parsedAnnexSubclause as ErrorModelSubclause => [
+					val outgoingScope = #["p1", "p2", "fg1.p3", "fg1.fg2.p4", "memory", "binding"]
+					val incomingScope = #["p1", "p5", "fg1.p3", "fg1.fg2.p4", "memory", "binding"]
+					flows.get(0) => [
+						"errSource".assertEquals(name)
+						//Tests scope_ErrorSource_outgoing
+						assertScope(ErrorModelPackage.eINSTANCE.errorSource_Outgoing, outgoingScope)
+					]
+					flows.get(1) => [
+						"errSink".assertEquals(name)
+						//Tests scope_ErrorSink_incoming
+						assertScope(ErrorModelPackage.eINSTANCE.errorSink_Incoming, incomingScope)
+					]
+					flows.get(2) => [
+						"errPath".assertEquals(name)
+						//Tests scope_ErrorPath_incoming
+						assertScope(ErrorModelPackage.eINSTANCE.errorPath_Incoming, incomingScope)
+						//Tests scope_ErrorPath_outgoing
+						assertScope(ErrorModelPackage.eINSTANCE.errorPath_Outgoing, outgoingScope)
+					]
 				]
 			]
 		]

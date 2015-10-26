@@ -21,9 +21,6 @@ import org.osate.xtext.aadl2.errormodel.errorModel.ErrorBehaviorState
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorBehaviorStateMachine
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorModelLibrary
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorModelSubclause
-import org.osate.xtext.aadl2.errormodel.errorModel.ErrorPath
-import org.osate.xtext.aadl2.errormodel.errorModel.ErrorSink
-import org.osate.xtext.aadl2.errormodel.errorModel.ErrorSource
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorTypes
 import org.osate.xtext.aadl2.errormodel.errorModel.FeatureorPPReference
 import org.osate.xtext.aadl2.errormodel.errorModel.TypeMappingSet
@@ -71,32 +68,6 @@ class ErrorModelScopeProvider extends PropertiesScopeProvider {
 		return events.scopeFor();		
 	}
 	
-	def scope_ErrorSource_outgoing(ErrorSource context, EReference reference) {
-		return outgoingErrorPropagationScope(context)
-	}
-	
-	def scope_ErrorSink_incoming(ErrorSink context, EReference reference) {
-		return incomingErrorPropagationScope(context)
-	}
-	
-	def scope_ErrorPath_incoming(ErrorPath context, EReference reference) {
-		return incomingErrorPropagationScope(context)
-	}
-	
-	def scope_ErrorPath_outgoing(ErrorPath context, EReference reference) {
-		return outgoingErrorPropagationScope(context)
-	}
-	
-	def outgoingErrorPropagationScope(EObject context) {
-		val propagations = context.allContainingClassifierEMV2Subclauses.map[propagations].flatten.filter[!not && direction == DirectionType.OUT]
-		new SimpleScope(propagations.map[EObjectDescription.create(kind ?: featureorPPRefs.join(".", [featureorPP.name]), it)])
-	}
-	
-	def incomingErrorPropagationScope(EObject context) {
-		val propagations = context.allContainingClassifierEMV2Subclauses.map[propagations].flatten.filter[!not && direction == DirectionType.IN]
-		new SimpleScope(propagations.map[EObjectDescription.create(kind ?: featureorPPRefs.join(".", [featureorPP.name]), it)])
-	}
-
 	/*
 	 * TODO: FINISH THIS!
 	 * This method should be much more complicated.  It should mimic the behavior found in the method
@@ -167,6 +138,22 @@ class ErrorModelScopeProvider extends PropertiesScopeProvider {
 		}
 	}
 	
+	def scope_ErrorSource_outgoing(Classifier context, EReference reference) {
+		context.scopeForErrorPropagation(DirectionType.OUT)
+	}
+	
+	def scope_ErrorSink_incoming(Classifier context, EReference reference) {
+		context.scopeForErrorPropagation(DirectionType.IN)
+	}
+	
+	def scope_ErrorPath_incoming(Classifier context, EReference reference) {
+		context.scopeForErrorPropagation(DirectionType.IN)
+	}
+	
+	def scope_ErrorPath_outgoing(Classifier context, EReference reference) {
+		context.scopeForErrorPropagation(DirectionType.OUT)
+	}
+	
 	def scope_ErrorSource_failureModeReference(ErrorModelSubclause context, EReference reference) {
 		val typesets = context.useTypes.map[allTypesets].flatten
 		val behaviorStates = context.useBehavior.states ?: <ErrorBehaviorState>emptyList;
@@ -218,5 +205,10 @@ class ErrorModelScopeProvider extends PropertiesScopeProvider {
 		}]].flatten.flatten
 		
 		new SimpleScope(noConflictsDescriptions + conflictsDescriptions, true)
+	}
+	
+	def private static scopeForErrorPropagation(Classifier context, DirectionType requiredDirection) {
+		val propagations = context.allContainingClassifierEMV2Subclauses.map[propagations].flatten.filter[!not && direction == requiredDirection]
+		new SimpleScope(propagations.map[EObjectDescription.create(kind ?: featureorPPRefs.join(".", [featureorPP.name]), it)])
 	}
 }
