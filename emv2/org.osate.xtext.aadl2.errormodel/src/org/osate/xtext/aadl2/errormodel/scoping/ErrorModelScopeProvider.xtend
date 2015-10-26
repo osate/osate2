@@ -17,6 +17,7 @@ import org.osate.aadl2.ComponentImplementation
 import org.osate.aadl2.DirectionType
 import org.osate.aadl2.Element
 import org.osate.aadl2.FeatureGroup
+import org.osate.xtext.aadl2.errormodel.errorModel.ErrorBehaviorState
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorBehaviorStateMachine
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorModelLibrary
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorModelSubclause
@@ -164,6 +165,12 @@ class ErrorModelScopeProvider extends PropertiesScopeProvider {
 			FeatureGroup: fg.featureGroupType.getAllFeatures.scopeFor
 			default: IScope.NULLSCOPE
 		}
+	}
+	
+	def scope_ErrorSource_failureModeReference(ErrorModelSubclause context, EReference reference) {
+		val typesets = context.useTypes.map[allTypesets].flatten
+		val behaviorStates = context.useBehavior.states ?: <ErrorBehaviorState>emptyList;
+		(typesets + behaviorStates).scopeFor
 	}
 	
 	def private scopeWithoutEMV2Prefix(EObject context, EReference reference) {

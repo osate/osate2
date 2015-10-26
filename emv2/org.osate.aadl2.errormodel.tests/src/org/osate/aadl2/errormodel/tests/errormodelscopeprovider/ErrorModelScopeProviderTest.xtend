@@ -776,4 +776,55 @@ class ErrorModelScopeProviderTest extends OsateTest {
 			]
 		]
 	}
+	
+	//Tests scope_ErrorSource_failureModeReference
+	@Test
+	def void testErrorBehaviorStateOrTypeSetReference() {
+		val lib1FileName = "lib1.aadl"
+		val subclause1FileName = "subclause1.aadl"
+		createFiles(lib1FileName -> '''
+			package lib1
+			public
+				annex EMV2 {**
+					error types
+						t1: type;
+						ts1: type set {t1};
+					end types;
+					
+					error behavior bvr1
+					states
+						bvr_state1: initial state;
+						bvr_state2: state;
+					end behavior;
+				**};
+			end lib1;
+		''', subclause1FileName -> '''
+			package subclause1
+			public
+				abstract a1
+				annex EMV2 {**
+					use types lib1;
+					use behavior lib1::bvr1;
+					
+					error propagations
+					flows
+						errSource1: error source all when bvr_state1;
+					end propagations;
+				**};
+				end a1;
+			end subclause1;
+		''')
+		suppressSerialization
+		testFile(subclause1FileName).resource.contents.head as AadlPackage => [
+			"subclause1".assertEquals(name)
+			publicSection.ownedClassifiers.head => [
+				"a1".assertEquals(name)
+				((ownedAnnexSubclauses.head as DefaultAnnexSubclause).parsedAnnexSubclause as ErrorModelSubclause).flows.head as ErrorSource => [
+					"errSource1".assertEquals(name)
+					//Tests scope_ErrorSource_failureModeReference
+					assertScope(ErrorModelPackage.eINSTANCE.errorSource_FailureModeReference, #["ts1", "bvr_state1", "bvr_state2"])
+				]
+			]
+		]
+	}
 }
