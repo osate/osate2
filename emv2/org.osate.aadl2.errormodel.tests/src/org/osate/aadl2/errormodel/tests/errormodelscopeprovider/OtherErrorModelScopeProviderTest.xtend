@@ -631,4 +631,138 @@ class OtherErrorModelScopeProviderTest extends OsateTest {
 			]
 		]
 	}
+	
+	//Tests scope_ErrorBehaviorState(ErrorBehaviorStateMachine, EReference) and scope_ErrorBehaviorState(ErrorModelSubclause, EReference)
+	@Test
+	def void testErrorBehaviorStateReference() {
+		val lib1FileName = "lib1.aadl"
+		val subclause1FileName = "subclause1.aadl"
+		createFiles(lib1FileName -> '''
+			package lib1
+			public
+				annex EMV2 {**
+					error types
+						t1: type;
+					end types;
+					
+					error behavior bvr
+					events
+						err_evt1: error event;
+					states
+						bvr_state1: state;
+						bvr_state2: state;
+					transitions
+						transition1: bvr_state1 -[ err_evt1 ]-> bvr_state2;
+						transition2: bvr_state1 -[ err_evt1 ]-> (bvr_state2 with 0.2, bvr_state2 with 0.8);
+					end behavior;
+				**};
+			end lib1;
+		''', subclause1FileName -> '''
+			package subclause1
+			public
+				abstract a
+				features
+					ep1: in event port;
+				modes
+					m1: initial mode;
+				annex EMV2 {**
+					use types lib1;
+					use behavior lib1::bvr;
+					
+					error propagations
+						processor: in propagation {t1};
+					end propagations;
+					
+					component error behavior
+					events
+						err_evt2: error event;
+					transitions
+						transition3: bvr_state1 -[ err_evt2 ]-> bvr_state2;
+						transition4: bvr_state1 -[ err_evt2 ]-> (bvr_state2 with 0.2, bvr_state2 with 0.8);
+					propagations
+						propagationCondition1: bvr_state1 -[ processor ]-> all;
+					detections
+						detection1: bvr_state1 -[ err_evt2 ]-> ep1!;
+					mode mappings
+						bvr_state1 in modes (m1);
+					end component;
+					
+					composite error behavior states
+						compositeState1: [ others ]-> bvr_state1;
+					end composite;
+				**};
+				end a;
+			end subclause1;
+		''')
+		suppressSerialization
+		val lib1TestResult = testFile(lib1FileName)
+		val subclause1TestResult = testFile(subclause1FileName)
+		val expectedScope = #["bvr_state1", "bvr_state2"]
+		lib1TestResult.resource.contents.head as AadlPackage => [
+			"lib1".assertEquals(name)
+			((publicSection.ownedAnnexLibraries.head as DefaultAnnexLibrary).parsedAnnexLibrary as ErrorModelLibrary).behaviors.head => [
+				"bvr".assertEquals(name)
+				transitions.get(0) => [
+					"transition1".assertEquals(name)
+					//Tests scope_ErrorBehaviorState(ErrorBehaviorStateMachine, EReference)
+					assertScope(ErrorModelPackage.eINSTANCE.errorBehaviorTransition_Source, expectedScope)
+					//Tests scope_ErrorBehaviorState(ErrorBehaviorStateMachine, EReference)
+					assertScope(ErrorModelPackage.eINSTANCE.errorBehaviorTransition_Target, expectedScope)
+				]
+				transitions.get(1) => [
+					"transition2".assertEquals(name)
+					//Tests scope_ErrorBehaviorState(ErrorBehaviorStateMachine, EReference)
+					assertScope(ErrorModelPackage.eINSTANCE.errorBehaviorTransition_Source, expectedScope)
+					//Tests scope_ErrorBehaviorState(ErrorBehaviorStateMachine, EReference)
+					destinationBranches.get(0).assertScope(ErrorModelPackage.eINSTANCE.transitionBranch_Target, expectedScope)
+					//Tests scope_ErrorBehaviorState(ErrorBehaviorStateMachine, EReference)
+					destinationBranches.get(1).assertScope(ErrorModelPackage.eINSTANCE.transitionBranch_Target, expectedScope)
+				]
+			]
+		]
+		subclause1TestResult.resource.contents.head as AadlPackage => [
+			"subclause1".assertEquals(name)
+			publicSection.ownedClassifiers.head => [
+				"a".assertEquals(name)
+				(ownedAnnexSubclauses.head as DefaultAnnexSubclause).parsedAnnexSubclause as ErrorModelSubclause => [
+					transitions.get(0) => [
+						"transition3".assertEquals(name)
+						//Tests scope_ErrorBehaviorState(ErrorModelSubclause, EReference)
+						assertScope(ErrorModelPackage.eINSTANCE.errorBehaviorTransition_Source, expectedScope)
+						//Tests scope_ErrorBehaviorState(ErrorModelSubclause, EReference)
+						assertScope(ErrorModelPackage.eINSTANCE.errorBehaviorTransition_Target, expectedScope)
+					]
+					transitions.get(1) => [
+						"transition4".assertEquals(name)
+						//Tests scope_ErrorBehaviorState(ErrorModelSubclause, EReference)
+						assertScope(ErrorModelPackage.eINSTANCE.errorBehaviorTransition_Source, expectedScope)
+						//Tests scope_ErrorBehaviorState(ErrorModelSubclause, EReference)
+						destinationBranches.get(0).assertScope(ErrorModelPackage.eINSTANCE.transitionBranch_Target, expectedScope)
+						//Tests scope_ErrorBehaviorState(ErrorModelSubclause, EReference)
+						destinationBranches.get(1).assertScope(ErrorModelPackage.eINSTANCE.transitionBranch_Target, expectedScope)
+					]
+					outgoingPropagationConditions.head => [
+						"propagationCondition1".assertEquals(name)
+						//Tests scope_ErrorBehaviorState(ErrorModelSubclause, EReference)
+						assertScope(ErrorModelPackage.eINSTANCE.outgoingPropagationCondition_State, expectedScope)
+					]
+					errorDetections.head => [
+						"detection1".assertEquals(name)
+						//Tests scope_ErrorBehaviorState(ErrorModelSubclause, EReference)
+						assertScope(ErrorModelPackage.eINSTANCE.errorDetection_State, expectedScope)
+					]
+					errorStateToModeMappings.head => [
+						"bvr_state1".assertEquals(errorState.name)
+						//Tests scope_ErrorBehaviorState(ErrorModelSubclause, EReference)
+						assertScope(ErrorModelPackage.eINSTANCE.errorStateToModeMapping_ErrorState, expectedScope)
+					]
+					states.head => [
+						"compositeState1".assertEquals(name)
+						//Tests scope_ErrorBehaviorState(ErrorModelSubclause, EReference)
+						assertScope(ErrorModelPackage.eINSTANCE.compositeState_State, expectedScope)
+					]
+				]
+			]
+		]
+	}
 }

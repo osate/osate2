@@ -55,13 +55,6 @@ class ErrorModelScopeProvider extends PropertiesScopeProvider {
 		return esc.useBehavior;
 	}
 	
-	def scope_ErrorBehaviorState(EObject context, EReference reference) {
-		val ebsm = getEBSMfromContext(context);
-		if (ebsm != null) return ebsm.states.scopeFor
-		return IScope.NULLSCOPE;
-	}
-
-	
 	def scope_EventOrPropagation(EObject context, EReference reference) {
 		val ebsm = getEBSMfromContext(context)
 		val esc = EcoreUtil2.getContainerOfType(context, ErrorModelSubclause)
@@ -185,6 +178,14 @@ class ErrorModelScopeProvider extends PropertiesScopeProvider {
 	
 	def scope_RecoverEvent_eventInitiator(ErrorBehaviorStateMachine context, EReference reference) {
 		IScope.NULLSCOPE
+	}
+	
+	def scope_ErrorBehaviorState(ErrorBehaviorStateMachine context, EReference reference) {
+		context.states.scopeFor
+	}
+	
+	def scope_ErrorBehaviorState(ErrorModelSubclause context, EReference reference) {
+		context.useBehavior?.states?.scopeFor ?: IScope.NULLSCOPE
 	}
 	
 	def private scopeWithoutEMV2Prefix(EObject context, EReference reference) {
