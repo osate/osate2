@@ -13,8 +13,8 @@
 	<packaging>eclipse-test-plugin</packaging>
 	<repositories>
 		<repository>
-			<id>luna</id>
-			<url>http://download.eclipse.org/releases/luna/201502271000</url>
+			<id>mars</id>
+			<url>http://download.eclipse.org/releases/mars/201510021000</url>
 			<layout>p2</layout>
 		</repository>
 		<repository>
