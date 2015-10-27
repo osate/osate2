@@ -171,6 +171,22 @@ class ErrorModelScopeProvider extends PropertiesScopeProvider {
 		}
 	}
 	
+	def scope_RepairEvent_eventInitiator(Classifier context, EReference reference) {
+		context.allMembers.filterRefined.scopeFor
+	}
+	
+	def scope_RepairEvent_eventInitiator(ErrorBehaviorStateMachine context, EReference reference) {
+		IScope.NULLSCOPE
+	}
+	
+	def scope_RecoverEvent_eventInitiator(Classifier context, EReference reference) {
+		context.allMembers.filterRefined.scopeFor
+	}
+	
+	def scope_RecoverEvent_eventInitiator(ErrorBehaviorStateMachine context, EReference reference) {
+		IScope.NULLSCOPE
+	}
+	
 	def private scopeWithoutEMV2Prefix(EObject context, EReference reference) {
 		new SimpleScope(delegateGetScope(context, reference).allElements.map[
 			val nameAsString = name.toString("::")
