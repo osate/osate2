@@ -23,6 +23,7 @@ import org.osate.xtext.aadl2.errormodel.errorModel.ErrorModelLibrary
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorModelSubclause
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorTypes
 import org.osate.xtext.aadl2.errormodel.errorModel.FeatureorPPReference
+import org.osate.xtext.aadl2.errormodel.errorModel.QualifiedPropagationPoint
 import org.osate.xtext.aadl2.errormodel.errorModel.TypeMappingSet
 import org.osate.xtext.aadl2.errormodel.errorModel.TypeTransformationSet
 import org.osate.xtext.aadl2.errormodel.serializer.ErrorModelCrossReferenceSerializer
@@ -142,6 +143,12 @@ class ErrorModelScopeProvider extends PropertiesScopeProvider {
 		context.scopeForErrorPropagation(DirectionType.OUT)
 	}
 	
+	def scope_ErrorSource_failureModeReference(ErrorModelSubclause context, EReference reference) {
+		val typesets = context.useTypes.map[allTypesets].flatten
+		val behaviorStates = context.useBehavior.states ?: <ErrorBehaviorState>emptyList;
+		(typesets + behaviorStates).scopeFor
+	}
+	
 	def scope_ErrorSink_incoming(Classifier context, EReference reference) {
 		context.scopeForErrorPropagation(DirectionType.IN)
 	}
@@ -154,10 +161,14 @@ class ErrorModelScopeProvider extends PropertiesScopeProvider {
 		context.scopeForErrorPropagation(DirectionType.OUT)
 	}
 	
-	def scope_ErrorSource_failureModeReference(ErrorModelSubclause context, EReference reference) {
-		val typesets = context.useTypes.map[allTypesets].flatten
-		val behaviorStates = context.useBehavior.states ?: <ErrorBehaviorState>emptyList;
-		(typesets + behaviorStates).scopeFor
+	def scope_QualifiedPropagationPoint_propagationPoint(QualifiedPropagationPoint context, EReference reference) {
+		val lastSubcomponentClassifier = context.subcomponents.last.subcomponent.allClassifier
+		if (lastSubcomponentClassifier != null) {
+			val allSubclauses = lastSubcomponentClassifier.allContainingClassifierEMV2Subclauses
+			allSubclauses.map[points].flatten.scopeFor
+		} else {
+			IScope.NULLSCOPE
+		}
 	}
 	
 	def private scopeWithoutEMV2Prefix(EObject context, EReference reference) {

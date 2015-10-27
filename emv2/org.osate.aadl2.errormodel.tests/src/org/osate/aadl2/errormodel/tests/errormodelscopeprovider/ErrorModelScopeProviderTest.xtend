@@ -853,4 +853,101 @@ class ErrorModelScopeProviderTest extends OsateTest {
 			]
 		]
 	}
+	
+	//Tests scope_QualifiedPropagationPoint_propagationPoint
+	@Test
+	def void testPropagationPointReference() {
+		val subclause1FileName = "subclause1.aadl"
+		createFiles(subclause1FileName -> '''
+			package subclause1
+			public
+				abstract a1
+				end a1;
+				
+				abstract implementation a1.i
+				subcomponents
+					asub2: abstract a2.i;
+				annex EMV2 {**
+					propagation paths
+						point1: propagation point;
+					end paths;
+				**};
+				end a1.i;
+				
+				abstract a2
+				end a2;
+				
+				abstract implementation a2.i
+				subcomponents
+					asub3: abstract a3.i;
+				annex EMV2 {**
+					propagation paths
+						point2: propagation point;
+					end paths;
+				**};
+				end a2.i;
+				
+				abstract a3
+				end a3;
+				
+				abstract implementation a3.i
+				subcomponents
+					asub4: abstract a4.i;
+				annex EMV2 {**
+					propagation paths
+						point3: propagation point;
+					end paths;
+				**};
+				end a3.i;
+				
+				abstract a4
+				end a4;
+				
+				abstract implementation a4.i
+				annex EMV2 {**
+					propagation paths
+						point4: propagation point;
+					end paths;
+				**};
+				end a4.i;
+				
+				abstract a5
+				end a5;
+				
+				abstract implementation a5.i
+				subcomponents
+					asub1: abstract a1.i;
+				annex EMV2 {**
+					propagation paths
+						propPath1: asub1.point1 -> asub1.asub2.point2;
+						propPath2: asub1.asub2.asub3.point3 -> asub1.asub2.asub3.asub4.point4;
+					end paths;
+				**};
+				end a5.i;
+			end subclause1;
+		''')
+		suppressSerialization
+		testFile(subclause1FileName).resource.contents.head as AadlPackage => [
+			"subclause1".assertEquals(name)
+			publicSection.ownedClassifiers.get(9) => [
+				"a5.i".assertEquals(name)
+				(ownedAnnexSubclauses.head as DefaultAnnexSubclause).parsedAnnexSubclause as ErrorModelSubclause => [
+					paths.get(0) => [
+						"propPath1".assertEquals(name)
+						//Tests scope_QualifiedPropagationPoint_propagationPoint
+						source.assertScope(ErrorModelPackage.eINSTANCE.qualifiedPropagationPoint_PropagationPoint, #["point1"])
+						//Tests scope_QualifiedPropagationPoint_propagationPoint
+						target.assertScope(ErrorModelPackage.eINSTANCE.qualifiedPropagationPoint_PropagationPoint, #["point2"])
+					]
+					paths.get(1) => [
+						"propPath2".assertEquals(name)
+						//Tests scope_QualifiedPropagationPoint_propagationPoint
+						source.assertScope(ErrorModelPackage.eINSTANCE.qualifiedPropagationPoint_PropagationPoint, #["point3"])
+						//Tests scope_QualifiedPropagationPoint_propagationPoint
+						target.assertScope(ErrorModelPackage.eINSTANCE.qualifiedPropagationPoint_PropagationPoint, #["point4"])
+					]
+				]
+			]
+		]
+	}
 }
