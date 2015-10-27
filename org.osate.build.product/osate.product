@@ -32,9 +32,9 @@
       </win>
    </launcher>
 
-
    <vm>
    </vm>
+
 
    <plugins>
    </plugins>
@@ -94,8 +94,9 @@
 
    <repositories>
       <repository location="http://aadl.info/aadl/osate/testing/update-site/" enabled="true" />
-      <repository location="http://download.eclipse.org/releases/luna/" enabled="true" />
-      <repository location="http://download.eclipse.org/eclipse/updates/4.4" enabled="true" />
+      <repository location="http://www.eclipse.org/modeling/amalgam/downloads/package/modeling/mars/" enabled="true" />
+      <repository location="http://download.eclipse.org/eclipse/updates/4.5" enabled="true" />
+      <repository location="http://download.eclipse.org/releases/mars" enabled="true" />
    </repositories>
 
 </product>
