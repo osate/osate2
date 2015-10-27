@@ -2562,7 +2562,7 @@ public class AadlBaTypeChecker
         return null ;
       }
     }
-    else if(portHolder instanceof EventPortHolder)
+    else
       portSendActionResult.setPort(portHolder);
     
     portSendActionResult.setLocationReference(comAct.getLocationReference());
