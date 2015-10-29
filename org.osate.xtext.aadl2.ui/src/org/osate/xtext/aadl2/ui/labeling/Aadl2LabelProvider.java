@@ -38,7 +38,6 @@ import java.util.List;
 
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.edit.ui.provider.AdapterFactoryLabelProvider;
-import org.eclipse.xtext.ui.label.DefaultEObjectLabelProvider;
 import org.osate.aadl2.AadlInteger;
 import org.osate.aadl2.AadlPackage;
 import org.osate.aadl2.AadlReal;
@@ -122,7 +121,7 @@ import com.google.inject.Inject;
  *
  * see http://www.eclipse.org/Xtext/documentation/latest/xtext.html#labelProvider
  */
-public class Aadl2LabelProvider extends DefaultEObjectLabelProvider {
+public class Aadl2LabelProvider extends AnnexAwareEObjectLabelProvider {
 
 	@Inject
 	public Aadl2LabelProvider(AdapterFactoryLabelProvider delegate) {

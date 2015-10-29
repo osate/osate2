@@ -328,4 +328,26 @@ public class AnnexUtil {
 		return null;
 	}
 
+	/**
+	 * Get the root of an annex library or annex subclause
+	 * @return the root object, which is either an instance of AnnexLibray or AnnexSubclause (or null if we're not in an annex)
+	 */
+	public static EObject getAnnexRoot(EObject modelElement) {
+		EObject annexRoot = null;
+
+		if (modelElement instanceof DefaultAnnexLibrary) {
+			annexRoot = ((DefaultAnnexLibrary) modelElement).getParsedAnnexLibrary();
+		} else if (modelElement instanceof DefaultAnnexSubclause) {
+			annexRoot = ((DefaultAnnexSubclause) modelElement).getParsedAnnexSubclause();
+		} else {
+			annexRoot = modelElement;
+			while (annexRoot != null) {
+				if (annexRoot instanceof AnnexLibrary || annexRoot instanceof AnnexSubclause) {
+					break;
+				}
+				annexRoot = annexRoot.eContainer();
+			}
+		}
+		return annexRoot;
+	}
 }

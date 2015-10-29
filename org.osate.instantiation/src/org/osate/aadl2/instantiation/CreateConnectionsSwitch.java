@@ -810,6 +810,7 @@ public class CreateConnectionsSwitch extends AadlProcessingSwitchWithProgress {
 			if (connInfo.src == test.getDestination() && dstI == test.getSource()
 					&& test.getKind() == ConnectionKind.ACCESS_CONNECTION) {
 				test.setBidirectional(true);
+				test.setName(test.getName().replace("->", "<->"));
 				return test;
 			}
 		}
