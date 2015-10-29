@@ -2095,7 +2095,7 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 				cxt = connection.getAllSourceContext();
 				boolean didReverse = false;
 				if (i > 0
-						&& flow.getOwnedEndToEndFlowSegments().get(i - 1).getFlowElement() instanceof FlowSpecification) {
+					&& flow.getOwnedEndToEndFlowSegments().get(i - 1).getFlowElement() instanceof FlowSpecification) {
 					FlowSpecification previousFlowSegment = (FlowSpecification) flow.getOwnedEndToEndFlowSegments()
 							.get(i - 1).getFlowElement();
 					FlowEnd outEnd = previousFlowSegment.getAllOutEnd();
@@ -2118,6 +2118,23 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 							}
 						}
 					}
+				} else if (i > 0 && flow.getOwnedEndToEndFlowSegments().get(i - 1).getFlowElement() instanceof Subcomponent) {
+					Subcomponent previousFlowSegment = (Subcomponent) flow.getOwnedEndToEndFlowSegments().get(i - 1).getFlowElement();
+					if (connection.isBidirectional()) {
+						ce = connection.getAllSource();
+						cxt = connection.getAllSourceContext();
+						if (cxt == null && !ce.equals(previousFlowSegment)){
+							error(flow.getOwnedEndToEndFlowSegments().get(i),
+									"The source of connection '"
+											+ connection.getName()
+											+ "' does not match the out flow feature of the preceding subcomponent '"
+											+  previousFlowSegment.getName() + '\'');
+							didReverse = true;
+						} else {
+							didReverse = false;
+						}
+					}
+					
 				}
 				if (didReverse) {
 					ce = connection.getAllSource();
@@ -2143,6 +2160,15 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 												+ flow.getOwnedEndToEndFlowSegments().get(i + 1).getContext().getName()
 												+ '.' + nextFlowSegment.getName() + '\'');
 							}
+						}
+					} else if (felem instanceof Subcomponent) {
+						Subcomponent nextFlowSegment = (Subcomponent)felem;
+						if (cxt == null && !ce.equals(nextFlowSegment)){
+							error(flow.getOwnedEndToEndFlowSegments().get(i),
+									"The destination of connection '"
+											+ connection.getName()
+											+ "' does not match the out flow feature of the succeeding subcomponent '"
+											+  nextFlowSegment.getName() + '\'');
 						}
 					}
 				}
