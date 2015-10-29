@@ -39,6 +39,7 @@ import org.eclipse.xtext.conversion.IValueConverterService;
 import org.eclipse.xtext.generator.AbstractFileSystemAccess2;
 import org.eclipse.xtext.generator.IOutputConfigurationProvider;
 import org.eclipse.xtext.linking.lazy.LazyURIEncoder;
+import org.eclipse.xtext.resource.IDerivedStateComputer;
 import org.eclipse.xtext.resource.IFragmentProvider;
 import org.eclipse.xtext.resource.IResourceDescription;
 import org.eclipse.xtext.resource.XtextResource;
@@ -48,6 +49,7 @@ import org.eclipse.xtext.validation.IConcreteSyntaxValidator;
 import org.osate.xtext.aadl2.findReferences.Aadl2ReferenceFinder;
 import org.osate.xtext.aadl2.generator.Aadl2OutputConfigurationProvider;
 import org.osate.xtext.aadl2.parsing.AnnexParserAgent;
+import org.osate.xtext.aadl2.resource.Aadl2DerivedStateComputer;
 import org.osate.xtext.aadl2.resource.persistence.Aadl2ResourceStorageFacade;
 import org.osate.xtext.aadl2.scoping.Aadl2ScopeProvider;
 import org.osate.xtext.aadl2.scoping.Aadl2ScopeProviderDelegate;
@@ -165,12 +167,12 @@ public class Aadl2RuntimeModule extends org.osate.xtext.aadl2.AbstractAadl2Runti
 	@SuppressWarnings("restriction")
 	@Override
 	public Class<? extends XtextResource> bindXtextResource() {
-		return org.eclipse.xtext.resource.persistence.StorageAwareResource.class;
+		return org.eclipse.xtext.resource.DerivedStateAwareResource.class;
 	}
 
 	@SuppressWarnings("restriction")
 	public Class<? extends IResourceDescription.Manager> bindIResourceDescriptionManager() {
-		return org.eclipse.xtext.resource.persistence.StorageAwareResourceDescriptionManager.class;
+		return org.eclipse.xtext.resource.DerivedStateAwareResourceDescriptionManager.class;
 	}
 
 	@SuppressWarnings("restriction")
@@ -190,6 +192,10 @@ public class Aadl2RuntimeModule extends org.osate.xtext.aadl2.AbstractAadl2Runti
 
 	public Class<? extends IOutputConfigurationProvider> bindIOutputConfigurationProvider() {
 		return Aadl2OutputConfigurationProvider.class;
+	}
+
+	public Class<? extends IDerivedStateComputer> bindIDerivedStateComputer() {
+		return Aadl2DerivedStateComputer.class;
 	}
 
 }

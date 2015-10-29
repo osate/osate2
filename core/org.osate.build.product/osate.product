@@ -32,9 +32,9 @@
       </win>
    </launcher>
 
-
    <vm>
    </vm>
+
 
    <plugins>
    </plugins>
@@ -43,7 +43,7 @@
       <feature id="org.osate.core.feature"/>
       <feature id="org.osate.plugins.feature"/>
       <feature id="org.osate.xtext.aadl2.errormodel.feature" installMode="root"/>
-      <feature id="org.osate.ge.feature"/>
+      <feature id="org.osate.ge.feature" installMode="root"/>
       <feature id="org.osate.ba.feature" installMode="root"/>
       <feature id="org.osate.utils.feature" installMode="root"/>
       <feature id="com.rockwellcollins.atc.agree.feature" installMode="root"/>
@@ -94,9 +94,9 @@
 
    <repositories>
       <repository location="http://aadl.info/aadl/osate/testing/update-site/" enabled="true" />
-      <repository location="http://download.eclipse.org/releases/luna/" enabled="true" />
-      <repository location="http://download.eclipse.org/eclipse/updates/4.4" enabled="true" />
-      <repository location="http://subclipse.tigris.org/update_1.8.x" enabled="true" />
+      <repository location="http://www.eclipse.org/modeling/amalgam/downloads/package/modeling/mars/" enabled="true" />
+      <repository location="http://download.eclipse.org/eclipse/updates/4.5" enabled="true" />
+      <repository location="http://download.eclipse.org/releases/mars" enabled="true" />
    </repositories>
 
 </product>

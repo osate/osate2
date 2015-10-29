@@ -232,4 +232,8 @@ public class Aadl2Util {
 		return p1Name.equalsIgnoreCase(p2Name);
 	}
 
+	public static boolean isNoModes(SystemOperationMode som) {
+		return (som == null || som.getName().equalsIgnoreCase("No Modes"));
+	}
+
 }

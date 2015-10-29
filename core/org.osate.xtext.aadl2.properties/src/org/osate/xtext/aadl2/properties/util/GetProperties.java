@@ -1578,18 +1578,27 @@ public class GetProperties {
 		return ((NumberValue) minimum).getScaledValue();
 	}
 
-	public static double getSEIDataRate(NamedElement ne) {
+	public static double getSEIDataRatePerSecond(NamedElement ne) {
 		Property dr = GetProperties.lookupPropertyDefinition(ne, SEI._NAME, SEI.DATA_RATE);
 		if (dr == null)
 			return 0;
 		return PropertyUtils.getRealValue(ne, dr, 0.0);
 	}
 
-	public static double getDataRate(final NamedElement ne) {
-		double res = GetProperties.getSEIDataRate(ne);
+	/*
+	 * Look for SEI::Data_Rate first.
+	 * Then pick up Output_Rate, whose default value is 1 per dispatch
+	 * That rate is converted to persecond using Period. If Period is zero then the resulting data rate is zero as well.
+	 */
+	public static double getOutgoingDataRatePerSecond(final NamedElement ne) {
+		double res = GetProperties.getSEIDataRatePerSecond(ne);
 		if (res > 0) {
 			return res;
 		}
+		Property outputRate = lookupPropertyDefinition(ne, CommunicationProperties._NAME,
+				CommunicationProperties.OUTPUT_RATE);
+		if (!isAssignedPropertyValue(ne, outputRate))
+			return 0;
 		RecordValue rec = GetProperties.getOutPutRate(ne);
 		if (rec != null) {
 			res = GetProperties.getMaxDataRate(rec);
@@ -1603,7 +1612,7 @@ public class GetProperties {
 					period = GetProperties.getPeriodInSeconds(ne.getContainingClassifier(), 0);
 				}
 				if (period == 0)
-					return res;
+					return 0;
 				res = res / period;
 			}
 		}
