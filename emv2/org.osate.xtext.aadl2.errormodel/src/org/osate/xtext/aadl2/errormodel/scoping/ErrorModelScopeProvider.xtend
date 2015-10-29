@@ -188,6 +188,10 @@ class ErrorModelScopeProvider extends PropertiesScopeProvider {
 		context.useBehavior?.states?.scopeFor ?: IScope.NULLSCOPE
 	}
 	
+	def scope_ConnectionErrorSource_connection(ComponentImplementation context, EReference reference) {
+		context.allConnections.scopeFor
+	}
+	
 	def private scopeWithoutEMV2Prefix(EObject context, EReference reference) {
 		new SimpleScope(delegateGetScope(context, reference).allElements.map[
 			val nameAsString = name.toString("::")
