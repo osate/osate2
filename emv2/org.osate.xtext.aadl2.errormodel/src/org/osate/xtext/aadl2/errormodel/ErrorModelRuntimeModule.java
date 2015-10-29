@@ -21,17 +21,20 @@ import org.eclipse.xtext.conversion.IValueConverterService;
 import org.eclipse.xtext.linking.ILinkingService;
 import org.eclipse.xtext.naming.IQualifiedNameConverter;
 import org.eclipse.xtext.scoping.IScopeProvider;
+import org.eclipse.xtext.scoping.impl.AbstractDeclarativeScopeProvider;
 import org.eclipse.xtext.serializer.ISerializer;
 import org.eclipse.xtext.serializer.tokens.ICrossReferenceSerializer;
 import org.eclipse.xtext.serializer.tokens.SerializerScopeProviderBinding;
 import org.osate.xtext.aadl2.errormodel.linking.EMLinkingService;
 import org.osate.xtext.aadl2.errormodel.naming.ErrorModelQualifiedNameConverter;
+import org.osate.xtext.aadl2.errormodel.scoping.ErrorModelImportedNamespaceAwareLocalScopeProvider;
 import org.osate.xtext.aadl2.errormodel.scoping.ErrorModelSerializerScopeProvider;
 import org.osate.xtext.aadl2.errormodel.serializer.ErrorModelCrossReferenceSerializer;
 import org.osate.xtext.aadl2.errormodel.serializer.ErrorModelSerializer;
 import org.osate.xtext.aadl2.errormodel.valueconversion.ErrorModelValueConverter;
 
 import com.google.inject.Binder;
+import com.google.inject.name.Names;
 
 /**
  * Use this class to register components to be used at runtime / without the Equinox extension registry.
@@ -74,5 +77,11 @@ public class ErrorModelRuntimeModule extends org.osate.xtext.aadl2.errormodel.Ab
 	@Override
 	public void configureSerializerIScopeProvider(Binder binder) {
 		binder.bind(IScopeProvider.class).annotatedWith(SerializerScopeProviderBinding.class).to(ErrorModelSerializerScopeProvider.class);
+	}
+	
+	@Override
+	public void configureIScopeProviderDelegate(Binder binder) {
+		binder.bind(IScopeProvider.class).annotatedWith(Names.named(AbstractDeclarativeScopeProvider.NAMED_DELEGATE))
+				.to(ErrorModelImportedNamespaceAwareLocalScopeProvider.class);
 	}
 }
