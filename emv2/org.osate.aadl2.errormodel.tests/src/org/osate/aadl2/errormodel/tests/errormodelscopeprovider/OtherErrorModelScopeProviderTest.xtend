@@ -220,7 +220,10 @@ class OtherErrorModelScopeProviderTest extends OsateTest {
 		]
 	}
 	
-	//Tests scope_ErrorSource_outgoing, scope_ErrorSink_incoming, scope_ErrorPath_incoming, and scope_ErrorPath_outgoing
+	/*
+	 * Tests scope_ErrorSource_outgoing, scope_ErrorSink_incoming, scope_ErrorPath_incoming, scope_ErrorPath_outgoing,
+	 * and scope_OutgoingPropagationCondition_outgoing
+	 */
 	@Test
 	def void testErrorPropagationReference() {
 		createFiles("pkg.aadl" -> '''
@@ -254,6 +257,11 @@ class OtherErrorModelScopeProviderTest extends OsateTest {
 						errSink: error sink fg1.p3;
 						errPath: error path fg1.p3 -> fg1.p3;
 					end propagations;
+					
+					component error behavior
+					propagations
+						condition1: all -[ p1 ]-> p1;
+					end component;
 				**};
 				end a;
 				
@@ -293,6 +301,11 @@ class OtherErrorModelScopeProviderTest extends OsateTest {
 						assertScope(ErrorModelPackage.eINSTANCE.errorPath_Incoming, incomingScope)
 						//Tests scope_ErrorPath_outgoing
 						assertScope(ErrorModelPackage.eINSTANCE.errorPath_Outgoing, outgoingScope)
+					]
+					outgoingPropagationConditions.head => [
+						"condition1".assertEquals(name)
+						//Tests scope_OutgoingPropagationCondition_outgoing
+						assertScope(ErrorModelPackage.eINSTANCE.outgoingPropagationCondition_Outgoing, outgoingScope)
 					]
 				]
 			]

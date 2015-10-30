@@ -200,6 +200,10 @@ class ErrorModelScopeProvider extends PropertiesScopeProvider {
 		scopeForEventOrPropagation(context.getContainerOfType(Classifier), false)
 	}
 	
+	def scope_OutgoingPropagationCondition_outgoing(Classifier context, EReference reference) {
+		context.scopeForErrorPropagation(DirectionType.OUT)
+	}
+	
 	def private scopeWithoutEMV2Prefix(EObject context, EReference reference) {
 		new SimpleScope(delegateGetScope(context, reference).allElements.map[
 			val nameAsString = name.toString("::")
