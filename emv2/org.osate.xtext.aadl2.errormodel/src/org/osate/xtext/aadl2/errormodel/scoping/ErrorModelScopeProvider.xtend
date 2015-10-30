@@ -5,24 +5,29 @@ import java.util.Optional
 import java.util.stream.Collectors
 import org.eclipse.emf.ecore.EObject
 import org.eclipse.emf.ecore.EReference
-import org.eclipse.xtext.EcoreUtil2
 import org.eclipse.xtext.naming.IQualifiedNameConverter
 import org.eclipse.xtext.naming.QualifiedName
 import org.eclipse.xtext.resource.EObjectDescription
+import org.eclipse.xtext.resource.IEObjectDescription
 import org.eclipse.xtext.scoping.IScope
 import org.eclipse.xtext.scoping.impl.SimpleScope
 import org.osate.aadl2.AadlPackage
 import org.osate.aadl2.Classifier
+import org.osate.aadl2.ComponentClassifier
 import org.osate.aadl2.ComponentImplementation
 import org.osate.aadl2.DirectionType
 import org.osate.aadl2.Element
 import org.osate.aadl2.FeatureGroup
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorBehaviorState
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorBehaviorStateMachine
+import org.osate.xtext.aadl2.errormodel.errorModel.ErrorBehaviorTransition
+import org.osate.xtext.aadl2.errormodel.errorModel.ErrorDetection
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorModelLibrary
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorModelSubclause
+import org.osate.xtext.aadl2.errormodel.errorModel.ErrorPropagation
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorTypes
 import org.osate.xtext.aadl2.errormodel.errorModel.FeatureorPPReference
+import org.osate.xtext.aadl2.errormodel.errorModel.OutgoingPropagationCondition
 import org.osate.xtext.aadl2.errormodel.errorModel.QualifiedPropagationPoint
 import org.osate.xtext.aadl2.errormodel.errorModel.TypeMappingSet
 import org.osate.xtext.aadl2.errormodel.errorModel.TypeTransformationSet
@@ -48,20 +53,6 @@ class ErrorModelScopeProvider extends PropertiesScopeProvider {
 	@Inject
 	IQualifiedNameConverter qualifiedNameConverter
 
-	def getEBSMfromContext(EObject context){
-		val ebsm =  EcoreUtil2.getContainerOfType(context, ErrorBehaviorStateMachine);
-		if (ebsm != null) return ebsm;
-		val esc = EcoreUtil2.getContainerOfType(context, ErrorModelSubclause);
-		return esc.useBehavior;
-	}
-	
-	def scope_EventOrPropagation(EObject context, EReference reference) {
-		val ebsm = getEBSMfromContext(context)
-		val esc = EcoreUtil2.getContainerOfType(context, ErrorModelSubclause)
-		val events = ebsm?.events + esc?.events;
-		return events.scopeFor();		
-	}
-	
 	/*
 	 * TODO: FINISH THIS!
 	 * This method should be much more complicated.  It should mimic the behavior found in the method
@@ -192,6 +183,23 @@ class ErrorModelScopeProvider extends PropertiesScopeProvider {
 		context.allConnections.scopeFor
 	}
 	
+	def scope_ConditionElement_incoming(ErrorBehaviorTransition context, EReference reference) {
+		val stateMachine = context.getContainerOfType(ErrorBehaviorStateMachine)
+		if (stateMachine != null) {
+			stateMachine.events.scopeFor
+		} else {
+			scopeForEventOrPropagation(context.getContainerOfType(Classifier), true)
+		}
+	}
+	
+	def scope_ConditionElement_incoming(ErrorDetection context, EReference reference) {
+		scopeForEventOrPropagation(context.getContainerOfType(Classifier), true)
+	}
+	
+	def scope_ConditionElement_incoming(OutgoingPropagationCondition context, EReference reference) {
+		scopeForEventOrPropagation(context.getContainerOfType(Classifier), false)
+	}
+	
 	def private scopeWithoutEMV2Prefix(EObject context, EReference reference) {
 		new SimpleScope(delegateGetScope(context, reference).allElements.map[
 			val nameAsString = name.toString("::")
@@ -241,6 +249,47 @@ class ErrorModelScopeProvider extends PropertiesScopeProvider {
 	
 	def private static scopeForErrorPropagation(Classifier context, DirectionType requiredDirection) {
 		val propagations = context.allContainingClassifierEMV2Subclauses.map[propagations].flatten.filter[!not && direction == requiredDirection]
-		new SimpleScope(propagations.map[EObjectDescription.create(kind ?: featureorPPRefs.join(".", [featureorPP.name]), it)])
+		new SimpleScope(propagations.map[EObjectDescription.create(propagationName, it)])
+	}
+	
+	def private static getPropagationName(ErrorPropagation propagation) {
+		propagation.kind ?: propagation.featureorPPRefs.join(".", [featureorPP.name])
+	}
+	
+	def private static scopeForEventOrPropagation(Classifier classifier, boolean includeEvents) {
+		val allSubclauses = classifier.allContainingClassifierEMV2Subclauses
+		val localDescriptions = allSubclauses.map[
+			val eventsDescriptions = if (includeEvents) {
+				events.map[EObjectDescription.create(QualifiedName.create(name), it)]
+			} else {
+				emptySet
+			}
+			val inPropagations = propagations.filter[!not && direction == DirectionType.IN]
+			val propagationsDescriptions = inPropagations.map[EObjectDescription.create(QualifiedName.create(propagationName), it)]
+			eventsDescriptions + propagationsDescriptions
+		].flatten
+		val subcomponentDescriptions = if (classifier instanceof ComponentImplementation) {
+			val validSubcomponents = classifier.allSubcomponents.filter[allClassifier != null]
+			validSubcomponents.map[getSubcomponentPropagations(name + ".", allClassifier)].flatten
+		} else {
+			emptySet
+		}
+		new SimpleScope(localDescriptions + subcomponentDescriptions, true)
+	}
+	
+	def private static Iterable<IEObjectDescription> getSubcomponentPropagations(String prefix, ComponentClassifier classifier) {
+		val propagationsDescriptions = classifier.allContainingClassifierEMV2Subclauses.map[
+			val outPropagations = propagations.filter[!not && direction == DirectionType.OUT]
+			outPropagations.map[EObjectDescription.create(QualifiedName.create(prefix + propagationName), it)]
+		].flatten
+		
+		val nextSubcomponentLevel = if (classifier instanceof ComponentImplementation) {
+			val validSubcomponents = classifier.allSubcomponents.filter[allClassifier != null]
+			validSubcomponents.map[getSubcomponentPropagations(prefix + name + ".", allClassifier)].flatten
+		} else {
+			emptySet
+		}
+		
+		propagationsDescriptions + nextSubcomponentLevel
 	}
 }
