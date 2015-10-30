@@ -18,6 +18,7 @@ import org.osate.aadl2.ComponentImplementation
 import org.osate.aadl2.DirectionType
 import org.osate.aadl2.Element
 import org.osate.aadl2.FeatureGroup
+import org.osate.aadl2.Port
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorBehaviorState
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorBehaviorStateMachine
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorBehaviorTransition
@@ -202,6 +203,10 @@ class ErrorModelScopeProvider extends PropertiesScopeProvider {
 	
 	def scope_OutgoingPropagationCondition_outgoing(Classifier context, EReference reference) {
 		context.scopeForErrorPropagation(DirectionType.OUT)
+	}
+	
+	def scope_ErrorDetection_detectionReportingPort(Classifier context, EReference reference) {
+		context.getAllFeatures.filter(Port).scopeFor
 	}
 	
 	def private scopeWithoutEMV2Prefix(EObject context, EReference reference) {

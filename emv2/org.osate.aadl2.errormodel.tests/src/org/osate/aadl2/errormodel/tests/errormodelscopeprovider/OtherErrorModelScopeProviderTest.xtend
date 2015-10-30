@@ -825,4 +825,48 @@ class OtherErrorModelScopeProviderTest extends OsateTest {
 			]
 		]
 	}
+	
+	//Tests scope_ErrorDetection_detectionReportingPort
+	@Test
+	def void testPortReference() {
+		val subclause1FileName = "subclause1.aadl"
+		createFiles(subclause1FileName -> '''
+			package subclause1
+			public
+				abstract a1
+				features
+					dp1: in data port;
+				end a1;
+				
+				abstract a2 extends a1
+				features
+					dp2: in data port;
+				annex EMV2 {**
+					use types ErrorLibrary;
+					
+					error propagations
+						access: in propagation {AboveRange};
+					end propagations;
+					
+					component error behavior
+					detections
+						detection1: all -[ access ]-> dp1!;
+					end component;
+				**};
+				end a2;
+			end subclause1;
+		''')
+		suppressSerialization
+		testFile(subclause1FileName).resource.contents.head as AadlPackage => [
+			"subclause1".assertEquals(name)
+			publicSection.ownedClassifiers.get(1) => [
+				"a2".assertEquals(name)
+				((ownedAnnexSubclauses.head as DefaultAnnexSubclause).parsedAnnexSubclause as ErrorModelSubclause).errorDetections.head => [
+					"detection1".assertEquals(name)
+					//Tests scope_ErrorDetection_detectionReportingPort
+					assertScope(ErrorModelPackage.eINSTANCE.errorDetection_DetectionReportingPort, #["dp1", "dp2"])
+				]
+			]
+		]
+	}
 }
