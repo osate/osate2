@@ -394,9 +394,18 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 
 	@Check(CheckType.FAST)
 	public void caseFeatureConnection(FeatureConnection connection) {
-		typeCheckFeatureConnectionEnd(connection.getSource());
-		typeCheckFeatureConnectionEnd(connection.getDestination());
-		checkConnectionDirection(connection);
+		if (connection.getSource().getConnectionEnd() instanceof FeatureGroupConnectionEnd &&
+				connection.getDestination().getConnectionEnd() instanceof FeatureGroupConnectionEnd	) {
+			typeCheckFeatureGroupConnectionEnd(connection.getSource());
+			typeCheckFeatureGroupConnectionEnd(connection.getDestination());
+			checkFeatureGroupConnectionDirection(connection);
+			checkFeatureGroupConnectionClassifiers(connection);
+		} else {
+			typeCheckFeatureConnectionEnd(connection.getSource());
+			typeCheckFeatureConnectionEnd(connection.getDestination());
+			checkConnectionDirection(connection);
+			checkFeatureConnectionFeatureGroupToFeatureOrAbstract(connection);
+		}
 	}
 
 	@Check(CheckType.FAST)
@@ -4994,6 +5003,17 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 		}
 	}
 
+	private void checkFeatureConnectionFeatureGroupToFeatureOrAbstract(Connection connection) {
+		ConnectionEnd source = connection.getAllSource();
+		ConnectionEnd destination = connection.getAllDestination();
+		if (source instanceof FeatureGroup && !(destination instanceof FeatureGroup || destination instanceof AbstractFeature)){
+			error(connection, "If source is a Feature Group then destination must be either a Feature Group or an Abstract Feature.");
+		}
+		if (destination instanceof FeatureGroup && !(source instanceof FeatureGroup || source instanceof AbstractFeature)){
+			error(connection, "If destination is a Feature Group then source must be either a Feature Group or an Abstract Feature.");
+		}
+	}
+
 	/**
 	 * Check direction of ConnectionEnd in connections
 	 */
@@ -7111,7 +7131,7 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 	 * Check category of source and destination
 	 * Section 9.5 Legality rules L5-8
 	 */
-	private void checkFeatureGroupConnectionDirection(FeatureGroupConnection connection) {
+	private void checkFeatureGroupConnectionDirection(Connection connection) {
 		if (connection.isBidirectional()) {
 			return;
 		}
@@ -7270,7 +7290,7 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 	 * to match if each has incoming features that are a subset of outgoing features
 	 * of the other.  The pairs of features are expected to have the same name."
 	 */
-	private void checkFeatureGroupConnectionClassifiers(FeatureGroupConnection connection) {
+	private void checkFeatureGroupConnectionClassifiers(Connection connection) {
 		if (!(connection.getAllSource() instanceof FeatureGroup)
 				|| !(connection.getAllDestination() instanceof FeatureGroup)) {
 			return;
