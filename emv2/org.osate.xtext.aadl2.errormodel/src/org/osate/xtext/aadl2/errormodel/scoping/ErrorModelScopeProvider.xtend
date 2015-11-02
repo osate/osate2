@@ -20,6 +20,7 @@ import org.osate.aadl2.Element
 import org.osate.aadl2.FeatureGroup
 import org.osate.aadl2.Port
 import org.osate.xtext.aadl2.errormodel.errorModel.CompositeState
+import org.osate.xtext.aadl2.errormodel.errorModel.ConditionElement
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorBehaviorState
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorBehaviorStateMachine
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorBehaviorTransition
@@ -178,6 +179,7 @@ class ErrorModelScopeProvider extends PropertiesScopeProvider {
 	}
 	
 	def scope_ErrorBehaviorState(ErrorModelSubclause context, EReference reference) {
+		//TODO: Inherit use Behavior
 		context.useBehavior?.states?.scopeFor ?: IScope.NULLSCOPE
 	}
 	
@@ -216,6 +218,12 @@ class ErrorModelScopeProvider extends PropertiesScopeProvider {
 	
 	def scope_ErrorStateToModeMapping_mappedModes(ComponentClassifier context, EReference reference) {
 		context.allModes.scopeFor
+	}
+	
+	def scope_ConditionElement_state(ConditionElement context, EReference reference) {
+		val subcomponentClassifier = context.subcomponents.last.subcomponent.allClassifier
+		val stateMachine = subcomponentClassifier?.allContainingClassifierEMV2Subclauses?.map[useBehavior]?.filterNull?.head
+		stateMachine?.states?.scopeFor ?: IScope.NULLSCOPE
 	}
 	
 	def private scopeWithoutEMV2Prefix(EObject context, EReference reference) {
