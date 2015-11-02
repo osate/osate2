@@ -888,4 +888,57 @@ class OtherErrorModelScopeProviderTest extends OsateTest {
 			]
 		]
 	}
+	
+	//Tests scope_ErrorStateToModeMapping_mappedModes
+	@Test
+	def void testModeReference() {
+		val lib1FileName = "lib1.aadl"
+		val subclause1FileName = "subclause1.aadl"
+		createFiles(lib1FileName -> '''
+			package lib1
+			public
+				annex EMV2 {**
+					error behavior bvr1
+					states
+						bvr_state1: state;
+					end behavior;
+				**};
+			end lib1;
+		''', subclause1FileName -> '''
+			package subclause1
+			public
+				abstract a1
+				modes
+					m1: initial mode;
+					m2: mode;
+				end a1;
+				
+				abstract a2 extends a1
+				modes
+					m3: mode;
+					m4: mode;
+				annex EMV2 {**
+					use behavior lib1::bvr1;
+					
+					component error behavior
+					mode mappings
+						bvr_state1 in modes (m1, m3);
+					end component;
+				**};
+				end a2;
+			end subclause1;
+		''')
+		suppressSerialization
+		testFile(subclause1FileName).resource.contents.head as AadlPackage => [
+			"subclause1".assertEquals(name)
+			publicSection.ownedClassifiers.get(1) => [
+				"a2".assertEquals(name)
+				((ownedAnnexSubclauses.head as DefaultAnnexSubclause).parsedAnnexSubclause as ErrorModelSubclause).errorStateToModeMappings.head => [
+					"bvr_state1".assertEquals(errorState.name)
+					//Tests scope_ErrorStateToModeMapping_mappedModes
+					assertScope(ErrorModelPackage.eINSTANCE.errorStateToModeMapping_MappedModes, #["m1", "m2", "m3", "m4"])
+				]
+			]
+		]
+	}
 }

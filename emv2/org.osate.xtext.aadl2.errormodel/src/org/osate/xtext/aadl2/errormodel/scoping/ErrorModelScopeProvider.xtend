@@ -209,6 +209,10 @@ class ErrorModelScopeProvider extends PropertiesScopeProvider {
 		context.getAllFeatures.filter(Port).scopeFor
 	}
 	
+	def scope_ErrorStateToModeMapping_mappedModes(ComponentClassifier context, EReference reference) {
+		context.allModes.scopeFor
+	}
+	
 	def private scopeWithoutEMV2Prefix(EObject context, EReference reference) {
 		new SimpleScope(delegateGetScope(context, reference).allElements.map[
 			val nameAsString = name.toString("::")
