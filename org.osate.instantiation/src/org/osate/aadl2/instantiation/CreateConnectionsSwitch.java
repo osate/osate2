@@ -692,22 +692,26 @@ public class CreateConnectionsSwitch extends AadlProcessingSwitchWithProgress {
 		FeatureInstance upFi = null;
 		if (dstEnd instanceof FeatureInstance) {
 			FeatureInstance dstFi = (FeatureInstance) dstEnd;
+			EList<FeatureInstance> flist = dstFi.getFeatureInstances();
 
 			if (dstFi.getCategory() == FeatureCategory.FEATURE_GROUP && !upFeature.isEmpty()) {
 				upFi = upFeature.pop();
-				EList<FeatureInstance> flist = dstFi.getFeatureInstances();
-				FeatureGroupType upfgt = ((FeatureGroup) ((FeatureInstance) upFi.getOwner()).getFeature())
-						.getFeatureGroupType();
-				FeatureGroupType downfgt = ((FeatureGroup) dstFi.getFeature()).getFeatureGroupType();
-				if (downfgt == null) {
-					warning(dstFi.getContainingComponentInstance(),
-							"In " + dstFi.getContainingComponentInstance().getName() + " (classifier "
-									+ dstFi.getContainingComponentInstance().getComponentClassifier().getName()
-									+ ") feature group " + dstFi.getName() + " has no type");
-				}
-				if (upfgt != null && downfgt != null && upfgt.isInverseOf(downfgt) && !upfgt.getAllFeatures().isEmpty()
-						&& !downfgt.getAllFeatures().isEmpty()) {
-					dstFi = flist.get(Aadl2InstanceUtil.getFeatureIndex(upFi));
+				if (upFi.eContainer() == dstFi) {
+					dstFi = upFi;
+				} else {
+					FeatureGroupType upfgt = ((FeatureGroup) ((FeatureInstance) upFi.getOwner()).getFeature())
+							.getFeatureGroupType();
+					FeatureGroupType downfgt = ((FeatureGroup) dstFi.getFeature()).getFeatureGroupType();
+					if (downfgt == null) {
+						warning(dstFi.getContainingComponentInstance(),
+								"In " + dstFi.getContainingComponentInstance().getName() + " (classifier "
+										+ dstFi.getContainingComponentInstance().getComponentClassifier().getName()
+										+ ") feature group " + dstFi.getName() + " has no type");
+					}
+					if (upfgt != null && downfgt != null && upfgt.isInverseOf(downfgt)
+							&& !upfgt.getAllFeatures().isEmpty() && !downfgt.getAllFeatures().isEmpty()) {
+						dstFi = flist.get(Aadl2InstanceUtil.getFeatureIndex(upFi));
+					}
 				}
 			}
 			if (connInfo.src instanceof FeatureInstance) {
