@@ -178,9 +178,9 @@ class ErrorModelScopeProvider extends PropertiesScopeProvider {
 		context.states.scopeFor
 	}
 	
-	def scope_ErrorBehaviorState(ErrorModelSubclause context, EReference reference) {
-		//TODO: Inherit use Behavior
-		context.useBehavior?.states?.scopeFor ?: IScope.NULLSCOPE
+	def scope_ErrorBehaviorState(Classifier context, EReference reference) {
+		val stateMachine = context.allContainingClassifierEMV2Subclauses.map[useBehavior].filterNull.head
+		stateMachine?.states?.scopeFor ?: IScope.NULLSCOPE
 	}
 	
 	def scope_ConnectionErrorSource_connection(ComponentImplementation context, EReference reference) {
