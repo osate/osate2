@@ -826,11 +826,16 @@ class OtherErrorModelScopeProviderTest extends OsateTest {
 		]
 	}
 	
-	//Tests scope_ErrorDetection_detectionReportingPort
+	//Tests scope_ErrorDetection_detectionReportingPort and ErrorCodeValue's constant reference
 	@Test
-	def void testPortReference() {
+	def void testErrorDetectionReferences() {
+		val ps1FileName = "ps1.aadl"
 		val subclause1FileName = "subclause1.aadl"
-		createFiles(subclause1FileName -> '''
+		createFiles(ps1FileName -> '''
+			property set ps1 is
+				const1: constant aadlinteger => 42;
+			end ps1;
+		''', subclause1FileName -> '''
 			package subclause1
 			public
 				abstract a1
@@ -850,7 +855,7 @@ class OtherErrorModelScopeProviderTest extends OsateTest {
 					
 					component error behavior
 					detections
-						detection1: all -[ access ]-> dp1!;
+						detection1: all -[ access ]-> dp1! ps1::const1;
 					end component;
 				**};
 				end a2;
@@ -865,6 +870,20 @@ class OtherErrorModelScopeProviderTest extends OsateTest {
 					"detection1".assertEquals(name)
 					//Tests scope_ErrorDetection_detectionReportingPort
 					assertScope(ErrorModelPackage.eINSTANCE.errorDetection_DetectionReportingPort, #["dp1", "dp2"])
+					//Tests ErrorCodeValue's constant reference
+					errorCode.assertScope(ErrorModelPackage.eINSTANCE.errorCodeValue_Constant, #["Max_Aadlinteger",
+						"Max_Base_Address", "Max_Byte_Count", "Max_Memory_Size", "Max_Queue_Size", "Max_Target_Integer",
+						"Max_Thread_Limit", "Max_Time", "Max_Urgency", "Max_Volume", "Max_Word_Space",
+						"Supported_Classifier_Complement_Matches", "Supported_Classifier_Equivalence_Matches",
+						"Supported_Classifier_Subset_Matches", "Supported_Type_Conversions", "ps1::const1",
+						"AADL_Project::Max_Aadlinteger", "AADL_Project::Max_Base_Address",
+						"AADL_Project::Max_Byte_Count", "AADL_Project::Max_Memory_Size", "AADL_Project::Max_Queue_Size",
+						"AADL_Project::Max_Target_Integer", "AADL_Project::Max_Thread_Limit", "AADL_Project::Max_Time",
+						"AADL_Project::Max_Urgency", "AADL_Project::Max_Volume", "AADL_Project::Max_Word_Space",
+						"AADL_Project::Supported_Classifier_Complement_Matches",
+						"AADL_Project::Supported_Classifier_Equivalence_Matches",
+						"AADL_Project::Supported_Classifier_Subset_Matches", "AADL_Project::Supported_Type_Conversions"
+					])
 				]
 			]
 		]
