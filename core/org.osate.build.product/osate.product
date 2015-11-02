@@ -48,7 +48,6 @@
       <feature id="org.osate.utils.feature" installMode="root"/>
       <feature id="com.rockwellcollins.atc.agree.feature" installMode="root"/>
       <feature id="com.rockwellcollins.atc.resolute.feature" installMode="root"/>
-      <feature id="net.certware.feature.sacm" installMode="root"/>
       <feature id="org.osate.ocarina.feature" installMode="root"/>
       <feature id="org.eclipse.e4.rcp"/>
       <feature id="org.eclipse.egit"/>
