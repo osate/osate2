@@ -19,6 +19,7 @@ import org.osate.aadl2.DirectionType
 import org.osate.aadl2.Element
 import org.osate.aadl2.FeatureGroup
 import org.osate.aadl2.Port
+import org.osate.xtext.aadl2.errormodel.errorModel.CompositeState
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorBehaviorState
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorBehaviorStateMachine
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorBehaviorTransition
@@ -198,6 +199,10 @@ class ErrorModelScopeProvider extends PropertiesScopeProvider {
 	}
 	
 	def scope_ConditionElement_incoming(OutgoingPropagationCondition context, EReference reference) {
+		scopeForEventOrPropagation(context.getContainerOfType(Classifier), false)
+	}
+	
+	def scope_ConditionElement_incoming(CompositeState context, EReference reference) {
 		scopeForEventOrPropagation(context.getContainerOfType(Classifier), false)
 	}
 	

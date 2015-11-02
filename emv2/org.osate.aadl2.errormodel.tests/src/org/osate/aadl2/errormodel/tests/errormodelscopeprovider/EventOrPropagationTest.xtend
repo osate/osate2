@@ -24,8 +24,9 @@ class EventOrPropagationTest extends OsateTest {
 	
 	/*
 	 * Tests scope_ConditionElement_incoming(ErrorBehaviorTransition, EReference),
-	 * scope_ConditionElement_incoming(ErrorDetection, EReference), and
-	 * scope_ConditionElement_incoming(OutgoingPropagationCondition, EReference)
+	 * scope_ConditionElement_incoming(ErrorDetection, EReference),
+	 * scope_ConditionElement_incoming(OutgoingPropagationCondition, EReference), and
+	 * scope_ConditionElement_incoming(CompositeState, EReference)
 	 */
 	@Test
 	def void testEventOrPropagationReference() {
@@ -42,6 +43,8 @@ class EventOrPropagationTest extends OsateTest {
 					error behavior bvr
 					events
 						err_evt1: error event;
+					states
+						state1: state;
 					transitions
 						transition1: all -[ err_evt1 ]-> same state;
 					end behavior;
@@ -141,6 +144,7 @@ class EventOrPropagationTest extends OsateTest {
 					asub2: abstract a1.i;
 				annex EMV2 {**
 					use types lib1;
+					use behavior lib1::bvr;
 					
 					error propagations
 						dp7: in propagation {et1};
@@ -157,6 +161,11 @@ class EventOrPropagationTest extends OsateTest {
 					detections
 						detection1: all -[ err_evt3 ]-> dp1!;
 					end component;
+					
+					composite error behavior
+					states
+						compositeState1: [ in dp1 ]-> state1;
+					end composite;
 				**};
 				end a2.i;
 				
@@ -215,6 +224,11 @@ class EventOrPropagationTest extends OsateTest {
 						"detection1".assertEquals(name)
 						//Tests scope_ConditionElement_incoming(ErrorDetection, EReference)
 						condition.assertScope(ErrorModelPackage.eINSTANCE.conditionElement_Incoming, events + propagations)
+					]
+					states.head => [
+						"compositeState1".assertEquals(name)
+						//Tests scope_ConditionElement_incoming(CompositeState, EReference)
+						condition.assertScope(ErrorModelPackage.eINSTANCE.conditionElement_Incoming, propagations)
 					]
 				]
 			]
