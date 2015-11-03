@@ -489,9 +489,9 @@ public class EMLinkingService extends PropertiesLinkingService {
 				return res;
 			}
 		}
-		if (context instanceof ErrorType || context instanceof TypeSet || context instanceof ErrorModelLibrary) {
+		ErrorModelLibrary owneml = EMV2Util.getContainingErrorModelLibrary(context);
+		if (context instanceof ErrorType || context instanceof TypeSet || owneml instanceof ErrorModelLibrary) {
 			// lookup in own EML if we are inside an ErrorModelLibrary
-			ErrorModelLibrary owneml = EMV2Util.getContainingErrorModelLibrary(context);
 			EObject res = findNamedTypeElementInThisEML(owneml, typeName, eclass);
 			if (res != null)
 				return res;
