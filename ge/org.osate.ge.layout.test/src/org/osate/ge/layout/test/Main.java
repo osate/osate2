@@ -19,7 +19,6 @@ import org.osate.ge.layout.Connection;
 import org.osate.ge.layout.MonteCarloLayout;
 import org.osate.ge.layout.Shape;
 import org.osate.ge.layout.MonteCarloLayout.LayoutOperation;
-import org.osate.ge.layout.Shape.PositionMode;
 
 import com.mxgraph.swing.mxGraphComponent;
 import com.mxgraph.view.mxGraph;
@@ -38,18 +37,17 @@ public class Main {
 		final Map<Object, String> objectToLabelMap = new HashMap<Object, String>();
 		for(int i = 0; i < numberOfTopShapes; i++) 
 		{
-			PositionMode positionMode = Shape.PositionMode.FREE;
-			final Shape newShape = new Shape(null, 0, 0, 200 + rand.nextInt(160), 200 + rand.nextInt(160), true, positionMode); 
+			final Shape newShape = new Shape(null, 0, 0, 200 + rand.nextInt(160), 200 + rand.nextInt(160), true, false, false); 
 			objectToLabelMap.put(newShape, "S" + i);
 			rootShapes.add(newShape);
 			
 			for(int j = 0; j < numberOfChildShapes / 2; j++) {
-				final Shape childShape = new Shape(newShape, 0, 0, 20 + rand.nextInt(40), 20 + rand.nextInt(40), true, Shape.PositionMode.SNAP_LEFT_RIGHT); 
+				final Shape childShape = new Shape(newShape, 0, 0, 20 + rand.nextInt(40), 20 + rand.nextInt(40), true, false, true); 
 				objectToLabelMap.put(childShape, "S" + i + "_S" + j);
 			}
 			
 			for(int j = 0; j < numberOfChildShapes / 2; j++) {
-				final Shape childShape = new Shape(newShape, 0, 0, 20 + rand.nextInt(40), 20 + rand.nextInt(40), true, Shape.PositionMode.FREE); 
+				final Shape childShape = new Shape(newShape, 0, 0, 20 + rand.nextInt(40), 20 + rand.nextInt(40), true, false, false); 
 				objectToLabelMap.put(childShape, "S" + i + "_F" + j);
 			}
 		}
