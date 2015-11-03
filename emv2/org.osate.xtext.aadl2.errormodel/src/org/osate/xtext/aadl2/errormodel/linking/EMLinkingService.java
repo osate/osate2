@@ -202,8 +202,24 @@ public class EMLinkingService extends PropertiesLinkingService {
 						}
 					} else {
 						if (cxtElement instanceof  ContainmentPathElement){
+							ErrorBehaviorStateMachine ebsm = EMV2Util.getErrorBehaviorStateMachine(cxtElement);
+							if (ebsm != null) {
+								searchResult = EMV2Util.findErrorBehaviorEvent(ebsm, name);
+								if (searchResult != null) {
+									return Collections.singletonList(searchResult);
+								}
+								searchResult = EMV2Util.findErrorBehaviorState(ebsm, name);
+								if (searchResult != null) {
+									return Collections.singletonList(searchResult);
+								}
+								searchResult = EMV2Util.findErrorBehaviorTransition(ebsm, name);
+								if (searchResult != null) {
+									return Collections.singletonList(searchResult);
+								}
+							} else {
 							ErrorModelLibrary eml = EMV2Util.getContainingErrorModelLibrary(cxtElement);
 							if (eml != null) cxtElement = eml;
+							}
 						}
 						searchResult = findErrorType(cxtElement, name);
 						if (searchResult != null) {
