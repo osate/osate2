@@ -5,6 +5,7 @@ import org.eclipse.core.runtime.IExtension;
 import org.eclipse.core.runtime.IExtensionPoint;
 import org.eclipse.core.runtime.IExtensionRegistry;
 import org.eclipse.core.runtime.Platform;
+import org.eclipse.emf.common.CommonPlugin;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.graphiti.ui.platform.AbstractImageProvider;
 import org.eclipse.graphiti.ui.platform.IImageProvider;
@@ -21,16 +22,22 @@ public class AgeImageProvider extends AbstractImageProvider implements
 			for(final IExtension extension : point.getExtensions()) {
 				for(final IConfigurationElement ce : extension.getConfigurationElements()) {
 					final String imageId = ce.getAttribute("id");
-					final String imagePlugin = ce.getAttribute("plugin");
-					final String imagePath = ce.getAttribute("path");
+					String imagePlugin = ce.getAttribute("plugin");
+					if(imagePlugin == null) {
+						imagePlugin = extension.getContributor().getName();
+					}
 
-					addImageFilePath(imageId, getCompleteImagePath(imagePlugin, imagePath));
+					final String imagePath = ce.getAttribute("path");
+					final URI imageUri = getCompleteImagePath(imagePlugin, imagePath);
+					if(CommonPlugin.resolve(imageUri).isFile()) {
+						addImageFilePath(imageId, imageUri.toString());
+					}
 				}
 			}
 		}
 	}
 
-	private static String getCompleteImagePath(final String imagePlugin, final String imagePath) {
-		return imagePlugin == null ? imagePath : URI.createPlatformPluginURI(imagePlugin + imagePath, true).toString();
+	private static URI getCompleteImagePath(final String imagePlugin, final String imagePath) {
+		return URI.createPlatformPluginURI(imagePlugin + imagePath, true);
 	}
 }
