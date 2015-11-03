@@ -201,6 +201,10 @@ public class EMLinkingService extends PropertiesLinkingService {
 							return Collections.singletonList(searchResult);
 						}
 					} else {
+						if (cxtElement instanceof  ContainmentPathElement){
+							ErrorModelLibrary eml = EMV2Util.getContainingErrorModelLibrary(cxtElement);
+							if (eml != null) cxtElement = eml;
+						}
 						searchResult = findErrorType(cxtElement, name);
 						if (searchResult != null) {
 							return Collections.singletonList(searchResult);
