@@ -15,6 +15,7 @@ import org.osate.aadl2.Port;
  *
  * <p>
  * The following features are supported:
+ * </p>
  * <ul>
  *   <li>{@link org.osate.xtext.aadl2.errormodel.errorModel.ErrorDetection#getState <em>State</em>}</li>
  *   <li>{@link org.osate.xtext.aadl2.errormodel.errorModel.ErrorDetection#getTypeTokenConstraint <em>Type Token Constraint</em>}</li>
@@ -24,7 +25,6 @@ import org.osate.aadl2.Port;
  *   <li>{@link org.osate.xtext.aadl2.errormodel.errorModel.ErrorDetection#getDetectionReportingPort <em>Detection Reporting Port</em>}</li>
  *   <li>{@link org.osate.xtext.aadl2.errormodel.errorModel.ErrorDetection#getErrorCode <em>Error Code</em>}</li>
  * </ul>
- * </p>
  *
  * @see org.osate.xtext.aadl2.errormodel.errorModel.ErrorModelPackage#getErrorDetection()
  * @model

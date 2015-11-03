@@ -60,6 +60,8 @@ import org.osate.xtext.aadl2.errormodel.errorModel.OrExpression;
 import org.osate.xtext.aadl2.errormodel.errorModel.OutgoingPropagationCondition;
 import org.osate.xtext.aadl2.errormodel.errorModel.PropagationPath;
 import org.osate.xtext.aadl2.errormodel.errorModel.PropagationPoint;
+import org.osate.xtext.aadl2.errormodel.errorModel.QualifiedErrorBehaviorState;
+import org.osate.xtext.aadl2.errormodel.errorModel.QualifiedPropagationPoint;
 import org.osate.xtext.aadl2.errormodel.errorModel.SAndExpression;
 import org.osate.xtext.aadl2.errormodel.errorModel.SOrExpression;
 import org.osate.xtext.aadl2.errormodel.errorModel.SubcomponentElement;
@@ -805,11 +807,10 @@ public class EMV2Util {
 	 */
 	public static ErrorBehaviorState findErrorBehaviorState(Element context, String name) {
 		ErrorBehaviorStateMachine ebsm;
-		if (context instanceof ConditionElement && !((ConditionElement) context).getSubcomponents().isEmpty()) {
+		if (context instanceof QualifiedErrorBehaviorState) {
 			// look up state in state machine of subcomponent
-			ConditionElement tcs = (ConditionElement) context;
-			EList<SubcomponentElement> sublist = tcs.getSubcomponents();
-			Subcomponent sub = sublist.get(sublist.size() - 1).getSubcomponent();
+			QualifiedErrorBehaviorState qualifiedState = (QualifiedErrorBehaviorState) context;
+			Subcomponent sub = qualifiedState.getSubcomponent().getSubcomponent();
 			ComponentClassifier subcl = sub.getAllClassifier();
 			if (subcl == null) {
 				return null;
@@ -2474,6 +2475,33 @@ public class EMV2Util {
 			list.add(current);
 		}
 		return list;
+	}
+
+	public static EList<SubcomponentElement> getSubcomponents(QualifiedPropagationPoint propagationPoint) {
+		final EList<SubcomponentElement> list = new BasicEList<>();
+		for (QualifiedPropagationPoint current = propagationPoint; current != null; current = current.getNext()) {
+			list.add(current.getSubcomponent());
+		}
+		return list;
+	}
+
+	public static EList<SubcomponentElement> getSubcomponents(ConditionElement conditionElement) {
+		final EList<SubcomponentElement> list = new BasicEList<>();
+		for (QualifiedErrorBehaviorState current = conditionElement
+				.getQualifiedState(); current != null; current = current.getNext()) {
+			list.add(current.getSubcomponent());
+		}
+		return list;
+	}
+
+	public static ErrorBehaviorState getState(ConditionElement conditionElement) {
+		for (QualifiedErrorBehaviorState current = conditionElement
+				.getQualifiedState(); current != null; current = current.getNext()) {
+			if (current.getState() != null) {
+				return current.getState();
+			}
+		}
+		return null;
 	}
 
 	public static boolean checkCyclicExtends(ErrorModelLibrary etl) {

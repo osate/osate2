@@ -105,6 +105,7 @@ public class ErrorModelFactoryImpl extends EFactoryImpl implements ErrorModelFac
       case ErrorModelPackage.ERROR_CODE_VALUE: return createErrorCodeValue();
       case ErrorModelPackage.ERROR_STATE_TO_MODE_MAPPING: return createErrorStateToModeMapping();
       case ErrorModelPackage.COMPOSITE_STATE: return createCompositeState();
+      case ErrorModelPackage.QUALIFIED_ERROR_BEHAVIOR_STATE: return createQualifiedErrorBehaviorState();
       case ErrorModelPackage.SUBCOMPONENT_ELEMENT: return createSubcomponentElement();
       case ErrorModelPackage.OR_EXPRESSION: return createOrExpression();
       case ErrorModelPackage.AND_EXPRESSION: return createAndExpression();
@@ -564,6 +565,17 @@ public class ErrorModelFactoryImpl extends EFactoryImpl implements ErrorModelFac
   {
     CompositeStateImpl compositeState = new CompositeStateImpl();
     return compositeState;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public QualifiedErrorBehaviorState createQualifiedErrorBehaviorState()
+  {
+    QualifiedErrorBehaviorStateImpl qualifiedErrorBehaviorState = new QualifiedErrorBehaviorStateImpl();
+    return qualifiedErrorBehaviorState;
   }
 
   /**

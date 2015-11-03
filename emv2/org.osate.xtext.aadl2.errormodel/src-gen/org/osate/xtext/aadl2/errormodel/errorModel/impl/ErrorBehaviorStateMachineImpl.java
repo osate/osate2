@@ -33,6 +33,7 @@ import org.osate.xtext.aadl2.errormodel.errorModel.TypeTransformationSet;
  * <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
+ * </p>
  * <ul>
  *   <li>{@link org.osate.xtext.aadl2.errormodel.errorModel.impl.ErrorBehaviorStateMachineImpl#getUseTypes <em>Use Types</em>}</li>
  *   <li>{@link org.osate.xtext.aadl2.errormodel.errorModel.impl.ErrorBehaviorStateMachineImpl#getUseTransformation <em>Use Transformation</em>}</li>
@@ -41,7 +42,6 @@ import org.osate.xtext.aadl2.errormodel.errorModel.TypeTransformationSet;
  *   <li>{@link org.osate.xtext.aadl2.errormodel.errorModel.impl.ErrorBehaviorStateMachineImpl#getTransitions <em>Transitions</em>}</li>
  *   <li>{@link org.osate.xtext.aadl2.errormodel.errorModel.impl.ErrorBehaviorStateMachineImpl#getProperties <em>Properties</em>}</li>
  * </ul>
- * </p>
  *
  * @generated
  */

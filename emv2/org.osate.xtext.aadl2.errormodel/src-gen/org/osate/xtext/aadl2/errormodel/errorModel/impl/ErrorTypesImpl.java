@@ -13,8 +13,6 @@ import org.osate.xtext.aadl2.errormodel.errorModel.ErrorTypes;
  * <!-- begin-user-doc -->
  * An implementation of the model object '<em><b>Error Types</b></em>'.
  * <!-- end-user-doc -->
- * <p>
- * </p>
  *
  * @generated
  */

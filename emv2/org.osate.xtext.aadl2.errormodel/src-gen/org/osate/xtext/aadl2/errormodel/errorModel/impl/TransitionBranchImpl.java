@@ -24,13 +24,13 @@ import org.osate.xtext.aadl2.errormodel.errorModel.TypeToken;
  * <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
+ * </p>
  * <ul>
  *   <li>{@link org.osate.xtext.aadl2.errormodel.errorModel.impl.TransitionBranchImpl#getTarget <em>Target</em>}</li>
  *   <li>{@link org.osate.xtext.aadl2.errormodel.errorModel.impl.TransitionBranchImpl#getTargetToken <em>Target Token</em>}</li>
  *   <li>{@link org.osate.xtext.aadl2.errormodel.errorModel.impl.TransitionBranchImpl#isSteadyState <em>Steady State</em>}</li>
  *   <li>{@link org.osate.xtext.aadl2.errormodel.errorModel.impl.TransitionBranchImpl#getValue <em>Value</em>}</li>
  * </ul>
- * </p>
  *
  * @generated
  */

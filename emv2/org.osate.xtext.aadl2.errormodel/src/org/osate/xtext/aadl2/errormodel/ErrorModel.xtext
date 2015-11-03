@@ -47,7 +47,7 @@ TypeSetElement|TypeToken
 |QualifiedPropagationPoint|TransitionBranch|BranchValue | ErrorCodeValue
 |ConditionElement | AndExpression | ConditionTerm
 |ConditionExpression|OrmoreExpression|OrlessExpression|OutgoingPropagationCondition
-	|ErrorStateToModeMapping 
+	|ErrorStateToModeMapping|QualifiedErrorBehaviorState
 | SubcomponentElement | FeatureorPPReference  
 ;
 
@@ -290,7 +290,7 @@ PropagationPath returns PropagationPath:
    ;
   
 QualifiedPropagationPoint returns QualifiedPropagationPoint:
-   (subcomponents+=SubcomponentElement  '.')+ propagationPoint=[PropagationPoint|ID]
+   subcomponent=SubcomponentElement '.' (next=QualifiedPropagationPoint | propagationPoint=[PropagationPoint|ID])
    ;
    
 
@@ -479,10 +479,14 @@ SConditionTerm returns ConditionExpression:
 
   
 SConditionElement returns ConditionElement:
-	((subcomponents+=SubcomponentElement '.')+ state=[ErrorBehaviorState|ID] (constraint=TypeTokenConstraint)?)
+	(qualifiedState=QualifiedErrorBehaviorState (constraint=TypeTokenConstraint)?)
 	|
   	'in' (incoming=[ErrorPropagation|ErrorPropagationPoint] ( constraint=TypeTokenConstraintNoError )?)
   ;
+
+QualifiedErrorBehaviorState:
+	subcomponent=SubcomponentElement '.' (next=QualifiedErrorBehaviorState | state=[ErrorBehaviorState|ID])
+;
 
 SubcomponentElement returns SubcomponentElement:
 	subcomponent = [aadl2::Subcomponent|ID]

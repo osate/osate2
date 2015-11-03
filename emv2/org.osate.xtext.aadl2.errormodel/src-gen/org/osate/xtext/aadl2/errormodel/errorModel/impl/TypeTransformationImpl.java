@@ -23,13 +23,13 @@ import org.osate.xtext.aadl2.errormodel.errorModel.TypeTransformation;
  * <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
+ * </p>
  * <ul>
  *   <li>{@link org.osate.xtext.aadl2.errormodel.errorModel.impl.TypeTransformationImpl#getSource <em>Source</em>}</li>
  *   <li>{@link org.osate.xtext.aadl2.errormodel.errorModel.impl.TypeTransformationImpl#isAllSources <em>All Sources</em>}</li>
  *   <li>{@link org.osate.xtext.aadl2.errormodel.errorModel.impl.TypeTransformationImpl#getContributor <em>Contributor</em>}</li>
  *   <li>{@link org.osate.xtext.aadl2.errormodel.errorModel.impl.TypeTransformationImpl#getTarget <em>Target</em>}</li>
  * </ul>
- * </p>
  *
  * @generated
  */

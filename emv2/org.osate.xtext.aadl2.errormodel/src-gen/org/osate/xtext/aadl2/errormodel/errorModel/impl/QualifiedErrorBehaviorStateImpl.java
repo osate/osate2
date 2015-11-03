@@ -12,27 +12,27 @@ import org.eclipse.emf.ecore.impl.ENotificationImpl;
 
 import org.osate.aadl2.impl.ElementImpl;
 
+import org.osate.xtext.aadl2.errormodel.errorModel.ErrorBehaviorState;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorModelPackage;
-import org.osate.xtext.aadl2.errormodel.errorModel.PropagationPoint;
-import org.osate.xtext.aadl2.errormodel.errorModel.QualifiedPropagationPoint;
+import org.osate.xtext.aadl2.errormodel.errorModel.QualifiedErrorBehaviorState;
 import org.osate.xtext.aadl2.errormodel.errorModel.SubcomponentElement;
 
 /**
  * <!-- begin-user-doc -->
- * An implementation of the model object '<em><b>Qualified Propagation Point</b></em>'.
+ * An implementation of the model object '<em><b>Qualified Error Behavior State</b></em>'.
  * <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
  * </p>
  * <ul>
- *   <li>{@link org.osate.xtext.aadl2.errormodel.errorModel.impl.QualifiedPropagationPointImpl#getSubcomponent <em>Subcomponent</em>}</li>
- *   <li>{@link org.osate.xtext.aadl2.errormodel.errorModel.impl.QualifiedPropagationPointImpl#getNext <em>Next</em>}</li>
- *   <li>{@link org.osate.xtext.aadl2.errormodel.errorModel.impl.QualifiedPropagationPointImpl#getPropagationPoint <em>Propagation Point</em>}</li>
+ *   <li>{@link org.osate.xtext.aadl2.errormodel.errorModel.impl.QualifiedErrorBehaviorStateImpl#getSubcomponent <em>Subcomponent</em>}</li>
+ *   <li>{@link org.osate.xtext.aadl2.errormodel.errorModel.impl.QualifiedErrorBehaviorStateImpl#getNext <em>Next</em>}</li>
+ *   <li>{@link org.osate.xtext.aadl2.errormodel.errorModel.impl.QualifiedErrorBehaviorStateImpl#getState <em>State</em>}</li>
  * </ul>
  *
  * @generated
  */
-public class QualifiedPropagationPointImpl extends ElementImpl implements QualifiedPropagationPoint
+public class QualifiedErrorBehaviorStateImpl extends ElementImpl implements QualifiedErrorBehaviorState
 {
   /**
    * The cached value of the '{@link #getSubcomponent() <em>Subcomponent</em>}' containment reference.
@@ -52,24 +52,24 @@ public class QualifiedPropagationPointImpl extends ElementImpl implements Qualif
    * @generated
    * @ordered
    */
-  protected QualifiedPropagationPoint next;
+  protected QualifiedErrorBehaviorState next;
 
   /**
-   * The cached value of the '{@link #getPropagationPoint() <em>Propagation Point</em>}' reference.
+   * The cached value of the '{@link #getState() <em>State</em>}' reference.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @see #getPropagationPoint()
+   * @see #getState()
    * @generated
    * @ordered
    */
-  protected PropagationPoint propagationPoint;
+  protected ErrorBehaviorState state;
 
   /**
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    */
-  protected QualifiedPropagationPointImpl()
+  protected QualifiedErrorBehaviorStateImpl()
   {
     super();
   }
@@ -82,7 +82,7 @@ public class QualifiedPropagationPointImpl extends ElementImpl implements Qualif
   @Override
   protected EClass eStaticClass()
   {
-    return ErrorModelPackage.Literals.QUALIFIED_PROPAGATION_POINT;
+    return ErrorModelPackage.Literals.QUALIFIED_ERROR_BEHAVIOR_STATE;
   }
 
   /**
@@ -106,7 +106,7 @@ public class QualifiedPropagationPointImpl extends ElementImpl implements Qualif
     subcomponent = newSubcomponent;
     if (eNotificationRequired())
     {
-      ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, ErrorModelPackage.QUALIFIED_PROPAGATION_POINT__SUBCOMPONENT, oldSubcomponent, newSubcomponent);
+      ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, ErrorModelPackage.QUALIFIED_ERROR_BEHAVIOR_STATE__SUBCOMPONENT, oldSubcomponent, newSubcomponent);
       if (msgs == null) msgs = notification; else msgs.add(notification);
     }
     return msgs;
@@ -123,14 +123,14 @@ public class QualifiedPropagationPointImpl extends ElementImpl implements Qualif
     {
       NotificationChain msgs = null;
       if (subcomponent != null)
-        msgs = ((InternalEObject)subcomponent).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - ErrorModelPackage.QUALIFIED_PROPAGATION_POINT__SUBCOMPONENT, null, msgs);
+        msgs = ((InternalEObject)subcomponent).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - ErrorModelPackage.QUALIFIED_ERROR_BEHAVIOR_STATE__SUBCOMPONENT, null, msgs);
       if (newSubcomponent != null)
-        msgs = ((InternalEObject)newSubcomponent).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - ErrorModelPackage.QUALIFIED_PROPAGATION_POINT__SUBCOMPONENT, null, msgs);
+        msgs = ((InternalEObject)newSubcomponent).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - ErrorModelPackage.QUALIFIED_ERROR_BEHAVIOR_STATE__SUBCOMPONENT, null, msgs);
       msgs = basicSetSubcomponent(newSubcomponent, msgs);
       if (msgs != null) msgs.dispatch();
     }
     else if (eNotificationRequired())
-      eNotify(new ENotificationImpl(this, Notification.SET, ErrorModelPackage.QUALIFIED_PROPAGATION_POINT__SUBCOMPONENT, newSubcomponent, newSubcomponent));
+      eNotify(new ENotificationImpl(this, Notification.SET, ErrorModelPackage.QUALIFIED_ERROR_BEHAVIOR_STATE__SUBCOMPONENT, newSubcomponent, newSubcomponent));
   }
 
   /**
@@ -138,7 +138,7 @@ public class QualifiedPropagationPointImpl extends ElementImpl implements Qualif
    * <!-- end-user-doc -->
    * @generated
    */
-  public QualifiedPropagationPoint getNext()
+  public QualifiedErrorBehaviorState getNext()
   {
     return next;
   }
@@ -148,13 +148,13 @@ public class QualifiedPropagationPointImpl extends ElementImpl implements Qualif
    * <!-- end-user-doc -->
    * @generated
    */
-  public NotificationChain basicSetNext(QualifiedPropagationPoint newNext, NotificationChain msgs)
+  public NotificationChain basicSetNext(QualifiedErrorBehaviorState newNext, NotificationChain msgs)
   {
-    QualifiedPropagationPoint oldNext = next;
+    QualifiedErrorBehaviorState oldNext = next;
     next = newNext;
     if (eNotificationRequired())
     {
-      ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, ErrorModelPackage.QUALIFIED_PROPAGATION_POINT__NEXT, oldNext, newNext);
+      ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, ErrorModelPackage.QUALIFIED_ERROR_BEHAVIOR_STATE__NEXT, oldNext, newNext);
       if (msgs == null) msgs = notification; else msgs.add(notification);
     }
     return msgs;
@@ -165,20 +165,20 @@ public class QualifiedPropagationPointImpl extends ElementImpl implements Qualif
    * <!-- end-user-doc -->
    * @generated
    */
-  public void setNext(QualifiedPropagationPoint newNext)
+  public void setNext(QualifiedErrorBehaviorState newNext)
   {
     if (newNext != next)
     {
       NotificationChain msgs = null;
       if (next != null)
-        msgs = ((InternalEObject)next).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - ErrorModelPackage.QUALIFIED_PROPAGATION_POINT__NEXT, null, msgs);
+        msgs = ((InternalEObject)next).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - ErrorModelPackage.QUALIFIED_ERROR_BEHAVIOR_STATE__NEXT, null, msgs);
       if (newNext != null)
-        msgs = ((InternalEObject)newNext).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - ErrorModelPackage.QUALIFIED_PROPAGATION_POINT__NEXT, null, msgs);
+        msgs = ((InternalEObject)newNext).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - ErrorModelPackage.QUALIFIED_ERROR_BEHAVIOR_STATE__NEXT, null, msgs);
       msgs = basicSetNext(newNext, msgs);
       if (msgs != null) msgs.dispatch();
     }
     else if (eNotificationRequired())
-      eNotify(new ENotificationImpl(this, Notification.SET, ErrorModelPackage.QUALIFIED_PROPAGATION_POINT__NEXT, newNext, newNext));
+      eNotify(new ENotificationImpl(this, Notification.SET, ErrorModelPackage.QUALIFIED_ERROR_BEHAVIOR_STATE__NEXT, newNext, newNext));
   }
 
   /**
@@ -186,19 +186,19 @@ public class QualifiedPropagationPointImpl extends ElementImpl implements Qualif
    * <!-- end-user-doc -->
    * @generated
    */
-  public PropagationPoint getPropagationPoint()
+  public ErrorBehaviorState getState()
   {
-    if (propagationPoint != null && propagationPoint.eIsProxy())
+    if (state != null && state.eIsProxy())
     {
-      InternalEObject oldPropagationPoint = (InternalEObject)propagationPoint;
-      propagationPoint = (PropagationPoint)eResolveProxy(oldPropagationPoint);
-      if (propagationPoint != oldPropagationPoint)
+      InternalEObject oldState = (InternalEObject)state;
+      state = (ErrorBehaviorState)eResolveProxy(oldState);
+      if (state != oldState)
       {
         if (eNotificationRequired())
-          eNotify(new ENotificationImpl(this, Notification.RESOLVE, ErrorModelPackage.QUALIFIED_PROPAGATION_POINT__PROPAGATION_POINT, oldPropagationPoint, propagationPoint));
+          eNotify(new ENotificationImpl(this, Notification.RESOLVE, ErrorModelPackage.QUALIFIED_ERROR_BEHAVIOR_STATE__STATE, oldState, state));
       }
     }
-    return propagationPoint;
+    return state;
   }
 
   /**
@@ -206,9 +206,9 @@ public class QualifiedPropagationPointImpl extends ElementImpl implements Qualif
    * <!-- end-user-doc -->
    * @generated
    */
-  public PropagationPoint basicGetPropagationPoint()
+  public ErrorBehaviorState basicGetState()
   {
-    return propagationPoint;
+    return state;
   }
 
   /**
@@ -216,12 +216,12 @@ public class QualifiedPropagationPointImpl extends ElementImpl implements Qualif
    * <!-- end-user-doc -->
    * @generated
    */
-  public void setPropagationPoint(PropagationPoint newPropagationPoint)
+  public void setState(ErrorBehaviorState newState)
   {
-    PropagationPoint oldPropagationPoint = propagationPoint;
-    propagationPoint = newPropagationPoint;
+    ErrorBehaviorState oldState = state;
+    state = newState;
     if (eNotificationRequired())
-      eNotify(new ENotificationImpl(this, Notification.SET, ErrorModelPackage.QUALIFIED_PROPAGATION_POINT__PROPAGATION_POINT, oldPropagationPoint, propagationPoint));
+      eNotify(new ENotificationImpl(this, Notification.SET, ErrorModelPackage.QUALIFIED_ERROR_BEHAVIOR_STATE__STATE, oldState, state));
   }
 
   /**
@@ -234,9 +234,9 @@ public class QualifiedPropagationPointImpl extends ElementImpl implements Qualif
   {
     switch (featureID)
     {
-      case ErrorModelPackage.QUALIFIED_PROPAGATION_POINT__SUBCOMPONENT:
+      case ErrorModelPackage.QUALIFIED_ERROR_BEHAVIOR_STATE__SUBCOMPONENT:
         return basicSetSubcomponent(null, msgs);
-      case ErrorModelPackage.QUALIFIED_PROPAGATION_POINT__NEXT:
+      case ErrorModelPackage.QUALIFIED_ERROR_BEHAVIOR_STATE__NEXT:
         return basicSetNext(null, msgs);
     }
     return super.eInverseRemove(otherEnd, featureID, msgs);
@@ -252,13 +252,13 @@ public class QualifiedPropagationPointImpl extends ElementImpl implements Qualif
   {
     switch (featureID)
     {
-      case ErrorModelPackage.QUALIFIED_PROPAGATION_POINT__SUBCOMPONENT:
+      case ErrorModelPackage.QUALIFIED_ERROR_BEHAVIOR_STATE__SUBCOMPONENT:
         return getSubcomponent();
-      case ErrorModelPackage.QUALIFIED_PROPAGATION_POINT__NEXT:
+      case ErrorModelPackage.QUALIFIED_ERROR_BEHAVIOR_STATE__NEXT:
         return getNext();
-      case ErrorModelPackage.QUALIFIED_PROPAGATION_POINT__PROPAGATION_POINT:
-        if (resolve) return getPropagationPoint();
-        return basicGetPropagationPoint();
+      case ErrorModelPackage.QUALIFIED_ERROR_BEHAVIOR_STATE__STATE:
+        if (resolve) return getState();
+        return basicGetState();
     }
     return super.eGet(featureID, resolve, coreType);
   }
@@ -273,14 +273,14 @@ public class QualifiedPropagationPointImpl extends ElementImpl implements Qualif
   {
     switch (featureID)
     {
-      case ErrorModelPackage.QUALIFIED_PROPAGATION_POINT__SUBCOMPONENT:
+      case ErrorModelPackage.QUALIFIED_ERROR_BEHAVIOR_STATE__SUBCOMPONENT:
         setSubcomponent((SubcomponentElement)newValue);
         return;
-      case ErrorModelPackage.QUALIFIED_PROPAGATION_POINT__NEXT:
-        setNext((QualifiedPropagationPoint)newValue);
+      case ErrorModelPackage.QUALIFIED_ERROR_BEHAVIOR_STATE__NEXT:
+        setNext((QualifiedErrorBehaviorState)newValue);
         return;
-      case ErrorModelPackage.QUALIFIED_PROPAGATION_POINT__PROPAGATION_POINT:
-        setPropagationPoint((PropagationPoint)newValue);
+      case ErrorModelPackage.QUALIFIED_ERROR_BEHAVIOR_STATE__STATE:
+        setState((ErrorBehaviorState)newValue);
         return;
     }
     super.eSet(featureID, newValue);
@@ -296,14 +296,14 @@ public class QualifiedPropagationPointImpl extends ElementImpl implements Qualif
   {
     switch (featureID)
     {
-      case ErrorModelPackage.QUALIFIED_PROPAGATION_POINT__SUBCOMPONENT:
+      case ErrorModelPackage.QUALIFIED_ERROR_BEHAVIOR_STATE__SUBCOMPONENT:
         setSubcomponent((SubcomponentElement)null);
         return;
-      case ErrorModelPackage.QUALIFIED_PROPAGATION_POINT__NEXT:
-        setNext((QualifiedPropagationPoint)null);
+      case ErrorModelPackage.QUALIFIED_ERROR_BEHAVIOR_STATE__NEXT:
+        setNext((QualifiedErrorBehaviorState)null);
         return;
-      case ErrorModelPackage.QUALIFIED_PROPAGATION_POINT__PROPAGATION_POINT:
-        setPropagationPoint((PropagationPoint)null);
+      case ErrorModelPackage.QUALIFIED_ERROR_BEHAVIOR_STATE__STATE:
+        setState((ErrorBehaviorState)null);
         return;
     }
     super.eUnset(featureID);
@@ -319,14 +319,14 @@ public class QualifiedPropagationPointImpl extends ElementImpl implements Qualif
   {
     switch (featureID)
     {
-      case ErrorModelPackage.QUALIFIED_PROPAGATION_POINT__SUBCOMPONENT:
+      case ErrorModelPackage.QUALIFIED_ERROR_BEHAVIOR_STATE__SUBCOMPONENT:
         return subcomponent != null;
-      case ErrorModelPackage.QUALIFIED_PROPAGATION_POINT__NEXT:
+      case ErrorModelPackage.QUALIFIED_ERROR_BEHAVIOR_STATE__NEXT:
         return next != null;
-      case ErrorModelPackage.QUALIFIED_PROPAGATION_POINT__PROPAGATION_POINT:
-        return propagationPoint != null;
+      case ErrorModelPackage.QUALIFIED_ERROR_BEHAVIOR_STATE__STATE:
+        return state != null;
     }
     return super.eIsSet(featureID);
   }
 
-} //QualifiedPropagationPointImpl
+} //QualifiedErrorBehaviorStateImpl

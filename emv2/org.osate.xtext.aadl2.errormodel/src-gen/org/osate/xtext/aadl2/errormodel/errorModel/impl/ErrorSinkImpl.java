@@ -19,11 +19,11 @@ import org.osate.xtext.aadl2.errormodel.errorModel.ErrorSink;
  * <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
+ * </p>
  * <ul>
  *   <li>{@link org.osate.xtext.aadl2.errormodel.errorModel.impl.ErrorSinkImpl#getIncoming <em>Incoming</em>}</li>
  *   <li>{@link org.osate.xtext.aadl2.errormodel.errorModel.impl.ErrorSinkImpl#isAllIncoming <em>All Incoming</em>}</li>
  * </ul>
- * </p>
  *
  * @generated
  */

@@ -26,6 +26,7 @@ import org.osate.xtext.aadl2.errormodel.errorModel.TypeToken;
  * <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
+ * </p>
  * <ul>
  *   <li>{@link org.osate.xtext.aadl2.errormodel.errorModel.impl.OutgoingPropagationConditionImpl#getState <em>State</em>}</li>
  *   <li>{@link org.osate.xtext.aadl2.errormodel.errorModel.impl.OutgoingPropagationConditionImpl#getTypeTokenConstraint <em>Type Token Constraint</em>}</li>
@@ -35,7 +36,6 @@ import org.osate.xtext.aadl2.errormodel.errorModel.TypeToken;
  *   <li>{@link org.osate.xtext.aadl2.errormodel.errorModel.impl.OutgoingPropagationConditionImpl#isAllPropagations <em>All Propagations</em>}</li>
  *   <li>{@link org.osate.xtext.aadl2.errormodel.errorModel.impl.OutgoingPropagationConditionImpl#getTypeToken <em>Type Token</em>}</li>
  * </ul>
- * </p>
  *
  * @generated
  */

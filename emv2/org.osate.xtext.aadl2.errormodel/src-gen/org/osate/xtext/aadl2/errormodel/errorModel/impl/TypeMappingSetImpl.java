@@ -28,11 +28,11 @@ import org.osate.xtext.aadl2.errormodel.errorModel.TypeMappingSet;
  * <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
+ * </p>
  * <ul>
  *   <li>{@link org.osate.xtext.aadl2.errormodel.errorModel.impl.TypeMappingSetImpl#getUseTypes <em>Use Types</em>}</li>
  *   <li>{@link org.osate.xtext.aadl2.errormodel.errorModel.impl.TypeMappingSetImpl#getMapping <em>Mapping</em>}</li>
  * </ul>
- * </p>
  *
  * @generated
  */

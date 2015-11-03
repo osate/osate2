@@ -286,6 +286,11 @@ public class ErrorModelAdapterFactory extends AdapterFactoryImpl
         return createCompositeStateAdapter();
       }
       @Override
+      public Adapter caseQualifiedErrorBehaviorState(QualifiedErrorBehaviorState object)
+      {
+        return createQualifiedErrorBehaviorStateAdapter();
+      }
+      @Override
       public Adapter caseSubcomponentElement(SubcomponentElement object)
       {
         return createSubcomponentElementAdapter();
@@ -968,6 +973,21 @@ public class ErrorModelAdapterFactory extends AdapterFactoryImpl
    * @generated
    */
   public Adapter createCompositeStateAdapter()
+  {
+    return null;
+  }
+
+  /**
+   * Creates a new adapter for an object of class '{@link org.osate.xtext.aadl2.errormodel.errorModel.QualifiedErrorBehaviorState <em>Qualified Error Behavior State</em>}'.
+   * <!-- begin-user-doc -->
+   * This default implementation returns null so that we can easily ignore cases;
+   * it's useful to ignore a case when inheritance will catch all the cases anyway.
+   * <!-- end-user-doc -->
+   * @return the new adapter.
+   * @see org.osate.xtext.aadl2.errormodel.errorModel.QualifiedErrorBehaviorState
+   * @generated
+   */
+  public Adapter createQualifiedErrorBehaviorStateAdapter()
   {
     return null;
   }

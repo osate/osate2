@@ -1817,13 +1817,22 @@ public interface ErrorModelPackage extends EPackage
   int QUALIFIED_PROPAGATION_POINT__OWNED_COMMENT = Aadl2Package.ELEMENT__OWNED_COMMENT;
 
   /**
-   * The feature id for the '<em><b>Subcomponents</b></em>' containment reference list.
+   * The feature id for the '<em><b>Subcomponent</b></em>' containment reference.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    * @ordered
    */
-  int QUALIFIED_PROPAGATION_POINT__SUBCOMPONENTS = Aadl2Package.ELEMENT_FEATURE_COUNT + 0;
+  int QUALIFIED_PROPAGATION_POINT__SUBCOMPONENT = Aadl2Package.ELEMENT_FEATURE_COUNT + 0;
+
+  /**
+   * The feature id for the '<em><b>Next</b></em>' containment reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int QUALIFIED_PROPAGATION_POINT__NEXT = Aadl2Package.ELEMENT_FEATURE_COUNT + 1;
 
   /**
    * The feature id for the '<em><b>Propagation Point</b></em>' reference.
@@ -1832,7 +1841,7 @@ public interface ErrorModelPackage extends EPackage
    * @generated
    * @ordered
    */
-  int QUALIFIED_PROPAGATION_POINT__PROPAGATION_POINT = Aadl2Package.ELEMENT_FEATURE_COUNT + 1;
+  int QUALIFIED_PROPAGATION_POINT__PROPAGATION_POINT = Aadl2Package.ELEMENT_FEATURE_COUNT + 2;
 
   /**
    * The number of structural features of the '<em>Qualified Propagation Point</em>' class.
@@ -1841,7 +1850,7 @@ public interface ErrorModelPackage extends EPackage
    * @generated
    * @ordered
    */
-  int QUALIFIED_PROPAGATION_POINT_FEATURE_COUNT = Aadl2Package.ELEMENT_FEATURE_COUNT + 2;
+  int QUALIFIED_PROPAGATION_POINT_FEATURE_COUNT = Aadl2Package.ELEMENT_FEATURE_COUNT + 3;
 
   /**
    * The meta object id for the '{@link org.osate.xtext.aadl2.errormodel.errorModel.impl.ErrorBehaviorStateMachineImpl <em>Error Behavior State Machine</em>}' class.
@@ -2929,22 +2938,13 @@ public interface ErrorModelPackage extends EPackage
   int CONDITION_ELEMENT__CONSTRAINT = Aadl2Package.ELEMENT_FEATURE_COUNT + 1;
 
   /**
-   * The feature id for the '<em><b>Subcomponents</b></em>' containment reference list.
+   * The feature id for the '<em><b>Qualified State</b></em>' containment reference.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    * @ordered
    */
-  int CONDITION_ELEMENT__SUBCOMPONENTS = Aadl2Package.ELEMENT_FEATURE_COUNT + 2;
-
-  /**
-   * The feature id for the '<em><b>State</b></em>' reference.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int CONDITION_ELEMENT__STATE = Aadl2Package.ELEMENT_FEATURE_COUNT + 3;
+  int CONDITION_ELEMENT__QUALIFIED_STATE = Aadl2Package.ELEMENT_FEATURE_COUNT + 2;
 
   /**
    * The number of structural features of the '<em>Condition Element</em>' class.
@@ -2953,7 +2953,7 @@ public interface ErrorModelPackage extends EPackage
    * @generated
    * @ordered
    */
-  int CONDITION_ELEMENT_FEATURE_COUNT = Aadl2Package.ELEMENT_FEATURE_COUNT + 4;
+  int CONDITION_ELEMENT_FEATURE_COUNT = Aadl2Package.ELEMENT_FEATURE_COUNT + 3;
 
   /**
    * The meta object id for the '{@link org.osate.xtext.aadl2.errormodel.errorModel.impl.EventOrPropagationImpl <em>Event Or Propagation</em>}' class.
@@ -3502,6 +3502,70 @@ public interface ErrorModelPackage extends EPackage
   int COMPOSITE_STATE_FEATURE_COUNT = Aadl2Package.NAMED_ELEMENT_FEATURE_COUNT + 4;
 
   /**
+   * The meta object id for the '{@link org.osate.xtext.aadl2.errormodel.errorModel.impl.QualifiedErrorBehaviorStateImpl <em>Qualified Error Behavior State</em>}' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see org.osate.xtext.aadl2.errormodel.errorModel.impl.QualifiedErrorBehaviorStateImpl
+   * @see org.osate.xtext.aadl2.errormodel.errorModel.impl.ErrorModelPackageImpl#getQualifiedErrorBehaviorState()
+   * @generated
+   */
+  int QUALIFIED_ERROR_BEHAVIOR_STATE = 41;
+
+  /**
+   * The feature id for the '<em><b>Owned Element</b></em>' reference list.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int QUALIFIED_ERROR_BEHAVIOR_STATE__OWNED_ELEMENT = Aadl2Package.ELEMENT__OWNED_ELEMENT;
+
+  /**
+   * The feature id for the '<em><b>Owned Comment</b></em>' containment reference list.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int QUALIFIED_ERROR_BEHAVIOR_STATE__OWNED_COMMENT = Aadl2Package.ELEMENT__OWNED_COMMENT;
+
+  /**
+   * The feature id for the '<em><b>Subcomponent</b></em>' containment reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int QUALIFIED_ERROR_BEHAVIOR_STATE__SUBCOMPONENT = Aadl2Package.ELEMENT_FEATURE_COUNT + 0;
+
+  /**
+   * The feature id for the '<em><b>Next</b></em>' containment reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int QUALIFIED_ERROR_BEHAVIOR_STATE__NEXT = Aadl2Package.ELEMENT_FEATURE_COUNT + 1;
+
+  /**
+   * The feature id for the '<em><b>State</b></em>' reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int QUALIFIED_ERROR_BEHAVIOR_STATE__STATE = Aadl2Package.ELEMENT_FEATURE_COUNT + 2;
+
+  /**
+   * The number of structural features of the '<em>Qualified Error Behavior State</em>' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int QUALIFIED_ERROR_BEHAVIOR_STATE_FEATURE_COUNT = Aadl2Package.ELEMENT_FEATURE_COUNT + 3;
+
+  /**
    * The meta object id for the '{@link org.osate.xtext.aadl2.errormodel.errorModel.impl.SubcomponentElementImpl <em>Subcomponent Element</em>}' class.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -3509,7 +3573,7 @@ public interface ErrorModelPackage extends EPackage
    * @see org.osate.xtext.aadl2.errormodel.errorModel.impl.ErrorModelPackageImpl#getSubcomponentElement()
    * @generated
    */
-  int SUBCOMPONENT_ELEMENT = 41;
+  int SUBCOMPONENT_ELEMENT = 42;
 
   /**
    * The feature id for the '<em><b>Owned Element</b></em>' reference list.
@@ -3555,7 +3619,7 @@ public interface ErrorModelPackage extends EPackage
    * @see org.osate.xtext.aadl2.errormodel.errorModel.impl.ErrorModelPackageImpl#getOrExpression()
    * @generated
    */
-  int OR_EXPRESSION = 42;
+  int OR_EXPRESSION = 43;
 
   /**
    * The feature id for the '<em><b>Owned Element</b></em>' reference list.
@@ -3601,7 +3665,7 @@ public interface ErrorModelPackage extends EPackage
    * @see org.osate.xtext.aadl2.errormodel.errorModel.impl.ErrorModelPackageImpl#getAndExpression()
    * @generated
    */
-  int AND_EXPRESSION = 43;
+  int AND_EXPRESSION = 44;
 
   /**
    * The feature id for the '<em><b>Owned Element</b></em>' reference list.
@@ -3647,7 +3711,7 @@ public interface ErrorModelPackage extends EPackage
    * @see org.osate.xtext.aadl2.errormodel.errorModel.impl.ErrorModelPackageImpl#getSOrExpression()
    * @generated
    */
-  int SOR_EXPRESSION = 44;
+  int SOR_EXPRESSION = 45;
 
   /**
    * The feature id for the '<em><b>Owned Element</b></em>' reference list.
@@ -3693,7 +3757,7 @@ public interface ErrorModelPackage extends EPackage
    * @see org.osate.xtext.aadl2.errormodel.errorModel.impl.ErrorModelPackageImpl#getSAndExpression()
    * @generated
    */
-  int SAND_EXPRESSION = 45;
+  int SAND_EXPRESSION = 46;
 
   /**
    * The feature id for the '<em><b>Owned Element</b></em>' reference list.
@@ -4691,15 +4755,26 @@ public interface ErrorModelPackage extends EPackage
   EClass getQualifiedPropagationPoint();
 
   /**
-   * Returns the meta object for the containment reference list '{@link org.osate.xtext.aadl2.errormodel.errorModel.QualifiedPropagationPoint#getSubcomponents <em>Subcomponents</em>}'.
+   * Returns the meta object for the containment reference '{@link org.osate.xtext.aadl2.errormodel.errorModel.QualifiedPropagationPoint#getSubcomponent <em>Subcomponent</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @return the meta object for the containment reference list '<em>Subcomponents</em>'.
-   * @see org.osate.xtext.aadl2.errormodel.errorModel.QualifiedPropagationPoint#getSubcomponents()
+   * @return the meta object for the containment reference '<em>Subcomponent</em>'.
+   * @see org.osate.xtext.aadl2.errormodel.errorModel.QualifiedPropagationPoint#getSubcomponent()
    * @see #getQualifiedPropagationPoint()
    * @generated
    */
-  EReference getQualifiedPropagationPoint_Subcomponents();
+  EReference getQualifiedPropagationPoint_Subcomponent();
+
+  /**
+   * Returns the meta object for the containment reference '{@link org.osate.xtext.aadl2.errormodel.errorModel.QualifiedPropagationPoint#getNext <em>Next</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the containment reference '<em>Next</em>'.
+   * @see org.osate.xtext.aadl2.errormodel.errorModel.QualifiedPropagationPoint#getNext()
+   * @see #getQualifiedPropagationPoint()
+   * @generated
+   */
+  EReference getQualifiedPropagationPoint_Next();
 
   /**
    * Returns the meta object for the reference '{@link org.osate.xtext.aadl2.errormodel.errorModel.QualifiedPropagationPoint#getPropagationPoint <em>Propagation Point</em>}'.
@@ -5293,26 +5368,15 @@ public interface ErrorModelPackage extends EPackage
   EReference getConditionElement_Constraint();
 
   /**
-   * Returns the meta object for the containment reference list '{@link org.osate.xtext.aadl2.errormodel.errorModel.ConditionElement#getSubcomponents <em>Subcomponents</em>}'.
+   * Returns the meta object for the containment reference '{@link org.osate.xtext.aadl2.errormodel.errorModel.ConditionElement#getQualifiedState <em>Qualified State</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @return the meta object for the containment reference list '<em>Subcomponents</em>'.
-   * @see org.osate.xtext.aadl2.errormodel.errorModel.ConditionElement#getSubcomponents()
+   * @return the meta object for the containment reference '<em>Qualified State</em>'.
+   * @see org.osate.xtext.aadl2.errormodel.errorModel.ConditionElement#getQualifiedState()
    * @see #getConditionElement()
    * @generated
    */
-  EReference getConditionElement_Subcomponents();
-
-  /**
-   * Returns the meta object for the reference '{@link org.osate.xtext.aadl2.errormodel.errorModel.ConditionElement#getState <em>State</em>}'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return the meta object for the reference '<em>State</em>'.
-   * @see org.osate.xtext.aadl2.errormodel.errorModel.ConditionElement#getState()
-   * @see #getConditionElement()
-   * @generated
-   */
-  EReference getConditionElement_State();
+  EReference getConditionElement_QualifiedState();
 
   /**
    * Returns the meta object for class '{@link org.osate.xtext.aadl2.errormodel.errorModel.EventOrPropagation <em>Event Or Propagation</em>}'.
@@ -5637,6 +5701,49 @@ public interface ErrorModelPackage extends EPackage
    * @generated
    */
   EReference getCompositeState_TypedToken();
+
+  /**
+   * Returns the meta object for class '{@link org.osate.xtext.aadl2.errormodel.errorModel.QualifiedErrorBehaviorState <em>Qualified Error Behavior State</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for class '<em>Qualified Error Behavior State</em>'.
+   * @see org.osate.xtext.aadl2.errormodel.errorModel.QualifiedErrorBehaviorState
+   * @generated
+   */
+  EClass getQualifiedErrorBehaviorState();
+
+  /**
+   * Returns the meta object for the containment reference '{@link org.osate.xtext.aadl2.errormodel.errorModel.QualifiedErrorBehaviorState#getSubcomponent <em>Subcomponent</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the containment reference '<em>Subcomponent</em>'.
+   * @see org.osate.xtext.aadl2.errormodel.errorModel.QualifiedErrorBehaviorState#getSubcomponent()
+   * @see #getQualifiedErrorBehaviorState()
+   * @generated
+   */
+  EReference getQualifiedErrorBehaviorState_Subcomponent();
+
+  /**
+   * Returns the meta object for the containment reference '{@link org.osate.xtext.aadl2.errormodel.errorModel.QualifiedErrorBehaviorState#getNext <em>Next</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the containment reference '<em>Next</em>'.
+   * @see org.osate.xtext.aadl2.errormodel.errorModel.QualifiedErrorBehaviorState#getNext()
+   * @see #getQualifiedErrorBehaviorState()
+   * @generated
+   */
+  EReference getQualifiedErrorBehaviorState_Next();
+
+  /**
+   * Returns the meta object for the reference '{@link org.osate.xtext.aadl2.errormodel.errorModel.QualifiedErrorBehaviorState#getState <em>State</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the reference '<em>State</em>'.
+   * @see org.osate.xtext.aadl2.errormodel.errorModel.QualifiedErrorBehaviorState#getState()
+   * @see #getQualifiedErrorBehaviorState()
+   * @generated
+   */
+  EReference getQualifiedErrorBehaviorState_State();
 
   /**
    * Returns the meta object for class '{@link org.osate.xtext.aadl2.errormodel.errorModel.SubcomponentElement <em>Subcomponent Element</em>}'.
@@ -6521,12 +6628,20 @@ public interface ErrorModelPackage extends EPackage
     EClass QUALIFIED_PROPAGATION_POINT = eINSTANCE.getQualifiedPropagationPoint();
 
     /**
-     * The meta object literal for the '<em><b>Subcomponents</b></em>' containment reference list feature.
+     * The meta object literal for the '<em><b>Subcomponent</b></em>' containment reference feature.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @generated
      */
-    EReference QUALIFIED_PROPAGATION_POINT__SUBCOMPONENTS = eINSTANCE.getQualifiedPropagationPoint_Subcomponents();
+    EReference QUALIFIED_PROPAGATION_POINT__SUBCOMPONENT = eINSTANCE.getQualifiedPropagationPoint_Subcomponent();
+
+    /**
+     * The meta object literal for the '<em><b>Next</b></em>' containment reference feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EReference QUALIFIED_PROPAGATION_POINT__NEXT = eINSTANCE.getQualifiedPropagationPoint_Next();
 
     /**
      * The meta object literal for the '<em><b>Propagation Point</b></em>' reference feature.
@@ -6997,20 +7112,12 @@ public interface ErrorModelPackage extends EPackage
     EReference CONDITION_ELEMENT__CONSTRAINT = eINSTANCE.getConditionElement_Constraint();
 
     /**
-     * The meta object literal for the '<em><b>Subcomponents</b></em>' containment reference list feature.
+     * The meta object literal for the '<em><b>Qualified State</b></em>' containment reference feature.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @generated
      */
-    EReference CONDITION_ELEMENT__SUBCOMPONENTS = eINSTANCE.getConditionElement_Subcomponents();
-
-    /**
-     * The meta object literal for the '<em><b>State</b></em>' reference feature.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
-    EReference CONDITION_ELEMENT__STATE = eINSTANCE.getConditionElement_State();
+    EReference CONDITION_ELEMENT__QUALIFIED_STATE = eINSTANCE.getConditionElement_QualifiedState();
 
     /**
      * The meta object literal for the '{@link org.osate.xtext.aadl2.errormodel.errorModel.impl.EventOrPropagationImpl <em>Event Or Propagation</em>}' class.
@@ -7263,6 +7370,40 @@ public interface ErrorModelPackage extends EPackage
      * @generated
      */
     EReference COMPOSITE_STATE__TYPED_TOKEN = eINSTANCE.getCompositeState_TypedToken();
+
+    /**
+     * The meta object literal for the '{@link org.osate.xtext.aadl2.errormodel.errorModel.impl.QualifiedErrorBehaviorStateImpl <em>Qualified Error Behavior State</em>}' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see org.osate.xtext.aadl2.errormodel.errorModel.impl.QualifiedErrorBehaviorStateImpl
+     * @see org.osate.xtext.aadl2.errormodel.errorModel.impl.ErrorModelPackageImpl#getQualifiedErrorBehaviorState()
+     * @generated
+     */
+    EClass QUALIFIED_ERROR_BEHAVIOR_STATE = eINSTANCE.getQualifiedErrorBehaviorState();
+
+    /**
+     * The meta object literal for the '<em><b>Subcomponent</b></em>' containment reference feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EReference QUALIFIED_ERROR_BEHAVIOR_STATE__SUBCOMPONENT = eINSTANCE.getQualifiedErrorBehaviorState_Subcomponent();
+
+    /**
+     * The meta object literal for the '<em><b>Next</b></em>' containment reference feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EReference QUALIFIED_ERROR_BEHAVIOR_STATE__NEXT = eINSTANCE.getQualifiedErrorBehaviorState_Next();
+
+    /**
+     * The meta object literal for the '<em><b>State</b></em>' reference feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EReference QUALIFIED_ERROR_BEHAVIOR_STATE__STATE = eINSTANCE.getQualifiedErrorBehaviorState_State();
 
     /**
      * The meta object literal for the '{@link org.osate.xtext.aadl2.errormodel.errorModel.impl.SubcomponentElementImpl <em>Subcomponent Element</em>}' class.

@@ -253,9 +253,9 @@ public class Module {
 	 */
 	private Expression handleElement(final ConditionElement conditionElement) {
 
-		ErrorBehaviorState behaviorState = conditionElement.getState();
+		ErrorBehaviorState behaviorState = EMV2Util.getState(conditionElement);
 
-		for (SubcomponentElement subcomponentElement : conditionElement.getSubcomponents()) {
+		for (SubcomponentElement subcomponentElement : EMV2Util.getSubcomponents(conditionElement)) {
 			Subcomponent subcomponent = subcomponentElement.getSubcomponent();
 
 			if (behaviorState != null) {

@@ -22,11 +22,11 @@ import org.osate.xtext.aadl2.errormodel.errorModel.ErrorModelSubclause;
  * <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
+ * </p>
  * <ul>
  *   <li>{@link org.osate.xtext.aadl2.errormodel.errorModel.impl.ErrorModelGrammarRootImpl#getEml <em>Eml</em>}</li>
  *   <li>{@link org.osate.xtext.aadl2.errormodel.errorModel.impl.ErrorModelGrammarRootImpl#getEmsc <em>Emsc</em>}</li>
  * </ul>
- * </p>
  *
  * @generated
  */

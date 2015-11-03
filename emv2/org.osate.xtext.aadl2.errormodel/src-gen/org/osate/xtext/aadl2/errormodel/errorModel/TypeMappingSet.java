@@ -15,11 +15,11 @@ import org.osate.aadl2.NamedElement;
  *
  * <p>
  * The following features are supported:
+ * </p>
  * <ul>
  *   <li>{@link org.osate.xtext.aadl2.errormodel.errorModel.TypeMappingSet#getUseTypes <em>Use Types</em>}</li>
  *   <li>{@link org.osate.xtext.aadl2.errormodel.errorModel.TypeMappingSet#getMapping <em>Mapping</em>}</li>
  * </ul>
- * </p>
  *
  * @see org.osate.xtext.aadl2.errormodel.errorModel.ErrorModelPackage#getTypeMappingSet()
  * @model

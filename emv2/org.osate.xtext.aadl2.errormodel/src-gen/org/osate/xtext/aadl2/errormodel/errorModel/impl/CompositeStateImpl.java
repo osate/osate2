@@ -24,13 +24,13 @@ import org.osate.xtext.aadl2.errormodel.errorModel.TypeToken;
  * <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
+ * </p>
  * <ul>
  *   <li>{@link org.osate.xtext.aadl2.errormodel.errorModel.impl.CompositeStateImpl#getCondition <em>Condition</em>}</li>
  *   <li>{@link org.osate.xtext.aadl2.errormodel.errorModel.impl.CompositeStateImpl#isOthers <em>Others</em>}</li>
  *   <li>{@link org.osate.xtext.aadl2.errormodel.errorModel.impl.CompositeStateImpl#getState <em>State</em>}</li>
  *   <li>{@link org.osate.xtext.aadl2.errormodel.errorModel.impl.CompositeStateImpl#getTypedToken <em>Typed Token</em>}</li>
  * </ul>
- * </p>
  *
  * @generated
  */

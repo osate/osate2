@@ -12,6 +12,7 @@ import org.osate.aadl2.DefaultAnnexLibrary
 import org.osate.aadl2.DefaultAnnexSubclause
 import org.osate.aadl2.errormodel.tests.ErrorModelUiInjectorProvider
 import org.osate.core.test.OsateTest
+import org.osate.xtext.aadl2.errormodel.errorModel.ConditionElement
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorModelLibrary
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorModelPackage
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorModelSubclause
@@ -446,14 +447,14 @@ class OtherErrorModelScopeProviderTest extends OsateTest {
 						//Tests scope_QualifiedPropagationPoint_propagationPoint
 						source.assertScope(ErrorModelPackage.eINSTANCE.qualifiedPropagationPoint_PropagationPoint, #["point1"])
 						//Tests scope_QualifiedPropagationPoint_propagationPoint
-						target.assertScope(ErrorModelPackage.eINSTANCE.qualifiedPropagationPoint_PropagationPoint, #["point2"])
+						target.next.assertScope(ErrorModelPackage.eINSTANCE.qualifiedPropagationPoint_PropagationPoint, #["point2"])
 					]
 					paths.get(1) => [
 						"propPath2".assertEquals(name)
 						//Tests scope_QualifiedPropagationPoint_propagationPoint
-						source.assertScope(ErrorModelPackage.eINSTANCE.qualifiedPropagationPoint_PropagationPoint, #["point3"])
+						source.next.next.assertScope(ErrorModelPackage.eINSTANCE.qualifiedPropagationPoint_PropagationPoint, #["point3"])
 						//Tests scope_QualifiedPropagationPoint_propagationPoint
-						target.assertScope(ErrorModelPackage.eINSTANCE.qualifiedPropagationPoint_PropagationPoint, #["point4"])
+						target.next.next.next.assertScope(ErrorModelPackage.eINSTANCE.qualifiedPropagationPoint_PropagationPoint, #["point4"])
 					]
 				]
 			]
@@ -757,9 +758,9 @@ class OtherErrorModelScopeProviderTest extends OsateTest {
 		]
 	}
 	
-	//Tests scope_ConditionElement_state
+	//Tests scope_QualifiedErrorBehaviorState_state
 	@Test
-	def void testSConditionElement() {
+	def void testQualifiedErrorBehaviorState() {
 		val lib1FileName = "lib1.aadl"
 		val subclause1FileName = "subclause1.aadl"
 		createFiles(lib1FileName -> '''
@@ -844,18 +845,18 @@ class OtherErrorModelScopeProviderTest extends OsateTest {
 				(ownedAnnexSubclauses.head as DefaultAnnexSubclause).parsedAnnexSubclause as ErrorModelSubclause => [
 					states.get(0) => [
 						"compositeState1".assertEquals(name)
-						//Tests scope_ConditionElement_state
-						condition.assertScope(ErrorModelPackage.eINSTANCE.conditionElement_State, #["bvr_state2"])
+						//Tests scope_QualifiedErrorBehaviorState_state
+						(condition as ConditionElement).qualifiedState.assertScope(ErrorModelPackage.eINSTANCE.qualifiedErrorBehaviorState_State, #["bvr_state2"])
 					]
 					states.get(1) => [
 						"compositeState2".assertEquals(name)
-						//Tests scope_ConditionElement_state
-						condition.assertScope(ErrorModelPackage.eINSTANCE.conditionElement_State, #["bvr_state3"])
+						//Tests scope_QualifiedErrorBehaviorState_state
+						(condition as ConditionElement).qualifiedState.next.assertScope(ErrorModelPackage.eINSTANCE.qualifiedErrorBehaviorState_State, #["bvr_state3"])
 					]
 					states.get(2) => [
 						"compositeState3".assertEquals(name)
-						//Tests scope_ConditionElement_state
-						condition.assertScope(ErrorModelPackage.eINSTANCE.conditionElement_State, #["bvr_state4"])
+						//Tests scope_QualifiedErrorBehaviorState_state
+						(condition as ConditionElement).qualifiedState.next.next.assertScope(ErrorModelPackage.eINSTANCE.qualifiedErrorBehaviorState_State, #["bvr_state4"])
 					]
 				]
 			]

@@ -200,20 +200,21 @@ public class ErrorModelGrammarAccess extends AbstractGrammarElementFinder {
 		private final RuleCall cOrlessExpressionParserRuleCall_13 = (RuleCall)cAlternatives.eContents().get(13);
 		private final RuleCall cOutgoingPropagationConditionParserRuleCall_14 = (RuleCall)cAlternatives.eContents().get(14);
 		private final RuleCall cErrorStateToModeMappingParserRuleCall_15 = (RuleCall)cAlternatives.eContents().get(15);
-		private final RuleCall cSubcomponentElementParserRuleCall_16 = (RuleCall)cAlternatives.eContents().get(16);
-		private final RuleCall cFeatureorPPReferenceParserRuleCall_17 = (RuleCall)cAlternatives.eContents().get(17);
+		private final RuleCall cQualifiedErrorBehaviorStateParserRuleCall_16 = (RuleCall)cAlternatives.eContents().get(16);
+		private final RuleCall cSubcomponentElementParserRuleCall_17 = (RuleCall)cAlternatives.eContents().get(17);
+		private final RuleCall cFeatureorPPReferenceParserRuleCall_18 = (RuleCall)cAlternatives.eContents().get(18);
 		
 		//Element returns aadl2::Element:
 		//	TypeSetElement | TypeToken | TypeTransformation | TypeMapping | QualifiedPropagationPoint | TransitionBranch |
 		//	BranchValue | ErrorCodeValue | ConditionElement | AndExpression | ConditionTerm | ConditionExpression |
-		//	OrmoreExpression | OrlessExpression | OutgoingPropagationCondition | ErrorStateToModeMapping | SubcomponentElement |
-		//	FeatureorPPReference;
+		//	OrmoreExpression | OrlessExpression | OutgoingPropagationCondition | ErrorStateToModeMapping |
+		//	QualifiedErrorBehaviorState | SubcomponentElement | FeatureorPPReference;
 		@Override public ParserRule getRule() { return rule; }
 
 		//TypeSetElement | TypeToken | TypeTransformation | TypeMapping | QualifiedPropagationPoint | TransitionBranch |
 		//BranchValue | ErrorCodeValue | ConditionElement | AndExpression | ConditionTerm | ConditionExpression |
-		//OrmoreExpression | OrlessExpression | OutgoingPropagationCondition | ErrorStateToModeMapping | SubcomponentElement |
-		//FeatureorPPReference
+		//OrmoreExpression | OrlessExpression | OutgoingPropagationCondition | ErrorStateToModeMapping |
+		//QualifiedErrorBehaviorState | SubcomponentElement | FeatureorPPReference
 		public Alternatives getAlternatives() { return cAlternatives; }
 
 		//TypeSetElement
@@ -264,11 +265,14 @@ public class ErrorModelGrammarAccess extends AbstractGrammarElementFinder {
 		//ErrorStateToModeMapping
 		public RuleCall getErrorStateToModeMappingParserRuleCall_15() { return cErrorStateToModeMappingParserRuleCall_15; }
 
+		//QualifiedErrorBehaviorState
+		public RuleCall getQualifiedErrorBehaviorStateParserRuleCall_16() { return cQualifiedErrorBehaviorStateParserRuleCall_16; }
+
 		//SubcomponentElement
-		public RuleCall getSubcomponentElementParserRuleCall_16() { return cSubcomponentElementParserRuleCall_16; }
+		public RuleCall getSubcomponentElementParserRuleCall_17() { return cSubcomponentElementParserRuleCall_17; }
 
 		//FeatureorPPReference
-		public RuleCall getFeatureorPPReferenceParserRuleCall_17() { return cFeatureorPPReferenceParserRuleCall_17; }
+		public RuleCall getFeatureorPPReferenceParserRuleCall_18() { return cFeatureorPPReferenceParserRuleCall_18; }
 	}
 
 	public class ErrorModelSubclauseElements extends AbstractParserRuleElementFinder {
@@ -420,9 +424,9 @@ public class ErrorModelGrammarAccess extends AbstractGrammarElementFinder {
 		//";")? ("error" "propagations" propagations+=ErrorPropagation* ("flows" flows+=ErrorFlow+)? "end" "propagations" ";")?
 		//("component" "error" "behavior" ("use" "transformations" useTransformation=[TypeTransformationSet|QEMREF] ";")?
 		//("events" events+=ErrorBehaviorEvent+)? ("transitions" transitions+=ErrorBehaviorTransition+)? ("propagations"
-		//outgoingPropagationConditions+=OutgoingPropagationCondition+)? ("detections" errorDetections+=ErrorDetection+)? ("mode"
-		//"mappings" errorStateToModeMappings+=ErrorStateToModeMapping+)? "end" "component" ";")? ("composite" "error" "behavior"
-		//("states" states+=CompositeState+)? "end" "composite" ";")? ("connection" "error" ("use" "transformations"
+		//outgoingPropagationConditions+=OutgoingPropagationCondition+)? ("detections" errorDetections+=ErrorDetection+)?
+		//("mode" "mappings" errorStateToModeMappings+=ErrorStateToModeMapping+)? "end" "component" ";")? ("composite" "error"
+		//"behavior" ("states" states+=CompositeState+)? "end" "composite" ";")? ("connection" "error" ("use" "transformations"
 		//typeTransformationSet=[TypeTransformationSet|QEMREF] ";")? connectionErrorSources+=ConnectionErrorSource* "end"
 		//"connection" ";")? ("propagation" "paths" points+=PropagationPoint* paths+=PropagationPath* "end" "paths" ";")?
 		//("properties" properties+=ContainedPropertyAssociation+)?
@@ -574,8 +578,8 @@ public class ErrorModelGrammarAccess extends AbstractGrammarElementFinder {
 
 		//("component" "error" "behavior" ("use" "transformations" useTransformation=[TypeTransformationSet|QEMREF] ";")?
 		//("events" events+=ErrorBehaviorEvent+)? ("transitions" transitions+=ErrorBehaviorTransition+)? ("propagations"
-		//outgoingPropagationConditions+=OutgoingPropagationCondition+)? ("detections" errorDetections+=ErrorDetection+)? ("mode"
-		//"mappings" errorStateToModeMappings+=ErrorStateToModeMapping+)? "end" "component" ";")?
+		//outgoingPropagationConditions+=OutgoingPropagationCondition+)? ("detections" errorDetections+=ErrorDetection+)?
+		//("mode" "mappings" errorStateToModeMappings+=ErrorStateToModeMapping+)? "end" "component" ";")?
 		public Group getGroup_6() { return cGroup_6; }
 
 		//"component"
@@ -856,8 +860,9 @@ public class ErrorModelGrammarAccess extends AbstractGrammarElementFinder {
 		//	{ErrorModelLibrary} //    '{**' 
 		//	("error" "types" ("use" "types" useTypes+=[ErrorModelLibrary|QEMREF] ("," useTypes+=[ErrorModelLibrary|QEMREF])* ";")?
 		//	("extends" extends+=[ErrorModelLibrary|QEMREF] ("," extends+=[ErrorModelLibrary|QEMREF])* "with")?
-		//	(types+=TypeDefinition | typesets+=TypeSetDefinition)* ("properties" properties+=ContainedPropertyAssociation+)? "end"
-		//	"types" ";")? behaviors+=ErrorBehaviorStateMachine* mappings+=TypeMappingSet* transformations+=TypeTransformationSet*;
+		//	(types+=TypeDefinition | typesets+=TypeSetDefinition)* ("properties" properties+=ContainedPropertyAssociation+)?
+		//	"end" "types" ";")? behaviors+=ErrorBehaviorStateMachine* mappings+=TypeMappingSet*
+		//	transformations+=TypeTransformationSet*;
 		@Override public ParserRule getRule() { return rule; }
 
 		//{ErrorModelLibrary} //    '{**' 
@@ -2308,8 +2313,8 @@ public class ErrorModelGrammarAccess extends AbstractGrammarElementFinder {
 		
 		//ErrorPath:
 		//	name=ID ":" "error" "path" (incoming=[ErrorPropagation|ErrorPropagationPoint] | allIncoming?="all")
-		//	typeTokenConstraint=TypeTokenConstraint? "->" (outgoing=[ErrorPropagation|ErrorPropagationPoint] | allOutgoing?="all")
-		//	(targetToken=TypeToken | "use" "mappings" typeMappingSet=[TypeMappingSet|QEMREF])? ";";
+		//	typeTokenConstraint=TypeTokenConstraint? "->" (outgoing=[ErrorPropagation|ErrorPropagationPoint] |
+		//	allOutgoing?="all") (targetToken=TypeToken | "use" "mappings" typeMappingSet=[TypeMappingSet|QEMREF])? ";";
 		@Override public ParserRule getRule() { return rule; }
 
 		//name=ID ":" "error" "path" (incoming=[ErrorPropagation|ErrorPropagationPoint] | allIncoming?="all")
@@ -2536,41 +2541,51 @@ public class ErrorModelGrammarAccess extends AbstractGrammarElementFinder {
 	public class QualifiedPropagationPointElements extends AbstractParserRuleElementFinder {
 		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "QualifiedPropagationPoint");
 		private final Group cGroup = (Group)rule.eContents().get(1);
-		private final Group cGroup_0 = (Group)cGroup.eContents().get(0);
-		private final Assignment cSubcomponentsAssignment_0_0 = (Assignment)cGroup_0.eContents().get(0);
-		private final RuleCall cSubcomponentsSubcomponentElementParserRuleCall_0_0_0 = (RuleCall)cSubcomponentsAssignment_0_0.eContents().get(0);
-		private final Keyword cFullStopKeyword_0_1 = (Keyword)cGroup_0.eContents().get(1);
-		private final Assignment cPropagationPointAssignment_1 = (Assignment)cGroup.eContents().get(1);
-		private final CrossReference cPropagationPointPropagationPointCrossReference_1_0 = (CrossReference)cPropagationPointAssignment_1.eContents().get(0);
-		private final RuleCall cPropagationPointPropagationPointIDTerminalRuleCall_1_0_1 = (RuleCall)cPropagationPointPropagationPointCrossReference_1_0.eContents().get(1);
+		private final Assignment cSubcomponentAssignment_0 = (Assignment)cGroup.eContents().get(0);
+		private final RuleCall cSubcomponentSubcomponentElementParserRuleCall_0_0 = (RuleCall)cSubcomponentAssignment_0.eContents().get(0);
+		private final Keyword cFullStopKeyword_1 = (Keyword)cGroup.eContents().get(1);
+		private final Alternatives cAlternatives_2 = (Alternatives)cGroup.eContents().get(2);
+		private final Assignment cNextAssignment_2_0 = (Assignment)cAlternatives_2.eContents().get(0);
+		private final RuleCall cNextQualifiedPropagationPointParserRuleCall_2_0_0 = (RuleCall)cNextAssignment_2_0.eContents().get(0);
+		private final Assignment cPropagationPointAssignment_2_1 = (Assignment)cAlternatives_2.eContents().get(1);
+		private final CrossReference cPropagationPointPropagationPointCrossReference_2_1_0 = (CrossReference)cPropagationPointAssignment_2_1.eContents().get(0);
+		private final RuleCall cPropagationPointPropagationPointIDTerminalRuleCall_2_1_0_1 = (RuleCall)cPropagationPointPropagationPointCrossReference_2_1_0.eContents().get(1);
 		
-		//QualifiedPropagationPoint:
-		//	(subcomponents+=SubcomponentElement ".")+ propagationPoint=[PropagationPoint];
+		//QualifiedPropagationPoint: //   (subcomponents+=SubcomponentElement  '.')+ propagationPoint=[PropagationPoint|ID]
+		//	subcomponent=SubcomponentElement "." (next=QualifiedPropagationPoint | propagationPoint=[PropagationPoint]);
 		@Override public ParserRule getRule() { return rule; }
 
-		//(subcomponents+=SubcomponentElement ".")+ propagationPoint=[PropagationPoint]
+		////   (subcomponents+=SubcomponentElement  '.')+ propagationPoint=[PropagationPoint|ID]
+		//subcomponent=SubcomponentElement "." (next=QualifiedPropagationPoint | propagationPoint=[PropagationPoint])
 		public Group getGroup() { return cGroup; }
 
-		//(subcomponents+=SubcomponentElement ".")+
-		public Group getGroup_0() { return cGroup_0; }
-
-		//subcomponents+=SubcomponentElement
-		public Assignment getSubcomponentsAssignment_0_0() { return cSubcomponentsAssignment_0_0; }
+		////   (subcomponents+=SubcomponentElement  '.')+ propagationPoint=[PropagationPoint|ID]
+		//subcomponent=SubcomponentElement
+		public Assignment getSubcomponentAssignment_0() { return cSubcomponentAssignment_0; }
 
 		//SubcomponentElement
-		public RuleCall getSubcomponentsSubcomponentElementParserRuleCall_0_0_0() { return cSubcomponentsSubcomponentElementParserRuleCall_0_0_0; }
+		public RuleCall getSubcomponentSubcomponentElementParserRuleCall_0_0() { return cSubcomponentSubcomponentElementParserRuleCall_0_0; }
 
 		//"."
-		public Keyword getFullStopKeyword_0_1() { return cFullStopKeyword_0_1; }
+		public Keyword getFullStopKeyword_1() { return cFullStopKeyword_1; }
+
+		//next=QualifiedPropagationPoint | propagationPoint=[PropagationPoint]
+		public Alternatives getAlternatives_2() { return cAlternatives_2; }
+
+		//next=QualifiedPropagationPoint
+		public Assignment getNextAssignment_2_0() { return cNextAssignment_2_0; }
+
+		//QualifiedPropagationPoint
+		public RuleCall getNextQualifiedPropagationPointParserRuleCall_2_0_0() { return cNextQualifiedPropagationPointParserRuleCall_2_0_0; }
 
 		//propagationPoint=[PropagationPoint]
-		public Assignment getPropagationPointAssignment_1() { return cPropagationPointAssignment_1; }
+		public Assignment getPropagationPointAssignment_2_1() { return cPropagationPointAssignment_2_1; }
 
 		//[PropagationPoint]
-		public CrossReference getPropagationPointPropagationPointCrossReference_1_0() { return cPropagationPointPropagationPointCrossReference_1_0; }
+		public CrossReference getPropagationPointPropagationPointCrossReference_2_1_0() { return cPropagationPointPropagationPointCrossReference_2_1_0; }
 
 		//ID
-		public RuleCall getPropagationPointPropagationPointIDTerminalRuleCall_1_0_1() { return cPropagationPointPropagationPointIDTerminalRuleCall_1_0_1; }
+		public RuleCall getPropagationPointPropagationPointIDTerminalRuleCall_2_1_0_1() { return cPropagationPointPropagationPointIDTerminalRuleCall_2_1_0_1; }
 	}
 
 	public class ErrorBehaviorStateMachineElements extends AbstractParserRuleElementFinder {
@@ -3116,8 +3131,8 @@ public class ErrorModelGrammarAccess extends AbstractGrammarElementFinder {
 		@Override public ParserRule getRule() { return rule; }
 
 		//(name=ID ":")? (source=[ErrorBehaviorState] typeTokenConstraint=TypeTokenConstraint? | allStates?="all") "-["
-		//condition=ConditionExpression "]->" (target=[ErrorBehaviorState] targetToken=TypeToken? | steadyState?="same" "state" |
-		//"(" destinationBranches+=TransitionBranch ("," destinationBranches+=TransitionBranch)+ ")") ";"
+		//condition=ConditionExpression "]->" (target=[ErrorBehaviorState] targetToken=TypeToken? | steadyState?="same" "state"
+		//| "(" destinationBranches+=TransitionBranch ("," destinationBranches+=TransitionBranch)+ ")") ";"
 		public Group getGroup() { return cGroup; }
 
 		//(name=ID ":")?
@@ -4461,15 +4476,10 @@ public class ErrorModelGrammarAccess extends AbstractGrammarElementFinder {
 		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "SConditionElement");
 		private final Alternatives cAlternatives = (Alternatives)rule.eContents().get(1);
 		private final Group cGroup_0 = (Group)cAlternatives.eContents().get(0);
-		private final Group cGroup_0_0 = (Group)cGroup_0.eContents().get(0);
-		private final Assignment cSubcomponentsAssignment_0_0_0 = (Assignment)cGroup_0_0.eContents().get(0);
-		private final RuleCall cSubcomponentsSubcomponentElementParserRuleCall_0_0_0_0 = (RuleCall)cSubcomponentsAssignment_0_0_0.eContents().get(0);
-		private final Keyword cFullStopKeyword_0_0_1 = (Keyword)cGroup_0_0.eContents().get(1);
-		private final Assignment cStateAssignment_0_1 = (Assignment)cGroup_0.eContents().get(1);
-		private final CrossReference cStateErrorBehaviorStateCrossReference_0_1_0 = (CrossReference)cStateAssignment_0_1.eContents().get(0);
-		private final RuleCall cStateErrorBehaviorStateIDTerminalRuleCall_0_1_0_1 = (RuleCall)cStateErrorBehaviorStateCrossReference_0_1_0.eContents().get(1);
-		private final Assignment cConstraintAssignment_0_2 = (Assignment)cGroup_0.eContents().get(2);
-		private final RuleCall cConstraintTypeTokenConstraintParserRuleCall_0_2_0 = (RuleCall)cConstraintAssignment_0_2.eContents().get(0);
+		private final Assignment cQualifiedStateAssignment_0_0 = (Assignment)cGroup_0.eContents().get(0);
+		private final RuleCall cQualifiedStateQualifiedErrorBehaviorStateParserRuleCall_0_0_0 = (RuleCall)cQualifiedStateAssignment_0_0.eContents().get(0);
+		private final Assignment cConstraintAssignment_0_1 = (Assignment)cGroup_0.eContents().get(1);
+		private final RuleCall cConstraintTypeTokenConstraintParserRuleCall_0_1_0 = (RuleCall)cConstraintAssignment_0_1.eContents().get(0);
 		private final Group cGroup_1 = (Group)cAlternatives.eContents().get(1);
 		private final Keyword cInKeyword_1_0 = (Keyword)cGroup_1.eContents().get(0);
 		private final Group cGroup_1_1 = (Group)cGroup_1.eContents().get(1);
@@ -4480,43 +4490,28 @@ public class ErrorModelGrammarAccess extends AbstractGrammarElementFinder {
 		private final RuleCall cConstraintTypeTokenConstraintNoErrorParserRuleCall_1_1_1_0 = (RuleCall)cConstraintAssignment_1_1_1.eContents().get(0);
 		
 		//SConditionElement returns ConditionElement:
-		//	(subcomponents+=SubcomponentElement ".")+ state=[ErrorBehaviorState] constraint=TypeTokenConstraint? | "in"
-		//	(incoming=[ErrorPropagation|ErrorPropagationPoint] constraint=TypeTokenConstraintNoError?);
+		//	qualifiedState=QualifiedErrorBehaviorState constraint=TypeTokenConstraint? //	((subcomponents+=SubcomponentElement '.')+ state=[ErrorBehaviorState|ID] (constraint=TypeTokenConstraint)?)
+		//	| "in" (incoming=[ErrorPropagation|ErrorPropagationPoint] constraint=TypeTokenConstraintNoError?);
 		@Override public ParserRule getRule() { return rule; }
 
-		//(subcomponents+=SubcomponentElement ".")+ state=[ErrorBehaviorState] constraint=TypeTokenConstraint? | "in"
-		//(incoming=[ErrorPropagation|ErrorPropagationPoint] constraint=TypeTokenConstraintNoError?)
+		//qualifiedState=QualifiedErrorBehaviorState constraint=TypeTokenConstraint? //	((subcomponents+=SubcomponentElement '.')+ state=[ErrorBehaviorState|ID] (constraint=TypeTokenConstraint)?)
+		//| "in" (incoming=[ErrorPropagation|ErrorPropagationPoint] constraint=TypeTokenConstraintNoError?)
 		public Alternatives getAlternatives() { return cAlternatives; }
 
-		//(subcomponents+=SubcomponentElement ".")+ state=[ErrorBehaviorState] constraint=TypeTokenConstraint?
+		//qualifiedState=QualifiedErrorBehaviorState constraint=TypeTokenConstraint?
 		public Group getGroup_0() { return cGroup_0; }
 
-		//(subcomponents+=SubcomponentElement ".")+
-		public Group getGroup_0_0() { return cGroup_0_0; }
+		//qualifiedState=QualifiedErrorBehaviorState
+		public Assignment getQualifiedStateAssignment_0_0() { return cQualifiedStateAssignment_0_0; }
 
-		//subcomponents+=SubcomponentElement
-		public Assignment getSubcomponentsAssignment_0_0_0() { return cSubcomponentsAssignment_0_0_0; }
-
-		//SubcomponentElement
-		public RuleCall getSubcomponentsSubcomponentElementParserRuleCall_0_0_0_0() { return cSubcomponentsSubcomponentElementParserRuleCall_0_0_0_0; }
-
-		//"."
-		public Keyword getFullStopKeyword_0_0_1() { return cFullStopKeyword_0_0_1; }
-
-		//state=[ErrorBehaviorState]
-		public Assignment getStateAssignment_0_1() { return cStateAssignment_0_1; }
-
-		//[ErrorBehaviorState]
-		public CrossReference getStateErrorBehaviorStateCrossReference_0_1_0() { return cStateErrorBehaviorStateCrossReference_0_1_0; }
-
-		//ID
-		public RuleCall getStateErrorBehaviorStateIDTerminalRuleCall_0_1_0_1() { return cStateErrorBehaviorStateIDTerminalRuleCall_0_1_0_1; }
+		//QualifiedErrorBehaviorState
+		public RuleCall getQualifiedStateQualifiedErrorBehaviorStateParserRuleCall_0_0_0() { return cQualifiedStateQualifiedErrorBehaviorStateParserRuleCall_0_0_0; }
 
 		//constraint=TypeTokenConstraint?
-		public Assignment getConstraintAssignment_0_2() { return cConstraintAssignment_0_2; }
+		public Assignment getConstraintAssignment_0_1() { return cConstraintAssignment_0_1; }
 
 		//TypeTokenConstraint
-		public RuleCall getConstraintTypeTokenConstraintParserRuleCall_0_2_0() { return cConstraintTypeTokenConstraintParserRuleCall_0_2_0; }
+		public RuleCall getConstraintTypeTokenConstraintParserRuleCall_0_1_0() { return cConstraintTypeTokenConstraintParserRuleCall_0_1_0; }
 
 		//"in" (incoming=[ErrorPropagation|ErrorPropagationPoint] constraint=TypeTokenConstraintNoError?)
 		public Group getGroup_1() { return cGroup_1; }
@@ -4541,6 +4536,54 @@ public class ErrorModelGrammarAccess extends AbstractGrammarElementFinder {
 
 		//TypeTokenConstraintNoError
 		public RuleCall getConstraintTypeTokenConstraintNoErrorParserRuleCall_1_1_1_0() { return cConstraintTypeTokenConstraintNoErrorParserRuleCall_1_1_1_0; }
+	}
+
+	public class QualifiedErrorBehaviorStateElements extends AbstractParserRuleElementFinder {
+		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "QualifiedErrorBehaviorState");
+		private final Group cGroup = (Group)rule.eContents().get(1);
+		private final Assignment cSubcomponentAssignment_0 = (Assignment)cGroup.eContents().get(0);
+		private final RuleCall cSubcomponentSubcomponentElementParserRuleCall_0_0 = (RuleCall)cSubcomponentAssignment_0.eContents().get(0);
+		private final Keyword cFullStopKeyword_1 = (Keyword)cGroup.eContents().get(1);
+		private final Alternatives cAlternatives_2 = (Alternatives)cGroup.eContents().get(2);
+		private final Assignment cNextAssignment_2_0 = (Assignment)cAlternatives_2.eContents().get(0);
+		private final RuleCall cNextQualifiedErrorBehaviorStateParserRuleCall_2_0_0 = (RuleCall)cNextAssignment_2_0.eContents().get(0);
+		private final Assignment cStateAssignment_2_1 = (Assignment)cAlternatives_2.eContents().get(1);
+		private final CrossReference cStateErrorBehaviorStateCrossReference_2_1_0 = (CrossReference)cStateAssignment_2_1.eContents().get(0);
+		private final RuleCall cStateErrorBehaviorStateIDTerminalRuleCall_2_1_0_1 = (RuleCall)cStateErrorBehaviorStateCrossReference_2_1_0.eContents().get(1);
+		
+		//QualifiedErrorBehaviorState:
+		//	subcomponent=SubcomponentElement "." (next=QualifiedErrorBehaviorState | state=[ErrorBehaviorState]);
+		@Override public ParserRule getRule() { return rule; }
+
+		//subcomponent=SubcomponentElement "." (next=QualifiedErrorBehaviorState | state=[ErrorBehaviorState])
+		public Group getGroup() { return cGroup; }
+
+		//subcomponent=SubcomponentElement
+		public Assignment getSubcomponentAssignment_0() { return cSubcomponentAssignment_0; }
+
+		//SubcomponentElement
+		public RuleCall getSubcomponentSubcomponentElementParserRuleCall_0_0() { return cSubcomponentSubcomponentElementParserRuleCall_0_0; }
+
+		//"."
+		public Keyword getFullStopKeyword_1() { return cFullStopKeyword_1; }
+
+		//next=QualifiedErrorBehaviorState | state=[ErrorBehaviorState]
+		public Alternatives getAlternatives_2() { return cAlternatives_2; }
+
+		//next=QualifiedErrorBehaviorState
+		public Assignment getNextAssignment_2_0() { return cNextAssignment_2_0; }
+
+		//QualifiedErrorBehaviorState
+		public RuleCall getNextQualifiedErrorBehaviorStateParserRuleCall_2_0_0() { return cNextQualifiedErrorBehaviorStateParserRuleCall_2_0_0; }
+
+		//state=[ErrorBehaviorState]
+		public Assignment getStateAssignment_2_1() { return cStateAssignment_2_1; }
+
+		//[ErrorBehaviorState]
+		public CrossReference getStateErrorBehaviorStateCrossReference_2_1_0() { return cStateErrorBehaviorStateCrossReference_2_1_0; }
+
+		//ID
+		public RuleCall getStateErrorBehaviorStateIDTerminalRuleCall_2_1_0_1() { return cStateErrorBehaviorStateIDTerminalRuleCall_2_1_0_1; }
 	}
 
 	public class SubcomponentElementElements extends AbstractParserRuleElementFinder {
@@ -4671,6 +4714,7 @@ public class ErrorModelGrammarAccess extends AbstractGrammarElementFinder {
 	private final SOrlessExpressionElements pSOrlessExpression;
 	private final SConditionTermElements pSConditionTerm;
 	private final SConditionElementElements pSConditionElement;
+	private final QualifiedErrorBehaviorStateElements pQualifiedErrorBehaviorState;
 	private final SubcomponentElementElements pSubcomponentElement;
 	private final CONDITIONElements pCONDITION;
 	private final TerminalRule tSL_COMMENT;
@@ -4752,6 +4796,7 @@ public class ErrorModelGrammarAccess extends AbstractGrammarElementFinder {
 		this.pSOrlessExpression = new SOrlessExpressionElements();
 		this.pSConditionTerm = new SConditionTermElements();
 		this.pSConditionElement = new SConditionElementElements();
+		this.pQualifiedErrorBehaviorState = new QualifiedErrorBehaviorStateElements();
 		this.pSubcomponentElement = new SubcomponentElementElements();
 		this.pCONDITION = new CONDITIONElements();
 		this.tSL_COMMENT = (TerminalRule) GrammarUtil.findRuleForName(getGrammar(), "SL_COMMENT");
@@ -4847,8 +4892,8 @@ public class ErrorModelGrammarAccess extends AbstractGrammarElementFinder {
 	//Element returns aadl2::Element:
 	//	TypeSetElement | TypeToken | TypeTransformation | TypeMapping | QualifiedPropagationPoint | TransitionBranch |
 	//	BranchValue | ErrorCodeValue | ConditionElement | AndExpression | ConditionTerm | ConditionExpression |
-	//	OrmoreExpression | OrlessExpression | OutgoingPropagationCondition | ErrorStateToModeMapping | SubcomponentElement |
-	//	FeatureorPPReference;
+	//	OrmoreExpression | OrlessExpression | OutgoingPropagationCondition | ErrorStateToModeMapping |
+	//	QualifiedErrorBehaviorState | SubcomponentElement | FeatureorPPReference;
 	public ElementElements getElementAccess() {
 		return pElement;
 	}
@@ -4884,8 +4929,9 @@ public class ErrorModelGrammarAccess extends AbstractGrammarElementFinder {
 	//	{ErrorModelLibrary} //    '{**' 
 	//	("error" "types" ("use" "types" useTypes+=[ErrorModelLibrary|QEMREF] ("," useTypes+=[ErrorModelLibrary|QEMREF])* ";")?
 	//	("extends" extends+=[ErrorModelLibrary|QEMREF] ("," extends+=[ErrorModelLibrary|QEMREF])* "with")?
-	//	(types+=TypeDefinition | typesets+=TypeSetDefinition)* ("properties" properties+=ContainedPropertyAssociation+)? "end"
-	//	"types" ";")? behaviors+=ErrorBehaviorStateMachine* mappings+=TypeMappingSet* transformations+=TypeTransformationSet*;
+	//	(types+=TypeDefinition | typesets+=TypeSetDefinition)* ("properties" properties+=ContainedPropertyAssociation+)?
+	//	"end" "types" ";")? behaviors+=ErrorBehaviorStateMachine* mappings+=TypeMappingSet*
+	//	transformations+=TypeTransformationSet*;
 	public ErrorModelLibraryElements getErrorModelLibraryAccess() {
 		return pErrorModelLibrary;
 	}
@@ -5164,8 +5210,8 @@ public class ErrorModelGrammarAccess extends AbstractGrammarElementFinder {
 
 	//ErrorPath:
 	//	name=ID ":" "error" "path" (incoming=[ErrorPropagation|ErrorPropagationPoint] | allIncoming?="all")
-	//	typeTokenConstraint=TypeTokenConstraint? "->" (outgoing=[ErrorPropagation|ErrorPropagationPoint] | allOutgoing?="all")
-	//	(targetToken=TypeToken | "use" "mappings" typeMappingSet=[TypeMappingSet|QEMREF])? ";";
+	//	typeTokenConstraint=TypeTokenConstraint? "->" (outgoing=[ErrorPropagation|ErrorPropagationPoint] |
+	//	allOutgoing?="all") (targetToken=TypeToken | "use" "mappings" typeMappingSet=[TypeMappingSet|QEMREF])? ";";
 	public ErrorPathElements getErrorPathAccess() {
 		return pErrorPath;
 	}
@@ -5205,8 +5251,8 @@ public class ErrorModelGrammarAccess extends AbstractGrammarElementFinder {
 		return getPropagationPathAccess().getRule();
 	}
 
-	//QualifiedPropagationPoint:
-	//	(subcomponents+=SubcomponentElement ".")+ propagationPoint=[PropagationPoint];
+	//QualifiedPropagationPoint: //   (subcomponents+=SubcomponentElement  '.')+ propagationPoint=[PropagationPoint|ID]
+	//	subcomponent=SubcomponentElement "." (next=QualifiedPropagationPoint | propagationPoint=[PropagationPoint]);
 	public QualifiedPropagationPointElements getQualifiedPropagationPointAccess() {
 		return pQualifiedPropagationPoint;
 	}
@@ -5518,14 +5564,24 @@ public class ErrorModelGrammarAccess extends AbstractGrammarElementFinder {
 	}
 
 	//SConditionElement returns ConditionElement:
-	//	(subcomponents+=SubcomponentElement ".")+ state=[ErrorBehaviorState] constraint=TypeTokenConstraint? | "in"
-	//	(incoming=[ErrorPropagation|ErrorPropagationPoint] constraint=TypeTokenConstraintNoError?);
+	//	qualifiedState=QualifiedErrorBehaviorState constraint=TypeTokenConstraint? //	((subcomponents+=SubcomponentElement '.')+ state=[ErrorBehaviorState|ID] (constraint=TypeTokenConstraint)?)
+	//	| "in" (incoming=[ErrorPropagation|ErrorPropagationPoint] constraint=TypeTokenConstraintNoError?);
 	public SConditionElementElements getSConditionElementAccess() {
 		return pSConditionElement;
 	}
 	
 	public ParserRule getSConditionElementRule() {
 		return getSConditionElementAccess().getRule();
+	}
+
+	//QualifiedErrorBehaviorState:
+	//	subcomponent=SubcomponentElement "." (next=QualifiedErrorBehaviorState | state=[ErrorBehaviorState]);
+	public QualifiedErrorBehaviorStateElements getQualifiedErrorBehaviorStateAccess() {
+		return pQualifiedErrorBehaviorState;
+	}
+	
+	public ParserRule getQualifiedErrorBehaviorStateRule() {
+		return getQualifiedErrorBehaviorStateAccess().getRule();
 	}
 
 	//SubcomponentElement:

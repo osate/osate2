@@ -24,10 +24,10 @@ import org.osate.xtext.aadl2.errormodel.errorModel.OrExpression;
  * <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
+ * </p>
  * <ul>
  *   <li>{@link org.osate.xtext.aadl2.errormodel.errorModel.impl.OrExpressionImpl#getOperands <em>Operands</em>}</li>
  * </ul>
- * </p>
  *
  * @generated
  */

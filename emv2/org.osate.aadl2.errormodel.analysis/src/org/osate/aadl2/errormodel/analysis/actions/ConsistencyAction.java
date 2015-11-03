@@ -662,7 +662,7 @@ public final class ConsistencyAction extends AaxlReadOnlyActionAsJob {
 					for (CompositeState cs : EMV2Util.getAllCompositeStates(componentInstance)) {
 						if (cs.getState() == ebs) {
 							for (ConditionElement ce : EMV2Util.getAllConditionElementsFromConditionExpression(cs)) {
-								for (SubcomponentElement se : ce.getSubcomponents()) {
+								for (SubcomponentElement se : EMV2Util.getSubcomponents(ce)) {
 									if (se != null) {
 										subcomponents.add(se.getSubcomponent());
 									}
@@ -731,15 +731,15 @@ public final class ConsistencyAction extends AaxlReadOnlyActionAsJob {
 					 * some consistency check and handle the different operators such as and, or, etc.
 					 */
 					for (ConditionElement ce : elementsComposite) {
-						for (SubcomponentElement se : ce.getSubcomponents()) {
+						for (SubcomponentElement se : EMV2Util.getSubcomponents(ce)) {
 							se.getSubcomponent();
 							// OsateDebug.osateDebug("se=" + se);
 							EList<ContainedNamedElement> PA = EMV2Properties.getOccurenceDistributionProperty(
-									componentInstance, ce.getState(), null);
+									componentInstance, EMV2Util.getState(ce), null);
 							if (PA.isEmpty()) {
 								warning(componentInstance, "C13: component " + componentInstance.getName()
 										+ " does not define occurrence for " + EMV2Util.getPrintName(se)
-										+ " and state " + EMV2Util.getPrintName(ce.getState()));
+										+ " and state " + EMV2Util.getPrintName(EMV2Util.getState(ce)));
 							} else {
 								// OsateDebug.osateDebug("         PA " + PA);
 								tmp = EMV2Properties.getOccurenceValue(PA.get(0));

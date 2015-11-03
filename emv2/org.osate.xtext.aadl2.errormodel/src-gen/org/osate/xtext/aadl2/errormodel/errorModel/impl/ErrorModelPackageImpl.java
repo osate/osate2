@@ -47,6 +47,7 @@ import org.osate.xtext.aadl2.errormodel.errorModel.OrmoreExpression;
 import org.osate.xtext.aadl2.errormodel.errorModel.OutgoingPropagationCondition;
 import org.osate.xtext.aadl2.errormodel.errorModel.PropagationPath;
 import org.osate.xtext.aadl2.errormodel.errorModel.PropagationPoint;
+import org.osate.xtext.aadl2.errormodel.errorModel.QualifiedErrorBehaviorState;
 import org.osate.xtext.aadl2.errormodel.errorModel.QualifiedPropagationPoint;
 import org.osate.xtext.aadl2.errormodel.errorModel.RecoverEvent;
 import org.osate.xtext.aadl2.errormodel.errorModel.RepairEvent;
@@ -355,6 +356,13 @@ public class ErrorModelPackageImpl extends EPackageImpl implements ErrorModelPac
    * @generated
    */
   private EClass compositeStateEClass = null;
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  private EClass qualifiedErrorBehaviorStateEClass = null;
 
   /**
    * <!-- begin-user-doc -->
@@ -1352,7 +1360,7 @@ public class ErrorModelPackageImpl extends EPackageImpl implements ErrorModelPac
    * <!-- end-user-doc -->
    * @generated
    */
-  public EReference getQualifiedPropagationPoint_Subcomponents()
+  public EReference getQualifiedPropagationPoint_Subcomponent()
   {
     return (EReference)qualifiedPropagationPointEClass.getEStructuralFeatures().get(0);
   }
@@ -1362,9 +1370,19 @@ public class ErrorModelPackageImpl extends EPackageImpl implements ErrorModelPac
    * <!-- end-user-doc -->
    * @generated
    */
-  public EReference getQualifiedPropagationPoint_PropagationPoint()
+  public EReference getQualifiedPropagationPoint_Next()
   {
     return (EReference)qualifiedPropagationPointEClass.getEStructuralFeatures().get(1);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EReference getQualifiedPropagationPoint_PropagationPoint()
+  {
+    return (EReference)qualifiedPropagationPointEClass.getEStructuralFeatures().get(2);
   }
 
   /**
@@ -1912,19 +1930,9 @@ public class ErrorModelPackageImpl extends EPackageImpl implements ErrorModelPac
    * <!-- end-user-doc -->
    * @generated
    */
-  public EReference getConditionElement_Subcomponents()
+  public EReference getConditionElement_QualifiedState()
   {
     return (EReference)conditionElementEClass.getEStructuralFeatures().get(2);
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public EReference getConditionElement_State()
-  {
-    return (EReference)conditionElementEClass.getEStructuralFeatures().get(3);
   }
 
   /**
@@ -2232,6 +2240,46 @@ public class ErrorModelPackageImpl extends EPackageImpl implements ErrorModelPac
    * <!-- end-user-doc -->
    * @generated
    */
+  public EClass getQualifiedErrorBehaviorState()
+  {
+    return qualifiedErrorBehaviorStateEClass;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EReference getQualifiedErrorBehaviorState_Subcomponent()
+  {
+    return (EReference)qualifiedErrorBehaviorStateEClass.getEStructuralFeatures().get(0);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EReference getQualifiedErrorBehaviorState_Next()
+  {
+    return (EReference)qualifiedErrorBehaviorStateEClass.getEStructuralFeatures().get(1);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EReference getQualifiedErrorBehaviorState_State()
+  {
+    return (EReference)qualifiedErrorBehaviorStateEClass.getEStructuralFeatures().get(2);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
   public EClass getSubcomponentElement()
   {
     return subcomponentElementEClass;
@@ -2466,7 +2514,8 @@ public class ErrorModelPackageImpl extends EPackageImpl implements ErrorModelPac
     createEReference(propagationPathEClass, PROPAGATION_PATH__TARGET);
 
     qualifiedPropagationPointEClass = createEClass(QUALIFIED_PROPAGATION_POINT);
-    createEReference(qualifiedPropagationPointEClass, QUALIFIED_PROPAGATION_POINT__SUBCOMPONENTS);
+    createEReference(qualifiedPropagationPointEClass, QUALIFIED_PROPAGATION_POINT__SUBCOMPONENT);
+    createEReference(qualifiedPropagationPointEClass, QUALIFIED_PROPAGATION_POINT__NEXT);
     createEReference(qualifiedPropagationPointEClass, QUALIFIED_PROPAGATION_POINT__PROPAGATION_POINT);
 
     errorBehaviorStateMachineEClass = createEClass(ERROR_BEHAVIOR_STATE_MACHINE);
@@ -2536,8 +2585,7 @@ public class ErrorModelPackageImpl extends EPackageImpl implements ErrorModelPac
     conditionElementEClass = createEClass(CONDITION_ELEMENT);
     createEReference(conditionElementEClass, CONDITION_ELEMENT__INCOMING);
     createEReference(conditionElementEClass, CONDITION_ELEMENT__CONSTRAINT);
-    createEReference(conditionElementEClass, CONDITION_ELEMENT__SUBCOMPONENTS);
-    createEReference(conditionElementEClass, CONDITION_ELEMENT__STATE);
+    createEReference(conditionElementEClass, CONDITION_ELEMENT__QUALIFIED_STATE);
 
     eventOrPropagationEClass = createEClass(EVENT_OR_PROPAGATION);
 
@@ -2574,6 +2622,11 @@ public class ErrorModelPackageImpl extends EPackageImpl implements ErrorModelPac
     createEAttribute(compositeStateEClass, COMPOSITE_STATE__OTHERS);
     createEReference(compositeStateEClass, COMPOSITE_STATE__STATE);
     createEReference(compositeStateEClass, COMPOSITE_STATE__TYPED_TOKEN);
+
+    qualifiedErrorBehaviorStateEClass = createEClass(QUALIFIED_ERROR_BEHAVIOR_STATE);
+    createEReference(qualifiedErrorBehaviorStateEClass, QUALIFIED_ERROR_BEHAVIOR_STATE__SUBCOMPONENT);
+    createEReference(qualifiedErrorBehaviorStateEClass, QUALIFIED_ERROR_BEHAVIOR_STATE__NEXT);
+    createEReference(qualifiedErrorBehaviorStateEClass, QUALIFIED_ERROR_BEHAVIOR_STATE__STATE);
 
     subcomponentElementEClass = createEClass(SUBCOMPONENT_ELEMENT);
     createEReference(subcomponentElementEClass, SUBCOMPONENT_ELEMENT__SUBCOMPONENT);
@@ -2670,6 +2723,7 @@ public class ErrorModelPackageImpl extends EPackageImpl implements ErrorModelPac
     errorCodeValueEClass.getESuperTypes().add(theAadl2Package.getElement());
     errorStateToModeMappingEClass.getESuperTypes().add(theAadl2Package.getElement());
     compositeStateEClass.getESuperTypes().add(theAadl2Package.getNamedElement());
+    qualifiedErrorBehaviorStateEClass.getESuperTypes().add(theAadl2Package.getElement());
     subcomponentElementEClass.getESuperTypes().add(theAadl2Package.getElement());
     orExpressionEClass.getESuperTypes().add(this.getConditionExpression());
     andExpressionEClass.getESuperTypes().add(this.getConditionExpression());
@@ -2786,7 +2840,8 @@ public class ErrorModelPackageImpl extends EPackageImpl implements ErrorModelPac
     initEReference(getPropagationPath_Target(), this.getQualifiedPropagationPoint(), null, "target", null, 0, 1, PropagationPath.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
     initEClass(qualifiedPropagationPointEClass, QualifiedPropagationPoint.class, "QualifiedPropagationPoint", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-    initEReference(getQualifiedPropagationPoint_Subcomponents(), this.getSubcomponentElement(), null, "subcomponents", null, 0, -1, QualifiedPropagationPoint.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEReference(getQualifiedPropagationPoint_Subcomponent(), this.getSubcomponentElement(), null, "subcomponent", null, 0, 1, QualifiedPropagationPoint.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEReference(getQualifiedPropagationPoint_Next(), this.getQualifiedPropagationPoint(), null, "next", null, 0, 1, QualifiedPropagationPoint.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEReference(getQualifiedPropagationPoint_PropagationPoint(), this.getPropagationPoint(), null, "propagationPoint", null, 0, 1, QualifiedPropagationPoint.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
     initEClass(errorBehaviorStateMachineEClass, ErrorBehaviorStateMachine.class, "ErrorBehaviorStateMachine", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
@@ -2856,8 +2911,7 @@ public class ErrorModelPackageImpl extends EPackageImpl implements ErrorModelPac
     initEClass(conditionElementEClass, ConditionElement.class, "ConditionElement", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
     initEReference(getConditionElement_Incoming(), this.getEventOrPropagation(), null, "incoming", null, 0, 1, ConditionElement.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEReference(getConditionElement_Constraint(), this.getTypeSet(), null, "constraint", null, 0, 1, ConditionElement.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-    initEReference(getConditionElement_Subcomponents(), this.getSubcomponentElement(), null, "subcomponents", null, 0, -1, ConditionElement.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-    initEReference(getConditionElement_State(), this.getErrorBehaviorState(), null, "state", null, 0, 1, ConditionElement.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEReference(getConditionElement_QualifiedState(), this.getQualifiedErrorBehaviorState(), null, "qualifiedState", null, 0, 1, ConditionElement.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
     initEClass(eventOrPropagationEClass, EventOrPropagation.class, "EventOrPropagation", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 
@@ -2894,6 +2948,11 @@ public class ErrorModelPackageImpl extends EPackageImpl implements ErrorModelPac
     initEAttribute(getCompositeState_Others(), theEcorePackage.getEBoolean(), "others", null, 0, 1, CompositeState.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEReference(getCompositeState_State(), this.getErrorBehaviorState(), null, "state", null, 0, 1, CompositeState.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEReference(getCompositeState_TypedToken(), this.getTypeToken(), null, "typedToken", null, 0, 1, CompositeState.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+    initEClass(qualifiedErrorBehaviorStateEClass, QualifiedErrorBehaviorState.class, "QualifiedErrorBehaviorState", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+    initEReference(getQualifiedErrorBehaviorState_Subcomponent(), this.getSubcomponentElement(), null, "subcomponent", null, 0, 1, QualifiedErrorBehaviorState.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEReference(getQualifiedErrorBehaviorState_Next(), this.getQualifiedErrorBehaviorState(), null, "next", null, 0, 1, QualifiedErrorBehaviorState.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEReference(getQualifiedErrorBehaviorState_State(), this.getErrorBehaviorState(), null, "state", null, 0, 1, QualifiedErrorBehaviorState.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
     initEClass(subcomponentElementEClass, SubcomponentElement.class, "SubcomponentElement", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
     initEReference(getSubcomponentElement_Subcomponent(), theAadl2Package.getSubcomponent(), null, "subcomponent", null, 0, 1, SubcomponentElement.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);

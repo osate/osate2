@@ -392,6 +392,15 @@ public interface ErrorModelFactory extends EFactory
   CompositeState createCompositeState();
 
   /**
+   * Returns a new object of class '<em>Qualified Error Behavior State</em>'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return a new object of class '<em>Qualified Error Behavior State</em>'.
+   * @generated
+   */
+  QualifiedErrorBehaviorState createQualifiedErrorBehaviorState();
+
+  /**
    * Returns a new object of class '<em>Subcomponent Element</em>'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
