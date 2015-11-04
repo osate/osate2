@@ -226,6 +226,24 @@ class ErrorModelScopeProvider extends PropertiesScopeProvider {
 		stateMachine?.states?.scopeFor ?: IScope.NULLSCOPE
 	}
 	
+	def scope_SubcomponentElement_subcomponent(ComponentImplementation context, EReference reference) {
+		context.allSubcomponents.scopeFor
+	}
+	
+	def scope_SubcomponentElement_subcomponent(QualifiedErrorBehaviorState context, EReference reference) {
+		switch subcomponentClassifier : context.subcomponent.subcomponent.allClassifier {
+			ComponentImplementation: subcomponentClassifier.allSubcomponents.scopeFor
+			default: IScope.NULLSCOPE
+		}
+	}
+	
+	def scope_SubcomponentElement_subcomponent(QualifiedPropagationPoint context, EReference reference) {
+		switch subcomponentClassifier : context.subcomponent.subcomponent.allClassifier {
+			ComponentImplementation: subcomponentClassifier.allSubcomponents.scopeFor
+			default: IScope.NULLSCOPE
+		}
+	}
+	
 	def private scopeWithoutEMV2Prefix(EObject context, EReference reference) {
 		new SimpleScope(delegateGetScope(context, reference).allElements.map[
 			val nameAsString = name.toString("::")

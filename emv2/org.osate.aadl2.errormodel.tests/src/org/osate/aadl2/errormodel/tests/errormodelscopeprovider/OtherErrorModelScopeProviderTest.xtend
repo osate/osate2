@@ -444,17 +444,51 @@ class OtherErrorModelScopeProviderTest extends OsateTest {
 				(ownedAnnexSubclauses.head as DefaultAnnexSubclause).parsedAnnexSubclause as ErrorModelSubclause => [
 					paths.get(0) => [
 						"propPath1".assertEquals(name)
-						//Tests scope_QualifiedPropagationPoint_propagationPoint
-						source.assertScope(ErrorModelPackage.eINSTANCE.qualifiedPropagationPoint_PropagationPoint, #["point1"])
-						//Tests scope_QualifiedPropagationPoint_propagationPoint
-						target.next.assertScope(ErrorModelPackage.eINSTANCE.qualifiedPropagationPoint_PropagationPoint, #["point2"])
+						source => [
+							"asub1".assertEquals(subcomponent.subcomponent.name)
+							//Tests scope_QualifiedPropagationPoint_propagationPoint
+							assertScope(ErrorModelPackage.eINSTANCE.qualifiedPropagationPoint_PropagationPoint, #["point1"])
+							next.assertNull
+						]
+						target => [
+							"asub1".assertEquals(subcomponent.subcomponent.name)
+							next => [
+								"asub2".assertEquals(subcomponent.subcomponent.name)
+								//Tests scope_QualifiedPropagationPoint_propagationPoint
+								assertScope(ErrorModelPackage.eINSTANCE.qualifiedPropagationPoint_PropagationPoint, #["point2"])
+								next.assertNull
+							]
+						]
 					]
 					paths.get(1) => [
 						"propPath2".assertEquals(name)
-						//Tests scope_QualifiedPropagationPoint_propagationPoint
-						source.next.next.assertScope(ErrorModelPackage.eINSTANCE.qualifiedPropagationPoint_PropagationPoint, #["point3"])
-						//Tests scope_QualifiedPropagationPoint_propagationPoint
-						target.next.next.next.assertScope(ErrorModelPackage.eINSTANCE.qualifiedPropagationPoint_PropagationPoint, #["point4"])
+						source => [
+							"asub1".assertEquals(subcomponent.subcomponent.name)
+							next => [
+								"asub2".assertEquals(subcomponent.subcomponent.name)
+								next => [
+									"asub3".assertEquals(subcomponent.subcomponent.name)
+									//Tests scope_QualifiedPropagationPoint_propagationPoint
+									assertScope(ErrorModelPackage.eINSTANCE.qualifiedPropagationPoint_PropagationPoint, #["point3"])
+									next.assertNull
+								]
+							]
+						]
+						target => [
+							"asub1".assertEquals(subcomponent.subcomponent.name)
+							next => [
+								"asub2".assertEquals(subcomponent.subcomponent.name)
+								next => [
+									"asub3".assertEquals(subcomponent.subcomponent.name)
+									next => [
+										"asub4".assertEquals(subcomponent.subcomponent.name)
+										//Tests scope_QualifiedPropagationPoint_propagationPoint
+										assertScope(ErrorModelPackage.eINSTANCE.qualifiedPropagationPoint_PropagationPoint, #["point4"])
+										next.assertNull
+									]
+								]
+							]
+						]
 					]
 				]
 			]
@@ -845,18 +879,39 @@ class OtherErrorModelScopeProviderTest extends OsateTest {
 				(ownedAnnexSubclauses.head as DefaultAnnexSubclause).parsedAnnexSubclause as ErrorModelSubclause => [
 					states.get(0) => [
 						"compositeState1".assertEquals(name)
-						//Tests scope_QualifiedErrorBehaviorState_state
-						(condition as ConditionElement).qualifiedState.assertScope(ErrorModelPackage.eINSTANCE.qualifiedErrorBehaviorState_State, #["bvr_state2"])
+						(condition as ConditionElement).qualifiedState => [
+							"asub1".assertEquals(subcomponent.subcomponent.name)
+							//Tests scope_QualifiedErrorBehaviorState_state
+							assertScope(ErrorModelPackage.eINSTANCE.qualifiedErrorBehaviorState_State, #["bvr_state2"])
+							next.assertNull
+						]
 					]
 					states.get(1) => [
 						"compositeState2".assertEquals(name)
-						//Tests scope_QualifiedErrorBehaviorState_state
-						(condition as ConditionElement).qualifiedState.next.assertScope(ErrorModelPackage.eINSTANCE.qualifiedErrorBehaviorState_State, #["bvr_state3"])
+						(condition as ConditionElement).qualifiedState => [
+							"asub1".assertEquals(subcomponent.subcomponent.name)
+							next => [
+								"asub2".assertEquals(subcomponent.subcomponent.name)
+								//Tests scope_QualifiedErrorBehaviorState_state
+								assertScope(ErrorModelPackage.eINSTANCE.qualifiedErrorBehaviorState_State, #["bvr_state3"])
+								next.assertNull
+							]
+						]
 					]
 					states.get(2) => [
 						"compositeState3".assertEquals(name)
-						//Tests scope_QualifiedErrorBehaviorState_state
-						(condition as ConditionElement).qualifiedState.next.next.assertScope(ErrorModelPackage.eINSTANCE.qualifiedErrorBehaviorState_State, #["bvr_state4"])
+						(condition as ConditionElement).qualifiedState => [
+							"asub1".assertEquals(subcomponent.subcomponent.name)
+							next => [
+								"asub2".assertEquals(subcomponent.subcomponent.name)
+								next => [
+									"asub3".assertEquals(subcomponent.subcomponent.name)
+									//Tests scope_QualifiedErrorBehaviorState_state
+									assertScope(ErrorModelPackage.eINSTANCE.qualifiedErrorBehaviorState_State, #["bvr_state4"])
+									next.assertNull
+								]
+							]
+						]
 					]
 				]
 			]
