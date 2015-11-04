@@ -311,13 +311,13 @@ public class EMLinkingService extends PropertiesLinkingService {
 			searchResult = EMV2Util.findErrorBehaviorState((Element) context, name);
 
 		} else if (ErrorModelPackage.eINSTANCE.getEventOrPropagation() == requiredType) {
-			searchResult = EMV2Util.findSubcomponentOrIncomingErrorProparation(cxt, name);
+			if (EMV2Util.getConditionExpressionContext((ConditionExpression) context) instanceof ErrorDetection ) {
+				searchResult = EMV2Util.findSubcomponentOrIncomingErrorProparation(cxt, name);
+			}  else {
+				searchResult = EMV2Util.findIncomingErrorPropagation(cxt.getContainingClassifier(), name);
+		}
 			if (searchResult == null) {
-				if ((EMV2Util.getConditionExpressionContext((ConditionExpression) context) instanceof ErrorDetection || EMV2Util
-						.getConditionExpressionContext((ConditionExpression) context) instanceof ErrorBehaviorTransition)) {
-					// find it only for transitions
 					searchResult = EMV2Util.findErrorBehaviorEvent(cxt, name);
-				}
 			}
 
 		} else if (ErrorModelPackage.eINSTANCE.getErrorBehaviorEvent() == requiredType) {
