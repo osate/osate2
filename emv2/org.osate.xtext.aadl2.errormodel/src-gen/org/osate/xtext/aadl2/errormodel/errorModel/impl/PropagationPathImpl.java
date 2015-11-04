@@ -22,11 +22,11 @@ import org.osate.xtext.aadl2.errormodel.errorModel.QualifiedPropagationPoint;
  * <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
+ * </p>
  * <ul>
  *   <li>{@link org.osate.xtext.aadl2.errormodel.errorModel.impl.PropagationPathImpl#getSource <em>Source</em>}</li>
  *   <li>{@link org.osate.xtext.aadl2.errormodel.errorModel.impl.PropagationPathImpl#getTarget <em>Target</em>}</li>
  * </ul>
- * </p>
  *
  * @generated
  */

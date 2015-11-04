@@ -14,6 +14,7 @@ import org.osate.aadl2.NamedElement;
  *
  * <p>
  * The following features are supported:
+ * </p>
  * <ul>
  *   <li>{@link org.osate.xtext.aadl2.errormodel.errorModel.ConnectionErrorSource#getConnection <em>Connection</em>}</li>
  *   <li>{@link org.osate.xtext.aadl2.errormodel.errorModel.ConnectionErrorSource#isAll <em>All</em>}</li>
@@ -22,7 +23,6 @@ import org.osate.aadl2.NamedElement;
  *   <li>{@link org.osate.xtext.aadl2.errormodel.errorModel.ConnectionErrorSource#getFailureModeDescription <em>Failure Mode Description</em>}</li>
  *   <li>{@link org.osate.xtext.aadl2.errormodel.errorModel.ConnectionErrorSource#getCondition <em>Condition</em>}</li>
  * </ul>
- * </p>
  *
  * @see org.osate.xtext.aadl2.errormodel.errorModel.ErrorModelPackage#getConnectionErrorSource()
  * @model

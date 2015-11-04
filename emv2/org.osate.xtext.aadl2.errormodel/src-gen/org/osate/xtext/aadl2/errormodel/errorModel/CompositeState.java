@@ -13,13 +13,13 @@ import org.osate.aadl2.NamedElement;
  *
  * <p>
  * The following features are supported:
+ * </p>
  * <ul>
  *   <li>{@link org.osate.xtext.aadl2.errormodel.errorModel.CompositeState#getCondition <em>Condition</em>}</li>
  *   <li>{@link org.osate.xtext.aadl2.errormodel.errorModel.CompositeState#isOthers <em>Others</em>}</li>
  *   <li>{@link org.osate.xtext.aadl2.errormodel.errorModel.CompositeState#getState <em>State</em>}</li>
  *   <li>{@link org.osate.xtext.aadl2.errormodel.errorModel.CompositeState#getTypedToken <em>Typed Token</em>}</li>
  * </ul>
- * </p>
  *
  * @see org.osate.xtext.aadl2.errormodel.errorModel.ErrorModelPackage#getCompositeState()
  * @model

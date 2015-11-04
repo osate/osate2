@@ -20,7 +20,6 @@ import org.osate.aadl2.Element
 import org.osate.aadl2.FeatureGroup
 import org.osate.aadl2.Port
 import org.osate.xtext.aadl2.errormodel.errorModel.CompositeState
-import org.osate.xtext.aadl2.errormodel.errorModel.ConditionElement
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorBehaviorState
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorBehaviorStateMachine
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorBehaviorTransition
@@ -31,6 +30,7 @@ import org.osate.xtext.aadl2.errormodel.errorModel.ErrorPropagation
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorTypes
 import org.osate.xtext.aadl2.errormodel.errorModel.FeatureorPPReference
 import org.osate.xtext.aadl2.errormodel.errorModel.OutgoingPropagationCondition
+import org.osate.xtext.aadl2.errormodel.errorModel.QualifiedErrorBehaviorState
 import org.osate.xtext.aadl2.errormodel.errorModel.QualifiedPropagationPoint
 import org.osate.xtext.aadl2.errormodel.errorModel.TypeMappingSet
 import org.osate.xtext.aadl2.errormodel.errorModel.TypeTransformationSet
@@ -149,7 +149,7 @@ class ErrorModelScopeProvider extends PropertiesScopeProvider {
 	}
 	
 	def scope_QualifiedPropagationPoint_propagationPoint(QualifiedPropagationPoint context, EReference reference) {
-		val lastSubcomponentClassifier = context.subcomponents.last.subcomponent.allClassifier
+		val lastSubcomponentClassifier = context.subcomponent.subcomponent.allClassifier
 		if (lastSubcomponentClassifier != null) {
 			val allSubclauses = lastSubcomponentClassifier.allContainingClassifierEMV2Subclauses
 			allSubclauses.map[points].flatten.scopeFor
@@ -220,10 +220,28 @@ class ErrorModelScopeProvider extends PropertiesScopeProvider {
 		context.allModes.scopeFor
 	}
 	
-	def scope_ConditionElement_state(ConditionElement context, EReference reference) {
-		val subcomponentClassifier = context.subcomponents.last.subcomponent.allClassifier
+	def scope_QualifiedErrorBehaviorState_state(QualifiedErrorBehaviorState context, EReference reference) {
+		val subcomponentClassifier = context.subcomponent.subcomponent.allClassifier
 		val stateMachine = subcomponentClassifier?.allContainingClassifierEMV2Subclauses?.map[useBehavior]?.filterNull?.head
 		stateMachine?.states?.scopeFor ?: IScope.NULLSCOPE
+	}
+	
+	def scope_SubcomponentElement_subcomponent(ComponentImplementation context, EReference reference) {
+		context.allSubcomponents.scopeFor
+	}
+	
+	def scope_SubcomponentElement_subcomponent(QualifiedErrorBehaviorState context, EReference reference) {
+		switch subcomponentClassifier : context.subcomponent.subcomponent.allClassifier {
+			ComponentImplementation: subcomponentClassifier.allSubcomponents.scopeFor
+			default: IScope.NULLSCOPE
+		}
+	}
+	
+	def scope_SubcomponentElement_subcomponent(QualifiedPropagationPoint context, EReference reference) {
+		switch subcomponentClassifier : context.subcomponent.subcomponent.allClassifier {
+			ComponentImplementation: subcomponentClassifier.allSubcomponents.scopeFor
+			default: IScope.NULLSCOPE
+		}
 	}
 	
 	def private scopeWithoutEMV2Prefix(EObject context, EReference reference) {

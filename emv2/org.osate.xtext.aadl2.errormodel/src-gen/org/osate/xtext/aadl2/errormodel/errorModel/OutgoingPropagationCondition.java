@@ -13,6 +13,7 @@ import org.osate.aadl2.NamedElement;
  *
  * <p>
  * The following features are supported:
+ * </p>
  * <ul>
  *   <li>{@link org.osate.xtext.aadl2.errormodel.errorModel.OutgoingPropagationCondition#getState <em>State</em>}</li>
  *   <li>{@link org.osate.xtext.aadl2.errormodel.errorModel.OutgoingPropagationCondition#getTypeTokenConstraint <em>Type Token Constraint</em>}</li>
@@ -22,7 +23,6 @@ import org.osate.aadl2.NamedElement;
  *   <li>{@link org.osate.xtext.aadl2.errormodel.errorModel.OutgoingPropagationCondition#isAllPropagations <em>All Propagations</em>}</li>
  *   <li>{@link org.osate.xtext.aadl2.errormodel.errorModel.OutgoingPropagationCondition#getTypeToken <em>Type Token</em>}</li>
  * </ul>
- * </p>
  *
  * @see org.osate.xtext.aadl2.errormodel.errorModel.ErrorModelPackage#getOutgoingPropagationCondition()
  * @model

@@ -29,7 +29,6 @@ import org.osate.aadl2.PackageSection;
 import org.osate.aadl2.Subcomponent;
 import org.osate.aadl2.modelsupport.util.AadlUtil;
 import org.osate.aadl2.util.Aadl2Util;
-import org.osate.xtext.aadl2.errormodel.errorModel.ConditionElement;
 import org.osate.xtext.aadl2.errormodel.errorModel.ConditionExpression;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorBehaviorStateMachine;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorBehaviorTransition;
@@ -41,6 +40,7 @@ import org.osate.xtext.aadl2.errormodel.errorModel.ErrorModelSubclause;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorPropagation;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorType;
 import org.osate.xtext.aadl2.errormodel.errorModel.FeatureorPPReference;
+import org.osate.xtext.aadl2.errormodel.errorModel.QualifiedErrorBehaviorState;
 import org.osate.xtext.aadl2.errormodel.errorModel.QualifiedPropagationPoint;
 import org.osate.xtext.aadl2.errormodel.errorModel.RecoverEvent;
 import org.osate.xtext.aadl2.errormodel.errorModel.RepairEvent;
@@ -275,7 +275,7 @@ public class EMLinkingService extends PropertiesLinkingService {
 			// find propagation point
 			if (context instanceof QualifiedPropagationPoint) {
 				QualifiedPropagationPoint qpp = (QualifiedPropagationPoint) context;
-				SubcomponentElement sub = qpp.getSubcomponents().get(qpp.getSubcomponents().size() - 1);
+				SubcomponentElement sub = qpp.getSubcomponent();
 				cl = sub.getSubcomponent().getAllClassifier();
 				if (!Aadl2Util.isNull(cl)) {
 					searchResult = EMV2Util.findPropagationPoint(cl, name);
@@ -332,15 +332,14 @@ public class EMLinkingService extends PropertiesLinkingService {
 		} else if (Aadl2Package.eINSTANCE.getSubcomponent() == requiredType) {
 //		} else if (Aadl2Package.eINSTANCE.getSubcomponent().isSuperTypeOf(requiredType)) {
 			if (context instanceof SubcomponentElement) {
-				EObject ce = context.eContainer();
-				EList<SubcomponentElement> sublist = (ce instanceof ConditionElement) ? ((ConditionElement) ce)
-						.getSubcomponents() : ((QualifiedPropagationPoint) ce).getSubcomponents();
-				int idx = sublist.indexOf(context);
-				Classifier ns = AadlUtil.getContainingClassifier(context);
-				if (idx > 0) {
-					SubcomponentElement se = sublist.get(idx - 1);
-					Subcomponent subcomponent = se.getSubcomponent();
-					ns = subcomponent.getAllClassifier();
+				EObject ce = context.eContainer().eContainer();
+				Classifier ns;
+				if (ce instanceof QualifiedPropagationPoint) {
+					ns = ((QualifiedPropagationPoint) ce).getSubcomponent().getSubcomponent().getAllClassifier();
+				} else if (ce instanceof QualifiedErrorBehaviorState) {
+					ns = ((QualifiedErrorBehaviorState) ce).getSubcomponent().getSubcomponent().getAllClassifier();
+				} else {
+					ns = AadlUtil.getContainingClassifier(context);
 				}
 				if (ns != null) {
 					EObject res = ns.findNamedElement(name);

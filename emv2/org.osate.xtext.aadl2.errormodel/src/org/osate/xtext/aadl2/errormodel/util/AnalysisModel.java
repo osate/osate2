@@ -496,8 +496,8 @@ public class AnalysisModel {
 	protected void addPropagationPath(ComponentInstance ci, PropagationPath pp) {
 		ErrorPropagation srcEP = null;
 		ErrorPropagation dstEP = null;
-		ComponentInstance srcCI = getComponentInstance(ci, pp.getSource().getSubcomponents());
-		ComponentInstance dstCI = getComponentInstance(ci, pp.getTarget().getSubcomponents());
+		ComponentInstance srcCI = getComponentInstance(ci, EMV2Util.getSubcomponents(pp.getSource()));
+		ComponentInstance dstCI = getComponentInstance(ci, EMV2Util.getSubcomponents(pp.getTarget()));
 		if (srcCI != null) {
 			srcEP = EMV2Util.findErrorPropagation(srcCI.getComponentClassifier(), pp.getSource().getPropagationPoint()
 					.getName(), DirectionType.OUT);

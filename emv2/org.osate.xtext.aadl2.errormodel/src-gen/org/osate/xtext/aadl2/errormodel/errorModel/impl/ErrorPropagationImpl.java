@@ -25,6 +25,7 @@ import org.osate.xtext.aadl2.errormodel.errorModel.TypeSet;
  * <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
+ * </p>
  * <ul>
  *   <li>{@link org.osate.xtext.aadl2.errormodel.errorModel.impl.ErrorPropagationImpl#getKind <em>Kind</em>}</li>
  *   <li>{@link org.osate.xtext.aadl2.errormodel.errorModel.impl.ErrorPropagationImpl#getFeatureorPPRef <em>Featureor PP Ref</em>}</li>
@@ -32,7 +33,6 @@ import org.osate.xtext.aadl2.errormodel.errorModel.TypeSet;
  *   <li>{@link org.osate.xtext.aadl2.errormodel.errorModel.impl.ErrorPropagationImpl#getDirection <em>Direction</em>}</li>
  *   <li>{@link org.osate.xtext.aadl2.errormodel.errorModel.impl.ErrorPropagationImpl#getTypeSet <em>Type Set</em>}</li>
  * </ul>
- * </p>
  *
  * @generated
  */

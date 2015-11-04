@@ -2054,7 +2054,7 @@ public abstract class AbstractErrorModelSyntacticSequencer extends AbstractSynta
 	 * This ambiguous syntax occurs at:
 	 *     (rule start) (ambiguity) 'in' incoming=[ErrorPropagation|ErrorPropagationPoint]
 	 *     (rule start) (ambiguity) count=INTVALUE
-	 *     (rule start) (ambiguity) subcomponents+=SubcomponentElement
+	 *     (rule start) (ambiguity) qualifiedState=QualifiedErrorBehaviorState
 	 *     (rule start) (ambiguity) {SAndExpression.operands+=}
 	 *     (rule start) (ambiguity) {SOrExpression.operands+=}
 	 */

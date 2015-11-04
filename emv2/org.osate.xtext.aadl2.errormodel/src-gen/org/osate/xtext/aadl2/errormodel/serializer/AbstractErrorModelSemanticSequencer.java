@@ -60,6 +60,7 @@ import org.osate.xtext.aadl2.errormodel.errorModel.OrmoreExpression;
 import org.osate.xtext.aadl2.errormodel.errorModel.OutgoingPropagationCondition;
 import org.osate.xtext.aadl2.errormodel.errorModel.PropagationPath;
 import org.osate.xtext.aadl2.errormodel.errorModel.PropagationPoint;
+import org.osate.xtext.aadl2.errormodel.errorModel.QualifiedErrorBehaviorState;
 import org.osate.xtext.aadl2.errormodel.errorModel.QualifiedPropagationPoint;
 import org.osate.xtext.aadl2.errormodel.errorModel.RecoverEvent;
 import org.osate.xtext.aadl2.errormodel.errorModel.RepairEvent;
@@ -318,6 +319,9 @@ public abstract class AbstractErrorModelSemanticSequencer extends PropertiesSema
 				return; 
 			case ErrorModelPackage.PROPAGATION_POINT:
 				sequence_PropagationPoint(context, (PropagationPoint) semanticObject); 
+				return; 
+			case ErrorModelPackage.QUALIFIED_ERROR_BEHAVIOR_STATE:
+				sequence_QualifiedErrorBehaviorState(context, (QualifiedErrorBehaviorState) semanticObject); 
 				return; 
 			case ErrorModelPackage.QUALIFIED_PROPAGATION_POINT:
 				sequence_QualifiedPropagationPoint(context, (QualifiedPropagationPoint) semanticObject); 
@@ -770,7 +774,16 @@ public abstract class AbstractErrorModelSemanticSequencer extends PropertiesSema
 	
 	/**
 	 * Constraint:
-	 *     (subcomponents+=SubcomponentElement+ propagationPoint=[PropagationPoint|ID])
+	 *     (subcomponent=SubcomponentElement (next=QualifiedErrorBehaviorState | state=[ErrorBehaviorState|ID]))
+	 */
+	protected void sequence_QualifiedErrorBehaviorState(EObject context, QualifiedErrorBehaviorState semanticObject) {
+		genericSequencer.createSequence(context, semanticObject);
+	}
+	
+	
+	/**
+	 * Constraint:
+	 *     (subcomponent=SubcomponentElement (next=QualifiedPropagationPoint | propagationPoint=[PropagationPoint|ID]))
 	 */
 	protected void sequence_QualifiedPropagationPoint(EObject context, QualifiedPropagationPoint semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
@@ -807,7 +820,7 @@ public abstract class AbstractErrorModelSemanticSequencer extends PropertiesSema
 	/**
 	 * Constraint:
 	 *     (
-	 *         (subcomponents+=SubcomponentElement+ state=[ErrorBehaviorState|ID] constraint=TypeTokenConstraint?) | 
+	 *         (qualifiedState=QualifiedErrorBehaviorState constraint=TypeTokenConstraint?) | 
 	 *         (incoming=[ErrorPropagation|ErrorPropagationPoint] constraint=TypeTokenConstraintNoError?)
 	 *     )
 	 */

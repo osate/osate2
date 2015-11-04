@@ -25,6 +25,7 @@ import org.osate.xtext.aadl2.errormodel.errorModel.TypeSet;
  * <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
+ * </p>
  * <ul>
  *   <li>{@link org.osate.xtext.aadl2.errormodel.errorModel.impl.ConnectionErrorSourceImpl#getConnection <em>Connection</em>}</li>
  *   <li>{@link org.osate.xtext.aadl2.errormodel.errorModel.impl.ConnectionErrorSourceImpl#isAll <em>All</em>}</li>
@@ -33,7 +34,6 @@ import org.osate.xtext.aadl2.errormodel.errorModel.TypeSet;
  *   <li>{@link org.osate.xtext.aadl2.errormodel.errorModel.impl.ConnectionErrorSourceImpl#getFailureModeDescription <em>Failure Mode Description</em>}</li>
  *   <li>{@link org.osate.xtext.aadl2.errormodel.errorModel.impl.ConnectionErrorSourceImpl#getCondition <em>Condition</em>}</li>
  * </ul>
- * </p>
  *
  * @generated
  */

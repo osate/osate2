@@ -13,8 +13,6 @@ import org.osate.xtext.aadl2.errormodel.errorModel.PropagationPoint;
  * <!-- begin-user-doc -->
  * An implementation of the model object '<em><b>Propagation Point</b></em>'.
  * <!-- end-user-doc -->
- * <p>
- * </p>
  *
  * @generated
  */

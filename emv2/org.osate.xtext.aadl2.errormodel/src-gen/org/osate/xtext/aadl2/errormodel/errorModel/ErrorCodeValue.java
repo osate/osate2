@@ -14,12 +14,12 @@ import org.osate.aadl2.PropertyConstant;
  *
  * <p>
  * The following features are supported:
+ * </p>
  * <ul>
  *   <li>{@link org.osate.xtext.aadl2.errormodel.errorModel.ErrorCodeValue#getIntValue <em>Int Value</em>}</li>
  *   <li>{@link org.osate.xtext.aadl2.errormodel.errorModel.ErrorCodeValue#getConstant <em>Constant</em>}</li>
  *   <li>{@link org.osate.xtext.aadl2.errormodel.errorModel.ErrorCodeValue#getEnumLiteral <em>Enum Literal</em>}</li>
  * </ul>
- * </p>
  *
  * @see org.osate.xtext.aadl2.errormodel.errorModel.ErrorModelPackage#getErrorCodeValue()
  * @model

@@ -153,8 +153,10 @@
         containment="true"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="QualifiedPropagationPoint" eSuperTypes="platform:/resource/org.osate.aadl2/model/aadl2.ecore#//Element">
-    <eStructuralFeatures xsi:type="ecore:EReference" name="subcomponents" upperBound="-1"
-        eType="#//SubcomponentElement" containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="subcomponent" eType="#//SubcomponentElement"
+        containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="next" eType="#//QualifiedPropagationPoint"
+        containment="true"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="propagationPoint" eType="#//PropagationPoint"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="ErrorBehaviorStateMachine" eSuperTypes="platform:/resource/org.osate.aadl2/model/aadl2.ecore#//NamedElement">
@@ -245,9 +247,8 @@
     <eStructuralFeatures xsi:type="ecore:EReference" name="incoming" eType="#//EventOrPropagation"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="constraint" eType="#//TypeSet"
         containment="true"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="subcomponents" upperBound="-1"
-        eType="#//SubcomponentElement" containment="true"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="state" eType="#//ErrorBehaviorState"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="qualifiedState" eType="#//QualifiedErrorBehaviorState"
+        containment="true"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="EventOrPropagation" eSuperTypes="platform:/resource/org.osate.aadl2/model/aadl2.ecore#//NamedElement"/>
   <eClassifiers xsi:type="ecore:EClass" name="OutgoingPropagationCondition" eSuperTypes="platform:/resource/org.osate.aadl2/model/aadl2.ecore#//NamedElement">
@@ -296,6 +297,13 @@
     <eStructuralFeatures xsi:type="ecore:EReference" name="state" eType="#//ErrorBehaviorState"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="typedToken" eType="#//TypeToken"
         containment="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="QualifiedErrorBehaviorState" eSuperTypes="platform:/resource/org.osate.aadl2/model/aadl2.ecore#//Element">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="subcomponent" eType="#//SubcomponentElement"
+        containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="next" eType="#//QualifiedErrorBehaviorState"
+        containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="state" eType="#//ErrorBehaviorState"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="SubcomponentElement" eSuperTypes="platform:/resource/org.osate.aadl2/model/aadl2.ecore#//Element">
     <eStructuralFeatures xsi:type="ecore:EReference" name="subcomponent" eType="ecore:EClass platform:/resource/org.osate.aadl2/model/aadl2.ecore#//Subcomponent"/>

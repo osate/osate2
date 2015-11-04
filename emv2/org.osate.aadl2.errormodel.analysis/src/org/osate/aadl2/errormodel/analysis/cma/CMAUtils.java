@@ -97,12 +97,12 @@ public class CMAUtils {
 		if (expression instanceof ConditionElement) {
 			ConditionElement element = (ConditionElement) expression;
 
-			SubcomponentElement selt = element.getSubcomponents().get(0);
+			SubcomponentElement selt = element.getQualifiedState().getSubcomponent();
 			Subcomponent subcomp = selt.getSubcomponent();
 			ComponentInstance subcompInstance = findComponentInstance(analysisModel.getRoot().getComponentInstance(),
 					subcomp);
 			if (subcompInstance != null) {
-				result.addAll(processState(analysisModel, subcompInstance, element.getState(), element.getConstraint()));
+				result.addAll(processState(analysisModel, subcompInstance, EMV2Util.getState(element), element.getConstraint()));
 			}
 		}
 
@@ -146,11 +146,11 @@ public class CMAUtils {
 			/**
 			 * Here, the condition come from a subcomponent.
 			 */
-			if (elt.getSubcomponents().size() == 1) {
+			if (elt.getQualifiedState() != null && elt.getQualifiedState().getNext() == null) {
 				/**
 				 * Here, we retrieve the subcomponent related to the condition.
 				 */
-				SubcomponentElement selt = elt.getSubcomponents().get(0);
+				SubcomponentElement selt = elt.getQualifiedState().getSubcomponent();
 				Subcomponent subcomp = selt.getSubcomponent();
 				ComponentInstance subcompInstance = findComponentInstance(componentInstance, subcomp);
 				referencedInstances.add(subcompInstance);

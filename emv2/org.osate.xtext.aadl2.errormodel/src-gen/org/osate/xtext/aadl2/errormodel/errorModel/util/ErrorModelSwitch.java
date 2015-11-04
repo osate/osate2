@@ -56,7 +56,7 @@ public class ErrorModelSwitch<T> extends Switch<T>
    * Checks whether this is a switch for the given package.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @parameter ePackage the package in question.
+   * @param ePackage the package in question.
    * @return whether this is a switch for the given package.
    * @generated
    */
@@ -448,6 +448,14 @@ public class ErrorModelSwitch<T> extends Switch<T>
         T result = caseCompositeState(compositeState);
         if (result == null) result = caseNamedElement(compositeState);
         if (result == null) result = caseElement(compositeState);
+        if (result == null) result = defaultCase(theEObject);
+        return result;
+      }
+      case ErrorModelPackage.QUALIFIED_ERROR_BEHAVIOR_STATE:
+      {
+        QualifiedErrorBehaviorState qualifiedErrorBehaviorState = (QualifiedErrorBehaviorState)theEObject;
+        T result = caseQualifiedErrorBehaviorState(qualifiedErrorBehaviorState);
+        if (result == null) result = caseElement(qualifiedErrorBehaviorState);
         if (result == null) result = defaultCase(theEObject);
         return result;
       }
@@ -1151,6 +1159,22 @@ public class ErrorModelSwitch<T> extends Switch<T>
    * @generated
    */
   public T caseCompositeState(CompositeState object)
+  {
+    return null;
+  }
+
+  /**
+   * Returns the result of interpreting the object as an instance of '<em>Qualified Error Behavior State</em>'.
+   * <!-- begin-user-doc -->
+   * This implementation returns null;
+   * returning a non-null result will terminate the switch.
+   * <!-- end-user-doc -->
+   * @param object the target of the switch.
+   * @return the result of interpreting the object as an instance of '<em>Qualified Error Behavior State</em>'.
+   * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+   * @generated
+   */
+  public T caseQualifiedErrorBehaviorState(QualifiedErrorBehaviorState object)
   {
     return null;
   }

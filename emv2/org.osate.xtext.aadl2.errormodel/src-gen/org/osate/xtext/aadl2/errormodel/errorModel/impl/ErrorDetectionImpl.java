@@ -29,6 +29,7 @@ import org.osate.xtext.aadl2.errormodel.errorModel.TypeSet;
  * <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
+ * </p>
  * <ul>
  *   <li>{@link org.osate.xtext.aadl2.errormodel.errorModel.impl.ErrorDetectionImpl#getState <em>State</em>}</li>
  *   <li>{@link org.osate.xtext.aadl2.errormodel.errorModel.impl.ErrorDetectionImpl#getTypeTokenConstraint <em>Type Token Constraint</em>}</li>
@@ -38,7 +39,6 @@ import org.osate.xtext.aadl2.errormodel.errorModel.TypeSet;
  *   <li>{@link org.osate.xtext.aadl2.errormodel.errorModel.impl.ErrorDetectionImpl#getDetectionReportingPort <em>Detection Reporting Port</em>}</li>
  *   <li>{@link org.osate.xtext.aadl2.errormodel.errorModel.impl.ErrorDetectionImpl#getErrorCode <em>Error Code</em>}</li>
  * </ul>
- * </p>
  *
  * @generated
  */

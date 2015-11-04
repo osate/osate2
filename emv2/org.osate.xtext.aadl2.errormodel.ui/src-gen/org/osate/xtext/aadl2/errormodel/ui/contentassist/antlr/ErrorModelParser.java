@@ -59,6 +59,7 @@ public class ErrorModelParser extends AbstractPartialContentAssistParser {
 					put(grammarAccess.getErrorPathAccess().getAlternatives_7(), "rule__ErrorPath__Alternatives_7");
 					put(grammarAccess.getErrorPathAccess().getAlternatives_8(), "rule__ErrorPath__Alternatives_8");
 					put(grammarAccess.getErrorPropagationPointAccess().getAlternatives(), "rule__ErrorPropagationPoint__Alternatives");
+					put(grammarAccess.getQualifiedPropagationPointAccess().getAlternatives_2(), "rule__QualifiedPropagationPoint__Alternatives_2");
 					put(grammarAccess.getErrorBehaviorEventAccess().getAlternatives(), "rule__ErrorBehaviorEvent__Alternatives");
 					put(grammarAccess.getErrorBehaviorTransitionAccess().getAlternatives_1(), "rule__ErrorBehaviorTransition__Alternatives_1");
 					put(grammarAccess.getErrorBehaviorTransitionAccess().getAlternatives_5(), "rule__ErrorBehaviorTransition__Alternatives_5");
@@ -76,6 +77,7 @@ public class ErrorModelParser extends AbstractPartialContentAssistParser {
 					put(grammarAccess.getCompositeStateAccess().getAlternatives_2(), "rule__CompositeState__Alternatives_2");
 					put(grammarAccess.getSConditionTermAccess().getAlternatives(), "rule__SConditionTerm__Alternatives");
 					put(grammarAccess.getSConditionElementAccess().getAlternatives(), "rule__SConditionElement__Alternatives");
+					put(grammarAccess.getQualifiedErrorBehaviorStateAccess().getAlternatives_2(), "rule__QualifiedErrorBehaviorState__Alternatives_2");
 					put(grammarAccess.getContainedPropertyAssociationAccess().getAlternatives_1(), "rule__ContainedPropertyAssociation__Alternatives_1");
 					put(grammarAccess.getPropertyAssociationAccess().getAlternatives_1(), "rule__PropertyAssociation__Alternatives_1");
 					put(grammarAccess.getPropertyExpressionAccess().getAlternatives(), "rule__PropertyExpression__Alternatives");
@@ -155,7 +157,6 @@ public class ErrorModelParser extends AbstractPartialContentAssistParser {
 					put(grammarAccess.getPropagationPathAccess().getGroup(), "rule__PropagationPath__Group__0");
 					put(grammarAccess.getPropagationPathAccess().getGroup_0(), "rule__PropagationPath__Group_0__0");
 					put(grammarAccess.getQualifiedPropagationPointAccess().getGroup(), "rule__QualifiedPropagationPoint__Group__0");
-					put(grammarAccess.getQualifiedPropagationPointAccess().getGroup_0(), "rule__QualifiedPropagationPoint__Group_0__0");
 					put(grammarAccess.getErrorBehaviorStateMachineAccess().getGroup(), "rule__ErrorBehaviorStateMachine__Group__0");
 					put(grammarAccess.getErrorBehaviorStateMachineAccess().getGroup_3(), "rule__ErrorBehaviorStateMachine__Group_3__0");
 					put(grammarAccess.getErrorBehaviorStateMachineAccess().getGroup_3_3(), "rule__ErrorBehaviorStateMachine__Group_3_3__0");
@@ -220,9 +221,9 @@ public class ErrorModelParser extends AbstractPartialContentAssistParser {
 					put(grammarAccess.getSOrlessExpressionAccess().getGroup_4(), "rule__SOrlessExpression__Group_4__0");
 					put(grammarAccess.getSConditionTermAccess().getGroup_3(), "rule__SConditionTerm__Group_3__0");
 					put(grammarAccess.getSConditionElementAccess().getGroup_0(), "rule__SConditionElement__Group_0__0");
-					put(grammarAccess.getSConditionElementAccess().getGroup_0_0(), "rule__SConditionElement__Group_0_0__0");
 					put(grammarAccess.getSConditionElementAccess().getGroup_1(), "rule__SConditionElement__Group_1__0");
 					put(grammarAccess.getSConditionElementAccess().getGroup_1_1(), "rule__SConditionElement__Group_1_1__0");
+					put(grammarAccess.getQualifiedErrorBehaviorStateAccess().getGroup(), "rule__QualifiedErrorBehaviorState__Group__0");
 					put(grammarAccess.getQEMREFAccess().getGroup(), "rule__QEMREF__Group__0");
 					put(grammarAccess.getQEMREFAccess().getGroup_0(), "rule__QEMREF__Group_0__0");
 					put(grammarAccess.getContainedPropertyAssociationAccess().getGroup(), "rule__ContainedPropertyAssociation__Group__0");
@@ -362,8 +363,9 @@ public class ErrorModelParser extends AbstractPartialContentAssistParser {
 					put(grammarAccess.getPropagationPathAccess().getNameAssignment_0_0(), "rule__PropagationPath__NameAssignment_0_0");
 					put(grammarAccess.getPropagationPathAccess().getSourceAssignment_1(), "rule__PropagationPath__SourceAssignment_1");
 					put(grammarAccess.getPropagationPathAccess().getTargetAssignment_3(), "rule__PropagationPath__TargetAssignment_3");
-					put(grammarAccess.getQualifiedPropagationPointAccess().getSubcomponentsAssignment_0_0(), "rule__QualifiedPropagationPoint__SubcomponentsAssignment_0_0");
-					put(grammarAccess.getQualifiedPropagationPointAccess().getPropagationPointAssignment_1(), "rule__QualifiedPropagationPoint__PropagationPointAssignment_1");
+					put(grammarAccess.getQualifiedPropagationPointAccess().getSubcomponentAssignment_0(), "rule__QualifiedPropagationPoint__SubcomponentAssignment_0");
+					put(grammarAccess.getQualifiedPropagationPointAccess().getNextAssignment_2_0(), "rule__QualifiedPropagationPoint__NextAssignment_2_0");
+					put(grammarAccess.getQualifiedPropagationPointAccess().getPropagationPointAssignment_2_1(), "rule__QualifiedPropagationPoint__PropagationPointAssignment_2_1");
 					put(grammarAccess.getErrorBehaviorStateMachineAccess().getNameAssignment_2(), "rule__ErrorBehaviorStateMachine__NameAssignment_2");
 					put(grammarAccess.getErrorBehaviorStateMachineAccess().getUseTypesAssignment_3_2(), "rule__ErrorBehaviorStateMachine__UseTypesAssignment_3_2");
 					put(grammarAccess.getErrorBehaviorStateMachineAccess().getUseTypesAssignment_3_3_1(), "rule__ErrorBehaviorStateMachine__UseTypesAssignment_3_3_1");
@@ -456,11 +458,13 @@ public class ErrorModelParser extends AbstractPartialContentAssistParser {
 					put(grammarAccess.getSOrlessExpressionAccess().getCountAssignment_0(), "rule__SOrlessExpression__CountAssignment_0");
 					put(grammarAccess.getSOrlessExpressionAccess().getOperandsAssignment_3(), "rule__SOrlessExpression__OperandsAssignment_3");
 					put(grammarAccess.getSOrlessExpressionAccess().getOperandsAssignment_4_1(), "rule__SOrlessExpression__OperandsAssignment_4_1");
-					put(grammarAccess.getSConditionElementAccess().getSubcomponentsAssignment_0_0_0(), "rule__SConditionElement__SubcomponentsAssignment_0_0_0");
-					put(grammarAccess.getSConditionElementAccess().getStateAssignment_0_1(), "rule__SConditionElement__StateAssignment_0_1");
-					put(grammarAccess.getSConditionElementAccess().getConstraintAssignment_0_2(), "rule__SConditionElement__ConstraintAssignment_0_2");
+					put(grammarAccess.getSConditionElementAccess().getQualifiedStateAssignment_0_0(), "rule__SConditionElement__QualifiedStateAssignment_0_0");
+					put(grammarAccess.getSConditionElementAccess().getConstraintAssignment_0_1(), "rule__SConditionElement__ConstraintAssignment_0_1");
 					put(grammarAccess.getSConditionElementAccess().getIncomingAssignment_1_1_0(), "rule__SConditionElement__IncomingAssignment_1_1_0");
 					put(grammarAccess.getSConditionElementAccess().getConstraintAssignment_1_1_1(), "rule__SConditionElement__ConstraintAssignment_1_1_1");
+					put(grammarAccess.getQualifiedErrorBehaviorStateAccess().getSubcomponentAssignment_0(), "rule__QualifiedErrorBehaviorState__SubcomponentAssignment_0");
+					put(grammarAccess.getQualifiedErrorBehaviorStateAccess().getNextAssignment_2_0(), "rule__QualifiedErrorBehaviorState__NextAssignment_2_0");
+					put(grammarAccess.getQualifiedErrorBehaviorStateAccess().getStateAssignment_2_1(), "rule__QualifiedErrorBehaviorState__StateAssignment_2_1");
 					put(grammarAccess.getSubcomponentElementAccess().getSubcomponentAssignment(), "rule__SubcomponentElement__SubcomponentAssignment");
 					put(grammarAccess.getContainedPropertyAssociationAccess().getPropertyAssignment_0(), "rule__ContainedPropertyAssociation__PropertyAssignment_0");
 					put(grammarAccess.getContainedPropertyAssociationAccess().getAppendAssignment_1_1(), "rule__ContainedPropertyAssociation__AppendAssignment_1_1");

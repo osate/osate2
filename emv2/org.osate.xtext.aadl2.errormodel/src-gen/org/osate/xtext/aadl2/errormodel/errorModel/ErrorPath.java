@@ -10,6 +10,7 @@ package org.osate.xtext.aadl2.errormodel.errorModel;
  *
  * <p>
  * The following features are supported:
+ * </p>
  * <ul>
  *   <li>{@link org.osate.xtext.aadl2.errormodel.errorModel.ErrorPath#getIncoming <em>Incoming</em>}</li>
  *   <li>{@link org.osate.xtext.aadl2.errormodel.errorModel.ErrorPath#isAllIncoming <em>All Incoming</em>}</li>
@@ -18,7 +19,6 @@ package org.osate.xtext.aadl2.errormodel.errorModel;
  *   <li>{@link org.osate.xtext.aadl2.errormodel.errorModel.ErrorPath#getTargetToken <em>Target Token</em>}</li>
  *   <li>{@link org.osate.xtext.aadl2.errormodel.errorModel.ErrorPath#getTypeMappingSet <em>Type Mapping Set</em>}</li>
  * </ul>
- * </p>
  *
  * @see org.osate.xtext.aadl2.errormodel.errorModel.ErrorModelPackage#getErrorPath()
  * @model

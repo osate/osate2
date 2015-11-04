@@ -22,6 +22,7 @@ import org.osate.xtext.aadl2.errormodel.errorModel.TypeToken;
  * <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
+ * </p>
  * <ul>
  *   <li>{@link org.osate.xtext.aadl2.errormodel.errorModel.impl.ErrorPathImpl#getIncoming <em>Incoming</em>}</li>
  *   <li>{@link org.osate.xtext.aadl2.errormodel.errorModel.impl.ErrorPathImpl#isAllIncoming <em>All Incoming</em>}</li>
@@ -30,7 +31,6 @@ import org.osate.xtext.aadl2.errormodel.errorModel.TypeToken;
  *   <li>{@link org.osate.xtext.aadl2.errormodel.errorModel.impl.ErrorPathImpl#getTargetToken <em>Target Token</em>}</li>
  *   <li>{@link org.osate.xtext.aadl2.errormodel.errorModel.impl.ErrorPathImpl#getTypeMappingSet <em>Type Mapping Set</em>}</li>
  * </ul>
- * </p>
  *
  * @generated
  */

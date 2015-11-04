@@ -27,11 +27,11 @@ import org.osate.xtext.aadl2.errormodel.errorModel.TypeToken;
  * <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
+ * </p>
  * <ul>
  *   <li>{@link org.osate.xtext.aadl2.errormodel.errorModel.impl.TypeSetImpl#getTypeTokens <em>Type Tokens</em>}</li>
  *   <li>{@link org.osate.xtext.aadl2.errormodel.errorModel.impl.TypeSetImpl#getAliasedType <em>Aliased Type</em>}</li>
  * </ul>
- * </p>
  *
  * @generated
  */

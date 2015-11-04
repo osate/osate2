@@ -241,7 +241,7 @@ public class ErrorModelJavaValidator extends AbstractErrorModelJavaValidator {
 
 	private void checkConditionElementType(ConditionElement conditionElement) {
 		EventOrPropagation ep = conditionElement.getIncoming();
-		ErrorBehaviorState es = conditionElement.getState();
+		ErrorBehaviorState es = EMV2Util.getState(conditionElement);
 		TypeSet triggerTS = null;
 		String triggerName = "";
 		if (ep instanceof ErrorPropagation) {

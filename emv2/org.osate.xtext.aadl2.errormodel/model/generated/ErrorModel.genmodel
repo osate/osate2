@@ -119,8 +119,10 @@
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference ErrorModel.ecore#//PropagationPath/target"/>
     </genClasses>
     <genClasses ecoreClass="ErrorModel.ecore#//QualifiedPropagationPoint">
-      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference ErrorModel.ecore#//QualifiedPropagationPoint/subcomponents"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference ErrorModel.ecore#//QualifiedPropagationPoint/subcomponent"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference ErrorModel.ecore#//QualifiedPropagationPoint/next"/>
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference ErrorModel.ecore#//QualifiedPropagationPoint/propagationPoint"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference ErrorModel.ecore#//QualifiedPropagationPoint/subcomponents"/>
     </genClasses>
     <genClasses ecoreClass="ErrorModel.ecore#//ErrorBehaviorStateMachine">
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference ErrorModel.ecore#//ErrorBehaviorStateMachine/useTypes"/>
@@ -189,6 +191,7 @@
     <genClasses ecoreClass="ErrorModel.ecore#//ConditionElement">
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference ErrorModel.ecore#//ConditionElement/incoming"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference ErrorModel.ecore#//ConditionElement/constraint"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference ErrorModel.ecore#//ConditionElement/qualifiedState"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference ErrorModel.ecore#//ConditionElement/subcomponents"/>
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference ErrorModel.ecore#//ConditionElement/state"/>
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference ErrorModel.ecore#//ConditionElement/subcomponent"/>
@@ -227,6 +230,11 @@
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute ErrorModel.ecore#//CompositeState/others"/>
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference ErrorModel.ecore#//CompositeState/state"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference ErrorModel.ecore#//CompositeState/typedToken"/>
+    </genClasses>
+    <genClasses ecoreClass="ErrorModel.ecore#//QualifiedErrorBehaviorState">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference ErrorModel.ecore#//QualifiedErrorBehaviorState/subcomponent"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference ErrorModel.ecore#//QualifiedErrorBehaviorState/next"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference ErrorModel.ecore#//QualifiedErrorBehaviorState/state"/>
     </genClasses>
     <genClasses ecoreClass="ErrorModel.ecore#//SubcomponentElement">
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference ErrorModel.ecore#//SubcomponentElement/subcomponent"/>

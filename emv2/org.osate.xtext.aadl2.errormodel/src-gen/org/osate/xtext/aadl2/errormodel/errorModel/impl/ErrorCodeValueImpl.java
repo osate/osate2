@@ -23,12 +23,12 @@ import org.osate.xtext.aadl2.errormodel.errorModel.ErrorModelPackage;
  * <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
+ * </p>
  * <ul>
  *   <li>{@link org.osate.xtext.aadl2.errormodel.errorModel.impl.ErrorCodeValueImpl#getIntValue <em>Int Value</em>}</li>
  *   <li>{@link org.osate.xtext.aadl2.errormodel.errorModel.impl.ErrorCodeValueImpl#getConstant <em>Constant</em>}</li>
  *   <li>{@link org.osate.xtext.aadl2.errormodel.errorModel.impl.ErrorCodeValueImpl#getEnumLiteral <em>Enum Literal</em>}</li>
  * </ul>
- * </p>
  *
  * @generated
  */

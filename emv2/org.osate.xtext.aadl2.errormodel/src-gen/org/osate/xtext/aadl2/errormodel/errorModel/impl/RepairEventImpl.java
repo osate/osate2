@@ -21,10 +21,10 @@ import org.osate.xtext.aadl2.errormodel.errorModel.RepairEvent;
  * <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
+ * </p>
  * <ul>
  *   <li>{@link org.osate.xtext.aadl2.errormodel.errorModel.impl.RepairEventImpl#getEventInitiator <em>Event Initiator</em>}</li>
  * </ul>
- * </p>
  *
  * @generated
  */

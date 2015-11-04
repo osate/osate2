@@ -31,12 +31,12 @@ import org.osate.xtext.aadl2.errormodel.errorModel.TypeToken;
  * <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
+ * </p>
  * <ul>
  *   <li>{@link org.osate.xtext.aadl2.errormodel.errorModel.impl.ErrorStateToModeMappingImpl#getErrorState <em>Error State</em>}</li>
  *   <li>{@link org.osate.xtext.aadl2.errormodel.errorModel.impl.ErrorStateToModeMappingImpl#getTypeToken <em>Type Token</em>}</li>
  *   <li>{@link org.osate.xtext.aadl2.errormodel.errorModel.impl.ErrorStateToModeMappingImpl#getMappedModes <em>Mapped Modes</em>}</li>
  * </ul>
- * </p>
  *
  * @generated
  */

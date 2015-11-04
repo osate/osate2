@@ -13,11 +13,11 @@ import org.osate.aadl2.NamedElement;
  *
  * <p>
  * The following features are supported:
+ * </p>
  * <ul>
  *   <li>{@link org.osate.xtext.aadl2.errormodel.errorModel.PropagationPath#getSource <em>Source</em>}</li>
  *   <li>{@link org.osate.xtext.aadl2.errormodel.errorModel.PropagationPath#getTarget <em>Target</em>}</li>
  * </ul>
- * </p>
  *
  * @see org.osate.xtext.aadl2.errormodel.errorModel.ErrorModelPackage#getPropagationPath()
  * @model

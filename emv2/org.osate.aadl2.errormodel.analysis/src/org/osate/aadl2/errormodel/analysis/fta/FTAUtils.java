@@ -439,7 +439,7 @@ public class FTAUtils {
 			 * one of its state. This is what we find in a composite error
 			 * state machine.
 			 */
-			if (conditionElement.getSubcomponents().size() > 0) {
+			if (conditionElement.getQualifiedState() != null) {
 				/**
 				 * In the following, it seems that we reference another component.
 				 * This is typically the case when the condition is within
@@ -449,7 +449,7 @@ public class FTAUtils {
 				 * and add all its contributors to the returned events.
 				 */
 //				OsateDebug.osateDebug("[FTAUtils] processCondition subcomponents are present, size=" + conditionElement.getSubcomponents().size());
-				SubcomponentElement subcomponentElement = conditionElement.getSubcomponents().get(0);
+				SubcomponentElement subcomponentElement = conditionElement.getQualifiedState().getSubcomponent();
 				Subcomponent subcomponent = subcomponentElement.getSubcomponent();
 				ComponentInstance referencedInstance;
 				ErrorTypes referencedErrorType;
@@ -472,7 +472,7 @@ public class FTAUtils {
 //				OsateDebug.osateDebug("[FTAUtils] referenced component instance=" + referencedInstance);
 //				OsateDebug.osateDebug("[FTAUtils] referenced type=" + referencedErrorType);
 
-				returnedEvents.add(processErrorState(referencedInstance, conditionElement.getState(),
+				returnedEvents.add(processErrorState(referencedInstance, EMV2Util.getState(conditionElement),
 						referencedErrorType));
 			}
 		}
