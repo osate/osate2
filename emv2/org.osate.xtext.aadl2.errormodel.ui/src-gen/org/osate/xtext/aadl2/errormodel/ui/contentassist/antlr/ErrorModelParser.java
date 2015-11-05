@@ -72,7 +72,6 @@ public class ErrorModelParser extends AbstractPartialContentAssistParser {
 					put(grammarAccess.getOutgoingPropagationConditionAccess().getAlternatives_1(), "rule__OutgoingPropagationCondition__Alternatives_1");
 					put(grammarAccess.getOutgoingPropagationConditionAccess().getAlternatives_5_0(), "rule__OutgoingPropagationCondition__Alternatives_5_0");
 					put(grammarAccess.getErrorDetectionAccess().getAlternatives_1(), "rule__ErrorDetection__Alternatives_1");
-					put(grammarAccess.getErrorDetectionAccess().getAlternatives_5(), "rule__ErrorDetection__Alternatives_5");
 					put(grammarAccess.getErrorCodeValueAccess().getAlternatives(), "rule__ErrorCodeValue__Alternatives");
 					put(grammarAccess.getCompositeStateAccess().getAlternatives_2(), "rule__CompositeState__Alternatives_2");
 					put(grammarAccess.getSConditionTermAccess().getAlternatives(), "rule__SConditionTerm__Alternatives");
@@ -206,9 +205,9 @@ public class ErrorModelParser extends AbstractPartialContentAssistParser {
 					put(grammarAccess.getErrorDetectionAccess().getGroup(), "rule__ErrorDetection__Group__0");
 					put(grammarAccess.getErrorDetectionAccess().getGroup_0(), "rule__ErrorDetection__Group_0__0");
 					put(grammarAccess.getErrorDetectionAccess().getGroup_1_0(), "rule__ErrorDetection__Group_1_0__0");
+					put(grammarAccess.getErrorDetectionAccess().getGroup_7(), "rule__ErrorDetection__Group_7__0");
 					put(grammarAccess.getErrorStateToModeMappingAccess().getGroup(), "rule__ErrorStateToModeMapping__Group__0");
 					put(grammarAccess.getErrorStateToModeMappingAccess().getGroup_6(), "rule__ErrorStateToModeMapping__Group_6__0");
-					put(grammarAccess.getInternalPortAccess().getGroup(), "rule__InternalPort__Group__0");
 					put(grammarAccess.getCompositeStateAccess().getGroup(), "rule__CompositeState__Group__0");
 					put(grammarAccess.getCompositeStateAccess().getGroup_0(), "rule__CompositeState__Group_0__0");
 					put(grammarAccess.getSConditionExpressionAccess().getGroup(), "rule__SConditionExpression__Group__0");
@@ -434,9 +433,8 @@ public class ErrorModelParser extends AbstractPartialContentAssistParser {
 					put(grammarAccess.getErrorDetectionAccess().getTypeTokenConstraintAssignment_1_0_1(), "rule__ErrorDetection__TypeTokenConstraintAssignment_1_0_1");
 					put(grammarAccess.getErrorDetectionAccess().getAllStatesAssignment_1_1(), "rule__ErrorDetection__AllStatesAssignment_1_1");
 					put(grammarAccess.getErrorDetectionAccess().getConditionAssignment_3(), "rule__ErrorDetection__ConditionAssignment_3");
-					put(grammarAccess.getErrorDetectionAccess().getInternalDetectionPortAssignment_5_0(), "rule__ErrorDetection__InternalDetectionPortAssignment_5_0");
-					put(grammarAccess.getErrorDetectionAccess().getDetectionReportingPortAssignment_5_1(), "rule__ErrorDetection__DetectionReportingPortAssignment_5_1");
-					put(grammarAccess.getErrorDetectionAccess().getErrorCodeAssignment_7(), "rule__ErrorDetection__ErrorCodeAssignment_7");
+					put(grammarAccess.getErrorDetectionAccess().getDetectionReportingPortAssignment_5(), "rule__ErrorDetection__DetectionReportingPortAssignment_5");
+					put(grammarAccess.getErrorDetectionAccess().getErrorCodeAssignment_7_1(), "rule__ErrorDetection__ErrorCodeAssignment_7_1");
 					put(grammarAccess.getErrorCodeValueAccess().getIntValueAssignment_0(), "rule__ErrorCodeValue__IntValueAssignment_0");
 					put(grammarAccess.getErrorCodeValueAccess().getConstantAssignment_1(), "rule__ErrorCodeValue__ConstantAssignment_1");
 					put(grammarAccess.getErrorCodeValueAccess().getEnumLiteralAssignment_2(), "rule__ErrorCodeValue__EnumLiteralAssignment_2");
@@ -444,7 +442,6 @@ public class ErrorModelParser extends AbstractPartialContentAssistParser {
 					put(grammarAccess.getErrorStateToModeMappingAccess().getTypeTokenAssignment_1(), "rule__ErrorStateToModeMapping__TypeTokenAssignment_1");
 					put(grammarAccess.getErrorStateToModeMappingAccess().getMappedModesAssignment_5(), "rule__ErrorStateToModeMapping__MappedModesAssignment_5");
 					put(grammarAccess.getErrorStateToModeMappingAccess().getMappedModesAssignment_6_1(), "rule__ErrorStateToModeMapping__MappedModesAssignment_6_1");
-					put(grammarAccess.getInternalPortAccess().getNameAssignment_2(), "rule__InternalPort__NameAssignment_2");
 					put(grammarAccess.getCompositeStateAccess().getNameAssignment_0_0(), "rule__CompositeState__NameAssignment_0_0");
 					put(grammarAccess.getCompositeStateAccess().getConditionAssignment_2_0(), "rule__CompositeState__ConditionAssignment_2_0");
 					put(grammarAccess.getCompositeStateAccess().getOthersAssignment_2_1(), "rule__CompositeState__OthersAssignment_2_1");

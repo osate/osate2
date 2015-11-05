@@ -11,8 +11,7 @@ import org.eclipse.emf.ecore.InternalEObject;
 
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 
-import org.osate.aadl2.InternalFeature;
-import org.osate.aadl2.Port;
+import org.osate.aadl2.TriggerPort;
 
 import org.osate.aadl2.impl.NamedElementImpl;
 
@@ -35,7 +34,6 @@ import org.osate.xtext.aadl2.errormodel.errorModel.TypeSet;
  *   <li>{@link org.osate.xtext.aadl2.errormodel.errorModel.impl.ErrorDetectionImpl#getTypeTokenConstraint <em>Type Token Constraint</em>}</li>
  *   <li>{@link org.osate.xtext.aadl2.errormodel.errorModel.impl.ErrorDetectionImpl#isAllStates <em>All States</em>}</li>
  *   <li>{@link org.osate.xtext.aadl2.errormodel.errorModel.impl.ErrorDetectionImpl#getCondition <em>Condition</em>}</li>
- *   <li>{@link org.osate.xtext.aadl2.errormodel.errorModel.impl.ErrorDetectionImpl#getInternalDetectionPort <em>Internal Detection Port</em>}</li>
  *   <li>{@link org.osate.xtext.aadl2.errormodel.errorModel.impl.ErrorDetectionImpl#getDetectionReportingPort <em>Detection Reporting Port</em>}</li>
  *   <li>{@link org.osate.xtext.aadl2.errormodel.errorModel.impl.ErrorDetectionImpl#getErrorCode <em>Error Code</em>}</li>
  * </ul>
@@ -95,16 +93,6 @@ public class ErrorDetectionImpl extends NamedElementImpl implements ErrorDetecti
   protected ConditionExpression condition;
 
   /**
-   * The cached value of the '{@link #getInternalDetectionPort() <em>Internal Detection Port</em>}' containment reference.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @see #getInternalDetectionPort()
-   * @generated
-   * @ordered
-   */
-  protected InternalFeature internalDetectionPort;
-
-  /**
    * The cached value of the '{@link #getDetectionReportingPort() <em>Detection Reporting Port</em>}' reference.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -112,7 +100,7 @@ public class ErrorDetectionImpl extends NamedElementImpl implements ErrorDetecti
    * @generated
    * @ordered
    */
-  protected Port detectionReportingPort;
+  protected TriggerPort detectionReportingPort;
 
   /**
    * The cached value of the '{@link #getErrorCode() <em>Error Code</em>}' containment reference.
@@ -312,60 +300,12 @@ public class ErrorDetectionImpl extends NamedElementImpl implements ErrorDetecti
    * <!-- end-user-doc -->
    * @generated
    */
-  public InternalFeature getInternalDetectionPort()
-  {
-    return internalDetectionPort;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public NotificationChain basicSetInternalDetectionPort(InternalFeature newInternalDetectionPort, NotificationChain msgs)
-  {
-    InternalFeature oldInternalDetectionPort = internalDetectionPort;
-    internalDetectionPort = newInternalDetectionPort;
-    if (eNotificationRequired())
-    {
-      ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, ErrorModelPackage.ERROR_DETECTION__INTERNAL_DETECTION_PORT, oldInternalDetectionPort, newInternalDetectionPort);
-      if (msgs == null) msgs = notification; else msgs.add(notification);
-    }
-    return msgs;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public void setInternalDetectionPort(InternalFeature newInternalDetectionPort)
-  {
-    if (newInternalDetectionPort != internalDetectionPort)
-    {
-      NotificationChain msgs = null;
-      if (internalDetectionPort != null)
-        msgs = ((InternalEObject)internalDetectionPort).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - ErrorModelPackage.ERROR_DETECTION__INTERNAL_DETECTION_PORT, null, msgs);
-      if (newInternalDetectionPort != null)
-        msgs = ((InternalEObject)newInternalDetectionPort).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - ErrorModelPackage.ERROR_DETECTION__INTERNAL_DETECTION_PORT, null, msgs);
-      msgs = basicSetInternalDetectionPort(newInternalDetectionPort, msgs);
-      if (msgs != null) msgs.dispatch();
-    }
-    else if (eNotificationRequired())
-      eNotify(new ENotificationImpl(this, Notification.SET, ErrorModelPackage.ERROR_DETECTION__INTERNAL_DETECTION_PORT, newInternalDetectionPort, newInternalDetectionPort));
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public Port getDetectionReportingPort()
+  public TriggerPort getDetectionReportingPort()
   {
     if (detectionReportingPort != null && ((EObject)detectionReportingPort).eIsProxy())
     {
       InternalEObject oldDetectionReportingPort = (InternalEObject)detectionReportingPort;
-      detectionReportingPort = (Port)eResolveProxy(oldDetectionReportingPort);
+      detectionReportingPort = (TriggerPort)eResolveProxy(oldDetectionReportingPort);
       if (detectionReportingPort != oldDetectionReportingPort)
       {
         if (eNotificationRequired())
@@ -380,7 +320,7 @@ public class ErrorDetectionImpl extends NamedElementImpl implements ErrorDetecti
    * <!-- end-user-doc -->
    * @generated
    */
-  public Port basicGetDetectionReportingPort()
+  public TriggerPort basicGetDetectionReportingPort()
   {
     return detectionReportingPort;
   }
@@ -390,9 +330,9 @@ public class ErrorDetectionImpl extends NamedElementImpl implements ErrorDetecti
    * <!-- end-user-doc -->
    * @generated
    */
-  public void setDetectionReportingPort(Port newDetectionReportingPort)
+  public void setDetectionReportingPort(TriggerPort newDetectionReportingPort)
   {
-    Port oldDetectionReportingPort = detectionReportingPort;
+    TriggerPort oldDetectionReportingPort = detectionReportingPort;
     detectionReportingPort = newDetectionReportingPort;
     if (eNotificationRequired())
       eNotify(new ENotificationImpl(this, Notification.SET, ErrorModelPackage.ERROR_DETECTION__DETECTION_REPORTING_PORT, oldDetectionReportingPort, detectionReportingPort));
@@ -460,8 +400,6 @@ public class ErrorDetectionImpl extends NamedElementImpl implements ErrorDetecti
         return basicSetTypeTokenConstraint(null, msgs);
       case ErrorModelPackage.ERROR_DETECTION__CONDITION:
         return basicSetCondition(null, msgs);
-      case ErrorModelPackage.ERROR_DETECTION__INTERNAL_DETECTION_PORT:
-        return basicSetInternalDetectionPort(null, msgs);
       case ErrorModelPackage.ERROR_DETECTION__ERROR_CODE:
         return basicSetErrorCode(null, msgs);
     }
@@ -487,8 +425,6 @@ public class ErrorDetectionImpl extends NamedElementImpl implements ErrorDetecti
         return isAllStates();
       case ErrorModelPackage.ERROR_DETECTION__CONDITION:
         return getCondition();
-      case ErrorModelPackage.ERROR_DETECTION__INTERNAL_DETECTION_PORT:
-        return getInternalDetectionPort();
       case ErrorModelPackage.ERROR_DETECTION__DETECTION_REPORTING_PORT:
         if (resolve) return getDetectionReportingPort();
         return basicGetDetectionReportingPort();
@@ -520,11 +456,8 @@ public class ErrorDetectionImpl extends NamedElementImpl implements ErrorDetecti
       case ErrorModelPackage.ERROR_DETECTION__CONDITION:
         setCondition((ConditionExpression)newValue);
         return;
-      case ErrorModelPackage.ERROR_DETECTION__INTERNAL_DETECTION_PORT:
-        setInternalDetectionPort((InternalFeature)newValue);
-        return;
       case ErrorModelPackage.ERROR_DETECTION__DETECTION_REPORTING_PORT:
-        setDetectionReportingPort((Port)newValue);
+        setDetectionReportingPort((TriggerPort)newValue);
         return;
       case ErrorModelPackage.ERROR_DETECTION__ERROR_CODE:
         setErrorCode((ErrorCodeValue)newValue);
@@ -555,11 +488,8 @@ public class ErrorDetectionImpl extends NamedElementImpl implements ErrorDetecti
       case ErrorModelPackage.ERROR_DETECTION__CONDITION:
         setCondition((ConditionExpression)null);
         return;
-      case ErrorModelPackage.ERROR_DETECTION__INTERNAL_DETECTION_PORT:
-        setInternalDetectionPort((InternalFeature)null);
-        return;
       case ErrorModelPackage.ERROR_DETECTION__DETECTION_REPORTING_PORT:
-        setDetectionReportingPort((Port)null);
+        setDetectionReportingPort((TriggerPort)null);
         return;
       case ErrorModelPackage.ERROR_DETECTION__ERROR_CODE:
         setErrorCode((ErrorCodeValue)null);
@@ -586,8 +516,6 @@ public class ErrorDetectionImpl extends NamedElementImpl implements ErrorDetecti
         return allStates != ALL_STATES_EDEFAULT;
       case ErrorModelPackage.ERROR_DETECTION__CONDITION:
         return condition != null;
-      case ErrorModelPackage.ERROR_DETECTION__INTERNAL_DETECTION_PORT:
-        return internalDetectionPort != null;
       case ErrorModelPackage.ERROR_DETECTION__DETECTION_REPORTING_PORT:
         return detectionReportingPort != null;
       case ErrorModelPackage.ERROR_DETECTION__ERROR_CODE:

@@ -2080,7 +2080,7 @@ public class ErrorModelPackageImpl extends EPackageImpl implements ErrorModelPac
    * <!-- end-user-doc -->
    * @generated
    */
-  public EReference getErrorDetection_InternalDetectionPort()
+  public EReference getErrorDetection_DetectionReportingPort()
   {
     return (EReference)errorDetectionEClass.getEStructuralFeatures().get(4);
   }
@@ -2090,19 +2090,9 @@ public class ErrorModelPackageImpl extends EPackageImpl implements ErrorModelPac
    * <!-- end-user-doc -->
    * @generated
    */
-  public EReference getErrorDetection_DetectionReportingPort()
-  {
-    return (EReference)errorDetectionEClass.getEStructuralFeatures().get(5);
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
   public EReference getErrorDetection_ErrorCode()
   {
-    return (EReference)errorDetectionEClass.getEStructuralFeatures().get(6);
+    return (EReference)errorDetectionEClass.getEStructuralFeatures().get(5);
   }
 
   /**
@@ -2603,7 +2593,6 @@ public class ErrorModelPackageImpl extends EPackageImpl implements ErrorModelPac
     createEReference(errorDetectionEClass, ERROR_DETECTION__TYPE_TOKEN_CONSTRAINT);
     createEAttribute(errorDetectionEClass, ERROR_DETECTION__ALL_STATES);
     createEReference(errorDetectionEClass, ERROR_DETECTION__CONDITION);
-    createEReference(errorDetectionEClass, ERROR_DETECTION__INTERNAL_DETECTION_PORT);
     createEReference(errorDetectionEClass, ERROR_DETECTION__DETECTION_REPORTING_PORT);
     createEReference(errorDetectionEClass, ERROR_DETECTION__ERROR_CODE);
 
@@ -2929,8 +2918,7 @@ public class ErrorModelPackageImpl extends EPackageImpl implements ErrorModelPac
     initEReference(getErrorDetection_TypeTokenConstraint(), this.getTypeSet(), null, "typeTokenConstraint", null, 0, 1, ErrorDetection.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEAttribute(getErrorDetection_AllStates(), theEcorePackage.getEBoolean(), "allStates", null, 0, 1, ErrorDetection.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEReference(getErrorDetection_Condition(), this.getConditionExpression(), null, "condition", null, 0, 1, ErrorDetection.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-    initEReference(getErrorDetection_InternalDetectionPort(), theAadl2Package.getInternalFeature(), null, "internalDetectionPort", null, 0, 1, ErrorDetection.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-    initEReference(getErrorDetection_DetectionReportingPort(), theAadl2Package.getPort(), null, "detectionReportingPort", null, 0, 1, ErrorDetection.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEReference(getErrorDetection_DetectionReportingPort(), theAadl2Package.getTriggerPort(), null, "detectionReportingPort", null, 0, 1, ErrorDetection.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEReference(getErrorDetection_ErrorCode(), this.getErrorCodeValue(), null, "errorCode", null, 0, 1, ErrorDetection.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
     initEClass(errorCodeValueEClass, ErrorCodeValue.class, "ErrorCodeValue", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);

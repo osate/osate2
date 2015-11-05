@@ -5343,47 +5343,33 @@ ruleErrorDetection returns [EObject current=null]
     {
     	newLeafNode(otherlv_7, grammarAccess.getErrorDetectionAccess().getRightSquareBracketHyphenMinusGreaterThanSignKeyword_4());
     }
-((
 (
-		{ 
-	        newCompositeNode(grammarAccess.getErrorDetectionAccess().getInternalDetectionPortInternalPortParserRuleCall_5_0_0()); 
-	    }
-		lv_internalDetectionPort_8_0=ruleInternalPort		{
-	        if ($current==null) {
-	            $current = createModelElementForParent(grammarAccess.getErrorDetectionRule());
-	        }
-       		set(
-       			$current, 
-       			"internalDetectionPort",
-        		lv_internalDetectionPort_8_0, 
-        		"InternalPort");
-	        afterParserOrEnumRuleCall();
-	    }
-
-)
-)
-    |(
 (
 		{
 			if ($current==null) {
 	            $current = createModelElement(grammarAccess.getErrorDetectionRule());
 	        }
         }
-	otherlv_9=RULE_ID
+	otherlv_8=RULE_ID
 	{
-		newLeafNode(otherlv_9, grammarAccess.getErrorDetectionAccess().getDetectionReportingPortPortCrossReference_5_1_0()); 
+		newLeafNode(otherlv_8, grammarAccess.getErrorDetectionAccess().getDetectionReportingPortTriggerPortCrossReference_5_0()); 
 	}
 
 )
-))
-	otherlv_10=ExclamationMark
+)
+	otherlv_9=ExclamationMark
     {
-    	newLeafNode(otherlv_10, grammarAccess.getErrorDetectionAccess().getExclamationMarkKeyword_6());
+    	newLeafNode(otherlv_9, grammarAccess.getErrorDetectionAccess().getExclamationMarkKeyword_6());
+    }
+(
+	otherlv_10=LeftParenthesis
+    {
+    	newLeafNode(otherlv_10, grammarAccess.getErrorDetectionAccess().getLeftParenthesisKeyword_7_0());
     }
 (
 (
 		{ 
-	        newCompositeNode(grammarAccess.getErrorDetectionAccess().getErrorCodeErrorCodeValueParserRuleCall_7_0()); 
+	        newCompositeNode(grammarAccess.getErrorDetectionAccess().getErrorCodeErrorCodeValueParserRuleCall_7_1_0()); 
 	    }
 		lv_errorCode_11_0=ruleErrorCodeValue		{
 	        if ($current==null) {
@@ -5398,10 +5384,15 @@ ruleErrorDetection returns [EObject current=null]
 	    }
 
 )
-)?
-	otherlv_12=Semicolon
+)
+	otherlv_12=RightParenthesis
     {
-    	newLeafNode(otherlv_12, grammarAccess.getErrorDetectionAccess().getSemicolonKeyword_8());
+    	newLeafNode(otherlv_12, grammarAccess.getErrorDetectionAccess().getRightParenthesisKeyword_7_2());
+    }
+)?
+	otherlv_13=Semicolon
+    {
+    	newLeafNode(otherlv_13, grammarAccess.getErrorDetectionAccess().getSemicolonKeyword_8());
     }
 )
 ;
@@ -5586,55 +5577,6 @@ ruleErrorStateToModeMapping returns [EObject current=null]
     	newLeafNode(otherlv_9, grammarAccess.getErrorStateToModeMappingAccess().getSemicolonKeyword_8());
     }
 )
-;
-
-
-
-
-
-// Entry rule entryRuleInternalPort
-entryRuleInternalPort returns [EObject current=null]
-	:
-	{ newCompositeNode(grammarAccess.getInternalPortRule()); }
-	 iv_ruleInternalPort=ruleInternalPort 
-	 { $current=$iv_ruleInternalPort.current; } 
-	 EOF 
-;
-
-// Rule InternalPort
-ruleInternalPort returns [EObject current=null] 
-    @init { enterRule(); 
-    }
-    @after { leaveRule(); }:
-(
-	otherlv_0=Self
-    {
-    	newLeafNode(otherlv_0, grammarAccess.getInternalPortAccess().getSelfKeyword_0());
-    }
-
-	otherlv_1=FullStop
-    {
-    	newLeafNode(otherlv_1, grammarAccess.getInternalPortAccess().getFullStopKeyword_1());
-    }
-(
-(
-		lv_name_2_0=RULE_ID
-		{
-			newLeafNode(lv_name_2_0, grammarAccess.getInternalPortAccess().getNameIDTerminalRuleCall_2_0()); 
-		}
-		{
-	        if ($current==null) {
-	            $current = createModelElement(grammarAccess.getInternalPortRule());
-	        }
-       		setWithLastConsumed(
-       			$current, 
-       			"name",
-        		lv_name_2_0, 
-        		"ID");
-	    }
-
-)
-))
 ;
 
 

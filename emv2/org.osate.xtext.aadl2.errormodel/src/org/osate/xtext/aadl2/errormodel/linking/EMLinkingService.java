@@ -258,6 +258,12 @@ public class EMLinkingService extends PropertiesLinkingService {
 					}
 				}
 			}
+		} else if (Aadl2Package.eINSTANCE.getTriggerPort() == requiredType) {
+			Classifier ns = AadlUtil.getContainingClassifier(context);
+			NamedElement ne = ns.findNamedElement(name);
+			if (ne instanceof Feature || ne instanceof InternalFeature) {
+				searchResult = ne;
+			}
 		} else if (ErrorModelPackage.eINSTANCE.getErrorType() == requiredType) {
 			searchResult = findErrorType(cxt, name);
 

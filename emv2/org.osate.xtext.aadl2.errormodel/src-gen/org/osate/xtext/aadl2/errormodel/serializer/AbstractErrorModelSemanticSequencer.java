@@ -21,7 +21,6 @@ import org.osate.aadl2.ComputedValue;
 import org.osate.aadl2.ContainedNamedElement;
 import org.osate.aadl2.ContainmentPathElement;
 import org.osate.aadl2.IntegerLiteral;
-import org.osate.aadl2.InternalFeature;
 import org.osate.aadl2.ListValue;
 import org.osate.aadl2.ModalPropertyValue;
 import org.osate.aadl2.NamedValue;
@@ -109,9 +108,6 @@ public abstract class AbstractErrorModelSemanticSequencer extends PropertiesSema
 				return; 
 			case Aadl2Package.INTEGER_LITERAL:
 				sequence_IntegerTerm(context, (IntegerLiteral) semanticObject); 
-				return; 
-			case Aadl2Package.INTERNAL_FEATURE:
-				sequence_InternalPort(context, (InternalFeature) semanticObject); 
 				return; 
 			case Aadl2Package.LIST_VALUE:
 				sequence_ListTerm(context, (ListValue) semanticObject); 
@@ -533,7 +529,7 @@ public abstract class AbstractErrorModelSemanticSequencer extends PropertiesSema
 	 *         name=ID? 
 	 *         ((state=[ErrorBehaviorState|ID] typeTokenConstraint=TypeTokenConstraint?) | allStates?='all') 
 	 *         condition=ConditionExpression? 
-	 *         (internalDetectionPort=InternalPort | detectionReportingPort=[Port|ID]) 
+	 *         detectionReportingPort=[TriggerPort|ID] 
 	 *         errorCode=ErrorCodeValue?
 	 *     )
 	 */
@@ -673,15 +669,6 @@ public abstract class AbstractErrorModelSemanticSequencer extends PropertiesSema
 	 */
 	protected void sequence_FeatureorPPReference(EObject context, FeatureorPPReference semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
-	}
-	
-	
-	/**
-	 * Constraint:
-	 *     name=ID
-	 */
-	protected void sequence_InternalPort(EObject context, InternalFeature semanticObject) {
-		genericSequencer.createSequence(context, (EObject)semanticObject);
 	}
 	
 	

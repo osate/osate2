@@ -3238,22 +3238,13 @@ public interface ErrorModelPackage extends EPackage
   int ERROR_DETECTION__CONDITION = Aadl2Package.NAMED_ELEMENT_FEATURE_COUNT + 3;
 
   /**
-   * The feature id for the '<em><b>Internal Detection Port</b></em>' containment reference.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int ERROR_DETECTION__INTERNAL_DETECTION_PORT = Aadl2Package.NAMED_ELEMENT_FEATURE_COUNT + 4;
-
-  /**
    * The feature id for the '<em><b>Detection Reporting Port</b></em>' reference.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    * @ordered
    */
-  int ERROR_DETECTION__DETECTION_REPORTING_PORT = Aadl2Package.NAMED_ELEMENT_FEATURE_COUNT + 5;
+  int ERROR_DETECTION__DETECTION_REPORTING_PORT = Aadl2Package.NAMED_ELEMENT_FEATURE_COUNT + 4;
 
   /**
    * The feature id for the '<em><b>Error Code</b></em>' containment reference.
@@ -3262,7 +3253,7 @@ public interface ErrorModelPackage extends EPackage
    * @generated
    * @ordered
    */
-  int ERROR_DETECTION__ERROR_CODE = Aadl2Package.NAMED_ELEMENT_FEATURE_COUNT + 6;
+  int ERROR_DETECTION__ERROR_CODE = Aadl2Package.NAMED_ELEMENT_FEATURE_COUNT + 5;
 
   /**
    * The number of structural features of the '<em>Error Detection</em>' class.
@@ -3271,7 +3262,7 @@ public interface ErrorModelPackage extends EPackage
    * @generated
    * @ordered
    */
-  int ERROR_DETECTION_FEATURE_COUNT = Aadl2Package.NAMED_ELEMENT_FEATURE_COUNT + 7;
+  int ERROR_DETECTION_FEATURE_COUNT = Aadl2Package.NAMED_ELEMENT_FEATURE_COUNT + 6;
 
   /**
    * The meta object id for the '{@link org.osate.xtext.aadl2.errormodel.errorModel.impl.ErrorCodeValueImpl <em>Error Code Value</em>}' class.
@@ -5530,17 +5521,6 @@ public interface ErrorModelPackage extends EPackage
   EReference getErrorDetection_Condition();
 
   /**
-   * Returns the meta object for the containment reference '{@link org.osate.xtext.aadl2.errormodel.errorModel.ErrorDetection#getInternalDetectionPort <em>Internal Detection Port</em>}'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return the meta object for the containment reference '<em>Internal Detection Port</em>'.
-   * @see org.osate.xtext.aadl2.errormodel.errorModel.ErrorDetection#getInternalDetectionPort()
-   * @see #getErrorDetection()
-   * @generated
-   */
-  EReference getErrorDetection_InternalDetectionPort();
-
-  /**
    * Returns the meta object for the reference '{@link org.osate.xtext.aadl2.errormodel.errorModel.ErrorDetection#getDetectionReportingPort <em>Detection Reporting Port</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -7236,14 +7216,6 @@ public interface ErrorModelPackage extends EPackage
      * @generated
      */
     EReference ERROR_DETECTION__CONDITION = eINSTANCE.getErrorDetection_Condition();
-
-    /**
-     * The meta object literal for the '<em><b>Internal Detection Port</b></em>' containment reference feature.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
-    EReference ERROR_DETECTION__INTERNAL_DETECTION_PORT = eINSTANCE.getErrorDetection_InternalDetectionPort();
 
     /**
      * The meta object literal for the '<em><b>Detection Reporting Port</b></em>' reference feature.

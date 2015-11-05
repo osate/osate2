@@ -426,8 +426,8 @@ ErrorDetection returns ErrorDetection:
     	allStates?='all'
     )
 	'-[' (condition=ConditionExpression)? ']->' 
-	( internalDetectionPort=InternalPort| detectionReportingPort=[aadl2::Port|ID] ) '!'
-	(errorCode=ErrorCodeValue)?
+	( detectionReportingPort=[aadl2::TriggerPort|ID] ) '!'
+	('('errorCode=ErrorCodeValue')')?
 	';' 
 ;
 
@@ -441,10 +441,6 @@ ErrorStateToModeMapping returns ErrorStateToModeMapping:
 	mappedModes+=[aadl2::Mode|ID] (',' mappedModes+=[aadl2::Mode|ID] )* ')' ';'
 ;
 
-
-InternalPort returns aadl2::InternalFeature:
-	 'self' '.' name=ID
-;
 
 CompositeState returns CompositeState:
     (name = ID ':' )?
