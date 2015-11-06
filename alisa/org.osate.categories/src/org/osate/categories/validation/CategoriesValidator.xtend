@@ -9,6 +9,7 @@ import org.eclipse.xtext.validation.Check
 import org.osate.categories.categories.CategoriesPackage
 import org.osate.categories.categories.Category
 import org.osate.categories.util.CategoriesUtil
+import org.osate.categories.categories.CategorySet
 
 //import org.eclipse.xtext.validation.Check
 /**
@@ -25,7 +26,7 @@ class CategoriesValidator extends AbstractCategoriesValidator {
 	 * check that there are no cycles in Category subcategories
 	 */
 	@Check
-	def void checkNoCycleCategoryHierarchy(Category cat) {
+	def void checkNoCycleCategoryHierarchy(CategorySet cat) {
 		val cyclecat = CategoriesUtil.hasCycle(cat)
 		if (cyclecat != null) {
 			error(

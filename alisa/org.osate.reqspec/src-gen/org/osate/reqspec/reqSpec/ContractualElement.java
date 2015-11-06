@@ -24,6 +24,7 @@ import org.osate.categories.categories.Category;
  *
  * <p>
  * The following features are supported:
+ * </p>
  * <ul>
  *   <li>{@link org.osate.reqspec.reqSpec.ContractualElement#getName <em>Name</em>}</li>
  *   <li>{@link org.osate.reqspec.reqSpec.ContractualElement#getTitle <em>Title</em>}</li>
@@ -42,7 +43,6 @@ import org.osate.categories.categories.Category;
  *   <li>{@link org.osate.reqspec.reqSpec.ContractualElement#getDocReference <em>Doc Reference</em>}</li>
  *   <li>{@link org.osate.reqspec.reqSpec.ContractualElement#getIssues <em>Issues</em>}</li>
  * </ul>
- * </p>
  *
  * @see org.osate.reqspec.reqSpec.ReqSpecPackage#getContractualElement()
  * @model

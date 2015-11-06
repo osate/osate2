@@ -17,6 +17,7 @@ import org.osate.organization.organization.Stakeholder;
  *
  * <p>
  * The following features are supported:
+ * </p>
  * <ul>
  *   <li>{@link org.osate.reqspec.reqSpec.Requirement#getComputes <em>Computes</em>}</li>
  *   <li>{@link org.osate.reqspec.reqSpec.Requirement#getPredicate <em>Predicate</em>}</li>
@@ -28,7 +29,6 @@ import org.osate.organization.organization.Stakeholder;
  *   <li>{@link org.osate.reqspec.reqSpec.Requirement#getGoalReference <em>Goal Reference</em>}</li>
  *   <li>{@link org.osate.reqspec.reqSpec.Requirement#getStakeholderRequirementReference <em>Stakeholder Requirement Reference</em>}</li>
  * </ul>
- * </p>
  *
  * @see org.osate.reqspec.reqSpec.ReqSpecPackage#getRequirement()
  * @model

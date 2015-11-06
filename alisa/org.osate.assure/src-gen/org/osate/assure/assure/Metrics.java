@@ -11,6 +11,7 @@ import org.eclipse.emf.ecore.EObject;
  *
  * <p>
  * The following features are supported:
+ * </p>
  * <ul>
  *   <li>{@link org.osate.assure.assure.Metrics#getTbdCount <em>Tbd Count</em>}</li>
  *   <li>{@link org.osate.assure.assure.Metrics#getSuccessCount <em>Success Count</em>}</li>
@@ -23,7 +24,6 @@ import org.eclipse.emf.ecore.EObject;
  *   <li>{@link org.osate.assure.assure.Metrics#getValidationfailCount <em>Validationfail Count</em>}</li>
  *   <li>{@link org.osate.assure.assure.Metrics#getWeight <em>Weight</em>}</li>
  * </ul>
- * </p>
  *
  * @see org.osate.assure.assure.AssurePackage#getMetrics()
  * @model

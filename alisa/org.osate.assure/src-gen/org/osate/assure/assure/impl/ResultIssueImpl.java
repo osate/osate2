@@ -29,6 +29,7 @@ import org.osate.assure.assure.ResultIssueType;
  * <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
+ * </p>
  * <ul>
  *   <li>{@link org.osate.assure.assure.impl.ResultIssueImpl#getIssueType <em>Issue Type</em>}</li>
  *   <li>{@link org.osate.assure.assure.impl.ResultIssueImpl#getName <em>Name</em>}</li>
@@ -37,7 +38,6 @@ import org.osate.assure.assure.ResultIssueType;
  *   <li>{@link org.osate.assure.assure.impl.ResultIssueImpl#getTarget <em>Target</em>}</li>
  *   <li>{@link org.osate.assure.assure.impl.ResultIssueImpl#getIssues <em>Issues</em>}</li>
  * </ul>
- * </p>
  *
  * @generated
  */

@@ -21,10 +21,10 @@ import org.osate.assure.assure.Metrics;
  * <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
+ * </p>
  * <ul>
  *   <li>{@link org.osate.assure.assure.impl.AssureResultImpl#getMetrics <em>Metrics</em>}</li>
  * </ul>
- * </p>
  *
  * @generated
  */

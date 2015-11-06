@@ -15,11 +15,11 @@ import org.eclipse.xtext.xbase.XVariableDeclaration;
  *
  * <p>
  * The following features are supported:
+ * </p>
  * <ul>
  *   <li>{@link org.osate.reqspec.reqSpec.GlobalConstants#getName <em>Name</em>}</li>
  *   <li>{@link org.osate.reqspec.reqSpec.GlobalConstants#getConstants <em>Constants</em>}</li>
  * </ul>
- * </p>
  *
  * @see org.osate.reqspec.reqSpec.ReqSpecPackage#getGlobalConstants()
  * @model

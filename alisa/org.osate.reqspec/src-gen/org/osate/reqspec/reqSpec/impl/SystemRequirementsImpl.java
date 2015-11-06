@@ -27,6 +27,8 @@ import org.osate.aadl2.ComponentClassifier;
 
 import org.osate.alisa.common.common.Description;
 
+import org.osate.categories.categories.ComponentCategory;
+
 import org.osate.reqspec.reqSpec.ExternalDocument;
 import org.osate.reqspec.reqSpec.GlobalConstants;
 import org.osate.reqspec.reqSpec.ReqSpecPackage;
@@ -39,10 +41,12 @@ import org.osate.reqspec.reqSpec.SystemRequirements;
  * <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
+ * </p>
  * <ul>
  *   <li>{@link org.osate.reqspec.reqSpec.impl.SystemRequirementsImpl#getName <em>Name</em>}</li>
  *   <li>{@link org.osate.reqspec.reqSpec.impl.SystemRequirementsImpl#getTitle <em>Title</em>}</li>
  *   <li>{@link org.osate.reqspec.reqSpec.impl.SystemRequirementsImpl#getTarget <em>Target</em>}</li>
+ *   <li>{@link org.osate.reqspec.reqSpec.impl.SystemRequirementsImpl#getCategory <em>Category</em>}</li>
  *   <li>{@link org.osate.reqspec.reqSpec.impl.SystemRequirementsImpl#isGlobal <em>Global</em>}</li>
  *   <li>{@link org.osate.reqspec.reqSpec.impl.SystemRequirementsImpl#getImportConstants <em>Import Constants</em>}</li>
  *   <li>{@link org.osate.reqspec.reqSpec.impl.SystemRequirementsImpl#getDescription <em>Description</em>}</li>
@@ -52,7 +56,6 @@ import org.osate.reqspec.reqSpec.SystemRequirements;
  *   <li>{@link org.osate.reqspec.reqSpec.impl.SystemRequirementsImpl#getDocReference <em>Doc Reference</em>}</li>
  *   <li>{@link org.osate.reqspec.reqSpec.impl.SystemRequirementsImpl#getIssues <em>Issues</em>}</li>
  * </ul>
- * </p>
  *
  * @generated
  */
@@ -107,6 +110,16 @@ public class SystemRequirementsImpl extends ReqSpecContainerImpl implements Syst
    * @ordered
    */
   protected ComponentClassifier target;
+
+  /**
+   * The cached value of the '{@link #getCategory() <em>Category</em>}' reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see #getCategory()
+   * @generated
+   * @ordered
+   */
+  protected ComponentCategory category;
 
   /**
    * The default value of the '{@link #isGlobal() <em>Global</em>}' attribute.
@@ -313,6 +326,49 @@ public class SystemRequirementsImpl extends ReqSpecContainerImpl implements Syst
    * <!-- end-user-doc -->
    * @generated
    */
+  public ComponentCategory getCategory()
+  {
+    if (category != null && category.eIsProxy())
+    {
+      InternalEObject oldCategory = (InternalEObject)category;
+      category = (ComponentCategory)eResolveProxy(oldCategory);
+      if (category != oldCategory)
+      {
+        if (eNotificationRequired())
+          eNotify(new ENotificationImpl(this, Notification.RESOLVE, ReqSpecPackage.SYSTEM_REQUIREMENTS__CATEGORY, oldCategory, category));
+      }
+    }
+    return category;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public ComponentCategory basicGetCategory()
+  {
+    return category;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public void setCategory(ComponentCategory newCategory)
+  {
+    ComponentCategory oldCategory = category;
+    category = newCategory;
+    if (eNotificationRequired())
+      eNotify(new ENotificationImpl(this, Notification.SET, ReqSpecPackage.SYSTEM_REQUIREMENTS__CATEGORY, oldCategory, category));
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
   public boolean isGlobal()
   {
     return global;
@@ -504,6 +560,9 @@ public class SystemRequirementsImpl extends ReqSpecContainerImpl implements Syst
       case ReqSpecPackage.SYSTEM_REQUIREMENTS__TARGET:
         if (resolve) return getTarget();
         return basicGetTarget();
+      case ReqSpecPackage.SYSTEM_REQUIREMENTS__CATEGORY:
+        if (resolve) return getCategory();
+        return basicGetCategory();
       case ReqSpecPackage.SYSTEM_REQUIREMENTS__GLOBAL:
         return isGlobal();
       case ReqSpecPackage.SYSTEM_REQUIREMENTS__IMPORT_CONSTANTS:
@@ -543,6 +602,9 @@ public class SystemRequirementsImpl extends ReqSpecContainerImpl implements Syst
         return;
       case ReqSpecPackage.SYSTEM_REQUIREMENTS__TARGET:
         setTarget((ComponentClassifier)newValue);
+        return;
+      case ReqSpecPackage.SYSTEM_REQUIREMENTS__CATEGORY:
+        setCategory((ComponentCategory)newValue);
         return;
       case ReqSpecPackage.SYSTEM_REQUIREMENTS__GLOBAL:
         setGlobal((Boolean)newValue);
@@ -597,6 +659,9 @@ public class SystemRequirementsImpl extends ReqSpecContainerImpl implements Syst
       case ReqSpecPackage.SYSTEM_REQUIREMENTS__TARGET:
         setTarget((ComponentClassifier)null);
         return;
+      case ReqSpecPackage.SYSTEM_REQUIREMENTS__CATEGORY:
+        setCategory((ComponentCategory)null);
+        return;
       case ReqSpecPackage.SYSTEM_REQUIREMENTS__GLOBAL:
         setGlobal(GLOBAL_EDEFAULT);
         return;
@@ -641,6 +706,8 @@ public class SystemRequirementsImpl extends ReqSpecContainerImpl implements Syst
         return TITLE_EDEFAULT == null ? title != null : !TITLE_EDEFAULT.equals(title);
       case ReqSpecPackage.SYSTEM_REQUIREMENTS__TARGET:
         return target != null;
+      case ReqSpecPackage.SYSTEM_REQUIREMENTS__CATEGORY:
+        return category != null;
       case ReqSpecPackage.SYSTEM_REQUIREMENTS__GLOBAL:
         return global != GLOBAL_EDEFAULT;
       case ReqSpecPackage.SYSTEM_REQUIREMENTS__IMPORT_CONSTANTS:

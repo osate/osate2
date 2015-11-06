@@ -20,7 +20,15 @@ Requirement : 'requirement';
 
 Categories : 'categories';
 
+Component : 'component';
+
 Selection : 'selection';
+
+Category : 'category';
+
+Filters : 'filters';
+
+Quality : 'quality';
 
 Method : 'method';
 

@@ -75,9 +75,24 @@ public class CategoriesAdapterFactory extends AdapterFactoryImpl
     new CategoriesSwitch<Adapter>()
     {
       @Override
+      public Adapter caseCategoriesDefinitions(CategoriesDefinitions object)
+      {
+        return createCategoriesDefinitionsAdapter();
+      }
+      @Override
       public Adapter caseCategories(Categories object)
       {
         return createCategoriesAdapter();
+      }
+      @Override
+      public Adapter caseCategory(Category object)
+      {
+        return createCategoryAdapter();
+      }
+      @Override
+      public Adapter caseCategoryFilters(CategoryFilters object)
+      {
+        return createCategoryFiltersAdapter();
       }
       @Override
       public Adapter caseRequirementCategories(RequirementCategories object)
@@ -95,9 +110,14 @@ public class CategoriesAdapterFactory extends AdapterFactoryImpl
         return createSelectionCategoriesAdapter();
       }
       @Override
-      public Adapter caseCategory(Category object)
+      public Adapter caseQualityCategories(QualityCategories object)
       {
-        return createCategoryAdapter();
+        return createQualityCategoriesAdapter();
+      }
+      @Override
+      public Adapter caseComponentCategories(ComponentCategories object)
+      {
+        return createComponentCategoriesAdapter();
       }
       @Override
       public Adapter caseRequirementCategory(RequirementCategory object)
@@ -113,6 +133,21 @@ public class CategoriesAdapterFactory extends AdapterFactoryImpl
       public Adapter caseSelectionCategory(SelectionCategory object)
       {
         return createSelectionCategoryAdapter();
+      }
+      @Override
+      public Adapter caseQualityCategory(QualityCategory object)
+      {
+        return createQualityCategoryAdapter();
+      }
+      @Override
+      public Adapter caseComponentCategory(ComponentCategory object)
+      {
+        return createComponentCategoryAdapter();
+      }
+      @Override
+      public Adapter caseCategorySet(CategorySet object)
+      {
+        return createCategorySetAdapter();
       }
       @Override
       public Adapter defaultCase(EObject object)
@@ -137,6 +172,21 @@ public class CategoriesAdapterFactory extends AdapterFactoryImpl
 
 
   /**
+   * Creates a new adapter for an object of class '{@link org.osate.categories.categories.CategoriesDefinitions <em>Definitions</em>}'.
+   * <!-- begin-user-doc -->
+   * This default implementation returns null so that we can easily ignore cases;
+   * it's useful to ignore a case when inheritance will catch all the cases anyway.
+   * <!-- end-user-doc -->
+   * @return the new adapter.
+   * @see org.osate.categories.categories.CategoriesDefinitions
+   * @generated
+   */
+  public Adapter createCategoriesDefinitionsAdapter()
+  {
+    return null;
+  }
+
+  /**
    * Creates a new adapter for an object of class '{@link org.osate.categories.categories.Categories <em>Categories</em>}'.
    * <!-- begin-user-doc -->
    * This default implementation returns null so that we can easily ignore cases;
@@ -147,6 +197,36 @@ public class CategoriesAdapterFactory extends AdapterFactoryImpl
    * @generated
    */
   public Adapter createCategoriesAdapter()
+  {
+    return null;
+  }
+
+  /**
+   * Creates a new adapter for an object of class '{@link org.osate.categories.categories.Category <em>Category</em>}'.
+   * <!-- begin-user-doc -->
+   * This default implementation returns null so that we can easily ignore cases;
+   * it's useful to ignore a case when inheritance will catch all the cases anyway.
+   * <!-- end-user-doc -->
+   * @return the new adapter.
+   * @see org.osate.categories.categories.Category
+   * @generated
+   */
+  public Adapter createCategoryAdapter()
+  {
+    return null;
+  }
+
+  /**
+   * Creates a new adapter for an object of class '{@link org.osate.categories.categories.CategoryFilters <em>Category Filters</em>}'.
+   * <!-- begin-user-doc -->
+   * This default implementation returns null so that we can easily ignore cases;
+   * it's useful to ignore a case when inheritance will catch all the cases anyway.
+   * <!-- end-user-doc -->
+   * @return the new adapter.
+   * @see org.osate.categories.categories.CategoryFilters
+   * @generated
+   */
+  public Adapter createCategoryFiltersAdapter()
   {
     return null;
   }
@@ -197,16 +277,31 @@ public class CategoriesAdapterFactory extends AdapterFactoryImpl
   }
 
   /**
-   * Creates a new adapter for an object of class '{@link org.osate.categories.categories.Category <em>Category</em>}'.
+   * Creates a new adapter for an object of class '{@link org.osate.categories.categories.QualityCategories <em>Quality Categories</em>}'.
    * <!-- begin-user-doc -->
    * This default implementation returns null so that we can easily ignore cases;
    * it's useful to ignore a case when inheritance will catch all the cases anyway.
    * <!-- end-user-doc -->
    * @return the new adapter.
-   * @see org.osate.categories.categories.Category
+   * @see org.osate.categories.categories.QualityCategories
    * @generated
    */
-  public Adapter createCategoryAdapter()
+  public Adapter createQualityCategoriesAdapter()
+  {
+    return null;
+  }
+
+  /**
+   * Creates a new adapter for an object of class '{@link org.osate.categories.categories.ComponentCategories <em>Component Categories</em>}'.
+   * <!-- begin-user-doc -->
+   * This default implementation returns null so that we can easily ignore cases;
+   * it's useful to ignore a case when inheritance will catch all the cases anyway.
+   * <!-- end-user-doc -->
+   * @return the new adapter.
+   * @see org.osate.categories.categories.ComponentCategories
+   * @generated
+   */
+  public Adapter createComponentCategoriesAdapter()
   {
     return null;
   }
@@ -252,6 +347,51 @@ public class CategoriesAdapterFactory extends AdapterFactoryImpl
    * @generated
    */
   public Adapter createSelectionCategoryAdapter()
+  {
+    return null;
+  }
+
+  /**
+   * Creates a new adapter for an object of class '{@link org.osate.categories.categories.QualityCategory <em>Quality Category</em>}'.
+   * <!-- begin-user-doc -->
+   * This default implementation returns null so that we can easily ignore cases;
+   * it's useful to ignore a case when inheritance will catch all the cases anyway.
+   * <!-- end-user-doc -->
+   * @return the new adapter.
+   * @see org.osate.categories.categories.QualityCategory
+   * @generated
+   */
+  public Adapter createQualityCategoryAdapter()
+  {
+    return null;
+  }
+
+  /**
+   * Creates a new adapter for an object of class '{@link org.osate.categories.categories.ComponentCategory <em>Component Category</em>}'.
+   * <!-- begin-user-doc -->
+   * This default implementation returns null so that we can easily ignore cases;
+   * it's useful to ignore a case when inheritance will catch all the cases anyway.
+   * <!-- end-user-doc -->
+   * @return the new adapter.
+   * @see org.osate.categories.categories.ComponentCategory
+   * @generated
+   */
+  public Adapter createComponentCategoryAdapter()
+  {
+    return null;
+  }
+
+  /**
+   * Creates a new adapter for an object of class '{@link org.osate.categories.categories.CategorySet <em>Category Set</em>}'.
+   * <!-- begin-user-doc -->
+   * This default implementation returns null so that we can easily ignore cases;
+   * it's useful to ignore a case when inheritance will catch all the cases anyway.
+   * <!-- end-user-doc -->
+   * @return the new adapter.
+   * @see org.osate.categories.categories.CategorySet
+   * @generated
+   */
+  public Adapter createCategorySetAdapter()
   {
     return null;
   }

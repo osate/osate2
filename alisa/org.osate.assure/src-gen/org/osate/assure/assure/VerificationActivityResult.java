@@ -11,11 +11,11 @@ import org.osate.verify.verify.VerificationActivity;
  *
  * <p>
  * The following features are supported:
+ * </p>
  * <ul>
  *   <li>{@link org.osate.assure.assure.VerificationActivityResult#getTarget <em>Target</em>}</li>
  *   <li>{@link org.osate.assure.assure.VerificationActivityResult#getConditionResult <em>Condition Result</em>}</li>
  * </ul>
- * </p>
  *
  * @see org.osate.assure.assure.AssurePackage#getVerificationActivityResult()
  * @model

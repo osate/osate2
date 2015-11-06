@@ -30,6 +30,7 @@ import org.osate.reqspec.reqSpec.ReqSpecPackage;
  * <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
+ * </p>
  * <ul>
  *   <li>{@link org.osate.reqspec.reqSpec.impl.ReqDocumentImpl#getName <em>Name</em>}</li>
  *   <li>{@link org.osate.reqspec.reqSpec.impl.ReqDocumentImpl#getTitle <em>Title</em>}</li>
@@ -37,7 +38,6 @@ import org.osate.reqspec.reqSpec.ReqSpecPackage;
  *   <li>{@link org.osate.reqspec.reqSpec.impl.ReqDocumentImpl#getContent <em>Content</em>}</li>
  *   <li>{@link org.osate.reqspec.reqSpec.impl.ReqDocumentImpl#getIssues <em>Issues</em>}</li>
  * </ul>
- * </p>
  *
  * @generated
  */

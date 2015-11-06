@@ -4,30 +4,38 @@
     editorDirectory="/org.osate.categories.editor/src" modelPluginID="org.osate.categories"
     forceOverwrite="true" modelName="Categories" updateClasspath="false" rootExtendsClass="org.eclipse.emf.ecore.impl.MinimalEObjectImpl$Container"
     complianceLevel="6.0" copyrightFields="false" editPluginID="org.osate.categories.edit"
-    editorPluginID="org.osate.categories.editor" runtimeVersion="2.10">
+    editorPluginID="org.osate.categories.editor" runtimeVersion="2.11">
   <genPackages prefix="Categories" basePackage="org.osate.categories" disposableProviderFactory="true"
       fileExtensions="cat" ecorePackage="Categories.ecore#/">
-    <genClasses ecoreClass="Categories.ecore#//Categories"/>
-    <genClasses ecoreClass="Categories.ecore#//RequirementCategories">
-      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Categories.ecore#//RequirementCategories/category"/>
+    <genClasses ecoreClass="Categories.ecore#//CategoriesDefinitions">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Categories.ecore#//CategoriesDefinitions/requirementcategories"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Categories.ecore#//CategoriesDefinitions/componentcategories"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Categories.ecore#//CategoriesDefinitions/methodcategories"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Categories.ecore#//CategoriesDefinitions/selectioncategories"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Categories.ecore#//CategoriesDefinitions/qualitycategories"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Categories.ecore#//CategoriesDefinitions/categoryfilter"/>
     </genClasses>
-    <genClasses ecoreClass="Categories.ecore#//MethodCategories">
-      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Categories.ecore#//MethodCategories/category"/>
-    </genClasses>
-    <genClasses ecoreClass="Categories.ecore#//SelectionCategories">
-      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Categories.ecore#//SelectionCategories/category"/>
+    <genClasses ecoreClass="Categories.ecore#//Categories">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Categories.ecore#//Categories/category"/>
     </genClasses>
     <genClasses ecoreClass="Categories.ecore#//Category">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Categories.ecore#//Category/name"/>
     </genClasses>
-    <genClasses ecoreClass="Categories.ecore#//RequirementCategory">
-      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference Categories.ecore#//RequirementCategory/subCategories"/>
+    <genClasses ecoreClass="Categories.ecore#//CategoryFilters">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Categories.ecore#//CategoryFilters/filters"/>
     </genClasses>
-    <genClasses ecoreClass="Categories.ecore#//MethodCategory">
-      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference Categories.ecore#//MethodCategory/subCategories"/>
-    </genClasses>
-    <genClasses ecoreClass="Categories.ecore#//SelectionCategory">
-      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference Categories.ecore#//SelectionCategory/subCategories"/>
+    <genClasses ecoreClass="Categories.ecore#//RequirementCategories"/>
+    <genClasses ecoreClass="Categories.ecore#//MethodCategories"/>
+    <genClasses ecoreClass="Categories.ecore#//SelectionCategories"/>
+    <genClasses ecoreClass="Categories.ecore#//QualityCategories"/>
+    <genClasses ecoreClass="Categories.ecore#//ComponentCategories"/>
+    <genClasses ecoreClass="Categories.ecore#//RequirementCategory"/>
+    <genClasses ecoreClass="Categories.ecore#//MethodCategory"/>
+    <genClasses ecoreClass="Categories.ecore#//SelectionCategory"/>
+    <genClasses ecoreClass="Categories.ecore#//QualityCategory"/>
+    <genClasses ecoreClass="Categories.ecore#//ComponentCategory"/>
+    <genClasses ecoreClass="Categories.ecore#//CategorySet">
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference Categories.ecore#//CategorySet/elements"/>
     </genClasses>
   </genPackages>
 </genmodel:GenModel>

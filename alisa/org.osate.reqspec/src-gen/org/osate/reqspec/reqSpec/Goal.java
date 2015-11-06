@@ -13,12 +13,12 @@ import org.osate.organization.organization.Stakeholder;
  *
  * <p>
  * The following features are supported:
+ * </p>
  * <ul>
  *   <li>{@link org.osate.reqspec.reqSpec.Goal#getRefinesReference <em>Refines Reference</em>}</li>
  *   <li>{@link org.osate.reqspec.reqSpec.Goal#getConflictsReference <em>Conflicts Reference</em>}</li>
  *   <li>{@link org.osate.reqspec.reqSpec.Goal#getStakeholderReference <em>Stakeholder Reference</em>}</li>
  * </ul>
- * </p>
  *
  * @see org.osate.reqspec.reqSpec.ReqSpecPackage#getGoal()
  * @model

@@ -29,13 +29,13 @@ import org.osate.reqspec.reqSpec.ReqSpecPackage;
  * <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
+ * </p>
  * <ul>
  *   <li>{@link org.osate.reqspec.reqSpec.impl.DocumentSectionImpl#getLabel <em>Label</em>}</li>
  *   <li>{@link org.osate.reqspec.reqSpec.impl.DocumentSectionImpl#getTitle <em>Title</em>}</li>
  *   <li>{@link org.osate.reqspec.reqSpec.impl.DocumentSectionImpl#getDescription <em>Description</em>}</li>
  *   <li>{@link org.osate.reqspec.reqSpec.impl.DocumentSectionImpl#getContent <em>Content</em>}</li>
  * </ul>
- * </p>
  *
  * @generated
  */

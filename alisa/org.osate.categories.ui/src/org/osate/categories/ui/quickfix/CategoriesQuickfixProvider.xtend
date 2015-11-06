@@ -10,6 +10,7 @@ import org.eclipse.xtext.ui.editor.quickfix.IssueResolutionAcceptor
 import org.osate.categories.categories.Category
 
 import org.osate.categories.util.CategoriesUtil
+import org.osate.categories.categories.CategorySet
 
 /**
  * Custom quickfixes.
@@ -35,11 +36,11 @@ class CategoriesQuickfixProvider extends org.eclipse.xtext.ui.editor.quickfix.De
 	def void removeSubcategory(Issue issue, IssueResolutionAcceptor acceptor) {
 		acceptor.accept(
 			issue,
-			"Remove subcategory",
-			'''Remove subcategory '«issue.data.get(0)»' ''',
+			"Remove set element",
+			'''Remove set element '«issue.data.get(0)»' ''',
 			"delete.gif",
 			[element, context|
-				CategoriesUtil.removeSubcategory(element as Category,issue.data.get(0))
+				CategoriesUtil.removeSetElement(element as CategorySet,issue.data.get(0))
 			]
 		)
 	}

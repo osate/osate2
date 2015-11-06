@@ -13,6 +13,7 @@ import org.eclipse.emf.ecore.EObject;
  *
  * <p>
  * The following features are supported:
+ * </p>
  * <ul>
  *   <li>{@link org.osate.assure.assure.ResultIssue#getIssueType <em>Issue Type</em>}</li>
  *   <li>{@link org.osate.assure.assure.ResultIssue#getName <em>Name</em>}</li>
@@ -21,7 +22,6 @@ import org.eclipse.emf.ecore.EObject;
  *   <li>{@link org.osate.assure.assure.ResultIssue#getTarget <em>Target</em>}</li>
  *   <li>{@link org.osate.assure.assure.ResultIssue#getIssues <em>Issues</em>}</li>
  * </ul>
- * </p>
  *
  * @see org.osate.assure.assure.AssurePackage#getResultIssue()
  * @model

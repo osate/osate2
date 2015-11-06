@@ -4,34 +4,31 @@
 package org.osate.reqspec.scoping
 
 import com.google.inject.Inject
+import org.eclipse.emf.common.util.BasicEList
 import org.eclipse.emf.common.util.EList
+import org.eclipse.emf.ecore.EObject
 import org.eclipse.emf.ecore.EReference
 import org.eclipse.emf.ecore.util.BasicInternalEList
+import org.eclipse.emf.ecore.util.EcoreUtil
 import org.eclipse.xtext.naming.QualifiedName
 import org.eclipse.xtext.scoping.IScope
 import org.eclipse.xtext.scoping.Scopes
 import org.eclipse.xtext.scoping.impl.SimpleScope
 import org.eclipse.xtext.util.SimpleAttributeResolver
-import org.eclipse.xtext.xbase.XExpression
-import org.osate.aadl2.Classifier
+import org.eclipse.xtext.xbase.XVariableDeclaration
 import org.osate.aadl2.ComponentClassifier
 import org.osate.aadl2.ComponentImplementation
-import org.osate.aadl2.ComponentType
 import org.osate.alisa.common.scoping.AlisaAbstractDeclarativeScopeProvider
+import org.osate.alisa.common.scoping.ICommonGlobalReferenceFinder
 import org.osate.reqspec.reqSpec.ContractualElement
+import org.osate.reqspec.reqSpec.Goal
+import org.osate.reqspec.reqSpec.ReqSpecPackage
 import org.osate.reqspec.reqSpec.Requirement
 import org.osate.reqspec.reqSpec.SystemRequirements
 import org.osate.reqspec.util.IReqspecGlobalReferenceFinder
 
 import static org.osate.reqspec.util.ReqSpecUtilExtension.*
-import org.osate.reqspec.reqSpec.ReqSpecPackage
-import org.osate.alisa.common.scoping.ICommonGlobalReferenceFinder
-import org.eclipse.emf.ecore.util.EcoreUtil
-import org.osate.reqspec.reqSpec.Goal
-import org.eclipse.emf.ecore.EObject
-import org.eclipse.xtext.xbase.XVariableDeclaration
-import org.eclipse.emf.common.util.BasicEList
-import org.eclipse.xtext.scoping.IGlobalScopeProvider
+import static org.osate.alisa.common.util.CommonUtilExtension.*
 
 /**
  * This class contains custom scoping description.
@@ -167,34 +164,5 @@ class ReqSpecScopeProvider extends AlisaAbstractDeclarativeScopeProvider {
 		cls
 	}
 
-	// From AlisaWorkbenchUtilsExtension
-	def static isSame(ComponentClassifier cl1, ComponentClassifier cl2) {
-		// println("     isSame 1: " + cl1.toString + "   2:" + cl2.toString);
-		if(cl1 == null || cl2 == null) return false;
-		var lcl1 = cl1
-		var lcl2 = cl2
-		if (cl1 instanceof ComponentType && cl2 instanceof ComponentImplementation)
-			lcl2 = (cl2 as ComponentImplementation).type
-		if (cl2 instanceof ComponentType && cl1 instanceof ComponentImplementation)
-			lcl1 = (cl1 as ComponentImplementation).type
-
-		// System.out.println("     isSame result: " + lcl1.name.equalsIgnoreCase(lcl2.name))
-		lcl1.name.equalsIgnoreCase(lcl2.name)
-	}
-
-	def static boolean isSameorExtends(ComponentClassifier target, ComponentClassifier ancestor) {
-		var Classifier ext = target
-		if (target instanceof ComponentImplementation && ancestor instanceof ComponentType) {
-			ext = (target as ComponentImplementation).getType();
-		}
-		while (ext != null) {
-			if (ancestor.name.equalsIgnoreCase(ext.name)) {
-				return true;
-			}
-			ext = ext.getExtended();
-		}
-
-		return false;
-	}
 
 }

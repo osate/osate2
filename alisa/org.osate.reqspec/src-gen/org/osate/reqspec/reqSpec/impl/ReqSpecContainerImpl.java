@@ -13,8 +13,6 @@ import org.osate.reqspec.reqSpec.ReqSpecPackage;
  * <!-- begin-user-doc -->
  * An implementation of the model object '<em><b>Container</b></em>'.
  * <!-- end-user-doc -->
- * <p>
- * </p>
  *
  * @generated
  */

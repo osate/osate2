@@ -13,6 +13,7 @@ import org.osate.results.results.ResultReport;
  *
  * <p>
  * The following features are supported:
+ * </p>
  * <ul>
  *   <li>{@link org.osate.assure.assure.VerificationResult#getExecutionState <em>Execution State</em>}</li>
  *   <li>{@link org.osate.assure.assure.VerificationResult#getResultState <em>Result State</em>}</li>
@@ -20,7 +21,6 @@ import org.osate.results.results.ResultReport;
  *   <li>{@link org.osate.assure.assure.VerificationResult#getResultReport <em>Result Report</em>}</li>
  *   <li>{@link org.osate.assure.assure.VerificationResult#getMessage <em>Message</em>}</li>
  * </ul>
- * </p>
  *
  * @see org.osate.assure.assure.AssurePackage#getVerificationResult()
  * @model

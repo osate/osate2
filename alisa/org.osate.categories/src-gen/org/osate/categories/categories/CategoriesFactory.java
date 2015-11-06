@@ -23,6 +23,15 @@ public interface CategoriesFactory extends EFactory
   CategoriesFactory eINSTANCE = org.osate.categories.categories.impl.CategoriesFactoryImpl.init();
 
   /**
+   * Returns a new object of class '<em>Definitions</em>'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return a new object of class '<em>Definitions</em>'.
+   * @generated
+   */
+  CategoriesDefinitions createCategoriesDefinitions();
+
+  /**
    * Returns a new object of class '<em>Categories</em>'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -30,6 +39,24 @@ public interface CategoriesFactory extends EFactory
    * @generated
    */
   Categories createCategories();
+
+  /**
+   * Returns a new object of class '<em>Category</em>'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return a new object of class '<em>Category</em>'.
+   * @generated
+   */
+  Category createCategory();
+
+  /**
+   * Returns a new object of class '<em>Category Filters</em>'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return a new object of class '<em>Category Filters</em>'.
+   * @generated
+   */
+  CategoryFilters createCategoryFilters();
 
   /**
    * Returns a new object of class '<em>Requirement Categories</em>'.
@@ -59,13 +86,22 @@ public interface CategoriesFactory extends EFactory
   SelectionCategories createSelectionCategories();
 
   /**
-   * Returns a new object of class '<em>Category</em>'.
+   * Returns a new object of class '<em>Quality Categories</em>'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @return a new object of class '<em>Category</em>'.
+   * @return a new object of class '<em>Quality Categories</em>'.
    * @generated
    */
-  Category createCategory();
+  QualityCategories createQualityCategories();
+
+  /**
+   * Returns a new object of class '<em>Component Categories</em>'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return a new object of class '<em>Component Categories</em>'.
+   * @generated
+   */
+  ComponentCategories createComponentCategories();
 
   /**
    * Returns a new object of class '<em>Requirement Category</em>'.
@@ -93,6 +129,33 @@ public interface CategoriesFactory extends EFactory
    * @generated
    */
   SelectionCategory createSelectionCategory();
+
+  /**
+   * Returns a new object of class '<em>Quality Category</em>'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return a new object of class '<em>Quality Category</em>'.
+   * @generated
+   */
+  QualityCategory createQualityCategory();
+
+  /**
+   * Returns a new object of class '<em>Component Category</em>'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return a new object of class '<em>Component Category</em>'.
+   * @generated
+   */
+  ComponentCategory createComponentCategory();
+
+  /**
+   * Returns a new object of class '<em>Category Set</em>'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return a new object of class '<em>Category Set</em>'.
+   * @generated
+   */
+  CategorySet createCategorySet();
 
   /**
    * Returns the package supported by this factory.

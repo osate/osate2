@@ -11,10 +11,10 @@ import org.osate.verify.verify.VerificationCondition;
  *
  * <p>
  * The following features are supported:
+ * </p>
  * <ul>
  *   <li>{@link org.osate.assure.assure.ValidationResult#getTarget <em>Target</em>}</li>
  * </ul>
- * </p>
  *
  * @see org.osate.assure.assure.AssurePackage#getValidationResult()
  * @model

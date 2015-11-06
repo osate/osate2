@@ -29,6 +29,7 @@ import org.osate.assure.assure.ClaimResult;
  * <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
+ * </p>
  * <ul>
  *   <li>{@link org.osate.assure.assure.impl.AssuranceCaseImpl#getName <em>Name</em>}</li>
  *   <li>{@link org.osate.assure.assure.impl.AssuranceCaseImpl#getTarget <em>Target</em>}</li>
@@ -37,7 +38,6 @@ import org.osate.assure.assure.ClaimResult;
  *   <li>{@link org.osate.assure.assure.impl.AssuranceCaseImpl#getClaimResult <em>Claim Result</em>}</li>
  *   <li>{@link org.osate.assure.assure.impl.AssuranceCaseImpl#getSubAssuranceCase <em>Sub Assurance Case</em>}</li>
  * </ul>
- * </p>
  *
  * @generated
  */

@@ -13,6 +13,7 @@ import org.osate.alisa.workbench.alisa.AssurancePlan;
  *
  * <p>
  * The following features are supported:
+ * </p>
  * <ul>
  *   <li>{@link org.osate.assure.assure.AssuranceCase#getName <em>Name</em>}</li>
  *   <li>{@link org.osate.assure.assure.AssuranceCase#getTarget <em>Target</em>}</li>
@@ -21,7 +22,6 @@ import org.osate.alisa.workbench.alisa.AssurancePlan;
  *   <li>{@link org.osate.assure.assure.AssuranceCase#getClaimResult <em>Claim Result</em>}</li>
  *   <li>{@link org.osate.assure.assure.AssuranceCase#getSubAssuranceCase <em>Sub Assurance Case</em>}</li>
  * </ul>
- * </p>
  *
  * @see org.osate.assure.assure.AssurePackage#getAssuranceCase()
  * @model

@@ -25,7 +25,7 @@ ReqRoot:  StakeholderGoals | ReqDocument | SystemRequirements;
 
 
 StakeholderGoals: 'stakeholder' 'goals' name=QualifiedName (':' title=STRING)?
-	( 'for' (target=[aadl2::ComponentClassifier|AadlClassifierReference] |  global?='all'))
+	( 'for' (target=[aadl2::ComponentClassifier|AadlClassifierReference] | category=[categories::ComponentCategory|ID] | global?='all'))
 	('use' 'constants' importConstants+=[GlobalConstants|QualifiedName]+)?
 	'[' 
 	(	description=Description? 
@@ -58,7 +58,7 @@ DocumentSection returns DocumentSection:
 SystemRequirements returns SystemRequirements:
 	'system' 'requirements'  name =QualifiedName (':' title=STRING)? // 'requirement' 'specification'
 //	('import' importedNamespace=QualifiedNameWithWildCard)?
-	( 'for' (target=[aadl2::ComponentClassifier|AadlClassifierReference] | global?='all'))
+	( 'for' (target=[aadl2::ComponentClassifier|AadlClassifierReference] | category=[categories::ComponentCategory|ID]| global?='all'))
 	('use' 'constants' importConstants+=[GlobalConstants|QualifiedName]+)?
 	'[' 
 	(
@@ -103,7 +103,7 @@ Goal returns Goal:
 	( 'for'  targetElement=[aadl2::NamedElement|ID]
 	)?
 '['  (
-	 ('category'  category+=[categories::Category|ID]+)?
+	 ('category'  category+=([categories::Category|ID])+)?
 	 &(  description=Description)? 
 	& (  constants+=XValDeclaration* )
 	 &(rationale=Rationale)? 

@@ -25,7 +25,7 @@ public class CategoriesParser extends org.eclipse.xtext.parser.antlr.AbstractAnt
 	
 	@Override 
 	protected String getDefaultRuleName() {
-		return "Categories";
+		return "CategoriesDefinitions";
 	}
 	
 	public CategoriesGrammarAccess getGrammarAccess() {

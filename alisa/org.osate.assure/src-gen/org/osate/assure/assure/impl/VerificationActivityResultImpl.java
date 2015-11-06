@@ -22,11 +22,11 @@ import org.osate.verify.verify.VerificationActivity;
  * <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
+ * </p>
  * <ul>
  *   <li>{@link org.osate.assure.assure.impl.VerificationActivityResultImpl#getTarget <em>Target</em>}</li>
  *   <li>{@link org.osate.assure.assure.impl.VerificationActivityResultImpl#getConditionResult <em>Condition Result</em>}</li>
  * </ul>
- * </p>
  *
  * @generated
  */

@@ -11,8 +11,6 @@ import org.osate.assure.assure.VerificationExpr;
  * <!-- begin-user-doc -->
  * An implementation of the model object '<em><b>Verification Expr</b></em>'.
  * <!-- end-user-doc -->
- * <p>
- * </p>
  *
  * @generated
  */

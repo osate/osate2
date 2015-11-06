@@ -28,6 +28,7 @@ import org.osate.assure.assure.VerificationExpr;
  * <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
+ * </p>
  * <ul>
  *   <li>{@link org.osate.assure.assure.impl.ElseResultImpl#getFirst <em>First</em>}</li>
  *   <li>{@link org.osate.assure.assure.impl.ElseResultImpl#getError <em>Error</em>}</li>
@@ -35,7 +36,6 @@ import org.osate.assure.assure.VerificationExpr;
  *   <li>{@link org.osate.assure.assure.impl.ElseResultImpl#getTimeout <em>Timeout</em>}</li>
  *   <li>{@link org.osate.assure.assure.impl.ElseResultImpl#getDidFail <em>Did Fail</em>}</li>
  * </ul>
- * </p>
  *
  * @generated
  */

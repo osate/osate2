@@ -17,10 +17,10 @@ import org.osate.reqspec.reqSpec.ReqSpecPackage;
  * <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
+ * </p>
  * <ul>
  *   <li>{@link org.osate.reqspec.reqSpec.impl.InformalPredicateImpl#getDescription <em>Description</em>}</li>
  * </ul>
- * </p>
  *
  * @generated
  */

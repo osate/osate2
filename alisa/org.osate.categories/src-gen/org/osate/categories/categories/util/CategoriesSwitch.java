@@ -50,7 +50,7 @@ public class CategoriesSwitch<T> extends Switch<T>
    * Checks whether this is a switch for the given package.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @parameter ePackage the package in question.
+   * @param ePackage the package in question.
    * @return whether this is a switch for the given package.
    * @generated
    */
@@ -72,10 +72,31 @@ public class CategoriesSwitch<T> extends Switch<T>
   {
     switch (classifierID)
     {
+      case CategoriesPackage.CATEGORIES_DEFINITIONS:
+      {
+        CategoriesDefinitions categoriesDefinitions = (CategoriesDefinitions)theEObject;
+        T result = caseCategoriesDefinitions(categoriesDefinitions);
+        if (result == null) result = defaultCase(theEObject);
+        return result;
+      }
       case CategoriesPackage.CATEGORIES:
       {
         Categories categories = (Categories)theEObject;
         T result = caseCategories(categories);
+        if (result == null) result = defaultCase(theEObject);
+        return result;
+      }
+      case CategoriesPackage.CATEGORY:
+      {
+        Category category = (Category)theEObject;
+        T result = caseCategory(category);
+        if (result == null) result = defaultCase(theEObject);
+        return result;
+      }
+      case CategoriesPackage.CATEGORY_FILTERS:
+      {
+        CategoryFilters categoryFilters = (CategoryFilters)theEObject;
+        T result = caseCategoryFilters(categoryFilters);
         if (result == null) result = defaultCase(theEObject);
         return result;
       }
@@ -103,10 +124,19 @@ public class CategoriesSwitch<T> extends Switch<T>
         if (result == null) result = defaultCase(theEObject);
         return result;
       }
-      case CategoriesPackage.CATEGORY:
+      case CategoriesPackage.QUALITY_CATEGORIES:
       {
-        Category category = (Category)theEObject;
-        T result = caseCategory(category);
+        QualityCategories qualityCategories = (QualityCategories)theEObject;
+        T result = caseQualityCategories(qualityCategories);
+        if (result == null) result = caseCategories(qualityCategories);
+        if (result == null) result = defaultCase(theEObject);
+        return result;
+      }
+      case CategoriesPackage.COMPONENT_CATEGORIES:
+      {
+        ComponentCategories componentCategories = (ComponentCategories)theEObject;
+        T result = caseComponentCategories(componentCategories);
+        if (result == null) result = caseCategories(componentCategories);
         if (result == null) result = defaultCase(theEObject);
         return result;
       }
@@ -134,8 +164,48 @@ public class CategoriesSwitch<T> extends Switch<T>
         if (result == null) result = defaultCase(theEObject);
         return result;
       }
+      case CategoriesPackage.QUALITY_CATEGORY:
+      {
+        QualityCategory qualityCategory = (QualityCategory)theEObject;
+        T result = caseQualityCategory(qualityCategory);
+        if (result == null) result = caseCategory(qualityCategory);
+        if (result == null) result = defaultCase(theEObject);
+        return result;
+      }
+      case CategoriesPackage.COMPONENT_CATEGORY:
+      {
+        ComponentCategory componentCategory = (ComponentCategory)theEObject;
+        T result = caseComponentCategory(componentCategory);
+        if (result == null) result = caseCategory(componentCategory);
+        if (result == null) result = defaultCase(theEObject);
+        return result;
+      }
+      case CategoriesPackage.CATEGORY_SET:
+      {
+        CategorySet categorySet = (CategorySet)theEObject;
+        T result = caseCategorySet(categorySet);
+        if (result == null) result = caseCategory(categorySet);
+        if (result == null) result = defaultCase(theEObject);
+        return result;
+      }
       default: return defaultCase(theEObject);
     }
+  }
+
+  /**
+   * Returns the result of interpreting the object as an instance of '<em>Definitions</em>'.
+   * <!-- begin-user-doc -->
+   * This implementation returns null;
+   * returning a non-null result will terminate the switch.
+   * <!-- end-user-doc -->
+   * @param object the target of the switch.
+   * @return the result of interpreting the object as an instance of '<em>Definitions</em>'.
+   * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+   * @generated
+   */
+  public T caseCategoriesDefinitions(CategoriesDefinitions object)
+  {
+    return null;
   }
 
   /**
@@ -150,6 +220,38 @@ public class CategoriesSwitch<T> extends Switch<T>
    * @generated
    */
   public T caseCategories(Categories object)
+  {
+    return null;
+  }
+
+  /**
+   * Returns the result of interpreting the object as an instance of '<em>Category</em>'.
+   * <!-- begin-user-doc -->
+   * This implementation returns null;
+   * returning a non-null result will terminate the switch.
+   * <!-- end-user-doc -->
+   * @param object the target of the switch.
+   * @return the result of interpreting the object as an instance of '<em>Category</em>'.
+   * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+   * @generated
+   */
+  public T caseCategory(Category object)
+  {
+    return null;
+  }
+
+  /**
+   * Returns the result of interpreting the object as an instance of '<em>Category Filters</em>'.
+   * <!-- begin-user-doc -->
+   * This implementation returns null;
+   * returning a non-null result will terminate the switch.
+   * <!-- end-user-doc -->
+   * @param object the target of the switch.
+   * @return the result of interpreting the object as an instance of '<em>Category Filters</em>'.
+   * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+   * @generated
+   */
+  public T caseCategoryFilters(CategoryFilters object)
   {
     return null;
   }
@@ -203,17 +305,33 @@ public class CategoriesSwitch<T> extends Switch<T>
   }
 
   /**
-   * Returns the result of interpreting the object as an instance of '<em>Category</em>'.
+   * Returns the result of interpreting the object as an instance of '<em>Quality Categories</em>'.
    * <!-- begin-user-doc -->
    * This implementation returns null;
    * returning a non-null result will terminate the switch.
    * <!-- end-user-doc -->
    * @param object the target of the switch.
-   * @return the result of interpreting the object as an instance of '<em>Category</em>'.
+   * @return the result of interpreting the object as an instance of '<em>Quality Categories</em>'.
    * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
    * @generated
    */
-  public T caseCategory(Category object)
+  public T caseQualityCategories(QualityCategories object)
+  {
+    return null;
+  }
+
+  /**
+   * Returns the result of interpreting the object as an instance of '<em>Component Categories</em>'.
+   * <!-- begin-user-doc -->
+   * This implementation returns null;
+   * returning a non-null result will terminate the switch.
+   * <!-- end-user-doc -->
+   * @param object the target of the switch.
+   * @return the result of interpreting the object as an instance of '<em>Component Categories</em>'.
+   * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+   * @generated
+   */
+  public T caseComponentCategories(ComponentCategories object)
   {
     return null;
   }
@@ -262,6 +380,54 @@ public class CategoriesSwitch<T> extends Switch<T>
    * @generated
    */
   public T caseSelectionCategory(SelectionCategory object)
+  {
+    return null;
+  }
+
+  /**
+   * Returns the result of interpreting the object as an instance of '<em>Quality Category</em>'.
+   * <!-- begin-user-doc -->
+   * This implementation returns null;
+   * returning a non-null result will terminate the switch.
+   * <!-- end-user-doc -->
+   * @param object the target of the switch.
+   * @return the result of interpreting the object as an instance of '<em>Quality Category</em>'.
+   * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+   * @generated
+   */
+  public T caseQualityCategory(QualityCategory object)
+  {
+    return null;
+  }
+
+  /**
+   * Returns the result of interpreting the object as an instance of '<em>Component Category</em>'.
+   * <!-- begin-user-doc -->
+   * This implementation returns null;
+   * returning a non-null result will terminate the switch.
+   * <!-- end-user-doc -->
+   * @param object the target of the switch.
+   * @return the result of interpreting the object as an instance of '<em>Component Category</em>'.
+   * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+   * @generated
+   */
+  public T caseComponentCategory(ComponentCategory object)
+  {
+    return null;
+  }
+
+  /**
+   * Returns the result of interpreting the object as an instance of '<em>Category Set</em>'.
+   * <!-- begin-user-doc -->
+   * This implementation returns null;
+   * returning a non-null result will terminate the switch.
+   * <!-- end-user-doc -->
+   * @param object the target of the switch.
+   * @return the result of interpreting the object as an instance of '<em>Category Set</em>'.
+   * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+   * @generated
+   */
+  public T caseCategorySet(CategorySet object)
   {
     return null;
   }

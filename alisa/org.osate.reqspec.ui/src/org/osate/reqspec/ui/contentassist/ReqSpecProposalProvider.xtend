@@ -4,24 +4,23 @@
 package org.osate.reqspec.ui.contentassist
 
 import com.google.inject.Inject
-import org.osate.reqspec.ui.contentassist.AbstractReqSpecProposalProvider
+import java.util.ArrayList
+import org.eclipse.emf.common.util.EList
 import org.eclipse.emf.ecore.EObject
+import org.eclipse.emf.ecore.util.BasicInternalEList
+import org.eclipse.emf.ecore.util.EcoreUtil
 import org.eclipse.xtext.Assignment
+import org.eclipse.xtext.CrossReference
 import org.eclipse.xtext.ui.editor.contentassist.ContentAssistContext
 import org.eclipse.xtext.ui.editor.contentassist.ICompletionProposalAcceptor
-import org.eclipse.xtext.CrossReference
-import org.osate.reqspec.reqSpec.SystemRequirements
 import org.osate.aadl2.Classifier
-import org.eclipse.emf.common.util.EList
-import org.eclipse.emf.ecore.util.BasicInternalEList
 import org.osate.aadl2.ComponentImplementation
-import org.eclipse.emf.ecore.util.EcoreUtil
-import org.osate.reqspec.reqSpec.StakeholderGoals
 import org.osate.alisa.common.scoping.ICommonGlobalReferenceFinder
 import org.osate.reqspec.reqSpec.ReqSpecPackage
-import org.osate.aadl2.ComponentClassifier
-import org.osate.aadl2.ComponentType
-import java.util.ArrayList
+import org.osate.reqspec.reqSpec.StakeholderGoals
+import org.osate.reqspec.reqSpec.SystemRequirements
+
+import static org.osate.alisa.common.util.CommonUtilExtension.*
 
 /**
  * see http://www.eclipse.org/Xtext/documentation.html#contentAssist on how to customize content assistant
@@ -145,19 +144,5 @@ class ReqSpecProposalProvider extends AbstractReqSpecProposalProvider {
 		return cls;
 	}
 
-	def static boolean isSameorExtends(ComponentClassifier target, ComponentClassifier ancestor) {
-		var Classifier ext = target
-		if (target instanceof ComponentImplementation && ancestor instanceof ComponentType) {
-			ext = (target as ComponentImplementation).getType();
-		}
-		while (ext != null) {
-			if (ancestor.name.equalsIgnoreCase(ext.name)) {
-				return true;
-			}
-			ext = ext.getExtended();
-		}
-
-		return false;
-	}
 
 }

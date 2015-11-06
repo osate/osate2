@@ -388,7 +388,8 @@ public class ReqSpecParser extends AbstractContentAssistParser {
 					put(grammarAccess.getStakeholderGoalsAccess().getNameAssignment_2(), "rule__StakeholderGoals__NameAssignment_2");
 					put(grammarAccess.getStakeholderGoalsAccess().getTitleAssignment_3_1(), "rule__StakeholderGoals__TitleAssignment_3_1");
 					put(grammarAccess.getStakeholderGoalsAccess().getTargetAssignment_4_1_0(), "rule__StakeholderGoals__TargetAssignment_4_1_0");
-					put(grammarAccess.getStakeholderGoalsAccess().getGlobalAssignment_4_1_1(), "rule__StakeholderGoals__GlobalAssignment_4_1_1");
+					put(grammarAccess.getStakeholderGoalsAccess().getCategoryAssignment_4_1_1(), "rule__StakeholderGoals__CategoryAssignment_4_1_1");
+					put(grammarAccess.getStakeholderGoalsAccess().getGlobalAssignment_4_1_2(), "rule__StakeholderGoals__GlobalAssignment_4_1_2");
 					put(grammarAccess.getStakeholderGoalsAccess().getImportConstantsAssignment_5_2(), "rule__StakeholderGoals__ImportConstantsAssignment_5_2");
 					put(grammarAccess.getStakeholderGoalsAccess().getDescriptionAssignment_7_0(), "rule__StakeholderGoals__DescriptionAssignment_7_0");
 					put(grammarAccess.getStakeholderGoalsAccess().getConstantsAssignment_7_1(), "rule__StakeholderGoals__ConstantsAssignment_7_1");
@@ -407,7 +408,8 @@ public class ReqSpecParser extends AbstractContentAssistParser {
 					put(grammarAccess.getSystemRequirementsAccess().getNameAssignment_2(), "rule__SystemRequirements__NameAssignment_2");
 					put(grammarAccess.getSystemRequirementsAccess().getTitleAssignment_3_1(), "rule__SystemRequirements__TitleAssignment_3_1");
 					put(grammarAccess.getSystemRequirementsAccess().getTargetAssignment_4_1_0(), "rule__SystemRequirements__TargetAssignment_4_1_0");
-					put(grammarAccess.getSystemRequirementsAccess().getGlobalAssignment_4_1_1(), "rule__SystemRequirements__GlobalAssignment_4_1_1");
+					put(grammarAccess.getSystemRequirementsAccess().getCategoryAssignment_4_1_1(), "rule__SystemRequirements__CategoryAssignment_4_1_1");
+					put(grammarAccess.getSystemRequirementsAccess().getGlobalAssignment_4_1_2(), "rule__SystemRequirements__GlobalAssignment_4_1_2");
 					put(grammarAccess.getSystemRequirementsAccess().getImportConstantsAssignment_5_2(), "rule__SystemRequirements__ImportConstantsAssignment_5_2");
 					put(grammarAccess.getSystemRequirementsAccess().getDescriptionAssignment_7_0(), "rule__SystemRequirements__DescriptionAssignment_7_0");
 					put(grammarAccess.getSystemRequirementsAccess().getConstantsAssignment_7_1(), "rule__SystemRequirements__ConstantsAssignment_7_1");

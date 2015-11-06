@@ -13,13 +13,13 @@ import org.osate.reqspec.reqSpec.Requirement;
  *
  * <p>
  * The following features are supported:
+ * </p>
  * <ul>
  *   <li>{@link org.osate.assure.assure.ClaimResult#getTarget <em>Target</em>}</li>
  *   <li>{@link org.osate.assure.assure.ClaimResult#getMessage <em>Message</em>}</li>
  *   <li>{@link org.osate.assure.assure.ClaimResult#getSubClaimResult <em>Sub Claim Result</em>}</li>
  *   <li>{@link org.osate.assure.assure.ClaimResult#getVerificationActivityResult <em>Verification Activity Result</em>}</li>
  * </ul>
- * </p>
  *
  * @see org.osate.assure.assure.AssurePackage#getClaimResult()
  * @model

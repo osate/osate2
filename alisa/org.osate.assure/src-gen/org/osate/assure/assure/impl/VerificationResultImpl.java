@@ -31,6 +31,7 @@ import org.osate.results.results.ResultReport;
  * <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
+ * </p>
  * <ul>
  *   <li>{@link org.osate.assure.assure.impl.VerificationResultImpl#getExecutionState <em>Execution State</em>}</li>
  *   <li>{@link org.osate.assure.assure.impl.VerificationResultImpl#getResultState <em>Result State</em>}</li>
@@ -38,7 +39,6 @@ import org.osate.results.results.ResultReport;
  *   <li>{@link org.osate.assure.assure.impl.VerificationResultImpl#getResultReport <em>Result Report</em>}</li>
  *   <li>{@link org.osate.assure.assure.impl.VerificationResultImpl#getMessage <em>Message</em>}</li>
  * </ul>
- * </p>
  *
  * @generated
  */

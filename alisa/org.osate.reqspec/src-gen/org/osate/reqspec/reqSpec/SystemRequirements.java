@@ -11,6 +11,8 @@ import org.osate.aadl2.ComponentClassifier;
 
 import org.osate.alisa.common.common.Description;
 
+import org.osate.categories.categories.ComponentCategory;
+
 /**
  * <!-- begin-user-doc -->
  * A representation of the model object '<em><b>System Requirements</b></em>'.
@@ -18,10 +20,12 @@ import org.osate.alisa.common.common.Description;
  *
  * <p>
  * The following features are supported:
+ * </p>
  * <ul>
  *   <li>{@link org.osate.reqspec.reqSpec.SystemRequirements#getName <em>Name</em>}</li>
  *   <li>{@link org.osate.reqspec.reqSpec.SystemRequirements#getTitle <em>Title</em>}</li>
  *   <li>{@link org.osate.reqspec.reqSpec.SystemRequirements#getTarget <em>Target</em>}</li>
+ *   <li>{@link org.osate.reqspec.reqSpec.SystemRequirements#getCategory <em>Category</em>}</li>
  *   <li>{@link org.osate.reqspec.reqSpec.SystemRequirements#isGlobal <em>Global</em>}</li>
  *   <li>{@link org.osate.reqspec.reqSpec.SystemRequirements#getImportConstants <em>Import Constants</em>}</li>
  *   <li>{@link org.osate.reqspec.reqSpec.SystemRequirements#getDescription <em>Description</em>}</li>
@@ -31,7 +35,6 @@ import org.osate.alisa.common.common.Description;
  *   <li>{@link org.osate.reqspec.reqSpec.SystemRequirements#getDocReference <em>Doc Reference</em>}</li>
  *   <li>{@link org.osate.reqspec.reqSpec.SystemRequirements#getIssues <em>Issues</em>}</li>
  * </ul>
- * </p>
  *
  * @see org.osate.reqspec.reqSpec.ReqSpecPackage#getSystemRequirements()
  * @model
@@ -116,6 +119,32 @@ public interface SystemRequirements extends ReqSpecContainer, ReqRoot
    * @generated
    */
   void setTarget(ComponentClassifier value);
+
+  /**
+   * Returns the value of the '<em><b>Category</b></em>' reference.
+   * <!-- begin-user-doc -->
+   * <p>
+   * If the meaning of the '<em>Category</em>' reference isn't clear,
+   * there really should be more of a description here...
+   * </p>
+   * <!-- end-user-doc -->
+   * @return the value of the '<em>Category</em>' reference.
+   * @see #setCategory(ComponentCategory)
+   * @see org.osate.reqspec.reqSpec.ReqSpecPackage#getSystemRequirements_Category()
+   * @model
+   * @generated
+   */
+  ComponentCategory getCategory();
+
+  /**
+   * Sets the value of the '{@link org.osate.reqspec.reqSpec.SystemRequirements#getCategory <em>Category</em>}' reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @param value the new value of the '<em>Category</em>' reference.
+   * @see #getCategory()
+   * @generated
+   */
+  void setCategory(ComponentCategory value);
 
   /**
    * Returns the value of the '<em><b>Global</b></em>' attribute.

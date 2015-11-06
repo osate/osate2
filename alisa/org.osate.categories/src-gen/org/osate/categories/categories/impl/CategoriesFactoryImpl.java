@@ -64,17 +64,35 @@ public class CategoriesFactoryImpl extends EFactoryImpl implements CategoriesFac
   {
     switch (eClass.getClassifierID())
     {
+      case CategoriesPackage.CATEGORIES_DEFINITIONS: return createCategoriesDefinitions();
       case CategoriesPackage.CATEGORIES: return createCategories();
+      case CategoriesPackage.CATEGORY: return createCategory();
+      case CategoriesPackage.CATEGORY_FILTERS: return createCategoryFilters();
       case CategoriesPackage.REQUIREMENT_CATEGORIES: return createRequirementCategories();
       case CategoriesPackage.METHOD_CATEGORIES: return createMethodCategories();
       case CategoriesPackage.SELECTION_CATEGORIES: return createSelectionCategories();
-      case CategoriesPackage.CATEGORY: return createCategory();
+      case CategoriesPackage.QUALITY_CATEGORIES: return createQualityCategories();
+      case CategoriesPackage.COMPONENT_CATEGORIES: return createComponentCategories();
       case CategoriesPackage.REQUIREMENT_CATEGORY: return createRequirementCategory();
       case CategoriesPackage.METHOD_CATEGORY: return createMethodCategory();
       case CategoriesPackage.SELECTION_CATEGORY: return createSelectionCategory();
+      case CategoriesPackage.QUALITY_CATEGORY: return createQualityCategory();
+      case CategoriesPackage.COMPONENT_CATEGORY: return createComponentCategory();
+      case CategoriesPackage.CATEGORY_SET: return createCategorySet();
       default:
         throw new IllegalArgumentException("The class '" + eClass.getName() + "' is not a valid classifier");
     }
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public CategoriesDefinitions createCategoriesDefinitions()
+  {
+    CategoriesDefinitionsImpl categoriesDefinitions = new CategoriesDefinitionsImpl();
+    return categoriesDefinitions;
   }
 
   /**
@@ -86,6 +104,28 @@ public class CategoriesFactoryImpl extends EFactoryImpl implements CategoriesFac
   {
     CategoriesImpl categories = new CategoriesImpl();
     return categories;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public Category createCategory()
+  {
+    CategoryImpl category = new CategoryImpl();
+    return category;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public CategoryFilters createCategoryFilters()
+  {
+    CategoryFiltersImpl categoryFilters = new CategoryFiltersImpl();
+    return categoryFilters;
   }
 
   /**
@@ -126,10 +166,21 @@ public class CategoriesFactoryImpl extends EFactoryImpl implements CategoriesFac
    * <!-- end-user-doc -->
    * @generated
    */
-  public Category createCategory()
+  public QualityCategories createQualityCategories()
   {
-    CategoryImpl category = new CategoryImpl();
-    return category;
+    QualityCategoriesImpl qualityCategories = new QualityCategoriesImpl();
+    return qualityCategories;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public ComponentCategories createComponentCategories()
+  {
+    ComponentCategoriesImpl componentCategories = new ComponentCategoriesImpl();
+    return componentCategories;
   }
 
   /**
@@ -163,6 +214,39 @@ public class CategoriesFactoryImpl extends EFactoryImpl implements CategoriesFac
   {
     SelectionCategoryImpl selectionCategory = new SelectionCategoryImpl();
     return selectionCategory;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public QualityCategory createQualityCategory()
+  {
+    QualityCategoryImpl qualityCategory = new QualityCategoryImpl();
+    return qualityCategory;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public ComponentCategory createComponentCategory()
+  {
+    ComponentCategoryImpl componentCategory = new ComponentCategoryImpl();
+    return componentCategory;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public CategorySet createCategorySet()
+  {
+    CategorySetImpl categorySet = new CategorySetImpl();
+    return categorySet;
   }
 
   /**

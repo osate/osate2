@@ -11,6 +11,7 @@ import org.eclipse.emf.common.util.EList;
  *
  * <p>
  * The following features are supported:
+ * </p>
  * <ul>
  *   <li>{@link org.osate.assure.assure.ElseResult#getFirst <em>First</em>}</li>
  *   <li>{@link org.osate.assure.assure.ElseResult#getError <em>Error</em>}</li>
@@ -18,7 +19,6 @@ import org.eclipse.emf.common.util.EList;
  *   <li>{@link org.osate.assure.assure.ElseResult#getTimeout <em>Timeout</em>}</li>
  *   <li>{@link org.osate.assure.assure.ElseResult#getDidFail <em>Did Fail</em>}</li>
  * </ul>
- * </p>
  *
  * @see org.osate.assure.assure.AssurePackage#getElseResult()
  * @model

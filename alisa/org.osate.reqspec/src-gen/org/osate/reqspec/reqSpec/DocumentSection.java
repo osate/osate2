@@ -15,13 +15,13 @@ import org.osate.alisa.common.common.Description;
  *
  * <p>
  * The following features are supported:
+ * </p>
  * <ul>
  *   <li>{@link org.osate.reqspec.reqSpec.DocumentSection#getLabel <em>Label</em>}</li>
  *   <li>{@link org.osate.reqspec.reqSpec.DocumentSection#getTitle <em>Title</em>}</li>
  *   <li>{@link org.osate.reqspec.reqSpec.DocumentSection#getDescription <em>Description</em>}</li>
  *   <li>{@link org.osate.reqspec.reqSpec.DocumentSection#getContent <em>Content</em>}</li>
  * </ul>
- * </p>
  *
  * @see org.osate.reqspec.reqSpec.ReqSpecPackage#getDocumentSection()
  * @model

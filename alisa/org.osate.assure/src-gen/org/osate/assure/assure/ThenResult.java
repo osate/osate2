@@ -11,12 +11,12 @@ import org.eclipse.emf.common.util.EList;
  *
  * <p>
  * The following features are supported:
+ * </p>
  * <ul>
  *   <li>{@link org.osate.assure.assure.ThenResult#getFirst <em>First</em>}</li>
  *   <li>{@link org.osate.assure.assure.ThenResult#getSecond <em>Second</em>}</li>
  *   <li>{@link org.osate.assure.assure.ThenResult#isDidThenFail <em>Did Then Fail</em>}</li>
  * </ul>
- * </p>
  *
  * @see org.osate.assure.assure.AssurePackage#getThenResult()
  * @model

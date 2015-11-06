@@ -26,6 +26,8 @@ import org.osate.aadl2.ComponentClassifier;
 
 import org.osate.alisa.common.common.Description;
 
+import org.osate.categories.categories.ComponentCategory;
+
 import org.osate.reqspec.reqSpec.ExternalDocument;
 import org.osate.reqspec.reqSpec.GlobalConstants;
 import org.osate.reqspec.reqSpec.Goal;
@@ -38,10 +40,12 @@ import org.osate.reqspec.reqSpec.StakeholderGoals;
  * <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
+ * </p>
  * <ul>
  *   <li>{@link org.osate.reqspec.reqSpec.impl.StakeholderGoalsImpl#getName <em>Name</em>}</li>
  *   <li>{@link org.osate.reqspec.reqSpec.impl.StakeholderGoalsImpl#getTitle <em>Title</em>}</li>
  *   <li>{@link org.osate.reqspec.reqSpec.impl.StakeholderGoalsImpl#getTarget <em>Target</em>}</li>
+ *   <li>{@link org.osate.reqspec.reqSpec.impl.StakeholderGoalsImpl#getCategory <em>Category</em>}</li>
  *   <li>{@link org.osate.reqspec.reqSpec.impl.StakeholderGoalsImpl#isGlobal <em>Global</em>}</li>
  *   <li>{@link org.osate.reqspec.reqSpec.impl.StakeholderGoalsImpl#getImportConstants <em>Import Constants</em>}</li>
  *   <li>{@link org.osate.reqspec.reqSpec.impl.StakeholderGoalsImpl#getDescription <em>Description</em>}</li>
@@ -50,7 +54,6 @@ import org.osate.reqspec.reqSpec.StakeholderGoals;
  *   <li>{@link org.osate.reqspec.reqSpec.impl.StakeholderGoalsImpl#getDocReference <em>Doc Reference</em>}</li>
  *   <li>{@link org.osate.reqspec.reqSpec.impl.StakeholderGoalsImpl#getIssues <em>Issues</em>}</li>
  * </ul>
- * </p>
  *
  * @generated
  */
@@ -105,6 +108,16 @@ public class StakeholderGoalsImpl extends ReqSpecContainerImpl implements Stakeh
    * @ordered
    */
   protected ComponentClassifier target;
+
+  /**
+   * The cached value of the '{@link #getCategory() <em>Category</em>}' reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see #getCategory()
+   * @generated
+   * @ordered
+   */
+  protected ComponentCategory category;
 
   /**
    * The default value of the '{@link #isGlobal() <em>Global</em>}' attribute.
@@ -301,6 +314,49 @@ public class StakeholderGoalsImpl extends ReqSpecContainerImpl implements Stakeh
    * <!-- end-user-doc -->
    * @generated
    */
+  public ComponentCategory getCategory()
+  {
+    if (category != null && category.eIsProxy())
+    {
+      InternalEObject oldCategory = (InternalEObject)category;
+      category = (ComponentCategory)eResolveProxy(oldCategory);
+      if (category != oldCategory)
+      {
+        if (eNotificationRequired())
+          eNotify(new ENotificationImpl(this, Notification.RESOLVE, ReqSpecPackage.STAKEHOLDER_GOALS__CATEGORY, oldCategory, category));
+      }
+    }
+    return category;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public ComponentCategory basicGetCategory()
+  {
+    return category;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public void setCategory(ComponentCategory newCategory)
+  {
+    ComponentCategory oldCategory = category;
+    category = newCategory;
+    if (eNotificationRequired())
+      eNotify(new ENotificationImpl(this, Notification.SET, ReqSpecPackage.STAKEHOLDER_GOALS__CATEGORY, oldCategory, category));
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
   public boolean isGlobal()
   {
     return global;
@@ -476,6 +532,9 @@ public class StakeholderGoalsImpl extends ReqSpecContainerImpl implements Stakeh
       case ReqSpecPackage.STAKEHOLDER_GOALS__TARGET:
         if (resolve) return getTarget();
         return basicGetTarget();
+      case ReqSpecPackage.STAKEHOLDER_GOALS__CATEGORY:
+        if (resolve) return getCategory();
+        return basicGetCategory();
       case ReqSpecPackage.STAKEHOLDER_GOALS__GLOBAL:
         return isGlobal();
       case ReqSpecPackage.STAKEHOLDER_GOALS__IMPORT_CONSTANTS:
@@ -513,6 +572,9 @@ public class StakeholderGoalsImpl extends ReqSpecContainerImpl implements Stakeh
         return;
       case ReqSpecPackage.STAKEHOLDER_GOALS__TARGET:
         setTarget((ComponentClassifier)newValue);
+        return;
+      case ReqSpecPackage.STAKEHOLDER_GOALS__CATEGORY:
+        setCategory((ComponentCategory)newValue);
         return;
       case ReqSpecPackage.STAKEHOLDER_GOALS__GLOBAL:
         setGlobal((Boolean)newValue);
@@ -563,6 +625,9 @@ public class StakeholderGoalsImpl extends ReqSpecContainerImpl implements Stakeh
       case ReqSpecPackage.STAKEHOLDER_GOALS__TARGET:
         setTarget((ComponentClassifier)null);
         return;
+      case ReqSpecPackage.STAKEHOLDER_GOALS__CATEGORY:
+        setCategory((ComponentCategory)null);
+        return;
       case ReqSpecPackage.STAKEHOLDER_GOALS__GLOBAL:
         setGlobal(GLOBAL_EDEFAULT);
         return;
@@ -604,6 +669,8 @@ public class StakeholderGoalsImpl extends ReqSpecContainerImpl implements Stakeh
         return TITLE_EDEFAULT == null ? title != null : !TITLE_EDEFAULT.equals(title);
       case ReqSpecPackage.STAKEHOLDER_GOALS__TARGET:
         return target != null;
+      case ReqSpecPackage.STAKEHOLDER_GOALS__CATEGORY:
+        return category != null;
       case ReqSpecPackage.STAKEHOLDER_GOALS__GLOBAL:
         return global != GLOBAL_EDEFAULT;
       case ReqSpecPackage.STAKEHOLDER_GOALS__IMPORT_CONSTANTS:

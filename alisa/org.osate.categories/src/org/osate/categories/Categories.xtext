@@ -2,39 +2,52 @@ grammar org.osate.categories.Categories with org.eclipse.xtext.common.Terminals
 
 generate categories "http://www.osate.org/categories/Categories"
 
-Categories : RequirementCategories  | MethodCategories | SelectionCategories
+CategoriesDefinitions : requirementcategories=RequirementCategories?  &componentcategories=ComponentCategories? & methodcategories=MethodCategories? & selectioncategories=SelectionCategories?
+	 & qualitycategories=QualityCategories? &  categoryfilter=CategoryFilters?
 ;
 /**
  * requirement categories uses a label instead of name to make the category itself global
  */
-RequirementCategories :
-	'requirement''categories' 
+RequirementCategories returns Categories:
+	{RequirementCategories}'requirement''categories' 
 	'[' category += RequirementCategory+
 	']'
 ;
 
-MethodCategories :
-	'method' 'categories' 
+MethodCategories returns Categories:
+	{MethodCategories}'method' 'categories' 
 	'[' category += MethodCategory+
 	']'
 ;
 
-SelectionCategories :
-	'selection' 'categories' 
+SelectionCategories returns Categories:
+	{SelectionCategories}'selection' 'categories' 
 	'[' category += SelectionCategory+
 	']'
 ;
 
+QualityCategories returns Categories:
+	{QualityCategories}'quality' 'categories' 
+	'[' category += QualityCategory+
+	']'
+;
 
-Category : RequirementCategory | MethodCategory  | SelectionCategory ;
+
+ComponentCategories returns Categories:
+	{ComponentCategories}'component' 'categories' 
+	'[' category += ComponentCategory+
+	']'
+;
+
+
 
 
 
 /**
  * Requirement category indicates the kind of requirement we are dealing with
  */
-RequirementCategory :
-	name = ID ('{' subCategories+=[RequirementCategory|CatRef]* '}')? 
+RequirementCategory returns Category:
+	{RequirementCategory} name = ID //('{' subCategories+=[RequirementCategory|CatRef]* '}')? 
 ;
 
 
@@ -43,15 +56,38 @@ RequirementCategory :
 /**
  * Method category indicates the kind of verification we are dealing with
  */
-MethodCategory :
-	name = ID ('{' subCategories+=[MethodCategory|CatRef]*'}')? 
+MethodCategory returns Category:
+	{MethodCategory} name = ID //('{' subCategories+=[MethodCategory|CatRef]*'}')? 
 ;
 
 /**
- * selection category indicates a tag for filtered selection 
+ * selection category indicates a tag for verification activities 
  */
-SelectionCategory :
-	name = ID ('{' subCategories+=[SelectionCategory|CatRef]*'}')? 
+SelectionCategory returns Category:
+	{SelectionCategory} name = ID //('{' subCategories+=[SelectionCategory|CatRef]*'}')? 
+;
+
+/**
+ * quality category indicates a quality attribute 
+ */
+QualityCategory returns Category:
+	{QualityCategory} name = ID //('{' subCategories+=[QualityCategory|CatRef]*'}')? 
+;
+
+/**
+ * quality category indicates a quality attribute 
+ */
+ComponentCategory returns Category:
+	{ComponentCategory} name = ID //('{' subCategories+=[ComponentCategory|CatRef]*'}')? 
+;
+
+CategoryFilters returns CategoryFilters:
+	'category' 'filters' '['
+	filters+=CategorySet+ ']'
+;
+
+CategorySet returns Category:
+	{CategorySet} name = ID '{' elements+=[Category|CatRef]*'}'
 ;
 
 

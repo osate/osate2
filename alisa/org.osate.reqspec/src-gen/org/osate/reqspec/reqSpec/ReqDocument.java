@@ -15,6 +15,7 @@ import org.osate.alisa.common.common.Description;
  *
  * <p>
  * The following features are supported:
+ * </p>
  * <ul>
  *   <li>{@link org.osate.reqspec.reqSpec.ReqDocument#getName <em>Name</em>}</li>
  *   <li>{@link org.osate.reqspec.reqSpec.ReqDocument#getTitle <em>Title</em>}</li>
@@ -22,7 +23,6 @@ import org.osate.alisa.common.common.Description;
  *   <li>{@link org.osate.reqspec.reqSpec.ReqDocument#getContent <em>Content</em>}</li>
  *   <li>{@link org.osate.reqspec.reqSpec.ReqDocument#getIssues <em>Issues</em>}</li>
  * </ul>
- * </p>
  *
  * @see org.osate.reqspec.reqSpec.ReqSpecPackage#getReqDocument()
  * @model
