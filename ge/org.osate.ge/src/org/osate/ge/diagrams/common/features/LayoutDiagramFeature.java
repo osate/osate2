@@ -173,6 +173,7 @@ public class LayoutDiagramFeature extends AbstractCustomFeature {
 			updateShape(layoutShape, shapeMap);
 		}
 
+		
 		return true;
 	}
 	

@@ -51,8 +51,7 @@ public class AgeDiagramEditorActionBarContributor extends org.eclipse.graphiti.u
 		addRetargetAction(new DistributeVerticallyRetargetAction(DistributeVerticallyAction.DISTRIBUTE_VERTICALLY));
 		addRetargetAction(new DecreaseNestingDepthRetargetAction());
 		addRetargetAction(new IncreaseNestingDepthRetargetAction());
-		addRetargetAction(new SetBindingRetargetAction());
-		
+
 		// Create retarget actions of each tool
 		for(final Object tool : getExtensionRegistryService().getTools()) {
 			addRetargetAction(new ActivateToolRetargetAction(tool));
@@ -82,7 +81,6 @@ public class AgeDiagramEditorActionBarContributor extends org.eclipse.graphiti.u
 		
 		final String bindingInsertionPoint = MatchSizeAction.MATCH_SIZE;
 		tbm.insertAfter(bindingInsertionPoint, new Separator());
-		tbm.insertAfter(bindingInsertionPoint, getAction(SetBindingAction.ID));
 		tbm.insertAfter(bindingInsertionPoint, new Separator());
 		
 		// Insert the actions for each tool

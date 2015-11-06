@@ -72,7 +72,7 @@ import org.osate.ge.ui.util.DialogPlacementHelper;
 public class CreateFlowImplementationTool {
 	private ColoringService.Coloring coloring = null;
 	private ComponentImplementation ci;
-	private CreateFlowImplementationDialog createFlowImplementationDialog;
+	private CreateFlowImplementationDialog dlg;
 	private IFeatureProvider fp;
 	private List<PictogramElement> previouslySelectedPes = new ArrayList<PictogramElement>();
 	boolean canActivate = true;
@@ -102,23 +102,24 @@ public class CreateFlowImplementationTool {
 		this.coloring = highlightingService.adjustColors();
 		this.fp = fp;
 		this.bor = bor;
+		
 		ci = (ComponentImplementation)bor.getBusinessObjectForPictogramElement(dtp.getDiagram());
 		if (ci != null) {
 			canActivate = false;
 			clearSelection(dtp);
-			createFlowImplementationDialog = new CreateFlowImplementationDialog(Display.getCurrent().getActiveShell());
-			if (createFlowImplementationDialog.open() == Dialog.CANCEL) {
+			dlg = new CreateFlowImplementationDialog(Display.getCurrent().getActiveShell());
+			if (dlg.open() == Dialog.CANCEL) {
 				uiService.deactivateActiveTool();
 				canActivate = true;
 				previouslySelectedPes.clear();
 				return;
 			}
 
-			if (!createFlowImplementationDialog.getFlows().isEmpty()) {
+			if (!dlg.getFlows().isEmpty()) {
 				aadlModService.modify(ci, new AbstractModifier<ComponentImplementation, Object>() {
 					@Override
 					public Object modify(final Resource resource, final ComponentImplementation ci) {
-						for (final FlowImplementation flowImplementation : createFlowImplementationDialog.getFlows()) {
+						for (final FlowImplementation flowImplementation : dlg.getFlows()) {
 							ci.getOwnedFlowImplementations().add(flowImplementation);
 							ci.setNoFlows(false);
 						}
@@ -139,8 +140,8 @@ public class CreateFlowImplementationTool {
 			public void execute() {
 				// Dispose of the coloring object
 				if (coloring != null) {
-					if (createFlowImplementationDialog != null) {
-						createFlowImplementationDialog.close();
+					if (dlg != null) {
+						dlg.close();
 					}
 					coloring.dispose();
 				}
@@ -156,47 +157,49 @@ public class CreateFlowImplementationTool {
 	@SelectionChanged
 	public void onSelectionChanged(@Named(Names.SELECTED_PICTOGRAM_ELEMENTS) final PictogramElement[] selectedPes,
 			final BusinessObjectResolutionService bor, final IDiagramTypeProvider dtp, final ShapeService shapeService, final ConnectionService connectionService) {
-		// Highlight all selected shapes
-		final TransactionalEditingDomain editingDomain = dtp.getDiagramBehavior().getEditingDomain();
-		editingDomain.getCommandStack().execute(new NonUndoableToolCommand() {
-			@Override
-			public void execute() {
-				for (PictogramElement pe : selectedPes) {
-					Shape shape = null;
-					if (pe instanceof Connection) {
-						shape = connectionService.getOwnerShape((Connection)pe);
-					} else if (pe instanceof ConnectionDecorator) {
-						final ConnectionDecorator cd = ((ConnectionDecorator)pe);
-						pe = cd.getConnection();
-						shape = connectionService.getOwnerShape((Connection)pe);
-					} else if (shape == null && pe instanceof Shape) {
-						shape = (Shape)pe;
-					}
-
-					final Object bo = bor.getBusinessObjectForPictogramElement(pe);
-					final Context context = shapeService.getClosestBusinessObjectOfType(shape, Context.class);
-					if (createFlowImplementationDialog != null) {
-						if (createFlowImplementationDialog.getRemovedElement() != null) {
-							//if PE has been deleted, color it black
-							coloring.setForeground(createFlowImplementationDialog.getRemovedElement(), Color.BLACK);
-							createFlowImplementationDialog.setRemovedElement(null);
-						} else if (pe != null && createFlowImplementationDialog.canAddSelectedElement(bo, context)) {
-							if (bo == createFlowImplementationDialog.getFlow().getSpecification()) {
-								coloring.setForeground(pe, Color.ORANGE.darker());
-							} else if (bo instanceof ModeFeature) {
-								coloring.setForeground(pe, Color.MAGENTA.brighter());
-							} else {
-								coloring.setForeground(pe, Color.MAGENTA.darker());
-							}
-							previouslySelectedPes.add(pe);
+		if (dlg != null && dlg.getShell() != null && dlg.getShell().isVisible()) {
+			// If the selection is a valid addition to the flow implementaiton, add it
+			final TransactionalEditingDomain editingDomain = dtp.getDiagramBehavior().getEditingDomain();
+			editingDomain.getCommandStack().execute(new NonUndoableToolCommand() {
+				@Override
+				public void execute() {
+					for (PictogramElement pe : selectedPes) {
+						Shape shape = null;
+						if (pe instanceof Connection) {
+							shape = connectionService.getOwnerShape((Connection)pe);
+						} else if (pe instanceof ConnectionDecorator) {
+							final ConnectionDecorator cd = ((ConnectionDecorator)pe);
+							pe = cd.getConnection();
+							shape = connectionService.getOwnerShape((Connection)pe);
+						} else if (shape == null && pe instanceof Shape) {
+							shape = (Shape)pe;
 						}
-						if (createFlowImplementationDialog.flowSegmentComposite != null && !createFlowImplementationDialog.flowSegmentComposite.isDisposed()) {
-							createFlowImplementationDialog.setMessage(getDialogMessage());
+	
+						final Object bo = bor.getBusinessObjectForPictogramElement(pe);
+						final Context context = shapeService.getClosestBusinessObjectOfType(shape, Context.class);
+						if (dlg != null) {
+							if (dlg.getRemovedElement() != null) {
+								//if PE has been deleted, color it black
+								coloring.setForeground(dlg.getRemovedElement(), Color.BLACK);
+								dlg.setRemovedElement(null);
+							} else if (pe != null && dlg.canAddSelectedElement(bo, context)) {
+								if (bo == dlg.getFlow().getSpecification()) {
+									coloring.setForeground(pe, Color.ORANGE.darker());
+								} else if (bo instanceof ModeFeature) {
+									coloring.setForeground(pe, Color.MAGENTA.brighter());
+								} else {
+									coloring.setForeground(pe, Color.MAGENTA.darker());
+								}
+								previouslySelectedPes.add(pe);
+							}
+							if (dlg.flowSegmentComposite != null && !dlg.flowSegmentComposite.isDisposed()) {
+								dlg.setMessage(getDialogMessage());
+							}
 						}
 					}
 				}
-			}
-		});
+			});
+		}
 	}
 
 	/**
@@ -208,7 +211,7 @@ public class CreateFlowImplementationTool {
 		if (previouslySelectedPes.size() > 0) {
 			//Get last element selected to determine message
 			final Object bo = bor.getBusinessObjectForPictogramElement(previouslySelectedPes.get(previouslySelectedPes.size()-1));
-			if ((bo instanceof FlowSpecification && (FlowSpecification)bo == createFlowImplementationDialog.flowImpl.getSpecification()
+			if ((bo instanceof FlowSpecification && (FlowSpecification)bo == dlg.flowImpl.getSpecification()
 				&& ((FlowSpecification)bo).getKind() == FlowKind.SOURCE) || bo instanceof org.osate.aadl2.Connection) {
 				msg = "Select a subcomponent flow specification, subcomponent, or a data access feature";
 			} else if (bo instanceof FlowSpecification || bo instanceof DataAccess
@@ -216,7 +219,7 @@ public class CreateFlowImplementationTool {
 				msg = "Select a connection.";
 			}  else {
 				//Return same message if the selected element was a mode feature
-				return createFlowImplementationDialog.getMessage();
+				return dlg.getMessage();
 			}
 		} else{
 			msg = "Select a flow specification to implement.";

@@ -182,6 +182,11 @@ public abstract class AgeConnectionPattern extends AbstractConnectionPattern imp
 	@Override
 	public void preDelete(final IDeleteContext context) {	
 	}	
+
+	//@Override - Method added in Mars release of Graphiti. Annotation not included to maintain Luna compatibility.
+	public boolean isDeleteAbort() {
+		return false;
+	}
 	
 	@Override
 	public void delete(final IDeleteContext context) {		

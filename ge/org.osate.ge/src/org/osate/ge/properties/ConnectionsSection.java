@@ -2,7 +2,6 @@ package org.osate.ge.properties;
 
 
 import java.util.ArrayList;
-import java.util.Iterator;
 
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.graphiti.features.IFeatureProvider;
@@ -12,6 +11,7 @@ import org.eclipse.graphiti.features.custom.ICustomFeature;
 import org.eclipse.graphiti.mm.pictograms.FreeFormConnection;
 import org.eclipse.graphiti.mm.pictograms.PictogramElement;
 import org.eclipse.graphiti.ui.platform.GFPropertySection;
+import org.eclipse.jface.action.IAction;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.custom.CLabel;
 import org.eclipse.swt.events.FocusEvent;
@@ -41,8 +41,9 @@ import org.osate.ge.diagrams.componentImplementation.features.SetConnectionBidir
 import org.osate.ge.services.AadlModificationService;
 import org.osate.ge.services.BusinessObjectResolutionService;
 import org.osate.ge.services.ShapeService;
+import org.osate.ge.services.UiService;
+import org.osate.ge.tools.SetBindingTool;
 import org.osate.ge.ui.editor.AgeDiagramEditor;
-import org.osate.ge.ui.editor.SetBindingAction;
 
 /**
  * Property section for changing a connection's properties.
@@ -63,11 +64,11 @@ public class ConnectionsSection extends GFPropertySection implements ITabbedProp
 	private Text nameConnectionText;
 
 	private RefineConnectionFeature refineConnectionFeature;
-	private SetBindingAction setBindingAction;
 	private ConfigureInModesFeature configureInModesFeature;
 	private SwitchDirectionOfConnectionFeature switchDirectionOfConnectionFeature;
 	private SetConnectionBidirectionalityFeature setConnectionBidirectionalityFeature;
 	private RenameConnectionFeature renameConnectionFeature;
+	private IAction setBindingTool;
 
 	private PictogramElement pe;
 	final private CustomContext customCtx = new CustomContext();
@@ -85,7 +86,7 @@ public class ConnectionsSection extends GFPropertySection implements ITabbedProp
 
 	private String oldConnectionName;
 	private String newConnectionName;
-	
+
 	private AgeDiagramEditor editor;
 
 	@Override
@@ -95,7 +96,7 @@ public class ConnectionsSection extends GFPropertySection implements ITabbedProp
 
 		composite = factory.createFlatFormComposite(parent);
 		nameComposite = factory.createFlatFormComposite(composite);
-		
+
 		directionComposite = factory.createFlatFormComposite(composite);
 		optionComposite = factory.createFlatFormComposite(composite);
 
@@ -105,7 +106,7 @@ public class ConnectionsSection extends GFPropertySection implements ITabbedProp
 		gridData.grabExcessHorizontalSpace = true;
 		gridData.widthHint = 125;
 		nameConnectionLabel.setLayoutData(gridData);
-		
+
 		directionLabel = factory.createCLabel(directionComposite,  "Direction:");
 		optionsLabel = factory.createCLabel(optionComposite,  "Options:");		
 		final ArrayList<CLabel> labels = new ArrayList<CLabel>();
@@ -120,7 +121,7 @@ public class ConnectionsSection extends GFPropertySection implements ITabbedProp
 		gridData.widthHint = 600;
 		nameConnectionText.setLayoutData(gridData);
 		nameComposite.setLayout(new GridLayout(nameComposite.getChildren().length, false));
-		
+
 		formData = new FormData();
 		formData.top = new FormAttachment(0,0);
 		nameComposite.setLayoutData(formData);
@@ -155,8 +156,8 @@ public class ConnectionsSection extends GFPropertySection implements ITabbedProp
 				control.setLayoutData(gridData);
 			}
 		}
-		
-		
+
+
 		//Switch direction button
 		switchDirectionPushButton.addSelectionListener(new SelectionAdapter() {
 			@Override
@@ -188,8 +189,8 @@ public class ConnectionsSection extends GFPropertySection implements ITabbedProp
 		bindPushButton.addSelectionListener(new SelectionAdapter() {
 			@Override
 			public void widgetSelected(final SelectionEvent e) {
-				if ((customCtx.getPictogramElements()[0].isVisible()) && (setBindingAction.isEnabled())) {
-					setBindingAction.run();
+				if ((customCtx.getPictogramElements()[0].isVisible()) && (setBindingTool.isEnabled())) {
+					setBindingTool.run();
 					editor.setFocus();
 				}
 			} 
@@ -284,7 +285,7 @@ public class ConnectionsSection extends GFPropertySection implements ITabbedProp
 			}   
 		});      
 	}
-	
+
 	/**
 	 * Determines which features are available and which controls and composites are shown.
 	 */
@@ -292,98 +293,94 @@ public class ConnectionsSection extends GFPropertySection implements ITabbedProp
 	public void refresh() {
 		if(!composite.isDisposed()) {
 			setAllFalse();
-			
+
 			pe  = getDiagramContainer().getSelectedPictogramElements()[0];
 			editor = (AgeDiagramEditor)getPart();
 			if ((pe != null) && (pe instanceof FreeFormConnection) && (editor != null)) {
 				final org.osate.aadl2.Connection aadlConnection = ((Connection)((Object) AadlElementWrapper.unwrap(getFeatureProvider().getBusinessObjectForPictogramElement(pe))));
 				nameConnectionText.setText(aadlConnection.getName());
-					directEditingCxt = new DirectEditingContext(pe, pe.getGraphicsAlgorithm());
-					renameConnectionFeature = (RenameConnectionFeature) getFeatureProvider().getDirectEditingFeature(directEditingCxt);
-					nameConnectionText.setEnabled(renameConnectionFeature.canDirectEdit(directEditingCxt));
-					nameConnectionText.setEditable(renameConnectionFeature.canDirectEdit(directEditingCxt));
-					final PictogramElement[] pes = new PictogramElement[1];
-					pes[0] = pe;
-					
-					if ((pes[0] != null) && (pes[0] instanceof FreeFormConnection)) {
-						customCtx.setPictogramElements(pes);
-						final ICustomFeature[] customFeatures = getFeatureProvider().getCustomFeatures(customCtx);
-						if (customFeatures != null && customCtx != null) {
-							for (final ICustomFeature customFeature : customFeatures) {
-								if (customFeature instanceof SetConnectionBidirectionalityFeature && featureValidation((SetConnectionBidirectionalityFeature)customFeature)) {	
-									setConnectionBidirectionalityFeature = (SetConnectionBidirectionalityFeature)customFeature;
-										for (final Control control : directionComposite.getChildren()) {
-											control.setVisible(true);
-										}
-										setDirectionalRadioButtons(aadlConnection);
-										directionComposite.setVisible(true);
+				directEditingCxt = new DirectEditingContext(pe, pe.getGraphicsAlgorithm());
+				renameConnectionFeature = (RenameConnectionFeature) getFeatureProvider().getDirectEditingFeature(directEditingCxt);
+				nameConnectionText.setEnabled(renameConnectionFeature.canDirectEdit(directEditingCxt));
+				nameConnectionText.setEditable(renameConnectionFeature.canDirectEdit(directEditingCxt));
+				final PictogramElement[] pes = new PictogramElement[1];
+				pes[0] = pe;
+
+				if ((pes[0] != null) && (pes[0] instanceof FreeFormConnection)) {
+					customCtx.setPictogramElements(pes);
+					final ICustomFeature[] customFeatures = getFeatureProvider().getCustomFeatures(customCtx);
+					if (customFeatures != null && customCtx != null) {
+						for (final ICustomFeature customFeature : customFeatures) {
+							if (customFeature instanceof SetConnectionBidirectionalityFeature && featureValidation((SetConnectionBidirectionalityFeature)customFeature)) {	
+								setConnectionBidirectionalityFeature = (SetConnectionBidirectionalityFeature)customFeature;
+								for (final Control control : directionComposite.getChildren()) {
+									control.setVisible(true);
 								}
-								if (customFeature instanceof RefineConnectionFeature && featureValidation((RefineConnectionFeature)customFeature)) {
-									refineConnectionFeature = (RefineConnectionFeature)customFeature;
-									refinePushButton.setVisible(true);
-								}
-								if (customFeature instanceof ConfigureInModesFeature && featureValidation((ConfigureInModesFeature)customFeature)) {
-									configureInModesFeature = (ConfigureInModesFeature)customFeature;	
-									optionComposite.setVisible(true);
-									configureInModesPushButton.setVisible(true);
-								}
-								if (customFeature instanceof SwitchDirectionOfConnectionFeature && featureValidation((SwitchDirectionOfConnectionFeature)customFeature)) {
-									switchDirectionOfConnectionFeature = (SwitchDirectionOfConnectionFeature)customFeature;
-									switchDirectionPushButton.setVisible(true);
-								}
+								setDirectionalRadioButtons(aadlConnection);
+								directionComposite.setVisible(true);
 							}
-							
-							final Iterator<?> it = editor.getActionRegistry().getActions();
-							while (it.hasNext()) {
-								final Object o = it.next();
-								if((o instanceof SetBindingAction) && (((SetBindingAction) o).isEnabled())) {
-									setBindingAction = (SetBindingAction) o;
-									bindPushButton.setVisible(true);
-								}
-							}							
-							
-							for (final Control c : optionComposite.getChildren()) {
-								if (c.getVisible()) {
-									optionComposite.setVisible(true);
-									optionsLabel.setVisible(true);		
-								}
+							if (customFeature instanceof RefineConnectionFeature && featureValidation((RefineConnectionFeature)customFeature)) {
+								refineConnectionFeature = (RefineConnectionFeature)customFeature;
+								refinePushButton.setVisible(true);
 							}
-						
-							//Layout the composites so invisible composites do not take up space and exclude appropriate controls from layout
-							Composite visibleComposite = nameComposite;
-							final ArrayList<Composite> notVisibleComposites = new ArrayList<Composite>();
-							for (final Composite subComposite : subComposites) {					
-								if (subComposite.getVisible()) {
-									formData = (FormData) subComposite.getLayoutData();
-									formData.top = new FormAttachment(visibleComposite, VSPACE);
-									subComposite.setLayoutData(formData);
-									for (final Control c : subComposite.getChildren()) {
-										gridData = (GridData) c.getLayoutData();
-										gridData.exclude = !c.getVisible();									
-										c.setLayoutData(gridData);
-									}
-									visibleComposite = subComposite;
-								} else {
-									notVisibleComposites.add(subComposite);
-								}
-								subComposite.layout(true);
+							if (customFeature instanceof ConfigureInModesFeature && featureValidation((ConfigureInModesFeature)customFeature)) {
+								configureInModesFeature = (ConfigureInModesFeature)customFeature;	
+								optionComposite.setVisible(true);
+								configureInModesPushButton.setVisible(true);
 							}
-							
-							/**
-							 *  Add space for other composites possible, so composite keeps the same size
-							 *	fixes bug where subcomposites gets cut out of parent composite on refresh
-							 */
-							for (final Composite composite : notVisibleComposites) {
-								formData = (FormData) composite.getLayoutData();
-								formData.top = new FormAttachment(visibleComposite, VSPACE);
-								visibleComposite = composite;
-								composite.setLayoutData(formData);
+							if (customFeature instanceof SwitchDirectionOfConnectionFeature && featureValidation((SwitchDirectionOfConnectionFeature)customFeature)) {
+								switchDirectionOfConnectionFeature = (SwitchDirectionOfConnectionFeature)customFeature;
+								switchDirectionPushButton.setVisible(true);
 							}
-							composite.layout(true);
 						}
+						
+						setBindingTool = getUiService().getActivateToolAction(SetBindingTool.ID);
+						if(setBindingTool.isEnabled()) {
+							bindPushButton.setVisible(true);
+						}
+
+						for (final Control c : optionComposite.getChildren()) {
+							if (c.getVisible()) {
+								optionComposite.setVisible(true);
+								optionsLabel.setVisible(true);		
+							}
+						}
+
+						//Layout the composites so invisible composites do not take up space and exclude appropriate controls from layout
+						Composite visibleComposite = nameComposite;
+						final ArrayList<Composite> notVisibleComposites = new ArrayList<Composite>();
+						for (final Composite subComposite : subComposites) {					
+							if (subComposite.getVisible()) {
+								formData = (FormData) subComposite.getLayoutData();
+								formData.top = new FormAttachment(visibleComposite, VSPACE);
+								subComposite.setLayoutData(formData);
+								for (final Control c : subComposite.getChildren()) {
+									gridData = (GridData) c.getLayoutData();
+									gridData.exclude = !c.getVisible();									
+									c.setLayoutData(gridData);
+								}
+								visibleComposite = subComposite;
+							} else {
+								notVisibleComposites.add(subComposite);
+							}
+							subComposite.layout(true);
+						}
+
+						/**
+						 *  Add space for other composites possible, so composite keeps the same size
+						 *	fixes bug where subcomposites gets cut out of parent composite on refresh
+						 */
+						for (final Composite composite : notVisibleComposites) {
+							formData = (FormData) composite.getLayoutData();
+							formData.top = new FormAttachment(visibleComposite, VSPACE);
+							visibleComposite = composite;
+							composite.setLayoutData(formData);
+						}
+						composite.layout(true);
 					}
-				}	
-			}
+				}
+			}	
+		}
 	}
 
 	/**
@@ -398,7 +395,7 @@ public class ConnectionsSection extends GFPropertySection implements ITabbedProp
 			}
 		}
 	}
-	
+
 	/**
 	 * Determine if focus can be kept on the connection modified or set focus to editor
 	 * @param originalElement
@@ -427,13 +424,17 @@ public class ConnectionsSection extends GFPropertySection implements ITabbedProp
 	}
 
 	final private BusinessObjectResolutionService getBusinessObjectResolutionService() {
-		return (BusinessObjectResolutionService)getPart().getAdapter(BusinessObjectResolutionService.class);
+		return (BusinessObjectResolutionService) getPart().getAdapter(BusinessObjectResolutionService.class);
 	}
-	
+
 	final private AadlModificationService getAadlModificationService() {
 		return (AadlModificationService) getPart().getAdapter(AadlModificationService.class);
 	}
-	
+
+	final private UiService getUiService() {
+		return (UiService) getPart().getAdapter(UiService.class);
+	}
+
 	final private IFeatureProvider getFeatureProvider() {
 		return getDiagramTypeProvider().getFeatureProvider();
 	}
@@ -441,7 +442,7 @@ public class ConnectionsSection extends GFPropertySection implements ITabbedProp
 	final private boolean getDirectionalValue() {
 		return unidirectionalRadioButton.getSelection() ? true : false;
 	}
-	
+
 	final private boolean featureValidation(ICustomFeature customFeature) {
 		return (customCtx.getPictogramElements()[0].isVisible()) && (customFeature.canExecute(customCtx)) && (customFeature.isAvailable(customCtx));
 	}

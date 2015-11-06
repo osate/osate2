@@ -11,6 +11,7 @@ package org.osate.ge.ui.editor;
 import java.util.EventObject;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Objects;
 import java.util.Set;
 
 import org.eclipse.emf.common.command.BasicCommandStack;
@@ -24,7 +25,6 @@ import org.eclipse.gef.ContextMenuProvider;
 import org.eclipse.gef.palette.PaletteDrawer;
 import org.eclipse.gef.palette.PaletteRoot;
 import org.eclipse.gef.ui.actions.ActionRegistry;
-import org.eclipse.gef.ui.actions.GEFActionConstants;
 import org.eclipse.graphiti.dt.IDiagramTypeProvider;
 import org.eclipse.graphiti.features.IFeature;
 import org.eclipse.graphiti.features.IFeatureProvider;
@@ -58,11 +58,7 @@ import org.osate.aadl2.AadlPackage;
 import org.osate.aadl2.NamedElement;
 import org.osate.ge.diagrams.common.AadlElementWrapper;
 import org.osate.ge.diagrams.common.features.DiagramUpdateFeature;
-import org.osate.ge.services.AadlModificationService;
-import org.osate.ge.services.BusinessObjectResolutionService;
 import org.osate.ge.services.CachingService;
-import org.osate.ge.services.ConnectionService;
-import org.osate.ge.services.DiagramModificationService;
 import org.osate.ge.services.DiagramService;
 import org.osate.ge.services.ExtensionService;
 import org.osate.ge.services.PropertyService;
@@ -123,12 +119,6 @@ public class AgeDiagramBehavior extends DiagramBehavior {
 			registerAction(new IncreaseNestingDepthAction(editor, propertyService));
 	 		registerAction(new DecreaseNestingDepthAction(editor, propertyService));
 
-			final AadlModificationService aadlModService = (AadlModificationService)getAdapter(AadlModificationService.class);		
-			final DiagramModificationService diagramModService = (DiagramModificationService)getAdapter(DiagramModificationService.class);
-			final ConnectionService connectionService = (ConnectionService)getAdapter(ConnectionService.class);
-			final BusinessObjectResolutionService bor = (BusinessObjectResolutionService)getAdapter(BusinessObjectResolutionService.class);		
-	 		registerAction(new SetBindingAction(editor, aadlModService, diagramModService, connectionService, bor));
-
  			// Register an action for each tool
 	 		final ExtensionService extService = (ExtensionService)getAdapter(ExtensionService.class);
 	 		toolHandler = new ToolHandler(extService, getPaletteBehavior());
@@ -176,6 +166,17 @@ public class AgeDiagramBehavior extends DiagramBehavior {
 	 			public void partOpened(final IWorkbenchPart part) {}
 	 		});
 		}
+	}
+	
+	/**
+	 * Throws exception if the action for the specified tool cannot be found.
+	 * @param toolId
+	 * @return
+	 */
+	public IAction getActivateToolAction(final String toolId) {
+		Objects.requireNonNull(toolId, "toolId must not be null");
+		final ActionRegistry actionRegistry = getDiagramContainer().getActionRegistry();
+		return Objects.requireNonNull(actionRegistry.getAction(ActivateToolAction.getActionId(toolId)), "unable to retrieve action for tool: " + toolId);
 	}
 	
 	public void deactivateActiveTool() {
@@ -349,13 +350,7 @@ public class AgeDiagramBehavior extends DiagramBehavior {
 		return new DiagramEditorContextMenuProvider(getDiagramContainer().getGraphicalViewer(),
 				getDiagramContainer().getActionRegistry(),
 				getConfigurationProvider()) {
-			
-			@Override
-			protected void addDefaultMenuGroupRest(final IMenuManager manager) {
-				super.addDefaultMenuGroupRest(manager);
-				addActionToMenu(manager, SetBindingAction.ID, GEFActionConstants.GROUP_REST);
-			}
-			
+
 			@Override
 			public void buildContextMenu(final IMenuManager manager) {
 				// Don't populate context menu when a tool is active
