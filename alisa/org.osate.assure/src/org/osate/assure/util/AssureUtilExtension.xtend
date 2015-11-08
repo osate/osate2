@@ -180,8 +180,8 @@ class AssureUtilExtension {
 		targetmarkers.forEach[em|verificationActivityResult.addMarkerIssue(instance, em)]
 		if( verificationActivityResult.issues.exists[ri|ri.issueType == ResultIssueType.ERROR]){
 			verificationActivityResult.setToFail
-		} else if (verificationActivityResult.issues.exists[ri|ri.issueType == ResultIssueType.WARNING]){
-			verificationActivityResult.setToError
+//		} else if (verificationActivityResult.issues.exists[ri|ri.issueType == ResultIssueType.WARNING]){
+//			verificationActivityResult.setToError
 		} else {
 			verificationActivityResult.setToSuccess
 		}
