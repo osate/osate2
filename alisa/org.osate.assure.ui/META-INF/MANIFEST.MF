@@ -25,7 +25,9 @@ Require-Bundle: org.osate.assure;visibility:=reexport,
  org.eclipse.gmf.runtime.emf.core,
  org.eclipse.xtext.xbase.ui,
  org.eclipse.xtext.common.types.ui;bundle-version="2.8.2",
- org.osate.alisa.workbench
+ org.osate.alisa.workbench,
+ org.osate.reqspec,
+ org.eclipse.ui.console
 Import-Package: org.apache.log4j,
  org.eclipse.emf.transaction,
  org.eclipse.gmf.runtime.diagram.core.preferences,
