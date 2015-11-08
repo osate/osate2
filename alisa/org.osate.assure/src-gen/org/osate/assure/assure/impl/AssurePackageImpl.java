@@ -1048,6 +1048,7 @@ public class AssurePackageImpl extends EPackageImpl implements AssurePackage
 
     // Initialize enums and add enum literals
     initEEnum(elseTypeEEnum, ElseType.class, "ElseType");
+    addEEnumLiteral(elseTypeEEnum, ElseType.OK);
     addEEnumLiteral(elseTypeEEnum, ElseType.FAIL);
     addEEnumLiteral(elseTypeEEnum, ElseType.TIMEOUT);
     addEEnumLiteral(elseTypeEEnum, ElseType.ERROR);

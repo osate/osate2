@@ -89,7 +89,7 @@ public class ElseResultImpl extends VerificationExprImpl implements ElseResult
    * @generated
    * @ordered
    */
-  protected static final ElseType DID_FAIL_EDEFAULT = ElseType.FAIL;
+  protected static final ElseType DID_FAIL_EDEFAULT = ElseType.OK;
 
   /**
    * The cached value of the '{@link #getDidFail() <em>Did Fail</em>}' attribute.

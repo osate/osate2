@@ -18,7 +18,8 @@ import java.util.List;
 	import org.eclipse.jface.action.IMenuManager;
 	import org.eclipse.jface.action.MenuManager;
 	import org.eclipse.jface.dialogs.MessageDialog;
-	import org.eclipse.jface.viewers.IStructuredSelection;
+import org.eclipse.jface.viewers.ILabelProvider;
+import org.eclipse.jface.viewers.IStructuredSelection;
 	import org.eclipse.jface.viewers.TreePath;
 	import org.eclipse.jface.viewers.TreeViewer;
 	import org.eclipse.swt.SWT;
@@ -43,17 +44,20 @@ import org.osate.assure.util.AssureUtilExtension;
 import com.google.inject.Inject;
 
 	public class AssureView extends ViewPart {
-	    public static final String ID = "org.osate.alisa.views.assureView";
+	    public static final String ID = "org.osate.assure.ui.views.assureView";
 	    private TreeViewer treeViewer;
 
 	    @Inject
 	    GlobalURIEditorOpener globalURIEditorOpener;
+	    
+	    @Inject
+	    ILabelProvider labelProvider;
 
 	    @Override
 	    public void createPartControl(Composite parent) {
 	        treeViewer = new TreeViewer(parent, SWT.SINGLE);
 	        treeViewer.setContentProvider(new AssureContentProvider());
-	        treeViewer.setLabelProvider(new AssureLabelProvider(null));
+	        treeViewer.setLabelProvider(labelProvider);//new AssureLabelProvider(null));
 	        AssureTooltipListener.createAndRegister(treeViewer);
 
 	        MenuManager manager = new MenuManager();

@@ -335,12 +335,24 @@
             commandId="org.osate.assure.commands.VerifyEvidenceChanges">
       </handler>
             <handler
-            class="org.osate.assure.ui.AssureExecutableExtensionFactory:org.osate.assure.ui.handlers.RunAssureHandler" 
+            class="org.osate.assure.ui.AssureExecutableExtensionFactory:org.osate.assure.ui.handlers.AssureResetHandler" 
             commandId="org.osate.assure.commands.ResetAllEvidence">
    
       </handler>
      </extension>  
 
+     <extension point="org.eclipse.ui.views">
+      <category
+            id="org.osate.alisa.assure"
+            name="Alisa">
+      </category>
+      <view
+          category="org.osate.alisa.assure"
+          id="org.osate.assure.ui.views.assureView"
+          icon="icons/claims.png"
+          name="Assurance Case"
+          class="org.osate.assure.ui.AssureExecutableExtensionFactory:org.osate.assure.ui.views.AssureView"/>
+   </extension>
      
          <extension point="org.eclipse.core.expressions.definitions">
      <definition

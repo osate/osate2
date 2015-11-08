@@ -503,24 +503,31 @@ rule__ElseType__Alternatives
     }
 :
 (
-{ before(grammarAccess.getElseTypeAccess().getFAILEnumLiteralDeclaration_0()); }
+{ before(grammarAccess.getElseTypeAccess().getOKEnumLiteralDeclaration_0()); }
+(	'ok' 
+)
+{ after(grammarAccess.getElseTypeAccess().getOKEnumLiteralDeclaration_0()); }
+)
+
+    |(
+{ before(grammarAccess.getElseTypeAccess().getFAILEnumLiteralDeclaration_1()); }
 (	'fail' 
 )
-{ after(grammarAccess.getElseTypeAccess().getFAILEnumLiteralDeclaration_0()); }
+{ after(grammarAccess.getElseTypeAccess().getFAILEnumLiteralDeclaration_1()); }
 )
 
     |(
-{ before(grammarAccess.getElseTypeAccess().getTIMEOUTEnumLiteralDeclaration_1()); }
+{ before(grammarAccess.getElseTypeAccess().getTIMEOUTEnumLiteralDeclaration_2()); }
 (	'timeout' 
 )
-{ after(grammarAccess.getElseTypeAccess().getTIMEOUTEnumLiteralDeclaration_1()); }
+{ after(grammarAccess.getElseTypeAccess().getTIMEOUTEnumLiteralDeclaration_2()); }
 )
 
     |(
-{ before(grammarAccess.getElseTypeAccess().getERROREnumLiteralDeclaration_2()); }
+{ before(grammarAccess.getElseTypeAccess().getERROREnumLiteralDeclaration_3()); }
 (	'error' 
 )
-{ after(grammarAccess.getElseTypeAccess().getERROREnumLiteralDeclaration_2()); }
+{ after(grammarAccess.getElseTypeAccess().getERROREnumLiteralDeclaration_3()); }
 )
 
 ;

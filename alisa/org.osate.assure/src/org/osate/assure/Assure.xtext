@@ -78,7 +78,7 @@ AssureResult:
 	;
 
 enum ElseType: 
-	FAIL='fail' | TIMEOUT='timeout' | ERROR='error'
+	OK='ok' | FAIL='fail' | TIMEOUT='timeout' | ERROR='error'
 ;
 	
 VerificationExpr : VerificationActivityResult | ElseResult | ThenResult;

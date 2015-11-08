@@ -20,6 +20,16 @@ import org.eclipse.emf.common.util.Enumerator;
 public enum ElseType implements Enumerator
 {
   /**
+   * The '<em><b>OK</b></em>' literal object.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see #OK_VALUE
+   * @generated
+   * @ordered
+   */
+  OK(0, "OK", "ok"),
+
+  /**
    * The '<em><b>FAIL</b></em>' literal object.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -27,7 +37,7 @@ public enum ElseType implements Enumerator
    * @generated
    * @ordered
    */
-  FAIL(0, "FAIL", "fail"),
+  FAIL(1, "FAIL", "fail"),
 
   /**
    * The '<em><b>TIMEOUT</b></em>' literal object.
@@ -37,7 +47,7 @@ public enum ElseType implements Enumerator
    * @generated
    * @ordered
    */
-  TIMEOUT(1, "TIMEOUT", "timeout"),
+  TIMEOUT(2, "TIMEOUT", "timeout"),
 
   /**
    * The '<em><b>ERROR</b></em>' literal object.
@@ -47,7 +57,22 @@ public enum ElseType implements Enumerator
    * @generated
    * @ordered
    */
-  ERROR(2, "ERROR", "error");
+  ERROR(3, "ERROR", "error");
+
+  /**
+   * The '<em><b>OK</b></em>' literal value.
+   * <!-- begin-user-doc -->
+   * <p>
+   * If the meaning of '<em><b>OK</b></em>' literal object isn't clear,
+   * there really should be more of a description here...
+   * </p>
+   * <!-- end-user-doc -->
+   * @see #OK
+   * @model literal="ok"
+   * @generated
+   * @ordered
+   */
+  public static final int OK_VALUE = 0;
 
   /**
    * The '<em><b>FAIL</b></em>' literal value.
@@ -62,7 +87,7 @@ public enum ElseType implements Enumerator
    * @generated
    * @ordered
    */
-  public static final int FAIL_VALUE = 0;
+  public static final int FAIL_VALUE = 1;
 
   /**
    * The '<em><b>TIMEOUT</b></em>' literal value.
@@ -77,7 +102,7 @@ public enum ElseType implements Enumerator
    * @generated
    * @ordered
    */
-  public static final int TIMEOUT_VALUE = 1;
+  public static final int TIMEOUT_VALUE = 2;
 
   /**
    * The '<em><b>ERROR</b></em>' literal value.
@@ -92,7 +117,7 @@ public enum ElseType implements Enumerator
    * @generated
    * @ordered
    */
-  public static final int ERROR_VALUE = 2;
+  public static final int ERROR_VALUE = 3;
 
   /**
    * An array of all the '<em><b>Else Type</b></em>' enumerators.
@@ -103,6 +128,7 @@ public enum ElseType implements Enumerator
   private static final ElseType[] VALUES_ARRAY =
     new ElseType[]
     {
+      OK,
       FAIL,
       TIMEOUT,
       ERROR,
@@ -170,6 +196,7 @@ public enum ElseType implements Enumerator
   {
     switch (value)
     {
+      case OK_VALUE: return OK;
       case FAIL_VALUE: return FAIL;
       case TIMEOUT_VALUE: return TIMEOUT;
       case ERROR_VALUE: return ERROR;

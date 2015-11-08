@@ -8,6 +8,7 @@
   <genPackages prefix="Assure" basePackage="org.osate.assure" disposableProviderFactory="true"
       fileExtensions="assure" ecorePackage="Assure.ecore#/">
     <genEnums typeSafeEnumCompatible="false" ecoreEnum="Assure.ecore#//ElseType">
+      <genEnumLiterals ecoreEnumLiteral="Assure.ecore#//ElseType/OK"/>
       <genEnumLiterals ecoreEnumLiteral="Assure.ecore#//ElseType/FAIL"/>
       <genEnumLiterals ecoreEnumLiteral="Assure.ecore#//ElseType/TIMEOUT"/>
       <genEnumLiterals ecoreEnumLiteral="Assure.ecore#//ElseType/ERROR"/>

@@ -58,9 +58,13 @@ import org.osate.alisa.workbench.util.AlisaWorkbenchUtilExtension
 
 class AssureUtilExtension {
 
+	/**
+	 * get enclosing assurance case. If the assureObject is an AssuranceCase we get the enclosing one.
+	 */
 	def static AssuranceCase getEnclosingAssuranceCase(EObject assureObject) {
+		if (assureObject.eContainer == null) return null;
 		var result = assureObject.eContainer
-		while (!(result instanceof AssuranceCase)) {
+		while (result != null && !(result instanceof AssuranceCase)) {
 			result = result.eContainer
 		}
 		if(result == null) return null
@@ -673,7 +677,7 @@ class AssureUtilExtension {
 
 	private def static ElseResult recomputeAllCounts(ElseResult vaResult) {
 		vaResult.resetCounts
-		vaResult.didFail = null
+		vaResult.didFail = ElseType.OK
 		vaResult.recomputeAllCounts(vaResult.first)
 		if (vaResult.first.isSuccess) {
 			vaResult.recordNoElse
@@ -813,7 +817,7 @@ class AssureUtilExtension {
   * the next methods update the counts for FailThen and AndThen
   */
 	def static void recordElse(ElseResult result, ElseType et) {
-		if (result.didFail != null) {
+		if (result.didFail != ElseType.OK) {
 			// was didthen from previous time
 		} else {
 			result.didFail = et
@@ -827,8 +831,8 @@ class AssureUtilExtension {
   * Initial didFail is false
   */
 	def static void recordNoElse(ElseResult result) {
-		if (result.didFail != null) {
-			result.didFail = null
+		if (result.didFail != ElseType.OK) {
+			result.didFail = ElseType.OK
 			result.metrics.didelseCount = result.metrics.didelseCount - 1
 			result.propagateCountChangeUp
 		} else {
@@ -947,7 +951,7 @@ class AssureUtilExtension {
 
 	private def static ElseResult addAllSubCounts(ElseResult vaResult) {
 		vaResult.resetCounts
-		vaResult.didFail = null
+		vaResult.didFail = ElseType.OK
 		vaResult.first.forEach[e|e.addTo(vaResult)]
 		if (vaResult.first.isSuccess) {
 			vaResult.recordNoElse

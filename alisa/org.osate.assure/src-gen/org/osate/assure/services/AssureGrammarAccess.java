@@ -1091,37 +1091,45 @@ public class AssureGrammarAccess extends AbstractGrammarElementFinder {
 	public class ElseTypeElements extends AbstractEnumRuleElementFinder {
 		private final EnumRule rule = (EnumRule) GrammarUtil.findRuleForName(getGrammar(), "ElseType");
 		private final Alternatives cAlternatives = (Alternatives)rule.eContents().get(1);
-		private final EnumLiteralDeclaration cFAILEnumLiteralDeclaration_0 = (EnumLiteralDeclaration)cAlternatives.eContents().get(0);
-		private final Keyword cFAILFailKeyword_0_0 = (Keyword)cFAILEnumLiteralDeclaration_0.eContents().get(0);
-		private final EnumLiteralDeclaration cTIMEOUTEnumLiteralDeclaration_1 = (EnumLiteralDeclaration)cAlternatives.eContents().get(1);
-		private final Keyword cTIMEOUTTimeoutKeyword_1_0 = (Keyword)cTIMEOUTEnumLiteralDeclaration_1.eContents().get(0);
-		private final EnumLiteralDeclaration cERROREnumLiteralDeclaration_2 = (EnumLiteralDeclaration)cAlternatives.eContents().get(2);
-		private final Keyword cERRORErrorKeyword_2_0 = (Keyword)cERROREnumLiteralDeclaration_2.eContents().get(0);
+		private final EnumLiteralDeclaration cOKEnumLiteralDeclaration_0 = (EnumLiteralDeclaration)cAlternatives.eContents().get(0);
+		private final Keyword cOKOkKeyword_0_0 = (Keyword)cOKEnumLiteralDeclaration_0.eContents().get(0);
+		private final EnumLiteralDeclaration cFAILEnumLiteralDeclaration_1 = (EnumLiteralDeclaration)cAlternatives.eContents().get(1);
+		private final Keyword cFAILFailKeyword_1_0 = (Keyword)cFAILEnumLiteralDeclaration_1.eContents().get(0);
+		private final EnumLiteralDeclaration cTIMEOUTEnumLiteralDeclaration_2 = (EnumLiteralDeclaration)cAlternatives.eContents().get(2);
+		private final Keyword cTIMEOUTTimeoutKeyword_2_0 = (Keyword)cTIMEOUTEnumLiteralDeclaration_2.eContents().get(0);
+		private final EnumLiteralDeclaration cERROREnumLiteralDeclaration_3 = (EnumLiteralDeclaration)cAlternatives.eContents().get(3);
+		private final Keyword cERRORErrorKeyword_3_0 = (Keyword)cERROREnumLiteralDeclaration_3.eContents().get(0);
 		
 		//enum ElseType:
-		//	FAIL="fail" | TIMEOUT="timeout" | ERROR="error";
+		//	OK="ok" | FAIL="fail" | TIMEOUT="timeout" | ERROR="error";
 		public EnumRule getRule() { return rule; }
 
-		//FAIL="fail" | TIMEOUT="timeout" | ERROR="error"
+		//OK="ok" | FAIL="fail" | TIMEOUT="timeout" | ERROR="error"
 		public Alternatives getAlternatives() { return cAlternatives; }
 
+		//OK="ok"
+		public EnumLiteralDeclaration getOKEnumLiteralDeclaration_0() { return cOKEnumLiteralDeclaration_0; }
+
+		//"ok"
+		public Keyword getOKOkKeyword_0_0() { return cOKOkKeyword_0_0; }
+
 		//FAIL="fail"
-		public EnumLiteralDeclaration getFAILEnumLiteralDeclaration_0() { return cFAILEnumLiteralDeclaration_0; }
+		public EnumLiteralDeclaration getFAILEnumLiteralDeclaration_1() { return cFAILEnumLiteralDeclaration_1; }
 
 		//"fail"
-		public Keyword getFAILFailKeyword_0_0() { return cFAILFailKeyword_0_0; }
+		public Keyword getFAILFailKeyword_1_0() { return cFAILFailKeyword_1_0; }
 
 		//TIMEOUT="timeout"
-		public EnumLiteralDeclaration getTIMEOUTEnumLiteralDeclaration_1() { return cTIMEOUTEnumLiteralDeclaration_1; }
+		public EnumLiteralDeclaration getTIMEOUTEnumLiteralDeclaration_2() { return cTIMEOUTEnumLiteralDeclaration_2; }
 
 		//"timeout"
-		public Keyword getTIMEOUTTimeoutKeyword_1_0() { return cTIMEOUTTimeoutKeyword_1_0; }
+		public Keyword getTIMEOUTTimeoutKeyword_2_0() { return cTIMEOUTTimeoutKeyword_2_0; }
 
 		//ERROR="error"
-		public EnumLiteralDeclaration getERROREnumLiteralDeclaration_2() { return cERROREnumLiteralDeclaration_2; }
+		public EnumLiteralDeclaration getERROREnumLiteralDeclaration_3() { return cERROREnumLiteralDeclaration_3; }
 
 		//"error"
-		public Keyword getERRORErrorKeyword_2_0() { return cERRORErrorKeyword_2_0; }
+		public Keyword getERRORErrorKeyword_3_0() { return cERRORErrorKeyword_3_0; }
 	}
 
 	public class ResultIssueTypeElements extends AbstractEnumRuleElementFinder {
@@ -1416,7 +1424,7 @@ public class AssureGrammarAccess extends AbstractGrammarElementFinder {
 	}
 
 	//enum ElseType:
-	//	FAIL="fail" | TIMEOUT="timeout" | ERROR="error";
+	//	OK="ok" | FAIL="fail" | TIMEOUT="timeout" | ERROR="error";
 	public ElseTypeElements getElseTypeAccess() {
 		return unknownRuleElseType;
 	}

@@ -7,6 +7,7 @@ import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.Status;
 import org.eclipse.emf.common.util.BasicEList;
+import org.eclipse.emf.ecore.EObject;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.ui.IWorkbenchPage;
 import org.eclipse.ui.PartInitException;
@@ -31,15 +32,14 @@ import org.osate.assure.util.AssureUtilExtension;
 		}
 
 		@Override
-		protected IStatus runJob(Element root, IProgressMonitor monitor) {
+		protected IStatus runJob(EObject root, IProgressMonitor monitor) {
 			clearProofs();
 			disableRerunHandler();
 
 			long start = System.currentTimeMillis();
 
 			if (root instanceof AssureResult){
-				AssuranceCase ac = AssureUtilExtension.getEnclosingAssuranceCase(root); 
-				String name = ((AssurancePlan)root).getName();
+				AssuranceCase ac = AssureUtilExtension.getRootAssuranceCase(root); 
 				List<AssureResult> acl = new BasicEList<AssureResult>();
 				acl.add(ac);
 				drawProofs(acl);
@@ -54,7 +54,7 @@ import org.osate.assure.util.AssureUtilExtension;
 			return Status.OK_STATUS;
 		}
 
-		private void enableRerunHandler(final Element root) {
+		private void enableRerunHandler(final EObject root) {
 			getWindow().getShell().getDisplay().syncExec(new Runnable() {
 				@Override
 				public void run() {

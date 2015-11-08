@@ -2,31 +2,27 @@ package org.osate.assure.ui.handlers;
 
 
 	import org.eclipse.core.commands.AbstractHandler;
-	import org.eclipse.core.commands.ExecutionEvent;
-	import org.eclipse.core.resources.ResourcesPlugin;
-	import org.eclipse.core.resources.WorkspaceJob;
-	import org.eclipse.core.runtime.IProgressMonitor;
-	import org.eclipse.core.runtime.IStatus;
-	import org.eclipse.core.runtime.NullProgressMonitor;
-	import org.eclipse.core.runtime.Status;
-	import org.eclipse.core.runtime.jobs.IJobChangeEvent;
-	import org.eclipse.core.runtime.jobs.JobChangeAdapter;
-	import org.eclipse.emf.common.util.URI;
-	import org.eclipse.emf.ecore.EObject;
-	import org.eclipse.jface.dialogs.MessageDialog;
-	import org.eclipse.jface.viewers.ISelection;
-	import org.eclipse.jface.viewers.IStructuredSelection;
-	import org.eclipse.ui.IEditorPart;
-	import org.eclipse.ui.IWorkbenchWindow;
-	import org.eclipse.ui.handlers.HandlerUtil;
-	import org.eclipse.ui.handlers.IHandlerActivation;
-	import org.eclipse.ui.handlers.IHandlerService;
-	import org.eclipse.xtext.resource.XtextResource;
-	import org.eclipse.xtext.ui.editor.XtextEditor;
-	import org.eclipse.xtext.ui.editor.outline.impl.EObjectNode;
-	import org.eclipse.xtext.ui.editor.utils.EditorUtils;
-	import org.eclipse.xtext.util.concurrent.IUnitOfWork;
-	import org.osate.aadl2.Element;
+import org.eclipse.core.commands.ExecutionEvent;
+import org.eclipse.core.resources.ResourcesPlugin;
+import org.eclipse.core.resources.WorkspaceJob;
+import org.eclipse.core.runtime.IProgressMonitor;
+import org.eclipse.core.runtime.IStatus;
+import org.eclipse.core.runtime.NullProgressMonitor;
+import org.eclipse.core.runtime.Status;
+import org.eclipse.emf.common.util.URI;
+import org.eclipse.emf.ecore.EObject;
+import org.eclipse.jface.dialogs.MessageDialog;
+import org.eclipse.jface.viewers.ISelection;
+import org.eclipse.jface.viewers.IStructuredSelection;
+import org.eclipse.ui.IEditorPart;
+import org.eclipse.ui.IWorkbenchWindow;
+import org.eclipse.ui.handlers.HandlerUtil;
+import org.eclipse.xtext.resource.XtextResource;
+import org.eclipse.xtext.ui.editor.XtextEditor;
+import org.eclipse.xtext.ui.editor.outline.impl.EObjectNode;
+import org.eclipse.xtext.ui.editor.utils.EditorUtils;
+import org.eclipse.xtext.util.concurrent.IUnitOfWork;
+import org.osate.aadl2.Element;
 
 	public abstract class AlisaHandler extends AbstractHandler {
 	    protected static final String TERMINATE_ID = "org.osate.alisa.commands.terminate";
@@ -34,7 +30,7 @@ package org.osate.assure.ui.handlers;
 	            "org.osate.alisa.commands.terminateAll";
 	    private IWorkbenchWindow window;
 
-	    abstract protected IStatus runJob(Element sel, IProgressMonitor monitor);
+	    abstract protected IStatus runJob(EObject sel, IProgressMonitor monitor);
 
 	    abstract protected String getJobName();
 
@@ -64,9 +60,7 @@ package org.osate.assure.ui.handlers;
 	            return null;
 	        }
 
-	        final IHandlerService handlerService = (IHandlerService) window.getService(IHandlerService.class);
 	        WorkspaceJob job = new WorkspaceJob(getJobName()) {
-	            private IHandlerActivation terminateActivation;
 
 	            @Override
 	            public IStatus runInWorkspace(final IProgressMonitor monitor) {
@@ -75,11 +69,11 @@ package org.osate.assure.ui.handlers;
 	                    @Override
 	                    public IStatus exec(XtextResource resource) throws Exception {
 	                        EObject eobj = resource.getResourceSet().getEObject(uri, true);
-	                        if (eobj instanceof Element) {
-	                            return runJob((Element) eobj, monitor);
-	                        } else {
-	                            return Status.CANCEL_STATUS;
-	                        }
+//	                        if (eobj instanceof Element) {
+	                            return runJob(eobj, monitor);
+//	                        } else {
+//	                            return Status.CANCEL_STATUS;
+//	                        }
 	                    }
 	                });
 	            }

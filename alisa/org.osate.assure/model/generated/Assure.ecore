@@ -32,9 +32,10 @@
         containment="true"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EEnum" name="ElseType">
-    <eLiterals name="FAIL" literal="fail"/>
-    <eLiterals name="TIMEOUT" value="1" literal="timeout"/>
-    <eLiterals name="ERROR" value="2" literal="error"/>
+    <eLiterals name="OK" literal="ok"/>
+    <eLiterals name="FAIL" value="1" literal="fail"/>
+    <eLiterals name="TIMEOUT" value="2" literal="timeout"/>
+    <eLiterals name="ERROR" value="3" literal="error"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="VerificationExpr" eSuperTypes="#//AssureResult"/>
   <eClassifiers xsi:type="ecore:EClass" name="ElseResult" eSuperTypes="#//VerificationExpr">
