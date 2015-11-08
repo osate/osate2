@@ -18,6 +18,7 @@ import org.osate.alisa.common.common.Rationale;
  *
  * <p>
  * The following features are supported:
+ * </p>
  * <ul>
  *   <li>{@link org.osate.verify.verify.VerificationCondition#getName <em>Name</em>}</li>
  *   <li>{@link org.osate.verify.verify.VerificationCondition#getTitle <em>Title</em>}</li>
@@ -28,7 +29,6 @@ import org.osate.alisa.common.common.Rationale;
  *   <li>{@link org.osate.verify.verify.VerificationCondition#getTimeout <em>Timeout</em>}</li>
  *   <li>{@link org.osate.verify.verify.VerificationCondition#getRationale <em>Rationale</em>}</li>
  * </ul>
- * </p>
  *
  * @see org.osate.verify.verify.VerifyPackage#getVerificationCondition()
  * @model

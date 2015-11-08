@@ -10,11 +10,11 @@ package org.osate.verify.verify;
  *
  * <p>
  * The following features are supported:
+ * </p>
  * <ul>
  *   <li>{@link org.osate.verify.verify.RefExpr#getVerification <em>Verification</em>}</li>
  *   <li>{@link org.osate.verify.verify.RefExpr#getWeight <em>Weight</em>}</li>
  * </ul>
- * </p>
  *
  * @see org.osate.verify.verify.VerifyPackage#getRefExpr()
  * @model

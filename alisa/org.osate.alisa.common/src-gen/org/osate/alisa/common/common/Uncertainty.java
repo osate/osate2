@@ -11,6 +11,7 @@ import org.eclipse.emf.ecore.EObject;
  *
  * <p>
  * The following features are supported:
+ * </p>
  * <ul>
  *   <li>{@link org.osate.alisa.common.common.Uncertainty#getVolatility <em>Volatility</em>}</li>
  *   <li>{@link org.osate.alisa.common.common.Uncertainty#getCostimpact <em>Costimpact</em>}</li>
@@ -20,7 +21,6 @@ import org.eclipse.emf.ecore.EObject;
  *   <li>{@link org.osate.alisa.common.common.Uncertainty#getRiskindex <em>Riskindex</em>}</li>
  *   <li>{@link org.osate.alisa.common.common.Uncertainty#getMaturityindex <em>Maturityindex</em>}</li>
  * </ul>
- * </p>
  *
  * @see org.osate.alisa.common.common.CommonPackage#getUncertainty()
  * @model

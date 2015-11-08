@@ -21,6 +21,7 @@ import org.osate.categories.categories.SelectionCategory;
  *
  * <p>
  * The following features are supported:
+ * </p>
  * <ul>
  *   <li>{@link org.osate.verify.verify.VerificationActivity#getName <em>Name</em>}</li>
  *   <li>{@link org.osate.verify.verify.VerificationActivity#getTitle <em>Title</em>}</li>
@@ -32,7 +33,6 @@ import org.osate.categories.categories.SelectionCategory;
  *   <li>{@link org.osate.verify.verify.VerificationActivity#getCondition <em>Condition</em>}</li>
  *   <li>{@link org.osate.verify.verify.VerificationActivity#getTimeout <em>Timeout</em>}</li>
  * </ul>
- * </p>
  *
  * @see org.osate.verify.verify.VerifyPackage#getVerificationActivity()
  * @model

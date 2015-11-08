@@ -18,6 +18,7 @@ import org.osate.alisa.common.common.Uncertainty;
  * <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
+ * </p>
  * <ul>
  *   <li>{@link org.osate.alisa.common.common.impl.UncertaintyImpl#getVolatility <em>Volatility</em>}</li>
  *   <li>{@link org.osate.alisa.common.common.impl.UncertaintyImpl#getCostimpact <em>Costimpact</em>}</li>
@@ -27,7 +28,6 @@ import org.osate.alisa.common.common.Uncertainty;
  *   <li>{@link org.osate.alisa.common.common.impl.UncertaintyImpl#getRiskindex <em>Riskindex</em>}</li>
  *   <li>{@link org.osate.alisa.common.common.impl.UncertaintyImpl#getMaturityindex <em>Maturityindex</em>}</li>
  * </ul>
- * </p>
  *
  * @generated
  */

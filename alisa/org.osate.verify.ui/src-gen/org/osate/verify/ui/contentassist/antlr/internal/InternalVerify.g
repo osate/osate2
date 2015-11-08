@@ -26263,8 +26263,8 @@ rule__VAReference__VerificationAssignment_1
 (
 { before(grammarAccess.getVAReferenceAccess().getVerificationVerificationActivityCrossReference_1_0()); }
 (
-{ before(grammarAccess.getVAReferenceAccess().getVerificationVerificationActivityQualifiedNameParserRuleCall_1_0_1()); }
-	ruleQualifiedName{ after(grammarAccess.getVAReferenceAccess().getVerificationVerificationActivityQualifiedNameParserRuleCall_1_0_1()); }
+{ before(grammarAccess.getVAReferenceAccess().getVerificationVerificationActivityIDTerminalRuleCall_1_0_1()); }
+	RULE_ID{ after(grammarAccess.getVAReferenceAccess().getVerificationVerificationActivityIDTerminalRuleCall_1_0_1()); }
 )
 { after(grammarAccess.getVAReferenceAccess().getVerificationVerificationActivityCrossReference_1_0()); }
 )

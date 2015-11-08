@@ -31,6 +31,7 @@ import org.osate.categories.categories.Category;
  * <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
+ * </p>
  * <ul>
  *   <li>{@link org.osate.alisa.workbench.alisa.impl.AssuranceTaskImpl#getName <em>Name</em>}</li>
  *   <li>{@link org.osate.alisa.workbench.alisa.impl.AssuranceTaskImpl#getTitle <em>Title</em>}</li>
@@ -40,7 +41,6 @@ import org.osate.categories.categories.Category;
  *   <li>{@link org.osate.alisa.workbench.alisa.impl.AssuranceTaskImpl#isStrictFilter <em>Strict Filter</em>}</li>
  *   <li>{@link org.osate.alisa.workbench.alisa.impl.AssuranceTaskImpl#getIssues <em>Issues</em>}</li>
  * </ul>
- * </p>
  *
  * @generated
  */

@@ -18,6 +18,7 @@ import org.osate.reqspec.reqSpec.SystemRequirements;
  *
  * <p>
  * The following features are supported:
+ * </p>
  * <ul>
  *   <li>{@link org.osate.verify.verify.VerificationPlan#getName <em>Name</em>}</li>
  *   <li>{@link org.osate.verify.verify.VerificationPlan#getTitle <em>Title</em>}</li>
@@ -27,7 +28,6 @@ import org.osate.reqspec.reqSpec.SystemRequirements;
  *   <li>{@link org.osate.verify.verify.VerificationPlan#getRationale <em>Rationale</em>}</li>
  *   <li>{@link org.osate.verify.verify.VerificationPlan#getIssues <em>Issues</em>}</li>
  * </ul>
- * </p>
  *
  * @see org.osate.verify.verify.VerifyPackage#getVerificationPlan()
  * @model

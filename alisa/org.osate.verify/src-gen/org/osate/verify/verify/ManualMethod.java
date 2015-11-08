@@ -10,10 +10,10 @@ package org.osate.verify.verify;
  *
  * <p>
  * The following features are supported:
+ * </p>
  * <ul>
  *   <li>{@link org.osate.verify.verify.ManualMethod#getDialogID <em>Dialog ID</em>}</li>
  * </ul>
- * </p>
  *
  * @see org.osate.verify.verify.VerifyPackage#getManualMethod()
  * @model

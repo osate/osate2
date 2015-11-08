@@ -23,10 +23,10 @@ import org.osate.alisa.common.common.CommonPackage;
  * <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
+ * </p>
  * <ul>
  *   <li>{@link org.osate.alisa.common.common.impl.APropertyReferenceImpl#getProperty <em>Property</em>}</li>
  * </ul>
- * </p>
  *
  * @generated
  */

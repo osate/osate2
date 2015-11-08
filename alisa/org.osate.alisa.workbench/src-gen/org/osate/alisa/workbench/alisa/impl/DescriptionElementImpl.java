@@ -18,11 +18,11 @@ import org.osate.alisa.workbench.alisa.DescriptionElement;
  * <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
+ * </p>
  * <ul>
  *   <li>{@link org.osate.alisa.workbench.alisa.impl.DescriptionElementImpl#getText <em>Text</em>}</li>
  *   <li>{@link org.osate.alisa.workbench.alisa.impl.DescriptionElementImpl#isThisTarget <em>This Target</em>}</li>
  * </ul>
- * </p>
  *
  * @generated
  */

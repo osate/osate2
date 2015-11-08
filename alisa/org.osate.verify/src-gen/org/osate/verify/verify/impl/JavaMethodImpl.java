@@ -17,10 +17,10 @@ import org.osate.verify.verify.VerifyPackage;
  * <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
+ * </p>
  * <ul>
  *   <li>{@link org.osate.verify.verify.impl.JavaMethodImpl#getMethodPath <em>Method Path</em>}</li>
  * </ul>
- * </p>
  *
  * @generated
  */

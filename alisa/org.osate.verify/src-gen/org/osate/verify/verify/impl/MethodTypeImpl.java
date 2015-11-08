@@ -13,8 +13,6 @@ import org.osate.verify.verify.VerifyPackage;
  * <!-- begin-user-doc -->
  * An implementation of the model object '<em><b>Method Type</b></em>'.
  * <!-- end-user-doc -->
- * <p>
- * </p>
  *
  * @generated
  */

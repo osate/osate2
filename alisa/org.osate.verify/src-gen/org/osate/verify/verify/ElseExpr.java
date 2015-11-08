@@ -10,13 +10,13 @@ package org.osate.verify.verify;
  *
  * <p>
  * The following features are supported:
+ * </p>
  * <ul>
  *   <li>{@link org.osate.verify.verify.ElseExpr#getLeft <em>Left</em>}</li>
  *   <li>{@link org.osate.verify.verify.ElseExpr#getError <em>Error</em>}</li>
  *   <li>{@link org.osate.verify.verify.ElseExpr#getFail <em>Fail</em>}</li>
  *   <li>{@link org.osate.verify.verify.ElseExpr#getTimeout <em>Timeout</em>}</li>
  * </ul>
- * </p>
  *
  * @see org.osate.verify.verify.VerifyPackage#getElseExpr()
  * @model

@@ -1121,12 +1121,10 @@ ruleVAReference returns [EObject current=null]
 	            $current = createModelElement(grammarAccess.getVAReferenceRule());
 	        }
         }
-		{ 
-	        newCompositeNode(grammarAccess.getVAReferenceAccess().getVerificationVerificationActivityCrossReference_1_0()); 
-	    }
-		ruleQualifiedName		{ 
-	        afterParserOrEnumRuleCall();
-	    }
+	otherlv_1=RULE_ID
+	{
+		newLeafNode(otherlv_1, grammarAccess.getVAReferenceAccess().getVerificationVerificationActivityCrossReference_1_0()); 
+	}
 
 )
 )(	otherlv_2='(' 

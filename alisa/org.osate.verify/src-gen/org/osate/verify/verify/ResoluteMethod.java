@@ -11,10 +11,10 @@ import com.rockwellcollins.atc.resolute.resolute.FunctionDefinition;
  *
  * <p>
  * The following features are supported:
+ * </p>
  * <ul>
  *   <li>{@link org.osate.verify.verify.ResoluteMethod#getMethodReference <em>Method Reference</em>}</li>
  * </ul>
- * </p>
  *
  * @see org.osate.verify.verify.VerifyPackage#getResoluteMethod()
  * @model

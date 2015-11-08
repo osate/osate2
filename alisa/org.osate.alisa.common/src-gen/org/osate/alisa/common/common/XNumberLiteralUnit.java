@@ -13,10 +13,10 @@ import org.osate.aadl2.UnitLiteral;
  *
  * <p>
  * The following features are supported:
+ * </p>
  * <ul>
  *   <li>{@link org.osate.alisa.common.common.XNumberLiteralUnit#getUnit <em>Unit</em>}</li>
  * </ul>
- * </p>
  *
  * @see org.osate.alisa.common.common.CommonPackage#getXNumberLiteralUnit()
  * @model

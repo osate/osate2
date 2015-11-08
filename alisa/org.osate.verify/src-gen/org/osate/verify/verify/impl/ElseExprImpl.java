@@ -20,13 +20,13 @@ import org.osate.verify.verify.VerifyPackage;
  * <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
+ * </p>
  * <ul>
  *   <li>{@link org.osate.verify.verify.impl.ElseExprImpl#getLeft <em>Left</em>}</li>
  *   <li>{@link org.osate.verify.verify.impl.ElseExprImpl#getError <em>Error</em>}</li>
  *   <li>{@link org.osate.verify.verify.impl.ElseExprImpl#getFail <em>Fail</em>}</li>
  *   <li>{@link org.osate.verify.verify.impl.ElseExprImpl#getTimeout <em>Timeout</em>}</li>
  * </ul>
- * </p>
  *
  * @generated
  */

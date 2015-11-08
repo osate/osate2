@@ -13,10 +13,10 @@ import org.eclipse.emf.ecore.EObject;
  *
  * <p>
  * The following features are supported:
+ * </p>
  * <ul>
  *   <li>{@link org.osate.alisa.workbench.alisa.AlisaWorkArea#getCases <em>Cases</em>}</li>
  * </ul>
- * </p>
  *
  * @see org.osate.alisa.workbench.alisa.AlisaPackage#getAlisaWorkArea()
  * @model

@@ -10,11 +10,11 @@ package org.osate.verify.verify;
  *
  * <p>
  * The following features are supported:
+ * </p>
  * <ul>
  *   <li>{@link org.osate.verify.verify.ThenExpr#getLeft <em>Left</em>}</li>
  *   <li>{@link org.osate.verify.verify.ThenExpr#getSuccessor <em>Successor</em>}</li>
  * </ul>
- * </p>
  *
  * @see org.osate.verify.verify.VerifyPackage#getThenExpr()
  * @model

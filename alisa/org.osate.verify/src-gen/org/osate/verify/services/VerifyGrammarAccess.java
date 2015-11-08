@@ -644,7 +644,7 @@ public class VerifyGrammarAccess extends AbstractGrammarElementFinder {
 		private final Action cRefExprAction_0 = (Action)cGroup.eContents().get(0);
 		private final Assignment cVerificationAssignment_1 = (Assignment)cGroup.eContents().get(1);
 		private final CrossReference cVerificationVerificationActivityCrossReference_1_0 = (CrossReference)cVerificationAssignment_1.eContents().get(0);
-		private final RuleCall cVerificationVerificationActivityQualifiedNameParserRuleCall_1_0_1 = (RuleCall)cVerificationVerificationActivityCrossReference_1_0.eContents().get(1);
+		private final RuleCall cVerificationVerificationActivityIDTerminalRuleCall_1_0_1 = (RuleCall)cVerificationVerificationActivityCrossReference_1_0.eContents().get(1);
 		private final Group cGroup_2 = (Group)cGroup.eContents().get(2);
 		private final Keyword cLeftParenthesisKeyword_2_0 = (Keyword)cGroup_2.eContents().get(0);
 		private final Assignment cWeightAssignment_2_1 = (Assignment)cGroup_2.eContents().get(1);
@@ -654,23 +654,23 @@ public class VerifyGrammarAccess extends AbstractGrammarElementFinder {
 		////SingleEvidenceExpr returns ArgumentExpr:
 		////	VAReference (=> ({WhenExpr.verification=current} 'when') condition+=[categories::VerificationCategory|ID]+)?; // should it be a selection category as well
 		//VAReference returns ArgumentExpr:
-		//	{RefExpr} verification=[VerificationActivity|QualifiedName] ("(" weight=INT ")")?;
+		//	{RefExpr} verification=[VerificationActivity] ("(" weight=INT ")")?;
 		@Override public ParserRule getRule() { return rule; }
 
-		//{RefExpr} verification=[VerificationActivity|QualifiedName] ("(" weight=INT ")")?
+		//{RefExpr} verification=[VerificationActivity] ("(" weight=INT ")")?
 		public Group getGroup() { return cGroup; }
 
 		//{RefExpr}
 		public Action getRefExprAction_0() { return cRefExprAction_0; }
 
-		//verification=[VerificationActivity|QualifiedName]
+		//verification=[VerificationActivity]
 		public Assignment getVerificationAssignment_1() { return cVerificationAssignment_1; }
 
-		//[VerificationActivity|QualifiedName]
+		//[VerificationActivity]
 		public CrossReference getVerificationVerificationActivityCrossReference_1_0() { return cVerificationVerificationActivityCrossReference_1_0; }
 
-		//QualifiedName
-		public RuleCall getVerificationVerificationActivityQualifiedNameParserRuleCall_1_0_1() { return cVerificationVerificationActivityQualifiedNameParserRuleCall_1_0_1; }
+		//ID
+		public RuleCall getVerificationVerificationActivityIDTerminalRuleCall_1_0_1() { return cVerificationVerificationActivityIDTerminalRuleCall_1_0_1; }
 
 		//("(" weight=INT ")")?
 		public Group getGroup_2() { return cGroup_2; }
@@ -1797,7 +1797,7 @@ public class VerifyGrammarAccess extends AbstractGrammarElementFinder {
 	////SingleEvidenceExpr returns ArgumentExpr:
 	////	VAReference (=> ({WhenExpr.verification=current} 'when') condition+=[categories::VerificationCategory|ID]+)?; // should it be a selection category as well
 	//VAReference returns ArgumentExpr:
-	//	{RefExpr} verification=[VerificationActivity|QualifiedName] ("(" weight=INT ")")?;
+	//	{RefExpr} verification=[VerificationActivity] ("(" weight=INT ")")?;
 	public VAReferenceElements getVAReferenceAccess() {
 		return pVAReference;
 	}

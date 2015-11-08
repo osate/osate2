@@ -20,10 +20,10 @@ import org.osate.verify.verify.VerifyPackage;
  * <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
+ * </p>
  * <ul>
  *   <li>{@link org.osate.verify.verify.impl.ResoluteMethodImpl#getMethodReference <em>Method Reference</em>}</li>
  * </ul>
- * </p>
  *
  * @generated
  */

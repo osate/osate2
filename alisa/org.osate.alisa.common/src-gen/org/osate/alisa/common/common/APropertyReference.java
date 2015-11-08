@@ -13,10 +13,10 @@ import org.osate.aadl2.Property;
  *
  * <p>
  * The following features are supported:
+ * </p>
  * <ul>
  *   <li>{@link org.osate.alisa.common.common.APropertyReference#getProperty <em>Property</em>}</li>
  * </ul>
- * </p>
  *
  * @see org.osate.alisa.common.common.CommonPackage#getAPropertyReference()
  * @model

@@ -22,13 +22,13 @@ import org.osate.alisa.common.common.ShowValue;
  * <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
+ * </p>
  * <ul>
  *   <li>{@link org.osate.alisa.common.common.impl.DescriptionElementImpl#getText <em>Text</em>}</li>
  *   <li>{@link org.osate.alisa.common.common.impl.DescriptionElementImpl#getShowValue <em>Show Value</em>}</li>
  *   <li>{@link org.osate.alisa.common.common.impl.DescriptionElementImpl#isThisTarget <em>This Target</em>}</li>
  *   <li>{@link org.osate.alisa.common.common.impl.DescriptionElementImpl#getImage <em>Image</em>}</li>
  * </ul>
- * </p>
  *
  * @generated
  */

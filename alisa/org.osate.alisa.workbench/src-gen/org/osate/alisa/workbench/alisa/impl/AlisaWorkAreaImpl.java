@@ -26,10 +26,10 @@ import org.osate.alisa.workbench.alisa.AlisaWorkArea;
  * <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
+ * </p>
  * <ul>
  *   <li>{@link org.osate.alisa.workbench.alisa.impl.AlisaWorkAreaImpl#getCases <em>Cases</em>}</li>
  * </ul>
- * </p>
  *
  * @generated
  */

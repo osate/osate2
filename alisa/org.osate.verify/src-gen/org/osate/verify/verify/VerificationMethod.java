@@ -21,6 +21,7 @@ import org.osate.categories.categories.Category;
  *
  * <p>
  * The following features are supported:
+ * </p>
  * <ul>
  *   <li>{@link org.osate.verify.verify.VerificationMethod#getName <em>Name</em>}</li>
  *   <li>{@link org.osate.verify.verify.VerificationMethod#getParams <em>Params</em>}</li>
@@ -33,7 +34,6 @@ import org.osate.categories.categories.Category;
  *   <li>{@link org.osate.verify.verify.VerificationMethod#getCondition <em>Condition</em>}</li>
  *   <li>{@link org.osate.verify.verify.VerificationMethod#getCategory <em>Category</em>}</li>
  * </ul>
- * </p>
  *
  * @see org.osate.verify.verify.VerifyPackage#getVerificationMethod()
  * @model

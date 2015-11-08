@@ -15,6 +15,7 @@ import org.osate.categories.categories.Category;
  *
  * <p>
  * The following features are supported:
+ * </p>
  * <ul>
  *   <li>{@link org.osate.alisa.workbench.alisa.AssuranceTask#getName <em>Name</em>}</li>
  *   <li>{@link org.osate.alisa.workbench.alisa.AssuranceTask#getTitle <em>Title</em>}</li>
@@ -24,7 +25,6 @@ import org.osate.categories.categories.Category;
  *   <li>{@link org.osate.alisa.workbench.alisa.AssuranceTask#isStrictFilter <em>Strict Filter</em>}</li>
  *   <li>{@link org.osate.alisa.workbench.alisa.AssuranceTask#getIssues <em>Issues</em>}</li>
  * </ul>
- * </p>
  *
  * @see org.osate.alisa.workbench.alisa.AlisaPackage#getAssuranceTask()
  * @model

@@ -18,6 +18,7 @@ import org.osate.verify.verify.VerificationPlan;
  *
  * <p>
  * The following features are supported:
+ * </p>
  * <ul>
  *   <li>{@link org.osate.alisa.workbench.alisa.AssurancePlan#getName <em>Name</em>}</li>
  *   <li>{@link org.osate.alisa.workbench.alisa.AssurancePlan#getTitle <em>Title</em>}</li>
@@ -30,7 +31,6 @@ import org.osate.verify.verify.VerificationPlan;
  *   <li>{@link org.osate.alisa.workbench.alisa.AssurancePlan#isAssumeAll <em>Assume All</em>}</li>
  *   <li>{@link org.osate.alisa.workbench.alisa.AssurancePlan#getIssues <em>Issues</em>}</li>
  * </ul>
- * </p>
  *
  * @see org.osate.alisa.workbench.alisa.AlisaPackage#getAssurancePlan()
  * @model

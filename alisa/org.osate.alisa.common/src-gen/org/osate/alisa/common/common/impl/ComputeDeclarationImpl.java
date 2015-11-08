@@ -23,11 +23,11 @@ import org.osate.alisa.common.common.ComputeDeclaration;
  * <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
+ * </p>
  * <ul>
  *   <li>{@link org.osate.alisa.common.common.impl.ComputeDeclarationImpl#getType <em>Type</em>}</li>
  *   <li>{@link org.osate.alisa.common.common.impl.ComputeDeclarationImpl#getName <em>Name</em>}</li>
  * </ul>
- * </p>
  *
  * @generated
  */

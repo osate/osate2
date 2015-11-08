@@ -331,11 +331,11 @@
             commandId="org.osate.assure.commands.VerifyAllEvidence">
       </handler>
              <handler
-            class="org.osate.assure.ui.AssureExecutableExtensionFactory:org.osate.assure.ui.handlers.RunAssureHandler" 
+            class="org.osate.assure.ui.AssureExecutableExtensionFactory:org.osate.assure.ui.handlers.AssureUpdateHandler" 
             commandId="org.osate.assure.commands.VerifyEvidenceChanges">
       </handler>
             <handler
-            class="org.osate.assure.ui.AssureExecutableExtensionFactory:org.osate.assure.ui.handlers.AssureResetHandler" 
+            class="org.osate.assure.ui.AssureExecutableExtensionFactory:org.osate.assure.ui.handlers.RunAssureHandler" 
             commandId="org.osate.assure.commands.ResetAllEvidence">
    
       </handler>

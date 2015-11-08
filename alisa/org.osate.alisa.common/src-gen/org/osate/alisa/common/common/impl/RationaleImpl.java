@@ -18,10 +18,10 @@ import org.osate.alisa.common.common.Rationale;
  * <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
+ * </p>
  * <ul>
  *   <li>{@link org.osate.alisa.common.common.impl.RationaleImpl#getText <em>Text</em>}</li>
  * </ul>
- * </p>
  *
  * @generated
  */

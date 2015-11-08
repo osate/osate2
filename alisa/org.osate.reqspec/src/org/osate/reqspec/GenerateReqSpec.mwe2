@@ -148,11 +148,10 @@ Workflow {
     		// fragment = exporting.SimpleNamesFragment auto-inject {}
     
     		// scoping and exporting API
-//    		fragment = scoping.ImportNamespacesScopingFragment auto-inject {
-//    						 	generateStub = false
-////		        ignoreCase = true
-//    			
-//    		}
+    		fragment = scoping.ImportNamespacesScopingFragment auto-inject {
+//		        ignoreCase = true
+    			
+    		}
     		fragment = exporting.QualifiedNamesFragment auto-inject {}
     		fragment = builder.BuilderIntegrationFragment auto-inject {}
     

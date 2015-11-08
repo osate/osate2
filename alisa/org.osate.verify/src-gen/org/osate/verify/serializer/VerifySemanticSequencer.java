@@ -563,7 +563,7 @@ public class VerifySemanticSequencer extends CommonSemanticSequencer {
 	
 	/**
 	 * Constraint:
-	 *     (verification=[VerificationActivity|QualifiedName] weight=INT?)
+	 *     (verification=[VerificationActivity|ID] weight=INT?)
 	 */
 	protected void sequence_VAReference(EObject context, RefExpr semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);

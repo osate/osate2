@@ -11,10 +11,10 @@ import org.eclipse.emf.ecore.EObject;
  *
  * <p>
  * The following features are supported:
+ * </p>
  * <ul>
  *   <li>{@link org.osate.alisa.common.common.Rationale#getText <em>Text</em>}</li>
  * </ul>
- * </p>
  *
  * @see org.osate.alisa.common.common.CommonPackage#getRationale()
  * @model

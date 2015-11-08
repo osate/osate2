@@ -30,13 +30,13 @@ import org.osate.verify.verify.VerifyPackage;
  * <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
+ * </p>
  * <ul>
  *   <li>{@link org.osate.verify.verify.impl.VerificationMethodRegistryImpl#getName <em>Name</em>}</li>
  *   <li>{@link org.osate.verify.verify.impl.VerificationMethodRegistryImpl#getTitle <em>Title</em>}</li>
  *   <li>{@link org.osate.verify.verify.impl.VerificationMethodRegistryImpl#getDescription <em>Description</em>}</li>
  *   <li>{@link org.osate.verify.verify.impl.VerificationMethodRegistryImpl#getMethods <em>Methods</em>}</li>
  * </ul>
- * </p>
  *
  * @generated
  */

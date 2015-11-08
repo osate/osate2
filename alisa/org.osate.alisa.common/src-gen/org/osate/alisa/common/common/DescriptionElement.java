@@ -11,13 +11,13 @@ import org.eclipse.emf.ecore.EObject;
  *
  * <p>
  * The following features are supported:
+ * </p>
  * <ul>
  *   <li>{@link org.osate.alisa.common.common.DescriptionElement#getText <em>Text</em>}</li>
  *   <li>{@link org.osate.alisa.common.common.DescriptionElement#getShowValue <em>Show Value</em>}</li>
  *   <li>{@link org.osate.alisa.common.common.DescriptionElement#isThisTarget <em>This Target</em>}</li>
  *   <li>{@link org.osate.alisa.common.common.DescriptionElement#getImage <em>Image</em>}</li>
  * </ul>
- * </p>
  *
  * @see org.osate.alisa.common.common.CommonPackage#getDescriptionElement()
  * @model

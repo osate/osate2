@@ -17,6 +17,7 @@ import org.osate.reqspec.reqSpec.Requirement;
  *
  * <p>
  * The following features are supported:
+ * </p>
  * <ul>
  *   <li>{@link org.osate.verify.verify.Claim#getRequirement <em>Requirement</em>}</li>
  *   <li>{@link org.osate.verify.verify.Claim#getTitle <em>Title</em>}</li>
@@ -27,7 +28,6 @@ import org.osate.reqspec.reqSpec.Requirement;
  *   <li>{@link org.osate.verify.verify.Claim#getSubclaim <em>Subclaim</em>}</li>
  *   <li>{@link org.osate.verify.verify.Claim#getIssues <em>Issues</em>}</li>
  * </ul>
- * </p>
  *
  * @see org.osate.verify.verify.VerifyPackage#getClaim()
  * @model

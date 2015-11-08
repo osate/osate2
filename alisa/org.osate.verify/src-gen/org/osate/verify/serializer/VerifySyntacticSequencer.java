@@ -220,7 +220,7 @@ public class VerifySyntacticSequencer extends AbstractSyntacticSequencer {
 	 *
 	 * This ambiguous syntax occurs at:
 	 *     (rule start) (ambiguity) 'all' '[' elements+=ThenEvidenceExpr
-	 *     (rule start) (ambiguity) verification=[VerificationActivity|QualifiedName]
+	 *     (rule start) (ambiguity) verification=[VerificationActivity|ID]
 	 *     (rule start) (ambiguity) {ElseExpr.left=}
 	 *     (rule start) (ambiguity) {ThenExpr.left=}
 	 */
@@ -233,7 +233,7 @@ public class VerifySyntacticSequencer extends AbstractSyntacticSequencer {
 	 *     '('+
 	 *
 	 * This ambiguous syntax occurs at:
-	 *     (rule start) (ambiguity) verification=[VerificationActivity|QualifiedName]
+	 *     (rule start) (ambiguity) verification=[VerificationActivity|ID]
 	 *     (rule start) (ambiguity) {ElseExpr.left=}
 	 *     (rule start) (ambiguity) {ThenExpr.left=}
 	 */

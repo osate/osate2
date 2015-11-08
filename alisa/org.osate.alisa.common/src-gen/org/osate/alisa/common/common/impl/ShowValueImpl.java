@@ -24,11 +24,11 @@ import org.osate.alisa.common.common.ShowValue;
  * <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
+ * </p>
  * <ul>
  *   <li>{@link org.osate.alisa.common.common.impl.ShowValueImpl#getRef <em>Ref</em>}</li>
  *   <li>{@link org.osate.alisa.common.common.impl.ShowValueImpl#getUnit <em>Unit</em>}</li>
  * </ul>
- * </p>
  *
  * @generated
  */

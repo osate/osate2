@@ -18,10 +18,10 @@ import org.osate.alisa.common.common.ImageReference;
  * <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
+ * </p>
  * <ul>
  *   <li>{@link org.osate.alisa.common.common.impl.ImageReferenceImpl#getImgfile <em>Imgfile</em>}</li>
  * </ul>
- * </p>
  *
  * @generated
  */

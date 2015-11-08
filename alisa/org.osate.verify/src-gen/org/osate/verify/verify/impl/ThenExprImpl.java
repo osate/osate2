@@ -20,11 +20,11 @@ import org.osate.verify.verify.VerifyPackage;
  * <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
+ * </p>
  * <ul>
  *   <li>{@link org.osate.verify.verify.impl.ThenExprImpl#getLeft <em>Left</em>}</li>
  *   <li>{@link org.osate.verify.verify.impl.ThenExprImpl#getSuccessor <em>Successor</em>}</li>
  * </ul>
- * </p>
  *
  * @generated
  */

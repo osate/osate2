@@ -10,10 +10,10 @@ package org.osate.verify.verify;
  *
  * <p>
  * The following features are supported:
+ * </p>
  * <ul>
  *   <li>{@link org.osate.verify.verify.PluginMethod#getMethodID <em>Method ID</em>}</li>
  * </ul>
- * </p>
  *
  * @see org.osate.verify.verify.VerifyPackage#getPluginMethod()
  * @model

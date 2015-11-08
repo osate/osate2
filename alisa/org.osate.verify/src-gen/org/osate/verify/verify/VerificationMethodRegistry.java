@@ -15,13 +15,13 @@ import org.osate.alisa.common.common.Description;
  *
  * <p>
  * The following features are supported:
+ * </p>
  * <ul>
  *   <li>{@link org.osate.verify.verify.VerificationMethodRegistry#getName <em>Name</em>}</li>
  *   <li>{@link org.osate.verify.verify.VerificationMethodRegistry#getTitle <em>Title</em>}</li>
  *   <li>{@link org.osate.verify.verify.VerificationMethodRegistry#getDescription <em>Description</em>}</li>
  *   <li>{@link org.osate.verify.verify.VerificationMethodRegistry#getMethods <em>Methods</em>}</li>
  * </ul>
- * </p>
  *
  * @see org.osate.verify.verify.VerifyPackage#getVerificationMethodRegistry()
  * @model

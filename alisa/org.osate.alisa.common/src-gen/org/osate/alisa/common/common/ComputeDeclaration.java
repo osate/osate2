@@ -13,11 +13,11 @@ import org.eclipse.xtext.xbase.XExpression;
  *
  * <p>
  * The following features are supported:
+ * </p>
  * <ul>
  *   <li>{@link org.osate.alisa.common.common.ComputeDeclaration#getType <em>Type</em>}</li>
  *   <li>{@link org.osate.alisa.common.common.ComputeDeclaration#getName <em>Name</em>}</li>
  * </ul>
- * </p>
  *
  * @see org.osate.alisa.common.common.CommonPackage#getComputeDeclaration()
  * @model
