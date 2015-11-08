@@ -10,9 +10,9 @@ public class VerifyQualifiedNameProvider extends DefaultDeclarativeQualifiedName
 	// Enable to limit indexing to global items
 	@Override
 	public QualifiedName getFullyQualifiedName(final EObject obj) {
-		if (obj instanceof VerificationActivity || obj instanceof VerificationCondition) {
-			return null;
-		}
+//		if (obj instanceof VerificationActivity || obj instanceof VerificationCondition) {
+//			return null;
+//		}
 		return super.getFullyQualifiedName(obj);
 	}
 }
