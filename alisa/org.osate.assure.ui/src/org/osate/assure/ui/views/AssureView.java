@@ -22,7 +22,9 @@ import org.eclipse.jface.viewers.ILabelProvider;
 import org.eclipse.jface.viewers.IStructuredSelection;
 	import org.eclipse.jface.viewers.TreePath;
 	import org.eclipse.jface.viewers.TreeViewer;
-	import org.eclipse.swt.SWT;
+import org.eclipse.jface.viewers.Viewer;
+import org.eclipse.jface.viewers.ViewerFilter;
+import org.eclipse.swt.SWT;
 	import org.eclipse.swt.widgets.Composite;
 	import org.eclipse.ui.IWorkbenchPage;
 	import org.eclipse.ui.PartInitException;
@@ -38,6 +40,7 @@ import org.eclipse.jface.viewers.IStructuredSelection;
 import org.osate.assure.assure.AssuranceCase;
 import org.osate.assure.assure.AssureResult;
 import org.osate.assure.assure.ClaimResult;
+import org.osate.assure.assure.Metrics;
 import org.osate.assure.ui.labeling.AssureLabelProvider;
 import org.osate.assure.util.AssureUtilExtension;
 
@@ -59,6 +62,7 @@ import com.google.inject.Inject;
 	        treeViewer.setContentProvider(new AssureContentProvider());
 	        treeViewer.setLabelProvider(labelProvider);//new AssureLabelProvider(null));
 	        AssureTooltipListener.createAndRegister(treeViewer);
+	        treeViewer.addFilter(new NoMetricsFilter());
 
 	        MenuManager manager = new MenuManager();
 	        manager.setRemoveAllWhenShown(true);
@@ -207,4 +211,27 @@ import com.google.inject.Inject;
 	    public void setFocus() {
 	        treeViewer.getControl().setFocus();
 	    }
+	    
+	    /**
+	     * Viewer Filter class.
+	     */
+	    private class NoMetricsFilter extends ViewerFilter {
+
+	        /**
+	         * @param viewer the viewer
+	         * @param parentElement the parent element
+	         * @param element the element
+	         * @return if the element is to display: true
+	         * @see org.eclipse.jface.viewers.ViewerFilter
+	         *      #select(org.eclipse.jface.viewers.Viewer, java.lang.Object, java.lang.Object)
+	         */
+	        @Override
+	        public boolean select(Viewer viewer, Object parentElement, Object element) {
+	        	if (element instanceof Metrics){
+	        		return false;
+	        	}
+	            return true;
+	        }
+	    }
+
 	}
