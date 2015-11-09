@@ -12,6 +12,7 @@
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Categories.ecore#//CategoriesDefinitions/componentcategories"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Categories.ecore#//CategoriesDefinitions/methodcategories"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Categories.ecore#//CategoriesDefinitions/selectioncategories"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Categories.ecore#//CategoriesDefinitions/phasecategories"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Categories.ecore#//CategoriesDefinitions/qualitycategories"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Categories.ecore#//CategoriesDefinitions/categoryfilter"/>
     </genClasses>
@@ -33,6 +34,7 @@
     <genClasses ecoreClass="Categories.ecore#//MethodCategory"/>
     <genClasses ecoreClass="Categories.ecore#//SelectionCategory"/>
     <genClasses ecoreClass="Categories.ecore#//QualityCategory"/>
+    <genClasses ecoreClass="Categories.ecore#//PhaseCategory"/>
     <genClasses ecoreClass="Categories.ecore#//ComponentCategory"/>
     <genClasses ecoreClass="Categories.ecore#//CategorySet">
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference Categories.ecore#//CategorySet/elements"/>

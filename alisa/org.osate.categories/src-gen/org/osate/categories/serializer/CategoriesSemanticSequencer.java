@@ -24,6 +24,7 @@ import org.osate.categories.categories.ComponentCategories;
 import org.osate.categories.categories.ComponentCategory;
 import org.osate.categories.categories.MethodCategories;
 import org.osate.categories.categories.MethodCategory;
+import org.osate.categories.categories.PhaseCategory;
 import org.osate.categories.categories.QualityCategories;
 import org.osate.categories.categories.QualityCategory;
 import org.osate.categories.categories.RequirementCategories;
@@ -62,9 +63,19 @@ public class CategoriesSemanticSequencer extends AbstractDelegatingSemanticSeque
 			case CategoriesPackage.METHOD_CATEGORY:
 				sequence_MethodCategory(context, (MethodCategory) semanticObject); 
 				return; 
-			case CategoriesPackage.QUALITY_CATEGORIES:
-				sequence_QualityCategories(context, (QualityCategories) semanticObject); 
+			case CategoriesPackage.PHASE_CATEGORY:
+				sequence_PhaseCategory(context, (PhaseCategory) semanticObject); 
 				return; 
+			case CategoriesPackage.QUALITY_CATEGORIES:
+				if(context == grammarAccess.getPhaseCategoriesRule()) {
+					sequence_PhaseCategories(context, (QualityCategories) semanticObject); 
+					return; 
+				}
+				else if(context == grammarAccess.getQualityCategoriesRule()) {
+					sequence_QualityCategories(context, (QualityCategories) semanticObject); 
+					return; 
+				}
+				else break;
 			case CategoriesPackage.QUALITY_CATEGORY:
 				sequence_QualityCategory(context, (QualityCategory) semanticObject); 
 				return; 
@@ -91,6 +102,7 @@ public class CategoriesSemanticSequencer extends AbstractDelegatingSemanticSeque
 	 *         componentcategories=ComponentCategories? 
 	 *         methodcategories=MethodCategories? 
 	 *         selectioncategories=SelectionCategories? 
+	 *         phasecategories=PhaseCategories? 
 	 *         qualitycategories=QualityCategories? 
 	 *         categoryfilter=CategoryFilters?
 	 *     )
@@ -164,6 +176,31 @@ public class CategoriesSemanticSequencer extends AbstractDelegatingSemanticSeque
 		INodesForEObjectProvider nodes = createNodeProvider(semanticObject);
 		SequenceFeeder feeder = createSequencerFeeder(semanticObject, nodes);
 		feeder.accept(grammarAccess.getMethodCategoryAccess().getNameIDTerminalRuleCall_1_0(), semanticObject.getName());
+		feeder.finish();
+	}
+	
+	
+	/**
+	 * Constraint:
+	 *     category+=PhaseCategory+
+	 */
+	protected void sequence_PhaseCategories(EObject context, QualityCategories semanticObject) {
+		genericSequencer.createSequence(context, semanticObject);
+	}
+	
+	
+	/**
+	 * Constraint:
+	 *     name=ID
+	 */
+	protected void sequence_PhaseCategory(EObject context, PhaseCategory semanticObject) {
+		if(errorAcceptor != null) {
+			if(transientValues.isValueTransient(semanticObject, CategoriesPackage.Literals.CATEGORY__NAME) == ValueTransient.YES)
+				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, CategoriesPackage.Literals.CATEGORY__NAME));
+		}
+		INodesForEObjectProvider nodes = createNodeProvider(semanticObject);
+		SequenceFeeder feeder = createSequencerFeeder(semanticObject, nodes);
+		feeder.accept(grammarAccess.getPhaseCategoryAccess().getNameIDTerminalRuleCall_1_0(), semanticObject.getName());
 		feeder.finish();
 	}
 	

@@ -140,6 +140,15 @@ public interface CategoriesFactory extends EFactory
   QualityCategory createQualityCategory();
 
   /**
+   * Returns a new object of class '<em>Phase Category</em>'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return a new object of class '<em>Phase Category</em>'.
+   * @generated
+   */
+  PhaseCategory createPhaseCategory();
+
+  /**
    * Returns a new object of class '<em>Component Category</em>'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->

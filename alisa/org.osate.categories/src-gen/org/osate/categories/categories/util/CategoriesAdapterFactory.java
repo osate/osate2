@@ -140,6 +140,11 @@ public class CategoriesAdapterFactory extends AdapterFactoryImpl
         return createQualityCategoryAdapter();
       }
       @Override
+      public Adapter casePhaseCategory(PhaseCategory object)
+      {
+        return createPhaseCategoryAdapter();
+      }
+      @Override
       public Adapter caseComponentCategory(ComponentCategory object)
       {
         return createComponentCategoryAdapter();
@@ -362,6 +367,21 @@ public class CategoriesAdapterFactory extends AdapterFactoryImpl
    * @generated
    */
   public Adapter createQualityCategoryAdapter()
+  {
+    return null;
+  }
+
+  /**
+   * Creates a new adapter for an object of class '{@link org.osate.categories.categories.PhaseCategory <em>Phase Category</em>}'.
+   * <!-- begin-user-doc -->
+   * This default implementation returns null so that we can easily ignore cases;
+   * it's useful to ignore a case when inheritance will catch all the cases anyway.
+   * <!-- end-user-doc -->
+   * @return the new adapter.
+   * @see org.osate.categories.categories.PhaseCategory
+   * @generated
+   */
+  public Adapter createPhaseCategoryAdapter()
   {
     return null;
   }

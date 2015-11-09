@@ -17,6 +17,7 @@ import org.eclipse.emf.ecore.EObject;
  *   <li>{@link org.osate.categories.categories.CategoriesDefinitions#getComponentcategories <em>Componentcategories</em>}</li>
  *   <li>{@link org.osate.categories.categories.CategoriesDefinitions#getMethodcategories <em>Methodcategories</em>}</li>
  *   <li>{@link org.osate.categories.categories.CategoriesDefinitions#getSelectioncategories <em>Selectioncategories</em>}</li>
+ *   <li>{@link org.osate.categories.categories.CategoriesDefinitions#getPhasecategories <em>Phasecategories</em>}</li>
  *   <li>{@link org.osate.categories.categories.CategoriesDefinitions#getQualitycategories <em>Qualitycategories</em>}</li>
  *   <li>{@link org.osate.categories.categories.CategoriesDefinitions#getCategoryfilter <em>Categoryfilter</em>}</li>
  * </ul>
@@ -130,6 +131,32 @@ public interface CategoriesDefinitions extends EObject
    * @generated
    */
   void setSelectioncategories(Categories value);
+
+  /**
+   * Returns the value of the '<em><b>Phasecategories</b></em>' containment reference.
+   * <!-- begin-user-doc -->
+   * <p>
+   * If the meaning of the '<em>Phasecategories</em>' containment reference isn't clear,
+   * there really should be more of a description here...
+   * </p>
+   * <!-- end-user-doc -->
+   * @return the value of the '<em>Phasecategories</em>' containment reference.
+   * @see #setPhasecategories(Categories)
+   * @see org.osate.categories.categories.CategoriesPackage#getCategoriesDefinitions_Phasecategories()
+   * @model containment="true"
+   * @generated
+   */
+  Categories getPhasecategories();
+
+  /**
+   * Sets the value of the '{@link org.osate.categories.categories.CategoriesDefinitions#getPhasecategories <em>Phasecategories</em>}' containment reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @param value the new value of the '<em>Phasecategories</em>' containment reference.
+   * @see #getPhasecategories()
+   * @generated
+   */
+  void setPhasecategories(Categories value);
 
   /**
    * Returns the value of the '<em><b>Qualitycategories</b></em>' containment reference.

@@ -32,6 +32,8 @@ Quality : 'quality';
 
 Method : 'method';
 
+Phase : 'phase';
+
 LeftSquareBracket : '[';
 
 RightSquareBracket : ']';

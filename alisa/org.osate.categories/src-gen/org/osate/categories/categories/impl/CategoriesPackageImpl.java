@@ -20,6 +20,7 @@ import org.osate.categories.categories.ComponentCategories;
 import org.osate.categories.categories.ComponentCategory;
 import org.osate.categories.categories.MethodCategories;
 import org.osate.categories.categories.MethodCategory;
+import org.osate.categories.categories.PhaseCategory;
 import org.osate.categories.categories.QualityCategories;
 import org.osate.categories.categories.QualityCategory;
 import org.osate.categories.categories.RequirementCategories;
@@ -125,6 +126,13 @@ public class CategoriesPackageImpl extends EPackageImpl implements CategoriesPac
    * @generated
    */
   private EClass qualityCategoryEClass = null;
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  private EClass phaseCategoryEClass = null;
 
   /**
    * <!-- begin-user-doc -->
@@ -258,7 +266,7 @@ public class CategoriesPackageImpl extends EPackageImpl implements CategoriesPac
    * <!-- end-user-doc -->
    * @generated
    */
-  public EReference getCategoriesDefinitions_Qualitycategories()
+  public EReference getCategoriesDefinitions_Phasecategories()
   {
     return (EReference)categoriesDefinitionsEClass.getEStructuralFeatures().get(4);
   }
@@ -268,9 +276,19 @@ public class CategoriesPackageImpl extends EPackageImpl implements CategoriesPac
    * <!-- end-user-doc -->
    * @generated
    */
-  public EReference getCategoriesDefinitions_Categoryfilter()
+  public EReference getCategoriesDefinitions_Qualitycategories()
   {
     return (EReference)categoriesDefinitionsEClass.getEStructuralFeatures().get(5);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EReference getCategoriesDefinitions_Categoryfilter()
+  {
+    return (EReference)categoriesDefinitionsEClass.getEStructuralFeatures().get(6);
   }
 
   /**
@@ -428,6 +446,16 @@ public class CategoriesPackageImpl extends EPackageImpl implements CategoriesPac
    * <!-- end-user-doc -->
    * @generated
    */
+  public EClass getPhaseCategory()
+  {
+    return phaseCategoryEClass;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
   public EClass getComponentCategory()
   {
     return componentCategoryEClass;
@@ -488,6 +516,7 @@ public class CategoriesPackageImpl extends EPackageImpl implements CategoriesPac
     createEReference(categoriesDefinitionsEClass, CATEGORIES_DEFINITIONS__COMPONENTCATEGORIES);
     createEReference(categoriesDefinitionsEClass, CATEGORIES_DEFINITIONS__METHODCATEGORIES);
     createEReference(categoriesDefinitionsEClass, CATEGORIES_DEFINITIONS__SELECTIONCATEGORIES);
+    createEReference(categoriesDefinitionsEClass, CATEGORIES_DEFINITIONS__PHASECATEGORIES);
     createEReference(categoriesDefinitionsEClass, CATEGORIES_DEFINITIONS__QUALITYCATEGORIES);
     createEReference(categoriesDefinitionsEClass, CATEGORIES_DEFINITIONS__CATEGORYFILTER);
 
@@ -517,6 +546,8 @@ public class CategoriesPackageImpl extends EPackageImpl implements CategoriesPac
     selectionCategoryEClass = createEClass(SELECTION_CATEGORY);
 
     qualityCategoryEClass = createEClass(QUALITY_CATEGORY);
+
+    phaseCategoryEClass = createEClass(PHASE_CATEGORY);
 
     componentCategoryEClass = createEClass(COMPONENT_CATEGORY);
 
@@ -562,6 +593,7 @@ public class CategoriesPackageImpl extends EPackageImpl implements CategoriesPac
     methodCategoryEClass.getESuperTypes().add(this.getCategory());
     selectionCategoryEClass.getESuperTypes().add(this.getCategory());
     qualityCategoryEClass.getESuperTypes().add(this.getCategory());
+    phaseCategoryEClass.getESuperTypes().add(this.getCategory());
     componentCategoryEClass.getESuperTypes().add(this.getCategory());
     categorySetEClass.getESuperTypes().add(this.getCategory());
 
@@ -571,6 +603,7 @@ public class CategoriesPackageImpl extends EPackageImpl implements CategoriesPac
     initEReference(getCategoriesDefinitions_Componentcategories(), this.getCategories(), null, "componentcategories", null, 0, 1, CategoriesDefinitions.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEReference(getCategoriesDefinitions_Methodcategories(), this.getCategories(), null, "methodcategories", null, 0, 1, CategoriesDefinitions.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEReference(getCategoriesDefinitions_Selectioncategories(), this.getCategories(), null, "selectioncategories", null, 0, 1, CategoriesDefinitions.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEReference(getCategoriesDefinitions_Phasecategories(), this.getCategories(), null, "phasecategories", null, 0, 1, CategoriesDefinitions.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEReference(getCategoriesDefinitions_Qualitycategories(), this.getCategories(), null, "qualitycategories", null, 0, 1, CategoriesDefinitions.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEReference(getCategoriesDefinitions_Categoryfilter(), this.getCategoryFilters(), null, "categoryfilter", null, 0, 1, CategoriesDefinitions.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
@@ -600,6 +633,8 @@ public class CategoriesPackageImpl extends EPackageImpl implements CategoriesPac
     initEClass(selectionCategoryEClass, SelectionCategory.class, "SelectionCategory", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 
     initEClass(qualityCategoryEClass, QualityCategory.class, "QualityCategory", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+
+    initEClass(phaseCategoryEClass, PhaseCategory.class, "PhaseCategory", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 
     initEClass(componentCategoryEClass, ComponentCategory.class, "ComponentCategory", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 

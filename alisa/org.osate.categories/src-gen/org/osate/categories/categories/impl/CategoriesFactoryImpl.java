@@ -77,6 +77,7 @@ public class CategoriesFactoryImpl extends EFactoryImpl implements CategoriesFac
       case CategoriesPackage.METHOD_CATEGORY: return createMethodCategory();
       case CategoriesPackage.SELECTION_CATEGORY: return createSelectionCategory();
       case CategoriesPackage.QUALITY_CATEGORY: return createQualityCategory();
+      case CategoriesPackage.PHASE_CATEGORY: return createPhaseCategory();
       case CategoriesPackage.COMPONENT_CATEGORY: return createComponentCategory();
       case CategoriesPackage.CATEGORY_SET: return createCategorySet();
       default:
@@ -225,6 +226,17 @@ public class CategoriesFactoryImpl extends EFactoryImpl implements CategoriesFac
   {
     QualityCategoryImpl qualityCategory = new QualityCategoryImpl();
     return qualityCategory;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public PhaseCategory createPhaseCategory()
+  {
+    PhaseCategoryImpl phaseCategory = new PhaseCategoryImpl();
+    return phaseCategory;
   }
 
   /**

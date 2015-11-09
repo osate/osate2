@@ -28,6 +28,7 @@ import org.osate.categories.categories.CategoryFilters;
  *   <li>{@link org.osate.categories.categories.impl.CategoriesDefinitionsImpl#getComponentcategories <em>Componentcategories</em>}</li>
  *   <li>{@link org.osate.categories.categories.impl.CategoriesDefinitionsImpl#getMethodcategories <em>Methodcategories</em>}</li>
  *   <li>{@link org.osate.categories.categories.impl.CategoriesDefinitionsImpl#getSelectioncategories <em>Selectioncategories</em>}</li>
+ *   <li>{@link org.osate.categories.categories.impl.CategoriesDefinitionsImpl#getPhasecategories <em>Phasecategories</em>}</li>
  *   <li>{@link org.osate.categories.categories.impl.CategoriesDefinitionsImpl#getQualitycategories <em>Qualitycategories</em>}</li>
  *   <li>{@link org.osate.categories.categories.impl.CategoriesDefinitionsImpl#getCategoryfilter <em>Categoryfilter</em>}</li>
  * </ul>
@@ -75,6 +76,16 @@ public class CategoriesDefinitionsImpl extends MinimalEObjectImpl.Container impl
    * @ordered
    */
   protected Categories selectioncategories;
+
+  /**
+   * The cached value of the '{@link #getPhasecategories() <em>Phasecategories</em>}' containment reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see #getPhasecategories()
+   * @generated
+   * @ordered
+   */
+  protected Categories phasecategories;
 
   /**
    * The cached value of the '{@link #getQualitycategories() <em>Qualitycategories</em>}' containment reference.
@@ -314,6 +325,54 @@ public class CategoriesDefinitionsImpl extends MinimalEObjectImpl.Container impl
    * <!-- end-user-doc -->
    * @generated
    */
+  public Categories getPhasecategories()
+  {
+    return phasecategories;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public NotificationChain basicSetPhasecategories(Categories newPhasecategories, NotificationChain msgs)
+  {
+    Categories oldPhasecategories = phasecategories;
+    phasecategories = newPhasecategories;
+    if (eNotificationRequired())
+    {
+      ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, CategoriesPackage.CATEGORIES_DEFINITIONS__PHASECATEGORIES, oldPhasecategories, newPhasecategories);
+      if (msgs == null) msgs = notification; else msgs.add(notification);
+    }
+    return msgs;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public void setPhasecategories(Categories newPhasecategories)
+  {
+    if (newPhasecategories != phasecategories)
+    {
+      NotificationChain msgs = null;
+      if (phasecategories != null)
+        msgs = ((InternalEObject)phasecategories).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - CategoriesPackage.CATEGORIES_DEFINITIONS__PHASECATEGORIES, null, msgs);
+      if (newPhasecategories != null)
+        msgs = ((InternalEObject)newPhasecategories).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - CategoriesPackage.CATEGORIES_DEFINITIONS__PHASECATEGORIES, null, msgs);
+      msgs = basicSetPhasecategories(newPhasecategories, msgs);
+      if (msgs != null) msgs.dispatch();
+    }
+    else if (eNotificationRequired())
+      eNotify(new ENotificationImpl(this, Notification.SET, CategoriesPackage.CATEGORIES_DEFINITIONS__PHASECATEGORIES, newPhasecategories, newPhasecategories));
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
   public Categories getQualitycategories()
   {
     return qualitycategories;
@@ -423,6 +482,8 @@ public class CategoriesDefinitionsImpl extends MinimalEObjectImpl.Container impl
         return basicSetMethodcategories(null, msgs);
       case CategoriesPackage.CATEGORIES_DEFINITIONS__SELECTIONCATEGORIES:
         return basicSetSelectioncategories(null, msgs);
+      case CategoriesPackage.CATEGORIES_DEFINITIONS__PHASECATEGORIES:
+        return basicSetPhasecategories(null, msgs);
       case CategoriesPackage.CATEGORIES_DEFINITIONS__QUALITYCATEGORIES:
         return basicSetQualitycategories(null, msgs);
       case CategoriesPackage.CATEGORIES_DEFINITIONS__CATEGORYFILTER:
@@ -449,6 +510,8 @@ public class CategoriesDefinitionsImpl extends MinimalEObjectImpl.Container impl
         return getMethodcategories();
       case CategoriesPackage.CATEGORIES_DEFINITIONS__SELECTIONCATEGORIES:
         return getSelectioncategories();
+      case CategoriesPackage.CATEGORIES_DEFINITIONS__PHASECATEGORIES:
+        return getPhasecategories();
       case CategoriesPackage.CATEGORIES_DEFINITIONS__QUALITYCATEGORIES:
         return getQualitycategories();
       case CategoriesPackage.CATEGORIES_DEFINITIONS__CATEGORYFILTER:
@@ -478,6 +541,9 @@ public class CategoriesDefinitionsImpl extends MinimalEObjectImpl.Container impl
         return;
       case CategoriesPackage.CATEGORIES_DEFINITIONS__SELECTIONCATEGORIES:
         setSelectioncategories((Categories)newValue);
+        return;
+      case CategoriesPackage.CATEGORIES_DEFINITIONS__PHASECATEGORIES:
+        setPhasecategories((Categories)newValue);
         return;
       case CategoriesPackage.CATEGORIES_DEFINITIONS__QUALITYCATEGORIES:
         setQualitycategories((Categories)newValue);
@@ -511,6 +577,9 @@ public class CategoriesDefinitionsImpl extends MinimalEObjectImpl.Container impl
       case CategoriesPackage.CATEGORIES_DEFINITIONS__SELECTIONCATEGORIES:
         setSelectioncategories((Categories)null);
         return;
+      case CategoriesPackage.CATEGORIES_DEFINITIONS__PHASECATEGORIES:
+        setPhasecategories((Categories)null);
+        return;
       case CategoriesPackage.CATEGORIES_DEFINITIONS__QUALITYCATEGORIES:
         setQualitycategories((Categories)null);
         return;
@@ -539,6 +608,8 @@ public class CategoriesDefinitionsImpl extends MinimalEObjectImpl.Container impl
         return methodcategories != null;
       case CategoriesPackage.CATEGORIES_DEFINITIONS__SELECTIONCATEGORIES:
         return selectioncategories != null;
+      case CategoriesPackage.CATEGORIES_DEFINITIONS__PHASECATEGORIES:
+        return phasecategories != null;
       case CategoriesPackage.CATEGORIES_DEFINITIONS__QUALITYCATEGORIES:
         return qualitycategories != null;
       case CategoriesPackage.CATEGORIES_DEFINITIONS__CATEGORYFILTER:

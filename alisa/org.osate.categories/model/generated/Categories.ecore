@@ -11,6 +11,8 @@
         containment="true"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="selectioncategories" eType="#//Categories"
         containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="phasecategories" eType="#//Categories"
+        containment="true"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="qualitycategories" eType="#//Categories"
         containment="true"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="categoryfilter" eType="#//CategoryFilters"
@@ -36,6 +38,7 @@
   <eClassifiers xsi:type="ecore:EClass" name="MethodCategory" eSuperTypes="#//Category"/>
   <eClassifiers xsi:type="ecore:EClass" name="SelectionCategory" eSuperTypes="#//Category"/>
   <eClassifiers xsi:type="ecore:EClass" name="QualityCategory" eSuperTypes="#//Category"/>
+  <eClassifiers xsi:type="ecore:EClass" name="PhaseCategory" eSuperTypes="#//Category"/>
   <eClassifiers xsi:type="ecore:EClass" name="ComponentCategory" eSuperTypes="#//Category"/>
   <eClassifiers xsi:type="ecore:EClass" name="CategorySet" eSuperTypes="#//Category">
     <eStructuralFeatures xsi:type="ecore:EReference" name="elements" unique="false"

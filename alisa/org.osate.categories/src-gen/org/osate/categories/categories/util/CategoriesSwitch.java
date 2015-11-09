@@ -172,6 +172,14 @@ public class CategoriesSwitch<T> extends Switch<T>
         if (result == null) result = defaultCase(theEObject);
         return result;
       }
+      case CategoriesPackage.PHASE_CATEGORY:
+      {
+        PhaseCategory phaseCategory = (PhaseCategory)theEObject;
+        T result = casePhaseCategory(phaseCategory);
+        if (result == null) result = caseCategory(phaseCategory);
+        if (result == null) result = defaultCase(theEObject);
+        return result;
+      }
       case CategoriesPackage.COMPONENT_CATEGORY:
       {
         ComponentCategory componentCategory = (ComponentCategory)theEObject;
@@ -396,6 +404,22 @@ public class CategoriesSwitch<T> extends Switch<T>
    * @generated
    */
   public T caseQualityCategory(QualityCategory object)
+  {
+    return null;
+  }
+
+  /**
+   * Returns the result of interpreting the object as an instance of '<em>Phase Category</em>'.
+   * <!-- begin-user-doc -->
+   * This implementation returns null;
+   * returning a non-null result will terminate the switch.
+   * <!-- end-user-doc -->
+   * @param object the target of the switch.
+   * @return the result of interpreting the object as an instance of '<em>Phase Category</em>'.
+   * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+   * @generated
+   */
+  public T casePhaseCategory(PhaseCategory object)
   {
     return null;
   }

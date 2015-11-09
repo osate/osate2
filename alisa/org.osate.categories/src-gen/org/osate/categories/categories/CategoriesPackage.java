@@ -103,13 +103,22 @@ public interface CategoriesPackage extends EPackage
   int CATEGORIES_DEFINITIONS__SELECTIONCATEGORIES = 3;
 
   /**
+   * The feature id for the '<em><b>Phasecategories</b></em>' containment reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int CATEGORIES_DEFINITIONS__PHASECATEGORIES = 4;
+
+  /**
    * The feature id for the '<em><b>Qualitycategories</b></em>' containment reference.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    * @ordered
    */
-  int CATEGORIES_DEFINITIONS__QUALITYCATEGORIES = 4;
+  int CATEGORIES_DEFINITIONS__QUALITYCATEGORIES = 5;
 
   /**
    * The feature id for the '<em><b>Categoryfilter</b></em>' containment reference.
@@ -118,7 +127,7 @@ public interface CategoriesPackage extends EPackage
    * @generated
    * @ordered
    */
-  int CATEGORIES_DEFINITIONS__CATEGORYFILTER = 5;
+  int CATEGORIES_DEFINITIONS__CATEGORYFILTER = 6;
 
   /**
    * The number of structural features of the '<em>Definitions</em>' class.
@@ -127,7 +136,7 @@ public interface CategoriesPackage extends EPackage
    * @generated
    * @ordered
    */
-  int CATEGORIES_DEFINITIONS_FEATURE_COUNT = 6;
+  int CATEGORIES_DEFINITIONS_FEATURE_COUNT = 7;
 
   /**
    * The meta object id for the '{@link org.osate.categories.categories.impl.CategoriesImpl <em>Categories</em>}' class.
@@ -466,6 +475,34 @@ public interface CategoriesPackage extends EPackage
   int QUALITY_CATEGORY_FEATURE_COUNT = CATEGORY_FEATURE_COUNT + 0;
 
   /**
+   * The meta object id for the '{@link org.osate.categories.categories.impl.PhaseCategoryImpl <em>Phase Category</em>}' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see org.osate.categories.categories.impl.PhaseCategoryImpl
+   * @see org.osate.categories.categories.impl.CategoriesPackageImpl#getPhaseCategory()
+   * @generated
+   */
+  int PHASE_CATEGORY = 13;
+
+  /**
+   * The feature id for the '<em><b>Name</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int PHASE_CATEGORY__NAME = CATEGORY__NAME;
+
+  /**
+   * The number of structural features of the '<em>Phase Category</em>' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int PHASE_CATEGORY_FEATURE_COUNT = CATEGORY_FEATURE_COUNT + 0;
+
+  /**
    * The meta object id for the '{@link org.osate.categories.categories.impl.ComponentCategoryImpl <em>Component Category</em>}' class.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -473,7 +510,7 @@ public interface CategoriesPackage extends EPackage
    * @see org.osate.categories.categories.impl.CategoriesPackageImpl#getComponentCategory()
    * @generated
    */
-  int COMPONENT_CATEGORY = 13;
+  int COMPONENT_CATEGORY = 14;
 
   /**
    * The feature id for the '<em><b>Name</b></em>' attribute.
@@ -501,7 +538,7 @@ public interface CategoriesPackage extends EPackage
    * @see org.osate.categories.categories.impl.CategoriesPackageImpl#getCategorySet()
    * @generated
    */
-  int CATEGORY_SET = 14;
+  int CATEGORY_SET = 15;
 
   /**
    * The feature id for the '<em><b>Name</b></em>' attribute.
@@ -584,6 +621,17 @@ public interface CategoriesPackage extends EPackage
    * @generated
    */
   EReference getCategoriesDefinitions_Selectioncategories();
+
+  /**
+   * Returns the meta object for the containment reference '{@link org.osate.categories.categories.CategoriesDefinitions#getPhasecategories <em>Phasecategories</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the containment reference '<em>Phasecategories</em>'.
+   * @see org.osate.categories.categories.CategoriesDefinitions#getPhasecategories()
+   * @see #getCategoriesDefinitions()
+   * @generated
+   */
+  EReference getCategoriesDefinitions_Phasecategories();
 
   /**
    * Returns the meta object for the containment reference '{@link org.osate.categories.categories.CategoriesDefinitions#getQualitycategories <em>Qualitycategories</em>}'.
@@ -761,6 +809,16 @@ public interface CategoriesPackage extends EPackage
   EClass getQualityCategory();
 
   /**
+   * Returns the meta object for class '{@link org.osate.categories.categories.PhaseCategory <em>Phase Category</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for class '<em>Phase Category</em>'.
+   * @see org.osate.categories.categories.PhaseCategory
+   * @generated
+   */
+  EClass getPhaseCategory();
+
+  /**
    * Returns the meta object for class '{@link org.osate.categories.categories.ComponentCategory <em>Component Category</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -855,6 +913,14 @@ public interface CategoriesPackage extends EPackage
      * @generated
      */
     EReference CATEGORIES_DEFINITIONS__SELECTIONCATEGORIES = eINSTANCE.getCategoriesDefinitions_Selectioncategories();
+
+    /**
+     * The meta object literal for the '<em><b>Phasecategories</b></em>' containment reference feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EReference CATEGORIES_DEFINITIONS__PHASECATEGORIES = eINSTANCE.getCategoriesDefinitions_Phasecategories();
 
     /**
      * The meta object literal for the '<em><b>Qualitycategories</b></em>' containment reference feature.
@@ -1015,6 +1081,16 @@ public interface CategoriesPackage extends EPackage
      * @generated
      */
     EClass QUALITY_CATEGORY = eINSTANCE.getQualityCategory();
+
+    /**
+     * The meta object literal for the '{@link org.osate.categories.categories.impl.PhaseCategoryImpl <em>Phase Category</em>}' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see org.osate.categories.categories.impl.PhaseCategoryImpl
+     * @see org.osate.categories.categories.impl.CategoriesPackageImpl#getPhaseCategory()
+     * @generated
+     */
+    EClass PHASE_CATEGORY = eINSTANCE.getPhaseCategory();
 
     /**
      * The meta object literal for the '{@link org.osate.categories.categories.impl.ComponentCategoryImpl <em>Component Category</em>}' class.

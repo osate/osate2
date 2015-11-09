@@ -29,20 +29,22 @@ public class CategoriesGrammarAccess extends AbstractGrammarElementFinder {
 		private final RuleCall cMethodcategoriesMethodCategoriesParserRuleCall_2_0 = (RuleCall)cMethodcategoriesAssignment_2.eContents().get(0);
 		private final Assignment cSelectioncategoriesAssignment_3 = (Assignment)cUnorderedGroup.eContents().get(3);
 		private final RuleCall cSelectioncategoriesSelectionCategoriesParserRuleCall_3_0 = (RuleCall)cSelectioncategoriesAssignment_3.eContents().get(0);
-		private final Assignment cQualitycategoriesAssignment_4 = (Assignment)cUnorderedGroup.eContents().get(4);
-		private final RuleCall cQualitycategoriesQualityCategoriesParserRuleCall_4_0 = (RuleCall)cQualitycategoriesAssignment_4.eContents().get(0);
-		private final Assignment cCategoryfilterAssignment_5 = (Assignment)cUnorderedGroup.eContents().get(5);
-		private final RuleCall cCategoryfilterCategoryFiltersParserRuleCall_5_0 = (RuleCall)cCategoryfilterAssignment_5.eContents().get(0);
+		private final Assignment cPhasecategoriesAssignment_4 = (Assignment)cUnorderedGroup.eContents().get(4);
+		private final RuleCall cPhasecategoriesPhaseCategoriesParserRuleCall_4_0 = (RuleCall)cPhasecategoriesAssignment_4.eContents().get(0);
+		private final Assignment cQualitycategoriesAssignment_5 = (Assignment)cUnorderedGroup.eContents().get(5);
+		private final RuleCall cQualitycategoriesQualityCategoriesParserRuleCall_5_0 = (RuleCall)cQualitycategoriesAssignment_5.eContents().get(0);
+		private final Assignment cCategoryfilterAssignment_6 = (Assignment)cUnorderedGroup.eContents().get(6);
+		private final RuleCall cCategoryfilterCategoryFiltersParserRuleCall_6_0 = (RuleCall)cCategoryfilterAssignment_6.eContents().get(0);
 		
 		//CategoriesDefinitions:
 		//	requirementcategories=RequirementCategories? & componentcategories=ComponentCategories? &
-		//	methodcategories=MethodCategories? & selectioncategories=SelectionCategories? & qualitycategories=QualityCategories?
-		//	& categoryfilter=CategoryFilters?;
+		//	methodcategories=MethodCategories? & selectioncategories=SelectionCategories? & phasecategories=PhaseCategories? &
+		//	qualitycategories=QualityCategories? & categoryfilter=CategoryFilters?;
 		@Override public ParserRule getRule() { return rule; }
 
 		//requirementcategories=RequirementCategories? & componentcategories=ComponentCategories? &
-		//methodcategories=MethodCategories? & selectioncategories=SelectionCategories? & qualitycategories=QualityCategories? &
-		//categoryfilter=CategoryFilters?
+		//methodcategories=MethodCategories? & selectioncategories=SelectionCategories? & phasecategories=PhaseCategories? &
+		//qualitycategories=QualityCategories? & categoryfilter=CategoryFilters?
 		public UnorderedGroup getUnorderedGroup() { return cUnorderedGroup; }
 
 		//requirementcategories=RequirementCategories?
@@ -69,17 +71,23 @@ public class CategoriesGrammarAccess extends AbstractGrammarElementFinder {
 		//SelectionCategories
 		public RuleCall getSelectioncategoriesSelectionCategoriesParserRuleCall_3_0() { return cSelectioncategoriesSelectionCategoriesParserRuleCall_3_0; }
 
+		//phasecategories=PhaseCategories?
+		public Assignment getPhasecategoriesAssignment_4() { return cPhasecategoriesAssignment_4; }
+
+		//PhaseCategories
+		public RuleCall getPhasecategoriesPhaseCategoriesParserRuleCall_4_0() { return cPhasecategoriesPhaseCategoriesParserRuleCall_4_0; }
+
 		//qualitycategories=QualityCategories?
-		public Assignment getQualitycategoriesAssignment_4() { return cQualitycategoriesAssignment_4; }
+		public Assignment getQualitycategoriesAssignment_5() { return cQualitycategoriesAssignment_5; }
 
 		//QualityCategories
-		public RuleCall getQualitycategoriesQualityCategoriesParserRuleCall_4_0() { return cQualitycategoriesQualityCategoriesParserRuleCall_4_0; }
+		public RuleCall getQualitycategoriesQualityCategoriesParserRuleCall_5_0() { return cQualitycategoriesQualityCategoriesParserRuleCall_5_0; }
 
 		//categoryfilter=CategoryFilters?
-		public Assignment getCategoryfilterAssignment_5() { return cCategoryfilterAssignment_5; }
+		public Assignment getCategoryfilterAssignment_6() { return cCategoryfilterAssignment_6; }
 
 		//CategoryFilters
-		public RuleCall getCategoryfilterCategoryFiltersParserRuleCall_5_0() { return cCategoryfilterCategoryFiltersParserRuleCall_5_0; }
+		public RuleCall getCategoryfilterCategoryFiltersParserRuleCall_6_0() { return cCategoryfilterCategoryFiltersParserRuleCall_6_0; }
 	}
 
 	public class RequirementCategoriesElements extends AbstractParserRuleElementFinder {
@@ -239,6 +247,46 @@ public class CategoriesGrammarAccess extends AbstractGrammarElementFinder {
 
 		//QualityCategory
 		public RuleCall getCategoryQualityCategoryParserRuleCall_4_0() { return cCategoryQualityCategoryParserRuleCall_4_0; }
+
+		//"]"
+		public Keyword getRightSquareBracketKeyword_5() { return cRightSquareBracketKeyword_5; }
+	}
+
+	public class PhaseCategoriesElements extends AbstractParserRuleElementFinder {
+		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "PhaseCategories");
+		private final Group cGroup = (Group)rule.eContents().get(1);
+		private final Action cQualityCategoriesAction_0 = (Action)cGroup.eContents().get(0);
+		private final Keyword cPhaseKeyword_1 = (Keyword)cGroup.eContents().get(1);
+		private final Keyword cCategoriesKeyword_2 = (Keyword)cGroup.eContents().get(2);
+		private final Keyword cLeftSquareBracketKeyword_3 = (Keyword)cGroup.eContents().get(3);
+		private final Assignment cCategoryAssignment_4 = (Assignment)cGroup.eContents().get(4);
+		private final RuleCall cCategoryPhaseCategoryParserRuleCall_4_0 = (RuleCall)cCategoryAssignment_4.eContents().get(0);
+		private final Keyword cRightSquareBracketKeyword_5 = (Keyword)cGroup.eContents().get(5);
+		
+		//PhaseCategories returns Categories:
+		//	{QualityCategories} "phase" "categories" "[" category+=PhaseCategory+ "]";
+		@Override public ParserRule getRule() { return rule; }
+
+		//{QualityCategories} "phase" "categories" "[" category+=PhaseCategory+ "]"
+		public Group getGroup() { return cGroup; }
+
+		//{QualityCategories}
+		public Action getQualityCategoriesAction_0() { return cQualityCategoriesAction_0; }
+
+		//"phase"
+		public Keyword getPhaseKeyword_1() { return cPhaseKeyword_1; }
+
+		//"categories"
+		public Keyword getCategoriesKeyword_2() { return cCategoriesKeyword_2; }
+
+		//"["
+		public Keyword getLeftSquareBracketKeyword_3() { return cLeftSquareBracketKeyword_3; }
+
+		//category+=PhaseCategory+
+		public Assignment getCategoryAssignment_4() { return cCategoryAssignment_4; }
+
+		//PhaseCategory
+		public RuleCall getCategoryPhaseCategoryParserRuleCall_4_0() { return cCategoryPhaseCategoryParserRuleCall_4_0; }
 
 		//"]"
 		public Keyword getRightSquareBracketKeyword_5() { return cRightSquareBracketKeyword_5; }
@@ -404,6 +452,36 @@ public class CategoriesGrammarAccess extends AbstractGrammarElementFinder {
 		public RuleCall getNameIDTerminalRuleCall_1_0() { return cNameIDTerminalRuleCall_1_0; }
 	}
 
+	public class PhaseCategoryElements extends AbstractParserRuleElementFinder {
+		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "PhaseCategory");
+		private final Group cGroup = (Group)rule.eContents().get(1);
+		private final Action cPhaseCategoryAction_0 = (Action)cGroup.eContents().get(0);
+		private final Assignment cNameAssignment_1 = (Assignment)cGroup.eContents().get(1);
+		private final RuleCall cNameIDTerminalRuleCall_1_0 = (RuleCall)cNameAssignment_1.eContents().get(0);
+		
+		/// **
+		// * phase category indicates a development phase 
+		// * / PhaseCategory returns Category:
+		//	{PhaseCategory} name= //('{' subCategories+=[QualityCategory|CatRef]*'}')? 
+		//	ID;
+		@Override public ParserRule getRule() { return rule; }
+
+		//{PhaseCategory} name= //('{' subCategories+=[QualityCategory|CatRef]*'}')? 
+		//ID
+		public Group getGroup() { return cGroup; }
+
+		//{PhaseCategory}
+		public Action getPhaseCategoryAction_0() { return cPhaseCategoryAction_0; }
+
+		//name= //('{' subCategories+=[QualityCategory|CatRef]*'}')? 
+		//ID
+		public Assignment getNameAssignment_1() { return cNameAssignment_1; }
+
+		////('{' subCategories+=[QualityCategory|CatRef]*'}')? 
+		//ID
+		public RuleCall getNameIDTerminalRuleCall_1_0() { return cNameIDTerminalRuleCall_1_0; }
+	}
+
 	public class ComponentCategoryElements extends AbstractParserRuleElementFinder {
 		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "ComponentCategory");
 		private final Group cGroup = (Group)rule.eContents().get(1);
@@ -412,7 +490,7 @@ public class CategoriesGrammarAccess extends AbstractGrammarElementFinder {
 		private final RuleCall cNameIDTerminalRuleCall_1_0 = (RuleCall)cNameAssignment_1.eContents().get(0);
 		
 		/// **
-		// * quality category indicates a quality attribute 
+		// * component category indicates an AADL component category 
 		// * / ComponentCategory returns Category:
 		//	{ComponentCategory} name= //('{' subCategories+=[ComponentCategory|CatRef]*'}')? 
 		//	ID;
@@ -534,11 +612,13 @@ public class CategoriesGrammarAccess extends AbstractGrammarElementFinder {
 	private final MethodCategoriesElements pMethodCategories;
 	private final SelectionCategoriesElements pSelectionCategories;
 	private final QualityCategoriesElements pQualityCategories;
+	private final PhaseCategoriesElements pPhaseCategories;
 	private final ComponentCategoriesElements pComponentCategories;
 	private final RequirementCategoryElements pRequirementCategory;
 	private final MethodCategoryElements pMethodCategory;
 	private final SelectionCategoryElements pSelectionCategory;
 	private final QualityCategoryElements pQualityCategory;
+	private final PhaseCategoryElements pPhaseCategory;
 	private final ComponentCategoryElements pComponentCategory;
 	private final CategoryFiltersElements pCategoryFilters;
 	private final CategorySetElements pCategorySet;
@@ -558,11 +638,13 @@ public class CategoriesGrammarAccess extends AbstractGrammarElementFinder {
 		this.pMethodCategories = new MethodCategoriesElements();
 		this.pSelectionCategories = new SelectionCategoriesElements();
 		this.pQualityCategories = new QualityCategoriesElements();
+		this.pPhaseCategories = new PhaseCategoriesElements();
 		this.pComponentCategories = new ComponentCategoriesElements();
 		this.pRequirementCategory = new RequirementCategoryElements();
 		this.pMethodCategory = new MethodCategoryElements();
 		this.pSelectionCategory = new SelectionCategoryElements();
 		this.pQualityCategory = new QualityCategoryElements();
+		this.pPhaseCategory = new PhaseCategoryElements();
 		this.pComponentCategory = new ComponentCategoryElements();
 		this.pCategoryFilters = new CategoryFiltersElements();
 		this.pCategorySet = new CategorySetElements();
@@ -598,8 +680,8 @@ public class CategoriesGrammarAccess extends AbstractGrammarElementFinder {
 	
 	//CategoriesDefinitions:
 	//	requirementcategories=RequirementCategories? & componentcategories=ComponentCategories? &
-	//	methodcategories=MethodCategories? & selectioncategories=SelectionCategories? & qualitycategories=QualityCategories?
-	//	& categoryfilter=CategoryFilters?;
+	//	methodcategories=MethodCategories? & selectioncategories=SelectionCategories? & phasecategories=PhaseCategories? &
+	//	qualitycategories=QualityCategories? & categoryfilter=CategoryFilters?;
 	public CategoriesDefinitionsElements getCategoriesDefinitionsAccess() {
 		return pCategoriesDefinitions;
 	}
@@ -648,6 +730,16 @@ public class CategoriesGrammarAccess extends AbstractGrammarElementFinder {
 	
 	public ParserRule getQualityCategoriesRule() {
 		return getQualityCategoriesAccess().getRule();
+	}
+
+	//PhaseCategories returns Categories:
+	//	{QualityCategories} "phase" "categories" "[" category+=PhaseCategory+ "]";
+	public PhaseCategoriesElements getPhaseCategoriesAccess() {
+		return pPhaseCategories;
+	}
+	
+	public ParserRule getPhaseCategoriesRule() {
+		return getPhaseCategoriesAccess().getRule();
 	}
 
 	//ComponentCategories returns Categories:
@@ -713,7 +805,20 @@ public class CategoriesGrammarAccess extends AbstractGrammarElementFinder {
 	}
 
 	/// **
-	// * quality category indicates a quality attribute 
+	// * phase category indicates a development phase 
+	// * / PhaseCategory returns Category:
+	//	{PhaseCategory} name= //('{' subCategories+=[QualityCategory|CatRef]*'}')? 
+	//	ID;
+	public PhaseCategoryElements getPhaseCategoryAccess() {
+		return pPhaseCategory;
+	}
+	
+	public ParserRule getPhaseCategoryRule() {
+		return getPhaseCategoryAccess().getRule();
+	}
+
+	/// **
+	// * component category indicates an AADL component category 
 	// * / ComponentCategory returns Category:
 	//	{ComponentCategory} name= //('{' subCategories+=[ComponentCategory|CatRef]*'}')? 
 	//	ID;

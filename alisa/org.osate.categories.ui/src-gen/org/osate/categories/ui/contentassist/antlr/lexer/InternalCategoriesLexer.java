@@ -13,25 +13,26 @@ import java.util.ArrayList;
 @SuppressWarnings("all")
 public class InternalCategoriesLexer extends Lexer {
     public static final int Category=8;
+    public static final int Phase=12;
     public static final int Selection=7;
-    public static final int RULE_STRING=18;
-    public static final int RULE_SL_COMMENT=20;
+    public static final int RULE_STRING=19;
+    public static final int RULE_SL_COMMENT=21;
     public static final int Filters=9;
     public static final int Quality=10;
-    public static final int RightCurlyBracket=15;
+    public static final int RightCurlyBracket=16;
     public static final int Component=6;
     public static final int EOF=-1;
-    public static final int RightSquareBracket=13;
-    public static final int RULE_ID=16;
+    public static final int RightSquareBracket=14;
+    public static final int RULE_ID=17;
     public static final int Categories=5;
-    public static final int RULE_WS=21;
-    public static final int LeftCurlyBracket=14;
+    public static final int RULE_WS=22;
+    public static final int LeftCurlyBracket=15;
     public static final int Method=11;
-    public static final int RULE_ANY_OTHER=22;
+    public static final int RULE_ANY_OTHER=23;
     public static final int Requirement=4;
-    public static final int RULE_INT=17;
-    public static final int RULE_ML_COMMENT=19;
-    public static final int LeftSquareBracket=12;
+    public static final int RULE_INT=18;
+    public static final int RULE_ML_COMMENT=20;
+    public static final int LeftSquareBracket=13;
 
     // delegates
     // delegators
@@ -214,13 +215,34 @@ public class InternalCategoriesLexer extends Lexer {
     }
     // $ANTLR end "Method"
 
+    // $ANTLR start "Phase"
+    public final void mPhase() throws RecognitionException {
+        try {
+            int _type = Phase;
+            int _channel = DEFAULT_TOKEN_CHANNEL;
+            // ../org.osate.categories.ui/src-gen/org/osate/categories/ui/contentassist/antlr/lexer/InternalCategoriesLexer.g:35:7: ( 'phase' )
+            // ../org.osate.categories.ui/src-gen/org/osate/categories/ui/contentassist/antlr/lexer/InternalCategoriesLexer.g:35:9: 'phase'
+            {
+            match("phase"); 
+
+
+            }
+
+            state.type = _type;
+            state.channel = _channel;
+        }
+        finally {
+        }
+    }
+    // $ANTLR end "Phase"
+
     // $ANTLR start "LeftSquareBracket"
     public final void mLeftSquareBracket() throws RecognitionException {
         try {
             int _type = LeftSquareBracket;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../org.osate.categories.ui/src-gen/org/osate/categories/ui/contentassist/antlr/lexer/InternalCategoriesLexer.g:35:19: ( '[' )
-            // ../org.osate.categories.ui/src-gen/org/osate/categories/ui/contentassist/antlr/lexer/InternalCategoriesLexer.g:35:21: '['
+            // ../org.osate.categories.ui/src-gen/org/osate/categories/ui/contentassist/antlr/lexer/InternalCategoriesLexer.g:37:19: ( '[' )
+            // ../org.osate.categories.ui/src-gen/org/osate/categories/ui/contentassist/antlr/lexer/InternalCategoriesLexer.g:37:21: '['
             {
             match('['); 
 
@@ -239,8 +261,8 @@ public class InternalCategoriesLexer extends Lexer {
         try {
             int _type = RightSquareBracket;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../org.osate.categories.ui/src-gen/org/osate/categories/ui/contentassist/antlr/lexer/InternalCategoriesLexer.g:37:20: ( ']' )
-            // ../org.osate.categories.ui/src-gen/org/osate/categories/ui/contentassist/antlr/lexer/InternalCategoriesLexer.g:37:22: ']'
+            // ../org.osate.categories.ui/src-gen/org/osate/categories/ui/contentassist/antlr/lexer/InternalCategoriesLexer.g:39:20: ( ']' )
+            // ../org.osate.categories.ui/src-gen/org/osate/categories/ui/contentassist/antlr/lexer/InternalCategoriesLexer.g:39:22: ']'
             {
             match(']'); 
 
@@ -259,8 +281,8 @@ public class InternalCategoriesLexer extends Lexer {
         try {
             int _type = LeftCurlyBracket;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../org.osate.categories.ui/src-gen/org/osate/categories/ui/contentassist/antlr/lexer/InternalCategoriesLexer.g:39:18: ( '{' )
-            // ../org.osate.categories.ui/src-gen/org/osate/categories/ui/contentassist/antlr/lexer/InternalCategoriesLexer.g:39:20: '{'
+            // ../org.osate.categories.ui/src-gen/org/osate/categories/ui/contentassist/antlr/lexer/InternalCategoriesLexer.g:41:18: ( '{' )
+            // ../org.osate.categories.ui/src-gen/org/osate/categories/ui/contentassist/antlr/lexer/InternalCategoriesLexer.g:41:20: '{'
             {
             match('{'); 
 
@@ -279,8 +301,8 @@ public class InternalCategoriesLexer extends Lexer {
         try {
             int _type = RightCurlyBracket;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../org.osate.categories.ui/src-gen/org/osate/categories/ui/contentassist/antlr/lexer/InternalCategoriesLexer.g:41:19: ( '}' )
-            // ../org.osate.categories.ui/src-gen/org/osate/categories/ui/contentassist/antlr/lexer/InternalCategoriesLexer.g:41:21: '}'
+            // ../org.osate.categories.ui/src-gen/org/osate/categories/ui/contentassist/antlr/lexer/InternalCategoriesLexer.g:43:19: ( '}' )
+            // ../org.osate.categories.ui/src-gen/org/osate/categories/ui/contentassist/antlr/lexer/InternalCategoriesLexer.g:43:21: '}'
             {
             match('}'); 
 
@@ -299,10 +321,10 @@ public class InternalCategoriesLexer extends Lexer {
         try {
             int _type = RULE_ID;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../org.osate.categories.ui/src-gen/org/osate/categories/ui/contentassist/antlr/lexer/InternalCategoriesLexer.g:45:9: ( ( '^' )? ( 'a' .. 'z' | 'A' .. 'Z' | '_' ) ( 'a' .. 'z' | 'A' .. 'Z' | '_' | '0' .. '9' )* )
-            // ../org.osate.categories.ui/src-gen/org/osate/categories/ui/contentassist/antlr/lexer/InternalCategoriesLexer.g:45:11: ( '^' )? ( 'a' .. 'z' | 'A' .. 'Z' | '_' ) ( 'a' .. 'z' | 'A' .. 'Z' | '_' | '0' .. '9' )*
+            // ../org.osate.categories.ui/src-gen/org/osate/categories/ui/contentassist/antlr/lexer/InternalCategoriesLexer.g:47:9: ( ( '^' )? ( 'a' .. 'z' | 'A' .. 'Z' | '_' ) ( 'a' .. 'z' | 'A' .. 'Z' | '_' | '0' .. '9' )* )
+            // ../org.osate.categories.ui/src-gen/org/osate/categories/ui/contentassist/antlr/lexer/InternalCategoriesLexer.g:47:11: ( '^' )? ( 'a' .. 'z' | 'A' .. 'Z' | '_' ) ( 'a' .. 'z' | 'A' .. 'Z' | '_' | '0' .. '9' )*
             {
-            // ../org.osate.categories.ui/src-gen/org/osate/categories/ui/contentassist/antlr/lexer/InternalCategoriesLexer.g:45:11: ( '^' )?
+            // ../org.osate.categories.ui/src-gen/org/osate/categories/ui/contentassist/antlr/lexer/InternalCategoriesLexer.g:47:11: ( '^' )?
             int alt1=2;
             int LA1_0 = input.LA(1);
 
@@ -311,7 +333,7 @@ public class InternalCategoriesLexer extends Lexer {
             }
             switch (alt1) {
                 case 1 :
-                    // ../org.osate.categories.ui/src-gen/org/osate/categories/ui/contentassist/antlr/lexer/InternalCategoriesLexer.g:45:11: '^'
+                    // ../org.osate.categories.ui/src-gen/org/osate/categories/ui/contentassist/antlr/lexer/InternalCategoriesLexer.g:47:11: '^'
                     {
                     match('^'); 
 
@@ -329,7 +351,7 @@ public class InternalCategoriesLexer extends Lexer {
                 recover(mse);
                 throw mse;}
 
-            // ../org.osate.categories.ui/src-gen/org/osate/categories/ui/contentassist/antlr/lexer/InternalCategoriesLexer.g:45:40: ( 'a' .. 'z' | 'A' .. 'Z' | '_' | '0' .. '9' )*
+            // ../org.osate.categories.ui/src-gen/org/osate/categories/ui/contentassist/antlr/lexer/InternalCategoriesLexer.g:47:40: ( 'a' .. 'z' | 'A' .. 'Z' | '_' | '0' .. '9' )*
             loop2:
             do {
                 int alt2=2;
@@ -378,10 +400,10 @@ public class InternalCategoriesLexer extends Lexer {
         try {
             int _type = RULE_INT;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../org.osate.categories.ui/src-gen/org/osate/categories/ui/contentassist/antlr/lexer/InternalCategoriesLexer.g:47:10: ( ( '0' .. '9' )+ )
-            // ../org.osate.categories.ui/src-gen/org/osate/categories/ui/contentassist/antlr/lexer/InternalCategoriesLexer.g:47:12: ( '0' .. '9' )+
+            // ../org.osate.categories.ui/src-gen/org/osate/categories/ui/contentassist/antlr/lexer/InternalCategoriesLexer.g:49:10: ( ( '0' .. '9' )+ )
+            // ../org.osate.categories.ui/src-gen/org/osate/categories/ui/contentassist/antlr/lexer/InternalCategoriesLexer.g:49:12: ( '0' .. '9' )+
             {
-            // ../org.osate.categories.ui/src-gen/org/osate/categories/ui/contentassist/antlr/lexer/InternalCategoriesLexer.g:47:12: ( '0' .. '9' )+
+            // ../org.osate.categories.ui/src-gen/org/osate/categories/ui/contentassist/antlr/lexer/InternalCategoriesLexer.g:49:12: ( '0' .. '9' )+
             int cnt3=0;
             loop3:
             do {
@@ -395,7 +417,7 @@ public class InternalCategoriesLexer extends Lexer {
 
                 switch (alt3) {
             	case 1 :
-            	    // ../org.osate.categories.ui/src-gen/org/osate/categories/ui/contentassist/antlr/lexer/InternalCategoriesLexer.g:47:13: '0' .. '9'
+            	    // ../org.osate.categories.ui/src-gen/org/osate/categories/ui/contentassist/antlr/lexer/InternalCategoriesLexer.g:49:13: '0' .. '9'
             	    {
             	    matchRange('0','9'); 
 
@@ -427,10 +449,10 @@ public class InternalCategoriesLexer extends Lexer {
         try {
             int _type = RULE_STRING;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../org.osate.categories.ui/src-gen/org/osate/categories/ui/contentassist/antlr/lexer/InternalCategoriesLexer.g:49:13: ( ( '\"' ( '\\\\' . | ~ ( ( '\\\\' | '\"' ) ) )* '\"' | '\\'' ( '\\\\' . | ~ ( ( '\\\\' | '\\'' ) ) )* '\\'' ) )
-            // ../org.osate.categories.ui/src-gen/org/osate/categories/ui/contentassist/antlr/lexer/InternalCategoriesLexer.g:49:15: ( '\"' ( '\\\\' . | ~ ( ( '\\\\' | '\"' ) ) )* '\"' | '\\'' ( '\\\\' . | ~ ( ( '\\\\' | '\\'' ) ) )* '\\'' )
+            // ../org.osate.categories.ui/src-gen/org/osate/categories/ui/contentassist/antlr/lexer/InternalCategoriesLexer.g:51:13: ( ( '\"' ( '\\\\' . | ~ ( ( '\\\\' | '\"' ) ) )* '\"' | '\\'' ( '\\\\' . | ~ ( ( '\\\\' | '\\'' ) ) )* '\\'' ) )
+            // ../org.osate.categories.ui/src-gen/org/osate/categories/ui/contentassist/antlr/lexer/InternalCategoriesLexer.g:51:15: ( '\"' ( '\\\\' . | ~ ( ( '\\\\' | '\"' ) ) )* '\"' | '\\'' ( '\\\\' . | ~ ( ( '\\\\' | '\\'' ) ) )* '\\'' )
             {
-            // ../org.osate.categories.ui/src-gen/org/osate/categories/ui/contentassist/antlr/lexer/InternalCategoriesLexer.g:49:15: ( '\"' ( '\\\\' . | ~ ( ( '\\\\' | '\"' ) ) )* '\"' | '\\'' ( '\\\\' . | ~ ( ( '\\\\' | '\\'' ) ) )* '\\'' )
+            // ../org.osate.categories.ui/src-gen/org/osate/categories/ui/contentassist/antlr/lexer/InternalCategoriesLexer.g:51:15: ( '\"' ( '\\\\' . | ~ ( ( '\\\\' | '\"' ) ) )* '\"' | '\\'' ( '\\\\' . | ~ ( ( '\\\\' | '\\'' ) ) )* '\\'' )
             int alt6=2;
             int LA6_0 = input.LA(1);
 
@@ -448,10 +470,10 @@ public class InternalCategoriesLexer extends Lexer {
             }
             switch (alt6) {
                 case 1 :
-                    // ../org.osate.categories.ui/src-gen/org/osate/categories/ui/contentassist/antlr/lexer/InternalCategoriesLexer.g:49:16: '\"' ( '\\\\' . | ~ ( ( '\\\\' | '\"' ) ) )* '\"'
+                    // ../org.osate.categories.ui/src-gen/org/osate/categories/ui/contentassist/antlr/lexer/InternalCategoriesLexer.g:51:16: '\"' ( '\\\\' . | ~ ( ( '\\\\' | '\"' ) ) )* '\"'
                     {
                     match('\"'); 
-                    // ../org.osate.categories.ui/src-gen/org/osate/categories/ui/contentassist/antlr/lexer/InternalCategoriesLexer.g:49:20: ( '\\\\' . | ~ ( ( '\\\\' | '\"' ) ) )*
+                    // ../org.osate.categories.ui/src-gen/org/osate/categories/ui/contentassist/antlr/lexer/InternalCategoriesLexer.g:51:20: ( '\\\\' . | ~ ( ( '\\\\' | '\"' ) ) )*
                     loop4:
                     do {
                         int alt4=3;
@@ -467,7 +489,7 @@ public class InternalCategoriesLexer extends Lexer {
 
                         switch (alt4) {
                     	case 1 :
-                    	    // ../org.osate.categories.ui/src-gen/org/osate/categories/ui/contentassist/antlr/lexer/InternalCategoriesLexer.g:49:21: '\\\\' .
+                    	    // ../org.osate.categories.ui/src-gen/org/osate/categories/ui/contentassist/antlr/lexer/InternalCategoriesLexer.g:51:21: '\\\\' .
                     	    {
                     	    match('\\'); 
                     	    matchAny(); 
@@ -475,7 +497,7 @@ public class InternalCategoriesLexer extends Lexer {
                     	    }
                     	    break;
                     	case 2 :
-                    	    // ../org.osate.categories.ui/src-gen/org/osate/categories/ui/contentassist/antlr/lexer/InternalCategoriesLexer.g:49:28: ~ ( ( '\\\\' | '\"' ) )
+                    	    // ../org.osate.categories.ui/src-gen/org/osate/categories/ui/contentassist/antlr/lexer/InternalCategoriesLexer.g:51:28: ~ ( ( '\\\\' | '\"' ) )
                     	    {
                     	    if ( (input.LA(1)>='\u0000' && input.LA(1)<='!')||(input.LA(1)>='#' && input.LA(1)<='[')||(input.LA(1)>=']' && input.LA(1)<='\uFFFF') ) {
                     	        input.consume();
@@ -500,10 +522,10 @@ public class InternalCategoriesLexer extends Lexer {
                     }
                     break;
                 case 2 :
-                    // ../org.osate.categories.ui/src-gen/org/osate/categories/ui/contentassist/antlr/lexer/InternalCategoriesLexer.g:49:48: '\\'' ( '\\\\' . | ~ ( ( '\\\\' | '\\'' ) ) )* '\\''
+                    // ../org.osate.categories.ui/src-gen/org/osate/categories/ui/contentassist/antlr/lexer/InternalCategoriesLexer.g:51:48: '\\'' ( '\\\\' . | ~ ( ( '\\\\' | '\\'' ) ) )* '\\''
                     {
                     match('\''); 
-                    // ../org.osate.categories.ui/src-gen/org/osate/categories/ui/contentassist/antlr/lexer/InternalCategoriesLexer.g:49:53: ( '\\\\' . | ~ ( ( '\\\\' | '\\'' ) ) )*
+                    // ../org.osate.categories.ui/src-gen/org/osate/categories/ui/contentassist/antlr/lexer/InternalCategoriesLexer.g:51:53: ( '\\\\' . | ~ ( ( '\\\\' | '\\'' ) ) )*
                     loop5:
                     do {
                         int alt5=3;
@@ -519,7 +541,7 @@ public class InternalCategoriesLexer extends Lexer {
 
                         switch (alt5) {
                     	case 1 :
-                    	    // ../org.osate.categories.ui/src-gen/org/osate/categories/ui/contentassist/antlr/lexer/InternalCategoriesLexer.g:49:54: '\\\\' .
+                    	    // ../org.osate.categories.ui/src-gen/org/osate/categories/ui/contentassist/antlr/lexer/InternalCategoriesLexer.g:51:54: '\\\\' .
                     	    {
                     	    match('\\'); 
                     	    matchAny(); 
@@ -527,7 +549,7 @@ public class InternalCategoriesLexer extends Lexer {
                     	    }
                     	    break;
                     	case 2 :
-                    	    // ../org.osate.categories.ui/src-gen/org/osate/categories/ui/contentassist/antlr/lexer/InternalCategoriesLexer.g:49:61: ~ ( ( '\\\\' | '\\'' ) )
+                    	    // ../org.osate.categories.ui/src-gen/org/osate/categories/ui/contentassist/antlr/lexer/InternalCategoriesLexer.g:51:61: ~ ( ( '\\\\' | '\\'' ) )
                     	    {
                     	    if ( (input.LA(1)>='\u0000' && input.LA(1)<='&')||(input.LA(1)>='(' && input.LA(1)<='[')||(input.LA(1)>=']' && input.LA(1)<='\uFFFF') ) {
                     	        input.consume();
@@ -570,12 +592,12 @@ public class InternalCategoriesLexer extends Lexer {
         try {
             int _type = RULE_ML_COMMENT;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../org.osate.categories.ui/src-gen/org/osate/categories/ui/contentassist/antlr/lexer/InternalCategoriesLexer.g:51:17: ( '/*' ( options {greedy=false; } : . )* '*/' )
-            // ../org.osate.categories.ui/src-gen/org/osate/categories/ui/contentassist/antlr/lexer/InternalCategoriesLexer.g:51:19: '/*' ( options {greedy=false; } : . )* '*/'
+            // ../org.osate.categories.ui/src-gen/org/osate/categories/ui/contentassist/antlr/lexer/InternalCategoriesLexer.g:53:17: ( '/*' ( options {greedy=false; } : . )* '*/' )
+            // ../org.osate.categories.ui/src-gen/org/osate/categories/ui/contentassist/antlr/lexer/InternalCategoriesLexer.g:53:19: '/*' ( options {greedy=false; } : . )* '*/'
             {
             match("/*"); 
 
-            // ../org.osate.categories.ui/src-gen/org/osate/categories/ui/contentassist/antlr/lexer/InternalCategoriesLexer.g:51:24: ( options {greedy=false; } : . )*
+            // ../org.osate.categories.ui/src-gen/org/osate/categories/ui/contentassist/antlr/lexer/InternalCategoriesLexer.g:53:24: ( options {greedy=false; } : . )*
             loop7:
             do {
                 int alt7=2;
@@ -600,7 +622,7 @@ public class InternalCategoriesLexer extends Lexer {
 
                 switch (alt7) {
             	case 1 :
-            	    // ../org.osate.categories.ui/src-gen/org/osate/categories/ui/contentassist/antlr/lexer/InternalCategoriesLexer.g:51:52: .
+            	    // ../org.osate.categories.ui/src-gen/org/osate/categories/ui/contentassist/antlr/lexer/InternalCategoriesLexer.g:53:52: .
             	    {
             	    matchAny(); 
 
@@ -630,12 +652,12 @@ public class InternalCategoriesLexer extends Lexer {
         try {
             int _type = RULE_SL_COMMENT;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../org.osate.categories.ui/src-gen/org/osate/categories/ui/contentassist/antlr/lexer/InternalCategoriesLexer.g:53:17: ( '//' (~ ( ( '\\n' | '\\r' ) ) )* ( ( '\\r' )? '\\n' )? )
-            // ../org.osate.categories.ui/src-gen/org/osate/categories/ui/contentassist/antlr/lexer/InternalCategoriesLexer.g:53:19: '//' (~ ( ( '\\n' | '\\r' ) ) )* ( ( '\\r' )? '\\n' )?
+            // ../org.osate.categories.ui/src-gen/org/osate/categories/ui/contentassist/antlr/lexer/InternalCategoriesLexer.g:55:17: ( '//' (~ ( ( '\\n' | '\\r' ) ) )* ( ( '\\r' )? '\\n' )? )
+            // ../org.osate.categories.ui/src-gen/org/osate/categories/ui/contentassist/antlr/lexer/InternalCategoriesLexer.g:55:19: '//' (~ ( ( '\\n' | '\\r' ) ) )* ( ( '\\r' )? '\\n' )?
             {
             match("//"); 
 
-            // ../org.osate.categories.ui/src-gen/org/osate/categories/ui/contentassist/antlr/lexer/InternalCategoriesLexer.g:53:24: (~ ( ( '\\n' | '\\r' ) ) )*
+            // ../org.osate.categories.ui/src-gen/org/osate/categories/ui/contentassist/antlr/lexer/InternalCategoriesLexer.g:55:24: (~ ( ( '\\n' | '\\r' ) ) )*
             loop8:
             do {
                 int alt8=2;
@@ -648,7 +670,7 @@ public class InternalCategoriesLexer extends Lexer {
 
                 switch (alt8) {
             	case 1 :
-            	    // ../org.osate.categories.ui/src-gen/org/osate/categories/ui/contentassist/antlr/lexer/InternalCategoriesLexer.g:53:24: ~ ( ( '\\n' | '\\r' ) )
+            	    // ../org.osate.categories.ui/src-gen/org/osate/categories/ui/contentassist/antlr/lexer/InternalCategoriesLexer.g:55:24: ~ ( ( '\\n' | '\\r' ) )
             	    {
             	    if ( (input.LA(1)>='\u0000' && input.LA(1)<='\t')||(input.LA(1)>='\u000B' && input.LA(1)<='\f')||(input.LA(1)>='\u000E' && input.LA(1)<='\uFFFF') ) {
             	        input.consume();
@@ -668,7 +690,7 @@ public class InternalCategoriesLexer extends Lexer {
                 }
             } while (true);
 
-            // ../org.osate.categories.ui/src-gen/org/osate/categories/ui/contentassist/antlr/lexer/InternalCategoriesLexer.g:53:40: ( ( '\\r' )? '\\n' )?
+            // ../org.osate.categories.ui/src-gen/org/osate/categories/ui/contentassist/antlr/lexer/InternalCategoriesLexer.g:55:40: ( ( '\\r' )? '\\n' )?
             int alt10=2;
             int LA10_0 = input.LA(1);
 
@@ -677,9 +699,9 @@ public class InternalCategoriesLexer extends Lexer {
             }
             switch (alt10) {
                 case 1 :
-                    // ../org.osate.categories.ui/src-gen/org/osate/categories/ui/contentassist/antlr/lexer/InternalCategoriesLexer.g:53:41: ( '\\r' )? '\\n'
+                    // ../org.osate.categories.ui/src-gen/org/osate/categories/ui/contentassist/antlr/lexer/InternalCategoriesLexer.g:55:41: ( '\\r' )? '\\n'
                     {
-                    // ../org.osate.categories.ui/src-gen/org/osate/categories/ui/contentassist/antlr/lexer/InternalCategoriesLexer.g:53:41: ( '\\r' )?
+                    // ../org.osate.categories.ui/src-gen/org/osate/categories/ui/contentassist/antlr/lexer/InternalCategoriesLexer.g:55:41: ( '\\r' )?
                     int alt9=2;
                     int LA9_0 = input.LA(1);
 
@@ -688,7 +710,7 @@ public class InternalCategoriesLexer extends Lexer {
                     }
                     switch (alt9) {
                         case 1 :
-                            // ../org.osate.categories.ui/src-gen/org/osate/categories/ui/contentassist/antlr/lexer/InternalCategoriesLexer.g:53:41: '\\r'
+                            // ../org.osate.categories.ui/src-gen/org/osate/categories/ui/contentassist/antlr/lexer/InternalCategoriesLexer.g:55:41: '\\r'
                             {
                             match('\r'); 
 
@@ -720,10 +742,10 @@ public class InternalCategoriesLexer extends Lexer {
         try {
             int _type = RULE_WS;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../org.osate.categories.ui/src-gen/org/osate/categories/ui/contentassist/antlr/lexer/InternalCategoriesLexer.g:55:9: ( ( ' ' | '\\t' | '\\r' | '\\n' )+ )
-            // ../org.osate.categories.ui/src-gen/org/osate/categories/ui/contentassist/antlr/lexer/InternalCategoriesLexer.g:55:11: ( ' ' | '\\t' | '\\r' | '\\n' )+
+            // ../org.osate.categories.ui/src-gen/org/osate/categories/ui/contentassist/antlr/lexer/InternalCategoriesLexer.g:57:9: ( ( ' ' | '\\t' | '\\r' | '\\n' )+ )
+            // ../org.osate.categories.ui/src-gen/org/osate/categories/ui/contentassist/antlr/lexer/InternalCategoriesLexer.g:57:11: ( ' ' | '\\t' | '\\r' | '\\n' )+
             {
-            // ../org.osate.categories.ui/src-gen/org/osate/categories/ui/contentassist/antlr/lexer/InternalCategoriesLexer.g:55:11: ( ' ' | '\\t' | '\\r' | '\\n' )+
+            // ../org.osate.categories.ui/src-gen/org/osate/categories/ui/contentassist/antlr/lexer/InternalCategoriesLexer.g:57:11: ( ' ' | '\\t' | '\\r' | '\\n' )+
             int cnt11=0;
             loop11:
             do {
@@ -777,8 +799,8 @@ public class InternalCategoriesLexer extends Lexer {
         try {
             int _type = RULE_ANY_OTHER;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../org.osate.categories.ui/src-gen/org/osate/categories/ui/contentassist/antlr/lexer/InternalCategoriesLexer.g:57:16: ( . )
-            // ../org.osate.categories.ui/src-gen/org/osate/categories/ui/contentassist/antlr/lexer/InternalCategoriesLexer.g:57:18: .
+            // ../org.osate.categories.ui/src-gen/org/osate/categories/ui/contentassist/antlr/lexer/InternalCategoriesLexer.g:59:16: ( . )
+            // ../org.osate.categories.ui/src-gen/org/osate/categories/ui/contentassist/antlr/lexer/InternalCategoriesLexer.g:59:18: .
             {
             matchAny(); 
 
@@ -793,8 +815,8 @@ public class InternalCategoriesLexer extends Lexer {
     // $ANTLR end "RULE_ANY_OTHER"
 
     public void mTokens() throws RecognitionException {
-        // ../org.osate.categories.ui/src-gen/org/osate/categories/ui/contentassist/antlr/lexer/InternalCategoriesLexer.g:1:8: ( Requirement | Categories | Component | Selection | Category | Filters | Quality | Method | LeftSquareBracket | RightSquareBracket | LeftCurlyBracket | RightCurlyBracket | RULE_ID | RULE_INT | RULE_STRING | RULE_ML_COMMENT | RULE_SL_COMMENT | RULE_WS | RULE_ANY_OTHER )
-        int alt12=19;
+        // ../org.osate.categories.ui/src-gen/org/osate/categories/ui/contentassist/antlr/lexer/InternalCategoriesLexer.g:1:8: ( Requirement | Categories | Component | Selection | Category | Filters | Quality | Method | Phase | LeftSquareBracket | RightSquareBracket | LeftCurlyBracket | RightCurlyBracket | RULE_ID | RULE_INT | RULE_STRING | RULE_ML_COMMENT | RULE_SL_COMMENT | RULE_WS | RULE_ANY_OTHER )
+        int alt12=20;
         alt12 = dfa12.predict(input);
         switch (alt12) {
             case 1 :
@@ -854,77 +876,84 @@ public class InternalCategoriesLexer extends Lexer {
                 }
                 break;
             case 9 :
-                // ../org.osate.categories.ui/src-gen/org/osate/categories/ui/contentassist/antlr/lexer/InternalCategoriesLexer.g:1:85: LeftSquareBracket
+                // ../org.osate.categories.ui/src-gen/org/osate/categories/ui/contentassist/antlr/lexer/InternalCategoriesLexer.g:1:85: Phase
+                {
+                mPhase(); 
+
+                }
+                break;
+            case 10 :
+                // ../org.osate.categories.ui/src-gen/org/osate/categories/ui/contentassist/antlr/lexer/InternalCategoriesLexer.g:1:91: LeftSquareBracket
                 {
                 mLeftSquareBracket(); 
 
                 }
                 break;
-            case 10 :
-                // ../org.osate.categories.ui/src-gen/org/osate/categories/ui/contentassist/antlr/lexer/InternalCategoriesLexer.g:1:103: RightSquareBracket
+            case 11 :
+                // ../org.osate.categories.ui/src-gen/org/osate/categories/ui/contentassist/antlr/lexer/InternalCategoriesLexer.g:1:109: RightSquareBracket
                 {
                 mRightSquareBracket(); 
 
                 }
                 break;
-            case 11 :
-                // ../org.osate.categories.ui/src-gen/org/osate/categories/ui/contentassist/antlr/lexer/InternalCategoriesLexer.g:1:122: LeftCurlyBracket
+            case 12 :
+                // ../org.osate.categories.ui/src-gen/org/osate/categories/ui/contentassist/antlr/lexer/InternalCategoriesLexer.g:1:128: LeftCurlyBracket
                 {
                 mLeftCurlyBracket(); 
 
                 }
                 break;
-            case 12 :
-                // ../org.osate.categories.ui/src-gen/org/osate/categories/ui/contentassist/antlr/lexer/InternalCategoriesLexer.g:1:139: RightCurlyBracket
+            case 13 :
+                // ../org.osate.categories.ui/src-gen/org/osate/categories/ui/contentassist/antlr/lexer/InternalCategoriesLexer.g:1:145: RightCurlyBracket
                 {
                 mRightCurlyBracket(); 
 
                 }
                 break;
-            case 13 :
-                // ../org.osate.categories.ui/src-gen/org/osate/categories/ui/contentassist/antlr/lexer/InternalCategoriesLexer.g:1:157: RULE_ID
+            case 14 :
+                // ../org.osate.categories.ui/src-gen/org/osate/categories/ui/contentassist/antlr/lexer/InternalCategoriesLexer.g:1:163: RULE_ID
                 {
                 mRULE_ID(); 
 
                 }
                 break;
-            case 14 :
-                // ../org.osate.categories.ui/src-gen/org/osate/categories/ui/contentassist/antlr/lexer/InternalCategoriesLexer.g:1:165: RULE_INT
+            case 15 :
+                // ../org.osate.categories.ui/src-gen/org/osate/categories/ui/contentassist/antlr/lexer/InternalCategoriesLexer.g:1:171: RULE_INT
                 {
                 mRULE_INT(); 
 
                 }
                 break;
-            case 15 :
-                // ../org.osate.categories.ui/src-gen/org/osate/categories/ui/contentassist/antlr/lexer/InternalCategoriesLexer.g:1:174: RULE_STRING
+            case 16 :
+                // ../org.osate.categories.ui/src-gen/org/osate/categories/ui/contentassist/antlr/lexer/InternalCategoriesLexer.g:1:180: RULE_STRING
                 {
                 mRULE_STRING(); 
 
                 }
                 break;
-            case 16 :
-                // ../org.osate.categories.ui/src-gen/org/osate/categories/ui/contentassist/antlr/lexer/InternalCategoriesLexer.g:1:186: RULE_ML_COMMENT
+            case 17 :
+                // ../org.osate.categories.ui/src-gen/org/osate/categories/ui/contentassist/antlr/lexer/InternalCategoriesLexer.g:1:192: RULE_ML_COMMENT
                 {
                 mRULE_ML_COMMENT(); 
 
                 }
                 break;
-            case 17 :
-                // ../org.osate.categories.ui/src-gen/org/osate/categories/ui/contentassist/antlr/lexer/InternalCategoriesLexer.g:1:202: RULE_SL_COMMENT
+            case 18 :
+                // ../org.osate.categories.ui/src-gen/org/osate/categories/ui/contentassist/antlr/lexer/InternalCategoriesLexer.g:1:208: RULE_SL_COMMENT
                 {
                 mRULE_SL_COMMENT(); 
 
                 }
                 break;
-            case 18 :
-                // ../org.osate.categories.ui/src-gen/org/osate/categories/ui/contentassist/antlr/lexer/InternalCategoriesLexer.g:1:218: RULE_WS
+            case 19 :
+                // ../org.osate.categories.ui/src-gen/org/osate/categories/ui/contentassist/antlr/lexer/InternalCategoriesLexer.g:1:224: RULE_WS
                 {
                 mRULE_WS(); 
 
                 }
                 break;
-            case 19 :
-                // ../org.osate.categories.ui/src-gen/org/osate/categories/ui/contentassist/antlr/lexer/InternalCategoriesLexer.g:1:226: RULE_ANY_OTHER
+            case 20 :
+                // ../org.osate.categories.ui/src-gen/org/osate/categories/ui/contentassist/antlr/lexer/InternalCategoriesLexer.g:1:232: RULE_ANY_OTHER
                 {
                 mRULE_ANY_OTHER(); 
 
@@ -938,77 +967,79 @@ public class InternalCategoriesLexer extends Lexer {
 
     protected DFA12 dfa12 = new DFA12(this);
     static final String DFA12_eotS =
-        "\1\uffff\6\24\4\uffff\1\22\2\uffff\3\22\2\uffff\1\24\1\uffff\6"+
-        "\24\11\uffff\33\24\1\106\4\24\1\114\1\115\1\uffff\2\24\1\120\2\24"+
-        "\2\uffff\2\24\1\uffff\1\125\1\126\1\24\1\130\2\uffff\1\131\2\uffff";
+        "\1\uffff\7\25\4\uffff\1\23\2\uffff\3\23\2\uffff\1\25\1\uffff\7"+
+        "\25\11\uffff\27\25\1\105\6\25\1\114\1\uffff\4\25\1\122\1\123\1\uffff"+
+        "\2\25\1\126\2\25\2\uffff\2\25\1\uffff\1\133\1\134\1\25\1\136\2\uffff"+
+        "\1\137\2\uffff";
     static final String DFA12_eofS =
-        "\132\uffff";
+        "\140\uffff";
     static final String DFA12_minS =
-        "\1\0\1\145\1\141\1\145\1\151\1\165\1\145\4\uffff\1\101\2\uffff"+
-        "\2\0\1\52\2\uffff\1\161\1\uffff\1\164\1\155\2\154\1\141\1\164\11"+
-        "\uffff\1\165\1\145\1\160\1\145\1\164\1\154\1\150\1\151\1\147\1\157"+
-        "\1\143\1\145\1\151\1\157\1\162\1\157\1\156\1\164\1\162\1\164\1\144"+
-        "\1\145\1\162\1\145\1\151\1\163\1\171\1\60\1\155\1\151\1\156\1\157"+
-        "\2\60\1\uffff\2\145\1\60\1\164\1\156\2\uffff\1\156\1\163\1\uffff"+
-        "\2\60\1\164\1\60\2\uffff\1\60\2\uffff";
+        "\1\0\1\145\1\141\1\145\1\151\1\165\1\145\1\150\4\uffff\1\101\2"+
+        "\uffff\2\0\1\52\2\uffff\1\161\1\uffff\1\164\1\155\2\154\1\141\1"+
+        "\164\1\141\11\uffff\1\165\1\145\1\160\1\145\1\164\1\154\1\150\1"+
+        "\163\1\151\1\147\1\157\1\143\1\145\1\151\1\157\1\145\1\162\1\157"+
+        "\1\156\1\164\1\162\1\164\1\144\1\60\1\145\1\162\1\145\1\151\1\163"+
+        "\1\171\1\60\1\uffff\1\155\1\151\1\156\1\157\2\60\1\uffff\2\145\1"+
+        "\60\1\164\1\156\2\uffff\1\156\1\163\1\uffff\2\60\1\164\1\60\2\uffff"+
+        "\1\60\2\uffff";
     static final String DFA12_maxS =
-        "\1\uffff\1\145\1\157\1\145\1\151\1\165\1\145\4\uffff\1\172\2\uffff"+
-        "\2\uffff\1\57\2\uffff\1\161\1\uffff\1\164\1\155\2\154\1\141\1\164"+
-        "\11\uffff\1\165\1\145\1\160\1\145\1\164\1\154\1\150\1\151\1\147"+
-        "\1\157\1\143\1\145\1\151\1\157\1\162\1\157\1\156\1\164\1\162\1\164"+
-        "\1\144\1\145\1\162\1\145\1\151\1\163\1\171\1\172\1\155\1\171\1\156"+
-        "\1\157\2\172\1\uffff\2\145\1\172\1\164\1\156\2\uffff\1\156\1\163"+
-        "\1\uffff\2\172\1\164\1\172\2\uffff\1\172\2\uffff";
+        "\1\uffff\1\145\1\157\1\145\1\151\1\165\1\145\1\150\4\uffff\1\172"+
+        "\2\uffff\2\uffff\1\57\2\uffff\1\161\1\uffff\1\164\1\155\2\154\1"+
+        "\141\1\164\1\141\11\uffff\1\165\1\145\1\160\1\145\1\164\1\154\1"+
+        "\150\1\163\1\151\1\147\1\157\1\143\1\145\1\151\1\157\1\145\1\162"+
+        "\1\157\1\156\1\164\1\162\1\164\1\144\1\172\1\145\1\162\1\145\1\151"+
+        "\1\163\1\171\1\172\1\uffff\1\155\1\171\1\156\1\157\2\172\1\uffff"+
+        "\2\145\1\172\1\164\1\156\2\uffff\1\156\1\163\1\uffff\2\172\1\164"+
+        "\1\172\2\uffff\1\172\2\uffff";
     static final String DFA12_acceptS =
-        "\7\uffff\1\11\1\12\1\13\1\14\1\uffff\1\15\1\16\3\uffff\1\22\1\23"+
-        "\1\uffff\1\15\6\uffff\1\11\1\12\1\13\1\14\1\16\1\17\1\20\1\21\1"+
-        "\22\42\uffff\1\10\5\uffff\1\6\1\7\2\uffff\1\5\4\uffff\1\3\1\4\1"+
-        "\uffff\1\2\1\1";
+        "\10\uffff\1\12\1\13\1\14\1\15\1\uffff\1\16\1\17\3\uffff\1\23\1"+
+        "\24\1\uffff\1\16\7\uffff\1\12\1\13\1\14\1\15\1\17\1\20\1\21\1\22"+
+        "\1\23\37\uffff\1\11\6\uffff\1\10\5\uffff\1\6\1\7\2\uffff\1\5\4\uffff"+
+        "\1\3\1\4\1\uffff\1\2\1\1";
     static final String DFA12_specialS =
-        "\1\1\15\uffff\1\2\1\0\112\uffff}>";
+        "\1\1\16\uffff\1\2\1\0\117\uffff}>";
     static final String[] DFA12_transitionS = {
-            "\11\22\2\21\2\22\1\21\22\22\1\21\1\22\1\16\4\22\1\17\7\22\1"+
-            "\20\12\15\7\22\32\14\1\7\1\22\1\10\1\13\1\14\1\22\2\14\1\2\2"+
-            "\14\1\4\6\14\1\6\3\14\1\5\1\1\1\3\7\14\1\11\1\22\1\12\uff82"+
-            "\22",
-            "\1\23",
-            "\1\25\15\uffff\1\26",
-            "\1\27",
+            "\11\23\2\22\2\23\1\22\22\23\1\22\1\23\1\17\4\23\1\20\7\23\1"+
+            "\21\12\16\7\23\32\15\1\10\1\23\1\11\1\14\1\15\1\23\2\15\1\2"+
+            "\2\15\1\4\6\15\1\6\2\15\1\7\1\5\1\1\1\3\7\15\1\12\1\23\1\13"+
+            "\uff82\23",
+            "\1\24",
+            "\1\26\15\uffff\1\27",
             "\1\30",
             "\1\31",
             "\1\32",
+            "\1\33",
+            "\1\34",
             "",
             "",
             "",
             "",
-            "\32\24\4\uffff\1\24\1\uffff\32\24",
+            "\32\25\4\uffff\1\25\1\uffff\32\25",
             "",
             "",
-            "\0\40",
-            "\0\40",
-            "\1\41\4\uffff\1\42",
+            "\0\42",
+            "\0\42",
+            "\1\43\4\uffff\1\44",
             "",
             "",
-            "\1\44",
-            "",
-            "\1\45",
             "\1\46",
+            "",
             "\1\47",
             "\1\50",
             "\1\51",
             "\1\52",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
             "\1\53",
             "\1\54",
             "\1\55",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
             "\1\56",
             "\1\57",
             "\1\60",
@@ -1032,32 +1063,39 @@ public class InternalCategoriesLexer extends Lexer {
             "\1\102",
             "\1\103",
             "\1\104",
-            "\1\105",
-            "\12\24\7\uffff\32\24\4\uffff\1\24\1\uffff\32\24",
+            "\12\25\7\uffff\32\25\4\uffff\1\25\1\uffff\32\25",
+            "\1\106",
             "\1\107",
-            "\1\110\17\uffff\1\111",
+            "\1\110",
+            "\1\111",
             "\1\112",
             "\1\113",
-            "\12\24\7\uffff\32\24\4\uffff\1\24\1\uffff\32\24",
-            "\12\24\7\uffff\32\24\4\uffff\1\24\1\uffff\32\24",
+            "\12\25\7\uffff\32\25\4\uffff\1\25\1\uffff\32\25",
             "",
-            "\1\116",
-            "\1\117",
-            "\12\24\7\uffff\32\24\4\uffff\1\24\1\uffff\32\24",
+            "\1\115",
+            "\1\116\17\uffff\1\117",
+            "\1\120",
             "\1\121",
-            "\1\122",
+            "\12\25\7\uffff\32\25\4\uffff\1\25\1\uffff\32\25",
+            "\12\25\7\uffff\32\25\4\uffff\1\25\1\uffff\32\25",
             "",
-            "",
-            "\1\123",
             "\1\124",
-            "",
-            "\12\24\7\uffff\32\24\4\uffff\1\24\1\uffff\32\24",
-            "\12\24\7\uffff\32\24\4\uffff\1\24\1\uffff\32\24",
+            "\1\125",
+            "\12\25\7\uffff\32\25\4\uffff\1\25\1\uffff\32\25",
             "\1\127",
-            "\12\24\7\uffff\32\24\4\uffff\1\24\1\uffff\32\24",
+            "\1\130",
             "",
             "",
-            "\12\24\7\uffff\32\24\4\uffff\1\24\1\uffff\32\24",
+            "\1\131",
+            "\1\132",
+            "",
+            "\12\25\7\uffff\32\25\4\uffff\1\25\1\uffff\32\25",
+            "\12\25\7\uffff\32\25\4\uffff\1\25\1\uffff\32\25",
+            "\1\135",
+            "\12\25\7\uffff\32\25\4\uffff\1\25\1\uffff\32\25",
+            "",
+            "",
+            "\12\25\7\uffff\32\25\4\uffff\1\25\1\uffff\32\25",
             "",
             ""
     };
@@ -1092,19 +1130,19 @@ public class InternalCategoriesLexer extends Lexer {
             this.transition = DFA12_transition;
         }
         public String getDescription() {
-            return "1:1: Tokens : ( Requirement | Categories | Component | Selection | Category | Filters | Quality | Method | LeftSquareBracket | RightSquareBracket | LeftCurlyBracket | RightCurlyBracket | RULE_ID | RULE_INT | RULE_STRING | RULE_ML_COMMENT | RULE_SL_COMMENT | RULE_WS | RULE_ANY_OTHER );";
+            return "1:1: Tokens : ( Requirement | Categories | Component | Selection | Category | Filters | Quality | Method | Phase | LeftSquareBracket | RightSquareBracket | LeftCurlyBracket | RightCurlyBracket | RULE_ID | RULE_INT | RULE_STRING | RULE_ML_COMMENT | RULE_SL_COMMENT | RULE_WS | RULE_ANY_OTHER );";
         }
         public int specialStateTransition(int s, IntStream _input) throws NoViableAltException {
             IntStream input = _input;
         	int _s = s;
             switch ( s ) {
                     case 0 : 
-                        int LA12_15 = input.LA(1);
+                        int LA12_16 = input.LA(1);
 
                         s = -1;
-                        if ( ((LA12_15>='\u0000' && LA12_15<='\uFFFF')) ) {s = 32;}
+                        if ( ((LA12_16>='\u0000' && LA12_16<='\uFFFF')) ) {s = 34;}
 
-                        else s = 18;
+                        else s = 19;
 
                         if ( s>=0 ) return s;
                         break;
@@ -1124,39 +1162,41 @@ public class InternalCategoriesLexer extends Lexer {
 
                         else if ( (LA12_0=='m') ) {s = 6;}
 
-                        else if ( (LA12_0=='[') ) {s = 7;}
+                        else if ( (LA12_0=='p') ) {s = 7;}
 
-                        else if ( (LA12_0==']') ) {s = 8;}
+                        else if ( (LA12_0=='[') ) {s = 8;}
 
-                        else if ( (LA12_0=='{') ) {s = 9;}
+                        else if ( (LA12_0==']') ) {s = 9;}
 
-                        else if ( (LA12_0=='}') ) {s = 10;}
+                        else if ( (LA12_0=='{') ) {s = 10;}
 
-                        else if ( (LA12_0=='^') ) {s = 11;}
+                        else if ( (LA12_0=='}') ) {s = 11;}
 
-                        else if ( ((LA12_0>='A' && LA12_0<='Z')||LA12_0=='_'||(LA12_0>='a' && LA12_0<='b')||(LA12_0>='d' && LA12_0<='e')||(LA12_0>='g' && LA12_0<='l')||(LA12_0>='n' && LA12_0<='p')||(LA12_0>='t' && LA12_0<='z')) ) {s = 12;}
+                        else if ( (LA12_0=='^') ) {s = 12;}
 
-                        else if ( ((LA12_0>='0' && LA12_0<='9')) ) {s = 13;}
+                        else if ( ((LA12_0>='A' && LA12_0<='Z')||LA12_0=='_'||(LA12_0>='a' && LA12_0<='b')||(LA12_0>='d' && LA12_0<='e')||(LA12_0>='g' && LA12_0<='l')||(LA12_0>='n' && LA12_0<='o')||(LA12_0>='t' && LA12_0<='z')) ) {s = 13;}
 
-                        else if ( (LA12_0=='\"') ) {s = 14;}
+                        else if ( ((LA12_0>='0' && LA12_0<='9')) ) {s = 14;}
 
-                        else if ( (LA12_0=='\'') ) {s = 15;}
+                        else if ( (LA12_0=='\"') ) {s = 15;}
 
-                        else if ( (LA12_0=='/') ) {s = 16;}
+                        else if ( (LA12_0=='\'') ) {s = 16;}
 
-                        else if ( ((LA12_0>='\t' && LA12_0<='\n')||LA12_0=='\r'||LA12_0==' ') ) {s = 17;}
+                        else if ( (LA12_0=='/') ) {s = 17;}
 
-                        else if ( ((LA12_0>='\u0000' && LA12_0<='\b')||(LA12_0>='\u000B' && LA12_0<='\f')||(LA12_0>='\u000E' && LA12_0<='\u001F')||LA12_0=='!'||(LA12_0>='#' && LA12_0<='&')||(LA12_0>='(' && LA12_0<='.')||(LA12_0>=':' && LA12_0<='@')||LA12_0=='\\'||LA12_0=='`'||LA12_0=='|'||(LA12_0>='~' && LA12_0<='\uFFFF')) ) {s = 18;}
+                        else if ( ((LA12_0>='\t' && LA12_0<='\n')||LA12_0=='\r'||LA12_0==' ') ) {s = 18;}
+
+                        else if ( ((LA12_0>='\u0000' && LA12_0<='\b')||(LA12_0>='\u000B' && LA12_0<='\f')||(LA12_0>='\u000E' && LA12_0<='\u001F')||LA12_0=='!'||(LA12_0>='#' && LA12_0<='&')||(LA12_0>='(' && LA12_0<='.')||(LA12_0>=':' && LA12_0<='@')||LA12_0=='\\'||LA12_0=='`'||LA12_0=='|'||(LA12_0>='~' && LA12_0<='\uFFFF')) ) {s = 19;}
 
                         if ( s>=0 ) return s;
                         break;
                     case 2 : 
-                        int LA12_14 = input.LA(1);
+                        int LA12_15 = input.LA(1);
 
                         s = -1;
-                        if ( ((LA12_14>='\u0000' && LA12_14<='\uFFFF')) ) {s = 32;}
+                        if ( ((LA12_15>='\u0000' && LA12_15<='\uFFFF')) ) {s = 34;}
 
-                        else s = 18;
+                        else s = 19;
 
                         if ( s>=0 ) return s;
                         break;

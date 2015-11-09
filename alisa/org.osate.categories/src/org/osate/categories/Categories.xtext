@@ -2,8 +2,8 @@ grammar org.osate.categories.Categories with org.eclipse.xtext.common.Terminals
 
 generate categories "http://www.osate.org/categories/Categories"
 
-CategoriesDefinitions : requirementcategories=RequirementCategories?  &componentcategories=ComponentCategories? & methodcategories=MethodCategories? & selectioncategories=SelectionCategories?
-	 & qualitycategories=QualityCategories? &  categoryfilter=CategoryFilters?
+CategoriesDefinitions : requirementcategories=RequirementCategories?  & componentcategories=ComponentCategories? & methodcategories=MethodCategories? & selectioncategories=SelectionCategories?
+	 & phasecategories=PhaseCategories? & qualitycategories=QualityCategories? &  categoryfilter=CategoryFilters?
 ;
 /**
  * requirement categories uses a label instead of name to make the category itself global
@@ -29,6 +29,12 @@ SelectionCategories returns Categories:
 QualityCategories returns Categories:
 	{QualityCategories}'quality' 'categories' 
 	'[' category += QualityCategory+
+	']'
+;
+
+PhaseCategories returns Categories:
+	{QualityCategories}'phase' 'categories' 
+	'[' category += PhaseCategory+
 	']'
 ;
 
@@ -75,7 +81,14 @@ QualityCategory returns Category:
 ;
 
 /**
- * quality category indicates a quality attribute 
+ * phase category indicates a development phase 
+ */
+PhaseCategory returns Category:
+	{PhaseCategory} name = ID //('{' subCategories+=[QualityCategory|CatRef]*'}')? 
+;
+
+/**
+ * component category indicates an AADL component category 
  */
 ComponentCategory returns Category:
 	{ComponentCategory} name = ID //('{' subCategories+=[ComponentCategory|CatRef]*'}')? 
