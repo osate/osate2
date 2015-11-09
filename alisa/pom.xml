@@ -11,12 +11,20 @@
 	<properties>
 		<tycho.version>0.23.0</tycho.version>
 		<tycho-extras.version>0.23.0</tycho-extras.version>
-		<xtext.version>2.8.3</xtext.version>
+		
+		<osate.stable.version>2.1.2</osate.stable.version>
+		<xtext.stable.version>2.8.4</xtext.stable.version>
+		<xtext.testing.version>2.8.4</xtext.testing.version>
+
+		<osate.stable.url>http://www.aadl.info/aadl/osate/stable/${osate.stable.version}/update-site/</osate.stable.url>
+		<eclipse.stable.url>http://download.eclipse.org/releases/luna/201502271000</eclipse.stable.url>
+		<xtext.stable.url>http://download.eclipse.org/modeling/tmf/xtext/updates/releases/${xtext.stable.version}/</xtext.stable.url>
+
+		<osate.testing.url>http://www.aadl.info/aadl/osate/testing/update-site/</osate.testing.url>
+		<eclipse.testing.url>http://download.eclipse.org/releases/mars/201510021000</eclipse.testing.url>
+		<xtext.testing.url>http://download.eclipse.org/modeling/tmf/xtext/updates/releases/${xtext.testing.version}/</xtext.testing.url>
+
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-		<osate.version>2.1.1</osate.version>
-		<luna-sr1a.url>http://download.eclipse.org/releases/luna/201501121000</luna-sr1a.url>
-		<luna-sr2.url>http://download.eclipse.org/releases/luna/201502271000</luna-sr2.url>
-		<xtext.url>http://download.eclipse.org/modeling/tmf/xtext/updates/releases/${xtext.version}/</xtext.url>
 	</properties>
 
 	<repositories>
@@ -26,43 +34,51 @@
 			<layout>p2</layout>
 		</repository>
 	</repositories>
+	
 	<profiles>
 		<profile>
 			<id>osate2.stable</id>
+			<properties>
+				<xtext.version>${xtext.stable.version}</xtext.version>
+			</properties>
 			<repositories>
 				<repository>
 					<id>osate-stable</id>
-					<url>http://www.aadl.info/aadl/osate/stable/${osate.version}/update-site/</url>
+					<url>${osate.stable.url}</url>
 					<layout>p2</layout>
 				</repository>
 				<repository>
-					<id>luna-sr2</id>
-					<url>${luna-sr2.url}</url>
+					<id>eclipse-stable</id>
+					<url>${eclipse.stable.url}</url>
 					<layout>p2</layout>
 				</repository>
 				<repository>
 					<id>xtext</id>
-					<url>${xtext.url}</url>
+					<url>${xtext.stable.url}</url>
 					<layout>p2</layout>
 				</repository>
 			</repositories>
 		</profile>
+		
 		<profile>
 			<id>osate2.testing</id>
+			<properties>
+				<xtext.version>${xtext.testing.version}</xtext.version>
+			</properties>
 			<repositories>
 				<repository>
 					<id>osate-testing</id>
-					<url>http://www.aadl.info/aadl/osate/testing/update-site/</url>
+					<url>${osate.testing.url}</url>
 					<layout>p2</layout>
 				</repository>
 				<repository>
-					<id>luna-sr2</id>
-					<url>${luna-sr2.url}</url>
+					<id>eclipse-testing</id>
+					<url>${eclipse.testing.url}</url>
 					<layout>p2</layout>
 				</repository>
 				<repository>
 					<id>xtext</id>
-					<url>${xtext.url}</url>
+					<url>${xtext.testing.url}</url>
 					<layout>p2</layout>
 				</repository>
 			</repositories>
