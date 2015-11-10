@@ -690,12 +690,30 @@ class OtherErrorModelScopeProviderTest extends OsateTest {
 			public
 				abstract a1
 				features
+					af1: feature;
 					dp1: in data port;
+					ep1: in event port;
+					edp1: in event data port;
 				end a1;
+				
+				abstract implementation a1.i
+				internal features
+					es1: event;
+					eds1: event data;
+				end a1.i;
 				
 				abstract a2 extends a1
 				features
+					af2: feature;
 					dp2: in data port;
+					ep2: in event port;
+					edp2: in event data port;
+				end a2;
+				
+				abstract implementation a2.i extends a1.i
+				internal features
+					es2: event;
+					eds2: event data;
 				annex EMV2 {**
 					use types ErrorLibrary;
 					
@@ -705,21 +723,23 @@ class OtherErrorModelScopeProviderTest extends OsateTest {
 					
 					component error behavior
 					detections
-						detection1: all -[ access ]-> dp1! ps1::const1;
+						detection1: all -[ access ]-> dp1! (ps1::const1);
 					end component;
 				**};
-				end a2;
+				end a2.i;
 			end subclause1;
 		''')
 		suppressSerialization
 		testFile(subclause1FileName).resource.contents.head as AadlPackage => [
 			"subclause1".assertEquals(name)
-			publicSection.ownedClassifiers.get(1) => [
-				"a2".assertEquals(name)
+			publicSection.ownedClassifiers.get(3) => [
+				"a2.i".assertEquals(name)
 				((ownedAnnexSubclauses.head as DefaultAnnexSubclause).parsedAnnexSubclause as ErrorModelSubclause).errorDetections.head => [
 					"detection1".assertEquals(name)
 					//Tests scope_ErrorDetection_detectionReportingPort
-					assertScope(ErrorModelPackage.eINSTANCE.errorDetection_DetectionReportingPort, #["dp1", "dp2"])
+					assertScope(ErrorModelPackage.eINSTANCE.errorDetection_DetectionReportingPort, #["af1", "dp1",
+						"ep1", "edp1", "es1", "eds1", "af2", "dp2", "ep2", "edp2", "es2", "eds2"
+					])
 					//Tests ErrorCodeValue's constant reference
 					errorCode.assertScope(ErrorModelPackage.eINSTANCE.errorCodeValue_Constant, #["Max_Aadlinteger",
 						"Max_Base_Address", "Max_Byte_Count", "Max_Memory_Size", "Max_Queue_Size", "Max_Target_Integer",

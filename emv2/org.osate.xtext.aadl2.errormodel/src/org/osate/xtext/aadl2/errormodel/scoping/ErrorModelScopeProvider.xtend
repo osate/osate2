@@ -18,7 +18,7 @@ import org.osate.aadl2.ComponentImplementation
 import org.osate.aadl2.DirectionType
 import org.osate.aadl2.Element
 import org.osate.aadl2.FeatureGroup
-import org.osate.aadl2.Port
+import org.osate.aadl2.TriggerPort
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorBehaviorState
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorBehaviorStateMachine
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorDetection
@@ -208,7 +208,13 @@ class ErrorModelScopeProvider extends PropertiesScopeProvider {
 	}
 	
 	def scope_ErrorDetection_detectionReportingPort(Classifier context, EReference reference) {
-		context.getAllFeatures.filter(Port).scopeFor
+		val features = context.getAllFeatures.filter(TriggerPort)
+		val internalFeatures = if (context instanceof ComponentImplementation) {
+			context.allInternalFeatures
+		} else {
+			emptySet
+		}
+		(features + internalFeatures).scopeFor
 	}
 	
 	def scope_ErrorStateToModeMapping_mappedModes(ComponentClassifier context, EReference reference) {
