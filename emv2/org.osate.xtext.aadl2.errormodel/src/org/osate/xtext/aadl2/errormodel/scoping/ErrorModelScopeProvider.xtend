@@ -19,17 +19,14 @@ import org.osate.aadl2.DirectionType
 import org.osate.aadl2.Element
 import org.osate.aadl2.FeatureGroup
 import org.osate.aadl2.Port
-import org.osate.xtext.aadl2.errormodel.errorModel.CompositeState
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorBehaviorState
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorBehaviorStateMachine
-import org.osate.xtext.aadl2.errormodel.errorModel.ErrorBehaviorTransition
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorDetection
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorModelLibrary
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorModelSubclause
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorPropagation
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorTypes
 import org.osate.xtext.aadl2.errormodel.errorModel.FeatureorPPReference
-import org.osate.xtext.aadl2.errormodel.errorModel.OutgoingPropagationCondition
 import org.osate.xtext.aadl2.errormodel.errorModel.QualifiedErrorBehaviorState
 import org.osate.xtext.aadl2.errormodel.errorModel.QualifiedPropagationPoint
 import org.osate.xtext.aadl2.errormodel.errorModel.TypeMappingSet
@@ -187,25 +184,23 @@ class ErrorModelScopeProvider extends PropertiesScopeProvider {
 		context.allConnections.scopeFor
 	}
 	
-	def scope_ConditionElement_incoming(ErrorBehaviorTransition context, EReference reference) {
-		val stateMachine = context.getContainerOfType(ErrorBehaviorStateMachine)
-		if (stateMachine != null) {
-			stateMachine.events.scopeFor
-		} else {
-			scopeForEventOrPropagation(context.getContainerOfType(Classifier), true)
-		}
+	def scope_ConditionElement_incoming(ErrorBehaviorStateMachine context, EReference reference) {
+		context.events.scopeFor
+	}
+	
+	def scope_ConditionElement_incoming(Classifier context, EReference reference) {
+		new SimpleScope(context.localDescriptions, true)
 	}
 	
 	def scope_ConditionElement_incoming(ErrorDetection context, EReference reference) {
-		scopeForEventOrPropagation(context.getContainerOfType(Classifier), true)
-	}
-	
-	def scope_ConditionElement_incoming(OutgoingPropagationCondition context, EReference reference) {
-		scopeForEventOrPropagation(context.getContainerOfType(Classifier), false)
-	}
-	
-	def scope_ConditionElement_incoming(CompositeState context, EReference reference) {
-		scopeForEventOrPropagation(context.getContainerOfType(Classifier), false)
+		val classifier = context.getContainerOfType(Classifier)
+		val subcomponentDescriptions = if (classifier instanceof ComponentImplementation) {
+			val validSubcomponents = classifier.allSubcomponents.filter[allClassifier != null]
+			validSubcomponents.map[getSubcomponentPropagations(name + ".", allClassifier)].flatten
+		} else {
+			emptySet
+		}
+		new SimpleScope(classifier.localDescriptions + subcomponentDescriptions, true)
 	}
 	
 	def scope_OutgoingPropagationCondition_outgoing(Classifier context, EReference reference) {
@@ -300,25 +295,13 @@ class ErrorModelScopeProvider extends PropertiesScopeProvider {
 		propagation.kind ?: propagation.featureorPPRefs.join(".", [featureorPP.name])
 	}
 	
-	def private static scopeForEventOrPropagation(Classifier classifier, boolean includeEvents) {
-		val allSubclauses = classifier.allContainingClassifierEMV2Subclauses
-		val localDescriptions = allSubclauses.map[
-			val eventsDescriptions = if (includeEvents) {
-				events.map[EObjectDescription.create(QualifiedName.create(name), it)]
-			} else {
-				emptySet
-			}
+	def private static getLocalDescriptions(Classifier classifier) {
+		classifier.allContainingClassifierEMV2Subclauses.map[
+			val eventsDescriptions = events.map[EObjectDescription.create(QualifiedName.create(name), it)]
 			val inPropagations = propagations.filter[!not && direction == DirectionType.IN]
 			val propagationsDescriptions = inPropagations.map[EObjectDescription.create(QualifiedName.create(propagationName), it)]
 			eventsDescriptions + propagationsDescriptions
 		].flatten
-		val subcomponentDescriptions = if (classifier instanceof ComponentImplementation) {
-			val validSubcomponents = classifier.allSubcomponents.filter[allClassifier != null]
-			validSubcomponents.map[getSubcomponentPropagations(name + ".", allClassifier)].flatten
-		} else {
-			emptySet
-		}
-		new SimpleScope(localDescriptions + subcomponentDescriptions, true)
 	}
 	
 	def private static Iterable<IEObjectDescription> getSubcomponentPropagations(String prefix, ComponentClassifier classifier) {
