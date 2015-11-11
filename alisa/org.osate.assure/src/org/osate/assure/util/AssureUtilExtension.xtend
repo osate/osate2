@@ -462,13 +462,26 @@ class AssureUtilExtension {
 
 	def static getPrintableName(AssureResult ar) {
 		switch (ar) {
-			AssuranceCase: return ar.name
-			ClaimResult: return (ar as ClaimResult).target.name
-			ValidationResult: return (ar as ValidationResult).target.name
+			AssuranceCase: return "system "+ar.name
+			ClaimResult: return "claim "+ar.name
+			ValidationResult: return "validation "+ar.name
+			PreconditionResult: return "precondition "+ar.name
+			VerificationActivityResult: return "evidence "+ar.name
 			ElseResult: return "Else"
 			ThenResult: return "Then"
 		}
-		return "unknown assurance result type"
+		return ""
+	}
+
+	def static getName(AssureResult ar) {
+		switch (ar) {
+			AssuranceCase: return ar.name
+			ClaimResult: return ar.name
+			ValidationResult: return ar.name
+			PreconditionResult: return ar.name
+			VerificationActivityResult: return ar.name
+		}
+		return ""
 	}
 
 	/**
@@ -1037,13 +1050,6 @@ class AssureUtilExtension {
 		return "unknown assure result type"
 	}
 
-	
-	def static String getName(VerificationActivityResult cr){
-		if (!Aadl2Util.isNull(cr.target)){
-			return cr.target?.name
-		}
-		return "[unresolved:"+cr.target.toString+"]"
-	}
 
 
 	def static String constructMessage(VerificationActivityResult vr) {
@@ -1076,6 +1082,27 @@ class AssureUtilExtension {
 			}
 		if(ap.title != null) return ap.title
 		""
+	}
+	
+	def static String getName(VerificationActivityResult cr){
+		if (!Aadl2Util.isNull(cr.target)){
+			return cr.target?.name
+		}
+		return "[unresolved:"+cr.target.toString+"]"
+	}
+	
+	def static String getName(ValidationResult cr){
+		if (!Aadl2Util.isNull(cr.target)){
+			return cr.target?.name
+		}
+		return "[unresolved:"+cr.target.toString+"]"
+	}
+	
+	def static String getName(PreconditionResult cr){
+		if (!Aadl2Util.isNull(cr.target)){
+			return cr.target?.name
+		}
+		return "[unresolved:"+cr.target.toString+"]"
 	}
 
 	def static String getName(AssuranceCase ce) {
