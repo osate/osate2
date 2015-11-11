@@ -14,18 +14,13 @@ import org.eclipse.core.resources.IResourceDeltaVisitor;
 import org.eclipse.core.resources.IWorkspace;
 import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.CoreException;
-import org.eclipse.core.runtime.IPath;
-import org.eclipse.core.runtime.Path;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.graphiti.dt.IDiagramTypeProvider;
 import org.eclipse.xtext.naming.QualifiedName;
 import org.eclipse.xtext.resource.IEObjectDescription;
 import org.eclipse.xtext.resource.IResourceDescription;
-import org.eclipse.xtext.resource.IResourceDescriptions;
 import org.eclipse.xtext.resource.XtextResource;
-import org.eclipse.xtext.resource.XtextResourceSet;
-import org.eclipse.xtext.resource.impl.ResourceDescriptionsProvider;
 import org.osate.aadl2.Aadl2Factory;
 import org.osate.aadl2.AadlPackage;
 import org.osate.aadl2.AnnexLibrary;
@@ -56,7 +51,6 @@ import org.osate.aadl2.SubprogramCall;
 import org.osate.aadl2.SubprogramCallSequence;
 import org.osate.aadl2.TypeExtension;
 import org.osate.annexsupport.AnnexUtil;
-import org.osate.core.OsateCorePlugin;
 import org.osate.ge.diagrams.componentImplementation.patterns.SubprogramCallOrder;
 import org.osate.ge.services.CachingService;
 import org.osate.ge.services.CachingService.Cache;
@@ -65,9 +59,8 @@ import org.osate.ge.services.SavedAadlResourceService.AadlPackageReference;
 import org.osate.ge.ui.util.SelectionHelper;
 import org.osate.ge.ui.xtext.AgeXtextUtil;
 import org.osate.ge.util.Log;
+import org.osate.ge.util.ScopedEMFIndexRetrieval;
 import org.osate.ge.util.StringUtil;
-
-import com.google.inject.Injector;
 
 // Handles references related to the AADL declarative model
 public class DeclarativeReferenceHandler {
@@ -78,7 +71,7 @@ public class DeclarativeReferenceHandler {
 		private final CachingService cachingService;
 		private final Map<String, Object> packageNameToPackageMap = new HashMap<>(); // Map for caching. Cleared when cache is invalidated
 		private final Set<AadlPackageReference> pkgReferences = new HashSet<>(); // Collection of package references. Not cleared to ensure strong references to the EObjectReference objects exist during the lifetime of the service 
-		private Set<IResourceDescription> resourceDescriptions = null; // Resource descriptions for resources which are in the project referenes path
+		private Set<IResourceDescription> resourceDescriptions = null; // Resource descriptions for resources which are in the project references path
 		private SavedAadlResourceService savedAadlResourceService;
 		
 		private final IResourceChangeListener resourceChangeListener = new IResourceChangeListener() {
@@ -187,12 +180,17 @@ public class DeclarativeReferenceHandler {
 			if(resourceDescriptions == null) {
 				// Find resources that should be looked in
 				final Set<IProject> projects = getRelevantProjects();
-				resourceDescriptions = calculateResourceDescriptions(projects);
+				resourceDescriptions = ScopedEMFIndexRetrieval.calculateResourceDescriptions(projects);
 			}
 			
 			return resourceDescriptions;
 		}
 		
+		/**
+		 * Returns the set of projects that can be referenced from the project containing the diagram. 
+		 * Recursive(Projects referenced by referenced projects are also included).
+		 * @return
+		 */
 		private Set<IProject> getRelevantProjects() {
 			try {
 				final Set<IProject> projects = new HashSet<IProject>();
@@ -204,23 +202,6 @@ public class DeclarativeReferenceHandler {
 			} catch(final CoreException ex) {
 				throw new RuntimeException(ex);
 			}		 
-		}
-
-		private Set<IResourceDescription> calculateResourceDescriptions(final Set<IProject> projects) {
-			final Set<IResourceDescription> resourceDescriptions = new HashSet<IResourceDescription>();
-			final Injector injector = OsateCorePlugin.getDefault().getInjector("org.osate.xtext.aadl2.properties.Properties");
-			final ResourceDescriptionsProvider resourceDescProvider = injector.getInstance(ResourceDescriptionsProvider.class);
-			final IResourceDescriptions resDescriptions = resourceDescProvider.getResourceDescriptions(new XtextResourceSet());
-			for(final IResourceDescription resDesc : resDescriptions.getAllResourceDescriptions()) {
-				final IPath resPath = new Path(resDesc.getURI().toPlatformString(true));
-				for(final IProject p : projects) {
-					if(p.getFullPath().isPrefixOf(resPath)) {
-						resourceDescriptions.add(resDesc);
-					}
-				}
-			}
-			
-			return resourceDescriptions;
 		}
 		
 		private void addReferencedProjects(final IProject project, final Set<IProject> results) throws CoreException {

@@ -74,8 +74,8 @@ import org.osate.ge.services.GhostingService;
 import org.osate.ge.services.AadlModificationService.AbstractModifier;
 import org.osate.ge.util.ImageHelper;
 import org.osate.ge.util.Log;
+import org.osate.ge.util.ScopedEMFIndexRetrieval;
 import org.osate.ge.util.StringUtil;
-import org.osate.xtext.aadl2.properties.util.EMFIndexRetrieval;
 
 public class PackageClassifierPattern extends AgeLeafShapePattern implements Categorized {
 	private final GraphicsAlgorithmCreationService graphicsAlgorithmCreator;
@@ -433,7 +433,7 @@ public class PackageClassifierPattern extends AgeLeafShapePattern implements Cat
 	 */
 	private List<IEObjectDescription> getValidBaseClassifierDescriptions() {
 		final List<IEObjectDescription> objectDescriptions = new ArrayList<IEObjectDescription>();
-		for(final IEObjectDescription desc : EMFIndexRetrieval.getAllClassifiersOfTypeInWorkspace(Aadl2Factory.eINSTANCE.getAadl2Package().getComponentClassifier())) {
+		for(final IEObjectDescription desc : ScopedEMFIndexRetrieval.getAllEObjectsByType(getDiagram().eResource(), Aadl2Factory.eINSTANCE.getAadl2Package().getComponentClassifier())) {
 			// Add objects that have care either types or implementations of the same category as the classifier type
 			for(final EClass superType : classifierType.getESuperTypes()) {
 				if(!Aadl2Factory.eINSTANCE.getAadl2Package().getComponentImplementation().isSuperTypeOf(superType)) {

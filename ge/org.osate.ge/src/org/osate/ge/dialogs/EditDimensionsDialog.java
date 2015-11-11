@@ -3,6 +3,7 @@ package org.osate.ge.dialogs;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.eclipse.core.resources.IProject;
 import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.jface.dialogs.Dialog;
 import org.eclipse.jface.dialogs.MessageDialog;
@@ -44,9 +45,10 @@ import org.osate.aadl2.ArraySize;
 import org.osate.aadl2.NamedElement;
 import org.osate.aadl2.Property;
 import org.osate.aadl2.PropertyConstant;
-import org.osate.xtext.aadl2.properties.util.EMFIndexRetrieval;
+import org.osate.ge.util.ScopedEMFIndexRetrieval;
 
 public class EditDimensionsDialog extends TitleAreaDialog {
+	private final IProject projectContext; // Project for determining what may be referenced.
 	private boolean allowMultipleDimensions;
 	private List<ArrayDimension> dimensions = new ArrayList<ArrayDimension>();
 	private List<ArrayDimension> modifiedDimensions; // Stores the modified dimensions after the user selected Ok
@@ -57,10 +59,11 @@ public class EditDimensionsDialog extends TitleAreaDialog {
     private Button upBtn;
     private Button downBtn;
     
-	public EditDimensionsDialog(final Shell parentShell, List<ArrayDimension> initialDimensions, boolean allowMultipleDimensions) {
+	public EditDimensionsDialog(final Shell parentShell, final IProject projectContext, List<ArrayDimension> initialDimensions, boolean allowMultipleDimensions) {
 		super(parentShell);
 		setShellStyle(getShellStyle() | SWT.RESIZE);
 		
+		this.projectContext = projectContext;	
 		this.allowMultipleDimensions = allowMultipleDimensions;
 		
 		// Make a copy of the initial dimensions
@@ -230,7 +233,7 @@ public class EditDimensionsDialog extends TitleAreaDialog {
 		
 		if(dim != null) {
 			// Show the editor dimension dialog. If the user selects OK, it will modify the passed in object.
-			final EditDimensionDialog dlg = new EditDimensionDialog(EditDimensionsDialog.this, dim);
+			final EditDimensionDialog dlg = new EditDimensionDialog(EditDimensionsDialog.this, projectContext, dim);
 			if(dlg.open() == Dialog.CANCEL) {
 				return;
 			}
@@ -277,6 +280,7 @@ public class EditDimensionsDialog extends TitleAreaDialog {
 	    private static String propertyTxt = "Property";
 	    private static String propertyConstantTxt = "Property Constant";
 	    private static String unsupportedTypeTxt = "Unsupported Type";
+	    private final IProject projectContext;
 		private final ArrayDimension dimension;
 		private Composite detailsPane;
 		private RowData visibleRowData = new RowData();
@@ -289,8 +293,9 @@ public class EditDimensionsDialog extends TitleAreaDialog {
 	    private Composite propertyConstantPane;
 	    private ComboViewer propertyConstantCmb;	    
 	    
-		public EditDimensionDialog(final IShellProvider parentShell, final ArrayDimension dimension) {
+		public EditDimensionDialog(final IShellProvider parentShell, final IProject projectContext, final ArrayDimension dimension) {
 			super(parentShell);
+			this.projectContext = projectContext;
 			this.dimension = dimension;
 			visibleRowData.exclude = false;
 			hiddenRowData.exclude = true;
@@ -391,7 +396,7 @@ public class EditDimensionsDialog extends TitleAreaDialog {
 			final List<Property> results = new ArrayList<Property>();
 			
 			final XtextResourceSet rs = new XtextResourceSet();
-			for(final IEObjectDescription objDesc : EMFIndexRetrieval.getAllClassifiersOfTypeInWorkspace(Aadl2Factory.eINSTANCE.getAadl2Package().getProperty())) {
+			for(final IEObjectDescription objDesc : ScopedEMFIndexRetrieval.getAllEObjectsByType(projectContext, Aadl2Factory.eINSTANCE.getAadl2Package().getProperty())) {
 				final Property prop = (Property)rs.getEObject(EcoreUtil.getURI(objDesc.getEObjectOrProxy()), true);
 				if(prop != null && prop.getPropertyType() instanceof AadlInteger) {				
 					results.add(prop);
@@ -404,7 +409,7 @@ public class EditDimensionsDialog extends TitleAreaDialog {
 		private List<PropertyConstant> getValidPropertyConstants() {
 			final XtextResourceSet rs = new XtextResourceSet();
 			final List<PropertyConstant> results = new ArrayList<PropertyConstant>();
-			for(final IEObjectDescription objDesc : EMFIndexRetrieval.getAllClassifiersOfTypeInWorkspace(Aadl2Factory.eINSTANCE.getAadl2Package().getPropertyConstant())) {
+			for(final IEObjectDescription objDesc : ScopedEMFIndexRetrieval.getAllEObjectsByType(projectContext, Aadl2Factory.eINSTANCE.getAadl2Package().getPropertyConstant())) {
 				final PropertyConstant propConst = (PropertyConstant)rs.getEObject(EcoreUtil.getURI(objDesc.getEObjectOrProxy()), true);
 				if(propConst != null && propConst.getPropertyType() instanceof AadlInteger) {		
 					results.add(propConst);
