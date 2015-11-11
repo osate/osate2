@@ -46,7 +46,7 @@ public class GraphitiEditPartAdapterFactory implements IAdapterFactory {
 			if(bo instanceof NamedElement) {
 				final NamedElement namedElement = (NamedElement)bo;		
 				return new IAadlPropertySource() {
-					private final IXtextDocument document = AgeXtextUtil.getDocumentByPackageName(namedElement.getElementRoot().getQualifiedName());
+					private final IXtextDocument document = AgeXtextUtil.getDocumentByRootElement(namedElement.getElementRoot());
 					private final NamedElement element = namedElement;
 					
 					@Override

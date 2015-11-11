@@ -558,7 +558,6 @@ public class DefaultGraphicsAlgorithmCreationService implements GraphicsAlgorith
 		return outlinePolygon;
 	}
 	
-	// TODO: Avoid hardcoded numbers. Especially repeated	
 	private static GraphicsAlgorithm createDeviceGraphicsAlgorithm(final GraphicsAlgorithmContainer container, final Style style, final Style shadedStyle, final int width, final int height) {
 		final int padding = 4;
 		final IGaService gaService = Graphiti.getGaService();

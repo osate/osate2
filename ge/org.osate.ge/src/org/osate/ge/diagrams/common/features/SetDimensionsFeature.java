@@ -25,6 +25,7 @@ import org.osate.ge.dialogs.EditDimensionsDialog;
 import org.osate.ge.services.AadlModificationService;
 import org.osate.ge.services.BusinessObjectResolutionService;
 import org.osate.ge.services.DiagramModificationService;
+import org.osate.ge.ui.util.SelectionHelper;
 import org.osate.ge.services.AadlModificationService.AbstractModifier;
 
 public class SetDimensionsFeature extends AbstractCustomFeature {
@@ -84,7 +85,7 @@ public class SetDimensionsFeature extends AbstractCustomFeature {
 		final PictogramElement pe = (PictogramElement)context.getPictogramElements()[0];
 		final ArrayableElement ae = (ArrayableElement)bor.getBusinessObjectForPictogramElement(pe);
 		
-		final EditDimensionsDialog dlg = new EditDimensionsDialog(Display.getCurrent().getActiveShell(), ae.getArrayDimensions(), ae instanceof Subcomponent);
+		final EditDimensionsDialog dlg = new EditDimensionsDialog(Display.getCurrent().getActiveShell(), SelectionHelper.getProject(ae.eResource()), ae.getArrayDimensions(), ae instanceof Subcomponent);
 		if(dlg.open() == Dialog.CANCEL) {
 			return;
 		}

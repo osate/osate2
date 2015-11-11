@@ -523,9 +523,6 @@ public class ConnectionPattern extends AgeConnectionPattern implements Categoriz
 			return false;
 		}
 
-		// TODO: Need to take into account prototypes, and inverses when dealing with them?
-		// TODO: Additional checks for access features
-		
 		final Class<?> connectionEndType = getConnectionEndType();
 		if(connectionEndType == null || !connectionEndType.isInstance(dstConnectedElement.getConnectionEnd())) {
 			return false;

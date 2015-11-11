@@ -15,7 +15,6 @@ import java.util.Collections;
 import java.util.Deque;
 import java.util.List;
 import java.util.Objects;
-
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.Status;
 import org.eclipse.emf.common.util.Diagnostic;
@@ -46,13 +45,16 @@ import org.osate.aadl2.modelsupport.Activator;
 import org.osate.annexsupport.AnnexRegistry;
 import org.osate.annexsupport.AnnexUnparserRegistry;
 import org.osate.ge.services.AadlModificationService;
+import org.osate.ge.services.SavedAadlResourceService;
 import org.osate.ge.ui.xtext.AgeXtextUtil;
 import org.osate.ge.util.Log;
 
 public class DefaultAadlModificationService implements AadlModificationService {
+	final SavedAadlResourceService savedAadlResourceService;
 	private final IFeatureProvider fp;
 	
-	public DefaultAadlModificationService(final IFeatureProvider fp) {
+	public DefaultAadlModificationService(final SavedAadlResourceService savedAadlResourceService, final IFeatureProvider fp) {
+		this.savedAadlResourceService = savedAadlResourceService;
 		this.fp = fp;
 	}
 	
@@ -74,18 +76,21 @@ public class DefaultAadlModificationService implements AadlModificationService {
 
 				// Try to get the Xtext document	
 				final NamedElement root = element.getElementRoot();
-				final IXtextDocument doc = AgeXtextUtil.getDocumentByPackageName(root.getQualifiedName());
+				final IXtextDocument doc = AgeXtextUtil.getDocumentByRootElement(root);
 				if(doc == null) {
 					final XtextResource res = (XtextResource)element.eResource();
-					final ModifySafelyResults<R> modifySafelyResult = modifySafely(res, element, modifier, false);//true);
+					final ModifySafelyResults<R> modifySafelyResult = modifySafely(res, element, modifier, false);
 					modifierResult = modifySafelyResult.modifierResult;
 					
 					if(modifySafelyResult.modificationSuccessful) {
 						// Save the model
 						try {
-							res.save(SaveOptions.defaultOptions().toOptionsMap());	
+							savedAadlResourceService.setSaveInProgress(res, true);
+							res.save(SaveOptions.defaultOptions().toOptionsMap());
 						} catch (IOException e) {
 							throw new RuntimeException(e);
+						} finally {
+							savedAadlResourceService.setSaveInProgress(res, false);
 						};
 						
 						// Update the diagram

@@ -37,5 +37,6 @@ Import-Package: org.eclipse.draw2d.graph,
  org.eclipse.ui.part,
  org.eclipse.ui.views.contentoutline
 Service-Component: components/DefaultExtensionRegistryService.xml,
- components/DefaultDiagramService.xml
+ components/DefaultDiagramService.xml,
+ components/DefaultSavedAadlPackageService.xml
 

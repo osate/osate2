@@ -64,7 +64,7 @@ import org.osate.ge.dialogs.ElementSelectionDialog;
 import org.osate.ge.services.AadlModificationService;
 import org.osate.ge.services.BusinessObjectResolutionService;
 import org.osate.ge.services.AadlModificationService.AbstractModifier;
-import org.osate.xtext.aadl2.properties.util.EMFIndexRetrieval;
+import org.osate.ge.util.ScopedEMFIndexRetrieval;
 
 public class SetSubcomponentClassifierFeature extends AbstractCustomFeature {
 	private final AadlModificationService aadlModService;
@@ -238,7 +238,7 @@ public class SetSubcomponentClassifierFeature extends AbstractCustomFeature {
 
 		// Populate the list with valid classifier descriptions
 		final EClass subcomponentTypeClass = componentCategoryToEClass(sc.getCategory());
-		for(final IEObjectDescription desc : EMFIndexRetrieval.getAllClassifiersOfTypeInWorkspace(subcomponentTypeClass)) {
+		for(final IEObjectDescription desc : ScopedEMFIndexRetrieval.getAllEObjectsByType(sc.eResource(), subcomponentTypeClass)) {
 			subcomponentTypes.add(desc);
 		}
 		

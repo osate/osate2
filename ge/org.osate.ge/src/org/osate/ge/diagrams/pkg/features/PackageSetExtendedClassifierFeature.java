@@ -35,7 +35,7 @@ import org.osate.ge.dialogs.ElementSelectionDialog;
 import org.osate.ge.services.AadlModificationService;
 import org.osate.ge.services.BusinessObjectResolutionService;
 import org.osate.ge.services.AadlModificationService.AbstractModifier;
-import org.osate.xtext.aadl2.properties.util.EMFIndexRetrieval;
+import org.osate.ge.util.ScopedEMFIndexRetrieval;
 
 public class PackageSetExtendedClassifierFeature extends AbstractCustomFeature {
 	private final BusinessObjectResolutionService bor;
@@ -139,7 +139,7 @@ public class PackageSetExtendedClassifierFeature extends AbstractCustomFeature {
 		
 		// Populate the list with valid classifier descriptions
 		if(name != null) {		
-			for(final IEObjectDescription desc : EMFIndexRetrieval.getAllClassifiersOfTypeInWorkspace(bo.eClass())) {
+			for(final IEObjectDescription desc : ScopedEMFIndexRetrieval.getAllEObjectsByType(bo.eResource(), bo.eClass())) {
 				if(!name.equalsIgnoreCase(desc.getName().toString("::"))) {
 					objectDescriptions.add(desc);
 				}
@@ -148,7 +148,7 @@ public class PackageSetExtendedClassifierFeature extends AbstractCustomFeature {
 			// Ensure that abstract classifiers are in the list
 			if(bo instanceof ComponentType) {
 				if(bo.eClass() != Aadl2Factory.eINSTANCE.getAadl2Package().getAbstractType()) {
-					for(final IEObjectDescription desc : EMFIndexRetrieval.getAllClassifiersOfTypeInWorkspace(Aadl2Factory.eINSTANCE.getAadl2Package().getAbstractType())) {
+					for(final IEObjectDescription desc : ScopedEMFIndexRetrieval.getAllEObjectsByType(bo.eResource(), Aadl2Factory.eINSTANCE.getAadl2Package().getAbstractType())) {
 						if(!name.equalsIgnoreCase(desc.getName().toString("::"))) {
 							objectDescriptions.add(desc);
 						}
@@ -156,7 +156,7 @@ public class PackageSetExtendedClassifierFeature extends AbstractCustomFeature {
 				}
 			} else if(bo instanceof ComponentImplementation) {
 					if(bo.eClass() != Aadl2Factory.eINSTANCE.getAadl2Package().getAbstractImplementation()) {
-					for(final IEObjectDescription desc : EMFIndexRetrieval.getAllClassifiersOfTypeInWorkspace(Aadl2Factory.eINSTANCE.getAadl2Package().getAbstractImplementation())) {
+					for(final IEObjectDescription desc : ScopedEMFIndexRetrieval.getAllEObjectsByType(bo.eResource(), Aadl2Factory.eINSTANCE.getAadl2Package().getAbstractImplementation())) {
 						if(!name.equalsIgnoreCase(desc.getName().toString("::"))) {
 							objectDescriptions.add(desc);
 						}

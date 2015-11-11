@@ -54,7 +54,7 @@ import org.eclipse.ui.IWorkbenchPart;
 import org.eclipse.ui.part.EditorPart;
 import org.eclipse.xtext.resource.XtextResource;
 import org.eclipse.xtext.ui.editor.model.IXtextModelListener;
-import org.osate.aadl2.AadlPackage;
+import org.osate.aadl2.Element;
 import org.osate.aadl2.NamedElement;
 import org.osate.ge.diagrams.common.AadlElementWrapper;
 import org.osate.ge.diagrams.common.features.DiagramUpdateFeature;
@@ -211,20 +211,13 @@ public class AgeDiagramBehavior extends DiagramBehavior {
 				// Update the diagram
 				final EObject contents = resource.getContents().get(0);
 				if(contents instanceof NamedElement) {
-					final String resourceContentsName = ((NamedElement)contents).getQualifiedName();
-					
 					final Runnable updateIfPackageMatches = new Runnable() {
 						@Override
 						public void run() {
 							final Object bo = AadlElementWrapper.unwrap(getDiagramTypeProvider().getFeatureProvider().getBusinessObjectForPictogramElement(getDiagramTypeProvider().getDiagram()));
-							if(bo instanceof NamedElement) {
-								final NamedElement namedElement = (NamedElement)bo;
-								final NamedElement elementRoot = namedElement.getElementRoot();
-								if(elementRoot instanceof AadlPackage) {
-									final AadlPackage relevantPkg = (AadlPackage)elementRoot;									
-									if(resourceContentsName.equalsIgnoreCase(relevantPkg.getQualifiedName())) {
-										update();
-									}
+							if(bo instanceof Element) {
+								if(((Element)bo).eResource() == resource) {
+									update();
 								}
 							}							
 						}						
