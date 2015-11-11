@@ -77,11 +77,6 @@ import org.osate.xtext.aadl2.properties.util.GetProperties;
  *
  */
 public class SetBindingTool {
-	private AgeDiagramEditor editor;
-	private AadlModificationService aadlModService;
-	private DiagramModificationService diagramModService;
-	private ConnectionService connectionService;
-	private BusinessObjectResolutionService bor;
 	private SetBindingWindow currentWindow = null;
 
 	@Id
@@ -101,19 +96,14 @@ public class SetBindingTool {
 	}
 	
 	@Activate
-	public void activate(final IDiagramTypeProvider dtp, final BusinessObjectResolutionService bor, final AadlModificationService aadlModService, final DiagramModificationService diagramModService,
-			final ConnectionService connectionService) {
-		this.editor = (AgeDiagramEditor)dtp.getDiagramBehavior().getDiagramContainer();
-		this.aadlModService = aadlModService;
-		this.diagramModService = diagramModService;
-		this.connectionService = connectionService;
-		this.bor = bor;
+	public void activate(final IDiagramTypeProvider dtp, final BusinessObjectResolutionService bor, final AadlModificationService aadlModService, final DiagramModificationService diagramModService, final ConnectionService connectionService) {
+		final AgeDiagramEditor editor = (AgeDiagramEditor)dtp.getDiagramBehavior().getDiagramContainer();
 
 		// Open Dialog
 		if (currentWindow == null) {
 			currentWindow = new SetBindingWindow(editor.getSite().getShell(), bor, getSelectedPictogramElement(editor, bor));
 			if(currentWindow.open() == Dialog.OK) {
-				createPropertyAssociation();
+				createPropertyAssociation(dtp.getDiagram(), bor, aadlModService, diagramModService, connectionService);
 			}
 			
 			currentWindow = null;
@@ -373,9 +363,9 @@ public class SetBindingTool {
 		return null;
 	}
 
-	private void createPropertyAssociation() {
-		final ComponentClassifier cc = (ComponentClassifier) bor.getBusinessObjectForPictogramElement(editor
-				.getDiagramTypeProvider().getDiagram());
+	private void createPropertyAssociation(final Diagram diagram, final BusinessObjectResolutionService bor, final AadlModificationService aadlModService, 
+			final DiagramModificationService diagramModService, final ConnectionService connectionService) {
+		final ComponentClassifier cc = (ComponentClassifier) bor.getBusinessObjectForPictogramElement(diagram);
 
 		if (cc == null) {
 			throw new RuntimeException("Unexpected case. Unable to find component classifier");
@@ -394,12 +384,10 @@ public class SetBindingTool {
 					newPa.setProperty(currentWindow.getSelectedProperty());
 
 					// Set applies to
-					final Object elementToBind = bor.getBusinessObjectForPictogramElement(currentWindow
-							.getPictogramToBind());
-					final Object diagramBo = bor.getBusinessObjectForPictogramElement(editor.getDiagramTypeProvider()
-							.getDiagram());
+					final Object elementToBind = bor.getBusinessObjectForPictogramElement(currentWindow.getPictogramToBind());
+					final Object diagramBo = bor.getBusinessObjectForPictogramElement(diagram);
 					if (elementToBind != null && elementToBind != diagramBo) {
-						setContainedNamedElementPath(newPa.createAppliesTo(), currentWindow.getPictogramToBind());
+						setContainedNamedElementPath(newPa.createAppliesTo(), currentWindow.getPictogramToBind(), bor, connectionService);
 					}
 
 					// Create owned values
@@ -412,7 +400,7 @@ public class SetBindingTool {
 						if (!(pe instanceof Diagram)) {
 							final ReferenceValue rv = (ReferenceValue) lv.createOwnedListElement(Aadl2Factory.eINSTANCE
 									.getAadl2Package().getReferenceValue());
-							setContainedNamedElementPath(rv, pe);
+							setContainedNamedElementPath(rv, pe, bor, connectionService);
 						}
 					}
 
@@ -518,7 +506,7 @@ public class SetBindingTool {
 		return cp1 == cp2; // Both should be null
 	}
 
-	private ContainmentPathElement setContainedNamedElementPath(final ContainedNamedElement c, final PictogramElement pe) {
+	private ContainmentPathElement setContainedNamedElementPath(final ContainedNamedElement c, final PictogramElement pe, final BusinessObjectResolutionService bor, final ConnectionService connectionService) {
 		if (pe == null || bor.getBusinessObjectForPictogramElement(pe) instanceof Classifier) {
 			return null;
 		}
@@ -538,7 +526,7 @@ public class SetBindingTool {
 		}
 
 		// Create the path element for the container
-		ContainmentPathElement pathElement = setContainedNamedElementPath(c, container);
+		ContainmentPathElement pathElement = setContainedNamedElementPath(c, container, bor, connectionService);
 
 		// Create the path element for the pictogram element
 		final NamedElement bo = (NamedElement) bor.getBusinessObjectForPictogramElement(pe);

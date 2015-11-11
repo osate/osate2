@@ -1,15 +1,20 @@
 package org.osate.ge.ui.xtext;
 
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.CopyOnWriteArrayList;
+
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IResource;
 import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.Path;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EObject;
+import org.eclipse.emf.ecore.resource.Resource;
+import org.eclipse.xtext.resource.IResourceDescription;
 import org.eclipse.xtext.resource.XtextResource;
 import org.eclipse.xtext.ui.editor.model.IXtextDocument;
 import org.eclipse.xtext.ui.editor.model.IXtextModelListener;
@@ -24,11 +29,12 @@ public class OpenAadlResources {
 	private final Map<IResource, OpenAadlResource> resourceToOpenResourceMap = new HashMap<>();
 	private final Map<IXtextDocument, OpenAadlResource> documentToOpenResourceMap = new HashMap<>();
 	private final Map<String, List<OpenAadlResource>> qualifiedNameToOpenResourcesMap = new HashMap<>(); // List because qualified names are not unique. Qualified names will be stored in lowercase format
-	private final Map<IXtextDocument, IXtextModelListener> documentToModelListenerMap = new HashMap<>();
+	private final Map<IXtextDocument, IXtextModelListener> documentToInternalModelListenerMap = new HashMap<>();
+	private final List<IXtextModelListener> externalModelListeners = new CopyOnWriteArrayList<IXtextModelListener>();
 	
 	private static class OpenAadlResource {
 		public final IResource file;
-		public final LinkedList<IXtextDocument> documents = new LinkedList<>(); // Linked list of documents for the resource. More recently update documents will be sorted before other documents
+		public final LinkedList<IXtextDocument> documents = new LinkedList<>(); // Linked list of documents for the resource. More recently updated documents will be sorted before other documents
 		public XtextResource xtextResource;
 		public String rootQualifiedName; // May be null. Must be lowercase
 		
@@ -38,7 +44,13 @@ public class OpenAadlResources {
 		}
 	}
 	
-	public XtextResource getXtextResource(final String qualifiedName, final URI resourceUri) {
+	/**
+	 * Finds the XtextResource which has a root object with the specified qualified name and has a URI that matches one of the specified resource descriptions
+	 * @param qualifiedName
+	 * @param resourceDescriptions
+	 * @return
+	 */
+	public XtextResource getXtextResource(final String qualifiedName, final Collection<IResourceDescription> resourceDescriptions) {
 		final List<OpenAadlResource> openResources = qualifiedNameToOpenResourcesMap.get(qualifiedName.toLowerCase());
 		if(openResources == null) {
 			return null;
@@ -46,9 +58,35 @@ public class OpenAadlResources {
 		
 		for(final OpenAadlResource openResource : openResources) {
 			if(openResource.xtextResource != null) {
-				if(resourceUri.equals(openResource.xtextResource.getURI())) {
-					return openResource.xtextResource;
+				for(final IResourceDescription resDesc : resourceDescriptions) {
+					final URI resourceUri = resDesc.getURI();		
+					if(resourceUri.equals(openResource.xtextResource.getURI())) {
+						return openResource.xtextResource;
+					}
 				}
+			}
+		}
+		
+		return null;
+	}
+	
+	public IXtextDocument getDocument(final String qualifiedName, final Resource resource) {
+		if(qualifiedName == null || resource == null) {
+			return null;
+		}
+		
+		final URI resourceUri = resource.getURI();
+		if(resourceUri == null) {
+			return null;
+		}
+		
+		final List<OpenAadlResource> openAadlResources = qualifiedNameToOpenResourcesMap.get(qualifiedName);
+		if(openAadlResources != null) {
+			for(final OpenAadlResource openAadlResource : openAadlResources) {
+				if(openAadlResource.xtextResource != null && openAadlResource.documents.size() > 0 && resourceUri.equals(openAadlResource.xtextResource.getURI())) {
+					return openAadlResource.documents.getFirst();
+				}
+				
 			}
 		}
 		
@@ -66,7 +104,7 @@ public class OpenAadlResources {
 		
 		// Create a new model listener
 		final IXtextModelListener newModelListener = createModelListener(document);
-		documentToModelListenerMap.put(document, newModelListener);
+		documentToInternalModelListenerMap.put(document, newModelListener);
 		document.addModelListener(newModelListener);
 		
 		// Create a new open resource object
@@ -96,7 +134,7 @@ public class OpenAadlResources {
 
 	public void onXtextDocumentClosed(final IXtextDocument document) {
 		// Remove the model listener
-		final IXtextModelListener modelListener = documentToModelListenerMap.get(document);
+		final IXtextModelListener modelListener = documentToInternalModelListenerMap.get(document);
 		if(modelListener != null) {
 			// Execute one last model changed event
 			document.readOnly(new IUnitOfWork<String, XtextResource>() {
@@ -108,7 +146,7 @@ public class OpenAadlResources {
 			});
 			
 			document.removeModelListener(modelListener);
-			documentToModelListenerMap.remove(document);
+			documentToInternalModelListenerMap.remove(document);
 		}
 		
 		final OpenAadlResource openResource = documentToOpenResourceMap.get(document);
@@ -167,11 +205,22 @@ public class OpenAadlResources {
 						}
 					}
 					
-					// TODO: Notify others
+					// Notify others
+					for(final IXtextModelListener l : externalModelListeners) {
+						l.modelChanged(resource);
+					}
 				}
 			}
 		};
 	}	
+	
+	public void addModelListener(final IXtextModelListener listener) {
+		externalModelListeners.add(listener);
+	}
+	
+	public void removeModelListener(final IXtextModelListener listener) {
+		externalModelListeners.remove(listener);
+	}
 	
 	private void removeQualifiedNameMapping(final OpenAadlResource openResource) {
 		if(openResource.rootQualifiedName != null) {
@@ -199,7 +248,7 @@ public class OpenAadlResources {
 		System.out.println("Resources to Open Resource Mappings: " + resourceToOpenResourceMap.size());
 		System.out.println("Document to Open Resource Mappings: " + documentToOpenResourceMap.size());
 		System.out.println("Qualified Names to Open Resources Mappings: " + qualifiedNameToOpenResourcesMap.size());
-		System.out.println("Document to Model Listener Mappings: " + documentToModelListenerMap.size());
+		System.out.println("Document to Model Listener Mappings: " + documentToInternalModelListenerMap.size());
 		System.out.println("Total Number of Documents References by Open Resources: " + totalNumberOfDocumentsReferencesByOpenResources);
 	}
 	

@@ -105,8 +105,6 @@ public abstract class ModeTransitionTriggerSelectionDialog {
 			}	
 		}
 
-		// TODO: Get ports from subprogram calls
-		
 		return ports;
 	}
 	

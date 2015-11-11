@@ -44,6 +44,13 @@ public class AgeDiagramEditorActionBarContributor extends org.eclipse.graphiti.u
 	}
 	
 	@Override
+	public void dispose() {
+		selectedModeItem.setActiveEditor(null);
+		selectedFlowItem.setActiveEditor(null);
+		nestingDepthSelectorItem.setActiveEditor(null);
+		super.dispose();
+	}
+	@Override
 	protected void buildActions() {
 		super.buildActions();		
 		addRetargetAction(new MatchSizeRetargetAction(MatchSizeAction.MATCH_SIZE));

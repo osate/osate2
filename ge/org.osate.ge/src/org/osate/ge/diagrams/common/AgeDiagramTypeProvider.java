@@ -28,6 +28,7 @@ import org.osate.ge.services.ConnectionCreationService;
 import org.osate.ge.services.ConnectionService;
 import org.osate.ge.services.DiagramModificationService;
 import org.osate.ge.services.DiagramService;
+import org.osate.ge.services.SavedAadlResourceService;
 import org.osate.ge.services.ExtensionService;
 import org.osate.ge.services.GhostingService;
 import org.osate.ge.services.GraphicsAlgorithmCreationService;
@@ -81,6 +82,7 @@ import org.osgi.framework.FrameworkUtil;
 
 public class AgeDiagramTypeProvider extends AbstractDiagramTypeProvider {
 	private final IEclipseContext context;
+	private DefaultSerializableReferenceService serializableReferenceService;
 	
 	public AgeDiagramTypeProvider() {	
 		final AgeFeatureProvider featureProvider = new AgeFeatureProvider(this);
@@ -95,9 +97,10 @@ public class AgeDiagramTypeProvider extends AbstractDiagramTypeProvider {
 		final IEclipseContext context =  EclipseContextFactory.getServiceContext(bundle.getBundleContext()).createChild();
 		
 		// Create objects for the context
+		final SavedAadlResourceService savedAadlResourceService = Objects.requireNonNull(context.get(SavedAadlResourceService.class), "Unable to retrieve SavedAadlResourceService");
 		final UiService uiService = new DefaultUiService(this);
 		final CachingService cachingService = new DefaultCachingService();
-		final SerializableReferenceService serializableReferenceService = new DefaultSerializableReferenceService(this);
+		serializableReferenceService = new DefaultSerializableReferenceService(this, cachingService, savedAadlResourceService);
 		final BusinessObjectResolutionService bor = new DefaultBusinessObjectResolutionService(fp);
 		final ComponentImplementationService componentImplementationService = new DefaultComponentImplementationService();
 		final DiagramService diagramService = Objects.requireNonNull(context.get(DiagramService.class), "Unable to retrieve DiagramService");
@@ -111,7 +114,7 @@ public class AgeDiagramTypeProvider extends AbstractDiagramTypeProvider {
 		final DefaultDiagramModificationService diagramModificationService = new DefaultDiagramModificationService(diagramService, ghostPurger, bor);
 		final DefaultNamingService namingService = new DefaultNamingService();
 		final DefaultUserInputService userInputService = new DefaultUserInputService(bor);
-		final DefaultAadlModificationService modificationService = new DefaultAadlModificationService(fp);
+		final DefaultAadlModificationService modificationService = new DefaultAadlModificationService(savedAadlResourceService, fp);
 		final DefaultRefactoringService refactoringService = new DefaultRefactoringService(modificationService, diagramModificationService);
 		final DefaultGraphicsAlgorithmManipulationService graphicsAlgorithmUtil = new DefaultGraphicsAlgorithmManipulationService();
 		final ExtensionService extensionService = new DefaultExtensionService(Objects.requireNonNull(context.get(ExtensionRegistryService.class), "Unable to retrieve ExtensionRegistryService"), this, context);
@@ -163,6 +166,11 @@ public class AgeDiagramTypeProvider extends AbstractDiagramTypeProvider {
 	
 	@Override
 	public void dispose() {
+		// Dispose of services that need disposing
+		if(serializableReferenceService != null) {
+			serializableReferenceService.dispose();
+		}
+		
 		if(context != null) {
 			context.dispose();
 		}

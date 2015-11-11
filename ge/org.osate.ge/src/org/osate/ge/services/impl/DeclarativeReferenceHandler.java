@@ -1,19 +1,32 @@
 package org.osate.ge.services.impl;
 
+import java.util.HashMap;
 import java.util.HashSet;
+import java.util.Map;
 import java.util.Objects;
 import java.util.Set;
 import org.eclipse.core.resources.IProject;
+import org.eclipse.core.resources.IResource;
+import org.eclipse.core.resources.IResourceChangeEvent;
+import org.eclipse.core.resources.IResourceChangeListener;
+import org.eclipse.core.resources.IResourceDelta;
+import org.eclipse.core.resources.IResourceDeltaVisitor;
+import org.eclipse.core.resources.IWorkspace;
+import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.Path;
+import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.graphiti.dt.IDiagramTypeProvider;
+import org.eclipse.xtext.naming.QualifiedName;
+import org.eclipse.xtext.resource.IEObjectDescription;
 import org.eclipse.xtext.resource.IResourceDescription;
 import org.eclipse.xtext.resource.IResourceDescriptions;
 import org.eclipse.xtext.resource.XtextResource;
 import org.eclipse.xtext.resource.XtextResourceSet;
 import org.eclipse.xtext.resource.impl.ResourceDescriptionsProvider;
+import org.osate.aadl2.Aadl2Factory;
 import org.osate.aadl2.AadlPackage;
 import org.osate.aadl2.AnnexLibrary;
 import org.osate.aadl2.AnnexSubclause;
@@ -45,6 +58,10 @@ import org.osate.aadl2.TypeExtension;
 import org.osate.annexsupport.AnnexUtil;
 import org.osate.core.OsateCorePlugin;
 import org.osate.ge.diagrams.componentImplementation.patterns.SubprogramCallOrder;
+import org.osate.ge.services.CachingService;
+import org.osate.ge.services.CachingService.Cache;
+import org.osate.ge.services.SavedAadlResourceService;
+import org.osate.ge.services.SavedAadlResourceService.AadlPackageReference;
 import org.osate.ge.ui.util.SelectionHelper;
 import org.osate.ge.ui.xtext.AgeXtextUtil;
 import org.osate.ge.util.Log;
@@ -54,7 +71,168 @@ import com.google.inject.Injector;
 
 // Handles references related to the AADL declarative model
 public class DeclarativeReferenceHandler {
-	// TODO: Would there be a way to cleanup things using an enumeration and possibly lambdas?
+	// Cache for items that should not change unless models have changed.
+	private static class DeclarativeCache implements Cache {
+		private static final EClass aadlPackageEClass = Aadl2Factory.eINSTANCE.getAadl2Package().getAadlPackage();
+		private final IDiagramTypeProvider diagramTypeProvider;
+		private final CachingService cachingService;
+		private final Map<String, Object> packageNameToPackageMap = new HashMap<>(); // Map for caching. Cleared when cache is invalidated
+		private final Set<AadlPackageReference> pkgReferences = new HashSet<>(); // Collection of package references. Not cleared to ensure strong references to the EObjectReference objects exist during the lifetime of the service 
+		private Set<IResourceDescription> resourceDescriptions = null; // Resource descriptions for resources which are in the project referenes path
+		private SavedAadlResourceService savedAadlResourceService;
+		
+		private final IResourceChangeListener resourceChangeListener = new IResourceChangeListener() {
+			@Override
+			public void resourceChanged(final IResourceChangeEvent event) {
+				final IResourceDelta delta = event.getDelta();
+				if(delta != null) {
+					try {
+						delta.accept(visitor);
+					} catch (CoreException e) {
+					}
+				}
+			}
+		};
+		
+		private IResourceDeltaVisitor visitor = new IResourceDeltaVisitor() {
+	        public boolean visit(final IResourceDelta delta) {
+	           // If the resource's contents has changed changed
+	           if(delta.getKind() != IResourceDelta.CHANGED || (delta.getFlags() & IResourceDelta.CONTENT) == 0)
+	              return true;
+
+	           // Check AADL files
+	           final IResource resource = delta.getResource();
+	           if (resource.getType() == IResource.FILE && "aadl".equalsIgnoreCase(resource.getFileExtension())) {
+	        	   // Invalidate all caches
+        		   cachingService.invalidate();
+	           }
+	           return true;
+	        }
+	    };
+	    	    
+	    public DeclarativeCache(final IDiagramTypeProvider diagramTypeProvider, final CachingService cachingService, final SavedAadlResourceService savedAadlResourceService) {
+			this.diagramTypeProvider = Objects.requireNonNull(diagramTypeProvider, "diagramTypeProvider must not be null");
+	    	this.cachingService = Objects.requireNonNull(cachingService, "cachingService must not be null");
+			this.savedAadlResourceService = Objects.requireNonNull(savedAadlResourceService, "savedAadlResourceService must not be null");
+			
+			// Register a resource change listener
+			final IWorkspace workspace = ResourcesPlugin.getWorkspace();
+			workspace.addResourceChangeListener(resourceChangeListener);
+	    }
+		
+	    public void dispose() {
+	    	// Remove the resource change listener
+			final IWorkspace workspace = ResourcesPlugin.getWorkspace();
+			workspace.removeResourceChangeListener(resourceChangeListener);
+			
+	    	invalidate();
+	    	
+	    	// Remove object reference
+	    	pkgReferences.clear();
+	    }
+	    
+		@Override
+		public void invalidate() {
+			resourceDescriptions = null;
+			packageNameToPackageMap.clear();
+		}			
+		
+		public AadlPackage getAadlPackage(final String packageName) {
+			final String lowerCasePackageName = packageName.toLowerCase();
+			Object pkgRef = packageNameToPackageMap.get(lowerCasePackageName);
+			if(pkgRef == null) {
+				pkgRef = findAadlPackage(lowerCasePackageName, getCachedResourceDescriptions(), savedAadlResourceService);
+				if(pkgRef instanceof AadlPackageReference) {
+					// Store strong reference
+					pkgReferences.add((AadlPackageReference)pkgRef);
+				} 
+				
+				// Store a reference to the package in the cache if the reference was valid
+				if(pkgRef != null) {
+					packageNameToPackageMap.put(lowerCasePackageName, pkgRef);					 
+				}
+			}
+						
+			if(pkgRef instanceof AadlPackageReference) {
+				return ((AadlPackageReference) pkgRef).getAadlPackage();
+			} else {
+				return (AadlPackage)pkgRef;
+			}
+		}
+		
+		/**
+		 * Returns an AadlPackage or an EObjectReference depending on whether the package is retrieved from disk or from an Xtext document
+		 * @return
+		 */
+		private static Object findAadlPackage(final String packageName, Set<IResourceDescription> resourceDescriptions, final SavedAadlResourceService savedAadlResourceService) {		
+			// Get the Xtext Resource for the package
+			final XtextResource xtextResource = AgeXtextUtil.getOpenXtextResourceByRootQualifiedName(packageName, resourceDescriptions);
+			if(xtextResource == null) {
+				for(final IResourceDescription resDesc : resourceDescriptions) {
+					for(IEObjectDescription eod : resDesc.getExportedObjects(aadlPackageEClass, QualifiedName.create(packageName), true)) {
+						return savedAadlResourceService.getPackageReference(eod.getEObjectURI());
+					}
+				}
+			} else {		
+				final EObject rootObj = xtextResource.getContents().get(0);
+				if(rootObj instanceof AadlPackage) {
+					return rootObj;
+				}
+			}
+			
+			return null;
+		}
+		
+		private Set<IResourceDescription> getCachedResourceDescriptions() {
+			if(resourceDescriptions == null) {
+				// Find resources that should be looked in
+				final Set<IProject> projects = getRelevantProjects();
+				resourceDescriptions = calculateResourceDescriptions(projects);
+			}
+			
+			return resourceDescriptions;
+		}
+		
+		private Set<IProject> getRelevantProjects() {
+			try {
+				final Set<IProject> projects = new HashSet<IProject>();
+				final IProject diagramProject = SelectionHelper.getProject(diagramTypeProvider.getDiagram().eResource());
+				projects.add(diagramProject);
+				addReferencedProjects(diagramProject, projects);
+
+				return projects;
+			} catch(final CoreException ex) {
+				throw new RuntimeException(ex);
+			}		 
+		}
+
+		private Set<IResourceDescription> calculateResourceDescriptions(final Set<IProject> projects) {
+			final Set<IResourceDescription> resourceDescriptions = new HashSet<IResourceDescription>();
+			final Injector injector = OsateCorePlugin.getDefault().getInjector("org.osate.xtext.aadl2.properties.Properties");
+			final ResourceDescriptionsProvider resourceDescProvider = injector.getInstance(ResourceDescriptionsProvider.class);
+			final IResourceDescriptions resDescriptions = resourceDescProvider.getResourceDescriptions(new XtextResourceSet());
+			for(final IResourceDescription resDesc : resDescriptions.getAllResourceDescriptions()) {
+				final IPath resPath = new Path(resDesc.getURI().toPlatformString(true));
+				for(final IProject p : projects) {
+					if(p.getFullPath().isPrefixOf(resPath)) {
+						resourceDescriptions.add(resDesc);
+					}
+				}
+			}
+			
+			return resourceDescriptions;
+		}
+		
+		private void addReferencedProjects(final IProject project, final Set<IProject> results) throws CoreException {
+			for(final IProject rp : project.getReferencedProjects()) {
+				if(!results.contains(rp)) {
+					results.add(rp);
+					addReferencedProjects(rp, results);
+				}
+			}
+		}
+	}
+	
 	private final static String TYPE_PACKAGE = "package";
 	private final static String TYPE_CLASSIFIER = "classifier";
 	private final static String TYPE_SUBCOMPONENT = "subcomponent";
@@ -74,10 +252,15 @@ public class DeclarativeReferenceHandler {
 	private final static String TYPE_SUBPROGRAM_CALL_ORDER = "subprogram_call_order";
 	private final static String TYPE_ANNEX_LIBRARY = "annex_library";
 	private final static String TYPE_ANNEX_SUBCLAUSE = "annex_subclause";
-	private IDiagramTypeProvider diagramTypeProvider;
-	
-	public DeclarativeReferenceHandler(final IDiagramTypeProvider diagramTypeProvider) {
-		this.diagramTypeProvider = Objects.requireNonNull(diagramTypeProvider, "diagramTypeProvider must not be null");
+	private final DeclarativeCache declarativeCache;
+         
+	public DeclarativeReferenceHandler(final IDiagramTypeProvider diagramTypeProvider, final CachingService cachingService, final SavedAadlResourceService savedAadlResourceService) {
+		this.declarativeCache = new DeclarativeCache(diagramTypeProvider, cachingService, savedAadlResourceService);		
+		cachingService.registerCache(declarativeCache);
+	}
+		
+	public void dispose() {
+		declarativeCache.dispose();
 	}
 	
 	public String getReference(final Object bo) {
@@ -147,7 +330,6 @@ public class DeclarativeReferenceHandler {
 			return null;
 		}
 				
-		// TODO: Could intern type and then wouldn't need string comparison for type?
 		Object referencedObject = null; // The object that will be returned
 		final String type = refSegs[0]; 
 		
@@ -249,23 +431,12 @@ public class DeclarativeReferenceHandler {
 			elementPath = qualifiedNameSegs[qualifiedNameSegs.length-1];
 		}
 
-		// Find resources that should be looked in
-		final Set<IProject> projects = getRelevantProjects();
-		final Set<IResourceDescription> resourceDescriptions = getResourceDescriptions(projects);
-						
-		// Get the Xtext Resource for the package
-		final XtextResource xtextResource = AgeXtextUtil.getXtextResourceByRootQualifiedName(packageName, resourceDescriptions);
-		if(xtextResource == null) {
-			return null;
-		}
-		
-		final EObject rootObj = xtextResource.getContents().get(0);
-		if(!(rootObj instanceof AadlPackage)) {
+		final AadlPackage pkg = getAadlPackage(packageName);
+		if(pkg == null) { 
 			return null;
 		}
 
-		// Return the package if that is the element that was being retrieved
-		final AadlPackage pkg = (AadlPackage)rootObj;
+		// Return the package if that is the element that was being retrieved		 
 		T element;
 		if(searchClass == AadlPackage.class) {
 			element = (T)pkg;
@@ -276,8 +447,12 @@ public class DeclarativeReferenceHandler {
 				element = findNamedElement(pkg.getPrivateSection(), searchClass, elementPathSegs);
 			}
 		}
-		
+
 		return element;
+	}
+	
+	private AadlPackage getAadlPackage(final String packageName) {
+		return declarativeCache.getAadlPackage(packageName);
 	}
 
 	private <T> T findNamedElement(final Namespace namespace, final Class<T> searchClass, final String[] pathSegs) {
@@ -370,50 +545,6 @@ public class DeclarativeReferenceHandler {
 		}
 		
 		return null;
-	}
-	
-	// TODO: Consider making some of this capability available outside of the declarative reference handler. 	
-	private Set<IProject> getRelevantProjects() {
-		try {
-			// TODO: Could be cached, but would need to know when to invalidate cache. Project reference changes...
-			final Set<IProject> projects = new HashSet<IProject>();
-			final IProject diagramProject = SelectionHelper.getProject(diagramTypeProvider.getDiagram().eResource());
-			projects.add(diagramProject);
-			addReferencedProjects(diagramProject, projects);
-
-			return projects;
-		} catch(final CoreException ex) {
-			throw new RuntimeException(ex);
-		}		 
-	}
-	
-	private Set<IResourceDescription> getResourceDescriptions(final Set<IProject> projects) {
-		// TODO: Like projects, would ideally be cached.
-		final Set<IResourceDescription> resourceDescriptions = new HashSet<IResourceDescription>();
-		// TODO: Better way that doesn't involve creating a new resource set?
-		final Injector injector = OsateCorePlugin.getDefault().getInjector("org.osate.xtext.aadl2.properties.Properties");
-		final ResourceDescriptionsProvider resourceDescProvider = injector.getInstance(ResourceDescriptionsProvider.class);
-		final IResourceDescriptions resDescriptions = resourceDescProvider.getResourceDescriptions(new XtextResourceSet());		
-		for(final IResourceDescription resDesc : resDescriptions.getAllResourceDescriptions()) {
-			final IPath resPath = new Path(resDesc.getURI().toPlatformString(true));
-			for(final IProject p : projects) {
-				// TODO: Check behavior
-				if(p.getFullPath().isPrefixOf(resPath)) {
-					resourceDescriptions.add(resDesc);
-				}
-			}
-		}
-		
-		return resourceDescriptions;
-	}
-	
-	private void addReferencedProjects(final IProject project, final Set<IProject> results) throws CoreException {
-		for(final IProject rp : project.getReferencedProjects()) {
-			if(!results.contains(rp)) {
-				results.add(rp);
-				addReferencedProjects(rp, results);
-			}
-		}
 	}
 	
 	private String getNameForSerialization(final NamedElement ne) {

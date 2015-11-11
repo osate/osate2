@@ -163,8 +163,7 @@ public class SetFeatureClassifierFeature extends AbstractCustomFeature {
 				
 				// Set the classifier
 				setFeatureClassifier(feature, dlg.getFirstSelectedElement());
-				
-				// TODO: Update other diagrams as appropriate once capability is added to DiagramService
+
 				return null;
 			}			
 		});

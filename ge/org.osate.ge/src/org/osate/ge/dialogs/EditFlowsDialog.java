@@ -445,7 +445,6 @@ public class EditFlowsDialog extends TitleAreaDialog {
 	}
 	
 	private boolean isValid(final Flow flow) {
-		// TODO: Cleanup. Is it possible to have 1 function that is used for all the checks?
 		// Perform a basic validity check. Ensure that the number of elements is reasonable, that there aren't any null segments, and that connections are not adjacent in the segment list
 		if(flow instanceof EndToEndFlow) {
 			final EndToEndFlow eteFlow = (EndToEndFlow)flow;

@@ -128,6 +128,7 @@ public class DefaultDiagramService implements DiagramService {
 	public DiagramReference findFirstDiagramByRootBusinessObject(final NamedElement ne) {
 		final String aadlElementName = ne.getQualifiedName();
 		final List<DiagramReference> diagramRefs = findDiagrams();
+		final URI resourceUri = ne.eResource().getURI();
 		
 		// Check open diagrams first
 		for(final DiagramReference diagramRef : diagramRefs) {
@@ -136,7 +137,8 @@ public class DefaultDiagramService implements DiagramService {
 				if(featureProvider != null) {
 					final Object bo = AadlElementWrapper.unwrap(featureProvider.getBusinessObjectForPictogramElement(diagramRef.getDiagram()));
 					if(bo != null && bo instanceof NamedElement) {
-						if(((NamedElement)bo).getQualifiedName().equalsIgnoreCase(aadlElementName)) {
+						final NamedElement tmpEl = (NamedElement)bo;
+						if(tmpEl.getQualifiedName().equalsIgnoreCase(aadlElementName) && resourceUri.equals(tmpEl.eResource().getURI())) {
 							return diagramRef;
 						}
 					}
@@ -154,7 +156,8 @@ public class DefaultDiagramService implements DiagramService {
 					if(featureProvider != null) {
 						final Object bo = AadlElementWrapper.unwrap(featureProvider.getBusinessObjectForPictogramElement(diagram));
 						if(bo != null && bo instanceof NamedElement) {
-							if(((NamedElement)bo).getQualifiedName().equalsIgnoreCase(aadlElementName)) {
+							final NamedElement tmpEl = (NamedElement)bo;
+							if(tmpEl.getQualifiedName().equalsIgnoreCase(aadlElementName) && resourceUri.equals(tmpEl.eResource().getURI())) {
 								return diagramRef;
 							}
 						}
