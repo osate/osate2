@@ -22,6 +22,10 @@ import org.osate.verify.verify.VerifyPackage
 
 import static org.osate.verify.util.VerifyUtilExtension.*
 import org.osate.verify.verify.VerificationMethod
+import org.osate.categories.categories.MethodCategory
+import org.osate.categories.categories.QualityCategory
+import org.osate.categories.categories.SelectionCategory
+import org.osate.categories.categories.PhaseCategory
 
 /**
  * Custom validation rules. 
@@ -152,5 +156,28 @@ class VerifyValidator extends AbstractVerifyValidator {
 								VerifyPackage.Literals.VERIFICATION_PLAN__SYSTEM_REQUIREMENTS)
 		}
 	}
+
+	
+		@Check(CheckType.FAST)
+		def void checkRequirementCategory(VerificationMethod method) {
+			val res = method.category.filter [ cat |
+				!(cat instanceof MethodCategory || cat instanceof QualityCategory)
+			]
+			if(res.empty) return;
+			error("Method '" + method.name + "' category '" + res +
+				"' must be method or quality category.", method,
+				VerifyPackage.Literals.VERIFICATION_METHOD__CATEGORY)
+		}
+	
+		@Check(CheckType.FAST)
+		def void checkRequirementCategory(VerificationActivity va) {
+			val res = va.category.filter [ cat |
+				!(cat instanceof SelectionCategory || cat instanceof PhaseCategory)
+			]
+			if(res.empty) return;
+			error("Verification activity '" + va.name + "' category '" + res +
+				"' must be phase or selection category.", va,
+				VerifyPackage.Literals.VERIFICATION_ACTIVITY__CATEGORY)
+		}
 	
 }
