@@ -27,7 +27,6 @@ public class ReqSpecRuntimeModule extends org.osate.reqspec.AbstractReqSpecRunti
 		return org.osate.alisa.common.services.CommonValueConverters.class;
 	}
 
-	
 	@Override
 	public Class<? extends IScopeProvider> bindIScopeProvider() {
 		return org.osate.reqspec.scoping.ReqSpecScopeProvider.class;
