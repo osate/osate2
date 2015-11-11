@@ -14,7 +14,7 @@ import com.google.inject.name.Names;
  * Manual modifications go to {org.osate.assure.AssureRuntimeModule}
  */
 @SuppressWarnings("all")
-public abstract class AbstractAssureRuntimeModule extends org.eclipse.xtext.common.types.DefaultCommonTypesRuntimeModule {
+public abstract class AbstractAssureRuntimeModule extends org.eclipse.xtext.service.DefaultRuntimeModule {
 
 	protected Properties properties = null;
 
@@ -109,6 +109,11 @@ public abstract class AbstractAssureRuntimeModule extends org.eclipse.xtext.comm
 	}
 
 	// contributed by org.eclipse.xtext.generator.scoping.AbstractScopingFragment
+	public Class<? extends org.eclipse.xtext.scoping.IGlobalScopeProvider> bindIGlobalScopeProvider() {
+		return org.eclipse.xtext.scoping.impl.DefaultGlobalScopeProvider.class;
+	}
+
+	// contributed by org.eclipse.xtext.generator.scoping.AbstractScopingFragment
 	public void configureIgnoreCaseLinking(com.google.inject.Binder binder) {
 		binder.bindConstant().annotatedWith(org.eclipse.xtext.scoping.IgnoreCaseLinking.class).to(false);
 	}
@@ -146,11 +151,6 @@ public abstract class AbstractAssureRuntimeModule extends org.eclipse.xtext.comm
 	// contributed by org.eclipse.xtext.generator.formatting.FormatterFragment
 	public Class<? extends org.eclipse.xtext.formatting.IFormatter> bindIFormatter() {
 		return org.osate.assure.formatting.AssureFormatter.class;
-	}
-
-	// contributed by org.eclipse.xtext.generator.types.TypesGeneratorFragment
-	public Class<? extends org.eclipse.xtext.scoping.IGlobalScopeProvider> bindIGlobalScopeProvider() {
-		return org.eclipse.xtext.common.types.xtext.TypesAwareDefaultGlobalScopeProvider.class;
 	}
 
 }
