@@ -377,7 +377,7 @@ public class DefaultColoringService implements ColoringService {
 	}
 	
 	private IColorConstant getInSelectedFlowColor() {
-		return ColorConstant.GREEN;
+		return ColorConstant.DARK_GREEN;
 	}
 	
 	private IColorConstant getInSelectedModeAndFlowColor() {

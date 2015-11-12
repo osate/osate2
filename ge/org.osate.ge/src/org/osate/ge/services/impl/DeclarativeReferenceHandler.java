@@ -157,12 +157,14 @@ public class DeclarativeReferenceHandler {
 		 * Returns an AadlPackage or an EObjectReference depending on whether the package is retrieved from disk or from an Xtext document
 		 * @return
 		 */
-		private static Object findAadlPackage(final String packageName, Set<IResourceDescription> resourceDescriptions, final SavedAadlResourceService savedAadlResourceService) {		
+		private static Object findAadlPackage(final String packageName, Set<IResourceDescription> resourceDescriptions, final SavedAadlResourceService savedAadlResourceService) {
 			// Get the Xtext Resource for the package
 			final XtextResource xtextResource = AgeXtextUtil.getOpenXtextResourceByRootQualifiedName(packageName, resourceDescriptions);
 			if(xtextResource == null) {
+				final String[] pkgNameSegs = packageName.split("::");
+				final QualifiedName packageQualifiedName = QualifiedName.create(pkgNameSegs);
 				for(final IResourceDescription resDesc : resourceDescriptions) {
-					for(IEObjectDescription eod : resDesc.getExportedObjects(aadlPackageEClass, QualifiedName.create(packageName), true)) {
+					for(IEObjectDescription eod : resDesc.getExportedObjects(aadlPackageEClass, packageQualifiedName, true)) {
 						return savedAadlResourceService.getPackageReference(eod.getEObjectURI());
 					}
 				}
@@ -422,7 +424,7 @@ public class DeclarativeReferenceHandler {
 		if(searchClass == AadlPackage.class) {
 			element = (T)pkg;
 		} else {		
-			final String[] elementPathSegs = elementPath.split("\\.");		
+			final String[] elementPathSegs = elementPath.split("\\.");
 			element = findNamedElement(pkg.getPublicSection(), searchClass, elementPathSegs);
 			if(element == null) {
 				element = findNamedElement(pkg.getPrivateSection(), searchClass, elementPathSegs);

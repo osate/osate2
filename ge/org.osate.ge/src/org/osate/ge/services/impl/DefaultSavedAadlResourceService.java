@@ -26,7 +26,6 @@ import org.eclipse.core.runtime.CoreException;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.resource.Resource;
-import org.eclipse.emf.ecore.resource.ResourceSet;
 import org.eclipse.xtext.resource.XtextResourceSet;
 import org.osate.aadl2.AadlPackage;
 import org.osate.ge.services.SavedAadlResourceService;
@@ -57,7 +56,7 @@ public class DefaultSavedAadlResourceService implements SavedAadlResourceService
 					weakRef.resource = pkg.eResource();
 				} 
 			}
-			
+						
 			return pkg;
 		}
 		
@@ -88,7 +87,7 @@ public class DefaultSavedAadlResourceService implements SavedAadlResourceService
 		}
 	}
 	
-	private final ResourceSet resourceSet = new XtextResourceSet();
+	private final XtextResourceSet resourceSet = new XtextResourceSet();
 	private final Map<URI, WeakPackageReference> elementUriToAadlPackageReference = new HashMap<>();
 	private final ReferenceQueue<SimpleAadlPackageReference> collectedAadlPkgReferenceQueue = new ReferenceQueue<>();
 	private final Set<URI> resourcesBeingSaved = new HashSet<>(); // Set of resources which are in the process of being saved by the editor.
@@ -188,7 +187,6 @@ public class DefaultSavedAadlResourceService implements SavedAadlResourceService
 				return pkgRef;
 			}
 		}
-
 		// Create a reference object for the package	
 		final SimpleAadlPackageReference pkgReference = new SimpleAadlPackageReference(elementUri);
 		
