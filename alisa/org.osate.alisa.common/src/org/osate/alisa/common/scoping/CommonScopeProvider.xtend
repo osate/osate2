@@ -19,9 +19,9 @@ import org.eclipse.xtext.util.SimpleAttributeResolver
 import org.osate.aadl2.Aadl2Package
 import org.osate.aadl2.UnitLiteral
 import org.osate.aadl2.UnitsType
+import org.osate.alisa.common.common.ANumberLiteral
 import org.osate.alisa.common.common.ShowValue
 import org.osate.xtext.aadl2.properties.util.EMFIndexRetrieval
-import org.osate.alisa.common.common.ComputeDeclaration
 
 /**
  * This class contains custom scoping description.
@@ -59,7 +59,7 @@ class CommonScopeProvider extends AbstractDeclarativeScopeProvider {
 	}
 
 	def scope_UnitLiteral(
-		ComputeDeclaration context,
+		ANumberLiteral context,
 		EReference reference
 	) {
 		val units = context.unitLiterals
