@@ -5,12 +5,8 @@ package org.osate.reqspec;
 
 import org.eclipse.xtext.conversion.IValueConverterService;
 import org.eclipse.xtext.scoping.IScopeProvider;
-import org.eclipse.xtext.scoping.impl.AbstractDeclarativeScopeProvider;
 import org.eclipse.xtext.serializer.tokens.ICrossReferenceSerializer;
-import org.osate.reqspec.scoping.ReqSpecScopeProvider;
 import org.osate.reqspec.serializer.ReqSpecCrossReferenceSerializer;
-
-import com.google.inject.name.Names;
 
 /**
  * Use this class to register components to be used at runtime / without the Equinox extension registry.
@@ -27,10 +23,6 @@ public class ReqSpecRuntimeModule extends org.osate.reqspec.AbstractReqSpecRunti
 		return org.osate.alisa.common.services.CommonValueConverters.class;
 	}
 
-<<<<<<< Upstream, based on develop
-=======
-	
->>>>>>> 034a04b finally the editors open without xbase. Issue was scoper provider delegate is only generated when importednamespece is enabled.
 	@Override
 	public Class<? extends IScopeProvider> bindIScopeProvider() {
 		return org.osate.reqspec.scoping.ReqSpecScopeProvider.class;
