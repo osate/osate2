@@ -18,7 +18,7 @@ import org.eclipse.xtext.util.SimpleAttributeResolver
 import org.osate.aadl2.ComponentClassifier
 import org.osate.aadl2.ComponentImplementation
 import org.osate.alisa.common.common.AVariableDeclaration
-import org.osate.alisa.common.scoping.AlisaAbstractDeclarativeScopeProvider
+import org.osate.alisa.common.scoping.CommonScopeProvider
 import org.osate.alisa.common.scoping.ICommonGlobalReferenceFinder
 import org.osate.reqspec.reqSpec.ContractualElement
 import org.osate.reqspec.reqSpec.Goal
