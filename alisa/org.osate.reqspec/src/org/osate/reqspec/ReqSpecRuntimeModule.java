@@ -27,6 +27,10 @@ public class ReqSpecRuntimeModule extends org.osate.reqspec.AbstractReqSpecRunti
 		return org.osate.alisa.common.services.CommonValueConverters.class;
 	}
 
+<<<<<<< Upstream, based on develop
+=======
+	
+>>>>>>> 034a04b finally the editors open without xbase. Issue was scoper provider delegate is only generated when importednamespece is enabled.
 	@Override
 	public Class<? extends IScopeProvider> bindIScopeProvider() {
 		return org.osate.reqspec.scoping.ReqSpecScopeProvider.class;
