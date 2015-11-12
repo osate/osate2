@@ -33,6 +33,10 @@ class ReqSpecUtilExtension {
 		return null;
 	}
 
+	def static containingContractualElement(EObject sh) {
+		sh.getContainerOfType(ContractualElement)
+	}
+
 	def static containingRequirement(EObject sh) {
 		sh.getContainerOfType(Requirement)
 	}

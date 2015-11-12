@@ -29,6 +29,7 @@ import org.osate.reqspec.util.IReqspecGlobalReferenceFinder
 
 import static org.osate.alisa.common.util.CommonUtilExtension.*
 import static org.osate.reqspec.util.ReqSpecUtilExtension.*
+import org.osate.alisa.common.common.AVariableReference
 
 /**
  * This class contains custom scoping description.
@@ -67,18 +68,24 @@ class ReqSpecScopeProvider extends AlisaAbstractDeclarativeScopeProvider {
 //				Aadl2Package.eINSTANCE.property, null)
 //		new SimpleScope(IScope::NULLSCOPE, props,true)
 //	}
-	def scope_XExpression(Requirement context, EReference reference) {
+
+	def scope_AVariableDeclaration(AVariableReference context, EReference reference) {
 		val result = scopeForGlobalVal(context,IScope.NULLSCOPE)
-		return scopeForValCompute(context, result )
+		val contract = containingContractualElement(context)
+		switch (contract){
+			Requirement: return scopeForValCompute(contract, result)
+			Goal: return scopeForVal(contract,result)
+		}
 	}
 
-	def scope_XVariableDeclaration(Requirement context, EReference reference) {
+	
+	def scope_AVariableDeclaration(Requirement context, EReference reference) {
 		val result = scopeForGlobalVal(context,IScope.NULLSCOPE)
 		return scopeForValCompute(context, result)
-		
 	}
 
-	def scope_XVariableDeclaration(Goal context, EReference reference) {
+
+	def scope_AVariableDeclaration(Goal context, EReference reference) {
 		val result = scopeForGlobalVal(context,IScope.NULLSCOPE)
 		return scopeForVal(context, result)
 	}

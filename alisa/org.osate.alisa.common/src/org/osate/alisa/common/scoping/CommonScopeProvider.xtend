@@ -22,6 +22,7 @@ import org.osate.aadl2.UnitsType
 import org.osate.alisa.common.common.ANumberLiteral
 import org.osate.alisa.common.common.ShowValue
 import org.osate.xtext.aadl2.properties.util.EMFIndexRetrieval
+import org.osate.alisa.common.common.AVariableReference
 
 /**
  * This class contains custom scoping description.
@@ -37,14 +38,6 @@ class CommonScopeProvider extends AbstractDeclarativeScopeProvider {
 			Scopes::scopedElementsFor(elements, QualifiedName::wrapper(SimpleAttributeResolver::NAME_RESOLVER)), true)
 	}
 
-//	def scope_UnitLiteral(NumberLiteralUnit context, EReference reference) {
-//		val units = context.unitLiterals
-//		if (!units.empty) {
-//			units.scopeFor
-//		} else {
-//			IScope.NULLSCOPE
-//		}
-//	}
 
 	def scope_UnitLiteral(
 		ShowValue context,
