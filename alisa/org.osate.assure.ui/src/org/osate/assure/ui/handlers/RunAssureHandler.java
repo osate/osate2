@@ -14,8 +14,6 @@ import org.eclipse.ui.PartInitException;
 import org.eclipse.ui.handlers.IHandlerActivation;
 import org.eclipse.ui.handlers.IHandlerService;
 import org.eclipse.xtext.EcoreUtil2;
-import org.osate.aadl2.Element;
-import org.osate.alisa.workbench.alisa.AssurancePlan;
 import org.osate.assure.assure.AssuranceCase;
 import org.osate.assure.assure.AssureResult;
 import org.osate.assure.ui.views.AssureView;

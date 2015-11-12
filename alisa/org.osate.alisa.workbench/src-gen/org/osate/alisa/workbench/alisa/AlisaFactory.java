@@ -50,24 +50,6 @@ public interface AlisaFactory extends EFactory
   AssuranceTask createAssuranceTask();
 
   /**
-   * Returns a new object of class '<em>Description</em>'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return a new object of class '<em>Description</em>'.
-   * @generated
-   */
-  Description createDescription();
-
-  /**
-   * Returns a new object of class '<em>Description Element</em>'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return a new object of class '<em>Description Element</em>'.
-   * @generated
-   */
-  DescriptionElement createDescriptionElement();
-
-  /**
    * Returns the package supported by this factory.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->

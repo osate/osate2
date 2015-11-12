@@ -247,60 +247,6 @@
 	    <persistent value="true"/>
 	</extension>
 
-   <extension
-         point="org.eclipse.xtext.builder.participant">
-      <participant
-            class="org.osate.assure.ui.AssureExecutableExtensionFactory:org.eclipse.xtext.builder.IXtextBuilderParticipant"
-            fileExtensions="assure"
-            >
-      </participant>
-   </extension>
-   <extension
-            point="org.eclipse.ui.preferencePages">
-        <page
-            category="org.osate.assure.Assure"
-            class="org.osate.assure.ui.AssureExecutableExtensionFactory:org.eclipse.xtext.builder.preferences.BuilderPreferencePage"
-            id="org.osate.assure.Assure.compiler.preferencePage"
-            name="Compiler">
-            <keywordReference id="org.osate.assure.ui.keyword_Assure"/>
-        </page>
-    </extension>
-    <extension
-            point="org.eclipse.ui.propertyPages">
-        <page
-            category="org.osate.assure.Assure"
-            class="org.osate.assure.ui.AssureExecutableExtensionFactory:org.eclipse.xtext.builder.preferences.BuilderPreferencePage"
-            id="org.osate.assure.Assure.compiler.propertyPage"
-            name="Compiler">
-            <keywordReference id="org.osate.assure.ui.keyword_Assure"/>
-            <enabledWhen>
-	            <adapt type="org.eclipse.core.resources.IProject"/>
-			</enabledWhen>
-	        <filter name="projectNature" value="org.eclipse.xtext.ui.shared.xtextNature"/>
-        </page>
-    </extension>
-    <extension point="org.eclipse.ui.menus">
-		<menuContribution locationURI="popup:#TextEditorContext?after=xtext.ui.openDeclaration">
-			<command
-				commandId="org.eclipse.xtext.ui.OpenGeneratedFileCommand"
-				id="org.osate.assure.Assure.OpenGeneratedCode"
-				style="push">
-					<visibleWhen checkEnabled="false">
-						<reference definitionId="org.osate.assure.Assure.Editor.opened" />
-					</visibleWhen>
-			</command>
-		</menuContribution>
-	</extension>
-	<extension point="org.eclipse.ui.handlers">
-		<handler
-			class="org.osate.assure.ui.AssureExecutableExtensionFactory:org.eclipse.xtext.ui.generator.trace.OpenGeneratedFileHandler"
-			commandId="org.eclipse.xtext.ui.OpenGeneratedFileCommand">
-				<activeWhen>
-					<reference definitionId="org.osate.assure.Assure.Editor.opened" />
-				</activeWhen>
-		</handler>
-	</extension>
-
 	<!-- Quick Outline -->
 	<extension
 		point="org.eclipse.ui.handlers">

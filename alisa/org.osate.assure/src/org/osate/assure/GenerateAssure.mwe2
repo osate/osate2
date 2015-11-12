@@ -15,9 +15,6 @@ Workflow {
     bean = StandaloneSetup {
     	scanClassPath = true
     	platformUri = "${runtimeProject}/.."
-//    	// The following two lines can be removed, if Xbase is not used.
-//    	registerGeneratedEPackage = "org.eclipse.xtext.xbase.XbasePackage"
-//    	registerGenModelFile = "platform:/resource/org.eclipse.xtext.xbase/model/Xbase.genmodel"
 		uriMap = {
 			from = "platform:/plugin/org.eclipse.emf.codegen.ecore/model/GenModel.genmodel"
 			to = "platform:/resource/org.eclipse.emf.codegen.ecore/model/GenModel.genmodel"
@@ -59,13 +56,6 @@ Workflow {
 			to = "platform:/resource/org.eclipse.uml2.uml/model/UML.ecore"
 		}
 		
-		uriMap = {
-			from = "platform:/plugin/org.eclipse.xtext.xbase/model/Xbase.genmodel"
-			to = "platform:/resource/org.eclipse.xtext.xbase/model/Xbase.genmodel"
-		}
-    	// The following two lines can be removed, if Xbase is not used.
-    	registerGeneratedEPackage = "org.eclipse.xtext.xbase.XbasePackage"
-    	registerGenModelFile = "platform:/resource/org.eclipse.xtext.xbase/model/Xbase.genmodel"
     	
 		registerGeneratedEPackage = "org.eclipse.emf.ecore.EcorePackage"
 		registerGeneratedEPackage = "org.eclipse.uml2.types.TypesPackage"
@@ -160,8 +150,8 @@ Workflow {
     		fragment = exporting.QualifiedNamesFragment auto-inject {}
     		fragment = builder.BuilderIntegrationFragment auto-inject {}
     
-    		// generator API
-    		fragment = generator.GeneratorFragment auto-inject {}
+//    		// generator API
+//    		fragment = generator.GeneratorFragment auto-inject {}
     
     		// formatter API
     		fragment = formatting.FormatterFragment auto-inject {}
@@ -187,8 +177,10 @@ Workflow {
     
     		// rename refactoring
     		fragment = refactoring.RefactorElementNameFragment auto-inject {}
-    
-    
+//    
+//    		// provides a preference page for template proposals
+//    		fragment = templates.CodetemplatesGeneratorFragment auto-inject {}
+     
     		// provides a compare view
     		fragment = compare.CompareFragment auto-inject {}
     	}

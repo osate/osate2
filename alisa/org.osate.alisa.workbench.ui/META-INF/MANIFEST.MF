@@ -21,12 +21,10 @@ Require-Bundle: org.osate.alisa.workbench;visibility:=reexport,
  org.osate.aadl2.instantiation,
  org.osate.ui,
  org.osate.assure,
- org.eclipse.xtext.xbase.lib,
- org.eclipse.xtext.xbase.ui,
- org.eclipse.xtext.common.types.ui,
  org.eclipse.jdt.debug.ui,
  org.osate.alisa.common.ui;bundle-version="1.0.0",
- org.osate.verify
+ org.osate.verify,
+ org.eclipse.xtext.xbase.lib
 Import-Package: org.apache.commons.lang,
  org.apache.log4j
 Bundle-RequiredExecutionEnvironment: JavaSE-1.7

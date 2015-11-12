@@ -5,49 +5,53 @@ package org.osate.alisa.common.common.impl;
 import org.eclipse.emf.common.notify.Notification;
 
 import org.eclipse.emf.ecore.EClass;
-import org.eclipse.emf.ecore.EObject;
-import org.eclipse.emf.ecore.InternalEObject;
 
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 
-import org.eclipse.xtext.xbase.impl.XNumberLiteralImpl;
-
-import org.osate.aadl2.UnitLiteral;
-
+import org.osate.alisa.common.common.AStringLiteral;
 import org.osate.alisa.common.common.CommonPackage;
-import org.osate.alisa.common.common.XNumberLiteralUnit;
 
 /**
  * <!-- begin-user-doc -->
- * An implementation of the model object '<em><b>XNumber Literal Unit</b></em>'.
+ * An implementation of the model object '<em><b>AString Literal</b></em>'.
  * <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
  * </p>
  * <ul>
- *   <li>{@link org.osate.alisa.common.common.impl.XNumberLiteralUnitImpl#getUnit <em>Unit</em>}</li>
+ *   <li>{@link org.osate.alisa.common.common.impl.AStringLiteralImpl#getValue <em>Value</em>}</li>
  * </ul>
  *
  * @generated
  */
-public class XNumberLiteralUnitImpl extends XNumberLiteralImpl implements XNumberLiteralUnit
+public class AStringLiteralImpl extends AExpressionImpl implements AStringLiteral
 {
   /**
-   * The cached value of the '{@link #getUnit() <em>Unit</em>}' reference.
+   * The default value of the '{@link #getValue() <em>Value</em>}' attribute.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @see #getUnit()
+   * @see #getValue()
    * @generated
    * @ordered
    */
-  protected UnitLiteral unit;
+  protected static final String VALUE_EDEFAULT = null;
+
+  /**
+   * The cached value of the '{@link #getValue() <em>Value</em>}' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see #getValue()
+   * @generated
+   * @ordered
+   */
+  protected String value = VALUE_EDEFAULT;
 
   /**
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    */
-  protected XNumberLiteralUnitImpl()
+  protected AStringLiteralImpl()
   {
     super();
   }
@@ -60,7 +64,7 @@ public class XNumberLiteralUnitImpl extends XNumberLiteralImpl implements XNumbe
   @Override
   protected EClass eStaticClass()
   {
-    return CommonPackage.Literals.XNUMBER_LITERAL_UNIT;
+    return CommonPackage.Literals.ASTRING_LITERAL;
   }
 
   /**
@@ -68,19 +72,9 @@ public class XNumberLiteralUnitImpl extends XNumberLiteralImpl implements XNumbe
    * <!-- end-user-doc -->
    * @generated
    */
-  public UnitLiteral getUnit()
+  public String getValue()
   {
-    if (unit != null && ((EObject)unit).eIsProxy())
-    {
-      InternalEObject oldUnit = (InternalEObject)unit;
-      unit = (UnitLiteral)eResolveProxy(oldUnit);
-      if (unit != oldUnit)
-      {
-        if (eNotificationRequired())
-          eNotify(new ENotificationImpl(this, Notification.RESOLVE, CommonPackage.XNUMBER_LITERAL_UNIT__UNIT, oldUnit, unit));
-      }
-    }
-    return unit;
+    return value;
   }
 
   /**
@@ -88,22 +82,12 @@ public class XNumberLiteralUnitImpl extends XNumberLiteralImpl implements XNumbe
    * <!-- end-user-doc -->
    * @generated
    */
-  public UnitLiteral basicGetUnit()
+  public void setValue(String newValue)
   {
-    return unit;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public void setUnit(UnitLiteral newUnit)
-  {
-    UnitLiteral oldUnit = unit;
-    unit = newUnit;
+    String oldValue = value;
+    value = newValue;
     if (eNotificationRequired())
-      eNotify(new ENotificationImpl(this, Notification.SET, CommonPackage.XNUMBER_LITERAL_UNIT__UNIT, oldUnit, unit));
+      eNotify(new ENotificationImpl(this, Notification.SET, CommonPackage.ASTRING_LITERAL__VALUE, oldValue, value));
   }
 
   /**
@@ -116,9 +100,8 @@ public class XNumberLiteralUnitImpl extends XNumberLiteralImpl implements XNumbe
   {
     switch (featureID)
     {
-      case CommonPackage.XNUMBER_LITERAL_UNIT__UNIT:
-        if (resolve) return getUnit();
-        return basicGetUnit();
+      case CommonPackage.ASTRING_LITERAL__VALUE:
+        return getValue();
     }
     return super.eGet(featureID, resolve, coreType);
   }
@@ -133,8 +116,8 @@ public class XNumberLiteralUnitImpl extends XNumberLiteralImpl implements XNumbe
   {
     switch (featureID)
     {
-      case CommonPackage.XNUMBER_LITERAL_UNIT__UNIT:
-        setUnit((UnitLiteral)newValue);
+      case CommonPackage.ASTRING_LITERAL__VALUE:
+        setValue((String)newValue);
         return;
     }
     super.eSet(featureID, newValue);
@@ -150,8 +133,8 @@ public class XNumberLiteralUnitImpl extends XNumberLiteralImpl implements XNumbe
   {
     switch (featureID)
     {
-      case CommonPackage.XNUMBER_LITERAL_UNIT__UNIT:
-        setUnit((UnitLiteral)null);
+      case CommonPackage.ASTRING_LITERAL__VALUE:
+        setValue(VALUE_EDEFAULT);
         return;
     }
     super.eUnset(featureID);
@@ -167,10 +150,27 @@ public class XNumberLiteralUnitImpl extends XNumberLiteralImpl implements XNumbe
   {
     switch (featureID)
     {
-      case CommonPackage.XNUMBER_LITERAL_UNIT__UNIT:
-        return unit != null;
+      case CommonPackage.ASTRING_LITERAL__VALUE:
+        return VALUE_EDEFAULT == null ? value != null : !VALUE_EDEFAULT.equals(value);
     }
     return super.eIsSet(featureID);
   }
 
-} //XNumberLiteralUnitImpl
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  @Override
+  public String toString()
+  {
+    if (eIsProxy()) return super.toString();
+
+    StringBuffer result = new StringBuffer(super.toString());
+    result.append(" (value: ");
+    result.append(value);
+    result.append(')');
+    return result.toString();
+  }
+
+} //AStringLiteralImpl

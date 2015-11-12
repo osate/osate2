@@ -36,7 +36,6 @@ ClaimResult:
 ;
 
 
-
 ConditionResult returns VerificationResult:
 	('precondition' {PreconditionResult}| 'validation' {ValidationResult})	
 	target=[Verify::VerificationCondition|QualifiedName]

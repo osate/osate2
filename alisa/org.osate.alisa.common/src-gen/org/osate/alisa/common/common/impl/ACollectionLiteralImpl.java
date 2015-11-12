@@ -1,6 +1,6 @@
 /**
  */
-package org.osate.alisa.workbench.alisa.impl;
+package org.osate.alisa.common.common.impl;
 
 import java.util.Collection;
 
@@ -11,46 +11,44 @@ import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.InternalEObject;
 
-import org.eclipse.emf.ecore.impl.MinimalEObjectImpl;
-
 import org.eclipse.emf.ecore.util.EObjectContainmentEList;
 import org.eclipse.emf.ecore.util.InternalEList;
 
-import org.osate.alisa.workbench.alisa.AlisaPackage;
-import org.osate.alisa.workbench.alisa.Description;
-import org.osate.alisa.workbench.alisa.DescriptionElement;
+import org.osate.alisa.common.common.ACollectionLiteral;
+import org.osate.alisa.common.common.AExpression;
+import org.osate.alisa.common.common.CommonPackage;
 
 /**
  * <!-- begin-user-doc -->
- * An implementation of the model object '<em><b>Description</b></em>'.
+ * An implementation of the model object '<em><b>ACollection Literal</b></em>'.
  * <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
  * </p>
  * <ul>
- *   <li>{@link org.osate.alisa.workbench.alisa.impl.DescriptionImpl#getDescription <em>Description</em>}</li>
+ *   <li>{@link org.osate.alisa.common.common.impl.ACollectionLiteralImpl#getElements <em>Elements</em>}</li>
  * </ul>
  *
  * @generated
  */
-public class DescriptionImpl extends MinimalEObjectImpl.Container implements Description
+public class ACollectionLiteralImpl extends AExpressionImpl implements ACollectionLiteral
 {
   /**
-   * The cached value of the '{@link #getDescription() <em>Description</em>}' containment reference list.
+   * The cached value of the '{@link #getElements() <em>Elements</em>}' containment reference list.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @see #getDescription()
+   * @see #getElements()
    * @generated
    * @ordered
    */
-  protected EList<DescriptionElement> description;
+  protected EList<AExpression> elements;
 
   /**
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    */
-  protected DescriptionImpl()
+  protected ACollectionLiteralImpl()
   {
     super();
   }
@@ -63,7 +61,7 @@ public class DescriptionImpl extends MinimalEObjectImpl.Container implements Des
   @Override
   protected EClass eStaticClass()
   {
-    return AlisaPackage.Literals.DESCRIPTION;
+    return CommonPackage.Literals.ACOLLECTION_LITERAL;
   }
 
   /**
@@ -71,13 +69,13 @@ public class DescriptionImpl extends MinimalEObjectImpl.Container implements Des
    * <!-- end-user-doc -->
    * @generated
    */
-  public EList<DescriptionElement> getDescription()
+  public EList<AExpression> getElements()
   {
-    if (description == null)
+    if (elements == null)
     {
-      description = new EObjectContainmentEList<DescriptionElement>(DescriptionElement.class, this, AlisaPackage.DESCRIPTION__DESCRIPTION);
+      elements = new EObjectContainmentEList<AExpression>(AExpression.class, this, CommonPackage.ACOLLECTION_LITERAL__ELEMENTS);
     }
-    return description;
+    return elements;
   }
 
   /**
@@ -90,8 +88,8 @@ public class DescriptionImpl extends MinimalEObjectImpl.Container implements Des
   {
     switch (featureID)
     {
-      case AlisaPackage.DESCRIPTION__DESCRIPTION:
-        return ((InternalEList<?>)getDescription()).basicRemove(otherEnd, msgs);
+      case CommonPackage.ACOLLECTION_LITERAL__ELEMENTS:
+        return ((InternalEList<?>)getElements()).basicRemove(otherEnd, msgs);
     }
     return super.eInverseRemove(otherEnd, featureID, msgs);
   }
@@ -106,8 +104,8 @@ public class DescriptionImpl extends MinimalEObjectImpl.Container implements Des
   {
     switch (featureID)
     {
-      case AlisaPackage.DESCRIPTION__DESCRIPTION:
-        return getDescription();
+      case CommonPackage.ACOLLECTION_LITERAL__ELEMENTS:
+        return getElements();
     }
     return super.eGet(featureID, resolve, coreType);
   }
@@ -123,9 +121,9 @@ public class DescriptionImpl extends MinimalEObjectImpl.Container implements Des
   {
     switch (featureID)
     {
-      case AlisaPackage.DESCRIPTION__DESCRIPTION:
-        getDescription().clear();
-        getDescription().addAll((Collection<? extends DescriptionElement>)newValue);
+      case CommonPackage.ACOLLECTION_LITERAL__ELEMENTS:
+        getElements().clear();
+        getElements().addAll((Collection<? extends AExpression>)newValue);
         return;
     }
     super.eSet(featureID, newValue);
@@ -141,8 +139,8 @@ public class DescriptionImpl extends MinimalEObjectImpl.Container implements Des
   {
     switch (featureID)
     {
-      case AlisaPackage.DESCRIPTION__DESCRIPTION:
-        getDescription().clear();
+      case CommonPackage.ACOLLECTION_LITERAL__ELEMENTS:
+        getElements().clear();
         return;
     }
     super.eUnset(featureID);
@@ -158,10 +156,10 @@ public class DescriptionImpl extends MinimalEObjectImpl.Container implements Des
   {
     switch (featureID)
     {
-      case AlisaPackage.DESCRIPTION__DESCRIPTION:
-        return description != null && !description.isEmpty();
+      case CommonPackage.ACOLLECTION_LITERAL__ELEMENTS:
+        return elements != null && !elements.isEmpty();
     }
     return super.eIsSet(featureID);
   }
 
-} //DescriptionImpl
+} //ACollectionLiteralImpl

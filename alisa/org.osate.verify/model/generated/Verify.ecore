@@ -45,9 +45,9 @@
         upperBound="-1" eType="ecore:EClass platform:/resource/org.osate.alisa.common/model/generated/Common.ecore#//ComputeDeclaration"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="method" eType="#//VerificationMethod"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="parameters" unique="false"
-        upperBound="-1" eType="ecore:EClass platform:/resource/org.eclipse.xtext.xbase/model/Xbase.ecore#//XExpression"/>
+        upperBound="-1" eType="ecore:EClass platform:/resource/org.osate.alisa.common/model/generated/Common.ecore#//AExpression"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="propertyValues" unique="false"
-        upperBound="-1" eType="ecore:EClass platform:/resource/org.eclipse.xtext.xbase/model/Xbase.ecore#//XExpression"/>
+        upperBound="-1" eType="ecore:EClass platform:/resource/org.osate.alisa.common/model/generated/Common.ecore#//AExpression"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="timeout" eType="ecore:EDataType platform:/plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//EInt"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="VerificationCondition">
@@ -57,9 +57,9 @@
         containment="true"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="method" eType="#//VerificationMethod"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="parameters" unique="false"
-        upperBound="-1" eType="ecore:EClass platform:/resource/org.eclipse.xtext.xbase/model/Xbase.ecore#//XExpression"/>
+        upperBound="-1" eType="ecore:EClass platform:/resource/org.osate.alisa.common/model/generated/Common.ecore#//AExpression"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="propertyValues" unique="false"
-        upperBound="-1" eType="ecore:EClass platform:/resource/org.eclipse.xtext.xbase/model/Xbase.ecore#//XExpression"/>
+        upperBound="-1" eType="ecore:EClass platform:/resource/org.osate.alisa.common/model/generated/Common.ecore#//AExpression"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="timeout" eType="ecore:EDataType platform:/plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//EInt"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="rationale" eType="ecore:EClass platform:/resource/org.osate.alisa.common/model/generated/Common.ecore#//Rationale"
         containment="true"/>
@@ -72,11 +72,14 @@
     <eStructuralFeatures xsi:type="ecore:EReference" name="methods" upperBound="-1"
         eType="#//VerificationMethod" containment="true"/>
   </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="FormalParameter">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="parameterType" eType="ecore:EDataType platform:/plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" eType="ecore:EDataType platform:/plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//EString"/>
+  </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="VerificationMethod">
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" eType="ecore:EDataType platform:/plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//EString"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="params" upperBound="-1"
-        eType="ecore:EClass platform:/resource/org.eclipse.xtext.common.types/model/JavaVMTypes.ecore#//JvmFormalParameter"
-        containment="true"/>
+        eType="#//FormalParameter" containment="true"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="properties" unique="false"
         upperBound="-1" eType="ecore:EClass platform:/resource/org.osate.aadl2/model/aadl2.ecore#//Property"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="isPredicate" eType="ecore:EDataType platform:/plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//EBoolean"/>

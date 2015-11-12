@@ -55,6 +55,7 @@ import org.osate.aadl2.Subcomponent
 import org.osate.aadl2.util.Aadl2Util
 import org.osate.alisa.common.common.Description
 import org.osate.alisa.workbench.util.AlisaWorkbenchUtilExtension
+import org.osate.alisa.common.util.CommonUtilExtension
 
 class AssureUtilExtension {
 
@@ -1078,7 +1079,7 @@ class AssureUtilExtension {
 		}
 		if(ap.description != null) {
 			val d = ap.description
-			return AlisaWorkbenchUtilExtension.toText(d,ar.claimSubject)
+			return CommonUtilExtension.toText(d,ar.claimSubject)
 			}
 		if(ap.title != null) return ap.title
 		""

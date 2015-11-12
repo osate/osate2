@@ -21,11 +21,10 @@ import org.eclipse.emf.ecore.util.EObjectContainmentEList;
 import org.eclipse.emf.ecore.util.EObjectResolvingEList;
 import org.eclipse.emf.ecore.util.InternalEList;
 
-import org.eclipse.xtext.xbase.XVariableDeclaration;
-
 import org.osate.aadl2.ComponentClassifier;
 import org.osate.aadl2.NamedElement;
 
+import org.osate.alisa.common.common.AVariableDeclaration;
 import org.osate.alisa.common.common.Description;
 import org.osate.alisa.common.common.Rationale;
 import org.osate.alisa.common.common.Uncertainty;
@@ -175,7 +174,7 @@ public class ContractualElementImpl extends MinimalEObjectImpl.Container impleme
    * @generated
    * @ordered
    */
-  protected EList<XVariableDeclaration> constants;
+  protected EList<AVariableDeclaration> constants;
 
   /**
    * The cached value of the '{@link #getRationale() <em>Rationale</em>}' containment reference.
@@ -520,11 +519,11 @@ public class ContractualElementImpl extends MinimalEObjectImpl.Container impleme
    * <!-- end-user-doc -->
    * @generated
    */
-  public EList<XVariableDeclaration> getConstants()
+  public EList<AVariableDeclaration> getConstants()
   {
     if (constants == null)
     {
-      constants = new EObjectContainmentEList<XVariableDeclaration>(XVariableDeclaration.class, this, ReqSpecPackage.CONTRACTUAL_ELEMENT__CONSTANTS);
+      constants = new EObjectContainmentEList<AVariableDeclaration>(AVariableDeclaration.class, this, ReqSpecPackage.CONTRACTUAL_ELEMENT__CONSTANTS);
     }
     return constants;
   }
@@ -834,7 +833,7 @@ public class ContractualElementImpl extends MinimalEObjectImpl.Container impleme
         return;
       case ReqSpecPackage.CONTRACTUAL_ELEMENT__CONSTANTS:
         getConstants().clear();
-        getConstants().addAll((Collection<? extends XVariableDeclaration>)newValue);
+        getConstants().addAll((Collection<? extends AVariableDeclaration>)newValue);
         return;
       case ReqSpecPackage.CONTRACTUAL_ELEMENT__RATIONALE:
         setRationale((Rationale)newValue);

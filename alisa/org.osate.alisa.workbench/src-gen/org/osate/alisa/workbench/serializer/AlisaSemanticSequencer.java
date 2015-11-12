@@ -9,20 +9,37 @@ import org.eclipse.emf.ecore.EObject;
 import org.eclipse.xtext.serializer.acceptor.ISemanticSequenceAcceptor;
 import org.eclipse.xtext.serializer.diagnostic.ISemanticSequencerDiagnosticProvider;
 import org.eclipse.xtext.serializer.diagnostic.ISerializationDiagnostic.Acceptor;
-import org.eclipse.xtext.serializer.sequencer.AbstractDelegatingSemanticSequencer;
 import org.eclipse.xtext.serializer.sequencer.GenericSequencer;
 import org.eclipse.xtext.serializer.sequencer.ISemanticSequencer;
 import org.eclipse.xtext.serializer.sequencer.ITransientValueService;
+import org.osate.alisa.common.common.ABinaryOperation;
+import org.osate.alisa.common.common.ABooleanLiteral;
+import org.osate.alisa.common.common.AListLiteral;
+import org.osate.alisa.common.common.ANullLiteral;
+import org.osate.alisa.common.common.ANumberLiteral;
+import org.osate.alisa.common.common.APropertyReference;
+import org.osate.alisa.common.common.ASetLiteral;
+import org.osate.alisa.common.common.AStringLiteral;
+import org.osate.alisa.common.common.AUnaryOperation;
+import org.osate.alisa.common.common.AVariableReference;
+import org.osate.alisa.common.common.CommonPackage;
+import org.osate.alisa.common.common.ComputeDeclaration;
+import org.osate.alisa.common.common.Description;
+import org.osate.alisa.common.common.DescriptionElement;
+import org.osate.alisa.common.common.ImageReference;
+import org.osate.alisa.common.common.Rationale;
+import org.osate.alisa.common.common.ShowValue;
+import org.osate.alisa.common.common.Uncertainty;
+import org.osate.alisa.common.common.ValDeclaration;
+import org.osate.alisa.common.serializer.CommonSemanticSequencer;
 import org.osate.alisa.workbench.alisa.AlisaPackage;
 import org.osate.alisa.workbench.alisa.AlisaWorkArea;
 import org.osate.alisa.workbench.alisa.AssurancePlan;
 import org.osate.alisa.workbench.alisa.AssuranceTask;
-import org.osate.alisa.workbench.alisa.Description;
-import org.osate.alisa.workbench.alisa.DescriptionElement;
 import org.osate.alisa.workbench.services.AlisaGrammarAccess;
 
 @SuppressWarnings("all")
-public class AlisaSemanticSequencer extends AbstractDelegatingSemanticSequencer {
+public class AlisaSemanticSequencer extends CommonSemanticSequencer {
 
 	@Inject
 	private AlisaGrammarAccess grammarAccess;
@@ -39,11 +56,61 @@ public class AlisaSemanticSequencer extends AbstractDelegatingSemanticSequencer 
 			case AlisaPackage.ASSURANCE_TASK:
 				sequence_AssuranceTask(context, (AssuranceTask) semanticObject); 
 				return; 
-			case AlisaPackage.DESCRIPTION:
+			}
+		else if(semanticObject.eClass().getEPackage() == CommonPackage.eINSTANCE) switch(semanticObject.eClass().getClassifierID()) {
+			case CommonPackage.ABINARY_OPERATION:
+				sequence_AAdditiveExpression_AAndExpression_AEqualityExpression_AMultiplicativeExpression_AOrExpression_AOtherOperatorExpression_ARelationalExpression(context, (ABinaryOperation) semanticObject); 
+				return; 
+			case CommonPackage.ABOOLEAN_LITERAL:
+				sequence_ABooleanLiteral(context, (ABooleanLiteral) semanticObject); 
+				return; 
+			case CommonPackage.ALIST_LITERAL:
+				sequence_AListLiteral(context, (AListLiteral) semanticObject); 
+				return; 
+			case CommonPackage.ANULL_LITERAL:
+				sequence_ANullLiteral(context, (ANullLiteral) semanticObject); 
+				return; 
+			case CommonPackage.ANUMBER_LITERAL:
+				sequence_ANumberLiteral(context, (ANumberLiteral) semanticObject); 
+				return; 
+			case CommonPackage.APROPERTY_REFERENCE:
+				sequence_APropertyReference(context, (APropertyReference) semanticObject); 
+				return; 
+			case CommonPackage.ASET_LITERAL:
+				sequence_ASetLiteral(context, (ASetLiteral) semanticObject); 
+				return; 
+			case CommonPackage.ASTRING_LITERAL:
+				sequence_AStringLiteral(context, (AStringLiteral) semanticObject); 
+				return; 
+			case CommonPackage.AUNARY_OPERATION:
+				sequence_AUnaryOperation(context, (AUnaryOperation) semanticObject); 
+				return; 
+			case CommonPackage.AVARIABLE_REFERENCE:
+				sequence_AVariableReference(context, (AVariableReference) semanticObject); 
+				return; 
+			case CommonPackage.COMPUTE_DECLARATION:
+				sequence_ComputeDeclaration(context, (ComputeDeclaration) semanticObject); 
+				return; 
+			case CommonPackage.DESCRIPTION:
 				sequence_Description(context, (Description) semanticObject); 
 				return; 
-			case AlisaPackage.DESCRIPTION_ELEMENT:
+			case CommonPackage.DESCRIPTION_ELEMENT:
 				sequence_DescriptionElement(context, (DescriptionElement) semanticObject); 
+				return; 
+			case CommonPackage.IMAGE_REFERENCE:
+				sequence_ImageReference(context, (ImageReference) semanticObject); 
+				return; 
+			case CommonPackage.RATIONALE:
+				sequence_Rationale(context, (Rationale) semanticObject); 
+				return; 
+			case CommonPackage.SHOW_VALUE:
+				sequence_ShowValue(context, (ShowValue) semanticObject); 
+				return; 
+			case CommonPackage.UNCERTAINTY:
+				sequence_Uncertainty(context, (Uncertainty) semanticObject); 
+				return; 
+			case CommonPackage.VAL_DECLARATION:
+				sequence_ValDeclaration(context, (ValDeclaration) semanticObject); 
 				return; 
 			}
 		if (errorAcceptor != null) errorAcceptor.accept(diagnosticProvider.createInvalidContextOrTypeDiagnostic(semanticObject, context));
@@ -89,24 +156,6 @@ public class AlisaSemanticSequencer extends AbstractDelegatingSemanticSequencer 
 	 *     )
 	 */
 	protected void sequence_AssuranceTask(EObject context, AssuranceTask semanticObject) {
-		genericSequencer.createSequence(context, semanticObject);
-	}
-	
-	
-	/**
-	 * Constraint:
-	 *     (text=STRING | thisTarget?='this')
-	 */
-	protected void sequence_DescriptionElement(EObject context, DescriptionElement semanticObject) {
-		genericSequencer.createSequence(context, semanticObject);
-	}
-	
-	
-	/**
-	 * Constraint:
-	 *     description+=DescriptionElement+
-	 */
-	protected void sequence_Description(EObject context, Description semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
 	}
 }

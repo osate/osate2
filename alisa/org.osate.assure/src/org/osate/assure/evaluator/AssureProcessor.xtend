@@ -1,7 +1,6 @@
 package org.osate.assure.evaluator
 
 import com.google.inject.ImplementedBy
-import com.google.inject.Inject
 import com.rockwellcollins.atc.resolute.analysis.execution.EvaluationContext
 import com.rockwellcollins.atc.resolute.analysis.execution.ResoluteInterpreter
 import com.rockwellcollins.atc.resolute.analysis.results.ClaimResult
@@ -9,21 +8,13 @@ import com.rockwellcollins.atc.resolute.resolute.FnCallExpr
 import com.rockwellcollins.atc.resolute.resolute.ProveStatement
 import com.rockwellcollins.atc.resolute.resolute.ResoluteFactory
 import org.eclipse.core.runtime.IProgressMonitor
-import org.eclipse.xtext.common.types.JvmFormalParameter
-import org.eclipse.xtext.common.types.JvmType
-import org.eclipse.xtext.naming.QualifiedName
-import org.eclipse.xtext.util.CancelIndicator
-import org.eclipse.xtext.xbase.XVariableDeclaration
-import org.eclipse.xtext.xbase.interpreter.IEvaluationResult
-import org.eclipse.xtext.xbase.interpreter.impl.DefaultEvaluationContext
-import org.eclipse.xtext.xbase.interpreter.impl.XbaseInterpreter
 import org.osate.aadl2.Aadl2Factory
-import org.osate.aadl2.ComponentClassifier
 import org.osate.aadl2.instance.ComponentInstance
 import org.osate.aadl2.instance.InstanceObject
 import org.osate.aadl2.util.OsateDebug
+import org.osate.alisa.common.common.ANumberLiteral
 import org.osate.alisa.common.common.ComputeDeclaration
-import org.osate.alisa.common.common.XNumberLiteralUnit
+import org.osate.alisa.common.common.ValDeclaration
 import org.osate.assure.assure.AssuranceCase
 import org.osate.assure.assure.AssureFactory
 import org.osate.assure.assure.ElseResult
@@ -37,17 +28,17 @@ import org.osate.assure.assure.VerificationResult
 import org.osate.assure.util.AssureUtilExtension
 import org.osate.results.results.ResultReport
 import org.osate.verify.util.VerificationMethodDispatchers
+import org.osate.verify.verify.FormalParameter
 import org.osate.verify.verify.JavaMethod
 import org.osate.verify.verify.ManualMethod
 import org.osate.verify.verify.PluginMethod
 import org.osate.verify.verify.ResoluteMethod
 import org.osate.verify.verify.VerificationActivity
 import org.osate.verify.verify.VerificationMethod
+import org.osate.xtext.aadl2.properties.util.PropertyUtils
 
 import static extension org.osate.alisa.common.util.CommonUtilExtension.*
 import static extension org.osate.assure.util.AssureUtilExtension.*
-import org.osate.xtext.aadl2.properties.util.PropertyUtils
-import org.osate.xtext.aadl2.properties.util.GetProperties
 
 @ImplementedBy(AssureProcessor)
 interface IAssureProcessor {
@@ -62,14 +53,6 @@ interface IAssureProcessor {
  */
 class AssureProcessor implements IAssureProcessor {
 
-	/**
-	 * See the following documentation
-	 * http://www.rcp-vision.com/1640/xtext-2-1-using-xbase-expressions/
-	 * http://www.rcp-vision.com/1796/xtext-2-1-using-xbase-variables/
-	 * about how to use the compiler
-	 */
-//	@Inject XbaseCompiler xbaseCompiler
-	@Inject XbaseInterpreter xbaseInterpreter
 
 	var IProgressMonitor progressmonitor
 
@@ -170,7 +153,7 @@ class AssureProcessor implements IAssureProcessor {
 		}
 
 		var Object[] parameters
-		val ctx = new DefaultEvaluationContext()
+//		val ctx = new DefaultEvaluationContext()
 
 		if (verificationResult instanceof VerificationActivityResult) {
 			val verificationActivityResult = verificationResult as VerificationActivityResult
@@ -186,21 +169,21 @@ class AssureProcessor implements IAssureProcessor {
 			parameters = newArrayOfSize(nbParams)
 
 			while (i < nbParams) {
-				var JvmType varType
 				var Object param
-				if (verificationActivity.parameters.get(i) instanceof XVariableDeclaration) {
-					val varDecl = verificationActivity.parameters.get(i) as XVariableDeclaration
-					varType = varDecl.type?.type
+				var String typeName
+				if (verificationActivity.parameters.get(i) instanceof ValDeclaration) {
+					val varDecl = verificationActivity.parameters.get(i) as ValDeclaration
+					typeName = varDecl.type
 					try {
-						val IEvaluationResult r = xbaseInterpreter.evaluate(varDecl, ctx, CancelIndicator.NullImpl)
-						param = ctx.getValue(QualifiedName.create(varDecl.name))
-						println(varDecl.name + " = " + param)
+			// TODO evaluate AExpression
+						param = varDecl.right
 					} catch (Exception e) {
 						e.printStackTrace
 					}
 				} else {
-					varType = (verificationActivity.parameters.get(i) as ComputeDeclaration).type?.type
-					val myClass = Class.forName(varType.qualifiedName)
+					typeName = (verificationActivity.parameters.get(i) as ComputeDeclaration).type//?.type
+					// TODO ma need qualified name
+					val myClass = Class.forName(typeName)
 //					println ("myClass=" + myClass.name)
 					/**
 					 * FIX how to exchange data and return values
@@ -219,12 +202,12 @@ class AssureProcessor implements IAssureProcessor {
 
 				}
 
-				var paramType = (verificationMethod.params.get(i) as JvmFormalParameter).parameterType?.type
+				var paramType = (verificationMethod.params.get(i) as FormalParameter).parameterType
 
 //				println ("Param var" + i + ":" + varType.identifier)
 //				println ("Param par" + i + ":" + paramType.identifier)
 				parameters.set(i, param)
-				if (varType != null && paramType != null && ! varType.equals(paramType)) {
+				if (typeName != null && paramType != null && ! typeName.equals(paramType)) {
 					println("Mismatch parameters types")
 					return
 				}
@@ -393,19 +376,16 @@ class AssureProcessor implements IAssureProcessor {
 
 		val iter1 = properties.iterator
 		val iter2 = values.iterator
-		val ctx = new DefaultEvaluationContext()
-
 		var success = true;
 		
 		while (iter1.hasNext && iter2.hasNext) {
 			val property = iter1.next
 			val variable = iter2.next
 
-			if (variable instanceof XVariableDeclaration) {
+			if (variable instanceof ValDeclaration) {
 				try {
-					val IEvaluationResult r = xbaseInterpreter.evaluate(variable, ctx, null)
-					val value = ctx.getValue(QualifiedName.create(variable.name))
-					val unit = (variable.right as XNumberLiteralUnit).unit
+					val value = variable.right
+					val unit = (variable.right as ANumberLiteral).unit
 					val modelValue = PropertyUtils.getScaledNumberValue(object, property, unit)
 
 					if (!value.equals(modelValue)) {

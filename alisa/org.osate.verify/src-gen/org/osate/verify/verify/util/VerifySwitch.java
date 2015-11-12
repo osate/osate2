@@ -121,6 +121,13 @@ public class VerifySwitch<T> extends Switch<T>
         if (result == null) result = defaultCase(theEObject);
         return result;
       }
+      case VerifyPackage.FORMAL_PARAMETER:
+      {
+        FormalParameter formalParameter = (FormalParameter)theEObject;
+        T result = caseFormalParameter(formalParameter);
+        if (result == null) result = defaultCase(theEObject);
+        return result;
+      }
       case VerifyPackage.VERIFICATION_METHOD:
       {
         VerificationMethod verificationMethod = (VerificationMethod)theEObject;
@@ -327,6 +334,22 @@ public class VerifySwitch<T> extends Switch<T>
    * @generated
    */
   public T caseVerificationMethodRegistry(VerificationMethodRegistry object)
+  {
+    return null;
+  }
+
+  /**
+   * Returns the result of interpreting the object as an instance of '<em>Formal Parameter</em>'.
+   * <!-- begin-user-doc -->
+   * This implementation returns null;
+   * returning a non-null result will terminate the switch.
+   * <!-- end-user-doc -->
+   * @param object the target of the switch.
+   * @return the result of interpreting the object as an instance of '<em>Formal Parameter</em>'.
+   * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+   * @generated
+   */
+  public T caseFormalParameter(FormalParameter object)
   {
     return null;
   }

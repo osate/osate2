@@ -22,9 +22,10 @@ import org.eclipse.emf.ecore.util.EObjectResolvingEList;
 import org.osate.aadl2.ComponentClassifier;
 import org.osate.aadl2.ComponentImplementation;
 
+import org.osate.alisa.common.common.Description;
+
 import org.osate.alisa.workbench.alisa.AlisaPackage;
 import org.osate.alisa.workbench.alisa.AssurancePlan;
-import org.osate.alisa.workbench.alisa.Description;
 
 import org.osate.verify.verify.VerificationPlan;
 

@@ -6,8 +6,6 @@ import org.eclipse.emf.common.util.EList;
 
 import org.eclipse.emf.ecore.EObject;
 
-import org.eclipse.xtext.common.types.JvmFormalParameter;
-
 import org.osate.aadl2.Property;
 
 import org.osate.alisa.common.common.Description;
@@ -69,7 +67,7 @@ public interface VerificationMethod extends EObject
 
   /**
    * Returns the value of the '<em><b>Params</b></em>' containment reference list.
-   * The list contents are of type {@link org.eclipse.xtext.common.types.JvmFormalParameter}.
+   * The list contents are of type {@link org.osate.verify.verify.FormalParameter}.
    * <!-- begin-user-doc -->
    * <p>
    * If the meaning of the '<em>Params</em>' containment reference list isn't clear,
@@ -81,7 +79,7 @@ public interface VerificationMethod extends EObject
    * @model containment="true"
    * @generated
    */
-  EList<JvmFormalParameter> getParams();
+  EList<FormalParameter> getParams();
 
   /**
    * Returns the value of the '<em><b>Properties</b></em>' reference list.

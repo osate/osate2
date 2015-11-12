@@ -21,5 +21,4 @@ public class AssureRuntimeModule extends org.osate.assure.AbstractAssureRuntimeM
 		return org.osate.assure.serializer.AssureCrossReferenceSerializer.class;
 	}
 
-
 }
