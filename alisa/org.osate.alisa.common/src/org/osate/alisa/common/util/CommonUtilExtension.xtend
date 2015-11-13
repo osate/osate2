@@ -20,6 +20,8 @@ import org.osate.aadl2.Subcomponent
 import org.osate.aadl2.Feature
 import org.osate.aadl2.util.Aadl2Util
 import org.osate.alisa.common.common.ValDeclaration
+import org.osate.aadl2.Property
+import org.osate.aadl2.UnitLiteral
 
 class CommonUtilExtension {
 
@@ -61,17 +63,24 @@ class CommonUtilExtension {
 					} catch (PropertyLookupException e) {
 						return pd.qualifiedName()
 					}
+			if(decl.eIsProxy) return "TBD"
+			if (decl instanceof ComputeDeclaration){
+				return decl.name
+			} else 
+			if (decl instanceof ValDeclaration) {
+				val x = decl?.right
+				if(x == null) return "TBD"
+				if (x instanceof APropertyReference) {
+					val pd = x.property
+					if (pd instanceof Property){
+					try {
+						val pval = target.getSimplePropertyValue(pd)
+						return pval.toString
+					} catch (PropertyLookupException e) {
+						return pd.qualifiedName()
+					}
+					}
 				}
-//			if (x instanceof XNumberLiteralUnit) {
-//				if (x.unit != null)
-//					return x.value + x.unit?.name
-//				else
-//					return x.value
-//			}
-//			if (x instanceof XFeatureCall) {
-//				val y = x.concreteSyntaxFeatureName
-//				return y
-//			}
 				return x?.toString ?: ""
 			}
 		}
@@ -84,14 +93,15 @@ class CommonUtilExtension {
 	}
 
 // from GetProperties: May need to use it for actual values from compute
-//	public static String toStringScaled(double value, UnitLiteral unit) {
-//		UnitLiteral targetliteral = scaleupUnit(value, unit);
-//		double result = value;
+//	def static String toStringScaled(double value, UnitLiteral unit) {
+//		val targetliteral = scaleupUnit(value, unit);
+//		var result = value;
 //		if (targetliteral != unit) {
 //			result = convertToScale(value, unit, targetliteral);
 //		}
 //		return String.format("%.3f " + targetliteral.getName(), result);
 //	}
+	
 	def static boolean isSameorExtends(ComponentClassifier target, ComponentClassifier ancestor) {
 		if(Aadl2Util.isNull(target) || Aadl2Util.isNull(ancestor)) return false
 		var Classifier ext = target

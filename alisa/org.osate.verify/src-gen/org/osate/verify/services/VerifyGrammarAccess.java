@@ -4463,7 +4463,6 @@ public class VerifyGrammarAccess extends AbstractGrammarElementFinder {
 		return getUncertaintyAccess().getRule();
 	}
 
-	//// New rule for val only
 	//ValDeclaration returns AVariableDeclaration:
 	//	{ValDeclaration} "val" (=> (type=ID name=ID) | name=ID) "=" right=AExpression?;
 	public CommonGrammarAccess.ValDeclarationElements getValDeclarationAccess() {
@@ -4485,7 +4484,7 @@ public class VerifyGrammarAccess extends AbstractGrammarElementFinder {
 	}
 
 	//APropertyReference returns AExpression:
-	//	{APropertyReference} "@" property=[aadl2::Property|AADLPROPERTYREFERENCE];
+	//	{APropertyReference} "@" property=[aadl2::AbstractNamedValue|AADLPROPERTYREFERENCE];
 	public CommonGrammarAccess.APropertyReferenceElements getAPropertyReferenceAccess() {
 		return gaCommon.getAPropertyReferenceAccess();
 	}

@@ -509,7 +509,7 @@ public class CommonSemanticSequencer extends AbstractDelegatingSemanticSequencer
 	
 	/**
 	 * Constraint:
-	 *     property=[Property|AADLPROPERTYREFERENCE]
+	 *     property=[AbstractNamedValue|AADLPROPERTYREFERENCE]
 	 */
 	protected void sequence_APropertyReference(EObject context, APropertyReference semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);

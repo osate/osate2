@@ -2596,7 +2596,6 @@ public class CommonGrammarAccess extends AbstractGrammarElementFinder {
 		private final Assignment cRightAssignment_4 = (Assignment)cGroup.eContents().get(4);
 		private final RuleCall cRightAExpressionParserRuleCall_4_0 = (RuleCall)cRightAssignment_4.eContents().get(0);
 		
-		//// New rule for val only
 		//ValDeclaration returns AVariableDeclaration:
 		//	{ValDeclaration} "val" (=> (type=ID name=ID) | name=ID) "=" right=AExpression?;
 		@Override public ParserRule getRule() { return rule; }
@@ -2709,14 +2708,14 @@ public class CommonGrammarAccess extends AbstractGrammarElementFinder {
 		private final Action cAPropertyReferenceAction_0 = (Action)cGroup.eContents().get(0);
 		private final Keyword cCommercialAtKeyword_1 = (Keyword)cGroup.eContents().get(1);
 		private final Assignment cPropertyAssignment_2 = (Assignment)cGroup.eContents().get(2);
-		private final CrossReference cPropertyPropertyCrossReference_2_0 = (CrossReference)cPropertyAssignment_2.eContents().get(0);
-		private final RuleCall cPropertyPropertyAADLPROPERTYREFERENCEParserRuleCall_2_0_1 = (RuleCall)cPropertyPropertyCrossReference_2_0.eContents().get(1);
+		private final CrossReference cPropertyAbstractNamedValueCrossReference_2_0 = (CrossReference)cPropertyAssignment_2.eContents().get(0);
+		private final RuleCall cPropertyAbstractNamedValueAADLPROPERTYREFERENCEParserRuleCall_2_0_1 = (RuleCall)cPropertyAbstractNamedValueCrossReference_2_0.eContents().get(1);
 		
 		//APropertyReference returns AExpression:
-		//	{APropertyReference} "@" property=[aadl2::Property|AADLPROPERTYREFERENCE];
+		//	{APropertyReference} "@" property=[aadl2::AbstractNamedValue|AADLPROPERTYREFERENCE];
 		@Override public ParserRule getRule() { return rule; }
 
-		//{APropertyReference} "@" property=[aadl2::Property|AADLPROPERTYREFERENCE]
+		//{APropertyReference} "@" property=[aadl2::AbstractNamedValue|AADLPROPERTYREFERENCE]
 		public Group getGroup() { return cGroup; }
 
 		//{APropertyReference}
@@ -2725,14 +2724,14 @@ public class CommonGrammarAccess extends AbstractGrammarElementFinder {
 		//"@"
 		public Keyword getCommercialAtKeyword_1() { return cCommercialAtKeyword_1; }
 
-		//property=[aadl2::Property|AADLPROPERTYREFERENCE]
+		//property=[aadl2::AbstractNamedValue|AADLPROPERTYREFERENCE]
 		public Assignment getPropertyAssignment_2() { return cPropertyAssignment_2; }
 
-		//[aadl2::Property|AADLPROPERTYREFERENCE]
-		public CrossReference getPropertyPropertyCrossReference_2_0() { return cPropertyPropertyCrossReference_2_0; }
+		//[aadl2::AbstractNamedValue|AADLPROPERTYREFERENCE]
+		public CrossReference getPropertyAbstractNamedValueCrossReference_2_0() { return cPropertyAbstractNamedValueCrossReference_2_0; }
 
 		//AADLPROPERTYREFERENCE
-		public RuleCall getPropertyPropertyAADLPROPERTYREFERENCEParserRuleCall_2_0_1() { return cPropertyPropertyAADLPROPERTYREFERENCEParserRuleCall_2_0_1; }
+		public RuleCall getPropertyAbstractNamedValueAADLPROPERTYREFERENCEParserRuleCall_2_0_1() { return cPropertyAbstractNamedValueAADLPROPERTYREFERENCEParserRuleCall_2_0_1; }
 	}
 
 	public class AVariableReferenceElements extends AbstractParserRuleElementFinder {
@@ -4345,7 +4344,6 @@ public class CommonGrammarAccess extends AbstractGrammarElementFinder {
 		return getUncertaintyAccess().getRule();
 	}
 
-	//// New rule for val only
 	//ValDeclaration returns AVariableDeclaration:
 	//	{ValDeclaration} "val" (=> (type=ID name=ID) | name=ID) "=" right=AExpression?;
 	public ValDeclarationElements getValDeclarationAccess() {
@@ -4367,7 +4365,7 @@ public class CommonGrammarAccess extends AbstractGrammarElementFinder {
 	}
 
 	//APropertyReference returns AExpression:
-	//	{APropertyReference} "@" property=[aadl2::Property|AADLPROPERTYREFERENCE];
+	//	{APropertyReference} "@" property=[aadl2::AbstractNamedValue|AADLPROPERTYREFERENCE];
 	public APropertyReferenceElements getAPropertyReferenceAccess() {
 		return pAPropertyReference;
 	}
