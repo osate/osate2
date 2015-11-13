@@ -289,14 +289,15 @@ public class AlisaSyntacticSequencer extends AbstractSyntacticSequencer {
 	 * This ambiguous syntax occurs at:
 	 *     (rule start) (ambiguity) '#' '[' ']' (rule start)
 	 *     (rule start) (ambiguity) '#' '[' elements+=AExpression
-	 *     (rule start) (ambiguity) '#' '{' '}' (rule start)
-	 *     (rule start) (ambiguity) '#' '{' elements+=AExpression
 	 *     (rule start) (ambiguity) 'false' (rule start)
 	 *     (rule start) (ambiguity) 'null' (rule start)
+	 *     (rule start) (ambiguity) '{' '}' (rule start)
+	 *     (rule start) (ambiguity) '{' elements+=AExpression
 	 *     (rule start) (ambiguity) feature=OpUnary
-	 *     (rule start) (ambiguity) isTrue?='true'
-	 *     (rule start) (ambiguity) value=Number
-	 *     (rule start) (ambiguity) value=STRING
+	 *     (rule start) (ambiguity) value=AInt
+	 *     (rule start) (ambiguity) value=AReal
+	 *     (rule start) (ambiguity) value=NoQuoteString
+	 *     (rule start) (ambiguity) value?='true'
 	 *     (rule start) (ambiguity) variable=[AVariableDeclaration|ID]
 	 *     (rule start) (ambiguity) {ABinaryOperation.leftOperand=}
 	 */
@@ -311,14 +312,15 @@ public class AlisaSyntacticSequencer extends AbstractSyntacticSequencer {
 	 * This ambiguous syntax occurs at:
 	 *     (rule start) (ambiguity) '#' '[' ']' ')' (rule start)
 	 *     (rule start) (ambiguity) '#' '[' elements+=AExpression
-	 *     (rule start) (ambiguity) '#' '{' '}' ')' (rule start)
-	 *     (rule start) (ambiguity) '#' '{' elements+=AExpression
 	 *     (rule start) (ambiguity) 'false' ')' (rule start)
 	 *     (rule start) (ambiguity) 'null' ')' (rule start)
+	 *     (rule start) (ambiguity) '{' '}' ')' (rule start)
+	 *     (rule start) (ambiguity) '{' elements+=AExpression
 	 *     (rule start) (ambiguity) feature=OpUnary
-	 *     (rule start) (ambiguity) isTrue?='true'
-	 *     (rule start) (ambiguity) value=Number
-	 *     (rule start) (ambiguity) value=STRING
+	 *     (rule start) (ambiguity) value=AInt
+	 *     (rule start) (ambiguity) value=AReal
+	 *     (rule start) (ambiguity) value=NoQuoteString
+	 *     (rule start) (ambiguity) value?='true'
 	 *     (rule start) (ambiguity) variable=[AVariableDeclaration|ID]
 	 *     (rule start) (ambiguity) {ABinaryOperation.leftOperand=}
 	 */

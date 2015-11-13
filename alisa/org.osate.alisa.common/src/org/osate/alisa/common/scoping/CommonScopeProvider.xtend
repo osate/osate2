@@ -17,12 +17,12 @@ import org.eclipse.xtext.scoping.impl.AbstractDeclarativeScopeProvider
 import org.eclipse.xtext.scoping.impl.SimpleScope
 import org.eclipse.xtext.util.SimpleAttributeResolver
 import org.osate.aadl2.Aadl2Package
+import org.osate.aadl2.IntegerLiteral
+import org.osate.aadl2.RealLiteral
 import org.osate.aadl2.UnitLiteral
 import org.osate.aadl2.UnitsType
-import org.osate.alisa.common.common.ANumberLiteral
 import org.osate.alisa.common.common.ShowValue
 import org.osate.xtext.aadl2.properties.util.EMFIndexRetrieval
-import org.osate.alisa.common.common.AVariableReference
 
 /**
  * This class contains custom scoping description.
@@ -52,7 +52,19 @@ class CommonScopeProvider extends AbstractDeclarativeScopeProvider {
 	}
 
 	def scope_UnitLiteral(
-		ANumberLiteral context,
+		IntegerLiteral context,
+		EReference reference
+	) {
+		val units = context.unitLiterals
+		if (!units.empty) {
+			units.scopeFor
+		} else {
+			IScope.NULLSCOPE
+		}
+	}
+
+	def scope_UnitLiteral(
+		RealLiteral context,
 		EReference reference
 	) {
 		val units = context.unitLiterals

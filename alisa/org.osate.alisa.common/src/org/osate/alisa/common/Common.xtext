@@ -261,35 +261,35 @@ IMGREF : (ID '/')* ID '.' ID;
 
 // Expressions
 
-AExpression: AOrExpression;
+AExpression returns aadl2::PropertyExpression: AOrExpression;
 
-AOrExpression returns AExpression:
+AOrExpression returns aadl2::PropertyExpression:
 	AAndExpression (=>({ABinaryOperation.leftOperand=current} feature=OpOr) rightOperand=AAndExpression)*;
 
 OpOr:
 	'||';
 
-AAndExpression returns AExpression:
+AAndExpression returns aadl2::PropertyExpression:
 	AEqualityExpression (=>({ABinaryOperation.leftOperand=current} feature=OpAnd) rightOperand=AEqualityExpression)*;
 
 OpAnd:
 	'&&';
 
-AEqualityExpression returns AExpression:
+AEqualityExpression returns aadl2::PropertyExpression:
 	ARelationalExpression (=>({ABinaryOperation.leftOperand=current} feature=OpEquality)
 	rightOperand=ARelationalExpression)*;
 
 OpEquality:
 	'==' | '!=' | '===' | '!==';
 
-ARelationalExpression returns AExpression:
+ARelationalExpression returns aadl2::PropertyExpression:
 	AOtherOperatorExpression
 	( =>({ABinaryOperation.leftOperand=current} feature=OpCompare) rightOperand=AOtherOperatorExpression)*;
 
 OpCompare:
 	'>=' | '<' '=' | '>' | '<' ;
 
-AOtherOperatorExpression returns AExpression:
+AOtherOperatorExpression returns aadl2::PropertyExpression:
 	AAdditiveExpression (=>({ABinaryOperation.leftOperand=current} feature=OpOther)
 	rightOperand=AAdditiveExpression)*;
 
@@ -304,67 +304,120 @@ OpOther:
 	| '<>'
 	| '?:';
 
-AAdditiveExpression returns AExpression:
+AAdditiveExpression returns aadl2::PropertyExpression:
 	AMultiplicativeExpression (=>({ABinaryOperation.leftOperand=current} feature=OpAdd)
 	rightOperand=AMultiplicativeExpression)*;
 
 OpAdd:
 	'+' | '-';
 
-AMultiplicativeExpression returns AExpression:
+AMultiplicativeExpression returns aadl2::PropertyExpression:
 	AUnaryOperation (=>({ABinaryOperation.leftOperand=current} feature=OpMulti) rightOperand=AUnaryOperation)*;
 
 OpMulti:
 	'*' | '**' | '/' | '%';
 
-AUnaryOperation returns AExpression:
+AUnaryOperation returns aadl2::PropertyExpression:
 	{AUnaryOperation} feature=OpUnary operand=AUnaryOperation | APrimaryExpression;
 
 OpUnary:
 	"!" | "-" | "+";
 	
-APrimaryExpression returns AExpression:
+APrimaryExpression returns aadl2::PropertyExpression:
 	ALiteral | AVariableReference |
 	AParenthesizedExpression;
 
-ALiteral returns AExpression:
-	ACollectionLiteral |
+ALiteral returns aadl2::PropertyExpression:
+	ASetTerm | AListTerm |
 	ABooleanLiteral |
-	ANumberLiteral |
+	ARealTerm | AIntegerTerm |  
 	ANullLiteral |
-	AStringLiteral 
+	StringTerm 
 ;
 
-ACollectionLiteral:
-	ASetLiteral | AListLiteral
+AIntegerTerm returns aadl2::IntegerLiteral:
+	value=AInt (unit=[aadl2::UnitLiteral|ID])?
+	;
+
+AInt returns aadl2::Integer:
+	INTEGER_LIT ;
+
+ARealTerm returns aadl2::RealLiteral:
+	value=AReal (unit=[aadl2::UnitLiteral|ID])?
+	;
+
+AReal returns aadl2::Real:
+	REAL_LIT ;
+
+ANumericRangeTerm returns aadl2::RangeValue:
+	minimum=NumAlt //(RealTerm|IntegerTerm| SignedConstant | ConstantValue)  
+		'..' maximum=NumAlt//(RealTerm|IntegerTerm| SignedConstant | ConstantValue)
+	( 'delta' delta=NumAlt//(RealTerm|IntegerTerm| SignedConstant | ConstantValue)
+		
+	)?
+	;
+
+NumAlt  returns aadl2::PropertyExpression: 
+	ARealTerm|AIntegerTerm
 ;
 
-ASetLiteral:
-	{ASetLiteral} '#' '{' (elements+=AExpression (',' elements+=AExpression )*)? '}'
+ASetTerm returns aadl2::PropertyExpression:
+//	{ASetLiteral} '#' '{' (elements+=AExpression (',' elements+=AExpression )*)? '}'
+	{ASetLiteral}  '{' (elements+=AExpression (',' elements+=AExpression )*)? '}'
 ;
 
-AListLiteral:
-	{AListLiteral} '#' '[' (elements+=AExpression (',' elements+=AExpression )*)? ']'
+AListTerm returns aadl2::PropertyExpression:
+	{AListTerm} '#' '[' (elements+=AExpression (',' elements+=AExpression )*)? ']'
 ;
 
 
-AParenthesizedExpression returns AExpression:
+AParenthesizedExpression returns aadl2::PropertyExpression:
 	'(' AExpression ')';
 
-ABooleanLiteral returns AExpression :
-	{ABooleanLiteral} ('false' | isTrue?='true');
+ABooleanLiteral returns aadl2::PropertyExpression :
+	  {aadl2::BooleanLiteral}(value?='true'|'false');
+
 
 ANullLiteral returns AExpression :
 	{ANullLiteral} 'null';
 
 
-ANumberLiteral returns ANumberLiteral :
-	value=Number  (=>  unit=[aadl2::UnitLiteral|ID])?
-	;
+StringTerm returns aadl2::StringLiteral:
+	value=NoQuoteString ;
 
 
-AStringLiteral returns AExpression:
-	{AStringLiteral} value=STRING;
+NoQuoteString :
+	// remove quotes from string in ValueConverter
+	STRING
+;
+
+
+terminal fragment
+EXPONENT  :  ('e'|'E') ('+'|'-')? ( DIGIT )+  ;
+
+terminal fragment
+INT_EXPONENT :  ('e'|'E') ('+')? ( DIGIT )+ ;
+
+
+terminal REAL_LIT : 	
+	(DIGIT)+('_' (DIGIT)+)* ( '.' (DIGIT)+('_' (DIGIT)+)* ( EXPONENT )?)
+  ;
+
+terminal INTEGER_LIT : 
+		(DIGIT)+('_' (DIGIT)+)*
+		(( '#' BASED_INTEGER  '#' ( INT_EXPONENT )? )
+			| (INT_EXPONENT)?
+		)
+  ;
+
+terminal fragment
+DIGIT     :  ( '0'..'9' ) ;
+
+terminal fragment
+EXTENDED_DIGIT     :  ( '0'..'9' | 'a'..'f' | 'A'..'F') ;
+
+terminal fragment
+BASED_INTEGER      :  ( EXTENDED_DIGIT ) ( ('_')? EXTENDED_DIGIT )* ;
 
 
 // Qualified classifier reference
