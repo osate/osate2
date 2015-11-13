@@ -8,9 +8,9 @@ import org.eclipse.emf.ecore.util.EcoreUtil;
 
 	public class RerunAssureHandler extends AbstractHandler {
 	    private final URI uri;
-	    private final RunAssureHandler assureHandler;
+	    private final OpenAssureViewHandler assureHandler;
 
-	    public RerunAssureHandler(EObject root, RunAssureHandler assureHandler) {
+	    public RerunAssureHandler(EObject root, OpenAssureViewHandler assureHandler) {
 	        this.uri = EcoreUtil.getURI(root);
 	        this.assureHandler = assureHandler;
 	    }

@@ -18,6 +18,8 @@ import org.eclipse.emf.ecore.EObject;
 import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.jface.viewers.ISelection;
 import org.eclipse.jface.viewers.IStructuredSelection;
+import org.eclipse.swt.SWT;
+import org.eclipse.swt.widgets.MessageBox;
 import org.eclipse.ui.IEditorPart;
 import org.eclipse.ui.IWorkbenchWindow;
 import org.eclipse.ui.handlers.HandlerUtil;
@@ -30,100 +32,48 @@ import org.osate.assure.assure.AssuranceCase;
 import org.osate.assure.util.AssureUtilExtension;
 import org.osate.verify.util.VerifyUtilExtension;
 
-public class AssureResetHandler extends AbstractHandler {
-
-	private IWorkbenchWindow window;
-	private ExecutionEvent executionEvent;
-
-	protected ExecutionEvent getExecutionEvent() {
-		return this.executionEvent;
-	}
+public class AssureResetHandler extends AlisaHandler {
 
 	@Override
-	public Object execute(ExecutionEvent event) {
-		EObjectNode node = getEObjectNode(HandlerUtil.getCurrentSelection(event));
-		this.executionEvent = event;
-		if (node == null) {
-			return null;
-		}
-		final URI uri = node.getEObjectURI();
-
-		window = HandlerUtil.getActiveWorkbenchWindow(event);
-		if (window == null) {
-			return null;
-		}
-
-		return executeURI(uri);
-	}
-
-	public Object executeURI(final URI uri) {
-		final XtextEditor xtextEditor = EditorUtils.getActiveXtextEditor();
-		if (xtextEditor == null) {
-			return null;
-		}
-
-		if (!saveChanges(window.getActivePage().getDirtyEditors())) {
-			return null;
-		}
-
+    protected WorkspaceJob getWorkspaceJob(String jobName, final XtextEditor xtextEditor, final URI uri){
 		WorkspaceJob job = new WorkspaceJob(getJobName()) {
 			@Override
 			public IStatus runInWorkspace(final IProgressMonitor monitor) {
-				return xtextEditor.getDocument().readOnly(new IUnitOfWork<IStatus, XtextResource>() {
-					@Override
-					public IStatus exec(XtextResource resource) throws Exception {
-						EObject eobj = resource.getResourceSet().getEObject(uri, true);
-						AssuranceCase ae = AssureUtilExtension.getRootAssuranceCase(eobj);
-						if (ae != null) {
-							return runJob(ae, monitor);
-						} else {
-							return Status.CANCEL_STATUS;
+				try {
+					return xtextEditor.getDocument().readOnly(new IUnitOfWork<IStatus, XtextResource>() {
+						@Override
+						public IStatus exec(XtextResource resource) {
+							EObject eobj = resource.getResourceSet().getEObject(uri, true);
+							AssuranceCase ae = AssureUtilExtension.getRootAssuranceCase(eobj);
+							if (ae != null) {
+								return runJob(ae, monitor);
+							} else {
+								return Status.CANCEL_STATUS;
+							}
 						}
-					}
-				});
+					});
+				} catch (Exception e) {
+					return Status.CANCEL_STATUS;
+				}
 			}
 		};
-
-		job.setRule(ResourcesPlugin.getWorkspace().getRoot());
-		job.schedule();
-		return null;
-	}
-
-	private boolean saveChanges(IEditorPart[] dirtyEditors) {
-		if (dirtyEditors.length == 0) {
-			return true;
-		}
-
-		if (MessageDialog.openConfirm(window.getShell(), "Save editors", "Save editors and continue?")) {
-			NullProgressMonitor monitor = new NullProgressMonitor();
-			for (IEditorPart e : dirtyEditors) {
-				e.doSave(monitor);
-			}
-			return true;
-		} else {
-			return false;
-		}
-	}
-
-	private EObjectNode getEObjectNode(ISelection currentSelection) {
-		if (currentSelection instanceof IStructuredSelection) {
-			IStructuredSelection iss = (IStructuredSelection) currentSelection;
-			if (iss.size() == 1) {
-				return (EObjectNode) iss.getFirstElement();
-			}
-		}
-		return null;
-	}
-
-	protected IWorkbenchWindow getWindow() {
-		return window;
-	}
-
+        return job;
+    }
+		
+	@Override
 	protected String getJobName() {
 		return "Reset assure states and counts";
 	}
 
-	protected IStatus runJob(AssuranceCase rootCaseResult, IProgressMonitor monitor) {
+	@Override
+	protected IStatus runJob(EObject sel, IProgressMonitor monitor) {
+		AssuranceCase rootCaseResult = null;
+		try {
+			rootCaseResult = (AssuranceCase)sel;
+		} catch (Exception e) {
+			e.printStackTrace();
+			return Status.CANCEL_STATUS;
+		}
 
 		long start = System.currentTimeMillis();
 		resetToTBD(rootCaseResult);
@@ -142,4 +92,5 @@ public class AssureResetHandler extends AbstractHandler {
 
 		return Status.OK_STATUS;
 	}
+
 }

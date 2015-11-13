@@ -7,24 +7,31 @@ import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.Status;
 import org.eclipse.emf.common.util.BasicEList;
+import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EObject;
+import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.ui.IWorkbenchPage;
 import org.eclipse.ui.PartInitException;
 import org.eclipse.ui.handlers.IHandlerActivation;
 import org.eclipse.ui.handlers.IHandlerService;
 import org.eclipse.xtext.EcoreUtil2;
-import org.osate.aadl2.Element;
-import org.osate.alisa.workbench.alisa.AssurancePlan;
 import org.osate.assure.assure.AssuranceCase;
 import org.osate.assure.assure.AssureResult;
 import org.osate.assure.ui.views.AssureView;
 import org.osate.assure.util.AssureUtilExtension;
 
 
-	public class RunAssureHandler extends AlisaHandler {
-		private static final String RERUN_ID = "org.osate.alisa.commands.rerunAssure";
-		private IHandlerActivation rerunActivation;
+	public class OpenAssureViewHandler extends AlisaHandler {
+		private static final String ASSURE_VIEW_ID = "org.osate.assure.commands.OpenAssureView";
+		private IHandlerActivation openAssureViewerActivation;
+//	    private final URI uri;
+//	    private final OpenAssureViewHandler assureHandler;
+
+//	    public OpenAssureViewHandler(EObject root, OpenAssureViewHandler assureHandler) {
+//	        this.uri = EcoreUtil.getURI(root);
+//	        this.assureHandler = assureHandler;
+//	    }
 
 		@Override
 		protected String getJobName() {
@@ -59,20 +66,22 @@ import org.osate.assure.util.AssureUtilExtension;
 				@Override
 				public void run() {
 					IHandlerService handlerService = getHandlerService();
-					rerunActivation = handlerService
-							.activateHandler(RERUN_ID, new RerunAssureHandler(root, RunAssureHandler.this));
+//					rerunActivation = handlerService
+//							.activateHandler(ASSURE_VIEW_ID, new OpenAssureViewHandler(root, OpenAssureViewHandler.this));
+					openAssureViewerActivation = handlerService
+							.activateHandler(ASSURE_VIEW_ID, new OpenAssureViewHandler());
 				}
 			});
 		}
 
 		private void disableRerunHandler() {
-			if (rerunActivation != null) {
+			if (openAssureViewerActivation != null) {
 				getWindow().getShell().getDisplay().syncExec(new Runnable() {
 					@Override
 					public void run() {
 						IHandlerService handlerService = getHandlerService();
-						handlerService.deactivateHandler(rerunActivation);
-						rerunActivation = null;
+						handlerService.deactivateHandler(openAssureViewerActivation);
+						openAssureViewerActivation = null;
 					}
 				});
 			}

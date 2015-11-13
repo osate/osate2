@@ -161,6 +161,13 @@
             description="Reset all evidence to TBD"
             name="Reset All Evidence">
      </command>
+     
+     <command categoryId="org.osate.assure.category.commands"
+            id="org.osate.assure.commands.OpenAssureView"
+            description="Open Assure View"
+            name="Open Assure View">
+     </command>
+     
      <command categoryId="org.osate.assure.category.commands"
             id="org.osate.assure.commands.VerifyEvidenceChanges"
             description="Execute Verification Activities Affected by Changes"
@@ -233,7 +240,7 @@
          	</command>  
          </menuContribution>
          -->
-             <menuContribution locationURI="popup:org.eclipse.xtext.ui.outline?after=additions">
+		<menuContribution locationURI="popup:org.eclipse.xtext.ui.outline?after=additions">
 			<command commandId="org.osate.assure.commands.VerifyAllEvidence" 
 				style="push" tooltip="Verify All Evidence">
          		<visibleWhen checkEnabled="false">
@@ -246,11 +253,24 @@
 				</visibleWhen>
 			</command>
          </menuContribution>
- 
- 
-              <menuContribution locationURI="popup:org.eclipse.xtext.ui.outline?after=additions">
+
+           <menuContribution locationURI="popup:org.eclipse.xtext.ui.outline?after=additions">
 			<command commandId="org.osate.assure.commands.ResetAllEvidence" 
 				style="push" tooltip="Reset All Evidence">
+        		<visibleWhen checkEnabled="false">
+	            	<and>
+	            		<reference definitionId="org.osate.assure.Assure.XtextEditor.opened" />
+						<iterate>
+							<adapt type="org.eclipse.xtext.ui.editor.outline.IOutlineNode" />
+						</iterate>
+					</and>
+				</visibleWhen>
+			</command>
+         </menuContribution>
+
+         <menuContribution locationURI="popup:org.eclipse.xtext.ui.outline?after=additions">
+			<command commandId="org.osate.assure.commands.OpenAssureView" 
+				style="push" tooltip="Open Assure View">
          		<visibleWhen checkEnabled="false">
 	            	<and>
 	            		<reference definitionId="org.osate.assure.Assure.XtextEditor.opened" />
@@ -261,7 +281,6 @@
 				</visibleWhen>
 			</command>
          </menuContribution>
- 
  
 <!--           <menuContribution locationURI="popup:#TextEditorContext?after=copy">
          	<command commandId="org.osate.assure.commands.VerifyEvidenceChanges" 
@@ -294,7 +313,33 @@
          </menuContribution>
  
           -->
- 
+        <menuContribution locationURI="popup:org.osate.assure.ui.views.assureView?after=additions">
+			<command commandId="org.osate.assure.commands.ResetAllEvidence" 
+				style="push" tooltip="Reset All Evidence">
+        		<visibleWhen checkEnabled="false">
+	            	<and>
+	            		<reference definitionId="org.osate.assure.Assure.XtextEditor.opened" />
+						<iterate>
+							<adapt type="org.eclipse.xtext.ui.editor.outline.IOutlineNode" />
+						</iterate>
+					</and>
+				</visibleWhen>
+			</command>
+		</menuContribution>
+
+ 		<menuContribution locationURI="popup:org.osate.assure.ui.views.assureView?after=additions">
+			<command commandId="org.osate.assure.commands.VerifyAllEvidence" 
+				style="push" tooltip="Verify All Evidence">
+         		<visibleWhen checkEnabled="false">
+	            	<and>
+	            		<reference definitionId="org.osate.assure.Assure.XtextEditor.opened" />
+						<iterate>
+							<adapt type="org.eclipse.xtext.ui.editor.outline.IOutlineNode" />
+						</iterate>
+					</and>
+				</visibleWhen>
+			</command>
+         </menuContribution>
          
          
 		<menuContribution locationURI="popup:#TextEditorContext?endof=group.find">
@@ -306,10 +351,8 @@
 			</command>
 		</menuContribution>
 	</extension>
-	
-	
-	
-	
+
+ 	
 	<extension point="org.eclipse.ui.handlers">
 	    <handler
             class="org.osate.assure.ui.AssureExecutableExtensionFactory:org.eclipse.xtext.ui.editor.findrefs.FindReferencesHandler"
@@ -325,7 +368,7 @@
         </handler>
     </extension>   
     
-     	<extension point="org.eclipse.ui.handlers">
+     <extension point="org.eclipse.ui.handlers">
             <handler
             class="org.osate.assure.ui.AssureExecutableExtensionFactory:org.osate.assure.ui.handlers.AssureHandler" 
             commandId="org.osate.assure.commands.VerifyAllEvidence">
@@ -334,10 +377,13 @@
             class="org.osate.assure.ui.AssureExecutableExtensionFactory:org.osate.assure.ui.handlers.AssureUpdateHandler" 
             commandId="org.osate.assure.commands.VerifyEvidenceChanges">
       </handler>
-            <handler
-            class="org.osate.assure.ui.AssureExecutableExtensionFactory:org.osate.assure.ui.handlers.RunAssureHandler" 
+      <handler
+            class="org.osate.assure.ui.AssureExecutableExtensionFactory:org.osate.assure.ui.handlers.AssureResetHandler" 
             commandId="org.osate.assure.commands.ResetAllEvidence">
-   
+      </handler>
+      <handler
+            class="org.osate.assure.ui.AssureExecutableExtensionFactory:org.osate.assure.ui.handlers.OpenAssureViewHandler" 
+            commandId="org.osate.assure.commands.OpenAssureView">
       </handler>
      </extension>  
 
@@ -350,7 +396,7 @@
           category="org.osate.alisa.assure"
           id="org.osate.assure.ui.views.assureView"
           icon="icons/claims.png"
-          name="Assurance Case"
+          name="Assurance Results"
           class="org.osate.assure.ui.AssureExecutableExtensionFactory:org.osate.assure.ui.views.AssureView"/>
    </extension>
      
