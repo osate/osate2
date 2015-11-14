@@ -39,6 +39,10 @@ import org.osate.xtext.aadl2.properties.util.PropertyUtils
 import static extension org.osate.alisa.common.util.CommonUtilExtension.*
 import static extension org.osate.assure.util.AssureUtilExtension.*
 import org.osate.aadl2.NumberValue
+import org.osate.alisa.common.common.AVariableReference
+import org.osate.aadl2.IntegerLiteral
+import org.osate.aadl2.RealLiteral
+import org.osate.aadl2.StringLiteral
 
 @ImplementedBy(AssureProcessor)
 interface IAssureProcessor {
@@ -52,7 +56,6 @@ interface IAssureProcessor {
  * It assumes the counts are ok
  */
 class AssureProcessor implements IAssureProcessor {
-
 
 	var IProgressMonitor progressmonitor
 
@@ -131,17 +134,17 @@ class AssureProcessor implements IAssureProcessor {
 		val method = verificationResult.method;
 		var Object res = null
 		val targetElement = verificationResult.targetElement
-		var instanceroot = verificationResult.assuranceCaseInstanceModel //verificationResult.verificationActivityInstanceModel // get instance model from VA for clause
+		var instanceroot = verificationResult.assuranceCaseInstanceModel // verificationResult.verificationActivityInstanceModel // get instance model from VA for clause
 		if (instanceroot == null) {
 			setToError(verificationResult, "Could not find instance model", null)
 			return
 		}
 		var ComponentInstance targetComponent = instanceroot
-			targetComponent = findTargetSystemComponentInstance(instanceroot, verificationResult.enclosingAssuranceCase)
-			if (targetComponent == null) {
-				setToError(verificationResult, "Unresolved target system for claim", null)
-				return
-			}
+		targetComponent = findTargetSystemComponentInstance(instanceroot, verificationResult.enclosingAssuranceCase)
+		if (targetComponent == null) {
+			setToError(verificationResult, "Unresolved target system for claim", null)
+			return
+		}
 		var InstanceObject target = targetComponent;
 		if (targetElement != null) {
 			if (targetElement.eIsProxy) {
@@ -154,14 +157,14 @@ class AssureProcessor implements IAssureProcessor {
 
 		var Object[] parameters
 //		val ctx = new DefaultEvaluationContext()
-
 		if (verificationResult instanceof VerificationActivityResult) {
 			val verificationActivityResult = verificationResult as VerificationActivityResult
 			val verificationActivity = verificationActivityResult.target as VerificationActivity
 			val verificationMethod = verificationActivityResult.method as VerificationMethod
 
 			if (verificationActivity.parameters.size != verificationMethod.params.size) {
-				OsateDebug.osateDebug("[AssureProcessor] not the same number of parameters");
+				setToError(verificationResult, "Number of method parameters and method call parameters in activity differ", null)
+				return
 			}
 			val nbParams = verificationMethod.params.size
 			var i = 0
@@ -169,46 +172,32 @@ class AssureProcessor implements IAssureProcessor {
 			parameters = newArrayOfSize(nbParams)
 
 			while (i < nbParams) {
+				var Object actual
 				var Object param
 				var String typeName
-				if (verificationActivity.parameters.get(i) instanceof ValDeclaration) {
-					val varDecl = verificationActivity.parameters.get(i) as ValDeclaration
-					typeName = varDecl.type
-					try {
-			// TODO evaluate AExpression
-						param = varDecl.right
-					} catch (Exception e) {
-						e.printStackTrace
+				val pi = verificationActivity.parameters.get(i)
+				if (pi instanceof AVariableReference) {
+					val pari = pi.variable
+					if (pari instanceof ValDeclaration) {
+						typeName = pari.type
+						actual = pari.right
 					}
 				} else {
-					typeName = (verificationActivity.parameters.get(i) as ComputeDeclaration).type//?.type
-					// TODO ma need qualified name
-					val myClass = Class.forName(typeName)
-//					println ("myClass=" + myClass.name)
-					/**
-					 * FIX how to exchange data and return values
-					 */
-					switch (myClass.name.toLowerCase) {
-						case "java.lang.double": {
-							param = myClass.constructors.get(0).newInstance(-1.0)
-						}
-						case "java.lang.integer": {
-							param = myClass.constructors.get(0).newInstance(-1)
-						}
-						default: {
-							param = myClass.newInstance
-						}
-					}
-
+					actual = pi
 				}
-
-				var paramType = (verificationMethod.params.get(i) as FormalParameter).parameterType
-
-//				println ("Param var" + i + ":" + varType.identifier)
-//				println ("Param par" + i + ":" + paramType.identifier)
+				switch (actual){
+				IntegerLiteral: param = actual.scaledValue
+				RealLiteral: param = actual.scaledValue
+				StringLiteral: param = actual.value
+				default: 
+					setToError(verificationResult, "Method call parameter must reference variable, or be a string, integer, or real", null)
+				}
 				parameters.set(i, param)
+				
+				var formalParam = verificationMethod.params.get(i) as FormalParameter
+				val paramType = formalParam.parameterType
 				if (typeName != null && paramType != null && ! typeName.equals(paramType)) {
-					println("Mismatch parameters types")
+					setToError(verificationResult, "Parameter '"+formalParam.name+": mismatched  types '"+paramType+"' and actual '"+typeName, null)
 					return
 				}
 				i = i + 1
@@ -377,7 +366,7 @@ class AssureProcessor implements IAssureProcessor {
 		val iter1 = properties.iterator
 		val iter2 = values.iterator
 		var success = true;
-		
+
 		while (iter1.hasNext && iter2.hasNext) {
 			val property = iter1.next
 			val variable = iter2.next
@@ -385,15 +374,15 @@ class AssureProcessor implements IAssureProcessor {
 			if (variable instanceof ValDeclaration) {
 				try {
 					val value = variable.right
-					if (value instanceof NumberValue){
-					val unit = value.unit
-					val modelValue = PropertyUtils.getScaledNumberValue(object, property, unit)
+					if (value instanceof NumberValue) {
+						val unit = value.unit
+						val modelValue = PropertyUtils.getScaledNumberValue(object, property, unit)
 
-					if (!value.equals(modelValue)) {
-						println("no match " + modelValue + " != " + value)
-					} else {
-						println("   match " + modelValue + " == " + value)
-					}
+						if (!value.equals(modelValue)) {
+							println("no match " + modelValue + " != " + value)
+						} else {
+							println("   match " + modelValue + " == " + value)
+						}
 					}
 				} catch (Exception e) {
 					e.printStackTrace
