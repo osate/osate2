@@ -28,12 +28,12 @@ import org.osate.results.results.ResultsPackage;
  * <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
+ * </p>
  * <ul>
  *   <li>{@link org.osate.results.results.impl.ResultReportImpl#getHeading <em>Heading</em>}</li>
  *   <li>{@link org.osate.results.results.impl.ResultReportImpl#getContent <em>Content</em>}</li>
  *   <li>{@link org.osate.results.results.impl.ResultReportImpl#getResultData <em>Result Data</em>}</li>
  * </ul>
- * </p>
  *
  * @generated
  */

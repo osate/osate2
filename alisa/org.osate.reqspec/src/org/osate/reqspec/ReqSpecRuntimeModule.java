@@ -6,10 +6,7 @@ package org.osate.reqspec;
 import org.eclipse.xtext.conversion.IValueConverterService;
 import org.eclipse.xtext.scoping.IScopeProvider;
 import org.eclipse.xtext.serializer.tokens.ICrossReferenceSerializer;
-<<<<<<< HEAD
 import org.osate.reqspec.scoping.ReqSpecScopeProvider;
-=======
->>>>>>> refs/remotes/origin/PeterWork
 import org.osate.reqspec.serializer.ReqSpecCrossReferenceSerializer;
 
 /**
@@ -27,10 +24,6 @@ public class ReqSpecRuntimeModule extends org.osate.reqspec.AbstractReqSpecRunti
 		return org.osate.alisa.common.services.CommonValueConverters.class;
 	}
 
-<<<<<<< HEAD
-	
-=======
->>>>>>> refs/remotes/origin/PeterWork
 	@Override
 	public Class<? extends IScopeProvider> bindIScopeProvider() {
 		return org.osate.reqspec.scoping.ReqSpecScopeProvider.class;

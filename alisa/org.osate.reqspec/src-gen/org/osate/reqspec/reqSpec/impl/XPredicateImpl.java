@@ -10,11 +10,7 @@ import org.eclipse.emf.ecore.InternalEObject;
 
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 
-<<<<<<< HEAD
 import org.osate.aadl2.PropertyExpression;
-=======
-import org.osate.alisa.common.common.AExpression;
->>>>>>> refs/remotes/origin/PeterWork
 
 import org.osate.reqspec.reqSpec.ReqSpecPackage;
 import org.osate.reqspec.reqSpec.XPredicate;
@@ -42,11 +38,7 @@ public class XPredicateImpl extends ReqPredicateImpl implements XPredicate
    * @generated
    * @ordered
    */
-<<<<<<< HEAD
   protected PropertyExpression xpression;
-=======
-  protected AExpression xpression;
->>>>>>> refs/remotes/origin/PeterWork
 
   /**
    * <!-- begin-user-doc -->
@@ -74,11 +66,7 @@ public class XPredicateImpl extends ReqPredicateImpl implements XPredicate
    * <!-- end-user-doc -->
    * @generated
    */
-<<<<<<< HEAD
   public PropertyExpression getXpression()
-=======
-  public AExpression getXpression()
->>>>>>> refs/remotes/origin/PeterWork
   {
     return xpression;
   }
@@ -88,17 +76,9 @@ public class XPredicateImpl extends ReqPredicateImpl implements XPredicate
    * <!-- end-user-doc -->
    * @generated
    */
-<<<<<<< HEAD
   public NotificationChain basicSetXpression(PropertyExpression newXpression, NotificationChain msgs)
-=======
-  public NotificationChain basicSetXpression(AExpression newXpression, NotificationChain msgs)
->>>>>>> refs/remotes/origin/PeterWork
   {
-<<<<<<< HEAD
     PropertyExpression oldXpression = xpression;
-=======
-    AExpression oldXpression = xpression;
->>>>>>> refs/remotes/origin/PeterWork
     xpression = newXpression;
     if (eNotificationRequired())
     {
@@ -113,11 +93,7 @@ public class XPredicateImpl extends ReqPredicateImpl implements XPredicate
    * <!-- end-user-doc -->
    * @generated
    */
-<<<<<<< HEAD
   public void setXpression(PropertyExpression newXpression)
-=======
-  public void setXpression(AExpression newXpression)
->>>>>>> refs/remotes/origin/PeterWork
   {
     if (newXpression != xpression)
     {
@@ -176,11 +152,7 @@ public class XPredicateImpl extends ReqPredicateImpl implements XPredicate
     switch (featureID)
     {
       case ReqSpecPackage.XPREDICATE__XPRESSION:
-<<<<<<< HEAD
         setXpression((PropertyExpression)newValue);
-=======
-        setXpression((AExpression)newValue);
->>>>>>> refs/remotes/origin/PeterWork
         return;
     }
     super.eSet(featureID, newValue);
@@ -197,11 +169,7 @@ public class XPredicateImpl extends ReqPredicateImpl implements XPredicate
     switch (featureID)
     {
       case ReqSpecPackage.XPREDICATE__XPRESSION:
-<<<<<<< HEAD
         setXpression((PropertyExpression)null);
-=======
-        setXpression((AExpression)null);
->>>>>>> refs/remotes/origin/PeterWork
         return;
     }
     super.eUnset(featureID);

@@ -4,7 +4,6 @@ package org.osate.alisa.common.common.impl;
 
 import org.eclipse.emf.ecore.EClass;
 
-<<<<<<< HEAD
 import org.osate.aadl2.impl.PropertyExpressionImpl;
 
 import org.osate.alisa.common.common.AExpression;
@@ -18,21 +17,6 @@ import org.osate.alisa.common.common.CommonPackage;
  * @generated
  */
 public class AExpressionImpl extends PropertyExpressionImpl implements AExpression
-=======
-import org.eclipse.emf.ecore.impl.MinimalEObjectImpl;
-
-import org.osate.alisa.common.common.AExpression;
-import org.osate.alisa.common.common.CommonPackage;
-
-/**
- * <!-- begin-user-doc -->
- * An implementation of the model object '<em><b>AExpression</b></em>'.
- * <!-- end-user-doc -->
- *
- * @generated
- */
-public class AExpressionImpl extends MinimalEObjectImpl.Container implements AExpression
->>>>>>> refs/remotes/origin/PeterWork
 {
   /**
    * <!-- begin-user-doc -->

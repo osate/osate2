@@ -73,11 +73,8 @@ Section : 'section';
 Issues : 'issues';
 
 KW_System : 'system';
-<<<<<<< HEAD
 
 Delta : 'delta';
-=======
->>>>>>> refs/remotes/origin/PeterWork
 
 False : 'false';
 

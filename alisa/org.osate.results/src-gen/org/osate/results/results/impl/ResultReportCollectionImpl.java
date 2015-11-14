@@ -24,10 +24,10 @@ import org.osate.results.results.ResultsPackage;
  * <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
+ * </p>
  * <ul>
  *   <li>{@link org.osate.results.results.impl.ResultReportCollectionImpl#getContent <em>Content</em>}</li>
  * </ul>
- * </p>
  *
  * @generated
  */

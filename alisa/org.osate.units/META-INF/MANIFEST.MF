@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: Units
@@ -14,20 +13,3 @@ Bundle-RequiredExecutionEnvironment: JavaSE-1.7
 Bundle-ActivationPolicy: lazy
 Export-Package: org.osate.units
 
-=======
-Manifest-Version: 1.0
-Bundle-ManifestVersion: 2
-Bundle-Name: Units
-Bundle-SymbolicName: org.osate.units
-Bundle-Version: 1.0.0.qualifier
-Bundle-Activator: org.osate.units.Activator
-Require-Bundle: org.eclipse.ui,
- org.eclipse.core.runtime,
- org.eclipse.xtend.lib,
- org.eclipse.xtend.lib.macro,
- com.google.guava
-Bundle-RequiredExecutionEnvironment: JavaSE-1.7
-Bundle-ActivationPolicy: lazy
-Export-Package: org.osate.units
-
->>>>>>> refs/remotes/origin/PeterWork

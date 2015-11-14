@@ -4,7 +4,7 @@
     editorDirectory="/org.osate.results.editor/src" modelPluginID="org.osate.results"
     forceOverwrite="true" modelName="Results" updateClasspath="false" rootExtendsClass="org.eclipse.emf.ecore.impl.MinimalEObjectImpl$Container"
     complianceLevel="6.0" copyrightFields="false" editPluginID="org.osate.results.edit"
-    editorPluginID="org.osate.results.editor" runtimeVersion="2.10">
+    editorPluginID="org.osate.results.editor" runtimeVersion="2.11">
   <genPackages prefix="Results" basePackage="org.osate.results" disposableProviderFactory="true"
       fileExtensions="results" ecorePackage="Results.ecore#/">
     <genEnums typeSafeEnumCompatible="false" ecoreEnum="Results.ecore#//ReportIssueType">

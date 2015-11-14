@@ -13,12 +13,12 @@ import org.eclipse.emf.ecore.EObject;
  *
  * <p>
  * The following features are supported:
+ * </p>
  * <ul>
  *   <li>{@link org.osate.results.results.ResultContributor#getContributor <em>Contributor</em>}</li>
  *   <li>{@link org.osate.results.results.ResultContributor#getCell <em>Cell</em>}</li>
  *   <li>{@link org.osate.results.results.ResultContributor#getSubcontributor <em>Subcontributor</em>}</li>
  * </ul>
- * </p>
  *
  * @see org.osate.results.results.ResultsPackage#getResultContributor()
  * @model

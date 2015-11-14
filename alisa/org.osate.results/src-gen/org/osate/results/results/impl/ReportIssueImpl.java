@@ -21,12 +21,12 @@ import org.osate.results.results.ResultsPackage;
  * <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
+ * </p>
  * <ul>
  *   <li>{@link org.osate.results.results.impl.ReportIssueImpl#getIssueType <em>Issue Type</em>}</li>
  *   <li>{@link org.osate.results.results.impl.ReportIssueImpl#getTitle <em>Title</em>}</li>
  *   <li>{@link org.osate.results.results.impl.ReportIssueImpl#getTarget <em>Target</em>}</li>
  * </ul>
- * </p>
  *
  * @generated
  */

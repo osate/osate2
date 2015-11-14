@@ -28,11 +28,11 @@ import org.osate.organization.organization.Stakeholder;
  * <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
+ * </p>
  * <ul>
  *   <li>{@link org.osate.organization.organization.impl.OrganizationImpl#getName <em>Name</em>}</li>
  *   <li>{@link org.osate.organization.organization.impl.OrganizationImpl#getStakeholder <em>Stakeholder</em>}</li>
  * </ul>
- * </p>
  *
  * @generated
  */

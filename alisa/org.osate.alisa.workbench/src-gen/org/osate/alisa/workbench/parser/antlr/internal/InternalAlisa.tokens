@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 '!'=64
 '!='=47
 '!=='=49
@@ -61,92 +60,15 @@ RULE_DIGIT=11
 RULE_EXPONENT=12
 RULE_EXTENDED_DIGIT=15
 RULE_HEX=8
-=======
-'!'=57
-'!='=40
-'!=='=42
-'#'=58
-'%'=33
-'&&'=38
-'('=62
-')'=63
-'*'=55
-'**'=56
-'+'=53
-','=60
-'-'=54
-'->'=47
-'.'=36
-'..'=49
-'..<'=48
-'/'=35
-':'=15
-'::'=67
-'<'=44
-'<>'=51
-'='=45
-'=='=39
-'==='=41
-'=>'=50
-'>'=46
-'>='=43
-'?:'=52
-'['=17
-']'=28
-'all'=26
-'assume'=24
-'assurance'=13
-'assure'=19
-'description'=18
-'false'=64
-'filter'=30
-'for'=16
-'global'=21
-'img'=34
-'issues'=27
-'null'=66
-'only'=31
-'own'=20
-'plan'=14
-'plans'=23
-'subsystem'=22
-'subsystems'=25
-'task'=29
-'this'=32
-'true'=65
-'{'=59
-'||'=37
-'}'=61
-RULE_ANY_OTHER=12
-RULE_DECIMAL=8
-RULE_HEX=6
->>>>>>> refs/remotes/origin/PeterWork
 RULE_ID=5
-<<<<<<< HEAD
 RULE_INT=9
 RULE_INTEGER_LIT=6
 RULE_INT_EXPONENT=13
 RULE_ML_COMMENT=16
 RULE_REAL_LIT=7
 RULE_SL_COMMENT=17
-=======
-RULE_INT=7
-RULE_ML_COMMENT=9
-RULE_SL_COMMENT=10
->>>>>>> refs/remotes/origin/PeterWork
 RULE_STRING=4
-<<<<<<< HEAD
 RULE_WS=18
-=======
-RULE_WS=11
-T__13=13
-T__14=14
-T__15=15
-T__16=16
-T__17=17
-T__18=18
-T__19=19
->>>>>>> refs/remotes/origin/PeterWork
 T__20=20
 T__21=21
 T__22=22
@@ -195,7 +117,6 @@ T__64=64
 T__65=65
 T__66=66
 T__67=67
-<<<<<<< HEAD
 T__68=68
 T__69=69
 T__70=70
@@ -203,5 +124,3 @@ T__71=71
 T__72=72
 T__73=73
 T__74=74
-=======
->>>>>>> refs/remotes/origin/PeterWork

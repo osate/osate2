@@ -26,10 +26,10 @@ import org.osate.results.results.ResultsPackage;
  * <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
+ * </p>
  * <ul>
  *   <li>{@link org.osate.results.results.impl.ResultIssueHolderImpl#getIssues <em>Issues</em>}</li>
  * </ul>
- * </p>
  *
  * @generated
  */

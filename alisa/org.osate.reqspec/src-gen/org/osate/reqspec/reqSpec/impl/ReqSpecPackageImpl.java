@@ -1337,18 +1337,10 @@ public class ReqSpecPackageImpl extends EPackageImpl implements ReqSpecPackage
     initEAttribute(getInformalPredicate_Description(), theEcorePackage.getEString(), "description", null, 0, 1, InformalPredicate.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
     initEClass(xPredicateEClass, XPredicate.class, "XPredicate", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-<<<<<<< HEAD
     initEReference(getXPredicate_Xpression(), theAadl2Package.getPropertyExpression(), null, "xpression", null, 0, 1, XPredicate.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-=======
-    initEReference(getXPredicate_Xpression(), theCommonPackage.getAExpression(), null, "xpression", null, 0, 1, XPredicate.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
->>>>>>> refs/remotes/origin/PeterWork
 
     initEClass(valuePredicateEClass, ValuePredicate.class, "ValuePredicate", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-<<<<<<< HEAD
     initEReference(getValuePredicate_Xpression(), theAadl2Package.getPropertyExpression(), null, "xpression", null, 0, 1, ValuePredicate.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-=======
-    initEReference(getValuePredicate_Xpression(), theCommonPackage.getAExpression(), null, "xpression", null, 0, 1, ValuePredicate.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
->>>>>>> refs/remotes/origin/PeterWork
 
     initEClass(externalDocumentEClass, ExternalDocument.class, "ExternalDocument", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
     initEAttribute(getExternalDocument_DocReference(), theEcorePackage.getEString(), "docReference", null, 0, 1, ExternalDocument.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);

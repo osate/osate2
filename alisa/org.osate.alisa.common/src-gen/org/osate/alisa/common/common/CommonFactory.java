@@ -95,45 +95,6 @@ public interface CommonFactory extends EFactory
   ImageReference createImageReference();
 
   /**
-<<<<<<< HEAD
-=======
-   * Returns a new object of class '<em>ACollection Literal</em>'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return a new object of class '<em>ACollection Literal</em>'.
-   * @generated
-   */
-  ACollectionLiteral createACollectionLiteral();
-
-  /**
-   * Returns a new object of class '<em>ASet Literal</em>'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return a new object of class '<em>ASet Literal</em>'.
-   * @generated
-   */
-  ASetLiteral createASetLiteral();
-
-  /**
-   * Returns a new object of class '<em>AList Literal</em>'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return a new object of class '<em>AList Literal</em>'.
-   * @generated
-   */
-  AListLiteral createAListLiteral();
-
-  /**
-   * Returns a new object of class '<em>ANumber Literal</em>'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return a new object of class '<em>ANumber Literal</em>'.
-   * @generated
-   */
-  ANumberLiteral createANumberLiteral();
-
-  /**
->>>>>>> refs/remotes/origin/PeterWork
    * Returns a new object of class '<em>Val Declaration</em>'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -188,7 +149,6 @@ public interface CommonFactory extends EFactory
   AUnaryOperation createAUnaryOperation();
 
   /**
-<<<<<<< HEAD
    * Returns a new object of class '<em>ASet Literal</em>'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -214,33 +174,6 @@ public interface CommonFactory extends EFactory
    * @generated
    */
   ANullLiteral createANullLiteral();
-=======
-   * Returns a new object of class '<em>ABoolean Literal</em>'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return a new object of class '<em>ABoolean Literal</em>'.
-   * @generated
-   */
-  ABooleanLiteral createABooleanLiteral();
-
-  /**
-   * Returns a new object of class '<em>ANull Literal</em>'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return a new object of class '<em>ANull Literal</em>'.
-   * @generated
-   */
-  ANullLiteral createANullLiteral();
-
-  /**
-   * Returns a new object of class '<em>AString Literal</em>'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return a new object of class '<em>AString Literal</em>'.
-   * @generated
-   */
-  AStringLiteral createAStringLiteral();
->>>>>>> refs/remotes/origin/PeterWork
 
   /**
    * Returns the package supported by this factory.

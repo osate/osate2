@@ -38,17 +38,6 @@ class CommonScopeProvider extends AbstractDeclarativeScopeProvider {
 			Scopes::scopedElementsFor(elements, QualifiedName::wrapper(SimpleAttributeResolver::NAME_RESOLVER)), true)
 	}
 
-<<<<<<< HEAD
-=======
-//	def scope_UnitLiteral(NumberLiteralUnit context, EReference reference) {
-//		val units = context.unitLiterals
-//		if (!units.empty) {
-//			units.scopeFor
-//		} else {
-//			IScope.NULLSCOPE
-//		}
-//	}
->>>>>>> refs/remotes/origin/PeterWork
 
 	def scope_UnitLiteral(
 		ShowValue context,

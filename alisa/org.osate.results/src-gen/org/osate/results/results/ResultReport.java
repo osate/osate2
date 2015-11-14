@@ -11,12 +11,12 @@ import org.eclipse.emf.common.util.EList;
  *
  * <p>
  * The following features are supported:
+ * </p>
  * <ul>
  *   <li>{@link org.osate.results.results.ResultReport#getHeading <em>Heading</em>}</li>
  *   <li>{@link org.osate.results.results.ResultReport#getContent <em>Content</em>}</li>
  *   <li>{@link org.osate.results.results.ResultReport#getResultData <em>Result Data</em>}</li>
  * </ul>
- * </p>
  *
  * @see org.osate.results.results.ResultsPackage#getResultReport()
  * @model

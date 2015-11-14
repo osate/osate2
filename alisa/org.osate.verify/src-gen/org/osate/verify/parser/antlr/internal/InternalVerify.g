@@ -2640,7 +2640,6 @@ ruleRationale returns [EObject current=null]
 
 
 
-<<<<<<< HEAD
 // Entry rule entryRuleAVariableReference
 entryRuleAVariableReference returns [EObject current=null] 
 	:
@@ -2679,8 +2678,6 @@ ruleAVariableReference returns [EObject current=null]
 
 
 
-=======
->>>>>>> refs/remotes/origin/PeterWork
 
 
 // Entry rule entryRuleShowValue
@@ -3917,7 +3914,6 @@ ruleAPrimaryExpression returns [EObject current=null]
         $current = $this_ALiteral_0.current; 
         afterParserOrEnumRuleCall();
     }
-<<<<<<< HEAD
 
     |
     { 
@@ -4065,20 +4061,8 @@ ruleAIntegerTerm returns [EObject current=null]
         		"AInt");
 	        afterParserOrEnumRuleCall();
 	    }
-=======
->>>>>>> refs/remotes/origin/PeterWork
 
-    |
-    { 
-        newCompositeNode(grammarAccess.getAPrimaryExpressionAccess().getAParenthesizedExpressionParserRuleCall_1()); 
-    }
-    this_AParenthesizedExpression_1=ruleAParenthesizedExpression
-    { 
-        $current = $this_AParenthesizedExpression_1.current; 
-        afterParserOrEnumRuleCall();
-    }
 )
-<<<<<<< HEAD
 )(
 (
 		{
@@ -4115,125 +4099,32 @@ ruleAInt returns [AntlrDatatypeRuleToken current=new AntlrDatatypeRuleToken()]
     @after { leaveRule(); }:
     this_INTEGER_LIT_0=RULE_INTEGER_LIT    {
 		$current.merge(this_INTEGER_LIT_0);
-=======
-;
-
-
-
-
-
-// Entry rule entryRuleALiteral
-entryRuleALiteral returns [EObject current=null] 
-	:
-	{ newCompositeNode(grammarAccess.getALiteralRule()); }
-	 iv_ruleALiteral=ruleALiteral 
-	 { $current=$iv_ruleALiteral.current; } 
-	 EOF 
-;
-
-// Rule ALiteral
-ruleALiteral returns [EObject current=null] 
-    @init { enterRule(); 
-    }
-    @after { leaveRule(); }:
-(
-    { 
-        newCompositeNode(grammarAccess.getALiteralAccess().getACollectionLiteralParserRuleCall_0()); 
-    }
-    this_ACollectionLiteral_0=ruleACollectionLiteral
-    { 
-        $current = $this_ACollectionLiteral_0.current; 
-        afterParserOrEnumRuleCall();
->>>>>>> refs/remotes/origin/PeterWork
     }
 
-<<<<<<< HEAD
     { 
     newLeafNode(this_INTEGER_LIT_0, grammarAccess.getAIntAccess().getINTEGER_LITTerminalRuleCall()); 
-=======
-    |
-    { 
-        newCompositeNode(grammarAccess.getALiteralAccess().getABooleanLiteralParserRuleCall_1()); 
     }
-    this_ABooleanLiteral_1=ruleABooleanLiteral
-    { 
-        $current = $this_ABooleanLiteral_1.current; 
-        afterParserOrEnumRuleCall();
-    }
-
-    |
-    { 
-        newCompositeNode(grammarAccess.getALiteralAccess().getANumberLiteralParserRuleCall_2()); 
-    }
-    this_ANumberLiteral_2=ruleANumberLiteral
-    { 
-        $current = $this_ANumberLiteral_2.current; 
-        afterParserOrEnumRuleCall();
-    }
-
-    |
-    { 
-        newCompositeNode(grammarAccess.getALiteralAccess().getANullLiteralParserRuleCall_3()); 
-    }
-    this_ANullLiteral_3=ruleANullLiteral
-    { 
-        $current = $this_ANullLiteral_3.current; 
-        afterParserOrEnumRuleCall();
-    }
-
-    |
-    { 
-        newCompositeNode(grammarAccess.getALiteralAccess().getAStringLiteralParserRuleCall_4()); 
-    }
-    this_AStringLiteral_4=ruleAStringLiteral
-    { 
-        $current = $this_AStringLiteral_4.current; 
-        afterParserOrEnumRuleCall();
->>>>>>> refs/remotes/origin/PeterWork
-    }
-<<<<<<< HEAD
 
     ;
-=======
-)
-;
->>>>>>> refs/remotes/origin/PeterWork
 
 
 
 
 
-<<<<<<< HEAD
 // Entry rule entryRuleARealTerm
 entryRuleARealTerm returns [EObject current=null] 
-=======
-// Entry rule entryRuleACollectionLiteral
-entryRuleACollectionLiteral returns [EObject current=null] 
->>>>>>> refs/remotes/origin/PeterWork
 	:
-<<<<<<< HEAD
 	{ newCompositeNode(grammarAccess.getARealTermRule()); }
 	 iv_ruleARealTerm=ruleARealTerm 
 	 { $current=$iv_ruleARealTerm.current; } 
-=======
-	{ newCompositeNode(grammarAccess.getACollectionLiteralRule()); }
-	 iv_ruleACollectionLiteral=ruleACollectionLiteral 
-	 { $current=$iv_ruleACollectionLiteral.current; } 
->>>>>>> refs/remotes/origin/PeterWork
 	 EOF 
 ;
 
-<<<<<<< HEAD
 // Rule ARealTerm
 ruleARealTerm returns [EObject current=null] 
-=======
-// Rule ACollectionLiteral
-ruleACollectionLiteral returns [EObject current=null] 
->>>>>>> refs/remotes/origin/PeterWork
     @init { enterRule(); 
     }
     @after { leaveRule(); }:
-<<<<<<< HEAD
 ((
 (
 		{ 
@@ -4251,29 +4142,7 @@ ruleACollectionLiteral returns [EObject current=null]
 	        afterParserOrEnumRuleCall();
 	    }
 
-=======
-(
-    { 
-        newCompositeNode(grammarAccess.getACollectionLiteralAccess().getASetLiteralParserRuleCall_0()); 
-    }
-    this_ASetLiteral_0=ruleASetLiteral
-    { 
-        $current = $this_ASetLiteral_0.current; 
-        afterParserOrEnumRuleCall();
-    }
-
-    |
-    { 
-        newCompositeNode(grammarAccess.getACollectionLiteralAccess().getAListLiteralParserRuleCall_1()); 
-    }
-    this_AListLiteral_1=ruleAListLiteral
-    { 
-        $current = $this_AListLiteral_1.current; 
-        afterParserOrEnumRuleCall();
-    }
->>>>>>> refs/remotes/origin/PeterWork
 )
-<<<<<<< HEAD
 )(
 (
 		{
@@ -4288,35 +4157,21 @@ ruleACollectionLiteral returns [EObject current=null]
 
 )
 )?)
-=======
->>>>>>> refs/remotes/origin/PeterWork
 ;
 
 
 
 
 
-<<<<<<< HEAD
 // Entry rule entryRuleAReal
 entryRuleAReal returns [String current=null] 
-=======
-// Entry rule entryRuleASetLiteral
-entryRuleASetLiteral returns [EObject current=null] 
->>>>>>> refs/remotes/origin/PeterWork
 	:
-<<<<<<< HEAD
 	{ newCompositeNode(grammarAccess.getARealRule()); } 
 	 iv_ruleAReal=ruleAReal 
 	 { $current=$iv_ruleAReal.current.getText(); }  
-=======
-	{ newCompositeNode(grammarAccess.getASetLiteralRule()); }
-	 iv_ruleASetLiteral=ruleASetLiteral 
-	 { $current=$iv_ruleASetLiteral.current; } 
->>>>>>> refs/remotes/origin/PeterWork
 	 EOF 
 ;
 
-<<<<<<< HEAD
 // Rule AReal
 ruleAReal returns [AntlrDatatypeRuleToken current=new AntlrDatatypeRuleToken()] 
     @init { enterRule(); 
@@ -4389,64 +4244,32 @@ entryRuleASetTerm returns [EObject current=null]
 
 // Rule ASetTerm
 ruleASetTerm returns [EObject current=null] 
-=======
-// Rule ASetLiteral
-ruleASetLiteral returns [EObject current=null] 
->>>>>>> refs/remotes/origin/PeterWork
     @init { enterRule(); 
     }
     @after { leaveRule(); }:
 ((
     {
         $current = forceCreateModelElement(
-<<<<<<< HEAD
             grammarAccess.getASetTermAccess().getASetLiteralAction_0(),
-=======
-            grammarAccess.getASetLiteralAccess().getASetLiteralAction_0(),
->>>>>>> refs/remotes/origin/PeterWork
             $current);
     }
 )	otherlv_1='{' 
     {
-<<<<<<< HEAD
     	newLeafNode(otherlv_1, grammarAccess.getASetTermAccess().getLeftCurlyBracketKeyword_1());
-=======
-    	newLeafNode(otherlv_1, grammarAccess.getASetLiteralAccess().getNumberSignKeyword_1());
-    }
-	otherlv_2='{' 
-    {
-    	newLeafNode(otherlv_2, grammarAccess.getASetLiteralAccess().getLeftCurlyBracketKeyword_2());
->>>>>>> refs/remotes/origin/PeterWork
     }
 ((
 (
 		{ 
-<<<<<<< HEAD
 	        newCompositeNode(grammarAccess.getASetTermAccess().getElementsAExpressionParserRuleCall_2_0_0()); 
-=======
-	        newCompositeNode(grammarAccess.getASetLiteralAccess().getElementsAExpressionParserRuleCall_3_0_0()); 
->>>>>>> refs/remotes/origin/PeterWork
 	    }
-<<<<<<< HEAD
 		lv_elements_2_0=ruleAExpression		{
-=======
-		lv_elements_3_0=ruleAExpression		{
->>>>>>> refs/remotes/origin/PeterWork
 	        if ($current==null) {
-<<<<<<< HEAD
 	            $current = createModelElementForParent(grammarAccess.getASetTermRule());
-=======
-	            $current = createModelElementForParent(grammarAccess.getASetLiteralRule());
->>>>>>> refs/remotes/origin/PeterWork
 	        }
        		add(
        			$current, 
        			"elements",
-<<<<<<< HEAD
         		lv_elements_2_0, 
-=======
-        		lv_elements_3_0, 
->>>>>>> refs/remotes/origin/PeterWork
         		"AExpression");
 	        afterParserOrEnumRuleCall();
 	    }
@@ -4454,41 +4277,21 @@ ruleASetLiteral returns [EObject current=null]
 )
 )(	otherlv_3=',' 
     {
-<<<<<<< HEAD
     	newLeafNode(otherlv_3, grammarAccess.getASetTermAccess().getCommaKeyword_2_1_0());
-=======
-    	newLeafNode(otherlv_4, grammarAccess.getASetLiteralAccess().getCommaKeyword_3_1_0());
->>>>>>> refs/remotes/origin/PeterWork
     }
 (
 (
 		{ 
-<<<<<<< HEAD
 	        newCompositeNode(grammarAccess.getASetTermAccess().getElementsAExpressionParserRuleCall_2_1_1_0()); 
-=======
-	        newCompositeNode(grammarAccess.getASetLiteralAccess().getElementsAExpressionParserRuleCall_3_1_1_0()); 
->>>>>>> refs/remotes/origin/PeterWork
 	    }
-<<<<<<< HEAD
 		lv_elements_4_0=ruleAExpression		{
-=======
-		lv_elements_5_0=ruleAExpression		{
->>>>>>> refs/remotes/origin/PeterWork
 	        if ($current==null) {
-<<<<<<< HEAD
 	            $current = createModelElementForParent(grammarAccess.getASetTermRule());
-=======
-	            $current = createModelElementForParent(grammarAccess.getASetLiteralRule());
->>>>>>> refs/remotes/origin/PeterWork
 	        }
        		add(
        			$current, 
        			"elements",
-<<<<<<< HEAD
         		lv_elements_4_0, 
-=======
-        		lv_elements_5_0, 
->>>>>>> refs/remotes/origin/PeterWork
         		"AExpression");
 	        afterParserOrEnumRuleCall();
 	    }
@@ -4496,11 +4299,7 @@ ruleASetLiteral returns [EObject current=null]
 )
 ))*)?	otherlv_5='}' 
     {
-<<<<<<< HEAD
     	newLeafNode(otherlv_5, grammarAccess.getASetTermAccess().getRightCurlyBracketKeyword_3());
-=======
-    	newLeafNode(otherlv_6, grammarAccess.getASetLiteralAccess().getRightCurlyBracketKeyword_4());
->>>>>>> refs/remotes/origin/PeterWork
     }
 )
 ;
@@ -4509,78 +4308,42 @@ ruleASetLiteral returns [EObject current=null]
 
 
 
-<<<<<<< HEAD
 // Entry rule entryRuleAListTerm
 entryRuleAListTerm returns [EObject current=null] 
-=======
-// Entry rule entryRuleAListLiteral
-entryRuleAListLiteral returns [EObject current=null] 
->>>>>>> refs/remotes/origin/PeterWork
 	:
-<<<<<<< HEAD
 	{ newCompositeNode(grammarAccess.getAListTermRule()); }
 	 iv_ruleAListTerm=ruleAListTerm 
 	 { $current=$iv_ruleAListTerm.current; } 
-=======
-	{ newCompositeNode(grammarAccess.getAListLiteralRule()); }
-	 iv_ruleAListLiteral=ruleAListLiteral 
-	 { $current=$iv_ruleAListLiteral.current; } 
->>>>>>> refs/remotes/origin/PeterWork
 	 EOF 
 ;
 
-<<<<<<< HEAD
 // Rule AListTerm
 ruleAListTerm returns [EObject current=null] 
-=======
-// Rule AListLiteral
-ruleAListLiteral returns [EObject current=null] 
->>>>>>> refs/remotes/origin/PeterWork
     @init { enterRule(); 
     }
     @after { leaveRule(); }:
 ((
     {
         $current = forceCreateModelElement(
-<<<<<<< HEAD
             grammarAccess.getAListTermAccess().getAListTermAction_0(),
-=======
-            grammarAccess.getAListLiteralAccess().getAListLiteralAction_0(),
->>>>>>> refs/remotes/origin/PeterWork
             $current);
     }
 )	otherlv_1='#' 
     {
-<<<<<<< HEAD
     	newLeafNode(otherlv_1, grammarAccess.getAListTermAccess().getNumberSignKeyword_1());
-=======
-    	newLeafNode(otherlv_1, grammarAccess.getAListLiteralAccess().getNumberSignKeyword_1());
->>>>>>> refs/remotes/origin/PeterWork
     }
 	otherlv_2='[' 
     {
-<<<<<<< HEAD
     	newLeafNode(otherlv_2, grammarAccess.getAListTermAccess().getLeftSquareBracketKeyword_2());
-=======
-    	newLeafNode(otherlv_2, grammarAccess.getAListLiteralAccess().getLeftSquareBracketKeyword_2());
->>>>>>> refs/remotes/origin/PeterWork
     }
 ((
 (
 		{ 
-<<<<<<< HEAD
 	        newCompositeNode(grammarAccess.getAListTermAccess().getElementsAExpressionParserRuleCall_3_0_0()); 
-=======
-	        newCompositeNode(grammarAccess.getAListLiteralAccess().getElementsAExpressionParserRuleCall_3_0_0()); 
->>>>>>> refs/remotes/origin/PeterWork
 	    }
 		lv_elements_3_0=ruleAExpression		{
 	        if ($current==null) {
-<<<<<<< HEAD
 	            $current = createModelElementForParent(grammarAccess.getAListTermRule());
-=======
-	            $current = createModelElementForParent(grammarAccess.getAListLiteralRule());
->>>>>>> refs/remotes/origin/PeterWork
 	        }
        		add(
        			$current, 
@@ -4593,28 +4356,16 @@ ruleAListLiteral returns [EObject current=null]
 )
 )(	otherlv_4=',' 
     {
-<<<<<<< HEAD
     	newLeafNode(otherlv_4, grammarAccess.getAListTermAccess().getCommaKeyword_3_1_0());
-=======
-    	newLeafNode(otherlv_4, grammarAccess.getAListLiteralAccess().getCommaKeyword_3_1_0());
->>>>>>> refs/remotes/origin/PeterWork
     }
 (
 (
 		{ 
-<<<<<<< HEAD
 	        newCompositeNode(grammarAccess.getAListTermAccess().getElementsAExpressionParserRuleCall_3_1_1_0()); 
-=======
-	        newCompositeNode(grammarAccess.getAListLiteralAccess().getElementsAExpressionParserRuleCall_3_1_1_0()); 
->>>>>>> refs/remotes/origin/PeterWork
 	    }
 		lv_elements_5_0=ruleAExpression		{
 	        if ($current==null) {
-<<<<<<< HEAD
 	            $current = createModelElementForParent(grammarAccess.getAListTermRule());
-=======
-	            $current = createModelElementForParent(grammarAccess.getAListLiteralRule());
->>>>>>> refs/remotes/origin/PeterWork
 	        }
        		add(
        			$current, 
@@ -4627,11 +4378,7 @@ ruleAListLiteral returns [EObject current=null]
 )
 ))*)?	otherlv_6=']' 
     {
-<<<<<<< HEAD
     	newLeafNode(otherlv_6, grammarAccess.getAListTermAccess().getRightSquareBracketKeyword_4());
-=======
-    	newLeafNode(otherlv_6, grammarAccess.getAListLiteralAccess().getRightSquareBracketKeyword_4());
->>>>>>> refs/remotes/origin/PeterWork
     }
 )
 ;
@@ -4695,7 +4442,6 @@ ruleABooleanLiteral returns [EObject current=null]
 ((
     {
         $current = forceCreateModelElement(
-<<<<<<< HEAD
             grammarAccess.getABooleanLiteralAccess().getBooleanLiteralAction_0(),
             $current);
     }
@@ -4720,32 +4466,6 @@ ruleABooleanLiteral returns [EObject current=null]
     	newLeafNode(otherlv_2, grammarAccess.getABooleanLiteralAccess().getFalseKeyword_1_1());
     }
 ))
-=======
-            grammarAccess.getABooleanLiteralAccess().getABooleanLiteralAction_0(),
-            $current);
-    }
-)(	otherlv_1='false' 
-    {
-    	newLeafNode(otherlv_1, grammarAccess.getABooleanLiteralAccess().getFalseKeyword_1_0());
-    }
-
-    |(
-(
-		lv_isTrue_2_0=	'true' 
-    {
-        newLeafNode(lv_isTrue_2_0, grammarAccess.getABooleanLiteralAccess().getIsTrueTrueKeyword_1_1_0());
-    }
- 
-	    {
-	        if ($current==null) {
-	            $current = createModelElement(grammarAccess.getABooleanLiteralRule());
-	        }
-       		setWithLastConsumed($current, "isTrue", true, "true");
-	    }
-
-)
-)))
->>>>>>> refs/remotes/origin/PeterWork
 ;
 
 
@@ -4783,123 +4503,28 @@ ruleANullLiteral returns [EObject current=null]
 
 
 
-<<<<<<< HEAD
 // Entry rule entryRuleStringTerm
 entryRuleStringTerm returns [EObject current=null] 
-=======
-// Entry rule entryRuleANumberLiteral
-entryRuleANumberLiteral returns [EObject current=null] 
->>>>>>> refs/remotes/origin/PeterWork
 	:
-<<<<<<< HEAD
 	{ newCompositeNode(grammarAccess.getStringTermRule()); }
 	 iv_ruleStringTerm=ruleStringTerm 
 	 { $current=$iv_ruleStringTerm.current; } 
-=======
-	{ newCompositeNode(grammarAccess.getANumberLiteralRule()); }
-	 iv_ruleANumberLiteral=ruleANumberLiteral 
-	 { $current=$iv_ruleANumberLiteral.current; } 
->>>>>>> refs/remotes/origin/PeterWork
 	 EOF 
 ;
 
-<<<<<<< HEAD
 // Rule StringTerm
 ruleStringTerm returns [EObject current=null] 
-=======
-// Rule ANumberLiteral
-ruleANumberLiteral returns [EObject current=null] 
     @init { enterRule(); 
     }
     @after { leaveRule(); }:
-((
 (
-		{ 
-	        newCompositeNode(grammarAccess.getANumberLiteralAccess().getValueNumberParserRuleCall_0_0()); 
-	    }
-		lv_value_0_0=ruleNumber		{
-	        if ($current==null) {
-	            $current = createModelElementForParent(grammarAccess.getANumberLiteralRule());
-	        }
-       		set(
-       			$current, 
-       			"value",
-        		lv_value_0_0, 
-        		"Number");
-	        afterParserOrEnumRuleCall();
-	    }
-
-)
-)((
-(
-	RULE_ID
-
-)
-)=>
-(
-		{
-			if ($current==null) {
-	            $current = createModelElement(grammarAccess.getANumberLiteralRule());
-	        }
-        }
-	otherlv_1=RULE_ID
-	{
-		newLeafNode(otherlv_1, grammarAccess.getANumberLiteralAccess().getUnitUnitLiteralCrossReference_1_0()); 
-	}
-
-)
-)?)
-;
-
-
-
-
-
-// Entry rule entryRuleAStringLiteral
-entryRuleAStringLiteral returns [EObject current=null] 
-	:
-	{ newCompositeNode(grammarAccess.getAStringLiteralRule()); }
-	 iv_ruleAStringLiteral=ruleAStringLiteral 
-	 { $current=$iv_ruleAStringLiteral.current; } 
-	 EOF 
-;
-
-// Rule AStringLiteral
-ruleAStringLiteral returns [EObject current=null] 
->>>>>>> refs/remotes/origin/PeterWork
-    @init { enterRule(); 
-    }
-    @after { leaveRule(); }:
-<<<<<<< HEAD
-=======
-((
-    {
-        $current = forceCreateModelElement(
-            grammarAccess.getAStringLiteralAccess().getAStringLiteralAction_0(),
-            $current);
-    }
-)(
->>>>>>> refs/remotes/origin/PeterWork
-(
-<<<<<<< HEAD
 (
 		{ 
 	        newCompositeNode(grammarAccess.getStringTermAccess().getValueNoQuoteStringParserRuleCall_0()); 
 	    }
 		lv_value_0_0=ruleNoQuoteString		{
-=======
-		lv_value_1_0=RULE_STRING
-		{
-			newLeafNode(lv_value_1_0, grammarAccess.getAStringLiteralAccess().getValueSTRINGTerminalRuleCall_1_0()); 
-		}
-		{
->>>>>>> refs/remotes/origin/PeterWork
 	        if ($current==null) {
-<<<<<<< HEAD
 	            $current = createModelElementForParent(grammarAccess.getStringTermRule());
-=======
-	            $current = createModelElement(grammarAccess.getAStringLiteralRule());
->>>>>>> refs/remotes/origin/PeterWork
 	        }
        		set(
        			$current, 
@@ -4917,47 +4542,25 @@ ruleAStringLiteral returns [EObject current=null]
 
 
 
-<<<<<<< HEAD
 // Entry rule entryRuleNoQuoteString
 entryRuleNoQuoteString returns [String current=null] 
-=======
-// Entry rule entryRuleAadlClassifierReference
-entryRuleAadlClassifierReference returns [String current=null] 
->>>>>>> refs/remotes/origin/PeterWork
 	:
-<<<<<<< HEAD
 	{ newCompositeNode(grammarAccess.getNoQuoteStringRule()); } 
 	 iv_ruleNoQuoteString=ruleNoQuoteString 
 	 { $current=$iv_ruleNoQuoteString.current.getText(); }  
-=======
-	{ newCompositeNode(grammarAccess.getAadlClassifierReferenceRule()); } 
-	 iv_ruleAadlClassifierReference=ruleAadlClassifierReference 
-	 { $current=$iv_ruleAadlClassifierReference.current.getText(); }  
->>>>>>> refs/remotes/origin/PeterWork
 	 EOF 
 ;
 
-<<<<<<< HEAD
 // Rule NoQuoteString
 ruleNoQuoteString returns [AntlrDatatypeRuleToken current=new AntlrDatatypeRuleToken()] 
-=======
-// Rule AadlClassifierReference
-ruleAadlClassifierReference returns [AntlrDatatypeRuleToken current=new AntlrDatatypeRuleToken()] 
->>>>>>> refs/remotes/origin/PeterWork
     @init { enterRule(); 
     }
     @after { leaveRule(); }:
-<<<<<<< HEAD
     this_STRING_0=RULE_STRING    {
 		$current.merge(this_STRING_0);
-=======
-(    this_ID_0=RULE_ID    {
-		$current.merge(this_ID_0);
->>>>>>> refs/remotes/origin/PeterWork
     }
 
     { 
-<<<<<<< HEAD
     newLeafNode(this_STRING_0, grammarAccess.getNoQuoteStringAccess().getSTRINGTerminalRuleCall()); 
     }
 
@@ -4979,45 +4582,15 @@ entryRuleAadlClassifierReference returns [String current=null]
 // Rule AadlClassifierReference
 ruleAadlClassifierReference returns [AntlrDatatypeRuleToken current=new AntlrDatatypeRuleToken()] 
     @init { enterRule(); 
-=======
-    newLeafNode(this_ID_0, grammarAccess.getAadlClassifierReferenceAccess().getIDTerminalRuleCall_0()); 
     }
-(
-	kw='::' 
-    {
-        $current.merge(kw);
-        newLeafNode(kw, grammarAccess.getAadlClassifierReferenceAccess().getColonColonKeyword_1_0()); 
-    }
-    this_ID_2=RULE_ID    {
-		$current.merge(this_ID_2);
->>>>>>> refs/remotes/origin/PeterWork
-    }
-<<<<<<< HEAD
     @after { leaveRule(); }:
 (    this_ID_0=RULE_ID    {
 		$current.merge(this_ID_0);
-=======
-
-    { 
-    newLeafNode(this_ID_2, grammarAccess.getAadlClassifierReferenceAccess().getIDTerminalRuleCall_1_1()); 
     }
-)+(
-	kw='.' 
-    {
-        $current.merge(kw);
-        newLeafNode(kw, grammarAccess.getAadlClassifierReferenceAccess().getFullStopKeyword_2_0()); 
->>>>>>> refs/remotes/origin/PeterWork
-    }
-<<<<<<< HEAD
 
     { 
     newLeafNode(this_ID_0, grammarAccess.getAadlClassifierReferenceAccess().getIDTerminalRuleCall_0()); 
-=======
-    this_ID_4=RULE_ID    {
-		$current.merge(this_ID_4);
->>>>>>> refs/remotes/origin/PeterWork
     }
-<<<<<<< HEAD
 (
 	kw='::' 
     {
@@ -5040,8 +4613,6 @@ ruleAadlClassifierReference returns [AntlrDatatypeRuleToken current=new AntlrDat
     this_ID_4=RULE_ID    {
 		$current.merge(this_ID_4);
     }
-=======
->>>>>>> refs/remotes/origin/PeterWork
 
     { 
     newLeafNode(this_ID_4, grammarAccess.getAadlClassifierReferenceAccess().getIDTerminalRuleCall_2_1()); 
@@ -5212,7 +4783,6 @@ finally {
 
 
 
-<<<<<<< HEAD
 fragment RULE_EXPONENT : ('e'|'E') ('+'|'-')? RULE_DIGIT+;
 
 fragment RULE_INT_EXPONENT : ('e'|'E') '+'? RULE_DIGIT+;
@@ -5227,8 +4797,6 @@ fragment RULE_EXTENDED_DIGIT : ('0'..'9'|'a'..'f'|'A'..'F');
 
 fragment RULE_BASED_INTEGER : RULE_EXTENDED_DIGIT ('_'? RULE_EXTENDED_DIGIT)*;
 
-=======
->>>>>>> refs/remotes/origin/PeterWork
 RULE_HEX : ('0x'|'0X') ('0'..'9'|'a'..'f'|'A'..'F'|'_')+ ('#' (('b'|'B') ('i'|'I')|('l'|'L')))?;
 
 RULE_INT : '0'..'9' ('0'..'9'|'_')*;

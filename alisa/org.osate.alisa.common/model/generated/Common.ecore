@@ -29,11 +29,7 @@
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="type" eType="ecore:EDataType platform:/plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//EString"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" eType="ecore:EDataType platform:/plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//EString"/>
   </eClassifiers>
-<<<<<<< HEAD
   <eClassifiers xsi:type="ecore:EClass" name="AExpression" eSuperTypes="platform:/resource/org.osate.aadl2/model/aadl2.ecore#//PropertyExpression"/>
-=======
-  <eClassifiers xsi:type="ecore:EClass" name="AExpression"/>
->>>>>>> refs/remotes/origin/PeterWork
   <eClassifiers xsi:type="ecore:EClass" name="ShowValue">
     <eStructuralFeatures xsi:type="ecore:EReference" name="ref" eType="#//AVariableDeclaration"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="unit" eType="ecore:EClass platform:/resource/org.osate.aadl2/model/aadl2.ecore#//UnitLiteral"/>
@@ -41,60 +37,16 @@
   <eClassifiers xsi:type="ecore:EClass" name="ImageReference">
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="imgfile" eType="ecore:EDataType platform:/plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//EString"/>
   </eClassifiers>
-<<<<<<< HEAD
   <eClassifiers xsi:type="ecore:EClass" name="ValDeclaration" eSuperTypes="#//AVariableDeclaration">
     <eStructuralFeatures xsi:type="ecore:EReference" name="right" eType="ecore:EClass platform:/resource/org.osate.aadl2/model/aadl2.ecore#//PropertyExpression"
         containment="true"/>
-=======
-  <eClassifiers xsi:type="ecore:EClass" name="ACollectionLiteral" eSuperTypes="#//AExpression">
-    <eStructuralFeatures xsi:type="ecore:EReference" name="elements" upperBound="-1"
-        eType="#//AExpression" containment="true"/>
->>>>>>> refs/remotes/origin/PeterWork
   </eClassifiers>
-<<<<<<< HEAD
   <eClassifiers xsi:type="ecore:EClass" name="ComputeDeclaration" eSuperTypes="#//AVariableDeclaration"/>
   <eClassifiers xsi:type="ecore:EClass" name="APropertyReference" eSuperTypes="#//AExpression">
     <eStructuralFeatures xsi:type="ecore:EReference" name="property" eType="ecore:EClass platform:/resource/org.osate.aadl2/model/aadl2.ecore#//AbstractNamedValue"/>
-=======
-  <eClassifiers xsi:type="ecore:EClass" name="ASetLiteral" eSuperTypes="#//ACollectionLiteral"/>
-  <eClassifiers xsi:type="ecore:EClass" name="AListLiteral" eSuperTypes="#//ACollectionLiteral"/>
-  <eClassifiers xsi:type="ecore:EClass" name="ANumberLiteral" eSuperTypes="#//AExpression">
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="value" eType="ecore:EDataType platform:/plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//EString"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="unit" eType="ecore:EClass platform:/resource/org.osate.aadl2/model/aadl2.ecore#//UnitLiteral"/>
-  </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="ValDeclaration" eSuperTypes="#//AVariableDeclaration">
-    <eStructuralFeatures xsi:type="ecore:EReference" name="right" eType="#//AExpression"
-        containment="true"/>
-  </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="ComputeDeclaration" eSuperTypes="#//AVariableDeclaration"/>
-  <eClassifiers xsi:type="ecore:EClass" name="APropertyReference" eSuperTypes="#//AExpression">
-    <eStructuralFeatures xsi:type="ecore:EReference" name="property" eType="ecore:EClass platform:/resource/org.osate.aadl2/model/aadl2.ecore#//Property"/>
->>>>>>> refs/remotes/origin/PeterWork
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="AVariableReference" eSuperTypes="#//AExpression">
     <eStructuralFeatures xsi:type="ecore:EReference" name="variable" eType="#//AVariableDeclaration"/>
-<<<<<<< HEAD
-=======
-  </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="ABinaryOperation" eSuperTypes="#//AExpression">
-    <eStructuralFeatures xsi:type="ecore:EReference" name="leftOperand" eType="#//AExpression"
-        containment="true"/>
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="feature" eType="ecore:EDataType platform:/plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//EString"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="rightOperand" eType="#//AExpression"
-        containment="true"/>
-  </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="AUnaryOperation" eSuperTypes="#//AExpression">
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="feature" eType="ecore:EDataType platform:/plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//EString"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="operand" eType="#//AExpression"
-        containment="true"/>
-  </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="ABooleanLiteral" eSuperTypes="#//AExpression">
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="isTrue" eType="ecore:EDataType platform:/plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//EBoolean"/>
-  </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="ANullLiteral" eSuperTypes="#//AExpression"/>
-  <eClassifiers xsi:type="ecore:EClass" name="AStringLiteral" eSuperTypes="#//AExpression">
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="value" eType="ecore:EDataType platform:/plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//EString"/>
->>>>>>> refs/remotes/origin/PeterWork
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="ABinaryOperation" eSuperTypes="platform:/resource/org.osate.aadl2/model/aadl2.ecore#//PropertyExpression">
     <eStructuralFeatures xsi:type="ecore:EReference" name="leftOperand" eType="ecore:EClass platform:/resource/org.osate.aadl2/model/aadl2.ecore#//PropertyExpression"

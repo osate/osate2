@@ -15,7 +15,6 @@ import org.eclipse.xtext.serializer.sequencer.ISemanticNodeProvider.INodesForEOb
 import org.eclipse.xtext.serializer.sequencer.ISemanticSequencer;
 import org.eclipse.xtext.serializer.sequencer.ITransientValueService;
 import org.eclipse.xtext.serializer.sequencer.ITransientValueService.ValueTransient;
-<<<<<<< HEAD
 import org.osate.aadl2.Aadl2Package;
 import org.osate.aadl2.BooleanLiteral;
 import org.osate.aadl2.IntegerLiteral;
@@ -25,19 +24,8 @@ import org.osate.aadl2.StringLiteral;
 import org.osate.alisa.common.common.ABinaryOperation;
 import org.osate.alisa.common.common.AListTerm;
 import org.osate.alisa.common.common.ANullLiteral;
-=======
-import org.osate.alisa.common.common.ABinaryOperation;
-import org.osate.alisa.common.common.ABooleanLiteral;
-import org.osate.alisa.common.common.AListLiteral;
-import org.osate.alisa.common.common.ANullLiteral;
-import org.osate.alisa.common.common.ANumberLiteral;
->>>>>>> refs/remotes/origin/PeterWork
 import org.osate.alisa.common.common.APropertyReference;
 import org.osate.alisa.common.common.ASetLiteral;
-<<<<<<< HEAD
-=======
-import org.osate.alisa.common.common.AStringLiteral;
->>>>>>> refs/remotes/origin/PeterWork
 import org.osate.alisa.common.common.AUnaryOperation;
 import org.osate.alisa.common.common.AVariableReference;
 import org.osate.alisa.common.common.CommonPackage;
@@ -73,7 +61,6 @@ public class ReqSpecSemanticSequencer extends CommonSemanticSequencer {
 	
 	@Override
 	public void createSequence(EObject context, EObject semanticObject) {
-<<<<<<< HEAD
 		if(semanticObject.eClass().getEPackage() == Aadl2Package.eINSTANCE) switch(semanticObject.eClass().getClassifierID()) {
 			case Aadl2Package.BOOLEAN_LITERAL:
 				sequence_ABooleanLiteral(context, (BooleanLiteral) semanticObject); 
@@ -100,36 +87,12 @@ public class ReqSpecSemanticSequencer extends CommonSemanticSequencer {
 				return; 
 			case CommonPackage.ANULL_LITERAL:
 				sequence_ANullLiteral(context, (ANullLiteral) semanticObject); 
-=======
-		if(semanticObject.eClass().getEPackage() == CommonPackage.eINSTANCE) switch(semanticObject.eClass().getClassifierID()) {
-			case CommonPackage.ABINARY_OPERATION:
-				sequence_AAdditiveExpression_AAndExpression_AEqualityExpression_AMultiplicativeExpression_AOrExpression_AOtherOperatorExpression_ARelationalExpression(context, (ABinaryOperation) semanticObject); 
-				return; 
-			case CommonPackage.ABOOLEAN_LITERAL:
-				sequence_ABooleanLiteral(context, (ABooleanLiteral) semanticObject); 
-				return; 
-			case CommonPackage.ALIST_LITERAL:
-				sequence_AListLiteral(context, (AListLiteral) semanticObject); 
-				return; 
-			case CommonPackage.ANULL_LITERAL:
-				sequence_ANullLiteral(context, (ANullLiteral) semanticObject); 
-				return; 
-			case CommonPackage.ANUMBER_LITERAL:
-				sequence_ANumberLiteral(context, (ANumberLiteral) semanticObject); 
->>>>>>> refs/remotes/origin/PeterWork
 				return; 
 			case CommonPackage.APROPERTY_REFERENCE:
 				sequence_APropertyReference(context, (APropertyReference) semanticObject); 
 				return; 
 			case CommonPackage.ASET_LITERAL:
-<<<<<<< HEAD
 				sequence_ASetTerm(context, (ASetLiteral) semanticObject); 
-=======
-				sequence_ASetLiteral(context, (ASetLiteral) semanticObject); 
-				return; 
-			case CommonPackage.ASTRING_LITERAL:
-				sequence_AStringLiteral(context, (AStringLiteral) semanticObject); 
->>>>>>> refs/remotes/origin/PeterWork
 				return; 
 			case CommonPackage.AUNARY_OPERATION:
 				sequence_AUnaryOperation(context, (AUnaryOperation) semanticObject); 

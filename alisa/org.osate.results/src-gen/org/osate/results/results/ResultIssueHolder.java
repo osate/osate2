@@ -13,10 +13,10 @@ import org.eclipse.emf.ecore.EObject;
  *
  * <p>
  * The following features are supported:
+ * </p>
  * <ul>
  *   <li>{@link org.osate.results.results.ResultIssueHolder#getIssues <em>Issues</em>}</li>
  * </ul>
- * </p>
  *
  * @see org.osate.results.results.ResultsPackage#getResultIssueHolder()
  * @model

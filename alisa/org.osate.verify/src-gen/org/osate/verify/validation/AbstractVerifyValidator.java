@@ -15,10 +15,7 @@ public class AbstractVerifyValidator extends org.osate.alisa.common.validation.C
 	protected List<EPackage> getEPackages() {
 	    List<EPackage> result = new ArrayList<EPackage>(super.getEPackages());
 	    result.add(org.osate.verify.verify.VerifyPackage.eINSTANCE);
-<<<<<<< HEAD
 	    result.add(EPackage.Registry.INSTANCE.getEPackage("http://aadl.info/AADL/2.0"));
-=======
->>>>>>> refs/remotes/origin/PeterWork
 		return result;
 	}
 }

@@ -16,7 +16,6 @@ import org.eclipse.xtext.serializer.sequencer.ISemanticNodeProvider.INodesForEOb
 import org.eclipse.xtext.serializer.sequencer.ISemanticSequencer;
 import org.eclipse.xtext.serializer.sequencer.ITransientValueService;
 import org.eclipse.xtext.serializer.sequencer.ITransientValueService.ValueTransient;
-<<<<<<< HEAD
 import org.osate.aadl2.Aadl2Package;
 import org.osate.aadl2.BooleanLiteral;
 import org.osate.aadl2.IntegerLiteral;
@@ -26,19 +25,8 @@ import org.osate.aadl2.StringLiteral;
 import org.osate.alisa.common.common.ABinaryOperation;
 import org.osate.alisa.common.common.AListTerm;
 import org.osate.alisa.common.common.ANullLiteral;
-=======
-import org.osate.alisa.common.common.ABinaryOperation;
-import org.osate.alisa.common.common.ABooleanLiteral;
-import org.osate.alisa.common.common.AListLiteral;
-import org.osate.alisa.common.common.ANullLiteral;
-import org.osate.alisa.common.common.ANumberLiteral;
->>>>>>> refs/remotes/origin/PeterWork
 import org.osate.alisa.common.common.APropertyReference;
 import org.osate.alisa.common.common.ASetLiteral;
-<<<<<<< HEAD
-=======
-import org.osate.alisa.common.common.AStringLiteral;
->>>>>>> refs/remotes/origin/PeterWork
 import org.osate.alisa.common.common.AUnaryOperation;
 import org.osate.alisa.common.common.AVariableReference;
 import org.osate.alisa.common.common.CommonPackage;
@@ -60,7 +48,6 @@ public class CommonSemanticSequencer extends AbstractDelegatingSemanticSequencer
 	
 	@Override
 	public void createSequence(EObject context, EObject semanticObject) {
-<<<<<<< HEAD
 		if(semanticObject.eClass().getEPackage() == Aadl2Package.eINSTANCE) switch(semanticObject.eClass().getClassifierID()) {
 			case Aadl2Package.BOOLEAN_LITERAL:
 				sequence_ABooleanLiteral(context, (BooleanLiteral) semanticObject); 
@@ -87,36 +74,12 @@ public class CommonSemanticSequencer extends AbstractDelegatingSemanticSequencer
 				return; 
 			case CommonPackage.ANULL_LITERAL:
 				sequence_ANullLiteral(context, (ANullLiteral) semanticObject); 
-=======
-		if(semanticObject.eClass().getEPackage() == CommonPackage.eINSTANCE) switch(semanticObject.eClass().getClassifierID()) {
-			case CommonPackage.ABINARY_OPERATION:
-				sequence_AAdditiveExpression_AAndExpression_AEqualityExpression_AMultiplicativeExpression_AOrExpression_AOtherOperatorExpression_ARelationalExpression(context, (ABinaryOperation) semanticObject); 
-				return; 
-			case CommonPackage.ABOOLEAN_LITERAL:
-				sequence_ABooleanLiteral(context, (ABooleanLiteral) semanticObject); 
-				return; 
-			case CommonPackage.ALIST_LITERAL:
-				sequence_AListLiteral(context, (AListLiteral) semanticObject); 
-				return; 
-			case CommonPackage.ANULL_LITERAL:
-				sequence_ANullLiteral(context, (ANullLiteral) semanticObject); 
-				return; 
-			case CommonPackage.ANUMBER_LITERAL:
-				sequence_ANumberLiteral(context, (ANumberLiteral) semanticObject); 
->>>>>>> refs/remotes/origin/PeterWork
 				return; 
 			case CommonPackage.APROPERTY_REFERENCE:
 				sequence_APropertyReference(context, (APropertyReference) semanticObject); 
 				return; 
 			case CommonPackage.ASET_LITERAL:
-<<<<<<< HEAD
 				sequence_ASetTerm(context, (ASetLiteral) semanticObject); 
-=======
-				sequence_ASetLiteral(context, (ASetLiteral) semanticObject); 
-				return; 
-			case CommonPackage.ASTRING_LITERAL:
-				sequence_AStringLiteral(context, (AStringLiteral) semanticObject); 
->>>>>>> refs/remotes/origin/PeterWork
 				return; 
 			case CommonPackage.AUNARY_OPERATION:
 				sequence_AUnaryOperation(context, (AUnaryOperation) semanticObject); 
@@ -171,60 +134,6 @@ public class CommonSemanticSequencer extends AbstractDelegatingSemanticSequencer
 	
 	/**
 	 * Constraint:
-	 *     (isTrue?='true'?)
-	 */
-	protected void sequence_ABooleanLiteral(EObject context, ABooleanLiteral semanticObject) {
-		genericSequencer.createSequence(context, semanticObject);
-	}
-	
-	
-	/**
-	 * Constraint:
-	 *     ((elements+=AExpression elements+=AExpression*)?)
-	 */
-	protected void sequence_AListLiteral(EObject context, AListLiteral semanticObject) {
-		genericSequencer.createSequence(context, semanticObject);
-	}
-	
-	
-	/**
-	 * Constraint:
-	 *     {ANullLiteral}
-	 */
-	protected void sequence_ANullLiteral(EObject context, ANullLiteral semanticObject) {
-		genericSequencer.createSequence(context, semanticObject);
-	}
-	
-	
-	/**
-	 * Constraint:
-	 *     (value=Number unit=[UnitLiteral|ID]?)
-	 */
-	protected void sequence_ANumberLiteral(EObject context, ANumberLiteral semanticObject) {
-		genericSequencer.createSequence(context, semanticObject);
-	}
-	
-	
-	/**
-	 * Constraint:
-	 *     (
-	 *         (leftOperand=AAdditiveExpression_ABinaryOperation_1_0_0_0 feature=OpAdd rightOperand=AMultiplicativeExpression) | 
-	 *         (leftOperand=AMultiplicativeExpression_ABinaryOperation_1_0_0_0 feature=OpMulti rightOperand=AUnaryOperation) | 
-	 *         (leftOperand=AOtherOperatorExpression_ABinaryOperation_1_0_0_0 feature=OpOther rightOperand=AAdditiveExpression) | 
-	 *         (leftOperand=ARelationalExpression_ABinaryOperation_1_0_0_0 feature=OpCompare rightOperand=AOtherOperatorExpression) | 
-	 *         (leftOperand=AEqualityExpression_ABinaryOperation_1_0_0_0 feature=OpEquality rightOperand=ARelationalExpression) | 
-	 *         (leftOperand=AAndExpression_ABinaryOperation_1_0_0_0 feature=OpAnd rightOperand=AEqualityExpression) | 
-	 *         (leftOperand=AOrExpression_ABinaryOperation_1_0_0_0 feature=OpOr rightOperand=AAndExpression)
-	 *     )
-	 */
-	protected void sequence_AAdditiveExpression_AAndExpression_AEqualityExpression_AMultiplicativeExpression_AOrExpression_AOtherOperatorExpression_ARelationalExpression(EObject context, ABinaryOperation semanticObject) {
-		genericSequencer.createSequence(context, semanticObject);
-	}
-	
-	
-	/**
-	 * Constraint:
-<<<<<<< HEAD
 	 *     (value?='true'?)
 	 */
 	protected void sequence_ABooleanLiteral(EObject context, BooleanLiteral semanticObject) {
@@ -310,63 +219,6 @@ public class CommonSemanticSequencer extends AbstractDelegatingSemanticSequencer
 	 */
 	protected void sequence_AVariableReference(EObject context, AVariableReference semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
-=======
-	 *     ((elements+=AExpression elements+=AExpression*)?)
-	 */
-	protected void sequence_ASetLiteral(EObject context, ASetLiteral semanticObject) {
-		genericSequencer.createSequence(context, semanticObject);
-	}
-	
-	
-	/**
-	 * Constraint:
-	 *     value=STRING
-	 */
-	protected void sequence_AStringLiteral(EObject context, AStringLiteral semanticObject) {
-		if(errorAcceptor != null) {
-			if(transientValues.isValueTransient(semanticObject, CommonPackage.Literals.ASTRING_LITERAL__VALUE) == ValueTransient.YES)
-				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, CommonPackage.Literals.ASTRING_LITERAL__VALUE));
-		}
-		INodesForEObjectProvider nodes = createNodeProvider(semanticObject);
-		SequenceFeeder feeder = createSequencerFeeder(semanticObject, nodes);
-		feeder.accept(grammarAccess.getAStringLiteralAccess().getValueSTRINGTerminalRuleCall_1_0(), semanticObject.getValue());
-		feeder.finish();
-	}
-	
-	
-	/**
-	 * Constraint:
-	 *     (feature=OpUnary operand=AUnaryOperation)
-	 */
-	protected void sequence_AUnaryOperation(EObject context, AUnaryOperation semanticObject) {
-		if(errorAcceptor != null) {
-			if(transientValues.isValueTransient(semanticObject, CommonPackage.Literals.AUNARY_OPERATION__FEATURE) == ValueTransient.YES)
-				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, CommonPackage.Literals.AUNARY_OPERATION__FEATURE));
-			if(transientValues.isValueTransient(semanticObject, CommonPackage.Literals.AUNARY_OPERATION__OPERAND) == ValueTransient.YES)
-				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, CommonPackage.Literals.AUNARY_OPERATION__OPERAND));
-		}
-		INodesForEObjectProvider nodes = createNodeProvider(semanticObject);
-		SequenceFeeder feeder = createSequencerFeeder(semanticObject, nodes);
-		feeder.accept(grammarAccess.getAUnaryOperationAccess().getFeatureOpUnaryParserRuleCall_0_1_0(), semanticObject.getFeature());
-		feeder.accept(grammarAccess.getAUnaryOperationAccess().getOperandAUnaryOperationParserRuleCall_0_2_0(), semanticObject.getOperand());
-		feeder.finish();
-	}
-	
-	
-	/**
-	 * Constraint:
-	 *     variable=[AVariableDeclaration|ID]
-	 */
-	protected void sequence_AVariableReference(EObject context, AVariableReference semanticObject) {
-		if(errorAcceptor != null) {
-			if(transientValues.isValueTransient(semanticObject, CommonPackage.Literals.AVARIABLE_REFERENCE__VARIABLE) == ValueTransient.YES)
-				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, CommonPackage.Literals.AVARIABLE_REFERENCE__VARIABLE));
-		}
-		INodesForEObjectProvider nodes = createNodeProvider(semanticObject);
-		SequenceFeeder feeder = createSequencerFeeder(semanticObject, nodes);
-		feeder.accept(grammarAccess.getAVariableReferenceAccess().getVariableAVariableDeclarationIDTerminalRuleCall_1_0_1(), semanticObject.getVariable());
-		feeder.finish();
->>>>>>> refs/remotes/origin/PeterWork
 	}
 	
 	

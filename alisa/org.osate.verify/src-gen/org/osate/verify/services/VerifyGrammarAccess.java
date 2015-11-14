@@ -25,8 +25,7 @@ public class VerifyGrammarAccess extends AbstractGrammarElementFinder {
 		private final RuleCall cContentsVerificationPlanParserRuleCall_0_0 = (RuleCall)cContentsAlternatives_0.eContents().get(0);
 		private final RuleCall cContentsVerificationMethodRegistryParserRuleCall_0_1 = (RuleCall)cContentsAlternatives_0.eContents().get(1);
 		
-		////import "http://www.eclipse.org/emf/2002/Ecore" as ecore
-		// Verification:
+		//Verification:
 		//	contents+=(VerificationPlan | VerificationMethodRegistry)+;
 		@Override public ParserRule getRule() { return rule; }
 
@@ -72,10 +71,7 @@ public class VerifyGrammarAccess extends AbstractGrammarElementFinder {
 		private final RuleCall cIssuesSTRINGTerminalRuleCall_7_3_1_0 = (RuleCall)cIssuesAssignment_7_3_1.eContents().get(0);
 		private final Keyword cRightSquareBracketKeyword_8 = (Keyword)cGroup.eContents().get(8);
 		
-		//// plan for a classifier. Will add import to allow for non-qualified requirement references 
-		//
-		//// Also allows for cross checking that we have covered requirements with claims
-		// VerificationPlan:
+		//VerificationPlan:
 		//	"verification" "plan" name=ID (":" title=STRING)? "for"
 		//	systemRequirements=[ReqSpec::SystemRequirements|QualifiedName] "[" (description=Description? & claim+=Claim* &
 		//	rationale=Rationale? & ("issues" issues+=STRING+)?) "]";
@@ -754,13 +750,6 @@ public class VerifyGrammarAccess extends AbstractGrammarElementFinder {
 		private final RuleCall cTimeoutINTTerminalRuleCall_11_1_0 = (RuleCall)cTimeoutAssignment_11_1.eContents().get(0);
 		
 		//VerificationActivity:
-<<<<<<< HEAD
-		//	name=ID (":" title=STRING)? ("for" target=[aadl2::ComponentImplementation|AadlClassifierReference])? // for specific AADL model configuration
-		//	("category" category+=[categories::Category]+)? ":" (result+=[common::ComputeDeclaration] (","
-		//	result+=[common::ComputeDeclaration])* "=")? method=[VerificationMethod|QualifiedName] "("
-		//	(parameters+=[common::AExpression] ("," parameters+=[common::AExpression])*)? ")" ("property" "values" "("
-		//	(propertyValues+=[common::AExpression] ("," propertyValues+=[common::AExpression])*)? ")")? ("timeout" timeout=INT)?;
-=======
 		//	name=ID (":" title=STRING)? ("for" target=[aadl2::ComponentImplementation|AadlClassifierReference])?
 		//	// for specific AADL model configuration
 		// ("category" category+=[categories::Category]+)? ":"
@@ -768,16 +757,8 @@ public class VerifyGrammarAccess extends AbstractGrammarElementFinder {
 		//	method=[VerificationMethod|QualifiedName] "(" (parameters+=[common::AExpression] (","
 		//	parameters+=[common::AExpression])*)? ")" ("property" "values" "(" (propertyValues+=[common::AExpression] (","
 		//	propertyValues+=[common::AExpression])*)? ")")? ("timeout" timeout=INT)?;
->>>>>>> refs/remotes/origin/PeterWork
 		@Override public ParserRule getRule() { return rule; }
 
-<<<<<<< HEAD
-		//name=ID (":" title=STRING)? ("for" target=[aadl2::ComponentImplementation|AadlClassifierReference])? // for specific AADL model configuration
-		//("category" category+=[categories::Category]+)? ":" (result+=[common::ComputeDeclaration] (","
-		//result+=[common::ComputeDeclaration])* "=")? method=[VerificationMethod|QualifiedName] "("
-		//(parameters+=[common::AExpression] ("," parameters+=[common::AExpression])*)? ")" ("property" "values" "("
-		//(propertyValues+=[common::AExpression] ("," propertyValues+=[common::AExpression])*)? ")")? ("timeout" timeout=INT)?
-=======
 		//name=ID (":" title=STRING)? ("for" target=[aadl2::ComponentImplementation|AadlClassifierReference])?
 		//// for specific AADL model configuration
 		// ("category" category+=[categories::Category]+)? ":"
@@ -785,7 +766,6 @@ public class VerifyGrammarAccess extends AbstractGrammarElementFinder {
 		//method=[VerificationMethod|QualifiedName] "(" (parameters+=[common::AExpression] (","
 		//parameters+=[common::AExpression])*)? ")" ("property" "values" "(" (propertyValues+=[common::AExpression] (","
 		//propertyValues+=[common::AExpression])*)? ")")? ("timeout" timeout=INT)?
->>>>>>> refs/remotes/origin/PeterWork
 		public Group getGroup() { return cGroup; }
 
 		//name=ID
@@ -1736,8 +1716,7 @@ public class VerifyGrammarAccess extends AbstractGrammarElementFinder {
 	}
 
 	
-	////import "http://www.eclipse.org/emf/2002/Ecore" as ecore
-	// Verification:
+	//Verification:
 	//	contents+=(VerificationPlan | VerificationMethodRegistry)+;
 	public VerificationElements getVerificationAccess() {
 		return pVerification;
@@ -1747,10 +1726,7 @@ public class VerifyGrammarAccess extends AbstractGrammarElementFinder {
 		return getVerificationAccess().getRule();
 	}
 
-	//// plan for a classifier. Will add import to allow for non-qualified requirement references 
-	//
-	//// Also allows for cross checking that we have covered requirements with claims
-	// VerificationPlan:
+	//VerificationPlan:
 	//	"verification" "plan" name=ID (":" title=STRING)? "for"
 	//	systemRequirements=[ReqSpec::SystemRequirements|QualifiedName] "[" (description=Description? & claim+=Claim* &
 	//	rationale=Rationale? & ("issues" issues+=STRING+)?) "]";
@@ -1863,13 +1839,6 @@ public class VerifyGrammarAccess extends AbstractGrammarElementFinder {
 	}
 
 	//VerificationActivity:
-<<<<<<< HEAD
-	//	name=ID (":" title=STRING)? ("for" target=[aadl2::ComponentImplementation|AadlClassifierReference])? // for specific AADL model configuration
-	//	("category" category+=[categories::Category]+)? ":" (result+=[common::ComputeDeclaration] (","
-	//	result+=[common::ComputeDeclaration])* "=")? method=[VerificationMethod|QualifiedName] "("
-	//	(parameters+=[common::AExpression] ("," parameters+=[common::AExpression])*)? ")" ("property" "values" "("
-	//	(propertyValues+=[common::AExpression] ("," propertyValues+=[common::AExpression])*)? ")")? ("timeout" timeout=INT)?;
-=======
 	//	name=ID (":" title=STRING)? ("for" target=[aadl2::ComponentImplementation|AadlClassifierReference])?
 	//	// for specific AADL model configuration
 	// ("category" category+=[categories::Category]+)? ":"
@@ -1877,7 +1846,6 @@ public class VerifyGrammarAccess extends AbstractGrammarElementFinder {
 	//	method=[VerificationMethod|QualifiedName] "(" (parameters+=[common::AExpression] (","
 	//	parameters+=[common::AExpression])*)? ")" ("property" "values" "(" (propertyValues+=[common::AExpression] (","
 	//	propertyValues+=[common::AExpression])*)? ")")? ("timeout" timeout=INT)?;
->>>>>>> refs/remotes/origin/PeterWork
 	public VerificationActivityElements getVerificationActivityAccess() {
 		return pVerificationActivity;
 	}
@@ -2028,10 +1996,6 @@ public class VerifyGrammarAccess extends AbstractGrammarElementFinder {
 		return getUncertaintyAccess().getRule();
 	}
 
-<<<<<<< HEAD
-=======
-	//// New rule for val only
->>>>>>> refs/remotes/origin/PeterWork
 	//ValDeclaration returns AVariableDeclaration:
 	//	{ValDeclaration} "val" (=> (type=ID name=ID) | name=ID) "=" right=AExpression?;
 	public CommonGrammarAccess.ValDeclarationElements getValDeclarationAccess() {
@@ -2053,11 +2017,7 @@ public class VerifyGrammarAccess extends AbstractGrammarElementFinder {
 	}
 
 	//APropertyReference returns AExpression:
-<<<<<<< HEAD
 	//	{APropertyReference} "@" property=[aadl2::AbstractNamedValue|AADLPROPERTYREFERENCE];
-=======
-	//	{APropertyReference} "@" property=[aadl2::Property|AADLPROPERTYREFERENCE];
->>>>>>> refs/remotes/origin/PeterWork
 	public CommonGrammarAccess.APropertyReferenceElements getAPropertyReferenceAccess() {
 		return gaCommon.getAPropertyReferenceAccess();
 	}
@@ -2107,281 +2067,7 @@ public class VerifyGrammarAccess extends AbstractGrammarElementFinder {
 	}
 
 	//// Expressions
-	//AExpression:
-	//	AOrExpression;
-	public CommonGrammarAccess.AExpressionElements getAExpressionAccess() {
-		return gaCommon.getAExpressionAccess();
-	}
-	
-	public ParserRule getAExpressionRule() {
-		return getAExpressionAccess().getRule();
-	}
-
-	//AOrExpression returns AExpression:
-	//	AAndExpression (=> ({ABinaryOperation.leftOperand=current} feature=OpOr) rightOperand=AAndExpression)*;
-	public CommonGrammarAccess.AOrExpressionElements getAOrExpressionAccess() {
-		return gaCommon.getAOrExpressionAccess();
-	}
-	
-	public ParserRule getAOrExpressionRule() {
-		return getAOrExpressionAccess().getRule();
-	}
-
-	//OpOr:
-	//	"||";
-	public CommonGrammarAccess.OpOrElements getOpOrAccess() {
-		return gaCommon.getOpOrAccess();
-	}
-	
-	public ParserRule getOpOrRule() {
-		return getOpOrAccess().getRule();
-	}
-
-	//AAndExpression returns AExpression:
-	//	AEqualityExpression (=> ({ABinaryOperation.leftOperand=current} feature=OpAnd) rightOperand=AEqualityExpression)*;
-	public CommonGrammarAccess.AAndExpressionElements getAAndExpressionAccess() {
-		return gaCommon.getAAndExpressionAccess();
-	}
-	
-	public ParserRule getAAndExpressionRule() {
-		return getAAndExpressionAccess().getRule();
-	}
-
-	//OpAnd:
-	//	"&&";
-	public CommonGrammarAccess.OpAndElements getOpAndAccess() {
-		return gaCommon.getOpAndAccess();
-	}
-	
-	public ParserRule getOpAndRule() {
-		return getOpAndAccess().getRule();
-	}
-
-	//AEqualityExpression returns AExpression:
-	//	ARelationalExpression (=> ({ABinaryOperation.leftOperand=current} feature=OpEquality)
-	//	rightOperand=ARelationalExpression)*;
-	public CommonGrammarAccess.AEqualityExpressionElements getAEqualityExpressionAccess() {
-		return gaCommon.getAEqualityExpressionAccess();
-	}
-	
-	public ParserRule getAEqualityExpressionRule() {
-		return getAEqualityExpressionAccess().getRule();
-	}
-
-	//OpEquality:
-	//	"==" | "!=" | "===" | "!==";
-	public CommonGrammarAccess.OpEqualityElements getOpEqualityAccess() {
-		return gaCommon.getOpEqualityAccess();
-	}
-	
-	public ParserRule getOpEqualityRule() {
-		return getOpEqualityAccess().getRule();
-	}
-
-	//ARelationalExpression returns AExpression:
-	//	AOtherOperatorExpression (=> ({ABinaryOperation.leftOperand=current} feature=OpCompare)
-	//	rightOperand=AOtherOperatorExpression)*;
-	public CommonGrammarAccess.ARelationalExpressionElements getARelationalExpressionAccess() {
-		return gaCommon.getARelationalExpressionAccess();
-	}
-	
-	public ParserRule getARelationalExpressionRule() {
-		return getARelationalExpressionAccess().getRule();
-	}
-
-	//OpCompare:
-	//	">=" | "<" "=" | ">" | "<";
-	public CommonGrammarAccess.OpCompareElements getOpCompareAccess() {
-		return gaCommon.getOpCompareAccess();
-	}
-	
-	public ParserRule getOpCompareRule() {
-		return getOpCompareAccess().getRule();
-	}
-
-	//AOtherOperatorExpression returns AExpression:
-	//	AAdditiveExpression (=> ({ABinaryOperation.leftOperand=current} feature=OpOther) rightOperand=AAdditiveExpression)*;
-	public CommonGrammarAccess.AOtherOperatorExpressionElements getAOtherOperatorExpressionAccess() {
-		return gaCommon.getAOtherOperatorExpressionAccess();
-	}
-	
-	public ParserRule getAOtherOperatorExpressionRule() {
-		return getAOtherOperatorExpressionAccess().getRule();
-	}
-
-	//OpOther:
-	//	"->" | "..<" | ">" ".." | ".." | "=>" | ">" (=> (">" ">") | ">") | "<" (=> ("<" "<") | "<" | "=>") | "<>" | "?:";
-	public CommonGrammarAccess.OpOtherElements getOpOtherAccess() {
-		return gaCommon.getOpOtherAccess();
-	}
-	
-	public ParserRule getOpOtherRule() {
-		return getOpOtherAccess().getRule();
-	}
-
-	//AAdditiveExpression returns AExpression:
-	//	AMultiplicativeExpression (=> ({ABinaryOperation.leftOperand=current} feature=OpAdd)
-	//	rightOperand=AMultiplicativeExpression)*;
-	public CommonGrammarAccess.AAdditiveExpressionElements getAAdditiveExpressionAccess() {
-		return gaCommon.getAAdditiveExpressionAccess();
-	}
-	
-	public ParserRule getAAdditiveExpressionRule() {
-		return getAAdditiveExpressionAccess().getRule();
-	}
-
-	//OpAdd:
-	//	"+" | "-";
-	public CommonGrammarAccess.OpAddElements getOpAddAccess() {
-		return gaCommon.getOpAddAccess();
-	}
-	
-	public ParserRule getOpAddRule() {
-		return getOpAddAccess().getRule();
-	}
-
-	//AMultiplicativeExpression returns AExpression:
-	//	AUnaryOperation (=> ({ABinaryOperation.leftOperand=current} feature=OpMulti) rightOperand=AUnaryOperation)*;
-	public CommonGrammarAccess.AMultiplicativeExpressionElements getAMultiplicativeExpressionAccess() {
-		return gaCommon.getAMultiplicativeExpressionAccess();
-	}
-	
-	public ParserRule getAMultiplicativeExpressionRule() {
-		return getAMultiplicativeExpressionAccess().getRule();
-	}
-
-	//OpMulti:
-	//	"*" | "**" | "/" | "%";
-	public CommonGrammarAccess.OpMultiElements getOpMultiAccess() {
-		return gaCommon.getOpMultiAccess();
-	}
-	
-	public ParserRule getOpMultiRule() {
-		return getOpMultiAccess().getRule();
-	}
-
-	//AUnaryOperation returns AExpression:
-	//	{AUnaryOperation} feature=OpUnary operand=AUnaryOperation | APrimaryExpression;
-	public CommonGrammarAccess.AUnaryOperationElements getAUnaryOperationAccess() {
-		return gaCommon.getAUnaryOperationAccess();
-	}
-	
-	public ParserRule getAUnaryOperationRule() {
-		return getAUnaryOperationAccess().getRule();
-	}
-
-	//OpUnary:
-	//	"!" | "-" | "+";
-	public CommonGrammarAccess.OpUnaryElements getOpUnaryAccess() {
-		return gaCommon.getOpUnaryAccess();
-	}
-	
-	public ParserRule getOpUnaryRule() {
-		return getOpUnaryAccess().getRule();
-	}
-
-	//APrimaryExpression returns AExpression:
-	//	ALiteral | AParenthesizedExpression;
-	public CommonGrammarAccess.APrimaryExpressionElements getAPrimaryExpressionAccess() {
-		return gaCommon.getAPrimaryExpressionAccess();
-	}
-	
-	public ParserRule getAPrimaryExpressionRule() {
-		return getAPrimaryExpressionAccess().getRule();
-	}
-
-	//ALiteral returns AExpression:
-	//	ACollectionLiteral | ABooleanLiteral | ANumberLiteral | ANullLiteral | AStringLiteral;
-	public CommonGrammarAccess.ALiteralElements getALiteralAccess() {
-		return gaCommon.getALiteralAccess();
-	}
-	
-	public ParserRule getALiteralRule() {
-		return getALiteralAccess().getRule();
-	}
-
-	//ACollectionLiteral:
-	//	ASetLiteral | AListLiteral;
-	public CommonGrammarAccess.ACollectionLiteralElements getACollectionLiteralAccess() {
-		return gaCommon.getACollectionLiteralAccess();
-	}
-	
-	public ParserRule getACollectionLiteralRule() {
-		return getACollectionLiteralAccess().getRule();
-	}
-
-	//ASetLiteral:
-	//	{ASetLiteral} "#" "{" (elements+=AExpression ("," elements+=AExpression)*)? "}";
-	public CommonGrammarAccess.ASetLiteralElements getASetLiteralAccess() {
-		return gaCommon.getASetLiteralAccess();
-	}
-	
-	public ParserRule getASetLiteralRule() {
-		return getASetLiteralAccess().getRule();
-	}
-
-	//AListLiteral:
-	//	{AListLiteral} "#" "[" (elements+=AExpression ("," elements+=AExpression)*)? "]";
-	public CommonGrammarAccess.AListLiteralElements getAListLiteralAccess() {
-		return gaCommon.getAListLiteralAccess();
-	}
-	
-	public ParserRule getAListLiteralRule() {
-		return getAListLiteralAccess().getRule();
-	}
-
-	//AParenthesizedExpression returns AExpression:
-	//	"(" AExpression ")";
-	public CommonGrammarAccess.AParenthesizedExpressionElements getAParenthesizedExpressionAccess() {
-		return gaCommon.getAParenthesizedExpressionAccess();
-	}
-	
-	public ParserRule getAParenthesizedExpressionRule() {
-		return getAParenthesizedExpressionAccess().getRule();
-	}
-
-	//ABooleanLiteral returns AExpression:
-	//	{ABooleanLiteral} ("false" | isTrue?="true");
-	public CommonGrammarAccess.ABooleanLiteralElements getABooleanLiteralAccess() {
-		return gaCommon.getABooleanLiteralAccess();
-	}
-	
-	public ParserRule getABooleanLiteralRule() {
-		return getABooleanLiteralAccess().getRule();
-	}
-
-	//ANullLiteral returns AExpression:
-	//	{ANullLiteral} "null";
-	public CommonGrammarAccess.ANullLiteralElements getANullLiteralAccess() {
-		return gaCommon.getANullLiteralAccess();
-	}
-	
-	public ParserRule getANullLiteralRule() {
-		return getANullLiteralAccess().getRule();
-	}
-
-	//ANumberLiteral:
-	//	value=Number => unit=[aadl2::UnitLiteral]?;
-	public CommonGrammarAccess.ANumberLiteralElements getANumberLiteralAccess() {
-		return gaCommon.getANumberLiteralAccess();
-	}
-	
-	public ParserRule getANumberLiteralRule() {
-		return getANumberLiteralAccess().getRule();
-	}
-
-	//AStringLiteral returns AExpression:
-	//	{AStringLiteral} value=STRING;
-	public CommonGrammarAccess.AStringLiteralElements getAStringLiteralAccess() {
-		return gaCommon.getAStringLiteralAccess();
-	}
-	
-	public ParserRule getAStringLiteralRule() {
-		return getAStringLiteralAccess().getRule();
-	}
-
-	//// Expressions
-	// AExpression returns aadl2::PropertyExpression:
+	//AExpression returns aadl2::PropertyExpression:
 	//	AOrExpression;
 	public CommonGrammarAccess.AExpressionElements getAExpressionAccess() {
 		return gaCommon.getAExpressionAccess();
@@ -2616,11 +2302,9 @@ public class VerifyGrammarAccess extends AbstractGrammarElementFinder {
 
 	//ANumericRangeTerm returns aadl2::RangeValue:
 	//	minimum= //(RealTerm|IntegerTerm| SignedConstant | ConstantValue)  
-	// NumAlt ".." maximum=
-	//	//(RealTerm|IntegerTerm| SignedConstant | ConstantValue)
-	// NumAlt ("delta" delta=
-	//	//(RealTerm|IntegerTerm| SignedConstant | ConstantValue)
-	// NumAlt)?;
+	//	NumAlt ".." maximum= //(RealTerm|IntegerTerm| SignedConstant | ConstantValue)
+	//	NumAlt ("delta" delta= //(RealTerm|IntegerTerm| SignedConstant | ConstantValue)
+	//	NumAlt)?;
 	public CommonGrammarAccess.ANumericRangeTermElements getANumericRangeTermAccess() {
 		return gaCommon.getANumericRangeTermAccess();
 	}
@@ -2639,10 +2323,8 @@ public class VerifyGrammarAccess extends AbstractGrammarElementFinder {
 		return getNumAltAccess().getRule();
 	}
 
-	//ASetTerm returns aadl2::PropertyExpression:
-	////	{ASetLiteral} '#' '{' (elements+=AExpression (',' elements+=AExpression )*)? '}'
-	// {ASetLiteral} "{"
-	//	(elements+=AExpression ("," elements+=AExpression)*)? "}";
+	//ASetTerm returns aadl2::PropertyExpression: //	{ASetLiteral} '#' '{' (elements+=AExpression (',' elements+=AExpression )*)? '}'
+	//	{ASetLiteral} "{" (elements+=AExpression ("," elements+=AExpression)*)? "}";
 	public CommonGrammarAccess.ASetTermElements getASetTermAccess() {
 		return gaCommon.getASetTermAccess();
 	}
@@ -2702,7 +2384,7 @@ public class VerifyGrammarAccess extends AbstractGrammarElementFinder {
 	}
 
 	//NoQuoteString: // remove quotes from string in ValueConverter
-	// STRING;
+	//	STRING;
 	public CommonGrammarAccess.NoQuoteStringElements getNoQuoteStringAccess() {
 		return gaCommon.getNoQuoteStringAccess();
 	}
@@ -2754,7 +2436,7 @@ public class VerifyGrammarAccess extends AbstractGrammarElementFinder {
 	} 
 
 	//// Qualified classifier reference
-	// AadlClassifierReference:
+	//AadlClassifierReference:
 	//	ID ("::" ID)+ ("." ID)?;
 	public CommonGrammarAccess.AadlClassifierReferenceElements getAadlClassifierReferenceAccess() {
 		return gaCommon.getAadlClassifierReferenceAccess();

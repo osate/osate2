@@ -72,28 +72,15 @@ public class CommonFactoryImpl extends EFactoryImpl implements CommonFactory
       case CommonPackage.AEXPRESSION: return createAExpression();
       case CommonPackage.SHOW_VALUE: return createShowValue();
       case CommonPackage.IMAGE_REFERENCE: return createImageReference();
-<<<<<<< HEAD
-=======
-      case CommonPackage.ACOLLECTION_LITERAL: return createACollectionLiteral();
-      case CommonPackage.ASET_LITERAL: return createASetLiteral();
-      case CommonPackage.ALIST_LITERAL: return createAListLiteral();
-      case CommonPackage.ANUMBER_LITERAL: return createANumberLiteral();
->>>>>>> refs/remotes/origin/PeterWork
       case CommonPackage.VAL_DECLARATION: return createValDeclaration();
       case CommonPackage.COMPUTE_DECLARATION: return createComputeDeclaration();
       case CommonPackage.APROPERTY_REFERENCE: return createAPropertyReference();
       case CommonPackage.AVARIABLE_REFERENCE: return createAVariableReference();
       case CommonPackage.ABINARY_OPERATION: return createABinaryOperation();
       case CommonPackage.AUNARY_OPERATION: return createAUnaryOperation();
-<<<<<<< HEAD
       case CommonPackage.ASET_LITERAL: return createASetLiteral();
       case CommonPackage.ALIST_TERM: return createAListTerm();
       case CommonPackage.ANULL_LITERAL: return createANullLiteral();
-=======
-      case CommonPackage.ABOOLEAN_LITERAL: return createABooleanLiteral();
-      case CommonPackage.ANULL_LITERAL: return createANullLiteral();
-      case CommonPackage.ASTRING_LITERAL: return createAStringLiteral();
->>>>>>> refs/remotes/origin/PeterWork
       default:
         throw new IllegalArgumentException("The class '" + eClass.getName() + "' is not a valid classifier");
     }
@@ -192,53 +179,6 @@ public class CommonFactoryImpl extends EFactoryImpl implements CommonFactory
    * <!-- end-user-doc -->
    * @generated
    */
-<<<<<<< HEAD
-=======
-  public ACollectionLiteral createACollectionLiteral()
-  {
-    ACollectionLiteralImpl aCollectionLiteral = new ACollectionLiteralImpl();
-    return aCollectionLiteral;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public ASetLiteral createASetLiteral()
-  {
-    ASetLiteralImpl aSetLiteral = new ASetLiteralImpl();
-    return aSetLiteral;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public AListLiteral createAListLiteral()
-  {
-    AListLiteralImpl aListLiteral = new AListLiteralImpl();
-    return aListLiteral;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public ANumberLiteral createANumberLiteral()
-  {
-    ANumberLiteralImpl aNumberLiteral = new ANumberLiteralImpl();
-    return aNumberLiteral;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
->>>>>>> refs/remotes/origin/PeterWork
   public ValDeclaration createValDeclaration()
   {
     ValDeclarationImpl valDeclaration = new ValDeclarationImpl();
@@ -305,7 +245,6 @@ public class CommonFactoryImpl extends EFactoryImpl implements CommonFactory
    * <!-- end-user-doc -->
    * @generated
    */
-<<<<<<< HEAD
   public ASetLiteral createASetLiteral()
   {
     ASetLiteralImpl aSetLiteral = new ASetLiteralImpl();
@@ -332,34 +271,6 @@ public class CommonFactoryImpl extends EFactoryImpl implements CommonFactory
   {
     ANullLiteralImpl aNullLiteral = new ANullLiteralImpl();
     return aNullLiteral;
-=======
-  public ABooleanLiteral createABooleanLiteral()
-  {
-    ABooleanLiteralImpl aBooleanLiteral = new ABooleanLiteralImpl();
-    return aBooleanLiteral;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public ANullLiteral createANullLiteral()
-  {
-    ANullLiteralImpl aNullLiteral = new ANullLiteralImpl();
-    return aNullLiteral;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public AStringLiteral createAStringLiteral()
-  {
-    AStringLiteralImpl aStringLiteral = new AStringLiteralImpl();
-    return aStringLiteral;
->>>>>>> refs/remotes/origin/PeterWork
   }
 
   /**
