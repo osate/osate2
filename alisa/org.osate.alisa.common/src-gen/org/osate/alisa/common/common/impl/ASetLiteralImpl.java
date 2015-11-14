@@ -2,6 +2,7 @@
  */
 package org.osate.alisa.common.common.impl;
 
+<<<<<<< HEAD
 import java.util.Collection;
 
 import org.eclipse.emf.common.notify.NotificationChain;
@@ -163,6 +164,41 @@ public class ASetLiteralImpl extends PropertyExpressionImpl implements ASetLiter
         return elements != null && !elements.isEmpty();
     }
     return super.eIsSet(featureID);
+=======
+import org.eclipse.emf.ecore.EClass;
+
+import org.osate.alisa.common.common.ASetLiteral;
+import org.osate.alisa.common.common.CommonPackage;
+
+/**
+ * <!-- begin-user-doc -->
+ * An implementation of the model object '<em><b>ASet Literal</b></em>'.
+ * <!-- end-user-doc -->
+ *
+ * @generated
+ */
+public class ASetLiteralImpl extends ACollectionLiteralImpl implements ASetLiteral
+{
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  protected ASetLiteralImpl()
+  {
+    super();
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  @Override
+  protected EClass eStaticClass()
+  {
+    return CommonPackage.Literals.ASET_LITERAL;
+>>>>>>> refs/remotes/origin/PeterWork
   }
 
 } //ASetLiteralImpl

@@ -102,6 +102,7 @@ public class VerifySyntacticSequencer extends AbstractSyntacticSequencer {
 	 * This ambiguous syntax occurs at:
 	 *     (rule start) (ambiguity) '#' '[' ']' (rule start)
 	 *     (rule start) (ambiguity) '#' '[' elements+=AExpression
+<<<<<<< HEAD
 	 *     (rule start) (ambiguity) 'false' (rule start)
 	 *     (rule start) (ambiguity) 'null' (rule start)
 	 *     (rule start) (ambiguity) '{' '}' (rule start)
@@ -135,6 +136,37 @@ public class VerifySyntacticSequencer extends AbstractSyntacticSequencer {
 	 *     (rule start) (ambiguity) value=NoQuoteString
 	 *     (rule start) (ambiguity) value?='true'
 	 *     (rule start) (ambiguity) variable=[AVariableDeclaration|ID]
+=======
+	 *     (rule start) (ambiguity) '#' '{' '}' (rule start)
+	 *     (rule start) (ambiguity) '#' '{' elements+=AExpression
+	 *     (rule start) (ambiguity) 'false' (rule start)
+	 *     (rule start) (ambiguity) 'null' (rule start)
+	 *     (rule start) (ambiguity) feature=OpUnary
+	 *     (rule start) (ambiguity) isTrue?='true'
+	 *     (rule start) (ambiguity) value=Number
+	 *     (rule start) (ambiguity) value=STRING
+	 *     (rule start) (ambiguity) {ABinaryOperation.leftOperand=}
+	 */
+	protected void emit_AParenthesizedExpression_LeftParenthesisKeyword_0_a(EObject semanticObject, ISynNavigable transition, List<INode> nodes) {
+		acceptNodes(transition, nodes);
+	}
+	
+	/**
+	 * Ambiguous syntax:
+	 *     '('+
+	 *
+	 * This ambiguous syntax occurs at:
+	 *     (rule start) (ambiguity) '#' '[' ']' ')' (rule start)
+	 *     (rule start) (ambiguity) '#' '[' elements+=AExpression
+	 *     (rule start) (ambiguity) '#' '{' '}' ')' (rule start)
+	 *     (rule start) (ambiguity) '#' '{' elements+=AExpression
+	 *     (rule start) (ambiguity) 'false' ')' (rule start)
+	 *     (rule start) (ambiguity) 'null' ')' (rule start)
+	 *     (rule start) (ambiguity) feature=OpUnary
+	 *     (rule start) (ambiguity) isTrue?='true'
+	 *     (rule start) (ambiguity) value=Number
+	 *     (rule start) (ambiguity) value=STRING
+>>>>>>> refs/remotes/origin/PeterWork
 	 *     (rule start) (ambiguity) {ABinaryOperation.leftOperand=}
 	 */
 	protected void emit_AParenthesizedExpression_LeftParenthesisKeyword_0_p(EObject semanticObject, ISynNavigable transition, List<INode> nodes) {

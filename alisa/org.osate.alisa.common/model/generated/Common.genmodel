@@ -40,15 +40,51 @@
     <genClasses ecoreClass="Common.ecore#//ImageReference">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Common.ecore#//ImageReference/imgfile"/>
     </genClasses>
+<<<<<<< HEAD
+    <genClasses ecoreClass="Common.ecore#//ValDeclaration">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Common.ecore#//ValDeclaration/right"/>
+=======
+    <genClasses ecoreClass="Common.ecore#//ACollectionLiteral">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Common.ecore#//ACollectionLiteral/elements"/>
+>>>>>>> refs/remotes/origin/PeterWork
+    </genClasses>
+<<<<<<< HEAD
+=======
+    <genClasses ecoreClass="Common.ecore#//ASetLiteral"/>
+    <genClasses ecoreClass="Common.ecore#//AListLiteral"/>
+    <genClasses ecoreClass="Common.ecore#//ANumberLiteral">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Common.ecore#//ANumberLiteral/value"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference Common.ecore#//ANumberLiteral/unit"/>
+    </genClasses>
     <genClasses ecoreClass="Common.ecore#//ValDeclaration">
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Common.ecore#//ValDeclaration/right"/>
     </genClasses>
+>>>>>>> refs/remotes/origin/PeterWork
     <genClasses ecoreClass="Common.ecore#//ComputeDeclaration"/>
     <genClasses ecoreClass="Common.ecore#//APropertyReference">
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference Common.ecore#//APropertyReference/property"/>
     </genClasses>
     <genClasses ecoreClass="Common.ecore#//AVariableReference">
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference Common.ecore#//AVariableReference/variable"/>
+<<<<<<< HEAD
+=======
+    </genClasses>
+    <genClasses ecoreClass="Common.ecore#//ABinaryOperation">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Common.ecore#//ABinaryOperation/leftOperand"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Common.ecore#//ABinaryOperation/feature"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Common.ecore#//ABinaryOperation/rightOperand"/>
+    </genClasses>
+    <genClasses ecoreClass="Common.ecore#//AUnaryOperation">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Common.ecore#//AUnaryOperation/feature"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Common.ecore#//AUnaryOperation/operand"/>
+    </genClasses>
+    <genClasses ecoreClass="Common.ecore#//ABooleanLiteral">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Common.ecore#//ABooleanLiteral/isTrue"/>
+    </genClasses>
+    <genClasses ecoreClass="Common.ecore#//ANullLiteral"/>
+    <genClasses ecoreClass="Common.ecore#//AStringLiteral">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Common.ecore#//AStringLiteral/value"/>
+>>>>>>> refs/remotes/origin/PeterWork
     </genClasses>
     <genClasses ecoreClass="Common.ecore#//ABinaryOperation">
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Common.ecore#//ABinaryOperation/leftOperand"/>

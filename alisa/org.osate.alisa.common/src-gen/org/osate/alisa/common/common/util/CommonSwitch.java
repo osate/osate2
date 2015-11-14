@@ -7,9 +7,12 @@ import org.eclipse.emf.ecore.EPackage;
 
 import org.eclipse.emf.ecore.util.Switch;
 
+<<<<<<< HEAD
 import org.osate.aadl2.Element;
 import org.osate.aadl2.PropertyExpression;
 
+=======
+>>>>>>> refs/remotes/origin/PeterWork
 import org.osate.alisa.common.common.*;
 
 /**
@@ -114,8 +117,11 @@ public class CommonSwitch<T> extends Switch<T>
       {
         AExpression aExpression = (AExpression)theEObject;
         T result = caseAExpression(aExpression);
+<<<<<<< HEAD
         if (result == null) result = casePropertyExpression(aExpression);
         if (result == null) result = caseElement(aExpression);
+=======
+>>>>>>> refs/remotes/origin/PeterWork
         if (result == null) result = defaultCase(theEObject);
         return result;
       }
@@ -133,6 +139,43 @@ public class CommonSwitch<T> extends Switch<T>
         if (result == null) result = defaultCase(theEObject);
         return result;
       }
+<<<<<<< HEAD
+=======
+      case CommonPackage.ACOLLECTION_LITERAL:
+      {
+        ACollectionLiteral aCollectionLiteral = (ACollectionLiteral)theEObject;
+        T result = caseACollectionLiteral(aCollectionLiteral);
+        if (result == null) result = caseAExpression(aCollectionLiteral);
+        if (result == null) result = defaultCase(theEObject);
+        return result;
+      }
+      case CommonPackage.ASET_LITERAL:
+      {
+        ASetLiteral aSetLiteral = (ASetLiteral)theEObject;
+        T result = caseASetLiteral(aSetLiteral);
+        if (result == null) result = caseACollectionLiteral(aSetLiteral);
+        if (result == null) result = caseAExpression(aSetLiteral);
+        if (result == null) result = defaultCase(theEObject);
+        return result;
+      }
+      case CommonPackage.ALIST_LITERAL:
+      {
+        AListLiteral aListLiteral = (AListLiteral)theEObject;
+        T result = caseAListLiteral(aListLiteral);
+        if (result == null) result = caseACollectionLiteral(aListLiteral);
+        if (result == null) result = caseAExpression(aListLiteral);
+        if (result == null) result = defaultCase(theEObject);
+        return result;
+      }
+      case CommonPackage.ANUMBER_LITERAL:
+      {
+        ANumberLiteral aNumberLiteral = (ANumberLiteral)theEObject;
+        T result = caseANumberLiteral(aNumberLiteral);
+        if (result == null) result = caseAExpression(aNumberLiteral);
+        if (result == null) result = defaultCase(theEObject);
+        return result;
+      }
+>>>>>>> refs/remotes/origin/PeterWork
       case CommonPackage.VAL_DECLARATION:
       {
         ValDeclaration valDeclaration = (ValDeclaration)theEObject;
@@ -154,8 +197,11 @@ public class CommonSwitch<T> extends Switch<T>
         APropertyReference aPropertyReference = (APropertyReference)theEObject;
         T result = caseAPropertyReference(aPropertyReference);
         if (result == null) result = caseAExpression(aPropertyReference);
+<<<<<<< HEAD
         if (result == null) result = casePropertyExpression(aPropertyReference);
         if (result == null) result = caseElement(aPropertyReference);
+=======
+>>>>>>> refs/remotes/origin/PeterWork
         if (result == null) result = defaultCase(theEObject);
         return result;
       }
@@ -164,6 +210,7 @@ public class CommonSwitch<T> extends Switch<T>
         AVariableReference aVariableReference = (AVariableReference)theEObject;
         T result = caseAVariableReference(aVariableReference);
         if (result == null) result = caseAExpression(aVariableReference);
+<<<<<<< HEAD
         if (result == null) result = casePropertyExpression(aVariableReference);
         if (result == null) result = caseElement(aVariableReference);
         if (result == null) result = defaultCase(theEObject);
@@ -212,6 +259,48 @@ public class CommonSwitch<T> extends Switch<T>
         if (result == null) result = caseAExpression(aNullLiteral);
         if (result == null) result = casePropertyExpression(aNullLiteral);
         if (result == null) result = caseElement(aNullLiteral);
+=======
+        if (result == null) result = defaultCase(theEObject);
+        return result;
+      }
+      case CommonPackage.ABINARY_OPERATION:
+      {
+        ABinaryOperation aBinaryOperation = (ABinaryOperation)theEObject;
+        T result = caseABinaryOperation(aBinaryOperation);
+        if (result == null) result = caseAExpression(aBinaryOperation);
+        if (result == null) result = defaultCase(theEObject);
+        return result;
+      }
+      case CommonPackage.AUNARY_OPERATION:
+      {
+        AUnaryOperation aUnaryOperation = (AUnaryOperation)theEObject;
+        T result = caseAUnaryOperation(aUnaryOperation);
+        if (result == null) result = caseAExpression(aUnaryOperation);
+        if (result == null) result = defaultCase(theEObject);
+        return result;
+      }
+      case CommonPackage.ABOOLEAN_LITERAL:
+      {
+        ABooleanLiteral aBooleanLiteral = (ABooleanLiteral)theEObject;
+        T result = caseABooleanLiteral(aBooleanLiteral);
+        if (result == null) result = caseAExpression(aBooleanLiteral);
+        if (result == null) result = defaultCase(theEObject);
+        return result;
+      }
+      case CommonPackage.ANULL_LITERAL:
+      {
+        ANullLiteral aNullLiteral = (ANullLiteral)theEObject;
+        T result = caseANullLiteral(aNullLiteral);
+        if (result == null) result = caseAExpression(aNullLiteral);
+        if (result == null) result = defaultCase(theEObject);
+        return result;
+      }
+      case CommonPackage.ASTRING_LITERAL:
+      {
+        AStringLiteral aStringLiteral = (AStringLiteral)theEObject;
+        T result = caseAStringLiteral(aStringLiteral);
+        if (result == null) result = caseAExpression(aStringLiteral);
+>>>>>>> refs/remotes/origin/PeterWork
         if (result == null) result = defaultCase(theEObject);
         return result;
       }
@@ -348,6 +437,73 @@ public class CommonSwitch<T> extends Switch<T>
   }
 
   /**
+<<<<<<< HEAD
+=======
+   * Returns the result of interpreting the object as an instance of '<em>ACollection Literal</em>'.
+   * <!-- begin-user-doc -->
+   * This implementation returns null;
+   * returning a non-null result will terminate the switch.
+   * <!-- end-user-doc -->
+   * @param object the target of the switch.
+   * @return the result of interpreting the object as an instance of '<em>ACollection Literal</em>'.
+   * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+   * @generated
+   */
+  public T caseACollectionLiteral(ACollectionLiteral object)
+  {
+    return null;
+  }
+
+  /**
+   * Returns the result of interpreting the object as an instance of '<em>ASet Literal</em>'.
+   * <!-- begin-user-doc -->
+   * This implementation returns null;
+   * returning a non-null result will terminate the switch.
+   * <!-- end-user-doc -->
+   * @param object the target of the switch.
+   * @return the result of interpreting the object as an instance of '<em>ASet Literal</em>'.
+   * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+   * @generated
+   */
+  public T caseASetLiteral(ASetLiteral object)
+  {
+    return null;
+  }
+
+  /**
+   * Returns the result of interpreting the object as an instance of '<em>AList Literal</em>'.
+   * <!-- begin-user-doc -->
+   * This implementation returns null;
+   * returning a non-null result will terminate the switch.
+   * <!-- end-user-doc -->
+   * @param object the target of the switch.
+   * @return the result of interpreting the object as an instance of '<em>AList Literal</em>'.
+   * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+   * @generated
+   */
+  public T caseAListLiteral(AListLiteral object)
+  {
+    return null;
+  }
+
+  /**
+   * Returns the result of interpreting the object as an instance of '<em>ANumber Literal</em>'.
+   * <!-- begin-user-doc -->
+   * This implementation returns null;
+   * returning a non-null result will terminate the switch.
+   * <!-- end-user-doc -->
+   * @param object the target of the switch.
+   * @return the result of interpreting the object as an instance of '<em>ANumber Literal</em>'.
+   * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+   * @generated
+   */
+  public T caseANumberLiteral(ANumberLiteral object)
+  {
+    return null;
+  }
+
+  /**
+>>>>>>> refs/remotes/origin/PeterWork
    * Returns the result of interpreting the object as an instance of '<em>Val Declaration</em>'.
    * <!-- begin-user-doc -->
    * This implementation returns null;
@@ -444,6 +600,7 @@ public class CommonSwitch<T> extends Switch<T>
   }
 
   /**
+<<<<<<< HEAD
    * Returns the result of interpreting the object as an instance of '<em>ASet Literal</em>'.
    * <!-- begin-user-doc -->
    * This implementation returns null;
@@ -519,6 +676,51 @@ public class CommonSwitch<T> extends Switch<T>
    * @generated
    */
   public T casePropertyExpression(PropertyExpression object)
+=======
+   * Returns the result of interpreting the object as an instance of '<em>ABoolean Literal</em>'.
+   * <!-- begin-user-doc -->
+   * This implementation returns null;
+   * returning a non-null result will terminate the switch.
+   * <!-- end-user-doc -->
+   * @param object the target of the switch.
+   * @return the result of interpreting the object as an instance of '<em>ABoolean Literal</em>'.
+   * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+   * @generated
+   */
+  public T caseABooleanLiteral(ABooleanLiteral object)
+  {
+    return null;
+  }
+
+  /**
+   * Returns the result of interpreting the object as an instance of '<em>ANull Literal</em>'.
+   * <!-- begin-user-doc -->
+   * This implementation returns null;
+   * returning a non-null result will terminate the switch.
+   * <!-- end-user-doc -->
+   * @param object the target of the switch.
+   * @return the result of interpreting the object as an instance of '<em>ANull Literal</em>'.
+   * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+   * @generated
+   */
+  public T caseANullLiteral(ANullLiteral object)
+  {
+    return null;
+  }
+
+  /**
+   * Returns the result of interpreting the object as an instance of '<em>AString Literal</em>'.
+   * <!-- begin-user-doc -->
+   * This implementation returns null;
+   * returning a non-null result will terminate the switch.
+   * <!-- end-user-doc -->
+   * @param object the target of the switch.
+   * @return the result of interpreting the object as an instance of '<em>AString Literal</em>'.
+   * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+   * @generated
+   */
+  public T caseAStringLiteral(AStringLiteral object)
+>>>>>>> refs/remotes/origin/PeterWork
   {
     return null;
   }

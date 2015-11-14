@@ -10,7 +10,11 @@ import org.eclipse.emf.ecore.InternalEObject;
 
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 
+<<<<<<< HEAD
 import org.osate.aadl2.AbstractNamedValue;
+=======
+import org.osate.aadl2.Property;
+>>>>>>> refs/remotes/origin/PeterWork
 
 import org.osate.alisa.common.common.APropertyReference;
 import org.osate.alisa.common.common.CommonPackage;

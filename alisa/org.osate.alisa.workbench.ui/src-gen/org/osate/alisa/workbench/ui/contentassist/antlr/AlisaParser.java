@@ -53,7 +53,11 @@ public class AlisaParser extends AbstractContentAssistParser {
 					put(grammarAccess.getOpUnaryAccess().getAlternatives(), "rule__OpUnary__Alternatives");
 					put(grammarAccess.getAPrimaryExpressionAccess().getAlternatives(), "rule__APrimaryExpression__Alternatives");
 					put(grammarAccess.getALiteralAccess().getAlternatives(), "rule__ALiteral__Alternatives");
+<<<<<<< HEAD
 					put(grammarAccess.getNumAltAccess().getAlternatives(), "rule__NumAlt__Alternatives");
+=======
+					put(grammarAccess.getACollectionLiteralAccess().getAlternatives(), "rule__ACollectionLiteral__Alternatives");
+>>>>>>> refs/remotes/origin/PeterWork
 					put(grammarAccess.getABooleanLiteralAccess().getAlternatives_1(), "rule__ABooleanLiteral__Alternatives_1");
 					put(grammarAccess.getNumberAccess().getAlternatives(), "rule__Number__Alternatives");
 					put(grammarAccess.getNumberAccess().getAlternatives_1_0(), "rule__Number__Alternatives_1_0");
@@ -131,6 +135,7 @@ public class AlisaParser extends AbstractContentAssistParser {
 					put(grammarAccess.getAMultiplicativeExpressionAccess().getGroup_1_0(), "rule__AMultiplicativeExpression__Group_1_0__0");
 					put(grammarAccess.getAMultiplicativeExpressionAccess().getGroup_1_0_0(), "rule__AMultiplicativeExpression__Group_1_0_0__0");
 					put(grammarAccess.getAUnaryOperationAccess().getGroup_0(), "rule__AUnaryOperation__Group_0__0");
+<<<<<<< HEAD
 					put(grammarAccess.getAIntegerTermAccess().getGroup(), "rule__AIntegerTerm__Group__0");
 					put(grammarAccess.getARealTermAccess().getGroup(), "rule__ARealTerm__Group__0");
 					put(grammarAccess.getANumericRangeTermAccess().getGroup(), "rule__ANumericRangeTerm__Group__0");
@@ -144,6 +149,19 @@ public class AlisaParser extends AbstractContentAssistParser {
 					put(grammarAccess.getAParenthesizedExpressionAccess().getGroup(), "rule__AParenthesizedExpression__Group__0");
 					put(grammarAccess.getABooleanLiteralAccess().getGroup(), "rule__ABooleanLiteral__Group__0");
 					put(grammarAccess.getANullLiteralAccess().getGroup(), "rule__ANullLiteral__Group__0");
+=======
+					put(grammarAccess.getASetLiteralAccess().getGroup(), "rule__ASetLiteral__Group__0");
+					put(grammarAccess.getASetLiteralAccess().getGroup_3(), "rule__ASetLiteral__Group_3__0");
+					put(grammarAccess.getASetLiteralAccess().getGroup_3_1(), "rule__ASetLiteral__Group_3_1__0");
+					put(grammarAccess.getAListLiteralAccess().getGroup(), "rule__AListLiteral__Group__0");
+					put(grammarAccess.getAListLiteralAccess().getGroup_3(), "rule__AListLiteral__Group_3__0");
+					put(grammarAccess.getAListLiteralAccess().getGroup_3_1(), "rule__AListLiteral__Group_3_1__0");
+					put(grammarAccess.getAParenthesizedExpressionAccess().getGroup(), "rule__AParenthesizedExpression__Group__0");
+					put(grammarAccess.getABooleanLiteralAccess().getGroup(), "rule__ABooleanLiteral__Group__0");
+					put(grammarAccess.getANullLiteralAccess().getGroup(), "rule__ANullLiteral__Group__0");
+					put(grammarAccess.getANumberLiteralAccess().getGroup(), "rule__ANumberLiteral__Group__0");
+					put(grammarAccess.getAStringLiteralAccess().getGroup(), "rule__AStringLiteral__Group__0");
+>>>>>>> refs/remotes/origin/PeterWork
 					put(grammarAccess.getAadlClassifierReferenceAccess().getGroup(), "rule__AadlClassifierReference__Group__0");
 					put(grammarAccess.getAadlClassifierReferenceAccess().getGroup_1(), "rule__AadlClassifierReference__Group_1__0");
 					put(grammarAccess.getAadlClassifierReferenceAccess().getGroup_2(), "rule__AadlClassifierReference__Group_2__0");
@@ -212,6 +230,7 @@ public class AlisaParser extends AbstractContentAssistParser {
 					put(grammarAccess.getAMultiplicativeExpressionAccess().getRightOperandAssignment_1_1(), "rule__AMultiplicativeExpression__RightOperandAssignment_1_1");
 					put(grammarAccess.getAUnaryOperationAccess().getFeatureAssignment_0_1(), "rule__AUnaryOperation__FeatureAssignment_0_1");
 					put(grammarAccess.getAUnaryOperationAccess().getOperandAssignment_0_2(), "rule__AUnaryOperation__OperandAssignment_0_2");
+<<<<<<< HEAD
 					put(grammarAccess.getAIntegerTermAccess().getValueAssignment_0(), "rule__AIntegerTerm__ValueAssignment_0");
 					put(grammarAccess.getAIntegerTermAccess().getUnitAssignment_1(), "rule__AIntegerTerm__UnitAssignment_1");
 					put(grammarAccess.getARealTermAccess().getValueAssignment_0(), "rule__ARealTerm__ValueAssignment_0");
@@ -225,6 +244,16 @@ public class AlisaParser extends AbstractContentAssistParser {
 					put(grammarAccess.getAListTermAccess().getElementsAssignment_3_1_1(), "rule__AListTerm__ElementsAssignment_3_1_1");
 					put(grammarAccess.getABooleanLiteralAccess().getValueAssignment_1_0(), "rule__ABooleanLiteral__ValueAssignment_1_0");
 					put(grammarAccess.getStringTermAccess().getValueAssignment(), "rule__StringTerm__ValueAssignment");
+=======
+					put(grammarAccess.getASetLiteralAccess().getElementsAssignment_3_0(), "rule__ASetLiteral__ElementsAssignment_3_0");
+					put(grammarAccess.getASetLiteralAccess().getElementsAssignment_3_1_1(), "rule__ASetLiteral__ElementsAssignment_3_1_1");
+					put(grammarAccess.getAListLiteralAccess().getElementsAssignment_3_0(), "rule__AListLiteral__ElementsAssignment_3_0");
+					put(grammarAccess.getAListLiteralAccess().getElementsAssignment_3_1_1(), "rule__AListLiteral__ElementsAssignment_3_1_1");
+					put(grammarAccess.getABooleanLiteralAccess().getIsTrueAssignment_1_1(), "rule__ABooleanLiteral__IsTrueAssignment_1_1");
+					put(grammarAccess.getANumberLiteralAccess().getValueAssignment_0(), "rule__ANumberLiteral__ValueAssignment_0");
+					put(grammarAccess.getANumberLiteralAccess().getUnitAssignment_1(), "rule__ANumberLiteral__UnitAssignment_1");
+					put(grammarAccess.getAStringLiteralAccess().getValueAssignment_1(), "rule__AStringLiteral__ValueAssignment_1");
+>>>>>>> refs/remotes/origin/PeterWork
 					put(grammarAccess.getAssurancePlanAccess().getUnorderedGroup_7(), "rule__AssurancePlan__UnorderedGroup_7");
 					put(grammarAccess.getAssuranceTaskAccess().getUnorderedGroup_7(), "rule__AssuranceTask__UnorderedGroup_7");
 					put(grammarAccess.getUncertaintyAccess().getUnorderedGroup_2(), "rule__Uncertainty__UnorderedGroup_2");

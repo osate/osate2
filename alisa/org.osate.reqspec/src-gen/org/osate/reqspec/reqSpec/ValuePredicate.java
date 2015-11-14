@@ -2,7 +2,11 @@
  */
 package org.osate.reqspec.reqSpec;
 
+<<<<<<< HEAD
 import org.osate.aadl2.PropertyExpression;
+=======
+import org.osate.alisa.common.common.AExpression;
+>>>>>>> refs/remotes/origin/PeterWork
 
 /**
  * <!-- begin-user-doc -->
@@ -31,12 +35,20 @@ public interface ValuePredicate extends ReqPredicate
    * </p>
    * <!-- end-user-doc -->
    * @return the value of the '<em>Xpression</em>' containment reference.
+<<<<<<< HEAD
    * @see #setXpression(PropertyExpression)
+=======
+   * @see #setXpression(AExpression)
+>>>>>>> refs/remotes/origin/PeterWork
    * @see org.osate.reqspec.reqSpec.ReqSpecPackage#getValuePredicate_Xpression()
    * @model containment="true"
    * @generated
    */
+<<<<<<< HEAD
   PropertyExpression getXpression();
+=======
+  AExpression getXpression();
+>>>>>>> refs/remotes/origin/PeterWork
 
   /**
    * Sets the value of the '{@link org.osate.reqspec.reqSpec.ValuePredicate#getXpression <em>Xpression</em>}' containment reference.
@@ -46,6 +58,10 @@ public interface ValuePredicate extends ReqPredicate
    * @see #getXpression()
    * @generated
    */
+<<<<<<< HEAD
   void setXpression(PropertyExpression value);
+=======
+  void setXpression(AExpression value);
+>>>>>>> refs/remotes/origin/PeterWork
 
 } // ValuePredicate

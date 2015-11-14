@@ -15,7 +15,10 @@ public class AbstractReqSpecValidator extends org.osate.alisa.common.validation.
 	protected List<EPackage> getEPackages() {
 	    List<EPackage> result = new ArrayList<EPackage>(super.getEPackages());
 	    result.add(org.osate.reqspec.reqSpec.ReqSpecPackage.eINSTANCE);
+<<<<<<< HEAD
 	    result.add(EPackage.Registry.INSTANCE.getEPackage("http://aadl.info/AADL/2.0"));
+=======
+>>>>>>> refs/remotes/origin/PeterWork
 		return result;
 	}
 }

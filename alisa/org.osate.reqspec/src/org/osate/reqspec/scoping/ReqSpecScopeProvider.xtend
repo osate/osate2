@@ -29,7 +29,10 @@ import org.osate.reqspec.util.IReqspecGlobalReferenceFinder
 
 import static org.osate.alisa.common.util.CommonUtilExtension.*
 import static org.osate.reqspec.util.ReqSpecUtilExtension.*
+<<<<<<< HEAD
 import org.osate.alisa.common.common.AVariableReference
+=======
+>>>>>>> refs/remotes/origin/PeterWork
 
 /**
  * This class contains custom scoping description.
@@ -38,7 +41,11 @@ import org.osate.alisa.common.common.AVariableReference
  * on how and when to use it 
  * 
  */
+<<<<<<< HEAD
 class ReqSpecScopeProvider extends org.eclipse.xtext.scoping.impl.AbstractDeclarativeScopeProvider {
+=======
+class ReqSpecScopeProvider extends CommonScopeProvider {
+>>>>>>> refs/remotes/origin/PeterWork
 	@Inject var ICommonGlobalReferenceFinder commonRefFinder
 	@Inject var IReqspecGlobalReferenceFinder refFinder
 

@@ -12,14 +12,29 @@ import java.util.ArrayList;
 
 @SuppressWarnings("all")
 public class InternalCommonLexer extends Lexer {
+<<<<<<< HEAD
     public static final int RULE_HEX=7;
+=======
+    public static final int RULE_HEX=4;
+>>>>>>> refs/remotes/origin/PeterWork
     public static final int T__50=50;
+<<<<<<< HEAD
     public static final int RULE_INT_EXPONENT=13;
     public static final int T__55=55;
     public static final int T__56=56;
     public static final int T__57=57;
     public static final int T__58=58;
+=======
+    public static final int T__19=19;
+    public static final int T__15=15;
+    public static final int T__16=16;
+    public static final int T__17=17;
+    public static final int T__18=18;
+    public static final int T__13=13;
+    public static final int T__14=14;
+>>>>>>> refs/remotes/origin/PeterWork
     public static final int T__51=51;
+<<<<<<< HEAD
     public static final int T__52=52;
     public static final int RULE_BASED_INTEGER=14;
     public static final int T__53=53;
@@ -27,22 +42,42 @@ public class InternalCommonLexer extends Lexer {
     public static final int RULE_ID=10;
     public static final int RULE_DIGIT=11;
     public static final int RULE_DECIMAL=9;
+=======
+    public static final int RULE_ID=7;
+    public static final int RULE_DECIMAL=6;
+>>>>>>> refs/remotes/origin/PeterWork
     public static final int T__26=26;
     public static final int T__27=27;
     public static final int T__28=28;
+<<<<<<< HEAD
     public static final int RULE_INT=8;
+=======
+    public static final int RULE_INT=5;
+>>>>>>> refs/remotes/origin/PeterWork
     public static final int T__29=29;
     public static final int T__22=22;
+<<<<<<< HEAD
     public static final int RULE_ML_COMMENT=16;
+=======
+    public static final int RULE_ML_COMMENT=9;
+>>>>>>> refs/remotes/origin/PeterWork
     public static final int T__23=23;
     public static final int T__24=24;
     public static final int T__25=25;
     public static final int T__20=20;
+<<<<<<< HEAD
     public static final int RULE_INTEGER_LIT=4;
+=======
+>>>>>>> refs/remotes/origin/PeterWork
     public static final int T__21=21;
+<<<<<<< HEAD
     public static final int RULE_REAL_LIT=5;
     public static final int RULE_STRING=6;
     public static final int RULE_SL_COMMENT=17;
+=======
+    public static final int RULE_STRING=8;
+    public static final int RULE_SL_COMMENT=10;
+>>>>>>> refs/remotes/origin/PeterWork
     public static final int T__37=37;
     public static final int T__38=38;
     public static final int T__39=39;
@@ -54,13 +89,21 @@ public class InternalCommonLexer extends Lexer {
     public static final int T__30=30;
     public static final int T__31=31;
     public static final int T__32=32;
+<<<<<<< HEAD
     public static final int RULE_WS=18;
     public static final int RULE_ANY_OTHER=19;
     public static final int RULE_EXPONENT=12;
+=======
+    public static final int RULE_WS=11;
+    public static final int RULE_ANY_OTHER=12;
+>>>>>>> refs/remotes/origin/PeterWork
     public static final int T__48=48;
     public static final int T__49=49;
     public static final int T__44=44;
+<<<<<<< HEAD
     public static final int RULE_EXTENDED_DIGIT=15;
+=======
+>>>>>>> refs/remotes/origin/PeterWork
     public static final int T__45=45;
     public static final int T__46=46;
     public static final int T__47=47;
@@ -82,16 +125,175 @@ public class InternalCommonLexer extends Lexer {
     }
     public String getGrammarFileName() { return "../org.osate.alisa.common.ui/src-gen/org/osate/alisa/common/ui/contentassist/antlr/internal/InternalCommon.g"; }
 
-    // $ANTLR start "T__20"
-    public final void mT__20() throws RecognitionException {
+<<<<<<< HEAD
+=======
+    // $ANTLR start "T__13"
+    public final void mT__13() throws RecognitionException {
         try {
-            int _type = T__20;
+            int _type = T__13;
             int _channel = DEFAULT_TOKEN_CHANNEL;
             // ../org.osate.alisa.common.ui/src-gen/org/osate/alisa/common/ui/contentassist/antlr/internal/InternalCommon.g:11:7: ( '||' )
             // ../org.osate.alisa.common.ui/src-gen/org/osate/alisa/common/ui/contentassist/antlr/internal/InternalCommon.g:11:9: '||'
             {
             match("||"); 
 
+
+            }
+
+            state.type = _type;
+            state.channel = _channel;
+        }
+        finally {
+        }
+    }
+    // $ANTLR end "T__13"
+
+    // $ANTLR start "T__14"
+    public final void mT__14() throws RecognitionException {
+        try {
+            int _type = T__14;
+            int _channel = DEFAULT_TOKEN_CHANNEL;
+            // ../org.osate.alisa.common.ui/src-gen/org/osate/alisa/common/ui/contentassist/antlr/internal/InternalCommon.g:12:7: ( '&&' )
+            // ../org.osate.alisa.common.ui/src-gen/org/osate/alisa/common/ui/contentassist/antlr/internal/InternalCommon.g:12:9: '&&'
+            {
+            match("&&"); 
+
+
+            }
+
+            state.type = _type;
+            state.channel = _channel;
+        }
+        finally {
+        }
+    }
+    // $ANTLR end "T__14"
+
+    // $ANTLR start "T__15"
+    public final void mT__15() throws RecognitionException {
+        try {
+            int _type = T__15;
+            int _channel = DEFAULT_TOKEN_CHANNEL;
+            // ../org.osate.alisa.common.ui/src-gen/org/osate/alisa/common/ui/contentassist/antlr/internal/InternalCommon.g:13:7: ( '==' )
+            // ../org.osate.alisa.common.ui/src-gen/org/osate/alisa/common/ui/contentassist/antlr/internal/InternalCommon.g:13:9: '=='
+            {
+            match("=="); 
+
+
+            }
+
+            state.type = _type;
+            state.channel = _channel;
+        }
+        finally {
+        }
+    }
+    // $ANTLR end "T__15"
+
+    // $ANTLR start "T__16"
+    public final void mT__16() throws RecognitionException {
+        try {
+            int _type = T__16;
+            int _channel = DEFAULT_TOKEN_CHANNEL;
+            // ../org.osate.alisa.common.ui/src-gen/org/osate/alisa/common/ui/contentassist/antlr/internal/InternalCommon.g:14:7: ( '!=' )
+            // ../org.osate.alisa.common.ui/src-gen/org/osate/alisa/common/ui/contentassist/antlr/internal/InternalCommon.g:14:9: '!='
+            {
+            match("!="); 
+
+
+            }
+
+            state.type = _type;
+            state.channel = _channel;
+        }
+        finally {
+        }
+    }
+    // $ANTLR end "T__16"
+
+    // $ANTLR start "T__17"
+    public final void mT__17() throws RecognitionException {
+        try {
+            int _type = T__17;
+            int _channel = DEFAULT_TOKEN_CHANNEL;
+            // ../org.osate.alisa.common.ui/src-gen/org/osate/alisa/common/ui/contentassist/antlr/internal/InternalCommon.g:15:7: ( '===' )
+            // ../org.osate.alisa.common.ui/src-gen/org/osate/alisa/common/ui/contentassist/antlr/internal/InternalCommon.g:15:9: '==='
+            {
+            match("==="); 
+
+
+            }
+
+            state.type = _type;
+            state.channel = _channel;
+        }
+        finally {
+        }
+    }
+    // $ANTLR end "T__17"
+
+    // $ANTLR start "T__18"
+    public final void mT__18() throws RecognitionException {
+        try {
+            int _type = T__18;
+            int _channel = DEFAULT_TOKEN_CHANNEL;
+            // ../org.osate.alisa.common.ui/src-gen/org/osate/alisa/common/ui/contentassist/antlr/internal/InternalCommon.g:16:7: ( '!==' )
+            // ../org.osate.alisa.common.ui/src-gen/org/osate/alisa/common/ui/contentassist/antlr/internal/InternalCommon.g:16:9: '!=='
+            {
+            match("!=="); 
+
+
+            }
+
+            state.type = _type;
+            state.channel = _channel;
+        }
+        finally {
+        }
+    }
+    // $ANTLR end "T__18"
+
+    // $ANTLR start "T__19"
+    public final void mT__19() throws RecognitionException {
+        try {
+            int _type = T__19;
+            int _channel = DEFAULT_TOKEN_CHANNEL;
+            // ../org.osate.alisa.common.ui/src-gen/org/osate/alisa/common/ui/contentassist/antlr/internal/InternalCommon.g:17:7: ( '>=' )
+            // ../org.osate.alisa.common.ui/src-gen/org/osate/alisa/common/ui/contentassist/antlr/internal/InternalCommon.g:17:9: '>='
+            {
+            match(">="); 
+
+
+            }
+
+            state.type = _type;
+            state.channel = _channel;
+        }
+        finally {
+        }
+    }
+    // $ANTLR end "T__19"
+
+>>>>>>> refs/remotes/origin/PeterWork
+    // $ANTLR start "T__20"
+    public final void mT__20() throws RecognitionException {
+        try {
+            int _type = T__20;
+            int _channel = DEFAULT_TOKEN_CHANNEL;
+<<<<<<< HEAD
+            // ../org.osate.alisa.common.ui/src-gen/org/osate/alisa/common/ui/contentassist/antlr/internal/InternalCommon.g:11:7: ( '||' )
+            // ../org.osate.alisa.common.ui/src-gen/org/osate/alisa/common/ui/contentassist/antlr/internal/InternalCommon.g:11:9: '||'
+=======
+            // ../org.osate.alisa.common.ui/src-gen/org/osate/alisa/common/ui/contentassist/antlr/internal/InternalCommon.g:18:7: ( '>' )
+            // ../org.osate.alisa.common.ui/src-gen/org/osate/alisa/common/ui/contentassist/antlr/internal/InternalCommon.g:18:9: '>'
+>>>>>>> refs/remotes/origin/PeterWork
+            {
+<<<<<<< HEAD
+            match("||"); 
+
+=======
+            match('>'); 
+>>>>>>> refs/remotes/origin/PeterWork
 
             }
 
@@ -108,11 +310,20 @@ public class InternalCommonLexer extends Lexer {
         try {
             int _type = T__21;
             int _channel = DEFAULT_TOKEN_CHANNEL;
+<<<<<<< HEAD
             // ../org.osate.alisa.common.ui/src-gen/org/osate/alisa/common/ui/contentassist/antlr/internal/InternalCommon.g:12:7: ( '&&' )
             // ../org.osate.alisa.common.ui/src-gen/org/osate/alisa/common/ui/contentassist/antlr/internal/InternalCommon.g:12:9: '&&'
+=======
+            // ../org.osate.alisa.common.ui/src-gen/org/osate/alisa/common/ui/contentassist/antlr/internal/InternalCommon.g:19:7: ( '<' )
+            // ../org.osate.alisa.common.ui/src-gen/org/osate/alisa/common/ui/contentassist/antlr/internal/InternalCommon.g:19:9: '<'
+>>>>>>> refs/remotes/origin/PeterWork
             {
+<<<<<<< HEAD
             match("&&"); 
 
+=======
+            match('<'); 
+>>>>>>> refs/remotes/origin/PeterWork
 
             }
 
@@ -129,10 +340,19 @@ public class InternalCommonLexer extends Lexer {
         try {
             int _type = T__22;
             int _channel = DEFAULT_TOKEN_CHANNEL;
+<<<<<<< HEAD
             // ../org.osate.alisa.common.ui/src-gen/org/osate/alisa/common/ui/contentassist/antlr/internal/InternalCommon.g:13:7: ( '==' )
             // ../org.osate.alisa.common.ui/src-gen/org/osate/alisa/common/ui/contentassist/antlr/internal/InternalCommon.g:13:9: '=='
+=======
+            // ../org.osate.alisa.common.ui/src-gen/org/osate/alisa/common/ui/contentassist/antlr/internal/InternalCommon.g:20:7: ( '->' )
+            // ../org.osate.alisa.common.ui/src-gen/org/osate/alisa/common/ui/contentassist/antlr/internal/InternalCommon.g:20:9: '->'
+>>>>>>> refs/remotes/origin/PeterWork
             {
+<<<<<<< HEAD
             match("=="); 
+=======
+            match("->"); 
+>>>>>>> refs/remotes/origin/PeterWork
 
 
             }
@@ -150,10 +370,19 @@ public class InternalCommonLexer extends Lexer {
         try {
             int _type = T__23;
             int _channel = DEFAULT_TOKEN_CHANNEL;
+<<<<<<< HEAD
             // ../org.osate.alisa.common.ui/src-gen/org/osate/alisa/common/ui/contentassist/antlr/internal/InternalCommon.g:14:7: ( '!=' )
             // ../org.osate.alisa.common.ui/src-gen/org/osate/alisa/common/ui/contentassist/antlr/internal/InternalCommon.g:14:9: '!='
+=======
+            // ../org.osate.alisa.common.ui/src-gen/org/osate/alisa/common/ui/contentassist/antlr/internal/InternalCommon.g:21:7: ( '..<' )
+            // ../org.osate.alisa.common.ui/src-gen/org/osate/alisa/common/ui/contentassist/antlr/internal/InternalCommon.g:21:9: '..<'
+>>>>>>> refs/remotes/origin/PeterWork
             {
+<<<<<<< HEAD
             match("!="); 
+=======
+            match("..<"); 
+>>>>>>> refs/remotes/origin/PeterWork
 
 
             }
@@ -171,10 +400,19 @@ public class InternalCommonLexer extends Lexer {
         try {
             int _type = T__24;
             int _channel = DEFAULT_TOKEN_CHANNEL;
+<<<<<<< HEAD
             // ../org.osate.alisa.common.ui/src-gen/org/osate/alisa/common/ui/contentassist/antlr/internal/InternalCommon.g:15:7: ( '===' )
             // ../org.osate.alisa.common.ui/src-gen/org/osate/alisa/common/ui/contentassist/antlr/internal/InternalCommon.g:15:9: '==='
+=======
+            // ../org.osate.alisa.common.ui/src-gen/org/osate/alisa/common/ui/contentassist/antlr/internal/InternalCommon.g:22:7: ( '..' )
+            // ../org.osate.alisa.common.ui/src-gen/org/osate/alisa/common/ui/contentassist/antlr/internal/InternalCommon.g:22:9: '..'
+>>>>>>> refs/remotes/origin/PeterWork
             {
+<<<<<<< HEAD
             match("==="); 
+=======
+            match(".."); 
+>>>>>>> refs/remotes/origin/PeterWork
 
 
             }
@@ -192,10 +430,19 @@ public class InternalCommonLexer extends Lexer {
         try {
             int _type = T__25;
             int _channel = DEFAULT_TOKEN_CHANNEL;
+<<<<<<< HEAD
             // ../org.osate.alisa.common.ui/src-gen/org/osate/alisa/common/ui/contentassist/antlr/internal/InternalCommon.g:16:7: ( '!==' )
             // ../org.osate.alisa.common.ui/src-gen/org/osate/alisa/common/ui/contentassist/antlr/internal/InternalCommon.g:16:9: '!=='
+=======
+            // ../org.osate.alisa.common.ui/src-gen/org/osate/alisa/common/ui/contentassist/antlr/internal/InternalCommon.g:23:7: ( '=>' )
+            // ../org.osate.alisa.common.ui/src-gen/org/osate/alisa/common/ui/contentassist/antlr/internal/InternalCommon.g:23:9: '=>'
+>>>>>>> refs/remotes/origin/PeterWork
             {
+<<<<<<< HEAD
             match("!=="); 
+=======
+            match("=>"); 
+>>>>>>> refs/remotes/origin/PeterWork
 
 
             }
@@ -213,10 +460,19 @@ public class InternalCommonLexer extends Lexer {
         try {
             int _type = T__26;
             int _channel = DEFAULT_TOKEN_CHANNEL;
+<<<<<<< HEAD
             // ../org.osate.alisa.common.ui/src-gen/org/osate/alisa/common/ui/contentassist/antlr/internal/InternalCommon.g:17:7: ( '>=' )
             // ../org.osate.alisa.common.ui/src-gen/org/osate/alisa/common/ui/contentassist/antlr/internal/InternalCommon.g:17:9: '>='
+=======
+            // ../org.osate.alisa.common.ui/src-gen/org/osate/alisa/common/ui/contentassist/antlr/internal/InternalCommon.g:24:7: ( '<>' )
+            // ../org.osate.alisa.common.ui/src-gen/org/osate/alisa/common/ui/contentassist/antlr/internal/InternalCommon.g:24:9: '<>'
+>>>>>>> refs/remotes/origin/PeterWork
             {
+<<<<<<< HEAD
             match(">="); 
+=======
+            match("<>"); 
+>>>>>>> refs/remotes/origin/PeterWork
 
 
             }
@@ -234,10 +490,20 @@ public class InternalCommonLexer extends Lexer {
         try {
             int _type = T__27;
             int _channel = DEFAULT_TOKEN_CHANNEL;
+<<<<<<< HEAD
             // ../org.osate.alisa.common.ui/src-gen/org/osate/alisa/common/ui/contentassist/antlr/internal/InternalCommon.g:18:7: ( '>' )
             // ../org.osate.alisa.common.ui/src-gen/org/osate/alisa/common/ui/contentassist/antlr/internal/InternalCommon.g:18:9: '>'
+=======
+            // ../org.osate.alisa.common.ui/src-gen/org/osate/alisa/common/ui/contentassist/antlr/internal/InternalCommon.g:25:7: ( '?:' )
+            // ../org.osate.alisa.common.ui/src-gen/org/osate/alisa/common/ui/contentassist/antlr/internal/InternalCommon.g:25:9: '?:'
+>>>>>>> refs/remotes/origin/PeterWork
             {
+<<<<<<< HEAD
             match('>'); 
+=======
+            match("?:"); 
+
+>>>>>>> refs/remotes/origin/PeterWork
 
             }
 
@@ -254,10 +520,19 @@ public class InternalCommonLexer extends Lexer {
         try {
             int _type = T__28;
             int _channel = DEFAULT_TOKEN_CHANNEL;
+<<<<<<< HEAD
             // ../org.osate.alisa.common.ui/src-gen/org/osate/alisa/common/ui/contentassist/antlr/internal/InternalCommon.g:19:7: ( '<' )
             // ../org.osate.alisa.common.ui/src-gen/org/osate/alisa/common/ui/contentassist/antlr/internal/InternalCommon.g:19:9: '<'
+=======
+            // ../org.osate.alisa.common.ui/src-gen/org/osate/alisa/common/ui/contentassist/antlr/internal/InternalCommon.g:26:7: ( '+' )
+            // ../org.osate.alisa.common.ui/src-gen/org/osate/alisa/common/ui/contentassist/antlr/internal/InternalCommon.g:26:9: '+'
+>>>>>>> refs/remotes/origin/PeterWork
             {
+<<<<<<< HEAD
             match('<'); 
+=======
+            match('+'); 
+>>>>>>> refs/remotes/origin/PeterWork
 
             }
 
@@ -274,11 +549,20 @@ public class InternalCommonLexer extends Lexer {
         try {
             int _type = T__29;
             int _channel = DEFAULT_TOKEN_CHANNEL;
+<<<<<<< HEAD
             // ../org.osate.alisa.common.ui/src-gen/org/osate/alisa/common/ui/contentassist/antlr/internal/InternalCommon.g:20:7: ( '->' )
             // ../org.osate.alisa.common.ui/src-gen/org/osate/alisa/common/ui/contentassist/antlr/internal/InternalCommon.g:20:9: '->'
+=======
+            // ../org.osate.alisa.common.ui/src-gen/org/osate/alisa/common/ui/contentassist/antlr/internal/InternalCommon.g:27:7: ( '-' )
+            // ../org.osate.alisa.common.ui/src-gen/org/osate/alisa/common/ui/contentassist/antlr/internal/InternalCommon.g:27:9: '-'
+>>>>>>> refs/remotes/origin/PeterWork
             {
+<<<<<<< HEAD
             match("->"); 
 
+=======
+            match('-'); 
+>>>>>>> refs/remotes/origin/PeterWork
 
             }
 
@@ -295,11 +579,20 @@ public class InternalCommonLexer extends Lexer {
         try {
             int _type = T__30;
             int _channel = DEFAULT_TOKEN_CHANNEL;
+<<<<<<< HEAD
             // ../org.osate.alisa.common.ui/src-gen/org/osate/alisa/common/ui/contentassist/antlr/internal/InternalCommon.g:21:7: ( '..<' )
             // ../org.osate.alisa.common.ui/src-gen/org/osate/alisa/common/ui/contentassist/antlr/internal/InternalCommon.g:21:9: '..<'
+=======
+            // ../org.osate.alisa.common.ui/src-gen/org/osate/alisa/common/ui/contentassist/antlr/internal/InternalCommon.g:28:7: ( '*' )
+            // ../org.osate.alisa.common.ui/src-gen/org/osate/alisa/common/ui/contentassist/antlr/internal/InternalCommon.g:28:9: '*'
+>>>>>>> refs/remotes/origin/PeterWork
             {
+<<<<<<< HEAD
             match("..<"); 
 
+=======
+            match('*'); 
+>>>>>>> refs/remotes/origin/PeterWork
 
             }
 
@@ -316,10 +609,19 @@ public class InternalCommonLexer extends Lexer {
         try {
             int _type = T__31;
             int _channel = DEFAULT_TOKEN_CHANNEL;
+<<<<<<< HEAD
             // ../org.osate.alisa.common.ui/src-gen/org/osate/alisa/common/ui/contentassist/antlr/internal/InternalCommon.g:22:7: ( '..' )
             // ../org.osate.alisa.common.ui/src-gen/org/osate/alisa/common/ui/contentassist/antlr/internal/InternalCommon.g:22:9: '..'
+=======
+            // ../org.osate.alisa.common.ui/src-gen/org/osate/alisa/common/ui/contentassist/antlr/internal/InternalCommon.g:29:7: ( '**' )
+            // ../org.osate.alisa.common.ui/src-gen/org/osate/alisa/common/ui/contentassist/antlr/internal/InternalCommon.g:29:9: '**'
+>>>>>>> refs/remotes/origin/PeterWork
             {
+<<<<<<< HEAD
             match(".."); 
+=======
+            match("**"); 
+>>>>>>> refs/remotes/origin/PeterWork
 
 
             }
@@ -337,11 +639,20 @@ public class InternalCommonLexer extends Lexer {
         try {
             int _type = T__32;
             int _channel = DEFAULT_TOKEN_CHANNEL;
+<<<<<<< HEAD
             // ../org.osate.alisa.common.ui/src-gen/org/osate/alisa/common/ui/contentassist/antlr/internal/InternalCommon.g:23:7: ( '=>' )
             // ../org.osate.alisa.common.ui/src-gen/org/osate/alisa/common/ui/contentassist/antlr/internal/InternalCommon.g:23:9: '=>'
+=======
+            // ../org.osate.alisa.common.ui/src-gen/org/osate/alisa/common/ui/contentassist/antlr/internal/InternalCommon.g:30:7: ( '/' )
+            // ../org.osate.alisa.common.ui/src-gen/org/osate/alisa/common/ui/contentassist/antlr/internal/InternalCommon.g:30:9: '/'
+>>>>>>> refs/remotes/origin/PeterWork
             {
+<<<<<<< HEAD
             match("=>"); 
 
+=======
+            match('/'); 
+>>>>>>> refs/remotes/origin/PeterWork
 
             }
 
@@ -358,11 +669,20 @@ public class InternalCommonLexer extends Lexer {
         try {
             int _type = T__33;
             int _channel = DEFAULT_TOKEN_CHANNEL;
+<<<<<<< HEAD
             // ../org.osate.alisa.common.ui/src-gen/org/osate/alisa/common/ui/contentassist/antlr/internal/InternalCommon.g:24:7: ( '<>' )
             // ../org.osate.alisa.common.ui/src-gen/org/osate/alisa/common/ui/contentassist/antlr/internal/InternalCommon.g:24:9: '<>'
+=======
+            // ../org.osate.alisa.common.ui/src-gen/org/osate/alisa/common/ui/contentassist/antlr/internal/InternalCommon.g:31:7: ( '%' )
+            // ../org.osate.alisa.common.ui/src-gen/org/osate/alisa/common/ui/contentassist/antlr/internal/InternalCommon.g:31:9: '%'
+>>>>>>> refs/remotes/origin/PeterWork
             {
+<<<<<<< HEAD
             match("<>"); 
 
+=======
+            match('%'); 
+>>>>>>> refs/remotes/origin/PeterWork
 
             }
 
@@ -379,11 +699,20 @@ public class InternalCommonLexer extends Lexer {
         try {
             int _type = T__34;
             int _channel = DEFAULT_TOKEN_CHANNEL;
+<<<<<<< HEAD
             // ../org.osate.alisa.common.ui/src-gen/org/osate/alisa/common/ui/contentassist/antlr/internal/InternalCommon.g:25:7: ( '?:' )
             // ../org.osate.alisa.common.ui/src-gen/org/osate/alisa/common/ui/contentassist/antlr/internal/InternalCommon.g:25:9: '?:'
+=======
+            // ../org.osate.alisa.common.ui/src-gen/org/osate/alisa/common/ui/contentassist/antlr/internal/InternalCommon.g:32:7: ( '!' )
+            // ../org.osate.alisa.common.ui/src-gen/org/osate/alisa/common/ui/contentassist/antlr/internal/InternalCommon.g:32:9: '!'
+>>>>>>> refs/remotes/origin/PeterWork
             {
+<<<<<<< HEAD
             match("?:"); 
 
+=======
+            match('!'); 
+>>>>>>> refs/remotes/origin/PeterWork
 
             }
 
@@ -400,10 +729,20 @@ public class InternalCommonLexer extends Lexer {
         try {
             int _type = T__35;
             int _channel = DEFAULT_TOKEN_CHANNEL;
+<<<<<<< HEAD
             // ../org.osate.alisa.common.ui/src-gen/org/osate/alisa/common/ui/contentassist/antlr/internal/InternalCommon.g:26:7: ( '+' )
             // ../org.osate.alisa.common.ui/src-gen/org/osate/alisa/common/ui/contentassist/antlr/internal/InternalCommon.g:26:9: '+'
+=======
+            // ../org.osate.alisa.common.ui/src-gen/org/osate/alisa/common/ui/contentassist/antlr/internal/InternalCommon.g:33:7: ( 'false' )
+            // ../org.osate.alisa.common.ui/src-gen/org/osate/alisa/common/ui/contentassist/antlr/internal/InternalCommon.g:33:9: 'false'
+>>>>>>> refs/remotes/origin/PeterWork
             {
+<<<<<<< HEAD
             match('+'); 
+=======
+            match("false"); 
+
+>>>>>>> refs/remotes/origin/PeterWork
 
             }
 
@@ -420,10 +759,20 @@ public class InternalCommonLexer extends Lexer {
         try {
             int _type = T__36;
             int _channel = DEFAULT_TOKEN_CHANNEL;
+<<<<<<< HEAD
             // ../org.osate.alisa.common.ui/src-gen/org/osate/alisa/common/ui/contentassist/antlr/internal/InternalCommon.g:27:7: ( '-' )
             // ../org.osate.alisa.common.ui/src-gen/org/osate/alisa/common/ui/contentassist/antlr/internal/InternalCommon.g:27:9: '-'
+=======
+            // ../org.osate.alisa.common.ui/src-gen/org/osate/alisa/common/ui/contentassist/antlr/internal/InternalCommon.g:34:7: ( 'description' )
+            // ../org.osate.alisa.common.ui/src-gen/org/osate/alisa/common/ui/contentassist/antlr/internal/InternalCommon.g:34:9: 'description'
+>>>>>>> refs/remotes/origin/PeterWork
             {
+<<<<<<< HEAD
             match('-'); 
+=======
+            match("description"); 
+
+>>>>>>> refs/remotes/origin/PeterWork
 
             }
 
@@ -440,10 +789,20 @@ public class InternalCommonLexer extends Lexer {
         try {
             int _type = T__37;
             int _channel = DEFAULT_TOKEN_CHANNEL;
+<<<<<<< HEAD
             // ../org.osate.alisa.common.ui/src-gen/org/osate/alisa/common/ui/contentassist/antlr/internal/InternalCommon.g:28:7: ( '*' )
             // ../org.osate.alisa.common.ui/src-gen/org/osate/alisa/common/ui/contentassist/antlr/internal/InternalCommon.g:28:9: '*'
+=======
+            // ../org.osate.alisa.common.ui/src-gen/org/osate/alisa/common/ui/contentassist/antlr/internal/InternalCommon.g:35:7: ( 'img' )
+            // ../org.osate.alisa.common.ui/src-gen/org/osate/alisa/common/ui/contentassist/antlr/internal/InternalCommon.g:35:9: 'img'
+>>>>>>> refs/remotes/origin/PeterWork
             {
+<<<<<<< HEAD
             match('*'); 
+=======
+            match("img"); 
+
+>>>>>>> refs/remotes/origin/PeterWork
 
             }
 
@@ -460,11 +819,20 @@ public class InternalCommonLexer extends Lexer {
         try {
             int _type = T__38;
             int _channel = DEFAULT_TOKEN_CHANNEL;
+<<<<<<< HEAD
             // ../org.osate.alisa.common.ui/src-gen/org/osate/alisa/common/ui/contentassist/antlr/internal/InternalCommon.g:29:7: ( '**' )
             // ../org.osate.alisa.common.ui/src-gen/org/osate/alisa/common/ui/contentassist/antlr/internal/InternalCommon.g:29:9: '**'
+=======
+            // ../org.osate.alisa.common.ui/src-gen/org/osate/alisa/common/ui/contentassist/antlr/internal/InternalCommon.g:36:7: ( '.' )
+            // ../org.osate.alisa.common.ui/src-gen/org/osate/alisa/common/ui/contentassist/antlr/internal/InternalCommon.g:36:9: '.'
+>>>>>>> refs/remotes/origin/PeterWork
             {
+<<<<<<< HEAD
             match("**"); 
 
+=======
+            match('.'); 
+>>>>>>> refs/remotes/origin/PeterWork
 
             }
 
@@ -481,10 +849,19 @@ public class InternalCommonLexer extends Lexer {
         try {
             int _type = T__39;
             int _channel = DEFAULT_TOKEN_CHANNEL;
+<<<<<<< HEAD
             // ../org.osate.alisa.common.ui/src-gen/org/osate/alisa/common/ui/contentassist/antlr/internal/InternalCommon.g:30:7: ( '/' )
             // ../org.osate.alisa.common.ui/src-gen/org/osate/alisa/common/ui/contentassist/antlr/internal/InternalCommon.g:30:9: '/'
+=======
+            // ../org.osate.alisa.common.ui/src-gen/org/osate/alisa/common/ui/contentassist/antlr/internal/InternalCommon.g:37:7: ( '=' )
+            // ../org.osate.alisa.common.ui/src-gen/org/osate/alisa/common/ui/contentassist/antlr/internal/InternalCommon.g:37:9: '='
+>>>>>>> refs/remotes/origin/PeterWork
             {
+<<<<<<< HEAD
             match('/'); 
+=======
+            match('='); 
+>>>>>>> refs/remotes/origin/PeterWork
 
             }
 
@@ -501,10 +878,19 @@ public class InternalCommonLexer extends Lexer {
         try {
             int _type = T__40;
             int _channel = DEFAULT_TOKEN_CHANNEL;
+<<<<<<< HEAD
             // ../org.osate.alisa.common.ui/src-gen/org/osate/alisa/common/ui/contentassist/antlr/internal/InternalCommon.g:31:7: ( '%' )
             // ../org.osate.alisa.common.ui/src-gen/org/osate/alisa/common/ui/contentassist/antlr/internal/InternalCommon.g:31:9: '%'
+=======
+            // ../org.osate.alisa.common.ui/src-gen/org/osate/alisa/common/ui/contentassist/antlr/internal/InternalCommon.g:38:7: ( '#' )
+            // ../org.osate.alisa.common.ui/src-gen/org/osate/alisa/common/ui/contentassist/antlr/internal/InternalCommon.g:38:9: '#'
+>>>>>>> refs/remotes/origin/PeterWork
             {
+<<<<<<< HEAD
             match('%'); 
+=======
+            match('#'); 
+>>>>>>> refs/remotes/origin/PeterWork
 
             }
 
@@ -521,10 +907,19 @@ public class InternalCommonLexer extends Lexer {
         try {
             int _type = T__41;
             int _channel = DEFAULT_TOKEN_CHANNEL;
+<<<<<<< HEAD
             // ../org.osate.alisa.common.ui/src-gen/org/osate/alisa/common/ui/contentassist/antlr/internal/InternalCommon.g:32:7: ( '!' )
             // ../org.osate.alisa.common.ui/src-gen/org/osate/alisa/common/ui/contentassist/antlr/internal/InternalCommon.g:32:9: '!'
+=======
+            // ../org.osate.alisa.common.ui/src-gen/org/osate/alisa/common/ui/contentassist/antlr/internal/InternalCommon.g:39:7: ( '{' )
+            // ../org.osate.alisa.common.ui/src-gen/org/osate/alisa/common/ui/contentassist/antlr/internal/InternalCommon.g:39:9: '{'
+>>>>>>> refs/remotes/origin/PeterWork
             {
+<<<<<<< HEAD
             match('!'); 
+=======
+            match('{'); 
+>>>>>>> refs/remotes/origin/PeterWork
 
             }
 
@@ -541,11 +936,20 @@ public class InternalCommonLexer extends Lexer {
         try {
             int _type = T__42;
             int _channel = DEFAULT_TOKEN_CHANNEL;
+<<<<<<< HEAD
             // ../org.osate.alisa.common.ui/src-gen/org/osate/alisa/common/ui/contentassist/antlr/internal/InternalCommon.g:33:7: ( 'false' )
             // ../org.osate.alisa.common.ui/src-gen/org/osate/alisa/common/ui/contentassist/antlr/internal/InternalCommon.g:33:9: 'false'
+=======
+            // ../org.osate.alisa.common.ui/src-gen/org/osate/alisa/common/ui/contentassist/antlr/internal/InternalCommon.g:40:7: ( '}' )
+            // ../org.osate.alisa.common.ui/src-gen/org/osate/alisa/common/ui/contentassist/antlr/internal/InternalCommon.g:40:9: '}'
+>>>>>>> refs/remotes/origin/PeterWork
             {
+<<<<<<< HEAD
             match("false"); 
 
+=======
+            match('}'); 
+>>>>>>> refs/remotes/origin/PeterWork
 
             }
 
@@ -562,11 +966,20 @@ public class InternalCommonLexer extends Lexer {
         try {
             int _type = T__43;
             int _channel = DEFAULT_TOKEN_CHANNEL;
+<<<<<<< HEAD
             // ../org.osate.alisa.common.ui/src-gen/org/osate/alisa/common/ui/contentassist/antlr/internal/InternalCommon.g:34:7: ( 'description' )
             // ../org.osate.alisa.common.ui/src-gen/org/osate/alisa/common/ui/contentassist/antlr/internal/InternalCommon.g:34:9: 'description'
+=======
+            // ../org.osate.alisa.common.ui/src-gen/org/osate/alisa/common/ui/contentassist/antlr/internal/InternalCommon.g:41:7: ( ',' )
+            // ../org.osate.alisa.common.ui/src-gen/org/osate/alisa/common/ui/contentassist/antlr/internal/InternalCommon.g:41:9: ','
+>>>>>>> refs/remotes/origin/PeterWork
             {
+<<<<<<< HEAD
             match("description"); 
 
+=======
+            match(','); 
+>>>>>>> refs/remotes/origin/PeterWork
 
             }
 
@@ -583,11 +996,20 @@ public class InternalCommonLexer extends Lexer {
         try {
             int _type = T__44;
             int _channel = DEFAULT_TOKEN_CHANNEL;
+<<<<<<< HEAD
             // ../org.osate.alisa.common.ui/src-gen/org/osate/alisa/common/ui/contentassist/antlr/internal/InternalCommon.g:35:7: ( 'img' )
             // ../org.osate.alisa.common.ui/src-gen/org/osate/alisa/common/ui/contentassist/antlr/internal/InternalCommon.g:35:9: 'img'
+=======
+            // ../org.osate.alisa.common.ui/src-gen/org/osate/alisa/common/ui/contentassist/antlr/internal/InternalCommon.g:42:7: ( '[' )
+            // ../org.osate.alisa.common.ui/src-gen/org/osate/alisa/common/ui/contentassist/antlr/internal/InternalCommon.g:42:9: '['
+>>>>>>> refs/remotes/origin/PeterWork
             {
+<<<<<<< HEAD
             match("img"); 
 
+=======
+            match('['); 
+>>>>>>> refs/remotes/origin/PeterWork
 
             }
 
@@ -604,10 +1026,19 @@ public class InternalCommonLexer extends Lexer {
         try {
             int _type = T__45;
             int _channel = DEFAULT_TOKEN_CHANNEL;
+<<<<<<< HEAD
             // ../org.osate.alisa.common.ui/src-gen/org/osate/alisa/common/ui/contentassist/antlr/internal/InternalCommon.g:36:7: ( '.' )
             // ../org.osate.alisa.common.ui/src-gen/org/osate/alisa/common/ui/contentassist/antlr/internal/InternalCommon.g:36:9: '.'
+=======
+            // ../org.osate.alisa.common.ui/src-gen/org/osate/alisa/common/ui/contentassist/antlr/internal/InternalCommon.g:43:7: ( ']' )
+            // ../org.osate.alisa.common.ui/src-gen/org/osate/alisa/common/ui/contentassist/antlr/internal/InternalCommon.g:43:9: ']'
+>>>>>>> refs/remotes/origin/PeterWork
             {
+<<<<<<< HEAD
             match('.'); 
+=======
+            match(']'); 
+>>>>>>> refs/remotes/origin/PeterWork
 
             }
 
@@ -624,10 +1055,19 @@ public class InternalCommonLexer extends Lexer {
         try {
             int _type = T__46;
             int _channel = DEFAULT_TOKEN_CHANNEL;
+<<<<<<< HEAD
             // ../org.osate.alisa.common.ui/src-gen/org/osate/alisa/common/ui/contentassist/antlr/internal/InternalCommon.g:37:7: ( '=' )
             // ../org.osate.alisa.common.ui/src-gen/org/osate/alisa/common/ui/contentassist/antlr/internal/InternalCommon.g:37:9: '='
+=======
+            // ../org.osate.alisa.common.ui/src-gen/org/osate/alisa/common/ui/contentassist/antlr/internal/InternalCommon.g:44:7: ( '(' )
+            // ../org.osate.alisa.common.ui/src-gen/org/osate/alisa/common/ui/contentassist/antlr/internal/InternalCommon.g:44:9: '('
+>>>>>>> refs/remotes/origin/PeterWork
             {
+<<<<<<< HEAD
             match('='); 
+=======
+            match('('); 
+>>>>>>> refs/remotes/origin/PeterWork
 
             }
 
@@ -644,10 +1084,19 @@ public class InternalCommonLexer extends Lexer {
         try {
             int _type = T__47;
             int _channel = DEFAULT_TOKEN_CHANNEL;
+<<<<<<< HEAD
             // ../org.osate.alisa.common.ui/src-gen/org/osate/alisa/common/ui/contentassist/antlr/internal/InternalCommon.g:38:7: ( '{' )
             // ../org.osate.alisa.common.ui/src-gen/org/osate/alisa/common/ui/contentassist/antlr/internal/InternalCommon.g:38:9: '{'
+=======
+            // ../org.osate.alisa.common.ui/src-gen/org/osate/alisa/common/ui/contentassist/antlr/internal/InternalCommon.g:45:7: ( ')' )
+            // ../org.osate.alisa.common.ui/src-gen/org/osate/alisa/common/ui/contentassist/antlr/internal/InternalCommon.g:45:9: ')'
+>>>>>>> refs/remotes/origin/PeterWork
             {
+<<<<<<< HEAD
             match('{'); 
+=======
+            match(')'); 
+>>>>>>> refs/remotes/origin/PeterWork
 
             }
 
@@ -664,10 +1113,20 @@ public class InternalCommonLexer extends Lexer {
         try {
             int _type = T__48;
             int _channel = DEFAULT_TOKEN_CHANNEL;
+<<<<<<< HEAD
             // ../org.osate.alisa.common.ui/src-gen/org/osate/alisa/common/ui/contentassist/antlr/internal/InternalCommon.g:39:7: ( '}' )
             // ../org.osate.alisa.common.ui/src-gen/org/osate/alisa/common/ui/contentassist/antlr/internal/InternalCommon.g:39:9: '}'
+=======
+            // ../org.osate.alisa.common.ui/src-gen/org/osate/alisa/common/ui/contentassist/antlr/internal/InternalCommon.g:46:7: ( 'null' )
+            // ../org.osate.alisa.common.ui/src-gen/org/osate/alisa/common/ui/contentassist/antlr/internal/InternalCommon.g:46:9: 'null'
+>>>>>>> refs/remotes/origin/PeterWork
             {
+<<<<<<< HEAD
             match('}'); 
+=======
+            match("null"); 
+
+>>>>>>> refs/remotes/origin/PeterWork
 
             }
 
@@ -684,10 +1143,20 @@ public class InternalCommonLexer extends Lexer {
         try {
             int _type = T__49;
             int _channel = DEFAULT_TOKEN_CHANNEL;
+<<<<<<< HEAD
             // ../org.osate.alisa.common.ui/src-gen/org/osate/alisa/common/ui/contentassist/antlr/internal/InternalCommon.g:40:7: ( ',' )
             // ../org.osate.alisa.common.ui/src-gen/org/osate/alisa/common/ui/contentassist/antlr/internal/InternalCommon.g:40:9: ','
+=======
+            // ../org.osate.alisa.common.ui/src-gen/org/osate/alisa/common/ui/contentassist/antlr/internal/InternalCommon.g:47:7: ( '::' )
+            // ../org.osate.alisa.common.ui/src-gen/org/osate/alisa/common/ui/contentassist/antlr/internal/InternalCommon.g:47:9: '::'
+>>>>>>> refs/remotes/origin/PeterWork
             {
+<<<<<<< HEAD
             match(','); 
+=======
+            match("::"); 
+
+>>>>>>> refs/remotes/origin/PeterWork
 
             }
 
@@ -704,10 +1173,20 @@ public class InternalCommonLexer extends Lexer {
         try {
             int _type = T__50;
             int _channel = DEFAULT_TOKEN_CHANNEL;
+<<<<<<< HEAD
             // ../org.osate.alisa.common.ui/src-gen/org/osate/alisa/common/ui/contentassist/antlr/internal/InternalCommon.g:41:7: ( '#' )
             // ../org.osate.alisa.common.ui/src-gen/org/osate/alisa/common/ui/contentassist/antlr/internal/InternalCommon.g:41:9: '#'
+=======
+            // ../org.osate.alisa.common.ui/src-gen/org/osate/alisa/common/ui/contentassist/antlr/internal/InternalCommon.g:48:7: ( 'this' )
+            // ../org.osate.alisa.common.ui/src-gen/org/osate/alisa/common/ui/contentassist/antlr/internal/InternalCommon.g:48:9: 'this'
+>>>>>>> refs/remotes/origin/PeterWork
             {
+<<<<<<< HEAD
             match('#'); 
+=======
+            match("this"); 
+
+>>>>>>> refs/remotes/origin/PeterWork
 
             }
 
@@ -724,6 +1203,7 @@ public class InternalCommonLexer extends Lexer {
         try {
             int _type = T__51;
             int _channel = DEFAULT_TOKEN_CHANNEL;
+<<<<<<< HEAD
             // ../org.osate.alisa.common.ui/src-gen/org/osate/alisa/common/ui/contentassist/antlr/internal/InternalCommon.g:42:7: ( '[' )
             // ../org.osate.alisa.common.ui/src-gen/org/osate/alisa/common/ui/contentassist/antlr/internal/InternalCommon.g:42:9: '['
             {
@@ -867,6 +1347,8 @@ public class InternalCommonLexer extends Lexer {
         try {
             int _type = T__58;
             int _channel = DEFAULT_TOKEN_CHANNEL;
+=======
+>>>>>>> refs/remotes/origin/PeterWork
             // ../org.osate.alisa.common.ui/src-gen/org/osate/alisa/common/ui/contentassist/antlr/internal/InternalCommon.g:49:7: ( 'true' )
             // ../org.osate.alisa.common.ui/src-gen/org/osate/alisa/common/ui/contentassist/antlr/internal/InternalCommon.g:49:9: 'true'
             {
@@ -881,6 +1363,7 @@ public class InternalCommonLexer extends Lexer {
         finally {
         }
     }
+<<<<<<< HEAD
     // $ANTLR end "T__58"
 
     // $ANTLR start "RULE_EXPONENT"
@@ -1509,18 +1992,32 @@ public class InternalCommonLexer extends Lexer {
         }
     }
     // $ANTLR end "RULE_BASED_INTEGER"
+=======
+    // $ANTLR end "T__51"
+>>>>>>> refs/remotes/origin/PeterWork
 
     // $ANTLR start "RULE_HEX"
     public final void mRULE_HEX() throws RecognitionException {
         try {
             int _type = RULE_HEX;
             int _channel = DEFAULT_TOKEN_CHANNEL;
+<<<<<<< HEAD
             // ../org.osate.alisa.common.ui/src-gen/org/osate/alisa/common/ui/contentassist/antlr/internal/InternalCommon.g:6057:10: ( ( '0x' | '0X' ) ( '0' .. '9' | 'a' .. 'f' | 'A' .. 'F' | '_' )+ ( '#' ( ( 'b' | 'B' ) ( 'i' | 'I' ) | ( 'l' | 'L' ) ) )? )
             // ../org.osate.alisa.common.ui/src-gen/org/osate/alisa/common/ui/contentassist/antlr/internal/InternalCommon.g:6057:12: ( '0x' | '0X' ) ( '0' .. '9' | 'a' .. 'f' | 'A' .. 'F' | '_' )+ ( '#' ( ( 'b' | 'B' ) ( 'i' | 'I' ) | ( 'l' | 'L' ) ) )?
+=======
+            // ../org.osate.alisa.common.ui/src-gen/org/osate/alisa/common/ui/contentassist/antlr/internal/InternalCommon.g:5801:10: ( ( '0x' | '0X' ) ( '0' .. '9' | 'a' .. 'f' | 'A' .. 'F' | '_' )+ ( '#' ( ( 'b' | 'B' ) ( 'i' | 'I' ) | ( 'l' | 'L' ) ) )? )
+            // ../org.osate.alisa.common.ui/src-gen/org/osate/alisa/common/ui/contentassist/antlr/internal/InternalCommon.g:5801:12: ( '0x' | '0X' ) ( '0' .. '9' | 'a' .. 'f' | 'A' .. 'F' | '_' )+ ( '#' ( ( 'b' | 'B' ) ( 'i' | 'I' ) | ( 'l' | 'L' ) ) )?
+>>>>>>> refs/remotes/origin/PeterWork
             {
+<<<<<<< HEAD
             // ../org.osate.alisa.common.ui/src-gen/org/osate/alisa/common/ui/contentassist/antlr/internal/InternalCommon.g:6057:12: ( '0x' | '0X' )
             int alt20=2;
             int LA20_0 = input.LA(1);
+=======
+            // ../org.osate.alisa.common.ui/src-gen/org/osate/alisa/common/ui/contentassist/antlr/internal/InternalCommon.g:5801:12: ( '0x' | '0X' )
+            int alt1=2;
+            int LA1_0 = input.LA(1);
+>>>>>>> refs/remotes/origin/PeterWork
 
             if ( (LA20_0=='0') ) {
                 int LA20_1 = input.LA(2);
@@ -1546,7 +2043,11 @@ public class InternalCommonLexer extends Lexer {
             }
             switch (alt20) {
                 case 1 :
+<<<<<<< HEAD
                     // ../org.osate.alisa.common.ui/src-gen/org/osate/alisa/common/ui/contentassist/antlr/internal/InternalCommon.g:6057:13: '0x'
+=======
+                    // ../org.osate.alisa.common.ui/src-gen/org/osate/alisa/common/ui/contentassist/antlr/internal/InternalCommon.g:5801:13: '0x'
+>>>>>>> refs/remotes/origin/PeterWork
                     {
                     match("0x"); 
 
@@ -1554,7 +2055,11 @@ public class InternalCommonLexer extends Lexer {
                     }
                     break;
                 case 2 :
+<<<<<<< HEAD
                     // ../org.osate.alisa.common.ui/src-gen/org/osate/alisa/common/ui/contentassist/antlr/internal/InternalCommon.g:6057:18: '0X'
+=======
+                    // ../org.osate.alisa.common.ui/src-gen/org/osate/alisa/common/ui/contentassist/antlr/internal/InternalCommon.g:5801:18: '0X'
+>>>>>>> refs/remotes/origin/PeterWork
                     {
                     match("0X"); 
 
@@ -1564,9 +2069,15 @@ public class InternalCommonLexer extends Lexer {
 
             }
 
+<<<<<<< HEAD
             // ../org.osate.alisa.common.ui/src-gen/org/osate/alisa/common/ui/contentassist/antlr/internal/InternalCommon.g:6057:24: ( '0' .. '9' | 'a' .. 'f' | 'A' .. 'F' | '_' )+
             int cnt21=0;
             loop21:
+=======
+            // ../org.osate.alisa.common.ui/src-gen/org/osate/alisa/common/ui/contentassist/antlr/internal/InternalCommon.g:5801:24: ( '0' .. '9' | 'a' .. 'f' | 'A' .. 'F' | '_' )+
+            int cnt2=0;
+            loop2:
+>>>>>>> refs/remotes/origin/PeterWork
             do {
                 int alt21=2;
                 int LA21_0 = input.LA(1);
@@ -1602,21 +2113,37 @@ public class InternalCommonLexer extends Lexer {
                 cnt21++;
             } while (true);
 
+<<<<<<< HEAD
             // ../org.osate.alisa.common.ui/src-gen/org/osate/alisa/common/ui/contentassist/antlr/internal/InternalCommon.g:6057:58: ( '#' ( ( 'b' | 'B' ) ( 'i' | 'I' ) | ( 'l' | 'L' ) ) )?
             int alt23=2;
             int LA23_0 = input.LA(1);
+=======
+            // ../org.osate.alisa.common.ui/src-gen/org/osate/alisa/common/ui/contentassist/antlr/internal/InternalCommon.g:5801:58: ( '#' ( ( 'b' | 'B' ) ( 'i' | 'I' ) | ( 'l' | 'L' ) ) )?
+            int alt4=2;
+            int LA4_0 = input.LA(1);
+>>>>>>> refs/remotes/origin/PeterWork
 
             if ( (LA23_0=='#') ) {
                 alt23=1;
             }
             switch (alt23) {
                 case 1 :
+<<<<<<< HEAD
                     // ../org.osate.alisa.common.ui/src-gen/org/osate/alisa/common/ui/contentassist/antlr/internal/InternalCommon.g:6057:59: '#' ( ( 'b' | 'B' ) ( 'i' | 'I' ) | ( 'l' | 'L' ) )
+=======
+                    // ../org.osate.alisa.common.ui/src-gen/org/osate/alisa/common/ui/contentassist/antlr/internal/InternalCommon.g:5801:59: '#' ( ( 'b' | 'B' ) ( 'i' | 'I' ) | ( 'l' | 'L' ) )
+>>>>>>> refs/remotes/origin/PeterWork
                     {
                     match('#'); 
+<<<<<<< HEAD
                     // ../org.osate.alisa.common.ui/src-gen/org/osate/alisa/common/ui/contentassist/antlr/internal/InternalCommon.g:6057:63: ( ( 'b' | 'B' ) ( 'i' | 'I' ) | ( 'l' | 'L' ) )
                     int alt22=2;
                     int LA22_0 = input.LA(1);
+=======
+                    // ../org.osate.alisa.common.ui/src-gen/org/osate/alisa/common/ui/contentassist/antlr/internal/InternalCommon.g:5801:63: ( ( 'b' | 'B' ) ( 'i' | 'I' ) | ( 'l' | 'L' ) )
+                    int alt3=2;
+                    int LA3_0 = input.LA(1);
+>>>>>>> refs/remotes/origin/PeterWork
 
                     if ( (LA22_0=='B'||LA22_0=='b') ) {
                         alt22=1;
@@ -1632,7 +2159,11 @@ public class InternalCommonLexer extends Lexer {
                     }
                     switch (alt22) {
                         case 1 :
+<<<<<<< HEAD
                             // ../org.osate.alisa.common.ui/src-gen/org/osate/alisa/common/ui/contentassist/antlr/internal/InternalCommon.g:6057:64: ( 'b' | 'B' ) ( 'i' | 'I' )
+=======
+                            // ../org.osate.alisa.common.ui/src-gen/org/osate/alisa/common/ui/contentassist/antlr/internal/InternalCommon.g:5801:64: ( 'b' | 'B' ) ( 'i' | 'I' )
+>>>>>>> refs/remotes/origin/PeterWork
                             {
                             if ( input.LA(1)=='B'||input.LA(1)=='b' ) {
                                 input.consume();
@@ -1656,7 +2187,11 @@ public class InternalCommonLexer extends Lexer {
                             }
                             break;
                         case 2 :
+<<<<<<< HEAD
                             // ../org.osate.alisa.common.ui/src-gen/org/osate/alisa/common/ui/contentassist/antlr/internal/InternalCommon.g:6057:84: ( 'l' | 'L' )
+=======
+                            // ../org.osate.alisa.common.ui/src-gen/org/osate/alisa/common/ui/contentassist/antlr/internal/InternalCommon.g:5801:84: ( 'l' | 'L' )
+>>>>>>> refs/remotes/origin/PeterWork
                             {
                             if ( input.LA(1)=='L'||input.LA(1)=='l' ) {
                                 input.consume();
@@ -1695,12 +2230,22 @@ public class InternalCommonLexer extends Lexer {
         try {
             int _type = RULE_INT;
             int _channel = DEFAULT_TOKEN_CHANNEL;
+<<<<<<< HEAD
             // ../org.osate.alisa.common.ui/src-gen/org/osate/alisa/common/ui/contentassist/antlr/internal/InternalCommon.g:6059:10: ( '0' .. '9' ( '0' .. '9' | '_' )* )
             // ../org.osate.alisa.common.ui/src-gen/org/osate/alisa/common/ui/contentassist/antlr/internal/InternalCommon.g:6059:12: '0' .. '9' ( '0' .. '9' | '_' )*
+=======
+            // ../org.osate.alisa.common.ui/src-gen/org/osate/alisa/common/ui/contentassist/antlr/internal/InternalCommon.g:5803:10: ( '0' .. '9' ( '0' .. '9' | '_' )* )
+            // ../org.osate.alisa.common.ui/src-gen/org/osate/alisa/common/ui/contentassist/antlr/internal/InternalCommon.g:5803:12: '0' .. '9' ( '0' .. '9' | '_' )*
+>>>>>>> refs/remotes/origin/PeterWork
             {
             matchRange('0','9'); 
+<<<<<<< HEAD
             // ../org.osate.alisa.common.ui/src-gen/org/osate/alisa/common/ui/contentassist/antlr/internal/InternalCommon.g:6059:21: ( '0' .. '9' | '_' )*
             loop24:
+=======
+            // ../org.osate.alisa.common.ui/src-gen/org/osate/alisa/common/ui/contentassist/antlr/internal/InternalCommon.g:5803:21: ( '0' .. '9' | '_' )*
+            loop5:
+>>>>>>> refs/remotes/origin/PeterWork
             do {
                 int alt24=2;
                 int LA24_0 = input.LA(1);
@@ -1748,20 +2293,35 @@ public class InternalCommonLexer extends Lexer {
         try {
             int _type = RULE_DECIMAL;
             int _channel = DEFAULT_TOKEN_CHANNEL;
+<<<<<<< HEAD
             // ../org.osate.alisa.common.ui/src-gen/org/osate/alisa/common/ui/contentassist/antlr/internal/InternalCommon.g:6061:14: ( RULE_INT ( ( 'e' | 'E' ) ( '+' | '-' )? RULE_INT )? ( ( 'b' | 'B' ) ( 'i' | 'I' | 'd' | 'D' ) | ( 'l' | 'L' | 'd' | 'D' | 'f' | 'F' ) )? )
             // ../org.osate.alisa.common.ui/src-gen/org/osate/alisa/common/ui/contentassist/antlr/internal/InternalCommon.g:6061:16: RULE_INT ( ( 'e' | 'E' ) ( '+' | '-' )? RULE_INT )? ( ( 'b' | 'B' ) ( 'i' | 'I' | 'd' | 'D' ) | ( 'l' | 'L' | 'd' | 'D' | 'f' | 'F' ) )?
+=======
+            // ../org.osate.alisa.common.ui/src-gen/org/osate/alisa/common/ui/contentassist/antlr/internal/InternalCommon.g:5805:14: ( RULE_INT ( ( 'e' | 'E' ) ( '+' | '-' )? RULE_INT )? ( ( 'b' | 'B' ) ( 'i' | 'I' | 'd' | 'D' ) | ( 'l' | 'L' | 'd' | 'D' | 'f' | 'F' ) )? )
+            // ../org.osate.alisa.common.ui/src-gen/org/osate/alisa/common/ui/contentassist/antlr/internal/InternalCommon.g:5805:16: RULE_INT ( ( 'e' | 'E' ) ( '+' | '-' )? RULE_INT )? ( ( 'b' | 'B' ) ( 'i' | 'I' | 'd' | 'D' ) | ( 'l' | 'L' | 'd' | 'D' | 'f' | 'F' ) )?
+>>>>>>> refs/remotes/origin/PeterWork
             {
             mRULE_INT(); 
+<<<<<<< HEAD
             // ../org.osate.alisa.common.ui/src-gen/org/osate/alisa/common/ui/contentassist/antlr/internal/InternalCommon.g:6061:25: ( ( 'e' | 'E' ) ( '+' | '-' )? RULE_INT )?
             int alt26=2;
             int LA26_0 = input.LA(1);
+=======
+            // ../org.osate.alisa.common.ui/src-gen/org/osate/alisa/common/ui/contentassist/antlr/internal/InternalCommon.g:5805:25: ( ( 'e' | 'E' ) ( '+' | '-' )? RULE_INT )?
+            int alt7=2;
+            int LA7_0 = input.LA(1);
+>>>>>>> refs/remotes/origin/PeterWork
 
             if ( (LA26_0=='E'||LA26_0=='e') ) {
                 alt26=1;
             }
             switch (alt26) {
                 case 1 :
+<<<<<<< HEAD
                     // ../org.osate.alisa.common.ui/src-gen/org/osate/alisa/common/ui/contentassist/antlr/internal/InternalCommon.g:6061:26: ( 'e' | 'E' ) ( '+' | '-' )? RULE_INT
+=======
+                    // ../org.osate.alisa.common.ui/src-gen/org/osate/alisa/common/ui/contentassist/antlr/internal/InternalCommon.g:5805:26: ( 'e' | 'E' ) ( '+' | '-' )? RULE_INT
+>>>>>>> refs/remotes/origin/PeterWork
                     {
                     if ( input.LA(1)=='E'||input.LA(1)=='e' ) {
                         input.consume();
@@ -1772,9 +2332,15 @@ public class InternalCommonLexer extends Lexer {
                         recover(mse);
                         throw mse;}
 
+<<<<<<< HEAD
                     // ../org.osate.alisa.common.ui/src-gen/org/osate/alisa/common/ui/contentassist/antlr/internal/InternalCommon.g:6061:36: ( '+' | '-' )?
                     int alt25=2;
                     int LA25_0 = input.LA(1);
+=======
+                    // ../org.osate.alisa.common.ui/src-gen/org/osate/alisa/common/ui/contentassist/antlr/internal/InternalCommon.g:5805:36: ( '+' | '-' )?
+                    int alt6=2;
+                    int LA6_0 = input.LA(1);
+>>>>>>> refs/remotes/origin/PeterWork
 
                     if ( (LA25_0=='+'||LA25_0=='-') ) {
                         alt25=1;
@@ -1805,9 +2371,15 @@ public class InternalCommonLexer extends Lexer {
 
             }
 
+<<<<<<< HEAD
             // ../org.osate.alisa.common.ui/src-gen/org/osate/alisa/common/ui/contentassist/antlr/internal/InternalCommon.g:6061:58: ( ( 'b' | 'B' ) ( 'i' | 'I' | 'd' | 'D' ) | ( 'l' | 'L' | 'd' | 'D' | 'f' | 'F' ) )?
             int alt27=3;
             int LA27_0 = input.LA(1);
+=======
+            // ../org.osate.alisa.common.ui/src-gen/org/osate/alisa/common/ui/contentassist/antlr/internal/InternalCommon.g:5805:58: ( ( 'b' | 'B' ) ( 'i' | 'I' | 'd' | 'D' ) | ( 'l' | 'L' | 'd' | 'D' | 'f' | 'F' ) )?
+            int alt8=3;
+            int LA8_0 = input.LA(1);
+>>>>>>> refs/remotes/origin/PeterWork
 
             if ( (LA27_0=='B'||LA27_0=='b') ) {
                 alt27=1;
@@ -1817,7 +2389,11 @@ public class InternalCommonLexer extends Lexer {
             }
             switch (alt27) {
                 case 1 :
+<<<<<<< HEAD
                     // ../org.osate.alisa.common.ui/src-gen/org/osate/alisa/common/ui/contentassist/antlr/internal/InternalCommon.g:6061:59: ( 'b' | 'B' ) ( 'i' | 'I' | 'd' | 'D' )
+=======
+                    // ../org.osate.alisa.common.ui/src-gen/org/osate/alisa/common/ui/contentassist/antlr/internal/InternalCommon.g:5805:59: ( 'b' | 'B' ) ( 'i' | 'I' | 'd' | 'D' )
+>>>>>>> refs/remotes/origin/PeterWork
                     {
                     if ( input.LA(1)=='B'||input.LA(1)=='b' ) {
                         input.consume();
@@ -1841,7 +2417,11 @@ public class InternalCommonLexer extends Lexer {
                     }
                     break;
                 case 2 :
+<<<<<<< HEAD
                     // ../org.osate.alisa.common.ui/src-gen/org/osate/alisa/common/ui/contentassist/antlr/internal/InternalCommon.g:6061:87: ( 'l' | 'L' | 'd' | 'D' | 'f' | 'F' )
+=======
+                    // ../org.osate.alisa.common.ui/src-gen/org/osate/alisa/common/ui/contentassist/antlr/internal/InternalCommon.g:5805:87: ( 'l' | 'L' | 'd' | 'D' | 'f' | 'F' )
+>>>>>>> refs/remotes/origin/PeterWork
                     {
                     if ( input.LA(1)=='D'||input.LA(1)=='F'||input.LA(1)=='L'||input.LA(1)=='d'||input.LA(1)=='f'||input.LA(1)=='l' ) {
                         input.consume();
@@ -1874,19 +2454,34 @@ public class InternalCommonLexer extends Lexer {
         try {
             int _type = RULE_ID;
             int _channel = DEFAULT_TOKEN_CHANNEL;
+<<<<<<< HEAD
             // ../org.osate.alisa.common.ui/src-gen/org/osate/alisa/common/ui/contentassist/antlr/internal/InternalCommon.g:6063:9: ( ( '^' )? ( 'a' .. 'z' | 'A' .. 'Z' | '_' ) ( 'a' .. 'z' | 'A' .. 'Z' | '_' | '0' .. '9' )* )
             // ../org.osate.alisa.common.ui/src-gen/org/osate/alisa/common/ui/contentassist/antlr/internal/InternalCommon.g:6063:11: ( '^' )? ( 'a' .. 'z' | 'A' .. 'Z' | '_' ) ( 'a' .. 'z' | 'A' .. 'Z' | '_' | '0' .. '9' )*
+=======
+            // ../org.osate.alisa.common.ui/src-gen/org/osate/alisa/common/ui/contentassist/antlr/internal/InternalCommon.g:5807:9: ( ( '^' )? ( 'a' .. 'z' | 'A' .. 'Z' | '_' ) ( 'a' .. 'z' | 'A' .. 'Z' | '_' | '0' .. '9' )* )
+            // ../org.osate.alisa.common.ui/src-gen/org/osate/alisa/common/ui/contentassist/antlr/internal/InternalCommon.g:5807:11: ( '^' )? ( 'a' .. 'z' | 'A' .. 'Z' | '_' ) ( 'a' .. 'z' | 'A' .. 'Z' | '_' | '0' .. '9' )*
+>>>>>>> refs/remotes/origin/PeterWork
             {
+<<<<<<< HEAD
             // ../org.osate.alisa.common.ui/src-gen/org/osate/alisa/common/ui/contentassist/antlr/internal/InternalCommon.g:6063:11: ( '^' )?
             int alt28=2;
             int LA28_0 = input.LA(1);
+=======
+            // ../org.osate.alisa.common.ui/src-gen/org/osate/alisa/common/ui/contentassist/antlr/internal/InternalCommon.g:5807:11: ( '^' )?
+            int alt9=2;
+            int LA9_0 = input.LA(1);
+>>>>>>> refs/remotes/origin/PeterWork
 
             if ( (LA28_0=='^') ) {
                 alt28=1;
             }
             switch (alt28) {
                 case 1 :
+<<<<<<< HEAD
                     // ../org.osate.alisa.common.ui/src-gen/org/osate/alisa/common/ui/contentassist/antlr/internal/InternalCommon.g:6063:11: '^'
+=======
+                    // ../org.osate.alisa.common.ui/src-gen/org/osate/alisa/common/ui/contentassist/antlr/internal/InternalCommon.g:5807:11: '^'
+>>>>>>> refs/remotes/origin/PeterWork
                     {
                     match('^'); 
 
@@ -1904,14 +2499,24 @@ public class InternalCommonLexer extends Lexer {
                 recover(mse);
                 throw mse;}
 
+<<<<<<< HEAD
             // ../org.osate.alisa.common.ui/src-gen/org/osate/alisa/common/ui/contentassist/antlr/internal/InternalCommon.g:6063:40: ( 'a' .. 'z' | 'A' .. 'Z' | '_' | '0' .. '9' )*
             loop29:
+=======
+            // ../org.osate.alisa.common.ui/src-gen/org/osate/alisa/common/ui/contentassist/antlr/internal/InternalCommon.g:5807:40: ( 'a' .. 'z' | 'A' .. 'Z' | '_' | '0' .. '9' )*
+            loop10:
+>>>>>>> refs/remotes/origin/PeterWork
             do {
                 int alt29=2;
                 int LA29_0 = input.LA(1);
 
+<<<<<<< HEAD
                 if ( ((LA29_0>='0' && LA29_0<='9')||(LA29_0>='A' && LA29_0<='Z')||LA29_0=='_'||(LA29_0>='a' && LA29_0<='z')) ) {
                     alt29=1;
+=======
+                if ( ((LA10_0>='0' && LA10_0<='9')||(LA10_0>='A' && LA10_0<='Z')||LA10_0=='_'||(LA10_0>='a' && LA10_0<='z')) ) {
+                    alt10=1;
+>>>>>>> refs/remotes/origin/PeterWork
                 }
 
 
@@ -1953,32 +2558,70 @@ public class InternalCommonLexer extends Lexer {
         try {
             int _type = RULE_STRING;
             int _channel = DEFAULT_TOKEN_CHANNEL;
+<<<<<<< HEAD
             // ../org.osate.alisa.common.ui/src-gen/org/osate/alisa/common/ui/contentassist/antlr/internal/InternalCommon.g:6065:13: ( ( '\"' ( '\\\\' . | ~ ( ( '\\\\' | '\"' ) ) )* '\"' | '\\'' ( '\\\\' . | ~ ( ( '\\\\' | '\\'' ) ) )* '\\'' ) )
             // ../org.osate.alisa.common.ui/src-gen/org/osate/alisa/common/ui/contentassist/antlr/internal/InternalCommon.g:6065:15: ( '\"' ( '\\\\' . | ~ ( ( '\\\\' | '\"' ) ) )* '\"' | '\\'' ( '\\\\' . | ~ ( ( '\\\\' | '\\'' ) ) )* '\\'' )
+=======
+            // ../org.osate.alisa.common.ui/src-gen/org/osate/alisa/common/ui/contentassist/antlr/internal/InternalCommon.g:5809:13: ( ( '\"' ( '\\\\' . | ~ ( ( '\\\\' | '\"' ) ) )* '\"' | '\\'' ( '\\\\' . | ~ ( ( '\\\\' | '\\'' ) ) )* '\\'' ) )
+            // ../org.osate.alisa.common.ui/src-gen/org/osate/alisa/common/ui/contentassist/antlr/internal/InternalCommon.g:5809:15: ( '\"' ( '\\\\' . | ~ ( ( '\\\\' | '\"' ) ) )* '\"' | '\\'' ( '\\\\' . | ~ ( ( '\\\\' | '\\'' ) ) )* '\\'' )
+>>>>>>> refs/remotes/origin/PeterWork
             {
+<<<<<<< HEAD
             // ../org.osate.alisa.common.ui/src-gen/org/osate/alisa/common/ui/contentassist/antlr/internal/InternalCommon.g:6065:15: ( '\"' ( '\\\\' . | ~ ( ( '\\\\' | '\"' ) ) )* '\"' | '\\'' ( '\\\\' . | ~ ( ( '\\\\' | '\\'' ) ) )* '\\'' )
             int alt32=2;
             int LA32_0 = input.LA(1);
+=======
+            // ../org.osate.alisa.common.ui/src-gen/org/osate/alisa/common/ui/contentassist/antlr/internal/InternalCommon.g:5809:15: ( '\"' ( '\\\\' . | ~ ( ( '\\\\' | '\"' ) ) )* '\"' | '\\'' ( '\\\\' . | ~ ( ( '\\\\' | '\\'' ) ) )* '\\'' )
+            int alt13=2;
+            int LA13_0 = input.LA(1);
+>>>>>>> refs/remotes/origin/PeterWork
 
+<<<<<<< HEAD
             if ( (LA32_0=='\"') ) {
                 alt32=1;
+=======
+            if ( (LA13_0=='\"') ) {
+                alt13=1;
+>>>>>>> refs/remotes/origin/PeterWork
             }
+<<<<<<< HEAD
             else if ( (LA32_0=='\'') ) {
                 alt32=2;
+=======
+            else if ( (LA13_0=='\'') ) {
+                alt13=2;
+>>>>>>> refs/remotes/origin/PeterWork
             }
             else {
                 NoViableAltException nvae =
+<<<<<<< HEAD
                     new NoViableAltException("", 32, 0, input);
+=======
+                    new NoViableAltException("", 13, 0, input);
+>>>>>>> refs/remotes/origin/PeterWork
 
                 throw nvae;
             }
+<<<<<<< HEAD
             switch (alt32) {
+=======
+            switch (alt13) {
+>>>>>>> refs/remotes/origin/PeterWork
                 case 1 :
+<<<<<<< HEAD
                     // ../org.osate.alisa.common.ui/src-gen/org/osate/alisa/common/ui/contentassist/antlr/internal/InternalCommon.g:6065:16: '\"' ( '\\\\' . | ~ ( ( '\\\\' | '\"' ) ) )* '\"'
+=======
+                    // ../org.osate.alisa.common.ui/src-gen/org/osate/alisa/common/ui/contentassist/antlr/internal/InternalCommon.g:5809:16: '\"' ( '\\\\' . | ~ ( ( '\\\\' | '\"' ) ) )* '\"'
+>>>>>>> refs/remotes/origin/PeterWork
                     {
                     match('\"'); 
+<<<<<<< HEAD
                     // ../org.osate.alisa.common.ui/src-gen/org/osate/alisa/common/ui/contentassist/antlr/internal/InternalCommon.g:6065:20: ( '\\\\' . | ~ ( ( '\\\\' | '\"' ) ) )*
                     loop30:
+=======
+                    // ../org.osate.alisa.common.ui/src-gen/org/osate/alisa/common/ui/contentassist/antlr/internal/InternalCommon.g:5809:20: ( '\\\\' . | ~ ( ( '\\\\' | '\"' ) ) )*
+                    loop11:
+>>>>>>> refs/remotes/origin/PeterWork
                     do {
                         int alt30=3;
                         int LA30_0 = input.LA(1);
@@ -1993,7 +2636,11 @@ public class InternalCommonLexer extends Lexer {
 
                         switch (alt30) {
                     	case 1 :
+<<<<<<< HEAD
                     	    // ../org.osate.alisa.common.ui/src-gen/org/osate/alisa/common/ui/contentassist/antlr/internal/InternalCommon.g:6065:21: '\\\\' .
+=======
+                    	    // ../org.osate.alisa.common.ui/src-gen/org/osate/alisa/common/ui/contentassist/antlr/internal/InternalCommon.g:5809:21: '\\\\' .
+>>>>>>> refs/remotes/origin/PeterWork
                     	    {
                     	    match('\\'); 
                     	    matchAny(); 
@@ -2001,7 +2648,11 @@ public class InternalCommonLexer extends Lexer {
                     	    }
                     	    break;
                     	case 2 :
+<<<<<<< HEAD
                     	    // ../org.osate.alisa.common.ui/src-gen/org/osate/alisa/common/ui/contentassist/antlr/internal/InternalCommon.g:6065:28: ~ ( ( '\\\\' | '\"' ) )
+=======
+                    	    // ../org.osate.alisa.common.ui/src-gen/org/osate/alisa/common/ui/contentassist/antlr/internal/InternalCommon.g:5809:28: ~ ( ( '\\\\' | '\"' ) )
+>>>>>>> refs/remotes/origin/PeterWork
                     	    {
                     	    if ( (input.LA(1)>='\u0000' && input.LA(1)<='!')||(input.LA(1)>='#' && input.LA(1)<='[')||(input.LA(1)>=']' && input.LA(1)<='\uFFFF') ) {
                     	        input.consume();
@@ -2026,26 +2677,58 @@ public class InternalCommonLexer extends Lexer {
                     }
                     break;
                 case 2 :
+<<<<<<< HEAD
                     // ../org.osate.alisa.common.ui/src-gen/org/osate/alisa/common/ui/contentassist/antlr/internal/InternalCommon.g:6065:48: '\\'' ( '\\\\' . | ~ ( ( '\\\\' | '\\'' ) ) )* '\\''
+=======
+                    // ../org.osate.alisa.common.ui/src-gen/org/osate/alisa/common/ui/contentassist/antlr/internal/InternalCommon.g:5809:48: '\\'' ( '\\\\' . | ~ ( ( '\\\\' | '\\'' ) ) )* '\\''
+>>>>>>> refs/remotes/origin/PeterWork
                     {
                     match('\''); 
+<<<<<<< HEAD
                     // ../org.osate.alisa.common.ui/src-gen/org/osate/alisa/common/ui/contentassist/antlr/internal/InternalCommon.g:6065:53: ( '\\\\' . | ~ ( ( '\\\\' | '\\'' ) ) )*
                     loop31:
+=======
+                    // ../org.osate.alisa.common.ui/src-gen/org/osate/alisa/common/ui/contentassist/antlr/internal/InternalCommon.g:5809:53: ( '\\\\' . | ~ ( ( '\\\\' | '\\'' ) ) )*
+                    loop12:
+>>>>>>> refs/remotes/origin/PeterWork
                     do {
+<<<<<<< HEAD
                         int alt31=3;
                         int LA31_0 = input.LA(1);
+=======
+                        int alt12=3;
+                        int LA12_0 = input.LA(1);
+>>>>>>> refs/remotes/origin/PeterWork
 
+<<<<<<< HEAD
                         if ( (LA31_0=='\\') ) {
                             alt31=1;
+=======
+                        if ( (LA12_0=='\\') ) {
+                            alt12=1;
+>>>>>>> refs/remotes/origin/PeterWork
                         }
+<<<<<<< HEAD
                         else if ( ((LA31_0>='\u0000' && LA31_0<='&')||(LA31_0>='(' && LA31_0<='[')||(LA31_0>=']' && LA31_0<='\uFFFF')) ) {
                             alt31=2;
+=======
+                        else if ( ((LA12_0>='\u0000' && LA12_0<='&')||(LA12_0>='(' && LA12_0<='[')||(LA12_0>=']' && LA12_0<='\uFFFF')) ) {
+                            alt12=2;
+>>>>>>> refs/remotes/origin/PeterWork
                         }
 
 
+<<<<<<< HEAD
                         switch (alt31) {
+=======
+                        switch (alt12) {
+>>>>>>> refs/remotes/origin/PeterWork
                     	case 1 :
+<<<<<<< HEAD
                     	    // ../org.osate.alisa.common.ui/src-gen/org/osate/alisa/common/ui/contentassist/antlr/internal/InternalCommon.g:6065:54: '\\\\' .
+=======
+                    	    // ../org.osate.alisa.common.ui/src-gen/org/osate/alisa/common/ui/contentassist/antlr/internal/InternalCommon.g:5809:54: '\\\\' .
+>>>>>>> refs/remotes/origin/PeterWork
                     	    {
                     	    match('\\'); 
                     	    matchAny(); 
@@ -2053,7 +2736,11 @@ public class InternalCommonLexer extends Lexer {
                     	    }
                     	    break;
                     	case 2 :
+<<<<<<< HEAD
                     	    // ../org.osate.alisa.common.ui/src-gen/org/osate/alisa/common/ui/contentassist/antlr/internal/InternalCommon.g:6065:61: ~ ( ( '\\\\' | '\\'' ) )
+=======
+                    	    // ../org.osate.alisa.common.ui/src-gen/org/osate/alisa/common/ui/contentassist/antlr/internal/InternalCommon.g:5809:61: ~ ( ( '\\\\' | '\\'' ) )
+>>>>>>> refs/remotes/origin/PeterWork
                     	    {
                     	    if ( (input.LA(1)>='\u0000' && input.LA(1)<='&')||(input.LA(1)>='(' && input.LA(1)<='[')||(input.LA(1)>=']' && input.LA(1)<='\uFFFF') ) {
                     	        input.consume();
@@ -2069,7 +2756,11 @@ public class InternalCommonLexer extends Lexer {
                     	    break;
 
                     	default :
+<<<<<<< HEAD
                     	    break loop31;
+=======
+                    	    break loop12;
+>>>>>>> refs/remotes/origin/PeterWork
                         }
                     } while (true);
 
@@ -2096,37 +2787,80 @@ public class InternalCommonLexer extends Lexer {
         try {
             int _type = RULE_ML_COMMENT;
             int _channel = DEFAULT_TOKEN_CHANNEL;
+<<<<<<< HEAD
             // ../org.osate.alisa.common.ui/src-gen/org/osate/alisa/common/ui/contentassist/antlr/internal/InternalCommon.g:6067:17: ( '/*' ( options {greedy=false; } : . )* '*/' )
             // ../org.osate.alisa.common.ui/src-gen/org/osate/alisa/common/ui/contentassist/antlr/internal/InternalCommon.g:6067:19: '/*' ( options {greedy=false; } : . )* '*/'
+=======
+            // ../org.osate.alisa.common.ui/src-gen/org/osate/alisa/common/ui/contentassist/antlr/internal/InternalCommon.g:5811:17: ( '/*' ( options {greedy=false; } : . )* '*/' )
+            // ../org.osate.alisa.common.ui/src-gen/org/osate/alisa/common/ui/contentassist/antlr/internal/InternalCommon.g:5811:19: '/*' ( options {greedy=false; } : . )* '*/'
+>>>>>>> refs/remotes/origin/PeterWork
             {
             match("/*"); 
 
+<<<<<<< HEAD
             // ../org.osate.alisa.common.ui/src-gen/org/osate/alisa/common/ui/contentassist/antlr/internal/InternalCommon.g:6067:24: ( options {greedy=false; } : . )*
             loop33:
+=======
+            // ../org.osate.alisa.common.ui/src-gen/org/osate/alisa/common/ui/contentassist/antlr/internal/InternalCommon.g:5811:24: ( options {greedy=false; } : . )*
+            loop14:
+>>>>>>> refs/remotes/origin/PeterWork
             do {
+<<<<<<< HEAD
                 int alt33=2;
                 int LA33_0 = input.LA(1);
+=======
+                int alt14=2;
+                int LA14_0 = input.LA(1);
+>>>>>>> refs/remotes/origin/PeterWork
 
+<<<<<<< HEAD
                 if ( (LA33_0=='*') ) {
                     int LA33_1 = input.LA(2);
+=======
+                if ( (LA14_0=='*') ) {
+                    int LA14_1 = input.LA(2);
+>>>>>>> refs/remotes/origin/PeterWork
 
+<<<<<<< HEAD
                     if ( (LA33_1=='/') ) {
                         alt33=2;
+=======
+                    if ( (LA14_1=='/') ) {
+                        alt14=2;
+>>>>>>> refs/remotes/origin/PeterWork
                     }
+<<<<<<< HEAD
                     else if ( ((LA33_1>='\u0000' && LA33_1<='.')||(LA33_1>='0' && LA33_1<='\uFFFF')) ) {
                         alt33=1;
+=======
+                    else if ( ((LA14_1>='\u0000' && LA14_1<='.')||(LA14_1>='0' && LA14_1<='\uFFFF')) ) {
+                        alt14=1;
+>>>>>>> refs/remotes/origin/PeterWork
                     }
 
 
                 }
+<<<<<<< HEAD
                 else if ( ((LA33_0>='\u0000' && LA33_0<=')')||(LA33_0>='+' && LA33_0<='\uFFFF')) ) {
                     alt33=1;
+=======
+                else if ( ((LA14_0>='\u0000' && LA14_0<=')')||(LA14_0>='+' && LA14_0<='\uFFFF')) ) {
+                    alt14=1;
+>>>>>>> refs/remotes/origin/PeterWork
                 }
 
 
+<<<<<<< HEAD
                 switch (alt33) {
+=======
+                switch (alt14) {
+>>>>>>> refs/remotes/origin/PeterWork
             	case 1 :
+<<<<<<< HEAD
             	    // ../org.osate.alisa.common.ui/src-gen/org/osate/alisa/common/ui/contentassist/antlr/internal/InternalCommon.g:6067:52: .
+=======
+            	    // ../org.osate.alisa.common.ui/src-gen/org/osate/alisa/common/ui/contentassist/antlr/internal/InternalCommon.g:5811:52: .
+>>>>>>> refs/remotes/origin/PeterWork
             	    {
             	    matchAny(); 
 
@@ -2134,7 +2868,11 @@ public class InternalCommonLexer extends Lexer {
             	    break;
 
             	default :
+<<<<<<< HEAD
             	    break loop33;
+=======
+            	    break loop14;
+>>>>>>> refs/remotes/origin/PeterWork
                 }
             } while (true);
 
@@ -2156,25 +2894,53 @@ public class InternalCommonLexer extends Lexer {
         try {
             int _type = RULE_SL_COMMENT;
             int _channel = DEFAULT_TOKEN_CHANNEL;
+<<<<<<< HEAD
             // ../org.osate.alisa.common.ui/src-gen/org/osate/alisa/common/ui/contentassist/antlr/internal/InternalCommon.g:6069:17: ( '//' (~ ( ( '\\n' | '\\r' ) ) )* ( ( '\\r' )? '\\n' )? )
             // ../org.osate.alisa.common.ui/src-gen/org/osate/alisa/common/ui/contentassist/antlr/internal/InternalCommon.g:6069:19: '//' (~ ( ( '\\n' | '\\r' ) ) )* ( ( '\\r' )? '\\n' )?
+=======
+            // ../org.osate.alisa.common.ui/src-gen/org/osate/alisa/common/ui/contentassist/antlr/internal/InternalCommon.g:5813:17: ( '//' (~ ( ( '\\n' | '\\r' ) ) )* ( ( '\\r' )? '\\n' )? )
+            // ../org.osate.alisa.common.ui/src-gen/org/osate/alisa/common/ui/contentassist/antlr/internal/InternalCommon.g:5813:19: '//' (~ ( ( '\\n' | '\\r' ) ) )* ( ( '\\r' )? '\\n' )?
+>>>>>>> refs/remotes/origin/PeterWork
             {
             match("//"); 
 
+<<<<<<< HEAD
             // ../org.osate.alisa.common.ui/src-gen/org/osate/alisa/common/ui/contentassist/antlr/internal/InternalCommon.g:6069:24: (~ ( ( '\\n' | '\\r' ) ) )*
             loop34:
+=======
+            // ../org.osate.alisa.common.ui/src-gen/org/osate/alisa/common/ui/contentassist/antlr/internal/InternalCommon.g:5813:24: (~ ( ( '\\n' | '\\r' ) ) )*
+            loop15:
+>>>>>>> refs/remotes/origin/PeterWork
             do {
+<<<<<<< HEAD
                 int alt34=2;
                 int LA34_0 = input.LA(1);
+=======
+                int alt15=2;
+                int LA15_0 = input.LA(1);
+>>>>>>> refs/remotes/origin/PeterWork
 
+<<<<<<< HEAD
                 if ( ((LA34_0>='\u0000' && LA34_0<='\t')||(LA34_0>='\u000B' && LA34_0<='\f')||(LA34_0>='\u000E' && LA34_0<='\uFFFF')) ) {
                     alt34=1;
+=======
+                if ( ((LA15_0>='\u0000' && LA15_0<='\t')||(LA15_0>='\u000B' && LA15_0<='\f')||(LA15_0>='\u000E' && LA15_0<='\uFFFF')) ) {
+                    alt15=1;
+>>>>>>> refs/remotes/origin/PeterWork
                 }
 
 
+<<<<<<< HEAD
                 switch (alt34) {
+=======
+                switch (alt15) {
+>>>>>>> refs/remotes/origin/PeterWork
             	case 1 :
+<<<<<<< HEAD
             	    // ../org.osate.alisa.common.ui/src-gen/org/osate/alisa/common/ui/contentassist/antlr/internal/InternalCommon.g:6069:24: ~ ( ( '\\n' | '\\r' ) )
+=======
+            	    // ../org.osate.alisa.common.ui/src-gen/org/osate/alisa/common/ui/contentassist/antlr/internal/InternalCommon.g:5813:24: ~ ( ( '\\n' | '\\r' ) )
+>>>>>>> refs/remotes/origin/PeterWork
             	    {
             	    if ( (input.LA(1)>='\u0000' && input.LA(1)<='\t')||(input.LA(1)>='\u000B' && input.LA(1)<='\f')||(input.LA(1)>='\u000E' && input.LA(1)<='\uFFFF') ) {
             	        input.consume();
@@ -2190,31 +2956,73 @@ public class InternalCommonLexer extends Lexer {
             	    break;
 
             	default :
+<<<<<<< HEAD
             	    break loop34;
+=======
+            	    break loop15;
+>>>>>>> refs/remotes/origin/PeterWork
                 }
             } while (true);
 
+<<<<<<< HEAD
             // ../org.osate.alisa.common.ui/src-gen/org/osate/alisa/common/ui/contentassist/antlr/internal/InternalCommon.g:6069:40: ( ( '\\r' )? '\\n' )?
             int alt36=2;
             int LA36_0 = input.LA(1);
+=======
+            // ../org.osate.alisa.common.ui/src-gen/org/osate/alisa/common/ui/contentassist/antlr/internal/InternalCommon.g:5813:40: ( ( '\\r' )? '\\n' )?
+            int alt17=2;
+            int LA17_0 = input.LA(1);
+>>>>>>> refs/remotes/origin/PeterWork
 
+<<<<<<< HEAD
             if ( (LA36_0=='\n'||LA36_0=='\r') ) {
                 alt36=1;
+=======
+            if ( (LA17_0=='\n'||LA17_0=='\r') ) {
+                alt17=1;
+>>>>>>> refs/remotes/origin/PeterWork
             }
+<<<<<<< HEAD
             switch (alt36) {
+=======
+            switch (alt17) {
+>>>>>>> refs/remotes/origin/PeterWork
                 case 1 :
+<<<<<<< HEAD
                     // ../org.osate.alisa.common.ui/src-gen/org/osate/alisa/common/ui/contentassist/antlr/internal/InternalCommon.g:6069:41: ( '\\r' )? '\\n'
+=======
+                    // ../org.osate.alisa.common.ui/src-gen/org/osate/alisa/common/ui/contentassist/antlr/internal/InternalCommon.g:5813:41: ( '\\r' )? '\\n'
+>>>>>>> refs/remotes/origin/PeterWork
                     {
+<<<<<<< HEAD
                     // ../org.osate.alisa.common.ui/src-gen/org/osate/alisa/common/ui/contentassist/antlr/internal/InternalCommon.g:6069:41: ( '\\r' )?
                     int alt35=2;
                     int LA35_0 = input.LA(1);
+=======
+                    // ../org.osate.alisa.common.ui/src-gen/org/osate/alisa/common/ui/contentassist/antlr/internal/InternalCommon.g:5813:41: ( '\\r' )?
+                    int alt16=2;
+                    int LA16_0 = input.LA(1);
+>>>>>>> refs/remotes/origin/PeterWork
 
+<<<<<<< HEAD
                     if ( (LA35_0=='\r') ) {
                         alt35=1;
+=======
+                    if ( (LA16_0=='\r') ) {
+                        alt16=1;
+>>>>>>> refs/remotes/origin/PeterWork
                     }
+<<<<<<< HEAD
                     switch (alt35) {
+=======
+                    switch (alt16) {
+>>>>>>> refs/remotes/origin/PeterWork
                         case 1 :
+<<<<<<< HEAD
                             // ../org.osate.alisa.common.ui/src-gen/org/osate/alisa/common/ui/contentassist/antlr/internal/InternalCommon.g:6069:41: '\\r'
+=======
+                            // ../org.osate.alisa.common.ui/src-gen/org/osate/alisa/common/ui/contentassist/antlr/internal/InternalCommon.g:5813:41: '\\r'
+>>>>>>> refs/remotes/origin/PeterWork
                             {
                             match('\r'); 
 
@@ -2246,22 +3054,47 @@ public class InternalCommonLexer extends Lexer {
         try {
             int _type = RULE_WS;
             int _channel = DEFAULT_TOKEN_CHANNEL;
+<<<<<<< HEAD
             // ../org.osate.alisa.common.ui/src-gen/org/osate/alisa/common/ui/contentassist/antlr/internal/InternalCommon.g:6071:9: ( ( ' ' | '\\t' | '\\r' | '\\n' )+ )
             // ../org.osate.alisa.common.ui/src-gen/org/osate/alisa/common/ui/contentassist/antlr/internal/InternalCommon.g:6071:11: ( ' ' | '\\t' | '\\r' | '\\n' )+
+=======
+            // ../org.osate.alisa.common.ui/src-gen/org/osate/alisa/common/ui/contentassist/antlr/internal/InternalCommon.g:5815:9: ( ( ' ' | '\\t' | '\\r' | '\\n' )+ )
+            // ../org.osate.alisa.common.ui/src-gen/org/osate/alisa/common/ui/contentassist/antlr/internal/InternalCommon.g:5815:11: ( ' ' | '\\t' | '\\r' | '\\n' )+
+>>>>>>> refs/remotes/origin/PeterWork
             {
+<<<<<<< HEAD
             // ../org.osate.alisa.common.ui/src-gen/org/osate/alisa/common/ui/contentassist/antlr/internal/InternalCommon.g:6071:11: ( ' ' | '\\t' | '\\r' | '\\n' )+
             int cnt37=0;
             loop37:
+=======
+            // ../org.osate.alisa.common.ui/src-gen/org/osate/alisa/common/ui/contentassist/antlr/internal/InternalCommon.g:5815:11: ( ' ' | '\\t' | '\\r' | '\\n' )+
+            int cnt18=0;
+            loop18:
+>>>>>>> refs/remotes/origin/PeterWork
             do {
+<<<<<<< HEAD
                 int alt37=2;
                 int LA37_0 = input.LA(1);
+=======
+                int alt18=2;
+                int LA18_0 = input.LA(1);
+>>>>>>> refs/remotes/origin/PeterWork
 
+<<<<<<< HEAD
                 if ( ((LA37_0>='\t' && LA37_0<='\n')||LA37_0=='\r'||LA37_0==' ') ) {
                     alt37=1;
+=======
+                if ( ((LA18_0>='\t' && LA18_0<='\n')||LA18_0=='\r'||LA18_0==' ') ) {
+                    alt18=1;
+>>>>>>> refs/remotes/origin/PeterWork
                 }
 
 
+<<<<<<< HEAD
                 switch (alt37) {
+=======
+                switch (alt18) {
+>>>>>>> refs/remotes/origin/PeterWork
             	case 1 :
             	    // ../org.osate.alisa.common.ui/src-gen/org/osate/alisa/common/ui/contentassist/antlr/internal/InternalCommon.g:
             	    {
@@ -2279,12 +3112,24 @@ public class InternalCommonLexer extends Lexer {
             	    break;
 
             	default :
+<<<<<<< HEAD
             	    if ( cnt37 >= 1 ) break loop37;
+=======
+            	    if ( cnt18 >= 1 ) break loop18;
+>>>>>>> refs/remotes/origin/PeterWork
                         EarlyExitException eee =
+<<<<<<< HEAD
                             new EarlyExitException(37, input);
+=======
+                            new EarlyExitException(18, input);
+>>>>>>> refs/remotes/origin/PeterWork
                         throw eee;
                 }
+<<<<<<< HEAD
                 cnt37++;
+=======
+                cnt18++;
+>>>>>>> refs/remotes/origin/PeterWork
             } while (true);
 
 
@@ -2303,8 +3148,13 @@ public class InternalCommonLexer extends Lexer {
         try {
             int _type = RULE_ANY_OTHER;
             int _channel = DEFAULT_TOKEN_CHANNEL;
+<<<<<<< HEAD
             // ../org.osate.alisa.common.ui/src-gen/org/osate/alisa/common/ui/contentassist/antlr/internal/InternalCommon.g:6073:16: ( . )
             // ../org.osate.alisa.common.ui/src-gen/org/osate/alisa/common/ui/contentassist/antlr/internal/InternalCommon.g:6073:18: .
+=======
+            // ../org.osate.alisa.common.ui/src-gen/org/osate/alisa/common/ui/contentassist/antlr/internal/InternalCommon.g:5817:16: ( . )
+            // ../org.osate.alisa.common.ui/src-gen/org/osate/alisa/common/ui/contentassist/antlr/internal/InternalCommon.g:5817:18: .
+>>>>>>> refs/remotes/origin/PeterWork
             {
             matchAny(); 
 
@@ -2319,10 +3169,17 @@ public class InternalCommonLexer extends Lexer {
     // $ANTLR end "RULE_ANY_OTHER"
 
     public void mTokens() throws RecognitionException {
+<<<<<<< HEAD
         // ../org.osate.alisa.common.ui/src-gen/org/osate/alisa/common/ui/contentassist/antlr/internal/InternalCommon.g:1:8: ( T__20 | T__21 | T__22 | T__23 | T__24 | T__25 | T__26 | T__27 | T__28 | T__29 | T__30 | T__31 | T__32 | T__33 | T__34 | T__35 | T__36 | T__37 | T__38 | T__39 | T__40 | T__41 | T__42 | T__43 | T__44 | T__45 | T__46 | T__47 | T__48 | T__49 | T__50 | T__51 | T__52 | T__53 | T__54 | T__55 | T__56 | T__57 | T__58 | RULE_REAL_LIT | RULE_INTEGER_LIT | RULE_HEX | RULE_INT | RULE_DECIMAL | RULE_ID | RULE_STRING | RULE_ML_COMMENT | RULE_SL_COMMENT | RULE_WS | RULE_ANY_OTHER )
         int alt38=50;
         alt38 = dfa38.predict(input);
         switch (alt38) {
+=======
+        // ../org.osate.alisa.common.ui/src-gen/org/osate/alisa/common/ui/contentassist/antlr/internal/InternalCommon.g:1:8: ( T__13 | T__14 | T__15 | T__16 | T__17 | T__18 | T__19 | T__20 | T__21 | T__22 | T__23 | T__24 | T__25 | T__26 | T__27 | T__28 | T__29 | T__30 | T__31 | T__32 | T__33 | T__34 | T__35 | T__36 | T__37 | T__38 | T__39 | T__40 | T__41 | T__42 | T__43 | T__44 | T__45 | T__46 | T__47 | T__48 | T__49 | T__50 | T__51 | RULE_HEX | RULE_INT | RULE_DECIMAL | RULE_ID | RULE_STRING | RULE_ML_COMMENT | RULE_SL_COMMENT | RULE_WS | RULE_ANY_OTHER )
+        int alt19=48;
+        alt19 = dfa19.predict(input);
+        switch (alt19) {
+>>>>>>> refs/remotes/origin/PeterWork
             case 1 :
                 // ../org.osate.alisa.common.ui/src-gen/org/osate/alisa/common/ui/contentassist/antlr/internal/InternalCommon.g:1:10: T__20
                 {
@@ -2547,6 +3404,7 @@ public class InternalCommonLexer extends Lexer {
 
                 }
                 break;
+<<<<<<< HEAD
             case 33 :
                 // ../org.osate.alisa.common.ui/src-gen/org/osate/alisa/common/ui/contentassist/antlr/internal/InternalCommon.g:1:202: T__52
                 {
@@ -2612,62 +3470,106 @@ public class InternalCommonLexer extends Lexer {
                 break;
             case 42 :
                 // ../org.osate.alisa.common.ui/src-gen/org/osate/alisa/common/ui/contentassist/antlr/internal/InternalCommon.g:1:275: RULE_HEX
+=======
+            case 40 :
+                // ../org.osate.alisa.common.ui/src-gen/org/osate/alisa/common/ui/contentassist/antlr/internal/InternalCommon.g:1:244: RULE_HEX
+>>>>>>> refs/remotes/origin/PeterWork
                 {
                 mRULE_HEX(); 
 
                 }
                 break;
+<<<<<<< HEAD
             case 43 :
                 // ../org.osate.alisa.common.ui/src-gen/org/osate/alisa/common/ui/contentassist/antlr/internal/InternalCommon.g:1:284: RULE_INT
+=======
+            case 41 :
+                // ../org.osate.alisa.common.ui/src-gen/org/osate/alisa/common/ui/contentassist/antlr/internal/InternalCommon.g:1:253: RULE_INT
+>>>>>>> refs/remotes/origin/PeterWork
                 {
                 mRULE_INT(); 
 
                 }
                 break;
+<<<<<<< HEAD
             case 44 :
                 // ../org.osate.alisa.common.ui/src-gen/org/osate/alisa/common/ui/contentassist/antlr/internal/InternalCommon.g:1:293: RULE_DECIMAL
+=======
+            case 42 :
+                // ../org.osate.alisa.common.ui/src-gen/org/osate/alisa/common/ui/contentassist/antlr/internal/InternalCommon.g:1:262: RULE_DECIMAL
+>>>>>>> refs/remotes/origin/PeterWork
                 {
                 mRULE_DECIMAL(); 
 
                 }
                 break;
+<<<<<<< HEAD
             case 45 :
                 // ../org.osate.alisa.common.ui/src-gen/org/osate/alisa/common/ui/contentassist/antlr/internal/InternalCommon.g:1:306: RULE_ID
+=======
+            case 43 :
+                // ../org.osate.alisa.common.ui/src-gen/org/osate/alisa/common/ui/contentassist/antlr/internal/InternalCommon.g:1:275: RULE_ID
+>>>>>>> refs/remotes/origin/PeterWork
                 {
                 mRULE_ID(); 
 
                 }
                 break;
+<<<<<<< HEAD
             case 46 :
                 // ../org.osate.alisa.common.ui/src-gen/org/osate/alisa/common/ui/contentassist/antlr/internal/InternalCommon.g:1:314: RULE_STRING
+=======
+            case 44 :
+                // ../org.osate.alisa.common.ui/src-gen/org/osate/alisa/common/ui/contentassist/antlr/internal/InternalCommon.g:1:283: RULE_STRING
+>>>>>>> refs/remotes/origin/PeterWork
                 {
                 mRULE_STRING(); 
 
                 }
                 break;
+<<<<<<< HEAD
             case 47 :
                 // ../org.osate.alisa.common.ui/src-gen/org/osate/alisa/common/ui/contentassist/antlr/internal/InternalCommon.g:1:326: RULE_ML_COMMENT
+=======
+            case 45 :
+                // ../org.osate.alisa.common.ui/src-gen/org/osate/alisa/common/ui/contentassist/antlr/internal/InternalCommon.g:1:295: RULE_ML_COMMENT
+>>>>>>> refs/remotes/origin/PeterWork
                 {
                 mRULE_ML_COMMENT(); 
 
                 }
                 break;
+<<<<<<< HEAD
             case 48 :
                 // ../org.osate.alisa.common.ui/src-gen/org/osate/alisa/common/ui/contentassist/antlr/internal/InternalCommon.g:1:342: RULE_SL_COMMENT
+=======
+            case 46 :
+                // ../org.osate.alisa.common.ui/src-gen/org/osate/alisa/common/ui/contentassist/antlr/internal/InternalCommon.g:1:311: RULE_SL_COMMENT
+>>>>>>> refs/remotes/origin/PeterWork
                 {
                 mRULE_SL_COMMENT(); 
 
                 }
                 break;
+<<<<<<< HEAD
             case 49 :
                 // ../org.osate.alisa.common.ui/src-gen/org/osate/alisa/common/ui/contentassist/antlr/internal/InternalCommon.g:1:358: RULE_WS
+=======
+            case 47 :
+                // ../org.osate.alisa.common.ui/src-gen/org/osate/alisa/common/ui/contentassist/antlr/internal/InternalCommon.g:1:327: RULE_WS
+>>>>>>> refs/remotes/origin/PeterWork
                 {
                 mRULE_WS(); 
 
                 }
                 break;
+<<<<<<< HEAD
             case 50 :
                 // ../org.osate.alisa.common.ui/src-gen/org/osate/alisa/common/ui/contentassist/antlr/internal/InternalCommon.g:1:366: RULE_ANY_OTHER
+=======
+            case 48 :
+                // ../org.osate.alisa.common.ui/src-gen/org/osate/alisa/common/ui/contentassist/antlr/internal/InternalCommon.g:1:335: RULE_ANY_OTHER
+>>>>>>> refs/remotes/origin/PeterWork
                 {
                 mRULE_ANY_OTHER(); 
 
@@ -2679,6 +3581,7 @@ public class InternalCommonLexer extends Lexer {
     }
 
 
+<<<<<<< HEAD
     protected DFA38 dfa38 = new DFA38(this);
     static final String DFA38_eotS =
         "\1\uffff\2\43\1\50\1\52\1\54\1\56\1\60\1\62\1\43\1\uffff\1\66\1"+
@@ -2723,6 +3626,49 @@ public class InternalCommonLexer extends Lexer {
             "\32\1\43\1\6\1\3\1\5\1\11\1\43\32\37\1\25\1\43\1\26\1\36\1\37"+
             "\1\43\3\37\1\17\1\37\1\16\2\37\1\20\4\37\1\31\5\37\1\33\6\37"+
             "\1\21\1\1\1\22\uff82\43",
+=======
+    protected DFA19 dfa19 = new DFA19(this);
+    static final String DFA19_eotS =
+        "\1\uffff\2\43\1\50\1\52\1\54\1\56\1\60\1\62\1\43\1\uffff\1\66\1"+
+        "\71\1\uffff\3\74\10\uffff\1\74\1\43\1\74\2\115\1\43\1\uffff\2\43"+
+        "\4\uffff\1\122\2\uffff\1\124\7\uffff\1\126\11\uffff\1\74\1\uffff"+
+        "\2\74\10\uffff\1\74\1\uffff\2\74\1\uffff\1\115\12\uffff\2\74\1\137"+
+        "\5\74\1\uffff\1\145\1\146\1\147\1\150\1\74\4\uffff\5\74\1\157\1"+
+        "\uffff";
+    static final String DFA19_eofS =
+        "\160\uffff";
+    static final String DFA19_minS =
+        "\1\0\1\174\1\46\3\75\2\76\1\56\1\72\1\uffff\2\52\1\uffff\1\141"+
+        "\1\145\1\155\10\uffff\1\165\1\72\1\150\2\60\1\101\1\uffff\2\0\4"+
+        "\uffff\1\75\2\uffff\1\75\7\uffff\1\74\11\uffff\1\154\1\uffff\1\163"+
+        "\1\147\10\uffff\1\154\1\uffff\1\151\1\165\1\uffff\1\60\12\uffff"+
+        "\1\163\1\143\1\60\1\154\1\163\2\145\1\162\1\uffff\4\60\1\151\4\uffff"+
+        "\1\160\1\164\1\151\1\157\1\156\1\60\1\uffff";
+    static final String DFA19_maxS =
+        "\1\uffff\1\174\1\46\1\76\2\75\2\76\1\56\1\72\1\uffff\1\52\1\57"+
+        "\1\uffff\1\141\1\145\1\155\10\uffff\1\165\1\72\1\162\1\170\1\154"+
+        "\1\172\1\uffff\2\uffff\4\uffff\1\75\2\uffff\1\75\7\uffff\1\74\11"+
+        "\uffff\1\154\1\uffff\1\163\1\147\10\uffff\1\154\1\uffff\1\151\1"+
+        "\165\1\uffff\1\154\12\uffff\1\163\1\143\1\172\1\154\1\163\2\145"+
+        "\1\162\1\uffff\4\172\1\151\4\uffff\1\160\1\164\1\151\1\157\1\156"+
+        "\1\172\1\uffff";
+    static final String DFA19_acceptS =
+        "\12\uffff\1\20\2\uffff\1\25\3\uffff\1\34\1\35\1\36\1\37\1\40\1"+
+        "\41\1\42\1\43\6\uffff\1\53\2\uffff\1\57\1\60\1\1\1\2\1\uffff\1\15"+
+        "\1\33\1\uffff\1\26\1\7\1\10\1\16\1\11\1\12\1\21\1\uffff\1\32\1\17"+
+        "\1\20\1\23\1\22\1\55\1\56\1\24\1\25\1\uffff\1\53\2\uffff\1\34\1"+
+        "\35\1\36\1\37\1\40\1\41\1\42\1\43\1\uffff\1\45\2\uffff\1\50\1\uffff"+
+        "\1\51\1\52\1\54\1\57\1\5\1\3\1\6\1\4\1\13\1\14\10\uffff\1\31\5\uffff"+
+        "\1\44\1\46\1\47\1\27\6\uffff\1\30";
+    static final String DFA19_specialS =
+        "\1\2\37\uffff\1\1\1\0\116\uffff}>";
+    static final String[] DFA19_transitionS = {
+            "\11\43\2\42\2\43\1\42\22\43\1\42\1\4\1\40\1\21\1\43\1\15\1"+
+            "\2\1\41\1\27\1\30\1\13\1\12\1\24\1\7\1\10\1\14\1\34\11\35\1"+
+            "\32\1\43\1\6\1\3\1\5\1\11\1\43\32\37\1\25\1\43\1\26\1\36\1\37"+
+            "\1\43\3\37\1\17\1\37\1\16\2\37\1\20\4\37\1\31\5\37\1\33\6\37"+
+            "\1\22\1\1\1\23\uff82\43",
+>>>>>>> refs/remotes/origin/PeterWork
             "\1\44",
             "\1\45",
             "\1\46\1\47",
@@ -2750,6 +3696,7 @@ public class InternalCommonLexer extends Lexer {
             "\1\107",
             "\1\110",
             "\1\111\11\uffff\1\112",
+<<<<<<< HEAD
             "\1\121\1\uffff\12\120\10\uffff\1\117\1\uffff\1\117\1\116\1"+
             "\117\5\uffff\1\117\13\uffff\1\113\6\uffff\1\114\2\uffff\1\117"+
             "\1\uffff\1\117\1\116\1\117\5\uffff\1\117\13\uffff\1\113",
@@ -2799,7 +3746,74 @@ public class InternalCommonLexer extends Lexer {
             "",
             "\1\135",
             "",
+=======
+            "\12\114\10\uffff\1\116\1\uffff\3\116\5\uffff\1\116\13\uffff"+
+            "\1\113\6\uffff\1\114\2\uffff\1\116\1\uffff\3\116\5\uffff\1\116"+
+            "\13\uffff\1\113",
+            "\12\114\10\uffff\1\116\1\uffff\3\116\5\uffff\1\116\22\uffff"+
+            "\1\114\2\uffff\1\116\1\uffff\3\116\5\uffff\1\116",
+            "\32\74\4\uffff\1\74\1\uffff\32\74",
+            "",
+            "\0\117",
+            "\0\117",
+            "",
+            "",
+            "",
+            "",
+            "\1\121",
+            "",
+            "",
+            "\1\123",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "\1\125",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "\1\127",
+            "",
+            "\1\130",
+            "\1\131",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "\1\132",
+            "",
+            "\1\133",
+            "\1\134",
+            "",
+            "\12\114\10\uffff\1\116\1\uffff\3\116\5\uffff\1\116\22\uffff"+
+            "\1\114\2\uffff\1\116\1\uffff\3\116\5\uffff\1\116",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "\1\135",
+>>>>>>> refs/remotes/origin/PeterWork
             "\1\136",
+<<<<<<< HEAD
             "\1\137",
             "",
             "\12\141\10\uffff\1\117\1\uffff\3\117\5\uffff\1\117\22\uffff"+
@@ -2810,11 +3824,20 @@ public class InternalCommonLexer extends Lexer {
             "\1\121\1\uffff\12\120\10\uffff\1\117\1\uffff\1\117\1\116\1"+
             "\117\5\uffff\1\117\22\uffff\1\114\2\uffff\1\117\1\uffff\1\117"+
             "\1\116\1\117\5\uffff\1\117",
+=======
+            "\12\74\7\uffff\32\74\4\uffff\1\74\1\uffff\32\74",
+            "\1\140",
+            "\1\141",
+            "\1\142",
+            "\1\143",
+            "\1\144",
+>>>>>>> refs/remotes/origin/PeterWork
             "",
-            "",
-            "",
-            "",
-            "",
+            "\12\74\7\uffff\32\74\4\uffff\1\74\1\uffff\32\74",
+            "\12\74\7\uffff\32\74\4\uffff\1\74\1\uffff\32\74",
+            "\12\74\7\uffff\32\74\4\uffff\1\74\1\uffff\32\74",
+            "\12\74\7\uffff\32\74\4\uffff\1\74\1\uffff\32\74",
+            "\1\151",
             "",
             "",
             "",
@@ -2825,6 +3848,7 @@ public class InternalCommonLexer extends Lexer {
             "\1\150",
             "\1\151",
             "\1\152",
+<<<<<<< HEAD
             "",
             "\1\121\1\uffff\12\141\10\uffff\1\117\1\uffff\1\117\1\116\1"+
             "\117\5\uffff\1\117\22\uffff\1\114\2\uffff\1\117\1\uffff\1\117"+
@@ -2855,10 +3879,17 @@ public class InternalCommonLexer extends Lexer {
             "\1\165",
             "\1\166",
             "\1\167",
+=======
+            "\1\153",
+            "\1\154",
+            "\1\155",
+            "\1\156",
+>>>>>>> refs/remotes/origin/PeterWork
             "\12\74\7\uffff\32\74\4\uffff\1\74\1\uffff\32\74",
             ""
     };
 
+<<<<<<< HEAD
     static final short[] DFA38_eot = DFA.unpackEncodedString(DFA38_eotS);
     static final short[] DFA38_eof = DFA.unpackEncodedString(DFA38_eofS);
     static final char[] DFA38_min = DFA.unpackEncodedStringToUnsignedChars(DFA38_minS);
@@ -2866,19 +3897,46 @@ public class InternalCommonLexer extends Lexer {
     static final short[] DFA38_accept = DFA.unpackEncodedString(DFA38_acceptS);
     static final short[] DFA38_special = DFA.unpackEncodedString(DFA38_specialS);
     static final short[][] DFA38_transition;
+=======
+    static final short[] DFA19_eot = DFA.unpackEncodedString(DFA19_eotS);
+    static final short[] DFA19_eof = DFA.unpackEncodedString(DFA19_eofS);
+    static final char[] DFA19_min = DFA.unpackEncodedStringToUnsignedChars(DFA19_minS);
+    static final char[] DFA19_max = DFA.unpackEncodedStringToUnsignedChars(DFA19_maxS);
+    static final short[] DFA19_accept = DFA.unpackEncodedString(DFA19_acceptS);
+    static final short[] DFA19_special = DFA.unpackEncodedString(DFA19_specialS);
+    static final short[][] DFA19_transition;
+>>>>>>> refs/remotes/origin/PeterWork
 
     static {
+<<<<<<< HEAD
         int numStates = DFA38_transitionS.length;
         DFA38_transition = new short[numStates][];
+=======
+        int numStates = DFA19_transitionS.length;
+        DFA19_transition = new short[numStates][];
+>>>>>>> refs/remotes/origin/PeterWork
         for (int i=0; i<numStates; i++) {
+<<<<<<< HEAD
             DFA38_transition[i] = DFA.unpackEncodedString(DFA38_transitionS[i]);
+=======
+            DFA19_transition[i] = DFA.unpackEncodedString(DFA19_transitionS[i]);
+>>>>>>> refs/remotes/origin/PeterWork
         }
     }
 
+<<<<<<< HEAD
     class DFA38 extends DFA {
+=======
+    class DFA19 extends DFA {
+>>>>>>> refs/remotes/origin/PeterWork
 
+<<<<<<< HEAD
         public DFA38(BaseRecognizer recognizer) {
+=======
+        public DFA19(BaseRecognizer recognizer) {
+>>>>>>> refs/remotes/origin/PeterWork
             this.recognizer = recognizer;
+<<<<<<< HEAD
             this.decisionNumber = 38;
             this.eot = DFA38_eot;
             this.eof = DFA38_eof;
@@ -2887,113 +3945,307 @@ public class InternalCommonLexer extends Lexer {
             this.accept = DFA38_accept;
             this.special = DFA38_special;
             this.transition = DFA38_transition;
+=======
+            this.decisionNumber = 19;
+            this.eot = DFA19_eot;
+            this.eof = DFA19_eof;
+            this.min = DFA19_min;
+            this.max = DFA19_max;
+            this.accept = DFA19_accept;
+            this.special = DFA19_special;
+            this.transition = DFA19_transition;
+>>>>>>> refs/remotes/origin/PeterWork
         }
         public String getDescription() {
+<<<<<<< HEAD
             return "1:1: Tokens : ( T__20 | T__21 | T__22 | T__23 | T__24 | T__25 | T__26 | T__27 | T__28 | T__29 | T__30 | T__31 | T__32 | T__33 | T__34 | T__35 | T__36 | T__37 | T__38 | T__39 | T__40 | T__41 | T__42 | T__43 | T__44 | T__45 | T__46 | T__47 | T__48 | T__49 | T__50 | T__51 | T__52 | T__53 | T__54 | T__55 | T__56 | T__57 | T__58 | RULE_REAL_LIT | RULE_INTEGER_LIT | RULE_HEX | RULE_INT | RULE_DECIMAL | RULE_ID | RULE_STRING | RULE_ML_COMMENT | RULE_SL_COMMENT | RULE_WS | RULE_ANY_OTHER );";
+=======
+            return "1:1: Tokens : ( T__13 | T__14 | T__15 | T__16 | T__17 | T__18 | T__19 | T__20 | T__21 | T__22 | T__23 | T__24 | T__25 | T__26 | T__27 | T__28 | T__29 | T__30 | T__31 | T__32 | T__33 | T__34 | T__35 | T__36 | T__37 | T__38 | T__39 | T__40 | T__41 | T__42 | T__43 | T__44 | T__45 | T__46 | T__47 | T__48 | T__49 | T__50 | T__51 | RULE_HEX | RULE_INT | RULE_DECIMAL | RULE_ID | RULE_STRING | RULE_ML_COMMENT | RULE_SL_COMMENT | RULE_WS | RULE_ANY_OTHER );";
+>>>>>>> refs/remotes/origin/PeterWork
         }
         public int specialStateTransition(int s, IntStream _input) throws NoViableAltException {
             IntStream input = _input;
         	int _s = s;
             switch ( s ) {
                     case 0 : 
+<<<<<<< HEAD
                         int LA38_0 = input.LA(1);
+=======
+                        int LA19_33 = input.LA(1);
+>>>>>>> refs/remotes/origin/PeterWork
 
                         s = -1;
+<<<<<<< HEAD
                         if ( (LA38_0=='|') ) {s = 1;}
+=======
+                        if ( ((LA19_33>='\u0000' && LA19_33<='\uFFFF')) ) {s = 79;}
+>>>>>>> refs/remotes/origin/PeterWork
 
+<<<<<<< HEAD
                         else if ( (LA38_0=='&') ) {s = 2;}
+=======
+                        else s = 35;
+>>>>>>> refs/remotes/origin/PeterWork
 
+<<<<<<< HEAD
                         else if ( (LA38_0=='=') ) {s = 3;}
+=======
+                        if ( s>=0 ) return s;
+                        break;
+                    case 1 : 
+                        int LA19_32 = input.LA(1);
+>>>>>>> refs/remotes/origin/PeterWork
 
+<<<<<<< HEAD
                         else if ( (LA38_0=='!') ) {s = 4;}
+=======
+                        s = -1;
+                        if ( ((LA19_32>='\u0000' && LA19_32<='\uFFFF')) ) {s = 79;}
+>>>>>>> refs/remotes/origin/PeterWork
 
+<<<<<<< HEAD
                         else if ( (LA38_0=='>') ) {s = 5;}
+=======
+                        else s = 35;
+>>>>>>> refs/remotes/origin/PeterWork
 
+<<<<<<< HEAD
                         else if ( (LA38_0=='<') ) {s = 6;}
+=======
+                        if ( s>=0 ) return s;
+                        break;
+                    case 2 : 
+                        int LA19_0 = input.LA(1);
+>>>>>>> refs/remotes/origin/PeterWork
 
+<<<<<<< HEAD
                         else if ( (LA38_0=='-') ) {s = 7;}
+=======
+                        s = -1;
+                        if ( (LA19_0=='|') ) {s = 1;}
+>>>>>>> refs/remotes/origin/PeterWork
 
+<<<<<<< HEAD
                         else if ( (LA38_0=='.') ) {s = 8;}
+=======
+                        else if ( (LA19_0=='&') ) {s = 2;}
+>>>>>>> refs/remotes/origin/PeterWork
 
+<<<<<<< HEAD
                         else if ( (LA38_0=='?') ) {s = 9;}
+=======
+                        else if ( (LA19_0=='=') ) {s = 3;}
+>>>>>>> refs/remotes/origin/PeterWork
 
+<<<<<<< HEAD
                         else if ( (LA38_0=='+') ) {s = 10;}
+=======
+                        else if ( (LA19_0=='!') ) {s = 4;}
+>>>>>>> refs/remotes/origin/PeterWork
 
+<<<<<<< HEAD
                         else if ( (LA38_0=='*') ) {s = 11;}
+=======
+                        else if ( (LA19_0=='>') ) {s = 5;}
+>>>>>>> refs/remotes/origin/PeterWork
 
+<<<<<<< HEAD
                         else if ( (LA38_0=='/') ) {s = 12;}
+=======
+                        else if ( (LA19_0=='<') ) {s = 6;}
+>>>>>>> refs/remotes/origin/PeterWork
 
+<<<<<<< HEAD
                         else if ( (LA38_0=='%') ) {s = 13;}
+=======
+                        else if ( (LA19_0=='-') ) {s = 7;}
+>>>>>>> refs/remotes/origin/PeterWork
 
+<<<<<<< HEAD
                         else if ( (LA38_0=='f') ) {s = 14;}
+=======
+                        else if ( (LA19_0=='.') ) {s = 8;}
+>>>>>>> refs/remotes/origin/PeterWork
 
+<<<<<<< HEAD
                         else if ( (LA38_0=='d') ) {s = 15;}
+=======
+                        else if ( (LA19_0=='?') ) {s = 9;}
+>>>>>>> refs/remotes/origin/PeterWork
 
+<<<<<<< HEAD
                         else if ( (LA38_0=='i') ) {s = 16;}
+=======
+                        else if ( (LA19_0=='+') ) {s = 10;}
+>>>>>>> refs/remotes/origin/PeterWork
 
+<<<<<<< HEAD
                         else if ( (LA38_0=='{') ) {s = 17;}
+=======
+                        else if ( (LA19_0=='*') ) {s = 11;}
+>>>>>>> refs/remotes/origin/PeterWork
 
+<<<<<<< HEAD
                         else if ( (LA38_0=='}') ) {s = 18;}
+=======
+                        else if ( (LA19_0=='/') ) {s = 12;}
+>>>>>>> refs/remotes/origin/PeterWork
 
+<<<<<<< HEAD
                         else if ( (LA38_0==',') ) {s = 19;}
+=======
+                        else if ( (LA19_0=='%') ) {s = 13;}
+>>>>>>> refs/remotes/origin/PeterWork
 
+<<<<<<< HEAD
                         else if ( (LA38_0=='#') ) {s = 20;}
+=======
+                        else if ( (LA19_0=='f') ) {s = 14;}
+>>>>>>> refs/remotes/origin/PeterWork
 
+<<<<<<< HEAD
                         else if ( (LA38_0=='[') ) {s = 21;}
+=======
+                        else if ( (LA19_0=='d') ) {s = 15;}
+>>>>>>> refs/remotes/origin/PeterWork
 
+<<<<<<< HEAD
                         else if ( (LA38_0==']') ) {s = 22;}
+=======
+                        else if ( (LA19_0=='i') ) {s = 16;}
+>>>>>>> refs/remotes/origin/PeterWork
 
+<<<<<<< HEAD
                         else if ( (LA38_0=='(') ) {s = 23;}
+=======
+                        else if ( (LA19_0=='#') ) {s = 17;}
+>>>>>>> refs/remotes/origin/PeterWork
 
+<<<<<<< HEAD
                         else if ( (LA38_0==')') ) {s = 24;}
+=======
+                        else if ( (LA19_0=='{') ) {s = 18;}
+>>>>>>> refs/remotes/origin/PeterWork
 
+<<<<<<< HEAD
                         else if ( (LA38_0=='n') ) {s = 25;}
+=======
+                        else if ( (LA19_0=='}') ) {s = 19;}
+>>>>>>> refs/remotes/origin/PeterWork
 
+<<<<<<< HEAD
                         else if ( (LA38_0==':') ) {s = 26;}
+=======
+                        else if ( (LA19_0==',') ) {s = 20;}
+>>>>>>> refs/remotes/origin/PeterWork
 
+<<<<<<< HEAD
                         else if ( (LA38_0=='t') ) {s = 27;}
+=======
+                        else if ( (LA19_0=='[') ) {s = 21;}
+>>>>>>> refs/remotes/origin/PeterWork
 
+<<<<<<< HEAD
                         else if ( (LA38_0=='0') ) {s = 28;}
+=======
+                        else if ( (LA19_0==']') ) {s = 22;}
+>>>>>>> refs/remotes/origin/PeterWork
 
+<<<<<<< HEAD
                         else if ( ((LA38_0>='1' && LA38_0<='9')) ) {s = 29;}
+=======
+                        else if ( (LA19_0=='(') ) {s = 23;}
+>>>>>>> refs/remotes/origin/PeterWork
 
+<<<<<<< HEAD
                         else if ( (LA38_0=='^') ) {s = 30;}
+=======
+                        else if ( (LA19_0==')') ) {s = 24;}
+>>>>>>> refs/remotes/origin/PeterWork
 
+<<<<<<< HEAD
                         else if ( ((LA38_0>='A' && LA38_0<='Z')||LA38_0=='_'||(LA38_0>='a' && LA38_0<='c')||LA38_0=='e'||(LA38_0>='g' && LA38_0<='h')||(LA38_0>='j' && LA38_0<='m')||(LA38_0>='o' && LA38_0<='s')||(LA38_0>='u' && LA38_0<='z')) ) {s = 31;}
+=======
+                        else if ( (LA19_0=='n') ) {s = 25;}
+>>>>>>> refs/remotes/origin/PeterWork
 
+<<<<<<< HEAD
                         else if ( (LA38_0=='\"') ) {s = 32;}
+=======
+                        else if ( (LA19_0==':') ) {s = 26;}
+>>>>>>> refs/remotes/origin/PeterWork
 
+<<<<<<< HEAD
                         else if ( (LA38_0=='\'') ) {s = 33;}
+=======
+                        else if ( (LA19_0=='t') ) {s = 27;}
+>>>>>>> refs/remotes/origin/PeterWork
 
+<<<<<<< HEAD
                         else if ( ((LA38_0>='\t' && LA38_0<='\n')||LA38_0=='\r'||LA38_0==' ') ) {s = 34;}
+=======
+                        else if ( (LA19_0=='0') ) {s = 28;}
+>>>>>>> refs/remotes/origin/PeterWork
 
+<<<<<<< HEAD
                         else if ( ((LA38_0>='\u0000' && LA38_0<='\b')||(LA38_0>='\u000B' && LA38_0<='\f')||(LA38_0>='\u000E' && LA38_0<='\u001F')||LA38_0=='$'||LA38_0==';'||LA38_0=='@'||LA38_0=='\\'||LA38_0=='`'||(LA38_0>='~' && LA38_0<='\uFFFF')) ) {s = 35;}
+=======
+                        else if ( ((LA19_0>='1' && LA19_0<='9')) ) {s = 29;}
+>>>>>>> refs/remotes/origin/PeterWork
 
+<<<<<<< HEAD
                         if ( s>=0 ) return s;
                         break;
                     case 1 : 
                         int LA38_33 = input.LA(1);
+=======
+                        else if ( (LA19_0=='^') ) {s = 30;}
+>>>>>>> refs/remotes/origin/PeterWork
 
+<<<<<<< HEAD
                         s = -1;
                         if ( ((LA38_33>='\u0000' && LA38_33<='\uFFFF')) ) {s = 82;}
+=======
+                        else if ( ((LA19_0>='A' && LA19_0<='Z')||LA19_0=='_'||(LA19_0>='a' && LA19_0<='c')||LA19_0=='e'||(LA19_0>='g' && LA19_0<='h')||(LA19_0>='j' && LA19_0<='m')||(LA19_0>='o' && LA19_0<='s')||(LA19_0>='u' && LA19_0<='z')) ) {s = 31;}
+>>>>>>> refs/remotes/origin/PeterWork
 
+<<<<<<< HEAD
                         else s = 35;
+=======
+                        else if ( (LA19_0=='\"') ) {s = 32;}
+>>>>>>> refs/remotes/origin/PeterWork
 
+<<<<<<< HEAD
                         if ( s>=0 ) return s;
                         break;
                     case 2 : 
                         int LA38_32 = input.LA(1);
+=======
+                        else if ( (LA19_0=='\'') ) {s = 33;}
+>>>>>>> refs/remotes/origin/PeterWork
 
+<<<<<<< HEAD
                         s = -1;
                         if ( ((LA38_32>='\u0000' && LA38_32<='\uFFFF')) ) {s = 82;}
+=======
+                        else if ( ((LA19_0>='\t' && LA19_0<='\n')||LA19_0=='\r'||LA19_0==' ') ) {s = 34;}
+>>>>>>> refs/remotes/origin/PeterWork
 
+<<<<<<< HEAD
                         else s = 35;
+=======
+                        else if ( ((LA19_0>='\u0000' && LA19_0<='\b')||(LA19_0>='\u000B' && LA19_0<='\f')||(LA19_0>='\u000E' && LA19_0<='\u001F')||LA19_0=='$'||LA19_0==';'||LA19_0=='@'||LA19_0=='\\'||LA19_0=='`'||(LA19_0>='~' && LA19_0<='\uFFFF')) ) {s = 35;}
+>>>>>>> refs/remotes/origin/PeterWork
 
                         if ( s>=0 ) return s;
                         break;
             }
             NoViableAltException nvae =
+<<<<<<< HEAD
                 new NoViableAltException(getDescription(), 38, _s, input);
+=======
+                new NoViableAltException(getDescription(), 19, _s, input);
+>>>>>>> refs/remotes/origin/PeterWork
             error(nvae);
             throw nvae;
         }

@@ -12,6 +12,7 @@ import org.osate.aadl2.Aadl2Factory
 import org.osate.aadl2.instance.ComponentInstance
 import org.osate.aadl2.instance.InstanceObject
 import org.osate.aadl2.util.OsateDebug
+import org.osate.alisa.common.common.ANumberLiteral
 import org.osate.alisa.common.common.ComputeDeclaration
 import org.osate.alisa.common.common.ValDeclaration
 import org.osate.assure.assure.AssuranceCase
@@ -38,7 +39,10 @@ import org.osate.xtext.aadl2.properties.util.PropertyUtils
 
 import static extension org.osate.alisa.common.util.CommonUtilExtension.*
 import static extension org.osate.assure.util.AssureUtilExtension.*
+<<<<<<< HEAD
 import org.osate.aadl2.NumberValue
+=======
+>>>>>>> refs/remotes/origin/PeterWork
 
 @ImplementedBy(AssureProcessor)
 interface IAssureProcessor {
@@ -385,8 +389,12 @@ class AssureProcessor implements IAssureProcessor {
 			if (variable instanceof ValDeclaration) {
 				try {
 					val value = variable.right
+<<<<<<< HEAD
 					if (value instanceof NumberValue){
 					val unit = value.unit
+=======
+					val unit = (variable.right as ANumberLiteral).unit
+>>>>>>> refs/remotes/origin/PeterWork
 					val modelValue = PropertyUtils.getScaledNumberValue(object, property, unit)
 
 					if (!value.equals(modelValue)) {

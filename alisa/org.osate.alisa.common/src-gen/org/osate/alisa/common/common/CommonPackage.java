@@ -7,8 +7,11 @@ import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.EReference;
 
+<<<<<<< HEAD
 import org.osate.aadl2.Aadl2Package;
 
+=======
+>>>>>>> refs/remotes/origin/PeterWork
 /**
  * <!-- begin-user-doc -->
  * The <b>Package</b> for the model.
@@ -299,6 +302,7 @@ public interface CommonPackage extends EPackage
   int AEXPRESSION = 5;
 
   /**
+<<<<<<< HEAD
    * The feature id for the '<em><b>Owned Element</b></em>' reference list.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -324,6 +328,15 @@ public interface CommonPackage extends EPackage
    * @ordered
    */
   int AEXPRESSION_FEATURE_COUNT = Aadl2Package.PROPERTY_EXPRESSION_FEATURE_COUNT + 0;
+=======
+   * The number of structural features of the '<em>AExpression</em>' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int AEXPRESSION_FEATURE_COUNT = 0;
+>>>>>>> refs/remotes/origin/PeterWork
 
   /**
    * The meta object id for the '{@link org.osate.alisa.common.common.impl.ShowValueImpl <em>Show Value</em>}' class.
@@ -391,6 +404,146 @@ public interface CommonPackage extends EPackage
   int IMAGE_REFERENCE_FEATURE_COUNT = 1;
 
   /**
+<<<<<<< HEAD
+   * The meta object id for the '{@link org.osate.alisa.common.common.impl.ValDeclarationImpl <em>Val Declaration</em>}' class.
+=======
+   * The meta object id for the '{@link org.osate.alisa.common.common.impl.ACollectionLiteralImpl <em>ACollection Literal</em>}' class.
+>>>>>>> refs/remotes/origin/PeterWork
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+<<<<<<< HEAD
+   * @see org.osate.alisa.common.common.impl.ValDeclarationImpl
+   * @see org.osate.alisa.common.common.impl.CommonPackageImpl#getValDeclaration()
+=======
+   * @see org.osate.alisa.common.common.impl.ACollectionLiteralImpl
+   * @see org.osate.alisa.common.common.impl.CommonPackageImpl#getACollectionLiteral()
+>>>>>>> refs/remotes/origin/PeterWork
+   * @generated
+   */
+<<<<<<< HEAD
+  int VAL_DECLARATION = 8;
+=======
+  int ACOLLECTION_LITERAL = 8;
+>>>>>>> refs/remotes/origin/PeterWork
+
+  /**
+<<<<<<< HEAD
+   * The feature id for the '<em><b>Type</b></em>' attribute.
+=======
+   * The feature id for the '<em><b>Elements</b></em>' containment reference list.
+>>>>>>> refs/remotes/origin/PeterWork
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+<<<<<<< HEAD
+=======
+  int ACOLLECTION_LITERAL__ELEMENTS = AEXPRESSION_FEATURE_COUNT + 0;
+
+  /**
+   * The number of structural features of the '<em>ACollection Literal</em>' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int ACOLLECTION_LITERAL_FEATURE_COUNT = AEXPRESSION_FEATURE_COUNT + 1;
+
+  /**
+   * The meta object id for the '{@link org.osate.alisa.common.common.impl.ASetLiteralImpl <em>ASet Literal</em>}' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see org.osate.alisa.common.common.impl.ASetLiteralImpl
+   * @see org.osate.alisa.common.common.impl.CommonPackageImpl#getASetLiteral()
+   * @generated
+   */
+  int ASET_LITERAL = 9;
+
+  /**
+   * The feature id for the '<em><b>Elements</b></em>' containment reference list.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int ASET_LITERAL__ELEMENTS = ACOLLECTION_LITERAL__ELEMENTS;
+
+  /**
+   * The number of structural features of the '<em>ASet Literal</em>' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int ASET_LITERAL_FEATURE_COUNT = ACOLLECTION_LITERAL_FEATURE_COUNT + 0;
+
+  /**
+   * The meta object id for the '{@link org.osate.alisa.common.common.impl.AListLiteralImpl <em>AList Literal</em>}' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see org.osate.alisa.common.common.impl.AListLiteralImpl
+   * @see org.osate.alisa.common.common.impl.CommonPackageImpl#getAListLiteral()
+   * @generated
+   */
+  int ALIST_LITERAL = 10;
+
+  /**
+   * The feature id for the '<em><b>Elements</b></em>' containment reference list.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int ALIST_LITERAL__ELEMENTS = ACOLLECTION_LITERAL__ELEMENTS;
+
+  /**
+   * The number of structural features of the '<em>AList Literal</em>' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int ALIST_LITERAL_FEATURE_COUNT = ACOLLECTION_LITERAL_FEATURE_COUNT + 0;
+
+  /**
+   * The meta object id for the '{@link org.osate.alisa.common.common.impl.ANumberLiteralImpl <em>ANumber Literal</em>}' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see org.osate.alisa.common.common.impl.ANumberLiteralImpl
+   * @see org.osate.alisa.common.common.impl.CommonPackageImpl#getANumberLiteral()
+   * @generated
+   */
+  int ANUMBER_LITERAL = 11;
+
+  /**
+   * The feature id for the '<em><b>Value</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int ANUMBER_LITERAL__VALUE = AEXPRESSION_FEATURE_COUNT + 0;
+
+  /**
+   * The feature id for the '<em><b>Unit</b></em>' reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int ANUMBER_LITERAL__UNIT = AEXPRESSION_FEATURE_COUNT + 1;
+
+  /**
+   * The number of structural features of the '<em>ANumber Literal</em>' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int ANUMBER_LITERAL_FEATURE_COUNT = AEXPRESSION_FEATURE_COUNT + 2;
+
+  /**
    * The meta object id for the '{@link org.osate.alisa.common.common.impl.ValDeclarationImpl <em>Val Declaration</em>}' class.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -398,7 +551,7 @@ public interface CommonPackage extends EPackage
    * @see org.osate.alisa.common.common.impl.CommonPackageImpl#getValDeclaration()
    * @generated
    */
-  int VAL_DECLARATION = 8;
+  int VAL_DECLARATION = 12;
 
   /**
    * The feature id for the '<em><b>Type</b></em>' attribute.
@@ -407,6 +560,7 @@ public interface CommonPackage extends EPackage
    * @generated
    * @ordered
    */
+>>>>>>> refs/remotes/origin/PeterWork
   int VAL_DECLARATION__TYPE = AVARIABLE_DECLARATION__TYPE;
 
   /**
@@ -444,7 +598,11 @@ public interface CommonPackage extends EPackage
    * @see org.osate.alisa.common.common.impl.CommonPackageImpl#getComputeDeclaration()
    * @generated
    */
+<<<<<<< HEAD
   int COMPUTE_DECLARATION = 9;
+=======
+  int COMPUTE_DECLARATION = 13;
+>>>>>>> refs/remotes/origin/PeterWork
 
   /**
    * The feature id for the '<em><b>Type</b></em>' attribute.
@@ -481,6 +639,7 @@ public interface CommonPackage extends EPackage
    * @see org.osate.alisa.common.common.impl.CommonPackageImpl#getAPropertyReference()
    * @generated
    */
+<<<<<<< HEAD
   int APROPERTY_REFERENCE = 10;
 
   /**
@@ -500,6 +659,9 @@ public interface CommonPackage extends EPackage
    * @ordered
    */
   int APROPERTY_REFERENCE__OWNED_COMMENT = AEXPRESSION__OWNED_COMMENT;
+=======
+  int APROPERTY_REFERENCE = 14;
+>>>>>>> refs/remotes/origin/PeterWork
 
   /**
    * The feature id for the '<em><b>Property</b></em>' reference.
@@ -527,7 +689,169 @@ public interface CommonPackage extends EPackage
    * @see org.osate.alisa.common.common.impl.CommonPackageImpl#getAVariableReference()
    * @generated
    */
+<<<<<<< HEAD
   int AVARIABLE_REFERENCE = 11;
+=======
+  int AVARIABLE_REFERENCE = 15;
+
+  /**
+   * The feature id for the '<em><b>Variable</b></em>' reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int AVARIABLE_REFERENCE__VARIABLE = AEXPRESSION_FEATURE_COUNT + 0;
+
+  /**
+   * The number of structural features of the '<em>AVariable Reference</em>' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int AVARIABLE_REFERENCE_FEATURE_COUNT = AEXPRESSION_FEATURE_COUNT + 1;
+
+  /**
+   * The meta object id for the '{@link org.osate.alisa.common.common.impl.ABinaryOperationImpl <em>ABinary Operation</em>}' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see org.osate.alisa.common.common.impl.ABinaryOperationImpl
+   * @see org.osate.alisa.common.common.impl.CommonPackageImpl#getABinaryOperation()
+   * @generated
+   */
+  int ABINARY_OPERATION = 16;
+
+  /**
+   * The feature id for the '<em><b>Left Operand</b></em>' containment reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int ABINARY_OPERATION__LEFT_OPERAND = AEXPRESSION_FEATURE_COUNT + 0;
+
+  /**
+   * The feature id for the '<em><b>Feature</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int ABINARY_OPERATION__FEATURE = AEXPRESSION_FEATURE_COUNT + 1;
+
+  /**
+   * The feature id for the '<em><b>Right Operand</b></em>' containment reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int ABINARY_OPERATION__RIGHT_OPERAND = AEXPRESSION_FEATURE_COUNT + 2;
+
+  /**
+   * The number of structural features of the '<em>ABinary Operation</em>' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int ABINARY_OPERATION_FEATURE_COUNT = AEXPRESSION_FEATURE_COUNT + 3;
+
+  /**
+   * The meta object id for the '{@link org.osate.alisa.common.common.impl.AUnaryOperationImpl <em>AUnary Operation</em>}' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see org.osate.alisa.common.common.impl.AUnaryOperationImpl
+   * @see org.osate.alisa.common.common.impl.CommonPackageImpl#getAUnaryOperation()
+   * @generated
+   */
+  int AUNARY_OPERATION = 17;
+
+  /**
+   * The feature id for the '<em><b>Feature</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int AUNARY_OPERATION__FEATURE = AEXPRESSION_FEATURE_COUNT + 0;
+
+  /**
+   * The feature id for the '<em><b>Operand</b></em>' containment reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int AUNARY_OPERATION__OPERAND = AEXPRESSION_FEATURE_COUNT + 1;
+
+  /**
+   * The number of structural features of the '<em>AUnary Operation</em>' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int AUNARY_OPERATION_FEATURE_COUNT = AEXPRESSION_FEATURE_COUNT + 2;
+
+  /**
+   * The meta object id for the '{@link org.osate.alisa.common.common.impl.ABooleanLiteralImpl <em>ABoolean Literal</em>}' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see org.osate.alisa.common.common.impl.ABooleanLiteralImpl
+   * @see org.osate.alisa.common.common.impl.CommonPackageImpl#getABooleanLiteral()
+   * @generated
+   */
+  int ABOOLEAN_LITERAL = 18;
+
+  /**
+   * The feature id for the '<em><b>Is True</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int ABOOLEAN_LITERAL__IS_TRUE = AEXPRESSION_FEATURE_COUNT + 0;
+
+  /**
+   * The number of structural features of the '<em>ABoolean Literal</em>' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int ABOOLEAN_LITERAL_FEATURE_COUNT = AEXPRESSION_FEATURE_COUNT + 1;
+
+  /**
+   * The meta object id for the '{@link org.osate.alisa.common.common.impl.ANullLiteralImpl <em>ANull Literal</em>}' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see org.osate.alisa.common.common.impl.ANullLiteralImpl
+   * @see org.osate.alisa.common.common.impl.CommonPackageImpl#getANullLiteral()
+   * @generated
+   */
+  int ANULL_LITERAL = 19;
+
+  /**
+   * The number of structural features of the '<em>ANull Literal</em>' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int ANULL_LITERAL_FEATURE_COUNT = AEXPRESSION_FEATURE_COUNT + 0;
+
+  /**
+   * The meta object id for the '{@link org.osate.alisa.common.common.impl.AStringLiteralImpl <em>AString Literal</em>}' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see org.osate.alisa.common.common.impl.AStringLiteralImpl
+   * @see org.osate.alisa.common.common.impl.CommonPackageImpl#getAStringLiteral()
+   * @generated
+   */
+  int ASTRING_LITERAL = 20;
+>>>>>>> refs/remotes/origin/PeterWork
 
   /**
    * The feature id for the '<em><b>Owned Element</b></em>' reference list.
@@ -536,15 +860,24 @@ public interface CommonPackage extends EPackage
    * @generated
    * @ordered
    */
+<<<<<<< HEAD
   int AVARIABLE_REFERENCE__OWNED_ELEMENT = AEXPRESSION__OWNED_ELEMENT;
+=======
+  int ASTRING_LITERAL__VALUE = AEXPRESSION_FEATURE_COUNT + 0;
+>>>>>>> refs/remotes/origin/PeterWork
 
   /**
+<<<<<<< HEAD
    * The feature id for the '<em><b>Owned Comment</b></em>' containment reference list.
+=======
+   * The number of structural features of the '<em>AString Literal</em>' class.
+>>>>>>> refs/remotes/origin/PeterWork
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    * @ordered
    */
+<<<<<<< HEAD
   int AVARIABLE_REFERENCE__OWNED_COMMENT = AEXPRESSION__OWNED_COMMENT;
 
   /**
@@ -812,6 +1145,9 @@ public interface CommonPackage extends EPackage
    * @ordered
    */
   int ANULL_LITERAL_FEATURE_COUNT = AEXPRESSION_FEATURE_COUNT + 0;
+=======
+  int ASTRING_LITERAL_FEATURE_COUNT = AEXPRESSION_FEATURE_COUNT + 1;
+>>>>>>> refs/remotes/origin/PeterWork
 
 
   /**
@@ -1093,6 +1429,82 @@ public interface CommonPackage extends EPackage
   EAttribute getImageReference_Imgfile();
 
   /**
+<<<<<<< HEAD
+=======
+   * Returns the meta object for class '{@link org.osate.alisa.common.common.ACollectionLiteral <em>ACollection Literal</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for class '<em>ACollection Literal</em>'.
+   * @see org.osate.alisa.common.common.ACollectionLiteral
+   * @generated
+   */
+  EClass getACollectionLiteral();
+
+  /**
+   * Returns the meta object for the containment reference list '{@link org.osate.alisa.common.common.ACollectionLiteral#getElements <em>Elements</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the containment reference list '<em>Elements</em>'.
+   * @see org.osate.alisa.common.common.ACollectionLiteral#getElements()
+   * @see #getACollectionLiteral()
+   * @generated
+   */
+  EReference getACollectionLiteral_Elements();
+
+  /**
+   * Returns the meta object for class '{@link org.osate.alisa.common.common.ASetLiteral <em>ASet Literal</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for class '<em>ASet Literal</em>'.
+   * @see org.osate.alisa.common.common.ASetLiteral
+   * @generated
+   */
+  EClass getASetLiteral();
+
+  /**
+   * Returns the meta object for class '{@link org.osate.alisa.common.common.AListLiteral <em>AList Literal</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for class '<em>AList Literal</em>'.
+   * @see org.osate.alisa.common.common.AListLiteral
+   * @generated
+   */
+  EClass getAListLiteral();
+
+  /**
+   * Returns the meta object for class '{@link org.osate.alisa.common.common.ANumberLiteral <em>ANumber Literal</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for class '<em>ANumber Literal</em>'.
+   * @see org.osate.alisa.common.common.ANumberLiteral
+   * @generated
+   */
+  EClass getANumberLiteral();
+
+  /**
+   * Returns the meta object for the attribute '{@link org.osate.alisa.common.common.ANumberLiteral#getValue <em>Value</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the attribute '<em>Value</em>'.
+   * @see org.osate.alisa.common.common.ANumberLiteral#getValue()
+   * @see #getANumberLiteral()
+   * @generated
+   */
+  EAttribute getANumberLiteral_Value();
+
+  /**
+   * Returns the meta object for the reference '{@link org.osate.alisa.common.common.ANumberLiteral#getUnit <em>Unit</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the reference '<em>Unit</em>'.
+   * @see org.osate.alisa.common.common.ANumberLiteral#getUnit()
+   * @see #getANumberLiteral()
+   * @generated
+   */
+  EReference getANumberLiteral_Unit();
+
+  /**
+>>>>>>> refs/remotes/origin/PeterWork
    * Returns the meta object for class '{@link org.osate.alisa.common.common.ValDeclaration <em>Val Declaration</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -1241,6 +1653,7 @@ public interface CommonPackage extends EPackage
   EReference getAUnaryOperation_Operand();
 
   /**
+<<<<<<< HEAD
    * Returns the meta object for class '{@link org.osate.alisa.common.common.ASetLiteral <em>ASet Literal</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -1291,6 +1704,58 @@ public interface CommonPackage extends EPackage
    * @generated
    */
   EClass getANullLiteral();
+=======
+   * Returns the meta object for class '{@link org.osate.alisa.common.common.ABooleanLiteral <em>ABoolean Literal</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for class '<em>ABoolean Literal</em>'.
+   * @see org.osate.alisa.common.common.ABooleanLiteral
+   * @generated
+   */
+  EClass getABooleanLiteral();
+
+  /**
+   * Returns the meta object for the attribute '{@link org.osate.alisa.common.common.ABooleanLiteral#isIsTrue <em>Is True</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the attribute '<em>Is True</em>'.
+   * @see org.osate.alisa.common.common.ABooleanLiteral#isIsTrue()
+   * @see #getABooleanLiteral()
+   * @generated
+   */
+  EAttribute getABooleanLiteral_IsTrue();
+
+  /**
+   * Returns the meta object for class '{@link org.osate.alisa.common.common.ANullLiteral <em>ANull Literal</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for class '<em>ANull Literal</em>'.
+   * @see org.osate.alisa.common.common.ANullLiteral
+   * @generated
+   */
+  EClass getANullLiteral();
+
+  /**
+   * Returns the meta object for class '{@link org.osate.alisa.common.common.AStringLiteral <em>AString Literal</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for class '<em>AString Literal</em>'.
+   * @see org.osate.alisa.common.common.AStringLiteral
+   * @generated
+   */
+  EClass getAStringLiteral();
+
+  /**
+   * Returns the meta object for the attribute '{@link org.osate.alisa.common.common.AStringLiteral#getValue <em>Value</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the attribute '<em>Value</em>'.
+   * @see org.osate.alisa.common.common.AStringLiteral#getValue()
+   * @see #getAStringLiteral()
+   * @generated
+   */
+  EAttribute getAStringLiteral_Value();
+>>>>>>> refs/remotes/origin/PeterWork
 
   /**
    * Returns the factory that creates the instances of the model.
@@ -1540,6 +2005,73 @@ public interface CommonPackage extends EPackage
     EAttribute IMAGE_REFERENCE__IMGFILE = eINSTANCE.getImageReference_Imgfile();
 
     /**
+<<<<<<< HEAD
+=======
+     * The meta object literal for the '{@link org.osate.alisa.common.common.impl.ACollectionLiteralImpl <em>ACollection Literal</em>}' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see org.osate.alisa.common.common.impl.ACollectionLiteralImpl
+     * @see org.osate.alisa.common.common.impl.CommonPackageImpl#getACollectionLiteral()
+     * @generated
+     */
+    EClass ACOLLECTION_LITERAL = eINSTANCE.getACollectionLiteral();
+
+    /**
+     * The meta object literal for the '<em><b>Elements</b></em>' containment reference list feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EReference ACOLLECTION_LITERAL__ELEMENTS = eINSTANCE.getACollectionLiteral_Elements();
+
+    /**
+     * The meta object literal for the '{@link org.osate.alisa.common.common.impl.ASetLiteralImpl <em>ASet Literal</em>}' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see org.osate.alisa.common.common.impl.ASetLiteralImpl
+     * @see org.osate.alisa.common.common.impl.CommonPackageImpl#getASetLiteral()
+     * @generated
+     */
+    EClass ASET_LITERAL = eINSTANCE.getASetLiteral();
+
+    /**
+     * The meta object literal for the '{@link org.osate.alisa.common.common.impl.AListLiteralImpl <em>AList Literal</em>}' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see org.osate.alisa.common.common.impl.AListLiteralImpl
+     * @see org.osate.alisa.common.common.impl.CommonPackageImpl#getAListLiteral()
+     * @generated
+     */
+    EClass ALIST_LITERAL = eINSTANCE.getAListLiteral();
+
+    /**
+     * The meta object literal for the '{@link org.osate.alisa.common.common.impl.ANumberLiteralImpl <em>ANumber Literal</em>}' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see org.osate.alisa.common.common.impl.ANumberLiteralImpl
+     * @see org.osate.alisa.common.common.impl.CommonPackageImpl#getANumberLiteral()
+     * @generated
+     */
+    EClass ANUMBER_LITERAL = eINSTANCE.getANumberLiteral();
+
+    /**
+     * The meta object literal for the '<em><b>Value</b></em>' attribute feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EAttribute ANUMBER_LITERAL__VALUE = eINSTANCE.getANumberLiteral_Value();
+
+    /**
+     * The meta object literal for the '<em><b>Unit</b></em>' reference feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EReference ANUMBER_LITERAL__UNIT = eINSTANCE.getANumberLiteral_Unit();
+
+    /**
+>>>>>>> refs/remotes/origin/PeterWork
      * The meta object literal for the '{@link org.osate.alisa.common.common.impl.ValDeclarationImpl <em>Val Declaration</em>}' class.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
@@ -1664,6 +2196,7 @@ public interface CommonPackage extends EPackage
     EReference AUNARY_OPERATION__OPERAND = eINSTANCE.getAUnaryOperation_Operand();
 
     /**
+<<<<<<< HEAD
      * The meta object literal for the '{@link org.osate.alisa.common.common.impl.ASetLiteralImpl <em>ASet Literal</em>}' class.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
@@ -1708,6 +2241,52 @@ public interface CommonPackage extends EPackage
      * @generated
      */
     EClass ANULL_LITERAL = eINSTANCE.getANullLiteral();
+=======
+     * The meta object literal for the '{@link org.osate.alisa.common.common.impl.ABooleanLiteralImpl <em>ABoolean Literal</em>}' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see org.osate.alisa.common.common.impl.ABooleanLiteralImpl
+     * @see org.osate.alisa.common.common.impl.CommonPackageImpl#getABooleanLiteral()
+     * @generated
+     */
+    EClass ABOOLEAN_LITERAL = eINSTANCE.getABooleanLiteral();
+
+    /**
+     * The meta object literal for the '<em><b>Is True</b></em>' attribute feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EAttribute ABOOLEAN_LITERAL__IS_TRUE = eINSTANCE.getABooleanLiteral_IsTrue();
+
+    /**
+     * The meta object literal for the '{@link org.osate.alisa.common.common.impl.ANullLiteralImpl <em>ANull Literal</em>}' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see org.osate.alisa.common.common.impl.ANullLiteralImpl
+     * @see org.osate.alisa.common.common.impl.CommonPackageImpl#getANullLiteral()
+     * @generated
+     */
+    EClass ANULL_LITERAL = eINSTANCE.getANullLiteral();
+
+    /**
+     * The meta object literal for the '{@link org.osate.alisa.common.common.impl.AStringLiteralImpl <em>AString Literal</em>}' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see org.osate.alisa.common.common.impl.AStringLiteralImpl
+     * @see org.osate.alisa.common.common.impl.CommonPackageImpl#getAStringLiteral()
+     * @generated
+     */
+    EClass ASTRING_LITERAL = eINSTANCE.getAStringLiteral();
+
+    /**
+     * The meta object literal for the '<em><b>Value</b></em>' attribute feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EAttribute ASTRING_LITERAL__VALUE = eINSTANCE.getAStringLiteral_Value();
+>>>>>>> refs/remotes/origin/PeterWork
 
   }
 

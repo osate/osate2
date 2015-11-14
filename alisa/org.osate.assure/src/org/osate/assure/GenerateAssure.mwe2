@@ -151,7 +151,11 @@ Workflow {
     		fragment = builder.BuilderIntegrationFragment auto-inject {}
     
 //    		// generator API
+<<<<<<< HEAD
     		fragment = generator.GeneratorFragment auto-inject {}
+=======
+//    		fragment = generator.GeneratorFragment auto-inject {}
+>>>>>>> refs/remotes/origin/PeterWork
     
     		// formatter API
     		fragment = formatting.FormatterFragment auto-inject {}

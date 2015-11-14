@@ -22,8 +22,13 @@ import java.util.HashMap;
 @SuppressWarnings("all")
 public class InternalReqSpecParser extends AbstractInternalAntlrParser {
     public static final String[] tokenNames = new String[] {
+<<<<<<< HEAD
         "<invalid>", "<EOR>", "<DOWN>", "<UP>", "Timecriticality", "Scheduleimpact", "Maturityindex", "Requirements", "Description", "Development", "Familiarity", "Requirement", "Stakeholder", "Uncertainty", "Costimpact", "Decomposes", "Volatility", "Conflicts", "Constants", "Mitigates", "Predicate", "Rationale", "Riskindex", "Category", "Document", "Informal", "Compute", "Dropped", "Evolves", "Refines", "Section", "Issues", "KW_System", "Delta", "False", "Goals", "Value", "Goal", "Null", "This", "True", "With", "ExclamationMarkEqualsSignEqualsSign", "FullStopFullStopLessThanSign", "EqualsSignEqualsSignEqualsSign", "All", "For", "Img", "See", "Use", "Val", "ExclamationMarkEqualsSign", "AmpersandAmpersand", "AsteriskAsterisk", "HyphenMinusGreaterThanSign", "FullStopFullStop", "ColonColon", "LessThanSignGreaterThanSign", "EqualsSignEqualsSign", "EqualsSignGreaterThanSign", "GreaterThanSignEqualsSign", "QuestionMarkColon", "VerticalLineVerticalLine", "ExclamationMark", "NumberSign", "PercentSign", "LeftParenthesis", "RightParenthesis", "Asterisk", "PlusSign", "Comma", "HyphenMinus", "FullStop", "Solidus", "Colon", "LessThanSign", "EqualsSign", "GreaterThanSign", "CommercialAt", "LeftSquareBracket", "RightSquareBracket", "LeftCurlyBracket", "RightCurlyBracket", "RULE_DIGIT", "RULE_EXPONENT", "RULE_INT_EXPONENT", "RULE_REAL_LIT", "RULE_BASED_INTEGER", "RULE_INTEGER_LIT", "RULE_EXTENDED_DIGIT", "RULE_HEX", "RULE_INT", "RULE_DECIMAL", "RULE_ID", "RULE_STRING", "RULE_ML_COMMENT", "RULE_SL_COMMENT", "RULE_WS", "RULE_ANY_OTHER"
+=======
+        "<invalid>", "<EOR>", "<DOWN>", "<UP>", "Timecriticality", "Scheduleimpact", "Maturityindex", "Requirements", "Description", "Development", "Familiarity", "Requirement", "Stakeholder", "Uncertainty", "Costimpact", "Decomposes", "Volatility", "Conflicts", "Constants", "Mitigates", "Predicate", "Rationale", "Riskindex", "Category", "Document", "Informal", "Compute", "Dropped", "Evolves", "Refines", "Section", "Issues", "KW_System", "False", "Goals", "Value", "Goal", "Null", "This", "True", "With", "ExclamationMarkEqualsSignEqualsSign", "FullStopFullStopLessThanSign", "EqualsSignEqualsSignEqualsSign", "All", "For", "Img", "See", "Use", "Val", "ExclamationMarkEqualsSign", "AmpersandAmpersand", "AsteriskAsterisk", "HyphenMinusGreaterThanSign", "FullStopFullStop", "ColonColon", "LessThanSignGreaterThanSign", "EqualsSignEqualsSign", "EqualsSignGreaterThanSign", "GreaterThanSignEqualsSign", "QuestionMarkColon", "VerticalLineVerticalLine", "ExclamationMark", "NumberSign", "PercentSign", "LeftParenthesis", "RightParenthesis", "Asterisk", "PlusSign", "Comma", "HyphenMinus", "FullStop", "Solidus", "Colon", "LessThanSign", "EqualsSign", "GreaterThanSign", "CommercialAt", "LeftSquareBracket", "RightSquareBracket", "LeftCurlyBracket", "RightCurlyBracket", "RULE_HEX", "RULE_INT", "RULE_DECIMAL", "RULE_ID", "RULE_STRING", "RULE_ML_COMMENT", "RULE_SL_COMMENT", "RULE_WS", "RULE_ANY_OTHER"
+>>>>>>> refs/remotes/origin/PeterWork
     };
+<<<<<<< HEAD
     public static final int Val=50;
     public static final int LessThanSignGreaterThanSign=57;
     public static final int RULE_HEX=90;
@@ -78,14 +83,41 @@ public class InternalReqSpecParser extends AbstractInternalAntlrParser {
     public static final int All=45;
     public static final int Null=38;
     public static final int True=40;
+=======
+    public static final int All=44;
+    public static final int Val=49;
+    public static final int LessThanSignGreaterThanSign=56;
+    public static final int Null=37;
+    public static final int RULE_HEX=82;
+    public static final int EqualsSignGreaterThanSign=58;
+    public static final int Riskindex=22;
+    public static final int KW_System=32;
+    public static final int True=39;
+    public static final int Decomposes=15;
+    public static final int False=33;
+    public static final int Document=24;
+>>>>>>> refs/remotes/origin/PeterWork
     public static final int Requirements=7;
+<<<<<<< HEAD
     public static final int Predicate=20;
     public static final int RULE_INT_EXPONENT=85;
     public static final int PercentSign=65;
     public static final int Stakeholder=12;
     public static final int FullStopFullStop=55;
     public static final int This=39;
+=======
+    public static final int LessThanSign=74;
+    public static final int Predicate=20;
+    public static final int PercentSign=64;
+    public static final int Goal=36;
+    public static final int Stakeholder=12;
+    public static final int LeftParenthesis=65;
+    public static final int FullStopFullStop=54;
+    public static final int Development=9;
+    public static final int This=38;
+>>>>>>> refs/remotes/origin/PeterWork
     public static final int Scheduleimpact=5;
+<<<<<<< HEAD
     public static final int RULE_BASED_INTEGER=87;
     public static final int RightSquareBracket=80;
     public static final int Dropped=27;
@@ -112,7 +144,57 @@ public class InternalReqSpecParser extends AbstractInternalAntlrParser {
     public static final int AmpersandAmpersand=52;
     public static final int Rationale=21;
     public static final int Colon=74;
+=======
+    public static final int RightSquareBracket=79;
+    public static final int ExclamationMark=62;
+    public static final int Dropped=27;
+    public static final int ExclamationMarkEqualsSignEqualsSign=41;
+    public static final int GreaterThanSign=76;
+    public static final int Img=46;
+    public static final int RULE_ID=85;
+    public static final int For=45;
+    public static final int RightParenthesis=66;
+    public static final int EqualsSignEqualsSignEqualsSign=43;
+    public static final int GreaterThanSignEqualsSign=59;
+    public static final int ColonColon=55;
+    public static final int RULE_DECIMAL=84;
+    public static final int Requirement=11;
+    public static final int EqualsSignEqualsSign=57;
+    public static final int See=47;
+    public static final int PlusSign=68;
+    public static final int RULE_INT=83;
+    public static final int NumberSign=63;
+    public static final int Value=35;
+    public static final int AsteriskAsterisk=52;
+    public static final int RULE_ML_COMMENT=87;
+    public static final int LeftSquareBracket=78;
+    public static final int Goals=34;
+    public static final int Mitigates=19;
+    public static final int Uncertainty=13;
+    public static final int Description=8;
+    public static final int Category=23;
+    public static final int Volatility=16;
+    public static final int Maturityindex=6;
+    public static final int Issues=31;
+    public static final int VerticalLineVerticalLine=61;
+    public static final int RULE_STRING=86;
+    public static final int Costimpact=14;
+    public static final int Evolves=28;
+    public static final int With=40;
+    public static final int RULE_SL_COMMENT=88;
+    public static final int Comma=69;
+    public static final int EqualsSign=75;
+    public static final int HyphenMinus=70;
+    public static final int AmpersandAmpersand=51;
+    public static final int QuestionMarkColon=60;
+    public static final int Rationale=21;
+    public static final int Solidus=72;
+    public static final int Colon=73;
+    public static final int RightCurlyBracket=81;
+    public static final int Familiarity=10;
+>>>>>>> refs/remotes/origin/PeterWork
     public static final int EOF=-1;
+<<<<<<< HEAD
     public static final int Asterisk=68;
     public static final int RULE_WS=97;
     public static final int LeftCurlyBracket=81;
@@ -120,6 +202,25 @@ public class InternalReqSpecParser extends AbstractInternalAntlrParser {
     public static final int FullStopFullStopLessThanSign=43;
     public static final int Informal=25;
     public static final int Compute=26;
+=======
+    public static final int Asterisk=67;
+    public static final int Timecriticality=4;
+    public static final int Refines=29;
+    public static final int FullStop=71;
+    public static final int RULE_WS=89;
+    public static final int Use=48;
+    public static final int LeftCurlyBracket=80;
+    public static final int Constants=18;
+    public static final int Conflicts=17;
+    public static final int RULE_ANY_OTHER=90;
+    public static final int Section=30;
+    public static final int CommercialAt=77;
+    public static final int FullStopFullStopLessThanSign=42;
+    public static final int Informal=25;
+    public static final int Compute=26;
+    public static final int ExclamationMarkEqualsSign=50;
+    public static final int HyphenMinusGreaterThanSign=53;
+>>>>>>> refs/remotes/origin/PeterWork
 
     // delegates
     // delegators
@@ -812,11 +913,11 @@ public class InternalReqSpecParser extends AbstractInternalAntlrParser {
             if ( (LA5_0==RULE_ID) ) {
                 int LA5_1 = input.LA(2);
 
-                if ( (LA5_1==Use||LA5_1==LeftSquareBracket) ) {
-                    alt5=2;
-                }
-                else if ( (LA5_1==ColonColon) ) {
+                if ( (LA5_1==ColonColon) ) {
                     alt5=1;
+                }
+                else if ( (LA5_1==Use||LA5_1==LeftSquareBracket) ) {
+                    alt5=2;
                 }
                 else {
                     if (state.backtracking>0) {state.failed=true; return current;}
@@ -2942,11 +3043,11 @@ public class InternalReqSpecParser extends AbstractInternalAntlrParser {
             if ( (LA23_0==RULE_ID) ) {
                 int LA23_1 = input.LA(2);
 
-                if ( (LA23_1==Use||LA23_1==LeftSquareBracket) ) {
-                    alt23=2;
-                }
-                else if ( (LA23_1==ColonColon) ) {
+                if ( (LA23_1==ColonColon) ) {
                     alt23=1;
+                }
+                else if ( (LA23_1==Use||LA23_1==LeftSquareBracket) ) {
+                    alt23=2;
                 }
                 else {
                     if (state.backtracking>0) {state.failed=true; return current;}
@@ -13856,7 +13957,11 @@ public class InternalReqSpecParser extends AbstractInternalAntlrParser {
             int alt104=2;
             int LA104_0 = input.LA(1);
 
+<<<<<<< HEAD
             if ( (LA104_0==False||LA104_0==Null||LA104_0==True||(LA104_0>=ExclamationMark && LA104_0<=NumberSign)||LA104_0==LeftParenthesis||LA104_0==PlusSign||LA104_0==HyphenMinus||LA104_0==LeftCurlyBracket||LA104_0==RULE_REAL_LIT||LA104_0==RULE_INTEGER_LIT||(LA104_0>=RULE_ID && LA104_0<=RULE_STRING)) ) {
+=======
+            if ( (LA104_0==False||LA104_0==Null||LA104_0==True||(LA104_0>=ExclamationMark && LA104_0<=NumberSign)||LA104_0==LeftParenthesis||LA104_0==PlusSign||LA104_0==HyphenMinus||(LA104_0>=RULE_HEX && LA104_0<=RULE_DECIMAL)||LA104_0==RULE_STRING) ) {
+>>>>>>> refs/remotes/origin/PeterWork
                 alt104=1;
             }
             switch (alt104) {
@@ -14166,6 +14271,7 @@ public class InternalReqSpecParser extends AbstractInternalAntlrParser {
     // $ANTLR end "ruleComputeDeclaration"
 
 
+<<<<<<< HEAD
     // $ANTLR start "entryRuleAVariableReference"
     // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:5063:1: entryRuleAVariableReference returns [EObject current=null] : iv_ruleAVariableReference= ruleAVariableReference EOF ;
     public final EObject entryRuleAVariableReference() throws RecognitionException {
@@ -14282,8 +14388,14 @@ public class InternalReqSpecParser extends AbstractInternalAntlrParser {
     // $ANTLR end "ruleAVariableReference"
 
 
+=======
+>>>>>>> refs/remotes/origin/PeterWork
     // $ANTLR start "entryRuleShowValue"
+<<<<<<< HEAD
     // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:5103:1: entryRuleShowValue returns [EObject current=null] : iv_ruleShowValue= ruleShowValue EOF ;
+=======
+    // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:5065:1: entryRuleShowValue returns [EObject current=null] : iv_ruleShowValue= ruleShowValue EOF ;
+>>>>>>> refs/remotes/origin/PeterWork
     public final EObject entryRuleShowValue() throws RecognitionException {
         EObject current = null;
 
@@ -14291,13 +14403,22 @@ public class InternalReqSpecParser extends AbstractInternalAntlrParser {
 
 
         try {
+<<<<<<< HEAD
             // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:5104:2: (iv_ruleShowValue= ruleShowValue EOF )
             // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:5105:2: iv_ruleShowValue= ruleShowValue EOF
+=======
+            // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:5066:2: (iv_ruleShowValue= ruleShowValue EOF )
+            // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:5067:2: iv_ruleShowValue= ruleShowValue EOF
+>>>>>>> refs/remotes/origin/PeterWork
             {
             if ( state.backtracking==0 ) {
                newCompositeNode(grammarAccess.getShowValueRule()); 
             }
+<<<<<<< HEAD
             pushFollow(FollowSets000.FOLLOW_ruleShowValue_in_entryRuleShowValue12226);
+=======
+            pushFollow(FollowSets000.FOLLOW_ruleShowValue_in_entryRuleShowValue12129);
+>>>>>>> refs/remotes/origin/PeterWork
             iv_ruleShowValue=ruleShowValue();
 
             state._fsp--;
@@ -14305,7 +14426,11 @@ public class InternalReqSpecParser extends AbstractInternalAntlrParser {
             if ( state.backtracking==0 ) {
                current =iv_ruleShowValue; 
             }
+<<<<<<< HEAD
             match(input,EOF,FollowSets000.FOLLOW_EOF_in_entryRuleShowValue12236); if (state.failed) return current;
+=======
+            match(input,EOF,FollowSets000.FOLLOW_EOF_in_entryRuleShowValue12139); if (state.failed) return current;
+>>>>>>> refs/remotes/origin/PeterWork
 
             }
 
@@ -14323,7 +14448,11 @@ public class InternalReqSpecParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "ruleShowValue"
+<<<<<<< HEAD
     // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:5112:1: ruleShowValue returns [EObject current=null] : ( ( (otherlv_0= RULE_ID ) ) (otherlv_1= PercentSign ( (otherlv_2= RULE_ID ) ) )? ) ;
+=======
+    // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:5074:1: ruleShowValue returns [EObject current=null] : ( ( (otherlv_0= RULE_ID ) ) (otherlv_1= PercentSign ( (otherlv_2= RULE_ID ) ) )? ) ;
+>>>>>>> refs/remotes/origin/PeterWork
     public final EObject ruleShowValue() throws RecognitionException {
         EObject current = null;
 
@@ -14334,17 +14463,37 @@ public class InternalReqSpecParser extends AbstractInternalAntlrParser {
          enterRule(); 
             
         try {
+<<<<<<< HEAD
             // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:5115:28: ( ( ( (otherlv_0= RULE_ID ) ) (otherlv_1= PercentSign ( (otherlv_2= RULE_ID ) ) )? ) )
             // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:5116:1: ( ( (otherlv_0= RULE_ID ) ) (otherlv_1= PercentSign ( (otherlv_2= RULE_ID ) ) )? )
+=======
+            // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:5077:28: ( ( ( (otherlv_0= RULE_ID ) ) (otherlv_1= PercentSign ( (otherlv_2= RULE_ID ) ) )? ) )
+            // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:5078:1: ( ( (otherlv_0= RULE_ID ) ) (otherlv_1= PercentSign ( (otherlv_2= RULE_ID ) ) )? )
+>>>>>>> refs/remotes/origin/PeterWork
             {
+<<<<<<< HEAD
             // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:5116:1: ( ( (otherlv_0= RULE_ID ) ) (otherlv_1= PercentSign ( (otherlv_2= RULE_ID ) ) )? )
             // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:5116:2: ( (otherlv_0= RULE_ID ) ) (otherlv_1= PercentSign ( (otherlv_2= RULE_ID ) ) )?
+=======
+            // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:5078:1: ( ( (otherlv_0= RULE_ID ) ) (otherlv_1= PercentSign ( (otherlv_2= RULE_ID ) ) )? )
+            // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:5078:2: ( (otherlv_0= RULE_ID ) ) (otherlv_1= PercentSign ( (otherlv_2= RULE_ID ) ) )?
+>>>>>>> refs/remotes/origin/PeterWork
             {
+<<<<<<< HEAD
             // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:5116:2: ( (otherlv_0= RULE_ID ) )
             // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:5117:1: (otherlv_0= RULE_ID )
+=======
+            // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:5078:2: ( (otherlv_0= RULE_ID ) )
+            // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:5079:1: (otherlv_0= RULE_ID )
+>>>>>>> refs/remotes/origin/PeterWork
             {
+<<<<<<< HEAD
             // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:5117:1: (otherlv_0= RULE_ID )
             // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:5118:3: otherlv_0= RULE_ID
+=======
+            // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:5079:1: (otherlv_0= RULE_ID )
+            // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:5080:3: otherlv_0= RULE_ID
+>>>>>>> refs/remotes/origin/PeterWork
             {
             if ( state.backtracking==0 ) {
 
@@ -14353,7 +14502,11 @@ public class InternalReqSpecParser extends AbstractInternalAntlrParser {
               	        }
                       
             }
+<<<<<<< HEAD
             otherlv_0=(Token)match(input,RULE_ID,FollowSets000.FOLLOW_RULE_ID_in_ruleShowValue12281); if (state.failed) return current;
+=======
+            otherlv_0=(Token)match(input,RULE_ID,FollowSets000.FOLLOW_RULE_ID_in_ruleShowValue12184); if (state.failed) return current;
+>>>>>>> refs/remotes/origin/PeterWork
             if ( state.backtracking==0 ) {
 
               		newLeafNode(otherlv_0, grammarAccess.getShowValueAccess().getRefAVariableDeclarationCrossReference_0_0()); 
@@ -14365,7 +14518,11 @@ public class InternalReqSpecParser extends AbstractInternalAntlrParser {
 
             }
 
+<<<<<<< HEAD
             // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:5129:2: (otherlv_1= PercentSign ( (otherlv_2= RULE_ID ) ) )?
+=======
+            // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:5091:2: (otherlv_1= PercentSign ( (otherlv_2= RULE_ID ) ) )?
+>>>>>>> refs/remotes/origin/PeterWork
             int alt106=2;
             int LA106_0 = input.LA(1);
 
@@ -14374,19 +14531,37 @@ public class InternalReqSpecParser extends AbstractInternalAntlrParser {
             }
             switch (alt106) {
                 case 1 :
+<<<<<<< HEAD
                     // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:5130:2: otherlv_1= PercentSign ( (otherlv_2= RULE_ID ) )
+=======
+                    // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:5092:2: otherlv_1= PercentSign ( (otherlv_2= RULE_ID ) )
+>>>>>>> refs/remotes/origin/PeterWork
                     {
+<<<<<<< HEAD
                     otherlv_1=(Token)match(input,PercentSign,FollowSets000.FOLLOW_PercentSign_in_ruleShowValue12295); if (state.failed) return current;
+=======
+                    otherlv_1=(Token)match(input,PercentSign,FollowSets000.FOLLOW_PercentSign_in_ruleShowValue12198); if (state.failed) return current;
+>>>>>>> refs/remotes/origin/PeterWork
                     if ( state.backtracking==0 ) {
 
                           	newLeafNode(otherlv_1, grammarAccess.getShowValueAccess().getPercentSignKeyword_1_0());
                           
                     }
+<<<<<<< HEAD
                     // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:5134:1: ( (otherlv_2= RULE_ID ) )
                     // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:5135:1: (otherlv_2= RULE_ID )
+=======
+                    // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:5096:1: ( (otherlv_2= RULE_ID ) )
+                    // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:5097:1: (otherlv_2= RULE_ID )
+>>>>>>> refs/remotes/origin/PeterWork
                     {
+<<<<<<< HEAD
                     // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:5135:1: (otherlv_2= RULE_ID )
                     // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:5136:3: otherlv_2= RULE_ID
+=======
+                    // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:5097:1: (otherlv_2= RULE_ID )
+                    // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:5098:3: otherlv_2= RULE_ID
+>>>>>>> refs/remotes/origin/PeterWork
                     {
                     if ( state.backtracking==0 ) {
 
@@ -14395,7 +14570,11 @@ public class InternalReqSpecParser extends AbstractInternalAntlrParser {
                       	        }
                               
                     }
+<<<<<<< HEAD
                     otherlv_2=(Token)match(input,RULE_ID,FollowSets000.FOLLOW_RULE_ID_in_ruleShowValue12314); if (state.failed) return current;
+=======
+                    otherlv_2=(Token)match(input,RULE_ID,FollowSets000.FOLLOW_RULE_ID_in_ruleShowValue12217); if (state.failed) return current;
+>>>>>>> refs/remotes/origin/PeterWork
                     if ( state.backtracking==0 ) {
 
                       		newLeafNode(otherlv_2, grammarAccess.getShowValueAccess().getUnitUnitLiteralCrossReference_1_1_0()); 
@@ -14436,7 +14615,11 @@ public class InternalReqSpecParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "entryRuleImageReference"
+<<<<<<< HEAD
     // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:5155:1: entryRuleImageReference returns [EObject current=null] : iv_ruleImageReference= ruleImageReference EOF ;
+=======
+    // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:5117:1: entryRuleImageReference returns [EObject current=null] : iv_ruleImageReference= ruleImageReference EOF ;
+>>>>>>> refs/remotes/origin/PeterWork
     public final EObject entryRuleImageReference() throws RecognitionException {
         EObject current = null;
 
@@ -14444,13 +14627,22 @@ public class InternalReqSpecParser extends AbstractInternalAntlrParser {
 
 
         try {
+<<<<<<< HEAD
             // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:5156:2: (iv_ruleImageReference= ruleImageReference EOF )
             // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:5157:2: iv_ruleImageReference= ruleImageReference EOF
+=======
+            // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:5118:2: (iv_ruleImageReference= ruleImageReference EOF )
+            // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:5119:2: iv_ruleImageReference= ruleImageReference EOF
+>>>>>>> refs/remotes/origin/PeterWork
             {
             if ( state.backtracking==0 ) {
                newCompositeNode(grammarAccess.getImageReferenceRule()); 
             }
+<<<<<<< HEAD
             pushFollow(FollowSets000.FOLLOW_ruleImageReference_in_entryRuleImageReference12351);
+=======
+            pushFollow(FollowSets000.FOLLOW_ruleImageReference_in_entryRuleImageReference12254);
+>>>>>>> refs/remotes/origin/PeterWork
             iv_ruleImageReference=ruleImageReference();
 
             state._fsp--;
@@ -14458,7 +14650,11 @@ public class InternalReqSpecParser extends AbstractInternalAntlrParser {
             if ( state.backtracking==0 ) {
                current =iv_ruleImageReference; 
             }
+<<<<<<< HEAD
             match(input,EOF,FollowSets000.FOLLOW_EOF_in_entryRuleImageReference12361); if (state.failed) return current;
+=======
+            match(input,EOF,FollowSets000.FOLLOW_EOF_in_entryRuleImageReference12264); if (state.failed) return current;
+>>>>>>> refs/remotes/origin/PeterWork
 
             }
 
@@ -14476,7 +14672,11 @@ public class InternalReqSpecParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "ruleImageReference"
+<<<<<<< HEAD
     // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:5164:1: ruleImageReference returns [EObject current=null] : (otherlv_0= Img ( (lv_imgfile_1_0= ruleIMGREF ) ) ) ;
+=======
+    // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:5126:1: ruleImageReference returns [EObject current=null] : (otherlv_0= Img ( (lv_imgfile_1_0= ruleIMGREF ) ) ) ;
+>>>>>>> refs/remotes/origin/PeterWork
     public final EObject ruleImageReference() throws RecognitionException {
         EObject current = null;
 
@@ -14487,30 +14687,58 @@ public class InternalReqSpecParser extends AbstractInternalAntlrParser {
          enterRule(); 
             
         try {
+<<<<<<< HEAD
             // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:5167:28: ( (otherlv_0= Img ( (lv_imgfile_1_0= ruleIMGREF ) ) ) )
             // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:5168:1: (otherlv_0= Img ( (lv_imgfile_1_0= ruleIMGREF ) ) )
+=======
+            // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:5129:28: ( (otherlv_0= Img ( (lv_imgfile_1_0= ruleIMGREF ) ) ) )
+            // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:5130:1: (otherlv_0= Img ( (lv_imgfile_1_0= ruleIMGREF ) ) )
+>>>>>>> refs/remotes/origin/PeterWork
             {
+<<<<<<< HEAD
             // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:5168:1: (otherlv_0= Img ( (lv_imgfile_1_0= ruleIMGREF ) ) )
             // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:5169:2: otherlv_0= Img ( (lv_imgfile_1_0= ruleIMGREF ) )
+=======
+            // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:5130:1: (otherlv_0= Img ( (lv_imgfile_1_0= ruleIMGREF ) ) )
+            // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:5131:2: otherlv_0= Img ( (lv_imgfile_1_0= ruleIMGREF ) )
+>>>>>>> refs/remotes/origin/PeterWork
             {
+<<<<<<< HEAD
             otherlv_0=(Token)match(input,Img,FollowSets000.FOLLOW_Img_in_ruleImageReference12399); if (state.failed) return current;
+=======
+            otherlv_0=(Token)match(input,Img,FollowSets000.FOLLOW_Img_in_ruleImageReference12302); if (state.failed) return current;
+>>>>>>> refs/remotes/origin/PeterWork
             if ( state.backtracking==0 ) {
 
                   	newLeafNode(otherlv_0, grammarAccess.getImageReferenceAccess().getImgKeyword_0());
                   
             }
+<<<<<<< HEAD
             // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:5173:1: ( (lv_imgfile_1_0= ruleIMGREF ) )
             // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:5174:1: (lv_imgfile_1_0= ruleIMGREF )
+=======
+            // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:5135:1: ( (lv_imgfile_1_0= ruleIMGREF ) )
+            // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:5136:1: (lv_imgfile_1_0= ruleIMGREF )
+>>>>>>> refs/remotes/origin/PeterWork
             {
+<<<<<<< HEAD
             // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:5174:1: (lv_imgfile_1_0= ruleIMGREF )
             // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:5175:3: lv_imgfile_1_0= ruleIMGREF
+=======
+            // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:5136:1: (lv_imgfile_1_0= ruleIMGREF )
+            // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:5137:3: lv_imgfile_1_0= ruleIMGREF
+>>>>>>> refs/remotes/origin/PeterWork
             {
             if ( state.backtracking==0 ) {
                
               	        newCompositeNode(grammarAccess.getImageReferenceAccess().getImgfileIMGREFParserRuleCall_1_0()); 
               	    
             }
+<<<<<<< HEAD
             pushFollow(FollowSets000.FOLLOW_ruleIMGREF_in_ruleImageReference12419);
+=======
+            pushFollow(FollowSets000.FOLLOW_ruleIMGREF_in_ruleImageReference12322);
+>>>>>>> refs/remotes/origin/PeterWork
             lv_imgfile_1_0=ruleIMGREF();
 
             state._fsp--;
@@ -14557,7 +14785,11 @@ public class InternalReqSpecParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "entryRuleIMGREF"
+<<<<<<< HEAD
     // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:5199:1: entryRuleIMGREF returns [String current=null] : iv_ruleIMGREF= ruleIMGREF EOF ;
+=======
+    // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:5161:1: entryRuleIMGREF returns [String current=null] : iv_ruleIMGREF= ruleIMGREF EOF ;
+>>>>>>> refs/remotes/origin/PeterWork
     public final String entryRuleIMGREF() throws RecognitionException {
         String current = null;
 
@@ -14565,13 +14797,22 @@ public class InternalReqSpecParser extends AbstractInternalAntlrParser {
 
 
         try {
+<<<<<<< HEAD
             // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:5200:1: (iv_ruleIMGREF= ruleIMGREF EOF )
             // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:5201:2: iv_ruleIMGREF= ruleIMGREF EOF
+=======
+            // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:5162:1: (iv_ruleIMGREF= ruleIMGREF EOF )
+            // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:5163:2: iv_ruleIMGREF= ruleIMGREF EOF
+>>>>>>> refs/remotes/origin/PeterWork
             {
             if ( state.backtracking==0 ) {
                newCompositeNode(grammarAccess.getIMGREFRule()); 
             }
+<<<<<<< HEAD
             pushFollow(FollowSets000.FOLLOW_ruleIMGREF_in_entryRuleIMGREF12455);
+=======
+            pushFollow(FollowSets000.FOLLOW_ruleIMGREF_in_entryRuleIMGREF12358);
+>>>>>>> refs/remotes/origin/PeterWork
             iv_ruleIMGREF=ruleIMGREF();
 
             state._fsp--;
@@ -14579,7 +14820,11 @@ public class InternalReqSpecParser extends AbstractInternalAntlrParser {
             if ( state.backtracking==0 ) {
                current =iv_ruleIMGREF.getText(); 
             }
+<<<<<<< HEAD
             match(input,EOF,FollowSets000.FOLLOW_EOF_in_entryRuleIMGREF12466); if (state.failed) return current;
+=======
+            match(input,EOF,FollowSets000.FOLLOW_EOF_in_entryRuleIMGREF12369); if (state.failed) return current;
+>>>>>>> refs/remotes/origin/PeterWork
 
             }
 
@@ -14597,7 +14842,11 @@ public class InternalReqSpecParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "ruleIMGREF"
+<<<<<<< HEAD
     // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:5208:1: ruleIMGREF returns [AntlrDatatypeRuleToken current=new AntlrDatatypeRuleToken()] : ( (this_ID_0= RULE_ID kw= Solidus )* this_ID_2= RULE_ID kw= FullStop this_ID_4= RULE_ID ) ;
+=======
+    // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:5170:1: ruleIMGREF returns [AntlrDatatypeRuleToken current=new AntlrDatatypeRuleToken()] : ( (this_ID_0= RULE_ID kw= Solidus )* this_ID_2= RULE_ID kw= FullStop this_ID_4= RULE_ID ) ;
+>>>>>>> refs/remotes/origin/PeterWork
     public final AntlrDatatypeRuleToken ruleIMGREF() throws RecognitionException {
         AntlrDatatypeRuleToken current = new AntlrDatatypeRuleToken();
 
@@ -14609,13 +14858,27 @@ public class InternalReqSpecParser extends AbstractInternalAntlrParser {
          enterRule(); 
             
         try {
+<<<<<<< HEAD
             // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:5212:6: ( ( (this_ID_0= RULE_ID kw= Solidus )* this_ID_2= RULE_ID kw= FullStop this_ID_4= RULE_ID ) )
             // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:5213:1: ( (this_ID_0= RULE_ID kw= Solidus )* this_ID_2= RULE_ID kw= FullStop this_ID_4= RULE_ID )
+=======
+            // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:5174:6: ( ( (this_ID_0= RULE_ID kw= Solidus )* this_ID_2= RULE_ID kw= FullStop this_ID_4= RULE_ID ) )
+            // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:5175:1: ( (this_ID_0= RULE_ID kw= Solidus )* this_ID_2= RULE_ID kw= FullStop this_ID_4= RULE_ID )
+>>>>>>> refs/remotes/origin/PeterWork
             {
+<<<<<<< HEAD
             // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:5213:1: ( (this_ID_0= RULE_ID kw= Solidus )* this_ID_2= RULE_ID kw= FullStop this_ID_4= RULE_ID )
             // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:5213:2: (this_ID_0= RULE_ID kw= Solidus )* this_ID_2= RULE_ID kw= FullStop this_ID_4= RULE_ID
+=======
+            // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:5175:1: ( (this_ID_0= RULE_ID kw= Solidus )* this_ID_2= RULE_ID kw= FullStop this_ID_4= RULE_ID )
+            // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:5175:2: (this_ID_0= RULE_ID kw= Solidus )* this_ID_2= RULE_ID kw= FullStop this_ID_4= RULE_ID
+>>>>>>> refs/remotes/origin/PeterWork
             {
+<<<<<<< HEAD
             // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:5213:2: (this_ID_0= RULE_ID kw= Solidus )*
+=======
+            // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:5175:2: (this_ID_0= RULE_ID kw= Solidus )*
+>>>>>>> refs/remotes/origin/PeterWork
             loop107:
             do {
                 int alt107=2;
@@ -14634,9 +14897,17 @@ public class InternalReqSpecParser extends AbstractInternalAntlrParser {
 
                 switch (alt107) {
             	case 1 :
+<<<<<<< HEAD
             	    // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:5213:7: this_ID_0= RULE_ID kw= Solidus
+=======
+            	    // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:5175:7: this_ID_0= RULE_ID kw= Solidus
+>>>>>>> refs/remotes/origin/PeterWork
             	    {
+<<<<<<< HEAD
             	    this_ID_0=(Token)match(input,RULE_ID,FollowSets000.FOLLOW_RULE_ID_in_ruleIMGREF12507); if (state.failed) return current;
+=======
+            	    this_ID_0=(Token)match(input,RULE_ID,FollowSets000.FOLLOW_RULE_ID_in_ruleIMGREF12410); if (state.failed) return current;
+>>>>>>> refs/remotes/origin/PeterWork
             	    if ( state.backtracking==0 ) {
 
             	      		current.merge(this_ID_0);
@@ -14647,7 +14918,11 @@ public class InternalReqSpecParser extends AbstractInternalAntlrParser {
             	          newLeafNode(this_ID_0, grammarAccess.getIMGREFAccess().getIDTerminalRuleCall_0_0()); 
             	          
             	    }
+<<<<<<< HEAD
             	    kw=(Token)match(input,Solidus,FollowSets000.FOLLOW_Solidus_in_ruleIMGREF12525); if (state.failed) return current;
+=======
+            	    kw=(Token)match(input,Solidus,FollowSets000.FOLLOW_Solidus_in_ruleIMGREF12428); if (state.failed) return current;
+>>>>>>> refs/remotes/origin/PeterWork
             	    if ( state.backtracking==0 ) {
 
             	              current.merge(kw);
@@ -14663,7 +14938,11 @@ public class InternalReqSpecParser extends AbstractInternalAntlrParser {
                 }
             } while (true);
 
+<<<<<<< HEAD
             this_ID_2=(Token)match(input,RULE_ID,FollowSets000.FOLLOW_RULE_ID_in_ruleIMGREF12542); if (state.failed) return current;
+=======
+            this_ID_2=(Token)match(input,RULE_ID,FollowSets000.FOLLOW_RULE_ID_in_ruleIMGREF12445); if (state.failed) return current;
+>>>>>>> refs/remotes/origin/PeterWork
             if ( state.backtracking==0 ) {
 
               		current.merge(this_ID_2);
@@ -14674,14 +14953,22 @@ public class InternalReqSpecParser extends AbstractInternalAntlrParser {
                   newLeafNode(this_ID_2, grammarAccess.getIMGREFAccess().getIDTerminalRuleCall_1()); 
                   
             }
+<<<<<<< HEAD
             kw=(Token)match(input,FullStop,FollowSets000.FOLLOW_FullStop_in_ruleIMGREF12560); if (state.failed) return current;
+=======
+            kw=(Token)match(input,FullStop,FollowSets000.FOLLOW_FullStop_in_ruleIMGREF12463); if (state.failed) return current;
+>>>>>>> refs/remotes/origin/PeterWork
             if ( state.backtracking==0 ) {
 
                       current.merge(kw);
                       newLeafNode(kw, grammarAccess.getIMGREFAccess().getFullStopKeyword_2()); 
                   
             }
+<<<<<<< HEAD
             this_ID_4=(Token)match(input,RULE_ID,FollowSets000.FOLLOW_RULE_ID_in_ruleIMGREF12575); if (state.failed) return current;
+=======
+            this_ID_4=(Token)match(input,RULE_ID,FollowSets000.FOLLOW_RULE_ID_in_ruleIMGREF12478); if (state.failed) return current;
+>>>>>>> refs/remotes/origin/PeterWork
             if ( state.backtracking==0 ) {
 
               		current.merge(this_ID_4);
@@ -14716,6 +15003,7 @@ public class InternalReqSpecParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "entryRuleAExpression"
+<<<<<<< HEAD
     // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:5254:1: entryRuleAExpression returns [EObject current=null] : iv_ruleAExpression= ruleAExpression EOF ;
     public final EObject entryRuleAExpression() throws RecognitionException {
         EObject current = null;
@@ -19974,10 +20262,4806 @@ public class InternalReqSpecParser extends AbstractInternalAntlrParser {
         return current;
     }
     // $ANTLR end "ruleNoQuoteString"
+=======
+    // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:5216:1: entryRuleAExpression returns [EObject current=null] : iv_ruleAExpression= ruleAExpression EOF ;
+    public final EObject entryRuleAExpression() throws RecognitionException {
+        EObject current = null;
+
+        EObject iv_ruleAExpression = null;
+
+
+        try {
+            // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:5217:2: (iv_ruleAExpression= ruleAExpression EOF )
+            // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:5218:2: iv_ruleAExpression= ruleAExpression EOF
+            {
+            if ( state.backtracking==0 ) {
+               newCompositeNode(grammarAccess.getAExpressionRule()); 
+            }
+            pushFollow(FollowSets000.FOLLOW_ruleAExpression_in_entryRuleAExpression12522);
+            iv_ruleAExpression=ruleAExpression();
+
+            state._fsp--;
+            if (state.failed) return current;
+            if ( state.backtracking==0 ) {
+               current =iv_ruleAExpression; 
+            }
+            match(input,EOF,FollowSets000.FOLLOW_EOF_in_entryRuleAExpression12532); if (state.failed) return current;
+
+            }
+
+        }
+         
+        	catch (RecognitionException re) { 
+        	    recover(input,re); 
+        	    appendSkippedTokens();
+        	}
+        finally {
+        }
+        return current;
+    }
+    // $ANTLR end "entryRuleAExpression"
+
+
+    // $ANTLR start "ruleAExpression"
+    // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:5225:1: ruleAExpression returns [EObject current=null] : this_AOrExpression_0= ruleAOrExpression ;
+    public final EObject ruleAExpression() throws RecognitionException {
+        EObject current = null;
+
+        EObject this_AOrExpression_0 = null;
+
+
+         enterRule(); 
+            
+        try {
+            // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:5228:28: (this_AOrExpression_0= ruleAOrExpression )
+            // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:5230:5: this_AOrExpression_0= ruleAOrExpression
+            {
+            if ( state.backtracking==0 ) {
+               
+                      newCompositeNode(grammarAccess.getAExpressionAccess().getAOrExpressionParserRuleCall()); 
+                  
+            }
+            pushFollow(FollowSets000.FOLLOW_ruleAOrExpression_in_ruleAExpression12578);
+            this_AOrExpression_0=ruleAOrExpression();
+
+            state._fsp--;
+            if (state.failed) return current;
+            if ( state.backtracking==0 ) {
+
+                      current = this_AOrExpression_0;
+                      afterParserOrEnumRuleCall();
+                  
+            }
+
+            }
+
+            if ( state.backtracking==0 ) {
+               leaveRule(); 
+            }
+        }
+         
+        	catch (RecognitionException re) { 
+        	    recover(input,re); 
+        	    appendSkippedTokens();
+        	}
+        finally {
+        }
+        return current;
+    }
+    // $ANTLR end "ruleAExpression"
+
+
+    // $ANTLR start "entryRuleAOrExpression"
+    // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:5246:1: entryRuleAOrExpression returns [EObject current=null] : iv_ruleAOrExpression= ruleAOrExpression EOF ;
+    public final EObject entryRuleAOrExpression() throws RecognitionException {
+        EObject current = null;
+
+        EObject iv_ruleAOrExpression = null;
+
+
+        try {
+            // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:5247:2: (iv_ruleAOrExpression= ruleAOrExpression EOF )
+            // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:5248:2: iv_ruleAOrExpression= ruleAOrExpression EOF
+            {
+            if ( state.backtracking==0 ) {
+               newCompositeNode(grammarAccess.getAOrExpressionRule()); 
+            }
+            pushFollow(FollowSets000.FOLLOW_ruleAOrExpression_in_entryRuleAOrExpression12611);
+            iv_ruleAOrExpression=ruleAOrExpression();
+
+            state._fsp--;
+            if (state.failed) return current;
+            if ( state.backtracking==0 ) {
+               current =iv_ruleAOrExpression; 
+            }
+            match(input,EOF,FollowSets000.FOLLOW_EOF_in_entryRuleAOrExpression12621); if (state.failed) return current;
+
+            }
+
+        }
+         
+        	catch (RecognitionException re) { 
+        	    recover(input,re); 
+        	    appendSkippedTokens();
+        	}
+        finally {
+        }
+        return current;
+    }
+    // $ANTLR end "entryRuleAOrExpression"
+
+
+    // $ANTLR start "ruleAOrExpression"
+    // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:5255:1: ruleAOrExpression returns [EObject current=null] : (this_AAndExpression_0= ruleAAndExpression ( ( ( ( () ( ( ruleOpOr ) ) ) )=> ( () ( (lv_feature_2_0= ruleOpOr ) ) ) ) ( (lv_rightOperand_3_0= ruleAAndExpression ) ) )* ) ;
+    public final EObject ruleAOrExpression() throws RecognitionException {
+        EObject current = null;
+
+        EObject this_AAndExpression_0 = null;
+
+        AntlrDatatypeRuleToken lv_feature_2_0 = null;
+
+        EObject lv_rightOperand_3_0 = null;
+
+
+         enterRule(); 
+            
+        try {
+            // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:5258:28: ( (this_AAndExpression_0= ruleAAndExpression ( ( ( ( () ( ( ruleOpOr ) ) ) )=> ( () ( (lv_feature_2_0= ruleOpOr ) ) ) ) ( (lv_rightOperand_3_0= ruleAAndExpression ) ) )* ) )
+            // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:5259:1: (this_AAndExpression_0= ruleAAndExpression ( ( ( ( () ( ( ruleOpOr ) ) ) )=> ( () ( (lv_feature_2_0= ruleOpOr ) ) ) ) ( (lv_rightOperand_3_0= ruleAAndExpression ) ) )* )
+            {
+            // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:5259:1: (this_AAndExpression_0= ruleAAndExpression ( ( ( ( () ( ( ruleOpOr ) ) ) )=> ( () ( (lv_feature_2_0= ruleOpOr ) ) ) ) ( (lv_rightOperand_3_0= ruleAAndExpression ) ) )* )
+            // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:5260:5: this_AAndExpression_0= ruleAAndExpression ( ( ( ( () ( ( ruleOpOr ) ) ) )=> ( () ( (lv_feature_2_0= ruleOpOr ) ) ) ) ( (lv_rightOperand_3_0= ruleAAndExpression ) ) )*
+            {
+            if ( state.backtracking==0 ) {
+               
+                      newCompositeNode(grammarAccess.getAOrExpressionAccess().getAAndExpressionParserRuleCall_0()); 
+                  
+            }
+            pushFollow(FollowSets000.FOLLOW_ruleAAndExpression_in_ruleAOrExpression12668);
+            this_AAndExpression_0=ruleAAndExpression();
+
+            state._fsp--;
+            if (state.failed) return current;
+            if ( state.backtracking==0 ) {
+
+                      current = this_AAndExpression_0;
+                      afterParserOrEnumRuleCall();
+                  
+            }
+            // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:5268:1: ( ( ( ( () ( ( ruleOpOr ) ) ) )=> ( () ( (lv_feature_2_0= ruleOpOr ) ) ) ) ( (lv_rightOperand_3_0= ruleAAndExpression ) ) )*
+            loop108:
+            do {
+                int alt108=2;
+                int LA108_0 = input.LA(1);
+
+                if ( (LA108_0==VerticalLineVerticalLine) && (synpred3_InternalReqSpecParser())) {
+                    alt108=1;
+                }
+
+
+                switch (alt108) {
+            	case 1 :
+            	    // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:5268:2: ( ( ( () ( ( ruleOpOr ) ) ) )=> ( () ( (lv_feature_2_0= ruleOpOr ) ) ) ) ( (lv_rightOperand_3_0= ruleAAndExpression ) )
+            	    {
+            	    // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:5268:2: ( ( ( () ( ( ruleOpOr ) ) ) )=> ( () ( (lv_feature_2_0= ruleOpOr ) ) ) )
+            	    // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:5268:3: ( ( () ( ( ruleOpOr ) ) ) )=> ( () ( (lv_feature_2_0= ruleOpOr ) ) )
+            	    {
+            	    // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:5273:6: ( () ( (lv_feature_2_0= ruleOpOr ) ) )
+            	    // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:5273:7: () ( (lv_feature_2_0= ruleOpOr ) )
+            	    {
+            	    // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:5273:7: ()
+            	    // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:5274:5: 
+            	    {
+            	    if ( state.backtracking==0 ) {
+
+            	              current = forceCreateModelElementAndSet(
+            	                  grammarAccess.getAOrExpressionAccess().getABinaryOperationLeftOperandAction_1_0_0_0(),
+            	                  current);
+            	          
+            	    }
+
+            	    }
+
+            	    // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:5279:2: ( (lv_feature_2_0= ruleOpOr ) )
+            	    // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:5280:1: (lv_feature_2_0= ruleOpOr )
+            	    {
+            	    // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:5280:1: (lv_feature_2_0= ruleOpOr )
+            	    // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:5281:3: lv_feature_2_0= ruleOpOr
+            	    {
+            	    if ( state.backtracking==0 ) {
+            	       
+            	      	        newCompositeNode(grammarAccess.getAOrExpressionAccess().getFeatureOpOrParserRuleCall_1_0_0_1_0()); 
+            	      	    
+            	    }
+            	    pushFollow(FollowSets000.FOLLOW_ruleOpOr_in_ruleAOrExpression12717);
+            	    lv_feature_2_0=ruleOpOr();
+
+            	    state._fsp--;
+            	    if (state.failed) return current;
+            	    if ( state.backtracking==0 ) {
+
+            	      	        if (current==null) {
+            	      	            current = createModelElementForParent(grammarAccess.getAOrExpressionRule());
+            	      	        }
+            	             		set(
+            	             			current, 
+            	             			"feature",
+            	              		lv_feature_2_0, 
+            	              		"OpOr");
+            	      	        afterParserOrEnumRuleCall();
+            	      	    
+            	    }
+
+            	    }
+
+
+            	    }
+
+
+            	    }
+
+
+            	    }
+
+            	    // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:5297:4: ( (lv_rightOperand_3_0= ruleAAndExpression ) )
+            	    // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:5298:1: (lv_rightOperand_3_0= ruleAAndExpression )
+            	    {
+            	    // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:5298:1: (lv_rightOperand_3_0= ruleAAndExpression )
+            	    // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:5299:3: lv_rightOperand_3_0= ruleAAndExpression
+            	    {
+            	    if ( state.backtracking==0 ) {
+            	       
+            	      	        newCompositeNode(grammarAccess.getAOrExpressionAccess().getRightOperandAAndExpressionParserRuleCall_1_1_0()); 
+            	      	    
+            	    }
+            	    pushFollow(FollowSets000.FOLLOW_ruleAAndExpression_in_ruleAOrExpression12740);
+            	    lv_rightOperand_3_0=ruleAAndExpression();
+
+            	    state._fsp--;
+            	    if (state.failed) return current;
+            	    if ( state.backtracking==0 ) {
+
+            	      	        if (current==null) {
+            	      	            current = createModelElementForParent(grammarAccess.getAOrExpressionRule());
+            	      	        }
+            	             		set(
+            	             			current, 
+            	             			"rightOperand",
+            	              		lv_rightOperand_3_0, 
+            	              		"AAndExpression");
+            	      	        afterParserOrEnumRuleCall();
+            	      	    
+            	    }
+
+            	    }
+
+
+            	    }
+
+
+            	    }
+            	    break;
+
+            	default :
+            	    break loop108;
+                }
+            } while (true);
+
+
+            }
+
+
+            }
+
+            if ( state.backtracking==0 ) {
+               leaveRule(); 
+            }
+        }
+         
+        	catch (RecognitionException re) { 
+        	    recover(input,re); 
+        	    appendSkippedTokens();
+        	}
+        finally {
+        }
+        return current;
+    }
+    // $ANTLR end "ruleAOrExpression"
+
+
+    // $ANTLR start "entryRuleOpOr"
+    // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:5323:1: entryRuleOpOr returns [String current=null] : iv_ruleOpOr= ruleOpOr EOF ;
+    public final String entryRuleOpOr() throws RecognitionException {
+        String current = null;
+
+        AntlrDatatypeRuleToken iv_ruleOpOr = null;
+
+
+        try {
+            // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:5324:1: (iv_ruleOpOr= ruleOpOr EOF )
+            // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:5325:2: iv_ruleOpOr= ruleOpOr EOF
+            {
+            if ( state.backtracking==0 ) {
+               newCompositeNode(grammarAccess.getOpOrRule()); 
+            }
+            pushFollow(FollowSets000.FOLLOW_ruleOpOr_in_entryRuleOpOr12778);
+            iv_ruleOpOr=ruleOpOr();
+
+            state._fsp--;
+            if (state.failed) return current;
+            if ( state.backtracking==0 ) {
+               current =iv_ruleOpOr.getText(); 
+            }
+            match(input,EOF,FollowSets000.FOLLOW_EOF_in_entryRuleOpOr12789); if (state.failed) return current;
+
+            }
+
+        }
+         
+        	catch (RecognitionException re) { 
+        	    recover(input,re); 
+        	    appendSkippedTokens();
+        	}
+        finally {
+        }
+        return current;
+    }
+    // $ANTLR end "entryRuleOpOr"
+
+
+    // $ANTLR start "ruleOpOr"
+    // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:5332:1: ruleOpOr returns [AntlrDatatypeRuleToken current=new AntlrDatatypeRuleToken()] : kw= VerticalLineVerticalLine ;
+    public final AntlrDatatypeRuleToken ruleOpOr() throws RecognitionException {
+        AntlrDatatypeRuleToken current = new AntlrDatatypeRuleToken();
+
+        Token kw=null;
+
+         enterRule(); 
+            
+        try {
+            // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:5336:6: (kw= VerticalLineVerticalLine )
+            // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:5338:2: kw= VerticalLineVerticalLine
+            {
+            kw=(Token)match(input,VerticalLineVerticalLine,FollowSets000.FOLLOW_VerticalLineVerticalLine_in_ruleOpOr12826); if (state.failed) return current;
+            if ( state.backtracking==0 ) {
+
+                      current.merge(kw);
+                      newLeafNode(kw, grammarAccess.getOpOrAccess().getVerticalLineVerticalLineKeyword()); 
+                  
+            }
+
+            }
+
+            if ( state.backtracking==0 ) {
+               leaveRule();
+                  
+            }
+        }
+         
+        	catch (RecognitionException re) { 
+        	    recover(input,re); 
+        	    appendSkippedTokens();
+        	}
+        finally {
+        }
+        return current;
+    }
+    // $ANTLR end "ruleOpOr"
+
+
+    // $ANTLR start "entryRuleAAndExpression"
+    // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:5351:1: entryRuleAAndExpression returns [EObject current=null] : iv_ruleAAndExpression= ruleAAndExpression EOF ;
+    public final EObject entryRuleAAndExpression() throws RecognitionException {
+        EObject current = null;
+
+        EObject iv_ruleAAndExpression = null;
+
+
+        try {
+            // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:5352:2: (iv_ruleAAndExpression= ruleAAndExpression EOF )
+            // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:5353:2: iv_ruleAAndExpression= ruleAAndExpression EOF
+            {
+            if ( state.backtracking==0 ) {
+               newCompositeNode(grammarAccess.getAAndExpressionRule()); 
+            }
+            pushFollow(FollowSets000.FOLLOW_ruleAAndExpression_in_entryRuleAAndExpression12864);
+            iv_ruleAAndExpression=ruleAAndExpression();
+
+            state._fsp--;
+            if (state.failed) return current;
+            if ( state.backtracking==0 ) {
+               current =iv_ruleAAndExpression; 
+            }
+            match(input,EOF,FollowSets000.FOLLOW_EOF_in_entryRuleAAndExpression12874); if (state.failed) return current;
+
+            }
+
+        }
+         
+        	catch (RecognitionException re) { 
+        	    recover(input,re); 
+        	    appendSkippedTokens();
+        	}
+        finally {
+        }
+        return current;
+    }
+    // $ANTLR end "entryRuleAAndExpression"
+
+
+    // $ANTLR start "ruleAAndExpression"
+    // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:5360:1: ruleAAndExpression returns [EObject current=null] : (this_AEqualityExpression_0= ruleAEqualityExpression ( ( ( ( () ( ( ruleOpAnd ) ) ) )=> ( () ( (lv_feature_2_0= ruleOpAnd ) ) ) ) ( (lv_rightOperand_3_0= ruleAEqualityExpression ) ) )* ) ;
+    public final EObject ruleAAndExpression() throws RecognitionException {
+        EObject current = null;
+
+        EObject this_AEqualityExpression_0 = null;
+
+        AntlrDatatypeRuleToken lv_feature_2_0 = null;
+
+        EObject lv_rightOperand_3_0 = null;
+
+
+         enterRule(); 
+            
+        try {
+            // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:5363:28: ( (this_AEqualityExpression_0= ruleAEqualityExpression ( ( ( ( () ( ( ruleOpAnd ) ) ) )=> ( () ( (lv_feature_2_0= ruleOpAnd ) ) ) ) ( (lv_rightOperand_3_0= ruleAEqualityExpression ) ) )* ) )
+            // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:5364:1: (this_AEqualityExpression_0= ruleAEqualityExpression ( ( ( ( () ( ( ruleOpAnd ) ) ) )=> ( () ( (lv_feature_2_0= ruleOpAnd ) ) ) ) ( (lv_rightOperand_3_0= ruleAEqualityExpression ) ) )* )
+            {
+            // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:5364:1: (this_AEqualityExpression_0= ruleAEqualityExpression ( ( ( ( () ( ( ruleOpAnd ) ) ) )=> ( () ( (lv_feature_2_0= ruleOpAnd ) ) ) ) ( (lv_rightOperand_3_0= ruleAEqualityExpression ) ) )* )
+            // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:5365:5: this_AEqualityExpression_0= ruleAEqualityExpression ( ( ( ( () ( ( ruleOpAnd ) ) ) )=> ( () ( (lv_feature_2_0= ruleOpAnd ) ) ) ) ( (lv_rightOperand_3_0= ruleAEqualityExpression ) ) )*
+            {
+            if ( state.backtracking==0 ) {
+               
+                      newCompositeNode(grammarAccess.getAAndExpressionAccess().getAEqualityExpressionParserRuleCall_0()); 
+                  
+            }
+            pushFollow(FollowSets000.FOLLOW_ruleAEqualityExpression_in_ruleAAndExpression12921);
+            this_AEqualityExpression_0=ruleAEqualityExpression();
+
+            state._fsp--;
+            if (state.failed) return current;
+            if ( state.backtracking==0 ) {
+
+                      current = this_AEqualityExpression_0;
+                      afterParserOrEnumRuleCall();
+                  
+            }
+            // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:5373:1: ( ( ( ( () ( ( ruleOpAnd ) ) ) )=> ( () ( (lv_feature_2_0= ruleOpAnd ) ) ) ) ( (lv_rightOperand_3_0= ruleAEqualityExpression ) ) )*
+            loop109:
+            do {
+                int alt109=2;
+                int LA109_0 = input.LA(1);
+
+                if ( (LA109_0==AmpersandAmpersand) && (synpred4_InternalReqSpecParser())) {
+                    alt109=1;
+                }
+
+
+                switch (alt109) {
+            	case 1 :
+            	    // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:5373:2: ( ( ( () ( ( ruleOpAnd ) ) ) )=> ( () ( (lv_feature_2_0= ruleOpAnd ) ) ) ) ( (lv_rightOperand_3_0= ruleAEqualityExpression ) )
+            	    {
+            	    // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:5373:2: ( ( ( () ( ( ruleOpAnd ) ) ) )=> ( () ( (lv_feature_2_0= ruleOpAnd ) ) ) )
+            	    // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:5373:3: ( ( () ( ( ruleOpAnd ) ) ) )=> ( () ( (lv_feature_2_0= ruleOpAnd ) ) )
+            	    {
+            	    // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:5378:6: ( () ( (lv_feature_2_0= ruleOpAnd ) ) )
+            	    // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:5378:7: () ( (lv_feature_2_0= ruleOpAnd ) )
+            	    {
+            	    // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:5378:7: ()
+            	    // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:5379:5: 
+            	    {
+            	    if ( state.backtracking==0 ) {
+
+            	              current = forceCreateModelElementAndSet(
+            	                  grammarAccess.getAAndExpressionAccess().getABinaryOperationLeftOperandAction_1_0_0_0(),
+            	                  current);
+            	          
+            	    }
+
+            	    }
+
+            	    // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:5384:2: ( (lv_feature_2_0= ruleOpAnd ) )
+            	    // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:5385:1: (lv_feature_2_0= ruleOpAnd )
+            	    {
+            	    // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:5385:1: (lv_feature_2_0= ruleOpAnd )
+            	    // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:5386:3: lv_feature_2_0= ruleOpAnd
+            	    {
+            	    if ( state.backtracking==0 ) {
+            	       
+            	      	        newCompositeNode(grammarAccess.getAAndExpressionAccess().getFeatureOpAndParserRuleCall_1_0_0_1_0()); 
+            	      	    
+            	    }
+            	    pushFollow(FollowSets000.FOLLOW_ruleOpAnd_in_ruleAAndExpression12970);
+            	    lv_feature_2_0=ruleOpAnd();
+
+            	    state._fsp--;
+            	    if (state.failed) return current;
+            	    if ( state.backtracking==0 ) {
+
+            	      	        if (current==null) {
+            	      	            current = createModelElementForParent(grammarAccess.getAAndExpressionRule());
+            	      	        }
+            	             		set(
+            	             			current, 
+            	             			"feature",
+            	              		lv_feature_2_0, 
+            	              		"OpAnd");
+            	      	        afterParserOrEnumRuleCall();
+            	      	    
+            	    }
+
+            	    }
+
+
+            	    }
+
+
+            	    }
+
+
+            	    }
+
+            	    // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:5402:4: ( (lv_rightOperand_3_0= ruleAEqualityExpression ) )
+            	    // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:5403:1: (lv_rightOperand_3_0= ruleAEqualityExpression )
+            	    {
+            	    // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:5403:1: (lv_rightOperand_3_0= ruleAEqualityExpression )
+            	    // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:5404:3: lv_rightOperand_3_0= ruleAEqualityExpression
+            	    {
+            	    if ( state.backtracking==0 ) {
+            	       
+            	      	        newCompositeNode(grammarAccess.getAAndExpressionAccess().getRightOperandAEqualityExpressionParserRuleCall_1_1_0()); 
+            	      	    
+            	    }
+            	    pushFollow(FollowSets000.FOLLOW_ruleAEqualityExpression_in_ruleAAndExpression12993);
+            	    lv_rightOperand_3_0=ruleAEqualityExpression();
+
+            	    state._fsp--;
+            	    if (state.failed) return current;
+            	    if ( state.backtracking==0 ) {
+
+            	      	        if (current==null) {
+            	      	            current = createModelElementForParent(grammarAccess.getAAndExpressionRule());
+            	      	        }
+            	             		set(
+            	             			current, 
+            	             			"rightOperand",
+            	              		lv_rightOperand_3_0, 
+            	              		"AEqualityExpression");
+            	      	        afterParserOrEnumRuleCall();
+            	      	    
+            	    }
+
+            	    }
+
+
+            	    }
+
+
+            	    }
+            	    break;
+
+            	default :
+            	    break loop109;
+                }
+            } while (true);
+
+
+            }
+
+
+            }
+
+            if ( state.backtracking==0 ) {
+               leaveRule(); 
+            }
+        }
+         
+        	catch (RecognitionException re) { 
+        	    recover(input,re); 
+        	    appendSkippedTokens();
+        	}
+        finally {
+        }
+        return current;
+    }
+    // $ANTLR end "ruleAAndExpression"
+
+
+    // $ANTLR start "entryRuleOpAnd"
+    // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:5428:1: entryRuleOpAnd returns [String current=null] : iv_ruleOpAnd= ruleOpAnd EOF ;
+    public final String entryRuleOpAnd() throws RecognitionException {
+        String current = null;
+
+        AntlrDatatypeRuleToken iv_ruleOpAnd = null;
+
+
+        try {
+            // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:5429:1: (iv_ruleOpAnd= ruleOpAnd EOF )
+            // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:5430:2: iv_ruleOpAnd= ruleOpAnd EOF
+            {
+            if ( state.backtracking==0 ) {
+               newCompositeNode(grammarAccess.getOpAndRule()); 
+            }
+            pushFollow(FollowSets000.FOLLOW_ruleOpAnd_in_entryRuleOpAnd13031);
+            iv_ruleOpAnd=ruleOpAnd();
+
+            state._fsp--;
+            if (state.failed) return current;
+            if ( state.backtracking==0 ) {
+               current =iv_ruleOpAnd.getText(); 
+            }
+            match(input,EOF,FollowSets000.FOLLOW_EOF_in_entryRuleOpAnd13042); if (state.failed) return current;
+
+            }
+
+        }
+         
+        	catch (RecognitionException re) { 
+        	    recover(input,re); 
+        	    appendSkippedTokens();
+        	}
+        finally {
+        }
+        return current;
+    }
+    // $ANTLR end "entryRuleOpAnd"
+
+
+    // $ANTLR start "ruleOpAnd"
+    // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:5437:1: ruleOpAnd returns [AntlrDatatypeRuleToken current=new AntlrDatatypeRuleToken()] : kw= AmpersandAmpersand ;
+    public final AntlrDatatypeRuleToken ruleOpAnd() throws RecognitionException {
+        AntlrDatatypeRuleToken current = new AntlrDatatypeRuleToken();
+
+        Token kw=null;
+
+         enterRule(); 
+            
+        try {
+            // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:5441:6: (kw= AmpersandAmpersand )
+            // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:5443:2: kw= AmpersandAmpersand
+            {
+            kw=(Token)match(input,AmpersandAmpersand,FollowSets000.FOLLOW_AmpersandAmpersand_in_ruleOpAnd13079); if (state.failed) return current;
+            if ( state.backtracking==0 ) {
+
+                      current.merge(kw);
+                      newLeafNode(kw, grammarAccess.getOpAndAccess().getAmpersandAmpersandKeyword()); 
+                  
+            }
+
+            }
+
+            if ( state.backtracking==0 ) {
+               leaveRule();
+                  
+            }
+        }
+         
+        	catch (RecognitionException re) { 
+        	    recover(input,re); 
+        	    appendSkippedTokens();
+        	}
+        finally {
+        }
+        return current;
+    }
+    // $ANTLR end "ruleOpAnd"
+
+
+    // $ANTLR start "entryRuleAEqualityExpression"
+    // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:5456:1: entryRuleAEqualityExpression returns [EObject current=null] : iv_ruleAEqualityExpression= ruleAEqualityExpression EOF ;
+    public final EObject entryRuleAEqualityExpression() throws RecognitionException {
+        EObject current = null;
+
+        EObject iv_ruleAEqualityExpression = null;
+
+
+        try {
+            // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:5457:2: (iv_ruleAEqualityExpression= ruleAEqualityExpression EOF )
+            // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:5458:2: iv_ruleAEqualityExpression= ruleAEqualityExpression EOF
+            {
+            if ( state.backtracking==0 ) {
+               newCompositeNode(grammarAccess.getAEqualityExpressionRule()); 
+            }
+            pushFollow(FollowSets000.FOLLOW_ruleAEqualityExpression_in_entryRuleAEqualityExpression13117);
+            iv_ruleAEqualityExpression=ruleAEqualityExpression();
+
+            state._fsp--;
+            if (state.failed) return current;
+            if ( state.backtracking==0 ) {
+               current =iv_ruleAEqualityExpression; 
+            }
+            match(input,EOF,FollowSets000.FOLLOW_EOF_in_entryRuleAEqualityExpression13127); if (state.failed) return current;
+
+            }
+
+        }
+         
+        	catch (RecognitionException re) { 
+        	    recover(input,re); 
+        	    appendSkippedTokens();
+        	}
+        finally {
+        }
+        return current;
+    }
+    // $ANTLR end "entryRuleAEqualityExpression"
+
+
+    // $ANTLR start "ruleAEqualityExpression"
+    // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:5465:1: ruleAEqualityExpression returns [EObject current=null] : (this_ARelationalExpression_0= ruleARelationalExpression ( ( ( ( () ( ( ruleOpEquality ) ) ) )=> ( () ( (lv_feature_2_0= ruleOpEquality ) ) ) ) ( (lv_rightOperand_3_0= ruleARelationalExpression ) ) )* ) ;
+    public final EObject ruleAEqualityExpression() throws RecognitionException {
+        EObject current = null;
+
+        EObject this_ARelationalExpression_0 = null;
+
+        AntlrDatatypeRuleToken lv_feature_2_0 = null;
+
+        EObject lv_rightOperand_3_0 = null;
+
+
+         enterRule(); 
+            
+        try {
+            // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:5468:28: ( (this_ARelationalExpression_0= ruleARelationalExpression ( ( ( ( () ( ( ruleOpEquality ) ) ) )=> ( () ( (lv_feature_2_0= ruleOpEquality ) ) ) ) ( (lv_rightOperand_3_0= ruleARelationalExpression ) ) )* ) )
+            // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:5469:1: (this_ARelationalExpression_0= ruleARelationalExpression ( ( ( ( () ( ( ruleOpEquality ) ) ) )=> ( () ( (lv_feature_2_0= ruleOpEquality ) ) ) ) ( (lv_rightOperand_3_0= ruleARelationalExpression ) ) )* )
+            {
+            // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:5469:1: (this_ARelationalExpression_0= ruleARelationalExpression ( ( ( ( () ( ( ruleOpEquality ) ) ) )=> ( () ( (lv_feature_2_0= ruleOpEquality ) ) ) ) ( (lv_rightOperand_3_0= ruleARelationalExpression ) ) )* )
+            // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:5470:5: this_ARelationalExpression_0= ruleARelationalExpression ( ( ( ( () ( ( ruleOpEquality ) ) ) )=> ( () ( (lv_feature_2_0= ruleOpEquality ) ) ) ) ( (lv_rightOperand_3_0= ruleARelationalExpression ) ) )*
+            {
+            if ( state.backtracking==0 ) {
+               
+                      newCompositeNode(grammarAccess.getAEqualityExpressionAccess().getARelationalExpressionParserRuleCall_0()); 
+                  
+            }
+            pushFollow(FollowSets000.FOLLOW_ruleARelationalExpression_in_ruleAEqualityExpression13174);
+            this_ARelationalExpression_0=ruleARelationalExpression();
+
+            state._fsp--;
+            if (state.failed) return current;
+            if ( state.backtracking==0 ) {
+
+                      current = this_ARelationalExpression_0;
+                      afterParserOrEnumRuleCall();
+                  
+            }
+            // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:5478:1: ( ( ( ( () ( ( ruleOpEquality ) ) ) )=> ( () ( (lv_feature_2_0= ruleOpEquality ) ) ) ) ( (lv_rightOperand_3_0= ruleARelationalExpression ) ) )*
+            loop110:
+            do {
+                int alt110=2;
+                int LA110_0 = input.LA(1);
+
+                if ( (LA110_0==EqualsSignEqualsSign) && (synpred5_InternalReqSpecParser())) {
+                    alt110=1;
+                }
+                else if ( (LA110_0==ExclamationMarkEqualsSign) && (synpred5_InternalReqSpecParser())) {
+                    alt110=1;
+                }
+                else if ( (LA110_0==EqualsSignEqualsSignEqualsSign) && (synpred5_InternalReqSpecParser())) {
+                    alt110=1;
+                }
+                else if ( (LA110_0==ExclamationMarkEqualsSignEqualsSign) && (synpred5_InternalReqSpecParser())) {
+                    alt110=1;
+                }
+
+
+                switch (alt110) {
+            	case 1 :
+            	    // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:5478:2: ( ( ( () ( ( ruleOpEquality ) ) ) )=> ( () ( (lv_feature_2_0= ruleOpEquality ) ) ) ) ( (lv_rightOperand_3_0= ruleARelationalExpression ) )
+            	    {
+            	    // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:5478:2: ( ( ( () ( ( ruleOpEquality ) ) ) )=> ( () ( (lv_feature_2_0= ruleOpEquality ) ) ) )
+            	    // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:5478:3: ( ( () ( ( ruleOpEquality ) ) ) )=> ( () ( (lv_feature_2_0= ruleOpEquality ) ) )
+            	    {
+            	    // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:5483:6: ( () ( (lv_feature_2_0= ruleOpEquality ) ) )
+            	    // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:5483:7: () ( (lv_feature_2_0= ruleOpEquality ) )
+            	    {
+            	    // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:5483:7: ()
+            	    // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:5484:5: 
+            	    {
+            	    if ( state.backtracking==0 ) {
+
+            	              current = forceCreateModelElementAndSet(
+            	                  grammarAccess.getAEqualityExpressionAccess().getABinaryOperationLeftOperandAction_1_0_0_0(),
+            	                  current);
+            	          
+            	    }
+
+            	    }
+
+            	    // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:5489:2: ( (lv_feature_2_0= ruleOpEquality ) )
+            	    // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:5490:1: (lv_feature_2_0= ruleOpEquality )
+            	    {
+            	    // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:5490:1: (lv_feature_2_0= ruleOpEquality )
+            	    // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:5491:3: lv_feature_2_0= ruleOpEquality
+            	    {
+            	    if ( state.backtracking==0 ) {
+            	       
+            	      	        newCompositeNode(grammarAccess.getAEqualityExpressionAccess().getFeatureOpEqualityParserRuleCall_1_0_0_1_0()); 
+            	      	    
+            	    }
+            	    pushFollow(FollowSets000.FOLLOW_ruleOpEquality_in_ruleAEqualityExpression13223);
+            	    lv_feature_2_0=ruleOpEquality();
+
+            	    state._fsp--;
+            	    if (state.failed) return current;
+            	    if ( state.backtracking==0 ) {
+
+            	      	        if (current==null) {
+            	      	            current = createModelElementForParent(grammarAccess.getAEqualityExpressionRule());
+            	      	        }
+            	             		set(
+            	             			current, 
+            	             			"feature",
+            	              		lv_feature_2_0, 
+            	              		"OpEquality");
+            	      	        afterParserOrEnumRuleCall();
+            	      	    
+            	    }
+
+            	    }
+
+
+            	    }
+
+
+            	    }
+
+
+            	    }
+
+            	    // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:5507:4: ( (lv_rightOperand_3_0= ruleARelationalExpression ) )
+            	    // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:5508:1: (lv_rightOperand_3_0= ruleARelationalExpression )
+            	    {
+            	    // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:5508:1: (lv_rightOperand_3_0= ruleARelationalExpression )
+            	    // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:5509:3: lv_rightOperand_3_0= ruleARelationalExpression
+            	    {
+            	    if ( state.backtracking==0 ) {
+            	       
+            	      	        newCompositeNode(grammarAccess.getAEqualityExpressionAccess().getRightOperandARelationalExpressionParserRuleCall_1_1_0()); 
+            	      	    
+            	    }
+            	    pushFollow(FollowSets000.FOLLOW_ruleARelationalExpression_in_ruleAEqualityExpression13246);
+            	    lv_rightOperand_3_0=ruleARelationalExpression();
+
+            	    state._fsp--;
+            	    if (state.failed) return current;
+            	    if ( state.backtracking==0 ) {
+
+            	      	        if (current==null) {
+            	      	            current = createModelElementForParent(grammarAccess.getAEqualityExpressionRule());
+            	      	        }
+            	             		set(
+            	             			current, 
+            	             			"rightOperand",
+            	              		lv_rightOperand_3_0, 
+            	              		"ARelationalExpression");
+            	      	        afterParserOrEnumRuleCall();
+            	      	    
+            	    }
+
+            	    }
+
+
+            	    }
+
+
+            	    }
+            	    break;
+
+            	default :
+            	    break loop110;
+                }
+            } while (true);
+
+
+            }
+
+
+            }
+
+            if ( state.backtracking==0 ) {
+               leaveRule(); 
+            }
+        }
+         
+        	catch (RecognitionException re) { 
+        	    recover(input,re); 
+        	    appendSkippedTokens();
+        	}
+        finally {
+        }
+        return current;
+    }
+    // $ANTLR end "ruleAEqualityExpression"
+
+
+    // $ANTLR start "entryRuleOpEquality"
+    // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:5533:1: entryRuleOpEquality returns [String current=null] : iv_ruleOpEquality= ruleOpEquality EOF ;
+    public final String entryRuleOpEquality() throws RecognitionException {
+        String current = null;
+
+        AntlrDatatypeRuleToken iv_ruleOpEquality = null;
+
+
+        try {
+            // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:5534:1: (iv_ruleOpEquality= ruleOpEquality EOF )
+            // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:5535:2: iv_ruleOpEquality= ruleOpEquality EOF
+            {
+            if ( state.backtracking==0 ) {
+               newCompositeNode(grammarAccess.getOpEqualityRule()); 
+            }
+            pushFollow(FollowSets000.FOLLOW_ruleOpEquality_in_entryRuleOpEquality13284);
+            iv_ruleOpEquality=ruleOpEquality();
+
+            state._fsp--;
+            if (state.failed) return current;
+            if ( state.backtracking==0 ) {
+               current =iv_ruleOpEquality.getText(); 
+            }
+            match(input,EOF,FollowSets000.FOLLOW_EOF_in_entryRuleOpEquality13295); if (state.failed) return current;
+
+            }
+
+        }
+         
+        	catch (RecognitionException re) { 
+        	    recover(input,re); 
+        	    appendSkippedTokens();
+        	}
+        finally {
+        }
+        return current;
+    }
+    // $ANTLR end "entryRuleOpEquality"
+
+
+    // $ANTLR start "ruleOpEquality"
+    // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:5542:1: ruleOpEquality returns [AntlrDatatypeRuleToken current=new AntlrDatatypeRuleToken()] : (kw= EqualsSignEqualsSign | kw= ExclamationMarkEqualsSign | kw= EqualsSignEqualsSignEqualsSign | kw= ExclamationMarkEqualsSignEqualsSign ) ;
+    public final AntlrDatatypeRuleToken ruleOpEquality() throws RecognitionException {
+        AntlrDatatypeRuleToken current = new AntlrDatatypeRuleToken();
+
+        Token kw=null;
+
+         enterRule(); 
+            
+        try {
+            // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:5546:6: ( (kw= EqualsSignEqualsSign | kw= ExclamationMarkEqualsSign | kw= EqualsSignEqualsSignEqualsSign | kw= ExclamationMarkEqualsSignEqualsSign ) )
+            // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:5547:1: (kw= EqualsSignEqualsSign | kw= ExclamationMarkEqualsSign | kw= EqualsSignEqualsSignEqualsSign | kw= ExclamationMarkEqualsSignEqualsSign )
+            {
+            // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:5547:1: (kw= EqualsSignEqualsSign | kw= ExclamationMarkEqualsSign | kw= EqualsSignEqualsSignEqualsSign | kw= ExclamationMarkEqualsSignEqualsSign )
+            int alt111=4;
+            switch ( input.LA(1) ) {
+            case EqualsSignEqualsSign:
+                {
+                alt111=1;
+                }
+                break;
+            case ExclamationMarkEqualsSign:
+                {
+                alt111=2;
+                }
+                break;
+            case EqualsSignEqualsSignEqualsSign:
+                {
+                alt111=3;
+                }
+                break;
+            case ExclamationMarkEqualsSignEqualsSign:
+                {
+                alt111=4;
+                }
+                break;
+            default:
+                if (state.backtracking>0) {state.failed=true; return current;}
+                NoViableAltException nvae =
+                    new NoViableAltException("", 111, 0, input);
+
+                throw nvae;
+            }
+
+            switch (alt111) {
+                case 1 :
+                    // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:5548:2: kw= EqualsSignEqualsSign
+                    {
+                    kw=(Token)match(input,EqualsSignEqualsSign,FollowSets000.FOLLOW_EqualsSignEqualsSign_in_ruleOpEquality13333); if (state.failed) return current;
+                    if ( state.backtracking==0 ) {
+
+                              current.merge(kw);
+                              newLeafNode(kw, grammarAccess.getOpEqualityAccess().getEqualsSignEqualsSignKeyword_0()); 
+                          
+                    }
+
+                    }
+                    break;
+                case 2 :
+                    // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:5555:2: kw= ExclamationMarkEqualsSign
+                    {
+                    kw=(Token)match(input,ExclamationMarkEqualsSign,FollowSets000.FOLLOW_ExclamationMarkEqualsSign_in_ruleOpEquality13352); if (state.failed) return current;
+                    if ( state.backtracking==0 ) {
+
+                              current.merge(kw);
+                              newLeafNode(kw, grammarAccess.getOpEqualityAccess().getExclamationMarkEqualsSignKeyword_1()); 
+                          
+                    }
+
+                    }
+                    break;
+                case 3 :
+                    // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:5562:2: kw= EqualsSignEqualsSignEqualsSign
+                    {
+                    kw=(Token)match(input,EqualsSignEqualsSignEqualsSign,FollowSets000.FOLLOW_EqualsSignEqualsSignEqualsSign_in_ruleOpEquality13371); if (state.failed) return current;
+                    if ( state.backtracking==0 ) {
+
+                              current.merge(kw);
+                              newLeafNode(kw, grammarAccess.getOpEqualityAccess().getEqualsSignEqualsSignEqualsSignKeyword_2()); 
+                          
+                    }
+
+                    }
+                    break;
+                case 4 :
+                    // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:5569:2: kw= ExclamationMarkEqualsSignEqualsSign
+                    {
+                    kw=(Token)match(input,ExclamationMarkEqualsSignEqualsSign,FollowSets000.FOLLOW_ExclamationMarkEqualsSignEqualsSign_in_ruleOpEquality13390); if (state.failed) return current;
+                    if ( state.backtracking==0 ) {
+
+                              current.merge(kw);
+                              newLeafNode(kw, grammarAccess.getOpEqualityAccess().getExclamationMarkEqualsSignEqualsSignKeyword_3()); 
+                          
+                    }
+
+                    }
+                    break;
+
+            }
+
+
+            }
+
+            if ( state.backtracking==0 ) {
+               leaveRule();
+                  
+            }
+        }
+         
+        	catch (RecognitionException re) { 
+        	    recover(input,re); 
+        	    appendSkippedTokens();
+        	}
+        finally {
+        }
+        return current;
+    }
+    // $ANTLR end "ruleOpEquality"
+
+
+    // $ANTLR start "entryRuleARelationalExpression"
+    // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:5582:1: entryRuleARelationalExpression returns [EObject current=null] : iv_ruleARelationalExpression= ruleARelationalExpression EOF ;
+    public final EObject entryRuleARelationalExpression() throws RecognitionException {
+        EObject current = null;
+
+        EObject iv_ruleARelationalExpression = null;
+
+
+        try {
+            // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:5583:2: (iv_ruleARelationalExpression= ruleARelationalExpression EOF )
+            // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:5584:2: iv_ruleARelationalExpression= ruleARelationalExpression EOF
+            {
+            if ( state.backtracking==0 ) {
+               newCompositeNode(grammarAccess.getARelationalExpressionRule()); 
+            }
+            pushFollow(FollowSets000.FOLLOW_ruleARelationalExpression_in_entryRuleARelationalExpression13429);
+            iv_ruleARelationalExpression=ruleARelationalExpression();
+
+            state._fsp--;
+            if (state.failed) return current;
+            if ( state.backtracking==0 ) {
+               current =iv_ruleARelationalExpression; 
+            }
+            match(input,EOF,FollowSets000.FOLLOW_EOF_in_entryRuleARelationalExpression13439); if (state.failed) return current;
+
+            }
+
+        }
+         
+        	catch (RecognitionException re) { 
+        	    recover(input,re); 
+        	    appendSkippedTokens();
+        	}
+        finally {
+        }
+        return current;
+    }
+    // $ANTLR end "entryRuleARelationalExpression"
+
+
+    // $ANTLR start "ruleARelationalExpression"
+    // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:5591:1: ruleARelationalExpression returns [EObject current=null] : (this_AOtherOperatorExpression_0= ruleAOtherOperatorExpression ( ( ( ( () ( ( ruleOpCompare ) ) ) )=> ( () ( (lv_feature_2_0= ruleOpCompare ) ) ) ) ( (lv_rightOperand_3_0= ruleAOtherOperatorExpression ) ) )* ) ;
+    public final EObject ruleARelationalExpression() throws RecognitionException {
+        EObject current = null;
+
+        EObject this_AOtherOperatorExpression_0 = null;
+
+        AntlrDatatypeRuleToken lv_feature_2_0 = null;
+
+        EObject lv_rightOperand_3_0 = null;
+
+
+         enterRule(); 
+            
+        try {
+            // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:5594:28: ( (this_AOtherOperatorExpression_0= ruleAOtherOperatorExpression ( ( ( ( () ( ( ruleOpCompare ) ) ) )=> ( () ( (lv_feature_2_0= ruleOpCompare ) ) ) ) ( (lv_rightOperand_3_0= ruleAOtherOperatorExpression ) ) )* ) )
+            // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:5595:1: (this_AOtherOperatorExpression_0= ruleAOtherOperatorExpression ( ( ( ( () ( ( ruleOpCompare ) ) ) )=> ( () ( (lv_feature_2_0= ruleOpCompare ) ) ) ) ( (lv_rightOperand_3_0= ruleAOtherOperatorExpression ) ) )* )
+            {
+            // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:5595:1: (this_AOtherOperatorExpression_0= ruleAOtherOperatorExpression ( ( ( ( () ( ( ruleOpCompare ) ) ) )=> ( () ( (lv_feature_2_0= ruleOpCompare ) ) ) ) ( (lv_rightOperand_3_0= ruleAOtherOperatorExpression ) ) )* )
+            // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:5596:5: this_AOtherOperatorExpression_0= ruleAOtherOperatorExpression ( ( ( ( () ( ( ruleOpCompare ) ) ) )=> ( () ( (lv_feature_2_0= ruleOpCompare ) ) ) ) ( (lv_rightOperand_3_0= ruleAOtherOperatorExpression ) ) )*
+            {
+            if ( state.backtracking==0 ) {
+               
+                      newCompositeNode(grammarAccess.getARelationalExpressionAccess().getAOtherOperatorExpressionParserRuleCall_0()); 
+                  
+            }
+            pushFollow(FollowSets000.FOLLOW_ruleAOtherOperatorExpression_in_ruleARelationalExpression13486);
+            this_AOtherOperatorExpression_0=ruleAOtherOperatorExpression();
+
+            state._fsp--;
+            if (state.failed) return current;
+            if ( state.backtracking==0 ) {
+
+                      current = this_AOtherOperatorExpression_0;
+                      afterParserOrEnumRuleCall();
+                  
+            }
+            // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:5604:1: ( ( ( ( () ( ( ruleOpCompare ) ) ) )=> ( () ( (lv_feature_2_0= ruleOpCompare ) ) ) ) ( (lv_rightOperand_3_0= ruleAOtherOperatorExpression ) ) )*
+            loop112:
+            do {
+                int alt112=2;
+                int LA112_0 = input.LA(1);
+
+                if ( (LA112_0==GreaterThanSignEqualsSign) && (synpred6_InternalReqSpecParser())) {
+                    alt112=1;
+                }
+                else if ( (LA112_0==LessThanSign) && (synpred6_InternalReqSpecParser())) {
+                    alt112=1;
+                }
+                else if ( (LA112_0==GreaterThanSign) && (synpred6_InternalReqSpecParser())) {
+                    alt112=1;
+                }
+
+
+                switch (alt112) {
+            	case 1 :
+            	    // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:5604:2: ( ( ( () ( ( ruleOpCompare ) ) ) )=> ( () ( (lv_feature_2_0= ruleOpCompare ) ) ) ) ( (lv_rightOperand_3_0= ruleAOtherOperatorExpression ) )
+            	    {
+            	    // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:5604:2: ( ( ( () ( ( ruleOpCompare ) ) ) )=> ( () ( (lv_feature_2_0= ruleOpCompare ) ) ) )
+            	    // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:5604:3: ( ( () ( ( ruleOpCompare ) ) ) )=> ( () ( (lv_feature_2_0= ruleOpCompare ) ) )
+            	    {
+            	    // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:5609:6: ( () ( (lv_feature_2_0= ruleOpCompare ) ) )
+            	    // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:5609:7: () ( (lv_feature_2_0= ruleOpCompare ) )
+            	    {
+            	    // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:5609:7: ()
+            	    // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:5610:5: 
+            	    {
+            	    if ( state.backtracking==0 ) {
+
+            	              current = forceCreateModelElementAndSet(
+            	                  grammarAccess.getARelationalExpressionAccess().getABinaryOperationLeftOperandAction_1_0_0_0(),
+            	                  current);
+            	          
+            	    }
+
+            	    }
+
+            	    // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:5615:2: ( (lv_feature_2_0= ruleOpCompare ) )
+            	    // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:5616:1: (lv_feature_2_0= ruleOpCompare )
+            	    {
+            	    // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:5616:1: (lv_feature_2_0= ruleOpCompare )
+            	    // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:5617:3: lv_feature_2_0= ruleOpCompare
+            	    {
+            	    if ( state.backtracking==0 ) {
+            	       
+            	      	        newCompositeNode(grammarAccess.getARelationalExpressionAccess().getFeatureOpCompareParserRuleCall_1_0_0_1_0()); 
+            	      	    
+            	    }
+            	    pushFollow(FollowSets000.FOLLOW_ruleOpCompare_in_ruleARelationalExpression13535);
+            	    lv_feature_2_0=ruleOpCompare();
+
+            	    state._fsp--;
+            	    if (state.failed) return current;
+            	    if ( state.backtracking==0 ) {
+
+            	      	        if (current==null) {
+            	      	            current = createModelElementForParent(grammarAccess.getARelationalExpressionRule());
+            	      	        }
+            	             		set(
+            	             			current, 
+            	             			"feature",
+            	              		lv_feature_2_0, 
+            	              		"OpCompare");
+            	      	        afterParserOrEnumRuleCall();
+            	      	    
+            	    }
+
+            	    }
+
+
+            	    }
+
+
+            	    }
+
+
+            	    }
+
+            	    // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:5633:4: ( (lv_rightOperand_3_0= ruleAOtherOperatorExpression ) )
+            	    // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:5634:1: (lv_rightOperand_3_0= ruleAOtherOperatorExpression )
+            	    {
+            	    // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:5634:1: (lv_rightOperand_3_0= ruleAOtherOperatorExpression )
+            	    // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:5635:3: lv_rightOperand_3_0= ruleAOtherOperatorExpression
+            	    {
+            	    if ( state.backtracking==0 ) {
+            	       
+            	      	        newCompositeNode(grammarAccess.getARelationalExpressionAccess().getRightOperandAOtherOperatorExpressionParserRuleCall_1_1_0()); 
+            	      	    
+            	    }
+            	    pushFollow(FollowSets000.FOLLOW_ruleAOtherOperatorExpression_in_ruleARelationalExpression13558);
+            	    lv_rightOperand_3_0=ruleAOtherOperatorExpression();
+
+            	    state._fsp--;
+            	    if (state.failed) return current;
+            	    if ( state.backtracking==0 ) {
+
+            	      	        if (current==null) {
+            	      	            current = createModelElementForParent(grammarAccess.getARelationalExpressionRule());
+            	      	        }
+            	             		set(
+            	             			current, 
+            	             			"rightOperand",
+            	              		lv_rightOperand_3_0, 
+            	              		"AOtherOperatorExpression");
+            	      	        afterParserOrEnumRuleCall();
+            	      	    
+            	    }
+
+            	    }
+
+
+            	    }
+
+
+            	    }
+            	    break;
+
+            	default :
+            	    break loop112;
+                }
+            } while (true);
+
+
+            }
+
+
+            }
+
+            if ( state.backtracking==0 ) {
+               leaveRule(); 
+            }
+        }
+         
+        	catch (RecognitionException re) { 
+        	    recover(input,re); 
+        	    appendSkippedTokens();
+        	}
+        finally {
+        }
+        return current;
+    }
+    // $ANTLR end "ruleARelationalExpression"
+
+
+    // $ANTLR start "entryRuleOpCompare"
+    // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:5659:1: entryRuleOpCompare returns [String current=null] : iv_ruleOpCompare= ruleOpCompare EOF ;
+    public final String entryRuleOpCompare() throws RecognitionException {
+        String current = null;
+
+        AntlrDatatypeRuleToken iv_ruleOpCompare = null;
+
+
+        try {
+            // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:5660:1: (iv_ruleOpCompare= ruleOpCompare EOF )
+            // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:5661:2: iv_ruleOpCompare= ruleOpCompare EOF
+            {
+            if ( state.backtracking==0 ) {
+               newCompositeNode(grammarAccess.getOpCompareRule()); 
+            }
+            pushFollow(FollowSets000.FOLLOW_ruleOpCompare_in_entryRuleOpCompare13596);
+            iv_ruleOpCompare=ruleOpCompare();
+
+            state._fsp--;
+            if (state.failed) return current;
+            if ( state.backtracking==0 ) {
+               current =iv_ruleOpCompare.getText(); 
+            }
+            match(input,EOF,FollowSets000.FOLLOW_EOF_in_entryRuleOpCompare13607); if (state.failed) return current;
+
+            }
+
+        }
+         
+        	catch (RecognitionException re) { 
+        	    recover(input,re); 
+        	    appendSkippedTokens();
+        	}
+        finally {
+        }
+        return current;
+    }
+    // $ANTLR end "entryRuleOpCompare"
+
+
+    // $ANTLR start "ruleOpCompare"
+    // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:5668:1: ruleOpCompare returns [AntlrDatatypeRuleToken current=new AntlrDatatypeRuleToken()] : (kw= GreaterThanSignEqualsSign | (kw= LessThanSign kw= EqualsSign ) | kw= GreaterThanSign | kw= LessThanSign ) ;
+    public final AntlrDatatypeRuleToken ruleOpCompare() throws RecognitionException {
+        AntlrDatatypeRuleToken current = new AntlrDatatypeRuleToken();
+
+        Token kw=null;
+
+         enterRule(); 
+            
+        try {
+            // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:5672:6: ( (kw= GreaterThanSignEqualsSign | (kw= LessThanSign kw= EqualsSign ) | kw= GreaterThanSign | kw= LessThanSign ) )
+            // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:5673:1: (kw= GreaterThanSignEqualsSign | (kw= LessThanSign kw= EqualsSign ) | kw= GreaterThanSign | kw= LessThanSign )
+            {
+            // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:5673:1: (kw= GreaterThanSignEqualsSign | (kw= LessThanSign kw= EqualsSign ) | kw= GreaterThanSign | kw= LessThanSign )
+            int alt113=4;
+            switch ( input.LA(1) ) {
+            case GreaterThanSignEqualsSign:
+                {
+                alt113=1;
+                }
+                break;
+            case LessThanSign:
+                {
+                int LA113_2 = input.LA(2);
+
+                if ( (LA113_2==EOF||LA113_2==False||LA113_2==Null||LA113_2==True||(LA113_2>=ExclamationMark && LA113_2<=NumberSign)||LA113_2==LeftParenthesis||LA113_2==PlusSign||LA113_2==HyphenMinus||(LA113_2>=RULE_HEX && LA113_2<=RULE_DECIMAL)||LA113_2==RULE_STRING) ) {
+                    alt113=4;
+                }
+                else if ( (LA113_2==EqualsSign) ) {
+                    alt113=2;
+                }
+                else {
+                    if (state.backtracking>0) {state.failed=true; return current;}
+                    NoViableAltException nvae =
+                        new NoViableAltException("", 113, 2, input);
+
+                    throw nvae;
+                }
+                }
+                break;
+            case GreaterThanSign:
+                {
+                alt113=3;
+                }
+                break;
+            default:
+                if (state.backtracking>0) {state.failed=true; return current;}
+                NoViableAltException nvae =
+                    new NoViableAltException("", 113, 0, input);
+
+                throw nvae;
+            }
+
+            switch (alt113) {
+                case 1 :
+                    // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:5674:2: kw= GreaterThanSignEqualsSign
+                    {
+                    kw=(Token)match(input,GreaterThanSignEqualsSign,FollowSets000.FOLLOW_GreaterThanSignEqualsSign_in_ruleOpCompare13645); if (state.failed) return current;
+                    if ( state.backtracking==0 ) {
+
+                              current.merge(kw);
+                              newLeafNode(kw, grammarAccess.getOpCompareAccess().getGreaterThanSignEqualsSignKeyword_0()); 
+                          
+                    }
+
+                    }
+                    break;
+                case 2 :
+                    // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:5680:6: (kw= LessThanSign kw= EqualsSign )
+                    {
+                    // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:5680:6: (kw= LessThanSign kw= EqualsSign )
+                    // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:5681:2: kw= LessThanSign kw= EqualsSign
+                    {
+                    kw=(Token)match(input,LessThanSign,FollowSets000.FOLLOW_LessThanSign_in_ruleOpCompare13665); if (state.failed) return current;
+                    if ( state.backtracking==0 ) {
+
+                              current.merge(kw);
+                              newLeafNode(kw, grammarAccess.getOpCompareAccess().getLessThanSignKeyword_1_0()); 
+                          
+                    }
+                    kw=(Token)match(input,EqualsSign,FollowSets000.FOLLOW_EqualsSign_in_ruleOpCompare13678); if (state.failed) return current;
+                    if ( state.backtracking==0 ) {
+
+                              current.merge(kw);
+                              newLeafNode(kw, grammarAccess.getOpCompareAccess().getEqualsSignKeyword_1_1()); 
+                          
+                    }
+
+                    }
+
+
+                    }
+                    break;
+                case 3 :
+                    // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:5694:2: kw= GreaterThanSign
+                    {
+                    kw=(Token)match(input,GreaterThanSign,FollowSets000.FOLLOW_GreaterThanSign_in_ruleOpCompare13698); if (state.failed) return current;
+                    if ( state.backtracking==0 ) {
+
+                              current.merge(kw);
+                              newLeafNode(kw, grammarAccess.getOpCompareAccess().getGreaterThanSignKeyword_2()); 
+                          
+                    }
+
+                    }
+                    break;
+                case 4 :
+                    // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:5701:2: kw= LessThanSign
+                    {
+                    kw=(Token)match(input,LessThanSign,FollowSets000.FOLLOW_LessThanSign_in_ruleOpCompare13717); if (state.failed) return current;
+                    if ( state.backtracking==0 ) {
+
+                              current.merge(kw);
+                              newLeafNode(kw, grammarAccess.getOpCompareAccess().getLessThanSignKeyword_3()); 
+                          
+                    }
+
+                    }
+                    break;
+
+            }
+
+
+            }
+
+            if ( state.backtracking==0 ) {
+               leaveRule();
+                  
+            }
+        }
+         
+        	catch (RecognitionException re) { 
+        	    recover(input,re); 
+        	    appendSkippedTokens();
+        	}
+        finally {
+        }
+        return current;
+    }
+    // $ANTLR end "ruleOpCompare"
+
+
+    // $ANTLR start "entryRuleAOtherOperatorExpression"
+    // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:5714:1: entryRuleAOtherOperatorExpression returns [EObject current=null] : iv_ruleAOtherOperatorExpression= ruleAOtherOperatorExpression EOF ;
+    public final EObject entryRuleAOtherOperatorExpression() throws RecognitionException {
+        EObject current = null;
+
+        EObject iv_ruleAOtherOperatorExpression = null;
+
+
+        try {
+            // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:5715:2: (iv_ruleAOtherOperatorExpression= ruleAOtherOperatorExpression EOF )
+            // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:5716:2: iv_ruleAOtherOperatorExpression= ruleAOtherOperatorExpression EOF
+            {
+            if ( state.backtracking==0 ) {
+               newCompositeNode(grammarAccess.getAOtherOperatorExpressionRule()); 
+            }
+            pushFollow(FollowSets000.FOLLOW_ruleAOtherOperatorExpression_in_entryRuleAOtherOperatorExpression13756);
+            iv_ruleAOtherOperatorExpression=ruleAOtherOperatorExpression();
+
+            state._fsp--;
+            if (state.failed) return current;
+            if ( state.backtracking==0 ) {
+               current =iv_ruleAOtherOperatorExpression; 
+            }
+            match(input,EOF,FollowSets000.FOLLOW_EOF_in_entryRuleAOtherOperatorExpression13766); if (state.failed) return current;
+
+            }
+
+        }
+         
+        	catch (RecognitionException re) { 
+        	    recover(input,re); 
+        	    appendSkippedTokens();
+        	}
+        finally {
+        }
+        return current;
+    }
+    // $ANTLR end "entryRuleAOtherOperatorExpression"
+
+
+    // $ANTLR start "ruleAOtherOperatorExpression"
+    // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:5723:1: ruleAOtherOperatorExpression returns [EObject current=null] : (this_AAdditiveExpression_0= ruleAAdditiveExpression ( ( ( ( () ( ( ruleOpOther ) ) ) )=> ( () ( (lv_feature_2_0= ruleOpOther ) ) ) ) ( (lv_rightOperand_3_0= ruleAAdditiveExpression ) ) )* ) ;
+    public final EObject ruleAOtherOperatorExpression() throws RecognitionException {
+        EObject current = null;
+
+        EObject this_AAdditiveExpression_0 = null;
+
+        AntlrDatatypeRuleToken lv_feature_2_0 = null;
+
+        EObject lv_rightOperand_3_0 = null;
+
+
+         enterRule(); 
+            
+        try {
+            // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:5726:28: ( (this_AAdditiveExpression_0= ruleAAdditiveExpression ( ( ( ( () ( ( ruleOpOther ) ) ) )=> ( () ( (lv_feature_2_0= ruleOpOther ) ) ) ) ( (lv_rightOperand_3_0= ruleAAdditiveExpression ) ) )* ) )
+            // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:5727:1: (this_AAdditiveExpression_0= ruleAAdditiveExpression ( ( ( ( () ( ( ruleOpOther ) ) ) )=> ( () ( (lv_feature_2_0= ruleOpOther ) ) ) ) ( (lv_rightOperand_3_0= ruleAAdditiveExpression ) ) )* )
+            {
+            // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:5727:1: (this_AAdditiveExpression_0= ruleAAdditiveExpression ( ( ( ( () ( ( ruleOpOther ) ) ) )=> ( () ( (lv_feature_2_0= ruleOpOther ) ) ) ) ( (lv_rightOperand_3_0= ruleAAdditiveExpression ) ) )* )
+            // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:5728:5: this_AAdditiveExpression_0= ruleAAdditiveExpression ( ( ( ( () ( ( ruleOpOther ) ) ) )=> ( () ( (lv_feature_2_0= ruleOpOther ) ) ) ) ( (lv_rightOperand_3_0= ruleAAdditiveExpression ) ) )*
+            {
+            if ( state.backtracking==0 ) {
+               
+                      newCompositeNode(grammarAccess.getAOtherOperatorExpressionAccess().getAAdditiveExpressionParserRuleCall_0()); 
+                  
+            }
+            pushFollow(FollowSets000.FOLLOW_ruleAAdditiveExpression_in_ruleAOtherOperatorExpression13813);
+            this_AAdditiveExpression_0=ruleAAdditiveExpression();
+
+            state._fsp--;
+            if (state.failed) return current;
+            if ( state.backtracking==0 ) {
+
+                      current = this_AAdditiveExpression_0;
+                      afterParserOrEnumRuleCall();
+                  
+            }
+            // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:5736:1: ( ( ( ( () ( ( ruleOpOther ) ) ) )=> ( () ( (lv_feature_2_0= ruleOpOther ) ) ) ) ( (lv_rightOperand_3_0= ruleAAdditiveExpression ) ) )*
+            loop114:
+            do {
+                int alt114=2;
+                alt114 = dfa114.predict(input);
+                switch (alt114) {
+            	case 1 :
+            	    // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:5736:2: ( ( ( () ( ( ruleOpOther ) ) ) )=> ( () ( (lv_feature_2_0= ruleOpOther ) ) ) ) ( (lv_rightOperand_3_0= ruleAAdditiveExpression ) )
+            	    {
+            	    // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:5736:2: ( ( ( () ( ( ruleOpOther ) ) ) )=> ( () ( (lv_feature_2_0= ruleOpOther ) ) ) )
+            	    // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:5736:3: ( ( () ( ( ruleOpOther ) ) ) )=> ( () ( (lv_feature_2_0= ruleOpOther ) ) )
+            	    {
+            	    // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:5741:6: ( () ( (lv_feature_2_0= ruleOpOther ) ) )
+            	    // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:5741:7: () ( (lv_feature_2_0= ruleOpOther ) )
+            	    {
+            	    // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:5741:7: ()
+            	    // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:5742:5: 
+            	    {
+            	    if ( state.backtracking==0 ) {
+
+            	              current = forceCreateModelElementAndSet(
+            	                  grammarAccess.getAOtherOperatorExpressionAccess().getABinaryOperationLeftOperandAction_1_0_0_0(),
+            	                  current);
+            	          
+            	    }
+
+            	    }
+
+            	    // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:5747:2: ( (lv_feature_2_0= ruleOpOther ) )
+            	    // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:5748:1: (lv_feature_2_0= ruleOpOther )
+            	    {
+            	    // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:5748:1: (lv_feature_2_0= ruleOpOther )
+            	    // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:5749:3: lv_feature_2_0= ruleOpOther
+            	    {
+            	    if ( state.backtracking==0 ) {
+            	       
+            	      	        newCompositeNode(grammarAccess.getAOtherOperatorExpressionAccess().getFeatureOpOtherParserRuleCall_1_0_0_1_0()); 
+            	      	    
+            	    }
+            	    pushFollow(FollowSets000.FOLLOW_ruleOpOther_in_ruleAOtherOperatorExpression13862);
+            	    lv_feature_2_0=ruleOpOther();
+
+            	    state._fsp--;
+            	    if (state.failed) return current;
+            	    if ( state.backtracking==0 ) {
+
+            	      	        if (current==null) {
+            	      	            current = createModelElementForParent(grammarAccess.getAOtherOperatorExpressionRule());
+            	      	        }
+            	             		set(
+            	             			current, 
+            	             			"feature",
+            	              		lv_feature_2_0, 
+            	              		"OpOther");
+            	      	        afterParserOrEnumRuleCall();
+            	      	    
+            	    }
+
+            	    }
+
+
+            	    }
+
+
+            	    }
+
+
+            	    }
+
+            	    // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:5765:4: ( (lv_rightOperand_3_0= ruleAAdditiveExpression ) )
+            	    // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:5766:1: (lv_rightOperand_3_0= ruleAAdditiveExpression )
+            	    {
+            	    // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:5766:1: (lv_rightOperand_3_0= ruleAAdditiveExpression )
+            	    // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:5767:3: lv_rightOperand_3_0= ruleAAdditiveExpression
+            	    {
+            	    if ( state.backtracking==0 ) {
+            	       
+            	      	        newCompositeNode(grammarAccess.getAOtherOperatorExpressionAccess().getRightOperandAAdditiveExpressionParserRuleCall_1_1_0()); 
+            	      	    
+            	    }
+            	    pushFollow(FollowSets000.FOLLOW_ruleAAdditiveExpression_in_ruleAOtherOperatorExpression13885);
+            	    lv_rightOperand_3_0=ruleAAdditiveExpression();
+
+            	    state._fsp--;
+            	    if (state.failed) return current;
+            	    if ( state.backtracking==0 ) {
+
+            	      	        if (current==null) {
+            	      	            current = createModelElementForParent(grammarAccess.getAOtherOperatorExpressionRule());
+            	      	        }
+            	             		set(
+            	             			current, 
+            	             			"rightOperand",
+            	              		lv_rightOperand_3_0, 
+            	              		"AAdditiveExpression");
+            	      	        afterParserOrEnumRuleCall();
+            	      	    
+            	    }
+
+            	    }
+
+
+            	    }
+
+
+            	    }
+            	    break;
+
+            	default :
+            	    break loop114;
+                }
+            } while (true);
+
+
+            }
+
+
+            }
+
+            if ( state.backtracking==0 ) {
+               leaveRule(); 
+            }
+        }
+         
+        	catch (RecognitionException re) { 
+        	    recover(input,re); 
+        	    appendSkippedTokens();
+        	}
+        finally {
+        }
+        return current;
+    }
+    // $ANTLR end "ruleAOtherOperatorExpression"
+
+
+    // $ANTLR start "entryRuleOpOther"
+    // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:5791:1: entryRuleOpOther returns [String current=null] : iv_ruleOpOther= ruleOpOther EOF ;
+    public final String entryRuleOpOther() throws RecognitionException {
+        String current = null;
+
+        AntlrDatatypeRuleToken iv_ruleOpOther = null;
+
+
+        try {
+            // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:5792:1: (iv_ruleOpOther= ruleOpOther EOF )
+            // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:5793:2: iv_ruleOpOther= ruleOpOther EOF
+            {
+            if ( state.backtracking==0 ) {
+               newCompositeNode(grammarAccess.getOpOtherRule()); 
+            }
+            pushFollow(FollowSets000.FOLLOW_ruleOpOther_in_entryRuleOpOther13923);
+            iv_ruleOpOther=ruleOpOther();
+
+            state._fsp--;
+            if (state.failed) return current;
+            if ( state.backtracking==0 ) {
+               current =iv_ruleOpOther.getText(); 
+            }
+            match(input,EOF,FollowSets000.FOLLOW_EOF_in_entryRuleOpOther13934); if (state.failed) return current;
+
+            }
+
+        }
+         
+        	catch (RecognitionException re) { 
+        	    recover(input,re); 
+        	    appendSkippedTokens();
+        	}
+        finally {
+        }
+        return current;
+    }
+    // $ANTLR end "entryRuleOpOther"
+
+
+    // $ANTLR start "ruleOpOther"
+    // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:5800:1: ruleOpOther returns [AntlrDatatypeRuleToken current=new AntlrDatatypeRuleToken()] : (kw= HyphenMinusGreaterThanSign | kw= FullStopFullStopLessThanSign | (kw= GreaterThanSign kw= FullStopFullStop ) | kw= FullStopFullStop | kw= EqualsSignGreaterThanSign | (kw= GreaterThanSign ( ( ( ( GreaterThanSign GreaterThanSign ) )=> (kw= GreaterThanSign kw= GreaterThanSign ) ) | kw= GreaterThanSign ) ) | (kw= LessThanSign ( ( ( ( LessThanSign LessThanSign ) )=> (kw= LessThanSign kw= LessThanSign ) ) | kw= LessThanSign | kw= EqualsSignGreaterThanSign ) ) | kw= LessThanSignGreaterThanSign | kw= QuestionMarkColon ) ;
+    public final AntlrDatatypeRuleToken ruleOpOther() throws RecognitionException {
+        AntlrDatatypeRuleToken current = new AntlrDatatypeRuleToken();
+
+        Token kw=null;
+
+         enterRule(); 
+            
+        try {
+            // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:5804:6: ( (kw= HyphenMinusGreaterThanSign | kw= FullStopFullStopLessThanSign | (kw= GreaterThanSign kw= FullStopFullStop ) | kw= FullStopFullStop | kw= EqualsSignGreaterThanSign | (kw= GreaterThanSign ( ( ( ( GreaterThanSign GreaterThanSign ) )=> (kw= GreaterThanSign kw= GreaterThanSign ) ) | kw= GreaterThanSign ) ) | (kw= LessThanSign ( ( ( ( LessThanSign LessThanSign ) )=> (kw= LessThanSign kw= LessThanSign ) ) | kw= LessThanSign | kw= EqualsSignGreaterThanSign ) ) | kw= LessThanSignGreaterThanSign | kw= QuestionMarkColon ) )
+            // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:5805:1: (kw= HyphenMinusGreaterThanSign | kw= FullStopFullStopLessThanSign | (kw= GreaterThanSign kw= FullStopFullStop ) | kw= FullStopFullStop | kw= EqualsSignGreaterThanSign | (kw= GreaterThanSign ( ( ( ( GreaterThanSign GreaterThanSign ) )=> (kw= GreaterThanSign kw= GreaterThanSign ) ) | kw= GreaterThanSign ) ) | (kw= LessThanSign ( ( ( ( LessThanSign LessThanSign ) )=> (kw= LessThanSign kw= LessThanSign ) ) | kw= LessThanSign | kw= EqualsSignGreaterThanSign ) ) | kw= LessThanSignGreaterThanSign | kw= QuestionMarkColon )
+            {
+            // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:5805:1: (kw= HyphenMinusGreaterThanSign | kw= FullStopFullStopLessThanSign | (kw= GreaterThanSign kw= FullStopFullStop ) | kw= FullStopFullStop | kw= EqualsSignGreaterThanSign | (kw= GreaterThanSign ( ( ( ( GreaterThanSign GreaterThanSign ) )=> (kw= GreaterThanSign kw= GreaterThanSign ) ) | kw= GreaterThanSign ) ) | (kw= LessThanSign ( ( ( ( LessThanSign LessThanSign ) )=> (kw= LessThanSign kw= LessThanSign ) ) | kw= LessThanSign | kw= EqualsSignGreaterThanSign ) ) | kw= LessThanSignGreaterThanSign | kw= QuestionMarkColon )
+            int alt117=9;
+            alt117 = dfa117.predict(input);
+            switch (alt117) {
+                case 1 :
+                    // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:5806:2: kw= HyphenMinusGreaterThanSign
+                    {
+                    kw=(Token)match(input,HyphenMinusGreaterThanSign,FollowSets000.FOLLOW_HyphenMinusGreaterThanSign_in_ruleOpOther13972); if (state.failed) return current;
+                    if ( state.backtracking==0 ) {
+
+                              current.merge(kw);
+                              newLeafNode(kw, grammarAccess.getOpOtherAccess().getHyphenMinusGreaterThanSignKeyword_0()); 
+                          
+                    }
+
+                    }
+                    break;
+                case 2 :
+                    // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:5813:2: kw= FullStopFullStopLessThanSign
+                    {
+                    kw=(Token)match(input,FullStopFullStopLessThanSign,FollowSets000.FOLLOW_FullStopFullStopLessThanSign_in_ruleOpOther13991); if (state.failed) return current;
+                    if ( state.backtracking==0 ) {
+
+                              current.merge(kw);
+                              newLeafNode(kw, grammarAccess.getOpOtherAccess().getFullStopFullStopLessThanSignKeyword_1()); 
+                          
+                    }
+
+                    }
+                    break;
+                case 3 :
+                    // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:5819:6: (kw= GreaterThanSign kw= FullStopFullStop )
+                    {
+                    // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:5819:6: (kw= GreaterThanSign kw= FullStopFullStop )
+                    // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:5820:2: kw= GreaterThanSign kw= FullStopFullStop
+                    {
+                    kw=(Token)match(input,GreaterThanSign,FollowSets000.FOLLOW_GreaterThanSign_in_ruleOpOther14011); if (state.failed) return current;
+                    if ( state.backtracking==0 ) {
+
+                              current.merge(kw);
+                              newLeafNode(kw, grammarAccess.getOpOtherAccess().getGreaterThanSignKeyword_2_0()); 
+                          
+                    }
+                    kw=(Token)match(input,FullStopFullStop,FollowSets000.FOLLOW_FullStopFullStop_in_ruleOpOther14024); if (state.failed) return current;
+                    if ( state.backtracking==0 ) {
+
+                              current.merge(kw);
+                              newLeafNode(kw, grammarAccess.getOpOtherAccess().getFullStopFullStopKeyword_2_1()); 
+                          
+                    }
+
+                    }
+
+
+                    }
+                    break;
+                case 4 :
+                    // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:5833:2: kw= FullStopFullStop
+                    {
+                    kw=(Token)match(input,FullStopFullStop,FollowSets000.FOLLOW_FullStopFullStop_in_ruleOpOther14044); if (state.failed) return current;
+                    if ( state.backtracking==0 ) {
+
+                              current.merge(kw);
+                              newLeafNode(kw, grammarAccess.getOpOtherAccess().getFullStopFullStopKeyword_3()); 
+                          
+                    }
+
+                    }
+                    break;
+                case 5 :
+                    // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:5840:2: kw= EqualsSignGreaterThanSign
+                    {
+                    kw=(Token)match(input,EqualsSignGreaterThanSign,FollowSets000.FOLLOW_EqualsSignGreaterThanSign_in_ruleOpOther14063); if (state.failed) return current;
+                    if ( state.backtracking==0 ) {
+
+                              current.merge(kw);
+                              newLeafNode(kw, grammarAccess.getOpOtherAccess().getEqualsSignGreaterThanSignKeyword_4()); 
+                          
+                    }
+
+                    }
+                    break;
+                case 6 :
+                    // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:5846:6: (kw= GreaterThanSign ( ( ( ( GreaterThanSign GreaterThanSign ) )=> (kw= GreaterThanSign kw= GreaterThanSign ) ) | kw= GreaterThanSign ) )
+                    {
+                    // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:5846:6: (kw= GreaterThanSign ( ( ( ( GreaterThanSign GreaterThanSign ) )=> (kw= GreaterThanSign kw= GreaterThanSign ) ) | kw= GreaterThanSign ) )
+                    // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:5847:2: kw= GreaterThanSign ( ( ( ( GreaterThanSign GreaterThanSign ) )=> (kw= GreaterThanSign kw= GreaterThanSign ) ) | kw= GreaterThanSign )
+                    {
+                    kw=(Token)match(input,GreaterThanSign,FollowSets000.FOLLOW_GreaterThanSign_in_ruleOpOther14083); if (state.failed) return current;
+                    if ( state.backtracking==0 ) {
+
+                              current.merge(kw);
+                              newLeafNode(kw, grammarAccess.getOpOtherAccess().getGreaterThanSignKeyword_5_0()); 
+                          
+                    }
+                    // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:5852:1: ( ( ( ( GreaterThanSign GreaterThanSign ) )=> (kw= GreaterThanSign kw= GreaterThanSign ) ) | kw= GreaterThanSign )
+                    int alt115=2;
+                    int LA115_0 = input.LA(1);
+
+                    if ( (LA115_0==GreaterThanSign) ) {
+                        int LA115_1 = input.LA(2);
+
+                        if ( (LA115_1==EOF||LA115_1==False||LA115_1==Null||LA115_1==True||(LA115_1>=ExclamationMark && LA115_1<=NumberSign)||LA115_1==LeftParenthesis||LA115_1==PlusSign||LA115_1==HyphenMinus||(LA115_1>=RULE_HEX && LA115_1<=RULE_DECIMAL)||LA115_1==RULE_STRING) ) {
+                            alt115=2;
+                        }
+                        else if ( (LA115_1==GreaterThanSign) && (synpred8_InternalReqSpecParser())) {
+                            alt115=1;
+                        }
+                        else {
+                            if (state.backtracking>0) {state.failed=true; return current;}
+                            NoViableAltException nvae =
+                                new NoViableAltException("", 115, 1, input);
+
+                            throw nvae;
+                        }
+                    }
+                    else {
+                        if (state.backtracking>0) {state.failed=true; return current;}
+                        NoViableAltException nvae =
+                            new NoViableAltException("", 115, 0, input);
+
+                        throw nvae;
+                    }
+                    switch (alt115) {
+                        case 1 :
+                            // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:5852:2: ( ( ( GreaterThanSign GreaterThanSign ) )=> (kw= GreaterThanSign kw= GreaterThanSign ) )
+                            {
+                            // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:5852:2: ( ( ( GreaterThanSign GreaterThanSign ) )=> (kw= GreaterThanSign kw= GreaterThanSign ) )
+                            // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:5852:3: ( ( GreaterThanSign GreaterThanSign ) )=> (kw= GreaterThanSign kw= GreaterThanSign )
+                            {
+                            // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:5856:5: (kw= GreaterThanSign kw= GreaterThanSign )
+                            // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:5857:2: kw= GreaterThanSign kw= GreaterThanSign
+                            {
+                            kw=(Token)match(input,GreaterThanSign,FollowSets000.FOLLOW_GreaterThanSign_in_ruleOpOther14114); if (state.failed) return current;
+                            if ( state.backtracking==0 ) {
+
+                                      current.merge(kw);
+                                      newLeafNode(kw, grammarAccess.getOpOtherAccess().getGreaterThanSignKeyword_5_1_0_0_0()); 
+                                  
+                            }
+                            kw=(Token)match(input,GreaterThanSign,FollowSets000.FOLLOW_GreaterThanSign_in_ruleOpOther14127); if (state.failed) return current;
+                            if ( state.backtracking==0 ) {
+
+                                      current.merge(kw);
+                                      newLeafNode(kw, grammarAccess.getOpOtherAccess().getGreaterThanSignKeyword_5_1_0_0_1()); 
+                                  
+                            }
+
+                            }
+
+
+                            }
+
+
+                            }
+                            break;
+                        case 2 :
+                            // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:5870:2: kw= GreaterThanSign
+                            {
+                            kw=(Token)match(input,GreaterThanSign,FollowSets000.FOLLOW_GreaterThanSign_in_ruleOpOther14148); if (state.failed) return current;
+                            if ( state.backtracking==0 ) {
+
+                                      current.merge(kw);
+                                      newLeafNode(kw, grammarAccess.getOpOtherAccess().getGreaterThanSignKeyword_5_1_1()); 
+                                  
+                            }
+
+                            }
+                            break;
+
+                    }
+
+
+                    }
+
+
+                    }
+                    break;
+                case 7 :
+                    // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:5876:6: (kw= LessThanSign ( ( ( ( LessThanSign LessThanSign ) )=> (kw= LessThanSign kw= LessThanSign ) ) | kw= LessThanSign | kw= EqualsSignGreaterThanSign ) )
+                    {
+                    // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:5876:6: (kw= LessThanSign ( ( ( ( LessThanSign LessThanSign ) )=> (kw= LessThanSign kw= LessThanSign ) ) | kw= LessThanSign | kw= EqualsSignGreaterThanSign ) )
+                    // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:5877:2: kw= LessThanSign ( ( ( ( LessThanSign LessThanSign ) )=> (kw= LessThanSign kw= LessThanSign ) ) | kw= LessThanSign | kw= EqualsSignGreaterThanSign )
+                    {
+                    kw=(Token)match(input,LessThanSign,FollowSets000.FOLLOW_LessThanSign_in_ruleOpOther14170); if (state.failed) return current;
+                    if ( state.backtracking==0 ) {
+
+                              current.merge(kw);
+                              newLeafNode(kw, grammarAccess.getOpOtherAccess().getLessThanSignKeyword_6_0()); 
+                          
+                    }
+                    // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:5882:1: ( ( ( ( LessThanSign LessThanSign ) )=> (kw= LessThanSign kw= LessThanSign ) ) | kw= LessThanSign | kw= EqualsSignGreaterThanSign )
+                    int alt116=3;
+                    int LA116_0 = input.LA(1);
+
+                    if ( (LA116_0==LessThanSign) ) {
+                        int LA116_1 = input.LA(2);
+
+                        if ( (LA116_1==LessThanSign) && (synpred9_InternalReqSpecParser())) {
+                            alt116=1;
+                        }
+                        else if ( (LA116_1==EOF||LA116_1==False||LA116_1==Null||LA116_1==True||(LA116_1>=ExclamationMark && LA116_1<=NumberSign)||LA116_1==LeftParenthesis||LA116_1==PlusSign||LA116_1==HyphenMinus||(LA116_1>=RULE_HEX && LA116_1<=RULE_DECIMAL)||LA116_1==RULE_STRING) ) {
+                            alt116=2;
+                        }
+                        else {
+                            if (state.backtracking>0) {state.failed=true; return current;}
+                            NoViableAltException nvae =
+                                new NoViableAltException("", 116, 1, input);
+
+                            throw nvae;
+                        }
+                    }
+                    else if ( (LA116_0==EqualsSignGreaterThanSign) ) {
+                        alt116=3;
+                    }
+                    else {
+                        if (state.backtracking>0) {state.failed=true; return current;}
+                        NoViableAltException nvae =
+                            new NoViableAltException("", 116, 0, input);
+
+                        throw nvae;
+                    }
+                    switch (alt116) {
+                        case 1 :
+                            // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:5882:2: ( ( ( LessThanSign LessThanSign ) )=> (kw= LessThanSign kw= LessThanSign ) )
+                            {
+                            // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:5882:2: ( ( ( LessThanSign LessThanSign ) )=> (kw= LessThanSign kw= LessThanSign ) )
+                            // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:5882:3: ( ( LessThanSign LessThanSign ) )=> (kw= LessThanSign kw= LessThanSign )
+                            {
+                            // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:5886:5: (kw= LessThanSign kw= LessThanSign )
+                            // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:5887:2: kw= LessThanSign kw= LessThanSign
+                            {
+                            kw=(Token)match(input,LessThanSign,FollowSets000.FOLLOW_LessThanSign_in_ruleOpOther14201); if (state.failed) return current;
+                            if ( state.backtracking==0 ) {
+
+                                      current.merge(kw);
+                                      newLeafNode(kw, grammarAccess.getOpOtherAccess().getLessThanSignKeyword_6_1_0_0_0()); 
+                                  
+                            }
+                            kw=(Token)match(input,LessThanSign,FollowSets000.FOLLOW_LessThanSign_in_ruleOpOther14214); if (state.failed) return current;
+                            if ( state.backtracking==0 ) {
+
+                                      current.merge(kw);
+                                      newLeafNode(kw, grammarAccess.getOpOtherAccess().getLessThanSignKeyword_6_1_0_0_1()); 
+                                  
+                            }
+
+                            }
+
+
+                            }
+
+
+                            }
+                            break;
+                        case 2 :
+                            // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:5900:2: kw= LessThanSign
+                            {
+                            kw=(Token)match(input,LessThanSign,FollowSets000.FOLLOW_LessThanSign_in_ruleOpOther14235); if (state.failed) return current;
+                            if ( state.backtracking==0 ) {
+
+                                      current.merge(kw);
+                                      newLeafNode(kw, grammarAccess.getOpOtherAccess().getLessThanSignKeyword_6_1_1()); 
+                                  
+                            }
+
+                            }
+                            break;
+                        case 3 :
+                            // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:5907:2: kw= EqualsSignGreaterThanSign
+                            {
+                            kw=(Token)match(input,EqualsSignGreaterThanSign,FollowSets000.FOLLOW_EqualsSignGreaterThanSign_in_ruleOpOther14254); if (state.failed) return current;
+                            if ( state.backtracking==0 ) {
+
+                                      current.merge(kw);
+                                      newLeafNode(kw, grammarAccess.getOpOtherAccess().getEqualsSignGreaterThanSignKeyword_6_1_2()); 
+                                  
+                            }
+
+                            }
+                            break;
+
+                    }
+
+
+                    }
+
+
+                    }
+                    break;
+                case 8 :
+                    // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:5914:2: kw= LessThanSignGreaterThanSign
+                    {
+                    kw=(Token)match(input,LessThanSignGreaterThanSign,FollowSets000.FOLLOW_LessThanSignGreaterThanSign_in_ruleOpOther14275); if (state.failed) return current;
+                    if ( state.backtracking==0 ) {
+
+                              current.merge(kw);
+                              newLeafNode(kw, grammarAccess.getOpOtherAccess().getLessThanSignGreaterThanSignKeyword_7()); 
+                          
+                    }
+
+                    }
+                    break;
+                case 9 :
+                    // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:5921:2: kw= QuestionMarkColon
+                    {
+                    kw=(Token)match(input,QuestionMarkColon,FollowSets000.FOLLOW_QuestionMarkColon_in_ruleOpOther14294); if (state.failed) return current;
+                    if ( state.backtracking==0 ) {
+
+                              current.merge(kw);
+                              newLeafNode(kw, grammarAccess.getOpOtherAccess().getQuestionMarkColonKeyword_8()); 
+                          
+                    }
+
+                    }
+                    break;
+
+            }
+
+
+            }
+
+            if ( state.backtracking==0 ) {
+               leaveRule();
+                  
+            }
+        }
+         
+        	catch (RecognitionException re) { 
+        	    recover(input,re); 
+        	    appendSkippedTokens();
+        	}
+        finally {
+        }
+        return current;
+    }
+    // $ANTLR end "ruleOpOther"
+
+
+    // $ANTLR start "entryRuleAAdditiveExpression"
+    // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:5934:1: entryRuleAAdditiveExpression returns [EObject current=null] : iv_ruleAAdditiveExpression= ruleAAdditiveExpression EOF ;
+    public final EObject entryRuleAAdditiveExpression() throws RecognitionException {
+        EObject current = null;
+
+        EObject iv_ruleAAdditiveExpression = null;
+
+
+        try {
+            // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:5935:2: (iv_ruleAAdditiveExpression= ruleAAdditiveExpression EOF )
+            // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:5936:2: iv_ruleAAdditiveExpression= ruleAAdditiveExpression EOF
+            {
+            if ( state.backtracking==0 ) {
+               newCompositeNode(grammarAccess.getAAdditiveExpressionRule()); 
+            }
+            pushFollow(FollowSets000.FOLLOW_ruleAAdditiveExpression_in_entryRuleAAdditiveExpression14333);
+            iv_ruleAAdditiveExpression=ruleAAdditiveExpression();
+
+            state._fsp--;
+            if (state.failed) return current;
+            if ( state.backtracking==0 ) {
+               current =iv_ruleAAdditiveExpression; 
+            }
+            match(input,EOF,FollowSets000.FOLLOW_EOF_in_entryRuleAAdditiveExpression14343); if (state.failed) return current;
+
+            }
+
+        }
+         
+        	catch (RecognitionException re) { 
+        	    recover(input,re); 
+        	    appendSkippedTokens();
+        	}
+        finally {
+        }
+        return current;
+    }
+    // $ANTLR end "entryRuleAAdditiveExpression"
+
+
+    // $ANTLR start "ruleAAdditiveExpression"
+    // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:5943:1: ruleAAdditiveExpression returns [EObject current=null] : (this_AMultiplicativeExpression_0= ruleAMultiplicativeExpression ( ( ( ( () ( ( ruleOpAdd ) ) ) )=> ( () ( (lv_feature_2_0= ruleOpAdd ) ) ) ) ( (lv_rightOperand_3_0= ruleAMultiplicativeExpression ) ) )* ) ;
+    public final EObject ruleAAdditiveExpression() throws RecognitionException {
+        EObject current = null;
+
+        EObject this_AMultiplicativeExpression_0 = null;
+
+        AntlrDatatypeRuleToken lv_feature_2_0 = null;
+
+        EObject lv_rightOperand_3_0 = null;
+
+
+         enterRule(); 
+            
+        try {
+            // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:5946:28: ( (this_AMultiplicativeExpression_0= ruleAMultiplicativeExpression ( ( ( ( () ( ( ruleOpAdd ) ) ) )=> ( () ( (lv_feature_2_0= ruleOpAdd ) ) ) ) ( (lv_rightOperand_3_0= ruleAMultiplicativeExpression ) ) )* ) )
+            // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:5947:1: (this_AMultiplicativeExpression_0= ruleAMultiplicativeExpression ( ( ( ( () ( ( ruleOpAdd ) ) ) )=> ( () ( (lv_feature_2_0= ruleOpAdd ) ) ) ) ( (lv_rightOperand_3_0= ruleAMultiplicativeExpression ) ) )* )
+            {
+            // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:5947:1: (this_AMultiplicativeExpression_0= ruleAMultiplicativeExpression ( ( ( ( () ( ( ruleOpAdd ) ) ) )=> ( () ( (lv_feature_2_0= ruleOpAdd ) ) ) ) ( (lv_rightOperand_3_0= ruleAMultiplicativeExpression ) ) )* )
+            // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:5948:5: this_AMultiplicativeExpression_0= ruleAMultiplicativeExpression ( ( ( ( () ( ( ruleOpAdd ) ) ) )=> ( () ( (lv_feature_2_0= ruleOpAdd ) ) ) ) ( (lv_rightOperand_3_0= ruleAMultiplicativeExpression ) ) )*
+            {
+            if ( state.backtracking==0 ) {
+               
+                      newCompositeNode(grammarAccess.getAAdditiveExpressionAccess().getAMultiplicativeExpressionParserRuleCall_0()); 
+                  
+            }
+            pushFollow(FollowSets000.FOLLOW_ruleAMultiplicativeExpression_in_ruleAAdditiveExpression14390);
+            this_AMultiplicativeExpression_0=ruleAMultiplicativeExpression();
+
+            state._fsp--;
+            if (state.failed) return current;
+            if ( state.backtracking==0 ) {
+
+                      current = this_AMultiplicativeExpression_0;
+                      afterParserOrEnumRuleCall();
+                  
+            }
+            // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:5956:1: ( ( ( ( () ( ( ruleOpAdd ) ) ) )=> ( () ( (lv_feature_2_0= ruleOpAdd ) ) ) ) ( (lv_rightOperand_3_0= ruleAMultiplicativeExpression ) ) )*
+            loop118:
+            do {
+                int alt118=2;
+                int LA118_0 = input.LA(1);
+
+                if ( (LA118_0==PlusSign) && (synpred10_InternalReqSpecParser())) {
+                    alt118=1;
+                }
+                else if ( (LA118_0==HyphenMinus) && (synpred10_InternalReqSpecParser())) {
+                    alt118=1;
+                }
+
+
+                switch (alt118) {
+            	case 1 :
+            	    // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:5956:2: ( ( ( () ( ( ruleOpAdd ) ) ) )=> ( () ( (lv_feature_2_0= ruleOpAdd ) ) ) ) ( (lv_rightOperand_3_0= ruleAMultiplicativeExpression ) )
+            	    {
+            	    // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:5956:2: ( ( ( () ( ( ruleOpAdd ) ) ) )=> ( () ( (lv_feature_2_0= ruleOpAdd ) ) ) )
+            	    // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:5956:3: ( ( () ( ( ruleOpAdd ) ) ) )=> ( () ( (lv_feature_2_0= ruleOpAdd ) ) )
+            	    {
+            	    // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:5961:6: ( () ( (lv_feature_2_0= ruleOpAdd ) ) )
+            	    // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:5961:7: () ( (lv_feature_2_0= ruleOpAdd ) )
+            	    {
+            	    // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:5961:7: ()
+            	    // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:5962:5: 
+            	    {
+            	    if ( state.backtracking==0 ) {
+
+            	              current = forceCreateModelElementAndSet(
+            	                  grammarAccess.getAAdditiveExpressionAccess().getABinaryOperationLeftOperandAction_1_0_0_0(),
+            	                  current);
+            	          
+            	    }
+
+            	    }
+
+            	    // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:5967:2: ( (lv_feature_2_0= ruleOpAdd ) )
+            	    // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:5968:1: (lv_feature_2_0= ruleOpAdd )
+            	    {
+            	    // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:5968:1: (lv_feature_2_0= ruleOpAdd )
+            	    // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:5969:3: lv_feature_2_0= ruleOpAdd
+            	    {
+            	    if ( state.backtracking==0 ) {
+            	       
+            	      	        newCompositeNode(grammarAccess.getAAdditiveExpressionAccess().getFeatureOpAddParserRuleCall_1_0_0_1_0()); 
+            	      	    
+            	    }
+            	    pushFollow(FollowSets000.FOLLOW_ruleOpAdd_in_ruleAAdditiveExpression14439);
+            	    lv_feature_2_0=ruleOpAdd();
+
+            	    state._fsp--;
+            	    if (state.failed) return current;
+            	    if ( state.backtracking==0 ) {
+
+            	      	        if (current==null) {
+            	      	            current = createModelElementForParent(grammarAccess.getAAdditiveExpressionRule());
+            	      	        }
+            	             		set(
+            	             			current, 
+            	             			"feature",
+            	              		lv_feature_2_0, 
+            	              		"OpAdd");
+            	      	        afterParserOrEnumRuleCall();
+            	      	    
+            	    }
+
+            	    }
+
+
+            	    }
+
+
+            	    }
+
+
+            	    }
+
+            	    // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:5985:4: ( (lv_rightOperand_3_0= ruleAMultiplicativeExpression ) )
+            	    // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:5986:1: (lv_rightOperand_3_0= ruleAMultiplicativeExpression )
+            	    {
+            	    // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:5986:1: (lv_rightOperand_3_0= ruleAMultiplicativeExpression )
+            	    // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:5987:3: lv_rightOperand_3_0= ruleAMultiplicativeExpression
+            	    {
+            	    if ( state.backtracking==0 ) {
+            	       
+            	      	        newCompositeNode(grammarAccess.getAAdditiveExpressionAccess().getRightOperandAMultiplicativeExpressionParserRuleCall_1_1_0()); 
+            	      	    
+            	    }
+            	    pushFollow(FollowSets000.FOLLOW_ruleAMultiplicativeExpression_in_ruleAAdditiveExpression14462);
+            	    lv_rightOperand_3_0=ruleAMultiplicativeExpression();
+
+            	    state._fsp--;
+            	    if (state.failed) return current;
+            	    if ( state.backtracking==0 ) {
+
+            	      	        if (current==null) {
+            	      	            current = createModelElementForParent(grammarAccess.getAAdditiveExpressionRule());
+            	      	        }
+            	             		set(
+            	             			current, 
+            	             			"rightOperand",
+            	              		lv_rightOperand_3_0, 
+            	              		"AMultiplicativeExpression");
+            	      	        afterParserOrEnumRuleCall();
+            	      	    
+            	    }
+
+            	    }
+
+
+            	    }
+
+
+            	    }
+            	    break;
+
+            	default :
+            	    break loop118;
+                }
+            } while (true);
+
+
+            }
+
+
+            }
+
+            if ( state.backtracking==0 ) {
+               leaveRule(); 
+            }
+        }
+         
+        	catch (RecognitionException re) { 
+        	    recover(input,re); 
+        	    appendSkippedTokens();
+        	}
+        finally {
+        }
+        return current;
+    }
+    // $ANTLR end "ruleAAdditiveExpression"
+
+
+    // $ANTLR start "entryRuleOpAdd"
+    // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:6011:1: entryRuleOpAdd returns [String current=null] : iv_ruleOpAdd= ruleOpAdd EOF ;
+    public final String entryRuleOpAdd() throws RecognitionException {
+        String current = null;
+
+        AntlrDatatypeRuleToken iv_ruleOpAdd = null;
+
+
+        try {
+            // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:6012:1: (iv_ruleOpAdd= ruleOpAdd EOF )
+            // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:6013:2: iv_ruleOpAdd= ruleOpAdd EOF
+            {
+            if ( state.backtracking==0 ) {
+               newCompositeNode(grammarAccess.getOpAddRule()); 
+            }
+            pushFollow(FollowSets000.FOLLOW_ruleOpAdd_in_entryRuleOpAdd14500);
+            iv_ruleOpAdd=ruleOpAdd();
+
+            state._fsp--;
+            if (state.failed) return current;
+            if ( state.backtracking==0 ) {
+               current =iv_ruleOpAdd.getText(); 
+            }
+            match(input,EOF,FollowSets000.FOLLOW_EOF_in_entryRuleOpAdd14511); if (state.failed) return current;
+
+            }
+
+        }
+         
+        	catch (RecognitionException re) { 
+        	    recover(input,re); 
+        	    appendSkippedTokens();
+        	}
+        finally {
+        }
+        return current;
+    }
+    // $ANTLR end "entryRuleOpAdd"
+
+
+    // $ANTLR start "ruleOpAdd"
+    // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:6020:1: ruleOpAdd returns [AntlrDatatypeRuleToken current=new AntlrDatatypeRuleToken()] : (kw= PlusSign | kw= HyphenMinus ) ;
+    public final AntlrDatatypeRuleToken ruleOpAdd() throws RecognitionException {
+        AntlrDatatypeRuleToken current = new AntlrDatatypeRuleToken();
+
+        Token kw=null;
+
+         enterRule(); 
+            
+        try {
+            // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:6024:6: ( (kw= PlusSign | kw= HyphenMinus ) )
+            // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:6025:1: (kw= PlusSign | kw= HyphenMinus )
+            {
+            // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:6025:1: (kw= PlusSign | kw= HyphenMinus )
+            int alt119=2;
+            int LA119_0 = input.LA(1);
+
+            if ( (LA119_0==PlusSign) ) {
+                alt119=1;
+            }
+            else if ( (LA119_0==HyphenMinus) ) {
+                alt119=2;
+            }
+            else {
+                if (state.backtracking>0) {state.failed=true; return current;}
+                NoViableAltException nvae =
+                    new NoViableAltException("", 119, 0, input);
+
+                throw nvae;
+            }
+            switch (alt119) {
+                case 1 :
+                    // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:6026:2: kw= PlusSign
+                    {
+                    kw=(Token)match(input,PlusSign,FollowSets000.FOLLOW_PlusSign_in_ruleOpAdd14549); if (state.failed) return current;
+                    if ( state.backtracking==0 ) {
+
+                              current.merge(kw);
+                              newLeafNode(kw, grammarAccess.getOpAddAccess().getPlusSignKeyword_0()); 
+                          
+                    }
+
+                    }
+                    break;
+                case 2 :
+                    // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:6033:2: kw= HyphenMinus
+                    {
+                    kw=(Token)match(input,HyphenMinus,FollowSets000.FOLLOW_HyphenMinus_in_ruleOpAdd14568); if (state.failed) return current;
+                    if ( state.backtracking==0 ) {
+
+                              current.merge(kw);
+                              newLeafNode(kw, grammarAccess.getOpAddAccess().getHyphenMinusKeyword_1()); 
+                          
+                    }
+
+                    }
+                    break;
+
+            }
+
+
+            }
+
+            if ( state.backtracking==0 ) {
+               leaveRule();
+                  
+            }
+        }
+         
+        	catch (RecognitionException re) { 
+        	    recover(input,re); 
+        	    appendSkippedTokens();
+        	}
+        finally {
+        }
+        return current;
+    }
+    // $ANTLR end "ruleOpAdd"
+
+
+    // $ANTLR start "entryRuleAMultiplicativeExpression"
+    // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:6046:1: entryRuleAMultiplicativeExpression returns [EObject current=null] : iv_ruleAMultiplicativeExpression= ruleAMultiplicativeExpression EOF ;
+    public final EObject entryRuleAMultiplicativeExpression() throws RecognitionException {
+        EObject current = null;
+
+        EObject iv_ruleAMultiplicativeExpression = null;
+
+
+        try {
+            // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:6047:2: (iv_ruleAMultiplicativeExpression= ruleAMultiplicativeExpression EOF )
+            // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:6048:2: iv_ruleAMultiplicativeExpression= ruleAMultiplicativeExpression EOF
+            {
+            if ( state.backtracking==0 ) {
+               newCompositeNode(grammarAccess.getAMultiplicativeExpressionRule()); 
+            }
+            pushFollow(FollowSets000.FOLLOW_ruleAMultiplicativeExpression_in_entryRuleAMultiplicativeExpression14607);
+            iv_ruleAMultiplicativeExpression=ruleAMultiplicativeExpression();
+
+            state._fsp--;
+            if (state.failed) return current;
+            if ( state.backtracking==0 ) {
+               current =iv_ruleAMultiplicativeExpression; 
+            }
+            match(input,EOF,FollowSets000.FOLLOW_EOF_in_entryRuleAMultiplicativeExpression14617); if (state.failed) return current;
+
+            }
+
+        }
+         
+        	catch (RecognitionException re) { 
+        	    recover(input,re); 
+        	    appendSkippedTokens();
+        	}
+        finally {
+        }
+        return current;
+    }
+    // $ANTLR end "entryRuleAMultiplicativeExpression"
+
+
+    // $ANTLR start "ruleAMultiplicativeExpression"
+    // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:6055:1: ruleAMultiplicativeExpression returns [EObject current=null] : (this_AUnaryOperation_0= ruleAUnaryOperation ( ( ( ( () ( ( ruleOpMulti ) ) ) )=> ( () ( (lv_feature_2_0= ruleOpMulti ) ) ) ) ( (lv_rightOperand_3_0= ruleAUnaryOperation ) ) )* ) ;
+    public final EObject ruleAMultiplicativeExpression() throws RecognitionException {
+        EObject current = null;
+
+        EObject this_AUnaryOperation_0 = null;
+
+        AntlrDatatypeRuleToken lv_feature_2_0 = null;
+
+        EObject lv_rightOperand_3_0 = null;
+
+
+         enterRule(); 
+            
+        try {
+            // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:6058:28: ( (this_AUnaryOperation_0= ruleAUnaryOperation ( ( ( ( () ( ( ruleOpMulti ) ) ) )=> ( () ( (lv_feature_2_0= ruleOpMulti ) ) ) ) ( (lv_rightOperand_3_0= ruleAUnaryOperation ) ) )* ) )
+            // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:6059:1: (this_AUnaryOperation_0= ruleAUnaryOperation ( ( ( ( () ( ( ruleOpMulti ) ) ) )=> ( () ( (lv_feature_2_0= ruleOpMulti ) ) ) ) ( (lv_rightOperand_3_0= ruleAUnaryOperation ) ) )* )
+            {
+            // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:6059:1: (this_AUnaryOperation_0= ruleAUnaryOperation ( ( ( ( () ( ( ruleOpMulti ) ) ) )=> ( () ( (lv_feature_2_0= ruleOpMulti ) ) ) ) ( (lv_rightOperand_3_0= ruleAUnaryOperation ) ) )* )
+            // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:6060:5: this_AUnaryOperation_0= ruleAUnaryOperation ( ( ( ( () ( ( ruleOpMulti ) ) ) )=> ( () ( (lv_feature_2_0= ruleOpMulti ) ) ) ) ( (lv_rightOperand_3_0= ruleAUnaryOperation ) ) )*
+            {
+            if ( state.backtracking==0 ) {
+               
+                      newCompositeNode(grammarAccess.getAMultiplicativeExpressionAccess().getAUnaryOperationParserRuleCall_0()); 
+                  
+            }
+            pushFollow(FollowSets000.FOLLOW_ruleAUnaryOperation_in_ruleAMultiplicativeExpression14664);
+            this_AUnaryOperation_0=ruleAUnaryOperation();
+
+            state._fsp--;
+            if (state.failed) return current;
+            if ( state.backtracking==0 ) {
+
+                      current = this_AUnaryOperation_0;
+                      afterParserOrEnumRuleCall();
+                  
+            }
+            // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:6068:1: ( ( ( ( () ( ( ruleOpMulti ) ) ) )=> ( () ( (lv_feature_2_0= ruleOpMulti ) ) ) ) ( (lv_rightOperand_3_0= ruleAUnaryOperation ) ) )*
+            loop120:
+            do {
+                int alt120=2;
+                int LA120_0 = input.LA(1);
+
+                if ( (LA120_0==Asterisk) && (synpred11_InternalReqSpecParser())) {
+                    alt120=1;
+                }
+                else if ( (LA120_0==AsteriskAsterisk) && (synpred11_InternalReqSpecParser())) {
+                    alt120=1;
+                }
+                else if ( (LA120_0==Solidus) && (synpred11_InternalReqSpecParser())) {
+                    alt120=1;
+                }
+                else if ( (LA120_0==PercentSign) && (synpred11_InternalReqSpecParser())) {
+                    alt120=1;
+                }
+
+
+                switch (alt120) {
+            	case 1 :
+            	    // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:6068:2: ( ( ( () ( ( ruleOpMulti ) ) ) )=> ( () ( (lv_feature_2_0= ruleOpMulti ) ) ) ) ( (lv_rightOperand_3_0= ruleAUnaryOperation ) )
+            	    {
+            	    // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:6068:2: ( ( ( () ( ( ruleOpMulti ) ) ) )=> ( () ( (lv_feature_2_0= ruleOpMulti ) ) ) )
+            	    // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:6068:3: ( ( () ( ( ruleOpMulti ) ) ) )=> ( () ( (lv_feature_2_0= ruleOpMulti ) ) )
+            	    {
+            	    // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:6073:6: ( () ( (lv_feature_2_0= ruleOpMulti ) ) )
+            	    // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:6073:7: () ( (lv_feature_2_0= ruleOpMulti ) )
+            	    {
+            	    // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:6073:7: ()
+            	    // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:6074:5: 
+            	    {
+            	    if ( state.backtracking==0 ) {
+
+            	              current = forceCreateModelElementAndSet(
+            	                  grammarAccess.getAMultiplicativeExpressionAccess().getABinaryOperationLeftOperandAction_1_0_0_0(),
+            	                  current);
+            	          
+            	    }
+
+            	    }
+
+            	    // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:6079:2: ( (lv_feature_2_0= ruleOpMulti ) )
+            	    // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:6080:1: (lv_feature_2_0= ruleOpMulti )
+            	    {
+            	    // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:6080:1: (lv_feature_2_0= ruleOpMulti )
+            	    // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:6081:3: lv_feature_2_0= ruleOpMulti
+            	    {
+            	    if ( state.backtracking==0 ) {
+            	       
+            	      	        newCompositeNode(grammarAccess.getAMultiplicativeExpressionAccess().getFeatureOpMultiParserRuleCall_1_0_0_1_0()); 
+            	      	    
+            	    }
+            	    pushFollow(FollowSets000.FOLLOW_ruleOpMulti_in_ruleAMultiplicativeExpression14713);
+            	    lv_feature_2_0=ruleOpMulti();
+
+            	    state._fsp--;
+            	    if (state.failed) return current;
+            	    if ( state.backtracking==0 ) {
+
+            	      	        if (current==null) {
+            	      	            current = createModelElementForParent(grammarAccess.getAMultiplicativeExpressionRule());
+            	      	        }
+            	             		set(
+            	             			current, 
+            	             			"feature",
+            	              		lv_feature_2_0, 
+            	              		"OpMulti");
+            	      	        afterParserOrEnumRuleCall();
+            	      	    
+            	    }
+
+            	    }
+
+
+            	    }
+
+
+            	    }
+
+
+            	    }
+
+            	    // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:6097:4: ( (lv_rightOperand_3_0= ruleAUnaryOperation ) )
+            	    // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:6098:1: (lv_rightOperand_3_0= ruleAUnaryOperation )
+            	    {
+            	    // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:6098:1: (lv_rightOperand_3_0= ruleAUnaryOperation )
+            	    // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:6099:3: lv_rightOperand_3_0= ruleAUnaryOperation
+            	    {
+            	    if ( state.backtracking==0 ) {
+            	       
+            	      	        newCompositeNode(grammarAccess.getAMultiplicativeExpressionAccess().getRightOperandAUnaryOperationParserRuleCall_1_1_0()); 
+            	      	    
+            	    }
+            	    pushFollow(FollowSets000.FOLLOW_ruleAUnaryOperation_in_ruleAMultiplicativeExpression14736);
+            	    lv_rightOperand_3_0=ruleAUnaryOperation();
+
+            	    state._fsp--;
+            	    if (state.failed) return current;
+            	    if ( state.backtracking==0 ) {
+
+            	      	        if (current==null) {
+            	      	            current = createModelElementForParent(grammarAccess.getAMultiplicativeExpressionRule());
+            	      	        }
+            	             		set(
+            	             			current, 
+            	             			"rightOperand",
+            	              		lv_rightOperand_3_0, 
+            	              		"AUnaryOperation");
+            	      	        afterParserOrEnumRuleCall();
+            	      	    
+            	    }
+
+            	    }
+
+
+            	    }
+
+
+            	    }
+            	    break;
+
+            	default :
+            	    break loop120;
+                }
+            } while (true);
+
+
+            }
+
+
+            }
+
+            if ( state.backtracking==0 ) {
+               leaveRule(); 
+            }
+        }
+         
+        	catch (RecognitionException re) { 
+        	    recover(input,re); 
+        	    appendSkippedTokens();
+        	}
+        finally {
+        }
+        return current;
+    }
+    // $ANTLR end "ruleAMultiplicativeExpression"
+
+
+    // $ANTLR start "entryRuleOpMulti"
+    // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:6123:1: entryRuleOpMulti returns [String current=null] : iv_ruleOpMulti= ruleOpMulti EOF ;
+    public final String entryRuleOpMulti() throws RecognitionException {
+        String current = null;
+
+        AntlrDatatypeRuleToken iv_ruleOpMulti = null;
+
+
+        try {
+            // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:6124:1: (iv_ruleOpMulti= ruleOpMulti EOF )
+            // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:6125:2: iv_ruleOpMulti= ruleOpMulti EOF
+            {
+            if ( state.backtracking==0 ) {
+               newCompositeNode(grammarAccess.getOpMultiRule()); 
+            }
+            pushFollow(FollowSets000.FOLLOW_ruleOpMulti_in_entryRuleOpMulti14774);
+            iv_ruleOpMulti=ruleOpMulti();
+
+            state._fsp--;
+            if (state.failed) return current;
+            if ( state.backtracking==0 ) {
+               current =iv_ruleOpMulti.getText(); 
+            }
+            match(input,EOF,FollowSets000.FOLLOW_EOF_in_entryRuleOpMulti14785); if (state.failed) return current;
+
+            }
+
+        }
+         
+        	catch (RecognitionException re) { 
+        	    recover(input,re); 
+        	    appendSkippedTokens();
+        	}
+        finally {
+        }
+        return current;
+    }
+    // $ANTLR end "entryRuleOpMulti"
+
+
+    // $ANTLR start "ruleOpMulti"
+    // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:6132:1: ruleOpMulti returns [AntlrDatatypeRuleToken current=new AntlrDatatypeRuleToken()] : (kw= Asterisk | kw= AsteriskAsterisk | kw= Solidus | kw= PercentSign ) ;
+    public final AntlrDatatypeRuleToken ruleOpMulti() throws RecognitionException {
+        AntlrDatatypeRuleToken current = new AntlrDatatypeRuleToken();
+
+        Token kw=null;
+
+         enterRule(); 
+            
+        try {
+            // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:6136:6: ( (kw= Asterisk | kw= AsteriskAsterisk | kw= Solidus | kw= PercentSign ) )
+            // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:6137:1: (kw= Asterisk | kw= AsteriskAsterisk | kw= Solidus | kw= PercentSign )
+            {
+            // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:6137:1: (kw= Asterisk | kw= AsteriskAsterisk | kw= Solidus | kw= PercentSign )
+            int alt121=4;
+            switch ( input.LA(1) ) {
+            case Asterisk:
+                {
+                alt121=1;
+                }
+                break;
+            case AsteriskAsterisk:
+                {
+                alt121=2;
+                }
+                break;
+            case Solidus:
+                {
+                alt121=3;
+                }
+                break;
+            case PercentSign:
+                {
+                alt121=4;
+                }
+                break;
+            default:
+                if (state.backtracking>0) {state.failed=true; return current;}
+                NoViableAltException nvae =
+                    new NoViableAltException("", 121, 0, input);
+
+                throw nvae;
+            }
+
+            switch (alt121) {
+                case 1 :
+                    // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:6138:2: kw= Asterisk
+                    {
+                    kw=(Token)match(input,Asterisk,FollowSets000.FOLLOW_Asterisk_in_ruleOpMulti14823); if (state.failed) return current;
+                    if ( state.backtracking==0 ) {
+
+                              current.merge(kw);
+                              newLeafNode(kw, grammarAccess.getOpMultiAccess().getAsteriskKeyword_0()); 
+                          
+                    }
+
+                    }
+                    break;
+                case 2 :
+                    // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:6145:2: kw= AsteriskAsterisk
+                    {
+                    kw=(Token)match(input,AsteriskAsterisk,FollowSets000.FOLLOW_AsteriskAsterisk_in_ruleOpMulti14842); if (state.failed) return current;
+                    if ( state.backtracking==0 ) {
+
+                              current.merge(kw);
+                              newLeafNode(kw, grammarAccess.getOpMultiAccess().getAsteriskAsteriskKeyword_1()); 
+                          
+                    }
+
+                    }
+                    break;
+                case 3 :
+                    // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:6152:2: kw= Solidus
+                    {
+                    kw=(Token)match(input,Solidus,FollowSets000.FOLLOW_Solidus_in_ruleOpMulti14861); if (state.failed) return current;
+                    if ( state.backtracking==0 ) {
+
+                              current.merge(kw);
+                              newLeafNode(kw, grammarAccess.getOpMultiAccess().getSolidusKeyword_2()); 
+                          
+                    }
+
+                    }
+                    break;
+                case 4 :
+                    // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:6159:2: kw= PercentSign
+                    {
+                    kw=(Token)match(input,PercentSign,FollowSets000.FOLLOW_PercentSign_in_ruleOpMulti14880); if (state.failed) return current;
+                    if ( state.backtracking==0 ) {
+
+                              current.merge(kw);
+                              newLeafNode(kw, grammarAccess.getOpMultiAccess().getPercentSignKeyword_3()); 
+                          
+                    }
+
+                    }
+                    break;
+
+            }
+
+
+            }
+
+            if ( state.backtracking==0 ) {
+               leaveRule();
+                  
+            }
+        }
+         
+        	catch (RecognitionException re) { 
+        	    recover(input,re); 
+        	    appendSkippedTokens();
+        	}
+        finally {
+        }
+        return current;
+    }
+    // $ANTLR end "ruleOpMulti"
+
+
+    // $ANTLR start "entryRuleAUnaryOperation"
+    // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:6172:1: entryRuleAUnaryOperation returns [EObject current=null] : iv_ruleAUnaryOperation= ruleAUnaryOperation EOF ;
+    public final EObject entryRuleAUnaryOperation() throws RecognitionException {
+        EObject current = null;
+
+        EObject iv_ruleAUnaryOperation = null;
+
+
+        try {
+            // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:6173:2: (iv_ruleAUnaryOperation= ruleAUnaryOperation EOF )
+            // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:6174:2: iv_ruleAUnaryOperation= ruleAUnaryOperation EOF
+            {
+            if ( state.backtracking==0 ) {
+               newCompositeNode(grammarAccess.getAUnaryOperationRule()); 
+            }
+            pushFollow(FollowSets000.FOLLOW_ruleAUnaryOperation_in_entryRuleAUnaryOperation14919);
+            iv_ruleAUnaryOperation=ruleAUnaryOperation();
+
+            state._fsp--;
+            if (state.failed) return current;
+            if ( state.backtracking==0 ) {
+               current =iv_ruleAUnaryOperation; 
+            }
+            match(input,EOF,FollowSets000.FOLLOW_EOF_in_entryRuleAUnaryOperation14929); if (state.failed) return current;
+
+            }
+
+        }
+         
+        	catch (RecognitionException re) { 
+        	    recover(input,re); 
+        	    appendSkippedTokens();
+        	}
+        finally {
+        }
+        return current;
+    }
+    // $ANTLR end "entryRuleAUnaryOperation"
+
+
+    // $ANTLR start "ruleAUnaryOperation"
+    // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:6181:1: ruleAUnaryOperation returns [EObject current=null] : ( ( () ( (lv_feature_1_0= ruleOpUnary ) ) ( (lv_operand_2_0= ruleAUnaryOperation ) ) ) | this_APrimaryExpression_3= ruleAPrimaryExpression ) ;
+    public final EObject ruleAUnaryOperation() throws RecognitionException {
+        EObject current = null;
+
+        AntlrDatatypeRuleToken lv_feature_1_0 = null;
+
+        EObject lv_operand_2_0 = null;
+
+        EObject this_APrimaryExpression_3 = null;
+
+
+         enterRule(); 
+            
+        try {
+            // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:6184:28: ( ( ( () ( (lv_feature_1_0= ruleOpUnary ) ) ( (lv_operand_2_0= ruleAUnaryOperation ) ) ) | this_APrimaryExpression_3= ruleAPrimaryExpression ) )
+            // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:6185:1: ( ( () ( (lv_feature_1_0= ruleOpUnary ) ) ( (lv_operand_2_0= ruleAUnaryOperation ) ) ) | this_APrimaryExpression_3= ruleAPrimaryExpression )
+            {
+            // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:6185:1: ( ( () ( (lv_feature_1_0= ruleOpUnary ) ) ( (lv_operand_2_0= ruleAUnaryOperation ) ) ) | this_APrimaryExpression_3= ruleAPrimaryExpression )
+            int alt122=2;
+            int LA122_0 = input.LA(1);
+
+            if ( (LA122_0==ExclamationMark||LA122_0==PlusSign||LA122_0==HyphenMinus) ) {
+                alt122=1;
+            }
+            else if ( (LA122_0==False||LA122_0==Null||LA122_0==True||LA122_0==NumberSign||LA122_0==LeftParenthesis||(LA122_0>=RULE_HEX && LA122_0<=RULE_DECIMAL)||LA122_0==RULE_STRING) ) {
+                alt122=2;
+            }
+            else {
+                if (state.backtracking>0) {state.failed=true; return current;}
+                NoViableAltException nvae =
+                    new NoViableAltException("", 122, 0, input);
+
+                throw nvae;
+            }
+            switch (alt122) {
+                case 1 :
+                    // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:6185:2: ( () ( (lv_feature_1_0= ruleOpUnary ) ) ( (lv_operand_2_0= ruleAUnaryOperation ) ) )
+                    {
+                    // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:6185:2: ( () ( (lv_feature_1_0= ruleOpUnary ) ) ( (lv_operand_2_0= ruleAUnaryOperation ) ) )
+                    // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:6185:3: () ( (lv_feature_1_0= ruleOpUnary ) ) ( (lv_operand_2_0= ruleAUnaryOperation ) )
+                    {
+                    // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:6185:3: ()
+                    // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:6186:5: 
+                    {
+                    if ( state.backtracking==0 ) {
+
+                              current = forceCreateModelElement(
+                                  grammarAccess.getAUnaryOperationAccess().getAUnaryOperationAction_0_0(),
+                                  current);
+                          
+                    }
+
+                    }
+
+                    // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:6191:2: ( (lv_feature_1_0= ruleOpUnary ) )
+                    // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:6192:1: (lv_feature_1_0= ruleOpUnary )
+                    {
+                    // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:6192:1: (lv_feature_1_0= ruleOpUnary )
+                    // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:6193:3: lv_feature_1_0= ruleOpUnary
+                    {
+                    if ( state.backtracking==0 ) {
+                       
+                      	        newCompositeNode(grammarAccess.getAUnaryOperationAccess().getFeatureOpUnaryParserRuleCall_0_1_0()); 
+                      	    
+                    }
+                    pushFollow(FollowSets000.FOLLOW_ruleOpUnary_in_ruleAUnaryOperation14985);
+                    lv_feature_1_0=ruleOpUnary();
+
+                    state._fsp--;
+                    if (state.failed) return current;
+                    if ( state.backtracking==0 ) {
+
+                      	        if (current==null) {
+                      	            current = createModelElementForParent(grammarAccess.getAUnaryOperationRule());
+                      	        }
+                             		set(
+                             			current, 
+                             			"feature",
+                              		lv_feature_1_0, 
+                              		"OpUnary");
+                      	        afterParserOrEnumRuleCall();
+                      	    
+                    }
+
+                    }
+
+
+                    }
+
+                    // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:6209:2: ( (lv_operand_2_0= ruleAUnaryOperation ) )
+                    // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:6210:1: (lv_operand_2_0= ruleAUnaryOperation )
+                    {
+                    // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:6210:1: (lv_operand_2_0= ruleAUnaryOperation )
+                    // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:6211:3: lv_operand_2_0= ruleAUnaryOperation
+                    {
+                    if ( state.backtracking==0 ) {
+                       
+                      	        newCompositeNode(grammarAccess.getAUnaryOperationAccess().getOperandAUnaryOperationParserRuleCall_0_2_0()); 
+                      	    
+                    }
+                    pushFollow(FollowSets000.FOLLOW_ruleAUnaryOperation_in_ruleAUnaryOperation15006);
+                    lv_operand_2_0=ruleAUnaryOperation();
+
+                    state._fsp--;
+                    if (state.failed) return current;
+                    if ( state.backtracking==0 ) {
+
+                      	        if (current==null) {
+                      	            current = createModelElementForParent(grammarAccess.getAUnaryOperationRule());
+                      	        }
+                             		set(
+                             			current, 
+                             			"operand",
+                              		lv_operand_2_0, 
+                              		"AUnaryOperation");
+                      	        afterParserOrEnumRuleCall();
+                      	    
+                    }
+
+                    }
+
+
+                    }
+
+
+                    }
+
+
+                    }
+                    break;
+                case 2 :
+                    // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:6229:5: this_APrimaryExpression_3= ruleAPrimaryExpression
+                    {
+                    if ( state.backtracking==0 ) {
+                       
+                              newCompositeNode(grammarAccess.getAUnaryOperationAccess().getAPrimaryExpressionParserRuleCall_1()); 
+                          
+                    }
+                    pushFollow(FollowSets000.FOLLOW_ruleAPrimaryExpression_in_ruleAUnaryOperation15035);
+                    this_APrimaryExpression_3=ruleAPrimaryExpression();
+
+                    state._fsp--;
+                    if (state.failed) return current;
+                    if ( state.backtracking==0 ) {
+
+                              current = this_APrimaryExpression_3;
+                              afterParserOrEnumRuleCall();
+                          
+                    }
+
+                    }
+                    break;
+
+            }
+
+
+            }
+
+            if ( state.backtracking==0 ) {
+               leaveRule(); 
+            }
+        }
+         
+        	catch (RecognitionException re) { 
+        	    recover(input,re); 
+        	    appendSkippedTokens();
+        	}
+        finally {
+        }
+        return current;
+    }
+    // $ANTLR end "ruleAUnaryOperation"
+
+
+    // $ANTLR start "entryRuleOpUnary"
+    // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:6245:1: entryRuleOpUnary returns [String current=null] : iv_ruleOpUnary= ruleOpUnary EOF ;
+    public final String entryRuleOpUnary() throws RecognitionException {
+        String current = null;
+
+        AntlrDatatypeRuleToken iv_ruleOpUnary = null;
+
+
+        try {
+            // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:6246:1: (iv_ruleOpUnary= ruleOpUnary EOF )
+            // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:6247:2: iv_ruleOpUnary= ruleOpUnary EOF
+            {
+            if ( state.backtracking==0 ) {
+               newCompositeNode(grammarAccess.getOpUnaryRule()); 
+            }
+            pushFollow(FollowSets000.FOLLOW_ruleOpUnary_in_entryRuleOpUnary15070);
+            iv_ruleOpUnary=ruleOpUnary();
+
+            state._fsp--;
+            if (state.failed) return current;
+            if ( state.backtracking==0 ) {
+               current =iv_ruleOpUnary.getText(); 
+            }
+            match(input,EOF,FollowSets000.FOLLOW_EOF_in_entryRuleOpUnary15081); if (state.failed) return current;
+
+            }
+
+        }
+         
+        	catch (RecognitionException re) { 
+        	    recover(input,re); 
+        	    appendSkippedTokens();
+        	}
+        finally {
+        }
+        return current;
+    }
+    // $ANTLR end "entryRuleOpUnary"
+
+
+    // $ANTLR start "ruleOpUnary"
+    // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:6254:1: ruleOpUnary returns [AntlrDatatypeRuleToken current=new AntlrDatatypeRuleToken()] : (kw= ExclamationMark | kw= HyphenMinus | kw= PlusSign ) ;
+    public final AntlrDatatypeRuleToken ruleOpUnary() throws RecognitionException {
+        AntlrDatatypeRuleToken current = new AntlrDatatypeRuleToken();
+
+        Token kw=null;
+
+         enterRule(); 
+            
+        try {
+            // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:6258:6: ( (kw= ExclamationMark | kw= HyphenMinus | kw= PlusSign ) )
+            // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:6259:1: (kw= ExclamationMark | kw= HyphenMinus | kw= PlusSign )
+            {
+            // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:6259:1: (kw= ExclamationMark | kw= HyphenMinus | kw= PlusSign )
+            int alt123=3;
+            switch ( input.LA(1) ) {
+            case ExclamationMark:
+                {
+                alt123=1;
+                }
+                break;
+            case HyphenMinus:
+                {
+                alt123=2;
+                }
+                break;
+            case PlusSign:
+                {
+                alt123=3;
+                }
+                break;
+            default:
+                if (state.backtracking>0) {state.failed=true; return current;}
+                NoViableAltException nvae =
+                    new NoViableAltException("", 123, 0, input);
+
+                throw nvae;
+            }
+
+            switch (alt123) {
+                case 1 :
+                    // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:6260:2: kw= ExclamationMark
+                    {
+                    kw=(Token)match(input,ExclamationMark,FollowSets000.FOLLOW_ExclamationMark_in_ruleOpUnary15119); if (state.failed) return current;
+                    if ( state.backtracking==0 ) {
+
+                              current.merge(kw);
+                              newLeafNode(kw, grammarAccess.getOpUnaryAccess().getExclamationMarkKeyword_0()); 
+                          
+                    }
+
+                    }
+                    break;
+                case 2 :
+                    // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:6267:2: kw= HyphenMinus
+                    {
+                    kw=(Token)match(input,HyphenMinus,FollowSets000.FOLLOW_HyphenMinus_in_ruleOpUnary15138); if (state.failed) return current;
+                    if ( state.backtracking==0 ) {
+
+                              current.merge(kw);
+                              newLeafNode(kw, grammarAccess.getOpUnaryAccess().getHyphenMinusKeyword_1()); 
+                          
+                    }
+
+                    }
+                    break;
+                case 3 :
+                    // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:6274:2: kw= PlusSign
+                    {
+                    kw=(Token)match(input,PlusSign,FollowSets000.FOLLOW_PlusSign_in_ruleOpUnary15157); if (state.failed) return current;
+                    if ( state.backtracking==0 ) {
+
+                              current.merge(kw);
+                              newLeafNode(kw, grammarAccess.getOpUnaryAccess().getPlusSignKeyword_2()); 
+                          
+                    }
+
+                    }
+                    break;
+
+            }
+
+
+            }
+
+            if ( state.backtracking==0 ) {
+               leaveRule();
+                  
+            }
+        }
+         
+        	catch (RecognitionException re) { 
+        	    recover(input,re); 
+        	    appendSkippedTokens();
+        	}
+        finally {
+        }
+        return current;
+    }
+    // $ANTLR end "ruleOpUnary"
+
+
+    // $ANTLR start "entryRuleAPrimaryExpression"
+    // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:6287:1: entryRuleAPrimaryExpression returns [EObject current=null] : iv_ruleAPrimaryExpression= ruleAPrimaryExpression EOF ;
+    public final EObject entryRuleAPrimaryExpression() throws RecognitionException {
+        EObject current = null;
+
+        EObject iv_ruleAPrimaryExpression = null;
+
+
+        try {
+            // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:6288:2: (iv_ruleAPrimaryExpression= ruleAPrimaryExpression EOF )
+            // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:6289:2: iv_ruleAPrimaryExpression= ruleAPrimaryExpression EOF
+            {
+            if ( state.backtracking==0 ) {
+               newCompositeNode(grammarAccess.getAPrimaryExpressionRule()); 
+            }
+            pushFollow(FollowSets000.FOLLOW_ruleAPrimaryExpression_in_entryRuleAPrimaryExpression15196);
+            iv_ruleAPrimaryExpression=ruleAPrimaryExpression();
+
+            state._fsp--;
+            if (state.failed) return current;
+            if ( state.backtracking==0 ) {
+               current =iv_ruleAPrimaryExpression; 
+            }
+            match(input,EOF,FollowSets000.FOLLOW_EOF_in_entryRuleAPrimaryExpression15206); if (state.failed) return current;
+
+            }
+
+        }
+         
+        	catch (RecognitionException re) { 
+        	    recover(input,re); 
+        	    appendSkippedTokens();
+        	}
+        finally {
+        }
+        return current;
+    }
+    // $ANTLR end "entryRuleAPrimaryExpression"
+
+
+    // $ANTLR start "ruleAPrimaryExpression"
+    // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:6296:1: ruleAPrimaryExpression returns [EObject current=null] : (this_ALiteral_0= ruleALiteral | this_AParenthesizedExpression_1= ruleAParenthesizedExpression ) ;
+    public final EObject ruleAPrimaryExpression() throws RecognitionException {
+        EObject current = null;
+
+        EObject this_ALiteral_0 = null;
+
+        EObject this_AParenthesizedExpression_1 = null;
+
+
+         enterRule(); 
+            
+        try {
+            // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:6299:28: ( (this_ALiteral_0= ruleALiteral | this_AParenthesizedExpression_1= ruleAParenthesizedExpression ) )
+            // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:6300:1: (this_ALiteral_0= ruleALiteral | this_AParenthesizedExpression_1= ruleAParenthesizedExpression )
+            {
+            // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:6300:1: (this_ALiteral_0= ruleALiteral | this_AParenthesizedExpression_1= ruleAParenthesizedExpression )
+            int alt124=2;
+            int LA124_0 = input.LA(1);
+
+            if ( (LA124_0==False||LA124_0==Null||LA124_0==True||LA124_0==NumberSign||(LA124_0>=RULE_HEX && LA124_0<=RULE_DECIMAL)||LA124_0==RULE_STRING) ) {
+                alt124=1;
+            }
+            else if ( (LA124_0==LeftParenthesis) ) {
+                alt124=2;
+            }
+            else {
+                if (state.backtracking>0) {state.failed=true; return current;}
+                NoViableAltException nvae =
+                    new NoViableAltException("", 124, 0, input);
+
+                throw nvae;
+            }
+            switch (alt124) {
+                case 1 :
+                    // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:6301:5: this_ALiteral_0= ruleALiteral
+                    {
+                    if ( state.backtracking==0 ) {
+                       
+                              newCompositeNode(grammarAccess.getAPrimaryExpressionAccess().getALiteralParserRuleCall_0()); 
+                          
+                    }
+                    pushFollow(FollowSets000.FOLLOW_ruleALiteral_in_ruleAPrimaryExpression15253);
+                    this_ALiteral_0=ruleALiteral();
+
+                    state._fsp--;
+                    if (state.failed) return current;
+                    if ( state.backtracking==0 ) {
+
+                              current = this_ALiteral_0;
+                              afterParserOrEnumRuleCall();
+                          
+                    }
+
+                    }
+                    break;
+                case 2 :
+                    // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:6311:5: this_AParenthesizedExpression_1= ruleAParenthesizedExpression
+                    {
+                    if ( state.backtracking==0 ) {
+                       
+                              newCompositeNode(grammarAccess.getAPrimaryExpressionAccess().getAParenthesizedExpressionParserRuleCall_1()); 
+                          
+                    }
+                    pushFollow(FollowSets000.FOLLOW_ruleAParenthesizedExpression_in_ruleAPrimaryExpression15280);
+                    this_AParenthesizedExpression_1=ruleAParenthesizedExpression();
+
+                    state._fsp--;
+                    if (state.failed) return current;
+                    if ( state.backtracking==0 ) {
+
+                              current = this_AParenthesizedExpression_1;
+                              afterParserOrEnumRuleCall();
+                          
+                    }
+
+                    }
+                    break;
+
+            }
+
+
+            }
+
+            if ( state.backtracking==0 ) {
+               leaveRule(); 
+            }
+        }
+         
+        	catch (RecognitionException re) { 
+        	    recover(input,re); 
+        	    appendSkippedTokens();
+        	}
+        finally {
+        }
+        return current;
+    }
+    // $ANTLR end "ruleAPrimaryExpression"
+
+
+    // $ANTLR start "entryRuleALiteral"
+    // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:6327:1: entryRuleALiteral returns [EObject current=null] : iv_ruleALiteral= ruleALiteral EOF ;
+    public final EObject entryRuleALiteral() throws RecognitionException {
+        EObject current = null;
+
+        EObject iv_ruleALiteral = null;
+
+
+        try {
+            // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:6328:2: (iv_ruleALiteral= ruleALiteral EOF )
+            // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:6329:2: iv_ruleALiteral= ruleALiteral EOF
+            {
+            if ( state.backtracking==0 ) {
+               newCompositeNode(grammarAccess.getALiteralRule()); 
+            }
+            pushFollow(FollowSets000.FOLLOW_ruleALiteral_in_entryRuleALiteral15314);
+            iv_ruleALiteral=ruleALiteral();
+
+            state._fsp--;
+            if (state.failed) return current;
+            if ( state.backtracking==0 ) {
+               current =iv_ruleALiteral; 
+            }
+            match(input,EOF,FollowSets000.FOLLOW_EOF_in_entryRuleALiteral15324); if (state.failed) return current;
+
+            }
+
+        }
+         
+        	catch (RecognitionException re) { 
+        	    recover(input,re); 
+        	    appendSkippedTokens();
+        	}
+        finally {
+        }
+        return current;
+    }
+    // $ANTLR end "entryRuleALiteral"
+
+
+    // $ANTLR start "ruleALiteral"
+    // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:6336:1: ruleALiteral returns [EObject current=null] : (this_ACollectionLiteral_0= ruleACollectionLiteral | this_ABooleanLiteral_1= ruleABooleanLiteral | this_ANumberLiteral_2= ruleANumberLiteral | this_ANullLiteral_3= ruleANullLiteral | this_AStringLiteral_4= ruleAStringLiteral ) ;
+    public final EObject ruleALiteral() throws RecognitionException {
+        EObject current = null;
+
+        EObject this_ACollectionLiteral_0 = null;
+
+        EObject this_ABooleanLiteral_1 = null;
+
+        EObject this_ANumberLiteral_2 = null;
+
+        EObject this_ANullLiteral_3 = null;
+
+        EObject this_AStringLiteral_4 = null;
+
+
+         enterRule(); 
+            
+        try {
+            // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:6339:28: ( (this_ACollectionLiteral_0= ruleACollectionLiteral | this_ABooleanLiteral_1= ruleABooleanLiteral | this_ANumberLiteral_2= ruleANumberLiteral | this_ANullLiteral_3= ruleANullLiteral | this_AStringLiteral_4= ruleAStringLiteral ) )
+            // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:6340:1: (this_ACollectionLiteral_0= ruleACollectionLiteral | this_ABooleanLiteral_1= ruleABooleanLiteral | this_ANumberLiteral_2= ruleANumberLiteral | this_ANullLiteral_3= ruleANullLiteral | this_AStringLiteral_4= ruleAStringLiteral )
+            {
+            // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:6340:1: (this_ACollectionLiteral_0= ruleACollectionLiteral | this_ABooleanLiteral_1= ruleABooleanLiteral | this_ANumberLiteral_2= ruleANumberLiteral | this_ANullLiteral_3= ruleANullLiteral | this_AStringLiteral_4= ruleAStringLiteral )
+            int alt125=5;
+            switch ( input.LA(1) ) {
+            case NumberSign:
+                {
+                alt125=1;
+                }
+                break;
+            case False:
+            case True:
+                {
+                alt125=2;
+                }
+                break;
+            case RULE_HEX:
+            case RULE_INT:
+            case RULE_DECIMAL:
+                {
+                alt125=3;
+                }
+                break;
+            case Null:
+                {
+                alt125=4;
+                }
+                break;
+            case RULE_STRING:
+                {
+                alt125=5;
+                }
+                break;
+            default:
+                if (state.backtracking>0) {state.failed=true; return current;}
+                NoViableAltException nvae =
+                    new NoViableAltException("", 125, 0, input);
+
+                throw nvae;
+            }
+
+            switch (alt125) {
+                case 1 :
+                    // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:6341:5: this_ACollectionLiteral_0= ruleACollectionLiteral
+                    {
+                    if ( state.backtracking==0 ) {
+                       
+                              newCompositeNode(grammarAccess.getALiteralAccess().getACollectionLiteralParserRuleCall_0()); 
+                          
+                    }
+                    pushFollow(FollowSets000.FOLLOW_ruleACollectionLiteral_in_ruleALiteral15371);
+                    this_ACollectionLiteral_0=ruleACollectionLiteral();
+
+                    state._fsp--;
+                    if (state.failed) return current;
+                    if ( state.backtracking==0 ) {
+
+                              current = this_ACollectionLiteral_0;
+                              afterParserOrEnumRuleCall();
+                          
+                    }
+
+                    }
+                    break;
+                case 2 :
+                    // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:6351:5: this_ABooleanLiteral_1= ruleABooleanLiteral
+                    {
+                    if ( state.backtracking==0 ) {
+                       
+                              newCompositeNode(grammarAccess.getALiteralAccess().getABooleanLiteralParserRuleCall_1()); 
+                          
+                    }
+                    pushFollow(FollowSets000.FOLLOW_ruleABooleanLiteral_in_ruleALiteral15398);
+                    this_ABooleanLiteral_1=ruleABooleanLiteral();
+
+                    state._fsp--;
+                    if (state.failed) return current;
+                    if ( state.backtracking==0 ) {
+
+                              current = this_ABooleanLiteral_1;
+                              afterParserOrEnumRuleCall();
+                          
+                    }
+
+                    }
+                    break;
+                case 3 :
+                    // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:6361:5: this_ANumberLiteral_2= ruleANumberLiteral
+                    {
+                    if ( state.backtracking==0 ) {
+                       
+                              newCompositeNode(grammarAccess.getALiteralAccess().getANumberLiteralParserRuleCall_2()); 
+                          
+                    }
+                    pushFollow(FollowSets000.FOLLOW_ruleANumberLiteral_in_ruleALiteral15425);
+                    this_ANumberLiteral_2=ruleANumberLiteral();
+
+                    state._fsp--;
+                    if (state.failed) return current;
+                    if ( state.backtracking==0 ) {
+
+                              current = this_ANumberLiteral_2;
+                              afterParserOrEnumRuleCall();
+                          
+                    }
+
+                    }
+                    break;
+                case 4 :
+                    // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:6371:5: this_ANullLiteral_3= ruleANullLiteral
+                    {
+                    if ( state.backtracking==0 ) {
+                       
+                              newCompositeNode(grammarAccess.getALiteralAccess().getANullLiteralParserRuleCall_3()); 
+                          
+                    }
+                    pushFollow(FollowSets000.FOLLOW_ruleANullLiteral_in_ruleALiteral15452);
+                    this_ANullLiteral_3=ruleANullLiteral();
+
+                    state._fsp--;
+                    if (state.failed) return current;
+                    if ( state.backtracking==0 ) {
+
+                              current = this_ANullLiteral_3;
+                              afterParserOrEnumRuleCall();
+                          
+                    }
+
+                    }
+                    break;
+                case 5 :
+                    // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:6381:5: this_AStringLiteral_4= ruleAStringLiteral
+                    {
+                    if ( state.backtracking==0 ) {
+                       
+                              newCompositeNode(grammarAccess.getALiteralAccess().getAStringLiteralParserRuleCall_4()); 
+                          
+                    }
+                    pushFollow(FollowSets000.FOLLOW_ruleAStringLiteral_in_ruleALiteral15479);
+                    this_AStringLiteral_4=ruleAStringLiteral();
+
+                    state._fsp--;
+                    if (state.failed) return current;
+                    if ( state.backtracking==0 ) {
+
+                              current = this_AStringLiteral_4;
+                              afterParserOrEnumRuleCall();
+                          
+                    }
+
+                    }
+                    break;
+
+            }
+
+
+            }
+
+            if ( state.backtracking==0 ) {
+               leaveRule(); 
+            }
+        }
+         
+        	catch (RecognitionException re) { 
+        	    recover(input,re); 
+        	    appendSkippedTokens();
+        	}
+        finally {
+        }
+        return current;
+    }
+    // $ANTLR end "ruleALiteral"
+
+
+    // $ANTLR start "entryRuleACollectionLiteral"
+    // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:6397:1: entryRuleACollectionLiteral returns [EObject current=null] : iv_ruleACollectionLiteral= ruleACollectionLiteral EOF ;
+    public final EObject entryRuleACollectionLiteral() throws RecognitionException {
+        EObject current = null;
+
+        EObject iv_ruleACollectionLiteral = null;
+
+
+        try {
+            // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:6398:2: (iv_ruleACollectionLiteral= ruleACollectionLiteral EOF )
+            // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:6399:2: iv_ruleACollectionLiteral= ruleACollectionLiteral EOF
+            {
+            if ( state.backtracking==0 ) {
+               newCompositeNode(grammarAccess.getACollectionLiteralRule()); 
+            }
+            pushFollow(FollowSets000.FOLLOW_ruleACollectionLiteral_in_entryRuleACollectionLiteral15513);
+            iv_ruleACollectionLiteral=ruleACollectionLiteral();
+
+            state._fsp--;
+            if (state.failed) return current;
+            if ( state.backtracking==0 ) {
+               current =iv_ruleACollectionLiteral; 
+            }
+            match(input,EOF,FollowSets000.FOLLOW_EOF_in_entryRuleACollectionLiteral15523); if (state.failed) return current;
+
+            }
+
+        }
+         
+        	catch (RecognitionException re) { 
+        	    recover(input,re); 
+        	    appendSkippedTokens();
+        	}
+        finally {
+        }
+        return current;
+    }
+    // $ANTLR end "entryRuleACollectionLiteral"
+
+
+    // $ANTLR start "ruleACollectionLiteral"
+    // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:6406:1: ruleACollectionLiteral returns [EObject current=null] : (this_ASetLiteral_0= ruleASetLiteral | this_AListLiteral_1= ruleAListLiteral ) ;
+    public final EObject ruleACollectionLiteral() throws RecognitionException {
+        EObject current = null;
+
+        EObject this_ASetLiteral_0 = null;
+
+        EObject this_AListLiteral_1 = null;
+
+
+         enterRule(); 
+            
+        try {
+            // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:6409:28: ( (this_ASetLiteral_0= ruleASetLiteral | this_AListLiteral_1= ruleAListLiteral ) )
+            // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:6410:1: (this_ASetLiteral_0= ruleASetLiteral | this_AListLiteral_1= ruleAListLiteral )
+            {
+            // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:6410:1: (this_ASetLiteral_0= ruleASetLiteral | this_AListLiteral_1= ruleAListLiteral )
+            int alt126=2;
+            int LA126_0 = input.LA(1);
+
+            if ( (LA126_0==NumberSign) ) {
+                int LA126_1 = input.LA(2);
+
+                if ( (LA126_1==LeftSquareBracket) ) {
+                    alt126=2;
+                }
+                else if ( (LA126_1==LeftCurlyBracket) ) {
+                    alt126=1;
+                }
+                else {
+                    if (state.backtracking>0) {state.failed=true; return current;}
+                    NoViableAltException nvae =
+                        new NoViableAltException("", 126, 1, input);
+
+                    throw nvae;
+                }
+            }
+            else {
+                if (state.backtracking>0) {state.failed=true; return current;}
+                NoViableAltException nvae =
+                    new NoViableAltException("", 126, 0, input);
+
+                throw nvae;
+            }
+            switch (alt126) {
+                case 1 :
+                    // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:6411:5: this_ASetLiteral_0= ruleASetLiteral
+                    {
+                    if ( state.backtracking==0 ) {
+                       
+                              newCompositeNode(grammarAccess.getACollectionLiteralAccess().getASetLiteralParserRuleCall_0()); 
+                          
+                    }
+                    pushFollow(FollowSets000.FOLLOW_ruleASetLiteral_in_ruleACollectionLiteral15570);
+                    this_ASetLiteral_0=ruleASetLiteral();
+
+                    state._fsp--;
+                    if (state.failed) return current;
+                    if ( state.backtracking==0 ) {
+
+                              current = this_ASetLiteral_0;
+                              afterParserOrEnumRuleCall();
+                          
+                    }
+
+                    }
+                    break;
+                case 2 :
+                    // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:6421:5: this_AListLiteral_1= ruleAListLiteral
+                    {
+                    if ( state.backtracking==0 ) {
+                       
+                              newCompositeNode(grammarAccess.getACollectionLiteralAccess().getAListLiteralParserRuleCall_1()); 
+                          
+                    }
+                    pushFollow(FollowSets000.FOLLOW_ruleAListLiteral_in_ruleACollectionLiteral15597);
+                    this_AListLiteral_1=ruleAListLiteral();
+
+                    state._fsp--;
+                    if (state.failed) return current;
+                    if ( state.backtracking==0 ) {
+
+                              current = this_AListLiteral_1;
+                              afterParserOrEnumRuleCall();
+                          
+                    }
+
+                    }
+                    break;
+
+            }
+
+
+            }
+
+            if ( state.backtracking==0 ) {
+               leaveRule(); 
+            }
+        }
+         
+        	catch (RecognitionException re) { 
+        	    recover(input,re); 
+        	    appendSkippedTokens();
+        	}
+        finally {
+        }
+        return current;
+    }
+    // $ANTLR end "ruleACollectionLiteral"
+
+
+    // $ANTLR start "entryRuleASetLiteral"
+    // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:6437:1: entryRuleASetLiteral returns [EObject current=null] : iv_ruleASetLiteral= ruleASetLiteral EOF ;
+    public final EObject entryRuleASetLiteral() throws RecognitionException {
+        EObject current = null;
+
+        EObject iv_ruleASetLiteral = null;
+
+
+        try {
+            // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:6438:2: (iv_ruleASetLiteral= ruleASetLiteral EOF )
+            // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:6439:2: iv_ruleASetLiteral= ruleASetLiteral EOF
+            {
+            if ( state.backtracking==0 ) {
+               newCompositeNode(grammarAccess.getASetLiteralRule()); 
+            }
+            pushFollow(FollowSets000.FOLLOW_ruleASetLiteral_in_entryRuleASetLiteral15631);
+            iv_ruleASetLiteral=ruleASetLiteral();
+
+            state._fsp--;
+            if (state.failed) return current;
+            if ( state.backtracking==0 ) {
+               current =iv_ruleASetLiteral; 
+            }
+            match(input,EOF,FollowSets000.FOLLOW_EOF_in_entryRuleASetLiteral15641); if (state.failed) return current;
+
+            }
+
+        }
+         
+        	catch (RecognitionException re) { 
+        	    recover(input,re); 
+        	    appendSkippedTokens();
+        	}
+        finally {
+        }
+        return current;
+    }
+    // $ANTLR end "entryRuleASetLiteral"
+
+
+    // $ANTLR start "ruleASetLiteral"
+    // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:6446:1: ruleASetLiteral returns [EObject current=null] : ( () otherlv_1= NumberSign otherlv_2= LeftCurlyBracket ( ( (lv_elements_3_0= ruleAExpression ) ) (otherlv_4= Comma ( (lv_elements_5_0= ruleAExpression ) ) )* )? otherlv_6= RightCurlyBracket ) ;
+    public final EObject ruleASetLiteral() throws RecognitionException {
+        EObject current = null;
+
+        Token otherlv_1=null;
+        Token otherlv_2=null;
+        Token otherlv_4=null;
+        Token otherlv_6=null;
+        EObject lv_elements_3_0 = null;
+
+        EObject lv_elements_5_0 = null;
+
+
+         enterRule(); 
+            
+        try {
+            // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:6449:28: ( ( () otherlv_1= NumberSign otherlv_2= LeftCurlyBracket ( ( (lv_elements_3_0= ruleAExpression ) ) (otherlv_4= Comma ( (lv_elements_5_0= ruleAExpression ) ) )* )? otherlv_6= RightCurlyBracket ) )
+            // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:6450:1: ( () otherlv_1= NumberSign otherlv_2= LeftCurlyBracket ( ( (lv_elements_3_0= ruleAExpression ) ) (otherlv_4= Comma ( (lv_elements_5_0= ruleAExpression ) ) )* )? otherlv_6= RightCurlyBracket )
+            {
+            // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:6450:1: ( () otherlv_1= NumberSign otherlv_2= LeftCurlyBracket ( ( (lv_elements_3_0= ruleAExpression ) ) (otherlv_4= Comma ( (lv_elements_5_0= ruleAExpression ) ) )* )? otherlv_6= RightCurlyBracket )
+            // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:6450:2: () otherlv_1= NumberSign otherlv_2= LeftCurlyBracket ( ( (lv_elements_3_0= ruleAExpression ) ) (otherlv_4= Comma ( (lv_elements_5_0= ruleAExpression ) ) )* )? otherlv_6= RightCurlyBracket
+            {
+            // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:6450:2: ()
+            // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:6451:5: 
+            {
+            if ( state.backtracking==0 ) {
+
+                      current = forceCreateModelElement(
+                          grammarAccess.getASetLiteralAccess().getASetLiteralAction_0(),
+                          current);
+                  
+            }
+
+            }
+
+            otherlv_1=(Token)match(input,NumberSign,FollowSets000.FOLLOW_NumberSign_in_ruleASetLiteral15688); if (state.failed) return current;
+            if ( state.backtracking==0 ) {
+
+                  	newLeafNode(otherlv_1, grammarAccess.getASetLiteralAccess().getNumberSignKeyword_1());
+                  
+            }
+            otherlv_2=(Token)match(input,LeftCurlyBracket,FollowSets000.FOLLOW_LeftCurlyBracket_in_ruleASetLiteral15700); if (state.failed) return current;
+            if ( state.backtracking==0 ) {
+
+                  	newLeafNode(otherlv_2, grammarAccess.getASetLiteralAccess().getLeftCurlyBracketKeyword_2());
+                  
+            }
+            // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:6466:1: ( ( (lv_elements_3_0= ruleAExpression ) ) (otherlv_4= Comma ( (lv_elements_5_0= ruleAExpression ) ) )* )?
+            int alt128=2;
+            int LA128_0 = input.LA(1);
+
+            if ( (LA128_0==False||LA128_0==Null||LA128_0==True||(LA128_0>=ExclamationMark && LA128_0<=NumberSign)||LA128_0==LeftParenthesis||LA128_0==PlusSign||LA128_0==HyphenMinus||(LA128_0>=RULE_HEX && LA128_0<=RULE_DECIMAL)||LA128_0==RULE_STRING) ) {
+                alt128=1;
+            }
+            switch (alt128) {
+                case 1 :
+                    // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:6466:2: ( (lv_elements_3_0= ruleAExpression ) ) (otherlv_4= Comma ( (lv_elements_5_0= ruleAExpression ) ) )*
+                    {
+                    // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:6466:2: ( (lv_elements_3_0= ruleAExpression ) )
+                    // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:6467:1: (lv_elements_3_0= ruleAExpression )
+                    {
+                    // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:6467:1: (lv_elements_3_0= ruleAExpression )
+                    // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:6468:3: lv_elements_3_0= ruleAExpression
+                    {
+                    if ( state.backtracking==0 ) {
+                       
+                      	        newCompositeNode(grammarAccess.getASetLiteralAccess().getElementsAExpressionParserRuleCall_3_0_0()); 
+                      	    
+                    }
+                    pushFollow(FollowSets000.FOLLOW_ruleAExpression_in_ruleASetLiteral15721);
+                    lv_elements_3_0=ruleAExpression();
+
+                    state._fsp--;
+                    if (state.failed) return current;
+                    if ( state.backtracking==0 ) {
+
+                      	        if (current==null) {
+                      	            current = createModelElementForParent(grammarAccess.getASetLiteralRule());
+                      	        }
+                             		add(
+                             			current, 
+                             			"elements",
+                              		lv_elements_3_0, 
+                              		"AExpression");
+                      	        afterParserOrEnumRuleCall();
+                      	    
+                    }
+
+                    }
+
+
+                    }
+
+                    // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:6484:2: (otherlv_4= Comma ( (lv_elements_5_0= ruleAExpression ) ) )*
+                    loop127:
+                    do {
+                        int alt127=2;
+                        int LA127_0 = input.LA(1);
+
+                        if ( (LA127_0==Comma) ) {
+                            alt127=1;
+                        }
+
+
+                        switch (alt127) {
+                    	case 1 :
+                    	    // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:6485:2: otherlv_4= Comma ( (lv_elements_5_0= ruleAExpression ) )
+                    	    {
+                    	    otherlv_4=(Token)match(input,Comma,FollowSets000.FOLLOW_Comma_in_ruleASetLiteral15735); if (state.failed) return current;
+                    	    if ( state.backtracking==0 ) {
+
+                    	          	newLeafNode(otherlv_4, grammarAccess.getASetLiteralAccess().getCommaKeyword_3_1_0());
+                    	          
+                    	    }
+                    	    // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:6489:1: ( (lv_elements_5_0= ruleAExpression ) )
+                    	    // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:6490:1: (lv_elements_5_0= ruleAExpression )
+                    	    {
+                    	    // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:6490:1: (lv_elements_5_0= ruleAExpression )
+                    	    // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:6491:3: lv_elements_5_0= ruleAExpression
+                    	    {
+                    	    if ( state.backtracking==0 ) {
+                    	       
+                    	      	        newCompositeNode(grammarAccess.getASetLiteralAccess().getElementsAExpressionParserRuleCall_3_1_1_0()); 
+                    	      	    
+                    	    }
+                    	    pushFollow(FollowSets000.FOLLOW_ruleAExpression_in_ruleASetLiteral15755);
+                    	    lv_elements_5_0=ruleAExpression();
+
+                    	    state._fsp--;
+                    	    if (state.failed) return current;
+                    	    if ( state.backtracking==0 ) {
+
+                    	      	        if (current==null) {
+                    	      	            current = createModelElementForParent(grammarAccess.getASetLiteralRule());
+                    	      	        }
+                    	             		add(
+                    	             			current, 
+                    	             			"elements",
+                    	              		lv_elements_5_0, 
+                    	              		"AExpression");
+                    	      	        afterParserOrEnumRuleCall();
+                    	      	    
+                    	    }
+
+                    	    }
+
+
+                    	    }
+
+
+                    	    }
+                    	    break;
+
+                    	default :
+                    	    break loop127;
+                        }
+                    } while (true);
+
+
+                    }
+                    break;
+
+            }
+
+            otherlv_6=(Token)match(input,RightCurlyBracket,FollowSets000.FOLLOW_RightCurlyBracket_in_ruleASetLiteral15772); if (state.failed) return current;
+            if ( state.backtracking==0 ) {
+
+                  	newLeafNode(otherlv_6, grammarAccess.getASetLiteralAccess().getRightCurlyBracketKeyword_4());
+                  
+            }
+
+            }
+
+
+            }
+
+            if ( state.backtracking==0 ) {
+               leaveRule(); 
+            }
+        }
+         
+        	catch (RecognitionException re) { 
+        	    recover(input,re); 
+        	    appendSkippedTokens();
+        	}
+        finally {
+        }
+        return current;
+    }
+    // $ANTLR end "ruleASetLiteral"
+
+
+    // $ANTLR start "entryRuleAListLiteral"
+    // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:6520:1: entryRuleAListLiteral returns [EObject current=null] : iv_ruleAListLiteral= ruleAListLiteral EOF ;
+    public final EObject entryRuleAListLiteral() throws RecognitionException {
+        EObject current = null;
+
+        EObject iv_ruleAListLiteral = null;
+
+
+        try {
+            // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:6521:2: (iv_ruleAListLiteral= ruleAListLiteral EOF )
+            // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:6522:2: iv_ruleAListLiteral= ruleAListLiteral EOF
+            {
+            if ( state.backtracking==0 ) {
+               newCompositeNode(grammarAccess.getAListLiteralRule()); 
+            }
+            pushFollow(FollowSets000.FOLLOW_ruleAListLiteral_in_entryRuleAListLiteral15806);
+            iv_ruleAListLiteral=ruleAListLiteral();
+
+            state._fsp--;
+            if (state.failed) return current;
+            if ( state.backtracking==0 ) {
+               current =iv_ruleAListLiteral; 
+            }
+            match(input,EOF,FollowSets000.FOLLOW_EOF_in_entryRuleAListLiteral15816); if (state.failed) return current;
+
+            }
+
+        }
+         
+        	catch (RecognitionException re) { 
+        	    recover(input,re); 
+        	    appendSkippedTokens();
+        	}
+        finally {
+        }
+        return current;
+    }
+    // $ANTLR end "entryRuleAListLiteral"
+
+
+    // $ANTLR start "ruleAListLiteral"
+    // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:6529:1: ruleAListLiteral returns [EObject current=null] : ( () otherlv_1= NumberSign otherlv_2= LeftSquareBracket ( ( (lv_elements_3_0= ruleAExpression ) ) (otherlv_4= Comma ( (lv_elements_5_0= ruleAExpression ) ) )* )? otherlv_6= RightSquareBracket ) ;
+    public final EObject ruleAListLiteral() throws RecognitionException {
+        EObject current = null;
+
+        Token otherlv_1=null;
+        Token otherlv_2=null;
+        Token otherlv_4=null;
+        Token otherlv_6=null;
+        EObject lv_elements_3_0 = null;
+
+        EObject lv_elements_5_0 = null;
+
+
+         enterRule(); 
+            
+        try {
+            // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:6532:28: ( ( () otherlv_1= NumberSign otherlv_2= LeftSquareBracket ( ( (lv_elements_3_0= ruleAExpression ) ) (otherlv_4= Comma ( (lv_elements_5_0= ruleAExpression ) ) )* )? otherlv_6= RightSquareBracket ) )
+            // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:6533:1: ( () otherlv_1= NumberSign otherlv_2= LeftSquareBracket ( ( (lv_elements_3_0= ruleAExpression ) ) (otherlv_4= Comma ( (lv_elements_5_0= ruleAExpression ) ) )* )? otherlv_6= RightSquareBracket )
+            {
+            // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:6533:1: ( () otherlv_1= NumberSign otherlv_2= LeftSquareBracket ( ( (lv_elements_3_0= ruleAExpression ) ) (otherlv_4= Comma ( (lv_elements_5_0= ruleAExpression ) ) )* )? otherlv_6= RightSquareBracket )
+            // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:6533:2: () otherlv_1= NumberSign otherlv_2= LeftSquareBracket ( ( (lv_elements_3_0= ruleAExpression ) ) (otherlv_4= Comma ( (lv_elements_5_0= ruleAExpression ) ) )* )? otherlv_6= RightSquareBracket
+            {
+            // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:6533:2: ()
+            // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:6534:5: 
+            {
+            if ( state.backtracking==0 ) {
+
+                      current = forceCreateModelElement(
+                          grammarAccess.getAListLiteralAccess().getAListLiteralAction_0(),
+                          current);
+                  
+            }
+
+            }
+
+            otherlv_1=(Token)match(input,NumberSign,FollowSets000.FOLLOW_NumberSign_in_ruleAListLiteral15863); if (state.failed) return current;
+            if ( state.backtracking==0 ) {
+
+                  	newLeafNode(otherlv_1, grammarAccess.getAListLiteralAccess().getNumberSignKeyword_1());
+                  
+            }
+            otherlv_2=(Token)match(input,LeftSquareBracket,FollowSets000.FOLLOW_LeftSquareBracket_in_ruleAListLiteral15875); if (state.failed) return current;
+            if ( state.backtracking==0 ) {
+
+                  	newLeafNode(otherlv_2, grammarAccess.getAListLiteralAccess().getLeftSquareBracketKeyword_2());
+                  
+            }
+            // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:6549:1: ( ( (lv_elements_3_0= ruleAExpression ) ) (otherlv_4= Comma ( (lv_elements_5_0= ruleAExpression ) ) )* )?
+            int alt130=2;
+            int LA130_0 = input.LA(1);
+
+            if ( (LA130_0==False||LA130_0==Null||LA130_0==True||(LA130_0>=ExclamationMark && LA130_0<=NumberSign)||LA130_0==LeftParenthesis||LA130_0==PlusSign||LA130_0==HyphenMinus||(LA130_0>=RULE_HEX && LA130_0<=RULE_DECIMAL)||LA130_0==RULE_STRING) ) {
+                alt130=1;
+            }
+            switch (alt130) {
+                case 1 :
+                    // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:6549:2: ( (lv_elements_3_0= ruleAExpression ) ) (otherlv_4= Comma ( (lv_elements_5_0= ruleAExpression ) ) )*
+                    {
+                    // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:6549:2: ( (lv_elements_3_0= ruleAExpression ) )
+                    // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:6550:1: (lv_elements_3_0= ruleAExpression )
+                    {
+                    // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:6550:1: (lv_elements_3_0= ruleAExpression )
+                    // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:6551:3: lv_elements_3_0= ruleAExpression
+                    {
+                    if ( state.backtracking==0 ) {
+                       
+                      	        newCompositeNode(grammarAccess.getAListLiteralAccess().getElementsAExpressionParserRuleCall_3_0_0()); 
+                      	    
+                    }
+                    pushFollow(FollowSets000.FOLLOW_ruleAExpression_in_ruleAListLiteral15896);
+                    lv_elements_3_0=ruleAExpression();
+
+                    state._fsp--;
+                    if (state.failed) return current;
+                    if ( state.backtracking==0 ) {
+
+                      	        if (current==null) {
+                      	            current = createModelElementForParent(grammarAccess.getAListLiteralRule());
+                      	        }
+                             		add(
+                             			current, 
+                             			"elements",
+                              		lv_elements_3_0, 
+                              		"AExpression");
+                      	        afterParserOrEnumRuleCall();
+                      	    
+                    }
+
+                    }
+
+
+                    }
+
+                    // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:6567:2: (otherlv_4= Comma ( (lv_elements_5_0= ruleAExpression ) ) )*
+                    loop129:
+                    do {
+                        int alt129=2;
+                        int LA129_0 = input.LA(1);
+
+                        if ( (LA129_0==Comma) ) {
+                            alt129=1;
+                        }
+
+
+                        switch (alt129) {
+                    	case 1 :
+                    	    // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:6568:2: otherlv_4= Comma ( (lv_elements_5_0= ruleAExpression ) )
+                    	    {
+                    	    otherlv_4=(Token)match(input,Comma,FollowSets000.FOLLOW_Comma_in_ruleAListLiteral15910); if (state.failed) return current;
+                    	    if ( state.backtracking==0 ) {
+
+                    	          	newLeafNode(otherlv_4, grammarAccess.getAListLiteralAccess().getCommaKeyword_3_1_0());
+                    	          
+                    	    }
+                    	    // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:6572:1: ( (lv_elements_5_0= ruleAExpression ) )
+                    	    // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:6573:1: (lv_elements_5_0= ruleAExpression )
+                    	    {
+                    	    // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:6573:1: (lv_elements_5_0= ruleAExpression )
+                    	    // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:6574:3: lv_elements_5_0= ruleAExpression
+                    	    {
+                    	    if ( state.backtracking==0 ) {
+                    	       
+                    	      	        newCompositeNode(grammarAccess.getAListLiteralAccess().getElementsAExpressionParserRuleCall_3_1_1_0()); 
+                    	      	    
+                    	    }
+                    	    pushFollow(FollowSets000.FOLLOW_ruleAExpression_in_ruleAListLiteral15930);
+                    	    lv_elements_5_0=ruleAExpression();
+
+                    	    state._fsp--;
+                    	    if (state.failed) return current;
+                    	    if ( state.backtracking==0 ) {
+
+                    	      	        if (current==null) {
+                    	      	            current = createModelElementForParent(grammarAccess.getAListLiteralRule());
+                    	      	        }
+                    	             		add(
+                    	             			current, 
+                    	             			"elements",
+                    	              		lv_elements_5_0, 
+                    	              		"AExpression");
+                    	      	        afterParserOrEnumRuleCall();
+                    	      	    
+                    	    }
+
+                    	    }
+
+
+                    	    }
+
+
+                    	    }
+                    	    break;
+
+                    	default :
+                    	    break loop129;
+                        }
+                    } while (true);
+
+
+                    }
+                    break;
+
+            }
+
+            otherlv_6=(Token)match(input,RightSquareBracket,FollowSets000.FOLLOW_RightSquareBracket_in_ruleAListLiteral15947); if (state.failed) return current;
+            if ( state.backtracking==0 ) {
+
+                  	newLeafNode(otherlv_6, grammarAccess.getAListLiteralAccess().getRightSquareBracketKeyword_4());
+                  
+            }
+
+            }
+
+
+            }
+
+            if ( state.backtracking==0 ) {
+               leaveRule(); 
+            }
+        }
+         
+        	catch (RecognitionException re) { 
+        	    recover(input,re); 
+        	    appendSkippedTokens();
+        	}
+        finally {
+        }
+        return current;
+    }
+    // $ANTLR end "ruleAListLiteral"
+
+
+    // $ANTLR start "entryRuleAParenthesizedExpression"
+    // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:6603:1: entryRuleAParenthesizedExpression returns [EObject current=null] : iv_ruleAParenthesizedExpression= ruleAParenthesizedExpression EOF ;
+    public final EObject entryRuleAParenthesizedExpression() throws RecognitionException {
+        EObject current = null;
+
+        EObject iv_ruleAParenthesizedExpression = null;
+
+
+        try {
+            // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:6604:2: (iv_ruleAParenthesizedExpression= ruleAParenthesizedExpression EOF )
+            // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:6605:2: iv_ruleAParenthesizedExpression= ruleAParenthesizedExpression EOF
+            {
+            if ( state.backtracking==0 ) {
+               newCompositeNode(grammarAccess.getAParenthesizedExpressionRule()); 
+            }
+            pushFollow(FollowSets000.FOLLOW_ruleAParenthesizedExpression_in_entryRuleAParenthesizedExpression15981);
+            iv_ruleAParenthesizedExpression=ruleAParenthesizedExpression();
+
+            state._fsp--;
+            if (state.failed) return current;
+            if ( state.backtracking==0 ) {
+               current =iv_ruleAParenthesizedExpression; 
+            }
+            match(input,EOF,FollowSets000.FOLLOW_EOF_in_entryRuleAParenthesizedExpression15991); if (state.failed) return current;
+
+            }
+
+        }
+         
+        	catch (RecognitionException re) { 
+        	    recover(input,re); 
+        	    appendSkippedTokens();
+        	}
+        finally {
+        }
+        return current;
+    }
+    // $ANTLR end "entryRuleAParenthesizedExpression"
+
+
+    // $ANTLR start "ruleAParenthesizedExpression"
+    // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:6612:1: ruleAParenthesizedExpression returns [EObject current=null] : (otherlv_0= LeftParenthesis this_AExpression_1= ruleAExpression otherlv_2= RightParenthesis ) ;
+    public final EObject ruleAParenthesizedExpression() throws RecognitionException {
+        EObject current = null;
+
+        Token otherlv_0=null;
+        Token otherlv_2=null;
+        EObject this_AExpression_1 = null;
+
+
+         enterRule(); 
+            
+        try {
+            // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:6615:28: ( (otherlv_0= LeftParenthesis this_AExpression_1= ruleAExpression otherlv_2= RightParenthesis ) )
+            // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:6616:1: (otherlv_0= LeftParenthesis this_AExpression_1= ruleAExpression otherlv_2= RightParenthesis )
+            {
+            // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:6616:1: (otherlv_0= LeftParenthesis this_AExpression_1= ruleAExpression otherlv_2= RightParenthesis )
+            // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:6617:2: otherlv_0= LeftParenthesis this_AExpression_1= ruleAExpression otherlv_2= RightParenthesis
+            {
+            otherlv_0=(Token)match(input,LeftParenthesis,FollowSets000.FOLLOW_LeftParenthesis_in_ruleAParenthesizedExpression16029); if (state.failed) return current;
+            if ( state.backtracking==0 ) {
+
+                  	newLeafNode(otherlv_0, grammarAccess.getAParenthesizedExpressionAccess().getLeftParenthesisKeyword_0());
+                  
+            }
+            if ( state.backtracking==0 ) {
+               
+                      newCompositeNode(grammarAccess.getAParenthesizedExpressionAccess().getAExpressionParserRuleCall_1()); 
+                  
+            }
+            pushFollow(FollowSets000.FOLLOW_ruleAExpression_in_ruleAParenthesizedExpression16050);
+            this_AExpression_1=ruleAExpression();
+
+            state._fsp--;
+            if (state.failed) return current;
+            if ( state.backtracking==0 ) {
+
+                      current = this_AExpression_1;
+                      afterParserOrEnumRuleCall();
+                  
+            }
+            otherlv_2=(Token)match(input,RightParenthesis,FollowSets000.FOLLOW_RightParenthesis_in_ruleAParenthesizedExpression16062); if (state.failed) return current;
+            if ( state.backtracking==0 ) {
+
+                  	newLeafNode(otherlv_2, grammarAccess.getAParenthesizedExpressionAccess().getRightParenthesisKeyword_2());
+                  
+            }
+
+            }
+
+
+            }
+
+            if ( state.backtracking==0 ) {
+               leaveRule(); 
+            }
+        }
+         
+        	catch (RecognitionException re) { 
+        	    recover(input,re); 
+        	    appendSkippedTokens();
+        	}
+        finally {
+        }
+        return current;
+    }
+    // $ANTLR end "ruleAParenthesizedExpression"
+
+
+    // $ANTLR start "entryRuleABooleanLiteral"
+    // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:6643:1: entryRuleABooleanLiteral returns [EObject current=null] : iv_ruleABooleanLiteral= ruleABooleanLiteral EOF ;
+    public final EObject entryRuleABooleanLiteral() throws RecognitionException {
+        EObject current = null;
+
+        EObject iv_ruleABooleanLiteral = null;
+
+
+        try {
+            // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:6644:2: (iv_ruleABooleanLiteral= ruleABooleanLiteral EOF )
+            // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:6645:2: iv_ruleABooleanLiteral= ruleABooleanLiteral EOF
+            {
+            if ( state.backtracking==0 ) {
+               newCompositeNode(grammarAccess.getABooleanLiteralRule()); 
+            }
+            pushFollow(FollowSets000.FOLLOW_ruleABooleanLiteral_in_entryRuleABooleanLiteral16096);
+            iv_ruleABooleanLiteral=ruleABooleanLiteral();
+
+            state._fsp--;
+            if (state.failed) return current;
+            if ( state.backtracking==0 ) {
+               current =iv_ruleABooleanLiteral; 
+            }
+            match(input,EOF,FollowSets000.FOLLOW_EOF_in_entryRuleABooleanLiteral16106); if (state.failed) return current;
+
+            }
+
+        }
+         
+        	catch (RecognitionException re) { 
+        	    recover(input,re); 
+        	    appendSkippedTokens();
+        	}
+        finally {
+        }
+        return current;
+    }
+    // $ANTLR end "entryRuleABooleanLiteral"
+
+
+    // $ANTLR start "ruleABooleanLiteral"
+    // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:6652:1: ruleABooleanLiteral returns [EObject current=null] : ( () (otherlv_1= False | ( (lv_isTrue_2_0= True ) ) ) ) ;
+    public final EObject ruleABooleanLiteral() throws RecognitionException {
+        EObject current = null;
+
+        Token otherlv_1=null;
+        Token lv_isTrue_2_0=null;
+
+         enterRule(); 
+            
+        try {
+            // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:6655:28: ( ( () (otherlv_1= False | ( (lv_isTrue_2_0= True ) ) ) ) )
+            // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:6656:1: ( () (otherlv_1= False | ( (lv_isTrue_2_0= True ) ) ) )
+            {
+            // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:6656:1: ( () (otherlv_1= False | ( (lv_isTrue_2_0= True ) ) ) )
+            // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:6656:2: () (otherlv_1= False | ( (lv_isTrue_2_0= True ) ) )
+            {
+            // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:6656:2: ()
+            // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:6657:5: 
+            {
+            if ( state.backtracking==0 ) {
+
+                      current = forceCreateModelElement(
+                          grammarAccess.getABooleanLiteralAccess().getABooleanLiteralAction_0(),
+                          current);
+                  
+            }
+
+            }
+
+            // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:6662:2: (otherlv_1= False | ( (lv_isTrue_2_0= True ) ) )
+            int alt131=2;
+            int LA131_0 = input.LA(1);
+
+            if ( (LA131_0==False) ) {
+                alt131=1;
+            }
+            else if ( (LA131_0==True) ) {
+                alt131=2;
+            }
+            else {
+                if (state.backtracking>0) {state.failed=true; return current;}
+                NoViableAltException nvae =
+                    new NoViableAltException("", 131, 0, input);
+
+                throw nvae;
+            }
+            switch (alt131) {
+                case 1 :
+                    // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:6663:2: otherlv_1= False
+                    {
+                    otherlv_1=(Token)match(input,False,FollowSets000.FOLLOW_False_in_ruleABooleanLiteral16154); if (state.failed) return current;
+                    if ( state.backtracking==0 ) {
+
+                          	newLeafNode(otherlv_1, grammarAccess.getABooleanLiteralAccess().getFalseKeyword_1_0());
+                          
+                    }
+
+                    }
+                    break;
+                case 2 :
+                    // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:6668:6: ( (lv_isTrue_2_0= True ) )
+                    {
+                    // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:6668:6: ( (lv_isTrue_2_0= True ) )
+                    // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:6669:1: (lv_isTrue_2_0= True )
+                    {
+                    // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:6669:1: (lv_isTrue_2_0= True )
+                    // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:6670:3: lv_isTrue_2_0= True
+                    {
+                    lv_isTrue_2_0=(Token)match(input,True,FollowSets000.FOLLOW_True_in_ruleABooleanLiteral16178); if (state.failed) return current;
+                    if ( state.backtracking==0 ) {
+
+                              newLeafNode(lv_isTrue_2_0, grammarAccess.getABooleanLiteralAccess().getIsTrueTrueKeyword_1_1_0());
+                          
+                    }
+                    if ( state.backtracking==0 ) {
+
+                      	        if (current==null) {
+                      	            current = createModelElement(grammarAccess.getABooleanLiteralRule());
+                      	        }
+                             		setWithLastConsumed(current, "isTrue", true, "true");
+                      	    
+                    }
+
+                    }
+
+
+                    }
+
+
+                    }
+                    break;
+
+            }
+
+
+            }
+
+
+            }
+
+            if ( state.backtracking==0 ) {
+               leaveRule(); 
+            }
+        }
+         
+        	catch (RecognitionException re) { 
+        	    recover(input,re); 
+        	    appendSkippedTokens();
+        	}
+        finally {
+        }
+        return current;
+    }
+    // $ANTLR end "ruleABooleanLiteral"
+
+
+    // $ANTLR start "entryRuleANullLiteral"
+    // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:6692:1: entryRuleANullLiteral returns [EObject current=null] : iv_ruleANullLiteral= ruleANullLiteral EOF ;
+    public final EObject entryRuleANullLiteral() throws RecognitionException {
+        EObject current = null;
+
+        EObject iv_ruleANullLiteral = null;
+
+
+        try {
+            // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:6693:2: (iv_ruleANullLiteral= ruleANullLiteral EOF )
+            // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:6694:2: iv_ruleANullLiteral= ruleANullLiteral EOF
+            {
+            if ( state.backtracking==0 ) {
+               newCompositeNode(grammarAccess.getANullLiteralRule()); 
+            }
+            pushFollow(FollowSets000.FOLLOW_ruleANullLiteral_in_entryRuleANullLiteral16225);
+            iv_ruleANullLiteral=ruleANullLiteral();
+
+            state._fsp--;
+            if (state.failed) return current;
+            if ( state.backtracking==0 ) {
+               current =iv_ruleANullLiteral; 
+            }
+            match(input,EOF,FollowSets000.FOLLOW_EOF_in_entryRuleANullLiteral16235); if (state.failed) return current;
+
+            }
+
+        }
+         
+        	catch (RecognitionException re) { 
+        	    recover(input,re); 
+        	    appendSkippedTokens();
+        	}
+        finally {
+        }
+        return current;
+    }
+    // $ANTLR end "entryRuleANullLiteral"
+
+
+    // $ANTLR start "ruleANullLiteral"
+    // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:6701:1: ruleANullLiteral returns [EObject current=null] : ( () otherlv_1= Null ) ;
+    public final EObject ruleANullLiteral() throws RecognitionException {
+        EObject current = null;
+
+        Token otherlv_1=null;
+
+         enterRule(); 
+            
+        try {
+            // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:6704:28: ( ( () otherlv_1= Null ) )
+            // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:6705:1: ( () otherlv_1= Null )
+            {
+            // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:6705:1: ( () otherlv_1= Null )
+            // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:6705:2: () otherlv_1= Null
+            {
+            // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:6705:2: ()
+            // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:6706:5: 
+            {
+            if ( state.backtracking==0 ) {
+
+                      current = forceCreateModelElement(
+                          grammarAccess.getANullLiteralAccess().getANullLiteralAction_0(),
+                          current);
+                  
+            }
+
+            }
+
+            otherlv_1=(Token)match(input,Null,FollowSets000.FOLLOW_Null_in_ruleANullLiteral16282); if (state.failed) return current;
+            if ( state.backtracking==0 ) {
+
+                  	newLeafNode(otherlv_1, grammarAccess.getANullLiteralAccess().getNullKeyword_1());
+                  
+            }
+
+            }
+
+
+            }
+
+            if ( state.backtracking==0 ) {
+               leaveRule(); 
+            }
+        }
+         
+        	catch (RecognitionException re) { 
+        	    recover(input,re); 
+        	    appendSkippedTokens();
+        	}
+        finally {
+        }
+        return current;
+    }
+    // $ANTLR end "ruleANullLiteral"
+
+
+    // $ANTLR start "entryRuleANumberLiteral"
+    // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:6724:1: entryRuleANumberLiteral returns [EObject current=null] : iv_ruleANumberLiteral= ruleANumberLiteral EOF ;
+    public final EObject entryRuleANumberLiteral() throws RecognitionException {
+        EObject current = null;
+
+        EObject iv_ruleANumberLiteral = null;
+
+
+        try {
+            // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:6725:2: (iv_ruleANumberLiteral= ruleANumberLiteral EOF )
+            // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:6726:2: iv_ruleANumberLiteral= ruleANumberLiteral EOF
+            {
+            if ( state.backtracking==0 ) {
+               newCompositeNode(grammarAccess.getANumberLiteralRule()); 
+            }
+            pushFollow(FollowSets000.FOLLOW_ruleANumberLiteral_in_entryRuleANumberLiteral16316);
+            iv_ruleANumberLiteral=ruleANumberLiteral();
+
+            state._fsp--;
+            if (state.failed) return current;
+            if ( state.backtracking==0 ) {
+               current =iv_ruleANumberLiteral; 
+            }
+            match(input,EOF,FollowSets000.FOLLOW_EOF_in_entryRuleANumberLiteral16326); if (state.failed) return current;
+
+            }
+
+        }
+         
+        	catch (RecognitionException re) { 
+        	    recover(input,re); 
+        	    appendSkippedTokens();
+        	}
+        finally {
+        }
+        return current;
+    }
+    // $ANTLR end "entryRuleANumberLiteral"
+
+
+    // $ANTLR start "ruleANumberLiteral"
+    // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:6733:1: ruleANumberLiteral returns [EObject current=null] : ( ( (lv_value_0_0= ruleNumber ) ) ( ( ( RULE_ID ) )=> (otherlv_1= RULE_ID ) )? ) ;
+    public final EObject ruleANumberLiteral() throws RecognitionException {
+        EObject current = null;
+
+        Token otherlv_1=null;
+        AntlrDatatypeRuleToken lv_value_0_0 = null;
+
+
+         enterRule(); 
+            
+        try {
+            // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:6736:28: ( ( ( (lv_value_0_0= ruleNumber ) ) ( ( ( RULE_ID ) )=> (otherlv_1= RULE_ID ) )? ) )
+            // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:6737:1: ( ( (lv_value_0_0= ruleNumber ) ) ( ( ( RULE_ID ) )=> (otherlv_1= RULE_ID ) )? )
+            {
+            // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:6737:1: ( ( (lv_value_0_0= ruleNumber ) ) ( ( ( RULE_ID ) )=> (otherlv_1= RULE_ID ) )? )
+            // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:6737:2: ( (lv_value_0_0= ruleNumber ) ) ( ( ( RULE_ID ) )=> (otherlv_1= RULE_ID ) )?
+            {
+            // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:6737:2: ( (lv_value_0_0= ruleNumber ) )
+            // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:6738:1: (lv_value_0_0= ruleNumber )
+            {
+            // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:6738:1: (lv_value_0_0= ruleNumber )
+            // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:6739:3: lv_value_0_0= ruleNumber
+            {
+            if ( state.backtracking==0 ) {
+               
+              	        newCompositeNode(grammarAccess.getANumberLiteralAccess().getValueNumberParserRuleCall_0_0()); 
+              	    
+            }
+            pushFollow(FollowSets000.FOLLOW_ruleNumber_in_ruleANumberLiteral16372);
+            lv_value_0_0=ruleNumber();
+
+            state._fsp--;
+            if (state.failed) return current;
+            if ( state.backtracking==0 ) {
+
+              	        if (current==null) {
+              	            current = createModelElementForParent(grammarAccess.getANumberLiteralRule());
+              	        }
+                     		set(
+                     			current, 
+                     			"value",
+                      		lv_value_0_0, 
+                      		"Number");
+              	        afterParserOrEnumRuleCall();
+              	    
+            }
+
+            }
+
+
+            }
+
+            // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:6755:2: ( ( ( RULE_ID ) )=> (otherlv_1= RULE_ID ) )?
+            int alt132=2;
+            int LA132_0 = input.LA(1);
+
+            if ( (LA132_0==RULE_ID) && (synpred12_InternalReqSpecParser())) {
+                alt132=1;
+            }
+            switch (alt132) {
+                case 1 :
+                    // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:6755:3: ( ( RULE_ID ) )=> (otherlv_1= RULE_ID )
+                    {
+                    // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:6761:1: (otherlv_1= RULE_ID )
+                    // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:6762:3: otherlv_1= RULE_ID
+                    {
+                    if ( state.backtracking==0 ) {
+
+                      			if (current==null) {
+                      	            current = createModelElement(grammarAccess.getANumberLiteralRule());
+                      	        }
+                              
+                    }
+                    otherlv_1=(Token)match(input,RULE_ID,FollowSets000.FOLLOW_RULE_ID_in_ruleANumberLiteral16404); if (state.failed) return current;
+                    if ( state.backtracking==0 ) {
+
+                      		newLeafNode(otherlv_1, grammarAccess.getANumberLiteralAccess().getUnitUnitLiteralCrossReference_1_0()); 
+                      	
+                    }
+
+                    }
+
+
+                    }
+                    break;
+
+            }
+
+
+            }
+
+
+            }
+
+            if ( state.backtracking==0 ) {
+               leaveRule(); 
+            }
+        }
+         
+        	catch (RecognitionException re) { 
+        	    recover(input,re); 
+        	    appendSkippedTokens();
+        	}
+        finally {
+        }
+        return current;
+    }
+    // $ANTLR end "ruleANumberLiteral"
+
+
+    // $ANTLR start "entryRuleAStringLiteral"
+    // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:6781:1: entryRuleAStringLiteral returns [EObject current=null] : iv_ruleAStringLiteral= ruleAStringLiteral EOF ;
+    public final EObject entryRuleAStringLiteral() throws RecognitionException {
+        EObject current = null;
+
+        EObject iv_ruleAStringLiteral = null;
+
+
+        try {
+            // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:6782:2: (iv_ruleAStringLiteral= ruleAStringLiteral EOF )
+            // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:6783:2: iv_ruleAStringLiteral= ruleAStringLiteral EOF
+            {
+            if ( state.backtracking==0 ) {
+               newCompositeNode(grammarAccess.getAStringLiteralRule()); 
+            }
+            pushFollow(FollowSets000.FOLLOW_ruleAStringLiteral_in_entryRuleAStringLiteral16440);
+            iv_ruleAStringLiteral=ruleAStringLiteral();
+
+            state._fsp--;
+            if (state.failed) return current;
+            if ( state.backtracking==0 ) {
+               current =iv_ruleAStringLiteral; 
+            }
+            match(input,EOF,FollowSets000.FOLLOW_EOF_in_entryRuleAStringLiteral16450); if (state.failed) return current;
+
+            }
+
+        }
+         
+        	catch (RecognitionException re) { 
+        	    recover(input,re); 
+        	    appendSkippedTokens();
+        	}
+        finally {
+        }
+        return current;
+    }
+    // $ANTLR end "entryRuleAStringLiteral"
+
+
+    // $ANTLR start "ruleAStringLiteral"
+    // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:6790:1: ruleAStringLiteral returns [EObject current=null] : ( () ( (lv_value_1_0= RULE_STRING ) ) ) ;
+    public final EObject ruleAStringLiteral() throws RecognitionException {
+        EObject current = null;
+
+        Token lv_value_1_0=null;
+
+         enterRule(); 
+            
+        try {
+            // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:6793:28: ( ( () ( (lv_value_1_0= RULE_STRING ) ) ) )
+            // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:6794:1: ( () ( (lv_value_1_0= RULE_STRING ) ) )
+            {
+            // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:6794:1: ( () ( (lv_value_1_0= RULE_STRING ) ) )
+            // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:6794:2: () ( (lv_value_1_0= RULE_STRING ) )
+            {
+            // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:6794:2: ()
+            // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:6795:5: 
+            {
+            if ( state.backtracking==0 ) {
+
+                      current = forceCreateModelElement(
+                          grammarAccess.getAStringLiteralAccess().getAStringLiteralAction_0(),
+                          current);
+                  
+            }
+
+            }
+
+            // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:6800:2: ( (lv_value_1_0= RULE_STRING ) )
+            // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:6801:1: (lv_value_1_0= RULE_STRING )
+            {
+            // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:6801:1: (lv_value_1_0= RULE_STRING )
+            // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:6802:3: lv_value_1_0= RULE_STRING
+            {
+            lv_value_1_0=(Token)match(input,RULE_STRING,FollowSets000.FOLLOW_RULE_STRING_in_ruleAStringLiteral16501); if (state.failed) return current;
+            if ( state.backtracking==0 ) {
+
+              			newLeafNode(lv_value_1_0, grammarAccess.getAStringLiteralAccess().getValueSTRINGTerminalRuleCall_1_0()); 
+              		
+            }
+            if ( state.backtracking==0 ) {
+
+              	        if (current==null) {
+              	            current = createModelElement(grammarAccess.getAStringLiteralRule());
+              	        }
+                     		setWithLastConsumed(
+                     			current, 
+                     			"value",
+                      		lv_value_1_0, 
+                      		"STRING");
+              	    
+            }
+
+            }
+
+
+            }
+
+
+            }
+
+
+            }
+
+            if ( state.backtracking==0 ) {
+               leaveRule(); 
+            }
+        }
+         
+        	catch (RecognitionException re) { 
+        	    recover(input,re); 
+        	    appendSkippedTokens();
+        	}
+        finally {
+        }
+        return current;
+    }
+    // $ANTLR end "ruleAStringLiteral"
+>>>>>>> refs/remotes/origin/PeterWork
 
 
     // $ANTLR start "entryRuleAadlClassifierReference"
+<<<<<<< HEAD
     // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:7019:1: entryRuleAadlClassifierReference returns [String current=null] : iv_ruleAadlClassifierReference= ruleAadlClassifierReference EOF ;
+=======
+    // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:6826:1: entryRuleAadlClassifierReference returns [String current=null] : iv_ruleAadlClassifierReference= ruleAadlClassifierReference EOF ;
+>>>>>>> refs/remotes/origin/PeterWork
     public final String entryRuleAadlClassifierReference() throws RecognitionException {
         String current = null;
 
@@ -19985,13 +25069,22 @@ public class InternalReqSpecParser extends AbstractInternalAntlrParser {
 
 
         try {
+<<<<<<< HEAD
             // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:7020:1: (iv_ruleAadlClassifierReference= ruleAadlClassifierReference EOF )
             // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:7021:2: iv_ruleAadlClassifierReference= ruleAadlClassifierReference EOF
+=======
+            // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:6827:1: (iv_ruleAadlClassifierReference= ruleAadlClassifierReference EOF )
+            // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:6828:2: iv_ruleAadlClassifierReference= ruleAadlClassifierReference EOF
+>>>>>>> refs/remotes/origin/PeterWork
             {
             if ( state.backtracking==0 ) {
                newCompositeNode(grammarAccess.getAadlClassifierReferenceRule()); 
             }
+<<<<<<< HEAD
             pushFollow(FollowSets000.FOLLOW_ruleAadlClassifierReference_in_entryRuleAadlClassifierReference17080);
+=======
+            pushFollow(FollowSets000.FOLLOW_ruleAadlClassifierReference_in_entryRuleAadlClassifierReference16542);
+>>>>>>> refs/remotes/origin/PeterWork
             iv_ruleAadlClassifierReference=ruleAadlClassifierReference();
 
             state._fsp--;
@@ -19999,7 +25092,11 @@ public class InternalReqSpecParser extends AbstractInternalAntlrParser {
             if ( state.backtracking==0 ) {
                current =iv_ruleAadlClassifierReference.getText(); 
             }
+<<<<<<< HEAD
             match(input,EOF,FollowSets000.FOLLOW_EOF_in_entryRuleAadlClassifierReference17091); if (state.failed) return current;
+=======
+            match(input,EOF,FollowSets000.FOLLOW_EOF_in_entryRuleAadlClassifierReference16553); if (state.failed) return current;
+>>>>>>> refs/remotes/origin/PeterWork
 
             }
 
@@ -20017,7 +25114,11 @@ public class InternalReqSpecParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "ruleAadlClassifierReference"
+<<<<<<< HEAD
     // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:7028:1: ruleAadlClassifierReference returns [AntlrDatatypeRuleToken current=new AntlrDatatypeRuleToken()] : (this_ID_0= RULE_ID (kw= ColonColon this_ID_2= RULE_ID )+ (kw= FullStop this_ID_4= RULE_ID )? ) ;
+=======
+    // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:6835:1: ruleAadlClassifierReference returns [AntlrDatatypeRuleToken current=new AntlrDatatypeRuleToken()] : (this_ID_0= RULE_ID (kw= ColonColon this_ID_2= RULE_ID )+ (kw= FullStop this_ID_4= RULE_ID )? ) ;
+>>>>>>> refs/remotes/origin/PeterWork
     public final AntlrDatatypeRuleToken ruleAadlClassifierReference() throws RecognitionException {
         AntlrDatatypeRuleToken current = new AntlrDatatypeRuleToken();
 
@@ -20029,13 +25130,27 @@ public class InternalReqSpecParser extends AbstractInternalAntlrParser {
          enterRule(); 
             
         try {
+<<<<<<< HEAD
             // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:7032:6: ( (this_ID_0= RULE_ID (kw= ColonColon this_ID_2= RULE_ID )+ (kw= FullStop this_ID_4= RULE_ID )? ) )
             // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:7033:1: (this_ID_0= RULE_ID (kw= ColonColon this_ID_2= RULE_ID )+ (kw= FullStop this_ID_4= RULE_ID )? )
+=======
+            // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:6839:6: ( (this_ID_0= RULE_ID (kw= ColonColon this_ID_2= RULE_ID )+ (kw= FullStop this_ID_4= RULE_ID )? ) )
+            // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:6840:1: (this_ID_0= RULE_ID (kw= ColonColon this_ID_2= RULE_ID )+ (kw= FullStop this_ID_4= RULE_ID )? )
+>>>>>>> refs/remotes/origin/PeterWork
             {
+<<<<<<< HEAD
             // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:7033:1: (this_ID_0= RULE_ID (kw= ColonColon this_ID_2= RULE_ID )+ (kw= FullStop this_ID_4= RULE_ID )? )
             // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:7033:6: this_ID_0= RULE_ID (kw= ColonColon this_ID_2= RULE_ID )+ (kw= FullStop this_ID_4= RULE_ID )?
+=======
+            // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:6840:1: (this_ID_0= RULE_ID (kw= ColonColon this_ID_2= RULE_ID )+ (kw= FullStop this_ID_4= RULE_ID )? )
+            // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:6840:6: this_ID_0= RULE_ID (kw= ColonColon this_ID_2= RULE_ID )+ (kw= FullStop this_ID_4= RULE_ID )?
+>>>>>>> refs/remotes/origin/PeterWork
             {
+<<<<<<< HEAD
             this_ID_0=(Token)match(input,RULE_ID,FollowSets000.FOLLOW_RULE_ID_in_ruleAadlClassifierReference17131); if (state.failed) return current;
+=======
+            this_ID_0=(Token)match(input,RULE_ID,FollowSets000.FOLLOW_RULE_ID_in_ruleAadlClassifierReference16593); if (state.failed) return current;
+>>>>>>> refs/remotes/origin/PeterWork
             if ( state.backtracking==0 ) {
 
               		current.merge(this_ID_0);
@@ -20046,30 +25161,62 @@ public class InternalReqSpecParser extends AbstractInternalAntlrParser {
                   newLeafNode(this_ID_0, grammarAccess.getAadlClassifierReferenceAccess().getIDTerminalRuleCall_0()); 
                   
             }
+<<<<<<< HEAD
             // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:7040:1: (kw= ColonColon this_ID_2= RULE_ID )+
             int cnt134=0;
             loop134:
+=======
+            // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:6847:1: (kw= ColonColon this_ID_2= RULE_ID )+
+            int cnt133=0;
+            loop133:
+>>>>>>> refs/remotes/origin/PeterWork
             do {
+<<<<<<< HEAD
                 int alt134=2;
                 int LA134_0 = input.LA(1);
+=======
+                int alt133=2;
+                int LA133_0 = input.LA(1);
+>>>>>>> refs/remotes/origin/PeterWork
 
+<<<<<<< HEAD
                 if ( (LA134_0==ColonColon) ) {
                     alt134=1;
+=======
+                if ( (LA133_0==ColonColon) ) {
+                    alt133=1;
+>>>>>>> refs/remotes/origin/PeterWork
                 }
 
 
+<<<<<<< HEAD
                 switch (alt134) {
+=======
+                switch (alt133) {
+>>>>>>> refs/remotes/origin/PeterWork
             	case 1 :
+<<<<<<< HEAD
             	    // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:7041:2: kw= ColonColon this_ID_2= RULE_ID
+=======
+            	    // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:6848:2: kw= ColonColon this_ID_2= RULE_ID
+>>>>>>> refs/remotes/origin/PeterWork
             	    {
+<<<<<<< HEAD
             	    kw=(Token)match(input,ColonColon,FollowSets000.FOLLOW_ColonColon_in_ruleAadlClassifierReference17150); if (state.failed) return current;
+=======
+            	    kw=(Token)match(input,ColonColon,FollowSets000.FOLLOW_ColonColon_in_ruleAadlClassifierReference16612); if (state.failed) return current;
+>>>>>>> refs/remotes/origin/PeterWork
             	    if ( state.backtracking==0 ) {
 
             	              current.merge(kw);
             	              newLeafNode(kw, grammarAccess.getAadlClassifierReferenceAccess().getColonColonKeyword_1_0()); 
             	          
             	    }
+<<<<<<< HEAD
             	    this_ID_2=(Token)match(input,RULE_ID,FollowSets000.FOLLOW_RULE_ID_in_ruleAadlClassifierReference17165); if (state.failed) return current;
+=======
+            	    this_ID_2=(Token)match(input,RULE_ID,FollowSets000.FOLLOW_RULE_ID_in_ruleAadlClassifierReference16627); if (state.failed) return current;
+>>>>>>> refs/remotes/origin/PeterWork
             	    if ( state.backtracking==0 ) {
 
             	      		current.merge(this_ID_2);
@@ -20085,34 +25232,73 @@ public class InternalReqSpecParser extends AbstractInternalAntlrParser {
             	    break;
 
             	default :
+<<<<<<< HEAD
             	    if ( cnt134 >= 1 ) break loop134;
+=======
+            	    if ( cnt133 >= 1 ) break loop133;
+>>>>>>> refs/remotes/origin/PeterWork
             	    if (state.backtracking>0) {state.failed=true; return current;}
                         EarlyExitException eee =
+<<<<<<< HEAD
                             new EarlyExitException(134, input);
+=======
+                            new EarlyExitException(133, input);
+>>>>>>> refs/remotes/origin/PeterWork
                         throw eee;
                 }
+<<<<<<< HEAD
                 cnt134++;
+=======
+                cnt133++;
+>>>>>>> refs/remotes/origin/PeterWork
             } while (true);
 
+<<<<<<< HEAD
             // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:7053:3: (kw= FullStop this_ID_4= RULE_ID )?
             int alt135=2;
             int LA135_0 = input.LA(1);
+=======
+            // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:6860:3: (kw= FullStop this_ID_4= RULE_ID )?
+            int alt134=2;
+            int LA134_0 = input.LA(1);
+>>>>>>> refs/remotes/origin/PeterWork
 
+<<<<<<< HEAD
             if ( (LA135_0==FullStop) ) {
                 alt135=1;
+=======
+            if ( (LA134_0==FullStop) ) {
+                alt134=1;
+>>>>>>> refs/remotes/origin/PeterWork
             }
+<<<<<<< HEAD
             switch (alt135) {
+=======
+            switch (alt134) {
+>>>>>>> refs/remotes/origin/PeterWork
                 case 1 :
+<<<<<<< HEAD
                     // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:7054:2: kw= FullStop this_ID_4= RULE_ID
+=======
+                    // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:6861:2: kw= FullStop this_ID_4= RULE_ID
+>>>>>>> refs/remotes/origin/PeterWork
                     {
+<<<<<<< HEAD
                     kw=(Token)match(input,FullStop,FollowSets000.FOLLOW_FullStop_in_ruleAadlClassifierReference17186); if (state.failed) return current;
+=======
+                    kw=(Token)match(input,FullStop,FollowSets000.FOLLOW_FullStop_in_ruleAadlClassifierReference16648); if (state.failed) return current;
+>>>>>>> refs/remotes/origin/PeterWork
                     if ( state.backtracking==0 ) {
 
                               current.merge(kw);
                               newLeafNode(kw, grammarAccess.getAadlClassifierReferenceAccess().getFullStopKeyword_2_0()); 
                           
                     }
+<<<<<<< HEAD
                     this_ID_4=(Token)match(input,RULE_ID,FollowSets000.FOLLOW_RULE_ID_in_ruleAadlClassifierReference17201); if (state.failed) return current;
+=======
+                    this_ID_4=(Token)match(input,RULE_ID,FollowSets000.FOLLOW_RULE_ID_in_ruleAadlClassifierReference16663); if (state.failed) return current;
+>>>>>>> refs/remotes/origin/PeterWork
                     if ( state.backtracking==0 ) {
 
                       		current.merge(this_ID_4);
@@ -20153,7 +25339,11 @@ public class InternalReqSpecParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "entryRuleAADLPROPERTYREFERENCE"
+<<<<<<< HEAD
     // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:7074:1: entryRuleAADLPROPERTYREFERENCE returns [String current=null] : iv_ruleAADLPROPERTYREFERENCE= ruleAADLPROPERTYREFERENCE EOF ;
+=======
+    // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:6881:1: entryRuleAADLPROPERTYREFERENCE returns [String current=null] : iv_ruleAADLPROPERTYREFERENCE= ruleAADLPROPERTYREFERENCE EOF ;
+>>>>>>> refs/remotes/origin/PeterWork
     public final String entryRuleAADLPROPERTYREFERENCE() throws RecognitionException {
         String current = null;
 
@@ -20161,13 +25351,22 @@ public class InternalReqSpecParser extends AbstractInternalAntlrParser {
 
 
         try {
+<<<<<<< HEAD
             // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:7075:1: (iv_ruleAADLPROPERTYREFERENCE= ruleAADLPROPERTYREFERENCE EOF )
             // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:7076:2: iv_ruleAADLPROPERTYREFERENCE= ruleAADLPROPERTYREFERENCE EOF
+=======
+            // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:6882:1: (iv_ruleAADLPROPERTYREFERENCE= ruleAADLPROPERTYREFERENCE EOF )
+            // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:6883:2: iv_ruleAADLPROPERTYREFERENCE= ruleAADLPROPERTYREFERENCE EOF
+>>>>>>> refs/remotes/origin/PeterWork
             {
             if ( state.backtracking==0 ) {
                newCompositeNode(grammarAccess.getAADLPROPERTYREFERENCERule()); 
             }
+<<<<<<< HEAD
             pushFollow(FollowSets000.FOLLOW_ruleAADLPROPERTYREFERENCE_in_entryRuleAADLPROPERTYREFERENCE17248);
+=======
+            pushFollow(FollowSets000.FOLLOW_ruleAADLPROPERTYREFERENCE_in_entryRuleAADLPROPERTYREFERENCE16710);
+>>>>>>> refs/remotes/origin/PeterWork
             iv_ruleAADLPROPERTYREFERENCE=ruleAADLPROPERTYREFERENCE();
 
             state._fsp--;
@@ -20175,7 +25374,11 @@ public class InternalReqSpecParser extends AbstractInternalAntlrParser {
             if ( state.backtracking==0 ) {
                current =iv_ruleAADLPROPERTYREFERENCE.getText(); 
             }
+<<<<<<< HEAD
             match(input,EOF,FollowSets000.FOLLOW_EOF_in_entryRuleAADLPROPERTYREFERENCE17259); if (state.failed) return current;
+=======
+            match(input,EOF,FollowSets000.FOLLOW_EOF_in_entryRuleAADLPROPERTYREFERENCE16721); if (state.failed) return current;
+>>>>>>> refs/remotes/origin/PeterWork
 
             }
 
@@ -20193,7 +25396,11 @@ public class InternalReqSpecParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "ruleAADLPROPERTYREFERENCE"
+<<<<<<< HEAD
     // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:7083:1: ruleAADLPROPERTYREFERENCE returns [AntlrDatatypeRuleToken current=new AntlrDatatypeRuleToken()] : (this_ID_0= RULE_ID (kw= ColonColon this_ID_2= RULE_ID )? ) ;
+=======
+    // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:6890:1: ruleAADLPROPERTYREFERENCE returns [AntlrDatatypeRuleToken current=new AntlrDatatypeRuleToken()] : (this_ID_0= RULE_ID (kw= ColonColon this_ID_2= RULE_ID )? ) ;
+>>>>>>> refs/remotes/origin/PeterWork
     public final AntlrDatatypeRuleToken ruleAADLPROPERTYREFERENCE() throws RecognitionException {
         AntlrDatatypeRuleToken current = new AntlrDatatypeRuleToken();
 
@@ -20204,13 +25411,27 @@ public class InternalReqSpecParser extends AbstractInternalAntlrParser {
          enterRule(); 
             
         try {
+<<<<<<< HEAD
             // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:7087:6: ( (this_ID_0= RULE_ID (kw= ColonColon this_ID_2= RULE_ID )? ) )
             // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:7088:1: (this_ID_0= RULE_ID (kw= ColonColon this_ID_2= RULE_ID )? )
+=======
+            // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:6894:6: ( (this_ID_0= RULE_ID (kw= ColonColon this_ID_2= RULE_ID )? ) )
+            // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:6895:1: (this_ID_0= RULE_ID (kw= ColonColon this_ID_2= RULE_ID )? )
+>>>>>>> refs/remotes/origin/PeterWork
             {
+<<<<<<< HEAD
             // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:7088:1: (this_ID_0= RULE_ID (kw= ColonColon this_ID_2= RULE_ID )? )
             // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:7088:6: this_ID_0= RULE_ID (kw= ColonColon this_ID_2= RULE_ID )?
+=======
+            // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:6895:1: (this_ID_0= RULE_ID (kw= ColonColon this_ID_2= RULE_ID )? )
+            // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:6895:6: this_ID_0= RULE_ID (kw= ColonColon this_ID_2= RULE_ID )?
+>>>>>>> refs/remotes/origin/PeterWork
             {
+<<<<<<< HEAD
             this_ID_0=(Token)match(input,RULE_ID,FollowSets000.FOLLOW_RULE_ID_in_ruleAADLPROPERTYREFERENCE17299); if (state.failed) return current;
+=======
+            this_ID_0=(Token)match(input,RULE_ID,FollowSets000.FOLLOW_RULE_ID_in_ruleAADLPROPERTYREFERENCE16761); if (state.failed) return current;
+>>>>>>> refs/remotes/origin/PeterWork
             if ( state.backtracking==0 ) {
 
               		current.merge(this_ID_0);
@@ -20221,25 +25442,52 @@ public class InternalReqSpecParser extends AbstractInternalAntlrParser {
                   newLeafNode(this_ID_0, grammarAccess.getAADLPROPERTYREFERENCEAccess().getIDTerminalRuleCall_0()); 
                   
             }
+<<<<<<< HEAD
             // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:7095:1: (kw= ColonColon this_ID_2= RULE_ID )?
             int alt136=2;
             int LA136_0 = input.LA(1);
+=======
+            // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:6902:1: (kw= ColonColon this_ID_2= RULE_ID )?
+            int alt135=2;
+            int LA135_0 = input.LA(1);
+>>>>>>> refs/remotes/origin/PeterWork
 
+<<<<<<< HEAD
             if ( (LA136_0==ColonColon) ) {
                 alt136=1;
+=======
+            if ( (LA135_0==ColonColon) ) {
+                alt135=1;
+>>>>>>> refs/remotes/origin/PeterWork
             }
+<<<<<<< HEAD
             switch (alt136) {
+=======
+            switch (alt135) {
+>>>>>>> refs/remotes/origin/PeterWork
                 case 1 :
+<<<<<<< HEAD
                     // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:7096:2: kw= ColonColon this_ID_2= RULE_ID
+=======
+                    // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:6903:2: kw= ColonColon this_ID_2= RULE_ID
+>>>>>>> refs/remotes/origin/PeterWork
                     {
+<<<<<<< HEAD
                     kw=(Token)match(input,ColonColon,FollowSets000.FOLLOW_ColonColon_in_ruleAADLPROPERTYREFERENCE17318); if (state.failed) return current;
+=======
+                    kw=(Token)match(input,ColonColon,FollowSets000.FOLLOW_ColonColon_in_ruleAADLPROPERTYREFERENCE16780); if (state.failed) return current;
+>>>>>>> refs/remotes/origin/PeterWork
                     if ( state.backtracking==0 ) {
 
                               current.merge(kw);
                               newLeafNode(kw, grammarAccess.getAADLPROPERTYREFERENCEAccess().getColonColonKeyword_1_0()); 
                           
                     }
+<<<<<<< HEAD
                     this_ID_2=(Token)match(input,RULE_ID,FollowSets000.FOLLOW_RULE_ID_in_ruleAADLPROPERTYREFERENCE17333); if (state.failed) return current;
+=======
+                    this_ID_2=(Token)match(input,RULE_ID,FollowSets000.FOLLOW_RULE_ID_in_ruleAADLPROPERTYREFERENCE16795); if (state.failed) return current;
+>>>>>>> refs/remotes/origin/PeterWork
                     if ( state.backtracking==0 ) {
 
                       		current.merge(this_ID_2);
@@ -20280,7 +25528,11 @@ public class InternalReqSpecParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "entryRuleQualifiedName"
+<<<<<<< HEAD
     // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:7118:1: entryRuleQualifiedName returns [String current=null] : iv_ruleQualifiedName= ruleQualifiedName EOF ;
+=======
+    // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:6925:1: entryRuleQualifiedName returns [String current=null] : iv_ruleQualifiedName= ruleQualifiedName EOF ;
+>>>>>>> refs/remotes/origin/PeterWork
     public final String entryRuleQualifiedName() throws RecognitionException {
         String current = null;
 
@@ -20288,13 +25540,22 @@ public class InternalReqSpecParser extends AbstractInternalAntlrParser {
 
 
         try {
+<<<<<<< HEAD
             // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:7119:1: (iv_ruleQualifiedName= ruleQualifiedName EOF )
             // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:7120:2: iv_ruleQualifiedName= ruleQualifiedName EOF
+=======
+            // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:6926:1: (iv_ruleQualifiedName= ruleQualifiedName EOF )
+            // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:6927:2: iv_ruleQualifiedName= ruleQualifiedName EOF
+>>>>>>> refs/remotes/origin/PeterWork
             {
             if ( state.backtracking==0 ) {
                newCompositeNode(grammarAccess.getQualifiedNameRule()); 
             }
+<<<<<<< HEAD
             pushFollow(FollowSets000.FOLLOW_ruleQualifiedName_in_entryRuleQualifiedName17382);
+=======
+            pushFollow(FollowSets000.FOLLOW_ruleQualifiedName_in_entryRuleQualifiedName16844);
+>>>>>>> refs/remotes/origin/PeterWork
             iv_ruleQualifiedName=ruleQualifiedName();
 
             state._fsp--;
@@ -20302,7 +25563,11 @@ public class InternalReqSpecParser extends AbstractInternalAntlrParser {
             if ( state.backtracking==0 ) {
                current =iv_ruleQualifiedName.getText(); 
             }
+<<<<<<< HEAD
             match(input,EOF,FollowSets000.FOLLOW_EOF_in_entryRuleQualifiedName17393); if (state.failed) return current;
+=======
+            match(input,EOF,FollowSets000.FOLLOW_EOF_in_entryRuleQualifiedName16855); if (state.failed) return current;
+>>>>>>> refs/remotes/origin/PeterWork
 
             }
 
@@ -20320,7 +25585,11 @@ public class InternalReqSpecParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "ruleQualifiedName"
+<<<<<<< HEAD
     // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:7127:1: ruleQualifiedName returns [AntlrDatatypeRuleToken current=new AntlrDatatypeRuleToken()] : (this_ID_0= RULE_ID (kw= FullStop this_ID_2= RULE_ID )* ) ;
+=======
+    // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:6934:1: ruleQualifiedName returns [AntlrDatatypeRuleToken current=new AntlrDatatypeRuleToken()] : (this_ID_0= RULE_ID (kw= FullStop this_ID_2= RULE_ID )* ) ;
+>>>>>>> refs/remotes/origin/PeterWork
     public final AntlrDatatypeRuleToken ruleQualifiedName() throws RecognitionException {
         AntlrDatatypeRuleToken current = new AntlrDatatypeRuleToken();
 
@@ -20331,13 +25600,27 @@ public class InternalReqSpecParser extends AbstractInternalAntlrParser {
          enterRule(); 
             
         try {
+<<<<<<< HEAD
             // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:7131:6: ( (this_ID_0= RULE_ID (kw= FullStop this_ID_2= RULE_ID )* ) )
             // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:7132:1: (this_ID_0= RULE_ID (kw= FullStop this_ID_2= RULE_ID )* )
+=======
+            // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:6938:6: ( (this_ID_0= RULE_ID (kw= FullStop this_ID_2= RULE_ID )* ) )
+            // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:6939:1: (this_ID_0= RULE_ID (kw= FullStop this_ID_2= RULE_ID )* )
+>>>>>>> refs/remotes/origin/PeterWork
             {
+<<<<<<< HEAD
             // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:7132:1: (this_ID_0= RULE_ID (kw= FullStop this_ID_2= RULE_ID )* )
             // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:7132:6: this_ID_0= RULE_ID (kw= FullStop this_ID_2= RULE_ID )*
+=======
+            // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:6939:1: (this_ID_0= RULE_ID (kw= FullStop this_ID_2= RULE_ID )* )
+            // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:6939:6: this_ID_0= RULE_ID (kw= FullStop this_ID_2= RULE_ID )*
+>>>>>>> refs/remotes/origin/PeterWork
             {
+<<<<<<< HEAD
             this_ID_0=(Token)match(input,RULE_ID,FollowSets000.FOLLOW_RULE_ID_in_ruleQualifiedName17433); if (state.failed) return current;
+=======
+            this_ID_0=(Token)match(input,RULE_ID,FollowSets000.FOLLOW_RULE_ID_in_ruleQualifiedName16895); if (state.failed) return current;
+>>>>>>> refs/remotes/origin/PeterWork
             if ( state.backtracking==0 ) {
 
               		current.merge(this_ID_0);
@@ -20348,29 +25631,60 @@ public class InternalReqSpecParser extends AbstractInternalAntlrParser {
                   newLeafNode(this_ID_0, grammarAccess.getQualifiedNameAccess().getIDTerminalRuleCall_0()); 
                   
             }
+<<<<<<< HEAD
             // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:7139:1: (kw= FullStop this_ID_2= RULE_ID )*
             loop137:
+=======
+            // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:6946:1: (kw= FullStop this_ID_2= RULE_ID )*
+            loop136:
+>>>>>>> refs/remotes/origin/PeterWork
             do {
+<<<<<<< HEAD
                 int alt137=2;
                 int LA137_0 = input.LA(1);
+=======
+                int alt136=2;
+                int LA136_0 = input.LA(1);
+>>>>>>> refs/remotes/origin/PeterWork
 
+<<<<<<< HEAD
                 if ( (LA137_0==FullStop) ) {
                     alt137=1;
+=======
+                if ( (LA136_0==FullStop) ) {
+                    alt136=1;
+>>>>>>> refs/remotes/origin/PeterWork
                 }
 
 
+<<<<<<< HEAD
                 switch (alt137) {
+=======
+                switch (alt136) {
+>>>>>>> refs/remotes/origin/PeterWork
             	case 1 :
+<<<<<<< HEAD
             	    // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:7140:2: kw= FullStop this_ID_2= RULE_ID
+=======
+            	    // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:6947:2: kw= FullStop this_ID_2= RULE_ID
+>>>>>>> refs/remotes/origin/PeterWork
             	    {
+<<<<<<< HEAD
             	    kw=(Token)match(input,FullStop,FollowSets000.FOLLOW_FullStop_in_ruleQualifiedName17452); if (state.failed) return current;
+=======
+            	    kw=(Token)match(input,FullStop,FollowSets000.FOLLOW_FullStop_in_ruleQualifiedName16914); if (state.failed) return current;
+>>>>>>> refs/remotes/origin/PeterWork
             	    if ( state.backtracking==0 ) {
 
             	              current.merge(kw);
             	              newLeafNode(kw, grammarAccess.getQualifiedNameAccess().getFullStopKeyword_1_0()); 
             	          
             	    }
+<<<<<<< HEAD
             	    this_ID_2=(Token)match(input,RULE_ID,FollowSets000.FOLLOW_RULE_ID_in_ruleQualifiedName17467); if (state.failed) return current;
+=======
+            	    this_ID_2=(Token)match(input,RULE_ID,FollowSets000.FOLLOW_RULE_ID_in_ruleQualifiedName16929); if (state.failed) return current;
+>>>>>>> refs/remotes/origin/PeterWork
             	    if ( state.backtracking==0 ) {
 
             	      		current.merge(this_ID_2);
@@ -20386,7 +25700,11 @@ public class InternalReqSpecParser extends AbstractInternalAntlrParser {
             	    break;
 
             	default :
+<<<<<<< HEAD
             	    break loop137;
+=======
+            	    break loop136;
+>>>>>>> refs/remotes/origin/PeterWork
                 }
             } while (true);
 
@@ -20414,7 +25732,11 @@ public class InternalReqSpecParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "entryRuleNumber"
+<<<<<<< HEAD
     // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:7160:1: entryRuleNumber returns [String current=null] : iv_ruleNumber= ruleNumber EOF ;
+=======
+    // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:6967:1: entryRuleNumber returns [String current=null] : iv_ruleNumber= ruleNumber EOF ;
+>>>>>>> refs/remotes/origin/PeterWork
     public final String entryRuleNumber() throws RecognitionException {
         String current = null;
 
@@ -20425,13 +25747,22 @@ public class InternalReqSpecParser extends AbstractInternalAntlrParser {
         		HiddenTokens myHiddenTokenState = ((XtextTokenStream)input).setHiddenTokens();
         	
         try {
+<<<<<<< HEAD
             // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:7164:1: (iv_ruleNumber= ruleNumber EOF )
             // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:7165:2: iv_ruleNumber= ruleNumber EOF
+=======
+            // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:6971:1: (iv_ruleNumber= ruleNumber EOF )
+            // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:6972:2: iv_ruleNumber= ruleNumber EOF
+>>>>>>> refs/remotes/origin/PeterWork
             {
             if ( state.backtracking==0 ) {
                newCompositeNode(grammarAccess.getNumberRule()); 
             }
+<<<<<<< HEAD
             pushFollow(FollowSets000.FOLLOW_ruleNumber_in_entryRuleNumber17520);
+=======
+            pushFollow(FollowSets000.FOLLOW_ruleNumber_in_entryRuleNumber16982);
+>>>>>>> refs/remotes/origin/PeterWork
             iv_ruleNumber=ruleNumber();
 
             state._fsp--;
@@ -20439,7 +25770,11 @@ public class InternalReqSpecParser extends AbstractInternalAntlrParser {
             if ( state.backtracking==0 ) {
                current =iv_ruleNumber.getText(); 
             }
+<<<<<<< HEAD
             match(input,EOF,FollowSets000.FOLLOW_EOF_in_entryRuleNumber17531); if (state.failed) return current;
+=======
+            match(input,EOF,FollowSets000.FOLLOW_EOF_in_entryRuleNumber16993); if (state.failed) return current;
+>>>>>>> refs/remotes/origin/PeterWork
 
             }
 
@@ -20460,7 +25795,11 @@ public class InternalReqSpecParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "ruleNumber"
+<<<<<<< HEAD
     // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:7175:1: ruleNumber returns [AntlrDatatypeRuleToken current=new AntlrDatatypeRuleToken()] : (this_HEX_0= RULE_HEX | ( (this_INT_1= RULE_INT | this_DECIMAL_2= RULE_DECIMAL ) (kw= FullStop (this_INT_4= RULE_INT | this_DECIMAL_5= RULE_DECIMAL ) )? ) ) ;
+=======
+    // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:6982:1: ruleNumber returns [AntlrDatatypeRuleToken current=new AntlrDatatypeRuleToken()] : (this_HEX_0= RULE_HEX | ( (this_INT_1= RULE_INT | this_DECIMAL_2= RULE_DECIMAL ) (kw= FullStop (this_INT_4= RULE_INT | this_DECIMAL_5= RULE_DECIMAL ) )? ) ) ;
+>>>>>>> refs/remotes/origin/PeterWork
     public final AntlrDatatypeRuleToken ruleNumber() throws RecognitionException {
         AntlrDatatypeRuleToken current = new AntlrDatatypeRuleToken();
 
@@ -20475,31 +25814,68 @@ public class InternalReqSpecParser extends AbstractInternalAntlrParser {
         		HiddenTokens myHiddenTokenState = ((XtextTokenStream)input).setHiddenTokens();
             
         try {
+<<<<<<< HEAD
             // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:7180:6: ( (this_HEX_0= RULE_HEX | ( (this_INT_1= RULE_INT | this_DECIMAL_2= RULE_DECIMAL ) (kw= FullStop (this_INT_4= RULE_INT | this_DECIMAL_5= RULE_DECIMAL ) )? ) ) )
             // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:7181:1: (this_HEX_0= RULE_HEX | ( (this_INT_1= RULE_INT | this_DECIMAL_2= RULE_DECIMAL ) (kw= FullStop (this_INT_4= RULE_INT | this_DECIMAL_5= RULE_DECIMAL ) )? ) )
+=======
+            // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:6987:6: ( (this_HEX_0= RULE_HEX | ( (this_INT_1= RULE_INT | this_DECIMAL_2= RULE_DECIMAL ) (kw= FullStop (this_INT_4= RULE_INT | this_DECIMAL_5= RULE_DECIMAL ) )? ) ) )
+            // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:6988:1: (this_HEX_0= RULE_HEX | ( (this_INT_1= RULE_INT | this_DECIMAL_2= RULE_DECIMAL ) (kw= FullStop (this_INT_4= RULE_INT | this_DECIMAL_5= RULE_DECIMAL ) )? ) )
+>>>>>>> refs/remotes/origin/PeterWork
             {
+<<<<<<< HEAD
             // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:7181:1: (this_HEX_0= RULE_HEX | ( (this_INT_1= RULE_INT | this_DECIMAL_2= RULE_DECIMAL ) (kw= FullStop (this_INT_4= RULE_INT | this_DECIMAL_5= RULE_DECIMAL ) )? ) )
             int alt141=2;
             int LA141_0 = input.LA(1);
+=======
+            // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:6988:1: (this_HEX_0= RULE_HEX | ( (this_INT_1= RULE_INT | this_DECIMAL_2= RULE_DECIMAL ) (kw= FullStop (this_INT_4= RULE_INT | this_DECIMAL_5= RULE_DECIMAL ) )? ) )
+            int alt140=2;
+            int LA140_0 = input.LA(1);
+>>>>>>> refs/remotes/origin/PeterWork
 
+<<<<<<< HEAD
             if ( (LA141_0==RULE_HEX) ) {
                 alt141=1;
+=======
+            if ( (LA140_0==RULE_HEX) ) {
+                alt140=1;
+>>>>>>> refs/remotes/origin/PeterWork
             }
+<<<<<<< HEAD
             else if ( ((LA141_0>=RULE_INT && LA141_0<=RULE_DECIMAL)) ) {
                 alt141=2;
+=======
+            else if ( ((LA140_0>=RULE_INT && LA140_0<=RULE_DECIMAL)) ) {
+                alt140=2;
+>>>>>>> refs/remotes/origin/PeterWork
             }
             else {
                 if (state.backtracking>0) {state.failed=true; return current;}
                 NoViableAltException nvae =
+<<<<<<< HEAD
                     new NoViableAltException("", 141, 0, input);
+=======
+                    new NoViableAltException("", 140, 0, input);
+>>>>>>> refs/remotes/origin/PeterWork
 
                 throw nvae;
             }
+<<<<<<< HEAD
             switch (alt141) {
+=======
+            switch (alt140) {
+>>>>>>> refs/remotes/origin/PeterWork
                 case 1 :
+<<<<<<< HEAD
                     // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:7181:6: this_HEX_0= RULE_HEX
+=======
+                    // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:6988:6: this_HEX_0= RULE_HEX
+>>>>>>> refs/remotes/origin/PeterWork
                     {
+<<<<<<< HEAD
                     this_HEX_0=(Token)match(input,RULE_HEX,FollowSets000.FOLLOW_RULE_HEX_in_ruleNumber17575); if (state.failed) return current;
+=======
+                    this_HEX_0=(Token)match(input,RULE_HEX,FollowSets000.FOLLOW_RULE_HEX_in_ruleNumber17037); if (state.failed) return current;
+>>>>>>> refs/remotes/origin/PeterWork
                     if ( state.backtracking==0 ) {
 
                       		current.merge(this_HEX_0);
@@ -20514,33 +25890,74 @@ public class InternalReqSpecParser extends AbstractInternalAntlrParser {
                     }
                     break;
                 case 2 :
+<<<<<<< HEAD
                     // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:7189:6: ( (this_INT_1= RULE_INT | this_DECIMAL_2= RULE_DECIMAL ) (kw= FullStop (this_INT_4= RULE_INT | this_DECIMAL_5= RULE_DECIMAL ) )? )
+=======
+                    // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:6996:6: ( (this_INT_1= RULE_INT | this_DECIMAL_2= RULE_DECIMAL ) (kw= FullStop (this_INT_4= RULE_INT | this_DECIMAL_5= RULE_DECIMAL ) )? )
+>>>>>>> refs/remotes/origin/PeterWork
                     {
+<<<<<<< HEAD
                     // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:7189:6: ( (this_INT_1= RULE_INT | this_DECIMAL_2= RULE_DECIMAL ) (kw= FullStop (this_INT_4= RULE_INT | this_DECIMAL_5= RULE_DECIMAL ) )? )
                     // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:7189:7: (this_INT_1= RULE_INT | this_DECIMAL_2= RULE_DECIMAL ) (kw= FullStop (this_INT_4= RULE_INT | this_DECIMAL_5= RULE_DECIMAL ) )?
+=======
+                    // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:6996:6: ( (this_INT_1= RULE_INT | this_DECIMAL_2= RULE_DECIMAL ) (kw= FullStop (this_INT_4= RULE_INT | this_DECIMAL_5= RULE_DECIMAL ) )? )
+                    // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:6996:7: (this_INT_1= RULE_INT | this_DECIMAL_2= RULE_DECIMAL ) (kw= FullStop (this_INT_4= RULE_INT | this_DECIMAL_5= RULE_DECIMAL ) )?
+>>>>>>> refs/remotes/origin/PeterWork
                     {
+<<<<<<< HEAD
                     // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:7189:7: (this_INT_1= RULE_INT | this_DECIMAL_2= RULE_DECIMAL )
                     int alt138=2;
                     int LA138_0 = input.LA(1);
+=======
+                    // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:6996:7: (this_INT_1= RULE_INT | this_DECIMAL_2= RULE_DECIMAL )
+                    int alt137=2;
+                    int LA137_0 = input.LA(1);
+>>>>>>> refs/remotes/origin/PeterWork
 
+<<<<<<< HEAD
                     if ( (LA138_0==RULE_INT) ) {
                         alt138=1;
+=======
+                    if ( (LA137_0==RULE_INT) ) {
+                        alt137=1;
+>>>>>>> refs/remotes/origin/PeterWork
                     }
+<<<<<<< HEAD
                     else if ( (LA138_0==RULE_DECIMAL) ) {
                         alt138=2;
+=======
+                    else if ( (LA137_0==RULE_DECIMAL) ) {
+                        alt137=2;
+>>>>>>> refs/remotes/origin/PeterWork
                     }
                     else {
                         if (state.backtracking>0) {state.failed=true; return current;}
                         NoViableAltException nvae =
+<<<<<<< HEAD
                             new NoViableAltException("", 138, 0, input);
+=======
+                            new NoViableAltException("", 137, 0, input);
+>>>>>>> refs/remotes/origin/PeterWork
 
                         throw nvae;
                     }
+<<<<<<< HEAD
                     switch (alt138) {
+=======
+                    switch (alt137) {
+>>>>>>> refs/remotes/origin/PeterWork
                         case 1 :
+<<<<<<< HEAD
                             // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:7189:12: this_INT_1= RULE_INT
+=======
+                            // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:6996:12: this_INT_1= RULE_INT
+>>>>>>> refs/remotes/origin/PeterWork
                             {
+<<<<<<< HEAD
                             this_INT_1=(Token)match(input,RULE_INT,FollowSets000.FOLLOW_RULE_INT_in_ruleNumber17603); if (state.failed) return current;
+=======
+                            this_INT_1=(Token)match(input,RULE_INT,FollowSets000.FOLLOW_RULE_INT_in_ruleNumber17065); if (state.failed) return current;
+>>>>>>> refs/remotes/origin/PeterWork
                             if ( state.backtracking==0 ) {
 
                               		current.merge(this_INT_1);
@@ -20555,9 +25972,17 @@ public class InternalReqSpecParser extends AbstractInternalAntlrParser {
                             }
                             break;
                         case 2 :
+<<<<<<< HEAD
                             // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:7197:10: this_DECIMAL_2= RULE_DECIMAL
+=======
+                            // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:7004:10: this_DECIMAL_2= RULE_DECIMAL
+>>>>>>> refs/remotes/origin/PeterWork
                             {
+<<<<<<< HEAD
                             this_DECIMAL_2=(Token)match(input,RULE_DECIMAL,FollowSets000.FOLLOW_RULE_DECIMAL_in_ruleNumber17629); if (state.failed) return current;
+=======
+                            this_DECIMAL_2=(Token)match(input,RULE_DECIMAL,FollowSets000.FOLLOW_RULE_DECIMAL_in_ruleNumber17091); if (state.failed) return current;
+>>>>>>> refs/remotes/origin/PeterWork
                             if ( state.backtracking==0 ) {
 
                               		current.merge(this_DECIMAL_2);
@@ -20574,46 +25999,101 @@ public class InternalReqSpecParser extends AbstractInternalAntlrParser {
 
                     }
 
+<<<<<<< HEAD
                     // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:7204:2: (kw= FullStop (this_INT_4= RULE_INT | this_DECIMAL_5= RULE_DECIMAL ) )?
                     int alt140=2;
                     int LA140_0 = input.LA(1);
+=======
+                    // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:7011:2: (kw= FullStop (this_INT_4= RULE_INT | this_DECIMAL_5= RULE_DECIMAL ) )?
+                    int alt139=2;
+                    int LA139_0 = input.LA(1);
+>>>>>>> refs/remotes/origin/PeterWork
 
+<<<<<<< HEAD
                     if ( (LA140_0==FullStop) ) {
                         alt140=1;
+=======
+                    if ( (LA139_0==FullStop) ) {
+                        alt139=1;
+>>>>>>> refs/remotes/origin/PeterWork
                     }
+<<<<<<< HEAD
                     switch (alt140) {
+=======
+                    switch (alt139) {
+>>>>>>> refs/remotes/origin/PeterWork
                         case 1 :
+<<<<<<< HEAD
                             // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:7205:2: kw= FullStop (this_INT_4= RULE_INT | this_DECIMAL_5= RULE_DECIMAL )
+=======
+                            // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:7012:2: kw= FullStop (this_INT_4= RULE_INT | this_DECIMAL_5= RULE_DECIMAL )
+>>>>>>> refs/remotes/origin/PeterWork
                             {
+<<<<<<< HEAD
                             kw=(Token)match(input,FullStop,FollowSets000.FOLLOW_FullStop_in_ruleNumber17649); if (state.failed) return current;
+=======
+                            kw=(Token)match(input,FullStop,FollowSets000.FOLLOW_FullStop_in_ruleNumber17111); if (state.failed) return current;
+>>>>>>> refs/remotes/origin/PeterWork
                             if ( state.backtracking==0 ) {
 
                                       current.merge(kw);
                                       newLeafNode(kw, grammarAccess.getNumberAccess().getFullStopKeyword_1_1_0()); 
                                   
                             }
+<<<<<<< HEAD
                             // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:7210:1: (this_INT_4= RULE_INT | this_DECIMAL_5= RULE_DECIMAL )
                             int alt139=2;
                             int LA139_0 = input.LA(1);
+=======
+                            // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:7017:1: (this_INT_4= RULE_INT | this_DECIMAL_5= RULE_DECIMAL )
+                            int alt138=2;
+                            int LA138_0 = input.LA(1);
+>>>>>>> refs/remotes/origin/PeterWork
 
+<<<<<<< HEAD
                             if ( (LA139_0==RULE_INT) ) {
                                 alt139=1;
+=======
+                            if ( (LA138_0==RULE_INT) ) {
+                                alt138=1;
+>>>>>>> refs/remotes/origin/PeterWork
                             }
+<<<<<<< HEAD
                             else if ( (LA139_0==RULE_DECIMAL) ) {
                                 alt139=2;
+=======
+                            else if ( (LA138_0==RULE_DECIMAL) ) {
+                                alt138=2;
+>>>>>>> refs/remotes/origin/PeterWork
                             }
                             else {
                                 if (state.backtracking>0) {state.failed=true; return current;}
                                 NoViableAltException nvae =
+<<<<<<< HEAD
                                     new NoViableAltException("", 139, 0, input);
+=======
+                                    new NoViableAltException("", 138, 0, input);
+>>>>>>> refs/remotes/origin/PeterWork
 
                                 throw nvae;
                             }
+<<<<<<< HEAD
                             switch (alt139) {
+=======
+                            switch (alt138) {
+>>>>>>> refs/remotes/origin/PeterWork
                                 case 1 :
+<<<<<<< HEAD
                                     // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:7210:6: this_INT_4= RULE_INT
+=======
+                                    // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:7017:6: this_INT_4= RULE_INT
+>>>>>>> refs/remotes/origin/PeterWork
                                     {
+<<<<<<< HEAD
                                     this_INT_4=(Token)match(input,RULE_INT,FollowSets000.FOLLOW_RULE_INT_in_ruleNumber17665); if (state.failed) return current;
+=======
+                                    this_INT_4=(Token)match(input,RULE_INT,FollowSets000.FOLLOW_RULE_INT_in_ruleNumber17127); if (state.failed) return current;
+>>>>>>> refs/remotes/origin/PeterWork
                                     if ( state.backtracking==0 ) {
 
                                       		current.merge(this_INT_4);
@@ -20628,9 +26108,17 @@ public class InternalReqSpecParser extends AbstractInternalAntlrParser {
                                     }
                                     break;
                                 case 2 :
+<<<<<<< HEAD
                                     // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:7218:10: this_DECIMAL_5= RULE_DECIMAL
+=======
+                                    // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:7025:10: this_DECIMAL_5= RULE_DECIMAL
+>>>>>>> refs/remotes/origin/PeterWork
                                     {
+<<<<<<< HEAD
                                     this_DECIMAL_5=(Token)match(input,RULE_DECIMAL,FollowSets000.FOLLOW_RULE_DECIMAL_in_ruleNumber17691); if (state.failed) return current;
+=======
+                                    this_DECIMAL_5=(Token)match(input,RULE_DECIMAL,FollowSets000.FOLLOW_RULE_DECIMAL_in_ruleNumber17153); if (state.failed) return current;
+>>>>>>> refs/remotes/origin/PeterWork
                                     if ( state.backtracking==0 ) {
 
                                       		current.merge(this_DECIMAL_5);
@@ -20770,12 +26258,23 @@ public class InternalReqSpecParser extends AbstractInternalAntlrParser {
 
     // $ANTLR start synpred3_InternalReqSpecParser
     public final void synpred3_InternalReqSpecParser_fragment() throws RecognitionException {   
+<<<<<<< HEAD
         // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:5306:3: ( ( () ( ( ruleOpOr ) ) ) )
         // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:5306:4: ( () ( ( ruleOpOr ) ) )
+=======
+        // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:5268:3: ( ( () ( ( ruleOpOr ) ) ) )
+        // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:5268:4: ( () ( ( ruleOpOr ) ) )
+>>>>>>> refs/remotes/origin/PeterWork
         {
+<<<<<<< HEAD
         // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:5306:4: ( () ( ( ruleOpOr ) ) )
         // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:5306:5: () ( ( ruleOpOr ) )
+=======
+        // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:5268:4: ( () ( ( ruleOpOr ) ) )
+        // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:5268:5: () ( ( ruleOpOr ) )
+>>>>>>> refs/remotes/origin/PeterWork
         {
+<<<<<<< HEAD
         // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:5306:5: ()
         // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:5307:1: 
         {
@@ -20788,6 +26287,20 @@ public class InternalReqSpecParser extends AbstractInternalAntlrParser {
         // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:5309:1: ruleOpOr
         {
         pushFollow(FollowSets000.FOLLOW_ruleOpOr_in_synpred3_InternalReqSpecParser12784);
+=======
+        // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:5268:5: ()
+        // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:5269:1: 
+        {
+        }
+
+        // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:5269:2: ( ( ruleOpOr ) )
+        // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:5270:1: ( ruleOpOr )
+        {
+        // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:5270:1: ( ruleOpOr )
+        // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:5271:1: ruleOpOr
+        {
+        pushFollow(FollowSets000.FOLLOW_ruleOpOr_in_synpred3_InternalReqSpecParser12687);
+>>>>>>> refs/remotes/origin/PeterWork
         ruleOpOr();
 
         state._fsp--;
@@ -20808,24 +26321,53 @@ public class InternalReqSpecParser extends AbstractInternalAntlrParser {
 
     // $ANTLR start synpred4_InternalReqSpecParser
     public final void synpred4_InternalReqSpecParser_fragment() throws RecognitionException {   
+<<<<<<< HEAD
         // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:5411:3: ( ( () ( ( ruleOpAnd ) ) ) )
         // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:5411:4: ( () ( ( ruleOpAnd ) ) )
+=======
+        // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:5373:3: ( ( () ( ( ruleOpAnd ) ) ) )
+        // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:5373:4: ( () ( ( ruleOpAnd ) ) )
+>>>>>>> refs/remotes/origin/PeterWork
         {
+<<<<<<< HEAD
         // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:5411:4: ( () ( ( ruleOpAnd ) ) )
         // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:5411:5: () ( ( ruleOpAnd ) )
+=======
+        // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:5373:4: ( () ( ( ruleOpAnd ) ) )
+        // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:5373:5: () ( ( ruleOpAnd ) )
+>>>>>>> refs/remotes/origin/PeterWork
         {
+<<<<<<< HEAD
         // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:5411:5: ()
         // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:5412:1: 
+=======
+        // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:5373:5: ()
+        // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:5374:1: 
+>>>>>>> refs/remotes/origin/PeterWork
         {
         }
 
+<<<<<<< HEAD
         // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:5412:2: ( ( ruleOpAnd ) )
         // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:5413:1: ( ruleOpAnd )
+=======
+        // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:5374:2: ( ( ruleOpAnd ) )
+        // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:5375:1: ( ruleOpAnd )
+>>>>>>> refs/remotes/origin/PeterWork
         {
+<<<<<<< HEAD
         // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:5413:1: ( ruleOpAnd )
         // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:5414:1: ruleOpAnd
+=======
+        // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:5375:1: ( ruleOpAnd )
+        // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:5376:1: ruleOpAnd
+>>>>>>> refs/remotes/origin/PeterWork
         {
+<<<<<<< HEAD
         pushFollow(FollowSets000.FOLLOW_ruleOpAnd_in_synpred4_InternalReqSpecParser13037);
+=======
+        pushFollow(FollowSets000.FOLLOW_ruleOpAnd_in_synpred4_InternalReqSpecParser12940);
+>>>>>>> refs/remotes/origin/PeterWork
         ruleOpAnd();
 
         state._fsp--;
@@ -20846,24 +26388,53 @@ public class InternalReqSpecParser extends AbstractInternalAntlrParser {
 
     // $ANTLR start synpred5_InternalReqSpecParser
     public final void synpred5_InternalReqSpecParser_fragment() throws RecognitionException {   
+<<<<<<< HEAD
         // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:5516:3: ( ( () ( ( ruleOpEquality ) ) ) )
         // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:5516:4: ( () ( ( ruleOpEquality ) ) )
+=======
+        // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:5478:3: ( ( () ( ( ruleOpEquality ) ) ) )
+        // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:5478:4: ( () ( ( ruleOpEquality ) ) )
+>>>>>>> refs/remotes/origin/PeterWork
         {
+<<<<<<< HEAD
         // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:5516:4: ( () ( ( ruleOpEquality ) ) )
         // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:5516:5: () ( ( ruleOpEquality ) )
+=======
+        // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:5478:4: ( () ( ( ruleOpEquality ) ) )
+        // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:5478:5: () ( ( ruleOpEquality ) )
+>>>>>>> refs/remotes/origin/PeterWork
         {
+<<<<<<< HEAD
         // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:5516:5: ()
         // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:5517:1: 
+=======
+        // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:5478:5: ()
+        // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:5479:1: 
+>>>>>>> refs/remotes/origin/PeterWork
         {
         }
 
+<<<<<<< HEAD
         // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:5517:2: ( ( ruleOpEquality ) )
         // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:5518:1: ( ruleOpEquality )
+=======
+        // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:5479:2: ( ( ruleOpEquality ) )
+        // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:5480:1: ( ruleOpEquality )
+>>>>>>> refs/remotes/origin/PeterWork
         {
+<<<<<<< HEAD
         // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:5518:1: ( ruleOpEquality )
         // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:5519:1: ruleOpEquality
+=======
+        // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:5480:1: ( ruleOpEquality )
+        // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:5481:1: ruleOpEquality
+>>>>>>> refs/remotes/origin/PeterWork
         {
+<<<<<<< HEAD
         pushFollow(FollowSets000.FOLLOW_ruleOpEquality_in_synpred5_InternalReqSpecParser13290);
+=======
+        pushFollow(FollowSets000.FOLLOW_ruleOpEquality_in_synpred5_InternalReqSpecParser13193);
+>>>>>>> refs/remotes/origin/PeterWork
         ruleOpEquality();
 
         state._fsp--;
@@ -20884,24 +26455,53 @@ public class InternalReqSpecParser extends AbstractInternalAntlrParser {
 
     // $ANTLR start synpred6_InternalReqSpecParser
     public final void synpred6_InternalReqSpecParser_fragment() throws RecognitionException {   
+<<<<<<< HEAD
         // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:5642:3: ( ( () ( ( ruleOpCompare ) ) ) )
         // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:5642:4: ( () ( ( ruleOpCompare ) ) )
+=======
+        // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:5604:3: ( ( () ( ( ruleOpCompare ) ) ) )
+        // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:5604:4: ( () ( ( ruleOpCompare ) ) )
+>>>>>>> refs/remotes/origin/PeterWork
         {
+<<<<<<< HEAD
         // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:5642:4: ( () ( ( ruleOpCompare ) ) )
         // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:5642:5: () ( ( ruleOpCompare ) )
+=======
+        // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:5604:4: ( () ( ( ruleOpCompare ) ) )
+        // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:5604:5: () ( ( ruleOpCompare ) )
+>>>>>>> refs/remotes/origin/PeterWork
         {
+<<<<<<< HEAD
         // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:5642:5: ()
         // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:5643:1: 
+=======
+        // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:5604:5: ()
+        // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:5605:1: 
+>>>>>>> refs/remotes/origin/PeterWork
         {
         }
 
+<<<<<<< HEAD
         // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:5643:2: ( ( ruleOpCompare ) )
         // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:5644:1: ( ruleOpCompare )
+=======
+        // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:5605:2: ( ( ruleOpCompare ) )
+        // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:5606:1: ( ruleOpCompare )
+>>>>>>> refs/remotes/origin/PeterWork
         {
+<<<<<<< HEAD
         // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:5644:1: ( ruleOpCompare )
         // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:5645:1: ruleOpCompare
+=======
+        // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:5606:1: ( ruleOpCompare )
+        // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:5607:1: ruleOpCompare
+>>>>>>> refs/remotes/origin/PeterWork
         {
+<<<<<<< HEAD
         pushFollow(FollowSets000.FOLLOW_ruleOpCompare_in_synpred6_InternalReqSpecParser13602);
+=======
+        pushFollow(FollowSets000.FOLLOW_ruleOpCompare_in_synpred6_InternalReqSpecParser13505);
+>>>>>>> refs/remotes/origin/PeterWork
         ruleOpCompare();
 
         state._fsp--;
@@ -20922,24 +26522,53 @@ public class InternalReqSpecParser extends AbstractInternalAntlrParser {
 
     // $ANTLR start synpred7_InternalReqSpecParser
     public final void synpred7_InternalReqSpecParser_fragment() throws RecognitionException {   
+<<<<<<< HEAD
         // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:5774:3: ( ( () ( ( ruleOpOther ) ) ) )
         // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:5774:4: ( () ( ( ruleOpOther ) ) )
+=======
+        // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:5736:3: ( ( () ( ( ruleOpOther ) ) ) )
+        // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:5736:4: ( () ( ( ruleOpOther ) ) )
+>>>>>>> refs/remotes/origin/PeterWork
         {
+<<<<<<< HEAD
         // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:5774:4: ( () ( ( ruleOpOther ) ) )
         // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:5774:5: () ( ( ruleOpOther ) )
+=======
+        // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:5736:4: ( () ( ( ruleOpOther ) ) )
+        // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:5736:5: () ( ( ruleOpOther ) )
+>>>>>>> refs/remotes/origin/PeterWork
         {
+<<<<<<< HEAD
         // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:5774:5: ()
         // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:5775:1: 
+=======
+        // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:5736:5: ()
+        // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:5737:1: 
+>>>>>>> refs/remotes/origin/PeterWork
         {
         }
 
+<<<<<<< HEAD
         // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:5775:2: ( ( ruleOpOther ) )
         // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:5776:1: ( ruleOpOther )
+=======
+        // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:5737:2: ( ( ruleOpOther ) )
+        // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:5738:1: ( ruleOpOther )
+>>>>>>> refs/remotes/origin/PeterWork
         {
+<<<<<<< HEAD
         // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:5776:1: ( ruleOpOther )
         // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:5777:1: ruleOpOther
+=======
+        // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:5738:1: ( ruleOpOther )
+        // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:5739:1: ruleOpOther
+>>>>>>> refs/remotes/origin/PeterWork
         {
+<<<<<<< HEAD
         pushFollow(FollowSets000.FOLLOW_ruleOpOther_in_synpred7_InternalReqSpecParser13929);
+=======
+        pushFollow(FollowSets000.FOLLOW_ruleOpOther_in_synpred7_InternalReqSpecParser13832);
+>>>>>>> refs/remotes/origin/PeterWork
         ruleOpOther();
 
         state._fsp--;
@@ -20960,14 +26589,29 @@ public class InternalReqSpecParser extends AbstractInternalAntlrParser {
 
     // $ANTLR start synpred8_InternalReqSpecParser
     public final void synpred8_InternalReqSpecParser_fragment() throws RecognitionException {   
+<<<<<<< HEAD
         // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:5890:3: ( ( GreaterThanSign GreaterThanSign ) )
         // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:5890:4: ( GreaterThanSign GreaterThanSign )
+=======
+        // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:5852:3: ( ( GreaterThanSign GreaterThanSign ) )
+        // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:5852:4: ( GreaterThanSign GreaterThanSign )
+>>>>>>> refs/remotes/origin/PeterWork
         {
+<<<<<<< HEAD
         // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:5890:4: ( GreaterThanSign GreaterThanSign )
         // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:5891:2: GreaterThanSign GreaterThanSign
+=======
+        // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:5852:4: ( GreaterThanSign GreaterThanSign )
+        // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:5853:2: GreaterThanSign GreaterThanSign
+>>>>>>> refs/remotes/origin/PeterWork
         {
+<<<<<<< HEAD
         match(input,GreaterThanSign,FollowSets000.FOLLOW_GreaterThanSign_in_synpred8_InternalReqSpecParser14195); if (state.failed) return ;
         match(input,GreaterThanSign,FollowSets000.FOLLOW_GreaterThanSign_in_synpred8_InternalReqSpecParser14200); if (state.failed) return ;
+=======
+        match(input,GreaterThanSign,FollowSets000.FOLLOW_GreaterThanSign_in_synpred8_InternalReqSpecParser14098); if (state.failed) return ;
+        match(input,GreaterThanSign,FollowSets000.FOLLOW_GreaterThanSign_in_synpred8_InternalReqSpecParser14103); if (state.failed) return ;
+>>>>>>> refs/remotes/origin/PeterWork
 
         }
 
@@ -20978,14 +26622,29 @@ public class InternalReqSpecParser extends AbstractInternalAntlrParser {
 
     // $ANTLR start synpred9_InternalReqSpecParser
     public final void synpred9_InternalReqSpecParser_fragment() throws RecognitionException {   
+<<<<<<< HEAD
         // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:5920:3: ( ( LessThanSign LessThanSign ) )
         // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:5920:4: ( LessThanSign LessThanSign )
+=======
+        // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:5882:3: ( ( LessThanSign LessThanSign ) )
+        // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:5882:4: ( LessThanSign LessThanSign )
+>>>>>>> refs/remotes/origin/PeterWork
         {
+<<<<<<< HEAD
         // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:5920:4: ( LessThanSign LessThanSign )
         // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:5921:2: LessThanSign LessThanSign
+=======
+        // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:5882:4: ( LessThanSign LessThanSign )
+        // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:5883:2: LessThanSign LessThanSign
+>>>>>>> refs/remotes/origin/PeterWork
         {
+<<<<<<< HEAD
         match(input,LessThanSign,FollowSets000.FOLLOW_LessThanSign_in_synpred9_InternalReqSpecParser14282); if (state.failed) return ;
         match(input,LessThanSign,FollowSets000.FOLLOW_LessThanSign_in_synpred9_InternalReqSpecParser14287); if (state.failed) return ;
+=======
+        match(input,LessThanSign,FollowSets000.FOLLOW_LessThanSign_in_synpred9_InternalReqSpecParser14185); if (state.failed) return ;
+        match(input,LessThanSign,FollowSets000.FOLLOW_LessThanSign_in_synpred9_InternalReqSpecParser14190); if (state.failed) return ;
+>>>>>>> refs/remotes/origin/PeterWork
 
         }
 
@@ -20996,24 +26655,53 @@ public class InternalReqSpecParser extends AbstractInternalAntlrParser {
 
     // $ANTLR start synpred10_InternalReqSpecParser
     public final void synpred10_InternalReqSpecParser_fragment() throws RecognitionException {   
+<<<<<<< HEAD
         // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:5994:3: ( ( () ( ( ruleOpAdd ) ) ) )
         // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:5994:4: ( () ( ( ruleOpAdd ) ) )
+=======
+        // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:5956:3: ( ( () ( ( ruleOpAdd ) ) ) )
+        // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:5956:4: ( () ( ( ruleOpAdd ) ) )
+>>>>>>> refs/remotes/origin/PeterWork
         {
+<<<<<<< HEAD
         // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:5994:4: ( () ( ( ruleOpAdd ) ) )
         // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:5994:5: () ( ( ruleOpAdd ) )
+=======
+        // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:5956:4: ( () ( ( ruleOpAdd ) ) )
+        // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:5956:5: () ( ( ruleOpAdd ) )
+>>>>>>> refs/remotes/origin/PeterWork
         {
+<<<<<<< HEAD
         // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:5994:5: ()
         // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:5995:1: 
+=======
+        // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:5956:5: ()
+        // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:5957:1: 
+>>>>>>> refs/remotes/origin/PeterWork
         {
         }
 
+<<<<<<< HEAD
         // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:5995:2: ( ( ruleOpAdd ) )
         // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:5996:1: ( ruleOpAdd )
+=======
+        // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:5957:2: ( ( ruleOpAdd ) )
+        // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:5958:1: ( ruleOpAdd )
+>>>>>>> refs/remotes/origin/PeterWork
         {
+<<<<<<< HEAD
         // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:5996:1: ( ruleOpAdd )
         // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:5997:1: ruleOpAdd
+=======
+        // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:5958:1: ( ruleOpAdd )
+        // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:5959:1: ruleOpAdd
+>>>>>>> refs/remotes/origin/PeterWork
         {
+<<<<<<< HEAD
         pushFollow(FollowSets000.FOLLOW_ruleOpAdd_in_synpred10_InternalReqSpecParser14506);
+=======
+        pushFollow(FollowSets000.FOLLOW_ruleOpAdd_in_synpred10_InternalReqSpecParser14409);
+>>>>>>> refs/remotes/origin/PeterWork
         ruleOpAdd();
 
         state._fsp--;
@@ -21034,24 +26722,53 @@ public class InternalReqSpecParser extends AbstractInternalAntlrParser {
 
     // $ANTLR start synpred11_InternalReqSpecParser
     public final void synpred11_InternalReqSpecParser_fragment() throws RecognitionException {   
+<<<<<<< HEAD
         // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:6106:3: ( ( () ( ( ruleOpMulti ) ) ) )
         // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:6106:4: ( () ( ( ruleOpMulti ) ) )
+=======
+        // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:6068:3: ( ( () ( ( ruleOpMulti ) ) ) )
+        // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:6068:4: ( () ( ( ruleOpMulti ) ) )
+>>>>>>> refs/remotes/origin/PeterWork
         {
+<<<<<<< HEAD
         // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:6106:4: ( () ( ( ruleOpMulti ) ) )
         // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:6106:5: () ( ( ruleOpMulti ) )
+=======
+        // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:6068:4: ( () ( ( ruleOpMulti ) ) )
+        // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:6068:5: () ( ( ruleOpMulti ) )
+>>>>>>> refs/remotes/origin/PeterWork
         {
+<<<<<<< HEAD
         // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:6106:5: ()
         // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:6107:1: 
+=======
+        // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:6068:5: ()
+        // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:6069:1: 
+>>>>>>> refs/remotes/origin/PeterWork
         {
         }
 
+<<<<<<< HEAD
         // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:6107:2: ( ( ruleOpMulti ) )
         // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:6108:1: ( ruleOpMulti )
+=======
+        // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:6069:2: ( ( ruleOpMulti ) )
+        // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:6070:1: ( ruleOpMulti )
+>>>>>>> refs/remotes/origin/PeterWork
         {
+<<<<<<< HEAD
         // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:6108:1: ( ruleOpMulti )
         // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:6109:1: ruleOpMulti
+=======
+        // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:6070:1: ( ruleOpMulti )
+        // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:6071:1: ruleOpMulti
+>>>>>>> refs/remotes/origin/PeterWork
         {
+<<<<<<< HEAD
         pushFollow(FollowSets000.FOLLOW_ruleOpMulti_in_synpred11_InternalReqSpecParser14780);
+=======
+        pushFollow(FollowSets000.FOLLOW_ruleOpMulti_in_synpred11_InternalReqSpecParser14683);
+>>>>>>> refs/remotes/origin/PeterWork
         ruleOpMulti();
 
         state._fsp--;
@@ -21069,6 +26786,26 @@ public class InternalReqSpecParser extends AbstractInternalAntlrParser {
         }
     }
     // $ANTLR end synpred11_InternalReqSpecParser
+<<<<<<< HEAD
+=======
+
+    // $ANTLR start synpred12_InternalReqSpecParser
+    public final void synpred12_InternalReqSpecParser_fragment() throws RecognitionException {   
+        // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:6755:3: ( ( RULE_ID ) )
+        // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:6756:1: ( RULE_ID )
+        {
+        // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:6756:1: ( RULE_ID )
+        // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:6757:2: RULE_ID
+        {
+        match(input,RULE_ID,FollowSets000.FOLLOW_RULE_ID_in_synpred12_InternalReqSpecParser16387); if (state.failed) return ;
+
+        }
+
+
+        }
+    }
+    // $ANTLR end synpred12_InternalReqSpecParser
+>>>>>>> refs/remotes/origin/PeterWork
 
     // Delegated rules
 
@@ -21198,10 +26935,38 @@ public class InternalReqSpecParser extends AbstractInternalAntlrParser {
         state.failed=false;
         return success;
     }
+<<<<<<< HEAD
     public final boolean synpred5_InternalReqSpecParser() {
+=======
+    public final boolean synpred12_InternalReqSpecParser() {
+>>>>>>> refs/remotes/origin/PeterWork
         state.backtracking++;
         int start = input.mark();
         try {
+<<<<<<< HEAD
+            synpred5_InternalReqSpecParser_fragment(); // can never throw exception
+=======
+            synpred12_InternalReqSpecParser_fragment(); // can never throw exception
+>>>>>>> refs/remotes/origin/PeterWork
+        } catch (RecognitionException re) {
+            System.err.println("impossible: "+re);
+        }
+        boolean success = !state.failed;
+        input.rewind(start);
+        state.backtracking--;
+        state.failed=false;
+        return success;
+    }
+<<<<<<< HEAD
+    public final boolean synpred6_InternalReqSpecParser() {
+=======
+    public final boolean synpred5_InternalReqSpecParser() {
+>>>>>>> refs/remotes/origin/PeterWork
+        state.backtracking++;
+        int start = input.mark();
+        try {
+<<<<<<< HEAD
+=======
             synpred5_InternalReqSpecParser_fragment(); // can never throw exception
         } catch (RecognitionException re) {
             System.err.println("impossible: "+re);
@@ -21216,6 +26981,7 @@ public class InternalReqSpecParser extends AbstractInternalAntlrParser {
         state.backtracking++;
         int start = input.mark();
         try {
+>>>>>>> refs/remotes/origin/PeterWork
             synpred6_InternalReqSpecParser_fragment(); // can never throw exception
         } catch (RecognitionException re) {
             System.err.println("impossible: "+re);
@@ -21241,15 +27007,27 @@ public class InternalReqSpecParser extends AbstractInternalAntlrParser {
     static final String DFA46_minS =
         "\1\10\13\uffff\1\30\1\uffff\1\13\2\uffff";
     static final String DFA46_maxS =
+<<<<<<< HEAD
         "\1\120\13\uffff\1\30\1\uffff\1\135\2\uffff";
+=======
+        "\1\117\13\uffff\1\30\1\uffff\1\125\2\uffff";
+>>>>>>> refs/remotes/origin/PeterWork
     static final String DFA46_acceptS =
         "\1\uffff\1\16\1\1\1\2\1\3\1\4\1\5\1\6\1\7\1\10\1\11\1\12\1\uffff"+
         "\1\15\1\uffff\1\13\1\14";
     static final String DFA46_specialS =
+<<<<<<< HEAD
         "\1\1\13\uffff\1\0\1\uffff\1\2\2\uffff}>";
+=======
+        "\1\0\13\uffff\1\2\1\uffff\1\1\2\uffff}>";
+>>>>>>> refs/remotes/origin/PeterWork
     static final String[] DFA46_transitionS = {
             "\1\3\3\uffff\1\13\1\6\3\uffff\1\10\3\uffff\1\5\1\uffff\1\2"+
+<<<<<<< HEAD
             "\3\uffff\1\12\1\11\1\7\1\uffff\1\15\20\uffff\1\14\1\uffff\1"+
+=======
+            "\3\uffff\1\12\1\11\1\7\1\uffff\1\15\17\uffff\1\14\1\uffff\1"+
+>>>>>>> refs/remotes/origin/PeterWork
             "\4\35\uffff\1\1",
             "",
             "",
@@ -21264,7 +27042,11 @@ public class InternalReqSpecParser extends AbstractInternalAntlrParser {
             "",
             "\1\16",
             "",
+<<<<<<< HEAD
             "\1\17\121\uffff\1\20",
+=======
+            "\1\17\111\uffff\1\20",
+>>>>>>> refs/remotes/origin/PeterWork
             "",
             ""
     };
@@ -21306,6 +27088,7 @@ public class InternalReqSpecParser extends AbstractInternalAntlrParser {
         	int _s = s;
             switch ( s ) {
                     case 0 : 
+<<<<<<< HEAD
                         int LA46_12 = input.LA(1);
 
                          
@@ -21319,6 +27102,8 @@ public class InternalReqSpecParser extends AbstractInternalAntlrParser {
                         if ( s>=0 ) return s;
                         break;
                     case 1 : 
+=======
+>>>>>>> refs/remotes/origin/PeterWork
                         int LA46_0 = input.LA(1);
 
                          
@@ -21355,6 +27140,7 @@ public class InternalReqSpecParser extends AbstractInternalAntlrParser {
                         input.seek(index46_0);
                         if ( s>=0 ) return s;
                         break;
+<<<<<<< HEAD
                     case 2 : 
                         int LA46_14 = input.LA(1);
 
@@ -21368,6 +27154,34 @@ public class InternalReqSpecParser extends AbstractInternalAntlrParser {
 
                          
                         input.seek(index46_14);
+=======
+                    case 1 : 
+                        int LA46_14 = input.LA(1);
+
+                         
+                        int index46_14 = input.index();
+                        input.rewind();
+                        s = -1;
+                        if ( LA46_14 ==Requirement && getUnorderedGroupHelper().canSelect(grammarAccess.getDocGoalAccess().getUnorderedGroup_5(), 10) ) {s = 15;}
+
+                        else if ( LA46_14 ==RULE_ID && getUnorderedGroupHelper().canSelect(grammarAccess.getDocGoalAccess().getUnorderedGroup_5(), 11) ) {s = 16;}
+
+                         
+                        input.seek(index46_14);
+                        if ( s>=0 ) return s;
+                        break;
+                    case 2 : 
+                        int LA46_12 = input.LA(1);
+
+                         
+                        int index46_12 = input.index();
+                        input.rewind();
+                        s = -1;
+                        if ( LA46_12 ==Document && ( getUnorderedGroupHelper().canSelect(grammarAccess.getDocGoalAccess().getUnorderedGroup_5(), 10) || getUnorderedGroupHelper().canSelect(grammarAccess.getDocGoalAccess().getUnorderedGroup_5(), 11) ) ) {s = 14;}
+
+                         
+                        input.seek(index46_12);
+>>>>>>> refs/remotes/origin/PeterWork
                         if ( s>=0 ) return s;
                         break;
             }
@@ -21385,15 +27199,23 @@ public class InternalReqSpecParser extends AbstractInternalAntlrParser {
     static final String DFA59_minS =
         "\1\10\13\uffff\1\30\1\uffff\1\13\2\uffff";
     static final String DFA59_maxS =
+<<<<<<< HEAD
         "\1\120\13\uffff\1\30\1\uffff\1\135\2\uffff";
+=======
+        "\1\117\13\uffff\1\30\1\uffff\1\125\2\uffff";
+>>>>>>> refs/remotes/origin/PeterWork
     static final String DFA59_acceptS =
         "\1\uffff\1\16\1\1\1\2\1\3\1\4\1\5\1\6\1\7\1\10\1\11\1\12\1\uffff"+
         "\1\15\1\uffff\1\14\1\13";
     static final String DFA59_specialS =
-        "\1\1\13\uffff\1\2\1\uffff\1\0\2\uffff}>";
+        "\1\0\13\uffff\1\1\1\uffff\1\2\2\uffff}>";
     static final String[] DFA59_transitionS = {
             "\1\3\3\uffff\1\13\1\6\3\uffff\1\10\3\uffff\1\5\1\uffff\1\2"+
+<<<<<<< HEAD
             "\3\uffff\1\12\1\11\1\7\1\uffff\1\15\20\uffff\1\14\1\uffff\1"+
+=======
+            "\3\uffff\1\12\1\11\1\7\1\uffff\1\15\17\uffff\1\14\1\uffff\1"+
+>>>>>>> refs/remotes/origin/PeterWork
             "\4\35\uffff\1\1",
             "",
             "",
@@ -21408,7 +27230,11 @@ public class InternalReqSpecParser extends AbstractInternalAntlrParser {
             "",
             "\1\16",
             "",
+<<<<<<< HEAD
             "\1\20\121\uffff\1\17",
+=======
+            "\1\20\111\uffff\1\17",
+>>>>>>> refs/remotes/origin/PeterWork
             "",
             ""
     };
@@ -21450,21 +27276,6 @@ public class InternalReqSpecParser extends AbstractInternalAntlrParser {
         	int _s = s;
             switch ( s ) {
                     case 0 : 
-                        int LA59_14 = input.LA(1);
-
-                         
-                        int index59_14 = input.index();
-                        input.rewind();
-                        s = -1;
-                        if ( LA59_14 ==RULE_ID && getUnorderedGroupHelper().canSelect(grammarAccess.getGoalAccess().getUnorderedGroup_5(), 11) ) {s = 15;}
-
-                        else if ( LA59_14 ==Requirement && getUnorderedGroupHelper().canSelect(grammarAccess.getGoalAccess().getUnorderedGroup_5(), 10) ) {s = 16;}
-
-                         
-                        input.seek(index59_14);
-                        if ( s>=0 ) return s;
-                        break;
-                    case 1 : 
                         int LA59_0 = input.LA(1);
 
                          
@@ -21501,7 +27312,7 @@ public class InternalReqSpecParser extends AbstractInternalAntlrParser {
                         input.seek(index59_0);
                         if ( s>=0 ) return s;
                         break;
-                    case 2 : 
+                    case 1 : 
                         int LA59_12 = input.LA(1);
 
                          
@@ -21512,6 +27323,21 @@ public class InternalReqSpecParser extends AbstractInternalAntlrParser {
 
                          
                         input.seek(index59_12);
+                        if ( s>=0 ) return s;
+                        break;
+                    case 2 : 
+                        int LA59_14 = input.LA(1);
+
+                         
+                        int index59_14 = input.index();
+                        input.rewind();
+                        s = -1;
+                        if ( LA59_14 ==RULE_ID && getUnorderedGroupHelper().canSelect(grammarAccess.getGoalAccess().getUnorderedGroup_5(), 11) ) {s = 15;}
+
+                        else if ( LA59_14 ==Requirement && getUnorderedGroupHelper().canSelect(grammarAccess.getGoalAccess().getUnorderedGroup_5(), 10) ) {s = 16;}
+
+                         
+                        input.seek(index59_14);
                         if ( s>=0 ) return s;
                         break;
             }
@@ -21527,17 +27353,33 @@ public class InternalReqSpecParser extends AbstractInternalAntlrParser {
     static final String DFA76_eofS =
         "\26\uffff";
     static final String DFA76_minS =
+<<<<<<< HEAD
         "\1\10\16\uffff\1\30\2\uffff\1\13\3\uffff";
+=======
+        "\1\10\16\uffff\1\30\1\uffff\1\13\4\uffff";
+>>>>>>> refs/remotes/origin/PeterWork
     static final String DFA76_maxS =
+<<<<<<< HEAD
         "\1\120\16\uffff\1\45\2\uffff\1\135\3\uffff";
+=======
+        "\1\117\16\uffff\1\44\1\uffff\1\125\4\uffff";
+>>>>>>> refs/remotes/origin/PeterWork
     static final String DFA76_acceptS =
         "\1\uffff\1\23\1\1\1\2\1\3\1\4\1\5\1\6\1\7\1\10\1\11\1\12\1\13\1"+
-        "\14\1\15\1\uffff\1\22\1\16\1\uffff\1\21\1\17\1\20";
+        "\14\1\15\1\uffff\1\22\1\uffff\1\16\1\21\1\17\1\20";
     static final String DFA76_specialS =
+<<<<<<< HEAD
         "\1\0\16\uffff\1\2\2\uffff\1\1\3\uffff}>";
+=======
+        "\1\0\16\uffff\1\1\1\uffff\1\2\4\uffff}>";
+>>>>>>> refs/remotes/origin/PeterWork
     static final String[] DFA76_transitionS = {
             "\1\3\1\16\3\uffff\1\10\1\uffff\1\13\3\uffff\1\11\1\6\1\7\1"+
+<<<<<<< HEAD
             "\uffff\1\2\1\uffff\1\6\1\5\1\15\1\14\1\12\1\uffff\1\20\4\uffff"+
+=======
+            "\uffff\1\2\1\uffff\1\6\1\5\1\15\1\14\1\12\1\uffff\1\20\3\uffff"+
+>>>>>>> refs/remotes/origin/PeterWork
             "\1\6\13\uffff\1\17\1\uffff\1\4\35\uffff\1\1",
             "",
             "",
@@ -21553,10 +27395,18 @@ public class InternalReqSpecParser extends AbstractInternalAntlrParser {
             "",
             "",
             "",
+<<<<<<< HEAD
             "\1\22\14\uffff\1\21",
+=======
+            "\1\21\13\uffff\1\22",
+>>>>>>> refs/remotes/origin/PeterWork
             "",
+            "\1\25\30\uffff\1\24\60\uffff\1\23",
             "",
+<<<<<<< HEAD
             "\1\25\31\uffff\1\24\67\uffff\1\23",
+=======
+>>>>>>> refs/remotes/origin/PeterWork
             "",
             "",
             ""
@@ -21642,6 +27492,7 @@ public class InternalReqSpecParser extends AbstractInternalAntlrParser {
                         if ( s>=0 ) return s;
                         break;
                     case 1 : 
+<<<<<<< HEAD
                         int LA76_18 = input.LA(1);
 
                          
@@ -21659,18 +27510,37 @@ public class InternalReqSpecParser extends AbstractInternalAntlrParser {
                         if ( s>=0 ) return s;
                         break;
                     case 2 : 
+=======
+>>>>>>> refs/remotes/origin/PeterWork
                         int LA76_15 = input.LA(1);
 
                          
                         int index76_15 = input.index();
                         input.rewind();
                         s = -1;
-                        if ( LA76_15 ==Goal && getUnorderedGroupHelper().canSelect(grammarAccess.getRequirementAccess().getUnorderedGroup_5(), 13) ) {s = 17;}
+                        if ( LA76_15 ==Document && ( getUnorderedGroupHelper().canSelect(grammarAccess.getRequirementAccess().getUnorderedGroup_5(), 15) || getUnorderedGroupHelper().canSelect(grammarAccess.getRequirementAccess().getUnorderedGroup_5(), 14) || getUnorderedGroupHelper().canSelect(grammarAccess.getRequirementAccess().getUnorderedGroup_5(), 16) ) ) {s = 17;}
 
-                        else if ( LA76_15 ==Document && ( getUnorderedGroupHelper().canSelect(grammarAccess.getRequirementAccess().getUnorderedGroup_5(), 15) || getUnorderedGroupHelper().canSelect(grammarAccess.getRequirementAccess().getUnorderedGroup_5(), 14) || getUnorderedGroupHelper().canSelect(grammarAccess.getRequirementAccess().getUnorderedGroup_5(), 16) ) ) {s = 18;}
+                        else if ( LA76_15 ==Goal && getUnorderedGroupHelper().canSelect(grammarAccess.getRequirementAccess().getUnorderedGroup_5(), 13) ) {s = 18;}
 
                          
                         input.seek(index76_15);
+                        if ( s>=0 ) return s;
+                        break;
+                    case 2 : 
+                        int LA76_17 = input.LA(1);
+
+                         
+                        int index76_17 = input.index();
+                        input.rewind();
+                        s = -1;
+                        if ( LA76_17 ==RULE_ID && getUnorderedGroupHelper().canSelect(grammarAccess.getRequirementAccess().getUnorderedGroup_5(), 16) ) {s = 19;}
+
+                        else if ( LA76_17 ==Goal && getUnorderedGroupHelper().canSelect(grammarAccess.getRequirementAccess().getUnorderedGroup_5(), 14) ) {s = 20;}
+
+                        else if ( LA76_17 ==Requirement && getUnorderedGroupHelper().canSelect(grammarAccess.getRequirementAccess().getUnorderedGroup_5(), 15) ) {s = 21;}
+
+                         
+                        input.seek(index76_17);
                         if ( s>=0 ) return s;
                         break;
             }
@@ -21688,15 +27558,27 @@ public class InternalReqSpecParser extends AbstractInternalAntlrParser {
     static final String DFA95_minS =
         "\1\10\16\uffff\1\30\1\uffff\1\13\4\uffff";
     static final String DFA95_maxS =
+<<<<<<< HEAD
         "\1\120\16\uffff\1\45\1\uffff\1\135\4\uffff";
+=======
+        "\1\117\16\uffff\1\44\1\uffff\1\125\4\uffff";
+>>>>>>> refs/remotes/origin/PeterWork
     static final String DFA95_acceptS =
         "\1\uffff\1\23\1\1\1\2\1\3\1\4\1\5\1\6\1\7\1\10\1\11\1\12\1\13\1"+
         "\14\1\15\1\uffff\1\22\1\uffff\1\16\1\20\1\21\1\17";
     static final String DFA95_specialS =
+<<<<<<< HEAD
         "\1\0\16\uffff\1\1\1\uffff\1\2\4\uffff}>";
+=======
+        "\1\1\16\uffff\1\0\1\uffff\1\2\4\uffff}>";
+>>>>>>> refs/remotes/origin/PeterWork
     static final String[] DFA95_transitionS = {
             "\1\3\1\16\3\uffff\1\10\1\uffff\1\13\3\uffff\1\11\1\6\1\7\1"+
+<<<<<<< HEAD
             "\uffff\1\2\1\uffff\1\6\1\5\1\15\1\14\1\12\1\uffff\1\20\4\uffff"+
+=======
+            "\uffff\1\2\1\uffff\1\6\1\5\1\15\1\14\1\12\1\uffff\1\20\3\uffff"+
+>>>>>>> refs/remotes/origin/PeterWork
             "\1\6\13\uffff\1\17\1\uffff\1\4\35\uffff\1\1",
             "",
             "",
@@ -21712,9 +27594,17 @@ public class InternalReqSpecParser extends AbstractInternalAntlrParser {
             "",
             "",
             "",
+<<<<<<< HEAD
             "\1\21\14\uffff\1\22",
+=======
+            "\1\21\13\uffff\1\22",
+>>>>>>> refs/remotes/origin/PeterWork
             "",
+<<<<<<< HEAD
             "\1\23\31\uffff\1\25\67\uffff\1\24",
+=======
+            "\1\23\30\uffff\1\25\60\uffff\1\24",
+>>>>>>> refs/remotes/origin/PeterWork
             "",
             "",
             "",
@@ -21758,6 +27648,24 @@ public class InternalReqSpecParser extends AbstractInternalAntlrParser {
         	int _s = s;
             switch ( s ) {
                     case 0 : 
+<<<<<<< HEAD
+=======
+                        int LA95_15 = input.LA(1);
+
+                         
+                        int index95_15 = input.index();
+                        input.rewind();
+                        s = -1;
+                        if ( LA95_15 ==Document && ( getUnorderedGroupHelper().canSelect(grammarAccess.getDocRequirementAccess().getUnorderedGroup_5(), 16) || getUnorderedGroupHelper().canSelect(grammarAccess.getDocRequirementAccess().getUnorderedGroup_5(), 15) || getUnorderedGroupHelper().canSelect(grammarAccess.getDocRequirementAccess().getUnorderedGroup_5(), 14) ) ) {s = 17;}
+
+                        else if ( LA95_15 ==Goal && getUnorderedGroupHelper().canSelect(grammarAccess.getDocRequirementAccess().getUnorderedGroup_5(), 13) ) {s = 18;}
+
+                         
+                        input.seek(index95_15);
+                        if ( s>=0 ) return s;
+                        break;
+                    case 1 : 
+>>>>>>> refs/remotes/origin/PeterWork
                         int LA95_0 = input.LA(1);
 
                          
@@ -21800,6 +27708,7 @@ public class InternalReqSpecParser extends AbstractInternalAntlrParser {
                         input.seek(index95_0);
                         if ( s>=0 ) return s;
                         break;
+<<<<<<< HEAD
                     case 1 : 
                         int LA95_15 = input.LA(1);
 
@@ -21815,6 +27724,8 @@ public class InternalReqSpecParser extends AbstractInternalAntlrParser {
                         input.seek(index95_15);
                         if ( s>=0 ) return s;
                         break;
+=======
+>>>>>>> refs/remotes/origin/PeterWork
                     case 2 : 
                         int LA95_17 = input.LA(1);
 
@@ -21845,6 +27756,7 @@ public class InternalReqSpecParser extends AbstractInternalAntlrParser {
     static final String DFA114_eofS =
         "\1\1\15\uffff";
     static final String DFA114_minS =
+<<<<<<< HEAD
         "\1\10\1\uffff\2\42\12\uffff";
     static final String DFA114_maxS =
         "\1\122\1\uffff\2\136\12\uffff";
@@ -21865,6 +27777,28 @@ public class InternalReqSpecParser extends AbstractInternalAntlrParser {
             "\1\1\3\uffff\1\1\1\uffff\1\1\16\uffff\1\14\7\uffff\2\1\1\uffff"+
             "\1\1\2\uffff\1\1\1\uffff\1\1\5\uffff\1\15\3\uffff\1\1\4\uffff"+
             "\1\1\1\uffff\1\1\4\uffff\2\1",
+=======
+        "\1\10\1\uffff\2\41\12\uffff";
+    static final String DFA114_maxS =
+        "\1\121\1\uffff\2\126\12\uffff";
+    static final String DFA114_acceptS =
+        "\1\uffff\1\2\2\uffff\12\1";
+    static final String DFA114_specialS =
+        "\1\1\1\uffff\1\2\1\0\12\uffff}>";
+    static final String[] DFA114_transitionS = {
+            "\2\1\1\uffff\3\1\1\uffff\1\1\1\uffff\1\1\1\uffff\3\1\1\uffff"+
+            "\1\1\1\uffff\5\1\1\uffff\1\1\3\uffff\2\1\4\uffff\1\1\1\5\1\1"+
+            "\3\uffff\1\1\1\uffff\3\1\1\uffff\1\4\1\6\1\uffff\1\10\1\1\1"+
+            "\7\1\1\1\11\1\1\4\uffff\1\1\2\uffff\1\1\4\uffff\1\2\1\uffff"+
+            "\1\3\2\uffff\1\1\1\uffff\1\1",
+            "",
+            "\1\1\3\uffff\1\1\1\uffff\1\1\22\uffff\1\13\3\uffff\2\1\1\uffff"+
+            "\1\1\2\uffff\1\1\1\uffff\1\1\3\uffff\1\12\1\1\6\uffff\3\1\1"+
+            "\uffff\1\1",
+            "\1\1\3\uffff\1\1\1\uffff\1\1\16\uffff\1\14\7\uffff\2\1\1\uffff"+
+            "\1\1\2\uffff\1\1\1\uffff\1\1\5\uffff\1\15\5\uffff\3\1\1\uffff"+
+            "\1\1",
+>>>>>>> refs/remotes/origin/PeterWork
             "",
             "",
             "",
@@ -21907,27 +27841,53 @@ public class InternalReqSpecParser extends AbstractInternalAntlrParser {
             this.transition = DFA114_transition;
         }
         public String getDescription() {
+<<<<<<< HEAD
             return "()* loopback of 5774:1: ( ( ( ( () ( ( ruleOpOther ) ) ) )=> ( () ( (lv_feature_2_0= ruleOpOther ) ) ) ) ( (lv_rightOperand_3_0= ruleAAdditiveExpression ) ) )*";
+=======
+            return "()* loopback of 5736:1: ( ( ( ( () ( ( ruleOpOther ) ) ) )=> ( () ( (lv_feature_2_0= ruleOpOther ) ) ) ) ( (lv_rightOperand_3_0= ruleAAdditiveExpression ) ) )*";
+>>>>>>> refs/remotes/origin/PeterWork
         }
         public int specialStateTransition(int s, IntStream _input) throws NoViableAltException {
             TokenStream input = (TokenStream)_input;
         	int _s = s;
             switch ( s ) {
                     case 0 : 
+<<<<<<< HEAD
                         int LA114_2 = input.LA(1);
+=======
+                        int LA114_3 = input.LA(1);
+>>>>>>> refs/remotes/origin/PeterWork
 
                          
+<<<<<<< HEAD
                         int index114_2 = input.index();
+=======
+                        int index114_3 = input.index();
+>>>>>>> refs/remotes/origin/PeterWork
                         input.rewind();
                         s = -1;
+<<<<<<< HEAD
                         if ( (LA114_2==False||LA114_2==Null||LA114_2==True||(LA114_2>=ExclamationMark && LA114_2<=NumberSign)||LA114_2==LeftParenthesis||LA114_2==PlusSign||LA114_2==HyphenMinus||LA114_2==EqualsSign||LA114_2==LeftCurlyBracket||LA114_2==RULE_REAL_LIT||LA114_2==RULE_INTEGER_LIT||(LA114_2>=RULE_ID && LA114_2<=RULE_STRING)) ) {s = 1;}
+=======
+                        if ( (LA114_3==False||LA114_3==Null||LA114_3==True||(LA114_3>=ExclamationMark && LA114_3<=NumberSign)||LA114_3==LeftParenthesis||LA114_3==PlusSign||LA114_3==HyphenMinus||(LA114_3>=RULE_HEX && LA114_3<=RULE_DECIMAL)||LA114_3==RULE_STRING) ) {s = 1;}
+>>>>>>> refs/remotes/origin/PeterWork
 
+<<<<<<< HEAD
                         else if ( (LA114_2==LessThanSign) && (synpred7_InternalReqSpecParser())) {s = 10;}
 
                         else if ( (LA114_2==EqualsSignGreaterThanSign) && (synpred7_InternalReqSpecParser())) {s = 11;}
+=======
+                        else if ( (LA114_3==FullStopFullStop) && (synpred7_InternalReqSpecParser())) {s = 12;}
+
+                        else if ( (LA114_3==GreaterThanSign) && (synpred7_InternalReqSpecParser())) {s = 13;}
+>>>>>>> refs/remotes/origin/PeterWork
 
                          
+<<<<<<< HEAD
                         input.seek(index114_2);
+=======
+                        input.seek(index114_3);
+>>>>>>> refs/remotes/origin/PeterWork
                         if ( s>=0 ) return s;
                         break;
                     case 1 : 
@@ -21960,20 +27920,42 @@ public class InternalReqSpecParser extends AbstractInternalAntlrParser {
                         if ( s>=0 ) return s;
                         break;
                     case 2 : 
+<<<<<<< HEAD
                         int LA114_3 = input.LA(1);
+=======
+                        int LA114_2 = input.LA(1);
+>>>>>>> refs/remotes/origin/PeterWork
 
                          
+<<<<<<< HEAD
                         int index114_3 = input.index();
+=======
+                        int index114_2 = input.index();
+>>>>>>> refs/remotes/origin/PeterWork
                         input.rewind();
                         s = -1;
+<<<<<<< HEAD
                         if ( (LA114_3==False||LA114_3==Null||LA114_3==True||(LA114_3>=ExclamationMark && LA114_3<=NumberSign)||LA114_3==LeftParenthesis||LA114_3==PlusSign||LA114_3==HyphenMinus||LA114_3==LeftCurlyBracket||LA114_3==RULE_REAL_LIT||LA114_3==RULE_INTEGER_LIT||(LA114_3>=RULE_ID && LA114_3<=RULE_STRING)) ) {s = 1;}
+=======
+                        if ( (LA114_2==False||LA114_2==Null||LA114_2==True||(LA114_2>=ExclamationMark && LA114_2<=NumberSign)||LA114_2==LeftParenthesis||LA114_2==PlusSign||LA114_2==HyphenMinus||LA114_2==EqualsSign||(LA114_2>=RULE_HEX && LA114_2<=RULE_DECIMAL)||LA114_2==RULE_STRING) ) {s = 1;}
+>>>>>>> refs/remotes/origin/PeterWork
 
+<<<<<<< HEAD
                         else if ( (LA114_3==FullStopFullStop) && (synpred7_InternalReqSpecParser())) {s = 12;}
 
                         else if ( (LA114_3==GreaterThanSign) && (synpred7_InternalReqSpecParser())) {s = 13;}
+=======
+                        else if ( (LA114_2==LessThanSign) && (synpred7_InternalReqSpecParser())) {s = 10;}
+
+                        else if ( (LA114_2==EqualsSignGreaterThanSign) && (synpred7_InternalReqSpecParser())) {s = 11;}
+>>>>>>> refs/remotes/origin/PeterWork
 
                          
+<<<<<<< HEAD
                         input.seek(index114_3);
+=======
+                        input.seek(index114_2);
+>>>>>>> refs/remotes/origin/PeterWork
                         if ( s>=0 ) return s;
                         break;
             }
@@ -21989,11 +27971,19 @@ public class InternalReqSpecParser extends AbstractInternalAntlrParser {
     static final String DFA117_eofS =
         "\13\uffff";
     static final String DFA117_minS =
+<<<<<<< HEAD
         "\1\53\2\uffff\1\67\7\uffff";
     static final String DFA117_maxS =
         "\1\115\2\uffff\1\115\7\uffff";
     static final String DFA117_acceptS =
         "\1\uffff\1\1\1\2\1\uffff\1\4\1\5\1\7\1\10\1\11\1\6\1\3";
+=======
+        "\1\52\2\uffff\1\66\7\uffff";
+    static final String DFA117_maxS =
+        "\1\114\2\uffff\1\114\7\uffff";
+    static final String DFA117_acceptS =
+        "\1\uffff\1\1\1\2\1\uffff\1\4\1\5\1\7\1\10\1\11\1\3\1\6";
+>>>>>>> refs/remotes/origin/PeterWork
     static final String DFA117_specialS =
         "\13\uffff}>";
     static final String[] DFA117_transitionS = {
@@ -22001,7 +27991,11 @@ public class InternalReqSpecParser extends AbstractInternalAntlrParser {
             "\15\uffff\1\6\1\uffff\1\3",
             "",
             "",
+<<<<<<< HEAD
             "\1\12\25\uffff\1\11",
+=======
+            "\1\11\25\uffff\1\12",
+>>>>>>> refs/remotes/origin/PeterWork
             "",
             "",
             "",
@@ -22041,7 +28035,11 @@ public class InternalReqSpecParser extends AbstractInternalAntlrParser {
             this.transition = DFA117_transition;
         }
         public String getDescription() {
+<<<<<<< HEAD
             return "5843:1: (kw= HyphenMinusGreaterThanSign | kw= FullStopFullStopLessThanSign | (kw= GreaterThanSign kw= FullStopFullStop ) | kw= FullStopFullStop | kw= EqualsSignGreaterThanSign | (kw= GreaterThanSign ( ( ( ( GreaterThanSign GreaterThanSign ) )=> (kw= GreaterThanSign kw= GreaterThanSign ) ) | kw= GreaterThanSign ) ) | (kw= LessThanSign ( ( ( ( LessThanSign LessThanSign ) )=> (kw= LessThanSign kw= LessThanSign ) ) | kw= LessThanSign | kw= EqualsSignGreaterThanSign ) ) | kw= LessThanSignGreaterThanSign | kw= QuestionMarkColon )";
+=======
+            return "5805:1: (kw= HyphenMinusGreaterThanSign | kw= FullStopFullStopLessThanSign | (kw= GreaterThanSign kw= FullStopFullStop ) | kw= FullStopFullStop | kw= EqualsSignGreaterThanSign | (kw= GreaterThanSign ( ( ( ( GreaterThanSign GreaterThanSign ) )=> (kw= GreaterThanSign kw= GreaterThanSign ) ) | kw= GreaterThanSign ) ) | (kw= LessThanSign ( ( ( ( LessThanSign LessThanSign ) )=> (kw= LessThanSign kw= LessThanSign ) ) | kw= LessThanSign | kw= EqualsSignGreaterThanSign ) ) | kw= LessThanSignGreaterThanSign | kw= QuestionMarkColon )";
+>>>>>>> refs/remotes/origin/PeterWork
         }
     }
  
@@ -22056,13 +28054,21 @@ public class InternalReqSpecParser extends AbstractInternalAntlrParser {
         public static final BitSet FOLLOW_ruleGlobalConstants_in_ruleReqSpec181 = new BitSet(new long[]{0x0000000101041002L});
         public static final BitSet FOLLOW_ruleGlobalConstants_in_entryRuleGlobalConstants221 = new BitSet(new long[]{0x0000000000000000L});
         public static final BitSet FOLLOW_EOF_in_entryRuleGlobalConstants231 = new BitSet(new long[]{0x0000000000000002L});
+<<<<<<< HEAD
         public static final BitSet FOLLOW_Constants_in_ruleGlobalConstants269 = new BitSet(new long[]{0x0000000000000000L,0x0000000020000000L});
         public static final BitSet FOLLOW_ruleQualifiedName_in_ruleGlobalConstants289 = new BitSet(new long[]{0x0000000000000000L,0x0000000000008000L});
         public static final BitSet FOLLOW_LeftSquareBracket_in_ruleGlobalConstants302 = new BitSet(new long[]{0x0004000000000000L,0x0000000000010000L});
         public static final BitSet FOLLOW_ruleValDeclaration_in_ruleGlobalConstants322 = new BitSet(new long[]{0x0004000000000000L,0x0000000000010000L});
+=======
+        public static final BitSet FOLLOW_Constants_in_ruleGlobalConstants269 = new BitSet(new long[]{0x0000000000000000L,0x0000000000200000L});
+        public static final BitSet FOLLOW_ruleQualifiedName_in_ruleGlobalConstants289 = new BitSet(new long[]{0x0000000000000000L,0x0000000000004000L});
+        public static final BitSet FOLLOW_LeftSquareBracket_in_ruleGlobalConstants302 = new BitSet(new long[]{0x0002000000000000L,0x0000000000008000L});
+        public static final BitSet FOLLOW_ruleValDeclaration_in_ruleGlobalConstants322 = new BitSet(new long[]{0x0002000000000000L,0x0000000000008000L});
+>>>>>>> refs/remotes/origin/PeterWork
         public static final BitSet FOLLOW_RightSquareBracket_in_ruleGlobalConstants336 = new BitSet(new long[]{0x0000000000000002L});
         public static final BitSet FOLLOW_ruleStakeholderGoals_in_entryRuleStakeholderGoals374 = new BitSet(new long[]{0x0000000000000000L});
         public static final BitSet FOLLOW_EOF_in_entryRuleStakeholderGoals384 = new BitSet(new long[]{0x0000000000000002L});
+<<<<<<< HEAD
         public static final BitSet FOLLOW_Stakeholder_in_ruleStakeholderGoals422 = new BitSet(new long[]{0x0000000800000000L});
         public static final BitSet FOLLOW_Goals_in_ruleStakeholderGoals434 = new BitSet(new long[]{0x0000000000000000L,0x0000000020000000L});
         public static final BitSet FOLLOW_ruleQualifiedName_in_ruleStakeholderGoals454 = new BitSet(new long[]{0x0000400000000000L,0x0000000000000400L});
@@ -22084,9 +28090,33 @@ public class InternalReqSpecParser extends AbstractInternalAntlrParser {
         public static final BitSet FOLLOW_ruleExternalDocument_in_ruleStakeholderGoals973 = new BitSet(new long[]{0x0005002080000100L,0x0000000020010000L});
         public static final BitSet FOLLOW_Issues_in_ruleStakeholderGoals1043 = new BitSet(new long[]{0x0000000000000000L,0x0000000040000000L});
         public static final BitSet FOLLOW_RULE_STRING_in_ruleStakeholderGoals1059 = new BitSet(new long[]{0x0005002080000100L,0x0000000040010000L});
+=======
+        public static final BitSet FOLLOW_Stakeholder_in_ruleStakeholderGoals422 = new BitSet(new long[]{0x0000000400000000L});
+        public static final BitSet FOLLOW_Goals_in_ruleStakeholderGoals434 = new BitSet(new long[]{0x0000000000000000L,0x0000000000200000L});
+        public static final BitSet FOLLOW_ruleQualifiedName_in_ruleStakeholderGoals454 = new BitSet(new long[]{0x0000200000000000L,0x0000000000000200L});
+        public static final BitSet FOLLOW_Colon_in_ruleStakeholderGoals468 = new BitSet(new long[]{0x0000000000000000L,0x0000000000400000L});
+        public static final BitSet FOLLOW_RULE_STRING_in_ruleStakeholderGoals484 = new BitSet(new long[]{0x0000200000000000L});
+        public static final BitSet FOLLOW_For_in_ruleStakeholderGoals505 = new BitSet(new long[]{0x0000100000000000L,0x0000000000200000L});
+        public static final BitSet FOLLOW_ruleAadlClassifierReference_in_ruleStakeholderGoals528 = new BitSet(new long[]{0x0001000000000000L,0x0000000000004000L});
+        public static final BitSet FOLLOW_RULE_ID_in_ruleStakeholderGoals554 = new BitSet(new long[]{0x0001000000000000L,0x0000000000004000L});
+        public static final BitSet FOLLOW_All_in_ruleStakeholderGoals579 = new BitSet(new long[]{0x0001000000000000L,0x0000000000004000L});
+        public static final BitSet FOLLOW_Use_in_ruleStakeholderGoals606 = new BitSet(new long[]{0x0000000000040000L});
+        public static final BitSet FOLLOW_Constants_in_ruleStakeholderGoals618 = new BitSet(new long[]{0x0000000000000000L,0x0000000000200000L});
+        public static final BitSet FOLLOW_ruleQualifiedName_in_ruleStakeholderGoals640 = new BitSet(new long[]{0x0000000000000000L,0x0000000000204000L});
+        public static final BitSet FOLLOW_LeftSquareBracket_in_ruleStakeholderGoals656 = new BitSet(new long[]{0x0002801080000100L,0x0000000000008000L});
+        public static final BitSet FOLLOW_ruleDescription_in_ruleStakeholderGoals721 = new BitSet(new long[]{0x0002801080000100L,0x0000000000008000L});
+        public static final BitSet FOLLOW_ruleValDeclaration_in_ruleStakeholderGoals796 = new BitSet(new long[]{0x0002801080000100L,0x0000000000008000L});
+        public static final BitSet FOLLOW_ruleGoal_in_ruleStakeholderGoals872 = new BitSet(new long[]{0x0002801080000100L,0x0000000000008000L});
+        public static final BitSet FOLLOW_See_in_ruleStakeholderGoals941 = new BitSet(new long[]{0x0000000001000000L});
+        public static final BitSet FOLLOW_Document_in_ruleStakeholderGoals953 = new BitSet(new long[]{0x0000000000000000L,0x0000000000200000L});
+        public static final BitSet FOLLOW_ruleExternalDocument_in_ruleStakeholderGoals973 = new BitSet(new long[]{0x0002801080000100L,0x0000000000208000L});
+        public static final BitSet FOLLOW_Issues_in_ruleStakeholderGoals1043 = new BitSet(new long[]{0x0000000000000000L,0x0000000000400000L});
+        public static final BitSet FOLLOW_RULE_STRING_in_ruleStakeholderGoals1059 = new BitSet(new long[]{0x0002801080000100L,0x0000000000408000L});
+>>>>>>> refs/remotes/origin/PeterWork
         public static final BitSet FOLLOW_RightSquareBracket_in_ruleStakeholderGoals1119 = new BitSet(new long[]{0x0000000000000002L});
         public static final BitSet FOLLOW_ruleReqDocument_in_entryRuleReqDocument1153 = new BitSet(new long[]{0x0000000000000000L});
         public static final BitSet FOLLOW_EOF_in_entryRuleReqDocument1163 = new BitSet(new long[]{0x0000000000000002L});
+<<<<<<< HEAD
         public static final BitSet FOLLOW_Document_in_ruleReqDocument1201 = new BitSet(new long[]{0x0000000000000000L,0x0000000020000000L});
         public static final BitSet FOLLOW_ruleQualifiedName_in_ruleReqDocument1221 = new BitSet(new long[]{0x0000000000000000L,0x0000000000008400L});
         public static final BitSet FOLLOW_Colon_in_ruleReqDocument1235 = new BitSet(new long[]{0x0000000000000000L,0x0000000040000000L});
@@ -22098,9 +28128,23 @@ public class InternalReqSpecParser extends AbstractInternalAntlrParser {
         public static final BitSet FOLLOW_ruleDocumentSection_in_ruleReqDocument1451 = new BitSet(new long[]{0x00000020C0000900L,0x0000000000010000L});
         public static final BitSet FOLLOW_Issues_in_ruleReqDocument1523 = new BitSet(new long[]{0x0000000000000000L,0x0000000040000000L});
         public static final BitSet FOLLOW_RULE_STRING_in_ruleReqDocument1539 = new BitSet(new long[]{0x00000020C0000900L,0x0000000040010000L});
+=======
+        public static final BitSet FOLLOW_Document_in_ruleReqDocument1201 = new BitSet(new long[]{0x0000000000000000L,0x0000000000200000L});
+        public static final BitSet FOLLOW_ruleQualifiedName_in_ruleReqDocument1221 = new BitSet(new long[]{0x0000000000000000L,0x0000000000004200L});
+        public static final BitSet FOLLOW_Colon_in_ruleReqDocument1235 = new BitSet(new long[]{0x0000000000000000L,0x0000000000400000L});
+        public static final BitSet FOLLOW_RULE_STRING_in_ruleReqDocument1251 = new BitSet(new long[]{0x0000000000000000L,0x0000000000004000L});
+        public static final BitSet FOLLOW_LeftSquareBracket_in_ruleReqDocument1271 = new BitSet(new long[]{0x00000010C0000900L,0x0000000000008000L});
+        public static final BitSet FOLLOW_ruleDescription_in_ruleReqDocument1336 = new BitSet(new long[]{0x00000010C0000900L,0x0000000000008000L});
+        public static final BitSet FOLLOW_ruleDocGoal_in_ruleReqDocument1413 = new BitSet(new long[]{0x00000010C0000900L,0x0000000000008000L});
+        public static final BitSet FOLLOW_ruleDocRequirement_in_ruleReqDocument1432 = new BitSet(new long[]{0x00000010C0000900L,0x0000000000008000L});
+        public static final BitSet FOLLOW_ruleDocumentSection_in_ruleReqDocument1451 = new BitSet(new long[]{0x00000010C0000900L,0x0000000000008000L});
+        public static final BitSet FOLLOW_Issues_in_ruleReqDocument1523 = new BitSet(new long[]{0x0000000000000000L,0x0000000000400000L});
+        public static final BitSet FOLLOW_RULE_STRING_in_ruleReqDocument1539 = new BitSet(new long[]{0x00000010C0000900L,0x0000000000408000L});
+>>>>>>> refs/remotes/origin/PeterWork
         public static final BitSet FOLLOW_RightSquareBracket_in_ruleReqDocument1599 = new BitSet(new long[]{0x0000000000000002L});
         public static final BitSet FOLLOW_ruleDocumentSection_in_entryRuleDocumentSection1633 = new BitSet(new long[]{0x0000000000000000L});
         public static final BitSet FOLLOW_EOF_in_entryRuleDocumentSection1643 = new BitSet(new long[]{0x0000000000000002L});
+<<<<<<< HEAD
         public static final BitSet FOLLOW_Section_in_ruleDocumentSection1681 = new BitSet(new long[]{0x0000000000000000L,0x0000000020000000L});
         public static final BitSet FOLLOW_RULE_ID_in_ruleDocumentSection1697 = new BitSet(new long[]{0x0000000000000000L,0x0000000000008400L});
         public static final BitSet FOLLOW_Colon_in_ruleDocumentSection1716 = new BitSet(new long[]{0x0000000000000000L,0x0000000040000000L});
@@ -22110,10 +28154,22 @@ public class InternalReqSpecParser extends AbstractInternalAntlrParser {
         public static final BitSet FOLLOW_ruleDocGoal_in_ruleDocumentSection1894 = new BitSet(new long[]{0x0000002040000900L,0x0000000000010000L});
         public static final BitSet FOLLOW_ruleDocRequirement_in_ruleDocumentSection1913 = new BitSet(new long[]{0x0000002040000900L,0x0000000000010000L});
         public static final BitSet FOLLOW_ruleDocumentSection_in_ruleDocumentSection1932 = new BitSet(new long[]{0x0000002040000900L,0x0000000000010000L});
+=======
+        public static final BitSet FOLLOW_Section_in_ruleDocumentSection1681 = new BitSet(new long[]{0x0000000000000000L,0x0000000000200000L});
+        public static final BitSet FOLLOW_RULE_ID_in_ruleDocumentSection1697 = new BitSet(new long[]{0x0000000000000000L,0x0000000000004200L});
+        public static final BitSet FOLLOW_Colon_in_ruleDocumentSection1716 = new BitSet(new long[]{0x0000000000000000L,0x0000000000400000L});
+        public static final BitSet FOLLOW_RULE_STRING_in_ruleDocumentSection1732 = new BitSet(new long[]{0x0000000000000000L,0x0000000000004000L});
+        public static final BitSet FOLLOW_LeftSquareBracket_in_ruleDocumentSection1752 = new BitSet(new long[]{0x0000001040000900L,0x0000000000008000L});
+        public static final BitSet FOLLOW_ruleDescription_in_ruleDocumentSection1817 = new BitSet(new long[]{0x0000001040000900L,0x0000000000008000L});
+        public static final BitSet FOLLOW_ruleDocGoal_in_ruleDocumentSection1894 = new BitSet(new long[]{0x0000001040000900L,0x0000000000008000L});
+        public static final BitSet FOLLOW_ruleDocRequirement_in_ruleDocumentSection1913 = new BitSet(new long[]{0x0000001040000900L,0x0000000000008000L});
+        public static final BitSet FOLLOW_ruleDocumentSection_in_ruleDocumentSection1932 = new BitSet(new long[]{0x0000001040000900L,0x0000000000008000L});
+>>>>>>> refs/remotes/origin/PeterWork
         public static final BitSet FOLLOW_RightSquareBracket_in_ruleDocumentSection1989 = new BitSet(new long[]{0x0000000000000002L});
         public static final BitSet FOLLOW_ruleSystemRequirements_in_entryRuleSystemRequirements2023 = new BitSet(new long[]{0x0000000000000000L});
         public static final BitSet FOLLOW_EOF_in_entryRuleSystemRequirements2033 = new BitSet(new long[]{0x0000000000000002L});
         public static final BitSet FOLLOW_KW_System_in_ruleSystemRequirements2071 = new BitSet(new long[]{0x0000000000000080L});
+<<<<<<< HEAD
         public static final BitSet FOLLOW_Requirements_in_ruleSystemRequirements2083 = new BitSet(new long[]{0x0000000000000000L,0x0000000020000000L});
         public static final BitSet FOLLOW_ruleQualifiedName_in_ruleSystemRequirements2103 = new BitSet(new long[]{0x0000400000000000L,0x0000000000000400L});
         public static final BitSet FOLLOW_Colon_in_ruleSystemRequirements2117 = new BitSet(new long[]{0x0000000000000000L,0x0000000040000000L});
@@ -22135,9 +28191,33 @@ public class InternalReqSpecParser extends AbstractInternalAntlrParser {
         public static final BitSet FOLLOW_ruleExternalDocument_in_ruleSystemRequirements2698 = new BitSet(new long[]{0x0005000084000900L,0x0000000020010000L});
         public static final BitSet FOLLOW_Issues_in_ruleSystemRequirements2768 = new BitSet(new long[]{0x0000000000000000L,0x0000000040000000L});
         public static final BitSet FOLLOW_RULE_STRING_in_ruleSystemRequirements2784 = new BitSet(new long[]{0x0005000084000900L,0x0000000040010000L});
+=======
+        public static final BitSet FOLLOW_Requirements_in_ruleSystemRequirements2083 = new BitSet(new long[]{0x0000000000000000L,0x0000000000200000L});
+        public static final BitSet FOLLOW_ruleQualifiedName_in_ruleSystemRequirements2103 = new BitSet(new long[]{0x0000200000000000L,0x0000000000000200L});
+        public static final BitSet FOLLOW_Colon_in_ruleSystemRequirements2117 = new BitSet(new long[]{0x0000000000000000L,0x0000000000400000L});
+        public static final BitSet FOLLOW_RULE_STRING_in_ruleSystemRequirements2133 = new BitSet(new long[]{0x0000200000000000L});
+        public static final BitSet FOLLOW_For_in_ruleSystemRequirements2154 = new BitSet(new long[]{0x0000100000000000L,0x0000000000200000L});
+        public static final BitSet FOLLOW_ruleAadlClassifierReference_in_ruleSystemRequirements2177 = new BitSet(new long[]{0x0001000000000000L,0x0000000000004000L});
+        public static final BitSet FOLLOW_RULE_ID_in_ruleSystemRequirements2203 = new BitSet(new long[]{0x0001000000000000L,0x0000000000004000L});
+        public static final BitSet FOLLOW_All_in_ruleSystemRequirements2228 = new BitSet(new long[]{0x0001000000000000L,0x0000000000004000L});
+        public static final BitSet FOLLOW_Use_in_ruleSystemRequirements2255 = new BitSet(new long[]{0x0000000000040000L});
+        public static final BitSet FOLLOW_Constants_in_ruleSystemRequirements2267 = new BitSet(new long[]{0x0000000000000000L,0x0000000000200000L});
+        public static final BitSet FOLLOW_ruleQualifiedName_in_ruleSystemRequirements2289 = new BitSet(new long[]{0x0000000000000000L,0x0000000000204000L});
+        public static final BitSet FOLLOW_LeftSquareBracket_in_ruleSystemRequirements2305 = new BitSet(new long[]{0x0002800084000900L,0x0000000000008000L});
+        public static final BitSet FOLLOW_ruleDescription_in_ruleSystemRequirements2370 = new BitSet(new long[]{0x0002800084000900L,0x0000000000008000L});
+        public static final BitSet FOLLOW_ruleValDeclaration_in_ruleSystemRequirements2445 = new BitSet(new long[]{0x0002800084000900L,0x0000000000008000L});
+        public static final BitSet FOLLOW_ruleComputeDeclaration_in_ruleSystemRequirements2521 = new BitSet(new long[]{0x0002800084000900L,0x0000000000008000L});
+        public static final BitSet FOLLOW_ruleRequirement_in_ruleSystemRequirements2597 = new BitSet(new long[]{0x0002800084000900L,0x0000000000008000L});
+        public static final BitSet FOLLOW_See_in_ruleSystemRequirements2666 = new BitSet(new long[]{0x0000000001000000L});
+        public static final BitSet FOLLOW_Document_in_ruleSystemRequirements2678 = new BitSet(new long[]{0x0000000000000000L,0x0000000000200000L});
+        public static final BitSet FOLLOW_ruleExternalDocument_in_ruleSystemRequirements2698 = new BitSet(new long[]{0x0002800084000900L,0x0000000000208000L});
+        public static final BitSet FOLLOW_Issues_in_ruleSystemRequirements2768 = new BitSet(new long[]{0x0000000000000000L,0x0000000000400000L});
+        public static final BitSet FOLLOW_RULE_STRING_in_ruleSystemRequirements2784 = new BitSet(new long[]{0x0002800084000900L,0x0000000000408000L});
+>>>>>>> refs/remotes/origin/PeterWork
         public static final BitSet FOLLOW_RightSquareBracket_in_ruleSystemRequirements2844 = new BitSet(new long[]{0x0000000000000002L});
         public static final BitSet FOLLOW_ruleDocGoal_in_entryRuleDocGoal2878 = new BitSet(new long[]{0x0000000000000000L});
         public static final BitSet FOLLOW_EOF_in_entryRuleDocGoal2888 = new BitSet(new long[]{0x0000000000000002L});
+<<<<<<< HEAD
         public static final BitSet FOLLOW_Goal_in_ruleDocGoal2926 = new BitSet(new long[]{0x0000000000000000L,0x0000000020000000L});
         public static final BitSet FOLLOW_RULE_ID_in_ruleDocGoal2942 = new BitSet(new long[]{0x0000400000000000L,0x0000000000008400L});
         public static final BitSet FOLLOW_Colon_in_ruleDocGoal2961 = new BitSet(new long[]{0x0000000000000000L,0x0000000040000000L});
@@ -22173,9 +28253,47 @@ public class InternalReqSpecParser extends AbstractInternalAntlrParser {
         public static final BitSet FOLLOW_ruleExternalDocument_in_ruleDocGoal4173 = new BitSet(new long[]{0x00050000B8A23100L,0x0000000020010000L});
         public static final BitSet FOLLOW_Issues_in_ruleDocGoal4243 = new BitSet(new long[]{0x0000000000000000L,0x0000000040000000L});
         public static final BitSet FOLLOW_RULE_STRING_in_ruleDocGoal4259 = new BitSet(new long[]{0x00050000B8A23100L,0x0000000040010000L});
+=======
+        public static final BitSet FOLLOW_Goal_in_ruleDocGoal2926 = new BitSet(new long[]{0x0000000000000000L,0x0000000000200000L});
+        public static final BitSet FOLLOW_RULE_ID_in_ruleDocGoal2942 = new BitSet(new long[]{0x0000200000000000L,0x0000000000004200L});
+        public static final BitSet FOLLOW_Colon_in_ruleDocGoal2961 = new BitSet(new long[]{0x0000000000000000L,0x0000000000400000L});
+        public static final BitSet FOLLOW_RULE_STRING_in_ruleDocGoal2977 = new BitSet(new long[]{0x0000200000000000L,0x0000000000004000L});
+        public static final BitSet FOLLOW_For_in_ruleDocGoal2998 = new BitSet(new long[]{0x0000000000000000L,0x0000000000600000L});
+        public static final BitSet FOLLOW_RULE_STRING_in_ruleDocGoal3015 = new BitSet(new long[]{0x0000000000000000L,0x0000000000004000L});
+        public static final BitSet FOLLOW_ruleAadlClassifierReference_in_ruleDocGoal3050 = new BitSet(new long[]{0x0000000000000000L,0x0000000000204000L});
+        public static final BitSet FOLLOW_RULE_ID_in_ruleDocGoal3070 = new BitSet(new long[]{0x0000000000000000L,0x0000000000004000L});
+        public static final BitSet FOLLOW_LeftSquareBracket_in_ruleDocGoal3088 = new BitSet(new long[]{0x00028000B8A23100L,0x0000000000008000L});
+        public static final BitSet FOLLOW_Category_in_ruleDocGoal3146 = new BitSet(new long[]{0x0000000000000000L,0x0000000000200000L});
+        public static final BitSet FOLLOW_RULE_ID_in_ruleDocGoal3165 = new BitSet(new long[]{0x00028000B8A23100L,0x0000000000208000L});
+        public static final BitSet FOLLOW_ruleDescription_in_ruleDocGoal3242 = new BitSet(new long[]{0x00028000B8A23100L,0x0000000000008000L});
+        public static final BitSet FOLLOW_ruleValDeclaration_in_ruleDocGoal3317 = new BitSet(new long[]{0x00028000B8A23100L,0x0000000000008000L});
+        public static final BitSet FOLLOW_ruleRationale_in_ruleDocGoal3393 = new BitSet(new long[]{0x00028000B8A23100L,0x0000000000008000L});
+        public static final BitSet FOLLOW_ruleUncertainty_in_ruleDocGoal3468 = new BitSet(new long[]{0x00028000B8A23100L,0x0000000000008000L});
+        public static final BitSet FOLLOW_Refines_in_ruleDocGoal3536 = new BitSet(new long[]{0x0000000000000000L,0x0000000000200000L});
+        public static final BitSet FOLLOW_ruleQualifiedName_in_ruleDocGoal3558 = new BitSet(new long[]{0x00028000B8A23100L,0x0000000000208000L});
+        public static final BitSet FOLLOW_Conflicts_in_ruleDocGoal3628 = new BitSet(new long[]{0x0000010000000000L});
+        public static final BitSet FOLLOW_With_in_ruleDocGoal3640 = new BitSet(new long[]{0x0000000000000000L,0x0000000000200000L});
+        public static final BitSet FOLLOW_ruleQualifiedName_in_ruleDocGoal3662 = new BitSet(new long[]{0x00028000B8A23100L,0x0000000000208000L});
+        public static final BitSet FOLLOW_Evolves_in_ruleDocGoal3732 = new BitSet(new long[]{0x0000000000000000L,0x0000000000200000L});
+        public static final BitSet FOLLOW_ruleQualifiedName_in_ruleDocGoal3754 = new BitSet(new long[]{0x00028000B8A23100L,0x0000000000208000L});
+        public static final BitSet FOLLOW_Dropped_in_ruleDocGoal3830 = new BitSet(new long[]{0x00028000B8A23100L,0x0000000000408000L});
+        public static final BitSet FOLLOW_RULE_STRING_in_ruleDocGoal3858 = new BitSet(new long[]{0x00028000B8A23100L,0x0000000000008000L});
+        public static final BitSet FOLLOW_Stakeholder_in_ruleDocGoal3933 = new BitSet(new long[]{0x0000000000000000L,0x0000000000200000L});
+        public static final BitSet FOLLOW_ruleQualifiedName_in_ruleDocGoal3955 = new BitSet(new long[]{0x00028000B8A23100L,0x0000000000208000L});
+        public static final BitSet FOLLOW_See_in_ruleDocGoal4025 = new BitSet(new long[]{0x0000000001000000L});
+        public static final BitSet FOLLOW_Document_in_ruleDocGoal4037 = new BitSet(new long[]{0x0000000000000800L});
+        public static final BitSet FOLLOW_Requirement_in_ruleDocGoal4049 = new BitSet(new long[]{0x0000000000000000L,0x0000000000200000L});
+        public static final BitSet FOLLOW_ruleQualifiedName_in_ruleDocGoal4071 = new BitSet(new long[]{0x00028000B8A23100L,0x0000000000208000L});
+        public static final BitSet FOLLOW_See_in_ruleDocGoal4141 = new BitSet(new long[]{0x0000000001000000L});
+        public static final BitSet FOLLOW_Document_in_ruleDocGoal4153 = new BitSet(new long[]{0x0000000000000000L,0x0000000000200000L});
+        public static final BitSet FOLLOW_ruleExternalDocument_in_ruleDocGoal4173 = new BitSet(new long[]{0x00028000B8A23100L,0x0000000000208000L});
+        public static final BitSet FOLLOW_Issues_in_ruleDocGoal4243 = new BitSet(new long[]{0x0000000000000000L,0x0000000000400000L});
+        public static final BitSet FOLLOW_RULE_STRING_in_ruleDocGoal4259 = new BitSet(new long[]{0x00028000B8A23100L,0x0000000000408000L});
+>>>>>>> refs/remotes/origin/PeterWork
         public static final BitSet FOLLOW_RightSquareBracket_in_ruleDocGoal4319 = new BitSet(new long[]{0x0000000000000002L});
         public static final BitSet FOLLOW_ruleGoal_in_entryRuleGoal4353 = new BitSet(new long[]{0x0000000000000000L});
         public static final BitSet FOLLOW_EOF_in_entryRuleGoal4363 = new BitSet(new long[]{0x0000000000000002L});
+<<<<<<< HEAD
         public static final BitSet FOLLOW_Goal_in_ruleGoal4401 = new BitSet(new long[]{0x0000000000000000L,0x0000000020000000L});
         public static final BitSet FOLLOW_RULE_ID_in_ruleGoal4417 = new BitSet(new long[]{0x0000400000000000L,0x0000000000008400L});
         public static final BitSet FOLLOW_Colon_in_ruleGoal4436 = new BitSet(new long[]{0x0000000000000000L,0x0000000040000000L});
@@ -22209,9 +28327,45 @@ public class InternalReqSpecParser extends AbstractInternalAntlrParser {
         public static final BitSet FOLLOW_ruleExternalDocument_in_ruleGoal5592 = new BitSet(new long[]{0x00050000B8A23100L,0x0000000020010000L});
         public static final BitSet FOLLOW_Issues_in_ruleGoal5662 = new BitSet(new long[]{0x0000000000000000L,0x0000000040000000L});
         public static final BitSet FOLLOW_RULE_STRING_in_ruleGoal5678 = new BitSet(new long[]{0x00050000B8A23100L,0x0000000040010000L});
+=======
+        public static final BitSet FOLLOW_Goal_in_ruleGoal4401 = new BitSet(new long[]{0x0000000000000000L,0x0000000000200000L});
+        public static final BitSet FOLLOW_RULE_ID_in_ruleGoal4417 = new BitSet(new long[]{0x0000200000000000L,0x0000000000004200L});
+        public static final BitSet FOLLOW_Colon_in_ruleGoal4436 = new BitSet(new long[]{0x0000000000000000L,0x0000000000400000L});
+        public static final BitSet FOLLOW_RULE_STRING_in_ruleGoal4452 = new BitSet(new long[]{0x0000200000000000L,0x0000000000004000L});
+        public static final BitSet FOLLOW_For_in_ruleGoal4473 = new BitSet(new long[]{0x0000000000000000L,0x0000000000200000L});
+        public static final BitSet FOLLOW_RULE_ID_in_ruleGoal4492 = new BitSet(new long[]{0x0000000000000000L,0x0000000000004000L});
+        public static final BitSet FOLLOW_LeftSquareBracket_in_ruleGoal4507 = new BitSet(new long[]{0x00028000B8A23100L,0x0000000000008000L});
+        public static final BitSet FOLLOW_Category_in_ruleGoal4565 = new BitSet(new long[]{0x0000000000000000L,0x0000000000200000L});
+        public static final BitSet FOLLOW_RULE_ID_in_ruleGoal4584 = new BitSet(new long[]{0x00028000B8A23100L,0x0000000000208000L});
+        public static final BitSet FOLLOW_ruleDescription_in_ruleGoal4661 = new BitSet(new long[]{0x00028000B8A23100L,0x0000000000008000L});
+        public static final BitSet FOLLOW_ruleValDeclaration_in_ruleGoal4736 = new BitSet(new long[]{0x00028000B8A23100L,0x0000000000008000L});
+        public static final BitSet FOLLOW_ruleRationale_in_ruleGoal4812 = new BitSet(new long[]{0x00028000B8A23100L,0x0000000000008000L});
+        public static final BitSet FOLLOW_ruleUncertainty_in_ruleGoal4887 = new BitSet(new long[]{0x00028000B8A23100L,0x0000000000008000L});
+        public static final BitSet FOLLOW_Refines_in_ruleGoal4955 = new BitSet(new long[]{0x0000000000000000L,0x0000000000200000L});
+        public static final BitSet FOLLOW_ruleQualifiedName_in_ruleGoal4977 = new BitSet(new long[]{0x00028000B8A23100L,0x0000000000208000L});
+        public static final BitSet FOLLOW_Conflicts_in_ruleGoal5047 = new BitSet(new long[]{0x0000010000000000L});
+        public static final BitSet FOLLOW_With_in_ruleGoal5059 = new BitSet(new long[]{0x0000000000000000L,0x0000000000200000L});
+        public static final BitSet FOLLOW_ruleQualifiedName_in_ruleGoal5081 = new BitSet(new long[]{0x00028000B8A23100L,0x0000000000208000L});
+        public static final BitSet FOLLOW_Evolves_in_ruleGoal5151 = new BitSet(new long[]{0x0000000000000000L,0x0000000000200000L});
+        public static final BitSet FOLLOW_ruleQualifiedName_in_ruleGoal5173 = new BitSet(new long[]{0x00028000B8A23100L,0x0000000000208000L});
+        public static final BitSet FOLLOW_Dropped_in_ruleGoal5249 = new BitSet(new long[]{0x00028000B8A23100L,0x0000000000408000L});
+        public static final BitSet FOLLOW_RULE_STRING_in_ruleGoal5277 = new BitSet(new long[]{0x00028000B8A23100L,0x0000000000008000L});
+        public static final BitSet FOLLOW_Stakeholder_in_ruleGoal5352 = new BitSet(new long[]{0x0000000000000000L,0x0000000000200000L});
+        public static final BitSet FOLLOW_ruleQualifiedName_in_ruleGoal5374 = new BitSet(new long[]{0x00028000B8A23100L,0x0000000000208000L});
+        public static final BitSet FOLLOW_See_in_ruleGoal5444 = new BitSet(new long[]{0x0000000001000000L});
+        public static final BitSet FOLLOW_Document_in_ruleGoal5456 = new BitSet(new long[]{0x0000000000000800L});
+        public static final BitSet FOLLOW_Requirement_in_ruleGoal5468 = new BitSet(new long[]{0x0000000000000000L,0x0000000000200000L});
+        public static final BitSet FOLLOW_ruleQualifiedName_in_ruleGoal5490 = new BitSet(new long[]{0x00028000B8A23100L,0x0000000000208000L});
+        public static final BitSet FOLLOW_See_in_ruleGoal5560 = new BitSet(new long[]{0x0000000001000000L});
+        public static final BitSet FOLLOW_Document_in_ruleGoal5572 = new BitSet(new long[]{0x0000000000000000L,0x0000000000200000L});
+        public static final BitSet FOLLOW_ruleExternalDocument_in_ruleGoal5592 = new BitSet(new long[]{0x00028000B8A23100L,0x0000000000208000L});
+        public static final BitSet FOLLOW_Issues_in_ruleGoal5662 = new BitSet(new long[]{0x0000000000000000L,0x0000000000400000L});
+        public static final BitSet FOLLOW_RULE_STRING_in_ruleGoal5678 = new BitSet(new long[]{0x00028000B8A23100L,0x0000000000408000L});
+>>>>>>> refs/remotes/origin/PeterWork
         public static final BitSet FOLLOW_RightSquareBracket_in_ruleGoal5738 = new BitSet(new long[]{0x0000000000000002L});
         public static final BitSet FOLLOW_ruleRequirement_in_entryRuleRequirement5772 = new BitSet(new long[]{0x0000000000000000L});
         public static final BitSet FOLLOW_EOF_in_entryRuleRequirement5782 = new BitSet(new long[]{0x0000000000000002L});
+<<<<<<< HEAD
         public static final BitSet FOLLOW_Requirement_in_ruleRequirement5820 = new BitSet(new long[]{0x0000000000000000L,0x0000000020000000L});
         public static final BitSet FOLLOW_RULE_ID_in_ruleRequirement5836 = new BitSet(new long[]{0x0000400000000000L,0x0000000000008400L});
         public static final BitSet FOLLOW_Colon_in_ruleRequirement5855 = new BitSet(new long[]{0x0000000000000000L,0x0000000040000000L});
@@ -22257,9 +28411,57 @@ public class InternalReqSpecParser extends AbstractInternalAntlrParser {
         public static final BitSet FOLLOW_ruleExternalDocument_in_ruleRequirement7500 = new BitSet(new long[]{0x00050010BEB8A300L,0x0000000020010000L});
         public static final BitSet FOLLOW_Issues_in_ruleRequirement7570 = new BitSet(new long[]{0x0000000000000000L,0x0000000040000000L});
         public static final BitSet FOLLOW_RULE_STRING_in_ruleRequirement7586 = new BitSet(new long[]{0x00050010BEB8A300L,0x0000000040010000L});
+=======
+        public static final BitSet FOLLOW_Requirement_in_ruleRequirement5820 = new BitSet(new long[]{0x0000000000000000L,0x0000000000200000L});
+        public static final BitSet FOLLOW_RULE_ID_in_ruleRequirement5836 = new BitSet(new long[]{0x0000200000000000L,0x0000000000004200L});
+        public static final BitSet FOLLOW_Colon_in_ruleRequirement5855 = new BitSet(new long[]{0x0000000000000000L,0x0000000000400000L});
+        public static final BitSet FOLLOW_RULE_STRING_in_ruleRequirement5871 = new BitSet(new long[]{0x0000200000000000L,0x0000000000004000L});
+        public static final BitSet FOLLOW_For_in_ruleRequirement5892 = new BitSet(new long[]{0x0000000000000000L,0x0000000000200000L});
+        public static final BitSet FOLLOW_RULE_ID_in_ruleRequirement5911 = new BitSet(new long[]{0x0000000000000000L,0x0000000000004000L});
+        public static final BitSet FOLLOW_LeftSquareBracket_in_ruleRequirement5926 = new BitSet(new long[]{0x00028008BEB8A300L,0x0000000000008000L});
+        public static final BitSet FOLLOW_Category_in_ruleRequirement5984 = new BitSet(new long[]{0x0000000000000000L,0x0000000000200000L});
+        public static final BitSet FOLLOW_RULE_ID_in_ruleRequirement6003 = new BitSet(new long[]{0x00028008BEB8A300L,0x0000000000208000L});
+        public static final BitSet FOLLOW_ruleDescription_in_ruleRequirement6080 = new BitSet(new long[]{0x00028008BEB8A300L,0x0000000000008000L});
+        public static final BitSet FOLLOW_ruleValDeclaration_in_ruleRequirement6155 = new BitSet(new long[]{0x00028008BEB8A300L,0x0000000000008000L});
+        public static final BitSet FOLLOW_ruleComputeDeclaration_in_ruleRequirement6231 = new BitSet(new long[]{0x00028008BEB8A300L,0x0000000000008000L});
+        public static final BitSet FOLLOW_ruleReqPredicate_in_ruleRequirement6307 = new BitSet(new long[]{0x00028008BEB8A300L,0x0000000000008000L});
+        public static final BitSet FOLLOW_ruleRationale_in_ruleRequirement6382 = new BitSet(new long[]{0x00028008BEB8A300L,0x0000000000008000L});
+        public static final BitSet FOLLOW_ruleUncertainty_in_ruleRequirement6457 = new BitSet(new long[]{0x00028008BEB8A300L,0x0000000000008000L});
+        public static final BitSet FOLLOW_Mitigates_in_ruleRequirement6525 = new BitSet(new long[]{0x0000000000000000L,0x0000000000600000L});
+        public static final BitSet FOLLOW_RULE_ID_in_ruleRequirement6545 = new BitSet(new long[]{0x00028008BEB8A300L,0x0000000000008000L});
+        public static final BitSet FOLLOW_RULE_STRING_in_ruleRequirement6568 = new BitSet(new long[]{0x00028008BEB8A300L,0x0000000000008000L});
+        public static final BitSet FOLLOW_Refines_in_ruleRequirement6643 = new BitSet(new long[]{0x0000000000000000L,0x0000000000200000L});
+        public static final BitSet FOLLOW_ruleQualifiedName_in_ruleRequirement6665 = new BitSet(new long[]{0x00028008BEB8A300L,0x0000000000208000L});
+        public static final BitSet FOLLOW_Decomposes_in_ruleRequirement6735 = new BitSet(new long[]{0x0000000000000000L,0x0000000000200000L});
+        public static final BitSet FOLLOW_ruleQualifiedName_in_ruleRequirement6757 = new BitSet(new long[]{0x00028008BEB8A300L,0x0000000000208000L});
+        public static final BitSet FOLLOW_Evolves_in_ruleRequirement6827 = new BitSet(new long[]{0x0000000000000000L,0x0000000000200000L});
+        public static final BitSet FOLLOW_ruleQualifiedName_in_ruleRequirement6849 = new BitSet(new long[]{0x00028008BEB8A300L,0x0000000000208000L});
+        public static final BitSet FOLLOW_Dropped_in_ruleRequirement6925 = new BitSet(new long[]{0x00028008BEB8A300L,0x0000000000408000L});
+        public static final BitSet FOLLOW_RULE_STRING_in_ruleRequirement6953 = new BitSet(new long[]{0x00028008BEB8A300L,0x0000000000008000L});
+        public static final BitSet FOLLOW_Development_in_ruleRequirement7028 = new BitSet(new long[]{0x0000000000001000L});
+        public static final BitSet FOLLOW_Stakeholder_in_ruleRequirement7040 = new BitSet(new long[]{0x0000000000000000L,0x0000000000200000L});
+        public static final BitSet FOLLOW_ruleQualifiedName_in_ruleRequirement7062 = new BitSet(new long[]{0x00028008BEB8A300L,0x0000000000208000L});
+        public static final BitSet FOLLOW_See_in_ruleRequirement7132 = new BitSet(new long[]{0x0000001000000000L});
+        public static final BitSet FOLLOW_Goal_in_ruleRequirement7144 = new BitSet(new long[]{0x0000000000000000L,0x0000000000200000L});
+        public static final BitSet FOLLOW_ruleQualifiedName_in_ruleRequirement7166 = new BitSet(new long[]{0x00028008BEB8A300L,0x0000000000208000L});
+        public static final BitSet FOLLOW_See_in_ruleRequirement7236 = new BitSet(new long[]{0x0000000001000000L});
+        public static final BitSet FOLLOW_Document_in_ruleRequirement7248 = new BitSet(new long[]{0x0000001000000000L});
+        public static final BitSet FOLLOW_Goal_in_ruleRequirement7260 = new BitSet(new long[]{0x0000000000000000L,0x0000000000200000L});
+        public static final BitSet FOLLOW_ruleQualifiedName_in_ruleRequirement7282 = new BitSet(new long[]{0x00028008BEB8A300L,0x0000000000208000L});
+        public static final BitSet FOLLOW_See_in_ruleRequirement7352 = new BitSet(new long[]{0x0000000001000000L});
+        public static final BitSet FOLLOW_Document_in_ruleRequirement7364 = new BitSet(new long[]{0x0000000000000800L});
+        public static final BitSet FOLLOW_Requirement_in_ruleRequirement7376 = new BitSet(new long[]{0x0000000000000000L,0x0000000000200000L});
+        public static final BitSet FOLLOW_ruleQualifiedName_in_ruleRequirement7398 = new BitSet(new long[]{0x00028008BEB8A300L,0x0000000000208000L});
+        public static final BitSet FOLLOW_See_in_ruleRequirement7468 = new BitSet(new long[]{0x0000000001000000L});
+        public static final BitSet FOLLOW_Document_in_ruleRequirement7480 = new BitSet(new long[]{0x0000000000000000L,0x0000000000200000L});
+        public static final BitSet FOLLOW_ruleExternalDocument_in_ruleRequirement7500 = new BitSet(new long[]{0x00028008BEB8A300L,0x0000000000208000L});
+        public static final BitSet FOLLOW_Issues_in_ruleRequirement7570 = new BitSet(new long[]{0x0000000000000000L,0x0000000000400000L});
+        public static final BitSet FOLLOW_RULE_STRING_in_ruleRequirement7586 = new BitSet(new long[]{0x00028008BEB8A300L,0x0000000000408000L});
+>>>>>>> refs/remotes/origin/PeterWork
         public static final BitSet FOLLOW_RightSquareBracket_in_ruleRequirement7646 = new BitSet(new long[]{0x0000000000000002L});
         public static final BitSet FOLLOW_ruleDocRequirement_in_entryRuleDocRequirement7680 = new BitSet(new long[]{0x0000000000000000L});
         public static final BitSet FOLLOW_EOF_in_entryRuleDocRequirement7690 = new BitSet(new long[]{0x0000000000000002L});
+<<<<<<< HEAD
         public static final BitSet FOLLOW_Requirement_in_ruleDocRequirement7728 = new BitSet(new long[]{0x0000000000000000L,0x0000000020000000L});
         public static final BitSet FOLLOW_RULE_ID_in_ruleDocRequirement7744 = new BitSet(new long[]{0x0000400000000000L,0x0000000000008400L});
         public static final BitSet FOLLOW_Colon_in_ruleDocRequirement7763 = new BitSet(new long[]{0x0000000000000000L,0x0000000040000000L});
@@ -22307,6 +28509,55 @@ public class InternalReqSpecParser extends AbstractInternalAntlrParser {
         public static final BitSet FOLLOW_ruleExternalDocument_in_ruleDocRequirement9464 = new BitSet(new long[]{0x00050010BEB8A300L,0x0000000020010000L});
         public static final BitSet FOLLOW_Issues_in_ruleDocRequirement9534 = new BitSet(new long[]{0x0000000000000000L,0x0000000040000000L});
         public static final BitSet FOLLOW_RULE_STRING_in_ruleDocRequirement9550 = new BitSet(new long[]{0x00050010BEB8A300L,0x0000000040010000L});
+=======
+        public static final BitSet FOLLOW_Requirement_in_ruleDocRequirement7728 = new BitSet(new long[]{0x0000000000000000L,0x0000000000200000L});
+        public static final BitSet FOLLOW_RULE_ID_in_ruleDocRequirement7744 = new BitSet(new long[]{0x0000200000000000L,0x0000000000004200L});
+        public static final BitSet FOLLOW_Colon_in_ruleDocRequirement7763 = new BitSet(new long[]{0x0000000000000000L,0x0000000000400000L});
+        public static final BitSet FOLLOW_RULE_STRING_in_ruleDocRequirement7779 = new BitSet(new long[]{0x0000200000000000L,0x0000000000004000L});
+        public static final BitSet FOLLOW_For_in_ruleDocRequirement7800 = new BitSet(new long[]{0x0000000000000000L,0x0000000000600000L});
+        public static final BitSet FOLLOW_RULE_STRING_in_ruleDocRequirement7817 = new BitSet(new long[]{0x0000000000000000L,0x0000000000004000L});
+        public static final BitSet FOLLOW_ruleAadlClassifierReference_in_ruleDocRequirement7852 = new BitSet(new long[]{0x0000000000000000L,0x0000000000204000L});
+        public static final BitSet FOLLOW_RULE_ID_in_ruleDocRequirement7872 = new BitSet(new long[]{0x0000000000000000L,0x0000000000004000L});
+        public static final BitSet FOLLOW_LeftSquareBracket_in_ruleDocRequirement7890 = new BitSet(new long[]{0x00028008BEB8A300L,0x0000000000008000L});
+        public static final BitSet FOLLOW_Category_in_ruleDocRequirement7948 = new BitSet(new long[]{0x0000000000000000L,0x0000000000200000L});
+        public static final BitSet FOLLOW_RULE_ID_in_ruleDocRequirement7967 = new BitSet(new long[]{0x00028008BEB8A300L,0x0000000000208000L});
+        public static final BitSet FOLLOW_ruleDescription_in_ruleDocRequirement8044 = new BitSet(new long[]{0x00028008BEB8A300L,0x0000000000008000L});
+        public static final BitSet FOLLOW_ruleValDeclaration_in_ruleDocRequirement8119 = new BitSet(new long[]{0x00028008BEB8A300L,0x0000000000008000L});
+        public static final BitSet FOLLOW_ruleComputeDeclaration_in_ruleDocRequirement8195 = new BitSet(new long[]{0x00028008BEB8A300L,0x0000000000008000L});
+        public static final BitSet FOLLOW_ruleReqPredicate_in_ruleDocRequirement8271 = new BitSet(new long[]{0x00028008BEB8A300L,0x0000000000008000L});
+        public static final BitSet FOLLOW_ruleRationale_in_ruleDocRequirement8346 = new BitSet(new long[]{0x00028008BEB8A300L,0x0000000000008000L});
+        public static final BitSet FOLLOW_ruleUncertainty_in_ruleDocRequirement8421 = new BitSet(new long[]{0x00028008BEB8A300L,0x0000000000008000L});
+        public static final BitSet FOLLOW_Mitigates_in_ruleDocRequirement8489 = new BitSet(new long[]{0x0000000000000000L,0x0000000000600000L});
+        public static final BitSet FOLLOW_RULE_ID_in_ruleDocRequirement8509 = new BitSet(new long[]{0x00028008BEB8A300L,0x0000000000008000L});
+        public static final BitSet FOLLOW_RULE_STRING_in_ruleDocRequirement8532 = new BitSet(new long[]{0x00028008BEB8A300L,0x0000000000008000L});
+        public static final BitSet FOLLOW_Refines_in_ruleDocRequirement8607 = new BitSet(new long[]{0x0000000000000000L,0x0000000000200000L});
+        public static final BitSet FOLLOW_ruleQualifiedName_in_ruleDocRequirement8629 = new BitSet(new long[]{0x00028008BEB8A300L,0x0000000000208000L});
+        public static final BitSet FOLLOW_Decomposes_in_ruleDocRequirement8699 = new BitSet(new long[]{0x0000000000000000L,0x0000000000200000L});
+        public static final BitSet FOLLOW_ruleQualifiedName_in_ruleDocRequirement8721 = new BitSet(new long[]{0x00028008BEB8A300L,0x0000000000208000L});
+        public static final BitSet FOLLOW_Evolves_in_ruleDocRequirement8791 = new BitSet(new long[]{0x0000000000000000L,0x0000000000200000L});
+        public static final BitSet FOLLOW_ruleQualifiedName_in_ruleDocRequirement8813 = new BitSet(new long[]{0x00028008BEB8A300L,0x0000000000208000L});
+        public static final BitSet FOLLOW_Dropped_in_ruleDocRequirement8889 = new BitSet(new long[]{0x00028008BEB8A300L,0x0000000000408000L});
+        public static final BitSet FOLLOW_RULE_STRING_in_ruleDocRequirement8917 = new BitSet(new long[]{0x00028008BEB8A300L,0x0000000000008000L});
+        public static final BitSet FOLLOW_Development_in_ruleDocRequirement8992 = new BitSet(new long[]{0x0000000000001000L});
+        public static final BitSet FOLLOW_Stakeholder_in_ruleDocRequirement9004 = new BitSet(new long[]{0x0000000000000000L,0x0000000000200000L});
+        public static final BitSet FOLLOW_ruleQualifiedName_in_ruleDocRequirement9026 = new BitSet(new long[]{0x00028008BEB8A300L,0x0000000000208000L});
+        public static final BitSet FOLLOW_See_in_ruleDocRequirement9096 = new BitSet(new long[]{0x0000001000000000L});
+        public static final BitSet FOLLOW_Goal_in_ruleDocRequirement9108 = new BitSet(new long[]{0x0000000000000000L,0x0000000000200000L});
+        public static final BitSet FOLLOW_ruleQualifiedName_in_ruleDocRequirement9130 = new BitSet(new long[]{0x00028008BEB8A300L,0x0000000000208000L});
+        public static final BitSet FOLLOW_See_in_ruleDocRequirement9200 = new BitSet(new long[]{0x0000000001000000L});
+        public static final BitSet FOLLOW_Document_in_ruleDocRequirement9212 = new BitSet(new long[]{0x0000001000000000L});
+        public static final BitSet FOLLOW_Goal_in_ruleDocRequirement9224 = new BitSet(new long[]{0x0000000000000000L,0x0000000000200000L});
+        public static final BitSet FOLLOW_ruleQualifiedName_in_ruleDocRequirement9246 = new BitSet(new long[]{0x00028008BEB8A300L,0x0000000000208000L});
+        public static final BitSet FOLLOW_See_in_ruleDocRequirement9316 = new BitSet(new long[]{0x0000000001000000L});
+        public static final BitSet FOLLOW_Document_in_ruleDocRequirement9328 = new BitSet(new long[]{0x0000000000000800L});
+        public static final BitSet FOLLOW_Requirement_in_ruleDocRequirement9340 = new BitSet(new long[]{0x0000000000000000L,0x0000000000200000L});
+        public static final BitSet FOLLOW_ruleQualifiedName_in_ruleDocRequirement9362 = new BitSet(new long[]{0x00028008BEB8A300L,0x0000000000208000L});
+        public static final BitSet FOLLOW_See_in_ruleDocRequirement9432 = new BitSet(new long[]{0x0000000001000000L});
+        public static final BitSet FOLLOW_Document_in_ruleDocRequirement9444 = new BitSet(new long[]{0x0000000000000000L,0x0000000000200000L});
+        public static final BitSet FOLLOW_ruleExternalDocument_in_ruleDocRequirement9464 = new BitSet(new long[]{0x00028008BEB8A300L,0x0000000000208000L});
+        public static final BitSet FOLLOW_Issues_in_ruleDocRequirement9534 = new BitSet(new long[]{0x0000000000000000L,0x0000000000400000L});
+        public static final BitSet FOLLOW_RULE_STRING_in_ruleDocRequirement9550 = new BitSet(new long[]{0x00028008BEB8A300L,0x0000000000408000L});
+>>>>>>> refs/remotes/origin/PeterWork
         public static final BitSet FOLLOW_RightSquareBracket_in_ruleDocRequirement9610 = new BitSet(new long[]{0x0000000000000002L});
         public static final BitSet FOLLOW_ruleReqPredicate_in_entryRuleReqPredicate9644 = new BitSet(new long[]{0x0000000000000000L});
         public static final BitSet FOLLOW_EOF_in_entryRuleReqPredicate9654 = new BitSet(new long[]{0x0000000000000002L});
@@ -22316,38 +28567,73 @@ public class InternalReqSpecParser extends AbstractInternalAntlrParser {
         public static final BitSet FOLLOW_ruleInformalPredicate_in_entryRuleInformalPredicate9789 = new BitSet(new long[]{0x0000000000000000L});
         public static final BitSet FOLLOW_EOF_in_entryRuleInformalPredicate9799 = new BitSet(new long[]{0x0000000000000002L});
         public static final BitSet FOLLOW_Informal_in_ruleInformalPredicate9837 = new BitSet(new long[]{0x0000000000100000L});
+<<<<<<< HEAD
         public static final BitSet FOLLOW_Predicate_in_ruleInformalPredicate9849 = new BitSet(new long[]{0x0000000000000000L,0x0000000040000000L});
+=======
+        public static final BitSet FOLLOW_Predicate_in_ruleInformalPredicate9849 = new BitSet(new long[]{0x0000000000000000L,0x0000000000400000L});
+>>>>>>> refs/remotes/origin/PeterWork
         public static final BitSet FOLLOW_RULE_STRING_in_ruleInformalPredicate9865 = new BitSet(new long[]{0x0000000000000002L});
         public static final BitSet FOLLOW_ruleXPredicate_in_entryRuleXPredicate9905 = new BitSet(new long[]{0x0000000000000000L});
         public static final BitSet FOLLOW_EOF_in_entryRuleXPredicate9915 = new BitSet(new long[]{0x0000000000000002L});
+<<<<<<< HEAD
         public static final BitSet FOLLOW_Predicate_in_ruleXPredicate9953 = new BitSet(new long[]{0x8000014400000000L,0x00000000614200A5L});
+=======
+        public static final BitSet FOLLOW_Predicate_in_ruleXPredicate9953 = new BitSet(new long[]{0xC00000A200000000L,0x00000000005C0052L});
+>>>>>>> refs/remotes/origin/PeterWork
         public static final BitSet FOLLOW_ruleAExpression_in_ruleXPredicate9973 = new BitSet(new long[]{0x0000000000000002L});
         public static final BitSet FOLLOW_ruleValuePredicate_in_entryRuleValuePredicate10008 = new BitSet(new long[]{0x0000000000000000L});
         public static final BitSet FOLLOW_EOF_in_entryRuleValuePredicate10018 = new BitSet(new long[]{0x0000000000000002L});
         public static final BitSet FOLLOW_Value_in_ruleValuePredicate10056 = new BitSet(new long[]{0x0000000000100000L});
+<<<<<<< HEAD
         public static final BitSet FOLLOW_Predicate_in_ruleValuePredicate10068 = new BitSet(new long[]{0x8000014400000000L,0x00000000614200A5L});
+=======
+        public static final BitSet FOLLOW_Predicate_in_ruleValuePredicate10068 = new BitSet(new long[]{0xC00000A200000000L,0x00000000005C0052L});
+>>>>>>> refs/remotes/origin/PeterWork
         public static final BitSet FOLLOW_ruleAEqualityExpression_in_ruleValuePredicate10088 = new BitSet(new long[]{0x0000000000000002L});
         public static final BitSet FOLLOW_ruleExternalDocument_in_entryRuleExternalDocument10123 = new BitSet(new long[]{0x0000000000000000L});
         public static final BitSet FOLLOW_EOF_in_entryRuleExternalDocument10133 = new BitSet(new long[]{0x0000000000000002L});
+<<<<<<< HEAD
         public static final BitSet FOLLOW_ruleDOCPATH_in_ruleExternalDocument10179 = new BitSet(new long[]{0x0000000000000002L,0x0000000000000001L});
         public static final BitSet FOLLOW_NumberSign_in_ruleExternalDocument10193 = new BitSet(new long[]{0x0000000000000000L,0x0000000020000000L});
+=======
+        public static final BitSet FOLLOW_ruleDOCPATH_in_ruleExternalDocument10179 = new BitSet(new long[]{0x8000000000000002L});
+        public static final BitSet FOLLOW_NumberSign_in_ruleExternalDocument10193 = new BitSet(new long[]{0x0000000000000000L,0x0000000000200000L});
+>>>>>>> refs/remotes/origin/PeterWork
         public static final BitSet FOLLOW_ruleDOCFRAGMENT_in_ruleExternalDocument10213 = new BitSet(new long[]{0x0000000000000002L});
         public static final BitSet FOLLOW_ruleDOCPATH_in_entryRuleDOCPATH10251 = new BitSet(new long[]{0x0000000000000000L});
         public static final BitSet FOLLOW_EOF_in_entryRuleDOCPATH10262 = new BitSet(new long[]{0x0000000000000002L});
+<<<<<<< HEAD
         public static final BitSet FOLLOW_RULE_ID_in_ruleDOCPATH10303 = new BitSet(new long[]{0x0000000000000000L,0x0000000000000200L});
         public static final BitSet FOLLOW_Solidus_in_ruleDOCPATH10321 = new BitSet(new long[]{0x0000000000000000L,0x0000000020000000L});
         public static final BitSet FOLLOW_RULE_ID_in_ruleDOCPATH10338 = new BitSet(new long[]{0x0000000000000000L,0x0000000000000100L});
         public static final BitSet FOLLOW_FullStop_in_ruleDOCPATH10356 = new BitSet(new long[]{0x0000000000000000L,0x0000000020000000L});
+=======
+        public static final BitSet FOLLOW_RULE_ID_in_ruleDOCPATH10303 = new BitSet(new long[]{0x0000000000000000L,0x0000000000000100L});
+        public static final BitSet FOLLOW_Solidus_in_ruleDOCPATH10321 = new BitSet(new long[]{0x0000000000000000L,0x0000000000200000L});
+        public static final BitSet FOLLOW_RULE_ID_in_ruleDOCPATH10338 = new BitSet(new long[]{0x0000000000000000L,0x0000000000000080L});
+        public static final BitSet FOLLOW_FullStop_in_ruleDOCPATH10356 = new BitSet(new long[]{0x0000000000000000L,0x0000000000200000L});
+>>>>>>> refs/remotes/origin/PeterWork
         public static final BitSet FOLLOW_RULE_ID_in_ruleDOCPATH10371 = new BitSet(new long[]{0x0000000000000002L});
         public static final BitSet FOLLOW_ruleDOCFRAGMENT_in_entryRuleDOCFRAGMENT10416 = new BitSet(new long[]{0x0000000000000000L});
         public static final BitSet FOLLOW_EOF_in_entryRuleDOCFRAGMENT10427 = new BitSet(new long[]{0x0000000000000002L});
+<<<<<<< HEAD
         public static final BitSet FOLLOW_RULE_ID_in_ruleDOCFRAGMENT10467 = new BitSet(new long[]{0x0000000000000002L,0x0000000000000100L});
         public static final BitSet FOLLOW_FullStop_in_ruleDOCFRAGMENT10486 = new BitSet(new long[]{0x0000000000000000L,0x0000000020000000L});
         public static final BitSet FOLLOW_RULE_ID_in_ruleDOCFRAGMENT10501 = new BitSet(new long[]{0x0000000000000002L,0x0000000000000100L});
+=======
+        public static final BitSet FOLLOW_RULE_ID_in_ruleDOCFRAGMENT10467 = new BitSet(new long[]{0x0000000000000002L,0x0000000000000080L});
+        public static final BitSet FOLLOW_FullStop_in_ruleDOCFRAGMENT10486 = new BitSet(new long[]{0x0000000000000000L,0x0000000000200000L});
+        public static final BitSet FOLLOW_RULE_ID_in_ruleDOCFRAGMENT10501 = new BitSet(new long[]{0x0000000000000002L,0x0000000000000080L});
+>>>>>>> refs/remotes/origin/PeterWork
         public static final BitSet FOLLOW_ruleDescription_in_entryRuleDescription10547 = new BitSet(new long[]{0x0000000000000000L});
         public static final BitSet FOLLOW_EOF_in_entryRuleDescription10557 = new BitSet(new long[]{0x0000000000000002L});
+<<<<<<< HEAD
         public static final BitSet FOLLOW_Description_in_ruleDescription10595 = new BitSet(new long[]{0x0000808000000000L,0x0000000060000000L});
         public static final BitSet FOLLOW_ruleDescriptionElement_in_ruleDescription10615 = new BitSet(new long[]{0x0000808000000002L,0x0000000060000000L});
+=======
+        public static final BitSet FOLLOW_Description_in_ruleDescription10595 = new BitSet(new long[]{0x0000404000000000L,0x0000000000600000L});
+        public static final BitSet FOLLOW_ruleDescriptionElement_in_ruleDescription10615 = new BitSet(new long[]{0x0000404000000002L,0x0000000000600000L});
+>>>>>>> refs/remotes/origin/PeterWork
         public static final BitSet FOLLOW_ruleDescriptionElement_in_entryRuleDescriptionElement10651 = new BitSet(new long[]{0x0000000000000000L});
         public static final BitSet FOLLOW_EOF_in_entryRuleDescriptionElement10661 = new BitSet(new long[]{0x0000000000000002L});
         public static final BitSet FOLLOW_RULE_STRING_in_ruleDescriptionElement10703 = new BitSet(new long[]{0x0000000000000002L});
@@ -22356,10 +28642,15 @@ public class InternalReqSpecParser extends AbstractInternalAntlrParser {
         public static final BitSet FOLLOW_ruleImageReference_in_ruleDescriptionElement10798 = new BitSet(new long[]{0x0000000000000002L});
         public static final BitSet FOLLOW_ruleRationale_in_entryRuleRationale10833 = new BitSet(new long[]{0x0000000000000000L});
         public static final BitSet FOLLOW_EOF_in_entryRuleRationale10843 = new BitSet(new long[]{0x0000000000000002L});
+<<<<<<< HEAD
         public static final BitSet FOLLOW_Rationale_in_ruleRationale10881 = new BitSet(new long[]{0x0000000000000000L,0x0000000040000000L});
+=======
+        public static final BitSet FOLLOW_Rationale_in_ruleRationale10881 = new BitSet(new long[]{0x0000000000000000L,0x0000000000400000L});
+>>>>>>> refs/remotes/origin/PeterWork
         public static final BitSet FOLLOW_RULE_STRING_in_ruleRationale10897 = new BitSet(new long[]{0x0000000000000002L});
         public static final BitSet FOLLOW_ruleUncertainty_in_entryRuleUncertainty10937 = new BitSet(new long[]{0x0000000000000000L});
         public static final BitSet FOLLOW_EOF_in_entryRuleUncertainty10947 = new BitSet(new long[]{0x0000000000000002L});
+<<<<<<< HEAD
         public static final BitSet FOLLOW_Uncertainty_in_ruleUncertainty10985 = new BitSet(new long[]{0x0000000000000000L,0x0000000000008000L});
         public static final BitSet FOLLOW_LeftSquareBracket_in_ruleUncertainty10997 = new BitSet(new long[]{0x0000000000414470L});
         public static final BitSet FOLLOW_Volatility_in_ruleUncertainty11055 = new BitSet(new long[]{0x0000000000000000L,0x000000001C000000L});
@@ -22376,9 +28667,28 @@ public class InternalReqSpecParser extends AbstractInternalAntlrParser {
         public static final BitSet FOLLOW_ruleNumber_in_ruleUncertainty11520 = new BitSet(new long[]{0x0000000000414470L,0x0000000000010000L});
         public static final BitSet FOLLOW_Maturityindex_in_ruleUncertainty11589 = new BitSet(new long[]{0x0000000000000000L,0x000000001C000000L});
         public static final BitSet FOLLOW_ruleNumber_in_ruleUncertainty11609 = new BitSet(new long[]{0x0000000000414470L,0x0000000000010000L});
+=======
+        public static final BitSet FOLLOW_Uncertainty_in_ruleUncertainty10985 = new BitSet(new long[]{0x0000000000000000L,0x0000000000004000L});
+        public static final BitSet FOLLOW_LeftSquareBracket_in_ruleUncertainty10997 = new BitSet(new long[]{0x0000000000414470L});
+        public static final BitSet FOLLOW_Volatility_in_ruleUncertainty11055 = new BitSet(new long[]{0x0000000000000000L,0x00000000001C0000L});
+        public static final BitSet FOLLOW_ruleNumber_in_ruleUncertainty11075 = new BitSet(new long[]{0x0000000000414470L,0x0000000000008000L});
+        public static final BitSet FOLLOW_Costimpact_in_ruleUncertainty11144 = new BitSet(new long[]{0x0000000000000000L,0x00000000001C0000L});
+        public static final BitSet FOLLOW_ruleNumber_in_ruleUncertainty11164 = new BitSet(new long[]{0x0000000000414470L,0x0000000000008000L});
+        public static final BitSet FOLLOW_Scheduleimpact_in_ruleUncertainty11233 = new BitSet(new long[]{0x0000000000000000L,0x00000000001C0000L});
+        public static final BitSet FOLLOW_ruleNumber_in_ruleUncertainty11253 = new BitSet(new long[]{0x0000000000414470L,0x0000000000008000L});
+        public static final BitSet FOLLOW_Familiarity_in_ruleUncertainty11322 = new BitSet(new long[]{0x0000000000000000L,0x00000000001C0000L});
+        public static final BitSet FOLLOW_ruleNumber_in_ruleUncertainty11342 = new BitSet(new long[]{0x0000000000414470L,0x0000000000008000L});
+        public static final BitSet FOLLOW_Timecriticality_in_ruleUncertainty11411 = new BitSet(new long[]{0x0000000000000000L,0x00000000001C0000L});
+        public static final BitSet FOLLOW_ruleNumber_in_ruleUncertainty11431 = new BitSet(new long[]{0x0000000000414470L,0x0000000000008000L});
+        public static final BitSet FOLLOW_Riskindex_in_ruleUncertainty11500 = new BitSet(new long[]{0x0000000000000000L,0x00000000001C0000L});
+        public static final BitSet FOLLOW_ruleNumber_in_ruleUncertainty11520 = new BitSet(new long[]{0x0000000000414470L,0x0000000000008000L});
+        public static final BitSet FOLLOW_Maturityindex_in_ruleUncertainty11589 = new BitSet(new long[]{0x0000000000000000L,0x00000000001C0000L});
+        public static final BitSet FOLLOW_ruleNumber_in_ruleUncertainty11609 = new BitSet(new long[]{0x0000000000414470L,0x0000000000008000L});
+>>>>>>> refs/remotes/origin/PeterWork
         public static final BitSet FOLLOW_RightSquareBracket_in_ruleUncertainty11669 = new BitSet(new long[]{0x0000000000000002L});
         public static final BitSet FOLLOW_ruleValDeclaration_in_entryRuleValDeclaration11703 = new BitSet(new long[]{0x0000000000000000L});
         public static final BitSet FOLLOW_EOF_in_entryRuleValDeclaration11713 = new BitSet(new long[]{0x0000000000000002L});
+<<<<<<< HEAD
         public static final BitSet FOLLOW_Val_in_ruleValDeclaration11760 = new BitSet(new long[]{0x0000000000000000L,0x0000000020000000L});
         public static final BitSet FOLLOW_RULE_ID_in_ruleValDeclaration11804 = new BitSet(new long[]{0x0000000000000000L,0x0000000020000000L});
         public static final BitSet FOLLOW_RULE_ID_in_ruleValDeclaration11826 = new BitSet(new long[]{0x0000000000000000L,0x0000000000001000L});
@@ -22611,6 +28921,223 @@ public class InternalReqSpecParser extends AbstractInternalAntlrParser {
         public static final BitSet FOLLOW_LessThanSign_in_synpred9_InternalReqSpecParser14287 = new BitSet(new long[]{0x0000000000000002L});
         public static final BitSet FOLLOW_ruleOpAdd_in_synpred10_InternalReqSpecParser14506 = new BitSet(new long[]{0x0000000000000002L});
         public static final BitSet FOLLOW_ruleOpMulti_in_synpred11_InternalReqSpecParser14780 = new BitSet(new long[]{0x0000000000000002L});
+=======
+        public static final BitSet FOLLOW_Val_in_ruleValDeclaration11760 = new BitSet(new long[]{0x0000000000000000L,0x0000000000200000L});
+        public static final BitSet FOLLOW_RULE_ID_in_ruleValDeclaration11804 = new BitSet(new long[]{0x0000000000000000L,0x0000000000200000L});
+        public static final BitSet FOLLOW_RULE_ID_in_ruleValDeclaration11826 = new BitSet(new long[]{0x0000000000000000L,0x0000000000000800L});
+        public static final BitSet FOLLOW_RULE_ID_in_ruleValDeclaration11856 = new BitSet(new long[]{0x0000000000000000L,0x0000000000000800L});
+        public static final BitSet FOLLOW_EqualsSign_in_ruleValDeclaration11875 = new BitSet(new long[]{0xC00000A200000002L,0x00000000005C0052L});
+        public static final BitSet FOLLOW_ruleAExpression_in_ruleValDeclaration11895 = new BitSet(new long[]{0x0000000000000002L});
+        public static final BitSet FOLLOW_ruleComputeDeclaration_in_entryRuleComputeDeclaration11931 = new BitSet(new long[]{0x0000000000000000L});
+        public static final BitSet FOLLOW_EOF_in_entryRuleComputeDeclaration11941 = new BitSet(new long[]{0x0000000000000002L});
+        public static final BitSet FOLLOW_Compute_in_ruleComputeDeclaration11988 = new BitSet(new long[]{0x0000000000000000L,0x0000000000200000L});
+        public static final BitSet FOLLOW_RULE_ID_in_ruleComputeDeclaration12032 = new BitSet(new long[]{0x0000000000000000L,0x0000000000200000L});
+        public static final BitSet FOLLOW_RULE_ID_in_ruleComputeDeclaration12054 = new BitSet(new long[]{0x0000000000000002L});
+        public static final BitSet FOLLOW_RULE_ID_in_ruleComputeDeclaration12084 = new BitSet(new long[]{0x0000000000000002L});
+        public static final BitSet FOLLOW_ruleShowValue_in_entryRuleShowValue12129 = new BitSet(new long[]{0x0000000000000000L});
+        public static final BitSet FOLLOW_EOF_in_entryRuleShowValue12139 = new BitSet(new long[]{0x0000000000000002L});
+        public static final BitSet FOLLOW_RULE_ID_in_ruleShowValue12184 = new BitSet(new long[]{0x0000000000000002L,0x0000000000000001L});
+        public static final BitSet FOLLOW_PercentSign_in_ruleShowValue12198 = new BitSet(new long[]{0x0000000000000000L,0x0000000000200000L});
+        public static final BitSet FOLLOW_RULE_ID_in_ruleShowValue12217 = new BitSet(new long[]{0x0000000000000002L});
+        public static final BitSet FOLLOW_ruleImageReference_in_entryRuleImageReference12254 = new BitSet(new long[]{0x0000000000000000L});
+        public static final BitSet FOLLOW_EOF_in_entryRuleImageReference12264 = new BitSet(new long[]{0x0000000000000002L});
+        public static final BitSet FOLLOW_Img_in_ruleImageReference12302 = new BitSet(new long[]{0x0000000000000000L,0x0000000000200000L});
+        public static final BitSet FOLLOW_ruleIMGREF_in_ruleImageReference12322 = new BitSet(new long[]{0x0000000000000002L});
+        public static final BitSet FOLLOW_ruleIMGREF_in_entryRuleIMGREF12358 = new BitSet(new long[]{0x0000000000000000L});
+        public static final BitSet FOLLOW_EOF_in_entryRuleIMGREF12369 = new BitSet(new long[]{0x0000000000000002L});
+        public static final BitSet FOLLOW_RULE_ID_in_ruleIMGREF12410 = new BitSet(new long[]{0x0000000000000000L,0x0000000000000100L});
+        public static final BitSet FOLLOW_Solidus_in_ruleIMGREF12428 = new BitSet(new long[]{0x0000000000000000L,0x0000000000200000L});
+        public static final BitSet FOLLOW_RULE_ID_in_ruleIMGREF12445 = new BitSet(new long[]{0x0000000000000000L,0x0000000000000080L});
+        public static final BitSet FOLLOW_FullStop_in_ruleIMGREF12463 = new BitSet(new long[]{0x0000000000000000L,0x0000000000200000L});
+        public static final BitSet FOLLOW_RULE_ID_in_ruleIMGREF12478 = new BitSet(new long[]{0x0000000000000002L});
+        public static final BitSet FOLLOW_ruleAExpression_in_entryRuleAExpression12522 = new BitSet(new long[]{0x0000000000000000L});
+        public static final BitSet FOLLOW_EOF_in_entryRuleAExpression12532 = new BitSet(new long[]{0x0000000000000002L});
+        public static final BitSet FOLLOW_ruleAOrExpression_in_ruleAExpression12578 = new BitSet(new long[]{0x0000000000000002L});
+        public static final BitSet FOLLOW_ruleAOrExpression_in_entryRuleAOrExpression12611 = new BitSet(new long[]{0x0000000000000000L});
+        public static final BitSet FOLLOW_EOF_in_entryRuleAOrExpression12621 = new BitSet(new long[]{0x0000000000000002L});
+        public static final BitSet FOLLOW_ruleAAndExpression_in_ruleAOrExpression12668 = new BitSet(new long[]{0x2000000000000002L});
+        public static final BitSet FOLLOW_ruleOpOr_in_ruleAOrExpression12717 = new BitSet(new long[]{0xC00000A200000000L,0x00000000005C0052L});
+        public static final BitSet FOLLOW_ruleAAndExpression_in_ruleAOrExpression12740 = new BitSet(new long[]{0x2000000000000002L});
+        public static final BitSet FOLLOW_ruleOpOr_in_entryRuleOpOr12778 = new BitSet(new long[]{0x0000000000000000L});
+        public static final BitSet FOLLOW_EOF_in_entryRuleOpOr12789 = new BitSet(new long[]{0x0000000000000002L});
+        public static final BitSet FOLLOW_VerticalLineVerticalLine_in_ruleOpOr12826 = new BitSet(new long[]{0x0000000000000002L});
+        public static final BitSet FOLLOW_ruleAAndExpression_in_entryRuleAAndExpression12864 = new BitSet(new long[]{0x0000000000000000L});
+        public static final BitSet FOLLOW_EOF_in_entryRuleAAndExpression12874 = new BitSet(new long[]{0x0000000000000002L});
+        public static final BitSet FOLLOW_ruleAEqualityExpression_in_ruleAAndExpression12921 = new BitSet(new long[]{0x0008000000000002L});
+        public static final BitSet FOLLOW_ruleOpAnd_in_ruleAAndExpression12970 = new BitSet(new long[]{0xC00000A200000000L,0x00000000005C0052L});
+        public static final BitSet FOLLOW_ruleAEqualityExpression_in_ruleAAndExpression12993 = new BitSet(new long[]{0x0008000000000002L});
+        public static final BitSet FOLLOW_ruleOpAnd_in_entryRuleOpAnd13031 = new BitSet(new long[]{0x0000000000000000L});
+        public static final BitSet FOLLOW_EOF_in_entryRuleOpAnd13042 = new BitSet(new long[]{0x0000000000000002L});
+        public static final BitSet FOLLOW_AmpersandAmpersand_in_ruleOpAnd13079 = new BitSet(new long[]{0x0000000000000002L});
+        public static final BitSet FOLLOW_ruleAEqualityExpression_in_entryRuleAEqualityExpression13117 = new BitSet(new long[]{0x0000000000000000L});
+        public static final BitSet FOLLOW_EOF_in_entryRuleAEqualityExpression13127 = new BitSet(new long[]{0x0000000000000002L});
+        public static final BitSet FOLLOW_ruleARelationalExpression_in_ruleAEqualityExpression13174 = new BitSet(new long[]{0x02040A0000000002L});
+        public static final BitSet FOLLOW_ruleOpEquality_in_ruleAEqualityExpression13223 = new BitSet(new long[]{0xC00000A200000000L,0x00000000005C0052L});
+        public static final BitSet FOLLOW_ruleARelationalExpression_in_ruleAEqualityExpression13246 = new BitSet(new long[]{0x02040A0000000002L});
+        public static final BitSet FOLLOW_ruleOpEquality_in_entryRuleOpEquality13284 = new BitSet(new long[]{0x0000000000000000L});
+        public static final BitSet FOLLOW_EOF_in_entryRuleOpEquality13295 = new BitSet(new long[]{0x0000000000000002L});
+        public static final BitSet FOLLOW_EqualsSignEqualsSign_in_ruleOpEquality13333 = new BitSet(new long[]{0x0000000000000002L});
+        public static final BitSet FOLLOW_ExclamationMarkEqualsSign_in_ruleOpEquality13352 = new BitSet(new long[]{0x0000000000000002L});
+        public static final BitSet FOLLOW_EqualsSignEqualsSignEqualsSign_in_ruleOpEquality13371 = new BitSet(new long[]{0x0000000000000002L});
+        public static final BitSet FOLLOW_ExclamationMarkEqualsSignEqualsSign_in_ruleOpEquality13390 = new BitSet(new long[]{0x0000000000000002L});
+        public static final BitSet FOLLOW_ruleARelationalExpression_in_entryRuleARelationalExpression13429 = new BitSet(new long[]{0x0000000000000000L});
+        public static final BitSet FOLLOW_EOF_in_entryRuleARelationalExpression13439 = new BitSet(new long[]{0x0000000000000002L});
+        public static final BitSet FOLLOW_ruleAOtherOperatorExpression_in_ruleARelationalExpression13486 = new BitSet(new long[]{0x0800000000000002L,0x0000000000001400L});
+        public static final BitSet FOLLOW_ruleOpCompare_in_ruleARelationalExpression13535 = new BitSet(new long[]{0xC00000A200000000L,0x00000000005C0052L});
+        public static final BitSet FOLLOW_ruleAOtherOperatorExpression_in_ruleARelationalExpression13558 = new BitSet(new long[]{0x0800000000000002L,0x0000000000001400L});
+        public static final BitSet FOLLOW_ruleOpCompare_in_entryRuleOpCompare13596 = new BitSet(new long[]{0x0000000000000000L});
+        public static final BitSet FOLLOW_EOF_in_entryRuleOpCompare13607 = new BitSet(new long[]{0x0000000000000002L});
+        public static final BitSet FOLLOW_GreaterThanSignEqualsSign_in_ruleOpCompare13645 = new BitSet(new long[]{0x0000000000000002L});
+        public static final BitSet FOLLOW_LessThanSign_in_ruleOpCompare13665 = new BitSet(new long[]{0x0000000000000000L,0x0000000000000800L});
+        public static final BitSet FOLLOW_EqualsSign_in_ruleOpCompare13678 = new BitSet(new long[]{0x0000000000000002L});
+        public static final BitSet FOLLOW_GreaterThanSign_in_ruleOpCompare13698 = new BitSet(new long[]{0x0000000000000002L});
+        public static final BitSet FOLLOW_LessThanSign_in_ruleOpCompare13717 = new BitSet(new long[]{0x0000000000000002L});
+        public static final BitSet FOLLOW_ruleAOtherOperatorExpression_in_entryRuleAOtherOperatorExpression13756 = new BitSet(new long[]{0x0000000000000000L});
+        public static final BitSet FOLLOW_EOF_in_entryRuleAOtherOperatorExpression13766 = new BitSet(new long[]{0x0000000000000002L});
+        public static final BitSet FOLLOW_ruleAAdditiveExpression_in_ruleAOtherOperatorExpression13813 = new BitSet(new long[]{0x1560040000000002L,0x0000000000001400L});
+        public static final BitSet FOLLOW_ruleOpOther_in_ruleAOtherOperatorExpression13862 = new BitSet(new long[]{0xC00000A200000000L,0x00000000005C0052L});
+        public static final BitSet FOLLOW_ruleAAdditiveExpression_in_ruleAOtherOperatorExpression13885 = new BitSet(new long[]{0x1560040000000002L,0x0000000000001400L});
+        public static final BitSet FOLLOW_ruleOpOther_in_entryRuleOpOther13923 = new BitSet(new long[]{0x0000000000000000L});
+        public static final BitSet FOLLOW_EOF_in_entryRuleOpOther13934 = new BitSet(new long[]{0x0000000000000002L});
+        public static final BitSet FOLLOW_HyphenMinusGreaterThanSign_in_ruleOpOther13972 = new BitSet(new long[]{0x0000000000000002L});
+        public static final BitSet FOLLOW_FullStopFullStopLessThanSign_in_ruleOpOther13991 = new BitSet(new long[]{0x0000000000000002L});
+        public static final BitSet FOLLOW_GreaterThanSign_in_ruleOpOther14011 = new BitSet(new long[]{0x0040000000000000L});
+        public static final BitSet FOLLOW_FullStopFullStop_in_ruleOpOther14024 = new BitSet(new long[]{0x0000000000000002L});
+        public static final BitSet FOLLOW_FullStopFullStop_in_ruleOpOther14044 = new BitSet(new long[]{0x0000000000000002L});
+        public static final BitSet FOLLOW_EqualsSignGreaterThanSign_in_ruleOpOther14063 = new BitSet(new long[]{0x0000000000000002L});
+        public static final BitSet FOLLOW_GreaterThanSign_in_ruleOpOther14083 = new BitSet(new long[]{0x0000000000000000L,0x0000000000001000L});
+        public static final BitSet FOLLOW_GreaterThanSign_in_ruleOpOther14114 = new BitSet(new long[]{0x0000000000000000L,0x0000000000001000L});
+        public static final BitSet FOLLOW_GreaterThanSign_in_ruleOpOther14127 = new BitSet(new long[]{0x0000000000000002L});
+        public static final BitSet FOLLOW_GreaterThanSign_in_ruleOpOther14148 = new BitSet(new long[]{0x0000000000000002L});
+        public static final BitSet FOLLOW_LessThanSign_in_ruleOpOther14170 = new BitSet(new long[]{0x0400000000000000L,0x0000000000000400L});
+        public static final BitSet FOLLOW_LessThanSign_in_ruleOpOther14201 = new BitSet(new long[]{0x0000000000000000L,0x0000000000000400L});
+        public static final BitSet FOLLOW_LessThanSign_in_ruleOpOther14214 = new BitSet(new long[]{0x0000000000000002L});
+        public static final BitSet FOLLOW_LessThanSign_in_ruleOpOther14235 = new BitSet(new long[]{0x0000000000000002L});
+        public static final BitSet FOLLOW_EqualsSignGreaterThanSign_in_ruleOpOther14254 = new BitSet(new long[]{0x0000000000000002L});
+        public static final BitSet FOLLOW_LessThanSignGreaterThanSign_in_ruleOpOther14275 = new BitSet(new long[]{0x0000000000000002L});
+        public static final BitSet FOLLOW_QuestionMarkColon_in_ruleOpOther14294 = new BitSet(new long[]{0x0000000000000002L});
+        public static final BitSet FOLLOW_ruleAAdditiveExpression_in_entryRuleAAdditiveExpression14333 = new BitSet(new long[]{0x0000000000000000L});
+        public static final BitSet FOLLOW_EOF_in_entryRuleAAdditiveExpression14343 = new BitSet(new long[]{0x0000000000000002L});
+        public static final BitSet FOLLOW_ruleAMultiplicativeExpression_in_ruleAAdditiveExpression14390 = new BitSet(new long[]{0x0000000000000002L,0x0000000000000050L});
+        public static final BitSet FOLLOW_ruleOpAdd_in_ruleAAdditiveExpression14439 = new BitSet(new long[]{0xC00000A200000000L,0x00000000005C0052L});
+        public static final BitSet FOLLOW_ruleAMultiplicativeExpression_in_ruleAAdditiveExpression14462 = new BitSet(new long[]{0x0000000000000002L,0x0000000000000050L});
+        public static final BitSet FOLLOW_ruleOpAdd_in_entryRuleOpAdd14500 = new BitSet(new long[]{0x0000000000000000L});
+        public static final BitSet FOLLOW_EOF_in_entryRuleOpAdd14511 = new BitSet(new long[]{0x0000000000000002L});
+        public static final BitSet FOLLOW_PlusSign_in_ruleOpAdd14549 = new BitSet(new long[]{0x0000000000000002L});
+        public static final BitSet FOLLOW_HyphenMinus_in_ruleOpAdd14568 = new BitSet(new long[]{0x0000000000000002L});
+        public static final BitSet FOLLOW_ruleAMultiplicativeExpression_in_entryRuleAMultiplicativeExpression14607 = new BitSet(new long[]{0x0000000000000000L});
+        public static final BitSet FOLLOW_EOF_in_entryRuleAMultiplicativeExpression14617 = new BitSet(new long[]{0x0000000000000002L});
+        public static final BitSet FOLLOW_ruleAUnaryOperation_in_ruleAMultiplicativeExpression14664 = new BitSet(new long[]{0x0010000000000002L,0x0000000000000109L});
+        public static final BitSet FOLLOW_ruleOpMulti_in_ruleAMultiplicativeExpression14713 = new BitSet(new long[]{0xC00000A200000000L,0x00000000005C0052L});
+        public static final BitSet FOLLOW_ruleAUnaryOperation_in_ruleAMultiplicativeExpression14736 = new BitSet(new long[]{0x0010000000000002L,0x0000000000000109L});
+        public static final BitSet FOLLOW_ruleOpMulti_in_entryRuleOpMulti14774 = new BitSet(new long[]{0x0000000000000000L});
+        public static final BitSet FOLLOW_EOF_in_entryRuleOpMulti14785 = new BitSet(new long[]{0x0000000000000002L});
+        public static final BitSet FOLLOW_Asterisk_in_ruleOpMulti14823 = new BitSet(new long[]{0x0000000000000002L});
+        public static final BitSet FOLLOW_AsteriskAsterisk_in_ruleOpMulti14842 = new BitSet(new long[]{0x0000000000000002L});
+        public static final BitSet FOLLOW_Solidus_in_ruleOpMulti14861 = new BitSet(new long[]{0x0000000000000002L});
+        public static final BitSet FOLLOW_PercentSign_in_ruleOpMulti14880 = new BitSet(new long[]{0x0000000000000002L});
+        public static final BitSet FOLLOW_ruleAUnaryOperation_in_entryRuleAUnaryOperation14919 = new BitSet(new long[]{0x0000000000000000L});
+        public static final BitSet FOLLOW_EOF_in_entryRuleAUnaryOperation14929 = new BitSet(new long[]{0x0000000000000002L});
+        public static final BitSet FOLLOW_ruleOpUnary_in_ruleAUnaryOperation14985 = new BitSet(new long[]{0xC00000A200000000L,0x00000000005C0052L});
+        public static final BitSet FOLLOW_ruleAUnaryOperation_in_ruleAUnaryOperation15006 = new BitSet(new long[]{0x0000000000000002L});
+        public static final BitSet FOLLOW_ruleAPrimaryExpression_in_ruleAUnaryOperation15035 = new BitSet(new long[]{0x0000000000000002L});
+        public static final BitSet FOLLOW_ruleOpUnary_in_entryRuleOpUnary15070 = new BitSet(new long[]{0x0000000000000000L});
+        public static final BitSet FOLLOW_EOF_in_entryRuleOpUnary15081 = new BitSet(new long[]{0x0000000000000002L});
+        public static final BitSet FOLLOW_ExclamationMark_in_ruleOpUnary15119 = new BitSet(new long[]{0x0000000000000002L});
+        public static final BitSet FOLLOW_HyphenMinus_in_ruleOpUnary15138 = new BitSet(new long[]{0x0000000000000002L});
+        public static final BitSet FOLLOW_PlusSign_in_ruleOpUnary15157 = new BitSet(new long[]{0x0000000000000002L});
+        public static final BitSet FOLLOW_ruleAPrimaryExpression_in_entryRuleAPrimaryExpression15196 = new BitSet(new long[]{0x0000000000000000L});
+        public static final BitSet FOLLOW_EOF_in_entryRuleAPrimaryExpression15206 = new BitSet(new long[]{0x0000000000000002L});
+        public static final BitSet FOLLOW_ruleALiteral_in_ruleAPrimaryExpression15253 = new BitSet(new long[]{0x0000000000000002L});
+        public static final BitSet FOLLOW_ruleAParenthesizedExpression_in_ruleAPrimaryExpression15280 = new BitSet(new long[]{0x0000000000000002L});
+        public static final BitSet FOLLOW_ruleALiteral_in_entryRuleALiteral15314 = new BitSet(new long[]{0x0000000000000000L});
+        public static final BitSet FOLLOW_EOF_in_entryRuleALiteral15324 = new BitSet(new long[]{0x0000000000000002L});
+        public static final BitSet FOLLOW_ruleACollectionLiteral_in_ruleALiteral15371 = new BitSet(new long[]{0x0000000000000002L});
+        public static final BitSet FOLLOW_ruleABooleanLiteral_in_ruleALiteral15398 = new BitSet(new long[]{0x0000000000000002L});
+        public static final BitSet FOLLOW_ruleANumberLiteral_in_ruleALiteral15425 = new BitSet(new long[]{0x0000000000000002L});
+        public static final BitSet FOLLOW_ruleANullLiteral_in_ruleALiteral15452 = new BitSet(new long[]{0x0000000000000002L});
+        public static final BitSet FOLLOW_ruleAStringLiteral_in_ruleALiteral15479 = new BitSet(new long[]{0x0000000000000002L});
+        public static final BitSet FOLLOW_ruleACollectionLiteral_in_entryRuleACollectionLiteral15513 = new BitSet(new long[]{0x0000000000000000L});
+        public static final BitSet FOLLOW_EOF_in_entryRuleACollectionLiteral15523 = new BitSet(new long[]{0x0000000000000002L});
+        public static final BitSet FOLLOW_ruleASetLiteral_in_ruleACollectionLiteral15570 = new BitSet(new long[]{0x0000000000000002L});
+        public static final BitSet FOLLOW_ruleAListLiteral_in_ruleACollectionLiteral15597 = new BitSet(new long[]{0x0000000000000002L});
+        public static final BitSet FOLLOW_ruleASetLiteral_in_entryRuleASetLiteral15631 = new BitSet(new long[]{0x0000000000000000L});
+        public static final BitSet FOLLOW_EOF_in_entryRuleASetLiteral15641 = new BitSet(new long[]{0x0000000000000002L});
+        public static final BitSet FOLLOW_NumberSign_in_ruleASetLiteral15688 = new BitSet(new long[]{0x0000000000000000L,0x0000000000010000L});
+        public static final BitSet FOLLOW_LeftCurlyBracket_in_ruleASetLiteral15700 = new BitSet(new long[]{0xC00000A200000000L,0x00000000005E0052L});
+        public static final BitSet FOLLOW_ruleAExpression_in_ruleASetLiteral15721 = new BitSet(new long[]{0x0000000000000000L,0x0000000000020020L});
+        public static final BitSet FOLLOW_Comma_in_ruleASetLiteral15735 = new BitSet(new long[]{0xC00000A200000000L,0x00000000005C0052L});
+        public static final BitSet FOLLOW_ruleAExpression_in_ruleASetLiteral15755 = new BitSet(new long[]{0x0000000000000000L,0x0000000000020020L});
+        public static final BitSet FOLLOW_RightCurlyBracket_in_ruleASetLiteral15772 = new BitSet(new long[]{0x0000000000000002L});
+        public static final BitSet FOLLOW_ruleAListLiteral_in_entryRuleAListLiteral15806 = new BitSet(new long[]{0x0000000000000000L});
+        public static final BitSet FOLLOW_EOF_in_entryRuleAListLiteral15816 = new BitSet(new long[]{0x0000000000000002L});
+        public static final BitSet FOLLOW_NumberSign_in_ruleAListLiteral15863 = new BitSet(new long[]{0x0000000000000000L,0x0000000000004000L});
+        public static final BitSet FOLLOW_LeftSquareBracket_in_ruleAListLiteral15875 = new BitSet(new long[]{0xC00000A200000000L,0x00000000005C8052L});
+        public static final BitSet FOLLOW_ruleAExpression_in_ruleAListLiteral15896 = new BitSet(new long[]{0x0000000000000000L,0x0000000000008020L});
+        public static final BitSet FOLLOW_Comma_in_ruleAListLiteral15910 = new BitSet(new long[]{0xC00000A200000000L,0x00000000005C0052L});
+        public static final BitSet FOLLOW_ruleAExpression_in_ruleAListLiteral15930 = new BitSet(new long[]{0x0000000000000000L,0x0000000000008020L});
+        public static final BitSet FOLLOW_RightSquareBracket_in_ruleAListLiteral15947 = new BitSet(new long[]{0x0000000000000002L});
+        public static final BitSet FOLLOW_ruleAParenthesizedExpression_in_entryRuleAParenthesizedExpression15981 = new BitSet(new long[]{0x0000000000000000L});
+        public static final BitSet FOLLOW_EOF_in_entryRuleAParenthesizedExpression15991 = new BitSet(new long[]{0x0000000000000002L});
+        public static final BitSet FOLLOW_LeftParenthesis_in_ruleAParenthesizedExpression16029 = new BitSet(new long[]{0xC00000A200000000L,0x00000000005C0052L});
+        public static final BitSet FOLLOW_ruleAExpression_in_ruleAParenthesizedExpression16050 = new BitSet(new long[]{0x0000000000000000L,0x0000000000000004L});
+        public static final BitSet FOLLOW_RightParenthesis_in_ruleAParenthesizedExpression16062 = new BitSet(new long[]{0x0000000000000002L});
+        public static final BitSet FOLLOW_ruleABooleanLiteral_in_entryRuleABooleanLiteral16096 = new BitSet(new long[]{0x0000000000000000L});
+        public static final BitSet FOLLOW_EOF_in_entryRuleABooleanLiteral16106 = new BitSet(new long[]{0x0000000000000002L});
+        public static final BitSet FOLLOW_False_in_ruleABooleanLiteral16154 = new BitSet(new long[]{0x0000000000000002L});
+        public static final BitSet FOLLOW_True_in_ruleABooleanLiteral16178 = new BitSet(new long[]{0x0000000000000002L});
+        public static final BitSet FOLLOW_ruleANullLiteral_in_entryRuleANullLiteral16225 = new BitSet(new long[]{0x0000000000000000L});
+        public static final BitSet FOLLOW_EOF_in_entryRuleANullLiteral16235 = new BitSet(new long[]{0x0000000000000002L});
+        public static final BitSet FOLLOW_Null_in_ruleANullLiteral16282 = new BitSet(new long[]{0x0000000000000002L});
+        public static final BitSet FOLLOW_ruleANumberLiteral_in_entryRuleANumberLiteral16316 = new BitSet(new long[]{0x0000000000000000L});
+        public static final BitSet FOLLOW_EOF_in_entryRuleANumberLiteral16326 = new BitSet(new long[]{0x0000000000000002L});
+        public static final BitSet FOLLOW_ruleNumber_in_ruleANumberLiteral16372 = new BitSet(new long[]{0x0000000000000002L,0x0000000000200000L});
+        public static final BitSet FOLLOW_RULE_ID_in_ruleANumberLiteral16404 = new BitSet(new long[]{0x0000000000000002L});
+        public static final BitSet FOLLOW_ruleAStringLiteral_in_entryRuleAStringLiteral16440 = new BitSet(new long[]{0x0000000000000000L});
+        public static final BitSet FOLLOW_EOF_in_entryRuleAStringLiteral16450 = new BitSet(new long[]{0x0000000000000002L});
+        public static final BitSet FOLLOW_RULE_STRING_in_ruleAStringLiteral16501 = new BitSet(new long[]{0x0000000000000002L});
+        public static final BitSet FOLLOW_ruleAadlClassifierReference_in_entryRuleAadlClassifierReference16542 = new BitSet(new long[]{0x0000000000000000L});
+        public static final BitSet FOLLOW_EOF_in_entryRuleAadlClassifierReference16553 = new BitSet(new long[]{0x0000000000000002L});
+        public static final BitSet FOLLOW_RULE_ID_in_ruleAadlClassifierReference16593 = new BitSet(new long[]{0x0080000000000000L});
+        public static final BitSet FOLLOW_ColonColon_in_ruleAadlClassifierReference16612 = new BitSet(new long[]{0x0000000000000000L,0x0000000000200000L});
+        public static final BitSet FOLLOW_RULE_ID_in_ruleAadlClassifierReference16627 = new BitSet(new long[]{0x0080000000000002L,0x0000000000000080L});
+        public static final BitSet FOLLOW_FullStop_in_ruleAadlClassifierReference16648 = new BitSet(new long[]{0x0000000000000000L,0x0000000000200000L});
+        public static final BitSet FOLLOW_RULE_ID_in_ruleAadlClassifierReference16663 = new BitSet(new long[]{0x0000000000000002L});
+        public static final BitSet FOLLOW_ruleAADLPROPERTYREFERENCE_in_entryRuleAADLPROPERTYREFERENCE16710 = new BitSet(new long[]{0x0000000000000000L});
+        public static final BitSet FOLLOW_EOF_in_entryRuleAADLPROPERTYREFERENCE16721 = new BitSet(new long[]{0x0000000000000002L});
+        public static final BitSet FOLLOW_RULE_ID_in_ruleAADLPROPERTYREFERENCE16761 = new BitSet(new long[]{0x0080000000000002L});
+        public static final BitSet FOLLOW_ColonColon_in_ruleAADLPROPERTYREFERENCE16780 = new BitSet(new long[]{0x0000000000000000L,0x0000000000200000L});
+        public static final BitSet FOLLOW_RULE_ID_in_ruleAADLPROPERTYREFERENCE16795 = new BitSet(new long[]{0x0000000000000002L});
+        public static final BitSet FOLLOW_ruleQualifiedName_in_entryRuleQualifiedName16844 = new BitSet(new long[]{0x0000000000000000L});
+        public static final BitSet FOLLOW_EOF_in_entryRuleQualifiedName16855 = new BitSet(new long[]{0x0000000000000002L});
+        public static final BitSet FOLLOW_RULE_ID_in_ruleQualifiedName16895 = new BitSet(new long[]{0x0000000000000002L,0x0000000000000080L});
+        public static final BitSet FOLLOW_FullStop_in_ruleQualifiedName16914 = new BitSet(new long[]{0x0000000000000000L,0x0000000000200000L});
+        public static final BitSet FOLLOW_RULE_ID_in_ruleQualifiedName16929 = new BitSet(new long[]{0x0000000000000002L,0x0000000000000080L});
+        public static final BitSet FOLLOW_ruleNumber_in_entryRuleNumber16982 = new BitSet(new long[]{0x0000000000000000L});
+        public static final BitSet FOLLOW_EOF_in_entryRuleNumber16993 = new BitSet(new long[]{0x0000000000000002L});
+        public static final BitSet FOLLOW_RULE_HEX_in_ruleNumber17037 = new BitSet(new long[]{0x0000000000000002L});
+        public static final BitSet FOLLOW_RULE_INT_in_ruleNumber17065 = new BitSet(new long[]{0x0000000000000002L,0x0000000000000080L});
+        public static final BitSet FOLLOW_RULE_DECIMAL_in_ruleNumber17091 = new BitSet(new long[]{0x0000000000000002L,0x0000000000000080L});
+        public static final BitSet FOLLOW_FullStop_in_ruleNumber17111 = new BitSet(new long[]{0x0000000000000000L,0x0000000000180000L});
+        public static final BitSet FOLLOW_RULE_INT_in_ruleNumber17127 = new BitSet(new long[]{0x0000000000000002L});
+        public static final BitSet FOLLOW_RULE_DECIMAL_in_ruleNumber17153 = new BitSet(new long[]{0x0000000000000002L});
+        public static final BitSet FOLLOW_RULE_ID_in_synpred1_InternalReqSpecParser11776 = new BitSet(new long[]{0x0000000000000000L,0x0000000000200000L});
+        public static final BitSet FOLLOW_RULE_ID_in_synpred1_InternalReqSpecParser11786 = new BitSet(new long[]{0x0000000000000002L});
+        public static final BitSet FOLLOW_RULE_ID_in_synpred2_InternalReqSpecParser12004 = new BitSet(new long[]{0x0000000000000000L,0x0000000000200000L});
+        public static final BitSet FOLLOW_RULE_ID_in_synpred2_InternalReqSpecParser12014 = new BitSet(new long[]{0x0000000000000002L});
+        public static final BitSet FOLLOW_ruleOpOr_in_synpred3_InternalReqSpecParser12687 = new BitSet(new long[]{0x0000000000000002L});
+        public static final BitSet FOLLOW_ruleOpAnd_in_synpred4_InternalReqSpecParser12940 = new BitSet(new long[]{0x0000000000000002L});
+        public static final BitSet FOLLOW_ruleOpEquality_in_synpred5_InternalReqSpecParser13193 = new BitSet(new long[]{0x0000000000000002L});
+        public static final BitSet FOLLOW_ruleOpCompare_in_synpred6_InternalReqSpecParser13505 = new BitSet(new long[]{0x0000000000000002L});
+        public static final BitSet FOLLOW_ruleOpOther_in_synpred7_InternalReqSpecParser13832 = new BitSet(new long[]{0x0000000000000002L});
+        public static final BitSet FOLLOW_GreaterThanSign_in_synpred8_InternalReqSpecParser14098 = new BitSet(new long[]{0x0000000000000000L,0x0000000000001000L});
+        public static final BitSet FOLLOW_GreaterThanSign_in_synpred8_InternalReqSpecParser14103 = new BitSet(new long[]{0x0000000000000002L});
+        public static final BitSet FOLLOW_LessThanSign_in_synpred9_InternalReqSpecParser14185 = new BitSet(new long[]{0x0000000000000000L,0x0000000000000400L});
+        public static final BitSet FOLLOW_LessThanSign_in_synpred9_InternalReqSpecParser14190 = new BitSet(new long[]{0x0000000000000002L});
+        public static final BitSet FOLLOW_ruleOpAdd_in_synpred10_InternalReqSpecParser14409 = new BitSet(new long[]{0x0000000000000002L});
+        public static final BitSet FOLLOW_ruleOpMulti_in_synpred11_InternalReqSpecParser14683 = new BitSet(new long[]{0x0000000000000002L});
+        public static final BitSet FOLLOW_RULE_ID_in_synpred12_InternalReqSpecParser16387 = new BitSet(new long[]{0x0000000000000002L});
+>>>>>>> refs/remotes/origin/PeterWork
     }
 
 

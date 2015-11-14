@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 All=45
 AmpersandAmpersand=52
 Asterisk=68
@@ -46,8 +47,58 @@ LeftParenthesis=66
 LeftSquareBracket=79
 LessThanSign=75
 LessThanSignGreaterThanSign=57
+=======
+All=44
+AmpersandAmpersand=51
+Asterisk=67
+AsteriskAsterisk=52
+Category=23
+Colon=73
+ColonColon=55
+Comma=69
+CommercialAt=77
+Compute=26
+Conflicts=17
+Constants=18
+Costimpact=14
+Decomposes=15
+Description=8
+Development=9
+Document=24
+Dropped=27
+EqualsSign=75
+EqualsSignEqualsSign=57
+EqualsSignEqualsSignEqualsSign=43
+EqualsSignGreaterThanSign=58
+Evolves=28
+ExclamationMark=62
+ExclamationMarkEqualsSign=50
+ExclamationMarkEqualsSignEqualsSign=41
+False=33
+Familiarity=10
+For=45
+FullStop=71
+FullStopFullStop=54
+FullStopFullStopLessThanSign=42
+Goal=36
+Goals=34
+GreaterThanSign=76
+GreaterThanSignEqualsSign=59
+HyphenMinus=70
+HyphenMinusGreaterThanSign=53
+Img=46
+Informal=25
+Issues=31
+KW_System=32
+LeftCurlyBracket=80
+LeftParenthesis=65
+LeftSquareBracket=78
+LessThanSign=74
+LessThanSignGreaterThanSign=56
+>>>>>>> refs/remotes/origin/PeterWork
 Maturityindex=6
 Mitigates=19
+<<<<<<< HEAD
 Null=38
 NumberSign=64
 PercentSign=65
@@ -70,21 +121,52 @@ RULE_REAL_LIT=86
 RULE_SL_COMMENT=96
 RULE_STRING=94
 RULE_WS=97
+=======
+Null=37
+NumberSign=63
+PercentSign=64
+PlusSign=68
+Predicate=20
+QuestionMarkColon=60
+RULE_ANY_OTHER=90
+RULE_DECIMAL=84
+RULE_HEX=82
+RULE_ID=85
+RULE_INT=83
+RULE_ML_COMMENT=87
+RULE_SL_COMMENT=88
+RULE_STRING=86
+RULE_WS=89
+>>>>>>> refs/remotes/origin/PeterWork
 Rationale=21
 Refines=29
 Requirement=11
 Requirements=7
+<<<<<<< HEAD
 RightCurlyBracket=82
 RightParenthesis=67
 RightSquareBracket=80
+=======
+RightCurlyBracket=81
+RightParenthesis=66
+RightSquareBracket=79
+>>>>>>> refs/remotes/origin/PeterWork
 Riskindex=22
 Scheduleimpact=5
 Section=30
+<<<<<<< HEAD
 See=48
 Solidus=73
 Stakeholder=12
 This=39
+=======
+See=47
+Solidus=72
+Stakeholder=12
+This=38
+>>>>>>> refs/remotes/origin/PeterWork
 Timecriticality=4
+<<<<<<< HEAD
 True=40
 Uncertainty=13
 Use=49
@@ -93,3 +175,13 @@ Value=36
 VerticalLineVerticalLine=62
 Volatility=16
 With=41
+=======
+True=39
+Uncertainty=13
+Use=48
+Val=49
+Value=35
+VerticalLineVerticalLine=61
+Volatility=16
+With=40
+>>>>>>> refs/remotes/origin/PeterWork

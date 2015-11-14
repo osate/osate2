@@ -2,7 +2,11 @@
  */
 package org.osate.alisa.common.common;
 
+<<<<<<< HEAD
 import org.osate.aadl2.AbstractNamedValue;
+=======
+import org.osate.aadl2.Property;
+>>>>>>> refs/remotes/origin/PeterWork
 
 /**
  * <!-- begin-user-doc -->
