@@ -38,7 +38,7 @@ import org.osate.alisa.common.common.AVariableReference
  * on how and when to use it 
  * 
  */
-class ReqSpecScopeProvider extends AlisaAbstractDeclarativeScopeProvider {
+class ReqSpecScopeProvider extends org.eclipse.xtext.scoping.impl.AbstractDeclarativeScopeProvider {
 	@Inject var ICommonGlobalReferenceFinder commonRefFinder
 	@Inject var IReqspecGlobalReferenceFinder refFinder
 

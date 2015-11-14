@@ -3,6 +3,7 @@
  */
 package org.osate.alisa.workbench;
 
+import org.eclipse.xtext.conversion.IValueConverterService;
 import org.eclipse.xtext.generator.IOutputConfigurationProvider;
 
 /**

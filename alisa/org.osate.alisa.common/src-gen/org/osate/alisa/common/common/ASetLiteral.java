@@ -1,23 +1,3 @@
-<<<<<<< Upstream, based on develop
-/**
- */
-package org.osate.alisa.common.common;
-
-
-/**
- * <!-- begin-user-doc -->
- * A representation of the model object '<em><b>ASet Literal</b></em>'.
- * <!-- end-user-doc -->
- *
- *
- * @see org.osate.alisa.common.common.CommonPackage#getASetLiteral()
- * @model
- * @generated
- */
-public interface ASetLiteral extends ACollectionLiteral
-{
-} // ASetLiteral
-=======
 /**
  */
 package org.osate.alisa.common.common;
@@ -63,4 +43,3 @@ public interface ASetLiteral extends EObject, PropertyExpression
   EList<PropertyExpression> getElements();
 
 } // ASetLiteral
->>>>>>> 7578468 expressions uses property value classes

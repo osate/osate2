@@ -49,36 +49,39 @@ class CommonUtilExtension {
 		if (de.showValue != null) {
 			val decl = de.showValue?.ref
 			if(decl.eIsProxy) return "TBD"
-			if (decl instanceof ComputeDeclaration){
+			if (decl instanceof ComputeDeclaration) {
 				return decl.name
-			} else 
-			if (decl instanceof ValDeclaration) {
+			} else if (decl instanceof ValDeclaration) {
 				val x = decl?.right
 				if(x == null) return "TBD"
 				if (x instanceof APropertyReference) {
 					val pd = x.property
-					try {
-						val pval = target.getSimplePropertyValue(pd)
-						return pval.toString
-					} catch (PropertyLookupException e) {
-						return pd.qualifiedName()
+					if (pd instanceof Property) {
+						try {
+							val pval = target.getSimplePropertyValue(pd)
+							return pval.toString
+						} catch (PropertyLookupException e) {
+							return pd.qualifiedName()
+						}
 					}
+
+				}
+			}
 			if(decl.eIsProxy) return "TBD"
-			if (decl instanceof ComputeDeclaration){
+			if (decl instanceof ComputeDeclaration) {
 				return decl.name
-			} else 
-			if (decl instanceof ValDeclaration) {
+			} else if (decl instanceof ValDeclaration) {
 				val x = decl?.right
 				if(x == null) return "TBD"
 				if (x instanceof APropertyReference) {
 					val pd = x.property
-					if (pd instanceof Property){
-					try {
-						val pval = target.getSimplePropertyValue(pd)
-						return pval.toString
-					} catch (PropertyLookupException e) {
-						return pd.qualifiedName()
-					}
+					if (pd instanceof Property) {
+						try {
+							val pval = target.getSimplePropertyValue(pd)
+							return pval.toString
+						} catch (PropertyLookupException e) {
+							return pd.qualifiedName()
+						}
 					}
 				}
 				return x?.toString ?: ""
@@ -101,7 +104,6 @@ class CommonUtilExtension {
 //		}
 //		return String.format("%.3f " + targetliteral.getName(), result);
 //	}
-	
 	def static boolean isSameorExtends(ComponentClassifier target, ComponentClassifier ancestor) {
 		if(Aadl2Util.isNull(target) || Aadl2Util.isNull(ancestor)) return false
 		var Classifier ext = target

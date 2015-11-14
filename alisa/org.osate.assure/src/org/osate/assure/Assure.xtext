@@ -64,7 +64,7 @@ VerificationActivityResult returns VerificationResult:
 		issues+=ResultIssue*
 		']'
 	)?
-	('report' resultReport=[results::ResultReport|QualifiedName])? // pointer to separate report
+	('report' resultReport=[results::ResultReport|QualifiedName])? 
 	metrics=Metrics
 	('message' message= STRING)?
 	conditionResult= ConditionResult?
