@@ -4,8 +4,6 @@ package org.osate.alisa.common.common;
 
 import org.eclipse.emf.ecore.EObject;
 
-import org.eclipse.xtext.xbase.XVariableDeclaration;
-
 import org.osate.aadl2.UnitLiteral;
 
 /**
@@ -36,12 +34,12 @@ public interface ShowValue extends EObject
    * </p>
    * <!-- end-user-doc -->
    * @return the value of the '<em>Ref</em>' reference.
-   * @see #setRef(XVariableDeclaration)
+   * @see #setRef(AVariableDeclaration)
    * @see org.osate.alisa.common.common.CommonPackage#getShowValue_Ref()
    * @model
    * @generated
    */
-  XVariableDeclaration getRef();
+  AVariableDeclaration getRef();
 
   /**
    * Sets the value of the '{@link org.osate.alisa.common.common.ShowValue#getRef <em>Ref</em>}' reference.
@@ -51,7 +49,7 @@ public interface ShowValue extends EObject
    * @see #getRef()
    * @generated
    */
-  void setRef(XVariableDeclaration value);
+  void setRef(AVariableDeclaration value);
 
   /**
    * Returns the value of the '<em><b>Unit</b></em>' reference.

@@ -18,7 +18,7 @@ import org.eclipse.emf.ecore.impl.MinimalEObjectImpl;
 import org.eclipse.emf.ecore.util.EObjectContainmentEList;
 import org.eclipse.emf.ecore.util.InternalEList;
 
-import org.eclipse.xtext.xbase.XVariableDeclaration;
+import org.osate.alisa.common.common.AVariableDeclaration;
 
 import org.osate.reqspec.reqSpec.GlobalConstants;
 import org.osate.reqspec.reqSpec.ReqSpecPackage;
@@ -67,7 +67,7 @@ public class GlobalConstantsImpl extends MinimalEObjectImpl.Container implements
    * @generated
    * @ordered
    */
-  protected EList<XVariableDeclaration> constants;
+  protected EList<AVariableDeclaration> constants;
 
   /**
    * <!-- begin-user-doc -->
@@ -118,11 +118,11 @@ public class GlobalConstantsImpl extends MinimalEObjectImpl.Container implements
    * <!-- end-user-doc -->
    * @generated
    */
-  public EList<XVariableDeclaration> getConstants()
+  public EList<AVariableDeclaration> getConstants()
   {
     if (constants == null)
     {
-      constants = new EObjectContainmentEList<XVariableDeclaration>(XVariableDeclaration.class, this, ReqSpecPackage.GLOBAL_CONSTANTS__CONSTANTS);
+      constants = new EObjectContainmentEList<AVariableDeclaration>(AVariableDeclaration.class, this, ReqSpecPackage.GLOBAL_CONSTANTS__CONSTANTS);
     }
     return constants;
   }
@@ -177,7 +177,7 @@ public class GlobalConstantsImpl extends MinimalEObjectImpl.Container implements
         return;
       case ReqSpecPackage.GLOBAL_CONSTANTS__CONSTANTS:
         getConstants().clear();
-        getConstants().addAll((Collection<? extends XVariableDeclaration>)newValue);
+        getConstants().addAll((Collection<? extends AVariableDeclaration>)newValue);
         return;
     }
     super.eSet(featureID, newValue);

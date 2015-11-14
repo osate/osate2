@@ -59,6 +59,24 @@ public interface CommonFactory extends EFactory
   Uncertainty createUncertainty();
 
   /**
+   * Returns a new object of class '<em>AVariable Declaration</em>'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return a new object of class '<em>AVariable Declaration</em>'.
+   * @generated
+   */
+  AVariableDeclaration createAVariableDeclaration();
+
+  /**
+   * Returns a new object of class '<em>AExpression</em>'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return a new object of class '<em>AExpression</em>'.
+   * @generated
+   */
+  AExpression createAExpression();
+
+  /**
    * Returns a new object of class '<em>Show Value</em>'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -75,6 +93,51 @@ public interface CommonFactory extends EFactory
    * @generated
    */
   ImageReference createImageReference();
+
+  /**
+   * Returns a new object of class '<em>ACollection Literal</em>'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return a new object of class '<em>ACollection Literal</em>'.
+   * @generated
+   */
+  ACollectionLiteral createACollectionLiteral();
+
+  /**
+   * Returns a new object of class '<em>ASet Literal</em>'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return a new object of class '<em>ASet Literal</em>'.
+   * @generated
+   */
+  ASetLiteral createASetLiteral();
+
+  /**
+   * Returns a new object of class '<em>AList Literal</em>'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return a new object of class '<em>AList Literal</em>'.
+   * @generated
+   */
+  AListLiteral createAListLiteral();
+
+  /**
+   * Returns a new object of class '<em>ANumber Literal</em>'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return a new object of class '<em>ANumber Literal</em>'.
+   * @generated
+   */
+  ANumberLiteral createANumberLiteral();
+
+  /**
+   * Returns a new object of class '<em>Val Declaration</em>'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return a new object of class '<em>Val Declaration</em>'.
+   * @generated
+   */
+  ValDeclaration createValDeclaration();
 
   /**
    * Returns a new object of class '<em>Compute Declaration</em>'.
@@ -95,13 +158,58 @@ public interface CommonFactory extends EFactory
   APropertyReference createAPropertyReference();
 
   /**
-   * Returns a new object of class '<em>XNumber Literal Unit</em>'.
+   * Returns a new object of class '<em>AVariable Reference</em>'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @return a new object of class '<em>XNumber Literal Unit</em>'.
+   * @return a new object of class '<em>AVariable Reference</em>'.
    * @generated
    */
-  XNumberLiteralUnit createXNumberLiteralUnit();
+  AVariableReference createAVariableReference();
+
+  /**
+   * Returns a new object of class '<em>ABinary Operation</em>'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return a new object of class '<em>ABinary Operation</em>'.
+   * @generated
+   */
+  ABinaryOperation createABinaryOperation();
+
+  /**
+   * Returns a new object of class '<em>AUnary Operation</em>'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return a new object of class '<em>AUnary Operation</em>'.
+   * @generated
+   */
+  AUnaryOperation createAUnaryOperation();
+
+  /**
+   * Returns a new object of class '<em>ABoolean Literal</em>'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return a new object of class '<em>ABoolean Literal</em>'.
+   * @generated
+   */
+  ABooleanLiteral createABooleanLiteral();
+
+  /**
+   * Returns a new object of class '<em>ANull Literal</em>'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return a new object of class '<em>ANull Literal</em>'.
+   * @generated
+   */
+  ANullLiteral createANullLiteral();
+
+  /**
+   * Returns a new object of class '<em>AString Literal</em>'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return a new object of class '<em>AString Literal</em>'.
+   * @generated
+   */
+  AStringLiteral createAStringLiteral();
 
   /**
    * Returns the package supported by this factory.

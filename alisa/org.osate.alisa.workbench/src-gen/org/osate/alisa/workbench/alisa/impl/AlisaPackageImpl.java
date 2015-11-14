@@ -12,13 +12,13 @@ import org.eclipse.emf.ecore.impl.EPackageImpl;
 
 import org.osate.aadl2.Aadl2Package;
 
+import org.osate.alisa.common.common.CommonPackage;
+
 import org.osate.alisa.workbench.alisa.AlisaFactory;
 import org.osate.alisa.workbench.alisa.AlisaPackage;
 import org.osate.alisa.workbench.alisa.AlisaWorkArea;
 import org.osate.alisa.workbench.alisa.AssurancePlan;
 import org.osate.alisa.workbench.alisa.AssuranceTask;
-import org.osate.alisa.workbench.alisa.Description;
-import org.osate.alisa.workbench.alisa.DescriptionElement;
 
 import org.osate.categories.categories.CategoriesPackage;
 
@@ -52,20 +52,6 @@ public class AlisaPackageImpl extends EPackageImpl implements AlisaPackage
    * @generated
    */
   private EClass assuranceTaskEClass = null;
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  private EClass descriptionEClass = null;
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  private EClass descriptionElementEClass = null;
 
   /**
    * Creates an instance of the model <b>Package</b>, registered with
@@ -348,56 +334,6 @@ public class AlisaPackageImpl extends EPackageImpl implements AlisaPackage
    * <!-- end-user-doc -->
    * @generated
    */
-  public EClass getDescription()
-  {
-    return descriptionEClass;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public EReference getDescription_Description()
-  {
-    return (EReference)descriptionEClass.getEStructuralFeatures().get(0);
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public EClass getDescriptionElement()
-  {
-    return descriptionElementEClass;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public EAttribute getDescriptionElement_Text()
-  {
-    return (EAttribute)descriptionElementEClass.getEStructuralFeatures().get(0);
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public EAttribute getDescriptionElement_ThisTarget()
-  {
-    return (EAttribute)descriptionElementEClass.getEStructuralFeatures().get(1);
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
   public AlisaFactory getAlisaFactory()
   {
     return (AlisaFactory)getEFactoryInstance();
@@ -446,13 +382,6 @@ public class AlisaPackageImpl extends EPackageImpl implements AlisaPackage
     createEReference(assuranceTaskEClass, ASSURANCE_TASK__FILTER);
     createEAttribute(assuranceTaskEClass, ASSURANCE_TASK__STRICT_FILTER);
     createEAttribute(assuranceTaskEClass, ASSURANCE_TASK__ISSUES);
-
-    descriptionEClass = createEClass(DESCRIPTION);
-    createEReference(descriptionEClass, DESCRIPTION__DESCRIPTION);
-
-    descriptionElementEClass = createEClass(DESCRIPTION_ELEMENT);
-    createEAttribute(descriptionElementEClass, DESCRIPTION_ELEMENT__TEXT);
-    createEAttribute(descriptionElementEClass, DESCRIPTION_ELEMENT__THIS_TARGET);
   }
 
   /**
@@ -482,6 +411,7 @@ public class AlisaPackageImpl extends EPackageImpl implements AlisaPackage
     // Obtain other dependent packages
     EcorePackage theEcorePackage = (EcorePackage)EPackage.Registry.INSTANCE.getEPackage(EcorePackage.eNS_URI);
     Aadl2Package theAadl2Package = (Aadl2Package)EPackage.Registry.INSTANCE.getEPackage(Aadl2Package.eNS_URI);
+    CommonPackage theCommonPackage = (CommonPackage)EPackage.Registry.INSTANCE.getEPackage(CommonPackage.eNS_URI);
     VerifyPackage theVerifyPackage = (VerifyPackage)EPackage.Registry.INSTANCE.getEPackage(VerifyPackage.eNS_URI);
     CategoriesPackage theCategoriesPackage = (CategoriesPackage)EPackage.Registry.INSTANCE.getEPackage(CategoriesPackage.eNS_URI);
 
@@ -499,7 +429,7 @@ public class AlisaPackageImpl extends EPackageImpl implements AlisaPackage
     initEAttribute(getAssurancePlan_Name(), theEcorePackage.getEString(), "name", null, 0, 1, AssurancePlan.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEAttribute(getAssurancePlan_Title(), theEcorePackage.getEString(), "title", null, 0, 1, AssurancePlan.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEReference(getAssurancePlan_Target(), theAadl2Package.getComponentImplementation(), null, "target", null, 0, 1, AssurancePlan.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-    initEReference(getAssurancePlan_Description(), this.getDescription(), null, "description", null, 0, 1, AssurancePlan.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEReference(getAssurancePlan_Description(), theCommonPackage.getDescription(), null, "description", null, 0, 1, AssurancePlan.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEReference(getAssurancePlan_AssureOwn(), theVerifyPackage.getVerificationPlan(), null, "assureOwn", null, 0, -1, AssurancePlan.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEReference(getAssurancePlan_AssureGlobal(), theVerifyPackage.getVerificationPlan(), null, "assureGlobal", null, 0, -1, AssurancePlan.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEReference(getAssurancePlan_AssureSubsystemPlans(), this.getAssurancePlan(), null, "assureSubsystemPlans", null, 0, -1, AssurancePlan.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
@@ -511,17 +441,10 @@ public class AlisaPackageImpl extends EPackageImpl implements AlisaPackage
     initEAttribute(getAssuranceTask_Name(), theEcorePackage.getEString(), "name", null, 0, 1, AssuranceTask.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEAttribute(getAssuranceTask_Title(), theEcorePackage.getEString(), "title", null, 0, 1, AssuranceTask.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEReference(getAssuranceTask_AssurancePlan(), this.getAssurancePlan(), null, "assurancePlan", null, 0, 1, AssuranceTask.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-    initEReference(getAssuranceTask_Description(), this.getDescription(), null, "description", null, 0, 1, AssuranceTask.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEReference(getAssuranceTask_Description(), theCommonPackage.getDescription(), null, "description", null, 0, 1, AssuranceTask.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEReference(getAssuranceTask_Filter(), theCategoriesPackage.getCategory(), null, "filter", null, 0, -1, AssuranceTask.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEAttribute(getAssuranceTask_StrictFilter(), theEcorePackage.getEBoolean(), "strictFilter", null, 0, 1, AssuranceTask.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEAttribute(getAssuranceTask_Issues(), theEcorePackage.getEString(), "issues", null, 0, -1, AssuranceTask.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-
-    initEClass(descriptionEClass, Description.class, "Description", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-    initEReference(getDescription_Description(), this.getDescriptionElement(), null, "description", null, 0, -1, Description.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-
-    initEClass(descriptionElementEClass, DescriptionElement.class, "DescriptionElement", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-    initEAttribute(getDescriptionElement_Text(), theEcorePackage.getEString(), "text", null, 0, 1, DescriptionElement.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-    initEAttribute(getDescriptionElement_ThisTarget(), theEcorePackage.getEBoolean(), "thisTarget", null, 0, 1, DescriptionElement.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
     // Create resource
     createResource(eNS_URI);

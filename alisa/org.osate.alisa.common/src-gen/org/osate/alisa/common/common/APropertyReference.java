@@ -2,8 +2,6 @@
  */
 package org.osate.alisa.common.common;
 
-import org.eclipse.xtext.xbase.XExpression;
-
 import org.osate.aadl2.Property;
 
 /**
@@ -22,7 +20,7 @@ import org.osate.aadl2.Property;
  * @model
  * @generated
  */
-public interface APropertyReference extends XExpression
+public interface APropertyReference extends AExpression
 {
   /**
    * Returns the value of the '<em><b>Property</b></em>' reference.

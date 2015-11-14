@@ -523,6 +523,43 @@ public interface VerifyPackage extends EPackage
   int VERIFICATION_METHOD_REGISTRY_FEATURE_COUNT = 4;
 
   /**
+   * The meta object id for the '{@link org.osate.verify.verify.impl.FormalParameterImpl <em>Formal Parameter</em>}' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see org.osate.verify.verify.impl.FormalParameterImpl
+   * @see org.osate.verify.verify.impl.VerifyPackageImpl#getFormalParameter()
+   * @generated
+   */
+  int FORMAL_PARAMETER = 7;
+
+  /**
+   * The feature id for the '<em><b>Parameter Type</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int FORMAL_PARAMETER__PARAMETER_TYPE = 0;
+
+  /**
+   * The feature id for the '<em><b>Name</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int FORMAL_PARAMETER__NAME = 1;
+
+  /**
+   * The number of structural features of the '<em>Formal Parameter</em>' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int FORMAL_PARAMETER_FEATURE_COUNT = 2;
+
+  /**
    * The meta object id for the '{@link org.osate.verify.verify.impl.VerificationMethodImpl <em>Verification Method</em>}' class.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -530,7 +567,7 @@ public interface VerifyPackage extends EPackage
    * @see org.osate.verify.verify.impl.VerifyPackageImpl#getVerificationMethod()
    * @generated
    */
-  int VERIFICATION_METHOD = 7;
+  int VERIFICATION_METHOD = 8;
 
   /**
    * The feature id for the '<em><b>Name</b></em>' attribute.
@@ -639,7 +676,7 @@ public interface VerifyPackage extends EPackage
    * @see org.osate.verify.verify.impl.VerifyPackageImpl#getMethodType()
    * @generated
    */
-  int METHOD_TYPE = 8;
+  int METHOD_TYPE = 9;
 
   /**
    * The number of structural features of the '<em>Method Type</em>' class.
@@ -658,7 +695,7 @@ public interface VerifyPackage extends EPackage
    * @see org.osate.verify.verify.impl.VerifyPackageImpl#getResoluteMethod()
    * @generated
    */
-  int RESOLUTE_METHOD = 9;
+  int RESOLUTE_METHOD = 10;
 
   /**
    * The feature id for the '<em><b>Method Reference</b></em>' reference.
@@ -686,7 +723,7 @@ public interface VerifyPackage extends EPackage
    * @see org.osate.verify.verify.impl.VerifyPackageImpl#getJavaMethod()
    * @generated
    */
-  int JAVA_METHOD = 10;
+  int JAVA_METHOD = 11;
 
   /**
    * The feature id for the '<em><b>Method Path</b></em>' attribute.
@@ -714,7 +751,7 @@ public interface VerifyPackage extends EPackage
    * @see org.osate.verify.verify.impl.VerifyPackageImpl#getManualMethod()
    * @generated
    */
-  int MANUAL_METHOD = 11;
+  int MANUAL_METHOD = 12;
 
   /**
    * The feature id for the '<em><b>Dialog ID</b></em>' attribute.
@@ -742,7 +779,7 @@ public interface VerifyPackage extends EPackage
    * @see org.osate.verify.verify.impl.VerifyPackageImpl#getPluginMethod()
    * @generated
    */
-  int PLUGIN_METHOD = 12;
+  int PLUGIN_METHOD = 13;
 
   /**
    * The feature id for the '<em><b>Method ID</b></em>' attribute.
@@ -770,7 +807,7 @@ public interface VerifyPackage extends EPackage
    * @see org.osate.verify.verify.impl.VerifyPackageImpl#getThenExpr()
    * @generated
    */
-  int THEN_EXPR = 13;
+  int THEN_EXPR = 14;
 
   /**
    * The feature id for the '<em><b>Left</b></em>' containment reference.
@@ -807,7 +844,7 @@ public interface VerifyPackage extends EPackage
    * @see org.osate.verify.verify.impl.VerifyPackageImpl#getElseExpr()
    * @generated
    */
-  int ELSE_EXPR = 14;
+  int ELSE_EXPR = 15;
 
   /**
    * The feature id for the '<em><b>Left</b></em>' containment reference.
@@ -862,7 +899,7 @@ public interface VerifyPackage extends EPackage
    * @see org.osate.verify.verify.impl.VerifyPackageImpl#getAllExpr()
    * @generated
    */
-  int ALL_EXPR = 15;
+  int ALL_EXPR = 16;
 
   /**
    * The feature id for the '<em><b>Elements</b></em>' containment reference list.
@@ -890,7 +927,7 @@ public interface VerifyPackage extends EPackage
    * @see org.osate.verify.verify.impl.VerifyPackageImpl#getRefExpr()
    * @generated
    */
-  int REF_EXPR = 16;
+  int REF_EXPR = 17;
 
   /**
    * The feature id for the '<em><b>Verification</b></em>' reference.
@@ -927,7 +964,7 @@ public interface VerifyPackage extends EPackage
    * @see org.osate.verify.verify.impl.VerifyPackageImpl#getVerificationValidation()
    * @generated
    */
-  int VERIFICATION_VALIDATION = 17;
+  int VERIFICATION_VALIDATION = 18;
 
   /**
    * The feature id for the '<em><b>Name</b></em>' attribute.
@@ -1018,7 +1055,7 @@ public interface VerifyPackage extends EPackage
    * @see org.osate.verify.verify.impl.VerifyPackageImpl#getVerificationPrecondition()
    * @generated
    */
-  int VERIFICATION_PRECONDITION = 18;
+  int VERIFICATION_PRECONDITION = 19;
 
   /**
    * The feature id for the '<em><b>Name</b></em>' attribute.
@@ -1578,6 +1615,38 @@ public interface VerifyPackage extends EPackage
    * @generated
    */
   EReference getVerificationMethodRegistry_Methods();
+
+  /**
+   * Returns the meta object for class '{@link org.osate.verify.verify.FormalParameter <em>Formal Parameter</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for class '<em>Formal Parameter</em>'.
+   * @see org.osate.verify.verify.FormalParameter
+   * @generated
+   */
+  EClass getFormalParameter();
+
+  /**
+   * Returns the meta object for the attribute '{@link org.osate.verify.verify.FormalParameter#getParameterType <em>Parameter Type</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the attribute '<em>Parameter Type</em>'.
+   * @see org.osate.verify.verify.FormalParameter#getParameterType()
+   * @see #getFormalParameter()
+   * @generated
+   */
+  EAttribute getFormalParameter_ParameterType();
+
+  /**
+   * Returns the meta object for the attribute '{@link org.osate.verify.verify.FormalParameter#getName <em>Name</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the attribute '<em>Name</em>'.
+   * @see org.osate.verify.verify.FormalParameter#getName()
+   * @see #getFormalParameter()
+   * @generated
+   */
+  EAttribute getFormalParameter_Name();
 
   /**
    * Returns the meta object for class '{@link org.osate.verify.verify.VerificationMethod <em>Verification Method</em>}'.
@@ -2340,6 +2409,32 @@ public interface VerifyPackage extends EPackage
      * @generated
      */
     EReference VERIFICATION_METHOD_REGISTRY__METHODS = eINSTANCE.getVerificationMethodRegistry_Methods();
+
+    /**
+     * The meta object literal for the '{@link org.osate.verify.verify.impl.FormalParameterImpl <em>Formal Parameter</em>}' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see org.osate.verify.verify.impl.FormalParameterImpl
+     * @see org.osate.verify.verify.impl.VerifyPackageImpl#getFormalParameter()
+     * @generated
+     */
+    EClass FORMAL_PARAMETER = eINSTANCE.getFormalParameter();
+
+    /**
+     * The meta object literal for the '<em><b>Parameter Type</b></em>' attribute feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EAttribute FORMAL_PARAMETER__PARAMETER_TYPE = eINSTANCE.getFormalParameter_ParameterType();
+
+    /**
+     * The meta object literal for the '<em><b>Name</b></em>' attribute feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EAttribute FORMAL_PARAMETER__NAME = eINSTANCE.getFormalParameter_Name();
 
     /**
      * The meta object literal for the '{@link org.osate.verify.verify.impl.VerificationMethodImpl <em>Verification Method</em>}' class.

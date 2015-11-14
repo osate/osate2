@@ -10,7 +10,7 @@ import org.eclipse.emf.ecore.InternalEObject;
 
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 
-import org.eclipse.xtext.xbase.XExpression;
+import org.osate.alisa.common.common.AExpression;
 
 import org.osate.reqspec.reqSpec.ReqSpecPackage;
 import org.osate.reqspec.reqSpec.XPredicate;
@@ -38,7 +38,7 @@ public class XPredicateImpl extends ReqPredicateImpl implements XPredicate
    * @generated
    * @ordered
    */
-  protected XExpression xpression;
+  protected AExpression xpression;
 
   /**
    * <!-- begin-user-doc -->
@@ -66,7 +66,7 @@ public class XPredicateImpl extends ReqPredicateImpl implements XPredicate
    * <!-- end-user-doc -->
    * @generated
    */
-  public XExpression getXpression()
+  public AExpression getXpression()
   {
     return xpression;
   }
@@ -76,9 +76,9 @@ public class XPredicateImpl extends ReqPredicateImpl implements XPredicate
    * <!-- end-user-doc -->
    * @generated
    */
-  public NotificationChain basicSetXpression(XExpression newXpression, NotificationChain msgs)
+  public NotificationChain basicSetXpression(AExpression newXpression, NotificationChain msgs)
   {
-    XExpression oldXpression = xpression;
+    AExpression oldXpression = xpression;
     xpression = newXpression;
     if (eNotificationRequired())
     {
@@ -93,7 +93,7 @@ public class XPredicateImpl extends ReqPredicateImpl implements XPredicate
    * <!-- end-user-doc -->
    * @generated
    */
-  public void setXpression(XExpression newXpression)
+  public void setXpression(AExpression newXpression)
   {
     if (newXpression != xpression)
     {
@@ -152,7 +152,7 @@ public class XPredicateImpl extends ReqPredicateImpl implements XPredicate
     switch (featureID)
     {
       case ReqSpecPackage.XPREDICATE__XPRESSION:
-        setXpression((XExpression)newValue);
+        setXpression((AExpression)newValue);
         return;
     }
     super.eSet(featureID, newValue);
@@ -169,7 +169,7 @@ public class XPredicateImpl extends ReqPredicateImpl implements XPredicate
     switch (featureID)
     {
       case ReqSpecPackage.XPREDICATE__XPRESSION:
-        setXpression((XExpression)null);
+        setXpression((AExpression)null);
         return;
     }
     super.eUnset(featureID);

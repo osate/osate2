@@ -19,14 +19,13 @@ import org.eclipse.emf.ecore.util.EObjectContainmentEList;
 import org.eclipse.emf.ecore.util.EObjectResolvingEList;
 import org.eclipse.emf.ecore.util.InternalEList;
 
-import org.eclipse.xtext.common.types.JvmFormalParameter;
-
 import org.osate.aadl2.Property;
 
 import org.osate.alisa.common.common.Description;
 
 import org.osate.categories.categories.Category;
 
+import org.osate.verify.verify.FormalParameter;
 import org.osate.verify.verify.MethodType;
 import org.osate.verify.verify.VerificationCondition;
 import org.osate.verify.verify.VerificationMethod;
@@ -84,7 +83,7 @@ public class VerificationMethodImpl extends MinimalEObjectImpl.Container impleme
    * @generated
    * @ordered
    */
-  protected EList<JvmFormalParameter> params;
+  protected EList<FormalParameter> params;
 
   /**
    * The cached value of the '{@link #getProperties() <em>Properties</em>}' reference list.
@@ -245,11 +244,11 @@ public class VerificationMethodImpl extends MinimalEObjectImpl.Container impleme
    * <!-- end-user-doc -->
    * @generated
    */
-  public EList<JvmFormalParameter> getParams()
+  public EList<FormalParameter> getParams()
   {
     if (params == null)
     {
-      params = new EObjectContainmentEList<JvmFormalParameter>(JvmFormalParameter.class, this, VerifyPackage.VERIFICATION_METHOD__PARAMS);
+      params = new EObjectContainmentEList<FormalParameter>(FormalParameter.class, this, VerifyPackage.VERIFICATION_METHOD__PARAMS);
     }
     return params;
   }
@@ -567,7 +566,7 @@ public class VerificationMethodImpl extends MinimalEObjectImpl.Container impleme
         return;
       case VerifyPackage.VERIFICATION_METHOD__PARAMS:
         getParams().clear();
-        getParams().addAll((Collection<? extends JvmFormalParameter>)newValue);
+        getParams().addAll((Collection<? extends FormalParameter>)newValue);
         return;
       case VerifyPackage.VERIFICATION_METHOD__PROPERTIES:
         getProperties().clear();

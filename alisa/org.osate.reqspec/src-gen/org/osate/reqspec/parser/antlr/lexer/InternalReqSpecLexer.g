@@ -24,8 +24,6 @@ Maturityindex : 'maturityindex';
 
 Requirements : 'requirements';
 
-Synchronized : 'synchronized';
-
 Description : 'description';
 
 Development : 'development';
@@ -42,15 +40,11 @@ Costimpact : 'costimpact';
 
 Decomposes : 'decomposes';
 
-Instanceof : 'instanceof';
-
 Volatility : 'volatility';
 
 Conflicts : 'conflicts';
 
 Constants : 'constants';
-
-Extension : 'extension';
 
 Mitigates : 'mitigates';
 
@@ -68,51 +62,23 @@ Informal : 'informal';
 
 Compute : 'compute';
 
-Default : 'default';
-
 Dropped : 'dropped';
 
 Evolves : 'evolves';
-
-Extends : 'extends';
-
-Finally : 'finally';
 
 Refines : 'refines';
 
 Section : 'section';
 
-Import : 'import';
-
 Issues : 'issues';
 
-Return : 'return';
-
-Static : 'static';
-
-Switch : 'switch';
-
 KW_System : 'system';
-
-Typeof : 'typeof';
-
-Catch : 'catch';
 
 False : 'false';
 
 Goals : 'goals';
 
-Super : 'super';
-
-Throw : 'throw';
-
 Value : 'value';
-
-While : 'while';
-
-Case : 'case';
-
-Else : 'else';
 
 Goal : 'goal';
 
@@ -136,41 +102,21 @@ For : 'for';
 
 Img : 'img';
 
-New : 'new';
-
 See : 'see';
-
-Try : 'try';
 
 Use : 'use';
 
 Val : 'val';
 
-Var : 'var';
-
 ExclamationMarkEqualsSign : '!=';
-
-PercentSignEqualsSign : '%=';
 
 AmpersandAmpersand : '&&';
 
 AsteriskAsterisk : '**';
 
-AsteriskEqualsSign : '*=';
-
-PlusSignPlusSign : '++';
-
-PlusSignEqualsSign : '+=';
-
-HyphenMinusHyphenMinus : '--';
-
-HyphenMinusEqualsSign : '-=';
-
 HyphenMinusGreaterThanSign : '->';
 
 FullStopFullStop : '..';
-
-SolidusEqualsSign : '/=';
 
 ColonColon : '::';
 
@@ -182,15 +128,7 @@ EqualsSignGreaterThanSign : '=>';
 
 GreaterThanSignEqualsSign : '>=';
 
-QuestionMarkFullStop : '?.';
-
 QuestionMarkColon : '?:';
-
-As : 'as';
-
-Do : 'do';
-
-If : 'if';
 
 VerticalLineVerticalLine : '||';
 
@@ -199,8 +137,6 @@ ExclamationMark : '!';
 NumberSign : '#';
 
 PercentSign : '%';
-
-Ampersand : '&';
 
 LeftParenthesis : '(';
 
@@ -220,15 +156,11 @@ Solidus : '/';
 
 Colon : ':';
 
-Semicolon : ';';
-
 LessThanSign : '<';
 
 EqualsSign : '=';
 
 GreaterThanSign : '>';
-
-QuestionMark : '?';
 
 CommercialAt : '@';
 
@@ -237,8 +169,6 @@ LeftSquareBracket : '[';
 RightSquareBracket : ']';
 
 LeftCurlyBracket : '{';
-
-VerticalLine : '|';
 
 RightCurlyBracket : '}';
 
@@ -250,9 +180,9 @@ RULE_INT : '0'..'9' ('0'..'9'|'_')*;
 
 RULE_DECIMAL : RULE_INT (('e'|'E') ('+'|'-')? RULE_INT)? (('b'|'B') ('i'|'I'|'d'|'D')|('l'|'L'|'d'|'D'|'f'|'F'))?;
 
-RULE_ID : '^'? ('a'..'z'|'A'..'Z'|'$'|'_') ('a'..'z'|'A'..'Z'|'$'|'_'|'0'..'9')*;
+RULE_ID : '^'? ('a'..'z'|'A'..'Z'|'_') ('a'..'z'|'A'..'Z'|'_'|'0'..'9')*;
 
-RULE_STRING : ('"' ('\\' .|~(('\\'|'"')))* '"'?|'\'' ('\\' .|~(('\\'|'\'')))* '\''?);
+RULE_STRING : ('"' ('\\' .|~(('\\'|'"')))* '"'|'\'' ('\\' .|~(('\\'|'\'')))* '\'');
 
 RULE_ML_COMMENT : '/*' ( options {greedy=false;} : . )*'*/';
 

@@ -68,11 +68,23 @@ public class CommonFactoryImpl extends EFactoryImpl implements CommonFactory
       case CommonPackage.DESCRIPTION_ELEMENT: return createDescriptionElement();
       case CommonPackage.RATIONALE: return createRationale();
       case CommonPackage.UNCERTAINTY: return createUncertainty();
+      case CommonPackage.AVARIABLE_DECLARATION: return createAVariableDeclaration();
+      case CommonPackage.AEXPRESSION: return createAExpression();
       case CommonPackage.SHOW_VALUE: return createShowValue();
       case CommonPackage.IMAGE_REFERENCE: return createImageReference();
+      case CommonPackage.ACOLLECTION_LITERAL: return createACollectionLiteral();
+      case CommonPackage.ASET_LITERAL: return createASetLiteral();
+      case CommonPackage.ALIST_LITERAL: return createAListLiteral();
+      case CommonPackage.ANUMBER_LITERAL: return createANumberLiteral();
+      case CommonPackage.VAL_DECLARATION: return createValDeclaration();
       case CommonPackage.COMPUTE_DECLARATION: return createComputeDeclaration();
       case CommonPackage.APROPERTY_REFERENCE: return createAPropertyReference();
-      case CommonPackage.XNUMBER_LITERAL_UNIT: return createXNumberLiteralUnit();
+      case CommonPackage.AVARIABLE_REFERENCE: return createAVariableReference();
+      case CommonPackage.ABINARY_OPERATION: return createABinaryOperation();
+      case CommonPackage.AUNARY_OPERATION: return createAUnaryOperation();
+      case CommonPackage.ABOOLEAN_LITERAL: return createABooleanLiteral();
+      case CommonPackage.ANULL_LITERAL: return createANullLiteral();
+      case CommonPackage.ASTRING_LITERAL: return createAStringLiteral();
       default:
         throw new IllegalArgumentException("The class '" + eClass.getName() + "' is not a valid classifier");
     }
@@ -127,6 +139,28 @@ public class CommonFactoryImpl extends EFactoryImpl implements CommonFactory
    * <!-- end-user-doc -->
    * @generated
    */
+  public AVariableDeclaration createAVariableDeclaration()
+  {
+    AVariableDeclarationImpl aVariableDeclaration = new AVariableDeclarationImpl();
+    return aVariableDeclaration;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public AExpression createAExpression()
+  {
+    AExpressionImpl aExpression = new AExpressionImpl();
+    return aExpression;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
   public ShowValue createShowValue()
   {
     ShowValueImpl showValue = new ShowValueImpl();
@@ -142,6 +176,61 @@ public class CommonFactoryImpl extends EFactoryImpl implements CommonFactory
   {
     ImageReferenceImpl imageReference = new ImageReferenceImpl();
     return imageReference;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public ACollectionLiteral createACollectionLiteral()
+  {
+    ACollectionLiteralImpl aCollectionLiteral = new ACollectionLiteralImpl();
+    return aCollectionLiteral;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public ASetLiteral createASetLiteral()
+  {
+    ASetLiteralImpl aSetLiteral = new ASetLiteralImpl();
+    return aSetLiteral;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public AListLiteral createAListLiteral()
+  {
+    AListLiteralImpl aListLiteral = new AListLiteralImpl();
+    return aListLiteral;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public ANumberLiteral createANumberLiteral()
+  {
+    ANumberLiteralImpl aNumberLiteral = new ANumberLiteralImpl();
+    return aNumberLiteral;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public ValDeclaration createValDeclaration()
+  {
+    ValDeclarationImpl valDeclaration = new ValDeclarationImpl();
+    return valDeclaration;
   }
 
   /**
@@ -171,10 +260,65 @@ public class CommonFactoryImpl extends EFactoryImpl implements CommonFactory
    * <!-- end-user-doc -->
    * @generated
    */
-  public XNumberLiteralUnit createXNumberLiteralUnit()
+  public AVariableReference createAVariableReference()
   {
-    XNumberLiteralUnitImpl xNumberLiteralUnit = new XNumberLiteralUnitImpl();
-    return xNumberLiteralUnit;
+    AVariableReferenceImpl aVariableReference = new AVariableReferenceImpl();
+    return aVariableReference;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public ABinaryOperation createABinaryOperation()
+  {
+    ABinaryOperationImpl aBinaryOperation = new ABinaryOperationImpl();
+    return aBinaryOperation;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public AUnaryOperation createAUnaryOperation()
+  {
+    AUnaryOperationImpl aUnaryOperation = new AUnaryOperationImpl();
+    return aUnaryOperation;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public ABooleanLiteral createABooleanLiteral()
+  {
+    ABooleanLiteralImpl aBooleanLiteral = new ABooleanLiteralImpl();
+    return aBooleanLiteral;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public ANullLiteral createANullLiteral()
+  {
+    ANullLiteralImpl aNullLiteral = new ANullLiteralImpl();
+    return aNullLiteral;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public AStringLiteral createAStringLiteral()
+  {
+    AStringLiteralImpl aStringLiteral = new AStringLiteralImpl();
+    return aStringLiteral;
   }
 
   /**

@@ -6,10 +6,9 @@ import org.eclipse.emf.common.util.EList;
 
 import org.eclipse.emf.ecore.EObject;
 
-import org.eclipse.xtext.xbase.XExpression;
-
 import org.osate.aadl2.ComponentImplementation;
 
+import org.osate.alisa.common.common.AExpression;
 import org.osate.alisa.common.common.ComputeDeclaration;
 
 import org.osate.categories.categories.Category;
@@ -178,7 +177,7 @@ public interface VerificationActivity extends EObject
 
   /**
    * Returns the value of the '<em><b>Parameters</b></em>' reference list.
-   * The list contents are of type {@link org.eclipse.xtext.xbase.XExpression}.
+   * The list contents are of type {@link org.osate.alisa.common.common.AExpression}.
    * <!-- begin-user-doc -->
    * <p>
    * If the meaning of the '<em>Parameters</em>' reference list isn't clear,
@@ -190,11 +189,11 @@ public interface VerificationActivity extends EObject
    * @model
    * @generated
    */
-  EList<XExpression> getParameters();
+  EList<AExpression> getParameters();
 
   /**
    * Returns the value of the '<em><b>Property Values</b></em>' reference list.
-   * The list contents are of type {@link org.eclipse.xtext.xbase.XExpression}.
+   * The list contents are of type {@link org.osate.alisa.common.common.AExpression}.
    * <!-- begin-user-doc -->
    * <p>
    * If the meaning of the '<em>Property Values</em>' reference list isn't clear,
@@ -206,7 +205,7 @@ public interface VerificationActivity extends EObject
    * @model
    * @generated
    */
-  EList<XExpression> getPropertyValues();
+  EList<AExpression> getPropertyValues();
 
   /**
    * Returns the value of the '<em><b>Timeout</b></em>' attribute.

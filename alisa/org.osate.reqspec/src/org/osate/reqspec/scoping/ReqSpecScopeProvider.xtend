@@ -15,9 +15,9 @@ import org.eclipse.xtext.scoping.IScope
 import org.eclipse.xtext.scoping.Scopes
 import org.eclipse.xtext.scoping.impl.SimpleScope
 import org.eclipse.xtext.util.SimpleAttributeResolver
-import org.eclipse.xtext.xbase.XVariableDeclaration
 import org.osate.aadl2.ComponentClassifier
 import org.osate.aadl2.ComponentImplementation
+import org.osate.alisa.common.common.AVariableDeclaration
 import org.osate.alisa.common.scoping.AlisaAbstractDeclarativeScopeProvider
 import org.osate.alisa.common.scoping.ICommonGlobalReferenceFinder
 import org.osate.reqspec.reqSpec.ContractualElement
@@ -27,8 +27,8 @@ import org.osate.reqspec.reqSpec.Requirement
 import org.osate.reqspec.reqSpec.SystemRequirements
 import org.osate.reqspec.util.IReqspecGlobalReferenceFinder
 
-import static org.osate.reqspec.util.ReqSpecUtilExtension.*
 import static org.osate.alisa.common.util.CommonUtilExtension.*
+import static org.osate.reqspec.util.ReqSpecUtilExtension.*
 
 /**
  * This class contains custom scoping description.
@@ -86,7 +86,7 @@ class ReqSpecScopeProvider extends AlisaAbstractDeclarativeScopeProvider {
 	def IScope scopeForGlobalVal(EObject context,IScope parentScope){
 		var result = parentScope
 		val projectconstants = getImportedGlobals(context) //refFinder.getAllGlobalConstants(context)
-		var Iterable<XVariableDeclaration> constants = new BasicEList
+		var Iterable<AVariableDeclaration> constants = new BasicEList
 		for (pc : projectconstants) {
 			constants = constants +  pc.constants
 		}

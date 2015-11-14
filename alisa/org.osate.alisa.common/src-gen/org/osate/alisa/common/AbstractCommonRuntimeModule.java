@@ -14,7 +14,7 @@ import com.google.inject.name.Names;
  * Manual modifications go to {org.osate.alisa.common.CommonRuntimeModule}
  */
 @SuppressWarnings("all")
-public abstract class AbstractCommonRuntimeModule extends org.eclipse.xtext.xbase.DefaultXbaseRuntimeModule {
+public abstract class AbstractCommonRuntimeModule extends org.eclipse.xtext.service.DefaultRuntimeModule {
 
 	protected Properties properties = null;
 
@@ -104,8 +104,28 @@ public abstract class AbstractCommonRuntimeModule extends org.eclipse.xtext.xbas
 	}
 
 	// contributed by org.eclipse.xtext.generator.scoping.AbstractScopingFragment
+	public Class<? extends org.eclipse.xtext.scoping.IScopeProvider> bindIScopeProvider() {
+		return org.osate.alisa.common.scoping.CommonScopeProvider.class;
+	}
+
+	// contributed by org.eclipse.xtext.generator.scoping.AbstractScopingFragment
+	public void configureIScopeProviderDelegate(com.google.inject.Binder binder) {
+		binder.bind(org.eclipse.xtext.scoping.IScopeProvider.class).annotatedWith(com.google.inject.name.Names.named(org.eclipse.xtext.scoping.impl.AbstractDeclarativeScopeProvider.NAMED_DELEGATE)).to(org.eclipse.xtext.scoping.impl.ImportedNamespaceAwareLocalScopeProvider.class);
+	}
+
+	// contributed by org.eclipse.xtext.generator.scoping.AbstractScopingFragment
+	public Class<? extends org.eclipse.xtext.scoping.IGlobalScopeProvider> bindIGlobalScopeProvider() {
+		return org.eclipse.xtext.scoping.impl.DefaultGlobalScopeProvider.class;
+	}
+
+	// contributed by org.eclipse.xtext.generator.scoping.AbstractScopingFragment
 	public void configureIgnoreCaseLinking(com.google.inject.Binder binder) {
 		binder.bindConstant().annotatedWith(org.eclipse.xtext.scoping.IgnoreCaseLinking.class).to(false);
+	}
+
+	// contributed by org.eclipse.xtext.generator.exporting.QualifiedNamesFragment
+	public Class<? extends org.eclipse.xtext.naming.IQualifiedNameProvider> bindIQualifiedNameProvider() {
+		return org.eclipse.xtext.naming.DefaultDeclarativeQualifiedNameProvider.class;
 	}
 
 	// contributed by org.eclipse.xtext.generator.builder.BuilderIntegrationFragment
@@ -128,49 +148,14 @@ public abstract class AbstractCommonRuntimeModule extends org.eclipse.xtext.xbas
 		binder.bind(org.eclipse.xtext.resource.IResourceDescriptions.class).annotatedWith(com.google.inject.name.Names.named(org.eclipse.xtext.resource.impl.ResourceDescriptionsProvider.PERSISTED_DESCRIPTIONS)).to(org.eclipse.xtext.resource.impl.ResourceSetBasedResourceDescriptions.class);
 	}
 
+	// contributed by org.eclipse.xtext.generator.generator.GeneratorFragment
+	public Class<? extends org.eclipse.xtext.generator.IGenerator> bindIGenerator() {
+		return org.osate.alisa.common.generator.CommonGenerator.class;
+	}
+
 	// contributed by org.eclipse.xtext.generator.formatting.FormatterFragment
 	public Class<? extends org.eclipse.xtext.formatting.IFormatter> bindIFormatter() {
 		return org.osate.alisa.common.formatting.CommonFormatter.class;
-	}
-
-	// contributed by org.eclipse.xtext.generator.xbase.XbaseGeneratorFragment
-	public Class<? extends org.eclipse.xtext.naming.IQualifiedNameProvider> bindIQualifiedNameProvider() {
-		return org.eclipse.xtext.xbase.scoping.XbaseQualifiedNameProvider.class;
-	}
-
-	// contributed by org.eclipse.xtext.generator.xbase.XbaseGeneratorFragment
-	public Class<? extends org.eclipse.xtext.resource.ILocationInFileProvider> bindILocationInFileProvider() {
-		return org.eclipse.xtext.xbase.jvmmodel.JvmLocationInFileProvider.class;
-	}
-
-	// contributed by org.eclipse.xtext.generator.xbase.XbaseGeneratorFragment
-	public Class<? extends org.eclipse.xtext.scoping.IGlobalScopeProvider> bindIGlobalScopeProvider() {
-		return org.eclipse.xtext.common.types.xtext.TypesAwareDefaultGlobalScopeProvider.class;
-	}
-
-	// contributed by org.eclipse.xtext.generator.xbase.XbaseGeneratorFragment
-	public Class<? extends org.eclipse.xtext.xbase.validation.FeatureNameValidator> bindFeatureNameValidator() {
-		return org.eclipse.xtext.xbase.validation.LogicalContainerAwareFeatureNameValidator.class;
-	}
-
-	// contributed by org.eclipse.xtext.generator.xbase.XbaseGeneratorFragment
-	public Class<? extends org.eclipse.xtext.xbase.typesystem.internal.DefaultBatchTypeResolver> bindDefaultBatchTypeResolver() {
-		return org.eclipse.xtext.xbase.typesystem.internal.LogicalContainerAwareBatchTypeResolver.class;
-	}
-
-	// contributed by org.eclipse.xtext.generator.xbase.XbaseGeneratorFragment
-	public Class<? extends org.eclipse.xtext.xbase.typesystem.internal.DefaultReentrantTypeResolver> bindDefaultReentrantTypeResolver() {
-		return org.eclipse.xtext.xbase.typesystem.internal.LogicalContainerAwareReentrantTypeResolver.class;
-	}
-
-	// contributed by org.eclipse.xtext.generator.xbase.XbaseGeneratorFragment
-	public Class<? extends org.eclipse.xtext.validation.IResourceValidator> bindIResourceValidator() {
-		return org.eclipse.xtext.xbase.annotations.validation.DerivedStateAwareResourceValidator.class;
-	}
-
-	// contributed by org.eclipse.xtext.generator.xbase.XbaseGeneratorFragment
-	public Class<? extends org.eclipse.xtext.xbase.jvmmodel.IJvmModelInferrer> bindIJvmModelInferrer() {
-		return org.osate.alisa.common.jvmmodel.CommonJvmModelInferrer.class;
 	}
 
 }

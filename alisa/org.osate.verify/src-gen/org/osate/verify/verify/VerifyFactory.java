@@ -86,6 +86,15 @@ public interface VerifyFactory extends EFactory
   VerificationMethodRegistry createVerificationMethodRegistry();
 
   /**
+   * Returns a new object of class '<em>Formal Parameter</em>'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return a new object of class '<em>Formal Parameter</em>'.
+   * @generated
+   */
+  FormalParameter createFormalParameter();
+
+  /**
    * Returns a new object of class '<em>Verification Method</em>'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->

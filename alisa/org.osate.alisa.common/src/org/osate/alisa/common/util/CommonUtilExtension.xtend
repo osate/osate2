@@ -4,7 +4,6 @@ import org.osate.aadl2.NamedElement
 import org.osate.alisa.common.common.Description
 import org.osate.alisa.common.common.DescriptionElement
 import org.osate.alisa.common.common.ComputeDeclaration
-import org.osate.alisa.common.common.XNumberLiteralUnit
 import org.osate.alisa.common.common.APropertyReference
 import org.osate.aadl2.properties.PropertyLookupException
 import org.osate.aadl2.ComponentType
@@ -20,8 +19,7 @@ import org.osate.aadl2.EndToEndFlow
 import org.osate.aadl2.Subcomponent
 import org.osate.aadl2.Feature
 import org.osate.aadl2.util.Aadl2Util
-import org.eclipse.xtext.xbase.XFeatureCall
-import org.eclipse.xtext.xbase.impl.XFeatureCallImplCustom
+import org.osate.alisa.common.common.ValDeclaration
 
 class CommonUtilExtension {
 
@@ -39,7 +37,7 @@ class CommonUtilExtension {
 			return s.replaceAll("\n", " ").replaceAll("\r", "").replaceAll("\t", "")
 		if (s.contains('\r'))
 			return s.replaceAll("\r", " ").replaceAll("\t", "")
-		return s.replace("\t"," ").replaceAll("\t","")
+		return s.replace("\t", " ").replaceAll("\t", "")
 	}
 
 	def static String toText(DescriptionElement de, NamedElement target) {
@@ -48,33 +46,34 @@ class CommonUtilExtension {
 		}
 		if (de.showValue != null) {
 			val decl = de.showValue?.ref
-			if (decl.eIsProxy) return "TBD"
-			if (decl instanceof ComputeDeclaration) {
-				// TODO convert scaled to unit specified, or to most appropriate unit without too many 999999999
-			}
-			// TODO handle unit specified at ShowValue level
-			val x = decl?.right
-			if (x == null) return "TBD"
-			if (x instanceof APropertyReference) {
-				val pd = x.property
-				try {
-					val pval = target.getSimplePropertyValue(pd)
-					return pval.toString
-				} catch (PropertyLookupException e) {
-					return pd.qualifiedName()
+			if(decl.eIsProxy) return "TBD"
+			if (decl instanceof ComputeDeclaration){
+				return decl.name
+			} else 
+			if (decl instanceof ValDeclaration) {
+				val x = decl?.right
+				if(x == null) return "TBD"
+				if (x instanceof APropertyReference) {
+					val pd = x.property
+					try {
+						val pval = target.getSimplePropertyValue(pd)
+						return pval.toString
+					} catch (PropertyLookupException e) {
+						return pd.qualifiedName()
+					}
 				}
+//			if (x instanceof XNumberLiteralUnit) {
+//				if (x.unit != null)
+//					return x.value + x.unit?.name
+//				else
+//					return x.value
+//			}
+//			if (x instanceof XFeatureCall) {
+//				val y = x.concreteSyntaxFeatureName
+//				return y
+//			}
+				return x?.toString ?: ""
 			}
-			if (x instanceof XNumberLiteralUnit) {
-				if (x.unit != null)
-					return x.value + x.unit?.name
-				else
-					return x.value
-			}
-			if (x instanceof XFeatureCall) {
-				val y = x.concreteSyntaxFeatureName
-				return y
-			}
-			return x?.toString ?: ""
 		}
 		if (de.thisTarget && target != null) {
 			var nm = target.name

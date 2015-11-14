@@ -21,6 +21,8 @@ import org.osate.reqspec.services.ReqSpecGrammarAccess;
 public class ReqSpecSyntacticSequencer extends AbstractSyntacticSequencer {
 
 	protected ReqSpecGrammarAccess grammarAccess;
+	protected AbstractElementAlias match_AParenthesizedExpression_LeftParenthesisKeyword_0_a;
+	protected AbstractElementAlias match_AParenthesizedExpression_LeftParenthesisKeyword_0_p;
 	protected AbstractElementAlias match_DocGoal_CategoryKeyword_5_0_0_q;
 	protected AbstractElementAlias match_DocGoal_EvolvesKeyword_5_7_0_q;
 	protected AbstractElementAlias match_DocGoal_IssuesKeyword_5_12_0_q;
@@ -62,16 +64,12 @@ public class ReqSpecSyntacticSequencer extends AbstractSyntacticSequencer {
 	protected AbstractElementAlias match_StakeholderGoals___SeeKeyword_7_3_0_DocumentKeyword_7_3_1__q;
 	protected AbstractElementAlias match_SystemRequirements_IssuesKeyword_7_5_0_q;
 	protected AbstractElementAlias match_SystemRequirements___SeeKeyword_7_4_0_DocumentKeyword_7_4_1__q;
-	protected AbstractElementAlias match_XBlockExpression_SemicolonKeyword_2_1_q;
-	protected AbstractElementAlias match_XExpressionInClosure_SemicolonKeyword_1_1_q;
-	protected AbstractElementAlias match_XFunctionTypeRef___LeftParenthesisKeyword_0_0_RightParenthesisKeyword_0_2__q;
-	protected AbstractElementAlias match_XImportDeclaration_SemicolonKeyword_2_q;
-	protected AbstractElementAlias match_XParenthesizedExpression_LeftParenthesisKeyword_0_a;
-	protected AbstractElementAlias match_XParenthesizedExpression_LeftParenthesisKeyword_0_p;
 	
 	@Inject
 	protected void init(IGrammarAccess access) {
 		grammarAccess = (ReqSpecGrammarAccess) access;
+		match_AParenthesizedExpression_LeftParenthesisKeyword_0_a = new TokenAlias(true, true, grammarAccess.getAParenthesizedExpressionAccess().getLeftParenthesisKeyword_0());
+		match_AParenthesizedExpression_LeftParenthesisKeyword_0_p = new TokenAlias(true, false, grammarAccess.getAParenthesizedExpressionAccess().getLeftParenthesisKeyword_0());
 		match_DocGoal_CategoryKeyword_5_0_0_q = new TokenAlias(false, true, grammarAccess.getDocGoalAccess().getCategoryKeyword_5_0_0());
 		match_DocGoal_EvolvesKeyword_5_7_0_q = new TokenAlias(false, true, grammarAccess.getDocGoalAccess().getEvolvesKeyword_5_7_0());
 		match_DocGoal_IssuesKeyword_5_12_0_q = new TokenAlias(false, true, grammarAccess.getDocGoalAccess().getIssuesKeyword_5_12_0());
@@ -113,44 +111,13 @@ public class ReqSpecSyntacticSequencer extends AbstractSyntacticSequencer {
 		match_StakeholderGoals___SeeKeyword_7_3_0_DocumentKeyword_7_3_1__q = new GroupAlias(false, true, new TokenAlias(false, false, grammarAccess.getStakeholderGoalsAccess().getSeeKeyword_7_3_0()), new TokenAlias(false, false, grammarAccess.getStakeholderGoalsAccess().getDocumentKeyword_7_3_1()));
 		match_SystemRequirements_IssuesKeyword_7_5_0_q = new TokenAlias(false, true, grammarAccess.getSystemRequirementsAccess().getIssuesKeyword_7_5_0());
 		match_SystemRequirements___SeeKeyword_7_4_0_DocumentKeyword_7_4_1__q = new GroupAlias(false, true, new TokenAlias(false, false, grammarAccess.getSystemRequirementsAccess().getSeeKeyword_7_4_0()), new TokenAlias(false, false, grammarAccess.getSystemRequirementsAccess().getDocumentKeyword_7_4_1()));
-		match_XBlockExpression_SemicolonKeyword_2_1_q = new TokenAlias(false, true, grammarAccess.getXBlockExpressionAccess().getSemicolonKeyword_2_1());
-		match_XExpressionInClosure_SemicolonKeyword_1_1_q = new TokenAlias(false, true, grammarAccess.getXExpressionInClosureAccess().getSemicolonKeyword_1_1());
-		match_XFunctionTypeRef___LeftParenthesisKeyword_0_0_RightParenthesisKeyword_0_2__q = new GroupAlias(false, true, new TokenAlias(false, false, grammarAccess.getXFunctionTypeRefAccess().getLeftParenthesisKeyword_0_0()), new TokenAlias(false, false, grammarAccess.getXFunctionTypeRefAccess().getRightParenthesisKeyword_0_2()));
-		match_XImportDeclaration_SemicolonKeyword_2_q = new TokenAlias(false, true, grammarAccess.getXImportDeclarationAccess().getSemicolonKeyword_2());
-		match_XParenthesizedExpression_LeftParenthesisKeyword_0_a = new TokenAlias(true, true, grammarAccess.getXParenthesizedExpressionAccess().getLeftParenthesisKeyword_0());
-		match_XParenthesizedExpression_LeftParenthesisKeyword_0_p = new TokenAlias(true, false, grammarAccess.getXParenthesizedExpressionAccess().getLeftParenthesisKeyword_0());
 	}
 	
 	@Override
 	protected String getUnassignedRuleCallToken(EObject semanticObject, RuleCall ruleCall, INode node) {
-		if(ruleCall.getRule() == grammarAccess.getArrayBracketsRule())
-			return getArrayBracketsToken(semanticObject, ruleCall, node);
-		else if(ruleCall.getRule() == grammarAccess.getOpSingleAssignRule())
-			return getOpSingleAssignToken(semanticObject, ruleCall, node);
 		return "";
 	}
 	
-	/**
-	 * ArrayBrackets :
-	 * 	'[' ']'
-	 * ;
-	 */
-	protected String getArrayBracketsToken(EObject semanticObject, RuleCall ruleCall, INode node) {
-		if (node != null)
-			return getTokenText(node);
-		return "[]";
-	}
-	
-	/**
-	 * OpSingleAssign:
-	 * 	'='
-	 * ;
-	 */
-	protected String getOpSingleAssignToken(EObject semanticObject, RuleCall ruleCall, INode node) {
-		if (node != null)
-			return getTokenText(node);
-		return "=";
-	}
 	
 	@Override
 	protected void emitUnassignedTokens(EObject semanticObject, ISynTransition transition, INode fromNode, INode toNode) {
@@ -158,7 +125,11 @@ public class ReqSpecSyntacticSequencer extends AbstractSyntacticSequencer {
 		List<INode> transitionNodes = collectNodes(fromNode, toNode);
 		for (AbstractElementAlias syntax : transition.getAmbiguousSyntaxes()) {
 			List<INode> syntaxNodes = getNodesFor(transitionNodes, syntax);
-			if(match_DocGoal_CategoryKeyword_5_0_0_q.equals(syntax))
+			if(match_AParenthesizedExpression_LeftParenthesisKeyword_0_a.equals(syntax))
+				emit_AParenthesizedExpression_LeftParenthesisKeyword_0_a(semanticObject, getLastNavigableState(), syntaxNodes);
+			else if(match_AParenthesizedExpression_LeftParenthesisKeyword_0_p.equals(syntax))
+				emit_AParenthesizedExpression_LeftParenthesisKeyword_0_p(semanticObject, getLastNavigableState(), syntaxNodes);
+			else if(match_DocGoal_CategoryKeyword_5_0_0_q.equals(syntax))
 				emit_DocGoal_CategoryKeyword_5_0_0_q(semanticObject, getLastNavigableState(), syntaxNodes);
 			else if(match_DocGoal_EvolvesKeyword_5_7_0_q.equals(syntax))
 				emit_DocGoal_EvolvesKeyword_5_7_0_q(semanticObject, getLastNavigableState(), syntaxNodes);
@@ -240,22 +211,52 @@ public class ReqSpecSyntacticSequencer extends AbstractSyntacticSequencer {
 				emit_SystemRequirements_IssuesKeyword_7_5_0_q(semanticObject, getLastNavigableState(), syntaxNodes);
 			else if(match_SystemRequirements___SeeKeyword_7_4_0_DocumentKeyword_7_4_1__q.equals(syntax))
 				emit_SystemRequirements___SeeKeyword_7_4_0_DocumentKeyword_7_4_1__q(semanticObject, getLastNavigableState(), syntaxNodes);
-			else if(match_XBlockExpression_SemicolonKeyword_2_1_q.equals(syntax))
-				emit_XBlockExpression_SemicolonKeyword_2_1_q(semanticObject, getLastNavigableState(), syntaxNodes);
-			else if(match_XExpressionInClosure_SemicolonKeyword_1_1_q.equals(syntax))
-				emit_XExpressionInClosure_SemicolonKeyword_1_1_q(semanticObject, getLastNavigableState(), syntaxNodes);
-			else if(match_XFunctionTypeRef___LeftParenthesisKeyword_0_0_RightParenthesisKeyword_0_2__q.equals(syntax))
-				emit_XFunctionTypeRef___LeftParenthesisKeyword_0_0_RightParenthesisKeyword_0_2__q(semanticObject, getLastNavigableState(), syntaxNodes);
-			else if(match_XImportDeclaration_SemicolonKeyword_2_q.equals(syntax))
-				emit_XImportDeclaration_SemicolonKeyword_2_q(semanticObject, getLastNavigableState(), syntaxNodes);
-			else if(match_XParenthesizedExpression_LeftParenthesisKeyword_0_a.equals(syntax))
-				emit_XParenthesizedExpression_LeftParenthesisKeyword_0_a(semanticObject, getLastNavigableState(), syntaxNodes);
-			else if(match_XParenthesizedExpression_LeftParenthesisKeyword_0_p.equals(syntax))
-				emit_XParenthesizedExpression_LeftParenthesisKeyword_0_p(semanticObject, getLastNavigableState(), syntaxNodes);
 			else acceptNodes(getLastNavigableState(), syntaxNodes);
 		}
 	}
 
+	/**
+	 * Ambiguous syntax:
+	 *     '('*
+	 *
+	 * This ambiguous syntax occurs at:
+	 *     (rule start) (ambiguity) '#' '[' ']' (rule start)
+	 *     (rule start) (ambiguity) '#' '[' elements+=AExpression
+	 *     (rule start) (ambiguity) '#' '{' '}' (rule start)
+	 *     (rule start) (ambiguity) '#' '{' elements+=AExpression
+	 *     (rule start) (ambiguity) 'false' (rule start)
+	 *     (rule start) (ambiguity) 'null' (rule start)
+	 *     (rule start) (ambiguity) feature=OpUnary
+	 *     (rule start) (ambiguity) isTrue?='true'
+	 *     (rule start) (ambiguity) value=Number
+	 *     (rule start) (ambiguity) value=STRING
+	 *     (rule start) (ambiguity) {ABinaryOperation.leftOperand=}
+	 */
+	protected void emit_AParenthesizedExpression_LeftParenthesisKeyword_0_a(EObject semanticObject, ISynNavigable transition, List<INode> nodes) {
+		acceptNodes(transition, nodes);
+	}
+	
+	/**
+	 * Ambiguous syntax:
+	 *     '('+
+	 *
+	 * This ambiguous syntax occurs at:
+	 *     (rule start) (ambiguity) '#' '[' ']' ')' (rule start)
+	 *     (rule start) (ambiguity) '#' '[' elements+=AExpression
+	 *     (rule start) (ambiguity) '#' '{' '}' ')' (rule start)
+	 *     (rule start) (ambiguity) '#' '{' elements+=AExpression
+	 *     (rule start) (ambiguity) 'false' ')' (rule start)
+	 *     (rule start) (ambiguity) 'null' ')' (rule start)
+	 *     (rule start) (ambiguity) feature=OpUnary
+	 *     (rule start) (ambiguity) isTrue?='true'
+	 *     (rule start) (ambiguity) value=Number
+	 *     (rule start) (ambiguity) value=STRING
+	 *     (rule start) (ambiguity) {ABinaryOperation.leftOperand=}
+	 */
+	protected void emit_AParenthesizedExpression_LeftParenthesisKeyword_0_p(EObject semanticObject, ISynNavigable transition, List<INode> nodes) {
+		acceptNodes(transition, nodes);
+	}
+	
 	/**
 	 * Ambiguous syntax:
 	 *     'category'?
@@ -704,160 +705,6 @@ public class ReqSpecSyntacticSequencer extends AbstractSyntacticSequencer {
 	 *     docReference+=ExternalDocument (ambiguity) docReference+=ExternalDocument
 	 */
 	protected void emit_SystemRequirements___SeeKeyword_7_4_0_DocumentKeyword_7_4_1__q(EObject semanticObject, ISynNavigable transition, List<INode> nodes) {
-		acceptNodes(transition, nodes);
-	}
-	
-	/**
-	 * Ambiguous syntax:
-	 *     ';'?
-	 *
-	 * This ambiguous syntax occurs at:
-	 *     expressions+=XExpressionOrVarDeclaration (ambiguity) '}' ')' (rule end)
-	 *     expressions+=XExpressionOrVarDeclaration (ambiguity) '}' (rule end)
-	 *     expressions+=XExpressionOrVarDeclaration (ambiguity) expressions+=XExpressionOrVarDeclaration
-	 */
-	protected void emit_XBlockExpression_SemicolonKeyword_2_1_q(EObject semanticObject, ISynNavigable transition, List<INode> nodes) {
-		acceptNodes(transition, nodes);
-	}
-	
-	/**
-	 * Ambiguous syntax:
-	 *     ';'?
-	 *
-	 * This ambiguous syntax occurs at:
-	 *     expressions+=XExpressionOrVarDeclaration (ambiguity) (rule end)
-	 *     expressions+=XExpressionOrVarDeclaration (ambiguity) expressions+=XExpressionOrVarDeclaration
-	 */
-	protected void emit_XExpressionInClosure_SemicolonKeyword_1_1_q(EObject semanticObject, ISynNavigable transition, List<INode> nodes) {
-		acceptNodes(transition, nodes);
-	}
-	
-	/**
-	 * Ambiguous syntax:
-	 *     ('(' ')')?
-	 *
-	 * This ambiguous syntax occurs at:
-	 *     (rule start) (ambiguity) '=>' returnType=JvmTypeReference
-	 */
-	protected void emit_XFunctionTypeRef___LeftParenthesisKeyword_0_0_RightParenthesisKeyword_0_2__q(EObject semanticObject, ISynNavigable transition, List<INode> nodes) {
-		acceptNodes(transition, nodes);
-	}
-	
-	/**
-	 * Ambiguous syntax:
-	 *     ';'?
-	 *
-	 * This ambiguous syntax occurs at:
-	 *     importedNamespace=QualifiedNameWithWildcard (ambiguity) (rule end)
-	 *     importedType=[JvmDeclaredType|QualifiedName] (ambiguity) (rule end)
-	 *     memberName=ValidID (ambiguity) (rule end)
-	 *     wildcard?='*' (ambiguity) (rule end)
-	 */
-	protected void emit_XImportDeclaration_SemicolonKeyword_2_q(EObject semanticObject, ISynNavigable transition, List<INode> nodes) {
-		acceptNodes(transition, nodes);
-	}
-	
-	/**
-	 * Ambiguous syntax:
-	 *     '('*
-	 *
-	 * This ambiguous syntax occurs at:
-	 *     (rule start) (ambiguity) '#' '[' ']' (rule start)
-	 *     (rule start) (ambiguity) '#' '[' elements+=XExpression
-	 *     (rule start) (ambiguity) '#' '{' '}' (rule start)
-	 *     (rule start) (ambiguity) '#' '{' elements+=XExpression
-	 *     (rule start) (ambiguity) '<' typeArguments+=JvmArgumentTypeReference
-	 *     (rule start) (ambiguity) '[' declaredFormalParameters+=JvmFormalParameter
-	 *     (rule start) (ambiguity) '[' explicitSyntax?='|'
-	 *     (rule start) (ambiguity) '[' expression=XExpressionInClosure
-	 *     (rule start) (ambiguity) 'do' body=XExpression
-	 *     (rule start) (ambiguity) 'false' (rule start)
-	 *     (rule start) (ambiguity) 'for' '(' ';' ';' ')' eachExpression=XExpression
-	 *     (rule start) (ambiguity) 'for' '(' ';' ';' updateExpressions+=XExpression
-	 *     (rule start) (ambiguity) 'for' '(' ';' expression=XExpression
-	 *     (rule start) (ambiguity) 'for' '(' declaredParam=JvmFormalParameter
-	 *     (rule start) (ambiguity) 'for' '(' initExpressions+=XExpressionOrVarDeclaration
-	 *     (rule start) (ambiguity) 'if' '(' if=XExpression
-	 *     (rule start) (ambiguity) 'new' constructor=[JvmConstructor|QualifiedName]
-	 *     (rule start) (ambiguity) 'null' (rule start)
-	 *     (rule start) (ambiguity) 'return' (rule start)
-	 *     (rule start) (ambiguity) 'return' expression=XExpression
-	 *     (rule start) (ambiguity) 'switch' '(' declaredParam=JvmFormalParameter
-	 *     (rule start) (ambiguity) 'switch' declaredParam=JvmFormalParameter
-	 *     (rule start) (ambiguity) 'switch' switch=XExpression
-	 *     (rule start) (ambiguity) 'synchronized' '(' param=XExpression
-	 *     (rule start) (ambiguity) 'throw' expression=XExpression
-	 *     (rule start) (ambiguity) 'try' expression=XExpression
-	 *     (rule start) (ambiguity) 'typeof' '(' type=[JvmType|QualifiedName]
-	 *     (rule start) (ambiguity) 'while' '(' predicate=XExpression
-	 *     (rule start) (ambiguity) '{' '}' (rule start)
-	 *     (rule start) (ambiguity) '{' expressions+=XExpressionOrVarDeclaration
-	 *     (rule start) (ambiguity) feature=[JvmIdentifiableElement|FeatureCallID]
-	 *     (rule start) (ambiguity) feature=[JvmIdentifiableElement|IdOrSuper]
-	 *     (rule start) (ambiguity) feature=[JvmIdentifiableElement|OpUnary]
-	 *     (rule start) (ambiguity) isTrue?='true'
-	 *     (rule start) (ambiguity) value=Number
-	 *     (rule start) (ambiguity) value=STRING
-	 *     (rule start) (ambiguity) {XAssignment.assignable=}
-	 *     (rule start) (ambiguity) {XBinaryOperation.leftOperand=}
-	 *     (rule start) (ambiguity) {XCastedExpression.target=}
-	 *     (rule start) (ambiguity) {XInstanceOfExpression.expression=}
-	 *     (rule start) (ambiguity) {XMemberFeatureCall.memberCallTarget=}
-	 *     (rule start) (ambiguity) {XPostfixOperation.operand=}
-	 */
-	protected void emit_XParenthesizedExpression_LeftParenthesisKeyword_0_a(EObject semanticObject, ISynNavigable transition, List<INode> nodes) {
-		acceptNodes(transition, nodes);
-	}
-	
-	/**
-	 * Ambiguous syntax:
-	 *     '('+
-	 *
-	 * This ambiguous syntax occurs at:
-	 *     (rule start) (ambiguity) '#' '[' ']' ')' (rule start)
-	 *     (rule start) (ambiguity) '#' '[' elements+=XExpression
-	 *     (rule start) (ambiguity) '#' '{' '}' ')' (rule start)
-	 *     (rule start) (ambiguity) '#' '{' elements+=XExpression
-	 *     (rule start) (ambiguity) '<' typeArguments+=JvmArgumentTypeReference
-	 *     (rule start) (ambiguity) '[' declaredFormalParameters+=JvmFormalParameter
-	 *     (rule start) (ambiguity) '[' explicitSyntax?='|'
-	 *     (rule start) (ambiguity) '[' expression=XExpressionInClosure
-	 *     (rule start) (ambiguity) 'do' body=XExpression
-	 *     (rule start) (ambiguity) 'false' ')' (rule start)
-	 *     (rule start) (ambiguity) 'for' '(' ';' ';' ')' eachExpression=XExpression
-	 *     (rule start) (ambiguity) 'for' '(' ';' ';' updateExpressions+=XExpression
-	 *     (rule start) (ambiguity) 'for' '(' ';' expression=XExpression
-	 *     (rule start) (ambiguity) 'for' '(' declaredParam=JvmFormalParameter
-	 *     (rule start) (ambiguity) 'for' '(' initExpressions+=XExpressionOrVarDeclaration
-	 *     (rule start) (ambiguity) 'if' '(' if=XExpression
-	 *     (rule start) (ambiguity) 'new' constructor=[JvmConstructor|QualifiedName]
-	 *     (rule start) (ambiguity) 'null' ')' (rule start)
-	 *     (rule start) (ambiguity) 'return' ')' (rule start)
-	 *     (rule start) (ambiguity) 'return' expression=XExpression
-	 *     (rule start) (ambiguity) 'switch' '(' declaredParam=JvmFormalParameter
-	 *     (rule start) (ambiguity) 'switch' declaredParam=JvmFormalParameter
-	 *     (rule start) (ambiguity) 'switch' switch=XExpression
-	 *     (rule start) (ambiguity) 'synchronized' '(' param=XExpression
-	 *     (rule start) (ambiguity) 'throw' expression=XExpression
-	 *     (rule start) (ambiguity) 'try' expression=XExpression
-	 *     (rule start) (ambiguity) 'typeof' '(' type=[JvmType|QualifiedName]
-	 *     (rule start) (ambiguity) 'while' '(' predicate=XExpression
-	 *     (rule start) (ambiguity) '{' '}' ')' (rule start)
-	 *     (rule start) (ambiguity) '{' expressions+=XExpressionOrVarDeclaration
-	 *     (rule start) (ambiguity) feature=[JvmIdentifiableElement|FeatureCallID]
-	 *     (rule start) (ambiguity) feature=[JvmIdentifiableElement|IdOrSuper]
-	 *     (rule start) (ambiguity) feature=[JvmIdentifiableElement|OpUnary]
-	 *     (rule start) (ambiguity) isTrue?='true'
-	 *     (rule start) (ambiguity) value=Number
-	 *     (rule start) (ambiguity) value=STRING
-	 *     (rule start) (ambiguity) {XAssignment.assignable=}
-	 *     (rule start) (ambiguity) {XBinaryOperation.leftOperand=}
-	 *     (rule start) (ambiguity) {XCastedExpression.target=}
-	 *     (rule start) (ambiguity) {XInstanceOfExpression.expression=}
-	 *     (rule start) (ambiguity) {XMemberFeatureCall.memberCallTarget=}
-	 *     (rule start) (ambiguity) {XPostfixOperation.operand=}
-	 */
-	protected void emit_XParenthesizedExpression_LeftParenthesisKeyword_0_p(EObject semanticObject, ISynNavigable transition, List<INode> nodes) {
 		acceptNodes(transition, nodes);
 	}
 	

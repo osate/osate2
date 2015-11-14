@@ -15,9 +15,6 @@ public class AbstractReqSpecValidator extends org.osate.alisa.common.validation.
 	protected List<EPackage> getEPackages() {
 	    List<EPackage> result = new ArrayList<EPackage>(super.getEPackages());
 	    result.add(org.osate.reqspec.reqSpec.ReqSpecPackage.eINSTANCE);
-	    result.add(EPackage.Registry.INSTANCE.getEPackage("http://www.eclipse.org/xtext/xbase/Xbase"));
-	    result.add(EPackage.Registry.INSTANCE.getEPackage("http://www.eclipse.org/xtext/common/JavaVMTypes"));
-	    result.add(EPackage.Registry.INSTANCE.getEPackage("http://www.eclipse.org/xtext/xbase/Xtype"));
 		return result;
 	}
 }

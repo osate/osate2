@@ -9,9 +9,9 @@ import org.eclipse.core.resources.ResourcesPlugin
 import org.eclipse.emf.common.util.EList
 import org.eclipse.jdt.core.IClasspathEntry
 import org.eclipse.jdt.core.JavaCore
-import org.eclipse.xtext.common.types.JvmFormalParameter
 import org.osate.aadl2.instance.ComponentInstance
 import org.osate.aadl2.instance.InstanceObject
+import org.osate.verify.verify.FormalParameter
 import org.osate.verify.verify.JavaMethod
 import org.osate.verify.verify.PluginMethod
 
@@ -120,7 +120,7 @@ class VerificationMethodDispatchers {
 	}
 
 	// invoke method in workspace project
-	def String methodExists(JavaMethod vm, EList<JvmFormalParameter> parameters) {
+	def String methodExists(JavaMethod vm, EList<FormalParameter> parameters) {
 		val i = vm.methodPath.lastIndexOf('.')
 		if (i == -1)
 			return null;
@@ -157,9 +157,9 @@ class VerificationMethodDispatchers {
 			newClasses.add(ComponentInstance)
 			for (o : parameters) {
 				val pt = o.parameterType
-				val x = pt.type
-				val cl = forName(x.qualifiedName)
-				newClasses.add(cl)
+//				val x = pt.type
+				val cl = forName(pt);//x.qualifiedName)
+				newClasses.add(cl);
 			}
 
 			val method = clazz.getMethod(methodName, newClasses)

@@ -18,10 +18,11 @@ import org.eclipse.emf.ecore.impl.MinimalEObjectImpl;
 import org.eclipse.emf.ecore.util.EDataTypeEList;
 import org.eclipse.emf.ecore.util.EObjectResolvingEList;
 
+import org.osate.alisa.common.common.Description;
+
 import org.osate.alisa.workbench.alisa.AlisaPackage;
 import org.osate.alisa.workbench.alisa.AssurancePlan;
 import org.osate.alisa.workbench.alisa.AssuranceTask;
-import org.osate.alisa.workbench.alisa.Description;
 
 import org.osate.categories.categories.Category;
 

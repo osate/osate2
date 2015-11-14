@@ -93,20 +93,6 @@ public class AlisaSwitch<T> extends Switch<T>
         if (result == null) result = defaultCase(theEObject);
         return result;
       }
-      case AlisaPackage.DESCRIPTION:
-      {
-        Description description = (Description)theEObject;
-        T result = caseDescription(description);
-        if (result == null) result = defaultCase(theEObject);
-        return result;
-      }
-      case AlisaPackage.DESCRIPTION_ELEMENT:
-      {
-        DescriptionElement descriptionElement = (DescriptionElement)theEObject;
-        T result = caseDescriptionElement(descriptionElement);
-        if (result == null) result = defaultCase(theEObject);
-        return result;
-      }
       default: return defaultCase(theEObject);
     }
   }
@@ -155,38 +141,6 @@ public class AlisaSwitch<T> extends Switch<T>
    * @generated
    */
   public T caseAssuranceTask(AssuranceTask object)
-  {
-    return null;
-  }
-
-  /**
-   * Returns the result of interpreting the object as an instance of '<em>Description</em>'.
-   * <!-- begin-user-doc -->
-   * This implementation returns null;
-   * returning a non-null result will terminate the switch.
-   * <!-- end-user-doc -->
-   * @param object the target of the switch.
-   * @return the result of interpreting the object as an instance of '<em>Description</em>'.
-   * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
-   * @generated
-   */
-  public T caseDescription(Description object)
-  {
-    return null;
-  }
-
-  /**
-   * Returns the result of interpreting the object as an instance of '<em>Description Element</em>'.
-   * <!-- begin-user-doc -->
-   * This implementation returns null;
-   * returning a non-null result will terminate the switch.
-   * <!-- end-user-doc -->
-   * @param object the target of the switch.
-   * @return the result of interpreting the object as an instance of '<em>Description Element</em>'.
-   * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
-   * @generated
-   */
-  public T caseDescriptionElement(DescriptionElement object)
   {
     return null;
   }

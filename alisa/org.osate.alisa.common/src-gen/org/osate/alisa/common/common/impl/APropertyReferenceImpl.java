@@ -10,8 +10,6 @@ import org.eclipse.emf.ecore.InternalEObject;
 
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 
-import org.eclipse.xtext.xbase.impl.XExpressionImpl;
-
 import org.osate.aadl2.Property;
 
 import org.osate.alisa.common.common.APropertyReference;
@@ -30,7 +28,7 @@ import org.osate.alisa.common.common.CommonPackage;
  *
  * @generated
  */
-public class APropertyReferenceImpl extends XExpressionImpl implements APropertyReference
+public class APropertyReferenceImpl extends AExpressionImpl implements APropertyReference
 {
   /**
    * The cached value of the '{@link #getProperty() <em>Property</em>}' reference.
