@@ -60,6 +60,8 @@ import org.osate.aadl2.IntegerLiteral
 import org.osate.aadl2.RealLiteral
 import org.osate.aadl2.StringLiteral
 import org.osate.aadl2.BooleanLiteral
+import org.osate.aadl2.NumberValue
+import org.osate.aadl2.UnitLiteral
 
 class AssureUtilExtension {
 
@@ -1201,6 +1203,25 @@ class AssureUtilExtension {
 			}
 	}
 	
+
+	def static NumberValue convertValueToUnit(NumberValue numberValue, UnitLiteral target) {
+		val value = numberValue.scaledValue ;
+		val unit = numberValue.getUnit();
+		var factor = 1.0 
+		if (unit != null) factor = unit.getAbsoluteFactor(target);
+		val result =  value * factor;
+		val resultValue = numberValue.cloneNumber();
+		resultValue.setUnit(target);
+		setValue(resultValue,result);
+		return resultValue;
+	}
+
+	def static void setValue( NumberValue numberValue, double value) {
+		switch (numberValue){
+			RealLiteral: numberValue.setValue(value)
+			IntegerLiteral: numberValue.setValue((value as long))
+		}
+	}
 	
 
 }

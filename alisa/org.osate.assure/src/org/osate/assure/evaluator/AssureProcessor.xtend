@@ -200,7 +200,7 @@ class AssureProcessor implements IAssureProcessor {
 				var formalParam = verificationMethod.params.get(i) as FormalParameter
 				if ( actual instanceof NumberValue){
 					if (formalParam.unit != null && actual.unit != null && !formalParam.unit.name.equals(actual.unit.name)){
-						actual = NumberValueOperations.convertValueToUnit(actual as NumberValue, formalParam.unit)
+						actual = convertValueToUnit(actual as NumberValue, formalParam.unit)
 					}
 				}
 				val paramType = formalParam.parameterType
