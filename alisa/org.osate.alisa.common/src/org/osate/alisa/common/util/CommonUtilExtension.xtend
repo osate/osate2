@@ -22,6 +22,7 @@ import org.osate.aadl2.util.Aadl2Util
 import org.osate.alisa.common.common.ValDeclaration
 import org.osate.aadl2.Property
 import org.osate.aadl2.UnitLiteral
+import org.eclipse.internal.xtend.expression.ast.NullLiteral
 
 class CommonUtilExtension {
 
@@ -54,7 +55,7 @@ class CommonUtilExtension {
 			} else 
 			if (decl instanceof ValDeclaration) {
 				val x = decl?.right
-				if(x == null) return "TBD"
+				if(x == null || x instanceof NullLiteral) return "TBD"
 				if (x instanceof APropertyReference) {
 					val pd = x.property
 					if (pd instanceof Property){
@@ -74,7 +75,7 @@ class CommonUtilExtension {
 			} else 
 			if (decl instanceof ValDeclaration) {
 				val x = decl?.right
-				if(x == null) return "TBD"
+				if(x == null|| x instanceof NullLiteral) return "TBD"
 				if (x instanceof APropertyReference) {
 					val pd = x.property
 					if (pd instanceof Property){
