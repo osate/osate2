@@ -47,6 +47,7 @@ import org.osate.aadl2.BooleanLiteral
 import org.eclipse.emf.common.util.BasicEList
 import org.eclipse.emf.ecore.EObject
 import org.eclipse.emf.common.util.EList
+import org.osate.aadl2.operations.NumberValueOperations
 
 @ImplementedBy(AssureProcessor)
 interface IAssureProcessor {
@@ -127,22 +128,6 @@ class AssureProcessor implements IAssureProcessor {
 		runVerificationMethod(preconditionResult)
 	}
 
-	def void convertToJavaObjects(Object[] parameters) {
-		var i = 0
-		val nbParams = parameters.size
-		var Object param
-		while (i < nbParams) {
-			val actual = parameters.get(i)
-			switch (actual) {
-				IntegerLiteral: param = actual.scaledValue
-				RealLiteral: param = actual.scaledValue
-				StringLiteral: param = actual.value
-			}
-			parameters.set(i, param)
-			i = i + 1
-		}
-	}
-
 	/**
 	 * who needs to understand the method types?
 	 * the runVerificationMethod dispatcher may do different catch methods
@@ -174,6 +159,7 @@ class AssureProcessor implements IAssureProcessor {
 			val x = targetComponent.findElementInstance(targetElement)
 			target = x ?: targetComponent
 		}
+		// The parameters are objects from the Properties Meta model.
 		var EList<EObject> parameters
 
 		if (verificationResult instanceof VerificationActivityResult) {
@@ -208,11 +194,15 @@ class AssureProcessor implements IAssureProcessor {
 					// the other types if AExpression is used
 					actual = pi
 				}
-				parameters.add(actual)
 				
-				// for conversion into Java Object see above method. 
+				// for conversion into Java Object see AssureUtilExtension.convertToJavaObjects 
 
 				var formalParam = verificationMethod.params.get(i) as FormalParameter
+				if ( actual instanceof NumberValue){
+					if (formalParam.unit != null && actual.unit != null && !formalParam.unit.name.equals(actual.unit.name)){
+						actual = NumberValueOperations.convertValueToUnit(actual as NumberValue, formalParam.unit)
+					}
+				}
 				val paramType = formalParam.parameterType
 				if (typeName != null && paramType != null && ! typeName.equals(paramType)) {
 					setToError(verificationResult,
@@ -220,6 +210,7 @@ class AssureProcessor implements IAssureProcessor {
 							typeName, null)
 					return
 				}
+				parameters.add(actual)
 				i = i + 1
 			}
 		}
@@ -232,6 +223,7 @@ class AssureProcessor implements IAssureProcessor {
 			val methodtype = method.methodType
 			switch (methodtype) {
 				JavaMethod: {
+				// The parameters are objects from the Properties Meta model. May need to get converted to Java base types
 					res = VerificationMethodDispatchers.eInstance.workspaceInvoke(methodtype, target, parameters)
 					if (res != null) {
 						if (res instanceof Boolean) {
@@ -250,6 +242,7 @@ class AssureProcessor implements IAssureProcessor {
 					}
 				}
 				PluginMethod: {
+				// The parameters are objects from the Properties Meta model. It is up to the plugin interface method to convert to Java base types
 					res = VerificationMethodDispatchers.eInstance.dispatchVerificationMethod(methodtype, instanceroot,
 						parameters) // returning the marker or diagnostic id as string
 					if (res instanceof String) {
@@ -259,7 +252,7 @@ class AssureProcessor implements IAssureProcessor {
 					}
 				}
 				ResoluteMethod: {
-					// Resolute handling See AssureUtil for setup	
+				// The parameters are objects from the Properties Meta model. Resolute likes them this way
 					AssureUtilExtension.initializeResoluteContext(instanceroot);
 					val EvaluationContext context = new EvaluationContext(instanceroot, sets, featToConnsMap);
 					val ResoluteInterpreter interpreter = new ResoluteInterpreter(context);

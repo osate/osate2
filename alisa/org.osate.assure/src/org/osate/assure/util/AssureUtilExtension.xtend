@@ -56,6 +56,10 @@ import org.osate.aadl2.util.Aadl2Util
 import org.osate.alisa.common.common.Description
 import org.osate.alisa.workbench.util.AlisaWorkbenchUtilExtension
 import org.osate.alisa.common.util.CommonUtilExtension
+import org.osate.aadl2.IntegerLiteral
+import org.osate.aadl2.RealLiteral
+import org.osate.aadl2.StringLiteral
+import org.osate.aadl2.BooleanLiteral
 
 class AssureUtilExtension {
 
@@ -1186,6 +1190,17 @@ class AssureUtilExtension {
 	def static int  numberVerificationResults(AssuranceCase ac){
 		return EcoreUtil2.eAllOfType(ac, typeof(VerificationActivityResult)).size();
 	}
+	
+	
+	def static Object convertToJavaObjects(EObject actual) {
+			switch (actual) {
+				IntegerLiteral: return actual.scaledValue
+				RealLiteral: return actual.scaledValue
+				StringLiteral: return actual.value
+				BooleanLiteral: return actual.isValue
+			}
+	}
+	
 	
 
 }
