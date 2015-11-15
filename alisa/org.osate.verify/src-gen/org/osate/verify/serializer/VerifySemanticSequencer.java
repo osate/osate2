@@ -235,20 +235,10 @@ public class VerifySemanticSequencer extends CommonSemanticSequencer {
 	
 	/**
 	 * Constraint:
-	 *     (parameterType=ID name=ID)
+	 *     (parameterType=ID name=ID unit=[UnitLiteral|ID]?)
 	 */
 	protected void sequence_FormalParameter(EObject context, FormalParameter semanticObject) {
-		if(errorAcceptor != null) {
-			if(transientValues.isValueTransient(semanticObject, VerifyPackage.Literals.FORMAL_PARAMETER__PARAMETER_TYPE) == ValueTransient.YES)
-				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, VerifyPackage.Literals.FORMAL_PARAMETER__PARAMETER_TYPE));
-			if(transientValues.isValueTransient(semanticObject, VerifyPackage.Literals.FORMAL_PARAMETER__NAME) == ValueTransient.YES)
-				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, VerifyPackage.Literals.FORMAL_PARAMETER__NAME));
-		}
-		INodesForEObjectProvider nodes = createNodeProvider(semanticObject);
-		SequenceFeeder feeder = createSequencerFeeder(semanticObject, nodes);
-		feeder.accept(grammarAccess.getFormalParameterAccess().getParameterTypeIDTerminalRuleCall_0_0(), semanticObject.getParameterType());
-		feeder.accept(grammarAccess.getFormalParameterAccess().getNameIDTerminalRuleCall_1_0(), semanticObject.getName());
-		feeder.finish();
+		genericSequencer.createSequence(context, semanticObject);
 	}
 	
 	

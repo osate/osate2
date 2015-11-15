@@ -131,7 +131,7 @@ VerificationMethodRegistry returns VerificationMethodRegistry:
 
 	
 FormalParameter returns FormalParameter:
-	parameterType=ID name=ID;
+	parameterType=ID name=ID ('%' unit=[aadl2::UnitLiteral|ID])?;
 
 
 VerificationMethod:

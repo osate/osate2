@@ -5,9 +5,13 @@ package org.osate.verify.verify.impl;
 import org.eclipse.emf.common.notify.Notification;
 
 import org.eclipse.emf.ecore.EClass;
+import org.eclipse.emf.ecore.EObject;
+import org.eclipse.emf.ecore.InternalEObject;
 
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.eclipse.emf.ecore.impl.MinimalEObjectImpl;
+
+import org.osate.aadl2.UnitLiteral;
 
 import org.osate.verify.verify.FormalParameter;
 import org.osate.verify.verify.VerifyPackage;
@@ -22,6 +26,7 @@ import org.osate.verify.verify.VerifyPackage;
  * <ul>
  *   <li>{@link org.osate.verify.verify.impl.FormalParameterImpl#getParameterType <em>Parameter Type</em>}</li>
  *   <li>{@link org.osate.verify.verify.impl.FormalParameterImpl#getName <em>Name</em>}</li>
+ *   <li>{@link org.osate.verify.verify.impl.FormalParameterImpl#getUnit <em>Unit</em>}</li>
  * </ul>
  *
  * @generated
@@ -67,6 +72,16 @@ public class FormalParameterImpl extends MinimalEObjectImpl.Container implements
    * @ordered
    */
   protected String name = NAME_EDEFAULT;
+
+  /**
+   * The cached value of the '{@link #getUnit() <em>Unit</em>}' reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see #getUnit()
+   * @generated
+   * @ordered
+   */
+  protected UnitLiteral unit;
 
   /**
    * <!-- begin-user-doc -->
@@ -140,6 +155,49 @@ public class FormalParameterImpl extends MinimalEObjectImpl.Container implements
    * <!-- end-user-doc -->
    * @generated
    */
+  public UnitLiteral getUnit()
+  {
+    if (unit != null && ((EObject)unit).eIsProxy())
+    {
+      InternalEObject oldUnit = (InternalEObject)unit;
+      unit = (UnitLiteral)eResolveProxy(oldUnit);
+      if (unit != oldUnit)
+      {
+        if (eNotificationRequired())
+          eNotify(new ENotificationImpl(this, Notification.RESOLVE, VerifyPackage.FORMAL_PARAMETER__UNIT, oldUnit, unit));
+      }
+    }
+    return unit;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public UnitLiteral basicGetUnit()
+  {
+    return unit;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public void setUnit(UnitLiteral newUnit)
+  {
+    UnitLiteral oldUnit = unit;
+    unit = newUnit;
+    if (eNotificationRequired())
+      eNotify(new ENotificationImpl(this, Notification.SET, VerifyPackage.FORMAL_PARAMETER__UNIT, oldUnit, unit));
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
   @Override
   public Object eGet(int featureID, boolean resolve, boolean coreType)
   {
@@ -149,6 +207,9 @@ public class FormalParameterImpl extends MinimalEObjectImpl.Container implements
         return getParameterType();
       case VerifyPackage.FORMAL_PARAMETER__NAME:
         return getName();
+      case VerifyPackage.FORMAL_PARAMETER__UNIT:
+        if (resolve) return getUnit();
+        return basicGetUnit();
     }
     return super.eGet(featureID, resolve, coreType);
   }
@@ -168,6 +229,9 @@ public class FormalParameterImpl extends MinimalEObjectImpl.Container implements
         return;
       case VerifyPackage.FORMAL_PARAMETER__NAME:
         setName((String)newValue);
+        return;
+      case VerifyPackage.FORMAL_PARAMETER__UNIT:
+        setUnit((UnitLiteral)newValue);
         return;
     }
     super.eSet(featureID, newValue);
@@ -189,6 +253,9 @@ public class FormalParameterImpl extends MinimalEObjectImpl.Container implements
       case VerifyPackage.FORMAL_PARAMETER__NAME:
         setName(NAME_EDEFAULT);
         return;
+      case VerifyPackage.FORMAL_PARAMETER__UNIT:
+        setUnit((UnitLiteral)null);
+        return;
     }
     super.eUnset(featureID);
   }
@@ -207,6 +274,8 @@ public class FormalParameterImpl extends MinimalEObjectImpl.Container implements
         return PARAMETER_TYPE_EDEFAULT == null ? parameterType != null : !PARAMETER_TYPE_EDEFAULT.equals(parameterType);
       case VerifyPackage.FORMAL_PARAMETER__NAME:
         return NAME_EDEFAULT == null ? name != null : !NAME_EDEFAULT.equals(name);
+      case VerifyPackage.FORMAL_PARAMETER__UNIT:
+        return unit != null;
     }
     return super.eIsSet(featureID);
   }

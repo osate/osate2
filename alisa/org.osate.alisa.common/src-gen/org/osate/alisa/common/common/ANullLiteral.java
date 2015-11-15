@@ -2,6 +2,9 @@
  */
 package org.osate.alisa.common.common;
 
+import org.eclipse.emf.ecore.EObject;
+
+import org.osate.aadl2.PropertyExpression;
 
 /**
  * <!-- begin-user-doc -->
@@ -13,6 +16,6 @@ package org.osate.alisa.common.common;
  * @model
  * @generated
  */
-public interface ANullLiteral extends AExpression
+public interface ANullLiteral extends EObject, PropertyExpression
 {
 } // ANullLiteral

@@ -551,13 +551,22 @@ public interface VerifyPackage extends EPackage
   int FORMAL_PARAMETER__NAME = 1;
 
   /**
+   * The feature id for the '<em><b>Unit</b></em>' reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int FORMAL_PARAMETER__UNIT = 2;
+
+  /**
    * The number of structural features of the '<em>Formal Parameter</em>' class.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    * @ordered
    */
-  int FORMAL_PARAMETER_FEATURE_COUNT = 2;
+  int FORMAL_PARAMETER_FEATURE_COUNT = 3;
 
   /**
    * The meta object id for the '{@link org.osate.verify.verify.impl.VerificationMethodImpl <em>Verification Method</em>}' class.
@@ -1649,6 +1658,17 @@ public interface VerifyPackage extends EPackage
   EAttribute getFormalParameter_Name();
 
   /**
+   * Returns the meta object for the reference '{@link org.osate.verify.verify.FormalParameter#getUnit <em>Unit</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the reference '<em>Unit</em>'.
+   * @see org.osate.verify.verify.FormalParameter#getUnit()
+   * @see #getFormalParameter()
+   * @generated
+   */
+  EReference getFormalParameter_Unit();
+
+  /**
    * Returns the meta object for class '{@link org.osate.verify.verify.VerificationMethod <em>Verification Method</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -2435,6 +2455,14 @@ public interface VerifyPackage extends EPackage
      * @generated
      */
     EAttribute FORMAL_PARAMETER__NAME = eINSTANCE.getFormalParameter_Name();
+
+    /**
+     * The meta object literal for the '<em><b>Unit</b></em>' reference feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EReference FORMAL_PARAMETER__UNIT = eINSTANCE.getFormalParameter_Unit();
 
     /**
      * The meta object literal for the '{@link org.osate.verify.verify.impl.VerificationMethodImpl <em>Verification Method</em>}' class.

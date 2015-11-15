@@ -123,6 +123,22 @@ class AssureProcessor implements IAssureProcessor {
 		runVerificationMethod(preconditionResult)
 	}
 
+	def void convertToJavaObjects(Object[] parameters) {
+		var i = 0
+		val nbParams = parameters.size
+		var Object param
+		while (i < nbParams) {
+			val actual = parameters.get(i)
+			switch (actual) {
+				IntegerLiteral: param = actual.scaledValue
+				RealLiteral: param = actual.scaledValue
+				StringLiteral: param = actual.value
+			}
+			parameters.set(i, param)
+			i = i + 1
+		}
+	}
+
 	/**
 	 * who needs to understand the method types?
 	 * the runVerificationMethod dispatcher may do different catch methods
@@ -163,7 +179,8 @@ class AssureProcessor implements IAssureProcessor {
 			val verificationMethod = verificationActivityResult.method as VerificationMethod
 
 			if (verificationActivity.parameters.size != verificationMethod.params.size) {
-				setToError(verificationResult, "Number of method parameters and method call parameters in activity differ", null)
+				setToError(verificationResult,
+					"Number of method parameters and method call parameters in activity differ", null)
 				return
 			}
 			val nbParams = verificationMethod.params.size
@@ -173,7 +190,6 @@ class AssureProcessor implements IAssureProcessor {
 
 			while (i < nbParams) {
 				var Object actual
-				var Object param
 				var String typeName
 				val pi = verificationActivity.parameters.get(i)
 				if (pi instanceof AVariableReference) {
@@ -185,19 +201,16 @@ class AssureProcessor implements IAssureProcessor {
 				} else {
 					actual = pi
 				}
-				switch (actual){
-				IntegerLiteral: param = actual.scaledValue
-				RealLiteral: param = actual.scaledValue
-				StringLiteral: param = actual.value
-				default: 
-					setToError(verificationResult, "Method call parameter must reference variable, or be a string, integer, or real", null)
-				}
-				parameters.set(i, param)
+				parameters.set(i, actual)
 				
+				// for conversion into Java Object see above method. 
+
 				var formalParam = verificationMethod.params.get(i) as FormalParameter
 				val paramType = formalParam.parameterType
 				if (typeName != null && paramType != null && ! typeName.equals(paramType)) {
-					setToError(verificationResult, "Parameter '"+formalParam.name+": mismatched  types '"+paramType+"' and actual '"+typeName, null)
+					setToError(verificationResult,
+						"Parameter '" + formalParam.name + ": mismatched  types '" + paramType + "' and actual '" +
+							typeName, null)
 					return
 				}
 				i = i + 1

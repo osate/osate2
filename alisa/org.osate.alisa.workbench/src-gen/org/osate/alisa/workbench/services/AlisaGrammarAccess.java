@@ -686,7 +686,7 @@ public class AlisaGrammarAccess extends AbstractGrammarElementFinder {
 	}
 
 	//OpEquality:
-	//	"==" | "!=" | "===" | "!==";
+	//	"==" | "!=";
 	public CommonGrammarAccess.OpEqualityElements getOpEqualityAccess() {
 		return gaCommon.getOpEqualityAccess();
 	}
@@ -798,7 +798,7 @@ public class AlisaGrammarAccess extends AbstractGrammarElementFinder {
 	}
 
 	//APrimaryExpression returns aadl2::PropertyExpression:
-	//	ALiteral | AVariableReference | AParenthesizedExpression;
+	//	ALiteral | AVariableReference | APropertyReference | AParenthesizedExpression;
 	public CommonGrammarAccess.APrimaryExpressionElements getAPrimaryExpressionAccess() {
 		return gaCommon.getAPrimaryExpressionAccess();
 	}
@@ -920,7 +920,7 @@ public class AlisaGrammarAccess extends AbstractGrammarElementFinder {
 		return getABooleanLiteralAccess().getRule();
 	}
 
-	//ANullLiteral returns AExpression:
+	//ANullLiteral returns aadl2::PropertyExpression:
 	//	{ANullLiteral} "null";
 	public CommonGrammarAccess.ANullLiteralElements getANullLiteralAccess() {
 		return gaCommon.getANullLiteralAccess();

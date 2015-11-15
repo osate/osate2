@@ -70,5 +70,5 @@
         eType="ecore:EClass platform:/resource/org.osate.aadl2/model/aadl2.ecore#//PropertyExpression"
         containment="true"/>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="ANullLiteral" eSuperTypes="#//AExpression"/>
+  <eClassifiers xsi:type="ecore:EClass" name="ANullLiteral" eSuperTypes="platform:/resource/org.osate.aadl2/model/aadl2.ecore#//PropertyExpression"/>
 </ecore:EPackage>

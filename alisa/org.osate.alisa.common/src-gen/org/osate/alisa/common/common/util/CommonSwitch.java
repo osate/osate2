@@ -209,7 +209,6 @@ public class CommonSwitch<T> extends Switch<T>
       {
         ANullLiteral aNullLiteral = (ANullLiteral)theEObject;
         T result = caseANullLiteral(aNullLiteral);
-        if (result == null) result = caseAExpression(aNullLiteral);
         if (result == null) result = casePropertyExpression(aNullLiteral);
         if (result == null) result = caseElement(aNullLiteral);
         if (result == null) result = defaultCase(theEObject);

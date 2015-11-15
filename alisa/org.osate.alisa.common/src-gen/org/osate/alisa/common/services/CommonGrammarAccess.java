@@ -732,14 +732,12 @@ public class CommonGrammarAccess extends AbstractGrammarElementFinder {
 		private final Alternatives cAlternatives = (Alternatives)rule.eContents().get(1);
 		private final Keyword cEqualsSignEqualsSignKeyword_0 = (Keyword)cAlternatives.eContents().get(0);
 		private final Keyword cExclamationMarkEqualsSignKeyword_1 = (Keyword)cAlternatives.eContents().get(1);
-		private final Keyword cEqualsSignEqualsSignEqualsSignKeyword_2 = (Keyword)cAlternatives.eContents().get(2);
-		private final Keyword cExclamationMarkEqualsSignEqualsSignKeyword_3 = (Keyword)cAlternatives.eContents().get(3);
 		
 		//OpEquality:
-		//	"==" | "!=" | "===" | "!==";
+		//	"==" | "!=";
 		@Override public ParserRule getRule() { return rule; }
 
-		//"==" | "!=" | "===" | "!=="
+		//"==" | "!="
 		public Alternatives getAlternatives() { return cAlternatives; }
 
 		//"=="
@@ -747,12 +745,6 @@ public class CommonGrammarAccess extends AbstractGrammarElementFinder {
 
 		//"!="
 		public Keyword getExclamationMarkEqualsSignKeyword_1() { return cExclamationMarkEqualsSignKeyword_1; }
-
-		//"==="
-		public Keyword getEqualsSignEqualsSignEqualsSignKeyword_2() { return cEqualsSignEqualsSignEqualsSignKeyword_2; }
-
-		//"!=="
-		public Keyword getExclamationMarkEqualsSignEqualsSignKeyword_3() { return cExclamationMarkEqualsSignEqualsSignKeyword_3; }
 	}
 
 	public class ARelationalExpressionElements extends AbstractParserRuleElementFinder {
@@ -1220,13 +1212,14 @@ public class CommonGrammarAccess extends AbstractGrammarElementFinder {
 		private final Alternatives cAlternatives = (Alternatives)rule.eContents().get(1);
 		private final RuleCall cALiteralParserRuleCall_0 = (RuleCall)cAlternatives.eContents().get(0);
 		private final RuleCall cAVariableReferenceParserRuleCall_1 = (RuleCall)cAlternatives.eContents().get(1);
-		private final RuleCall cAParenthesizedExpressionParserRuleCall_2 = (RuleCall)cAlternatives.eContents().get(2);
+		private final RuleCall cAPropertyReferenceParserRuleCall_2 = (RuleCall)cAlternatives.eContents().get(2);
+		private final RuleCall cAParenthesizedExpressionParserRuleCall_3 = (RuleCall)cAlternatives.eContents().get(3);
 		
 		//APrimaryExpression returns aadl2::PropertyExpression:
-		//	ALiteral | AVariableReference | AParenthesizedExpression;
+		//	ALiteral | AVariableReference | APropertyReference | AParenthesizedExpression;
 		@Override public ParserRule getRule() { return rule; }
 
-		//ALiteral | AVariableReference | AParenthesizedExpression
+		//ALiteral | AVariableReference | APropertyReference | AParenthesizedExpression
 		public Alternatives getAlternatives() { return cAlternatives; }
 
 		//ALiteral
@@ -1235,8 +1228,11 @@ public class CommonGrammarAccess extends AbstractGrammarElementFinder {
 		//AVariableReference
 		public RuleCall getAVariableReferenceParserRuleCall_1() { return cAVariableReferenceParserRuleCall_1; }
 
+		//APropertyReference
+		public RuleCall getAPropertyReferenceParserRuleCall_2() { return cAPropertyReferenceParserRuleCall_2; }
+
 		//AParenthesizedExpression
-		public RuleCall getAParenthesizedExpressionParserRuleCall_2() { return cAParenthesizedExpressionParserRuleCall_2; }
+		public RuleCall getAParenthesizedExpressionParserRuleCall_3() { return cAParenthesizedExpressionParserRuleCall_3; }
 	}
 
 	public class ALiteralElements extends AbstractParserRuleElementFinder {
@@ -1620,7 +1616,7 @@ public class CommonGrammarAccess extends AbstractGrammarElementFinder {
 		private final Action cANullLiteralAction_0 = (Action)cGroup.eContents().get(0);
 		private final Keyword cNullKeyword_1 = (Keyword)cGroup.eContents().get(1);
 		
-		//ANullLiteral returns AExpression:
+		//ANullLiteral returns aadl2::PropertyExpression:
 		//	{ANullLiteral} "null";
 		@Override public ParserRule getRule() { return rule; }
 
@@ -2155,7 +2151,7 @@ public class CommonGrammarAccess extends AbstractGrammarElementFinder {
 	}
 
 	//OpEquality:
-	//	"==" | "!=" | "===" | "!==";
+	//	"==" | "!=";
 	public OpEqualityElements getOpEqualityAccess() {
 		return pOpEquality;
 	}
@@ -2267,7 +2263,7 @@ public class CommonGrammarAccess extends AbstractGrammarElementFinder {
 	}
 
 	//APrimaryExpression returns aadl2::PropertyExpression:
-	//	ALiteral | AVariableReference | AParenthesizedExpression;
+	//	ALiteral | AVariableReference | APropertyReference | AParenthesizedExpression;
 	public APrimaryExpressionElements getAPrimaryExpressionAccess() {
 		return pAPrimaryExpression;
 	}
@@ -2389,7 +2385,7 @@ public class CommonGrammarAccess extends AbstractGrammarElementFinder {
 		return getABooleanLiteralAccess().getRule();
 	}
 
-	//ANullLiteral returns AExpression:
+	//ANullLiteral returns aadl2::PropertyExpression:
 	//	{ANullLiteral} "null";
 	public ANullLiteralElements getANullLiteralAccess() {
 		return pANullLiteral;

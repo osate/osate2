@@ -23,6 +23,7 @@ import org.osate.aadl2.UnitLiteral
 import org.osate.aadl2.UnitsType
 import org.osate.alisa.common.common.ShowValue
 import org.osate.xtext.aadl2.properties.util.EMFIndexRetrieval
+import com.google.inject.Inject
 
 /**
  * This class contains custom scoping description.
@@ -73,6 +74,14 @@ class CommonScopeProvider extends AbstractDeclarativeScopeProvider {
 		} else {
 			IScope.NULLSCOPE
 		}
+	}
+
+	@Inject ICommonGlobalReferenceFinder refFinder
+
+	def scope_AbstractNamedValue(EObject context, EReference reference) {
+		val props = refFinder.getEObjectDescriptions(context, Aadl2Package.eINSTANCE.property, "aadl")
+		+ refFinder.getEObjectDescriptions(context, Aadl2Package.eINSTANCE.propertyConstant, "aadl")
+		new SimpleScope(IScope::NULLSCOPE, props, true)
 	}
 
 	val private static EClass UNITS_TYPE = Aadl2Package.eINSTANCE.getUnitsType();

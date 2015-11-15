@@ -365,9 +365,8 @@ public class VerifyGrammarAccess extends AbstractGrammarElementFinder {
 		private final RuleCall cCompositeElseEvidenceExprParserRuleCall_1 = (RuleCall)cAlternatives.eContents().get(1);
 		
 		//// Execute as alternative if the first one fails.
-		// // The results of both are reported
-		// ElseEvidenceExpr returns
-		//ArgumentExpr:
+		//// The results of both are reported
+		//ElseEvidenceExpr returns ArgumentExpr:
 		//	SingleElseEvidenceExpr | CompositeElseEvidenceExpr;
 		@Override public ParserRule getRule() { return rule; }
 
@@ -648,9 +647,7 @@ public class VerifyGrammarAccess extends AbstractGrammarElementFinder {
 		private final Keyword cRightParenthesisKeyword_2_2 = (Keyword)cGroup_2.eContents().get(2);
 		
 		////SingleEvidenceExpr returns ArgumentExpr:
-		//
 		////	VAReference (=> ({WhenExpr.verification=current} 'when') condition+=[categories::VerificationCategory|ID]+)?; // should it be a selection category as well
-		//
 		//VAReference returns ArgumentExpr:
 		//	{RefExpr} verification=[VerificationActivity] ("(" weight=INT ")")?;
 		@Override public ParserRule getRule() { return rule; }
@@ -750,22 +747,18 @@ public class VerifyGrammarAccess extends AbstractGrammarElementFinder {
 		private final RuleCall cTimeoutINTTerminalRuleCall_11_1_0 = (RuleCall)cTimeoutAssignment_11_1.eContents().get(0);
 		
 		//VerificationActivity:
-		//	name=ID (":" title=STRING)? ("for" target=[aadl2::ComponentImplementation|AadlClassifierReference])?
-		//	// for specific AADL model configuration
-		// ("category" category+=[categories::Category]+)? ":"
-		//	(result+=[common::ComputeDeclaration] ("," result+=[common::ComputeDeclaration])* "=")?
-		//	method=[VerificationMethod|QualifiedName] "(" (parameters+=[common::AExpression] (","
-		//	parameters+=[common::AExpression])*)? ")" ("property" "values" "(" (propertyValues+=[common::AExpression] (","
-		//	propertyValues+=[common::AExpression])*)? ")")? ("timeout" timeout=INT)?;
+		//	name=ID (":" title=STRING)? ("for" target=[aadl2::ComponentImplementation|AadlClassifierReference])? // for specific AADL model configuration
+		//	("category" category+=[categories::Category]+)? ":" (result+=[common::ComputeDeclaration] (","
+		//	result+=[common::ComputeDeclaration])* "=")? method=[VerificationMethod|QualifiedName] "("
+		//	(parameters+=[common::AExpression] ("," parameters+=[common::AExpression])*)? ")" ("property" "values" "("
+		//	(propertyValues+=[common::AExpression] ("," propertyValues+=[common::AExpression])*)? ")")? ("timeout" timeout=INT)?;
 		@Override public ParserRule getRule() { return rule; }
 
-		//name=ID (":" title=STRING)? ("for" target=[aadl2::ComponentImplementation|AadlClassifierReference])?
-		//// for specific AADL model configuration
-		// ("category" category+=[categories::Category]+)? ":"
-		//(result+=[common::ComputeDeclaration] ("," result+=[common::ComputeDeclaration])* "=")?
-		//method=[VerificationMethod|QualifiedName] "(" (parameters+=[common::AExpression] (","
-		//parameters+=[common::AExpression])*)? ")" ("property" "values" "(" (propertyValues+=[common::AExpression] (","
-		//propertyValues+=[common::AExpression])*)? ")")? ("timeout" timeout=INT)?
+		//name=ID (":" title=STRING)? ("for" target=[aadl2::ComponentImplementation|AadlClassifierReference])? // for specific AADL model configuration
+		//("category" category+=[categories::Category]+)? ":" (result+=[common::ComputeDeclaration] (","
+		//result+=[common::ComputeDeclaration])* "=")? method=[VerificationMethod|QualifiedName] "("
+		//(parameters+=[common::AExpression] ("," parameters+=[common::AExpression])*)? ")" ("property" "values" "("
+		//(propertyValues+=[common::AExpression] ("," propertyValues+=[common::AExpression])*)? ")")? ("timeout" timeout=INT)?
 		public Group getGroup() { return cGroup; }
 
 		//name=ID
@@ -1259,12 +1252,17 @@ public class VerifyGrammarAccess extends AbstractGrammarElementFinder {
 		private final RuleCall cParameterTypeIDTerminalRuleCall_0_0 = (RuleCall)cParameterTypeAssignment_0.eContents().get(0);
 		private final Assignment cNameAssignment_1 = (Assignment)cGroup.eContents().get(1);
 		private final RuleCall cNameIDTerminalRuleCall_1_0 = (RuleCall)cNameAssignment_1.eContents().get(0);
+		private final Group cGroup_2 = (Group)cGroup.eContents().get(2);
+		private final Keyword cPercentSignKeyword_2_0 = (Keyword)cGroup_2.eContents().get(0);
+		private final Assignment cUnitAssignment_2_1 = (Assignment)cGroup_2.eContents().get(1);
+		private final CrossReference cUnitUnitLiteralCrossReference_2_1_0 = (CrossReference)cUnitAssignment_2_1.eContents().get(0);
+		private final RuleCall cUnitUnitLiteralIDTerminalRuleCall_2_1_0_1 = (RuleCall)cUnitUnitLiteralCrossReference_2_1_0.eContents().get(1);
 		
 		//FormalParameter:
-		//	parameterType=ID name=ID;
+		//	parameterType=ID name=ID ("%" unit=[aadl2::UnitLiteral])?;
 		@Override public ParserRule getRule() { return rule; }
 
-		//parameterType=ID name=ID
+		//parameterType=ID name=ID ("%" unit=[aadl2::UnitLiteral])?
 		public Group getGroup() { return cGroup; }
 
 		//parameterType=ID
@@ -1278,6 +1276,21 @@ public class VerifyGrammarAccess extends AbstractGrammarElementFinder {
 
 		//ID
 		public RuleCall getNameIDTerminalRuleCall_1_0() { return cNameIDTerminalRuleCall_1_0; }
+
+		//("%" unit=[aadl2::UnitLiteral])?
+		public Group getGroup_2() { return cGroup_2; }
+
+		//"%"
+		public Keyword getPercentSignKeyword_2_0() { return cPercentSignKeyword_2_0; }
+
+		//unit=[aadl2::UnitLiteral]
+		public Assignment getUnitAssignment_2_1() { return cUnitAssignment_2_1; }
+
+		//[aadl2::UnitLiteral]
+		public CrossReference getUnitUnitLiteralCrossReference_2_1_0() { return cUnitUnitLiteralCrossReference_2_1_0; }
+
+		//ID
+		public RuleCall getUnitUnitLiteralIDTerminalRuleCall_2_1_0_1() { return cUnitUnitLiteralIDTerminalRuleCall_2_1_0_1; }
 	}
 
 	public class VerificationMethodElements extends AbstractParserRuleElementFinder {
@@ -1614,9 +1627,7 @@ public class VerifyGrammarAccess extends AbstractGrammarElementFinder {
 		private final RuleCall cMethodIDIDTerminalRuleCall_1_0 = (RuleCall)cMethodIDAssignment_1.eContents().get(0);
 		
 		////enum SupportedScopes: SELF='self' | PARTS='parts' | ALL='all';
-		//
 		////enum SupportedReporting: MARKER='marker' |ERRORMARKER='errormarker' | DIAGNOSTICS='diagnostics'| ASSERTEXCEPTION='assertexception'|RESULTREPORT='resultreport' ;
-		//
 		//PluginMethod:
 		//	"plugin" methodID=ID;
 		@Override public ParserRule getRule() { return rule; }
@@ -1771,9 +1782,8 @@ public class VerifyGrammarAccess extends AbstractGrammarElementFinder {
 	}
 
 	//// Execute as alternative if the first one fails.
-	// // The results of both are reported
-	// ElseEvidenceExpr returns
-	//ArgumentExpr:
+	//// The results of both are reported
+	//ElseEvidenceExpr returns ArgumentExpr:
 	//	SingleElseEvidenceExpr | CompositeElseEvidenceExpr;
 	public ElseEvidenceExprElements getElseEvidenceExprAccess() {
 		return pElseEvidenceExpr;
@@ -1825,9 +1835,7 @@ public class VerifyGrammarAccess extends AbstractGrammarElementFinder {
 	}
 
 	////SingleEvidenceExpr returns ArgumentExpr:
-	//
 	////	VAReference (=> ({WhenExpr.verification=current} 'when') condition+=[categories::VerificationCategory|ID]+)?; // should it be a selection category as well
-	//
 	//VAReference returns ArgumentExpr:
 	//	{RefExpr} verification=[VerificationActivity] ("(" weight=INT ")")?;
 	public VAReferenceElements getVAReferenceAccess() {
@@ -1839,13 +1847,11 @@ public class VerifyGrammarAccess extends AbstractGrammarElementFinder {
 	}
 
 	//VerificationActivity:
-	//	name=ID (":" title=STRING)? ("for" target=[aadl2::ComponentImplementation|AadlClassifierReference])?
-	//	// for specific AADL model configuration
-	// ("category" category+=[categories::Category]+)? ":"
-	//	(result+=[common::ComputeDeclaration] ("," result+=[common::ComputeDeclaration])* "=")?
-	//	method=[VerificationMethod|QualifiedName] "(" (parameters+=[common::AExpression] (","
-	//	parameters+=[common::AExpression])*)? ")" ("property" "values" "(" (propertyValues+=[common::AExpression] (","
-	//	propertyValues+=[common::AExpression])*)? ")")? ("timeout" timeout=INT)?;
+	//	name=ID (":" title=STRING)? ("for" target=[aadl2::ComponentImplementation|AadlClassifierReference])? // for specific AADL model configuration
+	//	("category" category+=[categories::Category]+)? ":" (result+=[common::ComputeDeclaration] (","
+	//	result+=[common::ComputeDeclaration])* "=")? method=[VerificationMethod|QualifiedName] "("
+	//	(parameters+=[common::AExpression] ("," parameters+=[common::AExpression])*)? ")" ("property" "values" "("
+	//	(propertyValues+=[common::AExpression] ("," propertyValues+=[common::AExpression])*)? ")")? ("timeout" timeout=INT)?;
 	public VerificationActivityElements getVerificationActivityAccess() {
 		return pVerificationActivity;
 	}
@@ -1878,7 +1884,7 @@ public class VerifyGrammarAccess extends AbstractGrammarElementFinder {
 	}
 
 	//FormalParameter:
-	//	parameterType=ID name=ID;
+	//	parameterType=ID name=ID ("%" unit=[aadl2::UnitLiteral])?;
 	public FormalParameterElements getFormalParameterAccess() {
 		return pFormalParameter;
 	}
@@ -1941,9 +1947,7 @@ public class VerifyGrammarAccess extends AbstractGrammarElementFinder {
 	}
 
 	////enum SupportedScopes: SELF='self' | PARTS='parts' | ALL='all';
-	//
 	////enum SupportedReporting: MARKER='marker' |ERRORMARKER='errormarker' | DIAGNOSTICS='diagnostics'| ASSERTEXCEPTION='assertexception'|RESULTREPORT='resultreport' ;
-	//
 	//PluginMethod:
 	//	"plugin" methodID=ID;
 	public PluginMethodElements getPluginMethodAccess() {
@@ -2129,7 +2133,7 @@ public class VerifyGrammarAccess extends AbstractGrammarElementFinder {
 	}
 
 	//OpEquality:
-	//	"==" | "!=" | "===" | "!==";
+	//	"==" | "!=";
 	public CommonGrammarAccess.OpEqualityElements getOpEqualityAccess() {
 		return gaCommon.getOpEqualityAccess();
 	}
@@ -2241,7 +2245,7 @@ public class VerifyGrammarAccess extends AbstractGrammarElementFinder {
 	}
 
 	//APrimaryExpression returns aadl2::PropertyExpression:
-	//	ALiteral | AVariableReference | AParenthesizedExpression;
+	//	ALiteral | AVariableReference | APropertyReference | AParenthesizedExpression;
 	public CommonGrammarAccess.APrimaryExpressionElements getAPrimaryExpressionAccess() {
 		return gaCommon.getAPrimaryExpressionAccess();
 	}
@@ -2363,7 +2367,7 @@ public class VerifyGrammarAccess extends AbstractGrammarElementFinder {
 		return getABooleanLiteralAccess().getRule();
 	}
 
-	//ANullLiteral returns AExpression:
+	//ANullLiteral returns aadl2::PropertyExpression:
 	//	{ANullLiteral} "null";
 	public CommonGrammarAccess.ANullLiteralElements getANullLiteralAccess() {
 		return gaCommon.getANullLiteralAccess();

@@ -92,11 +92,7 @@ True : 'true';
 
 With : 'with';
 
-ExclamationMarkEqualsSignEqualsSign : '!==';
-
 FullStopFullStopLessThanSign : '..<';
-
-EqualsSignEqualsSignEqualsSign : '===';
 
 All : 'all';
 

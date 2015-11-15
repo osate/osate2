@@ -793,7 +793,7 @@ public interface CommonPackage extends EPackage
    * @generated
    * @ordered
    */
-  int ANULL_LITERAL__OWNED_ELEMENT = AEXPRESSION__OWNED_ELEMENT;
+  int ANULL_LITERAL__OWNED_ELEMENT = Aadl2Package.PROPERTY_EXPRESSION__OWNED_ELEMENT;
 
   /**
    * The feature id for the '<em><b>Owned Comment</b></em>' containment reference list.
@@ -802,7 +802,7 @@ public interface CommonPackage extends EPackage
    * @generated
    * @ordered
    */
-  int ANULL_LITERAL__OWNED_COMMENT = AEXPRESSION__OWNED_COMMENT;
+  int ANULL_LITERAL__OWNED_COMMENT = Aadl2Package.PROPERTY_EXPRESSION__OWNED_COMMENT;
 
   /**
    * The number of structural features of the '<em>ANull Literal</em>' class.
@@ -811,7 +811,7 @@ public interface CommonPackage extends EPackage
    * @generated
    * @ordered
    */
-  int ANULL_LITERAL_FEATURE_COUNT = AEXPRESSION_FEATURE_COUNT + 0;
+  int ANULL_LITERAL_FEATURE_COUNT = Aadl2Package.PROPERTY_EXPRESSION_FEATURE_COUNT + 0;
 
 
   /**

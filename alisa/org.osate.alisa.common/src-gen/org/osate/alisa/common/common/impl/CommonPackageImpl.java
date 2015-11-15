@@ -810,7 +810,7 @@ public class CommonPackageImpl extends EPackageImpl implements CommonPackage
     aUnaryOperationEClass.getESuperTypes().add(theAadl2Package.getPropertyExpression());
     aSetLiteralEClass.getESuperTypes().add(theAadl2Package.getPropertyExpression());
     aListTermEClass.getESuperTypes().add(theAadl2Package.getPropertyExpression());
-    aNullLiteralEClass.getESuperTypes().add(this.getAExpression());
+    aNullLiteralEClass.getESuperTypes().add(theAadl2Package.getPropertyExpression());
 
     // Initialize classes and features; add operations and parameters
     initEClass(descriptionEClass, Description.class, "Description", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);

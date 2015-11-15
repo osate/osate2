@@ -1879,7 +1879,24 @@ ruleFormalParameter returns [EObject current=null]
 	    }
 
 )
-))
+)(	otherlv_2='%' 
+    {
+    	newLeafNode(otherlv_2, grammarAccess.getFormalParameterAccess().getPercentSignKeyword_2_0());
+    }
+(
+(
+		{
+			if ($current==null) {
+	            $current = createModelElement(grammarAccess.getFormalParameterRule());
+	        }
+        }
+	otherlv_3=RULE_ID
+	{
+		newLeafNode(otherlv_3, grammarAccess.getFormalParameterAccess().getUnitUnitLiteralCrossReference_2_1_0()); 
+	}
+
+)
+))?)
 ;
 
 
@@ -2638,6 +2655,50 @@ ruleRationale returns [EObject current=null]
 
 
 
+// Entry rule entryRuleAPropertyReference
+entryRuleAPropertyReference returns [EObject current=null] 
+	:
+	{ newCompositeNode(grammarAccess.getAPropertyReferenceRule()); }
+	 iv_ruleAPropertyReference=ruleAPropertyReference 
+	 { $current=$iv_ruleAPropertyReference.current; } 
+	 EOF 
+;
+
+// Rule APropertyReference
+ruleAPropertyReference returns [EObject current=null] 
+    @init { enterRule(); 
+    }
+    @after { leaveRule(); }:
+((
+    {
+        $current = forceCreateModelElement(
+            grammarAccess.getAPropertyReferenceAccess().getAPropertyReferenceAction_0(),
+            $current);
+    }
+)	otherlv_1='@' 
+    {
+    	newLeafNode(otherlv_1, grammarAccess.getAPropertyReferenceAccess().getCommercialAtKeyword_1());
+    }
+(
+(
+		{
+			if ($current==null) {
+	            $current = createModelElement(grammarAccess.getAPropertyReferenceRule());
+	        }
+        }
+		{ 
+	        newCompositeNode(grammarAccess.getAPropertyReferenceAccess().getPropertyAbstractNamedValueCrossReference_2_0()); 
+	    }
+		ruleAADLPROPERTYREFERENCE		{ 
+	        afterParserOrEnumRuleCall();
+	    }
+
+)
+))
+;
+
+
+
 
 
 // Entry rule entryRuleAVariableReference
@@ -3169,20 +3230,6 @@ ruleOpEquality returns [AntlrDatatypeRuleToken current=new AntlrDatatypeRuleToke
     {
         $current.merge(kw);
         newLeafNode(kw, grammarAccess.getOpEqualityAccess().getExclamationMarkEqualsSignKeyword_1()); 
-    }
-
-    |
-	kw='===' 
-    {
-        $current.merge(kw);
-        newLeafNode(kw, grammarAccess.getOpEqualityAccess().getEqualsSignEqualsSignEqualsSignKeyword_2()); 
-    }
-
-    |
-	kw='!==' 
-    {
-        $current.merge(kw);
-        newLeafNode(kw, grammarAccess.getOpEqualityAccess().getExclamationMarkEqualsSignEqualsSignKeyword_3()); 
     }
 )
     ;
@@ -3927,11 +3974,21 @@ ruleAPrimaryExpression returns [EObject current=null]
 
     |
     { 
-        newCompositeNode(grammarAccess.getAPrimaryExpressionAccess().getAParenthesizedExpressionParserRuleCall_2()); 
+        newCompositeNode(grammarAccess.getAPrimaryExpressionAccess().getAPropertyReferenceParserRuleCall_2()); 
     }
-    this_AParenthesizedExpression_2=ruleAParenthesizedExpression
+    this_APropertyReference_2=ruleAPropertyReference
     { 
-        $current = $this_AParenthesizedExpression_2.current; 
+        $current = $this_APropertyReference_2.current; 
+        afterParserOrEnumRuleCall();
+    }
+
+    |
+    { 
+        newCompositeNode(grammarAccess.getAPrimaryExpressionAccess().getAParenthesizedExpressionParserRuleCall_3()); 
+    }
+    this_AParenthesizedExpression_3=ruleAParenthesizedExpression
+    { 
+        $current = $this_AParenthesizedExpression_3.current; 
         afterParserOrEnumRuleCall();
     }
 )
