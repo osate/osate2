@@ -27,51 +27,51 @@ public class AssureHandler extends AlisaHandler {
 
 	@Inject
 	private IAssureProcessor assureProcessor;
-		
-	@Override
-    protected WorkspaceJob getWorkspaceJob(String jobName, final XtextEditor xtextEditor, final URI uri){
-		WorkspaceJob job = new WorkspaceJob(getJobName()) {
-			@Override
-			public IStatus runInWorkspace(final IProgressMonitor monitor) {
-				try {
-					return xtextEditor.getDocument().readOnly(new IUnitOfWork<IStatus, XtextResource>() {
-						@Override
-						public IStatus exec(XtextResource resource) {
-							EObject eobj = resource.getResourceSet().getEObject(uri, true);
-							AssuranceCase ae = AssureUtilExtension.getRootAssuranceCase(eobj);
-							if (ae != null) {
-								return runJob(ae, monitor);
-							} else {
-								return Status.CANCEL_STATUS;
-							}
-						}
-					});
-				} catch (Exception e) {
-					return Status.CANCEL_STATUS;
-				}
-			}
-		};
-        return job;
-    }
-
-	@Override
-    protected Object scheduleJob(WorkspaceJob job){
-		try {
-			job.wait();
-		} catch (InterruptedException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-
-		if ((job.getResult() == null) || (job.getResult() == Status.CANCEL_STATUS)) {
-			MessageBox dialog = new MessageBox(window.getShell(), SWT.ICON_ERROR | SWT.OK);
-			dialog.setText("Error when running");
-			dialog.setMessage("Error when running the verification activity");
-			dialog.open();
-
-		}
-        return null;
-    }
+//		
+//	@Override
+//    protected WorkspaceJob getWorkspaceJob(String jobName, final XtextEditor xtextEditor, final URI uri){
+//		WorkspaceJob job = new WorkspaceJob(getJobName()) {
+//			@Override
+//			public IStatus runInWorkspace(final IProgressMonitor monitor) {
+//				try {
+//					return xtextEditor.getDocument().readOnly(new IUnitOfWork<IStatus, XtextResource>() {
+//						@Override
+//						public IStatus exec(XtextResource resource) {
+//							EObject eobj = resource.getResourceSet().getEObject(uri, true);
+//							AssuranceCase ae = AssureUtilExtension.getRootAssuranceCase(eobj);
+//							if (ae != null) {
+//								return runJob(ae, monitor);
+//							} else {
+//								return Status.CANCEL_STATUS;
+//							}
+//						}
+//					});
+//				} catch (Exception e) {
+//					return Status.CANCEL_STATUS;
+//				}
+//			}
+//		};
+//        return job;
+//    }
+//
+//	@Override
+//    protected Object scheduleJob(WorkspaceJob job){
+//		try {
+//			job.wait();
+//		} catch (InterruptedException e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		}
+//
+//		if ((job.getResult() == null) || (job.getResult() == Status.CANCEL_STATUS)) {
+//			MessageBox dialog = new MessageBox(window.getShell(), SWT.ICON_ERROR | SWT.OK);
+//			dialog.setText("Error when running");
+//			dialog.setMessage("Error when running the verification activity");
+//			dialog.open();
+//
+//		}
+//        return null;
+//    }
 	
 	@Override
 	protected String getJobName() {
