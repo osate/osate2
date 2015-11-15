@@ -44,6 +44,9 @@ import org.osate.aadl2.IntegerLiteral
 import org.osate.aadl2.RealLiteral
 import org.osate.aadl2.StringLiteral
 import org.osate.aadl2.BooleanLiteral
+import org.eclipse.emf.common.util.BasicEList
+import org.eclipse.emf.ecore.EObject
+import org.eclipse.emf.common.util.EList
 
 @ImplementedBy(AssureProcessor)
 interface IAssureProcessor {
@@ -171,9 +174,8 @@ class AssureProcessor implements IAssureProcessor {
 			val x = targetComponent.findElementInstance(targetElement)
 			target = x ?: targetComponent
 		}
+		var EList<EObject> parameters
 
-		var Object[] parameters
-//		val ctx = new DefaultEvaluationContext()
 		if (verificationResult instanceof VerificationActivityResult) {
 			val verificationActivityResult = verificationResult as VerificationActivityResult
 			val verificationActivity = verificationActivityResult.target as VerificationActivity
@@ -187,27 +189,26 @@ class AssureProcessor implements IAssureProcessor {
 			val nbParams = verificationMethod.params.size
 			var i = 0
 
-			parameters = newArrayOfSize(nbParams)
+			parameters = new BasicEList(nbParams)
 
-			while (i < nbParams) {
-				var Object actual
+			for (pi : verificationActivity.parameters) {
+				var EObject actual
 				var String typeName
-				val pi = verificationActivity.parameters.get(i)
-				if (pi instanceof AVariableReference) {
+				if (pi instanceof ValDeclaration) {
+						typeName = pi.type
+						actual = pi.right
+				} else if (pi instanceof AVariableReference) {
 					// handle Val reference if AExpression is used
 					val pari = pi.variable
 					if (pari instanceof ValDeclaration) {
 						typeName = pari.type
 						actual = pari.right
 					}
-				} else if (pi instanceof ValDeclaration) {
-						typeName = pi.type
-						actual = pi.right
 				} else {
 					// the other types if AExpression is used
 					actual = pi
 				}
-				parameters.set(i, actual)
+				parameters.add(actual)
 				
 				// for conversion into Java Object see above method. 
 
@@ -318,7 +319,7 @@ class AssureProcessor implements IAssureProcessor {
 		verificationResult.eResource.save(null)
 	}
 
-	def ProveStatement createWrapperProveCall(ResoluteMethod rm, Object[] params) {
+	def ProveStatement createWrapperProveCall(ResoluteMethod rm, EList<EObject> params) {
 		val found = rm.methodReference
 		val factory = ResoluteFactory.eINSTANCE
 		if(found == null) return null
@@ -331,7 +332,7 @@ class AssureProcessor implements IAssureProcessor {
 		prove
 	}
 
-	def addParams(FnCallExpr call, Object[] params) {
+	def addParams(FnCallExpr call, EList<EObject> params) {
 		for (p : params) {
 			if (p instanceof RealLiteral) {
 				val realval = ResoluteFactory.eINSTANCE.createRealExpr
@@ -353,7 +354,7 @@ class AssureProcessor implements IAssureProcessor {
 		}
 	}
 
-	def createWrapperFnCall(ResoluteMethod vr, Object[] params) {
+	def createWrapperFnCall(ResoluteMethod vr, EList<EObject> params) {
 		val found = vr.methodReference
 		val factory = ResoluteFactory.eINSTANCE
 		val target = factory.createIdExpr

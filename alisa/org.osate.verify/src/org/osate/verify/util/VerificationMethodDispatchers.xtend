@@ -16,6 +16,8 @@ import org.osate.verify.verify.JavaMethod
 import org.osate.verify.verify.PluginMethod
 
 import static extension org.osate.verify.analysisplugins.AnalysisPluginInterface.*
+import org.osate.aadl2.StringLiteral
+import org.eclipse.emf.ecore.EObject
 
 class VerificationMethodDispatchers {
 
@@ -27,13 +29,13 @@ class VerificationMethodDispatchers {
 	 * If the methodID does not match it returns null
 	 * If the method is successful it returns the Eclipse Marker type as string
 	 */
-	def Object dispatchVerificationMethod(PluginMethod vm, InstanceObject target, List<Object> parameters) {
+	def Object dispatchVerificationMethod(PluginMethod vm, InstanceObject target, List<EObject> parameters) {
 		switch (vm.methodID) {
 			case "FlowLatencyAnalysis",
 			case "MaxFlowLatencyAnalysis",
 			case "MinFlowLatencyAnalysis",
 			case "FlowLatencyJitterAnalysis":
-				if(target == null) true else target.flowLatencyAnalysis(parameters as String[])
+				if(target == null) true else target.flowLatencyAnalysis(parameters.map[p|(p as StringLiteral).value])
 			case "A429Consistency":
 				if(target == null) true else target.A429Consistency
 			case "ConnectionBindingConsistency":
@@ -62,7 +64,7 @@ class VerificationMethodDispatchers {
 	}
 
 	// invoke method in workspace project
-	def Object workspaceInvoke(JavaMethod vm, InstanceObject target, List<Object> parameters) {
+	def Object workspaceInvoke(JavaMethod vm, InstanceObject target, List<EObject> parameters) {
 		val i = vm.methodPath.lastIndexOf('.')
 		if (i == -1)
 			return null;
