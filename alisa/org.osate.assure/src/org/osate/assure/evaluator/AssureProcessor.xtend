@@ -167,22 +167,22 @@ class AssureProcessor implements IAssureProcessor {
 			val verificationActivity = verificationActivityResult.target as VerificationActivity
 			val verificationMethod = verificationActivityResult.method as VerificationMethod
 
-			if (verificationActivity.parameters.size != verificationMethod.params.size) {
+			if (verificationActivity.parameters.size < verificationMethod.params.size) {
 				setToError(verificationResult,
-					"Number of method parameters and method call parameters in activity differ", null)
+					"Fewer actual parameters than formal parameters for verificaiton activity", null)
 				return
 			}
 			val nbParams = verificationMethod.params.size
 			var i = 0
 
-			parameters = new BasicEList(nbParams)
+			parameters = new BasicEList(verificationActivity.parameters.size)
 
 			for (pi : verificationActivity.parameters) {
 				var EObject actual
 				var String typeName
 				if (pi instanceof ValDeclaration) {
-						typeName = pi.type
-						actual = pi.right
+					typeName = pi.type
+					actual = pi.right
 				} else if (pi instanceof AVariableReference) {
 					// handle Val reference if AExpression is used
 					val pari = pi.variable
@@ -194,21 +194,23 @@ class AssureProcessor implements IAssureProcessor {
 					// the other types if AExpression is used
 					actual = pi
 				}
-				
-				// for conversion into Java Object see AssureUtilExtension.convertToJavaObjects 
 
-				var formalParam = verificationMethod.params.get(i) as FormalParameter
-				if ( actual instanceof NumberValue){
-					if (formalParam.unit != null && actual.unit != null && !formalParam.unit.name.equals(actual.unit.name)){
-						actual = convertValueToUnit(actual as NumberValue, formalParam.unit)
+				// for conversion into Java Object see AssureUtilExtension.convertToJavaObjects 
+				if (i < nbParams) {
+					var formalParam = verificationMethod.params.get(i) as FormalParameter
+					if (actual instanceof NumberValue) {
+						if (formalParam.unit != null && actual.unit != null &&
+							!formalParam.unit.name.equals(actual.unit.name)) {
+							actual = convertValueToUnit(actual as NumberValue, formalParam.unit)
+						}
 					}
-				}
-				val paramType = formalParam.parameterType
-				if (typeName != null && paramType != null && ! typeName.equals(paramType)) {
-					setToError(verificationResult,
-						"Parameter '" + formalParam.name + ": mismatched  types '" + paramType + "' and actual '" +
-							typeName, null)
-					return
+					val paramType = formalParam.parameterType
+					if (typeName != null && paramType != null && ! typeName.equals(paramType)) {
+						setToError(verificationResult,
+							"Parameter '" + formalParam.name + ": mismatched  types '" + paramType + "' and actual '" +
+								typeName, null)
+						return
+					}
 				}
 				parameters.add(actual)
 				i = i + 1
@@ -223,7 +225,7 @@ class AssureProcessor implements IAssureProcessor {
 			val methodtype = method.methodType
 			switch (methodtype) {
 				JavaMethod: {
-				// The parameters are objects from the Properties Meta model. May need to get converted to Java base types
+					// The parameters are objects from the Properties Meta model. May need to get converted to Java base types
 					res = VerificationMethodDispatchers.eInstance.workspaceInvoke(methodtype, target, parameters)
 					if (res != null) {
 						if (res instanceof Boolean) {
@@ -242,7 +244,7 @@ class AssureProcessor implements IAssureProcessor {
 					}
 				}
 				PluginMethod: {
-				// The parameters are objects from the Properties Meta model. It is up to the plugin interface method to convert to Java base types
+					// The parameters are objects from the Properties Meta model. It is up to the plugin interface method to convert to Java base types
 					res = VerificationMethodDispatchers.eInstance.dispatchVerificationMethod(methodtype, instanceroot,
 						parameters) // returning the marker or diagnostic id as string
 					if (res instanceof String) {
@@ -252,7 +254,7 @@ class AssureProcessor implements IAssureProcessor {
 					}
 				}
 				ResoluteMethod: {
-				// The parameters are objects from the Properties Meta model. Resolute likes them this way
+					// The parameters are objects from the Properties Meta model. Resolute likes them this way
 					AssureUtilExtension.initializeResoluteContext(instanceroot);
 					val EvaluationContext context = new EvaluationContext(instanceroot, sets, featToConnsMap);
 					val ResoluteInterpreter interpreter = new ResoluteInterpreter(context);
@@ -358,7 +360,6 @@ class AssureProcessor implements IAssureProcessor {
 		addParams(call, params)
 		call
 	}
-
 
 	def boolean checkProperties(InstanceObject object, VerificationActivityResult result) {
 		val method = result.method
