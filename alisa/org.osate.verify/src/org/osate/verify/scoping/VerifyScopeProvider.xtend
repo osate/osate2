@@ -36,16 +36,18 @@ class VerifyScopeProvider extends CommonScopeProvider {
 
 	@Inject ICommonGlobalReferenceFinder refFinder
 
-	def scope_XExpression(VerificationActivity context, EReference reference) {
+	def scope_ValDeclaration(VerificationActivity context, EReference reference) {
 		val claim = getContainingClaim(context)
 		var req = claim.requirement
-		return scopeForValCompute(req, IScope.NULLSCOPE)
+		val result = scopeForGlobalVal(req,IScope.NULLSCOPE)
+		return scopeForVal(req, result)
 	}
 
 	def scope_ComputeDeclaration(VerificationActivity context, EReference reference) {
 		val claim = getContainingClaim(context)
 		var req = claim.requirement
-		return scopeForCompute(req, IScope.NULLSCOPE)
+		val result = scopeForGlobalVal(req,IScope.NULLSCOPE)
+		return scopeForCompute(req, result)
 	}
 
 	def scope_Claim_requirement(Claim context, EReference reference) {

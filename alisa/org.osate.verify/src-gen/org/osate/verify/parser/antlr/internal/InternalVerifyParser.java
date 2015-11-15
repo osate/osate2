@@ -3835,7 +3835,7 @@ public class InternalVerifyParser extends AbstractInternalAntlrParser {
                     otherlv_14=(Token)match(input,RULE_ID,FOLLOW_RULE_ID_in_ruleVerificationActivity3037); if (state.failed) return current;
                     if ( state.backtracking==0 ) {
 
-                      		newLeafNode(otherlv_14, grammarAccess.getVerificationActivityAccess().getParametersAExpressionCrossReference_8_0_0()); 
+                      		newLeafNode(otherlv_14, grammarAccess.getVerificationActivityAccess().getParametersValDeclarationCrossReference_8_0_0()); 
                       	
                     }
 
@@ -3881,7 +3881,7 @@ public class InternalVerifyParser extends AbstractInternalAntlrParser {
                     	    otherlv_16=(Token)match(input,RULE_ID,FOLLOW_RULE_ID_in_ruleVerificationActivity3070); if (state.failed) return current;
                     	    if ( state.backtracking==0 ) {
 
-                    	      		newLeafNode(otherlv_16, grammarAccess.getVerificationActivityAccess().getParametersAExpressionCrossReference_8_1_1_0()); 
+                    	      		newLeafNode(otherlv_16, grammarAccess.getVerificationActivityAccess().getParametersValDeclarationCrossReference_8_1_1_0()); 
                     	      	
                     	    }
 
@@ -3967,7 +3967,7 @@ public class InternalVerifyParser extends AbstractInternalAntlrParser {
                             otherlv_21=(Token)match(input,RULE_ID,FOLLOW_RULE_ID_in_ruleVerificationActivity3144); if (state.failed) return current;
                             if ( state.backtracking==0 ) {
 
-                              		newLeafNode(otherlv_21, grammarAccess.getVerificationActivityAccess().getPropertyValuesAExpressionCrossReference_10_3_0_0()); 
+                              		newLeafNode(otherlv_21, grammarAccess.getVerificationActivityAccess().getPropertyValuesValDeclarationCrossReference_10_3_0_0()); 
                               	
                             }
 
@@ -4013,7 +4013,7 @@ public class InternalVerifyParser extends AbstractInternalAntlrParser {
                             	    otherlv_23=(Token)match(input,RULE_ID,FOLLOW_RULE_ID_in_ruleVerificationActivity3177); if (state.failed) return current;
                             	    if ( state.backtracking==0 ) {
 
-                            	      		newLeafNode(otherlv_23, grammarAccess.getVerificationActivityAccess().getPropertyValuesAExpressionCrossReference_10_3_1_1_0()); 
+                            	      		newLeafNode(otherlv_23, grammarAccess.getVerificationActivityAccess().getPropertyValuesValDeclarationCrossReference_10_3_1_1_0()); 
                             	      	
                             	    }
 

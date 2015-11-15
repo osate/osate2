@@ -14563,12 +14563,12 @@ rule__VerificationActivity__ParametersAssignment_8_0
     }
 :
 (
-{ before(grammarAccess.getVerificationActivityAccess().getParametersAExpressionCrossReference_8_0_0()); }
+{ before(grammarAccess.getVerificationActivityAccess().getParametersValDeclarationCrossReference_8_0_0()); }
 (
-{ before(grammarAccess.getVerificationActivityAccess().getParametersAExpressionIDTerminalRuleCall_8_0_0_1()); }
-	RULE_ID{ after(grammarAccess.getVerificationActivityAccess().getParametersAExpressionIDTerminalRuleCall_8_0_0_1()); }
+{ before(grammarAccess.getVerificationActivityAccess().getParametersValDeclarationIDTerminalRuleCall_8_0_0_1()); }
+	RULE_ID{ after(grammarAccess.getVerificationActivityAccess().getParametersValDeclarationIDTerminalRuleCall_8_0_0_1()); }
 )
-{ after(grammarAccess.getVerificationActivityAccess().getParametersAExpressionCrossReference_8_0_0()); }
+{ after(grammarAccess.getVerificationActivityAccess().getParametersValDeclarationCrossReference_8_0_0()); }
 )
 
 ;
@@ -14582,12 +14582,12 @@ rule__VerificationActivity__ParametersAssignment_8_1_1
     }
 :
 (
-{ before(grammarAccess.getVerificationActivityAccess().getParametersAExpressionCrossReference_8_1_1_0()); }
+{ before(grammarAccess.getVerificationActivityAccess().getParametersValDeclarationCrossReference_8_1_1_0()); }
 (
-{ before(grammarAccess.getVerificationActivityAccess().getParametersAExpressionIDTerminalRuleCall_8_1_1_0_1()); }
-	RULE_ID{ after(grammarAccess.getVerificationActivityAccess().getParametersAExpressionIDTerminalRuleCall_8_1_1_0_1()); }
+{ before(grammarAccess.getVerificationActivityAccess().getParametersValDeclarationIDTerminalRuleCall_8_1_1_0_1()); }
+	RULE_ID{ after(grammarAccess.getVerificationActivityAccess().getParametersValDeclarationIDTerminalRuleCall_8_1_1_0_1()); }
 )
-{ after(grammarAccess.getVerificationActivityAccess().getParametersAExpressionCrossReference_8_1_1_0()); }
+{ after(grammarAccess.getVerificationActivityAccess().getParametersValDeclarationCrossReference_8_1_1_0()); }
 )
 
 ;
@@ -14601,12 +14601,12 @@ rule__VerificationActivity__PropertyValuesAssignment_10_3_0
     }
 :
 (
-{ before(grammarAccess.getVerificationActivityAccess().getPropertyValuesAExpressionCrossReference_10_3_0_0()); }
+{ before(grammarAccess.getVerificationActivityAccess().getPropertyValuesValDeclarationCrossReference_10_3_0_0()); }
 (
-{ before(grammarAccess.getVerificationActivityAccess().getPropertyValuesAExpressionIDTerminalRuleCall_10_3_0_0_1()); }
-	RULE_ID{ after(grammarAccess.getVerificationActivityAccess().getPropertyValuesAExpressionIDTerminalRuleCall_10_3_0_0_1()); }
+{ before(grammarAccess.getVerificationActivityAccess().getPropertyValuesValDeclarationIDTerminalRuleCall_10_3_0_0_1()); }
+	RULE_ID{ after(grammarAccess.getVerificationActivityAccess().getPropertyValuesValDeclarationIDTerminalRuleCall_10_3_0_0_1()); }
 )
-{ after(grammarAccess.getVerificationActivityAccess().getPropertyValuesAExpressionCrossReference_10_3_0_0()); }
+{ after(grammarAccess.getVerificationActivityAccess().getPropertyValuesValDeclarationCrossReference_10_3_0_0()); }
 )
 
 ;
@@ -14620,12 +14620,12 @@ rule__VerificationActivity__PropertyValuesAssignment_10_3_1_1
     }
 :
 (
-{ before(grammarAccess.getVerificationActivityAccess().getPropertyValuesAExpressionCrossReference_10_3_1_1_0()); }
+{ before(grammarAccess.getVerificationActivityAccess().getPropertyValuesValDeclarationCrossReference_10_3_1_1_0()); }
 (
-{ before(grammarAccess.getVerificationActivityAccess().getPropertyValuesAExpressionIDTerminalRuleCall_10_3_1_1_0_1()); }
-	RULE_ID{ after(grammarAccess.getVerificationActivityAccess().getPropertyValuesAExpressionIDTerminalRuleCall_10_3_1_1_0_1()); }
+{ before(grammarAccess.getVerificationActivityAccess().getPropertyValuesValDeclarationIDTerminalRuleCall_10_3_1_1_0_1()); }
+	RULE_ID{ after(grammarAccess.getVerificationActivityAccess().getPropertyValuesValDeclarationIDTerminalRuleCall_10_3_1_1_0_1()); }
 )
-{ after(grammarAccess.getVerificationActivityAccess().getPropertyValuesAExpressionCrossReference_10_3_1_1_0()); }
+{ after(grammarAccess.getVerificationActivityAccess().getPropertyValuesValDeclarationCrossReference_10_3_1_1_0()); }
 )
 
 ;

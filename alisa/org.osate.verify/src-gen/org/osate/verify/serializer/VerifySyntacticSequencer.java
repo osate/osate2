@@ -255,8 +255,8 @@ public class VerifySyntacticSequencer extends AbstractSyntacticSequencer {
 	 * This ambiguous syntax occurs at:
 	 *     method=[VerificationMethod|QualifiedName] '(' ')' (ambiguity) 'timeout' timeout=INT
 	 *     method=[VerificationMethod|QualifiedName] '(' ')' (ambiguity) (rule end)
-	 *     parameters+=[AExpression|ID] ')' (ambiguity) 'timeout' timeout=INT
-	 *     parameters+=[AExpression|ID] ')' (ambiguity) (rule end)
+	 *     parameters+=[ValDeclaration|ID] ')' (ambiguity) 'timeout' timeout=INT
+	 *     parameters+=[ValDeclaration|ID] ')' (ambiguity) (rule end)
 	 */
 	protected void emit_VerificationActivity___PropertyKeyword_10_0_ValuesKeyword_10_1_LeftParenthesisKeyword_10_2_RightParenthesisKeyword_10_4__q(EObject semanticObject, ISynNavigable transition, List<INode> nodes) {
 		acceptNodes(transition, nodes);

@@ -1316,7 +1316,7 @@ ruleVerificationActivity returns [EObject current=null]
         }
 	otherlv_14=RULE_ID
 	{
-		newLeafNode(otherlv_14, grammarAccess.getVerificationActivityAccess().getParametersAExpressionCrossReference_8_0_0()); 
+		newLeafNode(otherlv_14, grammarAccess.getVerificationActivityAccess().getParametersValDeclarationCrossReference_8_0_0()); 
 	}
 
 )
@@ -1333,7 +1333,7 @@ ruleVerificationActivity returns [EObject current=null]
         }
 	otherlv_16=RULE_ID
 	{
-		newLeafNode(otherlv_16, grammarAccess.getVerificationActivityAccess().getParametersAExpressionCrossReference_8_1_1_0()); 
+		newLeafNode(otherlv_16, grammarAccess.getVerificationActivityAccess().getParametersValDeclarationCrossReference_8_1_1_0()); 
 	}
 
 )
@@ -1362,7 +1362,7 @@ ruleVerificationActivity returns [EObject current=null]
         }
 	otherlv_21=RULE_ID
 	{
-		newLeafNode(otherlv_21, grammarAccess.getVerificationActivityAccess().getPropertyValuesAExpressionCrossReference_10_3_0_0()); 
+		newLeafNode(otherlv_21, grammarAccess.getVerificationActivityAccess().getPropertyValuesValDeclarationCrossReference_10_3_0_0()); 
 	}
 
 )
@@ -1379,7 +1379,7 @@ ruleVerificationActivity returns [EObject current=null]
         }
 	otherlv_23=RULE_ID
 	{
-		newLeafNode(otherlv_23, grammarAccess.getVerificationActivityAccess().getPropertyValuesAExpressionCrossReference_10_3_1_1_0()); 
+		newLeafNode(otherlv_23, grammarAccess.getVerificationActivityAccess().getPropertyValuesValDeclarationCrossReference_10_3_1_1_0()); 
 	}
 
 )

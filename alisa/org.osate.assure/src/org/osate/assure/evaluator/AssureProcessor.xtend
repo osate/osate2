@@ -43,6 +43,7 @@ import org.osate.alisa.common.common.AVariableReference
 import org.osate.aadl2.IntegerLiteral
 import org.osate.aadl2.RealLiteral
 import org.osate.aadl2.StringLiteral
+import org.osate.aadl2.BooleanLiteral
 
 @ImplementedBy(AssureProcessor)
 interface IAssureProcessor {
@@ -193,12 +194,17 @@ class AssureProcessor implements IAssureProcessor {
 				var String typeName
 				val pi = verificationActivity.parameters.get(i)
 				if (pi instanceof AVariableReference) {
+					// handle Val reference if AExpression is used
 					val pari = pi.variable
 					if (pari instanceof ValDeclaration) {
 						typeName = pari.type
 						actual = pari.right
 					}
+				} else if (pi instanceof ValDeclaration) {
+						typeName = pi.type
+						actual = pi.right
 				} else {
+					// the other types if AExpression is used
 					actual = pi
 				}
 				parameters.set(i, actual)
@@ -327,23 +333,21 @@ class AssureProcessor implements IAssureProcessor {
 
 	def addParams(FnCallExpr call, Object[] params) {
 		for (p : params) {
-			if (p instanceof Double) {
+			if (p instanceof RealLiteral) {
 				val realval = ResoluteFactory.eINSTANCE.createRealExpr
-				val reallit = Aadl2Factory.eINSTANCE.createRealLiteral
-				reallit.value = p;
-				realval.^val = reallit
+				realval.^val = p
 				call.args.add(realval)
-			} else if (p instanceof Long) {
+			} else if (p instanceof IntegerLiteral) {
 				val intval = ResoluteFactory.eINSTANCE.createIntExpr
-				val intlit = Aadl2Factory.eINSTANCE.createIntegerLiteral
-				intlit.value = p;
-				intval.^val = intlit
+				intval.^val = p
 				call.args.add(intval)
-			} else if (p instanceof String) {
+			} else if (p instanceof StringLiteral) {
 				val stringval = ResoluteFactory.eINSTANCE.createStringExpr
-				val stringlit = Aadl2Factory.eINSTANCE.createStringLiteral
-				stringlit.value = p;
-				stringval.^val = stringlit
+				stringval.^val = p
+				call.args.add(stringval)
+			} else if (p instanceof BooleanLiteral) {
+				val stringval = ResoluteFactory.eINSTANCE.createBoolExpr
+				stringval.^val = p
 				call.args.add(stringval)
 			}
 		}
@@ -361,15 +365,6 @@ class AssureProcessor implements IAssureProcessor {
 		call
 	}
 
-	def String toString(Object o) {
-		switch (o) {
-			Integer: o.toString
-			Long: o.toString
-			Double: o.toString
-			String: o
-			default: "an object"
-		}
-	}
 
 	def boolean checkProperties(InstanceObject object, VerificationActivityResult result) {
 		val method = result.method

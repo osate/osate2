@@ -19,8 +19,8 @@ import org.eclipse.emf.ecore.util.EObjectResolvingEList;
 
 import org.osate.aadl2.ComponentImplementation;
 
-import org.osate.alisa.common.common.AExpression;
 import org.osate.alisa.common.common.ComputeDeclaration;
+import org.osate.alisa.common.common.ValDeclaration;
 
 import org.osate.categories.categories.Category;
 
@@ -139,7 +139,7 @@ public class VerificationActivityImpl extends MinimalEObjectImpl.Container imple
    * @generated
    * @ordered
    */
-  protected EList<AExpression> parameters;
+  protected EList<ValDeclaration> parameters;
 
   /**
    * The cached value of the '{@link #getPropertyValues() <em>Property Values</em>}' reference list.
@@ -149,7 +149,7 @@ public class VerificationActivityImpl extends MinimalEObjectImpl.Container imple
    * @generated
    * @ordered
    */
-  protected EList<AExpression> propertyValues;
+  protected EList<ValDeclaration> propertyValues;
 
   /**
    * The default value of the '{@link #getTimeout() <em>Timeout</em>}' attribute.
@@ -357,11 +357,11 @@ public class VerificationActivityImpl extends MinimalEObjectImpl.Container imple
    * <!-- end-user-doc -->
    * @generated
    */
-  public EList<AExpression> getParameters()
+  public EList<ValDeclaration> getParameters()
   {
     if (parameters == null)
     {
-      parameters = new EObjectResolvingEList<AExpression>(AExpression.class, this, VerifyPackage.VERIFICATION_ACTIVITY__PARAMETERS);
+      parameters = new EObjectResolvingEList<ValDeclaration>(ValDeclaration.class, this, VerifyPackage.VERIFICATION_ACTIVITY__PARAMETERS);
     }
     return parameters;
   }
@@ -371,11 +371,11 @@ public class VerificationActivityImpl extends MinimalEObjectImpl.Container imple
    * <!-- end-user-doc -->
    * @generated
    */
-  public EList<AExpression> getPropertyValues()
+  public EList<ValDeclaration> getPropertyValues()
   {
     if (propertyValues == null)
     {
-      propertyValues = new EObjectResolvingEList<AExpression>(AExpression.class, this, VerifyPackage.VERIFICATION_ACTIVITY__PROPERTY_VALUES);
+      propertyValues = new EObjectResolvingEList<ValDeclaration>(ValDeclaration.class, this, VerifyPackage.VERIFICATION_ACTIVITY__PROPERTY_VALUES);
     }
     return propertyValues;
   }
@@ -470,11 +470,11 @@ public class VerificationActivityImpl extends MinimalEObjectImpl.Container imple
         return;
       case VerifyPackage.VERIFICATION_ACTIVITY__PARAMETERS:
         getParameters().clear();
-        getParameters().addAll((Collection<? extends AExpression>)newValue);
+        getParameters().addAll((Collection<? extends ValDeclaration>)newValue);
         return;
       case VerifyPackage.VERIFICATION_ACTIVITY__PROPERTY_VALUES:
         getPropertyValues().clear();
-        getPropertyValues().addAll((Collection<? extends AExpression>)newValue);
+        getPropertyValues().addAll((Collection<? extends ValDeclaration>)newValue);
         return;
       case VerifyPackage.VERIFICATION_ACTIVITY__TIMEOUT:
         setTimeout((Integer)newValue);

@@ -89,10 +89,10 @@ VerificationActivity:
 	':'
 	(result+=[common::ComputeDeclaration|ID] (',' result+=[common::ComputeDeclaration|ID])* '=')?
 	method=[VerificationMethod|QualifiedName] 
-	'(' (parameters+=[common::AExpression| ID] (',' parameters+=[common::AExpression| ID])*)? ')' 
+	'(' (parameters+=[common::ValDeclaration|ID] (',' parameters+=[common::ValDeclaration|ID])*)? ')' 
 	(
 		'property' 'values' '(' 
-		(propertyValues+=[common::AExpression|ID] (',' propertyValues+=[common::AExpression|ID])*)? 
+		(propertyValues+=[common::ValDeclaration|ID] (',' propertyValues+=[common::ValDeclaration|ID])*)? 
 		')'
 	)?
 	('timeout' timeout=INT)?

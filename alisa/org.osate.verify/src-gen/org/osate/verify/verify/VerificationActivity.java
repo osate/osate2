@@ -8,8 +8,8 @@ import org.eclipse.emf.ecore.EObject;
 
 import org.osate.aadl2.ComponentImplementation;
 
-import org.osate.alisa.common.common.AExpression;
 import org.osate.alisa.common.common.ComputeDeclaration;
+import org.osate.alisa.common.common.ValDeclaration;
 
 import org.osate.categories.categories.Category;
 
@@ -177,7 +177,7 @@ public interface VerificationActivity extends EObject
 
   /**
    * Returns the value of the '<em><b>Parameters</b></em>' reference list.
-   * The list contents are of type {@link org.osate.alisa.common.common.AExpression}.
+   * The list contents are of type {@link org.osate.alisa.common.common.ValDeclaration}.
    * <!-- begin-user-doc -->
    * <p>
    * If the meaning of the '<em>Parameters</em>' reference list isn't clear,
@@ -189,11 +189,11 @@ public interface VerificationActivity extends EObject
    * @model
    * @generated
    */
-  EList<AExpression> getParameters();
+  EList<ValDeclaration> getParameters();
 
   /**
    * Returns the value of the '<em><b>Property Values</b></em>' reference list.
-   * The list contents are of type {@link org.osate.alisa.common.common.AExpression}.
+   * The list contents are of type {@link org.osate.alisa.common.common.ValDeclaration}.
    * <!-- begin-user-doc -->
    * <p>
    * If the meaning of the '<em>Property Values</em>' reference list isn't clear,
@@ -205,7 +205,7 @@ public interface VerificationActivity extends EObject
    * @model
    * @generated
    */
-  EList<AExpression> getPropertyValues();
+  EList<ValDeclaration> getPropertyValues();
 
   /**
    * Returns the value of the '<em><b>Timeout</b></em>' attribute.

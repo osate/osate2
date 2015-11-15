@@ -90,27 +90,6 @@ class ReqSpecScopeProvider extends CommonScopeProvider {
 		return scopeForVal(context, result)
 	}
 		
-	def IScope scopeForGlobalVal(EObject context,IScope parentScope){
-		var result = parentScope
-		val projectconstants = getImportedGlobals(context) //refFinder.getAllGlobalConstants(context)
-		var Iterable<AVariableDeclaration> constants = new BasicEList
-		for (pc : projectconstants) {
-			constants = constants +  pc.constants
-		}
-		if (!constants.empty) {
-			result = new SimpleScope(result,
-				Scopes::scopedElementsFor(constants,
-					QualifiedName::wrapper(SimpleAttributeResolver::NAME_RESOLVER)), true)
-		}
-		return result
-	}
-	
-	def getImportedGlobals(EObject context){
-		val sr = containingSystemRequirements(context)
-		val sg =containingStakeholderGoals(context)
-		val res = sr?.importConstants?:sg?.importConstants
-		res
-	}
 
 	// TODO: probably want validation to take care of Refining itself. Need to take care of inheritance
 	def scope_Requirement_refinesReference(Requirement context, EReference reference) {

@@ -45,9 +45,9 @@
         upperBound="-1" eType="ecore:EClass platform:/resource/org.osate.alisa.common/model/generated/Common.ecore#//ComputeDeclaration"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="method" eType="#//VerificationMethod"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="parameters" unique="false"
-        upperBound="-1" eType="ecore:EClass platform:/resource/org.osate.alisa.common/model/generated/Common.ecore#//AExpression"/>
+        upperBound="-1" eType="ecore:EClass platform:/resource/org.osate.alisa.common/model/generated/Common.ecore#//ValDeclaration"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="propertyValues" unique="false"
-        upperBound="-1" eType="ecore:EClass platform:/resource/org.osate.alisa.common/model/generated/Common.ecore#//AExpression"/>
+        upperBound="-1" eType="ecore:EClass platform:/resource/org.osate.alisa.common/model/generated/Common.ecore#//ValDeclaration"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="timeout" eType="ecore:EDataType platform:/plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//EInt"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="VerificationCondition">
