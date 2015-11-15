@@ -2370,14 +2370,14 @@ public class ReqSpecGrammarAccess extends AbstractGrammarElementFinder {
 		private final Keyword cValueKeyword_0 = (Keyword)cGroup.eContents().get(0);
 		private final Keyword cPredicateKeyword_1 = (Keyword)cGroup.eContents().get(1);
 		private final Assignment cXpressionAssignment_2 = (Assignment)cGroup.eContents().get(2);
-		private final RuleCall cXpressionAEqualityExpressionParserRuleCall_2_0 = (RuleCall)cXpressionAssignment_2.eContents().get(0);
+		private final RuleCall cXpressionAAndExpressionParserRuleCall_2_0 = (RuleCall)cXpressionAssignment_2.eContents().get(0);
 		
 		//// intended to be restricted to deal with value limits
 		//ValuePredicate:
-		//	"value" "predicate" xpression=AEqualityExpression;
+		//	"value" "predicate" xpression=AAndExpression;
 		@Override public ParserRule getRule() { return rule; }
 
-		//"value" "predicate" xpression=AEqualityExpression
+		//"value" "predicate" xpression=AAndExpression
 		public Group getGroup() { return cGroup; }
 
 		//"value"
@@ -2386,11 +2386,11 @@ public class ReqSpecGrammarAccess extends AbstractGrammarElementFinder {
 		//"predicate"
 		public Keyword getPredicateKeyword_1() { return cPredicateKeyword_1; }
 
-		//xpression=AEqualityExpression
+		//xpression=AAndExpression
 		public Assignment getXpressionAssignment_2() { return cXpressionAssignment_2; }
 
-		//AEqualityExpression
-		public RuleCall getXpressionAEqualityExpressionParserRuleCall_2_0() { return cXpressionAEqualityExpressionParserRuleCall_2_0; }
+		//AAndExpression
+		public RuleCall getXpressionAAndExpressionParserRuleCall_2_0() { return cXpressionAAndExpressionParserRuleCall_2_0; }
 	}
 
 	public class ExternalDocumentElements extends AbstractParserRuleElementFinder {
@@ -2794,7 +2794,7 @@ public class ReqSpecGrammarAccess extends AbstractGrammarElementFinder {
 
 	//// intended to be restricted to deal with value limits
 	//ValuePredicate:
-	//	"value" "predicate" xpression=AEqualityExpression;
+	//	"value" "predicate" xpression=AAndExpression;
 	public ValuePredicateElements getValuePredicateAccess() {
 		return pValuePredicate;
 	}

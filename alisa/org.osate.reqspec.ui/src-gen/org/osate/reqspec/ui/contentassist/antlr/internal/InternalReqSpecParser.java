@@ -61497,28 +61497,28 @@ public class InternalReqSpecParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__ValuePredicate__XpressionAssignment_2"
-    // ../org.osate.reqspec.ui/src-gen/org/osate/reqspec/ui/contentassist/antlr/internal/InternalReqSpecParser.g:21301:1: rule__ValuePredicate__XpressionAssignment_2 : ( ruleAEqualityExpression ) ;
+    // ../org.osate.reqspec.ui/src-gen/org/osate/reqspec/ui/contentassist/antlr/internal/InternalReqSpecParser.g:21301:1: rule__ValuePredicate__XpressionAssignment_2 : ( ruleAAndExpression ) ;
     public final void rule__ValuePredicate__XpressionAssignment_2() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.osate.reqspec.ui/src-gen/org/osate/reqspec/ui/contentassist/antlr/internal/InternalReqSpecParser.g:21305:1: ( ( ruleAEqualityExpression ) )
-            // ../org.osate.reqspec.ui/src-gen/org/osate/reqspec/ui/contentassist/antlr/internal/InternalReqSpecParser.g:21306:1: ( ruleAEqualityExpression )
+            // ../org.osate.reqspec.ui/src-gen/org/osate/reqspec/ui/contentassist/antlr/internal/InternalReqSpecParser.g:21305:1: ( ( ruleAAndExpression ) )
+            // ../org.osate.reqspec.ui/src-gen/org/osate/reqspec/ui/contentassist/antlr/internal/InternalReqSpecParser.g:21306:1: ( ruleAAndExpression )
             {
-            // ../org.osate.reqspec.ui/src-gen/org/osate/reqspec/ui/contentassist/antlr/internal/InternalReqSpecParser.g:21306:1: ( ruleAEqualityExpression )
-            // ../org.osate.reqspec.ui/src-gen/org/osate/reqspec/ui/contentassist/antlr/internal/InternalReqSpecParser.g:21307:1: ruleAEqualityExpression
+            // ../org.osate.reqspec.ui/src-gen/org/osate/reqspec/ui/contentassist/antlr/internal/InternalReqSpecParser.g:21306:1: ( ruleAAndExpression )
+            // ../org.osate.reqspec.ui/src-gen/org/osate/reqspec/ui/contentassist/antlr/internal/InternalReqSpecParser.g:21307:1: ruleAAndExpression
             {
             if ( state.backtracking==0 ) {
-               before(grammarAccess.getValuePredicateAccess().getXpressionAEqualityExpressionParserRuleCall_2_0()); 
+               before(grammarAccess.getValuePredicateAccess().getXpressionAAndExpressionParserRuleCall_2_0()); 
             }
-            pushFollow(FollowSets001.FOLLOW_ruleAEqualityExpression_in_rule__ValuePredicate__XpressionAssignment_248233);
-            ruleAEqualityExpression();
+            pushFollow(FollowSets001.FOLLOW_ruleAAndExpression_in_rule__ValuePredicate__XpressionAssignment_248233);
+            ruleAAndExpression();
 
             state._fsp--;
             if (state.failed) return ;
             if ( state.backtracking==0 ) {
-               after(grammarAccess.getValuePredicateAccess().getXpressionAEqualityExpressionParserRuleCall_2_0()); 
+               after(grammarAccess.getValuePredicateAccess().getXpressionAAndExpressionParserRuleCall_2_0()); 
             }
 
             }
@@ -81983,7 +81983,7 @@ public class InternalReqSpecParser extends AbstractInternalContentAssistParser {
         public static final BitSet FOLLOW_RULE_STRING_in_rule__DocRequirement__IssuesAssignment_5_17_148140 = new BitSet(new long[]{0x0000000000000002L});
         public static final BitSet FOLLOW_RULE_STRING_in_rule__InformalPredicate__DescriptionAssignment_248171 = new BitSet(new long[]{0x0000000000000002L});
         public static final BitSet FOLLOW_ruleAExpression_in_rule__XPredicate__XpressionAssignment_148202 = new BitSet(new long[]{0x0000000000000002L});
-        public static final BitSet FOLLOW_ruleAEqualityExpression_in_rule__ValuePredicate__XpressionAssignment_248233 = new BitSet(new long[]{0x0000000000000002L});
+        public static final BitSet FOLLOW_ruleAAndExpression_in_rule__ValuePredicate__XpressionAssignment_248233 = new BitSet(new long[]{0x0000000000000002L});
         public static final BitSet FOLLOW_ruleDOCPATH_in_rule__ExternalDocument__DocReferenceAssignment_048264 = new BitSet(new long[]{0x0000000000000002L});
         public static final BitSet FOLLOW_ruleDOCFRAGMENT_in_rule__ExternalDocument__DocFragmentAssignment_1_148295 = new BitSet(new long[]{0x0000000000000002L});
         public static final BitSet FOLLOW_ruleDescriptionElement_in_rule__Description__DescriptionAssignment_148326 = new BitSet(new long[]{0x0000000000000002L});

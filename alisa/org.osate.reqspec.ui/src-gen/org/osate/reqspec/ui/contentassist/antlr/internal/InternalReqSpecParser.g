@@ -21304,8 +21304,8 @@ rule__ValuePredicate__XpressionAssignment_2
     }
 :
 (
-{ before(grammarAccess.getValuePredicateAccess().getXpressionAEqualityExpressionParserRuleCall_2_0()); }
-	ruleAEqualityExpression{ after(grammarAccess.getValuePredicateAccess().getXpressionAEqualityExpressionParserRuleCall_2_0()); }
+{ before(grammarAccess.getValuePredicateAccess().getXpressionAAndExpressionParserRuleCall_2_0()); }
+	ruleAAndExpression{ after(grammarAccess.getValuePredicateAccess().getXpressionAAndExpressionParserRuleCall_2_0()); }
 )
 
 ;

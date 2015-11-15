@@ -11788,7 +11788,7 @@ public class InternalReqSpecParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "ruleValuePredicate"
-    // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:4165:1: ruleValuePredicate returns [EObject current=null] : (otherlv_0= Value otherlv_1= Predicate ( (lv_xpression_2_0= ruleAEqualityExpression ) ) ) ;
+    // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:4165:1: ruleValuePredicate returns [EObject current=null] : (otherlv_0= Value otherlv_1= Predicate ( (lv_xpression_2_0= ruleAAndExpression ) ) ) ;
     public final EObject ruleValuePredicate() throws RecognitionException {
         EObject current = null;
 
@@ -11800,11 +11800,11 @@ public class InternalReqSpecParser extends AbstractInternalAntlrParser {
          enterRule(); 
             
         try {
-            // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:4168:28: ( (otherlv_0= Value otherlv_1= Predicate ( (lv_xpression_2_0= ruleAEqualityExpression ) ) ) )
-            // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:4169:1: (otherlv_0= Value otherlv_1= Predicate ( (lv_xpression_2_0= ruleAEqualityExpression ) ) )
+            // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:4168:28: ( (otherlv_0= Value otherlv_1= Predicate ( (lv_xpression_2_0= ruleAAndExpression ) ) ) )
+            // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:4169:1: (otherlv_0= Value otherlv_1= Predicate ( (lv_xpression_2_0= ruleAAndExpression ) ) )
             {
-            // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:4169:1: (otherlv_0= Value otherlv_1= Predicate ( (lv_xpression_2_0= ruleAEqualityExpression ) ) )
-            // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:4170:2: otherlv_0= Value otherlv_1= Predicate ( (lv_xpression_2_0= ruleAEqualityExpression ) )
+            // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:4169:1: (otherlv_0= Value otherlv_1= Predicate ( (lv_xpression_2_0= ruleAAndExpression ) ) )
+            // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:4170:2: otherlv_0= Value otherlv_1= Predicate ( (lv_xpression_2_0= ruleAAndExpression ) )
             {
             otherlv_0=(Token)match(input,Value,FollowSets000.FOLLOW_Value_in_ruleValuePredicate10056); if (state.failed) return current;
             if ( state.backtracking==0 ) {
@@ -11818,19 +11818,19 @@ public class InternalReqSpecParser extends AbstractInternalAntlrParser {
                   	newLeafNode(otherlv_1, grammarAccess.getValuePredicateAccess().getPredicateKeyword_1());
                   
             }
-            // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:4179:1: ( (lv_xpression_2_0= ruleAEqualityExpression ) )
-            // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:4180:1: (lv_xpression_2_0= ruleAEqualityExpression )
+            // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:4179:1: ( (lv_xpression_2_0= ruleAAndExpression ) )
+            // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:4180:1: (lv_xpression_2_0= ruleAAndExpression )
             {
-            // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:4180:1: (lv_xpression_2_0= ruleAEqualityExpression )
-            // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:4181:3: lv_xpression_2_0= ruleAEqualityExpression
+            // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:4180:1: (lv_xpression_2_0= ruleAAndExpression )
+            // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:4181:3: lv_xpression_2_0= ruleAAndExpression
             {
             if ( state.backtracking==0 ) {
                
-              	        newCompositeNode(grammarAccess.getValuePredicateAccess().getXpressionAEqualityExpressionParserRuleCall_2_0()); 
+              	        newCompositeNode(grammarAccess.getValuePredicateAccess().getXpressionAAndExpressionParserRuleCall_2_0()); 
               	    
             }
-            pushFollow(FollowSets000.FOLLOW_ruleAEqualityExpression_in_ruleValuePredicate10088);
-            lv_xpression_2_0=ruleAEqualityExpression();
+            pushFollow(FollowSets000.FOLLOW_ruleAAndExpression_in_ruleValuePredicate10088);
+            lv_xpression_2_0=ruleAAndExpression();
 
             state._fsp--;
             if (state.failed) return current;
@@ -11843,7 +11843,7 @@ public class InternalReqSpecParser extends AbstractInternalAntlrParser {
                      			current, 
                      			"xpression",
                       		lv_xpression_2_0, 
-                      		"AEqualityExpression");
+                      		"AAndExpression");
               	        afterParserOrEnumRuleCall();
               	    
             }
@@ -21963,7 +21963,7 @@ public class InternalReqSpecParser extends AbstractInternalAntlrParser {
     static final String DFA114_acceptS =
         "\1\uffff\1\2\2\uffff\12\1";
     static final String DFA114_specialS =
-        "\1\0\1\uffff\1\2\1\1\12\uffff}>";
+        "\1\1\1\uffff\1\2\1\0\12\uffff}>";
     static final String[] DFA114_transitionS = {
             "\2\1\1\uffff\3\1\1\uffff\1\1\1\uffff\1\1\1\uffff\3\1\1\uffff"+
             "\1\1\1\uffff\5\1\1\uffff\1\1\4\uffff\2\1\4\uffff\1\5\3\uffff"+
@@ -22026,6 +22026,23 @@ public class InternalReqSpecParser extends AbstractInternalAntlrParser {
         	int _s = s;
             switch ( s ) {
                     case 0 : 
+                        int LA114_3 = input.LA(1);
+
+                         
+                        int index114_3 = input.index();
+                        input.rewind();
+                        s = -1;
+                        if ( (LA114_3==False||LA114_3==Null||LA114_3==True||(LA114_3>=ExclamationMark && LA114_3<=NumberSign)||LA114_3==LeftParenthesis||LA114_3==PlusSign||LA114_3==HyphenMinus||LA114_3==CommercialAt||LA114_3==LeftCurlyBracket||LA114_3==RULE_REAL_LIT||LA114_3==RULE_INTEGER_LIT||(LA114_3>=RULE_ID && LA114_3<=RULE_STRING)) ) {s = 1;}
+
+                        else if ( (LA114_3==FullStopFullStop) && (synpred7_InternalReqSpecParser())) {s = 12;}
+
+                        else if ( (LA114_3==GreaterThanSign) && (synpred7_InternalReqSpecParser())) {s = 13;}
+
+                         
+                        input.seek(index114_3);
+                        if ( s>=0 ) return s;
+                        break;
+                    case 1 : 
                         int LA114_0 = input.LA(1);
 
                          
@@ -22052,23 +22069,6 @@ public class InternalReqSpecParser extends AbstractInternalAntlrParser {
 
                          
                         input.seek(index114_0);
-                        if ( s>=0 ) return s;
-                        break;
-                    case 1 : 
-                        int LA114_3 = input.LA(1);
-
-                         
-                        int index114_3 = input.index();
-                        input.rewind();
-                        s = -1;
-                        if ( (LA114_3==False||LA114_3==Null||LA114_3==True||(LA114_3>=ExclamationMark && LA114_3<=NumberSign)||LA114_3==LeftParenthesis||LA114_3==PlusSign||LA114_3==HyphenMinus||LA114_3==CommercialAt||LA114_3==LeftCurlyBracket||LA114_3==RULE_REAL_LIT||LA114_3==RULE_INTEGER_LIT||(LA114_3>=RULE_ID && LA114_3<=RULE_STRING)) ) {s = 1;}
-
-                        else if ( (LA114_3==FullStopFullStop) && (synpred7_InternalReqSpecParser())) {s = 12;}
-
-                        else if ( (LA114_3==GreaterThanSign) && (synpred7_InternalReqSpecParser())) {s = 13;}
-
-                         
-                        input.seek(index114_3);
                         if ( s>=0 ) return s;
                         break;
                     case 2 : 
@@ -22438,7 +22438,7 @@ public class InternalReqSpecParser extends AbstractInternalAntlrParser {
         public static final BitSet FOLLOW_EOF_in_entryRuleValuePredicate10018 = new BitSet(new long[]{0x0000000000000002L});
         public static final BitSet FOLLOW_Value_in_ruleValuePredicate10056 = new BitSet(new long[]{0x0000000000100000L});
         public static final BitSet FOLLOW_Predicate_in_ruleValuePredicate10068 = new BitSet(new long[]{0x6000014400000000L,0x0000000018509029L});
-        public static final BitSet FOLLOW_ruleAEqualityExpression_in_ruleValuePredicate10088 = new BitSet(new long[]{0x0000000000000002L});
+        public static final BitSet FOLLOW_ruleAAndExpression_in_ruleValuePredicate10088 = new BitSet(new long[]{0x0000000000000002L});
         public static final BitSet FOLLOW_ruleExternalDocument_in_entryRuleExternalDocument10123 = new BitSet(new long[]{0x0000000000000000L});
         public static final BitSet FOLLOW_EOF_in_entryRuleExternalDocument10133 = new BitSet(new long[]{0x0000000000000002L});
         public static final BitSet FOLLOW_ruleDOCPATH_in_ruleExternalDocument10179 = new BitSet(new long[]{0x4000000000000002L});

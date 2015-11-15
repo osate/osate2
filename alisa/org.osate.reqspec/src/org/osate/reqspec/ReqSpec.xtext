@@ -182,7 +182,7 @@ ReqPredicate: InformalPredicate | XPredicate | ValuePredicate;// | InputAssumpti
 InformalPredicate: 'informal' 'predicate'  description=STRING ;
 XPredicate: 'predicate' xpression=AExpression ;
 
-ValuePredicate: 'value' 'predicate' xpression=AEqualityExpression;	// intended to be restricted to deal with value limits
+ValuePredicate: 'value' 'predicate' xpression=AAndExpression;	// intended to be restricted to deal with value limits
 
 
 

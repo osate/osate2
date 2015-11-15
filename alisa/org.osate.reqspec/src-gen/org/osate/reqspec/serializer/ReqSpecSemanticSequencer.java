@@ -512,7 +512,7 @@ public class ReqSpecSemanticSequencer extends CommonSemanticSequencer {
 	
 	/**
 	 * Constraint:
-	 *     xpression=AEqualityExpression
+	 *     xpression=AAndExpression
 	 */
 	protected void sequence_ValuePredicate(EObject context, ValuePredicate semanticObject) {
 		if(errorAcceptor != null) {
@@ -521,7 +521,7 @@ public class ReqSpecSemanticSequencer extends CommonSemanticSequencer {
 		}
 		INodesForEObjectProvider nodes = createNodeProvider(semanticObject);
 		SequenceFeeder feeder = createSequencerFeeder(semanticObject, nodes);
-		feeder.accept(grammarAccess.getValuePredicateAccess().getXpressionAEqualityExpressionParserRuleCall_2_0(), semanticObject.getXpression());
+		feeder.accept(grammarAccess.getValuePredicateAccess().getXpressionAAndExpressionParserRuleCall_2_0(), semanticObject.getXpression());
 		feeder.finish();
 	}
 	

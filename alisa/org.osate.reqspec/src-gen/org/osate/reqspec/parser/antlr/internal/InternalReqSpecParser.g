@@ -4179,9 +4179,9 @@ ruleValuePredicate returns [EObject current=null]
 (
 (
 		{ 
-	        newCompositeNode(grammarAccess.getValuePredicateAccess().getXpressionAEqualityExpressionParserRuleCall_2_0()); 
+	        newCompositeNode(grammarAccess.getValuePredicateAccess().getXpressionAAndExpressionParserRuleCall_2_0()); 
 	    }
-		lv_xpression_2_0=ruleAEqualityExpression		{
+		lv_xpression_2_0=ruleAAndExpression		{
 	        if ($current==null) {
 	            $current = createModelElementForParent(grammarAccess.getValuePredicateRule());
 	        }
@@ -4189,7 +4189,7 @@ ruleValuePredicate returns [EObject current=null]
        			$current, 
        			"xpression",
         		lv_xpression_2_0, 
-        		"AEqualityExpression");
+        		"AAndExpression");
 	        afterParserOrEnumRuleCall();
 	    }
 
