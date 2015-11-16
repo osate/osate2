@@ -27,7 +27,7 @@ Require-Bundle: org.osate.alisa.workbench;visibility:=reexport,
  org.eclipse.xtext.xbase.lib
 Import-Package: org.apache.commons.lang,
  org.apache.log4j
-Bundle-RequiredExecutionEnvironment: JavaSE-1.7
+Bundle-RequiredExecutionEnvironment: JavaSE-1.8
 Export-Package: org.osate.alisa.workbench.ui,
  org.osate.alisa.workbench.ui.contentassist,
  org.osate.alisa.workbench.ui.contentassist.antlr,
