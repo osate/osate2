@@ -20,11 +20,9 @@ import org.eclipse.emf.ecore.util.EObjectContainmentEList;
 import org.eclipse.emf.ecore.util.EObjectResolvingEList;
 import org.eclipse.emf.ecore.util.InternalEList;
 
-import org.eclipse.xtext.xbase.XExpression;
-import org.eclipse.xtext.xbase.XVariableDeclaration;
-
 import org.osate.aadl2.ComponentClassifier;
 
+import org.osate.alisa.common.common.AVariableDeclaration;
 import org.osate.alisa.common.common.Description;
 
 import org.osate.categories.categories.ComponentCategory;
@@ -169,7 +167,7 @@ public class SystemRequirementsImpl extends ReqSpecContainerImpl implements Syst
    * @generated
    * @ordered
    */
-  protected EList<XVariableDeclaration> constants;
+  protected EList<AVariableDeclaration> constants;
 
   /**
    * The cached value of the '{@link #getComputes() <em>Computes</em>}' containment reference list.
@@ -179,7 +177,7 @@ public class SystemRequirementsImpl extends ReqSpecContainerImpl implements Syst
    * @generated
    * @ordered
    */
-  protected EList<XExpression> computes;
+  protected EList<AVariableDeclaration> computes;
 
   /**
    * The cached value of the '{@link #getContent() <em>Content</em>}' containment reference list.
@@ -454,11 +452,11 @@ public class SystemRequirementsImpl extends ReqSpecContainerImpl implements Syst
    * <!-- end-user-doc -->
    * @generated
    */
-  public EList<XVariableDeclaration> getConstants()
+  public EList<AVariableDeclaration> getConstants()
   {
     if (constants == null)
     {
-      constants = new EObjectContainmentEList<XVariableDeclaration>(XVariableDeclaration.class, this, ReqSpecPackage.SYSTEM_REQUIREMENTS__CONSTANTS);
+      constants = new EObjectContainmentEList<AVariableDeclaration>(AVariableDeclaration.class, this, ReqSpecPackage.SYSTEM_REQUIREMENTS__CONSTANTS);
     }
     return constants;
   }
@@ -468,11 +466,11 @@ public class SystemRequirementsImpl extends ReqSpecContainerImpl implements Syst
    * <!-- end-user-doc -->
    * @generated
    */
-  public EList<XExpression> getComputes()
+  public EList<AVariableDeclaration> getComputes()
   {
     if (computes == null)
     {
-      computes = new EObjectContainmentEList<XExpression>(XExpression.class, this, ReqSpecPackage.SYSTEM_REQUIREMENTS__COMPUTES);
+      computes = new EObjectContainmentEList<AVariableDeclaration>(AVariableDeclaration.class, this, ReqSpecPackage.SYSTEM_REQUIREMENTS__COMPUTES);
     }
     return computes;
   }
@@ -618,11 +616,11 @@ public class SystemRequirementsImpl extends ReqSpecContainerImpl implements Syst
         return;
       case ReqSpecPackage.SYSTEM_REQUIREMENTS__CONSTANTS:
         getConstants().clear();
-        getConstants().addAll((Collection<? extends XVariableDeclaration>)newValue);
+        getConstants().addAll((Collection<? extends AVariableDeclaration>)newValue);
         return;
       case ReqSpecPackage.SYSTEM_REQUIREMENTS__COMPUTES:
         getComputes().clear();
-        getComputes().addAll((Collection<? extends XExpression>)newValue);
+        getComputes().addAll((Collection<? extends AVariableDeclaration>)newValue);
         return;
       case ReqSpecPackage.SYSTEM_REQUIREMENTS__CONTENT:
         getContent().clear();

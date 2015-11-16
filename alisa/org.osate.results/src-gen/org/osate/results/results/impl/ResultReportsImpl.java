@@ -19,13 +19,13 @@ import org.osate.results.results.ResultsPackage;
  * <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
+ * </p>
  * <ul>
  *   <li>{@link org.osate.results.results.impl.ResultReportsImpl#getName <em>Name</em>}</li>
  *   <li>{@link org.osate.results.results.impl.ResultReportsImpl#getTitle <em>Title</em>}</li>
  *   <li>{@link org.osate.results.results.impl.ResultReportsImpl#getTarget <em>Target</em>}</li>
  *   <li>{@link org.osate.results.results.impl.ResultReportsImpl#getDecription <em>Decription</em>}</li>
  * </ul>
- * </p>
  *
  * @generated
  */

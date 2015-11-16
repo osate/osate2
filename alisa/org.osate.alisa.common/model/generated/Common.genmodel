@@ -4,7 +4,7 @@
     editorDirectory="/org.osate.alisa.common.editor/src" modelPluginID="org.osate.alisa.common"
     forceOverwrite="true" modelName="Common" updateClasspath="false" rootExtendsClass="org.eclipse.emf.ecore.impl.MinimalEObjectImpl$Container"
     complianceLevel="6.0" copyrightFields="false" editPluginID="org.osate.alisa.common.edit"
-    editorPluginID="org.osate.alisa.common.editor" runtimeVersion="2.11" usedGenPackages="platform:/plugin/org.eclipse.emf.ecore/model/Ecore.genmodel#//ecore platform:/resource/org.eclipse.xtext.common.types/model/JavaVMTypes.genmodel#//types platform:/resource/org.eclipse.xtext.xbase/model/Xbase.genmodel#//xbase platform:/resource/org.osate.aadl2/model/aadl2.genmodel#//aadl2">
+    editorPluginID="org.osate.alisa.common.editor" runtimeVersion="2.11" usedGenPackages="platform:/plugin/org.eclipse.emf.ecore/model/Ecore.genmodel#//ecore platform:/resource/org.osate.aadl2/model/aadl2.genmodel#//aadl2">
   <genPackages prefix="Common" basePackage="org.osate.alisa.common" disposableProviderFactory="true"
       fileExtensions="___common___" ecorePackage="Common.ecore#/">
     <genClasses ecoreClass="Common.ecore#//Description">
@@ -28,6 +28,11 @@
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Common.ecore#//Uncertainty/riskindex"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Common.ecore#//Uncertainty/maturityindex"/>
     </genClasses>
+    <genClasses ecoreClass="Common.ecore#//AVariableDeclaration">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Common.ecore#//AVariableDeclaration/type"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Common.ecore#//AVariableDeclaration/name"/>
+    </genClasses>
+    <genClasses ecoreClass="Common.ecore#//AExpression"/>
     <genClasses ecoreClass="Common.ecore#//ShowValue">
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference Common.ecore#//ShowValue/ref"/>
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference Common.ecore#//ShowValue/unit"/>
@@ -35,15 +40,31 @@
     <genClasses ecoreClass="Common.ecore#//ImageReference">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Common.ecore#//ImageReference/imgfile"/>
     </genClasses>
-    <genClasses ecoreClass="Common.ecore#//ComputeDeclaration">
-      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Common.ecore#//ComputeDeclaration/type"/>
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Common.ecore#//ComputeDeclaration/name"/>
+    <genClasses ecoreClass="Common.ecore#//ValDeclaration">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Common.ecore#//ValDeclaration/right"/>
     </genClasses>
+    <genClasses ecoreClass="Common.ecore#//ComputeDeclaration"/>
     <genClasses ecoreClass="Common.ecore#//APropertyReference">
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference Common.ecore#//APropertyReference/property"/>
     </genClasses>
-    <genClasses ecoreClass="Common.ecore#//XNumberLiteralUnit">
-      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference Common.ecore#//XNumberLiteralUnit/unit"/>
+    <genClasses ecoreClass="Common.ecore#//AVariableReference">
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference Common.ecore#//AVariableReference/variable"/>
     </genClasses>
+    <genClasses ecoreClass="Common.ecore#//ABinaryOperation">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Common.ecore#//ABinaryOperation/leftOperand"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Common.ecore#//ABinaryOperation/feature"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Common.ecore#//ABinaryOperation/rightOperand"/>
+    </genClasses>
+    <genClasses ecoreClass="Common.ecore#//AUnaryOperation">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Common.ecore#//AUnaryOperation/feature"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Common.ecore#//AUnaryOperation/operand"/>
+    </genClasses>
+    <genClasses ecoreClass="Common.ecore#//ASetLiteral">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Common.ecore#//ASetLiteral/elements"/>
+    </genClasses>
+    <genClasses ecoreClass="Common.ecore#//AListTerm">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Common.ecore#//AListTerm/elements"/>
+    </genClasses>
+    <genClasses ecoreClass="Common.ecore#//ANullLiteral"/>
   </genPackages>
 </genmodel:GenModel>

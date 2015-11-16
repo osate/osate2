@@ -1,5 +1,4 @@
-//grammar org.osate.alisa.workbench.Alisa with org.osate.alisa.common.Common
-grammar org.osate.alisa.workbench.Alisa with org.eclipse.xtext.common.Terminals
+grammar org.osate.alisa.workbench.Alisa with org.osate.alisa.common.Common
 
 generate alisa "http://www.osate.org/alisa/workbench/Alisa"
 import "http://aadl.info/AADL/2.0" as aadl2
@@ -43,22 +42,3 @@ AssurancePlan:
 //SelectionCategoryReference:
 //	cat=[categories::Category|ID];
 	
-Description : 
-	( description += DescriptionElement  )+
-;
-
-DescriptionElement :
- 	text = STRING | thisTarget?='this'
- ;
-
-
- 
-// Qualified classifier reference
-
-AadlClassifierReference:
-	ID ('::' ID)+ ('.' ID)?;
-
-QualifiedName:
-	ID ('.' ID)?;
-	
-URIID: STRING;		

@@ -71,6 +71,7 @@ public class VerifyFactoryImpl extends EFactoryImpl implements VerifyFactory
       case VerifyPackage.VERIFICATION_ACTIVITY: return createVerificationActivity();
       case VerifyPackage.VERIFICATION_CONDITION: return createVerificationCondition();
       case VerifyPackage.VERIFICATION_METHOD_REGISTRY: return createVerificationMethodRegistry();
+      case VerifyPackage.FORMAL_PARAMETER: return createFormalParameter();
       case VerifyPackage.VERIFICATION_METHOD: return createVerificationMethod();
       case VerifyPackage.METHOD_TYPE: return createMethodType();
       case VerifyPackage.RESOLUTE_METHOD: return createResoluteMethod();
@@ -163,6 +164,17 @@ public class VerifyFactoryImpl extends EFactoryImpl implements VerifyFactory
   {
     VerificationMethodRegistryImpl verificationMethodRegistry = new VerificationMethodRegistryImpl();
     return verificationMethodRegistry;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public FormalParameter createFormalParameter()
+  {
+    FormalParameterImpl formalParameter = new FormalParameterImpl();
+    return formalParameter;
   }
 
   /**

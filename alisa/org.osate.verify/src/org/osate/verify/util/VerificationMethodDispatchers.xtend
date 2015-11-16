@@ -9,13 +9,15 @@ import org.eclipse.core.resources.ResourcesPlugin
 import org.eclipse.emf.common.util.EList
 import org.eclipse.jdt.core.IClasspathEntry
 import org.eclipse.jdt.core.JavaCore
-import org.eclipse.xtext.common.types.JvmFormalParameter
 import org.osate.aadl2.instance.ComponentInstance
 import org.osate.aadl2.instance.InstanceObject
+import org.osate.verify.verify.FormalParameter
 import org.osate.verify.verify.JavaMethod
 import org.osate.verify.verify.PluginMethod
 
 import static extension org.osate.verify.analysisplugins.AnalysisPluginInterface.*
+import org.osate.aadl2.StringLiteral
+import org.eclipse.emf.ecore.EObject
 
 class VerificationMethodDispatchers {
 
@@ -27,13 +29,13 @@ class VerificationMethodDispatchers {
 	 * If the methodID does not match it returns null
 	 * If the method is successful it returns the Eclipse Marker type as string
 	 */
-	def Object dispatchVerificationMethod(PluginMethod vm, InstanceObject target, List<Object> parameters) {
+	def Object dispatchVerificationMethod(PluginMethod vm, InstanceObject target, List<EObject> parameters) {
 		switch (vm.methodID) {
 			case "FlowLatencyAnalysis",
 			case "MaxFlowLatencyAnalysis",
 			case "MinFlowLatencyAnalysis",
 			case "FlowLatencyJitterAnalysis":
-				if(target == null) true else target.flowLatencyAnalysis(parameters as String[])
+				if(target == null) true else target.flowLatencyAnalysis(parameters.map[p|(p as StringLiteral).value])
 			case "A429Consistency":
 				if(target == null) true else target.A429Consistency
 			case "ConnectionBindingConsistency":
@@ -62,7 +64,7 @@ class VerificationMethodDispatchers {
 	}
 
 	// invoke method in workspace project
-	def Object workspaceInvoke(JavaMethod vm, InstanceObject target, List<Object> parameters) {
+	def Object workspaceInvoke(JavaMethod vm, InstanceObject target, List<EObject> parameters) {
 		val i = vm.methodPath.lastIndexOf('.')
 		if (i == -1)
 			return null;
@@ -120,7 +122,7 @@ class VerificationMethodDispatchers {
 	}
 
 	// invoke method in workspace project
-	def String methodExists(JavaMethod vm, EList<JvmFormalParameter> parameters) {
+	def String methodExists(JavaMethod vm, EList<FormalParameter> parameters) {
 		val i = vm.methodPath.lastIndexOf('.')
 		if (i == -1)
 			return null;
@@ -157,9 +159,9 @@ class VerificationMethodDispatchers {
 			newClasses.add(ComponentInstance)
 			for (o : parameters) {
 				val pt = o.parameterType
-				val x = pt.type
-				val cl = forName(x.qualifiedName)
-				newClasses.add(cl)
+//				val x = pt.type
+				val cl = forName(pt);//x.qualifiedName)
+				newClasses.add(cl);
 			}
 
 			val method = clazz.getMethod(methodName, newClasses)
@@ -188,17 +190,4 @@ class VerificationMethodDispatchers {
 		}
 	}
 
-//  TODO when enabling decide when to reset the map
-//	private static final Map<String, Class> BUILT_IN_MAP = 
-//    	new ConcurrentHashMap<String, Class>();
-//
-//	
-//	def Class fastForName(String name) throws ClassNotFoundException {
-//		var Class c = BUILT_IN_MAP.get(name);
-//		if (c == null)
-//			// assumes you have only one class loader!
-//			BUILT_IN_MAP.put(name, c = forName(name));
-//		return c;
-//		
-//	}
 }

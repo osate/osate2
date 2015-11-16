@@ -28,12 +28,12 @@ import org.osate.results.results.ResultsPackage;
  * <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
+ * </p>
  * <ul>
  *   <li>{@link org.osate.results.results.impl.ResultContributorImpl#getContributor <em>Contributor</em>}</li>
  *   <li>{@link org.osate.results.results.impl.ResultContributorImpl#getCell <em>Cell</em>}</li>
  *   <li>{@link org.osate.results.results.impl.ResultContributorImpl#getSubcontributor <em>Subcontributor</em>}</li>
  * </ul>
- * </p>
  *
  * @generated
  */

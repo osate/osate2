@@ -15,10 +15,10 @@ import org.eclipse.xtext.scoping.IScope
 import org.eclipse.xtext.scoping.Scopes
 import org.eclipse.xtext.scoping.impl.SimpleScope
 import org.eclipse.xtext.util.SimpleAttributeResolver
-import org.eclipse.xtext.xbase.XVariableDeclaration
 import org.osate.aadl2.ComponentClassifier
 import org.osate.aadl2.ComponentImplementation
-import org.osate.alisa.common.scoping.AlisaAbstractDeclarativeScopeProvider
+import org.osate.alisa.common.common.AVariableDeclaration
+import org.osate.alisa.common.scoping.CommonScopeProvider
 import org.osate.alisa.common.scoping.ICommonGlobalReferenceFinder
 import org.osate.reqspec.reqSpec.ContractualElement
 import org.osate.reqspec.reqSpec.Goal
@@ -27,8 +27,9 @@ import org.osate.reqspec.reqSpec.Requirement
 import org.osate.reqspec.reqSpec.SystemRequirements
 import org.osate.reqspec.util.IReqspecGlobalReferenceFinder
 
-import static org.osate.reqspec.util.ReqSpecUtilExtension.*
 import static org.osate.alisa.common.util.CommonUtilExtension.*
+import static org.osate.reqspec.util.ReqSpecUtilExtension.*
+import org.osate.alisa.common.common.AVariableReference
 
 /**
  * This class contains custom scoping description.
@@ -37,7 +38,7 @@ import static org.osate.alisa.common.util.CommonUtilExtension.*
  * on how and when to use it 
  * 
  */
-class ReqSpecScopeProvider extends AlisaAbstractDeclarativeScopeProvider {
+class ReqSpecScopeProvider extends CommonScopeProvider {
 	@Inject var ICommonGlobalReferenceFinder commonRefFinder
 	@Inject var IReqspecGlobalReferenceFinder refFinder
 
@@ -67,43 +68,28 @@ class ReqSpecScopeProvider extends AlisaAbstractDeclarativeScopeProvider {
 //				Aadl2Package.eINSTANCE.property, null)
 //		new SimpleScope(IScope::NULLSCOPE, props,true)
 //	}
-	def scope_XExpression(Requirement context, EReference reference) {
+
+	def scope_AVariableDeclaration(AVariableReference context, EReference reference) {
 		val result = scopeForGlobalVal(context,IScope.NULLSCOPE)
-		return scopeForValCompute(context, result )
+		val contract = containingContractualElement(context)
+		switch (contract){
+			Requirement: return scopeForValCompute(contract, result)
+			Goal: return scopeForVal(contract,result)
+		}
 	}
 
-	def scope_XVariableDeclaration(Requirement context, EReference reference) {
+	
+	def scope_AVariableDeclaration(Requirement context, EReference reference) {
 		val result = scopeForGlobalVal(context,IScope.NULLSCOPE)
 		return scopeForValCompute(context, result)
-		
 	}
 
-	def scope_XVariableDeclaration(Goal context, EReference reference) {
+
+	def scope_AVariableDeclaration(Goal context, EReference reference) {
 		val result = scopeForGlobalVal(context,IScope.NULLSCOPE)
 		return scopeForVal(context, result)
 	}
 		
-	def IScope scopeForGlobalVal(EObject context,IScope parentScope){
-		var result = parentScope
-		val projectconstants = getImportedGlobals(context) //refFinder.getAllGlobalConstants(context)
-		var Iterable<XVariableDeclaration> constants = new BasicEList
-		for (pc : projectconstants) {
-			constants = constants +  pc.constants
-		}
-		if (!constants.empty) {
-			result = new SimpleScope(result,
-				Scopes::scopedElementsFor(constants,
-					QualifiedName::wrapper(SimpleAttributeResolver::NAME_RESOLVER)), true)
-		}
-		return result
-	}
-	
-	def getImportedGlobals(EObject context){
-		val sr = containingSystemRequirements(context)
-		val sg =containingStakeholderGoals(context)
-		val res = sr?.importConstants?:sg?.importConstants
-		res
-	}
 
 	// TODO: probably want validation to take care of Refining itself. Need to take care of inheritance
 	def scope_Requirement_refinesReference(Requirement context, EReference reference) {

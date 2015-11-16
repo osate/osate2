@@ -4,7 +4,6 @@ import org.osate.aadl2.NamedElement
 import org.osate.alisa.common.common.Description
 import org.osate.alisa.common.common.DescriptionElement
 import org.osate.alisa.common.common.ComputeDeclaration
-import org.osate.alisa.common.common.XNumberLiteralUnit
 import org.osate.alisa.common.common.APropertyReference
 import org.osate.aadl2.properties.PropertyLookupException
 import org.osate.aadl2.ComponentType
@@ -20,8 +19,10 @@ import org.osate.aadl2.EndToEndFlow
 import org.osate.aadl2.Subcomponent
 import org.osate.aadl2.Feature
 import org.osate.aadl2.util.Aadl2Util
-import org.eclipse.xtext.xbase.XFeatureCall
-import org.eclipse.xtext.xbase.impl.XFeatureCallImplCustom
+import org.osate.alisa.common.common.ValDeclaration
+import org.osate.aadl2.Property
+import org.osate.aadl2.UnitLiteral
+import org.eclipse.internal.xtend.expression.ast.NullLiteral
 
 class CommonUtilExtension {
 
@@ -39,7 +40,7 @@ class CommonUtilExtension {
 			return s.replaceAll("\n", " ").replaceAll("\r", "").replaceAll("\t", "")
 		if (s.contains('\r'))
 			return s.replaceAll("\r", " ").replaceAll("\t", "")
-		return s.replace("\t"," ").replaceAll("\t","")
+		return s.replace("\t", " ").replaceAll("\t", "")
 	}
 
 	def static String toText(DescriptionElement de, NamedElement target) {
@@ -48,33 +49,46 @@ class CommonUtilExtension {
 		}
 		if (de.showValue != null) {
 			val decl = de.showValue?.ref
-			if (decl.eIsProxy) return "TBD"
-			if (decl instanceof ComputeDeclaration) {
-				// TODO convert scaled to unit specified, or to most appropriate unit without too many 999999999
-			}
-			// TODO handle unit specified at ShowValue level
-			val x = decl?.right
-			if (x == null) return "TBD"
-			if (x instanceof APropertyReference) {
-				val pd = x.property
-				try {
-					val pval = target.getSimplePropertyValue(pd)
-					return pval.toString
-				} catch (PropertyLookupException e) {
-					return pd.qualifiedName()
+			if(decl.eIsProxy) return "TBD"
+			if (decl instanceof ComputeDeclaration){
+				return decl.name
+			} else 
+			if (decl instanceof ValDeclaration) {
+				val x = decl?.right
+				if(x == null || x instanceof NullLiteral) return "TBD"
+				if (x instanceof APropertyReference) {
+					val pd = x.property
+					if (pd instanceof Property){
+					try {
+						val pval = target.getSimplePropertyValue(pd)
+						return pval.toString
+					} catch (PropertyLookupException e) {
+						return pd.qualifiedName()
+					}
+					}
+					
+					}
+					}
+			if(decl.eIsProxy) return "TBD"
+			if (decl instanceof ComputeDeclaration){
+				return decl.name
+			} else 
+			if (decl instanceof ValDeclaration) {
+				val x = decl?.right
+				if(x == null|| x instanceof NullLiteral) return "TBD"
+				if (x instanceof APropertyReference) {
+					val pd = x.property
+					if (pd instanceof Property){
+					try {
+						val pval = target.getSimplePropertyValue(pd)
+						return pval.toString
+					} catch (PropertyLookupException e) {
+						return pd.qualifiedName()
+					}
+					}
 				}
+				return x?.toString ?: ""
 			}
-			if (x instanceof XNumberLiteralUnit) {
-				if (x.unit != null)
-					return x.value + x.unit?.name
-				else
-					return x.value
-			}
-			if (x instanceof XFeatureCall) {
-				val y = x.concreteSyntaxFeatureName
-				return y
-			}
-			return x?.toString ?: ""
 		}
 		if (de.thisTarget && target != null) {
 			var nm = target.name
@@ -85,14 +99,15 @@ class CommonUtilExtension {
 	}
 
 // from GetProperties: May need to use it for actual values from compute
-//	public static String toStringScaled(double value, UnitLiteral unit) {
-//		UnitLiteral targetliteral = scaleupUnit(value, unit);
-//		double result = value;
+//	def static String toStringScaled(double value, UnitLiteral unit) {
+//		val targetliteral = scaleupUnit(value, unit);
+//		var result = value;
 //		if (targetliteral != unit) {
 //			result = convertToScale(value, unit, targetliteral);
 //		}
 //		return String.format("%.3f " + targetliteral.getName(), result);
 //	}
+	
 	def static boolean isSameorExtends(ComponentClassifier target, ComponentClassifier ancestor) {
 		if(Aadl2Util.isNull(target) || Aadl2Util.isNull(ancestor)) return false
 		var Classifier ext = target

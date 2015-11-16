@@ -17,13 +17,12 @@ import org.eclipse.emf.ecore.impl.MinimalEObjectImpl;
 
 import org.eclipse.emf.ecore.util.EObjectResolvingEList;
 
-import org.eclipse.xtext.xbase.XExpression;
-
 import org.osate.aadl2.ComponentImplementation;
 
 import org.osate.alisa.common.common.ComputeDeclaration;
+import org.osate.alisa.common.common.ValDeclaration;
 
-import org.osate.categories.categories.SelectionCategory;
+import org.osate.categories.categories.Category;
 
 import org.osate.verify.verify.VerificationActivity;
 import org.osate.verify.verify.VerificationMethod;
@@ -40,11 +39,11 @@ import org.osate.verify.verify.VerifyPackage;
  *   <li>{@link org.osate.verify.verify.impl.VerificationActivityImpl#getName <em>Name</em>}</li>
  *   <li>{@link org.osate.verify.verify.impl.VerificationActivityImpl#getTitle <em>Title</em>}</li>
  *   <li>{@link org.osate.verify.verify.impl.VerificationActivityImpl#getTarget <em>Target</em>}</li>
+ *   <li>{@link org.osate.verify.verify.impl.VerificationActivityImpl#getCategory <em>Category</em>}</li>
  *   <li>{@link org.osate.verify.verify.impl.VerificationActivityImpl#getResult <em>Result</em>}</li>
  *   <li>{@link org.osate.verify.verify.impl.VerificationActivityImpl#getMethod <em>Method</em>}</li>
  *   <li>{@link org.osate.verify.verify.impl.VerificationActivityImpl#getParameters <em>Parameters</em>}</li>
  *   <li>{@link org.osate.verify.verify.impl.VerificationActivityImpl#getPropertyValues <em>Property Values</em>}</li>
- *   <li>{@link org.osate.verify.verify.impl.VerificationActivityImpl#getCondition <em>Condition</em>}</li>
  *   <li>{@link org.osate.verify.verify.impl.VerificationActivityImpl#getTimeout <em>Timeout</em>}</li>
  * </ul>
  *
@@ -103,6 +102,16 @@ public class VerificationActivityImpl extends MinimalEObjectImpl.Container imple
   protected ComponentImplementation target;
 
   /**
+   * The cached value of the '{@link #getCategory() <em>Category</em>}' reference list.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see #getCategory()
+   * @generated
+   * @ordered
+   */
+  protected EList<Category> category;
+
+  /**
    * The cached value of the '{@link #getResult() <em>Result</em>}' reference list.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -130,7 +139,7 @@ public class VerificationActivityImpl extends MinimalEObjectImpl.Container imple
    * @generated
    * @ordered
    */
-  protected EList<XExpression> parameters;
+  protected EList<ValDeclaration> parameters;
 
   /**
    * The cached value of the '{@link #getPropertyValues() <em>Property Values</em>}' reference list.
@@ -140,17 +149,7 @@ public class VerificationActivityImpl extends MinimalEObjectImpl.Container imple
    * @generated
    * @ordered
    */
-  protected EList<XExpression> propertyValues;
-
-  /**
-   * The cached value of the '{@link #getCondition() <em>Condition</em>}' reference list.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @see #getCondition()
-   * @generated
-   * @ordered
-   */
-  protected EList<SelectionCategory> condition;
+  protected EList<ValDeclaration> propertyValues;
 
   /**
    * The default value of the '{@link #getTimeout() <em>Timeout</em>}' attribute.
@@ -287,6 +286,20 @@ public class VerificationActivityImpl extends MinimalEObjectImpl.Container imple
    * <!-- end-user-doc -->
    * @generated
    */
+  public EList<Category> getCategory()
+  {
+    if (category == null)
+    {
+      category = new EObjectResolvingEList<Category>(Category.class, this, VerifyPackage.VERIFICATION_ACTIVITY__CATEGORY);
+    }
+    return category;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
   public EList<ComputeDeclaration> getResult()
   {
     if (result == null)
@@ -344,11 +357,11 @@ public class VerificationActivityImpl extends MinimalEObjectImpl.Container imple
    * <!-- end-user-doc -->
    * @generated
    */
-  public EList<XExpression> getParameters()
+  public EList<ValDeclaration> getParameters()
   {
     if (parameters == null)
     {
-      parameters = new EObjectResolvingEList<XExpression>(XExpression.class, this, VerifyPackage.VERIFICATION_ACTIVITY__PARAMETERS);
+      parameters = new EObjectResolvingEList<ValDeclaration>(ValDeclaration.class, this, VerifyPackage.VERIFICATION_ACTIVITY__PARAMETERS);
     }
     return parameters;
   }
@@ -358,27 +371,13 @@ public class VerificationActivityImpl extends MinimalEObjectImpl.Container imple
    * <!-- end-user-doc -->
    * @generated
    */
-  public EList<XExpression> getPropertyValues()
+  public EList<ValDeclaration> getPropertyValues()
   {
     if (propertyValues == null)
     {
-      propertyValues = new EObjectResolvingEList<XExpression>(XExpression.class, this, VerifyPackage.VERIFICATION_ACTIVITY__PROPERTY_VALUES);
+      propertyValues = new EObjectResolvingEList<ValDeclaration>(ValDeclaration.class, this, VerifyPackage.VERIFICATION_ACTIVITY__PROPERTY_VALUES);
     }
     return propertyValues;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public EList<SelectionCategory> getCondition()
-  {
-    if (condition == null)
-    {
-      condition = new EObjectResolvingEList<SelectionCategory>(SelectionCategory.class, this, VerifyPackage.VERIFICATION_ACTIVITY__CONDITION);
-    }
-    return condition;
   }
 
   /**
@@ -421,6 +420,8 @@ public class VerificationActivityImpl extends MinimalEObjectImpl.Container imple
       case VerifyPackage.VERIFICATION_ACTIVITY__TARGET:
         if (resolve) return getTarget();
         return basicGetTarget();
+      case VerifyPackage.VERIFICATION_ACTIVITY__CATEGORY:
+        return getCategory();
       case VerifyPackage.VERIFICATION_ACTIVITY__RESULT:
         return getResult();
       case VerifyPackage.VERIFICATION_ACTIVITY__METHOD:
@@ -430,8 +431,6 @@ public class VerificationActivityImpl extends MinimalEObjectImpl.Container imple
         return getParameters();
       case VerifyPackage.VERIFICATION_ACTIVITY__PROPERTY_VALUES:
         return getPropertyValues();
-      case VerifyPackage.VERIFICATION_ACTIVITY__CONDITION:
-        return getCondition();
       case VerifyPackage.VERIFICATION_ACTIVITY__TIMEOUT:
         return getTimeout();
     }
@@ -458,6 +457,10 @@ public class VerificationActivityImpl extends MinimalEObjectImpl.Container imple
       case VerifyPackage.VERIFICATION_ACTIVITY__TARGET:
         setTarget((ComponentImplementation)newValue);
         return;
+      case VerifyPackage.VERIFICATION_ACTIVITY__CATEGORY:
+        getCategory().clear();
+        getCategory().addAll((Collection<? extends Category>)newValue);
+        return;
       case VerifyPackage.VERIFICATION_ACTIVITY__RESULT:
         getResult().clear();
         getResult().addAll((Collection<? extends ComputeDeclaration>)newValue);
@@ -467,15 +470,11 @@ public class VerificationActivityImpl extends MinimalEObjectImpl.Container imple
         return;
       case VerifyPackage.VERIFICATION_ACTIVITY__PARAMETERS:
         getParameters().clear();
-        getParameters().addAll((Collection<? extends XExpression>)newValue);
+        getParameters().addAll((Collection<? extends ValDeclaration>)newValue);
         return;
       case VerifyPackage.VERIFICATION_ACTIVITY__PROPERTY_VALUES:
         getPropertyValues().clear();
-        getPropertyValues().addAll((Collection<? extends XExpression>)newValue);
-        return;
-      case VerifyPackage.VERIFICATION_ACTIVITY__CONDITION:
-        getCondition().clear();
-        getCondition().addAll((Collection<? extends SelectionCategory>)newValue);
+        getPropertyValues().addAll((Collection<? extends ValDeclaration>)newValue);
         return;
       case VerifyPackage.VERIFICATION_ACTIVITY__TIMEOUT:
         setTimeout((Integer)newValue);
@@ -503,6 +502,9 @@ public class VerificationActivityImpl extends MinimalEObjectImpl.Container imple
       case VerifyPackage.VERIFICATION_ACTIVITY__TARGET:
         setTarget((ComponentImplementation)null);
         return;
+      case VerifyPackage.VERIFICATION_ACTIVITY__CATEGORY:
+        getCategory().clear();
+        return;
       case VerifyPackage.VERIFICATION_ACTIVITY__RESULT:
         getResult().clear();
         return;
@@ -514,9 +516,6 @@ public class VerificationActivityImpl extends MinimalEObjectImpl.Container imple
         return;
       case VerifyPackage.VERIFICATION_ACTIVITY__PROPERTY_VALUES:
         getPropertyValues().clear();
-        return;
-      case VerifyPackage.VERIFICATION_ACTIVITY__CONDITION:
-        getCondition().clear();
         return;
       case VerifyPackage.VERIFICATION_ACTIVITY__TIMEOUT:
         setTimeout(TIMEOUT_EDEFAULT);
@@ -541,6 +540,8 @@ public class VerificationActivityImpl extends MinimalEObjectImpl.Container imple
         return TITLE_EDEFAULT == null ? title != null : !TITLE_EDEFAULT.equals(title);
       case VerifyPackage.VERIFICATION_ACTIVITY__TARGET:
         return target != null;
+      case VerifyPackage.VERIFICATION_ACTIVITY__CATEGORY:
+        return category != null && !category.isEmpty();
       case VerifyPackage.VERIFICATION_ACTIVITY__RESULT:
         return result != null && !result.isEmpty();
       case VerifyPackage.VERIFICATION_ACTIVITY__METHOD:
@@ -549,8 +550,6 @@ public class VerificationActivityImpl extends MinimalEObjectImpl.Container imple
         return parameters != null && !parameters.isEmpty();
       case VerifyPackage.VERIFICATION_ACTIVITY__PROPERTY_VALUES:
         return propertyValues != null && !propertyValues.isEmpty();
-      case VerifyPackage.VERIFICATION_ACTIVITY__CONDITION:
-        return condition != null && !condition.isEmpty();
       case VerifyPackage.VERIFICATION_ACTIVITY__TIMEOUT:
         return timeout != TIMEOUT_EDEFAULT;
     }

@@ -11,8 +11,6 @@ import org.osate.results.results.ResultsPackage;
  * <!-- begin-user-doc -->
  * An implementation of the model object '<em><b>Issues Report</b></em>'.
  * <!-- end-user-doc -->
- * <p>
- * </p>
  *
  * @generated
  */

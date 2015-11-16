@@ -5,49 +5,45 @@ package org.osate.alisa.common.common.impl;
 import org.eclipse.emf.common.notify.Notification;
 
 import org.eclipse.emf.ecore.EClass;
-import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.InternalEObject;
 
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 
-import org.eclipse.xtext.xbase.impl.XNumberLiteralImpl;
-
-import org.osate.aadl2.UnitLiteral;
-
+import org.osate.alisa.common.common.AVariableDeclaration;
+import org.osate.alisa.common.common.AVariableReference;
 import org.osate.alisa.common.common.CommonPackage;
-import org.osate.alisa.common.common.XNumberLiteralUnit;
 
 /**
  * <!-- begin-user-doc -->
- * An implementation of the model object '<em><b>XNumber Literal Unit</b></em>'.
+ * An implementation of the model object '<em><b>AVariable Reference</b></em>'.
  * <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
  * </p>
  * <ul>
- *   <li>{@link org.osate.alisa.common.common.impl.XNumberLiteralUnitImpl#getUnit <em>Unit</em>}</li>
+ *   <li>{@link org.osate.alisa.common.common.impl.AVariableReferenceImpl#getVariable <em>Variable</em>}</li>
  * </ul>
  *
  * @generated
  */
-public class XNumberLiteralUnitImpl extends XNumberLiteralImpl implements XNumberLiteralUnit
+public class AVariableReferenceImpl extends AExpressionImpl implements AVariableReference
 {
   /**
-   * The cached value of the '{@link #getUnit() <em>Unit</em>}' reference.
+   * The cached value of the '{@link #getVariable() <em>Variable</em>}' reference.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @see #getUnit()
+   * @see #getVariable()
    * @generated
    * @ordered
    */
-  protected UnitLiteral unit;
+  protected AVariableDeclaration variable;
 
   /**
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    */
-  protected XNumberLiteralUnitImpl()
+  protected AVariableReferenceImpl()
   {
     super();
   }
@@ -60,7 +56,7 @@ public class XNumberLiteralUnitImpl extends XNumberLiteralImpl implements XNumbe
   @Override
   protected EClass eStaticClass()
   {
-    return CommonPackage.Literals.XNUMBER_LITERAL_UNIT;
+    return CommonPackage.Literals.AVARIABLE_REFERENCE;
   }
 
   /**
@@ -68,19 +64,19 @@ public class XNumberLiteralUnitImpl extends XNumberLiteralImpl implements XNumbe
    * <!-- end-user-doc -->
    * @generated
    */
-  public UnitLiteral getUnit()
+  public AVariableDeclaration getVariable()
   {
-    if (unit != null && ((EObject)unit).eIsProxy())
+    if (variable != null && variable.eIsProxy())
     {
-      InternalEObject oldUnit = (InternalEObject)unit;
-      unit = (UnitLiteral)eResolveProxy(oldUnit);
-      if (unit != oldUnit)
+      InternalEObject oldVariable = (InternalEObject)variable;
+      variable = (AVariableDeclaration)eResolveProxy(oldVariable);
+      if (variable != oldVariable)
       {
         if (eNotificationRequired())
-          eNotify(new ENotificationImpl(this, Notification.RESOLVE, CommonPackage.XNUMBER_LITERAL_UNIT__UNIT, oldUnit, unit));
+          eNotify(new ENotificationImpl(this, Notification.RESOLVE, CommonPackage.AVARIABLE_REFERENCE__VARIABLE, oldVariable, variable));
       }
     }
-    return unit;
+    return variable;
   }
 
   /**
@@ -88,9 +84,9 @@ public class XNumberLiteralUnitImpl extends XNumberLiteralImpl implements XNumbe
    * <!-- end-user-doc -->
    * @generated
    */
-  public UnitLiteral basicGetUnit()
+  public AVariableDeclaration basicGetVariable()
   {
-    return unit;
+    return variable;
   }
 
   /**
@@ -98,12 +94,12 @@ public class XNumberLiteralUnitImpl extends XNumberLiteralImpl implements XNumbe
    * <!-- end-user-doc -->
    * @generated
    */
-  public void setUnit(UnitLiteral newUnit)
+  public void setVariable(AVariableDeclaration newVariable)
   {
-    UnitLiteral oldUnit = unit;
-    unit = newUnit;
+    AVariableDeclaration oldVariable = variable;
+    variable = newVariable;
     if (eNotificationRequired())
-      eNotify(new ENotificationImpl(this, Notification.SET, CommonPackage.XNUMBER_LITERAL_UNIT__UNIT, oldUnit, unit));
+      eNotify(new ENotificationImpl(this, Notification.SET, CommonPackage.AVARIABLE_REFERENCE__VARIABLE, oldVariable, variable));
   }
 
   /**
@@ -116,9 +112,9 @@ public class XNumberLiteralUnitImpl extends XNumberLiteralImpl implements XNumbe
   {
     switch (featureID)
     {
-      case CommonPackage.XNUMBER_LITERAL_UNIT__UNIT:
-        if (resolve) return getUnit();
-        return basicGetUnit();
+      case CommonPackage.AVARIABLE_REFERENCE__VARIABLE:
+        if (resolve) return getVariable();
+        return basicGetVariable();
     }
     return super.eGet(featureID, resolve, coreType);
   }
@@ -133,8 +129,8 @@ public class XNumberLiteralUnitImpl extends XNumberLiteralImpl implements XNumbe
   {
     switch (featureID)
     {
-      case CommonPackage.XNUMBER_LITERAL_UNIT__UNIT:
-        setUnit((UnitLiteral)newValue);
+      case CommonPackage.AVARIABLE_REFERENCE__VARIABLE:
+        setVariable((AVariableDeclaration)newValue);
         return;
     }
     super.eSet(featureID, newValue);
@@ -150,8 +146,8 @@ public class XNumberLiteralUnitImpl extends XNumberLiteralImpl implements XNumbe
   {
     switch (featureID)
     {
-      case CommonPackage.XNUMBER_LITERAL_UNIT__UNIT:
-        setUnit((UnitLiteral)null);
+      case CommonPackage.AVARIABLE_REFERENCE__VARIABLE:
+        setVariable((AVariableDeclaration)null);
         return;
     }
     super.eUnset(featureID);
@@ -167,10 +163,10 @@ public class XNumberLiteralUnitImpl extends XNumberLiteralImpl implements XNumbe
   {
     switch (featureID)
     {
-      case CommonPackage.XNUMBER_LITERAL_UNIT__UNIT:
-        return unit != null;
+      case CommonPackage.AVARIABLE_REFERENCE__VARIABLE:
+        return variable != null;
     }
     return super.eIsSet(featureID);
   }
 
-} //XNumberLiteralUnitImpl
+} //AVariableReferenceImpl

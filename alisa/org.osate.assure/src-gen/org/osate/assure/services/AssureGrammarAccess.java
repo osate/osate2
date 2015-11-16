@@ -47,7 +47,7 @@ public class AssureGrammarAccess extends AbstractGrammarElementFinder {
 		private final Keyword cRightSquareBracketKeyword_9 = (Keyword)cGroup.eContents().get(9);
 		
 		//// result for a system in the architecture hierarchy
-		//AssuranceCase:
+		// AssuranceCase:
 		//	"case" name=QualifiedName ("for" target=[Alisa::AssurancePlan|QualifiedName])? ("system" targetSystem=ID)? "["
 		//	metrics=Metrics ("message" message=STRING)? claimResult+=ClaimResult* subAssuranceCase+=AssuranceCase* "]";
 		@Override public ParserRule getRule() { return rule; }
@@ -150,7 +150,7 @@ public class AssureGrammarAccess extends AbstractGrammarElementFinder {
 		private final Keyword cRightSquareBracketKeyword_7 = (Keyword)cGroup.eContents().get(7);
 		
 		//// Result of meeting a requirement
-		//ClaimResult:
+		// ClaimResult:
 		//	"claim" target=[ReqSpec::Requirement|QualifiedName] "[" metrics=Metrics ("message" message=STRING)?
 		//	subClaimResult+=ClaimResult* verificationActivityResult+=VerificationExpr* "]";
 		@Override public ParserRule getRule() { return rule; }
@@ -252,14 +252,16 @@ public class AssureGrammarAccess extends AbstractGrammarElementFinder {
 		//	target=[Verify::VerificationCondition|QualifiedName] "[" "executionstate" executionState=VerificationExecutionState
 		//	"resultstate" resultState=VerificationResultState ("issues" "[" issues+=ResultIssue* "]")? ("report"
 		//	resultReport=[results::ResultReport|QualifiedName])? // pointer to separate report
-		//	metrics=Metrics ("message" message=STRING)? "]";
+		// metrics=Metrics ("message"
+		//	message=STRING)? "]";
 		@Override public ParserRule getRule() { return rule; }
 
 		//("precondition" {PreconditionResult} | "validation" {ValidationResult})
 		//target=[Verify::VerificationCondition|QualifiedName] "[" "executionstate" executionState=VerificationExecutionState
 		//"resultstate" resultState=VerificationResultState ("issues" "[" issues+=ResultIssue* "]")? ("report"
 		//resultReport=[results::ResultReport|QualifiedName])? // pointer to separate report
-		//metrics=Metrics ("message" message=STRING)? "]"
+		// metrics=Metrics ("message"
+		//message=STRING)? "]"
 		public Group getGroup() { return cGroup; }
 
 		//"precondition" {PreconditionResult} | "validation" {ValidationResult}
@@ -405,17 +407,21 @@ public class AssureGrammarAccess extends AbstractGrammarElementFinder {
 		private final Keyword cRightSquareBracketKeyword_13 = (Keyword)cGroup.eContents().get(13);
 		
 		//// result of executing a verification activity
-		//VerificationActivityResult returns VerificationResult:
-		//	"verification" {VerificationActivityResult} target=[Verify::VerificationActivity|QualifiedName] //	('instance' instance= [instance::InstanceObject|URIID])?
-		//	"[" "executionstate" executionState=VerificationExecutionState "resultstate" resultState=VerificationResultState
-		//	("issues" "[" issues+=ResultIssue* "]")? ("report" resultReport=[results::ResultReport|QualifiedName])? // pointer to separate report
-		//	metrics=Metrics ("message" message=STRING)? conditionResult=ConditionResult? "]";
+		// VerificationActivityResult returns VerificationResult:
+		//	"verification" {VerificationActivityResult} target=[Verify::VerificationActivity|QualifiedName]
+		//	//	('instance' instance= [instance::InstanceObject|URIID])?
+		// "[" "executionstate"
+		//	executionState=VerificationExecutionState "resultstate" resultState=VerificationResultState ("issues" "["
+		//	issues+=ResultIssue* "]")? ("report" resultReport=[results::ResultReport|QualifiedName])? metrics=Metrics ("message"
+		//	message=STRING)? conditionResult=ConditionResult? "]";
 		@Override public ParserRule getRule() { return rule; }
 
-		//"verification" {VerificationActivityResult} target=[Verify::VerificationActivity|QualifiedName] //	('instance' instance= [instance::InstanceObject|URIID])?
-		//"[" "executionstate" executionState=VerificationExecutionState "resultstate" resultState=VerificationResultState
-		//("issues" "[" issues+=ResultIssue* "]")? ("report" resultReport=[results::ResultReport|QualifiedName])? // pointer to separate report
-		//metrics=Metrics ("message" message=STRING)? conditionResult=ConditionResult? "]"
+		//"verification" {VerificationActivityResult} target=[Verify::VerificationActivity|QualifiedName]
+		////	('instance' instance= [instance::InstanceObject|URIID])?
+		// "[" "executionstate"
+		//executionState=VerificationExecutionState "resultstate" resultState=VerificationResultState ("issues" "["
+		//issues+=ResultIssue* "]")? ("report" resultReport=[results::ResultReport|QualifiedName])? metrics=Metrics ("message"
+		//message=STRING)? conditionResult=ConditionResult? "]"
 		public Group getGroup() { return cGroup; }
 
 		//"verification"
@@ -434,7 +440,7 @@ public class AssureGrammarAccess extends AbstractGrammarElementFinder {
 		public RuleCall getTargetVerificationActivityQualifiedNameParserRuleCall_2_0_1() { return cTargetVerificationActivityQualifiedNameParserRuleCall_2_0_1; }
 
 		////	('instance' instance= [instance::InstanceObject|URIID])?
-		//"["
+		// "["
 		public Keyword getLeftSquareBracketKeyword_3() { return cLeftSquareBracketKeyword_3; }
 
 		//"executionstate"
@@ -773,12 +779,14 @@ public class AssureGrammarAccess extends AbstractGrammarElementFinder {
 		//Metrics:
 		//	("tbdcount" tbdCount=INT)? ("successcount" successCount=INT)? ("failcount" failCount=INT)? ("timeoutcount"
 		//	timeoutCount=INT)? ("errorcount" errorCount=INT)? ("didelsecount" didelseCount=INT)? // else branch executed
+		//
 		//	("thenskipcount" thenskipCount=INT)? ("prefailcount" preconditionfailCount=INT)? ("validfailcount"
 		//	validationfailCount=INT)? ("weight" weight=INT)?;
 		@Override public ParserRule getRule() { return rule; }
 
 		//("tbdcount" tbdCount=INT)? ("successcount" successCount=INT)? ("failcount" failCount=INT)? ("timeoutcount"
 		//timeoutCount=INT)? ("errorcount" errorCount=INT)? ("didelsecount" didelseCount=INT)? // else branch executed
+		//
 		//("thenskipcount" thenskipCount=INT)? ("prefailcount" preconditionfailCount=INT)? ("validfailcount"
 		//validationfailCount=INT)? ("weight" weight=INT)?
 		public Group getGroup() { return cGroup; }
@@ -931,7 +939,7 @@ public class AssureGrammarAccess extends AbstractGrammarElementFinder {
 		private final Keyword cRightSquareBracketKeyword_5_2 = (Keyword)cGroup_5.eContents().get(2);
 		
 		//// use it for failures, warnings and successes.
-		//ResultIssue:
+		// ResultIssue:
 		//	issueType=ResultIssueType (":" name=ID)? message=STRING ("exception" exceptionType=STRING)? ("target"
 		//	target=[ecore::EObject|URIID])? ("[" issues+=ResultIssue+ "]")?;
 		@Override public ParserRule getRule() { return rule; }
@@ -1242,49 +1250,53 @@ public class AssureGrammarAccess extends AbstractGrammarElementFinder {
 		
 		//enum VerificationExecutionState:
 		//	TODO= // verification to be performed
-		//	"todo" | RUNNING= // verification in progress (background processing)
+		// "todo" | RUNNING= // verification in progress (background processing)
+		//
 		//	"running" | REDO= // invalidated while in progress. redo verification.
-		//	"redo" | COMPLETED= // completed. verification result is valid
-		//	"completed";
+		// "redo" | COMPLETED=
+		//	// completed. verification result is valid
+		// "completed";
 		public EnumRule getRule() { return rule; }
 
 		//TODO= // verification to be performed
-		//"todo" | RUNNING= // verification in progress (background processing)
-		//"running" | REDO= // invalidated while in progress. redo verification.
-		//"redo" | COMPLETED= // completed. verification result is valid
-		//"completed"
+		// "todo" | RUNNING= // verification in progress (background processing)
+		// "running"
+		//| REDO= // invalidated while in progress. redo verification.
+		// "redo" | COMPLETED=
+		//// completed. verification result is valid
+		// "completed"
 		public Alternatives getAlternatives() { return cAlternatives; }
 
 		//TODO= // verification to be performed
-		//"todo"
+		// "todo"
 		public EnumLiteralDeclaration getTODOEnumLiteralDeclaration_0() { return cTODOEnumLiteralDeclaration_0; }
 
 		//// verification to be performed
-		//"todo"
+		// "todo"
 		public Keyword getTODOTodoKeyword_0_0() { return cTODOTodoKeyword_0_0; }
 
 		//RUNNING= // verification in progress (background processing)
-		//"running"
+		// "running"
 		public EnumLiteralDeclaration getRUNNINGEnumLiteralDeclaration_1() { return cRUNNINGEnumLiteralDeclaration_1; }
 
 		//// verification in progress (background processing)
-		//"running"
+		// "running"
 		public Keyword getRUNNINGRunningKeyword_1_0() { return cRUNNINGRunningKeyword_1_0; }
 
 		//REDO= // invalidated while in progress. redo verification.
-		//"redo"
+		// "redo"
 		public EnumLiteralDeclaration getREDOEnumLiteralDeclaration_2() { return cREDOEnumLiteralDeclaration_2; }
 
 		//// invalidated while in progress. redo verification.
-		//"redo"
+		// "redo"
 		public Keyword getREDORedoKeyword_2_0() { return cREDORedoKeyword_2_0; }
 
 		//COMPLETED= // completed. verification result is valid
-		//"completed"
+		// "completed"
 		public EnumLiteralDeclaration getCOMPLETEDEnumLiteralDeclaration_3() { return cCOMPLETEDEnumLiteralDeclaration_3; }
 
 		//// completed. verification result is valid
-		//"completed"
+		// "completed"
 		public Keyword getCOMPLETEDCompletedKeyword_3_0() { return cCOMPLETEDCompletedKeyword_3_0; }
 	}
 	
@@ -1362,7 +1374,7 @@ public class AssureGrammarAccess extends AbstractGrammarElementFinder {
 
 	
 	//// result for a system in the architecture hierarchy
-	//AssuranceCase:
+	// AssuranceCase:
 	//	"case" name=QualifiedName ("for" target=[Alisa::AssurancePlan|QualifiedName])? ("system" targetSystem=ID)? "["
 	//	metrics=Metrics ("message" message=STRING)? claimResult+=ClaimResult* subAssuranceCase+=AssuranceCase* "]";
 	public AssuranceCaseElements getAssuranceCaseAccess() {
@@ -1374,7 +1386,7 @@ public class AssureGrammarAccess extends AbstractGrammarElementFinder {
 	}
 
 	//// Result of meeting a requirement
-	//ClaimResult:
+	// ClaimResult:
 	//	"claim" target=[ReqSpec::Requirement|QualifiedName] "[" metrics=Metrics ("message" message=STRING)?
 	//	subClaimResult+=ClaimResult* verificationActivityResult+=VerificationExpr* "]";
 	public ClaimResultElements getClaimResultAccess() {
@@ -1390,7 +1402,8 @@ public class AssureGrammarAccess extends AbstractGrammarElementFinder {
 	//	target=[Verify::VerificationCondition|QualifiedName] "[" "executionstate" executionState=VerificationExecutionState
 	//	"resultstate" resultState=VerificationResultState ("issues" "[" issues+=ResultIssue* "]")? ("report"
 	//	resultReport=[results::ResultReport|QualifiedName])? // pointer to separate report
-	//	metrics=Metrics ("message" message=STRING)? "]";
+	// metrics=Metrics ("message"
+	//	message=STRING)? "]";
 	public ConditionResultElements getConditionResultAccess() {
 		return pConditionResult;
 	}
@@ -1400,11 +1413,13 @@ public class AssureGrammarAccess extends AbstractGrammarElementFinder {
 	}
 
 	//// result of executing a verification activity
-	//VerificationActivityResult returns VerificationResult:
-	//	"verification" {VerificationActivityResult} target=[Verify::VerificationActivity|QualifiedName] //	('instance' instance= [instance::InstanceObject|URIID])?
-	//	"[" "executionstate" executionState=VerificationExecutionState "resultstate" resultState=VerificationResultState
-	//	("issues" "[" issues+=ResultIssue* "]")? ("report" resultReport=[results::ResultReport|QualifiedName])? // pointer to separate report
-	//	metrics=Metrics ("message" message=STRING)? conditionResult=ConditionResult? "]";
+	// VerificationActivityResult returns VerificationResult:
+	//	"verification" {VerificationActivityResult} target=[Verify::VerificationActivity|QualifiedName]
+	//	//	('instance' instance= [instance::InstanceObject|URIID])?
+	// "[" "executionstate"
+	//	executionState=VerificationExecutionState "resultstate" resultState=VerificationResultState ("issues" "["
+	//	issues+=ResultIssue* "]")? ("report" resultReport=[results::ResultReport|QualifiedName])? metrics=Metrics ("message"
+	//	message=STRING)? conditionResult=ConditionResult? "]";
 	public VerificationActivityResultElements getVerificationActivityResultAccess() {
 		return pVerificationActivityResult;
 	}
@@ -1467,6 +1482,7 @@ public class AssureGrammarAccess extends AbstractGrammarElementFinder {
 	//Metrics:
 	//	("tbdcount" tbdCount=INT)? ("successcount" successCount=INT)? ("failcount" failCount=INT)? ("timeoutcount"
 	//	timeoutCount=INT)? ("errorcount" errorCount=INT)? ("didelsecount" didelseCount=INT)? // else branch executed
+	//
 	//	("thenskipcount" thenskipCount=INT)? ("prefailcount" preconditionfailCount=INT)? ("validfailcount"
 	//	validationfailCount=INT)? ("weight" weight=INT)?;
 	public MetricsElements getMetricsAccess() {
@@ -1478,7 +1494,7 @@ public class AssureGrammarAccess extends AbstractGrammarElementFinder {
 	}
 
 	//// use it for failures, warnings and successes.
-	//ResultIssue:
+	// ResultIssue:
 	//	issueType=ResultIssueType (":" name=ID)? message=STRING ("exception" exceptionType=STRING)? ("target"
 	//	target=[ecore::EObject|URIID])? ("[" issues+=ResultIssue+ "]")?;
 	public ResultIssueElements getResultIssueAccess() {
@@ -1511,10 +1527,12 @@ public class AssureGrammarAccess extends AbstractGrammarElementFinder {
 
 	//enum VerificationExecutionState:
 	//	TODO= // verification to be performed
-	//	"todo" | RUNNING= // verification in progress (background processing)
+	// "todo" | RUNNING= // verification in progress (background processing)
+	//
 	//	"running" | REDO= // invalidated while in progress. redo verification.
-	//	"redo" | COMPLETED= // completed. verification result is valid
-	//	"completed";
+	// "redo" | COMPLETED=
+	//	// completed. verification result is valid
+	// "completed";
 	public VerificationExecutionStateElements getVerificationExecutionStateAccess() {
 		return unknownRuleVerificationExecutionState;
 	}

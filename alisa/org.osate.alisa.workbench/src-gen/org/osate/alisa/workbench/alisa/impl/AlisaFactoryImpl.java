@@ -67,8 +67,6 @@ public class AlisaFactoryImpl extends EFactoryImpl implements AlisaFactory
       case AlisaPackage.ALISA_WORK_AREA: return createAlisaWorkArea();
       case AlisaPackage.ASSURANCE_PLAN: return createAssurancePlan();
       case AlisaPackage.ASSURANCE_TASK: return createAssuranceTask();
-      case AlisaPackage.DESCRIPTION: return createDescription();
-      case AlisaPackage.DESCRIPTION_ELEMENT: return createDescriptionElement();
       default:
         throw new IllegalArgumentException("The class '" + eClass.getName() + "' is not a valid classifier");
     }
@@ -105,28 +103,6 @@ public class AlisaFactoryImpl extends EFactoryImpl implements AlisaFactory
   {
     AssuranceTaskImpl assuranceTask = new AssuranceTaskImpl();
     return assuranceTask;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public Description createDescription()
-  {
-    DescriptionImpl description = new DescriptionImpl();
-    return description;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public DescriptionElement createDescriptionElement()
-  {
-    DescriptionElementImpl descriptionElement = new DescriptionElementImpl();
-    return descriptionElement;
   }
 
   /**

@@ -55,6 +55,13 @@ import org.osate.aadl2.Subcomponent
 import org.osate.aadl2.util.Aadl2Util
 import org.osate.alisa.common.common.Description
 import org.osate.alisa.workbench.util.AlisaWorkbenchUtilExtension
+import org.osate.alisa.common.util.CommonUtilExtension
+import org.osate.aadl2.IntegerLiteral
+import org.osate.aadl2.RealLiteral
+import org.osate.aadl2.StringLiteral
+import org.osate.aadl2.BooleanLiteral
+import org.osate.aadl2.NumberValue
+import org.osate.aadl2.UnitLiteral
 
 class AssureUtilExtension {
 
@@ -462,13 +469,26 @@ class AssureUtilExtension {
 
 	def static getPrintableName(AssureResult ar) {
 		switch (ar) {
-			AssuranceCase: return ar.name
-			ClaimResult: return (ar as ClaimResult).target.name
-			ValidationResult: return (ar as ValidationResult).target.name
+			AssuranceCase: return "system "+ar.name
+			ClaimResult: return "claim "+ar.name
+			ValidationResult: return "validation "+ar.name
+			PreconditionResult: return "precondition "+ar.name
+			VerificationActivityResult: return "evidence "+ar.name
 			ElseResult: return "Else"
 			ThenResult: return "Then"
 		}
-		return "unknown assurance result type"
+		return ""
+	}
+
+	def static getName(AssureResult ar) {
+		switch (ar) {
+			AssuranceCase: return ar.name
+			ClaimResult: return ar.name
+			ValidationResult: return ar.name
+			PreconditionResult: return ar.name
+			VerificationActivityResult: return ar.name
+		}
+		return ""
 	}
 
 	/**
@@ -1037,13 +1057,6 @@ class AssureUtilExtension {
 		return "unknown assure result type"
 	}
 
-	
-	def static String getName(VerificationActivityResult cr){
-		if (!Aadl2Util.isNull(cr.target)){
-			return cr.target?.name
-		}
-		return "[unresolved:"+cr.target.toString+"]"
-	}
 
 
 	def static String constructMessage(VerificationActivityResult vr) {
@@ -1072,10 +1085,31 @@ class AssureUtilExtension {
 		}
 		if(ap.description != null) {
 			val d = ap.description
-			return AlisaWorkbenchUtilExtension.toText(d,ar.claimSubject)
+			return CommonUtilExtension.toText(d,ar.claimSubject)
 			}
 		if(ap.title != null) return ap.title
 		""
+	}
+	
+	def static String getName(VerificationActivityResult cr){
+		if (!Aadl2Util.isNull(cr.target)){
+			return cr.target?.name
+		}
+		return "[unresolved:"+cr.target.toString+"]"
+	}
+	
+	def static String getName(ValidationResult cr){
+		if (!Aadl2Util.isNull(cr.target)){
+			return cr.target?.name
+		}
+		return "[unresolved:"+cr.target.toString+"]"
+	}
+	
+	def static String getName(PreconditionResult cr){
+		if (!Aadl2Util.isNull(cr.target)){
+			return cr.target?.name
+		}
+		return "[unresolved:"+cr.target.toString+"]"
 	}
 
 	def static String getName(AssuranceCase ce) {
@@ -1157,6 +1191,36 @@ class AssureUtilExtension {
 	
 	def static int  numberVerificationResults(AssuranceCase ac){
 		return EcoreUtil2.eAllOfType(ac, typeof(VerificationActivityResult)).size();
+	}
+	
+	
+	def static Object convertToJavaObjects(EObject actual) {
+			switch (actual) {
+				IntegerLiteral: return actual.scaledValue
+				RealLiteral: return actual.scaledValue
+				StringLiteral: return actual.value
+				BooleanLiteral: return actual.isValue
+			}
+	}
+	
+
+	def static NumberValue convertValueToUnit(NumberValue numberValue, UnitLiteral target) {
+		val value = numberValue.scaledValue ;
+		val unit = numberValue.getUnit();
+		var factor = 1.0 
+		if (unit != null) factor = unit.getAbsoluteFactor(target);
+		val result =  value * factor;
+		val resultValue = numberValue.cloneNumber();
+		resultValue.setUnit(target);
+		setValue(resultValue,result);
+		return resultValue;
+	}
+
+	def static void setValue( NumberValue numberValue, double value) {
+		switch (numberValue){
+			RealLiteral: numberValue.setValue(value)
+			IntegerLiteral: numberValue.setValue((value as long))
+		}
 	}
 	
 

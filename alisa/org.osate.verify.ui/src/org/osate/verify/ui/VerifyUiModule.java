@@ -19,10 +19,10 @@ public class VerifyUiModule extends org.osate.verify.ui.AbstractVerifyUiModule {
 		return VerifyEObjectHoverProvider.class;
 	}
 
-	@Override
-	public Class<? extends org.eclipse.xtext.ui.editor.hyperlinking.IHyperlinkHelper> bindIHyperlinkHelper() {
-		return org.osate.alisa.common.ui.util.AlisaHyperLinkHelper.class;
-	}
+//	@Override
+//	public Class<? extends org.eclipse.xtext.ui.editor.hyperlinking.IHyperlinkHelper> bindIHyperlinkHelper() {
+//		return org.osate.alisa.common.ui.util.AlisaHyperLinkHelper.class;
+//	}
 
 	public Class<? extends org.eclipse.xtext.linking.ILinkingDiagnosticMessageProvider> bindILinkingDiagnosticMessageProvider() {
 		return org.osate.verify.ui.linking.VerifyLinkingDiagnosticMessageProvider.class;

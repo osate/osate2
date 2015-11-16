@@ -65,7 +65,7 @@ class VerifyUtilExtension {
 	
 	
 	def static evaluateSelectionFilter(VerificationActivity expr, List<Category> selectionFilter, boolean strict) {
-		val selection = expr.condition
+		val selection = expr.category
 		return CategoriesUtil.intersects(selection,selectionFilter,strict)
 	}
 
@@ -78,6 +78,4 @@ class VerifyUtilExtension {
 		val vcs = va.method.category
 		return CategoriesUtil.intersects(vcs,verificationFilter,strict)
 	}
-	
-	
 }

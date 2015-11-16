@@ -13,7 +13,6 @@
  *
  * See COPYRIGHT file for full details.
  */
-
 module org.osate.alisa.common.GenerateCommon
 
 import org.eclipse.emf.mwe.utils.*
@@ -26,8 +25,10 @@ var projectName = "org.osate.alisa.common"
 var runtimeProject = "../${projectName}"
 var generateXtendStub = true
 var encoding = "UTF-8"
-var fileHeader = "/**\n * Copyright 2015 Carnegie Mellon University. All Rights Reserved.\n *\n * NO WARRANTY. THIS CARNEGIE MELLON UNIVERSITY AND SOFTWARE ENGINEERING INSTITUTE\n * MATERIAL IS FURNISHED ON AN \"AS-IS\" BASIS. CARNEGIE MELLON UNIVERSITY MAKES NO\n * WARRANTIES OF ANY KIND, EITHER EXPRESSED OR IMPLIED, AS TO ANY MATTER INCLUDING,\n * BUT NOT LIMITED TO, WARRANTY OF FITNESS FOR PURPOSE OR MERCHANTABILITY,\n * EXCLUSIVITY, OR RESULTS OBTAINED FROM USE OF THE MATERIAL. CARNEGIE MELLON\n * UNIVERSITY DOES NOT MAKE ANY WARRANTY OF ANY KIND WITH RESPECT TO FREEDOM FROM\n * PATENT, TRADEMARK, OR COPYRIGHT INFRINGEMENT.\n *\n * Released under the Eclipse Public License (http://www.eclipse.org/org/documents/epl-v10.php)\n *\n * See COPYRIGHT file for full details.\n */"
-var copyrightText = "Copyright 2015 Carnegie Mellon University. All Rights Reserved.\n\nNO WARRANTY. THIS CARNEGIE MELLON UNIVERSITY AND SOFTWARE ENGINEERING INSTITUTE\nMATERIAL IS FURNISHED ON AN \"AS-IS\" BASIS. CARNEGIE MELLON UNIVERSITY MAKES NO\nWARRANTIES OF ANY KIND, EITHER EXPRESSED OR IMPLIED, AS TO ANY MATTER INCLUDING,\nBUT NOT LIMITED TO, WARRANTY OF FITNESS FOR PURPOSE OR MERCHANTABILITY,\nEXCLUSIVITY, OR RESULTS OBTAINED FROM USE OF THE MATERIAL. CARNEGIE MELLON\nUNIVERSITY DOES NOT MAKE ANY WARRANTY OF ANY KIND WITH RESPECT TO FREEDOM FROM\nPATENT, TRADEMARK, OR COPYRIGHT INFRINGEMENT.\n\nReleased under the Eclipse Public License (http://www.eclipse.org/org/documents/epl-v10.php)\n\nSee COPYRIGHT file for full details.\n"
+var fileHeader =
+"/**\n * Copyright 2015 Carnegie Mellon University. All Rights Reserved.\n *\n * NO WARRANTY. THIS CARNEGIE MELLON UNIVERSITY AND SOFTWARE ENGINEERING INSTITUTE\n * MATERIAL IS FURNISHED ON AN \"AS-IS\" BASIS. CARNEGIE MELLON UNIVERSITY MAKES NO\n * WARRANTIES OF ANY KIND, EITHER EXPRESSED OR IMPLIED, AS TO ANY MATTER INCLUDING,\n * BUT NOT LIMITED TO, WARRANTY OF FITNESS FOR PURPOSE OR MERCHANTABILITY,\n * EXCLUSIVITY, OR RESULTS OBTAINED FROM USE OF THE MATERIAL. CARNEGIE MELLON\n * UNIVERSITY DOES NOT MAKE ANY WARRANTY OF ANY KIND WITH RESPECT TO FREEDOM FROM\n * PATENT, TRADEMARK, OR COPYRIGHT INFRINGEMENT.\n *\n * Released under the Eclipse Public License (http://www.eclipse.org/org/documents/epl-v10.php)\n *\n * See COPYRIGHT file for full details.\n */"
+var copyrightText =
+"Copyright 2015 Carnegie Mellon University. All Rights Reserved.\n\nNO WARRANTY. THIS CARNEGIE MELLON UNIVERSITY AND SOFTWARE ENGINEERING INSTITUTE\nMATERIAL IS FURNISHED ON AN \"AS-IS\" BASIS. CARNEGIE MELLON UNIVERSITY MAKES NO\nWARRANTIES OF ANY KIND, EITHER EXPRESSED OR IMPLIED, AS TO ANY MATTER INCLUDING,\nBUT NOT LIMITED TO, WARRANTY OF FITNESS FOR PURPOSE OR MERCHANTABILITY,\nEXCLUSIVITY, OR RESULTS OBTAINED FROM USE OF THE MATERIAL. CARNEGIE MELLON\nUNIVERSITY DOES NOT MAKE ANY WARRANTY OF ANY KIND WITH RESPECT TO FREEDOM FROM\nPATENT, TRADEMARK, OR COPYRIGHT INFRINGEMENT.\n\nReleased under the Eclipse Public License (http://www.eclipse.org/org/documents/epl-v10.php)\n\nSee COPYRIGHT file for full details.\n"
 
 Workflow {
 	bean = StandaloneSetup {
@@ -73,13 +74,6 @@ Workflow {
 			from = "platform:/plugin/org.eclipse.uml2.uml/model/UML.ecore"
 			to = "platform:/resource/org.eclipse.uml2.uml/model/UML.ecore"
 		}
-		uriMap = {
-			from = "platform:/plugin/org.eclipse.xtext.xbase/model/Xbase.genmodel"
-			to = "platform:/resource/org.eclipse.xtext.xbase/model/Xbase.genmodel"
-		}
-		// The following two lines can be removed, if Xbase is not used.
-		registerGeneratedEPackage = "org.eclipse.xtext.xbase.XbasePackage"
-		registerGenModelFile = "platform:/resource/org.eclipse.xtext.xbase/model/Xbase.genmodel"
 		registerGeneratedEPackage = "org.eclipse.emf.ecore.EcorePackage"
 		registerGeneratedEPackage = "org.eclipse.uml2.types.TypesPackage"
 		registerGeneratedEPackage = "org.eclipse.uml2.uml.UMLPackage"
@@ -112,7 +106,7 @@ Workflow {
 		directory = "${runtimeProject}.tests/src-gen"
 	}
 
-	component = Generator auto-inject {
+	component = Generator {
 		pathRtProject = runtimeProject
 		pathUiProject = "${runtimeProject}.ui"
 		pathTestProject = "${runtimeProject}.tests"
@@ -191,15 +185,6 @@ Workflow {
 
 			// rename refactoring
 			fragment = refactoring.RefactorElementNameFragment auto-inject {}
-
-			// provides the necessary bindings for java types integration
-			fragment = types.TypesGeneratorFragment auto-inject {}
-
-			// generates the required bindings only if the grammar inherits from Xbase
-			fragment = xbase.XbaseGeneratorFragment auto-inject {}
-
-			// generates the required bindings only if the grammar inherits from Xtype
-			fragment = xbase.XtypeGeneratorFragment auto-inject {}
 
 			// provides a preference page for template proposals
 			fragment = templates.CodetemplatesGeneratorFragment auto-inject {}

@@ -6,6 +6,8 @@ import org.eclipse.emf.common.util.EList;
 
 import org.eclipse.emf.ecore.EObject;
 
+import org.osate.alisa.common.common.Description;
+
 import org.osate.categories.categories.Category;
 
 /**

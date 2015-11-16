@@ -10,13 +10,17 @@ import org.eclipse.emf.ecore.EcorePackage;
 
 import org.eclipse.emf.ecore.impl.EPackageImpl;
 
-import org.eclipse.xtext.common.types.TypesPackage;
-
-import org.eclipse.xtext.xbase.XbasePackage;
-
 import org.osate.aadl2.Aadl2Package;
 
+import org.osate.alisa.common.common.ABinaryOperation;
+import org.osate.alisa.common.common.AExpression;
+import org.osate.alisa.common.common.AListTerm;
+import org.osate.alisa.common.common.ANullLiteral;
 import org.osate.alisa.common.common.APropertyReference;
+import org.osate.alisa.common.common.ASetLiteral;
+import org.osate.alisa.common.common.AUnaryOperation;
+import org.osate.alisa.common.common.AVariableDeclaration;
+import org.osate.alisa.common.common.AVariableReference;
 import org.osate.alisa.common.common.CommonFactory;
 import org.osate.alisa.common.common.CommonPackage;
 import org.osate.alisa.common.common.ComputeDeclaration;
@@ -26,7 +30,7 @@ import org.osate.alisa.common.common.ImageReference;
 import org.osate.alisa.common.common.Rationale;
 import org.osate.alisa.common.common.ShowValue;
 import org.osate.alisa.common.common.Uncertainty;
-import org.osate.alisa.common.common.XNumberLiteralUnit;
+import org.osate.alisa.common.common.ValDeclaration;
 
 /**
  * <!-- begin-user-doc -->
@@ -69,6 +73,20 @@ public class CommonPackageImpl extends EPackageImpl implements CommonPackage
    * <!-- end-user-doc -->
    * @generated
    */
+  private EClass aVariableDeclarationEClass = null;
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  private EClass aExpressionEClass = null;
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
   private EClass showValueEClass = null;
 
   /**
@@ -77,6 +95,13 @@ public class CommonPackageImpl extends EPackageImpl implements CommonPackage
    * @generated
    */
   private EClass imageReferenceEClass = null;
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  private EClass valDeclarationEClass = null;
 
   /**
    * <!-- begin-user-doc -->
@@ -97,7 +122,42 @@ public class CommonPackageImpl extends EPackageImpl implements CommonPackage
    * <!-- end-user-doc -->
    * @generated
    */
-  private EClass xNumberLiteralUnitEClass = null;
+  private EClass aVariableReferenceEClass = null;
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  private EClass aBinaryOperationEClass = null;
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  private EClass aUnaryOperationEClass = null;
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  private EClass aSetLiteralEClass = null;
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  private EClass aListTermEClass = null;
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  private EClass aNullLiteralEClass = null;
 
   /**
    * Creates an instance of the model <b>Package</b>, registered with
@@ -148,7 +208,6 @@ public class CommonPackageImpl extends EPackageImpl implements CommonPackage
     isInited = true;
 
     // Initialize simple dependencies
-    XbasePackage.eINSTANCE.eClass();
     Aadl2Package.eINSTANCE.eClass();
 
     // Create package meta-data objects
@@ -341,6 +400,46 @@ public class CommonPackageImpl extends EPackageImpl implements CommonPackage
    * <!-- end-user-doc -->
    * @generated
    */
+  public EClass getAVariableDeclaration()
+  {
+    return aVariableDeclarationEClass;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EAttribute getAVariableDeclaration_Type()
+  {
+    return (EAttribute)aVariableDeclarationEClass.getEStructuralFeatures().get(0);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EAttribute getAVariableDeclaration_Name()
+  {
+    return (EAttribute)aVariableDeclarationEClass.getEStructuralFeatures().get(1);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EClass getAExpression()
+  {
+    return aExpressionEClass;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
   public EClass getShowValue()
   {
     return showValueEClass;
@@ -391,29 +490,29 @@ public class CommonPackageImpl extends EPackageImpl implements CommonPackage
    * <!-- end-user-doc -->
    * @generated
    */
+  public EClass getValDeclaration()
+  {
+    return valDeclarationEClass;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EReference getValDeclaration_Right()
+  {
+    return (EReference)valDeclarationEClass.getEStructuralFeatures().get(0);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
   public EClass getComputeDeclaration()
   {
     return computeDeclarationEClass;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public EReference getComputeDeclaration_Type()
-  {
-    return (EReference)computeDeclarationEClass.getEStructuralFeatures().get(0);
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public EAttribute getComputeDeclaration_Name()
-  {
-    return (EAttribute)computeDeclarationEClass.getEStructuralFeatures().get(1);
   }
 
   /**
@@ -441,9 +540,9 @@ public class CommonPackageImpl extends EPackageImpl implements CommonPackage
    * <!-- end-user-doc -->
    * @generated
    */
-  public EClass getXNumberLiteralUnit()
+  public EClass getAVariableReference()
   {
-    return xNumberLiteralUnitEClass;
+    return aVariableReferenceEClass;
   }
 
   /**
@@ -451,9 +550,129 @@ public class CommonPackageImpl extends EPackageImpl implements CommonPackage
    * <!-- end-user-doc -->
    * @generated
    */
-  public EReference getXNumberLiteralUnit_Unit()
+  public EReference getAVariableReference_Variable()
   {
-    return (EReference)xNumberLiteralUnitEClass.getEStructuralFeatures().get(0);
+    return (EReference)aVariableReferenceEClass.getEStructuralFeatures().get(0);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EClass getABinaryOperation()
+  {
+    return aBinaryOperationEClass;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EReference getABinaryOperation_LeftOperand()
+  {
+    return (EReference)aBinaryOperationEClass.getEStructuralFeatures().get(0);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EAttribute getABinaryOperation_Feature()
+  {
+    return (EAttribute)aBinaryOperationEClass.getEStructuralFeatures().get(1);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EReference getABinaryOperation_RightOperand()
+  {
+    return (EReference)aBinaryOperationEClass.getEStructuralFeatures().get(2);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EClass getAUnaryOperation()
+  {
+    return aUnaryOperationEClass;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EAttribute getAUnaryOperation_Feature()
+  {
+    return (EAttribute)aUnaryOperationEClass.getEStructuralFeatures().get(0);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EReference getAUnaryOperation_Operand()
+  {
+    return (EReference)aUnaryOperationEClass.getEStructuralFeatures().get(1);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EClass getASetLiteral()
+  {
+    return aSetLiteralEClass;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EReference getASetLiteral_Elements()
+  {
+    return (EReference)aSetLiteralEClass.getEStructuralFeatures().get(0);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EClass getAListTerm()
+  {
+    return aListTermEClass;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EReference getAListTerm_Elements()
+  {
+    return (EReference)aListTermEClass.getEStructuralFeatures().get(0);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EClass getANullLiteral()
+  {
+    return aNullLiteralEClass;
   }
 
   /**
@@ -507,6 +726,12 @@ public class CommonPackageImpl extends EPackageImpl implements CommonPackage
     createEAttribute(uncertaintyEClass, UNCERTAINTY__RISKINDEX);
     createEAttribute(uncertaintyEClass, UNCERTAINTY__MATURITYINDEX);
 
+    aVariableDeclarationEClass = createEClass(AVARIABLE_DECLARATION);
+    createEAttribute(aVariableDeclarationEClass, AVARIABLE_DECLARATION__TYPE);
+    createEAttribute(aVariableDeclarationEClass, AVARIABLE_DECLARATION__NAME);
+
+    aExpressionEClass = createEClass(AEXPRESSION);
+
     showValueEClass = createEClass(SHOW_VALUE);
     createEReference(showValueEClass, SHOW_VALUE__REF);
     createEReference(showValueEClass, SHOW_VALUE__UNIT);
@@ -514,15 +739,33 @@ public class CommonPackageImpl extends EPackageImpl implements CommonPackage
     imageReferenceEClass = createEClass(IMAGE_REFERENCE);
     createEAttribute(imageReferenceEClass, IMAGE_REFERENCE__IMGFILE);
 
+    valDeclarationEClass = createEClass(VAL_DECLARATION);
+    createEReference(valDeclarationEClass, VAL_DECLARATION__RIGHT);
+
     computeDeclarationEClass = createEClass(COMPUTE_DECLARATION);
-    createEReference(computeDeclarationEClass, COMPUTE_DECLARATION__TYPE);
-    createEAttribute(computeDeclarationEClass, COMPUTE_DECLARATION__NAME);
 
     aPropertyReferenceEClass = createEClass(APROPERTY_REFERENCE);
     createEReference(aPropertyReferenceEClass, APROPERTY_REFERENCE__PROPERTY);
 
-    xNumberLiteralUnitEClass = createEClass(XNUMBER_LITERAL_UNIT);
-    createEReference(xNumberLiteralUnitEClass, XNUMBER_LITERAL_UNIT__UNIT);
+    aVariableReferenceEClass = createEClass(AVARIABLE_REFERENCE);
+    createEReference(aVariableReferenceEClass, AVARIABLE_REFERENCE__VARIABLE);
+
+    aBinaryOperationEClass = createEClass(ABINARY_OPERATION);
+    createEReference(aBinaryOperationEClass, ABINARY_OPERATION__LEFT_OPERAND);
+    createEAttribute(aBinaryOperationEClass, ABINARY_OPERATION__FEATURE);
+    createEReference(aBinaryOperationEClass, ABINARY_OPERATION__RIGHT_OPERAND);
+
+    aUnaryOperationEClass = createEClass(AUNARY_OPERATION);
+    createEAttribute(aUnaryOperationEClass, AUNARY_OPERATION__FEATURE);
+    createEReference(aUnaryOperationEClass, AUNARY_OPERATION__OPERAND);
+
+    aSetLiteralEClass = createEClass(ASET_LITERAL);
+    createEReference(aSetLiteralEClass, ASET_LITERAL__ELEMENTS);
+
+    aListTermEClass = createEClass(ALIST_TERM);
+    createEReference(aListTermEClass, ALIST_TERM__ELEMENTS);
+
+    aNullLiteralEClass = createEClass(ANULL_LITERAL);
   }
 
   /**
@@ -551,18 +794,23 @@ public class CommonPackageImpl extends EPackageImpl implements CommonPackage
 
     // Obtain other dependent packages
     EcorePackage theEcorePackage = (EcorePackage)EPackage.Registry.INSTANCE.getEPackage(EcorePackage.eNS_URI);
-    XbasePackage theXbasePackage = (XbasePackage)EPackage.Registry.INSTANCE.getEPackage(XbasePackage.eNS_URI);
     Aadl2Package theAadl2Package = (Aadl2Package)EPackage.Registry.INSTANCE.getEPackage(Aadl2Package.eNS_URI);
-    TypesPackage theTypesPackage = (TypesPackage)EPackage.Registry.INSTANCE.getEPackage(TypesPackage.eNS_URI);
 
     // Create type parameters
 
     // Set bounds for type parameters
 
     // Add supertypes to classes
-    computeDeclarationEClass.getESuperTypes().add(theXbasePackage.getXExpression());
-    aPropertyReferenceEClass.getESuperTypes().add(theXbasePackage.getXExpression());
-    xNumberLiteralUnitEClass.getESuperTypes().add(theXbasePackage.getXNumberLiteral());
+    aExpressionEClass.getESuperTypes().add(theAadl2Package.getPropertyExpression());
+    valDeclarationEClass.getESuperTypes().add(this.getAVariableDeclaration());
+    computeDeclarationEClass.getESuperTypes().add(this.getAVariableDeclaration());
+    aPropertyReferenceEClass.getESuperTypes().add(this.getAExpression());
+    aVariableReferenceEClass.getESuperTypes().add(this.getAExpression());
+    aBinaryOperationEClass.getESuperTypes().add(theAadl2Package.getPropertyExpression());
+    aUnaryOperationEClass.getESuperTypes().add(theAadl2Package.getPropertyExpression());
+    aSetLiteralEClass.getESuperTypes().add(theAadl2Package.getPropertyExpression());
+    aListTermEClass.getESuperTypes().add(theAadl2Package.getPropertyExpression());
+    aNullLiteralEClass.getESuperTypes().add(theAadl2Package.getPropertyExpression());
 
     // Initialize classes and features; add operations and parameters
     initEClass(descriptionEClass, Description.class, "Description", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
@@ -586,22 +834,46 @@ public class CommonPackageImpl extends EPackageImpl implements CommonPackage
     initEAttribute(getUncertainty_Riskindex(), theEcorePackage.getEString(), "riskindex", null, 0, 1, Uncertainty.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEAttribute(getUncertainty_Maturityindex(), theEcorePackage.getEString(), "maturityindex", null, 0, 1, Uncertainty.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
+    initEClass(aVariableDeclarationEClass, AVariableDeclaration.class, "AVariableDeclaration", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+    initEAttribute(getAVariableDeclaration_Type(), theEcorePackage.getEString(), "type", null, 0, 1, AVariableDeclaration.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEAttribute(getAVariableDeclaration_Name(), theEcorePackage.getEString(), "name", null, 0, 1, AVariableDeclaration.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+    initEClass(aExpressionEClass, AExpression.class, "AExpression", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+
     initEClass(showValueEClass, ShowValue.class, "ShowValue", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-    initEReference(getShowValue_Ref(), theXbasePackage.getXVariableDeclaration(), null, "ref", null, 0, 1, ShowValue.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEReference(getShowValue_Ref(), this.getAVariableDeclaration(), null, "ref", null, 0, 1, ShowValue.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEReference(getShowValue_Unit(), theAadl2Package.getUnitLiteral(), null, "unit", null, 0, 1, ShowValue.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
     initEClass(imageReferenceEClass, ImageReference.class, "ImageReference", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
     initEAttribute(getImageReference_Imgfile(), theEcorePackage.getEString(), "imgfile", null, 0, 1, ImageReference.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
+    initEClass(valDeclarationEClass, ValDeclaration.class, "ValDeclaration", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+    initEReference(getValDeclaration_Right(), theAadl2Package.getPropertyExpression(), null, "right", null, 0, 1, ValDeclaration.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
     initEClass(computeDeclarationEClass, ComputeDeclaration.class, "ComputeDeclaration", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-    initEReference(getComputeDeclaration_Type(), theTypesPackage.getJvmTypeReference(), null, "type", null, 0, 1, ComputeDeclaration.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-    initEAttribute(getComputeDeclaration_Name(), theEcorePackage.getEString(), "name", null, 0, 1, ComputeDeclaration.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
     initEClass(aPropertyReferenceEClass, APropertyReference.class, "APropertyReference", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-    initEReference(getAPropertyReference_Property(), theAadl2Package.getProperty(), null, "property", null, 0, 1, APropertyReference.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEReference(getAPropertyReference_Property(), theAadl2Package.getAbstractNamedValue(), null, "property", null, 0, 1, APropertyReference.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
-    initEClass(xNumberLiteralUnitEClass, XNumberLiteralUnit.class, "XNumberLiteralUnit", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-    initEReference(getXNumberLiteralUnit_Unit(), theAadl2Package.getUnitLiteral(), null, "unit", null, 0, 1, XNumberLiteralUnit.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEClass(aVariableReferenceEClass, AVariableReference.class, "AVariableReference", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+    initEReference(getAVariableReference_Variable(), this.getAVariableDeclaration(), null, "variable", null, 0, 1, AVariableReference.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+    initEClass(aBinaryOperationEClass, ABinaryOperation.class, "ABinaryOperation", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+    initEReference(getABinaryOperation_LeftOperand(), theAadl2Package.getPropertyExpression(), null, "leftOperand", null, 0, 1, ABinaryOperation.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEAttribute(getABinaryOperation_Feature(), theEcorePackage.getEString(), "feature", null, 0, 1, ABinaryOperation.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEReference(getABinaryOperation_RightOperand(), theAadl2Package.getPropertyExpression(), null, "rightOperand", null, 0, 1, ABinaryOperation.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+    initEClass(aUnaryOperationEClass, AUnaryOperation.class, "AUnaryOperation", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+    initEAttribute(getAUnaryOperation_Feature(), theEcorePackage.getEString(), "feature", null, 0, 1, AUnaryOperation.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEReference(getAUnaryOperation_Operand(), theAadl2Package.getPropertyExpression(), null, "operand", null, 0, 1, AUnaryOperation.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+    initEClass(aSetLiteralEClass, ASetLiteral.class, "ASetLiteral", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+    initEReference(getASetLiteral_Elements(), theAadl2Package.getPropertyExpression(), null, "elements", null, 0, -1, ASetLiteral.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+    initEClass(aListTermEClass, AListTerm.class, "AListTerm", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+    initEReference(getAListTerm_Elements(), theAadl2Package.getPropertyExpression(), null, "elements", null, 0, -1, AListTerm.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+    initEClass(aNullLiteralEClass, ANullLiteral.class, "ANullLiteral", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 
     // Create resource
     createResource(eNS_URI);

@@ -6,7 +6,7 @@ import org.eclipse.emf.common.util.EList;
 
 import org.eclipse.emf.ecore.EObject;
 
-import org.eclipse.xtext.xbase.XExpression;
+import org.osate.alisa.common.common.AVariableDeclaration;
 
 import org.osate.organization.organization.Stakeholder;
 
@@ -38,7 +38,7 @@ public interface Requirement extends ContractualElement
 {
   /**
    * Returns the value of the '<em><b>Computes</b></em>' containment reference list.
-   * The list contents are of type {@link org.eclipse.xtext.xbase.XExpression}.
+   * The list contents are of type {@link org.osate.alisa.common.common.AVariableDeclaration}.
    * <!-- begin-user-doc -->
    * <p>
    * If the meaning of the '<em>Computes</em>' containment reference list isn't clear,
@@ -50,7 +50,7 @@ public interface Requirement extends ContractualElement
    * @model containment="true"
    * @generated
    */
-  EList<XExpression> getComputes();
+  EList<AVariableDeclaration> getComputes();
 
   /**
    * Returns the value of the '<em><b>Predicate</b></em>' containment reference.

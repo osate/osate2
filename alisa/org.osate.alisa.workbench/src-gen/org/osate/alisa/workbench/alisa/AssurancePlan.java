@@ -9,6 +9,8 @@ import org.eclipse.emf.ecore.EObject;
 import org.osate.aadl2.ComponentClassifier;
 import org.osate.aadl2.ComponentImplementation;
 
+import org.osate.alisa.common.common.Description;
+
 import org.osate.verify.verify.VerificationPlan;
 
 /**

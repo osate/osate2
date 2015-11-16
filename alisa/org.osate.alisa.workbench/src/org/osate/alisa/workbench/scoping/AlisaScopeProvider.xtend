@@ -3,16 +3,7 @@
  */
 package org.osate.alisa.workbench.scoping
 
-import com.google.inject.Inject
-import org.eclipse.emf.ecore.EReference
-import org.eclipse.xtext.naming.QualifiedName
-import org.eclipse.xtext.scoping.IScope
-import org.eclipse.xtext.scoping.Scopes
 import org.eclipse.xtext.scoping.impl.AbstractDeclarativeScopeProvider
-import org.eclipse.xtext.scoping.impl.SimpleScope
-import org.eclipse.xtext.util.SimpleAttributeResolver
-import org.osate.alisa.workbench.alisa.AssurancePlan
-import org.osate.verify.util.IVerifyGlobalReferenceFinder
 
 /**
  * This class contains custom scoping description.

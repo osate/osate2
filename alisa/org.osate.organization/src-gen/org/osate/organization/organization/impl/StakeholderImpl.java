@@ -19,6 +19,7 @@ import org.osate.organization.organization.Stakeholder;
  * <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
+ * </p>
  * <ul>
  *   <li>{@link org.osate.organization.organization.impl.StakeholderImpl#getName <em>Name</em>}</li>
  *   <li>{@link org.osate.organization.organization.impl.StakeholderImpl#getFullname <em>Fullname</em>}</li>
@@ -29,7 +30,6 @@ import org.osate.organization.organization.Stakeholder;
  *   <li>{@link org.osate.organization.organization.impl.StakeholderImpl#getPhone <em>Phone</em>}</li>
  *   <li>{@link org.osate.organization.organization.impl.StakeholderImpl#getSupervisor <em>Supervisor</em>}</li>
  * </ul>
- * </p>
  *
  * @generated
  */

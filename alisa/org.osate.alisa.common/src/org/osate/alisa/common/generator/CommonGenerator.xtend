@@ -7,7 +7,6 @@ import org.eclipse.emf.ecore.resource.Resource
 import org.eclipse.xtext.generator.IGenerator
 import org.eclipse.xtext.generator.IFileSystemAccess
 import com.google.inject.Inject
-import org.eclipse.xtext.xbase.compiler.XbaseCompiler
 
 /**
  * Generates code from your model files on save.
@@ -15,8 +14,6 @@ import org.eclipse.xtext.xbase.compiler.XbaseCompiler
  * see http://www.eclipse.org/Xtext/documentation.html#TutorialCodeGeneration
  */
 class CommonGenerator implements IGenerator {
-	
-	@Inject XbaseCompiler xbaseCompiler
 	
 	
 	override void doGenerate(Resource resource, IFileSystemAccess fsa) {

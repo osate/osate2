@@ -11,10 +11,9 @@ import org.eclipse.emf.ecore.InternalEObject;
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.eclipse.emf.ecore.impl.MinimalEObjectImpl;
 
-import org.eclipse.xtext.xbase.XVariableDeclaration;
-
 import org.osate.aadl2.UnitLiteral;
 
+import org.osate.alisa.common.common.AVariableDeclaration;
 import org.osate.alisa.common.common.CommonPackage;
 import org.osate.alisa.common.common.ShowValue;
 
@@ -42,7 +41,7 @@ public class ShowValueImpl extends MinimalEObjectImpl.Container implements ShowV
    * @generated
    * @ordered
    */
-  protected XVariableDeclaration ref;
+  protected AVariableDeclaration ref;
 
   /**
    * The cached value of the '{@link #getUnit() <em>Unit</em>}' reference.
@@ -80,12 +79,12 @@ public class ShowValueImpl extends MinimalEObjectImpl.Container implements ShowV
    * <!-- end-user-doc -->
    * @generated
    */
-  public XVariableDeclaration getRef()
+  public AVariableDeclaration getRef()
   {
     if (ref != null && ref.eIsProxy())
     {
       InternalEObject oldRef = (InternalEObject)ref;
-      ref = (XVariableDeclaration)eResolveProxy(oldRef);
+      ref = (AVariableDeclaration)eResolveProxy(oldRef);
       if (ref != oldRef)
       {
         if (eNotificationRequired())
@@ -100,7 +99,7 @@ public class ShowValueImpl extends MinimalEObjectImpl.Container implements ShowV
    * <!-- end-user-doc -->
    * @generated
    */
-  public XVariableDeclaration basicGetRef()
+  public AVariableDeclaration basicGetRef()
   {
     return ref;
   }
@@ -110,9 +109,9 @@ public class ShowValueImpl extends MinimalEObjectImpl.Container implements ShowV
    * <!-- end-user-doc -->
    * @generated
    */
-  public void setRef(XVariableDeclaration newRef)
+  public void setRef(AVariableDeclaration newRef)
   {
-    XVariableDeclaration oldRef = ref;
+    AVariableDeclaration oldRef = ref;
     ref = newRef;
     if (eNotificationRequired())
       eNotify(new ENotificationImpl(this, Notification.SET, CommonPackage.SHOW_VALUE__REF, oldRef, ref));
@@ -192,7 +191,7 @@ public class ShowValueImpl extends MinimalEObjectImpl.Container implements ShowV
     switch (featureID)
     {
       case CommonPackage.SHOW_VALUE__REF:
-        setRef((XVariableDeclaration)newValue);
+        setRef((AVariableDeclaration)newValue);
         return;
       case CommonPackage.SHOW_VALUE__UNIT:
         setUnit((UnitLiteral)newValue);
@@ -212,7 +211,7 @@ public class ShowValueImpl extends MinimalEObjectImpl.Container implements ShowV
     switch (featureID)
     {
       case CommonPackage.SHOW_VALUE__REF:
-        setRef((XVariableDeclaration)null);
+        setRef((AVariableDeclaration)null);
         return;
       case CommonPackage.SHOW_VALUE__UNIT:
         setUnit((UnitLiteral)null);

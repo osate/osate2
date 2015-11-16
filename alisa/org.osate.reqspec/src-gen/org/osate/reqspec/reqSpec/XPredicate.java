@@ -2,7 +2,7 @@
  */
 package org.osate.reqspec.reqSpec;
 
-import org.eclipse.xtext.xbase.XExpression;
+import org.osate.aadl2.PropertyExpression;
 
 /**
  * <!-- begin-user-doc -->
@@ -31,12 +31,12 @@ public interface XPredicate extends ReqPredicate
    * </p>
    * <!-- end-user-doc -->
    * @return the value of the '<em>Xpression</em>' containment reference.
-   * @see #setXpression(XExpression)
+   * @see #setXpression(PropertyExpression)
    * @see org.osate.reqspec.reqSpec.ReqSpecPackage#getXPredicate_Xpression()
    * @model containment="true"
    * @generated
    */
-  XExpression getXpression();
+  PropertyExpression getXpression();
 
   /**
    * Sets the value of the '{@link org.osate.reqspec.reqSpec.XPredicate#getXpression <em>Xpression</em>}' containment reference.
@@ -46,6 +46,6 @@ public interface XPredicate extends ReqPredicate
    * @see #getXpression()
    * @generated
    */
-  void setXpression(XExpression value);
+  void setXpression(PropertyExpression value);
 
 } // XPredicate

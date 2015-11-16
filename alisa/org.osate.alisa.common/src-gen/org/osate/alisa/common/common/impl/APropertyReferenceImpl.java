@@ -10,9 +10,7 @@ import org.eclipse.emf.ecore.InternalEObject;
 
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 
-import org.eclipse.xtext.xbase.impl.XExpressionImpl;
-
-import org.osate.aadl2.Property;
+import org.osate.aadl2.AbstractNamedValue;
 
 import org.osate.alisa.common.common.APropertyReference;
 import org.osate.alisa.common.common.CommonPackage;
@@ -30,7 +28,7 @@ import org.osate.alisa.common.common.CommonPackage;
  *
  * @generated
  */
-public class APropertyReferenceImpl extends XExpressionImpl implements APropertyReference
+public class APropertyReferenceImpl extends AExpressionImpl implements APropertyReference
 {
   /**
    * The cached value of the '{@link #getProperty() <em>Property</em>}' reference.
@@ -40,7 +38,7 @@ public class APropertyReferenceImpl extends XExpressionImpl implements AProperty
    * @generated
    * @ordered
    */
-  protected Property property;
+  protected AbstractNamedValue property;
 
   /**
    * <!-- begin-user-doc -->
@@ -68,12 +66,12 @@ public class APropertyReferenceImpl extends XExpressionImpl implements AProperty
    * <!-- end-user-doc -->
    * @generated
    */
-  public Property getProperty()
+  public AbstractNamedValue getProperty()
   {
     if (property != null && ((EObject)property).eIsProxy())
     {
       InternalEObject oldProperty = (InternalEObject)property;
-      property = (Property)eResolveProxy(oldProperty);
+      property = (AbstractNamedValue)eResolveProxy(oldProperty);
       if (property != oldProperty)
       {
         if (eNotificationRequired())
@@ -88,7 +86,7 @@ public class APropertyReferenceImpl extends XExpressionImpl implements AProperty
    * <!-- end-user-doc -->
    * @generated
    */
-  public Property basicGetProperty()
+  public AbstractNamedValue basicGetProperty()
   {
     return property;
   }
@@ -98,9 +96,9 @@ public class APropertyReferenceImpl extends XExpressionImpl implements AProperty
    * <!-- end-user-doc -->
    * @generated
    */
-  public void setProperty(Property newProperty)
+  public void setProperty(AbstractNamedValue newProperty)
   {
-    Property oldProperty = property;
+    AbstractNamedValue oldProperty = property;
     property = newProperty;
     if (eNotificationRequired())
       eNotify(new ENotificationImpl(this, Notification.SET, CommonPackage.APROPERTY_REFERENCE__PROPERTY, oldProperty, property));
@@ -134,7 +132,7 @@ public class APropertyReferenceImpl extends XExpressionImpl implements AProperty
     switch (featureID)
     {
       case CommonPackage.APROPERTY_REFERENCE__PROPERTY:
-        setProperty((Property)newValue);
+        setProperty((AbstractNamedValue)newValue);
         return;
     }
     super.eSet(featureID, newValue);
@@ -151,7 +149,7 @@ public class APropertyReferenceImpl extends XExpressionImpl implements AProperty
     switch (featureID)
     {
       case CommonPackage.APROPERTY_REFERENCE__PROPERTY:
-        setProperty((Property)null);
+        setProperty((AbstractNamedValue)null);
         return;
     }
     super.eUnset(featureID);

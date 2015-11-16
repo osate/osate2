@@ -1,7 +1,6 @@
 package org.osate.assure.evaluator
 
 import com.google.inject.ImplementedBy
-import com.google.inject.Inject
 import com.rockwellcollins.atc.resolute.analysis.execution.EvaluationContext
 import com.rockwellcollins.atc.resolute.analysis.execution.ResoluteInterpreter
 import com.rockwellcollins.atc.resolute.analysis.results.ClaimResult
@@ -9,21 +8,12 @@ import com.rockwellcollins.atc.resolute.resolute.FnCallExpr
 import com.rockwellcollins.atc.resolute.resolute.ProveStatement
 import com.rockwellcollins.atc.resolute.resolute.ResoluteFactory
 import org.eclipse.core.runtime.IProgressMonitor
-import org.eclipse.xtext.common.types.JvmFormalParameter
-import org.eclipse.xtext.common.types.JvmType
-import org.eclipse.xtext.naming.QualifiedName
-import org.eclipse.xtext.util.CancelIndicator
-import org.eclipse.xtext.xbase.XVariableDeclaration
-import org.eclipse.xtext.xbase.interpreter.IEvaluationResult
-import org.eclipse.xtext.xbase.interpreter.impl.DefaultEvaluationContext
-import org.eclipse.xtext.xbase.interpreter.impl.XbaseInterpreter
 import org.osate.aadl2.Aadl2Factory
-import org.osate.aadl2.ComponentClassifier
 import org.osate.aadl2.instance.ComponentInstance
 import org.osate.aadl2.instance.InstanceObject
 import org.osate.aadl2.util.OsateDebug
 import org.osate.alisa.common.common.ComputeDeclaration
-import org.osate.alisa.common.common.XNumberLiteralUnit
+import org.osate.alisa.common.common.ValDeclaration
 import org.osate.assure.assure.AssuranceCase
 import org.osate.assure.assure.AssureFactory
 import org.osate.assure.assure.ElseResult
@@ -37,17 +27,27 @@ import org.osate.assure.assure.VerificationResult
 import org.osate.assure.util.AssureUtilExtension
 import org.osate.results.results.ResultReport
 import org.osate.verify.util.VerificationMethodDispatchers
+import org.osate.verify.verify.FormalParameter
 import org.osate.verify.verify.JavaMethod
 import org.osate.verify.verify.ManualMethod
 import org.osate.verify.verify.PluginMethod
 import org.osate.verify.verify.ResoluteMethod
 import org.osate.verify.verify.VerificationActivity
 import org.osate.verify.verify.VerificationMethod
+import org.osate.xtext.aadl2.properties.util.PropertyUtils
 
 import static extension org.osate.alisa.common.util.CommonUtilExtension.*
 import static extension org.osate.assure.util.AssureUtilExtension.*
-import org.osate.xtext.aadl2.properties.util.PropertyUtils
-import org.osate.xtext.aadl2.properties.util.GetProperties
+import org.osate.aadl2.NumberValue
+import org.osate.alisa.common.common.AVariableReference
+import org.osate.aadl2.IntegerLiteral
+import org.osate.aadl2.RealLiteral
+import org.osate.aadl2.StringLiteral
+import org.osate.aadl2.BooleanLiteral
+import org.eclipse.emf.common.util.BasicEList
+import org.eclipse.emf.ecore.EObject
+import org.eclipse.emf.common.util.EList
+import org.osate.aadl2.operations.NumberValueOperations
 
 @ImplementedBy(AssureProcessor)
 interface IAssureProcessor {
@@ -61,15 +61,6 @@ interface IAssureProcessor {
  * It assumes the counts are ok
  */
 class AssureProcessor implements IAssureProcessor {
-
-	/**
-	 * See the following documentation
-	 * http://www.rcp-vision.com/1640/xtext-2-1-using-xbase-expressions/
-	 * http://www.rcp-vision.com/1796/xtext-2-1-using-xbase-variables/
-	 * about how to use the compiler
-	 */
-//	@Inject XbaseCompiler xbaseCompiler
-	@Inject XbaseInterpreter xbaseInterpreter
 
 	var IProgressMonitor progressmonitor
 
@@ -148,17 +139,17 @@ class AssureProcessor implements IAssureProcessor {
 		val method = verificationResult.method;
 		var Object res = null
 		val targetElement = verificationResult.targetElement
-		var instanceroot = verificationResult.assuranceCaseInstanceModel //verificationResult.verificationActivityInstanceModel // get instance model from VA for clause
+		var instanceroot = verificationResult.assuranceCaseInstanceModel // verificationResult.verificationActivityInstanceModel // get instance model from VA for clause
 		if (instanceroot == null) {
 			setToError(verificationResult, "Could not find instance model", null)
 			return
 		}
 		var ComponentInstance targetComponent = instanceroot
-			targetComponent = findTargetSystemComponentInstance(instanceroot, verificationResult.enclosingAssuranceCase)
-			if (targetComponent == null) {
-				setToError(verificationResult, "Unresolved target system for claim", null)
-				return
-			}
+		targetComponent = findTargetSystemComponentInstance(instanceroot, verificationResult.enclosingAssuranceCase)
+		if (targetComponent == null) {
+			setToError(verificationResult, "Unresolved target system for claim", null)
+			return
+		}
 		var InstanceObject target = targetComponent;
 		if (targetElement != null) {
 			if (targetElement.eIsProxy) {
@@ -168,66 +159,60 @@ class AssureProcessor implements IAssureProcessor {
 			val x = targetComponent.findElementInstance(targetElement)
 			target = x ?: targetComponent
 		}
-
-		var Object[] parameters
-		val ctx = new DefaultEvaluationContext()
+		// The parameters are objects from the Properties Meta model.
+		var EList<EObject> parameters
 
 		if (verificationResult instanceof VerificationActivityResult) {
 			val verificationActivityResult = verificationResult as VerificationActivityResult
 			val verificationActivity = verificationActivityResult.target as VerificationActivity
 			val verificationMethod = verificationActivityResult.method as VerificationMethod
 
-			if (verificationActivity.parameters.size != verificationMethod.params.size) {
-				OsateDebug.osateDebug("[AssureProcessor] not the same number of parameters");
+			if (verificationActivity.parameters.size < verificationMethod.params.size) {
+				setToError(verificationResult,
+					"Fewer actual parameters than formal parameters for verificaiton activity", null)
+				return
 			}
 			val nbParams = verificationMethod.params.size
 			var i = 0
 
-			parameters = newArrayOfSize(nbParams)
+			parameters = new BasicEList(verificationActivity.parameters.size)
 
-			while (i < nbParams) {
-				var JvmType varType
-				var Object param
-				if (verificationActivity.parameters.get(i) instanceof XVariableDeclaration) {
-					val varDecl = verificationActivity.parameters.get(i) as XVariableDeclaration
-					varType = varDecl.type?.type
-					try {
-						val IEvaluationResult r = xbaseInterpreter.evaluate(varDecl, ctx, CancelIndicator.NullImpl)
-						param = ctx.getValue(QualifiedName.create(varDecl.name))
-						println(varDecl.name + " = " + param)
-					} catch (Exception e) {
-						e.printStackTrace
+			for (pi : verificationActivity.parameters) {
+				var EObject actual
+				var String typeName
+				if (pi instanceof ValDeclaration) {
+					typeName = pi.type
+					actual = pi.right
+				} else if (pi instanceof AVariableReference) {
+					// handle Val reference if AExpression is used
+					val pari = pi.variable
+					if (pari instanceof ValDeclaration) {
+						typeName = pari.type
+						actual = pari.right
 					}
 				} else {
-					varType = (verificationActivity.parameters.get(i) as ComputeDeclaration).type?.type
-					val myClass = Class.forName(varType.qualifiedName)
-//					println ("myClass=" + myClass.name)
-					/**
-					 * FIX how to exchange data and return values
-					 */
-					switch (myClass.name.toLowerCase) {
-						case "java.lang.double": {
-							param = myClass.constructors.get(0).newInstance(-1.0)
-						}
-						case "java.lang.integer": {
-							param = myClass.constructors.get(0).newInstance(-1)
-						}
-						default: {
-							param = myClass.newInstance
+					// the other types if AExpression is used
+					actual = pi
+				}
+
+				// for conversion into Java Object see AssureUtilExtension.convertToJavaObjects 
+				if (i < nbParams) {
+					var formalParam = verificationMethod.params.get(i) as FormalParameter
+					if (actual instanceof NumberValue) {
+						if (formalParam.unit != null && actual.unit != null &&
+							!formalParam.unit.name.equals(actual.unit.name)) {
+							actual = convertValueToUnit(actual as NumberValue, formalParam.unit)
 						}
 					}
-
+					val paramType = formalParam.parameterType
+					if (typeName != null && paramType != null && ! typeName.equals(paramType)) {
+						setToError(verificationResult,
+							"Parameter '" + formalParam.name + ": mismatched  types '" + paramType + "' and actual '" +
+								typeName, null)
+						return
+					}
 				}
-
-				var paramType = (verificationMethod.params.get(i) as JvmFormalParameter).parameterType?.type
-
-//				println ("Param var" + i + ":" + varType.identifier)
-//				println ("Param par" + i + ":" + paramType.identifier)
-				parameters.set(i, param)
-				if (varType != null && paramType != null && ! varType.equals(paramType)) {
-					println("Mismatch parameters types")
-					return
-				}
+				parameters.add(actual)
 				i = i + 1
 			}
 		}
@@ -240,6 +225,7 @@ class AssureProcessor implements IAssureProcessor {
 			val methodtype = method.methodType
 			switch (methodtype) {
 				JavaMethod: {
+					// The parameters are objects from the Properties Meta model. May need to get converted to Java base types
 					res = VerificationMethodDispatchers.eInstance.workspaceInvoke(methodtype, target, parameters)
 					if (res != null) {
 						if (res instanceof Boolean) {
@@ -258,6 +244,7 @@ class AssureProcessor implements IAssureProcessor {
 					}
 				}
 				PluginMethod: {
+					// The parameters are objects from the Properties Meta model. It is up to the plugin interface method to convert to Java base types
 					res = VerificationMethodDispatchers.eInstance.dispatchVerificationMethod(methodtype, instanceroot,
 						parameters) // returning the marker or diagnostic id as string
 					if (res instanceof String) {
@@ -267,7 +254,7 @@ class AssureProcessor implements IAssureProcessor {
 					}
 				}
 				ResoluteMethod: {
-					// Resolute handling See AssureUtil for setup	
+					// The parameters are objects from the Properties Meta model. Resolute likes them this way
 					AssureUtilExtension.initializeResoluteContext(instanceroot);
 					val EvaluationContext context = new EvaluationContext(instanceroot, sets, featToConnsMap);
 					val ResoluteInterpreter interpreter = new ResoluteInterpreter(context);
@@ -327,7 +314,7 @@ class AssureProcessor implements IAssureProcessor {
 		verificationResult.eResource.save(null)
 	}
 
-	def ProveStatement createWrapperProveCall(ResoluteMethod rm, Object[] params) {
+	def ProveStatement createWrapperProveCall(ResoluteMethod rm, EList<EObject> params) {
 		val found = rm.methodReference
 		val factory = ResoluteFactory.eINSTANCE
 		if(found == null) return null
@@ -340,31 +327,29 @@ class AssureProcessor implements IAssureProcessor {
 		prove
 	}
 
-	def addParams(FnCallExpr call, Object[] params) {
+	def addParams(FnCallExpr call, EList<EObject> params) {
 		for (p : params) {
-			if (p instanceof Double) {
+			if (p instanceof RealLiteral) {
 				val realval = ResoluteFactory.eINSTANCE.createRealExpr
-				val reallit = Aadl2Factory.eINSTANCE.createRealLiteral
-				reallit.value = p;
-				realval.^val = reallit
+				realval.^val = p
 				call.args.add(realval)
-			} else if (p instanceof Long) {
+			} else if (p instanceof IntegerLiteral) {
 				val intval = ResoluteFactory.eINSTANCE.createIntExpr
-				val intlit = Aadl2Factory.eINSTANCE.createIntegerLiteral
-				intlit.value = p;
-				intval.^val = intlit
+				intval.^val = p
 				call.args.add(intval)
-			} else if (p instanceof String) {
+			} else if (p instanceof StringLiteral) {
 				val stringval = ResoluteFactory.eINSTANCE.createStringExpr
-				val stringlit = Aadl2Factory.eINSTANCE.createStringLiteral
-				stringlit.value = p;
-				stringval.^val = stringlit
+				stringval.^val = p
+				call.args.add(stringval)
+			} else if (p instanceof BooleanLiteral) {
+				val stringval = ResoluteFactory.eINSTANCE.createBoolExpr
+				stringval.^val = p
 				call.args.add(stringval)
 			}
 		}
 	}
 
-	def createWrapperFnCall(ResoluteMethod vr, Object[] params) {
+	def createWrapperFnCall(ResoluteMethod vr, EList<EObject> params) {
 		val found = vr.methodReference
 		val factory = ResoluteFactory.eINSTANCE
 		val target = factory.createIdExpr
@@ -376,16 +361,6 @@ class AssureProcessor implements IAssureProcessor {
 		call
 	}
 
-	def String toString(Object o) {
-		switch (o) {
-			Integer: o.toString
-			Long: o.toString
-			Double: o.toString
-			String: o
-			default: "an object"
-		}
-	}
-
 	def boolean checkProperties(InstanceObject object, VerificationActivityResult result) {
 		val method = result.method
 		val properties = method.properties
@@ -393,25 +368,24 @@ class AssureProcessor implements IAssureProcessor {
 
 		val iter1 = properties.iterator
 		val iter2 = values.iterator
-		val ctx = new DefaultEvaluationContext()
-
 		var success = true;
-		
+
 		while (iter1.hasNext && iter2.hasNext) {
 			val property = iter1.next
 			val variable = iter2.next
 
-			if (variable instanceof XVariableDeclaration) {
+			if (variable instanceof ValDeclaration) {
 				try {
-					val IEvaluationResult r = xbaseInterpreter.evaluate(variable, ctx, null)
-					val value = ctx.getValue(QualifiedName.create(variable.name))
-					val unit = (variable.right as XNumberLiteralUnit).unit
-					val modelValue = PropertyUtils.getScaledNumberValue(object, property, unit)
+					val value = variable.right
+					if (value instanceof NumberValue) {
+						val unit = value.unit
+						val modelValue = PropertyUtils.getScaledNumberValue(object, property, unit)
 
-					if (!value.equals(modelValue)) {
-						println("no match " + modelValue + " != " + value)
-					} else {
-						println("   match " + modelValue + " == " + value)
+						if (!value.equals(modelValue)) {
+							println("no match " + modelValue + " != " + value)
+						} else {
+							println("   match " + modelValue + " == " + value)
+						}
 					}
 				} catch (Exception e) {
 					e.printStackTrace
@@ -424,3 +398,4 @@ class AssureProcessor implements IAssureProcessor {
 	}
 
 }
+

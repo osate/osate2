@@ -8,7 +8,6 @@ import org.eclipse.core.resources.WorkspaceJob;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.NullProgressMonitor;
-import org.eclipse.core.runtime.Status;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.jface.dialogs.MessageDialog;
@@ -22,16 +21,20 @@ import org.eclipse.xtext.ui.editor.XtextEditor;
 import org.eclipse.xtext.ui.editor.outline.impl.EObjectNode;
 import org.eclipse.xtext.ui.editor.utils.EditorUtils;
 import org.eclipse.xtext.util.concurrent.IUnitOfWork;
-import org.osate.aadl2.Element;
 
 	public abstract class AlisaHandler extends AbstractHandler {
 	    protected static final String TERMINATE_ID = "org.osate.alisa.commands.terminate";
-	    protected static final String TERMINATE_ALL_ID =
-	            "org.osate.alisa.commands.terminateAll";
-	    private IWorkbenchWindow window;
+	    protected static final String TERMINATE_ALL_ID = "org.osate.alisa.commands.terminateAll";
+	    protected IWorkbenchWindow window;
+		protected ExecutionEvent executionEvent;
 
-	    abstract protected IStatus runJob(EObject sel, IProgressMonitor monitor);
-
+	    public ExecutionEvent getExecutionEvent() {
+			return executionEvent;
+		}
+		public void setExecutionEvent(ExecutionEvent executionEvent) {
+			this.executionEvent = executionEvent;
+		}
+		abstract protected IStatus runJob(EObject sel, IProgressMonitor monitor);
 	    abstract protected String getJobName();
 
 	    @Override
@@ -55,36 +58,37 @@ import org.osate.aadl2.Element;
 	        if (xtextEditor == null) {
 	            return null;
 	        }
-
 	        if (!saveChanges(window.getActivePage().getDirtyEditors())) {
 	            return null;
 	        }
-
-	        WorkspaceJob job = new WorkspaceJob(getJobName()) {
-
-	            @Override
-	            public IStatus runInWorkspace(final IProgressMonitor monitor) {
-
-	                return xtextEditor.getDocument().readOnly(new IUnitOfWork<IStatus, XtextResource>() {
-	                    @Override
-	                    public IStatus exec(XtextResource resource) throws Exception {
-	                        EObject eobj = resource.getResourceSet().getEObject(uri, true);
-//	                        if (eobj instanceof Element) {
-	                            return runJob(eobj, monitor);
-//	                        } else {
-//	                            return Status.CANCEL_STATUS;
-//	                        }
-	                    }
-	                });
-	            }
-	        };
-
+	        WorkspaceJob job = getWorkspaceJob(getJobName(), xtextEditor, uri); 
+	        scheduleJob(job);
+	        return null;
+	    }
+	    
+	    protected Object scheduleJob(WorkspaceJob job){
 	        job.setRule(ResourcesPlugin.getWorkspace().getRoot());
 	        job.schedule();
 	        return null;
 	    }
-
-	    private boolean saveChanges(IEditorPart[] dirtyEditors) {
+	    
+	    protected WorkspaceJob getWorkspaceJob(String jobName, final XtextEditor xtextEditor, final URI uri){
+	        WorkspaceJob job = new WorkspaceJob(getJobName()) {
+	            @Override
+	            public IStatus runInWorkspace(final IProgressMonitor monitor) {
+	                return xtextEditor.getDocument().readOnly(new IUnitOfWork<IStatus, XtextResource>() {
+	                    @Override
+	                    public IStatus exec(XtextResource resource) throws Exception {
+	                        EObject eobj = resource.getResourceSet().getEObject(uri, true);
+	                            return runJob(eobj, monitor);
+	                    }
+	                });
+	            }
+	        };
+	        return job;
+	    }
+	    
+	    protected boolean saveChanges(IEditorPart[] dirtyEditors) {
 	        if (dirtyEditors.length == 0) {
 	            return true;
 	        }
@@ -100,7 +104,7 @@ import org.osate.aadl2.Element;
 	        }
 	    }
 
-	    private EObjectNode getEObjectNode(ISelection currentSelection) {
+	    protected EObjectNode getEObjectNode(ISelection currentSelection) {
 	        if (currentSelection instanceof IStructuredSelection) {
 	            IStructuredSelection iss = (IStructuredSelection) currentSelection;
 	            if (iss.size() == 1) {

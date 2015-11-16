@@ -11,11 +11,11 @@ import org.eclipse.emf.ecore.EObject;
  *
  * <p>
  * The following features are supported:
+ * </p>
  * <ul>
  *   <li>{@link org.osate.results.results.ResultData#getName <em>Name</em>}</li>
  *   <li>{@link org.osate.results.results.ResultData#getValue <em>Value</em>}</li>
  * </ul>
- * </p>
  *
  * @see org.osate.results.results.ResultsPackage#getResultData()
  * @model

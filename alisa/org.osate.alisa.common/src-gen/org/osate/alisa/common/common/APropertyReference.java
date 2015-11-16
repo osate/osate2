@@ -2,9 +2,7 @@
  */
 package org.osate.alisa.common.common;
 
-import org.eclipse.xtext.xbase.XExpression;
-
-import org.osate.aadl2.Property;
+import org.osate.aadl2.AbstractNamedValue;
 
 /**
  * <!-- begin-user-doc -->
@@ -22,7 +20,7 @@ import org.osate.aadl2.Property;
  * @model
  * @generated
  */
-public interface APropertyReference extends XExpression
+public interface APropertyReference extends AExpression
 {
   /**
    * Returns the value of the '<em><b>Property</b></em>' reference.
@@ -33,12 +31,12 @@ public interface APropertyReference extends XExpression
    * </p>
    * <!-- end-user-doc -->
    * @return the value of the '<em>Property</em>' reference.
-   * @see #setProperty(Property)
+   * @see #setProperty(AbstractNamedValue)
    * @see org.osate.alisa.common.common.CommonPackage#getAPropertyReference_Property()
    * @model
    * @generated
    */
-  Property getProperty();
+  AbstractNamedValue getProperty();
 
   /**
    * Sets the value of the '{@link org.osate.alisa.common.common.APropertyReference#getProperty <em>Property</em>}' reference.
@@ -48,6 +46,6 @@ public interface APropertyReference extends XExpression
    * @see #getProperty()
    * @generated
    */
-  void setProperty(Property value);
+  void setProperty(AbstractNamedValue value);
 
 } // APropertyReference

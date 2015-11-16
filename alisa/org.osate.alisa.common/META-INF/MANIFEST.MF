@@ -19,13 +19,11 @@ Require-Bundle: org.eclipse.xtext;visibility:=reexport,
  org.osate.aadl2;bundle-version="1.0.0",
  org.eclipse.core.resources;bundle-version="3.9.1",
  org.osate.aadl2.modelsupport;bundle-version="1.0.0",
- org.eclipse.xtext.xbase.lib,
- org.eclipse.xtext.xbase;bundle-version="2.7.3",
- org.eclipse.xtext.common.types,
  org.eclipse.uml2;bundle-version="5.0.0",
  org.eclipse.uml2.codegen.ecore;bundle-version="2.0.1",
  org.osate.xtext.aadl2.properties;bundle-version="1.0.0",
- org.osate.organization;bundle-version="1.0.0"
+ org.osate.organization;bundle-version="1.0.0",
+ org.eclipse.xtext.xbase.lib
 Import-Package: org.apache.log4j
 Bundle-RequiredExecutionEnvironment: JavaSE-1.7
 Export-Package: org.osate.alisa.common,
@@ -34,7 +32,6 @@ Export-Package: org.osate.alisa.common,
  org.osate.alisa.common.common.util,
  org.osate.alisa.common.formatting,
  org.osate.alisa.common.generator,
- org.osate.alisa.common.jvmmodel,
  org.osate.alisa.common.naming,
  org.osate.alisa.common.parser.antlr,
  org.osate.alisa.common.parser.antlr.internal,

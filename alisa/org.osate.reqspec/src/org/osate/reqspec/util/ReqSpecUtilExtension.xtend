@@ -14,6 +14,8 @@ import org.osate.reqspec.reqSpec.SystemRequirements
 
 import static extension org.eclipse.xtext.EcoreUtil2.*
 import org.osate.alisa.common.util.CommonUtilExtension
+import org.osate.alisa.common.common.AVariableDeclaration
+import org.eclipse.emf.common.util.BasicEList
 
 class ReqSpecUtilExtension {
 
@@ -33,6 +35,10 @@ class ReqSpecUtilExtension {
 		return null;
 	}
 
+	def static containingContractualElement(EObject sh) {
+		sh.getContainerOfType(ContractualElement)
+	}
+
 	def static containingRequirement(EObject sh) {
 		sh.getContainerOfType(Requirement)
 	}
@@ -45,57 +51,79 @@ class ReqSpecUtilExtension {
 		sh.getContainerOfType(StakeholderGoals)
 	}
 
-	def static IScope scopeForValCompute(Requirement req, IScope parentscope) {
-		var result = scopeForValGoal(req, parentscope)
-		return scopeForValComputeReq(req, result)
-	}
+	def static IScope scopeForGlobalVal(EObject context, IScope parentScope) {
+		var result = parentScope
+		val projectconstants = getImportedGlobals(context) // refFinder.getAllGlobalConstants(context)
+		var Iterable<AVariableDeclaration> constants = new BasicEList
+		for (pc : projectconstants) {
+			constants = constants + pc.constants
+		}
+		if (!constants.empty) {
+			result = new SimpleScope(result,
+				Scopes::scopedElementsFor(constants, QualifiedName::wrapper(SimpleAttributeResolver::NAME_RESOLVER)),
+				true)
+			}
+			return result
+		}
 
-	def static IScope scopeForValComputeReq(Requirement req, IScope parentscope) {
-		var result = parentscope
+		def static getImportedGlobals(EObject context) {
+			val sr = containingSystemRequirements(context)
+			val sg = containingStakeholderGoals(context)
+			val res = sr?.importConstants ?: sg?.importConstants
+			res
+		}
+
+		def static IScope scopeForValCompute(Requirement req, IScope parentscope) {
+			var result = scopeForValGoal(req, parentscope)
+			return scopeForValComputeReq(req, result)
+		}
+
+		def static IScope scopeForValComputeReq(Requirement req, IScope parentscope) {
+			var result = parentscope
 			for (r : req.decomposesReference) {
 				result = scopeForValComputeReq(r, result)
 			}
-		for (r : req.refinesReference) {
-			result = scopeForValComputeReq(r, result)
+			for (r : req.refinesReference) {
+				result = scopeForValComputeReq(r, result)
+			}
+			val sr = containingSystemRequirements(req)
+			if (sr != null) {
+				result = new SimpleScope(result,
+					Scopes::scopedElementsFor(sr.computes + sr.constants,
+						QualifiedName::wrapper(SimpleAttributeResolver::NAME_RESOLVER)), true)
+			}
+			result = new SimpleScope(result, Scopes::scopedElementsFor(req.computes + req.constants,
+				QualifiedName::wrapper(SimpleAttributeResolver::NAME_RESOLVER)), true)
+			return result
 		}
-		val sr = containingSystemRequirements(req)
-		if (sr != null) {
-			result = new SimpleScope(result,
-				Scopes::scopedElementsFor(sr.computes + sr.constants,
-					QualifiedName::wrapper(SimpleAttributeResolver::NAME_RESOLVER)), true)
-		}
-		result = new SimpleScope(result, Scopes::scopedElementsFor(req.computes + req.constants,
-			QualifiedName::wrapper(SimpleAttributeResolver::NAME_RESOLVER)), true)
-		return result
-	}
 
-	/**
-	 * collect val definitions from goals up the req refinement hierarchy
-	 */
-	def static IScope scopeForValGoal(Requirement req, IScope parentscope) {
-		var result = parentscope
-		for (r : req.refinesReference) {
-			result = scopeForValGoal(r, result)
+		/**
+		 * collect val definitions from goals up the req refinement hierarchy
+		 */
+		def static IScope scopeForValGoal(Requirement req, IScope parentscope) {
+			var result = parentscope
+			for (r : req.refinesReference) {
+				result = scopeForValGoal(r, result)
+			}
+			for (g : req.goalReference) {
+				result = scopeForVal(g, result)
+			}
+			result
 		}
-		for (g : req.goalReference) {
-			result = scopeForVal(g, result)
-		}
-		result
-	}
 
-	/**
-	 * collect val for goal incl. refinement & stakeholder goals container
-	 */
-	def static IScope scopeForVal(Goal goal, IScope parentscope) {
-		var result = parentscope
-		for (r : goal.refinesReference) {
-			result = scopeForVal(r, result)
-		}
-		val sr = containingStakeholderGoals(goal)
-		if (sr != null) {
-			result = new SimpleScope(result,
-				Scopes::scopedElementsFor(sr.constants, QualifiedName::wrapper(SimpleAttributeResolver::NAME_RESOLVER)),
-				true)
+		/**
+		 * collect val for goal incl. refinement & stakeholder goals container
+		 */
+		def static IScope scopeForVal(Goal goal, IScope parentscope) {
+			var result = parentscope
+			for (r : goal.refinesReference) {
+				result = scopeForVal(r, result)
+			}
+			val sr = containingStakeholderGoals(goal)
+			if (sr != null) {
+				result = new SimpleScope(result,
+					Scopes::scopedElementsFor(sr.constants,
+						QualifiedName::wrapper(SimpleAttributeResolver::NAME_RESOLVER)), true)
 			}
 			result = new SimpleScope(result,
 				Scopes::scopedElementsFor(goal.constants,
@@ -155,18 +183,16 @@ class ReqSpecUtilExtension {
 				QualifiedName::wrapper(SimpleAttributeResolver::NAME_RESOLVER)), true)
 			return result
 		}
-		
-		
-	def static String constructDescription(ContractualElement r) {
-		if(r.description != null) return CommonUtilExtension.toText(r.description,r.contractualElementSubject)
-		if(r.title != null) return r.title
-		""
-	}
-	
-	def static getContractualElementSubject(ContractualElement req){
-				req?.targetElement ?: req.targetClassifier
-		
-	}
-		
+
+		def static String constructDescription(ContractualElement r) {
+			if(r.description != null) return CommonUtilExtension.toText(r.description, r.contractualElementSubject)
+			if(r.title != null) return r.title
+			""
+		}
+
+		def static getContractualElementSubject(ContractualElement req) {
+			req?.targetElement ?: req.targetClassifier
+
+		}
 
 	}

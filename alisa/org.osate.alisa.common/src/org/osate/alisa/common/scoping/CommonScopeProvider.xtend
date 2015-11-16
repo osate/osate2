@@ -17,12 +17,13 @@ import org.eclipse.xtext.scoping.impl.AbstractDeclarativeScopeProvider
 import org.eclipse.xtext.scoping.impl.SimpleScope
 import org.eclipse.xtext.util.SimpleAttributeResolver
 import org.osate.aadl2.Aadl2Package
+import org.osate.aadl2.IntegerLiteral
+import org.osate.aadl2.RealLiteral
 import org.osate.aadl2.UnitLiteral
 import org.osate.aadl2.UnitsType
 import org.osate.alisa.common.common.ShowValue
-import org.osate.alisa.common.common.XNumberLiteralUnit
 import org.osate.xtext.aadl2.properties.util.EMFIndexRetrieval
-import org.osate.alisa.common.common.ComputeDeclaration
+import com.google.inject.Inject
 
 /**
  * This class contains custom scoping description.
@@ -38,14 +39,6 @@ class CommonScopeProvider extends AbstractDeclarativeScopeProvider {
 			Scopes::scopedElementsFor(elements, QualifiedName::wrapper(SimpleAttributeResolver::NAME_RESOLVER)), true)
 	}
 
-	def scope_UnitLiteral(XNumberLiteralUnit context, EReference reference) {
-		val units = context.unitLiterals
-		if (!units.empty) {
-			units.scopeFor
-		} else {
-			IScope.NULLSCOPE
-		}
-	}
 
 	def scope_UnitLiteral(
 		ShowValue context,
@@ -60,7 +53,7 @@ class CommonScopeProvider extends AbstractDeclarativeScopeProvider {
 	}
 
 	def scope_UnitLiteral(
-		ComputeDeclaration context,
+		IntegerLiteral context,
 		EReference reference
 	) {
 		val units = context.unitLiterals
@@ -69,6 +62,26 @@ class CommonScopeProvider extends AbstractDeclarativeScopeProvider {
 		} else {
 			IScope.NULLSCOPE
 		}
+	}
+
+	def scope_UnitLiteral(
+		RealLiteral context,
+		EReference reference
+	) {
+		val units = context.unitLiterals
+		if (!units.empty) {
+			units.scopeFor
+		} else {
+			IScope.NULLSCOPE
+		}
+	}
+
+	@Inject ICommonGlobalReferenceFinder refFinder
+
+	def scope_AbstractNamedValue(EObject context, EReference reference) {
+		val props = refFinder.getEObjectDescriptions(context, Aadl2Package.eINSTANCE.property, "aadl")
+		+ refFinder.getEObjectDescriptions(context, Aadl2Package.eINSTANCE.propertyConstant, "aadl")
+		new SimpleScope(IScope::NULLSCOPE, props, true)
 	}
 
 	val private static EClass UNITS_TYPE = Aadl2Package.eINSTANCE.getUnitsType();

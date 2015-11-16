@@ -16,7 +16,7 @@ import org.eclipse.xtext.scoping.Scopes
 import org.eclipse.xtext.scoping.impl.SimpleScope
 import org.eclipse.xtext.util.SimpleAttributeResolver
 import org.osate.aadl2.Aadl2Package
-import org.osate.alisa.common.scoping.AlisaAbstractDeclarativeScopeProvider
+import org.osate.alisa.common.scoping.CommonScopeProvider
 import org.osate.alisa.common.scoping.ICommonGlobalReferenceFinder
 import org.osate.verify.verify.Claim
 import org.osate.verify.verify.ResoluteMethod
@@ -32,20 +32,22 @@ import static org.osate.verify.util.VerifyUtilExtension.*
  * on how and when to use it 
  * 
  */
-class VerifyScopeProvider extends AlisaAbstractDeclarativeScopeProvider {
+class VerifyScopeProvider extends CommonScopeProvider {
 
 	@Inject ICommonGlobalReferenceFinder refFinder
 
-	def scope_XExpression(VerificationActivity context, EReference reference) {
+	def scope_ValDeclaration(VerificationActivity context, EReference reference) {
 		val claim = getContainingClaim(context)
 		var req = claim.requirement
-		return scopeForValCompute(req, IScope.NULLSCOPE)
+		val result = scopeForGlobalVal(req,IScope.NULLSCOPE)
+		return scopeForVal(req, result)
 	}
 
 	def scope_ComputeDeclaration(VerificationActivity context, EReference reference) {
 		val claim = getContainingClaim(context)
 		var req = claim.requirement
-		return scopeForCompute(req, IScope.NULLSCOPE)
+		val result = scopeForGlobalVal(req,IScope.NULLSCOPE)
+		return scopeForCompute(req, result)
 	}
 
 	def scope_Claim_requirement(Claim context, EReference reference) {
