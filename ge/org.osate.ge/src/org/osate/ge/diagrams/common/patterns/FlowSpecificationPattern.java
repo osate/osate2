@@ -28,10 +28,13 @@ import org.eclipse.graphiti.services.Graphiti;
 import org.eclipse.graphiti.services.IGaService;
 import org.eclipse.graphiti.services.IPeCreateService;
 import org.osate.aadl2.AbstractFeature;
+import org.osate.aadl2.AbstractType;
 import org.osate.aadl2.ComponentClassifier;
 import org.osate.aadl2.ComponentType;
 import org.osate.aadl2.Context;
 import org.osate.aadl2.DataAccess;
+import org.osate.aadl2.DataType;
+import org.osate.aadl2.DeviceType;
 import org.osate.aadl2.DirectedFeature;
 import org.osate.aadl2.DirectionType;
 import org.osate.aadl2.Feature;
@@ -41,6 +44,14 @@ import org.osate.aadl2.FlowKind;
 import org.osate.aadl2.FlowSpecification;
 import org.osate.aadl2.Parameter;
 import org.osate.aadl2.Port;
+import org.osate.aadl2.ProcessType;
+import org.osate.aadl2.ProcessorType;
+import org.osate.aadl2.SubprogramGroupType;
+import org.osate.aadl2.SubprogramType;
+import org.osate.aadl2.SystemType;
+import org.osate.aadl2.ThreadGroupType;
+import org.osate.aadl2.ThreadType;
+import org.osate.aadl2.VirtualProcessorType;
 import org.osate.ge.diagrams.common.AadlElementWrapper;
 import org.osate.ge.ext.Categorized;
 import org.osate.ge.ext.Categories;
@@ -92,11 +103,21 @@ public class FlowSpecificationPattern extends AgeConnectionPattern implements Ca
 	public boolean isMainBusinessObjectApplicable(final Object mainBusinessObject) {
 		return AadlElementWrapper.unwrap(mainBusinessObject) instanceof FlowSpecification;
 	}
-
+	
 	@Override
 	public boolean isPaletteApplicable() {
 		final Object diagramBo = bor.getBusinessObjectForPictogramElement(getDiagram());
-		return diagramBo instanceof ComponentType;
+		return diagramBo instanceof ThreadGroupType || 
+				diagramBo instanceof ThreadType || 
+				diagramBo instanceof VirtualProcessorType || 
+				diagramBo instanceof ProcessType ||
+				diagramBo instanceof DeviceType ||
+				diagramBo instanceof AbstractType ||
+				diagramBo instanceof ProcessorType ||
+				diagramBo instanceof DataType ||
+				diagramBo instanceof SystemType ||
+				diagramBo instanceof SubprogramType ||
+				diagramBo instanceof SubprogramGroupType;
 	}
 	
 	@Override
@@ -249,7 +270,7 @@ public class FlowSpecificationPattern extends AgeConnectionPattern implements Ca
 		return shapeService.getClosestBusinessObjectOfType(shape, ComponentClassifier.class);
 	}	
 	
-	// This pattern only handles the creation of flow paths. Flow sources and flow sinks are handled by features via context menus.
+	// This pattern only handles the creation of flow paths.
 	@Override
 	public String getCreateImageId(){
 		return ImageHelper.getImage("FlowPath");

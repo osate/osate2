@@ -26,6 +26,7 @@ import org.eclipse.graphiti.features.IRemoveBendpointFeature;
 import org.eclipse.graphiti.features.IRemoveFeature;
 import org.eclipse.graphiti.features.IUpdateFeature;
 import org.eclipse.graphiti.features.context.IAddBendpointContext;
+import org.eclipse.graphiti.features.context.IContext;
 import org.eclipse.graphiti.features.context.ICustomContext;
 import org.eclipse.graphiti.features.context.IDeleteContext;
 import org.eclipse.graphiti.features.context.IDirectEditingContext;
@@ -34,6 +35,7 @@ import org.eclipse.graphiti.features.context.IReconnectionContext;
 import org.eclipse.graphiti.features.context.IRemoveBendpointContext;
 import org.eclipse.graphiti.features.context.IRemoveContext;
 import org.eclipse.graphiti.features.context.IUpdateContext;
+import org.eclipse.graphiti.features.context.impl.CreateContext;
 import org.eclipse.graphiti.features.custom.ICustomFeature;
 import org.eclipse.graphiti.features.impl.DefaultAddBendpointFeature;
 import org.eclipse.graphiti.features.impl.DefaultMoveBendpointFeature;
@@ -414,22 +416,19 @@ public class AgeFeatureProvider extends DefaultFeatureProviderWithPatterns {
 		return super.getDirectEditingFeatureAdditional(context);
 	}
 	
-	//Check if FlowSpecification is applicable then add create features if true
 	@Override
 	protected ICreateFeature[] getCreateFeaturesAdditional() {
-		for (final IConnectionPattern cp : getConnectionPatterns()) {
-			if (cp instanceof FlowSpecificationPattern) {
-				if (((FlowSpecificationPattern) cp).isPaletteApplicable()) {
-					return new ICreateFeature[] {
-						createCreateSimpleFlowSpecificationFeature(FlowKind.SOURCE),
-						createCreateSimpleFlowSpecificationFeature(FlowKind.SINK)
-					};
-				} else {
-					return new ICreateFeature[0];
-				}
-			}
+		final IContext ctx = new CreateContext();
+		final List<ICreateFeature> features = new ArrayList<>();
+		addIfAvailable(features, createCreateSimpleFlowSpecificationFeature(FlowKind.SOURCE), ctx);
+		addIfAvailable(features, createCreateSimpleFlowSpecificationFeature(FlowKind.SINK), ctx);		
+		return features.toArray(new ICreateFeature[0]);
+	}
+	
+	private void addIfAvailable(final List<ICreateFeature> features, final ICreateFeature feature, final IContext context) {
+		if(feature.isAvailable(context)) {
+			features.add(feature);
 		}
-		return new ICreateFeature[0];
 	}
 	
 	/**
