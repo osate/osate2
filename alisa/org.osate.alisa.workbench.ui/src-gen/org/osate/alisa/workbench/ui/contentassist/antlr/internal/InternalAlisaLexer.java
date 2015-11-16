@@ -1214,8 +1214,8 @@ public class InternalAlisaLexer extends Lexer {
     // $ANTLR start "RULE_EXPONENT"
     public final void mRULE_EXPONENT() throws RecognitionException {
         try {
-            // ../org.osate.alisa.workbench.ui/src-gen/org/osate/alisa/workbench/ui/contentassist/antlr/internal/InternalAlisa.g:8877:24: ( ( 'e' | 'E' ) ( '+' | '-' )? ( RULE_DIGIT )+ )
-            // ../org.osate.alisa.workbench.ui/src-gen/org/osate/alisa/workbench/ui/contentassist/antlr/internal/InternalAlisa.g:8877:26: ( 'e' | 'E' ) ( '+' | '-' )? ( RULE_DIGIT )+
+            // ../org.osate.alisa.workbench.ui/src-gen/org/osate/alisa/workbench/ui/contentassist/antlr/internal/InternalAlisa.g:8889:24: ( ( 'e' | 'E' ) ( '+' | '-' )? ( RULE_DIGIT )+ )
+            // ../org.osate.alisa.workbench.ui/src-gen/org/osate/alisa/workbench/ui/contentassist/antlr/internal/InternalAlisa.g:8889:26: ( 'e' | 'E' ) ( '+' | '-' )? ( RULE_DIGIT )+
             {
             if ( input.LA(1)=='E'||input.LA(1)=='e' ) {
                 input.consume();
@@ -1226,7 +1226,7 @@ public class InternalAlisaLexer extends Lexer {
                 recover(mse);
                 throw mse;}
 
-            // ../org.osate.alisa.workbench.ui/src-gen/org/osate/alisa/workbench/ui/contentassist/antlr/internal/InternalAlisa.g:8877:36: ( '+' | '-' )?
+            // ../org.osate.alisa.workbench.ui/src-gen/org/osate/alisa/workbench/ui/contentassist/antlr/internal/InternalAlisa.g:8889:36: ( '+' | '-' )?
             int alt1=2;
             int LA1_0 = input.LA(1);
 
@@ -1252,7 +1252,7 @@ public class InternalAlisaLexer extends Lexer {
 
             }
 
-            // ../org.osate.alisa.workbench.ui/src-gen/org/osate/alisa/workbench/ui/contentassist/antlr/internal/InternalAlisa.g:8877:47: ( RULE_DIGIT )+
+            // ../org.osate.alisa.workbench.ui/src-gen/org/osate/alisa/workbench/ui/contentassist/antlr/internal/InternalAlisa.g:8889:47: ( RULE_DIGIT )+
             int cnt2=0;
             loop2:
             do {
@@ -1266,7 +1266,7 @@ public class InternalAlisaLexer extends Lexer {
 
                 switch (alt2) {
             	case 1 :
-            	    // ../org.osate.alisa.workbench.ui/src-gen/org/osate/alisa/workbench/ui/contentassist/antlr/internal/InternalAlisa.g:8877:47: RULE_DIGIT
+            	    // ../org.osate.alisa.workbench.ui/src-gen/org/osate/alisa/workbench/ui/contentassist/antlr/internal/InternalAlisa.g:8889:47: RULE_DIGIT
             	    {
             	    mRULE_DIGIT(); 
 
@@ -1294,8 +1294,8 @@ public class InternalAlisaLexer extends Lexer {
     // $ANTLR start "RULE_INT_EXPONENT"
     public final void mRULE_INT_EXPONENT() throws RecognitionException {
         try {
-            // ../org.osate.alisa.workbench.ui/src-gen/org/osate/alisa/workbench/ui/contentassist/antlr/internal/InternalAlisa.g:8879:28: ( ( 'e' | 'E' ) ( '+' )? ( RULE_DIGIT )+ )
-            // ../org.osate.alisa.workbench.ui/src-gen/org/osate/alisa/workbench/ui/contentassist/antlr/internal/InternalAlisa.g:8879:30: ( 'e' | 'E' ) ( '+' )? ( RULE_DIGIT )+
+            // ../org.osate.alisa.workbench.ui/src-gen/org/osate/alisa/workbench/ui/contentassist/antlr/internal/InternalAlisa.g:8891:28: ( ( 'e' | 'E' ) ( '+' )? ( RULE_DIGIT )+ )
+            // ../org.osate.alisa.workbench.ui/src-gen/org/osate/alisa/workbench/ui/contentassist/antlr/internal/InternalAlisa.g:8891:30: ( 'e' | 'E' ) ( '+' )? ( RULE_DIGIT )+
             {
             if ( input.LA(1)=='E'||input.LA(1)=='e' ) {
                 input.consume();
@@ -1306,7 +1306,7 @@ public class InternalAlisaLexer extends Lexer {
                 recover(mse);
                 throw mse;}
 
-            // ../org.osate.alisa.workbench.ui/src-gen/org/osate/alisa/workbench/ui/contentassist/antlr/internal/InternalAlisa.g:8879:40: ( '+' )?
+            // ../org.osate.alisa.workbench.ui/src-gen/org/osate/alisa/workbench/ui/contentassist/antlr/internal/InternalAlisa.g:8891:40: ( '+' )?
             int alt3=2;
             int LA3_0 = input.LA(1);
 
@@ -1315,7 +1315,7 @@ public class InternalAlisaLexer extends Lexer {
             }
             switch (alt3) {
                 case 1 :
-                    // ../org.osate.alisa.workbench.ui/src-gen/org/osate/alisa/workbench/ui/contentassist/antlr/internal/InternalAlisa.g:8879:40: '+'
+                    // ../org.osate.alisa.workbench.ui/src-gen/org/osate/alisa/workbench/ui/contentassist/antlr/internal/InternalAlisa.g:8891:40: '+'
                     {
                     match('+'); 
 
@@ -1324,7 +1324,7 @@ public class InternalAlisaLexer extends Lexer {
 
             }
 
-            // ../org.osate.alisa.workbench.ui/src-gen/org/osate/alisa/workbench/ui/contentassist/antlr/internal/InternalAlisa.g:8879:45: ( RULE_DIGIT )+
+            // ../org.osate.alisa.workbench.ui/src-gen/org/osate/alisa/workbench/ui/contentassist/antlr/internal/InternalAlisa.g:8891:45: ( RULE_DIGIT )+
             int cnt4=0;
             loop4:
             do {
@@ -1338,7 +1338,7 @@ public class InternalAlisaLexer extends Lexer {
 
                 switch (alt4) {
             	case 1 :
-            	    // ../org.osate.alisa.workbench.ui/src-gen/org/osate/alisa/workbench/ui/contentassist/antlr/internal/InternalAlisa.g:8879:45: RULE_DIGIT
+            	    // ../org.osate.alisa.workbench.ui/src-gen/org/osate/alisa/workbench/ui/contentassist/antlr/internal/InternalAlisa.g:8891:45: RULE_DIGIT
             	    {
             	    mRULE_DIGIT(); 
 
@@ -1368,10 +1368,10 @@ public class InternalAlisaLexer extends Lexer {
         try {
             int _type = RULE_REAL_LIT;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../org.osate.alisa.workbench.ui/src-gen/org/osate/alisa/workbench/ui/contentassist/antlr/internal/InternalAlisa.g:8881:15: ( ( RULE_DIGIT )+ ( '_' ( RULE_DIGIT )+ )* '.' ( RULE_DIGIT )+ ( '_' ( RULE_DIGIT )+ )* ( RULE_EXPONENT )? )
-            // ../org.osate.alisa.workbench.ui/src-gen/org/osate/alisa/workbench/ui/contentassist/antlr/internal/InternalAlisa.g:8881:17: ( RULE_DIGIT )+ ( '_' ( RULE_DIGIT )+ )* '.' ( RULE_DIGIT )+ ( '_' ( RULE_DIGIT )+ )* ( RULE_EXPONENT )?
+            // ../org.osate.alisa.workbench.ui/src-gen/org/osate/alisa/workbench/ui/contentassist/antlr/internal/InternalAlisa.g:8893:15: ( ( RULE_DIGIT )+ ( '_' ( RULE_DIGIT )+ )* '.' ( RULE_DIGIT )+ ( '_' ( RULE_DIGIT )+ )* ( RULE_EXPONENT )? )
+            // ../org.osate.alisa.workbench.ui/src-gen/org/osate/alisa/workbench/ui/contentassist/antlr/internal/InternalAlisa.g:8893:17: ( RULE_DIGIT )+ ( '_' ( RULE_DIGIT )+ )* '.' ( RULE_DIGIT )+ ( '_' ( RULE_DIGIT )+ )* ( RULE_EXPONENT )?
             {
-            // ../org.osate.alisa.workbench.ui/src-gen/org/osate/alisa/workbench/ui/contentassist/antlr/internal/InternalAlisa.g:8881:17: ( RULE_DIGIT )+
+            // ../org.osate.alisa.workbench.ui/src-gen/org/osate/alisa/workbench/ui/contentassist/antlr/internal/InternalAlisa.g:8893:17: ( RULE_DIGIT )+
             int cnt5=0;
             loop5:
             do {
@@ -1385,7 +1385,7 @@ public class InternalAlisaLexer extends Lexer {
 
                 switch (alt5) {
             	case 1 :
-            	    // ../org.osate.alisa.workbench.ui/src-gen/org/osate/alisa/workbench/ui/contentassist/antlr/internal/InternalAlisa.g:8881:17: RULE_DIGIT
+            	    // ../org.osate.alisa.workbench.ui/src-gen/org/osate/alisa/workbench/ui/contentassist/antlr/internal/InternalAlisa.g:8893:17: RULE_DIGIT
             	    {
             	    mRULE_DIGIT(); 
 
@@ -1401,7 +1401,7 @@ public class InternalAlisaLexer extends Lexer {
                 cnt5++;
             } while (true);
 
-            // ../org.osate.alisa.workbench.ui/src-gen/org/osate/alisa/workbench/ui/contentassist/antlr/internal/InternalAlisa.g:8881:29: ( '_' ( RULE_DIGIT )+ )*
+            // ../org.osate.alisa.workbench.ui/src-gen/org/osate/alisa/workbench/ui/contentassist/antlr/internal/InternalAlisa.g:8893:29: ( '_' ( RULE_DIGIT )+ )*
             loop7:
             do {
                 int alt7=2;
@@ -1414,10 +1414,10 @@ public class InternalAlisaLexer extends Lexer {
 
                 switch (alt7) {
             	case 1 :
-            	    // ../org.osate.alisa.workbench.ui/src-gen/org/osate/alisa/workbench/ui/contentassist/antlr/internal/InternalAlisa.g:8881:30: '_' ( RULE_DIGIT )+
+            	    // ../org.osate.alisa.workbench.ui/src-gen/org/osate/alisa/workbench/ui/contentassist/antlr/internal/InternalAlisa.g:8893:30: '_' ( RULE_DIGIT )+
             	    {
             	    match('_'); 
-            	    // ../org.osate.alisa.workbench.ui/src-gen/org/osate/alisa/workbench/ui/contentassist/antlr/internal/InternalAlisa.g:8881:34: ( RULE_DIGIT )+
+            	    // ../org.osate.alisa.workbench.ui/src-gen/org/osate/alisa/workbench/ui/contentassist/antlr/internal/InternalAlisa.g:8893:34: ( RULE_DIGIT )+
             	    int cnt6=0;
             	    loop6:
             	    do {
@@ -1431,7 +1431,7 @@ public class InternalAlisaLexer extends Lexer {
 
             	        switch (alt6) {
             	    	case 1 :
-            	    	    // ../org.osate.alisa.workbench.ui/src-gen/org/osate/alisa/workbench/ui/contentassist/antlr/internal/InternalAlisa.g:8881:34: RULE_DIGIT
+            	    	    // ../org.osate.alisa.workbench.ui/src-gen/org/osate/alisa/workbench/ui/contentassist/antlr/internal/InternalAlisa.g:8893:34: RULE_DIGIT
             	    	    {
             	    	    mRULE_DIGIT(); 
 
@@ -1457,7 +1457,7 @@ public class InternalAlisaLexer extends Lexer {
             } while (true);
 
             match('.'); 
-            // ../org.osate.alisa.workbench.ui/src-gen/org/osate/alisa/workbench/ui/contentassist/antlr/internal/InternalAlisa.g:8881:52: ( RULE_DIGIT )+
+            // ../org.osate.alisa.workbench.ui/src-gen/org/osate/alisa/workbench/ui/contentassist/antlr/internal/InternalAlisa.g:8893:52: ( RULE_DIGIT )+
             int cnt8=0;
             loop8:
             do {
@@ -1471,7 +1471,7 @@ public class InternalAlisaLexer extends Lexer {
 
                 switch (alt8) {
             	case 1 :
-            	    // ../org.osate.alisa.workbench.ui/src-gen/org/osate/alisa/workbench/ui/contentassist/antlr/internal/InternalAlisa.g:8881:52: RULE_DIGIT
+            	    // ../org.osate.alisa.workbench.ui/src-gen/org/osate/alisa/workbench/ui/contentassist/antlr/internal/InternalAlisa.g:8893:52: RULE_DIGIT
             	    {
             	    mRULE_DIGIT(); 
 
@@ -1487,7 +1487,7 @@ public class InternalAlisaLexer extends Lexer {
                 cnt8++;
             } while (true);
 
-            // ../org.osate.alisa.workbench.ui/src-gen/org/osate/alisa/workbench/ui/contentassist/antlr/internal/InternalAlisa.g:8881:64: ( '_' ( RULE_DIGIT )+ )*
+            // ../org.osate.alisa.workbench.ui/src-gen/org/osate/alisa/workbench/ui/contentassist/antlr/internal/InternalAlisa.g:8893:64: ( '_' ( RULE_DIGIT )+ )*
             loop10:
             do {
                 int alt10=2;
@@ -1500,10 +1500,10 @@ public class InternalAlisaLexer extends Lexer {
 
                 switch (alt10) {
             	case 1 :
-            	    // ../org.osate.alisa.workbench.ui/src-gen/org/osate/alisa/workbench/ui/contentassist/antlr/internal/InternalAlisa.g:8881:65: '_' ( RULE_DIGIT )+
+            	    // ../org.osate.alisa.workbench.ui/src-gen/org/osate/alisa/workbench/ui/contentassist/antlr/internal/InternalAlisa.g:8893:65: '_' ( RULE_DIGIT )+
             	    {
             	    match('_'); 
-            	    // ../org.osate.alisa.workbench.ui/src-gen/org/osate/alisa/workbench/ui/contentassist/antlr/internal/InternalAlisa.g:8881:69: ( RULE_DIGIT )+
+            	    // ../org.osate.alisa.workbench.ui/src-gen/org/osate/alisa/workbench/ui/contentassist/antlr/internal/InternalAlisa.g:8893:69: ( RULE_DIGIT )+
             	    int cnt9=0;
             	    loop9:
             	    do {
@@ -1517,7 +1517,7 @@ public class InternalAlisaLexer extends Lexer {
 
             	        switch (alt9) {
             	    	case 1 :
-            	    	    // ../org.osate.alisa.workbench.ui/src-gen/org/osate/alisa/workbench/ui/contentassist/antlr/internal/InternalAlisa.g:8881:69: RULE_DIGIT
+            	    	    // ../org.osate.alisa.workbench.ui/src-gen/org/osate/alisa/workbench/ui/contentassist/antlr/internal/InternalAlisa.g:8893:69: RULE_DIGIT
             	    	    {
             	    	    mRULE_DIGIT(); 
 
@@ -1542,7 +1542,7 @@ public class InternalAlisaLexer extends Lexer {
                 }
             } while (true);
 
-            // ../org.osate.alisa.workbench.ui/src-gen/org/osate/alisa/workbench/ui/contentassist/antlr/internal/InternalAlisa.g:8881:83: ( RULE_EXPONENT )?
+            // ../org.osate.alisa.workbench.ui/src-gen/org/osate/alisa/workbench/ui/contentassist/antlr/internal/InternalAlisa.g:8893:83: ( RULE_EXPONENT )?
             int alt11=2;
             int LA11_0 = input.LA(1);
 
@@ -1551,7 +1551,7 @@ public class InternalAlisaLexer extends Lexer {
             }
             switch (alt11) {
                 case 1 :
-                    // ../org.osate.alisa.workbench.ui/src-gen/org/osate/alisa/workbench/ui/contentassist/antlr/internal/InternalAlisa.g:8881:83: RULE_EXPONENT
+                    // ../org.osate.alisa.workbench.ui/src-gen/org/osate/alisa/workbench/ui/contentassist/antlr/internal/InternalAlisa.g:8893:83: RULE_EXPONENT
                     {
                     mRULE_EXPONENT(); 
 
@@ -1576,10 +1576,10 @@ public class InternalAlisaLexer extends Lexer {
         try {
             int _type = RULE_INTEGER_LIT;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../org.osate.alisa.workbench.ui/src-gen/org/osate/alisa/workbench/ui/contentassist/antlr/internal/InternalAlisa.g:8883:18: ( ( RULE_DIGIT )+ ( '_' ( RULE_DIGIT )+ )* ( '#' RULE_BASED_INTEGER '#' ( RULE_INT_EXPONENT )? | ( RULE_INT_EXPONENT )? ) )
-            // ../org.osate.alisa.workbench.ui/src-gen/org/osate/alisa/workbench/ui/contentassist/antlr/internal/InternalAlisa.g:8883:20: ( RULE_DIGIT )+ ( '_' ( RULE_DIGIT )+ )* ( '#' RULE_BASED_INTEGER '#' ( RULE_INT_EXPONENT )? | ( RULE_INT_EXPONENT )? )
+            // ../org.osate.alisa.workbench.ui/src-gen/org/osate/alisa/workbench/ui/contentassist/antlr/internal/InternalAlisa.g:8895:18: ( ( RULE_DIGIT )+ ( '_' ( RULE_DIGIT )+ )* ( '#' RULE_BASED_INTEGER '#' ( RULE_INT_EXPONENT )? | ( RULE_INT_EXPONENT )? ) )
+            // ../org.osate.alisa.workbench.ui/src-gen/org/osate/alisa/workbench/ui/contentassist/antlr/internal/InternalAlisa.g:8895:20: ( RULE_DIGIT )+ ( '_' ( RULE_DIGIT )+ )* ( '#' RULE_BASED_INTEGER '#' ( RULE_INT_EXPONENT )? | ( RULE_INT_EXPONENT )? )
             {
-            // ../org.osate.alisa.workbench.ui/src-gen/org/osate/alisa/workbench/ui/contentassist/antlr/internal/InternalAlisa.g:8883:20: ( RULE_DIGIT )+
+            // ../org.osate.alisa.workbench.ui/src-gen/org/osate/alisa/workbench/ui/contentassist/antlr/internal/InternalAlisa.g:8895:20: ( RULE_DIGIT )+
             int cnt12=0;
             loop12:
             do {
@@ -1593,7 +1593,7 @@ public class InternalAlisaLexer extends Lexer {
 
                 switch (alt12) {
             	case 1 :
-            	    // ../org.osate.alisa.workbench.ui/src-gen/org/osate/alisa/workbench/ui/contentassist/antlr/internal/InternalAlisa.g:8883:20: RULE_DIGIT
+            	    // ../org.osate.alisa.workbench.ui/src-gen/org/osate/alisa/workbench/ui/contentassist/antlr/internal/InternalAlisa.g:8895:20: RULE_DIGIT
             	    {
             	    mRULE_DIGIT(); 
 
@@ -1609,7 +1609,7 @@ public class InternalAlisaLexer extends Lexer {
                 cnt12++;
             } while (true);
 
-            // ../org.osate.alisa.workbench.ui/src-gen/org/osate/alisa/workbench/ui/contentassist/antlr/internal/InternalAlisa.g:8883:32: ( '_' ( RULE_DIGIT )+ )*
+            // ../org.osate.alisa.workbench.ui/src-gen/org/osate/alisa/workbench/ui/contentassist/antlr/internal/InternalAlisa.g:8895:32: ( '_' ( RULE_DIGIT )+ )*
             loop14:
             do {
                 int alt14=2;
@@ -1622,10 +1622,10 @@ public class InternalAlisaLexer extends Lexer {
 
                 switch (alt14) {
             	case 1 :
-            	    // ../org.osate.alisa.workbench.ui/src-gen/org/osate/alisa/workbench/ui/contentassist/antlr/internal/InternalAlisa.g:8883:33: '_' ( RULE_DIGIT )+
+            	    // ../org.osate.alisa.workbench.ui/src-gen/org/osate/alisa/workbench/ui/contentassist/antlr/internal/InternalAlisa.g:8895:33: '_' ( RULE_DIGIT )+
             	    {
             	    match('_'); 
-            	    // ../org.osate.alisa.workbench.ui/src-gen/org/osate/alisa/workbench/ui/contentassist/antlr/internal/InternalAlisa.g:8883:37: ( RULE_DIGIT )+
+            	    // ../org.osate.alisa.workbench.ui/src-gen/org/osate/alisa/workbench/ui/contentassist/antlr/internal/InternalAlisa.g:8895:37: ( RULE_DIGIT )+
             	    int cnt13=0;
             	    loop13:
             	    do {
@@ -1639,7 +1639,7 @@ public class InternalAlisaLexer extends Lexer {
 
             	        switch (alt13) {
             	    	case 1 :
-            	    	    // ../org.osate.alisa.workbench.ui/src-gen/org/osate/alisa/workbench/ui/contentassist/antlr/internal/InternalAlisa.g:8883:37: RULE_DIGIT
+            	    	    // ../org.osate.alisa.workbench.ui/src-gen/org/osate/alisa/workbench/ui/contentassist/antlr/internal/InternalAlisa.g:8895:37: RULE_DIGIT
             	    	    {
             	    	    mRULE_DIGIT(); 
 
@@ -1664,7 +1664,7 @@ public class InternalAlisaLexer extends Lexer {
                 }
             } while (true);
 
-            // ../org.osate.alisa.workbench.ui/src-gen/org/osate/alisa/workbench/ui/contentassist/antlr/internal/InternalAlisa.g:8883:51: ( '#' RULE_BASED_INTEGER '#' ( RULE_INT_EXPONENT )? | ( RULE_INT_EXPONENT )? )
+            // ../org.osate.alisa.workbench.ui/src-gen/org/osate/alisa/workbench/ui/contentassist/antlr/internal/InternalAlisa.g:8895:51: ( '#' RULE_BASED_INTEGER '#' ( RULE_INT_EXPONENT )? | ( RULE_INT_EXPONENT )? )
             int alt17=2;
             int LA17_0 = input.LA(1);
 
@@ -1675,12 +1675,12 @@ public class InternalAlisaLexer extends Lexer {
                 alt17=2;}
             switch (alt17) {
                 case 1 :
-                    // ../org.osate.alisa.workbench.ui/src-gen/org/osate/alisa/workbench/ui/contentassist/antlr/internal/InternalAlisa.g:8883:52: '#' RULE_BASED_INTEGER '#' ( RULE_INT_EXPONENT )?
+                    // ../org.osate.alisa.workbench.ui/src-gen/org/osate/alisa/workbench/ui/contentassist/antlr/internal/InternalAlisa.g:8895:52: '#' RULE_BASED_INTEGER '#' ( RULE_INT_EXPONENT )?
                     {
                     match('#'); 
                     mRULE_BASED_INTEGER(); 
                     match('#'); 
-                    // ../org.osate.alisa.workbench.ui/src-gen/org/osate/alisa/workbench/ui/contentassist/antlr/internal/InternalAlisa.g:8883:79: ( RULE_INT_EXPONENT )?
+                    // ../org.osate.alisa.workbench.ui/src-gen/org/osate/alisa/workbench/ui/contentassist/antlr/internal/InternalAlisa.g:8895:79: ( RULE_INT_EXPONENT )?
                     int alt15=2;
                     int LA15_0 = input.LA(1);
 
@@ -1689,7 +1689,7 @@ public class InternalAlisaLexer extends Lexer {
                     }
                     switch (alt15) {
                         case 1 :
-                            // ../org.osate.alisa.workbench.ui/src-gen/org/osate/alisa/workbench/ui/contentassist/antlr/internal/InternalAlisa.g:8883:79: RULE_INT_EXPONENT
+                            // ../org.osate.alisa.workbench.ui/src-gen/org/osate/alisa/workbench/ui/contentassist/antlr/internal/InternalAlisa.g:8895:79: RULE_INT_EXPONENT
                             {
                             mRULE_INT_EXPONENT(); 
 
@@ -1702,9 +1702,9 @@ public class InternalAlisaLexer extends Lexer {
                     }
                     break;
                 case 2 :
-                    // ../org.osate.alisa.workbench.ui/src-gen/org/osate/alisa/workbench/ui/contentassist/antlr/internal/InternalAlisa.g:8883:98: ( RULE_INT_EXPONENT )?
+                    // ../org.osate.alisa.workbench.ui/src-gen/org/osate/alisa/workbench/ui/contentassist/antlr/internal/InternalAlisa.g:8895:98: ( RULE_INT_EXPONENT )?
                     {
-                    // ../org.osate.alisa.workbench.ui/src-gen/org/osate/alisa/workbench/ui/contentassist/antlr/internal/InternalAlisa.g:8883:98: ( RULE_INT_EXPONENT )?
+                    // ../org.osate.alisa.workbench.ui/src-gen/org/osate/alisa/workbench/ui/contentassist/antlr/internal/InternalAlisa.g:8895:98: ( RULE_INT_EXPONENT )?
                     int alt16=2;
                     int LA16_0 = input.LA(1);
 
@@ -1713,7 +1713,7 @@ public class InternalAlisaLexer extends Lexer {
                     }
                     switch (alt16) {
                         case 1 :
-                            // ../org.osate.alisa.workbench.ui/src-gen/org/osate/alisa/workbench/ui/contentassist/antlr/internal/InternalAlisa.g:8883:98: RULE_INT_EXPONENT
+                            // ../org.osate.alisa.workbench.ui/src-gen/org/osate/alisa/workbench/ui/contentassist/antlr/internal/InternalAlisa.g:8895:98: RULE_INT_EXPONENT
                             {
                             mRULE_INT_EXPONENT(); 
 
@@ -1742,8 +1742,8 @@ public class InternalAlisaLexer extends Lexer {
     // $ANTLR start "RULE_DIGIT"
     public final void mRULE_DIGIT() throws RecognitionException {
         try {
-            // ../org.osate.alisa.workbench.ui/src-gen/org/osate/alisa/workbench/ui/contentassist/antlr/internal/InternalAlisa.g:8885:21: ( '0' .. '9' )
-            // ../org.osate.alisa.workbench.ui/src-gen/org/osate/alisa/workbench/ui/contentassist/antlr/internal/InternalAlisa.g:8885:23: '0' .. '9'
+            // ../org.osate.alisa.workbench.ui/src-gen/org/osate/alisa/workbench/ui/contentassist/antlr/internal/InternalAlisa.g:8897:21: ( '0' .. '9' )
+            // ../org.osate.alisa.workbench.ui/src-gen/org/osate/alisa/workbench/ui/contentassist/antlr/internal/InternalAlisa.g:8897:23: '0' .. '9'
             {
             matchRange('0','9'); 
 
@@ -1758,8 +1758,8 @@ public class InternalAlisaLexer extends Lexer {
     // $ANTLR start "RULE_EXTENDED_DIGIT"
     public final void mRULE_EXTENDED_DIGIT() throws RecognitionException {
         try {
-            // ../org.osate.alisa.workbench.ui/src-gen/org/osate/alisa/workbench/ui/contentassist/antlr/internal/InternalAlisa.g:8887:30: ( ( '0' .. '9' | 'a' .. 'f' | 'A' .. 'F' ) )
-            // ../org.osate.alisa.workbench.ui/src-gen/org/osate/alisa/workbench/ui/contentassist/antlr/internal/InternalAlisa.g:8887:32: ( '0' .. '9' | 'a' .. 'f' | 'A' .. 'F' )
+            // ../org.osate.alisa.workbench.ui/src-gen/org/osate/alisa/workbench/ui/contentassist/antlr/internal/InternalAlisa.g:8899:30: ( ( '0' .. '9' | 'a' .. 'f' | 'A' .. 'F' ) )
+            // ../org.osate.alisa.workbench.ui/src-gen/org/osate/alisa/workbench/ui/contentassist/antlr/internal/InternalAlisa.g:8899:32: ( '0' .. '9' | 'a' .. 'f' | 'A' .. 'F' )
             {
             if ( (input.LA(1)>='0' && input.LA(1)<='9')||(input.LA(1)>='A' && input.LA(1)<='F')||(input.LA(1)>='a' && input.LA(1)<='f') ) {
                 input.consume();
@@ -1782,11 +1782,11 @@ public class InternalAlisaLexer extends Lexer {
     // $ANTLR start "RULE_BASED_INTEGER"
     public final void mRULE_BASED_INTEGER() throws RecognitionException {
         try {
-            // ../org.osate.alisa.workbench.ui/src-gen/org/osate/alisa/workbench/ui/contentassist/antlr/internal/InternalAlisa.g:8889:29: ( RULE_EXTENDED_DIGIT ( ( '_' )? RULE_EXTENDED_DIGIT )* )
-            // ../org.osate.alisa.workbench.ui/src-gen/org/osate/alisa/workbench/ui/contentassist/antlr/internal/InternalAlisa.g:8889:31: RULE_EXTENDED_DIGIT ( ( '_' )? RULE_EXTENDED_DIGIT )*
+            // ../org.osate.alisa.workbench.ui/src-gen/org/osate/alisa/workbench/ui/contentassist/antlr/internal/InternalAlisa.g:8901:29: ( RULE_EXTENDED_DIGIT ( ( '_' )? RULE_EXTENDED_DIGIT )* )
+            // ../org.osate.alisa.workbench.ui/src-gen/org/osate/alisa/workbench/ui/contentassist/antlr/internal/InternalAlisa.g:8901:31: RULE_EXTENDED_DIGIT ( ( '_' )? RULE_EXTENDED_DIGIT )*
             {
             mRULE_EXTENDED_DIGIT(); 
-            // ../org.osate.alisa.workbench.ui/src-gen/org/osate/alisa/workbench/ui/contentassist/antlr/internal/InternalAlisa.g:8889:51: ( ( '_' )? RULE_EXTENDED_DIGIT )*
+            // ../org.osate.alisa.workbench.ui/src-gen/org/osate/alisa/workbench/ui/contentassist/antlr/internal/InternalAlisa.g:8901:51: ( ( '_' )? RULE_EXTENDED_DIGIT )*
             loop19:
             do {
                 int alt19=2;
@@ -1799,9 +1799,9 @@ public class InternalAlisaLexer extends Lexer {
 
                 switch (alt19) {
             	case 1 :
-            	    // ../org.osate.alisa.workbench.ui/src-gen/org/osate/alisa/workbench/ui/contentassist/antlr/internal/InternalAlisa.g:8889:52: ( '_' )? RULE_EXTENDED_DIGIT
+            	    // ../org.osate.alisa.workbench.ui/src-gen/org/osate/alisa/workbench/ui/contentassist/antlr/internal/InternalAlisa.g:8901:52: ( '_' )? RULE_EXTENDED_DIGIT
             	    {
-            	    // ../org.osate.alisa.workbench.ui/src-gen/org/osate/alisa/workbench/ui/contentassist/antlr/internal/InternalAlisa.g:8889:52: ( '_' )?
+            	    // ../org.osate.alisa.workbench.ui/src-gen/org/osate/alisa/workbench/ui/contentassist/antlr/internal/InternalAlisa.g:8901:52: ( '_' )?
             	    int alt18=2;
             	    int LA18_0 = input.LA(1);
 
@@ -1810,7 +1810,7 @@ public class InternalAlisaLexer extends Lexer {
             	    }
             	    switch (alt18) {
             	        case 1 :
-            	            // ../org.osate.alisa.workbench.ui/src-gen/org/osate/alisa/workbench/ui/contentassist/antlr/internal/InternalAlisa.g:8889:52: '_'
+            	            // ../org.osate.alisa.workbench.ui/src-gen/org/osate/alisa/workbench/ui/contentassist/antlr/internal/InternalAlisa.g:8901:52: '_'
             	            {
             	            match('_'); 
 
@@ -1843,10 +1843,10 @@ public class InternalAlisaLexer extends Lexer {
         try {
             int _type = RULE_HEX;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../org.osate.alisa.workbench.ui/src-gen/org/osate/alisa/workbench/ui/contentassist/antlr/internal/InternalAlisa.g:8891:10: ( ( '0x' | '0X' ) ( '0' .. '9' | 'a' .. 'f' | 'A' .. 'F' | '_' )+ ( '#' ( ( 'b' | 'B' ) ( 'i' | 'I' ) | ( 'l' | 'L' ) ) )? )
-            // ../org.osate.alisa.workbench.ui/src-gen/org/osate/alisa/workbench/ui/contentassist/antlr/internal/InternalAlisa.g:8891:12: ( '0x' | '0X' ) ( '0' .. '9' | 'a' .. 'f' | 'A' .. 'F' | '_' )+ ( '#' ( ( 'b' | 'B' ) ( 'i' | 'I' ) | ( 'l' | 'L' ) ) )?
+            // ../org.osate.alisa.workbench.ui/src-gen/org/osate/alisa/workbench/ui/contentassist/antlr/internal/InternalAlisa.g:8903:10: ( ( '0x' | '0X' ) ( '0' .. '9' | 'a' .. 'f' | 'A' .. 'F' | '_' )+ ( '#' ( ( 'b' | 'B' ) ( 'i' | 'I' ) | ( 'l' | 'L' ) ) )? )
+            // ../org.osate.alisa.workbench.ui/src-gen/org/osate/alisa/workbench/ui/contentassist/antlr/internal/InternalAlisa.g:8903:12: ( '0x' | '0X' ) ( '0' .. '9' | 'a' .. 'f' | 'A' .. 'F' | '_' )+ ( '#' ( ( 'b' | 'B' ) ( 'i' | 'I' ) | ( 'l' | 'L' ) ) )?
             {
-            // ../org.osate.alisa.workbench.ui/src-gen/org/osate/alisa/workbench/ui/contentassist/antlr/internal/InternalAlisa.g:8891:12: ( '0x' | '0X' )
+            // ../org.osate.alisa.workbench.ui/src-gen/org/osate/alisa/workbench/ui/contentassist/antlr/internal/InternalAlisa.g:8903:12: ( '0x' | '0X' )
             int alt20=2;
             int LA20_0 = input.LA(1);
 
@@ -1874,7 +1874,7 @@ public class InternalAlisaLexer extends Lexer {
             }
             switch (alt20) {
                 case 1 :
-                    // ../org.osate.alisa.workbench.ui/src-gen/org/osate/alisa/workbench/ui/contentassist/antlr/internal/InternalAlisa.g:8891:13: '0x'
+                    // ../org.osate.alisa.workbench.ui/src-gen/org/osate/alisa/workbench/ui/contentassist/antlr/internal/InternalAlisa.g:8903:13: '0x'
                     {
                     match("0x"); 
 
@@ -1882,7 +1882,7 @@ public class InternalAlisaLexer extends Lexer {
                     }
                     break;
                 case 2 :
-                    // ../org.osate.alisa.workbench.ui/src-gen/org/osate/alisa/workbench/ui/contentassist/antlr/internal/InternalAlisa.g:8891:18: '0X'
+                    // ../org.osate.alisa.workbench.ui/src-gen/org/osate/alisa/workbench/ui/contentassist/antlr/internal/InternalAlisa.g:8903:18: '0X'
                     {
                     match("0X"); 
 
@@ -1892,7 +1892,7 @@ public class InternalAlisaLexer extends Lexer {
 
             }
 
-            // ../org.osate.alisa.workbench.ui/src-gen/org/osate/alisa/workbench/ui/contentassist/antlr/internal/InternalAlisa.g:8891:24: ( '0' .. '9' | 'a' .. 'f' | 'A' .. 'F' | '_' )+
+            // ../org.osate.alisa.workbench.ui/src-gen/org/osate/alisa/workbench/ui/contentassist/antlr/internal/InternalAlisa.g:8903:24: ( '0' .. '9' | 'a' .. 'f' | 'A' .. 'F' | '_' )+
             int cnt21=0;
             loop21:
             do {
@@ -1930,7 +1930,7 @@ public class InternalAlisaLexer extends Lexer {
                 cnt21++;
             } while (true);
 
-            // ../org.osate.alisa.workbench.ui/src-gen/org/osate/alisa/workbench/ui/contentassist/antlr/internal/InternalAlisa.g:8891:58: ( '#' ( ( 'b' | 'B' ) ( 'i' | 'I' ) | ( 'l' | 'L' ) ) )?
+            // ../org.osate.alisa.workbench.ui/src-gen/org/osate/alisa/workbench/ui/contentassist/antlr/internal/InternalAlisa.g:8903:58: ( '#' ( ( 'b' | 'B' ) ( 'i' | 'I' ) | ( 'l' | 'L' ) ) )?
             int alt23=2;
             int LA23_0 = input.LA(1);
 
@@ -1939,10 +1939,10 @@ public class InternalAlisaLexer extends Lexer {
             }
             switch (alt23) {
                 case 1 :
-                    // ../org.osate.alisa.workbench.ui/src-gen/org/osate/alisa/workbench/ui/contentassist/antlr/internal/InternalAlisa.g:8891:59: '#' ( ( 'b' | 'B' ) ( 'i' | 'I' ) | ( 'l' | 'L' ) )
+                    // ../org.osate.alisa.workbench.ui/src-gen/org/osate/alisa/workbench/ui/contentassist/antlr/internal/InternalAlisa.g:8903:59: '#' ( ( 'b' | 'B' ) ( 'i' | 'I' ) | ( 'l' | 'L' ) )
                     {
                     match('#'); 
-                    // ../org.osate.alisa.workbench.ui/src-gen/org/osate/alisa/workbench/ui/contentassist/antlr/internal/InternalAlisa.g:8891:63: ( ( 'b' | 'B' ) ( 'i' | 'I' ) | ( 'l' | 'L' ) )
+                    // ../org.osate.alisa.workbench.ui/src-gen/org/osate/alisa/workbench/ui/contentassist/antlr/internal/InternalAlisa.g:8903:63: ( ( 'b' | 'B' ) ( 'i' | 'I' ) | ( 'l' | 'L' ) )
                     int alt22=2;
                     int LA22_0 = input.LA(1);
 
@@ -1960,7 +1960,7 @@ public class InternalAlisaLexer extends Lexer {
                     }
                     switch (alt22) {
                         case 1 :
-                            // ../org.osate.alisa.workbench.ui/src-gen/org/osate/alisa/workbench/ui/contentassist/antlr/internal/InternalAlisa.g:8891:64: ( 'b' | 'B' ) ( 'i' | 'I' )
+                            // ../org.osate.alisa.workbench.ui/src-gen/org/osate/alisa/workbench/ui/contentassist/antlr/internal/InternalAlisa.g:8903:64: ( 'b' | 'B' ) ( 'i' | 'I' )
                             {
                             if ( input.LA(1)=='B'||input.LA(1)=='b' ) {
                                 input.consume();
@@ -1984,7 +1984,7 @@ public class InternalAlisaLexer extends Lexer {
                             }
                             break;
                         case 2 :
-                            // ../org.osate.alisa.workbench.ui/src-gen/org/osate/alisa/workbench/ui/contentassist/antlr/internal/InternalAlisa.g:8891:84: ( 'l' | 'L' )
+                            // ../org.osate.alisa.workbench.ui/src-gen/org/osate/alisa/workbench/ui/contentassist/antlr/internal/InternalAlisa.g:8903:84: ( 'l' | 'L' )
                             {
                             if ( input.LA(1)=='L'||input.LA(1)=='l' ) {
                                 input.consume();
@@ -2023,11 +2023,11 @@ public class InternalAlisaLexer extends Lexer {
         try {
             int _type = RULE_INT;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../org.osate.alisa.workbench.ui/src-gen/org/osate/alisa/workbench/ui/contentassist/antlr/internal/InternalAlisa.g:8893:10: ( '0' .. '9' ( '0' .. '9' | '_' )* )
-            // ../org.osate.alisa.workbench.ui/src-gen/org/osate/alisa/workbench/ui/contentassist/antlr/internal/InternalAlisa.g:8893:12: '0' .. '9' ( '0' .. '9' | '_' )*
+            // ../org.osate.alisa.workbench.ui/src-gen/org/osate/alisa/workbench/ui/contentassist/antlr/internal/InternalAlisa.g:8905:10: ( '0' .. '9' ( '0' .. '9' | '_' )* )
+            // ../org.osate.alisa.workbench.ui/src-gen/org/osate/alisa/workbench/ui/contentassist/antlr/internal/InternalAlisa.g:8905:12: '0' .. '9' ( '0' .. '9' | '_' )*
             {
             matchRange('0','9'); 
-            // ../org.osate.alisa.workbench.ui/src-gen/org/osate/alisa/workbench/ui/contentassist/antlr/internal/InternalAlisa.g:8893:21: ( '0' .. '9' | '_' )*
+            // ../org.osate.alisa.workbench.ui/src-gen/org/osate/alisa/workbench/ui/contentassist/antlr/internal/InternalAlisa.g:8905:21: ( '0' .. '9' | '_' )*
             loop24:
             do {
                 int alt24=2;
@@ -2076,11 +2076,11 @@ public class InternalAlisaLexer extends Lexer {
         try {
             int _type = RULE_DECIMAL;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../org.osate.alisa.workbench.ui/src-gen/org/osate/alisa/workbench/ui/contentassist/antlr/internal/InternalAlisa.g:8895:14: ( RULE_INT ( ( 'e' | 'E' ) ( '+' | '-' )? RULE_INT )? ( ( 'b' | 'B' ) ( 'i' | 'I' | 'd' | 'D' ) | ( 'l' | 'L' | 'd' | 'D' | 'f' | 'F' ) )? )
-            // ../org.osate.alisa.workbench.ui/src-gen/org/osate/alisa/workbench/ui/contentassist/antlr/internal/InternalAlisa.g:8895:16: RULE_INT ( ( 'e' | 'E' ) ( '+' | '-' )? RULE_INT )? ( ( 'b' | 'B' ) ( 'i' | 'I' | 'd' | 'D' ) | ( 'l' | 'L' | 'd' | 'D' | 'f' | 'F' ) )?
+            // ../org.osate.alisa.workbench.ui/src-gen/org/osate/alisa/workbench/ui/contentassist/antlr/internal/InternalAlisa.g:8907:14: ( RULE_INT ( ( 'e' | 'E' ) ( '+' | '-' )? RULE_INT )? ( ( 'b' | 'B' ) ( 'i' | 'I' | 'd' | 'D' ) | ( 'l' | 'L' | 'd' | 'D' | 'f' | 'F' ) )? )
+            // ../org.osate.alisa.workbench.ui/src-gen/org/osate/alisa/workbench/ui/contentassist/antlr/internal/InternalAlisa.g:8907:16: RULE_INT ( ( 'e' | 'E' ) ( '+' | '-' )? RULE_INT )? ( ( 'b' | 'B' ) ( 'i' | 'I' | 'd' | 'D' ) | ( 'l' | 'L' | 'd' | 'D' | 'f' | 'F' ) )?
             {
             mRULE_INT(); 
-            // ../org.osate.alisa.workbench.ui/src-gen/org/osate/alisa/workbench/ui/contentassist/antlr/internal/InternalAlisa.g:8895:25: ( ( 'e' | 'E' ) ( '+' | '-' )? RULE_INT )?
+            // ../org.osate.alisa.workbench.ui/src-gen/org/osate/alisa/workbench/ui/contentassist/antlr/internal/InternalAlisa.g:8907:25: ( ( 'e' | 'E' ) ( '+' | '-' )? RULE_INT )?
             int alt26=2;
             int LA26_0 = input.LA(1);
 
@@ -2089,7 +2089,7 @@ public class InternalAlisaLexer extends Lexer {
             }
             switch (alt26) {
                 case 1 :
-                    // ../org.osate.alisa.workbench.ui/src-gen/org/osate/alisa/workbench/ui/contentassist/antlr/internal/InternalAlisa.g:8895:26: ( 'e' | 'E' ) ( '+' | '-' )? RULE_INT
+                    // ../org.osate.alisa.workbench.ui/src-gen/org/osate/alisa/workbench/ui/contentassist/antlr/internal/InternalAlisa.g:8907:26: ( 'e' | 'E' ) ( '+' | '-' )? RULE_INT
                     {
                     if ( input.LA(1)=='E'||input.LA(1)=='e' ) {
                         input.consume();
@@ -2100,7 +2100,7 @@ public class InternalAlisaLexer extends Lexer {
                         recover(mse);
                         throw mse;}
 
-                    // ../org.osate.alisa.workbench.ui/src-gen/org/osate/alisa/workbench/ui/contentassist/antlr/internal/InternalAlisa.g:8895:36: ( '+' | '-' )?
+                    // ../org.osate.alisa.workbench.ui/src-gen/org/osate/alisa/workbench/ui/contentassist/antlr/internal/InternalAlisa.g:8907:36: ( '+' | '-' )?
                     int alt25=2;
                     int LA25_0 = input.LA(1);
 
@@ -2133,7 +2133,7 @@ public class InternalAlisaLexer extends Lexer {
 
             }
 
-            // ../org.osate.alisa.workbench.ui/src-gen/org/osate/alisa/workbench/ui/contentassist/antlr/internal/InternalAlisa.g:8895:58: ( ( 'b' | 'B' ) ( 'i' | 'I' | 'd' | 'D' ) | ( 'l' | 'L' | 'd' | 'D' | 'f' | 'F' ) )?
+            // ../org.osate.alisa.workbench.ui/src-gen/org/osate/alisa/workbench/ui/contentassist/antlr/internal/InternalAlisa.g:8907:58: ( ( 'b' | 'B' ) ( 'i' | 'I' | 'd' | 'D' ) | ( 'l' | 'L' | 'd' | 'D' | 'f' | 'F' ) )?
             int alt27=3;
             int LA27_0 = input.LA(1);
 
@@ -2145,7 +2145,7 @@ public class InternalAlisaLexer extends Lexer {
             }
             switch (alt27) {
                 case 1 :
-                    // ../org.osate.alisa.workbench.ui/src-gen/org/osate/alisa/workbench/ui/contentassist/antlr/internal/InternalAlisa.g:8895:59: ( 'b' | 'B' ) ( 'i' | 'I' | 'd' | 'D' )
+                    // ../org.osate.alisa.workbench.ui/src-gen/org/osate/alisa/workbench/ui/contentassist/antlr/internal/InternalAlisa.g:8907:59: ( 'b' | 'B' ) ( 'i' | 'I' | 'd' | 'D' )
                     {
                     if ( input.LA(1)=='B'||input.LA(1)=='b' ) {
                         input.consume();
@@ -2169,7 +2169,7 @@ public class InternalAlisaLexer extends Lexer {
                     }
                     break;
                 case 2 :
-                    // ../org.osate.alisa.workbench.ui/src-gen/org/osate/alisa/workbench/ui/contentassist/antlr/internal/InternalAlisa.g:8895:87: ( 'l' | 'L' | 'd' | 'D' | 'f' | 'F' )
+                    // ../org.osate.alisa.workbench.ui/src-gen/org/osate/alisa/workbench/ui/contentassist/antlr/internal/InternalAlisa.g:8907:87: ( 'l' | 'L' | 'd' | 'D' | 'f' | 'F' )
                     {
                     if ( input.LA(1)=='D'||input.LA(1)=='F'||input.LA(1)=='L'||input.LA(1)=='d'||input.LA(1)=='f'||input.LA(1)=='l' ) {
                         input.consume();
@@ -2202,10 +2202,10 @@ public class InternalAlisaLexer extends Lexer {
         try {
             int _type = RULE_ID;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../org.osate.alisa.workbench.ui/src-gen/org/osate/alisa/workbench/ui/contentassist/antlr/internal/InternalAlisa.g:8897:9: ( ( '^' )? ( 'a' .. 'z' | 'A' .. 'Z' | '_' ) ( 'a' .. 'z' | 'A' .. 'Z' | '_' | '0' .. '9' )* )
-            // ../org.osate.alisa.workbench.ui/src-gen/org/osate/alisa/workbench/ui/contentassist/antlr/internal/InternalAlisa.g:8897:11: ( '^' )? ( 'a' .. 'z' | 'A' .. 'Z' | '_' ) ( 'a' .. 'z' | 'A' .. 'Z' | '_' | '0' .. '9' )*
+            // ../org.osate.alisa.workbench.ui/src-gen/org/osate/alisa/workbench/ui/contentassist/antlr/internal/InternalAlisa.g:8909:9: ( ( '^' )? ( 'a' .. 'z' | 'A' .. 'Z' | '_' ) ( 'a' .. 'z' | 'A' .. 'Z' | '_' | '0' .. '9' )* )
+            // ../org.osate.alisa.workbench.ui/src-gen/org/osate/alisa/workbench/ui/contentassist/antlr/internal/InternalAlisa.g:8909:11: ( '^' )? ( 'a' .. 'z' | 'A' .. 'Z' | '_' ) ( 'a' .. 'z' | 'A' .. 'Z' | '_' | '0' .. '9' )*
             {
-            // ../org.osate.alisa.workbench.ui/src-gen/org/osate/alisa/workbench/ui/contentassist/antlr/internal/InternalAlisa.g:8897:11: ( '^' )?
+            // ../org.osate.alisa.workbench.ui/src-gen/org/osate/alisa/workbench/ui/contentassist/antlr/internal/InternalAlisa.g:8909:11: ( '^' )?
             int alt28=2;
             int LA28_0 = input.LA(1);
 
@@ -2214,7 +2214,7 @@ public class InternalAlisaLexer extends Lexer {
             }
             switch (alt28) {
                 case 1 :
-                    // ../org.osate.alisa.workbench.ui/src-gen/org/osate/alisa/workbench/ui/contentassist/antlr/internal/InternalAlisa.g:8897:11: '^'
+                    // ../org.osate.alisa.workbench.ui/src-gen/org/osate/alisa/workbench/ui/contentassist/antlr/internal/InternalAlisa.g:8909:11: '^'
                     {
                     match('^'); 
 
@@ -2232,7 +2232,7 @@ public class InternalAlisaLexer extends Lexer {
                 recover(mse);
                 throw mse;}
 
-            // ../org.osate.alisa.workbench.ui/src-gen/org/osate/alisa/workbench/ui/contentassist/antlr/internal/InternalAlisa.g:8897:40: ( 'a' .. 'z' | 'A' .. 'Z' | '_' | '0' .. '9' )*
+            // ../org.osate.alisa.workbench.ui/src-gen/org/osate/alisa/workbench/ui/contentassist/antlr/internal/InternalAlisa.g:8909:40: ( 'a' .. 'z' | 'A' .. 'Z' | '_' | '0' .. '9' )*
             loop29:
             do {
                 int alt29=2;
@@ -2281,10 +2281,10 @@ public class InternalAlisaLexer extends Lexer {
         try {
             int _type = RULE_STRING;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../org.osate.alisa.workbench.ui/src-gen/org/osate/alisa/workbench/ui/contentassist/antlr/internal/InternalAlisa.g:8899:13: ( ( '\"' ( '\\\\' . | ~ ( ( '\\\\' | '\"' ) ) )* '\"' | '\\'' ( '\\\\' . | ~ ( ( '\\\\' | '\\'' ) ) )* '\\'' ) )
-            // ../org.osate.alisa.workbench.ui/src-gen/org/osate/alisa/workbench/ui/contentassist/antlr/internal/InternalAlisa.g:8899:15: ( '\"' ( '\\\\' . | ~ ( ( '\\\\' | '\"' ) ) )* '\"' | '\\'' ( '\\\\' . | ~ ( ( '\\\\' | '\\'' ) ) )* '\\'' )
+            // ../org.osate.alisa.workbench.ui/src-gen/org/osate/alisa/workbench/ui/contentassist/antlr/internal/InternalAlisa.g:8911:13: ( ( '\"' ( '\\\\' . | ~ ( ( '\\\\' | '\"' ) ) )* '\"' | '\\'' ( '\\\\' . | ~ ( ( '\\\\' | '\\'' ) ) )* '\\'' ) )
+            // ../org.osate.alisa.workbench.ui/src-gen/org/osate/alisa/workbench/ui/contentassist/antlr/internal/InternalAlisa.g:8911:15: ( '\"' ( '\\\\' . | ~ ( ( '\\\\' | '\"' ) ) )* '\"' | '\\'' ( '\\\\' . | ~ ( ( '\\\\' | '\\'' ) ) )* '\\'' )
             {
-            // ../org.osate.alisa.workbench.ui/src-gen/org/osate/alisa/workbench/ui/contentassist/antlr/internal/InternalAlisa.g:8899:15: ( '\"' ( '\\\\' . | ~ ( ( '\\\\' | '\"' ) ) )* '\"' | '\\'' ( '\\\\' . | ~ ( ( '\\\\' | '\\'' ) ) )* '\\'' )
+            // ../org.osate.alisa.workbench.ui/src-gen/org/osate/alisa/workbench/ui/contentassist/antlr/internal/InternalAlisa.g:8911:15: ( '\"' ( '\\\\' . | ~ ( ( '\\\\' | '\"' ) ) )* '\"' | '\\'' ( '\\\\' . | ~ ( ( '\\\\' | '\\'' ) ) )* '\\'' )
             int alt32=2;
             int LA32_0 = input.LA(1);
 
@@ -2302,10 +2302,10 @@ public class InternalAlisaLexer extends Lexer {
             }
             switch (alt32) {
                 case 1 :
-                    // ../org.osate.alisa.workbench.ui/src-gen/org/osate/alisa/workbench/ui/contentassist/antlr/internal/InternalAlisa.g:8899:16: '\"' ( '\\\\' . | ~ ( ( '\\\\' | '\"' ) ) )* '\"'
+                    // ../org.osate.alisa.workbench.ui/src-gen/org/osate/alisa/workbench/ui/contentassist/antlr/internal/InternalAlisa.g:8911:16: '\"' ( '\\\\' . | ~ ( ( '\\\\' | '\"' ) ) )* '\"'
                     {
                     match('\"'); 
-                    // ../org.osate.alisa.workbench.ui/src-gen/org/osate/alisa/workbench/ui/contentassist/antlr/internal/InternalAlisa.g:8899:20: ( '\\\\' . | ~ ( ( '\\\\' | '\"' ) ) )*
+                    // ../org.osate.alisa.workbench.ui/src-gen/org/osate/alisa/workbench/ui/contentassist/antlr/internal/InternalAlisa.g:8911:20: ( '\\\\' . | ~ ( ( '\\\\' | '\"' ) ) )*
                     loop30:
                     do {
                         int alt30=3;
@@ -2321,7 +2321,7 @@ public class InternalAlisaLexer extends Lexer {
 
                         switch (alt30) {
                     	case 1 :
-                    	    // ../org.osate.alisa.workbench.ui/src-gen/org/osate/alisa/workbench/ui/contentassist/antlr/internal/InternalAlisa.g:8899:21: '\\\\' .
+                    	    // ../org.osate.alisa.workbench.ui/src-gen/org/osate/alisa/workbench/ui/contentassist/antlr/internal/InternalAlisa.g:8911:21: '\\\\' .
                     	    {
                     	    match('\\'); 
                     	    matchAny(); 
@@ -2329,7 +2329,7 @@ public class InternalAlisaLexer extends Lexer {
                     	    }
                     	    break;
                     	case 2 :
-                    	    // ../org.osate.alisa.workbench.ui/src-gen/org/osate/alisa/workbench/ui/contentassist/antlr/internal/InternalAlisa.g:8899:28: ~ ( ( '\\\\' | '\"' ) )
+                    	    // ../org.osate.alisa.workbench.ui/src-gen/org/osate/alisa/workbench/ui/contentassist/antlr/internal/InternalAlisa.g:8911:28: ~ ( ( '\\\\' | '\"' ) )
                     	    {
                     	    if ( (input.LA(1)>='\u0000' && input.LA(1)<='!')||(input.LA(1)>='#' && input.LA(1)<='[')||(input.LA(1)>=']' && input.LA(1)<='\uFFFF') ) {
                     	        input.consume();
@@ -2354,10 +2354,10 @@ public class InternalAlisaLexer extends Lexer {
                     }
                     break;
                 case 2 :
-                    // ../org.osate.alisa.workbench.ui/src-gen/org/osate/alisa/workbench/ui/contentassist/antlr/internal/InternalAlisa.g:8899:48: '\\'' ( '\\\\' . | ~ ( ( '\\\\' | '\\'' ) ) )* '\\''
+                    // ../org.osate.alisa.workbench.ui/src-gen/org/osate/alisa/workbench/ui/contentassist/antlr/internal/InternalAlisa.g:8911:48: '\\'' ( '\\\\' . | ~ ( ( '\\\\' | '\\'' ) ) )* '\\''
                     {
                     match('\''); 
-                    // ../org.osate.alisa.workbench.ui/src-gen/org/osate/alisa/workbench/ui/contentassist/antlr/internal/InternalAlisa.g:8899:53: ( '\\\\' . | ~ ( ( '\\\\' | '\\'' ) ) )*
+                    // ../org.osate.alisa.workbench.ui/src-gen/org/osate/alisa/workbench/ui/contentassist/antlr/internal/InternalAlisa.g:8911:53: ( '\\\\' . | ~ ( ( '\\\\' | '\\'' ) ) )*
                     loop31:
                     do {
                         int alt31=3;
@@ -2373,7 +2373,7 @@ public class InternalAlisaLexer extends Lexer {
 
                         switch (alt31) {
                     	case 1 :
-                    	    // ../org.osate.alisa.workbench.ui/src-gen/org/osate/alisa/workbench/ui/contentassist/antlr/internal/InternalAlisa.g:8899:54: '\\\\' .
+                    	    // ../org.osate.alisa.workbench.ui/src-gen/org/osate/alisa/workbench/ui/contentassist/antlr/internal/InternalAlisa.g:8911:54: '\\\\' .
                     	    {
                     	    match('\\'); 
                     	    matchAny(); 
@@ -2381,7 +2381,7 @@ public class InternalAlisaLexer extends Lexer {
                     	    }
                     	    break;
                     	case 2 :
-                    	    // ../org.osate.alisa.workbench.ui/src-gen/org/osate/alisa/workbench/ui/contentassist/antlr/internal/InternalAlisa.g:8899:61: ~ ( ( '\\\\' | '\\'' ) )
+                    	    // ../org.osate.alisa.workbench.ui/src-gen/org/osate/alisa/workbench/ui/contentassist/antlr/internal/InternalAlisa.g:8911:61: ~ ( ( '\\\\' | '\\'' ) )
                     	    {
                     	    if ( (input.LA(1)>='\u0000' && input.LA(1)<='&')||(input.LA(1)>='(' && input.LA(1)<='[')||(input.LA(1)>=']' && input.LA(1)<='\uFFFF') ) {
                     	        input.consume();
@@ -2424,12 +2424,12 @@ public class InternalAlisaLexer extends Lexer {
         try {
             int _type = RULE_ML_COMMENT;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../org.osate.alisa.workbench.ui/src-gen/org/osate/alisa/workbench/ui/contentassist/antlr/internal/InternalAlisa.g:8901:17: ( '/*' ( options {greedy=false; } : . )* '*/' )
-            // ../org.osate.alisa.workbench.ui/src-gen/org/osate/alisa/workbench/ui/contentassist/antlr/internal/InternalAlisa.g:8901:19: '/*' ( options {greedy=false; } : . )* '*/'
+            // ../org.osate.alisa.workbench.ui/src-gen/org/osate/alisa/workbench/ui/contentassist/antlr/internal/InternalAlisa.g:8913:17: ( '/*' ( options {greedy=false; } : . )* '*/' )
+            // ../org.osate.alisa.workbench.ui/src-gen/org/osate/alisa/workbench/ui/contentassist/antlr/internal/InternalAlisa.g:8913:19: '/*' ( options {greedy=false; } : . )* '*/'
             {
             match("/*"); 
 
-            // ../org.osate.alisa.workbench.ui/src-gen/org/osate/alisa/workbench/ui/contentassist/antlr/internal/InternalAlisa.g:8901:24: ( options {greedy=false; } : . )*
+            // ../org.osate.alisa.workbench.ui/src-gen/org/osate/alisa/workbench/ui/contentassist/antlr/internal/InternalAlisa.g:8913:24: ( options {greedy=false; } : . )*
             loop33:
             do {
                 int alt33=2;
@@ -2454,7 +2454,7 @@ public class InternalAlisaLexer extends Lexer {
 
                 switch (alt33) {
             	case 1 :
-            	    // ../org.osate.alisa.workbench.ui/src-gen/org/osate/alisa/workbench/ui/contentassist/antlr/internal/InternalAlisa.g:8901:52: .
+            	    // ../org.osate.alisa.workbench.ui/src-gen/org/osate/alisa/workbench/ui/contentassist/antlr/internal/InternalAlisa.g:8913:52: .
             	    {
             	    matchAny(); 
 
@@ -2484,12 +2484,12 @@ public class InternalAlisaLexer extends Lexer {
         try {
             int _type = RULE_SL_COMMENT;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../org.osate.alisa.workbench.ui/src-gen/org/osate/alisa/workbench/ui/contentassist/antlr/internal/InternalAlisa.g:8903:17: ( '//' (~ ( ( '\\n' | '\\r' ) ) )* ( ( '\\r' )? '\\n' )? )
-            // ../org.osate.alisa.workbench.ui/src-gen/org/osate/alisa/workbench/ui/contentassist/antlr/internal/InternalAlisa.g:8903:19: '//' (~ ( ( '\\n' | '\\r' ) ) )* ( ( '\\r' )? '\\n' )?
+            // ../org.osate.alisa.workbench.ui/src-gen/org/osate/alisa/workbench/ui/contentassist/antlr/internal/InternalAlisa.g:8915:17: ( '//' (~ ( ( '\\n' | '\\r' ) ) )* ( ( '\\r' )? '\\n' )? )
+            // ../org.osate.alisa.workbench.ui/src-gen/org/osate/alisa/workbench/ui/contentassist/antlr/internal/InternalAlisa.g:8915:19: '//' (~ ( ( '\\n' | '\\r' ) ) )* ( ( '\\r' )? '\\n' )?
             {
             match("//"); 
 
-            // ../org.osate.alisa.workbench.ui/src-gen/org/osate/alisa/workbench/ui/contentassist/antlr/internal/InternalAlisa.g:8903:24: (~ ( ( '\\n' | '\\r' ) ) )*
+            // ../org.osate.alisa.workbench.ui/src-gen/org/osate/alisa/workbench/ui/contentassist/antlr/internal/InternalAlisa.g:8915:24: (~ ( ( '\\n' | '\\r' ) ) )*
             loop34:
             do {
                 int alt34=2;
@@ -2502,7 +2502,7 @@ public class InternalAlisaLexer extends Lexer {
 
                 switch (alt34) {
             	case 1 :
-            	    // ../org.osate.alisa.workbench.ui/src-gen/org/osate/alisa/workbench/ui/contentassist/antlr/internal/InternalAlisa.g:8903:24: ~ ( ( '\\n' | '\\r' ) )
+            	    // ../org.osate.alisa.workbench.ui/src-gen/org/osate/alisa/workbench/ui/contentassist/antlr/internal/InternalAlisa.g:8915:24: ~ ( ( '\\n' | '\\r' ) )
             	    {
             	    if ( (input.LA(1)>='\u0000' && input.LA(1)<='\t')||(input.LA(1)>='\u000B' && input.LA(1)<='\f')||(input.LA(1)>='\u000E' && input.LA(1)<='\uFFFF') ) {
             	        input.consume();
@@ -2522,7 +2522,7 @@ public class InternalAlisaLexer extends Lexer {
                 }
             } while (true);
 
-            // ../org.osate.alisa.workbench.ui/src-gen/org/osate/alisa/workbench/ui/contentassist/antlr/internal/InternalAlisa.g:8903:40: ( ( '\\r' )? '\\n' )?
+            // ../org.osate.alisa.workbench.ui/src-gen/org/osate/alisa/workbench/ui/contentassist/antlr/internal/InternalAlisa.g:8915:40: ( ( '\\r' )? '\\n' )?
             int alt36=2;
             int LA36_0 = input.LA(1);
 
@@ -2531,9 +2531,9 @@ public class InternalAlisaLexer extends Lexer {
             }
             switch (alt36) {
                 case 1 :
-                    // ../org.osate.alisa.workbench.ui/src-gen/org/osate/alisa/workbench/ui/contentassist/antlr/internal/InternalAlisa.g:8903:41: ( '\\r' )? '\\n'
+                    // ../org.osate.alisa.workbench.ui/src-gen/org/osate/alisa/workbench/ui/contentassist/antlr/internal/InternalAlisa.g:8915:41: ( '\\r' )? '\\n'
                     {
-                    // ../org.osate.alisa.workbench.ui/src-gen/org/osate/alisa/workbench/ui/contentassist/antlr/internal/InternalAlisa.g:8903:41: ( '\\r' )?
+                    // ../org.osate.alisa.workbench.ui/src-gen/org/osate/alisa/workbench/ui/contentassist/antlr/internal/InternalAlisa.g:8915:41: ( '\\r' )?
                     int alt35=2;
                     int LA35_0 = input.LA(1);
 
@@ -2542,7 +2542,7 @@ public class InternalAlisaLexer extends Lexer {
                     }
                     switch (alt35) {
                         case 1 :
-                            // ../org.osate.alisa.workbench.ui/src-gen/org/osate/alisa/workbench/ui/contentassist/antlr/internal/InternalAlisa.g:8903:41: '\\r'
+                            // ../org.osate.alisa.workbench.ui/src-gen/org/osate/alisa/workbench/ui/contentassist/antlr/internal/InternalAlisa.g:8915:41: '\\r'
                             {
                             match('\r'); 
 
@@ -2574,10 +2574,10 @@ public class InternalAlisaLexer extends Lexer {
         try {
             int _type = RULE_WS;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../org.osate.alisa.workbench.ui/src-gen/org/osate/alisa/workbench/ui/contentassist/antlr/internal/InternalAlisa.g:8905:9: ( ( ' ' | '\\t' | '\\r' | '\\n' )+ )
-            // ../org.osate.alisa.workbench.ui/src-gen/org/osate/alisa/workbench/ui/contentassist/antlr/internal/InternalAlisa.g:8905:11: ( ' ' | '\\t' | '\\r' | '\\n' )+
+            // ../org.osate.alisa.workbench.ui/src-gen/org/osate/alisa/workbench/ui/contentassist/antlr/internal/InternalAlisa.g:8917:9: ( ( ' ' | '\\t' | '\\r' | '\\n' )+ )
+            // ../org.osate.alisa.workbench.ui/src-gen/org/osate/alisa/workbench/ui/contentassist/antlr/internal/InternalAlisa.g:8917:11: ( ' ' | '\\t' | '\\r' | '\\n' )+
             {
-            // ../org.osate.alisa.workbench.ui/src-gen/org/osate/alisa/workbench/ui/contentassist/antlr/internal/InternalAlisa.g:8905:11: ( ' ' | '\\t' | '\\r' | '\\n' )+
+            // ../org.osate.alisa.workbench.ui/src-gen/org/osate/alisa/workbench/ui/contentassist/antlr/internal/InternalAlisa.g:8917:11: ( ' ' | '\\t' | '\\r' | '\\n' )+
             int cnt37=0;
             loop37:
             do {
@@ -2631,8 +2631,8 @@ public class InternalAlisaLexer extends Lexer {
         try {
             int _type = RULE_ANY_OTHER;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../org.osate.alisa.workbench.ui/src-gen/org/osate/alisa/workbench/ui/contentassist/antlr/internal/InternalAlisa.g:8907:16: ( . )
-            // ../org.osate.alisa.workbench.ui/src-gen/org/osate/alisa/workbench/ui/contentassist/antlr/internal/InternalAlisa.g:8907:18: .
+            // ../org.osate.alisa.workbench.ui/src-gen/org/osate/alisa/workbench/ui/contentassist/antlr/internal/InternalAlisa.g:8919:16: ( . )
+            // ../org.osate.alisa.workbench.ui/src-gen/org/osate/alisa/workbench/ui/contentassist/antlr/internal/InternalAlisa.g:8919:18: .
             {
             matchAny(); 
 
@@ -3114,67 +3114,19 @@ public class InternalAlisaLexer extends Lexer {
 
     protected DFA38 dfa38 = new DFA38(this);
     static final String DFA38_eotS =
-        "\1\uffff\2\51\1\56\1\60\1\62\1\64\1\66\1\70\1\51\1\uffff\1\74\1"+
-        "\77\1\uffff\3\104\2\uffff\1\113\6\104\7\uffff\1\104\2\140\1\51\1"+
-        "\uffff\2\51\17\uffff\1\150\11\uffff\3\104\1\uffff\3\104\4\uffff"+
-        "\12\104\7\uffff\1\104\1\uffff\1\172\3\uffff\1\140\5\uffff\1\104"+
-        "\1\u0080\2\104\1\u0083\2\104\1\u0086\4\104\1\u008b\4\104\1\uffff"+
-        "\1\140\1\172\1\uffff\1\140\1\104\1\uffff\2\104\1\uffff\1\u0096\1"+
-        "\104\1\uffff\1\u0098\3\104\1\uffff\1\u009c\1\u009d\1\u009e\1\u009f"+
-        "\1\140\1\u00a0\3\104\1\u00a5\1\uffff\1\104\1\uffff\3\104\5\uffff"+
-        "\1\u00aa\1\104\1\u00ac\1\u00ad\1\uffff\1\104\1\u00af\1\104\1\u00b1"+
-        "\1\uffff\1\104\2\uffff\1\104\1\uffff\1\104\1\uffff\3\104\1\u00b8"+
-        "\1\104\1\u00bb\1\uffff\1\104\1\u00bd\1\uffff\1\u00be\2\uffff";
+        "\1\uffff\2\51\1\56\1\60\1\62\1\64\1\66\1\70\1\51\1\uffff\1\74\1\77\1\uffff\3\104\2\uffff\1\113\6\104\7\uffff\1\104\2\140\1\51\1\uffff\2\51\17\uffff\1\150\11\uffff\3\104\1\uffff\3\104\4\uffff\12\104\7\uffff\1\104\1\uffff\1\172\3\uffff\1\140\5\uffff\1\104\1\u0080\2\104\1\u0083\2\104\1\u0086\4\104\1\u008b\4\104\1\uffff\1\140\1\172\1\uffff\1\140\1\104\1\uffff\2\104\1\uffff\1\u0096\1\104\1\uffff\1\u0098\3\104\1\uffff\1\u009c\1\u009d\1\u009e\1\u009f\1\140\1\u00a0\3\104\1\u00a5\1\uffff\1\104\1\uffff\3\104\5\uffff\1\u00aa\1\104\1\u00ac\1\u00ad\1\uffff\1\104\1\u00af\1\104\1\u00b1\1\uffff\1\104\2\uffff\1\104\1\uffff\1\104\1\uffff\3\104\1\u00b8\1\104\1\u00bb\1\uffff\1\104\1\u00bd\1\uffff\1\u00be\2\uffff";
     static final String DFA38_eofS =
         "\u00bf\uffff";
     static final String DFA38_minS =
-        "\1\0\1\174\1\46\3\75\2\76\1\56\1\72\1\uffff\2\52\1\uffff\1\141"+
-        "\2\154\2\uffff\1\72\1\145\1\156\1\154\1\165\1\155\1\141\7\uffff"+
-        "\1\165\2\56\1\101\1\uffff\2\0\17\uffff\1\74\11\uffff\1\154\1\162"+
-        "\1\154\1\uffff\1\163\1\154\1\141\4\uffff\1\163\1\156\1\154\1\157"+
-        "\1\142\1\163\1\147\1\163\1\151\1\165\7\uffff\1\154\1\uffff\1\60"+
-        "\1\uffff\1\53\1\uffff\1\56\5\uffff\1\163\1\60\1\164\1\165\1\60\1"+
-        "\156\1\143\1\60\1\171\1\142\1\163\1\165\1\60\1\153\1\163\1\145\1"+
-        "\154\1\uffff\1\56\3\60\1\145\1\uffff\1\145\1\155\1\uffff\1\60\1"+
-        "\162\1\uffff\1\60\1\141\1\171\1\145\1\uffff\6\60\1\162\1\141\1\145"+
-        "\1\60\1\uffff\1\151\1\uffff\1\154\2\163\5\uffff\1\60\1\156\2\60"+
-        "\1\uffff\1\160\1\60\1\164\1\60\1\uffff\1\143\2\uffff\1\164\1\uffff"+
-        "\1\145\1\uffff\1\145\1\151\1\155\1\60\1\157\1\60\1\uffff\1\156\1"+
-        "\60\1\uffff\1\60\2\uffff";
+        "\1\0\1\174\1\46\3\75\2\76\1\56\1\72\1\uffff\2\52\1\uffff\1\141\2\154\2\uffff\1\72\1\145\1\156\1\154\1\165\1\155\1\141\7\uffff\1\165\2\56\1\101\1\uffff\2\0\17\uffff\1\74\11\uffff\1\154\1\162\1\154\1\uffff\1\163\1\154\1\141\4\uffff\1\163\1\156\1\154\1\157\1\142\1\163\1\147\1\163\1\151\1\165\7\uffff\1\154\1\uffff\1\60\1\uffff\1\53\1\uffff\1\56\5\uffff\1\163\1\60\1\164\1\165\1\60\1\156\1\143\1\60\1\171\1\142\1\163\1\165\1\60\1\153\1\163\1\145\1\154\1\uffff\1\56\3\60\1\145\1\uffff\1\145\1\155\1\uffff\1\60\1\162\1\uffff\1\60\1\141\1\171\1\145\1\uffff\6\60\1\162\1\141\1\145\1\60\1\uffff\1\151\1\uffff\1\154\2\163\5\uffff\1\60\1\156\2\60\1\uffff\1\160\1\60\1\164\1\60\1\uffff\1\143\2\uffff\1\164\1\uffff\1\145\1\uffff\1\145\1\151\1\155\1\60\1\157\1\60\1\uffff\1\156\1\60\1\uffff\1\60\2\uffff";
     static final String DFA38_maxS =
-        "\1\uffff\1\174\1\46\1\76\2\75\2\76\1\56\1\72\1\uffff\1\52\1\57"+
-        "\1\uffff\1\157\1\163\1\154\2\uffff\1\72\1\145\1\167\1\154\1\165"+
-        "\1\163\1\162\7\uffff\1\165\1\170\1\154\1\172\1\uffff\2\uffff\17"+
-        "\uffff\1\74\11\uffff\1\154\1\162\1\154\1\uffff\1\163\1\154\1\141"+
-        "\4\uffff\1\163\1\156\1\154\1\157\1\142\1\163\1\147\1\163\1\151\1"+
-        "\165\7\uffff\1\154\1\uffff\1\154\1\uffff\1\71\1\uffff\1\154\5\uffff"+
-        "\1\163\1\172\1\164\1\165\1\172\1\156\1\143\1\172\1\171\1\142\1\163"+
-        "\1\165\1\172\1\153\1\163\1\145\1\154\1\uffff\2\154\1\71\1\154\1"+
-        "\145\1\uffff\1\145\1\162\1\uffff\1\172\1\162\1\uffff\1\172\1\141"+
-        "\1\171\1\145\1\uffff\4\172\1\154\1\172\1\162\2\145\1\172\1\uffff"+
-        "\1\151\1\uffff\1\154\2\163\5\uffff\1\172\1\156\2\172\1\uffff\1\160"+
-        "\1\172\1\164\1\172\1\uffff\1\143\2\uffff\1\164\1\uffff\1\145\1\uffff"+
-        "\1\145\1\151\1\155\1\172\1\157\1\172\1\uffff\1\156\1\172\1\uffff"+
-        "\1\172\2\uffff";
+        "\1\uffff\1\174\1\46\1\76\2\75\2\76\1\56\1\72\1\uffff\1\52\1\57\1\uffff\1\157\1\163\1\154\2\uffff\1\72\1\145\1\167\1\154\1\165\1\163\1\162\7\uffff\1\165\1\170\1\154\1\172\1\uffff\2\uffff\17\uffff\1\74\11\uffff\1\154\1\162\1\154\1\uffff\1\163\1\154\1\141\4\uffff\1\163\1\156\1\154\1\157\1\142\1\163\1\147\1\163\1\151\1\165\7\uffff\1\154\1\uffff\1\154\1\uffff\1\71\1\uffff\1\154\5\uffff\1\163\1\172\1\164\1\165\1\172\1\156\1\143\1\172\1\171\1\142\1\163\1\165\1\172\1\153\1\163\1\145\1\154\1\uffff\2\154\1\71\1\154\1\145\1\uffff\1\145\1\162\1\uffff\1\172\1\162\1\uffff\1\172\1\141\1\171\1\145\1\uffff\4\172\1\154\1\172\1\162\2\145\1\172\1\uffff\1\151\1\uffff\1\154\2\163\5\uffff\1\172\1\156\2\172\1\uffff\1\160\1\172\1\164\1\172\1\uffff\1\143\2\uffff\1\164\1\uffff\1\145\1\uffff\1\145\1\151\1\155\1\172\1\157\1\172\1\uffff\1\156\1\172\1\uffff\1\172\2\uffff";
     static final String DFA38_acceptS =
-        "\12\uffff\1\16\2\uffff\1\23\3\uffff\1\31\1\32\7\uffff\1\47\1\53"+
-        "\1\54\1\55\1\56\1\57\1\60\4\uffff\1\74\2\uffff\1\100\1\101\1\1\1"+
-        "\2\1\3\1\13\1\52\1\4\1\24\1\5\1\6\1\14\1\7\1\10\1\17\1\uffff\1\51"+
-        "\1\15\1\16\1\21\1\20\1\76\1\77\1\22\1\23\3\uffff\1\74\3\uffff\1"+
-        "\31\1\32\1\62\1\33\12\uffff\1\47\1\53\1\54\1\55\1\56\1\57\1\60\1"+
-        "\uffff\1\71\1\uffff\1\70\1\uffff\1\73\1\uffff\1\67\1\75\1\100\1"+
-        "\11\1\12\21\uffff\1\72\5\uffff\1\30\2\uffff\1\63\2\uffff\1\36\4"+
-        "\uffff\1\50\12\uffff\1\27\1\uffff\1\64\3\uffff\1\45\1\65\1\66\1"+
-        "\61\1\25\4\uffff\1\41\4\uffff\1\46\1\uffff\1\35\1\42\1\uffff\1\37"+
-        "\1\uffff\1\44\6\uffff\1\26\2\uffff\1\40\1\uffff\1\43\1\34";
+        "\12\uffff\1\16\2\uffff\1\23\3\uffff\1\31\1\32\7\uffff\1\47\1\53\1\54\1\55\1\56\1\57\1\60\4\uffff\1\74\2\uffff\1\100\1\101\1\1\1\2\1\3\1\13\1\52\1\4\1\24\1\5\1\6\1\14\1\7\1\10\1\17\1\uffff\1\51\1\15\1\16\1\21\1\20\1\76\1\77\1\22\1\23\3\uffff\1\74\3\uffff\1\31\1\32\1\62\1\33\12\uffff\1\47\1\53\1\54\1\55\1\56\1\57\1\60\1\uffff\1\71\1\uffff\1\70\1\uffff\1\73\1\uffff\1\67\1\75\1\100\1\11\1\12\21\uffff\1\72\5\uffff\1\30\2\uffff\1\63\2\uffff\1\36\4\uffff\1\50\12\uffff\1\27\1\uffff\1\64\3\uffff\1\45\1\65\1\66\1\61\1\25\4\uffff\1\41\4\uffff\1\46\1\uffff\1\35\1\42\1\uffff\1\37\1\uffff\1\44\6\uffff\1\26\2\uffff\1\40\1\uffff\1\43\1\34";
     static final String DFA38_specialS =
         "\1\0\45\uffff\1\1\1\2\u0097\uffff}>";
     static final String[] DFA38_transitionS = {
-            "\11\51\2\50\2\51\1\50\22\51\1\50\1\4\1\46\1\36\1\51\1\15\1"+
-            "\2\1\47\1\37\1\40\1\13\1\12\1\35\1\7\1\10\1\14\1\42\11\43\1"+
-            "\23\1\51\1\6\1\3\1\5\1\11\1\32\32\45\1\21\1\51\1\22\1\44\1\45"+
-            "\1\51\1\17\2\45\1\24\1\45\1\16\1\26\1\45\1\30\4\45\1\41\1\25"+
-            "\1\20\2\45\1\27\1\31\6\45\1\33\1\1\1\34\uff82\51",
+            "\11\51\2\50\2\51\1\50\22\51\1\50\1\4\1\46\1\36\1\51\1\15\1\2\1\47\1\37\1\40\1\13\1\12\1\35\1\7\1\10\1\14\1\42\11\43\1\23\1\51\1\6\1\3\1\5\1\11\1\32\32\45\1\21\1\51\1\22\1\44\1\45\1\51\1\17\2\45\1\24\1\45\1\16\1\26\1\45\1\30\4\45\1\41\1\25\1\20\2\45\1\27\1\31\6\45\1\33\1\1\1\34\uff82\51",
             "\1\52",
             "\1\53",
             "\1\54\1\55",
@@ -3208,12 +3160,8 @@ public class InternalAlisaLexer extends Lexer {
             "",
             "",
             "\1\135",
-            "\1\144\1\uffff\12\143\10\uffff\1\142\1\uffff\1\142\1\141\1"+
-            "\142\5\uffff\1\142\13\uffff\1\136\6\uffff\1\137\2\uffff\1\142"+
-            "\1\uffff\1\142\1\141\1\142\5\uffff\1\142\13\uffff\1\136",
-            "\1\144\1\uffff\12\143\10\uffff\1\142\1\uffff\1\142\1\141\1"+
-            "\142\5\uffff\1\142\22\uffff\1\137\2\uffff\1\142\1\uffff\1\142"+
-            "\1\141\1\142\5\uffff\1\142",
+            "\1\144\1\uffff\12\143\10\uffff\1\142\1\uffff\1\142\1\141\1\142\5\uffff\1\142\13\uffff\1\136\6\uffff\1\137\2\uffff\1\142\1\uffff\1\142\1\141\1\142\5\uffff\1\142\13\uffff\1\136",
+            "\1\144\1\uffff\12\143\10\uffff\1\142\1\uffff\1\142\1\141\1\142\5\uffff\1\142\22\uffff\1\137\2\uffff\1\142\1\uffff\1\142\1\141\1\142\5\uffff\1\142",
             "\32\104\4\uffff\1\104\1\uffff\32\104",
             "",
             "\0\145",
@@ -3273,14 +3221,11 @@ public class InternalAlisaLexer extends Lexer {
             "",
             "\1\171",
             "",
-            "\12\173\10\uffff\1\142\1\uffff\3\142\5\uffff\1\142\22\uffff"+
-            "\1\174\2\uffff\1\142\1\uffff\3\142\5\uffff\1\142",
+            "\12\173\10\uffff\1\142\1\uffff\3\142\5\uffff\1\142\22\uffff\1\174\2\uffff\1\142\1\uffff\3\142\5\uffff\1\142",
             "",
             "\1\175\1\uffff\1\142\2\uffff\12\176",
             "",
-            "\1\144\1\uffff\12\143\10\uffff\1\142\1\uffff\1\142\1\141\1"+
-            "\142\5\uffff\1\142\22\uffff\1\137\2\uffff\1\142\1\uffff\1\142"+
-            "\1\141\1\142\5\uffff\1\142",
+            "\1\144\1\uffff\12\143\10\uffff\1\142\1\uffff\1\142\1\141\1\142\5\uffff\1\142\22\uffff\1\137\2\uffff\1\142\1\uffff\1\142\1\141\1\142\5\uffff\1\142",
             "",
             "",
             "",
@@ -3304,22 +3249,16 @@ public class InternalAlisaLexer extends Lexer {
             "\1\u008e",
             "\1\u008f",
             "",
-            "\1\144\1\uffff\12\173\10\uffff\1\142\1\uffff\1\142\1\141\1"+
-            "\142\5\uffff\1\142\22\uffff\1\137\2\uffff\1\142\1\uffff\1\142"+
-            "\1\141\1\142\5\uffff\1\142",
-            "\12\174\10\uffff\1\142\1\uffff\3\142\5\uffff\1\142\22\uffff"+
-            "\1\174\2\uffff\1\142\1\uffff\3\142\5\uffff\1\142",
+            "\1\144\1\uffff\12\173\10\uffff\1\142\1\uffff\1\142\1\141\1\142\5\uffff\1\142\22\uffff\1\137\2\uffff\1\142\1\uffff\1\142\1\141\1\142\5\uffff\1\142",
+            "\12\174\10\uffff\1\142\1\uffff\3\142\5\uffff\1\142\22\uffff\1\174\2\uffff\1\142\1\uffff\3\142\5\uffff\1\142",
             "\12\176",
-            "\12\u0090\10\uffff\1\142\1\uffff\1\142\1\uffff\1\142\5\uffff"+
-            "\1\142\22\uffff\1\142\2\uffff\1\142\1\uffff\1\142\1\uffff\1"+
-            "\142\5\uffff\1\142",
+            "\12\u0090\10\uffff\1\142\1\uffff\1\142\1\uffff\1\142\5\uffff\1\142\22\uffff\1\142\2\uffff\1\142\1\uffff\1\142\1\uffff\1\142\5\uffff\1\142",
             "\1\u0091",
             "",
             "\1\u0092",
             "\1\u0094\4\uffff\1\u0093",
             "",
-            "\12\104\7\uffff\32\104\4\uffff\1\104\1\uffff\22\104\1\u0095"+
-            "\7\104",
+            "\12\104\7\uffff\32\104\4\uffff\1\104\1\uffff\22\104\1\u0095\7\104",
             "\1\u0097",
             "",
             "\12\104\7\uffff\32\104\4\uffff\1\104\1\uffff\32\104",
@@ -3331,9 +3270,7 @@ public class InternalAlisaLexer extends Lexer {
             "\12\104\7\uffff\32\104\4\uffff\1\104\1\uffff\32\104",
             "\12\104\7\uffff\32\104\4\uffff\1\104\1\uffff\32\104",
             "\12\104\7\uffff\32\104\4\uffff\1\104\1\uffff\32\104",
-            "\12\u0090\10\uffff\1\142\1\uffff\1\142\1\uffff\1\142\5\uffff"+
-            "\1\142\22\uffff\1\142\2\uffff\1\142\1\uffff\1\142\1\uffff\1"+
-            "\142\5\uffff\1\142",
+            "\12\u0090\10\uffff\1\142\1\uffff\1\142\1\uffff\1\142\5\uffff\1\142\22\uffff\1\142\2\uffff\1\142\1\uffff\1\142\1\uffff\1\142\5\uffff\1\142",
             "\12\104\7\uffff\32\104\4\uffff\1\104\1\uffff\32\104",
             "\1\u00a1",
             "\1\u00a2\3\uffff\1\u00a3",
@@ -3372,8 +3309,7 @@ public class InternalAlisaLexer extends Lexer {
             "\1\u00b7",
             "\12\104\7\uffff\32\104\4\uffff\1\104\1\uffff\32\104",
             "\1\u00b9",
-            "\12\104\7\uffff\32\104\4\uffff\1\104\1\uffff\22\104\1\u00ba"+
-            "\7\104",
+            "\12\104\7\uffff\32\104\4\uffff\1\104\1\uffff\22\104\1\u00ba\7\104",
             "",
             "\1\u00bc",
             "\12\104\7\uffff\32\104\4\uffff\1\104\1\uffff\32\104",

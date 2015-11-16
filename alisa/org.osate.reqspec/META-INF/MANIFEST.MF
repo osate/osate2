@@ -25,7 +25,7 @@ Require-Bundle: org.eclipse.xtext;visibility:=reexport,
  org.osate.organization;bundle-version="1.0.0",
  org.osate.xtext.aadl2,
  org.eclipse.xtext.xbase.lib
-Bundle-RequiredExecutionEnvironment: JavaSE-1.7
+Bundle-RequiredExecutionEnvironment: JavaSE-1.8
 Export-Package: org.osate.reqspec,
  org.osate.reqspec.formatting,
  org.osate.reqspec.generator,

@@ -1500,8 +1500,8 @@ public class InternalVerifyLexer extends Lexer {
     // $ANTLR start "RULE_EXPONENT"
     public final void mRULE_EXPONENT() throws RecognitionException {
         try {
-            // ../org.osate.verify.ui/src-gen/org/osate/verify/ui/contentassist/antlr/internal/InternalVerify.g:15815:24: ( ( 'e' | 'E' ) ( '+' | '-' )? ( RULE_DIGIT )+ )
-            // ../org.osate.verify.ui/src-gen/org/osate/verify/ui/contentassist/antlr/internal/InternalVerify.g:15815:26: ( 'e' | 'E' ) ( '+' | '-' )? ( RULE_DIGIT )+
+            // ../org.osate.verify.ui/src-gen/org/osate/verify/ui/contentassist/antlr/internal/InternalVerify.g:15827:24: ( ( 'e' | 'E' ) ( '+' | '-' )? ( RULE_DIGIT )+ )
+            // ../org.osate.verify.ui/src-gen/org/osate/verify/ui/contentassist/antlr/internal/InternalVerify.g:15827:26: ( 'e' | 'E' ) ( '+' | '-' )? ( RULE_DIGIT )+
             {
             if ( input.LA(1)=='E'||input.LA(1)=='e' ) {
                 input.consume();
@@ -1512,7 +1512,7 @@ public class InternalVerifyLexer extends Lexer {
                 recover(mse);
                 throw mse;}
 
-            // ../org.osate.verify.ui/src-gen/org/osate/verify/ui/contentassist/antlr/internal/InternalVerify.g:15815:36: ( '+' | '-' )?
+            // ../org.osate.verify.ui/src-gen/org/osate/verify/ui/contentassist/antlr/internal/InternalVerify.g:15827:36: ( '+' | '-' )?
             int alt1=2;
             int LA1_0 = input.LA(1);
 
@@ -1538,7 +1538,7 @@ public class InternalVerifyLexer extends Lexer {
 
             }
 
-            // ../org.osate.verify.ui/src-gen/org/osate/verify/ui/contentassist/antlr/internal/InternalVerify.g:15815:47: ( RULE_DIGIT )+
+            // ../org.osate.verify.ui/src-gen/org/osate/verify/ui/contentassist/antlr/internal/InternalVerify.g:15827:47: ( RULE_DIGIT )+
             int cnt2=0;
             loop2:
             do {
@@ -1552,7 +1552,7 @@ public class InternalVerifyLexer extends Lexer {
 
                 switch (alt2) {
             	case 1 :
-            	    // ../org.osate.verify.ui/src-gen/org/osate/verify/ui/contentassist/antlr/internal/InternalVerify.g:15815:47: RULE_DIGIT
+            	    // ../org.osate.verify.ui/src-gen/org/osate/verify/ui/contentassist/antlr/internal/InternalVerify.g:15827:47: RULE_DIGIT
             	    {
             	    mRULE_DIGIT(); 
 
@@ -1580,8 +1580,8 @@ public class InternalVerifyLexer extends Lexer {
     // $ANTLR start "RULE_INT_EXPONENT"
     public final void mRULE_INT_EXPONENT() throws RecognitionException {
         try {
-            // ../org.osate.verify.ui/src-gen/org/osate/verify/ui/contentassist/antlr/internal/InternalVerify.g:15817:28: ( ( 'e' | 'E' ) ( '+' )? ( RULE_DIGIT )+ )
-            // ../org.osate.verify.ui/src-gen/org/osate/verify/ui/contentassist/antlr/internal/InternalVerify.g:15817:30: ( 'e' | 'E' ) ( '+' )? ( RULE_DIGIT )+
+            // ../org.osate.verify.ui/src-gen/org/osate/verify/ui/contentassist/antlr/internal/InternalVerify.g:15829:28: ( ( 'e' | 'E' ) ( '+' )? ( RULE_DIGIT )+ )
+            // ../org.osate.verify.ui/src-gen/org/osate/verify/ui/contentassist/antlr/internal/InternalVerify.g:15829:30: ( 'e' | 'E' ) ( '+' )? ( RULE_DIGIT )+
             {
             if ( input.LA(1)=='E'||input.LA(1)=='e' ) {
                 input.consume();
@@ -1592,7 +1592,7 @@ public class InternalVerifyLexer extends Lexer {
                 recover(mse);
                 throw mse;}
 
-            // ../org.osate.verify.ui/src-gen/org/osate/verify/ui/contentassist/antlr/internal/InternalVerify.g:15817:40: ( '+' )?
+            // ../org.osate.verify.ui/src-gen/org/osate/verify/ui/contentassist/antlr/internal/InternalVerify.g:15829:40: ( '+' )?
             int alt3=2;
             int LA3_0 = input.LA(1);
 
@@ -1601,7 +1601,7 @@ public class InternalVerifyLexer extends Lexer {
             }
             switch (alt3) {
                 case 1 :
-                    // ../org.osate.verify.ui/src-gen/org/osate/verify/ui/contentassist/antlr/internal/InternalVerify.g:15817:40: '+'
+                    // ../org.osate.verify.ui/src-gen/org/osate/verify/ui/contentassist/antlr/internal/InternalVerify.g:15829:40: '+'
                     {
                     match('+'); 
 
@@ -1610,7 +1610,7 @@ public class InternalVerifyLexer extends Lexer {
 
             }
 
-            // ../org.osate.verify.ui/src-gen/org/osate/verify/ui/contentassist/antlr/internal/InternalVerify.g:15817:45: ( RULE_DIGIT )+
+            // ../org.osate.verify.ui/src-gen/org/osate/verify/ui/contentassist/antlr/internal/InternalVerify.g:15829:45: ( RULE_DIGIT )+
             int cnt4=0;
             loop4:
             do {
@@ -1624,7 +1624,7 @@ public class InternalVerifyLexer extends Lexer {
 
                 switch (alt4) {
             	case 1 :
-            	    // ../org.osate.verify.ui/src-gen/org/osate/verify/ui/contentassist/antlr/internal/InternalVerify.g:15817:45: RULE_DIGIT
+            	    // ../org.osate.verify.ui/src-gen/org/osate/verify/ui/contentassist/antlr/internal/InternalVerify.g:15829:45: RULE_DIGIT
             	    {
             	    mRULE_DIGIT(); 
 
@@ -1654,10 +1654,10 @@ public class InternalVerifyLexer extends Lexer {
         try {
             int _type = RULE_REAL_LIT;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../org.osate.verify.ui/src-gen/org/osate/verify/ui/contentassist/antlr/internal/InternalVerify.g:15819:15: ( ( RULE_DIGIT )+ ( '_' ( RULE_DIGIT )+ )* '.' ( RULE_DIGIT )+ ( '_' ( RULE_DIGIT )+ )* ( RULE_EXPONENT )? )
-            // ../org.osate.verify.ui/src-gen/org/osate/verify/ui/contentassist/antlr/internal/InternalVerify.g:15819:17: ( RULE_DIGIT )+ ( '_' ( RULE_DIGIT )+ )* '.' ( RULE_DIGIT )+ ( '_' ( RULE_DIGIT )+ )* ( RULE_EXPONENT )?
+            // ../org.osate.verify.ui/src-gen/org/osate/verify/ui/contentassist/antlr/internal/InternalVerify.g:15831:15: ( ( RULE_DIGIT )+ ( '_' ( RULE_DIGIT )+ )* '.' ( RULE_DIGIT )+ ( '_' ( RULE_DIGIT )+ )* ( RULE_EXPONENT )? )
+            // ../org.osate.verify.ui/src-gen/org/osate/verify/ui/contentassist/antlr/internal/InternalVerify.g:15831:17: ( RULE_DIGIT )+ ( '_' ( RULE_DIGIT )+ )* '.' ( RULE_DIGIT )+ ( '_' ( RULE_DIGIT )+ )* ( RULE_EXPONENT )?
             {
-            // ../org.osate.verify.ui/src-gen/org/osate/verify/ui/contentassist/antlr/internal/InternalVerify.g:15819:17: ( RULE_DIGIT )+
+            // ../org.osate.verify.ui/src-gen/org/osate/verify/ui/contentassist/antlr/internal/InternalVerify.g:15831:17: ( RULE_DIGIT )+
             int cnt5=0;
             loop5:
             do {
@@ -1671,7 +1671,7 @@ public class InternalVerifyLexer extends Lexer {
 
                 switch (alt5) {
             	case 1 :
-            	    // ../org.osate.verify.ui/src-gen/org/osate/verify/ui/contentassist/antlr/internal/InternalVerify.g:15819:17: RULE_DIGIT
+            	    // ../org.osate.verify.ui/src-gen/org/osate/verify/ui/contentassist/antlr/internal/InternalVerify.g:15831:17: RULE_DIGIT
             	    {
             	    mRULE_DIGIT(); 
 
@@ -1687,7 +1687,7 @@ public class InternalVerifyLexer extends Lexer {
                 cnt5++;
             } while (true);
 
-            // ../org.osate.verify.ui/src-gen/org/osate/verify/ui/contentassist/antlr/internal/InternalVerify.g:15819:29: ( '_' ( RULE_DIGIT )+ )*
+            // ../org.osate.verify.ui/src-gen/org/osate/verify/ui/contentassist/antlr/internal/InternalVerify.g:15831:29: ( '_' ( RULE_DIGIT )+ )*
             loop7:
             do {
                 int alt7=2;
@@ -1700,10 +1700,10 @@ public class InternalVerifyLexer extends Lexer {
 
                 switch (alt7) {
             	case 1 :
-            	    // ../org.osate.verify.ui/src-gen/org/osate/verify/ui/contentassist/antlr/internal/InternalVerify.g:15819:30: '_' ( RULE_DIGIT )+
+            	    // ../org.osate.verify.ui/src-gen/org/osate/verify/ui/contentassist/antlr/internal/InternalVerify.g:15831:30: '_' ( RULE_DIGIT )+
             	    {
             	    match('_'); 
-            	    // ../org.osate.verify.ui/src-gen/org/osate/verify/ui/contentassist/antlr/internal/InternalVerify.g:15819:34: ( RULE_DIGIT )+
+            	    // ../org.osate.verify.ui/src-gen/org/osate/verify/ui/contentassist/antlr/internal/InternalVerify.g:15831:34: ( RULE_DIGIT )+
             	    int cnt6=0;
             	    loop6:
             	    do {
@@ -1717,7 +1717,7 @@ public class InternalVerifyLexer extends Lexer {
 
             	        switch (alt6) {
             	    	case 1 :
-            	    	    // ../org.osate.verify.ui/src-gen/org/osate/verify/ui/contentassist/antlr/internal/InternalVerify.g:15819:34: RULE_DIGIT
+            	    	    // ../org.osate.verify.ui/src-gen/org/osate/verify/ui/contentassist/antlr/internal/InternalVerify.g:15831:34: RULE_DIGIT
             	    	    {
             	    	    mRULE_DIGIT(); 
 
@@ -1743,7 +1743,7 @@ public class InternalVerifyLexer extends Lexer {
             } while (true);
 
             match('.'); 
-            // ../org.osate.verify.ui/src-gen/org/osate/verify/ui/contentassist/antlr/internal/InternalVerify.g:15819:52: ( RULE_DIGIT )+
+            // ../org.osate.verify.ui/src-gen/org/osate/verify/ui/contentassist/antlr/internal/InternalVerify.g:15831:52: ( RULE_DIGIT )+
             int cnt8=0;
             loop8:
             do {
@@ -1757,7 +1757,7 @@ public class InternalVerifyLexer extends Lexer {
 
                 switch (alt8) {
             	case 1 :
-            	    // ../org.osate.verify.ui/src-gen/org/osate/verify/ui/contentassist/antlr/internal/InternalVerify.g:15819:52: RULE_DIGIT
+            	    // ../org.osate.verify.ui/src-gen/org/osate/verify/ui/contentassist/antlr/internal/InternalVerify.g:15831:52: RULE_DIGIT
             	    {
             	    mRULE_DIGIT(); 
 
@@ -1773,7 +1773,7 @@ public class InternalVerifyLexer extends Lexer {
                 cnt8++;
             } while (true);
 
-            // ../org.osate.verify.ui/src-gen/org/osate/verify/ui/contentassist/antlr/internal/InternalVerify.g:15819:64: ( '_' ( RULE_DIGIT )+ )*
+            // ../org.osate.verify.ui/src-gen/org/osate/verify/ui/contentassist/antlr/internal/InternalVerify.g:15831:64: ( '_' ( RULE_DIGIT )+ )*
             loop10:
             do {
                 int alt10=2;
@@ -1786,10 +1786,10 @@ public class InternalVerifyLexer extends Lexer {
 
                 switch (alt10) {
             	case 1 :
-            	    // ../org.osate.verify.ui/src-gen/org/osate/verify/ui/contentassist/antlr/internal/InternalVerify.g:15819:65: '_' ( RULE_DIGIT )+
+            	    // ../org.osate.verify.ui/src-gen/org/osate/verify/ui/contentassist/antlr/internal/InternalVerify.g:15831:65: '_' ( RULE_DIGIT )+
             	    {
             	    match('_'); 
-            	    // ../org.osate.verify.ui/src-gen/org/osate/verify/ui/contentassist/antlr/internal/InternalVerify.g:15819:69: ( RULE_DIGIT )+
+            	    // ../org.osate.verify.ui/src-gen/org/osate/verify/ui/contentassist/antlr/internal/InternalVerify.g:15831:69: ( RULE_DIGIT )+
             	    int cnt9=0;
             	    loop9:
             	    do {
@@ -1803,7 +1803,7 @@ public class InternalVerifyLexer extends Lexer {
 
             	        switch (alt9) {
             	    	case 1 :
-            	    	    // ../org.osate.verify.ui/src-gen/org/osate/verify/ui/contentassist/antlr/internal/InternalVerify.g:15819:69: RULE_DIGIT
+            	    	    // ../org.osate.verify.ui/src-gen/org/osate/verify/ui/contentassist/antlr/internal/InternalVerify.g:15831:69: RULE_DIGIT
             	    	    {
             	    	    mRULE_DIGIT(); 
 
@@ -1828,7 +1828,7 @@ public class InternalVerifyLexer extends Lexer {
                 }
             } while (true);
 
-            // ../org.osate.verify.ui/src-gen/org/osate/verify/ui/contentassist/antlr/internal/InternalVerify.g:15819:83: ( RULE_EXPONENT )?
+            // ../org.osate.verify.ui/src-gen/org/osate/verify/ui/contentassist/antlr/internal/InternalVerify.g:15831:83: ( RULE_EXPONENT )?
             int alt11=2;
             int LA11_0 = input.LA(1);
 
@@ -1837,7 +1837,7 @@ public class InternalVerifyLexer extends Lexer {
             }
             switch (alt11) {
                 case 1 :
-                    // ../org.osate.verify.ui/src-gen/org/osate/verify/ui/contentassist/antlr/internal/InternalVerify.g:15819:83: RULE_EXPONENT
+                    // ../org.osate.verify.ui/src-gen/org/osate/verify/ui/contentassist/antlr/internal/InternalVerify.g:15831:83: RULE_EXPONENT
                     {
                     mRULE_EXPONENT(); 
 
@@ -1862,10 +1862,10 @@ public class InternalVerifyLexer extends Lexer {
         try {
             int _type = RULE_INTEGER_LIT;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../org.osate.verify.ui/src-gen/org/osate/verify/ui/contentassist/antlr/internal/InternalVerify.g:15821:18: ( ( RULE_DIGIT )+ ( '_' ( RULE_DIGIT )+ )* ( '#' RULE_BASED_INTEGER '#' ( RULE_INT_EXPONENT )? | ( RULE_INT_EXPONENT )? ) )
-            // ../org.osate.verify.ui/src-gen/org/osate/verify/ui/contentassist/antlr/internal/InternalVerify.g:15821:20: ( RULE_DIGIT )+ ( '_' ( RULE_DIGIT )+ )* ( '#' RULE_BASED_INTEGER '#' ( RULE_INT_EXPONENT )? | ( RULE_INT_EXPONENT )? )
+            // ../org.osate.verify.ui/src-gen/org/osate/verify/ui/contentassist/antlr/internal/InternalVerify.g:15833:18: ( ( RULE_DIGIT )+ ( '_' ( RULE_DIGIT )+ )* ( '#' RULE_BASED_INTEGER '#' ( RULE_INT_EXPONENT )? | ( RULE_INT_EXPONENT )? ) )
+            // ../org.osate.verify.ui/src-gen/org/osate/verify/ui/contentassist/antlr/internal/InternalVerify.g:15833:20: ( RULE_DIGIT )+ ( '_' ( RULE_DIGIT )+ )* ( '#' RULE_BASED_INTEGER '#' ( RULE_INT_EXPONENT )? | ( RULE_INT_EXPONENT )? )
             {
-            // ../org.osate.verify.ui/src-gen/org/osate/verify/ui/contentassist/antlr/internal/InternalVerify.g:15821:20: ( RULE_DIGIT )+
+            // ../org.osate.verify.ui/src-gen/org/osate/verify/ui/contentassist/antlr/internal/InternalVerify.g:15833:20: ( RULE_DIGIT )+
             int cnt12=0;
             loop12:
             do {
@@ -1879,7 +1879,7 @@ public class InternalVerifyLexer extends Lexer {
 
                 switch (alt12) {
             	case 1 :
-            	    // ../org.osate.verify.ui/src-gen/org/osate/verify/ui/contentassist/antlr/internal/InternalVerify.g:15821:20: RULE_DIGIT
+            	    // ../org.osate.verify.ui/src-gen/org/osate/verify/ui/contentassist/antlr/internal/InternalVerify.g:15833:20: RULE_DIGIT
             	    {
             	    mRULE_DIGIT(); 
 
@@ -1895,7 +1895,7 @@ public class InternalVerifyLexer extends Lexer {
                 cnt12++;
             } while (true);
 
-            // ../org.osate.verify.ui/src-gen/org/osate/verify/ui/contentassist/antlr/internal/InternalVerify.g:15821:32: ( '_' ( RULE_DIGIT )+ )*
+            // ../org.osate.verify.ui/src-gen/org/osate/verify/ui/contentassist/antlr/internal/InternalVerify.g:15833:32: ( '_' ( RULE_DIGIT )+ )*
             loop14:
             do {
                 int alt14=2;
@@ -1908,10 +1908,10 @@ public class InternalVerifyLexer extends Lexer {
 
                 switch (alt14) {
             	case 1 :
-            	    // ../org.osate.verify.ui/src-gen/org/osate/verify/ui/contentassist/antlr/internal/InternalVerify.g:15821:33: '_' ( RULE_DIGIT )+
+            	    // ../org.osate.verify.ui/src-gen/org/osate/verify/ui/contentassist/antlr/internal/InternalVerify.g:15833:33: '_' ( RULE_DIGIT )+
             	    {
             	    match('_'); 
-            	    // ../org.osate.verify.ui/src-gen/org/osate/verify/ui/contentassist/antlr/internal/InternalVerify.g:15821:37: ( RULE_DIGIT )+
+            	    // ../org.osate.verify.ui/src-gen/org/osate/verify/ui/contentassist/antlr/internal/InternalVerify.g:15833:37: ( RULE_DIGIT )+
             	    int cnt13=0;
             	    loop13:
             	    do {
@@ -1925,7 +1925,7 @@ public class InternalVerifyLexer extends Lexer {
 
             	        switch (alt13) {
             	    	case 1 :
-            	    	    // ../org.osate.verify.ui/src-gen/org/osate/verify/ui/contentassist/antlr/internal/InternalVerify.g:15821:37: RULE_DIGIT
+            	    	    // ../org.osate.verify.ui/src-gen/org/osate/verify/ui/contentassist/antlr/internal/InternalVerify.g:15833:37: RULE_DIGIT
             	    	    {
             	    	    mRULE_DIGIT(); 
 
@@ -1950,7 +1950,7 @@ public class InternalVerifyLexer extends Lexer {
                 }
             } while (true);
 
-            // ../org.osate.verify.ui/src-gen/org/osate/verify/ui/contentassist/antlr/internal/InternalVerify.g:15821:51: ( '#' RULE_BASED_INTEGER '#' ( RULE_INT_EXPONENT )? | ( RULE_INT_EXPONENT )? )
+            // ../org.osate.verify.ui/src-gen/org/osate/verify/ui/contentassist/antlr/internal/InternalVerify.g:15833:51: ( '#' RULE_BASED_INTEGER '#' ( RULE_INT_EXPONENT )? | ( RULE_INT_EXPONENT )? )
             int alt17=2;
             int LA17_0 = input.LA(1);
 
@@ -1961,12 +1961,12 @@ public class InternalVerifyLexer extends Lexer {
                 alt17=2;}
             switch (alt17) {
                 case 1 :
-                    // ../org.osate.verify.ui/src-gen/org/osate/verify/ui/contentassist/antlr/internal/InternalVerify.g:15821:52: '#' RULE_BASED_INTEGER '#' ( RULE_INT_EXPONENT )?
+                    // ../org.osate.verify.ui/src-gen/org/osate/verify/ui/contentassist/antlr/internal/InternalVerify.g:15833:52: '#' RULE_BASED_INTEGER '#' ( RULE_INT_EXPONENT )?
                     {
                     match('#'); 
                     mRULE_BASED_INTEGER(); 
                     match('#'); 
-                    // ../org.osate.verify.ui/src-gen/org/osate/verify/ui/contentassist/antlr/internal/InternalVerify.g:15821:79: ( RULE_INT_EXPONENT )?
+                    // ../org.osate.verify.ui/src-gen/org/osate/verify/ui/contentassist/antlr/internal/InternalVerify.g:15833:79: ( RULE_INT_EXPONENT )?
                     int alt15=2;
                     int LA15_0 = input.LA(1);
 
@@ -1975,7 +1975,7 @@ public class InternalVerifyLexer extends Lexer {
                     }
                     switch (alt15) {
                         case 1 :
-                            // ../org.osate.verify.ui/src-gen/org/osate/verify/ui/contentassist/antlr/internal/InternalVerify.g:15821:79: RULE_INT_EXPONENT
+                            // ../org.osate.verify.ui/src-gen/org/osate/verify/ui/contentassist/antlr/internal/InternalVerify.g:15833:79: RULE_INT_EXPONENT
                             {
                             mRULE_INT_EXPONENT(); 
 
@@ -1988,9 +1988,9 @@ public class InternalVerifyLexer extends Lexer {
                     }
                     break;
                 case 2 :
-                    // ../org.osate.verify.ui/src-gen/org/osate/verify/ui/contentassist/antlr/internal/InternalVerify.g:15821:98: ( RULE_INT_EXPONENT )?
+                    // ../org.osate.verify.ui/src-gen/org/osate/verify/ui/contentassist/antlr/internal/InternalVerify.g:15833:98: ( RULE_INT_EXPONENT )?
                     {
-                    // ../org.osate.verify.ui/src-gen/org/osate/verify/ui/contentassist/antlr/internal/InternalVerify.g:15821:98: ( RULE_INT_EXPONENT )?
+                    // ../org.osate.verify.ui/src-gen/org/osate/verify/ui/contentassist/antlr/internal/InternalVerify.g:15833:98: ( RULE_INT_EXPONENT )?
                     int alt16=2;
                     int LA16_0 = input.LA(1);
 
@@ -1999,7 +1999,7 @@ public class InternalVerifyLexer extends Lexer {
                     }
                     switch (alt16) {
                         case 1 :
-                            // ../org.osate.verify.ui/src-gen/org/osate/verify/ui/contentassist/antlr/internal/InternalVerify.g:15821:98: RULE_INT_EXPONENT
+                            // ../org.osate.verify.ui/src-gen/org/osate/verify/ui/contentassist/antlr/internal/InternalVerify.g:15833:98: RULE_INT_EXPONENT
                             {
                             mRULE_INT_EXPONENT(); 
 
@@ -2028,8 +2028,8 @@ public class InternalVerifyLexer extends Lexer {
     // $ANTLR start "RULE_DIGIT"
     public final void mRULE_DIGIT() throws RecognitionException {
         try {
-            // ../org.osate.verify.ui/src-gen/org/osate/verify/ui/contentassist/antlr/internal/InternalVerify.g:15823:21: ( '0' .. '9' )
-            // ../org.osate.verify.ui/src-gen/org/osate/verify/ui/contentassist/antlr/internal/InternalVerify.g:15823:23: '0' .. '9'
+            // ../org.osate.verify.ui/src-gen/org/osate/verify/ui/contentassist/antlr/internal/InternalVerify.g:15835:21: ( '0' .. '9' )
+            // ../org.osate.verify.ui/src-gen/org/osate/verify/ui/contentassist/antlr/internal/InternalVerify.g:15835:23: '0' .. '9'
             {
             matchRange('0','9'); 
 
@@ -2044,8 +2044,8 @@ public class InternalVerifyLexer extends Lexer {
     // $ANTLR start "RULE_EXTENDED_DIGIT"
     public final void mRULE_EXTENDED_DIGIT() throws RecognitionException {
         try {
-            // ../org.osate.verify.ui/src-gen/org/osate/verify/ui/contentassist/antlr/internal/InternalVerify.g:15825:30: ( ( '0' .. '9' | 'a' .. 'f' | 'A' .. 'F' ) )
-            // ../org.osate.verify.ui/src-gen/org/osate/verify/ui/contentassist/antlr/internal/InternalVerify.g:15825:32: ( '0' .. '9' | 'a' .. 'f' | 'A' .. 'F' )
+            // ../org.osate.verify.ui/src-gen/org/osate/verify/ui/contentassist/antlr/internal/InternalVerify.g:15837:30: ( ( '0' .. '9' | 'a' .. 'f' | 'A' .. 'F' ) )
+            // ../org.osate.verify.ui/src-gen/org/osate/verify/ui/contentassist/antlr/internal/InternalVerify.g:15837:32: ( '0' .. '9' | 'a' .. 'f' | 'A' .. 'F' )
             {
             if ( (input.LA(1)>='0' && input.LA(1)<='9')||(input.LA(1)>='A' && input.LA(1)<='F')||(input.LA(1)>='a' && input.LA(1)<='f') ) {
                 input.consume();
@@ -2068,11 +2068,11 @@ public class InternalVerifyLexer extends Lexer {
     // $ANTLR start "RULE_BASED_INTEGER"
     public final void mRULE_BASED_INTEGER() throws RecognitionException {
         try {
-            // ../org.osate.verify.ui/src-gen/org/osate/verify/ui/contentassist/antlr/internal/InternalVerify.g:15827:29: ( RULE_EXTENDED_DIGIT ( ( '_' )? RULE_EXTENDED_DIGIT )* )
-            // ../org.osate.verify.ui/src-gen/org/osate/verify/ui/contentassist/antlr/internal/InternalVerify.g:15827:31: RULE_EXTENDED_DIGIT ( ( '_' )? RULE_EXTENDED_DIGIT )*
+            // ../org.osate.verify.ui/src-gen/org/osate/verify/ui/contentassist/antlr/internal/InternalVerify.g:15839:29: ( RULE_EXTENDED_DIGIT ( ( '_' )? RULE_EXTENDED_DIGIT )* )
+            // ../org.osate.verify.ui/src-gen/org/osate/verify/ui/contentassist/antlr/internal/InternalVerify.g:15839:31: RULE_EXTENDED_DIGIT ( ( '_' )? RULE_EXTENDED_DIGIT )*
             {
             mRULE_EXTENDED_DIGIT(); 
-            // ../org.osate.verify.ui/src-gen/org/osate/verify/ui/contentassist/antlr/internal/InternalVerify.g:15827:51: ( ( '_' )? RULE_EXTENDED_DIGIT )*
+            // ../org.osate.verify.ui/src-gen/org/osate/verify/ui/contentassist/antlr/internal/InternalVerify.g:15839:51: ( ( '_' )? RULE_EXTENDED_DIGIT )*
             loop19:
             do {
                 int alt19=2;
@@ -2085,9 +2085,9 @@ public class InternalVerifyLexer extends Lexer {
 
                 switch (alt19) {
             	case 1 :
-            	    // ../org.osate.verify.ui/src-gen/org/osate/verify/ui/contentassist/antlr/internal/InternalVerify.g:15827:52: ( '_' )? RULE_EXTENDED_DIGIT
+            	    // ../org.osate.verify.ui/src-gen/org/osate/verify/ui/contentassist/antlr/internal/InternalVerify.g:15839:52: ( '_' )? RULE_EXTENDED_DIGIT
             	    {
-            	    // ../org.osate.verify.ui/src-gen/org/osate/verify/ui/contentassist/antlr/internal/InternalVerify.g:15827:52: ( '_' )?
+            	    // ../org.osate.verify.ui/src-gen/org/osate/verify/ui/contentassist/antlr/internal/InternalVerify.g:15839:52: ( '_' )?
             	    int alt18=2;
             	    int LA18_0 = input.LA(1);
 
@@ -2096,7 +2096,7 @@ public class InternalVerifyLexer extends Lexer {
             	    }
             	    switch (alt18) {
             	        case 1 :
-            	            // ../org.osate.verify.ui/src-gen/org/osate/verify/ui/contentassist/antlr/internal/InternalVerify.g:15827:52: '_'
+            	            // ../org.osate.verify.ui/src-gen/org/osate/verify/ui/contentassist/antlr/internal/InternalVerify.g:15839:52: '_'
             	            {
             	            match('_'); 
 
@@ -2129,10 +2129,10 @@ public class InternalVerifyLexer extends Lexer {
         try {
             int _type = RULE_HEX;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../org.osate.verify.ui/src-gen/org/osate/verify/ui/contentassist/antlr/internal/InternalVerify.g:15829:10: ( ( '0x' | '0X' ) ( '0' .. '9' | 'a' .. 'f' | 'A' .. 'F' | '_' )+ ( '#' ( ( 'b' | 'B' ) ( 'i' | 'I' ) | ( 'l' | 'L' ) ) )? )
-            // ../org.osate.verify.ui/src-gen/org/osate/verify/ui/contentassist/antlr/internal/InternalVerify.g:15829:12: ( '0x' | '0X' ) ( '0' .. '9' | 'a' .. 'f' | 'A' .. 'F' | '_' )+ ( '#' ( ( 'b' | 'B' ) ( 'i' | 'I' ) | ( 'l' | 'L' ) ) )?
+            // ../org.osate.verify.ui/src-gen/org/osate/verify/ui/contentassist/antlr/internal/InternalVerify.g:15841:10: ( ( '0x' | '0X' ) ( '0' .. '9' | 'a' .. 'f' | 'A' .. 'F' | '_' )+ ( '#' ( ( 'b' | 'B' ) ( 'i' | 'I' ) | ( 'l' | 'L' ) ) )? )
+            // ../org.osate.verify.ui/src-gen/org/osate/verify/ui/contentassist/antlr/internal/InternalVerify.g:15841:12: ( '0x' | '0X' ) ( '0' .. '9' | 'a' .. 'f' | 'A' .. 'F' | '_' )+ ( '#' ( ( 'b' | 'B' ) ( 'i' | 'I' ) | ( 'l' | 'L' ) ) )?
             {
-            // ../org.osate.verify.ui/src-gen/org/osate/verify/ui/contentassist/antlr/internal/InternalVerify.g:15829:12: ( '0x' | '0X' )
+            // ../org.osate.verify.ui/src-gen/org/osate/verify/ui/contentassist/antlr/internal/InternalVerify.g:15841:12: ( '0x' | '0X' )
             int alt20=2;
             int LA20_0 = input.LA(1);
 
@@ -2160,7 +2160,7 @@ public class InternalVerifyLexer extends Lexer {
             }
             switch (alt20) {
                 case 1 :
-                    // ../org.osate.verify.ui/src-gen/org/osate/verify/ui/contentassist/antlr/internal/InternalVerify.g:15829:13: '0x'
+                    // ../org.osate.verify.ui/src-gen/org/osate/verify/ui/contentassist/antlr/internal/InternalVerify.g:15841:13: '0x'
                     {
                     match("0x"); 
 
@@ -2168,7 +2168,7 @@ public class InternalVerifyLexer extends Lexer {
                     }
                     break;
                 case 2 :
-                    // ../org.osate.verify.ui/src-gen/org/osate/verify/ui/contentassist/antlr/internal/InternalVerify.g:15829:18: '0X'
+                    // ../org.osate.verify.ui/src-gen/org/osate/verify/ui/contentassist/antlr/internal/InternalVerify.g:15841:18: '0X'
                     {
                     match("0X"); 
 
@@ -2178,7 +2178,7 @@ public class InternalVerifyLexer extends Lexer {
 
             }
 
-            // ../org.osate.verify.ui/src-gen/org/osate/verify/ui/contentassist/antlr/internal/InternalVerify.g:15829:24: ( '0' .. '9' | 'a' .. 'f' | 'A' .. 'F' | '_' )+
+            // ../org.osate.verify.ui/src-gen/org/osate/verify/ui/contentassist/antlr/internal/InternalVerify.g:15841:24: ( '0' .. '9' | 'a' .. 'f' | 'A' .. 'F' | '_' )+
             int cnt21=0;
             loop21:
             do {
@@ -2216,7 +2216,7 @@ public class InternalVerifyLexer extends Lexer {
                 cnt21++;
             } while (true);
 
-            // ../org.osate.verify.ui/src-gen/org/osate/verify/ui/contentassist/antlr/internal/InternalVerify.g:15829:58: ( '#' ( ( 'b' | 'B' ) ( 'i' | 'I' ) | ( 'l' | 'L' ) ) )?
+            // ../org.osate.verify.ui/src-gen/org/osate/verify/ui/contentassist/antlr/internal/InternalVerify.g:15841:58: ( '#' ( ( 'b' | 'B' ) ( 'i' | 'I' ) | ( 'l' | 'L' ) ) )?
             int alt23=2;
             int LA23_0 = input.LA(1);
 
@@ -2225,10 +2225,10 @@ public class InternalVerifyLexer extends Lexer {
             }
             switch (alt23) {
                 case 1 :
-                    // ../org.osate.verify.ui/src-gen/org/osate/verify/ui/contentassist/antlr/internal/InternalVerify.g:15829:59: '#' ( ( 'b' | 'B' ) ( 'i' | 'I' ) | ( 'l' | 'L' ) )
+                    // ../org.osate.verify.ui/src-gen/org/osate/verify/ui/contentassist/antlr/internal/InternalVerify.g:15841:59: '#' ( ( 'b' | 'B' ) ( 'i' | 'I' ) | ( 'l' | 'L' ) )
                     {
                     match('#'); 
-                    // ../org.osate.verify.ui/src-gen/org/osate/verify/ui/contentassist/antlr/internal/InternalVerify.g:15829:63: ( ( 'b' | 'B' ) ( 'i' | 'I' ) | ( 'l' | 'L' ) )
+                    // ../org.osate.verify.ui/src-gen/org/osate/verify/ui/contentassist/antlr/internal/InternalVerify.g:15841:63: ( ( 'b' | 'B' ) ( 'i' | 'I' ) | ( 'l' | 'L' ) )
                     int alt22=2;
                     int LA22_0 = input.LA(1);
 
@@ -2246,7 +2246,7 @@ public class InternalVerifyLexer extends Lexer {
                     }
                     switch (alt22) {
                         case 1 :
-                            // ../org.osate.verify.ui/src-gen/org/osate/verify/ui/contentassist/antlr/internal/InternalVerify.g:15829:64: ( 'b' | 'B' ) ( 'i' | 'I' )
+                            // ../org.osate.verify.ui/src-gen/org/osate/verify/ui/contentassist/antlr/internal/InternalVerify.g:15841:64: ( 'b' | 'B' ) ( 'i' | 'I' )
                             {
                             if ( input.LA(1)=='B'||input.LA(1)=='b' ) {
                                 input.consume();
@@ -2270,7 +2270,7 @@ public class InternalVerifyLexer extends Lexer {
                             }
                             break;
                         case 2 :
-                            // ../org.osate.verify.ui/src-gen/org/osate/verify/ui/contentassist/antlr/internal/InternalVerify.g:15829:84: ( 'l' | 'L' )
+                            // ../org.osate.verify.ui/src-gen/org/osate/verify/ui/contentassist/antlr/internal/InternalVerify.g:15841:84: ( 'l' | 'L' )
                             {
                             if ( input.LA(1)=='L'||input.LA(1)=='l' ) {
                                 input.consume();
@@ -2309,11 +2309,11 @@ public class InternalVerifyLexer extends Lexer {
         try {
             int _type = RULE_INT;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../org.osate.verify.ui/src-gen/org/osate/verify/ui/contentassist/antlr/internal/InternalVerify.g:15831:10: ( '0' .. '9' ( '0' .. '9' | '_' )* )
-            // ../org.osate.verify.ui/src-gen/org/osate/verify/ui/contentassist/antlr/internal/InternalVerify.g:15831:12: '0' .. '9' ( '0' .. '9' | '_' )*
+            // ../org.osate.verify.ui/src-gen/org/osate/verify/ui/contentassist/antlr/internal/InternalVerify.g:15843:10: ( '0' .. '9' ( '0' .. '9' | '_' )* )
+            // ../org.osate.verify.ui/src-gen/org/osate/verify/ui/contentassist/antlr/internal/InternalVerify.g:15843:12: '0' .. '9' ( '0' .. '9' | '_' )*
             {
             matchRange('0','9'); 
-            // ../org.osate.verify.ui/src-gen/org/osate/verify/ui/contentassist/antlr/internal/InternalVerify.g:15831:21: ( '0' .. '9' | '_' )*
+            // ../org.osate.verify.ui/src-gen/org/osate/verify/ui/contentassist/antlr/internal/InternalVerify.g:15843:21: ( '0' .. '9' | '_' )*
             loop24:
             do {
                 int alt24=2;
@@ -2362,11 +2362,11 @@ public class InternalVerifyLexer extends Lexer {
         try {
             int _type = RULE_DECIMAL;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../org.osate.verify.ui/src-gen/org/osate/verify/ui/contentassist/antlr/internal/InternalVerify.g:15833:14: ( RULE_INT ( ( 'e' | 'E' ) ( '+' | '-' )? RULE_INT )? ( ( 'b' | 'B' ) ( 'i' | 'I' | 'd' | 'D' ) | ( 'l' | 'L' | 'd' | 'D' | 'f' | 'F' ) )? )
-            // ../org.osate.verify.ui/src-gen/org/osate/verify/ui/contentassist/antlr/internal/InternalVerify.g:15833:16: RULE_INT ( ( 'e' | 'E' ) ( '+' | '-' )? RULE_INT )? ( ( 'b' | 'B' ) ( 'i' | 'I' | 'd' | 'D' ) | ( 'l' | 'L' | 'd' | 'D' | 'f' | 'F' ) )?
+            // ../org.osate.verify.ui/src-gen/org/osate/verify/ui/contentassist/antlr/internal/InternalVerify.g:15845:14: ( RULE_INT ( ( 'e' | 'E' ) ( '+' | '-' )? RULE_INT )? ( ( 'b' | 'B' ) ( 'i' | 'I' | 'd' | 'D' ) | ( 'l' | 'L' | 'd' | 'D' | 'f' | 'F' ) )? )
+            // ../org.osate.verify.ui/src-gen/org/osate/verify/ui/contentassist/antlr/internal/InternalVerify.g:15845:16: RULE_INT ( ( 'e' | 'E' ) ( '+' | '-' )? RULE_INT )? ( ( 'b' | 'B' ) ( 'i' | 'I' | 'd' | 'D' ) | ( 'l' | 'L' | 'd' | 'D' | 'f' | 'F' ) )?
             {
             mRULE_INT(); 
-            // ../org.osate.verify.ui/src-gen/org/osate/verify/ui/contentassist/antlr/internal/InternalVerify.g:15833:25: ( ( 'e' | 'E' ) ( '+' | '-' )? RULE_INT )?
+            // ../org.osate.verify.ui/src-gen/org/osate/verify/ui/contentassist/antlr/internal/InternalVerify.g:15845:25: ( ( 'e' | 'E' ) ( '+' | '-' )? RULE_INT )?
             int alt26=2;
             int LA26_0 = input.LA(1);
 
@@ -2375,7 +2375,7 @@ public class InternalVerifyLexer extends Lexer {
             }
             switch (alt26) {
                 case 1 :
-                    // ../org.osate.verify.ui/src-gen/org/osate/verify/ui/contentassist/antlr/internal/InternalVerify.g:15833:26: ( 'e' | 'E' ) ( '+' | '-' )? RULE_INT
+                    // ../org.osate.verify.ui/src-gen/org/osate/verify/ui/contentassist/antlr/internal/InternalVerify.g:15845:26: ( 'e' | 'E' ) ( '+' | '-' )? RULE_INT
                     {
                     if ( input.LA(1)=='E'||input.LA(1)=='e' ) {
                         input.consume();
@@ -2386,7 +2386,7 @@ public class InternalVerifyLexer extends Lexer {
                         recover(mse);
                         throw mse;}
 
-                    // ../org.osate.verify.ui/src-gen/org/osate/verify/ui/contentassist/antlr/internal/InternalVerify.g:15833:36: ( '+' | '-' )?
+                    // ../org.osate.verify.ui/src-gen/org/osate/verify/ui/contentassist/antlr/internal/InternalVerify.g:15845:36: ( '+' | '-' )?
                     int alt25=2;
                     int LA25_0 = input.LA(1);
 
@@ -2419,7 +2419,7 @@ public class InternalVerifyLexer extends Lexer {
 
             }
 
-            // ../org.osate.verify.ui/src-gen/org/osate/verify/ui/contentassist/antlr/internal/InternalVerify.g:15833:58: ( ( 'b' | 'B' ) ( 'i' | 'I' | 'd' | 'D' ) | ( 'l' | 'L' | 'd' | 'D' | 'f' | 'F' ) )?
+            // ../org.osate.verify.ui/src-gen/org/osate/verify/ui/contentassist/antlr/internal/InternalVerify.g:15845:58: ( ( 'b' | 'B' ) ( 'i' | 'I' | 'd' | 'D' ) | ( 'l' | 'L' | 'd' | 'D' | 'f' | 'F' ) )?
             int alt27=3;
             int LA27_0 = input.LA(1);
 
@@ -2431,7 +2431,7 @@ public class InternalVerifyLexer extends Lexer {
             }
             switch (alt27) {
                 case 1 :
-                    // ../org.osate.verify.ui/src-gen/org/osate/verify/ui/contentassist/antlr/internal/InternalVerify.g:15833:59: ( 'b' | 'B' ) ( 'i' | 'I' | 'd' | 'D' )
+                    // ../org.osate.verify.ui/src-gen/org/osate/verify/ui/contentassist/antlr/internal/InternalVerify.g:15845:59: ( 'b' | 'B' ) ( 'i' | 'I' | 'd' | 'D' )
                     {
                     if ( input.LA(1)=='B'||input.LA(1)=='b' ) {
                         input.consume();
@@ -2455,7 +2455,7 @@ public class InternalVerifyLexer extends Lexer {
                     }
                     break;
                 case 2 :
-                    // ../org.osate.verify.ui/src-gen/org/osate/verify/ui/contentassist/antlr/internal/InternalVerify.g:15833:87: ( 'l' | 'L' | 'd' | 'D' | 'f' | 'F' )
+                    // ../org.osate.verify.ui/src-gen/org/osate/verify/ui/contentassist/antlr/internal/InternalVerify.g:15845:87: ( 'l' | 'L' | 'd' | 'D' | 'f' | 'F' )
                     {
                     if ( input.LA(1)=='D'||input.LA(1)=='F'||input.LA(1)=='L'||input.LA(1)=='d'||input.LA(1)=='f'||input.LA(1)=='l' ) {
                         input.consume();
@@ -2488,10 +2488,10 @@ public class InternalVerifyLexer extends Lexer {
         try {
             int _type = RULE_ID;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../org.osate.verify.ui/src-gen/org/osate/verify/ui/contentassist/antlr/internal/InternalVerify.g:15835:9: ( ( '^' )? ( 'a' .. 'z' | 'A' .. 'Z' | '_' ) ( 'a' .. 'z' | 'A' .. 'Z' | '_' | '0' .. '9' )* )
-            // ../org.osate.verify.ui/src-gen/org/osate/verify/ui/contentassist/antlr/internal/InternalVerify.g:15835:11: ( '^' )? ( 'a' .. 'z' | 'A' .. 'Z' | '_' ) ( 'a' .. 'z' | 'A' .. 'Z' | '_' | '0' .. '9' )*
+            // ../org.osate.verify.ui/src-gen/org/osate/verify/ui/contentassist/antlr/internal/InternalVerify.g:15847:9: ( ( '^' )? ( 'a' .. 'z' | 'A' .. 'Z' | '_' ) ( 'a' .. 'z' | 'A' .. 'Z' | '_' | '0' .. '9' )* )
+            // ../org.osate.verify.ui/src-gen/org/osate/verify/ui/contentassist/antlr/internal/InternalVerify.g:15847:11: ( '^' )? ( 'a' .. 'z' | 'A' .. 'Z' | '_' ) ( 'a' .. 'z' | 'A' .. 'Z' | '_' | '0' .. '9' )*
             {
-            // ../org.osate.verify.ui/src-gen/org/osate/verify/ui/contentassist/antlr/internal/InternalVerify.g:15835:11: ( '^' )?
+            // ../org.osate.verify.ui/src-gen/org/osate/verify/ui/contentassist/antlr/internal/InternalVerify.g:15847:11: ( '^' )?
             int alt28=2;
             int LA28_0 = input.LA(1);
 
@@ -2500,7 +2500,7 @@ public class InternalVerifyLexer extends Lexer {
             }
             switch (alt28) {
                 case 1 :
-                    // ../org.osate.verify.ui/src-gen/org/osate/verify/ui/contentassist/antlr/internal/InternalVerify.g:15835:11: '^'
+                    // ../org.osate.verify.ui/src-gen/org/osate/verify/ui/contentassist/antlr/internal/InternalVerify.g:15847:11: '^'
                     {
                     match('^'); 
 
@@ -2518,7 +2518,7 @@ public class InternalVerifyLexer extends Lexer {
                 recover(mse);
                 throw mse;}
 
-            // ../org.osate.verify.ui/src-gen/org/osate/verify/ui/contentassist/antlr/internal/InternalVerify.g:15835:40: ( 'a' .. 'z' | 'A' .. 'Z' | '_' | '0' .. '9' )*
+            // ../org.osate.verify.ui/src-gen/org/osate/verify/ui/contentassist/antlr/internal/InternalVerify.g:15847:40: ( 'a' .. 'z' | 'A' .. 'Z' | '_' | '0' .. '9' )*
             loop29:
             do {
                 int alt29=2;
@@ -2567,10 +2567,10 @@ public class InternalVerifyLexer extends Lexer {
         try {
             int _type = RULE_STRING;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../org.osate.verify.ui/src-gen/org/osate/verify/ui/contentassist/antlr/internal/InternalVerify.g:15837:13: ( ( '\"' ( '\\\\' . | ~ ( ( '\\\\' | '\"' ) ) )* '\"' | '\\'' ( '\\\\' . | ~ ( ( '\\\\' | '\\'' ) ) )* '\\'' ) )
-            // ../org.osate.verify.ui/src-gen/org/osate/verify/ui/contentassist/antlr/internal/InternalVerify.g:15837:15: ( '\"' ( '\\\\' . | ~ ( ( '\\\\' | '\"' ) ) )* '\"' | '\\'' ( '\\\\' . | ~ ( ( '\\\\' | '\\'' ) ) )* '\\'' )
+            // ../org.osate.verify.ui/src-gen/org/osate/verify/ui/contentassist/antlr/internal/InternalVerify.g:15849:13: ( ( '\"' ( '\\\\' . | ~ ( ( '\\\\' | '\"' ) ) )* '\"' | '\\'' ( '\\\\' . | ~ ( ( '\\\\' | '\\'' ) ) )* '\\'' ) )
+            // ../org.osate.verify.ui/src-gen/org/osate/verify/ui/contentassist/antlr/internal/InternalVerify.g:15849:15: ( '\"' ( '\\\\' . | ~ ( ( '\\\\' | '\"' ) ) )* '\"' | '\\'' ( '\\\\' . | ~ ( ( '\\\\' | '\\'' ) ) )* '\\'' )
             {
-            // ../org.osate.verify.ui/src-gen/org/osate/verify/ui/contentassist/antlr/internal/InternalVerify.g:15837:15: ( '\"' ( '\\\\' . | ~ ( ( '\\\\' | '\"' ) ) )* '\"' | '\\'' ( '\\\\' . | ~ ( ( '\\\\' | '\\'' ) ) )* '\\'' )
+            // ../org.osate.verify.ui/src-gen/org/osate/verify/ui/contentassist/antlr/internal/InternalVerify.g:15849:15: ( '\"' ( '\\\\' . | ~ ( ( '\\\\' | '\"' ) ) )* '\"' | '\\'' ( '\\\\' . | ~ ( ( '\\\\' | '\\'' ) ) )* '\\'' )
             int alt32=2;
             int LA32_0 = input.LA(1);
 
@@ -2588,10 +2588,10 @@ public class InternalVerifyLexer extends Lexer {
             }
             switch (alt32) {
                 case 1 :
-                    // ../org.osate.verify.ui/src-gen/org/osate/verify/ui/contentassist/antlr/internal/InternalVerify.g:15837:16: '\"' ( '\\\\' . | ~ ( ( '\\\\' | '\"' ) ) )* '\"'
+                    // ../org.osate.verify.ui/src-gen/org/osate/verify/ui/contentassist/antlr/internal/InternalVerify.g:15849:16: '\"' ( '\\\\' . | ~ ( ( '\\\\' | '\"' ) ) )* '\"'
                     {
                     match('\"'); 
-                    // ../org.osate.verify.ui/src-gen/org/osate/verify/ui/contentassist/antlr/internal/InternalVerify.g:15837:20: ( '\\\\' . | ~ ( ( '\\\\' | '\"' ) ) )*
+                    // ../org.osate.verify.ui/src-gen/org/osate/verify/ui/contentassist/antlr/internal/InternalVerify.g:15849:20: ( '\\\\' . | ~ ( ( '\\\\' | '\"' ) ) )*
                     loop30:
                     do {
                         int alt30=3;
@@ -2607,7 +2607,7 @@ public class InternalVerifyLexer extends Lexer {
 
                         switch (alt30) {
                     	case 1 :
-                    	    // ../org.osate.verify.ui/src-gen/org/osate/verify/ui/contentassist/antlr/internal/InternalVerify.g:15837:21: '\\\\' .
+                    	    // ../org.osate.verify.ui/src-gen/org/osate/verify/ui/contentassist/antlr/internal/InternalVerify.g:15849:21: '\\\\' .
                     	    {
                     	    match('\\'); 
                     	    matchAny(); 
@@ -2615,7 +2615,7 @@ public class InternalVerifyLexer extends Lexer {
                     	    }
                     	    break;
                     	case 2 :
-                    	    // ../org.osate.verify.ui/src-gen/org/osate/verify/ui/contentassist/antlr/internal/InternalVerify.g:15837:28: ~ ( ( '\\\\' | '\"' ) )
+                    	    // ../org.osate.verify.ui/src-gen/org/osate/verify/ui/contentassist/antlr/internal/InternalVerify.g:15849:28: ~ ( ( '\\\\' | '\"' ) )
                     	    {
                     	    if ( (input.LA(1)>='\u0000' && input.LA(1)<='!')||(input.LA(1)>='#' && input.LA(1)<='[')||(input.LA(1)>=']' && input.LA(1)<='\uFFFF') ) {
                     	        input.consume();
@@ -2640,10 +2640,10 @@ public class InternalVerifyLexer extends Lexer {
                     }
                     break;
                 case 2 :
-                    // ../org.osate.verify.ui/src-gen/org/osate/verify/ui/contentassist/antlr/internal/InternalVerify.g:15837:48: '\\'' ( '\\\\' . | ~ ( ( '\\\\' | '\\'' ) ) )* '\\''
+                    // ../org.osate.verify.ui/src-gen/org/osate/verify/ui/contentassist/antlr/internal/InternalVerify.g:15849:48: '\\'' ( '\\\\' . | ~ ( ( '\\\\' | '\\'' ) ) )* '\\''
                     {
                     match('\''); 
-                    // ../org.osate.verify.ui/src-gen/org/osate/verify/ui/contentassist/antlr/internal/InternalVerify.g:15837:53: ( '\\\\' . | ~ ( ( '\\\\' | '\\'' ) ) )*
+                    // ../org.osate.verify.ui/src-gen/org/osate/verify/ui/contentassist/antlr/internal/InternalVerify.g:15849:53: ( '\\\\' . | ~ ( ( '\\\\' | '\\'' ) ) )*
                     loop31:
                     do {
                         int alt31=3;
@@ -2659,7 +2659,7 @@ public class InternalVerifyLexer extends Lexer {
 
                         switch (alt31) {
                     	case 1 :
-                    	    // ../org.osate.verify.ui/src-gen/org/osate/verify/ui/contentassist/antlr/internal/InternalVerify.g:15837:54: '\\\\' .
+                    	    // ../org.osate.verify.ui/src-gen/org/osate/verify/ui/contentassist/antlr/internal/InternalVerify.g:15849:54: '\\\\' .
                     	    {
                     	    match('\\'); 
                     	    matchAny(); 
@@ -2667,7 +2667,7 @@ public class InternalVerifyLexer extends Lexer {
                     	    }
                     	    break;
                     	case 2 :
-                    	    // ../org.osate.verify.ui/src-gen/org/osate/verify/ui/contentassist/antlr/internal/InternalVerify.g:15837:61: ~ ( ( '\\\\' | '\\'' ) )
+                    	    // ../org.osate.verify.ui/src-gen/org/osate/verify/ui/contentassist/antlr/internal/InternalVerify.g:15849:61: ~ ( ( '\\\\' | '\\'' ) )
                     	    {
                     	    if ( (input.LA(1)>='\u0000' && input.LA(1)<='&')||(input.LA(1)>='(' && input.LA(1)<='[')||(input.LA(1)>=']' && input.LA(1)<='\uFFFF') ) {
                     	        input.consume();
@@ -2710,12 +2710,12 @@ public class InternalVerifyLexer extends Lexer {
         try {
             int _type = RULE_ML_COMMENT;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../org.osate.verify.ui/src-gen/org/osate/verify/ui/contentassist/antlr/internal/InternalVerify.g:15839:17: ( '/*' ( options {greedy=false; } : . )* '*/' )
-            // ../org.osate.verify.ui/src-gen/org/osate/verify/ui/contentassist/antlr/internal/InternalVerify.g:15839:19: '/*' ( options {greedy=false; } : . )* '*/'
+            // ../org.osate.verify.ui/src-gen/org/osate/verify/ui/contentassist/antlr/internal/InternalVerify.g:15851:17: ( '/*' ( options {greedy=false; } : . )* '*/' )
+            // ../org.osate.verify.ui/src-gen/org/osate/verify/ui/contentassist/antlr/internal/InternalVerify.g:15851:19: '/*' ( options {greedy=false; } : . )* '*/'
             {
             match("/*"); 
 
-            // ../org.osate.verify.ui/src-gen/org/osate/verify/ui/contentassist/antlr/internal/InternalVerify.g:15839:24: ( options {greedy=false; } : . )*
+            // ../org.osate.verify.ui/src-gen/org/osate/verify/ui/contentassist/antlr/internal/InternalVerify.g:15851:24: ( options {greedy=false; } : . )*
             loop33:
             do {
                 int alt33=2;
@@ -2740,7 +2740,7 @@ public class InternalVerifyLexer extends Lexer {
 
                 switch (alt33) {
             	case 1 :
-            	    // ../org.osate.verify.ui/src-gen/org/osate/verify/ui/contentassist/antlr/internal/InternalVerify.g:15839:52: .
+            	    // ../org.osate.verify.ui/src-gen/org/osate/verify/ui/contentassist/antlr/internal/InternalVerify.g:15851:52: .
             	    {
             	    matchAny(); 
 
@@ -2770,12 +2770,12 @@ public class InternalVerifyLexer extends Lexer {
         try {
             int _type = RULE_SL_COMMENT;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../org.osate.verify.ui/src-gen/org/osate/verify/ui/contentassist/antlr/internal/InternalVerify.g:15841:17: ( '//' (~ ( ( '\\n' | '\\r' ) ) )* ( ( '\\r' )? '\\n' )? )
-            // ../org.osate.verify.ui/src-gen/org/osate/verify/ui/contentassist/antlr/internal/InternalVerify.g:15841:19: '//' (~ ( ( '\\n' | '\\r' ) ) )* ( ( '\\r' )? '\\n' )?
+            // ../org.osate.verify.ui/src-gen/org/osate/verify/ui/contentassist/antlr/internal/InternalVerify.g:15853:17: ( '//' (~ ( ( '\\n' | '\\r' ) ) )* ( ( '\\r' )? '\\n' )? )
+            // ../org.osate.verify.ui/src-gen/org/osate/verify/ui/contentassist/antlr/internal/InternalVerify.g:15853:19: '//' (~ ( ( '\\n' | '\\r' ) ) )* ( ( '\\r' )? '\\n' )?
             {
             match("//"); 
 
-            // ../org.osate.verify.ui/src-gen/org/osate/verify/ui/contentassist/antlr/internal/InternalVerify.g:15841:24: (~ ( ( '\\n' | '\\r' ) ) )*
+            // ../org.osate.verify.ui/src-gen/org/osate/verify/ui/contentassist/antlr/internal/InternalVerify.g:15853:24: (~ ( ( '\\n' | '\\r' ) ) )*
             loop34:
             do {
                 int alt34=2;
@@ -2788,7 +2788,7 @@ public class InternalVerifyLexer extends Lexer {
 
                 switch (alt34) {
             	case 1 :
-            	    // ../org.osate.verify.ui/src-gen/org/osate/verify/ui/contentassist/antlr/internal/InternalVerify.g:15841:24: ~ ( ( '\\n' | '\\r' ) )
+            	    // ../org.osate.verify.ui/src-gen/org/osate/verify/ui/contentassist/antlr/internal/InternalVerify.g:15853:24: ~ ( ( '\\n' | '\\r' ) )
             	    {
             	    if ( (input.LA(1)>='\u0000' && input.LA(1)<='\t')||(input.LA(1)>='\u000B' && input.LA(1)<='\f')||(input.LA(1)>='\u000E' && input.LA(1)<='\uFFFF') ) {
             	        input.consume();
@@ -2808,7 +2808,7 @@ public class InternalVerifyLexer extends Lexer {
                 }
             } while (true);
 
-            // ../org.osate.verify.ui/src-gen/org/osate/verify/ui/contentassist/antlr/internal/InternalVerify.g:15841:40: ( ( '\\r' )? '\\n' )?
+            // ../org.osate.verify.ui/src-gen/org/osate/verify/ui/contentassist/antlr/internal/InternalVerify.g:15853:40: ( ( '\\r' )? '\\n' )?
             int alt36=2;
             int LA36_0 = input.LA(1);
 
@@ -2817,9 +2817,9 @@ public class InternalVerifyLexer extends Lexer {
             }
             switch (alt36) {
                 case 1 :
-                    // ../org.osate.verify.ui/src-gen/org/osate/verify/ui/contentassist/antlr/internal/InternalVerify.g:15841:41: ( '\\r' )? '\\n'
+                    // ../org.osate.verify.ui/src-gen/org/osate/verify/ui/contentassist/antlr/internal/InternalVerify.g:15853:41: ( '\\r' )? '\\n'
                     {
-                    // ../org.osate.verify.ui/src-gen/org/osate/verify/ui/contentassist/antlr/internal/InternalVerify.g:15841:41: ( '\\r' )?
+                    // ../org.osate.verify.ui/src-gen/org/osate/verify/ui/contentassist/antlr/internal/InternalVerify.g:15853:41: ( '\\r' )?
                     int alt35=2;
                     int LA35_0 = input.LA(1);
 
@@ -2828,7 +2828,7 @@ public class InternalVerifyLexer extends Lexer {
                     }
                     switch (alt35) {
                         case 1 :
-                            // ../org.osate.verify.ui/src-gen/org/osate/verify/ui/contentassist/antlr/internal/InternalVerify.g:15841:41: '\\r'
+                            // ../org.osate.verify.ui/src-gen/org/osate/verify/ui/contentassist/antlr/internal/InternalVerify.g:15853:41: '\\r'
                             {
                             match('\r'); 
 
@@ -2860,10 +2860,10 @@ public class InternalVerifyLexer extends Lexer {
         try {
             int _type = RULE_WS;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../org.osate.verify.ui/src-gen/org/osate/verify/ui/contentassist/antlr/internal/InternalVerify.g:15843:9: ( ( ' ' | '\\t' | '\\r' | '\\n' )+ )
-            // ../org.osate.verify.ui/src-gen/org/osate/verify/ui/contentassist/antlr/internal/InternalVerify.g:15843:11: ( ' ' | '\\t' | '\\r' | '\\n' )+
+            // ../org.osate.verify.ui/src-gen/org/osate/verify/ui/contentassist/antlr/internal/InternalVerify.g:15855:9: ( ( ' ' | '\\t' | '\\r' | '\\n' )+ )
+            // ../org.osate.verify.ui/src-gen/org/osate/verify/ui/contentassist/antlr/internal/InternalVerify.g:15855:11: ( ' ' | '\\t' | '\\r' | '\\n' )+
             {
-            // ../org.osate.verify.ui/src-gen/org/osate/verify/ui/contentassist/antlr/internal/InternalVerify.g:15843:11: ( ' ' | '\\t' | '\\r' | '\\n' )+
+            // ../org.osate.verify.ui/src-gen/org/osate/verify/ui/contentassist/antlr/internal/InternalVerify.g:15855:11: ( ' ' | '\\t' | '\\r' | '\\n' )+
             int cnt37=0;
             loop37:
             do {
@@ -2917,8 +2917,8 @@ public class InternalVerifyLexer extends Lexer {
         try {
             int _type = RULE_ANY_OTHER;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../org.osate.verify.ui/src-gen/org/osate/verify/ui/contentassist/antlr/internal/InternalVerify.g:15845:16: ( . )
-            // ../org.osate.verify.ui/src-gen/org/osate/verify/ui/contentassist/antlr/internal/InternalVerify.g:15845:18: .
+            // ../org.osate.verify.ui/src-gen/org/osate/verify/ui/contentassist/antlr/internal/InternalVerify.g:15857:16: ( . )
+            // ../org.osate.verify.ui/src-gen/org/osate/verify/ui/contentassist/antlr/internal/InternalVerify.g:15857:18: .
             {
             matchAny(); 
 
@@ -3491,95 +3491,19 @@ public class InternalVerifyLexer extends Lexer {
 
     protected DFA38 dfa38 = new DFA38(this);
     static final String DFA38_eotS =
-        "\1\uffff\2\55\1\62\1\64\1\66\1\70\1\72\1\74\1\55\1\uffff\1\100"+
-        "\1\103\1\uffff\3\107\2\uffff\1\117\2\107\2\uffff\3\107\1\uffff\4"+
-        "\107\4\uffff\2\107\2\154\1\55\1\uffff\2\55\17\uffff\1\165\11\uffff"+
-        "\2\107\1\uffff\4\107\4\uffff\4\107\2\uffff\10\107\1\uffff\6\107"+
-        "\4\uffff\2\107\2\uffff\1\u0095\1\uffff\1\154\6\uffff\2\107\1\u009c"+
-        "\7\107\1\u00a5\4\107\1\u00aa\17\107\1\uffff\1\154\1\u0095\1\uffff"+
-        "\1\154\1\107\1\u00bc\1\uffff\3\107\1\u00c0\4\107\1\uffff\4\107\1"+
-        "\uffff\1\u00c9\1\u00ca\1\107\1\u00cc\1\u00cd\6\107\1\u00d4\1\107"+
-        "\1\u00d6\1\107\1\154\1\u00d8\1\uffff\3\107\1\uffff\4\107\1\u00e0"+
-        "\3\107\2\uffff\1\107\2\uffff\1\u00e5\5\107\1\uffff\1\107\1\uffff"+
-        "\1\107\1\uffff\1\107\1\u00ee\1\107\1\u00f0\2\107\1\u00f3\1\uffff"+
-        "\2\107\1\u00f6\1\107\1\uffff\1\u00f9\1\u00fa\1\107\1\u00fc\4\107"+
-        "\1\uffff\1\107\1\uffff\2\107\1\uffff\2\107\1\uffff\1\u0107\1\u0108"+
-        "\2\uffff\1\107\1\uffff\2\107\1\u010c\2\107\1\u010f\2\107\1\u0112"+
-        "\1\107\2\uffff\1\u0114\2\107\1\uffff\2\107\1\uffff\2\107\1\uffff"+
-        "\1\107\1\uffff\1\u011c\2\107\1\u011f\1\u0120\1\107\1\u0122\1\uffff"+
-        "\2\107\2\uffff\1\107\1\uffff\1\u0126\1\u0127\1\u0128\3\uffff";
+        "\1\uffff\2\55\1\62\1\64\1\66\1\70\1\72\1\74\1\55\1\uffff\1\100\1\103\1\uffff\3\107\2\uffff\1\117\2\107\2\uffff\3\107\1\uffff\4\107\4\uffff\2\107\2\154\1\55\1\uffff\2\55\17\uffff\1\165\11\uffff\2\107\1\uffff\4\107\4\uffff\4\107\2\uffff\10\107\1\uffff\6\107\4\uffff\2\107\2\uffff\1\u0095\1\uffff\1\154\6\uffff\2\107\1\u009c\7\107\1\u00a5\4\107\1\u00aa\17\107\1\uffff\1\154\1\u0095\1\uffff\1\154\1\107\1\u00bc\1\uffff\3\107\1\u00c0\4\107\1\uffff\4\107\1\uffff\1\u00c9\1\u00ca\1\107\1\u00cc\1\u00cd\6\107\1\u00d4\1\107\1\u00d6\1\107\1\154\1\u00d8\1\uffff\3\107\1\uffff\4\107\1\u00e0\3\107\2\uffff\1\107\2\uffff\1\u00e5\5\107\1\uffff\1\107\1\uffff\1\107\1\uffff\1\107\1\u00ee\1\107\1\u00f0\2\107\1\u00f3\1\uffff\2\107\1\u00f6\1\107\1\uffff\1\u00f9\1\u00fa\1\107\1\u00fc\4\107\1\uffff\1\107\1\uffff\2\107\1\uffff\2\107\1\uffff\1\u0107\1\u0108\2\uffff\1\107\1\uffff\2\107\1\u010c\2\107\1\u010f\2\107\1\u0112\1\107\2\uffff\1\u0114\2\107\1\uffff\2\107\1\uffff\2\107\1\uffff\1\107\1\uffff\1\u011c\2\107\1\u011f\1\u0120\1\107\1\u0122\1\uffff\2\107\2\uffff\1\107\1\uffff\1\u0126\1\u0127\1\u0128\3\uffff";
     static final String DFA38_eofS =
         "\u0129\uffff";
     static final String DFA38_minS =
-        "\1\0\1\174\1\46\3\75\2\76\1\56\1\72\1\uffff\2\52\1\uffff\2\141"+
-        "\1\154\2\uffff\1\72\1\155\1\141\2\uffff\1\143\1\150\1\154\1\uffff"+
-        "\3\141\1\145\4\uffff\1\165\1\157\2\56\1\101\1\uffff\2\0\17\uffff"+
-        "\1\74\11\uffff\1\151\1\162\1\uffff\1\162\1\154\1\141\1\145\4\uffff"+
-        "\1\163\1\147\1\141\1\164\2\uffff\1\164\1\163\1\154\1\145\1\155\1"+
-        "\165\1\163\1\162\1\uffff\1\164\1\156\1\160\1\164\1\166\1\163\4\uffff"+
-        "\1\154\1\157\2\uffff\1\60\1\53\1\56\6\uffff\1\163\1\154\1\60\2\151"+
-        "\1\156\1\147\1\160\1\143\1\165\1\60\1\151\1\145\1\151\1\145\1\60"+
-        "\1\156\1\163\3\145\1\157\1\150\1\165\2\157\1\151\1\141\1\143\2\154"+
-        "\1\uffff\1\56\3\60\1\145\1\60\1\uffff\1\146\1\145\1\144\1\60\1\151"+
-        "\1\145\1\157\1\145\1\uffff\1\155\1\147\1\166\1\162\1\uffff\2\60"+
-        "\1\157\2\60\1\162\1\157\1\141\1\154\1\162\1\157\1\60\1\162\1\60"+
-        "\1\145\2\60\1\uffff\1\151\1\163\1\141\1\uffff\1\156\1\162\1\156"+
-        "\1\163\1\60\1\157\1\151\1\164\2\uffff\1\165\2\uffff\1\60\1\144\1"+
-        "\154\1\165\1\164\1\156\1\uffff\1\151\1\uffff\1\141\1\uffff\1\143"+
-        "\1\60\1\164\1\60\1\164\1\144\1\60\1\uffff\1\162\1\164\1\60\1\164"+
-        "\1\uffff\2\60\1\164\1\60\1\141\1\160\1\156\1\141\1\uffff\1\151\1"+
-        "\uffff\2\151\1\uffff\1\171\1\151\1\uffff\2\60\2\uffff\1\145\1\uffff"+
-        "\1\154\1\164\1\60\1\164\1\157\1\60\1\145\1\164\1\60\1\145\2\uffff"+
-        "\1\60\1\145\1\151\1\uffff\1\151\1\156\1\uffff\1\163\1\151\1\uffff"+
-        "\1\163\1\uffff\1\60\2\157\2\60\1\157\1\60\1\uffff\2\156\2\uffff"+
-        "\1\156\1\uffff\3\60\3\uffff";
+        "\1\0\1\174\1\46\3\75\2\76\1\56\1\72\1\uffff\2\52\1\uffff\2\141\1\154\2\uffff\1\72\1\155\1\141\2\uffff\1\143\1\150\1\154\1\uffff\3\141\1\145\4\uffff\1\165\1\157\2\56\1\101\1\uffff\2\0\17\uffff\1\74\11\uffff\1\151\1\162\1\uffff\1\162\1\154\1\141\1\145\4\uffff\1\163\1\147\1\141\1\164\2\uffff\1\164\1\163\1\154\1\145\1\155\1\165\1\163\1\162\1\uffff\1\164\1\156\1\160\1\164\1\166\1\163\4\uffff\1\154\1\157\2\uffff\1\60\1\53\1\56\6\uffff\1\163\1\154\1\60\2\151\1\156\1\147\1\160\1\143\1\165\1\60\1\151\1\145\1\151\1\145\1\60\1\156\1\163\3\145\1\157\1\150\1\165\2\157\1\151\1\141\1\143\2\154\1\uffff\1\56\3\60\1\145\1\60\1\uffff\1\146\1\145\1\144\1\60\1\151\1\145\1\157\1\145\1\uffff\1\155\1\147\1\166\1\162\1\uffff\2\60\1\157\2\60\1\162\1\157\1\141\1\154\1\162\1\157\1\60\1\162\1\60\1\145\2\60\1\uffff\1\151\1\163\1\141\1\uffff\1\156\1\162\1\156\1\163\1\60\1\157\1\151\1\164\2\uffff\1\165\2\uffff\1\60\1\144\1\154\1\165\1\164\1\156\1\uffff\1\151\1\uffff\1\141\1\uffff\1\143\1\60\1\164\1\60\1\164\1\144\1\60\1\uffff\1\162\1\164\1\60\1\164\1\uffff\2\60\1\164\1\60\1\141\1\160\1\156\1\141\1\uffff\1\151\1\uffff\2\151\1\uffff\1\171\1\151\1\uffff\2\60\2\uffff\1\145\1\uffff\1\154\1\164\1\60\1\164\1\157\1\60\1\145\1\164\1\60\1\145\2\uffff\1\60\1\145\1\151\1\uffff\1\151\1\156\1\uffff\1\163\1\151\1\uffff\1\163\1\uffff\1\60\2\157\2\60\1\157\1\60\1\uffff\2\156\2\uffff\1\156\1\uffff\3\60\3\uffff";
     static final String DFA38_maxS =
-        "\1\uffff\1\174\1\46\1\76\2\75\2\76\1\56\1\72\1\uffff\1\52\1\57"+
-        "\1\uffff\1\157\1\145\1\162\2\uffff\1\72\1\163\1\154\2\uffff\1\163"+
-        "\2\162\1\uffff\2\145\1\141\1\145\4\uffff\1\165\1\157\1\170\1\154"+
-        "\1\172\1\uffff\2\uffff\17\uffff\1\74\11\uffff\1\154\1\162\1\uffff"+
-        "\1\162\1\154\1\165\1\157\4\uffff\1\163\1\147\1\141\1\164\2\uffff"+
-        "\1\164\1\163\1\154\1\151\1\155\1\165\1\163\1\162\1\uffff\1\164\1"+
-        "\156\1\163\1\164\1\166\1\163\4\uffff\1\154\1\157\2\uffff\1\154\1"+
-        "\71\1\154\6\uffff\1\163\1\154\1\172\1\151\1\165\1\156\1\147\1\160"+
-        "\1\143\1\165\1\172\1\151\1\145\1\151\1\145\1\172\1\156\1\163\3\145"+
-        "\1\157\1\150\1\165\2\157\1\151\1\141\1\143\2\154\1\uffff\2\154\1"+
-        "\71\1\154\1\145\1\172\1\uffff\1\146\1\145\1\144\1\172\1\151\1\145"+
-        "\1\157\1\145\1\uffff\1\155\1\147\1\166\1\162\1\uffff\2\172\1\157"+
-        "\2\172\1\162\1\157\1\141\1\154\1\162\1\157\1\172\1\162\1\172\1\145"+
-        "\1\154\1\172\1\uffff\1\151\1\163\1\141\1\uffff\1\156\1\162\1\156"+
-        "\1\163\1\172\1\157\1\151\1\164\2\uffff\1\165\2\uffff\1\172\1\144"+
-        "\1\154\1\165\1\164\1\156\1\uffff\1\151\1\uffff\1\141\1\uffff\1\143"+
-        "\1\172\1\164\1\172\1\164\1\144\1\172\1\uffff\1\162\1\164\1\172\1"+
-        "\164\1\uffff\2\172\1\164\1\172\1\141\1\160\1\156\1\141\1\uffff\1"+
-        "\151\1\uffff\1\171\1\151\1\uffff\1\171\1\151\1\uffff\2\172\2\uffff"+
-        "\1\145\1\uffff\1\154\1\164\1\172\1\164\1\157\1\172\1\145\1\164\1"+
-        "\172\1\145\2\uffff\1\172\1\145\1\151\1\uffff\1\151\1\156\1\uffff"+
-        "\1\163\1\151\1\uffff\1\163\1\uffff\1\172\2\157\2\172\1\157\1\172"+
-        "\1\uffff\2\156\2\uffff\1\156\1\uffff\3\172\3\uffff";
+        "\1\uffff\1\174\1\46\1\76\2\75\2\76\1\56\1\72\1\uffff\1\52\1\57\1\uffff\1\157\1\145\1\162\2\uffff\1\72\1\163\1\154\2\uffff\1\163\2\162\1\uffff\2\145\1\141\1\145\4\uffff\1\165\1\157\1\170\1\154\1\172\1\uffff\2\uffff\17\uffff\1\74\11\uffff\1\154\1\162\1\uffff\1\162\1\154\1\165\1\157\4\uffff\1\163\1\147\1\141\1\164\2\uffff\1\164\1\163\1\154\1\151\1\155\1\165\1\163\1\162\1\uffff\1\164\1\156\1\163\1\164\1\166\1\163\4\uffff\1\154\1\157\2\uffff\1\154\1\71\1\154\6\uffff\1\163\1\154\1\172\1\151\1\165\1\156\1\147\1\160\1\143\1\165\1\172\1\151\1\145\1\151\1\145\1\172\1\156\1\163\3\145\1\157\1\150\1\165\2\157\1\151\1\141\1\143\2\154\1\uffff\2\154\1\71\1\154\1\145\1\172\1\uffff\1\146\1\145\1\144\1\172\1\151\1\145\1\157\1\145\1\uffff\1\155\1\147\1\166\1\162\1\uffff\2\172\1\157\2\172\1\162\1\157\1\141\1\154\1\162\1\157\1\172\1\162\1\172\1\145\1\154\1\172\1\uffff\1\151\1\163\1\141\1\uffff\1\156\1\162\1\156\1\163\1\172\1\157\1\151\1\164\2\uffff\1\165\2\uffff\1\172\1\144\1\154\1\165\1\164\1\156\1\uffff\1\151\1\uffff\1\141\1\uffff\1\143\1\172\1\164\1\172\1\164\1\144\1\172\1\uffff\1\162\1\164\1\172\1\164\1\uffff\2\172\1\164\1\172\1\141\1\160\1\156\1\141\1\uffff\1\151\1\uffff\1\171\1\151\1\uffff\1\171\1\151\1\uffff\2\172\2\uffff\1\145\1\uffff\1\154\1\164\1\172\1\164\1\157\1\172\1\145\1\164\1\172\1\145\2\uffff\1\172\1\145\1\151\1\uffff\1\151\1\156\1\uffff\1\163\1\151\1\uffff\1\163\1\uffff\1\172\2\157\2\172\1\157\1\172\1\uffff\2\156\2\uffff\1\156\1\uffff\3\172\3\uffff";
     static final String DFA38_acceptS =
-        "\12\uffff\1\16\2\uffff\1\23\3\uffff\1\31\1\32\3\uffff\1\36\1\37"+
-        "\3\uffff\1\50\4\uffff\1\70\1\73\1\74\1\75\5\uffff\1\111\2\uffff"+
-        "\1\115\1\116\1\1\1\2\1\3\1\13\1\52\1\4\1\24\1\5\1\6\1\14\1\7\1\10"+
-        "\1\17\1\uffff\1\72\1\15\1\16\1\21\1\20\1\113\1\114\1\22\1\23\2\uffff"+
-        "\1\111\4\uffff\1\31\1\32\1\77\1\33\4\uffff\1\36\1\37\10\uffff\1"+
-        "\50\6\uffff\1\70\1\73\1\74\1\75\2\uffff\1\106\1\105\3\uffff\1\104"+
-        "\1\110\1\112\1\115\1\11\1\12\37\uffff\1\107\6\uffff\1\30\10\uffff"+
-        "\1\71\4\uffff\1\47\21\uffff\1\44\3\uffff\1\27\10\uffff\1\42\1\102"+
-        "\1\uffff\1\103\1\43\6\uffff\1\63\1\uffff\1\76\1\uffff\1\25\7\uffff"+
-        "\1\35\4\uffff\1\46\10\uffff\1\54\1\uffff\1\65\2\uffff\1\34\2\uffff"+
-        "\1\41\2\uffff\1\60\1\64\1\uffff\1\101\12\uffff\1\45\1\57\3\uffff"+
-        "\1\100\2\uffff\1\53\2\uffff\1\51\1\uffff\1\62\7\uffff\1\67\2\uffff"+
-        "\1\55\1\61\1\uffff\1\40\3\uffff\1\66\1\26\1\56";
+        "\12\uffff\1\16\2\uffff\1\23\3\uffff\1\31\1\32\3\uffff\1\36\1\37\3\uffff\1\50\4\uffff\1\70\1\73\1\74\1\75\5\uffff\1\111\2\uffff\1\115\1\116\1\1\1\2\1\3\1\13\1\52\1\4\1\24\1\5\1\6\1\14\1\7\1\10\1\17\1\uffff\1\72\1\15\1\16\1\21\1\20\1\113\1\114\1\22\1\23\2\uffff\1\111\4\uffff\1\31\1\32\1\77\1\33\4\uffff\1\36\1\37\10\uffff\1\50\6\uffff\1\70\1\73\1\74\1\75\2\uffff\1\106\1\105\3\uffff\1\104\1\110\1\112\1\115\1\11\1\12\37\uffff\1\107\6\uffff\1\30\10\uffff\1\71\4\uffff\1\47\21\uffff\1\44\3\uffff\1\27\10\uffff\1\42\1\102\1\uffff\1\103\1\43\6\uffff\1\63\1\uffff\1\76\1\uffff\1\25\7\uffff\1\35\4\uffff\1\46\10\uffff\1\54\1\uffff\1\65\2\uffff\1\34\2\uffff\1\41\2\uffff\1\60\1\64\1\uffff\1\101\12\uffff\1\45\1\57\3\uffff\1\100\2\uffff\1\53\2\uffff\1\51\1\uffff\1\62\7\uffff\1\67\2\uffff\1\55\1\61\1\uffff\1\40\3\uffff\1\66\1\26\1\56";
     static final String DFA38_specialS =
         "\1\2\51\uffff\1\0\1\1\u00fd\uffff}>";
     static final String[] DFA38_transitionS = {
-            "\11\55\2\54\2\55\1\54\22\55\1\54\1\4\1\52\1\43\1\55\1\15\1"+
-            "\2\1\53\1\26\1\27\1\13\1\12\1\33\1\7\1\10\1\14\1\46\11\47\1"+
-            "\23\1\55\1\6\1\3\1\5\1\11\1\40\32\51\1\21\1\55\1\22\1\50\1\51"+
-            "\1\55\1\30\1\45\1\25\1\37\1\32\1\16\2\51\1\24\1\36\2\51\1\34"+
-            "\1\44\1\51\1\20\1\51\1\35\1\51\1\31\1\51\1\17\4\51\1\41\1\1"+
-            "\1\42\uff82\55",
+            "\11\55\2\54\2\55\1\54\22\55\1\54\1\4\1\52\1\43\1\55\1\15\1\2\1\53\1\26\1\27\1\13\1\12\1\33\1\7\1\10\1\14\1\46\11\47\1\23\1\55\1\6\1\3\1\5\1\11\1\40\32\51\1\21\1\55\1\22\1\50\1\51\1\55\1\30\1\45\1\25\1\37\1\32\1\16\2\51\1\24\1\36\2\51\1\34\1\44\1\51\1\20\1\51\1\35\1\51\1\31\1\51\1\17\4\51\1\41\1\1\1\42\uff82\55",
             "\1\56",
             "\1\57",
             "\1\60\1\61",
@@ -3617,12 +3541,8 @@ public class InternalVerifyLexer extends Lexer {
             "",
             "\1\151",
             "\1\152",
-            "\1\160\1\uffff\12\157\10\uffff\1\161\1\uffff\1\161\1\156\1"+
-            "\161\5\uffff\1\161\13\uffff\1\153\6\uffff\1\155\2\uffff\1\161"+
-            "\1\uffff\1\161\1\156\1\161\5\uffff\1\161\13\uffff\1\153",
-            "\1\160\1\uffff\12\157\10\uffff\1\161\1\uffff\1\161\1\156\1"+
-            "\161\5\uffff\1\161\22\uffff\1\155\2\uffff\1\161\1\uffff\1\161"+
-            "\1\156\1\161\5\uffff\1\161",
+            "\1\160\1\uffff\12\157\10\uffff\1\161\1\uffff\1\161\1\156\1\161\5\uffff\1\161\13\uffff\1\153\6\uffff\1\155\2\uffff\1\161\1\uffff\1\161\1\156\1\161\5\uffff\1\161\13\uffff\1\153",
+            "\1\160\1\uffff\12\157\10\uffff\1\161\1\uffff\1\161\1\156\1\161\5\uffff\1\161\22\uffff\1\155\2\uffff\1\161\1\uffff\1\161\1\156\1\161\5\uffff\1\161",
             "\32\107\4\uffff\1\107\1\uffff\32\107",
             "",
             "\0\162",
@@ -3692,12 +3612,9 @@ public class InternalVerifyLexer extends Lexer {
             "\1\u0094",
             "",
             "",
-            "\12\u0096\10\uffff\1\161\1\uffff\3\161\5\uffff\1\161\22\uffff"+
-            "\1\u0097\2\uffff\1\161\1\uffff\3\161\5\uffff\1\161",
+            "\12\u0096\10\uffff\1\161\1\uffff\3\161\5\uffff\1\161\22\uffff\1\u0097\2\uffff\1\161\1\uffff\3\161\5\uffff\1\161",
             "\1\u0098\1\uffff\1\161\2\uffff\12\u0099",
-            "\1\160\1\uffff\12\157\10\uffff\1\161\1\uffff\1\161\1\156\1"+
-            "\161\5\uffff\1\161\22\uffff\1\155\2\uffff\1\161\1\uffff\1\161"+
-            "\1\156\1\161\5\uffff\1\161",
+            "\1\160\1\uffff\12\157\10\uffff\1\161\1\uffff\1\161\1\156\1\161\5\uffff\1\161\22\uffff\1\155\2\uffff\1\161\1\uffff\1\161\1\156\1\161\5\uffff\1\161",
             "",
             "",
             "",
@@ -3736,15 +3653,10 @@ public class InternalVerifyLexer extends Lexer {
             "\1\u00b8",
             "\1\u00b9",
             "",
-            "\1\160\1\uffff\12\u0096\10\uffff\1\161\1\uffff\1\161\1\156"+
-            "\1\161\5\uffff\1\161\22\uffff\1\155\2\uffff\1\161\1\uffff\1"+
-            "\161\1\156\1\161\5\uffff\1\161",
-            "\12\u0097\10\uffff\1\161\1\uffff\3\161\5\uffff\1\161\22\uffff"+
-            "\1\u0097\2\uffff\1\161\1\uffff\3\161\5\uffff\1\161",
+            "\1\160\1\uffff\12\u0096\10\uffff\1\161\1\uffff\1\161\1\156\1\161\5\uffff\1\161\22\uffff\1\155\2\uffff\1\161\1\uffff\1\161\1\156\1\161\5\uffff\1\161",
+            "\12\u0097\10\uffff\1\161\1\uffff\3\161\5\uffff\1\161\22\uffff\1\u0097\2\uffff\1\161\1\uffff\3\161\5\uffff\1\161",
             "\12\u0099",
-            "\12\u00ba\10\uffff\1\161\1\uffff\1\161\1\uffff\1\161\5\uffff"+
-            "\1\161\22\uffff\1\161\2\uffff\1\161\1\uffff\1\161\1\uffff\1"+
-            "\161\5\uffff\1\161",
+            "\12\u00ba\10\uffff\1\161\1\uffff\1\161\1\uffff\1\161\5\uffff\1\161\22\uffff\1\161\2\uffff\1\161\1\uffff\1\161\1\uffff\1\161\5\uffff\1\161",
             "\1\u00bb",
             "\12\107\7\uffff\32\107\4\uffff\1\107\1\uffff\32\107",
             "",
@@ -3777,9 +3689,7 @@ public class InternalVerifyLexer extends Lexer {
             "\1\u00d5",
             "\12\107\7\uffff\32\107\4\uffff\1\107\1\uffff\32\107",
             "\1\u00d7",
-            "\12\u00ba\10\uffff\1\161\1\uffff\1\161\1\uffff\1\161\5\uffff"+
-            "\1\161\22\uffff\1\161\2\uffff\1\161\1\uffff\1\161\1\uffff\1"+
-            "\161\5\uffff\1\161",
+            "\12\u00ba\10\uffff\1\161\1\uffff\1\161\1\uffff\1\161\5\uffff\1\161\22\uffff\1\161\2\uffff\1\161\1\uffff\1\161\1\uffff\1\161\5\uffff\1\161",
             "\12\107\7\uffff\32\107\4\uffff\1\107\1\uffff\32\107",
             "",
             "\1\u00d9",
@@ -3823,8 +3733,7 @@ public class InternalVerifyLexer extends Lexer {
             "\12\107\7\uffff\32\107\4\uffff\1\107\1\uffff\32\107",
             "\1\u00f7",
             "",
-            "\12\107\7\uffff\32\107\4\uffff\1\107\1\uffff\22\107\1\u00f8"+
-            "\7\107",
+            "\12\107\7\uffff\32\107\4\uffff\1\107\1\uffff\22\107\1\u00f8\7\107",
             "\12\107\7\uffff\32\107\4\uffff\1\107\1\uffff\32\107",
             "\1\u00fb",
             "\12\107\7\uffff\32\107\4\uffff\1\107\1\uffff\32\107",

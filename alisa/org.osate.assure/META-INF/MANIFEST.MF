@@ -48,7 +48,7 @@ Require-Bundle: org.eclipse.xtext;visibility:=reexport,
  org.osate.aadl2.instantiation;bundle-version="1.0.0",
  org.eclipse.xtext.xbase.lib
 Import-Package: org.apache.log4j
-Bundle-RequiredExecutionEnvironment: JavaSE-1.7
+Bundle-RequiredExecutionEnvironment: JavaSE-1.8
 Export-Package: org.osate.assure,
  org.osate.assure.assure,
  org.osate.assure.assure.impl,
