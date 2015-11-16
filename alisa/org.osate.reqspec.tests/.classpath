@@ -1,15 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <classpath>
-	<classpathentry combineaccessrules="false" kind="src" path="/org.osate.organization.tests"/>
-	<classpathentry combineaccessrules="false" kind="src" path="/org.osate.alisa.common.tests"/>
-	<classpathentry combineaccessrules="false" kind="src" path="/org.osate.alisa.workbench.tests"/>
-	<classpathentry combineaccessrules="false" kind="src" path="/org.osate.categories.tests"/>
-	<classpathentry combineaccessrules="false" kind="src" path="/org.osate.units.test"/>
-	<classpathentry combineaccessrules="false" kind="src" path="/org.osate.verify.tests"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-1.8"/>
+	<classpathentry kind="con" path="org.eclipse.pde.core.requiredPlugins"/>
 	<classpathentry kind="src" path="src"/>
 	<classpathentry kind="src" path="src-gen"/>
 	<classpathentry kind="src" path="xtend-gen"/>
-	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-1.7"/>
-	<classpathentry kind="con" path="org.eclipse.pde.core.requiredPlugins"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

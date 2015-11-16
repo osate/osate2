@@ -11,7 +11,7 @@ Require-Bundle: org.eclipse.ui,
  com.google.guava,
  org.junit;bundle-version="4.11.0",
  org.osate.units;bundle-version="1.0.0"
-Bundle-RequiredExecutionEnvironment: JavaSE-1.7
+Bundle-RequiredExecutionEnvironment: JavaSE-1.8
 Bundle-ActivationPolicy: lazy
 Export-Package: org.osate.units.test
 

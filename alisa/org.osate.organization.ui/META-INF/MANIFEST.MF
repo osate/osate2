@@ -17,7 +17,7 @@ Require-Bundle: org.osate.organization;visibility:=reexport,
  org.eclipse.compare,
  org.eclipse.xtext.xbase.lib
 Import-Package: org.apache.log4j
-Bundle-RequiredExecutionEnvironment: JavaSE-1.7
+Bundle-RequiredExecutionEnvironment: JavaSE-1.8
 Export-Package: org.osate.organization.ui.quickfix,
  org.osate.organization.ui.contentassist,
  org.osate.organization.ui.contentassist.antlr,
