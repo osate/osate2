@@ -40,61 +40,61 @@ public class InternalCommonParser extends AbstractInternalContentAssistParser {
     public static final String[] tokenNames = new String[] {
         "<invalid>", "<EOR>", "<DOWN>", "<UP>", "RULE_INTEGER_LIT", "RULE_REAL_LIT", "RULE_STRING", "RULE_HEX", "RULE_INT", "RULE_DECIMAL", "RULE_ID", "RULE_DIGIT", "RULE_EXPONENT", "RULE_INT_EXPONENT", "RULE_BASED_INTEGER", "RULE_EXTENDED_DIGIT", "RULE_ML_COMMENT", "RULE_SL_COMMENT", "RULE_WS", "RULE_ANY_OTHER", "'||'", "'&&'", "'=='", "'!='", "'>='", "'>'", "'<'", "'->'", "'..<'", "'..'", "'=>'", "'<>'", "'?:'", "'+'", "'-'", "'*'", "'**'", "'/'", "'%'", "'!'", "'false'", "'description'", "'@'", "'img'", "'.'", "'='", "'{'", "'}'", "','", "'#'", "'['", "']'", "'('", "')'", "'null'", "'::'", "'this'", "'true'"
     };
-    public static final int RULE_ID=10;
-    public static final int T__29=29;
-    public static final int T__28=28;
-    public static final int RULE_REAL_LIT=5;
-    public static final int T__27=27;
-    public static final int RULE_INTEGER_LIT=4;
-    public static final int T__26=26;
-    public static final int T__25=25;
-    public static final int T__24=24;
-    public static final int T__23=23;
-    public static final int T__22=22;
-    public static final int RULE_ANY_OTHER=19;
-    public static final int T__21=21;
-    public static final int T__20=20;
-    public static final int EOF=-1;
+    public static final int RULE_HEX=7;
+    public static final int T__50=50;
+    public static final int RULE_INT_EXPONENT=13;
     public static final int T__55=55;
     public static final int T__56=56;
     public static final int T__57=57;
-    public static final int RULE_HEX=7;
     public static final int T__51=51;
     public static final int T__52=52;
+    public static final int RULE_BASED_INTEGER=14;
     public static final int T__53=53;
     public static final int T__54=54;
-    public static final int RULE_INT=8;
+    public static final int RULE_ID=10;
+    public static final int RULE_DIGIT=11;
     public static final int RULE_DECIMAL=9;
-    public static final int T__50=50;
-    public static final int RULE_EXTENDED_DIGIT=15;
-    public static final int T__42=42;
-    public static final int T__43=43;
-    public static final int T__40=40;
-    public static final int T__41=41;
-    public static final int T__46=46;
-    public static final int T__47=47;
-    public static final int T__44=44;
-    public static final int T__45=45;
-    public static final int T__48=48;
-    public static final int T__49=49;
-    public static final int RULE_BASED_INTEGER=14;
-    public static final int RULE_SL_COMMENT=17;
+    public static final int T__26=26;
+    public static final int T__27=27;
+    public static final int T__28=28;
+    public static final int RULE_INT=8;
+    public static final int T__29=29;
+    public static final int T__22=22;
     public static final int RULE_ML_COMMENT=16;
-    public static final int T__30=30;
-    public static final int T__31=31;
+    public static final int T__23=23;
+    public static final int T__24=24;
+    public static final int T__25=25;
+    public static final int T__20=20;
+    public static final int RULE_INTEGER_LIT=4;
+    public static final int T__21=21;
+    public static final int RULE_REAL_LIT=5;
     public static final int RULE_STRING=6;
-    public static final int T__32=32;
+    public static final int RULE_SL_COMMENT=17;
+    public static final int T__37=37;
+    public static final int T__38=38;
+    public static final int T__39=39;
     public static final int T__33=33;
     public static final int T__34=34;
     public static final int T__35=35;
     public static final int T__36=36;
-    public static final int T__37=37;
-    public static final int T__38=38;
-    public static final int RULE_EXPONENT=12;
-    public static final int T__39=39;
-    public static final int RULE_INT_EXPONENT=13;
+    public static final int EOF=-1;
+    public static final int T__30=30;
+    public static final int T__31=31;
+    public static final int T__32=32;
     public static final int RULE_WS=18;
-    public static final int RULE_DIGIT=11;
+    public static final int RULE_ANY_OTHER=19;
+    public static final int RULE_EXPONENT=12;
+    public static final int T__48=48;
+    public static final int T__49=49;
+    public static final int T__44=44;
+    public static final int RULE_EXTENDED_DIGIT=15;
+    public static final int T__45=45;
+    public static final int T__46=46;
+    public static final int T__47=47;
+    public static final int T__40=40;
+    public static final int T__41=41;
+    public static final int T__42=42;
+    public static final int T__43=43;
 
     // delegates
     // delegators
@@ -3756,11 +3756,11 @@ public class InternalCommonParser extends AbstractInternalContentAssistParser {
                 {
                 int LA3_2 = input.LA(2);
 
-                if ( (LA3_2==EOF||(LA3_2>=RULE_INTEGER_LIT && LA3_2<=RULE_STRING)||LA3_2==RULE_ID||(LA3_2>=33 && LA3_2<=34)||(LA3_2>=39 && LA3_2<=40)||LA3_2==42||LA3_2==46||LA3_2==49||LA3_2==52||LA3_2==54||LA3_2==57) ) {
-                    alt3=4;
-                }
-                else if ( (LA3_2==45) ) {
+                if ( (LA3_2==45) ) {
                     alt3=2;
+                }
+                else if ( (LA3_2==EOF||(LA3_2>=RULE_INTEGER_LIT && LA3_2<=RULE_STRING)||LA3_2==RULE_ID||(LA3_2>=33 && LA3_2<=34)||(LA3_2>=39 && LA3_2<=40)||LA3_2==42||LA3_2==46||LA3_2==49||LA3_2==52||LA3_2==54||LA3_2==57) ) {
+                    alt3=4;
                 }
                 else {
                     if (state.backtracking>0) {state.failed=true; return ;}
@@ -4131,11 +4131,11 @@ public class InternalCommonParser extends AbstractInternalContentAssistParser {
             if ( (LA5_0==25) ) {
                 int LA5_1 = input.LA(2);
 
-                if ( (LA5_1==25) ) {
-                    alt5=1;
-                }
-                else if ( (LA5_1==EOF||(LA5_1>=RULE_INTEGER_LIT && LA5_1<=RULE_STRING)||LA5_1==RULE_ID||(LA5_1>=33 && LA5_1<=34)||(LA5_1>=39 && LA5_1<=40)||LA5_1==42||LA5_1==46||LA5_1==49||LA5_1==52||LA5_1==54||LA5_1==57) ) {
+                if ( (LA5_1==EOF||(LA5_1>=RULE_INTEGER_LIT && LA5_1<=RULE_STRING)||LA5_1==RULE_ID||(LA5_1>=33 && LA5_1<=34)||(LA5_1>=39 && LA5_1<=40)||LA5_1==42||LA5_1==46||LA5_1==49||LA5_1==52||LA5_1==54||LA5_1==57) ) {
                     alt5=2;
+                }
+                else if ( (LA5_1==25) ) {
+                    alt5=1;
                 }
                 else {
                     if (state.backtracking>0) {state.failed=true; return ;}
@@ -4232,11 +4232,11 @@ public class InternalCommonParser extends AbstractInternalContentAssistParser {
             if ( (LA6_0==26) ) {
                 int LA6_1 = input.LA(2);
 
-                if ( (LA6_1==26) ) {
-                    alt6=1;
-                }
-                else if ( (LA6_1==EOF||(LA6_1>=RULE_INTEGER_LIT && LA6_1<=RULE_STRING)||LA6_1==RULE_ID||(LA6_1>=33 && LA6_1<=34)||(LA6_1>=39 && LA6_1<=40)||LA6_1==42||LA6_1==46||LA6_1==49||LA6_1==52||LA6_1==54||LA6_1==57) ) {
+                if ( (LA6_1==EOF||(LA6_1>=RULE_INTEGER_LIT && LA6_1<=RULE_STRING)||LA6_1==RULE_ID||(LA6_1>=33 && LA6_1<=34)||(LA6_1>=39 && LA6_1<=40)||LA6_1==42||LA6_1==46||LA6_1==49||LA6_1==52||LA6_1==54||LA6_1==57) ) {
                     alt6=2;
+                }
+                else if ( (LA6_1==26) ) {
+                    alt6=1;
                 }
                 else {
                     if (state.backtracking>0) {state.failed=true; return ;}
