@@ -102,6 +102,10 @@
         defaultValueLiteral="false"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="bindedMode" unique="false"
         eType="ecore:EClass ../../org.osate.aadl2/model/aadl2.ecore#//Mode"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="incomingTransitions" upperBound="-1"
+        eType="#//BehaviorTransition" eOpposite="#//BehaviorTransition/destinationState"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="outgoingTransitions" upperBound="-1"
+        eType="#//BehaviorTransition" eOpposite="#//BehaviorTransition/sourceState"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="BehaviorStringLiteral" eSuperTypes="../../org.osate.aadl2/model/aadl2.ecore#//StringLiteral #//Literal"/>
   <eClassifiers xsi:type="ecore:EClass" name="BehaviorTime" eSuperTypes="#//BehaviorElement">
@@ -111,11 +115,11 @@
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="BehaviorTransition" eSuperTypes="#//BehaviorNamedElement">
     <eStructuralFeatures xsi:type="ecore:EReference" name="sourceState" unique="false"
-        eType="#//BehaviorState"/>
+        eType="#//BehaviorState" eOpposite="#//BehaviorState/outgoingTransitions"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="condition" unique="false"
         eType="#//BehaviorCondition" containment="true"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="destinationState" unique="false"
-        eType="#//BehaviorState"/>
+        eType="#//BehaviorState" eOpposite="#//BehaviorState/incomingTransitions"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="actionBlock" unique="false"
         eType="#//BehaviorActionBlock"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="priority" unique="false"

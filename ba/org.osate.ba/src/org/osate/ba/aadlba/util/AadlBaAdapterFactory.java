@@ -240,6 +240,11 @@ public class AadlBaAdapterFactory extends AdapterFactoryImpl
         return createClassifierFeatureHolderAdapter();
       }
       @Override
+      public Adapter caseClassifierFeaturePropertyReference(ClassifierFeaturePropertyReference object)
+      {
+        return createClassifierFeaturePropertyReferenceAdapter();
+      }
+      @Override
       public Adapter caseClassifierPropertyReference(ClassifierPropertyReference object)
       {
         return createClassifierPropertyReferenceAdapter();
@@ -253,11 +258,6 @@ public class AadlBaAdapterFactory extends AdapterFactoryImpl
       public Adapter caseCompletionRelativeTimeout(CompletionRelativeTimeout object)
       {
         return createCompletionRelativeTimeoutAdapter();
-      }
-      @Override
-      public Adapter caseClassifierFeaturePropertyReference(ClassifierFeaturePropertyReference object)
-      {
-        return createClassifierFeaturePropertyReferenceAdapter();
       }
       @Override
       public Adapter caseCondStatement(CondStatement object)
@@ -525,6 +525,21 @@ public class AadlBaAdapterFactory extends AdapterFactoryImpl
         return createPortSendActionAdapter();
       }
       @Override
+      public Adapter casePropertyAssociationHolder(PropertyAssociationHolder object)
+      {
+        return createPropertyAssociationHolderAdapter();
+      }
+      @Override
+      public Adapter casePropertyElementHolder(PropertyElementHolder object)
+      {
+        return createPropertyElementHolderAdapter();
+      }
+      @Override
+      public Adapter casePropertyExpressionHolder(PropertyExpressionHolder object)
+      {
+        return createPropertyExpressionHolderAdapter();
+      }
+      @Override
       public Adapter casePropertyNameField(PropertyNameField object)
       {
         return createPropertyNameFieldAdapter();
@@ -535,26 +550,6 @@ public class AadlBaAdapterFactory extends AdapterFactoryImpl
         return createPropertyNameHolderAdapter();
       }
       @Override
-      public Adapter casePropertyElementHolder(PropertyElementHolder object)
-      {
-        return createPropertyElementHolderAdapter();
-      }
-      @Override
-      public Adapter casePropertyAssociationHolder(PropertyAssociationHolder object)
-      {
-        return createPropertyAssociationHolderAdapter();
-      }
-      @Override
-      public Adapter casePropertyExpressionHolder(PropertyExpressionHolder object)
-      {
-        return createPropertyExpressionHolderAdapter();
-      }
-      @Override
-      public Adapter casePropertyTypeHolder(PropertyTypeHolder object)
-      {
-        return createPropertyTypeHolderAdapter();
-      }
-      @Override
       public Adapter casePropertyReference(PropertyReference object)
       {
         return createPropertyReferenceAdapter();
@@ -563,6 +558,11 @@ public class AadlBaAdapterFactory extends AdapterFactoryImpl
       public Adapter casePropertySetPropertyReference(PropertySetPropertyReference object)
       {
         return createPropertySetPropertyReferenceAdapter();
+      }
+      @Override
+      public Adapter casePropertyTypeHolder(PropertyTypeHolder object)
+      {
+        return createPropertyTypeHolderAdapter();
       }
       @Override
       public Adapter casePrototypeHolder(PrototypeHolder object)

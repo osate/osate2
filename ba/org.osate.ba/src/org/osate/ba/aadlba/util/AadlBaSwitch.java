@@ -441,6 +441,20 @@ public class AadlBaSwitch<T> extends Switch<T>
         if (result == null) result = defaultCase(theEObject);
         return result;
       }
+      case AadlBaPackage.CLASSIFIER_FEATURE_PROPERTY_REFERENCE:
+      {
+        ClassifierFeaturePropertyReference classifierFeaturePropertyReference = (ClassifierFeaturePropertyReference)theEObject;
+        T result = caseClassifierFeaturePropertyReference(classifierFeaturePropertyReference);
+        if (result == null) result = casePropertyReference(classifierFeaturePropertyReference);
+        if (result == null) result = caseIntegerValueConstant(classifierFeaturePropertyReference);
+        if (result == null) result = caseValueConstant(classifierFeaturePropertyReference);
+        if (result == null) result = caseValue(classifierFeaturePropertyReference);
+        if (result == null) result = caseIntegerValue(classifierFeaturePropertyReference);
+        if (result == null) result = caseBehaviorElement(classifierFeaturePropertyReference);
+        if (result == null) result = caseElement(classifierFeaturePropertyReference);
+        if (result == null) result = defaultCase(theEObject);
+        return result;
+      }
       case AadlBaPackage.CLASSIFIER_PROPERTY_REFERENCE:
       {
         ClassifierPropertyReference classifierPropertyReference = (ClassifierPropertyReference)theEObject;
@@ -476,20 +490,6 @@ public class AadlBaSwitch<T> extends Switch<T>
         if (result == null) result = caseDispatchTriggerCondition(completionRelativeTimeout);
         if (result == null) result = caseBehaviorElement(completionRelativeTimeout);
         if (result == null) result = caseElement(completionRelativeTimeout);
-        if (result == null) result = defaultCase(theEObject);
-        return result;
-      }
-      case AadlBaPackage.CLASSIFIER_FEATURE_PROPERTY_REFERENCE:
-      {
-        ClassifierFeaturePropertyReference classifierFeaturePropertyReference = (ClassifierFeaturePropertyReference)theEObject;
-        T result = caseClassifierFeaturePropertyReference(classifierFeaturePropertyReference);
-        if (result == null) result = casePropertyReference(classifierFeaturePropertyReference);
-        if (result == null) result = caseIntegerValueConstant(classifierFeaturePropertyReference);
-        if (result == null) result = caseValueConstant(classifierFeaturePropertyReference);
-        if (result == null) result = caseValue(classifierFeaturePropertyReference);
-        if (result == null) result = caseIntegerValue(classifierFeaturePropertyReference);
-        if (result == null) result = caseBehaviorElement(classifierFeaturePropertyReference);
-        if (result == null) result = caseElement(classifierFeaturePropertyReference);
         if (result == null) result = defaultCase(theEObject);
         return result;
       }
@@ -1238,6 +1238,38 @@ public class AadlBaSwitch<T> extends Switch<T>
         if (result == null) result = defaultCase(theEObject);
         return result;
       }
+      case AadlBaPackage.PROPERTY_ASSOCIATION_HOLDER:
+      {
+        PropertyAssociationHolder propertyAssociationHolder = (PropertyAssociationHolder)theEObject;
+        T result = casePropertyAssociationHolder(propertyAssociationHolder);
+        if (result == null) result = casePropertyElementHolder(propertyAssociationHolder);
+        if (result == null) result = caseIndexableElement(propertyAssociationHolder);
+        if (result == null) result = caseBehaviorElement(propertyAssociationHolder);
+        if (result == null) result = caseElement(propertyAssociationHolder);
+        if (result == null) result = defaultCase(theEObject);
+        return result;
+      }
+      case AadlBaPackage.PROPERTY_ELEMENT_HOLDER:
+      {
+        PropertyElementHolder propertyElementHolder = (PropertyElementHolder)theEObject;
+        T result = casePropertyElementHolder(propertyElementHolder);
+        if (result == null) result = caseIndexableElement(propertyElementHolder);
+        if (result == null) result = caseBehaviorElement(propertyElementHolder);
+        if (result == null) result = caseElement(propertyElementHolder);
+        if (result == null) result = defaultCase(theEObject);
+        return result;
+      }
+      case AadlBaPackage.PROPERTY_EXPRESSION_HOLDER:
+      {
+        PropertyExpressionHolder propertyExpressionHolder = (PropertyExpressionHolder)theEObject;
+        T result = casePropertyExpressionHolder(propertyExpressionHolder);
+        if (result == null) result = casePropertyElementHolder(propertyExpressionHolder);
+        if (result == null) result = caseIndexableElement(propertyExpressionHolder);
+        if (result == null) result = caseBehaviorElement(propertyExpressionHolder);
+        if (result == null) result = caseElement(propertyExpressionHolder);
+        if (result == null) result = defaultCase(theEObject);
+        return result;
+      }
       case AadlBaPackage.PROPERTY_NAME_FIELD:
       {
         PropertyNameField propertyNameField = (PropertyNameField)theEObject;
@@ -1253,49 +1285,6 @@ public class AadlBaSwitch<T> extends Switch<T>
         T result = casePropertyNameHolder(propertyNameHolder);
         if (result == null) result = caseBehaviorElement(propertyNameHolder);
         if (result == null) result = caseElement(propertyNameHolder);
-        if (result == null) result = defaultCase(theEObject);
-        return result;
-      }
-      case AadlBaPackage.PROPERTY_ELEMENT_HOLDER:
-      {
-        PropertyElementHolder propertyElementHolder = (PropertyElementHolder)theEObject;
-        T result = casePropertyElementHolder(propertyElementHolder);
-        if (result == null) result = caseIndexableElement(propertyElementHolder);
-        if (result == null) result = caseBehaviorElement(propertyElementHolder);
-        if (result == null) result = caseElement(propertyElementHolder);
-        if (result == null) result = defaultCase(theEObject);
-        return result;
-      }
-      case AadlBaPackage.PROPERTY_ASSOCIATION_HOLDER:
-      {
-        PropertyAssociationHolder propertyAssociationHolder = (PropertyAssociationHolder)theEObject;
-        T result = casePropertyAssociationHolder(propertyAssociationHolder);
-        if (result == null) result = casePropertyElementHolder(propertyAssociationHolder);
-        if (result == null) result = caseIndexableElement(propertyAssociationHolder);
-        if (result == null) result = caseBehaviorElement(propertyAssociationHolder);
-        if (result == null) result = caseElement(propertyAssociationHolder);
-        if (result == null) result = defaultCase(theEObject);
-        return result;
-      }
-      case AadlBaPackage.PROPERTY_EXPRESSION_HOLDER:
-      {
-        PropertyExpressionHolder propertyExpressionHolder = (PropertyExpressionHolder)theEObject;
-        T result = casePropertyExpressionHolder(propertyExpressionHolder);
-        if (result == null) result = casePropertyElementHolder(propertyExpressionHolder);
-        if (result == null) result = caseIndexableElement(propertyExpressionHolder);
-        if (result == null) result = caseBehaviorElement(propertyExpressionHolder);
-        if (result == null) result = caseElement(propertyExpressionHolder);
-        if (result == null) result = defaultCase(theEObject);
-        return result;
-      }
-      case AadlBaPackage.PROPERTY_TYPE_HOLDER:
-      {
-        PropertyTypeHolder propertyTypeHolder = (PropertyTypeHolder)theEObject;
-        T result = casePropertyTypeHolder(propertyTypeHolder);
-        if (result == null) result = casePropertyElementHolder(propertyTypeHolder);
-        if (result == null) result = caseIndexableElement(propertyTypeHolder);
-        if (result == null) result = caseBehaviorElement(propertyTypeHolder);
-        if (result == null) result = caseElement(propertyTypeHolder);
         if (result == null) result = defaultCase(theEObject);
         return result;
       }
@@ -1323,6 +1312,17 @@ public class AadlBaSwitch<T> extends Switch<T>
         if (result == null) result = caseIntegerValue(propertySetPropertyReference);
         if (result == null) result = caseBehaviorElement(propertySetPropertyReference);
         if (result == null) result = caseElement(propertySetPropertyReference);
+        if (result == null) result = defaultCase(theEObject);
+        return result;
+      }
+      case AadlBaPackage.PROPERTY_TYPE_HOLDER:
+      {
+        PropertyTypeHolder propertyTypeHolder = (PropertyTypeHolder)theEObject;
+        T result = casePropertyTypeHolder(propertyTypeHolder);
+        if (result == null) result = casePropertyElementHolder(propertyTypeHolder);
+        if (result == null) result = caseIndexableElement(propertyTypeHolder);
+        if (result == null) result = caseBehaviorElement(propertyTypeHolder);
+        if (result == null) result = caseElement(propertyTypeHolder);
         if (result == null) result = defaultCase(theEObject);
         return result;
       }
