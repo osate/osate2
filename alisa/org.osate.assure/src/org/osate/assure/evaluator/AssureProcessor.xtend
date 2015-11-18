@@ -397,12 +397,13 @@ class AssureProcessor implements IAssureProcessor {
 					val value = variable.right
 					if (value instanceof NumberValue) {
 						val unit = value.unit
+						val reqValue = value.getScaledValue(unit)
 						val modelValue = PropertyUtils.getScaledNumberValue(object, property, unit)
 
-						if (!value.equals(modelValue)) {
-							println("no match " + modelValue + " != " + value)
+						if (reqValue != modelValue) {
+							println("no match " + modelValue + " != " + reqValue)
 						} else {
-							println("   match " + modelValue + " == " + value)
+							println("   match " + modelValue + " == " + reqValue)
 						}
 					}
 				} catch (Exception e) {
