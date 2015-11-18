@@ -193,17 +193,31 @@ class VerificationMethodDispatchers {
 
 	def Class<?> forName(String name) throws ClassNotFoundException {
 		switch (name) {
-			case void.name: return void
-			case boolean.name: return boolean
-			case byte.name: return byte
-			case char.name: return char
-			case short.name: return short
-			case int.name: return int
-			case float.name: return float
-			case long.name: return long
-			case double.name: return double
+			case void.name: return typeof(void)
+			case boolean.name: return typeof(boolean)
+			case byte.name: return typeof(byte)
+			case char.name: return typeof(char)
+			case short.name: return typeof(short)
+			case int.name: return (int)
+			case float.name: return (float)
+			case long.name: return (long)
+			case double.name: return (double)
 			default: return Class.forName(name)
 		}
 	}
+//	def Class forQName(String name) throws ClassNotFoundException {
+//		switch (name) {
+//			case typeof(void).name: return typeof(void)
+//			case typeof(boolean).name: return typeof(boolean)
+//			case typeof(byte).name: return typeof(byte)
+//			case typeof(char).name: return typeof(char)
+//			case typeof(short).name: return typeof(short)
+//			case typeof(int).name: return typeof(int)
+//			case typeof(float).name: return typeof(float)
+//			case typeof(long).name: return typeof(long)
+//			case typeof(double).name: return typeof(double)
+//			default: return Class.forName(name)
+//		}
+//	}
 
 }
