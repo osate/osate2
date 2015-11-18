@@ -28,14 +28,12 @@
 				<module>../org.osate.assure.ui</module>
 				<module>../org.osate.categories</module>
 				<module>../org.osate.categories.ui</module>
-				<module>../org.osate.measures</module>
 				<module>../org.osate.organization</module>
 				<module>../org.osate.organization.ui</module>
 				<module>../org.osate.reqspec</module>
 				<module>../org.osate.reqspec.ui</module>
 				<module>../org.osate.results</module>
 				<module>../org.osate.results.ui</module>
-				<module>../org.osate.units</module>
 				<module>../org.osate.verify</module>
 				<module>../org.osate.verify.ui</module>
 
