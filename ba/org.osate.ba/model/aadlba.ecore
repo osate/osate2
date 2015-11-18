@@ -65,6 +65,8 @@
         eType="#//BehaviorActionBlock" containment="true"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="conditions" upperBound="-1"
         eType="#//BehaviorCondition" containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="initialState" lowerBound="1"
+        eType="#//BehaviorState"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="BehaviorBooleanLiteral" eSuperTypes="../../org.osate.aadl2/model/aadl2.ecore#//BooleanLiteral #//Literal"/>
   <eClassifiers xsi:type="ecore:EClass" name="BehaviorCondition" abstract="true" interface="true"

@@ -1369,6 +1369,16 @@ public class AadlBaPackageImpl extends EPackageImpl implements AadlBaPackage
    * <!-- end-user-doc -->
    * @generated
    */
+  public EReference getBehaviorAnnex_InitialState()
+  {
+    return (EReference)behaviorAnnexEClass.getEStructuralFeatures().get(5);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
   public EClass getBehaviorBooleanLiteral()
   {
     return behaviorBooleanLiteralEClass;
@@ -3327,6 +3337,7 @@ public class AadlBaPackageImpl extends EPackageImpl implements AadlBaPackage
     createEReference(behaviorAnnexEClass, BEHAVIOR_ANNEX__TRANSITIONS);
     createEReference(behaviorAnnexEClass, BEHAVIOR_ANNEX__ACTIONS);
     createEReference(behaviorAnnexEClass, BEHAVIOR_ANNEX__CONDITIONS);
+    createEReference(behaviorAnnexEClass, BEHAVIOR_ANNEX__INITIAL_STATE);
 
     behaviorBooleanLiteralEClass = createEClass(BEHAVIOR_BOOLEAN_LITERAL);
 
@@ -3892,6 +3903,7 @@ public class AadlBaPackageImpl extends EPackageImpl implements AadlBaPackage
     initEReference(getBehaviorAnnex_Transitions(), this.getBehaviorTransition(), null, "transitions", null, 0, -1, BehaviorAnnex.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEReference(getBehaviorAnnex_Actions(), this.getBehaviorActionBlock(), null, "actions", null, 0, -1, BehaviorAnnex.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEReference(getBehaviorAnnex_Conditions(), this.getBehaviorCondition(), null, "conditions", null, 0, -1, BehaviorAnnex.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEReference(getBehaviorAnnex_InitialState(), this.getBehaviorState(), null, "initialState", null, 1, 1, BehaviorAnnex.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
     initEClass(behaviorBooleanLiteralEClass, BehaviorBooleanLiteral.class, "BehaviorBooleanLiteral", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 

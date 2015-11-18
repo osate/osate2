@@ -1805,13 +1805,22 @@ public interface AadlBaPackage extends EPackage
   int BEHAVIOR_ANNEX__CONDITIONS = Aadl2Package.ANNEX_SUBCLAUSE_FEATURE_COUNT + 4;
 
   /**
+   * The feature id for the '<em><b>Initial State</b></em>' reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int BEHAVIOR_ANNEX__INITIAL_STATE = Aadl2Package.ANNEX_SUBCLAUSE_FEATURE_COUNT + 5;
+
+  /**
    * The number of structural features of the '<em>Behavior Annex</em>' class.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    * @ordered
    */
-  int BEHAVIOR_ANNEX_FEATURE_COUNT = Aadl2Package.ANNEX_SUBCLAUSE_FEATURE_COUNT + 5;
+  int BEHAVIOR_ANNEX_FEATURE_COUNT = Aadl2Package.ANNEX_SUBCLAUSE_FEATURE_COUNT + 6;
 
   /**
    * The feature id for the '<em><b>Owned Element</b></em>' reference list.
@@ -6727,6 +6736,17 @@ public interface AadlBaPackage extends EPackage
   EReference getBehaviorAnnex_Conditions();
 
   /**
+   * Returns the meta object for the reference '{@link org.osate.ba.aadlba.BehaviorAnnex#getInitialState <em>Initial State</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the reference '<em>Initial State</em>'.
+   * @see org.osate.ba.aadlba.BehaviorAnnex#getInitialState()
+   * @see #getBehaviorAnnex()
+   * @generated
+   */
+  EReference getBehaviorAnnex_InitialState();
+
+  /**
    * Returns the meta object for class '{@link org.osate.ba.aadlba.BehaviorBooleanLiteral <em>Behavior Boolean Literal</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -8925,6 +8945,14 @@ public interface AadlBaPackage extends EPackage
      * @generated
      */
     EReference BEHAVIOR_ANNEX__CONDITIONS = eINSTANCE.getBehaviorAnnex_Conditions();
+
+    /**
+     * The meta object literal for the '<em><b>Initial State</b></em>' reference feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EReference BEHAVIOR_ANNEX__INITIAL_STATE = eINSTANCE.getBehaviorAnnex_InitialState();
 
     /**
      * The meta object literal for the '{@link org.osate.ba.aadlba.impl.BehaviorBooleanLiteralImpl <em>Behavior Boolean Literal</em>}' class.
