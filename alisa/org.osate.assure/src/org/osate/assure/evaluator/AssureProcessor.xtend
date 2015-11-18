@@ -154,8 +154,10 @@ class AssureProcessor implements IAssureProcessor {
 	def void runVerificationMethod(VerificationResult verificationResult) {
 		val method = verificationResult.method;
 		var Object res = null
+		// target element is the element referred to by the requirement. This may be empty
 		val targetElement = verificationResult.targetElement
-		var instanceroot = verificationResult.assuranceCaseInstanceModel // verificationResult.verificationActivityInstanceModel // get instance model from VA for clause
+		// the next outer assurance case object that refers to a system implementation. 
+		var instanceroot = verificationResult.assuranceCaseInstanceModel 
 		if (instanceroot == null) {
 			setToError(verificationResult, "Could not find instance model", null)
 			return
