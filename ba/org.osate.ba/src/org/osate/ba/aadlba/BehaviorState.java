@@ -19,6 +19,7 @@
  */
 package org.osate.ba.aadlba;
 
+import org.eclipse.emf.common.util.EList;
 import org.osate.aadl2.Mode;
 
 /**
@@ -33,6 +34,8 @@ import org.osate.aadl2.Mode;
  *   <li>{@link org.osate.ba.aadlba.BehaviorState#isComplete <em>Complete</em>}</li>
  *   <li>{@link org.osate.ba.aadlba.BehaviorState#isFinal <em>Final</em>}</li>
  *   <li>{@link org.osate.ba.aadlba.BehaviorState#getBindedMode <em>Binded Mode</em>}</li>
+ *   <li>{@link org.osate.ba.aadlba.BehaviorState#getIncomingTransitions <em>Incoming Transitions</em>}</li>
+ *   <li>{@link org.osate.ba.aadlba.BehaviorState#getOutgoingTransitions <em>Outgoing Transitions</em>}</li>
  * </ul>
  * </p>
  *
@@ -148,5 +151,41 @@ public interface BehaviorState extends BehaviorNamedElement
    * @generated
    */
   void setBindedMode(Mode value);
+
+  /**
+   * Returns the value of the '<em><b>Incoming Transitions</b></em>' reference list.
+   * The list contents are of type {@link org.osate.ba.aadlba.BehaviorTransition}.
+   * It is bidirectional and its opposite is '{@link org.osate.ba.aadlba.BehaviorTransition#getDestinationState <em>Destination State</em>}'.
+   * <!-- begin-user-doc -->
+   * <p>
+   * If the meaning of the '<em>Incoming Transitions</em>' reference list isn't clear,
+   * there really should be more of a description here...
+   * </p>
+   * <!-- end-user-doc -->
+   * @return the value of the '<em>Incoming Transitions</em>' reference list.
+   * @see org.osate.ba.aadlba.AadlBaPackage#getBehaviorState_IncomingTransitions()
+   * @see org.osate.ba.aadlba.BehaviorTransition#getDestinationState
+   * @model opposite="destinationState"
+   * @generated
+   */
+  EList<BehaviorTransition> getIncomingTransitions();
+
+  /**
+   * Returns the value of the '<em><b>Outgoing Transitions</b></em>' reference list.
+   * The list contents are of type {@link org.osate.ba.aadlba.BehaviorTransition}.
+   * It is bidirectional and its opposite is '{@link org.osate.ba.aadlba.BehaviorTransition#getSourceState <em>Source State</em>}'.
+   * <!-- begin-user-doc -->
+   * <p>
+   * If the meaning of the '<em>Outgoing Transitions</em>' reference list isn't clear,
+   * there really should be more of a description here...
+   * </p>
+   * <!-- end-user-doc -->
+   * @return the value of the '<em>Outgoing Transitions</em>' reference list.
+   * @see org.osate.ba.aadlba.AadlBaPackage#getBehaviorState_OutgoingTransitions()
+   * @see org.osate.ba.aadlba.BehaviorTransition#getSourceState
+   * @model opposite="sourceState"
+   * @generated
+   */
+  EList<BehaviorTransition> getOutgoingTransitions();
 
 } // BehaviorState

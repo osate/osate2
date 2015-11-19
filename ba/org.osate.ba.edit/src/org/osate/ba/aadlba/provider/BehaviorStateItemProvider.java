@@ -70,6 +70,8 @@ public class BehaviorStateItemProvider
       addCompletePropertyDescriptor(object);
       addFinalPropertyDescriptor(object);
       addBindedModePropertyDescriptor(object);
+      addIncomingTransitionsPropertyDescriptor(object);
+      addOutgoingTransitionsPropertyDescriptor(object);
     }
     return itemPropertyDescriptors;
   }
@@ -158,6 +160,52 @@ public class BehaviorStateItemProvider
          getString("_UI_BehaviorState_bindedMode_feature"),
          getString("_UI_PropertyDescriptor_description", "_UI_BehaviorState_bindedMode_feature", "_UI_BehaviorState_type"),
          AadlBaPackage.Literals.BEHAVIOR_STATE__BINDED_MODE,
+         true,
+         false,
+         true,
+         null,
+         null,
+         null));
+  }
+
+  /**
+   * This adds a property descriptor for the Incoming Transitions feature.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  protected void addIncomingTransitionsPropertyDescriptor(Object object)
+  {
+    itemPropertyDescriptors.add
+      (createItemPropertyDescriptor
+        (((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
+         getResourceLocator(),
+         getString("_UI_BehaviorState_incomingTransitions_feature"),
+         getString("_UI_PropertyDescriptor_description", "_UI_BehaviorState_incomingTransitions_feature", "_UI_BehaviorState_type"),
+         AadlBaPackage.Literals.BEHAVIOR_STATE__INCOMING_TRANSITIONS,
+         true,
+         false,
+         true,
+         null,
+         null,
+         null));
+  }
+
+  /**
+   * This adds a property descriptor for the Outgoing Transitions feature.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  protected void addOutgoingTransitionsPropertyDescriptor(Object object)
+  {
+    itemPropertyDescriptors.add
+      (createItemPropertyDescriptor
+        (((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
+         getResourceLocator(),
+         getString("_UI_BehaviorState_outgoingTransitions_feature"),
+         getString("_UI_PropertyDescriptor_description", "_UI_BehaviorState_outgoingTransitions_feature", "_UI_BehaviorState_type"),
+         AadlBaPackage.Literals.BEHAVIOR_STATE__OUTGOING_TRANSITIONS,
          true,
          false,
          true,

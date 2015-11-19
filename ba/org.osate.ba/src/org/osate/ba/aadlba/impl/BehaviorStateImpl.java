@@ -20,17 +20,21 @@
 package org.osate.ba.aadlba.impl;
 
 
-import org.eclipse.emf.common.notify.Notification;
+import java.util.Collection ;
 
-import org.eclipse.emf.ecore.EClass;
-import org.eclipse.emf.ecore.EObject;
-import org.eclipse.emf.ecore.InternalEObject;
-
-import org.eclipse.emf.ecore.impl.ENotificationImpl;
-
-import org.osate.aadl2.Mode;
+import org.eclipse.emf.common.notify.Notification ;
+import org.eclipse.emf.common.notify.NotificationChain ;
+import org.eclipse.emf.common.util.EList ;
+import org.eclipse.emf.ecore.EClass ;
+import org.eclipse.emf.ecore.EObject ;
+import org.eclipse.emf.ecore.InternalEObject ;
+import org.eclipse.emf.ecore.impl.ENotificationImpl ;
+import org.eclipse.emf.ecore.util.EObjectWithInverseResolvingEList ;
+import org.eclipse.emf.ecore.util.InternalEList ;
+import org.osate.aadl2.Mode ;
 import org.osate.ba.aadlba.AadlBaPackage ;
 import org.osate.ba.aadlba.BehaviorState ;
+import org.osate.ba.aadlba.BehaviorTransition;
 import org.osate.ba.utils.AadlBaLocationReference ;
 
 /**
@@ -44,6 +48,8 @@ import org.osate.ba.utils.AadlBaLocationReference ;
  *   <li>{@link org.osate.ba.aadlba.impl.BehaviorStateImpl#isComplete <em>Complete</em>}</li>
  *   <li>{@link org.osate.ba.aadlba.impl.BehaviorStateImpl#isFinal <em>Final</em>}</li>
  *   <li>{@link org.osate.ba.aadlba.impl.BehaviorStateImpl#getBindedMode <em>Binded Mode</em>}</li>
+ *   <li>{@link org.osate.ba.aadlba.impl.BehaviorStateImpl#getIncomingTransitions <em>Incoming Transitions</em>}</li>
+ *   <li>{@link org.osate.ba.aadlba.impl.BehaviorStateImpl#getOutgoingTransitions <em>Outgoing Transitions</em>}</li>
  * </ul>
  * </p>
  *
@@ -120,6 +126,26 @@ public class BehaviorStateImpl extends BehaviorNamedElementImpl implements Behav
    * @ordered
    */
   protected Mode bindedMode;
+
+  /**
+   * The cached value of the '{@link #getIncomingTransitions() <em>Incoming Transitions</em>}' reference list.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see #getIncomingTransitions()
+   * @generated
+   * @ordered
+   */
+  protected EList<BehaviorTransition> incomingTransitions;
+
+  /**
+   * The cached value of the '{@link #getOutgoingTransitions() <em>Outgoing Transitions</em>}' reference list.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see #getOutgoingTransitions()
+   * @generated
+   * @ordered
+   */
+  protected EList<BehaviorTransition> outgoingTransitions;
 
   /**
    * <!-- begin-user-doc -->
@@ -259,6 +285,71 @@ public class BehaviorStateImpl extends BehaviorNamedElementImpl implements Behav
    * <!-- end-user-doc -->
    * @generated
    */
+  public EList<BehaviorTransition> getIncomingTransitions()
+  {
+    if (incomingTransitions == null)
+    {
+      incomingTransitions = new EObjectWithInverseResolvingEList<BehaviorTransition>(BehaviorTransition.class, this, AadlBaPackage.BEHAVIOR_STATE__INCOMING_TRANSITIONS, AadlBaPackage.BEHAVIOR_TRANSITION__DESTINATION_STATE);
+    }
+    return incomingTransitions;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EList<BehaviorTransition> getOutgoingTransitions()
+  {
+    if (outgoingTransitions == null)
+    {
+      outgoingTransitions = new EObjectWithInverseResolvingEList<BehaviorTransition>(BehaviorTransition.class, this, AadlBaPackage.BEHAVIOR_STATE__OUTGOING_TRANSITIONS, AadlBaPackage.BEHAVIOR_TRANSITION__SOURCE_STATE);
+    }
+    return outgoingTransitions;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  @SuppressWarnings("unchecked")
+  @Override
+  public NotificationChain eInverseAdd(InternalEObject otherEnd, int featureID, NotificationChain msgs)
+  {
+    switch (featureID)
+    {
+      case AadlBaPackage.BEHAVIOR_STATE__INCOMING_TRANSITIONS:
+        return ((InternalEList<InternalEObject>)(InternalEList<?>)getIncomingTransitions()).basicAdd(otherEnd, msgs);
+      case AadlBaPackage.BEHAVIOR_STATE__OUTGOING_TRANSITIONS:
+        return ((InternalEList<InternalEObject>)(InternalEList<?>)getOutgoingTransitions()).basicAdd(otherEnd, msgs);
+    }
+    return super.eInverseAdd(otherEnd, featureID, msgs);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  @Override
+  public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs)
+  {
+    switch (featureID)
+    {
+      case AadlBaPackage.BEHAVIOR_STATE__INCOMING_TRANSITIONS:
+        return ((InternalEList<?>)getIncomingTransitions()).basicRemove(otherEnd, msgs);
+      case AadlBaPackage.BEHAVIOR_STATE__OUTGOING_TRANSITIONS:
+        return ((InternalEList<?>)getOutgoingTransitions()).basicRemove(otherEnd, msgs);
+    }
+    return super.eInverseRemove(otherEnd, featureID, msgs);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
   @Override
   public Object eGet(int featureID, boolean resolve, boolean coreType)
   {
@@ -273,6 +364,10 @@ public class BehaviorStateImpl extends BehaviorNamedElementImpl implements Behav
       case AadlBaPackage.BEHAVIOR_STATE__BINDED_MODE:
         if (resolve) return getBindedMode();
         return basicGetBindedMode();
+      case AadlBaPackage.BEHAVIOR_STATE__INCOMING_TRANSITIONS:
+        return getIncomingTransitions();
+      case AadlBaPackage.BEHAVIOR_STATE__OUTGOING_TRANSITIONS:
+        return getOutgoingTransitions();
     }
     return super.eGet(featureID, resolve, coreType);
   }
@@ -282,6 +377,7 @@ public class BehaviorStateImpl extends BehaviorNamedElementImpl implements Behav
    * <!-- end-user-doc -->
    * @generated
    */
+  @SuppressWarnings("unchecked")
   @Override
   public void eSet(int featureID, Object newValue)
   {
@@ -298,6 +394,14 @@ public class BehaviorStateImpl extends BehaviorNamedElementImpl implements Behav
         return;
       case AadlBaPackage.BEHAVIOR_STATE__BINDED_MODE:
         setBindedMode((Mode)newValue);
+        return;
+      case AadlBaPackage.BEHAVIOR_STATE__INCOMING_TRANSITIONS:
+        getIncomingTransitions().clear();
+        getIncomingTransitions().addAll((Collection<? extends BehaviorTransition>)newValue);
+        return;
+      case AadlBaPackage.BEHAVIOR_STATE__OUTGOING_TRANSITIONS:
+        getOutgoingTransitions().clear();
+        getOutgoingTransitions().addAll((Collection<? extends BehaviorTransition>)newValue);
         return;
     }
     super.eSet(featureID, newValue);
@@ -325,6 +429,12 @@ public class BehaviorStateImpl extends BehaviorNamedElementImpl implements Behav
       case AadlBaPackage.BEHAVIOR_STATE__BINDED_MODE:
         setBindedMode((Mode)null);
         return;
+      case AadlBaPackage.BEHAVIOR_STATE__INCOMING_TRANSITIONS:
+        getIncomingTransitions().clear();
+        return;
+      case AadlBaPackage.BEHAVIOR_STATE__OUTGOING_TRANSITIONS:
+        getOutgoingTransitions().clear();
+        return;
     }
     super.eUnset(featureID);
   }
@@ -347,6 +457,10 @@ public class BehaviorStateImpl extends BehaviorNamedElementImpl implements Behav
         return final_ != FINAL_EDEFAULT;
       case AadlBaPackage.BEHAVIOR_STATE__BINDED_MODE:
         return bindedMode != null;
+      case AadlBaPackage.BEHAVIOR_STATE__INCOMING_TRANSITIONS:
+        return incomingTransitions != null && !incomingTransitions.isEmpty();
+      case AadlBaPackage.BEHAVIOR_STATE__OUTGOING_TRANSITIONS:
+        return outgoingTransitions != null && !outgoingTransitions.isEmpty();
     }
     return super.eIsSet(featureID);
   }
