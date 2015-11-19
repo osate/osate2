@@ -17,7 +17,7 @@
 package org.osate.assure.ui.handlers;
 
 
-	import org.eclipse.core.commands.AbstractHandler;
+import org.eclipse.core.commands.AbstractHandler;
 import org.eclipse.core.commands.ExecutionEvent;
 import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.resources.WorkspaceJob;

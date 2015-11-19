@@ -16,13 +16,12 @@
 
 package org.osate.assure.ui.views;
 
-	import java.awt.Toolkit;
+import java.awt.Toolkit;
 import java.awt.datatransfer.Clipboard;
 import java.awt.datatransfer.StringSelection;
 import java.awt.datatransfer.Transferable;
 import java.util.Arrays;
 import java.util.Collections;
-import java.util.concurrent.atomic.AtomicReference;
 
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EObject;
