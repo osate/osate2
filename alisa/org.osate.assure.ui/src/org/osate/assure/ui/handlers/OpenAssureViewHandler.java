@@ -63,9 +63,7 @@ import org.osate.assure.util.AssureUtilExtension;
 
 			if (root instanceof AssureResult){
 				AssuranceCase ac = AssureUtilExtension.getRootAssuranceCase(root); 
-				List<AssureResult> acl = new BasicEList<AssureResult>();
-				acl.add(ac);
-				drawProofs(acl);
+				drawProofs(ac);
 			}
 
 			long stop = System.currentTimeMillis();
@@ -108,7 +106,7 @@ import org.osate.assure.util.AssureUtilExtension;
 		}
 
 
-		private void drawProofs(final List<AssureResult> ac) {
+		private void drawProofs(final AssuranceCase ac) {
 			final IWorkbenchPage page = getWindow().getActivePage();
 
 			Display.getDefault().asyncExec(new Runnable() {
@@ -119,7 +117,7 @@ import org.osate.assure.util.AssureUtilExtension;
 			});
 		}
 
-		private void displayView(final List<AssureResult> ac, final IWorkbenchPage page) {
+		private void displayView(final AssuranceCase ac, final IWorkbenchPage page) {
 			try {
 				AssureView view = (AssureView) page.showView(AssureView.ID);
 				view.setProofs(ac);
@@ -130,6 +128,6 @@ import org.osate.assure.util.AssureUtilExtension;
 		}
 
 		protected void clearProofs() {
-			drawProofs(Collections.<AssureResult> emptyList());
+			drawProofs(null);
 		}
 	}

@@ -26,6 +26,7 @@ import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.NullProgressMonitor;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EObject;
+import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.jface.viewers.ISelection;
 import org.eclipse.jface.viewers.IStructuredSelection;
@@ -55,12 +56,20 @@ import org.eclipse.xtext.util.concurrent.IUnitOfWork;
 
 	    @Override
 	    public Object execute(ExecutionEvent event) {
-	        EObjectNode node = getEObjectNode(HandlerUtil.getCurrentSelection(event));
-	        if (node == null) {
-	            return null;
-	        }
-	        final URI uri = node.getEObjectURI();
 
+	    	ISelection selection = HandlerUtil.getCurrentSelection(event);
+	    	if(!(selection instanceof IStructuredSelection)||((IStructuredSelection)selection).size() != 1){
+	    		return null;
+	    	}
+	    	Object selectedObj = ((IStructuredSelection)selection).getFirstElement();
+	    	URI uri = null;
+	    	if (selectedObj instanceof EObjectNode){
+	    		uri = ((EObjectNode)selectedObj).getEObjectURI();
+	    	} else if (selectedObj instanceof EObject) {
+	    		uri = EcoreUtil.getURI((EObject)selectedObj);
+	    	} else {
+	    		return null;
+	    	}
 	        window = HandlerUtil.getActiveWorkbenchWindow(event);
 	        if (window == null) {
 	            return null;
@@ -120,15 +129,15 @@ import org.eclipse.xtext.util.concurrent.IUnitOfWork;
 	        }
 	    }
 
-	    protected EObjectNode getEObjectNode(ISelection currentSelection) {
-	        if (currentSelection instanceof IStructuredSelection) {
-	            IStructuredSelection iss = (IStructuredSelection) currentSelection;
-	            if (iss.size() == 1) {
-	                return (EObjectNode) iss.getFirstElement();
-	            }
-	        }
-	        return null;
-	    }
+//	    protected EObjectNode getEObjectNode(ISelection currentSelection) {
+//	        if (currentSelection instanceof IStructuredSelection) {
+//	            IStructuredSelection iss = (IStructuredSelection) currentSelection;
+//	            if (iss.size() == 1) {
+//	                return (EObjectNode) iss.getFirstElement();
+//	            }
+//	        }
+//	        return null;
+//	    }
 
 	    protected IWorkbenchWindow getWindow() {
 	        return window;

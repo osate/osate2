@@ -20,8 +20,11 @@ package org.osate.assure.ui.views;
 import java.awt.datatransfer.Clipboard;
 import java.awt.datatransfer.StringSelection;
 import java.awt.datatransfer.Transferable;
-import java.util.List;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.concurrent.atomic.AtomicReference;
 
+import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.jface.action.Action;
@@ -53,7 +56,13 @@ import org.eclipse.ui.console.IConsoleView;
 import org.eclipse.ui.console.MessageConsole;
 import org.eclipse.ui.menus.IMenuService;
 import org.eclipse.ui.part.ViewPart;
+import org.eclipse.xtext.resource.XtextResource;
 import org.eclipse.xtext.ui.editor.GlobalURIEditorOpener;
+import org.eclipse.xtext.ui.editor.model.IXtextDocument;
+import org.eclipse.xtext.ui.editor.model.IXtextModelListener;
+import org.eclipse.xtext.ui.editor.utils.EditorUtils;
+import org.eclipse.xtext.util.concurrent.IUnitOfWork;
+import org.osate.assure.assure.AssuranceCase;
 import org.osate.assure.assure.AssureResult;
 import org.osate.assure.assure.ClaimResult;
 import org.osate.assure.assure.Metrics;
@@ -67,22 +76,50 @@ import com.google.inject.Inject;
 		public static String HIDE_CLAIMRESULTS_TOOL_TIP = "Hide Claim Results";
 		public static String SHOW_CLAIMRESULTS_TOOL_TIP = "Show Claim Results";
 		private NoClaimResultsFilter noClaimsResultFilter = new NoClaimResultsFilter();
+		
+		IXtextDocument xtextDoc;
+		IXtextModelListener modelListener = new IXtextModelListener() {
+			
+			@Override
+			public void modelChanged(XtextResource resource) {
+//				System.out.println("model changed: " + resource);
+				getSite().getShell().getDisplay().asyncExec(new Runnable() {
+					
+					@Override
+					public void run() {
+						if(inputURI != null){
+							AssuranceCase assuranceCase = xtextDoc.readOnly(new IUnitOfWork<AssuranceCase, XtextResource>(){
+								@Override
+								public AssuranceCase exec(XtextResource state) throws Exception {
+									return (AssuranceCase) state.getResourceSet().getEObject(inputURI, true);
+								}
+							});
+							treeViewer.setInput(Arrays.asList(assuranceCase));
+						}
+						
+						
+					}
+				});
+			}
+		};
 
 	    @Inject
 	    GlobalURIEditorOpener globalURIEditorOpener;
 	    
 	    @Inject
 	    ILabelProvider labelProvider;
+	    URI inputURI;
 
 	    @Override
 	    public void createPartControl(Composite parent) {
 	        treeViewer = new TreeViewer(parent, SWT.SINGLE);
+	        getSite().setSelectionProvider(treeViewer);
 	        treeViewer.setContentProvider(new AssureContentProvider());
 	        treeViewer.setLabelProvider(labelProvider);//new AssureLabelProvider(null));
 	        AssureTooltipListener.createAndRegister(treeViewer);
 	        treeViewer.addFilter(new NoMetricsFilter());
-	        treeViewer.addFilter(noClaimsResultFilter);
-
+	//        treeViewer.addFilter(noClaimsResultFilter);
+//	        getSite().getPage().addSelectionListener("org.osate.assure.Assure",listener);
 	        MenuManager manager = new MenuManager();
 	        manager.setRemoveAllWhenShown(true);
 
@@ -130,7 +167,9 @@ import com.google.inject.Inject;
 	        treeViewer.getControl().setMenu(manager.createContextMenu(treeViewer.getTree()));
 	        
 	    }
-
+	    public void dispose() {
+	    	xtextDoc.removeModelListener(modelListener);
+	    }
 	    private MenuManager createExportSubmenu(ClaimResult claim) {
 	        MenuManager manager = new MenuManager("Export");
 
@@ -148,8 +187,7 @@ import com.google.inject.Inject;
 	        };
 	    }
 
-	    @SuppressWarnings("restriction")
-		private IAction createToggleShowClaimResultsAction() {
+	    private IAction createToggleShowClaimResultsAction() {
 	    	
 	    	IAction result = new Action("Show Claim Results", IAction.AS_CHECK_BOX) {
 	    		public void run() {
@@ -163,6 +201,7 @@ import com.google.inject.Inject;
 					treeViewer.refresh();
 	    		}
 			};
+			result.setChecked(true);
 			result.setImageDescriptor(ImageDescriptor.createFromFile(AssureView.class,"/icons/claims.png"));
 			return result;
 	    }
@@ -242,10 +281,21 @@ import com.google.inject.Inject;
 	        }
 	    }
 
-	    public void setProofs(List<AssureResult> proofTrees) {
+	    public void setProofs(AssuranceCase proofTrees) {
+	    	if (xtextDoc != null){
+		    	xtextDoc.removeModelListener(modelListener);
+	    	}
+	    	xtextDoc = EditorUtils.getActiveXtextEditor().getDocument();
+	    	xtextDoc.addModelListener(modelListener);
 	        Object[] expandedElements = treeViewer.getExpandedElements();
 	        TreePath[] expandedTreePaths = treeViewer.getExpandedTreePaths();
-	        treeViewer.setInput(proofTrees);
+	        if (proofTrees != null){
+	        	inputURI = EcoreUtil.getURI(proofTrees);
+		        treeViewer.setInput(Arrays.asList(proofTrees));
+	        } else {
+	        	inputURI = null;
+		        treeViewer.setInput(Collections.emptyList());
+	        }
 	        treeViewer.setExpandedElements(expandedElements);
 	        treeViewer.setExpandedTreePaths(expandedTreePaths);
 	    }

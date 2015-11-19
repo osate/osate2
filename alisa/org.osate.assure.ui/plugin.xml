@@ -320,7 +320,7 @@
 	            	<and>
 	            		<reference definitionId="org.osate.assure.Assure.XtextEditor.opened" />
 						<iterate>
-							<adapt type="org.eclipse.xtext.ui.editor.outline.IOutlineNode" />
+							<adapt type="org.osate.assure.assure.AssuranceCase" />
 						</iterate>
 					</and>
 				</visibleWhen>
@@ -334,7 +334,7 @@
 	            	<and>
 	            		<reference definitionId="org.osate.assure.Assure.XtextEditor.opened" />
 						<iterate>
-							<adapt type="org.eclipse.xtext.ui.editor.outline.IOutlineNode" />
+							<adapt type="org.osate.assure.assure.AssuranceCase" />
 						</iterate>
 					</and>
 				</visibleWhen>
