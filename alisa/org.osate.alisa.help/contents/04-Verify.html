@@ -1,384 +1,366 @@
-<html>
-<head>
-<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1" >
-<title>Verification Plans for a System</title>
-
-<link href="book.css" rel="stylesheet" type="text/css">
-<link href="code.css" rel="stylesheet" type="text/css">
-<link rel="home" href="00-Main.html" title="">
-</head>
-<body>
-<a name="Verify"></a>
-<h1>Verification Plans for a System</h1>
-<p>
-The <em>Verify</em> notation lets users specify verification plans for each system component in a system architecture.
-</p>
-<p>
-A verification plan specifies how the claim that every requirement of a system component is satisfied by a system implementation. 
-This is achieved by specifying a set of verification activities that must complete successfully as evidence for the claim.  
-</p>
-<p>
-A verification activity is performed on an artifact representing the system implementation. 
-This artifact may be an AADL model representing the architecture specification of the system, detailed design models, e.g., Simulink models of physical or control behavior, or the actual implementation, e.g., in form of software that must be executed on a hardware platform.
-Verification activities may also include review of documents, design, or code by human reviewers.
-</p>
-<p>
-A verification activity identifies the verification method to be used, the artifact the method is applied to, any additional input to be used when performing the verification activity, and expected results. Note that expected results may already have been specified as part of  the requirement specification.
-However, some verification activities may expect results in particular formats that were not prescribed by the requirement specification. Verification activities are specified in libraries and may be used in multiple verification plans.
-</p>
-<p>
-A verification method registry allows users to specify the type and signature of a verification method. The actual method may take a variety of forms. However, the methods have a common interface to interface with the Alisa incremental assurance engine. 
-</p>
-<a name="VerificationPlans"></a>
-<h2>Verification Plans</h2>
-<p>
-A verification plan is defined in a separate file with the extension <em>verify</em>.
-</p>
-<p>
-<div class="literallayout">
-<div class="incode">
-<p class="code">
-&lt;VerificationPlan&gt;&nbsp;::=<br/>
-&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">plan</span>&nbsp;myplan&nbsp;(&nbsp;:&nbsp;<span class="string">"descriptive&nbsp;title"</span>&nbsp;)?<br/>
-&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">for</span>&nbsp;MyPackage::GPSSystem<br/>
-&nbsp;&nbsp;&nbsp;&nbsp;[<br/>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(&nbsp;<span class="keyword">description</span>&nbsp;<span class="string">"Verification&nbsp;plan&nbsp;for&nbsp;a&nbsp;second&nbsp;line"</span>&nbsp;)?&nbsp;<br/>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;Claim&gt;*<br/>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(&nbsp;<span class="keyword">rationale</span>&nbsp;&lt;String&gt;&nbsp;)?<br/>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(&nbsp;<span class="keyword">assume</span>&nbsp;&lt;VerificationPlan&gt;+&nbsp;)?<br/>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(&nbsp;<span class="keyword">issues</span>&nbsp;(<span class="string">"explanation"</span>)+&nbsp;)?&nbsp;<br/>
-&nbsp;&nbsp;&nbsp;&nbsp;]<br/>
-</p>
-</div>
-</div>
-</p>
-<p>
-A verification plan is for a single system identified by the reference to its AADL classifier.
-</p>
-<p>
-The verification plan specifies a claim for each of the requirements that have been specified for a system.
-</p>
-<p>
-A system can have multiple verification plans that get combined into an assurance plan.
-</p>
-<p>
-<em>assume verified</em> identifies subsytems (system components) that are assumed to have been verified
-separately. This allows us to support compositional assurance of systems.
-</p>
-<p>
-<div class="literallayout">
-<div class="incode">
-<p class="code">
-&lt;Claim&gt;&nbsp;::=<br/>
-&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">claim</span>&nbsp;claimID&nbsp;(&nbsp;:&nbsp;<span class="string">"Descriptive&nbsp;title"</span>&nbsp;)?<br/>
-&nbsp;&nbsp;&nbsp;&nbsp;(&nbsp;<span class="string">&apos;(&apos;</span>&nbsp;&lt;claimweight&gt;&nbsp;<span class="string">&apos;)&apos;</span>&nbsp;)?<br/>
-&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">for</span>&nbsp;&lt;requirement&nbsp;reference&gt;<br/>
-&nbsp;&nbsp;&nbsp;&nbsp;[<br/>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(&nbsp;<span class="keyword">assert</span>&nbsp;&lt;ArgumentExpression&gt;<br/>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(&nbsp;<span class="keyword">argument</span>&nbsp;&lt;String&gt;&nbsp;&lt;Uncertainty&gt;&nbsp;)?<br/>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(&nbsp;<span class="keyword">rationale</span>&nbsp;&lt;String&gt;&nbsp;)?<br/>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(&nbsp;&lt;Claim&gt;&nbsp;)*&nbsp;&nbsp;<br/>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(&nbsp;<span class="keyword">issues</span>&nbsp;(<span class="string">"explanation"</span>)+&nbsp;)?&nbsp;<br/>
-&nbsp;&nbsp;&nbsp;&nbsp;]<br/>
-</p>
-</div>
-</div>
-</p>
-<p>
-A requirement for a system may have  been refined into sub-requirements that are verifiable. Typically,
-only the leaf elements of a requirement refinement hierarchy involve veritication activities. Howeever,
-the notation supports the possibility for a veritication activity for each requirement in the refinement
-hierarchy.
-</p>
-<p>
-Weights are used to specify the value of evidence contribution a particular claim or
-verification activity has.
-</p>
-<p>
-<div class="literallayout">
-<div class="incode">
-<p class="code">
-&lt;ArgumentExpr&gt;&nbsp;::=<br/>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">all</span>&nbsp;[&nbsp;&lt;ArgumentExpr&gt;+&nbsp;]&nbsp;|<br/>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;ArgumentExpr&gt;&nbsp;<span class="keyword">failthen</span>&nbsp;&lt;ArgumentExpr&gt;&nbsp;|<br/>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;ArgumentExpr&gt;&nbsp;<span class="keyword">unknownthen</span>&nbsp;&lt;ArgumentExpr&gt;&nbsp;|<br/>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;ArgumentExpr&gt;&nbsp;<span class="keyword">andthen</span>&nbsp;&lt;ArgumentExpr&gt;&nbsp;|<br/>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;ConditionalEvidence&gt;&nbsp;<br/>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(&nbsp;&lt;ArgumentExpr&gt;&nbsp;)<br/>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br/>
-ConditionalEvidence&nbsp;::=<br/>
-&nbsp;&nbsp;&nbsp;&nbsp;verificationActivity1&nbsp;(&nbsp;<span class="string">&apos;(&apos;</span>&nbsp;0.8&nbsp;<span class="string">&apos;)&apos;</span>&nbsp;)?&nbsp;(&nbsp;<span class="keyword">when</span>&nbsp;&lt;sectioncategoryreference&gt;+&nbsp;)?<br/>
-</p>
-</div>
-</div>
-</p>
-<p>
-<em>all</em> means that all verification activities will be executed independent of whether they are successful
-or fail. The result state of the <em>all</em> operator is then evaluated ans is only sucvcessful if all listed
-verification activities.
-</p>
-<p>
-<em>unknownthen</em> means that the second test is only executed as an alternative if the first verification activity produces an unknown result,,
-i.e., has a timeout or otherwise fails to complete executing the verificaiton method.
-In other words, users can specify alternate verification activities if the original ones fail.
-</p>
-<p>
-<em>failthen</em> means that the second test is only executed as an alternative if the first verification activity fails.
-In other words, users can specify alternate verification activities if the original ones fail.
-</p>
-<p>
-<em>andthen</em> lets users specify an ordering of verification activities, i.e., the second verification activity
-is only executed if the first one is successful.
-</p>
-<p>
-<em>round brackets</em> allow users to specify a change in precedence ordering of argument expression operators.
-</p>
-<p>
-Argument expressions refer to verification activities defined in libraries. 
-</p>
-<p>
-These references will be executed conditionally according to whether the specified selection categories are specified in the selection criteria of an assurance plan. 
-</p>
-<p>
-Each verification activity can have a weight to express the value of the contributed evidence. 
-</p>
-<a name="VerificationActivities"></a>
-<h2>Verification Activities</h2>
-<p>
-A library of verification activities is defined in a separate file with the extension <em>verify</em>.
-</p>
-<p>
-<div class="literallayout">
-<div class="incode">
-<p class="code">
-&lt;VerificationLibrary&gt;&nbsp;::=<br/>
-&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">library</span>&nbsp;libraryname&nbsp;(&nbsp;:&nbsp;&nbsp;<span class="string">"descriptive&nbsp;title"</span>&nbsp;)?<br/>
-&nbsp;&nbsp;&nbsp;&nbsp;(&nbsp;<span class="keyword">for</span>&nbsp;mypackage::myGPS&nbsp;)?<br/>
-&nbsp;&nbsp;&nbsp;&nbsp;[<br/>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(&nbsp;<span class="keyword">description</span>&nbsp;Description)?<br/>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(&nbsp;&lt;VerificationActivity&gt;&nbsp;|&nbsp;&nbsp;&lt;VerificationFolder&gt;&nbsp;)*<br/>
-&nbsp;&nbsp;&nbsp;&nbsp;]<br/>
-<br/>
-&lt;VerificationFolder&gt;&nbsp;::=<br/>
-&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">folder</span>&nbsp;foldername<br/>
-&nbsp;&nbsp;&nbsp;&nbsp;[&nbsp;<br/>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(&nbsp;&lt;VerificationActivity&gt;&nbsp;|&nbsp;&nbsp;&lt;VerificationFolder&gt;&nbsp;)*<br/>
-&nbsp;&nbsp;&nbsp;&nbsp;];<br/>
-<br/>
-<br/>
-&lt;VerificationActivity&gt;&nbsp;::=<br/>
-&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">activity</span>&nbsp;activityname&nbsp;(&nbsp;:&nbsp;<span class="string">"descriptive&nbsp;title"</span>&nbsp;)?<br/>
-&nbsp;&nbsp;&nbsp;&nbsp;(&nbsp;<span class="keyword">for</span>&nbsp;&lt;requirementreference&gt;&nbsp;)?<br/>
-&nbsp;&nbsp;&nbsp;&nbsp;[&nbsp;<br/>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(&nbsp;<span class="keyword">description</span>&nbsp;Description&nbsp;)?<br/>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">method</span>&nbsp;&lt;VerificationMethodReference&gt;&nbsp;(&nbsp;<span class="keyword">as</span>&nbsp;&lt;ComputeVariable&nbsp;Reference&gt;&nbsp;)?<br/>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(&nbsp;<span class="keyword">timeout</span>&nbsp;&nbsp;&lt;integer&gt;&nbsp;)?<br/>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(&nbsp;<span class="keyword">rationale</span>&nbsp;<span class="string">"explanation"</span>&nbsp;)?<br/>
-&nbsp;&nbsp;&nbsp;&nbsp;]<br/>
-</p>
-</div>
-</div>
-</p>
-<a name="VerificationMethods"></a>
-<h2>Registry of Verification Methods</h2>
-<p>
-A verification method registry is defined in a separate file with the extension <em>verify</em>.
-</p>
-<p>
-<div class="literallayout">
-<div class="incode">
-<p class="code">
-&lt;VerificationMethodRegistry&gt;&nbsp;::=<br/>
-&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">registry</span>&nbsp;registryname<br/>
-&nbsp;&nbsp;&nbsp;&nbsp;(&nbsp;:&nbsp;<span class="string">"descriptive&nbsp;title"</span>&nbsp;)?<br/>
-&nbsp;&nbsp;&nbsp;&nbsp;[&nbsp;<br/>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(&nbsp;<span class="keyword">description</span>&nbsp;Description&nbsp;)?<br/>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;VerificationMethod&gt;+<br/>
-&nbsp;&nbsp;&nbsp;&nbsp;]<br/>
-<br/>
-&lt;VerificationMethod&gt;&nbsp;::=<br/>
-&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">method</span>&nbsp;methodname&nbsp;(&nbsp;:&nbsp;&nbsp;<span class="string">"descriptive&nbsp;title"</span>&nbsp;)?<br/>
-&nbsp;&nbsp;&nbsp;&nbsp;(&nbsp;<span class="keyword">for</span>&nbsp;&lt;requirementreference&gt;&nbsp;)?&nbsp;&nbsp;&nbsp;&nbsp;<br/>
-&nbsp;&nbsp;&nbsp;&nbsp;[<br/>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;MethodType&gt;&nbsp;&nbsp;&lt;MethodScope&gt;&nbsp;(&nbsp;&lt;MethodReporting&gt;&nbsp;)?<br/>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">path</span>&nbsp;<span class="string">"my.pack.myclass.mymethod"</span><br/>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(&nbsp;<span class="keyword">description</span>&nbsp;Description&nbsp;)?<br/>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(&nbsp;<span class="keyword">category</span>&nbsp;&lt;VerificationCategory&gt;&nbsp;)?<br/>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(&nbsp;VerificationValidation&nbsp;|&nbsp;VerificationPrecondition)*<br/>
-&nbsp;&nbsp;&nbsp;&nbsp;]<br/>
-<br/>
-VerificationValidation&nbsp;::=<br/>
-&nbsp;&nbsp;&nbsp;&nbsp;(&nbsp;<span class="keyword">validation</span>&nbsp;myname<br/>
-&nbsp;&nbsp;&nbsp;&nbsp;(&nbsp;:&nbsp;<span class="string">"title"</span>&nbsp;)?<br/>
-&nbsp;&nbsp;&nbsp;&nbsp;[&nbsp;(<br/>
-&nbsp;&nbsp;&nbsp;&nbsp;(&nbsp;<span class="keyword">description</span>&nbsp;Description)?<br/>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">method</span>&nbsp;&lt;qualified&nbsp;methodname&gt;&nbsp;(&nbsp;<span class="keyword">as</span>&nbsp;&lt;computer&nbsp;variable&gt;&nbsp;)?<br/>
-&nbsp;&nbsp;&nbsp;&nbsp;(&nbsp;<span class="keyword">rationale</span>&nbsp;<span class="string">"rationale&nbsp;description"</span>&nbsp;)?<br/>
-&nbsp;&nbsp;&nbsp;&nbsp;)<br/>
-&nbsp;&nbsp;&nbsp;&nbsp;]<br/>
-<br/>
-<br/>
-VerificationPrecondition&nbsp;::=<br/>
-&nbsp;&nbsp;&nbsp;&nbsp;(&nbsp;<span class="keyword">precondition</span>&nbsp;myname<br/>
-&nbsp;&nbsp;&nbsp;&nbsp;(&nbsp;:&nbsp;<span class="string">"title"</span>&nbsp;)?<br/>
-&nbsp;&nbsp;&nbsp;&nbsp;[&nbsp;<br/>
-&nbsp;&nbsp;&nbsp;&nbsp;(&nbsp;<span class="keyword">description</span>&nbsp;Description)?<br/>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">method</span>&nbsp;&lt;qualified&nbsp;methodname&gt;&nbsp;(&nbsp;<span class="keyword">as</span>&nbsp;&lt;computer&nbsp;variable&gt;&nbsp;)?<br/>
-&nbsp;&nbsp;&nbsp;&nbsp;(&nbsp;<span class="keyword">rationale</span>&nbsp;<span class="string">"rationale&nbsp;description"</span>&nbsp;)?<br/>
-&nbsp;&nbsp;&nbsp;&nbsp;]<br/>
-<br/>
-<br/>
-<span class="keyword">enum</span>&nbsp;MethodTypes::=&nbsp;analysis&nbsp;|&nbsp;predicate&nbsp;|&nbsp;compute&nbsp;|&nbsp;<br/>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;resoluteprove&nbsp;|&nbsp;resolutecompute&nbsp;|&nbsp;resolutepredicate&nbsp;|&nbsp;manual<br/>
-&nbsp;&nbsp;&nbsp;&nbsp;<br/>
-<span class="keyword">enum</span>&nbsp;MethodScope::=&nbsp;self&nbsp;|&nbsp;parts&nbsp;|&nbsp;<span class="keyword">all</span>&nbsp;<br/>
-<br/>
-<span class="keyword">enum</span>&nbsp;MethodReporting::=&nbsp;marker|&nbsp;errormarker&nbsp;|&nbsp;diagnostics&nbsp;|&nbsp;assertexception&nbsp;|&nbsp;resultreport<br/>
-</p>
-</div>
-</div>
-</p>
-<p>
-The method types are:
-<ul>
-	<li>
-		<em>analysis:</em> the method represents processing by an OSATE analysis plug-in. Typically it processes
-		multiple model elements and reports results via markers.
-	</li>
-	<li>
-		<em>predicate:</em> the method evaluates a condition on one instance model element and returns true (success) or false (fail). 
-		Fail may be reported by a Jave/JUnit <em>AssertionException</em> - see reporting mechanism. 
-		Failure to complete verification method execution,
-		e.g., timeout or an exception other than <em>AssertionException</em> is mapped into <em>unknown</em>.
-	</li>
-	<li>
-		<em>compute:</em> the method processes one model element and returns a single value as a result. This
-		value is then evaluated by the specified predicate of the requirement.
-	</li>
-	<li>
-		<em>resoluteprove:</em> the method interpretively evaluates a Resolute claim function as if it where declared
-		in a <em>prove</em> statement in a <em>resolute subclause</em>. This allows resolute claim functions to be associated
-		with AADL models without embedding them in the model.
-	</li>
-	<li>
-		<em>resolutepredicate:</em> the method interpretively evaluates a Resolute computational function with
-		a boolean result. The predicate is assumed to represent the condition to be asserted for a requirement.
-	</li>
-	<li>
-		<em>resolutecompute:</em> the method interpretively evaluates a Resolute computational function. The result
-		value is then evaluated by the specified of the requirement.
-	</li>
-	<li>
-		<em>manual:</em> the method represents a manual method, i.e., a method that is performed by a human. The
-		person will interactively report the result of the verification, e.g., the result of performing a review.
-	</li>
-</ul>
-</p>
-<p>
-The following are scopes of application that can be defined for verification methods:
-<ul>
-	<li>
-		<em>self:</em> the method applies to the model element identified by the requirement.
-	</li>
-	<li>
-		<em>parts:</em> the method applies to all parts of a component that is identified by the requirement.
-		The parts are all directly contained elements without recursively traversing the component hierarchy.
-		For example, the method may evaluate all ports or all end to end flows defined in a component.
-	</li>
-	<li>
-		<em>all:</em> the method applies to all elements of the component identified by the requirement - recursively
-		traversing the hierarchy. 
-	</li>
-</ul>
-</p>
-<p>
-The following are reporting mechanisms that may be used by a veriifcation method. If not specified, th
-e use of Eclispe markers is assumed.
-<ul>
-	<li>
-		<em>marker:</em> Eclipse <em>markers</em> of types <em>error</em>, <em>warning</em>, and <em>info</em> may be used to report back
-		results of teh verification method.
-	</li>
-	<li>
-		<em>errormarker:</em> Eclipse <em>markers</em> of type <em>error</em> are used to report back issues in the exectuion
-		of the veriifcation method.
-	</li>
-	<li>
-		<em>diagnostics:</em> The Eclipse <em>Diagnostics</em> mechanism is used to rept back results.
-	</li>
-	<li>
-		<em>assertexception:</em> An <em>AssertionException</em> is thrown by the veriifcation method to report back
-		a failed test or failure to compelte execution. 
-	</li>
-	<li>
-		<em>resultreport:</em> A result report format defined by <em>Alisa</em> is used to report back results.
-	</li>
-</ul>
-</p>
-<a name="BuiltinRegistry"></a>
-<h2>Built-in and User-defined Registries</h2>
-<p>
-Alisa comes with a built-in registry of verification methods. The registry is ucrrently omly partially
-populated. The registry include several verification methods that interface with OSATE analysis plug-ins,
-methods written in Xtend specifically for use in Alisa, and methods written in Resolute. See the method
-registry in the <em>Alisa  Test Case</em> on teh SVN repository.
-</p>
-<p>
-Users can add currently verificaiton methods to Alisa in two ways. First, users can write claim functions
-and computational methods in Resolute (see Resolute language specificaiton for details). Uses then define
-their own verification method registry to complement the "predefined" registry. SInce Resolute is an
-interpreted notation, these newly registered methods are immediately available for use.
-</p>
-<p>
-Users can also write or make use of verification methods written in compiled languages, such as Java
-or Xtend. In some cases, users may write wrapper methods to interface existing tools or external tools, such as
-<em>JUnit</em> or <em>Simulink</em>. This currently requires users to write a <em>dispatcher</em> that handles newly introduced
-verification methods by overridind the dispatcher for the builtin methods. See the builtin <em>AnalysisPluginDispatcher</em>
-in <em>org.osate.assure.analysis</em> for a pattern. You want to put this code in a new Eclipse plug-in. You
-can test the code by invoking Eclispe recursively from OSATE as if it is a development environment. Once
-tested you can add the plug-in into the dropins folder of your OSATE/Alisa installation.
-</p>
-<p>
-In the future we will make use of relfective invocation to allow for more interactive development of
-verificaiotn methods. We wil also integrate frameworks such as JUnit into Alisa via teh verificaiton
-method registry.
-</p>
-<a name="SelectionCategories"></a>
-<h2>Selective Verification</h2>
-<p>
-Selective verification is patterned after JUnit. Users can attach multiple category labels with a referenced
-verification activity. Separately, user will specifiy the categories of interest when defining and instanitating
-an assurance plan.
-</p>
-<p>
-The selection categories can be defined by the user. They are defined the same
-</p>
-<p>
-Requirement categories are defined through the Category specificaiton notation. These specifications are
-created in files with the extension @<em>cat</em>.
-</p>
-<p>
-<div class="literallayout">
-<div class="incode">
-<p class="code">
-&lt;SelectionCategories&gt;&nbsp;::=<br/>
-&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">selection</span>&nbsp;<span class="keyword">categories</span>&nbsp;<br/>
-&nbsp;&nbsp;&nbsp;&nbsp;[&nbsp;<br/>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;SelectionCategory&gt;+<br/>
-&nbsp;&nbsp;&nbsp;&nbsp;]<br/>
-<br/>
-&lt;SelectionCategory&gt;&nbsp;:<br/>
-&nbsp;&nbsp;&nbsp;&nbsp;phase1&nbsp;(&nbsp;<span class="keyword">extends</span>&nbsp;phase&nbsp;)?&nbsp;<br/>
-</p>
-</div>
-</div>
-</p>
-<p>
-Selection categories must have globally unique names among selection category declarations within an Eclipse workspace. 
-References to a category do not have to be qualified.
-</p>
-<p>
-Requirement categories can be placed into an extends hierarchy.
-</p>
-</body>
-</html>
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<HTML>
+<HEAD>
+	<META HTTP-EQUIV="CONTENT-TYPE" CONTENT="text/html; charset=windows-1252">
+	<TITLE>Verification Plans for a System</TITLE>
+	<META NAME="GENERATOR" CONTENT="OpenOffice 4.1.2  (Win32)">
+	<META NAME="CREATED" CONTENT="0;0">
+	<META NAME="CHANGEDBY" CONTENT="Peter Feiler">
+	<META NAME="CHANGED" CONTENT="20151118;11463450">
+	<STYLE TYPE="text/css">
+	<!--
+		P { margin-top: 0.1in; margin-bottom: 0.1in; color: #000000; font-family: "Arial", "Helvetica", sans-serif; font-size: 10pt }
+		H1 { color: #000000; font-family: "Arial", "Helvetica", sans-serif; font-size: 18pt }
+		H2 { color: #000000; font-family: "Arial", "Helvetica", sans-serif; font-size: 14pt }
+	-->
+	</STYLE>
+</HEAD>
+<BODY LANG="en-US" TEXT="#000000" DIR="LTR">
+<H1><A NAME="Verify"></A>Verification Plans for a System</H1>
+<P>The <EM>Verify</EM> notation lets users specify verification plans
+for each system component in a system architecture. 
+</P>
+<P>A verification plan specifies how every requirement of a system
+component (type or implementation) is verified, i.e., a system
+implementation meets the requirements. This is achieved by specifying
+a set of verification activities that must complete successfully as
+evidence that a requirement is met. This is done by a claim
+declaration for each requirement in the verification plan. 
+</P>
+<P>A verification activity is performed on an artifact representing
+the system implementation. This artifact may be an AADL model
+representing the architecture specification of the system, detailed
+design models, e.g., Simulink models of physical or control behavior,
+or the actual implementation, e.g., in form of software that must be
+executed on a hardware platform. Verification activities may also
+include review of documents, design, or code by human reviewers. 
+</P>
+<P>A verification activity identifies the verification method to be
+used, and a set of parameters. By default every verification method
+is assumed to accept a reference to a model element, typically an
+AADL instance model element. The verification method may accept
+additional parameters,  or it may expect the relevant information to
+be available as a property on the AADL model. By default the
+verification method is expected to return a Boolean as result.
+Verification methods may also return results via Eclipse Markers, in
+Resolute result format, or in a result report format defined by
+Alisa.</P>
+<P>A verification method registry allows users to specify the type
+and signature of a verification method. The actual method may take a
+variety of forms. However, the methods have a common interface to
+interface with the Alisa incremental assurance engine. Currently we
+support Osate analysis plug-ins, Resolute, and Java/Xtend based
+method implementations.</P>
+<P>The <I>Verify </I><SPAN STYLE="font-style: normal">notation
+supports two file extensions: </SPAN><I>verify</I><SPAN STYLE="font-style: normal">
+for verification plans, and </SPAN><I>methodregistry</I><SPAN STYLE="font-style: normal">
+for verification method specifications.</SPAN></P>
+<H2><A NAME="VerificationPlans"></A>Verification Plans</H2>
+<P>Verification plans are defined in files with the extension <EM>verify</EM>.
+Multiple verification plans can be placed in a single file. It is
+recommended that one verification plan is declared for each set of
+<I>system requirements</I><SPAN STYLE="font-style: normal">. Users
+may want to follow the convention to name the set of </SPAN><I>system
+requirements</I><SPAN STYLE="font-style: normal"> by a
+&lt;dot.-separated qualified name path corresponding to the
+component, whose requirements are specified &ndash; and the same name
+be used for the verification plan.</SPAN></P>
+<P>&lt;VerificationPlan&gt;&nbsp;::= <BR><FONT COLOR="#7f0055"><B>verification
+plan</B></FONT>&nbsp;(qual <FONT COLOR="#7f0055"><B>.</B></FONT> )*
+name<BR>&nbsp;(&nbsp;:&nbsp;<FONT COLOR="#2a00ff"><SPAN STYLE="font-weight: normal">&quot;descriptive&nbsp;title&quot;</SPAN></FONT>&nbsp;)?
+<BR>&nbsp;&nbsp;&nbsp;&nbsp;<FONT COLOR="#7f0055"><B>for</B></FONT>&nbsp;&lt;system
+requirements reference&gt;
+<BR>&nbsp;&nbsp;&nbsp;&nbsp;<FONT COLOR="#7f0055"><B>[</B></FONT><BR>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(&nbsp;<FONT COLOR="#7f0055"><B>description</B></FONT>&nbsp;<FONT COLOR="#2a00ff"><SPAN STYLE="font-weight: normal">&quot;Verification&nbsp;plan&nbsp;for&nbsp;a&nbsp;second&nbsp;line&quot;</SPAN></FONT>&nbsp;)?&nbsp;<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;Claim&gt;*
+<BR>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(&nbsp;<FONT COLOR="#7f0055"><B>rationale</B></FONT>&nbsp;&lt;String&gt;&nbsp;)?
+<BR>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(&nbsp;<FONT COLOR="#7f0055"><B>issues</B></FONT>&nbsp;(<FONT COLOR="#2a00ff"><SPAN STYLE="font-weight: normal">&quot;explanation&quot;</SPAN></FONT>)+&nbsp;)?&nbsp;
+<BR>&nbsp;&nbsp;&nbsp;&nbsp;<FONT COLOR="#7f0055"><B>]</B></FONT></P>
+<P>A verification plan is for a set of requirement specifications
+identified by the <I>for </I><SPAN STYLE="font-style: normal">statement.
+The set of requirement specifications is for an</SPAN> AADL component
+type or implementation identified in the <I>requirement specification
+</I><SPAN STYLE="font-style: normal">declaration. A component type
+extension may have its own requirement specification separate from
+the component type being extended</SPAN>. Similarly, a separate
+verification plan is defined. When we instantiate an assurance plan
+the verification plans of a component classifier and the classifiers
+being extended are included. For implementations the plans of the
+respective type are included.</P>
+<P>The verification plan specifies a claim for each of the
+requirements that have been specified for a system. 
+</P>
+<P>A system can have multiple verification plans that get combined
+into an assurance plan. 
+</P>
+<P><EM>assume verified</EM> identifies subsystems (system components)
+that are assumed to have been verified separately. This allows us to
+support compositional assurance of systems. 
+</P>
+<P>&lt;Claim&gt;&nbsp;::= <BR>&nbsp;&nbsp;&nbsp;&nbsp;<FONT COLOR="#7f0055"><B>claim</B></FONT>&nbsp;&lt;requirement
+ID reference&gt;<BR>&nbsp;  (&nbsp;:&nbsp;<FONT COLOR="#2a00ff"><SPAN STYLE="font-weight: normal">&quot;Descriptive&nbsp;title&quot;</SPAN></FONT>&nbsp;)?
+<BR>&nbsp;&nbsp;&nbsp;&nbsp;(&nbsp;<FONT COLOR="#2a00ff"><SPAN STYLE="font-weight: normal">&amp;apos;(&amp;apos;</SPAN></FONT>&nbsp;&lt;claimweight&gt;&nbsp;<FONT COLOR="#2a00ff"><SPAN STYLE="font-weight: normal">&amp;apos;)&amp;apos;</SPAN></FONT>&nbsp;)?<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;<FONT COLOR="#7f0055"><B>for</B></FONT>&nbsp;&lt;requirement&nbsp;reference&gt;<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;[<BR> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(&nbsp;<FONT COLOR="#7f0055"><B>assert</B></FONT>&nbsp;&lt;ArgumentExpression&gt;
+<BR> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(&nbsp;<FONT COLOR="#7f0055"><B>argument</B></FONT>&nbsp;&lt;String&gt;&nbsp;&lt;Uncertainty&gt;&nbsp;)?<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(&nbsp;<FONT COLOR="#7f0055"><B>rationale</B></FONT>&nbsp;&lt;String&gt;&nbsp;)?<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(&nbsp;&lt;Claim&gt;&nbsp;)*<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(&nbsp;<FONT COLOR="#7f0055"><B>issues</B></FONT>&nbsp;(<FONT COLOR="#2a00ff"><SPAN STYLE="font-weight: normal">&quot;explanation&quot;</SPAN></FONT>)+&nbsp;)?<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;] 
+</P>
+<P>A requirement for a system may have been refined into
+sub-requirements that are verifiable. Typically, only the leaf
+elements of a requirement refinement hierarchy involve veritication
+activities. Howeever, the notation supports the possibility for a
+veritication activity for each requirement in the refinement
+hierarchy. 
+</P>
+<P>Weights are used to specify the value of evidence contribution a
+particular claim or verification activity has. 
+</P>
+<P>&lt;ArgumentExpr&gt;&nbsp;::= &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<FONT COLOR="#7f0055"><B>all</B></FONT>&nbsp;[&nbsp;&lt;ArgumentExpr&gt;+&nbsp;]&nbsp;|
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;ArgumentExpr&gt;&nbsp;<FONT COLOR="#7f0055"><B>failthen</B></FONT>&nbsp;&lt;ArgumentExpr&gt;&nbsp;|
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;ArgumentExpr&gt;&nbsp;<FONT COLOR="#7f0055"><B>unknownthen</B></FONT>&nbsp;&lt;ArgumentExpr&gt;&nbsp;|
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;ArgumentExpr&gt;&nbsp;<FONT COLOR="#7f0055"><B>andthen</B></FONT>&nbsp;&lt;ArgumentExpr&gt;&nbsp;|
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;ConditionalEvidence&gt;&nbsp;
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(&nbsp;&lt;ArgumentExpr&gt;&nbsp;)
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+ConditionalEvidence&nbsp;::=
+&nbsp;&nbsp;&nbsp;&nbsp;verificationActivity1&nbsp;(&nbsp;<FONT COLOR="#2a00ff"><SPAN STYLE="font-weight: normal">&amp;apos;(&amp;apos;</SPAN></FONT>&nbsp;0.8&nbsp;<FONT COLOR="#2a00ff"><SPAN STYLE="font-weight: normal">&amp;apos;)&amp;apos;</SPAN></FONT>&nbsp;)?&nbsp;(&nbsp;<FONT COLOR="#7f0055"><B>when</B></FONT>&nbsp;&lt;sectioncategoryreference&gt;+&nbsp;)?
+</P>
+<P><EM>all</EM> means that all verification activities will be
+executed independent of whether they are successful or fail. The
+result state of the <EM>all</EM> operator is then evaluated ans is
+only sucvcessful if all listed verification activities. 
+</P>
+<P><EM>unknownthen</EM> means that the second test is only executed
+as an alternative if the first verification activity produces an
+unknown result,, i.e., has a timeout or otherwise fails to complete
+executing the verificaiton method. In other words, users can specify
+alternate verification activities if the original ones fail. 
+</P>
+<P><EM>failthen</EM> means that the second test is only executed as
+an alternative if the first verification activity fails. In other
+words, users can specify alternate verification activities if the
+original ones fail. 
+</P>
+<P><EM>andthen</EM> lets users specify an ordering of verification
+activities, i.e., the second verification activity is only executed
+if the first one is successful. 
+</P>
+<P><EM>round brackets</EM> allow users to specify a change in
+precedence ordering of argument expression operators. 
+</P>
+<P>Argument expressions refer to verification activities defined in
+libraries. 
+</P>
+<P>These references will be executed conditionally according to
+whether the specified selection categories are specified in the
+selection criteria of an assurance plan. 
+</P>
+<P>Each verification activity can have a weight to express the value
+of the contributed evidence. 
+</P>
+<H2><A NAME="VerificationActivities"></A>Verification Activities</H2>
+<P>A library of verification activities is defined in a separate file
+with the extension <EM>verify</EM>. 
+</P>
+<P>&lt;VerificationLibrary&gt;&nbsp;::=
+&nbsp;&nbsp;&nbsp;&nbsp;<FONT COLOR="#7f0055"><B>library</B></FONT>&nbsp;libraryname&nbsp;(&nbsp;:&nbsp;&nbsp;<FONT COLOR="#2a00ff"><SPAN STYLE="font-weight: normal">&quot;descriptive&nbsp;title&quot;</SPAN></FONT>&nbsp;)?
+&nbsp;&nbsp;&nbsp;&nbsp;(&nbsp;<FONT COLOR="#7f0055"><B>for</B></FONT>&nbsp;mypackage::myGPS&nbsp;)?
+&nbsp;&nbsp;&nbsp;&nbsp;[ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(&nbsp;<FONT COLOR="#7f0055"><B>description</B></FONT>&nbsp;Description)?
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(&nbsp;&lt;VerificationActivity&gt;&nbsp;|&nbsp;&nbsp;&lt;VerificationFolder&gt;&nbsp;)*
+&nbsp;&nbsp;&nbsp;&nbsp;] &lt;VerificationFolder&gt;&nbsp;::=
+&nbsp;&nbsp;&nbsp;&nbsp;<FONT COLOR="#7f0055"><B>folder</B></FONT>&nbsp;foldername
+&nbsp;&nbsp;&nbsp;&nbsp;[&nbsp;
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(&nbsp;&lt;VerificationActivity&gt;&nbsp;|&nbsp;&nbsp;&lt;VerificationFolder&gt;&nbsp;)*
+&nbsp;&nbsp;&nbsp;&nbsp;]; &lt;VerificationActivity&gt;&nbsp;::=
+&nbsp;&nbsp;&nbsp;&nbsp;<FONT COLOR="#7f0055"><B>activity</B></FONT>&nbsp;activityname&nbsp;(&nbsp;:&nbsp;<FONT COLOR="#2a00ff"><SPAN STYLE="font-weight: normal">&quot;descriptive&nbsp;title&quot;</SPAN></FONT>&nbsp;)?
+&nbsp;&nbsp;&nbsp;&nbsp;(&nbsp;<FONT COLOR="#7f0055"><B>for</B></FONT>&nbsp;&lt;requirementreference&gt;&nbsp;)?
+&nbsp;&nbsp;&nbsp;&nbsp;[&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(&nbsp;<FONT COLOR="#7f0055"><B>description</B></FONT>&nbsp;Description&nbsp;)?
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<FONT COLOR="#7f0055"><B>method</B></FONT>&nbsp;&lt;VerificationMethodReference&gt;&nbsp;(&nbsp;<FONT COLOR="#7f0055"><B>as</B></FONT>&nbsp;&lt;ComputeVariable&nbsp;Reference&gt;&nbsp;)?
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(&nbsp;<FONT COLOR="#7f0055"><B>timeout</B></FONT>&nbsp;&nbsp;&lt;integer&gt;&nbsp;)?
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(&nbsp;<FONT COLOR="#7f0055"><B>rationale</B></FONT>&nbsp;<FONT COLOR="#2a00ff"><SPAN STYLE="font-weight: normal">&quot;explanation&quot;</SPAN></FONT>&nbsp;)?
+&nbsp;&nbsp;&nbsp;&nbsp;] 
+</P>
+<H2><A NAME="VerificationMethods"></A>Registry of Verification
+Methods</H2>
+<P>A verification method registry is defined in a separate file with
+the extension <EM>verify</EM>. 
+</P>
+<P>&lt;VerificationMethodRegistry&gt;&nbsp;::=
+&nbsp;&nbsp;&nbsp;&nbsp;<FONT COLOR="#7f0055"><B>registry</B></FONT>&nbsp;registryname
+&nbsp;&nbsp;&nbsp;&nbsp;(&nbsp;:&nbsp;<FONT COLOR="#2a00ff"><SPAN STYLE="font-weight: normal">&quot;descriptive&nbsp;title&quot;</SPAN></FONT>&nbsp;)?
+&nbsp;&nbsp;&nbsp;&nbsp;[&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(&nbsp;<FONT COLOR="#7f0055"><B>description</B></FONT>&nbsp;Description&nbsp;)?
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;VerificationMethod&gt;+
+&nbsp;&nbsp;&nbsp;&nbsp;] &lt;VerificationMethod&gt;&nbsp;::=
+&nbsp;&nbsp;&nbsp;&nbsp;<FONT COLOR="#7f0055"><B>method</B></FONT>&nbsp;methodname&nbsp;(&nbsp;:&nbsp;&nbsp;<FONT COLOR="#2a00ff"><SPAN STYLE="font-weight: normal">&quot;descriptive&nbsp;title&quot;</SPAN></FONT>&nbsp;)?
+&nbsp;&nbsp;&nbsp;&nbsp;(&nbsp;<FONT COLOR="#7f0055"><B>for</B></FONT>&nbsp;&lt;requirementreference&gt;&nbsp;)?&nbsp;&nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp;&nbsp;[
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;MethodType&gt;&nbsp;&nbsp;&lt;MethodScope&gt;&nbsp;(&nbsp;&lt;MethodReporting&gt;&nbsp;)?
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<FONT COLOR="#7f0055"><B>path</B></FONT>&nbsp;<FONT COLOR="#2a00ff"><SPAN STYLE="font-weight: normal">&quot;my.pack.myclass.mymethod&quot;</SPAN></FONT>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(&nbsp;<FONT COLOR="#7f0055"><B>description</B></FONT>&nbsp;Description&nbsp;)?
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(&nbsp;<FONT COLOR="#7f0055"><B>category</B></FONT>&nbsp;&lt;VerificationCategory&gt;&nbsp;)?
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(&nbsp;VerificationValidation&nbsp;|&nbsp;VerificationPrecondition)*
+&nbsp;&nbsp;&nbsp;&nbsp;] VerificationValidation&nbsp;::=
+&nbsp;&nbsp;&nbsp;&nbsp;(&nbsp;<FONT COLOR="#7f0055"><B>validation</B></FONT>&nbsp;myname
+&nbsp;&nbsp;&nbsp;&nbsp;(&nbsp;:&nbsp;<FONT COLOR="#2a00ff"><SPAN STYLE="font-weight: normal">&quot;title&quot;</SPAN></FONT>&nbsp;)?
+&nbsp;&nbsp;&nbsp;&nbsp;[&nbsp;( &nbsp;&nbsp;&nbsp;&nbsp;(&nbsp;<FONT COLOR="#7f0055"><B>description</B></FONT>&nbsp;Description)?
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<FONT COLOR="#7f0055"><B>method</B></FONT>&nbsp;&lt;qualified&nbsp;methodname&gt;&nbsp;(&nbsp;<FONT COLOR="#7f0055"><B>as</B></FONT>&nbsp;&lt;computer&nbsp;variable&gt;&nbsp;)?
+&nbsp;&nbsp;&nbsp;&nbsp;(&nbsp;<FONT COLOR="#7f0055"><B>rationale</B></FONT>&nbsp;<FONT COLOR="#2a00ff"><SPAN STYLE="font-weight: normal">&quot;rationale&nbsp;description&quot;</SPAN></FONT>&nbsp;)?
+&nbsp;&nbsp;&nbsp;&nbsp;) &nbsp;&nbsp;&nbsp;&nbsp;]
+VerificationPrecondition&nbsp;::= &nbsp;&nbsp;&nbsp;&nbsp;(&nbsp;<FONT COLOR="#7f0055"><B>precondition</B></FONT>&nbsp;myname
+&nbsp;&nbsp;&nbsp;&nbsp;(&nbsp;:&nbsp;<FONT COLOR="#2a00ff"><SPAN STYLE="font-weight: normal">&quot;title&quot;</SPAN></FONT>&nbsp;)?
+&nbsp;&nbsp;&nbsp;&nbsp;[&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;(&nbsp;<FONT COLOR="#7f0055"><B>description</B></FONT>&nbsp;Description)?
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<FONT COLOR="#7f0055"><B>method</B></FONT>&nbsp;&lt;qualified&nbsp;methodname&gt;&nbsp;(&nbsp;<FONT COLOR="#7f0055"><B>as</B></FONT>&nbsp;&lt;computer&nbsp;variable&gt;&nbsp;)?
+&nbsp;&nbsp;&nbsp;&nbsp;(&nbsp;<FONT COLOR="#7f0055"><B>rationale</B></FONT>&nbsp;<FONT COLOR="#2a00ff"><SPAN STYLE="font-weight: normal">&quot;rationale&nbsp;description&quot;</SPAN></FONT>&nbsp;)?
+&nbsp;&nbsp;&nbsp;&nbsp;]
+<FONT COLOR="#7f0055"><B>enum</B></FONT>&nbsp;MethodTypes::=&nbsp;analysis&nbsp;|&nbsp;predicate&nbsp;|&nbsp;compute&nbsp;|&nbsp;
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;resoluteprove&nbsp;|&nbsp;resolutecompute&nbsp;|&nbsp;resolutepredicate&nbsp;|&nbsp;manual
+&nbsp;&nbsp;&nbsp;&nbsp; <FONT COLOR="#7f0055"><B>enum</B></FONT>&nbsp;MethodScope::=&nbsp;self&nbsp;|&nbsp;parts&nbsp;|&nbsp;<FONT COLOR="#7f0055"><B>all</B></FONT>&nbsp;
+<FONT COLOR="#7f0055"><B>enum</B></FONT>&nbsp;MethodReporting::=&nbsp;marker|&nbsp;errormarker&nbsp;|&nbsp;diagnostics&nbsp;|&nbsp;assertexception&nbsp;|&nbsp;resultreport
+</P>
+<P>The method types are: 
+</P>
+<UL>
+	<LI><P STYLE="margin-bottom: 0in"><EM>analysis:</EM> the method
+	represents processing by an OSATE analysis plug-in. Typically it
+	processes multiple model elements and reports results via markers. 
+	</P>
+	<LI><P STYLE="margin-bottom: 0in"><EM>predicate:</EM> the method
+	evaluates a condition on one instance model element and returns true
+	(success) or false (fail). Fail may be reported by a Jave/JUnit
+	<EM>AssertionException</EM> - see reporting mechanism. Failure to
+	complete verification method execution, e.g., timeout or an
+	exception other than <EM>AssertionException</EM> is mapped into
+	<EM>unknown</EM>. 
+	</P>
+	<LI><P STYLE="margin-bottom: 0in"><EM>compute:</EM> the method
+	processes one model element and returns a single value as a result.
+	This value is then evaluated by the specified predicate of the
+	requirement. 
+	</P>
+	<LI><P STYLE="margin-bottom: 0in"><EM>resoluteprove:</EM> the method
+	interpretively evaluates a Resolute claim function as if it where
+	declared in a <EM>prove</EM> statement in a <EM>resolute subclause</EM>.
+	This allows resolute claim functions to be associated with AADL
+	models without embedding them in the model. 
+	</P>
+	<LI><P STYLE="margin-bottom: 0in"><EM>resolutepredicate:</EM> the
+	method interpretively evaluates a Resolute computational function
+	with a boolean result. The predicate is assumed to represent the
+	condition to be asserted for a requirement. 
+	</P>
+	<LI><P STYLE="margin-bottom: 0in"><EM>resolutecompute:</EM> the
+	method interpretively evaluates a Resolute computational function.
+	The result value is then evaluated by the specified of the
+	requirement. 
+	</P>
+	<LI><P><EM>manual:</EM> the method represents a manual method, i.e.,
+	a method that is performed by a human. The person will interactively
+	report the result of the verification, e.g., the result of
+	performing a review. 
+	</P>
+</UL>
+<P>The following are scopes of application that can be defined for
+verification methods: 
+</P>
+<UL>
+	<LI><P STYLE="margin-bottom: 0in"><EM>self:</EM> the method applies
+	to the model element identified by the requirement. 
+	</P>
+	<LI><P STYLE="margin-bottom: 0in"><EM>parts:</EM> the method applies
+	to all parts of a component that is identified by the requirement.
+	The parts are all directly contained elements without recursively
+	traversing the component hierarchy. For example, the method may
+	evaluate all ports or all end to end flows defined in a component. 
+	</P>
+	<LI><P><EM>all:</EM> the method applies to all elements of the
+	component identified by the requirement - recursively traversing the
+	hierarchy. 
+	</P>
+</UL>
+<P>The following are reporting mechanisms that may be used by a
+veriifcation method. If not specified, th e use of Eclispe markers is
+assumed. 
+</P>
+<UL>
+	<LI><P STYLE="margin-bottom: 0in"><EM>marker:</EM> Eclipse <EM>markers</EM>
+	of types <EM>error</EM>, <EM>warning</EM>, and <EM>info</EM> may be
+	used to report back results of teh verification method. 
+	</P>
+	<LI><P STYLE="margin-bottom: 0in"><EM>errormarker:</EM> Eclipse
+	<EM>markers</EM> of type <EM>error</EM> are used to report back
+	issues in the exectuion of the veriifcation method. 
+	</P>
+	<LI><P STYLE="margin-bottom: 0in"><EM>diagnostics:</EM> The Eclipse
+	<EM>Diagnostics</EM> mechanism is used to rept back results. 
+	</P>
+	<LI><P STYLE="margin-bottom: 0in"><EM>assertexception:</EM> An
+	<EM>AssertionException</EM> is thrown by the veriifcation method to
+	report back a failed test or failure to compelte execution. 
+	</P>
+	<LI><P><EM>resultreport:</EM> A result report format defined by
+	<EM>Alisa</EM> is used to report back results. 
+	</P>
+</UL>
+<H2><A NAME="BuiltinRegistry"></A>Built-in and User-defined
+Registries</H2>
+<P>Alisa comes with a built-in registry of verification methods. The
+registry is ucrrently omly partially populated. The registry include
+several verification methods that interface with OSATE analysis
+plug-ins, methods written in Xtend specifically for use in Alisa, and
+methods written in Resolute. See the method registry in the <EM>Alisa
+Test Case</EM> on teh SVN repository. 
+</P>
+<P>Users can add currently verificaiton methods to Alisa in two ways.
+First, users can write claim functions and computational methods in
+Resolute (see Resolute language specificaiton for details). Uses then
+define their own verification method registry to complement the
+&quot;predefined&quot; registry. SInce Resolute is an interpreted
+notation, these newly registered methods are immediately available
+for use. 
+</P>
+<P>Users can also write or make use of verification methods written
+in compiled languages, such as Java or Xtend. In some cases, users
+may write wrapper methods to interface existing tools or external
+tools, such as <EM>JUnit</EM> or <EM>Simulink</EM>. This currently
+requires users to write a <EM>dispatcher</EM> that handles newly
+introduced verification methods by overridind the dispatcher for the
+builtin methods. See the builtin <EM>AnalysisPluginDispatcher</EM> in
+<EM>org.osate.assure.analysis</EM> for a pattern. You want to put
+this code in a new Eclipse plug-in. You can test the code by invoking
+Eclispe recursively from OSATE as if it is a development environment.
+Once tested you can add the plug-in into the dropins folder of your
+OSATE/Alisa installation. 
+</P>
+<P>In the future we will make use of relfective invocation to allow
+for more interactive development of verificaiotn methods. We wil also
+integrate frameworks such as JUnit into Alisa via teh verificaiton
+method registry. 
+</P>
+<H2><A NAME="SelectionCategories"></A>Selective Verification</H2>
+<P>Selective verification is patterned after JUnit. Users can attach
+multiple category labels with a referenced verification activity.
+Separately, user will specifiy the categories of interest when
+defining and instanitating an assurance plan. 
+</P>
+<P>The selection categories can be defined by the user. They are
+defined the same 
+</P>
+<P>Requirement categories are defined through the Category
+specificaiton notation. These specifications are created in files
+with the extension @<EM>cat</EM>. 
+</P>
+<P>&lt;SelectionCategories&gt;&nbsp;::= &nbsp;&nbsp;&nbsp;&nbsp;<FONT COLOR="#7f0055"><B>selection</B></FONT>&nbsp;<FONT COLOR="#7f0055"><B>categories</B></FONT>&nbsp;
+&nbsp;&nbsp;&nbsp;&nbsp;[&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;SelectionCategory&gt;+
+&nbsp;&nbsp;&nbsp;&nbsp;] &lt;SelectionCategory&gt;&nbsp;:
+&nbsp;&nbsp;&nbsp;&nbsp;phase1&nbsp;(&nbsp;<FONT COLOR="#7f0055"><B>extends</B></FONT>&nbsp;phase&nbsp;)?&nbsp;
+</P>
+<P>Selection categories must have globally unique names among
+selection category declarations within an Eclipse workspace.
+References to a category do not have to be qualified. 
+</P>
+<P>Requirement categories can be placed into an extends hierarchy. 
+</P>
+</BODY>
+</HTML>
