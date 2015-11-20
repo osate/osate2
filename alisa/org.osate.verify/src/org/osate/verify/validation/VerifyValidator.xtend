@@ -59,6 +59,8 @@ class VerifyValidator extends AbstractVerifyValidator {
   public static val MISSING_CLAIM_FOR_REQ = "org.osate.verify.missingClaimForReq"
   public static val CLAIM_REQ_FOR_NOT_VP_FOR = "org.osate.verify.claimReqForNotVpFor"
   public static val ILLEGAL_OBJECT_FOR_FILETYPE = "org.osate.verify.illegal.object.for.filetype"
+  public static val INCORRECT_VERIFICATIONACTIVITY_CATEGORY = "org.osate.verify.incorrect.verificationactivity.category"
+  public static val INCORRECT_VERIFICATIONMETHOD_CATEGORY = "org.osate.verify.incorrect.verificationmethod.category"
 
 	@Inject IVerifyGlobalReferenceFinder verifyGlobalRefFinder
 
@@ -177,12 +179,12 @@ class VerifyValidator extends AbstractVerifyValidator {
 		@Check(CheckType.FAST)
 		def void checkRequirementCategory(VerificationMethod method) {
 			val res = method.category.filter [ cat |
-				!(cat instanceof MethodCategory || cat instanceof QualityCategory)
+				!(cat instanceof MethodCategory || cat instanceof QualityCategory || cat instanceof SelectionCategory)
 			]
 			if(res.empty) return;
 			error("Method '" + method.name + "' category '" + res +
 				"' must be method or quality category.", method,
-				VerifyPackage.Literals.VERIFICATION_METHOD__CATEGORY)
+				VerifyPackage.Literals.VERIFICATION_METHOD__CATEGORY, INCORRECT_VERIFICATIONMETHOD_CATEGORY)
 		}
 	
 		@Check(CheckType.FAST)
@@ -193,7 +195,7 @@ class VerifyValidator extends AbstractVerifyValidator {
 			if(res.empty) return;
 			error("Verification activity '" + va.name + "' category '" + res +
 				"' must be phase or selection category.", va,
-				VerifyPackage.Literals.VERIFICATION_ACTIVITY__CATEGORY)
+				VerifyPackage.Literals.VERIFICATION_ACTIVITY__CATEGORY, INCORRECT_VERIFICATIONACTIVITY_CATEGORY)
 		}
 	
 }
