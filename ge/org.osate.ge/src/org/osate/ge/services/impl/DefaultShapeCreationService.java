@@ -145,11 +145,7 @@ public class DefaultShapeCreationService implements ShapeCreationService {
 		if(newShape != null) {
 			Graphiti.getGaService().setLocation(newShape.getGraphicsAlgorithm(), x, y);
 			propertyService.setIsLayedOut(newShape, true);
-			
-			// Update the size of the container
-			if(layoutService.checkContainerSize((ContainerShape)newShape)) {
-				fp.getDiagramTypeProvider().getDiagramBehavior().refresh();
-			}
+			layoutService.checkShapeBoundsWithAncestors((ContainerShape)newShape);
 		}
 
 		return newShape;

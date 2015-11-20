@@ -272,9 +272,7 @@ public class FeaturePattern extends AgeLeafShapePattern implements Categorized {
 		layoutAll(shape);
 		updateAnchors(shape);
 		
-		if(layoutService.checkContainerSize((ContainerShape)ctx.getPictogramElement())) {
-			getFeatureProvider().getDiagramTypeProvider().getDiagramBehavior().refresh();
-		}
+		layoutService.checkShapeBoundsWithAncestors((ContainerShape)ctx.getPictogramElement());
 		
 		// Update connection anchors
 		connectionService.updateConnectionAnchors(shape);

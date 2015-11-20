@@ -38,7 +38,6 @@ import org.osate.aadl2.InternalFeature;
 import org.osate.aadl2.ProcessorFeature;
 import org.osate.ge.diagrams.common.AgeResizeConfiguration;
 import org.osate.ge.layout.LayoutAlgorithm;
-import org.osate.ge.layout.MonteCarloLayoutAlgorithm;
 import org.osate.ge.layout.SimpleLayoutAlgorithm;
 import org.osate.ge.services.BusinessObjectResolutionService;
 import org.osate.ge.services.LayoutService;
@@ -105,9 +104,7 @@ public class LayoutDiagramFeature extends AbstractCustomFeature {
 	@Override
 	public void execute(final ICustomContext context) {
 		boolean relayoutShapes = !Boolean.FALSE.equals(context.getProperty(relayoutShapesPropertyKey)); // Defaults to true
-		if(layout(getDiagram(), relayoutShapes)) {
-			getFeatureProvider().getDiagramTypeProvider().getDiagramBehavior().refresh();				
-		}
+		layout(getDiagram(), relayoutShapes);
 	}
 	
 	private boolean layout(final Diagram diagram, final boolean relayoutShapes) {
@@ -264,9 +261,7 @@ public class LayoutDiagramFeature extends AbstractCustomFeature {
 		
 		// Check the diagram shape's size and container size?
 		if(!(diagramShape instanceof Diagram) && diagramShape instanceof ContainerShape) {
-			if(resizeHelper.checkSize((ContainerShape)diagramShape)) {
-				resizeHelper.checkContainerSize((ContainerShape)diagramShape);
-			}
+			resizeHelper.checkShapeBounds((ContainerShape)diagramShape);
 		}
 	}
 	

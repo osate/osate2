@@ -279,9 +279,7 @@ public class SubprogramCallPattern extends AgePattern implements Categorized {
 	protected void postMoveShape(final IMoveShapeContext context) {
 		super.postMoveShape(context);
 
-		if(layoutService.checkContainerSize((ContainerShape)context.getPictogramElement())) {
-			getFeatureProvider().getDiagramTypeProvider().getDiagramBehavior().refresh();
-		}
+		layoutService.checkShapeBoundsWithAncestors((ContainerShape)context.getPictogramElement());
 	}
 	
 	// Resize
@@ -302,9 +300,7 @@ public class SubprogramCallPattern extends AgePattern implements Categorized {
 		super.resizeShape(context);
 
 		final ContainerShape shape = (ContainerShape)context.getPictogramElement();
-		layoutService.checkContainerSize(shape);
-		
-		getFeatureProvider().getDiagramTypeProvider().getDiagramBehavior().refresh();
+		layoutService.checkShapeBoundsWithAncestors(shape);
 		
 		// When the graphics algorithm is recreated, the selection is lost. This triggers the selection to be restored on the next editor refresh 
 		getFeatureProvider().getDiagramTypeProvider().getDiagramBehavior().getDiagramContainer().setPictogramElementsForSelection(getFeatureProvider().getDiagramTypeProvider().getDiagramBehavior().getDiagramContainer().getSelectedPictogramElements());

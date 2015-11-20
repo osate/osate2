@@ -388,9 +388,7 @@ public class AnnexPattern extends AgePattern {
 
 		super.resizeShape(context);
 
-		layoutService.checkContainerSize(shape);
-
-		getFeatureProvider().getDiagramTypeProvider().getDiagramBehavior().refresh();
+		layoutService.checkShapeBoundsWithAncestors(shape);
 
 		// When the graphics algorithm is recreated, the selection is lost. This triggers the selection to be restored on the next editor refresh 
 		getFeatureProvider().getDiagramTypeProvider().getDiagramBehavior().getDiagramContainer().setPictogramElementsForSelection(getFeatureProvider().getDiagramTypeProvider().getDiagramBehavior().getDiagramContainer().getSelectedPictogramElements());		
@@ -424,9 +422,6 @@ public class AnnexPattern extends AgePattern {
 		
 		// Layout Labels
 		gaService.setLocation(nameShapeGraphicsAlgorithm, (shapeWidth - nameShapeGraphicsAlgorithm.getWidth()) / 2, 17);		
-	
-		// Refresh. For some reason if it is not refreshed, some shapes may not be drawn correctly.
-		getFeatureProvider().getDiagramTypeProvider().getDiagramBehavior().refresh();
 
 		return true;
 	}

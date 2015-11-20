@@ -237,12 +237,7 @@ public class ClassifierPattern extends AgePattern implements Categorized {
 	@Override 
 	protected void postMoveShape(final IMoveShapeContext context) {
 		super.postMoveShape(context);
-		
-		if(bor.getBusinessObjectForPictogramElement(context.getPictogramElement()) instanceof Subcomponent) {
-			if(layoutService.checkContainerSize((ContainerShape)context.getPictogramElement())) {
-				getFeatureProvider().getDiagramTypeProvider().getDiagramBehavior().refresh();
-			}
-		}
+		layoutService.checkShapeBoundsWithAncestors(((ContainerShape)context.getPictogramElement()));
 		
 		// Update Connection Anchors
 		final ContainerShape shape = (ContainerShape)context.getShape();
@@ -275,9 +270,7 @@ public class ClassifierPattern extends AgePattern implements Categorized {
 	public void resizeShape(final IResizeShapeContext context) {
 		final ContainerShape shape = (ContainerShape)context.getPictogramElement();			
 		super.resizeShape(context);
-		layoutService.checkContainerSize(shape);
-		
-		getFeatureProvider().getDiagramTypeProvider().getDiagramBehavior().refresh();
+		layoutService.checkShapeBoundsWithAncestors(shape);
 		
 		// Update Connection Anchors
 		updateConnectionAnchors(shape);

@@ -135,16 +135,8 @@ public class ModePattern extends AgeLeafShapePattern implements Categorized {
 
 	@Override 
 	protected void postMoveShape(final IMoveShapeContext context) {
-		boolean refresh = false;
-		if(resizeHelper.checkContainerSize((ContainerShape)context.getPictogramElement())) {
-			refresh = true;			
-		}
-		
+		resizeHelper.checkShapeBoundsWithAncestors((ContainerShape)context.getPictogramElement());
 		layout((ContainerShape)context.getPictogramElement());
-		
-		if(refresh) {
-			getFeatureProvider().getDiagramTypeProvider().getDiagramBehavior().refresh();
-		}
 	}
 	
 	public boolean canLayout(ILayoutContext context) {

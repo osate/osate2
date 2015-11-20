@@ -38,25 +38,9 @@ public class DefaultLayoutService implements LayoutService {
 		this.fp = fp;
 	}	
 	
-	/* (non-Javadoc)
-	 * @see org.osate.ge.diagrams.common.util.ResizeService#checkContainerSize(org.eclipse.graphiti.mm.pictograms.ContainerShape)
-	 */
 	@Override
-	public boolean checkContainerSize(final ContainerShape shape) {
+	public boolean checkShapeBounds(final ContainerShape shape) {
 		final ContainerShape container = shape.getContainer();		
-		if(checkSize(container)) {
-			checkContainerSize(container);			
-			return true;
-		}		
-		
-		return false;
-	}
-	
-	/* (non-Javadoc)
-	 * @see org.osate.ge.diagrams.common.util.ResizeService#checkSize(org.eclipse.graphiti.mm.pictograms.ContainerShape)
-	 */
-	@Override
-	public boolean checkSize(final ContainerShape container) {
 		if(container instanceof Diagram) {
 			return false;
 		}
@@ -65,16 +49,13 @@ public class DefaultLayoutService implements LayoutService {
 		
 		// Check if the shape is entirely in the container
 		final GraphicsAlgorithm containerGa = container.getGraphicsAlgorithm();
-		for(final Shape child : container.getChildren()) {
-			final GraphicsAlgorithm childGa = child.getGraphicsAlgorithm();
-			final int endX = childGa.getX() + childGa.getWidth();
-			final int endY = childGa.getY() + childGa.getHeight();
-			if(childGa.getX() < 0 || childGa.getY() < 0 || containerGa.getWidth() < endX || containerGa.getHeight() < endY) {
-				layoutShape = true;
-				break;
-			}	
-		}
-		
+		final GraphicsAlgorithm ga = shape.getGraphicsAlgorithm();
+		final int endX = ga.getX() + containerGa.getWidth();
+		final int endY = ga.getY() + containerGa.getHeight();
+		if(ga.getX() < 0 || ga.getY() < 0 || ga.getWidth() < endX || ga.getHeight() < endY) {
+			layoutShape = true;
+		}	
+
 		if(layoutShape) {
 			final LayoutContext context = new LayoutContext(container);
 			final ILayoutFeature feature = fp.getLayoutFeature(context);
@@ -83,6 +64,19 @@ public class DefaultLayoutService implements LayoutService {
 				return true;
 			}
 		}
+		
+		return false;
+	}
+	
+	@Override
+	public boolean checkShapeBoundsWithAncestors(final ContainerShape shape) {
+		if(checkShapeBounds(shape)) {
+			final ContainerShape container = shape.getContainer();
+			if(container != null && !(container instanceof Diagram)) {
+				checkShapeBoundsWithAncestors(container);
+			}
+			return true;
+		}		
 		
 		return false;
 	}
