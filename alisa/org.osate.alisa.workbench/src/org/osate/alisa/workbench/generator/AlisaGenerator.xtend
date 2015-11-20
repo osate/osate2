@@ -34,9 +34,7 @@ import org.osate.aadl2.util.Aadl2Util
 import org.osate.alisa.workbench.alisa.AlisaWorkArea
 import org.osate.alisa.workbench.alisa.AssurancePlan
 import org.osate.alisa.workbench.alisa.AssuranceTask
-import org.osate.categories.categories.MethodCategory
-import org.osate.categories.categories.RequirementCategory
-import org.osate.categories.categories.SelectionCategory
+import org.osate.categories.categories.Category
 import org.osate.verify.util.IVerifyGlobalReferenceFinder
 import org.osate.verify.verify.AllExpr
 import org.osate.verify.verify.ArgumentExpr
@@ -51,8 +49,8 @@ import org.osate.verify.verify.VerificationPrecondition
 import org.osate.verify.verify.VerificationValidation
 
 import static extension org.osate.alisa.common.util.CommonUtilExtension.*
+import static extension org.osate.reqspec.util.ReqSpecUtilExtension.*
 import static extension org.osate.verify.util.VerifyUtilExtension.*
-import org.osate.categories.categories.Category
 
 /**
  * Generates code from your model files on save.
@@ -94,7 +92,7 @@ class AlisaGenerator implements IGenerator {
 
 	def generateRootCase(AssurancePlan acp) {
 		if (acp.assureGlobal.isEmpty){
-			allPlans = referenceFinder.getGlobalReqVerificationPlans(acp)
+			allPlans = referenceFinder.getGlobalReqVerificationPlans(acp,acp.target?.category)
 		} else {
 			allPlans = acp.assureGlobal
 		}
@@ -144,7 +142,7 @@ class AlisaGenerator implements IGenerator {
 		 	myplans =Collections.EMPTY_LIST
 		 	}
 		}
-		if( myplans.empty) return ''''''
+//		if( myplans.empty) return ''''''
 		val APparts = doAssurancePlanParts(acp, myplans, cc)
 		if(APparts.length == 0) return ''''''
 		'''	
@@ -194,7 +192,7 @@ class AlisaGenerator implements IGenerator {
 		«ENDIF»
 		«ENDFOR»
 		«ENDFOR»
-		«FOR myplan : allPlans»
+		«FOR myplan : allPlans.filter[vp|vp.systemRequirements?.matchingCategory(cc.category)]»
 		«FOR claim : (myplan as VerificationPlan).claim»
 		«IF claim.evaluateRequirementFilter(filter,strictFilter)»
 			«claim.generate()»
