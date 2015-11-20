@@ -279,7 +279,7 @@ public class SubprogramCallSequencePattern extends AgePattern implements Categor
 		final Shape nameShape = getNameShape(shape);
 		
 		// Create the graphics algorithm for the shape
-		final int newSize[] = layoutService.adjustChildShapePositions(shape);
+		final int newSize[] = layoutService.getMinimumSize(shape);
 		if(nameShape != null) {
 			newSize[0] = Math.max(Math.max(newSize[0], layoutService.getMinimumWidth()), nameShape.getGraphicsAlgorithm().getWidth() + 30);
 			newSize[1] = Math.max(Math.max(newSize[1], layoutService.getMinimumHeight()), nameShape.getGraphicsAlgorithm().getHeight() + 30);

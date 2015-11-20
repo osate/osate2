@@ -16,10 +16,10 @@ import java.util.Random;
 import javax.swing.JFrame;
 
 import org.osate.ge.layout.Connection;
-import org.osate.ge.layout.DefaultLayoutScorer;
-import org.osate.ge.layout.MonteCarloLayout;
+import org.osate.ge.layout.LayoutAlgorithm;
+import org.osate.ge.layout.MonteCarloLayoutAlgorithm;
 import org.osate.ge.layout.Shape;
-import org.osate.ge.layout.MonteCarloLayout.LayoutOperation;
+import org.osate.ge.layout.SimpleLayoutAlgorithm;
 
 import com.mxgraph.swing.mxGraphComponent;
 import com.mxgraph.view.mxGraph;
@@ -27,7 +27,7 @@ import com.mxgraph.view.mxGraph;
 public class Main {	
 	public static void main(String[] args) {
 		final int numberOfTopShapes = 5;
-		final int numberOfChildShapes = 4; // Must be even
+		final int numberOfChildShapes = 16; // Must be even
 		final int numberOfConnections = 5;
 		
 		// Create shapes
@@ -45,11 +45,13 @@ public class Main {
 			for(int j = 0; j < numberOfChildShapes / 2; j++) {
 				final Shape childShape = new Shape(newShape, 0, 0, 20 + rand.nextInt(40), 20 + rand.nextInt(40), true, false, true); 
 				objectToLabelMap.put(childShape, "S" + i + "_S" + j);
+				childShape.setMinimumSize(50, 25);
 			}
 			
 			for(int j = 0; j < numberOfChildShapes / 2; j++) {
 				final Shape childShape = new Shape(newShape, 0, 0, 20 + rand.nextInt(40), 20 + rand.nextInt(40), true, false, false); 
 				objectToLabelMap.put(childShape, "S" + i + "_F" + j);
+				childShape.setMinimumSize(50, 25);
 			}
 		}
 		
@@ -90,21 +92,9 @@ public class Main {
 		}
 
 		// Create an instance of the layout class
-		final DefaultLayoutScorer scorer = new DefaultLayoutScorer();
-		scorer.setShapeIntersectionsWeight(1.0);
-		scorer.setConnectionIntersectionsWeight(0.1);
-		scorer.setShapeConnectionIntersectionsWeight(0.1);
-		scorer.setTargetConnectionLengthWeight(0.05);
-		final MonteCarloLayout layoutAlg = new MonteCarloLayout(scorer);
-		
-		// Perform the layout
-		final LayoutOperation op = layoutAlg.start(rootShapes, connections);
-		final int numberOfSamples = 100000;//2000000;	
-		for(int i = 0; i < numberOfSamples; i++) {
-			op.next();
-		}
-
-		op.accept();
+		//final LayoutAlgorithm layoutAlg = new MonteCarloLayoutAlgorithm();
+		final LayoutAlgorithm layoutAlg = new SimpleLayoutAlgorithm();
+		layoutAlg.layout(rootShapes, connections);
 
 		show(rootShapes, connections, objectToLabelMap);		
 	}

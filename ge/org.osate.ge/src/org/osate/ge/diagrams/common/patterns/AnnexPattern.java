@@ -12,6 +12,7 @@ import javax.inject.Named;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.util.EcoreUtil;
+import org.eclipse.graphiti.features.IResizeConfiguration;
 import org.eclipse.graphiti.features.context.IAddContext;
 import org.eclipse.graphiti.features.context.ICreateContext;
 import org.eclipse.graphiti.features.context.IDeleteContext;
@@ -44,6 +45,7 @@ import org.osate.aadl2.DefaultAnnexSubclause;
 import org.osate.aadl2.NamedElement;
 import org.osate.aadl2.Subcomponent;
 import org.osate.ge.diagrams.common.AadlElementWrapper;
+import org.osate.ge.diagrams.common.DefaultAgeResizeConfiguration;
 import org.osate.ge.services.AadlModificationService;
 import org.osate.ge.services.AnchorService;
 import org.osate.ge.services.BusinessObjectResolutionService;
@@ -404,7 +406,7 @@ public class AnnexPattern extends AgePattern {
 		final Shape nameShape = Objects.requireNonNull(getNameShape(containerShape), "unable to retrieve name shape");
 
 		// Determine size of the shape
-		final int[] newSize = layoutService.adjustChildShapePositions(containerShape); 
+		final int[] newSize = layoutService.getMinimumSize(containerShape); 
 
 		final GraphicsAlgorithm nameShapeGraphicsAlgorithm = nameShape.getGraphicsAlgorithm();
 
@@ -429,6 +431,13 @@ public class AnnexPattern extends AgePattern {
 		return true;
 	}
 
+	@Override
+	public IResizeConfiguration getResizeConfiguration(IResizeShapeContext context) {
+		final DefaultAgeResizeConfiguration conf = new DefaultAgeResizeConfiguration();
+		conf.setMinimumSize(layoutService.getMinimumWidth(), layoutService.getMinimumHeight());
+		return conf;		
+	}
+	
 	private static int getShapeOffsetHeight(final double deg) {
 		return (int)(Math.ceil(Math.tan(Math.toRadians(deg))*tabHeight));
 	}

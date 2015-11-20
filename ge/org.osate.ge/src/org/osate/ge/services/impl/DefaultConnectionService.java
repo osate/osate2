@@ -172,7 +172,7 @@ public class DefaultConnectionService implements ConnectionService {
 				final ILocation ownerLocation = layoutService.getLocationRelativeToDiagram(ownerShape);
 				final ILocation connectionMidpoint = layoutService.getConnectionMidpoint(connection, 0.5);
 				final String midpointAnchorName = getMidpointAnchorName(connection);
-				if(midpointAnchorName != null) {
+				if(midpointAnchorName != null && connectionMidpoint != null) {
 					anchorService.createOrUpdateFixPointAnchor(ownerShape, midpointAnchorName, connectionMidpoint.getX() - ownerLocation.getX(), connectionMidpoint.getY() - ownerLocation.getY());
 				}
 			}

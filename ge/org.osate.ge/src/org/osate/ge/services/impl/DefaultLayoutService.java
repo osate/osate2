@@ -12,11 +12,8 @@ import org.eclipse.graphiti.features.IFeatureProvider;
 import org.eclipse.graphiti.features.ILayoutFeature;
 import org.eclipse.graphiti.features.context.impl.LayoutContext;
 import org.eclipse.graphiti.mm.algorithms.GraphicsAlgorithm;
-import org.eclipse.graphiti.mm.algorithms.styles.Point;
-import org.eclipse.graphiti.mm.pictograms.Anchor;
 import org.eclipse.graphiti.mm.pictograms.ContainerShape;
 import org.eclipse.graphiti.mm.pictograms.Diagram;
-import org.eclipse.graphiti.mm.pictograms.FixPointAnchor;
 import org.eclipse.graphiti.mm.pictograms.Shape;
 import org.osate.aadl2.Feature;
 import org.osate.aadl2.InternalFeature;
@@ -33,8 +30,7 @@ public class DefaultLayoutService implements LayoutService {
 	private final IFeatureProvider fp;
 	private final static int minimumWidth = 150;
 	private final static int minimumHeight = 50;
-	private final static int minimumVerticalPadding = 30;
-	
+
 	public DefaultLayoutService(final PropertyService propertyService, final ShapeService shapeService, final BusinessObjectResolutionService bor, final IFeatureProvider fp) {
 		this.propertyService = propertyService;
 		this.shapeService = shapeService;
@@ -120,71 +116,23 @@ public class DefaultLayoutService implements LayoutService {
 	 * @see org.osate.ge.diagrams.common.util.ClassifierService#adjustChildShapePositions(org.eclipse.graphiti.mm.pictograms.ContainerShape)
 	 */
 	@Override
-	public int[] adjustChildShapePositions(final ContainerShape shape) {
-		// Determine the extra width needed to hold AADL features
-		int featureWidth = 80;
-		for(final Shape childShape : shape.getChildren()) {
-			if(isFeature(bor.getBusinessObjectForPictogramElement(childShape))) {
-				featureWidth = Math.max(featureWidth, childShape.getGraphicsAlgorithm().getWidth() + 30);
-			}
-		}		
-		
-		// Determine how much to shift the X and Y of the children by based on the position of children shapes that are not tied to features. Shift values must always be greater than or equal to 0
-		int shiftX = 0;
-		int shiftY = 0;
-		for(final Shape childShape :  shapeService.getNonGhostChildren(shape)) {
-			if(childShape.isVisible()) {
-				final Object childBo = bor.getBusinessObjectForPictogramElement(childShape);
-				final boolean childIsFeature = isFeature(childBo);
-				
-				if(!propertyService.isManuallyPositioned(childShape) && propertyService.isLayedOut(childShape)) {
-					final GraphicsAlgorithm childGa = childShape.getGraphicsAlgorithm();
-					if(childBo != null) {
-						// Currently features are only allowed to be on the left and right edges so don't take them into account when deciding to shift left or right
-						// TODO: When features are allowed to be snapped to the top and bottom, need to take into account feature position
-						if(!childIsFeature) {
-							shiftX = Math.max(shiftX, featureWidth - childGa.getX());
-						}
-						
-						shiftY = Math.max(shiftY, minimumVerticalPadding-childGa.getY());	
-					}
-				}
-			}
-		}
-		
+	public int[] getMinimumSize(final ContainerShape shape) {
 		// Calculate max width and height
 		final GraphicsAlgorithm shapeGa = shape.getGraphicsAlgorithm();
-		int maxWidth = Math.max(150, shapeGa == null ? 0 : (shapeGa.getWidth() + shiftX));
-		int maxHeight = Math.max(50, shapeGa == null ? 0 : (shapeGa.getHeight() + shiftY));
+		int maxWidth = Math.max(150, shapeGa == null ? 0 : shapeGa.getWidth());
+		int maxHeight = Math.max(50, shapeGa == null ? 0 : shapeGa.getHeight());
 		for(final Shape childShape :  shapeService.getNonGhostChildren(shape)) {
 			if(childShape.isVisible()) {
 				final Object childBo = bor.getBusinessObjectForPictogramElement(childShape);
 				final boolean childIsFeature = isFeature(childBo);
 				if(!propertyService.isManuallyPositioned(childShape) && propertyService.isLayedOut(childShape)) {
 					final GraphicsAlgorithm childGa = childShape.getGraphicsAlgorithm();
-					
-					// TODO: Will need to consider with instead of height of features if features are snapped to top or bottom
-					// Determine the needed width and height of the classifier shape and shift children
-					// Do not consider features when calculating needed width. Otherwise, features on the right side of the shape would prevent the width from shrinking
 					if(!childIsFeature) {	
-						maxWidth = Math.max(maxWidth, childGa.getX() + childGa.getWidth() + shiftX + featureWidth);
-						childGa.setX(childGa.getX()+shiftX);
+						maxWidth = Math.max(maxWidth, childGa.getX() + childGa.getWidth());
 					}			
 					
-					maxHeight = Math.max(maxHeight, childGa.getY() + childGa.getHeight() + shiftY + minimumVerticalPadding);					
-					childGa.setY(childGa.getY()+shiftY);
+					maxHeight = Math.max(maxHeight, childGa.getY() + childGa.getHeight());					
 				}
-			}
-		}
-
-		// Adjust fix point anchors
-		for(final Anchor anchor : shape.getAnchors()) {
-			if(anchor instanceof FixPointAnchor) {
-				final FixPointAnchor fixPointAnchor = (FixPointAnchor)anchor;
-				final Point l = fixPointAnchor.getLocation();
-				l.setX(l.getX() + shiftX);
-				l.setY(l.getY() + shiftY);
-				fixPointAnchor.setLocation(l);
 			}
 		}
 

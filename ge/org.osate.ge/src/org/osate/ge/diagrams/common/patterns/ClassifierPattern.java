@@ -29,6 +29,7 @@ import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.graphiti.datatypes.IDimension;
+import org.eclipse.graphiti.features.IResizeConfiguration;
 import org.eclipse.graphiti.features.context.IAddContext;
 import org.eclipse.graphiti.features.context.ICreateContext;
 import org.eclipse.graphiti.features.context.IDeleteContext;
@@ -78,6 +79,7 @@ import org.osate.aadl2.ReferenceValue;
 import org.osate.aadl2.Subcomponent;
 import org.osate.aadl2.SubcomponentType;
 import org.osate.ge.diagrams.common.AadlElementWrapper;
+import org.osate.ge.diagrams.common.DefaultAgeResizeConfiguration;
 import org.osate.ge.ext.Categorized;
 import org.osate.ge.services.AadlArrayService;
 import org.osate.ge.services.AadlFeatureService;
@@ -799,7 +801,7 @@ public class ClassifierPattern extends AgePattern implements Categorized {
 	        gaService.setLocationAndSize(subcomponentTypeText, 0, 0, paddedTypeTextWidth, paddedTypeTextHeight);
 			gaService.setLocationAndSize(subcomponentTypeLabelBackground, 0, 0, paddedTypeTextWidth, paddedTypeTextHeight);
 
-	        final int[] newSize = layoutService.adjustChildShapePositions(shape);
+	        final int[] newSize = layoutService.getMinimumSize(shape);
 	        ga = graphicsAlgorithmCreator.createClassifierGraphicsAlgorithm(shape, (Subcomponent)bo, newSize[0], newSize[1]);	                
 			gaService.setLocation(ga, x, y);
 	        
@@ -808,7 +810,7 @@ public class ClassifierPattern extends AgePattern implements Categorized {
 			gaService.setLocation(subcomponentTypeLabelBackground, (ga.getWidth() - paddedTypeTextWidth) / 2, labelText.getY()+paddedLabelTextHeight);
 		} else {
 			final Classifier classifier = getClassifier(shape);
-			final int newSize[] = layoutService.adjustChildShapePositions(shape);
+			final int newSize[] = layoutService.getMinimumSize(shape);
 			
 			// Enforce a minimum size for classifiers
 			newSize[0] = Math.max(newSize[0], 300);
@@ -1103,4 +1105,12 @@ public class ClassifierPattern extends AgePattern implements Categorized {
 		}
 		return result;
 	}
+	
+	@Override
+	public IResizeConfiguration getResizeConfiguration(IResizeShapeContext context) {
+		final DefaultAgeResizeConfiguration conf = new DefaultAgeResizeConfiguration();
+		conf.setMinimumSize(layoutService.getMinimumWidth(), layoutService.getMinimumHeight());
+		return conf;		
+	}
+	
 }

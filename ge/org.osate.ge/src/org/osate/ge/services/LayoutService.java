@@ -33,12 +33,12 @@ public interface LayoutService {
 	void layoutChildren(ContainerShape shape);
 
 	/**
-	 * Adjusts the positions of the child shapes so that they are non-negative and determines the needed size for the container. Never returns a size smaller than the current size.
+	 * Gets the minimum size of the shape. Taken into account child shapes. Never returns a size smaller than the current size.
 	 * The first element is the x-coordinate, the second element is the y-coordinate.
 	 * @param shape
 	 * @param fp
 	 */
-	int[] adjustChildShapePositions(ContainerShape shape);
+	int[] getMinimumSize(ContainerShape shape);
 	
 	/**
 	 * Returns the minimum width and height for a shape layed out in accordance to adjustChildShapePosition

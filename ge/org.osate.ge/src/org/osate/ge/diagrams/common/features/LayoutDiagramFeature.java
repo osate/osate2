@@ -37,14 +37,13 @@ import org.osate.aadl2.Feature;
 import org.osate.aadl2.InternalFeature;
 import org.osate.aadl2.ProcessorFeature;
 import org.osate.ge.diagrams.common.AgeResizeConfiguration;
-import org.osate.ge.layout.DefaultLayoutScorer;
-import org.osate.ge.layout.MonteCarloLayout;
-import org.osate.ge.layout.MonteCarloLayout.LayoutOperation;
+import org.osate.ge.layout.LayoutAlgorithm;
+import org.osate.ge.layout.MonteCarloLayoutAlgorithm;
+import org.osate.ge.layout.SimpleLayoutAlgorithm;
 import org.osate.ge.services.BusinessObjectResolutionService;
 import org.osate.ge.services.LayoutService;
 import org.osate.ge.services.PropertyService;
 import org.osate.ge.services.ShapeService;
-import org.osate.ge.util.Log;
 
 /**
  * Lays out the pictogram elements included in a diagram using an algorithm.
@@ -55,9 +54,6 @@ import org.osate.ge.util.Log;
 public class LayoutDiagramFeature extends AbstractCustomFeature {
 	private static String relayoutShapesPropertyKey = "relayout";
 	// Settings that determine how many different layouts to test. See usage for more details.
-	private static final long layoutTimeout = 2000; // In miliseconds
-	private static final int minLayoutSamples = 200000;
-	private static final int maxLayoutSamples = 1000000;
 	private final BusinessObjectResolutionService bor;
 	private final ShapeService shapeService;
 	private final LayoutService resizeHelper;
@@ -149,32 +145,14 @@ public class LayoutDiagramFeature extends AbstractCustomFeature {
 			}			
 		}
 	
-		final DefaultLayoutScorer scorer = new DefaultLayoutScorer();
-		scorer.setShapeIntersectionsWeight(1.0);
-		scorer.setConnectionIntersectionsWeight(0.1);
-		scorer.setShapeConnectionIntersectionsWeight(0.1);
-		scorer.setTargetConnectionLengthWeight(0.05);
-		final MonteCarloLayout layoutAlg = new MonteCarloLayout(scorer);
-		
-		// Perform the layout. Continue the operation until the minimum number of samples has been reached and the timeout expired or the max number of samples is reached.
-		final LayoutOperation op = layoutAlg.start(rootLayoutShapes, layoutConnections);
-		final long startTime = System.currentTimeMillis();
-		int sampleCount = 0;
-		long elapsedTime;
-		do {
-			sampleCount++;
-			op.next();
-			elapsedTime = System.currentTimeMillis() - startTime;
-		} while((((elapsedTime < layoutTimeout) && sampleCount < maxLayoutSamples) || sampleCount < minLayoutSamples));
-		
-		Log.info("Layout finished. Elapsed time: " + elapsedTime + ". Number of samples: " + sampleCount + ". Seed: " + op.getBestSeed() + ". Score: " + op.getBestScore());
-		op.accept();		
+		//final LayoutAlgorithm layoutAlg = new MonteCarloLayoutAlgorithm();
+		final LayoutAlgorithm layoutAlg = new SimpleLayoutAlgorithm();
+		layoutAlg.layout(rootLayoutShapes, layoutConnections);
 
 		// Update the diagram's shapes
 		for(final org.osate.ge.layout.Shape layoutShape : rootLayoutShapes) {
 			updateShape(layoutShape, shapeMap);
 		}
-
 		
 		return true;
 	}
@@ -182,7 +160,7 @@ public class LayoutDiagramFeature extends AbstractCustomFeature {
 	private org.osate.ge.layout.Shape createLayoutShape(final Shape diagramShape, Map<Object, Object> shapeMap, final org.osate.ge.layout.Shape parentLayoutShape, final boolean relayoutShapes) {
 		// Restrict what shapes are positioned
 		final Object bo = bor.getBusinessObjectForPictogramElement(diagramShape);
-		
+
 		// Determine whether the shape may be moved 			
 		// Don't change the position of shapes that have already been positioned if not repositioning all shapes
 		final boolean locked;
@@ -200,7 +178,6 @@ public class LayoutDiagramFeature extends AbstractCustomFeature {
 		final IResizeShapeFeature resizeFeature = getFeatureProvider().getResizeShapeFeature(resizeContext);
 		final boolean canResize = resizeFeature != null && resizeFeature.canResizeShape(resizeContext);
 		final org.osate.ge.layout.Shape newLayoutShape = new org.osate.ge.layout.Shape(parentLayoutShape, ga.getX(), ga.getY(), ga.getWidth(), ga.getHeight(), canResize, locked, positionOnEdge);
-
 		final IResizeConfiguration resizeConfiguration = resizeFeature == null ? null : resizeFeature.getResizeConfiguration(resizeContext);
 		if(resizeConfiguration instanceof AgeResizeConfiguration) {
 			final AgeResizeConfiguration ageConf = (AgeResizeConfiguration)resizeConfiguration;
@@ -208,7 +185,7 @@ public class LayoutDiagramFeature extends AbstractCustomFeature {
 				newLayoutShape.setMinimumSize(ageConf.getMinimumWidth(), ageConf.getMinimumHeight());
 			}
 		}		
-		
+
 		shapeMap.put(newLayoutShape, diagramShape);
 		shapeMap.put(diagramShape, newLayoutShape);
 
@@ -223,7 +200,7 @@ public class LayoutDiagramFeature extends AbstractCustomFeature {
 				}		
 			}
 		}
-		
+
 		return newLayoutShape;
 	}
 	
@@ -276,6 +253,13 @@ public class LayoutDiagramFeature extends AbstractCustomFeature {
 			}
 			
 			propertyService.setIsLayedOut(diagramShape, true);
+		}
+		
+		// Reposition docked shapes after the container has layed out to ensure the shapes are docked to the appropriate edge
+		for(final org.osate.ge.layout.Shape childLayoutShape : layoutShape.getChildren()) {
+			if(childLayoutShape.positionOnEdge()) {
+				updateShape(childLayoutShape, shapeMap);
+			}
 		}
 		
 		// Check the diagram shape's size and container size?
