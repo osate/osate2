@@ -37,6 +37,7 @@ import org.osate.aadl2.Feature;
 import org.osate.aadl2.InternalFeature;
 import org.osate.aadl2.ProcessorFeature;
 import org.osate.ge.diagrams.common.AgeResizeConfiguration;
+import org.osate.ge.layout.DefaultLayoutScorer;
 import org.osate.ge.layout.MonteCarloLayout;
 import org.osate.ge.layout.MonteCarloLayout.LayoutOperation;
 import org.osate.ge.services.BusinessObjectResolutionService;
@@ -148,11 +149,12 @@ public class LayoutDiagramFeature extends AbstractCustomFeature {
 			}			
 		}
 	
-		final MonteCarloLayout layoutAlg = new MonteCarloLayout();
-		layoutAlg.setShapeIntersectionsWeight(1.0);
-		layoutAlg.setConnectionIntersectionsWeight(0.1);
-		layoutAlg.setShapeConnectionIntersectionsWeight(0.1);
-		layoutAlg.setTargetConnectionLengthWeight(0.05);
+		final DefaultLayoutScorer scorer = new DefaultLayoutScorer();
+		scorer.setShapeIntersectionsWeight(1.0);
+		scorer.setConnectionIntersectionsWeight(0.1);
+		scorer.setShapeConnectionIntersectionsWeight(0.1);
+		scorer.setTargetConnectionLengthWeight(0.05);
+		final MonteCarloLayout layoutAlg = new MonteCarloLayout(scorer);
 		
 		// Perform the layout. Continue the operation until the minimum number of samples has been reached and the timeout expired or the max number of samples is reached.
 		final LayoutOperation op = layoutAlg.start(rootLayoutShapes, layoutConnections);

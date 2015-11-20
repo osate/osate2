@@ -16,6 +16,7 @@ import java.util.Random;
 import javax.swing.JFrame;
 
 import org.osate.ge.layout.Connection;
+import org.osate.ge.layout.DefaultLayoutScorer;
 import org.osate.ge.layout.MonteCarloLayout;
 import org.osate.ge.layout.Shape;
 import org.osate.ge.layout.MonteCarloLayout.LayoutOperation;
@@ -89,11 +90,12 @@ public class Main {
 		}
 
 		// Create an instance of the layout class
-		final MonteCarloLayout layoutAlg = new MonteCarloLayout();
-		layoutAlg.setShapeIntersectionsWeight(1.0);
-		layoutAlg.setConnectionIntersectionsWeight(0.1);
-		layoutAlg.setShapeConnectionIntersectionsWeight(0.1);
-		layoutAlg.setTargetConnectionLengthWeight(0.05);
+		final DefaultLayoutScorer scorer = new DefaultLayoutScorer();
+		scorer.setShapeIntersectionsWeight(1.0);
+		scorer.setConnectionIntersectionsWeight(0.1);
+		scorer.setShapeConnectionIntersectionsWeight(0.1);
+		scorer.setTargetConnectionLengthWeight(0.05);
+		final MonteCarloLayout layoutAlg = new MonteCarloLayout(scorer);
 		
 		// Perform the layout
 		final LayoutOperation op = layoutAlg.start(rootShapes, connections);

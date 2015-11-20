@@ -791,6 +791,7 @@
 			<section>
 				<title>Services</title>
 				<para>The graphical editor provides a limited set of services to extensions via dependency injection. The services are designed to provide a stable interface to capabilities which are needed when implementing extensions. Services provided for use by extensions are defined in the <emphasis>TBD</emphasis> package.</para>
+				<para><emphasis role="bold">Unless otherwise noted, extensions may be reused between diagrams. To avoid increased unnecessary memory usage, extensions should not retain references to services.</emphasis></para>
 				<para><emphasis role="bold">The set of services which will be provided to extensions has not yet been finalized.</emphasis></para>
 			</section>
 			<section>

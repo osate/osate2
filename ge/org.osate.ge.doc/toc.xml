@@ -106,19 +106,19 @@
    <topic label="Developing Extensions" href="output/ch04.html">
       <topic label="General Information" href="output/ch04.html#d0e1119">
          <topic label="Services" href="output/ch04.html#d0e1126"/>
-         <topic label="Annotations" href="output/ch04.html#d0e1137"/>
+         <topic label="Annotations" href="output/ch04.html#d0e1140"/>
       </topic>
       <topic label="Extension Points" href="output/ch04s02.html">
-         <topic label="Tools" href="output/ch04s02.html#d0e1153"/>
-         <topic label="Adding Support for a new Business Object" href="output/ch04s02.html#d0e1202">
-            <topic label="Styles" href="output/ch04s02.html#d0e1208"/>
-            <topic label="Categories" href="output/ch04s02.html#d0e1236"/>
-            <topic label="Images" href="output/ch04s02.html#d0e1244"/>
+         <topic label="Tools" href="output/ch04s02.html#d0e1156"/>
+         <topic label="Adding Support for a new Business Object" href="output/ch04s02.html#d0e1205">
+            <topic label="Styles" href="output/ch04s02.html#d0e1211"/>
+            <topic label="Categories" href="output/ch04s02.html#d0e1239"/>
+            <topic label="Images" href="output/ch04s02.html#d0e1247"/>
          </topic>
       </topic>
    </topic>
    <topic label="Troubleshooting" href="output/ch05.html">
-      <topic label="Build Automatically" href="output/ch05.html#d0e1257"/>
+      <topic label="Build Automatically" href="output/ch05.html#d0e1260"/>
       <topic label="Updating a Diagram" href="output/ch05s02.html"/>
       <topic label="Reporting Bugs" href="output/ch05s03.html"/>
    </topic>
