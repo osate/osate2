@@ -1991,9 +1991,16 @@ rule__StakeholderGoals__Alternatives_4_1
 )
 
     |(
+(
 { before(grammarAccess.getStakeholderGoalsAccess().getCategoryAssignment_4_1_1()); }
 (rule__StakeholderGoals__CategoryAssignment_4_1_1)
 { after(grammarAccess.getStakeholderGoalsAccess().getCategoryAssignment_4_1_1()); }
+)
+(
+{ before(grammarAccess.getStakeholderGoalsAccess().getCategoryAssignment_4_1_1()); }
+(rule__StakeholderGoals__CategoryAssignment_4_1_1)*
+{ after(grammarAccess.getStakeholderGoalsAccess().getCategoryAssignment_4_1_1()); }
+)
 )
 
     |(
@@ -2075,9 +2082,16 @@ rule__SystemRequirements__Alternatives_4_1
 )
 
     |(
+(
 { before(grammarAccess.getSystemRequirementsAccess().getCategoryAssignment_4_1_1()); }
 (rule__SystemRequirements__CategoryAssignment_4_1_1)
 { after(grammarAccess.getSystemRequirementsAccess().getCategoryAssignment_4_1_1()); }
+)
+(
+{ before(grammarAccess.getSystemRequirementsAccess().getCategoryAssignment_4_1_1()); }
+(rule__SystemRequirements__CategoryAssignment_4_1_1)*
+{ after(grammarAccess.getSystemRequirementsAccess().getCategoryAssignment_4_1_1()); }
+)
 )
 
     |(

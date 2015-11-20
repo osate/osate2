@@ -39917,24 +39917,28 @@ public class InternalVerifyParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__VerificationPlan__NameAssignment_2"
-    // ../org.osate.verify.ui/src-gen/org/osate/verify/ui/contentassist/antlr/internal/InternalVerify.g:14060:1: rule__VerificationPlan__NameAssignment_2 : ( RULE_ID ) ;
+    // ../org.osate.verify.ui/src-gen/org/osate/verify/ui/contentassist/antlr/internal/InternalVerify.g:14060:1: rule__VerificationPlan__NameAssignment_2 : ( ruleQualifiedName ) ;
     public final void rule__VerificationPlan__NameAssignment_2() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.osate.verify.ui/src-gen/org/osate/verify/ui/contentassist/antlr/internal/InternalVerify.g:14064:1: ( ( RULE_ID ) )
-            // ../org.osate.verify.ui/src-gen/org/osate/verify/ui/contentassist/antlr/internal/InternalVerify.g:14065:1: ( RULE_ID )
+            // ../org.osate.verify.ui/src-gen/org/osate/verify/ui/contentassist/antlr/internal/InternalVerify.g:14064:1: ( ( ruleQualifiedName ) )
+            // ../org.osate.verify.ui/src-gen/org/osate/verify/ui/contentassist/antlr/internal/InternalVerify.g:14065:1: ( ruleQualifiedName )
             {
-            // ../org.osate.verify.ui/src-gen/org/osate/verify/ui/contentassist/antlr/internal/InternalVerify.g:14065:1: ( RULE_ID )
-            // ../org.osate.verify.ui/src-gen/org/osate/verify/ui/contentassist/antlr/internal/InternalVerify.g:14066:1: RULE_ID
+            // ../org.osate.verify.ui/src-gen/org/osate/verify/ui/contentassist/antlr/internal/InternalVerify.g:14065:1: ( ruleQualifiedName )
+            // ../org.osate.verify.ui/src-gen/org/osate/verify/ui/contentassist/antlr/internal/InternalVerify.g:14066:1: ruleQualifiedName
             {
             if ( state.backtracking==0 ) {
-               before(grammarAccess.getVerificationPlanAccess().getNameIDTerminalRuleCall_2_0()); 
+               before(grammarAccess.getVerificationPlanAccess().getNameQualifiedNameParserRuleCall_2_0()); 
             }
-            match(input,RULE_ID,FOLLOW_RULE_ID_in_rule__VerificationPlan__NameAssignment_229060); if (state.failed) return ;
+            pushFollow(FOLLOW_ruleQualifiedName_in_rule__VerificationPlan__NameAssignment_229060);
+            ruleQualifiedName();
+
+            state._fsp--;
+            if (state.failed) return ;
             if ( state.backtracking==0 ) {
-               after(grammarAccess.getVerificationPlanAccess().getNameIDTerminalRuleCall_2_0()); 
+               after(grammarAccess.getVerificationPlanAccess().getNameQualifiedNameParserRuleCall_2_0()); 
             }
 
             }
@@ -46385,7 +46389,8 @@ public class InternalVerifyParser extends AbstractInternalContentAssistParser {
     static final String DFA110_specialS =
         "\1\0\11\uffff}>";
     static final String[] DFA110_transitionS = {
-            "\1\11\16\uffff\1\10\3\uffff\1\6\1\7\3\uffff\1\1\1\2\1\3\1\4\1\5",
+            "\1\11\16\uffff\1\10\3\uffff\1\6\1\7\3\uffff\1\1\1\2\1\3\1\4"+
+            "\1\5",
             "",
             "",
             "",
@@ -46483,7 +46488,8 @@ public class InternalVerifyParser extends AbstractInternalContentAssistParser {
     static final String DFA111_specialS =
         "\1\0\11\uffff}>";
     static final String[] DFA111_transitionS = {
-            "\1\11\16\uffff\1\10\3\uffff\1\6\1\7\3\uffff\1\1\1\2\1\3\1\4\1\5",
+            "\1\11\16\uffff\1\10\3\uffff\1\6\1\7\3\uffff\1\1\1\2\1\3\1\4"+
+            "\1\5",
             "",
             "",
             "",
@@ -46581,7 +46587,8 @@ public class InternalVerifyParser extends AbstractInternalContentAssistParser {
     static final String DFA112_specialS =
         "\1\0\11\uffff}>";
     static final String[] DFA112_transitionS = {
-            "\1\11\16\uffff\1\10\3\uffff\1\6\1\7\3\uffff\1\1\1\2\1\3\1\4\1\5",
+            "\1\11\16\uffff\1\10\3\uffff\1\6\1\7\3\uffff\1\1\1\2\1\3\1\4"+
+            "\1\5",
             "",
             "",
             "",
@@ -47854,7 +47861,7 @@ public class InternalVerifyParser extends AbstractInternalContentAssistParser {
     public static final BitSet FOLLOW_rule__VerificationMethod__UnorderedGroup_5__3_in_rule__VerificationMethod__UnorderedGroup_5__228965 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_rule__VerificationMethod__UnorderedGroup_5__Impl_in_rule__VerificationMethod__UnorderedGroup_5__328990 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_rule__Verification__ContentsAlternatives_0_in_rule__Verification__ContentsAssignment29027 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_RULE_ID_in_rule__VerificationPlan__NameAssignment_229060 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleQualifiedName_in_rule__VerificationPlan__NameAssignment_229060 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_RULE_STRING_in_rule__VerificationPlan__TitleAssignment_3_129091 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_ruleQualifiedName_in_rule__VerificationPlan__SystemRequirementsAssignment_529126 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_ruleDescription_in_rule__VerificationPlan__DescriptionAssignment_7_029161 = new BitSet(new long[]{0x0000000000000002L});

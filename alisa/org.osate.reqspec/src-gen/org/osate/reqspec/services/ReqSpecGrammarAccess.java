@@ -231,14 +231,14 @@ public class ReqSpecGrammarAccess extends AbstractGrammarElementFinder {
 		
 		//StakeholderGoals:
 		//	"stakeholder" "goals" name=QualifiedName (":" title=STRING)? ("for"
-		//	(target=[aadl2::ComponentClassifier|AadlClassifierReference] | category=[categories::ComponentCategory] |
-		//	global?="all")) ("use" "constants" importConstants+=[GlobalConstants|QualifiedName]+)? "[" (description=Description? &
-		//	constants+=ValDeclaration* & content+=Goal* & ("see" "document" docReference+=ExternalDocument+)? & ("issues"
+		//	(target=[aadl2::ComponentClassifier|AadlClassifierReference] | category+=[categories::ComponentCategory]+ |
+		//	global?="all")) ("use" "constants" importConstants+=[GlobalConstants|QualifiedName]+)? "[" (description=Description?
+		//	& constants+=ValDeclaration* & content+=Goal* & ("see" "document" docReference+=ExternalDocument+)? & ("issues"
 		//	issues+=STRING+)?) "]";
 		@Override public ParserRule getRule() { return rule; }
 
 		//"stakeholder" "goals" name=QualifiedName (":" title=STRING)? ("for"
-		//(target=[aadl2::ComponentClassifier|AadlClassifierReference] | category=[categories::ComponentCategory] |
+		//(target=[aadl2::ComponentClassifier|AadlClassifierReference] | category+=[categories::ComponentCategory]+ |
 		//global?="all")) ("use" "constants" importConstants+=[GlobalConstants|QualifiedName]+)? "[" (description=Description? &
 		//constants+=ValDeclaration* & content+=Goal* & ("see" "document" docReference+=ExternalDocument+)? & ("issues"
 		//issues+=STRING+)?) "]"
@@ -268,14 +268,14 @@ public class ReqSpecGrammarAccess extends AbstractGrammarElementFinder {
 		//STRING
 		public RuleCall getTitleSTRINGTerminalRuleCall_3_1_0() { return cTitleSTRINGTerminalRuleCall_3_1_0; }
 
-		//"for" (target=[aadl2::ComponentClassifier|AadlClassifierReference] | category=[categories::ComponentCategory] |
+		//"for" (target=[aadl2::ComponentClassifier|AadlClassifierReference] | category+=[categories::ComponentCategory]+ |
 		//global?="all")
 		public Group getGroup_4() { return cGroup_4; }
 
 		//"for"
 		public Keyword getForKeyword_4_0() { return cForKeyword_4_0; }
 
-		//target=[aadl2::ComponentClassifier|AadlClassifierReference] | category=[categories::ComponentCategory] | global?="all"
+		//target=[aadl2::ComponentClassifier|AadlClassifierReference] | category+=[categories::ComponentCategory]+ | global?="all"
 		public Alternatives getAlternatives_4_1() { return cAlternatives_4_1; }
 
 		//target=[aadl2::ComponentClassifier|AadlClassifierReference]
@@ -287,7 +287,7 @@ public class ReqSpecGrammarAccess extends AbstractGrammarElementFinder {
 		//AadlClassifierReference
 		public RuleCall getTargetComponentClassifierAadlClassifierReferenceParserRuleCall_4_1_0_0_1() { return cTargetComponentClassifierAadlClassifierReferenceParserRuleCall_4_1_0_0_1; }
 
-		//category=[categories::ComponentCategory]
+		//category+=[categories::ComponentCategory]+
 		public Assignment getCategoryAssignment_4_1_1() { return cCategoryAssignment_4_1_1; }
 
 		//[categories::ComponentCategory]
@@ -402,8 +402,8 @@ public class ReqSpecGrammarAccess extends AbstractGrammarElementFinder {
 		private final Keyword cRightSquareBracketKeyword_5 = (Keyword)cGroup.eContents().get(5);
 		
 		//ReqDocument:
-		//	"document" name=QualifiedName (":" title=STRING)? "[" (description=Description? & content+=(DocGoal | DocRequirement |
-		//	DocumentSection)* & ("issues" issues+=STRING+)?) "]";
+		//	"document" name=QualifiedName (":" title=STRING)? "[" (description=Description? & content+=(DocGoal | DocRequirement
+		//	| DocumentSection)* & ("issues" issues+=STRING+)?) "]";
 		@Override public ParserRule getRule() { return rule; }
 
 		//"document" name=QualifiedName (":" title=STRING)? "[" (description=Description? & content+=(DocGoal | DocRequirement |
@@ -607,16 +607,14 @@ public class ReqSpecGrammarAccess extends AbstractGrammarElementFinder {
 		
 		//SystemRequirements:
 		//	"system" "requirements" name=QualifiedName (":" title=STRING)? // 'requirement' 'specification'
-		//	//	('import' importedNamespace=QualifiedNameWithWildCard)?
-		//	("for" (target=[aadl2::ComponentClassifier|AadlClassifierReference] | category=[categories::ComponentCategory] |
-		//	global?="all")) ("use" "constants" importConstants+=[GlobalConstants|QualifiedName]+)? "[" (description=Description? &
-		//	constants+=ValDeclaration* & computes+=ComputeDeclaration* & content+=Requirement* & ("see" "document"
+		//	("for" (target=[aadl2::ComponentClassifier|AadlClassifierReference] | category+=[categories::ComponentCategory]+ |
+		//	global?="all")) ("use" "constants" importConstants+=[GlobalConstants|QualifiedName]+)? "[" (description=Description?
+		//	& constants+=ValDeclaration* & computes+=ComputeDeclaration* & content+=Requirement* & ("see" "document"
 		//	docReference+=ExternalDocument+)? & ("issues" issues+=STRING+)?) "]";
 		@Override public ParserRule getRule() { return rule; }
 
 		//"system" "requirements" name=QualifiedName (":" title=STRING)? // 'requirement' 'specification'
-		////	('import' importedNamespace=QualifiedNameWithWildCard)?
-		//("for" (target=[aadl2::ComponentClassifier|AadlClassifierReference] | category=[categories::ComponentCategory] |
+		//("for" (target=[aadl2::ComponentClassifier|AadlClassifierReference] | category+=[categories::ComponentCategory]+ |
 		//global?="all")) ("use" "constants" importConstants+=[GlobalConstants|QualifiedName]+)? "[" (description=Description? &
 		//constants+=ValDeclaration* & computes+=ComputeDeclaration* & content+=Requirement* & ("see" "document"
 		//docReference+=ExternalDocument+)? & ("issues" issues+=STRING+)?) "]"
@@ -646,14 +644,14 @@ public class ReqSpecGrammarAccess extends AbstractGrammarElementFinder {
 		//STRING
 		public RuleCall getTitleSTRINGTerminalRuleCall_3_1_0() { return cTitleSTRINGTerminalRuleCall_3_1_0; }
 
-		//"for" (target=[aadl2::ComponentClassifier|AadlClassifierReference] | category=[categories::ComponentCategory] |
+		//"for" (target=[aadl2::ComponentClassifier|AadlClassifierReference] | category+=[categories::ComponentCategory]+ |
 		//global?="all")
 		public Group getGroup_4() { return cGroup_4; }
 
 		//"for"
 		public Keyword getForKeyword_4_0() { return cForKeyword_4_0; }
 
-		//target=[aadl2::ComponentClassifier|AadlClassifierReference] | category=[categories::ComponentCategory] | global?="all"
+		//target=[aadl2::ComponentClassifier|AadlClassifierReference] | category+=[categories::ComponentCategory]+ | global?="all"
 		public Alternatives getAlternatives_4_1() { return cAlternatives_4_1; }
 
 		//target=[aadl2::ComponentClassifier|AadlClassifierReference]
@@ -665,7 +663,7 @@ public class ReqSpecGrammarAccess extends AbstractGrammarElementFinder {
 		//AadlClassifierReference
 		public RuleCall getTargetComponentClassifierAadlClassifierReferenceParserRuleCall_4_1_0_0_1() { return cTargetComponentClassifierAadlClassifierReferenceParserRuleCall_4_1_0_0_1; }
 
-		//category=[categories::ComponentCategory]
+		//category+=[categories::ComponentCategory]+
 		public Assignment getCategoryAssignment_4_1_1() { return cCategoryAssignment_4_1_1; }
 
 		//[categories::ComponentCategory]
@@ -846,19 +844,20 @@ public class ReqSpecGrammarAccess extends AbstractGrammarElementFinder {
 		//	("for" (targetDescription=STRING | target=[aadl2::ComponentClassifier|AadlClassifierReference]
 		//	targetElement=[aadl2::NamedElement]?))? "[" (("category" category+=[categories::Category]+)? &
 		//	description=Description? & constants+=ValDeclaration* & rationale=Rationale? & changeUncertainty=Uncertainty? &
-		//	("refines" refinesReference+=[Goal|QualifiedName]+)? & ("conflicts" "with" conflictsReference+=[Goal|QualifiedName]+)?
-		//	& ("evolves" evolvesReference+=[Requirement|QualifiedName]+)? & (dropped?="dropped" dropRationale=STRING?)? &
-		//	("stakeholder" stakeholderReference+=[org::Stakeholder|QualifiedName]+)? & ("see" "document" "requirement"
+		//	("refines" refinesReference+=[Goal|QualifiedName]+)? & ("conflicts" "with"
+		//	conflictsReference+=[Goal|QualifiedName]+)? & ("evolves" evolvesReference+=[Requirement|QualifiedName]+)? &
+		//	(dropped?="dropped" dropRationale=STRING?)? & ("stakeholder"
+		//	stakeholderReference+=[org::Stakeholder|QualifiedName]+)? & ("see" "document" "requirement"
 		//	documentRequirement+=[ContractualElement|QualifiedName]+)? & ("see" "document" docReference+=ExternalDocument+)? &
 		//	("issues" issues+=STRING+)?) "]";
 		@Override public ParserRule getRule() { return rule; }
 
 		//"goal" name=ID (":" title=STRING)? // short string for title
 		//("for" (targetDescription=STRING | target=[aadl2::ComponentClassifier|AadlClassifierReference]
-		//targetElement=[aadl2::NamedElement]?))? "[" (("category" category+=[categories::Category]+)? & description=Description?
-		//& constants+=ValDeclaration* & rationale=Rationale? & changeUncertainty=Uncertainty? & ("refines"
-		//refinesReference+=[Goal|QualifiedName]+)? & ("conflicts" "with" conflictsReference+=[Goal|QualifiedName]+)? &
-		//("evolves" evolvesReference+=[Requirement|QualifiedName]+)? & (dropped?="dropped" dropRationale=STRING?)? &
+		//targetElement=[aadl2::NamedElement]?))? "[" (("category" category+=[categories::Category]+)? &
+		//description=Description? & constants+=ValDeclaration* & rationale=Rationale? & changeUncertainty=Uncertainty? &
+		//("refines" refinesReference+=[Goal|QualifiedName]+)? & ("conflicts" "with" conflictsReference+=[Goal|QualifiedName]+)?
+		//& ("evolves" evolvesReference+=[Requirement|QualifiedName]+)? & (dropped?="dropped" dropRationale=STRING?)? &
 		//("stakeholder" stakeholderReference+=[org::Stakeholder|QualifiedName]+)? & ("see" "document" "requirement"
 		//documentRequirement+=[ContractualElement|QualifiedName]+)? & ("see" "document" docReference+=ExternalDocument+)? &
 		//("issues" issues+=STRING+)?) "]"
@@ -1182,9 +1181,10 @@ public class ReqSpecGrammarAccess extends AbstractGrammarElementFinder {
 		//	"goal" name=ID (":" title=STRING)? // short string for title
 		//	("for" targetElement=[aadl2::NamedElement])? "[" (("category" category+=[categories::Category]+)? //	 &('refined' 'to' '['refinedGoal+=Goal+ ']')? 
 		//	& description=Description? & constants+=ValDeclaration* & rationale=Rationale? & changeUncertainty=Uncertainty? &
-		//	("refines" refinesReference+=[Goal|QualifiedName]+)? & ("conflicts" "with" conflictsReference+=[Goal|QualifiedName]+)?
-		//	& ("evolves" evolvesReference+=[Requirement|QualifiedName]+)? & (dropped?="dropped" dropRationale=STRING?)? &
-		//	("stakeholder" stakeholderReference+=[org::Stakeholder|QualifiedName]+)? & ("see" "document" "requirement"
+		//	("refines" refinesReference+=[Goal|QualifiedName]+)? & ("conflicts" "with"
+		//	conflictsReference+=[Goal|QualifiedName]+)? & ("evolves" evolvesReference+=[Requirement|QualifiedName]+)? &
+		//	(dropped?="dropped" dropRationale=STRING?)? & ("stakeholder"
+		//	stakeholderReference+=[org::Stakeholder|QualifiedName]+)? & ("see" "document" "requirement"
 		//	documentRequirement+=[ContractualElement|QualifiedName]+)? & ("see" "document" docReference+=ExternalDocument+)? &
 		//	("issues" issues+=STRING+)?) "]";
 		@Override public ParserRule getRule() { return rule; }
@@ -2639,9 +2639,9 @@ public class ReqSpecGrammarAccess extends AbstractGrammarElementFinder {
 
 	//StakeholderGoals:
 	//	"stakeholder" "goals" name=QualifiedName (":" title=STRING)? ("for"
-	//	(target=[aadl2::ComponentClassifier|AadlClassifierReference] | category=[categories::ComponentCategory] |
-	//	global?="all")) ("use" "constants" importConstants+=[GlobalConstants|QualifiedName]+)? "[" (description=Description? &
-	//	constants+=ValDeclaration* & content+=Goal* & ("see" "document" docReference+=ExternalDocument+)? & ("issues"
+	//	(target=[aadl2::ComponentClassifier|AadlClassifierReference] | category+=[categories::ComponentCategory]+ |
+	//	global?="all")) ("use" "constants" importConstants+=[GlobalConstants|QualifiedName]+)? "[" (description=Description?
+	//	& constants+=ValDeclaration* & content+=Goal* & ("see" "document" docReference+=ExternalDocument+)? & ("issues"
 	//	issues+=STRING+)?) "]";
 	public StakeholderGoalsElements getStakeholderGoalsAccess() {
 		return pStakeholderGoals;
@@ -2652,8 +2652,8 @@ public class ReqSpecGrammarAccess extends AbstractGrammarElementFinder {
 	}
 
 	//ReqDocument:
-	//	"document" name=QualifiedName (":" title=STRING)? "[" (description=Description? & content+=(DocGoal | DocRequirement |
-	//	DocumentSection)* & ("issues" issues+=STRING+)?) "]";
+	//	"document" name=QualifiedName (":" title=STRING)? "[" (description=Description? & content+=(DocGoal | DocRequirement
+	//	| DocumentSection)* & ("issues" issues+=STRING+)?) "]";
 	public ReqDocumentElements getReqDocumentAccess() {
 		return pReqDocument;
 	}
@@ -2675,10 +2675,9 @@ public class ReqSpecGrammarAccess extends AbstractGrammarElementFinder {
 
 	//SystemRequirements:
 	//	"system" "requirements" name=QualifiedName (":" title=STRING)? // 'requirement' 'specification'
-	//	//	('import' importedNamespace=QualifiedNameWithWildCard)?
-	//	("for" (target=[aadl2::ComponentClassifier|AadlClassifierReference] | category=[categories::ComponentCategory] |
-	//	global?="all")) ("use" "constants" importConstants+=[GlobalConstants|QualifiedName]+)? "[" (description=Description? &
-	//	constants+=ValDeclaration* & computes+=ComputeDeclaration* & content+=Requirement* & ("see" "document"
+	//	("for" (target=[aadl2::ComponentClassifier|AadlClassifierReference] | category+=[categories::ComponentCategory]+ |
+	//	global?="all")) ("use" "constants" importConstants+=[GlobalConstants|QualifiedName]+)? "[" (description=Description?
+	//	& constants+=ValDeclaration* & computes+=ComputeDeclaration* & content+=Requirement* & ("see" "document"
 	//	docReference+=ExternalDocument+)? & ("issues" issues+=STRING+)?) "]";
 	public SystemRequirementsElements getSystemRequirementsAccess() {
 		return pSystemRequirements;
@@ -2693,9 +2692,10 @@ public class ReqSpecGrammarAccess extends AbstractGrammarElementFinder {
 	//	("for" (targetDescription=STRING | target=[aadl2::ComponentClassifier|AadlClassifierReference]
 	//	targetElement=[aadl2::NamedElement]?))? "[" (("category" category+=[categories::Category]+)? &
 	//	description=Description? & constants+=ValDeclaration* & rationale=Rationale? & changeUncertainty=Uncertainty? &
-	//	("refines" refinesReference+=[Goal|QualifiedName]+)? & ("conflicts" "with" conflictsReference+=[Goal|QualifiedName]+)?
-	//	& ("evolves" evolvesReference+=[Requirement|QualifiedName]+)? & (dropped?="dropped" dropRationale=STRING?)? &
-	//	("stakeholder" stakeholderReference+=[org::Stakeholder|QualifiedName]+)? & ("see" "document" "requirement"
+	//	("refines" refinesReference+=[Goal|QualifiedName]+)? & ("conflicts" "with"
+	//	conflictsReference+=[Goal|QualifiedName]+)? & ("evolves" evolvesReference+=[Requirement|QualifiedName]+)? &
+	//	(dropped?="dropped" dropRationale=STRING?)? & ("stakeholder"
+	//	stakeholderReference+=[org::Stakeholder|QualifiedName]+)? & ("see" "document" "requirement"
 	//	documentRequirement+=[ContractualElement|QualifiedName]+)? & ("see" "document" docReference+=ExternalDocument+)? &
 	//	("issues" issues+=STRING+)?) "]";
 	public DocGoalElements getDocGoalAccess() {
@@ -2710,9 +2710,10 @@ public class ReqSpecGrammarAccess extends AbstractGrammarElementFinder {
 	//	"goal" name=ID (":" title=STRING)? // short string for title
 	//	("for" targetElement=[aadl2::NamedElement])? "[" (("category" category+=[categories::Category]+)? //	 &('refined' 'to' '['refinedGoal+=Goal+ ']')? 
 	//	& description=Description? & constants+=ValDeclaration* & rationale=Rationale? & changeUncertainty=Uncertainty? &
-	//	("refines" refinesReference+=[Goal|QualifiedName]+)? & ("conflicts" "with" conflictsReference+=[Goal|QualifiedName]+)?
-	//	& ("evolves" evolvesReference+=[Requirement|QualifiedName]+)? & (dropped?="dropped" dropRationale=STRING?)? &
-	//	("stakeholder" stakeholderReference+=[org::Stakeholder|QualifiedName]+)? & ("see" "document" "requirement"
+	//	("refines" refinesReference+=[Goal|QualifiedName]+)? & ("conflicts" "with"
+	//	conflictsReference+=[Goal|QualifiedName]+)? & ("evolves" evolvesReference+=[Requirement|QualifiedName]+)? &
+	//	(dropped?="dropped" dropRationale=STRING?)? & ("stakeholder"
+	//	stakeholderReference+=[org::Stakeholder|QualifiedName]+)? & ("see" "document" "requirement"
 	//	documentRequirement+=[ContractualElement|QualifiedName]+)? & ("see" "document" docReference+=ExternalDocument+)? &
 	//	("issues" issues+=STRING+)?) "]";
 	public GoalElements getGoalAccess() {

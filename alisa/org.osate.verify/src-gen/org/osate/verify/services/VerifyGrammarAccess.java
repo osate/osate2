@@ -60,7 +60,7 @@ public class VerifyGrammarAccess extends AbstractGrammarElementFinder {
 		private final Keyword cVerificationKeyword_0 = (Keyword)cGroup.eContents().get(0);
 		private final Keyword cPlanKeyword_1 = (Keyword)cGroup.eContents().get(1);
 		private final Assignment cNameAssignment_2 = (Assignment)cGroup.eContents().get(2);
-		private final RuleCall cNameIDTerminalRuleCall_2_0 = (RuleCall)cNameAssignment_2.eContents().get(0);
+		private final RuleCall cNameQualifiedNameParserRuleCall_2_0 = (RuleCall)cNameAssignment_2.eContents().get(0);
 		private final Group cGroup_3 = (Group)cGroup.eContents().get(3);
 		private final Keyword cColonKeyword_3_0 = (Keyword)cGroup_3.eContents().get(0);
 		private final Assignment cTitleAssignment_3_1 = (Assignment)cGroup_3.eContents().get(1);
@@ -84,12 +84,14 @@ public class VerifyGrammarAccess extends AbstractGrammarElementFinder {
 		private final Keyword cRightSquareBracketKeyword_8 = (Keyword)cGroup.eContents().get(8);
 		
 		//VerificationPlan:
-		//	"verification" "plan" name=ID (":" title=STRING)? "for" systemRequirements=[ReqSpec::SystemRequirements|QualifiedName]
-		//	"[" (description=Description? & claim+=Claim* & rationale=Rationale? & ("issues" issues+=STRING+)?) "]";
+		//	"verification" "plan" name=QualifiedName (":" title=STRING)? "for"
+		//	systemRequirements=[ReqSpec::SystemRequirements|QualifiedName] "[" (description=Description? & claim+=Claim* &
+		//	rationale=Rationale? & ("issues" issues+=STRING+)?) "]";
 		@Override public ParserRule getRule() { return rule; }
 
-		//"verification" "plan" name=ID (":" title=STRING)? "for" systemRequirements=[ReqSpec::SystemRequirements|QualifiedName]
-		//"[" (description=Description? & claim+=Claim* & rationale=Rationale? & ("issues" issues+=STRING+)?) "]"
+		//"verification" "plan" name=QualifiedName (":" title=STRING)? "for"
+		//systemRequirements=[ReqSpec::SystemRequirements|QualifiedName] "[" (description=Description? & claim+=Claim* &
+		//rationale=Rationale? & ("issues" issues+=STRING+)?) "]"
 		public Group getGroup() { return cGroup; }
 
 		//"verification"
@@ -98,11 +100,11 @@ public class VerifyGrammarAccess extends AbstractGrammarElementFinder {
 		//"plan"
 		public Keyword getPlanKeyword_1() { return cPlanKeyword_1; }
 
-		//name=ID
+		//name=QualifiedName
 		public Assignment getNameAssignment_2() { return cNameAssignment_2; }
 
-		//ID
-		public RuleCall getNameIDTerminalRuleCall_2_0() { return cNameIDTerminalRuleCall_2_0; }
+		//QualifiedName
+		public RuleCall getNameQualifiedNameParserRuleCall_2_0() { return cNameQualifiedNameParserRuleCall_2_0; }
 
 		//(":" title=STRING)?
 		public Group getGroup_3() { return cGroup_3; }
@@ -1368,8 +1370,8 @@ public class VerifyGrammarAccess extends AbstractGrammarElementFinder {
 		@Override public ParserRule getRule() { return rule; }
 
 		//"method" name=ID ("(" (params+=FormalParameter ("," params+=FormalParameter)*)? ")" ("properties" "("
-		//(properties+=[aadl2::Property|AADLPROPERTYREFERENCE] ("," properties+=[aadl2::Property|AADLPROPERTYREFERENCE])*)? ")")?
-		//(isPredicate?="boolean" | isResultReport?="report")?)? (":" title=STRING)? "[" (methodType=MethodType &
+		//(properties+=[aadl2::Property|AADLPROPERTYREFERENCE] ("," properties+=[aadl2::Property|AADLPROPERTYREFERENCE])*)?
+		//")")? (isPredicate?="boolean" | isResultReport?="report")?)? (":" title=STRING)? "[" (methodType=MethodType &
 		//description=Description? & condition=VerificationCondition? & ("category" category+=[categories::Category]+)?) "]"
 		public Group getGroup() { return cGroup; }
 
@@ -1383,8 +1385,8 @@ public class VerifyGrammarAccess extends AbstractGrammarElementFinder {
 		public RuleCall getNameIDTerminalRuleCall_1_0() { return cNameIDTerminalRuleCall_1_0; }
 
 		//("(" (params+=FormalParameter ("," params+=FormalParameter)*)? ")" ("properties" "("
-		//(properties+=[aadl2::Property|AADLPROPERTYREFERENCE] ("," properties+=[aadl2::Property|AADLPROPERTYREFERENCE])*)? ")")?
-		//(isPredicate?="boolean" | isResultReport?="report")?)?
+		//(properties+=[aadl2::Property|AADLPROPERTYREFERENCE] ("," properties+=[aadl2::Property|AADLPROPERTYREFERENCE])*)?
+		//")")? (isPredicate?="boolean" | isResultReport?="report")?)?
 		public Group getGroup_2() { return cGroup_2; }
 
 		//"("
@@ -1752,8 +1754,9 @@ public class VerifyGrammarAccess extends AbstractGrammarElementFinder {
 	}
 
 	//VerificationPlan:
-	//	"verification" "plan" name=ID (":" title=STRING)? "for" systemRequirements=[ReqSpec::SystemRequirements|QualifiedName]
-	//	"[" (description=Description? & claim+=Claim* & rationale=Rationale? & ("issues" issues+=STRING+)?) "]";
+	//	"verification" "plan" name=QualifiedName (":" title=STRING)? "for"
+	//	systemRequirements=[ReqSpec::SystemRequirements|QualifiedName] "[" (description=Description? & claim+=Claim* &
+	//	rationale=Rationale? & ("issues" issues+=STRING+)?) "]";
 	public VerificationPlanElements getVerificationPlanAccess() {
 		return pVerificationPlan;
 	}

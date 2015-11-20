@@ -122,14 +122,14 @@ public class StakeholderGoalsImpl extends ReqSpecContainerImpl implements Stakeh
   protected ComponentClassifier target;
 
   /**
-   * The cached value of the '{@link #getCategory() <em>Category</em>}' reference.
+   * The cached value of the '{@link #getCategory() <em>Category</em>}' reference list.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @see #getCategory()
    * @generated
    * @ordered
    */
-  protected ComponentCategory category;
+  protected EList<ComponentCategory> category;
 
   /**
    * The default value of the '{@link #isGlobal() <em>Global</em>}' attribute.
@@ -326,42 +326,13 @@ public class StakeholderGoalsImpl extends ReqSpecContainerImpl implements Stakeh
    * <!-- end-user-doc -->
    * @generated
    */
-  public ComponentCategory getCategory()
+  public EList<ComponentCategory> getCategory()
   {
-    if (category != null && category.eIsProxy())
+    if (category == null)
     {
-      InternalEObject oldCategory = (InternalEObject)category;
-      category = (ComponentCategory)eResolveProxy(oldCategory);
-      if (category != oldCategory)
-      {
-        if (eNotificationRequired())
-          eNotify(new ENotificationImpl(this, Notification.RESOLVE, ReqSpecPackage.STAKEHOLDER_GOALS__CATEGORY, oldCategory, category));
-      }
+      category = new EObjectResolvingEList<ComponentCategory>(ComponentCategory.class, this, ReqSpecPackage.STAKEHOLDER_GOALS__CATEGORY);
     }
     return category;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public ComponentCategory basicGetCategory()
-  {
-    return category;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public void setCategory(ComponentCategory newCategory)
-  {
-    ComponentCategory oldCategory = category;
-    category = newCategory;
-    if (eNotificationRequired())
-      eNotify(new ENotificationImpl(this, Notification.SET, ReqSpecPackage.STAKEHOLDER_GOALS__CATEGORY, oldCategory, category));
   }
 
   /**
@@ -545,8 +516,7 @@ public class StakeholderGoalsImpl extends ReqSpecContainerImpl implements Stakeh
         if (resolve) return getTarget();
         return basicGetTarget();
       case ReqSpecPackage.STAKEHOLDER_GOALS__CATEGORY:
-        if (resolve) return getCategory();
-        return basicGetCategory();
+        return getCategory();
       case ReqSpecPackage.STAKEHOLDER_GOALS__GLOBAL:
         return isGlobal();
       case ReqSpecPackage.STAKEHOLDER_GOALS__IMPORT_CONSTANTS:
@@ -586,7 +556,8 @@ public class StakeholderGoalsImpl extends ReqSpecContainerImpl implements Stakeh
         setTarget((ComponentClassifier)newValue);
         return;
       case ReqSpecPackage.STAKEHOLDER_GOALS__CATEGORY:
-        setCategory((ComponentCategory)newValue);
+        getCategory().clear();
+        getCategory().addAll((Collection<? extends ComponentCategory>)newValue);
         return;
       case ReqSpecPackage.STAKEHOLDER_GOALS__GLOBAL:
         setGlobal((Boolean)newValue);
@@ -638,7 +609,7 @@ public class StakeholderGoalsImpl extends ReqSpecContainerImpl implements Stakeh
         setTarget((ComponentClassifier)null);
         return;
       case ReqSpecPackage.STAKEHOLDER_GOALS__CATEGORY:
-        setCategory((ComponentCategory)null);
+        getCategory().clear();
         return;
       case ReqSpecPackage.STAKEHOLDER_GOALS__GLOBAL:
         setGlobal(GLOBAL_EDEFAULT);
@@ -682,7 +653,7 @@ public class StakeholderGoalsImpl extends ReqSpecContainerImpl implements Stakeh
       case ReqSpecPackage.STAKEHOLDER_GOALS__TARGET:
         return target != null;
       case ReqSpecPackage.STAKEHOLDER_GOALS__CATEGORY:
-        return category != null;
+        return category != null && !category.isEmpty();
       case ReqSpecPackage.STAKEHOLDER_GOALS__GLOBAL:
         return global != GLOBAL_EDEFAULT;
       case ReqSpecPackage.STAKEHOLDER_GOALS__IMPORT_CONSTANTS:

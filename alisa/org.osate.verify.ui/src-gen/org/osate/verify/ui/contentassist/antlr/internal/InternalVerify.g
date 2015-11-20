@@ -14063,8 +14063,8 @@ rule__VerificationPlan__NameAssignment_2
     }
 :
 (
-{ before(grammarAccess.getVerificationPlanAccess().getNameIDTerminalRuleCall_2_0()); }
-	RULE_ID{ after(grammarAccess.getVerificationPlanAccess().getNameIDTerminalRuleCall_2_0()); }
+{ before(grammarAccess.getVerificationPlanAccess().getNameQualifiedNameParserRuleCall_2_0()); }
+	ruleQualifiedName{ after(grammarAccess.getVerificationPlanAccess().getNameQualifiedNameParserRuleCall_2_0()); }
 )
 
 ;

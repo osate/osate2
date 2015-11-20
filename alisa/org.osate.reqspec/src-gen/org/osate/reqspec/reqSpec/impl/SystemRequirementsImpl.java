@@ -123,14 +123,14 @@ public class SystemRequirementsImpl extends ReqSpecContainerImpl implements Syst
   protected ComponentClassifier target;
 
   /**
-   * The cached value of the '{@link #getCategory() <em>Category</em>}' reference.
+   * The cached value of the '{@link #getCategory() <em>Category</em>}' reference list.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @see #getCategory()
    * @generated
    * @ordered
    */
-  protected ComponentCategory category;
+  protected EList<ComponentCategory> category;
 
   /**
    * The default value of the '{@link #isGlobal() <em>Global</em>}' attribute.
@@ -337,42 +337,13 @@ public class SystemRequirementsImpl extends ReqSpecContainerImpl implements Syst
    * <!-- end-user-doc -->
    * @generated
    */
-  public ComponentCategory getCategory()
+  public EList<ComponentCategory> getCategory()
   {
-    if (category != null && category.eIsProxy())
+    if (category == null)
     {
-      InternalEObject oldCategory = (InternalEObject)category;
-      category = (ComponentCategory)eResolveProxy(oldCategory);
-      if (category != oldCategory)
-      {
-        if (eNotificationRequired())
-          eNotify(new ENotificationImpl(this, Notification.RESOLVE, ReqSpecPackage.SYSTEM_REQUIREMENTS__CATEGORY, oldCategory, category));
-      }
+      category = new EObjectResolvingEList<ComponentCategory>(ComponentCategory.class, this, ReqSpecPackage.SYSTEM_REQUIREMENTS__CATEGORY);
     }
     return category;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public ComponentCategory basicGetCategory()
-  {
-    return category;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public void setCategory(ComponentCategory newCategory)
-  {
-    ComponentCategory oldCategory = category;
-    category = newCategory;
-    if (eNotificationRequired())
-      eNotify(new ENotificationImpl(this, Notification.SET, ReqSpecPackage.SYSTEM_REQUIREMENTS__CATEGORY, oldCategory, category));
   }
 
   /**
@@ -572,8 +543,7 @@ public class SystemRequirementsImpl extends ReqSpecContainerImpl implements Syst
         if (resolve) return getTarget();
         return basicGetTarget();
       case ReqSpecPackage.SYSTEM_REQUIREMENTS__CATEGORY:
-        if (resolve) return getCategory();
-        return basicGetCategory();
+        return getCategory();
       case ReqSpecPackage.SYSTEM_REQUIREMENTS__GLOBAL:
         return isGlobal();
       case ReqSpecPackage.SYSTEM_REQUIREMENTS__IMPORT_CONSTANTS:
@@ -615,7 +585,8 @@ public class SystemRequirementsImpl extends ReqSpecContainerImpl implements Syst
         setTarget((ComponentClassifier)newValue);
         return;
       case ReqSpecPackage.SYSTEM_REQUIREMENTS__CATEGORY:
-        setCategory((ComponentCategory)newValue);
+        getCategory().clear();
+        getCategory().addAll((Collection<? extends ComponentCategory>)newValue);
         return;
       case ReqSpecPackage.SYSTEM_REQUIREMENTS__GLOBAL:
         setGlobal((Boolean)newValue);
@@ -671,7 +642,7 @@ public class SystemRequirementsImpl extends ReqSpecContainerImpl implements Syst
         setTarget((ComponentClassifier)null);
         return;
       case ReqSpecPackage.SYSTEM_REQUIREMENTS__CATEGORY:
-        setCategory((ComponentCategory)null);
+        getCategory().clear();
         return;
       case ReqSpecPackage.SYSTEM_REQUIREMENTS__GLOBAL:
         setGlobal(GLOBAL_EDEFAULT);
@@ -718,7 +689,7 @@ public class SystemRequirementsImpl extends ReqSpecContainerImpl implements Syst
       case ReqSpecPackage.SYSTEM_REQUIREMENTS__TARGET:
         return target != null;
       case ReqSpecPackage.SYSTEM_REQUIREMENTS__CATEGORY:
-        return category != null;
+        return category != null && !category.isEmpty();
       case ReqSpecPackage.SYSTEM_REQUIREMENTS__GLOBAL:
         return global != GLOBAL_EDEFAULT;
       case ReqSpecPackage.SYSTEM_REQUIREMENTS__IMPORT_CONSTANTS:

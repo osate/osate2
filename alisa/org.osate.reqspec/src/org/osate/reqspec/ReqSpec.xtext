@@ -22,7 +22,7 @@ ReqRoot:  StakeholderGoals | ReqDocument | SystemRequirements;
 
 
 StakeholderGoals: 'stakeholder' 'goals' name=QualifiedName (':' title=STRING)?
-	( 'for' (target=[aadl2::ComponentClassifier|AadlClassifierReference] | category=[categories::ComponentCategory|ID] | global?='all'))
+	( 'for' (target=[aadl2::ComponentClassifier|AadlClassifierReference] | category+=[categories::ComponentCategory|ID]+ | global?='all'))
 	('use' 'constants' importConstants+=[GlobalConstants|QualifiedName]+)?
 	'[' 
 	(	description=Description? 
@@ -54,8 +54,7 @@ DocumentSection returns DocumentSection:
 
 SystemRequirements returns SystemRequirements:
 	'system' 'requirements'  name =QualifiedName (':' title=STRING)? // 'requirement' 'specification'
-//	('import' importedNamespace=QualifiedNameWithWildCard)?
-	( 'for' (target=[aadl2::ComponentClassifier|AadlClassifierReference] | category=[categories::ComponentCategory|ID]| global?='all'))
+	( 'for' (target=[aadl2::ComponentClassifier|AadlClassifierReference] | category+=[categories::ComponentCategory|ID]+| global?='all'))
 	('use' 'constants' importConstants+=[GlobalConstants|QualifiedName]+)?
 	'[' 
 	(

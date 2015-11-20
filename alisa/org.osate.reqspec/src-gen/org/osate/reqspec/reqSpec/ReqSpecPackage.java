@@ -373,7 +373,7 @@ public interface ReqSpecPackage extends EPackage
   int STAKEHOLDER_GOALS__TARGET = REQ_SPEC_CONTAINER_FEATURE_COUNT + 2;
 
   /**
-   * The feature id for the '<em><b>Category</b></em>' reference.
+   * The feature id for the '<em><b>Category</b></em>' reference list.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
@@ -610,7 +610,7 @@ public interface ReqSpecPackage extends EPackage
   int SYSTEM_REQUIREMENTS__TARGET = REQ_SPEC_CONTAINER_FEATURE_COUNT + 2;
 
   /**
-   * The feature id for the '<em><b>Category</b></em>' reference.
+   * The feature id for the '<em><b>Category</b></em>' reference list.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
@@ -1577,10 +1577,10 @@ public interface ReqSpecPackage extends EPackage
   EReference getStakeholderGoals_Target();
 
   /**
-   * Returns the meta object for the reference '{@link org.osate.reqspec.reqSpec.StakeholderGoals#getCategory <em>Category</em>}'.
+   * Returns the meta object for the reference list '{@link org.osate.reqspec.reqSpec.StakeholderGoals#getCategory <em>Category</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @return the meta object for the reference '<em>Category</em>'.
+   * @return the meta object for the reference list '<em>Category</em>'.
    * @see org.osate.reqspec.reqSpec.StakeholderGoals#getCategory()
    * @see #getStakeholderGoals()
    * @generated
@@ -1827,10 +1827,10 @@ public interface ReqSpecPackage extends EPackage
   EReference getSystemRequirements_Target();
 
   /**
-   * Returns the meta object for the reference '{@link org.osate.reqspec.reqSpec.SystemRequirements#getCategory <em>Category</em>}'.
+   * Returns the meta object for the reference list '{@link org.osate.reqspec.reqSpec.SystemRequirements#getCategory <em>Category</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @return the meta object for the reference '<em>Category</em>'.
+   * @return the meta object for the reference list '<em>Category</em>'.
    * @see org.osate.reqspec.reqSpec.SystemRequirements#getCategory()
    * @see #getSystemRequirements()
    * @generated
@@ -2442,7 +2442,7 @@ public interface ReqSpecPackage extends EPackage
     EReference STAKEHOLDER_GOALS__TARGET = eINSTANCE.getStakeholderGoals_Target();
 
     /**
-     * The meta object literal for the '<em><b>Category</b></em>' reference feature.
+     * The meta object literal for the '<em><b>Category</b></em>' reference list feature.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @generated
@@ -2632,7 +2632,7 @@ public interface ReqSpecPackage extends EPackage
     EReference SYSTEM_REQUIREMENTS__TARGET = eINSTANCE.getSystemRequirements_Target();
 
     /**
-     * The meta object literal for the '<em><b>Category</b></em>' reference feature.
+     * The meta object literal for the '<em><b>Category</b></em>' reference list feature.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @generated

@@ -333,7 +333,7 @@ ruleStakeholderGoals returns [EObject current=null]
 	}
 
 )
-)
+)+
     |(
 (
 		lv_global_8_0=
@@ -1079,7 +1079,7 @@ ruleSystemRequirements returns [EObject current=null]
 	}
 
 )
-)
+)+
     |(
 (
 		lv_global_8_0=

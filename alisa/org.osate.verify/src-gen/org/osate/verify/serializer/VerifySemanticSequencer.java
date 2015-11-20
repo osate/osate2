@@ -455,7 +455,7 @@ public class VerifySemanticSequencer extends CommonSemanticSequencer {
 	/**
 	 * Constraint:
 	 *     (
-	 *         name=ID 
+	 *         name=QualifiedName 
 	 *         title=STRING? 
 	 *         systemRequirements=[SystemRequirements|QualifiedName] 
 	 *         description=Description? 

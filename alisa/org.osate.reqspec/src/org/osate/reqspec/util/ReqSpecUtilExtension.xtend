@@ -32,6 +32,7 @@ import static extension org.eclipse.xtext.EcoreUtil2.*
 import org.osate.alisa.common.util.CommonUtilExtension
 import org.osate.alisa.common.common.AVariableDeclaration
 import org.eclipse.emf.common.util.BasicEList
+import org.osate.aadl2.ComponentCategory
 
 class ReqSpecUtilExtension {
 
@@ -209,6 +210,15 @@ class ReqSpecUtilExtension {
 		def static getContractualElementSubject(ContractualElement req) {
 			req?.targetElement ?: req.targetClassifier
 
+		}
+		
+		def static boolean matchingCategory(SystemRequirements sr, ComponentCategory cat){
+			if (cat == null) return true
+			sr.category.exists[c|c.name.equalsIgnoreCase(cat.getName())]
+		}
+		
+		def static boolean matchingCategory(StakeholderGoals sg, ComponentCategory cat){
+			sg.category.exists[c|c.name.equalsIgnoreCase(cat.getName())]
 		}
 
 	}

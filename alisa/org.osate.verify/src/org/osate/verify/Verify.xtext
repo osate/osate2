@@ -11,7 +11,7 @@ Verification:
 	contents+=	( VerificationPlan | VerificationMethodRegistry)+;
 
 VerificationPlan:
-	'verification' 'plan' name=ID (':' title=STRING)? 
+	'verification' 'plan' name=QualifiedName (':' title=STRING)? 
 	'for' systemRequirements=[ReqSpec::SystemRequirements|QualifiedName]  
 	'['
 	(
