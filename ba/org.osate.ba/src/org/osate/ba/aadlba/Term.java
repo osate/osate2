@@ -20,6 +20,7 @@
 package org.osate.ba.aadlba;
 
 import org.eclipse.emf.common.util.EList;
+import org.osate.ba.utils.visitor.IBAVisitable ;
 
 /**
  * <!-- begin-user-doc -->
@@ -38,7 +39,7 @@ import org.eclipse.emf.common.util.EList;
  * @model
  * @generated
  */
-public interface Term extends BehaviorElement
+public interface Term extends BehaviorElement, IBAVisitable
 {
   /**
    * Returns the value of the '<em><b>Factors</b></em>' containment reference list.

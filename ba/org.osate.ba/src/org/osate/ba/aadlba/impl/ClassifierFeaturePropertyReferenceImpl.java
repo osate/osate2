@@ -19,17 +19,15 @@
  */
 package org.osate.ba.aadlba.impl;
 
-import org.eclipse.emf.common.notify.Notification;
-import org.eclipse.emf.common.notify.NotificationChain;
-
-import org.eclipse.emf.ecore.EClass;
-import org.eclipse.emf.ecore.InternalEObject;
-
-import org.eclipse.emf.ecore.impl.ENotificationImpl;
-
-import org.osate.ba.aadlba.AadlBaPackage;
-import org.osate.ba.aadlba.ClassifierFeatureHolder;
-import org.osate.ba.aadlba.ClassifierFeaturePropertyReference;
+import org.eclipse.emf.common.notify.Notification ;
+import org.eclipse.emf.common.notify.NotificationChain ;
+import org.eclipse.emf.ecore.EClass ;
+import org.eclipse.emf.ecore.InternalEObject ;
+import org.eclipse.emf.ecore.impl.ENotificationImpl ;
+import org.osate.ba.aadlba.AadlBaPackage ;
+import org.osate.ba.aadlba.ClassifierFeatureHolder ;
+import org.osate.ba.aadlba.ClassifierFeaturePropertyReference ;
+import org.osate.ba.utils.visitor.IBAVisitor ;
 
 /**
  * <!-- begin-user-doc -->
@@ -205,6 +203,10 @@ public class ClassifierFeaturePropertyReferenceImpl extends PropertyReferenceImp
         return component != null;
     }
     return super.eIsSet(featureID);
+  }
+
+  public void accept(IBAVisitor visitor) {
+    visitor.visit(this);
   }
 
 } //ClassifierFeaturePropertyReferenceImpl

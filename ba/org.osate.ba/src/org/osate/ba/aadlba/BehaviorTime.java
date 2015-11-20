@@ -20,6 +20,7 @@
 package org.osate.ba.aadlba;
 
 import org.osate.aadl2.UnitLiteral;
+import org.osate.ba.utils.visitor.IBAVisitable ;
 
 /**
  * <!-- begin-user-doc -->
@@ -38,7 +39,7 @@ import org.osate.aadl2.UnitLiteral;
  * @model
  * @generated
  */
-public interface BehaviorTime extends BehaviorElement
+public interface BehaviorTime extends BehaviorElement, IBAVisitable
 {
   /**
    * Returns the value of the '<em><b>Integer Value</b></em>' containment reference.

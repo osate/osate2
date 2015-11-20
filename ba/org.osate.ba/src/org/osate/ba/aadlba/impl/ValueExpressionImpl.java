@@ -20,22 +20,20 @@
 package org.osate.ba.aadlba.impl;
 
 
-import java.util.Collection;
+import java.util.Collection ;
 
-import org.eclipse.emf.common.notify.NotificationChain;
-
-import org.eclipse.emf.common.util.EList;
-
-import org.eclipse.emf.ecore.EClass;
-import org.eclipse.emf.ecore.InternalEObject;
-
-import org.eclipse.emf.ecore.util.EDataTypeEList;
-import org.eclipse.emf.ecore.util.EObjectContainmentEList;
-import org.eclipse.emf.ecore.util.InternalEList;
+import org.eclipse.emf.common.notify.NotificationChain ;
+import org.eclipse.emf.common.util.EList ;
+import org.eclipse.emf.ecore.EClass ;
+import org.eclipse.emf.ecore.InternalEObject ;
+import org.eclipse.emf.ecore.util.EDataTypeEList ;
+import org.eclipse.emf.ecore.util.EObjectContainmentEList ;
+import org.eclipse.emf.ecore.util.InternalEList ;
 import org.osate.ba.aadlba.AadlBaPackage ;
 import org.osate.ba.aadlba.LogicalOperator ;
 import org.osate.ba.aadlba.Relation ;
 import org.osate.ba.aadlba.ValueExpression ;
+import org.osate.ba.utils.visitor.IBAVisitor ;
 
 /**
  * <!-- begin-user-doc -->
@@ -252,6 +250,10 @@ public class ValueExpressionImpl extends BehaviorElementImpl implements ValueExp
     result.append(logicalOperators);
     result.append(')');
     return result.toString();
+  }
+
+  public void accept(IBAVisitor visitor) {
+    visitor.visit(this);
   }
 
 } //ValueExpressionImpl

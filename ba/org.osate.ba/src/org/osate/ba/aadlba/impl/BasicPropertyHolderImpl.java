@@ -19,11 +19,11 @@
  */
 package org.osate.ba.aadlba.impl;
 
-import org.eclipse.emf.ecore.EClass;
-
-import org.osate.aadl2.BasicProperty;
-import org.osate.ba.aadlba.AadlBaPackage;
-import org.osate.ba.aadlba.BasicPropertyHolder;
+import org.eclipse.emf.ecore.EClass ;
+import org.osate.aadl2.BasicProperty ;
+import org.osate.ba.aadlba.AadlBaPackage ;
+import org.osate.ba.aadlba.BasicPropertyHolder ;
+import org.osate.ba.utils.visitor.IBAVisitor ;
 
 /**
  * <!-- begin-user-doc -->
@@ -75,6 +75,10 @@ public class BasicPropertyHolderImpl extends PropertyElementHolderImpl implement
   public BasicProperty getBasicProperty()
   {
     return (BasicProperty) element;
+  }
+
+  public void accept(IBAVisitor visitor) {
+    visitor.visit(this);
   }
 
 } //BasicPropertyHolderImpl

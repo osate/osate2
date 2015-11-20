@@ -21,6 +21,7 @@ package org.osate.ba.aadlba;
 
 import org.osate.aadl2.Prototype;
 import org.osate.aadl2.PrototypeBinding;
+import org.osate.ba.utils.visitor.IBAVisitable ;
 
 
 /**
@@ -39,7 +40,7 @@ import org.osate.aadl2.PrototypeBinding;
  * @model
  * @generated
  */
-public interface GroupPrototypeHolder extends GroupHolder
+public interface GroupPrototypeHolder extends GroupHolder, IBAVisitable
 {
 
   /**

@@ -21,6 +21,7 @@ package org.osate.ba.aadlba;
 
 import org.eclipse.emf.common.util.EList;
 import org.osate.aadl2.ProcessorClassifier;
+import org.osate.ba.utils.visitor.IBAVisitable ;
 
 
 /**
@@ -41,7 +42,7 @@ import org.osate.aadl2.ProcessorClassifier;
  * @model
  * @generated
  */
-public interface TimedAction extends BasicAction
+public interface TimedAction extends BasicAction, IBAVisitable
 {
   /**
    * Returns the value of the '<em><b>Lower Time</b></em>' containment reference.

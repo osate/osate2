@@ -20,11 +20,11 @@
 package org.osate.ba.aadlba.impl;
 
 
-import org.eclipse.emf.ecore.EClass;
-
-import org.osate.aadl2.EventPort;
+import org.eclipse.emf.ecore.EClass ;
+import org.osate.aadl2.EventPort ;
 import org.osate.ba.aadlba.AadlBaPackage ;
 import org.osate.ba.aadlba.EventPortHolder ;
+import org.osate.ba.utils.visitor.IBAVisitor ;
 
 /**
  * <!-- begin-user-doc -->
@@ -76,6 +76,10 @@ public class EventPortHolderImpl extends ActualPortHolderImpl implements EventPo
   public EventPort getEventPort()
   {
     return (EventPort) element;
+  }
+
+  public void accept(IBAVisitor visitor) {
+    visitor.visit(this);
   }
 
 } //EventPortHolderImpl

@@ -20,16 +20,15 @@
 package org.osate.ba.aadlba.impl;
 
 
-import org.eclipse.emf.common.notify.Notification;
-import org.eclipse.emf.common.notify.NotificationChain;
-
-import org.eclipse.emf.ecore.EClass;
-import org.eclipse.emf.ecore.InternalEObject;
-
-import org.eclipse.emf.ecore.impl.ENotificationImpl;
+import org.eclipse.emf.common.notify.Notification ;
+import org.eclipse.emf.common.notify.NotificationChain ;
+import org.eclipse.emf.ecore.EClass ;
+import org.eclipse.emf.ecore.InternalEObject ;
+import org.eclipse.emf.ecore.impl.ENotificationImpl ;
 import org.osate.ba.aadlba.AadlBaPackage ;
 import org.osate.ba.aadlba.BehaviorActions ;
 import org.osate.ba.aadlba.ElseStatement ;
+import org.osate.ba.utils.visitor.IBAVisitor ;
 
 /**
  * <!-- begin-user-doc -->
@@ -205,6 +204,10 @@ public class ElseStatementImpl extends BehaviorElementImpl implements ElseStatem
         return behaviorActions != null;
     }
     return super.eIsSet(featureID);
+  }
+  
+  public void accept(IBAVisitor visitor) {
+    visitor.visit(this);
   }
 
 } //ElseStatementImpl

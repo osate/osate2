@@ -19,6 +19,8 @@
  */
 package org.osate.ba.aadlba;
 
+import org.osate.ba.utils.visitor.IBAVisitable ;
+
 
 /**
  * <!-- begin-user-doc -->
@@ -40,7 +42,7 @@ package org.osate.ba.aadlba;
  * @model
  * @generated
  */
-public interface Factor extends BehaviorElement
+public interface Factor extends BehaviorElement, IBAVisitable
 {
   /**
    * Returns the value of the '<em><b>First Value</b></em>' containment reference.

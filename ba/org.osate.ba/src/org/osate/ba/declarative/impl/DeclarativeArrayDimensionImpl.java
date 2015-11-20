@@ -23,15 +23,11 @@ package org.osate.ba.declarative.impl ;
 
 import org.eclipse.emf.common.notify.Notification ;
 import org.eclipse.emf.common.notify.NotificationChain ;
-
 import org.eclipse.emf.ecore.EClass ;
 import org.eclipse.emf.ecore.EObject ;
 import org.eclipse.emf.ecore.InternalEObject ;
-
 import org.eclipse.emf.ecore.impl.ENotificationImpl ;
-
 import org.osate.aadl2.Element ;
-
 import org.osate.aadl2.impl.ArrayDimensionImpl ;
 import org.osate.ba.aadlba.BehaviorElement ;
 import org.osate.ba.aadlba.IntegerValueConstant ;
@@ -39,6 +35,7 @@ import org.osate.ba.declarative.DeclarativeArrayDimension ;
 import org.osate.ba.declarative.DeclarativeBehaviorElement ;
 import org.osate.ba.declarative.DeclarativePackage ;
 import org.osate.ba.utils.AadlBaLocationReference ;
+import org.osate.ba.utils.visitor.IBAVisitor ;
 
 /**
  * <!-- begin-user-doc -->
@@ -450,5 +447,11 @@ public class DeclarativeArrayDimensionImpl extends ArrayDimensionImpl implements
   public AadlBaLocationReference getAadlBaLocationReference()
   {
     return (AadlBaLocationReference) this.getLocationReference() ;
+  }
+
+  @Override
+  public void accept(IBAVisitor visitor)
+  {
+    visitor.visit(this);    
   }
 } //DeclarativeArrayDimensionImpl

@@ -19,11 +19,11 @@
  */
 package org.osate.ba.aadlba.impl;
 
-import org.eclipse.emf.ecore.EClass;
-
-import org.osate.aadl2.PropertyExpression;
-import org.osate.ba.aadlba.AadlBaPackage;
-import org.osate.ba.aadlba.PropertyExpressionHolder;
+import org.eclipse.emf.ecore.EClass ;
+import org.osate.aadl2.PropertyExpression ;
+import org.osate.ba.aadlba.AadlBaPackage ;
+import org.osate.ba.aadlba.PropertyExpressionHolder ;
+import org.osate.ba.utils.visitor.IBAVisitor ;
 
 /**
  * <!-- begin-user-doc -->
@@ -75,6 +75,10 @@ public class PropertyExpressionHolderImpl extends PropertyElementHolderImpl impl
   public PropertyExpression getPropertyExpression()
   {
     return (PropertyExpression) element;
+  }
+
+  public void accept(IBAVisitor visitor) {
+    visitor.visit(this);
   }
 
 } //PropertyExpressionHolderImpl

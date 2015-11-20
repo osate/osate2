@@ -20,6 +20,7 @@
 package org.osate.ba.aadlba;
 
 import org.osate.aadl2.NamedElement;
+import org.osate.ba.utils.visitor.IBAVisitable ;
 
 /**
  * <!-- begin-user-doc -->
@@ -37,7 +38,7 @@ import org.osate.aadl2.NamedElement;
  * @model interface="true" abstract="true"
  * @generated
  */
-public interface ElementHolder extends BehaviorElement
+public interface ElementHolder extends BehaviorElement, IBAVisitable
 {
   /**
    * Returns the value of the '<em><b>Element</b></em>' reference.

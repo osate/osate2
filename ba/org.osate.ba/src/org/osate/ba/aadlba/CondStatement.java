@@ -19,6 +19,8 @@
  */
 package org.osate.ba.aadlba;
 
+import org.osate.ba.utils.visitor.IBAVisitable ;
+
 
 /**
  * <!-- begin-user-doc -->
@@ -36,7 +38,7 @@ package org.osate.ba.aadlba;
  * @model interface="true" abstract="true"
  * @generated
  */
-public interface CondStatement extends BehaviorAction
+public interface CondStatement extends BehaviorAction, IBAVisitable
 {
   /**
    * Returns the value of the '<em><b>Behavior Actions</b></em>' containment reference.

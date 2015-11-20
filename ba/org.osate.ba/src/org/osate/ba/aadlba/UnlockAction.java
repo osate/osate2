@@ -19,6 +19,8 @@
  */
 package org.osate.ba.aadlba;
 
+import org.osate.ba.utils.visitor.IBAVisitable ;
+
 
 /**
  * <!-- begin-user-doc -->
@@ -30,6 +32,6 @@ package org.osate.ba.aadlba;
  * @model annotation="documentation documentation='A null data name means that all shared data are unlocked at the end of the critical section'"
  * @generated
  */
-public interface UnlockAction extends SharedDataAction
+public interface UnlockAction extends SharedDataAction, IBAVisitable
 {
 } // UnlockAction

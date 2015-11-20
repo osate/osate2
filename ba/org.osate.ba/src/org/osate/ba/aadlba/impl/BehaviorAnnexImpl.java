@@ -43,6 +43,7 @@ import org.osate.ba.aadlba.BehaviorTransition ;
 import org.osate.ba.aadlba.BehaviorVariable ;
 import org.osate.ba.texteditor.AadlBaHighlighter ;
 import org.osate.ba.utils.AadlBaLocationReference ;
+import org.osate.ba.utils.visitor.IBAVisitor ;
 
 
 /**
@@ -490,5 +491,9 @@ public class BehaviorAnnexImpl extends AnnexSubclauseImpl implements BehaviorAnn
   public Map<BehaviorAnnex, AadlBaHighlighter> getHighlighters()
   {
     return _annexHighlighters;
+  }
+
+  public void accept(IBAVisitor visitor) {
+    visitor.visit(this);
   }
 } //BehaviorAnnexImpl

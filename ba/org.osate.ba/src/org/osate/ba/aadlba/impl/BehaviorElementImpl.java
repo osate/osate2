@@ -20,12 +20,12 @@
 package org.osate.ba.aadlba.impl;
 
 
-import org.eclipse.emf.ecore.EClass;
-
-import org.osate.aadl2.impl.ElementImpl;
+import org.eclipse.emf.ecore.EClass ;
+import org.osate.aadl2.impl.ElementImpl ;
 import org.osate.ba.aadlba.AadlBaPackage ;
 import org.osate.ba.aadlba.BehaviorElement ;
 import org.osate.ba.utils.AadlBaLocationReference ;
+import org.osate.ba.utils.visitor.IBAVisitor ;
 
 /**
  * <!-- begin-user-doc -->
@@ -63,5 +63,9 @@ public abstract class BehaviorElementImpl extends ElementImpl implements Behavio
   public AadlBaLocationReference getAadlBaLocationReference()
   {
     return (AadlBaLocationReference) this.getLocationReference() ;
+  }
+
+  public void accept(IBAVisitor visitor) {
+    visitor.visit(this);
   }
 } //BehaviorElementImpl

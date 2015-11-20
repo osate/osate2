@@ -20,6 +20,7 @@
 package org.osate.ba.aadlba;
 
 import org.osate.aadl2.Classifier;
+import org.osate.ba.utils.visitor.IBAVisitable ;
 
 /**
  * <!-- begin-user-doc -->
@@ -37,7 +38,7 @@ import org.osate.aadl2.Classifier;
  * @model
  * @generated
  */
-public interface ClassifierPropertyReference extends PropertyReference
+public interface ClassifierPropertyReference extends PropertyReference, IBAVisitable
 {
   /**
    * Returns the value of the '<em><b>Classifier</b></em>' reference.

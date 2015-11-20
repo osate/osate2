@@ -20,6 +20,7 @@
 package org.osate.ba.aadlba;
 
 import org.osate.aadl2.RealLiteral;
+import org.osate.ba.utils.visitor.IBAVisitable ;
 
 /**
  * <!-- begin-user-doc -->
@@ -31,6 +32,6 @@ import org.osate.aadl2.RealLiteral;
  * @model
  * @generated
  */
-public interface BehaviorRealLiteral extends RealLiteral, NumericLiteral
+public interface BehaviorRealLiteral extends RealLiteral, NumericLiteral, IBAVisitable
 {
 } // BehaviorRealLiteral

@@ -20,6 +20,7 @@
 package org.osate.ba.aadlba;
 
 import org.osate.aadl2.SubprogramAccess;
+import org.osate.ba.utils.visitor.IBAVisitable ;
 
 /**
  * <!-- begin-user-doc -->
@@ -31,7 +32,7 @@ import org.osate.aadl2.SubprogramAccess;
  * @model
  * @generated
  */
-public interface SubprogramAccessHolder extends DispatchTriggerCondition, CalledSubprogramHolder, FeatureHolder
+public interface SubprogramAccessHolder extends DispatchTriggerCondition, CalledSubprogramHolder, FeatureHolder, IBAVisitable
 {
   /**
    * <!-- begin-user-doc -->

@@ -20,21 +20,21 @@
 package org.osate.ba.aadlba.impl;
 
 
-import java.util.Collection;
-import org.eclipse.emf.common.notify.Notification;
-import org.eclipse.emf.common.notify.NotificationChain;
+import java.util.Collection ;
 
-import org.eclipse.emf.common.util.EList;
-import org.eclipse.emf.ecore.EClass;
-import org.eclipse.emf.ecore.InternalEObject;
-
-import org.eclipse.emf.ecore.impl.ENotificationImpl;
-import org.eclipse.emf.ecore.util.EObjectResolvingEList;
-import org.eclipse.emf.ecore.util.InternalEList;
-import org.osate.aadl2.ProcessorClassifier;
+import org.eclipse.emf.common.notify.Notification ;
+import org.eclipse.emf.common.notify.NotificationChain ;
+import org.eclipse.emf.common.util.EList ;
+import org.eclipse.emf.ecore.EClass ;
+import org.eclipse.emf.ecore.InternalEObject ;
+import org.eclipse.emf.ecore.impl.ENotificationImpl ;
+import org.eclipse.emf.ecore.util.EObjectResolvingEList ;
+import org.eclipse.emf.ecore.util.InternalEList ;
+import org.osate.aadl2.ProcessorClassifier ;
 import org.osate.ba.aadlba.AadlBaPackage ;
 import org.osate.ba.aadlba.BehaviorTime ;
 import org.osate.ba.aadlba.TimedAction ;
+import org.osate.ba.utils.visitor.IBAVisitor ;
 
 /**
  * <!-- begin-user-doc -->
@@ -338,6 +338,10 @@ public class TimedActionImpl extends BehaviorElementImpl implements TimedAction
         return isSetProcessorClassifier();
     }
     return super.eIsSet(featureID);
+  }
+
+  public void accept(IBAVisitor visitor) {
+    visitor.visit(this);
   }
 
 } //TimedActionImpl

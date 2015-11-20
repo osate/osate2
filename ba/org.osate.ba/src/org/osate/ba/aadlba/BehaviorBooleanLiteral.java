@@ -20,6 +20,7 @@
 package org.osate.ba.aadlba;
 
 import org.osate.aadl2.BooleanLiteral;
+import org.osate.ba.utils.visitor.IBAVisitable ;
 
 /**
  * <!-- begin-user-doc -->
@@ -31,6 +32,6 @@ import org.osate.aadl2.BooleanLiteral;
  * @model
  * @generated
  */
-public interface BehaviorBooleanLiteral extends BooleanLiteral, Literal
+public interface BehaviorBooleanLiteral extends BooleanLiteral, Literal, IBAVisitable
 {
 } // BehaviorBooleanLiteral

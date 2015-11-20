@@ -20,6 +20,7 @@
 package org.osate.ba.aadlba;
 
 import org.osate.aadl2.NamedElement;
+import org.osate.ba.utils.visitor.IBAVisitable ;
 
 /**
  * <!-- begin-user-doc -->
@@ -35,6 +36,6 @@ import org.osate.aadl2.NamedElement;
  * @model abstract="true"
  * @generated
  */
-public interface BehaviorNamedElement extends NamedElement, BehaviorElement
+public interface BehaviorNamedElement extends NamedElement, BehaviorElement, IBAVisitable
 {
 } // BehaviorNamedElement

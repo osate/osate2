@@ -21,6 +21,7 @@ package org.osate.ba.aadlba;
 
 import org.osate.aadl2.ArrayableElement;
 import org.osate.aadl2.DataClassifier;
+import org.osate.ba.utils.visitor.IBAVisitable ;
 
 /**
  * <!-- begin-user-doc -->
@@ -38,7 +39,7 @@ import org.osate.aadl2.DataClassifier;
  * @model
  * @generated
  */
-public interface BehaviorVariable extends BehaviorNamedElement, ArrayableElement
+public interface BehaviorVariable extends BehaviorNamedElement, ArrayableElement, IBAVisitable
 {
   /**
    * Returns the value of the '<em><b>Data Classifier</b></em>' reference.

@@ -20,35 +20,31 @@
 package org.osate.ba.aadlba.impl;
 
 
-import java.util.Collection;
+import java.util.Collection ;
 
-import org.eclipse.emf.common.notify.Notification;
-import org.eclipse.emf.common.notify.NotificationChain;
-
-import org.eclipse.emf.common.util.EList;
-
-import org.eclipse.emf.ecore.EClass;
-import org.eclipse.emf.ecore.EObject;
-import org.eclipse.emf.ecore.InternalEObject;
-
-import org.eclipse.emf.ecore.impl.ENotificationImpl;
-
-import org.eclipse.emf.ecore.util.EObjectContainmentEList;
-import org.eclipse.emf.ecore.util.InternalEList;
-
-import org.osate.aadl2.ClassifierFeature;
-import org.osate.aadl2.Feature;
-import org.osate.aadl2.NamedElement;
+import org.eclipse.emf.common.notify.Notification ;
+import org.eclipse.emf.common.notify.NotificationChain ;
+import org.eclipse.emf.common.util.EList ;
+import org.eclipse.emf.ecore.EClass ;
+import org.eclipse.emf.ecore.EObject ;
+import org.eclipse.emf.ecore.InternalEObject ;
+import org.eclipse.emf.ecore.impl.ENotificationImpl ;
+import org.eclipse.emf.ecore.util.EObjectContainmentEList ;
+import org.eclipse.emf.ecore.util.InternalEList ;
+import org.osate.aadl2.ClassifierFeature ;
+import org.osate.aadl2.Feature ;
+import org.osate.aadl2.NamedElement ;
 import org.osate.ba.aadlba.AadlBaPackage ;
-import org.osate.ba.aadlba.ClassifierFeatureHolder;
+import org.osate.ba.aadlba.ClassifierFeatureHolder ;
 import org.osate.ba.aadlba.ElementHolder ;
-import org.osate.ba.aadlba.FeatureHolder;
+import org.osate.ba.aadlba.FeatureHolder ;
 import org.osate.ba.aadlba.GroupHolder ;
 import org.osate.ba.aadlba.GroupableElement ;
-import org.osate.ba.aadlba.IndexableElement;
+import org.osate.ba.aadlba.IndexableElement ;
 import org.osate.ba.aadlba.IntegerValue ;
 import org.osate.ba.aadlba.IntegerValueVariable ;
 import org.osate.ba.aadlba.PortHolder ;
+import org.osate.ba.utils.visitor.IBAVisitor ;
 
 /**
  * <!-- begin-user-doc -->
@@ -501,6 +497,10 @@ public abstract class PortHolderImpl extends BehaviorElementImpl implements Port
       }
     }
     return super.eDerivedStructuralFeatureID(baseFeatureID, baseClass);
+  }
+
+  public void accept(IBAVisitor visitor) {
+    visitor.visit(this);
   }
 
 } //PortHolderImpl

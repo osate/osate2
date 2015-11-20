@@ -20,6 +20,7 @@
 package org.osate.ba.aadlba;
 
 import org.eclipse.emf.common.util.EList;
+import org.osate.ba.utils.visitor.IBAVisitable ;
 
 /**
  * <!-- begin-user-doc -->
@@ -37,7 +38,7 @@ import org.eclipse.emf.common.util.EList;
  * @model abstract="true"
  * @generated
  */
-public interface PropertyReference extends ValueConstant, IntegerValueConstant
+public interface PropertyReference extends ValueConstant, IntegerValueConstant, IBAVisitable
 {
   /**
    * Returns the value of the '<em><b>Properties</b></em>' containment reference list.

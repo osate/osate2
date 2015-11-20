@@ -19,6 +19,8 @@
  */
 package org.osate.ba.aadlba;
 
+import org.osate.ba.utils.visitor.IBAVisitable ;
+
 
 /**
  * <!-- begin-user-doc -->
@@ -36,7 +38,7 @@ package org.osate.ba.aadlba;
  * @model
  * @generated
  */
-public interface ClassifierFeaturePropertyReference extends PropertyReference
+public interface ClassifierFeaturePropertyReference extends PropertyReference, IBAVisitable
 {
   /**
    * Returns the value of the '<em><b>Component</b></em>' containment reference.

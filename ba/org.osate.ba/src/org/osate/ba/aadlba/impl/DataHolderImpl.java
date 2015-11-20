@@ -20,17 +20,15 @@
 package org.osate.ba.aadlba.impl;
 
 
-import org.eclipse.emf.common.notify.Notification;
-
-import org.eclipse.emf.ecore.EClass;
-import org.eclipse.emf.ecore.EObject;
-import org.eclipse.emf.ecore.InternalEObject;
-
-import org.eclipse.emf.ecore.impl.ENotificationImpl;
-
-import org.osate.aadl2.NamedElement;
+import org.eclipse.emf.common.notify.Notification ;
+import org.eclipse.emf.ecore.EClass ;
+import org.eclipse.emf.ecore.EObject ;
+import org.eclipse.emf.ecore.InternalEObject ;
+import org.eclipse.emf.ecore.impl.ENotificationImpl ;
+import org.osate.aadl2.NamedElement ;
 import org.osate.ba.aadlba.AadlBaPackage ;
 import org.osate.ba.aadlba.DataHolder ;
+import org.osate.ba.utils.visitor.IBAVisitor ;
 
 /**
  * <!-- begin-user-doc -->
@@ -186,6 +184,10 @@ public abstract class DataHolderImpl extends BehaviorElementImpl implements Data
         return element != null;
     }
     return super.eIsSet(featureID);
+  }
+  
+  public void accept(IBAVisitor visitor) {
+    visitor.visit(this);
   }
 
 } //DataHolderImpl

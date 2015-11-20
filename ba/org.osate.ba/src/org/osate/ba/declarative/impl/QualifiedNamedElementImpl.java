@@ -49,6 +49,7 @@ import org.osate.ba.declarative.DeclarativePackage ;
 import org.osate.ba.declarative.Identifier ;
 import org.osate.ba.declarative.QualifiedNamedElement ;
 import org.osate.ba.utils.AadlBaLocationReference ;
+import org.osate.ba.utils.visitor.IBAVisitor ;
 
 /**
  * <!-- begin-user-doc -->
@@ -711,5 +712,11 @@ public class QualifiedNamedElementImpl extends DataClassifierImpl implements
   public AadlBaLocationReference getAadlBaLocationReference()
   {
     return (AadlBaLocationReference) this.getLocationReference() ;
+  }
+
+  @Override
+  public void accept(IBAVisitor visitor)
+  {
+    visitor.visit(this);
   }
 } //QualifiedNamedElementImpl

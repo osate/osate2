@@ -19,6 +19,8 @@
  */
 package org.osate.ba.aadlba;
 
+import org.osate.ba.utils.visitor.IBAVisitable ;
+
 
 /**
  * <!-- begin-user-doc -->
@@ -37,7 +39,7 @@ package org.osate.ba.aadlba;
  * @model
  * @generated
  */
-public interface IntegerRange extends ElementValues
+public interface IntegerRange extends ElementValues, IBAVisitable
 {
   /**
    * Returns the value of the '<em><b>Lower Integer Value</b></em>' containment reference.

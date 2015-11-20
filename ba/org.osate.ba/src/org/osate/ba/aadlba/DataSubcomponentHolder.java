@@ -20,6 +20,7 @@
 package org.osate.ba.aadlba;
 
 import org.osate.aadl2.DataSubcomponent;
+import org.osate.ba.utils.visitor.IBAVisitable ;
 
 /**
  * <!-- begin-user-doc -->
@@ -31,7 +32,7 @@ import org.osate.aadl2.DataSubcomponent;
  * @model
  * @generated
  */
-public interface DataSubcomponentHolder extends DataHolder, Target, ElementValues, SubprogramHolderProxy, SubcomponentHolder
+public interface DataSubcomponentHolder extends DataHolder, Target, ElementValues, SubprogramHolderProxy, SubcomponentHolder, IBAVisitable
 {
   /**
    * <!-- begin-user-doc -->

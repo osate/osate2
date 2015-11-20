@@ -20,18 +20,16 @@
 package org.osate.ba.aadlba.impl;
 
 
-import org.eclipse.emf.common.notify.Notification;
-
-import org.eclipse.emf.ecore.EClass;
-import org.eclipse.emf.ecore.EObject;
-import org.eclipse.emf.ecore.InternalEObject;
-
-import org.eclipse.emf.ecore.impl.ENotificationImpl;
-
-import org.osate.aadl2.Prototype;
-import org.osate.aadl2.PrototypeBinding;
+import org.eclipse.emf.common.notify.Notification ;
+import org.eclipse.emf.ecore.EClass ;
+import org.eclipse.emf.ecore.EObject ;
+import org.eclipse.emf.ecore.InternalEObject ;
+import org.eclipse.emf.ecore.impl.ENotificationImpl ;
+import org.osate.aadl2.Prototype ;
+import org.osate.aadl2.PrototypeBinding ;
 import org.osate.ba.aadlba.AadlBaPackage ;
 import org.osate.ba.aadlba.GroupPrototypeHolder ;
+import org.osate.ba.utils.visitor.IBAVisitor ;
 
 /**
  * <!-- begin-user-doc -->
@@ -207,6 +205,10 @@ public class GroupPrototypeHolderImpl extends GroupHolderImpl implements GroupPr
         return prototypeBinding != null;
     }
     return super.eIsSet(featureID);
+  }
+
+  public void accept(IBAVisitor visitor) {
+    visitor.visit(this);
   }
 
 } //GroupPrototypeHolderImpl

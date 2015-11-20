@@ -23,6 +23,7 @@ import org.eclipse.emf.ecore.EClass ;
 import org.osate.aadl2.SubprogramSubcomponent ;
 import org.osate.ba.aadlba.AadlBaPackage ;
 import org.osate.ba.aadlba.SubprogramSubcomponentHolder ;
+import org.osate.ba.utils.visitor.IBAVisitor ;
 
 /**
  * <!-- begin-user-doc -->
@@ -74,6 +75,10 @@ public class SubprogramSubcomponentHolderImpl extends SubcomponentHolderImpl imp
   public SubprogramSubcomponent getSubprogramSubcomponent()
   {
     return (SubprogramSubcomponent) element;
+  }
+
+  public void accept(IBAVisitor visitor) {
+    visitor.visit(this);
   }
 
 } //SubprogramSubcomponentHolderImpl

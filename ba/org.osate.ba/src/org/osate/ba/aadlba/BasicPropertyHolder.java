@@ -20,6 +20,7 @@
 package org.osate.ba.aadlba;
 
 import org.osate.aadl2.BasicProperty;
+import org.osate.ba.utils.visitor.IBAVisitable ;
 
 
 /**
@@ -32,7 +33,7 @@ import org.osate.aadl2.BasicProperty;
  * @model
  * @generated
  */
-public interface BasicPropertyHolder extends PropertyElementHolder
+public interface BasicPropertyHolder extends PropertyElementHolder, IBAVisitable
 {
 
   /**

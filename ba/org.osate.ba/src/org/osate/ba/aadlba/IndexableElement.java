@@ -20,6 +20,7 @@
 package org.osate.ba.aadlba;
 
 import org.eclipse.emf.common.util.EList;
+import org.osate.ba.utils.visitor.IBAVisitable ;
 
 /**
  * <!-- begin-user-doc -->
@@ -37,7 +38,7 @@ import org.eclipse.emf.common.util.EList;
  * @model interface="true" abstract="true"
  * @generated
  */
-public interface IndexableElement extends BehaviorElement
+public interface IndexableElement extends BehaviorElement, IBAVisitable
 {
   /**
    * Returns the value of the '<em><b>Array Indexes</b></em>' containment reference list.

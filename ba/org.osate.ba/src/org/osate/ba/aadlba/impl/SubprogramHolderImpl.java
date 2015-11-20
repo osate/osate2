@@ -20,11 +20,11 @@
 package org.osate.ba.aadlba.impl;
 
 
-import org.eclipse.emf.ecore.EClass;
-
-import org.osate.aadl2.Subprogram;
+import org.eclipse.emf.ecore.EClass ;
+import org.osate.aadl2.Subprogram ;
 import org.osate.ba.aadlba.AadlBaPackage ;
 import org.osate.ba.aadlba.SubprogramHolder ;
+import org.osate.ba.utils.visitor.IBAVisitor ;
 
 /**
  * <!-- begin-user-doc -->
@@ -76,6 +76,10 @@ public class SubprogramHolderImpl extends CalledSubprogramHolderImpl implements 
   public Subprogram getSubprogram()
   {
     return (Subprogram) element;
+  }
+
+  public void accept(IBAVisitor visitor) {
+    visitor.visit(this);
   }
 
 } //SubprogramHolderImpl

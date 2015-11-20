@@ -26,6 +26,7 @@ Export-Package: org.antlr.v4.runtime,
  org.osate.ba.texteditor,
  org.osate.ba.unparser,
  org.osate.ba.utils,
+ org.osate.ba.utils.visitor,
  org.osate.ba.wizards
 Require-Bundle: org.eclipse.ui.ide,
  org.eclipse.core.runtime,

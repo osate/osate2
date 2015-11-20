@@ -20,9 +20,10 @@
 package org.osate.ba.aadlba.impl;
 
 
-import org.eclipse.emf.ecore.EClass;
+import org.eclipse.emf.ecore.EClass ;
 import org.osate.ba.aadlba.AadlBaPackage ;
 import org.osate.ba.aadlba.CompletionRelativeTimeout ;
+import org.osate.ba.utils.visitor.IBAVisitor ;
 
 /**
  * <!-- begin-user-doc -->
@@ -56,4 +57,7 @@ public class CompletionRelativeTimeoutImpl extends BehaviorTimeImpl implements C
     return AadlBaPackage.Literals.COMPLETION_RELATIVE_TIMEOUT;
   }
 
+  public void accept(IBAVisitor visitor) {
+    visitor.visit(this);
+  }
 } //CompletionRelativeTimeoutImpl

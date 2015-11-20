@@ -19,10 +19,10 @@
  */
 package org.osate.ba.aadlba.impl;
 
-import org.eclipse.emf.ecore.EClass;
-
-import org.osate.ba.aadlba.AadlBaPackage;
-import org.osate.ba.aadlba.SubprogramHolderProxy;
+import org.eclipse.emf.ecore.EClass ;
+import org.osate.ba.aadlba.AadlBaPackage ;
+import org.osate.ba.aadlba.SubprogramHolderProxy ;
+import org.osate.ba.utils.visitor.IBAVisitor ;
 
 /**
  * <!-- begin-user-doc -->
@@ -54,6 +54,10 @@ public class SubprogramHolderProxyImpl extends BehaviorElementImpl implements Su
   protected EClass eStaticClass()
   {
     return AadlBaPackage.Literals.SUBPROGRAM_HOLDER_PROXY;
+  }
+
+  public void accept(IBAVisitor visitor) {
+    visitor.visit(this);
   }
 
 } //SubprogramHolderProxyImpl
