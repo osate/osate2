@@ -13,7 +13,7 @@ AssurancePlan:
 	'for' target=[aadl2::ComponentImplementation|AadlClassifierReference]
 	'['
 	(
-	('description' description=Description)?
+	(description=Description)?
 	& ('assure' 'own' assureOwn+=[Verify::VerificationPlan|QualifiedName]+)?
 	& ('assure' 'global' assureGlobal+=[Verify::VerificationPlan|QualifiedName]+)?
 	& ('assure' 'subsystem' 'plans' assureSubsystemPlans+=[AssurancePlan|QualifiedName]+)?

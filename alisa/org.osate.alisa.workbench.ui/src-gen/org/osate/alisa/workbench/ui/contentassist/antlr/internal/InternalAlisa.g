@@ -2314,69 +2314,6 @@ finally {
 
 
 
-rule__AssurancePlan__Group_7_0__0
-    @init {
-		int stackSize = keepStackSize();
-    }
-:
-	rule__AssurancePlan__Group_7_0__0__Impl
-	rule__AssurancePlan__Group_7_0__1
-;
-finally {
-	restoreStackSize(stackSize);
-}
-
-rule__AssurancePlan__Group_7_0__0__Impl
-    @init {
-		int stackSize = keepStackSize();
-    }
-:
-(
-{ before(grammarAccess.getAssurancePlanAccess().getDescriptionKeyword_7_0_0()); }
-
-	'description' 
-
-{ after(grammarAccess.getAssurancePlanAccess().getDescriptionKeyword_7_0_0()); }
-)
-
-;
-finally {
-	restoreStackSize(stackSize);
-}
-
-
-rule__AssurancePlan__Group_7_0__1
-    @init {
-		int stackSize = keepStackSize();
-    }
-:
-	rule__AssurancePlan__Group_7_0__1__Impl
-;
-finally {
-	restoreStackSize(stackSize);
-}
-
-rule__AssurancePlan__Group_7_0__1__Impl
-    @init {
-		int stackSize = keepStackSize();
-    }
-:
-(
-{ before(grammarAccess.getAssurancePlanAccess().getDescriptionAssignment_7_0_1()); }
-(rule__AssurancePlan__DescriptionAssignment_7_0_1)
-{ after(grammarAccess.getAssurancePlanAccess().getDescriptionAssignment_7_0_1()); }
-)
-
-;
-finally {
-	restoreStackSize(stackSize);
-}
-
-
-
-
-
-
 rule__AssurancePlan__Group_7_1__0
     @init {
 		int stackSize = keepStackSize();
@@ -7653,9 +7590,9 @@ rule__AssurancePlan__UnorderedGroup_7__Impl
 	 				}
 					(
 					
-						{ before(grammarAccess.getAssurancePlanAccess().getGroup_7_0()); }
-						(rule__AssurancePlan__Group_7_0__0)
-						{ after(grammarAccess.getAssurancePlanAccess().getGroup_7_0()); }
+						{ before(grammarAccess.getAssurancePlanAccess().getDescriptionAssignment_7_0()); }
+						(rule__AssurancePlan__DescriptionAssignment_7_0)
+						{ after(grammarAccess.getAssurancePlanAccess().getDescriptionAssignment_7_0()); }
 					)
  				)
 			)  |
@@ -8037,14 +7974,14 @@ finally {
 	restoreStackSize(stackSize);
 }
 
-rule__AssurancePlan__DescriptionAssignment_7_0_1
+rule__AssurancePlan__DescriptionAssignment_7_0
     @init {
 		int stackSize = keepStackSize();
     }
 :
 (
-{ before(grammarAccess.getAssurancePlanAccess().getDescriptionDescriptionParserRuleCall_7_0_1_0()); }
-	ruleDescription{ after(grammarAccess.getAssurancePlanAccess().getDescriptionDescriptionParserRuleCall_7_0_1_0()); }
+{ before(grammarAccess.getAssurancePlanAccess().getDescriptionDescriptionParserRuleCall_7_0_0()); }
+	ruleDescription{ after(grammarAccess.getAssurancePlanAccess().getDescriptionDescriptionParserRuleCall_7_0_0()); }
 )
 
 ;

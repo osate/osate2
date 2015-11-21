@@ -72,7 +72,6 @@ public class AlisaParser extends AbstractContentAssistParser {
 					put(grammarAccess.getNumberAccess().getAlternatives_1_1_1(), "rule__Number__Alternatives_1_1_1");
 					put(grammarAccess.getAssurancePlanAccess().getGroup(), "rule__AssurancePlan__Group__0");
 					put(grammarAccess.getAssurancePlanAccess().getGroup_3(), "rule__AssurancePlan__Group_3__0");
-					put(grammarAccess.getAssurancePlanAccess().getGroup_7_0(), "rule__AssurancePlan__Group_7_0__0");
 					put(grammarAccess.getAssurancePlanAccess().getGroup_7_1(), "rule__AssurancePlan__Group_7_1__0");
 					put(grammarAccess.getAssurancePlanAccess().getGroup_7_2(), "rule__AssurancePlan__Group_7_2__0");
 					put(grammarAccess.getAssurancePlanAccess().getGroup_7_3(), "rule__AssurancePlan__Group_7_3__0");
@@ -169,7 +168,7 @@ public class AlisaParser extends AbstractContentAssistParser {
 					put(grammarAccess.getAssurancePlanAccess().getNameAssignment_2(), "rule__AssurancePlan__NameAssignment_2");
 					put(grammarAccess.getAssurancePlanAccess().getTitleAssignment_3_1(), "rule__AssurancePlan__TitleAssignment_3_1");
 					put(grammarAccess.getAssurancePlanAccess().getTargetAssignment_5(), "rule__AssurancePlan__TargetAssignment_5");
-					put(grammarAccess.getAssurancePlanAccess().getDescriptionAssignment_7_0_1(), "rule__AssurancePlan__DescriptionAssignment_7_0_1");
+					put(grammarAccess.getAssurancePlanAccess().getDescriptionAssignment_7_0(), "rule__AssurancePlan__DescriptionAssignment_7_0");
 					put(grammarAccess.getAssurancePlanAccess().getAssureOwnAssignment_7_1_2(), "rule__AssurancePlan__AssureOwnAssignment_7_1_2");
 					put(grammarAccess.getAssurancePlanAccess().getAssureGlobalAssignment_7_2_2(), "rule__AssurancePlan__AssureGlobalAssignment_7_2_2");
 					put(grammarAccess.getAssurancePlanAccess().getAssureSubsystemPlansAssignment_7_3_3(), "rule__AssurancePlan__AssureSubsystemPlansAssignment_7_3_3");
