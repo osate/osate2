@@ -37,6 +37,10 @@ import org.osate.reqspec.reqSpec.StakeholderGoals
 import org.osate.reqspec.reqSpec.SystemRequirements
 
 import static org.osate.alisa.common.util.CommonUtilExtension.*
+import org.osate.categories.categories.CategoriesPackage
+import org.osate.categories.categories.Categories
+import org.osate.reqspec.reqSpec.Requirement
+import org.osate.reqspec.reqSpec.Goal
 
 /**
  * see http://www.eclipse.org/Xtext/documentation.html#contentAssist on how to customize content assistant
@@ -160,5 +164,34 @@ class ReqSpecProposalProvider extends AbstractReqSpecProposalProvider {
 		return cls;
 	}
 
+
+	override void completeRequirement_Category(EObject model, Assignment assignment,
+		ContentAssistContext context, ICompletionProposalAcceptor acceptor) {
+		lookupCrossReference(
+			assignment.getTerminal() as CrossReference,
+			context,
+			acceptor,
+			[description|val match = description.qualifiedName.toString; 
+			(description.EClass == CategoriesPackage.eINSTANCE.requirementCategory
+				|| description.EClass == CategoriesPackage.eINSTANCE.qualityCategory
+				|| description.EClass == CategoriesPackage.eINSTANCE.selectionCategory)
+				&& ! (model as Requirement).category.exists[c|c.name.equals(match)]
+			]
+		);
+	}
+	override void completeGoal_Category(EObject model, Assignment assignment,
+		ContentAssistContext context, ICompletionProposalAcceptor acceptor) {
+		lookupCrossReference(
+			assignment.getTerminal() as CrossReference,
+			context,
+			acceptor,
+			[description|val match = description.qualifiedName.toString; 
+			(description.EClass == CategoriesPackage.eINSTANCE.requirementCategory
+				|| description.EClass == CategoriesPackage.eINSTANCE.qualityCategory
+				|| description.EClass == CategoriesPackage.eINSTANCE.selectionCategory)
+				&& ! (model as Goal).category.exists[c|c.name.equals(match)]
+			]
+		);
+	}
 
 }

@@ -28,6 +28,9 @@ import org.eclipse.xtext.CrossReference
 import org.osate.verify.verify.VerificationPlan
 import org.eclipse.emf.ecore.util.EcoreUtil
 import java.util.ArrayList
+import org.osate.categories.categories.CategoriesPackage
+import org.osate.verify.verify.VerificationActivity
+import org.osate.verify.verify.VerificationMethod
 
 /**
  * see http://www.eclipse.org/Xtext/documentation.html#contentAssist on how to customize content assistant
@@ -51,4 +54,33 @@ class VerifyProposalProvider extends AbstractVerifyProposalProvider {
 			forSystemRequirements.content.contains(proposedObj)
 		]);
 	}
+	
+	override void completeVerificationMethod_Category(EObject model, Assignment assignment,
+		ContentAssistContext context, ICompletionProposalAcceptor acceptor) {
+		lookupCrossReference(
+			assignment.getTerminal() as CrossReference,
+			context,
+			acceptor,
+			[description| val match = description.qualifiedName.toString; 
+				(description.EClass == CategoriesPackage.eINSTANCE.methodCategory
+				|| description.EClass == CategoriesPackage.eINSTANCE.qualityCategory
+				|| description.EClass == CategoriesPackage.eINSTANCE.selectionCategory)
+				&& ! (model as VerificationMethod).category.exists[c|c.name.equals(match)]
+			]
+		);
+	}
+	override void completeVerificationActivity_Category(EObject model, Assignment assignment,
+		ContentAssistContext context, ICompletionProposalAcceptor acceptor) {
+		lookupCrossReference(
+			assignment.getTerminal() as CrossReference,
+			context,
+			acceptor,
+			[description| val match = description.qualifiedName.toString; 
+				(description.EClass == CategoriesPackage.eINSTANCE.phaseCategory
+				|| description.EClass == CategoriesPackage.eINSTANCE.selectionCategory)
+				&& ! (model as VerificationActivity).category.exists[c|c.name.equals(match)]
+			]
+		);
+	}
+	
 }
