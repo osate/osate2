@@ -85,13 +85,11 @@ public class CategoriesFactoryImpl extends EFactoryImpl implements CategoriesFac
       case CategoriesPackage.METHOD_CATEGORIES: return createMethodCategories();
       case CategoriesPackage.SELECTION_CATEGORIES: return createSelectionCategories();
       case CategoriesPackage.QUALITY_CATEGORIES: return createQualityCategories();
-      case CategoriesPackage.COMPONENT_CATEGORIES: return createComponentCategories();
       case CategoriesPackage.REQUIREMENT_CATEGORY: return createRequirementCategory();
       case CategoriesPackage.METHOD_CATEGORY: return createMethodCategory();
       case CategoriesPackage.SELECTION_CATEGORY: return createSelectionCategory();
       case CategoriesPackage.QUALITY_CATEGORY: return createQualityCategory();
       case CategoriesPackage.PHASE_CATEGORY: return createPhaseCategory();
-      case CategoriesPackage.COMPONENT_CATEGORY: return createComponentCategory();
       case CategoriesPackage.CATEGORY_SET: return createCategorySet();
       default:
         throw new IllegalArgumentException("The class '" + eClass.getName() + "' is not a valid classifier");
@@ -191,17 +189,6 @@ public class CategoriesFactoryImpl extends EFactoryImpl implements CategoriesFac
    * <!-- end-user-doc -->
    * @generated
    */
-  public ComponentCategories createComponentCategories()
-  {
-    ComponentCategoriesImpl componentCategories = new ComponentCategoriesImpl();
-    return componentCategories;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
   public RequirementCategory createRequirementCategory()
   {
     RequirementCategoryImpl requirementCategory = new RequirementCategoryImpl();
@@ -250,17 +237,6 @@ public class CategoriesFactoryImpl extends EFactoryImpl implements CategoriesFac
   {
     PhaseCategoryImpl phaseCategory = new PhaseCategoryImpl();
     return phaseCategory;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public ComponentCategory createComponentCategory()
-  {
-    ComponentCategoryImpl componentCategory = new ComponentCategoryImpl();
-    return componentCategory;
   }
 
   /**

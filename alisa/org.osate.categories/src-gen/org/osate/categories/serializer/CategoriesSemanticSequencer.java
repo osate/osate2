@@ -32,8 +32,6 @@ import org.osate.categories.categories.CategoriesDefinitions;
 import org.osate.categories.categories.CategoriesPackage;
 import org.osate.categories.categories.CategoryFilters;
 import org.osate.categories.categories.CategorySet;
-import org.osate.categories.categories.ComponentCategories;
-import org.osate.categories.categories.ComponentCategory;
 import org.osate.categories.categories.MethodCategories;
 import org.osate.categories.categories.MethodCategory;
 import org.osate.categories.categories.PhaseCategory;
@@ -62,12 +60,6 @@ public class CategoriesSemanticSequencer extends AbstractDelegatingSemanticSeque
 				return; 
 			case CategoriesPackage.CATEGORY_SET:
 				sequence_CategorySet(context, (CategorySet) semanticObject); 
-				return; 
-			case CategoriesPackage.COMPONENT_CATEGORIES:
-				sequence_ComponentCategories(context, (ComponentCategories) semanticObject); 
-				return; 
-			case CategoriesPackage.COMPONENT_CATEGORY:
-				sequence_ComponentCategory(context, (ComponentCategory) semanticObject); 
 				return; 
 			case CategoriesPackage.METHOD_CATEGORIES:
 				sequence_MethodCategories(context, (MethodCategories) semanticObject); 
@@ -111,7 +103,6 @@ public class CategoriesSemanticSequencer extends AbstractDelegatingSemanticSeque
 	 * Constraint:
 	 *     (
 	 *         requirementcategories=RequirementCategories? 
-	 *         componentcategories=ComponentCategories? 
 	 *         methodcategories=MethodCategories? 
 	 *         selectioncategories=SelectionCategories? 
 	 *         phasecategories=PhaseCategories? 
@@ -139,31 +130,6 @@ public class CategoriesSemanticSequencer extends AbstractDelegatingSemanticSeque
 	 */
 	protected void sequence_CategorySet(EObject context, CategorySet semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
-	}
-	
-	
-	/**
-	 * Constraint:
-	 *     category+=ComponentCategory+
-	 */
-	protected void sequence_ComponentCategories(EObject context, ComponentCategories semanticObject) {
-		genericSequencer.createSequence(context, semanticObject);
-	}
-	
-	
-	/**
-	 * Constraint:
-	 *     name=ID
-	 */
-	protected void sequence_ComponentCategory(EObject context, ComponentCategory semanticObject) {
-		if(errorAcceptor != null) {
-			if(transientValues.isValueTransient(semanticObject, CategoriesPackage.Literals.CATEGORY__NAME) == ValueTransient.YES)
-				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, CategoriesPackage.Literals.CATEGORY__NAME));
-		}
-		INodesForEObjectProvider nodes = createNodeProvider(semanticObject);
-		SequenceFeeder feeder = createSequencerFeeder(semanticObject, nodes);
-		feeder.accept(grammarAccess.getComponentCategoryAccess().getNameIDTerminalRuleCall_1_0(), semanticObject.getName());
-		feeder.finish();
 	}
 	
 	

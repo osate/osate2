@@ -33,12 +33,11 @@ import org.eclipse.emf.ecore.util.EObjectContainmentEList;
 import org.eclipse.emf.ecore.util.EObjectResolvingEList;
 import org.eclipse.emf.ecore.util.InternalEList;
 
+import org.osate.aadl2.ComponentCategory;
 import org.osate.aadl2.ComponentClassifier;
 
 import org.osate.alisa.common.common.AVariableDeclaration;
 import org.osate.alisa.common.common.Description;
-
-import org.osate.categories.categories.ComponentCategory;
 
 import org.osate.reqspec.reqSpec.ExternalDocument;
 import org.osate.reqspec.reqSpec.GlobalConstants;
@@ -57,7 +56,7 @@ import org.osate.reqspec.reqSpec.SystemRequirements;
  *   <li>{@link org.osate.reqspec.reqSpec.impl.SystemRequirementsImpl#getName <em>Name</em>}</li>
  *   <li>{@link org.osate.reqspec.reqSpec.impl.SystemRequirementsImpl#getTitle <em>Title</em>}</li>
  *   <li>{@link org.osate.reqspec.reqSpec.impl.SystemRequirementsImpl#getTarget <em>Target</em>}</li>
- *   <li>{@link org.osate.reqspec.reqSpec.impl.SystemRequirementsImpl#getCategory <em>Category</em>}</li>
+ *   <li>{@link org.osate.reqspec.reqSpec.impl.SystemRequirementsImpl#getComponentCategory <em>Component Category</em>}</li>
  *   <li>{@link org.osate.reqspec.reqSpec.impl.SystemRequirementsImpl#isGlobal <em>Global</em>}</li>
  *   <li>{@link org.osate.reqspec.reqSpec.impl.SystemRequirementsImpl#getImportConstants <em>Import Constants</em>}</li>
  *   <li>{@link org.osate.reqspec.reqSpec.impl.SystemRequirementsImpl#getDescription <em>Description</em>}</li>
@@ -123,14 +122,14 @@ public class SystemRequirementsImpl extends ReqSpecContainerImpl implements Syst
   protected ComponentClassifier target;
 
   /**
-   * The cached value of the '{@link #getCategory() <em>Category</em>}' reference list.
+   * The cached value of the '{@link #getComponentCategory() <em>Component Category</em>}' attribute list.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @see #getCategory()
+   * @see #getComponentCategory()
    * @generated
    * @ordered
    */
-  protected EList<ComponentCategory> category;
+  protected EList<ComponentCategory> componentCategory;
 
   /**
    * The default value of the '{@link #isGlobal() <em>Global</em>}' attribute.
@@ -337,13 +336,13 @@ public class SystemRequirementsImpl extends ReqSpecContainerImpl implements Syst
    * <!-- end-user-doc -->
    * @generated
    */
-  public EList<ComponentCategory> getCategory()
+  public EList<ComponentCategory> getComponentCategory()
   {
-    if (category == null)
+    if (componentCategory == null)
     {
-      category = new EObjectResolvingEList<ComponentCategory>(ComponentCategory.class, this, ReqSpecPackage.SYSTEM_REQUIREMENTS__CATEGORY);
+      componentCategory = new EDataTypeEList<ComponentCategory>(ComponentCategory.class, this, ReqSpecPackage.SYSTEM_REQUIREMENTS__COMPONENT_CATEGORY);
     }
-    return category;
+    return componentCategory;
   }
 
   /**
@@ -542,8 +541,8 @@ public class SystemRequirementsImpl extends ReqSpecContainerImpl implements Syst
       case ReqSpecPackage.SYSTEM_REQUIREMENTS__TARGET:
         if (resolve) return getTarget();
         return basicGetTarget();
-      case ReqSpecPackage.SYSTEM_REQUIREMENTS__CATEGORY:
-        return getCategory();
+      case ReqSpecPackage.SYSTEM_REQUIREMENTS__COMPONENT_CATEGORY:
+        return getComponentCategory();
       case ReqSpecPackage.SYSTEM_REQUIREMENTS__GLOBAL:
         return isGlobal();
       case ReqSpecPackage.SYSTEM_REQUIREMENTS__IMPORT_CONSTANTS:
@@ -584,9 +583,9 @@ public class SystemRequirementsImpl extends ReqSpecContainerImpl implements Syst
       case ReqSpecPackage.SYSTEM_REQUIREMENTS__TARGET:
         setTarget((ComponentClassifier)newValue);
         return;
-      case ReqSpecPackage.SYSTEM_REQUIREMENTS__CATEGORY:
-        getCategory().clear();
-        getCategory().addAll((Collection<? extends ComponentCategory>)newValue);
+      case ReqSpecPackage.SYSTEM_REQUIREMENTS__COMPONENT_CATEGORY:
+        getComponentCategory().clear();
+        getComponentCategory().addAll((Collection<? extends ComponentCategory>)newValue);
         return;
       case ReqSpecPackage.SYSTEM_REQUIREMENTS__GLOBAL:
         setGlobal((Boolean)newValue);
@@ -641,8 +640,8 @@ public class SystemRequirementsImpl extends ReqSpecContainerImpl implements Syst
       case ReqSpecPackage.SYSTEM_REQUIREMENTS__TARGET:
         setTarget((ComponentClassifier)null);
         return;
-      case ReqSpecPackage.SYSTEM_REQUIREMENTS__CATEGORY:
-        getCategory().clear();
+      case ReqSpecPackage.SYSTEM_REQUIREMENTS__COMPONENT_CATEGORY:
+        getComponentCategory().clear();
         return;
       case ReqSpecPackage.SYSTEM_REQUIREMENTS__GLOBAL:
         setGlobal(GLOBAL_EDEFAULT);
@@ -688,8 +687,8 @@ public class SystemRequirementsImpl extends ReqSpecContainerImpl implements Syst
         return TITLE_EDEFAULT == null ? title != null : !TITLE_EDEFAULT.equals(title);
       case ReqSpecPackage.SYSTEM_REQUIREMENTS__TARGET:
         return target != null;
-      case ReqSpecPackage.SYSTEM_REQUIREMENTS__CATEGORY:
-        return category != null && !category.isEmpty();
+      case ReqSpecPackage.SYSTEM_REQUIREMENTS__COMPONENT_CATEGORY:
+        return componentCategory != null && !componentCategory.isEmpty();
       case ReqSpecPackage.SYSTEM_REQUIREMENTS__GLOBAL:
         return global != GLOBAL_EDEFAULT;
       case ReqSpecPackage.SYSTEM_REQUIREMENTS__IMPORT_CONSTANTS:
@@ -725,6 +724,8 @@ public class SystemRequirementsImpl extends ReqSpecContainerImpl implements Syst
     result.append(name);
     result.append(", title: ");
     result.append(title);
+    result.append(", componentCategory: ");
+    result.append(componentCategory);
     result.append(", global: ");
     result.append(global);
     result.append(", issues: ");

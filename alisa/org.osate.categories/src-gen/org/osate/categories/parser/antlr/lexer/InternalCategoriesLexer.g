@@ -32,8 +32,6 @@ Requirement : 'requirement';
 
 Categories : 'categories';
 
-Component : 'component';
-
 Selection : 'selection';
 
 Category : 'category';

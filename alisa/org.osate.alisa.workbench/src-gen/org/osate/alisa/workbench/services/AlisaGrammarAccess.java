@@ -954,6 +954,17 @@ public class AlisaGrammarAccess extends AbstractGrammarElementFinder {
 		return getNoQuoteStringAccess().getRule();
 	}
 
+	//ComponentCategory returns aadl2::ComponentCategory:
+	//	"abstract" | "bus" | "data" | "device" | "memory" | "process" | "processor" | "subprogram" | "subprogram" "group" |
+	//	"system" | "thread" "group" | "thread" | "virtual" "bus" | "virtual" "processor";
+	public CommonGrammarAccess.ComponentCategoryElements getComponentCategoryAccess() {
+		return gaCommon.getComponentCategoryAccess();
+	}
+	
+	public ParserRule getComponentCategoryRule() {
+		return getComponentCategoryAccess().getRule();
+	}
+
 	//terminal fragment EXPONENT:
 	//	("e" | "E") ("+" | "-")? DIGIT+;
 	public TerminalRule getEXPONENTRule() {

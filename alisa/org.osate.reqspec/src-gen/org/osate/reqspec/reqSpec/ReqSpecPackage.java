@@ -373,13 +373,13 @@ public interface ReqSpecPackage extends EPackage
   int STAKEHOLDER_GOALS__TARGET = REQ_SPEC_CONTAINER_FEATURE_COUNT + 2;
 
   /**
-   * The feature id for the '<em><b>Category</b></em>' reference list.
+   * The feature id for the '<em><b>Component Category</b></em>' attribute list.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    * @ordered
    */
-  int STAKEHOLDER_GOALS__CATEGORY = REQ_SPEC_CONTAINER_FEATURE_COUNT + 3;
+  int STAKEHOLDER_GOALS__COMPONENT_CATEGORY = REQ_SPEC_CONTAINER_FEATURE_COUNT + 3;
 
   /**
    * The feature id for the '<em><b>Global</b></em>' attribute.
@@ -610,13 +610,13 @@ public interface ReqSpecPackage extends EPackage
   int SYSTEM_REQUIREMENTS__TARGET = REQ_SPEC_CONTAINER_FEATURE_COUNT + 2;
 
   /**
-   * The feature id for the '<em><b>Category</b></em>' reference list.
+   * The feature id for the '<em><b>Component Category</b></em>' attribute list.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    * @ordered
    */
-  int SYSTEM_REQUIREMENTS__CATEGORY = REQ_SPEC_CONTAINER_FEATURE_COUNT + 3;
+  int SYSTEM_REQUIREMENTS__COMPONENT_CATEGORY = REQ_SPEC_CONTAINER_FEATURE_COUNT + 3;
 
   /**
    * The feature id for the '<em><b>Global</b></em>' attribute.
@@ -1577,15 +1577,15 @@ public interface ReqSpecPackage extends EPackage
   EReference getStakeholderGoals_Target();
 
   /**
-   * Returns the meta object for the reference list '{@link org.osate.reqspec.reqSpec.StakeholderGoals#getCategory <em>Category</em>}'.
+   * Returns the meta object for the attribute list '{@link org.osate.reqspec.reqSpec.StakeholderGoals#getComponentCategory <em>Component Category</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @return the meta object for the reference list '<em>Category</em>'.
-   * @see org.osate.reqspec.reqSpec.StakeholderGoals#getCategory()
+   * @return the meta object for the attribute list '<em>Component Category</em>'.
+   * @see org.osate.reqspec.reqSpec.StakeholderGoals#getComponentCategory()
    * @see #getStakeholderGoals()
    * @generated
    */
-  EReference getStakeholderGoals_Category();
+  EAttribute getStakeholderGoals_ComponentCategory();
 
   /**
    * Returns the meta object for the attribute '{@link org.osate.reqspec.reqSpec.StakeholderGoals#isGlobal <em>Global</em>}'.
@@ -1827,15 +1827,15 @@ public interface ReqSpecPackage extends EPackage
   EReference getSystemRequirements_Target();
 
   /**
-   * Returns the meta object for the reference list '{@link org.osate.reqspec.reqSpec.SystemRequirements#getCategory <em>Category</em>}'.
+   * Returns the meta object for the attribute list '{@link org.osate.reqspec.reqSpec.SystemRequirements#getComponentCategory <em>Component Category</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @return the meta object for the reference list '<em>Category</em>'.
-   * @see org.osate.reqspec.reqSpec.SystemRequirements#getCategory()
+   * @return the meta object for the attribute list '<em>Component Category</em>'.
+   * @see org.osate.reqspec.reqSpec.SystemRequirements#getComponentCategory()
    * @see #getSystemRequirements()
    * @generated
    */
-  EReference getSystemRequirements_Category();
+  EAttribute getSystemRequirements_ComponentCategory();
 
   /**
    * Returns the meta object for the attribute '{@link org.osate.reqspec.reqSpec.SystemRequirements#isGlobal <em>Global</em>}'.
@@ -2442,12 +2442,12 @@ public interface ReqSpecPackage extends EPackage
     EReference STAKEHOLDER_GOALS__TARGET = eINSTANCE.getStakeholderGoals_Target();
 
     /**
-     * The meta object literal for the '<em><b>Category</b></em>' reference list feature.
+     * The meta object literal for the '<em><b>Component Category</b></em>' attribute list feature.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @generated
      */
-    EReference STAKEHOLDER_GOALS__CATEGORY = eINSTANCE.getStakeholderGoals_Category();
+    EAttribute STAKEHOLDER_GOALS__COMPONENT_CATEGORY = eINSTANCE.getStakeholderGoals_ComponentCategory();
 
     /**
      * The meta object literal for the '<em><b>Global</b></em>' attribute feature.
@@ -2632,12 +2632,12 @@ public interface ReqSpecPackage extends EPackage
     EReference SYSTEM_REQUIREMENTS__TARGET = eINSTANCE.getSystemRequirements_Target();
 
     /**
-     * The meta object literal for the '<em><b>Category</b></em>' reference list feature.
+     * The meta object literal for the '<em><b>Component Category</b></em>' attribute list feature.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @generated
      */
-    EReference SYSTEM_REQUIREMENTS__CATEGORY = eINSTANCE.getSystemRequirements_Category();
+    EAttribute SYSTEM_REQUIREMENTS__COMPONENT_CATEGORY = eINSTANCE.getSystemRequirements_ComponentCategory();
 
     /**
      * The meta object literal for the '<em><b>Global</b></em>' attribute feature.

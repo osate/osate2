@@ -19,6 +19,7 @@
  */
 package org.osate.alisa.common;
 
+import org.eclipse.xtext.conversion.IValueConverterService;
 import org.eclipse.xtext.scoping.IScopeProvider;
 
 /**
@@ -28,6 +29,11 @@ public class CommonRuntimeModule extends org.osate.alisa.common.AbstractCommonRu
 
 	public Class<? extends org.eclipse.xtext.naming.IQualifiedNameConverter> bindIQualifiedNameConverter() {
 		return org.osate.alisa.common.naming.CommonQualifiedNameConverter.class;
+	}
+
+	@Override
+	public Class<? extends IValueConverterService> bindIValueConverterService() {
+		return org.osate.alisa.common.valueconversion.CommonValueConverter.class;
 	}
 
 	@Override

@@ -322,15 +322,20 @@ ruleStakeholderGoals returns [EObject current=null]
 )
     |(
 (
-		{
-			if ($current==null) {
-	            $current = createModelElement(grammarAccess.getStakeholderGoalsRule());
+		{ 
+	        newCompositeNode(grammarAccess.getStakeholderGoalsAccess().getComponentCategoryComponentCategoryParserRuleCall_4_1_1_0()); 
+	    }
+		lv_componentCategory_7_0=ruleComponentCategory		{
+	        if ($current==null) {
+	            $current = createModelElementForParent(grammarAccess.getStakeholderGoalsRule());
 	        }
-        }
-	otherlv_7=RULE_ID
-	{
-		newLeafNode(otherlv_7, grammarAccess.getStakeholderGoalsAccess().getCategoryComponentCategoryCrossReference_4_1_1_0()); 
-	}
+       		add(
+       			$current, 
+       			"componentCategory",
+        		lv_componentCategory_7_0, 
+        		"ComponentCategory");
+	        afterParserOrEnumRuleCall();
+	    }
 
 )
 )+
@@ -1068,15 +1073,20 @@ ruleSystemRequirements returns [EObject current=null]
 )
     |(
 (
-		{
-			if ($current==null) {
-	            $current = createModelElement(grammarAccess.getSystemRequirementsRule());
+		{ 
+	        newCompositeNode(grammarAccess.getSystemRequirementsAccess().getComponentCategoryComponentCategoryParserRuleCall_4_1_1_0()); 
+	    }
+		lv_componentCategory_7_0=ruleComponentCategory		{
+	        if ($current==null) {
+	            $current = createModelElementForParent(grammarAccess.getSystemRequirementsRule());
 	        }
-        }
-	otherlv_7=RULE_ID
-	{
-		newLeafNode(otherlv_7, grammarAccess.getSystemRequirementsAccess().getCategoryComponentCategoryCrossReference_4_1_1_0()); 
-	}
+       		add(
+       			$current, 
+       			"componentCategory",
+        		lv_componentCategory_7_0, 
+        		"ComponentCategory");
+	        afterParserOrEnumRuleCall();
+	    }
 
 )
 )+
@@ -7062,6 +7072,149 @@ ruleNoQuoteString returns [AntlrDatatypeRuleToken current=new AntlrDatatypeRuleT
     newLeafNode(this_STRING_0, grammarAccess.getNoQuoteStringAccess().getSTRINGTerminalRuleCall()); 
     }
 
+    ;
+
+
+
+
+
+// Entry rule entryRuleComponentCategory
+entryRuleComponentCategory returns [String current=null] 
+:
+	{ newCompositeNode(grammarAccess.getComponentCategoryRule()); } 
+	 iv_ruleComponentCategory=ruleComponentCategory 
+	 { $current=$iv_ruleComponentCategory.current.getText(); }  
+	 EOF 
+;
+
+// Rule ComponentCategory
+ruleComponentCategory returns [AntlrDatatypeRuleToken current=new AntlrDatatypeRuleToken()] 
+    @init { enterRule(); 
+    }
+    @after { leaveRule();
+    }:
+(
+	kw=Abstract 
+    {
+        $current.merge(kw);
+        newLeafNode(kw, grammarAccess.getComponentCategoryAccess().getAbstractKeyword_0()); 
+    }
+
+    |
+	kw=Bus 
+    {
+        $current.merge(kw);
+        newLeafNode(kw, grammarAccess.getComponentCategoryAccess().getBusKeyword_1()); 
+    }
+
+    |
+	kw=Data 
+    {
+        $current.merge(kw);
+        newLeafNode(kw, grammarAccess.getComponentCategoryAccess().getDataKeyword_2()); 
+    }
+
+    |
+	kw=Device 
+    {
+        $current.merge(kw);
+        newLeafNode(kw, grammarAccess.getComponentCategoryAccess().getDeviceKeyword_3()); 
+    }
+
+    |
+	kw=Memory 
+    {
+        $current.merge(kw);
+        newLeafNode(kw, grammarAccess.getComponentCategoryAccess().getMemoryKeyword_4()); 
+    }
+
+    |
+	kw=Process 
+    {
+        $current.merge(kw);
+        newLeafNode(kw, grammarAccess.getComponentCategoryAccess().getProcessKeyword_5()); 
+    }
+
+    |
+	kw=Processor 
+    {
+        $current.merge(kw);
+        newLeafNode(kw, grammarAccess.getComponentCategoryAccess().getProcessorKeyword_6()); 
+    }
+
+    |
+	kw=Subprogram 
+    {
+        $current.merge(kw);
+        newLeafNode(kw, grammarAccess.getComponentCategoryAccess().getSubprogramKeyword_7()); 
+    }
+
+    |(
+	kw=Subprogram 
+    {
+        $current.merge(kw);
+        newLeafNode(kw, grammarAccess.getComponentCategoryAccess().getSubprogramKeyword_8_0()); 
+    }
+
+	kw=Group 
+    {
+        $current.merge(kw);
+        newLeafNode(kw, grammarAccess.getComponentCategoryAccess().getGroupKeyword_8_1()); 
+    }
+)
+    |
+	kw=KW_System 
+    {
+        $current.merge(kw);
+        newLeafNode(kw, grammarAccess.getComponentCategoryAccess().getSystemKeyword_9()); 
+    }
+
+    |(
+	kw=Thread 
+    {
+        $current.merge(kw);
+        newLeafNode(kw, grammarAccess.getComponentCategoryAccess().getThreadKeyword_10_0()); 
+    }
+
+	kw=Group 
+    {
+        $current.merge(kw);
+        newLeafNode(kw, grammarAccess.getComponentCategoryAccess().getGroupKeyword_10_1()); 
+    }
+)
+    |
+	kw=Thread 
+    {
+        $current.merge(kw);
+        newLeafNode(kw, grammarAccess.getComponentCategoryAccess().getThreadKeyword_11()); 
+    }
+
+    |(
+	kw=Virtual 
+    {
+        $current.merge(kw);
+        newLeafNode(kw, grammarAccess.getComponentCategoryAccess().getVirtualKeyword_12_0()); 
+    }
+
+	kw=Bus 
+    {
+        $current.merge(kw);
+        newLeafNode(kw, grammarAccess.getComponentCategoryAccess().getBusKeyword_12_1()); 
+    }
+)
+    |(
+	kw=Virtual 
+    {
+        $current.merge(kw);
+        newLeafNode(kw, grammarAccess.getComponentCategoryAccess().getVirtualKeyword_13_0()); 
+    }
+
+	kw=Processor 
+    {
+        $current.merge(kw);
+        newLeafNode(kw, grammarAccess.getComponentCategoryAccess().getProcessorKeyword_13_1()); 
+    }
+))
     ;
 
 

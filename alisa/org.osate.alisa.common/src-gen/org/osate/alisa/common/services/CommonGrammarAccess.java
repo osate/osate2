@@ -1671,6 +1671,108 @@ public class CommonGrammarAccess extends AbstractGrammarElementFinder {
 		public RuleCall getSTRINGTerminalRuleCall() { return cSTRINGTerminalRuleCall; }
 	}
 
+	public class ComponentCategoryElements extends AbstractParserRuleElementFinder {
+		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "ComponentCategory");
+		private final Alternatives cAlternatives = (Alternatives)rule.eContents().get(1);
+		private final Keyword cAbstractKeyword_0 = (Keyword)cAlternatives.eContents().get(0);
+		private final Keyword cBusKeyword_1 = (Keyword)cAlternatives.eContents().get(1);
+		private final Keyword cDataKeyword_2 = (Keyword)cAlternatives.eContents().get(2);
+		private final Keyword cDeviceKeyword_3 = (Keyword)cAlternatives.eContents().get(3);
+		private final Keyword cMemoryKeyword_4 = (Keyword)cAlternatives.eContents().get(4);
+		private final Keyword cProcessKeyword_5 = (Keyword)cAlternatives.eContents().get(5);
+		private final Keyword cProcessorKeyword_6 = (Keyword)cAlternatives.eContents().get(6);
+		private final Keyword cSubprogramKeyword_7 = (Keyword)cAlternatives.eContents().get(7);
+		private final Group cGroup_8 = (Group)cAlternatives.eContents().get(8);
+		private final Keyword cSubprogramKeyword_8_0 = (Keyword)cGroup_8.eContents().get(0);
+		private final Keyword cGroupKeyword_8_1 = (Keyword)cGroup_8.eContents().get(1);
+		private final Keyword cSystemKeyword_9 = (Keyword)cAlternatives.eContents().get(9);
+		private final Group cGroup_10 = (Group)cAlternatives.eContents().get(10);
+		private final Keyword cThreadKeyword_10_0 = (Keyword)cGroup_10.eContents().get(0);
+		private final Keyword cGroupKeyword_10_1 = (Keyword)cGroup_10.eContents().get(1);
+		private final Keyword cThreadKeyword_11 = (Keyword)cAlternatives.eContents().get(11);
+		private final Group cGroup_12 = (Group)cAlternatives.eContents().get(12);
+		private final Keyword cVirtualKeyword_12_0 = (Keyword)cGroup_12.eContents().get(0);
+		private final Keyword cBusKeyword_12_1 = (Keyword)cGroup_12.eContents().get(1);
+		private final Group cGroup_13 = (Group)cAlternatives.eContents().get(13);
+		private final Keyword cVirtualKeyword_13_0 = (Keyword)cGroup_13.eContents().get(0);
+		private final Keyword cProcessorKeyword_13_1 = (Keyword)cGroup_13.eContents().get(1);
+		
+		//ComponentCategory returns aadl2::ComponentCategory:
+		//	"abstract" | "bus" | "data" | "device" | "memory" | "process" | "processor" | "subprogram" | "subprogram" "group" |
+		//	"system" | "thread" "group" | "thread" | "virtual" "bus" | "virtual" "processor";
+		@Override public ParserRule getRule() { return rule; }
+
+		//"abstract" | "bus" | "data" | "device" | "memory" | "process" | "processor" | "subprogram" | "subprogram" "group" |
+		//"system" | "thread" "group" | "thread" | "virtual" "bus" | "virtual" "processor"
+		public Alternatives getAlternatives() { return cAlternatives; }
+
+		//"abstract"
+		public Keyword getAbstractKeyword_0() { return cAbstractKeyword_0; }
+
+		//"bus"
+		public Keyword getBusKeyword_1() { return cBusKeyword_1; }
+
+		//"data"
+		public Keyword getDataKeyword_2() { return cDataKeyword_2; }
+
+		//"device"
+		public Keyword getDeviceKeyword_3() { return cDeviceKeyword_3; }
+
+		//"memory"
+		public Keyword getMemoryKeyword_4() { return cMemoryKeyword_4; }
+
+		//"process"
+		public Keyword getProcessKeyword_5() { return cProcessKeyword_5; }
+
+		//"processor"
+		public Keyword getProcessorKeyword_6() { return cProcessorKeyword_6; }
+
+		//"subprogram"
+		public Keyword getSubprogramKeyword_7() { return cSubprogramKeyword_7; }
+
+		//"subprogram" "group"
+		public Group getGroup_8() { return cGroup_8; }
+
+		//"subprogram"
+		public Keyword getSubprogramKeyword_8_0() { return cSubprogramKeyword_8_0; }
+
+		//"group"
+		public Keyword getGroupKeyword_8_1() { return cGroupKeyword_8_1; }
+
+		//"system"
+		public Keyword getSystemKeyword_9() { return cSystemKeyword_9; }
+
+		//"thread" "group"
+		public Group getGroup_10() { return cGroup_10; }
+
+		//"thread"
+		public Keyword getThreadKeyword_10_0() { return cThreadKeyword_10_0; }
+
+		//"group"
+		public Keyword getGroupKeyword_10_1() { return cGroupKeyword_10_1; }
+
+		//"thread"
+		public Keyword getThreadKeyword_11() { return cThreadKeyword_11; }
+
+		//"virtual" "bus"
+		public Group getGroup_12() { return cGroup_12; }
+
+		//"virtual"
+		public Keyword getVirtualKeyword_12_0() { return cVirtualKeyword_12_0; }
+
+		//"bus"
+		public Keyword getBusKeyword_12_1() { return cBusKeyword_12_1; }
+
+		//"virtual" "processor"
+		public Group getGroup_13() { return cGroup_13; }
+
+		//"virtual"
+		public Keyword getVirtualKeyword_13_0() { return cVirtualKeyword_13_0; }
+
+		//"processor"
+		public Keyword getProcessorKeyword_13_1() { return cProcessorKeyword_13_1; }
+	}
+
 	public class AadlClassifierReferenceElements extends AbstractParserRuleElementFinder {
 		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "AadlClassifierReference");
 		private final Group cGroup = (Group)rule.eContents().get(1);
@@ -1876,6 +1978,7 @@ public class CommonGrammarAccess extends AbstractGrammarElementFinder {
 	private final ANullLiteralElements pANullLiteral;
 	private final StringTermElements pStringTerm;
 	private final NoQuoteStringElements pNoQuoteString;
+	private final ComponentCategoryElements pComponentCategory;
 	private final TerminalRule tEXPONENT;
 	private final TerminalRule tINT_EXPONENT;
 	private final TerminalRule tREAL_LIT;
@@ -1944,6 +2047,7 @@ public class CommonGrammarAccess extends AbstractGrammarElementFinder {
 		this.pANullLiteral = new ANullLiteralElements();
 		this.pStringTerm = new StringTermElements();
 		this.pNoQuoteString = new NoQuoteStringElements();
+		this.pComponentCategory = new ComponentCategoryElements();
 		this.tEXPONENT = (TerminalRule) GrammarUtil.findRuleForName(getGrammar(), "EXPONENT");
 		this.tINT_EXPONENT = (TerminalRule) GrammarUtil.findRuleForName(getGrammar(), "INT_EXPONENT");
 		this.tREAL_LIT = (TerminalRule) GrammarUtil.findRuleForName(getGrammar(), "REAL_LIT");
@@ -2425,6 +2529,17 @@ public class CommonGrammarAccess extends AbstractGrammarElementFinder {
 	
 	public ParserRule getNoQuoteStringRule() {
 		return getNoQuoteStringAccess().getRule();
+	}
+
+	//ComponentCategory returns aadl2::ComponentCategory:
+	//	"abstract" | "bus" | "data" | "device" | "memory" | "process" | "processor" | "subprogram" | "subprogram" "group" |
+	//	"system" | "thread" "group" | "thread" | "virtual" "bus" | "virtual" "processor";
+	public ComponentCategoryElements getComponentCategoryAccess() {
+		return pComponentCategory;
+	}
+	
+	public ParserRule getComponentCategoryRule() {
+		return getComponentCategoryAccess().getRule();
 	}
 
 	//terminal fragment EXPONENT:

@@ -19,6 +19,8 @@
  */
 package org.osate.categories;
 
+import org.eclipse.xtext.conversion.IValueConverterService;
+
 /**
  * Use this class to register components to be used at runtime / without the Equinox extension registry.
  */

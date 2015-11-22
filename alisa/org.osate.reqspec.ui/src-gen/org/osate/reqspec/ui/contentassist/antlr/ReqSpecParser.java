@@ -78,6 +78,7 @@ public class ReqSpecParser extends AbstractContentAssistParser {
 					put(grammarAccess.getALiteralAccess().getAlternatives(), "rule__ALiteral__Alternatives");
 					put(grammarAccess.getNumAltAccess().getAlternatives(), "rule__NumAlt__Alternatives");
 					put(grammarAccess.getABooleanLiteralAccess().getAlternatives_1(), "rule__ABooleanLiteral__Alternatives_1");
+					put(grammarAccess.getComponentCategoryAccess().getAlternatives(), "rule__ComponentCategory__Alternatives");
 					put(grammarAccess.getNumberAccess().getAlternatives(), "rule__Number__Alternatives");
 					put(grammarAccess.getNumberAccess().getAlternatives_1_0(), "rule__Number__Alternatives_1_0");
 					put(grammarAccess.getNumberAccess().getAlternatives_1_1_1(), "rule__Number__Alternatives_1_1_1");
@@ -237,6 +238,10 @@ public class ReqSpecParser extends AbstractContentAssistParser {
 					put(grammarAccess.getAParenthesizedExpressionAccess().getGroup(), "rule__AParenthesizedExpression__Group__0");
 					put(grammarAccess.getABooleanLiteralAccess().getGroup(), "rule__ABooleanLiteral__Group__0");
 					put(grammarAccess.getANullLiteralAccess().getGroup(), "rule__ANullLiteral__Group__0");
+					put(grammarAccess.getComponentCategoryAccess().getGroup_8(), "rule__ComponentCategory__Group_8__0");
+					put(grammarAccess.getComponentCategoryAccess().getGroup_10(), "rule__ComponentCategory__Group_10__0");
+					put(grammarAccess.getComponentCategoryAccess().getGroup_12(), "rule__ComponentCategory__Group_12__0");
+					put(grammarAccess.getComponentCategoryAccess().getGroup_13(), "rule__ComponentCategory__Group_13__0");
 					put(grammarAccess.getAadlClassifierReferenceAccess().getGroup(), "rule__AadlClassifierReference__Group__0");
 					put(grammarAccess.getAadlClassifierReferenceAccess().getGroup_1(), "rule__AadlClassifierReference__Group_1__0");
 					put(grammarAccess.getAadlClassifierReferenceAccess().getGroup_2(), "rule__AadlClassifierReference__Group_2__0");
@@ -252,7 +257,7 @@ public class ReqSpecParser extends AbstractContentAssistParser {
 					put(grammarAccess.getStakeholderGoalsAccess().getNameAssignment_2(), "rule__StakeholderGoals__NameAssignment_2");
 					put(grammarAccess.getStakeholderGoalsAccess().getTitleAssignment_3_1(), "rule__StakeholderGoals__TitleAssignment_3_1");
 					put(grammarAccess.getStakeholderGoalsAccess().getTargetAssignment_4_1_0(), "rule__StakeholderGoals__TargetAssignment_4_1_0");
-					put(grammarAccess.getStakeholderGoalsAccess().getCategoryAssignment_4_1_1(), "rule__StakeholderGoals__CategoryAssignment_4_1_1");
+					put(grammarAccess.getStakeholderGoalsAccess().getComponentCategoryAssignment_4_1_1(), "rule__StakeholderGoals__ComponentCategoryAssignment_4_1_1");
 					put(grammarAccess.getStakeholderGoalsAccess().getGlobalAssignment_4_1_2(), "rule__StakeholderGoals__GlobalAssignment_4_1_2");
 					put(grammarAccess.getStakeholderGoalsAccess().getImportConstantsAssignment_5_2(), "rule__StakeholderGoals__ImportConstantsAssignment_5_2");
 					put(grammarAccess.getStakeholderGoalsAccess().getDescriptionAssignment_7_0(), "rule__StakeholderGoals__DescriptionAssignment_7_0");
@@ -272,7 +277,7 @@ public class ReqSpecParser extends AbstractContentAssistParser {
 					put(grammarAccess.getSystemRequirementsAccess().getNameAssignment_2(), "rule__SystemRequirements__NameAssignment_2");
 					put(grammarAccess.getSystemRequirementsAccess().getTitleAssignment_3_1(), "rule__SystemRequirements__TitleAssignment_3_1");
 					put(grammarAccess.getSystemRequirementsAccess().getTargetAssignment_4_1_0(), "rule__SystemRequirements__TargetAssignment_4_1_0");
-					put(grammarAccess.getSystemRequirementsAccess().getCategoryAssignment_4_1_1(), "rule__SystemRequirements__CategoryAssignment_4_1_1");
+					put(grammarAccess.getSystemRequirementsAccess().getComponentCategoryAssignment_4_1_1(), "rule__SystemRequirements__ComponentCategoryAssignment_4_1_1");
 					put(grammarAccess.getSystemRequirementsAccess().getGlobalAssignment_4_1_2(), "rule__SystemRequirements__GlobalAssignment_4_1_2");
 					put(grammarAccess.getSystemRequirementsAccess().getImportConstantsAssignment_5_2(), "rule__SystemRequirements__ImportConstantsAssignment_5_2");
 					put(grammarAccess.getSystemRequirementsAccess().getDescriptionAssignment_7_0(), "rule__SystemRequirements__DescriptionAssignment_7_0");

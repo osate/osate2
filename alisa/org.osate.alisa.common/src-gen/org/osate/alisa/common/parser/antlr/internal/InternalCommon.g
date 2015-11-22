@@ -2193,6 +2193,8 @@ ruleNoQuoteString returns [AntlrDatatypeRuleToken current=new AntlrDatatypeRuleT
 
 
 
+
+
 // Entry rule entryRuleAADLPROPERTYREFERENCE
 entryRuleAADLPROPERTYREFERENCE returns [String current=null] 
 	:

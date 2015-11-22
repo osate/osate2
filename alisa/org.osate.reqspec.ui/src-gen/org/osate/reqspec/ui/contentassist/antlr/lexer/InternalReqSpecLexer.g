@@ -52,6 +52,8 @@ Costimpact : 'costimpact';
 
 Decomposes : 'decomposes';
 
+Subprogram : 'subprogram';
+
 Volatility : 'volatility';
 
 Conflicts : 'conflicts';
@@ -62,9 +64,13 @@ Mitigates : 'mitigates';
 
 Predicate : 'predicate';
 
+Processor : 'processor';
+
 Rationale : 'rationale';
 
 Riskindex : 'riskindex';
+
+Abstract : 'abstract';
 
 Category : 'category';
 
@@ -78,13 +84,23 @@ Dropped : 'dropped';
 
 Evolves : 'evolves';
 
+Process : 'process';
+
 Refines : 'refines';
 
 Section : 'section';
 
+Virtual : 'virtual';
+
+Device : 'device';
+
 Issues : 'issues';
 
+Memory : 'memory';
+
 KW_System : 'system';
+
+Thread : 'thread';
 
 Delta : 'delta';
 
@@ -92,7 +108,11 @@ False : 'false';
 
 Goals : 'goals';
 
+Group : 'group';
+
 Value : 'value';
+
+Data : 'data';
 
 Goal : 'goal';
 
@@ -107,6 +127,8 @@ With : 'with';
 FullStopFullStopLessThanSign : '..<';
 
 All : 'all';
+
+Bus : 'bus';
 
 For : 'for';
 

@@ -35,28 +35,26 @@ public class CategoriesGrammarAccess extends AbstractGrammarElementFinder {
 		private final UnorderedGroup cUnorderedGroup = (UnorderedGroup)rule.eContents().get(1);
 		private final Assignment cRequirementcategoriesAssignment_0 = (Assignment)cUnorderedGroup.eContents().get(0);
 		private final RuleCall cRequirementcategoriesRequirementCategoriesParserRuleCall_0_0 = (RuleCall)cRequirementcategoriesAssignment_0.eContents().get(0);
-		private final Assignment cComponentcategoriesAssignment_1 = (Assignment)cUnorderedGroup.eContents().get(1);
-		private final RuleCall cComponentcategoriesComponentCategoriesParserRuleCall_1_0 = (RuleCall)cComponentcategoriesAssignment_1.eContents().get(0);
-		private final Assignment cMethodcategoriesAssignment_2 = (Assignment)cUnorderedGroup.eContents().get(2);
-		private final RuleCall cMethodcategoriesMethodCategoriesParserRuleCall_2_0 = (RuleCall)cMethodcategoriesAssignment_2.eContents().get(0);
-		private final Assignment cSelectioncategoriesAssignment_3 = (Assignment)cUnorderedGroup.eContents().get(3);
-		private final RuleCall cSelectioncategoriesSelectionCategoriesParserRuleCall_3_0 = (RuleCall)cSelectioncategoriesAssignment_3.eContents().get(0);
-		private final Assignment cPhasecategoriesAssignment_4 = (Assignment)cUnorderedGroup.eContents().get(4);
-		private final RuleCall cPhasecategoriesPhaseCategoriesParserRuleCall_4_0 = (RuleCall)cPhasecategoriesAssignment_4.eContents().get(0);
-		private final Assignment cQualitycategoriesAssignment_5 = (Assignment)cUnorderedGroup.eContents().get(5);
-		private final RuleCall cQualitycategoriesQualityCategoriesParserRuleCall_5_0 = (RuleCall)cQualitycategoriesAssignment_5.eContents().get(0);
-		private final Assignment cCategoryfilterAssignment_6 = (Assignment)cUnorderedGroup.eContents().get(6);
-		private final RuleCall cCategoryfilterCategoryFiltersParserRuleCall_6_0 = (RuleCall)cCategoryfilterAssignment_6.eContents().get(0);
+		private final Assignment cMethodcategoriesAssignment_1 = (Assignment)cUnorderedGroup.eContents().get(1);
+		private final RuleCall cMethodcategoriesMethodCategoriesParserRuleCall_1_0 = (RuleCall)cMethodcategoriesAssignment_1.eContents().get(0);
+		private final Assignment cSelectioncategoriesAssignment_2 = (Assignment)cUnorderedGroup.eContents().get(2);
+		private final RuleCall cSelectioncategoriesSelectionCategoriesParserRuleCall_2_0 = (RuleCall)cSelectioncategoriesAssignment_2.eContents().get(0);
+		private final Assignment cPhasecategoriesAssignment_3 = (Assignment)cUnorderedGroup.eContents().get(3);
+		private final RuleCall cPhasecategoriesPhaseCategoriesParserRuleCall_3_0 = (RuleCall)cPhasecategoriesAssignment_3.eContents().get(0);
+		private final Assignment cQualitycategoriesAssignment_4 = (Assignment)cUnorderedGroup.eContents().get(4);
+		private final RuleCall cQualitycategoriesQualityCategoriesParserRuleCall_4_0 = (RuleCall)cQualitycategoriesAssignment_4.eContents().get(0);
+		private final Assignment cCategoryfilterAssignment_5 = (Assignment)cUnorderedGroup.eContents().get(5);
+		private final RuleCall cCategoryfilterCategoryFiltersParserRuleCall_5_0 = (RuleCall)cCategoryfilterAssignment_5.eContents().get(0);
 		
 		//CategoriesDefinitions:
-		//	requirementcategories=RequirementCategories? & componentcategories=ComponentCategories? &
-		//	methodcategories=MethodCategories? & selectioncategories=SelectionCategories? & phasecategories=PhaseCategories? &
-		//	qualitycategories=QualityCategories? & categoryfilter=CategoryFilters?;
+		//	requirementcategories=RequirementCategories? & methodcategories=MethodCategories? &
+		//	selectioncategories=SelectionCategories? & phasecategories=PhaseCategories? & qualitycategories=QualityCategories? &
+		//	categoryfilter=CategoryFilters?;
 		@Override public ParserRule getRule() { return rule; }
 
-		//requirementcategories=RequirementCategories? & componentcategories=ComponentCategories? &
-		//methodcategories=MethodCategories? & selectioncategories=SelectionCategories? & phasecategories=PhaseCategories? &
-		//qualitycategories=QualityCategories? & categoryfilter=CategoryFilters?
+		//requirementcategories=RequirementCategories? & methodcategories=MethodCategories? &
+		//selectioncategories=SelectionCategories? & phasecategories=PhaseCategories? & qualitycategories=QualityCategories? &
+		//categoryfilter=CategoryFilters?
 		public UnorderedGroup getUnorderedGroup() { return cUnorderedGroup; }
 
 		//requirementcategories=RequirementCategories?
@@ -65,41 +63,35 @@ public class CategoriesGrammarAccess extends AbstractGrammarElementFinder {
 		//RequirementCategories
 		public RuleCall getRequirementcategoriesRequirementCategoriesParserRuleCall_0_0() { return cRequirementcategoriesRequirementCategoriesParserRuleCall_0_0; }
 
-		//componentcategories=ComponentCategories?
-		public Assignment getComponentcategoriesAssignment_1() { return cComponentcategoriesAssignment_1; }
-
-		//ComponentCategories
-		public RuleCall getComponentcategoriesComponentCategoriesParserRuleCall_1_0() { return cComponentcategoriesComponentCategoriesParserRuleCall_1_0; }
-
 		//methodcategories=MethodCategories?
-		public Assignment getMethodcategoriesAssignment_2() { return cMethodcategoriesAssignment_2; }
+		public Assignment getMethodcategoriesAssignment_1() { return cMethodcategoriesAssignment_1; }
 
 		//MethodCategories
-		public RuleCall getMethodcategoriesMethodCategoriesParserRuleCall_2_0() { return cMethodcategoriesMethodCategoriesParserRuleCall_2_0; }
+		public RuleCall getMethodcategoriesMethodCategoriesParserRuleCall_1_0() { return cMethodcategoriesMethodCategoriesParserRuleCall_1_0; }
 
 		//selectioncategories=SelectionCategories?
-		public Assignment getSelectioncategoriesAssignment_3() { return cSelectioncategoriesAssignment_3; }
+		public Assignment getSelectioncategoriesAssignment_2() { return cSelectioncategoriesAssignment_2; }
 
 		//SelectionCategories
-		public RuleCall getSelectioncategoriesSelectionCategoriesParserRuleCall_3_0() { return cSelectioncategoriesSelectionCategoriesParserRuleCall_3_0; }
+		public RuleCall getSelectioncategoriesSelectionCategoriesParserRuleCall_2_0() { return cSelectioncategoriesSelectionCategoriesParserRuleCall_2_0; }
 
 		//phasecategories=PhaseCategories?
-		public Assignment getPhasecategoriesAssignment_4() { return cPhasecategoriesAssignment_4; }
+		public Assignment getPhasecategoriesAssignment_3() { return cPhasecategoriesAssignment_3; }
 
 		//PhaseCategories
-		public RuleCall getPhasecategoriesPhaseCategoriesParserRuleCall_4_0() { return cPhasecategoriesPhaseCategoriesParserRuleCall_4_0; }
+		public RuleCall getPhasecategoriesPhaseCategoriesParserRuleCall_3_0() { return cPhasecategoriesPhaseCategoriesParserRuleCall_3_0; }
 
 		//qualitycategories=QualityCategories?
-		public Assignment getQualitycategoriesAssignment_5() { return cQualitycategoriesAssignment_5; }
+		public Assignment getQualitycategoriesAssignment_4() { return cQualitycategoriesAssignment_4; }
 
 		//QualityCategories
-		public RuleCall getQualitycategoriesQualityCategoriesParserRuleCall_5_0() { return cQualitycategoriesQualityCategoriesParserRuleCall_5_0; }
+		public RuleCall getQualitycategoriesQualityCategoriesParserRuleCall_4_0() { return cQualitycategoriesQualityCategoriesParserRuleCall_4_0; }
 
 		//categoryfilter=CategoryFilters?
-		public Assignment getCategoryfilterAssignment_6() { return cCategoryfilterAssignment_6; }
+		public Assignment getCategoryfilterAssignment_5() { return cCategoryfilterAssignment_5; }
 
 		//CategoryFilters
-		public RuleCall getCategoryfilterCategoryFiltersParserRuleCall_6_0() { return cCategoryfilterCategoryFiltersParserRuleCall_6_0; }
+		public RuleCall getCategoryfilterCategoryFiltersParserRuleCall_5_0() { return cCategoryfilterCategoryFiltersParserRuleCall_5_0; }
 	}
 
 	public class RequirementCategoriesElements extends AbstractParserRuleElementFinder {
@@ -304,46 +296,6 @@ public class CategoriesGrammarAccess extends AbstractGrammarElementFinder {
 		public Keyword getRightSquareBracketKeyword_5() { return cRightSquareBracketKeyword_5; }
 	}
 
-	public class ComponentCategoriesElements extends AbstractParserRuleElementFinder {
-		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "ComponentCategories");
-		private final Group cGroup = (Group)rule.eContents().get(1);
-		private final Action cComponentCategoriesAction_0 = (Action)cGroup.eContents().get(0);
-		private final Keyword cComponentKeyword_1 = (Keyword)cGroup.eContents().get(1);
-		private final Keyword cCategoriesKeyword_2 = (Keyword)cGroup.eContents().get(2);
-		private final Keyword cLeftSquareBracketKeyword_3 = (Keyword)cGroup.eContents().get(3);
-		private final Assignment cCategoryAssignment_4 = (Assignment)cGroup.eContents().get(4);
-		private final RuleCall cCategoryComponentCategoryParserRuleCall_4_0 = (RuleCall)cCategoryAssignment_4.eContents().get(0);
-		private final Keyword cRightSquareBracketKeyword_5 = (Keyword)cGroup.eContents().get(5);
-		
-		//ComponentCategories returns Categories:
-		//	{ComponentCategories} "component" "categories" "[" category+=ComponentCategory+ "]";
-		@Override public ParserRule getRule() { return rule; }
-
-		//{ComponentCategories} "component" "categories" "[" category+=ComponentCategory+ "]"
-		public Group getGroup() { return cGroup; }
-
-		//{ComponentCategories}
-		public Action getComponentCategoriesAction_0() { return cComponentCategoriesAction_0; }
-
-		//"component"
-		public Keyword getComponentKeyword_1() { return cComponentKeyword_1; }
-
-		//"categories"
-		public Keyword getCategoriesKeyword_2() { return cCategoriesKeyword_2; }
-
-		//"["
-		public Keyword getLeftSquareBracketKeyword_3() { return cLeftSquareBracketKeyword_3; }
-
-		//category+=ComponentCategory+
-		public Assignment getCategoryAssignment_4() { return cCategoryAssignment_4; }
-
-		//ComponentCategory
-		public RuleCall getCategoryComponentCategoryParserRuleCall_4_0() { return cCategoryComponentCategoryParserRuleCall_4_0; }
-
-		//"]"
-		public Keyword getRightSquareBracketKeyword_5() { return cRightSquareBracketKeyword_5; }
-	}
-
 	public class RequirementCategoryElements extends AbstractParserRuleElementFinder {
 		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "RequirementCategory");
 		private final Group cGroup = (Group)rule.eContents().get(1);
@@ -494,36 +446,6 @@ public class CategoriesGrammarAccess extends AbstractGrammarElementFinder {
 		public RuleCall getNameIDTerminalRuleCall_1_0() { return cNameIDTerminalRuleCall_1_0; }
 	}
 
-	public class ComponentCategoryElements extends AbstractParserRuleElementFinder {
-		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "ComponentCategory");
-		private final Group cGroup = (Group)rule.eContents().get(1);
-		private final Action cComponentCategoryAction_0 = (Action)cGroup.eContents().get(0);
-		private final Assignment cNameAssignment_1 = (Assignment)cGroup.eContents().get(1);
-		private final RuleCall cNameIDTerminalRuleCall_1_0 = (RuleCall)cNameAssignment_1.eContents().get(0);
-		
-		/// **
-		// * component category indicates an AADL component category 
-		// * / ComponentCategory returns Category:
-		//	{ComponentCategory} name= //('{' subCategories+=[ComponentCategory|CatRef]*'}')? 
-		//	ID;
-		@Override public ParserRule getRule() { return rule; }
-
-		//{ComponentCategory} name= //('{' subCategories+=[ComponentCategory|CatRef]*'}')? 
-		//ID
-		public Group getGroup() { return cGroup; }
-
-		//{ComponentCategory}
-		public Action getComponentCategoryAction_0() { return cComponentCategoryAction_0; }
-
-		//name= //('{' subCategories+=[ComponentCategory|CatRef]*'}')? 
-		//ID
-		public Assignment getNameAssignment_1() { return cNameAssignment_1; }
-
-		////('{' subCategories+=[ComponentCategory|CatRef]*'}')? 
-		//ID
-		public RuleCall getNameIDTerminalRuleCall_1_0() { return cNameIDTerminalRuleCall_1_0; }
-	}
-
 	public class CategoryFiltersElements extends AbstractParserRuleElementFinder {
 		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "CategoryFilters");
 		private final Group cGroup = (Group)rule.eContents().get(1);
@@ -625,13 +547,11 @@ public class CategoriesGrammarAccess extends AbstractGrammarElementFinder {
 	private final SelectionCategoriesElements pSelectionCategories;
 	private final QualityCategoriesElements pQualityCategories;
 	private final PhaseCategoriesElements pPhaseCategories;
-	private final ComponentCategoriesElements pComponentCategories;
 	private final RequirementCategoryElements pRequirementCategory;
 	private final MethodCategoryElements pMethodCategory;
 	private final SelectionCategoryElements pSelectionCategory;
 	private final QualityCategoryElements pQualityCategory;
 	private final PhaseCategoryElements pPhaseCategory;
-	private final ComponentCategoryElements pComponentCategory;
 	private final CategoryFiltersElements pCategoryFilters;
 	private final CategorySetElements pCategorySet;
 	private final CatRefElements pCatRef;
@@ -651,13 +571,11 @@ public class CategoriesGrammarAccess extends AbstractGrammarElementFinder {
 		this.pSelectionCategories = new SelectionCategoriesElements();
 		this.pQualityCategories = new QualityCategoriesElements();
 		this.pPhaseCategories = new PhaseCategoriesElements();
-		this.pComponentCategories = new ComponentCategoriesElements();
 		this.pRequirementCategory = new RequirementCategoryElements();
 		this.pMethodCategory = new MethodCategoryElements();
 		this.pSelectionCategory = new SelectionCategoryElements();
 		this.pQualityCategory = new QualityCategoryElements();
 		this.pPhaseCategory = new PhaseCategoryElements();
-		this.pComponentCategory = new ComponentCategoryElements();
 		this.pCategoryFilters = new CategoryFiltersElements();
 		this.pCategorySet = new CategorySetElements();
 		this.pCatRef = new CatRefElements();
@@ -691,9 +609,9 @@ public class CategoriesGrammarAccess extends AbstractGrammarElementFinder {
 
 	
 	//CategoriesDefinitions:
-	//	requirementcategories=RequirementCategories? & componentcategories=ComponentCategories? &
-	//	methodcategories=MethodCategories? & selectioncategories=SelectionCategories? & phasecategories=PhaseCategories? &
-	//	qualitycategories=QualityCategories? & categoryfilter=CategoryFilters?;
+	//	requirementcategories=RequirementCategories? & methodcategories=MethodCategories? &
+	//	selectioncategories=SelectionCategories? & phasecategories=PhaseCategories? & qualitycategories=QualityCategories? &
+	//	categoryfilter=CategoryFilters?;
 	public CategoriesDefinitionsElements getCategoriesDefinitionsAccess() {
 		return pCategoriesDefinitions;
 	}
@@ -752,16 +670,6 @@ public class CategoriesGrammarAccess extends AbstractGrammarElementFinder {
 	
 	public ParserRule getPhaseCategoriesRule() {
 		return getPhaseCategoriesAccess().getRule();
-	}
-
-	//ComponentCategories returns Categories:
-	//	{ComponentCategories} "component" "categories" "[" category+=ComponentCategory+ "]";
-	public ComponentCategoriesElements getComponentCategoriesAccess() {
-		return pComponentCategories;
-	}
-	
-	public ParserRule getComponentCategoriesRule() {
-		return getComponentCategoriesAccess().getRule();
 	}
 
 	/// **
@@ -827,19 +735,6 @@ public class CategoriesGrammarAccess extends AbstractGrammarElementFinder {
 	
 	public ParserRule getPhaseCategoryRule() {
 		return getPhaseCategoryAccess().getRule();
-	}
-
-	/// **
-	// * component category indicates an AADL component category 
-	// * / ComponentCategory returns Category:
-	//	{ComponentCategory} name= //('{' subCategories+=[ComponentCategory|CatRef]*'}')? 
-	//	ID;
-	public ComponentCategoryElements getComponentCategoryAccess() {
-		return pComponentCategory;
-	}
-	
-	public ParserRule getComponentCategoryRule() {
-		return getComponentCategoryAccess().getRule();
 	}
 
 	//CategoryFilters:

@@ -38,7 +38,6 @@ import org.osate.categories.categories.CategoryFilters;
  * </p>
  * <ul>
  *   <li>{@link org.osate.categories.categories.impl.CategoriesDefinitionsImpl#getRequirementcategories <em>Requirementcategories</em>}</li>
- *   <li>{@link org.osate.categories.categories.impl.CategoriesDefinitionsImpl#getComponentcategories <em>Componentcategories</em>}</li>
  *   <li>{@link org.osate.categories.categories.impl.CategoriesDefinitionsImpl#getMethodcategories <em>Methodcategories</em>}</li>
  *   <li>{@link org.osate.categories.categories.impl.CategoriesDefinitionsImpl#getSelectioncategories <em>Selectioncategories</em>}</li>
  *   <li>{@link org.osate.categories.categories.impl.CategoriesDefinitionsImpl#getPhasecategories <em>Phasecategories</em>}</li>
@@ -59,16 +58,6 @@ public class CategoriesDefinitionsImpl extends MinimalEObjectImpl.Container impl
    * @ordered
    */
   protected Categories requirementcategories;
-
-  /**
-   * The cached value of the '{@link #getComponentcategories() <em>Componentcategories</em>}' containment reference.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @see #getComponentcategories()
-   * @generated
-   * @ordered
-   */
-  protected Categories componentcategories;
 
   /**
    * The cached value of the '{@link #getMethodcategories() <em>Methodcategories</em>}' containment reference.
@@ -187,54 +176,6 @@ public class CategoriesDefinitionsImpl extends MinimalEObjectImpl.Container impl
     }
     else if (eNotificationRequired())
       eNotify(new ENotificationImpl(this, Notification.SET, CategoriesPackage.CATEGORIES_DEFINITIONS__REQUIREMENTCATEGORIES, newRequirementcategories, newRequirementcategories));
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public Categories getComponentcategories()
-  {
-    return componentcategories;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public NotificationChain basicSetComponentcategories(Categories newComponentcategories, NotificationChain msgs)
-  {
-    Categories oldComponentcategories = componentcategories;
-    componentcategories = newComponentcategories;
-    if (eNotificationRequired())
-    {
-      ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, CategoriesPackage.CATEGORIES_DEFINITIONS__COMPONENTCATEGORIES, oldComponentcategories, newComponentcategories);
-      if (msgs == null) msgs = notification; else msgs.add(notification);
-    }
-    return msgs;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public void setComponentcategories(Categories newComponentcategories)
-  {
-    if (newComponentcategories != componentcategories)
-    {
-      NotificationChain msgs = null;
-      if (componentcategories != null)
-        msgs = ((InternalEObject)componentcategories).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - CategoriesPackage.CATEGORIES_DEFINITIONS__COMPONENTCATEGORIES, null, msgs);
-      if (newComponentcategories != null)
-        msgs = ((InternalEObject)newComponentcategories).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - CategoriesPackage.CATEGORIES_DEFINITIONS__COMPONENTCATEGORIES, null, msgs);
-      msgs = basicSetComponentcategories(newComponentcategories, msgs);
-      if (msgs != null) msgs.dispatch();
-    }
-    else if (eNotificationRequired())
-      eNotify(new ENotificationImpl(this, Notification.SET, CategoriesPackage.CATEGORIES_DEFINITIONS__COMPONENTCATEGORIES, newComponentcategories, newComponentcategories));
   }
 
   /**
@@ -489,8 +430,6 @@ public class CategoriesDefinitionsImpl extends MinimalEObjectImpl.Container impl
     {
       case CategoriesPackage.CATEGORIES_DEFINITIONS__REQUIREMENTCATEGORIES:
         return basicSetRequirementcategories(null, msgs);
-      case CategoriesPackage.CATEGORIES_DEFINITIONS__COMPONENTCATEGORIES:
-        return basicSetComponentcategories(null, msgs);
       case CategoriesPackage.CATEGORIES_DEFINITIONS__METHODCATEGORIES:
         return basicSetMethodcategories(null, msgs);
       case CategoriesPackage.CATEGORIES_DEFINITIONS__SELECTIONCATEGORIES:
@@ -517,8 +456,6 @@ public class CategoriesDefinitionsImpl extends MinimalEObjectImpl.Container impl
     {
       case CategoriesPackage.CATEGORIES_DEFINITIONS__REQUIREMENTCATEGORIES:
         return getRequirementcategories();
-      case CategoriesPackage.CATEGORIES_DEFINITIONS__COMPONENTCATEGORIES:
-        return getComponentcategories();
       case CategoriesPackage.CATEGORIES_DEFINITIONS__METHODCATEGORIES:
         return getMethodcategories();
       case CategoriesPackage.CATEGORIES_DEFINITIONS__SELECTIONCATEGORIES:
@@ -545,9 +482,6 @@ public class CategoriesDefinitionsImpl extends MinimalEObjectImpl.Container impl
     {
       case CategoriesPackage.CATEGORIES_DEFINITIONS__REQUIREMENTCATEGORIES:
         setRequirementcategories((Categories)newValue);
-        return;
-      case CategoriesPackage.CATEGORIES_DEFINITIONS__COMPONENTCATEGORIES:
-        setComponentcategories((Categories)newValue);
         return;
       case CategoriesPackage.CATEGORIES_DEFINITIONS__METHODCATEGORIES:
         setMethodcategories((Categories)newValue);
@@ -581,9 +515,6 @@ public class CategoriesDefinitionsImpl extends MinimalEObjectImpl.Container impl
       case CategoriesPackage.CATEGORIES_DEFINITIONS__REQUIREMENTCATEGORIES:
         setRequirementcategories((Categories)null);
         return;
-      case CategoriesPackage.CATEGORIES_DEFINITIONS__COMPONENTCATEGORIES:
-        setComponentcategories((Categories)null);
-        return;
       case CategoriesPackage.CATEGORIES_DEFINITIONS__METHODCATEGORIES:
         setMethodcategories((Categories)null);
         return;
@@ -615,8 +546,6 @@ public class CategoriesDefinitionsImpl extends MinimalEObjectImpl.Container impl
     {
       case CategoriesPackage.CATEGORIES_DEFINITIONS__REQUIREMENTCATEGORIES:
         return requirementcategories != null;
-      case CategoriesPackage.CATEGORIES_DEFINITIONS__COMPONENTCATEGORIES:
-        return componentcategories != null;
       case CategoriesPackage.CATEGORIES_DEFINITIONS__METHODCATEGORIES:
         return methodcategories != null;
       case CategoriesPackage.CATEGORIES_DEFINITIONS__SELECTIONCATEGORIES:

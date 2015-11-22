@@ -89,22 +89,13 @@ public interface CategoriesPackage extends EPackage
   int CATEGORIES_DEFINITIONS__REQUIREMENTCATEGORIES = 0;
 
   /**
-   * The feature id for the '<em><b>Componentcategories</b></em>' containment reference.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int CATEGORIES_DEFINITIONS__COMPONENTCATEGORIES = 1;
-
-  /**
    * The feature id for the '<em><b>Methodcategories</b></em>' containment reference.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    * @ordered
    */
-  int CATEGORIES_DEFINITIONS__METHODCATEGORIES = 2;
+  int CATEGORIES_DEFINITIONS__METHODCATEGORIES = 1;
 
   /**
    * The feature id for the '<em><b>Selectioncategories</b></em>' containment reference.
@@ -113,7 +104,7 @@ public interface CategoriesPackage extends EPackage
    * @generated
    * @ordered
    */
-  int CATEGORIES_DEFINITIONS__SELECTIONCATEGORIES = 3;
+  int CATEGORIES_DEFINITIONS__SELECTIONCATEGORIES = 2;
 
   /**
    * The feature id for the '<em><b>Phasecategories</b></em>' containment reference.
@@ -122,7 +113,7 @@ public interface CategoriesPackage extends EPackage
    * @generated
    * @ordered
    */
-  int CATEGORIES_DEFINITIONS__PHASECATEGORIES = 4;
+  int CATEGORIES_DEFINITIONS__PHASECATEGORIES = 3;
 
   /**
    * The feature id for the '<em><b>Qualitycategories</b></em>' containment reference.
@@ -131,7 +122,7 @@ public interface CategoriesPackage extends EPackage
    * @generated
    * @ordered
    */
-  int CATEGORIES_DEFINITIONS__QUALITYCATEGORIES = 5;
+  int CATEGORIES_DEFINITIONS__QUALITYCATEGORIES = 4;
 
   /**
    * The feature id for the '<em><b>Categoryfilter</b></em>' containment reference.
@@ -140,7 +131,7 @@ public interface CategoriesPackage extends EPackage
    * @generated
    * @ordered
    */
-  int CATEGORIES_DEFINITIONS__CATEGORYFILTER = 6;
+  int CATEGORIES_DEFINITIONS__CATEGORYFILTER = 5;
 
   /**
    * The number of structural features of the '<em>Definitions</em>' class.
@@ -149,7 +140,7 @@ public interface CategoriesPackage extends EPackage
    * @generated
    * @ordered
    */
-  int CATEGORIES_DEFINITIONS_FEATURE_COUNT = 7;
+  int CATEGORIES_DEFINITIONS_FEATURE_COUNT = 6;
 
   /**
    * The meta object id for the '{@link org.osate.categories.categories.impl.CategoriesImpl <em>Categories</em>}' class.
@@ -348,34 +339,6 @@ public interface CategoriesPackage extends EPackage
   int QUALITY_CATEGORIES_FEATURE_COUNT = CATEGORIES_FEATURE_COUNT + 0;
 
   /**
-   * The meta object id for the '{@link org.osate.categories.categories.impl.ComponentCategoriesImpl <em>Component Categories</em>}' class.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @see org.osate.categories.categories.impl.ComponentCategoriesImpl
-   * @see org.osate.categories.categories.impl.CategoriesPackageImpl#getComponentCategories()
-   * @generated
-   */
-  int COMPONENT_CATEGORIES = 8;
-
-  /**
-   * The feature id for the '<em><b>Category</b></em>' containment reference list.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int COMPONENT_CATEGORIES__CATEGORY = CATEGORIES__CATEGORY;
-
-  /**
-   * The number of structural features of the '<em>Component Categories</em>' class.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int COMPONENT_CATEGORIES_FEATURE_COUNT = CATEGORIES_FEATURE_COUNT + 0;
-
-  /**
    * The meta object id for the '{@link org.osate.categories.categories.impl.RequirementCategoryImpl <em>Requirement Category</em>}' class.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -383,7 +346,7 @@ public interface CategoriesPackage extends EPackage
    * @see org.osate.categories.categories.impl.CategoriesPackageImpl#getRequirementCategory()
    * @generated
    */
-  int REQUIREMENT_CATEGORY = 9;
+  int REQUIREMENT_CATEGORY = 8;
 
   /**
    * The feature id for the '<em><b>Name</b></em>' attribute.
@@ -411,7 +374,7 @@ public interface CategoriesPackage extends EPackage
    * @see org.osate.categories.categories.impl.CategoriesPackageImpl#getMethodCategory()
    * @generated
    */
-  int METHOD_CATEGORY = 10;
+  int METHOD_CATEGORY = 9;
 
   /**
    * The feature id for the '<em><b>Name</b></em>' attribute.
@@ -439,7 +402,7 @@ public interface CategoriesPackage extends EPackage
    * @see org.osate.categories.categories.impl.CategoriesPackageImpl#getSelectionCategory()
    * @generated
    */
-  int SELECTION_CATEGORY = 11;
+  int SELECTION_CATEGORY = 10;
 
   /**
    * The feature id for the '<em><b>Name</b></em>' attribute.
@@ -467,7 +430,7 @@ public interface CategoriesPackage extends EPackage
    * @see org.osate.categories.categories.impl.CategoriesPackageImpl#getQualityCategory()
    * @generated
    */
-  int QUALITY_CATEGORY = 12;
+  int QUALITY_CATEGORY = 11;
 
   /**
    * The feature id for the '<em><b>Name</b></em>' attribute.
@@ -495,7 +458,7 @@ public interface CategoriesPackage extends EPackage
    * @see org.osate.categories.categories.impl.CategoriesPackageImpl#getPhaseCategory()
    * @generated
    */
-  int PHASE_CATEGORY = 13;
+  int PHASE_CATEGORY = 12;
 
   /**
    * The feature id for the '<em><b>Name</b></em>' attribute.
@@ -516,34 +479,6 @@ public interface CategoriesPackage extends EPackage
   int PHASE_CATEGORY_FEATURE_COUNT = CATEGORY_FEATURE_COUNT + 0;
 
   /**
-   * The meta object id for the '{@link org.osate.categories.categories.impl.ComponentCategoryImpl <em>Component Category</em>}' class.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @see org.osate.categories.categories.impl.ComponentCategoryImpl
-   * @see org.osate.categories.categories.impl.CategoriesPackageImpl#getComponentCategory()
-   * @generated
-   */
-  int COMPONENT_CATEGORY = 14;
-
-  /**
-   * The feature id for the '<em><b>Name</b></em>' attribute.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int COMPONENT_CATEGORY__NAME = CATEGORY__NAME;
-
-  /**
-   * The number of structural features of the '<em>Component Category</em>' class.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int COMPONENT_CATEGORY_FEATURE_COUNT = CATEGORY_FEATURE_COUNT + 0;
-
-  /**
    * The meta object id for the '{@link org.osate.categories.categories.impl.CategorySetImpl <em>Category Set</em>}' class.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -551,7 +486,7 @@ public interface CategoriesPackage extends EPackage
    * @see org.osate.categories.categories.impl.CategoriesPackageImpl#getCategorySet()
    * @generated
    */
-  int CATEGORY_SET = 15;
+  int CATEGORY_SET = 13;
 
   /**
    * The feature id for the '<em><b>Name</b></em>' attribute.
@@ -601,17 +536,6 @@ public interface CategoriesPackage extends EPackage
    * @generated
    */
   EReference getCategoriesDefinitions_Requirementcategories();
-
-  /**
-   * Returns the meta object for the containment reference '{@link org.osate.categories.categories.CategoriesDefinitions#getComponentcategories <em>Componentcategories</em>}'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return the meta object for the containment reference '<em>Componentcategories</em>'.
-   * @see org.osate.categories.categories.CategoriesDefinitions#getComponentcategories()
-   * @see #getCategoriesDefinitions()
-   * @generated
-   */
-  EReference getCategoriesDefinitions_Componentcategories();
 
   /**
    * Returns the meta object for the containment reference '{@link org.osate.categories.categories.CategoriesDefinitions#getMethodcategories <em>Methodcategories</em>}'.
@@ -772,16 +696,6 @@ public interface CategoriesPackage extends EPackage
   EClass getQualityCategories();
 
   /**
-   * Returns the meta object for class '{@link org.osate.categories.categories.ComponentCategories <em>Component Categories</em>}'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return the meta object for class '<em>Component Categories</em>'.
-   * @see org.osate.categories.categories.ComponentCategories
-   * @generated
-   */
-  EClass getComponentCategories();
-
-  /**
    * Returns the meta object for class '{@link org.osate.categories.categories.RequirementCategory <em>Requirement Category</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -830,16 +744,6 @@ public interface CategoriesPackage extends EPackage
    * @generated
    */
   EClass getPhaseCategory();
-
-  /**
-   * Returns the meta object for class '{@link org.osate.categories.categories.ComponentCategory <em>Component Category</em>}'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return the meta object for class '<em>Component Category</em>'.
-   * @see org.osate.categories.categories.ComponentCategory
-   * @generated
-   */
-  EClass getComponentCategory();
 
   /**
    * Returns the meta object for class '{@link org.osate.categories.categories.CategorySet <em>Category Set</em>}'.
@@ -902,14 +806,6 @@ public interface CategoriesPackage extends EPackage
      * @generated
      */
     EReference CATEGORIES_DEFINITIONS__REQUIREMENTCATEGORIES = eINSTANCE.getCategoriesDefinitions_Requirementcategories();
-
-    /**
-     * The meta object literal for the '<em><b>Componentcategories</b></em>' containment reference feature.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
-    EReference CATEGORIES_DEFINITIONS__COMPONENTCATEGORIES = eINSTANCE.getCategoriesDefinitions_Componentcategories();
 
     /**
      * The meta object literal for the '<em><b>Methodcategories</b></em>' containment reference feature.
@@ -1046,16 +942,6 @@ public interface CategoriesPackage extends EPackage
     EClass QUALITY_CATEGORIES = eINSTANCE.getQualityCategories();
 
     /**
-     * The meta object literal for the '{@link org.osate.categories.categories.impl.ComponentCategoriesImpl <em>Component Categories</em>}' class.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @see org.osate.categories.categories.impl.ComponentCategoriesImpl
-     * @see org.osate.categories.categories.impl.CategoriesPackageImpl#getComponentCategories()
-     * @generated
-     */
-    EClass COMPONENT_CATEGORIES = eINSTANCE.getComponentCategories();
-
-    /**
      * The meta object literal for the '{@link org.osate.categories.categories.impl.RequirementCategoryImpl <em>Requirement Category</em>}' class.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
@@ -1104,16 +990,6 @@ public interface CategoriesPackage extends EPackage
      * @generated
      */
     EClass PHASE_CATEGORY = eINSTANCE.getPhaseCategory();
-
-    /**
-     * The meta object literal for the '{@link org.osate.categories.categories.impl.ComponentCategoryImpl <em>Component Category</em>}' class.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @see org.osate.categories.categories.impl.ComponentCategoryImpl
-     * @see org.osate.categories.categories.impl.CategoriesPackageImpl#getComponentCategory()
-     * @generated
-     */
-    EClass COMPONENT_CATEGORY = eINSTANCE.getComponentCategory();
 
     /**
      * The meta object literal for the '{@link org.osate.categories.categories.impl.CategorySetImpl <em>Category Set</em>}' class.

@@ -9,7 +9,7 @@ import "http://www.eclipse.org/emf/2002/Ecore" as ecore
 
 ReqSpec: parts +=(SystemRequirements|StakeholderGoals|ReqDocument|GlobalConstants)+  ;
 
-ReqSpecContainer: SystemRequirements |  StakeholderGoals | ReqDocument | DocumentSection;
+ReqSpecContainer: SystemRequirements |  StakeholderGoals | ReqDocument | DocumentSection ;
 
 GlobalConstants: 
 	'constants' name=QualifiedName '['
@@ -18,11 +18,11 @@ GlobalConstants:
 
 ContractualElement: Goal | DocGoal| Requirement |DocRequirement ;
 
-ReqRoot:  StakeholderGoals | ReqDocument | SystemRequirements;
+ReqRoot:  StakeholderGoals | ReqDocument | SystemRequirements ;
 
 
 StakeholderGoals: 'stakeholder' 'goals' name=QualifiedName (':' title=STRING)?
-	( 'for' (target=[aadl2::ComponentClassifier|AadlClassifierReference] | category+=[categories::ComponentCategory|ID]+ | global?='all'))
+	( 'for' (target=[aadl2::ComponentClassifier|AadlClassifierReference] | componentCategory+=ComponentCategory+ | global?='all'))
 	('use' 'constants' importConstants+=[GlobalConstants|QualifiedName]+)?
 	'[' 
 	(	description=Description? 
@@ -53,8 +53,8 @@ DocumentSection returns DocumentSection:
 	;
 
 SystemRequirements returns SystemRequirements:
-	'system' 'requirements'  name =QualifiedName (':' title=STRING)? // 'requirement' 'specification'
-	( 'for' (target=[aadl2::ComponentClassifier|AadlClassifierReference] | category+=[categories::ComponentCategory|ID]+| global?='all'))
+	'system' 'requirements'  name =QualifiedName (':' title=STRING)? 
+	( 'for' (target=[aadl2::ComponentClassifier|AadlClassifierReference] | componentCategory+=ComponentCategory+| global?='all'))
 	('use' 'constants' importConstants+=[GlobalConstants|QualifiedName]+)?
 	'[' 
 	(
@@ -68,8 +68,6 @@ SystemRequirements returns SystemRequirements:
 	']'
 	;
 
-
-	
 
 DocGoal returns Goal:
 	'goal' name=ID (':'  title=STRING )? // short string for title
@@ -121,7 +119,10 @@ Goal returns Goal:
 Requirement returns Requirement:
 	'requirement'  name=ID   
 	(':'  title=STRING)? 
-	( 'for'  targetElement=[aadl2::NamedElement|ID]
+	( 'for'  (
+//		(target=[aadl2::ComponentClassifier|AadlClassifierReference] ( targetElement=[aadl2::NamedElement|ID])?  ) |
+		targetElement=[aadl2::NamedElement|ID]  
+		)
 	)?
 '['	(
  	('category'  category+=[categories::Category|ID]+ )?
@@ -151,7 +152,8 @@ Requirement returns Requirement:
 DocRequirement returns Requirement:
 	'requirement'  name=ID   
 	(':'  title=STRING)? 
-	( 'for' ( targetDescription=STRING | (target=[aadl2::ComponentClassifier|AadlClassifierReference] ( targetElement=[aadl2::NamedElement|ID])?  )
+	( 'for' ( targetDescription=STRING | 
+		(target=[aadl2::ComponentClassifier|AadlClassifierReference] ( targetElement=[aadl2::NamedElement|ID])?  )
 		)
 	)?
 '['	(

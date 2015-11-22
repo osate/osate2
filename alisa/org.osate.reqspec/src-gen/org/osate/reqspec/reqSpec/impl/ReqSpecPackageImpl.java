@@ -523,9 +523,9 @@ public class ReqSpecPackageImpl extends EPackageImpl implements ReqSpecPackage
    * <!-- end-user-doc -->
    * @generated
    */
-  public EReference getStakeholderGoals_Category()
+  public EAttribute getStakeholderGoals_ComponentCategory()
   {
-    return (EReference)stakeholderGoalsEClass.getEStructuralFeatures().get(3);
+    return (EAttribute)stakeholderGoalsEClass.getEStructuralFeatures().get(3);
   }
 
   /**
@@ -753,9 +753,9 @@ public class ReqSpecPackageImpl extends EPackageImpl implements ReqSpecPackage
    * <!-- end-user-doc -->
    * @generated
    */
-  public EReference getSystemRequirements_Category()
+  public EAttribute getSystemRequirements_ComponentCategory()
   {
-    return (EReference)systemRequirementsEClass.getEStructuralFeatures().get(3);
+    return (EAttribute)systemRequirementsEClass.getEStructuralFeatures().get(3);
   }
 
   /**
@@ -1141,7 +1141,7 @@ public class ReqSpecPackageImpl extends EPackageImpl implements ReqSpecPackage
     createEAttribute(stakeholderGoalsEClass, STAKEHOLDER_GOALS__NAME);
     createEAttribute(stakeholderGoalsEClass, STAKEHOLDER_GOALS__TITLE);
     createEReference(stakeholderGoalsEClass, STAKEHOLDER_GOALS__TARGET);
-    createEReference(stakeholderGoalsEClass, STAKEHOLDER_GOALS__CATEGORY);
+    createEAttribute(stakeholderGoalsEClass, STAKEHOLDER_GOALS__COMPONENT_CATEGORY);
     createEAttribute(stakeholderGoalsEClass, STAKEHOLDER_GOALS__GLOBAL);
     createEReference(stakeholderGoalsEClass, STAKEHOLDER_GOALS__IMPORT_CONSTANTS);
     createEReference(stakeholderGoalsEClass, STAKEHOLDER_GOALS__DESCRIPTION);
@@ -1167,7 +1167,7 @@ public class ReqSpecPackageImpl extends EPackageImpl implements ReqSpecPackage
     createEAttribute(systemRequirementsEClass, SYSTEM_REQUIREMENTS__NAME);
     createEAttribute(systemRequirementsEClass, SYSTEM_REQUIREMENTS__TITLE);
     createEReference(systemRequirementsEClass, SYSTEM_REQUIREMENTS__TARGET);
-    createEReference(systemRequirementsEClass, SYSTEM_REQUIREMENTS__CATEGORY);
+    createEAttribute(systemRequirementsEClass, SYSTEM_REQUIREMENTS__COMPONENT_CATEGORY);
     createEAttribute(systemRequirementsEClass, SYSTEM_REQUIREMENTS__GLOBAL);
     createEReference(systemRequirementsEClass, SYSTEM_REQUIREMENTS__IMPORT_CONSTANTS);
     createEReference(systemRequirementsEClass, SYSTEM_REQUIREMENTS__DESCRIPTION);
@@ -1292,7 +1292,7 @@ public class ReqSpecPackageImpl extends EPackageImpl implements ReqSpecPackage
     initEAttribute(getStakeholderGoals_Name(), theEcorePackage.getEString(), "name", null, 0, 1, StakeholderGoals.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEAttribute(getStakeholderGoals_Title(), theEcorePackage.getEString(), "title", null, 0, 1, StakeholderGoals.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEReference(getStakeholderGoals_Target(), theAadl2Package.getComponentClassifier(), null, "target", null, 0, 1, StakeholderGoals.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-    initEReference(getStakeholderGoals_Category(), theCategoriesPackage.getComponentCategory(), null, "category", null, 0, -1, StakeholderGoals.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEAttribute(getStakeholderGoals_ComponentCategory(), theAadl2Package.getComponentCategory(), "componentCategory", null, 0, -1, StakeholderGoals.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEAttribute(getStakeholderGoals_Global(), theEcorePackage.getEBoolean(), "global", null, 0, 1, StakeholderGoals.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEReference(getStakeholderGoals_ImportConstants(), this.getGlobalConstants(), null, "importConstants", null, 0, -1, StakeholderGoals.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEReference(getStakeholderGoals_Description(), theCommonPackage.getDescription(), null, "description", null, 0, 1, StakeholderGoals.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
@@ -1318,7 +1318,7 @@ public class ReqSpecPackageImpl extends EPackageImpl implements ReqSpecPackage
     initEAttribute(getSystemRequirements_Name(), theEcorePackage.getEString(), "name", null, 0, 1, SystemRequirements.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEAttribute(getSystemRequirements_Title(), theEcorePackage.getEString(), "title", null, 0, 1, SystemRequirements.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEReference(getSystemRequirements_Target(), theAadl2Package.getComponentClassifier(), null, "target", null, 0, 1, SystemRequirements.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-    initEReference(getSystemRequirements_Category(), theCategoriesPackage.getComponentCategory(), null, "category", null, 0, -1, SystemRequirements.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEAttribute(getSystemRequirements_ComponentCategory(), theAadl2Package.getComponentCategory(), "componentCategory", null, 0, -1, SystemRequirements.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEAttribute(getSystemRequirements_Global(), theEcorePackage.getEBoolean(), "global", null, 0, 1, SystemRequirements.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEReference(getSystemRequirements_ImportConstants(), this.getGlobalConstants(), null, "importConstants", null, 0, -1, SystemRequirements.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEReference(getSystemRequirements_Description(), theCommonPackage.getDescription(), null, "description", null, 0, 1, SystemRequirements.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);

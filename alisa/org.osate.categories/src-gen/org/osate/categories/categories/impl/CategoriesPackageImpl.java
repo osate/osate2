@@ -19,6 +19,7 @@ import org.eclipse.emf.ecore.EAttribute;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.EReference;
+import org.eclipse.emf.ecore.EcorePackage;
 
 import org.eclipse.emf.ecore.impl.EPackageImpl;
 
@@ -29,8 +30,6 @@ import org.osate.categories.categories.CategoriesPackage;
 import org.osate.categories.categories.Category;
 import org.osate.categories.categories.CategoryFilters;
 import org.osate.categories.categories.CategorySet;
-import org.osate.categories.categories.ComponentCategories;
-import org.osate.categories.categories.ComponentCategory;
 import org.osate.categories.categories.MethodCategories;
 import org.osate.categories.categories.MethodCategory;
 import org.osate.categories.categories.PhaseCategory;
@@ -110,13 +109,6 @@ public class CategoriesPackageImpl extends EPackageImpl implements CategoriesPac
    * <!-- end-user-doc -->
    * @generated
    */
-  private EClass componentCategoriesEClass = null;
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
   private EClass requirementCategoryEClass = null;
 
   /**
@@ -146,13 +138,6 @@ public class CategoriesPackageImpl extends EPackageImpl implements CategoriesPac
    * @generated
    */
   private EClass phaseCategoryEClass = null;
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  private EClass componentCategoryEClass = null;
 
   /**
    * <!-- begin-user-doc -->
@@ -209,6 +194,9 @@ public class CategoriesPackageImpl extends EPackageImpl implements CategoriesPac
 
     isInited = true;
 
+    // Initialize simple dependencies
+    EcorePackage.eINSTANCE.eClass();
+
     // Create package meta-data objects
     theCategoriesPackage.createPackageContents();
 
@@ -249,7 +237,7 @@ public class CategoriesPackageImpl extends EPackageImpl implements CategoriesPac
    * <!-- end-user-doc -->
    * @generated
    */
-  public EReference getCategoriesDefinitions_Componentcategories()
+  public EReference getCategoriesDefinitions_Methodcategories()
   {
     return (EReference)categoriesDefinitionsEClass.getEStructuralFeatures().get(1);
   }
@@ -259,7 +247,7 @@ public class CategoriesPackageImpl extends EPackageImpl implements CategoriesPac
    * <!-- end-user-doc -->
    * @generated
    */
-  public EReference getCategoriesDefinitions_Methodcategories()
+  public EReference getCategoriesDefinitions_Selectioncategories()
   {
     return (EReference)categoriesDefinitionsEClass.getEStructuralFeatures().get(2);
   }
@@ -269,7 +257,7 @@ public class CategoriesPackageImpl extends EPackageImpl implements CategoriesPac
    * <!-- end-user-doc -->
    * @generated
    */
-  public EReference getCategoriesDefinitions_Selectioncategories()
+  public EReference getCategoriesDefinitions_Phasecategories()
   {
     return (EReference)categoriesDefinitionsEClass.getEStructuralFeatures().get(3);
   }
@@ -279,7 +267,7 @@ public class CategoriesPackageImpl extends EPackageImpl implements CategoriesPac
    * <!-- end-user-doc -->
    * @generated
    */
-  public EReference getCategoriesDefinitions_Phasecategories()
+  public EReference getCategoriesDefinitions_Qualitycategories()
   {
     return (EReference)categoriesDefinitionsEClass.getEStructuralFeatures().get(4);
   }
@@ -289,19 +277,9 @@ public class CategoriesPackageImpl extends EPackageImpl implements CategoriesPac
    * <!-- end-user-doc -->
    * @generated
    */
-  public EReference getCategoriesDefinitions_Qualitycategories()
-  {
-    return (EReference)categoriesDefinitionsEClass.getEStructuralFeatures().get(5);
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
   public EReference getCategoriesDefinitions_Categoryfilter()
   {
-    return (EReference)categoriesDefinitionsEClass.getEStructuralFeatures().get(6);
+    return (EReference)categoriesDefinitionsEClass.getEStructuralFeatures().get(5);
   }
 
   /**
@@ -409,16 +387,6 @@ public class CategoriesPackageImpl extends EPackageImpl implements CategoriesPac
    * <!-- end-user-doc -->
    * @generated
    */
-  public EClass getComponentCategories()
-  {
-    return componentCategoriesEClass;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
   public EClass getRequirementCategory()
   {
     return requirementCategoryEClass;
@@ -462,16 +430,6 @@ public class CategoriesPackageImpl extends EPackageImpl implements CategoriesPac
   public EClass getPhaseCategory()
   {
     return phaseCategoryEClass;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public EClass getComponentCategory()
-  {
-    return componentCategoryEClass;
   }
 
   /**
@@ -526,7 +484,6 @@ public class CategoriesPackageImpl extends EPackageImpl implements CategoriesPac
     // Create classes and their features
     categoriesDefinitionsEClass = createEClass(CATEGORIES_DEFINITIONS);
     createEReference(categoriesDefinitionsEClass, CATEGORIES_DEFINITIONS__REQUIREMENTCATEGORIES);
-    createEReference(categoriesDefinitionsEClass, CATEGORIES_DEFINITIONS__COMPONENTCATEGORIES);
     createEReference(categoriesDefinitionsEClass, CATEGORIES_DEFINITIONS__METHODCATEGORIES);
     createEReference(categoriesDefinitionsEClass, CATEGORIES_DEFINITIONS__SELECTIONCATEGORIES);
     createEReference(categoriesDefinitionsEClass, CATEGORIES_DEFINITIONS__PHASECATEGORIES);
@@ -550,8 +507,6 @@ public class CategoriesPackageImpl extends EPackageImpl implements CategoriesPac
 
     qualityCategoriesEClass = createEClass(QUALITY_CATEGORIES);
 
-    componentCategoriesEClass = createEClass(COMPONENT_CATEGORIES);
-
     requirementCategoryEClass = createEClass(REQUIREMENT_CATEGORY);
 
     methodCategoryEClass = createEClass(METHOD_CATEGORY);
@@ -561,8 +516,6 @@ public class CategoriesPackageImpl extends EPackageImpl implements CategoriesPac
     qualityCategoryEClass = createEClass(QUALITY_CATEGORY);
 
     phaseCategoryEClass = createEClass(PHASE_CATEGORY);
-
-    componentCategoryEClass = createEClass(COMPONENT_CATEGORY);
 
     categorySetEClass = createEClass(CATEGORY_SET);
     createEReference(categorySetEClass, CATEGORY_SET__ELEMENTS);
@@ -592,6 +545,9 @@ public class CategoriesPackageImpl extends EPackageImpl implements CategoriesPac
     setNsPrefix(eNS_PREFIX);
     setNsURI(eNS_URI);
 
+    // Obtain other dependent packages
+    EcorePackage theEcorePackage = (EcorePackage)EPackage.Registry.INSTANCE.getEPackage(EcorePackage.eNS_URI);
+
     // Create type parameters
 
     // Set bounds for type parameters
@@ -601,19 +557,16 @@ public class CategoriesPackageImpl extends EPackageImpl implements CategoriesPac
     methodCategoriesEClass.getESuperTypes().add(this.getCategories());
     selectionCategoriesEClass.getESuperTypes().add(this.getCategories());
     qualityCategoriesEClass.getESuperTypes().add(this.getCategories());
-    componentCategoriesEClass.getESuperTypes().add(this.getCategories());
     requirementCategoryEClass.getESuperTypes().add(this.getCategory());
     methodCategoryEClass.getESuperTypes().add(this.getCategory());
     selectionCategoryEClass.getESuperTypes().add(this.getCategory());
     qualityCategoryEClass.getESuperTypes().add(this.getCategory());
     phaseCategoryEClass.getESuperTypes().add(this.getCategory());
-    componentCategoryEClass.getESuperTypes().add(this.getCategory());
     categorySetEClass.getESuperTypes().add(this.getCategory());
 
     // Initialize classes and features; add operations and parameters
     initEClass(categoriesDefinitionsEClass, CategoriesDefinitions.class, "CategoriesDefinitions", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
     initEReference(getCategoriesDefinitions_Requirementcategories(), this.getCategories(), null, "requirementcategories", null, 0, 1, CategoriesDefinitions.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-    initEReference(getCategoriesDefinitions_Componentcategories(), this.getCategories(), null, "componentcategories", null, 0, 1, CategoriesDefinitions.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEReference(getCategoriesDefinitions_Methodcategories(), this.getCategories(), null, "methodcategories", null, 0, 1, CategoriesDefinitions.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEReference(getCategoriesDefinitions_Selectioncategories(), this.getCategories(), null, "selectioncategories", null, 0, 1, CategoriesDefinitions.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEReference(getCategoriesDefinitions_Phasecategories(), this.getCategories(), null, "phasecategories", null, 0, 1, CategoriesDefinitions.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
@@ -624,7 +577,7 @@ public class CategoriesPackageImpl extends EPackageImpl implements CategoriesPac
     initEReference(getCategories_Category(), this.getCategory(), null, "category", null, 0, -1, Categories.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
     initEClass(categoryEClass, Category.class, "Category", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-    initEAttribute(getCategory_Name(), ecorePackage.getEString(), "name", null, 0, 1, Category.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEAttribute(getCategory_Name(), theEcorePackage.getEString(), "name", null, 0, 1, Category.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
     initEClass(categoryFiltersEClass, CategoryFilters.class, "CategoryFilters", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
     initEReference(getCategoryFilters_Filters(), this.getCategory(), null, "filters", null, 0, -1, CategoryFilters.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
@@ -637,8 +590,6 @@ public class CategoriesPackageImpl extends EPackageImpl implements CategoriesPac
 
     initEClass(qualityCategoriesEClass, QualityCategories.class, "QualityCategories", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 
-    initEClass(componentCategoriesEClass, ComponentCategories.class, "ComponentCategories", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-
     initEClass(requirementCategoryEClass, RequirementCategory.class, "RequirementCategory", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 
     initEClass(methodCategoryEClass, MethodCategory.class, "MethodCategory", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
@@ -648,8 +599,6 @@ public class CategoriesPackageImpl extends EPackageImpl implements CategoriesPac
     initEClass(qualityCategoryEClass, QualityCategory.class, "QualityCategory", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 
     initEClass(phaseCategoryEClass, PhaseCategory.class, "PhaseCategory", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-
-    initEClass(componentCategoryEClass, ComponentCategory.class, "ComponentCategory", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 
     initEClass(categorySetEClass, CategorySet.class, "CategorySet", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
     initEReference(getCategorySet_Elements(), this.getCategory(), null, "elements", null, 0, -1, CategorySet.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED);

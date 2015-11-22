@@ -108,15 +108,6 @@ public interface CategoriesFactory extends EFactory
   QualityCategories createQualityCategories();
 
   /**
-   * Returns a new object of class '<em>Component Categories</em>'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return a new object of class '<em>Component Categories</em>'.
-   * @generated
-   */
-  ComponentCategories createComponentCategories();
-
-  /**
    * Returns a new object of class '<em>Requirement Category</em>'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -160,15 +151,6 @@ public interface CategoriesFactory extends EFactory
    * @generated
    */
   PhaseCategory createPhaseCategory();
-
-  /**
-   * Returns a new object of class '<em>Component Category</em>'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return a new object of class '<em>Component Category</em>'.
-   * @generated
-   */
-  ComponentCategory createComponentCategory();
 
   /**
    * Returns a new object of class '<em>Category Set</em>'.

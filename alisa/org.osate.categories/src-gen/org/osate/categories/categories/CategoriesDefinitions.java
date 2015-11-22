@@ -27,7 +27,6 @@ import org.eclipse.emf.ecore.EObject;
  * </p>
  * <ul>
  *   <li>{@link org.osate.categories.categories.CategoriesDefinitions#getRequirementcategories <em>Requirementcategories</em>}</li>
- *   <li>{@link org.osate.categories.categories.CategoriesDefinitions#getComponentcategories <em>Componentcategories</em>}</li>
  *   <li>{@link org.osate.categories.categories.CategoriesDefinitions#getMethodcategories <em>Methodcategories</em>}</li>
  *   <li>{@link org.osate.categories.categories.CategoriesDefinitions#getSelectioncategories <em>Selectioncategories</em>}</li>
  *   <li>{@link org.osate.categories.categories.CategoriesDefinitions#getPhasecategories <em>Phasecategories</em>}</li>
@@ -66,32 +65,6 @@ public interface CategoriesDefinitions extends EObject
    * @generated
    */
   void setRequirementcategories(Categories value);
-
-  /**
-   * Returns the value of the '<em><b>Componentcategories</b></em>' containment reference.
-   * <!-- begin-user-doc -->
-   * <p>
-   * If the meaning of the '<em>Componentcategories</em>' containment reference isn't clear,
-   * there really should be more of a description here...
-   * </p>
-   * <!-- end-user-doc -->
-   * @return the value of the '<em>Componentcategories</em>' containment reference.
-   * @see #setComponentcategories(Categories)
-   * @see org.osate.categories.categories.CategoriesPackage#getCategoriesDefinitions_Componentcategories()
-   * @model containment="true"
-   * @generated
-   */
-  Categories getComponentcategories();
-
-  /**
-   * Sets the value of the '{@link org.osate.categories.categories.CategoriesDefinitions#getComponentcategories <em>Componentcategories</em>}' containment reference.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @param value the new value of the '<em>Componentcategories</em>' containment reference.
-   * @see #getComponentcategories()
-   * @generated
-   */
-  void setComponentcategories(Categories value);
 
   /**
    * Returns the value of the '<em><b>Methodcategories</b></em>' containment reference.

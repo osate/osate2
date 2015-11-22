@@ -16,18 +16,14 @@
 
 package org.osate.categories.util
 
+import java.util.HashSet
 import org.osate.categories.categories.Categories
 import org.osate.categories.categories.Category
-import org.osate.categories.categories.RequirementCategories
-import org.osate.categories.categories.RequirementCategory
-import org.osate.categories.categories.SelectionCategories
-import org.osate.categories.categories.SelectionCategory
-import org.osate.categories.categories.MethodCategories
-import org.osate.categories.categories.MethodCategory
-import java.util.HashSet
-import org.osate.categories.categories.QualityCategories
-import org.osate.categories.categories.ComponentCategories
 import org.osate.categories.categories.CategorySet
+import org.osate.categories.categories.MethodCategories
+import org.osate.categories.categories.QualityCategories
+import org.osate.categories.categories.RequirementCategories
+import org.osate.categories.categories.SelectionCategories
 
 class CategoriesUtil {
 
@@ -41,17 +37,9 @@ class CategoriesUtil {
 			MethodCategories: cats.category
 			SelectionCategories: cats.category
 			QualityCategories: cats.category
-			ComponentCategories: cats.category
 		}
 	}
 
-//	def static Iterable<? extends Category> subCategories(Category cat) {
-//		switch (cat) {
-//			RequirementCategory: cat.subCategories
-//			MethodCategory: cat.subCategories
-//			SelectionCategory: cat.subCategories
-//		}
-//	}
 	def static boolean isSameorContains(Category catset, Category cat) {
 		if(catset.name.equalsIgnoreCase(cat.name)) return true
 		if (catset instanceof CategorySet) {

@@ -145,14 +145,6 @@ public class CategoriesSwitch<T> extends Switch<T>
         if (result == null) result = defaultCase(theEObject);
         return result;
       }
-      case CategoriesPackage.COMPONENT_CATEGORIES:
-      {
-        ComponentCategories componentCategories = (ComponentCategories)theEObject;
-        T result = caseComponentCategories(componentCategories);
-        if (result == null) result = caseCategories(componentCategories);
-        if (result == null) result = defaultCase(theEObject);
-        return result;
-      }
       case CategoriesPackage.REQUIREMENT_CATEGORY:
       {
         RequirementCategory requirementCategory = (RequirementCategory)theEObject;
@@ -190,14 +182,6 @@ public class CategoriesSwitch<T> extends Switch<T>
         PhaseCategory phaseCategory = (PhaseCategory)theEObject;
         T result = casePhaseCategory(phaseCategory);
         if (result == null) result = caseCategory(phaseCategory);
-        if (result == null) result = defaultCase(theEObject);
-        return result;
-      }
-      case CategoriesPackage.COMPONENT_CATEGORY:
-      {
-        ComponentCategory componentCategory = (ComponentCategory)theEObject;
-        T result = caseComponentCategory(componentCategory);
-        if (result == null) result = caseCategory(componentCategory);
         if (result == null) result = defaultCase(theEObject);
         return result;
       }
@@ -342,22 +326,6 @@ public class CategoriesSwitch<T> extends Switch<T>
   }
 
   /**
-   * Returns the result of interpreting the object as an instance of '<em>Component Categories</em>'.
-   * <!-- begin-user-doc -->
-   * This implementation returns null;
-   * returning a non-null result will terminate the switch.
-   * <!-- end-user-doc -->
-   * @param object the target of the switch.
-   * @return the result of interpreting the object as an instance of '<em>Component Categories</em>'.
-   * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
-   * @generated
-   */
-  public T caseComponentCategories(ComponentCategories object)
-  {
-    return null;
-  }
-
-  /**
    * Returns the result of interpreting the object as an instance of '<em>Requirement Category</em>'.
    * <!-- begin-user-doc -->
    * This implementation returns null;
@@ -433,22 +401,6 @@ public class CategoriesSwitch<T> extends Switch<T>
    * @generated
    */
   public T casePhaseCategory(PhaseCategory object)
-  {
-    return null;
-  }
-
-  /**
-   * Returns the result of interpreting the object as an instance of '<em>Component Category</em>'.
-   * <!-- begin-user-doc -->
-   * This implementation returns null;
-   * returning a non-null result will terminate the switch.
-   * <!-- end-user-doc -->
-   * @param object the target of the switch.
-   * @return the result of interpreting the object as an instance of '<em>Component Category</em>'.
-   * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
-   * @generated
-   */
-  public T caseComponentCategory(ComponentCategory object)
   {
     return null;
   }
