@@ -893,13 +893,22 @@ public interface AssurePackage extends EPackage
   int VERIFICATION_ACTIVITY_RESULT__TARGET = VERIFICATION_RESULT_FEATURE_COUNT + 0;
 
   /**
-   * The feature id for the '<em><b>Condition Result</b></em>' containment reference.
+   * The feature id for the '<em><b>Precondition Result</b></em>' containment reference.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    * @ordered
    */
-  int VERIFICATION_ACTIVITY_RESULT__CONDITION_RESULT = VERIFICATION_RESULT_FEATURE_COUNT + 1;
+  int VERIFICATION_ACTIVITY_RESULT__PRECONDITION_RESULT = VERIFICATION_RESULT_FEATURE_COUNT + 1;
+
+  /**
+   * The feature id for the '<em><b>Validation Result</b></em>' containment reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int VERIFICATION_ACTIVITY_RESULT__VALIDATION_RESULT = VERIFICATION_RESULT_FEATURE_COUNT + 2;
 
   /**
    * The number of structural features of the '<em>Verification Activity Result</em>' class.
@@ -908,7 +917,7 @@ public interface AssurePackage extends EPackage
    * @generated
    * @ordered
    */
-  int VERIFICATION_ACTIVITY_RESULT_FEATURE_COUNT = VERIFICATION_RESULT_FEATURE_COUNT + 2;
+  int VERIFICATION_ACTIVITY_RESULT_FEATURE_COUNT = VERIFICATION_RESULT_FEATURE_COUNT + 3;
 
   /**
    * The meta object id for the '{@link org.osate.assure.assure.ElseType <em>Else Type</em>}' enum.
@@ -1545,15 +1554,26 @@ public interface AssurePackage extends EPackage
   EReference getVerificationActivityResult_Target();
 
   /**
-   * Returns the meta object for the containment reference '{@link org.osate.assure.assure.VerificationActivityResult#getConditionResult <em>Condition Result</em>}'.
+   * Returns the meta object for the containment reference '{@link org.osate.assure.assure.VerificationActivityResult#getPreconditionResult <em>Precondition Result</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @return the meta object for the containment reference '<em>Condition Result</em>'.
-   * @see org.osate.assure.assure.VerificationActivityResult#getConditionResult()
+   * @return the meta object for the containment reference '<em>Precondition Result</em>'.
+   * @see org.osate.assure.assure.VerificationActivityResult#getPreconditionResult()
    * @see #getVerificationActivityResult()
    * @generated
    */
-  EReference getVerificationActivityResult_ConditionResult();
+  EReference getVerificationActivityResult_PreconditionResult();
+
+  /**
+   * Returns the meta object for the containment reference '{@link org.osate.assure.assure.VerificationActivityResult#getValidationResult <em>Validation Result</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the containment reference '<em>Validation Result</em>'.
+   * @see org.osate.assure.assure.VerificationActivityResult#getValidationResult()
+   * @see #getVerificationActivityResult()
+   * @generated
+   */
+  EReference getVerificationActivityResult_ValidationResult();
 
   /**
    * Returns the meta object for enum '{@link org.osate.assure.assure.ElseType <em>Else Type</em>}'.
@@ -2083,12 +2103,20 @@ public interface AssurePackage extends EPackage
     EReference VERIFICATION_ACTIVITY_RESULT__TARGET = eINSTANCE.getVerificationActivityResult_Target();
 
     /**
-     * The meta object literal for the '<em><b>Condition Result</b></em>' containment reference feature.
+     * The meta object literal for the '<em><b>Precondition Result</b></em>' containment reference feature.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @generated
      */
-    EReference VERIFICATION_ACTIVITY_RESULT__CONDITION_RESULT = eINSTANCE.getVerificationActivityResult_ConditionResult();
+    EReference VERIFICATION_ACTIVITY_RESULT__PRECONDITION_RESULT = eINSTANCE.getVerificationActivityResult_PreconditionResult();
+
+    /**
+     * The meta object literal for the '<em><b>Validation Result</b></em>' containment reference feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EReference VERIFICATION_ACTIVITY_RESULT__VALIDATION_RESULT = eINSTANCE.getVerificationActivityResult_ValidationResult();
 
     /**
      * The meta object literal for the '{@link org.osate.assure.assure.ElseType <em>Else Type</em>}' enum.

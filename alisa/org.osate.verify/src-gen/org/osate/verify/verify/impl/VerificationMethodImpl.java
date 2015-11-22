@@ -60,7 +60,8 @@ import org.osate.verify.verify.VerifyPackage;
  *   <li>{@link org.osate.verify.verify.impl.VerificationMethodImpl#getTitle <em>Title</em>}</li>
  *   <li>{@link org.osate.verify.verify.impl.VerificationMethodImpl#getMethodType <em>Method Type</em>}</li>
  *   <li>{@link org.osate.verify.verify.impl.VerificationMethodImpl#getDescription <em>Description</em>}</li>
- *   <li>{@link org.osate.verify.verify.impl.VerificationMethodImpl#getCondition <em>Condition</em>}</li>
+ *   <li>{@link org.osate.verify.verify.impl.VerificationMethodImpl#getPrecondition <em>Precondition</em>}</li>
+ *   <li>{@link org.osate.verify.verify.impl.VerificationMethodImpl#getValidation <em>Validation</em>}</li>
  *   <li>{@link org.osate.verify.verify.impl.VerificationMethodImpl#getCategory <em>Category</em>}</li>
  * </ul>
  *
@@ -189,14 +190,24 @@ public class VerificationMethodImpl extends MinimalEObjectImpl.Container impleme
   protected Description description;
 
   /**
-   * The cached value of the '{@link #getCondition() <em>Condition</em>}' containment reference.
+   * The cached value of the '{@link #getPrecondition() <em>Precondition</em>}' containment reference.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @see #getCondition()
+   * @see #getPrecondition()
    * @generated
    * @ordered
    */
-  protected VerificationCondition condition;
+  protected VerificationCondition precondition;
+
+  /**
+   * The cached value of the '{@link #getValidation() <em>Validation</em>}' containment reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see #getValidation()
+   * @generated
+   * @ordered
+   */
+  protected VerificationCondition validation;
 
   /**
    * The cached value of the '{@link #getCategory() <em>Category</em>}' reference list.
@@ -450,9 +461,9 @@ public class VerificationMethodImpl extends MinimalEObjectImpl.Container impleme
    * <!-- end-user-doc -->
    * @generated
    */
-  public VerificationCondition getCondition()
+  public VerificationCondition getPrecondition()
   {
-    return condition;
+    return precondition;
   }
 
   /**
@@ -460,13 +471,13 @@ public class VerificationMethodImpl extends MinimalEObjectImpl.Container impleme
    * <!-- end-user-doc -->
    * @generated
    */
-  public NotificationChain basicSetCondition(VerificationCondition newCondition, NotificationChain msgs)
+  public NotificationChain basicSetPrecondition(VerificationCondition newPrecondition, NotificationChain msgs)
   {
-    VerificationCondition oldCondition = condition;
-    condition = newCondition;
+    VerificationCondition oldPrecondition = precondition;
+    precondition = newPrecondition;
     if (eNotificationRequired())
     {
-      ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, VerifyPackage.VERIFICATION_METHOD__CONDITION, oldCondition, newCondition);
+      ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, VerifyPackage.VERIFICATION_METHOD__PRECONDITION, oldPrecondition, newPrecondition);
       if (msgs == null) msgs = notification; else msgs.add(notification);
     }
     return msgs;
@@ -477,20 +488,68 @@ public class VerificationMethodImpl extends MinimalEObjectImpl.Container impleme
    * <!-- end-user-doc -->
    * @generated
    */
-  public void setCondition(VerificationCondition newCondition)
+  public void setPrecondition(VerificationCondition newPrecondition)
   {
-    if (newCondition != condition)
+    if (newPrecondition != precondition)
     {
       NotificationChain msgs = null;
-      if (condition != null)
-        msgs = ((InternalEObject)condition).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - VerifyPackage.VERIFICATION_METHOD__CONDITION, null, msgs);
-      if (newCondition != null)
-        msgs = ((InternalEObject)newCondition).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - VerifyPackage.VERIFICATION_METHOD__CONDITION, null, msgs);
-      msgs = basicSetCondition(newCondition, msgs);
+      if (precondition != null)
+        msgs = ((InternalEObject)precondition).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - VerifyPackage.VERIFICATION_METHOD__PRECONDITION, null, msgs);
+      if (newPrecondition != null)
+        msgs = ((InternalEObject)newPrecondition).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - VerifyPackage.VERIFICATION_METHOD__PRECONDITION, null, msgs);
+      msgs = basicSetPrecondition(newPrecondition, msgs);
       if (msgs != null) msgs.dispatch();
     }
     else if (eNotificationRequired())
-      eNotify(new ENotificationImpl(this, Notification.SET, VerifyPackage.VERIFICATION_METHOD__CONDITION, newCondition, newCondition));
+      eNotify(new ENotificationImpl(this, Notification.SET, VerifyPackage.VERIFICATION_METHOD__PRECONDITION, newPrecondition, newPrecondition));
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public VerificationCondition getValidation()
+  {
+    return validation;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public NotificationChain basicSetValidation(VerificationCondition newValidation, NotificationChain msgs)
+  {
+    VerificationCondition oldValidation = validation;
+    validation = newValidation;
+    if (eNotificationRequired())
+    {
+      ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, VerifyPackage.VERIFICATION_METHOD__VALIDATION, oldValidation, newValidation);
+      if (msgs == null) msgs = notification; else msgs.add(notification);
+    }
+    return msgs;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public void setValidation(VerificationCondition newValidation)
+  {
+    if (newValidation != validation)
+    {
+      NotificationChain msgs = null;
+      if (validation != null)
+        msgs = ((InternalEObject)validation).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - VerifyPackage.VERIFICATION_METHOD__VALIDATION, null, msgs);
+      if (newValidation != null)
+        msgs = ((InternalEObject)newValidation).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - VerifyPackage.VERIFICATION_METHOD__VALIDATION, null, msgs);
+      msgs = basicSetValidation(newValidation, msgs);
+      if (msgs != null) msgs.dispatch();
+    }
+    else if (eNotificationRequired())
+      eNotify(new ENotificationImpl(this, Notification.SET, VerifyPackage.VERIFICATION_METHOD__VALIDATION, newValidation, newValidation));
   }
 
   /**
@@ -523,8 +582,10 @@ public class VerificationMethodImpl extends MinimalEObjectImpl.Container impleme
         return basicSetMethodType(null, msgs);
       case VerifyPackage.VERIFICATION_METHOD__DESCRIPTION:
         return basicSetDescription(null, msgs);
-      case VerifyPackage.VERIFICATION_METHOD__CONDITION:
-        return basicSetCondition(null, msgs);
+      case VerifyPackage.VERIFICATION_METHOD__PRECONDITION:
+        return basicSetPrecondition(null, msgs);
+      case VerifyPackage.VERIFICATION_METHOD__VALIDATION:
+        return basicSetValidation(null, msgs);
     }
     return super.eInverseRemove(otherEnd, featureID, msgs);
   }
@@ -555,8 +616,10 @@ public class VerificationMethodImpl extends MinimalEObjectImpl.Container impleme
         return getMethodType();
       case VerifyPackage.VERIFICATION_METHOD__DESCRIPTION:
         return getDescription();
-      case VerifyPackage.VERIFICATION_METHOD__CONDITION:
-        return getCondition();
+      case VerifyPackage.VERIFICATION_METHOD__PRECONDITION:
+        return getPrecondition();
+      case VerifyPackage.VERIFICATION_METHOD__VALIDATION:
+        return getValidation();
       case VerifyPackage.VERIFICATION_METHOD__CATEGORY:
         return getCategory();
     }
@@ -600,8 +663,11 @@ public class VerificationMethodImpl extends MinimalEObjectImpl.Container impleme
       case VerifyPackage.VERIFICATION_METHOD__DESCRIPTION:
         setDescription((Description)newValue);
         return;
-      case VerifyPackage.VERIFICATION_METHOD__CONDITION:
-        setCondition((VerificationCondition)newValue);
+      case VerifyPackage.VERIFICATION_METHOD__PRECONDITION:
+        setPrecondition((VerificationCondition)newValue);
+        return;
+      case VerifyPackage.VERIFICATION_METHOD__VALIDATION:
+        setValidation((VerificationCondition)newValue);
         return;
       case VerifyPackage.VERIFICATION_METHOD__CATEGORY:
         getCategory().clear();
@@ -645,8 +711,11 @@ public class VerificationMethodImpl extends MinimalEObjectImpl.Container impleme
       case VerifyPackage.VERIFICATION_METHOD__DESCRIPTION:
         setDescription((Description)null);
         return;
-      case VerifyPackage.VERIFICATION_METHOD__CONDITION:
-        setCondition((VerificationCondition)null);
+      case VerifyPackage.VERIFICATION_METHOD__PRECONDITION:
+        setPrecondition((VerificationCondition)null);
+        return;
+      case VerifyPackage.VERIFICATION_METHOD__VALIDATION:
+        setValidation((VerificationCondition)null);
         return;
       case VerifyPackage.VERIFICATION_METHOD__CATEGORY:
         getCategory().clear();
@@ -681,8 +750,10 @@ public class VerificationMethodImpl extends MinimalEObjectImpl.Container impleme
         return methodType != null;
       case VerifyPackage.VERIFICATION_METHOD__DESCRIPTION:
         return description != null;
-      case VerifyPackage.VERIFICATION_METHOD__CONDITION:
-        return condition != null;
+      case VerifyPackage.VERIFICATION_METHOD__PRECONDITION:
+        return precondition != null;
+      case VerifyPackage.VERIFICATION_METHOD__VALIDATION:
+        return validation != null;
       case VerifyPackage.VERIFICATION_METHOD__CATEGORY:
         return category != null && !category.isEmpty();
     }

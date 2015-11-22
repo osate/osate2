@@ -25,23 +25,23 @@ import org.eclipse.emf.ecore.impl.ENotificationImpl;
 
 import org.osate.aadl2.PropertyExpression;
 
+import org.osate.reqspec.reqSpec.Predicate;
 import org.osate.reqspec.reqSpec.ReqSpecPackage;
-import org.osate.reqspec.reqSpec.XPredicate;
 
 /**
  * <!-- begin-user-doc -->
- * An implementation of the model object '<em><b>XPredicate</b></em>'.
+ * An implementation of the model object '<em><b>Predicate</b></em>'.
  * <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
  * </p>
  * <ul>
- *   <li>{@link org.osate.reqspec.reqSpec.impl.XPredicateImpl#getXpression <em>Xpression</em>}</li>
+ *   <li>{@link org.osate.reqspec.reqSpec.impl.PredicateImpl#getXpression <em>Xpression</em>}</li>
  * </ul>
  *
  * @generated
  */
-public class XPredicateImpl extends ReqPredicateImpl implements XPredicate
+public class PredicateImpl extends ReqPredicateImpl implements Predicate
 {
   /**
    * The cached value of the '{@link #getXpression() <em>Xpression</em>}' containment reference.
@@ -58,7 +58,7 @@ public class XPredicateImpl extends ReqPredicateImpl implements XPredicate
    * <!-- end-user-doc -->
    * @generated
    */
-  protected XPredicateImpl()
+  protected PredicateImpl()
   {
     super();
   }
@@ -71,7 +71,7 @@ public class XPredicateImpl extends ReqPredicateImpl implements XPredicate
   @Override
   protected EClass eStaticClass()
   {
-    return ReqSpecPackage.Literals.XPREDICATE;
+    return ReqSpecPackage.Literals.PREDICATE;
   }
 
   /**
@@ -95,7 +95,7 @@ public class XPredicateImpl extends ReqPredicateImpl implements XPredicate
     xpression = newXpression;
     if (eNotificationRequired())
     {
-      ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, ReqSpecPackage.XPREDICATE__XPRESSION, oldXpression, newXpression);
+      ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, ReqSpecPackage.PREDICATE__XPRESSION, oldXpression, newXpression);
       if (msgs == null) msgs = notification; else msgs.add(notification);
     }
     return msgs;
@@ -112,14 +112,14 @@ public class XPredicateImpl extends ReqPredicateImpl implements XPredicate
     {
       NotificationChain msgs = null;
       if (xpression != null)
-        msgs = ((InternalEObject)xpression).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - ReqSpecPackage.XPREDICATE__XPRESSION, null, msgs);
+        msgs = ((InternalEObject)xpression).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - ReqSpecPackage.PREDICATE__XPRESSION, null, msgs);
       if (newXpression != null)
-        msgs = ((InternalEObject)newXpression).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - ReqSpecPackage.XPREDICATE__XPRESSION, null, msgs);
+        msgs = ((InternalEObject)newXpression).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - ReqSpecPackage.PREDICATE__XPRESSION, null, msgs);
       msgs = basicSetXpression(newXpression, msgs);
       if (msgs != null) msgs.dispatch();
     }
     else if (eNotificationRequired())
-      eNotify(new ENotificationImpl(this, Notification.SET, ReqSpecPackage.XPREDICATE__XPRESSION, newXpression, newXpression));
+      eNotify(new ENotificationImpl(this, Notification.SET, ReqSpecPackage.PREDICATE__XPRESSION, newXpression, newXpression));
   }
 
   /**
@@ -132,7 +132,7 @@ public class XPredicateImpl extends ReqPredicateImpl implements XPredicate
   {
     switch (featureID)
     {
-      case ReqSpecPackage.XPREDICATE__XPRESSION:
+      case ReqSpecPackage.PREDICATE__XPRESSION:
         return basicSetXpression(null, msgs);
     }
     return super.eInverseRemove(otherEnd, featureID, msgs);
@@ -148,7 +148,7 @@ public class XPredicateImpl extends ReqPredicateImpl implements XPredicate
   {
     switch (featureID)
     {
-      case ReqSpecPackage.XPREDICATE__XPRESSION:
+      case ReqSpecPackage.PREDICATE__XPRESSION:
         return getXpression();
     }
     return super.eGet(featureID, resolve, coreType);
@@ -164,7 +164,7 @@ public class XPredicateImpl extends ReqPredicateImpl implements XPredicate
   {
     switch (featureID)
     {
-      case ReqSpecPackage.XPREDICATE__XPRESSION:
+      case ReqSpecPackage.PREDICATE__XPRESSION:
         setXpression((PropertyExpression)newValue);
         return;
     }
@@ -181,7 +181,7 @@ public class XPredicateImpl extends ReqPredicateImpl implements XPredicate
   {
     switch (featureID)
     {
-      case ReqSpecPackage.XPREDICATE__XPRESSION:
+      case ReqSpecPackage.PREDICATE__XPRESSION:
         setXpression((PropertyExpression)null);
         return;
     }
@@ -198,10 +198,10 @@ public class XPredicateImpl extends ReqPredicateImpl implements XPredicate
   {
     switch (featureID)
     {
-      case ReqSpecPackage.XPREDICATE__XPRESSION:
+      case ReqSpecPackage.PREDICATE__XPRESSION:
         return xpression != null;
     }
     return super.eIsSet(featureID);
   }
 
-} //XPredicateImpl
+} //PredicateImpl

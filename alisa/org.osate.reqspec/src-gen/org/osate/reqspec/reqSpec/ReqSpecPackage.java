@@ -1044,13 +1044,31 @@ public interface ReqSpecPackage extends EPackage
   int REQUIREMENT__ISSUES = CONTRACTUAL_ELEMENT__ISSUES;
 
   /**
+   * The feature id for the '<em><b>Component Category</b></em>' attribute list.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int REQUIREMENT__COMPONENT_CATEGORY = CONTRACTUAL_ELEMENT_FEATURE_COUNT + 0;
+
+  /**
+   * The feature id for the '<em><b>Global</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int REQUIREMENT__GLOBAL = CONTRACTUAL_ELEMENT_FEATURE_COUNT + 1;
+
+  /**
    * The feature id for the '<em><b>Computes</b></em>' containment reference list.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    * @ordered
    */
-  int REQUIREMENT__COMPUTES = CONTRACTUAL_ELEMENT_FEATURE_COUNT + 0;
+  int REQUIREMENT__COMPUTES = CONTRACTUAL_ELEMENT_FEATURE_COUNT + 2;
 
   /**
    * The feature id for the '<em><b>Predicate</b></em>' containment reference.
@@ -1059,7 +1077,7 @@ public interface ReqSpecPackage extends EPackage
    * @generated
    * @ordered
    */
-  int REQUIREMENT__PREDICATE = CONTRACTUAL_ELEMENT_FEATURE_COUNT + 1;
+  int REQUIREMENT__PREDICATE = CONTRACTUAL_ELEMENT_FEATURE_COUNT + 3;
 
   /**
    * The feature id for the '<em><b>Exception</b></em>' reference.
@@ -1068,7 +1086,7 @@ public interface ReqSpecPackage extends EPackage
    * @generated
    * @ordered
    */
-  int REQUIREMENT__EXCEPTION = CONTRACTUAL_ELEMENT_FEATURE_COUNT + 2;
+  int REQUIREMENT__EXCEPTION = CONTRACTUAL_ELEMENT_FEATURE_COUNT + 4;
 
   /**
    * The feature id for the '<em><b>Exception Text</b></em>' attribute.
@@ -1077,7 +1095,7 @@ public interface ReqSpecPackage extends EPackage
    * @generated
    * @ordered
    */
-  int REQUIREMENT__EXCEPTION_TEXT = CONTRACTUAL_ELEMENT_FEATURE_COUNT + 3;
+  int REQUIREMENT__EXCEPTION_TEXT = CONTRACTUAL_ELEMENT_FEATURE_COUNT + 5;
 
   /**
    * The feature id for the '<em><b>Refines Reference</b></em>' reference list.
@@ -1086,7 +1104,7 @@ public interface ReqSpecPackage extends EPackage
    * @generated
    * @ordered
    */
-  int REQUIREMENT__REFINES_REFERENCE = CONTRACTUAL_ELEMENT_FEATURE_COUNT + 4;
+  int REQUIREMENT__REFINES_REFERENCE = CONTRACTUAL_ELEMENT_FEATURE_COUNT + 6;
 
   /**
    * The feature id for the '<em><b>Decomposes Reference</b></em>' reference list.
@@ -1095,7 +1113,7 @@ public interface ReqSpecPackage extends EPackage
    * @generated
    * @ordered
    */
-  int REQUIREMENT__DECOMPOSES_REFERENCE = CONTRACTUAL_ELEMENT_FEATURE_COUNT + 5;
+  int REQUIREMENT__DECOMPOSES_REFERENCE = CONTRACTUAL_ELEMENT_FEATURE_COUNT + 7;
 
   /**
    * The feature id for the '<em><b>Development Stakeholder</b></em>' reference list.
@@ -1104,7 +1122,7 @@ public interface ReqSpecPackage extends EPackage
    * @generated
    * @ordered
    */
-  int REQUIREMENT__DEVELOPMENT_STAKEHOLDER = CONTRACTUAL_ELEMENT_FEATURE_COUNT + 6;
+  int REQUIREMENT__DEVELOPMENT_STAKEHOLDER = CONTRACTUAL_ELEMENT_FEATURE_COUNT + 8;
 
   /**
    * The feature id for the '<em><b>Goal Reference</b></em>' reference list.
@@ -1113,7 +1131,7 @@ public interface ReqSpecPackage extends EPackage
    * @generated
    * @ordered
    */
-  int REQUIREMENT__GOAL_REFERENCE = CONTRACTUAL_ELEMENT_FEATURE_COUNT + 7;
+  int REQUIREMENT__GOAL_REFERENCE = CONTRACTUAL_ELEMENT_FEATURE_COUNT + 9;
 
   /**
    * The feature id for the '<em><b>Stakeholder Requirement Reference</b></em>' reference list.
@@ -1122,7 +1140,7 @@ public interface ReqSpecPackage extends EPackage
    * @generated
    * @ordered
    */
-  int REQUIREMENT__STAKEHOLDER_REQUIREMENT_REFERENCE = CONTRACTUAL_ELEMENT_FEATURE_COUNT + 8;
+  int REQUIREMENT__STAKEHOLDER_REQUIREMENT_REFERENCE = CONTRACTUAL_ELEMENT_FEATURE_COUNT + 10;
 
   /**
    * The number of structural features of the '<em>Requirement</em>' class.
@@ -1131,7 +1149,7 @@ public interface ReqSpecPackage extends EPackage
    * @generated
    * @ordered
    */
-  int REQUIREMENT_FEATURE_COUNT = CONTRACTUAL_ELEMENT_FEATURE_COUNT + 9;
+  int REQUIREMENT_FEATURE_COUNT = CONTRACTUAL_ELEMENT_FEATURE_COUNT + 11;
 
   /**
    * The meta object id for the '{@link org.osate.reqspec.reqSpec.impl.ReqPredicateImpl <em>Req Predicate</em>}' class.
@@ -1181,14 +1199,14 @@ public interface ReqSpecPackage extends EPackage
   int INFORMAL_PREDICATE_FEATURE_COUNT = REQ_PREDICATE_FEATURE_COUNT + 1;
 
   /**
-   * The meta object id for the '{@link org.osate.reqspec.reqSpec.impl.XPredicateImpl <em>XPredicate</em>}' class.
+   * The meta object id for the '{@link org.osate.reqspec.reqSpec.impl.PredicateImpl <em>Predicate</em>}' class.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @see org.osate.reqspec.reqSpec.impl.XPredicateImpl
-   * @see org.osate.reqspec.reqSpec.impl.ReqSpecPackageImpl#getXPredicate()
+   * @see org.osate.reqspec.reqSpec.impl.PredicateImpl
+   * @see org.osate.reqspec.reqSpec.impl.ReqSpecPackageImpl#getPredicate()
    * @generated
    */
-  int XPREDICATE = 13;
+  int PREDICATE = 13;
 
   /**
    * The feature id for the '<em><b>Xpression</b></em>' containment reference.
@@ -1197,16 +1215,16 @@ public interface ReqSpecPackage extends EPackage
    * @generated
    * @ordered
    */
-  int XPREDICATE__XPRESSION = REQ_PREDICATE_FEATURE_COUNT + 0;
+  int PREDICATE__XPRESSION = REQ_PREDICATE_FEATURE_COUNT + 0;
 
   /**
-   * The number of structural features of the '<em>XPredicate</em>' class.
+   * The number of structural features of the '<em>Predicate</em>' class.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    * @ordered
    */
-  int XPREDICATE_FEATURE_COUNT = REQ_PREDICATE_FEATURE_COUNT + 1;
+  int PREDICATE_FEATURE_COUNT = REQ_PREDICATE_FEATURE_COUNT + 1;
 
   /**
    * The meta object id for the '{@link org.osate.reqspec.reqSpec.impl.ValuePredicateImpl <em>Value Predicate</em>}' class.
@@ -1979,6 +1997,28 @@ public interface ReqSpecPackage extends EPackage
   EClass getRequirement();
 
   /**
+   * Returns the meta object for the attribute list '{@link org.osate.reqspec.reqSpec.Requirement#getComponentCategory <em>Component Category</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the attribute list '<em>Component Category</em>'.
+   * @see org.osate.reqspec.reqSpec.Requirement#getComponentCategory()
+   * @see #getRequirement()
+   * @generated
+   */
+  EAttribute getRequirement_ComponentCategory();
+
+  /**
+   * Returns the meta object for the attribute '{@link org.osate.reqspec.reqSpec.Requirement#isGlobal <em>Global</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the attribute '<em>Global</em>'.
+   * @see org.osate.reqspec.reqSpec.Requirement#isGlobal()
+   * @see #getRequirement()
+   * @generated
+   */
+  EAttribute getRequirement_Global();
+
+  /**
    * Returns the meta object for the containment reference list '{@link org.osate.reqspec.reqSpec.Requirement#getComputes <em>Computes</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -2109,25 +2149,25 @@ public interface ReqSpecPackage extends EPackage
   EAttribute getInformalPredicate_Description();
 
   /**
-   * Returns the meta object for class '{@link org.osate.reqspec.reqSpec.XPredicate <em>XPredicate</em>}'.
+   * Returns the meta object for class '{@link org.osate.reqspec.reqSpec.Predicate <em>Predicate</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @return the meta object for class '<em>XPredicate</em>'.
-   * @see org.osate.reqspec.reqSpec.XPredicate
+   * @return the meta object for class '<em>Predicate</em>'.
+   * @see org.osate.reqspec.reqSpec.Predicate
    * @generated
    */
-  EClass getXPredicate();
+  EClass getPredicate();
 
   /**
-   * Returns the meta object for the containment reference '{@link org.osate.reqspec.reqSpec.XPredicate#getXpression <em>Xpression</em>}'.
+   * Returns the meta object for the containment reference '{@link org.osate.reqspec.reqSpec.Predicate#getXpression <em>Xpression</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @return the meta object for the containment reference '<em>Xpression</em>'.
-   * @see org.osate.reqspec.reqSpec.XPredicate#getXpression()
-   * @see #getXPredicate()
+   * @see org.osate.reqspec.reqSpec.Predicate#getXpression()
+   * @see #getPredicate()
    * @generated
    */
-  EReference getXPredicate_Xpression();
+  EReference getPredicate_Xpression();
 
   /**
    * Returns the meta object for class '{@link org.osate.reqspec.reqSpec.ValuePredicate <em>Value Predicate</em>}'.
@@ -2748,6 +2788,22 @@ public interface ReqSpecPackage extends EPackage
     EClass REQUIREMENT = eINSTANCE.getRequirement();
 
     /**
+     * The meta object literal for the '<em><b>Component Category</b></em>' attribute list feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EAttribute REQUIREMENT__COMPONENT_CATEGORY = eINSTANCE.getRequirement_ComponentCategory();
+
+    /**
+     * The meta object literal for the '<em><b>Global</b></em>' attribute feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EAttribute REQUIREMENT__GLOBAL = eINSTANCE.getRequirement_Global();
+
+    /**
      * The meta object literal for the '<em><b>Computes</b></em>' containment reference list feature.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
@@ -2848,14 +2904,14 @@ public interface ReqSpecPackage extends EPackage
     EAttribute INFORMAL_PREDICATE__DESCRIPTION = eINSTANCE.getInformalPredicate_Description();
 
     /**
-     * The meta object literal for the '{@link org.osate.reqspec.reqSpec.impl.XPredicateImpl <em>XPredicate</em>}' class.
+     * The meta object literal for the '{@link org.osate.reqspec.reqSpec.impl.PredicateImpl <em>Predicate</em>}' class.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @see org.osate.reqspec.reqSpec.impl.XPredicateImpl
-     * @see org.osate.reqspec.reqSpec.impl.ReqSpecPackageImpl#getXPredicate()
+     * @see org.osate.reqspec.reqSpec.impl.PredicateImpl
+     * @see org.osate.reqspec.reqSpec.impl.ReqSpecPackageImpl#getPredicate()
      * @generated
      */
-    EClass XPREDICATE = eINSTANCE.getXPredicate();
+    EClass PREDICATE = eINSTANCE.getPredicate();
 
     /**
      * The meta object literal for the '<em><b>Xpression</b></em>' containment reference feature.
@@ -2863,7 +2919,7 @@ public interface ReqSpecPackage extends EPackage
      * <!-- end-user-doc -->
      * @generated
      */
-    EReference XPREDICATE__XPRESSION = eINSTANCE.getXPredicate_Xpression();
+    EReference PREDICATE__XPRESSION = eINSTANCE.getPredicate_Xpression();
 
     /**
      * The meta object literal for the '{@link org.osate.reqspec.reqSpec.impl.ValuePredicateImpl <em>Value Predicate</em>}' class.

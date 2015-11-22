@@ -36,8 +36,24 @@ ClaimResult:
 ;
 
 
-ConditionResult returns VerificationResult:
-	('precondition' {PreconditionResult}| 'validation' {ValidationResult})	
+PreconditionResult returns VerificationResult:
+	'precondition' {PreconditionResult}	
+	target=[Verify::VerificationCondition|QualifiedName]
+	'['
+	'executionstate'  executionState=VerificationExecutionState
+	'resultstate' resultState=VerificationResultState
+	('issues' '['
+		issues+=ResultIssue*
+		']'
+	)?
+	('report' resultReport=[results::ResultReport|QualifiedName])? // pointer to separate report
+	metrics=Metrics
+	('message' message= STRING)?
+	']'  
+;
+
+ValidationResult returns VerificationResult:
+	'validation' {ValidationResult}	
 	target=[Verify::VerificationCondition|QualifiedName]
 	'['
 	'executionstate'  executionState=VerificationExecutionState
@@ -67,13 +83,14 @@ VerificationActivityResult returns VerificationResult:
 	('report' resultReport=[results::ResultReport|QualifiedName])? 
 	metrics=Metrics
 	('message' message= STRING)?
-	conditionResult= ConditionResult?
+	preconditionResult= PreconditionResult?
+	validationResult= ValidationResult?
 	']'  
 ;
 
 AssureResult:
 	VerificationExpr |
-		AssuranceCase | ClaimResult  | ConditionResult 
+		AssuranceCase | ClaimResult  | PreconditionResult | ValidationResult
 	;
 
 enum ElseType: 

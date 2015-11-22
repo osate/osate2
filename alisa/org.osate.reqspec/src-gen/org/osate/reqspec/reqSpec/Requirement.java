@@ -19,6 +19,8 @@ import org.eclipse.emf.common.util.EList;
 
 import org.eclipse.emf.ecore.EObject;
 
+import org.osate.aadl2.ComponentCategory;
+
 import org.osate.alisa.common.common.AVariableDeclaration;
 
 import org.osate.organization.organization.Stakeholder;
@@ -32,6 +34,8 @@ import org.osate.organization.organization.Stakeholder;
  * The following features are supported:
  * </p>
  * <ul>
+ *   <li>{@link org.osate.reqspec.reqSpec.Requirement#getComponentCategory <em>Component Category</em>}</li>
+ *   <li>{@link org.osate.reqspec.reqSpec.Requirement#isGlobal <em>Global</em>}</li>
  *   <li>{@link org.osate.reqspec.reqSpec.Requirement#getComputes <em>Computes</em>}</li>
  *   <li>{@link org.osate.reqspec.reqSpec.Requirement#getPredicate <em>Predicate</em>}</li>
  *   <li>{@link org.osate.reqspec.reqSpec.Requirement#getException <em>Exception</em>}</li>
@@ -49,6 +53,50 @@ import org.osate.organization.organization.Stakeholder;
  */
 public interface Requirement extends ContractualElement
 {
+  /**
+   * Returns the value of the '<em><b>Component Category</b></em>' attribute list.
+   * The list contents are of type {@link org.osate.aadl2.ComponentCategory}.
+   * The literals are from the enumeration {@link org.osate.aadl2.ComponentCategory}.
+   * <!-- begin-user-doc -->
+   * <p>
+   * If the meaning of the '<em>Component Category</em>' attribute list isn't clear,
+   * there really should be more of a description here...
+   * </p>
+   * <!-- end-user-doc -->
+   * @return the value of the '<em>Component Category</em>' attribute list.
+   * @see org.osate.aadl2.ComponentCategory
+   * @see org.osate.reqspec.reqSpec.ReqSpecPackage#getRequirement_ComponentCategory()
+   * @model unique="false"
+   * @generated
+   */
+  EList<ComponentCategory> getComponentCategory();
+
+  /**
+   * Returns the value of the '<em><b>Global</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <p>
+   * If the meaning of the '<em>Global</em>' attribute isn't clear,
+   * there really should be more of a description here...
+   * </p>
+   * <!-- end-user-doc -->
+   * @return the value of the '<em>Global</em>' attribute.
+   * @see #setGlobal(boolean)
+   * @see org.osate.reqspec.reqSpec.ReqSpecPackage#getRequirement_Global()
+   * @model
+   * @generated
+   */
+  boolean isGlobal();
+
+  /**
+   * Sets the value of the '{@link org.osate.reqspec.reqSpec.Requirement#isGlobal <em>Global</em>}' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @param value the new value of the '<em>Global</em>' attribute.
+   * @see #isGlobal()
+   * @generated
+   */
+  void setGlobal(boolean value);
+
   /**
    * Returns the value of the '<em><b>Computes</b></em>' containment reference list.
    * The list contents are of type {@link org.osate.alisa.common.common.AVariableDeclaration}.

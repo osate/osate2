@@ -22,15 +22,12 @@ import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.util.EList;
 
 import org.eclipse.emf.ecore.EClass;
-import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.InternalEObject;
 
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.eclipse.emf.ecore.impl.MinimalEObjectImpl;
 
 import org.eclipse.emf.ecore.util.EObjectResolvingEList;
-
-import org.osate.aadl2.ComponentImplementation;
 
 import org.osate.alisa.common.common.ComputeDeclaration;
 import org.osate.alisa.common.common.ValDeclaration;
@@ -51,7 +48,6 @@ import org.osate.verify.verify.VerifyPackage;
  * <ul>
  *   <li>{@link org.osate.verify.verify.impl.VerificationActivityImpl#getName <em>Name</em>}</li>
  *   <li>{@link org.osate.verify.verify.impl.VerificationActivityImpl#getTitle <em>Title</em>}</li>
- *   <li>{@link org.osate.verify.verify.impl.VerificationActivityImpl#getTarget <em>Target</em>}</li>
  *   <li>{@link org.osate.verify.verify.impl.VerificationActivityImpl#getCategory <em>Category</em>}</li>
  *   <li>{@link org.osate.verify.verify.impl.VerificationActivityImpl#getResult <em>Result</em>}</li>
  *   <li>{@link org.osate.verify.verify.impl.VerificationActivityImpl#getMethod <em>Method</em>}</li>
@@ -103,16 +99,6 @@ public class VerificationActivityImpl extends MinimalEObjectImpl.Container imple
    * @ordered
    */
   protected String title = TITLE_EDEFAULT;
-
-  /**
-   * The cached value of the '{@link #getTarget() <em>Target</em>}' reference.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @see #getTarget()
-   * @generated
-   * @ordered
-   */
-  protected ComponentImplementation target;
 
   /**
    * The cached value of the '{@link #getCategory() <em>Category</em>}' reference list.
@@ -256,49 +242,6 @@ public class VerificationActivityImpl extends MinimalEObjectImpl.Container imple
    * <!-- end-user-doc -->
    * @generated
    */
-  public ComponentImplementation getTarget()
-  {
-    if (target != null && ((EObject)target).eIsProxy())
-    {
-      InternalEObject oldTarget = (InternalEObject)target;
-      target = (ComponentImplementation)eResolveProxy(oldTarget);
-      if (target != oldTarget)
-      {
-        if (eNotificationRequired())
-          eNotify(new ENotificationImpl(this, Notification.RESOLVE, VerifyPackage.VERIFICATION_ACTIVITY__TARGET, oldTarget, target));
-      }
-    }
-    return target;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public ComponentImplementation basicGetTarget()
-  {
-    return target;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public void setTarget(ComponentImplementation newTarget)
-  {
-    ComponentImplementation oldTarget = target;
-    target = newTarget;
-    if (eNotificationRequired())
-      eNotify(new ENotificationImpl(this, Notification.SET, VerifyPackage.VERIFICATION_ACTIVITY__TARGET, oldTarget, target));
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
   public EList<Category> getCategory()
   {
     if (category == null)
@@ -430,9 +373,6 @@ public class VerificationActivityImpl extends MinimalEObjectImpl.Container imple
         return getName();
       case VerifyPackage.VERIFICATION_ACTIVITY__TITLE:
         return getTitle();
-      case VerifyPackage.VERIFICATION_ACTIVITY__TARGET:
-        if (resolve) return getTarget();
-        return basicGetTarget();
       case VerifyPackage.VERIFICATION_ACTIVITY__CATEGORY:
         return getCategory();
       case VerifyPackage.VERIFICATION_ACTIVITY__RESULT:
@@ -466,9 +406,6 @@ public class VerificationActivityImpl extends MinimalEObjectImpl.Container imple
         return;
       case VerifyPackage.VERIFICATION_ACTIVITY__TITLE:
         setTitle((String)newValue);
-        return;
-      case VerifyPackage.VERIFICATION_ACTIVITY__TARGET:
-        setTarget((ComponentImplementation)newValue);
         return;
       case VerifyPackage.VERIFICATION_ACTIVITY__CATEGORY:
         getCategory().clear();
@@ -512,9 +449,6 @@ public class VerificationActivityImpl extends MinimalEObjectImpl.Container imple
       case VerifyPackage.VERIFICATION_ACTIVITY__TITLE:
         setTitle(TITLE_EDEFAULT);
         return;
-      case VerifyPackage.VERIFICATION_ACTIVITY__TARGET:
-        setTarget((ComponentImplementation)null);
-        return;
       case VerifyPackage.VERIFICATION_ACTIVITY__CATEGORY:
         getCategory().clear();
         return;
@@ -551,8 +485,6 @@ public class VerificationActivityImpl extends MinimalEObjectImpl.Container imple
         return NAME_EDEFAULT == null ? name != null : !NAME_EDEFAULT.equals(name);
       case VerifyPackage.VERIFICATION_ACTIVITY__TITLE:
         return TITLE_EDEFAULT == null ? title != null : !TITLE_EDEFAULT.equals(title);
-      case VerifyPackage.VERIFICATION_ACTIVITY__TARGET:
-        return target != null;
       case VerifyPackage.VERIFICATION_ACTIVITY__CATEGORY:
         return category != null && !category.isEmpty();
       case VerifyPackage.VERIFICATION_ACTIVITY__RESULT:

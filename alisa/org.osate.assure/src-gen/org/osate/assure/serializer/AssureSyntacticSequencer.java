@@ -33,13 +33,15 @@ import org.osate.assure.services.AssureGrammarAccess;
 public class AssureSyntacticSequencer extends AbstractSyntacticSequencer {
 
 	protected AssureGrammarAccess grammarAccess;
-	protected AbstractElementAlias match_ConditionResult___IssuesKeyword_7_0_LeftSquareBracketKeyword_7_1_RightSquareBracketKeyword_7_3__q;
+	protected AbstractElementAlias match_PreconditionResult___IssuesKeyword_8_0_LeftSquareBracketKeyword_8_1_RightSquareBracketKeyword_8_3__q;
+	protected AbstractElementAlias match_ValidationResult___IssuesKeyword_8_0_LeftSquareBracketKeyword_8_1_RightSquareBracketKeyword_8_3__q;
 	protected AbstractElementAlias match_VerificationActivityResult___IssuesKeyword_8_0_LeftSquareBracketKeyword_8_1_RightSquareBracketKeyword_8_3__q;
 	
 	@Inject
 	protected void init(IGrammarAccess access) {
 		grammarAccess = (AssureGrammarAccess) access;
-		match_ConditionResult___IssuesKeyword_7_0_LeftSquareBracketKeyword_7_1_RightSquareBracketKeyword_7_3__q = new GroupAlias(false, true, new TokenAlias(false, false, grammarAccess.getConditionResultAccess().getIssuesKeyword_7_0()), new TokenAlias(false, false, grammarAccess.getConditionResultAccess().getLeftSquareBracketKeyword_7_1()), new TokenAlias(false, false, grammarAccess.getConditionResultAccess().getRightSquareBracketKeyword_7_3()));
+		match_PreconditionResult___IssuesKeyword_8_0_LeftSquareBracketKeyword_8_1_RightSquareBracketKeyword_8_3__q = new GroupAlias(false, true, new TokenAlias(false, false, grammarAccess.getPreconditionResultAccess().getIssuesKeyword_8_0()), new TokenAlias(false, false, grammarAccess.getPreconditionResultAccess().getLeftSquareBracketKeyword_8_1()), new TokenAlias(false, false, grammarAccess.getPreconditionResultAccess().getRightSquareBracketKeyword_8_3()));
+		match_ValidationResult___IssuesKeyword_8_0_LeftSquareBracketKeyword_8_1_RightSquareBracketKeyword_8_3__q = new GroupAlias(false, true, new TokenAlias(false, false, grammarAccess.getValidationResultAccess().getIssuesKeyword_8_0()), new TokenAlias(false, false, grammarAccess.getValidationResultAccess().getLeftSquareBracketKeyword_8_1()), new TokenAlias(false, false, grammarAccess.getValidationResultAccess().getRightSquareBracketKeyword_8_3()));
 		match_VerificationActivityResult___IssuesKeyword_8_0_LeftSquareBracketKeyword_8_1_RightSquareBracketKeyword_8_3__q = new GroupAlias(false, true, new TokenAlias(false, false, grammarAccess.getVerificationActivityResultAccess().getIssuesKeyword_8_0()), new TokenAlias(false, false, grammarAccess.getVerificationActivityResultAccess().getLeftSquareBracketKeyword_8_1()), new TokenAlias(false, false, grammarAccess.getVerificationActivityResultAccess().getRightSquareBracketKeyword_8_3()));
 	}
 	
@@ -55,8 +57,10 @@ public class AssureSyntacticSequencer extends AbstractSyntacticSequencer {
 		List<INode> transitionNodes = collectNodes(fromNode, toNode);
 		for (AbstractElementAlias syntax : transition.getAmbiguousSyntaxes()) {
 			List<INode> syntaxNodes = getNodesFor(transitionNodes, syntax);
-			if(match_ConditionResult___IssuesKeyword_7_0_LeftSquareBracketKeyword_7_1_RightSquareBracketKeyword_7_3__q.equals(syntax))
-				emit_ConditionResult___IssuesKeyword_7_0_LeftSquareBracketKeyword_7_1_RightSquareBracketKeyword_7_3__q(semanticObject, getLastNavigableState(), syntaxNodes);
+			if(match_PreconditionResult___IssuesKeyword_8_0_LeftSquareBracketKeyword_8_1_RightSquareBracketKeyword_8_3__q.equals(syntax))
+				emit_PreconditionResult___IssuesKeyword_8_0_LeftSquareBracketKeyword_8_1_RightSquareBracketKeyword_8_3__q(semanticObject, getLastNavigableState(), syntaxNodes);
+			else if(match_ValidationResult___IssuesKeyword_8_0_LeftSquareBracketKeyword_8_1_RightSquareBracketKeyword_8_3__q.equals(syntax))
+				emit_ValidationResult___IssuesKeyword_8_0_LeftSquareBracketKeyword_8_1_RightSquareBracketKeyword_8_3__q(semanticObject, getLastNavigableState(), syntaxNodes);
 			else if(match_VerificationActivityResult___IssuesKeyword_8_0_LeftSquareBracketKeyword_8_1_RightSquareBracketKeyword_8_3__q.equals(syntax))
 				emit_VerificationActivityResult___IssuesKeyword_8_0_LeftSquareBracketKeyword_8_1_RightSquareBracketKeyword_8_3__q(semanticObject, getLastNavigableState(), syntaxNodes);
 			else acceptNodes(getLastNavigableState(), syntaxNodes);
@@ -71,7 +75,19 @@ public class AssureSyntacticSequencer extends AbstractSyntacticSequencer {
 	 *     resultState=VerificationResultState (ambiguity) 'report' resultReport=[ResultReport|QualifiedName]
 	 *     resultState=VerificationResultState (ambiguity) metrics=Metrics
 	 */
-	protected void emit_ConditionResult___IssuesKeyword_7_0_LeftSquareBracketKeyword_7_1_RightSquareBracketKeyword_7_3__q(EObject semanticObject, ISynNavigable transition, List<INode> nodes) {
+	protected void emit_PreconditionResult___IssuesKeyword_8_0_LeftSquareBracketKeyword_8_1_RightSquareBracketKeyword_8_3__q(EObject semanticObject, ISynNavigable transition, List<INode> nodes) {
+		acceptNodes(transition, nodes);
+	}
+	
+	/**
+	 * Ambiguous syntax:
+	 *     ('issues' '[' ']')?
+	 *
+	 * This ambiguous syntax occurs at:
+	 *     resultState=VerificationResultState (ambiguity) 'report' resultReport=[ResultReport|QualifiedName]
+	 *     resultState=VerificationResultState (ambiguity) metrics=Metrics
+	 */
+	protected void emit_ValidationResult___IssuesKeyword_8_0_LeftSquareBracketKeyword_8_1_RightSquareBracketKeyword_8_3__q(EObject semanticObject, ISynNavigable transition, List<INode> nodes) {
 		acceptNodes(transition, nodes);
 	}
 	

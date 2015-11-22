@@ -97,13 +97,14 @@ Goal returns Goal:
 	( 'for'  targetElement=[aadl2::NamedElement|ID]
 	)?
 '['  (
-	 ('category'  category+=([categories::Category|ID])+)?
+ 	('category'  category+=[categories::RequirementCategory|ID]+ )?
+ 	&('quality'  category+=[categories::QualityCategory|ID]+ )?
+ 	&('selection'  category+=[categories::SelectionCategory|ID]+ )?
 	 &(  description=Description)? 
 	& (  constants+=ValDeclaration* )
 	 &(rationale=Rationale)? 
 	 &(changeUncertainty=Uncertainty)? 
 	 &('refines' refinesReference+=[Goal|QualifiedName]+)? 
-//	 &('refined' 'to' '['refinedGoal+=Goal+ ']')? 
 	 &('conflicts' 'with' conflictsReference+=[Goal|QualifiedName]+)? 
 	&('evolves' evolvesReference+=[Requirement|QualifiedName]+)? 
 	&(dropped?='dropped' ( dropRationale=STRING )? )? 
@@ -114,18 +115,18 @@ Goal returns Goal:
 	)
 	 ']';
 
-// requirement without target acts as a general requirement/constraint
-// becomes a "global" constraint that still takes model elements that are supplied by query 	
 Requirement returns Requirement:
 	'requirement'  name=ID   
 	(':'  title=STRING)? 
 	( 'for'  (
-//		(target=[aadl2::ComponentClassifier|AadlClassifierReference] ( targetElement=[aadl2::NamedElement|ID])?  ) |
+		(target=[aadl2::ComponentClassifier|AadlClassifierReference] ( targetElement=[aadl2::NamedElement|ID])?  ) |
 		targetElement=[aadl2::NamedElement|ID]  
-		)
+		| componentCategory+=ComponentCategory+| global?='all'		)
 	)?
 '['	(
- 	('category'  category+=[categories::Category|ID]+ )?
+ 	('category'  category+=[categories::RequirementCategory|ID]+ )?
+ 	&('quality'  category+=[categories::QualityCategory|ID]+ )?
+ 	&('selection'  category+=[categories::SelectionCategory|ID]+ )?
 	&(  description=Description)? 
 	& (  constants+=ValDeclaration* )
 	& (  computes+=ComputeDeclaration* )
@@ -147,8 +148,6 @@ Requirement returns Requirement:
 	)
 	']';
 	
-// requirement without target acts as a general requirement/constraint
-// becomes a "global" constraint that still takes model elements that are supplied by query 	
 DocRequirement returns Requirement:
 	'requirement'  name=ID   
 	(':'  title=STRING)? 
@@ -178,10 +177,10 @@ DocRequirement returns Requirement:
 	)
 	']';
 
-ReqPredicate: InformalPredicate | XPredicate | ValuePredicate;// | InputAssumption | OutputGuarantee| BehaviorEquation;
+ReqPredicate: InformalPredicate | Predicate | ValuePredicate;// | InputAssumption | OutputGuarantee| BehaviorEquation;
 
 InformalPredicate: 'informal' 'predicate'  description=STRING ;
-XPredicate: 'predicate' xpression=AExpression ;
+Predicate: 'predicate' xpression=AExpression ;
 
 ValuePredicate: 'value' 'predicate' xpression=AAndExpression;	// intended to be restricted to deal with value limits
 

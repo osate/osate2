@@ -27,7 +27,8 @@ import org.osate.verify.verify.VerificationActivity;
  * </p>
  * <ul>
  *   <li>{@link org.osate.assure.assure.VerificationActivityResult#getTarget <em>Target</em>}</li>
- *   <li>{@link org.osate.assure.assure.VerificationActivityResult#getConditionResult <em>Condition Result</em>}</li>
+ *   <li>{@link org.osate.assure.assure.VerificationActivityResult#getPreconditionResult <em>Precondition Result</em>}</li>
+ *   <li>{@link org.osate.assure.assure.VerificationActivityResult#getValidationResult <em>Validation Result</em>}</li>
  * </ul>
  *
  * @see org.osate.assure.assure.AssurePackage#getVerificationActivityResult()
@@ -63,29 +64,55 @@ public interface VerificationActivityResult extends VerificationResult
   void setTarget(VerificationActivity value);
 
   /**
-   * Returns the value of the '<em><b>Condition Result</b></em>' containment reference.
+   * Returns the value of the '<em><b>Precondition Result</b></em>' containment reference.
    * <!-- begin-user-doc -->
    * <p>
-   * If the meaning of the '<em>Condition Result</em>' containment reference isn't clear,
+   * If the meaning of the '<em>Precondition Result</em>' containment reference isn't clear,
    * there really should be more of a description here...
    * </p>
    * <!-- end-user-doc -->
-   * @return the value of the '<em>Condition Result</em>' containment reference.
-   * @see #setConditionResult(VerificationResult)
-   * @see org.osate.assure.assure.AssurePackage#getVerificationActivityResult_ConditionResult()
+   * @return the value of the '<em>Precondition Result</em>' containment reference.
+   * @see #setPreconditionResult(VerificationResult)
+   * @see org.osate.assure.assure.AssurePackage#getVerificationActivityResult_PreconditionResult()
    * @model containment="true"
    * @generated
    */
-  VerificationResult getConditionResult();
+  VerificationResult getPreconditionResult();
 
   /**
-   * Sets the value of the '{@link org.osate.assure.assure.VerificationActivityResult#getConditionResult <em>Condition Result</em>}' containment reference.
+   * Sets the value of the '{@link org.osate.assure.assure.VerificationActivityResult#getPreconditionResult <em>Precondition Result</em>}' containment reference.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @param value the new value of the '<em>Condition Result</em>' containment reference.
-   * @see #getConditionResult()
+   * @param value the new value of the '<em>Precondition Result</em>' containment reference.
+   * @see #getPreconditionResult()
    * @generated
    */
-  void setConditionResult(VerificationResult value);
+  void setPreconditionResult(VerificationResult value);
+
+  /**
+   * Returns the value of the '<em><b>Validation Result</b></em>' containment reference.
+   * <!-- begin-user-doc -->
+   * <p>
+   * If the meaning of the '<em>Validation Result</em>' containment reference isn't clear,
+   * there really should be more of a description here...
+   * </p>
+   * <!-- end-user-doc -->
+   * @return the value of the '<em>Validation Result</em>' containment reference.
+   * @see #setValidationResult(VerificationResult)
+   * @see org.osate.assure.assure.AssurePackage#getVerificationActivityResult_ValidationResult()
+   * @model containment="true"
+   * @generated
+   */
+  VerificationResult getValidationResult();
+
+  /**
+   * Sets the value of the '{@link org.osate.assure.assure.VerificationActivityResult#getValidationResult <em>Validation Result</em>}' containment reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @param value the new value of the '<em>Validation Result</em>' containment reference.
+   * @see #getValidationResult()
+   * @generated
+   */
+  void setValidationResult(VerificationResult value);
 
 } // VerificationActivityResult

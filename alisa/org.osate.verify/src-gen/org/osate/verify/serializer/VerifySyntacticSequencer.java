@@ -41,8 +41,9 @@ public class VerifySyntacticSequencer extends AbstractSyntacticSequencer {
 	protected AbstractElementAlias match_CompositeEvidenceExpr_LeftParenthesisKeyword_0_0_a;
 	protected AbstractElementAlias match_CompositeEvidenceExpr_LeftParenthesisKeyword_0_0_p;
 	protected AbstractElementAlias match_VerificationActivity___PropertyKeyword_10_0_ValuesKeyword_10_1_LeftParenthesisKeyword_10_2_RightParenthesisKeyword_10_4__q;
-	protected AbstractElementAlias match_VerificationCondition___PropertyKeyword_4_1_4_0_ValuesKeyword_4_1_4_1_LeftParenthesisKeyword_4_1_4_2_RightParenthesisKeyword_4_1_4_4__q;
-	protected AbstractElementAlias match_VerificationMethod_CategoryKeyword_5_3_0_q;
+	protected AbstractElementAlias match_VerificationMethod_CategoryKeyword_5_4_0_q;
+	protected AbstractElementAlias match_VerificationMethod_QualityKeyword_5_5_0_q;
+	protected AbstractElementAlias match_VerificationMethod_SelectionKeyword_5_6_0_q;
 	protected AbstractElementAlias match_VerificationMethod___LeftParenthesisKeyword_2_0_RightParenthesisKeyword_2_2___PropertiesKeyword_2_3_0_LeftParenthesisKeyword_2_3_1_RightParenthesisKeyword_2_3_3__q__q;
 	protected AbstractElementAlias match_VerificationMethod___PropertiesKeyword_2_3_0_LeftParenthesisKeyword_2_3_1_RightParenthesisKeyword_2_3_3__q;
 	protected AbstractElementAlias match_VerificationPlan_IssuesKeyword_7_3_0_q;
@@ -58,8 +59,9 @@ public class VerifySyntacticSequencer extends AbstractSyntacticSequencer {
 		match_CompositeEvidenceExpr_LeftParenthesisKeyword_0_0_a = new TokenAlias(true, true, grammarAccess.getCompositeEvidenceExprAccess().getLeftParenthesisKeyword_0_0());
 		match_CompositeEvidenceExpr_LeftParenthesisKeyword_0_0_p = new TokenAlias(true, false, grammarAccess.getCompositeEvidenceExprAccess().getLeftParenthesisKeyword_0_0());
 		match_VerificationActivity___PropertyKeyword_10_0_ValuesKeyword_10_1_LeftParenthesisKeyword_10_2_RightParenthesisKeyword_10_4__q = new GroupAlias(false, true, new TokenAlias(false, false, grammarAccess.getVerificationActivityAccess().getPropertyKeyword_10_0()), new TokenAlias(false, false, grammarAccess.getVerificationActivityAccess().getValuesKeyword_10_1()), new TokenAlias(false, false, grammarAccess.getVerificationActivityAccess().getLeftParenthesisKeyword_10_2()), new TokenAlias(false, false, grammarAccess.getVerificationActivityAccess().getRightParenthesisKeyword_10_4()));
-		match_VerificationCondition___PropertyKeyword_4_1_4_0_ValuesKeyword_4_1_4_1_LeftParenthesisKeyword_4_1_4_2_RightParenthesisKeyword_4_1_4_4__q = new GroupAlias(false, true, new TokenAlias(false, false, grammarAccess.getVerificationConditionAccess().getPropertyKeyword_4_1_4_0()), new TokenAlias(false, false, grammarAccess.getVerificationConditionAccess().getValuesKeyword_4_1_4_1()), new TokenAlias(false, false, grammarAccess.getVerificationConditionAccess().getLeftParenthesisKeyword_4_1_4_2()), new TokenAlias(false, false, grammarAccess.getVerificationConditionAccess().getRightParenthesisKeyword_4_1_4_4()));
-		match_VerificationMethod_CategoryKeyword_5_3_0_q = new TokenAlias(false, true, grammarAccess.getVerificationMethodAccess().getCategoryKeyword_5_3_0());
+		match_VerificationMethod_CategoryKeyword_5_4_0_q = new TokenAlias(false, true, grammarAccess.getVerificationMethodAccess().getCategoryKeyword_5_4_0());
+		match_VerificationMethod_QualityKeyword_5_5_0_q = new TokenAlias(false, true, grammarAccess.getVerificationMethodAccess().getQualityKeyword_5_5_0());
+		match_VerificationMethod_SelectionKeyword_5_6_0_q = new TokenAlias(false, true, grammarAccess.getVerificationMethodAccess().getSelectionKeyword_5_6_0());
 		match_VerificationMethod___LeftParenthesisKeyword_2_0_RightParenthesisKeyword_2_2___PropertiesKeyword_2_3_0_LeftParenthesisKeyword_2_3_1_RightParenthesisKeyword_2_3_3__q__q = new GroupAlias(false, true, new TokenAlias(false, false, grammarAccess.getVerificationMethodAccess().getLeftParenthesisKeyword_2_0()), new TokenAlias(false, false, grammarAccess.getVerificationMethodAccess().getRightParenthesisKeyword_2_2()), new GroupAlias(false, true, new TokenAlias(false, false, grammarAccess.getVerificationMethodAccess().getPropertiesKeyword_2_3_0()), new TokenAlias(false, false, grammarAccess.getVerificationMethodAccess().getLeftParenthesisKeyword_2_3_1()), new TokenAlias(false, false, grammarAccess.getVerificationMethodAccess().getRightParenthesisKeyword_2_3_3())));
 		match_VerificationMethod___PropertiesKeyword_2_3_0_LeftParenthesisKeyword_2_3_1_RightParenthesisKeyword_2_3_3__q = new GroupAlias(false, true, new TokenAlias(false, false, grammarAccess.getVerificationMethodAccess().getPropertiesKeyword_2_3_0()), new TokenAlias(false, false, grammarAccess.getVerificationMethodAccess().getLeftParenthesisKeyword_2_3_1()), new TokenAlias(false, false, grammarAccess.getVerificationMethodAccess().getRightParenthesisKeyword_2_3_3()));
 		match_VerificationPlan_IssuesKeyword_7_3_0_q = new TokenAlias(false, true, grammarAccess.getVerificationPlanAccess().getIssuesKeyword_7_3_0());
@@ -93,10 +95,12 @@ public class VerifySyntacticSequencer extends AbstractSyntacticSequencer {
 				emit_CompositeEvidenceExpr_LeftParenthesisKeyword_0_0_p(semanticObject, getLastNavigableState(), syntaxNodes);
 			else if(match_VerificationActivity___PropertyKeyword_10_0_ValuesKeyword_10_1_LeftParenthesisKeyword_10_2_RightParenthesisKeyword_10_4__q.equals(syntax))
 				emit_VerificationActivity___PropertyKeyword_10_0_ValuesKeyword_10_1_LeftParenthesisKeyword_10_2_RightParenthesisKeyword_10_4__q(semanticObject, getLastNavigableState(), syntaxNodes);
-			else if(match_VerificationCondition___PropertyKeyword_4_1_4_0_ValuesKeyword_4_1_4_1_LeftParenthesisKeyword_4_1_4_2_RightParenthesisKeyword_4_1_4_4__q.equals(syntax))
-				emit_VerificationCondition___PropertyKeyword_4_1_4_0_ValuesKeyword_4_1_4_1_LeftParenthesisKeyword_4_1_4_2_RightParenthesisKeyword_4_1_4_4__q(semanticObject, getLastNavigableState(), syntaxNodes);
-			else if(match_VerificationMethod_CategoryKeyword_5_3_0_q.equals(syntax))
-				emit_VerificationMethod_CategoryKeyword_5_3_0_q(semanticObject, getLastNavigableState(), syntaxNodes);
+			else if(match_VerificationMethod_CategoryKeyword_5_4_0_q.equals(syntax))
+				emit_VerificationMethod_CategoryKeyword_5_4_0_q(semanticObject, getLastNavigableState(), syntaxNodes);
+			else if(match_VerificationMethod_QualityKeyword_5_5_0_q.equals(syntax))
+				emit_VerificationMethod_QualityKeyword_5_5_0_q(semanticObject, getLastNavigableState(), syntaxNodes);
+			else if(match_VerificationMethod_SelectionKeyword_5_6_0_q.equals(syntax))
+				emit_VerificationMethod_SelectionKeyword_5_6_0_q(semanticObject, getLastNavigableState(), syntaxNodes);
 			else if(match_VerificationMethod___LeftParenthesisKeyword_2_0_RightParenthesisKeyword_2_2___PropertiesKeyword_2_3_0_LeftParenthesisKeyword_2_3_1_RightParenthesisKeyword_2_3_3__q__q.equals(syntax))
 				emit_VerificationMethod___LeftParenthesisKeyword_2_0_RightParenthesisKeyword_2_2___PropertiesKeyword_2_3_0_LeftParenthesisKeyword_2_3_1_RightParenthesisKeyword_2_3_3__q__q(semanticObject, getLastNavigableState(), syntaxNodes);
 			else if(match_VerificationMethod___PropertiesKeyword_2_3_0_LeftParenthesisKeyword_2_3_1_RightParenthesisKeyword_2_3_3__q.equals(syntax))
@@ -276,32 +280,34 @@ public class VerifySyntacticSequencer extends AbstractSyntacticSequencer {
 	
 	/**
 	 * Ambiguous syntax:
-	 *     ('property' 'values' '(' ')')?
+	 *     'category'?
 	 *
 	 * This ambiguous syntax occurs at:
-	 *     method=[VerificationMethod|QualifiedName] '(' ')' (ambiguity) ']' (rule end)
-	 *     method=[VerificationMethod|QualifiedName] '(' ')' (ambiguity) 'timeout' timeout=INT
-	 *     method=[VerificationMethod|QualifiedName] '(' ')' (ambiguity) description=Description
-	 *     method=[VerificationMethod|QualifiedName] '(' ')' (ambiguity) method=[VerificationMethod|QualifiedName]
-	 *     method=[VerificationMethod|QualifiedName] '(' ')' (ambiguity) rationale=Rationale
-	 *     parameters+=[AExpression|ID] ')' (ambiguity) ']' (rule end)
-	 *     parameters+=[AExpression|ID] ')' (ambiguity) 'timeout' timeout=INT
-	 *     parameters+=[AExpression|ID] ')' (ambiguity) description=Description
-	 *     parameters+=[AExpression|ID] ')' (ambiguity) method=[VerificationMethod|QualifiedName]
-	 *     parameters+=[AExpression|ID] ')' (ambiguity) rationale=Rationale
+	 *     category+=[MethodCategory|ID] (ambiguity) category+=[MethodCategory|ID]
 	 */
-	protected void emit_VerificationCondition___PropertyKeyword_4_1_4_0_ValuesKeyword_4_1_4_1_LeftParenthesisKeyword_4_1_4_2_RightParenthesisKeyword_4_1_4_4__q(EObject semanticObject, ISynNavigable transition, List<INode> nodes) {
+	protected void emit_VerificationMethod_CategoryKeyword_5_4_0_q(EObject semanticObject, ISynNavigable transition, List<INode> nodes) {
 		acceptNodes(transition, nodes);
 	}
 	
 	/**
 	 * Ambiguous syntax:
-	 *     'category'?
+	 *     'quality'?
 	 *
 	 * This ambiguous syntax occurs at:
-	 *     category+=[Category|ID] (ambiguity) category+=[Category|ID]
+	 *     category+=[QualityCategory|ID] (ambiguity) category+=[QualityCategory|ID]
 	 */
-	protected void emit_VerificationMethod_CategoryKeyword_5_3_0_q(EObject semanticObject, ISynNavigable transition, List<INode> nodes) {
+	protected void emit_VerificationMethod_QualityKeyword_5_5_0_q(EObject semanticObject, ISynNavigable transition, List<INode> nodes) {
+		acceptNodes(transition, nodes);
+	}
+	
+	/**
+	 * Ambiguous syntax:
+	 *     'selection'?
+	 *
+	 * This ambiguous syntax occurs at:
+	 *     category+=[SelectionCategory|ID] (ambiguity) category+=[SelectionCategory|ID]
+	 */
+	protected void emit_VerificationMethod_SelectionKeyword_5_6_0_q(EObject semanticObject, ISynNavigable transition, List<INode> nodes) {
 		acceptNodes(transition, nodes);
 	}
 	
@@ -312,10 +318,13 @@ public class VerifySyntacticSequencer extends AbstractSyntacticSequencer {
 	 * This ambiguous syntax occurs at:
 	 *     name=ID (ambiguity) ':' title=STRING
 	 *     name=ID (ambiguity) '[' ']' (rule end)
-	 *     name=ID (ambiguity) '[' 'category' category+=[Category|ID]
-	 *     name=ID (ambiguity) '[' condition=VerificationCondition
+	 *     name=ID (ambiguity) '[' 'category' category+=[MethodCategory|ID]
+	 *     name=ID (ambiguity) '[' 'quality' category+=[QualityCategory|ID]
+	 *     name=ID (ambiguity) '[' 'selection' category+=[SelectionCategory|ID]
 	 *     name=ID (ambiguity) '[' description=Description
 	 *     name=ID (ambiguity) '[' methodType=MethodType
+	 *     name=ID (ambiguity) '[' precondition=VerificationPrecondition
+	 *     name=ID (ambiguity) '[' validation=VerificationValidation
 	 */
 	protected void emit_VerificationMethod___LeftParenthesisKeyword_2_0_RightParenthesisKeyword_2_2___PropertiesKeyword_2_3_0_LeftParenthesisKeyword_2_3_1_RightParenthesisKeyword_2_3_3__q__q(EObject semanticObject, ISynNavigable transition, List<INode> nodes) {
 		acceptNodes(transition, nodes);
@@ -330,10 +339,13 @@ public class VerifySyntacticSequencer extends AbstractSyntacticSequencer {
 	 *     name=ID '(' ')' (ambiguity) isResultReport?='report'
 	 *     params+=FormalParameter ')' (ambiguity) ':' title=STRING
 	 *     params+=FormalParameter ')' (ambiguity) '[' ']' (rule end)
-	 *     params+=FormalParameter ')' (ambiguity) '[' 'category' category+=[Category|ID]
-	 *     params+=FormalParameter ')' (ambiguity) '[' condition=VerificationCondition
+	 *     params+=FormalParameter ')' (ambiguity) '[' 'category' category+=[MethodCategory|ID]
+	 *     params+=FormalParameter ')' (ambiguity) '[' 'quality' category+=[QualityCategory|ID]
+	 *     params+=FormalParameter ')' (ambiguity) '[' 'selection' category+=[SelectionCategory|ID]
 	 *     params+=FormalParameter ')' (ambiguity) '[' description=Description
 	 *     params+=FormalParameter ')' (ambiguity) '[' methodType=MethodType
+	 *     params+=FormalParameter ')' (ambiguity) '[' precondition=VerificationPrecondition
+	 *     params+=FormalParameter ')' (ambiguity) '[' validation=VerificationValidation
 	 *     params+=FormalParameter ')' (ambiguity) isPredicate?='boolean'
 	 *     params+=FormalParameter ')' (ambiguity) isResultReport?='report'
 	 */

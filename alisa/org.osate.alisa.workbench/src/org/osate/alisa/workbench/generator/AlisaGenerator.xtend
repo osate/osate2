@@ -281,14 +281,17 @@ class AlisaGenerator implements IGenerator {
 
 	def doGenerate(VerificationActivity va) {
 		'''
-			«IF va.evaluateSelectionFilter(filter,strictFilter) && va.evaluateVerificationFilter(filter,strictFilter) »
+			«IF va.evaluateVerificationActivityFilter(filter,strictFilter) && va.evaluateVerificationMethodFilter(filter,strictFilter) »
 			verification «va.fullyQualifiedName»
 			[
 				executionstate todo
 				resultstate tbd
 				tbdcount 0
-				«IF va.method?.condition != null»
-					«va.method?.condition.generate»
+				«IF va.method?.precondition != null»
+					«va.method?.precondition.generate»
+				«ENDIF»
+				«IF va.method?.validation != null»
+					«va.method?.validation.generate»
 				«ENDIF»
 			]
 			«ENDIF»

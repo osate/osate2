@@ -55,6 +55,7 @@ import org.osate.reqspec.reqSpec.ExternalDocument;
 import org.osate.reqspec.reqSpec.GlobalConstants;
 import org.osate.reqspec.reqSpec.Goal;
 import org.osate.reqspec.reqSpec.InformalPredicate;
+import org.osate.reqspec.reqSpec.Predicate;
 import org.osate.reqspec.reqSpec.ReqDocument;
 import org.osate.reqspec.reqSpec.ReqSpec;
 import org.osate.reqspec.reqSpec.ReqSpecPackage;
@@ -62,7 +63,6 @@ import org.osate.reqspec.reqSpec.Requirement;
 import org.osate.reqspec.reqSpec.StakeholderGoals;
 import org.osate.reqspec.reqSpec.SystemRequirements;
 import org.osate.reqspec.reqSpec.ValuePredicate;
-import org.osate.reqspec.reqSpec.XPredicate;
 import org.osate.reqspec.services.ReqSpecGrammarAccess;
 
 @SuppressWarnings("all")
@@ -164,6 +164,9 @@ public class ReqSpecSemanticSequencer extends CommonSemanticSequencer {
 			case ReqSpecPackage.INFORMAL_PREDICATE:
 				sequence_InformalPredicate(context, (InformalPredicate) semanticObject); 
 				return; 
+			case ReqSpecPackage.PREDICATE:
+				sequence_Predicate(context, (Predicate) semanticObject); 
+				return; 
 			case ReqSpecPackage.REQ_DOCUMENT:
 				sequence_ReqDocument(context, (ReqDocument) semanticObject); 
 				return; 
@@ -193,9 +196,6 @@ public class ReqSpecSemanticSequencer extends CommonSemanticSequencer {
 			case ReqSpecPackage.VALUE_PREDICATE:
 				sequence_ValuePredicate(context, (ValuePredicate) semanticObject); 
 				return; 
-			case ReqSpecPackage.XPREDICATE:
-				sequence_XPredicate(context, (XPredicate) semanticObject); 
-				return; 
 			}
 		if (errorAcceptor != null) errorAcceptor.accept(diagnosticProvider.createInvalidContextOrTypeDiagnostic(semanticObject, context));
 	}
@@ -207,7 +207,9 @@ public class ReqSpecSemanticSequencer extends CommonSemanticSequencer {
 	 *             name=ID 
 	 *             title=STRING? 
 	 *             targetElement=[NamedElement|ID]? 
-	 *             category+=[Category|ID]* 
+	 *             category+=[RequirementCategory|ID]* 
+	 *             category+=[QualityCategory|ID]* 
+	 *             category+=[SelectionCategory|ID]* 
 	 *             description=Description? 
 	 *             constants+=ValDeclaration* 
 	 *             rationale=Rationale? 
@@ -252,8 +254,15 @@ public class ReqSpecSemanticSequencer extends CommonSemanticSequencer {
 	 *         (
 	 *             name=ID 
 	 *             title=STRING? 
-	 *             targetElement=[NamedElement|ID]? 
-	 *             category+=[Category|ID]* 
+	 *             (
+	 *                 (target=[ComponentClassifier|AadlClassifierReference] targetElement=[NamedElement|ID]?) | 
+	 *                 targetElement=[NamedElement|ID] | 
+	 *                 componentCategory+=ComponentCategory+ | 
+	 *                 global?='all'
+	 *             )? 
+	 *             category+=[RequirementCategory|ID]* 
+	 *             category+=[QualityCategory|ID]* 
+	 *             category+=[SelectionCategory|ID]* 
 	 *             description=Description? 
 	 *             constants+=ValDeclaration* 
 	 *             computes+=ComputeDeclaration* 
@@ -392,7 +401,9 @@ public class ReqSpecSemanticSequencer extends CommonSemanticSequencer {
 	 *         name=ID 
 	 *         title=STRING? 
 	 *         targetElement=[NamedElement|ID]? 
-	 *         category+=[Category|ID]* 
+	 *         category+=[RequirementCategory|ID]* 
+	 *         category+=[QualityCategory|ID]* 
+	 *         category+=[SelectionCategory|ID]* 
 	 *         description=Description? 
 	 *         constants+=ValDeclaration* 
 	 *         rationale=Rationale? 
@@ -430,6 +441,22 @@ public class ReqSpecSemanticSequencer extends CommonSemanticSequencer {
 	
 	/**
 	 * Constraint:
+	 *     xpression=AExpression
+	 */
+	protected void sequence_Predicate(EObject context, Predicate semanticObject) {
+		if(errorAcceptor != null) {
+			if(transientValues.isValueTransient(semanticObject, ReqSpecPackage.Literals.PREDICATE__XPRESSION) == ValueTransient.YES)
+				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, ReqSpecPackage.Literals.PREDICATE__XPRESSION));
+		}
+		INodesForEObjectProvider nodes = createNodeProvider(semanticObject);
+		SequenceFeeder feeder = createSequencerFeeder(semanticObject, nodes);
+		feeder.accept(grammarAccess.getPredicateAccess().getXpressionAExpressionParserRuleCall_1_0(), semanticObject.getXpression());
+		feeder.finish();
+	}
+	
+	
+	/**
+	 * Constraint:
 	 *     (
 	 *         name=QualifiedName 
 	 *         title=STRING? 
@@ -457,8 +484,15 @@ public class ReqSpecSemanticSequencer extends CommonSemanticSequencer {
 	 *     (
 	 *         name=ID 
 	 *         title=STRING? 
-	 *         targetElement=[NamedElement|ID]? 
-	 *         category+=[Category|ID]* 
+	 *         (
+	 *             (target=[ComponentClassifier|AadlClassifierReference] targetElement=[NamedElement|ID]?) | 
+	 *             targetElement=[NamedElement|ID] | 
+	 *             componentCategory+=ComponentCategory+ | 
+	 *             global?='all'
+	 *         )? 
+	 *         category+=[RequirementCategory|ID]* 
+	 *         category+=[QualityCategory|ID]* 
+	 *         category+=[SelectionCategory|ID]* 
 	 *         description=Description? 
 	 *         constants+=ValDeclaration* 
 	 *         computes+=ComputeDeclaration* 
@@ -534,22 +568,6 @@ public class ReqSpecSemanticSequencer extends CommonSemanticSequencer {
 		INodesForEObjectProvider nodes = createNodeProvider(semanticObject);
 		SequenceFeeder feeder = createSequencerFeeder(semanticObject, nodes);
 		feeder.accept(grammarAccess.getValuePredicateAccess().getXpressionAAndExpressionParserRuleCall_2_0(), semanticObject.getXpression());
-		feeder.finish();
-	}
-	
-	
-	/**
-	 * Constraint:
-	 *     xpression=AExpression
-	 */
-	protected void sequence_XPredicate(EObject context, XPredicate semanticObject) {
-		if(errorAcceptor != null) {
-			if(transientValues.isValueTransient(semanticObject, ReqSpecPackage.Literals.XPREDICATE__XPRESSION) == ValueTransient.YES)
-				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, ReqSpecPackage.Literals.XPREDICATE__XPRESSION));
-		}
-		INodesForEObjectProvider nodes = createNodeProvider(semanticObject);
-		SequenceFeeder feeder = createSequencerFeeder(semanticObject, nodes);
-		feeder.accept(grammarAccess.getXPredicateAccess().getXpressionAExpressionParserRuleCall_1_0(), semanticObject.getXpression());
 		feeder.finish();
 	}
 }

@@ -203,10 +203,10 @@ public class VerifySemanticSequencer extends CommonSemanticSequencer {
 				sequence_VerificationPlan(context, (VerificationPlan) semanticObject); 
 				return; 
 			case VerifyPackage.VERIFICATION_PRECONDITION:
-				sequence_VerificationCondition(context, (VerificationPrecondition) semanticObject); 
+				sequence_VerificationPrecondition(context, (VerificationPrecondition) semanticObject); 
 				return; 
 			case VerifyPackage.VERIFICATION_VALIDATION:
-				sequence_VerificationCondition(context, (VerificationValidation) semanticObject); 
+				sequence_VerificationValidation(context, (VerificationValidation) semanticObject); 
 				return; 
 			}
 		if (errorAcceptor != null) errorAcceptor.accept(diagnosticProvider.createInvalidContextOrTypeDiagnostic(semanticObject, context));
@@ -372,8 +372,8 @@ public class VerifySemanticSequencer extends CommonSemanticSequencer {
 	 *     (
 	 *         name=ID 
 	 *         title=STRING? 
-	 *         target=[ComponentImplementation|AadlClassifierReference]? 
-	 *         category+=[Category|ID]* 
+	 *         category+=[PhaseCategory|ID]* 
+	 *         category+=[SelectionCategory|ID]* 
 	 *         (result+=[ComputeDeclaration|ID] result+=[ComputeDeclaration|ID]*)? 
 	 *         method=[VerificationMethod|QualifiedName] 
 	 *         (parameters+=[ValDeclaration|ID] parameters+=[ValDeclaration|ID]*)? 
@@ -382,42 +382,6 @@ public class VerifySemanticSequencer extends CommonSemanticSequencer {
 	 *     )
 	 */
 	protected void sequence_VerificationActivity(EObject context, VerificationActivity semanticObject) {
-		genericSequencer.createSequence(context, semanticObject);
-	}
-	
-	
-	/**
-	 * Constraint:
-	 *     (
-	 *         name=ID 
-	 *         title=STRING? 
-	 *         description=Description? 
-	 *         method=[VerificationMethod|QualifiedName] 
-	 *         (parameters+=[AExpression|ID] parameters+=[AExpression|ID]*)? 
-	 *         (propertyValues+=[AExpression|ID] propertyValues+=[AExpression|ID]*)? 
-	 *         timeout=INT? 
-	 *         rationale=Rationale?
-	 *     )
-	 */
-	protected void sequence_VerificationCondition(EObject context, VerificationPrecondition semanticObject) {
-		genericSequencer.createSequence(context, semanticObject);
-	}
-	
-	
-	/**
-	 * Constraint:
-	 *     (
-	 *         name=ID 
-	 *         title=STRING? 
-	 *         description=Description? 
-	 *         method=[VerificationMethod|QualifiedName] 
-	 *         (parameters+=[AExpression|ID] parameters+=[AExpression|ID]*)? 
-	 *         (propertyValues+=[AExpression|ID] propertyValues+=[AExpression|ID]*)? 
-	 *         timeout=INT? 
-	 *         rationale=Rationale?
-	 *     )
-	 */
-	protected void sequence_VerificationCondition(EObject context, VerificationValidation semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
 	}
 	
@@ -443,8 +407,11 @@ public class VerifySemanticSequencer extends CommonSemanticSequencer {
 	 *         title=STRING? 
 	 *         methodType=MethodType 
 	 *         description=Description? 
-	 *         condition=VerificationCondition? 
-	 *         category+=[Category|ID]*
+	 *         precondition=VerificationPrecondition? 
+	 *         validation=VerificationValidation? 
+	 *         category+=[MethodCategory|ID]* 
+	 *         category+=[QualityCategory|ID]* 
+	 *         category+=[SelectionCategory|ID]*
 	 *     )
 	 */
 	protected void sequence_VerificationMethod(EObject context, VerificationMethod semanticObject) {
@@ -465,6 +432,24 @@ public class VerifySemanticSequencer extends CommonSemanticSequencer {
 	 *     )
 	 */
 	protected void sequence_VerificationPlan(EObject context, VerificationPlan semanticObject) {
+		genericSequencer.createSequence(context, semanticObject);
+	}
+	
+	
+	/**
+	 * Constraint:
+	 *     (name=ID title=STRING? method=[VerificationMethod|QualifiedName] (parameters+=[FormalParameter|ID] parameters+=[FormalParameter|ID]*)?)
+	 */
+	protected void sequence_VerificationPrecondition(EObject context, VerificationPrecondition semanticObject) {
+		genericSequencer.createSequence(context, semanticObject);
+	}
+	
+	
+	/**
+	 * Constraint:
+	 *     (name=ID title=STRING? method=[VerificationMethod|QualifiedName] (parameters+=[FormalParameter|ID] parameters+=[FormalParameter|ID]*)?)
+	 */
+	protected void sequence_VerificationValidation(EObject context, VerificationValidation semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
 	}
 	

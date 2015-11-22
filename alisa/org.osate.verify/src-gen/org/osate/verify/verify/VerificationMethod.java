@@ -42,7 +42,8 @@ import org.osate.categories.categories.Category;
  *   <li>{@link org.osate.verify.verify.VerificationMethod#getTitle <em>Title</em>}</li>
  *   <li>{@link org.osate.verify.verify.VerificationMethod#getMethodType <em>Method Type</em>}</li>
  *   <li>{@link org.osate.verify.verify.VerificationMethod#getDescription <em>Description</em>}</li>
- *   <li>{@link org.osate.verify.verify.VerificationMethod#getCondition <em>Condition</em>}</li>
+ *   <li>{@link org.osate.verify.verify.VerificationMethod#getPrecondition <em>Precondition</em>}</li>
+ *   <li>{@link org.osate.verify.verify.VerificationMethod#getValidation <em>Validation</em>}</li>
  *   <li>{@link org.osate.verify.verify.VerificationMethod#getCategory <em>Category</em>}</li>
  * </ul>
  *
@@ -241,30 +242,56 @@ public interface VerificationMethod extends EObject
   void setDescription(Description value);
 
   /**
-   * Returns the value of the '<em><b>Condition</b></em>' containment reference.
+   * Returns the value of the '<em><b>Precondition</b></em>' containment reference.
    * <!-- begin-user-doc -->
    * <p>
-   * If the meaning of the '<em>Condition</em>' containment reference isn't clear,
+   * If the meaning of the '<em>Precondition</em>' containment reference isn't clear,
    * there really should be more of a description here...
    * </p>
    * <!-- end-user-doc -->
-   * @return the value of the '<em>Condition</em>' containment reference.
-   * @see #setCondition(VerificationCondition)
-   * @see org.osate.verify.verify.VerifyPackage#getVerificationMethod_Condition()
+   * @return the value of the '<em>Precondition</em>' containment reference.
+   * @see #setPrecondition(VerificationCondition)
+   * @see org.osate.verify.verify.VerifyPackage#getVerificationMethod_Precondition()
    * @model containment="true"
    * @generated
    */
-  VerificationCondition getCondition();
+  VerificationCondition getPrecondition();
 
   /**
-   * Sets the value of the '{@link org.osate.verify.verify.VerificationMethod#getCondition <em>Condition</em>}' containment reference.
+   * Sets the value of the '{@link org.osate.verify.verify.VerificationMethod#getPrecondition <em>Precondition</em>}' containment reference.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @param value the new value of the '<em>Condition</em>' containment reference.
-   * @see #getCondition()
+   * @param value the new value of the '<em>Precondition</em>' containment reference.
+   * @see #getPrecondition()
    * @generated
    */
-  void setCondition(VerificationCondition value);
+  void setPrecondition(VerificationCondition value);
+
+  /**
+   * Returns the value of the '<em><b>Validation</b></em>' containment reference.
+   * <!-- begin-user-doc -->
+   * <p>
+   * If the meaning of the '<em>Validation</em>' containment reference isn't clear,
+   * there really should be more of a description here...
+   * </p>
+   * <!-- end-user-doc -->
+   * @return the value of the '<em>Validation</em>' containment reference.
+   * @see #setValidation(VerificationCondition)
+   * @see org.osate.verify.verify.VerifyPackage#getVerificationMethod_Validation()
+   * @model containment="true"
+   * @generated
+   */
+  VerificationCondition getValidation();
+
+  /**
+   * Sets the value of the '{@link org.osate.verify.verify.VerificationMethod#getValidation <em>Validation</em>}' containment reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @param value the new value of the '<em>Validation</em>' containment reference.
+   * @see #getValidation()
+   * @generated
+   */
+  void setValidation(VerificationCondition value);
 
   /**
    * Returns the value of the '<em><b>Category</b></em>' reference list.

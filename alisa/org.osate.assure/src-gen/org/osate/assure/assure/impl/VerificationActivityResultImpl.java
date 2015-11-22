@@ -38,7 +38,8 @@ import org.osate.verify.verify.VerificationActivity;
  * </p>
  * <ul>
  *   <li>{@link org.osate.assure.assure.impl.VerificationActivityResultImpl#getTarget <em>Target</em>}</li>
- *   <li>{@link org.osate.assure.assure.impl.VerificationActivityResultImpl#getConditionResult <em>Condition Result</em>}</li>
+ *   <li>{@link org.osate.assure.assure.impl.VerificationActivityResultImpl#getPreconditionResult <em>Precondition Result</em>}</li>
+ *   <li>{@link org.osate.assure.assure.impl.VerificationActivityResultImpl#getValidationResult <em>Validation Result</em>}</li>
  * </ul>
  *
  * @generated
@@ -56,14 +57,24 @@ public class VerificationActivityResultImpl extends VerificationResultImpl imple
   protected VerificationActivity target;
 
   /**
-   * The cached value of the '{@link #getConditionResult() <em>Condition Result</em>}' containment reference.
+   * The cached value of the '{@link #getPreconditionResult() <em>Precondition Result</em>}' containment reference.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @see #getConditionResult()
+   * @see #getPreconditionResult()
    * @generated
    * @ordered
    */
-  protected VerificationResult conditionResult;
+  protected VerificationResult preconditionResult;
+
+  /**
+   * The cached value of the '{@link #getValidationResult() <em>Validation Result</em>}' containment reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see #getValidationResult()
+   * @generated
+   * @ordered
+   */
+  protected VerificationResult validationResult;
 
   /**
    * <!-- begin-user-doc -->
@@ -134,9 +145,9 @@ public class VerificationActivityResultImpl extends VerificationResultImpl imple
    * <!-- end-user-doc -->
    * @generated
    */
-  public VerificationResult getConditionResult()
+  public VerificationResult getPreconditionResult()
   {
-    return conditionResult;
+    return preconditionResult;
   }
 
   /**
@@ -144,13 +155,13 @@ public class VerificationActivityResultImpl extends VerificationResultImpl imple
    * <!-- end-user-doc -->
    * @generated
    */
-  public NotificationChain basicSetConditionResult(VerificationResult newConditionResult, NotificationChain msgs)
+  public NotificationChain basicSetPreconditionResult(VerificationResult newPreconditionResult, NotificationChain msgs)
   {
-    VerificationResult oldConditionResult = conditionResult;
-    conditionResult = newConditionResult;
+    VerificationResult oldPreconditionResult = preconditionResult;
+    preconditionResult = newPreconditionResult;
     if (eNotificationRequired())
     {
-      ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, AssurePackage.VERIFICATION_ACTIVITY_RESULT__CONDITION_RESULT, oldConditionResult, newConditionResult);
+      ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, AssurePackage.VERIFICATION_ACTIVITY_RESULT__PRECONDITION_RESULT, oldPreconditionResult, newPreconditionResult);
       if (msgs == null) msgs = notification; else msgs.add(notification);
     }
     return msgs;
@@ -161,20 +172,68 @@ public class VerificationActivityResultImpl extends VerificationResultImpl imple
    * <!-- end-user-doc -->
    * @generated
    */
-  public void setConditionResult(VerificationResult newConditionResult)
+  public void setPreconditionResult(VerificationResult newPreconditionResult)
   {
-    if (newConditionResult != conditionResult)
+    if (newPreconditionResult != preconditionResult)
     {
       NotificationChain msgs = null;
-      if (conditionResult != null)
-        msgs = ((InternalEObject)conditionResult).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - AssurePackage.VERIFICATION_ACTIVITY_RESULT__CONDITION_RESULT, null, msgs);
-      if (newConditionResult != null)
-        msgs = ((InternalEObject)newConditionResult).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - AssurePackage.VERIFICATION_ACTIVITY_RESULT__CONDITION_RESULT, null, msgs);
-      msgs = basicSetConditionResult(newConditionResult, msgs);
+      if (preconditionResult != null)
+        msgs = ((InternalEObject)preconditionResult).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - AssurePackage.VERIFICATION_ACTIVITY_RESULT__PRECONDITION_RESULT, null, msgs);
+      if (newPreconditionResult != null)
+        msgs = ((InternalEObject)newPreconditionResult).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - AssurePackage.VERIFICATION_ACTIVITY_RESULT__PRECONDITION_RESULT, null, msgs);
+      msgs = basicSetPreconditionResult(newPreconditionResult, msgs);
       if (msgs != null) msgs.dispatch();
     }
     else if (eNotificationRequired())
-      eNotify(new ENotificationImpl(this, Notification.SET, AssurePackage.VERIFICATION_ACTIVITY_RESULT__CONDITION_RESULT, newConditionResult, newConditionResult));
+      eNotify(new ENotificationImpl(this, Notification.SET, AssurePackage.VERIFICATION_ACTIVITY_RESULT__PRECONDITION_RESULT, newPreconditionResult, newPreconditionResult));
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public VerificationResult getValidationResult()
+  {
+    return validationResult;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public NotificationChain basicSetValidationResult(VerificationResult newValidationResult, NotificationChain msgs)
+  {
+    VerificationResult oldValidationResult = validationResult;
+    validationResult = newValidationResult;
+    if (eNotificationRequired())
+    {
+      ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, AssurePackage.VERIFICATION_ACTIVITY_RESULT__VALIDATION_RESULT, oldValidationResult, newValidationResult);
+      if (msgs == null) msgs = notification; else msgs.add(notification);
+    }
+    return msgs;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public void setValidationResult(VerificationResult newValidationResult)
+  {
+    if (newValidationResult != validationResult)
+    {
+      NotificationChain msgs = null;
+      if (validationResult != null)
+        msgs = ((InternalEObject)validationResult).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - AssurePackage.VERIFICATION_ACTIVITY_RESULT__VALIDATION_RESULT, null, msgs);
+      if (newValidationResult != null)
+        msgs = ((InternalEObject)newValidationResult).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - AssurePackage.VERIFICATION_ACTIVITY_RESULT__VALIDATION_RESULT, null, msgs);
+      msgs = basicSetValidationResult(newValidationResult, msgs);
+      if (msgs != null) msgs.dispatch();
+    }
+    else if (eNotificationRequired())
+      eNotify(new ENotificationImpl(this, Notification.SET, AssurePackage.VERIFICATION_ACTIVITY_RESULT__VALIDATION_RESULT, newValidationResult, newValidationResult));
   }
 
   /**
@@ -187,8 +246,10 @@ public class VerificationActivityResultImpl extends VerificationResultImpl imple
   {
     switch (featureID)
     {
-      case AssurePackage.VERIFICATION_ACTIVITY_RESULT__CONDITION_RESULT:
-        return basicSetConditionResult(null, msgs);
+      case AssurePackage.VERIFICATION_ACTIVITY_RESULT__PRECONDITION_RESULT:
+        return basicSetPreconditionResult(null, msgs);
+      case AssurePackage.VERIFICATION_ACTIVITY_RESULT__VALIDATION_RESULT:
+        return basicSetValidationResult(null, msgs);
     }
     return super.eInverseRemove(otherEnd, featureID, msgs);
   }
@@ -206,8 +267,10 @@ public class VerificationActivityResultImpl extends VerificationResultImpl imple
       case AssurePackage.VERIFICATION_ACTIVITY_RESULT__TARGET:
         if (resolve) return getTarget();
         return basicGetTarget();
-      case AssurePackage.VERIFICATION_ACTIVITY_RESULT__CONDITION_RESULT:
-        return getConditionResult();
+      case AssurePackage.VERIFICATION_ACTIVITY_RESULT__PRECONDITION_RESULT:
+        return getPreconditionResult();
+      case AssurePackage.VERIFICATION_ACTIVITY_RESULT__VALIDATION_RESULT:
+        return getValidationResult();
     }
     return super.eGet(featureID, resolve, coreType);
   }
@@ -225,8 +288,11 @@ public class VerificationActivityResultImpl extends VerificationResultImpl imple
       case AssurePackage.VERIFICATION_ACTIVITY_RESULT__TARGET:
         setTarget((VerificationActivity)newValue);
         return;
-      case AssurePackage.VERIFICATION_ACTIVITY_RESULT__CONDITION_RESULT:
-        setConditionResult((VerificationResult)newValue);
+      case AssurePackage.VERIFICATION_ACTIVITY_RESULT__PRECONDITION_RESULT:
+        setPreconditionResult((VerificationResult)newValue);
+        return;
+      case AssurePackage.VERIFICATION_ACTIVITY_RESULT__VALIDATION_RESULT:
+        setValidationResult((VerificationResult)newValue);
         return;
     }
     super.eSet(featureID, newValue);
@@ -245,8 +311,11 @@ public class VerificationActivityResultImpl extends VerificationResultImpl imple
       case AssurePackage.VERIFICATION_ACTIVITY_RESULT__TARGET:
         setTarget((VerificationActivity)null);
         return;
-      case AssurePackage.VERIFICATION_ACTIVITY_RESULT__CONDITION_RESULT:
-        setConditionResult((VerificationResult)null);
+      case AssurePackage.VERIFICATION_ACTIVITY_RESULT__PRECONDITION_RESULT:
+        setPreconditionResult((VerificationResult)null);
+        return;
+      case AssurePackage.VERIFICATION_ACTIVITY_RESULT__VALIDATION_RESULT:
+        setValidationResult((VerificationResult)null);
         return;
     }
     super.eUnset(featureID);
@@ -264,8 +333,10 @@ public class VerificationActivityResultImpl extends VerificationResultImpl imple
     {
       case AssurePackage.VERIFICATION_ACTIVITY_RESULT__TARGET:
         return target != null;
-      case AssurePackage.VERIFICATION_ACTIVITY_RESULT__CONDITION_RESULT:
-        return conditionResult != null;
+      case AssurePackage.VERIFICATION_ACTIVITY_RESULT__PRECONDITION_RESULT:
+        return preconditionResult != null;
+      case AssurePackage.VERIFICATION_ACTIVITY_RESULT__VALIDATION_RESULT:
+        return validationResult != null;
     }
     return super.eIsSet(featureID);
   }

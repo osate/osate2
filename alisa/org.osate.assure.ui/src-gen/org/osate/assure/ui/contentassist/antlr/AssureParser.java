@@ -49,7 +49,6 @@ public class AssureParser extends AbstractContentAssistParser {
 			nameMappings = new HashMap<AbstractElement, String>() {
 				private static final long serialVersionUID = 1L;
 				{
-					put(grammarAccess.getConditionResultAccess().getAlternatives_0(), "rule__ConditionResult__Alternatives_0");
 					put(grammarAccess.getAssureResultAccess().getAlternatives(), "rule__AssureResult__Alternatives");
 					put(grammarAccess.getVerificationExprAccess().getAlternatives(), "rule__VerificationExpr__Alternatives");
 					put(grammarAccess.getElseTypeAccess().getAlternatives(), "rule__ElseType__Alternatives");
@@ -62,12 +61,14 @@ public class AssureParser extends AbstractContentAssistParser {
 					put(grammarAccess.getAssuranceCaseAccess().getGroup_6(), "rule__AssuranceCase__Group_6__0");
 					put(grammarAccess.getClaimResultAccess().getGroup(), "rule__ClaimResult__Group__0");
 					put(grammarAccess.getClaimResultAccess().getGroup_4(), "rule__ClaimResult__Group_4__0");
-					put(grammarAccess.getConditionResultAccess().getGroup(), "rule__ConditionResult__Group__0");
-					put(grammarAccess.getConditionResultAccess().getGroup_0_0(), "rule__ConditionResult__Group_0_0__0");
-					put(grammarAccess.getConditionResultAccess().getGroup_0_1(), "rule__ConditionResult__Group_0_1__0");
-					put(grammarAccess.getConditionResultAccess().getGroup_7(), "rule__ConditionResult__Group_7__0");
-					put(grammarAccess.getConditionResultAccess().getGroup_8(), "rule__ConditionResult__Group_8__0");
-					put(grammarAccess.getConditionResultAccess().getGroup_10(), "rule__ConditionResult__Group_10__0");
+					put(grammarAccess.getPreconditionResultAccess().getGroup(), "rule__PreconditionResult__Group__0");
+					put(grammarAccess.getPreconditionResultAccess().getGroup_8(), "rule__PreconditionResult__Group_8__0");
+					put(grammarAccess.getPreconditionResultAccess().getGroup_9(), "rule__PreconditionResult__Group_9__0");
+					put(grammarAccess.getPreconditionResultAccess().getGroup_11(), "rule__PreconditionResult__Group_11__0");
+					put(grammarAccess.getValidationResultAccess().getGroup(), "rule__ValidationResult__Group__0");
+					put(grammarAccess.getValidationResultAccess().getGroup_8(), "rule__ValidationResult__Group_8__0");
+					put(grammarAccess.getValidationResultAccess().getGroup_9(), "rule__ValidationResult__Group_9__0");
+					put(grammarAccess.getValidationResultAccess().getGroup_11(), "rule__ValidationResult__Group_11__0");
 					put(grammarAccess.getVerificationActivityResultAccess().getGroup(), "rule__VerificationActivityResult__Group__0");
 					put(grammarAccess.getVerificationActivityResultAccess().getGroup_8(), "rule__VerificationActivityResult__Group_8__0");
 					put(grammarAccess.getVerificationActivityResultAccess().getGroup_9(), "rule__VerificationActivityResult__Group_9__0");
@@ -110,13 +111,20 @@ public class AssureParser extends AbstractContentAssistParser {
 					put(grammarAccess.getClaimResultAccess().getMessageAssignment_4_1(), "rule__ClaimResult__MessageAssignment_4_1");
 					put(grammarAccess.getClaimResultAccess().getSubClaimResultAssignment_5(), "rule__ClaimResult__SubClaimResultAssignment_5");
 					put(grammarAccess.getClaimResultAccess().getVerificationActivityResultAssignment_6(), "rule__ClaimResult__VerificationActivityResultAssignment_6");
-					put(grammarAccess.getConditionResultAccess().getTargetAssignment_1(), "rule__ConditionResult__TargetAssignment_1");
-					put(grammarAccess.getConditionResultAccess().getExecutionStateAssignment_4(), "rule__ConditionResult__ExecutionStateAssignment_4");
-					put(grammarAccess.getConditionResultAccess().getResultStateAssignment_6(), "rule__ConditionResult__ResultStateAssignment_6");
-					put(grammarAccess.getConditionResultAccess().getIssuesAssignment_7_2(), "rule__ConditionResult__IssuesAssignment_7_2");
-					put(grammarAccess.getConditionResultAccess().getResultReportAssignment_8_1(), "rule__ConditionResult__ResultReportAssignment_8_1");
-					put(grammarAccess.getConditionResultAccess().getMetricsAssignment_9(), "rule__ConditionResult__MetricsAssignment_9");
-					put(grammarAccess.getConditionResultAccess().getMessageAssignment_10_1(), "rule__ConditionResult__MessageAssignment_10_1");
+					put(grammarAccess.getPreconditionResultAccess().getTargetAssignment_2(), "rule__PreconditionResult__TargetAssignment_2");
+					put(grammarAccess.getPreconditionResultAccess().getExecutionStateAssignment_5(), "rule__PreconditionResult__ExecutionStateAssignment_5");
+					put(grammarAccess.getPreconditionResultAccess().getResultStateAssignment_7(), "rule__PreconditionResult__ResultStateAssignment_7");
+					put(grammarAccess.getPreconditionResultAccess().getIssuesAssignment_8_2(), "rule__PreconditionResult__IssuesAssignment_8_2");
+					put(grammarAccess.getPreconditionResultAccess().getResultReportAssignment_9_1(), "rule__PreconditionResult__ResultReportAssignment_9_1");
+					put(grammarAccess.getPreconditionResultAccess().getMetricsAssignment_10(), "rule__PreconditionResult__MetricsAssignment_10");
+					put(grammarAccess.getPreconditionResultAccess().getMessageAssignment_11_1(), "rule__PreconditionResult__MessageAssignment_11_1");
+					put(grammarAccess.getValidationResultAccess().getTargetAssignment_2(), "rule__ValidationResult__TargetAssignment_2");
+					put(grammarAccess.getValidationResultAccess().getExecutionStateAssignment_5(), "rule__ValidationResult__ExecutionStateAssignment_5");
+					put(grammarAccess.getValidationResultAccess().getResultStateAssignment_7(), "rule__ValidationResult__ResultStateAssignment_7");
+					put(grammarAccess.getValidationResultAccess().getIssuesAssignment_8_2(), "rule__ValidationResult__IssuesAssignment_8_2");
+					put(grammarAccess.getValidationResultAccess().getResultReportAssignment_9_1(), "rule__ValidationResult__ResultReportAssignment_9_1");
+					put(grammarAccess.getValidationResultAccess().getMetricsAssignment_10(), "rule__ValidationResult__MetricsAssignment_10");
+					put(grammarAccess.getValidationResultAccess().getMessageAssignment_11_1(), "rule__ValidationResult__MessageAssignment_11_1");
 					put(grammarAccess.getVerificationActivityResultAccess().getTargetAssignment_2(), "rule__VerificationActivityResult__TargetAssignment_2");
 					put(grammarAccess.getVerificationActivityResultAccess().getExecutionStateAssignment_5(), "rule__VerificationActivityResult__ExecutionStateAssignment_5");
 					put(grammarAccess.getVerificationActivityResultAccess().getResultStateAssignment_7(), "rule__VerificationActivityResult__ResultStateAssignment_7");
@@ -124,7 +132,8 @@ public class AssureParser extends AbstractContentAssistParser {
 					put(grammarAccess.getVerificationActivityResultAccess().getResultReportAssignment_9_1(), "rule__VerificationActivityResult__ResultReportAssignment_9_1");
 					put(grammarAccess.getVerificationActivityResultAccess().getMetricsAssignment_10(), "rule__VerificationActivityResult__MetricsAssignment_10");
 					put(grammarAccess.getVerificationActivityResultAccess().getMessageAssignment_11_1(), "rule__VerificationActivityResult__MessageAssignment_11_1");
-					put(grammarAccess.getVerificationActivityResultAccess().getConditionResultAssignment_12(), "rule__VerificationActivityResult__ConditionResultAssignment_12");
+					put(grammarAccess.getVerificationActivityResultAccess().getPreconditionResultAssignment_12(), "rule__VerificationActivityResult__PreconditionResultAssignment_12");
+					put(grammarAccess.getVerificationActivityResultAccess().getValidationResultAssignment_13(), "rule__VerificationActivityResult__ValidationResultAssignment_13");
 					put(grammarAccess.getElseResultAccess().getFirstAssignment_1(), "rule__ElseResult__FirstAssignment_1");
 					put(grammarAccess.getElseResultAccess().getErrorAssignment_2_1(), "rule__ElseResult__ErrorAssignment_2_1");
 					put(grammarAccess.getElseResultAccess().getFailAssignment_3_1(), "rule__ElseResult__FailAssignment_3_1");

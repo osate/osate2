@@ -134,15 +134,15 @@ class AssureUtilExtension {
 		req?.targetElement
 	}
 
-	def static SystemInstance getVerificationActivityInstanceModel(VerificationResult assureObject) {
-		val ci = if (assureObject instanceof VerificationActivityResult) {assureObject.target?.target} else {
-			(assureObject.eContainer as VerificationActivityResult).target?.target
-		}
-		if (ci != null){
-			return ci.instanceModel
-		}
-		return null
-	}
+//	def static SystemInstance getVerificationActivityInstanceModel(VerificationResult assureObject) {
+//		val ci = if (assureObject instanceof VerificationActivityResult) {assureObject.target?.target} else {
+//			(assureObject.eContainer as VerificationActivityResult).target?.target
+//		}
+//		if (ci != null){
+//			return ci.instanceModel
+//		}
+//		return null
+//	}
 
 	def static SystemInstance getAssuranceCaseInstanceModel(VerificationResult assureObject) {
 		val rac = assureObject.assuranceCaseTarget
@@ -706,8 +706,9 @@ class AssureUtilExtension {
 
 	private def static VerificationActivityResult recomputeAllCounts(VerificationActivityResult vaResult) {
 		vaResult.resetCounts
-		if (vaResult.conditionResult != null) vaResult.conditionResult.recomputeAllCounts.addTo(vaResult)
+		if (vaResult.preconditionResult != null) vaResult.preconditionResult.recomputeAllCounts.addTo(vaResult)
 		vaResult.addOwnResultStateToCount()
+		if (vaResult.validationResult != null) vaResult.validationResult.recomputeAllCounts.addTo(vaResult)
 		vaResult
 	}
 
@@ -980,8 +981,9 @@ class AssureUtilExtension {
 
 	private def static VerificationActivityResult addAllSubCounts(VerificationActivityResult vaResult) {
 		vaResult.resetCounts
-		vaResult.conditionResult.addTo(vaResult)
+		vaResult.preconditionResult.addTo(vaResult)
 		vaResult.addOwnResultStateToCount()
+		vaResult.validationResult.addTo(vaResult)
 		vaResult
 	}
 
@@ -1084,7 +1086,7 @@ class AssureUtilExtension {
 		val va = vr.target
 		if (va.title != null) return va.title
 		val vm = va.method
-		if (vm.description != null) return vm.description.toText(va.target)
+		if (vm.description != null) return vm.description.toText(null)//va.target)
 		if (vm.title != null) return vm.title
 		return ""
 	}
@@ -1154,15 +1156,11 @@ class AssureUtilExtension {
 
 	def static String constructMessage(ValidationResult cr) {
 		if(cr.message != null) return cr.message
-		val r = cr.target
-		if(r.description != null) return r.description.toText(cr.claimSubject)
 		""
 	}
 
 	def static String constructMessage(PreconditionResult cr) {
 		if(cr.message != null) return cr.message
-		val r = cr.target
-		if(r.description != null) return r.description.toText(cr.claimSubject)
 		""
 	}
 

@@ -153,9 +153,9 @@ public class ReqSpecAdapterFactory extends AdapterFactoryImpl
         return createInformalPredicateAdapter();
       }
       @Override
-      public Adapter caseXPredicate(XPredicate object)
+      public Adapter casePredicate(Predicate object)
       {
-        return createXPredicateAdapter();
+        return createPredicateAdapter();
       }
       @Override
       public Adapter caseValuePredicate(ValuePredicate object)
@@ -385,16 +385,16 @@ public class ReqSpecAdapterFactory extends AdapterFactoryImpl
   }
 
   /**
-   * Creates a new adapter for an object of class '{@link org.osate.reqspec.reqSpec.XPredicate <em>XPredicate</em>}'.
+   * Creates a new adapter for an object of class '{@link org.osate.reqspec.reqSpec.Predicate <em>Predicate</em>}'.
    * <!-- begin-user-doc -->
    * This default implementation returns null so that we can easily ignore cases;
    * it's useful to ignore a case when inheritance will catch all the cases anyway.
    * <!-- end-user-doc -->
    * @return the new adapter.
-   * @see org.osate.reqspec.reqSpec.XPredicate
+   * @see org.osate.reqspec.reqSpec.Predicate
    * @generated
    */
-  public Adapter createXPredicateAdapter()
+  public Adapter createPredicateAdapter()
   {
     return null;
   }

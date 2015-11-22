@@ -79,19 +79,20 @@ class VerifyUtilExtension {
 		sh.getContainerOfType(Claim)
 	}
 	
-	
-	def static evaluateSelectionFilter(VerificationActivity expr, List<Category> selectionFilter, boolean strict) {
-		val selection = expr.category
-		return CategoriesUtil.intersects(selection,selectionFilter,strict)
-	}
 
 	def static evaluateRequirementFilter(Claim claim, Iterable<Category> requirementFilter, boolean strict) {
 		val req = claim.requirement.category 
 		return CategoriesUtil.intersects(req,requirementFilter,strict)
 	}
 
-	def static evaluateVerificationFilter(VerificationActivity va, List<Category> verificationFilter, boolean strict) {
-		val vcs = va.method.category
+	def static evaluateVerificationMethodFilter(VerificationActivity va, List<Category> verificationFilter, boolean strict) {
+		if (va.method == null) return true
+		val vcs = va.method?.category
 		return CategoriesUtil.intersects(vcs,verificationFilter,strict)
+	}
+	
+	def static evaluateVerificationActivityFilter(VerificationActivity expr, List<Category> selectionFilter, boolean strict) {
+		val selection = expr.category
+		return CategoriesUtil.intersects(selection,selectionFilter,strict)
 	}
 }

@@ -28,9 +28,12 @@ import org.eclipse.emf.ecore.InternalEObject;
 
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 
+import org.eclipse.emf.ecore.util.EDataTypeEList;
 import org.eclipse.emf.ecore.util.EObjectContainmentEList;
 import org.eclipse.emf.ecore.util.EObjectResolvingEList;
 import org.eclipse.emf.ecore.util.InternalEList;
+
+import org.osate.aadl2.ComponentCategory;
 
 import org.osate.alisa.common.common.AVariableDeclaration;
 
@@ -49,6 +52,8 @@ import org.osate.reqspec.reqSpec.Requirement;
  * The following features are implemented:
  * </p>
  * <ul>
+ *   <li>{@link org.osate.reqspec.reqSpec.impl.RequirementImpl#getComponentCategory <em>Component Category</em>}</li>
+ *   <li>{@link org.osate.reqspec.reqSpec.impl.RequirementImpl#isGlobal <em>Global</em>}</li>
  *   <li>{@link org.osate.reqspec.reqSpec.impl.RequirementImpl#getComputes <em>Computes</em>}</li>
  *   <li>{@link org.osate.reqspec.reqSpec.impl.RequirementImpl#getPredicate <em>Predicate</em>}</li>
  *   <li>{@link org.osate.reqspec.reqSpec.impl.RequirementImpl#getException <em>Exception</em>}</li>
@@ -64,6 +69,36 @@ import org.osate.reqspec.reqSpec.Requirement;
  */
 public class RequirementImpl extends ContractualElementImpl implements Requirement
 {
+  /**
+   * The cached value of the '{@link #getComponentCategory() <em>Component Category</em>}' attribute list.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see #getComponentCategory()
+   * @generated
+   * @ordered
+   */
+  protected EList<ComponentCategory> componentCategory;
+
+  /**
+   * The default value of the '{@link #isGlobal() <em>Global</em>}' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see #isGlobal()
+   * @generated
+   * @ordered
+   */
+  protected static final boolean GLOBAL_EDEFAULT = false;
+
+  /**
+   * The cached value of the '{@link #isGlobal() <em>Global</em>}' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see #isGlobal()
+   * @generated
+   * @ordered
+   */
+  protected boolean global = GLOBAL_EDEFAULT;
+
   /**
    * The cached value of the '{@link #getComputes() <em>Computes</em>}' containment reference list.
    * <!-- begin-user-doc -->
@@ -183,6 +218,43 @@ public class RequirementImpl extends ContractualElementImpl implements Requireme
   protected EClass eStaticClass()
   {
     return ReqSpecPackage.Literals.REQUIREMENT;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EList<ComponentCategory> getComponentCategory()
+  {
+    if (componentCategory == null)
+    {
+      componentCategory = new EDataTypeEList<ComponentCategory>(ComponentCategory.class, this, ReqSpecPackage.REQUIREMENT__COMPONENT_CATEGORY);
+    }
+    return componentCategory;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public boolean isGlobal()
+  {
+    return global;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public void setGlobal(boolean newGlobal)
+  {
+    boolean oldGlobal = global;
+    global = newGlobal;
+    if (eNotificationRequired())
+      eNotify(new ENotificationImpl(this, Notification.SET, ReqSpecPackage.REQUIREMENT__GLOBAL, oldGlobal, global));
   }
 
   /**
@@ -411,6 +483,10 @@ public class RequirementImpl extends ContractualElementImpl implements Requireme
   {
     switch (featureID)
     {
+      case ReqSpecPackage.REQUIREMENT__COMPONENT_CATEGORY:
+        return getComponentCategory();
+      case ReqSpecPackage.REQUIREMENT__GLOBAL:
+        return isGlobal();
       case ReqSpecPackage.REQUIREMENT__COMPUTES:
         return getComputes();
       case ReqSpecPackage.REQUIREMENT__PREDICATE:
@@ -445,6 +521,13 @@ public class RequirementImpl extends ContractualElementImpl implements Requireme
   {
     switch (featureID)
     {
+      case ReqSpecPackage.REQUIREMENT__COMPONENT_CATEGORY:
+        getComponentCategory().clear();
+        getComponentCategory().addAll((Collection<? extends ComponentCategory>)newValue);
+        return;
+      case ReqSpecPackage.REQUIREMENT__GLOBAL:
+        setGlobal((Boolean)newValue);
+        return;
       case ReqSpecPackage.REQUIREMENT__COMPUTES:
         getComputes().clear();
         getComputes().addAll((Collection<? extends AVariableDeclaration>)newValue);
@@ -492,6 +575,12 @@ public class RequirementImpl extends ContractualElementImpl implements Requireme
   {
     switch (featureID)
     {
+      case ReqSpecPackage.REQUIREMENT__COMPONENT_CATEGORY:
+        getComponentCategory().clear();
+        return;
+      case ReqSpecPackage.REQUIREMENT__GLOBAL:
+        setGlobal(GLOBAL_EDEFAULT);
+        return;
       case ReqSpecPackage.REQUIREMENT__COMPUTES:
         getComputes().clear();
         return;
@@ -533,6 +622,10 @@ public class RequirementImpl extends ContractualElementImpl implements Requireme
   {
     switch (featureID)
     {
+      case ReqSpecPackage.REQUIREMENT__COMPONENT_CATEGORY:
+        return componentCategory != null && !componentCategory.isEmpty();
+      case ReqSpecPackage.REQUIREMENT__GLOBAL:
+        return global != GLOBAL_EDEFAULT;
       case ReqSpecPackage.REQUIREMENT__COMPUTES:
         return computes != null && !computes.isEmpty();
       case ReqSpecPackage.REQUIREMENT__PREDICATE:
@@ -566,7 +659,11 @@ public class RequirementImpl extends ContractualElementImpl implements Requireme
     if (eIsProxy()) return super.toString();
 
     StringBuffer result = new StringBuffer(super.toString());
-    result.append(" (exceptionText: ");
+    result.append(" (componentCategory: ");
+    result.append(componentCategory);
+    result.append(", global: ");
+    result.append(global);
+    result.append(", exceptionText: ");
     result.append(exceptionText);
     result.append(')');
     return result.toString();

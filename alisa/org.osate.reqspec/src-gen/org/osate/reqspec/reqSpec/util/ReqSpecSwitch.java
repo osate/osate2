@@ -186,11 +186,11 @@ public class ReqSpecSwitch<T> extends Switch<T>
         if (result == null) result = defaultCase(theEObject);
         return result;
       }
-      case ReqSpecPackage.XPREDICATE:
+      case ReqSpecPackage.PREDICATE:
       {
-        XPredicate xPredicate = (XPredicate)theEObject;
-        T result = caseXPredicate(xPredicate);
-        if (result == null) result = caseReqPredicate(xPredicate);
+        Predicate predicate = (Predicate)theEObject;
+        T result = casePredicate(predicate);
+        if (result == null) result = caseReqPredicate(predicate);
         if (result == null) result = defaultCase(theEObject);
         return result;
       }
@@ -422,17 +422,17 @@ public class ReqSpecSwitch<T> extends Switch<T>
   }
 
   /**
-   * Returns the result of interpreting the object as an instance of '<em>XPredicate</em>'.
+   * Returns the result of interpreting the object as an instance of '<em>Predicate</em>'.
    * <!-- begin-user-doc -->
    * This implementation returns null;
    * returning a non-null result will terminate the switch.
    * <!-- end-user-doc -->
    * @param object the target of the switch.
-   * @return the result of interpreting the object as an instance of '<em>XPredicate</em>'.
+   * @return the result of interpreting the object as an instance of '<em>Predicate</em>'.
    * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
    * @generated
    */
-  public T caseXPredicate(XPredicate object)
+  public T casePredicate(Predicate object)
   {
     return null;
   }

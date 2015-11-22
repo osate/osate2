@@ -70,6 +70,8 @@ Rationale : 'rationale';
 
 Riskindex : 'riskindex';
 
+Selection : 'selection';
+
 Abstract : 'abstract';
 
 Category : 'category';
@@ -85,6 +87,8 @@ Dropped : 'dropped';
 Evolves : 'evolves';
 
 Process : 'process';
+
+Quality : 'quality';
 
 Refines : 'refines';
 

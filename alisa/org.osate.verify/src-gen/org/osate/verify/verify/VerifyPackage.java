@@ -318,22 +318,13 @@ public interface VerifyPackage extends EPackage
   int VERIFICATION_ACTIVITY__TITLE = 1;
 
   /**
-   * The feature id for the '<em><b>Target</b></em>' reference.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int VERIFICATION_ACTIVITY__TARGET = 2;
-
-  /**
    * The feature id for the '<em><b>Category</b></em>' reference list.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    * @ordered
    */
-  int VERIFICATION_ACTIVITY__CATEGORY = 3;
+  int VERIFICATION_ACTIVITY__CATEGORY = 2;
 
   /**
    * The feature id for the '<em><b>Result</b></em>' reference list.
@@ -342,7 +333,7 @@ public interface VerifyPackage extends EPackage
    * @generated
    * @ordered
    */
-  int VERIFICATION_ACTIVITY__RESULT = 4;
+  int VERIFICATION_ACTIVITY__RESULT = 3;
 
   /**
    * The feature id for the '<em><b>Method</b></em>' reference.
@@ -351,7 +342,7 @@ public interface VerifyPackage extends EPackage
    * @generated
    * @ordered
    */
-  int VERIFICATION_ACTIVITY__METHOD = 5;
+  int VERIFICATION_ACTIVITY__METHOD = 4;
 
   /**
    * The feature id for the '<em><b>Parameters</b></em>' reference list.
@@ -360,7 +351,7 @@ public interface VerifyPackage extends EPackage
    * @generated
    * @ordered
    */
-  int VERIFICATION_ACTIVITY__PARAMETERS = 6;
+  int VERIFICATION_ACTIVITY__PARAMETERS = 5;
 
   /**
    * The feature id for the '<em><b>Property Values</b></em>' reference list.
@@ -369,7 +360,7 @@ public interface VerifyPackage extends EPackage
    * @generated
    * @ordered
    */
-  int VERIFICATION_ACTIVITY__PROPERTY_VALUES = 7;
+  int VERIFICATION_ACTIVITY__PROPERTY_VALUES = 6;
 
   /**
    * The feature id for the '<em><b>Timeout</b></em>' attribute.
@@ -378,7 +369,7 @@ public interface VerifyPackage extends EPackage
    * @generated
    * @ordered
    */
-  int VERIFICATION_ACTIVITY__TIMEOUT = 8;
+  int VERIFICATION_ACTIVITY__TIMEOUT = 7;
 
   /**
    * The number of structural features of the '<em>Verification Activity</em>' class.
@@ -387,7 +378,7 @@ public interface VerifyPackage extends EPackage
    * @generated
    * @ordered
    */
-  int VERIFICATION_ACTIVITY_FEATURE_COUNT = 9;
+  int VERIFICATION_ACTIVITY_FEATURE_COUNT = 8;
 
   /**
    * The meta object id for the '{@link org.osate.verify.verify.impl.VerificationConditionImpl <em>Verification Condition</em>}' class.
@@ -418,22 +409,13 @@ public interface VerifyPackage extends EPackage
   int VERIFICATION_CONDITION__TITLE = 1;
 
   /**
-   * The feature id for the '<em><b>Description</b></em>' containment reference.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int VERIFICATION_CONDITION__DESCRIPTION = 2;
-
-  /**
    * The feature id for the '<em><b>Method</b></em>' reference.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    * @ordered
    */
-  int VERIFICATION_CONDITION__METHOD = 3;
+  int VERIFICATION_CONDITION__METHOD = 2;
 
   /**
    * The feature id for the '<em><b>Parameters</b></em>' reference list.
@@ -442,34 +424,7 @@ public interface VerifyPackage extends EPackage
    * @generated
    * @ordered
    */
-  int VERIFICATION_CONDITION__PARAMETERS = 4;
-
-  /**
-   * The feature id for the '<em><b>Property Values</b></em>' reference list.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int VERIFICATION_CONDITION__PROPERTY_VALUES = 5;
-
-  /**
-   * The feature id for the '<em><b>Timeout</b></em>' attribute.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int VERIFICATION_CONDITION__TIMEOUT = 6;
-
-  /**
-   * The feature id for the '<em><b>Rationale</b></em>' containment reference.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int VERIFICATION_CONDITION__RATIONALE = 7;
+  int VERIFICATION_CONDITION__PARAMETERS = 3;
 
   /**
    * The number of structural features of the '<em>Verification Condition</em>' class.
@@ -478,7 +433,7 @@ public interface VerifyPackage extends EPackage
    * @generated
    * @ordered
    */
-  int VERIFICATION_CONDITION_FEATURE_COUNT = 8;
+  int VERIFICATION_CONDITION_FEATURE_COUNT = 4;
 
   /**
    * The meta object id for the '{@link org.osate.verify.verify.impl.VerificationMethodRegistryImpl <em>Verification Method Registry</em>}' class.
@@ -664,13 +619,22 @@ public interface VerifyPackage extends EPackage
   int VERIFICATION_METHOD__DESCRIPTION = 7;
 
   /**
-   * The feature id for the '<em><b>Condition</b></em>' containment reference.
+   * The feature id for the '<em><b>Precondition</b></em>' containment reference.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    * @ordered
    */
-  int VERIFICATION_METHOD__CONDITION = 8;
+  int VERIFICATION_METHOD__PRECONDITION = 8;
+
+  /**
+   * The feature id for the '<em><b>Validation</b></em>' containment reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int VERIFICATION_METHOD__VALIDATION = 9;
 
   /**
    * The feature id for the '<em><b>Category</b></em>' reference list.
@@ -679,7 +643,7 @@ public interface VerifyPackage extends EPackage
    * @generated
    * @ordered
    */
-  int VERIFICATION_METHOD__CATEGORY = 9;
+  int VERIFICATION_METHOD__CATEGORY = 10;
 
   /**
    * The number of structural features of the '<em>Verification Method</em>' class.
@@ -688,7 +652,7 @@ public interface VerifyPackage extends EPackage
    * @generated
    * @ordered
    */
-  int VERIFICATION_METHOD_FEATURE_COUNT = 10;
+  int VERIFICATION_METHOD_FEATURE_COUNT = 11;
 
   /**
    * The meta object id for the '{@link org.osate.verify.verify.impl.MethodTypeImpl <em>Method Type</em>}' class.
@@ -1007,15 +971,6 @@ public interface VerifyPackage extends EPackage
   int VERIFICATION_VALIDATION__TITLE = VERIFICATION_CONDITION__TITLE;
 
   /**
-   * The feature id for the '<em><b>Description</b></em>' containment reference.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int VERIFICATION_VALIDATION__DESCRIPTION = VERIFICATION_CONDITION__DESCRIPTION;
-
-  /**
    * The feature id for the '<em><b>Method</b></em>' reference.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -1032,33 +987,6 @@ public interface VerifyPackage extends EPackage
    * @ordered
    */
   int VERIFICATION_VALIDATION__PARAMETERS = VERIFICATION_CONDITION__PARAMETERS;
-
-  /**
-   * The feature id for the '<em><b>Property Values</b></em>' reference list.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int VERIFICATION_VALIDATION__PROPERTY_VALUES = VERIFICATION_CONDITION__PROPERTY_VALUES;
-
-  /**
-   * The feature id for the '<em><b>Timeout</b></em>' attribute.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int VERIFICATION_VALIDATION__TIMEOUT = VERIFICATION_CONDITION__TIMEOUT;
-
-  /**
-   * The feature id for the '<em><b>Rationale</b></em>' containment reference.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int VERIFICATION_VALIDATION__RATIONALE = VERIFICATION_CONDITION__RATIONALE;
 
   /**
    * The number of structural features of the '<em>Verification Validation</em>' class.
@@ -1098,15 +1026,6 @@ public interface VerifyPackage extends EPackage
   int VERIFICATION_PRECONDITION__TITLE = VERIFICATION_CONDITION__TITLE;
 
   /**
-   * The feature id for the '<em><b>Description</b></em>' containment reference.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int VERIFICATION_PRECONDITION__DESCRIPTION = VERIFICATION_CONDITION__DESCRIPTION;
-
-  /**
    * The feature id for the '<em><b>Method</b></em>' reference.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -1123,33 +1042,6 @@ public interface VerifyPackage extends EPackage
    * @ordered
    */
   int VERIFICATION_PRECONDITION__PARAMETERS = VERIFICATION_CONDITION__PARAMETERS;
-
-  /**
-   * The feature id for the '<em><b>Property Values</b></em>' reference list.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int VERIFICATION_PRECONDITION__PROPERTY_VALUES = VERIFICATION_CONDITION__PROPERTY_VALUES;
-
-  /**
-   * The feature id for the '<em><b>Timeout</b></em>' attribute.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int VERIFICATION_PRECONDITION__TIMEOUT = VERIFICATION_CONDITION__TIMEOUT;
-
-  /**
-   * The feature id for the '<em><b>Rationale</b></em>' containment reference.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int VERIFICATION_PRECONDITION__RATIONALE = VERIFICATION_CONDITION__RATIONALE;
 
   /**
    * The number of structural features of the '<em>Verification Precondition</em>' class.
@@ -1410,17 +1302,6 @@ public interface VerifyPackage extends EPackage
   EAttribute getVerificationActivity_Title();
 
   /**
-   * Returns the meta object for the reference '{@link org.osate.verify.verify.VerificationActivity#getTarget <em>Target</em>}'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return the meta object for the reference '<em>Target</em>'.
-   * @see org.osate.verify.verify.VerificationActivity#getTarget()
-   * @see #getVerificationActivity()
-   * @generated
-   */
-  EReference getVerificationActivity_Target();
-
-  /**
    * Returns the meta object for the reference list '{@link org.osate.verify.verify.VerificationActivity#getCategory <em>Category</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -1519,17 +1400,6 @@ public interface VerifyPackage extends EPackage
   EAttribute getVerificationCondition_Title();
 
   /**
-   * Returns the meta object for the containment reference '{@link org.osate.verify.verify.VerificationCondition#getDescription <em>Description</em>}'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return the meta object for the containment reference '<em>Description</em>'.
-   * @see org.osate.verify.verify.VerificationCondition#getDescription()
-   * @see #getVerificationCondition()
-   * @generated
-   */
-  EReference getVerificationCondition_Description();
-
-  /**
    * Returns the meta object for the reference '{@link org.osate.verify.verify.VerificationCondition#getMethod <em>Method</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -1550,39 +1420,6 @@ public interface VerifyPackage extends EPackage
    * @generated
    */
   EReference getVerificationCondition_Parameters();
-
-  /**
-   * Returns the meta object for the reference list '{@link org.osate.verify.verify.VerificationCondition#getPropertyValues <em>Property Values</em>}'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return the meta object for the reference list '<em>Property Values</em>'.
-   * @see org.osate.verify.verify.VerificationCondition#getPropertyValues()
-   * @see #getVerificationCondition()
-   * @generated
-   */
-  EReference getVerificationCondition_PropertyValues();
-
-  /**
-   * Returns the meta object for the attribute '{@link org.osate.verify.verify.VerificationCondition#getTimeout <em>Timeout</em>}'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return the meta object for the attribute '<em>Timeout</em>'.
-   * @see org.osate.verify.verify.VerificationCondition#getTimeout()
-   * @see #getVerificationCondition()
-   * @generated
-   */
-  EAttribute getVerificationCondition_Timeout();
-
-  /**
-   * Returns the meta object for the containment reference '{@link org.osate.verify.verify.VerificationCondition#getRationale <em>Rationale</em>}'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return the meta object for the containment reference '<em>Rationale</em>'.
-   * @see org.osate.verify.verify.VerificationCondition#getRationale()
-   * @see #getVerificationCondition()
-   * @generated
-   */
-  EReference getVerificationCondition_Rationale();
 
   /**
    * Returns the meta object for class '{@link org.osate.verify.verify.VerificationMethodRegistry <em>Verification Method Registry</em>}'.
@@ -1780,15 +1617,26 @@ public interface VerifyPackage extends EPackage
   EReference getVerificationMethod_Description();
 
   /**
-   * Returns the meta object for the containment reference '{@link org.osate.verify.verify.VerificationMethod#getCondition <em>Condition</em>}'.
+   * Returns the meta object for the containment reference '{@link org.osate.verify.verify.VerificationMethod#getPrecondition <em>Precondition</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @return the meta object for the containment reference '<em>Condition</em>'.
-   * @see org.osate.verify.verify.VerificationMethod#getCondition()
+   * @return the meta object for the containment reference '<em>Precondition</em>'.
+   * @see org.osate.verify.verify.VerificationMethod#getPrecondition()
    * @see #getVerificationMethod()
    * @generated
    */
-  EReference getVerificationMethod_Condition();
+  EReference getVerificationMethod_Precondition();
+
+  /**
+   * Returns the meta object for the containment reference '{@link org.osate.verify.verify.VerificationMethod#getValidation <em>Validation</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the containment reference '<em>Validation</em>'.
+   * @see org.osate.verify.verify.VerificationMethod#getValidation()
+   * @see #getVerificationMethod()
+   * @generated
+   */
+  EReference getVerificationMethod_Validation();
 
   /**
    * Returns the meta object for the reference list '{@link org.osate.verify.verify.VerificationMethod#getCategory <em>Category</em>}'.
@@ -2272,14 +2120,6 @@ public interface VerifyPackage extends EPackage
     EAttribute VERIFICATION_ACTIVITY__TITLE = eINSTANCE.getVerificationActivity_Title();
 
     /**
-     * The meta object literal for the '<em><b>Target</b></em>' reference feature.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
-    EReference VERIFICATION_ACTIVITY__TARGET = eINSTANCE.getVerificationActivity_Target();
-
-    /**
      * The meta object literal for the '<em><b>Category</b></em>' reference list feature.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
@@ -2354,14 +2194,6 @@ public interface VerifyPackage extends EPackage
     EAttribute VERIFICATION_CONDITION__TITLE = eINSTANCE.getVerificationCondition_Title();
 
     /**
-     * The meta object literal for the '<em><b>Description</b></em>' containment reference feature.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
-    EReference VERIFICATION_CONDITION__DESCRIPTION = eINSTANCE.getVerificationCondition_Description();
-
-    /**
      * The meta object literal for the '<em><b>Method</b></em>' reference feature.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
@@ -2376,30 +2208,6 @@ public interface VerifyPackage extends EPackage
      * @generated
      */
     EReference VERIFICATION_CONDITION__PARAMETERS = eINSTANCE.getVerificationCondition_Parameters();
-
-    /**
-     * The meta object literal for the '<em><b>Property Values</b></em>' reference list feature.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
-    EReference VERIFICATION_CONDITION__PROPERTY_VALUES = eINSTANCE.getVerificationCondition_PropertyValues();
-
-    /**
-     * The meta object literal for the '<em><b>Timeout</b></em>' attribute feature.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
-    EAttribute VERIFICATION_CONDITION__TIMEOUT = eINSTANCE.getVerificationCondition_Timeout();
-
-    /**
-     * The meta object literal for the '<em><b>Rationale</b></em>' containment reference feature.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
-    EReference VERIFICATION_CONDITION__RATIONALE = eINSTANCE.getVerificationCondition_Rationale();
 
     /**
      * The meta object literal for the '{@link org.osate.verify.verify.impl.VerificationMethodRegistryImpl <em>Verification Method Registry</em>}' class.
@@ -2552,12 +2360,20 @@ public interface VerifyPackage extends EPackage
     EReference VERIFICATION_METHOD__DESCRIPTION = eINSTANCE.getVerificationMethod_Description();
 
     /**
-     * The meta object literal for the '<em><b>Condition</b></em>' containment reference feature.
+     * The meta object literal for the '<em><b>Precondition</b></em>' containment reference feature.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @generated
      */
-    EReference VERIFICATION_METHOD__CONDITION = eINSTANCE.getVerificationMethod_Condition();
+    EReference VERIFICATION_METHOD__PRECONDITION = eINSTANCE.getVerificationMethod_Precondition();
+
+    /**
+     * The meta object literal for the '<em><b>Validation</b></em>' containment reference feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EReference VERIFICATION_METHOD__VALIDATION = eINSTANCE.getVerificationMethod_Validation();
 
     /**
      * The meta object literal for the '<em><b>Category</b></em>' reference list feature.

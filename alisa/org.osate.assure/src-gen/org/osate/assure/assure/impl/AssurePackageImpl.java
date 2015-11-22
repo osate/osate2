@@ -793,9 +793,19 @@ public class AssurePackageImpl extends EPackageImpl implements AssurePackage
    * <!-- end-user-doc -->
    * @generated
    */
-  public EReference getVerificationActivityResult_ConditionResult()
+  public EReference getVerificationActivityResult_PreconditionResult()
   {
     return (EReference)verificationActivityResultEClass.getEStructuralFeatures().get(1);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EReference getVerificationActivityResult_ValidationResult()
+  {
+    return (EReference)verificationActivityResultEClass.getEStructuralFeatures().get(2);
   }
 
   /**
@@ -934,7 +944,8 @@ public class AssurePackageImpl extends EPackageImpl implements AssurePackage
 
     verificationActivityResultEClass = createEClass(VERIFICATION_ACTIVITY_RESULT);
     createEReference(verificationActivityResultEClass, VERIFICATION_ACTIVITY_RESULT__TARGET);
-    createEReference(verificationActivityResultEClass, VERIFICATION_ACTIVITY_RESULT__CONDITION_RESULT);
+    createEReference(verificationActivityResultEClass, VERIFICATION_ACTIVITY_RESULT__PRECONDITION_RESULT);
+    createEReference(verificationActivityResultEClass, VERIFICATION_ACTIVITY_RESULT__VALIDATION_RESULT);
 
     // Create enums
     elseTypeEEnum = createEEnum(ELSE_TYPE);
@@ -1057,7 +1068,8 @@ public class AssurePackageImpl extends EPackageImpl implements AssurePackage
 
     initEClass(verificationActivityResultEClass, VerificationActivityResult.class, "VerificationActivityResult", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
     initEReference(getVerificationActivityResult_Target(), theVerifyPackage.getVerificationActivity(), null, "target", null, 0, 1, VerificationActivityResult.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-    initEReference(getVerificationActivityResult_ConditionResult(), this.getVerificationResult(), null, "conditionResult", null, 0, 1, VerificationActivityResult.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEReference(getVerificationActivityResult_PreconditionResult(), this.getVerificationResult(), null, "preconditionResult", null, 0, 1, VerificationActivityResult.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEReference(getVerificationActivityResult_ValidationResult(), this.getVerificationResult(), null, "validationResult", null, 0, 1, VerificationActivityResult.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
     // Initialize enums and add enum literals
     initEEnum(elseTypeEEnum, ElseType.class, "ElseType");

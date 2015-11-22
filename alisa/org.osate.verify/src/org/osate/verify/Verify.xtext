@@ -73,9 +73,6 @@ QuantifiedEvidenceExpr returns ArgumentExpr:
 CompositeEvidenceExpr returns ArgumentExpr:
 	 '(' ThenEvidenceExpr ')' | QuantifiedEvidenceExpr;
 
-//SingleEvidenceExpr returns ArgumentExpr:
-//	VAReference (=> ({WhenExpr.verification=current} 'when') condition+=[categories::VerificationCategory|ID]+)?; // should it be a selection category as well
-
 VAReference returns ArgumentExpr:
 	{RefExpr} verification=[VerificationActivity|ID]
 	('(' weight=INT ')')?;
@@ -84,8 +81,9 @@ VAReference returns ArgumentExpr:
 
 VerificationActivity:
 	name=ID (':' title=STRING)? 
-	('for' target=[aadl2::ComponentImplementation|AadlClassifierReference])? // for specific AADL model configuration
-	('category' category+=[categories::Category|ID]+)?
+//	('for' target=[aadl2::ComponentImplementation|AadlClassifierReference])? // for specific AADL model configuration
+	('phase' category+=[categories::PhaseCategory|ID]+)?
+	('selection' category+=[categories::SelectionCategory|ID]+)?
 	':'
 	(result+=[common::ComputeDeclaration|ID] (',' result+=[common::ComputeDeclaration|ID])* '=')?
 	method=[VerificationMethod|QualifiedName] 
@@ -99,26 +97,22 @@ VerificationActivity:
 ;
 
 
-VerificationCondition:
-	('validation' {VerificationValidation} | 'precondition' {VerificationPrecondition}) 
+VerificationValidation returns VerificationCondition:
+	'validation' {VerificationValidation}  
 	name=ID
 	(':' title=STRING)?
-	'[' 
-	(
-		  description=Description?
-		& (
+	':'
 			method=[VerificationMethod|QualifiedName] 
-			'(' (parameters+=[common::AExpression|ID] (',' parameters+=[common::AExpression| ID])*)? ')'
-			(
-				'property' 'values' '(' 
-				(propertyValues+=[common::AExpression|ID] (',' propertyValues+=[common::AExpression|ID])*)? 
-				')'
-			)?
-			('timeout' timeout=INT)?
-		)
-		& rationale=Rationale?
-	)
-	']'
+			'(' (parameters+=[FormalParameter|ID] (',' parameters+=[FormalParameter| ID])*)? ')'
+	;
+
+VerificationPrecondition returns VerificationCondition:
+	'precondition' {VerificationPrecondition} 
+	name=ID
+	(':' title=STRING)?
+	':'
+			method=[VerificationMethod|QualifiedName] 
+			'(' (parameters+=[FormalParameter|ID] (',' parameters+=[FormalParameter| ID])*)? ')'
 	;
 
 VerificationMethodRegistry returns VerificationMethodRegistry:
@@ -150,8 +144,11 @@ VerificationMethod:
 	(
 		  methodType=MethodType 
 		& description=Description?
-		& condition=VerificationCondition?
-		& ('category' category+=[categories::Category|ID]+)?
+		& precondition=VerificationPrecondition?
+		& validation=VerificationValidation?
+		& ('category' category+=[categories::MethodCategory|ID]+)?
+		& ('quality' category+=[categories::QualityCategory|ID]+)?
+		& ('selection' category+=[categories::SelectionCategory|ID]+)?
 	)
 	']'
 	;

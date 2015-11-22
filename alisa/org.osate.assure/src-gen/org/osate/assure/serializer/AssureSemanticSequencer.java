@@ -59,7 +59,7 @@ public class AssureSemanticSequencer extends AbstractDelegatingSemanticSequencer
 				sequence_Metrics(context, (Metrics) semanticObject); 
 				return; 
 			case AssurePackage.PRECONDITION_RESULT:
-				sequence_ConditionResult(context, (PreconditionResult) semanticObject); 
+				sequence_PreconditionResult(context, (PreconditionResult) semanticObject); 
 				return; 
 			case AssurePackage.RESULT_ISSUE:
 				sequence_ResultIssue(context, (ResultIssue) semanticObject); 
@@ -68,7 +68,7 @@ public class AssureSemanticSequencer extends AbstractDelegatingSemanticSequencer
 				sequence_ThenResult(context, (ThenResult) semanticObject); 
 				return; 
 			case AssurePackage.VALIDATION_RESULT:
-				sequence_ConditionResult(context, (ValidationResult) semanticObject); 
+				sequence_ValidationResult(context, (ValidationResult) semanticObject); 
 				return; 
 			case AssurePackage.VERIFICATION_ACTIVITY_RESULT:
 				sequence_VerificationActivityResult(context, (VerificationActivityResult) semanticObject); 
@@ -99,40 +99,6 @@ public class AssureSemanticSequencer extends AbstractDelegatingSemanticSequencer
 	 *     (target=[Requirement|QualifiedName] metrics=Metrics message=STRING? subClaimResult+=ClaimResult* verificationActivityResult+=VerificationExpr*)
 	 */
 	protected void sequence_ClaimResult(EObject context, ClaimResult semanticObject) {
-		genericSequencer.createSequence(context, semanticObject);
-	}
-	
-	
-	/**
-	 * Constraint:
-	 *     (
-	 *         target=[VerificationCondition|QualifiedName] 
-	 *         executionState=VerificationExecutionState 
-	 *         resultState=VerificationResultState 
-	 *         issues+=ResultIssue* 
-	 *         resultReport=[ResultReport|QualifiedName]? 
-	 *         metrics=Metrics 
-	 *         message=STRING?
-	 *     )
-	 */
-	protected void sequence_ConditionResult(EObject context, PreconditionResult semanticObject) {
-		genericSequencer.createSequence(context, semanticObject);
-	}
-	
-	
-	/**
-	 * Constraint:
-	 *     (
-	 *         target=[VerificationCondition|QualifiedName] 
-	 *         executionState=VerificationExecutionState 
-	 *         resultState=VerificationResultState 
-	 *         issues+=ResultIssue* 
-	 *         resultReport=[ResultReport|QualifiedName]? 
-	 *         metrics=Metrics 
-	 *         message=STRING?
-	 *     )
-	 */
-	protected void sequence_ConditionResult(EObject context, ValidationResult semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
 	}
 	
@@ -176,6 +142,23 @@ public class AssureSemanticSequencer extends AbstractDelegatingSemanticSequencer
 	/**
 	 * Constraint:
 	 *     (
+	 *         target=[VerificationCondition|QualifiedName] 
+	 *         executionState=VerificationExecutionState 
+	 *         resultState=VerificationResultState 
+	 *         issues+=ResultIssue* 
+	 *         resultReport=[ResultReport|QualifiedName]? 
+	 *         metrics=Metrics 
+	 *         message=STRING?
+	 *     )
+	 */
+	protected void sequence_PreconditionResult(EObject context, PreconditionResult semanticObject) {
+		genericSequencer.createSequence(context, semanticObject);
+	}
+	
+	
+	/**
+	 * Constraint:
+	 *     (
 	 *         issueType=ResultIssueType 
 	 *         name=ID? 
 	 *         message=STRING 
@@ -201,6 +184,23 @@ public class AssureSemanticSequencer extends AbstractDelegatingSemanticSequencer
 	/**
 	 * Constraint:
 	 *     (
+	 *         target=[VerificationCondition|QualifiedName] 
+	 *         executionState=VerificationExecutionState 
+	 *         resultState=VerificationResultState 
+	 *         issues+=ResultIssue* 
+	 *         resultReport=[ResultReport|QualifiedName]? 
+	 *         metrics=Metrics 
+	 *         message=STRING?
+	 *     )
+	 */
+	protected void sequence_ValidationResult(EObject context, ValidationResult semanticObject) {
+		genericSequencer.createSequence(context, semanticObject);
+	}
+	
+	
+	/**
+	 * Constraint:
+	 *     (
 	 *         target=[VerificationActivity|QualifiedName] 
 	 *         executionState=VerificationExecutionState 
 	 *         resultState=VerificationResultState 
@@ -208,7 +208,8 @@ public class AssureSemanticSequencer extends AbstractDelegatingSemanticSequencer
 	 *         resultReport=[ResultReport|QualifiedName]? 
 	 *         metrics=Metrics 
 	 *         message=STRING? 
-	 *         conditionResult=ConditionResult?
+	 *         preconditionResult=PreconditionResult? 
+	 *         validationResult=ValidationResult?
 	 *     )
 	 */
 	protected void sequence_VerificationActivityResult(EObject context, VerificationActivityResult semanticObject) {
