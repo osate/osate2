@@ -98,7 +98,7 @@ class AssureProcessor implements IAssureProcessor {
 	}
 
 	def dispatch void process(VerificationActivityResult vaResult) {
-		progressmonitor.subTask(vaResult.target.method.name + " on " + vaResult.claimSubject.name)
+		progressmonitor.subTask(vaResult.target.name )//+ " on " + vaResult.claimSubject.name)
 		if(vaResult.executionState != VerificationExecutionState.TODO) {
 			progressmonitor.worked(1)
 			return;
