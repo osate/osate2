@@ -38,6 +38,7 @@ import org.osate.verify.verify.ArgumentExpr;
 import org.osate.verify.verify.Claim;
 import org.osate.verify.verify.ElseExpr;
 import org.osate.verify.verify.FormalParameter;
+import org.osate.verify.verify.GlobalVerificationPlan;
 import org.osate.verify.verify.JavaMethod;
 import org.osate.verify.verify.ManualMethod;
 import org.osate.verify.verify.MethodType;
@@ -161,6 +162,13 @@ public class VerifyPackageImpl extends EPackageImpl implements VerifyPackage
    * @generated
    */
   private EClass pluginMethodEClass = null;
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  private EClass globalVerificationPlanEClass = null;
 
   /**
    * <!-- begin-user-doc -->
@@ -896,6 +904,26 @@ public class VerifyPackageImpl extends EPackageImpl implements VerifyPackage
    * <!-- end-user-doc -->
    * @generated
    */
+  public EClass getGlobalVerificationPlan()
+  {
+    return globalVerificationPlanEClass;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EReference getGlobalVerificationPlan_RequirementLibrary()
+  {
+    return (EReference)globalVerificationPlanEClass.getEStructuralFeatures().get(0);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
   public EClass getThenExpr()
   {
     return thenExprEClass;
@@ -1147,6 +1175,9 @@ public class VerifyPackageImpl extends EPackageImpl implements VerifyPackage
     pluginMethodEClass = createEClass(PLUGIN_METHOD);
     createEAttribute(pluginMethodEClass, PLUGIN_METHOD__METHOD_ID);
 
+    globalVerificationPlanEClass = createEClass(GLOBAL_VERIFICATION_PLAN);
+    createEReference(globalVerificationPlanEClass, GLOBAL_VERIFICATION_PLAN__REQUIREMENT_LIBRARY);
+
     thenExprEClass = createEClass(THEN_EXPR);
     createEReference(thenExprEClass, THEN_EXPR__LEFT);
     createEReference(thenExprEClass, THEN_EXPR__SUCCESSOR);
@@ -1210,6 +1241,7 @@ public class VerifyPackageImpl extends EPackageImpl implements VerifyPackage
     javaMethodEClass.getESuperTypes().add(this.getMethodType());
     manualMethodEClass.getESuperTypes().add(this.getMethodType());
     pluginMethodEClass.getESuperTypes().add(this.getMethodType());
+    globalVerificationPlanEClass.getESuperTypes().add(this.getVerificationPlan());
     thenExprEClass.getESuperTypes().add(this.getArgumentExpr());
     elseExprEClass.getESuperTypes().add(this.getArgumentExpr());
     allExprEClass.getESuperTypes().add(this.getArgumentExpr());
@@ -1293,6 +1325,9 @@ public class VerifyPackageImpl extends EPackageImpl implements VerifyPackage
 
     initEClass(pluginMethodEClass, PluginMethod.class, "PluginMethod", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
     initEAttribute(getPluginMethod_MethodID(), theEcorePackage.getEString(), "methodID", null, 0, 1, PluginMethod.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+    initEClass(globalVerificationPlanEClass, GlobalVerificationPlan.class, "GlobalVerificationPlan", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+    initEReference(getGlobalVerificationPlan_RequirementLibrary(), theReqSpecPackage.getGlobalRequirements(), null, "requirementLibrary", null, 0, 1, GlobalVerificationPlan.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
     initEClass(thenExprEClass, ThenExpr.class, "ThenExpr", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
     initEReference(getThenExpr_Left(), this.getArgumentExpr(), null, "left", null, 0, 1, ThenExpr.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);

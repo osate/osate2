@@ -133,9 +133,9 @@ public class ReqSpecAdapterFactory extends AdapterFactoryImpl
         return createSystemRequirementsAdapter();
       }
       @Override
-      public Adapter caseRequirementLibrary(RequirementLibrary object)
+      public Adapter caseGlobalRequirements(GlobalRequirements object)
       {
-        return createRequirementLibraryAdapter();
+        return createGlobalRequirementsAdapter();
       }
       @Override
       public Adapter caseGoal(Goal object)
@@ -330,16 +330,16 @@ public class ReqSpecAdapterFactory extends AdapterFactoryImpl
   }
 
   /**
-   * Creates a new adapter for an object of class '{@link org.osate.reqspec.reqSpec.RequirementLibrary <em>Requirement Library</em>}'.
+   * Creates a new adapter for an object of class '{@link org.osate.reqspec.reqSpec.GlobalRequirements <em>Global Requirements</em>}'.
    * <!-- begin-user-doc -->
    * This default implementation returns null so that we can easily ignore cases;
    * it's useful to ignore a case when inheritance will catch all the cases anyway.
    * <!-- end-user-doc -->
    * @return the new adapter.
-   * @see org.osate.reqspec.reqSpec.RequirementLibrary
+   * @see org.osate.reqspec.reqSpec.GlobalRequirements
    * @generated
    */
-  public Adapter createRequirementLibraryAdapter()
+  public Adapter createGlobalRequirementsAdapter()
   {
     return null;
   }

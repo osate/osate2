@@ -8,11 +8,23 @@ import "http://www.osate.org/alisa/common/Common" as common
 import  "http://www.rockwellcollins.com/atc/resolute/Resolute" as resolute
 
 Verification:
-	contents+=	( VerificationPlan | VerificationMethodRegistry)+;
+	contents+=	( VerificationPlan | GlobalVerificationPlan | VerificationMethodRegistry)+;
 
 VerificationPlan:
 	'verification' 'plan' name=QualifiedName (':' title=STRING)? 
 	'for' systemRequirements=[ReqSpec::SystemRequirements|QualifiedName]  
+	'['
+	(
+		( description=Description)?
+	& claim+=Claim*
+	& rationale=Rationale?
+	& ('issues' issues+=STRING+ )?
+	)
+	']';
+
+GlobalVerificationPlan returns VerificationPlan:
+	'verification' 'plan' 'library' {GlobalVerificationPlan} name=QualifiedName (':' title=STRING)? 
+	'for' requirementLibrary=[ReqSpec::GlobalRequirements|QualifiedName]  
 	'['
 	(
 		( description=Description)?

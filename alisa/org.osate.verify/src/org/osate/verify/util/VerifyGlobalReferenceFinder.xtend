@@ -29,20 +29,21 @@ import org.osate.verify.verify.VerifyPackage
 import static extension org.osate.alisa.common.util.CommonUtilExtension.*
 import static extension org.osate.reqspec.util.ReqSpecUtilExtension.*
 import org.osate.aadl2.ComponentCategory
+import org.osate.verify.verify.GlobalVerificationPlan
 
 @ImplementedBy(VerifyGlobalReferenceFinder)
 interface IVerifyGlobalReferenceFinder {
 	/**
 	 * do not use this methods to construction of scopes as they are operating on references
 	 * cc is the classifier that must be the same or an ancestor of the classifier referenced by the system requirements or the verification plan
-	 * context determines the resourceset into which the verificaiton plans are loaded
+	 * context determines the resourceset into which the verification plans are loaded
 	 */
 	def Iterable<VerificationPlan> getVerificationPlans(ComponentClassifier cc ,EObject context);
 
 	/**
 	 * method to be used for scope creation as it does not use EReferences
 	 */
-	def Iterable<VerificationPlan> getGlobalReqVerificationPlans(EObject context, ComponentCategory cc);
+	def Iterable<VerificationPlan> getVerificationPlanLibraries(EObject context);
 	
 	def Iterable<VerificationPlan> getAllVerificationPlansForSystemRequirement(SystemRequirements sysReqs, EObject context);
 }
@@ -59,10 +60,9 @@ class VerifyGlobalReferenceFinder implements IVerifyGlobalReferenceFinder{
 		
 
 		
-		override Iterable<VerificationPlan> getGlobalReqVerificationPlans(EObject context, ComponentCategory cc){
-			 refFinder.getEObjectDescriptions(context, VerifyPackage.Literals.VERIFICATION_PLAN, "verify").map [ eod |
-			EcoreUtil.resolve(eod.EObjectOrProxy, context) as VerificationPlan
-		].filter[vp|vp.systemRequirements?.global || vp.systemRequirements.matchingCategory(cc)]
+		override Iterable<VerificationPlan> getVerificationPlanLibraries(EObject context){
+			 refFinder.getEObjectDescriptions(context, VerifyPackage.Literals.GLOBAL_VERIFICATION_PLAN, "verify").map [ eod |
+			EcoreUtil.resolve(eod.EObjectOrProxy, context) as GlobalVerificationPlan]
 		
 		}
 

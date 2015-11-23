@@ -40,6 +40,7 @@ public class VerifySyntacticSequencer extends AbstractSyntacticSequencer {
 	protected AbstractElementAlias match_Claim___ActivitiesKeyword_5_0_0_a_IssuesKeyword_5_4_0__q;
 	protected AbstractElementAlias match_CompositeEvidenceExpr_LeftParenthesisKeyword_0_0_a;
 	protected AbstractElementAlias match_CompositeEvidenceExpr_LeftParenthesisKeyword_0_0_p;
+	protected AbstractElementAlias match_GlobalVerificationPlan_IssuesKeyword_9_3_0_q;
 	protected AbstractElementAlias match_VerificationActivity___PropertyKeyword_10_0_ValuesKeyword_10_1_LeftParenthesisKeyword_10_2_RightParenthesisKeyword_10_4__q;
 	protected AbstractElementAlias match_VerificationMethod_CategoryKeyword_5_4_0_q;
 	protected AbstractElementAlias match_VerificationMethod_QualityKeyword_5_5_0_q;
@@ -58,6 +59,7 @@ public class VerifySyntacticSequencer extends AbstractSyntacticSequencer {
 		match_Claim___ActivitiesKeyword_5_0_0_a_IssuesKeyword_5_4_0__q = new GroupAlias(false, true, new TokenAlias(true, true, grammarAccess.getClaimAccess().getActivitiesKeyword_5_0_0()), new TokenAlias(false, false, grammarAccess.getClaimAccess().getIssuesKeyword_5_4_0()));
 		match_CompositeEvidenceExpr_LeftParenthesisKeyword_0_0_a = new TokenAlias(true, true, grammarAccess.getCompositeEvidenceExprAccess().getLeftParenthesisKeyword_0_0());
 		match_CompositeEvidenceExpr_LeftParenthesisKeyword_0_0_p = new TokenAlias(true, false, grammarAccess.getCompositeEvidenceExprAccess().getLeftParenthesisKeyword_0_0());
+		match_GlobalVerificationPlan_IssuesKeyword_9_3_0_q = new TokenAlias(false, true, grammarAccess.getGlobalVerificationPlanAccess().getIssuesKeyword_9_3_0());
 		match_VerificationActivity___PropertyKeyword_10_0_ValuesKeyword_10_1_LeftParenthesisKeyword_10_2_RightParenthesisKeyword_10_4__q = new GroupAlias(false, true, new TokenAlias(false, false, grammarAccess.getVerificationActivityAccess().getPropertyKeyword_10_0()), new TokenAlias(false, false, grammarAccess.getVerificationActivityAccess().getValuesKeyword_10_1()), new TokenAlias(false, false, grammarAccess.getVerificationActivityAccess().getLeftParenthesisKeyword_10_2()), new TokenAlias(false, false, grammarAccess.getVerificationActivityAccess().getRightParenthesisKeyword_10_4()));
 		match_VerificationMethod_CategoryKeyword_5_4_0_q = new TokenAlias(false, true, grammarAccess.getVerificationMethodAccess().getCategoryKeyword_5_4_0());
 		match_VerificationMethod_QualityKeyword_5_5_0_q = new TokenAlias(false, true, grammarAccess.getVerificationMethodAccess().getQualityKeyword_5_5_0());
@@ -93,6 +95,8 @@ public class VerifySyntacticSequencer extends AbstractSyntacticSequencer {
 				emit_CompositeEvidenceExpr_LeftParenthesisKeyword_0_0_a(semanticObject, getLastNavigableState(), syntaxNodes);
 			else if(match_CompositeEvidenceExpr_LeftParenthesisKeyword_0_0_p.equals(syntax))
 				emit_CompositeEvidenceExpr_LeftParenthesisKeyword_0_0_p(semanticObject, getLastNavigableState(), syntaxNodes);
+			else if(match_GlobalVerificationPlan_IssuesKeyword_9_3_0_q.equals(syntax))
+				emit_GlobalVerificationPlan_IssuesKeyword_9_3_0_q(semanticObject, getLastNavigableState(), syntaxNodes);
 			else if(match_VerificationActivity___PropertyKeyword_10_0_ValuesKeyword_10_1_LeftParenthesisKeyword_10_2_RightParenthesisKeyword_10_4__q.equals(syntax))
 				emit_VerificationActivity___PropertyKeyword_10_0_ValuesKeyword_10_1_LeftParenthesisKeyword_10_2_RightParenthesisKeyword_10_4__q(semanticObject, getLastNavigableState(), syntaxNodes);
 			else if(match_VerificationMethod_CategoryKeyword_5_4_0_q.equals(syntax))
@@ -261,6 +265,17 @@ public class VerifySyntacticSequencer extends AbstractSyntacticSequencer {
 	 *     (rule start) (ambiguity) {ThenExpr.left=}
 	 */
 	protected void emit_CompositeEvidenceExpr_LeftParenthesisKeyword_0_0_p(EObject semanticObject, ISynNavigable transition, List<INode> nodes) {
+		acceptNodes(transition, nodes);
+	}
+	
+	/**
+	 * Ambiguous syntax:
+	 *     'issues'?
+	 *
+	 * This ambiguous syntax occurs at:
+	 *     issues+=STRING (ambiguity) issues+=STRING
+	 */
+	protected void emit_GlobalVerificationPlan_IssuesKeyword_9_3_0_q(EObject semanticObject, ISynNavigable transition, List<INode> nodes) {
 		acceptNodes(transition, nodes);
 	}
 	

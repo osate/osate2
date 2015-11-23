@@ -55,6 +55,7 @@ import org.osate.verify.verify.AllExpr;
 import org.osate.verify.verify.Claim;
 import org.osate.verify.verify.ElseExpr;
 import org.osate.verify.verify.FormalParameter;
+import org.osate.verify.verify.GlobalVerificationPlan;
 import org.osate.verify.verify.JavaMethod;
 import org.osate.verify.verify.ManualMethod;
 import org.osate.verify.verify.PluginMethod;
@@ -169,6 +170,9 @@ public class VerifySemanticSequencer extends CommonSemanticSequencer {
 			case VerifyPackage.FORMAL_PARAMETER:
 				sequence_FormalParameter(context, (FormalParameter) semanticObject); 
 				return; 
+			case VerifyPackage.GLOBAL_VERIFICATION_PLAN:
+				sequence_GlobalVerificationPlan(context, (GlobalVerificationPlan) semanticObject); 
+				return; 
 			case VerifyPackage.JAVA_METHOD:
 				sequence_JavaMethod(context, (JavaMethod) semanticObject); 
 				return; 
@@ -250,6 +254,23 @@ public class VerifySemanticSequencer extends CommonSemanticSequencer {
 	 *     (parameterType=ID name=ID unit=[UnitLiteral|ID]?)
 	 */
 	protected void sequence_FormalParameter(EObject context, FormalParameter semanticObject) {
+		genericSequencer.createSequence(context, semanticObject);
+	}
+	
+	
+	/**
+	 * Constraint:
+	 *     (
+	 *         name=QualifiedName 
+	 *         title=STRING? 
+	 *         requirementLibrary=[GlobalRequirements|QualifiedName] 
+	 *         description=Description? 
+	 *         claim+=Claim* 
+	 *         rationale=Rationale? 
+	 *         issues+=STRING*
+	 *     )
+	 */
+	protected void sequence_GlobalVerificationPlan(EObject context, GlobalVerificationPlan semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
 	}
 	
@@ -456,7 +477,7 @@ public class VerifySemanticSequencer extends CommonSemanticSequencer {
 	
 	/**
 	 * Constraint:
-	 *     (contents+=VerificationPlan | contents+=VerificationMethodRegistry)+
+	 *     (contents+=VerificationPlan | contents+=GlobalVerificationPlan | contents+=VerificationMethodRegistry)+
 	 */
 	protected void sequence_Verification(EObject context, Verification semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);

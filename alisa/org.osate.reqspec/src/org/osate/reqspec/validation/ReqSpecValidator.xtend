@@ -52,7 +52,7 @@ import static extension org.osate.reqspec.util.ReqSpecUtilExtension.*
 import org.osate.categories.categories.RequirementCategory
 import org.osate.categories.categories.QualityCategory
 import org.osate.categories.categories.SelectionCategory
-import org.osate.reqspec.reqSpec.RequirementLibrary
+import org.osate.reqspec.reqSpec.GlobalRequirements
 
 /**
  * Custom validation rules. 
@@ -199,17 +199,17 @@ class ReqSpecValidator extends AbstractReqSpecValidator {
 	}
 	
 	@Check(CheckType.NORMAL)
-	def void checkDuplicateRequirementLibrary(RequirementLibrary reqLib) {
+	def void checkDuplicateRequirementLibrary(GlobalRequirements reqLib) {
 		val dupes = refFinder.getDuplicates(reqLib)
 			if (dupes.size > 0) {
 				val node = NodeModelUtils.getNode(reqLib);
 				error("Duplicate requirement library name '" + reqLib.name + "'",  
-					reqLib, ReqSpecPackage.Literals.REQUIREMENT_LIBRARY__NAME,
+					reqLib, ReqSpecPackage.Literals.GLOBAL_REQUIREMENTS__NAME,
 					DUPLICATE_REQUIREMENT_LIBRARY, "" + node.offset, "" + node.length)
 			}
 	}
 	@Check(CheckType.NORMAL)
-	def void checkDuplicateRequirement(RequirementLibrary reqLib) {
+	def void checkDuplicateRequirement(GlobalRequirements reqLib) {
 		reqLib.content.forEach[requirement | 
 			if (reqLib.content.filter[name == requirement.name].size > 1) 
 				error("Duplicate requirement name '" + requirement.name + "' in requirement library '" + reqLib.name + "'",  

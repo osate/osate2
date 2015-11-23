@@ -35,6 +35,7 @@ import org.osate.reqspec.reqSpec.ContractualElement;
 import org.osate.reqspec.reqSpec.DocumentSection;
 import org.osate.reqspec.reqSpec.ExternalDocument;
 import org.osate.reqspec.reqSpec.GlobalConstants;
+import org.osate.reqspec.reqSpec.GlobalRequirements;
 import org.osate.reqspec.reqSpec.Goal;
 import org.osate.reqspec.reqSpec.InformalPredicate;
 import org.osate.reqspec.reqSpec.Predicate;
@@ -46,7 +47,6 @@ import org.osate.reqspec.reqSpec.ReqSpecContainer;
 import org.osate.reqspec.reqSpec.ReqSpecFactory;
 import org.osate.reqspec.reqSpec.ReqSpecPackage;
 import org.osate.reqspec.reqSpec.Requirement;
-import org.osate.reqspec.reqSpec.RequirementLibrary;
 import org.osate.reqspec.reqSpec.StakeholderGoals;
 import org.osate.reqspec.reqSpec.SystemRequirements;
 import org.osate.reqspec.reqSpec.ValuePredicate;
@@ -127,7 +127,7 @@ public class ReqSpecPackageImpl extends EPackageImpl implements ReqSpecPackage
    * <!-- end-user-doc -->
    * @generated
    */
-  private EClass requirementLibraryEClass = null;
+  private EClass globalRequirementsEClass = null;
 
   /**
    * <!-- begin-user-doc -->
@@ -841,9 +841,9 @@ public class ReqSpecPackageImpl extends EPackageImpl implements ReqSpecPackage
    * <!-- end-user-doc -->
    * @generated
    */
-  public EClass getRequirementLibrary()
+  public EClass getGlobalRequirements()
   {
-    return requirementLibraryEClass;
+    return globalRequirementsEClass;
   }
 
   /**
@@ -851,9 +851,9 @@ public class ReqSpecPackageImpl extends EPackageImpl implements ReqSpecPackage
    * <!-- end-user-doc -->
    * @generated
    */
-  public EAttribute getRequirementLibrary_Name()
+  public EAttribute getGlobalRequirements_Name()
   {
-    return (EAttribute)requirementLibraryEClass.getEStructuralFeatures().get(0);
+    return (EAttribute)globalRequirementsEClass.getEStructuralFeatures().get(0);
   }
 
   /**
@@ -861,9 +861,9 @@ public class ReqSpecPackageImpl extends EPackageImpl implements ReqSpecPackage
    * <!-- end-user-doc -->
    * @generated
    */
-  public EAttribute getRequirementLibrary_Title()
+  public EAttribute getGlobalRequirements_Title()
   {
-    return (EAttribute)requirementLibraryEClass.getEStructuralFeatures().get(1);
+    return (EAttribute)globalRequirementsEClass.getEStructuralFeatures().get(1);
   }
 
   /**
@@ -871,9 +871,9 @@ public class ReqSpecPackageImpl extends EPackageImpl implements ReqSpecPackage
    * <!-- end-user-doc -->
    * @generated
    */
-  public EReference getRequirementLibrary_ImportConstants()
+  public EReference getGlobalRequirements_ImportConstants()
   {
-    return (EReference)requirementLibraryEClass.getEStructuralFeatures().get(2);
+    return (EReference)globalRequirementsEClass.getEStructuralFeatures().get(2);
   }
 
   /**
@@ -881,9 +881,9 @@ public class ReqSpecPackageImpl extends EPackageImpl implements ReqSpecPackage
    * <!-- end-user-doc -->
    * @generated
    */
-  public EReference getRequirementLibrary_Description()
+  public EReference getGlobalRequirements_Description()
   {
-    return (EReference)requirementLibraryEClass.getEStructuralFeatures().get(3);
+    return (EReference)globalRequirementsEClass.getEStructuralFeatures().get(3);
   }
 
   /**
@@ -891,9 +891,9 @@ public class ReqSpecPackageImpl extends EPackageImpl implements ReqSpecPackage
    * <!-- end-user-doc -->
    * @generated
    */
-  public EReference getRequirementLibrary_Constants()
+  public EReference getGlobalRequirements_Constants()
   {
-    return (EReference)requirementLibraryEClass.getEStructuralFeatures().get(4);
+    return (EReference)globalRequirementsEClass.getEStructuralFeatures().get(4);
   }
 
   /**
@@ -901,9 +901,9 @@ public class ReqSpecPackageImpl extends EPackageImpl implements ReqSpecPackage
    * <!-- end-user-doc -->
    * @generated
    */
-  public EReference getRequirementLibrary_Computes()
+  public EReference getGlobalRequirements_Computes()
   {
-    return (EReference)requirementLibraryEClass.getEStructuralFeatures().get(5);
+    return (EReference)globalRequirementsEClass.getEStructuralFeatures().get(5);
   }
 
   /**
@@ -911,9 +911,9 @@ public class ReqSpecPackageImpl extends EPackageImpl implements ReqSpecPackage
    * <!-- end-user-doc -->
    * @generated
    */
-  public EReference getRequirementLibrary_Content()
+  public EReference getGlobalRequirements_Content()
   {
-    return (EReference)requirementLibraryEClass.getEStructuralFeatures().get(6);
+    return (EReference)globalRequirementsEClass.getEStructuralFeatures().get(6);
   }
 
   /**
@@ -921,9 +921,9 @@ public class ReqSpecPackageImpl extends EPackageImpl implements ReqSpecPackage
    * <!-- end-user-doc -->
    * @generated
    */
-  public EReference getRequirementLibrary_DocReference()
+  public EReference getGlobalRequirements_DocReference()
   {
-    return (EReference)requirementLibraryEClass.getEStructuralFeatures().get(7);
+    return (EReference)globalRequirementsEClass.getEStructuralFeatures().get(7);
   }
 
   /**
@@ -931,9 +931,9 @@ public class ReqSpecPackageImpl extends EPackageImpl implements ReqSpecPackage
    * <!-- end-user-doc -->
    * @generated
    */
-  public EReference getRequirementLibrary_StakeholderGoals()
+  public EReference getGlobalRequirements_StakeholderGoals()
   {
-    return (EReference)requirementLibraryEClass.getEStructuralFeatures().get(8);
+    return (EReference)globalRequirementsEClass.getEStructuralFeatures().get(8);
   }
 
   /**
@@ -941,9 +941,9 @@ public class ReqSpecPackageImpl extends EPackageImpl implements ReqSpecPackage
    * <!-- end-user-doc -->
    * @generated
    */
-  public EAttribute getRequirementLibrary_Issues()
+  public EAttribute getGlobalRequirements_Issues()
   {
-    return (EAttribute)requirementLibraryEClass.getEStructuralFeatures().get(9);
+    return (EAttribute)globalRequirementsEClass.getEStructuralFeatures().get(9);
   }
 
   /**
@@ -1294,17 +1294,17 @@ public class ReqSpecPackageImpl extends EPackageImpl implements ReqSpecPackage
     createEReference(systemRequirementsEClass, SYSTEM_REQUIREMENTS__STAKEHOLDER_GOALS);
     createEAttribute(systemRequirementsEClass, SYSTEM_REQUIREMENTS__ISSUES);
 
-    requirementLibraryEClass = createEClass(REQUIREMENT_LIBRARY);
-    createEAttribute(requirementLibraryEClass, REQUIREMENT_LIBRARY__NAME);
-    createEAttribute(requirementLibraryEClass, REQUIREMENT_LIBRARY__TITLE);
-    createEReference(requirementLibraryEClass, REQUIREMENT_LIBRARY__IMPORT_CONSTANTS);
-    createEReference(requirementLibraryEClass, REQUIREMENT_LIBRARY__DESCRIPTION);
-    createEReference(requirementLibraryEClass, REQUIREMENT_LIBRARY__CONSTANTS);
-    createEReference(requirementLibraryEClass, REQUIREMENT_LIBRARY__COMPUTES);
-    createEReference(requirementLibraryEClass, REQUIREMENT_LIBRARY__CONTENT);
-    createEReference(requirementLibraryEClass, REQUIREMENT_LIBRARY__DOC_REFERENCE);
-    createEReference(requirementLibraryEClass, REQUIREMENT_LIBRARY__STAKEHOLDER_GOALS);
-    createEAttribute(requirementLibraryEClass, REQUIREMENT_LIBRARY__ISSUES);
+    globalRequirementsEClass = createEClass(GLOBAL_REQUIREMENTS);
+    createEAttribute(globalRequirementsEClass, GLOBAL_REQUIREMENTS__NAME);
+    createEAttribute(globalRequirementsEClass, GLOBAL_REQUIREMENTS__TITLE);
+    createEReference(globalRequirementsEClass, GLOBAL_REQUIREMENTS__IMPORT_CONSTANTS);
+    createEReference(globalRequirementsEClass, GLOBAL_REQUIREMENTS__DESCRIPTION);
+    createEReference(globalRequirementsEClass, GLOBAL_REQUIREMENTS__CONSTANTS);
+    createEReference(globalRequirementsEClass, GLOBAL_REQUIREMENTS__COMPUTES);
+    createEReference(globalRequirementsEClass, GLOBAL_REQUIREMENTS__CONTENT);
+    createEReference(globalRequirementsEClass, GLOBAL_REQUIREMENTS__DOC_REFERENCE);
+    createEReference(globalRequirementsEClass, GLOBAL_REQUIREMENTS__STAKEHOLDER_GOALS);
+    createEAttribute(globalRequirementsEClass, GLOBAL_REQUIREMENTS__ISSUES);
 
     goalEClass = createEClass(GOAL);
     createEReference(goalEClass, GOAL__REFINES_REFERENCE);
@@ -1382,8 +1382,8 @@ public class ReqSpecPackageImpl extends EPackageImpl implements ReqSpecPackage
     documentSectionEClass.getESuperTypes().add(this.getReqSpecContainer());
     systemRequirementsEClass.getESuperTypes().add(this.getReqSpecContainer());
     systemRequirementsEClass.getESuperTypes().add(this.getReqRoot());
-    requirementLibraryEClass.getESuperTypes().add(this.getReqSpecContainer());
-    requirementLibraryEClass.getESuperTypes().add(this.getReqRoot());
+    globalRequirementsEClass.getESuperTypes().add(this.getReqSpecContainer());
+    globalRequirementsEClass.getESuperTypes().add(this.getReqRoot());
     goalEClass.getESuperTypes().add(this.getContractualElement());
     requirementEClass.getESuperTypes().add(this.getContractualElement());
     informalPredicateEClass.getESuperTypes().add(this.getReqPredicate());
@@ -1459,17 +1459,17 @@ public class ReqSpecPackageImpl extends EPackageImpl implements ReqSpecPackage
     initEReference(getSystemRequirements_StakeholderGoals(), this.getReqRoot(), null, "stakeholderGoals", null, 0, -1, SystemRequirements.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEAttribute(getSystemRequirements_Issues(), theEcorePackage.getEString(), "issues", null, 0, -1, SystemRequirements.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
-    initEClass(requirementLibraryEClass, RequirementLibrary.class, "RequirementLibrary", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-    initEAttribute(getRequirementLibrary_Name(), theEcorePackage.getEString(), "name", null, 0, 1, RequirementLibrary.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-    initEAttribute(getRequirementLibrary_Title(), theEcorePackage.getEString(), "title", null, 0, 1, RequirementLibrary.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-    initEReference(getRequirementLibrary_ImportConstants(), this.getGlobalConstants(), null, "importConstants", null, 0, -1, RequirementLibrary.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-    initEReference(getRequirementLibrary_Description(), theCommonPackage.getDescription(), null, "description", null, 0, 1, RequirementLibrary.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-    initEReference(getRequirementLibrary_Constants(), theCommonPackage.getAVariableDeclaration(), null, "constants", null, 0, -1, RequirementLibrary.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-    initEReference(getRequirementLibrary_Computes(), theCommonPackage.getAVariableDeclaration(), null, "computes", null, 0, -1, RequirementLibrary.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-    initEReference(getRequirementLibrary_Content(), this.getRequirement(), null, "content", null, 0, -1, RequirementLibrary.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-    initEReference(getRequirementLibrary_DocReference(), this.getExternalDocument(), null, "docReference", null, 0, -1, RequirementLibrary.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-    initEReference(getRequirementLibrary_StakeholderGoals(), this.getReqRoot(), null, "stakeholderGoals", null, 0, -1, RequirementLibrary.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-    initEAttribute(getRequirementLibrary_Issues(), theEcorePackage.getEString(), "issues", null, 0, -1, RequirementLibrary.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEClass(globalRequirementsEClass, GlobalRequirements.class, "GlobalRequirements", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+    initEAttribute(getGlobalRequirements_Name(), theEcorePackage.getEString(), "name", null, 0, 1, GlobalRequirements.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEAttribute(getGlobalRequirements_Title(), theEcorePackage.getEString(), "title", null, 0, 1, GlobalRequirements.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEReference(getGlobalRequirements_ImportConstants(), this.getGlobalConstants(), null, "importConstants", null, 0, -1, GlobalRequirements.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEReference(getGlobalRequirements_Description(), theCommonPackage.getDescription(), null, "description", null, 0, 1, GlobalRequirements.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEReference(getGlobalRequirements_Constants(), theCommonPackage.getAVariableDeclaration(), null, "constants", null, 0, -1, GlobalRequirements.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEReference(getGlobalRequirements_Computes(), theCommonPackage.getAVariableDeclaration(), null, "computes", null, 0, -1, GlobalRequirements.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEReference(getGlobalRequirements_Content(), this.getRequirement(), null, "content", null, 0, -1, GlobalRequirements.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEReference(getGlobalRequirements_DocReference(), this.getExternalDocument(), null, "docReference", null, 0, -1, GlobalRequirements.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEReference(getGlobalRequirements_StakeholderGoals(), this.getReqRoot(), null, "stakeholderGoals", null, 0, -1, GlobalRequirements.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEAttribute(getGlobalRequirements_Issues(), theEcorePackage.getEString(), "issues", null, 0, -1, GlobalRequirements.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
     initEClass(goalEClass, Goal.class, "Goal", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
     initEReference(getGoal_RefinesReference(), this.getGoal(), null, "refinesReference", null, 0, -1, Goal.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED);

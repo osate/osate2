@@ -53,6 +53,7 @@ import org.osate.alisa.common.serializer.CommonSemanticSequencer;
 import org.osate.reqspec.reqSpec.DocumentSection;
 import org.osate.reqspec.reqSpec.ExternalDocument;
 import org.osate.reqspec.reqSpec.GlobalConstants;
+import org.osate.reqspec.reqSpec.GlobalRequirements;
 import org.osate.reqspec.reqSpec.Goal;
 import org.osate.reqspec.reqSpec.InformalPredicate;
 import org.osate.reqspec.reqSpec.Predicate;
@@ -60,7 +61,6 @@ import org.osate.reqspec.reqSpec.ReqDocument;
 import org.osate.reqspec.reqSpec.ReqSpec;
 import org.osate.reqspec.reqSpec.ReqSpecPackage;
 import org.osate.reqspec.reqSpec.Requirement;
-import org.osate.reqspec.reqSpec.RequirementLibrary;
 import org.osate.reqspec.reqSpec.StakeholderGoals;
 import org.osate.reqspec.reqSpec.SystemRequirements;
 import org.osate.reqspec.reqSpec.ValuePredicate;
@@ -148,6 +148,9 @@ public class ReqSpecSemanticSequencer extends CommonSemanticSequencer {
 			case ReqSpecPackage.GLOBAL_CONSTANTS:
 				sequence_GlobalConstants(context, (GlobalConstants) semanticObject); 
 				return; 
+			case ReqSpecPackage.GLOBAL_REQUIREMENTS:
+				sequence_GlobalRequirements(context, (GlobalRequirements) semanticObject); 
+				return; 
 			case ReqSpecPackage.GOAL:
 				if(context == grammarAccess.getContractualElementRule()) {
 					sequence_ContractualElement_DocGoal_Goal(context, (Goal) semanticObject); 
@@ -192,9 +195,6 @@ public class ReqSpecSemanticSequencer extends CommonSemanticSequencer {
 					return; 
 				}
 				else break;
-			case ReqSpecPackage.REQUIREMENT_LIBRARY:
-				sequence_RequirementLibrary(context, (RequirementLibrary) semanticObject); 
-				return; 
 			case ReqSpecPackage.STAKEHOLDER_GOALS:
 				sequence_StakeholderGoals(context, (StakeholderGoals) semanticObject); 
 				return; 
@@ -404,6 +404,26 @@ public class ReqSpecSemanticSequencer extends CommonSemanticSequencer {
 	/**
 	 * Constraint:
 	 *     (
+	 *         name=QualifiedName 
+	 *         title=STRING? 
+	 *         importConstants+=[GlobalConstants|QualifiedName]* 
+	 *         description=Description? 
+	 *         constants+=ValDeclaration* 
+	 *         computes+=ComputeDeclaration* 
+	 *         content+=Requirement* 
+	 *         docReference+=ExternalDocument* 
+	 *         stakeholderGoals+=[ReqRoot|QualifiedName]* 
+	 *         issues+=STRING*
+	 *     )
+	 */
+	protected void sequence_GlobalRequirements(EObject context, GlobalRequirements semanticObject) {
+		genericSequencer.createSequence(context, semanticObject);
+	}
+	
+	
+	/**
+	 * Constraint:
+	 *     (
 	 *         name=ID 
 	 *         title=STRING? 
 	 *         targetElement=[NamedElement|ID]? 
@@ -478,29 +498,9 @@ public class ReqSpecSemanticSequencer extends CommonSemanticSequencer {
 	
 	/**
 	 * Constraint:
-	 *     (parts+=SystemRequirements | parts+=RequirementLibrary | parts+=StakeholderGoals | parts+=ReqDocument | parts+=GlobalConstants)+
+	 *     (parts+=SystemRequirements | parts+=GlobalRequirements | parts+=StakeholderGoals | parts+=ReqDocument | parts+=GlobalConstants)+
 	 */
 	protected void sequence_ReqSpec(EObject context, ReqSpec semanticObject) {
-		genericSequencer.createSequence(context, semanticObject);
-	}
-	
-	
-	/**
-	 * Constraint:
-	 *     (
-	 *         name=QualifiedName 
-	 *         title=STRING? 
-	 *         importConstants+=[GlobalConstants|QualifiedName]* 
-	 *         description=Description? 
-	 *         constants+=ValDeclaration* 
-	 *         computes+=ComputeDeclaration* 
-	 *         content+=Requirement* 
-	 *         docReference+=ExternalDocument* 
-	 *         stakeholderGoals+=[ReqRoot|QualifiedName]* 
-	 *         issues+=STRING*
-	 *     )
-	 */
-	protected void sequence_RequirementLibrary(EObject context, RequirementLibrary semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
 	}
 	

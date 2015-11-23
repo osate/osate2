@@ -52,6 +52,7 @@ class ReqSpecFormatter extends AbstractDeclarativeFormatter {
 		c.setLinewrap(1,2,2).after(stakeholderGoalsRule);
 		c.setLinewrap(1,2,2).after(reqDocumentRule);
 		c.setLinewrap(1,2,2).after(systemRequirementsRule);
+		c.setLinewrap(1,2,2).after(globalRequirementsRule);
 		c.setLinewrap(1,2,2).before(requirementRule);
 		c.setLinewrap(1,2,2).before(docRequirementRule);
 		c.setLinewrap(1,2,2).before(documentSectionRule);
@@ -64,7 +65,7 @@ class ReqSpecFormatter extends AbstractDeclarativeFormatter {
 		c.setLinewrap(1,2,2).before(rationaleRule);
 		
 		c.setLinewrap(1,2,2).after(systemRequirementsRule);
-		for (kw : findKeywords("val", "compute","description","category","property","type","rationale",
+		for (kw : findKeywords("val", "compute","description","category","selection","phase","property","type","rationale",
 		"refines","conflicts","decomposes","mitigates","evolves","stakeholder","see","issues")) {
 			c.setLinewrap().before(kw);
 		}

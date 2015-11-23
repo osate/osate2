@@ -91,6 +91,7 @@ public class VerifyFactoryImpl extends EFactoryImpl implements VerifyFactory
       case VerifyPackage.JAVA_METHOD: return createJavaMethod();
       case VerifyPackage.MANUAL_METHOD: return createManualMethod();
       case VerifyPackage.PLUGIN_METHOD: return createPluginMethod();
+      case VerifyPackage.GLOBAL_VERIFICATION_PLAN: return createGlobalVerificationPlan();
       case VerifyPackage.THEN_EXPR: return createThenExpr();
       case VerifyPackage.ELSE_EXPR: return createElseExpr();
       case VerifyPackage.ALL_EXPR: return createAllExpr();
@@ -254,6 +255,17 @@ public class VerifyFactoryImpl extends EFactoryImpl implements VerifyFactory
   {
     PluginMethodImpl pluginMethod = new PluginMethodImpl();
     return pluginMethod;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public GlobalVerificationPlan createGlobalVerificationPlan()
+  {
+    GlobalVerificationPlanImpl globalVerificationPlan = new GlobalVerificationPlanImpl();
+    return globalVerificationPlan;
   }
 
   /**

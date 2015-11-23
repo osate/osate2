@@ -155,12 +155,12 @@ public class ReqSpecSwitch<T> extends Switch<T>
         if (result == null) result = defaultCase(theEObject);
         return result;
       }
-      case ReqSpecPackage.REQUIREMENT_LIBRARY:
+      case ReqSpecPackage.GLOBAL_REQUIREMENTS:
       {
-        RequirementLibrary requirementLibrary = (RequirementLibrary)theEObject;
-        T result = caseRequirementLibrary(requirementLibrary);
-        if (result == null) result = caseReqSpecContainer(requirementLibrary);
-        if (result == null) result = caseReqRoot(requirementLibrary);
+        GlobalRequirements globalRequirements = (GlobalRequirements)theEObject;
+        T result = caseGlobalRequirements(globalRequirements);
+        if (result == null) result = caseReqSpecContainer(globalRequirements);
+        if (result == null) result = caseReqRoot(globalRequirements);
         if (result == null) result = defaultCase(theEObject);
         return result;
       }
@@ -367,17 +367,17 @@ public class ReqSpecSwitch<T> extends Switch<T>
   }
 
   /**
-   * Returns the result of interpreting the object as an instance of '<em>Requirement Library</em>'.
+   * Returns the result of interpreting the object as an instance of '<em>Global Requirements</em>'.
    * <!-- begin-user-doc -->
    * This implementation returns null;
    * returning a non-null result will terminate the switch.
    * <!-- end-user-doc -->
    * @param object the target of the switch.
-   * @return the result of interpreting the object as an instance of '<em>Requirement Library</em>'.
+   * @return the result of interpreting the object as an instance of '<em>Global Requirements</em>'.
    * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
    * @generated
    */
-  public T caseRequirementLibrary(RequirementLibrary object)
+  public T caseGlobalRequirements(GlobalRequirements object)
   {
     return null;
   }

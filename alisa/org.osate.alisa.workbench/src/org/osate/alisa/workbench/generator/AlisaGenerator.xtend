@@ -89,7 +89,7 @@ class AlisaGenerator implements IGenerator {
 
 	def generateRootCase(AssurancePlan acp) {
 		if (acp.assureGlobal.isEmpty){
-			allPlans = referenceFinder.getGlobalReqVerificationPlans(acp,acp.target?.category)
+			allPlans = referenceFinder.getVerificationPlanLibraries(acp)
 		} else {
 			allPlans = acp.assureGlobal
 		}

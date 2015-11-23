@@ -108,9 +108,9 @@ ruleVerification returns [EObject current=null]
 	    }
 
     |		{ 
-	        newCompositeNode(grammarAccess.getVerificationAccess().getContentsVerificationMethodRegistryParserRuleCall_0_1()); 
+	        newCompositeNode(grammarAccess.getVerificationAccess().getContentsGlobalVerificationPlanParserRuleCall_0_1()); 
 	    }
-		lv_contents_0_2=ruleVerificationMethodRegistry		{
+		lv_contents_0_2=ruleGlobalVerificationPlan		{
 	        if ($current==null) {
 	            $current = createModelElementForParent(grammarAccess.getVerificationRule());
 	        }
@@ -118,6 +118,21 @@ ruleVerification returns [EObject current=null]
        			$current, 
        			"contents",
         		lv_contents_0_2, 
+        		"GlobalVerificationPlan");
+	        afterParserOrEnumRuleCall();
+	    }
+
+    |		{ 
+	        newCompositeNode(grammarAccess.getVerificationAccess().getContentsVerificationMethodRegistryParserRuleCall_0_2()); 
+	    }
+		lv_contents_0_3=ruleVerificationMethodRegistry		{
+	        if ($current==null) {
+	            $current = createModelElementForParent(grammarAccess.getVerificationRule());
+	        }
+       		add(
+       			$current, 
+       			"contents",
+        		lv_contents_0_3, 
         		"VerificationMethodRegistry");
 	        afterParserOrEnumRuleCall();
 	    }
@@ -360,6 +375,252 @@ ruleVerificationPlan returns [EObject current=null]
 )	otherlv_14=']' 
     {
     	newLeafNode(otherlv_14, grammarAccess.getVerificationPlanAccess().getRightSquareBracketKeyword_8());
+    }
+)
+;
+
+
+
+
+
+// Entry rule entryRuleGlobalVerificationPlan
+entryRuleGlobalVerificationPlan returns [EObject current=null] 
+	:
+	{ newCompositeNode(grammarAccess.getGlobalVerificationPlanRule()); }
+	 iv_ruleGlobalVerificationPlan=ruleGlobalVerificationPlan 
+	 { $current=$iv_ruleGlobalVerificationPlan.current; } 
+	 EOF 
+;
+
+// Rule GlobalVerificationPlan
+ruleGlobalVerificationPlan returns [EObject current=null] 
+    @init { enterRule(); 
+    }
+    @after { leaveRule(); }:
+(	otherlv_0='verification' 
+    {
+    	newLeafNode(otherlv_0, grammarAccess.getGlobalVerificationPlanAccess().getVerificationKeyword_0());
+    }
+	otherlv_1='plan' 
+    {
+    	newLeafNode(otherlv_1, grammarAccess.getGlobalVerificationPlanAccess().getPlanKeyword_1());
+    }
+	otherlv_2='library' 
+    {
+    	newLeafNode(otherlv_2, grammarAccess.getGlobalVerificationPlanAccess().getLibraryKeyword_2());
+    }
+(
+    {
+        $current = forceCreateModelElement(
+            grammarAccess.getGlobalVerificationPlanAccess().getGlobalVerificationPlanAction_3(),
+            $current);
+    }
+)(
+(
+		{ 
+	        newCompositeNode(grammarAccess.getGlobalVerificationPlanAccess().getNameQualifiedNameParserRuleCall_4_0()); 
+	    }
+		lv_name_4_0=ruleQualifiedName		{
+	        if ($current==null) {
+	            $current = createModelElementForParent(grammarAccess.getGlobalVerificationPlanRule());
+	        }
+       		set(
+       			$current, 
+       			"name",
+        		lv_name_4_0, 
+        		"QualifiedName");
+	        afterParserOrEnumRuleCall();
+	    }
+
+)
+)(	otherlv_5=':' 
+    {
+    	newLeafNode(otherlv_5, grammarAccess.getGlobalVerificationPlanAccess().getColonKeyword_5_0());
+    }
+(
+(
+		lv_title_6_0=RULE_STRING
+		{
+			newLeafNode(lv_title_6_0, grammarAccess.getGlobalVerificationPlanAccess().getTitleSTRINGTerminalRuleCall_5_1_0()); 
+		}
+		{
+	        if ($current==null) {
+	            $current = createModelElement(grammarAccess.getGlobalVerificationPlanRule());
+	        }
+       		setWithLastConsumed(
+       			$current, 
+       			"title",
+        		lv_title_6_0, 
+        		"STRING");
+	    }
+
+)
+))?	otherlv_7='for' 
+    {
+    	newLeafNode(otherlv_7, grammarAccess.getGlobalVerificationPlanAccess().getForKeyword_6());
+    }
+(
+(
+		{
+			if ($current==null) {
+	            $current = createModelElement(grammarAccess.getGlobalVerificationPlanRule());
+	        }
+        }
+		{ 
+	        newCompositeNode(grammarAccess.getGlobalVerificationPlanAccess().getRequirementLibraryGlobalRequirementsCrossReference_7_0()); 
+	    }
+		ruleQualifiedName		{ 
+	        afterParserOrEnumRuleCall();
+	    }
+
+)
+)	otherlv_9='[' 
+    {
+    	newLeafNode(otherlv_9, grammarAccess.getGlobalVerificationPlanAccess().getLeftSquareBracketKeyword_8());
+    }
+(
+
+(
+	{ 
+	  getUnorderedGroupHelper().enter(grammarAccess.getGlobalVerificationPlanAccess().getUnorderedGroup_9());
+	}
+	(
+		(
+
+			( 
+				{getUnorderedGroupHelper().canSelect(grammarAccess.getGlobalVerificationPlanAccess().getUnorderedGroup_9(), 0)}?=>(
+					{ 
+	 				  getUnorderedGroupHelper().select(grammarAccess.getGlobalVerificationPlanAccess().getUnorderedGroup_9(), 0);
+	 				}
+					({true}?=>(
+(
+		{ 
+	        newCompositeNode(grammarAccess.getGlobalVerificationPlanAccess().getDescriptionDescriptionParserRuleCall_9_0_0()); 
+	    }
+		lv_description_11_0=ruleDescription		{
+	        if ($current==null) {
+	            $current = createModelElementForParent(grammarAccess.getGlobalVerificationPlanRule());
+	        }
+       		set(
+       			$current, 
+       			"description",
+        		lv_description_11_0, 
+        		"Description");
+	        afterParserOrEnumRuleCall();
+	    }
+
+)
+))
+					{ 
+	 				  getUnorderedGroupHelper().returnFromSelection(grammarAccess.getGlobalVerificationPlanAccess().getUnorderedGroup_9());
+	 				}
+ 				)
+			)  |
+
+			( 
+				{getUnorderedGroupHelper().canSelect(grammarAccess.getGlobalVerificationPlanAccess().getUnorderedGroup_9(), 1)}?=>(
+					{ 
+	 				  getUnorderedGroupHelper().select(grammarAccess.getGlobalVerificationPlanAccess().getUnorderedGroup_9(), 1);
+	 				}
+					({true}?=>(
+(
+		{ 
+	        newCompositeNode(grammarAccess.getGlobalVerificationPlanAccess().getClaimClaimParserRuleCall_9_1_0()); 
+	    }
+		lv_claim_12_0=ruleClaim		{
+	        if ($current==null) {
+	            $current = createModelElementForParent(grammarAccess.getGlobalVerificationPlanRule());
+	        }
+       		add(
+       			$current, 
+       			"claim",
+        		lv_claim_12_0, 
+        		"Claim");
+	        afterParserOrEnumRuleCall();
+	    }
+
+)
+))+
+					{ 
+	 				  getUnorderedGroupHelper().returnFromSelection(grammarAccess.getGlobalVerificationPlanAccess().getUnorderedGroup_9());
+	 				}
+ 				)
+			)  |
+
+			( 
+				{getUnorderedGroupHelper().canSelect(grammarAccess.getGlobalVerificationPlanAccess().getUnorderedGroup_9(), 2)}?=>(
+					{ 
+	 				  getUnorderedGroupHelper().select(grammarAccess.getGlobalVerificationPlanAccess().getUnorderedGroup_9(), 2);
+	 				}
+					({true}?=>(
+(
+		{ 
+	        newCompositeNode(grammarAccess.getGlobalVerificationPlanAccess().getRationaleRationaleParserRuleCall_9_2_0()); 
+	    }
+		lv_rationale_13_0=ruleRationale		{
+	        if ($current==null) {
+	            $current = createModelElementForParent(grammarAccess.getGlobalVerificationPlanRule());
+	        }
+       		set(
+       			$current, 
+       			"rationale",
+        		lv_rationale_13_0, 
+        		"Rationale");
+	        afterParserOrEnumRuleCall();
+	    }
+
+)
+))
+					{ 
+	 				  getUnorderedGroupHelper().returnFromSelection(grammarAccess.getGlobalVerificationPlanAccess().getUnorderedGroup_9());
+	 				}
+ 				)
+			)  |
+
+			( 
+				{getUnorderedGroupHelper().canSelect(grammarAccess.getGlobalVerificationPlanAccess().getUnorderedGroup_9(), 3)}?=>(
+					{ 
+	 				  getUnorderedGroupHelper().select(grammarAccess.getGlobalVerificationPlanAccess().getUnorderedGroup_9(), 3);
+	 				}
+					({true}?=>(	otherlv_14='issues' 
+    {
+    	newLeafNode(otherlv_14, grammarAccess.getGlobalVerificationPlanAccess().getIssuesKeyword_9_3_0());
+    }
+(
+(
+		lv_issues_15_0=RULE_STRING
+		{
+			newLeafNode(lv_issues_15_0, grammarAccess.getGlobalVerificationPlanAccess().getIssuesSTRINGTerminalRuleCall_9_3_1_0()); 
+		}
+		{
+	        if ($current==null) {
+	            $current = createModelElement(grammarAccess.getGlobalVerificationPlanRule());
+	        }
+       		addWithLastConsumed(
+       			$current, 
+       			"issues",
+        		lv_issues_15_0, 
+        		"STRING");
+	    }
+
+)
+)+))
+					{ 
+	 				  getUnorderedGroupHelper().returnFromSelection(grammarAccess.getGlobalVerificationPlanAccess().getUnorderedGroup_9());
+	 				}
+ 				)
+			)  
+
+		)*	
+	)
+)
+	{ 
+	  getUnorderedGroupHelper().leave(grammarAccess.getGlobalVerificationPlanAccess().getUnorderedGroup_9());
+	}
+
+)	otherlv_16=']' 
+    {
+    	newLeafNode(otherlv_16, grammarAccess.getGlobalVerificationPlanAccess().getRightSquareBracketKeyword_10());
     }
 )
 ;
