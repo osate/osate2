@@ -958,35 +958,28 @@ public class VerifyGrammarAccess extends AbstractGrammarElementFinder {
 		private final Group cGroup = (Group)rule.eContents().get(1);
 		private final Keyword cValidationKeyword_0 = (Keyword)cGroup.eContents().get(0);
 		private final Action cVerificationValidationAction_1 = (Action)cGroup.eContents().get(1);
-		private final Assignment cNameAssignment_2 = (Assignment)cGroup.eContents().get(2);
-		private final RuleCall cNameIDTerminalRuleCall_2_0 = (RuleCall)cNameAssignment_2.eContents().get(0);
-		private final Group cGroup_3 = (Group)cGroup.eContents().get(3);
-		private final Keyword cColonKeyword_3_0 = (Keyword)cGroup_3.eContents().get(0);
-		private final Assignment cTitleAssignment_3_1 = (Assignment)cGroup_3.eContents().get(1);
-		private final RuleCall cTitleSTRINGTerminalRuleCall_3_1_0 = (RuleCall)cTitleAssignment_3_1.eContents().get(0);
-		private final Keyword cColonKeyword_4 = (Keyword)cGroup.eContents().get(4);
-		private final Assignment cMethodAssignment_5 = (Assignment)cGroup.eContents().get(5);
-		private final CrossReference cMethodVerificationMethodCrossReference_5_0 = (CrossReference)cMethodAssignment_5.eContents().get(0);
-		private final RuleCall cMethodVerificationMethodQualifiedNameParserRuleCall_5_0_1 = (RuleCall)cMethodVerificationMethodCrossReference_5_0.eContents().get(1);
-		private final Keyword cLeftParenthesisKeyword_6 = (Keyword)cGroup.eContents().get(6);
-		private final Group cGroup_7 = (Group)cGroup.eContents().get(7);
-		private final Assignment cParametersAssignment_7_0 = (Assignment)cGroup_7.eContents().get(0);
-		private final CrossReference cParametersFormalParameterCrossReference_7_0_0 = (CrossReference)cParametersAssignment_7_0.eContents().get(0);
-		private final RuleCall cParametersFormalParameterIDTerminalRuleCall_7_0_0_1 = (RuleCall)cParametersFormalParameterCrossReference_7_0_0.eContents().get(1);
-		private final Group cGroup_7_1 = (Group)cGroup_7.eContents().get(1);
-		private final Keyword cCommaKeyword_7_1_0 = (Keyword)cGroup_7_1.eContents().get(0);
-		private final Assignment cParametersAssignment_7_1_1 = (Assignment)cGroup_7_1.eContents().get(1);
-		private final CrossReference cParametersFormalParameterCrossReference_7_1_1_0 = (CrossReference)cParametersAssignment_7_1_1.eContents().get(0);
-		private final RuleCall cParametersFormalParameterIDTerminalRuleCall_7_1_1_0_1 = (RuleCall)cParametersFormalParameterCrossReference_7_1_1_0.eContents().get(1);
-		private final Keyword cRightParenthesisKeyword_8 = (Keyword)cGroup.eContents().get(8);
+		private final Assignment cMethodAssignment_2 = (Assignment)cGroup.eContents().get(2);
+		private final CrossReference cMethodVerificationMethodCrossReference_2_0 = (CrossReference)cMethodAssignment_2.eContents().get(0);
+		private final RuleCall cMethodVerificationMethodQualifiedNameParserRuleCall_2_0_1 = (RuleCall)cMethodVerificationMethodCrossReference_2_0.eContents().get(1);
+		private final Keyword cLeftParenthesisKeyword_3 = (Keyword)cGroup.eContents().get(3);
+		private final Group cGroup_4 = (Group)cGroup.eContents().get(4);
+		private final Assignment cParametersAssignment_4_0 = (Assignment)cGroup_4.eContents().get(0);
+		private final CrossReference cParametersFormalParameterCrossReference_4_0_0 = (CrossReference)cParametersAssignment_4_0.eContents().get(0);
+		private final RuleCall cParametersFormalParameterIDTerminalRuleCall_4_0_0_1 = (RuleCall)cParametersFormalParameterCrossReference_4_0_0.eContents().get(1);
+		private final Group cGroup_4_1 = (Group)cGroup_4.eContents().get(1);
+		private final Keyword cCommaKeyword_4_1_0 = (Keyword)cGroup_4_1.eContents().get(0);
+		private final Assignment cParametersAssignment_4_1_1 = (Assignment)cGroup_4_1.eContents().get(1);
+		private final CrossReference cParametersFormalParameterCrossReference_4_1_1_0 = (CrossReference)cParametersAssignment_4_1_1.eContents().get(0);
+		private final RuleCall cParametersFormalParameterIDTerminalRuleCall_4_1_1_0_1 = (RuleCall)cParametersFormalParameterCrossReference_4_1_1_0.eContents().get(1);
+		private final Keyword cRightParenthesisKeyword_5 = (Keyword)cGroup.eContents().get(5);
 		
 		//VerificationValidation returns VerificationCondition:
-		//	"validation" {VerificationValidation} name=ID (":" title=STRING)? ":" method=[VerificationMethod|QualifiedName] "("
-		//	(parameters+=[FormalParameter] ("," parameters+=[FormalParameter])*)? ")";
+		//	"validation" {VerificationValidation} method=[VerificationMethod|QualifiedName] "(" (parameters+=[FormalParameter]
+		//	("," parameters+=[FormalParameter])*)? ")";
 		@Override public ParserRule getRule() { return rule; }
 
-		//"validation" {VerificationValidation} name=ID (":" title=STRING)? ":" method=[VerificationMethod|QualifiedName] "("
-		//(parameters+=[FormalParameter] ("," parameters+=[FormalParameter])*)? ")"
+		//"validation" {VerificationValidation} method=[VerificationMethod|QualifiedName] "(" (parameters+=[FormalParameter] (","
+		//parameters+=[FormalParameter])*)? ")"
 		public Group getGroup() { return cGroup; }
 
 		//"validation"
@@ -995,68 +988,47 @@ public class VerifyGrammarAccess extends AbstractGrammarElementFinder {
 		//{VerificationValidation}
 		public Action getVerificationValidationAction_1() { return cVerificationValidationAction_1; }
 
-		//name=ID
-		public Assignment getNameAssignment_2() { return cNameAssignment_2; }
-
-		//ID
-		public RuleCall getNameIDTerminalRuleCall_2_0() { return cNameIDTerminalRuleCall_2_0; }
-
-		//(":" title=STRING)?
-		public Group getGroup_3() { return cGroup_3; }
-
-		//":"
-		public Keyword getColonKeyword_3_0() { return cColonKeyword_3_0; }
-
-		//title=STRING
-		public Assignment getTitleAssignment_3_1() { return cTitleAssignment_3_1; }
-
-		//STRING
-		public RuleCall getTitleSTRINGTerminalRuleCall_3_1_0() { return cTitleSTRINGTerminalRuleCall_3_1_0; }
-
-		//":"
-		public Keyword getColonKeyword_4() { return cColonKeyword_4; }
-
 		//method=[VerificationMethod|QualifiedName]
-		public Assignment getMethodAssignment_5() { return cMethodAssignment_5; }
+		public Assignment getMethodAssignment_2() { return cMethodAssignment_2; }
 
 		//[VerificationMethod|QualifiedName]
-		public CrossReference getMethodVerificationMethodCrossReference_5_0() { return cMethodVerificationMethodCrossReference_5_0; }
+		public CrossReference getMethodVerificationMethodCrossReference_2_0() { return cMethodVerificationMethodCrossReference_2_0; }
 
 		//QualifiedName
-		public RuleCall getMethodVerificationMethodQualifiedNameParserRuleCall_5_0_1() { return cMethodVerificationMethodQualifiedNameParserRuleCall_5_0_1; }
+		public RuleCall getMethodVerificationMethodQualifiedNameParserRuleCall_2_0_1() { return cMethodVerificationMethodQualifiedNameParserRuleCall_2_0_1; }
 
 		//"("
-		public Keyword getLeftParenthesisKeyword_6() { return cLeftParenthesisKeyword_6; }
+		public Keyword getLeftParenthesisKeyword_3() { return cLeftParenthesisKeyword_3; }
 
 		//(parameters+=[FormalParameter] ("," parameters+=[FormalParameter])*)?
-		public Group getGroup_7() { return cGroup_7; }
+		public Group getGroup_4() { return cGroup_4; }
 
 		//parameters+=[FormalParameter]
-		public Assignment getParametersAssignment_7_0() { return cParametersAssignment_7_0; }
+		public Assignment getParametersAssignment_4_0() { return cParametersAssignment_4_0; }
 
 		//[FormalParameter]
-		public CrossReference getParametersFormalParameterCrossReference_7_0_0() { return cParametersFormalParameterCrossReference_7_0_0; }
+		public CrossReference getParametersFormalParameterCrossReference_4_0_0() { return cParametersFormalParameterCrossReference_4_0_0; }
 
 		//ID
-		public RuleCall getParametersFormalParameterIDTerminalRuleCall_7_0_0_1() { return cParametersFormalParameterIDTerminalRuleCall_7_0_0_1; }
+		public RuleCall getParametersFormalParameterIDTerminalRuleCall_4_0_0_1() { return cParametersFormalParameterIDTerminalRuleCall_4_0_0_1; }
 
 		//("," parameters+=[FormalParameter])*
-		public Group getGroup_7_1() { return cGroup_7_1; }
+		public Group getGroup_4_1() { return cGroup_4_1; }
 
 		//","
-		public Keyword getCommaKeyword_7_1_0() { return cCommaKeyword_7_1_0; }
+		public Keyword getCommaKeyword_4_1_0() { return cCommaKeyword_4_1_0; }
 
 		//parameters+=[FormalParameter]
-		public Assignment getParametersAssignment_7_1_1() { return cParametersAssignment_7_1_1; }
+		public Assignment getParametersAssignment_4_1_1() { return cParametersAssignment_4_1_1; }
 
 		//[FormalParameter]
-		public CrossReference getParametersFormalParameterCrossReference_7_1_1_0() { return cParametersFormalParameterCrossReference_7_1_1_0; }
+		public CrossReference getParametersFormalParameterCrossReference_4_1_1_0() { return cParametersFormalParameterCrossReference_4_1_1_0; }
 
 		//ID
-		public RuleCall getParametersFormalParameterIDTerminalRuleCall_7_1_1_0_1() { return cParametersFormalParameterIDTerminalRuleCall_7_1_1_0_1; }
+		public RuleCall getParametersFormalParameterIDTerminalRuleCall_4_1_1_0_1() { return cParametersFormalParameterIDTerminalRuleCall_4_1_1_0_1; }
 
 		//")"
-		public Keyword getRightParenthesisKeyword_8() { return cRightParenthesisKeyword_8; }
+		public Keyword getRightParenthesisKeyword_5() { return cRightParenthesisKeyword_5; }
 	}
 
 	public class VerificationPreconditionElements extends AbstractParserRuleElementFinder {
@@ -1064,35 +1036,28 @@ public class VerifyGrammarAccess extends AbstractGrammarElementFinder {
 		private final Group cGroup = (Group)rule.eContents().get(1);
 		private final Keyword cPreconditionKeyword_0 = (Keyword)cGroup.eContents().get(0);
 		private final Action cVerificationPreconditionAction_1 = (Action)cGroup.eContents().get(1);
-		private final Assignment cNameAssignment_2 = (Assignment)cGroup.eContents().get(2);
-		private final RuleCall cNameIDTerminalRuleCall_2_0 = (RuleCall)cNameAssignment_2.eContents().get(0);
-		private final Group cGroup_3 = (Group)cGroup.eContents().get(3);
-		private final Keyword cColonKeyword_3_0 = (Keyword)cGroup_3.eContents().get(0);
-		private final Assignment cTitleAssignment_3_1 = (Assignment)cGroup_3.eContents().get(1);
-		private final RuleCall cTitleSTRINGTerminalRuleCall_3_1_0 = (RuleCall)cTitleAssignment_3_1.eContents().get(0);
-		private final Keyword cColonKeyword_4 = (Keyword)cGroup.eContents().get(4);
-		private final Assignment cMethodAssignment_5 = (Assignment)cGroup.eContents().get(5);
-		private final CrossReference cMethodVerificationMethodCrossReference_5_0 = (CrossReference)cMethodAssignment_5.eContents().get(0);
-		private final RuleCall cMethodVerificationMethodQualifiedNameParserRuleCall_5_0_1 = (RuleCall)cMethodVerificationMethodCrossReference_5_0.eContents().get(1);
-		private final Keyword cLeftParenthesisKeyword_6 = (Keyword)cGroup.eContents().get(6);
-		private final Group cGroup_7 = (Group)cGroup.eContents().get(7);
-		private final Assignment cParametersAssignment_7_0 = (Assignment)cGroup_7.eContents().get(0);
-		private final CrossReference cParametersFormalParameterCrossReference_7_0_0 = (CrossReference)cParametersAssignment_7_0.eContents().get(0);
-		private final RuleCall cParametersFormalParameterIDTerminalRuleCall_7_0_0_1 = (RuleCall)cParametersFormalParameterCrossReference_7_0_0.eContents().get(1);
-		private final Group cGroup_7_1 = (Group)cGroup_7.eContents().get(1);
-		private final Keyword cCommaKeyword_7_1_0 = (Keyword)cGroup_7_1.eContents().get(0);
-		private final Assignment cParametersAssignment_7_1_1 = (Assignment)cGroup_7_1.eContents().get(1);
-		private final CrossReference cParametersFormalParameterCrossReference_7_1_1_0 = (CrossReference)cParametersAssignment_7_1_1.eContents().get(0);
-		private final RuleCall cParametersFormalParameterIDTerminalRuleCall_7_1_1_0_1 = (RuleCall)cParametersFormalParameterCrossReference_7_1_1_0.eContents().get(1);
-		private final Keyword cRightParenthesisKeyword_8 = (Keyword)cGroup.eContents().get(8);
+		private final Assignment cMethodAssignment_2 = (Assignment)cGroup.eContents().get(2);
+		private final CrossReference cMethodVerificationMethodCrossReference_2_0 = (CrossReference)cMethodAssignment_2.eContents().get(0);
+		private final RuleCall cMethodVerificationMethodQualifiedNameParserRuleCall_2_0_1 = (RuleCall)cMethodVerificationMethodCrossReference_2_0.eContents().get(1);
+		private final Keyword cLeftParenthesisKeyword_3 = (Keyword)cGroup.eContents().get(3);
+		private final Group cGroup_4 = (Group)cGroup.eContents().get(4);
+		private final Assignment cParametersAssignment_4_0 = (Assignment)cGroup_4.eContents().get(0);
+		private final CrossReference cParametersFormalParameterCrossReference_4_0_0 = (CrossReference)cParametersAssignment_4_0.eContents().get(0);
+		private final RuleCall cParametersFormalParameterIDTerminalRuleCall_4_0_0_1 = (RuleCall)cParametersFormalParameterCrossReference_4_0_0.eContents().get(1);
+		private final Group cGroup_4_1 = (Group)cGroup_4.eContents().get(1);
+		private final Keyword cCommaKeyword_4_1_0 = (Keyword)cGroup_4_1.eContents().get(0);
+		private final Assignment cParametersAssignment_4_1_1 = (Assignment)cGroup_4_1.eContents().get(1);
+		private final CrossReference cParametersFormalParameterCrossReference_4_1_1_0 = (CrossReference)cParametersAssignment_4_1_1.eContents().get(0);
+		private final RuleCall cParametersFormalParameterIDTerminalRuleCall_4_1_1_0_1 = (RuleCall)cParametersFormalParameterCrossReference_4_1_1_0.eContents().get(1);
+		private final Keyword cRightParenthesisKeyword_5 = (Keyword)cGroup.eContents().get(5);
 		
 		//VerificationPrecondition returns VerificationCondition:
-		//	"precondition" {VerificationPrecondition} name=ID (":" title=STRING)? ":" method=[VerificationMethod|QualifiedName]
-		//	"(" (parameters+=[FormalParameter] ("," parameters+=[FormalParameter])*)? ")";
+		//	"precondition" {VerificationPrecondition} method=[VerificationMethod|QualifiedName] "("
+		//	(parameters+=[FormalParameter] ("," parameters+=[FormalParameter])*)? ")";
 		@Override public ParserRule getRule() { return rule; }
 
-		//"precondition" {VerificationPrecondition} name=ID (":" title=STRING)? ":" method=[VerificationMethod|QualifiedName] "("
-		//(parameters+=[FormalParameter] ("," parameters+=[FormalParameter])*)? ")"
+		//"precondition" {VerificationPrecondition} method=[VerificationMethod|QualifiedName] "(" (parameters+=[FormalParameter]
+		//("," parameters+=[FormalParameter])*)? ")"
 		public Group getGroup() { return cGroup; }
 
 		//"precondition"
@@ -1101,68 +1066,47 @@ public class VerifyGrammarAccess extends AbstractGrammarElementFinder {
 		//{VerificationPrecondition}
 		public Action getVerificationPreconditionAction_1() { return cVerificationPreconditionAction_1; }
 
-		//name=ID
-		public Assignment getNameAssignment_2() { return cNameAssignment_2; }
-
-		//ID
-		public RuleCall getNameIDTerminalRuleCall_2_0() { return cNameIDTerminalRuleCall_2_0; }
-
-		//(":" title=STRING)?
-		public Group getGroup_3() { return cGroup_3; }
-
-		//":"
-		public Keyword getColonKeyword_3_0() { return cColonKeyword_3_0; }
-
-		//title=STRING
-		public Assignment getTitleAssignment_3_1() { return cTitleAssignment_3_1; }
-
-		//STRING
-		public RuleCall getTitleSTRINGTerminalRuleCall_3_1_0() { return cTitleSTRINGTerminalRuleCall_3_1_0; }
-
-		//":"
-		public Keyword getColonKeyword_4() { return cColonKeyword_4; }
-
 		//method=[VerificationMethod|QualifiedName]
-		public Assignment getMethodAssignment_5() { return cMethodAssignment_5; }
+		public Assignment getMethodAssignment_2() { return cMethodAssignment_2; }
 
 		//[VerificationMethod|QualifiedName]
-		public CrossReference getMethodVerificationMethodCrossReference_5_0() { return cMethodVerificationMethodCrossReference_5_0; }
+		public CrossReference getMethodVerificationMethodCrossReference_2_0() { return cMethodVerificationMethodCrossReference_2_0; }
 
 		//QualifiedName
-		public RuleCall getMethodVerificationMethodQualifiedNameParserRuleCall_5_0_1() { return cMethodVerificationMethodQualifiedNameParserRuleCall_5_0_1; }
+		public RuleCall getMethodVerificationMethodQualifiedNameParserRuleCall_2_0_1() { return cMethodVerificationMethodQualifiedNameParserRuleCall_2_0_1; }
 
 		//"("
-		public Keyword getLeftParenthesisKeyword_6() { return cLeftParenthesisKeyword_6; }
+		public Keyword getLeftParenthesisKeyword_3() { return cLeftParenthesisKeyword_3; }
 
 		//(parameters+=[FormalParameter] ("," parameters+=[FormalParameter])*)?
-		public Group getGroup_7() { return cGroup_7; }
+		public Group getGroup_4() { return cGroup_4; }
 
 		//parameters+=[FormalParameter]
-		public Assignment getParametersAssignment_7_0() { return cParametersAssignment_7_0; }
+		public Assignment getParametersAssignment_4_0() { return cParametersAssignment_4_0; }
 
 		//[FormalParameter]
-		public CrossReference getParametersFormalParameterCrossReference_7_0_0() { return cParametersFormalParameterCrossReference_7_0_0; }
+		public CrossReference getParametersFormalParameterCrossReference_4_0_0() { return cParametersFormalParameterCrossReference_4_0_0; }
 
 		//ID
-		public RuleCall getParametersFormalParameterIDTerminalRuleCall_7_0_0_1() { return cParametersFormalParameterIDTerminalRuleCall_7_0_0_1; }
+		public RuleCall getParametersFormalParameterIDTerminalRuleCall_4_0_0_1() { return cParametersFormalParameterIDTerminalRuleCall_4_0_0_1; }
 
 		//("," parameters+=[FormalParameter])*
-		public Group getGroup_7_1() { return cGroup_7_1; }
+		public Group getGroup_4_1() { return cGroup_4_1; }
 
 		//","
-		public Keyword getCommaKeyword_7_1_0() { return cCommaKeyword_7_1_0; }
+		public Keyword getCommaKeyword_4_1_0() { return cCommaKeyword_4_1_0; }
 
 		//parameters+=[FormalParameter]
-		public Assignment getParametersAssignment_7_1_1() { return cParametersAssignment_7_1_1; }
+		public Assignment getParametersAssignment_4_1_1() { return cParametersAssignment_4_1_1; }
 
 		//[FormalParameter]
-		public CrossReference getParametersFormalParameterCrossReference_7_1_1_0() { return cParametersFormalParameterCrossReference_7_1_1_0; }
+		public CrossReference getParametersFormalParameterCrossReference_4_1_1_0() { return cParametersFormalParameterCrossReference_4_1_1_0; }
 
 		//ID
-		public RuleCall getParametersFormalParameterIDTerminalRuleCall_7_1_1_0_1() { return cParametersFormalParameterIDTerminalRuleCall_7_1_1_0_1; }
+		public RuleCall getParametersFormalParameterIDTerminalRuleCall_4_1_1_0_1() { return cParametersFormalParameterIDTerminalRuleCall_4_1_1_0_1; }
 
 		//")"
-		public Keyword getRightParenthesisKeyword_8() { return cRightParenthesisKeyword_8; }
+		public Keyword getRightParenthesisKeyword_5() { return cRightParenthesisKeyword_5; }
 	}
 
 	public class VerificationMethodRegistryElements extends AbstractParserRuleElementFinder {
@@ -1907,8 +1851,8 @@ public class VerifyGrammarAccess extends AbstractGrammarElementFinder {
 	}
 
 	//VerificationValidation returns VerificationCondition:
-	//	"validation" {VerificationValidation} name=ID (":" title=STRING)? ":" method=[VerificationMethod|QualifiedName] "("
-	//	(parameters+=[FormalParameter] ("," parameters+=[FormalParameter])*)? ")";
+	//	"validation" {VerificationValidation} method=[VerificationMethod|QualifiedName] "(" (parameters+=[FormalParameter]
+	//	("," parameters+=[FormalParameter])*)? ")";
 	public VerificationValidationElements getVerificationValidationAccess() {
 		return pVerificationValidation;
 	}
@@ -1918,8 +1862,8 @@ public class VerifyGrammarAccess extends AbstractGrammarElementFinder {
 	}
 
 	//VerificationPrecondition returns VerificationCondition:
-	//	"precondition" {VerificationPrecondition} name=ID (":" title=STRING)? ":" method=[VerificationMethod|QualifiedName]
-	//	"(" (parameters+=[FormalParameter] ("," parameters+=[FormalParameter])*)? ")";
+	//	"precondition" {VerificationPrecondition} method=[VerificationMethod|QualifiedName] "("
+	//	(parameters+=[FormalParameter] ("," parameters+=[FormalParameter])*)? ")";
 	public VerificationPreconditionElements getVerificationPreconditionAccess() {
 		return pVerificationPrecondition;
 	}

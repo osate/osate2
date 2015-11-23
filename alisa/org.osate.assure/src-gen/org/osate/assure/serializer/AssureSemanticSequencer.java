@@ -142,7 +142,7 @@ public class AssureSemanticSequencer extends AbstractDelegatingSemanticSequencer
 	/**
 	 * Constraint:
 	 *     (
-	 *         target=[VerificationCondition|QualifiedName] 
+	 *         target=[VerificationMethod|QualifiedName] 
 	 *         executionState=VerificationExecutionState 
 	 *         resultState=VerificationResultState 
 	 *         issues+=ResultIssue* 
@@ -184,7 +184,7 @@ public class AssureSemanticSequencer extends AbstractDelegatingSemanticSequencer
 	/**
 	 * Constraint:
 	 *     (
-	 *         target=[VerificationCondition|QualifiedName] 
+	 *         target=[VerificationMethod|QualifiedName] 
 	 *         executionState=VerificationExecutionState 
 	 *         resultState=VerificationResultState 
 	 *         issues+=ResultIssue* 

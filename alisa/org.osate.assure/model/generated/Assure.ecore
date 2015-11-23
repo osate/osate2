@@ -98,10 +98,10 @@
     <eLiterals name="COMPLETED" value="3" literal="completed"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="PreconditionResult" eSuperTypes="#//VerificationResult">
-    <eStructuralFeatures xsi:type="ecore:EReference" name="target" eType="ecore:EClass platform:/resource/org.osate.verify/model/generated/Verify.ecore#//VerificationCondition"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="target" eType="ecore:EClass platform:/resource/org.osate.verify/model/generated/Verify.ecore#//VerificationMethod"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="ValidationResult" eSuperTypes="#//VerificationResult">
-    <eStructuralFeatures xsi:type="ecore:EReference" name="target" eType="ecore:EClass platform:/resource/org.osate.verify/model/generated/Verify.ecore#//VerificationCondition"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="target" eType="ecore:EClass platform:/resource/org.osate.verify/model/generated/Verify.ecore#//VerificationMethod"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="VerificationActivityResult" eSuperTypes="#//VerificationResult">
     <eStructuralFeatures xsi:type="ecore:EReference" name="target" eType="ecore:EClass platform:/resource/org.osate.verify/model/generated/Verify.ecore#//VerificationActivity"/>

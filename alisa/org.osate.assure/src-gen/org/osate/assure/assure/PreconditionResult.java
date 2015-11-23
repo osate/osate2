@@ -15,7 +15,7 @@
  */
 package org.osate.assure.assure;
 
-import org.osate.verify.verify.VerificationCondition;
+import org.osate.verify.verify.VerificationMethod;
 
 /**
  * <!-- begin-user-doc -->
@@ -44,12 +44,12 @@ public interface PreconditionResult extends VerificationResult
    * </p>
    * <!-- end-user-doc -->
    * @return the value of the '<em>Target</em>' reference.
-   * @see #setTarget(VerificationCondition)
+   * @see #setTarget(VerificationMethod)
    * @see org.osate.assure.assure.AssurePackage#getPreconditionResult_Target()
    * @model
    * @generated
    */
-  VerificationCondition getTarget();
+  VerificationMethod getTarget();
 
   /**
    * Sets the value of the '{@link org.osate.assure.assure.PreconditionResult#getTarget <em>Target</em>}' reference.
@@ -59,6 +59,6 @@ public interface PreconditionResult extends VerificationResult
    * @see #getTarget()
    * @generated
    */
-  void setTarget(VerificationCondition value);
+  void setTarget(VerificationMethod value);
 
 } // PreconditionResult

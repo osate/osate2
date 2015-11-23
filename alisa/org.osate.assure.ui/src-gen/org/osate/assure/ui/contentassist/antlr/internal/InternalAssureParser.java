@@ -17129,13 +17129,13 @@ public class InternalAssureParser extends AbstractInternalContentAssistParser {
             // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:6076:1: ( ruleQualifiedName )
             {
             if ( state.backtracking==0 ) {
-               before(grammarAccess.getPreconditionResultAccess().getTargetVerificationConditionCrossReference_2_0()); 
+               before(grammarAccess.getPreconditionResultAccess().getTargetVerificationMethodCrossReference_2_0()); 
             }
             // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:6077:1: ( ruleQualifiedName )
             // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:6078:1: ruleQualifiedName
             {
             if ( state.backtracking==0 ) {
-               before(grammarAccess.getPreconditionResultAccess().getTargetVerificationConditionQualifiedNameParserRuleCall_2_0_1()); 
+               before(grammarAccess.getPreconditionResultAccess().getTargetVerificationMethodQualifiedNameParserRuleCall_2_0_1()); 
             }
             pushFollow(FOLLOW_ruleQualifiedName_in_rule__PreconditionResult__TargetAssignment_212104);
             ruleQualifiedName();
@@ -17143,13 +17143,13 @@ public class InternalAssureParser extends AbstractInternalContentAssistParser {
             state._fsp--;
             if (state.failed) return ;
             if ( state.backtracking==0 ) {
-               after(grammarAccess.getPreconditionResultAccess().getTargetVerificationConditionQualifiedNameParserRuleCall_2_0_1()); 
+               after(grammarAccess.getPreconditionResultAccess().getTargetVerificationMethodQualifiedNameParserRuleCall_2_0_1()); 
             }
 
             }
 
             if ( state.backtracking==0 ) {
-               after(grammarAccess.getPreconditionResultAccess().getTargetVerificationConditionCrossReference_2_0()); 
+               after(grammarAccess.getPreconditionResultAccess().getTargetVerificationMethodCrossReference_2_0()); 
             }
 
             }
@@ -17464,13 +17464,13 @@ public class InternalAssureParser extends AbstractInternalContentAssistParser {
             // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:6189:1: ( ruleQualifiedName )
             {
             if ( state.backtracking==0 ) {
-               before(grammarAccess.getValidationResultAccess().getTargetVerificationConditionCrossReference_2_0()); 
+               before(grammarAccess.getValidationResultAccess().getTargetVerificationMethodCrossReference_2_0()); 
             }
             // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:6190:1: ( ruleQualifiedName )
             // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:6191:1: ruleQualifiedName
             {
             if ( state.backtracking==0 ) {
-               before(grammarAccess.getValidationResultAccess().getTargetVerificationConditionQualifiedNameParserRuleCall_2_0_1()); 
+               before(grammarAccess.getValidationResultAccess().getTargetVerificationMethodQualifiedNameParserRuleCall_2_0_1()); 
             }
             pushFollow(FOLLOW_ruleQualifiedName_in_rule__ValidationResult__TargetAssignment_212337);
             ruleQualifiedName();
@@ -17478,13 +17478,13 @@ public class InternalAssureParser extends AbstractInternalContentAssistParser {
             state._fsp--;
             if (state.failed) return ;
             if ( state.backtracking==0 ) {
-               after(grammarAccess.getValidationResultAccess().getTargetVerificationConditionQualifiedNameParserRuleCall_2_0_1()); 
+               after(grammarAccess.getValidationResultAccess().getTargetVerificationMethodQualifiedNameParserRuleCall_2_0_1()); 
             }
 
             }
 
             if ( state.backtracking==0 ) {
-               after(grammarAccess.getValidationResultAccess().getTargetVerificationConditionCrossReference_2_0()); 
+               after(grammarAccess.getValidationResultAccess().getTargetVerificationMethodCrossReference_2_0()); 
             }
 
             }

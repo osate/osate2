@@ -400,7 +400,7 @@ rulePreconditionResult returns [EObject current=null]
 	        }
         }
 		{ 
-	        newCompositeNode(grammarAccess.getPreconditionResultAccess().getTargetVerificationConditionCrossReference_2_0()); 
+	        newCompositeNode(grammarAccess.getPreconditionResultAccess().getTargetVerificationMethodCrossReference_2_0()); 
 	    }
 		ruleQualifiedName		{ 
 	        afterParserOrEnumRuleCall();
@@ -587,7 +587,7 @@ ruleValidationResult returns [EObject current=null]
 	        }
         }
 		{ 
-	        newCompositeNode(grammarAccess.getValidationResultAccess().getTargetVerificationConditionCrossReference_2_0()); 
+	        newCompositeNode(grammarAccess.getValidationResultAccess().getTargetVerificationMethodCrossReference_2_0()); 
 	    }
 		ruleQualifiedName		{ 
 	        afterParserOrEnumRuleCall();

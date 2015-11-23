@@ -99,18 +99,12 @@ VerificationActivity:
 
 VerificationValidation returns VerificationCondition:
 	'validation' {VerificationValidation}  
-	name=ID
-	(':' title=STRING)?
-	':'
 			method=[VerificationMethod|QualifiedName] 
 			'(' (parameters+=[FormalParameter|ID] (',' parameters+=[FormalParameter| ID])*)? ')'
 	;
 
 VerificationPrecondition returns VerificationCondition:
 	'precondition' {VerificationPrecondition} 
-	name=ID
-	(':' title=STRING)?
-	':'
 			method=[VerificationMethod|QualifiedName] 
 			'(' (parameters+=[FormalParameter|ID] (',' parameters+=[FormalParameter| ID])*)? ')'
 	;

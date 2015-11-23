@@ -1,6 +1,6 @@
 /**
  * Copyright 2015 Carnegie Mellon University. All Rights Reserved.
- *
+ * 
  * NO WARRANTY. THIS CARNEGIE MELLON UNIVERSITY AND SOFTWARE ENGINEERING INSTITUTE
  * MATERIAL IS FURNISHED ON AN "AS-IS" BASIS. CARNEGIE MELLON UNIVERSITY MAKES NO
  * WARRANTIES OF ANY KIND, EITHER EXPRESSED OR IMPLIED, AS TO ANY MATTER INCLUDING,
@@ -8,9 +8,9 @@
  * EXCLUSIVITY, OR RESULTS OBTAINED FROM USE OF THE MATERIAL. CARNEGIE MELLON
  * UNIVERSITY DOES NOT MAKE ANY WARRANTY OF ANY KIND WITH RESPECT TO FREEDOM FROM
  * PATENT, TRADEMARK, OR COPYRIGHT INFRINGEMENT.
- *
+ * 
  * Released under the Eclipse Public License (http://www.eclipse.org/org/documents/epl-v10.php)
- *
+ * 
  * See COPYRIGHT file for full details.
  */
 
@@ -98,8 +98,8 @@ class AssureProcessor implements IAssureProcessor {
 	}
 
 	def dispatch void process(VerificationActivityResult vaResult) {
-		progressmonitor.subTask(vaResult.target.name )//+ " on " + vaResult.claimSubject.name)
-		if(vaResult.executionState != VerificationExecutionState.TODO) {
+		progressmonitor.subTask(vaResult.target.name) // + " on " + vaResult.claimSubject.name)
+		if (vaResult.executionState != VerificationExecutionState.TODO) {
 			progressmonitor.worked(1)
 			return;
 		}
@@ -143,8 +143,8 @@ class AssureProcessor implements IAssureProcessor {
 		}
 	}
 
-	def dispatch void process(ValidationResult assumptionResult) {
-		runVerificationMethod(assumptionResult)
+	def dispatch void process(ValidationResult validationResult) {
+		runVerificationMethod(validationResult)
 	}
 
 	def dispatch void process(PreconditionResult preconditionResult) {
@@ -164,7 +164,7 @@ class AssureProcessor implements IAssureProcessor {
 		// target element is the element referred to by the requirement. This may be empty
 		val targetElement = verificationResult.targetElement
 		// the next outer assurance case object that refers to a system implementation. 
-		var instanceroot = verificationResult.assuranceCaseInstanceModel 
+		var instanceroot = verificationResult.assuranceCaseInstanceModel
 		if (instanceroot == null) {
 			setToError(verificationResult, "Could not find instance model", null)
 			return
@@ -186,62 +186,77 @@ class AssureProcessor implements IAssureProcessor {
 		}
 		// The parameters are objects from the Properties Meta model.
 		var EList<EObject> parameters
-
+		var Iterable actualParameters
 		if (verificationResult instanceof VerificationActivityResult) {
-			val verificationActivityResult = verificationResult as VerificationActivityResult
-			val verificationActivity = verificationActivityResult.target as VerificationActivity
-			val verificationMethod = verificationActivityResult.method as VerificationMethod
-
-			if (verificationActivity.parameters.size < verificationMethod.params.size) {
-				setToError(verificationResult,
-					"Fewer actual parameters than formal parameters for verificaiton activity", null)
-				return
-			}
-			val nbParams = verificationMethod.params.size
-			var i = 0
-
-			parameters = new BasicEList(verificationActivity.parameters.size)
-
-			for (pi : verificationActivity.parameters) {
-				var EObject actual
-				var String typeName
-				if (pi instanceof ValDeclaration) {
-					typeName = pi.type
-					actual = pi.right
-				} else if (pi instanceof AVariableReference) {
-					// handle Val reference if AExpression is used
-					val pari = pi.variable
-					if (pari instanceof ValDeclaration) {
-						typeName = pari.type
-						actual = pari.right
-					}
-				} else {
-					// the other types if AExpression is used
-					actual = pi
-				}
-
-				// for conversion into Java Object see AssureUtilExtension.convertToJavaObjects 
-				if (i < nbParams) {
-					var formalParam = verificationMethod.params.get(i) as FormalParameter
-					if (actual instanceof NumberValue) {
-						if (formalParam.unit != null && actual.unit != null &&
-							!formalParam.unit.name.equals(actual.unit.name)) {
-							actual = convertValueToUnit(actual as NumberValue, formalParam.unit)
-						}
-					}
-					val paramType = formalParam.parameterType
-					if (typeName != null && paramType != null && ! typeName.equals(paramType)) {
-						setToError(verificationResult,
-							"Parameter '" + formalParam.name + ": mismatched  types '" + paramType + "' and actual '" +
-								typeName, null)
-						return
-					}
-				}
-				parameters.add(actual)
-				i = i + 1
-			}
+			actualParameters = verificationResult.target.parameters
+		} else if (verificationResult instanceof ValidationResult) {
+			actualParameters = method.precondition.parameters
 		}
 
+		if (actualParameters.size < method.params.size) {
+			setToError(verificationResult,
+				"Fewer actual parameters than formal parameters for verification activity", null)
+			return
+		}
+		val nbParams = method.params.size
+		var i = 0
+
+		parameters = new BasicEList(actualParameters.size)
+
+		for (ap : actualParameters) {
+			var EObject actual
+			var String typeName
+			var Object pi
+			if (ap instanceof FormalParameter) {
+				val varesult = verificationResult.eContainer as VerificationActivityResult
+				val aps = varesult.target.parameters
+				val idx = method.params.indexOf(ap)
+				if (idx >= 0) {
+					pi = aps.get(idx)
+				} else {
+					setToError(verificationResult,
+						"Referenced formal parameter '" + ap.name + " of method '" + method.name +
+							"' does not have an actual value", null)
+					return
+				}
+			} else {
+				pi = ap
+			}
+			if (pi instanceof ValDeclaration) {
+				typeName = pi.type
+				actual = pi.right
+			} else if (pi instanceof AVariableReference) {
+				// handle Val reference if AExpression is used
+				val pari = pi.variable
+				if (pari instanceof ValDeclaration) {
+					typeName = pari.type
+					actual = pari.right
+				}
+			} else {
+				// the other types if AExpression is used
+				actual = pi as EObject
+			}
+
+			// for conversion into Java Object see AssureUtilExtension.convertToJavaObjects 
+			if (i < nbParams) {
+				var formalParam = method.params.get(i) as FormalParameter
+				if (actual instanceof NumberValue) {
+					if (formalParam.unit != null && actual.unit != null &&
+						!formalParam.unit.name.equals(actual.unit.name)) {
+						actual = convertValueToUnit(actual as NumberValue, formalParam.unit)
+					}
+				}
+				val paramType = formalParam.parameterType
+				if (typeName != null && paramType != null && ! typeName.equals(paramType)) {
+					setToError(verificationResult,
+						"Parameter '" + formalParam.name + ": mismatched  types '" + paramType + "' and actual '" +
+							typeName, null)
+					return
+				}
+			}
+			parameters.add(actual)
+			i = i + 1
+		}
 		if (verificationResult instanceof VerificationActivityResult) {
 			val result = checkProperties(target, verificationResult)
 		}

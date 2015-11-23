@@ -38,7 +38,7 @@ ClaimResult:
 
 PreconditionResult returns VerificationResult:
 	'precondition' {PreconditionResult}	
-	target=[Verify::VerificationCondition|QualifiedName]
+	target=[Verify::VerificationMethod|QualifiedName]
 	'['
 	'executionstate'  executionState=VerificationExecutionState
 	'resultstate' resultState=VerificationResultState
@@ -54,7 +54,7 @@ PreconditionResult returns VerificationResult:
 
 ValidationResult returns VerificationResult:
 	'validation' {ValidationResult}	
-	target=[Verify::VerificationCondition|QualifiedName]
+	target=[Verify::VerificationMethod|QualifiedName]
 	'['
 	'executionstate'  executionState=VerificationExecutionState
 	'resultstate' resultState=VerificationResultState

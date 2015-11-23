@@ -162,8 +162,8 @@ class AssureUtilExtension {
 	def static VerificationMethod getMethod(VerificationResult vr) {
 		switch (vr) {
 			VerificationActivityResult: return vr.target.method
-			PreconditionResult: return vr.target.method
-			ValidationResult: return vr.target.method
+			PreconditionResult: return vr.target
+			ValidationResult: return vr.target
 		}
 	}
 

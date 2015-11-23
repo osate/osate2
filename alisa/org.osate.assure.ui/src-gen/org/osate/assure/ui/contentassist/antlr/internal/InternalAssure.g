@@ -6073,12 +6073,12 @@ rule__PreconditionResult__TargetAssignment_2
     }
 :
 (
-{ before(grammarAccess.getPreconditionResultAccess().getTargetVerificationConditionCrossReference_2_0()); }
+{ before(grammarAccess.getPreconditionResultAccess().getTargetVerificationMethodCrossReference_2_0()); }
 (
-{ before(grammarAccess.getPreconditionResultAccess().getTargetVerificationConditionQualifiedNameParserRuleCall_2_0_1()); }
-	ruleQualifiedName{ after(grammarAccess.getPreconditionResultAccess().getTargetVerificationConditionQualifiedNameParserRuleCall_2_0_1()); }
+{ before(grammarAccess.getPreconditionResultAccess().getTargetVerificationMethodQualifiedNameParserRuleCall_2_0_1()); }
+	ruleQualifiedName{ after(grammarAccess.getPreconditionResultAccess().getTargetVerificationMethodQualifiedNameParserRuleCall_2_0_1()); }
 )
-{ after(grammarAccess.getPreconditionResultAccess().getTargetVerificationConditionCrossReference_2_0()); }
+{ after(grammarAccess.getPreconditionResultAccess().getTargetVerificationMethodCrossReference_2_0()); }
 )
 
 ;
@@ -6186,12 +6186,12 @@ rule__ValidationResult__TargetAssignment_2
     }
 :
 (
-{ before(grammarAccess.getValidationResultAccess().getTargetVerificationConditionCrossReference_2_0()); }
+{ before(grammarAccess.getValidationResultAccess().getTargetVerificationMethodCrossReference_2_0()); }
 (
-{ before(grammarAccess.getValidationResultAccess().getTargetVerificationConditionQualifiedNameParserRuleCall_2_0_1()); }
-	ruleQualifiedName{ after(grammarAccess.getValidationResultAccess().getTargetVerificationConditionQualifiedNameParserRuleCall_2_0_1()); }
+{ before(grammarAccess.getValidationResultAccess().getTargetVerificationMethodQualifiedNameParserRuleCall_2_0_1()); }
+	ruleQualifiedName{ after(grammarAccess.getValidationResultAccess().getTargetVerificationMethodQualifiedNameParserRuleCall_2_0_1()); }
 )
-{ after(grammarAccess.getValidationResultAccess().getTargetVerificationConditionCrossReference_2_0()); }
+{ after(grammarAccess.getValidationResultAccess().getTargetVerificationMethodCrossReference_2_0()); }
 )
 
 ;

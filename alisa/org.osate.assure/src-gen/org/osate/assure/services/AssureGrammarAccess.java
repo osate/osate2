@@ -226,8 +226,8 @@ public class AssureGrammarAccess extends AbstractGrammarElementFinder {
 		private final Keyword cPreconditionKeyword_0 = (Keyword)cGroup.eContents().get(0);
 		private final Action cPreconditionResultAction_1 = (Action)cGroup.eContents().get(1);
 		private final Assignment cTargetAssignment_2 = (Assignment)cGroup.eContents().get(2);
-		private final CrossReference cTargetVerificationConditionCrossReference_2_0 = (CrossReference)cTargetAssignment_2.eContents().get(0);
-		private final RuleCall cTargetVerificationConditionQualifiedNameParserRuleCall_2_0_1 = (RuleCall)cTargetVerificationConditionCrossReference_2_0.eContents().get(1);
+		private final CrossReference cTargetVerificationMethodCrossReference_2_0 = (CrossReference)cTargetAssignment_2.eContents().get(0);
+		private final RuleCall cTargetVerificationMethodQualifiedNameParserRuleCall_2_0_1 = (RuleCall)cTargetVerificationMethodCrossReference_2_0.eContents().get(1);
 		private final Keyword cLeftSquareBracketKeyword_3 = (Keyword)cGroup.eContents().get(3);
 		private final Keyword cExecutionstateKeyword_4 = (Keyword)cGroup.eContents().get(4);
 		private final Assignment cExecutionStateAssignment_5 = (Assignment)cGroup.eContents().get(5);
@@ -255,13 +255,13 @@ public class AssureGrammarAccess extends AbstractGrammarElementFinder {
 		private final Keyword cRightSquareBracketKeyword_12 = (Keyword)cGroup.eContents().get(12);
 		
 		//PreconditionResult returns VerificationResult:
-		//	"precondition" {PreconditionResult} target=[Verify::VerificationCondition|QualifiedName] "[" "executionstate"
+		//	"precondition" {PreconditionResult} target=[Verify::VerificationMethod|QualifiedName] "[" "executionstate"
 		//	executionState=VerificationExecutionState "resultstate" resultState=VerificationResultState ("issues" "["
 		//	issues+=ResultIssue* "]")? ("report" resultReport=[results::ResultReport|QualifiedName])? // pointer to separate report
 		//	metrics=Metrics ("message" message=STRING)? "]";
 		@Override public ParserRule getRule() { return rule; }
 
-		//"precondition" {PreconditionResult} target=[Verify::VerificationCondition|QualifiedName] "[" "executionstate"
+		//"precondition" {PreconditionResult} target=[Verify::VerificationMethod|QualifiedName] "[" "executionstate"
 		//executionState=VerificationExecutionState "resultstate" resultState=VerificationResultState ("issues" "["
 		//issues+=ResultIssue* "]")? ("report" resultReport=[results::ResultReport|QualifiedName])? // pointer to separate report
 		//metrics=Metrics ("message" message=STRING)? "]"
@@ -273,14 +273,14 @@ public class AssureGrammarAccess extends AbstractGrammarElementFinder {
 		//{PreconditionResult}
 		public Action getPreconditionResultAction_1() { return cPreconditionResultAction_1; }
 
-		//target=[Verify::VerificationCondition|QualifiedName]
+		//target=[Verify::VerificationMethod|QualifiedName]
 		public Assignment getTargetAssignment_2() { return cTargetAssignment_2; }
 
-		//[Verify::VerificationCondition|QualifiedName]
-		public CrossReference getTargetVerificationConditionCrossReference_2_0() { return cTargetVerificationConditionCrossReference_2_0; }
+		//[Verify::VerificationMethod|QualifiedName]
+		public CrossReference getTargetVerificationMethodCrossReference_2_0() { return cTargetVerificationMethodCrossReference_2_0; }
 
 		//QualifiedName
-		public RuleCall getTargetVerificationConditionQualifiedNameParserRuleCall_2_0_1() { return cTargetVerificationConditionQualifiedNameParserRuleCall_2_0_1; }
+		public RuleCall getTargetVerificationMethodQualifiedNameParserRuleCall_2_0_1() { return cTargetVerificationMethodQualifiedNameParserRuleCall_2_0_1; }
 
 		//"["
 		public Keyword getLeftSquareBracketKeyword_3() { return cLeftSquareBracketKeyword_3; }
@@ -364,8 +364,8 @@ public class AssureGrammarAccess extends AbstractGrammarElementFinder {
 		private final Keyword cValidationKeyword_0 = (Keyword)cGroup.eContents().get(0);
 		private final Action cValidationResultAction_1 = (Action)cGroup.eContents().get(1);
 		private final Assignment cTargetAssignment_2 = (Assignment)cGroup.eContents().get(2);
-		private final CrossReference cTargetVerificationConditionCrossReference_2_0 = (CrossReference)cTargetAssignment_2.eContents().get(0);
-		private final RuleCall cTargetVerificationConditionQualifiedNameParserRuleCall_2_0_1 = (RuleCall)cTargetVerificationConditionCrossReference_2_0.eContents().get(1);
+		private final CrossReference cTargetVerificationMethodCrossReference_2_0 = (CrossReference)cTargetAssignment_2.eContents().get(0);
+		private final RuleCall cTargetVerificationMethodQualifiedNameParserRuleCall_2_0_1 = (RuleCall)cTargetVerificationMethodCrossReference_2_0.eContents().get(1);
 		private final Keyword cLeftSquareBracketKeyword_3 = (Keyword)cGroup.eContents().get(3);
 		private final Keyword cExecutionstateKeyword_4 = (Keyword)cGroup.eContents().get(4);
 		private final Assignment cExecutionStateAssignment_5 = (Assignment)cGroup.eContents().get(5);
@@ -393,13 +393,13 @@ public class AssureGrammarAccess extends AbstractGrammarElementFinder {
 		private final Keyword cRightSquareBracketKeyword_12 = (Keyword)cGroup.eContents().get(12);
 		
 		//ValidationResult returns VerificationResult:
-		//	"validation" {ValidationResult} target=[Verify::VerificationCondition|QualifiedName] "[" "executionstate"
+		//	"validation" {ValidationResult} target=[Verify::VerificationMethod|QualifiedName] "[" "executionstate"
 		//	executionState=VerificationExecutionState "resultstate" resultState=VerificationResultState ("issues" "["
 		//	issues+=ResultIssue* "]")? ("report" resultReport=[results::ResultReport|QualifiedName])? // pointer to separate report
 		//	metrics=Metrics ("message" message=STRING)? "]";
 		@Override public ParserRule getRule() { return rule; }
 
-		//"validation" {ValidationResult} target=[Verify::VerificationCondition|QualifiedName] "[" "executionstate"
+		//"validation" {ValidationResult} target=[Verify::VerificationMethod|QualifiedName] "[" "executionstate"
 		//executionState=VerificationExecutionState "resultstate" resultState=VerificationResultState ("issues" "["
 		//issues+=ResultIssue* "]")? ("report" resultReport=[results::ResultReport|QualifiedName])? // pointer to separate report
 		//metrics=Metrics ("message" message=STRING)? "]"
@@ -411,14 +411,14 @@ public class AssureGrammarAccess extends AbstractGrammarElementFinder {
 		//{ValidationResult}
 		public Action getValidationResultAction_1() { return cValidationResultAction_1; }
 
-		//target=[Verify::VerificationCondition|QualifiedName]
+		//target=[Verify::VerificationMethod|QualifiedName]
 		public Assignment getTargetAssignment_2() { return cTargetAssignment_2; }
 
-		//[Verify::VerificationCondition|QualifiedName]
-		public CrossReference getTargetVerificationConditionCrossReference_2_0() { return cTargetVerificationConditionCrossReference_2_0; }
+		//[Verify::VerificationMethod|QualifiedName]
+		public CrossReference getTargetVerificationMethodCrossReference_2_0() { return cTargetVerificationMethodCrossReference_2_0; }
 
 		//QualifiedName
-		public RuleCall getTargetVerificationConditionQualifiedNameParserRuleCall_2_0_1() { return cTargetVerificationConditionQualifiedNameParserRuleCall_2_0_1; }
+		public RuleCall getTargetVerificationMethodQualifiedNameParserRuleCall_2_0_1() { return cTargetVerificationMethodQualifiedNameParserRuleCall_2_0_1; }
 
 		//"["
 		public Keyword getLeftSquareBracketKeyword_3() { return cLeftSquareBracketKeyword_3; }
@@ -1530,7 +1530,7 @@ public class AssureGrammarAccess extends AbstractGrammarElementFinder {
 	}
 
 	//PreconditionResult returns VerificationResult:
-	//	"precondition" {PreconditionResult} target=[Verify::VerificationCondition|QualifiedName] "[" "executionstate"
+	//	"precondition" {PreconditionResult} target=[Verify::VerificationMethod|QualifiedName] "[" "executionstate"
 	//	executionState=VerificationExecutionState "resultstate" resultState=VerificationResultState ("issues" "["
 	//	issues+=ResultIssue* "]")? ("report" resultReport=[results::ResultReport|QualifiedName])? // pointer to separate report
 	//	metrics=Metrics ("message" message=STRING)? "]";
@@ -1543,7 +1543,7 @@ public class AssureGrammarAccess extends AbstractGrammarElementFinder {
 	}
 
 	//ValidationResult returns VerificationResult:
-	//	"validation" {ValidationResult} target=[Verify::VerificationCondition|QualifiedName] "[" "executionstate"
+	//	"validation" {ValidationResult} target=[Verify::VerificationMethod|QualifiedName] "[" "executionstate"
 	//	executionState=VerificationExecutionState "resultstate" resultState=VerificationResultState ("issues" "["
 	//	issues+=ResultIssue* "]")? ("report" resultReport=[results::ResultReport|QualifiedName])? // pointer to separate report
 	//	metrics=Metrics ("message" message=STRING)? "]";

@@ -438,7 +438,7 @@ public class VerifySemanticSequencer extends CommonSemanticSequencer {
 	
 	/**
 	 * Constraint:
-	 *     (name=ID title=STRING? method=[VerificationMethod|QualifiedName] (parameters+=[FormalParameter|ID] parameters+=[FormalParameter|ID]*)?)
+	 *     (method=[VerificationMethod|QualifiedName] (parameters+=[FormalParameter|ID] parameters+=[FormalParameter|ID]*)?)
 	 */
 	protected void sequence_VerificationPrecondition(EObject context, VerificationPrecondition semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
@@ -447,7 +447,7 @@ public class VerifySemanticSequencer extends CommonSemanticSequencer {
 	
 	/**
 	 * Constraint:
-	 *     (name=ID title=STRING? method=[VerificationMethod|QualifiedName] (parameters+=[FormalParameter|ID] parameters+=[FormalParameter|ID]*)?)
+	 *     (method=[VerificationMethod|QualifiedName] (parameters+=[FormalParameter|ID] parameters+=[FormalParameter|ID]*)?)
 	 */
 	protected void sequence_VerificationValidation(EObject context, VerificationValidation semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);

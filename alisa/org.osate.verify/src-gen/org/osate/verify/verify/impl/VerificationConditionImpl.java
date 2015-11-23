@@ -42,8 +42,6 @@ import org.osate.verify.verify.VerifyPackage;
  * The following features are implemented:
  * </p>
  * <ul>
- *   <li>{@link org.osate.verify.verify.impl.VerificationConditionImpl#getName <em>Name</em>}</li>
- *   <li>{@link org.osate.verify.verify.impl.VerificationConditionImpl#getTitle <em>Title</em>}</li>
  *   <li>{@link org.osate.verify.verify.impl.VerificationConditionImpl#getMethod <em>Method</em>}</li>
  *   <li>{@link org.osate.verify.verify.impl.VerificationConditionImpl#getParameters <em>Parameters</em>}</li>
  * </ul>
@@ -52,46 +50,6 @@ import org.osate.verify.verify.VerifyPackage;
  */
 public class VerificationConditionImpl extends MinimalEObjectImpl.Container implements VerificationCondition
 {
-  /**
-   * The default value of the '{@link #getName() <em>Name</em>}' attribute.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @see #getName()
-   * @generated
-   * @ordered
-   */
-  protected static final String NAME_EDEFAULT = null;
-
-  /**
-   * The cached value of the '{@link #getName() <em>Name</em>}' attribute.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @see #getName()
-   * @generated
-   * @ordered
-   */
-  protected String name = NAME_EDEFAULT;
-
-  /**
-   * The default value of the '{@link #getTitle() <em>Title</em>}' attribute.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @see #getTitle()
-   * @generated
-   * @ordered
-   */
-  protected static final String TITLE_EDEFAULT = null;
-
-  /**
-   * The cached value of the '{@link #getTitle() <em>Title</em>}' attribute.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @see #getTitle()
-   * @generated
-   * @ordered
-   */
-  protected String title = TITLE_EDEFAULT;
-
   /**
    * The cached value of the '{@link #getMethod() <em>Method</em>}' reference.
    * <!-- begin-user-doc -->
@@ -131,52 +89,6 @@ public class VerificationConditionImpl extends MinimalEObjectImpl.Container impl
   protected EClass eStaticClass()
   {
     return VerifyPackage.Literals.VERIFICATION_CONDITION;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public String getName()
-  {
-    return name;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public void setName(String newName)
-  {
-    String oldName = name;
-    name = newName;
-    if (eNotificationRequired())
-      eNotify(new ENotificationImpl(this, Notification.SET, VerifyPackage.VERIFICATION_CONDITION__NAME, oldName, name));
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public String getTitle()
-  {
-    return title;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public void setTitle(String newTitle)
-  {
-    String oldTitle = title;
-    title = newTitle;
-    if (eNotificationRequired())
-      eNotify(new ENotificationImpl(this, Notification.SET, VerifyPackage.VERIFICATION_CONDITION__TITLE, oldTitle, title));
   }
 
   /**
@@ -246,10 +158,6 @@ public class VerificationConditionImpl extends MinimalEObjectImpl.Container impl
   {
     switch (featureID)
     {
-      case VerifyPackage.VERIFICATION_CONDITION__NAME:
-        return getName();
-      case VerifyPackage.VERIFICATION_CONDITION__TITLE:
-        return getTitle();
       case VerifyPackage.VERIFICATION_CONDITION__METHOD:
         if (resolve) return getMethod();
         return basicGetMethod();
@@ -270,12 +178,6 @@ public class VerificationConditionImpl extends MinimalEObjectImpl.Container impl
   {
     switch (featureID)
     {
-      case VerifyPackage.VERIFICATION_CONDITION__NAME:
-        setName((String)newValue);
-        return;
-      case VerifyPackage.VERIFICATION_CONDITION__TITLE:
-        setTitle((String)newValue);
-        return;
       case VerifyPackage.VERIFICATION_CONDITION__METHOD:
         setMethod((VerificationMethod)newValue);
         return;
@@ -297,12 +199,6 @@ public class VerificationConditionImpl extends MinimalEObjectImpl.Container impl
   {
     switch (featureID)
     {
-      case VerifyPackage.VERIFICATION_CONDITION__NAME:
-        setName(NAME_EDEFAULT);
-        return;
-      case VerifyPackage.VERIFICATION_CONDITION__TITLE:
-        setTitle(TITLE_EDEFAULT);
-        return;
       case VerifyPackage.VERIFICATION_CONDITION__METHOD:
         setMethod((VerificationMethod)null);
         return;
@@ -323,35 +219,12 @@ public class VerificationConditionImpl extends MinimalEObjectImpl.Container impl
   {
     switch (featureID)
     {
-      case VerifyPackage.VERIFICATION_CONDITION__NAME:
-        return NAME_EDEFAULT == null ? name != null : !NAME_EDEFAULT.equals(name);
-      case VerifyPackage.VERIFICATION_CONDITION__TITLE:
-        return TITLE_EDEFAULT == null ? title != null : !TITLE_EDEFAULT.equals(title);
       case VerifyPackage.VERIFICATION_CONDITION__METHOD:
         return method != null;
       case VerifyPackage.VERIFICATION_CONDITION__PARAMETERS:
         return parameters != null && !parameters.isEmpty();
     }
     return super.eIsSet(featureID);
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  @Override
-  public String toString()
-  {
-    if (eIsProxy()) return super.toString();
-
-    StringBuffer result = new StringBuffer(super.toString());
-    result.append(" (name: ");
-    result.append(name);
-    result.append(", title: ");
-    result.append(title);
-    result.append(')');
-    return result.toString();
   }
 
 } //VerificationConditionImpl

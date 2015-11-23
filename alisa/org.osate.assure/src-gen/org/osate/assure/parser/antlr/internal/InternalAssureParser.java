@@ -1023,7 +1023,7 @@ public class InternalAssureParser extends AbstractInternalAntlrParser {
             }
             if ( state.backtracking==0 ) {
                
-              	        newCompositeNode(grammarAccess.getPreconditionResultAccess().getTargetVerificationConditionCrossReference_2_0()); 
+              	        newCompositeNode(grammarAccess.getPreconditionResultAccess().getTargetVerificationMethodCrossReference_2_0()); 
               	    
             }
             pushFollow(FOLLOW_ruleQualifiedName_in_rulePreconditionResult691);
@@ -1499,7 +1499,7 @@ public class InternalAssureParser extends AbstractInternalAntlrParser {
             }
             if ( state.backtracking==0 ) {
                
-              	        newCompositeNode(grammarAccess.getValidationResultAccess().getTargetVerificationConditionCrossReference_2_0()); 
+              	        newCompositeNode(grammarAccess.getValidationResultAccess().getTargetVerificationMethodCrossReference_2_0()); 
               	    
             }
             pushFollow(FOLLOW_ruleQualifiedName_in_ruleValidationResult1053);

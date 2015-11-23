@@ -33,6 +33,7 @@ import org.osate.verify.verify.VerificationPlan
 import static extension org.eclipse.emf.ecore.util.EcoreUtil.*
 import static extension org.eclipse.xtext.EcoreUtil2.*
 import org.osate.categories.categories.Category
+import org.osate.verify.verify.VerificationMethod
 
 class VerifyUtilExtension {
 
@@ -77,6 +78,10 @@ class VerifyUtilExtension {
 	
 	def static getContainingClaim(EObject sh) {
 		sh.getContainerOfType(Claim)
+	}
+	
+	def static getContainingVerificationMethod(EObject sh) {
+		sh.getContainerOfType(VerificationMethod)
 	}
 	
 

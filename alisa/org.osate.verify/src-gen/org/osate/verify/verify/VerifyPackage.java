@@ -391,31 +391,13 @@ public interface VerifyPackage extends EPackage
   int VERIFICATION_CONDITION = 5;
 
   /**
-   * The feature id for the '<em><b>Name</b></em>' attribute.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int VERIFICATION_CONDITION__NAME = 0;
-
-  /**
-   * The feature id for the '<em><b>Title</b></em>' attribute.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int VERIFICATION_CONDITION__TITLE = 1;
-
-  /**
    * The feature id for the '<em><b>Method</b></em>' reference.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    * @ordered
    */
-  int VERIFICATION_CONDITION__METHOD = 2;
+  int VERIFICATION_CONDITION__METHOD = 0;
 
   /**
    * The feature id for the '<em><b>Parameters</b></em>' reference list.
@@ -424,7 +406,7 @@ public interface VerifyPackage extends EPackage
    * @generated
    * @ordered
    */
-  int VERIFICATION_CONDITION__PARAMETERS = 3;
+  int VERIFICATION_CONDITION__PARAMETERS = 1;
 
   /**
    * The number of structural features of the '<em>Verification Condition</em>' class.
@@ -433,7 +415,7 @@ public interface VerifyPackage extends EPackage
    * @generated
    * @ordered
    */
-  int VERIFICATION_CONDITION_FEATURE_COUNT = 4;
+  int VERIFICATION_CONDITION_FEATURE_COUNT = 2;
 
   /**
    * The meta object id for the '{@link org.osate.verify.verify.impl.VerificationMethodRegistryImpl <em>Verification Method Registry</em>}' class.
@@ -953,24 +935,6 @@ public interface VerifyPackage extends EPackage
   int VERIFICATION_VALIDATION = 18;
 
   /**
-   * The feature id for the '<em><b>Name</b></em>' attribute.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int VERIFICATION_VALIDATION__NAME = VERIFICATION_CONDITION__NAME;
-
-  /**
-   * The feature id for the '<em><b>Title</b></em>' attribute.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int VERIFICATION_VALIDATION__TITLE = VERIFICATION_CONDITION__TITLE;
-
-  /**
    * The feature id for the '<em><b>Method</b></em>' reference.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -1006,24 +970,6 @@ public interface VerifyPackage extends EPackage
    * @generated
    */
   int VERIFICATION_PRECONDITION = 19;
-
-  /**
-   * The feature id for the '<em><b>Name</b></em>' attribute.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int VERIFICATION_PRECONDITION__NAME = VERIFICATION_CONDITION__NAME;
-
-  /**
-   * The feature id for the '<em><b>Title</b></em>' attribute.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int VERIFICATION_PRECONDITION__TITLE = VERIFICATION_CONDITION__TITLE;
 
   /**
    * The feature id for the '<em><b>Method</b></em>' reference.
@@ -1376,28 +1322,6 @@ public interface VerifyPackage extends EPackage
    * @generated
    */
   EClass getVerificationCondition();
-
-  /**
-   * Returns the meta object for the attribute '{@link org.osate.verify.verify.VerificationCondition#getName <em>Name</em>}'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return the meta object for the attribute '<em>Name</em>'.
-   * @see org.osate.verify.verify.VerificationCondition#getName()
-   * @see #getVerificationCondition()
-   * @generated
-   */
-  EAttribute getVerificationCondition_Name();
-
-  /**
-   * Returns the meta object for the attribute '{@link org.osate.verify.verify.VerificationCondition#getTitle <em>Title</em>}'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return the meta object for the attribute '<em>Title</em>'.
-   * @see org.osate.verify.verify.VerificationCondition#getTitle()
-   * @see #getVerificationCondition()
-   * @generated
-   */
-  EAttribute getVerificationCondition_Title();
 
   /**
    * Returns the meta object for the reference '{@link org.osate.verify.verify.VerificationCondition#getMethod <em>Method</em>}'.
@@ -2176,22 +2100,6 @@ public interface VerifyPackage extends EPackage
      * @generated
      */
     EClass VERIFICATION_CONDITION = eINSTANCE.getVerificationCondition();
-
-    /**
-     * The meta object literal for the '<em><b>Name</b></em>' attribute feature.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
-    EAttribute VERIFICATION_CONDITION__NAME = eINSTANCE.getVerificationCondition_Name();
-
-    /**
-     * The meta object literal for the '<em><b>Title</b></em>' attribute feature.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
-    EAttribute VERIFICATION_CONDITION__TITLE = eINSTANCE.getVerificationCondition_Title();
 
     /**
      * The meta object literal for the '<em><b>Method</b></em>' reference feature.

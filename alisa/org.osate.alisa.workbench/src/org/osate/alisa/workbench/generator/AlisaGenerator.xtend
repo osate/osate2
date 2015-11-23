@@ -43,10 +43,7 @@ import org.osate.verify.verify.ElseExpr
 import org.osate.verify.verify.RefExpr
 import org.osate.verify.verify.ThenExpr
 import org.osate.verify.verify.VerificationActivity
-import org.osate.verify.verify.VerificationCondition
 import org.osate.verify.verify.VerificationPlan
-import org.osate.verify.verify.VerificationPrecondition
-import org.osate.verify.verify.VerificationValidation
 
 import static extension org.osate.alisa.common.util.CommonUtilExtension.*
 import static extension org.osate.reqspec.util.ReqSpecUtilExtension.*
@@ -288,10 +285,20 @@ class AlisaGenerator implements IGenerator {
 				resultstate tbd
 				tbdcount 0
 				«IF va.method?.precondition != null»
-					«va.method?.precondition.generate»
+				precondition «va.method.fullyQualifiedName»
+				[
+					executionstate todo
+					resultstate tbd
+					tbdcount 0
+				]
 				«ENDIF»
 				«IF va.method?.validation != null»
-					«va.method?.validation.generate»
+				validation «va.method.fullyQualifiedName»
+				[
+					executionstate todo
+					resultstate tbd
+					tbdcount 0
+				]
 				«ENDIF»
 			]
 			«ENDIF»
@@ -362,26 +369,5 @@ class AlisaGenerator implements IGenerator {
 		else 
 		''''''
 	}
-
-	def generate(VerificationCondition vc) {
-		'''
-			«vc.keyword» «vc.fullyQualifiedName»
-			[
-				executionstate todo
-				resultstate tbd
-				tbdcount 0
-			]
-		'''
-	}
-
-
-	def keyword(VerificationCondition vc) {
-		switch vc {
-			VerificationValidation: '''validation'''
-			VerificationPrecondition: '''precondition'''
-		}
-	}
-	
-	
 
 }

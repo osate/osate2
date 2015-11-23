@@ -98,4 +98,10 @@ class VerifyScopeProvider extends CommonScopeProvider {
 		new SimpleScope(IScope::NULLSCOPE, Scopes::scopedElementsFor(vas,
 					QualifiedName::wrapper(SimpleAttributeResolver::NAME_RESOLVER)), true)
 	}
+
+	def scope_FormalParameter(EObject context, EReference reference) {
+		val formalparams = getContainingVerificationMethod(context)?.params
+		new SimpleScope(IScope::NULLSCOPE, Scopes::scopedElementsFor(formalparams,
+					QualifiedName::wrapper(SimpleAttributeResolver::NAME_RESOLVER)), false)
+	}
 }
