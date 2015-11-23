@@ -28,7 +28,7 @@ StakeholderGoals: 'stakeholder' 'goals' name=QualifiedName (':' title=STRING)?
 	(	description=Description? 
 		& constants+=ValDeclaration*
 		&content+=Goal* 
-	    &('documents'  docReference+=ExternalDocument+)? 
+	    &('see''document'  docReference+=ExternalDocument+)? 
 		&('issues' issues+=STRING+ )?
 				)
 	']'
@@ -38,7 +38,7 @@ ReqDocument: 'document' name=QualifiedName (':' title=STRING)?
 	'[' 
 	( (  description=Description)? 
 	&(content+= (DocGoal | DocRequirement |  DocumentSection))*
-	 &('documents'  docReference+=ExternalDocument+)? 
+	 &('see''document'  docReference+=ExternalDocument+)? 
 	&('issues' issues+=STRING+ )?
 	)
 	 ']'
@@ -63,8 +63,8 @@ SystemRequirements returns SystemRequirements:
 	&constants+=ValDeclaration*
 	& computes+=ComputeDeclaration* 
 	& content+= (SystemRequirement)*
-	 &('document'  docReference+=ExternalDocument+)? 
-	 &('stakeholder' 'goals'  stakeholderGoals+=[ReqRoot|QualifiedName]+)? 
+	 &('see''document'  docReference+=ExternalDocument+)? 
+	 &('see' 'goals'  stakeholderGoals+=[ReqRoot|QualifiedName]+)? 
 	&('issues' issues+=STRING+ )?
 	)
 	']'
@@ -79,8 +79,8 @@ GlobalRequirements returns GlobalRequirements:
 	&constants+=ValDeclaration*
 	& computes+=ComputeDeclaration* 
 	& content+= (Requirement)*
-	 &('document'  docReference+=ExternalDocument+)? 
-	 &('stakeholder' 'goals'  stakeholderGoals+=[ReqRoot|QualifiedName]+)? 
+	 &('see''document'  docReference+=ExternalDocument+)? 
+	 &('see' 'goals'  stakeholderGoals+=[ReqRoot|QualifiedName]+)? 
 	&('issues' issues+=STRING+ )?
 	)
 	']'
@@ -105,7 +105,7 @@ DocGoal returns Goal:
 	&('evolves' evolvesReference+=[Requirement|QualifiedName]+)? 
 	&(dropped?='dropped' ( dropRationale=STRING )? )? 
 	 &('stakeholder'  stakeholderReference+=[org::Stakeholder|QualifiedName]+)?
-	 &( 'document'  docReference+=ExternalDocument+)? 
+	 &( 'see''document'  docReference+=ExternalDocument+)? 
 		&('issues' issues+=STRING+ )?
 	)
 	 ']';
@@ -128,7 +128,7 @@ Goal returns Goal:
 	&('evolves' evolvesReference+=[Requirement|QualifiedName]+)? 
 	&(dropped?='dropped' ( dropRationale=STRING )? )? 
 	 &('stakeholder'  stakeholderReference+=[org::Stakeholder|QualifiedName]+)?
-	 &('document'  docReference+=ExternalDocument+)? 
+	 &('see''document'  docReference+=ExternalDocument+)? 
 		&('issues' issues+=STRING+ )?
 	)
 	 ']';
@@ -155,8 +155,8 @@ SystemRequirement returns Requirement:
 	&('evolves' evolvesReference+=[Requirement|QualifiedName]+)? 
 	&(dropped?='dropped' ( dropRationale=STRING )? )? 
 	 &('development' 'stakeholder'  developmentStakeholder+=[org::Stakeholder|QualifiedName]+)?
-	&('goal'  goalReference+=[Goal|QualifiedName]+)?
-	 &('document'  docReference+=ExternalDocument+)? 
+	&('see''goal'  goalReference+=[Goal|QualifiedName]+)?
+	 &('see''document'  docReference+=ExternalDocument+)? 
 		&('issues' issues+=STRING+ )?
 	)
 	']';
@@ -168,7 +168,9 @@ Requirement returns Requirement:
 		componentCategory+=ComponentCategory+| global?='all')
 	)?
 '['	(
- 	('category'  category+=[categories::Category|ID]+ )?
+ 	('category'  category+=[categories::RequirementCategory|ID]+ )?
+ 	&('quality'  category+=[categories::QualityCategory|ID]+ )?
+ 	&('selection'  category+=[categories::SelectionCategory|ID]+ )?
 	&(  description=Description)? 
 	& (  constants+=ValDeclaration* )
 	& (  computes+=ComputeDeclaration* )
@@ -181,8 +183,8 @@ Requirement returns Requirement:
 	&('evolves' evolvesReference+=[Requirement|QualifiedName]+)? 
 	&(dropped?='dropped' ( dropRationale=STRING )? )? 
 	 &('development' 'stakeholder'  developmentStakeholder+=[org::Stakeholder|QualifiedName]+)?
-	&('goal'  goalReference+=[Goal|QualifiedName]+)?
-	 &('document'  docReference+=ExternalDocument+)? 
+	&('see''goal'  goalReference+=[Goal|QualifiedName]+)?
+	 &('see''document'  docReference+=ExternalDocument+)? 
 		&('issues' issues+=STRING+ )?
 	)
 	']';
@@ -195,7 +197,9 @@ DocRequirement returns Requirement:
 		componentCategory+=ComponentCategory+| global?='all')
 	)?
 '['	(
- 	('category'  category+=[categories::Category|ID]+ )?
+ 	('category'  category+=[categories::RequirementCategory|ID]+ )?
+ 	&('quality'  category+=[categories::QualityCategory|ID]+ )?
+ 	&('selection'  category+=[categories::SelectionCategory|ID]+ )?
 	&(  description=Description)? 
 	& (  constants+=ValDeclaration* )
 	& (  computes+=ComputeDeclaration* )
@@ -208,8 +212,8 @@ DocRequirement returns Requirement:
 	&('evolves' evolvesReference+=[Requirement|QualifiedName]+)? 
 	&(dropped?='dropped' ( dropRationale=STRING )? )? 
 	 &('development' 'stakeholder'  developmentStakeholder+=[org::Stakeholder|QualifiedName]+)?
-	&('goal'  goalReference+=[Goal|QualifiedName]+)?
-	 &('document'  docReference+=ExternalDocument+)? 
+	&('see''goal'  goalReference+=[Goal|QualifiedName]+)?
+	 &('see''document'  docReference+=ExternalDocument+)? 
 		&('issues' issues+=STRING+ )?
 	)
 	']';

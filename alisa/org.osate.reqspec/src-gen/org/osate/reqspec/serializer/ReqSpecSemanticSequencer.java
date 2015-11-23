@@ -263,7 +263,9 @@ public class ReqSpecSemanticSequencer extends CommonSemanticSequencer {
 	 *             name=ID 
 	 *             title=STRING? 
 	 *             (componentCategory+=ComponentCategory+ | global?='all')? 
-	 *             category+=[Category|ID]* 
+	 *             category+=[RequirementCategory|ID]* 
+	 *             category+=[QualityCategory|ID]* 
+	 *             category+=[SelectionCategory|ID]* 
 	 *             description=Description? 
 	 *             constants+=ValDeclaration* 
 	 *             computes+=ComputeDeclaration* 
@@ -289,7 +291,9 @@ public class ReqSpecSemanticSequencer extends CommonSemanticSequencer {
 	 *                 componentCategory+=ComponentCategory+ | 
 	 *                 global?='all'
 	 *             )? 
-	 *             category+=[Category|ID]* 
+	 *             category+=[RequirementCategory|ID]* 
+	 *             category+=[QualityCategory|ID]* 
+	 *             category+=[SelectionCategory|ID]* 
 	 *             description=Description? 
 	 *             constants+=ValDeclaration* 
 	 *             computes+=ComputeDeclaration* 
@@ -351,7 +355,9 @@ public class ReqSpecSemanticSequencer extends CommonSemanticSequencer {
 	 *             componentCategory+=ComponentCategory+ | 
 	 *             global?='all'
 	 *         )? 
-	 *         category+=[Category|ID]* 
+	 *         category+=[RequirementCategory|ID]* 
+	 *         category+=[QualityCategory|ID]* 
+	 *         category+=[SelectionCategory|ID]* 
 	 *         description=Description? 
 	 *         constants+=ValDeclaration* 
 	 *         computes+=ComputeDeclaration* 
@@ -511,7 +517,9 @@ public class ReqSpecSemanticSequencer extends CommonSemanticSequencer {
 	 *         name=ID 
 	 *         title=STRING? 
 	 *         (componentCategory+=ComponentCategory+ | global?='all')? 
-	 *         category+=[Category|ID]* 
+	 *         category+=[RequirementCategory|ID]* 
+	 *         category+=[QualityCategory|ID]* 
+	 *         category+=[SelectionCategory|ID]* 
 	 *         description=Description? 
 	 *         constants+=ValDeclaration* 
 	 *         computes+=ComputeDeclaration* 
