@@ -60,6 +60,7 @@ import org.osate.reqspec.reqSpec.ReqDocument;
 import org.osate.reqspec.reqSpec.ReqSpec;
 import org.osate.reqspec.reqSpec.ReqSpecPackage;
 import org.osate.reqspec.reqSpec.Requirement;
+import org.osate.reqspec.reqSpec.RequirementLibrary;
 import org.osate.reqspec.reqSpec.StakeholderGoals;
 import org.osate.reqspec.reqSpec.SystemRequirements;
 import org.osate.reqspec.reqSpec.ValuePredicate;
@@ -186,7 +187,14 @@ public class ReqSpecSemanticSequencer extends CommonSemanticSequencer {
 					sequence_Requirement(context, (Requirement) semanticObject); 
 					return; 
 				}
+				else if(context == grammarAccess.getSystemRequirementRule()) {
+					sequence_SystemRequirement(context, (Requirement) semanticObject); 
+					return; 
+				}
 				else break;
+			case ReqSpecPackage.REQUIREMENT_LIBRARY:
+				sequence_RequirementLibrary(context, (RequirementLibrary) semanticObject); 
+				return; 
 			case ReqSpecPackage.STAKEHOLDER_GOALS:
 				sequence_StakeholderGoals(context, (StakeholderGoals) semanticObject); 
 				return; 
@@ -219,7 +227,6 @@ public class ReqSpecSemanticSequencer extends CommonSemanticSequencer {
 	 *             evolvesReference+=[Requirement|QualifiedName]* 
 	 *             (dropped?='dropped' dropRationale=STRING?)? 
 	 *             stakeholderReference+=[Stakeholder|QualifiedName]* 
-	 *             documentRequirement+=[ContractualElement|QualifiedName]* 
 	 *             docReference+=ExternalDocument* 
 	 *             issues+=STRING*
 	 *         ) | 
@@ -227,7 +234,9 @@ public class ReqSpecSemanticSequencer extends CommonSemanticSequencer {
 	 *             name=ID 
 	 *             title=STRING? 
 	 *             (targetDescription=STRING | (target=[ComponentClassifier|AadlClassifierReference] targetElement=[NamedElement|ID]?))? 
-	 *             category+=[Category|ID]* 
+	 *             category+=[RequirementCategory|ID]* 
+	 *             category+=[QualityCategory|ID]* 
+	 *             category+=[SelectionCategory|ID]* 
 	 *             description=Description? 
 	 *             constants+=ValDeclaration* 
 	 *             rationale=Rationale? 
@@ -237,7 +246,6 @@ public class ReqSpecSemanticSequencer extends CommonSemanticSequencer {
 	 *             evolvesReference+=[Requirement|QualifiedName]* 
 	 *             (dropped?='dropped' dropRationale=STRING?)? 
 	 *             stakeholderReference+=[Stakeholder|QualifiedName]* 
-	 *             documentRequirement+=[ContractualElement|QualifiedName]* 
 	 *             docReference+=ExternalDocument* 
 	 *             issues+=STRING*
 	 *         )
@@ -254,37 +262,7 @@ public class ReqSpecSemanticSequencer extends CommonSemanticSequencer {
 	 *         (
 	 *             name=ID 
 	 *             title=STRING? 
-	 *             (
-	 *                 (target=[ComponentClassifier|AadlClassifierReference] targetElement=[NamedElement|ID]?) | 
-	 *                 targetElement=[NamedElement|ID] | 
-	 *                 componentCategory+=ComponentCategory+ | 
-	 *                 global?='all'
-	 *             )? 
-	 *             category+=[RequirementCategory|ID]* 
-	 *             category+=[QualityCategory|ID]* 
-	 *             category+=[SelectionCategory|ID]* 
-	 *             description=Description? 
-	 *             constants+=ValDeclaration* 
-	 *             computes+=ComputeDeclaration* 
-	 *             predicate=ReqPredicate? 
-	 *             rationale=Rationale? 
-	 *             changeUncertainty=Uncertainty? 
-	 *             (exception=[EObject|ID] | exceptionText=STRING)? 
-	 *             refinesReference+=[Requirement|QualifiedName]* 
-	 *             decomposesReference+=[Requirement|QualifiedName]* 
-	 *             evolvesReference+=[Requirement|QualifiedName]* 
-	 *             (dropped?='dropped' dropRationale=STRING?)? 
-	 *             developmentStakeholder+=[Stakeholder|QualifiedName]* 
-	 *             goalReference+=[Goal|QualifiedName]* 
-	 *             stakeholderRequirementReference+=[Goal|QualifiedName]* 
-	 *             documentRequirement+=[ContractualElement|QualifiedName]* 
-	 *             docReference+=ExternalDocument* 
-	 *             issues+=STRING*
-	 *         ) | 
-	 *         (
-	 *             name=ID 
-	 *             title=STRING? 
-	 *             (targetDescription=STRING | (target=[ComponentClassifier|AadlClassifierReference] targetElement=[NamedElement|ID]?))? 
+	 *             (componentCategory+=ComponentCategory+ | global?='all')? 
 	 *             category+=[Category|ID]* 
 	 *             description=Description? 
 	 *             constants+=ValDeclaration* 
@@ -299,8 +277,32 @@ public class ReqSpecSemanticSequencer extends CommonSemanticSequencer {
 	 *             (dropped?='dropped' dropRationale=STRING?)? 
 	 *             developmentStakeholder+=[Stakeholder|QualifiedName]* 
 	 *             goalReference+=[Goal|QualifiedName]* 
-	 *             stakeholderRequirementReference+=[Goal|QualifiedName]* 
-	 *             documentRequirement+=[ContractualElement|QualifiedName]* 
+	 *             docReference+=ExternalDocument* 
+	 *             issues+=STRING*
+	 *         ) | 
+	 *         (
+	 *             name=ID 
+	 *             title=STRING? 
+	 *             (
+	 *                 targetDescription=STRING | 
+	 *                 (target=[ComponentClassifier|AadlClassifierReference] targetElement=[NamedElement|ID]?) | 
+	 *                 componentCategory+=ComponentCategory+ | 
+	 *                 global?='all'
+	 *             )? 
+	 *             category+=[Category|ID]* 
+	 *             description=Description? 
+	 *             constants+=ValDeclaration* 
+	 *             computes+=ComputeDeclaration* 
+	 *             predicate=ReqPredicate? 
+	 *             rationale=Rationale? 
+	 *             changeUncertainty=Uncertainty? 
+	 *             (exception=[EObject|ID] | exceptionText=STRING)? 
+	 *             refinesReference+=[Requirement|QualifiedName]* 
+	 *             decomposesReference+=[Requirement|QualifiedName]* 
+	 *             evolvesReference+=[Requirement|QualifiedName]* 
+	 *             (dropped?='dropped' dropRationale=STRING?)? 
+	 *             developmentStakeholder+=[Stakeholder|QualifiedName]* 
+	 *             goalReference+=[Goal|QualifiedName]* 
 	 *             docReference+=ExternalDocument* 
 	 *             issues+=STRING*
 	 *         )
@@ -317,7 +319,9 @@ public class ReqSpecSemanticSequencer extends CommonSemanticSequencer {
 	 *         name=ID 
 	 *         title=STRING? 
 	 *         (targetDescription=STRING | (target=[ComponentClassifier|AadlClassifierReference] targetElement=[NamedElement|ID]?))? 
-	 *         category+=[Category|ID]* 
+	 *         category+=[RequirementCategory|ID]* 
+	 *         category+=[QualityCategory|ID]* 
+	 *         category+=[SelectionCategory|ID]* 
 	 *         description=Description? 
 	 *         constants+=ValDeclaration* 
 	 *         rationale=Rationale? 
@@ -327,7 +331,6 @@ public class ReqSpecSemanticSequencer extends CommonSemanticSequencer {
 	 *         evolvesReference+=[Requirement|QualifiedName]* 
 	 *         (dropped?='dropped' dropRationale=STRING?)? 
 	 *         stakeholderReference+=[Stakeholder|QualifiedName]* 
-	 *         documentRequirement+=[ContractualElement|QualifiedName]* 
 	 *         docReference+=ExternalDocument* 
 	 *         issues+=STRING*
 	 *     )
@@ -342,7 +345,12 @@ public class ReqSpecSemanticSequencer extends CommonSemanticSequencer {
 	 *     (
 	 *         name=ID 
 	 *         title=STRING? 
-	 *         (targetDescription=STRING | (target=[ComponentClassifier|AadlClassifierReference] targetElement=[NamedElement|ID]?))? 
+	 *         (
+	 *             targetDescription=STRING | 
+	 *             (target=[ComponentClassifier|AadlClassifierReference] targetElement=[NamedElement|ID]?) | 
+	 *             componentCategory+=ComponentCategory+ | 
+	 *             global?='all'
+	 *         )? 
 	 *         category+=[Category|ID]* 
 	 *         description=Description? 
 	 *         constants+=ValDeclaration* 
@@ -357,8 +365,6 @@ public class ReqSpecSemanticSequencer extends CommonSemanticSequencer {
 	 *         (dropped?='dropped' dropRationale=STRING?)? 
 	 *         developmentStakeholder+=[Stakeholder|QualifiedName]* 
 	 *         goalReference+=[Goal|QualifiedName]* 
-	 *         stakeholderRequirementReference+=[Goal|QualifiedName]* 
-	 *         documentRequirement+=[ContractualElement|QualifiedName]* 
 	 *         docReference+=ExternalDocument* 
 	 *         issues+=STRING*
 	 *     )
@@ -413,7 +419,6 @@ public class ReqSpecSemanticSequencer extends CommonSemanticSequencer {
 	 *         evolvesReference+=[Requirement|QualifiedName]* 
 	 *         (dropped?='dropped' dropRationale=STRING?)? 
 	 *         stakeholderReference+=[Stakeholder|QualifiedName]* 
-	 *         documentRequirement+=[ContractualElement|QualifiedName]* 
 	 *         docReference+=ExternalDocument* 
 	 *         issues+=STRING*
 	 *     )
@@ -462,6 +467,7 @@ public class ReqSpecSemanticSequencer extends CommonSemanticSequencer {
 	 *         title=STRING? 
 	 *         description=Description? 
 	 *         (content+=DocGoal | content+=DocRequirement | content+=DocumentSection)* 
+	 *         docReference+=ExternalDocument* 
 	 *         issues+=STRING*
 	 *     )
 	 */
@@ -472,7 +478,7 @@ public class ReqSpecSemanticSequencer extends CommonSemanticSequencer {
 	
 	/**
 	 * Constraint:
-	 *     (parts+=SystemRequirements | parts+=StakeholderGoals | parts+=ReqDocument | parts+=GlobalConstants)+
+	 *     (parts+=SystemRequirements | parts+=RequirementLibrary | parts+=StakeholderGoals | parts+=ReqDocument | parts+=GlobalConstants)+
 	 */
 	protected void sequence_ReqSpec(EObject context, ReqSpec semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
@@ -482,17 +488,30 @@ public class ReqSpecSemanticSequencer extends CommonSemanticSequencer {
 	/**
 	 * Constraint:
 	 *     (
+	 *         name=QualifiedName 
+	 *         title=STRING? 
+	 *         importConstants+=[GlobalConstants|QualifiedName]* 
+	 *         description=Description? 
+	 *         constants+=ValDeclaration* 
+	 *         computes+=ComputeDeclaration* 
+	 *         content+=Requirement* 
+	 *         docReference+=ExternalDocument* 
+	 *         stakeholderGoals+=[ReqRoot|QualifiedName]* 
+	 *         issues+=STRING*
+	 *     )
+	 */
+	protected void sequence_RequirementLibrary(EObject context, RequirementLibrary semanticObject) {
+		genericSequencer.createSequence(context, semanticObject);
+	}
+	
+	
+	/**
+	 * Constraint:
+	 *     (
 	 *         name=ID 
 	 *         title=STRING? 
-	 *         (
-	 *             (target=[ComponentClassifier|AadlClassifierReference] targetElement=[NamedElement|ID]?) | 
-	 *             targetElement=[NamedElement|ID] | 
-	 *             componentCategory+=ComponentCategory+ | 
-	 *             global?='all'
-	 *         )? 
-	 *         category+=[RequirementCategory|ID]* 
-	 *         category+=[QualityCategory|ID]* 
-	 *         category+=[SelectionCategory|ID]* 
+	 *         (componentCategory+=ComponentCategory+ | global?='all')? 
+	 *         category+=[Category|ID]* 
 	 *         description=Description? 
 	 *         constants+=ValDeclaration* 
 	 *         computes+=ComputeDeclaration* 
@@ -506,8 +525,6 @@ public class ReqSpecSemanticSequencer extends CommonSemanticSequencer {
 	 *         (dropped?='dropped' dropRationale=STRING?)? 
 	 *         developmentStakeholder+=[Stakeholder|QualifiedName]* 
 	 *         goalReference+=[Goal|QualifiedName]* 
-	 *         stakeholderRequirementReference+=[Goal|QualifiedName]* 
-	 *         documentRequirement+=[ContractualElement|QualifiedName]* 
 	 *         docReference+=ExternalDocument* 
 	 *         issues+=STRING*
 	 *     )
@@ -539,6 +556,37 @@ public class ReqSpecSemanticSequencer extends CommonSemanticSequencer {
 	/**
 	 * Constraint:
 	 *     (
+	 *         name=ID 
+	 *         title=STRING? 
+	 *         targetElement=[NamedElement|ID]? 
+	 *         category+=[RequirementCategory|ID]* 
+	 *         category+=[QualityCategory|ID]* 
+	 *         category+=[SelectionCategory|ID]* 
+	 *         description=Description? 
+	 *         constants+=ValDeclaration* 
+	 *         computes+=ComputeDeclaration* 
+	 *         predicate=ReqPredicate? 
+	 *         rationale=Rationale? 
+	 *         changeUncertainty=Uncertainty? 
+	 *         (exception=[EObject|ID] | exceptionText=STRING)? 
+	 *         refinesReference+=[Requirement|QualifiedName]* 
+	 *         decomposesReference+=[Requirement|QualifiedName]* 
+	 *         evolvesReference+=[Requirement|QualifiedName]* 
+	 *         (dropped?='dropped' dropRationale=STRING?)? 
+	 *         developmentStakeholder+=[Stakeholder|QualifiedName]* 
+	 *         goalReference+=[Goal|QualifiedName]* 
+	 *         docReference+=ExternalDocument* 
+	 *         issues+=STRING*
+	 *     )
+	 */
+	protected void sequence_SystemRequirement(EObject context, Requirement semanticObject) {
+		genericSequencer.createSequence(context, semanticObject);
+	}
+	
+	
+	/**
+	 * Constraint:
+	 *     (
 	 *         name=QualifiedName 
 	 *         title=STRING? 
 	 *         (target=[ComponentClassifier|AadlClassifierReference] | componentCategory+=ComponentCategory+ | global?='all') 
@@ -546,8 +594,9 @@ public class ReqSpecSemanticSequencer extends CommonSemanticSequencer {
 	 *         description=Description? 
 	 *         constants+=ValDeclaration* 
 	 *         computes+=ComputeDeclaration* 
-	 *         content+=Requirement* 
+	 *         content+=SystemRequirement* 
 	 *         docReference+=ExternalDocument* 
+	 *         stakeholderGoals+=[ReqRoot|QualifiedName]* 
 	 *         issues+=STRING*
 	 *     )
 	 */

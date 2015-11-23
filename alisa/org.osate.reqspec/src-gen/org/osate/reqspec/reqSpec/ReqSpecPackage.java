@@ -281,22 +281,13 @@ public interface ReqSpecPackage extends EPackage
   int CONTRACTUAL_ELEMENT__DROP_RATIONALE = 12;
 
   /**
-   * The feature id for the '<em><b>Document Requirement</b></em>' reference list.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int CONTRACTUAL_ELEMENT__DOCUMENT_REQUIREMENT = 13;
-
-  /**
    * The feature id for the '<em><b>Doc Reference</b></em>' containment reference list.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    * @ordered
    */
-  int CONTRACTUAL_ELEMENT__DOC_REFERENCE = 14;
+  int CONTRACTUAL_ELEMENT__DOC_REFERENCE = 13;
 
   /**
    * The feature id for the '<em><b>Issues</b></em>' attribute list.
@@ -305,7 +296,7 @@ public interface ReqSpecPackage extends EPackage
    * @generated
    * @ordered
    */
-  int CONTRACTUAL_ELEMENT__ISSUES = 15;
+  int CONTRACTUAL_ELEMENT__ISSUES = 14;
 
   /**
    * The number of structural features of the '<em>Contractual Element</em>' class.
@@ -314,7 +305,7 @@ public interface ReqSpecPackage extends EPackage
    * @generated
    * @ordered
    */
-  int CONTRACTUAL_ELEMENT_FEATURE_COUNT = 16;
+  int CONTRACTUAL_ELEMENT_FEATURE_COUNT = 15;
 
   /**
    * The meta object id for the '{@link org.osate.reqspec.reqSpec.impl.ReqRootImpl <em>Req Root</em>}' class.
@@ -500,13 +491,22 @@ public interface ReqSpecPackage extends EPackage
   int REQ_DOCUMENT__CONTENT = REQ_SPEC_CONTAINER_FEATURE_COUNT + 3;
 
   /**
+   * The feature id for the '<em><b>Doc Reference</b></em>' containment reference list.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int REQ_DOCUMENT__DOC_REFERENCE = REQ_SPEC_CONTAINER_FEATURE_COUNT + 4;
+
+  /**
    * The feature id for the '<em><b>Issues</b></em>' attribute list.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    * @ordered
    */
-  int REQ_DOCUMENT__ISSUES = REQ_SPEC_CONTAINER_FEATURE_COUNT + 4;
+  int REQ_DOCUMENT__ISSUES = REQ_SPEC_CONTAINER_FEATURE_COUNT + 5;
 
   /**
    * The number of structural features of the '<em>Req Document</em>' class.
@@ -515,7 +515,7 @@ public interface ReqSpecPackage extends EPackage
    * @generated
    * @ordered
    */
-  int REQ_DOCUMENT_FEATURE_COUNT = REQ_SPEC_CONTAINER_FEATURE_COUNT + 5;
+  int REQ_DOCUMENT_FEATURE_COUNT = REQ_SPEC_CONTAINER_FEATURE_COUNT + 6;
 
   /**
    * The meta object id for the '{@link org.osate.reqspec.reqSpec.impl.DocumentSectionImpl <em>Document Section</em>}' class.
@@ -682,13 +682,22 @@ public interface ReqSpecPackage extends EPackage
   int SYSTEM_REQUIREMENTS__DOC_REFERENCE = REQ_SPEC_CONTAINER_FEATURE_COUNT + 10;
 
   /**
+   * The feature id for the '<em><b>Stakeholder Goals</b></em>' reference list.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int SYSTEM_REQUIREMENTS__STAKEHOLDER_GOALS = REQ_SPEC_CONTAINER_FEATURE_COUNT + 11;
+
+  /**
    * The feature id for the '<em><b>Issues</b></em>' attribute list.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    * @ordered
    */
-  int SYSTEM_REQUIREMENTS__ISSUES = REQ_SPEC_CONTAINER_FEATURE_COUNT + 11;
+  int SYSTEM_REQUIREMENTS__ISSUES = REQ_SPEC_CONTAINER_FEATURE_COUNT + 12;
 
   /**
    * The number of structural features of the '<em>System Requirements</em>' class.
@@ -697,7 +706,116 @@ public interface ReqSpecPackage extends EPackage
    * @generated
    * @ordered
    */
-  int SYSTEM_REQUIREMENTS_FEATURE_COUNT = REQ_SPEC_CONTAINER_FEATURE_COUNT + 12;
+  int SYSTEM_REQUIREMENTS_FEATURE_COUNT = REQ_SPEC_CONTAINER_FEATURE_COUNT + 13;
+
+  /**
+   * The meta object id for the '{@link org.osate.reqspec.reqSpec.impl.RequirementLibraryImpl <em>Requirement Library</em>}' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see org.osate.reqspec.reqSpec.impl.RequirementLibraryImpl
+   * @see org.osate.reqspec.reqSpec.impl.ReqSpecPackageImpl#getRequirementLibrary()
+   * @generated
+   */
+  int REQUIREMENT_LIBRARY = 9;
+
+  /**
+   * The feature id for the '<em><b>Name</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int REQUIREMENT_LIBRARY__NAME = REQ_SPEC_CONTAINER_FEATURE_COUNT + 0;
+
+  /**
+   * The feature id for the '<em><b>Title</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int REQUIREMENT_LIBRARY__TITLE = REQ_SPEC_CONTAINER_FEATURE_COUNT + 1;
+
+  /**
+   * The feature id for the '<em><b>Import Constants</b></em>' reference list.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int REQUIREMENT_LIBRARY__IMPORT_CONSTANTS = REQ_SPEC_CONTAINER_FEATURE_COUNT + 2;
+
+  /**
+   * The feature id for the '<em><b>Description</b></em>' containment reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int REQUIREMENT_LIBRARY__DESCRIPTION = REQ_SPEC_CONTAINER_FEATURE_COUNT + 3;
+
+  /**
+   * The feature id for the '<em><b>Constants</b></em>' containment reference list.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int REQUIREMENT_LIBRARY__CONSTANTS = REQ_SPEC_CONTAINER_FEATURE_COUNT + 4;
+
+  /**
+   * The feature id for the '<em><b>Computes</b></em>' containment reference list.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int REQUIREMENT_LIBRARY__COMPUTES = REQ_SPEC_CONTAINER_FEATURE_COUNT + 5;
+
+  /**
+   * The feature id for the '<em><b>Content</b></em>' containment reference list.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int REQUIREMENT_LIBRARY__CONTENT = REQ_SPEC_CONTAINER_FEATURE_COUNT + 6;
+
+  /**
+   * The feature id for the '<em><b>Doc Reference</b></em>' containment reference list.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int REQUIREMENT_LIBRARY__DOC_REFERENCE = REQ_SPEC_CONTAINER_FEATURE_COUNT + 7;
+
+  /**
+   * The feature id for the '<em><b>Stakeholder Goals</b></em>' reference list.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int REQUIREMENT_LIBRARY__STAKEHOLDER_GOALS = REQ_SPEC_CONTAINER_FEATURE_COUNT + 8;
+
+  /**
+   * The feature id for the '<em><b>Issues</b></em>' attribute list.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int REQUIREMENT_LIBRARY__ISSUES = REQ_SPEC_CONTAINER_FEATURE_COUNT + 9;
+
+  /**
+   * The number of structural features of the '<em>Requirement Library</em>' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int REQUIREMENT_LIBRARY_FEATURE_COUNT = REQ_SPEC_CONTAINER_FEATURE_COUNT + 10;
 
   /**
    * The meta object id for the '{@link org.osate.reqspec.reqSpec.impl.GoalImpl <em>Goal</em>}' class.
@@ -707,7 +825,7 @@ public interface ReqSpecPackage extends EPackage
    * @see org.osate.reqspec.reqSpec.impl.ReqSpecPackageImpl#getGoal()
    * @generated
    */
-  int GOAL = 9;
+  int GOAL = 10;
 
   /**
    * The feature id for the '<em><b>Name</b></em>' attribute.
@@ -827,15 +945,6 @@ public interface ReqSpecPackage extends EPackage
   int GOAL__DROP_RATIONALE = CONTRACTUAL_ELEMENT__DROP_RATIONALE;
 
   /**
-   * The feature id for the '<em><b>Document Requirement</b></em>' reference list.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int GOAL__DOCUMENT_REQUIREMENT = CONTRACTUAL_ELEMENT__DOCUMENT_REQUIREMENT;
-
-  /**
    * The feature id for the '<em><b>Doc Reference</b></em>' containment reference list.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -897,7 +1006,7 @@ public interface ReqSpecPackage extends EPackage
    * @see org.osate.reqspec.reqSpec.impl.ReqSpecPackageImpl#getRequirement()
    * @generated
    */
-  int REQUIREMENT = 10;
+  int REQUIREMENT = 11;
 
   /**
    * The feature id for the '<em><b>Name</b></em>' attribute.
@@ -1017,15 +1126,6 @@ public interface ReqSpecPackage extends EPackage
   int REQUIREMENT__DROP_RATIONALE = CONTRACTUAL_ELEMENT__DROP_RATIONALE;
 
   /**
-   * The feature id for the '<em><b>Document Requirement</b></em>' reference list.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int REQUIREMENT__DOCUMENT_REQUIREMENT = CONTRACTUAL_ELEMENT__DOCUMENT_REQUIREMENT;
-
-  /**
    * The feature id for the '<em><b>Doc Reference</b></em>' containment reference list.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -1044,31 +1144,13 @@ public interface ReqSpecPackage extends EPackage
   int REQUIREMENT__ISSUES = CONTRACTUAL_ELEMENT__ISSUES;
 
   /**
-   * The feature id for the '<em><b>Component Category</b></em>' attribute list.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int REQUIREMENT__COMPONENT_CATEGORY = CONTRACTUAL_ELEMENT_FEATURE_COUNT + 0;
-
-  /**
-   * The feature id for the '<em><b>Global</b></em>' attribute.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int REQUIREMENT__GLOBAL = CONTRACTUAL_ELEMENT_FEATURE_COUNT + 1;
-
-  /**
    * The feature id for the '<em><b>Computes</b></em>' containment reference list.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    * @ordered
    */
-  int REQUIREMENT__COMPUTES = CONTRACTUAL_ELEMENT_FEATURE_COUNT + 2;
+  int REQUIREMENT__COMPUTES = CONTRACTUAL_ELEMENT_FEATURE_COUNT + 0;
 
   /**
    * The feature id for the '<em><b>Predicate</b></em>' containment reference.
@@ -1077,7 +1159,7 @@ public interface ReqSpecPackage extends EPackage
    * @generated
    * @ordered
    */
-  int REQUIREMENT__PREDICATE = CONTRACTUAL_ELEMENT_FEATURE_COUNT + 3;
+  int REQUIREMENT__PREDICATE = CONTRACTUAL_ELEMENT_FEATURE_COUNT + 1;
 
   /**
    * The feature id for the '<em><b>Exception</b></em>' reference.
@@ -1086,7 +1168,7 @@ public interface ReqSpecPackage extends EPackage
    * @generated
    * @ordered
    */
-  int REQUIREMENT__EXCEPTION = CONTRACTUAL_ELEMENT_FEATURE_COUNT + 4;
+  int REQUIREMENT__EXCEPTION = CONTRACTUAL_ELEMENT_FEATURE_COUNT + 2;
 
   /**
    * The feature id for the '<em><b>Exception Text</b></em>' attribute.
@@ -1095,7 +1177,7 @@ public interface ReqSpecPackage extends EPackage
    * @generated
    * @ordered
    */
-  int REQUIREMENT__EXCEPTION_TEXT = CONTRACTUAL_ELEMENT_FEATURE_COUNT + 5;
+  int REQUIREMENT__EXCEPTION_TEXT = CONTRACTUAL_ELEMENT_FEATURE_COUNT + 3;
 
   /**
    * The feature id for the '<em><b>Refines Reference</b></em>' reference list.
@@ -1104,7 +1186,7 @@ public interface ReqSpecPackage extends EPackage
    * @generated
    * @ordered
    */
-  int REQUIREMENT__REFINES_REFERENCE = CONTRACTUAL_ELEMENT_FEATURE_COUNT + 6;
+  int REQUIREMENT__REFINES_REFERENCE = CONTRACTUAL_ELEMENT_FEATURE_COUNT + 4;
 
   /**
    * The feature id for the '<em><b>Decomposes Reference</b></em>' reference list.
@@ -1113,7 +1195,7 @@ public interface ReqSpecPackage extends EPackage
    * @generated
    * @ordered
    */
-  int REQUIREMENT__DECOMPOSES_REFERENCE = CONTRACTUAL_ELEMENT_FEATURE_COUNT + 7;
+  int REQUIREMENT__DECOMPOSES_REFERENCE = CONTRACTUAL_ELEMENT_FEATURE_COUNT + 5;
 
   /**
    * The feature id for the '<em><b>Development Stakeholder</b></em>' reference list.
@@ -1122,7 +1204,7 @@ public interface ReqSpecPackage extends EPackage
    * @generated
    * @ordered
    */
-  int REQUIREMENT__DEVELOPMENT_STAKEHOLDER = CONTRACTUAL_ELEMENT_FEATURE_COUNT + 8;
+  int REQUIREMENT__DEVELOPMENT_STAKEHOLDER = CONTRACTUAL_ELEMENT_FEATURE_COUNT + 6;
 
   /**
    * The feature id for the '<em><b>Goal Reference</b></em>' reference list.
@@ -1131,16 +1213,25 @@ public interface ReqSpecPackage extends EPackage
    * @generated
    * @ordered
    */
-  int REQUIREMENT__GOAL_REFERENCE = CONTRACTUAL_ELEMENT_FEATURE_COUNT + 9;
+  int REQUIREMENT__GOAL_REFERENCE = CONTRACTUAL_ELEMENT_FEATURE_COUNT + 7;
 
   /**
-   * The feature id for the '<em><b>Stakeholder Requirement Reference</b></em>' reference list.
+   * The feature id for the '<em><b>Component Category</b></em>' attribute list.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    * @ordered
    */
-  int REQUIREMENT__STAKEHOLDER_REQUIREMENT_REFERENCE = CONTRACTUAL_ELEMENT_FEATURE_COUNT + 10;
+  int REQUIREMENT__COMPONENT_CATEGORY = CONTRACTUAL_ELEMENT_FEATURE_COUNT + 8;
+
+  /**
+   * The feature id for the '<em><b>Global</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int REQUIREMENT__GLOBAL = CONTRACTUAL_ELEMENT_FEATURE_COUNT + 9;
 
   /**
    * The number of structural features of the '<em>Requirement</em>' class.
@@ -1149,7 +1240,7 @@ public interface ReqSpecPackage extends EPackage
    * @generated
    * @ordered
    */
-  int REQUIREMENT_FEATURE_COUNT = CONTRACTUAL_ELEMENT_FEATURE_COUNT + 11;
+  int REQUIREMENT_FEATURE_COUNT = CONTRACTUAL_ELEMENT_FEATURE_COUNT + 10;
 
   /**
    * The meta object id for the '{@link org.osate.reqspec.reqSpec.impl.ReqPredicateImpl <em>Req Predicate</em>}' class.
@@ -1159,7 +1250,7 @@ public interface ReqSpecPackage extends EPackage
    * @see org.osate.reqspec.reqSpec.impl.ReqSpecPackageImpl#getReqPredicate()
    * @generated
    */
-  int REQ_PREDICATE = 11;
+  int REQ_PREDICATE = 12;
 
   /**
    * The number of structural features of the '<em>Req Predicate</em>' class.
@@ -1178,7 +1269,7 @@ public interface ReqSpecPackage extends EPackage
    * @see org.osate.reqspec.reqSpec.impl.ReqSpecPackageImpl#getInformalPredicate()
    * @generated
    */
-  int INFORMAL_PREDICATE = 12;
+  int INFORMAL_PREDICATE = 13;
 
   /**
    * The feature id for the '<em><b>Description</b></em>' attribute.
@@ -1206,7 +1297,7 @@ public interface ReqSpecPackage extends EPackage
    * @see org.osate.reqspec.reqSpec.impl.ReqSpecPackageImpl#getPredicate()
    * @generated
    */
-  int PREDICATE = 13;
+  int PREDICATE = 14;
 
   /**
    * The feature id for the '<em><b>Xpression</b></em>' containment reference.
@@ -1234,7 +1325,7 @@ public interface ReqSpecPackage extends EPackage
    * @see org.osate.reqspec.reqSpec.impl.ReqSpecPackageImpl#getValuePredicate()
    * @generated
    */
-  int VALUE_PREDICATE = 14;
+  int VALUE_PREDICATE = 15;
 
   /**
    * The feature id for the '<em><b>Xpression</b></em>' containment reference.
@@ -1262,7 +1353,7 @@ public interface ReqSpecPackage extends EPackage
    * @see org.osate.reqspec.reqSpec.impl.ReqSpecPackageImpl#getExternalDocument()
    * @generated
    */
-  int EXTERNAL_DOCUMENT = 15;
+  int EXTERNAL_DOCUMENT = 16;
 
   /**
    * The feature id for the '<em><b>Doc Reference</b></em>' attribute.
@@ -1509,17 +1600,6 @@ public interface ReqSpecPackage extends EPackage
   EAttribute getContractualElement_DropRationale();
 
   /**
-   * Returns the meta object for the reference list '{@link org.osate.reqspec.reqSpec.ContractualElement#getDocumentRequirement <em>Document Requirement</em>}'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return the meta object for the reference list '<em>Document Requirement</em>'.
-   * @see org.osate.reqspec.reqSpec.ContractualElement#getDocumentRequirement()
-   * @see #getContractualElement()
-   * @generated
-   */
-  EReference getContractualElement_DocumentRequirement();
-
-  /**
    * Returns the meta object for the containment reference list '{@link org.osate.reqspec.reqSpec.ContractualElement#getDocReference <em>Doc Reference</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -1737,6 +1817,17 @@ public interface ReqSpecPackage extends EPackage
   EReference getReqDocument_Content();
 
   /**
+   * Returns the meta object for the containment reference list '{@link org.osate.reqspec.reqSpec.ReqDocument#getDocReference <em>Doc Reference</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the containment reference list '<em>Doc Reference</em>'.
+   * @see org.osate.reqspec.reqSpec.ReqDocument#getDocReference()
+   * @see #getReqDocument()
+   * @generated
+   */
+  EReference getReqDocument_DocReference();
+
+  /**
    * Returns the meta object for the attribute list '{@link org.osate.reqspec.reqSpec.ReqDocument#getIssues <em>Issues</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -1933,6 +2024,17 @@ public interface ReqSpecPackage extends EPackage
   EReference getSystemRequirements_DocReference();
 
   /**
+   * Returns the meta object for the reference list '{@link org.osate.reqspec.reqSpec.SystemRequirements#getStakeholderGoals <em>Stakeholder Goals</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the reference list '<em>Stakeholder Goals</em>'.
+   * @see org.osate.reqspec.reqSpec.SystemRequirements#getStakeholderGoals()
+   * @see #getSystemRequirements()
+   * @generated
+   */
+  EReference getSystemRequirements_StakeholderGoals();
+
+  /**
    * Returns the meta object for the attribute list '{@link org.osate.reqspec.reqSpec.SystemRequirements#getIssues <em>Issues</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -1942,6 +2044,126 @@ public interface ReqSpecPackage extends EPackage
    * @generated
    */
   EAttribute getSystemRequirements_Issues();
+
+  /**
+   * Returns the meta object for class '{@link org.osate.reqspec.reqSpec.RequirementLibrary <em>Requirement Library</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for class '<em>Requirement Library</em>'.
+   * @see org.osate.reqspec.reqSpec.RequirementLibrary
+   * @generated
+   */
+  EClass getRequirementLibrary();
+
+  /**
+   * Returns the meta object for the attribute '{@link org.osate.reqspec.reqSpec.RequirementLibrary#getName <em>Name</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the attribute '<em>Name</em>'.
+   * @see org.osate.reqspec.reqSpec.RequirementLibrary#getName()
+   * @see #getRequirementLibrary()
+   * @generated
+   */
+  EAttribute getRequirementLibrary_Name();
+
+  /**
+   * Returns the meta object for the attribute '{@link org.osate.reqspec.reqSpec.RequirementLibrary#getTitle <em>Title</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the attribute '<em>Title</em>'.
+   * @see org.osate.reqspec.reqSpec.RequirementLibrary#getTitle()
+   * @see #getRequirementLibrary()
+   * @generated
+   */
+  EAttribute getRequirementLibrary_Title();
+
+  /**
+   * Returns the meta object for the reference list '{@link org.osate.reqspec.reqSpec.RequirementLibrary#getImportConstants <em>Import Constants</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the reference list '<em>Import Constants</em>'.
+   * @see org.osate.reqspec.reqSpec.RequirementLibrary#getImportConstants()
+   * @see #getRequirementLibrary()
+   * @generated
+   */
+  EReference getRequirementLibrary_ImportConstants();
+
+  /**
+   * Returns the meta object for the containment reference '{@link org.osate.reqspec.reqSpec.RequirementLibrary#getDescription <em>Description</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the containment reference '<em>Description</em>'.
+   * @see org.osate.reqspec.reqSpec.RequirementLibrary#getDescription()
+   * @see #getRequirementLibrary()
+   * @generated
+   */
+  EReference getRequirementLibrary_Description();
+
+  /**
+   * Returns the meta object for the containment reference list '{@link org.osate.reqspec.reqSpec.RequirementLibrary#getConstants <em>Constants</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the containment reference list '<em>Constants</em>'.
+   * @see org.osate.reqspec.reqSpec.RequirementLibrary#getConstants()
+   * @see #getRequirementLibrary()
+   * @generated
+   */
+  EReference getRequirementLibrary_Constants();
+
+  /**
+   * Returns the meta object for the containment reference list '{@link org.osate.reqspec.reqSpec.RequirementLibrary#getComputes <em>Computes</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the containment reference list '<em>Computes</em>'.
+   * @see org.osate.reqspec.reqSpec.RequirementLibrary#getComputes()
+   * @see #getRequirementLibrary()
+   * @generated
+   */
+  EReference getRequirementLibrary_Computes();
+
+  /**
+   * Returns the meta object for the containment reference list '{@link org.osate.reqspec.reqSpec.RequirementLibrary#getContent <em>Content</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the containment reference list '<em>Content</em>'.
+   * @see org.osate.reqspec.reqSpec.RequirementLibrary#getContent()
+   * @see #getRequirementLibrary()
+   * @generated
+   */
+  EReference getRequirementLibrary_Content();
+
+  /**
+   * Returns the meta object for the containment reference list '{@link org.osate.reqspec.reqSpec.RequirementLibrary#getDocReference <em>Doc Reference</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the containment reference list '<em>Doc Reference</em>'.
+   * @see org.osate.reqspec.reqSpec.RequirementLibrary#getDocReference()
+   * @see #getRequirementLibrary()
+   * @generated
+   */
+  EReference getRequirementLibrary_DocReference();
+
+  /**
+   * Returns the meta object for the reference list '{@link org.osate.reqspec.reqSpec.RequirementLibrary#getStakeholderGoals <em>Stakeholder Goals</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the reference list '<em>Stakeholder Goals</em>'.
+   * @see org.osate.reqspec.reqSpec.RequirementLibrary#getStakeholderGoals()
+   * @see #getRequirementLibrary()
+   * @generated
+   */
+  EReference getRequirementLibrary_StakeholderGoals();
+
+  /**
+   * Returns the meta object for the attribute list '{@link org.osate.reqspec.reqSpec.RequirementLibrary#getIssues <em>Issues</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the attribute list '<em>Issues</em>'.
+   * @see org.osate.reqspec.reqSpec.RequirementLibrary#getIssues()
+   * @see #getRequirementLibrary()
+   * @generated
+   */
+  EAttribute getRequirementLibrary_Issues();
 
   /**
    * Returns the meta object for class '{@link org.osate.reqspec.reqSpec.Goal <em>Goal</em>}'.
@@ -1995,28 +2217,6 @@ public interface ReqSpecPackage extends EPackage
    * @generated
    */
   EClass getRequirement();
-
-  /**
-   * Returns the meta object for the attribute list '{@link org.osate.reqspec.reqSpec.Requirement#getComponentCategory <em>Component Category</em>}'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return the meta object for the attribute list '<em>Component Category</em>'.
-   * @see org.osate.reqspec.reqSpec.Requirement#getComponentCategory()
-   * @see #getRequirement()
-   * @generated
-   */
-  EAttribute getRequirement_ComponentCategory();
-
-  /**
-   * Returns the meta object for the attribute '{@link org.osate.reqspec.reqSpec.Requirement#isGlobal <em>Global</em>}'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return the meta object for the attribute '<em>Global</em>'.
-   * @see org.osate.reqspec.reqSpec.Requirement#isGlobal()
-   * @see #getRequirement()
-   * @generated
-   */
-  EAttribute getRequirement_Global();
 
   /**
    * Returns the meta object for the containment reference list '{@link org.osate.reqspec.reqSpec.Requirement#getComputes <em>Computes</em>}'.
@@ -2107,15 +2307,26 @@ public interface ReqSpecPackage extends EPackage
   EReference getRequirement_GoalReference();
 
   /**
-   * Returns the meta object for the reference list '{@link org.osate.reqspec.reqSpec.Requirement#getStakeholderRequirementReference <em>Stakeholder Requirement Reference</em>}'.
+   * Returns the meta object for the attribute list '{@link org.osate.reqspec.reqSpec.Requirement#getComponentCategory <em>Component Category</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @return the meta object for the reference list '<em>Stakeholder Requirement Reference</em>'.
-   * @see org.osate.reqspec.reqSpec.Requirement#getStakeholderRequirementReference()
+   * @return the meta object for the attribute list '<em>Component Category</em>'.
+   * @see org.osate.reqspec.reqSpec.Requirement#getComponentCategory()
    * @see #getRequirement()
    * @generated
    */
-  EReference getRequirement_StakeholderRequirementReference();
+  EAttribute getRequirement_ComponentCategory();
+
+  /**
+   * Returns the meta object for the attribute '{@link org.osate.reqspec.reqSpec.Requirement#isGlobal <em>Global</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the attribute '<em>Global</em>'.
+   * @see org.osate.reqspec.reqSpec.Requirement#isGlobal()
+   * @see #getRequirement()
+   * @generated
+   */
+  EAttribute getRequirement_Global();
 
   /**
    * Returns the meta object for class '{@link org.osate.reqspec.reqSpec.ReqPredicate <em>Req Predicate</em>}'.
@@ -2414,14 +2625,6 @@ public interface ReqSpecPackage extends EPackage
     EAttribute CONTRACTUAL_ELEMENT__DROP_RATIONALE = eINSTANCE.getContractualElement_DropRationale();
 
     /**
-     * The meta object literal for the '<em><b>Document Requirement</b></em>' reference list feature.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
-    EReference CONTRACTUAL_ELEMENT__DOCUMENT_REQUIREMENT = eINSTANCE.getContractualElement_DocumentRequirement();
-
-    /**
      * The meta object literal for the '<em><b>Doc Reference</b></em>' containment reference list feature.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
@@ -2588,6 +2791,14 @@ public interface ReqSpecPackage extends EPackage
     EReference REQ_DOCUMENT__CONTENT = eINSTANCE.getReqDocument_Content();
 
     /**
+     * The meta object literal for the '<em><b>Doc Reference</b></em>' containment reference list feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EReference REQ_DOCUMENT__DOC_REFERENCE = eINSTANCE.getReqDocument_DocReference();
+
+    /**
      * The meta object literal for the '<em><b>Issues</b></em>' attribute list feature.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
@@ -2736,12 +2947,110 @@ public interface ReqSpecPackage extends EPackage
     EReference SYSTEM_REQUIREMENTS__DOC_REFERENCE = eINSTANCE.getSystemRequirements_DocReference();
 
     /**
+     * The meta object literal for the '<em><b>Stakeholder Goals</b></em>' reference list feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EReference SYSTEM_REQUIREMENTS__STAKEHOLDER_GOALS = eINSTANCE.getSystemRequirements_StakeholderGoals();
+
+    /**
      * The meta object literal for the '<em><b>Issues</b></em>' attribute list feature.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @generated
      */
     EAttribute SYSTEM_REQUIREMENTS__ISSUES = eINSTANCE.getSystemRequirements_Issues();
+
+    /**
+     * The meta object literal for the '{@link org.osate.reqspec.reqSpec.impl.RequirementLibraryImpl <em>Requirement Library</em>}' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see org.osate.reqspec.reqSpec.impl.RequirementLibraryImpl
+     * @see org.osate.reqspec.reqSpec.impl.ReqSpecPackageImpl#getRequirementLibrary()
+     * @generated
+     */
+    EClass REQUIREMENT_LIBRARY = eINSTANCE.getRequirementLibrary();
+
+    /**
+     * The meta object literal for the '<em><b>Name</b></em>' attribute feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EAttribute REQUIREMENT_LIBRARY__NAME = eINSTANCE.getRequirementLibrary_Name();
+
+    /**
+     * The meta object literal for the '<em><b>Title</b></em>' attribute feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EAttribute REQUIREMENT_LIBRARY__TITLE = eINSTANCE.getRequirementLibrary_Title();
+
+    /**
+     * The meta object literal for the '<em><b>Import Constants</b></em>' reference list feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EReference REQUIREMENT_LIBRARY__IMPORT_CONSTANTS = eINSTANCE.getRequirementLibrary_ImportConstants();
+
+    /**
+     * The meta object literal for the '<em><b>Description</b></em>' containment reference feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EReference REQUIREMENT_LIBRARY__DESCRIPTION = eINSTANCE.getRequirementLibrary_Description();
+
+    /**
+     * The meta object literal for the '<em><b>Constants</b></em>' containment reference list feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EReference REQUIREMENT_LIBRARY__CONSTANTS = eINSTANCE.getRequirementLibrary_Constants();
+
+    /**
+     * The meta object literal for the '<em><b>Computes</b></em>' containment reference list feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EReference REQUIREMENT_LIBRARY__COMPUTES = eINSTANCE.getRequirementLibrary_Computes();
+
+    /**
+     * The meta object literal for the '<em><b>Content</b></em>' containment reference list feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EReference REQUIREMENT_LIBRARY__CONTENT = eINSTANCE.getRequirementLibrary_Content();
+
+    /**
+     * The meta object literal for the '<em><b>Doc Reference</b></em>' containment reference list feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EReference REQUIREMENT_LIBRARY__DOC_REFERENCE = eINSTANCE.getRequirementLibrary_DocReference();
+
+    /**
+     * The meta object literal for the '<em><b>Stakeholder Goals</b></em>' reference list feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EReference REQUIREMENT_LIBRARY__STAKEHOLDER_GOALS = eINSTANCE.getRequirementLibrary_StakeholderGoals();
+
+    /**
+     * The meta object literal for the '<em><b>Issues</b></em>' attribute list feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EAttribute REQUIREMENT_LIBRARY__ISSUES = eINSTANCE.getRequirementLibrary_Issues();
 
     /**
      * The meta object literal for the '{@link org.osate.reqspec.reqSpec.impl.GoalImpl <em>Goal</em>}' class.
@@ -2786,22 +3095,6 @@ public interface ReqSpecPackage extends EPackage
      * @generated
      */
     EClass REQUIREMENT = eINSTANCE.getRequirement();
-
-    /**
-     * The meta object literal for the '<em><b>Component Category</b></em>' attribute list feature.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
-    EAttribute REQUIREMENT__COMPONENT_CATEGORY = eINSTANCE.getRequirement_ComponentCategory();
-
-    /**
-     * The meta object literal for the '<em><b>Global</b></em>' attribute feature.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
-    EAttribute REQUIREMENT__GLOBAL = eINSTANCE.getRequirement_Global();
 
     /**
      * The meta object literal for the '<em><b>Computes</b></em>' containment reference list feature.
@@ -2868,12 +3161,20 @@ public interface ReqSpecPackage extends EPackage
     EReference REQUIREMENT__GOAL_REFERENCE = eINSTANCE.getRequirement_GoalReference();
 
     /**
-     * The meta object literal for the '<em><b>Stakeholder Requirement Reference</b></em>' reference list feature.
+     * The meta object literal for the '<em><b>Component Category</b></em>' attribute list feature.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @generated
      */
-    EReference REQUIREMENT__STAKEHOLDER_REQUIREMENT_REFERENCE = eINSTANCE.getRequirement_StakeholderRequirementReference();
+    EAttribute REQUIREMENT__COMPONENT_CATEGORY = eINSTANCE.getRequirement_ComponentCategory();
+
+    /**
+     * The meta object literal for the '<em><b>Global</b></em>' attribute feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EAttribute REQUIREMENT__GLOBAL = eINSTANCE.getRequirement_Global();
 
     /**
      * The meta object literal for the '{@link org.osate.reqspec.reqSpec.impl.ReqPredicateImpl <em>Req Predicate</em>}' class.

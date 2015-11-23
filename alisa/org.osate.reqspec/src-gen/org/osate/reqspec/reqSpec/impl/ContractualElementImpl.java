@@ -70,7 +70,6 @@ import org.osate.reqspec.reqSpec.Requirement;
  *   <li>{@link org.osate.reqspec.reqSpec.impl.ContractualElementImpl#getEvolvesReference <em>Evolves Reference</em>}</li>
  *   <li>{@link org.osate.reqspec.reqSpec.impl.ContractualElementImpl#isDropped <em>Dropped</em>}</li>
  *   <li>{@link org.osate.reqspec.reqSpec.impl.ContractualElementImpl#getDropRationale <em>Drop Rationale</em>}</li>
- *   <li>{@link org.osate.reqspec.reqSpec.impl.ContractualElementImpl#getDocumentRequirement <em>Document Requirement</em>}</li>
  *   <li>{@link org.osate.reqspec.reqSpec.impl.ContractualElementImpl#getDocReference <em>Doc Reference</em>}</li>
  *   <li>{@link org.osate.reqspec.reqSpec.impl.ContractualElementImpl#getIssues <em>Issues</em>}</li>
  * </ul>
@@ -258,16 +257,6 @@ public class ContractualElementImpl extends MinimalEObjectImpl.Container impleme
    * @ordered
    */
   protected String dropRationale = DROP_RATIONALE_EDEFAULT;
-
-  /**
-   * The cached value of the '{@link #getDocumentRequirement() <em>Document Requirement</em>}' reference list.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @see #getDocumentRequirement()
-   * @generated
-   * @ordered
-   */
-  protected EList<ContractualElement> documentRequirement;
 
   /**
    * The cached value of the '{@link #getDocReference() <em>Doc Reference</em>}' containment reference list.
@@ -702,20 +691,6 @@ public class ContractualElementImpl extends MinimalEObjectImpl.Container impleme
    * <!-- end-user-doc -->
    * @generated
    */
-  public EList<ContractualElement> getDocumentRequirement()
-  {
-    if (documentRequirement == null)
-    {
-      documentRequirement = new EObjectResolvingEList<ContractualElement>(ContractualElement.class, this, ReqSpecPackage.CONTRACTUAL_ELEMENT__DOCUMENT_REQUIREMENT);
-    }
-    return documentRequirement;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
   public EList<ExternalDocument> getDocReference()
   {
     if (docReference == null)
@@ -801,8 +776,6 @@ public class ContractualElementImpl extends MinimalEObjectImpl.Container impleme
         return isDropped();
       case ReqSpecPackage.CONTRACTUAL_ELEMENT__DROP_RATIONALE:
         return getDropRationale();
-      case ReqSpecPackage.CONTRACTUAL_ELEMENT__DOCUMENT_REQUIREMENT:
-        return getDocumentRequirement();
       case ReqSpecPackage.CONTRACTUAL_ELEMENT__DOC_REFERENCE:
         return getDocReference();
       case ReqSpecPackage.CONTRACTUAL_ELEMENT__ISSUES:
@@ -863,10 +836,6 @@ public class ContractualElementImpl extends MinimalEObjectImpl.Container impleme
         return;
       case ReqSpecPackage.CONTRACTUAL_ELEMENT__DROP_RATIONALE:
         setDropRationale((String)newValue);
-        return;
-      case ReqSpecPackage.CONTRACTUAL_ELEMENT__DOCUMENT_REQUIREMENT:
-        getDocumentRequirement().clear();
-        getDocumentRequirement().addAll((Collection<? extends ContractualElement>)newValue);
         return;
       case ReqSpecPackage.CONTRACTUAL_ELEMENT__DOC_REFERENCE:
         getDocReference().clear();
@@ -929,9 +898,6 @@ public class ContractualElementImpl extends MinimalEObjectImpl.Container impleme
       case ReqSpecPackage.CONTRACTUAL_ELEMENT__DROP_RATIONALE:
         setDropRationale(DROP_RATIONALE_EDEFAULT);
         return;
-      case ReqSpecPackage.CONTRACTUAL_ELEMENT__DOCUMENT_REQUIREMENT:
-        getDocumentRequirement().clear();
-        return;
       case ReqSpecPackage.CONTRACTUAL_ELEMENT__DOC_REFERENCE:
         getDocReference().clear();
         return;
@@ -978,8 +944,6 @@ public class ContractualElementImpl extends MinimalEObjectImpl.Container impleme
         return dropped != DROPPED_EDEFAULT;
       case ReqSpecPackage.CONTRACTUAL_ELEMENT__DROP_RATIONALE:
         return DROP_RATIONALE_EDEFAULT == null ? dropRationale != null : !DROP_RATIONALE_EDEFAULT.equals(dropRationale);
-      case ReqSpecPackage.CONTRACTUAL_ELEMENT__DOCUMENT_REQUIREMENT:
-        return documentRequirement != null && !documentRequirement.isEmpty();
       case ReqSpecPackage.CONTRACTUAL_ELEMENT__DOC_REFERENCE:
         return docReference != null && !docReference.isEmpty();
       case ReqSpecPackage.CONTRACTUAL_ELEMENT__ISSUES:

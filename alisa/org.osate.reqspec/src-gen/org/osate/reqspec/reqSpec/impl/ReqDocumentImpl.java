@@ -34,6 +34,7 @@ import org.eclipse.emf.ecore.util.InternalEList;
 
 import org.osate.alisa.common.common.Description;
 
+import org.osate.reqspec.reqSpec.ExternalDocument;
 import org.osate.reqspec.reqSpec.ReqDocument;
 import org.osate.reqspec.reqSpec.ReqSpecPackage;
 
@@ -49,6 +50,7 @@ import org.osate.reqspec.reqSpec.ReqSpecPackage;
  *   <li>{@link org.osate.reqspec.reqSpec.impl.ReqDocumentImpl#getTitle <em>Title</em>}</li>
  *   <li>{@link org.osate.reqspec.reqSpec.impl.ReqDocumentImpl#getDescription <em>Description</em>}</li>
  *   <li>{@link org.osate.reqspec.reqSpec.impl.ReqDocumentImpl#getContent <em>Content</em>}</li>
+ *   <li>{@link org.osate.reqspec.reqSpec.impl.ReqDocumentImpl#getDocReference <em>Doc Reference</em>}</li>
  *   <li>{@link org.osate.reqspec.reqSpec.impl.ReqDocumentImpl#getIssues <em>Issues</em>}</li>
  * </ul>
  *
@@ -115,6 +117,16 @@ public class ReqDocumentImpl extends ReqSpecContainerImpl implements ReqDocument
    * @ordered
    */
   protected EList<EObject> content;
+
+  /**
+   * The cached value of the '{@link #getDocReference() <em>Doc Reference</em>}' containment reference list.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see #getDocReference()
+   * @generated
+   * @ordered
+   */
+  protected EList<ExternalDocument> docReference;
 
   /**
    * The cached value of the '{@link #getIssues() <em>Issues</em>}' attribute list.
@@ -260,6 +272,20 @@ public class ReqDocumentImpl extends ReqSpecContainerImpl implements ReqDocument
    * <!-- end-user-doc -->
    * @generated
    */
+  public EList<ExternalDocument> getDocReference()
+  {
+    if (docReference == null)
+    {
+      docReference = new EObjectContainmentEList<ExternalDocument>(ExternalDocument.class, this, ReqSpecPackage.REQ_DOCUMENT__DOC_REFERENCE);
+    }
+    return docReference;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
   public EList<String> getIssues()
   {
     if (issues == null)
@@ -283,6 +309,8 @@ public class ReqDocumentImpl extends ReqSpecContainerImpl implements ReqDocument
         return basicSetDescription(null, msgs);
       case ReqSpecPackage.REQ_DOCUMENT__CONTENT:
         return ((InternalEList<?>)getContent()).basicRemove(otherEnd, msgs);
+      case ReqSpecPackage.REQ_DOCUMENT__DOC_REFERENCE:
+        return ((InternalEList<?>)getDocReference()).basicRemove(otherEnd, msgs);
     }
     return super.eInverseRemove(otherEnd, featureID, msgs);
   }
@@ -305,6 +333,8 @@ public class ReqDocumentImpl extends ReqSpecContainerImpl implements ReqDocument
         return getDescription();
       case ReqSpecPackage.REQ_DOCUMENT__CONTENT:
         return getContent();
+      case ReqSpecPackage.REQ_DOCUMENT__DOC_REFERENCE:
+        return getDocReference();
       case ReqSpecPackage.REQ_DOCUMENT__ISSUES:
         return getIssues();
     }
@@ -334,6 +364,10 @@ public class ReqDocumentImpl extends ReqSpecContainerImpl implements ReqDocument
       case ReqSpecPackage.REQ_DOCUMENT__CONTENT:
         getContent().clear();
         getContent().addAll((Collection<? extends EObject>)newValue);
+        return;
+      case ReqSpecPackage.REQ_DOCUMENT__DOC_REFERENCE:
+        getDocReference().clear();
+        getDocReference().addAll((Collection<? extends ExternalDocument>)newValue);
         return;
       case ReqSpecPackage.REQ_DOCUMENT__ISSUES:
         getIssues().clear();
@@ -365,6 +399,9 @@ public class ReqDocumentImpl extends ReqSpecContainerImpl implements ReqDocument
       case ReqSpecPackage.REQ_DOCUMENT__CONTENT:
         getContent().clear();
         return;
+      case ReqSpecPackage.REQ_DOCUMENT__DOC_REFERENCE:
+        getDocReference().clear();
+        return;
       case ReqSpecPackage.REQ_DOCUMENT__ISSUES:
         getIssues().clear();
         return;
@@ -390,6 +427,8 @@ public class ReqDocumentImpl extends ReqSpecContainerImpl implements ReqDocument
         return description != null;
       case ReqSpecPackage.REQ_DOCUMENT__CONTENT:
         return content != null && !content.isEmpty();
+      case ReqSpecPackage.REQ_DOCUMENT__DOC_REFERENCE:
+        return docReference != null && !docReference.isEmpty();
       case ReqSpecPackage.REQ_DOCUMENT__ISSUES:
         return issues != null && !issues.isEmpty();
     }

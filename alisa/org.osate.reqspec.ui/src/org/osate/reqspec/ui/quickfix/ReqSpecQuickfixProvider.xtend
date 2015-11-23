@@ -39,26 +39,12 @@ import org.osate.reqspec.reqSpec.StakeholderGoals
 import org.osate.reqspec.reqSpec.SystemRequirements
 import org.osate.reqspec.validation.ReqSpecValidator
 
-//import org.eclipse.xtext.ui.editor.quickfix.Fix
-//import org.eclipse.xtext.ui.editor.quickfix.IssueResolutionAcceptor
-//import org.eclipse.xtext.validation.Issue
-
 /**
  * Custom quickfixes.
  *
  * see http://www.eclipse.org/Xtext/documentation.html#quickfixes
  */
 class ReqSpecQuickfixProvider extends DefaultQuickfixProvider {
-
-//	@Fix(MyDslValidator::INVALID_NAME)
-//	def capitalizeName(Issue issue, IssueResolutionAcceptor acceptor) {
-//		acceptor.accept(issue, 'Capitalize name', 'Capitalize the name.', 'upcase.png') [
-//			context |
-//			val xtextDocument = context.xtextDocument
-//			val firstLetter = xtextDocument.get(issue.offset, 1)
-//			xtextDocument.replace(issue.offset, 1, firstLetter.toUpperCase)
-//		]
-//	}
 
 	/**
 	 * QuickFix for removing a goal duplicated within a StakeholdersGoals
@@ -134,7 +120,7 @@ class ReqSpecQuickfixProvider extends DefaultQuickfixProvider {
 	 * issue.getData()[1]: The length of the SystemRequirements
 	 * 
 	 */
-	@Fix(ReqSpecValidator.DUPLICATE_SYSTEMS_REQUIREMENT)
+	@Fix(ReqSpecValidator.DUPLICATE_SYSTEM_REQUIREMENTS)
 	def public void fixDuplicateSystemRequirements(Issue issue, IssueResolutionAcceptor acceptor) {
 		val offset = Integer.parseInt(issue.getData().get(0))
 		val length = Integer.parseInt(issue.getData().get(1))

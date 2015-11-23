@@ -51,7 +51,6 @@ import org.osate.categories.categories.Category;
  *   <li>{@link org.osate.reqspec.reqSpec.ContractualElement#getEvolvesReference <em>Evolves Reference</em>}</li>
  *   <li>{@link org.osate.reqspec.reqSpec.ContractualElement#isDropped <em>Dropped</em>}</li>
  *   <li>{@link org.osate.reqspec.reqSpec.ContractualElement#getDropRationale <em>Drop Rationale</em>}</li>
- *   <li>{@link org.osate.reqspec.reqSpec.ContractualElement#getDocumentRequirement <em>Document Requirement</em>}</li>
  *   <li>{@link org.osate.reqspec.reqSpec.ContractualElement#getDocReference <em>Doc Reference</em>}</li>
  *   <li>{@link org.osate.reqspec.reqSpec.ContractualElement#getIssues <em>Issues</em>}</li>
  * </ul>
@@ -369,22 +368,6 @@ public interface ContractualElement extends EObject
    * @generated
    */
   void setDropRationale(String value);
-
-  /**
-   * Returns the value of the '<em><b>Document Requirement</b></em>' reference list.
-   * The list contents are of type {@link org.osate.reqspec.reqSpec.ContractualElement}.
-   * <!-- begin-user-doc -->
-   * <p>
-   * If the meaning of the '<em>Document Requirement</em>' reference list isn't clear,
-   * there really should be more of a description here...
-   * </p>
-   * <!-- end-user-doc -->
-   * @return the value of the '<em>Document Requirement</em>' reference list.
-   * @see org.osate.reqspec.reqSpec.ReqSpecPackage#getContractualElement_DocumentRequirement()
-   * @model
-   * @generated
-   */
-  EList<ContractualElement> getDocumentRequirement();
 
   /**
    * Returns the value of the '<em><b>Doc Reference</b></em>' containment reference list.

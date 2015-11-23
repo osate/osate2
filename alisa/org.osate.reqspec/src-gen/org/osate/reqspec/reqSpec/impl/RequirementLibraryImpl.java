@@ -23,7 +23,6 @@ import org.eclipse.emf.common.notify.NotificationChain;
 import org.eclipse.emf.common.util.EList;
 
 import org.eclipse.emf.ecore.EClass;
-import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.InternalEObject;
 
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
@@ -33,9 +32,6 @@ import org.eclipse.emf.ecore.util.EObjectContainmentEList;
 import org.eclipse.emf.ecore.util.EObjectResolvingEList;
 import org.eclipse.emf.ecore.util.InternalEList;
 
-import org.osate.aadl2.ComponentCategory;
-import org.osate.aadl2.ComponentClassifier;
-
 import org.osate.alisa.common.common.AVariableDeclaration;
 import org.osate.alisa.common.common.Description;
 
@@ -44,34 +40,31 @@ import org.osate.reqspec.reqSpec.GlobalConstants;
 import org.osate.reqspec.reqSpec.ReqRoot;
 import org.osate.reqspec.reqSpec.ReqSpecPackage;
 import org.osate.reqspec.reqSpec.Requirement;
-import org.osate.reqspec.reqSpec.SystemRequirements;
+import org.osate.reqspec.reqSpec.RequirementLibrary;
 
 /**
  * <!-- begin-user-doc -->
- * An implementation of the model object '<em><b>System Requirements</b></em>'.
+ * An implementation of the model object '<em><b>Requirement Library</b></em>'.
  * <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
  * </p>
  * <ul>
- *   <li>{@link org.osate.reqspec.reqSpec.impl.SystemRequirementsImpl#getName <em>Name</em>}</li>
- *   <li>{@link org.osate.reqspec.reqSpec.impl.SystemRequirementsImpl#getTitle <em>Title</em>}</li>
- *   <li>{@link org.osate.reqspec.reqSpec.impl.SystemRequirementsImpl#getTarget <em>Target</em>}</li>
- *   <li>{@link org.osate.reqspec.reqSpec.impl.SystemRequirementsImpl#getComponentCategory <em>Component Category</em>}</li>
- *   <li>{@link org.osate.reqspec.reqSpec.impl.SystemRequirementsImpl#isGlobal <em>Global</em>}</li>
- *   <li>{@link org.osate.reqspec.reqSpec.impl.SystemRequirementsImpl#getImportConstants <em>Import Constants</em>}</li>
- *   <li>{@link org.osate.reqspec.reqSpec.impl.SystemRequirementsImpl#getDescription <em>Description</em>}</li>
- *   <li>{@link org.osate.reqspec.reqSpec.impl.SystemRequirementsImpl#getConstants <em>Constants</em>}</li>
- *   <li>{@link org.osate.reqspec.reqSpec.impl.SystemRequirementsImpl#getComputes <em>Computes</em>}</li>
- *   <li>{@link org.osate.reqspec.reqSpec.impl.SystemRequirementsImpl#getContent <em>Content</em>}</li>
- *   <li>{@link org.osate.reqspec.reqSpec.impl.SystemRequirementsImpl#getDocReference <em>Doc Reference</em>}</li>
- *   <li>{@link org.osate.reqspec.reqSpec.impl.SystemRequirementsImpl#getStakeholderGoals <em>Stakeholder Goals</em>}</li>
- *   <li>{@link org.osate.reqspec.reqSpec.impl.SystemRequirementsImpl#getIssues <em>Issues</em>}</li>
+ *   <li>{@link org.osate.reqspec.reqSpec.impl.RequirementLibraryImpl#getName <em>Name</em>}</li>
+ *   <li>{@link org.osate.reqspec.reqSpec.impl.RequirementLibraryImpl#getTitle <em>Title</em>}</li>
+ *   <li>{@link org.osate.reqspec.reqSpec.impl.RequirementLibraryImpl#getImportConstants <em>Import Constants</em>}</li>
+ *   <li>{@link org.osate.reqspec.reqSpec.impl.RequirementLibraryImpl#getDescription <em>Description</em>}</li>
+ *   <li>{@link org.osate.reqspec.reqSpec.impl.RequirementLibraryImpl#getConstants <em>Constants</em>}</li>
+ *   <li>{@link org.osate.reqspec.reqSpec.impl.RequirementLibraryImpl#getComputes <em>Computes</em>}</li>
+ *   <li>{@link org.osate.reqspec.reqSpec.impl.RequirementLibraryImpl#getContent <em>Content</em>}</li>
+ *   <li>{@link org.osate.reqspec.reqSpec.impl.RequirementLibraryImpl#getDocReference <em>Doc Reference</em>}</li>
+ *   <li>{@link org.osate.reqspec.reqSpec.impl.RequirementLibraryImpl#getStakeholderGoals <em>Stakeholder Goals</em>}</li>
+ *   <li>{@link org.osate.reqspec.reqSpec.impl.RequirementLibraryImpl#getIssues <em>Issues</em>}</li>
  * </ul>
  *
  * @generated
  */
-public class SystemRequirementsImpl extends ReqSpecContainerImpl implements SystemRequirements
+public class RequirementLibraryImpl extends ReqSpecContainerImpl implements RequirementLibrary
 {
   /**
    * The default value of the '{@link #getName() <em>Name</em>}' attribute.
@@ -112,46 +105,6 @@ public class SystemRequirementsImpl extends ReqSpecContainerImpl implements Syst
    * @ordered
    */
   protected String title = TITLE_EDEFAULT;
-
-  /**
-   * The cached value of the '{@link #getTarget() <em>Target</em>}' reference.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @see #getTarget()
-   * @generated
-   * @ordered
-   */
-  protected ComponentClassifier target;
-
-  /**
-   * The cached value of the '{@link #getComponentCategory() <em>Component Category</em>}' attribute list.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @see #getComponentCategory()
-   * @generated
-   * @ordered
-   */
-  protected EList<ComponentCategory> componentCategory;
-
-  /**
-   * The default value of the '{@link #isGlobal() <em>Global</em>}' attribute.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @see #isGlobal()
-   * @generated
-   * @ordered
-   */
-  protected static final boolean GLOBAL_EDEFAULT = false;
-
-  /**
-   * The cached value of the '{@link #isGlobal() <em>Global</em>}' attribute.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @see #isGlobal()
-   * @generated
-   * @ordered
-   */
-  protected boolean global = GLOBAL_EDEFAULT;
 
   /**
    * The cached value of the '{@link #getImportConstants() <em>Import Constants</em>}' reference list.
@@ -238,7 +191,7 @@ public class SystemRequirementsImpl extends ReqSpecContainerImpl implements Syst
    * <!-- end-user-doc -->
    * @generated
    */
-  protected SystemRequirementsImpl()
+  protected RequirementLibraryImpl()
   {
     super();
   }
@@ -251,7 +204,7 @@ public class SystemRequirementsImpl extends ReqSpecContainerImpl implements Syst
   @Override
   protected EClass eStaticClass()
   {
-    return ReqSpecPackage.Literals.SYSTEM_REQUIREMENTS;
+    return ReqSpecPackage.Literals.REQUIREMENT_LIBRARY;
   }
 
   /**
@@ -274,7 +227,7 @@ public class SystemRequirementsImpl extends ReqSpecContainerImpl implements Syst
     String oldName = name;
     name = newName;
     if (eNotificationRequired())
-      eNotify(new ENotificationImpl(this, Notification.SET, ReqSpecPackage.SYSTEM_REQUIREMENTS__NAME, oldName, name));
+      eNotify(new ENotificationImpl(this, Notification.SET, ReqSpecPackage.REQUIREMENT_LIBRARY__NAME, oldName, name));
   }
 
   /**
@@ -297,87 +250,7 @@ public class SystemRequirementsImpl extends ReqSpecContainerImpl implements Syst
     String oldTitle = title;
     title = newTitle;
     if (eNotificationRequired())
-      eNotify(new ENotificationImpl(this, Notification.SET, ReqSpecPackage.SYSTEM_REQUIREMENTS__TITLE, oldTitle, title));
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public ComponentClassifier getTarget()
-  {
-    if (target != null && ((EObject)target).eIsProxy())
-    {
-      InternalEObject oldTarget = (InternalEObject)target;
-      target = (ComponentClassifier)eResolveProxy(oldTarget);
-      if (target != oldTarget)
-      {
-        if (eNotificationRequired())
-          eNotify(new ENotificationImpl(this, Notification.RESOLVE, ReqSpecPackage.SYSTEM_REQUIREMENTS__TARGET, oldTarget, target));
-      }
-    }
-    return target;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public ComponentClassifier basicGetTarget()
-  {
-    return target;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public void setTarget(ComponentClassifier newTarget)
-  {
-    ComponentClassifier oldTarget = target;
-    target = newTarget;
-    if (eNotificationRequired())
-      eNotify(new ENotificationImpl(this, Notification.SET, ReqSpecPackage.SYSTEM_REQUIREMENTS__TARGET, oldTarget, target));
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public EList<ComponentCategory> getComponentCategory()
-  {
-    if (componentCategory == null)
-    {
-      componentCategory = new EDataTypeEList<ComponentCategory>(ComponentCategory.class, this, ReqSpecPackage.SYSTEM_REQUIREMENTS__COMPONENT_CATEGORY);
-    }
-    return componentCategory;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public boolean isGlobal()
-  {
-    return global;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public void setGlobal(boolean newGlobal)
-  {
-    boolean oldGlobal = global;
-    global = newGlobal;
-    if (eNotificationRequired())
-      eNotify(new ENotificationImpl(this, Notification.SET, ReqSpecPackage.SYSTEM_REQUIREMENTS__GLOBAL, oldGlobal, global));
+      eNotify(new ENotificationImpl(this, Notification.SET, ReqSpecPackage.REQUIREMENT_LIBRARY__TITLE, oldTitle, title));
   }
 
   /**
@@ -389,7 +262,7 @@ public class SystemRequirementsImpl extends ReqSpecContainerImpl implements Syst
   {
     if (importConstants == null)
     {
-      importConstants = new EObjectResolvingEList<GlobalConstants>(GlobalConstants.class, this, ReqSpecPackage.SYSTEM_REQUIREMENTS__IMPORT_CONSTANTS);
+      importConstants = new EObjectResolvingEList<GlobalConstants>(GlobalConstants.class, this, ReqSpecPackage.REQUIREMENT_LIBRARY__IMPORT_CONSTANTS);
     }
     return importConstants;
   }
@@ -415,7 +288,7 @@ public class SystemRequirementsImpl extends ReqSpecContainerImpl implements Syst
     description = newDescription;
     if (eNotificationRequired())
     {
-      ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, ReqSpecPackage.SYSTEM_REQUIREMENTS__DESCRIPTION, oldDescription, newDescription);
+      ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, ReqSpecPackage.REQUIREMENT_LIBRARY__DESCRIPTION, oldDescription, newDescription);
       if (msgs == null) msgs = notification; else msgs.add(notification);
     }
     return msgs;
@@ -432,14 +305,14 @@ public class SystemRequirementsImpl extends ReqSpecContainerImpl implements Syst
     {
       NotificationChain msgs = null;
       if (description != null)
-        msgs = ((InternalEObject)description).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - ReqSpecPackage.SYSTEM_REQUIREMENTS__DESCRIPTION, null, msgs);
+        msgs = ((InternalEObject)description).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - ReqSpecPackage.REQUIREMENT_LIBRARY__DESCRIPTION, null, msgs);
       if (newDescription != null)
-        msgs = ((InternalEObject)newDescription).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - ReqSpecPackage.SYSTEM_REQUIREMENTS__DESCRIPTION, null, msgs);
+        msgs = ((InternalEObject)newDescription).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - ReqSpecPackage.REQUIREMENT_LIBRARY__DESCRIPTION, null, msgs);
       msgs = basicSetDescription(newDescription, msgs);
       if (msgs != null) msgs.dispatch();
     }
     else if (eNotificationRequired())
-      eNotify(new ENotificationImpl(this, Notification.SET, ReqSpecPackage.SYSTEM_REQUIREMENTS__DESCRIPTION, newDescription, newDescription));
+      eNotify(new ENotificationImpl(this, Notification.SET, ReqSpecPackage.REQUIREMENT_LIBRARY__DESCRIPTION, newDescription, newDescription));
   }
 
   /**
@@ -451,7 +324,7 @@ public class SystemRequirementsImpl extends ReqSpecContainerImpl implements Syst
   {
     if (constants == null)
     {
-      constants = new EObjectContainmentEList<AVariableDeclaration>(AVariableDeclaration.class, this, ReqSpecPackage.SYSTEM_REQUIREMENTS__CONSTANTS);
+      constants = new EObjectContainmentEList<AVariableDeclaration>(AVariableDeclaration.class, this, ReqSpecPackage.REQUIREMENT_LIBRARY__CONSTANTS);
     }
     return constants;
   }
@@ -465,7 +338,7 @@ public class SystemRequirementsImpl extends ReqSpecContainerImpl implements Syst
   {
     if (computes == null)
     {
-      computes = new EObjectContainmentEList<AVariableDeclaration>(AVariableDeclaration.class, this, ReqSpecPackage.SYSTEM_REQUIREMENTS__COMPUTES);
+      computes = new EObjectContainmentEList<AVariableDeclaration>(AVariableDeclaration.class, this, ReqSpecPackage.REQUIREMENT_LIBRARY__COMPUTES);
     }
     return computes;
   }
@@ -479,7 +352,7 @@ public class SystemRequirementsImpl extends ReqSpecContainerImpl implements Syst
   {
     if (content == null)
     {
-      content = new EObjectContainmentEList<Requirement>(Requirement.class, this, ReqSpecPackage.SYSTEM_REQUIREMENTS__CONTENT);
+      content = new EObjectContainmentEList<Requirement>(Requirement.class, this, ReqSpecPackage.REQUIREMENT_LIBRARY__CONTENT);
     }
     return content;
   }
@@ -493,7 +366,7 @@ public class SystemRequirementsImpl extends ReqSpecContainerImpl implements Syst
   {
     if (docReference == null)
     {
-      docReference = new EObjectContainmentEList<ExternalDocument>(ExternalDocument.class, this, ReqSpecPackage.SYSTEM_REQUIREMENTS__DOC_REFERENCE);
+      docReference = new EObjectContainmentEList<ExternalDocument>(ExternalDocument.class, this, ReqSpecPackage.REQUIREMENT_LIBRARY__DOC_REFERENCE);
     }
     return docReference;
   }
@@ -507,7 +380,7 @@ public class SystemRequirementsImpl extends ReqSpecContainerImpl implements Syst
   {
     if (stakeholderGoals == null)
     {
-      stakeholderGoals = new EObjectResolvingEList<ReqRoot>(ReqRoot.class, this, ReqSpecPackage.SYSTEM_REQUIREMENTS__STAKEHOLDER_GOALS);
+      stakeholderGoals = new EObjectResolvingEList<ReqRoot>(ReqRoot.class, this, ReqSpecPackage.REQUIREMENT_LIBRARY__STAKEHOLDER_GOALS);
     }
     return stakeholderGoals;
   }
@@ -521,7 +394,7 @@ public class SystemRequirementsImpl extends ReqSpecContainerImpl implements Syst
   {
     if (issues == null)
     {
-      issues = new EDataTypeEList<String>(String.class, this, ReqSpecPackage.SYSTEM_REQUIREMENTS__ISSUES);
+      issues = new EDataTypeEList<String>(String.class, this, ReqSpecPackage.REQUIREMENT_LIBRARY__ISSUES);
     }
     return issues;
   }
@@ -536,15 +409,15 @@ public class SystemRequirementsImpl extends ReqSpecContainerImpl implements Syst
   {
     switch (featureID)
     {
-      case ReqSpecPackage.SYSTEM_REQUIREMENTS__DESCRIPTION:
+      case ReqSpecPackage.REQUIREMENT_LIBRARY__DESCRIPTION:
         return basicSetDescription(null, msgs);
-      case ReqSpecPackage.SYSTEM_REQUIREMENTS__CONSTANTS:
+      case ReqSpecPackage.REQUIREMENT_LIBRARY__CONSTANTS:
         return ((InternalEList<?>)getConstants()).basicRemove(otherEnd, msgs);
-      case ReqSpecPackage.SYSTEM_REQUIREMENTS__COMPUTES:
+      case ReqSpecPackage.REQUIREMENT_LIBRARY__COMPUTES:
         return ((InternalEList<?>)getComputes()).basicRemove(otherEnd, msgs);
-      case ReqSpecPackage.SYSTEM_REQUIREMENTS__CONTENT:
+      case ReqSpecPackage.REQUIREMENT_LIBRARY__CONTENT:
         return ((InternalEList<?>)getContent()).basicRemove(otherEnd, msgs);
-      case ReqSpecPackage.SYSTEM_REQUIREMENTS__DOC_REFERENCE:
+      case ReqSpecPackage.REQUIREMENT_LIBRARY__DOC_REFERENCE:
         return ((InternalEList<?>)getDocReference()).basicRemove(otherEnd, msgs);
     }
     return super.eInverseRemove(otherEnd, featureID, msgs);
@@ -560,32 +433,25 @@ public class SystemRequirementsImpl extends ReqSpecContainerImpl implements Syst
   {
     switch (featureID)
     {
-      case ReqSpecPackage.SYSTEM_REQUIREMENTS__NAME:
+      case ReqSpecPackage.REQUIREMENT_LIBRARY__NAME:
         return getName();
-      case ReqSpecPackage.SYSTEM_REQUIREMENTS__TITLE:
+      case ReqSpecPackage.REQUIREMENT_LIBRARY__TITLE:
         return getTitle();
-      case ReqSpecPackage.SYSTEM_REQUIREMENTS__TARGET:
-        if (resolve) return getTarget();
-        return basicGetTarget();
-      case ReqSpecPackage.SYSTEM_REQUIREMENTS__COMPONENT_CATEGORY:
-        return getComponentCategory();
-      case ReqSpecPackage.SYSTEM_REQUIREMENTS__GLOBAL:
-        return isGlobal();
-      case ReqSpecPackage.SYSTEM_REQUIREMENTS__IMPORT_CONSTANTS:
+      case ReqSpecPackage.REQUIREMENT_LIBRARY__IMPORT_CONSTANTS:
         return getImportConstants();
-      case ReqSpecPackage.SYSTEM_REQUIREMENTS__DESCRIPTION:
+      case ReqSpecPackage.REQUIREMENT_LIBRARY__DESCRIPTION:
         return getDescription();
-      case ReqSpecPackage.SYSTEM_REQUIREMENTS__CONSTANTS:
+      case ReqSpecPackage.REQUIREMENT_LIBRARY__CONSTANTS:
         return getConstants();
-      case ReqSpecPackage.SYSTEM_REQUIREMENTS__COMPUTES:
+      case ReqSpecPackage.REQUIREMENT_LIBRARY__COMPUTES:
         return getComputes();
-      case ReqSpecPackage.SYSTEM_REQUIREMENTS__CONTENT:
+      case ReqSpecPackage.REQUIREMENT_LIBRARY__CONTENT:
         return getContent();
-      case ReqSpecPackage.SYSTEM_REQUIREMENTS__DOC_REFERENCE:
+      case ReqSpecPackage.REQUIREMENT_LIBRARY__DOC_REFERENCE:
         return getDocReference();
-      case ReqSpecPackage.SYSTEM_REQUIREMENTS__STAKEHOLDER_GOALS:
+      case ReqSpecPackage.REQUIREMENT_LIBRARY__STAKEHOLDER_GOALS:
         return getStakeholderGoals();
-      case ReqSpecPackage.SYSTEM_REQUIREMENTS__ISSUES:
+      case ReqSpecPackage.REQUIREMENT_LIBRARY__ISSUES:
         return getIssues();
     }
     return super.eGet(featureID, resolve, coreType);
@@ -602,50 +468,40 @@ public class SystemRequirementsImpl extends ReqSpecContainerImpl implements Syst
   {
     switch (featureID)
     {
-      case ReqSpecPackage.SYSTEM_REQUIREMENTS__NAME:
+      case ReqSpecPackage.REQUIREMENT_LIBRARY__NAME:
         setName((String)newValue);
         return;
-      case ReqSpecPackage.SYSTEM_REQUIREMENTS__TITLE:
+      case ReqSpecPackage.REQUIREMENT_LIBRARY__TITLE:
         setTitle((String)newValue);
         return;
-      case ReqSpecPackage.SYSTEM_REQUIREMENTS__TARGET:
-        setTarget((ComponentClassifier)newValue);
-        return;
-      case ReqSpecPackage.SYSTEM_REQUIREMENTS__COMPONENT_CATEGORY:
-        getComponentCategory().clear();
-        getComponentCategory().addAll((Collection<? extends ComponentCategory>)newValue);
-        return;
-      case ReqSpecPackage.SYSTEM_REQUIREMENTS__GLOBAL:
-        setGlobal((Boolean)newValue);
-        return;
-      case ReqSpecPackage.SYSTEM_REQUIREMENTS__IMPORT_CONSTANTS:
+      case ReqSpecPackage.REQUIREMENT_LIBRARY__IMPORT_CONSTANTS:
         getImportConstants().clear();
         getImportConstants().addAll((Collection<? extends GlobalConstants>)newValue);
         return;
-      case ReqSpecPackage.SYSTEM_REQUIREMENTS__DESCRIPTION:
+      case ReqSpecPackage.REQUIREMENT_LIBRARY__DESCRIPTION:
         setDescription((Description)newValue);
         return;
-      case ReqSpecPackage.SYSTEM_REQUIREMENTS__CONSTANTS:
+      case ReqSpecPackage.REQUIREMENT_LIBRARY__CONSTANTS:
         getConstants().clear();
         getConstants().addAll((Collection<? extends AVariableDeclaration>)newValue);
         return;
-      case ReqSpecPackage.SYSTEM_REQUIREMENTS__COMPUTES:
+      case ReqSpecPackage.REQUIREMENT_LIBRARY__COMPUTES:
         getComputes().clear();
         getComputes().addAll((Collection<? extends AVariableDeclaration>)newValue);
         return;
-      case ReqSpecPackage.SYSTEM_REQUIREMENTS__CONTENT:
+      case ReqSpecPackage.REQUIREMENT_LIBRARY__CONTENT:
         getContent().clear();
         getContent().addAll((Collection<? extends Requirement>)newValue);
         return;
-      case ReqSpecPackage.SYSTEM_REQUIREMENTS__DOC_REFERENCE:
+      case ReqSpecPackage.REQUIREMENT_LIBRARY__DOC_REFERENCE:
         getDocReference().clear();
         getDocReference().addAll((Collection<? extends ExternalDocument>)newValue);
         return;
-      case ReqSpecPackage.SYSTEM_REQUIREMENTS__STAKEHOLDER_GOALS:
+      case ReqSpecPackage.REQUIREMENT_LIBRARY__STAKEHOLDER_GOALS:
         getStakeholderGoals().clear();
         getStakeholderGoals().addAll((Collection<? extends ReqRoot>)newValue);
         return;
-      case ReqSpecPackage.SYSTEM_REQUIREMENTS__ISSUES:
+      case ReqSpecPackage.REQUIREMENT_LIBRARY__ISSUES:
         getIssues().clear();
         getIssues().addAll((Collection<? extends String>)newValue);
         return;
@@ -663,43 +519,34 @@ public class SystemRequirementsImpl extends ReqSpecContainerImpl implements Syst
   {
     switch (featureID)
     {
-      case ReqSpecPackage.SYSTEM_REQUIREMENTS__NAME:
+      case ReqSpecPackage.REQUIREMENT_LIBRARY__NAME:
         setName(NAME_EDEFAULT);
         return;
-      case ReqSpecPackage.SYSTEM_REQUIREMENTS__TITLE:
+      case ReqSpecPackage.REQUIREMENT_LIBRARY__TITLE:
         setTitle(TITLE_EDEFAULT);
         return;
-      case ReqSpecPackage.SYSTEM_REQUIREMENTS__TARGET:
-        setTarget((ComponentClassifier)null);
-        return;
-      case ReqSpecPackage.SYSTEM_REQUIREMENTS__COMPONENT_CATEGORY:
-        getComponentCategory().clear();
-        return;
-      case ReqSpecPackage.SYSTEM_REQUIREMENTS__GLOBAL:
-        setGlobal(GLOBAL_EDEFAULT);
-        return;
-      case ReqSpecPackage.SYSTEM_REQUIREMENTS__IMPORT_CONSTANTS:
+      case ReqSpecPackage.REQUIREMENT_LIBRARY__IMPORT_CONSTANTS:
         getImportConstants().clear();
         return;
-      case ReqSpecPackage.SYSTEM_REQUIREMENTS__DESCRIPTION:
+      case ReqSpecPackage.REQUIREMENT_LIBRARY__DESCRIPTION:
         setDescription((Description)null);
         return;
-      case ReqSpecPackage.SYSTEM_REQUIREMENTS__CONSTANTS:
+      case ReqSpecPackage.REQUIREMENT_LIBRARY__CONSTANTS:
         getConstants().clear();
         return;
-      case ReqSpecPackage.SYSTEM_REQUIREMENTS__COMPUTES:
+      case ReqSpecPackage.REQUIREMENT_LIBRARY__COMPUTES:
         getComputes().clear();
         return;
-      case ReqSpecPackage.SYSTEM_REQUIREMENTS__CONTENT:
+      case ReqSpecPackage.REQUIREMENT_LIBRARY__CONTENT:
         getContent().clear();
         return;
-      case ReqSpecPackage.SYSTEM_REQUIREMENTS__DOC_REFERENCE:
+      case ReqSpecPackage.REQUIREMENT_LIBRARY__DOC_REFERENCE:
         getDocReference().clear();
         return;
-      case ReqSpecPackage.SYSTEM_REQUIREMENTS__STAKEHOLDER_GOALS:
+      case ReqSpecPackage.REQUIREMENT_LIBRARY__STAKEHOLDER_GOALS:
         getStakeholderGoals().clear();
         return;
-      case ReqSpecPackage.SYSTEM_REQUIREMENTS__ISSUES:
+      case ReqSpecPackage.REQUIREMENT_LIBRARY__ISSUES:
         getIssues().clear();
         return;
     }
@@ -716,31 +563,25 @@ public class SystemRequirementsImpl extends ReqSpecContainerImpl implements Syst
   {
     switch (featureID)
     {
-      case ReqSpecPackage.SYSTEM_REQUIREMENTS__NAME:
+      case ReqSpecPackage.REQUIREMENT_LIBRARY__NAME:
         return NAME_EDEFAULT == null ? name != null : !NAME_EDEFAULT.equals(name);
-      case ReqSpecPackage.SYSTEM_REQUIREMENTS__TITLE:
+      case ReqSpecPackage.REQUIREMENT_LIBRARY__TITLE:
         return TITLE_EDEFAULT == null ? title != null : !TITLE_EDEFAULT.equals(title);
-      case ReqSpecPackage.SYSTEM_REQUIREMENTS__TARGET:
-        return target != null;
-      case ReqSpecPackage.SYSTEM_REQUIREMENTS__COMPONENT_CATEGORY:
-        return componentCategory != null && !componentCategory.isEmpty();
-      case ReqSpecPackage.SYSTEM_REQUIREMENTS__GLOBAL:
-        return global != GLOBAL_EDEFAULT;
-      case ReqSpecPackage.SYSTEM_REQUIREMENTS__IMPORT_CONSTANTS:
+      case ReqSpecPackage.REQUIREMENT_LIBRARY__IMPORT_CONSTANTS:
         return importConstants != null && !importConstants.isEmpty();
-      case ReqSpecPackage.SYSTEM_REQUIREMENTS__DESCRIPTION:
+      case ReqSpecPackage.REQUIREMENT_LIBRARY__DESCRIPTION:
         return description != null;
-      case ReqSpecPackage.SYSTEM_REQUIREMENTS__CONSTANTS:
+      case ReqSpecPackage.REQUIREMENT_LIBRARY__CONSTANTS:
         return constants != null && !constants.isEmpty();
-      case ReqSpecPackage.SYSTEM_REQUIREMENTS__COMPUTES:
+      case ReqSpecPackage.REQUIREMENT_LIBRARY__COMPUTES:
         return computes != null && !computes.isEmpty();
-      case ReqSpecPackage.SYSTEM_REQUIREMENTS__CONTENT:
+      case ReqSpecPackage.REQUIREMENT_LIBRARY__CONTENT:
         return content != null && !content.isEmpty();
-      case ReqSpecPackage.SYSTEM_REQUIREMENTS__DOC_REFERENCE:
+      case ReqSpecPackage.REQUIREMENT_LIBRARY__DOC_REFERENCE:
         return docReference != null && !docReference.isEmpty();
-      case ReqSpecPackage.SYSTEM_REQUIREMENTS__STAKEHOLDER_GOALS:
+      case ReqSpecPackage.REQUIREMENT_LIBRARY__STAKEHOLDER_GOALS:
         return stakeholderGoals != null && !stakeholderGoals.isEmpty();
-      case ReqSpecPackage.SYSTEM_REQUIREMENTS__ISSUES:
+      case ReqSpecPackage.REQUIREMENT_LIBRARY__ISSUES:
         return issues != null && !issues.isEmpty();
     }
     return super.eIsSet(featureID);
@@ -761,14 +602,10 @@ public class SystemRequirementsImpl extends ReqSpecContainerImpl implements Syst
     result.append(name);
     result.append(", title: ");
     result.append(title);
-    result.append(", componentCategory: ");
-    result.append(componentCategory);
-    result.append(", global: ");
-    result.append(global);
     result.append(", issues: ");
     result.append(issues);
     result.append(')');
     return result.toString();
   }
 
-} //SystemRequirementsImpl
+} //RequirementLibraryImpl

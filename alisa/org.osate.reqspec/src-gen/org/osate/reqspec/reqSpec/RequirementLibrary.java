@@ -17,41 +17,35 @@ package org.osate.reqspec.reqSpec;
 
 import org.eclipse.emf.common.util.EList;
 
-import org.osate.aadl2.ComponentCategory;
-import org.osate.aadl2.ComponentClassifier;
-
 import org.osate.alisa.common.common.AVariableDeclaration;
 import org.osate.alisa.common.common.Description;
 
 /**
  * <!-- begin-user-doc -->
- * A representation of the model object '<em><b>System Requirements</b></em>'.
+ * A representation of the model object '<em><b>Requirement Library</b></em>'.
  * <!-- end-user-doc -->
  *
  * <p>
  * The following features are supported:
  * </p>
  * <ul>
- *   <li>{@link org.osate.reqspec.reqSpec.SystemRequirements#getName <em>Name</em>}</li>
- *   <li>{@link org.osate.reqspec.reqSpec.SystemRequirements#getTitle <em>Title</em>}</li>
- *   <li>{@link org.osate.reqspec.reqSpec.SystemRequirements#getTarget <em>Target</em>}</li>
- *   <li>{@link org.osate.reqspec.reqSpec.SystemRequirements#getComponentCategory <em>Component Category</em>}</li>
- *   <li>{@link org.osate.reqspec.reqSpec.SystemRequirements#isGlobal <em>Global</em>}</li>
- *   <li>{@link org.osate.reqspec.reqSpec.SystemRequirements#getImportConstants <em>Import Constants</em>}</li>
- *   <li>{@link org.osate.reqspec.reqSpec.SystemRequirements#getDescription <em>Description</em>}</li>
- *   <li>{@link org.osate.reqspec.reqSpec.SystemRequirements#getConstants <em>Constants</em>}</li>
- *   <li>{@link org.osate.reqspec.reqSpec.SystemRequirements#getComputes <em>Computes</em>}</li>
- *   <li>{@link org.osate.reqspec.reqSpec.SystemRequirements#getContent <em>Content</em>}</li>
- *   <li>{@link org.osate.reqspec.reqSpec.SystemRequirements#getDocReference <em>Doc Reference</em>}</li>
- *   <li>{@link org.osate.reqspec.reqSpec.SystemRequirements#getStakeholderGoals <em>Stakeholder Goals</em>}</li>
- *   <li>{@link org.osate.reqspec.reqSpec.SystemRequirements#getIssues <em>Issues</em>}</li>
+ *   <li>{@link org.osate.reqspec.reqSpec.RequirementLibrary#getName <em>Name</em>}</li>
+ *   <li>{@link org.osate.reqspec.reqSpec.RequirementLibrary#getTitle <em>Title</em>}</li>
+ *   <li>{@link org.osate.reqspec.reqSpec.RequirementLibrary#getImportConstants <em>Import Constants</em>}</li>
+ *   <li>{@link org.osate.reqspec.reqSpec.RequirementLibrary#getDescription <em>Description</em>}</li>
+ *   <li>{@link org.osate.reqspec.reqSpec.RequirementLibrary#getConstants <em>Constants</em>}</li>
+ *   <li>{@link org.osate.reqspec.reqSpec.RequirementLibrary#getComputes <em>Computes</em>}</li>
+ *   <li>{@link org.osate.reqspec.reqSpec.RequirementLibrary#getContent <em>Content</em>}</li>
+ *   <li>{@link org.osate.reqspec.reqSpec.RequirementLibrary#getDocReference <em>Doc Reference</em>}</li>
+ *   <li>{@link org.osate.reqspec.reqSpec.RequirementLibrary#getStakeholderGoals <em>Stakeholder Goals</em>}</li>
+ *   <li>{@link org.osate.reqspec.reqSpec.RequirementLibrary#getIssues <em>Issues</em>}</li>
  * </ul>
  *
- * @see org.osate.reqspec.reqSpec.ReqSpecPackage#getSystemRequirements()
+ * @see org.osate.reqspec.reqSpec.ReqSpecPackage#getRequirementLibrary()
  * @model
  * @generated
  */
-public interface SystemRequirements extends ReqSpecContainer, ReqRoot
+public interface RequirementLibrary extends ReqSpecContainer, ReqRoot
 {
   /**
    * Returns the value of the '<em><b>Name</b></em>' attribute.
@@ -63,14 +57,14 @@ public interface SystemRequirements extends ReqSpecContainer, ReqRoot
    * <!-- end-user-doc -->
    * @return the value of the '<em>Name</em>' attribute.
    * @see #setName(String)
-   * @see org.osate.reqspec.reqSpec.ReqSpecPackage#getSystemRequirements_Name()
+   * @see org.osate.reqspec.reqSpec.ReqSpecPackage#getRequirementLibrary_Name()
    * @model
    * @generated
    */
   String getName();
 
   /**
-   * Sets the value of the '{@link org.osate.reqspec.reqSpec.SystemRequirements#getName <em>Name</em>}' attribute.
+   * Sets the value of the '{@link org.osate.reqspec.reqSpec.RequirementLibrary#getName <em>Name</em>}' attribute.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @param value the new value of the '<em>Name</em>' attribute.
@@ -89,14 +83,14 @@ public interface SystemRequirements extends ReqSpecContainer, ReqRoot
    * <!-- end-user-doc -->
    * @return the value of the '<em>Title</em>' attribute.
    * @see #setTitle(String)
-   * @see org.osate.reqspec.reqSpec.ReqSpecPackage#getSystemRequirements_Title()
+   * @see org.osate.reqspec.reqSpec.ReqSpecPackage#getRequirementLibrary_Title()
    * @model
    * @generated
    */
   String getTitle();
 
   /**
-   * Sets the value of the '{@link org.osate.reqspec.reqSpec.SystemRequirements#getTitle <em>Title</em>}' attribute.
+   * Sets the value of the '{@link org.osate.reqspec.reqSpec.RequirementLibrary#getTitle <em>Title</em>}' attribute.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @param value the new value of the '<em>Title</em>' attribute.
@@ -104,76 +98,6 @@ public interface SystemRequirements extends ReqSpecContainer, ReqRoot
    * @generated
    */
   void setTitle(String value);
-
-  /**
-   * Returns the value of the '<em><b>Target</b></em>' reference.
-   * <!-- begin-user-doc -->
-   * <p>
-   * If the meaning of the '<em>Target</em>' reference isn't clear,
-   * there really should be more of a description here...
-   * </p>
-   * <!-- end-user-doc -->
-   * @return the value of the '<em>Target</em>' reference.
-   * @see #setTarget(ComponentClassifier)
-   * @see org.osate.reqspec.reqSpec.ReqSpecPackage#getSystemRequirements_Target()
-   * @model
-   * @generated
-   */
-  ComponentClassifier getTarget();
-
-  /**
-   * Sets the value of the '{@link org.osate.reqspec.reqSpec.SystemRequirements#getTarget <em>Target</em>}' reference.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @param value the new value of the '<em>Target</em>' reference.
-   * @see #getTarget()
-   * @generated
-   */
-  void setTarget(ComponentClassifier value);
-
-  /**
-   * Returns the value of the '<em><b>Component Category</b></em>' attribute list.
-   * The list contents are of type {@link org.osate.aadl2.ComponentCategory}.
-   * The literals are from the enumeration {@link org.osate.aadl2.ComponentCategory}.
-   * <!-- begin-user-doc -->
-   * <p>
-   * If the meaning of the '<em>Component Category</em>' attribute list isn't clear,
-   * there really should be more of a description here...
-   * </p>
-   * <!-- end-user-doc -->
-   * @return the value of the '<em>Component Category</em>' attribute list.
-   * @see org.osate.aadl2.ComponentCategory
-   * @see org.osate.reqspec.reqSpec.ReqSpecPackage#getSystemRequirements_ComponentCategory()
-   * @model unique="false"
-   * @generated
-   */
-  EList<ComponentCategory> getComponentCategory();
-
-  /**
-   * Returns the value of the '<em><b>Global</b></em>' attribute.
-   * <!-- begin-user-doc -->
-   * <p>
-   * If the meaning of the '<em>Global</em>' attribute isn't clear,
-   * there really should be more of a description here...
-   * </p>
-   * <!-- end-user-doc -->
-   * @return the value of the '<em>Global</em>' attribute.
-   * @see #setGlobal(boolean)
-   * @see org.osate.reqspec.reqSpec.ReqSpecPackage#getSystemRequirements_Global()
-   * @model
-   * @generated
-   */
-  boolean isGlobal();
-
-  /**
-   * Sets the value of the '{@link org.osate.reqspec.reqSpec.SystemRequirements#isGlobal <em>Global</em>}' attribute.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @param value the new value of the '<em>Global</em>' attribute.
-   * @see #isGlobal()
-   * @generated
-   */
-  void setGlobal(boolean value);
 
   /**
    * Returns the value of the '<em><b>Import Constants</b></em>' reference list.
@@ -185,7 +109,7 @@ public interface SystemRequirements extends ReqSpecContainer, ReqRoot
    * </p>
    * <!-- end-user-doc -->
    * @return the value of the '<em>Import Constants</em>' reference list.
-   * @see org.osate.reqspec.reqSpec.ReqSpecPackage#getSystemRequirements_ImportConstants()
+   * @see org.osate.reqspec.reqSpec.ReqSpecPackage#getRequirementLibrary_ImportConstants()
    * @model
    * @generated
    */
@@ -201,14 +125,14 @@ public interface SystemRequirements extends ReqSpecContainer, ReqRoot
    * <!-- end-user-doc -->
    * @return the value of the '<em>Description</em>' containment reference.
    * @see #setDescription(Description)
-   * @see org.osate.reqspec.reqSpec.ReqSpecPackage#getSystemRequirements_Description()
+   * @see org.osate.reqspec.reqSpec.ReqSpecPackage#getRequirementLibrary_Description()
    * @model containment="true"
    * @generated
    */
   Description getDescription();
 
   /**
-   * Sets the value of the '{@link org.osate.reqspec.reqSpec.SystemRequirements#getDescription <em>Description</em>}' containment reference.
+   * Sets the value of the '{@link org.osate.reqspec.reqSpec.RequirementLibrary#getDescription <em>Description</em>}' containment reference.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @param value the new value of the '<em>Description</em>' containment reference.
@@ -227,7 +151,7 @@ public interface SystemRequirements extends ReqSpecContainer, ReqRoot
    * </p>
    * <!-- end-user-doc -->
    * @return the value of the '<em>Constants</em>' containment reference list.
-   * @see org.osate.reqspec.reqSpec.ReqSpecPackage#getSystemRequirements_Constants()
+   * @see org.osate.reqspec.reqSpec.ReqSpecPackage#getRequirementLibrary_Constants()
    * @model containment="true"
    * @generated
    */
@@ -243,7 +167,7 @@ public interface SystemRequirements extends ReqSpecContainer, ReqRoot
    * </p>
    * <!-- end-user-doc -->
    * @return the value of the '<em>Computes</em>' containment reference list.
-   * @see org.osate.reqspec.reqSpec.ReqSpecPackage#getSystemRequirements_Computes()
+   * @see org.osate.reqspec.reqSpec.ReqSpecPackage#getRequirementLibrary_Computes()
    * @model containment="true"
    * @generated
    */
@@ -259,7 +183,7 @@ public interface SystemRequirements extends ReqSpecContainer, ReqRoot
    * </p>
    * <!-- end-user-doc -->
    * @return the value of the '<em>Content</em>' containment reference list.
-   * @see org.osate.reqspec.reqSpec.ReqSpecPackage#getSystemRequirements_Content()
+   * @see org.osate.reqspec.reqSpec.ReqSpecPackage#getRequirementLibrary_Content()
    * @model containment="true"
    * @generated
    */
@@ -275,7 +199,7 @@ public interface SystemRequirements extends ReqSpecContainer, ReqRoot
    * </p>
    * <!-- end-user-doc -->
    * @return the value of the '<em>Doc Reference</em>' containment reference list.
-   * @see org.osate.reqspec.reqSpec.ReqSpecPackage#getSystemRequirements_DocReference()
+   * @see org.osate.reqspec.reqSpec.ReqSpecPackage#getRequirementLibrary_DocReference()
    * @model containment="true"
    * @generated
    */
@@ -291,7 +215,7 @@ public interface SystemRequirements extends ReqSpecContainer, ReqRoot
    * </p>
    * <!-- end-user-doc -->
    * @return the value of the '<em>Stakeholder Goals</em>' reference list.
-   * @see org.osate.reqspec.reqSpec.ReqSpecPackage#getSystemRequirements_StakeholderGoals()
+   * @see org.osate.reqspec.reqSpec.ReqSpecPackage#getRequirementLibrary_StakeholderGoals()
    * @model
    * @generated
    */
@@ -307,10 +231,10 @@ public interface SystemRequirements extends ReqSpecContainer, ReqRoot
    * </p>
    * <!-- end-user-doc -->
    * @return the value of the '<em>Issues</em>' attribute list.
-   * @see org.osate.reqspec.reqSpec.ReqSpecPackage#getSystemRequirements_Issues()
+   * @see org.osate.reqspec.reqSpec.ReqSpecPackage#getRequirementLibrary_Issues()
    * @model unique="false"
    * @generated
    */
   EList<String> getIssues();
 
-} // SystemRequirements
+} // RequirementLibrary

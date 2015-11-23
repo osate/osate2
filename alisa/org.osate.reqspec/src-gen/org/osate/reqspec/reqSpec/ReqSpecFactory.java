@@ -117,6 +117,15 @@ public interface ReqSpecFactory extends EFactory
   SystemRequirements createSystemRequirements();
 
   /**
+   * Returns a new object of class '<em>Requirement Library</em>'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return a new object of class '<em>Requirement Library</em>'.
+   * @generated
+   */
+  RequirementLibrary createRequirementLibrary();
+
+  /**
    * Returns a new object of class '<em>Goal</em>'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->

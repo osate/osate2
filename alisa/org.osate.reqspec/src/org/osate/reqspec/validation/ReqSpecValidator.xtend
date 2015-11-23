@@ -52,6 +52,7 @@ import static extension org.osate.reqspec.util.ReqSpecUtilExtension.*
 import org.osate.categories.categories.RequirementCategory
 import org.osate.categories.categories.QualityCategory
 import org.osate.categories.categories.SelectionCategory
+import org.osate.reqspec.reqSpec.RequirementLibrary
 
 /**
  * Custom validation rules. 
@@ -68,8 +69,10 @@ class ReqSpecValidator extends AbstractReqSpecValidator {
   public static val DUPLICATE_STAKEHOLDER_GOALS = 'org.osate.reqspec.validation.duplicate.stakeholdergoals'
   public static val REQSPEC_FOR_DIFFERS_FROM_STAKEHOLDERGOALS_FOR = 'org.osate.reqspec.validation.reqspec.for.differs.from.stakeholdergoals.for'
   public static val GOAL_REFERENCE_NOT_FOUND = 'org.osate.reqspec.validation.goal.reference.not.found'
-  public static val DUPLICATE_SYSTEMS_REQUIREMENT = 'org.osate.reqspec.validation.duplicate.system.requiremnts'
+  public static val DUPLICATE_SYSTEM_REQUIREMENTS = 'org.osate.reqspec.validation.duplicate.system.requirements'
   public static val DUPLICATE_REQUIREMENT_WITHIN_SYSTEM_REQUIREMENTS = 'org.osate.reqspec.validation.duplicate.requirement.within.system.requirements'
+  public static val DUPLICATE_REQUIREMENT_LIBRARY = 'org.osate.reqspec.validation.duplicate.requirement.library'
+  public static val DUPLICATE_REQUIREMENT_WITHIN_REQUIREMENT_LIBRARY = 'org.osate.reqspec.validation.duplicate.requirement.within.requirement.library'
   public static val CYCLE_IN_GOAL_REFINE_HIERARCHY = 'org.osate.reqspec.validation.cycle.in.goal.refine.hierarchy'
   public static val CYCLE_IN_REQUIREMENT_REFINE_HIERARCHY = 'org.osate.reqspec.validation.cycle.in.requirement.refine.hierarchy'
   public static val ILLEGAL_OBJECT_FOR_FILETYPE_IN_DOCUMENTSECTION = 'org.osate.reqspec.validation.illegal.object.for.filetype.in.documentsection'
@@ -98,7 +101,7 @@ class ReqSpecValidator extends AbstractReqSpecValidator {
 	
 	@Check(CheckType.EXPENSIVE)
 	def void checkMissingGoal(Requirement req) {
-		if (req.goalReference.empty  && req.stakeholderRequirementReference.empty) {
+		if (req.goalReference.empty  ) {
 			if (req.refinesReference.empty){ 
 			warning('System requirement should have stakeholder goal or requirement reference', 
 					ReqSpecPackage.Literals.REQUIREMENT__GOAL_REFERENCE,
@@ -181,7 +184,7 @@ class ReqSpecValidator extends AbstractReqSpecValidator {
 				val node = NodeModelUtils.getNode(sysReq);
 				error("Duplicate System Requirements name '" + sysReq.name + "'",  
 					sysReq, ReqSpecPackage.Literals.SYSTEM_REQUIREMENTS__NAME,
-					DUPLICATE_SYSTEMS_REQUIREMENT, "" + node.offset, "" + node.length)
+					DUPLICATE_SYSTEM_REQUIREMENTS, "" + node.offset, "" + node.length)
 			}
 	}
 	@Check(CheckType.NORMAL)
@@ -190,7 +193,28 @@ class ReqSpecValidator extends AbstractReqSpecValidator {
 			if (sysReq.content.filter[name == requirement.name].size > 1) 
 				error("Duplicate requirement name '" + requirement.name + "' in system requirements '" + sysReq.name + "'",  
 					requirement, ReqSpecPackage.Literals.CONTRACTUAL_ELEMENT__NAME,
-					DUPLICATE_REQUIREMENT_WITHIN_SYSTEM_REQUIREMENTS, EcoreUtil.getURI(sysReq).toString()
+					DUPLICATE_REQUIREMENT_WITHIN_REQUIREMENT_LIBRARY, EcoreUtil.getURI(sysReq).toString()
+				)
+		] 
+	}
+	
+	@Check(CheckType.NORMAL)
+	def void checkDuplicateRequirementLibrary(RequirementLibrary reqLib) {
+		val dupes = refFinder.getDuplicates(reqLib)
+			if (dupes.size > 0) {
+				val node = NodeModelUtils.getNode(reqLib);
+				error("Duplicate requirement library name '" + reqLib.name + "'",  
+					reqLib, ReqSpecPackage.Literals.REQUIREMENT_LIBRARY__NAME,
+					DUPLICATE_REQUIREMENT_LIBRARY, "" + node.offset, "" + node.length)
+			}
+	}
+	@Check(CheckType.NORMAL)
+	def void checkDuplicateRequirement(RequirementLibrary reqLib) {
+		reqLib.content.forEach[requirement | 
+			if (reqLib.content.filter[name == requirement.name].size > 1) 
+				error("Duplicate requirement name '" + requirement.name + "' in requirement library '" + reqLib.name + "'",  
+					requirement, ReqSpecPackage.Literals.CONTRACTUAL_ELEMENT__NAME,
+					DUPLICATE_REQUIREMENT_WITHIN_SYSTEM_REQUIREMENTS, EcoreUtil.getURI(reqLib).toString()
 				)
 		] 
 	}

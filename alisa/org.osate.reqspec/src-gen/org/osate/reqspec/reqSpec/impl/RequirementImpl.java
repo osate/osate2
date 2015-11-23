@@ -52,8 +52,6 @@ import org.osate.reqspec.reqSpec.Requirement;
  * The following features are implemented:
  * </p>
  * <ul>
- *   <li>{@link org.osate.reqspec.reqSpec.impl.RequirementImpl#getComponentCategory <em>Component Category</em>}</li>
- *   <li>{@link org.osate.reqspec.reqSpec.impl.RequirementImpl#isGlobal <em>Global</em>}</li>
  *   <li>{@link org.osate.reqspec.reqSpec.impl.RequirementImpl#getComputes <em>Computes</em>}</li>
  *   <li>{@link org.osate.reqspec.reqSpec.impl.RequirementImpl#getPredicate <em>Predicate</em>}</li>
  *   <li>{@link org.osate.reqspec.reqSpec.impl.RequirementImpl#getException <em>Exception</em>}</li>
@@ -62,43 +60,14 @@ import org.osate.reqspec.reqSpec.Requirement;
  *   <li>{@link org.osate.reqspec.reqSpec.impl.RequirementImpl#getDecomposesReference <em>Decomposes Reference</em>}</li>
  *   <li>{@link org.osate.reqspec.reqSpec.impl.RequirementImpl#getDevelopmentStakeholder <em>Development Stakeholder</em>}</li>
  *   <li>{@link org.osate.reqspec.reqSpec.impl.RequirementImpl#getGoalReference <em>Goal Reference</em>}</li>
- *   <li>{@link org.osate.reqspec.reqSpec.impl.RequirementImpl#getStakeholderRequirementReference <em>Stakeholder Requirement Reference</em>}</li>
+ *   <li>{@link org.osate.reqspec.reqSpec.impl.RequirementImpl#getComponentCategory <em>Component Category</em>}</li>
+ *   <li>{@link org.osate.reqspec.reqSpec.impl.RequirementImpl#isGlobal <em>Global</em>}</li>
  * </ul>
  *
  * @generated
  */
 public class RequirementImpl extends ContractualElementImpl implements Requirement
 {
-  /**
-   * The cached value of the '{@link #getComponentCategory() <em>Component Category</em>}' attribute list.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @see #getComponentCategory()
-   * @generated
-   * @ordered
-   */
-  protected EList<ComponentCategory> componentCategory;
-
-  /**
-   * The default value of the '{@link #isGlobal() <em>Global</em>}' attribute.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @see #isGlobal()
-   * @generated
-   * @ordered
-   */
-  protected static final boolean GLOBAL_EDEFAULT = false;
-
-  /**
-   * The cached value of the '{@link #isGlobal() <em>Global</em>}' attribute.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @see #isGlobal()
-   * @generated
-   * @ordered
-   */
-  protected boolean global = GLOBAL_EDEFAULT;
-
   /**
    * The cached value of the '{@link #getComputes() <em>Computes</em>}' containment reference list.
    * <!-- begin-user-doc -->
@@ -190,14 +159,34 @@ public class RequirementImpl extends ContractualElementImpl implements Requireme
   protected EList<Goal> goalReference;
 
   /**
-   * The cached value of the '{@link #getStakeholderRequirementReference() <em>Stakeholder Requirement Reference</em>}' reference list.
+   * The cached value of the '{@link #getComponentCategory() <em>Component Category</em>}' attribute list.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @see #getStakeholderRequirementReference()
+   * @see #getComponentCategory()
    * @generated
    * @ordered
    */
-  protected EList<Goal> stakeholderRequirementReference;
+  protected EList<ComponentCategory> componentCategory;
+
+  /**
+   * The default value of the '{@link #isGlobal() <em>Global</em>}' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see #isGlobal()
+   * @generated
+   * @ordered
+   */
+  protected static final boolean GLOBAL_EDEFAULT = false;
+
+  /**
+   * The cached value of the '{@link #isGlobal() <em>Global</em>}' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see #isGlobal()
+   * @generated
+   * @ordered
+   */
+  protected boolean global = GLOBAL_EDEFAULT;
 
   /**
    * <!-- begin-user-doc -->
@@ -218,43 +207,6 @@ public class RequirementImpl extends ContractualElementImpl implements Requireme
   protected EClass eStaticClass()
   {
     return ReqSpecPackage.Literals.REQUIREMENT;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public EList<ComponentCategory> getComponentCategory()
-  {
-    if (componentCategory == null)
-    {
-      componentCategory = new EDataTypeEList<ComponentCategory>(ComponentCategory.class, this, ReqSpecPackage.REQUIREMENT__COMPONENT_CATEGORY);
-    }
-    return componentCategory;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public boolean isGlobal()
-  {
-    return global;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public void setGlobal(boolean newGlobal)
-  {
-    boolean oldGlobal = global;
-    global = newGlobal;
-    if (eNotificationRequired())
-      eNotify(new ENotificationImpl(this, Notification.SET, ReqSpecPackage.REQUIREMENT__GLOBAL, oldGlobal, global));
   }
 
   /**
@@ -446,13 +398,36 @@ public class RequirementImpl extends ContractualElementImpl implements Requireme
    * <!-- end-user-doc -->
    * @generated
    */
-  public EList<Goal> getStakeholderRequirementReference()
+  public EList<ComponentCategory> getComponentCategory()
   {
-    if (stakeholderRequirementReference == null)
+    if (componentCategory == null)
     {
-      stakeholderRequirementReference = new EObjectResolvingEList<Goal>(Goal.class, this, ReqSpecPackage.REQUIREMENT__STAKEHOLDER_REQUIREMENT_REFERENCE);
+      componentCategory = new EDataTypeEList<ComponentCategory>(ComponentCategory.class, this, ReqSpecPackage.REQUIREMENT__COMPONENT_CATEGORY);
     }
-    return stakeholderRequirementReference;
+    return componentCategory;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public boolean isGlobal()
+  {
+    return global;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public void setGlobal(boolean newGlobal)
+  {
+    boolean oldGlobal = global;
+    global = newGlobal;
+    if (eNotificationRequired())
+      eNotify(new ENotificationImpl(this, Notification.SET, ReqSpecPackage.REQUIREMENT__GLOBAL, oldGlobal, global));
   }
 
   /**
@@ -483,10 +458,6 @@ public class RequirementImpl extends ContractualElementImpl implements Requireme
   {
     switch (featureID)
     {
-      case ReqSpecPackage.REQUIREMENT__COMPONENT_CATEGORY:
-        return getComponentCategory();
-      case ReqSpecPackage.REQUIREMENT__GLOBAL:
-        return isGlobal();
       case ReqSpecPackage.REQUIREMENT__COMPUTES:
         return getComputes();
       case ReqSpecPackage.REQUIREMENT__PREDICATE:
@@ -504,8 +475,10 @@ public class RequirementImpl extends ContractualElementImpl implements Requireme
         return getDevelopmentStakeholder();
       case ReqSpecPackage.REQUIREMENT__GOAL_REFERENCE:
         return getGoalReference();
-      case ReqSpecPackage.REQUIREMENT__STAKEHOLDER_REQUIREMENT_REFERENCE:
-        return getStakeholderRequirementReference();
+      case ReqSpecPackage.REQUIREMENT__COMPONENT_CATEGORY:
+        return getComponentCategory();
+      case ReqSpecPackage.REQUIREMENT__GLOBAL:
+        return isGlobal();
     }
     return super.eGet(featureID, resolve, coreType);
   }
@@ -521,13 +494,6 @@ public class RequirementImpl extends ContractualElementImpl implements Requireme
   {
     switch (featureID)
     {
-      case ReqSpecPackage.REQUIREMENT__COMPONENT_CATEGORY:
-        getComponentCategory().clear();
-        getComponentCategory().addAll((Collection<? extends ComponentCategory>)newValue);
-        return;
-      case ReqSpecPackage.REQUIREMENT__GLOBAL:
-        setGlobal((Boolean)newValue);
-        return;
       case ReqSpecPackage.REQUIREMENT__COMPUTES:
         getComputes().clear();
         getComputes().addAll((Collection<? extends AVariableDeclaration>)newValue);
@@ -557,9 +523,12 @@ public class RequirementImpl extends ContractualElementImpl implements Requireme
         getGoalReference().clear();
         getGoalReference().addAll((Collection<? extends Goal>)newValue);
         return;
-      case ReqSpecPackage.REQUIREMENT__STAKEHOLDER_REQUIREMENT_REFERENCE:
-        getStakeholderRequirementReference().clear();
-        getStakeholderRequirementReference().addAll((Collection<? extends Goal>)newValue);
+      case ReqSpecPackage.REQUIREMENT__COMPONENT_CATEGORY:
+        getComponentCategory().clear();
+        getComponentCategory().addAll((Collection<? extends ComponentCategory>)newValue);
+        return;
+      case ReqSpecPackage.REQUIREMENT__GLOBAL:
+        setGlobal((Boolean)newValue);
         return;
     }
     super.eSet(featureID, newValue);
@@ -575,12 +544,6 @@ public class RequirementImpl extends ContractualElementImpl implements Requireme
   {
     switch (featureID)
     {
-      case ReqSpecPackage.REQUIREMENT__COMPONENT_CATEGORY:
-        getComponentCategory().clear();
-        return;
-      case ReqSpecPackage.REQUIREMENT__GLOBAL:
-        setGlobal(GLOBAL_EDEFAULT);
-        return;
       case ReqSpecPackage.REQUIREMENT__COMPUTES:
         getComputes().clear();
         return;
@@ -605,8 +568,11 @@ public class RequirementImpl extends ContractualElementImpl implements Requireme
       case ReqSpecPackage.REQUIREMENT__GOAL_REFERENCE:
         getGoalReference().clear();
         return;
-      case ReqSpecPackage.REQUIREMENT__STAKEHOLDER_REQUIREMENT_REFERENCE:
-        getStakeholderRequirementReference().clear();
+      case ReqSpecPackage.REQUIREMENT__COMPONENT_CATEGORY:
+        getComponentCategory().clear();
+        return;
+      case ReqSpecPackage.REQUIREMENT__GLOBAL:
+        setGlobal(GLOBAL_EDEFAULT);
         return;
     }
     super.eUnset(featureID);
@@ -622,10 +588,6 @@ public class RequirementImpl extends ContractualElementImpl implements Requireme
   {
     switch (featureID)
     {
-      case ReqSpecPackage.REQUIREMENT__COMPONENT_CATEGORY:
-        return componentCategory != null && !componentCategory.isEmpty();
-      case ReqSpecPackage.REQUIREMENT__GLOBAL:
-        return global != GLOBAL_EDEFAULT;
       case ReqSpecPackage.REQUIREMENT__COMPUTES:
         return computes != null && !computes.isEmpty();
       case ReqSpecPackage.REQUIREMENT__PREDICATE:
@@ -642,8 +604,10 @@ public class RequirementImpl extends ContractualElementImpl implements Requireme
         return developmentStakeholder != null && !developmentStakeholder.isEmpty();
       case ReqSpecPackage.REQUIREMENT__GOAL_REFERENCE:
         return goalReference != null && !goalReference.isEmpty();
-      case ReqSpecPackage.REQUIREMENT__STAKEHOLDER_REQUIREMENT_REFERENCE:
-        return stakeholderRequirementReference != null && !stakeholderRequirementReference.isEmpty();
+      case ReqSpecPackage.REQUIREMENT__COMPONENT_CATEGORY:
+        return componentCategory != null && !componentCategory.isEmpty();
+      case ReqSpecPackage.REQUIREMENT__GLOBAL:
+        return global != GLOBAL_EDEFAULT;
     }
     return super.eIsSet(featureID);
   }
@@ -659,12 +623,12 @@ public class RequirementImpl extends ContractualElementImpl implements Requireme
     if (eIsProxy()) return super.toString();
 
     StringBuffer result = new StringBuffer(super.toString());
-    result.append(" (componentCategory: ");
+    result.append(" (exceptionText: ");
+    result.append(exceptionText);
+    result.append(", componentCategory: ");
     result.append(componentCategory);
     result.append(", global: ");
     result.append(global);
-    result.append(", exceptionText: ");
-    result.append(exceptionText);
     result.append(')');
     return result.toString();
   }

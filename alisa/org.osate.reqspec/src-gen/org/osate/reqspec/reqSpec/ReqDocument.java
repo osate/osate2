@@ -34,6 +34,7 @@ import org.osate.alisa.common.common.Description;
  *   <li>{@link org.osate.reqspec.reqSpec.ReqDocument#getTitle <em>Title</em>}</li>
  *   <li>{@link org.osate.reqspec.reqSpec.ReqDocument#getDescription <em>Description</em>}</li>
  *   <li>{@link org.osate.reqspec.reqSpec.ReqDocument#getContent <em>Content</em>}</li>
+ *   <li>{@link org.osate.reqspec.reqSpec.ReqDocument#getDocReference <em>Doc Reference</em>}</li>
  *   <li>{@link org.osate.reqspec.reqSpec.ReqDocument#getIssues <em>Issues</em>}</li>
  * </ul>
  *
@@ -136,6 +137,22 @@ public interface ReqDocument extends ReqSpecContainer, ReqRoot
    * @generated
    */
   EList<EObject> getContent();
+
+  /**
+   * Returns the value of the '<em><b>Doc Reference</b></em>' containment reference list.
+   * The list contents are of type {@link org.osate.reqspec.reqSpec.ExternalDocument}.
+   * <!-- begin-user-doc -->
+   * <p>
+   * If the meaning of the '<em>Doc Reference</em>' containment reference list isn't clear,
+   * there really should be more of a description here...
+   * </p>
+   * <!-- end-user-doc -->
+   * @return the value of the '<em>Doc Reference</em>' containment reference list.
+   * @see org.osate.reqspec.reqSpec.ReqSpecPackage#getReqDocument_DocReference()
+   * @model containment="true"
+   * @generated
+   */
+  EList<ExternalDocument> getDocReference();
 
   /**
    * Returns the value of the '<em><b>Issues</b></em>' attribute list.
