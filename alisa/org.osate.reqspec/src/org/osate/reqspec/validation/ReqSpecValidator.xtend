@@ -439,7 +439,6 @@ class ReqSpecValidator extends AbstractReqSpecValidator {
 	
 	@Check//(CheckType.FAST)
 	def void checkSystemRequirementsUniqueToComponentClassifier(SystemRequirements sysReq) {
-		if (sysReq.global) return
 		val target = sysReq.target
 		val allSystemRequirements = reqSpecrefFinder.getSystemRequirementsNoExtends(target)
 		if (allSystemRequirements.size > 1){

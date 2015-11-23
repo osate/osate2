@@ -610,31 +610,13 @@ public interface ReqSpecPackage extends EPackage
   int SYSTEM_REQUIREMENTS__TARGET = REQ_SPEC_CONTAINER_FEATURE_COUNT + 2;
 
   /**
-   * The feature id for the '<em><b>Component Category</b></em>' attribute list.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int SYSTEM_REQUIREMENTS__COMPONENT_CATEGORY = REQ_SPEC_CONTAINER_FEATURE_COUNT + 3;
-
-  /**
-   * The feature id for the '<em><b>Global</b></em>' attribute.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int SYSTEM_REQUIREMENTS__GLOBAL = REQ_SPEC_CONTAINER_FEATURE_COUNT + 4;
-
-  /**
    * The feature id for the '<em><b>Import Constants</b></em>' reference list.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    * @ordered
    */
-  int SYSTEM_REQUIREMENTS__IMPORT_CONSTANTS = REQ_SPEC_CONTAINER_FEATURE_COUNT + 5;
+  int SYSTEM_REQUIREMENTS__IMPORT_CONSTANTS = REQ_SPEC_CONTAINER_FEATURE_COUNT + 3;
 
   /**
    * The feature id for the '<em><b>Description</b></em>' containment reference.
@@ -643,7 +625,7 @@ public interface ReqSpecPackage extends EPackage
    * @generated
    * @ordered
    */
-  int SYSTEM_REQUIREMENTS__DESCRIPTION = REQ_SPEC_CONTAINER_FEATURE_COUNT + 6;
+  int SYSTEM_REQUIREMENTS__DESCRIPTION = REQ_SPEC_CONTAINER_FEATURE_COUNT + 4;
 
   /**
    * The feature id for the '<em><b>Constants</b></em>' containment reference list.
@@ -652,7 +634,7 @@ public interface ReqSpecPackage extends EPackage
    * @generated
    * @ordered
    */
-  int SYSTEM_REQUIREMENTS__CONSTANTS = REQ_SPEC_CONTAINER_FEATURE_COUNT + 7;
+  int SYSTEM_REQUIREMENTS__CONSTANTS = REQ_SPEC_CONTAINER_FEATURE_COUNT + 5;
 
   /**
    * The feature id for the '<em><b>Computes</b></em>' containment reference list.
@@ -661,7 +643,7 @@ public interface ReqSpecPackage extends EPackage
    * @generated
    * @ordered
    */
-  int SYSTEM_REQUIREMENTS__COMPUTES = REQ_SPEC_CONTAINER_FEATURE_COUNT + 8;
+  int SYSTEM_REQUIREMENTS__COMPUTES = REQ_SPEC_CONTAINER_FEATURE_COUNT + 6;
 
   /**
    * The feature id for the '<em><b>Content</b></em>' containment reference list.
@@ -670,7 +652,7 @@ public interface ReqSpecPackage extends EPackage
    * @generated
    * @ordered
    */
-  int SYSTEM_REQUIREMENTS__CONTENT = REQ_SPEC_CONTAINER_FEATURE_COUNT + 9;
+  int SYSTEM_REQUIREMENTS__CONTENT = REQ_SPEC_CONTAINER_FEATURE_COUNT + 7;
 
   /**
    * The feature id for the '<em><b>Doc Reference</b></em>' containment reference list.
@@ -679,7 +661,7 @@ public interface ReqSpecPackage extends EPackage
    * @generated
    * @ordered
    */
-  int SYSTEM_REQUIREMENTS__DOC_REFERENCE = REQ_SPEC_CONTAINER_FEATURE_COUNT + 10;
+  int SYSTEM_REQUIREMENTS__DOC_REFERENCE = REQ_SPEC_CONTAINER_FEATURE_COUNT + 8;
 
   /**
    * The feature id for the '<em><b>Stakeholder Goals</b></em>' reference list.
@@ -688,7 +670,7 @@ public interface ReqSpecPackage extends EPackage
    * @generated
    * @ordered
    */
-  int SYSTEM_REQUIREMENTS__STAKEHOLDER_GOALS = REQ_SPEC_CONTAINER_FEATURE_COUNT + 11;
+  int SYSTEM_REQUIREMENTS__STAKEHOLDER_GOALS = REQ_SPEC_CONTAINER_FEATURE_COUNT + 9;
 
   /**
    * The feature id for the '<em><b>Issues</b></em>' attribute list.
@@ -697,7 +679,7 @@ public interface ReqSpecPackage extends EPackage
    * @generated
    * @ordered
    */
-  int SYSTEM_REQUIREMENTS__ISSUES = REQ_SPEC_CONTAINER_FEATURE_COUNT + 12;
+  int SYSTEM_REQUIREMENTS__ISSUES = REQ_SPEC_CONTAINER_FEATURE_COUNT + 10;
 
   /**
    * The number of structural features of the '<em>System Requirements</em>' class.
@@ -706,7 +688,7 @@ public interface ReqSpecPackage extends EPackage
    * @generated
    * @ordered
    */
-  int SYSTEM_REQUIREMENTS_FEATURE_COUNT = REQ_SPEC_CONTAINER_FEATURE_COUNT + 13;
+  int SYSTEM_REQUIREMENTS_FEATURE_COUNT = REQ_SPEC_CONTAINER_FEATURE_COUNT + 11;
 
   /**
    * The meta object id for the '{@link org.osate.reqspec.reqSpec.impl.RequirementLibraryImpl <em>Requirement Library</em>}' class.
@@ -1936,28 +1918,6 @@ public interface ReqSpecPackage extends EPackage
   EReference getSystemRequirements_Target();
 
   /**
-   * Returns the meta object for the attribute list '{@link org.osate.reqspec.reqSpec.SystemRequirements#getComponentCategory <em>Component Category</em>}'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return the meta object for the attribute list '<em>Component Category</em>'.
-   * @see org.osate.reqspec.reqSpec.SystemRequirements#getComponentCategory()
-   * @see #getSystemRequirements()
-   * @generated
-   */
-  EAttribute getSystemRequirements_ComponentCategory();
-
-  /**
-   * Returns the meta object for the attribute '{@link org.osate.reqspec.reqSpec.SystemRequirements#isGlobal <em>Global</em>}'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return the meta object for the attribute '<em>Global</em>'.
-   * @see org.osate.reqspec.reqSpec.SystemRequirements#isGlobal()
-   * @see #getSystemRequirements()
-   * @generated
-   */
-  EAttribute getSystemRequirements_Global();
-
-  /**
    * Returns the meta object for the reference list '{@link org.osate.reqspec.reqSpec.SystemRequirements#getImportConstants <em>Import Constants</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -2881,22 +2841,6 @@ public interface ReqSpecPackage extends EPackage
      * @generated
      */
     EReference SYSTEM_REQUIREMENTS__TARGET = eINSTANCE.getSystemRequirements_Target();
-
-    /**
-     * The meta object literal for the '<em><b>Component Category</b></em>' attribute list feature.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
-    EAttribute SYSTEM_REQUIREMENTS__COMPONENT_CATEGORY = eINSTANCE.getSystemRequirements_ComponentCategory();
-
-    /**
-     * The meta object literal for the '<em><b>Global</b></em>' attribute feature.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
-    EAttribute SYSTEM_REQUIREMENTS__GLOBAL = eINSTANCE.getSystemRequirements_Global();
 
     /**
      * The meta object literal for the '<em><b>Import Constants</b></em>' reference list feature.

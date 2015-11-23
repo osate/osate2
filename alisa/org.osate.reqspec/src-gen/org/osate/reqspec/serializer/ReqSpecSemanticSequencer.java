@@ -589,7 +589,7 @@ public class ReqSpecSemanticSequencer extends CommonSemanticSequencer {
 	 *     (
 	 *         name=QualifiedName 
 	 *         title=STRING? 
-	 *         (target=[ComponentClassifier|AadlClassifierReference] | componentCategory+=ComponentCategory+ | global?='all') 
+	 *         target=[ComponentClassifier|AadlClassifierReference] 
 	 *         importConstants+=[GlobalConstants|QualifiedName]* 
 	 *         description=Description? 
 	 *         constants+=ValDeclaration* 

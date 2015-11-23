@@ -139,7 +139,6 @@ class AlisaGenerator implements IGenerator {
 		 	myplans =Collections.EMPTY_LIST
 		 	}
 		}
-//		if( myplans.empty) return ''''''
 		val APparts = doAssurancePlanParts(acp, myplans, cc)
 		if(APparts.length == 0) return ''''''
 		'''	
@@ -189,8 +188,8 @@ class AlisaGenerator implements IGenerator {
 		«ENDIF»
 		«ENDFOR»
 		«ENDFOR»
-		«FOR myplan : allPlans.filter[vp|vp.systemRequirements?.matchingCategory(cc.category)]»
-		«FOR claim : (myplan as VerificationPlan).claim»
+		«FOR myplan : allPlans»
+		«FOR claim : myplan.claim.filter[cl|cl.requirement?.matchingCategory(cc.category)]»
 		«IF claim.evaluateRequirementFilter(filter,strictFilter)»
 			«claim.generate()»
 		«ENDIF»

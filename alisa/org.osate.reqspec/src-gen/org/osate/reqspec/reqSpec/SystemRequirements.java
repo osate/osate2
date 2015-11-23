@@ -17,7 +17,6 @@ package org.osate.reqspec.reqSpec;
 
 import org.eclipse.emf.common.util.EList;
 
-import org.osate.aadl2.ComponentCategory;
 import org.osate.aadl2.ComponentClassifier;
 
 import org.osate.alisa.common.common.AVariableDeclaration;
@@ -35,8 +34,6 @@ import org.osate.alisa.common.common.Description;
  *   <li>{@link org.osate.reqspec.reqSpec.SystemRequirements#getName <em>Name</em>}</li>
  *   <li>{@link org.osate.reqspec.reqSpec.SystemRequirements#getTitle <em>Title</em>}</li>
  *   <li>{@link org.osate.reqspec.reqSpec.SystemRequirements#getTarget <em>Target</em>}</li>
- *   <li>{@link org.osate.reqspec.reqSpec.SystemRequirements#getComponentCategory <em>Component Category</em>}</li>
- *   <li>{@link org.osate.reqspec.reqSpec.SystemRequirements#isGlobal <em>Global</em>}</li>
  *   <li>{@link org.osate.reqspec.reqSpec.SystemRequirements#getImportConstants <em>Import Constants</em>}</li>
  *   <li>{@link org.osate.reqspec.reqSpec.SystemRequirements#getDescription <em>Description</em>}</li>
  *   <li>{@link org.osate.reqspec.reqSpec.SystemRequirements#getConstants <em>Constants</em>}</li>
@@ -130,50 +127,6 @@ public interface SystemRequirements extends ReqSpecContainer, ReqRoot
    * @generated
    */
   void setTarget(ComponentClassifier value);
-
-  /**
-   * Returns the value of the '<em><b>Component Category</b></em>' attribute list.
-   * The list contents are of type {@link org.osate.aadl2.ComponentCategory}.
-   * The literals are from the enumeration {@link org.osate.aadl2.ComponentCategory}.
-   * <!-- begin-user-doc -->
-   * <p>
-   * If the meaning of the '<em>Component Category</em>' attribute list isn't clear,
-   * there really should be more of a description here...
-   * </p>
-   * <!-- end-user-doc -->
-   * @return the value of the '<em>Component Category</em>' attribute list.
-   * @see org.osate.aadl2.ComponentCategory
-   * @see org.osate.reqspec.reqSpec.ReqSpecPackage#getSystemRequirements_ComponentCategory()
-   * @model unique="false"
-   * @generated
-   */
-  EList<ComponentCategory> getComponentCategory();
-
-  /**
-   * Returns the value of the '<em><b>Global</b></em>' attribute.
-   * <!-- begin-user-doc -->
-   * <p>
-   * If the meaning of the '<em>Global</em>' attribute isn't clear,
-   * there really should be more of a description here...
-   * </p>
-   * <!-- end-user-doc -->
-   * @return the value of the '<em>Global</em>' attribute.
-   * @see #setGlobal(boolean)
-   * @see org.osate.reqspec.reqSpec.ReqSpecPackage#getSystemRequirements_Global()
-   * @model
-   * @generated
-   */
-  boolean isGlobal();
-
-  /**
-   * Sets the value of the '{@link org.osate.reqspec.reqSpec.SystemRequirements#isGlobal <em>Global</em>}' attribute.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @param value the new value of the '<em>Global</em>' attribute.
-   * @see #isGlobal()
-   * @generated
-   */
-  void setGlobal(boolean value);
 
   /**
    * Returns the value of the '<em><b>Import Constants</b></em>' reference list.

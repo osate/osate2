@@ -212,12 +212,14 @@ class ReqSpecUtilExtension {
 
 		}
 		
-		def static boolean matchingCategory(SystemRequirements sr, ComponentCategory cat){
+		def static boolean matchingCategory(Requirement req, ComponentCategory cat){
+			if (req.global) return true
 			if (cat == null) return true
-			sr.componentCategory.exists[c|c.getName().equalsIgnoreCase(cat.getName())]
+			req.componentCategory.exists[c|c.getName().equalsIgnoreCase(cat.getName())]
 		}
 		
 		def static boolean matchingCategory(StakeholderGoals sg, ComponentCategory cat){
+			if (sg.global) return true
 			sg.componentCategory.exists[c|c.getName().equalsIgnoreCase(cat.getName())]
 		}
 

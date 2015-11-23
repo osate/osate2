@@ -55,7 +55,7 @@ DocumentSection returns DocumentSection:
 
 SystemRequirements returns SystemRequirements:
 	'system' 'requirements'  name =QualifiedName (':' title=STRING)? 
-	( 'for' (target=[aadl2::ComponentClassifier|AadlClassifierReference] | componentCategory+=ComponentCategory+| global?='all'))
+	'for' target=[aadl2::ComponentClassifier|AadlClassifierReference] 
 	('use' 'constants' importConstants+=[GlobalConstants|QualifiedName]+)?
 	'[' 
 	(

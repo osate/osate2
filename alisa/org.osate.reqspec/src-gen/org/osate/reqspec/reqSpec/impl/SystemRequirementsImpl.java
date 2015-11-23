@@ -33,7 +33,6 @@ import org.eclipse.emf.ecore.util.EObjectContainmentEList;
 import org.eclipse.emf.ecore.util.EObjectResolvingEList;
 import org.eclipse.emf.ecore.util.InternalEList;
 
-import org.osate.aadl2.ComponentCategory;
 import org.osate.aadl2.ComponentClassifier;
 
 import org.osate.alisa.common.common.AVariableDeclaration;
@@ -57,8 +56,6 @@ import org.osate.reqspec.reqSpec.SystemRequirements;
  *   <li>{@link org.osate.reqspec.reqSpec.impl.SystemRequirementsImpl#getName <em>Name</em>}</li>
  *   <li>{@link org.osate.reqspec.reqSpec.impl.SystemRequirementsImpl#getTitle <em>Title</em>}</li>
  *   <li>{@link org.osate.reqspec.reqSpec.impl.SystemRequirementsImpl#getTarget <em>Target</em>}</li>
- *   <li>{@link org.osate.reqspec.reqSpec.impl.SystemRequirementsImpl#getComponentCategory <em>Component Category</em>}</li>
- *   <li>{@link org.osate.reqspec.reqSpec.impl.SystemRequirementsImpl#isGlobal <em>Global</em>}</li>
  *   <li>{@link org.osate.reqspec.reqSpec.impl.SystemRequirementsImpl#getImportConstants <em>Import Constants</em>}</li>
  *   <li>{@link org.osate.reqspec.reqSpec.impl.SystemRequirementsImpl#getDescription <em>Description</em>}</li>
  *   <li>{@link org.osate.reqspec.reqSpec.impl.SystemRequirementsImpl#getConstants <em>Constants</em>}</li>
@@ -122,36 +119,6 @@ public class SystemRequirementsImpl extends ReqSpecContainerImpl implements Syst
    * @ordered
    */
   protected ComponentClassifier target;
-
-  /**
-   * The cached value of the '{@link #getComponentCategory() <em>Component Category</em>}' attribute list.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @see #getComponentCategory()
-   * @generated
-   * @ordered
-   */
-  protected EList<ComponentCategory> componentCategory;
-
-  /**
-   * The default value of the '{@link #isGlobal() <em>Global</em>}' attribute.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @see #isGlobal()
-   * @generated
-   * @ordered
-   */
-  protected static final boolean GLOBAL_EDEFAULT = false;
-
-  /**
-   * The cached value of the '{@link #isGlobal() <em>Global</em>}' attribute.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @see #isGlobal()
-   * @generated
-   * @ordered
-   */
-  protected boolean global = GLOBAL_EDEFAULT;
 
   /**
    * The cached value of the '{@link #getImportConstants() <em>Import Constants</em>}' reference list.
@@ -348,43 +315,6 @@ public class SystemRequirementsImpl extends ReqSpecContainerImpl implements Syst
    * <!-- end-user-doc -->
    * @generated
    */
-  public EList<ComponentCategory> getComponentCategory()
-  {
-    if (componentCategory == null)
-    {
-      componentCategory = new EDataTypeEList<ComponentCategory>(ComponentCategory.class, this, ReqSpecPackage.SYSTEM_REQUIREMENTS__COMPONENT_CATEGORY);
-    }
-    return componentCategory;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public boolean isGlobal()
-  {
-    return global;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public void setGlobal(boolean newGlobal)
-  {
-    boolean oldGlobal = global;
-    global = newGlobal;
-    if (eNotificationRequired())
-      eNotify(new ENotificationImpl(this, Notification.SET, ReqSpecPackage.SYSTEM_REQUIREMENTS__GLOBAL, oldGlobal, global));
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
   public EList<GlobalConstants> getImportConstants()
   {
     if (importConstants == null)
@@ -567,10 +497,6 @@ public class SystemRequirementsImpl extends ReqSpecContainerImpl implements Syst
       case ReqSpecPackage.SYSTEM_REQUIREMENTS__TARGET:
         if (resolve) return getTarget();
         return basicGetTarget();
-      case ReqSpecPackage.SYSTEM_REQUIREMENTS__COMPONENT_CATEGORY:
-        return getComponentCategory();
-      case ReqSpecPackage.SYSTEM_REQUIREMENTS__GLOBAL:
-        return isGlobal();
       case ReqSpecPackage.SYSTEM_REQUIREMENTS__IMPORT_CONSTANTS:
         return getImportConstants();
       case ReqSpecPackage.SYSTEM_REQUIREMENTS__DESCRIPTION:
@@ -610,13 +536,6 @@ public class SystemRequirementsImpl extends ReqSpecContainerImpl implements Syst
         return;
       case ReqSpecPackage.SYSTEM_REQUIREMENTS__TARGET:
         setTarget((ComponentClassifier)newValue);
-        return;
-      case ReqSpecPackage.SYSTEM_REQUIREMENTS__COMPONENT_CATEGORY:
-        getComponentCategory().clear();
-        getComponentCategory().addAll((Collection<? extends ComponentCategory>)newValue);
-        return;
-      case ReqSpecPackage.SYSTEM_REQUIREMENTS__GLOBAL:
-        setGlobal((Boolean)newValue);
         return;
       case ReqSpecPackage.SYSTEM_REQUIREMENTS__IMPORT_CONSTANTS:
         getImportConstants().clear();
@@ -672,12 +591,6 @@ public class SystemRequirementsImpl extends ReqSpecContainerImpl implements Syst
       case ReqSpecPackage.SYSTEM_REQUIREMENTS__TARGET:
         setTarget((ComponentClassifier)null);
         return;
-      case ReqSpecPackage.SYSTEM_REQUIREMENTS__COMPONENT_CATEGORY:
-        getComponentCategory().clear();
-        return;
-      case ReqSpecPackage.SYSTEM_REQUIREMENTS__GLOBAL:
-        setGlobal(GLOBAL_EDEFAULT);
-        return;
       case ReqSpecPackage.SYSTEM_REQUIREMENTS__IMPORT_CONSTANTS:
         getImportConstants().clear();
         return;
@@ -722,10 +635,6 @@ public class SystemRequirementsImpl extends ReqSpecContainerImpl implements Syst
         return TITLE_EDEFAULT == null ? title != null : !TITLE_EDEFAULT.equals(title);
       case ReqSpecPackage.SYSTEM_REQUIREMENTS__TARGET:
         return target != null;
-      case ReqSpecPackage.SYSTEM_REQUIREMENTS__COMPONENT_CATEGORY:
-        return componentCategory != null && !componentCategory.isEmpty();
-      case ReqSpecPackage.SYSTEM_REQUIREMENTS__GLOBAL:
-        return global != GLOBAL_EDEFAULT;
       case ReqSpecPackage.SYSTEM_REQUIREMENTS__IMPORT_CONSTANTS:
         return importConstants != null && !importConstants.isEmpty();
       case ReqSpecPackage.SYSTEM_REQUIREMENTS__DESCRIPTION:
@@ -761,10 +670,6 @@ public class SystemRequirementsImpl extends ReqSpecContainerImpl implements Syst
     result.append(name);
     result.append(", title: ");
     result.append(title);
-    result.append(", componentCategory: ");
-    result.append(componentCategory);
-    result.append(", global: ");
-    result.append(global);
     result.append(", issues: ");
     result.append(issues);
     result.append(')');

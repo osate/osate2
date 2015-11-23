@@ -761,29 +761,9 @@ public class ReqSpecPackageImpl extends EPackageImpl implements ReqSpecPackage
    * <!-- end-user-doc -->
    * @generated
    */
-  public EAttribute getSystemRequirements_ComponentCategory()
-  {
-    return (EAttribute)systemRequirementsEClass.getEStructuralFeatures().get(3);
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public EAttribute getSystemRequirements_Global()
-  {
-    return (EAttribute)systemRequirementsEClass.getEStructuralFeatures().get(4);
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
   public EReference getSystemRequirements_ImportConstants()
   {
-    return (EReference)systemRequirementsEClass.getEStructuralFeatures().get(5);
+    return (EReference)systemRequirementsEClass.getEStructuralFeatures().get(3);
   }
 
   /**
@@ -793,7 +773,7 @@ public class ReqSpecPackageImpl extends EPackageImpl implements ReqSpecPackage
    */
   public EReference getSystemRequirements_Description()
   {
-    return (EReference)systemRequirementsEClass.getEStructuralFeatures().get(6);
+    return (EReference)systemRequirementsEClass.getEStructuralFeatures().get(4);
   }
 
   /**
@@ -803,7 +783,7 @@ public class ReqSpecPackageImpl extends EPackageImpl implements ReqSpecPackage
    */
   public EReference getSystemRequirements_Constants()
   {
-    return (EReference)systemRequirementsEClass.getEStructuralFeatures().get(7);
+    return (EReference)systemRequirementsEClass.getEStructuralFeatures().get(5);
   }
 
   /**
@@ -813,7 +793,7 @@ public class ReqSpecPackageImpl extends EPackageImpl implements ReqSpecPackage
    */
   public EReference getSystemRequirements_Computes()
   {
-    return (EReference)systemRequirementsEClass.getEStructuralFeatures().get(8);
+    return (EReference)systemRequirementsEClass.getEStructuralFeatures().get(6);
   }
 
   /**
@@ -823,7 +803,7 @@ public class ReqSpecPackageImpl extends EPackageImpl implements ReqSpecPackage
    */
   public EReference getSystemRequirements_Content()
   {
-    return (EReference)systemRequirementsEClass.getEStructuralFeatures().get(9);
+    return (EReference)systemRequirementsEClass.getEStructuralFeatures().get(7);
   }
 
   /**
@@ -833,7 +813,7 @@ public class ReqSpecPackageImpl extends EPackageImpl implements ReqSpecPackage
    */
   public EReference getSystemRequirements_DocReference()
   {
-    return (EReference)systemRequirementsEClass.getEStructuralFeatures().get(10);
+    return (EReference)systemRequirementsEClass.getEStructuralFeatures().get(8);
   }
 
   /**
@@ -843,7 +823,7 @@ public class ReqSpecPackageImpl extends EPackageImpl implements ReqSpecPackage
    */
   public EReference getSystemRequirements_StakeholderGoals()
   {
-    return (EReference)systemRequirementsEClass.getEStructuralFeatures().get(11);
+    return (EReference)systemRequirementsEClass.getEStructuralFeatures().get(9);
   }
 
   /**
@@ -853,7 +833,7 @@ public class ReqSpecPackageImpl extends EPackageImpl implements ReqSpecPackage
    */
   public EAttribute getSystemRequirements_Issues()
   {
-    return (EAttribute)systemRequirementsEClass.getEStructuralFeatures().get(12);
+    return (EAttribute)systemRequirementsEClass.getEStructuralFeatures().get(10);
   }
 
   /**
@@ -1305,8 +1285,6 @@ public class ReqSpecPackageImpl extends EPackageImpl implements ReqSpecPackage
     createEAttribute(systemRequirementsEClass, SYSTEM_REQUIREMENTS__NAME);
     createEAttribute(systemRequirementsEClass, SYSTEM_REQUIREMENTS__TITLE);
     createEReference(systemRequirementsEClass, SYSTEM_REQUIREMENTS__TARGET);
-    createEAttribute(systemRequirementsEClass, SYSTEM_REQUIREMENTS__COMPONENT_CATEGORY);
-    createEAttribute(systemRequirementsEClass, SYSTEM_REQUIREMENTS__GLOBAL);
     createEReference(systemRequirementsEClass, SYSTEM_REQUIREMENTS__IMPORT_CONSTANTS);
     createEReference(systemRequirementsEClass, SYSTEM_REQUIREMENTS__DESCRIPTION);
     createEReference(systemRequirementsEClass, SYSTEM_REQUIREMENTS__CONSTANTS);
@@ -1472,8 +1450,6 @@ public class ReqSpecPackageImpl extends EPackageImpl implements ReqSpecPackage
     initEAttribute(getSystemRequirements_Name(), theEcorePackage.getEString(), "name", null, 0, 1, SystemRequirements.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEAttribute(getSystemRequirements_Title(), theEcorePackage.getEString(), "title", null, 0, 1, SystemRequirements.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEReference(getSystemRequirements_Target(), theAadl2Package.getComponentClassifier(), null, "target", null, 0, 1, SystemRequirements.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-    initEAttribute(getSystemRequirements_ComponentCategory(), theAadl2Package.getComponentCategory(), "componentCategory", null, 0, -1, SystemRequirements.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-    initEAttribute(getSystemRequirements_Global(), theEcorePackage.getEBoolean(), "global", null, 0, 1, SystemRequirements.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEReference(getSystemRequirements_ImportConstants(), this.getGlobalConstants(), null, "importConstants", null, 0, -1, SystemRequirements.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEReference(getSystemRequirements_Description(), theCommonPackage.getDescription(), null, "description", null, 0, 1, SystemRequirements.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEReference(getSystemRequirements_Constants(), theCommonPackage.getAVariableDeclaration(), null, "constants", null, 0, -1, SystemRequirements.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
