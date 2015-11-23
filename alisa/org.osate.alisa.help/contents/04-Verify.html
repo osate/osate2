@@ -65,16 +65,16 @@ requirements</I><SPAN STYLE="font-style: normal"> by a
 &lt;dot.-separated qualified name path corresponding to the
 component, whose requirements are specified &ndash; and the same name
 be used for the verification plan.</SPAN></P>
-<P>&lt;VerificationPlan&gt;&nbsp;::= <BR><FONT COLOR="#7f0055"><B>verification
-plan</B></FONT>&nbsp;(qual <FONT COLOR="#7f0055"><B>.</B></FONT> )*
-name<BR>&nbsp;(&nbsp;:&nbsp;<FONT COLOR="#2a00ff"><SPAN STYLE="font-weight: normal">&quot;descriptive&nbsp;title&quot;</SPAN></FONT>&nbsp;)?
-<BR>&nbsp;&nbsp;&nbsp;&nbsp;<FONT COLOR="#7f0055"><B>for</B></FONT>&nbsp;&lt;system
+<P>&lt;VerificationPlan&gt; ::= <BR><FONT COLOR="#7f0055"><B>verification
+plan</B></FONT> (qual <FONT COLOR="#7f0055"><B>.</B></FONT> )*
+name<BR> ( : <FONT COLOR="#2a00ff"><SPAN STYLE="font-weight: normal">&quot;descriptive title&quot;</SPAN></FONT> )?
+<BR>    <FONT COLOR="#7f0055"><B>for</B></FONT> &lt;system
 requirements reference&gt;
-<BR>&nbsp;&nbsp;&nbsp;&nbsp;<FONT COLOR="#7f0055"><B>[</B></FONT><BR>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(&nbsp;<FONT COLOR="#7f0055"><B>description</B></FONT>&nbsp;<FONT COLOR="#2a00ff"><SPAN STYLE="font-weight: normal">&quot;Verification&nbsp;plan&nbsp;for&nbsp;a&nbsp;second&nbsp;line&quot;</SPAN></FONT>&nbsp;)?&nbsp;<BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;Claim&gt;*
-<BR>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(&nbsp;<FONT COLOR="#7f0055"><B>rationale</B></FONT>&nbsp;&lt;String&gt;&nbsp;)?
-<BR>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(&nbsp;<FONT COLOR="#7f0055"><B>issues</B></FONT>&nbsp;(<FONT COLOR="#2a00ff"><SPAN STYLE="font-weight: normal">&quot;explanation&quot;</SPAN></FONT>)+&nbsp;)?&nbsp;
-<BR>&nbsp;&nbsp;&nbsp;&nbsp;<FONT COLOR="#7f0055"><B>]</B></FONT></P>
+<BR>    <FONT COLOR="#7f0055"><B>[</B></FONT><BR>        ( <FONT COLOR="#7f0055"><B>description</B></FONT> <FONT COLOR="#2a00ff"><SPAN STYLE="font-weight: normal">&quot;Verification plan for a second line&quot;</SPAN></FONT> )? <BR>
+        &lt;Claim&gt;*
+<BR>        ( <FONT COLOR="#7f0055"><B>rationale</B></FONT> &lt;String&gt; )?
+<BR>       ( <FONT COLOR="#7f0055"><B>issues</B></FONT> (<FONT COLOR="#2a00ff"><SPAN STYLE="font-weight: normal">&quot;explanation&quot;</SPAN></FONT>)+ )? 
+<BR>    <FONT COLOR="#7f0055"><B>]</B></FONT></P>
 <P>A verification plan is for a set of requirement specifications
 identified by the <I>for </I><SPAN STYLE="font-style: normal">statement.
 The set of requirement specifications is for an</SPAN> AADL component
@@ -96,16 +96,16 @@ into an assurance plan.
 that are assumed to have been verified separately. This allows us to
 support compositional assurance of systems. 
 </P>
-<P>&lt;Claim&gt;&nbsp;::= <BR>&nbsp;&nbsp;&nbsp;&nbsp;<FONT COLOR="#7f0055"><B>claim</B></FONT>&nbsp;&lt;requirement
-ID reference&gt;<BR>&nbsp;  (&nbsp;:&nbsp;<FONT COLOR="#2a00ff"><SPAN STYLE="font-weight: normal">&quot;Descriptive&nbsp;title&quot;</SPAN></FONT>&nbsp;)?
-<BR>&nbsp;&nbsp;&nbsp;&nbsp;(&nbsp;<FONT COLOR="#2a00ff"><SPAN STYLE="font-weight: normal">&amp;apos;(&amp;apos;</SPAN></FONT>&nbsp;&lt;claimweight&gt;&nbsp;<FONT COLOR="#2a00ff"><SPAN STYLE="font-weight: normal">&amp;apos;)&amp;apos;</SPAN></FONT>&nbsp;)?<BR>
-&nbsp;&nbsp;&nbsp;&nbsp;<FONT COLOR="#7f0055"><B>for</B></FONT>&nbsp;&lt;requirement&nbsp;reference&gt;<BR>
-&nbsp;&nbsp;&nbsp;&nbsp;[<BR> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(&nbsp;<FONT COLOR="#7f0055"><B>assert</B></FONT>&nbsp;&lt;ArgumentExpression&gt;
-<BR> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(&nbsp;<FONT COLOR="#7f0055"><B>argument</B></FONT>&nbsp;&lt;String&gt;&nbsp;&lt;Uncertainty&gt;&nbsp;)?<BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(&nbsp;<FONT COLOR="#7f0055"><B>rationale</B></FONT>&nbsp;&lt;String&gt;&nbsp;)?<BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(&nbsp;&lt;Claim&gt;&nbsp;)*<BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(&nbsp;<FONT COLOR="#7f0055"><B>issues</B></FONT>&nbsp;(<FONT COLOR="#2a00ff"><SPAN STYLE="font-weight: normal">&quot;explanation&quot;</SPAN></FONT>)+&nbsp;)?<BR>
-&nbsp;&nbsp;&nbsp;&nbsp;] 
+<P>&lt;Claim&gt; ::= <BR>    <FONT COLOR="#7f0055"><B>claim</B></FONT> &lt;requirement
+ID reference&gt;<BR>   ( : <FONT COLOR="#2a00ff"><SPAN STYLE="font-weight: normal">&quot;Descriptive title&quot;</SPAN></FONT> )?
+<BR>    ( <FONT COLOR="#2a00ff"><SPAN STYLE="font-weight: normal">&amp;apos;(&amp;apos;</SPAN></FONT> &lt;claimweight&gt; <FONT COLOR="#2a00ff"><SPAN STYLE="font-weight: normal">&amp;apos;)&amp;apos;</SPAN></FONT> )?<BR>
+    <FONT COLOR="#7f0055"><B>for</B></FONT> &lt;requirement reference&gt;<BR>
+    [<BR>         ( <FONT COLOR="#7f0055"><B>assert</B></FONT> &lt;ArgumentExpression&gt;
+<BR>         ( <FONT COLOR="#7f0055"><B>argument</B></FONT> &lt;String&gt; &lt;Uncertainty&gt; )?<BR>
+         ( <FONT COLOR="#7f0055"><B>rationale</B></FONT> &lt;String&gt; )?<BR>
+        ( &lt;Claim&gt; )*<BR>
+        ( <FONT COLOR="#7f0055"><B>issues</B></FONT> (<FONT COLOR="#2a00ff"><SPAN STYLE="font-weight: normal">&quot;explanation&quot;</SPAN></FONT>)+ )?<BR>
+    ] 
 </P>
 <P>A requirement for a system may have been refined into
 sub-requirements that are verifiable. Typically, only the leaf
@@ -117,15 +117,15 @@ hierarchy.
 <P>Weights are used to specify the value of evidence contribution a
 particular claim or verification activity has. 
 </P>
-<P>&lt;ArgumentExpr&gt;&nbsp;::= &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<FONT COLOR="#7f0055"><B>all</B></FONT>&nbsp;[&nbsp;&lt;ArgumentExpr&gt;+&nbsp;]&nbsp;|
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;ArgumentExpr&gt;&nbsp;<FONT COLOR="#7f0055"><B>failthen</B></FONT>&nbsp;&lt;ArgumentExpr&gt;&nbsp;|
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;ArgumentExpr&gt;&nbsp;<FONT COLOR="#7f0055"><B>unknownthen</B></FONT>&nbsp;&lt;ArgumentExpr&gt;&nbsp;|
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;ArgumentExpr&gt;&nbsp;<FONT COLOR="#7f0055"><B>andthen</B></FONT>&nbsp;&lt;ArgumentExpr&gt;&nbsp;|
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;ConditionalEvidence&gt;&nbsp;
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(&nbsp;&lt;ArgumentExpr&gt;&nbsp;)
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-ConditionalEvidence&nbsp;::=
-&nbsp;&nbsp;&nbsp;&nbsp;verificationActivity1&nbsp;(&nbsp;<FONT COLOR="#2a00ff"><SPAN STYLE="font-weight: normal">&amp;apos;(&amp;apos;</SPAN></FONT>&nbsp;0.8&nbsp;<FONT COLOR="#2a00ff"><SPAN STYLE="font-weight: normal">&amp;apos;)&amp;apos;</SPAN></FONT>&nbsp;)?&nbsp;(&nbsp;<FONT COLOR="#7f0055"><B>when</B></FONT>&nbsp;&lt;sectioncategoryreference&gt;+&nbsp;)?
+<P>&lt;ArgumentExpr&gt; ::=         <FONT COLOR="#7f0055"><B>all</B></FONT> [ &lt;ArgumentExpr&gt;+ ] |
+        &lt;ArgumentExpr&gt; <FONT COLOR="#7f0055"><B>failthen</B></FONT> &lt;ArgumentExpr&gt; |
+        &lt;ArgumentExpr&gt; <FONT COLOR="#7f0055"><B>unknownthen</B></FONT> &lt;ArgumentExpr&gt; |
+        &lt;ArgumentExpr&gt; <FONT COLOR="#7f0055"><B>andthen</B></FONT> &lt;ArgumentExpr&gt; |
+        &lt;ConditionalEvidence&gt; 
+        ( &lt;ArgumentExpr&gt; )
+        
+ConditionalEvidence ::=
+    verificationActivity1 ( <FONT COLOR="#2a00ff"><SPAN STYLE="font-weight: normal">&amp;apos;(&amp;apos;</SPAN></FONT> 0.8 <FONT COLOR="#2a00ff"><SPAN STYLE="font-weight: normal">&amp;apos;)&amp;apos;</SPAN></FONT> )? ( <FONT COLOR="#7f0055"><B>when</B></FONT> &lt;sectioncategoryreference&gt;+ )?
 </P>
 <P><EM>all</EM> means that all verification activities will be
 executed independent of whether they are successful or fail. The
@@ -164,60 +164,60 @@ of the contributed evidence.
 <P>A library of verification activities is defined in a separate file
 with the extension <EM>verify</EM>. 
 </P>
-<P>&lt;VerificationLibrary&gt;&nbsp;::=
-&nbsp;&nbsp;&nbsp;&nbsp;<FONT COLOR="#7f0055"><B>library</B></FONT>&nbsp;libraryname&nbsp;(&nbsp;:&nbsp;&nbsp;<FONT COLOR="#2a00ff"><SPAN STYLE="font-weight: normal">&quot;descriptive&nbsp;title&quot;</SPAN></FONT>&nbsp;)?
-&nbsp;&nbsp;&nbsp;&nbsp;(&nbsp;<FONT COLOR="#7f0055"><B>for</B></FONT>&nbsp;mypackage::myGPS&nbsp;)?
-&nbsp;&nbsp;&nbsp;&nbsp;[ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(&nbsp;<FONT COLOR="#7f0055"><B>description</B></FONT>&nbsp;Description)?
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(&nbsp;&lt;VerificationActivity&gt;&nbsp;|&nbsp;&nbsp;&lt;VerificationFolder&gt;&nbsp;)*
-&nbsp;&nbsp;&nbsp;&nbsp;] &lt;VerificationFolder&gt;&nbsp;::=
-&nbsp;&nbsp;&nbsp;&nbsp;<FONT COLOR="#7f0055"><B>folder</B></FONT>&nbsp;foldername
-&nbsp;&nbsp;&nbsp;&nbsp;[&nbsp;
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(&nbsp;&lt;VerificationActivity&gt;&nbsp;|&nbsp;&nbsp;&lt;VerificationFolder&gt;&nbsp;)*
-&nbsp;&nbsp;&nbsp;&nbsp;]; &lt;VerificationActivity&gt;&nbsp;::=
-&nbsp;&nbsp;&nbsp;&nbsp;<FONT COLOR="#7f0055"><B>activity</B></FONT>&nbsp;activityname&nbsp;(&nbsp;:&nbsp;<FONT COLOR="#2a00ff"><SPAN STYLE="font-weight: normal">&quot;descriptive&nbsp;title&quot;</SPAN></FONT>&nbsp;)?
-&nbsp;&nbsp;&nbsp;&nbsp;(&nbsp;<FONT COLOR="#7f0055"><B>for</B></FONT>&nbsp;&lt;requirementreference&gt;&nbsp;)?
-&nbsp;&nbsp;&nbsp;&nbsp;[&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(&nbsp;<FONT COLOR="#7f0055"><B>description</B></FONT>&nbsp;Description&nbsp;)?
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<FONT COLOR="#7f0055"><B>method</B></FONT>&nbsp;&lt;VerificationMethodReference&gt;&nbsp;(&nbsp;<FONT COLOR="#7f0055"><B>as</B></FONT>&nbsp;&lt;ComputeVariable&nbsp;Reference&gt;&nbsp;)?
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(&nbsp;<FONT COLOR="#7f0055"><B>timeout</B></FONT>&nbsp;&nbsp;&lt;integer&gt;&nbsp;)?
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(&nbsp;<FONT COLOR="#7f0055"><B>rationale</B></FONT>&nbsp;<FONT COLOR="#2a00ff"><SPAN STYLE="font-weight: normal">&quot;explanation&quot;</SPAN></FONT>&nbsp;)?
-&nbsp;&nbsp;&nbsp;&nbsp;] 
+<P>&lt;VerificationLibrary&gt; ::=
+    <FONT COLOR="#7f0055"><B>library</B></FONT> libraryname ( :  <FONT COLOR="#2a00ff"><SPAN STYLE="font-weight: normal">&quot;descriptive title&quot;</SPAN></FONT> )?
+    ( <FONT COLOR="#7f0055"><B>for</B></FONT> mypackage::myGPS )?
+    [         ( <FONT COLOR="#7f0055"><B>description</B></FONT> Description)?
+        ( &lt;VerificationActivity&gt; |  &lt;VerificationFolder&gt; )*
+    ] &lt;VerificationFolder&gt; ::=
+    <FONT COLOR="#7f0055"><B>folder</B></FONT> foldername
+    [ 
+        ( &lt;VerificationActivity&gt; |  &lt;VerificationFolder&gt; )*
+    ]; &lt;VerificationActivity&gt; ::=
+    <FONT COLOR="#7f0055"><B>activity</B></FONT> activityname ( : <FONT COLOR="#2a00ff"><SPAN STYLE="font-weight: normal">&quot;descriptive title&quot;</SPAN></FONT> )?
+    ( <FONT COLOR="#7f0055"><B>for</B></FONT> &lt;requirementreference&gt; )?
+    [          ( <FONT COLOR="#7f0055"><B>description</B></FONT> Description )?
+        <FONT COLOR="#7f0055"><B>method</B></FONT> &lt;VerificationMethodReference&gt; ( <FONT COLOR="#7f0055"><B>as</B></FONT> &lt;ComputeVariable Reference&gt; )?
+        ( <FONT COLOR="#7f0055"><B>timeout</B></FONT>  &lt;integer&gt; )?
+        ( <FONT COLOR="#7f0055"><B>rationale</B></FONT> <FONT COLOR="#2a00ff"><SPAN STYLE="font-weight: normal">&quot;explanation&quot;</SPAN></FONT> )?
+    ] 
 </P>
 <H2><A NAME="VerificationMethods"></A>Registry of Verification
 Methods</H2>
 <P>A verification method registry is defined in a separate file with
 the extension <EM>verify</EM>. 
 </P>
-<P>&lt;VerificationMethodRegistry&gt;&nbsp;::=
-&nbsp;&nbsp;&nbsp;&nbsp;<FONT COLOR="#7f0055"><B>registry</B></FONT>&nbsp;registryname
-&nbsp;&nbsp;&nbsp;&nbsp;(&nbsp;:&nbsp;<FONT COLOR="#2a00ff"><SPAN STYLE="font-weight: normal">&quot;descriptive&nbsp;title&quot;</SPAN></FONT>&nbsp;)?
-&nbsp;&nbsp;&nbsp;&nbsp;[&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(&nbsp;<FONT COLOR="#7f0055"><B>description</B></FONT>&nbsp;Description&nbsp;)?
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;VerificationMethod&gt;+
-&nbsp;&nbsp;&nbsp;&nbsp;] &lt;VerificationMethod&gt;&nbsp;::=
-&nbsp;&nbsp;&nbsp;&nbsp;<FONT COLOR="#7f0055"><B>method</B></FONT>&nbsp;methodname&nbsp;(&nbsp;:&nbsp;&nbsp;<FONT COLOR="#2a00ff"><SPAN STYLE="font-weight: normal">&quot;descriptive&nbsp;title&quot;</SPAN></FONT>&nbsp;)?
-&nbsp;&nbsp;&nbsp;&nbsp;(&nbsp;<FONT COLOR="#7f0055"><B>for</B></FONT>&nbsp;&lt;requirementreference&gt;&nbsp;)?&nbsp;&nbsp;&nbsp;&nbsp;
-&nbsp;&nbsp;&nbsp;&nbsp;[
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;MethodType&gt;&nbsp;&nbsp;&lt;MethodScope&gt;&nbsp;(&nbsp;&lt;MethodReporting&gt;&nbsp;)?
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<FONT COLOR="#7f0055"><B>path</B></FONT>&nbsp;<FONT COLOR="#2a00ff"><SPAN STYLE="font-weight: normal">&quot;my.pack.myclass.mymethod&quot;</SPAN></FONT>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(&nbsp;<FONT COLOR="#7f0055"><B>description</B></FONT>&nbsp;Description&nbsp;)?
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(&nbsp;<FONT COLOR="#7f0055"><B>category</B></FONT>&nbsp;&lt;VerificationCategory&gt;&nbsp;)?
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(&nbsp;VerificationValidation&nbsp;|&nbsp;VerificationPrecondition)*
-&nbsp;&nbsp;&nbsp;&nbsp;] VerificationValidation&nbsp;::=
-&nbsp;&nbsp;&nbsp;&nbsp;(&nbsp;<FONT COLOR="#7f0055"><B>validation</B></FONT>&nbsp;myname
-&nbsp;&nbsp;&nbsp;&nbsp;(&nbsp;:&nbsp;<FONT COLOR="#2a00ff"><SPAN STYLE="font-weight: normal">&quot;title&quot;</SPAN></FONT>&nbsp;)?
-&nbsp;&nbsp;&nbsp;&nbsp;[&nbsp;( &nbsp;&nbsp;&nbsp;&nbsp;(&nbsp;<FONT COLOR="#7f0055"><B>description</B></FONT>&nbsp;Description)?
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<FONT COLOR="#7f0055"><B>method</B></FONT>&nbsp;&lt;qualified&nbsp;methodname&gt;&nbsp;(&nbsp;<FONT COLOR="#7f0055"><B>as</B></FONT>&nbsp;&lt;computer&nbsp;variable&gt;&nbsp;)?
-&nbsp;&nbsp;&nbsp;&nbsp;(&nbsp;<FONT COLOR="#7f0055"><B>rationale</B></FONT>&nbsp;<FONT COLOR="#2a00ff"><SPAN STYLE="font-weight: normal">&quot;rationale&nbsp;description&quot;</SPAN></FONT>&nbsp;)?
-&nbsp;&nbsp;&nbsp;&nbsp;) &nbsp;&nbsp;&nbsp;&nbsp;]
-VerificationPrecondition&nbsp;::= &nbsp;&nbsp;&nbsp;&nbsp;(&nbsp;<FONT COLOR="#7f0055"><B>precondition</B></FONT>&nbsp;myname
-&nbsp;&nbsp;&nbsp;&nbsp;(&nbsp;:&nbsp;<FONT COLOR="#2a00ff"><SPAN STYLE="font-weight: normal">&quot;title&quot;</SPAN></FONT>&nbsp;)?
-&nbsp;&nbsp;&nbsp;&nbsp;[&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;(&nbsp;<FONT COLOR="#7f0055"><B>description</B></FONT>&nbsp;Description)?
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<FONT COLOR="#7f0055"><B>method</B></FONT>&nbsp;&lt;qualified&nbsp;methodname&gt;&nbsp;(&nbsp;<FONT COLOR="#7f0055"><B>as</B></FONT>&nbsp;&lt;computer&nbsp;variable&gt;&nbsp;)?
-&nbsp;&nbsp;&nbsp;&nbsp;(&nbsp;<FONT COLOR="#7f0055"><B>rationale</B></FONT>&nbsp;<FONT COLOR="#2a00ff"><SPAN STYLE="font-weight: normal">&quot;rationale&nbsp;description&quot;</SPAN></FONT>&nbsp;)?
-&nbsp;&nbsp;&nbsp;&nbsp;]
-<FONT COLOR="#7f0055"><B>enum</B></FONT>&nbsp;MethodTypes::=&nbsp;analysis&nbsp;|&nbsp;predicate&nbsp;|&nbsp;compute&nbsp;|&nbsp;
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;resoluteprove&nbsp;|&nbsp;resolutecompute&nbsp;|&nbsp;resolutepredicate&nbsp;|&nbsp;manual
-&nbsp;&nbsp;&nbsp;&nbsp; <FONT COLOR="#7f0055"><B>enum</B></FONT>&nbsp;MethodScope::=&nbsp;self&nbsp;|&nbsp;parts&nbsp;|&nbsp;<FONT COLOR="#7f0055"><B>all</B></FONT>&nbsp;
-<FONT COLOR="#7f0055"><B>enum</B></FONT>&nbsp;MethodReporting::=&nbsp;marker|&nbsp;errormarker&nbsp;|&nbsp;diagnostics&nbsp;|&nbsp;assertexception&nbsp;|&nbsp;resultreport
+<P>&lt;VerificationMethodRegistry&gt; ::=
+    <FONT COLOR="#7f0055"><B>registry</B></FONT> registryname
+    ( : <FONT COLOR="#2a00ff"><SPAN STYLE="font-weight: normal">&quot;descriptive title&quot;</SPAN></FONT> )?
+    [          ( <FONT COLOR="#7f0055"><B>description</B></FONT> Description )?
+        &lt;VerificationMethod&gt;+
+    ] &lt;VerificationMethod&gt; ::=
+    <FONT COLOR="#7f0055"><B>method</B></FONT> methodname ( :  <FONT COLOR="#2a00ff"><SPAN STYLE="font-weight: normal">&quot;descriptive title&quot;</SPAN></FONT> )?
+    ( <FONT COLOR="#7f0055"><B>for</B></FONT> &lt;requirementreference&gt; )?    
+    [
+        &lt;MethodType&gt;  &lt;MethodScope&gt; ( &lt;MethodReporting&gt; )?
+        <FONT COLOR="#7f0055"><B>path</B></FONT> <FONT COLOR="#2a00ff"><SPAN STYLE="font-weight: normal">&quot;my.pack.myclass.mymethod&quot;</SPAN></FONT>
+        ( <FONT COLOR="#7f0055"><B>description</B></FONT> Description )?
+        ( <FONT COLOR="#7f0055"><B>category</B></FONT> &lt;VerificationCategory&gt; )?
+        ( VerificationValidation | VerificationPrecondition)*
+    ] VerificationValidation ::=
+    ( <FONT COLOR="#7f0055"><B>validation</B></FONT> myname
+    ( : <FONT COLOR="#2a00ff"><SPAN STYLE="font-weight: normal">&quot;title&quot;</SPAN></FONT> )?
+    [ (     ( <FONT COLOR="#7f0055"><B>description</B></FONT> Description)?
+      <FONT COLOR="#7f0055"><B>method</B></FONT> &lt;qualified methodname&gt; ( <FONT COLOR="#7f0055"><B>as</B></FONT> &lt;computer variable&gt; )?
+    ( <FONT COLOR="#7f0055"><B>rationale</B></FONT> <FONT COLOR="#2a00ff"><SPAN STYLE="font-weight: normal">&quot;rationale description&quot;</SPAN></FONT> )?
+    )     ]
+VerificationPrecondition ::=     ( <FONT COLOR="#7f0055"><B>precondition</B></FONT> myname
+    ( : <FONT COLOR="#2a00ff"><SPAN STYLE="font-weight: normal">&quot;title&quot;</SPAN></FONT> )?
+    [      ( <FONT COLOR="#7f0055"><B>description</B></FONT> Description)?
+      <FONT COLOR="#7f0055"><B>method</B></FONT> &lt;qualified methodname&gt; ( <FONT COLOR="#7f0055"><B>as</B></FONT> &lt;computer variable&gt; )?
+    ( <FONT COLOR="#7f0055"><B>rationale</B></FONT> <FONT COLOR="#2a00ff"><SPAN STYLE="font-weight: normal">&quot;rationale description&quot;</SPAN></FONT> )?
+    ]
+<FONT COLOR="#7f0055"><B>enum</B></FONT> MethodTypes::= analysis | predicate | compute | 
+        resoluteprove | resolutecompute | resolutepredicate | manual
+     <FONT COLOR="#7f0055"><B>enum</B></FONT> MethodScope::= self | parts | <FONT COLOR="#7f0055"><B>all</B></FONT> 
+<FONT COLOR="#7f0055"><B>enum</B></FONT> MethodReporting::= marker| errormarker | diagnostics | assertexception | resultreport
 </P>
 <P>The method types are: 
 </P>
@@ -351,10 +351,10 @@ defined the same
 specificaiton notation. These specifications are created in files
 with the extension @<EM>cat</EM>. 
 </P>
-<P>&lt;SelectionCategories&gt;&nbsp;::= &nbsp;&nbsp;&nbsp;&nbsp;<FONT COLOR="#7f0055"><B>selection</B></FONT>&nbsp;<FONT COLOR="#7f0055"><B>categories</B></FONT>&nbsp;
-&nbsp;&nbsp;&nbsp;&nbsp;[&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;SelectionCategory&gt;+
-&nbsp;&nbsp;&nbsp;&nbsp;] &lt;SelectionCategory&gt;&nbsp;:
-&nbsp;&nbsp;&nbsp;&nbsp;phase1&nbsp;(&nbsp;<FONT COLOR="#7f0055"><B>extends</B></FONT>&nbsp;phase&nbsp;)?&nbsp;
+<P>&lt;SelectionCategories&gt; ::=     <FONT COLOR="#7f0055"><B>selection</B></FONT> <FONT COLOR="#7f0055"><B>categories</B></FONT> 
+    [          &lt;SelectionCategory&gt;+
+    ] &lt;SelectionCategory&gt; :
+    phase1 ( <FONT COLOR="#7f0055"><B>extends</B></FONT> phase )? 
 </P>
 <P>Selection categories must have globally unique names among
 selection category declarations within an Eclipse workspace.
