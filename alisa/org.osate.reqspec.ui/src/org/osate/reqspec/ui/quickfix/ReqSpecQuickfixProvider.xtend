@@ -120,7 +120,7 @@ class ReqSpecQuickfixProvider extends DefaultQuickfixProvider {
 	 * issue.getData()[1]: The length of the SystemRequirements
 	 * 
 	 */
-	@Fix(ReqSpecValidator.DUPLICATE_SYSTEM_REQUIREMENTS)
+	@Fix(ReqSpecValidator.DUPLICATE_REQUIREMENTS)
 	def public void fixDuplicateSystemRequirements(Issue issue, IssueResolutionAcceptor acceptor) {
 		val offset = Integer.parseInt(issue.getData().get(0))
 		val length = Integer.parseInt(issue.getData().get(1))
@@ -138,7 +138,7 @@ class ReqSpecQuickfixProvider extends DefaultQuickfixProvider {
 	 *
 	 * issue.getData()[0]: The URI of the StakeHoldersGoals
 	 */
-	@Fix(ReqSpecValidator.DUPLICATE_REQUIREMENT_WITHIN_SYSTEM_REQUIREMENTS)
+	@Fix(ReqSpecValidator.DUPLICATE_REQUIREMENT_WITHIN_REQUIREMENTS)
 	def public void fixDuplicateRequirement(Issue issue, IssueResolutionAcceptor acceptor) {
 		acceptor.accept(issue, "Remove requirement", null, null,
 				new ISemanticModification() {

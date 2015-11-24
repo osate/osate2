@@ -22,8 +22,6 @@ import org.eclipse.emf.ecore.EObject;
 import org.osate.alisa.common.common.Description;
 import org.osate.alisa.common.common.Rationale;
 
-import org.osate.reqspec.reqSpec.SystemRequirements;
-
 /**
  * <!-- begin-user-doc -->
  * A representation of the model object '<em><b>Verification Plan</b></em>'.
@@ -35,7 +33,6 @@ import org.osate.reqspec.reqSpec.SystemRequirements;
  * <ul>
  *   <li>{@link org.osate.verify.verify.VerificationPlan#getName <em>Name</em>}</li>
  *   <li>{@link org.osate.verify.verify.VerificationPlan#getTitle <em>Title</em>}</li>
- *   <li>{@link org.osate.verify.verify.VerificationPlan#getSystemRequirements <em>System Requirements</em>}</li>
  *   <li>{@link org.osate.verify.verify.VerificationPlan#getDescription <em>Description</em>}</li>
  *   <li>{@link org.osate.verify.verify.VerificationPlan#getClaim <em>Claim</em>}</li>
  *   <li>{@link org.osate.verify.verify.VerificationPlan#getRationale <em>Rationale</em>}</li>
@@ -99,32 +96,6 @@ public interface VerificationPlan extends EObject
    * @generated
    */
   void setTitle(String value);
-
-  /**
-   * Returns the value of the '<em><b>System Requirements</b></em>' reference.
-   * <!-- begin-user-doc -->
-   * <p>
-   * If the meaning of the '<em>System Requirements</em>' reference isn't clear,
-   * there really should be more of a description here...
-   * </p>
-   * <!-- end-user-doc -->
-   * @return the value of the '<em>System Requirements</em>' reference.
-   * @see #setSystemRequirements(SystemRequirements)
-   * @see org.osate.verify.verify.VerifyPackage#getVerificationPlan_SystemRequirements()
-   * @model
-   * @generated
-   */
-  SystemRequirements getSystemRequirements();
-
-  /**
-   * Sets the value of the '{@link org.osate.verify.verify.VerificationPlan#getSystemRequirements <em>System Requirements</em>}' reference.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @param value the new value of the '<em>System Requirements</em>' reference.
-   * @see #getSystemRequirements()
-   * @generated
-   */
-  void setSystemRequirements(SystemRequirements value);
 
   /**
    * Returns the value of the '<em><b>Description</b></em>' containment reference.

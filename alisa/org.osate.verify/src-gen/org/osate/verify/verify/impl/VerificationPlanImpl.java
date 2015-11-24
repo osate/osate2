@@ -35,8 +35,6 @@ import org.eclipse.emf.ecore.util.InternalEList;
 import org.osate.alisa.common.common.Description;
 import org.osate.alisa.common.common.Rationale;
 
-import org.osate.reqspec.reqSpec.SystemRequirements;
-
 import org.osate.verify.verify.Claim;
 import org.osate.verify.verify.VerificationPlan;
 import org.osate.verify.verify.VerifyPackage;
@@ -51,7 +49,6 @@ import org.osate.verify.verify.VerifyPackage;
  * <ul>
  *   <li>{@link org.osate.verify.verify.impl.VerificationPlanImpl#getName <em>Name</em>}</li>
  *   <li>{@link org.osate.verify.verify.impl.VerificationPlanImpl#getTitle <em>Title</em>}</li>
- *   <li>{@link org.osate.verify.verify.impl.VerificationPlanImpl#getSystemRequirements <em>System Requirements</em>}</li>
  *   <li>{@link org.osate.verify.verify.impl.VerificationPlanImpl#getDescription <em>Description</em>}</li>
  *   <li>{@link org.osate.verify.verify.impl.VerificationPlanImpl#getClaim <em>Claim</em>}</li>
  *   <li>{@link org.osate.verify.verify.impl.VerificationPlanImpl#getRationale <em>Rationale</em>}</li>
@@ -101,16 +98,6 @@ public class VerificationPlanImpl extends MinimalEObjectImpl.Container implement
    * @ordered
    */
   protected String title = TITLE_EDEFAULT;
-
-  /**
-   * The cached value of the '{@link #getSystemRequirements() <em>System Requirements</em>}' reference.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @see #getSystemRequirements()
-   * @generated
-   * @ordered
-   */
-  protected SystemRequirements systemRequirements;
 
   /**
    * The cached value of the '{@link #getDescription() <em>Description</em>}' containment reference.
@@ -217,49 +204,6 @@ public class VerificationPlanImpl extends MinimalEObjectImpl.Container implement
     title = newTitle;
     if (eNotificationRequired())
       eNotify(new ENotificationImpl(this, Notification.SET, VerifyPackage.VERIFICATION_PLAN__TITLE, oldTitle, title));
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public SystemRequirements getSystemRequirements()
-  {
-    if (systemRequirements != null && systemRequirements.eIsProxy())
-    {
-      InternalEObject oldSystemRequirements = (InternalEObject)systemRequirements;
-      systemRequirements = (SystemRequirements)eResolveProxy(oldSystemRequirements);
-      if (systemRequirements != oldSystemRequirements)
-      {
-        if (eNotificationRequired())
-          eNotify(new ENotificationImpl(this, Notification.RESOLVE, VerifyPackage.VERIFICATION_PLAN__SYSTEM_REQUIREMENTS, oldSystemRequirements, systemRequirements));
-      }
-    }
-    return systemRequirements;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public SystemRequirements basicGetSystemRequirements()
-  {
-    return systemRequirements;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public void setSystemRequirements(SystemRequirements newSystemRequirements)
-  {
-    SystemRequirements oldSystemRequirements = systemRequirements;
-    systemRequirements = newSystemRequirements;
-    if (eNotificationRequired())
-      eNotify(new ENotificationImpl(this, Notification.SET, VerifyPackage.VERIFICATION_PLAN__SYSTEM_REQUIREMENTS, oldSystemRequirements, systemRequirements));
   }
 
   /**
@@ -420,9 +364,6 @@ public class VerificationPlanImpl extends MinimalEObjectImpl.Container implement
         return getName();
       case VerifyPackage.VERIFICATION_PLAN__TITLE:
         return getTitle();
-      case VerifyPackage.VERIFICATION_PLAN__SYSTEM_REQUIREMENTS:
-        if (resolve) return getSystemRequirements();
-        return basicGetSystemRequirements();
       case VerifyPackage.VERIFICATION_PLAN__DESCRIPTION:
         return getDescription();
       case VerifyPackage.VERIFICATION_PLAN__CLAIM:
@@ -451,9 +392,6 @@ public class VerificationPlanImpl extends MinimalEObjectImpl.Container implement
         return;
       case VerifyPackage.VERIFICATION_PLAN__TITLE:
         setTitle((String)newValue);
-        return;
-      case VerifyPackage.VERIFICATION_PLAN__SYSTEM_REQUIREMENTS:
-        setSystemRequirements((SystemRequirements)newValue);
         return;
       case VerifyPackage.VERIFICATION_PLAN__DESCRIPTION:
         setDescription((Description)newValue);
@@ -489,9 +427,6 @@ public class VerificationPlanImpl extends MinimalEObjectImpl.Container implement
       case VerifyPackage.VERIFICATION_PLAN__TITLE:
         setTitle(TITLE_EDEFAULT);
         return;
-      case VerifyPackage.VERIFICATION_PLAN__SYSTEM_REQUIREMENTS:
-        setSystemRequirements((SystemRequirements)null);
-        return;
       case VerifyPackage.VERIFICATION_PLAN__DESCRIPTION:
         setDescription((Description)null);
         return;
@@ -522,8 +457,6 @@ public class VerificationPlanImpl extends MinimalEObjectImpl.Container implement
         return NAME_EDEFAULT == null ? name != null : !NAME_EDEFAULT.equals(name);
       case VerifyPackage.VERIFICATION_PLAN__TITLE:
         return TITLE_EDEFAULT == null ? title != null : !TITLE_EDEFAULT.equals(title);
-      case VerifyPackage.VERIFICATION_PLAN__SYSTEM_REQUIREMENTS:
-        return systemRequirements != null;
       case VerifyPackage.VERIFICATION_PLAN__DESCRIPTION:
         return description != null;
       case VerifyPackage.VERIFICATION_PLAN__CLAIM:

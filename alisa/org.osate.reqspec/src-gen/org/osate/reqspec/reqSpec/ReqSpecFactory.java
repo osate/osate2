@@ -108,22 +108,13 @@ public interface ReqSpecFactory extends EFactory
   DocumentSection createDocumentSection();
 
   /**
-   * Returns a new object of class '<em>System Requirements</em>'.
+   * Returns a new object of class '<em>Requirements</em>'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @return a new object of class '<em>System Requirements</em>'.
+   * @return a new object of class '<em>Requirements</em>'.
    * @generated
    */
-  SystemRequirements createSystemRequirements();
-
-  /**
-   * Returns a new object of class '<em>Global Requirements</em>'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return a new object of class '<em>Global Requirements</em>'.
-   * @generated
-   */
-  GlobalRequirements createGlobalRequirements();
+  Requirements createRequirements();
 
   /**
    * Returns a new object of class '<em>Goal</em>'.
@@ -187,6 +178,24 @@ public interface ReqSpecFactory extends EFactory
    * @generated
    */
   ExternalDocument createExternalDocument();
+
+  /**
+   * Returns a new object of class '<em>System Requirements</em>'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return a new object of class '<em>System Requirements</em>'.
+   * @generated
+   */
+  SystemRequirements createSystemRequirements();
+
+  /**
+   * Returns a new object of class '<em>Global Requirements</em>'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return a new object of class '<em>Global Requirements</em>'.
+   * @generated
+   */
+  GlobalRequirements createGlobalRequirements();
 
   /**
    * Returns the package supported by this factory.

@@ -33,7 +33,7 @@ import org.eclipse.xtext.resource.IResourceDescription
 import org.eclipse.xtext.resource.IResourceDescriptions
 import org.osate.aadl2.ComponentClassifier
 
-import static org.osate.alisa.common.util.CommonUtilExtension.*
+import static extension org.osate.alisa.common.util.CommonUtilExtension.*
 
 import static extension org.eclipse.emf.ecore.util.EcoreUtil.*
 
@@ -72,7 +72,7 @@ class CommonGlobalReferenceFinder implements ICommonGlobalReferenceFinder {
 			for (reference : rd.referenceDescriptions) {
 				val referencetargetURI = reference.targetEObjectUri
 				val referencesourceURI = reference.sourceEObjectUri
-				if (ereference == reference.EReference && isSameorExtends(target, referencetargetURI)) {
+				if (ereference == reference.EReference && isSameorExtendsURI(target, referencetargetURI)) {
 					result += referencesourceURI
 				}
 			}

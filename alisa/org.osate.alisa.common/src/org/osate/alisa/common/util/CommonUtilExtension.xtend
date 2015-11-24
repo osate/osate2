@@ -140,7 +140,7 @@ class CommonUtilExtension {
 		return false;
 	}
 
-	def static boolean isSameorExtends(ComponentClassifier target, URI ancestorURI) {
+	def static boolean isSameorExtendsURI(ComponentClassifier target, URI ancestorURI) {
 		if(target == null || ancestorURI == null) return false
 		var Classifier ext = target
 		while (ext != null) {

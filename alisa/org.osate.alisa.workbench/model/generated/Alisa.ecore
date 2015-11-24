@@ -13,9 +13,9 @@
     <eStructuralFeatures xsi:type="ecore:EReference" name="description" eType="ecore:EClass platform:/resource/org.osate.alisa.common/model/generated/Common.ecore#//Description"
         containment="true"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="assureOwn" unique="false"
-        upperBound="-1" eType="ecore:EClass platform:/resource/org.osate.verify/model/generated/Verify.ecore#//VerificationPlan"/>
+        upperBound="-1" eType="ecore:EClass platform:/resource/org.osate.verify/model/generated/Verify.ecore#//SystemVerificationPlan"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="assureGlobal" unique="false"
-        upperBound="-1" eType="ecore:EClass platform:/resource/org.osate.verify/model/generated/Verify.ecore#//VerificationPlan"/>
+        upperBound="-1" eType="ecore:EClass platform:/resource/org.osate.verify/model/generated/Verify.ecore#//GlobalVerificationPlan"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="assureSubsystemPlans" unique="false"
         upperBound="-1" eType="#//AssurancePlan"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="assumeSubsystems" unique="false"

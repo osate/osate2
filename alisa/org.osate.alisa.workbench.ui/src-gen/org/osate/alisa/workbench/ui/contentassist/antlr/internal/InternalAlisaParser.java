@@ -22870,13 +22870,13 @@ public class InternalAlisaParser extends AbstractInternalContentAssistParser {
             // ../org.osate.alisa.workbench.ui/src-gen/org/osate/alisa/workbench/ui/contentassist/antlr/internal/InternalAlisa.g:8005:1: ( ruleQualifiedName )
             {
             if ( state.backtracking==0 ) {
-               before(grammarAccess.getAssurancePlanAccess().getAssureOwnVerificationPlanCrossReference_7_1_2_0()); 
+               before(grammarAccess.getAssurancePlanAccess().getAssureOwnSystemVerificationPlanCrossReference_7_1_2_0()); 
             }
             // ../org.osate.alisa.workbench.ui/src-gen/org/osate/alisa/workbench/ui/contentassist/antlr/internal/InternalAlisa.g:8006:1: ( ruleQualifiedName )
             // ../org.osate.alisa.workbench.ui/src-gen/org/osate/alisa/workbench/ui/contentassist/antlr/internal/InternalAlisa.g:8007:1: ruleQualifiedName
             {
             if ( state.backtracking==0 ) {
-               before(grammarAccess.getAssurancePlanAccess().getAssureOwnVerificationPlanQualifiedNameParserRuleCall_7_1_2_0_1()); 
+               before(grammarAccess.getAssurancePlanAccess().getAssureOwnSystemVerificationPlanQualifiedNameParserRuleCall_7_1_2_0_1()); 
             }
             pushFollow(FOLLOW_ruleQualifiedName_in_rule__AssurancePlan__AssureOwnAssignment_7_1_216544);
             ruleQualifiedName();
@@ -22884,13 +22884,13 @@ public class InternalAlisaParser extends AbstractInternalContentAssistParser {
             state._fsp--;
             if (state.failed) return ;
             if ( state.backtracking==0 ) {
-               after(grammarAccess.getAssurancePlanAccess().getAssureOwnVerificationPlanQualifiedNameParserRuleCall_7_1_2_0_1()); 
+               after(grammarAccess.getAssurancePlanAccess().getAssureOwnSystemVerificationPlanQualifiedNameParserRuleCall_7_1_2_0_1()); 
             }
 
             }
 
             if ( state.backtracking==0 ) {
-               after(grammarAccess.getAssurancePlanAccess().getAssureOwnVerificationPlanCrossReference_7_1_2_0()); 
+               after(grammarAccess.getAssurancePlanAccess().getAssureOwnSystemVerificationPlanCrossReference_7_1_2_0()); 
             }
 
             }
@@ -22927,13 +22927,13 @@ public class InternalAlisaParser extends AbstractInternalContentAssistParser {
             // ../org.osate.alisa.workbench.ui/src-gen/org/osate/alisa/workbench/ui/contentassist/antlr/internal/InternalAlisa.g:8024:1: ( ruleQualifiedName )
             {
             if ( state.backtracking==0 ) {
-               before(grammarAccess.getAssurancePlanAccess().getAssureGlobalVerificationPlanCrossReference_7_2_2_0()); 
+               before(grammarAccess.getAssurancePlanAccess().getAssureGlobalGlobalVerificationPlanCrossReference_7_2_2_0()); 
             }
             // ../org.osate.alisa.workbench.ui/src-gen/org/osate/alisa/workbench/ui/contentassist/antlr/internal/InternalAlisa.g:8025:1: ( ruleQualifiedName )
             // ../org.osate.alisa.workbench.ui/src-gen/org/osate/alisa/workbench/ui/contentassist/antlr/internal/InternalAlisa.g:8026:1: ruleQualifiedName
             {
             if ( state.backtracking==0 ) {
-               before(grammarAccess.getAssurancePlanAccess().getAssureGlobalVerificationPlanQualifiedNameParserRuleCall_7_2_2_0_1()); 
+               before(grammarAccess.getAssurancePlanAccess().getAssureGlobalGlobalVerificationPlanQualifiedNameParserRuleCall_7_2_2_0_1()); 
             }
             pushFollow(FOLLOW_ruleQualifiedName_in_rule__AssurancePlan__AssureGlobalAssignment_7_2_216583);
             ruleQualifiedName();
@@ -22941,13 +22941,13 @@ public class InternalAlisaParser extends AbstractInternalContentAssistParser {
             state._fsp--;
             if (state.failed) return ;
             if ( state.backtracking==0 ) {
-               after(grammarAccess.getAssurancePlanAccess().getAssureGlobalVerificationPlanQualifiedNameParserRuleCall_7_2_2_0_1()); 
+               after(grammarAccess.getAssurancePlanAccess().getAssureGlobalGlobalVerificationPlanQualifiedNameParserRuleCall_7_2_2_0_1()); 
             }
 
             }
 
             if ( state.backtracking==0 ) {
-               after(grammarAccess.getAssurancePlanAccess().getAssureGlobalVerificationPlanCrossReference_7_2_2_0()); 
+               after(grammarAccess.getAssurancePlanAccess().getAssureGlobalGlobalVerificationPlanCrossReference_7_2_2_0()); 
             }
 
             }

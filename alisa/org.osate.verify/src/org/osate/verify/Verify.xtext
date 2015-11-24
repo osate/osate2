@@ -10,9 +10,9 @@ import  "http://www.rockwellcollins.com/atc/resolute/Resolute" as resolute
 Verification:
 	contents+=	( VerificationPlan | GlobalVerificationPlan | VerificationMethodRegistry)+;
 
-VerificationPlan:
-	'verification' 'plan' name=QualifiedName (':' title=STRING)? 
-	'for' systemRequirements=[ReqSpec::SystemRequirements|QualifiedName]  
+VerificationPlan returns VerificationPlan:
+	'system''verification' 'plan'{SystemVerificationPlan} name=QualifiedName (':' title=STRING)? 
+	'for' requirements=[ReqSpec::SystemRequirements|QualifiedName]  
 	'['
 	(
 		( description=Description)?
@@ -23,8 +23,8 @@ VerificationPlan:
 	']';
 
 GlobalVerificationPlan returns VerificationPlan:
-	'verification' 'plan' 'library' {GlobalVerificationPlan} name=QualifiedName (':' title=STRING)? 
-	'for' requirementLibrary=[ReqSpec::GlobalRequirements|QualifiedName]  
+	'global''verification' 'plan' {GlobalVerificationPlan} name=QualifiedName (':' title=STRING)? 
+	'for' requirements=[ReqSpec::GlobalRequirements|QualifiedName]  
 	'['
 	(
 		( description=Description)?

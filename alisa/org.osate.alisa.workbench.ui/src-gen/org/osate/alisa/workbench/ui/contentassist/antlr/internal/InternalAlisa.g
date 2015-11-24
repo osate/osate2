@@ -8002,12 +8002,12 @@ rule__AssurancePlan__AssureOwnAssignment_7_1_2
     }
 :
 (
-{ before(grammarAccess.getAssurancePlanAccess().getAssureOwnVerificationPlanCrossReference_7_1_2_0()); }
+{ before(grammarAccess.getAssurancePlanAccess().getAssureOwnSystemVerificationPlanCrossReference_7_1_2_0()); }
 (
-{ before(grammarAccess.getAssurancePlanAccess().getAssureOwnVerificationPlanQualifiedNameParserRuleCall_7_1_2_0_1()); }
-	ruleQualifiedName{ after(grammarAccess.getAssurancePlanAccess().getAssureOwnVerificationPlanQualifiedNameParserRuleCall_7_1_2_0_1()); }
+{ before(grammarAccess.getAssurancePlanAccess().getAssureOwnSystemVerificationPlanQualifiedNameParserRuleCall_7_1_2_0_1()); }
+	ruleQualifiedName{ after(grammarAccess.getAssurancePlanAccess().getAssureOwnSystemVerificationPlanQualifiedNameParserRuleCall_7_1_2_0_1()); }
 )
-{ after(grammarAccess.getAssurancePlanAccess().getAssureOwnVerificationPlanCrossReference_7_1_2_0()); }
+{ after(grammarAccess.getAssurancePlanAccess().getAssureOwnSystemVerificationPlanCrossReference_7_1_2_0()); }
 )
 
 ;
@@ -8021,12 +8021,12 @@ rule__AssurancePlan__AssureGlobalAssignment_7_2_2
     }
 :
 (
-{ before(grammarAccess.getAssurancePlanAccess().getAssureGlobalVerificationPlanCrossReference_7_2_2_0()); }
+{ before(grammarAccess.getAssurancePlanAccess().getAssureGlobalGlobalVerificationPlanCrossReference_7_2_2_0()); }
 (
-{ before(grammarAccess.getAssurancePlanAccess().getAssureGlobalVerificationPlanQualifiedNameParserRuleCall_7_2_2_0_1()); }
-	ruleQualifiedName{ after(grammarAccess.getAssurancePlanAccess().getAssureGlobalVerificationPlanQualifiedNameParserRuleCall_7_2_2_0_1()); }
+{ before(grammarAccess.getAssurancePlanAccess().getAssureGlobalGlobalVerificationPlanQualifiedNameParserRuleCall_7_2_2_0_1()); }
+	ruleQualifiedName{ after(grammarAccess.getAssurancePlanAccess().getAssureGlobalGlobalVerificationPlanQualifiedNameParserRuleCall_7_2_2_0_1()); }
 )
-{ after(grammarAccess.getAssurancePlanAccess().getAssureGlobalVerificationPlanCrossReference_7_2_2_0()); }
+{ after(grammarAccess.getAssurancePlanAccess().getAssureGlobalGlobalVerificationPlanCrossReference_7_2_2_0()); }
 )
 
 ;

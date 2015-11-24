@@ -277,7 +277,7 @@ ruleAssurancePlan returns [EObject current=null]
 	        }
         }
 		{ 
-	        newCompositeNode(grammarAccess.getAssurancePlanAccess().getAssureOwnVerificationPlanCrossReference_7_1_2_0()); 
+	        newCompositeNode(grammarAccess.getAssurancePlanAccess().getAssureOwnSystemVerificationPlanCrossReference_7_1_2_0()); 
 	    }
 		ruleQualifiedName		{ 
 	        afterParserOrEnumRuleCall();
@@ -312,7 +312,7 @@ ruleAssurancePlan returns [EObject current=null]
 	        }
         }
 		{ 
-	        newCompositeNode(grammarAccess.getAssurancePlanAccess().getAssureGlobalVerificationPlanCrossReference_7_2_2_0()); 
+	        newCompositeNode(grammarAccess.getAssurancePlanAccess().getAssureGlobalGlobalVerificationPlanCrossReference_7_2_2_0()); 
 	    }
 		ruleQualifiedName		{ 
 	        afterParserOrEnumRuleCall();

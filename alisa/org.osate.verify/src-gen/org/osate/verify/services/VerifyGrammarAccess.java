@@ -61,125 +61,133 @@ public class VerifyGrammarAccess extends AbstractGrammarElementFinder {
 	public class VerificationPlanElements extends AbstractParserRuleElementFinder {
 		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "VerificationPlan");
 		private final Group cGroup = (Group)rule.eContents().get(1);
-		private final Keyword cVerificationKeyword_0 = (Keyword)cGroup.eContents().get(0);
-		private final Keyword cPlanKeyword_1 = (Keyword)cGroup.eContents().get(1);
-		private final Assignment cNameAssignment_2 = (Assignment)cGroup.eContents().get(2);
-		private final RuleCall cNameQualifiedNameParserRuleCall_2_0 = (RuleCall)cNameAssignment_2.eContents().get(0);
-		private final Group cGroup_3 = (Group)cGroup.eContents().get(3);
-		private final Keyword cColonKeyword_3_0 = (Keyword)cGroup_3.eContents().get(0);
-		private final Assignment cTitleAssignment_3_1 = (Assignment)cGroup_3.eContents().get(1);
-		private final RuleCall cTitleSTRINGTerminalRuleCall_3_1_0 = (RuleCall)cTitleAssignment_3_1.eContents().get(0);
-		private final Keyword cForKeyword_4 = (Keyword)cGroup.eContents().get(4);
-		private final Assignment cSystemRequirementsAssignment_5 = (Assignment)cGroup.eContents().get(5);
-		private final CrossReference cSystemRequirementsSystemRequirementsCrossReference_5_0 = (CrossReference)cSystemRequirementsAssignment_5.eContents().get(0);
-		private final RuleCall cSystemRequirementsSystemRequirementsQualifiedNameParserRuleCall_5_0_1 = (RuleCall)cSystemRequirementsSystemRequirementsCrossReference_5_0.eContents().get(1);
-		private final Keyword cLeftSquareBracketKeyword_6 = (Keyword)cGroup.eContents().get(6);
-		private final UnorderedGroup cUnorderedGroup_7 = (UnorderedGroup)cGroup.eContents().get(7);
-		private final Assignment cDescriptionAssignment_7_0 = (Assignment)cUnorderedGroup_7.eContents().get(0);
-		private final RuleCall cDescriptionDescriptionParserRuleCall_7_0_0 = (RuleCall)cDescriptionAssignment_7_0.eContents().get(0);
-		private final Assignment cClaimAssignment_7_1 = (Assignment)cUnorderedGroup_7.eContents().get(1);
-		private final RuleCall cClaimClaimParserRuleCall_7_1_0 = (RuleCall)cClaimAssignment_7_1.eContents().get(0);
-		private final Assignment cRationaleAssignment_7_2 = (Assignment)cUnorderedGroup_7.eContents().get(2);
-		private final RuleCall cRationaleRationaleParserRuleCall_7_2_0 = (RuleCall)cRationaleAssignment_7_2.eContents().get(0);
-		private final Group cGroup_7_3 = (Group)cUnorderedGroup_7.eContents().get(3);
-		private final Keyword cIssuesKeyword_7_3_0 = (Keyword)cGroup_7_3.eContents().get(0);
-		private final Assignment cIssuesAssignment_7_3_1 = (Assignment)cGroup_7_3.eContents().get(1);
-		private final RuleCall cIssuesSTRINGTerminalRuleCall_7_3_1_0 = (RuleCall)cIssuesAssignment_7_3_1.eContents().get(0);
-		private final Keyword cRightSquareBracketKeyword_8 = (Keyword)cGroup.eContents().get(8);
+		private final Keyword cSystemKeyword_0 = (Keyword)cGroup.eContents().get(0);
+		private final Keyword cVerificationKeyword_1 = (Keyword)cGroup.eContents().get(1);
+		private final Keyword cPlanKeyword_2 = (Keyword)cGroup.eContents().get(2);
+		private final Action cSystemVerificationPlanAction_3 = (Action)cGroup.eContents().get(3);
+		private final Assignment cNameAssignment_4 = (Assignment)cGroup.eContents().get(4);
+		private final RuleCall cNameQualifiedNameParserRuleCall_4_0 = (RuleCall)cNameAssignment_4.eContents().get(0);
+		private final Group cGroup_5 = (Group)cGroup.eContents().get(5);
+		private final Keyword cColonKeyword_5_0 = (Keyword)cGroup_5.eContents().get(0);
+		private final Assignment cTitleAssignment_5_1 = (Assignment)cGroup_5.eContents().get(1);
+		private final RuleCall cTitleSTRINGTerminalRuleCall_5_1_0 = (RuleCall)cTitleAssignment_5_1.eContents().get(0);
+		private final Keyword cForKeyword_6 = (Keyword)cGroup.eContents().get(6);
+		private final Assignment cRequirementsAssignment_7 = (Assignment)cGroup.eContents().get(7);
+		private final CrossReference cRequirementsSystemRequirementsCrossReference_7_0 = (CrossReference)cRequirementsAssignment_7.eContents().get(0);
+		private final RuleCall cRequirementsSystemRequirementsQualifiedNameParserRuleCall_7_0_1 = (RuleCall)cRequirementsSystemRequirementsCrossReference_7_0.eContents().get(1);
+		private final Keyword cLeftSquareBracketKeyword_8 = (Keyword)cGroup.eContents().get(8);
+		private final UnorderedGroup cUnorderedGroup_9 = (UnorderedGroup)cGroup.eContents().get(9);
+		private final Assignment cDescriptionAssignment_9_0 = (Assignment)cUnorderedGroup_9.eContents().get(0);
+		private final RuleCall cDescriptionDescriptionParserRuleCall_9_0_0 = (RuleCall)cDescriptionAssignment_9_0.eContents().get(0);
+		private final Assignment cClaimAssignment_9_1 = (Assignment)cUnorderedGroup_9.eContents().get(1);
+		private final RuleCall cClaimClaimParserRuleCall_9_1_0 = (RuleCall)cClaimAssignment_9_1.eContents().get(0);
+		private final Assignment cRationaleAssignment_9_2 = (Assignment)cUnorderedGroup_9.eContents().get(2);
+		private final RuleCall cRationaleRationaleParserRuleCall_9_2_0 = (RuleCall)cRationaleAssignment_9_2.eContents().get(0);
+		private final Group cGroup_9_3 = (Group)cUnorderedGroup_9.eContents().get(3);
+		private final Keyword cIssuesKeyword_9_3_0 = (Keyword)cGroup_9_3.eContents().get(0);
+		private final Assignment cIssuesAssignment_9_3_1 = (Assignment)cGroup_9_3.eContents().get(1);
+		private final RuleCall cIssuesSTRINGTerminalRuleCall_9_3_1_0 = (RuleCall)cIssuesAssignment_9_3_1.eContents().get(0);
+		private final Keyword cRightSquareBracketKeyword_10 = (Keyword)cGroup.eContents().get(10);
 		
 		//VerificationPlan:
-		//	"verification" "plan" name=QualifiedName (":" title=STRING)? "for"
-		//	systemRequirements=[ReqSpec::SystemRequirements|QualifiedName] "[" (description=Description? & claim+=Claim* &
+		//	"system" "verification" "plan" {SystemVerificationPlan} name=QualifiedName (":" title=STRING)? "for"
+		//	requirements=[ReqSpec::SystemRequirements|QualifiedName] "[" (description=Description? & claim+=Claim* &
 		//	rationale=Rationale? & ("issues" issues+=STRING+)?) "]";
 		@Override public ParserRule getRule() { return rule; }
 
-		//"verification" "plan" name=QualifiedName (":" title=STRING)? "for"
-		//systemRequirements=[ReqSpec::SystemRequirements|QualifiedName] "[" (description=Description? & claim+=Claim* &
+		//"system" "verification" "plan" {SystemVerificationPlan} name=QualifiedName (":" title=STRING)? "for"
+		//requirements=[ReqSpec::SystemRequirements|QualifiedName] "[" (description=Description? & claim+=Claim* &
 		//rationale=Rationale? & ("issues" issues+=STRING+)?) "]"
 		public Group getGroup() { return cGroup; }
 
+		//"system"
+		public Keyword getSystemKeyword_0() { return cSystemKeyword_0; }
+
 		//"verification"
-		public Keyword getVerificationKeyword_0() { return cVerificationKeyword_0; }
+		public Keyword getVerificationKeyword_1() { return cVerificationKeyword_1; }
 
 		//"plan"
-		public Keyword getPlanKeyword_1() { return cPlanKeyword_1; }
+		public Keyword getPlanKeyword_2() { return cPlanKeyword_2; }
+
+		//{SystemVerificationPlan}
+		public Action getSystemVerificationPlanAction_3() { return cSystemVerificationPlanAction_3; }
 
 		//name=QualifiedName
-		public Assignment getNameAssignment_2() { return cNameAssignment_2; }
+		public Assignment getNameAssignment_4() { return cNameAssignment_4; }
 
 		//QualifiedName
-		public RuleCall getNameQualifiedNameParserRuleCall_2_0() { return cNameQualifiedNameParserRuleCall_2_0; }
+		public RuleCall getNameQualifiedNameParserRuleCall_4_0() { return cNameQualifiedNameParserRuleCall_4_0; }
 
 		//(":" title=STRING)?
-		public Group getGroup_3() { return cGroup_3; }
+		public Group getGroup_5() { return cGroup_5; }
 
 		//":"
-		public Keyword getColonKeyword_3_0() { return cColonKeyword_3_0; }
+		public Keyword getColonKeyword_5_0() { return cColonKeyword_5_0; }
 
 		//title=STRING
-		public Assignment getTitleAssignment_3_1() { return cTitleAssignment_3_1; }
+		public Assignment getTitleAssignment_5_1() { return cTitleAssignment_5_1; }
 
 		//STRING
-		public RuleCall getTitleSTRINGTerminalRuleCall_3_1_0() { return cTitleSTRINGTerminalRuleCall_3_1_0; }
+		public RuleCall getTitleSTRINGTerminalRuleCall_5_1_0() { return cTitleSTRINGTerminalRuleCall_5_1_0; }
 
 		//"for"
-		public Keyword getForKeyword_4() { return cForKeyword_4; }
+		public Keyword getForKeyword_6() { return cForKeyword_6; }
 
-		//systemRequirements=[ReqSpec::SystemRequirements|QualifiedName]
-		public Assignment getSystemRequirementsAssignment_5() { return cSystemRequirementsAssignment_5; }
+		//requirements=[ReqSpec::SystemRequirements|QualifiedName]
+		public Assignment getRequirementsAssignment_7() { return cRequirementsAssignment_7; }
 
 		//[ReqSpec::SystemRequirements|QualifiedName]
-		public CrossReference getSystemRequirementsSystemRequirementsCrossReference_5_0() { return cSystemRequirementsSystemRequirementsCrossReference_5_0; }
+		public CrossReference getRequirementsSystemRequirementsCrossReference_7_0() { return cRequirementsSystemRequirementsCrossReference_7_0; }
 
 		//QualifiedName
-		public RuleCall getSystemRequirementsSystemRequirementsQualifiedNameParserRuleCall_5_0_1() { return cSystemRequirementsSystemRequirementsQualifiedNameParserRuleCall_5_0_1; }
+		public RuleCall getRequirementsSystemRequirementsQualifiedNameParserRuleCall_7_0_1() { return cRequirementsSystemRequirementsQualifiedNameParserRuleCall_7_0_1; }
 
 		//"["
-		public Keyword getLeftSquareBracketKeyword_6() { return cLeftSquareBracketKeyword_6; }
+		public Keyword getLeftSquareBracketKeyword_8() { return cLeftSquareBracketKeyword_8; }
 
 		//description=Description? & claim+=Claim* & rationale=Rationale? & ("issues" issues+=STRING+)?
-		public UnorderedGroup getUnorderedGroup_7() { return cUnorderedGroup_7; }
+		public UnorderedGroup getUnorderedGroup_9() { return cUnorderedGroup_9; }
 
 		//description=Description?
-		public Assignment getDescriptionAssignment_7_0() { return cDescriptionAssignment_7_0; }
+		public Assignment getDescriptionAssignment_9_0() { return cDescriptionAssignment_9_0; }
 
 		//Description
-		public RuleCall getDescriptionDescriptionParserRuleCall_7_0_0() { return cDescriptionDescriptionParserRuleCall_7_0_0; }
+		public RuleCall getDescriptionDescriptionParserRuleCall_9_0_0() { return cDescriptionDescriptionParserRuleCall_9_0_0; }
 
 		//claim+=Claim*
-		public Assignment getClaimAssignment_7_1() { return cClaimAssignment_7_1; }
+		public Assignment getClaimAssignment_9_1() { return cClaimAssignment_9_1; }
 
 		//Claim
-		public RuleCall getClaimClaimParserRuleCall_7_1_0() { return cClaimClaimParserRuleCall_7_1_0; }
+		public RuleCall getClaimClaimParserRuleCall_9_1_0() { return cClaimClaimParserRuleCall_9_1_0; }
 
 		//rationale=Rationale?
-		public Assignment getRationaleAssignment_7_2() { return cRationaleAssignment_7_2; }
+		public Assignment getRationaleAssignment_9_2() { return cRationaleAssignment_9_2; }
 
 		//Rationale
-		public RuleCall getRationaleRationaleParserRuleCall_7_2_0() { return cRationaleRationaleParserRuleCall_7_2_0; }
+		public RuleCall getRationaleRationaleParserRuleCall_9_2_0() { return cRationaleRationaleParserRuleCall_9_2_0; }
 
 		//("issues" issues+=STRING+)?
-		public Group getGroup_7_3() { return cGroup_7_3; }
+		public Group getGroup_9_3() { return cGroup_9_3; }
 
 		//"issues"
-		public Keyword getIssuesKeyword_7_3_0() { return cIssuesKeyword_7_3_0; }
+		public Keyword getIssuesKeyword_9_3_0() { return cIssuesKeyword_9_3_0; }
 
 		//issues+=STRING+
-		public Assignment getIssuesAssignment_7_3_1() { return cIssuesAssignment_7_3_1; }
+		public Assignment getIssuesAssignment_9_3_1() { return cIssuesAssignment_9_3_1; }
 
 		//STRING
-		public RuleCall getIssuesSTRINGTerminalRuleCall_7_3_1_0() { return cIssuesSTRINGTerminalRuleCall_7_3_1_0; }
+		public RuleCall getIssuesSTRINGTerminalRuleCall_9_3_1_0() { return cIssuesSTRINGTerminalRuleCall_9_3_1_0; }
 
 		//"]"
-		public Keyword getRightSquareBracketKeyword_8() { return cRightSquareBracketKeyword_8; }
+		public Keyword getRightSquareBracketKeyword_10() { return cRightSquareBracketKeyword_10; }
 	}
 
 	public class GlobalVerificationPlanElements extends AbstractParserRuleElementFinder {
 		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "GlobalVerificationPlan");
 		private final Group cGroup = (Group)rule.eContents().get(1);
-		private final Keyword cVerificationKeyword_0 = (Keyword)cGroup.eContents().get(0);
-		private final Keyword cPlanKeyword_1 = (Keyword)cGroup.eContents().get(1);
-		private final Keyword cLibraryKeyword_2 = (Keyword)cGroup.eContents().get(2);
+		private final Keyword cGlobalKeyword_0 = (Keyword)cGroup.eContents().get(0);
+		private final Keyword cVerificationKeyword_1 = (Keyword)cGroup.eContents().get(1);
+		private final Keyword cPlanKeyword_2 = (Keyword)cGroup.eContents().get(2);
 		private final Action cGlobalVerificationPlanAction_3 = (Action)cGroup.eContents().get(3);
 		private final Assignment cNameAssignment_4 = (Assignment)cGroup.eContents().get(4);
 		private final RuleCall cNameQualifiedNameParserRuleCall_4_0 = (RuleCall)cNameAssignment_4.eContents().get(0);
@@ -188,9 +196,9 @@ public class VerifyGrammarAccess extends AbstractGrammarElementFinder {
 		private final Assignment cTitleAssignment_5_1 = (Assignment)cGroup_5.eContents().get(1);
 		private final RuleCall cTitleSTRINGTerminalRuleCall_5_1_0 = (RuleCall)cTitleAssignment_5_1.eContents().get(0);
 		private final Keyword cForKeyword_6 = (Keyword)cGroup.eContents().get(6);
-		private final Assignment cRequirementLibraryAssignment_7 = (Assignment)cGroup.eContents().get(7);
-		private final CrossReference cRequirementLibraryGlobalRequirementsCrossReference_7_0 = (CrossReference)cRequirementLibraryAssignment_7.eContents().get(0);
-		private final RuleCall cRequirementLibraryGlobalRequirementsQualifiedNameParserRuleCall_7_0_1 = (RuleCall)cRequirementLibraryGlobalRequirementsCrossReference_7_0.eContents().get(1);
+		private final Assignment cRequirementsAssignment_7 = (Assignment)cGroup.eContents().get(7);
+		private final CrossReference cRequirementsGlobalRequirementsCrossReference_7_0 = (CrossReference)cRequirementsAssignment_7.eContents().get(0);
+		private final RuleCall cRequirementsGlobalRequirementsQualifiedNameParserRuleCall_7_0_1 = (RuleCall)cRequirementsGlobalRequirementsCrossReference_7_0.eContents().get(1);
 		private final Keyword cLeftSquareBracketKeyword_8 = (Keyword)cGroup.eContents().get(8);
 		private final UnorderedGroup cUnorderedGroup_9 = (UnorderedGroup)cGroup.eContents().get(9);
 		private final Assignment cDescriptionAssignment_9_0 = (Assignment)cUnorderedGroup_9.eContents().get(0);
@@ -206,24 +214,24 @@ public class VerifyGrammarAccess extends AbstractGrammarElementFinder {
 		private final Keyword cRightSquareBracketKeyword_10 = (Keyword)cGroup.eContents().get(10);
 		
 		//GlobalVerificationPlan returns VerificationPlan:
-		//	"verification" "plan" "library" {GlobalVerificationPlan} name=QualifiedName (":" title=STRING)? "for"
-		//	requirementLibrary=[ReqSpec::GlobalRequirements|QualifiedName] "[" (description=Description? & claim+=Claim* &
+		//	"global" "verification" "plan" {GlobalVerificationPlan} name=QualifiedName (":" title=STRING)? "for"
+		//	requirements=[ReqSpec::GlobalRequirements|QualifiedName] "[" (description=Description? & claim+=Claim* &
 		//	rationale=Rationale? & ("issues" issues+=STRING+)?) "]";
 		@Override public ParserRule getRule() { return rule; }
 
-		//"verification" "plan" "library" {GlobalVerificationPlan} name=QualifiedName (":" title=STRING)? "for"
-		//requirementLibrary=[ReqSpec::GlobalRequirements|QualifiedName] "[" (description=Description? & claim+=Claim* &
+		//"global" "verification" "plan" {GlobalVerificationPlan} name=QualifiedName (":" title=STRING)? "for"
+		//requirements=[ReqSpec::GlobalRequirements|QualifiedName] "[" (description=Description? & claim+=Claim* &
 		//rationale=Rationale? & ("issues" issues+=STRING+)?) "]"
 		public Group getGroup() { return cGroup; }
 
+		//"global"
+		public Keyword getGlobalKeyword_0() { return cGlobalKeyword_0; }
+
 		//"verification"
-		public Keyword getVerificationKeyword_0() { return cVerificationKeyword_0; }
+		public Keyword getVerificationKeyword_1() { return cVerificationKeyword_1; }
 
 		//"plan"
-		public Keyword getPlanKeyword_1() { return cPlanKeyword_1; }
-
-		//"library"
-		public Keyword getLibraryKeyword_2() { return cLibraryKeyword_2; }
+		public Keyword getPlanKeyword_2() { return cPlanKeyword_2; }
 
 		//{GlobalVerificationPlan}
 		public Action getGlobalVerificationPlanAction_3() { return cGlobalVerificationPlanAction_3; }
@@ -249,14 +257,14 @@ public class VerifyGrammarAccess extends AbstractGrammarElementFinder {
 		//"for"
 		public Keyword getForKeyword_6() { return cForKeyword_6; }
 
-		//requirementLibrary=[ReqSpec::GlobalRequirements|QualifiedName]
-		public Assignment getRequirementLibraryAssignment_7() { return cRequirementLibraryAssignment_7; }
+		//requirements=[ReqSpec::GlobalRequirements|QualifiedName]
+		public Assignment getRequirementsAssignment_7() { return cRequirementsAssignment_7; }
 
 		//[ReqSpec::GlobalRequirements|QualifiedName]
-		public CrossReference getRequirementLibraryGlobalRequirementsCrossReference_7_0() { return cRequirementLibraryGlobalRequirementsCrossReference_7_0; }
+		public CrossReference getRequirementsGlobalRequirementsCrossReference_7_0() { return cRequirementsGlobalRequirementsCrossReference_7_0; }
 
 		//QualifiedName
-		public RuleCall getRequirementLibraryGlobalRequirementsQualifiedNameParserRuleCall_7_0_1() { return cRequirementLibraryGlobalRequirementsQualifiedNameParserRuleCall_7_0_1; }
+		public RuleCall getRequirementsGlobalRequirementsQualifiedNameParserRuleCall_7_0_1() { return cRequirementsGlobalRequirementsQualifiedNameParserRuleCall_7_0_1; }
 
 		//"["
 		public Keyword getLeftSquareBracketKeyword_8() { return cLeftSquareBracketKeyword_8; }
@@ -1859,8 +1867,8 @@ public class VerifyGrammarAccess extends AbstractGrammarElementFinder {
 	}
 
 	//VerificationPlan:
-	//	"verification" "plan" name=QualifiedName (":" title=STRING)? "for"
-	//	systemRequirements=[ReqSpec::SystemRequirements|QualifiedName] "[" (description=Description? & claim+=Claim* &
+	//	"system" "verification" "plan" {SystemVerificationPlan} name=QualifiedName (":" title=STRING)? "for"
+	//	requirements=[ReqSpec::SystemRequirements|QualifiedName] "[" (description=Description? & claim+=Claim* &
 	//	rationale=Rationale? & ("issues" issues+=STRING+)?) "]";
 	public VerificationPlanElements getVerificationPlanAccess() {
 		return pVerificationPlan;
@@ -1871,8 +1879,8 @@ public class VerifyGrammarAccess extends AbstractGrammarElementFinder {
 	}
 
 	//GlobalVerificationPlan returns VerificationPlan:
-	//	"verification" "plan" "library" {GlobalVerificationPlan} name=QualifiedName (":" title=STRING)? "for"
-	//	requirementLibrary=[ReqSpec::GlobalRequirements|QualifiedName] "[" (description=Description? & claim+=Claim* &
+	//	"global" "verification" "plan" {GlobalVerificationPlan} name=QualifiedName (":" title=STRING)? "for"
+	//	requirements=[ReqSpec::GlobalRequirements|QualifiedName] "[" (description=Description? & claim+=Claim* &
 	//	rationale=Rationale? & ("issues" issues+=STRING+)?) "]";
 	public GlobalVerificationPlanElements getGlobalVerificationPlanAccess() {
 		return pGlobalVerificationPlan;

@@ -53,8 +53,8 @@ DocumentSection returns DocumentSection:
 	']' 
 	;
 
-SystemRequirements returns SystemRequirements:
-	'system' 'requirements'  name =QualifiedName (':' title=STRING)? 
+SystemRequirements returns Requirements:
+	{SystemRequirements} 'system''requirements'  name =QualifiedName (':' title=STRING)? 
 	'for' target=[aadl2::ComponentClassifier|AadlClassifierReference] 
 	('use' 'constants' importConstants+=[GlobalConstants|QualifiedName]+)?
 	'[' 
@@ -70,8 +70,8 @@ SystemRequirements returns SystemRequirements:
 	']'
 	;
 
-GlobalRequirements returns GlobalRequirements:
-	'requirements'  name =QualifiedName (':' title=STRING)? 
+GlobalRequirements returns Requirements:
+	{GlobalRequirements}'global''requirements'  name =QualifiedName (':' title=STRING)? 
 	('use' 'constants' importConstants+=[GlobalConstants|QualifiedName]+)?
 	'[' 
 	(
@@ -164,8 +164,7 @@ SystemRequirement returns Requirement:
 Requirement returns Requirement:
 	'requirement'  name=ID   
 	(':'  title=STRING)? 
-	( 'for'  (
-		componentCategory+=ComponentCategory+| global?='all')
+	( 'for'  (componentCategory+=ComponentCategory+| global?='all')
 	)?
 '['	(
  	('category'  category+=[categories::RequirementCategory|ID]+ )?

@@ -30,6 +30,7 @@ import static extension org.osate.alisa.common.util.CommonUtilExtension.*
 import static extension org.osate.reqspec.util.ReqSpecUtilExtension.*
 import org.osate.aadl2.ComponentCategory
 import org.osate.verify.verify.GlobalVerificationPlan
+import org.osate.verify.verify.SystemVerificationPlan
 
 @ImplementedBy(VerifyGlobalReferenceFinder)
 interface IVerifyGlobalReferenceFinder {
@@ -38,14 +39,14 @@ interface IVerifyGlobalReferenceFinder {
 	 * cc is the classifier that must be the same or an ancestor of the classifier referenced by the system requirements or the verification plan
 	 * context determines the resourceset into which the verification plans are loaded
 	 */
-	def Iterable<VerificationPlan> getVerificationPlans(ComponentClassifier cc ,EObject context);
+	def Iterable<SystemVerificationPlan> getVerificationPlans(ComponentClassifier cc ,EObject context);
 
 	/**
 	 * method to be used for scope creation as it does not use EReferences
 	 */
-	def Iterable<VerificationPlan> getVerificationPlanLibraries(EObject context);
+	def Iterable<GlobalVerificationPlan> getGlobalVerificationPlans(EObject context);
 	
-	def Iterable<VerificationPlan> getAllVerificationPlansForSystemRequirement(SystemRequirements sysReqs, EObject context);
+	def Iterable<SystemVerificationPlan> getAllVerificationPlansForSystemRequirement(SystemRequirements sysReqs, EObject context);
 }
 
 class VerifyGlobalReferenceFinder implements IVerifyGlobalReferenceFinder{
@@ -53,22 +54,22 @@ class VerifyGlobalReferenceFinder implements IVerifyGlobalReferenceFinder{
 	@Inject
 	var ICommonGlobalReferenceFinder refFinder
 		
-		override Iterable<VerificationPlan> getVerificationPlans(ComponentClassifier cc, EObject context){
-			return refFinder.getEObjectDescriptions(context, VerifyPackage.Literals.VERIFICATION_PLAN, "verify").map [ eod |
-			EcoreUtil.resolve(eod.EObjectOrProxy, context) as VerificationPlan].filter[vp|cc.isSameorExtends(vp.systemRequirements?.target)]
+		override Iterable<SystemVerificationPlan> getVerificationPlans(ComponentClassifier cc, EObject context){
+			return refFinder.getEObjectDescriptions(context, VerifyPackage.Literals.SYSTEM_VERIFICATION_PLAN, "verify").map [ eod |
+			EcoreUtil.resolve(eod.EObjectOrProxy, context) as SystemVerificationPlan].filter[svp|cc.isSameorExtends(svp.requirements.target)]
 	}
 		
 
 		
-		override Iterable<VerificationPlan> getVerificationPlanLibraries(EObject context){
+		override Iterable<GlobalVerificationPlan> getGlobalVerificationPlans(EObject context){
 			 refFinder.getEObjectDescriptions(context, VerifyPackage.Literals.GLOBAL_VERIFICATION_PLAN, "verify").map [ eod |
 			EcoreUtil.resolve(eod.EObjectOrProxy, context) as GlobalVerificationPlan]
 		
 		}
 
-		override Iterable<VerificationPlan> getAllVerificationPlansForSystemRequirement(SystemRequirements sysReqs, EObject context){
-			 refFinder.getEObjectDescriptions(context, VerifyPackage.Literals.VERIFICATION_PLAN, "verify").map [ eod |
-			EcoreUtil.resolve(eod.EObjectOrProxy, context) as VerificationPlan].filter[vp|vp.systemRequirements === sysReqs]
+		override Iterable<SystemVerificationPlan> getAllVerificationPlansForSystemRequirement(SystemRequirements sysReqs, EObject context){
+			 refFinder.getEObjectDescriptions(context, VerifyPackage.Literals.SYSTEM_VERIFICATION_PLAN, "verify").map [ eod |
+			EcoreUtil.resolve(eod.EObjectOrProxy, context) as SystemVerificationPlan].filter[vp|vp.requirements === sysReqs]
 		}
 
 }

@@ -14,8 +14,8 @@ AssurancePlan:
 	'['
 	(
 	(description=Description)?
-	& ('assure' 'own' assureOwn+=[Verify::VerificationPlan|QualifiedName]+)?
-	& ('assure' 'global' assureGlobal+=[Verify::VerificationPlan|QualifiedName]+)?
+	& ('assure' 'own' assureOwn+=[Verify::SystemVerificationPlan|QualifiedName]+)?
+	& ('assure' 'global' assureGlobal+=[Verify::GlobalVerificationPlan|QualifiedName]+)?
 	& ('assure' 'subsystem' 'plans' assureSubsystemPlans+=[AssurancePlan|QualifiedName]+)?
 	& ('assume' 'subsystems' (assumeSubsystems+=[aadl2::ComponentClassifier|AadlClassifierReference]+|assumeAll?='all'))?
 		& ('issues' issues+=STRING+ )?

@@ -31,6 +31,7 @@ import org.eclipse.xtext.validation.Issue
 import org.osate.alisa.workbench.alisa.AssurancePlan
 import org.osate.alisa.workbench.validation.AlisaValidator
 import org.osate.verify.verify.VerificationPlan
+import org.osate.verify.verify.SystemVerificationPlan
 
 //import org.eclipse.xtext.ui.editor.quickfix.Fix
 //import org.eclipse.xtext.ui.editor.quickfix.IssueResolutionAcceptor
@@ -69,7 +70,7 @@ class AlisaQuickfixProvider extends DefaultQuickfixProvider {
 						val ResourceSet resourceSet = element.eResource().getResourceSet()
 						val uris = issue.getData.indexed().filter([key % 2 == 1])
 						uris.forEach([uri |
-							assurancePlan.assureOwn.add(resourceSet.getEObject(URI.createURI(uri.value), true) as VerificationPlan)
+							assurancePlan.assureOwn.add(resourceSet.getEObject(URI.createURI(uri.value), true) as SystemVerificationPlan)
 						])
 					}
 				});

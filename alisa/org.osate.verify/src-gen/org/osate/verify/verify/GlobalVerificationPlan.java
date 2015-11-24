@@ -26,7 +26,7 @@ import org.osate.reqspec.reqSpec.GlobalRequirements;
  * The following features are supported:
  * </p>
  * <ul>
- *   <li>{@link org.osate.verify.verify.GlobalVerificationPlan#getRequirementLibrary <em>Requirement Library</em>}</li>
+ *   <li>{@link org.osate.verify.verify.GlobalVerificationPlan#getRequirements <em>Requirements</em>}</li>
  * </ul>
  *
  * @see org.osate.verify.verify.VerifyPackage#getGlobalVerificationPlan()
@@ -36,29 +36,29 @@ import org.osate.reqspec.reqSpec.GlobalRequirements;
 public interface GlobalVerificationPlan extends VerificationPlan
 {
   /**
-   * Returns the value of the '<em><b>Requirement Library</b></em>' reference.
+   * Returns the value of the '<em><b>Requirements</b></em>' reference.
    * <!-- begin-user-doc -->
    * <p>
-   * If the meaning of the '<em>Requirement Library</em>' reference isn't clear,
+   * If the meaning of the '<em>Requirements</em>' reference isn't clear,
    * there really should be more of a description here...
    * </p>
    * <!-- end-user-doc -->
-   * @return the value of the '<em>Requirement Library</em>' reference.
-   * @see #setRequirementLibrary(GlobalRequirements)
-   * @see org.osate.verify.verify.VerifyPackage#getGlobalVerificationPlan_RequirementLibrary()
+   * @return the value of the '<em>Requirements</em>' reference.
+   * @see #setRequirements(GlobalRequirements)
+   * @see org.osate.verify.verify.VerifyPackage#getGlobalVerificationPlan_Requirements()
    * @model
    * @generated
    */
-  GlobalRequirements getRequirementLibrary();
+  GlobalRequirements getRequirements();
 
   /**
-   * Sets the value of the '{@link org.osate.verify.verify.GlobalVerificationPlan#getRequirementLibrary <em>Requirement Library</em>}' reference.
+   * Sets the value of the '{@link org.osate.verify.verify.GlobalVerificationPlan#getRequirements <em>Requirements</em>}' reference.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @param value the new value of the '<em>Requirement Library</em>' reference.
-   * @see #getRequirementLibrary()
+   * @param value the new value of the '<em>Requirements</em>' reference.
+   * @see #getRequirements()
    * @generated
    */
-  void setRequirementLibrary(GlobalRequirements value);
+  void setRequirements(GlobalRequirements value);
 
 } // GlobalVerificationPlan

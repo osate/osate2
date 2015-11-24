@@ -40,7 +40,8 @@ import org.osate.alisa.common.common.Description;
 import org.osate.alisa.workbench.alisa.AlisaPackage;
 import org.osate.alisa.workbench.alisa.AssurancePlan;
 
-import org.osate.verify.verify.VerificationPlan;
+import org.osate.verify.verify.GlobalVerificationPlan;
+import org.osate.verify.verify.SystemVerificationPlan;
 
 /**
  * <!-- begin-user-doc -->
@@ -134,7 +135,7 @@ public class AssurancePlanImpl extends MinimalEObjectImpl.Container implements A
    * @generated
    * @ordered
    */
-  protected EList<VerificationPlan> assureOwn;
+  protected EList<SystemVerificationPlan> assureOwn;
 
   /**
    * The cached value of the '{@link #getAssureGlobal() <em>Assure Global</em>}' reference list.
@@ -144,7 +145,7 @@ public class AssurancePlanImpl extends MinimalEObjectImpl.Container implements A
    * @generated
    * @ordered
    */
-  protected EList<VerificationPlan> assureGlobal;
+  protected EList<GlobalVerificationPlan> assureGlobal;
 
   /**
    * The cached value of the '{@link #getAssureSubsystemPlans() <em>Assure Subsystem Plans</em>}' reference list.
@@ -359,11 +360,11 @@ public class AssurancePlanImpl extends MinimalEObjectImpl.Container implements A
    * <!-- end-user-doc -->
    * @generated
    */
-  public EList<VerificationPlan> getAssureOwn()
+  public EList<SystemVerificationPlan> getAssureOwn()
   {
     if (assureOwn == null)
     {
-      assureOwn = new EObjectResolvingEList<VerificationPlan>(VerificationPlan.class, this, AlisaPackage.ASSURANCE_PLAN__ASSURE_OWN);
+      assureOwn = new EObjectResolvingEList<SystemVerificationPlan>(SystemVerificationPlan.class, this, AlisaPackage.ASSURANCE_PLAN__ASSURE_OWN);
     }
     return assureOwn;
   }
@@ -373,11 +374,11 @@ public class AssurancePlanImpl extends MinimalEObjectImpl.Container implements A
    * <!-- end-user-doc -->
    * @generated
    */
-  public EList<VerificationPlan> getAssureGlobal()
+  public EList<GlobalVerificationPlan> getAssureGlobal()
   {
     if (assureGlobal == null)
     {
-      assureGlobal = new EObjectResolvingEList<VerificationPlan>(VerificationPlan.class, this, AlisaPackage.ASSURANCE_PLAN__ASSURE_GLOBAL);
+      assureGlobal = new EObjectResolvingEList<GlobalVerificationPlan>(GlobalVerificationPlan.class, this, AlisaPackage.ASSURANCE_PLAN__ASSURE_GLOBAL);
     }
     return assureGlobal;
   }
@@ -523,11 +524,11 @@ public class AssurancePlanImpl extends MinimalEObjectImpl.Container implements A
         return;
       case AlisaPackage.ASSURANCE_PLAN__ASSURE_OWN:
         getAssureOwn().clear();
-        getAssureOwn().addAll((Collection<? extends VerificationPlan>)newValue);
+        getAssureOwn().addAll((Collection<? extends SystemVerificationPlan>)newValue);
         return;
       case AlisaPackage.ASSURANCE_PLAN__ASSURE_GLOBAL:
         getAssureGlobal().clear();
-        getAssureGlobal().addAll((Collection<? extends VerificationPlan>)newValue);
+        getAssureGlobal().addAll((Collection<? extends GlobalVerificationPlan>)newValue);
         return;
       case AlisaPackage.ASSURANCE_PLAN__ASSURE_SUBSYSTEM_PLANS:
         getAssureSubsystemPlans().clear();

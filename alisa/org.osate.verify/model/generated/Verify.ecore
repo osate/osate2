@@ -9,7 +9,6 @@
   <eClassifiers xsi:type="ecore:EClass" name="VerificationPlan">
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" eType="ecore:EDataType platform:/resource/org.eclipse.emf.ecore/model/Ecore.ecore#//EString"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="title" eType="ecore:EDataType platform:/resource/org.eclipse.emf.ecore/model/Ecore.ecore#//EString"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="systemRequirements" eType="ecore:EClass platform:/resource/org.osate.reqspec/model/generated/ReqSpec.ecore#//SystemRequirements"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="description" eType="ecore:EClass platform:/resource/org.osate.alisa.common/model/generated/Common.ecore#//Description"
         containment="true"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="claim" upperBound="-1"
@@ -100,8 +99,11 @@
   <eClassifiers xsi:type="ecore:EClass" name="PluginMethod" eSuperTypes="#//MethodType">
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="methodID" eType="ecore:EDataType platform:/resource/org.eclipse.emf.ecore/model/Ecore.ecore#//EString"/>
   </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="SystemVerificationPlan" eSuperTypes="#//VerificationPlan">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="requirements" eType="ecore:EClass platform:/resource/org.osate.reqspec/model/generated/ReqSpec.ecore#//SystemRequirements"/>
+  </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="GlobalVerificationPlan" eSuperTypes="#//VerificationPlan">
-    <eStructuralFeatures xsi:type="ecore:EReference" name="requirementLibrary" eType="ecore:EClass platform:/resource/org.osate.reqspec/model/generated/ReqSpec.ecore#//GlobalRequirements"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="requirements" eType="ecore:EClass platform:/resource/org.osate.reqspec/model/generated/ReqSpec.ecore#//GlobalRequirements"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="ThenExpr" eSuperTypes="#//ArgumentExpr">
     <eStructuralFeatures xsi:type="ecore:EReference" name="left" eType="#//ArgumentExpr"

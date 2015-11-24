@@ -162,6 +162,15 @@ public interface VerifyFactory extends EFactory
   PluginMethod createPluginMethod();
 
   /**
+   * Returns a new object of class '<em>System Verification Plan</em>'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return a new object of class '<em>System Verification Plan</em>'.
+   * @generated
+   */
+  SystemVerificationPlan createSystemVerificationPlan();
+
+  /**
    * Returns a new object of class '<em>Global Verification Plan</em>'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->

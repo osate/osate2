@@ -34,6 +34,8 @@ import static extension org.eclipse.emf.ecore.util.EcoreUtil.*
 import static extension org.eclipse.xtext.EcoreUtil2.*
 import org.osate.categories.categories.Category
 import org.osate.verify.verify.VerificationMethod
+import org.osate.verify.verify.GlobalVerificationPlan
+import org.osate.verify.verify.SystemVerificationPlan
 
 class VerifyUtilExtension {
 
@@ -68,20 +70,28 @@ class VerifyUtilExtension {
 		cee.error != null 
 	}
 	
-	def static ComponentClassifier getTargetComponentClassifier(VerificationPlan vp){
-		vp.systemRequirements?.target
+	def static ComponentClassifier getTargetComponentClassifier(SystemVerificationPlan vp){
+		vp.requirements?.target
 	}
 	
 	def static containingVerificationPlan(EObject sh) {
-		sh.getContainerOfType(VerificationPlan)
+		sh.getContainerOfType(VerificationPlan)?:sh.getContainerOfType(GlobalVerificationPlan)
 	}
 	
 	def static getContainingClaim(EObject sh) {
 		sh.getContainerOfType(Claim)
+		
 	}
 	
 	def static getContainingVerificationMethod(EObject sh) {
 		sh.getContainerOfType(VerificationMethod)
+	}
+	
+	def static getRequirements(VerificationPlan vp) {
+		switch (vp){
+			SystemVerificationPlan: vp.requirements
+			GlobalVerificationPlan: vp.requirements
+		}
 	}
 	
 

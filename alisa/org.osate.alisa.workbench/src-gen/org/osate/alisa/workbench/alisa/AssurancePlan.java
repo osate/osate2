@@ -24,7 +24,8 @@ import org.osate.aadl2.ComponentImplementation;
 
 import org.osate.alisa.common.common.Description;
 
-import org.osate.verify.verify.VerificationPlan;
+import org.osate.verify.verify.GlobalVerificationPlan;
+import org.osate.verify.verify.SystemVerificationPlan;
 
 /**
  * <!-- begin-user-doc -->
@@ -159,7 +160,7 @@ public interface AssurancePlan extends EObject
 
   /**
    * Returns the value of the '<em><b>Assure Own</b></em>' reference list.
-   * The list contents are of type {@link org.osate.verify.verify.VerificationPlan}.
+   * The list contents are of type {@link org.osate.verify.verify.SystemVerificationPlan}.
    * <!-- begin-user-doc -->
    * <p>
    * If the meaning of the '<em>Assure Own</em>' reference list isn't clear,
@@ -171,11 +172,11 @@ public interface AssurancePlan extends EObject
    * @model
    * @generated
    */
-  EList<VerificationPlan> getAssureOwn();
+  EList<SystemVerificationPlan> getAssureOwn();
 
   /**
    * Returns the value of the '<em><b>Assure Global</b></em>' reference list.
-   * The list contents are of type {@link org.osate.verify.verify.VerificationPlan}.
+   * The list contents are of type {@link org.osate.verify.verify.GlobalVerificationPlan}.
    * <!-- begin-user-doc -->
    * <p>
    * If the meaning of the '<em>Assure Global</em>' reference list isn't clear,
@@ -187,7 +188,7 @@ public interface AssurancePlan extends EObject
    * @model
    * @generated
    */
-  EList<VerificationPlan> getAssureGlobal();
+  EList<GlobalVerificationPlan> getAssureGlobal();
 
   /**
    * Returns the value of the '<em><b>Assure Subsystem Plans</b></em>' reference list.

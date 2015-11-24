@@ -166,7 +166,7 @@ public class AlisaSyntacticSequencer extends AbstractSyntacticSequencer {
 	 *     ('assure' 'own')?
 	 *
 	 * This ambiguous syntax occurs at:
-	 *     assureOwn+=[VerificationPlan|QualifiedName] (ambiguity) assureOwn+=[VerificationPlan|QualifiedName]
+	 *     assureOwn+=[SystemVerificationPlan|QualifiedName] (ambiguity) assureOwn+=[SystemVerificationPlan|QualifiedName]
 	 */
 	protected void emit_AssurancePlan___AssureKeyword_7_1_0_OwnKeyword_7_1_1__q(EObject semanticObject, ISynNavigable transition, List<INode> nodes) {
 		acceptNodes(transition, nodes);
@@ -177,7 +177,7 @@ public class AlisaSyntacticSequencer extends AbstractSyntacticSequencer {
 	 *     ('assure' 'global')?
 	 *
 	 * This ambiguous syntax occurs at:
-	 *     assureGlobal+=[VerificationPlan|QualifiedName] (ambiguity) assureGlobal+=[VerificationPlan|QualifiedName]
+	 *     assureGlobal+=[GlobalVerificationPlan|QualifiedName] (ambiguity) assureGlobal+=[GlobalVerificationPlan|QualifiedName]
 	 */
 	protected void emit_AssurancePlan___AssureKeyword_7_2_0_GlobalKeyword_7_2_1__q(EObject semanticObject, ISynNavigable transition, List<INode> nodes) {
 		acceptNodes(transition, nodes);

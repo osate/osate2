@@ -42,6 +42,7 @@ import org.osate.categories.categories.MethodCategory
 import org.osate.categories.categories.QualityCategory
 import org.osate.categories.categories.SelectionCategory
 import org.osate.categories.categories.PhaseCategory
+import org.osate.verify.verify.SystemVerificationPlan
 
 /**
  * Custom validation rules. 
@@ -107,9 +108,10 @@ class VerifyValidator extends AbstractVerifyValidator {
 					VerifyPackage.Literals.CLAIM__REQUIREMENT,
 					CLAIM_MISSING_REQUIREMENT)
 		}else{
-			if(!containingVerificationPlan(cl).systemRequirements.content.contains(cl.requirement)){
+			val sysreqs = getRequirements(containingVerificationPlan(cl))
+			if(!sysreqs.content.contains(cl.requirement)){
 				error('Requirement ' + cl.requirement.name + ' does not exist in ' + 
-					containingVerificationPlan(cl).systemRequirements.name + '.', cl, VerifyPackage.Literals.CLAIM__REQUIREMENT,
+					sysreqs.name + '.', cl, VerifyPackage.Literals.CLAIM__REQUIREMENT,
 					CLAIM_INVALID_REQUIREMENT
 				)
 			}
@@ -118,7 +120,7 @@ class VerifyValidator extends AbstractVerifyValidator {
 	
 	@Check (CheckType.NORMAL)
 	def checkClaimsForRequirement(VerificationPlan vp){
-		val systemRequirements = vp.systemRequirements
+		val systemRequirements = getRequirements(vp)
 		val requirements = systemRequirements.content
 		requirements.forEach[req | 
 			if( !vp.claim.exists[claim | claim.requirement === req]){
@@ -165,13 +167,13 @@ class VerifyValidator extends AbstractVerifyValidator {
 	}
 	
 	@Check(CheckType.NORMAL)
-	def void checkVerificationPlanUniqueToComponentClassifier(VerificationPlan vp) {
-		val sysReq = vp.systemRequirements
+	def void checkVerificationPlanUniqueToComponentClassifier(SystemVerificationPlan vp) {
+		val sysReq = vp.requirements
 		val vps = verifyGlobalRefFinder.getAllVerificationPlansForSystemRequirement(sysReq, vp)
 		if (vps.size > 1){
 			error("Other Verification Plans exist for '" +  sysReq.name + 
 								"'. Only one Verification Plans is allowed for a specific System Requirements." , vp,  
-								VerifyPackage.Literals.VERIFICATION_PLAN__SYSTEM_REQUIREMENTS)
+								VerifyPackage.Literals.SYSTEM_VERIFICATION_PLAN__REQUIREMENTS)
 		}
 	}
 

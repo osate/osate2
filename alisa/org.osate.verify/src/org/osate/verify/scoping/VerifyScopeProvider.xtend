@@ -39,7 +39,7 @@ import org.osate.verify.verify.ResoluteMethod
 import org.osate.verify.verify.VerificationActivity
 
 import static org.osate.reqspec.util.ReqSpecUtilExtension.*
-import static org.osate.verify.util.VerifyUtilExtension.*
+import static extension org.osate.verify.util.VerifyUtilExtension.*
 
 /**
  * This class contains custom scoping description.
@@ -68,7 +68,7 @@ class VerifyScopeProvider extends CommonScopeProvider {
 
 	def scope_Claim_requirement(Claim context, EReference reference) {
 		var result = delegateGetScope(context, reference)
-		val forSystemRequirements = containingVerificationPlan(context).systemRequirements
+		val forSystemRequirements = (containingVerificationPlan(context)).getRequirements
 		if (!forSystemRequirements.content.empty) {
 			result = new SimpleScope(result,
 				Scopes::scopedElementsFor(forSystemRequirements.content,

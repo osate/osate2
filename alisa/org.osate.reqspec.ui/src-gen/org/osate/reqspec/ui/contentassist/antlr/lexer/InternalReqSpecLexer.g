@@ -98,6 +98,8 @@ Virtual : 'virtual';
 
 Device : 'device';
 
+Global : 'global';
+
 Issues : 'issues';
 
 Memory : 'memory';

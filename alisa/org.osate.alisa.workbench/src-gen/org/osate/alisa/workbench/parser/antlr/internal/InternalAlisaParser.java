@@ -744,7 +744,7 @@ public class InternalAlisaParser extends AbstractInternalAntlrParser {
             	    	    }
             	    	    if ( state.backtracking==0 ) {
             	    	       
-            	    	      	        newCompositeNode(grammarAccess.getAssurancePlanAccess().getAssureOwnVerificationPlanCrossReference_7_1_2_0()); 
+            	    	      	        newCompositeNode(grammarAccess.getAssurancePlanAccess().getAssureOwnSystemVerificationPlanCrossReference_7_1_2_0()); 
             	    	      	    
             	    	    }
             	    	    pushFollow(FOLLOW_ruleQualifiedName_in_ruleAssurancePlan522);
@@ -854,7 +854,7 @@ public class InternalAlisaParser extends AbstractInternalAntlrParser {
             	    	    }
             	    	    if ( state.backtracking==0 ) {
             	    	       
-            	    	      	        newCompositeNode(grammarAccess.getAssurancePlanAccess().getAssureGlobalVerificationPlanCrossReference_7_2_2_0()); 
+            	    	      	        newCompositeNode(grammarAccess.getAssurancePlanAccess().getAssureGlobalGlobalVerificationPlanCrossReference_7_2_2_0()); 
             	    	      	    
             	    	    }
             	    	    pushFollow(FOLLOW_ruleQualifiedName_in_ruleAssurancePlan626);

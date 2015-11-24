@@ -31,6 +31,7 @@ import java.util.ArrayList
 import org.osate.categories.categories.CategoriesPackage
 import org.osate.verify.verify.VerificationActivity
 import org.osate.verify.verify.VerificationMethod
+import static extension org.osate.verify.util.VerifyUtilExtension.*
 
 /**
  * see http://www.eclipse.org/Xtext/documentation.html#contentAssist on how to customize content assistant
@@ -40,7 +41,7 @@ class VerifyProposalProvider extends AbstractVerifyProposalProvider {
 	override void completeClaim_Requirement(EObject model, Assignment assignment, ContentAssistContext context,
 		ICompletionProposalAcceptor acceptor) {
 		// filter scope to only include requirements that exist in system requirement of verification plan
-		val forSystemRequirements = (model.eContainer as VerificationPlan).systemRequirements
+		val forSystemRequirements = (model.eContainer as VerificationPlan).getRequirements
 		val ArrayList<EObject> nameList = newArrayList();
 		lookupCrossReference(assignment.getTerminal() as CrossReference, context, acceptor, [
 			val proposedObj = EcoreUtil.resolve(EObjectOrProxy, model) // Gets all Requirements from Loose Scope

@@ -85,8 +85,7 @@ public class ReqSpecFactoryImpl extends EFactoryImpl implements ReqSpecFactory
       case ReqSpecPackage.STAKEHOLDER_GOALS: return createStakeholderGoals();
       case ReqSpecPackage.REQ_DOCUMENT: return createReqDocument();
       case ReqSpecPackage.DOCUMENT_SECTION: return createDocumentSection();
-      case ReqSpecPackage.SYSTEM_REQUIREMENTS: return createSystemRequirements();
-      case ReqSpecPackage.GLOBAL_REQUIREMENTS: return createGlobalRequirements();
+      case ReqSpecPackage.REQUIREMENTS: return createRequirements();
       case ReqSpecPackage.GOAL: return createGoal();
       case ReqSpecPackage.REQUIREMENT: return createRequirement();
       case ReqSpecPackage.REQ_PREDICATE: return createReqPredicate();
@@ -94,6 +93,8 @@ public class ReqSpecFactoryImpl extends EFactoryImpl implements ReqSpecFactory
       case ReqSpecPackage.PREDICATE: return createPredicate();
       case ReqSpecPackage.VALUE_PREDICATE: return createValuePredicate();
       case ReqSpecPackage.EXTERNAL_DOCUMENT: return createExternalDocument();
+      case ReqSpecPackage.SYSTEM_REQUIREMENTS: return createSystemRequirements();
+      case ReqSpecPackage.GLOBAL_REQUIREMENTS: return createGlobalRequirements();
       default:
         throw new IllegalArgumentException("The class '" + eClass.getName() + "' is not a valid classifier");
     }
@@ -192,21 +193,10 @@ public class ReqSpecFactoryImpl extends EFactoryImpl implements ReqSpecFactory
    * <!-- end-user-doc -->
    * @generated
    */
-  public SystemRequirements createSystemRequirements()
+  public Requirements createRequirements()
   {
-    SystemRequirementsImpl systemRequirements = new SystemRequirementsImpl();
-    return systemRequirements;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public GlobalRequirements createGlobalRequirements()
-  {
-    GlobalRequirementsImpl globalRequirements = new GlobalRequirementsImpl();
-    return globalRequirements;
+    RequirementsImpl requirements = new RequirementsImpl();
+    return requirements;
   }
 
   /**
@@ -284,6 +274,28 @@ public class ReqSpecFactoryImpl extends EFactoryImpl implements ReqSpecFactory
   {
     ExternalDocumentImpl externalDocument = new ExternalDocumentImpl();
     return externalDocument;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public SystemRequirements createSystemRequirements()
+  {
+    SystemRequirementsImpl systemRequirements = new SystemRequirementsImpl();
+    return systemRequirements;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public GlobalRequirements createGlobalRequirements()
+  {
+    GlobalRequirementsImpl globalRequirements = new GlobalRequirementsImpl();
+    return globalRequirements;
   }
 
   /**

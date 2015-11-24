@@ -53,6 +53,7 @@ import org.osate.categories.categories.RequirementCategory
 import org.osate.categories.categories.QualityCategory
 import org.osate.categories.categories.SelectionCategory
 import org.osate.reqspec.reqSpec.GlobalRequirements
+import org.osate.reqspec.reqSpec.Requirements
 
 /**
  * Custom validation rules. 
@@ -69,10 +70,8 @@ class ReqSpecValidator extends AbstractReqSpecValidator {
   public static val DUPLICATE_STAKEHOLDER_GOALS = 'org.osate.reqspec.validation.duplicate.stakeholdergoals'
   public static val REQSPEC_FOR_DIFFERS_FROM_STAKEHOLDERGOALS_FOR = 'org.osate.reqspec.validation.reqspec.for.differs.from.stakeholdergoals.for'
   public static val GOAL_REFERENCE_NOT_FOUND = 'org.osate.reqspec.validation.goal.reference.not.found'
-  public static val DUPLICATE_SYSTEM_REQUIREMENTS = 'org.osate.reqspec.validation.duplicate.system.requirements'
-  public static val DUPLICATE_REQUIREMENT_WITHIN_SYSTEM_REQUIREMENTS = 'org.osate.reqspec.validation.duplicate.requirement.within.system.requirements'
-  public static val DUPLICATE_REQUIREMENT_LIBRARY = 'org.osate.reqspec.validation.duplicate.requirement.library'
-  public static val DUPLICATE_REQUIREMENT_WITHIN_REQUIREMENT_LIBRARY = 'org.osate.reqspec.validation.duplicate.requirement.within.requirement.library'
+  public static val DUPLICATE_REQUIREMENTS = 'org.osate.reqspec.validation.duplicate.requirements'
+  public static val DUPLICATE_REQUIREMENT_WITHIN_REQUIREMENTS = 'org.osate.reqspec.validation.duplicate.requirement.within.requirements'
   public static val CYCLE_IN_GOAL_REFINE_HIERARCHY = 'org.osate.reqspec.validation.cycle.in.goal.refine.hierarchy'
   public static val CYCLE_IN_REQUIREMENT_REFINE_HIERARCHY = 'org.osate.reqspec.validation.cycle.in.requirement.refine.hierarchy'
   public static val ILLEGAL_OBJECT_FOR_FILETYPE_IN_DOCUMENTSECTION = 'org.osate.reqspec.validation.illegal.object.for.filetype.in.documentsection'
@@ -147,7 +146,7 @@ class ReqSpecValidator extends AbstractReqSpecValidator {
 		if (!fealist.empty){
 			val fls = sysreqs.content.map[name].reduce[p1, p2| p1 + ' ' + p2]
 			warning('Features without requirement: '+fls, 
-					ReqSpecPackage.Literals.SYSTEM_REQUIREMENTS__CONTENT,
+					ReqSpecPackage.Literals.REQUIREMENTS__CONTENT,
 					FEATURES_WITHOUT_REQUIREMENT)
 		}
 	}
@@ -178,43 +177,22 @@ class ReqSpecValidator extends AbstractReqSpecValidator {
 	}
 	
 	@Check(CheckType.NORMAL)
-	def void checkDuplicateSystemRequirements(SystemRequirements sysReq) {
+	def void checkDuplicateRequirements(Requirements sysReq) {
 		val dupes = refFinder.getDuplicates(sysReq)
 			if (dupes.size > 0) {
 				val node = NodeModelUtils.getNode(sysReq);
-				error("Duplicate System Requirements name '" + sysReq.name + "'",  
-					sysReq, ReqSpecPackage.Literals.SYSTEM_REQUIREMENTS__NAME,
-					DUPLICATE_SYSTEM_REQUIREMENTS, "" + node.offset, "" + node.length)
+				error("Duplicate Requirements name '" + sysReq.name + "'",  
+					sysReq, ReqSpecPackage.Literals.REQUIREMENTS__NAME,
+					DUPLICATE_REQUIREMENTS, "" + node.offset, "" + node.length)
 			}
 	}
 	@Check(CheckType.NORMAL)
-	def void checkDuplicateRequirement(SystemRequirements sysReq) {
+	def void checkDuplicateRequirement(Requirements sysReq) {
 		sysReq.content.forEach[requirement | 
 			if (sysReq.content.filter[name == requirement.name].size > 1) 
-				error("Duplicate requirement name '" + requirement.name + "' in system requirements '" + sysReq.name + "'",  
+				error("Duplicate requirement name '" + requirement.name + "' in requirements '" + sysReq.name + "'",  
 					requirement, ReqSpecPackage.Literals.CONTRACTUAL_ELEMENT__NAME,
-					DUPLICATE_REQUIREMENT_WITHIN_REQUIREMENT_LIBRARY, EcoreUtil.getURI(sysReq).toString()
-				)
-		] 
-	}
-	
-	@Check(CheckType.NORMAL)
-	def void checkDuplicateRequirementLibrary(GlobalRequirements reqLib) {
-		val dupes = refFinder.getDuplicates(reqLib)
-			if (dupes.size > 0) {
-				val node = NodeModelUtils.getNode(reqLib);
-				error("Duplicate requirement library name '" + reqLib.name + "'",  
-					reqLib, ReqSpecPackage.Literals.GLOBAL_REQUIREMENTS__NAME,
-					DUPLICATE_REQUIREMENT_LIBRARY, "" + node.offset, "" + node.length)
-			}
-	}
-	@Check(CheckType.NORMAL)
-	def void checkDuplicateRequirement(GlobalRequirements reqLib) {
-		reqLib.content.forEach[requirement | 
-			if (reqLib.content.filter[name == requirement.name].size > 1) 
-				error("Duplicate requirement name '" + requirement.name + "' in requirement library '" + reqLib.name + "'",  
-					requirement, ReqSpecPackage.Literals.CONTRACTUAL_ELEMENT__NAME,
-					DUPLICATE_REQUIREMENT_WITHIN_SYSTEM_REQUIREMENTS, EcoreUtil.getURI(reqLib).toString()
+					DUPLICATE_REQUIREMENT_WITHIN_REQUIREMENTS, EcoreUtil.getURI(sysReq).toString()
 				)
 		] 
 	}
@@ -324,9 +302,10 @@ class ReqSpecValidator extends AbstractReqSpecValidator {
 				parts.forEach[part |
 					switch part {
 						SystemRequirements : {}
-						StakeholderGoals : fileTypeWarning(fileExt, "stakeholder goal", part)	
+						GlobalRequirements : {}
+						StakeholderGoals : fileTypeWarning(fileExt, "stakeholder goals", part)	
 						ReqDocument : fileTypeWarning(fileExt, "document", part)	
-						GlobalConstants : fileTypeWarning(fileExt, "constant", part)
+						GlobalConstants : fileTypeWarning(fileExt, "constants", part)
 						default : fileTypeWarning(fileExt, part.class.name, part)
 					}
 				]
@@ -335,9 +314,9 @@ class ReqSpecValidator extends AbstractReqSpecValidator {
 				parts.forEach[part |
 					switch part {
 						StakeholderGoals : {}
-						SystemRequirements : fileTypeWarning(fileExt, "system requirement", part)	
+						SystemRequirements : fileTypeWarning(fileExt, "system requirements", part)	
 						ReqDocument : fileTypeWarning(fileExt, "document", part)	
-						GlobalConstants : fileTypeWarning(fileExt, "constant", part)
+						GlobalConstants : fileTypeWarning(fileExt, "constants", part)
 						default : fileTypeWarning(fileExt, part.class.name, part)
 					}
 				]
@@ -356,9 +335,10 @@ class ReqSpecValidator extends AbstractReqSpecValidator {
 								}
 							]
 						}	
-						SystemRequirements : fileTypeWarning(fileExt, "system requirement", part)	
-						GlobalConstants : fileTypeWarning(fileExt, "constant", part)
-						StakeholderGoals : fileTypeWarning(fileExt, "stakeholder goal", part)	
+						SystemRequirements : fileTypeWarning(fileExt, "system requirements", part)	
+						GlobalRequirements : fileTypeWarning(fileExt, "global requirements", part)	
+						GlobalConstants : fileTypeWarning(fileExt, "constants", part)
+						StakeholderGoals : fileTypeWarning(fileExt, "stakeholder goals", part)	
 						default : fileTypeWarning(fileExt, part.class.name, part)
 					}
 				]
@@ -377,9 +357,10 @@ class ReqSpecValidator extends AbstractReqSpecValidator {
 								}
 							]
 						}	
-						SystemRequirements : fileTypeWarning(fileExt, "system requirement", part)	
-						GlobalConstants : fileTypeWarning(fileExt, "constant", part)
-						StakeholderGoals : fileTypeWarning(fileExt, "stakeholder goal", part)	
+						SystemRequirements : fileTypeWarning(fileExt, "system requirements", part)	
+						GlobalRequirements : fileTypeWarning(fileExt, "global requirements", part)	
+						GlobalConstants : fileTypeWarning(fileExt, "constants", part)
+						StakeholderGoals : fileTypeWarning(fileExt, "stakeholder goals", part)	
 						default : fileTypeWarning(fileExt, part.class.name, part)
 					}
 				]
@@ -388,8 +369,9 @@ class ReqSpecValidator extends AbstractReqSpecValidator {
 				parts.forEach[part |
 					switch part {
 						GlobalConstants : {}
-						SystemRequirements : fileTypeWarning(fileExt, "system requirement", part)	
-						StakeholderGoals : fileTypeWarning(fileExt, "stakeholder goal", part)	
+						SystemRequirements : fileTypeWarning(fileExt, "system requirements", part)	
+						GlobalRequirements : fileTypeWarning(fileExt, "global requirements", part)	
+						StakeholderGoals : fileTypeWarning(fileExt, "stakeholder goals", part)	
 						ReqDocument : fileTypeWarning(fileExt, "document", part)	
 						default : fileTypeWarning(fileExt, part.class.name, part)
 					}

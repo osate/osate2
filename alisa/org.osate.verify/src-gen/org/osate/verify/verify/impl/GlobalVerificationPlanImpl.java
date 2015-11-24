@@ -35,7 +35,7 @@ import org.osate.verify.verify.VerifyPackage;
  * The following features are implemented:
  * </p>
  * <ul>
- *   <li>{@link org.osate.verify.verify.impl.GlobalVerificationPlanImpl#getRequirementLibrary <em>Requirement Library</em>}</li>
+ *   <li>{@link org.osate.verify.verify.impl.GlobalVerificationPlanImpl#getRequirements <em>Requirements</em>}</li>
  * </ul>
  *
  * @generated
@@ -43,14 +43,14 @@ import org.osate.verify.verify.VerifyPackage;
 public class GlobalVerificationPlanImpl extends VerificationPlanImpl implements GlobalVerificationPlan
 {
   /**
-   * The cached value of the '{@link #getRequirementLibrary() <em>Requirement Library</em>}' reference.
+   * The cached value of the '{@link #getRequirements() <em>Requirements</em>}' reference.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @see #getRequirementLibrary()
+   * @see #getRequirements()
    * @generated
    * @ordered
    */
-  protected GlobalRequirements requirementLibrary;
+  protected GlobalRequirements requirements;
 
   /**
    * <!-- begin-user-doc -->
@@ -78,19 +78,19 @@ public class GlobalVerificationPlanImpl extends VerificationPlanImpl implements 
    * <!-- end-user-doc -->
    * @generated
    */
-  public GlobalRequirements getRequirementLibrary()
+  public GlobalRequirements getRequirements()
   {
-    if (requirementLibrary != null && requirementLibrary.eIsProxy())
+    if (requirements != null && requirements.eIsProxy())
     {
-      InternalEObject oldRequirementLibrary = (InternalEObject)requirementLibrary;
-      requirementLibrary = (GlobalRequirements)eResolveProxy(oldRequirementLibrary);
-      if (requirementLibrary != oldRequirementLibrary)
+      InternalEObject oldRequirements = (InternalEObject)requirements;
+      requirements = (GlobalRequirements)eResolveProxy(oldRequirements);
+      if (requirements != oldRequirements)
       {
         if (eNotificationRequired())
-          eNotify(new ENotificationImpl(this, Notification.RESOLVE, VerifyPackage.GLOBAL_VERIFICATION_PLAN__REQUIREMENT_LIBRARY, oldRequirementLibrary, requirementLibrary));
+          eNotify(new ENotificationImpl(this, Notification.RESOLVE, VerifyPackage.GLOBAL_VERIFICATION_PLAN__REQUIREMENTS, oldRequirements, requirements));
       }
     }
-    return requirementLibrary;
+    return requirements;
   }
 
   /**
@@ -98,9 +98,9 @@ public class GlobalVerificationPlanImpl extends VerificationPlanImpl implements 
    * <!-- end-user-doc -->
    * @generated
    */
-  public GlobalRequirements basicGetRequirementLibrary()
+  public GlobalRequirements basicGetRequirements()
   {
-    return requirementLibrary;
+    return requirements;
   }
 
   /**
@@ -108,12 +108,12 @@ public class GlobalVerificationPlanImpl extends VerificationPlanImpl implements 
    * <!-- end-user-doc -->
    * @generated
    */
-  public void setRequirementLibrary(GlobalRequirements newRequirementLibrary)
+  public void setRequirements(GlobalRequirements newRequirements)
   {
-    GlobalRequirements oldRequirementLibrary = requirementLibrary;
-    requirementLibrary = newRequirementLibrary;
+    GlobalRequirements oldRequirements = requirements;
+    requirements = newRequirements;
     if (eNotificationRequired())
-      eNotify(new ENotificationImpl(this, Notification.SET, VerifyPackage.GLOBAL_VERIFICATION_PLAN__REQUIREMENT_LIBRARY, oldRequirementLibrary, requirementLibrary));
+      eNotify(new ENotificationImpl(this, Notification.SET, VerifyPackage.GLOBAL_VERIFICATION_PLAN__REQUIREMENTS, oldRequirements, requirements));
   }
 
   /**
@@ -126,9 +126,9 @@ public class GlobalVerificationPlanImpl extends VerificationPlanImpl implements 
   {
     switch (featureID)
     {
-      case VerifyPackage.GLOBAL_VERIFICATION_PLAN__REQUIREMENT_LIBRARY:
-        if (resolve) return getRequirementLibrary();
-        return basicGetRequirementLibrary();
+      case VerifyPackage.GLOBAL_VERIFICATION_PLAN__REQUIREMENTS:
+        if (resolve) return getRequirements();
+        return basicGetRequirements();
     }
     return super.eGet(featureID, resolve, coreType);
   }
@@ -143,8 +143,8 @@ public class GlobalVerificationPlanImpl extends VerificationPlanImpl implements 
   {
     switch (featureID)
     {
-      case VerifyPackage.GLOBAL_VERIFICATION_PLAN__REQUIREMENT_LIBRARY:
-        setRequirementLibrary((GlobalRequirements)newValue);
+      case VerifyPackage.GLOBAL_VERIFICATION_PLAN__REQUIREMENTS:
+        setRequirements((GlobalRequirements)newValue);
         return;
     }
     super.eSet(featureID, newValue);
@@ -160,8 +160,8 @@ public class GlobalVerificationPlanImpl extends VerificationPlanImpl implements 
   {
     switch (featureID)
     {
-      case VerifyPackage.GLOBAL_VERIFICATION_PLAN__REQUIREMENT_LIBRARY:
-        setRequirementLibrary((GlobalRequirements)null);
+      case VerifyPackage.GLOBAL_VERIFICATION_PLAN__REQUIREMENTS:
+        setRequirements((GlobalRequirements)null);
         return;
     }
     super.eUnset(featureID);
@@ -177,8 +177,8 @@ public class GlobalVerificationPlanImpl extends VerificationPlanImpl implements 
   {
     switch (featureID)
     {
-      case VerifyPackage.GLOBAL_VERIFICATION_PLAN__REQUIREMENT_LIBRARY:
-        return requirementLibrary != null;
+      case VerifyPackage.GLOBAL_VERIFICATION_PLAN__REQUIREMENTS:
+        return requirements != null;
     }
     return super.eIsSet(featureID);
   }

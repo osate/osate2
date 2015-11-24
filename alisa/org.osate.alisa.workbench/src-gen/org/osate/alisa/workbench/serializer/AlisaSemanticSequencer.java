@@ -155,8 +155,8 @@ public class AlisaSemanticSequencer extends CommonSemanticSequencer {
 	 *         title=STRING? 
 	 *         target=[ComponentImplementation|AadlClassifierReference] 
 	 *         description=Description? 
-	 *         assureOwn+=[VerificationPlan|QualifiedName]* 
-	 *         assureGlobal+=[VerificationPlan|QualifiedName]* 
+	 *         assureOwn+=[SystemVerificationPlan|QualifiedName]* 
+	 *         assureGlobal+=[GlobalVerificationPlan|QualifiedName]* 
 	 *         assureSubsystemPlans+=[AssurancePlan|QualifiedName]* 
 	 *         (assumeSubsystems+=[ComponentClassifier|AadlClassifierReference]+ | assumeAll?='all')? 
 	 *         issues+=STRING*

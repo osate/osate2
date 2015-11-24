@@ -48,6 +48,8 @@ import org.osate.verify.verify.VerificationPlan
 import static extension org.osate.alisa.common.util.CommonUtilExtension.*
 import static extension org.osate.reqspec.util.ReqSpecUtilExtension.*
 import static extension org.osate.verify.util.VerifyUtilExtension.*
+import org.osate.verify.verify.GlobalVerificationPlan
+import org.osate.verify.verify.SystemVerificationPlan
 
 /**
  * Generates code from your model files on save.
@@ -79,7 +81,7 @@ class AlisaGenerator implements IGenerator {
 		at.assurancePlan?.generateRootCase
 	}
 	
-	var Iterable<VerificationPlan> allPlans = null
+	var Iterable<GlobalVerificationPlan> allPlans = null
 
 	def generateFullRootCase(AssurancePlan acp) {
 		filter = Collections.EMPTY_LIST
@@ -89,7 +91,7 @@ class AlisaGenerator implements IGenerator {
 
 	def generateRootCase(AssurancePlan acp) {
 		if (acp.assureGlobal.isEmpty){
-			allPlans = referenceFinder.getVerificationPlanLibraries(acp)
+			allPlans = referenceFinder.getGlobalVerificationPlans(acp)
 		} else {
 			allPlans = acp.assureGlobal
 		}
@@ -122,7 +124,7 @@ class AlisaGenerator implements IGenerator {
 	 * they can both be set, in this case acp takes precedence
 	 */
 	def CharSequence generateCase(AssurancePlan acp, Subcomponent sub){
-		var Iterable<VerificationPlan> myplans = Collections.EMPTY_LIST
+		var Iterable<SystemVerificationPlan> myplans = Collections.EMPTY_LIST
 		var ComponentClassifier cc
 		if (acp != null){
 			myplans = acp.assureOwn
@@ -179,7 +181,7 @@ class AlisaGenerator implements IGenerator {
 		'''
 	}
 	
-	def doAssurancePlanParts(AssurancePlan acp, Iterable<VerificationPlan> myplans,ComponentClassifier cc){
+	def doAssurancePlanParts(AssurancePlan acp, Iterable<SystemVerificationPlan> myplans,ComponentClassifier cc){
 		'''
 		«FOR myplan : myplans»
 		«FOR claim : myplan.claim»

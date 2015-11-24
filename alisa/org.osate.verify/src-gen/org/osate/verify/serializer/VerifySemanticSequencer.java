@@ -61,12 +61,12 @@ import org.osate.verify.verify.ManualMethod;
 import org.osate.verify.verify.PluginMethod;
 import org.osate.verify.verify.RefExpr;
 import org.osate.verify.verify.ResoluteMethod;
+import org.osate.verify.verify.SystemVerificationPlan;
 import org.osate.verify.verify.ThenExpr;
 import org.osate.verify.verify.Verification;
 import org.osate.verify.verify.VerificationActivity;
 import org.osate.verify.verify.VerificationMethod;
 import org.osate.verify.verify.VerificationMethodRegistry;
-import org.osate.verify.verify.VerificationPlan;
 import org.osate.verify.verify.VerificationPrecondition;
 import org.osate.verify.verify.VerificationValidation;
 import org.osate.verify.verify.VerifyPackage;
@@ -188,6 +188,9 @@ public class VerifySemanticSequencer extends CommonSemanticSequencer {
 			case VerifyPackage.RESOLUTE_METHOD:
 				sequence_ResoluteMethod(context, (ResoluteMethod) semanticObject); 
 				return; 
+			case VerifyPackage.SYSTEM_VERIFICATION_PLAN:
+				sequence_VerificationPlan(context, (SystemVerificationPlan) semanticObject); 
+				return; 
 			case VerifyPackage.THEN_EXPR:
 				sequence_ThenEvidenceExpr(context, (ThenExpr) semanticObject); 
 				return; 
@@ -202,9 +205,6 @@ public class VerifySemanticSequencer extends CommonSemanticSequencer {
 				return; 
 			case VerifyPackage.VERIFICATION_METHOD_REGISTRY:
 				sequence_VerificationMethodRegistry(context, (VerificationMethodRegistry) semanticObject); 
-				return; 
-			case VerifyPackage.VERIFICATION_PLAN:
-				sequence_VerificationPlan(context, (VerificationPlan) semanticObject); 
 				return; 
 			case VerifyPackage.VERIFICATION_PRECONDITION:
 				sequence_VerificationPrecondition(context, (VerificationPrecondition) semanticObject); 
@@ -263,7 +263,7 @@ public class VerifySemanticSequencer extends CommonSemanticSequencer {
 	 *     (
 	 *         name=QualifiedName 
 	 *         title=STRING? 
-	 *         requirementLibrary=[GlobalRequirements|QualifiedName] 
+	 *         requirements=[GlobalRequirements|QualifiedName] 
 	 *         description=Description? 
 	 *         claim+=Claim* 
 	 *         rationale=Rationale? 
@@ -445,14 +445,14 @@ public class VerifySemanticSequencer extends CommonSemanticSequencer {
 	 *     (
 	 *         name=QualifiedName 
 	 *         title=STRING? 
-	 *         systemRequirements=[SystemRequirements|QualifiedName] 
+	 *         requirements=[SystemRequirements|QualifiedName] 
 	 *         description=Description? 
 	 *         claim+=Claim* 
 	 *         rationale=Rationale? 
 	 *         issues+=STRING*
 	 *     )
 	 */
-	protected void sequence_VerificationPlan(EObject context, VerificationPlan semanticObject) {
+	protected void sequence_VerificationPlan(EObject context, SystemVerificationPlan semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
 	}
 	
