@@ -88,6 +88,7 @@ public class ReqSpecFactoryImpl extends EFactoryImpl implements ReqSpecFactory
       case ReqSpecPackage.REQUIREMENTS: return createRequirements();
       case ReqSpecPackage.GOAL: return createGoal();
       case ReqSpecPackage.REQUIREMENT: return createRequirement();
+      case ReqSpecPackage.INCLUDE_GLOBAL_REQUIREMENT: return createIncludeGlobalRequirement();
       case ReqSpecPackage.REQ_PREDICATE: return createReqPredicate();
       case ReqSpecPackage.INFORMAL_PREDICATE: return createInformalPredicate();
       case ReqSpecPackage.PREDICATE: return createPredicate();
@@ -219,6 +220,17 @@ public class ReqSpecFactoryImpl extends EFactoryImpl implements ReqSpecFactory
   {
     RequirementImpl requirement = new RequirementImpl();
     return requirement;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public IncludeGlobalRequirement createIncludeGlobalRequirement()
+  {
+    IncludeGlobalRequirementImpl includeGlobalRequirement = new IncludeGlobalRequirementImpl();
+    return includeGlobalRequirement;
   }
 
   /**

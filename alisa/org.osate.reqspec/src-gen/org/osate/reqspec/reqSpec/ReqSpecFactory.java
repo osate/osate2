@@ -135,6 +135,15 @@ public interface ReqSpecFactory extends EFactory
   Requirement createRequirement();
 
   /**
+   * Returns a new object of class '<em>Include Global Requirement</em>'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return a new object of class '<em>Include Global Requirement</em>'.
+   * @generated
+   */
+  IncludeGlobalRequirement createIncludeGlobalRequirement();
+
+  /**
    * Returns a new object of class '<em>Req Predicate</em>'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->

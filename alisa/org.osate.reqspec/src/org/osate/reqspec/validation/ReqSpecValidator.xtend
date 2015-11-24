@@ -54,6 +54,8 @@ import org.osate.reqspec.reqSpec.Requirements
 import org.osate.categories.categories.UserSelection
 import org.osate.categories.categories.QualityAttribute
 import org.osate.categories.categories.RequirementType
+import org.osate.reqspec.reqSpec.IncludeGlobalRequirement
+import org.osate.categories.services.CategoriesGrammarAccess.RequirementTypeCategoriesElements
 
 /**
  * Custom validation rules. 
@@ -82,7 +84,7 @@ class ReqSpecValidator extends AbstractReqSpecValidator {
   public static val REQDOC_FILE_EXT = "reqdoc"
   public static val GOALDOC_FILE_EXT = "goaldoc"
   public static val CONSTANTS_FILE_EXT = "constants"
-  public static val INCORRECT_REQUIREMENT_CATEGORY = "org.osate.reqspec.validation.incorrect.requirement.category"
+  public static val INCORRECT_GLOBAL_REQUIREMENT_INCLUDE = "org.osate.reqspec.validation.incorrect.global.requirement.include"
 
 
 	@Check//(CheckType.EXPENSIVE)
@@ -496,6 +498,15 @@ class ReqSpecValidator extends AbstractReqSpecValidator {
 						ReqSpecPackage.Literals.CONTRACTUAL_ELEMENT__NAME)
 				
 			}	
+		}
+	}
+
+	
+	@Check(CheckType.FAST)
+	def void checkIncludeGlobalRequirement(IncludeGlobalRequirement igr) {
+		if (!(igr.include instanceof GlobalRequirements || igr.include instanceof Requirement)){
+			error("Must include global requirements or requirement in global requirements." , igr,  
+								ReqSpecPackage.Literals.INCLUDE_GLOBAL_REQUIREMENT__INCLUDE, INCORRECT_GLOBAL_REQUIREMENT_INCLUDE)
 		}
 	}
 	

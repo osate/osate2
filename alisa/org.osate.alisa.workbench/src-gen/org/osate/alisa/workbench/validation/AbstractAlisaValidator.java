@@ -27,6 +27,7 @@ public class AbstractAlisaValidator extends org.osate.alisa.common.validation.Co
 	protected List<EPackage> getEPackages() {
 	    List<EPackage> result = new ArrayList<EPackage>(super.getEPackages());
 	    result.add(org.osate.alisa.workbench.alisa.AlisaPackage.eINSTANCE);
+	    result.add(EPackage.Registry.INSTANCE.getEPackage("http://www.osate.org/categories/Categories"));
 	    result.add(EPackage.Registry.INSTANCE.getEPackage("http://aadl.info/AADL/2.0"));
 		return result;
 	}

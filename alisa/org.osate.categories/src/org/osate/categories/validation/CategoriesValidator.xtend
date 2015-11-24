@@ -19,13 +19,6 @@
  */
 package org.osate.categories.validation
 
-import com.google.inject.Inject
-import org.eclipse.xtext.scoping.IGlobalScopeProvider
-import org.eclipse.xtext.validation.Check
-import org.osate.categories.categories.CategoriesPackage
-import org.osate.categories.categories.Category
-import org.osate.categories.util.CategoriesUtil
-
 //import org.eclipse.xtext.validation.Check
 /**
  * Custom validation rules. 

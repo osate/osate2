@@ -21,20 +21,16 @@ AssurancePlan:
 	)
 	']';
 	
-	AssuranceTask returns CategoryFilter :
+	AssuranceTask returns categories::CategoryFilter :
 		{AssuranceTask} 'assurance''task' name=ID (':' title=STRING)? 'for' assurancePlan=[AssurancePlan|QualifiedName]
-	'['
+		'['
 	(
-	('description' description=Description)?
-	&( 	'filter' '['
 		('requirement''type' requirementType+=[categories::RequirementType|ID]+ anyRequirementType?='any'?)?
 		&('method''type' methodType+=[categories::MethodType|ID]+ anyMethodType?='any'?)?
 		&('user''selection' userSelection+=[categories::UserSelection|ID]+ anyUserSelection?='any'?)?
 		&('quality''attribute' qualityAttribute+=[categories::QualityAttribute|ID]+ anyQualityAttribute?='any'?)?
 		&('development''phase' developmentPhase+=[categories::DevelopmentPhase|ID]+ anyDevelopmentPhase?='any'?)?
-	']'
-	)?
-	&('issues' issues+=STRING+ )?
+		&('issues' issues+=STRING+ )?
 	)
 	']'
 	;

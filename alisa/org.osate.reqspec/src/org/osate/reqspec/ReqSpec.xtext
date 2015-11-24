@@ -16,7 +16,7 @@ GlobalConstants:
 	constants+=ValDeclaration* ']'
 ;
 
-ContractualElement: Goal | DocGoal| Requirement |DocRequirement ;
+ContractualElement: Goal | Requirement  ;
 
 ReqRoot:  StakeholderGoals | ReqDocument | SystemRequirements | GlobalRequirements;
 
@@ -62,7 +62,8 @@ SystemRequirements returns Requirements:
 	 description=Description? 
 	&constants+=ValDeclaration*
 	& computes+=ComputeDeclaration* 
-	& content+= (SystemRequirement)*
+	& content+= SystemRequirement*
+	& include+= IncludeGlobalRequirement*
 	 &('see''document'  docReference+=ExternalDocument+)? 
 	 &('see' 'goals'  stakeholderGoals+=[ReqRoot|QualifiedName]+)? 
 	&('issues' issues+=STRING+ )?
@@ -164,8 +165,7 @@ SystemRequirement returns Requirement:
 Requirement returns Requirement:
 	'requirement'  name=ID   
 	(':'  title=STRING)? 
-	( 'for'  (componentCategory+=ComponentCategory+| global?='all')
-	)?
+	( 'for'  componentCategory+=ComponentCategory+	)?
 '['	(
  	('requirement''type'  requirementType+=[categories::RequirementType|ID]+ )?
  	&('quality''attribute'  qualityAttribute+=[categories::QualityAttribute|ID]+ )?
@@ -216,6 +216,12 @@ DocRequirement returns Requirement:
 		&('issues' issues+=STRING+ )?
 	)
 	']';
+
+IncludeGlobalRequirement returns IncludeGlobalRequirement:
+//	'include' (includedGlobalRequirements=[GlobalRequirements|QualifiedName]'.*' | requirement=[Requirement|QualifiedName])
+	'include' include=[ecore::EObject|QualifiedName]
+	( 'for'  componentCategory+=ComponentCategory+	)?
+	;
 
 ReqPredicate: InformalPredicate | Predicate | ValuePredicate;// | InputAssumption | OutputGuarantee| BehaviorEquation;
 

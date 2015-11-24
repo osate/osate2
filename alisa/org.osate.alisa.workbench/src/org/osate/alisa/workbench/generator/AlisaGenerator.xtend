@@ -73,7 +73,7 @@ class AlisaGenerator implements IGenerator {
 	var AssurancePlan rootAssuranceCase;
 	
 	def generateAssuranceTask(AssuranceTask at){
-		filter = at as CategoryFilter
+		filter = at 
 		at.assurancePlan?.generateRootCase
 	}
 	
@@ -148,25 +148,6 @@ class AlisaGenerator implements IGenerator {
 				[
 					tbdcount 0
 					«APparts»
-«««					«FOR myplan : myplans»
-«««						«FOR claim : myplan.claim»
-«««						«IF claim.evaluateRequirementFilter(requirementFilter,strictRequirementCategories)»
-«««							«claim.generate()»
-«««						«ENDIF»
-«««						«ENDFOR»
-«««					«ENDFOR»
-«««					«FOR myplan : allPlans»
-«««						«FOR claim : (myplan as VerificationPlan).claim»
-«««						«IF claim.evaluateRequirementFilter(requirementFilter,strictRequirementCategories)»
-«««							«claim.generate()»
-«««						«ENDIF»
-«««						«ENDFOR»
-«««					«ENDFOR»
-«««			    «IF cc instanceof ComponentImplementation»
-«««					«FOR subc : cc.allSubcomponents»
-«««						«subc.filterplans(acp)»
-«««					«ENDFOR»
-«««			    «ENDIF»
 				]
 		'''
 	}
@@ -235,17 +216,10 @@ class AlisaGenerator implements IGenerator {
 			[
 				tbdcount 0
 			    «subclaims»
-«««			    «FOR subclaim : claim?.subclaim»
-«««				«subclaim.generate()»
-«««				«ENDFOR»
 			    «IF claim.assert != null»
 			    «claimassert»
-«««			    «claim.assert.generate»
 			    «ELSE»
 			    «claimvas»
-«««			    «FOR va : claim.activities»
-«««				«va.doGenerate»
-«««			    «ENDFOR»
 			    «ENDIF»
 				]
 			'''

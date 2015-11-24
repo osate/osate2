@@ -206,7 +206,7 @@ ruleVerificationPlan returns [EObject current=null]
 	        }
         }
 		{ 
-	        newCompositeNode(grammarAccess.getVerificationPlanAccess().getRequirementsSystemRequirementsCrossReference_5_0()); 
+	        newCompositeNode(grammarAccess.getVerificationPlanAccess().getRequirementsRequirementsCrossReference_5_0()); 
 	    }
 		ruleQualifiedName		{ 
 	        afterParserOrEnumRuleCall();

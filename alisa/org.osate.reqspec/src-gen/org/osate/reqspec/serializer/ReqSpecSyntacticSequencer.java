@@ -90,9 +90,9 @@ public class ReqSpecSyntacticSequencer extends AbstractSyntacticSequencer {
 	protected AbstractElementAlias match_SystemRequirement___SeeKeyword_5_15_0_GoalKeyword_5_15_1__q;
 	protected AbstractElementAlias match_SystemRequirement___SeeKeyword_5_16_0_DocumentKeyword_5_16_1__q;
 	protected AbstractElementAlias match_SystemRequirement___UserKeyword_5_2_0_SelectionKeyword_5_2_1__q;
-	protected AbstractElementAlias match_SystemRequirements_IssuesKeyword_9_6_0_q;
-	protected AbstractElementAlias match_SystemRequirements___SeeKeyword_9_4_0_DocumentKeyword_9_4_1__q;
-	protected AbstractElementAlias match_SystemRequirements___SeeKeyword_9_5_0_GoalsKeyword_9_5_1__q;
+	protected AbstractElementAlias match_SystemRequirements_IssuesKeyword_9_7_0_q;
+	protected AbstractElementAlias match_SystemRequirements___SeeKeyword_9_5_0_DocumentKeyword_9_5_1__q;
+	protected AbstractElementAlias match_SystemRequirements___SeeKeyword_9_6_0_GoalsKeyword_9_6_1__q;
 	
 	@Inject
 	protected void init(IGrammarAccess access) {
@@ -154,9 +154,9 @@ public class ReqSpecSyntacticSequencer extends AbstractSyntacticSequencer {
 		match_SystemRequirement___SeeKeyword_5_15_0_GoalKeyword_5_15_1__q = new GroupAlias(false, true, new TokenAlias(false, false, grammarAccess.getSystemRequirementAccess().getSeeKeyword_5_15_0()), new TokenAlias(false, false, grammarAccess.getSystemRequirementAccess().getGoalKeyword_5_15_1()));
 		match_SystemRequirement___SeeKeyword_5_16_0_DocumentKeyword_5_16_1__q = new GroupAlias(false, true, new TokenAlias(false, false, grammarAccess.getSystemRequirementAccess().getSeeKeyword_5_16_0()), new TokenAlias(false, false, grammarAccess.getSystemRequirementAccess().getDocumentKeyword_5_16_1()));
 		match_SystemRequirement___UserKeyword_5_2_0_SelectionKeyword_5_2_1__q = new GroupAlias(false, true, new TokenAlias(false, false, grammarAccess.getSystemRequirementAccess().getUserKeyword_5_2_0()), new TokenAlias(false, false, grammarAccess.getSystemRequirementAccess().getSelectionKeyword_5_2_1()));
-		match_SystemRequirements_IssuesKeyword_9_6_0_q = new TokenAlias(false, true, grammarAccess.getSystemRequirementsAccess().getIssuesKeyword_9_6_0());
-		match_SystemRequirements___SeeKeyword_9_4_0_DocumentKeyword_9_4_1__q = new GroupAlias(false, true, new TokenAlias(false, false, grammarAccess.getSystemRequirementsAccess().getSeeKeyword_9_4_0()), new TokenAlias(false, false, grammarAccess.getSystemRequirementsAccess().getDocumentKeyword_9_4_1()));
-		match_SystemRequirements___SeeKeyword_9_5_0_GoalsKeyword_9_5_1__q = new GroupAlias(false, true, new TokenAlias(false, false, grammarAccess.getSystemRequirementsAccess().getSeeKeyword_9_5_0()), new TokenAlias(false, false, grammarAccess.getSystemRequirementsAccess().getGoalsKeyword_9_5_1()));
+		match_SystemRequirements_IssuesKeyword_9_7_0_q = new TokenAlias(false, true, grammarAccess.getSystemRequirementsAccess().getIssuesKeyword_9_7_0());
+		match_SystemRequirements___SeeKeyword_9_5_0_DocumentKeyword_9_5_1__q = new GroupAlias(false, true, new TokenAlias(false, false, grammarAccess.getSystemRequirementsAccess().getSeeKeyword_9_5_0()), new TokenAlias(false, false, grammarAccess.getSystemRequirementsAccess().getDocumentKeyword_9_5_1()));
+		match_SystemRequirements___SeeKeyword_9_6_0_GoalsKeyword_9_6_1__q = new GroupAlias(false, true, new TokenAlias(false, false, grammarAccess.getSystemRequirementsAccess().getSeeKeyword_9_6_0()), new TokenAlias(false, false, grammarAccess.getSystemRequirementsAccess().getGoalsKeyword_9_6_1()));
 	}
 	
 	@Override
@@ -285,12 +285,12 @@ public class ReqSpecSyntacticSequencer extends AbstractSyntacticSequencer {
 				emit_SystemRequirement___SeeKeyword_5_16_0_DocumentKeyword_5_16_1__q(semanticObject, getLastNavigableState(), syntaxNodes);
 			else if(match_SystemRequirement___UserKeyword_5_2_0_SelectionKeyword_5_2_1__q.equals(syntax))
 				emit_SystemRequirement___UserKeyword_5_2_0_SelectionKeyword_5_2_1__q(semanticObject, getLastNavigableState(), syntaxNodes);
-			else if(match_SystemRequirements_IssuesKeyword_9_6_0_q.equals(syntax))
-				emit_SystemRequirements_IssuesKeyword_9_6_0_q(semanticObject, getLastNavigableState(), syntaxNodes);
-			else if(match_SystemRequirements___SeeKeyword_9_4_0_DocumentKeyword_9_4_1__q.equals(syntax))
-				emit_SystemRequirements___SeeKeyword_9_4_0_DocumentKeyword_9_4_1__q(semanticObject, getLastNavigableState(), syntaxNodes);
-			else if(match_SystemRequirements___SeeKeyword_9_5_0_GoalsKeyword_9_5_1__q.equals(syntax))
-				emit_SystemRequirements___SeeKeyword_9_5_0_GoalsKeyword_9_5_1__q(semanticObject, getLastNavigableState(), syntaxNodes);
+			else if(match_SystemRequirements_IssuesKeyword_9_7_0_q.equals(syntax))
+				emit_SystemRequirements_IssuesKeyword_9_7_0_q(semanticObject, getLastNavigableState(), syntaxNodes);
+			else if(match_SystemRequirements___SeeKeyword_9_5_0_DocumentKeyword_9_5_1__q.equals(syntax))
+				emit_SystemRequirements___SeeKeyword_9_5_0_DocumentKeyword_9_5_1__q(semanticObject, getLastNavigableState(), syntaxNodes);
+			else if(match_SystemRequirements___SeeKeyword_9_6_0_GoalsKeyword_9_6_1__q.equals(syntax))
+				emit_SystemRequirements___SeeKeyword_9_6_0_GoalsKeyword_9_6_1__q(semanticObject, getLastNavigableState(), syntaxNodes);
 			else acceptNodes(getLastNavigableState(), syntaxNodes);
 		}
 	}
@@ -955,7 +955,7 @@ public class ReqSpecSyntacticSequencer extends AbstractSyntacticSequencer {
 	 * This ambiguous syntax occurs at:
 	 *     issues+=STRING (ambiguity) issues+=STRING
 	 */
-	protected void emit_SystemRequirements_IssuesKeyword_9_6_0_q(EObject semanticObject, ISynNavigable transition, List<INode> nodes) {
+	protected void emit_SystemRequirements_IssuesKeyword_9_7_0_q(EObject semanticObject, ISynNavigable transition, List<INode> nodes) {
 		acceptNodes(transition, nodes);
 	}
 	
@@ -966,7 +966,7 @@ public class ReqSpecSyntacticSequencer extends AbstractSyntacticSequencer {
 	 * This ambiguous syntax occurs at:
 	 *     docReference+=ExternalDocument (ambiguity) docReference+=ExternalDocument
 	 */
-	protected void emit_SystemRequirements___SeeKeyword_9_4_0_DocumentKeyword_9_4_1__q(EObject semanticObject, ISynNavigable transition, List<INode> nodes) {
+	protected void emit_SystemRequirements___SeeKeyword_9_5_0_DocumentKeyword_9_5_1__q(EObject semanticObject, ISynNavigable transition, List<INode> nodes) {
 		acceptNodes(transition, nodes);
 	}
 	
@@ -977,7 +977,7 @@ public class ReqSpecSyntacticSequencer extends AbstractSyntacticSequencer {
 	 * This ambiguous syntax occurs at:
 	 *     stakeholderGoals+=[ReqRoot|QualifiedName] (ambiguity) stakeholderGoals+=[ReqRoot|QualifiedName]
 	 */
-	protected void emit_SystemRequirements___SeeKeyword_9_5_0_GoalsKeyword_9_5_1__q(EObject semanticObject, ISynNavigable transition, List<INode> nodes) {
+	protected void emit_SystemRequirements___SeeKeyword_9_6_0_GoalsKeyword_9_6_1__q(EObject semanticObject, ISynNavigable transition, List<INode> nodes) {
 		acceptNodes(transition, nodes);
 	}
 	

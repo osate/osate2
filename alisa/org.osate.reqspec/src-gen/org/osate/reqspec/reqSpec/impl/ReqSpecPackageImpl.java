@@ -37,6 +37,7 @@ import org.osate.reqspec.reqSpec.ExternalDocument;
 import org.osate.reqspec.reqSpec.GlobalConstants;
 import org.osate.reqspec.reqSpec.GlobalRequirements;
 import org.osate.reqspec.reqSpec.Goal;
+import org.osate.reqspec.reqSpec.IncludeGlobalRequirement;
 import org.osate.reqspec.reqSpec.InformalPredicate;
 import org.osate.reqspec.reqSpec.Predicate;
 import org.osate.reqspec.reqSpec.ReqDocument;
@@ -136,6 +137,13 @@ public class ReqSpecPackageImpl extends EPackageImpl implements ReqSpecPackage
    * @generated
    */
   private EClass requirementEClass = null;
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  private EClass includeGlobalRequirementEClass = null;
 
   /**
    * <!-- begin-user-doc -->
@@ -1009,6 +1017,36 @@ public class ReqSpecPackageImpl extends EPackageImpl implements ReqSpecPackage
    * <!-- end-user-doc -->
    * @generated
    */
+  public EClass getIncludeGlobalRequirement()
+  {
+    return includeGlobalRequirementEClass;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EReference getIncludeGlobalRequirement_Include()
+  {
+    return (EReference)includeGlobalRequirementEClass.getEStructuralFeatures().get(0);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EAttribute getIncludeGlobalRequirement_ComponentCategory()
+  {
+    return (EAttribute)includeGlobalRequirementEClass.getEStructuralFeatures().get(1);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
   public EClass getReqPredicate()
   {
     return reqPredicateEClass;
@@ -1122,6 +1160,16 @@ public class ReqSpecPackageImpl extends EPackageImpl implements ReqSpecPackage
   public EReference getSystemRequirements_Target()
   {
     return (EReference)systemRequirementsEClass.getEStructuralFeatures().get(0);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EReference getSystemRequirements_Include()
+  {
+    return (EReference)systemRequirementsEClass.getEStructuralFeatures().get(1);
   }
 
   /**
@@ -1250,6 +1298,10 @@ public class ReqSpecPackageImpl extends EPackageImpl implements ReqSpecPackage
     createEAttribute(requirementEClass, REQUIREMENT__COMPONENT_CATEGORY);
     createEAttribute(requirementEClass, REQUIREMENT__GLOBAL);
 
+    includeGlobalRequirementEClass = createEClass(INCLUDE_GLOBAL_REQUIREMENT);
+    createEReference(includeGlobalRequirementEClass, INCLUDE_GLOBAL_REQUIREMENT__INCLUDE);
+    createEAttribute(includeGlobalRequirementEClass, INCLUDE_GLOBAL_REQUIREMENT__COMPONENT_CATEGORY);
+
     reqPredicateEClass = createEClass(REQ_PREDICATE);
 
     informalPredicateEClass = createEClass(INFORMAL_PREDICATE);
@@ -1267,6 +1319,7 @@ public class ReqSpecPackageImpl extends EPackageImpl implements ReqSpecPackage
 
     systemRequirementsEClass = createEClass(SYSTEM_REQUIREMENTS);
     createEReference(systemRequirementsEClass, SYSTEM_REQUIREMENTS__TARGET);
+    createEReference(systemRequirementsEClass, SYSTEM_REQUIREMENTS__INCLUDE);
 
     globalRequirementsEClass = createEClass(GLOBAL_REQUIREMENTS);
   }
@@ -1409,6 +1462,10 @@ public class ReqSpecPackageImpl extends EPackageImpl implements ReqSpecPackage
     initEAttribute(getRequirement_ComponentCategory(), theAadl2Package.getComponentCategory(), "componentCategory", null, 0, -1, Requirement.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEAttribute(getRequirement_Global(), theEcorePackage.getEBoolean(), "global", null, 0, 1, Requirement.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
+    initEClass(includeGlobalRequirementEClass, IncludeGlobalRequirement.class, "IncludeGlobalRequirement", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+    initEReference(getIncludeGlobalRequirement_Include(), theEcorePackage.getEObject(), null, "include", null, 0, 1, IncludeGlobalRequirement.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEAttribute(getIncludeGlobalRequirement_ComponentCategory(), theAadl2Package.getComponentCategory(), "componentCategory", null, 0, -1, IncludeGlobalRequirement.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
     initEClass(reqPredicateEClass, ReqPredicate.class, "ReqPredicate", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 
     initEClass(informalPredicateEClass, InformalPredicate.class, "InformalPredicate", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
@@ -1426,6 +1483,7 @@ public class ReqSpecPackageImpl extends EPackageImpl implements ReqSpecPackage
 
     initEClass(systemRequirementsEClass, SystemRequirements.class, "SystemRequirements", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
     initEReference(getSystemRequirements_Target(), theAadl2Package.getComponentClassifier(), null, "target", null, 0, 1, SystemRequirements.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEReference(getSystemRequirements_Include(), this.getIncludeGlobalRequirement(), null, "include", null, 0, -1, SystemRequirements.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
     initEClass(globalRequirementsEClass, GlobalRequirements.class, "GlobalRequirements", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 

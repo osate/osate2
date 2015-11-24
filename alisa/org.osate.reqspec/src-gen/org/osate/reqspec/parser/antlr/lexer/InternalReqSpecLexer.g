@@ -86,6 +86,8 @@ Dropped : 'dropped';
 
 Evolves : 'evolves';
 
+Include : 'include';
+
 Process : 'process';
 
 Quality : 'quality';

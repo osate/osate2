@@ -35,7 +35,7 @@ import org.eclipse.emf.ecore.util.InternalEList;
 import org.osate.alisa.common.common.Description;
 import org.osate.alisa.common.common.Rationale;
 
-import org.osate.reqspec.reqSpec.SystemRequirements;
+import org.osate.reqspec.reqSpec.Requirements;
 
 import org.osate.verify.verify.Claim;
 import org.osate.verify.verify.VerificationPlan;
@@ -110,7 +110,7 @@ public class VerificationPlanImpl extends MinimalEObjectImpl.Container implement
    * @generated
    * @ordered
    */
-  protected SystemRequirements requirements;
+  protected Requirements requirements;
 
   /**
    * The cached value of the '{@link #getDescription() <em>Description</em>}' containment reference.
@@ -224,12 +224,12 @@ public class VerificationPlanImpl extends MinimalEObjectImpl.Container implement
    * <!-- end-user-doc -->
    * @generated
    */
-  public SystemRequirements getRequirements()
+  public Requirements getRequirements()
   {
     if (requirements != null && requirements.eIsProxy())
     {
       InternalEObject oldRequirements = (InternalEObject)requirements;
-      requirements = (SystemRequirements)eResolveProxy(oldRequirements);
+      requirements = (Requirements)eResolveProxy(oldRequirements);
       if (requirements != oldRequirements)
       {
         if (eNotificationRequired())
@@ -244,7 +244,7 @@ public class VerificationPlanImpl extends MinimalEObjectImpl.Container implement
    * <!-- end-user-doc -->
    * @generated
    */
-  public SystemRequirements basicGetRequirements()
+  public Requirements basicGetRequirements()
   {
     return requirements;
   }
@@ -254,9 +254,9 @@ public class VerificationPlanImpl extends MinimalEObjectImpl.Container implement
    * <!-- end-user-doc -->
    * @generated
    */
-  public void setRequirements(SystemRequirements newRequirements)
+  public void setRequirements(Requirements newRequirements)
   {
-    SystemRequirements oldRequirements = requirements;
+    Requirements oldRequirements = requirements;
     requirements = newRequirements;
     if (eNotificationRequired())
       eNotify(new ENotificationImpl(this, Notification.SET, VerifyPackage.VERIFICATION_PLAN__REQUIREMENTS, oldRequirements, requirements));
@@ -453,7 +453,7 @@ public class VerificationPlanImpl extends MinimalEObjectImpl.Container implement
         setTitle((String)newValue);
         return;
       case VerifyPackage.VERIFICATION_PLAN__REQUIREMENTS:
-        setRequirements((SystemRequirements)newValue);
+        setRequirements((Requirements)newValue);
         return;
       case VerifyPackage.VERIFICATION_PLAN__DESCRIPTION:
         setDescription((Description)newValue);
@@ -490,7 +490,7 @@ public class VerificationPlanImpl extends MinimalEObjectImpl.Container implement
         setTitle(TITLE_EDEFAULT);
         return;
       case VerifyPackage.VERIFICATION_PLAN__REQUIREMENTS:
-        setRequirements((SystemRequirements)null);
+        setRequirements((Requirements)null);
         return;
       case VerifyPackage.VERIFICATION_PLAN__DESCRIPTION:
         setDescription((Description)null);

@@ -15,6 +15,8 @@
  */
 package org.osate.reqspec.reqSpec;
 
+import org.eclipse.emf.common.util.EList;
+
 import org.osate.aadl2.ComponentClassifier;
 
 /**
@@ -27,6 +29,7 @@ import org.osate.aadl2.ComponentClassifier;
  * </p>
  * <ul>
  *   <li>{@link org.osate.reqspec.reqSpec.SystemRequirements#getTarget <em>Target</em>}</li>
+ *   <li>{@link org.osate.reqspec.reqSpec.SystemRequirements#getInclude <em>Include</em>}</li>
  * </ul>
  *
  * @see org.osate.reqspec.reqSpec.ReqSpecPackage#getSystemRequirements()
@@ -60,5 +63,21 @@ public interface SystemRequirements extends Requirements
    * @generated
    */
   void setTarget(ComponentClassifier value);
+
+  /**
+   * Returns the value of the '<em><b>Include</b></em>' containment reference list.
+   * The list contents are of type {@link org.osate.reqspec.reqSpec.IncludeGlobalRequirement}.
+   * <!-- begin-user-doc -->
+   * <p>
+   * If the meaning of the '<em>Include</em>' containment reference list isn't clear,
+   * there really should be more of a description here...
+   * </p>
+   * <!-- end-user-doc -->
+   * @return the value of the '<em>Include</em>' containment reference list.
+   * @see org.osate.reqspec.reqSpec.ReqSpecPackage#getSystemRequirements_Include()
+   * @model containment="true"
+   * @generated
+   */
+  EList<IncludeGlobalRequirement> getInclude();
 
 } // SystemRequirements

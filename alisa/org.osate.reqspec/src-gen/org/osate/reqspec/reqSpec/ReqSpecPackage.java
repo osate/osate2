@@ -1161,6 +1161,43 @@ public interface ReqSpecPackage extends EPackage
   int REQUIREMENT_FEATURE_COUNT = CONTRACTUAL_ELEMENT_FEATURE_COUNT + 10;
 
   /**
+   * The meta object id for the '{@link org.osate.reqspec.reqSpec.impl.IncludeGlobalRequirementImpl <em>Include Global Requirement</em>}' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see org.osate.reqspec.reqSpec.impl.IncludeGlobalRequirementImpl
+   * @see org.osate.reqspec.reqSpec.impl.ReqSpecPackageImpl#getIncludeGlobalRequirement()
+   * @generated
+   */
+  int INCLUDE_GLOBAL_REQUIREMENT = 11;
+
+  /**
+   * The feature id for the '<em><b>Include</b></em>' reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int INCLUDE_GLOBAL_REQUIREMENT__INCLUDE = 0;
+
+  /**
+   * The feature id for the '<em><b>Component Category</b></em>' attribute list.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int INCLUDE_GLOBAL_REQUIREMENT__COMPONENT_CATEGORY = 1;
+
+  /**
+   * The number of structural features of the '<em>Include Global Requirement</em>' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int INCLUDE_GLOBAL_REQUIREMENT_FEATURE_COUNT = 2;
+
+  /**
    * The meta object id for the '{@link org.osate.reqspec.reqSpec.impl.ReqPredicateImpl <em>Req Predicate</em>}' class.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -1168,7 +1205,7 @@ public interface ReqSpecPackage extends EPackage
    * @see org.osate.reqspec.reqSpec.impl.ReqSpecPackageImpl#getReqPredicate()
    * @generated
    */
-  int REQ_PREDICATE = 11;
+  int REQ_PREDICATE = 12;
 
   /**
    * The number of structural features of the '<em>Req Predicate</em>' class.
@@ -1187,7 +1224,7 @@ public interface ReqSpecPackage extends EPackage
    * @see org.osate.reqspec.reqSpec.impl.ReqSpecPackageImpl#getInformalPredicate()
    * @generated
    */
-  int INFORMAL_PREDICATE = 12;
+  int INFORMAL_PREDICATE = 13;
 
   /**
    * The feature id for the '<em><b>Description</b></em>' attribute.
@@ -1215,7 +1252,7 @@ public interface ReqSpecPackage extends EPackage
    * @see org.osate.reqspec.reqSpec.impl.ReqSpecPackageImpl#getPredicate()
    * @generated
    */
-  int PREDICATE = 13;
+  int PREDICATE = 14;
 
   /**
    * The feature id for the '<em><b>Xpression</b></em>' containment reference.
@@ -1243,7 +1280,7 @@ public interface ReqSpecPackage extends EPackage
    * @see org.osate.reqspec.reqSpec.impl.ReqSpecPackageImpl#getValuePredicate()
    * @generated
    */
-  int VALUE_PREDICATE = 14;
+  int VALUE_PREDICATE = 15;
 
   /**
    * The feature id for the '<em><b>Xpression</b></em>' containment reference.
@@ -1271,7 +1308,7 @@ public interface ReqSpecPackage extends EPackage
    * @see org.osate.reqspec.reqSpec.impl.ReqSpecPackageImpl#getExternalDocument()
    * @generated
    */
-  int EXTERNAL_DOCUMENT = 15;
+  int EXTERNAL_DOCUMENT = 16;
 
   /**
    * The feature id for the '<em><b>Doc Reference</b></em>' attribute.
@@ -1308,7 +1345,7 @@ public interface ReqSpecPackage extends EPackage
    * @see org.osate.reqspec.reqSpec.impl.ReqSpecPackageImpl#getSystemRequirements()
    * @generated
    */
-  int SYSTEM_REQUIREMENTS = 16;
+  int SYSTEM_REQUIREMENTS = 17;
 
   /**
    * The feature id for the '<em><b>Name</b></em>' attribute.
@@ -1410,13 +1447,22 @@ public interface ReqSpecPackage extends EPackage
   int SYSTEM_REQUIREMENTS__TARGET = REQUIREMENTS_FEATURE_COUNT + 0;
 
   /**
+   * The feature id for the '<em><b>Include</b></em>' containment reference list.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int SYSTEM_REQUIREMENTS__INCLUDE = REQUIREMENTS_FEATURE_COUNT + 1;
+
+  /**
    * The number of structural features of the '<em>System Requirements</em>' class.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    * @ordered
    */
-  int SYSTEM_REQUIREMENTS_FEATURE_COUNT = REQUIREMENTS_FEATURE_COUNT + 1;
+  int SYSTEM_REQUIREMENTS_FEATURE_COUNT = REQUIREMENTS_FEATURE_COUNT + 2;
 
   /**
    * The meta object id for the '{@link org.osate.reqspec.reqSpec.impl.GlobalRequirementsImpl <em>Global Requirements</em>}' class.
@@ -1426,7 +1472,7 @@ public interface ReqSpecPackage extends EPackage
    * @see org.osate.reqspec.reqSpec.impl.ReqSpecPackageImpl#getGlobalRequirements()
    * @generated
    */
-  int GLOBAL_REQUIREMENTS = 17;
+  int GLOBAL_REQUIREMENTS = 18;
 
   /**
    * The feature id for the '<em><b>Name</b></em>' attribute.
@@ -2343,6 +2389,38 @@ public interface ReqSpecPackage extends EPackage
   EAttribute getRequirement_Global();
 
   /**
+   * Returns the meta object for class '{@link org.osate.reqspec.reqSpec.IncludeGlobalRequirement <em>Include Global Requirement</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for class '<em>Include Global Requirement</em>'.
+   * @see org.osate.reqspec.reqSpec.IncludeGlobalRequirement
+   * @generated
+   */
+  EClass getIncludeGlobalRequirement();
+
+  /**
+   * Returns the meta object for the reference '{@link org.osate.reqspec.reqSpec.IncludeGlobalRequirement#getInclude <em>Include</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the reference '<em>Include</em>'.
+   * @see org.osate.reqspec.reqSpec.IncludeGlobalRequirement#getInclude()
+   * @see #getIncludeGlobalRequirement()
+   * @generated
+   */
+  EReference getIncludeGlobalRequirement_Include();
+
+  /**
+   * Returns the meta object for the attribute list '{@link org.osate.reqspec.reqSpec.IncludeGlobalRequirement#getComponentCategory <em>Component Category</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the attribute list '<em>Component Category</em>'.
+   * @see org.osate.reqspec.reqSpec.IncludeGlobalRequirement#getComponentCategory()
+   * @see #getIncludeGlobalRequirement()
+   * @generated
+   */
+  EAttribute getIncludeGlobalRequirement_ComponentCategory();
+
+  /**
    * Returns the meta object for class '{@link org.osate.reqspec.reqSpec.ReqPredicate <em>Req Predicate</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -2467,6 +2545,17 @@ public interface ReqSpecPackage extends EPackage
    * @generated
    */
   EReference getSystemRequirements_Target();
+
+  /**
+   * Returns the meta object for the containment reference list '{@link org.osate.reqspec.reqSpec.SystemRequirements#getInclude <em>Include</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the containment reference list '<em>Include</em>'.
+   * @see org.osate.reqspec.reqSpec.SystemRequirements#getInclude()
+   * @see #getSystemRequirements()
+   * @generated
+   */
+  EReference getSystemRequirements_Include();
 
   /**
    * Returns the meta object for class '{@link org.osate.reqspec.reqSpec.GlobalRequirements <em>Global Requirements</em>}'.
@@ -3124,6 +3213,32 @@ public interface ReqSpecPackage extends EPackage
     EAttribute REQUIREMENT__GLOBAL = eINSTANCE.getRequirement_Global();
 
     /**
+     * The meta object literal for the '{@link org.osate.reqspec.reqSpec.impl.IncludeGlobalRequirementImpl <em>Include Global Requirement</em>}' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see org.osate.reqspec.reqSpec.impl.IncludeGlobalRequirementImpl
+     * @see org.osate.reqspec.reqSpec.impl.ReqSpecPackageImpl#getIncludeGlobalRequirement()
+     * @generated
+     */
+    EClass INCLUDE_GLOBAL_REQUIREMENT = eINSTANCE.getIncludeGlobalRequirement();
+
+    /**
+     * The meta object literal for the '<em><b>Include</b></em>' reference feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EReference INCLUDE_GLOBAL_REQUIREMENT__INCLUDE = eINSTANCE.getIncludeGlobalRequirement_Include();
+
+    /**
+     * The meta object literal for the '<em><b>Component Category</b></em>' attribute list feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EAttribute INCLUDE_GLOBAL_REQUIREMENT__COMPONENT_CATEGORY = eINSTANCE.getIncludeGlobalRequirement_ComponentCategory();
+
+    /**
      * The meta object literal for the '{@link org.osate.reqspec.reqSpec.impl.ReqPredicateImpl <em>Req Predicate</em>}' class.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
@@ -3230,6 +3345,14 @@ public interface ReqSpecPackage extends EPackage
      * @generated
      */
     EReference SYSTEM_REQUIREMENTS__TARGET = eINSTANCE.getSystemRequirements_Target();
+
+    /**
+     * The meta object literal for the '<em><b>Include</b></em>' containment reference list feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EReference SYSTEM_REQUIREMENTS__INCLUDE = eINSTANCE.getSystemRequirements_Include();
 
     /**
      * The meta object literal for the '{@link org.osate.reqspec.reqSpec.impl.GlobalRequirementsImpl <em>Global Requirements</em>}' class.

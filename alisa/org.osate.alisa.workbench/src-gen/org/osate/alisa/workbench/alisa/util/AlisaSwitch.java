@@ -22,6 +22,8 @@ import org.eclipse.emf.ecore.util.Switch;
 
 import org.osate.alisa.workbench.alisa.*;
 
+import org.osate.categories.categories.CategoryFilter;
+
 /**
  * <!-- begin-user-doc -->
  * The <b>Switch</b> for the model's inheritance hierarchy.
@@ -99,13 +101,6 @@ public class AlisaSwitch<T> extends Switch<T>
         if (result == null) result = defaultCase(theEObject);
         return result;
       }
-      case AlisaPackage.CATEGORY_FILTER:
-      {
-        CategoryFilter categoryFilter = (CategoryFilter)theEObject;
-        T result = caseCategoryFilter(categoryFilter);
-        if (result == null) result = defaultCase(theEObject);
-        return result;
-      }
       case AlisaPackage.ASSURANCE_TASK:
       {
         AssuranceTask assuranceTask = (AssuranceTask)theEObject;
@@ -151,22 +146,6 @@ public class AlisaSwitch<T> extends Switch<T>
   }
 
   /**
-   * Returns the result of interpreting the object as an instance of '<em>Category Filter</em>'.
-   * <!-- begin-user-doc -->
-   * This implementation returns null;
-   * returning a non-null result will terminate the switch.
-   * <!-- end-user-doc -->
-   * @param object the target of the switch.
-   * @return the result of interpreting the object as an instance of '<em>Category Filter</em>'.
-   * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
-   * @generated
-   */
-  public T caseCategoryFilter(CategoryFilter object)
-  {
-    return null;
-  }
-
-  /**
    * Returns the result of interpreting the object as an instance of '<em>Assurance Task</em>'.
    * <!-- begin-user-doc -->
    * This implementation returns null;
@@ -178,6 +157,22 @@ public class AlisaSwitch<T> extends Switch<T>
    * @generated
    */
   public T caseAssuranceTask(AssuranceTask object)
+  {
+    return null;
+  }
+
+  /**
+   * Returns the result of interpreting the object as an instance of '<em>Category Filter</em>'.
+   * <!-- begin-user-doc -->
+   * This implementation returns null;
+   * returning a non-null result will terminate the switch.
+   * <!-- end-user-doc -->
+   * @param object the target of the switch.
+   * @return the result of interpreting the object as an instance of '<em>Category Filter</em>'.
+   * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+   * @generated
+   */
+  public T caseCategoryFilter(CategoryFilter object)
   {
     return null;
   }

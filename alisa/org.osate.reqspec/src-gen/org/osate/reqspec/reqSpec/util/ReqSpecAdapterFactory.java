@@ -143,6 +143,11 @@ public class ReqSpecAdapterFactory extends AdapterFactoryImpl
         return createRequirementAdapter();
       }
       @Override
+      public Adapter caseIncludeGlobalRequirement(IncludeGlobalRequirement object)
+      {
+        return createIncludeGlobalRequirementAdapter();
+      }
+      @Override
       public Adapter caseReqPredicate(ReqPredicate object)
       {
         return createReqPredicateAdapter();
@@ -360,6 +365,21 @@ public class ReqSpecAdapterFactory extends AdapterFactoryImpl
    * @generated
    */
   public Adapter createRequirementAdapter()
+  {
+    return null;
+  }
+
+  /**
+   * Creates a new adapter for an object of class '{@link org.osate.reqspec.reqSpec.IncludeGlobalRequirement <em>Include Global Requirement</em>}'.
+   * <!-- begin-user-doc -->
+   * This default implementation returns null so that we can easily ignore cases;
+   * it's useful to ignore a case when inheritance will catch all the cases anyway.
+   * <!-- end-user-doc -->
+   * @return the new adapter.
+   * @see org.osate.reqspec.reqSpec.IncludeGlobalRequirement
+   * @generated
+   */
+  public Adapter createIncludeGlobalRequirementAdapter()
   {
     return null;
   }

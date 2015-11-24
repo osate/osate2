@@ -41,6 +41,7 @@ import org.osate.categories.categories.CategoriesPackage
 import org.osate.categories.categories.Categories
 import org.osate.reqspec.reqSpec.Requirement
 import org.osate.reqspec.reqSpec.Goal
+import org.osate.reqspec.reqSpec.GlobalRequirements
 
 /**
  * see http://www.eclipse.org/Xtext/documentation.html#contentAssist on how to customize content assistant
@@ -237,6 +238,18 @@ class ReqSpecProposalProvider extends AbstractReqSpecProposalProvider {
 			acceptor,
 			[description|val match = description.qualifiedName.toString; 
 				 ! (model as Requirement).userSelection.exists[c|c.name.equals(match)]
+			]
+		);
+	}
+
+	override void completeIncludeGlobalRequirement_Include(EObject model, Assignment assignment,
+		ContentAssistContext context, ICompletionProposalAcceptor acceptor) {
+		lookupCrossReference(
+			assignment.getTerminal() as CrossReference,
+			context,
+			acceptor,
+			[description|val match = description.qualifiedName.toString; 
+				 model instanceof GlobalRequirements || (model instanceof Requirement && model.eContainer instanceof GlobalRequirements)
 			]
 		);
 	}

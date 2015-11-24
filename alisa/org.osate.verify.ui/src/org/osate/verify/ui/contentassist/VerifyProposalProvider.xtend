@@ -75,6 +75,7 @@ class VerifyProposalProvider extends AbstractVerifyProposalProvider {
 			context,
 			acceptor,
 			[description| val match = description.qualifiedName.toString; 
+				val qa = (model as VerificationMethod).qualityAttribute;
 				 ! (model as VerificationMethod).qualityAttribute.exists[c|c.name.equals(match)]
 			]
 		);

@@ -65,9 +65,6 @@ class VerifyUtilExtension {
 		cee.error != null 
 	}
 	
-	def static ComponentClassifier getTargetComponentClassifier(VerificationPlan vp){
-		vp.requirements?.target
-	}
 	
 	def static containingVerificationPlan(EObject sh) {
 		sh.getContainerOfType(VerificationPlan)
@@ -84,6 +81,7 @@ class VerifyUtilExtension {
 	
 
 	def static evaluateRequirementFilter(Claim claim, CategoryFilter filter) {
+		if (filter == null) return true
 		val req = claim.requirement
 		if (Aadl2Util.isNull(req)) return false
 		return intersects(req.requirementType,filter.requirementType,filter.anyRequirementType) 
@@ -92,14 +90,16 @@ class VerifyUtilExtension {
 	}
 
 	def static evaluateVerificationMethodFilter(VerificationActivity va, CategoryFilter filter) {
+		if (filter == null) return true
 		val vm = va.method
-		if (vm == null) return false
+		if (vm == null ) return false
 		return intersects(vm.methodType,filter.methodType,filter.anyMethodType) 
 		&& intersects(vm.qualityAttribute,filter.qualityAttribute,filter.anyQualityAttribute)
 		&& intersects(vm.userSelection,filter.userSelection,filter.anyUserSelection)
 	}
 	
 	def static evaluateVerificationActivityFilter(VerificationActivity va, CategoryFilter filter) {
+		if (filter == null) return true
 		return intersects(va.developmentPhase,filter.developmentPhase,filter.anyDevelopmentPhase) 
 		&& intersects(va.userSelection,filter.userSelection,filter.anyUserSelection)
 	}

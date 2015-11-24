@@ -51,7 +51,7 @@ class VerifyGlobalReferenceFinder implements IVerifyGlobalReferenceFinder{
 		
 		override Iterable<VerificationPlan> getVerificationPlans(ComponentClassifier cc, EObject context){
 			return refFinder.getEObjectDescriptions(context, VerifyPackage.Literals.VERIFICATION_PLAN, "verify").map [ eod |
-			EcoreUtil.resolve(eod.EObjectOrProxy, context) as VerificationPlan].filter[svp|cc.isSameorExtends(svp.requirements.target)]
+			EcoreUtil.resolve(eod.EObjectOrProxy, context) as VerificationPlan].filter[svp|val reqs = svp.requirements; reqs instanceof SystemRequirements && cc.isSameorExtends((reqs as SystemRequirements).target)]
 	}
 		
 

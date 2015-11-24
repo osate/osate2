@@ -172,14 +172,11 @@ public class AlisaSemanticSequencer extends CommonSemanticSequencer {
 	 *         name=ID 
 	 *         title=STRING? 
 	 *         assurancePlan=[AssurancePlan|QualifiedName] 
-	 *         description=Description? 
-	 *         (
-	 *             (requirementType+=[RequirementType|ID]+ anyRequirementType?='any'?)? 
-	 *             (methodType+=[MethodType|ID]+ anyMethodType?='any'?)? 
-	 *             (userSelection+=[UserSelection|ID]+ anyUserSelection?='any'?)? 
-	 *             (qualityAttribute+=[QualityAttribute|ID]+ anyQualityAttribute?='any'?)? 
-	 *             (developmentPhase+=[DevelopmentPhase|ID]+ anyDevelopmentPhase?='any'?)?
-	 *         )? 
+	 *         (requirementType+=[RequirementType|ID]+ anyRequirementType?='any'?)? 
+	 *         (methodType+=[MethodType|ID]+ anyMethodType?='any'?)? 
+	 *         (userSelection+=[UserSelection|ID]+ anyUserSelection?='any'?)? 
+	 *         (qualityAttribute+=[QualityAttribute|ID]+ anyQualityAttribute?='any'?)? 
+	 *         (developmentPhase+=[DevelopmentPhase|ID]+ anyDevelopmentPhase?='any'?)? 
 	 *         issues+=STRING*
 	 *     )
 	 */

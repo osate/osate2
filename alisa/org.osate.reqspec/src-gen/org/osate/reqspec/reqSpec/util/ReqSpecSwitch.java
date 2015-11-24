@@ -171,6 +171,13 @@ public class ReqSpecSwitch<T> extends Switch<T>
         if (result == null) result = defaultCase(theEObject);
         return result;
       }
+      case ReqSpecPackage.INCLUDE_GLOBAL_REQUIREMENT:
+      {
+        IncludeGlobalRequirement includeGlobalRequirement = (IncludeGlobalRequirement)theEObject;
+        T result = caseIncludeGlobalRequirement(includeGlobalRequirement);
+        if (result == null) result = defaultCase(theEObject);
+        return result;
+      }
       case ReqSpecPackage.REQ_PREDICATE:
       {
         ReqPredicate reqPredicate = (ReqPredicate)theEObject;
@@ -405,6 +412,22 @@ public class ReqSpecSwitch<T> extends Switch<T>
    * @generated
    */
   public T caseRequirement(Requirement object)
+  {
+    return null;
+  }
+
+  /**
+   * Returns the result of interpreting the object as an instance of '<em>Include Global Requirement</em>'.
+   * <!-- begin-user-doc -->
+   * This implementation returns null;
+   * returning a non-null result will terminate the switch.
+   * <!-- end-user-doc -->
+   * @param object the target of the switch.
+   * @return the result of interpreting the object as an instance of '<em>Include Global Requirement</em>'.
+   * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+   * @generated
+   */
+  public T caseIncludeGlobalRequirement(IncludeGlobalRequirement object)
   {
     return null;
   }
