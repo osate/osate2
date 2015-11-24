@@ -32,7 +32,8 @@ import org.eclipse.emf.ecore.util.EObjectResolvingEList;
 import org.osate.alisa.common.common.ComputeDeclaration;
 import org.osate.alisa.common.common.ValDeclaration;
 
-import org.osate.categories.categories.Category;
+import org.osate.categories.categories.DevelopmentPhase;
+import org.osate.categories.categories.UserSelection;
 
 import org.osate.verify.verify.VerificationActivity;
 import org.osate.verify.verify.VerificationMethod;
@@ -48,7 +49,8 @@ import org.osate.verify.verify.VerifyPackage;
  * <ul>
  *   <li>{@link org.osate.verify.verify.impl.VerificationActivityImpl#getName <em>Name</em>}</li>
  *   <li>{@link org.osate.verify.verify.impl.VerificationActivityImpl#getTitle <em>Title</em>}</li>
- *   <li>{@link org.osate.verify.verify.impl.VerificationActivityImpl#getCategory <em>Category</em>}</li>
+ *   <li>{@link org.osate.verify.verify.impl.VerificationActivityImpl#getDevelopmentPhase <em>Development Phase</em>}</li>
+ *   <li>{@link org.osate.verify.verify.impl.VerificationActivityImpl#getUserSelection <em>User Selection</em>}</li>
  *   <li>{@link org.osate.verify.verify.impl.VerificationActivityImpl#getResult <em>Result</em>}</li>
  *   <li>{@link org.osate.verify.verify.impl.VerificationActivityImpl#getMethod <em>Method</em>}</li>
  *   <li>{@link org.osate.verify.verify.impl.VerificationActivityImpl#getParameters <em>Parameters</em>}</li>
@@ -101,14 +103,24 @@ public class VerificationActivityImpl extends MinimalEObjectImpl.Container imple
   protected String title = TITLE_EDEFAULT;
 
   /**
-   * The cached value of the '{@link #getCategory() <em>Category</em>}' reference list.
+   * The cached value of the '{@link #getDevelopmentPhase() <em>Development Phase</em>}' reference list.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @see #getCategory()
+   * @see #getDevelopmentPhase()
    * @generated
    * @ordered
    */
-  protected EList<Category> category;
+  protected EList<DevelopmentPhase> developmentPhase;
+
+  /**
+   * The cached value of the '{@link #getUserSelection() <em>User Selection</em>}' reference list.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see #getUserSelection()
+   * @generated
+   * @ordered
+   */
+  protected EList<UserSelection> userSelection;
 
   /**
    * The cached value of the '{@link #getResult() <em>Result</em>}' reference list.
@@ -242,13 +254,27 @@ public class VerificationActivityImpl extends MinimalEObjectImpl.Container imple
    * <!-- end-user-doc -->
    * @generated
    */
-  public EList<Category> getCategory()
+  public EList<DevelopmentPhase> getDevelopmentPhase()
   {
-    if (category == null)
+    if (developmentPhase == null)
     {
-      category = new EObjectResolvingEList<Category>(Category.class, this, VerifyPackage.VERIFICATION_ACTIVITY__CATEGORY);
+      developmentPhase = new EObjectResolvingEList<DevelopmentPhase>(DevelopmentPhase.class, this, VerifyPackage.VERIFICATION_ACTIVITY__DEVELOPMENT_PHASE);
     }
-    return category;
+    return developmentPhase;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EList<UserSelection> getUserSelection()
+  {
+    if (userSelection == null)
+    {
+      userSelection = new EObjectResolvingEList<UserSelection>(UserSelection.class, this, VerifyPackage.VERIFICATION_ACTIVITY__USER_SELECTION);
+    }
+    return userSelection;
   }
 
   /**
@@ -373,8 +399,10 @@ public class VerificationActivityImpl extends MinimalEObjectImpl.Container imple
         return getName();
       case VerifyPackage.VERIFICATION_ACTIVITY__TITLE:
         return getTitle();
-      case VerifyPackage.VERIFICATION_ACTIVITY__CATEGORY:
-        return getCategory();
+      case VerifyPackage.VERIFICATION_ACTIVITY__DEVELOPMENT_PHASE:
+        return getDevelopmentPhase();
+      case VerifyPackage.VERIFICATION_ACTIVITY__USER_SELECTION:
+        return getUserSelection();
       case VerifyPackage.VERIFICATION_ACTIVITY__RESULT:
         return getResult();
       case VerifyPackage.VERIFICATION_ACTIVITY__METHOD:
@@ -407,9 +435,13 @@ public class VerificationActivityImpl extends MinimalEObjectImpl.Container imple
       case VerifyPackage.VERIFICATION_ACTIVITY__TITLE:
         setTitle((String)newValue);
         return;
-      case VerifyPackage.VERIFICATION_ACTIVITY__CATEGORY:
-        getCategory().clear();
-        getCategory().addAll((Collection<? extends Category>)newValue);
+      case VerifyPackage.VERIFICATION_ACTIVITY__DEVELOPMENT_PHASE:
+        getDevelopmentPhase().clear();
+        getDevelopmentPhase().addAll((Collection<? extends DevelopmentPhase>)newValue);
+        return;
+      case VerifyPackage.VERIFICATION_ACTIVITY__USER_SELECTION:
+        getUserSelection().clear();
+        getUserSelection().addAll((Collection<? extends UserSelection>)newValue);
         return;
       case VerifyPackage.VERIFICATION_ACTIVITY__RESULT:
         getResult().clear();
@@ -449,8 +481,11 @@ public class VerificationActivityImpl extends MinimalEObjectImpl.Container imple
       case VerifyPackage.VERIFICATION_ACTIVITY__TITLE:
         setTitle(TITLE_EDEFAULT);
         return;
-      case VerifyPackage.VERIFICATION_ACTIVITY__CATEGORY:
-        getCategory().clear();
+      case VerifyPackage.VERIFICATION_ACTIVITY__DEVELOPMENT_PHASE:
+        getDevelopmentPhase().clear();
+        return;
+      case VerifyPackage.VERIFICATION_ACTIVITY__USER_SELECTION:
+        getUserSelection().clear();
         return;
       case VerifyPackage.VERIFICATION_ACTIVITY__RESULT:
         getResult().clear();
@@ -485,8 +520,10 @@ public class VerificationActivityImpl extends MinimalEObjectImpl.Container imple
         return NAME_EDEFAULT == null ? name != null : !NAME_EDEFAULT.equals(name);
       case VerifyPackage.VERIFICATION_ACTIVITY__TITLE:
         return TITLE_EDEFAULT == null ? title != null : !TITLE_EDEFAULT.equals(title);
-      case VerifyPackage.VERIFICATION_ACTIVITY__CATEGORY:
-        return category != null && !category.isEmpty();
+      case VerifyPackage.VERIFICATION_ACTIVITY__DEVELOPMENT_PHASE:
+        return developmentPhase != null && !developmentPhase.isEmpty();
+      case VerifyPackage.VERIFICATION_ACTIVITY__USER_SELECTION:
+        return userSelection != null && !userSelection.isEmpty();
       case VerifyPackage.VERIFICATION_ACTIVITY__RESULT:
         return result != null && !result.isEmpty();
       case VerifyPackage.VERIFICATION_ACTIVITY__METHOD:

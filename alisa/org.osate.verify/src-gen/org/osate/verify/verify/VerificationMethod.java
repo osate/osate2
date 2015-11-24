@@ -23,7 +23,9 @@ import org.osate.aadl2.Property;
 
 import org.osate.alisa.common.common.Description;
 
-import org.osate.categories.categories.Category;
+import org.osate.categories.categories.MethodType;
+import org.osate.categories.categories.QualityAttribute;
+import org.osate.categories.categories.UserSelection;
 
 /**
  * <!-- begin-user-doc -->
@@ -40,11 +42,13 @@ import org.osate.categories.categories.Category;
  *   <li>{@link org.osate.verify.verify.VerificationMethod#isIsPredicate <em>Is Predicate</em>}</li>
  *   <li>{@link org.osate.verify.verify.VerificationMethod#isIsResultReport <em>Is Result Report</em>}</li>
  *   <li>{@link org.osate.verify.verify.VerificationMethod#getTitle <em>Title</em>}</li>
- *   <li>{@link org.osate.verify.verify.VerificationMethod#getMethodType <em>Method Type</em>}</li>
+ *   <li>{@link org.osate.verify.verify.VerificationMethod#getMethodKind <em>Method Kind</em>}</li>
  *   <li>{@link org.osate.verify.verify.VerificationMethod#getDescription <em>Description</em>}</li>
  *   <li>{@link org.osate.verify.verify.VerificationMethod#getPrecondition <em>Precondition</em>}</li>
  *   <li>{@link org.osate.verify.verify.VerificationMethod#getValidation <em>Validation</em>}</li>
- *   <li>{@link org.osate.verify.verify.VerificationMethod#getCategory <em>Category</em>}</li>
+ *   <li>{@link org.osate.verify.verify.VerificationMethod#getMethodType <em>Method Type</em>}</li>
+ *   <li>{@link org.osate.verify.verify.VerificationMethod#getQualityAttribute <em>Quality Attribute</em>}</li>
+ *   <li>{@link org.osate.verify.verify.VerificationMethod#getUserSelection <em>User Selection</em>}</li>
  * </ul>
  *
  * @see org.osate.verify.verify.VerifyPackage#getVerificationMethod()
@@ -190,30 +194,30 @@ public interface VerificationMethod extends EObject
   void setTitle(String value);
 
   /**
-   * Returns the value of the '<em><b>Method Type</b></em>' containment reference.
+   * Returns the value of the '<em><b>Method Kind</b></em>' containment reference.
    * <!-- begin-user-doc -->
    * <p>
-   * If the meaning of the '<em>Method Type</em>' containment reference isn't clear,
+   * If the meaning of the '<em>Method Kind</em>' containment reference isn't clear,
    * there really should be more of a description here...
    * </p>
    * <!-- end-user-doc -->
-   * @return the value of the '<em>Method Type</em>' containment reference.
-   * @see #setMethodType(MethodType)
-   * @see org.osate.verify.verify.VerifyPackage#getVerificationMethod_MethodType()
+   * @return the value of the '<em>Method Kind</em>' containment reference.
+   * @see #setMethodKind(MethodKind)
+   * @see org.osate.verify.verify.VerifyPackage#getVerificationMethod_MethodKind()
    * @model containment="true"
    * @generated
    */
-  MethodType getMethodType();
+  MethodKind getMethodKind();
 
   /**
-   * Sets the value of the '{@link org.osate.verify.verify.VerificationMethod#getMethodType <em>Method Type</em>}' containment reference.
+   * Sets the value of the '{@link org.osate.verify.verify.VerificationMethod#getMethodKind <em>Method Kind</em>}' containment reference.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @param value the new value of the '<em>Method Type</em>' containment reference.
-   * @see #getMethodType()
+   * @param value the new value of the '<em>Method Kind</em>' containment reference.
+   * @see #getMethodKind()
    * @generated
    */
-  void setMethodType(MethodType value);
+  void setMethodKind(MethodKind value);
 
   /**
    * Returns the value of the '<em><b>Description</b></em>' containment reference.
@@ -294,19 +298,51 @@ public interface VerificationMethod extends EObject
   void setValidation(VerificationCondition value);
 
   /**
-   * Returns the value of the '<em><b>Category</b></em>' reference list.
-   * The list contents are of type {@link org.osate.categories.categories.Category}.
+   * Returns the value of the '<em><b>Method Type</b></em>' reference list.
+   * The list contents are of type {@link org.osate.categories.categories.MethodType}.
    * <!-- begin-user-doc -->
    * <p>
-   * If the meaning of the '<em>Category</em>' reference list isn't clear,
+   * If the meaning of the '<em>Method Type</em>' reference list isn't clear,
    * there really should be more of a description here...
    * </p>
    * <!-- end-user-doc -->
-   * @return the value of the '<em>Category</em>' reference list.
-   * @see org.osate.verify.verify.VerifyPackage#getVerificationMethod_Category()
+   * @return the value of the '<em>Method Type</em>' reference list.
+   * @see org.osate.verify.verify.VerifyPackage#getVerificationMethod_MethodType()
    * @model
    * @generated
    */
-  EList<Category> getCategory();
+  EList<MethodType> getMethodType();
+
+  /**
+   * Returns the value of the '<em><b>Quality Attribute</b></em>' reference list.
+   * The list contents are of type {@link org.osate.categories.categories.QualityAttribute}.
+   * <!-- begin-user-doc -->
+   * <p>
+   * If the meaning of the '<em>Quality Attribute</em>' reference list isn't clear,
+   * there really should be more of a description here...
+   * </p>
+   * <!-- end-user-doc -->
+   * @return the value of the '<em>Quality Attribute</em>' reference list.
+   * @see org.osate.verify.verify.VerifyPackage#getVerificationMethod_QualityAttribute()
+   * @model
+   * @generated
+   */
+  EList<QualityAttribute> getQualityAttribute();
+
+  /**
+   * Returns the value of the '<em><b>User Selection</b></em>' reference list.
+   * The list contents are of type {@link org.osate.categories.categories.UserSelection}.
+   * <!-- begin-user-doc -->
+   * <p>
+   * If the meaning of the '<em>User Selection</em>' reference list isn't clear,
+   * there really should be more of a description here...
+   * </p>
+   * <!-- end-user-doc -->
+   * @return the value of the '<em>User Selection</em>' reference list.
+   * @see org.osate.verify.verify.VerifyPackage#getVerificationMethod_UserSelection()
+   * @model
+   * @generated
+   */
+  EList<UserSelection> getUserSelection();
 
 } // VerificationMethod

@@ -26,7 +26,6 @@ import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.InternalEObject;
 
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
-import org.eclipse.emf.ecore.impl.MinimalEObjectImpl;
 
 import org.eclipse.emf.ecore.util.EDataTypeEList;
 import org.eclipse.emf.ecore.util.EObjectResolvingEList;
@@ -37,7 +36,11 @@ import org.osate.alisa.workbench.alisa.AlisaPackage;
 import org.osate.alisa.workbench.alisa.AssurancePlan;
 import org.osate.alisa.workbench.alisa.AssuranceTask;
 
-import org.osate.categories.categories.Category;
+import org.osate.categories.categories.DevelopmentPhase;
+import org.osate.categories.categories.MethodType;
+import org.osate.categories.categories.QualityAttribute;
+import org.osate.categories.categories.RequirementType;
+import org.osate.categories.categories.UserSelection;
 
 /**
  * <!-- begin-user-doc -->
@@ -51,14 +54,22 @@ import org.osate.categories.categories.Category;
  *   <li>{@link org.osate.alisa.workbench.alisa.impl.AssuranceTaskImpl#getTitle <em>Title</em>}</li>
  *   <li>{@link org.osate.alisa.workbench.alisa.impl.AssuranceTaskImpl#getAssurancePlan <em>Assurance Plan</em>}</li>
  *   <li>{@link org.osate.alisa.workbench.alisa.impl.AssuranceTaskImpl#getDescription <em>Description</em>}</li>
- *   <li>{@link org.osate.alisa.workbench.alisa.impl.AssuranceTaskImpl#getFilter <em>Filter</em>}</li>
- *   <li>{@link org.osate.alisa.workbench.alisa.impl.AssuranceTaskImpl#isStrictFilter <em>Strict Filter</em>}</li>
+ *   <li>{@link org.osate.alisa.workbench.alisa.impl.AssuranceTaskImpl#getRequirementType <em>Requirement Type</em>}</li>
+ *   <li>{@link org.osate.alisa.workbench.alisa.impl.AssuranceTaskImpl#isAnyRequirementType <em>Any Requirement Type</em>}</li>
+ *   <li>{@link org.osate.alisa.workbench.alisa.impl.AssuranceTaskImpl#getMethodType <em>Method Type</em>}</li>
+ *   <li>{@link org.osate.alisa.workbench.alisa.impl.AssuranceTaskImpl#isAnyMethodType <em>Any Method Type</em>}</li>
+ *   <li>{@link org.osate.alisa.workbench.alisa.impl.AssuranceTaskImpl#getUserSelection <em>User Selection</em>}</li>
+ *   <li>{@link org.osate.alisa.workbench.alisa.impl.AssuranceTaskImpl#isAnyUserSelection <em>Any User Selection</em>}</li>
+ *   <li>{@link org.osate.alisa.workbench.alisa.impl.AssuranceTaskImpl#getQualityAttribute <em>Quality Attribute</em>}</li>
+ *   <li>{@link org.osate.alisa.workbench.alisa.impl.AssuranceTaskImpl#isAnyQualityAttribute <em>Any Quality Attribute</em>}</li>
+ *   <li>{@link org.osate.alisa.workbench.alisa.impl.AssuranceTaskImpl#getDevelopmentPhase <em>Development Phase</em>}</li>
+ *   <li>{@link org.osate.alisa.workbench.alisa.impl.AssuranceTaskImpl#isAnyDevelopmentPhase <em>Any Development Phase</em>}</li>
  *   <li>{@link org.osate.alisa.workbench.alisa.impl.AssuranceTaskImpl#getIssues <em>Issues</em>}</li>
  * </ul>
  *
  * @generated
  */
-public class AssuranceTaskImpl extends MinimalEObjectImpl.Container implements AssuranceTask
+public class AssuranceTaskImpl extends CategoryFilterImpl implements AssuranceTask
 {
   /**
    * The default value of the '{@link #getName() <em>Name</em>}' attribute.
@@ -121,34 +132,154 @@ public class AssuranceTaskImpl extends MinimalEObjectImpl.Container implements A
   protected Description description;
 
   /**
-   * The cached value of the '{@link #getFilter() <em>Filter</em>}' reference list.
+   * The cached value of the '{@link #getRequirementType() <em>Requirement Type</em>}' reference list.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @see #getFilter()
+   * @see #getRequirementType()
    * @generated
    * @ordered
    */
-  protected EList<Category> filter;
+  protected EList<RequirementType> requirementType;
 
   /**
-   * The default value of the '{@link #isStrictFilter() <em>Strict Filter</em>}' attribute.
+   * The default value of the '{@link #isAnyRequirementType() <em>Any Requirement Type</em>}' attribute.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @see #isStrictFilter()
+   * @see #isAnyRequirementType()
    * @generated
    * @ordered
    */
-  protected static final boolean STRICT_FILTER_EDEFAULT = false;
+  protected static final boolean ANY_REQUIREMENT_TYPE_EDEFAULT = false;
 
   /**
-   * The cached value of the '{@link #isStrictFilter() <em>Strict Filter</em>}' attribute.
+   * The cached value of the '{@link #isAnyRequirementType() <em>Any Requirement Type</em>}' attribute.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @see #isStrictFilter()
+   * @see #isAnyRequirementType()
    * @generated
    * @ordered
    */
-  protected boolean strictFilter = STRICT_FILTER_EDEFAULT;
+  protected boolean anyRequirementType = ANY_REQUIREMENT_TYPE_EDEFAULT;
+
+  /**
+   * The cached value of the '{@link #getMethodType() <em>Method Type</em>}' reference list.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see #getMethodType()
+   * @generated
+   * @ordered
+   */
+  protected EList<MethodType> methodType;
+
+  /**
+   * The default value of the '{@link #isAnyMethodType() <em>Any Method Type</em>}' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see #isAnyMethodType()
+   * @generated
+   * @ordered
+   */
+  protected static final boolean ANY_METHOD_TYPE_EDEFAULT = false;
+
+  /**
+   * The cached value of the '{@link #isAnyMethodType() <em>Any Method Type</em>}' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see #isAnyMethodType()
+   * @generated
+   * @ordered
+   */
+  protected boolean anyMethodType = ANY_METHOD_TYPE_EDEFAULT;
+
+  /**
+   * The cached value of the '{@link #getUserSelection() <em>User Selection</em>}' reference list.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see #getUserSelection()
+   * @generated
+   * @ordered
+   */
+  protected EList<UserSelection> userSelection;
+
+  /**
+   * The default value of the '{@link #isAnyUserSelection() <em>Any User Selection</em>}' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see #isAnyUserSelection()
+   * @generated
+   * @ordered
+   */
+  protected static final boolean ANY_USER_SELECTION_EDEFAULT = false;
+
+  /**
+   * The cached value of the '{@link #isAnyUserSelection() <em>Any User Selection</em>}' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see #isAnyUserSelection()
+   * @generated
+   * @ordered
+   */
+  protected boolean anyUserSelection = ANY_USER_SELECTION_EDEFAULT;
+
+  /**
+   * The cached value of the '{@link #getQualityAttribute() <em>Quality Attribute</em>}' reference list.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see #getQualityAttribute()
+   * @generated
+   * @ordered
+   */
+  protected EList<QualityAttribute> qualityAttribute;
+
+  /**
+   * The default value of the '{@link #isAnyQualityAttribute() <em>Any Quality Attribute</em>}' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see #isAnyQualityAttribute()
+   * @generated
+   * @ordered
+   */
+  protected static final boolean ANY_QUALITY_ATTRIBUTE_EDEFAULT = false;
+
+  /**
+   * The cached value of the '{@link #isAnyQualityAttribute() <em>Any Quality Attribute</em>}' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see #isAnyQualityAttribute()
+   * @generated
+   * @ordered
+   */
+  protected boolean anyQualityAttribute = ANY_QUALITY_ATTRIBUTE_EDEFAULT;
+
+  /**
+   * The cached value of the '{@link #getDevelopmentPhase() <em>Development Phase</em>}' reference list.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see #getDevelopmentPhase()
+   * @generated
+   * @ordered
+   */
+  protected EList<DevelopmentPhase> developmentPhase;
+
+  /**
+   * The default value of the '{@link #isAnyDevelopmentPhase() <em>Any Development Phase</em>}' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see #isAnyDevelopmentPhase()
+   * @generated
+   * @ordered
+   */
+  protected static final boolean ANY_DEVELOPMENT_PHASE_EDEFAULT = false;
+
+  /**
+   * The cached value of the '{@link #isAnyDevelopmentPhase() <em>Any Development Phase</em>}' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see #isAnyDevelopmentPhase()
+   * @generated
+   * @ordered
+   */
+  protected boolean anyDevelopmentPhase = ANY_DEVELOPMENT_PHASE_EDEFAULT;
 
   /**
    * The cached value of the '{@link #getIssues() <em>Issues</em>}' attribute list.
@@ -323,13 +454,13 @@ public class AssuranceTaskImpl extends MinimalEObjectImpl.Container implements A
    * <!-- end-user-doc -->
    * @generated
    */
-  public EList<Category> getFilter()
+  public EList<RequirementType> getRequirementType()
   {
-    if (filter == null)
+    if (requirementType == null)
     {
-      filter = new EObjectResolvingEList<Category>(Category.class, this, AlisaPackage.ASSURANCE_TASK__FILTER);
+      requirementType = new EObjectResolvingEList<RequirementType>(RequirementType.class, this, AlisaPackage.ASSURANCE_TASK__REQUIREMENT_TYPE);
     }
-    return filter;
+    return requirementType;
   }
 
   /**
@@ -337,9 +468,9 @@ public class AssuranceTaskImpl extends MinimalEObjectImpl.Container implements A
    * <!-- end-user-doc -->
    * @generated
    */
-  public boolean isStrictFilter()
+  public boolean isAnyRequirementType()
   {
-    return strictFilter;
+    return anyRequirementType;
   }
 
   /**
@@ -347,12 +478,160 @@ public class AssuranceTaskImpl extends MinimalEObjectImpl.Container implements A
    * <!-- end-user-doc -->
    * @generated
    */
-  public void setStrictFilter(boolean newStrictFilter)
+  public void setAnyRequirementType(boolean newAnyRequirementType)
   {
-    boolean oldStrictFilter = strictFilter;
-    strictFilter = newStrictFilter;
+    boolean oldAnyRequirementType = anyRequirementType;
+    anyRequirementType = newAnyRequirementType;
     if (eNotificationRequired())
-      eNotify(new ENotificationImpl(this, Notification.SET, AlisaPackage.ASSURANCE_TASK__STRICT_FILTER, oldStrictFilter, strictFilter));
+      eNotify(new ENotificationImpl(this, Notification.SET, AlisaPackage.ASSURANCE_TASK__ANY_REQUIREMENT_TYPE, oldAnyRequirementType, anyRequirementType));
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EList<MethodType> getMethodType()
+  {
+    if (methodType == null)
+    {
+      methodType = new EObjectResolvingEList<MethodType>(MethodType.class, this, AlisaPackage.ASSURANCE_TASK__METHOD_TYPE);
+    }
+    return methodType;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public boolean isAnyMethodType()
+  {
+    return anyMethodType;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public void setAnyMethodType(boolean newAnyMethodType)
+  {
+    boolean oldAnyMethodType = anyMethodType;
+    anyMethodType = newAnyMethodType;
+    if (eNotificationRequired())
+      eNotify(new ENotificationImpl(this, Notification.SET, AlisaPackage.ASSURANCE_TASK__ANY_METHOD_TYPE, oldAnyMethodType, anyMethodType));
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EList<UserSelection> getUserSelection()
+  {
+    if (userSelection == null)
+    {
+      userSelection = new EObjectResolvingEList<UserSelection>(UserSelection.class, this, AlisaPackage.ASSURANCE_TASK__USER_SELECTION);
+    }
+    return userSelection;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public boolean isAnyUserSelection()
+  {
+    return anyUserSelection;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public void setAnyUserSelection(boolean newAnyUserSelection)
+  {
+    boolean oldAnyUserSelection = anyUserSelection;
+    anyUserSelection = newAnyUserSelection;
+    if (eNotificationRequired())
+      eNotify(new ENotificationImpl(this, Notification.SET, AlisaPackage.ASSURANCE_TASK__ANY_USER_SELECTION, oldAnyUserSelection, anyUserSelection));
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EList<QualityAttribute> getQualityAttribute()
+  {
+    if (qualityAttribute == null)
+    {
+      qualityAttribute = new EObjectResolvingEList<QualityAttribute>(QualityAttribute.class, this, AlisaPackage.ASSURANCE_TASK__QUALITY_ATTRIBUTE);
+    }
+    return qualityAttribute;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public boolean isAnyQualityAttribute()
+  {
+    return anyQualityAttribute;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public void setAnyQualityAttribute(boolean newAnyQualityAttribute)
+  {
+    boolean oldAnyQualityAttribute = anyQualityAttribute;
+    anyQualityAttribute = newAnyQualityAttribute;
+    if (eNotificationRequired())
+      eNotify(new ENotificationImpl(this, Notification.SET, AlisaPackage.ASSURANCE_TASK__ANY_QUALITY_ATTRIBUTE, oldAnyQualityAttribute, anyQualityAttribute));
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EList<DevelopmentPhase> getDevelopmentPhase()
+  {
+    if (developmentPhase == null)
+    {
+      developmentPhase = new EObjectResolvingEList<DevelopmentPhase>(DevelopmentPhase.class, this, AlisaPackage.ASSURANCE_TASK__DEVELOPMENT_PHASE);
+    }
+    return developmentPhase;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public boolean isAnyDevelopmentPhase()
+  {
+    return anyDevelopmentPhase;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public void setAnyDevelopmentPhase(boolean newAnyDevelopmentPhase)
+  {
+    boolean oldAnyDevelopmentPhase = anyDevelopmentPhase;
+    anyDevelopmentPhase = newAnyDevelopmentPhase;
+    if (eNotificationRequired())
+      eNotify(new ENotificationImpl(this, Notification.SET, AlisaPackage.ASSURANCE_TASK__ANY_DEVELOPMENT_PHASE, oldAnyDevelopmentPhase, anyDevelopmentPhase));
   }
 
   /**
@@ -404,10 +683,26 @@ public class AssuranceTaskImpl extends MinimalEObjectImpl.Container implements A
         return basicGetAssurancePlan();
       case AlisaPackage.ASSURANCE_TASK__DESCRIPTION:
         return getDescription();
-      case AlisaPackage.ASSURANCE_TASK__FILTER:
-        return getFilter();
-      case AlisaPackage.ASSURANCE_TASK__STRICT_FILTER:
-        return isStrictFilter();
+      case AlisaPackage.ASSURANCE_TASK__REQUIREMENT_TYPE:
+        return getRequirementType();
+      case AlisaPackage.ASSURANCE_TASK__ANY_REQUIREMENT_TYPE:
+        return isAnyRequirementType();
+      case AlisaPackage.ASSURANCE_TASK__METHOD_TYPE:
+        return getMethodType();
+      case AlisaPackage.ASSURANCE_TASK__ANY_METHOD_TYPE:
+        return isAnyMethodType();
+      case AlisaPackage.ASSURANCE_TASK__USER_SELECTION:
+        return getUserSelection();
+      case AlisaPackage.ASSURANCE_TASK__ANY_USER_SELECTION:
+        return isAnyUserSelection();
+      case AlisaPackage.ASSURANCE_TASK__QUALITY_ATTRIBUTE:
+        return getQualityAttribute();
+      case AlisaPackage.ASSURANCE_TASK__ANY_QUALITY_ATTRIBUTE:
+        return isAnyQualityAttribute();
+      case AlisaPackage.ASSURANCE_TASK__DEVELOPMENT_PHASE:
+        return getDevelopmentPhase();
+      case AlisaPackage.ASSURANCE_TASK__ANY_DEVELOPMENT_PHASE:
+        return isAnyDevelopmentPhase();
       case AlisaPackage.ASSURANCE_TASK__ISSUES:
         return getIssues();
     }
@@ -437,12 +732,40 @@ public class AssuranceTaskImpl extends MinimalEObjectImpl.Container implements A
       case AlisaPackage.ASSURANCE_TASK__DESCRIPTION:
         setDescription((Description)newValue);
         return;
-      case AlisaPackage.ASSURANCE_TASK__FILTER:
-        getFilter().clear();
-        getFilter().addAll((Collection<? extends Category>)newValue);
+      case AlisaPackage.ASSURANCE_TASK__REQUIREMENT_TYPE:
+        getRequirementType().clear();
+        getRequirementType().addAll((Collection<? extends RequirementType>)newValue);
         return;
-      case AlisaPackage.ASSURANCE_TASK__STRICT_FILTER:
-        setStrictFilter((Boolean)newValue);
+      case AlisaPackage.ASSURANCE_TASK__ANY_REQUIREMENT_TYPE:
+        setAnyRequirementType((Boolean)newValue);
+        return;
+      case AlisaPackage.ASSURANCE_TASK__METHOD_TYPE:
+        getMethodType().clear();
+        getMethodType().addAll((Collection<? extends MethodType>)newValue);
+        return;
+      case AlisaPackage.ASSURANCE_TASK__ANY_METHOD_TYPE:
+        setAnyMethodType((Boolean)newValue);
+        return;
+      case AlisaPackage.ASSURANCE_TASK__USER_SELECTION:
+        getUserSelection().clear();
+        getUserSelection().addAll((Collection<? extends UserSelection>)newValue);
+        return;
+      case AlisaPackage.ASSURANCE_TASK__ANY_USER_SELECTION:
+        setAnyUserSelection((Boolean)newValue);
+        return;
+      case AlisaPackage.ASSURANCE_TASK__QUALITY_ATTRIBUTE:
+        getQualityAttribute().clear();
+        getQualityAttribute().addAll((Collection<? extends QualityAttribute>)newValue);
+        return;
+      case AlisaPackage.ASSURANCE_TASK__ANY_QUALITY_ATTRIBUTE:
+        setAnyQualityAttribute((Boolean)newValue);
+        return;
+      case AlisaPackage.ASSURANCE_TASK__DEVELOPMENT_PHASE:
+        getDevelopmentPhase().clear();
+        getDevelopmentPhase().addAll((Collection<? extends DevelopmentPhase>)newValue);
+        return;
+      case AlisaPackage.ASSURANCE_TASK__ANY_DEVELOPMENT_PHASE:
+        setAnyDevelopmentPhase((Boolean)newValue);
         return;
       case AlisaPackage.ASSURANCE_TASK__ISSUES:
         getIssues().clear();
@@ -474,11 +797,35 @@ public class AssuranceTaskImpl extends MinimalEObjectImpl.Container implements A
       case AlisaPackage.ASSURANCE_TASK__DESCRIPTION:
         setDescription((Description)null);
         return;
-      case AlisaPackage.ASSURANCE_TASK__FILTER:
-        getFilter().clear();
+      case AlisaPackage.ASSURANCE_TASK__REQUIREMENT_TYPE:
+        getRequirementType().clear();
         return;
-      case AlisaPackage.ASSURANCE_TASK__STRICT_FILTER:
-        setStrictFilter(STRICT_FILTER_EDEFAULT);
+      case AlisaPackage.ASSURANCE_TASK__ANY_REQUIREMENT_TYPE:
+        setAnyRequirementType(ANY_REQUIREMENT_TYPE_EDEFAULT);
+        return;
+      case AlisaPackage.ASSURANCE_TASK__METHOD_TYPE:
+        getMethodType().clear();
+        return;
+      case AlisaPackage.ASSURANCE_TASK__ANY_METHOD_TYPE:
+        setAnyMethodType(ANY_METHOD_TYPE_EDEFAULT);
+        return;
+      case AlisaPackage.ASSURANCE_TASK__USER_SELECTION:
+        getUserSelection().clear();
+        return;
+      case AlisaPackage.ASSURANCE_TASK__ANY_USER_SELECTION:
+        setAnyUserSelection(ANY_USER_SELECTION_EDEFAULT);
+        return;
+      case AlisaPackage.ASSURANCE_TASK__QUALITY_ATTRIBUTE:
+        getQualityAttribute().clear();
+        return;
+      case AlisaPackage.ASSURANCE_TASK__ANY_QUALITY_ATTRIBUTE:
+        setAnyQualityAttribute(ANY_QUALITY_ATTRIBUTE_EDEFAULT);
+        return;
+      case AlisaPackage.ASSURANCE_TASK__DEVELOPMENT_PHASE:
+        getDevelopmentPhase().clear();
+        return;
+      case AlisaPackage.ASSURANCE_TASK__ANY_DEVELOPMENT_PHASE:
+        setAnyDevelopmentPhase(ANY_DEVELOPMENT_PHASE_EDEFAULT);
         return;
       case AlisaPackage.ASSURANCE_TASK__ISSUES:
         getIssues().clear();
@@ -505,10 +852,26 @@ public class AssuranceTaskImpl extends MinimalEObjectImpl.Container implements A
         return assurancePlan != null;
       case AlisaPackage.ASSURANCE_TASK__DESCRIPTION:
         return description != null;
-      case AlisaPackage.ASSURANCE_TASK__FILTER:
-        return filter != null && !filter.isEmpty();
-      case AlisaPackage.ASSURANCE_TASK__STRICT_FILTER:
-        return strictFilter != STRICT_FILTER_EDEFAULT;
+      case AlisaPackage.ASSURANCE_TASK__REQUIREMENT_TYPE:
+        return requirementType != null && !requirementType.isEmpty();
+      case AlisaPackage.ASSURANCE_TASK__ANY_REQUIREMENT_TYPE:
+        return anyRequirementType != ANY_REQUIREMENT_TYPE_EDEFAULT;
+      case AlisaPackage.ASSURANCE_TASK__METHOD_TYPE:
+        return methodType != null && !methodType.isEmpty();
+      case AlisaPackage.ASSURANCE_TASK__ANY_METHOD_TYPE:
+        return anyMethodType != ANY_METHOD_TYPE_EDEFAULT;
+      case AlisaPackage.ASSURANCE_TASK__USER_SELECTION:
+        return userSelection != null && !userSelection.isEmpty();
+      case AlisaPackage.ASSURANCE_TASK__ANY_USER_SELECTION:
+        return anyUserSelection != ANY_USER_SELECTION_EDEFAULT;
+      case AlisaPackage.ASSURANCE_TASK__QUALITY_ATTRIBUTE:
+        return qualityAttribute != null && !qualityAttribute.isEmpty();
+      case AlisaPackage.ASSURANCE_TASK__ANY_QUALITY_ATTRIBUTE:
+        return anyQualityAttribute != ANY_QUALITY_ATTRIBUTE_EDEFAULT;
+      case AlisaPackage.ASSURANCE_TASK__DEVELOPMENT_PHASE:
+        return developmentPhase != null && !developmentPhase.isEmpty();
+      case AlisaPackage.ASSURANCE_TASK__ANY_DEVELOPMENT_PHASE:
+        return anyDevelopmentPhase != ANY_DEVELOPMENT_PHASE_EDEFAULT;
       case AlisaPackage.ASSURANCE_TASK__ISSUES:
         return issues != null && !issues.isEmpty();
     }
@@ -530,8 +893,16 @@ public class AssuranceTaskImpl extends MinimalEObjectImpl.Container implements A
     result.append(name);
     result.append(", title: ");
     result.append(title);
-    result.append(", strictFilter: ");
-    result.append(strictFilter);
+    result.append(", anyRequirementType: ");
+    result.append(anyRequirementType);
+    result.append(", anyMethodType: ");
+    result.append(anyMethodType);
+    result.append(", anyUserSelection: ");
+    result.append(anyUserSelection);
+    result.append(", anyQualityAttribute: ");
+    result.append(anyQualityAttribute);
+    result.append(", anyDevelopmentPhase: ");
+    result.append(anyDevelopmentPhase);
     result.append(", issues: ");
     result.append(issues);
     result.append(')');

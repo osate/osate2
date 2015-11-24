@@ -21,7 +21,6 @@ package org.osate.alisa.workbench.generator
 
 import com.google.inject.Inject
 import java.util.Collections
-import java.util.List
 import org.eclipse.emf.ecore.resource.Resource
 import org.eclipse.xtext.generator.IFileSystemAccess
 import org.eclipse.xtext.generator.IGenerator
@@ -34,7 +33,7 @@ import org.osate.aadl2.util.Aadl2Util
 import org.osate.alisa.workbench.alisa.AlisaWorkArea
 import org.osate.alisa.workbench.alisa.AssurancePlan
 import org.osate.alisa.workbench.alisa.AssuranceTask
-import org.osate.categories.categories.Category
+import org.osate.categories.categories.CategoryFilter
 import org.osate.verify.util.IVerifyGlobalReferenceFinder
 import org.osate.verify.verify.AllExpr
 import org.osate.verify.verify.ArgumentExpr
@@ -43,13 +42,12 @@ import org.osate.verify.verify.ElseExpr
 import org.osate.verify.verify.RefExpr
 import org.osate.verify.verify.ThenExpr
 import org.osate.verify.verify.VerificationActivity
-import org.osate.verify.verify.VerificationPlan
 
-import static extension org.osate.alisa.common.util.CommonUtilExtension.*
-import static extension org.osate.reqspec.util.ReqSpecUtilExtension.*
 import static extension org.osate.verify.util.VerifyUtilExtension.*
-import org.osate.verify.verify.GlobalVerificationPlan
-import org.osate.verify.verify.SystemVerificationPlan
+import static extension org.osate.reqspec.util.ReqSpecUtilExtension.*
+import org.eclipse.emf.common.util.EList
+import org.osate.verify.verify.VerificationPlan
+import org.eclipse.emf.common.util.BasicEList
 
 /**
  * Generates code from your model files on save.
@@ -70,31 +68,23 @@ class AlisaGenerator implements IGenerator {
 
 	@Inject extension IQualifiedNameProvider qualifiedNameProvider
 	
-	var List<Category> filter = Collections.EMPTY_LIST
-	var boolean strictFilter = false
+	var CategoryFilter filter = null
 	
 	var AssurancePlan rootAssuranceCase;
 	
 	def generateAssuranceTask(AssuranceTask at){
-		filter = at.filter
-		strictFilter = at.strictFilter
+		filter = at as CategoryFilter
 		at.assurancePlan?.generateRootCase
 	}
 	
-	var Iterable<GlobalVerificationPlan> allPlans = null
+	var EList<VerificationPlan> allPlans = new BasicEList()
 
 	def generateFullRootCase(AssurancePlan acp) {
-		filter = Collections.EMPTY_LIST
-		strictFilter = false
+		filter = null
 		generateRootCase(acp)
 	}
 
 	def generateRootCase(AssurancePlan acp) {
-		if (acp.assureGlobal.isEmpty){
-			allPlans = referenceFinder.getGlobalVerificationPlans(acp)
-		} else {
-			allPlans = acp.assureGlobal
-		}
 		rootAssuranceCase = acp
 		val res = generateCase(acp, null)
 		if (res.length == 0 ){
@@ -124,10 +114,10 @@ class AlisaGenerator implements IGenerator {
 	 * they can both be set, in this case acp takes precedence
 	 */
 	def CharSequence generateCase(AssurancePlan acp, Subcomponent sub){
-		var Iterable<SystemVerificationPlan> myplans = Collections.EMPTY_LIST
+		var Iterable<VerificationPlan> myplans = Collections.EMPTY_LIST
 		var ComponentClassifier cc
 		if (acp != null){
-			myplans = acp.assureOwn
+			myplans = acp.assure
 			cc = acp.target
 			if (myplans.empty && !Aadl2Util.isNull(cc)){
 				myplans = cc.getVerificationPlans(rootAssuranceCase)
@@ -181,22 +171,22 @@ class AlisaGenerator implements IGenerator {
 		'''
 	}
 	
-	def doAssurancePlanParts(AssurancePlan acp, Iterable<SystemVerificationPlan> myplans,ComponentClassifier cc){
+	def doAssurancePlanParts(AssurancePlan acp, Iterable<VerificationPlan> myplans,ComponentClassifier cc){
 		'''
 		«FOR myplan : myplans»
 		«FOR claim : myplan.claim»
-		«IF claim.evaluateRequirementFilter(filter,strictFilter)»
+		«IF claim.evaluateRequirementFilter(filter)»
 		«claim.generate()»
 		«ENDIF»
 		«ENDFOR»
 		«ENDFOR»
-		«FOR myplan : allPlans»
-		«FOR claim : myplan.claim.filter[cl|cl.requirement?.matchingCategory(cc.category)]»
-		«IF claim.evaluateRequirementFilter(filter,strictFilter)»
-			«claim.generate()»
-		«ENDIF»
-		«ENDFOR»
-		«ENDFOR»
+«««		«FOR myplan : allPlans»
+«««		«FOR claim : myplan.claim.filter[cl|cl.requirement?.matchingCategory(cc.category)]»
+«««		«IF claim.evaluateRequirementFilter(filter)»
+«««			«claim.generate()»
+«««		«ENDIF»
+«««		«ENDFOR»
+«««		«ENDFOR»
 	    «IF cc instanceof ComponentImplementation»
 		«FOR subc : cc.allSubcomponents»
 			«subc.filterplans(acp)»
@@ -207,7 +197,7 @@ class AlisaGenerator implements IGenerator {
 	
 	def CharSequence filterplans(Subcomponent subc, AssurancePlan parentacp){
 		val cc = subc.allClassifier
-		if (cc.skipAssuranceplans(parentacp)) return ''''''
+		if (subc.skipAssuranceplans(parentacp)) return ''''''
 		if (cc instanceof ComponentType){
 			generateCase(null,subc)
 		} else {
@@ -216,22 +206,22 @@ class AlisaGenerator implements IGenerator {
 		}
 	}
 	
-	def boolean skipAssuranceplans(ComponentClassifier cc, AssurancePlan parentacp){
+	def boolean skipAssuranceplans(Subcomponent subc, AssurancePlan parentacp){
 		if (parentacp == null) return false
 		if (parentacp.assumeAll) return true
 		val assumes = parentacp.assumeSubsystems
-		for (cl: assumes){
-			if (cc.isSameorExtends(cl)) return true;
+		for (sub: assumes){
+			if (sub.name.equalsIgnoreCase(subc.name)) return true;
 		}
 		return false
 	}
 	
 	def AssurancePlan getSubsystemAssuranceplan(ComponentClassifier cc, AssurancePlan parentacp){
 		if (parentacp == null) return null
-		val assure = parentacp.assureSubsystemPlans
-		for (ap: assure){
-			if (cc.isSameorExtends(ap.target)) return ap;
-		}
+//		val assure = parentacp.assureSubsystemPlans
+//		for (ap: assure){
+//			if (cc.isSameorExtends(ap.target)) return ap;
+//		}
 		return null
 	}
 
@@ -279,7 +269,7 @@ class AlisaGenerator implements IGenerator {
 
 	def doGenerate(VerificationActivity va) {
 		'''
-			«IF va.evaluateVerificationActivityFilter(filter,strictFilter) && va.evaluateVerificationMethodFilter(filter,strictFilter) »
+			«IF va.evaluateVerificationActivityFilter(filter) && va.evaluateVerificationMethodFilter(filter) »
 			verification «va.fullyQualifiedName»
 			[
 				executionstate todo

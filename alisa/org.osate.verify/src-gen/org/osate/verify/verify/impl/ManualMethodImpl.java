@@ -37,7 +37,7 @@ import org.osate.verify.verify.VerifyPackage;
  *
  * @generated
  */
-public class ManualMethodImpl extends MethodTypeImpl implements ManualMethod
+public class ManualMethodImpl extends MethodKindImpl implements ManualMethod
 {
   /**
    * The default value of the '{@link #getDialogID() <em>Dialog ID</em>}' attribute.

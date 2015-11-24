@@ -27,7 +27,6 @@ import org.eclipse.emf.ecore.impl.MinimalEObjectImpl;
 import org.osate.categories.categories.Categories;
 import org.osate.categories.categories.CategoriesDefinitions;
 import org.osate.categories.categories.CategoriesPackage;
-import org.osate.categories.categories.CategoryFilters;
 
 /**
  * <!-- begin-user-doc -->
@@ -37,12 +36,11 @@ import org.osate.categories.categories.CategoryFilters;
  * The following features are implemented:
  * </p>
  * <ul>
- *   <li>{@link org.osate.categories.categories.impl.CategoriesDefinitionsImpl#getRequirementcategories <em>Requirementcategories</em>}</li>
- *   <li>{@link org.osate.categories.categories.impl.CategoriesDefinitionsImpl#getMethodcategories <em>Methodcategories</em>}</li>
+ *   <li>{@link org.osate.categories.categories.impl.CategoriesDefinitionsImpl#getRequirementTypeCategories <em>Requirement Type Categories</em>}</li>
+ *   <li>{@link org.osate.categories.categories.impl.CategoriesDefinitionsImpl#getMethodTypeCategories <em>Method Type Categories</em>}</li>
  *   <li>{@link org.osate.categories.categories.impl.CategoriesDefinitionsImpl#getSelectioncategories <em>Selectioncategories</em>}</li>
- *   <li>{@link org.osate.categories.categories.impl.CategoriesDefinitionsImpl#getPhasecategories <em>Phasecategories</em>}</li>
- *   <li>{@link org.osate.categories.categories.impl.CategoriesDefinitionsImpl#getQualitycategories <em>Qualitycategories</em>}</li>
- *   <li>{@link org.osate.categories.categories.impl.CategoriesDefinitionsImpl#getCategoryfilter <em>Categoryfilter</em>}</li>
+ *   <li>{@link org.osate.categories.categories.impl.CategoriesDefinitionsImpl#getDevelopmentPhaseCategories <em>Development Phase Categories</em>}</li>
+ *   <li>{@link org.osate.categories.categories.impl.CategoriesDefinitionsImpl#getQualityAttributeCategories <em>Quality Attribute Categories</em>}</li>
  * </ul>
  *
  * @generated
@@ -50,24 +48,24 @@ import org.osate.categories.categories.CategoryFilters;
 public class CategoriesDefinitionsImpl extends MinimalEObjectImpl.Container implements CategoriesDefinitions
 {
   /**
-   * The cached value of the '{@link #getRequirementcategories() <em>Requirementcategories</em>}' containment reference.
+   * The cached value of the '{@link #getRequirementTypeCategories() <em>Requirement Type Categories</em>}' containment reference.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @see #getRequirementcategories()
+   * @see #getRequirementTypeCategories()
    * @generated
    * @ordered
    */
-  protected Categories requirementcategories;
+  protected Categories requirementTypeCategories;
 
   /**
-   * The cached value of the '{@link #getMethodcategories() <em>Methodcategories</em>}' containment reference.
+   * The cached value of the '{@link #getMethodTypeCategories() <em>Method Type Categories</em>}' containment reference.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @see #getMethodcategories()
+   * @see #getMethodTypeCategories()
    * @generated
    * @ordered
    */
-  protected Categories methodcategories;
+  protected Categories methodTypeCategories;
 
   /**
    * The cached value of the '{@link #getSelectioncategories() <em>Selectioncategories</em>}' containment reference.
@@ -80,34 +78,24 @@ public class CategoriesDefinitionsImpl extends MinimalEObjectImpl.Container impl
   protected Categories selectioncategories;
 
   /**
-   * The cached value of the '{@link #getPhasecategories() <em>Phasecategories</em>}' containment reference.
+   * The cached value of the '{@link #getDevelopmentPhaseCategories() <em>Development Phase Categories</em>}' containment reference.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @see #getPhasecategories()
+   * @see #getDevelopmentPhaseCategories()
    * @generated
    * @ordered
    */
-  protected Categories phasecategories;
+  protected Categories developmentPhaseCategories;
 
   /**
-   * The cached value of the '{@link #getQualitycategories() <em>Qualitycategories</em>}' containment reference.
+   * The cached value of the '{@link #getQualityAttributeCategories() <em>Quality Attribute Categories</em>}' containment reference.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @see #getQualitycategories()
+   * @see #getQualityAttributeCategories()
    * @generated
    * @ordered
    */
-  protected Categories qualitycategories;
-
-  /**
-   * The cached value of the '{@link #getCategoryfilter() <em>Categoryfilter</em>}' containment reference.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @see #getCategoryfilter()
-   * @generated
-   * @ordered
-   */
-  protected CategoryFilters categoryfilter;
+  protected Categories qualityAttributeCategories;
 
   /**
    * <!-- begin-user-doc -->
@@ -135,9 +123,9 @@ public class CategoriesDefinitionsImpl extends MinimalEObjectImpl.Container impl
    * <!-- end-user-doc -->
    * @generated
    */
-  public Categories getRequirementcategories()
+  public Categories getRequirementTypeCategories()
   {
-    return requirementcategories;
+    return requirementTypeCategories;
   }
 
   /**
@@ -145,13 +133,13 @@ public class CategoriesDefinitionsImpl extends MinimalEObjectImpl.Container impl
    * <!-- end-user-doc -->
    * @generated
    */
-  public NotificationChain basicSetRequirementcategories(Categories newRequirementcategories, NotificationChain msgs)
+  public NotificationChain basicSetRequirementTypeCategories(Categories newRequirementTypeCategories, NotificationChain msgs)
   {
-    Categories oldRequirementcategories = requirementcategories;
-    requirementcategories = newRequirementcategories;
+    Categories oldRequirementTypeCategories = requirementTypeCategories;
+    requirementTypeCategories = newRequirementTypeCategories;
     if (eNotificationRequired())
     {
-      ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, CategoriesPackage.CATEGORIES_DEFINITIONS__REQUIREMENTCATEGORIES, oldRequirementcategories, newRequirementcategories);
+      ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, CategoriesPackage.CATEGORIES_DEFINITIONS__REQUIREMENT_TYPE_CATEGORIES, oldRequirementTypeCategories, newRequirementTypeCategories);
       if (msgs == null) msgs = notification; else msgs.add(notification);
     }
     return msgs;
@@ -162,20 +150,20 @@ public class CategoriesDefinitionsImpl extends MinimalEObjectImpl.Container impl
    * <!-- end-user-doc -->
    * @generated
    */
-  public void setRequirementcategories(Categories newRequirementcategories)
+  public void setRequirementTypeCategories(Categories newRequirementTypeCategories)
   {
-    if (newRequirementcategories != requirementcategories)
+    if (newRequirementTypeCategories != requirementTypeCategories)
     {
       NotificationChain msgs = null;
-      if (requirementcategories != null)
-        msgs = ((InternalEObject)requirementcategories).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - CategoriesPackage.CATEGORIES_DEFINITIONS__REQUIREMENTCATEGORIES, null, msgs);
-      if (newRequirementcategories != null)
-        msgs = ((InternalEObject)newRequirementcategories).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - CategoriesPackage.CATEGORIES_DEFINITIONS__REQUIREMENTCATEGORIES, null, msgs);
-      msgs = basicSetRequirementcategories(newRequirementcategories, msgs);
+      if (requirementTypeCategories != null)
+        msgs = ((InternalEObject)requirementTypeCategories).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - CategoriesPackage.CATEGORIES_DEFINITIONS__REQUIREMENT_TYPE_CATEGORIES, null, msgs);
+      if (newRequirementTypeCategories != null)
+        msgs = ((InternalEObject)newRequirementTypeCategories).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - CategoriesPackage.CATEGORIES_DEFINITIONS__REQUIREMENT_TYPE_CATEGORIES, null, msgs);
+      msgs = basicSetRequirementTypeCategories(newRequirementTypeCategories, msgs);
       if (msgs != null) msgs.dispatch();
     }
     else if (eNotificationRequired())
-      eNotify(new ENotificationImpl(this, Notification.SET, CategoriesPackage.CATEGORIES_DEFINITIONS__REQUIREMENTCATEGORIES, newRequirementcategories, newRequirementcategories));
+      eNotify(new ENotificationImpl(this, Notification.SET, CategoriesPackage.CATEGORIES_DEFINITIONS__REQUIREMENT_TYPE_CATEGORIES, newRequirementTypeCategories, newRequirementTypeCategories));
   }
 
   /**
@@ -183,9 +171,9 @@ public class CategoriesDefinitionsImpl extends MinimalEObjectImpl.Container impl
    * <!-- end-user-doc -->
    * @generated
    */
-  public Categories getMethodcategories()
+  public Categories getMethodTypeCategories()
   {
-    return methodcategories;
+    return methodTypeCategories;
   }
 
   /**
@@ -193,13 +181,13 @@ public class CategoriesDefinitionsImpl extends MinimalEObjectImpl.Container impl
    * <!-- end-user-doc -->
    * @generated
    */
-  public NotificationChain basicSetMethodcategories(Categories newMethodcategories, NotificationChain msgs)
+  public NotificationChain basicSetMethodTypeCategories(Categories newMethodTypeCategories, NotificationChain msgs)
   {
-    Categories oldMethodcategories = methodcategories;
-    methodcategories = newMethodcategories;
+    Categories oldMethodTypeCategories = methodTypeCategories;
+    methodTypeCategories = newMethodTypeCategories;
     if (eNotificationRequired())
     {
-      ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, CategoriesPackage.CATEGORIES_DEFINITIONS__METHODCATEGORIES, oldMethodcategories, newMethodcategories);
+      ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, CategoriesPackage.CATEGORIES_DEFINITIONS__METHOD_TYPE_CATEGORIES, oldMethodTypeCategories, newMethodTypeCategories);
       if (msgs == null) msgs = notification; else msgs.add(notification);
     }
     return msgs;
@@ -210,20 +198,20 @@ public class CategoriesDefinitionsImpl extends MinimalEObjectImpl.Container impl
    * <!-- end-user-doc -->
    * @generated
    */
-  public void setMethodcategories(Categories newMethodcategories)
+  public void setMethodTypeCategories(Categories newMethodTypeCategories)
   {
-    if (newMethodcategories != methodcategories)
+    if (newMethodTypeCategories != methodTypeCategories)
     {
       NotificationChain msgs = null;
-      if (methodcategories != null)
-        msgs = ((InternalEObject)methodcategories).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - CategoriesPackage.CATEGORIES_DEFINITIONS__METHODCATEGORIES, null, msgs);
-      if (newMethodcategories != null)
-        msgs = ((InternalEObject)newMethodcategories).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - CategoriesPackage.CATEGORIES_DEFINITIONS__METHODCATEGORIES, null, msgs);
-      msgs = basicSetMethodcategories(newMethodcategories, msgs);
+      if (methodTypeCategories != null)
+        msgs = ((InternalEObject)methodTypeCategories).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - CategoriesPackage.CATEGORIES_DEFINITIONS__METHOD_TYPE_CATEGORIES, null, msgs);
+      if (newMethodTypeCategories != null)
+        msgs = ((InternalEObject)newMethodTypeCategories).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - CategoriesPackage.CATEGORIES_DEFINITIONS__METHOD_TYPE_CATEGORIES, null, msgs);
+      msgs = basicSetMethodTypeCategories(newMethodTypeCategories, msgs);
       if (msgs != null) msgs.dispatch();
     }
     else if (eNotificationRequired())
-      eNotify(new ENotificationImpl(this, Notification.SET, CategoriesPackage.CATEGORIES_DEFINITIONS__METHODCATEGORIES, newMethodcategories, newMethodcategories));
+      eNotify(new ENotificationImpl(this, Notification.SET, CategoriesPackage.CATEGORIES_DEFINITIONS__METHOD_TYPE_CATEGORIES, newMethodTypeCategories, newMethodTypeCategories));
   }
 
   /**
@@ -279,9 +267,9 @@ public class CategoriesDefinitionsImpl extends MinimalEObjectImpl.Container impl
    * <!-- end-user-doc -->
    * @generated
    */
-  public Categories getPhasecategories()
+  public Categories getDevelopmentPhaseCategories()
   {
-    return phasecategories;
+    return developmentPhaseCategories;
   }
 
   /**
@@ -289,13 +277,13 @@ public class CategoriesDefinitionsImpl extends MinimalEObjectImpl.Container impl
    * <!-- end-user-doc -->
    * @generated
    */
-  public NotificationChain basicSetPhasecategories(Categories newPhasecategories, NotificationChain msgs)
+  public NotificationChain basicSetDevelopmentPhaseCategories(Categories newDevelopmentPhaseCategories, NotificationChain msgs)
   {
-    Categories oldPhasecategories = phasecategories;
-    phasecategories = newPhasecategories;
+    Categories oldDevelopmentPhaseCategories = developmentPhaseCategories;
+    developmentPhaseCategories = newDevelopmentPhaseCategories;
     if (eNotificationRequired())
     {
-      ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, CategoriesPackage.CATEGORIES_DEFINITIONS__PHASECATEGORIES, oldPhasecategories, newPhasecategories);
+      ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, CategoriesPackage.CATEGORIES_DEFINITIONS__DEVELOPMENT_PHASE_CATEGORIES, oldDevelopmentPhaseCategories, newDevelopmentPhaseCategories);
       if (msgs == null) msgs = notification; else msgs.add(notification);
     }
     return msgs;
@@ -306,20 +294,20 @@ public class CategoriesDefinitionsImpl extends MinimalEObjectImpl.Container impl
    * <!-- end-user-doc -->
    * @generated
    */
-  public void setPhasecategories(Categories newPhasecategories)
+  public void setDevelopmentPhaseCategories(Categories newDevelopmentPhaseCategories)
   {
-    if (newPhasecategories != phasecategories)
+    if (newDevelopmentPhaseCategories != developmentPhaseCategories)
     {
       NotificationChain msgs = null;
-      if (phasecategories != null)
-        msgs = ((InternalEObject)phasecategories).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - CategoriesPackage.CATEGORIES_DEFINITIONS__PHASECATEGORIES, null, msgs);
-      if (newPhasecategories != null)
-        msgs = ((InternalEObject)newPhasecategories).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - CategoriesPackage.CATEGORIES_DEFINITIONS__PHASECATEGORIES, null, msgs);
-      msgs = basicSetPhasecategories(newPhasecategories, msgs);
+      if (developmentPhaseCategories != null)
+        msgs = ((InternalEObject)developmentPhaseCategories).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - CategoriesPackage.CATEGORIES_DEFINITIONS__DEVELOPMENT_PHASE_CATEGORIES, null, msgs);
+      if (newDevelopmentPhaseCategories != null)
+        msgs = ((InternalEObject)newDevelopmentPhaseCategories).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - CategoriesPackage.CATEGORIES_DEFINITIONS__DEVELOPMENT_PHASE_CATEGORIES, null, msgs);
+      msgs = basicSetDevelopmentPhaseCategories(newDevelopmentPhaseCategories, msgs);
       if (msgs != null) msgs.dispatch();
     }
     else if (eNotificationRequired())
-      eNotify(new ENotificationImpl(this, Notification.SET, CategoriesPackage.CATEGORIES_DEFINITIONS__PHASECATEGORIES, newPhasecategories, newPhasecategories));
+      eNotify(new ENotificationImpl(this, Notification.SET, CategoriesPackage.CATEGORIES_DEFINITIONS__DEVELOPMENT_PHASE_CATEGORIES, newDevelopmentPhaseCategories, newDevelopmentPhaseCategories));
   }
 
   /**
@@ -327,9 +315,9 @@ public class CategoriesDefinitionsImpl extends MinimalEObjectImpl.Container impl
    * <!-- end-user-doc -->
    * @generated
    */
-  public Categories getQualitycategories()
+  public Categories getQualityAttributeCategories()
   {
-    return qualitycategories;
+    return qualityAttributeCategories;
   }
 
   /**
@@ -337,13 +325,13 @@ public class CategoriesDefinitionsImpl extends MinimalEObjectImpl.Container impl
    * <!-- end-user-doc -->
    * @generated
    */
-  public NotificationChain basicSetQualitycategories(Categories newQualitycategories, NotificationChain msgs)
+  public NotificationChain basicSetQualityAttributeCategories(Categories newQualityAttributeCategories, NotificationChain msgs)
   {
-    Categories oldQualitycategories = qualitycategories;
-    qualitycategories = newQualitycategories;
+    Categories oldQualityAttributeCategories = qualityAttributeCategories;
+    qualityAttributeCategories = newQualityAttributeCategories;
     if (eNotificationRequired())
     {
-      ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, CategoriesPackage.CATEGORIES_DEFINITIONS__QUALITYCATEGORIES, oldQualitycategories, newQualitycategories);
+      ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, CategoriesPackage.CATEGORIES_DEFINITIONS__QUALITY_ATTRIBUTE_CATEGORIES, oldQualityAttributeCategories, newQualityAttributeCategories);
       if (msgs == null) msgs = notification; else msgs.add(notification);
     }
     return msgs;
@@ -354,68 +342,20 @@ public class CategoriesDefinitionsImpl extends MinimalEObjectImpl.Container impl
    * <!-- end-user-doc -->
    * @generated
    */
-  public void setQualitycategories(Categories newQualitycategories)
+  public void setQualityAttributeCategories(Categories newQualityAttributeCategories)
   {
-    if (newQualitycategories != qualitycategories)
+    if (newQualityAttributeCategories != qualityAttributeCategories)
     {
       NotificationChain msgs = null;
-      if (qualitycategories != null)
-        msgs = ((InternalEObject)qualitycategories).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - CategoriesPackage.CATEGORIES_DEFINITIONS__QUALITYCATEGORIES, null, msgs);
-      if (newQualitycategories != null)
-        msgs = ((InternalEObject)newQualitycategories).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - CategoriesPackage.CATEGORIES_DEFINITIONS__QUALITYCATEGORIES, null, msgs);
-      msgs = basicSetQualitycategories(newQualitycategories, msgs);
+      if (qualityAttributeCategories != null)
+        msgs = ((InternalEObject)qualityAttributeCategories).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - CategoriesPackage.CATEGORIES_DEFINITIONS__QUALITY_ATTRIBUTE_CATEGORIES, null, msgs);
+      if (newQualityAttributeCategories != null)
+        msgs = ((InternalEObject)newQualityAttributeCategories).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - CategoriesPackage.CATEGORIES_DEFINITIONS__QUALITY_ATTRIBUTE_CATEGORIES, null, msgs);
+      msgs = basicSetQualityAttributeCategories(newQualityAttributeCategories, msgs);
       if (msgs != null) msgs.dispatch();
     }
     else if (eNotificationRequired())
-      eNotify(new ENotificationImpl(this, Notification.SET, CategoriesPackage.CATEGORIES_DEFINITIONS__QUALITYCATEGORIES, newQualitycategories, newQualitycategories));
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public CategoryFilters getCategoryfilter()
-  {
-    return categoryfilter;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public NotificationChain basicSetCategoryfilter(CategoryFilters newCategoryfilter, NotificationChain msgs)
-  {
-    CategoryFilters oldCategoryfilter = categoryfilter;
-    categoryfilter = newCategoryfilter;
-    if (eNotificationRequired())
-    {
-      ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, CategoriesPackage.CATEGORIES_DEFINITIONS__CATEGORYFILTER, oldCategoryfilter, newCategoryfilter);
-      if (msgs == null) msgs = notification; else msgs.add(notification);
-    }
-    return msgs;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public void setCategoryfilter(CategoryFilters newCategoryfilter)
-  {
-    if (newCategoryfilter != categoryfilter)
-    {
-      NotificationChain msgs = null;
-      if (categoryfilter != null)
-        msgs = ((InternalEObject)categoryfilter).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - CategoriesPackage.CATEGORIES_DEFINITIONS__CATEGORYFILTER, null, msgs);
-      if (newCategoryfilter != null)
-        msgs = ((InternalEObject)newCategoryfilter).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - CategoriesPackage.CATEGORIES_DEFINITIONS__CATEGORYFILTER, null, msgs);
-      msgs = basicSetCategoryfilter(newCategoryfilter, msgs);
-      if (msgs != null) msgs.dispatch();
-    }
-    else if (eNotificationRequired())
-      eNotify(new ENotificationImpl(this, Notification.SET, CategoriesPackage.CATEGORIES_DEFINITIONS__CATEGORYFILTER, newCategoryfilter, newCategoryfilter));
+      eNotify(new ENotificationImpl(this, Notification.SET, CategoriesPackage.CATEGORIES_DEFINITIONS__QUALITY_ATTRIBUTE_CATEGORIES, newQualityAttributeCategories, newQualityAttributeCategories));
   }
 
   /**
@@ -428,18 +368,16 @@ public class CategoriesDefinitionsImpl extends MinimalEObjectImpl.Container impl
   {
     switch (featureID)
     {
-      case CategoriesPackage.CATEGORIES_DEFINITIONS__REQUIREMENTCATEGORIES:
-        return basicSetRequirementcategories(null, msgs);
-      case CategoriesPackage.CATEGORIES_DEFINITIONS__METHODCATEGORIES:
-        return basicSetMethodcategories(null, msgs);
+      case CategoriesPackage.CATEGORIES_DEFINITIONS__REQUIREMENT_TYPE_CATEGORIES:
+        return basicSetRequirementTypeCategories(null, msgs);
+      case CategoriesPackage.CATEGORIES_DEFINITIONS__METHOD_TYPE_CATEGORIES:
+        return basicSetMethodTypeCategories(null, msgs);
       case CategoriesPackage.CATEGORIES_DEFINITIONS__SELECTIONCATEGORIES:
         return basicSetSelectioncategories(null, msgs);
-      case CategoriesPackage.CATEGORIES_DEFINITIONS__PHASECATEGORIES:
-        return basicSetPhasecategories(null, msgs);
-      case CategoriesPackage.CATEGORIES_DEFINITIONS__QUALITYCATEGORIES:
-        return basicSetQualitycategories(null, msgs);
-      case CategoriesPackage.CATEGORIES_DEFINITIONS__CATEGORYFILTER:
-        return basicSetCategoryfilter(null, msgs);
+      case CategoriesPackage.CATEGORIES_DEFINITIONS__DEVELOPMENT_PHASE_CATEGORIES:
+        return basicSetDevelopmentPhaseCategories(null, msgs);
+      case CategoriesPackage.CATEGORIES_DEFINITIONS__QUALITY_ATTRIBUTE_CATEGORIES:
+        return basicSetQualityAttributeCategories(null, msgs);
     }
     return super.eInverseRemove(otherEnd, featureID, msgs);
   }
@@ -454,18 +392,16 @@ public class CategoriesDefinitionsImpl extends MinimalEObjectImpl.Container impl
   {
     switch (featureID)
     {
-      case CategoriesPackage.CATEGORIES_DEFINITIONS__REQUIREMENTCATEGORIES:
-        return getRequirementcategories();
-      case CategoriesPackage.CATEGORIES_DEFINITIONS__METHODCATEGORIES:
-        return getMethodcategories();
+      case CategoriesPackage.CATEGORIES_DEFINITIONS__REQUIREMENT_TYPE_CATEGORIES:
+        return getRequirementTypeCategories();
+      case CategoriesPackage.CATEGORIES_DEFINITIONS__METHOD_TYPE_CATEGORIES:
+        return getMethodTypeCategories();
       case CategoriesPackage.CATEGORIES_DEFINITIONS__SELECTIONCATEGORIES:
         return getSelectioncategories();
-      case CategoriesPackage.CATEGORIES_DEFINITIONS__PHASECATEGORIES:
-        return getPhasecategories();
-      case CategoriesPackage.CATEGORIES_DEFINITIONS__QUALITYCATEGORIES:
-        return getQualitycategories();
-      case CategoriesPackage.CATEGORIES_DEFINITIONS__CATEGORYFILTER:
-        return getCategoryfilter();
+      case CategoriesPackage.CATEGORIES_DEFINITIONS__DEVELOPMENT_PHASE_CATEGORIES:
+        return getDevelopmentPhaseCategories();
+      case CategoriesPackage.CATEGORIES_DEFINITIONS__QUALITY_ATTRIBUTE_CATEGORIES:
+        return getQualityAttributeCategories();
     }
     return super.eGet(featureID, resolve, coreType);
   }
@@ -480,23 +416,20 @@ public class CategoriesDefinitionsImpl extends MinimalEObjectImpl.Container impl
   {
     switch (featureID)
     {
-      case CategoriesPackage.CATEGORIES_DEFINITIONS__REQUIREMENTCATEGORIES:
-        setRequirementcategories((Categories)newValue);
+      case CategoriesPackage.CATEGORIES_DEFINITIONS__REQUIREMENT_TYPE_CATEGORIES:
+        setRequirementTypeCategories((Categories)newValue);
         return;
-      case CategoriesPackage.CATEGORIES_DEFINITIONS__METHODCATEGORIES:
-        setMethodcategories((Categories)newValue);
+      case CategoriesPackage.CATEGORIES_DEFINITIONS__METHOD_TYPE_CATEGORIES:
+        setMethodTypeCategories((Categories)newValue);
         return;
       case CategoriesPackage.CATEGORIES_DEFINITIONS__SELECTIONCATEGORIES:
         setSelectioncategories((Categories)newValue);
         return;
-      case CategoriesPackage.CATEGORIES_DEFINITIONS__PHASECATEGORIES:
-        setPhasecategories((Categories)newValue);
+      case CategoriesPackage.CATEGORIES_DEFINITIONS__DEVELOPMENT_PHASE_CATEGORIES:
+        setDevelopmentPhaseCategories((Categories)newValue);
         return;
-      case CategoriesPackage.CATEGORIES_DEFINITIONS__QUALITYCATEGORIES:
-        setQualitycategories((Categories)newValue);
-        return;
-      case CategoriesPackage.CATEGORIES_DEFINITIONS__CATEGORYFILTER:
-        setCategoryfilter((CategoryFilters)newValue);
+      case CategoriesPackage.CATEGORIES_DEFINITIONS__QUALITY_ATTRIBUTE_CATEGORIES:
+        setQualityAttributeCategories((Categories)newValue);
         return;
     }
     super.eSet(featureID, newValue);
@@ -512,23 +445,20 @@ public class CategoriesDefinitionsImpl extends MinimalEObjectImpl.Container impl
   {
     switch (featureID)
     {
-      case CategoriesPackage.CATEGORIES_DEFINITIONS__REQUIREMENTCATEGORIES:
-        setRequirementcategories((Categories)null);
+      case CategoriesPackage.CATEGORIES_DEFINITIONS__REQUIREMENT_TYPE_CATEGORIES:
+        setRequirementTypeCategories((Categories)null);
         return;
-      case CategoriesPackage.CATEGORIES_DEFINITIONS__METHODCATEGORIES:
-        setMethodcategories((Categories)null);
+      case CategoriesPackage.CATEGORIES_DEFINITIONS__METHOD_TYPE_CATEGORIES:
+        setMethodTypeCategories((Categories)null);
         return;
       case CategoriesPackage.CATEGORIES_DEFINITIONS__SELECTIONCATEGORIES:
         setSelectioncategories((Categories)null);
         return;
-      case CategoriesPackage.CATEGORIES_DEFINITIONS__PHASECATEGORIES:
-        setPhasecategories((Categories)null);
+      case CategoriesPackage.CATEGORIES_DEFINITIONS__DEVELOPMENT_PHASE_CATEGORIES:
+        setDevelopmentPhaseCategories((Categories)null);
         return;
-      case CategoriesPackage.CATEGORIES_DEFINITIONS__QUALITYCATEGORIES:
-        setQualitycategories((Categories)null);
-        return;
-      case CategoriesPackage.CATEGORIES_DEFINITIONS__CATEGORYFILTER:
-        setCategoryfilter((CategoryFilters)null);
+      case CategoriesPackage.CATEGORIES_DEFINITIONS__QUALITY_ATTRIBUTE_CATEGORIES:
+        setQualityAttributeCategories((Categories)null);
         return;
     }
     super.eUnset(featureID);
@@ -544,18 +474,16 @@ public class CategoriesDefinitionsImpl extends MinimalEObjectImpl.Container impl
   {
     switch (featureID)
     {
-      case CategoriesPackage.CATEGORIES_DEFINITIONS__REQUIREMENTCATEGORIES:
-        return requirementcategories != null;
-      case CategoriesPackage.CATEGORIES_DEFINITIONS__METHODCATEGORIES:
-        return methodcategories != null;
+      case CategoriesPackage.CATEGORIES_DEFINITIONS__REQUIREMENT_TYPE_CATEGORIES:
+        return requirementTypeCategories != null;
+      case CategoriesPackage.CATEGORIES_DEFINITIONS__METHOD_TYPE_CATEGORIES:
+        return methodTypeCategories != null;
       case CategoriesPackage.CATEGORIES_DEFINITIONS__SELECTIONCATEGORIES:
         return selectioncategories != null;
-      case CategoriesPackage.CATEGORIES_DEFINITIONS__PHASECATEGORIES:
-        return phasecategories != null;
-      case CategoriesPackage.CATEGORIES_DEFINITIONS__QUALITYCATEGORIES:
-        return qualitycategories != null;
-      case CategoriesPackage.CATEGORIES_DEFINITIONS__CATEGORYFILTER:
-        return categoryfilter != null;
+      case CategoriesPackage.CATEGORIES_DEFINITIONS__DEVELOPMENT_PHASE_CATEGORIES:
+        return developmentPhaseCategories != null;
+      case CategoriesPackage.CATEGORIES_DEFINITIONS__QUALITY_ATTRIBUTE_CATEGORIES:
+        return qualityAttributeCategories != null;
     }
     return super.eIsSet(featureID);
   }

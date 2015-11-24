@@ -56,30 +56,62 @@ class VerifyProposalProvider extends AbstractVerifyProposalProvider {
 		]);
 	}
 	
-	override void completeVerificationMethod_Category(EObject model, Assignment assignment,
+	override void completeVerificationMethod_MethodType(EObject model, Assignment assignment,
 		ContentAssistContext context, ICompletionProposalAcceptor acceptor) {
 		lookupCrossReference(
 			assignment.getTerminal() as CrossReference,
 			context,
 			acceptor,
 			[description| val match = description.qualifiedName.toString; 
-				(description.EClass == CategoriesPackage.eINSTANCE.methodCategory
-				|| description.EClass == CategoriesPackage.eINSTANCE.qualityCategory
-				|| description.EClass == CategoriesPackage.eINSTANCE.selectionCategory)
-				&& ! (model as VerificationMethod).category.exists[c|c.name.equals(match)]
+				 ! (model as VerificationMethod).methodType.exists[c|c.name.equals(match)]
 			]
 		);
 	}
-	override void completeVerificationActivity_Category(EObject model, Assignment assignment,
+	
+	override void completeVerificationMethod_QualityAttribute(EObject model, Assignment assignment,
 		ContentAssistContext context, ICompletionProposalAcceptor acceptor) {
 		lookupCrossReference(
 			assignment.getTerminal() as CrossReference,
 			context,
 			acceptor,
 			[description| val match = description.qualifiedName.toString; 
-				(description.EClass == CategoriesPackage.eINSTANCE.phaseCategory
-				|| description.EClass == CategoriesPackage.eINSTANCE.selectionCategory)
-				&& ! (model as VerificationActivity).category.exists[c|c.name.equals(match)]
+				 ! (model as VerificationMethod).qualityAttribute.exists[c|c.name.equals(match)]
+			]
+		);
+	}
+	
+	override void completeVerificationMethod_UserSelection(EObject model, Assignment assignment,
+		ContentAssistContext context, ICompletionProposalAcceptor acceptor) {
+		lookupCrossReference(
+			assignment.getTerminal() as CrossReference,
+			context,
+			acceptor,
+			[description| val match = description.qualifiedName.toString; 
+				 ! (model as VerificationMethod).userSelection.exists[c|c.name.equals(match)]
+			]
+		);
+	}
+	
+	override void completeVerificationActivity_DevelopmentPhase(EObject model, Assignment assignment,
+		ContentAssistContext context, ICompletionProposalAcceptor acceptor) {
+		lookupCrossReference(
+			assignment.getTerminal() as CrossReference,
+			context,
+			acceptor,
+			[description| val match = description.qualifiedName.toString; 
+				 ! (model as VerificationActivity).developmentPhase.exists[c|c.name.equals(match)]
+			]
+		);
+	}
+	
+	override void completeVerificationActivity_UserSelection(EObject model, Assignment assignment,
+		ContentAssistContext context, ICompletionProposalAcceptor acceptor) {
+		lookupCrossReference(
+			assignment.getTerminal() as CrossReference,
+			context,
+			acceptor,
+			[description| val match = description.qualifiedName.toString; 
+				 ! (model as VerificationActivity).userSelection.exists[c|c.name.equals(match)]
 			]
 		);
 	}

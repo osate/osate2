@@ -17,11 +17,13 @@ package org.osate.alisa.workbench.alisa;
 
 import org.eclipse.emf.common.util.EList;
 
-import org.eclipse.emf.ecore.EObject;
-
 import org.osate.alisa.common.common.Description;
 
-import org.osate.categories.categories.Category;
+import org.osate.categories.categories.DevelopmentPhase;
+import org.osate.categories.categories.MethodType;
+import org.osate.categories.categories.QualityAttribute;
+import org.osate.categories.categories.RequirementType;
+import org.osate.categories.categories.UserSelection;
 
 /**
  * <!-- begin-user-doc -->
@@ -36,8 +38,16 @@ import org.osate.categories.categories.Category;
  *   <li>{@link org.osate.alisa.workbench.alisa.AssuranceTask#getTitle <em>Title</em>}</li>
  *   <li>{@link org.osate.alisa.workbench.alisa.AssuranceTask#getAssurancePlan <em>Assurance Plan</em>}</li>
  *   <li>{@link org.osate.alisa.workbench.alisa.AssuranceTask#getDescription <em>Description</em>}</li>
- *   <li>{@link org.osate.alisa.workbench.alisa.AssuranceTask#getFilter <em>Filter</em>}</li>
- *   <li>{@link org.osate.alisa.workbench.alisa.AssuranceTask#isStrictFilter <em>Strict Filter</em>}</li>
+ *   <li>{@link org.osate.alisa.workbench.alisa.AssuranceTask#getRequirementType <em>Requirement Type</em>}</li>
+ *   <li>{@link org.osate.alisa.workbench.alisa.AssuranceTask#isAnyRequirementType <em>Any Requirement Type</em>}</li>
+ *   <li>{@link org.osate.alisa.workbench.alisa.AssuranceTask#getMethodType <em>Method Type</em>}</li>
+ *   <li>{@link org.osate.alisa.workbench.alisa.AssuranceTask#isAnyMethodType <em>Any Method Type</em>}</li>
+ *   <li>{@link org.osate.alisa.workbench.alisa.AssuranceTask#getUserSelection <em>User Selection</em>}</li>
+ *   <li>{@link org.osate.alisa.workbench.alisa.AssuranceTask#isAnyUserSelection <em>Any User Selection</em>}</li>
+ *   <li>{@link org.osate.alisa.workbench.alisa.AssuranceTask#getQualityAttribute <em>Quality Attribute</em>}</li>
+ *   <li>{@link org.osate.alisa.workbench.alisa.AssuranceTask#isAnyQualityAttribute <em>Any Quality Attribute</em>}</li>
+ *   <li>{@link org.osate.alisa.workbench.alisa.AssuranceTask#getDevelopmentPhase <em>Development Phase</em>}</li>
+ *   <li>{@link org.osate.alisa.workbench.alisa.AssuranceTask#isAnyDevelopmentPhase <em>Any Development Phase</em>}</li>
  *   <li>{@link org.osate.alisa.workbench.alisa.AssuranceTask#getIssues <em>Issues</em>}</li>
  * </ul>
  *
@@ -45,7 +55,7 @@ import org.osate.categories.categories.Category;
  * @model
  * @generated
  */
-public interface AssuranceTask extends EObject
+public interface AssuranceTask extends CategoryFilter
 {
   /**
    * Returns the value of the '<em><b>Name</b></em>' attribute.
@@ -152,46 +162,214 @@ public interface AssuranceTask extends EObject
   void setDescription(Description value);
 
   /**
-   * Returns the value of the '<em><b>Filter</b></em>' reference list.
-   * The list contents are of type {@link org.osate.categories.categories.Category}.
+   * Returns the value of the '<em><b>Requirement Type</b></em>' reference list.
+   * The list contents are of type {@link org.osate.categories.categories.RequirementType}.
    * <!-- begin-user-doc -->
    * <p>
-   * If the meaning of the '<em>Filter</em>' reference list isn't clear,
+   * If the meaning of the '<em>Requirement Type</em>' reference list isn't clear,
    * there really should be more of a description here...
    * </p>
    * <!-- end-user-doc -->
-   * @return the value of the '<em>Filter</em>' reference list.
-   * @see org.osate.alisa.workbench.alisa.AlisaPackage#getAssuranceTask_Filter()
+   * @return the value of the '<em>Requirement Type</em>' reference list.
+   * @see org.osate.alisa.workbench.alisa.AlisaPackage#getAssuranceTask_RequirementType()
    * @model
    * @generated
    */
-  EList<Category> getFilter();
+  EList<RequirementType> getRequirementType();
 
   /**
-   * Returns the value of the '<em><b>Strict Filter</b></em>' attribute.
+   * Returns the value of the '<em><b>Any Requirement Type</b></em>' attribute.
    * <!-- begin-user-doc -->
    * <p>
-   * If the meaning of the '<em>Strict Filter</em>' attribute isn't clear,
+   * If the meaning of the '<em>Any Requirement Type</em>' attribute isn't clear,
    * there really should be more of a description here...
    * </p>
    * <!-- end-user-doc -->
-   * @return the value of the '<em>Strict Filter</em>' attribute.
-   * @see #setStrictFilter(boolean)
-   * @see org.osate.alisa.workbench.alisa.AlisaPackage#getAssuranceTask_StrictFilter()
+   * @return the value of the '<em>Any Requirement Type</em>' attribute.
+   * @see #setAnyRequirementType(boolean)
+   * @see org.osate.alisa.workbench.alisa.AlisaPackage#getAssuranceTask_AnyRequirementType()
    * @model
    * @generated
    */
-  boolean isStrictFilter();
+  boolean isAnyRequirementType();
 
   /**
-   * Sets the value of the '{@link org.osate.alisa.workbench.alisa.AssuranceTask#isStrictFilter <em>Strict Filter</em>}' attribute.
+   * Sets the value of the '{@link org.osate.alisa.workbench.alisa.AssuranceTask#isAnyRequirementType <em>Any Requirement Type</em>}' attribute.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @param value the new value of the '<em>Strict Filter</em>' attribute.
-   * @see #isStrictFilter()
+   * @param value the new value of the '<em>Any Requirement Type</em>' attribute.
+   * @see #isAnyRequirementType()
    * @generated
    */
-  void setStrictFilter(boolean value);
+  void setAnyRequirementType(boolean value);
+
+  /**
+   * Returns the value of the '<em><b>Method Type</b></em>' reference list.
+   * The list contents are of type {@link org.osate.categories.categories.MethodType}.
+   * <!-- begin-user-doc -->
+   * <p>
+   * If the meaning of the '<em>Method Type</em>' reference list isn't clear,
+   * there really should be more of a description here...
+   * </p>
+   * <!-- end-user-doc -->
+   * @return the value of the '<em>Method Type</em>' reference list.
+   * @see org.osate.alisa.workbench.alisa.AlisaPackage#getAssuranceTask_MethodType()
+   * @model
+   * @generated
+   */
+  EList<MethodType> getMethodType();
+
+  /**
+   * Returns the value of the '<em><b>Any Method Type</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <p>
+   * If the meaning of the '<em>Any Method Type</em>' attribute isn't clear,
+   * there really should be more of a description here...
+   * </p>
+   * <!-- end-user-doc -->
+   * @return the value of the '<em>Any Method Type</em>' attribute.
+   * @see #setAnyMethodType(boolean)
+   * @see org.osate.alisa.workbench.alisa.AlisaPackage#getAssuranceTask_AnyMethodType()
+   * @model
+   * @generated
+   */
+  boolean isAnyMethodType();
+
+  /**
+   * Sets the value of the '{@link org.osate.alisa.workbench.alisa.AssuranceTask#isAnyMethodType <em>Any Method Type</em>}' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @param value the new value of the '<em>Any Method Type</em>' attribute.
+   * @see #isAnyMethodType()
+   * @generated
+   */
+  void setAnyMethodType(boolean value);
+
+  /**
+   * Returns the value of the '<em><b>User Selection</b></em>' reference list.
+   * The list contents are of type {@link org.osate.categories.categories.UserSelection}.
+   * <!-- begin-user-doc -->
+   * <p>
+   * If the meaning of the '<em>User Selection</em>' reference list isn't clear,
+   * there really should be more of a description here...
+   * </p>
+   * <!-- end-user-doc -->
+   * @return the value of the '<em>User Selection</em>' reference list.
+   * @see org.osate.alisa.workbench.alisa.AlisaPackage#getAssuranceTask_UserSelection()
+   * @model
+   * @generated
+   */
+  EList<UserSelection> getUserSelection();
+
+  /**
+   * Returns the value of the '<em><b>Any User Selection</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <p>
+   * If the meaning of the '<em>Any User Selection</em>' attribute isn't clear,
+   * there really should be more of a description here...
+   * </p>
+   * <!-- end-user-doc -->
+   * @return the value of the '<em>Any User Selection</em>' attribute.
+   * @see #setAnyUserSelection(boolean)
+   * @see org.osate.alisa.workbench.alisa.AlisaPackage#getAssuranceTask_AnyUserSelection()
+   * @model
+   * @generated
+   */
+  boolean isAnyUserSelection();
+
+  /**
+   * Sets the value of the '{@link org.osate.alisa.workbench.alisa.AssuranceTask#isAnyUserSelection <em>Any User Selection</em>}' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @param value the new value of the '<em>Any User Selection</em>' attribute.
+   * @see #isAnyUserSelection()
+   * @generated
+   */
+  void setAnyUserSelection(boolean value);
+
+  /**
+   * Returns the value of the '<em><b>Quality Attribute</b></em>' reference list.
+   * The list contents are of type {@link org.osate.categories.categories.QualityAttribute}.
+   * <!-- begin-user-doc -->
+   * <p>
+   * If the meaning of the '<em>Quality Attribute</em>' reference list isn't clear,
+   * there really should be more of a description here...
+   * </p>
+   * <!-- end-user-doc -->
+   * @return the value of the '<em>Quality Attribute</em>' reference list.
+   * @see org.osate.alisa.workbench.alisa.AlisaPackage#getAssuranceTask_QualityAttribute()
+   * @model
+   * @generated
+   */
+  EList<QualityAttribute> getQualityAttribute();
+
+  /**
+   * Returns the value of the '<em><b>Any Quality Attribute</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <p>
+   * If the meaning of the '<em>Any Quality Attribute</em>' attribute isn't clear,
+   * there really should be more of a description here...
+   * </p>
+   * <!-- end-user-doc -->
+   * @return the value of the '<em>Any Quality Attribute</em>' attribute.
+   * @see #setAnyQualityAttribute(boolean)
+   * @see org.osate.alisa.workbench.alisa.AlisaPackage#getAssuranceTask_AnyQualityAttribute()
+   * @model
+   * @generated
+   */
+  boolean isAnyQualityAttribute();
+
+  /**
+   * Sets the value of the '{@link org.osate.alisa.workbench.alisa.AssuranceTask#isAnyQualityAttribute <em>Any Quality Attribute</em>}' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @param value the new value of the '<em>Any Quality Attribute</em>' attribute.
+   * @see #isAnyQualityAttribute()
+   * @generated
+   */
+  void setAnyQualityAttribute(boolean value);
+
+  /**
+   * Returns the value of the '<em><b>Development Phase</b></em>' reference list.
+   * The list contents are of type {@link org.osate.categories.categories.DevelopmentPhase}.
+   * <!-- begin-user-doc -->
+   * <p>
+   * If the meaning of the '<em>Development Phase</em>' reference list isn't clear,
+   * there really should be more of a description here...
+   * </p>
+   * <!-- end-user-doc -->
+   * @return the value of the '<em>Development Phase</em>' reference list.
+   * @see org.osate.alisa.workbench.alisa.AlisaPackage#getAssuranceTask_DevelopmentPhase()
+   * @model
+   * @generated
+   */
+  EList<DevelopmentPhase> getDevelopmentPhase();
+
+  /**
+   * Returns the value of the '<em><b>Any Development Phase</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <p>
+   * If the meaning of the '<em>Any Development Phase</em>' attribute isn't clear,
+   * there really should be more of a description here...
+   * </p>
+   * <!-- end-user-doc -->
+   * @return the value of the '<em>Any Development Phase</em>' attribute.
+   * @see #setAnyDevelopmentPhase(boolean)
+   * @see org.osate.alisa.workbench.alisa.AlisaPackage#getAssuranceTask_AnyDevelopmentPhase()
+   * @model
+   * @generated
+   */
+  boolean isAnyDevelopmentPhase();
+
+  /**
+   * Sets the value of the '{@link org.osate.alisa.workbench.alisa.AssuranceTask#isAnyDevelopmentPhase <em>Any Development Phase</em>}' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @param value the new value of the '<em>Any Development Phase</em>' attribute.
+   * @see #isAnyDevelopmentPhase()
+   * @generated
+   */
+  void setAnyDevelopmentPhase(boolean value);
 
   /**
    * Returns the value of the '<em><b>Issues</b></em>' attribute list.

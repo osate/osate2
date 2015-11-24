@@ -37,7 +37,7 @@ import org.osate.verify.verify.VerifyPackage;
  *
  * @generated
  */
-public class JavaMethodImpl extends MethodTypeImpl implements JavaMethod
+public class JavaMethodImpl extends MethodKindImpl implements JavaMethod
 {
   /**
    * The default value of the '{@link #getMethodPath() <em>Method Path</em>}' attribute.

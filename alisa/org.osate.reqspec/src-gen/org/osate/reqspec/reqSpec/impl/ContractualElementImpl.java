@@ -42,7 +42,9 @@ import org.osate.alisa.common.common.Description;
 import org.osate.alisa.common.common.Rationale;
 import org.osate.alisa.common.common.Uncertainty;
 
-import org.osate.categories.categories.Category;
+import org.osate.categories.categories.QualityAttribute;
+import org.osate.categories.categories.RequirementType;
+import org.osate.categories.categories.UserSelection;
 
 import org.osate.reqspec.reqSpec.ContractualElement;
 import org.osate.reqspec.reqSpec.ExternalDocument;
@@ -62,7 +64,9 @@ import org.osate.reqspec.reqSpec.Requirement;
  *   <li>{@link org.osate.reqspec.reqSpec.impl.ContractualElementImpl#getTargetDescription <em>Target Description</em>}</li>
  *   <li>{@link org.osate.reqspec.reqSpec.impl.ContractualElementImpl#getTarget <em>Target</em>}</li>
  *   <li>{@link org.osate.reqspec.reqSpec.impl.ContractualElementImpl#getTargetElement <em>Target Element</em>}</li>
- *   <li>{@link org.osate.reqspec.reqSpec.impl.ContractualElementImpl#getCategory <em>Category</em>}</li>
+ *   <li>{@link org.osate.reqspec.reqSpec.impl.ContractualElementImpl#getRequirementType <em>Requirement Type</em>}</li>
+ *   <li>{@link org.osate.reqspec.reqSpec.impl.ContractualElementImpl#getQualityAttribute <em>Quality Attribute</em>}</li>
+ *   <li>{@link org.osate.reqspec.reqSpec.impl.ContractualElementImpl#getUserSelection <em>User Selection</em>}</li>
  *   <li>{@link org.osate.reqspec.reqSpec.impl.ContractualElementImpl#getDescription <em>Description</em>}</li>
  *   <li>{@link org.osate.reqspec.reqSpec.impl.ContractualElementImpl#getConstants <em>Constants</em>}</li>
  *   <li>{@link org.osate.reqspec.reqSpec.impl.ContractualElementImpl#getRationale <em>Rationale</em>}</li>
@@ -159,14 +163,34 @@ public class ContractualElementImpl extends MinimalEObjectImpl.Container impleme
   protected NamedElement targetElement;
 
   /**
-   * The cached value of the '{@link #getCategory() <em>Category</em>}' reference list.
+   * The cached value of the '{@link #getRequirementType() <em>Requirement Type</em>}' reference list.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @see #getCategory()
+   * @see #getRequirementType()
    * @generated
    * @ordered
    */
-  protected EList<Category> category;
+  protected EList<RequirementType> requirementType;
+
+  /**
+   * The cached value of the '{@link #getQualityAttribute() <em>Quality Attribute</em>}' reference list.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see #getQualityAttribute()
+   * @generated
+   * @ordered
+   */
+  protected EList<QualityAttribute> qualityAttribute;
+
+  /**
+   * The cached value of the '{@link #getUserSelection() <em>User Selection</em>}' reference list.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see #getUserSelection()
+   * @generated
+   * @ordered
+   */
+  protected EList<UserSelection> userSelection;
 
   /**
    * The cached value of the '{@link #getDescription() <em>Description</em>}' containment reference.
@@ -459,13 +483,41 @@ public class ContractualElementImpl extends MinimalEObjectImpl.Container impleme
    * <!-- end-user-doc -->
    * @generated
    */
-  public EList<Category> getCategory()
+  public EList<RequirementType> getRequirementType()
   {
-    if (category == null)
+    if (requirementType == null)
     {
-      category = new EObjectResolvingEList<Category>(Category.class, this, ReqSpecPackage.CONTRACTUAL_ELEMENT__CATEGORY);
+      requirementType = new EObjectResolvingEList<RequirementType>(RequirementType.class, this, ReqSpecPackage.CONTRACTUAL_ELEMENT__REQUIREMENT_TYPE);
     }
-    return category;
+    return requirementType;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EList<QualityAttribute> getQualityAttribute()
+  {
+    if (qualityAttribute == null)
+    {
+      qualityAttribute = new EObjectResolvingEList<QualityAttribute>(QualityAttribute.class, this, ReqSpecPackage.CONTRACTUAL_ELEMENT__QUALITY_ATTRIBUTE);
+    }
+    return qualityAttribute;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EList<UserSelection> getUserSelection()
+  {
+    if (userSelection == null)
+    {
+      userSelection = new EObjectResolvingEList<UserSelection>(UserSelection.class, this, ReqSpecPackage.CONTRACTUAL_ELEMENT__USER_SELECTION);
+    }
+    return userSelection;
   }
 
   /**
@@ -760,8 +812,12 @@ public class ContractualElementImpl extends MinimalEObjectImpl.Container impleme
       case ReqSpecPackage.CONTRACTUAL_ELEMENT__TARGET_ELEMENT:
         if (resolve) return getTargetElement();
         return basicGetTargetElement();
-      case ReqSpecPackage.CONTRACTUAL_ELEMENT__CATEGORY:
-        return getCategory();
+      case ReqSpecPackage.CONTRACTUAL_ELEMENT__REQUIREMENT_TYPE:
+        return getRequirementType();
+      case ReqSpecPackage.CONTRACTUAL_ELEMENT__QUALITY_ATTRIBUTE:
+        return getQualityAttribute();
+      case ReqSpecPackage.CONTRACTUAL_ELEMENT__USER_SELECTION:
+        return getUserSelection();
       case ReqSpecPackage.CONTRACTUAL_ELEMENT__DESCRIPTION:
         return getDescription();
       case ReqSpecPackage.CONTRACTUAL_ELEMENT__CONSTANTS:
@@ -810,9 +866,17 @@ public class ContractualElementImpl extends MinimalEObjectImpl.Container impleme
       case ReqSpecPackage.CONTRACTUAL_ELEMENT__TARGET_ELEMENT:
         setTargetElement((NamedElement)newValue);
         return;
-      case ReqSpecPackage.CONTRACTUAL_ELEMENT__CATEGORY:
-        getCategory().clear();
-        getCategory().addAll((Collection<? extends Category>)newValue);
+      case ReqSpecPackage.CONTRACTUAL_ELEMENT__REQUIREMENT_TYPE:
+        getRequirementType().clear();
+        getRequirementType().addAll((Collection<? extends RequirementType>)newValue);
+        return;
+      case ReqSpecPackage.CONTRACTUAL_ELEMENT__QUALITY_ATTRIBUTE:
+        getQualityAttribute().clear();
+        getQualityAttribute().addAll((Collection<? extends QualityAttribute>)newValue);
+        return;
+      case ReqSpecPackage.CONTRACTUAL_ELEMENT__USER_SELECTION:
+        getUserSelection().clear();
+        getUserSelection().addAll((Collection<? extends UserSelection>)newValue);
         return;
       case ReqSpecPackage.CONTRACTUAL_ELEMENT__DESCRIPTION:
         setDescription((Description)newValue);
@@ -874,8 +938,14 @@ public class ContractualElementImpl extends MinimalEObjectImpl.Container impleme
       case ReqSpecPackage.CONTRACTUAL_ELEMENT__TARGET_ELEMENT:
         setTargetElement((NamedElement)null);
         return;
-      case ReqSpecPackage.CONTRACTUAL_ELEMENT__CATEGORY:
-        getCategory().clear();
+      case ReqSpecPackage.CONTRACTUAL_ELEMENT__REQUIREMENT_TYPE:
+        getRequirementType().clear();
+        return;
+      case ReqSpecPackage.CONTRACTUAL_ELEMENT__QUALITY_ATTRIBUTE:
+        getQualityAttribute().clear();
+        return;
+      case ReqSpecPackage.CONTRACTUAL_ELEMENT__USER_SELECTION:
+        getUserSelection().clear();
         return;
       case ReqSpecPackage.CONTRACTUAL_ELEMENT__DESCRIPTION:
         setDescription((Description)null);
@@ -928,8 +998,12 @@ public class ContractualElementImpl extends MinimalEObjectImpl.Container impleme
         return target != null;
       case ReqSpecPackage.CONTRACTUAL_ELEMENT__TARGET_ELEMENT:
         return targetElement != null;
-      case ReqSpecPackage.CONTRACTUAL_ELEMENT__CATEGORY:
-        return category != null && !category.isEmpty();
+      case ReqSpecPackage.CONTRACTUAL_ELEMENT__REQUIREMENT_TYPE:
+        return requirementType != null && !requirementType.isEmpty();
+      case ReqSpecPackage.CONTRACTUAL_ELEMENT__QUALITY_ATTRIBUTE:
+        return qualityAttribute != null && !qualityAttribute.isEmpty();
+      case ReqSpecPackage.CONTRACTUAL_ELEMENT__USER_SELECTION:
+        return userSelection != null && !userSelection.isEmpty();
       case ReqSpecPackage.CONTRACTUAL_ELEMENT__DESCRIPTION:
         return description != null;
       case ReqSpecPackage.CONTRACTUAL_ELEMENT__CONSTANTS:

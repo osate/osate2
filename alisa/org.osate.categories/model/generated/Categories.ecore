@@ -3,18 +3,16 @@
     xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" name="categories" nsURI="http://www.osate.org/categories/Categories"
     nsPrefix="categories">
   <eClassifiers xsi:type="ecore:EClass" name="CategoriesDefinitions">
-    <eStructuralFeatures xsi:type="ecore:EReference" name="requirementcategories"
+    <eStructuralFeatures xsi:type="ecore:EReference" name="requirementTypeCategories"
         eType="#//Categories" containment="true"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="methodcategories" eType="#//Categories"
+    <eStructuralFeatures xsi:type="ecore:EReference" name="methodTypeCategories" eType="#//Categories"
         containment="true"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="selectioncategories" eType="#//Categories"
         containment="true"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="phasecategories" eType="#//Categories"
-        containment="true"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="qualitycategories" eType="#//Categories"
-        containment="true"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="categoryfilter" eType="#//CategoryFilters"
-        containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="developmentPhaseCategories"
+        eType="#//Categories" containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="qualityAttributeCategories"
+        eType="#//Categories" containment="true"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="Categories">
     <eStructuralFeatures xsi:type="ecore:EReference" name="category" upperBound="-1"
@@ -23,21 +21,32 @@
   <eClassifiers xsi:type="ecore:EClass" name="Category">
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" eType="ecore:EDataType platform:/resource/org.eclipse.emf.ecore/model/Ecore.ecore#//EString"/>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="CategoryFilters">
-    <eStructuralFeatures xsi:type="ecore:EReference" name="filters" upperBound="-1"
-        eType="#//Category" containment="true"/>
+  <eClassifiers xsi:type="ecore:EClass" name="CategoryFilter">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" eType="ecore:EDataType platform:/resource/org.eclipse.emf.ecore/model/Ecore.ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="requirementType" unique="false"
+        upperBound="-1" eType="#//RequirementType"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="anyRequirementType" eType="ecore:EDataType platform:/resource/org.eclipse.emf.ecore/model/Ecore.ecore#//EBoolean"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="methodType" unique="false"
+        upperBound="-1" eType="#//MethodType"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="anyMethodType" eType="ecore:EDataType platform:/resource/org.eclipse.emf.ecore/model/Ecore.ecore#//EBoolean"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="userSelection" unique="false"
+        upperBound="-1" eType="#//UserSelection"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="anyUserSelection" eType="ecore:EDataType platform:/resource/org.eclipse.emf.ecore/model/Ecore.ecore#//EBoolean"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="qualityAttribute" unique="false"
+        upperBound="-1" eType="#//QualityAttribute"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="anyQualityAttribute" eType="ecore:EDataType platform:/resource/org.eclipse.emf.ecore/model/Ecore.ecore#//EBoolean"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="developmentPhase" unique="false"
+        upperBound="-1" eType="#//DevelopmentPhase"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="anyDevelopmentPhase" eType="ecore:EDataType platform:/resource/org.eclipse.emf.ecore/model/Ecore.ecore#//EBoolean"/>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="RequirementCategories" eSuperTypes="#//Categories"/>
-  <eClassifiers xsi:type="ecore:EClass" name="MethodCategories" eSuperTypes="#//Categories"/>
-  <eClassifiers xsi:type="ecore:EClass" name="SelectionCategories" eSuperTypes="#//Categories"/>
-  <eClassifiers xsi:type="ecore:EClass" name="QualityCategories" eSuperTypes="#//Categories"/>
-  <eClassifiers xsi:type="ecore:EClass" name="RequirementCategory" eSuperTypes="#//Category"/>
-  <eClassifiers xsi:type="ecore:EClass" name="MethodCategory" eSuperTypes="#//Category"/>
-  <eClassifiers xsi:type="ecore:EClass" name="SelectionCategory" eSuperTypes="#//Category"/>
-  <eClassifiers xsi:type="ecore:EClass" name="QualityCategory" eSuperTypes="#//Category"/>
-  <eClassifiers xsi:type="ecore:EClass" name="PhaseCategory" eSuperTypes="#//Category"/>
-  <eClassifiers xsi:type="ecore:EClass" name="CategorySet" eSuperTypes="#//Category">
-    <eStructuralFeatures xsi:type="ecore:EReference" name="elements" unique="false"
-        upperBound="-1" eType="#//Category"/>
-  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="RequirementTypeCategories" eSuperTypes="#//Categories"/>
+  <eClassifiers xsi:type="ecore:EClass" name="MethodTypeCategories" eSuperTypes="#//Categories"/>
+  <eClassifiers xsi:type="ecore:EClass" name="UserSelectionCategories" eSuperTypes="#//Categories"/>
+  <eClassifiers xsi:type="ecore:EClass" name="QualityAttributeCategories" eSuperTypes="#//Categories"/>
+  <eClassifiers xsi:type="ecore:EClass" name="DevelopmentPhaseCategories" eSuperTypes="#//Categories"/>
+  <eClassifiers xsi:type="ecore:EClass" name="RequirementType" eSuperTypes="#//Category"/>
+  <eClassifiers xsi:type="ecore:EClass" name="MethodType" eSuperTypes="#//Category"/>
+  <eClassifiers xsi:type="ecore:EClass" name="UserSelection" eSuperTypes="#//Category"/>
+  <eClassifiers xsi:type="ecore:EClass" name="QualityAttribute" eSuperTypes="#//Category"/>
+  <eClassifiers xsi:type="ecore:EClass" name="DevelopmentPhase" eSuperTypes="#//Category"/>
 </ecore:EPackage>

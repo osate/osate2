@@ -9,6 +9,7 @@
   <eClassifiers xsi:type="ecore:EClass" name="VerificationPlan">
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" eType="ecore:EDataType platform:/resource/org.eclipse.emf.ecore/model/Ecore.ecore#//EString"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="title" eType="ecore:EDataType platform:/resource/org.eclipse.emf.ecore/model/Ecore.ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="requirements" eType="ecore:EClass platform:/resource/org.osate.reqspec/model/generated/ReqSpec.ecore#//SystemRequirements"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="description" eType="ecore:EClass platform:/resource/org.osate.alisa.common/model/generated/Common.ecore#//Description"
         containment="true"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="claim" upperBound="-1"
@@ -37,8 +38,10 @@
   <eClassifiers xsi:type="ecore:EClass" name="VerificationActivity">
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" eType="ecore:EDataType platform:/resource/org.eclipse.emf.ecore/model/Ecore.ecore#//EString"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="title" eType="ecore:EDataType platform:/resource/org.eclipse.emf.ecore/model/Ecore.ecore#//EString"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="category" unique="false"
-        upperBound="-1" eType="ecore:EClass platform:/resource/org.osate.categories/model/generated/Categories.ecore#//Category"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="developmentPhase" unique="false"
+        upperBound="-1" eType="ecore:EClass platform:/resource/org.osate.categories/model/generated/Categories.ecore#//DevelopmentPhase"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="userSelection" unique="false"
+        upperBound="-1" eType="ecore:EClass platform:/resource/org.osate.categories/model/generated/Categories.ecore#//UserSelection"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="result" unique="false"
         upperBound="-1" eType="ecore:EClass platform:/resource/org.osate.alisa.common/model/generated/Common.ecore#//ComputeDeclaration"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="method" eType="#//VerificationMethod"/>
@@ -75,7 +78,7 @@
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="isPredicate" eType="ecore:EDataType platform:/resource/org.eclipse.emf.ecore/model/Ecore.ecore#//EBoolean"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="isResultReport" eType="ecore:EDataType platform:/resource/org.eclipse.emf.ecore/model/Ecore.ecore#//EBoolean"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="title" eType="ecore:EDataType platform:/resource/org.eclipse.emf.ecore/model/Ecore.ecore#//EString"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="methodType" eType="#//MethodType"
+    <eStructuralFeatures xsi:type="ecore:EReference" name="methodKind" eType="#//MethodKind"
         containment="true"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="description" eType="ecore:EClass platform:/resource/org.osate.alisa.common/model/generated/Common.ecore#//Description"
         containment="true"/>
@@ -83,27 +86,25 @@
         containment="true"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="validation" eType="#//VerificationCondition"
         containment="true"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="category" unique="false"
-        upperBound="-1" eType="ecore:EClass platform:/resource/org.osate.categories/model/generated/Categories.ecore#//Category"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="methodType" unique="false"
+        upperBound="-1" eType="ecore:EClass platform:/resource/org.osate.categories/model/generated/Categories.ecore#//MethodType"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="qualityAttribute" unique="false"
+        upperBound="-1" eType="ecore:EClass platform:/resource/org.osate.categories/model/generated/Categories.ecore#//QualityAttribute"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="userSelection" unique="false"
+        upperBound="-1" eType="ecore:EClass platform:/resource/org.osate.categories/model/generated/Categories.ecore#//UserSelection"/>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="MethodType"/>
-  <eClassifiers xsi:type="ecore:EClass" name="ResoluteMethod" eSuperTypes="#//MethodType">
+  <eClassifiers xsi:type="ecore:EClass" name="MethodKind"/>
+  <eClassifiers xsi:type="ecore:EClass" name="ResoluteMethod" eSuperTypes="#//MethodKind">
     <eStructuralFeatures xsi:type="ecore:EReference" name="methodReference" eType="ecore:EClass platform:/resource/com.rockwellcollins.atc.resolute/src-gen/com/rockwellcollins/atc/resolute/Resolute.ecore#//FunctionDefinition"/>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="JavaMethod" eSuperTypes="#//MethodType">
+  <eClassifiers xsi:type="ecore:EClass" name="JavaMethod" eSuperTypes="#//MethodKind">
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="methodPath" eType="ecore:EDataType platform:/resource/org.eclipse.emf.ecore/model/Ecore.ecore#//EString"/>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="ManualMethod" eSuperTypes="#//MethodType">
+  <eClassifiers xsi:type="ecore:EClass" name="ManualMethod" eSuperTypes="#//MethodKind">
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="dialogID" eType="ecore:EDataType platform:/resource/org.eclipse.emf.ecore/model/Ecore.ecore#//EString"/>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="PluginMethod" eSuperTypes="#//MethodType">
+  <eClassifiers xsi:type="ecore:EClass" name="PluginMethod" eSuperTypes="#//MethodKind">
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="methodID" eType="ecore:EDataType platform:/resource/org.eclipse.emf.ecore/model/Ecore.ecore#//EString"/>
-  </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="SystemVerificationPlan" eSuperTypes="#//VerificationPlan">
-    <eStructuralFeatures xsi:type="ecore:EReference" name="requirements" eType="ecore:EClass platform:/resource/org.osate.reqspec/model/generated/ReqSpec.ecore#//SystemRequirements"/>
-  </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="GlobalVerificationPlan" eSuperTypes="#//VerificationPlan">
-    <eStructuralFeatures xsi:type="ecore:EReference" name="requirements" eType="ecore:EClass platform:/resource/org.osate.reqspec/model/generated/ReqSpec.ecore#//GlobalRequirements"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="ThenExpr" eSuperTypes="#//ArgumentExpr">
     <eStructuralFeatures xsi:type="ecore:EReference" name="left" eType="#//ArgumentExpr"

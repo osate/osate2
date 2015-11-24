@@ -126,13 +126,22 @@ public interface VerifyPackage extends EPackage
   int VERIFICATION_PLAN__TITLE = 1;
 
   /**
+   * The feature id for the '<em><b>Requirements</b></em>' reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int VERIFICATION_PLAN__REQUIREMENTS = 2;
+
+  /**
    * The feature id for the '<em><b>Description</b></em>' containment reference.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    * @ordered
    */
-  int VERIFICATION_PLAN__DESCRIPTION = 2;
+  int VERIFICATION_PLAN__DESCRIPTION = 3;
 
   /**
    * The feature id for the '<em><b>Claim</b></em>' containment reference list.
@@ -141,7 +150,7 @@ public interface VerifyPackage extends EPackage
    * @generated
    * @ordered
    */
-  int VERIFICATION_PLAN__CLAIM = 3;
+  int VERIFICATION_PLAN__CLAIM = 4;
 
   /**
    * The feature id for the '<em><b>Rationale</b></em>' containment reference.
@@ -150,7 +159,7 @@ public interface VerifyPackage extends EPackage
    * @generated
    * @ordered
    */
-  int VERIFICATION_PLAN__RATIONALE = 4;
+  int VERIFICATION_PLAN__RATIONALE = 5;
 
   /**
    * The feature id for the '<em><b>Issues</b></em>' attribute list.
@@ -159,7 +168,7 @@ public interface VerifyPackage extends EPackage
    * @generated
    * @ordered
    */
-  int VERIFICATION_PLAN__ISSUES = 5;
+  int VERIFICATION_PLAN__ISSUES = 6;
 
   /**
    * The number of structural features of the '<em>Verification Plan</em>' class.
@@ -168,7 +177,7 @@ public interface VerifyPackage extends EPackage
    * @generated
    * @ordered
    */
-  int VERIFICATION_PLAN_FEATURE_COUNT = 6;
+  int VERIFICATION_PLAN_FEATURE_COUNT = 7;
 
   /**
    * The meta object id for the '{@link org.osate.verify.verify.impl.ClaimImpl <em>Claim</em>}' class.
@@ -309,13 +318,22 @@ public interface VerifyPackage extends EPackage
   int VERIFICATION_ACTIVITY__TITLE = 1;
 
   /**
-   * The feature id for the '<em><b>Category</b></em>' reference list.
+   * The feature id for the '<em><b>Development Phase</b></em>' reference list.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    * @ordered
    */
-  int VERIFICATION_ACTIVITY__CATEGORY = 2;
+  int VERIFICATION_ACTIVITY__DEVELOPMENT_PHASE = 2;
+
+  /**
+   * The feature id for the '<em><b>User Selection</b></em>' reference list.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int VERIFICATION_ACTIVITY__USER_SELECTION = 3;
 
   /**
    * The feature id for the '<em><b>Result</b></em>' reference list.
@@ -324,7 +342,7 @@ public interface VerifyPackage extends EPackage
    * @generated
    * @ordered
    */
-  int VERIFICATION_ACTIVITY__RESULT = 3;
+  int VERIFICATION_ACTIVITY__RESULT = 4;
 
   /**
    * The feature id for the '<em><b>Method</b></em>' reference.
@@ -333,7 +351,7 @@ public interface VerifyPackage extends EPackage
    * @generated
    * @ordered
    */
-  int VERIFICATION_ACTIVITY__METHOD = 4;
+  int VERIFICATION_ACTIVITY__METHOD = 5;
 
   /**
    * The feature id for the '<em><b>Parameters</b></em>' reference list.
@@ -342,7 +360,7 @@ public interface VerifyPackage extends EPackage
    * @generated
    * @ordered
    */
-  int VERIFICATION_ACTIVITY__PARAMETERS = 5;
+  int VERIFICATION_ACTIVITY__PARAMETERS = 6;
 
   /**
    * The feature id for the '<em><b>Property Values</b></em>' reference list.
@@ -351,7 +369,7 @@ public interface VerifyPackage extends EPackage
    * @generated
    * @ordered
    */
-  int VERIFICATION_ACTIVITY__PROPERTY_VALUES = 6;
+  int VERIFICATION_ACTIVITY__PROPERTY_VALUES = 7;
 
   /**
    * The feature id for the '<em><b>Timeout</b></em>' attribute.
@@ -360,7 +378,7 @@ public interface VerifyPackage extends EPackage
    * @generated
    * @ordered
    */
-  int VERIFICATION_ACTIVITY__TIMEOUT = 7;
+  int VERIFICATION_ACTIVITY__TIMEOUT = 8;
 
   /**
    * The number of structural features of the '<em>Verification Activity</em>' class.
@@ -369,7 +387,7 @@ public interface VerifyPackage extends EPackage
    * @generated
    * @ordered
    */
-  int VERIFICATION_ACTIVITY_FEATURE_COUNT = 8;
+  int VERIFICATION_ACTIVITY_FEATURE_COUNT = 9;
 
   /**
    * The meta object id for the '{@link org.osate.verify.verify.impl.VerificationConditionImpl <em>Verification Condition</em>}' class.
@@ -574,13 +592,13 @@ public interface VerifyPackage extends EPackage
   int VERIFICATION_METHOD__TITLE = 5;
 
   /**
-   * The feature id for the '<em><b>Method Type</b></em>' containment reference.
+   * The feature id for the '<em><b>Method Kind</b></em>' containment reference.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    * @ordered
    */
-  int VERIFICATION_METHOD__METHOD_TYPE = 6;
+  int VERIFICATION_METHOD__METHOD_KIND = 6;
 
   /**
    * The feature id for the '<em><b>Description</b></em>' containment reference.
@@ -610,13 +628,31 @@ public interface VerifyPackage extends EPackage
   int VERIFICATION_METHOD__VALIDATION = 9;
 
   /**
-   * The feature id for the '<em><b>Category</b></em>' reference list.
+   * The feature id for the '<em><b>Method Type</b></em>' reference list.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    * @ordered
    */
-  int VERIFICATION_METHOD__CATEGORY = 10;
+  int VERIFICATION_METHOD__METHOD_TYPE = 10;
+
+  /**
+   * The feature id for the '<em><b>Quality Attribute</b></em>' reference list.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int VERIFICATION_METHOD__QUALITY_ATTRIBUTE = 11;
+
+  /**
+   * The feature id for the '<em><b>User Selection</b></em>' reference list.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int VERIFICATION_METHOD__USER_SELECTION = 12;
 
   /**
    * The number of structural features of the '<em>Verification Method</em>' class.
@@ -625,26 +661,26 @@ public interface VerifyPackage extends EPackage
    * @generated
    * @ordered
    */
-  int VERIFICATION_METHOD_FEATURE_COUNT = 11;
+  int VERIFICATION_METHOD_FEATURE_COUNT = 13;
 
   /**
-   * The meta object id for the '{@link org.osate.verify.verify.impl.MethodTypeImpl <em>Method Type</em>}' class.
+   * The meta object id for the '{@link org.osate.verify.verify.impl.MethodKindImpl <em>Method Kind</em>}' class.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @see org.osate.verify.verify.impl.MethodTypeImpl
-   * @see org.osate.verify.verify.impl.VerifyPackageImpl#getMethodType()
+   * @see org.osate.verify.verify.impl.MethodKindImpl
+   * @see org.osate.verify.verify.impl.VerifyPackageImpl#getMethodKind()
    * @generated
    */
-  int METHOD_TYPE = 9;
+  int METHOD_KIND = 9;
 
   /**
-   * The number of structural features of the '<em>Method Type</em>' class.
+   * The number of structural features of the '<em>Method Kind</em>' class.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    * @ordered
    */
-  int METHOD_TYPE_FEATURE_COUNT = 0;
+  int METHOD_KIND_FEATURE_COUNT = 0;
 
   /**
    * The meta object id for the '{@link org.osate.verify.verify.impl.ResoluteMethodImpl <em>Resolute Method</em>}' class.
@@ -663,7 +699,7 @@ public interface VerifyPackage extends EPackage
    * @generated
    * @ordered
    */
-  int RESOLUTE_METHOD__METHOD_REFERENCE = METHOD_TYPE_FEATURE_COUNT + 0;
+  int RESOLUTE_METHOD__METHOD_REFERENCE = METHOD_KIND_FEATURE_COUNT + 0;
 
   /**
    * The number of structural features of the '<em>Resolute Method</em>' class.
@@ -672,7 +708,7 @@ public interface VerifyPackage extends EPackage
    * @generated
    * @ordered
    */
-  int RESOLUTE_METHOD_FEATURE_COUNT = METHOD_TYPE_FEATURE_COUNT + 1;
+  int RESOLUTE_METHOD_FEATURE_COUNT = METHOD_KIND_FEATURE_COUNT + 1;
 
   /**
    * The meta object id for the '{@link org.osate.verify.verify.impl.JavaMethodImpl <em>Java Method</em>}' class.
@@ -691,7 +727,7 @@ public interface VerifyPackage extends EPackage
    * @generated
    * @ordered
    */
-  int JAVA_METHOD__METHOD_PATH = METHOD_TYPE_FEATURE_COUNT + 0;
+  int JAVA_METHOD__METHOD_PATH = METHOD_KIND_FEATURE_COUNT + 0;
 
   /**
    * The number of structural features of the '<em>Java Method</em>' class.
@@ -700,7 +736,7 @@ public interface VerifyPackage extends EPackage
    * @generated
    * @ordered
    */
-  int JAVA_METHOD_FEATURE_COUNT = METHOD_TYPE_FEATURE_COUNT + 1;
+  int JAVA_METHOD_FEATURE_COUNT = METHOD_KIND_FEATURE_COUNT + 1;
 
   /**
    * The meta object id for the '{@link org.osate.verify.verify.impl.ManualMethodImpl <em>Manual Method</em>}' class.
@@ -719,7 +755,7 @@ public interface VerifyPackage extends EPackage
    * @generated
    * @ordered
    */
-  int MANUAL_METHOD__DIALOG_ID = METHOD_TYPE_FEATURE_COUNT + 0;
+  int MANUAL_METHOD__DIALOG_ID = METHOD_KIND_FEATURE_COUNT + 0;
 
   /**
    * The number of structural features of the '<em>Manual Method</em>' class.
@@ -728,7 +764,7 @@ public interface VerifyPackage extends EPackage
    * @generated
    * @ordered
    */
-  int MANUAL_METHOD_FEATURE_COUNT = METHOD_TYPE_FEATURE_COUNT + 1;
+  int MANUAL_METHOD_FEATURE_COUNT = METHOD_KIND_FEATURE_COUNT + 1;
 
   /**
    * The meta object id for the '{@link org.osate.verify.verify.impl.PluginMethodImpl <em>Plugin Method</em>}' class.
@@ -747,7 +783,7 @@ public interface VerifyPackage extends EPackage
    * @generated
    * @ordered
    */
-  int PLUGIN_METHOD__METHOD_ID = METHOD_TYPE_FEATURE_COUNT + 0;
+  int PLUGIN_METHOD__METHOD_ID = METHOD_KIND_FEATURE_COUNT + 0;
 
   /**
    * The number of structural features of the '<em>Plugin Method</em>' class.
@@ -756,171 +792,7 @@ public interface VerifyPackage extends EPackage
    * @generated
    * @ordered
    */
-  int PLUGIN_METHOD_FEATURE_COUNT = METHOD_TYPE_FEATURE_COUNT + 1;
-
-  /**
-   * The meta object id for the '{@link org.osate.verify.verify.impl.SystemVerificationPlanImpl <em>System Verification Plan</em>}' class.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @see org.osate.verify.verify.impl.SystemVerificationPlanImpl
-   * @see org.osate.verify.verify.impl.VerifyPackageImpl#getSystemVerificationPlan()
-   * @generated
-   */
-  int SYSTEM_VERIFICATION_PLAN = 14;
-
-  /**
-   * The feature id for the '<em><b>Name</b></em>' attribute.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int SYSTEM_VERIFICATION_PLAN__NAME = VERIFICATION_PLAN__NAME;
-
-  /**
-   * The feature id for the '<em><b>Title</b></em>' attribute.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int SYSTEM_VERIFICATION_PLAN__TITLE = VERIFICATION_PLAN__TITLE;
-
-  /**
-   * The feature id for the '<em><b>Description</b></em>' containment reference.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int SYSTEM_VERIFICATION_PLAN__DESCRIPTION = VERIFICATION_PLAN__DESCRIPTION;
-
-  /**
-   * The feature id for the '<em><b>Claim</b></em>' containment reference list.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int SYSTEM_VERIFICATION_PLAN__CLAIM = VERIFICATION_PLAN__CLAIM;
-
-  /**
-   * The feature id for the '<em><b>Rationale</b></em>' containment reference.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int SYSTEM_VERIFICATION_PLAN__RATIONALE = VERIFICATION_PLAN__RATIONALE;
-
-  /**
-   * The feature id for the '<em><b>Issues</b></em>' attribute list.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int SYSTEM_VERIFICATION_PLAN__ISSUES = VERIFICATION_PLAN__ISSUES;
-
-  /**
-   * The feature id for the '<em><b>Requirements</b></em>' reference.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int SYSTEM_VERIFICATION_PLAN__REQUIREMENTS = VERIFICATION_PLAN_FEATURE_COUNT + 0;
-
-  /**
-   * The number of structural features of the '<em>System Verification Plan</em>' class.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int SYSTEM_VERIFICATION_PLAN_FEATURE_COUNT = VERIFICATION_PLAN_FEATURE_COUNT + 1;
-
-  /**
-   * The meta object id for the '{@link org.osate.verify.verify.impl.GlobalVerificationPlanImpl <em>Global Verification Plan</em>}' class.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @see org.osate.verify.verify.impl.GlobalVerificationPlanImpl
-   * @see org.osate.verify.verify.impl.VerifyPackageImpl#getGlobalVerificationPlan()
-   * @generated
-   */
-  int GLOBAL_VERIFICATION_PLAN = 15;
-
-  /**
-   * The feature id for the '<em><b>Name</b></em>' attribute.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int GLOBAL_VERIFICATION_PLAN__NAME = VERIFICATION_PLAN__NAME;
-
-  /**
-   * The feature id for the '<em><b>Title</b></em>' attribute.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int GLOBAL_VERIFICATION_PLAN__TITLE = VERIFICATION_PLAN__TITLE;
-
-  /**
-   * The feature id for the '<em><b>Description</b></em>' containment reference.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int GLOBAL_VERIFICATION_PLAN__DESCRIPTION = VERIFICATION_PLAN__DESCRIPTION;
-
-  /**
-   * The feature id for the '<em><b>Claim</b></em>' containment reference list.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int GLOBAL_VERIFICATION_PLAN__CLAIM = VERIFICATION_PLAN__CLAIM;
-
-  /**
-   * The feature id for the '<em><b>Rationale</b></em>' containment reference.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int GLOBAL_VERIFICATION_PLAN__RATIONALE = VERIFICATION_PLAN__RATIONALE;
-
-  /**
-   * The feature id for the '<em><b>Issues</b></em>' attribute list.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int GLOBAL_VERIFICATION_PLAN__ISSUES = VERIFICATION_PLAN__ISSUES;
-
-  /**
-   * The feature id for the '<em><b>Requirements</b></em>' reference.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int GLOBAL_VERIFICATION_PLAN__REQUIREMENTS = VERIFICATION_PLAN_FEATURE_COUNT + 0;
-
-  /**
-   * The number of structural features of the '<em>Global Verification Plan</em>' class.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int GLOBAL_VERIFICATION_PLAN_FEATURE_COUNT = VERIFICATION_PLAN_FEATURE_COUNT + 1;
+  int PLUGIN_METHOD_FEATURE_COUNT = METHOD_KIND_FEATURE_COUNT + 1;
 
   /**
    * The meta object id for the '{@link org.osate.verify.verify.impl.ThenExprImpl <em>Then Expr</em>}' class.
@@ -930,7 +802,7 @@ public interface VerifyPackage extends EPackage
    * @see org.osate.verify.verify.impl.VerifyPackageImpl#getThenExpr()
    * @generated
    */
-  int THEN_EXPR = 16;
+  int THEN_EXPR = 14;
 
   /**
    * The feature id for the '<em><b>Left</b></em>' containment reference.
@@ -967,7 +839,7 @@ public interface VerifyPackage extends EPackage
    * @see org.osate.verify.verify.impl.VerifyPackageImpl#getElseExpr()
    * @generated
    */
-  int ELSE_EXPR = 17;
+  int ELSE_EXPR = 15;
 
   /**
    * The feature id for the '<em><b>Left</b></em>' containment reference.
@@ -1022,7 +894,7 @@ public interface VerifyPackage extends EPackage
    * @see org.osate.verify.verify.impl.VerifyPackageImpl#getAllExpr()
    * @generated
    */
-  int ALL_EXPR = 18;
+  int ALL_EXPR = 16;
 
   /**
    * The feature id for the '<em><b>Elements</b></em>' containment reference list.
@@ -1050,7 +922,7 @@ public interface VerifyPackage extends EPackage
    * @see org.osate.verify.verify.impl.VerifyPackageImpl#getRefExpr()
    * @generated
    */
-  int REF_EXPR = 19;
+  int REF_EXPR = 17;
 
   /**
    * The feature id for the '<em><b>Verification</b></em>' reference.
@@ -1087,7 +959,7 @@ public interface VerifyPackage extends EPackage
    * @see org.osate.verify.verify.impl.VerifyPackageImpl#getVerificationValidation()
    * @generated
    */
-  int VERIFICATION_VALIDATION = 20;
+  int VERIFICATION_VALIDATION = 18;
 
   /**
    * The feature id for the '<em><b>Method</b></em>' reference.
@@ -1124,7 +996,7 @@ public interface VerifyPackage extends EPackage
    * @see org.osate.verify.verify.impl.VerifyPackageImpl#getVerificationPrecondition()
    * @generated
    */
-  int VERIFICATION_PRECONDITION = 21;
+  int VERIFICATION_PRECONDITION = 19;
 
   /**
    * The feature id for the '<em><b>Method</b></em>' reference.
@@ -1206,6 +1078,17 @@ public interface VerifyPackage extends EPackage
    * @generated
    */
   EAttribute getVerificationPlan_Title();
+
+  /**
+   * Returns the meta object for the reference '{@link org.osate.verify.verify.VerificationPlan#getRequirements <em>Requirements</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the reference '<em>Requirements</em>'.
+   * @see org.osate.verify.verify.VerificationPlan#getRequirements()
+   * @see #getVerificationPlan()
+   * @generated
+   */
+  EReference getVerificationPlan_Requirements();
 
   /**
    * Returns the meta object for the containment reference '{@link org.osate.verify.verify.VerificationPlan#getDescription <em>Description</em>}'.
@@ -1392,15 +1275,26 @@ public interface VerifyPackage extends EPackage
   EAttribute getVerificationActivity_Title();
 
   /**
-   * Returns the meta object for the reference list '{@link org.osate.verify.verify.VerificationActivity#getCategory <em>Category</em>}'.
+   * Returns the meta object for the reference list '{@link org.osate.verify.verify.VerificationActivity#getDevelopmentPhase <em>Development Phase</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @return the meta object for the reference list '<em>Category</em>'.
-   * @see org.osate.verify.verify.VerificationActivity#getCategory()
+   * @return the meta object for the reference list '<em>Development Phase</em>'.
+   * @see org.osate.verify.verify.VerificationActivity#getDevelopmentPhase()
    * @see #getVerificationActivity()
    * @generated
    */
-  EReference getVerificationActivity_Category();
+  EReference getVerificationActivity_DevelopmentPhase();
+
+  /**
+   * Returns the meta object for the reference list '{@link org.osate.verify.verify.VerificationActivity#getUserSelection <em>User Selection</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the reference list '<em>User Selection</em>'.
+   * @see org.osate.verify.verify.VerificationActivity#getUserSelection()
+   * @see #getVerificationActivity()
+   * @generated
+   */
+  EReference getVerificationActivity_UserSelection();
 
   /**
    * Returns the meta object for the reference list '{@link org.osate.verify.verify.VerificationActivity#getResult <em>Result</em>}'.
@@ -1663,15 +1557,15 @@ public interface VerifyPackage extends EPackage
   EAttribute getVerificationMethod_Title();
 
   /**
-   * Returns the meta object for the containment reference '{@link org.osate.verify.verify.VerificationMethod#getMethodType <em>Method Type</em>}'.
+   * Returns the meta object for the containment reference '{@link org.osate.verify.verify.VerificationMethod#getMethodKind <em>Method Kind</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @return the meta object for the containment reference '<em>Method Type</em>'.
-   * @see org.osate.verify.verify.VerificationMethod#getMethodType()
+   * @return the meta object for the containment reference '<em>Method Kind</em>'.
+   * @see org.osate.verify.verify.VerificationMethod#getMethodKind()
    * @see #getVerificationMethod()
    * @generated
    */
-  EReference getVerificationMethod_MethodType();
+  EReference getVerificationMethod_MethodKind();
 
   /**
    * Returns the meta object for the containment reference '{@link org.osate.verify.verify.VerificationMethod#getDescription <em>Description</em>}'.
@@ -1707,25 +1601,47 @@ public interface VerifyPackage extends EPackage
   EReference getVerificationMethod_Validation();
 
   /**
-   * Returns the meta object for the reference list '{@link org.osate.verify.verify.VerificationMethod#getCategory <em>Category</em>}'.
+   * Returns the meta object for the reference list '{@link org.osate.verify.verify.VerificationMethod#getMethodType <em>Method Type</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @return the meta object for the reference list '<em>Category</em>'.
-   * @see org.osate.verify.verify.VerificationMethod#getCategory()
+   * @return the meta object for the reference list '<em>Method Type</em>'.
+   * @see org.osate.verify.verify.VerificationMethod#getMethodType()
    * @see #getVerificationMethod()
    * @generated
    */
-  EReference getVerificationMethod_Category();
+  EReference getVerificationMethod_MethodType();
 
   /**
-   * Returns the meta object for class '{@link org.osate.verify.verify.MethodType <em>Method Type</em>}'.
+   * Returns the meta object for the reference list '{@link org.osate.verify.verify.VerificationMethod#getQualityAttribute <em>Quality Attribute</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @return the meta object for class '<em>Method Type</em>'.
-   * @see org.osate.verify.verify.MethodType
+   * @return the meta object for the reference list '<em>Quality Attribute</em>'.
+   * @see org.osate.verify.verify.VerificationMethod#getQualityAttribute()
+   * @see #getVerificationMethod()
    * @generated
    */
-  EClass getMethodType();
+  EReference getVerificationMethod_QualityAttribute();
+
+  /**
+   * Returns the meta object for the reference list '{@link org.osate.verify.verify.VerificationMethod#getUserSelection <em>User Selection</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the reference list '<em>User Selection</em>'.
+   * @see org.osate.verify.verify.VerificationMethod#getUserSelection()
+   * @see #getVerificationMethod()
+   * @generated
+   */
+  EReference getVerificationMethod_UserSelection();
+
+  /**
+   * Returns the meta object for class '{@link org.osate.verify.verify.MethodKind <em>Method Kind</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for class '<em>Method Kind</em>'.
+   * @see org.osate.verify.verify.MethodKind
+   * @generated
+   */
+  EClass getMethodKind();
 
   /**
    * Returns the meta object for class '{@link org.osate.verify.verify.ResoluteMethod <em>Resolute Method</em>}'.
@@ -1810,48 +1726,6 @@ public interface VerifyPackage extends EPackage
    * @generated
    */
   EAttribute getPluginMethod_MethodID();
-
-  /**
-   * Returns the meta object for class '{@link org.osate.verify.verify.SystemVerificationPlan <em>System Verification Plan</em>}'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return the meta object for class '<em>System Verification Plan</em>'.
-   * @see org.osate.verify.verify.SystemVerificationPlan
-   * @generated
-   */
-  EClass getSystemVerificationPlan();
-
-  /**
-   * Returns the meta object for the reference '{@link org.osate.verify.verify.SystemVerificationPlan#getRequirements <em>Requirements</em>}'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return the meta object for the reference '<em>Requirements</em>'.
-   * @see org.osate.verify.verify.SystemVerificationPlan#getRequirements()
-   * @see #getSystemVerificationPlan()
-   * @generated
-   */
-  EReference getSystemVerificationPlan_Requirements();
-
-  /**
-   * Returns the meta object for class '{@link org.osate.verify.verify.GlobalVerificationPlan <em>Global Verification Plan</em>}'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return the meta object for class '<em>Global Verification Plan</em>'.
-   * @see org.osate.verify.verify.GlobalVerificationPlan
-   * @generated
-   */
-  EClass getGlobalVerificationPlan();
-
-  /**
-   * Returns the meta object for the reference '{@link org.osate.verify.verify.GlobalVerificationPlan#getRequirements <em>Requirements</em>}'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return the meta object for the reference '<em>Requirements</em>'.
-   * @see org.osate.verify.verify.GlobalVerificationPlan#getRequirements()
-   * @see #getGlobalVerificationPlan()
-   * @generated
-   */
-  EReference getGlobalVerificationPlan_Requirements();
 
   /**
    * Returns the meta object for class '{@link org.osate.verify.verify.ThenExpr <em>Then Expr</em>}'.
@@ -2080,6 +1954,14 @@ public interface VerifyPackage extends EPackage
     EAttribute VERIFICATION_PLAN__TITLE = eINSTANCE.getVerificationPlan_Title();
 
     /**
+     * The meta object literal for the '<em><b>Requirements</b></em>' reference feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EReference VERIFICATION_PLAN__REQUIREMENTS = eINSTANCE.getVerificationPlan_Requirements();
+
+    /**
      * The meta object literal for the '<em><b>Description</b></em>' containment reference feature.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
@@ -2222,12 +2104,20 @@ public interface VerifyPackage extends EPackage
     EAttribute VERIFICATION_ACTIVITY__TITLE = eINSTANCE.getVerificationActivity_Title();
 
     /**
-     * The meta object literal for the '<em><b>Category</b></em>' reference list feature.
+     * The meta object literal for the '<em><b>Development Phase</b></em>' reference list feature.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @generated
      */
-    EReference VERIFICATION_ACTIVITY__CATEGORY = eINSTANCE.getVerificationActivity_Category();
+    EReference VERIFICATION_ACTIVITY__DEVELOPMENT_PHASE = eINSTANCE.getVerificationActivity_DevelopmentPhase();
+
+    /**
+     * The meta object literal for the '<em><b>User Selection</b></em>' reference list feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EReference VERIFICATION_ACTIVITY__USER_SELECTION = eINSTANCE.getVerificationActivity_UserSelection();
 
     /**
      * The meta object literal for the '<em><b>Result</b></em>' reference list feature.
@@ -2430,12 +2320,12 @@ public interface VerifyPackage extends EPackage
     EAttribute VERIFICATION_METHOD__TITLE = eINSTANCE.getVerificationMethod_Title();
 
     /**
-     * The meta object literal for the '<em><b>Method Type</b></em>' containment reference feature.
+     * The meta object literal for the '<em><b>Method Kind</b></em>' containment reference feature.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @generated
      */
-    EReference VERIFICATION_METHOD__METHOD_TYPE = eINSTANCE.getVerificationMethod_MethodType();
+    EReference VERIFICATION_METHOD__METHOD_KIND = eINSTANCE.getVerificationMethod_MethodKind();
 
     /**
      * The meta object literal for the '<em><b>Description</b></em>' containment reference feature.
@@ -2462,22 +2352,38 @@ public interface VerifyPackage extends EPackage
     EReference VERIFICATION_METHOD__VALIDATION = eINSTANCE.getVerificationMethod_Validation();
 
     /**
-     * The meta object literal for the '<em><b>Category</b></em>' reference list feature.
+     * The meta object literal for the '<em><b>Method Type</b></em>' reference list feature.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @generated
      */
-    EReference VERIFICATION_METHOD__CATEGORY = eINSTANCE.getVerificationMethod_Category();
+    EReference VERIFICATION_METHOD__METHOD_TYPE = eINSTANCE.getVerificationMethod_MethodType();
 
     /**
-     * The meta object literal for the '{@link org.osate.verify.verify.impl.MethodTypeImpl <em>Method Type</em>}' class.
+     * The meta object literal for the '<em><b>Quality Attribute</b></em>' reference list feature.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @see org.osate.verify.verify.impl.MethodTypeImpl
-     * @see org.osate.verify.verify.impl.VerifyPackageImpl#getMethodType()
      * @generated
      */
-    EClass METHOD_TYPE = eINSTANCE.getMethodType();
+    EReference VERIFICATION_METHOD__QUALITY_ATTRIBUTE = eINSTANCE.getVerificationMethod_QualityAttribute();
+
+    /**
+     * The meta object literal for the '<em><b>User Selection</b></em>' reference list feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EReference VERIFICATION_METHOD__USER_SELECTION = eINSTANCE.getVerificationMethod_UserSelection();
+
+    /**
+     * The meta object literal for the '{@link org.osate.verify.verify.impl.MethodKindImpl <em>Method Kind</em>}' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see org.osate.verify.verify.impl.MethodKindImpl
+     * @see org.osate.verify.verify.impl.VerifyPackageImpl#getMethodKind()
+     * @generated
+     */
+    EClass METHOD_KIND = eINSTANCE.getMethodKind();
 
     /**
      * The meta object literal for the '{@link org.osate.verify.verify.impl.ResoluteMethodImpl <em>Resolute Method</em>}' class.
@@ -2550,42 +2456,6 @@ public interface VerifyPackage extends EPackage
      * @generated
      */
     EAttribute PLUGIN_METHOD__METHOD_ID = eINSTANCE.getPluginMethod_MethodID();
-
-    /**
-     * The meta object literal for the '{@link org.osate.verify.verify.impl.SystemVerificationPlanImpl <em>System Verification Plan</em>}' class.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @see org.osate.verify.verify.impl.SystemVerificationPlanImpl
-     * @see org.osate.verify.verify.impl.VerifyPackageImpl#getSystemVerificationPlan()
-     * @generated
-     */
-    EClass SYSTEM_VERIFICATION_PLAN = eINSTANCE.getSystemVerificationPlan();
-
-    /**
-     * The meta object literal for the '<em><b>Requirements</b></em>' reference feature.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
-    EReference SYSTEM_VERIFICATION_PLAN__REQUIREMENTS = eINSTANCE.getSystemVerificationPlan_Requirements();
-
-    /**
-     * The meta object literal for the '{@link org.osate.verify.verify.impl.GlobalVerificationPlanImpl <em>Global Verification Plan</em>}' class.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @see org.osate.verify.verify.impl.GlobalVerificationPlanImpl
-     * @see org.osate.verify.verify.impl.VerifyPackageImpl#getGlobalVerificationPlan()
-     * @generated
-     */
-    EClass GLOBAL_VERIFICATION_PLAN = eINSTANCE.getGlobalVerificationPlan();
-
-    /**
-     * The meta object literal for the '<em><b>Requirements</b></em>' reference feature.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
-    EReference GLOBAL_VERIFICATION_PLAN__REQUIREMENTS = eINSTANCE.getGlobalVerificationPlan_Requirements();
 
     /**
      * The meta object literal for the '{@link org.osate.verify.verify.impl.ThenExprImpl <em>Then Expr</em>}' class.

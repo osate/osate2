@@ -49,16 +49,15 @@ class VerifyFormatter extends AbstractDeclarativeFormatter {
 			c.setLinewrap().before(pair.second);
 		}
 		c.setLinewrap(1,2,2).after(verificationPlanRule);
-		c.setLinewrap(1,2,2).after(globalVerificationPlanRule);
 		c.setLinewrap(1,2,2).after(verificationMethodRegistryRule);
 		c.setLinewrap(1,2,2).before(claimRule);
 		c.setLinewrap(1,2,2).before(rationaleRule);
 		c.setLinewrap(1,2,2).before(verificationActivityRule);
 		c.setLinewrap(1,2,2).before(verificationMethodRule);
-		c.setLinewrap(1,2,2).before(methodTypeRule);
+		c.setLinewrap(1,2,2).before(methodKindRule);
 		c.setLinewrap(1,2,2).before(verificationPreconditionRule);
 		c.setLinewrap(1,2,2).before(verificationValidationRule);
-		for (kw : findKeywords("description", "phase", "selection", "category",  
+		for (kw : findKeywords("description", "development", "user", "method",  
 			 "issues", "timeout")) {
 			c.setLinewrap().before(kw);
 		}

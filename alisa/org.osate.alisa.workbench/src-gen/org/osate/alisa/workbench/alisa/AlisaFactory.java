@@ -54,6 +54,15 @@ public interface AlisaFactory extends EFactory
   AssurancePlan createAssurancePlan();
 
   /**
+   * Returns a new object of class '<em>Category Filter</em>'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return a new object of class '<em>Category Filter</em>'.
+   * @generated
+   */
+  CategoryFilter createCategoryFilter();
+
+  /**
    * Returns a new object of class '<em>Assurance Task</em>'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->

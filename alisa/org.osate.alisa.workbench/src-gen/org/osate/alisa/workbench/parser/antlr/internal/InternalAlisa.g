@@ -265,10 +265,6 @@ ruleAssurancePlan returns [EObject current=null]
     {
     	newLeafNode(otherlv_10, grammarAccess.getAssurancePlanAccess().getAssureKeyword_7_1_0());
     }
-	otherlv_11='own' 
-    {
-    	newLeafNode(otherlv_11, grammarAccess.getAssurancePlanAccess().getOwnKeyword_7_1_1());
-    }
 (
 (
 		{
@@ -277,7 +273,7 @@ ruleAssurancePlan returns [EObject current=null]
 	        }
         }
 		{ 
-	        newCompositeNode(grammarAccess.getAssurancePlanAccess().getAssureOwnSystemVerificationPlanCrossReference_7_1_2_0()); 
+	        newCompositeNode(grammarAccess.getAssurancePlanAccess().getAssureVerificationPlanCrossReference_7_1_1_0()); 
 	    }
 		ruleQualifiedName		{ 
 	        afterParserOrEnumRuleCall();
@@ -296,13 +292,13 @@ ruleAssurancePlan returns [EObject current=null]
 					{ 
 	 				  getUnorderedGroupHelper().select(grammarAccess.getAssurancePlanAccess().getUnorderedGroup_7(), 2);
 	 				}
-					({true}?=>(	otherlv_13='assure' 
+					({true}?=>((	otherlv_12='assure' 
     {
-    	newLeafNode(otherlv_13, grammarAccess.getAssurancePlanAccess().getAssureKeyword_7_2_0());
+    	newLeafNode(otherlv_12, grammarAccess.getAssurancePlanAccess().getAssureKeyword_7_2_0_0());
     }
-	otherlv_14='global' 
+	otherlv_13='subsystem' 
     {
-    	newLeafNode(otherlv_14, grammarAccess.getAssurancePlanAccess().getGlobalKeyword_7_2_1());
+    	newLeafNode(otherlv_13, grammarAccess.getAssurancePlanAccess().getSubsystemKeyword_7_2_0_1());
     }
 (
 (
@@ -311,15 +307,29 @@ ruleAssurancePlan returns [EObject current=null]
 	            $current = createModelElement(grammarAccess.getAssurancePlanRule());
 	        }
         }
-		{ 
-	        newCompositeNode(grammarAccess.getAssurancePlanAccess().getAssureGlobalGlobalVerificationPlanCrossReference_7_2_2_0()); 
-	    }
-		ruleQualifiedName		{ 
-	        afterParserOrEnumRuleCall();
+	otherlv_14=RULE_ID
+	{
+		newLeafNode(otherlv_14, grammarAccess.getAssurancePlanAccess().getAssureSubsystemsSubcomponentCrossReference_7_2_0_2_0()); 
+	}
+
+)
+)+)
+    |(
+(
+		lv_assureAll_15_0=	'all' 
+    {
+        newLeafNode(lv_assureAll_15_0, grammarAccess.getAssurancePlanAccess().getAssureAllAllKeyword_7_2_1_0());
+    }
+ 
+	    {
+	        if ($current==null) {
+	            $current = createModelElement(grammarAccess.getAssurancePlanRule());
+	        }
+       		setWithLastConsumed($current, "assureAll", true, "all");
 	    }
 
 )
-)+))
+)))
 					{ 
 	 				  getUnorderedGroupHelper().returnFromSelection(grammarAccess.getAssurancePlanAccess().getUnorderedGroup_7());
 	 				}
@@ -331,52 +341,13 @@ ruleAssurancePlan returns [EObject current=null]
 					{ 
 	 				  getUnorderedGroupHelper().select(grammarAccess.getAssurancePlanAccess().getUnorderedGroup_7(), 3);
 	 				}
-					({true}?=>(	otherlv_16='assure' 
+					({true}?=>(	otherlv_16='assume' 
     {
-    	newLeafNode(otherlv_16, grammarAccess.getAssurancePlanAccess().getAssureKeyword_7_3_0());
+    	newLeafNode(otherlv_16, grammarAccess.getAssurancePlanAccess().getAssumeKeyword_7_3_0());
     }
 	otherlv_17='subsystem' 
     {
     	newLeafNode(otherlv_17, grammarAccess.getAssurancePlanAccess().getSubsystemKeyword_7_3_1());
-    }
-	otherlv_18='plans' 
-    {
-    	newLeafNode(otherlv_18, grammarAccess.getAssurancePlanAccess().getPlansKeyword_7_3_2());
-    }
-(
-(
-		{
-			if ($current==null) {
-	            $current = createModelElement(grammarAccess.getAssurancePlanRule());
-	        }
-        }
-		{ 
-	        newCompositeNode(grammarAccess.getAssurancePlanAccess().getAssureSubsystemPlansAssurancePlanCrossReference_7_3_3_0()); 
-	    }
-		ruleQualifiedName		{ 
-	        afterParserOrEnumRuleCall();
-	    }
-
-)
-)+))
-					{ 
-	 				  getUnorderedGroupHelper().returnFromSelection(grammarAccess.getAssurancePlanAccess().getUnorderedGroup_7());
-	 				}
- 				)
-			)  |
-
-			( 
-				{getUnorderedGroupHelper().canSelect(grammarAccess.getAssurancePlanAccess().getUnorderedGroup_7(), 4)}?=>(
-					{ 
-	 				  getUnorderedGroupHelper().select(grammarAccess.getAssurancePlanAccess().getUnorderedGroup_7(), 4);
-	 				}
-					({true}?=>(	otherlv_20='assume' 
-    {
-    	newLeafNode(otherlv_20, grammarAccess.getAssurancePlanAccess().getAssumeKeyword_7_4_0());
-    }
-	otherlv_21='subsystems' 
-    {
-    	newLeafNode(otherlv_21, grammarAccess.getAssurancePlanAccess().getSubsystemsKeyword_7_4_1());
     }
 ((
 (
@@ -385,20 +356,18 @@ ruleAssurancePlan returns [EObject current=null]
 	            $current = createModelElement(grammarAccess.getAssurancePlanRule());
 	        }
         }
-		{ 
-	        newCompositeNode(grammarAccess.getAssurancePlanAccess().getAssumeSubsystemsComponentClassifierCrossReference_7_4_2_0_0()); 
-	    }
-		ruleAadlClassifierReference		{ 
-	        afterParserOrEnumRuleCall();
-	    }
+	otherlv_18=RULE_ID
+	{
+		newLeafNode(otherlv_18, grammarAccess.getAssurancePlanAccess().getAssumeSubsystemsSubcomponentCrossReference_7_3_2_0_0()); 
+	}
 
 )
 )+
     |(
 (
-		lv_assumeAll_23_0=	'all' 
+		lv_assumeAll_19_0=	'all' 
     {
-        newLeafNode(lv_assumeAll_23_0, grammarAccess.getAssurancePlanAccess().getAssumeAllAllKeyword_7_4_2_1_0());
+        newLeafNode(lv_assumeAll_19_0, grammarAccess.getAssurancePlanAccess().getAssumeAllAllKeyword_7_3_2_1_0());
     }
  
 	    {
@@ -417,19 +386,19 @@ ruleAssurancePlan returns [EObject current=null]
 			)  |
 
 			( 
-				{getUnorderedGroupHelper().canSelect(grammarAccess.getAssurancePlanAccess().getUnorderedGroup_7(), 5)}?=>(
+				{getUnorderedGroupHelper().canSelect(grammarAccess.getAssurancePlanAccess().getUnorderedGroup_7(), 4)}?=>(
 					{ 
-	 				  getUnorderedGroupHelper().select(grammarAccess.getAssurancePlanAccess().getUnorderedGroup_7(), 5);
+	 				  getUnorderedGroupHelper().select(grammarAccess.getAssurancePlanAccess().getUnorderedGroup_7(), 4);
 	 				}
-					({true}?=>(	otherlv_24='issues' 
+					({true}?=>(	otherlv_20='issues' 
     {
-    	newLeafNode(otherlv_24, grammarAccess.getAssurancePlanAccess().getIssuesKeyword_7_5_0());
+    	newLeafNode(otherlv_20, grammarAccess.getAssurancePlanAccess().getIssuesKeyword_7_4_0());
     }
 (
 (
-		lv_issues_25_0=RULE_STRING
+		lv_issues_21_0=RULE_STRING
 		{
-			newLeafNode(lv_issues_25_0, grammarAccess.getAssurancePlanAccess().getIssuesSTRINGTerminalRuleCall_7_5_1_0()); 
+			newLeafNode(lv_issues_21_0, grammarAccess.getAssurancePlanAccess().getIssuesSTRINGTerminalRuleCall_7_4_1_0()); 
 		}
 		{
 	        if ($current==null) {
@@ -438,7 +407,7 @@ ruleAssurancePlan returns [EObject current=null]
        		addWithLastConsumed(
        			$current, 
        			"issues",
-        		lv_issues_25_0, 
+        		lv_issues_21_0, 
         		"STRING");
 	    }
 
@@ -457,9 +426,9 @@ ruleAssurancePlan returns [EObject current=null]
 	  getUnorderedGroupHelper().leave(grammarAccess.getAssurancePlanAccess().getUnorderedGroup_7());
 	}
 
-)	otherlv_26=']' 
+)	otherlv_22=']' 
     {
-    	newLeafNode(otherlv_26, grammarAccess.getAssurancePlanAccess().getRightSquareBracketKeyword_8());
+    	newLeafNode(otherlv_22, grammarAccess.getAssurancePlanAccess().getRightSquareBracketKeyword_8());
     }
 )
 ;
@@ -482,19 +451,25 @@ ruleAssuranceTask returns [EObject current=null]
     @init { enterRule(); 
     }
     @after { leaveRule(); }:
-(	otherlv_0='assurance' 
+((
     {
-    	newLeafNode(otherlv_0, grammarAccess.getAssuranceTaskAccess().getAssuranceKeyword_0());
+        $current = forceCreateModelElement(
+            grammarAccess.getAssuranceTaskAccess().getAssuranceTaskAction_0(),
+            $current);
     }
-	otherlv_1='task' 
+)	otherlv_1='assurance' 
     {
-    	newLeafNode(otherlv_1, grammarAccess.getAssuranceTaskAccess().getTaskKeyword_1());
+    	newLeafNode(otherlv_1, grammarAccess.getAssuranceTaskAccess().getAssuranceKeyword_1());
+    }
+	otherlv_2='task' 
+    {
+    	newLeafNode(otherlv_2, grammarAccess.getAssuranceTaskAccess().getTaskKeyword_2());
     }
 (
 (
-		lv_name_2_0=RULE_ID
+		lv_name_3_0=RULE_ID
 		{
-			newLeafNode(lv_name_2_0, grammarAccess.getAssuranceTaskAccess().getNameIDTerminalRuleCall_2_0()); 
+			newLeafNode(lv_name_3_0, grammarAccess.getAssuranceTaskAccess().getNameIDTerminalRuleCall_3_0()); 
 		}
 		{
 	        if ($current==null) {
@@ -503,20 +478,20 @@ ruleAssuranceTask returns [EObject current=null]
        		setWithLastConsumed(
        			$current, 
        			"name",
-        		lv_name_2_0, 
+        		lv_name_3_0, 
         		"ID");
 	    }
 
 )
-)(	otherlv_3=':' 
+)(	otherlv_4=':' 
     {
-    	newLeafNode(otherlv_3, grammarAccess.getAssuranceTaskAccess().getColonKeyword_3_0());
+    	newLeafNode(otherlv_4, grammarAccess.getAssuranceTaskAccess().getColonKeyword_4_0());
     }
 (
 (
-		lv_title_4_0=RULE_STRING
+		lv_title_5_0=RULE_STRING
 		{
-			newLeafNode(lv_title_4_0, grammarAccess.getAssuranceTaskAccess().getTitleSTRINGTerminalRuleCall_3_1_0()); 
+			newLeafNode(lv_title_5_0, grammarAccess.getAssuranceTaskAccess().getTitleSTRINGTerminalRuleCall_4_1_0()); 
 		}
 		{
 	        if ($current==null) {
@@ -525,14 +500,14 @@ ruleAssuranceTask returns [EObject current=null]
        		setWithLastConsumed(
        			$current, 
        			"title",
-        		lv_title_4_0, 
+        		lv_title_5_0, 
         		"STRING");
 	    }
 
 )
-))?	otherlv_5='for' 
+))?	otherlv_6='for' 
     {
-    	newLeafNode(otherlv_5, grammarAccess.getAssuranceTaskAccess().getForKeyword_4());
+    	newLeafNode(otherlv_6, grammarAccess.getAssuranceTaskAccess().getForKeyword_5());
     }
 (
 (
@@ -542,48 +517,48 @@ ruleAssuranceTask returns [EObject current=null]
 	        }
         }
 		{ 
-	        newCompositeNode(grammarAccess.getAssuranceTaskAccess().getAssurancePlanAssurancePlanCrossReference_5_0()); 
+	        newCompositeNode(grammarAccess.getAssuranceTaskAccess().getAssurancePlanAssurancePlanCrossReference_6_0()); 
 	    }
 		ruleQualifiedName		{ 
 	        afterParserOrEnumRuleCall();
 	    }
 
 )
-)	otherlv_7='[' 
+)	otherlv_8='[' 
     {
-    	newLeafNode(otherlv_7, grammarAccess.getAssuranceTaskAccess().getLeftSquareBracketKeyword_6());
+    	newLeafNode(otherlv_8, grammarAccess.getAssuranceTaskAccess().getLeftSquareBracketKeyword_7());
     }
 (
 
 (
 	{ 
-	  getUnorderedGroupHelper().enter(grammarAccess.getAssuranceTaskAccess().getUnorderedGroup_7());
+	  getUnorderedGroupHelper().enter(grammarAccess.getAssuranceTaskAccess().getUnorderedGroup_8());
 	}
 	(
 		(
 
 			( 
-				{getUnorderedGroupHelper().canSelect(grammarAccess.getAssuranceTaskAccess().getUnorderedGroup_7(), 0)}?=>(
+				{getUnorderedGroupHelper().canSelect(grammarAccess.getAssuranceTaskAccess().getUnorderedGroup_8(), 0)}?=>(
 					{ 
-	 				  getUnorderedGroupHelper().select(grammarAccess.getAssuranceTaskAccess().getUnorderedGroup_7(), 0);
+	 				  getUnorderedGroupHelper().select(grammarAccess.getAssuranceTaskAccess().getUnorderedGroup_8(), 0);
 	 				}
-					({true}?=>(	otherlv_9='description' 
+					({true}?=>(	otherlv_10='description' 
     {
-    	newLeafNode(otherlv_9, grammarAccess.getAssuranceTaskAccess().getDescriptionKeyword_7_0_0());
+    	newLeafNode(otherlv_10, grammarAccess.getAssuranceTaskAccess().getDescriptionKeyword_8_0_0());
     }
 (
 (
 		{ 
-	        newCompositeNode(grammarAccess.getAssuranceTaskAccess().getDescriptionDescriptionParserRuleCall_7_0_1_0()); 
+	        newCompositeNode(grammarAccess.getAssuranceTaskAccess().getDescriptionDescriptionParserRuleCall_8_0_1_0()); 
 	    }
-		lv_description_10_0=ruleDescription		{
+		lv_description_11_0=ruleDescription		{
 	        if ($current==null) {
 	            $current = createModelElementForParent(grammarAccess.getAssuranceTaskRule());
 	        }
        		set(
        			$current, 
        			"description",
-        		lv_description_10_0, 
+        		lv_description_11_0, 
         		"Description");
 	        afterParserOrEnumRuleCall();
 	    }
@@ -591,19 +566,45 @@ ruleAssuranceTask returns [EObject current=null]
 )
 )))
 					{ 
-	 				  getUnorderedGroupHelper().returnFromSelection(grammarAccess.getAssuranceTaskAccess().getUnorderedGroup_7());
+	 				  getUnorderedGroupHelper().returnFromSelection(grammarAccess.getAssuranceTaskAccess().getUnorderedGroup_8());
 	 				}
  				)
 			)  |
 
 			( 
-				{getUnorderedGroupHelper().canSelect(grammarAccess.getAssuranceTaskAccess().getUnorderedGroup_7(), 1)}?=>(
+				{getUnorderedGroupHelper().canSelect(grammarAccess.getAssuranceTaskAccess().getUnorderedGroup_8(), 1)}?=>(
 					{ 
-	 				  getUnorderedGroupHelper().select(grammarAccess.getAssuranceTaskAccess().getUnorderedGroup_7(), 1);
+	 				  getUnorderedGroupHelper().select(grammarAccess.getAssuranceTaskAccess().getUnorderedGroup_8(), 1);
 	 				}
-					({true}?=>(	otherlv_11='filter' 
+					({true}?=>(
+
+(
+	{ 
+	  getUnorderedGroupHelper().enter(grammarAccess.getAssuranceTaskAccess().getUnorderedGroup_8_1());
+	}
+	(
+		(
+
+			( 
+				{getUnorderedGroupHelper().canSelect(grammarAccess.getAssuranceTaskAccess().getUnorderedGroup_8_1(), 0)}?=>(
+					{ 
+	 				  getUnorderedGroupHelper().select(grammarAccess.getAssuranceTaskAccess().getUnorderedGroup_8_1(), 0);
+	 				}
+					({true}?=>(	otherlv_13='filter' 
     {
-    	newLeafNode(otherlv_11, grammarAccess.getAssuranceTaskAccess().getFilterKeyword_7_1_0());
+    	newLeafNode(otherlv_13, grammarAccess.getAssuranceTaskAccess().getFilterKeyword_8_1_0_0());
+    }
+	otherlv_14='[' 
+    {
+    	newLeafNode(otherlv_14, grammarAccess.getAssuranceTaskAccess().getLeftSquareBracketKeyword_8_1_0_1());
+    }
+(	otherlv_15='requirement' 
+    {
+    	newLeafNode(otherlv_15, grammarAccess.getAssuranceTaskAccess().getRequirementKeyword_8_1_0_2_0());
+    }
+	otherlv_16='type' 
+    {
+    	newLeafNode(otherlv_16, grammarAccess.getAssuranceTaskAccess().getTypeKeyword_8_1_0_2_1());
     }
 (
 (
@@ -612,48 +613,259 @@ ruleAssuranceTask returns [EObject current=null]
 	            $current = createModelElement(grammarAccess.getAssuranceTaskRule());
 	        }
         }
-	otherlv_12=RULE_ID
+	otherlv_17=RULE_ID
 	{
-		newLeafNode(otherlv_12, grammarAccess.getAssuranceTaskAccess().getFilterCategoryCrossReference_7_1_1_0()); 
+		newLeafNode(otherlv_17, grammarAccess.getAssuranceTaskAccess().getRequirementTypeRequirementTypeCrossReference_8_1_0_2_2_0()); 
 	}
 
 )
 )+(
 (
-		lv_strictFilter_13_0=	'only' 
+		lv_anyRequirementType_18_0=	'any' 
     {
-        newLeafNode(lv_strictFilter_13_0, grammarAccess.getAssuranceTaskAccess().getStrictFilterOnlyKeyword_7_1_2_0());
+        newLeafNode(lv_anyRequirementType_18_0, grammarAccess.getAssuranceTaskAccess().getAnyRequirementTypeAnyKeyword_8_1_0_2_3_0());
     }
  
 	    {
 	        if ($current==null) {
 	            $current = createModelElement(grammarAccess.getAssuranceTaskRule());
 	        }
-       		setWithLastConsumed($current, "strictFilter", true, "only");
+       		setWithLastConsumed($current, "anyRequirementType", true, "any");
 	    }
 
 )
-)?))
+)?)?))
 					{ 
-	 				  getUnorderedGroupHelper().returnFromSelection(grammarAccess.getAssuranceTaskAccess().getUnorderedGroup_7());
+	 				  getUnorderedGroupHelper().returnFromSelection(grammarAccess.getAssuranceTaskAccess().getUnorderedGroup_8_1());
 	 				}
  				)
 			)  |
 
 			( 
-				{getUnorderedGroupHelper().canSelect(grammarAccess.getAssuranceTaskAccess().getUnorderedGroup_7(), 2)}?=>(
+				{getUnorderedGroupHelper().canSelect(grammarAccess.getAssuranceTaskAccess().getUnorderedGroup_8_1(), 1)}?=>(
 					{ 
-	 				  getUnorderedGroupHelper().select(grammarAccess.getAssuranceTaskAccess().getUnorderedGroup_7(), 2);
+	 				  getUnorderedGroupHelper().select(grammarAccess.getAssuranceTaskAccess().getUnorderedGroup_8_1(), 1);
 	 				}
-					({true}?=>(	otherlv_14='issues' 
+					({true}?=>(	otherlv_19='method' 
     {
-    	newLeafNode(otherlv_14, grammarAccess.getAssuranceTaskAccess().getIssuesKeyword_7_2_0());
+    	newLeafNode(otherlv_19, grammarAccess.getAssuranceTaskAccess().getMethodKeyword_8_1_1_0());
+    }
+	otherlv_20='type' 
+    {
+    	newLeafNode(otherlv_20, grammarAccess.getAssuranceTaskAccess().getTypeKeyword_8_1_1_1());
     }
 (
 (
-		lv_issues_15_0=RULE_STRING
 		{
-			newLeafNode(lv_issues_15_0, grammarAccess.getAssuranceTaskAccess().getIssuesSTRINGTerminalRuleCall_7_2_1_0()); 
+			if ($current==null) {
+	            $current = createModelElement(grammarAccess.getAssuranceTaskRule());
+	        }
+        }
+	otherlv_21=RULE_ID
+	{
+		newLeafNode(otherlv_21, grammarAccess.getAssuranceTaskAccess().getMethodTypeMethodTypeCrossReference_8_1_1_2_0()); 
+	}
+
+)
+)+(
+(
+		lv_anyMethodType_22_0=	'any' 
+    {
+        newLeafNode(lv_anyMethodType_22_0, grammarAccess.getAssuranceTaskAccess().getAnyMethodTypeAnyKeyword_8_1_1_3_0());
+    }
+ 
+	    {
+	        if ($current==null) {
+	            $current = createModelElement(grammarAccess.getAssuranceTaskRule());
+	        }
+       		setWithLastConsumed($current, "anyMethodType", true, "any");
+	    }
+
+)
+)?))
+					{ 
+	 				  getUnorderedGroupHelper().returnFromSelection(grammarAccess.getAssuranceTaskAccess().getUnorderedGroup_8_1());
+	 				}
+ 				)
+			)  |
+
+			( 
+				{getUnorderedGroupHelper().canSelect(grammarAccess.getAssuranceTaskAccess().getUnorderedGroup_8_1(), 2)}?=>(
+					{ 
+	 				  getUnorderedGroupHelper().select(grammarAccess.getAssuranceTaskAccess().getUnorderedGroup_8_1(), 2);
+	 				}
+					({true}?=>(	otherlv_23='user' 
+    {
+    	newLeafNode(otherlv_23, grammarAccess.getAssuranceTaskAccess().getUserKeyword_8_1_2_0());
+    }
+	otherlv_24='selection' 
+    {
+    	newLeafNode(otherlv_24, grammarAccess.getAssuranceTaskAccess().getSelectionKeyword_8_1_2_1());
+    }
+(
+(
+		{
+			if ($current==null) {
+	            $current = createModelElement(grammarAccess.getAssuranceTaskRule());
+	        }
+        }
+	otherlv_25=RULE_ID
+	{
+		newLeafNode(otherlv_25, grammarAccess.getAssuranceTaskAccess().getUserSelectionUserSelectionCrossReference_8_1_2_2_0()); 
+	}
+
+)
+)+(
+(
+		lv_anyUserSelection_26_0=	'any' 
+    {
+        newLeafNode(lv_anyUserSelection_26_0, grammarAccess.getAssuranceTaskAccess().getAnyUserSelectionAnyKeyword_8_1_2_3_0());
+    }
+ 
+	    {
+	        if ($current==null) {
+	            $current = createModelElement(grammarAccess.getAssuranceTaskRule());
+	        }
+       		setWithLastConsumed($current, "anyUserSelection", true, "any");
+	    }
+
+)
+)?))
+					{ 
+	 				  getUnorderedGroupHelper().returnFromSelection(grammarAccess.getAssuranceTaskAccess().getUnorderedGroup_8_1());
+	 				}
+ 				)
+			)  |
+
+			( 
+				{getUnorderedGroupHelper().canSelect(grammarAccess.getAssuranceTaskAccess().getUnorderedGroup_8_1(), 3)}?=>(
+					{ 
+	 				  getUnorderedGroupHelper().select(grammarAccess.getAssuranceTaskAccess().getUnorderedGroup_8_1(), 3);
+	 				}
+					({true}?=>(	otherlv_27='quality' 
+    {
+    	newLeafNode(otherlv_27, grammarAccess.getAssuranceTaskAccess().getQualityKeyword_8_1_3_0());
+    }
+	otherlv_28='attribute' 
+    {
+    	newLeafNode(otherlv_28, grammarAccess.getAssuranceTaskAccess().getAttributeKeyword_8_1_3_1());
+    }
+(
+(
+		{
+			if ($current==null) {
+	            $current = createModelElement(grammarAccess.getAssuranceTaskRule());
+	        }
+        }
+	otherlv_29=RULE_ID
+	{
+		newLeafNode(otherlv_29, grammarAccess.getAssuranceTaskAccess().getQualityAttributeQualityAttributeCrossReference_8_1_3_2_0()); 
+	}
+
+)
+)+(
+(
+		lv_anyQualityAttribute_30_0=	'any' 
+    {
+        newLeafNode(lv_anyQualityAttribute_30_0, grammarAccess.getAssuranceTaskAccess().getAnyQualityAttributeAnyKeyword_8_1_3_3_0());
+    }
+ 
+	    {
+	        if ($current==null) {
+	            $current = createModelElement(grammarAccess.getAssuranceTaskRule());
+	        }
+       		setWithLastConsumed($current, "anyQualityAttribute", true, "any");
+	    }
+
+)
+)?))
+					{ 
+	 				  getUnorderedGroupHelper().returnFromSelection(grammarAccess.getAssuranceTaskAccess().getUnorderedGroup_8_1());
+	 				}
+ 				)
+			)  |
+
+			( 
+				{getUnorderedGroupHelper().canSelect(grammarAccess.getAssuranceTaskAccess().getUnorderedGroup_8_1(), 4)}?=>(
+					{ 
+	 				  getUnorderedGroupHelper().select(grammarAccess.getAssuranceTaskAccess().getUnorderedGroup_8_1(), 4);
+	 				}
+					({true}?=>((	otherlv_31='development' 
+    {
+    	newLeafNode(otherlv_31, grammarAccess.getAssuranceTaskAccess().getDevelopmentKeyword_8_1_4_0_0());
+    }
+	otherlv_32='phase' 
+    {
+    	newLeafNode(otherlv_32, grammarAccess.getAssuranceTaskAccess().getPhaseKeyword_8_1_4_0_1());
+    }
+(
+(
+		{
+			if ($current==null) {
+	            $current = createModelElement(grammarAccess.getAssuranceTaskRule());
+	        }
+        }
+	otherlv_33=RULE_ID
+	{
+		newLeafNode(otherlv_33, grammarAccess.getAssuranceTaskAccess().getDevelopmentPhaseDevelopmentPhaseCrossReference_8_1_4_0_2_0()); 
+	}
+
+)
+)+(
+(
+		lv_anyDevelopmentPhase_34_0=	'any' 
+    {
+        newLeafNode(lv_anyDevelopmentPhase_34_0, grammarAccess.getAssuranceTaskAccess().getAnyDevelopmentPhaseAnyKeyword_8_1_4_0_3_0());
+    }
+ 
+	    {
+	        if ($current==null) {
+	            $current = createModelElement(grammarAccess.getAssuranceTaskRule());
+	        }
+       		setWithLastConsumed($current, "anyDevelopmentPhase", true, "any");
+	    }
+
+)
+)?)?	otherlv_35=']' 
+    {
+    	newLeafNode(otherlv_35, grammarAccess.getAssuranceTaskAccess().getRightSquareBracketKeyword_8_1_4_1());
+    }
+))
+					{ 
+	 				  getUnorderedGroupHelper().returnFromSelection(grammarAccess.getAssuranceTaskAccess().getUnorderedGroup_8_1());
+	 				}
+ 				)
+			)  
+
+		)+
+	  	{getUnorderedGroupHelper().canLeave(grammarAccess.getAssuranceTaskAccess().getUnorderedGroup_8_1())}?	
+	)
+)
+	{ 
+	  getUnorderedGroupHelper().leave(grammarAccess.getAssuranceTaskAccess().getUnorderedGroup_8_1());
+	}
+
+))
+					{ 
+	 				  getUnorderedGroupHelper().returnFromSelection(grammarAccess.getAssuranceTaskAccess().getUnorderedGroup_8());
+	 				}
+ 				)
+			)  |
+
+			( 
+				{getUnorderedGroupHelper().canSelect(grammarAccess.getAssuranceTaskAccess().getUnorderedGroup_8(), 2)}?=>(
+					{ 
+	 				  getUnorderedGroupHelper().select(grammarAccess.getAssuranceTaskAccess().getUnorderedGroup_8(), 2);
+	 				}
+					({true}?=>(	otherlv_36='issues' 
+    {
+    	newLeafNode(otherlv_36, grammarAccess.getAssuranceTaskAccess().getIssuesKeyword_8_2_0());
+    }
+(
+(
+		lv_issues_37_0=RULE_STRING
+		{
+			newLeafNode(lv_issues_37_0, grammarAccess.getAssuranceTaskAccess().getIssuesSTRINGTerminalRuleCall_8_2_1_0()); 
 		}
 		{
 	        if ($current==null) {
@@ -662,14 +874,14 @@ ruleAssuranceTask returns [EObject current=null]
        		addWithLastConsumed(
        			$current, 
        			"issues",
-        		lv_issues_15_0, 
+        		lv_issues_37_0, 
         		"STRING");
 	    }
 
 )
 )+))
 					{ 
-	 				  getUnorderedGroupHelper().returnFromSelection(grammarAccess.getAssuranceTaskAccess().getUnorderedGroup_7());
+	 				  getUnorderedGroupHelper().returnFromSelection(grammarAccess.getAssuranceTaskAccess().getUnorderedGroup_8());
 	 				}
  				)
 			)  
@@ -678,12 +890,12 @@ ruleAssuranceTask returns [EObject current=null]
 	)
 )
 	{ 
-	  getUnorderedGroupHelper().leave(grammarAccess.getAssuranceTaskAccess().getUnorderedGroup_7());
+	  getUnorderedGroupHelper().leave(grammarAccess.getAssuranceTaskAccess().getUnorderedGroup_8());
 	}
 
-)	otherlv_16=']' 
+)	otherlv_38=']' 
     {
-    	newLeafNode(otherlv_16, grammarAccess.getAssuranceTaskAccess().getRightSquareBracketKeyword_8());
+    	newLeafNode(otherlv_38, grammarAccess.getAssuranceTaskAccess().getRightSquareBracketKeyword_9());
     }
 )
 ;

@@ -117,13 +117,13 @@ public interface VerifyFactory extends EFactory
   VerificationMethod createVerificationMethod();
 
   /**
-   * Returns a new object of class '<em>Method Type</em>'.
+   * Returns a new object of class '<em>Method Kind</em>'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @return a new object of class '<em>Method Type</em>'.
+   * @return a new object of class '<em>Method Kind</em>'.
    * @generated
    */
-  MethodType createMethodType();
+  MethodKind createMethodKind();
 
   /**
    * Returns a new object of class '<em>Resolute Method</em>'.
@@ -160,24 +160,6 @@ public interface VerifyFactory extends EFactory
    * @generated
    */
   PluginMethod createPluginMethod();
-
-  /**
-   * Returns a new object of class '<em>System Verification Plan</em>'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return a new object of class '<em>System Verification Plan</em>'.
-   * @generated
-   */
-  SystemVerificationPlan createSystemVerificationPlan();
-
-  /**
-   * Returns a new object of class '<em>Global Verification Plan</em>'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return a new object of class '<em>Global Verification Plan</em>'.
-   * @generated
-   */
-  GlobalVerificationPlan createGlobalVerificationPlan();
 
   /**
    * Returns a new object of class '<em>Then Expr</em>'.

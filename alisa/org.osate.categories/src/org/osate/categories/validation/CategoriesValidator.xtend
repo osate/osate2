@@ -25,7 +25,6 @@ import org.eclipse.xtext.validation.Check
 import org.osate.categories.categories.CategoriesPackage
 import org.osate.categories.categories.Category
 import org.osate.categories.util.CategoriesUtil
-import org.osate.categories.categories.CategorySet
 
 //import org.eclipse.xtext.validation.Check
 /**
@@ -34,24 +33,4 @@ import org.osate.categories.categories.CategorySet
  * see http://www.eclipse.org/Xtext/documentation.html#validation
  */
 class CategoriesValidator extends AbstractCategoriesValidator {
-	extension CategoriesUtil cu = new CategoriesUtil
-
-	public static val CYCLES_CATEGORY = "org.osate.categories.CyclesCategory"
-
-	/**
-	 * check that there are no cycles in Category subcategories
-	 */
-	@Check
-	def void checkNoCycleCategoryHierarchy(CategorySet cat) {
-		val cyclecat = CategoriesUtil.hasCycle(cat)
-		if (cyclecat != null) {
-			error(
-				"Cycle in subcategory '"+cat.name+"' of Category '" + cyclecat.name + "'",
-				CategoriesPackage::eINSTANCE.category_Name,
-				CYCLES_CATEGORY,
-				cat.name
-			)
-		}
-	}
-
 }

@@ -38,14 +38,12 @@ import org.osate.verify.verify.ArgumentExpr;
 import org.osate.verify.verify.Claim;
 import org.osate.verify.verify.ElseExpr;
 import org.osate.verify.verify.FormalParameter;
-import org.osate.verify.verify.GlobalVerificationPlan;
 import org.osate.verify.verify.JavaMethod;
 import org.osate.verify.verify.ManualMethod;
-import org.osate.verify.verify.MethodType;
+import org.osate.verify.verify.MethodKind;
 import org.osate.verify.verify.PluginMethod;
 import org.osate.verify.verify.RefExpr;
 import org.osate.verify.verify.ResoluteMethod;
-import org.osate.verify.verify.SystemVerificationPlan;
 import org.osate.verify.verify.ThenExpr;
 import org.osate.verify.verify.Verification;
 import org.osate.verify.verify.VerificationActivity;
@@ -134,7 +132,7 @@ public class VerifyPackageImpl extends EPackageImpl implements VerifyPackage
    * <!-- end-user-doc -->
    * @generated
    */
-  private EClass methodTypeEClass = null;
+  private EClass methodKindEClass = null;
 
   /**
    * <!-- begin-user-doc -->
@@ -163,20 +161,6 @@ public class VerifyPackageImpl extends EPackageImpl implements VerifyPackage
    * @generated
    */
   private EClass pluginMethodEClass = null;
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  private EClass systemVerificationPlanEClass = null;
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  private EClass globalVerificationPlanEClass = null;
 
   /**
    * <!-- begin-user-doc -->
@@ -342,7 +326,7 @@ public class VerifyPackageImpl extends EPackageImpl implements VerifyPackage
    * <!-- end-user-doc -->
    * @generated
    */
-  public EReference getVerificationPlan_Description()
+  public EReference getVerificationPlan_Requirements()
   {
     return (EReference)verificationPlanEClass.getEStructuralFeatures().get(2);
   }
@@ -352,7 +336,7 @@ public class VerifyPackageImpl extends EPackageImpl implements VerifyPackage
    * <!-- end-user-doc -->
    * @generated
    */
-  public EReference getVerificationPlan_Claim()
+  public EReference getVerificationPlan_Description()
   {
     return (EReference)verificationPlanEClass.getEStructuralFeatures().get(3);
   }
@@ -362,7 +346,7 @@ public class VerifyPackageImpl extends EPackageImpl implements VerifyPackage
    * <!-- end-user-doc -->
    * @generated
    */
-  public EReference getVerificationPlan_Rationale()
+  public EReference getVerificationPlan_Claim()
   {
     return (EReference)verificationPlanEClass.getEStructuralFeatures().get(4);
   }
@@ -372,9 +356,19 @@ public class VerifyPackageImpl extends EPackageImpl implements VerifyPackage
    * <!-- end-user-doc -->
    * @generated
    */
+  public EReference getVerificationPlan_Rationale()
+  {
+    return (EReference)verificationPlanEClass.getEStructuralFeatures().get(5);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
   public EAttribute getVerificationPlan_Issues()
   {
-    return (EAttribute)verificationPlanEClass.getEStructuralFeatures().get(5);
+    return (EAttribute)verificationPlanEClass.getEStructuralFeatures().get(6);
   }
 
   /**
@@ -512,7 +506,7 @@ public class VerifyPackageImpl extends EPackageImpl implements VerifyPackage
    * <!-- end-user-doc -->
    * @generated
    */
-  public EReference getVerificationActivity_Category()
+  public EReference getVerificationActivity_DevelopmentPhase()
   {
     return (EReference)verificationActivityEClass.getEStructuralFeatures().get(2);
   }
@@ -522,7 +516,7 @@ public class VerifyPackageImpl extends EPackageImpl implements VerifyPackage
    * <!-- end-user-doc -->
    * @generated
    */
-  public EReference getVerificationActivity_Result()
+  public EReference getVerificationActivity_UserSelection()
   {
     return (EReference)verificationActivityEClass.getEStructuralFeatures().get(3);
   }
@@ -532,7 +526,7 @@ public class VerifyPackageImpl extends EPackageImpl implements VerifyPackage
    * <!-- end-user-doc -->
    * @generated
    */
-  public EReference getVerificationActivity_Method()
+  public EReference getVerificationActivity_Result()
   {
     return (EReference)verificationActivityEClass.getEStructuralFeatures().get(4);
   }
@@ -542,7 +536,7 @@ public class VerifyPackageImpl extends EPackageImpl implements VerifyPackage
    * <!-- end-user-doc -->
    * @generated
    */
-  public EReference getVerificationActivity_Parameters()
+  public EReference getVerificationActivity_Method()
   {
     return (EReference)verificationActivityEClass.getEStructuralFeatures().get(5);
   }
@@ -552,7 +546,7 @@ public class VerifyPackageImpl extends EPackageImpl implements VerifyPackage
    * <!-- end-user-doc -->
    * @generated
    */
-  public EReference getVerificationActivity_PropertyValues()
+  public EReference getVerificationActivity_Parameters()
   {
     return (EReference)verificationActivityEClass.getEStructuralFeatures().get(6);
   }
@@ -562,9 +556,19 @@ public class VerifyPackageImpl extends EPackageImpl implements VerifyPackage
    * <!-- end-user-doc -->
    * @generated
    */
+  public EReference getVerificationActivity_PropertyValues()
+  {
+    return (EReference)verificationActivityEClass.getEStructuralFeatures().get(7);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
   public EAttribute getVerificationActivity_Timeout()
   {
-    return (EAttribute)verificationActivityEClass.getEStructuralFeatures().get(7);
+    return (EAttribute)verificationActivityEClass.getEStructuralFeatures().get(8);
   }
 
   /**
@@ -762,7 +766,7 @@ public class VerifyPackageImpl extends EPackageImpl implements VerifyPackage
    * <!-- end-user-doc -->
    * @generated
    */
-  public EReference getVerificationMethod_MethodType()
+  public EReference getVerificationMethod_MethodKind()
   {
     return (EReference)verificationMethodEClass.getEStructuralFeatures().get(6);
   }
@@ -802,7 +806,7 @@ public class VerifyPackageImpl extends EPackageImpl implements VerifyPackage
    * <!-- end-user-doc -->
    * @generated
    */
-  public EReference getVerificationMethod_Category()
+  public EReference getVerificationMethod_MethodType()
   {
     return (EReference)verificationMethodEClass.getEStructuralFeatures().get(10);
   }
@@ -812,9 +816,29 @@ public class VerifyPackageImpl extends EPackageImpl implements VerifyPackage
    * <!-- end-user-doc -->
    * @generated
    */
-  public EClass getMethodType()
+  public EReference getVerificationMethod_QualityAttribute()
   {
-    return methodTypeEClass;
+    return (EReference)verificationMethodEClass.getEStructuralFeatures().get(11);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EReference getVerificationMethod_UserSelection()
+  {
+    return (EReference)verificationMethodEClass.getEStructuralFeatures().get(12);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EClass getMethodKind()
+  {
+    return methodKindEClass;
   }
 
   /**
@@ -895,46 +919,6 @@ public class VerifyPackageImpl extends EPackageImpl implements VerifyPackage
   public EAttribute getPluginMethod_MethodID()
   {
     return (EAttribute)pluginMethodEClass.getEStructuralFeatures().get(0);
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public EClass getSystemVerificationPlan()
-  {
-    return systemVerificationPlanEClass;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public EReference getSystemVerificationPlan_Requirements()
-  {
-    return (EReference)systemVerificationPlanEClass.getEStructuralFeatures().get(0);
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public EClass getGlobalVerificationPlan()
-  {
-    return globalVerificationPlanEClass;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public EReference getGlobalVerificationPlan_Requirements()
-  {
-    return (EReference)globalVerificationPlanEClass.getEStructuralFeatures().get(0);
   }
 
   /**
@@ -1123,6 +1107,7 @@ public class VerifyPackageImpl extends EPackageImpl implements VerifyPackage
     verificationPlanEClass = createEClass(VERIFICATION_PLAN);
     createEAttribute(verificationPlanEClass, VERIFICATION_PLAN__NAME);
     createEAttribute(verificationPlanEClass, VERIFICATION_PLAN__TITLE);
+    createEReference(verificationPlanEClass, VERIFICATION_PLAN__REQUIREMENTS);
     createEReference(verificationPlanEClass, VERIFICATION_PLAN__DESCRIPTION);
     createEReference(verificationPlanEClass, VERIFICATION_PLAN__CLAIM);
     createEReference(verificationPlanEClass, VERIFICATION_PLAN__RATIONALE);
@@ -1143,7 +1128,8 @@ public class VerifyPackageImpl extends EPackageImpl implements VerifyPackage
     verificationActivityEClass = createEClass(VERIFICATION_ACTIVITY);
     createEAttribute(verificationActivityEClass, VERIFICATION_ACTIVITY__NAME);
     createEAttribute(verificationActivityEClass, VERIFICATION_ACTIVITY__TITLE);
-    createEReference(verificationActivityEClass, VERIFICATION_ACTIVITY__CATEGORY);
+    createEReference(verificationActivityEClass, VERIFICATION_ACTIVITY__DEVELOPMENT_PHASE);
+    createEReference(verificationActivityEClass, VERIFICATION_ACTIVITY__USER_SELECTION);
     createEReference(verificationActivityEClass, VERIFICATION_ACTIVITY__RESULT);
     createEReference(verificationActivityEClass, VERIFICATION_ACTIVITY__METHOD);
     createEReference(verificationActivityEClass, VERIFICATION_ACTIVITY__PARAMETERS);
@@ -1172,13 +1158,15 @@ public class VerifyPackageImpl extends EPackageImpl implements VerifyPackage
     createEAttribute(verificationMethodEClass, VERIFICATION_METHOD__IS_PREDICATE);
     createEAttribute(verificationMethodEClass, VERIFICATION_METHOD__IS_RESULT_REPORT);
     createEAttribute(verificationMethodEClass, VERIFICATION_METHOD__TITLE);
-    createEReference(verificationMethodEClass, VERIFICATION_METHOD__METHOD_TYPE);
+    createEReference(verificationMethodEClass, VERIFICATION_METHOD__METHOD_KIND);
     createEReference(verificationMethodEClass, VERIFICATION_METHOD__DESCRIPTION);
     createEReference(verificationMethodEClass, VERIFICATION_METHOD__PRECONDITION);
     createEReference(verificationMethodEClass, VERIFICATION_METHOD__VALIDATION);
-    createEReference(verificationMethodEClass, VERIFICATION_METHOD__CATEGORY);
+    createEReference(verificationMethodEClass, VERIFICATION_METHOD__METHOD_TYPE);
+    createEReference(verificationMethodEClass, VERIFICATION_METHOD__QUALITY_ATTRIBUTE);
+    createEReference(verificationMethodEClass, VERIFICATION_METHOD__USER_SELECTION);
 
-    methodTypeEClass = createEClass(METHOD_TYPE);
+    methodKindEClass = createEClass(METHOD_KIND);
 
     resoluteMethodEClass = createEClass(RESOLUTE_METHOD);
     createEReference(resoluteMethodEClass, RESOLUTE_METHOD__METHOD_REFERENCE);
@@ -1191,12 +1179,6 @@ public class VerifyPackageImpl extends EPackageImpl implements VerifyPackage
 
     pluginMethodEClass = createEClass(PLUGIN_METHOD);
     createEAttribute(pluginMethodEClass, PLUGIN_METHOD__METHOD_ID);
-
-    systemVerificationPlanEClass = createEClass(SYSTEM_VERIFICATION_PLAN);
-    createEReference(systemVerificationPlanEClass, SYSTEM_VERIFICATION_PLAN__REQUIREMENTS);
-
-    globalVerificationPlanEClass = createEClass(GLOBAL_VERIFICATION_PLAN);
-    createEReference(globalVerificationPlanEClass, GLOBAL_VERIFICATION_PLAN__REQUIREMENTS);
 
     thenExprEClass = createEClass(THEN_EXPR);
     createEReference(thenExprEClass, THEN_EXPR__LEFT);
@@ -1246,8 +1228,8 @@ public class VerifyPackageImpl extends EPackageImpl implements VerifyPackage
 
     // Obtain other dependent packages
     EcorePackage theEcorePackage = (EcorePackage)EPackage.Registry.INSTANCE.getEPackage(EcorePackage.eNS_URI);
-    CommonPackage theCommonPackage = (CommonPackage)EPackage.Registry.INSTANCE.getEPackage(CommonPackage.eNS_URI);
     ReqSpecPackage theReqSpecPackage = (ReqSpecPackage)EPackage.Registry.INSTANCE.getEPackage(ReqSpecPackage.eNS_URI);
+    CommonPackage theCommonPackage = (CommonPackage)EPackage.Registry.INSTANCE.getEPackage(CommonPackage.eNS_URI);
     CategoriesPackage theCategoriesPackage = (CategoriesPackage)EPackage.Registry.INSTANCE.getEPackage(CategoriesPackage.eNS_URI);
     Aadl2Package theAadl2Package = (Aadl2Package)EPackage.Registry.INSTANCE.getEPackage(Aadl2Package.eNS_URI);
     ResolutePackage theResolutePackage = (ResolutePackage)EPackage.Registry.INSTANCE.getEPackage(ResolutePackage.eNS_URI);
@@ -1257,12 +1239,10 @@ public class VerifyPackageImpl extends EPackageImpl implements VerifyPackage
     // Set bounds for type parameters
 
     // Add supertypes to classes
-    resoluteMethodEClass.getESuperTypes().add(this.getMethodType());
-    javaMethodEClass.getESuperTypes().add(this.getMethodType());
-    manualMethodEClass.getESuperTypes().add(this.getMethodType());
-    pluginMethodEClass.getESuperTypes().add(this.getMethodType());
-    systemVerificationPlanEClass.getESuperTypes().add(this.getVerificationPlan());
-    globalVerificationPlanEClass.getESuperTypes().add(this.getVerificationPlan());
+    resoluteMethodEClass.getESuperTypes().add(this.getMethodKind());
+    javaMethodEClass.getESuperTypes().add(this.getMethodKind());
+    manualMethodEClass.getESuperTypes().add(this.getMethodKind());
+    pluginMethodEClass.getESuperTypes().add(this.getMethodKind());
     thenExprEClass.getESuperTypes().add(this.getArgumentExpr());
     elseExprEClass.getESuperTypes().add(this.getArgumentExpr());
     allExprEClass.getESuperTypes().add(this.getArgumentExpr());
@@ -1277,6 +1257,7 @@ public class VerifyPackageImpl extends EPackageImpl implements VerifyPackage
     initEClass(verificationPlanEClass, VerificationPlan.class, "VerificationPlan", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
     initEAttribute(getVerificationPlan_Name(), theEcorePackage.getEString(), "name", null, 0, 1, VerificationPlan.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEAttribute(getVerificationPlan_Title(), theEcorePackage.getEString(), "title", null, 0, 1, VerificationPlan.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEReference(getVerificationPlan_Requirements(), theReqSpecPackage.getSystemRequirements(), null, "requirements", null, 0, 1, VerificationPlan.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEReference(getVerificationPlan_Description(), theCommonPackage.getDescription(), null, "description", null, 0, 1, VerificationPlan.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEReference(getVerificationPlan_Claim(), this.getClaim(), null, "claim", null, 0, -1, VerificationPlan.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEReference(getVerificationPlan_Rationale(), theCommonPackage.getRationale(), null, "rationale", null, 0, 1, VerificationPlan.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
@@ -1297,7 +1278,8 @@ public class VerifyPackageImpl extends EPackageImpl implements VerifyPackage
     initEClass(verificationActivityEClass, VerificationActivity.class, "VerificationActivity", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
     initEAttribute(getVerificationActivity_Name(), theEcorePackage.getEString(), "name", null, 0, 1, VerificationActivity.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEAttribute(getVerificationActivity_Title(), theEcorePackage.getEString(), "title", null, 0, 1, VerificationActivity.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-    initEReference(getVerificationActivity_Category(), theCategoriesPackage.getCategory(), null, "category", null, 0, -1, VerificationActivity.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEReference(getVerificationActivity_DevelopmentPhase(), theCategoriesPackage.getDevelopmentPhase(), null, "developmentPhase", null, 0, -1, VerificationActivity.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEReference(getVerificationActivity_UserSelection(), theCategoriesPackage.getUserSelection(), null, "userSelection", null, 0, -1, VerificationActivity.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEReference(getVerificationActivity_Result(), theCommonPackage.getComputeDeclaration(), null, "result", null, 0, -1, VerificationActivity.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEReference(getVerificationActivity_Method(), this.getVerificationMethod(), null, "method", null, 0, 1, VerificationActivity.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEReference(getVerificationActivity_Parameters(), theCommonPackage.getValDeclaration(), null, "parameters", null, 0, -1, VerificationActivity.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
@@ -1326,13 +1308,15 @@ public class VerifyPackageImpl extends EPackageImpl implements VerifyPackage
     initEAttribute(getVerificationMethod_IsPredicate(), theEcorePackage.getEBoolean(), "isPredicate", null, 0, 1, VerificationMethod.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEAttribute(getVerificationMethod_IsResultReport(), theEcorePackage.getEBoolean(), "isResultReport", null, 0, 1, VerificationMethod.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEAttribute(getVerificationMethod_Title(), theEcorePackage.getEString(), "title", null, 0, 1, VerificationMethod.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-    initEReference(getVerificationMethod_MethodType(), this.getMethodType(), null, "methodType", null, 0, 1, VerificationMethod.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEReference(getVerificationMethod_MethodKind(), this.getMethodKind(), null, "methodKind", null, 0, 1, VerificationMethod.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEReference(getVerificationMethod_Description(), theCommonPackage.getDescription(), null, "description", null, 0, 1, VerificationMethod.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEReference(getVerificationMethod_Precondition(), this.getVerificationCondition(), null, "precondition", null, 0, 1, VerificationMethod.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEReference(getVerificationMethod_Validation(), this.getVerificationCondition(), null, "validation", null, 0, 1, VerificationMethod.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-    initEReference(getVerificationMethod_Category(), theCategoriesPackage.getCategory(), null, "category", null, 0, -1, VerificationMethod.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEReference(getVerificationMethod_MethodType(), theCategoriesPackage.getMethodType(), null, "methodType", null, 0, -1, VerificationMethod.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEReference(getVerificationMethod_QualityAttribute(), theCategoriesPackage.getQualityAttribute(), null, "qualityAttribute", null, 0, -1, VerificationMethod.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEReference(getVerificationMethod_UserSelection(), theCategoriesPackage.getUserSelection(), null, "userSelection", null, 0, -1, VerificationMethod.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
-    initEClass(methodTypeEClass, MethodType.class, "MethodType", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+    initEClass(methodKindEClass, MethodKind.class, "MethodKind", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 
     initEClass(resoluteMethodEClass, ResoluteMethod.class, "ResoluteMethod", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
     initEReference(getResoluteMethod_MethodReference(), theResolutePackage.getFunctionDefinition(), null, "methodReference", null, 0, 1, ResoluteMethod.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
@@ -1345,12 +1329,6 @@ public class VerifyPackageImpl extends EPackageImpl implements VerifyPackage
 
     initEClass(pluginMethodEClass, PluginMethod.class, "PluginMethod", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
     initEAttribute(getPluginMethod_MethodID(), theEcorePackage.getEString(), "methodID", null, 0, 1, PluginMethod.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-
-    initEClass(systemVerificationPlanEClass, SystemVerificationPlan.class, "SystemVerificationPlan", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-    initEReference(getSystemVerificationPlan_Requirements(), theReqSpecPackage.getSystemRequirements(), null, "requirements", null, 0, 1, SystemVerificationPlan.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-
-    initEClass(globalVerificationPlanEClass, GlobalVerificationPlan.class, "GlobalVerificationPlan", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-    initEReference(getGlobalVerificationPlan_Requirements(), theReqSpecPackage.getGlobalRequirements(), null, "requirements", null, 0, 1, GlobalVerificationPlan.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
     initEClass(thenExprEClass, ThenExpr.class, "ThenExpr", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
     initEReference(getThenExpr_Left(), this.getArgumentExpr(), null, "left", null, 0, 1, ThenExpr.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);

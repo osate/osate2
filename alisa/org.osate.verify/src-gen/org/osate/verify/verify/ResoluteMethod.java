@@ -33,7 +33,7 @@ import com.rockwellcollins.atc.resolute.resolute.FunctionDefinition;
  * @model
  * @generated
  */
-public interface ResoluteMethod extends MethodType
+public interface ResoluteMethod extends MethodKind
 {
   /**
    * Returns the value of the '<em><b>Method Reference</b></em>' reference.

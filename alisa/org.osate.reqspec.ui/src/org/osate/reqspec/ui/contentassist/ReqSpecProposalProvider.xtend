@@ -165,31 +165,78 @@ class ReqSpecProposalProvider extends AbstractReqSpecProposalProvider {
 	}
 
 
-	override void completeRequirement_Category(EObject model, Assignment assignment,
+	override void completeRequirement_RequirementType(EObject model, Assignment assignment,
 		ContentAssistContext context, ICompletionProposalAcceptor acceptor) {
 		lookupCrossReference(
 			assignment.getTerminal() as CrossReference,
 			context,
 			acceptor,
 			[description|val match = description.qualifiedName.toString; 
-			(description.EClass == CategoriesPackage.eINSTANCE.requirementCategory
-				|| description.EClass == CategoriesPackage.eINSTANCE.qualityCategory
-				|| description.EClass == CategoriesPackage.eINSTANCE.selectionCategory)
-				&& ! (model as Requirement).category.exists[c|c.name.equals(match)]
+				 ! (model as Requirement).requirementType.exists[c|c.name.equals(match)]
 			]
 		);
 	}
-	override void completeGoal_Category(EObject model, Assignment assignment,
+
+
+
+	override void completeRequirement_QualityAttribute(EObject model, Assignment assignment,
 		ContentAssistContext context, ICompletionProposalAcceptor acceptor) {
 		lookupCrossReference(
 			assignment.getTerminal() as CrossReference,
 			context,
 			acceptor,
 			[description|val match = description.qualifiedName.toString; 
-			(description.EClass == CategoriesPackage.eINSTANCE.requirementCategory
-				|| description.EClass == CategoriesPackage.eINSTANCE.qualityCategory
-				|| description.EClass == CategoriesPackage.eINSTANCE.selectionCategory)
-				&& ! (model as Goal).category.exists[c|c.name.equals(match)]
+				 ! (model as Requirement).qualityAttribute.exists[c|c.name.equals(match)]
+			]
+		);
+	}
+
+	override void completeRequirement_UserSelection(EObject model, Assignment assignment,
+		ContentAssistContext context, ICompletionProposalAcceptor acceptor) {
+		lookupCrossReference(
+			assignment.getTerminal() as CrossReference,
+			context,
+			acceptor,
+			[description|val match = description.qualifiedName.toString; 
+				 ! (model as Requirement).userSelection.exists[c|c.name.equals(match)]
+			]
+		);
+	}
+
+	override void completeGoal_RequirementType(EObject model, Assignment assignment,
+		ContentAssistContext context, ICompletionProposalAcceptor acceptor) {
+		lookupCrossReference(
+			assignment.getTerminal() as CrossReference,
+			context,
+			acceptor,
+			[description|val match = description.qualifiedName.toString; 
+				 ! (model as Requirement).requirementType.exists[c|c.name.equals(match)]
+			]
+		);
+	}
+
+
+
+	override void completeGoal_QualityAttribute(EObject model, Assignment assignment,
+		ContentAssistContext context, ICompletionProposalAcceptor acceptor) {
+		lookupCrossReference(
+			assignment.getTerminal() as CrossReference,
+			context,
+			acceptor,
+			[description|val match = description.qualifiedName.toString; 
+				 ! (model as Requirement).qualityAttribute.exists[c|c.name.equals(match)]
+			]
+		);
+	}
+
+	override void completeGoal_UserSelection(EObject model, Assignment assignment,
+		ContentAssistContext context, ICompletionProposalAcceptor acceptor) {
+		lookupCrossReference(
+			assignment.getTerminal() as CrossReference,
+			context,
+			acceptor,
+			[description|val match = description.qualifiedName.toString; 
+				 ! (model as Requirement).userSelection.exists[c|c.name.equals(match)]
 			]
 		);
 	}

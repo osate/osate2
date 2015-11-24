@@ -32,23 +32,7 @@ import org.osate.categories.validation.CategoriesValidator
 	
 
 class CategoriesTests {
-	@Inject extension ValidationTestHelper
-	@Inject extension ParseHelper<Categories>
-	
-	@Test
-	def void testCycles(){
-		val categories = '''
-		requirement categories [
-		    category me extends you
-		    category you extends me
-		]
-		'''.parse
-		categories.assertError(CategoriesPackage::eINSTANCE.category,
-			CategoriesValidator::CYCLES_CATEGORY,
-			"Cycle in extends hierarchy of Category 'me'")
-		categories.assertError(CategoriesPackage::eINSTANCE.category,
-			CategoriesValidator::CYCLES_CATEGORY,
-			"Cycle in extends hierarchy of Category 'you'")
-	}
+//	@Inject extension ValidationTestHelper
+//	@Inject extension ParseHelper<Categories>
 	
 }

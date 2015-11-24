@@ -49,11 +49,11 @@ import org.osate.reqspec.reqSpec.SystemRequirements
 import org.osate.reqspec.util.IReqspecGlobalReferenceFinder
 
 import static extension org.osate.reqspec.util.ReqSpecUtilExtension.*
-import org.osate.categories.categories.RequirementCategory
-import org.osate.categories.categories.QualityCategory
-import org.osate.categories.categories.SelectionCategory
 import org.osate.reqspec.reqSpec.GlobalRequirements
 import org.osate.reqspec.reqSpec.Requirements
+import org.osate.categories.categories.UserSelection
+import org.osate.categories.categories.QualityAttribute
+import org.osate.categories.categories.RequirementType
 
 /**
  * Custom validation rules. 
@@ -498,18 +498,6 @@ class ReqSpecValidator extends AbstractReqSpecValidator {
 			}	
 		}
 	}
-	
-		@Check(CheckType.FAST)
-		def void checkRequirementCategory(ContractualElement req) {
-			val res = req.category.filter [ cat |
-				!(cat instanceof RequirementCategory || cat instanceof QualityCategory || cat instanceof SelectionCategory)
-			]
-			if(res.empty) return;
-			val cekind = if (req instanceof Requirement) "Requirement" else "Goal"
-			error(cekind + " '" + req.name + "' category '" + res +
-				"' must be requirement or quality category.", req,
-				ReqSpecPackage.Literals.CONTRACTUAL_ELEMENT__CATEGORY, INCORRECT_REQUIREMENT_CATEGORY)
-		}
 	
 		
 }

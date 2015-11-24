@@ -86,13 +86,11 @@ public class VerifyFactoryImpl extends EFactoryImpl implements VerifyFactory
       case VerifyPackage.VERIFICATION_METHOD_REGISTRY: return createVerificationMethodRegistry();
       case VerifyPackage.FORMAL_PARAMETER: return createFormalParameter();
       case VerifyPackage.VERIFICATION_METHOD: return createVerificationMethod();
-      case VerifyPackage.METHOD_TYPE: return createMethodType();
+      case VerifyPackage.METHOD_KIND: return createMethodKind();
       case VerifyPackage.RESOLUTE_METHOD: return createResoluteMethod();
       case VerifyPackage.JAVA_METHOD: return createJavaMethod();
       case VerifyPackage.MANUAL_METHOD: return createManualMethod();
       case VerifyPackage.PLUGIN_METHOD: return createPluginMethod();
-      case VerifyPackage.SYSTEM_VERIFICATION_PLAN: return createSystemVerificationPlan();
-      case VerifyPackage.GLOBAL_VERIFICATION_PLAN: return createGlobalVerificationPlan();
       case VerifyPackage.THEN_EXPR: return createThenExpr();
       case VerifyPackage.ELSE_EXPR: return createElseExpr();
       case VerifyPackage.ALL_EXPR: return createAllExpr();
@@ -208,10 +206,10 @@ public class VerifyFactoryImpl extends EFactoryImpl implements VerifyFactory
    * <!-- end-user-doc -->
    * @generated
    */
-  public MethodType createMethodType()
+  public MethodKind createMethodKind()
   {
-    MethodTypeImpl methodType = new MethodTypeImpl();
-    return methodType;
+    MethodKindImpl methodKind = new MethodKindImpl();
+    return methodKind;
   }
 
   /**
@@ -256,28 +254,6 @@ public class VerifyFactoryImpl extends EFactoryImpl implements VerifyFactory
   {
     PluginMethodImpl pluginMethod = new PluginMethodImpl();
     return pluginMethod;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public SystemVerificationPlan createSystemVerificationPlan()
-  {
-    SystemVerificationPlanImpl systemVerificationPlan = new SystemVerificationPlanImpl();
-    return systemVerificationPlan;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public GlobalVerificationPlan createGlobalVerificationPlan()
-  {
-    GlobalVerificationPlanImpl globalVerificationPlan = new GlobalVerificationPlanImpl();
-    return globalVerificationPlan;
   }
 
   /**

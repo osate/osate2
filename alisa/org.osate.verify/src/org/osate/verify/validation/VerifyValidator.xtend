@@ -38,11 +38,6 @@ import org.osate.verify.verify.VerifyPackage
 
 import static org.osate.verify.util.VerifyUtilExtension.*
 import org.osate.verify.verify.VerificationMethod
-import org.osate.categories.categories.MethodCategory
-import org.osate.categories.categories.QualityCategory
-import org.osate.categories.categories.SelectionCategory
-import org.osate.categories.categories.PhaseCategory
-import org.osate.verify.verify.SystemVerificationPlan
 
 /**
  * Custom validation rules. 
@@ -60,8 +55,6 @@ class VerifyValidator extends AbstractVerifyValidator {
   public static val MISSING_CLAIM_FOR_REQ = "org.osate.verify.missingClaimForReq"
   public static val CLAIM_REQ_FOR_NOT_VP_FOR = "org.osate.verify.claimReqForNotVpFor"
   public static val ILLEGAL_OBJECT_FOR_FILETYPE = "org.osate.verify.illegal.object.for.filetype"
-  public static val INCORRECT_VERIFICATIONACTIVITY_CATEGORY = "org.osate.verify.incorrect.verificationactivity.category"
-  public static val INCORRECT_VERIFICATIONMETHOD_CATEGORY = "org.osate.verify.incorrect.verificationmethod.category"
 
 	@Inject IVerifyGlobalReferenceFinder verifyGlobalRefFinder
 
@@ -108,7 +101,7 @@ class VerifyValidator extends AbstractVerifyValidator {
 					VerifyPackage.Literals.CLAIM__REQUIREMENT,
 					CLAIM_MISSING_REQUIREMENT)
 		}else{
-			val sysreqs = getRequirements(containingVerificationPlan(cl))
+			val sysreqs = containingVerificationPlan(cl).requirements
 			if(!sysreqs.content.contains(cl.requirement)){
 				error('Requirement ' + cl.requirement.name + ' does not exist in ' + 
 					sysreqs.name + '.', cl, VerifyPackage.Literals.CLAIM__REQUIREMENT,
@@ -120,7 +113,7 @@ class VerifyValidator extends AbstractVerifyValidator {
 	
 	@Check (CheckType.NORMAL)
 	def checkClaimsForRequirement(VerificationPlan vp){
-		val systemRequirements = getRequirements(vp)
+		val systemRequirements = vp.requirements
 		val requirements = systemRequirements.content
 		requirements.forEach[req | 
 			if( !vp.claim.exists[claim | claim.requirement === req]){
@@ -167,37 +160,15 @@ class VerifyValidator extends AbstractVerifyValidator {
 	}
 	
 	@Check(CheckType.NORMAL)
-	def void checkVerificationPlanUniqueToComponentClassifier(SystemVerificationPlan vp) {
+	def void checkVerificationPlanUniqueToComponentClassifier(VerificationPlan vp) {
 		val sysReq = vp.requirements
 		val vps = verifyGlobalRefFinder.getAllVerificationPlansForSystemRequirement(sysReq, vp)
 		if (vps.size > 1){
 			error("Other Verification Plans exist for '" +  sysReq.name + 
 								"'. Only one Verification Plans is allowed for a specific System Requirements." , vp,  
-								VerifyPackage.Literals.SYSTEM_VERIFICATION_PLAN__REQUIREMENTS)
+								VerifyPackage.Literals.VERIFICATION_PLAN__REQUIREMENTS)
 		}
 	}
 
-	
-		@Check(CheckType.FAST)
-		def void checkRequirementCategory(VerificationMethod method) {
-			val res = method.category.filter [ cat |
-				!(cat instanceof MethodCategory || cat instanceof QualityCategory || cat instanceof SelectionCategory)
-			]
-			if(res.empty) return;
-			error("Method '" + method.name + "' category '" + res +
-				"' must be method or quality category.", method,
-				VerifyPackage.Literals.VERIFICATION_METHOD__CATEGORY, INCORRECT_VERIFICATIONMETHOD_CATEGORY)
-		}
-	
-		@Check(CheckType.FAST)
-		def void checkRequirementCategory(VerificationActivity va) {
-			val res = va.category.filter [ cat |
-				!(cat instanceof SelectionCategory || cat instanceof PhaseCategory)
-			]
-			if(res.empty) return;
-			error("Verification activity '" + va.name + "' category '" + res +
-				"' must be phase or selection category.", va,
-				VerifyPackage.Literals.VERIFICATION_ACTIVITY__CATEGORY, INCORRECT_VERIFICATIONACTIVITY_CATEGORY)
-		}
 	
 }

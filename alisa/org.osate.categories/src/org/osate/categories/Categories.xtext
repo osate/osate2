@@ -2,94 +2,96 @@ grammar org.osate.categories.Categories with org.eclipse.xtext.common.Terminals
 
 generate categories "http://www.osate.org/categories/Categories"
 
-CategoriesDefinitions : requirementcategories=RequirementCategories?   & methodcategories=MethodCategories? 
-	& selectioncategories=SelectionCategories?
-	 & phasecategories=PhaseCategories? & qualitycategories=QualityCategories? &  categoryfilter=CategoryFilters?
+CategoriesDefinitions : requirementTypeCategories=RequirementTypeCategories?   & methodTypeCategories=MethodTypeCategories? 
+	& selectioncategories=UserSelectionCategories? & developmentPhaseCategories=DevelopmentPhaseCategories? 
+	& qualityAttributeCategories=QualityAttributeCategories? //&  categoryFilters=CategoryFilters?
 ;
-/**
- * requirement categories uses a label instead of name to make the category itself global
- */
-RequirementCategories returns Categories:
-	{RequirementCategories}'requirement''categories' 
-	'[' category += RequirementCategory+
+
+RequirementTypeCategories returns Categories:
+	{RequirementTypeCategories}'requirement''type' 
+	'[' category += RequirementType+
 	']'
 ;
 
-MethodCategories returns Categories:
-	{MethodCategories}'method' 'categories' 
-	'[' category += MethodCategory+
+MethodTypeCategories returns Categories:
+	{MethodTypeCategories}'method' 'type' 
+	'[' category += MethodType+
 	']'
 ;
 
-SelectionCategories returns Categories:
-	{SelectionCategories}'selection' 'categories' 
-	'[' category += SelectionCategory+
+UserSelectionCategories returns Categories:
+	{UserSelectionCategories}'user''selection'  
+	'[' category += UserSelection+
 	']'
 ;
 
-QualityCategories returns Categories:
-	{QualityCategories}'quality' 'categories' 
-	'[' category += QualityCategory+
+QualityAttributeCategories returns Categories:
+	{QualityAttributeCategories}'quality' 'attribute'
+	'[' category += QualityAttribute+
 	']'
 ;
 
-PhaseCategories returns Categories:
-	{QualityCategories}'phase' 'categories' 
-	'[' category += PhaseCategory+
+DevelopmentPhaseCategories returns Categories:
+	{DevelopmentPhaseCategories}'development''phase'  
+	'[' category += DevelopmentPhase+
 	']'
 ;
-
-
-
 
 
 /**
- * Requirement category indicates the kind of requirement we are dealing with
+ * Requirement category indicates the type of requirement
  */
-RequirementCategory returns Category:
-	{RequirementCategory} name = ID //('{' subCategories+=[RequirementCategory|CatRef]* '}')? 
+RequirementType returns Category:
+	{RequirementType} name = ID  
 ;
 
 
 
 
 /**
- * Method category indicates the kind of verification we are dealing with
+ * Method type indicates the type of verification method
  */
-MethodCategory returns Category:
-	{MethodCategory} name = ID //('{' subCategories+=[MethodCategory|CatRef]*'}')? 
+MethodType returns Category:
+	{MethodType} name = ID  
 ;
 
 /**
- * selection category indicates a tag for verification activities 
+ * user selection  indicates a user defined selection categories  
  */
-SelectionCategory returns Category:
-	{SelectionCategory} name = ID //('{' subCategories+=[SelectionCategory|CatRef]*'}')? 
+UserSelection returns Category:
+	{UserSelection} name = ID  
 ;
 
 /**
- * quality category indicates a quality attribute 
+ * quality attribute indicates a quality attribute 
  */
-QualityCategory returns Category:
-	{QualityCategory} name = ID //('{' subCategories+=[QualityCategory|CatRef]*'}')? 
+QualityAttribute returns Category:
+	{QualityAttribute} name = ID  
 ;
 
 /**
  * phase category indicates a development phase 
  */
-PhaseCategory returns Category:
-	{PhaseCategory} name = ID //('{' subCategories+=[QualityCategory|CatRef]*'}')? 
+DevelopmentPhase returns Category:
+	{DevelopmentPhase} name = ID  
 ;
 
-
-CategoryFilters returns CategoryFilters:
-	'category' 'filters' '['
-	filters+=CategorySet+ ']'
+//
+//CategoryFilters returns CategoryFilters:
+//	'filters' 
+//	filters+=NamedCategoryFilter+ 
+//;
+//
+CategoryFilter returns CategoryFilter:
+	name=ID '['
+	('requirement''type' requirementType+=[RequirementType|ID]+ anyRequirementType?='any'?)?
+	&('method''type' methodType+=[MethodType|ID]+ anyMethodType?='any'?)?
+	&('user''selection' userSelection+=[UserSelection|ID]+ anyUserSelection?='any'?)?
+	&('quality''attribute' qualityAttribute+=[QualityAttribute|ID]+ anyQualityAttribute?='any'?)?
+	&('development''phase' developmentPhase+=[DevelopmentPhase|ID]+ anyDevelopmentPhase?='any'?)?
+	']'
 ;
 
-CategorySet returns Category:
-	{CategorySet} name = ID '{' elements+=[Category|CatRef]*'}'
-;
 
 
 // Category reference. Currently it is only a single ID

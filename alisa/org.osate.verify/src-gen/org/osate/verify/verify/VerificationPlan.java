@@ -22,6 +22,8 @@ import org.eclipse.emf.ecore.EObject;
 import org.osate.alisa.common.common.Description;
 import org.osate.alisa.common.common.Rationale;
 
+import org.osate.reqspec.reqSpec.SystemRequirements;
+
 /**
  * <!-- begin-user-doc -->
  * A representation of the model object '<em><b>Verification Plan</b></em>'.
@@ -33,6 +35,7 @@ import org.osate.alisa.common.common.Rationale;
  * <ul>
  *   <li>{@link org.osate.verify.verify.VerificationPlan#getName <em>Name</em>}</li>
  *   <li>{@link org.osate.verify.verify.VerificationPlan#getTitle <em>Title</em>}</li>
+ *   <li>{@link org.osate.verify.verify.VerificationPlan#getRequirements <em>Requirements</em>}</li>
  *   <li>{@link org.osate.verify.verify.VerificationPlan#getDescription <em>Description</em>}</li>
  *   <li>{@link org.osate.verify.verify.VerificationPlan#getClaim <em>Claim</em>}</li>
  *   <li>{@link org.osate.verify.verify.VerificationPlan#getRationale <em>Rationale</em>}</li>
@@ -96,6 +99,32 @@ public interface VerificationPlan extends EObject
    * @generated
    */
   void setTitle(String value);
+
+  /**
+   * Returns the value of the '<em><b>Requirements</b></em>' reference.
+   * <!-- begin-user-doc -->
+   * <p>
+   * If the meaning of the '<em>Requirements</em>' reference isn't clear,
+   * there really should be more of a description here...
+   * </p>
+   * <!-- end-user-doc -->
+   * @return the value of the '<em>Requirements</em>' reference.
+   * @see #setRequirements(SystemRequirements)
+   * @see org.osate.verify.verify.VerifyPackage#getVerificationPlan_Requirements()
+   * @model
+   * @generated
+   */
+  SystemRequirements getRequirements();
+
+  /**
+   * Sets the value of the '{@link org.osate.verify.verify.VerificationPlan#getRequirements <em>Requirements</em>}' reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @param value the new value of the '<em>Requirements</em>' reference.
+   * @see #getRequirements()
+   * @generated
+   */
+  void setRequirements(SystemRequirements value);
 
   /**
    * Returns the value of the '<em><b>Description</b></em>' containment reference.

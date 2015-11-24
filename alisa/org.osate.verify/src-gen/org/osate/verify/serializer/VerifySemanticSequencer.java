@@ -55,18 +55,17 @@ import org.osate.verify.verify.AllExpr;
 import org.osate.verify.verify.Claim;
 import org.osate.verify.verify.ElseExpr;
 import org.osate.verify.verify.FormalParameter;
-import org.osate.verify.verify.GlobalVerificationPlan;
 import org.osate.verify.verify.JavaMethod;
 import org.osate.verify.verify.ManualMethod;
 import org.osate.verify.verify.PluginMethod;
 import org.osate.verify.verify.RefExpr;
 import org.osate.verify.verify.ResoluteMethod;
-import org.osate.verify.verify.SystemVerificationPlan;
 import org.osate.verify.verify.ThenExpr;
 import org.osate.verify.verify.Verification;
 import org.osate.verify.verify.VerificationActivity;
 import org.osate.verify.verify.VerificationMethod;
 import org.osate.verify.verify.VerificationMethodRegistry;
+import org.osate.verify.verify.VerificationPlan;
 import org.osate.verify.verify.VerificationPrecondition;
 import org.osate.verify.verify.VerificationValidation;
 import org.osate.verify.verify.VerifyPackage;
@@ -170,9 +169,6 @@ public class VerifySemanticSequencer extends CommonSemanticSequencer {
 			case VerifyPackage.FORMAL_PARAMETER:
 				sequence_FormalParameter(context, (FormalParameter) semanticObject); 
 				return; 
-			case VerifyPackage.GLOBAL_VERIFICATION_PLAN:
-				sequence_GlobalVerificationPlan(context, (GlobalVerificationPlan) semanticObject); 
-				return; 
 			case VerifyPackage.JAVA_METHOD:
 				sequence_JavaMethod(context, (JavaMethod) semanticObject); 
 				return; 
@@ -188,9 +184,6 @@ public class VerifySemanticSequencer extends CommonSemanticSequencer {
 			case VerifyPackage.RESOLUTE_METHOD:
 				sequence_ResoluteMethod(context, (ResoluteMethod) semanticObject); 
 				return; 
-			case VerifyPackage.SYSTEM_VERIFICATION_PLAN:
-				sequence_VerificationPlan(context, (SystemVerificationPlan) semanticObject); 
-				return; 
 			case VerifyPackage.THEN_EXPR:
 				sequence_ThenEvidenceExpr(context, (ThenExpr) semanticObject); 
 				return; 
@@ -205,6 +198,9 @@ public class VerifySemanticSequencer extends CommonSemanticSequencer {
 				return; 
 			case VerifyPackage.VERIFICATION_METHOD_REGISTRY:
 				sequence_VerificationMethodRegistry(context, (VerificationMethodRegistry) semanticObject); 
+				return; 
+			case VerifyPackage.VERIFICATION_PLAN:
+				sequence_VerificationPlan(context, (VerificationPlan) semanticObject); 
 				return; 
 			case VerifyPackage.VERIFICATION_PRECONDITION:
 				sequence_VerificationPrecondition(context, (VerificationPrecondition) semanticObject); 
@@ -254,23 +250,6 @@ public class VerifySemanticSequencer extends CommonSemanticSequencer {
 	 *     (parameterType=ID name=ID unit=[UnitLiteral|ID]?)
 	 */
 	protected void sequence_FormalParameter(EObject context, FormalParameter semanticObject) {
-		genericSequencer.createSequence(context, semanticObject);
-	}
-	
-	
-	/**
-	 * Constraint:
-	 *     (
-	 *         name=QualifiedName 
-	 *         title=STRING? 
-	 *         requirements=[GlobalRequirements|QualifiedName] 
-	 *         description=Description? 
-	 *         claim+=Claim* 
-	 *         rationale=Rationale? 
-	 *         issues+=STRING*
-	 *     )
-	 */
-	protected void sequence_GlobalVerificationPlan(EObject context, GlobalVerificationPlan semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
 	}
 	
@@ -393,8 +372,8 @@ public class VerifySemanticSequencer extends CommonSemanticSequencer {
 	 *     (
 	 *         name=ID 
 	 *         title=STRING? 
-	 *         category+=[PhaseCategory|ID]* 
-	 *         category+=[SelectionCategory|ID]* 
+	 *         developmentPhase+=[DevelopmentPhase|ID]* 
+	 *         userSelection+=[UserSelection|ID]* 
 	 *         (result+=[ComputeDeclaration|ID] result+=[ComputeDeclaration|ID]*)? 
 	 *         method=[VerificationMethod|QualifiedName] 
 	 *         (parameters+=[ValDeclaration|ID] parameters+=[ValDeclaration|ID]*)? 
@@ -426,13 +405,13 @@ public class VerifySemanticSequencer extends CommonSemanticSequencer {
 	 *             (isPredicate?='boolean' | isResultReport?='report')?
 	 *         )? 
 	 *         title=STRING? 
-	 *         methodType=MethodType 
+	 *         methodKind=MethodKind 
 	 *         description=Description? 
 	 *         precondition=VerificationPrecondition? 
 	 *         validation=VerificationValidation? 
-	 *         category+=[MethodCategory|ID]* 
-	 *         category+=[QualityCategory|ID]* 
-	 *         category+=[SelectionCategory|ID]*
+	 *         methodType+=[MethodType|ID]* 
+	 *         qualityAttribute+=[QualityAttribute|ID]* 
+	 *         userSelection+=[UserSelection|ID]*
 	 *     )
 	 */
 	protected void sequence_VerificationMethod(EObject context, VerificationMethod semanticObject) {
@@ -452,7 +431,7 @@ public class VerifySemanticSequencer extends CommonSemanticSequencer {
 	 *         issues+=STRING*
 	 *     )
 	 */
-	protected void sequence_VerificationPlan(EObject context, SystemVerificationPlan semanticObject) {
+	protected void sequence_VerificationPlan(EObject context, VerificationPlan semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
 	}
 	
@@ -477,7 +456,7 @@ public class VerifySemanticSequencer extends CommonSemanticSequencer {
 	
 	/**
 	 * Constraint:
-	 *     (contents+=VerificationPlan | contents+=GlobalVerificationPlan | contents+=VerificationMethodRegistry)+
+	 *     (contents+=VerificationPlan | contents+=VerificationMethodRegistry)+
 	 */
 	protected void sequence_Verification(EObject context, Verification semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);

@@ -93,9 +93,9 @@ DocGoal returns Goal:
 		)
 	)?
 '['  (
- 	('category'  category+=[categories::RequirementCategory|ID]+ )?
- 	&('quality'  category+=[categories::QualityCategory|ID]+ )?
- 	&('selection'  category+=[categories::SelectionCategory|ID]+ )?
+ 	('requirement''type'  requirementType+=[categories::RequirementType|ID]+ )?
+ 	&('quality''attribute'  qualityAttribute+=[categories::QualityAttribute|ID]+ )?
+ 	&('user''selection'  userSelection+=[categories::UserSelection|ID]+ )?
 	 & description=Description? 
 	&constants+=ValDeclaration* 
 	 &rationale=Rationale? 
@@ -116,9 +116,9 @@ Goal returns Goal:
 	( 'for'  targetElement=[aadl2::NamedElement|ID]
 	)?
 '['  (
- 	('category'  category+=[categories::RequirementCategory|ID]+ )?
- 	&('quality'  category+=[categories::QualityCategory|ID]+ )?
- 	&('selection'  category+=[categories::SelectionCategory|ID]+ )?
+ 	('requirement''type'  requirementType+=[categories::RequirementType|ID]+ )?
+ 	&('quality''attribute'  qualityAttribute+=[categories::QualityAttribute|ID]+ )?
+ 	&('user''selection'  userSelection+=[categories::UserSelection|ID]+ )?
 	 &(  description=Description)? 
 	& (  constants+=ValDeclaration* )
 	 &(rationale=Rationale)? 
@@ -140,9 +140,9 @@ SystemRequirement returns Requirement:
 		targetElement=[aadl2::NamedElement|ID] )
 	)?
 '['	(
- 	('category'  category+=[categories::RequirementCategory|ID]+ )?
- 	&('quality'  category+=[categories::QualityCategory|ID]+ )?
- 	&('selection'  category+=[categories::SelectionCategory|ID]+ )?
+  	('requirement''type'  requirementType+=[categories::RequirementType|ID]+ )?
+ 	&('quality''attribute'  qualityAttribute+=[categories::QualityAttribute|ID]+ )?
+ 	&('user''selection'  userSelection+=[categories::UserSelection|ID]+ )?
 	&(  description=Description)? 
 	& (  constants+=ValDeclaration* )
 	& (  computes+=ComputeDeclaration* )
@@ -167,9 +167,9 @@ Requirement returns Requirement:
 	( 'for'  (componentCategory+=ComponentCategory+| global?='all')
 	)?
 '['	(
- 	('category'  category+=[categories::RequirementCategory|ID]+ )?
- 	&('quality'  category+=[categories::QualityCategory|ID]+ )?
- 	&('selection'  category+=[categories::SelectionCategory|ID]+ )?
+ 	('requirement''type'  requirementType+=[categories::RequirementType|ID]+ )?
+ 	&('quality''attribute'  qualityAttribute+=[categories::QualityAttribute|ID]+ )?
+ 	&('user''selection'  userSelection+=[categories::UserSelection|ID]+ )?
 	&(  description=Description)? 
 	& (  constants+=ValDeclaration* )
 	& (  computes+=ComputeDeclaration* )
@@ -196,9 +196,9 @@ DocRequirement returns Requirement:
 		componentCategory+=ComponentCategory+| global?='all')
 	)?
 '['	(
- 	('category'  category+=[categories::RequirementCategory|ID]+ )?
- 	&('quality'  category+=[categories::QualityCategory|ID]+ )?
- 	&('selection'  category+=[categories::SelectionCategory|ID]+ )?
+ 	('requirement''type'  requirementType+=[categories::RequirementType|ID]+ )?
+ 	&('quality''attribute'  qualityAttribute+=[categories::QualityAttribute|ID]+ )?
+ 	&('user''selection'  userSelection+=[categories::UserSelection|ID]+ )?
 	&(  description=Description)? 
 	& (  constants+=ValDeclaration* )
 	& (  computes+=ComputeDeclaration* )

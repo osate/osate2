@@ -63,103 +63,103 @@ public interface CategoriesFactory extends EFactory
   Category createCategory();
 
   /**
-   * Returns a new object of class '<em>Category Filters</em>'.
+   * Returns a new object of class '<em>Category Filter</em>'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @return a new object of class '<em>Category Filters</em>'.
+   * @return a new object of class '<em>Category Filter</em>'.
    * @generated
    */
-  CategoryFilters createCategoryFilters();
+  CategoryFilter createCategoryFilter();
 
   /**
-   * Returns a new object of class '<em>Requirement Categories</em>'.
+   * Returns a new object of class '<em>Requirement Type Categories</em>'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @return a new object of class '<em>Requirement Categories</em>'.
+   * @return a new object of class '<em>Requirement Type Categories</em>'.
    * @generated
    */
-  RequirementCategories createRequirementCategories();
+  RequirementTypeCategories createRequirementTypeCategories();
 
   /**
-   * Returns a new object of class '<em>Method Categories</em>'.
+   * Returns a new object of class '<em>Method Type Categories</em>'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @return a new object of class '<em>Method Categories</em>'.
+   * @return a new object of class '<em>Method Type Categories</em>'.
    * @generated
    */
-  MethodCategories createMethodCategories();
+  MethodTypeCategories createMethodTypeCategories();
 
   /**
-   * Returns a new object of class '<em>Selection Categories</em>'.
+   * Returns a new object of class '<em>User Selection Categories</em>'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @return a new object of class '<em>Selection Categories</em>'.
+   * @return a new object of class '<em>User Selection Categories</em>'.
    * @generated
    */
-  SelectionCategories createSelectionCategories();
+  UserSelectionCategories createUserSelectionCategories();
 
   /**
-   * Returns a new object of class '<em>Quality Categories</em>'.
+   * Returns a new object of class '<em>Quality Attribute Categories</em>'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @return a new object of class '<em>Quality Categories</em>'.
+   * @return a new object of class '<em>Quality Attribute Categories</em>'.
    * @generated
    */
-  QualityCategories createQualityCategories();
+  QualityAttributeCategories createQualityAttributeCategories();
 
   /**
-   * Returns a new object of class '<em>Requirement Category</em>'.
+   * Returns a new object of class '<em>Development Phase Categories</em>'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @return a new object of class '<em>Requirement Category</em>'.
+   * @return a new object of class '<em>Development Phase Categories</em>'.
    * @generated
    */
-  RequirementCategory createRequirementCategory();
+  DevelopmentPhaseCategories createDevelopmentPhaseCategories();
 
   /**
-   * Returns a new object of class '<em>Method Category</em>'.
+   * Returns a new object of class '<em>Requirement Type</em>'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @return a new object of class '<em>Method Category</em>'.
+   * @return a new object of class '<em>Requirement Type</em>'.
    * @generated
    */
-  MethodCategory createMethodCategory();
+  RequirementType createRequirementType();
 
   /**
-   * Returns a new object of class '<em>Selection Category</em>'.
+   * Returns a new object of class '<em>Method Type</em>'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @return a new object of class '<em>Selection Category</em>'.
+   * @return a new object of class '<em>Method Type</em>'.
    * @generated
    */
-  SelectionCategory createSelectionCategory();
+  MethodType createMethodType();
 
   /**
-   * Returns a new object of class '<em>Quality Category</em>'.
+   * Returns a new object of class '<em>User Selection</em>'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @return a new object of class '<em>Quality Category</em>'.
+   * @return a new object of class '<em>User Selection</em>'.
    * @generated
    */
-  QualityCategory createQualityCategory();
+  UserSelection createUserSelection();
 
   /**
-   * Returns a new object of class '<em>Phase Category</em>'.
+   * Returns a new object of class '<em>Quality Attribute</em>'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @return a new object of class '<em>Phase Category</em>'.
+   * @return a new object of class '<em>Quality Attribute</em>'.
    * @generated
    */
-  PhaseCategory createPhaseCategory();
+  QualityAttribute createQualityAttribute();
 
   /**
-   * Returns a new object of class '<em>Category Set</em>'.
+   * Returns a new object of class '<em>Development Phase</em>'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @return a new object of class '<em>Category Set</em>'.
+   * @return a new object of class '<em>Development Phase</em>'.
    * @generated
    */
-  CategorySet createCategorySet();
+  DevelopmentPhase createDevelopmentPhase();
 
   /**
    * Returns the package supported by this factory.

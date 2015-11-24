@@ -61,7 +61,7 @@ public static val ASSURANCE_PLAN_OWN_INVALID_VERIFICATION_PLANS = 'org.osate.ali
 	}
 
 	def void checkAssurancePlanOwnOmissions(AssurancePlan assurancePlan) {
-		val res = referenceFinder.getVerificationPlans(assurancePlan.target, assurancePlan).filter([avp | !assurancePlan.assureOwn.contains(avp)])		
+		val res = referenceFinder.getVerificationPlans(assurancePlan.target, assurancePlan).filter([avp | !assurancePlan.assure.contains(avp)])		
 		if (res.size > 0){
 			val String[] namesAndURI = newArrayOfSize(res.length * 2)
 			res.forEach([vp, counter |
@@ -74,14 +74,14 @@ public static val ASSURANCE_PLAN_OWN_INVALID_VERIFICATION_PLANS = 'org.osate.ali
 	}
 
 	def void checkAssurancePlanOwnForInvalid(AssurancePlan assurancePlan) {
-		val res = assurancePlan.assureOwn.filter([avp |
+		val res = assurancePlan.assure.filter([avp |
 			!referenceFinder.getVerificationPlans(assurancePlan.target, assurancePlan).toList.contains(avp)
 		])
 		if (res.size > 0){
 			res.forEach([vp, counter |
-				val idx = assurancePlan.assureOwn.indexed.filter([value == vp]).head.key
+				val idx = assurancePlan.assure.indexed.filter([value == vp]).head.key
 				error("Verification Plan '" + vp.name  + "' is not valid for Assurance Plan '" +assurancePlan.name,
-						assurancePlan, AlisaPackage.Literals.ASSURANCE_PLAN__ASSURE_OWN, idx, 
+						assurancePlan, AlisaPackage.Literals.ASSURANCE_PLAN__ASSURE, idx, 
 						ASSURANCE_PLAN_OWN_INVALID_VERIFICATION_PLANS, vp.name, EcoreUtil.getURI(vp).toString())
 				
 			])

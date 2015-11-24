@@ -133,9 +133,9 @@ public class VerifyAdapterFactory extends AdapterFactoryImpl
         return createVerificationMethodAdapter();
       }
       @Override
-      public Adapter caseMethodType(MethodType object)
+      public Adapter caseMethodKind(MethodKind object)
       {
-        return createMethodTypeAdapter();
+        return createMethodKindAdapter();
       }
       @Override
       public Adapter caseResoluteMethod(ResoluteMethod object)
@@ -156,16 +156,6 @@ public class VerifyAdapterFactory extends AdapterFactoryImpl
       public Adapter casePluginMethod(PluginMethod object)
       {
         return createPluginMethodAdapter();
-      }
-      @Override
-      public Adapter caseSystemVerificationPlan(SystemVerificationPlan object)
-      {
-        return createSystemVerificationPlanAdapter();
-      }
-      @Override
-      public Adapter caseGlobalVerificationPlan(GlobalVerificationPlan object)
-      {
-        return createGlobalVerificationPlanAdapter();
       }
       @Override
       public Adapter caseThenExpr(ThenExpr object)
@@ -355,16 +345,16 @@ public class VerifyAdapterFactory extends AdapterFactoryImpl
   }
 
   /**
-   * Creates a new adapter for an object of class '{@link org.osate.verify.verify.MethodType <em>Method Type</em>}'.
+   * Creates a new adapter for an object of class '{@link org.osate.verify.verify.MethodKind <em>Method Kind</em>}'.
    * <!-- begin-user-doc -->
    * This default implementation returns null so that we can easily ignore cases;
    * it's useful to ignore a case when inheritance will catch all the cases anyway.
    * <!-- end-user-doc -->
    * @return the new adapter.
-   * @see org.osate.verify.verify.MethodType
+   * @see org.osate.verify.verify.MethodKind
    * @generated
    */
-  public Adapter createMethodTypeAdapter()
+  public Adapter createMethodKindAdapter()
   {
     return null;
   }
@@ -425,36 +415,6 @@ public class VerifyAdapterFactory extends AdapterFactoryImpl
    * @generated
    */
   public Adapter createPluginMethodAdapter()
-  {
-    return null;
-  }
-
-  /**
-   * Creates a new adapter for an object of class '{@link org.osate.verify.verify.SystemVerificationPlan <em>System Verification Plan</em>}'.
-   * <!-- begin-user-doc -->
-   * This default implementation returns null so that we can easily ignore cases;
-   * it's useful to ignore a case when inheritance will catch all the cases anyway.
-   * <!-- end-user-doc -->
-   * @return the new adapter.
-   * @see org.osate.verify.verify.SystemVerificationPlan
-   * @generated
-   */
-  public Adapter createSystemVerificationPlanAdapter()
-  {
-    return null;
-  }
-
-  /**
-   * Creates a new adapter for an object of class '{@link org.osate.verify.verify.GlobalVerificationPlan <em>Global Verification Plan</em>}'.
-   * <!-- begin-user-doc -->
-   * This default implementation returns null so that we can easily ignore cases;
-   * it's useful to ignore a case when inheritance will catch all the cases anyway.
-   * <!-- end-user-doc -->
-   * @return the new adapter.
-   * @see org.osate.verify.verify.GlobalVerificationPlan
-   * @generated
-   */
-  public Adapter createGlobalVerificationPlanAdapter()
   {
     return null;
   }

@@ -52,8 +52,10 @@ class CategoriesFormatter extends AbstractDeclarativeFormatter {
 			c.setIndentationDecrement().before(pair.second);
 			c.setLinewrap().before(pair.second);
 		}
-		c.setLinewrap().before(methodCategoryRule);
-		c.setLinewrap().before(requirementCategoryRule);
-		c.setLinewrap().before(selectionCategoryRule);
+		c.setLinewrap().before(methodTypeCategoriesRule);
+		c.setLinewrap().before(requirementTypeCategoriesRule);
+		c.setLinewrap().before(userSelectionCategoriesRule);
+		c.setLinewrap().before(developmentPhaseCategoriesRule);
+		c.setLinewrap().before(qualityAttributeCategoriesRule);
 	}
 }

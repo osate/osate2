@@ -36,10 +36,12 @@ import org.osate.aadl2.Property;
 
 import org.osate.alisa.common.common.Description;
 
-import org.osate.categories.categories.Category;
+import org.osate.categories.categories.MethodType;
+import org.osate.categories.categories.QualityAttribute;
+import org.osate.categories.categories.UserSelection;
 
 import org.osate.verify.verify.FormalParameter;
-import org.osate.verify.verify.MethodType;
+import org.osate.verify.verify.MethodKind;
 import org.osate.verify.verify.VerificationCondition;
 import org.osate.verify.verify.VerificationMethod;
 import org.osate.verify.verify.VerifyPackage;
@@ -58,11 +60,13 @@ import org.osate.verify.verify.VerifyPackage;
  *   <li>{@link org.osate.verify.verify.impl.VerificationMethodImpl#isIsPredicate <em>Is Predicate</em>}</li>
  *   <li>{@link org.osate.verify.verify.impl.VerificationMethodImpl#isIsResultReport <em>Is Result Report</em>}</li>
  *   <li>{@link org.osate.verify.verify.impl.VerificationMethodImpl#getTitle <em>Title</em>}</li>
- *   <li>{@link org.osate.verify.verify.impl.VerificationMethodImpl#getMethodType <em>Method Type</em>}</li>
+ *   <li>{@link org.osate.verify.verify.impl.VerificationMethodImpl#getMethodKind <em>Method Kind</em>}</li>
  *   <li>{@link org.osate.verify.verify.impl.VerificationMethodImpl#getDescription <em>Description</em>}</li>
  *   <li>{@link org.osate.verify.verify.impl.VerificationMethodImpl#getPrecondition <em>Precondition</em>}</li>
  *   <li>{@link org.osate.verify.verify.impl.VerificationMethodImpl#getValidation <em>Validation</em>}</li>
- *   <li>{@link org.osate.verify.verify.impl.VerificationMethodImpl#getCategory <em>Category</em>}</li>
+ *   <li>{@link org.osate.verify.verify.impl.VerificationMethodImpl#getMethodType <em>Method Type</em>}</li>
+ *   <li>{@link org.osate.verify.verify.impl.VerificationMethodImpl#getQualityAttribute <em>Quality Attribute</em>}</li>
+ *   <li>{@link org.osate.verify.verify.impl.VerificationMethodImpl#getUserSelection <em>User Selection</em>}</li>
  * </ul>
  *
  * @generated
@@ -170,14 +174,14 @@ public class VerificationMethodImpl extends MinimalEObjectImpl.Container impleme
   protected String title = TITLE_EDEFAULT;
 
   /**
-   * The cached value of the '{@link #getMethodType() <em>Method Type</em>}' containment reference.
+   * The cached value of the '{@link #getMethodKind() <em>Method Kind</em>}' containment reference.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @see #getMethodType()
+   * @see #getMethodKind()
    * @generated
    * @ordered
    */
-  protected MethodType methodType;
+  protected MethodKind methodKind;
 
   /**
    * The cached value of the '{@link #getDescription() <em>Description</em>}' containment reference.
@@ -210,14 +214,34 @@ public class VerificationMethodImpl extends MinimalEObjectImpl.Container impleme
   protected VerificationCondition validation;
 
   /**
-   * The cached value of the '{@link #getCategory() <em>Category</em>}' reference list.
+   * The cached value of the '{@link #getMethodType() <em>Method Type</em>}' reference list.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @see #getCategory()
+   * @see #getMethodType()
    * @generated
    * @ordered
    */
-  protected EList<Category> category;
+  protected EList<MethodType> methodType;
+
+  /**
+   * The cached value of the '{@link #getQualityAttribute() <em>Quality Attribute</em>}' reference list.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see #getQualityAttribute()
+   * @generated
+   * @ordered
+   */
+  protected EList<QualityAttribute> qualityAttribute;
+
+  /**
+   * The cached value of the '{@link #getUserSelection() <em>User Selection</em>}' reference list.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see #getUserSelection()
+   * @generated
+   * @ordered
+   */
+  protected EList<UserSelection> userSelection;
 
   /**
    * <!-- begin-user-doc -->
@@ -365,9 +389,9 @@ public class VerificationMethodImpl extends MinimalEObjectImpl.Container impleme
    * <!-- end-user-doc -->
    * @generated
    */
-  public MethodType getMethodType()
+  public MethodKind getMethodKind()
   {
-    return methodType;
+    return methodKind;
   }
 
   /**
@@ -375,13 +399,13 @@ public class VerificationMethodImpl extends MinimalEObjectImpl.Container impleme
    * <!-- end-user-doc -->
    * @generated
    */
-  public NotificationChain basicSetMethodType(MethodType newMethodType, NotificationChain msgs)
+  public NotificationChain basicSetMethodKind(MethodKind newMethodKind, NotificationChain msgs)
   {
-    MethodType oldMethodType = methodType;
-    methodType = newMethodType;
+    MethodKind oldMethodKind = methodKind;
+    methodKind = newMethodKind;
     if (eNotificationRequired())
     {
-      ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, VerifyPackage.VERIFICATION_METHOD__METHOD_TYPE, oldMethodType, newMethodType);
+      ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, VerifyPackage.VERIFICATION_METHOD__METHOD_KIND, oldMethodKind, newMethodKind);
       if (msgs == null) msgs = notification; else msgs.add(notification);
     }
     return msgs;
@@ -392,20 +416,20 @@ public class VerificationMethodImpl extends MinimalEObjectImpl.Container impleme
    * <!-- end-user-doc -->
    * @generated
    */
-  public void setMethodType(MethodType newMethodType)
+  public void setMethodKind(MethodKind newMethodKind)
   {
-    if (newMethodType != methodType)
+    if (newMethodKind != methodKind)
     {
       NotificationChain msgs = null;
-      if (methodType != null)
-        msgs = ((InternalEObject)methodType).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - VerifyPackage.VERIFICATION_METHOD__METHOD_TYPE, null, msgs);
-      if (newMethodType != null)
-        msgs = ((InternalEObject)newMethodType).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - VerifyPackage.VERIFICATION_METHOD__METHOD_TYPE, null, msgs);
-      msgs = basicSetMethodType(newMethodType, msgs);
+      if (methodKind != null)
+        msgs = ((InternalEObject)methodKind).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - VerifyPackage.VERIFICATION_METHOD__METHOD_KIND, null, msgs);
+      if (newMethodKind != null)
+        msgs = ((InternalEObject)newMethodKind).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - VerifyPackage.VERIFICATION_METHOD__METHOD_KIND, null, msgs);
+      msgs = basicSetMethodKind(newMethodKind, msgs);
       if (msgs != null) msgs.dispatch();
     }
     else if (eNotificationRequired())
-      eNotify(new ENotificationImpl(this, Notification.SET, VerifyPackage.VERIFICATION_METHOD__METHOD_TYPE, newMethodType, newMethodType));
+      eNotify(new ENotificationImpl(this, Notification.SET, VerifyPackage.VERIFICATION_METHOD__METHOD_KIND, newMethodKind, newMethodKind));
   }
 
   /**
@@ -557,13 +581,41 @@ public class VerificationMethodImpl extends MinimalEObjectImpl.Container impleme
    * <!-- end-user-doc -->
    * @generated
    */
-  public EList<Category> getCategory()
+  public EList<MethodType> getMethodType()
   {
-    if (category == null)
+    if (methodType == null)
     {
-      category = new EObjectResolvingEList<Category>(Category.class, this, VerifyPackage.VERIFICATION_METHOD__CATEGORY);
+      methodType = new EObjectResolvingEList<MethodType>(MethodType.class, this, VerifyPackage.VERIFICATION_METHOD__METHOD_TYPE);
     }
-    return category;
+    return methodType;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EList<QualityAttribute> getQualityAttribute()
+  {
+    if (qualityAttribute == null)
+    {
+      qualityAttribute = new EObjectResolvingEList<QualityAttribute>(QualityAttribute.class, this, VerifyPackage.VERIFICATION_METHOD__QUALITY_ATTRIBUTE);
+    }
+    return qualityAttribute;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EList<UserSelection> getUserSelection()
+  {
+    if (userSelection == null)
+    {
+      userSelection = new EObjectResolvingEList<UserSelection>(UserSelection.class, this, VerifyPackage.VERIFICATION_METHOD__USER_SELECTION);
+    }
+    return userSelection;
   }
 
   /**
@@ -578,8 +630,8 @@ public class VerificationMethodImpl extends MinimalEObjectImpl.Container impleme
     {
       case VerifyPackage.VERIFICATION_METHOD__PARAMS:
         return ((InternalEList<?>)getParams()).basicRemove(otherEnd, msgs);
-      case VerifyPackage.VERIFICATION_METHOD__METHOD_TYPE:
-        return basicSetMethodType(null, msgs);
+      case VerifyPackage.VERIFICATION_METHOD__METHOD_KIND:
+        return basicSetMethodKind(null, msgs);
       case VerifyPackage.VERIFICATION_METHOD__DESCRIPTION:
         return basicSetDescription(null, msgs);
       case VerifyPackage.VERIFICATION_METHOD__PRECONDITION:
@@ -612,16 +664,20 @@ public class VerificationMethodImpl extends MinimalEObjectImpl.Container impleme
         return isIsResultReport();
       case VerifyPackage.VERIFICATION_METHOD__TITLE:
         return getTitle();
-      case VerifyPackage.VERIFICATION_METHOD__METHOD_TYPE:
-        return getMethodType();
+      case VerifyPackage.VERIFICATION_METHOD__METHOD_KIND:
+        return getMethodKind();
       case VerifyPackage.VERIFICATION_METHOD__DESCRIPTION:
         return getDescription();
       case VerifyPackage.VERIFICATION_METHOD__PRECONDITION:
         return getPrecondition();
       case VerifyPackage.VERIFICATION_METHOD__VALIDATION:
         return getValidation();
-      case VerifyPackage.VERIFICATION_METHOD__CATEGORY:
-        return getCategory();
+      case VerifyPackage.VERIFICATION_METHOD__METHOD_TYPE:
+        return getMethodType();
+      case VerifyPackage.VERIFICATION_METHOD__QUALITY_ATTRIBUTE:
+        return getQualityAttribute();
+      case VerifyPackage.VERIFICATION_METHOD__USER_SELECTION:
+        return getUserSelection();
     }
     return super.eGet(featureID, resolve, coreType);
   }
@@ -657,8 +713,8 @@ public class VerificationMethodImpl extends MinimalEObjectImpl.Container impleme
       case VerifyPackage.VERIFICATION_METHOD__TITLE:
         setTitle((String)newValue);
         return;
-      case VerifyPackage.VERIFICATION_METHOD__METHOD_TYPE:
-        setMethodType((MethodType)newValue);
+      case VerifyPackage.VERIFICATION_METHOD__METHOD_KIND:
+        setMethodKind((MethodKind)newValue);
         return;
       case VerifyPackage.VERIFICATION_METHOD__DESCRIPTION:
         setDescription((Description)newValue);
@@ -669,9 +725,17 @@ public class VerificationMethodImpl extends MinimalEObjectImpl.Container impleme
       case VerifyPackage.VERIFICATION_METHOD__VALIDATION:
         setValidation((VerificationCondition)newValue);
         return;
-      case VerifyPackage.VERIFICATION_METHOD__CATEGORY:
-        getCategory().clear();
-        getCategory().addAll((Collection<? extends Category>)newValue);
+      case VerifyPackage.VERIFICATION_METHOD__METHOD_TYPE:
+        getMethodType().clear();
+        getMethodType().addAll((Collection<? extends MethodType>)newValue);
+        return;
+      case VerifyPackage.VERIFICATION_METHOD__QUALITY_ATTRIBUTE:
+        getQualityAttribute().clear();
+        getQualityAttribute().addAll((Collection<? extends QualityAttribute>)newValue);
+        return;
+      case VerifyPackage.VERIFICATION_METHOD__USER_SELECTION:
+        getUserSelection().clear();
+        getUserSelection().addAll((Collection<? extends UserSelection>)newValue);
         return;
     }
     super.eSet(featureID, newValue);
@@ -705,8 +769,8 @@ public class VerificationMethodImpl extends MinimalEObjectImpl.Container impleme
       case VerifyPackage.VERIFICATION_METHOD__TITLE:
         setTitle(TITLE_EDEFAULT);
         return;
-      case VerifyPackage.VERIFICATION_METHOD__METHOD_TYPE:
-        setMethodType((MethodType)null);
+      case VerifyPackage.VERIFICATION_METHOD__METHOD_KIND:
+        setMethodKind((MethodKind)null);
         return;
       case VerifyPackage.VERIFICATION_METHOD__DESCRIPTION:
         setDescription((Description)null);
@@ -717,8 +781,14 @@ public class VerificationMethodImpl extends MinimalEObjectImpl.Container impleme
       case VerifyPackage.VERIFICATION_METHOD__VALIDATION:
         setValidation((VerificationCondition)null);
         return;
-      case VerifyPackage.VERIFICATION_METHOD__CATEGORY:
-        getCategory().clear();
+      case VerifyPackage.VERIFICATION_METHOD__METHOD_TYPE:
+        getMethodType().clear();
+        return;
+      case VerifyPackage.VERIFICATION_METHOD__QUALITY_ATTRIBUTE:
+        getQualityAttribute().clear();
+        return;
+      case VerifyPackage.VERIFICATION_METHOD__USER_SELECTION:
+        getUserSelection().clear();
         return;
     }
     super.eUnset(featureID);
@@ -746,16 +816,20 @@ public class VerificationMethodImpl extends MinimalEObjectImpl.Container impleme
         return isResultReport != IS_RESULT_REPORT_EDEFAULT;
       case VerifyPackage.VERIFICATION_METHOD__TITLE:
         return TITLE_EDEFAULT == null ? title != null : !TITLE_EDEFAULT.equals(title);
-      case VerifyPackage.VERIFICATION_METHOD__METHOD_TYPE:
-        return methodType != null;
+      case VerifyPackage.VERIFICATION_METHOD__METHOD_KIND:
+        return methodKind != null;
       case VerifyPackage.VERIFICATION_METHOD__DESCRIPTION:
         return description != null;
       case VerifyPackage.VERIFICATION_METHOD__PRECONDITION:
         return precondition != null;
       case VerifyPackage.VERIFICATION_METHOD__VALIDATION:
         return validation != null;
-      case VerifyPackage.VERIFICATION_METHOD__CATEGORY:
-        return category != null && !category.isEmpty();
+      case VerifyPackage.VERIFICATION_METHOD__METHOD_TYPE:
+        return methodType != null && !methodType.isEmpty();
+      case VerifyPackage.VERIFICATION_METHOD__QUALITY_ATTRIBUTE:
+        return qualityAttribute != null && !qualityAttribute.isEmpty();
+      case VerifyPackage.VERIFICATION_METHOD__USER_SELECTION:
+        return userSelection != null && !userSelection.isEmpty();
     }
     return super.eIsSet(featureID);
   }

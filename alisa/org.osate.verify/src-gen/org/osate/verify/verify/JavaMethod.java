@@ -32,7 +32,7 @@ package org.osate.verify.verify;
  * @model
  * @generated
  */
-public interface JavaMethod extends MethodType
+public interface JavaMethod extends MethodKind
 {
   /**
    * Returns the value of the '<em><b>Method Path</b></em>' attribute.

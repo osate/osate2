@@ -37,7 +37,7 @@ import org.osate.verify.verify.VerifyPackage;
  *
  * @generated
  */
-public class PluginMethodImpl extends MethodTypeImpl implements PluginMethod
+public class PluginMethodImpl extends MethodKindImpl implements PluginMethod
 {
   /**
    * The default value of the '{@link #getMethodID() <em>Method ID</em>}' attribute.

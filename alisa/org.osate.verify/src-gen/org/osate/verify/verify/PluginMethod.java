@@ -32,7 +32,7 @@ package org.osate.verify.verify;
  * @model
  * @generated
  */
-public interface PluginMethod extends MethodType
+public interface PluginMethod extends MethodKind
 {
   /**
    * Returns the value of the '<em><b>Method ID</b></em>' attribute.

@@ -19,8 +19,12 @@
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="targetDescription" eType="ecore:EDataType platform:/resource/org.eclipse.emf.ecore/model/Ecore.ecore#//EString"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="target" eType="ecore:EClass platform:/resource/org.osate.aadl2/model/aadl2.ecore#//ComponentClassifier"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="targetElement" eType="ecore:EClass platform:/resource/org.osate.aadl2/model/aadl2.ecore#//NamedElement"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="category" unique="false"
-        upperBound="-1" eType="ecore:EClass platform:/resource/org.osate.categories/model/generated/Categories.ecore#//Category"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="requirementType" unique="false"
+        upperBound="-1" eType="ecore:EClass platform:/resource/org.osate.categories/model/generated/Categories.ecore#//RequirementType"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="qualityAttribute" unique="false"
+        upperBound="-1" eType="ecore:EClass platform:/resource/org.osate.categories/model/generated/Categories.ecore#//QualityAttribute"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="userSelection" unique="false"
+        upperBound="-1" eType="ecore:EClass platform:/resource/org.osate.categories/model/generated/Categories.ecore#//UserSelection"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="description" eType="ecore:EClass platform:/resource/org.osate.alisa.common/model/generated/Common.ecore#//Description"
         containment="true"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="constants" upperBound="-1"

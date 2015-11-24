@@ -8,10 +8,10 @@ import "http://www.osate.org/alisa/common/Common" as common
 import  "http://www.rockwellcollins.com/atc/resolute/Resolute" as resolute
 
 Verification:
-	contents+=	( VerificationPlan | GlobalVerificationPlan | VerificationMethodRegistry)+;
+	contents+=	( VerificationPlan  | VerificationMethodRegistry)+;
 
 VerificationPlan returns VerificationPlan:
-	'system''verification' 'plan'{SystemVerificationPlan} name=QualifiedName (':' title=STRING)? 
+	'verification' 'plan' name=QualifiedName (':' title=STRING)? 
 	'for' requirements=[ReqSpec::SystemRequirements|QualifiedName]  
 	'['
 	(
@@ -22,17 +22,6 @@ VerificationPlan returns VerificationPlan:
 	)
 	']';
 
-GlobalVerificationPlan returns VerificationPlan:
-	'global''verification' 'plan' {GlobalVerificationPlan} name=QualifiedName (':' title=STRING)? 
-	'for' requirements=[ReqSpec::GlobalRequirements|QualifiedName]  
-	'['
-	(
-		( description=Description)?
-	& claim+=Claim*
-	& rationale=Rationale?
-	& ('issues' issues+=STRING+ )?
-	)
-	']';
 
 Claim:
 	'claim' requirement=[ReqSpec::Requirement|QualifiedName]  (':' title=STRING)?
@@ -94,8 +83,8 @@ VAReference returns ArgumentExpr:
 VerificationActivity:
 	name=ID (':' title=STRING)? 
 //	('for' target=[aadl2::ComponentImplementation|AadlClassifierReference])? // for specific AADL model configuration
-	('phase' category+=[categories::PhaseCategory|ID]+)?
-	('selection' category+=[categories::SelectionCategory|ID]+)?
+	('development''phase' developmentPhase+=[categories::DevelopmentPhase|ID]+)?
+	('user''selection' userSelection+=[categories::UserSelection|ID]+)?
 	':'
 	(result+=[common::ComputeDeclaration|ID] (',' result+=[common::ComputeDeclaration|ID])* '=')?
 	method=[VerificationMethod|QualifiedName] 
@@ -148,18 +137,18 @@ VerificationMethod:
 	(':' title=STRING)?
 	'['
 	(
-		  methodType=MethodType 
+		  methodKind=MethodKind 
 		& description=Description?
 		& precondition=VerificationPrecondition?
 		& validation=VerificationValidation?
-		& ('category' category+=[categories::MethodCategory|ID]+)?
-		& ('quality' category+=[categories::QualityCategory|ID]+)?
-		& ('selection' category+=[categories::SelectionCategory|ID]+)?
+		& ('method''type' methodType+=[categories::MethodType|ID]+)?
+		& ('quality''attribute' qualityAttribute+=[categories::QualityAttribute|ID]+)?
+		& ('user''selection' userSelection+=[categories::UserSelection|ID]+)?
 	)
 	']'
 	;
 
-MethodType:
+MethodKind:
 	ResoluteMethod | JavaMethod | ManualMethod | PluginMethod
 ;
 	

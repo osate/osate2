@@ -14,31 +14,27 @@ AssurancePlan:
 	'['
 	(
 	(description=Description)?
-	& ('assure' 'own' assureOwn+=[Verify::SystemVerificationPlan|QualifiedName]+)?
-	& ('assure' 'global' assureGlobal+=[Verify::GlobalVerificationPlan|QualifiedName]+)?
-	& ('assure' 'subsystem' 'plans' assureSubsystemPlans+=[AssurancePlan|QualifiedName]+)?
-	& ('assume' 'subsystems' (assumeSubsystems+=[aadl2::ComponentClassifier|AadlClassifierReference]+|assumeAll?='all'))?
+	& ('assure' assure+=[Verify::VerificationPlan|QualifiedName]+)?
+	& ('assure' 'subsystem' assureSubsystems+=[aadl2::Subcomponent|ID]+|assureAll?='all')?
+	& ('assume' 'subsystem' (assumeSubsystems+=[aadl2::Subcomponent|ID]+|assumeAll?='all'))?
 		& ('issues' issues+=STRING+ )?
 	)
 	']';
 	
-	AssuranceTask returns AssuranceTask :
-		'assurance' 'task' name=ID (':' title=STRING)? 'for' assurancePlan=[AssurancePlan|QualifiedName]
+	AssuranceTask returns CategoryFilter :
+		{AssuranceTask} 'assurance''task' name=ID (':' title=STRING)? 'for' assurancePlan=[AssurancePlan|QualifiedName]
 	'['
 	(
 	('description' description=Description)?
-	&( 'filter'  filter+=[categories::Category|ID]+ strictFilter?='only'?)?
+	&( 	'filter' '['
+		('requirement''type' requirementType+=[categories::RequirementType|ID]+ anyRequirementType?='any'?)?
+		&('method''type' methodType+=[categories::MethodType|ID]+ anyMethodType?='any'?)?
+		&('user''selection' userSelection+=[categories::UserSelection|ID]+ anyUserSelection?='any'?)?
+		&('quality''attribute' qualityAttribute+=[categories::QualityAttribute|ID]+ anyQualityAttribute?='any'?)?
+		&('development''phase' developmentPhase+=[categories::DevelopmentPhase|ID]+ anyDevelopmentPhase?='any'?)?
+	']'
+	)?
 	&('issues' issues+=STRING+ )?
 	)
 	']'
 	;
-	
-//OrSelectionConditionExpr returns SelectionConditionExpr:
-//	AndSelectionConditionExpr (=> ({AndSelectionConditionExpr.left=current} 'or') right=OrSelectionConditionExpr)*;
-//
-//AndSelectionConditionExpr returns SelectionConditionExpr:
-//	SelectionCategoryReference (=> ({AndSelectionConditionExpr.left=current} 'and') right=AndSelectionConditionExpr)*;
-//
-//SelectionCategoryReference:
-//	cat=[categories::Category|ID];
-	

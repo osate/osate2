@@ -215,9 +215,9 @@ public class ReqSpecSemanticSequencer extends CommonSemanticSequencer {
 	 *             name=ID 
 	 *             title=STRING? 
 	 *             targetElement=[NamedElement|ID]? 
-	 *             category+=[RequirementCategory|ID]* 
-	 *             category+=[QualityCategory|ID]* 
-	 *             category+=[SelectionCategory|ID]* 
+	 *             requirementType+=[RequirementType|ID]* 
+	 *             qualityAttribute+=[QualityAttribute|ID]* 
+	 *             userSelection+=[UserSelection|ID]* 
 	 *             description=Description? 
 	 *             constants+=ValDeclaration* 
 	 *             rationale=Rationale? 
@@ -234,9 +234,9 @@ public class ReqSpecSemanticSequencer extends CommonSemanticSequencer {
 	 *             name=ID 
 	 *             title=STRING? 
 	 *             (targetDescription=STRING | (target=[ComponentClassifier|AadlClassifierReference] targetElement=[NamedElement|ID]?))? 
-	 *             category+=[RequirementCategory|ID]* 
-	 *             category+=[QualityCategory|ID]* 
-	 *             category+=[SelectionCategory|ID]* 
+	 *             requirementType+=[RequirementType|ID]* 
+	 *             qualityAttribute+=[QualityAttribute|ID]* 
+	 *             userSelection+=[UserSelection|ID]* 
 	 *             description=Description? 
 	 *             constants+=ValDeclaration* 
 	 *             rationale=Rationale? 
@@ -263,9 +263,9 @@ public class ReqSpecSemanticSequencer extends CommonSemanticSequencer {
 	 *             name=ID 
 	 *             title=STRING? 
 	 *             (componentCategory+=ComponentCategory+ | global?='all')? 
-	 *             category+=[RequirementCategory|ID]* 
-	 *             category+=[QualityCategory|ID]* 
-	 *             category+=[SelectionCategory|ID]* 
+	 *             requirementType+=[RequirementType|ID]* 
+	 *             qualityAttribute+=[QualityAttribute|ID]* 
+	 *             userSelection+=[UserSelection|ID]* 
 	 *             description=Description? 
 	 *             constants+=ValDeclaration* 
 	 *             computes+=ComputeDeclaration* 
@@ -291,9 +291,9 @@ public class ReqSpecSemanticSequencer extends CommonSemanticSequencer {
 	 *                 componentCategory+=ComponentCategory+ | 
 	 *                 global?='all'
 	 *             )? 
-	 *             category+=[RequirementCategory|ID]* 
-	 *             category+=[QualityCategory|ID]* 
-	 *             category+=[SelectionCategory|ID]* 
+	 *             requirementType+=[RequirementType|ID]* 
+	 *             qualityAttribute+=[QualityAttribute|ID]* 
+	 *             userSelection+=[UserSelection|ID]* 
 	 *             description=Description? 
 	 *             constants+=ValDeclaration* 
 	 *             computes+=ComputeDeclaration* 
@@ -323,9 +323,9 @@ public class ReqSpecSemanticSequencer extends CommonSemanticSequencer {
 	 *         name=ID 
 	 *         title=STRING? 
 	 *         (targetDescription=STRING | (target=[ComponentClassifier|AadlClassifierReference] targetElement=[NamedElement|ID]?))? 
-	 *         category+=[RequirementCategory|ID]* 
-	 *         category+=[QualityCategory|ID]* 
-	 *         category+=[SelectionCategory|ID]* 
+	 *         requirementType+=[RequirementType|ID]* 
+	 *         qualityAttribute+=[QualityAttribute|ID]* 
+	 *         userSelection+=[UserSelection|ID]* 
 	 *         description=Description? 
 	 *         constants+=ValDeclaration* 
 	 *         rationale=Rationale? 
@@ -355,9 +355,9 @@ public class ReqSpecSemanticSequencer extends CommonSemanticSequencer {
 	 *             componentCategory+=ComponentCategory+ | 
 	 *             global?='all'
 	 *         )? 
-	 *         category+=[RequirementCategory|ID]* 
-	 *         category+=[QualityCategory|ID]* 
-	 *         category+=[SelectionCategory|ID]* 
+	 *         requirementType+=[RequirementType|ID]* 
+	 *         qualityAttribute+=[QualityAttribute|ID]* 
+	 *         userSelection+=[UserSelection|ID]* 
 	 *         description=Description? 
 	 *         constants+=ValDeclaration* 
 	 *         computes+=ComputeDeclaration* 
@@ -433,9 +433,9 @@ public class ReqSpecSemanticSequencer extends CommonSemanticSequencer {
 	 *         name=ID 
 	 *         title=STRING? 
 	 *         targetElement=[NamedElement|ID]? 
-	 *         category+=[RequirementCategory|ID]* 
-	 *         category+=[QualityCategory|ID]* 
-	 *         category+=[SelectionCategory|ID]* 
+	 *         requirementType+=[RequirementType|ID]* 
+	 *         qualityAttribute+=[QualityAttribute|ID]* 
+	 *         userSelection+=[UserSelection|ID]* 
 	 *         description=Description? 
 	 *         constants+=ValDeclaration* 
 	 *         rationale=Rationale? 
@@ -517,9 +517,9 @@ public class ReqSpecSemanticSequencer extends CommonSemanticSequencer {
 	 *         name=ID 
 	 *         title=STRING? 
 	 *         (componentCategory+=ComponentCategory+ | global?='all')? 
-	 *         category+=[RequirementCategory|ID]* 
-	 *         category+=[QualityCategory|ID]* 
-	 *         category+=[SelectionCategory|ID]* 
+	 *         requirementType+=[RequirementType|ID]* 
+	 *         qualityAttribute+=[QualityAttribute|ID]* 
+	 *         userSelection+=[UserSelection|ID]* 
 	 *         description=Description? 
 	 *         constants+=ValDeclaration* 
 	 *         computes+=ComputeDeclaration* 
@@ -567,9 +567,9 @@ public class ReqSpecSemanticSequencer extends CommonSemanticSequencer {
 	 *         name=ID 
 	 *         title=STRING? 
 	 *         targetElement=[NamedElement|ID]? 
-	 *         category+=[RequirementCategory|ID]* 
-	 *         category+=[QualityCategory|ID]* 
-	 *         category+=[SelectionCategory|ID]* 
+	 *         requirementType+=[RequirementType|ID]* 
+	 *         qualityAttribute+=[QualityAttribute|ID]* 
+	 *         userSelection+=[UserSelection|ID]* 
 	 *         description=Description? 
 	 *         constants+=ValDeclaration* 
 	 *         computes+=ComputeDeclaration* 

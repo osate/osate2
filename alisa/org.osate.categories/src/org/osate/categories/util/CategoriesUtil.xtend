@@ -19,11 +19,10 @@ package org.osate.categories.util
 import java.util.HashSet
 import org.osate.categories.categories.Categories
 import org.osate.categories.categories.Category
-import org.osate.categories.categories.CategorySet
-import org.osate.categories.categories.MethodCategories
-import org.osate.categories.categories.QualityCategories
-import org.osate.categories.categories.RequirementCategories
-import org.osate.categories.categories.SelectionCategories
+import org.osate.categories.categories.RequirementTypeCategories
+import org.osate.categories.categories.MethodTypeCategories
+import org.osate.categories.categories.UserSelectionCategories
+import org.osate.categories.categories.QualityAttributeCategories
 
 class CategoriesUtil {
 
@@ -33,77 +32,20 @@ class CategoriesUtil {
 
 	def static category(Categories cats) {
 		switch (cats) {
-			RequirementCategories: cats.category
-			MethodCategories: cats.category
-			SelectionCategories: cats.category
-			QualityCategories: cats.category
+			RequirementTypeCategories: cats.category
+			MethodTypeCategories: cats.category
+			UserSelectionCategories: cats.category
+			QualityAttributeCategories: cats.category
 		}
 	}
 
-	def static boolean isSameorContains(Category catset, Category cat) {
-		if(catset.name.equalsIgnoreCase(cat.name)) return true
-		if (catset instanceof CategorySet) {
-			for (c : catset.elements) {
-				if(c.isSameorContains(cat)) return true
-			}
-		}
-		return false;
-	}
-
-	def static CategorySet hasCycle(CategorySet cat) {
-		val visitedCategory = <Category>newHashSet()
-		return doCycle(cat, visitedCategory)
-	}
-
-	private static def CategorySet doCycle(CategorySet catset, HashSet<Category> visitedCategory) {
-		for (c : catset.elements) {
-			if (visitedCategory.contains(c)) {
-				return catset
-			}
-			if (c instanceof CategorySet){
-				val res = c.doCycle(visitedCategory)
-				if (res != null) return res
-			}
-		}
-		return null
-	}
-
-	def static void removeSetElement(CategorySet catset, String name) {
-		val obj = catset.findSubcategory(name)
-		catset.elements.remove(obj)
-	}
-
-	def static Category findSubcategory(CategorySet catset, String name) {
-		for (c : catset.elements) {
-			if(c.name.equalsIgnoreCase(catset.name)) return c
-		}
-		return null;
-	}
-
-	def static boolean intersects(Iterable<? extends Category> elementcat, Iterable<? extends Category> criteria,
-		boolean strict) {
-		if(criteria.empty) return true // elementcat can be empty or non-empty
-		if (elementcat.empty) {
-			return !strict
-		}
-		for (f : criteria) {
-			for (s : elementcat) {
-				if(f.isSameorContains(s) || s.isSameorContains(f)) return true
-			}
-		}
-		return false
-	}
-
-	def static boolean intersects(Iterable<? extends Category> elementcat, CategorySet criteria,
-		boolean strict) {
-		if(criteria.elements.empty) return true // elementcat can be empty or non-empty
-		if (elementcat.empty) {
-			return !strict
-		}
-		for (f : criteria.elements) {
-			for (s : elementcat) {
-				if(f.isSameorContains(s) || s.isSameorContains(f)) 
-					return true
+	def static boolean intersects(Iterable<? extends Category> specifiedCategories, Iterable<? extends Category> filterCriteria,
+		boolean any) {
+		if(filterCriteria.empty) return true 
+		if (specifiedCategories.empty) return any
+		for (fcrit : filterCriteria){
+			for (scat : specifiedCategories) {
+				if(fcrit.name.equalsIgnoreCase(scat.name)) return true
 			}
 		}
 		return false

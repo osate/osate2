@@ -22,7 +22,8 @@ import org.eclipse.emf.ecore.EObject;
 import org.osate.alisa.common.common.ComputeDeclaration;
 import org.osate.alisa.common.common.ValDeclaration;
 
-import org.osate.categories.categories.Category;
+import org.osate.categories.categories.DevelopmentPhase;
+import org.osate.categories.categories.UserSelection;
 
 /**
  * <!-- begin-user-doc -->
@@ -35,7 +36,8 @@ import org.osate.categories.categories.Category;
  * <ul>
  *   <li>{@link org.osate.verify.verify.VerificationActivity#getName <em>Name</em>}</li>
  *   <li>{@link org.osate.verify.verify.VerificationActivity#getTitle <em>Title</em>}</li>
- *   <li>{@link org.osate.verify.verify.VerificationActivity#getCategory <em>Category</em>}</li>
+ *   <li>{@link org.osate.verify.verify.VerificationActivity#getDevelopmentPhase <em>Development Phase</em>}</li>
+ *   <li>{@link org.osate.verify.verify.VerificationActivity#getUserSelection <em>User Selection</em>}</li>
  *   <li>{@link org.osate.verify.verify.VerificationActivity#getResult <em>Result</em>}</li>
  *   <li>{@link org.osate.verify.verify.VerificationActivity#getMethod <em>Method</em>}</li>
  *   <li>{@link org.osate.verify.verify.VerificationActivity#getParameters <em>Parameters</em>}</li>
@@ -102,20 +104,36 @@ public interface VerificationActivity extends EObject
   void setTitle(String value);
 
   /**
-   * Returns the value of the '<em><b>Category</b></em>' reference list.
-   * The list contents are of type {@link org.osate.categories.categories.Category}.
+   * Returns the value of the '<em><b>Development Phase</b></em>' reference list.
+   * The list contents are of type {@link org.osate.categories.categories.DevelopmentPhase}.
    * <!-- begin-user-doc -->
    * <p>
-   * If the meaning of the '<em>Category</em>' reference list isn't clear,
+   * If the meaning of the '<em>Development Phase</em>' reference list isn't clear,
    * there really should be more of a description here...
    * </p>
    * <!-- end-user-doc -->
-   * @return the value of the '<em>Category</em>' reference list.
-   * @see org.osate.verify.verify.VerifyPackage#getVerificationActivity_Category()
+   * @return the value of the '<em>Development Phase</em>' reference list.
+   * @see org.osate.verify.verify.VerifyPackage#getVerificationActivity_DevelopmentPhase()
    * @model
    * @generated
    */
-  EList<Category> getCategory();
+  EList<DevelopmentPhase> getDevelopmentPhase();
+
+  /**
+   * Returns the value of the '<em><b>User Selection</b></em>' reference list.
+   * The list contents are of type {@link org.osate.categories.categories.UserSelection}.
+   * <!-- begin-user-doc -->
+   * <p>
+   * If the meaning of the '<em>User Selection</em>' reference list isn't clear,
+   * there really should be more of a description here...
+   * </p>
+   * <!-- end-user-doc -->
+   * @return the value of the '<em>User Selection</em>' reference list.
+   * @see org.osate.verify.verify.VerifyPackage#getVerificationActivity_UserSelection()
+   * @model
+   * @generated
+   */
+  EList<UserSelection> getUserSelection();
 
   /**
    * Returns the value of the '<em><b>Result</b></em>' reference list.

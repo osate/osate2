@@ -106,90 +106,90 @@ public class CategoriesSwitch<T> extends Switch<T>
         if (result == null) result = defaultCase(theEObject);
         return result;
       }
-      case CategoriesPackage.CATEGORY_FILTERS:
+      case CategoriesPackage.CATEGORY_FILTER:
       {
-        CategoryFilters categoryFilters = (CategoryFilters)theEObject;
-        T result = caseCategoryFilters(categoryFilters);
+        CategoryFilter categoryFilter = (CategoryFilter)theEObject;
+        T result = caseCategoryFilter(categoryFilter);
         if (result == null) result = defaultCase(theEObject);
         return result;
       }
-      case CategoriesPackage.REQUIREMENT_CATEGORIES:
+      case CategoriesPackage.REQUIREMENT_TYPE_CATEGORIES:
       {
-        RequirementCategories requirementCategories = (RequirementCategories)theEObject;
-        T result = caseRequirementCategories(requirementCategories);
-        if (result == null) result = caseCategories(requirementCategories);
+        RequirementTypeCategories requirementTypeCategories = (RequirementTypeCategories)theEObject;
+        T result = caseRequirementTypeCategories(requirementTypeCategories);
+        if (result == null) result = caseCategories(requirementTypeCategories);
         if (result == null) result = defaultCase(theEObject);
         return result;
       }
-      case CategoriesPackage.METHOD_CATEGORIES:
+      case CategoriesPackage.METHOD_TYPE_CATEGORIES:
       {
-        MethodCategories methodCategories = (MethodCategories)theEObject;
-        T result = caseMethodCategories(methodCategories);
-        if (result == null) result = caseCategories(methodCategories);
+        MethodTypeCategories methodTypeCategories = (MethodTypeCategories)theEObject;
+        T result = caseMethodTypeCategories(methodTypeCategories);
+        if (result == null) result = caseCategories(methodTypeCategories);
         if (result == null) result = defaultCase(theEObject);
         return result;
       }
-      case CategoriesPackage.SELECTION_CATEGORIES:
+      case CategoriesPackage.USER_SELECTION_CATEGORIES:
       {
-        SelectionCategories selectionCategories = (SelectionCategories)theEObject;
-        T result = caseSelectionCategories(selectionCategories);
-        if (result == null) result = caseCategories(selectionCategories);
+        UserSelectionCategories userSelectionCategories = (UserSelectionCategories)theEObject;
+        T result = caseUserSelectionCategories(userSelectionCategories);
+        if (result == null) result = caseCategories(userSelectionCategories);
         if (result == null) result = defaultCase(theEObject);
         return result;
       }
-      case CategoriesPackage.QUALITY_CATEGORIES:
+      case CategoriesPackage.QUALITY_ATTRIBUTE_CATEGORIES:
       {
-        QualityCategories qualityCategories = (QualityCategories)theEObject;
-        T result = caseQualityCategories(qualityCategories);
-        if (result == null) result = caseCategories(qualityCategories);
+        QualityAttributeCategories qualityAttributeCategories = (QualityAttributeCategories)theEObject;
+        T result = caseQualityAttributeCategories(qualityAttributeCategories);
+        if (result == null) result = caseCategories(qualityAttributeCategories);
         if (result == null) result = defaultCase(theEObject);
         return result;
       }
-      case CategoriesPackage.REQUIREMENT_CATEGORY:
+      case CategoriesPackage.DEVELOPMENT_PHASE_CATEGORIES:
       {
-        RequirementCategory requirementCategory = (RequirementCategory)theEObject;
-        T result = caseRequirementCategory(requirementCategory);
-        if (result == null) result = caseCategory(requirementCategory);
+        DevelopmentPhaseCategories developmentPhaseCategories = (DevelopmentPhaseCategories)theEObject;
+        T result = caseDevelopmentPhaseCategories(developmentPhaseCategories);
+        if (result == null) result = caseCategories(developmentPhaseCategories);
         if (result == null) result = defaultCase(theEObject);
         return result;
       }
-      case CategoriesPackage.METHOD_CATEGORY:
+      case CategoriesPackage.REQUIREMENT_TYPE:
       {
-        MethodCategory methodCategory = (MethodCategory)theEObject;
-        T result = caseMethodCategory(methodCategory);
-        if (result == null) result = caseCategory(methodCategory);
+        RequirementType requirementType = (RequirementType)theEObject;
+        T result = caseRequirementType(requirementType);
+        if (result == null) result = caseCategory(requirementType);
         if (result == null) result = defaultCase(theEObject);
         return result;
       }
-      case CategoriesPackage.SELECTION_CATEGORY:
+      case CategoriesPackage.METHOD_TYPE:
       {
-        SelectionCategory selectionCategory = (SelectionCategory)theEObject;
-        T result = caseSelectionCategory(selectionCategory);
-        if (result == null) result = caseCategory(selectionCategory);
+        MethodType methodType = (MethodType)theEObject;
+        T result = caseMethodType(methodType);
+        if (result == null) result = caseCategory(methodType);
         if (result == null) result = defaultCase(theEObject);
         return result;
       }
-      case CategoriesPackage.QUALITY_CATEGORY:
+      case CategoriesPackage.USER_SELECTION:
       {
-        QualityCategory qualityCategory = (QualityCategory)theEObject;
-        T result = caseQualityCategory(qualityCategory);
-        if (result == null) result = caseCategory(qualityCategory);
+        UserSelection userSelection = (UserSelection)theEObject;
+        T result = caseUserSelection(userSelection);
+        if (result == null) result = caseCategory(userSelection);
         if (result == null) result = defaultCase(theEObject);
         return result;
       }
-      case CategoriesPackage.PHASE_CATEGORY:
+      case CategoriesPackage.QUALITY_ATTRIBUTE:
       {
-        PhaseCategory phaseCategory = (PhaseCategory)theEObject;
-        T result = casePhaseCategory(phaseCategory);
-        if (result == null) result = caseCategory(phaseCategory);
+        QualityAttribute qualityAttribute = (QualityAttribute)theEObject;
+        T result = caseQualityAttribute(qualityAttribute);
+        if (result == null) result = caseCategory(qualityAttribute);
         if (result == null) result = defaultCase(theEObject);
         return result;
       }
-      case CategoriesPackage.CATEGORY_SET:
+      case CategoriesPackage.DEVELOPMENT_PHASE:
       {
-        CategorySet categorySet = (CategorySet)theEObject;
-        T result = caseCategorySet(categorySet);
-        if (result == null) result = caseCategory(categorySet);
+        DevelopmentPhase developmentPhase = (DevelopmentPhase)theEObject;
+        T result = caseDevelopmentPhase(developmentPhase);
+        if (result == null) result = caseCategory(developmentPhase);
         if (result == null) result = defaultCase(theEObject);
         return result;
       }
@@ -246,177 +246,177 @@ public class CategoriesSwitch<T> extends Switch<T>
   }
 
   /**
-   * Returns the result of interpreting the object as an instance of '<em>Category Filters</em>'.
+   * Returns the result of interpreting the object as an instance of '<em>Category Filter</em>'.
    * <!-- begin-user-doc -->
    * This implementation returns null;
    * returning a non-null result will terminate the switch.
    * <!-- end-user-doc -->
    * @param object the target of the switch.
-   * @return the result of interpreting the object as an instance of '<em>Category Filters</em>'.
+   * @return the result of interpreting the object as an instance of '<em>Category Filter</em>'.
    * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
    * @generated
    */
-  public T caseCategoryFilters(CategoryFilters object)
+  public T caseCategoryFilter(CategoryFilter object)
   {
     return null;
   }
 
   /**
-   * Returns the result of interpreting the object as an instance of '<em>Requirement Categories</em>'.
+   * Returns the result of interpreting the object as an instance of '<em>Requirement Type Categories</em>'.
    * <!-- begin-user-doc -->
    * This implementation returns null;
    * returning a non-null result will terminate the switch.
    * <!-- end-user-doc -->
    * @param object the target of the switch.
-   * @return the result of interpreting the object as an instance of '<em>Requirement Categories</em>'.
+   * @return the result of interpreting the object as an instance of '<em>Requirement Type Categories</em>'.
    * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
    * @generated
    */
-  public T caseRequirementCategories(RequirementCategories object)
+  public T caseRequirementTypeCategories(RequirementTypeCategories object)
   {
     return null;
   }
 
   /**
-   * Returns the result of interpreting the object as an instance of '<em>Method Categories</em>'.
+   * Returns the result of interpreting the object as an instance of '<em>Method Type Categories</em>'.
    * <!-- begin-user-doc -->
    * This implementation returns null;
    * returning a non-null result will terminate the switch.
    * <!-- end-user-doc -->
    * @param object the target of the switch.
-   * @return the result of interpreting the object as an instance of '<em>Method Categories</em>'.
+   * @return the result of interpreting the object as an instance of '<em>Method Type Categories</em>'.
    * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
    * @generated
    */
-  public T caseMethodCategories(MethodCategories object)
+  public T caseMethodTypeCategories(MethodTypeCategories object)
   {
     return null;
   }
 
   /**
-   * Returns the result of interpreting the object as an instance of '<em>Selection Categories</em>'.
+   * Returns the result of interpreting the object as an instance of '<em>User Selection Categories</em>'.
    * <!-- begin-user-doc -->
    * This implementation returns null;
    * returning a non-null result will terminate the switch.
    * <!-- end-user-doc -->
    * @param object the target of the switch.
-   * @return the result of interpreting the object as an instance of '<em>Selection Categories</em>'.
+   * @return the result of interpreting the object as an instance of '<em>User Selection Categories</em>'.
    * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
    * @generated
    */
-  public T caseSelectionCategories(SelectionCategories object)
+  public T caseUserSelectionCategories(UserSelectionCategories object)
   {
     return null;
   }
 
   /**
-   * Returns the result of interpreting the object as an instance of '<em>Quality Categories</em>'.
+   * Returns the result of interpreting the object as an instance of '<em>Quality Attribute Categories</em>'.
    * <!-- begin-user-doc -->
    * This implementation returns null;
    * returning a non-null result will terminate the switch.
    * <!-- end-user-doc -->
    * @param object the target of the switch.
-   * @return the result of interpreting the object as an instance of '<em>Quality Categories</em>'.
+   * @return the result of interpreting the object as an instance of '<em>Quality Attribute Categories</em>'.
    * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
    * @generated
    */
-  public T caseQualityCategories(QualityCategories object)
+  public T caseQualityAttributeCategories(QualityAttributeCategories object)
   {
     return null;
   }
 
   /**
-   * Returns the result of interpreting the object as an instance of '<em>Requirement Category</em>'.
+   * Returns the result of interpreting the object as an instance of '<em>Development Phase Categories</em>'.
    * <!-- begin-user-doc -->
    * This implementation returns null;
    * returning a non-null result will terminate the switch.
    * <!-- end-user-doc -->
    * @param object the target of the switch.
-   * @return the result of interpreting the object as an instance of '<em>Requirement Category</em>'.
+   * @return the result of interpreting the object as an instance of '<em>Development Phase Categories</em>'.
    * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
    * @generated
    */
-  public T caseRequirementCategory(RequirementCategory object)
+  public T caseDevelopmentPhaseCategories(DevelopmentPhaseCategories object)
   {
     return null;
   }
 
   /**
-   * Returns the result of interpreting the object as an instance of '<em>Method Category</em>'.
+   * Returns the result of interpreting the object as an instance of '<em>Requirement Type</em>'.
    * <!-- begin-user-doc -->
    * This implementation returns null;
    * returning a non-null result will terminate the switch.
    * <!-- end-user-doc -->
    * @param object the target of the switch.
-   * @return the result of interpreting the object as an instance of '<em>Method Category</em>'.
+   * @return the result of interpreting the object as an instance of '<em>Requirement Type</em>'.
    * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
    * @generated
    */
-  public T caseMethodCategory(MethodCategory object)
+  public T caseRequirementType(RequirementType object)
   {
     return null;
   }
 
   /**
-   * Returns the result of interpreting the object as an instance of '<em>Selection Category</em>'.
+   * Returns the result of interpreting the object as an instance of '<em>Method Type</em>'.
    * <!-- begin-user-doc -->
    * This implementation returns null;
    * returning a non-null result will terminate the switch.
    * <!-- end-user-doc -->
    * @param object the target of the switch.
-   * @return the result of interpreting the object as an instance of '<em>Selection Category</em>'.
+   * @return the result of interpreting the object as an instance of '<em>Method Type</em>'.
    * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
    * @generated
    */
-  public T caseSelectionCategory(SelectionCategory object)
+  public T caseMethodType(MethodType object)
   {
     return null;
   }
 
   /**
-   * Returns the result of interpreting the object as an instance of '<em>Quality Category</em>'.
+   * Returns the result of interpreting the object as an instance of '<em>User Selection</em>'.
    * <!-- begin-user-doc -->
    * This implementation returns null;
    * returning a non-null result will terminate the switch.
    * <!-- end-user-doc -->
    * @param object the target of the switch.
-   * @return the result of interpreting the object as an instance of '<em>Quality Category</em>'.
+   * @return the result of interpreting the object as an instance of '<em>User Selection</em>'.
    * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
    * @generated
    */
-  public T caseQualityCategory(QualityCategory object)
+  public T caseUserSelection(UserSelection object)
   {
     return null;
   }
 
   /**
-   * Returns the result of interpreting the object as an instance of '<em>Phase Category</em>'.
+   * Returns the result of interpreting the object as an instance of '<em>Quality Attribute</em>'.
    * <!-- begin-user-doc -->
    * This implementation returns null;
    * returning a non-null result will terminate the switch.
    * <!-- end-user-doc -->
    * @param object the target of the switch.
-   * @return the result of interpreting the object as an instance of '<em>Phase Category</em>'.
+   * @return the result of interpreting the object as an instance of '<em>Quality Attribute</em>'.
    * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
    * @generated
    */
-  public T casePhaseCategory(PhaseCategory object)
+  public T caseQualityAttribute(QualityAttribute object)
   {
     return null;
   }
 
   /**
-   * Returns the result of interpreting the object as an instance of '<em>Category Set</em>'.
+   * Returns the result of interpreting the object as an instance of '<em>Development Phase</em>'.
    * <!-- begin-user-doc -->
    * This implementation returns null;
    * returning a non-null result will terminate the switch.
    * <!-- end-user-doc -->
    * @param object the target of the switch.
-   * @return the result of interpreting the object as an instance of '<em>Category Set</em>'.
+   * @return the result of interpreting the object as an instance of '<em>Development Phase</em>'.
    * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
    * @generated
    */
-  public T caseCategorySet(CategorySet object)
+  public T caseDevelopmentPhase(DevelopmentPhase object)
   {
     return null;
   }

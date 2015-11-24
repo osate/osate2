@@ -32,7 +32,7 @@ package org.osate.verify.verify;
  * @model
  * @generated
  */
-public interface ManualMethod extends MethodType
+public interface ManualMethod extends MethodKind
 {
   /**
    * Returns the value of the '<em><b>Dialog ID</b></em>' attribute.

@@ -17,25 +17,20 @@
 package org.osate.verify.util
 
 import com.google.common.collect.HashMultimap
-import java.util.List
 import org.eclipse.emf.ecore.EObject
 import org.eclipse.emf.ecore.util.EcoreUtil
 import org.osate.aadl2.ComponentClassifier
-import org.osate.categories.categories.RequirementCategory
-import org.osate.categories.categories.SelectionCategory
-import org.osate.categories.categories.MethodCategory
-import org.osate.categories.util.CategoriesUtil
+import org.osate.aadl2.util.Aadl2Util
+import org.osate.categories.categories.CategoryFilter
 import org.osate.verify.verify.Claim
 import org.osate.verify.verify.ElseExpr
 import org.osate.verify.verify.VerificationActivity
+import org.osate.verify.verify.VerificationMethod
 import org.osate.verify.verify.VerificationPlan
 
-import static extension org.eclipse.emf.ecore.util.EcoreUtil.*
+import static org.osate.categories.util.CategoriesUtil.*
+
 import static extension org.eclipse.xtext.EcoreUtil2.*
-import org.osate.categories.categories.Category
-import org.osate.verify.verify.VerificationMethod
-import org.osate.verify.verify.GlobalVerificationPlan
-import org.osate.verify.verify.SystemVerificationPlan
 
 class VerifyUtilExtension {
 
@@ -70,12 +65,12 @@ class VerifyUtilExtension {
 		cee.error != null 
 	}
 	
-	def static ComponentClassifier getTargetComponentClassifier(SystemVerificationPlan vp){
+	def static ComponentClassifier getTargetComponentClassifier(VerificationPlan vp){
 		vp.requirements?.target
 	}
 	
 	def static containingVerificationPlan(EObject sh) {
-		sh.getContainerOfType(VerificationPlan)?:sh.getContainerOfType(GlobalVerificationPlan)
+		sh.getContainerOfType(VerificationPlan)
 	}
 	
 	def static getContainingClaim(EObject sh) {
@@ -87,27 +82,25 @@ class VerifyUtilExtension {
 		sh.getContainerOfType(VerificationMethod)
 	}
 	
-	def static getRequirements(VerificationPlan vp) {
-		switch (vp){
-			SystemVerificationPlan: vp.requirements
-			GlobalVerificationPlan: vp.requirements
-		}
-	}
-	
 
-	def static evaluateRequirementFilter(Claim claim, Iterable<Category> requirementFilter, boolean strict) {
-		val req = claim.requirement.category 
-		return CategoriesUtil.intersects(req,requirementFilter,strict)
+	def static evaluateRequirementFilter(Claim claim, CategoryFilter filter) {
+		val req = claim.requirement
+		if (Aadl2Util.isNull(req)) return false
+		return intersects(req.requirementType,filter.requirementType,filter.anyRequirementType) 
+		&& intersects(req.qualityAttribute,filter.qualityAttribute,filter.anyQualityAttribute)
+		&& intersects(req.userSelection,filter.userSelection,filter.anyUserSelection)
 	}
 
-	def static evaluateVerificationMethodFilter(VerificationActivity va, List<Category> verificationFilter, boolean strict) {
-		if (va.method == null) return true
-		val vcs = va.method?.category
-		return CategoriesUtil.intersects(vcs,verificationFilter,strict)
+	def static evaluateVerificationMethodFilter(VerificationActivity va, CategoryFilter filter) {
+		val vm = va.method
+		if (vm == null) return false
+		return intersects(vm.methodType,filter.methodType,filter.anyMethodType) 
+		&& intersects(vm.qualityAttribute,filter.qualityAttribute,filter.anyQualityAttribute)
+		&& intersects(vm.userSelection,filter.userSelection,filter.anyUserSelection)
 	}
 	
-	def static evaluateVerificationActivityFilter(VerificationActivity expr, List<Category> selectionFilter, boolean strict) {
-		val selection = expr.category
-		return CategoriesUtil.intersects(selection,selectionFilter,strict)
+	def static evaluateVerificationActivityFilter(VerificationActivity va, CategoryFilter filter) {
+		return intersects(va.developmentPhase,filter.developmentPhase,filter.anyDevelopmentPhase) 
+		&& intersects(va.userSelection,filter.userSelection,filter.anyUserSelection)
 	}
 }

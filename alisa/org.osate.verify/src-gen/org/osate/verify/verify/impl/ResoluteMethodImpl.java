@@ -40,7 +40,7 @@ import org.osate.verify.verify.VerifyPackage;
  *
  * @generated
  */
-public class ResoluteMethodImpl extends MethodTypeImpl implements ResoluteMethod
+public class ResoluteMethodImpl extends MethodKindImpl implements ResoluteMethod
 {
   /**
    * The cached value of the '{@link #getMethodReference() <em>Method Reference</em>}' reference.

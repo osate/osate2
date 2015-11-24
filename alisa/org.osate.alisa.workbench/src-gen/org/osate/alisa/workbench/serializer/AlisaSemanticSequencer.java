@@ -155,10 +155,9 @@ public class AlisaSemanticSequencer extends CommonSemanticSequencer {
 	 *         title=STRING? 
 	 *         target=[ComponentImplementation|AadlClassifierReference] 
 	 *         description=Description? 
-	 *         assureOwn+=[SystemVerificationPlan|QualifiedName]* 
-	 *         assureGlobal+=[GlobalVerificationPlan|QualifiedName]* 
-	 *         assureSubsystemPlans+=[AssurancePlan|QualifiedName]* 
-	 *         (assumeSubsystems+=[ComponentClassifier|AadlClassifierReference]+ | assumeAll?='all')? 
+	 *         assure+=[VerificationPlan|QualifiedName]* 
+	 *         (assureSubsystems+=[Subcomponent|ID]+ | assureAll?='all')? 
+	 *         (assumeSubsystems+=[Subcomponent|ID]+ | assumeAll?='all')? 
 	 *         issues+=STRING*
 	 *     )
 	 */
@@ -174,7 +173,13 @@ public class AlisaSemanticSequencer extends CommonSemanticSequencer {
 	 *         title=STRING? 
 	 *         assurancePlan=[AssurancePlan|QualifiedName] 
 	 *         description=Description? 
-	 *         (filter+=[Category|ID]+ strictFilter?='only'?)? 
+	 *         (
+	 *             (requirementType+=[RequirementType|ID]+ anyRequirementType?='any'?)? 
+	 *             (methodType+=[MethodType|ID]+ anyMethodType?='any'?)? 
+	 *             (userSelection+=[UserSelection|ID]+ anyUserSelection?='any'?)? 
+	 *             (qualityAttribute+=[QualityAttribute|ID]+ anyQualityAttribute?='any'?)? 
+	 *             (developmentPhase+=[DevelopmentPhase|ID]+ anyDevelopmentPhase?='any'?)?
+	 *         )? 
 	 *         issues+=STRING*
 	 *     )
 	 */

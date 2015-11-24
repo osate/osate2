@@ -28,15 +28,13 @@ import org.eclipse.xtext.ui.editor.contentassist.antlr.internal.Lexer;
 
 
 
+Development : 'development';
+
 Requirement : 'requirement';
 
-Categories : 'categories';
+Attribute : 'attribute';
 
 Selection : 'selection';
-
-Category : 'category';
-
-Filters : 'filters';
 
 Quality : 'quality';
 
@@ -44,13 +42,15 @@ Method : 'method';
 
 Phase : 'phase';
 
+Type : 'type';
+
+User : 'user';
+
+Any : 'any';
+
 LeftSquareBracket : '[';
 
 RightSquareBracket : ']';
-
-LeftCurlyBracket : '{';
-
-RightCurlyBracket : '}';
 
 
 

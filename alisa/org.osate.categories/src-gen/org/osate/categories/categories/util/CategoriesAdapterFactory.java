@@ -103,59 +103,59 @@ public class CategoriesAdapterFactory extends AdapterFactoryImpl
         return createCategoryAdapter();
       }
       @Override
-      public Adapter caseCategoryFilters(CategoryFilters object)
+      public Adapter caseCategoryFilter(CategoryFilter object)
       {
-        return createCategoryFiltersAdapter();
+        return createCategoryFilterAdapter();
       }
       @Override
-      public Adapter caseRequirementCategories(RequirementCategories object)
+      public Adapter caseRequirementTypeCategories(RequirementTypeCategories object)
       {
-        return createRequirementCategoriesAdapter();
+        return createRequirementTypeCategoriesAdapter();
       }
       @Override
-      public Adapter caseMethodCategories(MethodCategories object)
+      public Adapter caseMethodTypeCategories(MethodTypeCategories object)
       {
-        return createMethodCategoriesAdapter();
+        return createMethodTypeCategoriesAdapter();
       }
       @Override
-      public Adapter caseSelectionCategories(SelectionCategories object)
+      public Adapter caseUserSelectionCategories(UserSelectionCategories object)
       {
-        return createSelectionCategoriesAdapter();
+        return createUserSelectionCategoriesAdapter();
       }
       @Override
-      public Adapter caseQualityCategories(QualityCategories object)
+      public Adapter caseQualityAttributeCategories(QualityAttributeCategories object)
       {
-        return createQualityCategoriesAdapter();
+        return createQualityAttributeCategoriesAdapter();
       }
       @Override
-      public Adapter caseRequirementCategory(RequirementCategory object)
+      public Adapter caseDevelopmentPhaseCategories(DevelopmentPhaseCategories object)
       {
-        return createRequirementCategoryAdapter();
+        return createDevelopmentPhaseCategoriesAdapter();
       }
       @Override
-      public Adapter caseMethodCategory(MethodCategory object)
+      public Adapter caseRequirementType(RequirementType object)
       {
-        return createMethodCategoryAdapter();
+        return createRequirementTypeAdapter();
       }
       @Override
-      public Adapter caseSelectionCategory(SelectionCategory object)
+      public Adapter caseMethodType(MethodType object)
       {
-        return createSelectionCategoryAdapter();
+        return createMethodTypeAdapter();
       }
       @Override
-      public Adapter caseQualityCategory(QualityCategory object)
+      public Adapter caseUserSelection(UserSelection object)
       {
-        return createQualityCategoryAdapter();
+        return createUserSelectionAdapter();
       }
       @Override
-      public Adapter casePhaseCategory(PhaseCategory object)
+      public Adapter caseQualityAttribute(QualityAttribute object)
       {
-        return createPhaseCategoryAdapter();
+        return createQualityAttributeAdapter();
       }
       @Override
-      public Adapter caseCategorySet(CategorySet object)
+      public Adapter caseDevelopmentPhase(DevelopmentPhase object)
       {
-        return createCategorySetAdapter();
+        return createDevelopmentPhaseAdapter();
       }
       @Override
       public Adapter defaultCase(EObject object)
@@ -225,166 +225,166 @@ public class CategoriesAdapterFactory extends AdapterFactoryImpl
   }
 
   /**
-   * Creates a new adapter for an object of class '{@link org.osate.categories.categories.CategoryFilters <em>Category Filters</em>}'.
+   * Creates a new adapter for an object of class '{@link org.osate.categories.categories.CategoryFilter <em>Category Filter</em>}'.
    * <!-- begin-user-doc -->
    * This default implementation returns null so that we can easily ignore cases;
    * it's useful to ignore a case when inheritance will catch all the cases anyway.
    * <!-- end-user-doc -->
    * @return the new adapter.
-   * @see org.osate.categories.categories.CategoryFilters
+   * @see org.osate.categories.categories.CategoryFilter
    * @generated
    */
-  public Adapter createCategoryFiltersAdapter()
+  public Adapter createCategoryFilterAdapter()
   {
     return null;
   }
 
   /**
-   * Creates a new adapter for an object of class '{@link org.osate.categories.categories.RequirementCategories <em>Requirement Categories</em>}'.
+   * Creates a new adapter for an object of class '{@link org.osate.categories.categories.RequirementTypeCategories <em>Requirement Type Categories</em>}'.
    * <!-- begin-user-doc -->
    * This default implementation returns null so that we can easily ignore cases;
    * it's useful to ignore a case when inheritance will catch all the cases anyway.
    * <!-- end-user-doc -->
    * @return the new adapter.
-   * @see org.osate.categories.categories.RequirementCategories
+   * @see org.osate.categories.categories.RequirementTypeCategories
    * @generated
    */
-  public Adapter createRequirementCategoriesAdapter()
+  public Adapter createRequirementTypeCategoriesAdapter()
   {
     return null;
   }
 
   /**
-   * Creates a new adapter for an object of class '{@link org.osate.categories.categories.MethodCategories <em>Method Categories</em>}'.
+   * Creates a new adapter for an object of class '{@link org.osate.categories.categories.MethodTypeCategories <em>Method Type Categories</em>}'.
    * <!-- begin-user-doc -->
    * This default implementation returns null so that we can easily ignore cases;
    * it's useful to ignore a case when inheritance will catch all the cases anyway.
    * <!-- end-user-doc -->
    * @return the new adapter.
-   * @see org.osate.categories.categories.MethodCategories
+   * @see org.osate.categories.categories.MethodTypeCategories
    * @generated
    */
-  public Adapter createMethodCategoriesAdapter()
+  public Adapter createMethodTypeCategoriesAdapter()
   {
     return null;
   }
 
   /**
-   * Creates a new adapter for an object of class '{@link org.osate.categories.categories.SelectionCategories <em>Selection Categories</em>}'.
+   * Creates a new adapter for an object of class '{@link org.osate.categories.categories.UserSelectionCategories <em>User Selection Categories</em>}'.
    * <!-- begin-user-doc -->
    * This default implementation returns null so that we can easily ignore cases;
    * it's useful to ignore a case when inheritance will catch all the cases anyway.
    * <!-- end-user-doc -->
    * @return the new adapter.
-   * @see org.osate.categories.categories.SelectionCategories
+   * @see org.osate.categories.categories.UserSelectionCategories
    * @generated
    */
-  public Adapter createSelectionCategoriesAdapter()
+  public Adapter createUserSelectionCategoriesAdapter()
   {
     return null;
   }
 
   /**
-   * Creates a new adapter for an object of class '{@link org.osate.categories.categories.QualityCategories <em>Quality Categories</em>}'.
+   * Creates a new adapter for an object of class '{@link org.osate.categories.categories.QualityAttributeCategories <em>Quality Attribute Categories</em>}'.
    * <!-- begin-user-doc -->
    * This default implementation returns null so that we can easily ignore cases;
    * it's useful to ignore a case when inheritance will catch all the cases anyway.
    * <!-- end-user-doc -->
    * @return the new adapter.
-   * @see org.osate.categories.categories.QualityCategories
+   * @see org.osate.categories.categories.QualityAttributeCategories
    * @generated
    */
-  public Adapter createQualityCategoriesAdapter()
+  public Adapter createQualityAttributeCategoriesAdapter()
   {
     return null;
   }
 
   /**
-   * Creates a new adapter for an object of class '{@link org.osate.categories.categories.RequirementCategory <em>Requirement Category</em>}'.
+   * Creates a new adapter for an object of class '{@link org.osate.categories.categories.DevelopmentPhaseCategories <em>Development Phase Categories</em>}'.
    * <!-- begin-user-doc -->
    * This default implementation returns null so that we can easily ignore cases;
    * it's useful to ignore a case when inheritance will catch all the cases anyway.
    * <!-- end-user-doc -->
    * @return the new adapter.
-   * @see org.osate.categories.categories.RequirementCategory
+   * @see org.osate.categories.categories.DevelopmentPhaseCategories
    * @generated
    */
-  public Adapter createRequirementCategoryAdapter()
+  public Adapter createDevelopmentPhaseCategoriesAdapter()
   {
     return null;
   }
 
   /**
-   * Creates a new adapter for an object of class '{@link org.osate.categories.categories.MethodCategory <em>Method Category</em>}'.
+   * Creates a new adapter for an object of class '{@link org.osate.categories.categories.RequirementType <em>Requirement Type</em>}'.
    * <!-- begin-user-doc -->
    * This default implementation returns null so that we can easily ignore cases;
    * it's useful to ignore a case when inheritance will catch all the cases anyway.
    * <!-- end-user-doc -->
    * @return the new adapter.
-   * @see org.osate.categories.categories.MethodCategory
+   * @see org.osate.categories.categories.RequirementType
    * @generated
    */
-  public Adapter createMethodCategoryAdapter()
+  public Adapter createRequirementTypeAdapter()
   {
     return null;
   }
 
   /**
-   * Creates a new adapter for an object of class '{@link org.osate.categories.categories.SelectionCategory <em>Selection Category</em>}'.
+   * Creates a new adapter for an object of class '{@link org.osate.categories.categories.MethodType <em>Method Type</em>}'.
    * <!-- begin-user-doc -->
    * This default implementation returns null so that we can easily ignore cases;
    * it's useful to ignore a case when inheritance will catch all the cases anyway.
    * <!-- end-user-doc -->
    * @return the new adapter.
-   * @see org.osate.categories.categories.SelectionCategory
+   * @see org.osate.categories.categories.MethodType
    * @generated
    */
-  public Adapter createSelectionCategoryAdapter()
+  public Adapter createMethodTypeAdapter()
   {
     return null;
   }
 
   /**
-   * Creates a new adapter for an object of class '{@link org.osate.categories.categories.QualityCategory <em>Quality Category</em>}'.
+   * Creates a new adapter for an object of class '{@link org.osate.categories.categories.UserSelection <em>User Selection</em>}'.
    * <!-- begin-user-doc -->
    * This default implementation returns null so that we can easily ignore cases;
    * it's useful to ignore a case when inheritance will catch all the cases anyway.
    * <!-- end-user-doc -->
    * @return the new adapter.
-   * @see org.osate.categories.categories.QualityCategory
+   * @see org.osate.categories.categories.UserSelection
    * @generated
    */
-  public Adapter createQualityCategoryAdapter()
+  public Adapter createUserSelectionAdapter()
   {
     return null;
   }
 
   /**
-   * Creates a new adapter for an object of class '{@link org.osate.categories.categories.PhaseCategory <em>Phase Category</em>}'.
+   * Creates a new adapter for an object of class '{@link org.osate.categories.categories.QualityAttribute <em>Quality Attribute</em>}'.
    * <!-- begin-user-doc -->
    * This default implementation returns null so that we can easily ignore cases;
    * it's useful to ignore a case when inheritance will catch all the cases anyway.
    * <!-- end-user-doc -->
    * @return the new adapter.
-   * @see org.osate.categories.categories.PhaseCategory
+   * @see org.osate.categories.categories.QualityAttribute
    * @generated
    */
-  public Adapter createPhaseCategoryAdapter()
+  public Adapter createQualityAttributeAdapter()
   {
     return null;
   }
 
   /**
-   * Creates a new adapter for an object of class '{@link org.osate.categories.categories.CategorySet <em>Category Set</em>}'.
+   * Creates a new adapter for an object of class '{@link org.osate.categories.categories.DevelopmentPhase <em>Development Phase</em>}'.
    * <!-- begin-user-doc -->
    * This default implementation returns null so that we can easily ignore cases;
    * it's useful to ignore a case when inheritance will catch all the cases anyway.
    * <!-- end-user-doc -->
    * @return the new adapter.
-   * @see org.osate.categories.categories.CategorySet
+   * @see org.osate.categories.categories.DevelopmentPhase
    * @generated
    */
-  public Adapter createCategorySetAdapter()
+  public Adapter createDevelopmentPhaseAdapter()
   {
     return null;
   }

@@ -148,10 +148,10 @@ public class VerifySwitch<T> extends Switch<T>
         if (result == null) result = defaultCase(theEObject);
         return result;
       }
-      case VerifyPackage.METHOD_TYPE:
+      case VerifyPackage.METHOD_KIND:
       {
-        MethodType methodType = (MethodType)theEObject;
-        T result = caseMethodType(methodType);
+        MethodKind methodKind = (MethodKind)theEObject;
+        T result = caseMethodKind(methodKind);
         if (result == null) result = defaultCase(theEObject);
         return result;
       }
@@ -159,7 +159,7 @@ public class VerifySwitch<T> extends Switch<T>
       {
         ResoluteMethod resoluteMethod = (ResoluteMethod)theEObject;
         T result = caseResoluteMethod(resoluteMethod);
-        if (result == null) result = caseMethodType(resoluteMethod);
+        if (result == null) result = caseMethodKind(resoluteMethod);
         if (result == null) result = defaultCase(theEObject);
         return result;
       }
@@ -167,7 +167,7 @@ public class VerifySwitch<T> extends Switch<T>
       {
         JavaMethod javaMethod = (JavaMethod)theEObject;
         T result = caseJavaMethod(javaMethod);
-        if (result == null) result = caseMethodType(javaMethod);
+        if (result == null) result = caseMethodKind(javaMethod);
         if (result == null) result = defaultCase(theEObject);
         return result;
       }
@@ -175,7 +175,7 @@ public class VerifySwitch<T> extends Switch<T>
       {
         ManualMethod manualMethod = (ManualMethod)theEObject;
         T result = caseManualMethod(manualMethod);
-        if (result == null) result = caseMethodType(manualMethod);
+        if (result == null) result = caseMethodKind(manualMethod);
         if (result == null) result = defaultCase(theEObject);
         return result;
       }
@@ -183,23 +183,7 @@ public class VerifySwitch<T> extends Switch<T>
       {
         PluginMethod pluginMethod = (PluginMethod)theEObject;
         T result = casePluginMethod(pluginMethod);
-        if (result == null) result = caseMethodType(pluginMethod);
-        if (result == null) result = defaultCase(theEObject);
-        return result;
-      }
-      case VerifyPackage.SYSTEM_VERIFICATION_PLAN:
-      {
-        SystemVerificationPlan systemVerificationPlan = (SystemVerificationPlan)theEObject;
-        T result = caseSystemVerificationPlan(systemVerificationPlan);
-        if (result == null) result = caseVerificationPlan(systemVerificationPlan);
-        if (result == null) result = defaultCase(theEObject);
-        return result;
-      }
-      case VerifyPackage.GLOBAL_VERIFICATION_PLAN:
-      {
-        GlobalVerificationPlan globalVerificationPlan = (GlobalVerificationPlan)theEObject;
-        T result = caseGlobalVerificationPlan(globalVerificationPlan);
-        if (result == null) result = caseVerificationPlan(globalVerificationPlan);
+        if (result == null) result = caseMethodKind(pluginMethod);
         if (result == null) result = defaultCase(theEObject);
         return result;
       }
@@ -400,17 +384,17 @@ public class VerifySwitch<T> extends Switch<T>
   }
 
   /**
-   * Returns the result of interpreting the object as an instance of '<em>Method Type</em>'.
+   * Returns the result of interpreting the object as an instance of '<em>Method Kind</em>'.
    * <!-- begin-user-doc -->
    * This implementation returns null;
    * returning a non-null result will terminate the switch.
    * <!-- end-user-doc -->
    * @param object the target of the switch.
-   * @return the result of interpreting the object as an instance of '<em>Method Type</em>'.
+   * @return the result of interpreting the object as an instance of '<em>Method Kind</em>'.
    * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
    * @generated
    */
-  public T caseMethodType(MethodType object)
+  public T caseMethodKind(MethodKind object)
   {
     return null;
   }
@@ -475,38 +459,6 @@ public class VerifySwitch<T> extends Switch<T>
    * @generated
    */
   public T casePluginMethod(PluginMethod object)
-  {
-    return null;
-  }
-
-  /**
-   * Returns the result of interpreting the object as an instance of '<em>System Verification Plan</em>'.
-   * <!-- begin-user-doc -->
-   * This implementation returns null;
-   * returning a non-null result will terminate the switch.
-   * <!-- end-user-doc -->
-   * @param object the target of the switch.
-   * @return the result of interpreting the object as an instance of '<em>System Verification Plan</em>'.
-   * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
-   * @generated
-   */
-  public T caseSystemVerificationPlan(SystemVerificationPlan object)
-  {
-    return null;
-  }
-
-  /**
-   * Returns the result of interpreting the object as an instance of '<em>Global Verification Plan</em>'.
-   * <!-- begin-user-doc -->
-   * This implementation returns null;
-   * returning a non-null result will terminate the switch.
-   * <!-- end-user-doc -->
-   * @param object the target of the switch.
-   * @return the result of interpreting the object as an instance of '<em>Global Verification Plan</em>'.
-   * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
-   * @generated
-   */
-  public T caseGlobalVerificationPlan(GlobalVerificationPlan object)
   {
     return null;
   }

@@ -26,12 +26,11 @@ import org.eclipse.emf.ecore.EObject;
  * The following features are supported:
  * </p>
  * <ul>
- *   <li>{@link org.osate.categories.categories.CategoriesDefinitions#getRequirementcategories <em>Requirementcategories</em>}</li>
- *   <li>{@link org.osate.categories.categories.CategoriesDefinitions#getMethodcategories <em>Methodcategories</em>}</li>
+ *   <li>{@link org.osate.categories.categories.CategoriesDefinitions#getRequirementTypeCategories <em>Requirement Type Categories</em>}</li>
+ *   <li>{@link org.osate.categories.categories.CategoriesDefinitions#getMethodTypeCategories <em>Method Type Categories</em>}</li>
  *   <li>{@link org.osate.categories.categories.CategoriesDefinitions#getSelectioncategories <em>Selectioncategories</em>}</li>
- *   <li>{@link org.osate.categories.categories.CategoriesDefinitions#getPhasecategories <em>Phasecategories</em>}</li>
- *   <li>{@link org.osate.categories.categories.CategoriesDefinitions#getQualitycategories <em>Qualitycategories</em>}</li>
- *   <li>{@link org.osate.categories.categories.CategoriesDefinitions#getCategoryfilter <em>Categoryfilter</em>}</li>
+ *   <li>{@link org.osate.categories.categories.CategoriesDefinitions#getDevelopmentPhaseCategories <em>Development Phase Categories</em>}</li>
+ *   <li>{@link org.osate.categories.categories.CategoriesDefinitions#getQualityAttributeCategories <em>Quality Attribute Categories</em>}</li>
  * </ul>
  *
  * @see org.osate.categories.categories.CategoriesPackage#getCategoriesDefinitions()
@@ -41,56 +40,56 @@ import org.eclipse.emf.ecore.EObject;
 public interface CategoriesDefinitions extends EObject
 {
   /**
-   * Returns the value of the '<em><b>Requirementcategories</b></em>' containment reference.
+   * Returns the value of the '<em><b>Requirement Type Categories</b></em>' containment reference.
    * <!-- begin-user-doc -->
    * <p>
-   * If the meaning of the '<em>Requirementcategories</em>' containment reference isn't clear,
+   * If the meaning of the '<em>Requirement Type Categories</em>' containment reference isn't clear,
    * there really should be more of a description here...
    * </p>
    * <!-- end-user-doc -->
-   * @return the value of the '<em>Requirementcategories</em>' containment reference.
-   * @see #setRequirementcategories(Categories)
-   * @see org.osate.categories.categories.CategoriesPackage#getCategoriesDefinitions_Requirementcategories()
+   * @return the value of the '<em>Requirement Type Categories</em>' containment reference.
+   * @see #setRequirementTypeCategories(Categories)
+   * @see org.osate.categories.categories.CategoriesPackage#getCategoriesDefinitions_RequirementTypeCategories()
    * @model containment="true"
    * @generated
    */
-  Categories getRequirementcategories();
+  Categories getRequirementTypeCategories();
 
   /**
-   * Sets the value of the '{@link org.osate.categories.categories.CategoriesDefinitions#getRequirementcategories <em>Requirementcategories</em>}' containment reference.
+   * Sets the value of the '{@link org.osate.categories.categories.CategoriesDefinitions#getRequirementTypeCategories <em>Requirement Type Categories</em>}' containment reference.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @param value the new value of the '<em>Requirementcategories</em>' containment reference.
-   * @see #getRequirementcategories()
+   * @param value the new value of the '<em>Requirement Type Categories</em>' containment reference.
+   * @see #getRequirementTypeCategories()
    * @generated
    */
-  void setRequirementcategories(Categories value);
+  void setRequirementTypeCategories(Categories value);
 
   /**
-   * Returns the value of the '<em><b>Methodcategories</b></em>' containment reference.
+   * Returns the value of the '<em><b>Method Type Categories</b></em>' containment reference.
    * <!-- begin-user-doc -->
    * <p>
-   * If the meaning of the '<em>Methodcategories</em>' containment reference isn't clear,
+   * If the meaning of the '<em>Method Type Categories</em>' containment reference isn't clear,
    * there really should be more of a description here...
    * </p>
    * <!-- end-user-doc -->
-   * @return the value of the '<em>Methodcategories</em>' containment reference.
-   * @see #setMethodcategories(Categories)
-   * @see org.osate.categories.categories.CategoriesPackage#getCategoriesDefinitions_Methodcategories()
+   * @return the value of the '<em>Method Type Categories</em>' containment reference.
+   * @see #setMethodTypeCategories(Categories)
+   * @see org.osate.categories.categories.CategoriesPackage#getCategoriesDefinitions_MethodTypeCategories()
    * @model containment="true"
    * @generated
    */
-  Categories getMethodcategories();
+  Categories getMethodTypeCategories();
 
   /**
-   * Sets the value of the '{@link org.osate.categories.categories.CategoriesDefinitions#getMethodcategories <em>Methodcategories</em>}' containment reference.
+   * Sets the value of the '{@link org.osate.categories.categories.CategoriesDefinitions#getMethodTypeCategories <em>Method Type Categories</em>}' containment reference.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @param value the new value of the '<em>Methodcategories</em>' containment reference.
-   * @see #getMethodcategories()
+   * @param value the new value of the '<em>Method Type Categories</em>' containment reference.
+   * @see #getMethodTypeCategories()
    * @generated
    */
-  void setMethodcategories(Categories value);
+  void setMethodTypeCategories(Categories value);
 
   /**
    * Returns the value of the '<em><b>Selectioncategories</b></em>' containment reference.
@@ -119,81 +118,55 @@ public interface CategoriesDefinitions extends EObject
   void setSelectioncategories(Categories value);
 
   /**
-   * Returns the value of the '<em><b>Phasecategories</b></em>' containment reference.
+   * Returns the value of the '<em><b>Development Phase Categories</b></em>' containment reference.
    * <!-- begin-user-doc -->
    * <p>
-   * If the meaning of the '<em>Phasecategories</em>' containment reference isn't clear,
+   * If the meaning of the '<em>Development Phase Categories</em>' containment reference isn't clear,
    * there really should be more of a description here...
    * </p>
    * <!-- end-user-doc -->
-   * @return the value of the '<em>Phasecategories</em>' containment reference.
-   * @see #setPhasecategories(Categories)
-   * @see org.osate.categories.categories.CategoriesPackage#getCategoriesDefinitions_Phasecategories()
+   * @return the value of the '<em>Development Phase Categories</em>' containment reference.
+   * @see #setDevelopmentPhaseCategories(Categories)
+   * @see org.osate.categories.categories.CategoriesPackage#getCategoriesDefinitions_DevelopmentPhaseCategories()
    * @model containment="true"
    * @generated
    */
-  Categories getPhasecategories();
+  Categories getDevelopmentPhaseCategories();
 
   /**
-   * Sets the value of the '{@link org.osate.categories.categories.CategoriesDefinitions#getPhasecategories <em>Phasecategories</em>}' containment reference.
+   * Sets the value of the '{@link org.osate.categories.categories.CategoriesDefinitions#getDevelopmentPhaseCategories <em>Development Phase Categories</em>}' containment reference.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @param value the new value of the '<em>Phasecategories</em>' containment reference.
-   * @see #getPhasecategories()
+   * @param value the new value of the '<em>Development Phase Categories</em>' containment reference.
+   * @see #getDevelopmentPhaseCategories()
    * @generated
    */
-  void setPhasecategories(Categories value);
+  void setDevelopmentPhaseCategories(Categories value);
 
   /**
-   * Returns the value of the '<em><b>Qualitycategories</b></em>' containment reference.
+   * Returns the value of the '<em><b>Quality Attribute Categories</b></em>' containment reference.
    * <!-- begin-user-doc -->
    * <p>
-   * If the meaning of the '<em>Qualitycategories</em>' containment reference isn't clear,
+   * If the meaning of the '<em>Quality Attribute Categories</em>' containment reference isn't clear,
    * there really should be more of a description here...
    * </p>
    * <!-- end-user-doc -->
-   * @return the value of the '<em>Qualitycategories</em>' containment reference.
-   * @see #setQualitycategories(Categories)
-   * @see org.osate.categories.categories.CategoriesPackage#getCategoriesDefinitions_Qualitycategories()
+   * @return the value of the '<em>Quality Attribute Categories</em>' containment reference.
+   * @see #setQualityAttributeCategories(Categories)
+   * @see org.osate.categories.categories.CategoriesPackage#getCategoriesDefinitions_QualityAttributeCategories()
    * @model containment="true"
    * @generated
    */
-  Categories getQualitycategories();
+  Categories getQualityAttributeCategories();
 
   /**
-   * Sets the value of the '{@link org.osate.categories.categories.CategoriesDefinitions#getQualitycategories <em>Qualitycategories</em>}' containment reference.
+   * Sets the value of the '{@link org.osate.categories.categories.CategoriesDefinitions#getQualityAttributeCategories <em>Quality Attribute Categories</em>}' containment reference.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @param value the new value of the '<em>Qualitycategories</em>' containment reference.
-   * @see #getQualitycategories()
+   * @param value the new value of the '<em>Quality Attribute Categories</em>' containment reference.
+   * @see #getQualityAttributeCategories()
    * @generated
    */
-  void setQualitycategories(Categories value);
-
-  /**
-   * Returns the value of the '<em><b>Categoryfilter</b></em>' containment reference.
-   * <!-- begin-user-doc -->
-   * <p>
-   * If the meaning of the '<em>Categoryfilter</em>' containment reference isn't clear,
-   * there really should be more of a description here...
-   * </p>
-   * <!-- end-user-doc -->
-   * @return the value of the '<em>Categoryfilter</em>' containment reference.
-   * @see #setCategoryfilter(CategoryFilters)
-   * @see org.osate.categories.categories.CategoriesPackage#getCategoriesDefinitions_Categoryfilter()
-   * @model containment="true"
-   * @generated
-   */
-  CategoryFilters getCategoryfilter();
-
-  /**
-   * Sets the value of the '{@link org.osate.categories.categories.CategoriesDefinitions#getCategoryfilter <em>Categoryfilter</em>}' containment reference.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @param value the new value of the '<em>Categoryfilter</em>' containment reference.
-   * @see #getCategoryfilter()
-   * @generated
-   */
-  void setCategoryfilter(CategoryFilters value);
+  void setQualityAttributeCategories(Categories value);
 
 } // CategoriesDefinitions

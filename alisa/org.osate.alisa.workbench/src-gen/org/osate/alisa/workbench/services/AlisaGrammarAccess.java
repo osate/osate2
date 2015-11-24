@@ -75,54 +75,45 @@ public class AlisaGrammarAccess extends AbstractGrammarElementFinder {
 		private final RuleCall cDescriptionDescriptionParserRuleCall_7_0_0 = (RuleCall)cDescriptionAssignment_7_0.eContents().get(0);
 		private final Group cGroup_7_1 = (Group)cUnorderedGroup_7.eContents().get(1);
 		private final Keyword cAssureKeyword_7_1_0 = (Keyword)cGroup_7_1.eContents().get(0);
-		private final Keyword cOwnKeyword_7_1_1 = (Keyword)cGroup_7_1.eContents().get(1);
-		private final Assignment cAssureOwnAssignment_7_1_2 = (Assignment)cGroup_7_1.eContents().get(2);
-		private final CrossReference cAssureOwnSystemVerificationPlanCrossReference_7_1_2_0 = (CrossReference)cAssureOwnAssignment_7_1_2.eContents().get(0);
-		private final RuleCall cAssureOwnSystemVerificationPlanQualifiedNameParserRuleCall_7_1_2_0_1 = (RuleCall)cAssureOwnSystemVerificationPlanCrossReference_7_1_2_0.eContents().get(1);
-		private final Group cGroup_7_2 = (Group)cUnorderedGroup_7.eContents().get(2);
-		private final Keyword cAssureKeyword_7_2_0 = (Keyword)cGroup_7_2.eContents().get(0);
-		private final Keyword cGlobalKeyword_7_2_1 = (Keyword)cGroup_7_2.eContents().get(1);
-		private final Assignment cAssureGlobalAssignment_7_2_2 = (Assignment)cGroup_7_2.eContents().get(2);
-		private final CrossReference cAssureGlobalGlobalVerificationPlanCrossReference_7_2_2_0 = (CrossReference)cAssureGlobalAssignment_7_2_2.eContents().get(0);
-		private final RuleCall cAssureGlobalGlobalVerificationPlanQualifiedNameParserRuleCall_7_2_2_0_1 = (RuleCall)cAssureGlobalGlobalVerificationPlanCrossReference_7_2_2_0.eContents().get(1);
+		private final Assignment cAssureAssignment_7_1_1 = (Assignment)cGroup_7_1.eContents().get(1);
+		private final CrossReference cAssureVerificationPlanCrossReference_7_1_1_0 = (CrossReference)cAssureAssignment_7_1_1.eContents().get(0);
+		private final RuleCall cAssureVerificationPlanQualifiedNameParserRuleCall_7_1_1_0_1 = (RuleCall)cAssureVerificationPlanCrossReference_7_1_1_0.eContents().get(1);
+		private final Alternatives cAlternatives_7_2 = (Alternatives)cUnorderedGroup_7.eContents().get(2);
+		private final Group cGroup_7_2_0 = (Group)cAlternatives_7_2.eContents().get(0);
+		private final Keyword cAssureKeyword_7_2_0_0 = (Keyword)cGroup_7_2_0.eContents().get(0);
+		private final Keyword cSubsystemKeyword_7_2_0_1 = (Keyword)cGroup_7_2_0.eContents().get(1);
+		private final Assignment cAssureSubsystemsAssignment_7_2_0_2 = (Assignment)cGroup_7_2_0.eContents().get(2);
+		private final CrossReference cAssureSubsystemsSubcomponentCrossReference_7_2_0_2_0 = (CrossReference)cAssureSubsystemsAssignment_7_2_0_2.eContents().get(0);
+		private final RuleCall cAssureSubsystemsSubcomponentIDTerminalRuleCall_7_2_0_2_0_1 = (RuleCall)cAssureSubsystemsSubcomponentCrossReference_7_2_0_2_0.eContents().get(1);
+		private final Assignment cAssureAllAssignment_7_2_1 = (Assignment)cAlternatives_7_2.eContents().get(1);
+		private final Keyword cAssureAllAllKeyword_7_2_1_0 = (Keyword)cAssureAllAssignment_7_2_1.eContents().get(0);
 		private final Group cGroup_7_3 = (Group)cUnorderedGroup_7.eContents().get(3);
-		private final Keyword cAssureKeyword_7_3_0 = (Keyword)cGroup_7_3.eContents().get(0);
+		private final Keyword cAssumeKeyword_7_3_0 = (Keyword)cGroup_7_3.eContents().get(0);
 		private final Keyword cSubsystemKeyword_7_3_1 = (Keyword)cGroup_7_3.eContents().get(1);
-		private final Keyword cPlansKeyword_7_3_2 = (Keyword)cGroup_7_3.eContents().get(2);
-		private final Assignment cAssureSubsystemPlansAssignment_7_3_3 = (Assignment)cGroup_7_3.eContents().get(3);
-		private final CrossReference cAssureSubsystemPlansAssurancePlanCrossReference_7_3_3_0 = (CrossReference)cAssureSubsystemPlansAssignment_7_3_3.eContents().get(0);
-		private final RuleCall cAssureSubsystemPlansAssurancePlanQualifiedNameParserRuleCall_7_3_3_0_1 = (RuleCall)cAssureSubsystemPlansAssurancePlanCrossReference_7_3_3_0.eContents().get(1);
+		private final Alternatives cAlternatives_7_3_2 = (Alternatives)cGroup_7_3.eContents().get(2);
+		private final Assignment cAssumeSubsystemsAssignment_7_3_2_0 = (Assignment)cAlternatives_7_3_2.eContents().get(0);
+		private final CrossReference cAssumeSubsystemsSubcomponentCrossReference_7_3_2_0_0 = (CrossReference)cAssumeSubsystemsAssignment_7_3_2_0.eContents().get(0);
+		private final RuleCall cAssumeSubsystemsSubcomponentIDTerminalRuleCall_7_3_2_0_0_1 = (RuleCall)cAssumeSubsystemsSubcomponentCrossReference_7_3_2_0_0.eContents().get(1);
+		private final Assignment cAssumeAllAssignment_7_3_2_1 = (Assignment)cAlternatives_7_3_2.eContents().get(1);
+		private final Keyword cAssumeAllAllKeyword_7_3_2_1_0 = (Keyword)cAssumeAllAssignment_7_3_2_1.eContents().get(0);
 		private final Group cGroup_7_4 = (Group)cUnorderedGroup_7.eContents().get(4);
-		private final Keyword cAssumeKeyword_7_4_0 = (Keyword)cGroup_7_4.eContents().get(0);
-		private final Keyword cSubsystemsKeyword_7_4_1 = (Keyword)cGroup_7_4.eContents().get(1);
-		private final Alternatives cAlternatives_7_4_2 = (Alternatives)cGroup_7_4.eContents().get(2);
-		private final Assignment cAssumeSubsystemsAssignment_7_4_2_0 = (Assignment)cAlternatives_7_4_2.eContents().get(0);
-		private final CrossReference cAssumeSubsystemsComponentClassifierCrossReference_7_4_2_0_0 = (CrossReference)cAssumeSubsystemsAssignment_7_4_2_0.eContents().get(0);
-		private final RuleCall cAssumeSubsystemsComponentClassifierAadlClassifierReferenceParserRuleCall_7_4_2_0_0_1 = (RuleCall)cAssumeSubsystemsComponentClassifierCrossReference_7_4_2_0_0.eContents().get(1);
-		private final Assignment cAssumeAllAssignment_7_4_2_1 = (Assignment)cAlternatives_7_4_2.eContents().get(1);
-		private final Keyword cAssumeAllAllKeyword_7_4_2_1_0 = (Keyword)cAssumeAllAssignment_7_4_2_1.eContents().get(0);
-		private final Group cGroup_7_5 = (Group)cUnorderedGroup_7.eContents().get(5);
-		private final Keyword cIssuesKeyword_7_5_0 = (Keyword)cGroup_7_5.eContents().get(0);
-		private final Assignment cIssuesAssignment_7_5_1 = (Assignment)cGroup_7_5.eContents().get(1);
-		private final RuleCall cIssuesSTRINGTerminalRuleCall_7_5_1_0 = (RuleCall)cIssuesAssignment_7_5_1.eContents().get(0);
+		private final Keyword cIssuesKeyword_7_4_0 = (Keyword)cGroup_7_4.eContents().get(0);
+		private final Assignment cIssuesAssignment_7_4_1 = (Assignment)cGroup_7_4.eContents().get(1);
+		private final RuleCall cIssuesSTRINGTerminalRuleCall_7_4_1_0 = (RuleCall)cIssuesAssignment_7_4_1.eContents().get(0);
 		private final Keyword cRightSquareBracketKeyword_8 = (Keyword)cGroup.eContents().get(8);
 		
 		//AssurancePlan:
 		//	"assurance" "plan" name=QualifiedName (":" title=STRING)? "for"
-		//	target=[aadl2::ComponentImplementation|AadlClassifierReference] "[" (description=Description? & ("assure" "own"
-		//	assureOwn+=[Verify::SystemVerificationPlan|QualifiedName]+)? & ("assure" "global"
-		//	assureGlobal+=[Verify::GlobalVerificationPlan|QualifiedName]+)? & ("assure" "subsystem" "plans"
-		//	assureSubsystemPlans+=[AssurancePlan|QualifiedName]+)? & ("assume" "subsystems"
-		//	(assumeSubsystems+=[aadl2::ComponentClassifier|AadlClassifierReference]+ | assumeAll?="all"))? & ("issues"
-		//	issues+=STRING+)?) "]";
+		//	target=[aadl2::ComponentImplementation|AadlClassifierReference] "[" (description=Description? & ("assure"
+		//	assure+=[Verify::VerificationPlan|QualifiedName]+)? & ("assure" "subsystem" assureSubsystems+=[aadl2::Subcomponent]+
+		//	| assureAll?="all")? & ("assume" "subsystem" (assumeSubsystems+=[aadl2::Subcomponent]+ | assumeAll?="all"))? &
+		//	("issues" issues+=STRING+)?) "]";
 		@Override public ParserRule getRule() { return rule; }
 
 		//"assurance" "plan" name=QualifiedName (":" title=STRING)? "for"
-		//target=[aadl2::ComponentImplementation|AadlClassifierReference] "[" (description=Description? & ("assure" "own"
-		//assureOwn+=[Verify::SystemVerificationPlan|QualifiedName]+)? & ("assure" "global"
-		//assureGlobal+=[Verify::GlobalVerificationPlan|QualifiedName]+)? & ("assure" "subsystem" "plans"
-		//assureSubsystemPlans+=[AssurancePlan|QualifiedName]+)? & ("assume" "subsystems"
-		//(assumeSubsystems+=[aadl2::ComponentClassifier|AadlClassifierReference]+ | assumeAll?="all"))? & ("issues"
+		//target=[aadl2::ComponentImplementation|AadlClassifierReference] "[" (description=Description? & ("assure"
+		//assure+=[Verify::VerificationPlan|QualifiedName]+)? & ("assure" "subsystem" assureSubsystems+=[aadl2::Subcomponent]+ |
+		//assureAll?="all")? & ("assume" "subsystem" (assumeSubsystems+=[aadl2::Subcomponent]+ | assumeAll?="all"))? & ("issues"
 		//issues+=STRING+)?) "]"
 		public Group getGroup() { return cGroup; }
 
@@ -165,11 +156,9 @@ public class AlisaGrammarAccess extends AbstractGrammarElementFinder {
 		//"["
 		public Keyword getLeftSquareBracketKeyword_6() { return cLeftSquareBracketKeyword_6; }
 
-		//description=Description? & ("assure" "own" assureOwn+=[Verify::SystemVerificationPlan|QualifiedName]+)? & ("assure"
-		//"global" assureGlobal+=[Verify::GlobalVerificationPlan|QualifiedName]+)? & ("assure" "subsystem" "plans"
-		//assureSubsystemPlans+=[AssurancePlan|QualifiedName]+)? & ("assume" "subsystems"
-		//(assumeSubsystems+=[aadl2::ComponentClassifier|AadlClassifierReference]+ | assumeAll?="all"))? & ("issues"
-		//issues+=STRING+)?
+		//description=Description? & ("assure" assure+=[Verify::VerificationPlan|QualifiedName]+)? & ("assure" "subsystem"
+		//assureSubsystems+=[aadl2::Subcomponent]+ | assureAll?="all")? & ("assume" "subsystem"
+		//(assumeSubsystems+=[aadl2::Subcomponent]+ | assumeAll?="all"))? & ("issues" issues+=STRING+)?
 		public UnorderedGroup getUnorderedGroup_7() { return cUnorderedGroup_7; }
 
 		//description=Description?
@@ -178,101 +167,86 @@ public class AlisaGrammarAccess extends AbstractGrammarElementFinder {
 		//Description
 		public RuleCall getDescriptionDescriptionParserRuleCall_7_0_0() { return cDescriptionDescriptionParserRuleCall_7_0_0; }
 
-		//("assure" "own" assureOwn+=[Verify::SystemVerificationPlan|QualifiedName]+)?
+		//("assure" assure+=[Verify::VerificationPlan|QualifiedName]+)?
 		public Group getGroup_7_1() { return cGroup_7_1; }
 
 		//"assure"
 		public Keyword getAssureKeyword_7_1_0() { return cAssureKeyword_7_1_0; }
 
-		//"own"
-		public Keyword getOwnKeyword_7_1_1() { return cOwnKeyword_7_1_1; }
+		//assure+=[Verify::VerificationPlan|QualifiedName]+
+		public Assignment getAssureAssignment_7_1_1() { return cAssureAssignment_7_1_1; }
 
-		//assureOwn+=[Verify::SystemVerificationPlan|QualifiedName]+
-		public Assignment getAssureOwnAssignment_7_1_2() { return cAssureOwnAssignment_7_1_2; }
-
-		//[Verify::SystemVerificationPlan|QualifiedName]
-		public CrossReference getAssureOwnSystemVerificationPlanCrossReference_7_1_2_0() { return cAssureOwnSystemVerificationPlanCrossReference_7_1_2_0; }
+		//[Verify::VerificationPlan|QualifiedName]
+		public CrossReference getAssureVerificationPlanCrossReference_7_1_1_0() { return cAssureVerificationPlanCrossReference_7_1_1_0; }
 
 		//QualifiedName
-		public RuleCall getAssureOwnSystemVerificationPlanQualifiedNameParserRuleCall_7_1_2_0_1() { return cAssureOwnSystemVerificationPlanQualifiedNameParserRuleCall_7_1_2_0_1; }
+		public RuleCall getAssureVerificationPlanQualifiedNameParserRuleCall_7_1_1_0_1() { return cAssureVerificationPlanQualifiedNameParserRuleCall_7_1_1_0_1; }
 
-		//("assure" "global" assureGlobal+=[Verify::GlobalVerificationPlan|QualifiedName]+)?
-		public Group getGroup_7_2() { return cGroup_7_2; }
+		//("assure" "subsystem" assureSubsystems+=[aadl2::Subcomponent]+ | assureAll?="all")?
+		public Alternatives getAlternatives_7_2() { return cAlternatives_7_2; }
+
+		//"assure" "subsystem" assureSubsystems+=[aadl2::Subcomponent]+
+		public Group getGroup_7_2_0() { return cGroup_7_2_0; }
 
 		//"assure"
-		public Keyword getAssureKeyword_7_2_0() { return cAssureKeyword_7_2_0; }
+		public Keyword getAssureKeyword_7_2_0_0() { return cAssureKeyword_7_2_0_0; }
 
-		//"global"
-		public Keyword getGlobalKeyword_7_2_1() { return cGlobalKeyword_7_2_1; }
+		//"subsystem"
+		public Keyword getSubsystemKeyword_7_2_0_1() { return cSubsystemKeyword_7_2_0_1; }
 
-		//assureGlobal+=[Verify::GlobalVerificationPlan|QualifiedName]+
-		public Assignment getAssureGlobalAssignment_7_2_2() { return cAssureGlobalAssignment_7_2_2; }
+		//assureSubsystems+=[aadl2::Subcomponent]+
+		public Assignment getAssureSubsystemsAssignment_7_2_0_2() { return cAssureSubsystemsAssignment_7_2_0_2; }
 
-		//[Verify::GlobalVerificationPlan|QualifiedName]
-		public CrossReference getAssureGlobalGlobalVerificationPlanCrossReference_7_2_2_0() { return cAssureGlobalGlobalVerificationPlanCrossReference_7_2_2_0; }
+		//[aadl2::Subcomponent]
+		public CrossReference getAssureSubsystemsSubcomponentCrossReference_7_2_0_2_0() { return cAssureSubsystemsSubcomponentCrossReference_7_2_0_2_0; }
 
-		//QualifiedName
-		public RuleCall getAssureGlobalGlobalVerificationPlanQualifiedNameParserRuleCall_7_2_2_0_1() { return cAssureGlobalGlobalVerificationPlanQualifiedNameParserRuleCall_7_2_2_0_1; }
+		//ID
+		public RuleCall getAssureSubsystemsSubcomponentIDTerminalRuleCall_7_2_0_2_0_1() { return cAssureSubsystemsSubcomponentIDTerminalRuleCall_7_2_0_2_0_1; }
 
-		//("assure" "subsystem" "plans" assureSubsystemPlans+=[AssurancePlan|QualifiedName]+)?
+		//assureAll?="all"
+		public Assignment getAssureAllAssignment_7_2_1() { return cAssureAllAssignment_7_2_1; }
+
+		//"all"
+		public Keyword getAssureAllAllKeyword_7_2_1_0() { return cAssureAllAllKeyword_7_2_1_0; }
+
+		//("assume" "subsystem" (assumeSubsystems+=[aadl2::Subcomponent]+ | assumeAll?="all"))?
 		public Group getGroup_7_3() { return cGroup_7_3; }
 
-		//"assure"
-		public Keyword getAssureKeyword_7_3_0() { return cAssureKeyword_7_3_0; }
+		//"assume"
+		public Keyword getAssumeKeyword_7_3_0() { return cAssumeKeyword_7_3_0; }
 
 		//"subsystem"
 		public Keyword getSubsystemKeyword_7_3_1() { return cSubsystemKeyword_7_3_1; }
 
-		//"plans"
-		public Keyword getPlansKeyword_7_3_2() { return cPlansKeyword_7_3_2; }
+		//assumeSubsystems+=[aadl2::Subcomponent]+ | assumeAll?="all"
+		public Alternatives getAlternatives_7_3_2() { return cAlternatives_7_3_2; }
 
-		//assureSubsystemPlans+=[AssurancePlan|QualifiedName]+
-		public Assignment getAssureSubsystemPlansAssignment_7_3_3() { return cAssureSubsystemPlansAssignment_7_3_3; }
+		//assumeSubsystems+=[aadl2::Subcomponent]+
+		public Assignment getAssumeSubsystemsAssignment_7_3_2_0() { return cAssumeSubsystemsAssignment_7_3_2_0; }
 
-		//[AssurancePlan|QualifiedName]
-		public CrossReference getAssureSubsystemPlansAssurancePlanCrossReference_7_3_3_0() { return cAssureSubsystemPlansAssurancePlanCrossReference_7_3_3_0; }
+		//[aadl2::Subcomponent]
+		public CrossReference getAssumeSubsystemsSubcomponentCrossReference_7_3_2_0_0() { return cAssumeSubsystemsSubcomponentCrossReference_7_3_2_0_0; }
 
-		//QualifiedName
-		public RuleCall getAssureSubsystemPlansAssurancePlanQualifiedNameParserRuleCall_7_3_3_0_1() { return cAssureSubsystemPlansAssurancePlanQualifiedNameParserRuleCall_7_3_3_0_1; }
-
-		//("assume" "subsystems" (assumeSubsystems+=[aadl2::ComponentClassifier|AadlClassifierReference]+ | assumeAll?="all"))?
-		public Group getGroup_7_4() { return cGroup_7_4; }
-
-		//"assume"
-		public Keyword getAssumeKeyword_7_4_0() { return cAssumeKeyword_7_4_0; }
-
-		//"subsystems"
-		public Keyword getSubsystemsKeyword_7_4_1() { return cSubsystemsKeyword_7_4_1; }
-
-		//assumeSubsystems+=[aadl2::ComponentClassifier|AadlClassifierReference]+ | assumeAll?="all"
-		public Alternatives getAlternatives_7_4_2() { return cAlternatives_7_4_2; }
-
-		//assumeSubsystems+=[aadl2::ComponentClassifier|AadlClassifierReference]+
-		public Assignment getAssumeSubsystemsAssignment_7_4_2_0() { return cAssumeSubsystemsAssignment_7_4_2_0; }
-
-		//[aadl2::ComponentClassifier|AadlClassifierReference]
-		public CrossReference getAssumeSubsystemsComponentClassifierCrossReference_7_4_2_0_0() { return cAssumeSubsystemsComponentClassifierCrossReference_7_4_2_0_0; }
-
-		//AadlClassifierReference
-		public RuleCall getAssumeSubsystemsComponentClassifierAadlClassifierReferenceParserRuleCall_7_4_2_0_0_1() { return cAssumeSubsystemsComponentClassifierAadlClassifierReferenceParserRuleCall_7_4_2_0_0_1; }
+		//ID
+		public RuleCall getAssumeSubsystemsSubcomponentIDTerminalRuleCall_7_3_2_0_0_1() { return cAssumeSubsystemsSubcomponentIDTerminalRuleCall_7_3_2_0_0_1; }
 
 		//assumeAll?="all"
-		public Assignment getAssumeAllAssignment_7_4_2_1() { return cAssumeAllAssignment_7_4_2_1; }
+		public Assignment getAssumeAllAssignment_7_3_2_1() { return cAssumeAllAssignment_7_3_2_1; }
 
 		//"all"
-		public Keyword getAssumeAllAllKeyword_7_4_2_1_0() { return cAssumeAllAllKeyword_7_4_2_1_0; }
+		public Keyword getAssumeAllAllKeyword_7_3_2_1_0() { return cAssumeAllAllKeyword_7_3_2_1_0; }
 
 		//("issues" issues+=STRING+)?
-		public Group getGroup_7_5() { return cGroup_7_5; }
+		public Group getGroup_7_4() { return cGroup_7_4; }
 
 		//"issues"
-		public Keyword getIssuesKeyword_7_5_0() { return cIssuesKeyword_7_5_0; }
+		public Keyword getIssuesKeyword_7_4_0() { return cIssuesKeyword_7_4_0; }
 
 		//issues+=STRING+
-		public Assignment getIssuesAssignment_7_5_1() { return cIssuesAssignment_7_5_1; }
+		public Assignment getIssuesAssignment_7_4_1() { return cIssuesAssignment_7_4_1; }
 
 		//STRING
-		public RuleCall getIssuesSTRINGTerminalRuleCall_7_5_1_0() { return cIssuesSTRINGTerminalRuleCall_7_5_1_0; }
+		public RuleCall getIssuesSTRINGTerminalRuleCall_7_4_1_0() { return cIssuesSTRINGTerminalRuleCall_7_4_1_0; }
 
 		//"]"
 		public Keyword getRightSquareBracketKeyword_8() { return cRightSquareBracketKeyword_8; }
@@ -281,146 +255,316 @@ public class AlisaGrammarAccess extends AbstractGrammarElementFinder {
 	public class AssuranceTaskElements extends AbstractParserRuleElementFinder {
 		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "AssuranceTask");
 		private final Group cGroup = (Group)rule.eContents().get(1);
-		private final Keyword cAssuranceKeyword_0 = (Keyword)cGroup.eContents().get(0);
-		private final Keyword cTaskKeyword_1 = (Keyword)cGroup.eContents().get(1);
-		private final Assignment cNameAssignment_2 = (Assignment)cGroup.eContents().get(2);
-		private final RuleCall cNameIDTerminalRuleCall_2_0 = (RuleCall)cNameAssignment_2.eContents().get(0);
-		private final Group cGroup_3 = (Group)cGroup.eContents().get(3);
-		private final Keyword cColonKeyword_3_0 = (Keyword)cGroup_3.eContents().get(0);
-		private final Assignment cTitleAssignment_3_1 = (Assignment)cGroup_3.eContents().get(1);
-		private final RuleCall cTitleSTRINGTerminalRuleCall_3_1_0 = (RuleCall)cTitleAssignment_3_1.eContents().get(0);
-		private final Keyword cForKeyword_4 = (Keyword)cGroup.eContents().get(4);
-		private final Assignment cAssurancePlanAssignment_5 = (Assignment)cGroup.eContents().get(5);
-		private final CrossReference cAssurancePlanAssurancePlanCrossReference_5_0 = (CrossReference)cAssurancePlanAssignment_5.eContents().get(0);
-		private final RuleCall cAssurancePlanAssurancePlanQualifiedNameParserRuleCall_5_0_1 = (RuleCall)cAssurancePlanAssurancePlanCrossReference_5_0.eContents().get(1);
-		private final Keyword cLeftSquareBracketKeyword_6 = (Keyword)cGroup.eContents().get(6);
-		private final UnorderedGroup cUnorderedGroup_7 = (UnorderedGroup)cGroup.eContents().get(7);
-		private final Group cGroup_7_0 = (Group)cUnorderedGroup_7.eContents().get(0);
-		private final Keyword cDescriptionKeyword_7_0_0 = (Keyword)cGroup_7_0.eContents().get(0);
-		private final Assignment cDescriptionAssignment_7_0_1 = (Assignment)cGroup_7_0.eContents().get(1);
-		private final RuleCall cDescriptionDescriptionParserRuleCall_7_0_1_0 = (RuleCall)cDescriptionAssignment_7_0_1.eContents().get(0);
-		private final Group cGroup_7_1 = (Group)cUnorderedGroup_7.eContents().get(1);
-		private final Keyword cFilterKeyword_7_1_0 = (Keyword)cGroup_7_1.eContents().get(0);
-		private final Assignment cFilterAssignment_7_1_1 = (Assignment)cGroup_7_1.eContents().get(1);
-		private final CrossReference cFilterCategoryCrossReference_7_1_1_0 = (CrossReference)cFilterAssignment_7_1_1.eContents().get(0);
-		private final RuleCall cFilterCategoryIDTerminalRuleCall_7_1_1_0_1 = (RuleCall)cFilterCategoryCrossReference_7_1_1_0.eContents().get(1);
-		private final Assignment cStrictFilterAssignment_7_1_2 = (Assignment)cGroup_7_1.eContents().get(2);
-		private final Keyword cStrictFilterOnlyKeyword_7_1_2_0 = (Keyword)cStrictFilterAssignment_7_1_2.eContents().get(0);
-		private final Group cGroup_7_2 = (Group)cUnorderedGroup_7.eContents().get(2);
-		private final Keyword cIssuesKeyword_7_2_0 = (Keyword)cGroup_7_2.eContents().get(0);
-		private final Assignment cIssuesAssignment_7_2_1 = (Assignment)cGroup_7_2.eContents().get(1);
-		private final RuleCall cIssuesSTRINGTerminalRuleCall_7_2_1_0 = (RuleCall)cIssuesAssignment_7_2_1.eContents().get(0);
-		private final Keyword cRightSquareBracketKeyword_8 = (Keyword)cGroup.eContents().get(8);
+		private final Action cAssuranceTaskAction_0 = (Action)cGroup.eContents().get(0);
+		private final Keyword cAssuranceKeyword_1 = (Keyword)cGroup.eContents().get(1);
+		private final Keyword cTaskKeyword_2 = (Keyword)cGroup.eContents().get(2);
+		private final Assignment cNameAssignment_3 = (Assignment)cGroup.eContents().get(3);
+		private final RuleCall cNameIDTerminalRuleCall_3_0 = (RuleCall)cNameAssignment_3.eContents().get(0);
+		private final Group cGroup_4 = (Group)cGroup.eContents().get(4);
+		private final Keyword cColonKeyword_4_0 = (Keyword)cGroup_4.eContents().get(0);
+		private final Assignment cTitleAssignment_4_1 = (Assignment)cGroup_4.eContents().get(1);
+		private final RuleCall cTitleSTRINGTerminalRuleCall_4_1_0 = (RuleCall)cTitleAssignment_4_1.eContents().get(0);
+		private final Keyword cForKeyword_5 = (Keyword)cGroup.eContents().get(5);
+		private final Assignment cAssurancePlanAssignment_6 = (Assignment)cGroup.eContents().get(6);
+		private final CrossReference cAssurancePlanAssurancePlanCrossReference_6_0 = (CrossReference)cAssurancePlanAssignment_6.eContents().get(0);
+		private final RuleCall cAssurancePlanAssurancePlanQualifiedNameParserRuleCall_6_0_1 = (RuleCall)cAssurancePlanAssurancePlanCrossReference_6_0.eContents().get(1);
+		private final Keyword cLeftSquareBracketKeyword_7 = (Keyword)cGroup.eContents().get(7);
+		private final UnorderedGroup cUnorderedGroup_8 = (UnorderedGroup)cGroup.eContents().get(8);
+		private final Group cGroup_8_0 = (Group)cUnorderedGroup_8.eContents().get(0);
+		private final Keyword cDescriptionKeyword_8_0_0 = (Keyword)cGroup_8_0.eContents().get(0);
+		private final Assignment cDescriptionAssignment_8_0_1 = (Assignment)cGroup_8_0.eContents().get(1);
+		private final RuleCall cDescriptionDescriptionParserRuleCall_8_0_1_0 = (RuleCall)cDescriptionAssignment_8_0_1.eContents().get(0);
+		private final UnorderedGroup cUnorderedGroup_8_1 = (UnorderedGroup)cUnorderedGroup_8.eContents().get(1);
+		private final Group cGroup_8_1_0 = (Group)cUnorderedGroup_8_1.eContents().get(0);
+		private final Keyword cFilterKeyword_8_1_0_0 = (Keyword)cGroup_8_1_0.eContents().get(0);
+		private final Keyword cLeftSquareBracketKeyword_8_1_0_1 = (Keyword)cGroup_8_1_0.eContents().get(1);
+		private final Group cGroup_8_1_0_2 = (Group)cGroup_8_1_0.eContents().get(2);
+		private final Keyword cRequirementKeyword_8_1_0_2_0 = (Keyword)cGroup_8_1_0_2.eContents().get(0);
+		private final Keyword cTypeKeyword_8_1_0_2_1 = (Keyword)cGroup_8_1_0_2.eContents().get(1);
+		private final Assignment cRequirementTypeAssignment_8_1_0_2_2 = (Assignment)cGroup_8_1_0_2.eContents().get(2);
+		private final CrossReference cRequirementTypeRequirementTypeCrossReference_8_1_0_2_2_0 = (CrossReference)cRequirementTypeAssignment_8_1_0_2_2.eContents().get(0);
+		private final RuleCall cRequirementTypeRequirementTypeIDTerminalRuleCall_8_1_0_2_2_0_1 = (RuleCall)cRequirementTypeRequirementTypeCrossReference_8_1_0_2_2_0.eContents().get(1);
+		private final Assignment cAnyRequirementTypeAssignment_8_1_0_2_3 = (Assignment)cGroup_8_1_0_2.eContents().get(3);
+		private final Keyword cAnyRequirementTypeAnyKeyword_8_1_0_2_3_0 = (Keyword)cAnyRequirementTypeAssignment_8_1_0_2_3.eContents().get(0);
+		private final Group cGroup_8_1_1 = (Group)cUnorderedGroup_8_1.eContents().get(1);
+		private final Keyword cMethodKeyword_8_1_1_0 = (Keyword)cGroup_8_1_1.eContents().get(0);
+		private final Keyword cTypeKeyword_8_1_1_1 = (Keyword)cGroup_8_1_1.eContents().get(1);
+		private final Assignment cMethodTypeAssignment_8_1_1_2 = (Assignment)cGroup_8_1_1.eContents().get(2);
+		private final CrossReference cMethodTypeMethodTypeCrossReference_8_1_1_2_0 = (CrossReference)cMethodTypeAssignment_8_1_1_2.eContents().get(0);
+		private final RuleCall cMethodTypeMethodTypeIDTerminalRuleCall_8_1_1_2_0_1 = (RuleCall)cMethodTypeMethodTypeCrossReference_8_1_1_2_0.eContents().get(1);
+		private final Assignment cAnyMethodTypeAssignment_8_1_1_3 = (Assignment)cGroup_8_1_1.eContents().get(3);
+		private final Keyword cAnyMethodTypeAnyKeyword_8_1_1_3_0 = (Keyword)cAnyMethodTypeAssignment_8_1_1_3.eContents().get(0);
+		private final Group cGroup_8_1_2 = (Group)cUnorderedGroup_8_1.eContents().get(2);
+		private final Keyword cUserKeyword_8_1_2_0 = (Keyword)cGroup_8_1_2.eContents().get(0);
+		private final Keyword cSelectionKeyword_8_1_2_1 = (Keyword)cGroup_8_1_2.eContents().get(1);
+		private final Assignment cUserSelectionAssignment_8_1_2_2 = (Assignment)cGroup_8_1_2.eContents().get(2);
+		private final CrossReference cUserSelectionUserSelectionCrossReference_8_1_2_2_0 = (CrossReference)cUserSelectionAssignment_8_1_2_2.eContents().get(0);
+		private final RuleCall cUserSelectionUserSelectionIDTerminalRuleCall_8_1_2_2_0_1 = (RuleCall)cUserSelectionUserSelectionCrossReference_8_1_2_2_0.eContents().get(1);
+		private final Assignment cAnyUserSelectionAssignment_8_1_2_3 = (Assignment)cGroup_8_1_2.eContents().get(3);
+		private final Keyword cAnyUserSelectionAnyKeyword_8_1_2_3_0 = (Keyword)cAnyUserSelectionAssignment_8_1_2_3.eContents().get(0);
+		private final Group cGroup_8_1_3 = (Group)cUnorderedGroup_8_1.eContents().get(3);
+		private final Keyword cQualityKeyword_8_1_3_0 = (Keyword)cGroup_8_1_3.eContents().get(0);
+		private final Keyword cAttributeKeyword_8_1_3_1 = (Keyword)cGroup_8_1_3.eContents().get(1);
+		private final Assignment cQualityAttributeAssignment_8_1_3_2 = (Assignment)cGroup_8_1_3.eContents().get(2);
+		private final CrossReference cQualityAttributeQualityAttributeCrossReference_8_1_3_2_0 = (CrossReference)cQualityAttributeAssignment_8_1_3_2.eContents().get(0);
+		private final RuleCall cQualityAttributeQualityAttributeIDTerminalRuleCall_8_1_3_2_0_1 = (RuleCall)cQualityAttributeQualityAttributeCrossReference_8_1_3_2_0.eContents().get(1);
+		private final Assignment cAnyQualityAttributeAssignment_8_1_3_3 = (Assignment)cGroup_8_1_3.eContents().get(3);
+		private final Keyword cAnyQualityAttributeAnyKeyword_8_1_3_3_0 = (Keyword)cAnyQualityAttributeAssignment_8_1_3_3.eContents().get(0);
+		private final Group cGroup_8_1_4 = (Group)cUnorderedGroup_8_1.eContents().get(4);
+		private final Group cGroup_8_1_4_0 = (Group)cGroup_8_1_4.eContents().get(0);
+		private final Keyword cDevelopmentKeyword_8_1_4_0_0 = (Keyword)cGroup_8_1_4_0.eContents().get(0);
+		private final Keyword cPhaseKeyword_8_1_4_0_1 = (Keyword)cGroup_8_1_4_0.eContents().get(1);
+		private final Assignment cDevelopmentPhaseAssignment_8_1_4_0_2 = (Assignment)cGroup_8_1_4_0.eContents().get(2);
+		private final CrossReference cDevelopmentPhaseDevelopmentPhaseCrossReference_8_1_4_0_2_0 = (CrossReference)cDevelopmentPhaseAssignment_8_1_4_0_2.eContents().get(0);
+		private final RuleCall cDevelopmentPhaseDevelopmentPhaseIDTerminalRuleCall_8_1_4_0_2_0_1 = (RuleCall)cDevelopmentPhaseDevelopmentPhaseCrossReference_8_1_4_0_2_0.eContents().get(1);
+		private final Assignment cAnyDevelopmentPhaseAssignment_8_1_4_0_3 = (Assignment)cGroup_8_1_4_0.eContents().get(3);
+		private final Keyword cAnyDevelopmentPhaseAnyKeyword_8_1_4_0_3_0 = (Keyword)cAnyDevelopmentPhaseAssignment_8_1_4_0_3.eContents().get(0);
+		private final Keyword cRightSquareBracketKeyword_8_1_4_1 = (Keyword)cGroup_8_1_4.eContents().get(1);
+		private final Group cGroup_8_2 = (Group)cUnorderedGroup_8.eContents().get(2);
+		private final Keyword cIssuesKeyword_8_2_0 = (Keyword)cGroup_8_2.eContents().get(0);
+		private final Assignment cIssuesAssignment_8_2_1 = (Assignment)cGroup_8_2.eContents().get(1);
+		private final RuleCall cIssuesSTRINGTerminalRuleCall_8_2_1_0 = (RuleCall)cIssuesAssignment_8_2_1.eContents().get(0);
+		private final Keyword cRightSquareBracketKeyword_9 = (Keyword)cGroup.eContents().get(9);
 		
-		////OrSelectionConditionExpr returns SelectionConditionExpr:
-		////	AndSelectionConditionExpr (=> ({AndSelectionConditionExpr.left=current} 'or') right=OrSelectionConditionExpr)*;
-		////
-		////AndSelectionConditionExpr returns SelectionConditionExpr:
-		////	SelectionCategoryReference (=> ({AndSelectionConditionExpr.left=current} 'and') right=AndSelectionConditionExpr)*;
-		////
-		////SelectionCategoryReference:
-		////	cat=[categories::Category|ID];
-		//AssuranceTask:
-		//	"assurance" "task" name=ID (":" title=STRING)? "for" assurancePlan=[AssurancePlan|QualifiedName] "[" (("description"
-		//	description=Description)? & ("filter" filter+=[categories::Category]+ strictFilter?="only"?)? & ("issues"
-		//	issues+=STRING+)?) "]";
+		//AssuranceTask returns CategoryFilter:
+		//	{AssuranceTask} "assurance" "task" name=ID (":" title=STRING)? "for" assurancePlan=[AssurancePlan|QualifiedName] "["
+		//	(("description" description=Description)? & ("filter" "[" ("requirement" "type"
+		//	requirementType+=[categories::RequirementType]+ anyRequirementType?="any"?)? & ("method" "type"
+		//	methodType+=[categories::MethodType]+ anyMethodType?="any"?)? & ("user" "selection"
+		//	userSelection+=[categories::UserSelection]+ anyUserSelection?="any"?)? & ("quality" "attribute"
+		//	qualityAttribute+=[categories::QualityAttribute]+ anyQualityAttribute?="any"?)? & ("development" "phase"
+		//	developmentPhase+=[categories::DevelopmentPhase]+ anyDevelopmentPhase?="any"?)? "]")? & ("issues" issues+=STRING+)?)
+		//	"]";
 		@Override public ParserRule getRule() { return rule; }
 
-		//"assurance" "task" name=ID (":" title=STRING)? "for" assurancePlan=[AssurancePlan|QualifiedName] "[" (("description"
-		//description=Description)? & ("filter" filter+=[categories::Category]+ strictFilter?="only"?)? & ("issues"
-		//issues+=STRING+)?) "]"
+		//{AssuranceTask} "assurance" "task" name=ID (":" title=STRING)? "for" assurancePlan=[AssurancePlan|QualifiedName] "["
+		//(("description" description=Description)? & ("filter" "[" ("requirement" "type"
+		//requirementType+=[categories::RequirementType]+ anyRequirementType?="any"?)? & ("method" "type"
+		//methodType+=[categories::MethodType]+ anyMethodType?="any"?)? & ("user" "selection"
+		//userSelection+=[categories::UserSelection]+ anyUserSelection?="any"?)? & ("quality" "attribute"
+		//qualityAttribute+=[categories::QualityAttribute]+ anyQualityAttribute?="any"?)? & ("development" "phase"
+		//developmentPhase+=[categories::DevelopmentPhase]+ anyDevelopmentPhase?="any"?)? "]")? & ("issues" issues+=STRING+)?)
+		//"]"
 		public Group getGroup() { return cGroup; }
 
+		//{AssuranceTask}
+		public Action getAssuranceTaskAction_0() { return cAssuranceTaskAction_0; }
+
 		//"assurance"
-		public Keyword getAssuranceKeyword_0() { return cAssuranceKeyword_0; }
+		public Keyword getAssuranceKeyword_1() { return cAssuranceKeyword_1; }
 
 		//"task"
-		public Keyword getTaskKeyword_1() { return cTaskKeyword_1; }
+		public Keyword getTaskKeyword_2() { return cTaskKeyword_2; }
 
 		//name=ID
-		public Assignment getNameAssignment_2() { return cNameAssignment_2; }
+		public Assignment getNameAssignment_3() { return cNameAssignment_3; }
 
 		//ID
-		public RuleCall getNameIDTerminalRuleCall_2_0() { return cNameIDTerminalRuleCall_2_0; }
+		public RuleCall getNameIDTerminalRuleCall_3_0() { return cNameIDTerminalRuleCall_3_0; }
 
 		//(":" title=STRING)?
-		public Group getGroup_3() { return cGroup_3; }
+		public Group getGroup_4() { return cGroup_4; }
 
 		//":"
-		public Keyword getColonKeyword_3_0() { return cColonKeyword_3_0; }
+		public Keyword getColonKeyword_4_0() { return cColonKeyword_4_0; }
 
 		//title=STRING
-		public Assignment getTitleAssignment_3_1() { return cTitleAssignment_3_1; }
+		public Assignment getTitleAssignment_4_1() { return cTitleAssignment_4_1; }
 
 		//STRING
-		public RuleCall getTitleSTRINGTerminalRuleCall_3_1_0() { return cTitleSTRINGTerminalRuleCall_3_1_0; }
+		public RuleCall getTitleSTRINGTerminalRuleCall_4_1_0() { return cTitleSTRINGTerminalRuleCall_4_1_0; }
 
 		//"for"
-		public Keyword getForKeyword_4() { return cForKeyword_4; }
+		public Keyword getForKeyword_5() { return cForKeyword_5; }
 
 		//assurancePlan=[AssurancePlan|QualifiedName]
-		public Assignment getAssurancePlanAssignment_5() { return cAssurancePlanAssignment_5; }
+		public Assignment getAssurancePlanAssignment_6() { return cAssurancePlanAssignment_6; }
 
 		//[AssurancePlan|QualifiedName]
-		public CrossReference getAssurancePlanAssurancePlanCrossReference_5_0() { return cAssurancePlanAssurancePlanCrossReference_5_0; }
+		public CrossReference getAssurancePlanAssurancePlanCrossReference_6_0() { return cAssurancePlanAssurancePlanCrossReference_6_0; }
 
 		//QualifiedName
-		public RuleCall getAssurancePlanAssurancePlanQualifiedNameParserRuleCall_5_0_1() { return cAssurancePlanAssurancePlanQualifiedNameParserRuleCall_5_0_1; }
+		public RuleCall getAssurancePlanAssurancePlanQualifiedNameParserRuleCall_6_0_1() { return cAssurancePlanAssurancePlanQualifiedNameParserRuleCall_6_0_1; }
 
 		//"["
-		public Keyword getLeftSquareBracketKeyword_6() { return cLeftSquareBracketKeyword_6; }
+		public Keyword getLeftSquareBracketKeyword_7() { return cLeftSquareBracketKeyword_7; }
 
-		//("description" description=Description)? & ("filter" filter+=[categories::Category]+ strictFilter?="only"?)? & ("issues"
-		//issues+=STRING+)?
-		public UnorderedGroup getUnorderedGroup_7() { return cUnorderedGroup_7; }
+		//("description" description=Description)? & ("filter" "[" ("requirement" "type"
+		//requirementType+=[categories::RequirementType]+ anyRequirementType?="any"?)? & ("method" "type"
+		//methodType+=[categories::MethodType]+ anyMethodType?="any"?)? & ("user" "selection"
+		//userSelection+=[categories::UserSelection]+ anyUserSelection?="any"?)? & ("quality" "attribute"
+		//qualityAttribute+=[categories::QualityAttribute]+ anyQualityAttribute?="any"?)? & ("development" "phase"
+		//developmentPhase+=[categories::DevelopmentPhase]+ anyDevelopmentPhase?="any"?)? "]")? & ("issues" issues+=STRING+)?
+		public UnorderedGroup getUnorderedGroup_8() { return cUnorderedGroup_8; }
 
 		//("description" description=Description)?
-		public Group getGroup_7_0() { return cGroup_7_0; }
+		public Group getGroup_8_0() { return cGroup_8_0; }
 
 		//"description"
-		public Keyword getDescriptionKeyword_7_0_0() { return cDescriptionKeyword_7_0_0; }
+		public Keyword getDescriptionKeyword_8_0_0() { return cDescriptionKeyword_8_0_0; }
 
 		//description=Description
-		public Assignment getDescriptionAssignment_7_0_1() { return cDescriptionAssignment_7_0_1; }
+		public Assignment getDescriptionAssignment_8_0_1() { return cDescriptionAssignment_8_0_1; }
 
 		//Description
-		public RuleCall getDescriptionDescriptionParserRuleCall_7_0_1_0() { return cDescriptionDescriptionParserRuleCall_7_0_1_0; }
+		public RuleCall getDescriptionDescriptionParserRuleCall_8_0_1_0() { return cDescriptionDescriptionParserRuleCall_8_0_1_0; }
 
-		//("filter" filter+=[categories::Category]+ strictFilter?="only"?)?
-		public Group getGroup_7_1() { return cGroup_7_1; }
+		//("filter" "[" ("requirement" "type" requirementType+=[categories::RequirementType]+ anyRequirementType?="any"?)? &
+		//("method" "type" methodType+=[categories::MethodType]+ anyMethodType?="any"?)? & ("user" "selection"
+		//userSelection+=[categories::UserSelection]+ anyUserSelection?="any"?)? & ("quality" "attribute"
+		//qualityAttribute+=[categories::QualityAttribute]+ anyQualityAttribute?="any"?)? & ("development" "phase"
+		//developmentPhase+=[categories::DevelopmentPhase]+ anyDevelopmentPhase?="any"?)? "]")?
+		public UnorderedGroup getUnorderedGroup_8_1() { return cUnorderedGroup_8_1; }
+
+		//"filter" "[" ("requirement" "type" requirementType+=[categories::RequirementType]+ anyRequirementType?="any"?)?
+		public Group getGroup_8_1_0() { return cGroup_8_1_0; }
 
 		//"filter"
-		public Keyword getFilterKeyword_7_1_0() { return cFilterKeyword_7_1_0; }
+		public Keyword getFilterKeyword_8_1_0_0() { return cFilterKeyword_8_1_0_0; }
 
-		//filter+=[categories::Category]+
-		public Assignment getFilterAssignment_7_1_1() { return cFilterAssignment_7_1_1; }
+		//"["
+		public Keyword getLeftSquareBracketKeyword_8_1_0_1() { return cLeftSquareBracketKeyword_8_1_0_1; }
 
-		//[categories::Category]
-		public CrossReference getFilterCategoryCrossReference_7_1_1_0() { return cFilterCategoryCrossReference_7_1_1_0; }
+		//("requirement" "type" requirementType+=[categories::RequirementType]+ anyRequirementType?="any"?)?
+		public Group getGroup_8_1_0_2() { return cGroup_8_1_0_2; }
+
+		//"requirement"
+		public Keyword getRequirementKeyword_8_1_0_2_0() { return cRequirementKeyword_8_1_0_2_0; }
+
+		//"type"
+		public Keyword getTypeKeyword_8_1_0_2_1() { return cTypeKeyword_8_1_0_2_1; }
+
+		//requirementType+=[categories::RequirementType]+
+		public Assignment getRequirementTypeAssignment_8_1_0_2_2() { return cRequirementTypeAssignment_8_1_0_2_2; }
+
+		//[categories::RequirementType]
+		public CrossReference getRequirementTypeRequirementTypeCrossReference_8_1_0_2_2_0() { return cRequirementTypeRequirementTypeCrossReference_8_1_0_2_2_0; }
 
 		//ID
-		public RuleCall getFilterCategoryIDTerminalRuleCall_7_1_1_0_1() { return cFilterCategoryIDTerminalRuleCall_7_1_1_0_1; }
+		public RuleCall getRequirementTypeRequirementTypeIDTerminalRuleCall_8_1_0_2_2_0_1() { return cRequirementTypeRequirementTypeIDTerminalRuleCall_8_1_0_2_2_0_1; }
 
-		//strictFilter?="only"?
-		public Assignment getStrictFilterAssignment_7_1_2() { return cStrictFilterAssignment_7_1_2; }
+		//anyRequirementType?="any"?
+		public Assignment getAnyRequirementTypeAssignment_8_1_0_2_3() { return cAnyRequirementTypeAssignment_8_1_0_2_3; }
 
-		//"only"
-		public Keyword getStrictFilterOnlyKeyword_7_1_2_0() { return cStrictFilterOnlyKeyword_7_1_2_0; }
+		//"any"
+		public Keyword getAnyRequirementTypeAnyKeyword_8_1_0_2_3_0() { return cAnyRequirementTypeAnyKeyword_8_1_0_2_3_0; }
 
-		//("issues" issues+=STRING+)?
-		public Group getGroup_7_2() { return cGroup_7_2; }
+		//("method" "type" methodType+=[categories::MethodType]+ anyMethodType?="any"?)?
+		public Group getGroup_8_1_1() { return cGroup_8_1_1; }
 
-		//"issues"
-		public Keyword getIssuesKeyword_7_2_0() { return cIssuesKeyword_7_2_0; }
+		//"method"
+		public Keyword getMethodKeyword_8_1_1_0() { return cMethodKeyword_8_1_1_0; }
 
-		//issues+=STRING+
-		public Assignment getIssuesAssignment_7_2_1() { return cIssuesAssignment_7_2_1; }
+		//"type"
+		public Keyword getTypeKeyword_8_1_1_1() { return cTypeKeyword_8_1_1_1; }
 
-		//STRING
-		public RuleCall getIssuesSTRINGTerminalRuleCall_7_2_1_0() { return cIssuesSTRINGTerminalRuleCall_7_2_1_0; }
+		//methodType+=[categories::MethodType]+
+		public Assignment getMethodTypeAssignment_8_1_1_2() { return cMethodTypeAssignment_8_1_1_2; }
+
+		//[categories::MethodType]
+		public CrossReference getMethodTypeMethodTypeCrossReference_8_1_1_2_0() { return cMethodTypeMethodTypeCrossReference_8_1_1_2_0; }
+
+		//ID
+		public RuleCall getMethodTypeMethodTypeIDTerminalRuleCall_8_1_1_2_0_1() { return cMethodTypeMethodTypeIDTerminalRuleCall_8_1_1_2_0_1; }
+
+		//anyMethodType?="any"?
+		public Assignment getAnyMethodTypeAssignment_8_1_1_3() { return cAnyMethodTypeAssignment_8_1_1_3; }
+
+		//"any"
+		public Keyword getAnyMethodTypeAnyKeyword_8_1_1_3_0() { return cAnyMethodTypeAnyKeyword_8_1_1_3_0; }
+
+		//("user" "selection" userSelection+=[categories::UserSelection]+ anyUserSelection?="any"?)?
+		public Group getGroup_8_1_2() { return cGroup_8_1_2; }
+
+		//"user"
+		public Keyword getUserKeyword_8_1_2_0() { return cUserKeyword_8_1_2_0; }
+
+		//"selection"
+		public Keyword getSelectionKeyword_8_1_2_1() { return cSelectionKeyword_8_1_2_1; }
+
+		//userSelection+=[categories::UserSelection]+
+		public Assignment getUserSelectionAssignment_8_1_2_2() { return cUserSelectionAssignment_8_1_2_2; }
+
+		//[categories::UserSelection]
+		public CrossReference getUserSelectionUserSelectionCrossReference_8_1_2_2_0() { return cUserSelectionUserSelectionCrossReference_8_1_2_2_0; }
+
+		//ID
+		public RuleCall getUserSelectionUserSelectionIDTerminalRuleCall_8_1_2_2_0_1() { return cUserSelectionUserSelectionIDTerminalRuleCall_8_1_2_2_0_1; }
+
+		//anyUserSelection?="any"?
+		public Assignment getAnyUserSelectionAssignment_8_1_2_3() { return cAnyUserSelectionAssignment_8_1_2_3; }
+
+		//"any"
+		public Keyword getAnyUserSelectionAnyKeyword_8_1_2_3_0() { return cAnyUserSelectionAnyKeyword_8_1_2_3_0; }
+
+		//("quality" "attribute" qualityAttribute+=[categories::QualityAttribute]+ anyQualityAttribute?="any"?)?
+		public Group getGroup_8_1_3() { return cGroup_8_1_3; }
+
+		//"quality"
+		public Keyword getQualityKeyword_8_1_3_0() { return cQualityKeyword_8_1_3_0; }
+
+		//"attribute"
+		public Keyword getAttributeKeyword_8_1_3_1() { return cAttributeKeyword_8_1_3_1; }
+
+		//qualityAttribute+=[categories::QualityAttribute]+
+		public Assignment getQualityAttributeAssignment_8_1_3_2() { return cQualityAttributeAssignment_8_1_3_2; }
+
+		//[categories::QualityAttribute]
+		public CrossReference getQualityAttributeQualityAttributeCrossReference_8_1_3_2_0() { return cQualityAttributeQualityAttributeCrossReference_8_1_3_2_0; }
+
+		//ID
+		public RuleCall getQualityAttributeQualityAttributeIDTerminalRuleCall_8_1_3_2_0_1() { return cQualityAttributeQualityAttributeIDTerminalRuleCall_8_1_3_2_0_1; }
+
+		//anyQualityAttribute?="any"?
+		public Assignment getAnyQualityAttributeAssignment_8_1_3_3() { return cAnyQualityAttributeAssignment_8_1_3_3; }
+
+		//"any"
+		public Keyword getAnyQualityAttributeAnyKeyword_8_1_3_3_0() { return cAnyQualityAttributeAnyKeyword_8_1_3_3_0; }
+
+		//("development" "phase" developmentPhase+=[categories::DevelopmentPhase]+ anyDevelopmentPhase?="any"?)? "]"
+		public Group getGroup_8_1_4() { return cGroup_8_1_4; }
+
+		//("development" "phase" developmentPhase+=[categories::DevelopmentPhase]+ anyDevelopmentPhase?="any"?)?
+		public Group getGroup_8_1_4_0() { return cGroup_8_1_4_0; }
+
+		//"development"
+		public Keyword getDevelopmentKeyword_8_1_4_0_0() { return cDevelopmentKeyword_8_1_4_0_0; }
+
+		//"phase"
+		public Keyword getPhaseKeyword_8_1_4_0_1() { return cPhaseKeyword_8_1_4_0_1; }
+
+		//developmentPhase+=[categories::DevelopmentPhase]+
+		public Assignment getDevelopmentPhaseAssignment_8_1_4_0_2() { return cDevelopmentPhaseAssignment_8_1_4_0_2; }
+
+		//[categories::DevelopmentPhase]
+		public CrossReference getDevelopmentPhaseDevelopmentPhaseCrossReference_8_1_4_0_2_0() { return cDevelopmentPhaseDevelopmentPhaseCrossReference_8_1_4_0_2_0; }
+
+		//ID
+		public RuleCall getDevelopmentPhaseDevelopmentPhaseIDTerminalRuleCall_8_1_4_0_2_0_1() { return cDevelopmentPhaseDevelopmentPhaseIDTerminalRuleCall_8_1_4_0_2_0_1; }
+
+		//anyDevelopmentPhase?="any"?
+		public Assignment getAnyDevelopmentPhaseAssignment_8_1_4_0_3() { return cAnyDevelopmentPhaseAssignment_8_1_4_0_3; }
+
+		//"any"
+		public Keyword getAnyDevelopmentPhaseAnyKeyword_8_1_4_0_3_0() { return cAnyDevelopmentPhaseAnyKeyword_8_1_4_0_3_0; }
 
 		//"]"
-		public Keyword getRightSquareBracketKeyword_8() { return cRightSquareBracketKeyword_8; }
+		public Keyword getRightSquareBracketKeyword_8_1_4_1() { return cRightSquareBracketKeyword_8_1_4_1; }
+
+		//("issues" issues+=STRING+)?
+		public Group getGroup_8_2() { return cGroup_8_2; }
+
+		//"issues"
+		public Keyword getIssuesKeyword_8_2_0() { return cIssuesKeyword_8_2_0; }
+
+		//issues+=STRING+
+		public Assignment getIssuesAssignment_8_2_1() { return cIssuesAssignment_8_2_1; }
+
+		//STRING
+		public RuleCall getIssuesSTRINGTerminalRuleCall_8_2_1_0() { return cIssuesSTRINGTerminalRuleCall_8_2_1_0; }
+
+		//"]"
+		public Keyword getRightSquareBracketKeyword_9() { return cRightSquareBracketKeyword_9; }
 	}
 	
 	
@@ -481,12 +625,10 @@ public class AlisaGrammarAccess extends AbstractGrammarElementFinder {
 
 	//AssurancePlan:
 	//	"assurance" "plan" name=QualifiedName (":" title=STRING)? "for"
-	//	target=[aadl2::ComponentImplementation|AadlClassifierReference] "[" (description=Description? & ("assure" "own"
-	//	assureOwn+=[Verify::SystemVerificationPlan|QualifiedName]+)? & ("assure" "global"
-	//	assureGlobal+=[Verify::GlobalVerificationPlan|QualifiedName]+)? & ("assure" "subsystem" "plans"
-	//	assureSubsystemPlans+=[AssurancePlan|QualifiedName]+)? & ("assume" "subsystems"
-	//	(assumeSubsystems+=[aadl2::ComponentClassifier|AadlClassifierReference]+ | assumeAll?="all"))? & ("issues"
-	//	issues+=STRING+)?) "]";
+	//	target=[aadl2::ComponentImplementation|AadlClassifierReference] "[" (description=Description? & ("assure"
+	//	assure+=[Verify::VerificationPlan|QualifiedName]+)? & ("assure" "subsystem" assureSubsystems+=[aadl2::Subcomponent]+
+	//	| assureAll?="all")? & ("assume" "subsystem" (assumeSubsystems+=[aadl2::Subcomponent]+ | assumeAll?="all"))? &
+	//	("issues" issues+=STRING+)?) "]";
 	public AssurancePlanElements getAssurancePlanAccess() {
 		return pAssurancePlan;
 	}
@@ -495,18 +637,15 @@ public class AlisaGrammarAccess extends AbstractGrammarElementFinder {
 		return getAssurancePlanAccess().getRule();
 	}
 
-	////OrSelectionConditionExpr returns SelectionConditionExpr:
-	////	AndSelectionConditionExpr (=> ({AndSelectionConditionExpr.left=current} 'or') right=OrSelectionConditionExpr)*;
-	////
-	////AndSelectionConditionExpr returns SelectionConditionExpr:
-	////	SelectionCategoryReference (=> ({AndSelectionConditionExpr.left=current} 'and') right=AndSelectionConditionExpr)*;
-	////
-	////SelectionCategoryReference:
-	////	cat=[categories::Category|ID];
-	//AssuranceTask:
-	//	"assurance" "task" name=ID (":" title=STRING)? "for" assurancePlan=[AssurancePlan|QualifiedName] "[" (("description"
-	//	description=Description)? & ("filter" filter+=[categories::Category]+ strictFilter?="only"?)? & ("issues"
-	//	issues+=STRING+)?) "]";
+	//AssuranceTask returns CategoryFilter:
+	//	{AssuranceTask} "assurance" "task" name=ID (":" title=STRING)? "for" assurancePlan=[AssurancePlan|QualifiedName] "["
+	//	(("description" description=Description)? & ("filter" "[" ("requirement" "type"
+	//	requirementType+=[categories::RequirementType]+ anyRequirementType?="any"?)? & ("method" "type"
+	//	methodType+=[categories::MethodType]+ anyMethodType?="any"?)? & ("user" "selection"
+	//	userSelection+=[categories::UserSelection]+ anyUserSelection?="any"?)? & ("quality" "attribute"
+	//	qualityAttribute+=[categories::QualityAttribute]+ anyQualityAttribute?="any"?)? & ("development" "phase"
+	//	developmentPhase+=[categories::DevelopmentPhase]+ anyDevelopmentPhase?="any"?)? "]")? & ("issues" issues+=STRING+)?)
+	//	"]";
 	public AssuranceTaskElements getAssuranceTaskAccess() {
 		return pAssuranceTask;
 	}

@@ -27,7 +27,9 @@ import org.osate.alisa.common.common.Description;
 import org.osate.alisa.common.common.Rationale;
 import org.osate.alisa.common.common.Uncertainty;
 
-import org.osate.categories.categories.Category;
+import org.osate.categories.categories.QualityAttribute;
+import org.osate.categories.categories.RequirementType;
+import org.osate.categories.categories.UserSelection;
 
 /**
  * <!-- begin-user-doc -->
@@ -43,7 +45,9 @@ import org.osate.categories.categories.Category;
  *   <li>{@link org.osate.reqspec.reqSpec.ContractualElement#getTargetDescription <em>Target Description</em>}</li>
  *   <li>{@link org.osate.reqspec.reqSpec.ContractualElement#getTarget <em>Target</em>}</li>
  *   <li>{@link org.osate.reqspec.reqSpec.ContractualElement#getTargetElement <em>Target Element</em>}</li>
- *   <li>{@link org.osate.reqspec.reqSpec.ContractualElement#getCategory <em>Category</em>}</li>
+ *   <li>{@link org.osate.reqspec.reqSpec.ContractualElement#getRequirementType <em>Requirement Type</em>}</li>
+ *   <li>{@link org.osate.reqspec.reqSpec.ContractualElement#getQualityAttribute <em>Quality Attribute</em>}</li>
+ *   <li>{@link org.osate.reqspec.reqSpec.ContractualElement#getUserSelection <em>User Selection</em>}</li>
  *   <li>{@link org.osate.reqspec.reqSpec.ContractualElement#getDescription <em>Description</em>}</li>
  *   <li>{@link org.osate.reqspec.reqSpec.ContractualElement#getConstants <em>Constants</em>}</li>
  *   <li>{@link org.osate.reqspec.reqSpec.ContractualElement#getRationale <em>Rationale</em>}</li>
@@ -192,20 +196,52 @@ public interface ContractualElement extends EObject
   void setTargetElement(NamedElement value);
 
   /**
-   * Returns the value of the '<em><b>Category</b></em>' reference list.
-   * The list contents are of type {@link org.osate.categories.categories.Category}.
+   * Returns the value of the '<em><b>Requirement Type</b></em>' reference list.
+   * The list contents are of type {@link org.osate.categories.categories.RequirementType}.
    * <!-- begin-user-doc -->
    * <p>
-   * If the meaning of the '<em>Category</em>' reference list isn't clear,
+   * If the meaning of the '<em>Requirement Type</em>' reference list isn't clear,
    * there really should be more of a description here...
    * </p>
    * <!-- end-user-doc -->
-   * @return the value of the '<em>Category</em>' reference list.
-   * @see org.osate.reqspec.reqSpec.ReqSpecPackage#getContractualElement_Category()
+   * @return the value of the '<em>Requirement Type</em>' reference list.
+   * @see org.osate.reqspec.reqSpec.ReqSpecPackage#getContractualElement_RequirementType()
    * @model
    * @generated
    */
-  EList<Category> getCategory();
+  EList<RequirementType> getRequirementType();
+
+  /**
+   * Returns the value of the '<em><b>Quality Attribute</b></em>' reference list.
+   * The list contents are of type {@link org.osate.categories.categories.QualityAttribute}.
+   * <!-- begin-user-doc -->
+   * <p>
+   * If the meaning of the '<em>Quality Attribute</em>' reference list isn't clear,
+   * there really should be more of a description here...
+   * </p>
+   * <!-- end-user-doc -->
+   * @return the value of the '<em>Quality Attribute</em>' reference list.
+   * @see org.osate.reqspec.reqSpec.ReqSpecPackage#getContractualElement_QualityAttribute()
+   * @model
+   * @generated
+   */
+  EList<QualityAttribute> getQualityAttribute();
+
+  /**
+   * Returns the value of the '<em><b>User Selection</b></em>' reference list.
+   * The list contents are of type {@link org.osate.categories.categories.UserSelection}.
+   * <!-- begin-user-doc -->
+   * <p>
+   * If the meaning of the '<em>User Selection</em>' reference list isn't clear,
+   * there really should be more of a description here...
+   * </p>
+   * <!-- end-user-doc -->
+   * @return the value of the '<em>User Selection</em>' reference list.
+   * @see org.osate.reqspec.reqSpec.ReqSpecPackage#getContractualElement_UserSelection()
+   * @model
+   * @generated
+   */
+  EList<UserSelection> getUserSelection();
 
   /**
    * Returns the value of the '<em><b>Description</b></em>' containment reference.

@@ -14,6 +14,7 @@
     <genClasses ecoreClass="Verify.ecore#//VerificationPlan">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Verify.ecore#//VerificationPlan/name"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Verify.ecore#//VerificationPlan/title"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference Verify.ecore#//VerificationPlan/requirements"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Verify.ecore#//VerificationPlan/description"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Verify.ecore#//VerificationPlan/claim"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Verify.ecore#//VerificationPlan/rationale"/>
@@ -33,7 +34,8 @@
     <genClasses ecoreClass="Verify.ecore#//VerificationActivity">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Verify.ecore#//VerificationActivity/name"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Verify.ecore#//VerificationActivity/title"/>
-      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference Verify.ecore#//VerificationActivity/category"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference Verify.ecore#//VerificationActivity/developmentPhase"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference Verify.ecore#//VerificationActivity/userSelection"/>
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference Verify.ecore#//VerificationActivity/result"/>
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference Verify.ecore#//VerificationActivity/method"/>
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference Verify.ecore#//VerificationActivity/parameters"/>
@@ -62,13 +64,15 @@
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Verify.ecore#//VerificationMethod/isPredicate"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Verify.ecore#//VerificationMethod/isResultReport"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Verify.ecore#//VerificationMethod/title"/>
-      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Verify.ecore#//VerificationMethod/methodType"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Verify.ecore#//VerificationMethod/methodKind"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Verify.ecore#//VerificationMethod/description"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Verify.ecore#//VerificationMethod/precondition"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Verify.ecore#//VerificationMethod/validation"/>
-      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference Verify.ecore#//VerificationMethod/category"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference Verify.ecore#//VerificationMethod/methodType"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference Verify.ecore#//VerificationMethod/qualityAttribute"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference Verify.ecore#//VerificationMethod/userSelection"/>
     </genClasses>
-    <genClasses ecoreClass="Verify.ecore#//MethodType"/>
+    <genClasses ecoreClass="Verify.ecore#//MethodKind"/>
     <genClasses ecoreClass="Verify.ecore#//ResoluteMethod">
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference Verify.ecore#//ResoluteMethod/methodReference"/>
     </genClasses>
@@ -80,12 +84,6 @@
     </genClasses>
     <genClasses ecoreClass="Verify.ecore#//PluginMethod">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Verify.ecore#//PluginMethod/methodID"/>
-    </genClasses>
-    <genClasses ecoreClass="Verify.ecore#//SystemVerificationPlan">
-      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference Verify.ecore#//SystemVerificationPlan/requirements"/>
-    </genClasses>
-    <genClasses ecoreClass="Verify.ecore#//GlobalVerificationPlan">
-      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference Verify.ecore#//GlobalVerificationPlan/requirements"/>
     </genClasses>
     <genClasses ecoreClass="Verify.ecore#//ThenExpr">
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Verify.ecore#//ThenExpr/left"/>
