@@ -2866,18 +2866,19 @@ public class ReqSpecGrammarAccess extends AbstractGrammarElementFinder {
 		private final RuleCall cIncludeEObjectQualifiedNameParserRuleCall_1_0_1 = (RuleCall)cIncludeEObjectCrossReference_1_0.eContents().get(1);
 		private final Group cGroup_2 = (Group)cGroup.eContents().get(2);
 		private final Keyword cForKeyword_2_0 = (Keyword)cGroup_2.eContents().get(0);
-		private final Assignment cComponentCategoryAssignment_2_1 = (Assignment)cGroup_2.eContents().get(1);
-		private final RuleCall cComponentCategoryComponentCategoryParserRuleCall_2_1_0 = (RuleCall)cComponentCategoryAssignment_2_1.eContents().get(0);
+		private final Alternatives cAlternatives_2_1 = (Alternatives)cGroup_2.eContents().get(1);
+		private final Assignment cComponentCategoryAssignment_2_1_0 = (Assignment)cAlternatives_2_1.eContents().get(0);
+		private final RuleCall cComponentCategoryComponentCategoryParserRuleCall_2_1_0_0 = (RuleCall)cComponentCategoryAssignment_2_1_0.eContents().get(0);
+		private final Assignment cSelfAssignment_2_1_1 = (Assignment)cAlternatives_2_1.eContents().get(1);
+		private final Keyword cSelfSelfKeyword_2_1_1_0 = (Keyword)cSelfAssignment_2_1_1.eContents().get(0);
 		
-		//IncludeGlobalRequirement: //	'include' (includedGlobalRequirements=[GlobalRequirements|QualifiedName]'.*' | requirement=[Requirement|QualifiedName])
-		//	"include" include=[ecore::EObject|QualifiedName] ("for" componentCategory+=ComponentCategory+)?;
+		//IncludeGlobalRequirement:
+		//	"include" include=[ecore::EObject|QualifiedName] ("for" (componentCategory+=ComponentCategory+ | self?="self"))?;
 		@Override public ParserRule getRule() { return rule; }
 
-		////	'include' (includedGlobalRequirements=[GlobalRequirements|QualifiedName]'.*' | requirement=[Requirement|QualifiedName])
-		//"include" include=[ecore::EObject|QualifiedName] ("for" componentCategory+=ComponentCategory+)?
+		//"include" include=[ecore::EObject|QualifiedName] ("for" (componentCategory+=ComponentCategory+ | self?="self"))?
 		public Group getGroup() { return cGroup; }
 
-		////	'include' (includedGlobalRequirements=[GlobalRequirements|QualifiedName]'.*' | requirement=[Requirement|QualifiedName])
 		//"include"
 		public Keyword getIncludeKeyword_0() { return cIncludeKeyword_0; }
 
@@ -2890,17 +2891,26 @@ public class ReqSpecGrammarAccess extends AbstractGrammarElementFinder {
 		//QualifiedName
 		public RuleCall getIncludeEObjectQualifiedNameParserRuleCall_1_0_1() { return cIncludeEObjectQualifiedNameParserRuleCall_1_0_1; }
 
-		//("for" componentCategory+=ComponentCategory+)?
+		//("for" (componentCategory+=ComponentCategory+ | self?="self"))?
 		public Group getGroup_2() { return cGroup_2; }
 
 		//"for"
 		public Keyword getForKeyword_2_0() { return cForKeyword_2_0; }
 
+		//componentCategory+=ComponentCategory+ | self?="self"
+		public Alternatives getAlternatives_2_1() { return cAlternatives_2_1; }
+
 		//componentCategory+=ComponentCategory+
-		public Assignment getComponentCategoryAssignment_2_1() { return cComponentCategoryAssignment_2_1; }
+		public Assignment getComponentCategoryAssignment_2_1_0() { return cComponentCategoryAssignment_2_1_0; }
 
 		//ComponentCategory
-		public RuleCall getComponentCategoryComponentCategoryParserRuleCall_2_1_0() { return cComponentCategoryComponentCategoryParserRuleCall_2_1_0; }
+		public RuleCall getComponentCategoryComponentCategoryParserRuleCall_2_1_0_0() { return cComponentCategoryComponentCategoryParserRuleCall_2_1_0_0; }
+
+		//self?="self"
+		public Assignment getSelfAssignment_2_1_1() { return cSelfAssignment_2_1_1; }
+
+		//"self"
+		public Keyword getSelfSelfKeyword_2_1_1_0() { return cSelfSelfKeyword_2_1_1_0; }
 	}
 
 	public class ReqPredicateElements extends AbstractParserRuleElementFinder {
@@ -3406,8 +3416,8 @@ public class ReqSpecGrammarAccess extends AbstractGrammarElementFinder {
 		return getDocRequirementAccess().getRule();
 	}
 
-	//IncludeGlobalRequirement: //	'include' (includedGlobalRequirements=[GlobalRequirements|QualifiedName]'.*' | requirement=[Requirement|QualifiedName])
-	//	"include" include=[ecore::EObject|QualifiedName] ("for" componentCategory+=ComponentCategory+)?;
+	//IncludeGlobalRequirement:
+	//	"include" include=[ecore::EObject|QualifiedName] ("for" (componentCategory+=ComponentCategory+ | self?="self"))?;
 	public IncludeGlobalRequirementElements getIncludeGlobalRequirementAccess() {
 		return pIncludeGlobalRequirement;
 	}

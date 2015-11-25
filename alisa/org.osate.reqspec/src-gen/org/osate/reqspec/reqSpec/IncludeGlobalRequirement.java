@@ -32,6 +32,7 @@ import org.osate.aadl2.ComponentCategory;
  * <ul>
  *   <li>{@link org.osate.reqspec.reqSpec.IncludeGlobalRequirement#getInclude <em>Include</em>}</li>
  *   <li>{@link org.osate.reqspec.reqSpec.IncludeGlobalRequirement#getComponentCategory <em>Component Category</em>}</li>
+ *   <li>{@link org.osate.reqspec.reqSpec.IncludeGlobalRequirement#isSelf <em>Self</em>}</li>
  * </ul>
  *
  * @see org.osate.reqspec.reqSpec.ReqSpecPackage#getIncludeGlobalRequirement()
@@ -83,5 +84,31 @@ public interface IncludeGlobalRequirement extends EObject
    * @generated
    */
   EList<ComponentCategory> getComponentCategory();
+
+  /**
+   * Returns the value of the '<em><b>Self</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <p>
+   * If the meaning of the '<em>Self</em>' attribute isn't clear,
+   * there really should be more of a description here...
+   * </p>
+   * <!-- end-user-doc -->
+   * @return the value of the '<em>Self</em>' attribute.
+   * @see #setSelf(boolean)
+   * @see org.osate.reqspec.reqSpec.ReqSpecPackage#getIncludeGlobalRequirement_Self()
+   * @model
+   * @generated
+   */
+  boolean isSelf();
+
+  /**
+   * Sets the value of the '{@link org.osate.reqspec.reqSpec.IncludeGlobalRequirement#isSelf <em>Self</em>}' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @param value the new value of the '<em>Self</em>' attribute.
+   * @see #isSelf()
+   * @generated
+   */
+  void setSelf(boolean value);
 
 } // IncludeGlobalRequirement

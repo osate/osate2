@@ -1171,13 +1171,22 @@ public interface ReqSpecPackage extends EPackage
   int INCLUDE_GLOBAL_REQUIREMENT__COMPONENT_CATEGORY = 1;
 
   /**
+   * The feature id for the '<em><b>Self</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int INCLUDE_GLOBAL_REQUIREMENT__SELF = 2;
+
+  /**
    * The number of structural features of the '<em>Include Global Requirement</em>' class.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    * @ordered
    */
-  int INCLUDE_GLOBAL_REQUIREMENT_FEATURE_COUNT = 2;
+  int INCLUDE_GLOBAL_REQUIREMENT_FEATURE_COUNT = 3;
 
   /**
    * The meta object id for the '{@link org.osate.reqspec.reqSpec.impl.ReqPredicateImpl <em>Req Predicate</em>}' class.
@@ -2381,6 +2390,17 @@ public interface ReqSpecPackage extends EPackage
   EAttribute getIncludeGlobalRequirement_ComponentCategory();
 
   /**
+   * Returns the meta object for the attribute '{@link org.osate.reqspec.reqSpec.IncludeGlobalRequirement#isSelf <em>Self</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the attribute '<em>Self</em>'.
+   * @see org.osate.reqspec.reqSpec.IncludeGlobalRequirement#isSelf()
+   * @see #getIncludeGlobalRequirement()
+   * @generated
+   */
+  EAttribute getIncludeGlobalRequirement_Self();
+
+  /**
    * Returns the meta object for class '{@link org.osate.reqspec.reqSpec.ReqPredicate <em>Req Predicate</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -3181,6 +3201,14 @@ public interface ReqSpecPackage extends EPackage
      * @generated
      */
     EAttribute INCLUDE_GLOBAL_REQUIREMENT__COMPONENT_CATEGORY = eINSTANCE.getIncludeGlobalRequirement_ComponentCategory();
+
+    /**
+     * The meta object literal for the '<em><b>Self</b></em>' attribute feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EAttribute INCLUDE_GLOBAL_REQUIREMENT__SELF = eINSTANCE.getIncludeGlobalRequirement_Self();
 
     /**
      * The meta object literal for the '{@link org.osate.reqspec.reqSpec.impl.ReqPredicateImpl <em>Req Predicate</em>}' class.
