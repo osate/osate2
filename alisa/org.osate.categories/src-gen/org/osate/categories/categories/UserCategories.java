@@ -18,14 +18,14 @@ package org.osate.categories.categories;
 
 /**
  * <!-- begin-user-doc -->
- * A representation of the model object '<em><b>User Selection Categories</b></em>'.
+ * A representation of the model object '<em><b>User Categories</b></em>'.
  * <!-- end-user-doc -->
  *
  *
- * @see org.osate.categories.categories.CategoriesPackage#getUserSelectionCategories()
+ * @see org.osate.categories.categories.CategoriesPackage#getUserCategories()
  * @model
  * @generated
  */
-public interface UserSelectionCategories extends Categories
+public interface UserCategories extends Categories
 {
-} // UserSelectionCategories
+} // UserCategories

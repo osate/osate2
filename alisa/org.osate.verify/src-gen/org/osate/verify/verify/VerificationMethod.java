@@ -23,9 +23,8 @@ import org.osate.aadl2.Property;
 
 import org.osate.alisa.common.common.Description;
 
-import org.osate.categories.categories.MethodType;
-import org.osate.categories.categories.QualityAttribute;
-import org.osate.categories.categories.UserSelection;
+import org.osate.categories.categories.QualityCategory;
+import org.osate.categories.categories.UserCategory;
 
 /**
  * <!-- begin-user-doc -->
@@ -46,9 +45,8 @@ import org.osate.categories.categories.UserSelection;
  *   <li>{@link org.osate.verify.verify.VerificationMethod#getDescription <em>Description</em>}</li>
  *   <li>{@link org.osate.verify.verify.VerificationMethod#getPrecondition <em>Precondition</em>}</li>
  *   <li>{@link org.osate.verify.verify.VerificationMethod#getValidation <em>Validation</em>}</li>
- *   <li>{@link org.osate.verify.verify.VerificationMethod#getMethodType <em>Method Type</em>}</li>
- *   <li>{@link org.osate.verify.verify.VerificationMethod#getQualityAttribute <em>Quality Attribute</em>}</li>
- *   <li>{@link org.osate.verify.verify.VerificationMethod#getUserSelection <em>User Selection</em>}</li>
+ *   <li>{@link org.osate.verify.verify.VerificationMethod#getQualityCategory <em>Quality Category</em>}</li>
+ *   <li>{@link org.osate.verify.verify.VerificationMethod#getUserCategory <em>User Category</em>}</li>
  * </ul>
  *
  * @see org.osate.verify.verify.VerifyPackage#getVerificationMethod()
@@ -298,51 +296,35 @@ public interface VerificationMethod extends EObject
   void setValidation(VerificationCondition value);
 
   /**
-   * Returns the value of the '<em><b>Method Type</b></em>' reference list.
-   * The list contents are of type {@link org.osate.categories.categories.MethodType}.
+   * Returns the value of the '<em><b>Quality Category</b></em>' reference list.
+   * The list contents are of type {@link org.osate.categories.categories.QualityCategory}.
    * <!-- begin-user-doc -->
    * <p>
-   * If the meaning of the '<em>Method Type</em>' reference list isn't clear,
+   * If the meaning of the '<em>Quality Category</em>' reference list isn't clear,
    * there really should be more of a description here...
    * </p>
    * <!-- end-user-doc -->
-   * @return the value of the '<em>Method Type</em>' reference list.
-   * @see org.osate.verify.verify.VerifyPackage#getVerificationMethod_MethodType()
+   * @return the value of the '<em>Quality Category</em>' reference list.
+   * @see org.osate.verify.verify.VerifyPackage#getVerificationMethod_QualityCategory()
    * @model
    * @generated
    */
-  EList<MethodType> getMethodType();
+  EList<QualityCategory> getQualityCategory();
 
   /**
-   * Returns the value of the '<em><b>Quality Attribute</b></em>' reference list.
-   * The list contents are of type {@link org.osate.categories.categories.QualityAttribute}.
+   * Returns the value of the '<em><b>User Category</b></em>' reference list.
+   * The list contents are of type {@link org.osate.categories.categories.UserCategory}.
    * <!-- begin-user-doc -->
    * <p>
-   * If the meaning of the '<em>Quality Attribute</em>' reference list isn't clear,
+   * If the meaning of the '<em>User Category</em>' reference list isn't clear,
    * there really should be more of a description here...
    * </p>
    * <!-- end-user-doc -->
-   * @return the value of the '<em>Quality Attribute</em>' reference list.
-   * @see org.osate.verify.verify.VerifyPackage#getVerificationMethod_QualityAttribute()
+   * @return the value of the '<em>User Category</em>' reference list.
+   * @see org.osate.verify.verify.VerifyPackage#getVerificationMethod_UserCategory()
    * @model
    * @generated
    */
-  EList<QualityAttribute> getQualityAttribute();
-
-  /**
-   * Returns the value of the '<em><b>User Selection</b></em>' reference list.
-   * The list contents are of type {@link org.osate.categories.categories.UserSelection}.
-   * <!-- begin-user-doc -->
-   * <p>
-   * If the meaning of the '<em>User Selection</em>' reference list isn't clear,
-   * there really should be more of a description here...
-   * </p>
-   * <!-- end-user-doc -->
-   * @return the value of the '<em>User Selection</em>' reference list.
-   * @see org.osate.verify.verify.VerifyPackage#getVerificationMethod_UserSelection()
-   * @model
-   * @generated
-   */
-  EList<UserSelection> getUserSelection();
+  EList<UserCategory> getUserCategory();
 
 } // VerificationMethod

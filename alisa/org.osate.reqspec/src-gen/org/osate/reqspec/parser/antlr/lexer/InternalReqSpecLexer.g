@@ -56,8 +56,6 @@ Subprogram : 'subprogram';
 
 Volatility : 'volatility';
 
-Attribute : 'attribute';
-
 Conflicts : 'conflicts';
 
 Constants : 'constants';
@@ -72,9 +70,9 @@ Rationale : 'rationale';
 
 Riskindex : 'riskindex';
 
-Selection : 'selection';
-
 Abstract : 'abstract';
+
+Category : 'category';
 
 Document : 'document';
 
@@ -129,10 +127,6 @@ Null : 'null';
 This : 'this';
 
 True : 'true';
-
-Type : 'type';
-
-User : 'user';
 
 With : 'with';
 

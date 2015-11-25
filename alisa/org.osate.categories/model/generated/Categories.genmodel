@@ -9,11 +9,9 @@
   <genPackages prefix="Categories" basePackage="org.osate.categories" disposableProviderFactory="true"
       fileExtensions="cat" ecorePackage="Categories.ecore#/">
     <genClasses ecoreClass="Categories.ecore#//CategoriesDefinitions">
-      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Categories.ecore#//CategoriesDefinitions/requirementTypeCategories"/>
-      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Categories.ecore#//CategoriesDefinitions/methodTypeCategories"/>
-      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Categories.ecore#//CategoriesDefinitions/selectioncategories"/>
-      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Categories.ecore#//CategoriesDefinitions/developmentPhaseCategories"/>
-      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Categories.ecore#//CategoriesDefinitions/qualityAttributeCategories"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Categories.ecore#//CategoriesDefinitions/userCategories"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Categories.ecore#//CategoriesDefinitions/phaseCategories"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Categories.ecore#//CategoriesDefinitions/qualityCategories"/>
     </genClasses>
     <genClasses ecoreClass="Categories.ecore#//Categories">
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Categories.ecore#//Categories/category"/>
@@ -23,26 +21,18 @@
     </genClasses>
     <genClasses ecoreClass="Categories.ecore#//CategoryFilter">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Categories.ecore#//CategoryFilter/name"/>
-      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference Categories.ecore#//CategoryFilter/requirementType"/>
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Categories.ecore#//CategoryFilter/anyRequirementType"/>
-      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference Categories.ecore#//CategoryFilter/methodType"/>
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Categories.ecore#//CategoryFilter/anyMethodType"/>
-      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference Categories.ecore#//CategoryFilter/userSelection"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference Categories.ecore#//CategoryFilter/userCategory"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Categories.ecore#//CategoryFilter/anyUserSelection"/>
-      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference Categories.ecore#//CategoryFilter/qualityAttribute"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference Categories.ecore#//CategoryFilter/qualityCategory"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Categories.ecore#//CategoryFilter/anyQualityAttribute"/>
-      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference Categories.ecore#//CategoryFilter/developmentPhase"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference Categories.ecore#//CategoryFilter/phaseCategory"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Categories.ecore#//CategoryFilter/anyDevelopmentPhase"/>
     </genClasses>
-    <genClasses ecoreClass="Categories.ecore#//RequirementTypeCategories"/>
-    <genClasses ecoreClass="Categories.ecore#//MethodTypeCategories"/>
-    <genClasses ecoreClass="Categories.ecore#//UserSelectionCategories"/>
-    <genClasses ecoreClass="Categories.ecore#//QualityAttributeCategories"/>
-    <genClasses ecoreClass="Categories.ecore#//DevelopmentPhaseCategories"/>
-    <genClasses ecoreClass="Categories.ecore#//RequirementType"/>
-    <genClasses ecoreClass="Categories.ecore#//MethodType"/>
-    <genClasses ecoreClass="Categories.ecore#//UserSelection"/>
-    <genClasses ecoreClass="Categories.ecore#//QualityAttribute"/>
-    <genClasses ecoreClass="Categories.ecore#//DevelopmentPhase"/>
+    <genClasses ecoreClass="Categories.ecore#//UserCategories"/>
+    <genClasses ecoreClass="Categories.ecore#//QualityCategories"/>
+    <genClasses ecoreClass="Categories.ecore#//PhaseCategories"/>
+    <genClasses ecoreClass="Categories.ecore#//UserCategory"/>
+    <genClasses ecoreClass="Categories.ecore#//QualityCategory"/>
+    <genClasses ecoreClass="Categories.ecore#//PhaseCategory"/>
   </genPackages>
 </genmodel:GenModel>

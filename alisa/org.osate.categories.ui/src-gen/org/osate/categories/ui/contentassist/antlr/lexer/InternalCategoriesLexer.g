@@ -28,23 +28,11 @@ import org.eclipse.xtext.ui.editor.contentassist.antlr.internal.Lexer;
 
 
 
-Development : 'development';
-
-Requirement : 'requirement';
-
-Attribute : 'attribute';
-
-Selection : 'selection';
+Category : 'category';
 
 Quality : 'quality';
 
-Method : 'method';
-
 Phase : 'phase';
-
-Type : 'type';
-
-User : 'user';
 
 Any : 'any';
 

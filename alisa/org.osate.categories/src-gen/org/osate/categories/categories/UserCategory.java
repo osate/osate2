@@ -13,41 +13,19 @@
  * 
  * See COPYRIGHT file for full details.
  */
-package org.osate.categories.categories.impl;
+package org.osate.categories.categories;
 
-import org.eclipse.emf.ecore.EClass;
-
-import org.osate.categories.categories.CategoriesPackage;
-import org.osate.categories.categories.RequirementTypeCategories;
 
 /**
  * <!-- begin-user-doc -->
- * An implementation of the model object '<em><b>Requirement Type Categories</b></em>'.
+ * A representation of the model object '<em><b>User Category</b></em>'.
  * <!-- end-user-doc -->
  *
+ *
+ * @see org.osate.categories.categories.CategoriesPackage#getUserCategory()
+ * @model
  * @generated
  */
-public class RequirementTypeCategoriesImpl extends CategoriesImpl implements RequirementTypeCategories
+public interface UserCategory extends Category
 {
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  protected RequirementTypeCategoriesImpl()
-  {
-    super();
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  @Override
-  protected EClass eStaticClass()
-  {
-    return CategoriesPackage.Literals.REQUIREMENT_TYPE_CATEGORIES;
-  }
-
-} //RequirementTypeCategoriesImpl
+} // UserCategory

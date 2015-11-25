@@ -318,22 +318,22 @@ public interface VerifyPackage extends EPackage
   int VERIFICATION_ACTIVITY__TITLE = 1;
 
   /**
-   * The feature id for the '<em><b>Development Phase</b></em>' reference list.
+   * The feature id for the '<em><b>Phase Category</b></em>' reference list.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    * @ordered
    */
-  int VERIFICATION_ACTIVITY__DEVELOPMENT_PHASE = 2;
+  int VERIFICATION_ACTIVITY__PHASE_CATEGORY = 2;
 
   /**
-   * The feature id for the '<em><b>User Selection</b></em>' reference list.
+   * The feature id for the '<em><b>User Category</b></em>' reference list.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    * @ordered
    */
-  int VERIFICATION_ACTIVITY__USER_SELECTION = 3;
+  int VERIFICATION_ACTIVITY__USER_CATEGORY = 3;
 
   /**
    * The feature id for the '<em><b>Result</b></em>' reference list.
@@ -628,31 +628,22 @@ public interface VerifyPackage extends EPackage
   int VERIFICATION_METHOD__VALIDATION = 9;
 
   /**
-   * The feature id for the '<em><b>Method Type</b></em>' reference list.
+   * The feature id for the '<em><b>Quality Category</b></em>' reference list.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    * @ordered
    */
-  int VERIFICATION_METHOD__METHOD_TYPE = 10;
+  int VERIFICATION_METHOD__QUALITY_CATEGORY = 10;
 
   /**
-   * The feature id for the '<em><b>Quality Attribute</b></em>' reference list.
+   * The feature id for the '<em><b>User Category</b></em>' reference list.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    * @ordered
    */
-  int VERIFICATION_METHOD__QUALITY_ATTRIBUTE = 11;
-
-  /**
-   * The feature id for the '<em><b>User Selection</b></em>' reference list.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int VERIFICATION_METHOD__USER_SELECTION = 12;
+  int VERIFICATION_METHOD__USER_CATEGORY = 11;
 
   /**
    * The number of structural features of the '<em>Verification Method</em>' class.
@@ -661,7 +652,7 @@ public interface VerifyPackage extends EPackage
    * @generated
    * @ordered
    */
-  int VERIFICATION_METHOD_FEATURE_COUNT = 13;
+  int VERIFICATION_METHOD_FEATURE_COUNT = 12;
 
   /**
    * The meta object id for the '{@link org.osate.verify.verify.impl.MethodKindImpl <em>Method Kind</em>}' class.
@@ -1275,26 +1266,26 @@ public interface VerifyPackage extends EPackage
   EAttribute getVerificationActivity_Title();
 
   /**
-   * Returns the meta object for the reference list '{@link org.osate.verify.verify.VerificationActivity#getDevelopmentPhase <em>Development Phase</em>}'.
+   * Returns the meta object for the reference list '{@link org.osate.verify.verify.VerificationActivity#getPhaseCategory <em>Phase Category</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @return the meta object for the reference list '<em>Development Phase</em>'.
-   * @see org.osate.verify.verify.VerificationActivity#getDevelopmentPhase()
+   * @return the meta object for the reference list '<em>Phase Category</em>'.
+   * @see org.osate.verify.verify.VerificationActivity#getPhaseCategory()
    * @see #getVerificationActivity()
    * @generated
    */
-  EReference getVerificationActivity_DevelopmentPhase();
+  EReference getVerificationActivity_PhaseCategory();
 
   /**
-   * Returns the meta object for the reference list '{@link org.osate.verify.verify.VerificationActivity#getUserSelection <em>User Selection</em>}'.
+   * Returns the meta object for the reference list '{@link org.osate.verify.verify.VerificationActivity#getUserCategory <em>User Category</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @return the meta object for the reference list '<em>User Selection</em>'.
-   * @see org.osate.verify.verify.VerificationActivity#getUserSelection()
+   * @return the meta object for the reference list '<em>User Category</em>'.
+   * @see org.osate.verify.verify.VerificationActivity#getUserCategory()
    * @see #getVerificationActivity()
    * @generated
    */
-  EReference getVerificationActivity_UserSelection();
+  EReference getVerificationActivity_UserCategory();
 
   /**
    * Returns the meta object for the reference list '{@link org.osate.verify.verify.VerificationActivity#getResult <em>Result</em>}'.
@@ -1601,37 +1592,26 @@ public interface VerifyPackage extends EPackage
   EReference getVerificationMethod_Validation();
 
   /**
-   * Returns the meta object for the reference list '{@link org.osate.verify.verify.VerificationMethod#getMethodType <em>Method Type</em>}'.
+   * Returns the meta object for the reference list '{@link org.osate.verify.verify.VerificationMethod#getQualityCategory <em>Quality Category</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @return the meta object for the reference list '<em>Method Type</em>'.
-   * @see org.osate.verify.verify.VerificationMethod#getMethodType()
+   * @return the meta object for the reference list '<em>Quality Category</em>'.
+   * @see org.osate.verify.verify.VerificationMethod#getQualityCategory()
    * @see #getVerificationMethod()
    * @generated
    */
-  EReference getVerificationMethod_MethodType();
+  EReference getVerificationMethod_QualityCategory();
 
   /**
-   * Returns the meta object for the reference list '{@link org.osate.verify.verify.VerificationMethod#getQualityAttribute <em>Quality Attribute</em>}'.
+   * Returns the meta object for the reference list '{@link org.osate.verify.verify.VerificationMethod#getUserCategory <em>User Category</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @return the meta object for the reference list '<em>Quality Attribute</em>'.
-   * @see org.osate.verify.verify.VerificationMethod#getQualityAttribute()
+   * @return the meta object for the reference list '<em>User Category</em>'.
+   * @see org.osate.verify.verify.VerificationMethod#getUserCategory()
    * @see #getVerificationMethod()
    * @generated
    */
-  EReference getVerificationMethod_QualityAttribute();
-
-  /**
-   * Returns the meta object for the reference list '{@link org.osate.verify.verify.VerificationMethod#getUserSelection <em>User Selection</em>}'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return the meta object for the reference list '<em>User Selection</em>'.
-   * @see org.osate.verify.verify.VerificationMethod#getUserSelection()
-   * @see #getVerificationMethod()
-   * @generated
-   */
-  EReference getVerificationMethod_UserSelection();
+  EReference getVerificationMethod_UserCategory();
 
   /**
    * Returns the meta object for class '{@link org.osate.verify.verify.MethodKind <em>Method Kind</em>}'.
@@ -2104,20 +2084,20 @@ public interface VerifyPackage extends EPackage
     EAttribute VERIFICATION_ACTIVITY__TITLE = eINSTANCE.getVerificationActivity_Title();
 
     /**
-     * The meta object literal for the '<em><b>Development Phase</b></em>' reference list feature.
+     * The meta object literal for the '<em><b>Phase Category</b></em>' reference list feature.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @generated
      */
-    EReference VERIFICATION_ACTIVITY__DEVELOPMENT_PHASE = eINSTANCE.getVerificationActivity_DevelopmentPhase();
+    EReference VERIFICATION_ACTIVITY__PHASE_CATEGORY = eINSTANCE.getVerificationActivity_PhaseCategory();
 
     /**
-     * The meta object literal for the '<em><b>User Selection</b></em>' reference list feature.
+     * The meta object literal for the '<em><b>User Category</b></em>' reference list feature.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @generated
      */
-    EReference VERIFICATION_ACTIVITY__USER_SELECTION = eINSTANCE.getVerificationActivity_UserSelection();
+    EReference VERIFICATION_ACTIVITY__USER_CATEGORY = eINSTANCE.getVerificationActivity_UserCategory();
 
     /**
      * The meta object literal for the '<em><b>Result</b></em>' reference list feature.
@@ -2352,28 +2332,20 @@ public interface VerifyPackage extends EPackage
     EReference VERIFICATION_METHOD__VALIDATION = eINSTANCE.getVerificationMethod_Validation();
 
     /**
-     * The meta object literal for the '<em><b>Method Type</b></em>' reference list feature.
+     * The meta object literal for the '<em><b>Quality Category</b></em>' reference list feature.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @generated
      */
-    EReference VERIFICATION_METHOD__METHOD_TYPE = eINSTANCE.getVerificationMethod_MethodType();
+    EReference VERIFICATION_METHOD__QUALITY_CATEGORY = eINSTANCE.getVerificationMethod_QualityCategory();
 
     /**
-     * The meta object literal for the '<em><b>Quality Attribute</b></em>' reference list feature.
+     * The meta object literal for the '<em><b>User Category</b></em>' reference list feature.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @generated
      */
-    EReference VERIFICATION_METHOD__QUALITY_ATTRIBUTE = eINSTANCE.getVerificationMethod_QualityAttribute();
-
-    /**
-     * The meta object literal for the '<em><b>User Selection</b></em>' reference list feature.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
-    EReference VERIFICATION_METHOD__USER_SELECTION = eINSTANCE.getVerificationMethod_UserSelection();
+    EReference VERIFICATION_METHOD__USER_CATEGORY = eINSTANCE.getVerificationMethod_UserCategory();
 
     /**
      * The meta object literal for the '{@link org.osate.verify.verify.impl.MethodKindImpl <em>Method Kind</em>}' class.

@@ -83,8 +83,8 @@ VAReference returns ArgumentExpr:
 VerificationActivity:
 	name=ID (':' title=STRING)? 
 //	('for' target=[aadl2::ComponentImplementation|AadlClassifierReference])? // for specific AADL model configuration
-	('development''phase' developmentPhase+=[categories::DevelopmentPhase|ID]+)?
-	('user''selection' userSelection+=[categories::UserSelection|ID]+)?
+	('phase' phaseCategory+=[categories::PhaseCategory|ID]+)?
+	('category' userCategory+=[categories::UserCategory|ID]+)?
 	':'
 	(result+=[common::ComputeDeclaration|ID] (',' result+=[common::ComputeDeclaration|ID])* '=')?
 	method=[VerificationMethod|QualifiedName] 
@@ -141,9 +141,8 @@ VerificationMethod:
 		& description=Description?
 		& precondition=VerificationPrecondition?
 		& validation=VerificationValidation?
-		& ('method''type' methodType+=[categories::MethodType|ID]+)?
-		& ('quality''attribute' qualityAttribute+=[categories::QualityAttribute|ID]+)?
-		& ('user''selection' userSelection+=[categories::UserSelection|ID]+)?
+	&('quality' qualityCategory+=[categories::QualityCategory|ID]+)?
+	&('category' userCategory+=[categories::UserCategory|ID]+)?
 	)
 	']'
 	;

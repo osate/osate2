@@ -51,11 +51,7 @@ import org.osate.reqspec.util.IReqspecGlobalReferenceFinder
 import static extension org.osate.reqspec.util.ReqSpecUtilExtension.*
 import org.osate.reqspec.reqSpec.GlobalRequirements
 import org.osate.reqspec.reqSpec.Requirements
-import org.osate.categories.categories.UserSelection
-import org.osate.categories.categories.QualityAttribute
-import org.osate.categories.categories.RequirementType
 import org.osate.reqspec.reqSpec.IncludeGlobalRequirement
-import org.osate.categories.services.CategoriesGrammarAccess.RequirementTypeCategoriesElements
 
 /**
  * Custom validation rules. 

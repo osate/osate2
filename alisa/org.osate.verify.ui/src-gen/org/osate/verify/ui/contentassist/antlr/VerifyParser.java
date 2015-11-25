@@ -138,7 +138,6 @@ public class VerifyParser extends AbstractContentAssistParser {
 					put(grammarAccess.getVerificationMethodAccess().getGroup_3(), "rule__VerificationMethod__Group_3__0");
 					put(grammarAccess.getVerificationMethodAccess().getGroup_5_4(), "rule__VerificationMethod__Group_5_4__0");
 					put(grammarAccess.getVerificationMethodAccess().getGroup_5_5(), "rule__VerificationMethod__Group_5_5__0");
-					put(grammarAccess.getVerificationMethodAccess().getGroup_5_6(), "rule__VerificationMethod__Group_5_6__0");
 					put(grammarAccess.getResoluteMethodAccess().getGroup(), "rule__ResoluteMethod__Group__0");
 					put(grammarAccess.getJavaMethodAccess().getGroup(), "rule__JavaMethod__Group__0");
 					put(grammarAccess.getManualMethodAccess().getGroup(), "rule__ManualMethod__Group__0");
@@ -257,8 +256,8 @@ public class VerifyParser extends AbstractContentAssistParser {
 					put(grammarAccess.getVAReferenceAccess().getWeightAssignment_2_1(), "rule__VAReference__WeightAssignment_2_1");
 					put(grammarAccess.getVerificationActivityAccess().getNameAssignment_0(), "rule__VerificationActivity__NameAssignment_0");
 					put(grammarAccess.getVerificationActivityAccess().getTitleAssignment_1_1(), "rule__VerificationActivity__TitleAssignment_1_1");
-					put(grammarAccess.getVerificationActivityAccess().getDevelopmentPhaseAssignment_2_2(), "rule__VerificationActivity__DevelopmentPhaseAssignment_2_2");
-					put(grammarAccess.getVerificationActivityAccess().getUserSelectionAssignment_3_2(), "rule__VerificationActivity__UserSelectionAssignment_3_2");
+					put(grammarAccess.getVerificationActivityAccess().getPhaseCategoryAssignment_2_1(), "rule__VerificationActivity__PhaseCategoryAssignment_2_1");
+					put(grammarAccess.getVerificationActivityAccess().getUserCategoryAssignment_3_1(), "rule__VerificationActivity__UserCategoryAssignment_3_1");
 					put(grammarAccess.getVerificationActivityAccess().getResultAssignment_5_0(), "rule__VerificationActivity__ResultAssignment_5_0");
 					put(grammarAccess.getVerificationActivityAccess().getResultAssignment_5_1_1(), "rule__VerificationActivity__ResultAssignment_5_1_1");
 					put(grammarAccess.getVerificationActivityAccess().getMethodAssignment_6(), "rule__VerificationActivity__MethodAssignment_6");
@@ -292,9 +291,8 @@ public class VerifyParser extends AbstractContentAssistParser {
 					put(grammarAccess.getVerificationMethodAccess().getDescriptionAssignment_5_1(), "rule__VerificationMethod__DescriptionAssignment_5_1");
 					put(grammarAccess.getVerificationMethodAccess().getPreconditionAssignment_5_2(), "rule__VerificationMethod__PreconditionAssignment_5_2");
 					put(grammarAccess.getVerificationMethodAccess().getValidationAssignment_5_3(), "rule__VerificationMethod__ValidationAssignment_5_3");
-					put(grammarAccess.getVerificationMethodAccess().getMethodTypeAssignment_5_4_2(), "rule__VerificationMethod__MethodTypeAssignment_5_4_2");
-					put(grammarAccess.getVerificationMethodAccess().getQualityAttributeAssignment_5_5_2(), "rule__VerificationMethod__QualityAttributeAssignment_5_5_2");
-					put(grammarAccess.getVerificationMethodAccess().getUserSelectionAssignment_5_6_2(), "rule__VerificationMethod__UserSelectionAssignment_5_6_2");
+					put(grammarAccess.getVerificationMethodAccess().getQualityCategoryAssignment_5_4_1(), "rule__VerificationMethod__QualityCategoryAssignment_5_4_1");
+					put(grammarAccess.getVerificationMethodAccess().getUserCategoryAssignment_5_5_1(), "rule__VerificationMethod__UserCategoryAssignment_5_5_1");
 					put(grammarAccess.getResoluteMethodAccess().getMethodReferenceAssignment_1(), "rule__ResoluteMethod__MethodReferenceAssignment_1");
 					put(grammarAccess.getJavaMethodAccess().getMethodPathAssignment_1(), "rule__JavaMethod__MethodPathAssignment_1");
 					put(grammarAccess.getManualMethodAccess().getDialogIDAssignment_2(), "rule__ManualMethod__DialogIDAssignment_2");

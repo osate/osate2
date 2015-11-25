@@ -33,22 +33,18 @@ import org.osate.categories.services.CategoriesGrammarAccess;
 public class CategoriesSyntacticSequencer extends AbstractSyntacticSequencer {
 
 	protected CategoriesGrammarAccess grammarAccess;
-	protected AbstractElementAlias match_CategoryFilter_RightSquareBracketKeyword_4_1_a;
-	protected AbstractElementAlias match_CategoryFilter_RightSquareBracketKeyword_4_1_p;
-	protected AbstractElementAlias match_CategoryFilter___RightSquareBracketKeyword_4_1_a_MethodKeyword_1_0_TypeKeyword_1_1__q;
-	protected AbstractElementAlias match_CategoryFilter___RightSquareBracketKeyword_4_1_a_QualityKeyword_3_0_AttributeKeyword_3_1__q;
-	protected AbstractElementAlias match_CategoryFilter___RightSquareBracketKeyword_4_1_a_UserKeyword_2_0_SelectionKeyword_2_1__q;
-	protected AbstractElementAlias match_CategoryFilter___RightSquareBracketKeyword_4_1_p_DevelopmentKeyword_4_0_0_PhaseKeyword_4_0_1__q;
+	protected AbstractElementAlias match_CategoryFilter_RightSquareBracketKeyword_2_1_a;
+	protected AbstractElementAlias match_CategoryFilter_RightSquareBracketKeyword_2_1_p;
+	protected AbstractElementAlias match_CategoryFilter___RightSquareBracketKeyword_2_1_a_QualityKeyword_1_0__q;
+	protected AbstractElementAlias match_CategoryFilter___RightSquareBracketKeyword_2_1_p_PhaseKeyword_2_0_0__q;
 	
 	@Inject
 	protected void init(IGrammarAccess access) {
 		grammarAccess = (CategoriesGrammarAccess) access;
-		match_CategoryFilter_RightSquareBracketKeyword_4_1_a = new TokenAlias(true, true, grammarAccess.getCategoryFilterAccess().getRightSquareBracketKeyword_4_1());
-		match_CategoryFilter_RightSquareBracketKeyword_4_1_p = new TokenAlias(true, false, grammarAccess.getCategoryFilterAccess().getRightSquareBracketKeyword_4_1());
-		match_CategoryFilter___RightSquareBracketKeyword_4_1_a_MethodKeyword_1_0_TypeKeyword_1_1__q = new GroupAlias(false, true, new TokenAlias(true, true, grammarAccess.getCategoryFilterAccess().getRightSquareBracketKeyword_4_1()), new TokenAlias(false, false, grammarAccess.getCategoryFilterAccess().getMethodKeyword_1_0()), new TokenAlias(false, false, grammarAccess.getCategoryFilterAccess().getTypeKeyword_1_1()));
-		match_CategoryFilter___RightSquareBracketKeyword_4_1_a_QualityKeyword_3_0_AttributeKeyword_3_1__q = new GroupAlias(false, true, new TokenAlias(true, true, grammarAccess.getCategoryFilterAccess().getRightSquareBracketKeyword_4_1()), new TokenAlias(false, false, grammarAccess.getCategoryFilterAccess().getQualityKeyword_3_0()), new TokenAlias(false, false, grammarAccess.getCategoryFilterAccess().getAttributeKeyword_3_1()));
-		match_CategoryFilter___RightSquareBracketKeyword_4_1_a_UserKeyword_2_0_SelectionKeyword_2_1__q = new GroupAlias(false, true, new TokenAlias(true, true, grammarAccess.getCategoryFilterAccess().getRightSquareBracketKeyword_4_1()), new TokenAlias(false, false, grammarAccess.getCategoryFilterAccess().getUserKeyword_2_0()), new TokenAlias(false, false, grammarAccess.getCategoryFilterAccess().getSelectionKeyword_2_1()));
-		match_CategoryFilter___RightSquareBracketKeyword_4_1_p_DevelopmentKeyword_4_0_0_PhaseKeyword_4_0_1__q = new GroupAlias(false, true, new TokenAlias(true, false, grammarAccess.getCategoryFilterAccess().getRightSquareBracketKeyword_4_1()), new TokenAlias(false, false, grammarAccess.getCategoryFilterAccess().getDevelopmentKeyword_4_0_0()), new TokenAlias(false, false, grammarAccess.getCategoryFilterAccess().getPhaseKeyword_4_0_1()));
+		match_CategoryFilter_RightSquareBracketKeyword_2_1_a = new TokenAlias(true, true, grammarAccess.getCategoryFilterAccess().getRightSquareBracketKeyword_2_1());
+		match_CategoryFilter_RightSquareBracketKeyword_2_1_p = new TokenAlias(true, false, grammarAccess.getCategoryFilterAccess().getRightSquareBracketKeyword_2_1());
+		match_CategoryFilter___RightSquareBracketKeyword_2_1_a_QualityKeyword_1_0__q = new GroupAlias(false, true, new TokenAlias(true, true, grammarAccess.getCategoryFilterAccess().getRightSquareBracketKeyword_2_1()), new TokenAlias(false, false, grammarAccess.getCategoryFilterAccess().getQualityKeyword_1_0()));
+		match_CategoryFilter___RightSquareBracketKeyword_2_1_p_PhaseKeyword_2_0_0__q = new GroupAlias(false, true, new TokenAlias(true, false, grammarAccess.getCategoryFilterAccess().getRightSquareBracketKeyword_2_1()), new TokenAlias(false, false, grammarAccess.getCategoryFilterAccess().getPhaseKeyword_2_0_0()));
 	}
 	
 	@Override
@@ -63,18 +59,14 @@ public class CategoriesSyntacticSequencer extends AbstractSyntacticSequencer {
 		List<INode> transitionNodes = collectNodes(fromNode, toNode);
 		for (AbstractElementAlias syntax : transition.getAmbiguousSyntaxes()) {
 			List<INode> syntaxNodes = getNodesFor(transitionNodes, syntax);
-			if(match_CategoryFilter_RightSquareBracketKeyword_4_1_a.equals(syntax))
-				emit_CategoryFilter_RightSquareBracketKeyword_4_1_a(semanticObject, getLastNavigableState(), syntaxNodes);
-			else if(match_CategoryFilter_RightSquareBracketKeyword_4_1_p.equals(syntax))
-				emit_CategoryFilter_RightSquareBracketKeyword_4_1_p(semanticObject, getLastNavigableState(), syntaxNodes);
-			else if(match_CategoryFilter___RightSquareBracketKeyword_4_1_a_MethodKeyword_1_0_TypeKeyword_1_1__q.equals(syntax))
-				emit_CategoryFilter___RightSquareBracketKeyword_4_1_a_MethodKeyword_1_0_TypeKeyword_1_1__q(semanticObject, getLastNavigableState(), syntaxNodes);
-			else if(match_CategoryFilter___RightSquareBracketKeyword_4_1_a_QualityKeyword_3_0_AttributeKeyword_3_1__q.equals(syntax))
-				emit_CategoryFilter___RightSquareBracketKeyword_4_1_a_QualityKeyword_3_0_AttributeKeyword_3_1__q(semanticObject, getLastNavigableState(), syntaxNodes);
-			else if(match_CategoryFilter___RightSquareBracketKeyword_4_1_a_UserKeyword_2_0_SelectionKeyword_2_1__q.equals(syntax))
-				emit_CategoryFilter___RightSquareBracketKeyword_4_1_a_UserKeyword_2_0_SelectionKeyword_2_1__q(semanticObject, getLastNavigableState(), syntaxNodes);
-			else if(match_CategoryFilter___RightSquareBracketKeyword_4_1_p_DevelopmentKeyword_4_0_0_PhaseKeyword_4_0_1__q.equals(syntax))
-				emit_CategoryFilter___RightSquareBracketKeyword_4_1_p_DevelopmentKeyword_4_0_0_PhaseKeyword_4_0_1__q(semanticObject, getLastNavigableState(), syntaxNodes);
+			if(match_CategoryFilter_RightSquareBracketKeyword_2_1_a.equals(syntax))
+				emit_CategoryFilter_RightSquareBracketKeyword_2_1_a(semanticObject, getLastNavigableState(), syntaxNodes);
+			else if(match_CategoryFilter_RightSquareBracketKeyword_2_1_p.equals(syntax))
+				emit_CategoryFilter_RightSquareBracketKeyword_2_1_p(semanticObject, getLastNavigableState(), syntaxNodes);
+			else if(match_CategoryFilter___RightSquareBracketKeyword_2_1_a_QualityKeyword_1_0__q.equals(syntax))
+				emit_CategoryFilter___RightSquareBracketKeyword_2_1_a_QualityKeyword_1_0__q(semanticObject, getLastNavigableState(), syntaxNodes);
+			else if(match_CategoryFilter___RightSquareBracketKeyword_2_1_p_PhaseKeyword_2_0_0__q.equals(syntax))
+				emit_CategoryFilter___RightSquareBracketKeyword_2_1_p_PhaseKeyword_2_0_0__q(semanticObject, getLastNavigableState(), syntaxNodes);
 			else acceptNodes(getLastNavigableState(), syntaxNodes);
 		}
 	}
@@ -84,65 +76,31 @@ public class CategoriesSyntacticSequencer extends AbstractSyntacticSequencer {
 	 *     ']'*
 	 *
 	 * This ambiguous syntax occurs at:
-	 *     (rule start) (ambiguity) 'development' 'phase' developmentPhase+=[DevelopmentPhase|ID]
-	 *     (rule start) (ambiguity) 'method' 'type' methodType+=[MethodType|ID]
-	 *     (rule start) (ambiguity) 'quality' 'attribute' qualityAttribute+=[QualityAttribute|ID]
-	 *     (rule start) (ambiguity) 'user' 'selection' userSelection+=[UserSelection|ID]
+	 *     (rule start) (ambiguity) 'phase' phaseCategory+=[PhaseCategory|ID]
+	 *     (rule start) (ambiguity) 'quality' qualityCategory+=[QualityCategory|ID]
 	 *     (rule start) (ambiguity) (rule start)
 	 *     (rule start) (ambiguity) name=ID
-	 *     anyMethodType?='any' (ambiguity) 'development' 'phase' developmentPhase+=[DevelopmentPhase|ID]
-	 *     anyMethodType?='any' (ambiguity) 'method' 'type' methodType+=[MethodType|ID]
-	 *     anyMethodType?='any' (ambiguity) 'quality' 'attribute' qualityAttribute+=[QualityAttribute|ID]
-	 *     anyMethodType?='any' (ambiguity) 'user' 'selection' userSelection+=[UserSelection|ID]
-	 *     anyMethodType?='any' (ambiguity) (rule end)
-	 *     anyMethodType?='any' (ambiguity) name=ID
-	 *     anyQualityAttribute?='any' (ambiguity) 'development' 'phase' developmentPhase+=[DevelopmentPhase|ID]
-	 *     anyQualityAttribute?='any' (ambiguity) 'method' 'type' methodType+=[MethodType|ID]
-	 *     anyQualityAttribute?='any' (ambiguity) 'quality' 'attribute' qualityAttribute+=[QualityAttribute|ID]
-	 *     anyQualityAttribute?='any' (ambiguity) 'user' 'selection' userSelection+=[UserSelection|ID]
+	 *     anyQualityAttribute?='any' (ambiguity) 'phase' phaseCategory+=[PhaseCategory|ID]
+	 *     anyQualityAttribute?='any' (ambiguity) 'quality' qualityCategory+=[QualityCategory|ID]
 	 *     anyQualityAttribute?='any' (ambiguity) (rule end)
 	 *     anyQualityAttribute?='any' (ambiguity) name=ID
-	 *     anyRequirementType?='any' (ambiguity) 'development' 'phase' developmentPhase+=[DevelopmentPhase|ID]
-	 *     anyRequirementType?='any' (ambiguity) 'method' 'type' methodType+=[MethodType|ID]
-	 *     anyRequirementType?='any' (ambiguity) 'quality' 'attribute' qualityAttribute+=[QualityAttribute|ID]
-	 *     anyRequirementType?='any' (ambiguity) 'user' 'selection' userSelection+=[UserSelection|ID]
-	 *     anyRequirementType?='any' (ambiguity) (rule end)
-	 *     anyRequirementType?='any' (ambiguity) name=ID
-	 *     anyUserSelection?='any' (ambiguity) 'development' 'phase' developmentPhase+=[DevelopmentPhase|ID]
-	 *     anyUserSelection?='any' (ambiguity) 'method' 'type' methodType+=[MethodType|ID]
-	 *     anyUserSelection?='any' (ambiguity) 'quality' 'attribute' qualityAttribute+=[QualityAttribute|ID]
-	 *     anyUserSelection?='any' (ambiguity) 'user' 'selection' userSelection+=[UserSelection|ID]
+	 *     anyUserSelection?='any' (ambiguity) 'phase' phaseCategory+=[PhaseCategory|ID]
+	 *     anyUserSelection?='any' (ambiguity) 'quality' qualityCategory+=[QualityCategory|ID]
 	 *     anyUserSelection?='any' (ambiguity) (rule end)
 	 *     anyUserSelection?='any' (ambiguity) name=ID
-	 *     methodType+=[MethodType|ID] (ambiguity) 'development' 'phase' developmentPhase+=[DevelopmentPhase|ID]
-	 *     methodType+=[MethodType|ID] (ambiguity) 'quality' 'attribute' qualityAttribute+=[QualityAttribute|ID]
-	 *     methodType+=[MethodType|ID] (ambiguity) 'user' 'selection' userSelection+=[UserSelection|ID]
-	 *     methodType+=[MethodType|ID] (ambiguity) (rule end)
-	 *     methodType+=[MethodType|ID] (ambiguity) name=ID
-	 *     name=ID '[' (ambiguity) 'development' 'phase' developmentPhase+=[DevelopmentPhase|ID]
-	 *     name=ID '[' (ambiguity) 'method' 'type' methodType+=[MethodType|ID]
-	 *     name=ID '[' (ambiguity) 'quality' 'attribute' qualityAttribute+=[QualityAttribute|ID]
-	 *     name=ID '[' (ambiguity) 'user' 'selection' userSelection+=[UserSelection|ID]
+	 *     name=ID '[' (ambiguity) 'phase' phaseCategory+=[PhaseCategory|ID]
+	 *     name=ID '[' (ambiguity) 'quality' qualityCategory+=[QualityCategory|ID]
 	 *     name=ID '[' (ambiguity) (rule end)
 	 *     name=ID '[' (ambiguity) name=ID
-	 *     qualityAttribute+=[QualityAttribute|ID] (ambiguity) 'development' 'phase' developmentPhase+=[DevelopmentPhase|ID]
-	 *     qualityAttribute+=[QualityAttribute|ID] (ambiguity) 'method' 'type' methodType+=[MethodType|ID]
-	 *     qualityAttribute+=[QualityAttribute|ID] (ambiguity) 'user' 'selection' userSelection+=[UserSelection|ID]
-	 *     qualityAttribute+=[QualityAttribute|ID] (ambiguity) (rule end)
-	 *     qualityAttribute+=[QualityAttribute|ID] (ambiguity) name=ID
-	 *     requirementType+=[RequirementType|ID] (ambiguity) 'development' 'phase' developmentPhase+=[DevelopmentPhase|ID]
-	 *     requirementType+=[RequirementType|ID] (ambiguity) 'method' 'type' methodType+=[MethodType|ID]
-	 *     requirementType+=[RequirementType|ID] (ambiguity) 'quality' 'attribute' qualityAttribute+=[QualityAttribute|ID]
-	 *     requirementType+=[RequirementType|ID] (ambiguity) 'user' 'selection' userSelection+=[UserSelection|ID]
-	 *     requirementType+=[RequirementType|ID] (ambiguity) (rule end)
-	 *     requirementType+=[RequirementType|ID] (ambiguity) name=ID
-	 *     userSelection+=[UserSelection|ID] (ambiguity) 'development' 'phase' developmentPhase+=[DevelopmentPhase|ID]
-	 *     userSelection+=[UserSelection|ID] (ambiguity) 'method' 'type' methodType+=[MethodType|ID]
-	 *     userSelection+=[UserSelection|ID] (ambiguity) 'quality' 'attribute' qualityAttribute+=[QualityAttribute|ID]
-	 *     userSelection+=[UserSelection|ID] (ambiguity) (rule end)
-	 *     userSelection+=[UserSelection|ID] (ambiguity) name=ID
+	 *     qualityCategory+=[QualityCategory|ID] (ambiguity) 'phase' phaseCategory+=[PhaseCategory|ID]
+	 *     qualityCategory+=[QualityCategory|ID] (ambiguity) (rule end)
+	 *     qualityCategory+=[QualityCategory|ID] (ambiguity) name=ID
+	 *     userCategory+=[UserCategory|ID] (ambiguity) 'phase' phaseCategory+=[PhaseCategory|ID]
+	 *     userCategory+=[UserCategory|ID] (ambiguity) 'quality' qualityCategory+=[QualityCategory|ID]
+	 *     userCategory+=[UserCategory|ID] (ambiguity) (rule end)
+	 *     userCategory+=[UserCategory|ID] (ambiguity) name=ID
 	 */
-	protected void emit_CategoryFilter_RightSquareBracketKeyword_4_1_a(EObject semanticObject, ISynNavigable transition, List<INode> nodes) {
+	protected void emit_CategoryFilter_RightSquareBracketKeyword_2_1_a(EObject semanticObject, ISynNavigable transition, List<INode> nodes) {
 		acceptNodes(transition, nodes);
 	}
 	
@@ -151,63 +109,37 @@ public class CategoriesSyntacticSequencer extends AbstractSyntacticSequencer {
 	 *     ']'+
 	 *
 	 * This ambiguous syntax occurs at:
-	 *     anyDevelopmentPhase?='any' (ambiguity) 'development' 'phase' developmentPhase+=[DevelopmentPhase|ID]
-	 *     anyDevelopmentPhase?='any' (ambiguity) 'method' 'type' methodType+=[MethodType|ID]
-	 *     anyDevelopmentPhase?='any' (ambiguity) 'quality' 'attribute' qualityAttribute+=[QualityAttribute|ID]
-	 *     anyDevelopmentPhase?='any' (ambiguity) 'user' 'selection' userSelection+=[UserSelection|ID]
+	 *     anyDevelopmentPhase?='any' (ambiguity) 'phase' phaseCategory+=[PhaseCategory|ID]
+	 *     anyDevelopmentPhase?='any' (ambiguity) 'quality' qualityCategory+=[QualityCategory|ID]
 	 *     anyDevelopmentPhase?='any' (ambiguity) (rule end)
 	 *     anyDevelopmentPhase?='any' (ambiguity) name=ID
-	 *     developmentPhase+=[DevelopmentPhase|ID] (ambiguity) 'method' 'type' methodType+=[MethodType|ID]
-	 *     developmentPhase+=[DevelopmentPhase|ID] (ambiguity) 'quality' 'attribute' qualityAttribute+=[QualityAttribute|ID]
-	 *     developmentPhase+=[DevelopmentPhase|ID] (ambiguity) 'user' 'selection' userSelection+=[UserSelection|ID]
-	 *     developmentPhase+=[DevelopmentPhase|ID] (ambiguity) (rule end)
-	 *     developmentPhase+=[DevelopmentPhase|ID] (ambiguity) name=ID
+	 *     phaseCategory+=[PhaseCategory|ID] (ambiguity) 'quality' qualityCategory+=[QualityCategory|ID]
+	 *     phaseCategory+=[PhaseCategory|ID] (ambiguity) (rule end)
+	 *     phaseCategory+=[PhaseCategory|ID] (ambiguity) name=ID
 	 */
-	protected void emit_CategoryFilter_RightSquareBracketKeyword_4_1_p(EObject semanticObject, ISynNavigable transition, List<INode> nodes) {
+	protected void emit_CategoryFilter_RightSquareBracketKeyword_2_1_p(EObject semanticObject, ISynNavigable transition, List<INode> nodes) {
 		acceptNodes(transition, nodes);
 	}
 	
 	/**
 	 * Ambiguous syntax:
-	 *     (']'* 'method' 'type')?
+	 *     (']'* 'quality')?
 	 *
 	 * This ambiguous syntax occurs at:
-	 *     methodType+=[MethodType|ID] (ambiguity) methodType+=[MethodType|ID]
+	 *     qualityCategory+=[QualityCategory|ID] (ambiguity) qualityCategory+=[QualityCategory|ID]
 	 */
-	protected void emit_CategoryFilter___RightSquareBracketKeyword_4_1_a_MethodKeyword_1_0_TypeKeyword_1_1__q(EObject semanticObject, ISynNavigable transition, List<INode> nodes) {
+	protected void emit_CategoryFilter___RightSquareBracketKeyword_2_1_a_QualityKeyword_1_0__q(EObject semanticObject, ISynNavigable transition, List<INode> nodes) {
 		acceptNodes(transition, nodes);
 	}
 	
 	/**
 	 * Ambiguous syntax:
-	 *     (']'* 'quality' 'attribute')?
+	 *     (']'+ 'phase')?
 	 *
 	 * This ambiguous syntax occurs at:
-	 *     qualityAttribute+=[QualityAttribute|ID] (ambiguity) qualityAttribute+=[QualityAttribute|ID]
+	 *     phaseCategory+=[PhaseCategory|ID] (ambiguity) phaseCategory+=[PhaseCategory|ID]
 	 */
-	protected void emit_CategoryFilter___RightSquareBracketKeyword_4_1_a_QualityKeyword_3_0_AttributeKeyword_3_1__q(EObject semanticObject, ISynNavigable transition, List<INode> nodes) {
-		acceptNodes(transition, nodes);
-	}
-	
-	/**
-	 * Ambiguous syntax:
-	 *     (']'* 'user' 'selection')?
-	 *
-	 * This ambiguous syntax occurs at:
-	 *     userSelection+=[UserSelection|ID] (ambiguity) userSelection+=[UserSelection|ID]
-	 */
-	protected void emit_CategoryFilter___RightSquareBracketKeyword_4_1_a_UserKeyword_2_0_SelectionKeyword_2_1__q(EObject semanticObject, ISynNavigable transition, List<INode> nodes) {
-		acceptNodes(transition, nodes);
-	}
-	
-	/**
-	 * Ambiguous syntax:
-	 *     (']'+ 'development' 'phase')?
-	 *
-	 * This ambiguous syntax occurs at:
-	 *     developmentPhase+=[DevelopmentPhase|ID] (ambiguity) developmentPhase+=[DevelopmentPhase|ID]
-	 */
-	protected void emit_CategoryFilter___RightSquareBracketKeyword_4_1_p_DevelopmentKeyword_4_0_0_PhaseKeyword_4_0_1__q(EObject semanticObject, ISynNavigable transition, List<INode> nodes) {
+	protected void emit_CategoryFilter___RightSquareBracketKeyword_2_1_p_PhaseKeyword_2_0_0__q(EObject semanticObject, ISynNavigable transition, List<INode> nodes) {
 		acceptNodes(transition, nodes);
 	}
 	

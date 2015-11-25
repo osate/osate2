@@ -80,49 +80,31 @@ public interface CategoriesPackage extends EPackage
   int CATEGORIES_DEFINITIONS = 0;
 
   /**
-   * The feature id for the '<em><b>Requirement Type Categories</b></em>' containment reference.
+   * The feature id for the '<em><b>User Categories</b></em>' containment reference.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    * @ordered
    */
-  int CATEGORIES_DEFINITIONS__REQUIREMENT_TYPE_CATEGORIES = 0;
+  int CATEGORIES_DEFINITIONS__USER_CATEGORIES = 0;
 
   /**
-   * The feature id for the '<em><b>Method Type Categories</b></em>' containment reference.
+   * The feature id for the '<em><b>Phase Categories</b></em>' containment reference.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    * @ordered
    */
-  int CATEGORIES_DEFINITIONS__METHOD_TYPE_CATEGORIES = 1;
+  int CATEGORIES_DEFINITIONS__PHASE_CATEGORIES = 1;
 
   /**
-   * The feature id for the '<em><b>Selectioncategories</b></em>' containment reference.
+   * The feature id for the '<em><b>Quality Categories</b></em>' containment reference.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    * @ordered
    */
-  int CATEGORIES_DEFINITIONS__SELECTIONCATEGORIES = 2;
-
-  /**
-   * The feature id for the '<em><b>Development Phase Categories</b></em>' containment reference.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int CATEGORIES_DEFINITIONS__DEVELOPMENT_PHASE_CATEGORIES = 3;
-
-  /**
-   * The feature id for the '<em><b>Quality Attribute Categories</b></em>' containment reference.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int CATEGORIES_DEFINITIONS__QUALITY_ATTRIBUTE_CATEGORIES = 4;
+  int CATEGORIES_DEFINITIONS__QUALITY_CATEGORIES = 2;
 
   /**
    * The number of structural features of the '<em>Definitions</em>' class.
@@ -131,7 +113,7 @@ public interface CategoriesPackage extends EPackage
    * @generated
    * @ordered
    */
-  int CATEGORIES_DEFINITIONS_FEATURE_COUNT = 5;
+  int CATEGORIES_DEFINITIONS_FEATURE_COUNT = 3;
 
   /**
    * The meta object id for the '{@link org.osate.categories.categories.impl.CategoriesImpl <em>Categories</em>}' class.
@@ -209,49 +191,13 @@ public interface CategoriesPackage extends EPackage
   int CATEGORY_FILTER__NAME = 0;
 
   /**
-   * The feature id for the '<em><b>Requirement Type</b></em>' reference list.
+   * The feature id for the '<em><b>User Category</b></em>' reference list.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    * @ordered
    */
-  int CATEGORY_FILTER__REQUIREMENT_TYPE = 1;
-
-  /**
-   * The feature id for the '<em><b>Any Requirement Type</b></em>' attribute.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int CATEGORY_FILTER__ANY_REQUIREMENT_TYPE = 2;
-
-  /**
-   * The feature id for the '<em><b>Method Type</b></em>' reference list.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int CATEGORY_FILTER__METHOD_TYPE = 3;
-
-  /**
-   * The feature id for the '<em><b>Any Method Type</b></em>' attribute.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int CATEGORY_FILTER__ANY_METHOD_TYPE = 4;
-
-  /**
-   * The feature id for the '<em><b>User Selection</b></em>' reference list.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int CATEGORY_FILTER__USER_SELECTION = 5;
+  int CATEGORY_FILTER__USER_CATEGORY = 1;
 
   /**
    * The feature id for the '<em><b>Any User Selection</b></em>' attribute.
@@ -260,16 +206,16 @@ public interface CategoriesPackage extends EPackage
    * @generated
    * @ordered
    */
-  int CATEGORY_FILTER__ANY_USER_SELECTION = 6;
+  int CATEGORY_FILTER__ANY_USER_SELECTION = 2;
 
   /**
-   * The feature id for the '<em><b>Quality Attribute</b></em>' reference list.
+   * The feature id for the '<em><b>Quality Category</b></em>' reference list.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    * @ordered
    */
-  int CATEGORY_FILTER__QUALITY_ATTRIBUTE = 7;
+  int CATEGORY_FILTER__QUALITY_CATEGORY = 3;
 
   /**
    * The feature id for the '<em><b>Any Quality Attribute</b></em>' attribute.
@@ -278,16 +224,16 @@ public interface CategoriesPackage extends EPackage
    * @generated
    * @ordered
    */
-  int CATEGORY_FILTER__ANY_QUALITY_ATTRIBUTE = 8;
+  int CATEGORY_FILTER__ANY_QUALITY_ATTRIBUTE = 4;
 
   /**
-   * The feature id for the '<em><b>Development Phase</b></em>' reference list.
+   * The feature id for the '<em><b>Phase Category</b></em>' reference list.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    * @ordered
    */
-  int CATEGORY_FILTER__DEVELOPMENT_PHASE = 9;
+  int CATEGORY_FILTER__PHASE_CATEGORY = 5;
 
   /**
    * The feature id for the '<em><b>Any Development Phase</b></em>' attribute.
@@ -296,7 +242,7 @@ public interface CategoriesPackage extends EPackage
    * @generated
    * @ordered
    */
-  int CATEGORY_FILTER__ANY_DEVELOPMENT_PHASE = 10;
+  int CATEGORY_FILTER__ANY_DEVELOPMENT_PHASE = 6;
 
   /**
    * The number of structural features of the '<em>Category Filter</em>' class.
@@ -305,45 +251,17 @@ public interface CategoriesPackage extends EPackage
    * @generated
    * @ordered
    */
-  int CATEGORY_FILTER_FEATURE_COUNT = 11;
+  int CATEGORY_FILTER_FEATURE_COUNT = 7;
 
   /**
-   * The meta object id for the '{@link org.osate.categories.categories.impl.RequirementTypeCategoriesImpl <em>Requirement Type Categories</em>}' class.
+   * The meta object id for the '{@link org.osate.categories.categories.impl.UserCategoriesImpl <em>User Categories</em>}' class.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @see org.osate.categories.categories.impl.RequirementTypeCategoriesImpl
-   * @see org.osate.categories.categories.impl.CategoriesPackageImpl#getRequirementTypeCategories()
+   * @see org.osate.categories.categories.impl.UserCategoriesImpl
+   * @see org.osate.categories.categories.impl.CategoriesPackageImpl#getUserCategories()
    * @generated
    */
-  int REQUIREMENT_TYPE_CATEGORIES = 4;
-
-  /**
-   * The feature id for the '<em><b>Category</b></em>' containment reference list.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int REQUIREMENT_TYPE_CATEGORIES__CATEGORY = CATEGORIES__CATEGORY;
-
-  /**
-   * The number of structural features of the '<em>Requirement Type Categories</em>' class.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int REQUIREMENT_TYPE_CATEGORIES_FEATURE_COUNT = CATEGORIES_FEATURE_COUNT + 0;
-
-  /**
-   * The meta object id for the '{@link org.osate.categories.categories.impl.MethodTypeCategoriesImpl <em>Method Type Categories</em>}' class.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @see org.osate.categories.categories.impl.MethodTypeCategoriesImpl
-   * @see org.osate.categories.categories.impl.CategoriesPackageImpl#getMethodTypeCategories()
-   * @generated
-   */
-  int METHOD_TYPE_CATEGORIES = 5;
+  int USER_CATEGORIES = 4;
 
   /**
    * The feature id for the '<em><b>Category</b></em>' containment reference list.
@@ -352,26 +270,26 @@ public interface CategoriesPackage extends EPackage
    * @generated
    * @ordered
    */
-  int METHOD_TYPE_CATEGORIES__CATEGORY = CATEGORIES__CATEGORY;
+  int USER_CATEGORIES__CATEGORY = CATEGORIES__CATEGORY;
 
   /**
-   * The number of structural features of the '<em>Method Type Categories</em>' class.
+   * The number of structural features of the '<em>User Categories</em>' class.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    * @ordered
    */
-  int METHOD_TYPE_CATEGORIES_FEATURE_COUNT = CATEGORIES_FEATURE_COUNT + 0;
+  int USER_CATEGORIES_FEATURE_COUNT = CATEGORIES_FEATURE_COUNT + 0;
 
   /**
-   * The meta object id for the '{@link org.osate.categories.categories.impl.UserSelectionCategoriesImpl <em>User Selection Categories</em>}' class.
+   * The meta object id for the '{@link org.osate.categories.categories.impl.QualityCategoriesImpl <em>Quality Categories</em>}' class.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @see org.osate.categories.categories.impl.UserSelectionCategoriesImpl
-   * @see org.osate.categories.categories.impl.CategoriesPackageImpl#getUserSelectionCategories()
+   * @see org.osate.categories.categories.impl.QualityCategoriesImpl
+   * @see org.osate.categories.categories.impl.CategoriesPackageImpl#getQualityCategories()
    * @generated
    */
-  int USER_SELECTION_CATEGORIES = 6;
+  int QUALITY_CATEGORIES = 5;
 
   /**
    * The feature id for the '<em><b>Category</b></em>' containment reference list.
@@ -380,26 +298,26 @@ public interface CategoriesPackage extends EPackage
    * @generated
    * @ordered
    */
-  int USER_SELECTION_CATEGORIES__CATEGORY = CATEGORIES__CATEGORY;
+  int QUALITY_CATEGORIES__CATEGORY = CATEGORIES__CATEGORY;
 
   /**
-   * The number of structural features of the '<em>User Selection Categories</em>' class.
+   * The number of structural features of the '<em>Quality Categories</em>' class.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    * @ordered
    */
-  int USER_SELECTION_CATEGORIES_FEATURE_COUNT = CATEGORIES_FEATURE_COUNT + 0;
+  int QUALITY_CATEGORIES_FEATURE_COUNT = CATEGORIES_FEATURE_COUNT + 0;
 
   /**
-   * The meta object id for the '{@link org.osate.categories.categories.impl.QualityAttributeCategoriesImpl <em>Quality Attribute Categories</em>}' class.
+   * The meta object id for the '{@link org.osate.categories.categories.impl.PhaseCategoriesImpl <em>Phase Categories</em>}' class.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @see org.osate.categories.categories.impl.QualityAttributeCategoriesImpl
-   * @see org.osate.categories.categories.impl.CategoriesPackageImpl#getQualityAttributeCategories()
+   * @see org.osate.categories.categories.impl.PhaseCategoriesImpl
+   * @see org.osate.categories.categories.impl.CategoriesPackageImpl#getPhaseCategories()
    * @generated
    */
-  int QUALITY_ATTRIBUTE_CATEGORIES = 7;
+  int PHASE_CATEGORIES = 6;
 
   /**
    * The feature id for the '<em><b>Category</b></em>' containment reference list.
@@ -408,54 +326,26 @@ public interface CategoriesPackage extends EPackage
    * @generated
    * @ordered
    */
-  int QUALITY_ATTRIBUTE_CATEGORIES__CATEGORY = CATEGORIES__CATEGORY;
+  int PHASE_CATEGORIES__CATEGORY = CATEGORIES__CATEGORY;
 
   /**
-   * The number of structural features of the '<em>Quality Attribute Categories</em>' class.
+   * The number of structural features of the '<em>Phase Categories</em>' class.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    * @ordered
    */
-  int QUALITY_ATTRIBUTE_CATEGORIES_FEATURE_COUNT = CATEGORIES_FEATURE_COUNT + 0;
+  int PHASE_CATEGORIES_FEATURE_COUNT = CATEGORIES_FEATURE_COUNT + 0;
 
   /**
-   * The meta object id for the '{@link org.osate.categories.categories.impl.DevelopmentPhaseCategoriesImpl <em>Development Phase Categories</em>}' class.
+   * The meta object id for the '{@link org.osate.categories.categories.impl.UserCategoryImpl <em>User Category</em>}' class.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @see org.osate.categories.categories.impl.DevelopmentPhaseCategoriesImpl
-   * @see org.osate.categories.categories.impl.CategoriesPackageImpl#getDevelopmentPhaseCategories()
+   * @see org.osate.categories.categories.impl.UserCategoryImpl
+   * @see org.osate.categories.categories.impl.CategoriesPackageImpl#getUserCategory()
    * @generated
    */
-  int DEVELOPMENT_PHASE_CATEGORIES = 8;
-
-  /**
-   * The feature id for the '<em><b>Category</b></em>' containment reference list.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int DEVELOPMENT_PHASE_CATEGORIES__CATEGORY = CATEGORIES__CATEGORY;
-
-  /**
-   * The number of structural features of the '<em>Development Phase Categories</em>' class.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int DEVELOPMENT_PHASE_CATEGORIES_FEATURE_COUNT = CATEGORIES_FEATURE_COUNT + 0;
-
-  /**
-   * The meta object id for the '{@link org.osate.categories.categories.impl.RequirementTypeImpl <em>Requirement Type</em>}' class.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @see org.osate.categories.categories.impl.RequirementTypeImpl
-   * @see org.osate.categories.categories.impl.CategoriesPackageImpl#getRequirementType()
-   * @generated
-   */
-  int REQUIREMENT_TYPE = 9;
+  int USER_CATEGORY = 7;
 
   /**
    * The feature id for the '<em><b>Name</b></em>' attribute.
@@ -464,26 +354,26 @@ public interface CategoriesPackage extends EPackage
    * @generated
    * @ordered
    */
-  int REQUIREMENT_TYPE__NAME = CATEGORY__NAME;
+  int USER_CATEGORY__NAME = CATEGORY__NAME;
 
   /**
-   * The number of structural features of the '<em>Requirement Type</em>' class.
+   * The number of structural features of the '<em>User Category</em>' class.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    * @ordered
    */
-  int REQUIREMENT_TYPE_FEATURE_COUNT = CATEGORY_FEATURE_COUNT + 0;
+  int USER_CATEGORY_FEATURE_COUNT = CATEGORY_FEATURE_COUNT + 0;
 
   /**
-   * The meta object id for the '{@link org.osate.categories.categories.impl.MethodTypeImpl <em>Method Type</em>}' class.
+   * The meta object id for the '{@link org.osate.categories.categories.impl.QualityCategoryImpl <em>Quality Category</em>}' class.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @see org.osate.categories.categories.impl.MethodTypeImpl
-   * @see org.osate.categories.categories.impl.CategoriesPackageImpl#getMethodType()
+   * @see org.osate.categories.categories.impl.QualityCategoryImpl
+   * @see org.osate.categories.categories.impl.CategoriesPackageImpl#getQualityCategory()
    * @generated
    */
-  int METHOD_TYPE = 10;
+  int QUALITY_CATEGORY = 8;
 
   /**
    * The feature id for the '<em><b>Name</b></em>' attribute.
@@ -492,26 +382,26 @@ public interface CategoriesPackage extends EPackage
    * @generated
    * @ordered
    */
-  int METHOD_TYPE__NAME = CATEGORY__NAME;
+  int QUALITY_CATEGORY__NAME = CATEGORY__NAME;
 
   /**
-   * The number of structural features of the '<em>Method Type</em>' class.
+   * The number of structural features of the '<em>Quality Category</em>' class.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    * @ordered
    */
-  int METHOD_TYPE_FEATURE_COUNT = CATEGORY_FEATURE_COUNT + 0;
+  int QUALITY_CATEGORY_FEATURE_COUNT = CATEGORY_FEATURE_COUNT + 0;
 
   /**
-   * The meta object id for the '{@link org.osate.categories.categories.impl.UserSelectionImpl <em>User Selection</em>}' class.
+   * The meta object id for the '{@link org.osate.categories.categories.impl.PhaseCategoryImpl <em>Phase Category</em>}' class.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @see org.osate.categories.categories.impl.UserSelectionImpl
-   * @see org.osate.categories.categories.impl.CategoriesPackageImpl#getUserSelection()
+   * @see org.osate.categories.categories.impl.PhaseCategoryImpl
+   * @see org.osate.categories.categories.impl.CategoriesPackageImpl#getPhaseCategory()
    * @generated
    */
-  int USER_SELECTION = 11;
+  int PHASE_CATEGORY = 9;
 
   /**
    * The feature id for the '<em><b>Name</b></em>' attribute.
@@ -520,72 +410,16 @@ public interface CategoriesPackage extends EPackage
    * @generated
    * @ordered
    */
-  int USER_SELECTION__NAME = CATEGORY__NAME;
+  int PHASE_CATEGORY__NAME = CATEGORY__NAME;
 
   /**
-   * The number of structural features of the '<em>User Selection</em>' class.
+   * The number of structural features of the '<em>Phase Category</em>' class.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    * @ordered
    */
-  int USER_SELECTION_FEATURE_COUNT = CATEGORY_FEATURE_COUNT + 0;
-
-  /**
-   * The meta object id for the '{@link org.osate.categories.categories.impl.QualityAttributeImpl <em>Quality Attribute</em>}' class.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @see org.osate.categories.categories.impl.QualityAttributeImpl
-   * @see org.osate.categories.categories.impl.CategoriesPackageImpl#getQualityAttribute()
-   * @generated
-   */
-  int QUALITY_ATTRIBUTE = 12;
-
-  /**
-   * The feature id for the '<em><b>Name</b></em>' attribute.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int QUALITY_ATTRIBUTE__NAME = CATEGORY__NAME;
-
-  /**
-   * The number of structural features of the '<em>Quality Attribute</em>' class.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int QUALITY_ATTRIBUTE_FEATURE_COUNT = CATEGORY_FEATURE_COUNT + 0;
-
-  /**
-   * The meta object id for the '{@link org.osate.categories.categories.impl.DevelopmentPhaseImpl <em>Development Phase</em>}' class.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @see org.osate.categories.categories.impl.DevelopmentPhaseImpl
-   * @see org.osate.categories.categories.impl.CategoriesPackageImpl#getDevelopmentPhase()
-   * @generated
-   */
-  int DEVELOPMENT_PHASE = 13;
-
-  /**
-   * The feature id for the '<em><b>Name</b></em>' attribute.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int DEVELOPMENT_PHASE__NAME = CATEGORY__NAME;
-
-  /**
-   * The number of structural features of the '<em>Development Phase</em>' class.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int DEVELOPMENT_PHASE_FEATURE_COUNT = CATEGORY_FEATURE_COUNT + 0;
+  int PHASE_CATEGORY_FEATURE_COUNT = CATEGORY_FEATURE_COUNT + 0;
 
 
   /**
@@ -599,59 +433,37 @@ public interface CategoriesPackage extends EPackage
   EClass getCategoriesDefinitions();
 
   /**
-   * Returns the meta object for the containment reference '{@link org.osate.categories.categories.CategoriesDefinitions#getRequirementTypeCategories <em>Requirement Type Categories</em>}'.
+   * Returns the meta object for the containment reference '{@link org.osate.categories.categories.CategoriesDefinitions#getUserCategories <em>User Categories</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @return the meta object for the containment reference '<em>Requirement Type Categories</em>'.
-   * @see org.osate.categories.categories.CategoriesDefinitions#getRequirementTypeCategories()
+   * @return the meta object for the containment reference '<em>User Categories</em>'.
+   * @see org.osate.categories.categories.CategoriesDefinitions#getUserCategories()
    * @see #getCategoriesDefinitions()
    * @generated
    */
-  EReference getCategoriesDefinitions_RequirementTypeCategories();
+  EReference getCategoriesDefinitions_UserCategories();
 
   /**
-   * Returns the meta object for the containment reference '{@link org.osate.categories.categories.CategoriesDefinitions#getMethodTypeCategories <em>Method Type Categories</em>}'.
+   * Returns the meta object for the containment reference '{@link org.osate.categories.categories.CategoriesDefinitions#getPhaseCategories <em>Phase Categories</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @return the meta object for the containment reference '<em>Method Type Categories</em>'.
-   * @see org.osate.categories.categories.CategoriesDefinitions#getMethodTypeCategories()
+   * @return the meta object for the containment reference '<em>Phase Categories</em>'.
+   * @see org.osate.categories.categories.CategoriesDefinitions#getPhaseCategories()
    * @see #getCategoriesDefinitions()
    * @generated
    */
-  EReference getCategoriesDefinitions_MethodTypeCategories();
+  EReference getCategoriesDefinitions_PhaseCategories();
 
   /**
-   * Returns the meta object for the containment reference '{@link org.osate.categories.categories.CategoriesDefinitions#getSelectioncategories <em>Selectioncategories</em>}'.
+   * Returns the meta object for the containment reference '{@link org.osate.categories.categories.CategoriesDefinitions#getQualityCategories <em>Quality Categories</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @return the meta object for the containment reference '<em>Selectioncategories</em>'.
-   * @see org.osate.categories.categories.CategoriesDefinitions#getSelectioncategories()
+   * @return the meta object for the containment reference '<em>Quality Categories</em>'.
+   * @see org.osate.categories.categories.CategoriesDefinitions#getQualityCategories()
    * @see #getCategoriesDefinitions()
    * @generated
    */
-  EReference getCategoriesDefinitions_Selectioncategories();
-
-  /**
-   * Returns the meta object for the containment reference '{@link org.osate.categories.categories.CategoriesDefinitions#getDevelopmentPhaseCategories <em>Development Phase Categories</em>}'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return the meta object for the containment reference '<em>Development Phase Categories</em>'.
-   * @see org.osate.categories.categories.CategoriesDefinitions#getDevelopmentPhaseCategories()
-   * @see #getCategoriesDefinitions()
-   * @generated
-   */
-  EReference getCategoriesDefinitions_DevelopmentPhaseCategories();
-
-  /**
-   * Returns the meta object for the containment reference '{@link org.osate.categories.categories.CategoriesDefinitions#getQualityAttributeCategories <em>Quality Attribute Categories</em>}'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return the meta object for the containment reference '<em>Quality Attribute Categories</em>'.
-   * @see org.osate.categories.categories.CategoriesDefinitions#getQualityAttributeCategories()
-   * @see #getCategoriesDefinitions()
-   * @generated
-   */
-  EReference getCategoriesDefinitions_QualityAttributeCategories();
+  EReference getCategoriesDefinitions_QualityCategories();
 
   /**
    * Returns the meta object for class '{@link org.osate.categories.categories.Categories <em>Categories</em>}'.
@@ -717,59 +529,15 @@ public interface CategoriesPackage extends EPackage
   EAttribute getCategoryFilter_Name();
 
   /**
-   * Returns the meta object for the reference list '{@link org.osate.categories.categories.CategoryFilter#getRequirementType <em>Requirement Type</em>}'.
+   * Returns the meta object for the reference list '{@link org.osate.categories.categories.CategoryFilter#getUserCategory <em>User Category</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @return the meta object for the reference list '<em>Requirement Type</em>'.
-   * @see org.osate.categories.categories.CategoryFilter#getRequirementType()
+   * @return the meta object for the reference list '<em>User Category</em>'.
+   * @see org.osate.categories.categories.CategoryFilter#getUserCategory()
    * @see #getCategoryFilter()
    * @generated
    */
-  EReference getCategoryFilter_RequirementType();
-
-  /**
-   * Returns the meta object for the attribute '{@link org.osate.categories.categories.CategoryFilter#isAnyRequirementType <em>Any Requirement Type</em>}'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return the meta object for the attribute '<em>Any Requirement Type</em>'.
-   * @see org.osate.categories.categories.CategoryFilter#isAnyRequirementType()
-   * @see #getCategoryFilter()
-   * @generated
-   */
-  EAttribute getCategoryFilter_AnyRequirementType();
-
-  /**
-   * Returns the meta object for the reference list '{@link org.osate.categories.categories.CategoryFilter#getMethodType <em>Method Type</em>}'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return the meta object for the reference list '<em>Method Type</em>'.
-   * @see org.osate.categories.categories.CategoryFilter#getMethodType()
-   * @see #getCategoryFilter()
-   * @generated
-   */
-  EReference getCategoryFilter_MethodType();
-
-  /**
-   * Returns the meta object for the attribute '{@link org.osate.categories.categories.CategoryFilter#isAnyMethodType <em>Any Method Type</em>}'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return the meta object for the attribute '<em>Any Method Type</em>'.
-   * @see org.osate.categories.categories.CategoryFilter#isAnyMethodType()
-   * @see #getCategoryFilter()
-   * @generated
-   */
-  EAttribute getCategoryFilter_AnyMethodType();
-
-  /**
-   * Returns the meta object for the reference list '{@link org.osate.categories.categories.CategoryFilter#getUserSelection <em>User Selection</em>}'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return the meta object for the reference list '<em>User Selection</em>'.
-   * @see org.osate.categories.categories.CategoryFilter#getUserSelection()
-   * @see #getCategoryFilter()
-   * @generated
-   */
-  EReference getCategoryFilter_UserSelection();
+  EReference getCategoryFilter_UserCategory();
 
   /**
    * Returns the meta object for the attribute '{@link org.osate.categories.categories.CategoryFilter#isAnyUserSelection <em>Any User Selection</em>}'.
@@ -783,15 +551,15 @@ public interface CategoriesPackage extends EPackage
   EAttribute getCategoryFilter_AnyUserSelection();
 
   /**
-   * Returns the meta object for the reference list '{@link org.osate.categories.categories.CategoryFilter#getQualityAttribute <em>Quality Attribute</em>}'.
+   * Returns the meta object for the reference list '{@link org.osate.categories.categories.CategoryFilter#getQualityCategory <em>Quality Category</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @return the meta object for the reference list '<em>Quality Attribute</em>'.
-   * @see org.osate.categories.categories.CategoryFilter#getQualityAttribute()
+   * @return the meta object for the reference list '<em>Quality Category</em>'.
+   * @see org.osate.categories.categories.CategoryFilter#getQualityCategory()
    * @see #getCategoryFilter()
    * @generated
    */
-  EReference getCategoryFilter_QualityAttribute();
+  EReference getCategoryFilter_QualityCategory();
 
   /**
    * Returns the meta object for the attribute '{@link org.osate.categories.categories.CategoryFilter#isAnyQualityAttribute <em>Any Quality Attribute</em>}'.
@@ -805,15 +573,15 @@ public interface CategoriesPackage extends EPackage
   EAttribute getCategoryFilter_AnyQualityAttribute();
 
   /**
-   * Returns the meta object for the reference list '{@link org.osate.categories.categories.CategoryFilter#getDevelopmentPhase <em>Development Phase</em>}'.
+   * Returns the meta object for the reference list '{@link org.osate.categories.categories.CategoryFilter#getPhaseCategory <em>Phase Category</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @return the meta object for the reference list '<em>Development Phase</em>'.
-   * @see org.osate.categories.categories.CategoryFilter#getDevelopmentPhase()
+   * @return the meta object for the reference list '<em>Phase Category</em>'.
+   * @see org.osate.categories.categories.CategoryFilter#getPhaseCategory()
    * @see #getCategoryFilter()
    * @generated
    */
-  EReference getCategoryFilter_DevelopmentPhase();
+  EReference getCategoryFilter_PhaseCategory();
 
   /**
    * Returns the meta object for the attribute '{@link org.osate.categories.categories.CategoryFilter#isAnyDevelopmentPhase <em>Any Development Phase</em>}'.
@@ -827,104 +595,64 @@ public interface CategoriesPackage extends EPackage
   EAttribute getCategoryFilter_AnyDevelopmentPhase();
 
   /**
-   * Returns the meta object for class '{@link org.osate.categories.categories.RequirementTypeCategories <em>Requirement Type Categories</em>}'.
+   * Returns the meta object for class '{@link org.osate.categories.categories.UserCategories <em>User Categories</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @return the meta object for class '<em>Requirement Type Categories</em>'.
-   * @see org.osate.categories.categories.RequirementTypeCategories
+   * @return the meta object for class '<em>User Categories</em>'.
+   * @see org.osate.categories.categories.UserCategories
    * @generated
    */
-  EClass getRequirementTypeCategories();
+  EClass getUserCategories();
 
   /**
-   * Returns the meta object for class '{@link org.osate.categories.categories.MethodTypeCategories <em>Method Type Categories</em>}'.
+   * Returns the meta object for class '{@link org.osate.categories.categories.QualityCategories <em>Quality Categories</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @return the meta object for class '<em>Method Type Categories</em>'.
-   * @see org.osate.categories.categories.MethodTypeCategories
+   * @return the meta object for class '<em>Quality Categories</em>'.
+   * @see org.osate.categories.categories.QualityCategories
    * @generated
    */
-  EClass getMethodTypeCategories();
+  EClass getQualityCategories();
 
   /**
-   * Returns the meta object for class '{@link org.osate.categories.categories.UserSelectionCategories <em>User Selection Categories</em>}'.
+   * Returns the meta object for class '{@link org.osate.categories.categories.PhaseCategories <em>Phase Categories</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @return the meta object for class '<em>User Selection Categories</em>'.
-   * @see org.osate.categories.categories.UserSelectionCategories
+   * @return the meta object for class '<em>Phase Categories</em>'.
+   * @see org.osate.categories.categories.PhaseCategories
    * @generated
    */
-  EClass getUserSelectionCategories();
+  EClass getPhaseCategories();
 
   /**
-   * Returns the meta object for class '{@link org.osate.categories.categories.QualityAttributeCategories <em>Quality Attribute Categories</em>}'.
+   * Returns the meta object for class '{@link org.osate.categories.categories.UserCategory <em>User Category</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @return the meta object for class '<em>Quality Attribute Categories</em>'.
-   * @see org.osate.categories.categories.QualityAttributeCategories
+   * @return the meta object for class '<em>User Category</em>'.
+   * @see org.osate.categories.categories.UserCategory
    * @generated
    */
-  EClass getQualityAttributeCategories();
+  EClass getUserCategory();
 
   /**
-   * Returns the meta object for class '{@link org.osate.categories.categories.DevelopmentPhaseCategories <em>Development Phase Categories</em>}'.
+   * Returns the meta object for class '{@link org.osate.categories.categories.QualityCategory <em>Quality Category</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @return the meta object for class '<em>Development Phase Categories</em>'.
-   * @see org.osate.categories.categories.DevelopmentPhaseCategories
+   * @return the meta object for class '<em>Quality Category</em>'.
+   * @see org.osate.categories.categories.QualityCategory
    * @generated
    */
-  EClass getDevelopmentPhaseCategories();
+  EClass getQualityCategory();
 
   /**
-   * Returns the meta object for class '{@link org.osate.categories.categories.RequirementType <em>Requirement Type</em>}'.
+   * Returns the meta object for class '{@link org.osate.categories.categories.PhaseCategory <em>Phase Category</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @return the meta object for class '<em>Requirement Type</em>'.
-   * @see org.osate.categories.categories.RequirementType
+   * @return the meta object for class '<em>Phase Category</em>'.
+   * @see org.osate.categories.categories.PhaseCategory
    * @generated
    */
-  EClass getRequirementType();
-
-  /**
-   * Returns the meta object for class '{@link org.osate.categories.categories.MethodType <em>Method Type</em>}'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return the meta object for class '<em>Method Type</em>'.
-   * @see org.osate.categories.categories.MethodType
-   * @generated
-   */
-  EClass getMethodType();
-
-  /**
-   * Returns the meta object for class '{@link org.osate.categories.categories.UserSelection <em>User Selection</em>}'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return the meta object for class '<em>User Selection</em>'.
-   * @see org.osate.categories.categories.UserSelection
-   * @generated
-   */
-  EClass getUserSelection();
-
-  /**
-   * Returns the meta object for class '{@link org.osate.categories.categories.QualityAttribute <em>Quality Attribute</em>}'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return the meta object for class '<em>Quality Attribute</em>'.
-   * @see org.osate.categories.categories.QualityAttribute
-   * @generated
-   */
-  EClass getQualityAttribute();
-
-  /**
-   * Returns the meta object for class '{@link org.osate.categories.categories.DevelopmentPhase <em>Development Phase</em>}'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return the meta object for class '<em>Development Phase</em>'.
-   * @see org.osate.categories.categories.DevelopmentPhase
-   * @generated
-   */
-  EClass getDevelopmentPhase();
+  EClass getPhaseCategory();
 
   /**
    * Returns the factory that creates the instances of the model.
@@ -960,44 +688,28 @@ public interface CategoriesPackage extends EPackage
     EClass CATEGORIES_DEFINITIONS = eINSTANCE.getCategoriesDefinitions();
 
     /**
-     * The meta object literal for the '<em><b>Requirement Type Categories</b></em>' containment reference feature.
+     * The meta object literal for the '<em><b>User Categories</b></em>' containment reference feature.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @generated
      */
-    EReference CATEGORIES_DEFINITIONS__REQUIREMENT_TYPE_CATEGORIES = eINSTANCE.getCategoriesDefinitions_RequirementTypeCategories();
+    EReference CATEGORIES_DEFINITIONS__USER_CATEGORIES = eINSTANCE.getCategoriesDefinitions_UserCategories();
 
     /**
-     * The meta object literal for the '<em><b>Method Type Categories</b></em>' containment reference feature.
+     * The meta object literal for the '<em><b>Phase Categories</b></em>' containment reference feature.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @generated
      */
-    EReference CATEGORIES_DEFINITIONS__METHOD_TYPE_CATEGORIES = eINSTANCE.getCategoriesDefinitions_MethodTypeCategories();
+    EReference CATEGORIES_DEFINITIONS__PHASE_CATEGORIES = eINSTANCE.getCategoriesDefinitions_PhaseCategories();
 
     /**
-     * The meta object literal for the '<em><b>Selectioncategories</b></em>' containment reference feature.
+     * The meta object literal for the '<em><b>Quality Categories</b></em>' containment reference feature.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @generated
      */
-    EReference CATEGORIES_DEFINITIONS__SELECTIONCATEGORIES = eINSTANCE.getCategoriesDefinitions_Selectioncategories();
-
-    /**
-     * The meta object literal for the '<em><b>Development Phase Categories</b></em>' containment reference feature.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
-    EReference CATEGORIES_DEFINITIONS__DEVELOPMENT_PHASE_CATEGORIES = eINSTANCE.getCategoriesDefinitions_DevelopmentPhaseCategories();
-
-    /**
-     * The meta object literal for the '<em><b>Quality Attribute Categories</b></em>' containment reference feature.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
-    EReference CATEGORIES_DEFINITIONS__QUALITY_ATTRIBUTE_CATEGORIES = eINSTANCE.getCategoriesDefinitions_QualityAttributeCategories();
+    EReference CATEGORIES_DEFINITIONS__QUALITY_CATEGORIES = eINSTANCE.getCategoriesDefinitions_QualityCategories();
 
     /**
      * The meta object literal for the '{@link org.osate.categories.categories.impl.CategoriesImpl <em>Categories</em>}' class.
@@ -1054,44 +766,12 @@ public interface CategoriesPackage extends EPackage
     EAttribute CATEGORY_FILTER__NAME = eINSTANCE.getCategoryFilter_Name();
 
     /**
-     * The meta object literal for the '<em><b>Requirement Type</b></em>' reference list feature.
+     * The meta object literal for the '<em><b>User Category</b></em>' reference list feature.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @generated
      */
-    EReference CATEGORY_FILTER__REQUIREMENT_TYPE = eINSTANCE.getCategoryFilter_RequirementType();
-
-    /**
-     * The meta object literal for the '<em><b>Any Requirement Type</b></em>' attribute feature.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
-    EAttribute CATEGORY_FILTER__ANY_REQUIREMENT_TYPE = eINSTANCE.getCategoryFilter_AnyRequirementType();
-
-    /**
-     * The meta object literal for the '<em><b>Method Type</b></em>' reference list feature.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
-    EReference CATEGORY_FILTER__METHOD_TYPE = eINSTANCE.getCategoryFilter_MethodType();
-
-    /**
-     * The meta object literal for the '<em><b>Any Method Type</b></em>' attribute feature.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
-    EAttribute CATEGORY_FILTER__ANY_METHOD_TYPE = eINSTANCE.getCategoryFilter_AnyMethodType();
-
-    /**
-     * The meta object literal for the '<em><b>User Selection</b></em>' reference list feature.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
-    EReference CATEGORY_FILTER__USER_SELECTION = eINSTANCE.getCategoryFilter_UserSelection();
+    EReference CATEGORY_FILTER__USER_CATEGORY = eINSTANCE.getCategoryFilter_UserCategory();
 
     /**
      * The meta object literal for the '<em><b>Any User Selection</b></em>' attribute feature.
@@ -1102,12 +782,12 @@ public interface CategoriesPackage extends EPackage
     EAttribute CATEGORY_FILTER__ANY_USER_SELECTION = eINSTANCE.getCategoryFilter_AnyUserSelection();
 
     /**
-     * The meta object literal for the '<em><b>Quality Attribute</b></em>' reference list feature.
+     * The meta object literal for the '<em><b>Quality Category</b></em>' reference list feature.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @generated
      */
-    EReference CATEGORY_FILTER__QUALITY_ATTRIBUTE = eINSTANCE.getCategoryFilter_QualityAttribute();
+    EReference CATEGORY_FILTER__QUALITY_CATEGORY = eINSTANCE.getCategoryFilter_QualityCategory();
 
     /**
      * The meta object literal for the '<em><b>Any Quality Attribute</b></em>' attribute feature.
@@ -1118,12 +798,12 @@ public interface CategoriesPackage extends EPackage
     EAttribute CATEGORY_FILTER__ANY_QUALITY_ATTRIBUTE = eINSTANCE.getCategoryFilter_AnyQualityAttribute();
 
     /**
-     * The meta object literal for the '<em><b>Development Phase</b></em>' reference list feature.
+     * The meta object literal for the '<em><b>Phase Category</b></em>' reference list feature.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @generated
      */
-    EReference CATEGORY_FILTER__DEVELOPMENT_PHASE = eINSTANCE.getCategoryFilter_DevelopmentPhase();
+    EReference CATEGORY_FILTER__PHASE_CATEGORY = eINSTANCE.getCategoryFilter_PhaseCategory();
 
     /**
      * The meta object literal for the '<em><b>Any Development Phase</b></em>' attribute feature.
@@ -1134,104 +814,64 @@ public interface CategoriesPackage extends EPackage
     EAttribute CATEGORY_FILTER__ANY_DEVELOPMENT_PHASE = eINSTANCE.getCategoryFilter_AnyDevelopmentPhase();
 
     /**
-     * The meta object literal for the '{@link org.osate.categories.categories.impl.RequirementTypeCategoriesImpl <em>Requirement Type Categories</em>}' class.
+     * The meta object literal for the '{@link org.osate.categories.categories.impl.UserCategoriesImpl <em>User Categories</em>}' class.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @see org.osate.categories.categories.impl.RequirementTypeCategoriesImpl
-     * @see org.osate.categories.categories.impl.CategoriesPackageImpl#getRequirementTypeCategories()
+     * @see org.osate.categories.categories.impl.UserCategoriesImpl
+     * @see org.osate.categories.categories.impl.CategoriesPackageImpl#getUserCategories()
      * @generated
      */
-    EClass REQUIREMENT_TYPE_CATEGORIES = eINSTANCE.getRequirementTypeCategories();
+    EClass USER_CATEGORIES = eINSTANCE.getUserCategories();
 
     /**
-     * The meta object literal for the '{@link org.osate.categories.categories.impl.MethodTypeCategoriesImpl <em>Method Type Categories</em>}' class.
+     * The meta object literal for the '{@link org.osate.categories.categories.impl.QualityCategoriesImpl <em>Quality Categories</em>}' class.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @see org.osate.categories.categories.impl.MethodTypeCategoriesImpl
-     * @see org.osate.categories.categories.impl.CategoriesPackageImpl#getMethodTypeCategories()
+     * @see org.osate.categories.categories.impl.QualityCategoriesImpl
+     * @see org.osate.categories.categories.impl.CategoriesPackageImpl#getQualityCategories()
      * @generated
      */
-    EClass METHOD_TYPE_CATEGORIES = eINSTANCE.getMethodTypeCategories();
+    EClass QUALITY_CATEGORIES = eINSTANCE.getQualityCategories();
 
     /**
-     * The meta object literal for the '{@link org.osate.categories.categories.impl.UserSelectionCategoriesImpl <em>User Selection Categories</em>}' class.
+     * The meta object literal for the '{@link org.osate.categories.categories.impl.PhaseCategoriesImpl <em>Phase Categories</em>}' class.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @see org.osate.categories.categories.impl.UserSelectionCategoriesImpl
-     * @see org.osate.categories.categories.impl.CategoriesPackageImpl#getUserSelectionCategories()
+     * @see org.osate.categories.categories.impl.PhaseCategoriesImpl
+     * @see org.osate.categories.categories.impl.CategoriesPackageImpl#getPhaseCategories()
      * @generated
      */
-    EClass USER_SELECTION_CATEGORIES = eINSTANCE.getUserSelectionCategories();
+    EClass PHASE_CATEGORIES = eINSTANCE.getPhaseCategories();
 
     /**
-     * The meta object literal for the '{@link org.osate.categories.categories.impl.QualityAttributeCategoriesImpl <em>Quality Attribute Categories</em>}' class.
+     * The meta object literal for the '{@link org.osate.categories.categories.impl.UserCategoryImpl <em>User Category</em>}' class.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @see org.osate.categories.categories.impl.QualityAttributeCategoriesImpl
-     * @see org.osate.categories.categories.impl.CategoriesPackageImpl#getQualityAttributeCategories()
+     * @see org.osate.categories.categories.impl.UserCategoryImpl
+     * @see org.osate.categories.categories.impl.CategoriesPackageImpl#getUserCategory()
      * @generated
      */
-    EClass QUALITY_ATTRIBUTE_CATEGORIES = eINSTANCE.getQualityAttributeCategories();
+    EClass USER_CATEGORY = eINSTANCE.getUserCategory();
 
     /**
-     * The meta object literal for the '{@link org.osate.categories.categories.impl.DevelopmentPhaseCategoriesImpl <em>Development Phase Categories</em>}' class.
+     * The meta object literal for the '{@link org.osate.categories.categories.impl.QualityCategoryImpl <em>Quality Category</em>}' class.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @see org.osate.categories.categories.impl.DevelopmentPhaseCategoriesImpl
-     * @see org.osate.categories.categories.impl.CategoriesPackageImpl#getDevelopmentPhaseCategories()
+     * @see org.osate.categories.categories.impl.QualityCategoryImpl
+     * @see org.osate.categories.categories.impl.CategoriesPackageImpl#getQualityCategory()
      * @generated
      */
-    EClass DEVELOPMENT_PHASE_CATEGORIES = eINSTANCE.getDevelopmentPhaseCategories();
+    EClass QUALITY_CATEGORY = eINSTANCE.getQualityCategory();
 
     /**
-     * The meta object literal for the '{@link org.osate.categories.categories.impl.RequirementTypeImpl <em>Requirement Type</em>}' class.
+     * The meta object literal for the '{@link org.osate.categories.categories.impl.PhaseCategoryImpl <em>Phase Category</em>}' class.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @see org.osate.categories.categories.impl.RequirementTypeImpl
-     * @see org.osate.categories.categories.impl.CategoriesPackageImpl#getRequirementType()
+     * @see org.osate.categories.categories.impl.PhaseCategoryImpl
+     * @see org.osate.categories.categories.impl.CategoriesPackageImpl#getPhaseCategory()
      * @generated
      */
-    EClass REQUIREMENT_TYPE = eINSTANCE.getRequirementType();
-
-    /**
-     * The meta object literal for the '{@link org.osate.categories.categories.impl.MethodTypeImpl <em>Method Type</em>}' class.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @see org.osate.categories.categories.impl.MethodTypeImpl
-     * @see org.osate.categories.categories.impl.CategoriesPackageImpl#getMethodType()
-     * @generated
-     */
-    EClass METHOD_TYPE = eINSTANCE.getMethodType();
-
-    /**
-     * The meta object literal for the '{@link org.osate.categories.categories.impl.UserSelectionImpl <em>User Selection</em>}' class.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @see org.osate.categories.categories.impl.UserSelectionImpl
-     * @see org.osate.categories.categories.impl.CategoriesPackageImpl#getUserSelection()
-     * @generated
-     */
-    EClass USER_SELECTION = eINSTANCE.getUserSelection();
-
-    /**
-     * The meta object literal for the '{@link org.osate.categories.categories.impl.QualityAttributeImpl <em>Quality Attribute</em>}' class.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @see org.osate.categories.categories.impl.QualityAttributeImpl
-     * @see org.osate.categories.categories.impl.CategoriesPackageImpl#getQualityAttribute()
-     * @generated
-     */
-    EClass QUALITY_ATTRIBUTE = eINSTANCE.getQualityAttribute();
-
-    /**
-     * The meta object literal for the '{@link org.osate.categories.categories.impl.DevelopmentPhaseImpl <em>Development Phase</em>}' class.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @see org.osate.categories.categories.impl.DevelopmentPhaseImpl
-     * @see org.osate.categories.categories.impl.CategoriesPackageImpl#getDevelopmentPhase()
-     * @generated
-     */
-    EClass DEVELOPMENT_PHASE = eINSTANCE.getDevelopmentPhase();
+    EClass PHASE_CATEGORY = eINSTANCE.getPhaseCategory();
 
   }
 

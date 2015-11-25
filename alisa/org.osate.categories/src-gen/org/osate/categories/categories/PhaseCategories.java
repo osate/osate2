@@ -18,14 +18,14 @@ package org.osate.categories.categories;
 
 /**
  * <!-- begin-user-doc -->
- * A representation of the model object '<em><b>Method Type Categories</b></em>'.
+ * A representation of the model object '<em><b>Phase Categories</b></em>'.
  * <!-- end-user-doc -->
  *
  *
- * @see org.osate.categories.categories.CategoriesPackage#getMethodTypeCategories()
+ * @see org.osate.categories.categories.CategoriesPackage#getPhaseCategories()
  * @model
  * @generated
  */
-public interface MethodTypeCategories extends Categories
+public interface PhaseCategories extends Categories
 {
-} // MethodTypeCategories
+} // PhaseCategories

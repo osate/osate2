@@ -81,16 +81,12 @@ public class CategoriesFactoryImpl extends EFactoryImpl implements CategoriesFac
       case CategoriesPackage.CATEGORIES: return createCategories();
       case CategoriesPackage.CATEGORY: return createCategory();
       case CategoriesPackage.CATEGORY_FILTER: return createCategoryFilter();
-      case CategoriesPackage.REQUIREMENT_TYPE_CATEGORIES: return createRequirementTypeCategories();
-      case CategoriesPackage.METHOD_TYPE_CATEGORIES: return createMethodTypeCategories();
-      case CategoriesPackage.USER_SELECTION_CATEGORIES: return createUserSelectionCategories();
-      case CategoriesPackage.QUALITY_ATTRIBUTE_CATEGORIES: return createQualityAttributeCategories();
-      case CategoriesPackage.DEVELOPMENT_PHASE_CATEGORIES: return createDevelopmentPhaseCategories();
-      case CategoriesPackage.REQUIREMENT_TYPE: return createRequirementType();
-      case CategoriesPackage.METHOD_TYPE: return createMethodType();
-      case CategoriesPackage.USER_SELECTION: return createUserSelection();
-      case CategoriesPackage.QUALITY_ATTRIBUTE: return createQualityAttribute();
-      case CategoriesPackage.DEVELOPMENT_PHASE: return createDevelopmentPhase();
+      case CategoriesPackage.USER_CATEGORIES: return createUserCategories();
+      case CategoriesPackage.QUALITY_CATEGORIES: return createQualityCategories();
+      case CategoriesPackage.PHASE_CATEGORIES: return createPhaseCategories();
+      case CategoriesPackage.USER_CATEGORY: return createUserCategory();
+      case CategoriesPackage.QUALITY_CATEGORY: return createQualityCategory();
+      case CategoriesPackage.PHASE_CATEGORY: return createPhaseCategory();
       default:
         throw new IllegalArgumentException("The class '" + eClass.getName() + "' is not a valid classifier");
     }
@@ -145,10 +141,10 @@ public class CategoriesFactoryImpl extends EFactoryImpl implements CategoriesFac
    * <!-- end-user-doc -->
    * @generated
    */
-  public RequirementTypeCategories createRequirementTypeCategories()
+  public UserCategories createUserCategories()
   {
-    RequirementTypeCategoriesImpl requirementTypeCategories = new RequirementTypeCategoriesImpl();
-    return requirementTypeCategories;
+    UserCategoriesImpl userCategories = new UserCategoriesImpl();
+    return userCategories;
   }
 
   /**
@@ -156,10 +152,10 @@ public class CategoriesFactoryImpl extends EFactoryImpl implements CategoriesFac
    * <!-- end-user-doc -->
    * @generated
    */
-  public MethodTypeCategories createMethodTypeCategories()
+  public QualityCategories createQualityCategories()
   {
-    MethodTypeCategoriesImpl methodTypeCategories = new MethodTypeCategoriesImpl();
-    return methodTypeCategories;
+    QualityCategoriesImpl qualityCategories = new QualityCategoriesImpl();
+    return qualityCategories;
   }
 
   /**
@@ -167,10 +163,10 @@ public class CategoriesFactoryImpl extends EFactoryImpl implements CategoriesFac
    * <!-- end-user-doc -->
    * @generated
    */
-  public UserSelectionCategories createUserSelectionCategories()
+  public PhaseCategories createPhaseCategories()
   {
-    UserSelectionCategoriesImpl userSelectionCategories = new UserSelectionCategoriesImpl();
-    return userSelectionCategories;
+    PhaseCategoriesImpl phaseCategories = new PhaseCategoriesImpl();
+    return phaseCategories;
   }
 
   /**
@@ -178,10 +174,10 @@ public class CategoriesFactoryImpl extends EFactoryImpl implements CategoriesFac
    * <!-- end-user-doc -->
    * @generated
    */
-  public QualityAttributeCategories createQualityAttributeCategories()
+  public UserCategory createUserCategory()
   {
-    QualityAttributeCategoriesImpl qualityAttributeCategories = new QualityAttributeCategoriesImpl();
-    return qualityAttributeCategories;
+    UserCategoryImpl userCategory = new UserCategoryImpl();
+    return userCategory;
   }
 
   /**
@@ -189,10 +185,10 @@ public class CategoriesFactoryImpl extends EFactoryImpl implements CategoriesFac
    * <!-- end-user-doc -->
    * @generated
    */
-  public DevelopmentPhaseCategories createDevelopmentPhaseCategories()
+  public QualityCategory createQualityCategory()
   {
-    DevelopmentPhaseCategoriesImpl developmentPhaseCategories = new DevelopmentPhaseCategoriesImpl();
-    return developmentPhaseCategories;
+    QualityCategoryImpl qualityCategory = new QualityCategoryImpl();
+    return qualityCategory;
   }
 
   /**
@@ -200,54 +196,10 @@ public class CategoriesFactoryImpl extends EFactoryImpl implements CategoriesFac
    * <!-- end-user-doc -->
    * @generated
    */
-  public RequirementType createRequirementType()
+  public PhaseCategory createPhaseCategory()
   {
-    RequirementTypeImpl requirementType = new RequirementTypeImpl();
-    return requirementType;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public MethodType createMethodType()
-  {
-    MethodTypeImpl methodType = new MethodTypeImpl();
-    return methodType;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public UserSelection createUserSelection()
-  {
-    UserSelectionImpl userSelection = new UserSelectionImpl();
-    return userSelection;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public QualityAttribute createQualityAttribute()
-  {
-    QualityAttributeImpl qualityAttribute = new QualityAttributeImpl();
-    return qualityAttribute;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public DevelopmentPhase createDevelopmentPhase()
-  {
-    DevelopmentPhaseImpl developmentPhase = new DevelopmentPhaseImpl();
-    return developmentPhase;
+    PhaseCategoryImpl phaseCategory = new PhaseCategoryImpl();
+    return phaseCategory;
   }
 
   /**

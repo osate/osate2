@@ -16,13 +16,11 @@
 
 package org.osate.categories.util
 
-import java.util.HashSet
 import org.osate.categories.categories.Categories
 import org.osate.categories.categories.Category
-import org.osate.categories.categories.RequirementTypeCategories
-import org.osate.categories.categories.MethodTypeCategories
-import org.osate.categories.categories.UserSelectionCategories
-import org.osate.categories.categories.QualityAttributeCategories
+import org.osate.categories.categories.PhaseCategories
+import org.osate.categories.categories.QualityCategories
+import org.osate.categories.categories.UserCategories
 
 class CategoriesUtil {
 
@@ -32,10 +30,9 @@ class CategoriesUtil {
 
 	def static category(Categories cats) {
 		switch (cats) {
-			RequirementTypeCategories: cats.category
-			MethodTypeCategories: cats.category
-			UserSelectionCategories: cats.category
-			QualityAttributeCategories: cats.category
+			UserCategories: cats.category
+			PhaseCategories: cats.category
+			QualityCategories: cats.category
 		}
 	}
 

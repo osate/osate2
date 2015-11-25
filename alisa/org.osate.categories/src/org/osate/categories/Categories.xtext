@@ -2,78 +2,52 @@ grammar org.osate.categories.Categories with org.eclipse.xtext.common.Terminals
 
 generate categories "http://www.osate.org/categories/Categories"
 
-CategoriesDefinitions : requirementTypeCategories=RequirementTypeCategories?   & methodTypeCategories=MethodTypeCategories? 
-	& selectioncategories=UserSelectionCategories? & developmentPhaseCategories=DevelopmentPhaseCategories? 
-	& qualityAttributeCategories=QualityAttributeCategories? //&  categoryFilters=CategoryFilters?
+CategoriesDefinitions :  userCategories=UserCategories? & phaseCategories=PhaseCategories? 
+	& qualityCategories=QualityCategories? //&  categoryFilters=CategoryFilters?
 ;
 
-RequirementTypeCategories returns Categories:
-	{RequirementTypeCategories}'requirement''type' 
-	'[' category += RequirementType+
+
+UserCategories returns Categories:
+	{UserCategories}'category'  
+	'[' category += UserCategory+
 	']'
 ;
 
-MethodTypeCategories returns Categories:
-	{MethodTypeCategories}'method' 'type' 
-	'[' category += MethodType+
+QualityCategories returns Categories:
+	{QualityCategories}'quality'
+	'[' category += QualityCategory+
 	']'
 ;
 
-UserSelectionCategories returns Categories:
-	{UserSelectionCategories}'user''selection'  
-	'[' category += UserSelection+
-	']'
-;
-
-QualityAttributeCategories returns Categories:
-	{QualityAttributeCategories}'quality' 'attribute'
-	'[' category += QualityAttribute+
-	']'
-;
-
-DevelopmentPhaseCategories returns Categories:
-	{DevelopmentPhaseCategories}'development''phase'  
-	'[' category += DevelopmentPhase+
+PhaseCategories returns Categories:
+	{PhaseCategories}'phase'  
+	'[' category += PhaseCategory+
 	']'
 ;
 
 
-/**
- * Requirement category indicates the type of requirement
- */
-RequirementType returns Category:
-	{RequirementType} name = ID  
-;
 
 
-
-
-/**
- * Method type indicates the type of verification method
- */
-MethodType returns Category:
-	{MethodType} name = ID  
-;
 
 /**
  * user selection  indicates a user defined selection categories  
  */
-UserSelection returns Category:
-	{UserSelection} name = ID  
+UserCategory returns Category:
+	{UserCategory} name = ID  
 ;
 
 /**
  * quality attribute indicates a quality attribute 
  */
-QualityAttribute returns Category:
-	{QualityAttribute} name = ID  
+QualityCategory returns Category:
+	{QualityCategory} name = ID  
 ;
 
 /**
  * phase category indicates a development phase 
  */
-DevelopmentPhase returns Category:
-	{DevelopmentPhase} name = ID  
+PhaseCategory returns Category:
+	{PhaseCategory} name = ID  
 ;
 
 //
@@ -84,11 +58,9 @@ DevelopmentPhase returns Category:
 //
 CategoryFilter returns CategoryFilter:
 	name=ID '['
-	('requirement''type' requirementType+=[RequirementType|ID]+ anyRequirementType?='any'?)?
-	&('method''type' methodType+=[MethodType|ID]+ anyMethodType?='any'?)?
-	&('user''selection' userSelection+=[UserSelection|ID]+ anyUserSelection?='any'?)?
-	&('quality''attribute' qualityAttribute+=[QualityAttribute|ID]+ anyQualityAttribute?='any'?)?
-	&('development''phase' developmentPhase+=[DevelopmentPhase|ID]+ anyDevelopmentPhase?='any'?)?
+	('category' userCategory+=[UserCategory|ID]+ anyUserSelection?='any'?)?
+	&('quality' qualityCategory+=[QualityCategory|ID]+ anyQualityAttribute?='any'?)?
+	&('phase' phaseCategory+=[PhaseCategory|ID]+ anyDevelopmentPhase?='any'?)?
 	']'
 ;
 

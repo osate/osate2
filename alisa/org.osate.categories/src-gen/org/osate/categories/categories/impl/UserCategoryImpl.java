@@ -18,23 +18,23 @@ package org.osate.categories.categories.impl;
 import org.eclipse.emf.ecore.EClass;
 
 import org.osate.categories.categories.CategoriesPackage;
-import org.osate.categories.categories.QualityAttributeCategories;
+import org.osate.categories.categories.UserCategory;
 
 /**
  * <!-- begin-user-doc -->
- * An implementation of the model object '<em><b>Quality Attribute Categories</b></em>'.
+ * An implementation of the model object '<em><b>User Category</b></em>'.
  * <!-- end-user-doc -->
  *
  * @generated
  */
-public class QualityAttributeCategoriesImpl extends CategoriesImpl implements QualityAttributeCategories
+public class UserCategoryImpl extends CategoryImpl implements UserCategory
 {
   /**
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    */
-  protected QualityAttributeCategoriesImpl()
+  protected UserCategoryImpl()
   {
     super();
   }
@@ -47,7 +47,7 @@ public class QualityAttributeCategoriesImpl extends CategoriesImpl implements Qu
   @Override
   protected EClass eStaticClass()
   {
-    return CategoriesPackage.Literals.QUALITY_ATTRIBUTE_CATEGORIES;
+    return CategoriesPackage.Literals.USER_CATEGORY;
   }
 
-} //QualityAttributeCategoriesImpl
+} //UserCategoryImpl

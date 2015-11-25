@@ -25,12 +25,10 @@ AssurancePlan:
 		{AssuranceTask} 'assurance''task' name=ID (':' title=STRING)? 'for' assurancePlan=[AssurancePlan|QualifiedName]
 		'['
 	(
-		('requirement''type' requirementType+=[categories::RequirementType|ID]+ anyRequirementType?='any'?)?
-		&('method''type' methodType+=[categories::MethodType|ID]+ anyMethodType?='any'?)?
-		&('user''selection' userSelection+=[categories::UserSelection|ID]+ anyUserSelection?='any'?)?
-		&('quality''attribute' qualityAttribute+=[categories::QualityAttribute|ID]+ anyQualityAttribute?='any'?)?
-		&('development''phase' developmentPhase+=[categories::DevelopmentPhase|ID]+ anyDevelopmentPhase?='any'?)?
-		&('issues' issues+=STRING+ )?
+	('category' userCategory+=[categories::UserCategory|ID]+ anyUserSelection?='any'?)?
+	&('quality' qualityCategory+=[categories::QualityCategory|ID]+ anyQualityAttribute?='any'?)?
+	&('phase' phaseCategory+=[categories::PhaseCategory|ID]+ anyDevelopmentPhase?='any'?)?
+	&('issues' issues+=STRING+ )?
 	)
 	']'
 	;

@@ -13,41 +13,19 @@
  * 
  * See COPYRIGHT file for full details.
  */
-package org.osate.categories.categories.impl;
+package org.osate.categories.categories;
 
-import org.eclipse.emf.ecore.EClass;
-
-import org.osate.categories.categories.CategoriesPackage;
-import org.osate.categories.categories.MethodType;
 
 /**
  * <!-- begin-user-doc -->
- * An implementation of the model object '<em><b>Method Type</b></em>'.
+ * A representation of the model object '<em><b>Quality Category</b></em>'.
  * <!-- end-user-doc -->
  *
+ *
+ * @see org.osate.categories.categories.CategoriesPackage#getQualityCategory()
+ * @model
  * @generated
  */
-public class MethodTypeImpl extends CategoryImpl implements MethodType
+public interface QualityCategory extends Category
 {
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  protected MethodTypeImpl()
-  {
-    super();
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  @Override
-  protected EClass eStaticClass()
-  {
-    return CategoriesPackage.Literals.METHOD_TYPE;
-  }
-
-} //MethodTypeImpl
+} // QualityCategory

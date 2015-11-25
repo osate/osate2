@@ -31,16 +31,12 @@ import org.eclipse.xtext.serializer.sequencer.ITransientValueService.ValueTransi
 import org.osate.categories.categories.CategoriesDefinitions;
 import org.osate.categories.categories.CategoriesPackage;
 import org.osate.categories.categories.CategoryFilter;
-import org.osate.categories.categories.DevelopmentPhase;
-import org.osate.categories.categories.DevelopmentPhaseCategories;
-import org.osate.categories.categories.MethodType;
-import org.osate.categories.categories.MethodTypeCategories;
-import org.osate.categories.categories.QualityAttribute;
-import org.osate.categories.categories.QualityAttributeCategories;
-import org.osate.categories.categories.RequirementType;
-import org.osate.categories.categories.RequirementTypeCategories;
-import org.osate.categories.categories.UserSelection;
-import org.osate.categories.categories.UserSelectionCategories;
+import org.osate.categories.categories.PhaseCategories;
+import org.osate.categories.categories.PhaseCategory;
+import org.osate.categories.categories.QualityCategories;
+import org.osate.categories.categories.QualityCategory;
+import org.osate.categories.categories.UserCategories;
+import org.osate.categories.categories.UserCategory;
 import org.osate.categories.services.CategoriesGrammarAccess;
 
 @SuppressWarnings("all")
@@ -58,35 +54,23 @@ public class CategoriesSemanticSequencer extends AbstractDelegatingSemanticSeque
 			case CategoriesPackage.CATEGORY_FILTER:
 				sequence_CategoryFilter(context, (CategoryFilter) semanticObject); 
 				return; 
-			case CategoriesPackage.DEVELOPMENT_PHASE:
-				sequence_DevelopmentPhase(context, (DevelopmentPhase) semanticObject); 
+			case CategoriesPackage.PHASE_CATEGORIES:
+				sequence_PhaseCategories(context, (PhaseCategories) semanticObject); 
 				return; 
-			case CategoriesPackage.DEVELOPMENT_PHASE_CATEGORIES:
-				sequence_DevelopmentPhaseCategories(context, (DevelopmentPhaseCategories) semanticObject); 
+			case CategoriesPackage.PHASE_CATEGORY:
+				sequence_PhaseCategory(context, (PhaseCategory) semanticObject); 
 				return; 
-			case CategoriesPackage.METHOD_TYPE:
-				sequence_MethodType(context, (MethodType) semanticObject); 
+			case CategoriesPackage.QUALITY_CATEGORIES:
+				sequence_QualityCategories(context, (QualityCategories) semanticObject); 
 				return; 
-			case CategoriesPackage.METHOD_TYPE_CATEGORIES:
-				sequence_MethodTypeCategories(context, (MethodTypeCategories) semanticObject); 
+			case CategoriesPackage.QUALITY_CATEGORY:
+				sequence_QualityCategory(context, (QualityCategory) semanticObject); 
 				return; 
-			case CategoriesPackage.QUALITY_ATTRIBUTE:
-				sequence_QualityAttribute(context, (QualityAttribute) semanticObject); 
+			case CategoriesPackage.USER_CATEGORIES:
+				sequence_UserCategories(context, (UserCategories) semanticObject); 
 				return; 
-			case CategoriesPackage.QUALITY_ATTRIBUTE_CATEGORIES:
-				sequence_QualityAttributeCategories(context, (QualityAttributeCategories) semanticObject); 
-				return; 
-			case CategoriesPackage.REQUIREMENT_TYPE:
-				sequence_RequirementType(context, (RequirementType) semanticObject); 
-				return; 
-			case CategoriesPackage.REQUIREMENT_TYPE_CATEGORIES:
-				sequence_RequirementTypeCategories(context, (RequirementTypeCategories) semanticObject); 
-				return; 
-			case CategoriesPackage.USER_SELECTION:
-				sequence_UserSelection(context, (UserSelection) semanticObject); 
-				return; 
-			case CategoriesPackage.USER_SELECTION_CATEGORIES:
-				sequence_UserSelectionCategories(context, (UserSelectionCategories) semanticObject); 
+			case CategoriesPackage.USER_CATEGORY:
+				sequence_UserCategory(context, (UserCategory) semanticObject); 
 				return; 
 			}
 		if (errorAcceptor != null) errorAcceptor.accept(diagnosticProvider.createInvalidContextOrTypeDiagnostic(semanticObject, context));
@@ -94,13 +78,7 @@ public class CategoriesSemanticSequencer extends AbstractDelegatingSemanticSeque
 	
 	/**
 	 * Constraint:
-	 *     (
-	 *         requirementTypeCategories=RequirementTypeCategories? 
-	 *         methodTypeCategories=MethodTypeCategories? 
-	 *         selectioncategories=UserSelectionCategories? 
-	 *         developmentPhaseCategories=DevelopmentPhaseCategories? 
-	 *         qualityAttributeCategories=QualityAttributeCategories?
-	 *     )
+	 *     (userCategories=UserCategories? phaseCategories=PhaseCategories? qualityCategories=QualityCategories?)
 	 */
 	protected void sequence_CategoriesDefinitions(EObject context, CategoriesDefinitions semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
@@ -111,11 +89,9 @@ public class CategoriesSemanticSequencer extends AbstractDelegatingSemanticSeque
 	 * Constraint:
 	 *     (
 	 *         name=ID 
-	 *         (requirementType+=[RequirementType|ID]+ anyRequirementType?='any'?)? 
-	 *         (methodType+=[MethodType|ID]+ anyMethodType?='any'?)? 
-	 *         (userSelection+=[UserSelection|ID]+ anyUserSelection?='any'?)? 
-	 *         (qualityAttribute+=[QualityAttribute|ID]+ anyQualityAttribute?='any'?)? 
-	 *         (developmentPhase+=[DevelopmentPhase|ID]+ anyDevelopmentPhase?='any'?)?
+	 *         (userCategory+=[UserCategory|ID]+ anyUserSelection?='any'?)? 
+	 *         (qualityCategory+=[QualityCategory|ID]+ anyQualityAttribute?='any'?)? 
+	 *         (phaseCategory+=[PhaseCategory|ID]+ anyDevelopmentPhase?='any'?)?
 	 *     )
 	 */
 	protected void sequence_CategoryFilter(EObject context, CategoryFilter semanticObject) {
@@ -125,9 +101,9 @@ public class CategoriesSemanticSequencer extends AbstractDelegatingSemanticSeque
 	
 	/**
 	 * Constraint:
-	 *     category+=DevelopmentPhase+
+	 *     category+=PhaseCategory+
 	 */
-	protected void sequence_DevelopmentPhaseCategories(EObject context, DevelopmentPhaseCategories semanticObject) {
+	protected void sequence_PhaseCategories(EObject context, PhaseCategories semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
 	}
 	
@@ -136,23 +112,23 @@ public class CategoriesSemanticSequencer extends AbstractDelegatingSemanticSeque
 	 * Constraint:
 	 *     name=ID
 	 */
-	protected void sequence_DevelopmentPhase(EObject context, DevelopmentPhase semanticObject) {
+	protected void sequence_PhaseCategory(EObject context, PhaseCategory semanticObject) {
 		if(errorAcceptor != null) {
 			if(transientValues.isValueTransient(semanticObject, CategoriesPackage.Literals.CATEGORY__NAME) == ValueTransient.YES)
 				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, CategoriesPackage.Literals.CATEGORY__NAME));
 		}
 		INodesForEObjectProvider nodes = createNodeProvider(semanticObject);
 		SequenceFeeder feeder = createSequencerFeeder(semanticObject, nodes);
-		feeder.accept(grammarAccess.getDevelopmentPhaseAccess().getNameIDTerminalRuleCall_1_0(), semanticObject.getName());
+		feeder.accept(grammarAccess.getPhaseCategoryAccess().getNameIDTerminalRuleCall_1_0(), semanticObject.getName());
 		feeder.finish();
 	}
 	
 	
 	/**
 	 * Constraint:
-	 *     category+=MethodType+
+	 *     category+=QualityCategory+
 	 */
-	protected void sequence_MethodTypeCategories(EObject context, MethodTypeCategories semanticObject) {
+	protected void sequence_QualityCategories(EObject context, QualityCategories semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
 	}
 	
@@ -161,23 +137,23 @@ public class CategoriesSemanticSequencer extends AbstractDelegatingSemanticSeque
 	 * Constraint:
 	 *     name=ID
 	 */
-	protected void sequence_MethodType(EObject context, MethodType semanticObject) {
+	protected void sequence_QualityCategory(EObject context, QualityCategory semanticObject) {
 		if(errorAcceptor != null) {
 			if(transientValues.isValueTransient(semanticObject, CategoriesPackage.Literals.CATEGORY__NAME) == ValueTransient.YES)
 				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, CategoriesPackage.Literals.CATEGORY__NAME));
 		}
 		INodesForEObjectProvider nodes = createNodeProvider(semanticObject);
 		SequenceFeeder feeder = createSequencerFeeder(semanticObject, nodes);
-		feeder.accept(grammarAccess.getMethodTypeAccess().getNameIDTerminalRuleCall_1_0(), semanticObject.getName());
+		feeder.accept(grammarAccess.getQualityCategoryAccess().getNameIDTerminalRuleCall_1_0(), semanticObject.getName());
 		feeder.finish();
 	}
 	
 	
 	/**
 	 * Constraint:
-	 *     category+=QualityAttribute+
+	 *     category+=UserCategory+
 	 */
-	protected void sequence_QualityAttributeCategories(EObject context, QualityAttributeCategories semanticObject) {
+	protected void sequence_UserCategories(EObject context, UserCategories semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
 	}
 	
@@ -186,64 +162,14 @@ public class CategoriesSemanticSequencer extends AbstractDelegatingSemanticSeque
 	 * Constraint:
 	 *     name=ID
 	 */
-	protected void sequence_QualityAttribute(EObject context, QualityAttribute semanticObject) {
+	protected void sequence_UserCategory(EObject context, UserCategory semanticObject) {
 		if(errorAcceptor != null) {
 			if(transientValues.isValueTransient(semanticObject, CategoriesPackage.Literals.CATEGORY__NAME) == ValueTransient.YES)
 				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, CategoriesPackage.Literals.CATEGORY__NAME));
 		}
 		INodesForEObjectProvider nodes = createNodeProvider(semanticObject);
 		SequenceFeeder feeder = createSequencerFeeder(semanticObject, nodes);
-		feeder.accept(grammarAccess.getQualityAttributeAccess().getNameIDTerminalRuleCall_1_0(), semanticObject.getName());
-		feeder.finish();
-	}
-	
-	
-	/**
-	 * Constraint:
-	 *     category+=RequirementType+
-	 */
-	protected void sequence_RequirementTypeCategories(EObject context, RequirementTypeCategories semanticObject) {
-		genericSequencer.createSequence(context, semanticObject);
-	}
-	
-	
-	/**
-	 * Constraint:
-	 *     name=ID
-	 */
-	protected void sequence_RequirementType(EObject context, RequirementType semanticObject) {
-		if(errorAcceptor != null) {
-			if(transientValues.isValueTransient(semanticObject, CategoriesPackage.Literals.CATEGORY__NAME) == ValueTransient.YES)
-				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, CategoriesPackage.Literals.CATEGORY__NAME));
-		}
-		INodesForEObjectProvider nodes = createNodeProvider(semanticObject);
-		SequenceFeeder feeder = createSequencerFeeder(semanticObject, nodes);
-		feeder.accept(grammarAccess.getRequirementTypeAccess().getNameIDTerminalRuleCall_1_0(), semanticObject.getName());
-		feeder.finish();
-	}
-	
-	
-	/**
-	 * Constraint:
-	 *     category+=UserSelection+
-	 */
-	protected void sequence_UserSelectionCategories(EObject context, UserSelectionCategories semanticObject) {
-		genericSequencer.createSequence(context, semanticObject);
-	}
-	
-	
-	/**
-	 * Constraint:
-	 *     name=ID
-	 */
-	protected void sequence_UserSelection(EObject context, UserSelection semanticObject) {
-		if(errorAcceptor != null) {
-			if(transientValues.isValueTransient(semanticObject, CategoriesPackage.Literals.CATEGORY__NAME) == ValueTransient.YES)
-				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, CategoriesPackage.Literals.CATEGORY__NAME));
-		}
-		INodesForEObjectProvider nodes = createNodeProvider(semanticObject);
-		SequenceFeeder feeder = createSequencerFeeder(semanticObject, nodes);
-		feeder.accept(grammarAccess.getUserSelectionAccess().getNameIDTerminalRuleCall_1_0(), semanticObject.getName());
+		feeder.accept(grammarAccess.getUserCategoryAccess().getNameIDTerminalRuleCall_1_0(), semanticObject.getName());
 		feeder.finish();
 	}
 }

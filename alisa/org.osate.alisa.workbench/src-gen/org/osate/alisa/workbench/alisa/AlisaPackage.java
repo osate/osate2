@@ -228,49 +228,13 @@ public interface AlisaPackage extends EPackage
   int ASSURANCE_TASK__NAME = CategoriesPackage.CATEGORY_FILTER__NAME;
 
   /**
-   * The feature id for the '<em><b>Requirement Type</b></em>' reference list.
+   * The feature id for the '<em><b>User Category</b></em>' reference list.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    * @ordered
    */
-  int ASSURANCE_TASK__REQUIREMENT_TYPE = CategoriesPackage.CATEGORY_FILTER__REQUIREMENT_TYPE;
-
-  /**
-   * The feature id for the '<em><b>Any Requirement Type</b></em>' attribute.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int ASSURANCE_TASK__ANY_REQUIREMENT_TYPE = CategoriesPackage.CATEGORY_FILTER__ANY_REQUIREMENT_TYPE;
-
-  /**
-   * The feature id for the '<em><b>Method Type</b></em>' reference list.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int ASSURANCE_TASK__METHOD_TYPE = CategoriesPackage.CATEGORY_FILTER__METHOD_TYPE;
-
-  /**
-   * The feature id for the '<em><b>Any Method Type</b></em>' attribute.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int ASSURANCE_TASK__ANY_METHOD_TYPE = CategoriesPackage.CATEGORY_FILTER__ANY_METHOD_TYPE;
-
-  /**
-   * The feature id for the '<em><b>User Selection</b></em>' reference list.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int ASSURANCE_TASK__USER_SELECTION = CategoriesPackage.CATEGORY_FILTER__USER_SELECTION;
+  int ASSURANCE_TASK__USER_CATEGORY = CategoriesPackage.CATEGORY_FILTER__USER_CATEGORY;
 
   /**
    * The feature id for the '<em><b>Any User Selection</b></em>' attribute.
@@ -282,13 +246,13 @@ public interface AlisaPackage extends EPackage
   int ASSURANCE_TASK__ANY_USER_SELECTION = CategoriesPackage.CATEGORY_FILTER__ANY_USER_SELECTION;
 
   /**
-   * The feature id for the '<em><b>Quality Attribute</b></em>' reference list.
+   * The feature id for the '<em><b>Quality Category</b></em>' reference list.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    * @ordered
    */
-  int ASSURANCE_TASK__QUALITY_ATTRIBUTE = CategoriesPackage.CATEGORY_FILTER__QUALITY_ATTRIBUTE;
+  int ASSURANCE_TASK__QUALITY_CATEGORY = CategoriesPackage.CATEGORY_FILTER__QUALITY_CATEGORY;
 
   /**
    * The feature id for the '<em><b>Any Quality Attribute</b></em>' attribute.
@@ -300,13 +264,13 @@ public interface AlisaPackage extends EPackage
   int ASSURANCE_TASK__ANY_QUALITY_ATTRIBUTE = CategoriesPackage.CATEGORY_FILTER__ANY_QUALITY_ATTRIBUTE;
 
   /**
-   * The feature id for the '<em><b>Development Phase</b></em>' reference list.
+   * The feature id for the '<em><b>Phase Category</b></em>' reference list.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    * @ordered
    */
-  int ASSURANCE_TASK__DEVELOPMENT_PHASE = CategoriesPackage.CATEGORY_FILTER__DEVELOPMENT_PHASE;
+  int ASSURANCE_TASK__PHASE_CATEGORY = CategoriesPackage.CATEGORY_FILTER__PHASE_CATEGORY;
 
   /**
    * The feature id for the '<em><b>Any Development Phase</b></em>' attribute.

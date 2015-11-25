@@ -18,14 +18,14 @@ package org.osate.categories.categories;
 
 /**
  * <!-- begin-user-doc -->
- * A representation of the model object '<em><b>Requirement Type Categories</b></em>'.
+ * A representation of the model object '<em><b>Quality Categories</b></em>'.
  * <!-- end-user-doc -->
  *
  *
- * @see org.osate.categories.categories.CategoriesPackage#getRequirementTypeCategories()
+ * @see org.osate.categories.categories.CategoriesPackage#getQualityCategories()
  * @model
  * @generated
  */
-public interface RequirementTypeCategories extends Categories
+public interface QualityCategories extends Categories
 {
-} // RequirementTypeCategories
+} // QualityCategories

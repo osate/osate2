@@ -13,19 +13,41 @@
  * 
  * See COPYRIGHT file for full details.
  */
-package org.osate.categories.categories;
+package org.osate.categories.categories.impl;
 
+import org.eclipse.emf.ecore.EClass;
+
+import org.osate.categories.categories.CategoriesPackage;
+import org.osate.categories.categories.PhaseCategories;
 
 /**
  * <!-- begin-user-doc -->
- * A representation of the model object '<em><b>User Selection</b></em>'.
+ * An implementation of the model object '<em><b>Phase Categories</b></em>'.
  * <!-- end-user-doc -->
  *
- *
- * @see org.osate.categories.categories.CategoriesPackage#getUserSelection()
- * @model
  * @generated
  */
-public interface UserSelection extends Category
+public class PhaseCategoriesImpl extends CategoriesImpl implements PhaseCategories
 {
-} // UserSelection
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  protected PhaseCategoriesImpl()
+  {
+    super();
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  @Override
+  protected EClass eStaticClass()
+  {
+    return CategoriesPackage.Literals.PHASE_CATEGORIES;
+  }
+
+} //PhaseCategoriesImpl

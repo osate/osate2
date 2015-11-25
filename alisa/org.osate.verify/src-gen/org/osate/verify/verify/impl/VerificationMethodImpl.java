@@ -36,9 +36,8 @@ import org.osate.aadl2.Property;
 
 import org.osate.alisa.common.common.Description;
 
-import org.osate.categories.categories.MethodType;
-import org.osate.categories.categories.QualityAttribute;
-import org.osate.categories.categories.UserSelection;
+import org.osate.categories.categories.QualityCategory;
+import org.osate.categories.categories.UserCategory;
 
 import org.osate.verify.verify.FormalParameter;
 import org.osate.verify.verify.MethodKind;
@@ -64,9 +63,8 @@ import org.osate.verify.verify.VerifyPackage;
  *   <li>{@link org.osate.verify.verify.impl.VerificationMethodImpl#getDescription <em>Description</em>}</li>
  *   <li>{@link org.osate.verify.verify.impl.VerificationMethodImpl#getPrecondition <em>Precondition</em>}</li>
  *   <li>{@link org.osate.verify.verify.impl.VerificationMethodImpl#getValidation <em>Validation</em>}</li>
- *   <li>{@link org.osate.verify.verify.impl.VerificationMethodImpl#getMethodType <em>Method Type</em>}</li>
- *   <li>{@link org.osate.verify.verify.impl.VerificationMethodImpl#getQualityAttribute <em>Quality Attribute</em>}</li>
- *   <li>{@link org.osate.verify.verify.impl.VerificationMethodImpl#getUserSelection <em>User Selection</em>}</li>
+ *   <li>{@link org.osate.verify.verify.impl.VerificationMethodImpl#getQualityCategory <em>Quality Category</em>}</li>
+ *   <li>{@link org.osate.verify.verify.impl.VerificationMethodImpl#getUserCategory <em>User Category</em>}</li>
  * </ul>
  *
  * @generated
@@ -214,34 +212,24 @@ public class VerificationMethodImpl extends MinimalEObjectImpl.Container impleme
   protected VerificationCondition validation;
 
   /**
-   * The cached value of the '{@link #getMethodType() <em>Method Type</em>}' reference list.
+   * The cached value of the '{@link #getQualityCategory() <em>Quality Category</em>}' reference list.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @see #getMethodType()
+   * @see #getQualityCategory()
    * @generated
    * @ordered
    */
-  protected EList<MethodType> methodType;
+  protected EList<QualityCategory> qualityCategory;
 
   /**
-   * The cached value of the '{@link #getQualityAttribute() <em>Quality Attribute</em>}' reference list.
+   * The cached value of the '{@link #getUserCategory() <em>User Category</em>}' reference list.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @see #getQualityAttribute()
+   * @see #getUserCategory()
    * @generated
    * @ordered
    */
-  protected EList<QualityAttribute> qualityAttribute;
-
-  /**
-   * The cached value of the '{@link #getUserSelection() <em>User Selection</em>}' reference list.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @see #getUserSelection()
-   * @generated
-   * @ordered
-   */
-  protected EList<UserSelection> userSelection;
+  protected EList<UserCategory> userCategory;
 
   /**
    * <!-- begin-user-doc -->
@@ -581,13 +569,13 @@ public class VerificationMethodImpl extends MinimalEObjectImpl.Container impleme
    * <!-- end-user-doc -->
    * @generated
    */
-  public EList<MethodType> getMethodType()
+  public EList<QualityCategory> getQualityCategory()
   {
-    if (methodType == null)
+    if (qualityCategory == null)
     {
-      methodType = new EObjectResolvingEList<MethodType>(MethodType.class, this, VerifyPackage.VERIFICATION_METHOD__METHOD_TYPE);
+      qualityCategory = new EObjectResolvingEList<QualityCategory>(QualityCategory.class, this, VerifyPackage.VERIFICATION_METHOD__QUALITY_CATEGORY);
     }
-    return methodType;
+    return qualityCategory;
   }
 
   /**
@@ -595,27 +583,13 @@ public class VerificationMethodImpl extends MinimalEObjectImpl.Container impleme
    * <!-- end-user-doc -->
    * @generated
    */
-  public EList<QualityAttribute> getQualityAttribute()
+  public EList<UserCategory> getUserCategory()
   {
-    if (qualityAttribute == null)
+    if (userCategory == null)
     {
-      qualityAttribute = new EObjectResolvingEList<QualityAttribute>(QualityAttribute.class, this, VerifyPackage.VERIFICATION_METHOD__QUALITY_ATTRIBUTE);
+      userCategory = new EObjectResolvingEList<UserCategory>(UserCategory.class, this, VerifyPackage.VERIFICATION_METHOD__USER_CATEGORY);
     }
-    return qualityAttribute;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public EList<UserSelection> getUserSelection()
-  {
-    if (userSelection == null)
-    {
-      userSelection = new EObjectResolvingEList<UserSelection>(UserSelection.class, this, VerifyPackage.VERIFICATION_METHOD__USER_SELECTION);
-    }
-    return userSelection;
+    return userCategory;
   }
 
   /**
@@ -672,12 +646,10 @@ public class VerificationMethodImpl extends MinimalEObjectImpl.Container impleme
         return getPrecondition();
       case VerifyPackage.VERIFICATION_METHOD__VALIDATION:
         return getValidation();
-      case VerifyPackage.VERIFICATION_METHOD__METHOD_TYPE:
-        return getMethodType();
-      case VerifyPackage.VERIFICATION_METHOD__QUALITY_ATTRIBUTE:
-        return getQualityAttribute();
-      case VerifyPackage.VERIFICATION_METHOD__USER_SELECTION:
-        return getUserSelection();
+      case VerifyPackage.VERIFICATION_METHOD__QUALITY_CATEGORY:
+        return getQualityCategory();
+      case VerifyPackage.VERIFICATION_METHOD__USER_CATEGORY:
+        return getUserCategory();
     }
     return super.eGet(featureID, resolve, coreType);
   }
@@ -725,17 +697,13 @@ public class VerificationMethodImpl extends MinimalEObjectImpl.Container impleme
       case VerifyPackage.VERIFICATION_METHOD__VALIDATION:
         setValidation((VerificationCondition)newValue);
         return;
-      case VerifyPackage.VERIFICATION_METHOD__METHOD_TYPE:
-        getMethodType().clear();
-        getMethodType().addAll((Collection<? extends MethodType>)newValue);
+      case VerifyPackage.VERIFICATION_METHOD__QUALITY_CATEGORY:
+        getQualityCategory().clear();
+        getQualityCategory().addAll((Collection<? extends QualityCategory>)newValue);
         return;
-      case VerifyPackage.VERIFICATION_METHOD__QUALITY_ATTRIBUTE:
-        getQualityAttribute().clear();
-        getQualityAttribute().addAll((Collection<? extends QualityAttribute>)newValue);
-        return;
-      case VerifyPackage.VERIFICATION_METHOD__USER_SELECTION:
-        getUserSelection().clear();
-        getUserSelection().addAll((Collection<? extends UserSelection>)newValue);
+      case VerifyPackage.VERIFICATION_METHOD__USER_CATEGORY:
+        getUserCategory().clear();
+        getUserCategory().addAll((Collection<? extends UserCategory>)newValue);
         return;
     }
     super.eSet(featureID, newValue);
@@ -781,14 +749,11 @@ public class VerificationMethodImpl extends MinimalEObjectImpl.Container impleme
       case VerifyPackage.VERIFICATION_METHOD__VALIDATION:
         setValidation((VerificationCondition)null);
         return;
-      case VerifyPackage.VERIFICATION_METHOD__METHOD_TYPE:
-        getMethodType().clear();
+      case VerifyPackage.VERIFICATION_METHOD__QUALITY_CATEGORY:
+        getQualityCategory().clear();
         return;
-      case VerifyPackage.VERIFICATION_METHOD__QUALITY_ATTRIBUTE:
-        getQualityAttribute().clear();
-        return;
-      case VerifyPackage.VERIFICATION_METHOD__USER_SELECTION:
-        getUserSelection().clear();
+      case VerifyPackage.VERIFICATION_METHOD__USER_CATEGORY:
+        getUserCategory().clear();
         return;
     }
     super.eUnset(featureID);
@@ -824,12 +789,10 @@ public class VerificationMethodImpl extends MinimalEObjectImpl.Container impleme
         return precondition != null;
       case VerifyPackage.VERIFICATION_METHOD__VALIDATION:
         return validation != null;
-      case VerifyPackage.VERIFICATION_METHOD__METHOD_TYPE:
-        return methodType != null && !methodType.isEmpty();
-      case VerifyPackage.VERIFICATION_METHOD__QUALITY_ATTRIBUTE:
-        return qualityAttribute != null && !qualityAttribute.isEmpty();
-      case VerifyPackage.VERIFICATION_METHOD__USER_SELECTION:
-        return userSelection != null && !userSelection.isEmpty();
+      case VerifyPackage.VERIFICATION_METHOD__QUALITY_CATEGORY:
+        return qualityCategory != null && !qualityCategory.isEmpty();
+      case VerifyPackage.VERIFICATION_METHOD__USER_CATEGORY:
+        return userCategory != null && !userCategory.isEmpty();
     }
     return super.eIsSet(featureID);
   }

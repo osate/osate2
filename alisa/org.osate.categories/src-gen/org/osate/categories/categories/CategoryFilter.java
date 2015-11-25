@@ -29,15 +29,11 @@ import org.eclipse.emf.ecore.EObject;
  * </p>
  * <ul>
  *   <li>{@link org.osate.categories.categories.CategoryFilter#getName <em>Name</em>}</li>
- *   <li>{@link org.osate.categories.categories.CategoryFilter#getRequirementType <em>Requirement Type</em>}</li>
- *   <li>{@link org.osate.categories.categories.CategoryFilter#isAnyRequirementType <em>Any Requirement Type</em>}</li>
- *   <li>{@link org.osate.categories.categories.CategoryFilter#getMethodType <em>Method Type</em>}</li>
- *   <li>{@link org.osate.categories.categories.CategoryFilter#isAnyMethodType <em>Any Method Type</em>}</li>
- *   <li>{@link org.osate.categories.categories.CategoryFilter#getUserSelection <em>User Selection</em>}</li>
+ *   <li>{@link org.osate.categories.categories.CategoryFilter#getUserCategory <em>User Category</em>}</li>
  *   <li>{@link org.osate.categories.categories.CategoryFilter#isAnyUserSelection <em>Any User Selection</em>}</li>
- *   <li>{@link org.osate.categories.categories.CategoryFilter#getQualityAttribute <em>Quality Attribute</em>}</li>
+ *   <li>{@link org.osate.categories.categories.CategoryFilter#getQualityCategory <em>Quality Category</em>}</li>
  *   <li>{@link org.osate.categories.categories.CategoryFilter#isAnyQualityAttribute <em>Any Quality Attribute</em>}</li>
- *   <li>{@link org.osate.categories.categories.CategoryFilter#getDevelopmentPhase <em>Development Phase</em>}</li>
+ *   <li>{@link org.osate.categories.categories.CategoryFilter#getPhaseCategory <em>Phase Category</em>}</li>
  *   <li>{@link org.osate.categories.categories.CategoryFilter#isAnyDevelopmentPhase <em>Any Development Phase</em>}</li>
  * </ul>
  *
@@ -74,104 +70,20 @@ public interface CategoryFilter extends EObject
   void setName(String value);
 
   /**
-   * Returns the value of the '<em><b>Requirement Type</b></em>' reference list.
-   * The list contents are of type {@link org.osate.categories.categories.RequirementType}.
+   * Returns the value of the '<em><b>User Category</b></em>' reference list.
+   * The list contents are of type {@link org.osate.categories.categories.UserCategory}.
    * <!-- begin-user-doc -->
    * <p>
-   * If the meaning of the '<em>Requirement Type</em>' reference list isn't clear,
+   * If the meaning of the '<em>User Category</em>' reference list isn't clear,
    * there really should be more of a description here...
    * </p>
    * <!-- end-user-doc -->
-   * @return the value of the '<em>Requirement Type</em>' reference list.
-   * @see org.osate.categories.categories.CategoriesPackage#getCategoryFilter_RequirementType()
+   * @return the value of the '<em>User Category</em>' reference list.
+   * @see org.osate.categories.categories.CategoriesPackage#getCategoryFilter_UserCategory()
    * @model
    * @generated
    */
-  EList<RequirementType> getRequirementType();
-
-  /**
-   * Returns the value of the '<em><b>Any Requirement Type</b></em>' attribute.
-   * <!-- begin-user-doc -->
-   * <p>
-   * If the meaning of the '<em>Any Requirement Type</em>' attribute isn't clear,
-   * there really should be more of a description here...
-   * </p>
-   * <!-- end-user-doc -->
-   * @return the value of the '<em>Any Requirement Type</em>' attribute.
-   * @see #setAnyRequirementType(boolean)
-   * @see org.osate.categories.categories.CategoriesPackage#getCategoryFilter_AnyRequirementType()
-   * @model
-   * @generated
-   */
-  boolean isAnyRequirementType();
-
-  /**
-   * Sets the value of the '{@link org.osate.categories.categories.CategoryFilter#isAnyRequirementType <em>Any Requirement Type</em>}' attribute.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @param value the new value of the '<em>Any Requirement Type</em>' attribute.
-   * @see #isAnyRequirementType()
-   * @generated
-   */
-  void setAnyRequirementType(boolean value);
-
-  /**
-   * Returns the value of the '<em><b>Method Type</b></em>' reference list.
-   * The list contents are of type {@link org.osate.categories.categories.MethodType}.
-   * <!-- begin-user-doc -->
-   * <p>
-   * If the meaning of the '<em>Method Type</em>' reference list isn't clear,
-   * there really should be more of a description here...
-   * </p>
-   * <!-- end-user-doc -->
-   * @return the value of the '<em>Method Type</em>' reference list.
-   * @see org.osate.categories.categories.CategoriesPackage#getCategoryFilter_MethodType()
-   * @model
-   * @generated
-   */
-  EList<MethodType> getMethodType();
-
-  /**
-   * Returns the value of the '<em><b>Any Method Type</b></em>' attribute.
-   * <!-- begin-user-doc -->
-   * <p>
-   * If the meaning of the '<em>Any Method Type</em>' attribute isn't clear,
-   * there really should be more of a description here...
-   * </p>
-   * <!-- end-user-doc -->
-   * @return the value of the '<em>Any Method Type</em>' attribute.
-   * @see #setAnyMethodType(boolean)
-   * @see org.osate.categories.categories.CategoriesPackage#getCategoryFilter_AnyMethodType()
-   * @model
-   * @generated
-   */
-  boolean isAnyMethodType();
-
-  /**
-   * Sets the value of the '{@link org.osate.categories.categories.CategoryFilter#isAnyMethodType <em>Any Method Type</em>}' attribute.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @param value the new value of the '<em>Any Method Type</em>' attribute.
-   * @see #isAnyMethodType()
-   * @generated
-   */
-  void setAnyMethodType(boolean value);
-
-  /**
-   * Returns the value of the '<em><b>User Selection</b></em>' reference list.
-   * The list contents are of type {@link org.osate.categories.categories.UserSelection}.
-   * <!-- begin-user-doc -->
-   * <p>
-   * If the meaning of the '<em>User Selection</em>' reference list isn't clear,
-   * there really should be more of a description here...
-   * </p>
-   * <!-- end-user-doc -->
-   * @return the value of the '<em>User Selection</em>' reference list.
-   * @see org.osate.categories.categories.CategoriesPackage#getCategoryFilter_UserSelection()
-   * @model
-   * @generated
-   */
-  EList<UserSelection> getUserSelection();
+  EList<UserCategory> getUserCategory();
 
   /**
    * Returns the value of the '<em><b>Any User Selection</b></em>' attribute.
@@ -200,20 +112,20 @@ public interface CategoryFilter extends EObject
   void setAnyUserSelection(boolean value);
 
   /**
-   * Returns the value of the '<em><b>Quality Attribute</b></em>' reference list.
-   * The list contents are of type {@link org.osate.categories.categories.QualityAttribute}.
+   * Returns the value of the '<em><b>Quality Category</b></em>' reference list.
+   * The list contents are of type {@link org.osate.categories.categories.QualityCategory}.
    * <!-- begin-user-doc -->
    * <p>
-   * If the meaning of the '<em>Quality Attribute</em>' reference list isn't clear,
+   * If the meaning of the '<em>Quality Category</em>' reference list isn't clear,
    * there really should be more of a description here...
    * </p>
    * <!-- end-user-doc -->
-   * @return the value of the '<em>Quality Attribute</em>' reference list.
-   * @see org.osate.categories.categories.CategoriesPackage#getCategoryFilter_QualityAttribute()
+   * @return the value of the '<em>Quality Category</em>' reference list.
+   * @see org.osate.categories.categories.CategoriesPackage#getCategoryFilter_QualityCategory()
    * @model
    * @generated
    */
-  EList<QualityAttribute> getQualityAttribute();
+  EList<QualityCategory> getQualityCategory();
 
   /**
    * Returns the value of the '<em><b>Any Quality Attribute</b></em>' attribute.
@@ -242,20 +154,20 @@ public interface CategoryFilter extends EObject
   void setAnyQualityAttribute(boolean value);
 
   /**
-   * Returns the value of the '<em><b>Development Phase</b></em>' reference list.
-   * The list contents are of type {@link org.osate.categories.categories.DevelopmentPhase}.
+   * Returns the value of the '<em><b>Phase Category</b></em>' reference list.
+   * The list contents are of type {@link org.osate.categories.categories.PhaseCategory}.
    * <!-- begin-user-doc -->
    * <p>
-   * If the meaning of the '<em>Development Phase</em>' reference list isn't clear,
+   * If the meaning of the '<em>Phase Category</em>' reference list isn't clear,
    * there really should be more of a description here...
    * </p>
    * <!-- end-user-doc -->
-   * @return the value of the '<em>Development Phase</em>' reference list.
-   * @see org.osate.categories.categories.CategoriesPackage#getCategoryFilter_DevelopmentPhase()
+   * @return the value of the '<em>Phase Category</em>' reference list.
+   * @see org.osate.categories.categories.CategoriesPackage#getCategoryFilter_PhaseCategory()
    * @model
    * @generated
    */
-  EList<DevelopmentPhase> getDevelopmentPhase();
+  EList<PhaseCategory> getPhaseCategory();
 
   /**
    * Returns the value of the '<em><b>Any Development Phase</b></em>' attribute.

@@ -19,7 +19,6 @@ package org.osate.verify.util
 import com.google.common.collect.HashMultimap
 import org.eclipse.emf.ecore.EObject
 import org.eclipse.emf.ecore.util.EcoreUtil
-import org.osate.aadl2.ComponentClassifier
 import org.osate.aadl2.util.Aadl2Util
 import org.osate.categories.categories.CategoryFilter
 import org.osate.verify.verify.Claim
@@ -31,7 +30,6 @@ import org.osate.verify.verify.VerificationPlan
 import static org.osate.categories.util.CategoriesUtil.*
 
 import static extension org.eclipse.xtext.EcoreUtil2.*
-import org.osate.reqspec.reqSpec.Requirement
 
 class VerifyUtilExtension {
 
@@ -85,23 +83,21 @@ class VerifyUtilExtension {
 		if (filter == null) return true
 		val req = claim.requirement
 		if (Aadl2Util.isNull(req)) return false
-		return intersects(req.requirementType,filter.requirementType,filter.anyRequirementType) 
-		&& intersects(req.qualityAttribute,filter.qualityAttribute,filter.anyQualityAttribute)
-		&& intersects(req.userSelection,filter.userSelection,filter.anyUserSelection)
+		return  intersects(req.qualityCategory,filter.qualityCategory,filter.anyQualityAttribute)
+		&& intersects(req.userCategory,filter.userCategory,filter.anyUserSelection)
 	}
 
 	def static evaluateVerificationMethodFilter(VerificationActivity va, CategoryFilter filter) {
 		if (filter == null) return true
 		val vm = va.method
 		if (vm == null ) return false
-		return intersects(vm.methodType,filter.methodType,filter.anyMethodType) 
-		&& intersects(vm.qualityAttribute,filter.qualityAttribute,filter.anyQualityAttribute)
-		&& intersects(vm.userSelection,filter.userSelection,filter.anyUserSelection)
+		return  intersects(vm.qualityCategory,filter.qualityCategory,filter.anyQualityAttribute)
+		&& intersects(vm.userCategory,filter.userCategory,filter.anyUserSelection)
 	}
 	
 	def static evaluateVerificationActivityFilter(VerificationActivity va, CategoryFilter filter) {
 		if (filter == null) return true
-		return intersects(va.developmentPhase,filter.developmentPhase,filter.anyDevelopmentPhase) 
-		&& intersects(va.userSelection,filter.userSelection,filter.anyUserSelection)
+		return intersects(va.phaseCategory,filter.phaseCategory,filter.anyDevelopmentPhase) 
+		&& intersects(va.userCategory,filter.userCategory,filter.anyUserSelection)
 	}
 }

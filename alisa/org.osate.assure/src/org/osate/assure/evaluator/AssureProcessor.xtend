@@ -264,7 +264,7 @@ class AssureProcessor implements IAssureProcessor {
 		}
 
 		try {
-			val methodtype = method.methodType
+			val methodtype = method.methodKind
 			switch (methodtype) {
 				JavaMethod: {
 					// The parameters are objects from the Properties Meta model. May need to get converted to Java base types
