@@ -127,6 +127,7 @@ Goal returns Goal:
 	&('evolves' evolvesReference+=[Requirement|QualifiedName]+)? 
 	&(dropped?='dropped' ( dropRationale=STRING )? )? 
 	 &('stakeholder'  stakeholderReference+=[org::Stakeholder|QualifiedName]+)?
+	&('see''goal'  goalReference+=[Goal|QualifiedName]+)?
 	 &('see''document'  docReference+=ExternalDocument+)? 
 		&('issues' issues+=STRING+ )?
 	)
@@ -154,6 +155,7 @@ SystemRequirement returns Requirement:
 	&(dropped?='dropped' ( dropRationale=STRING )? )? 
 	 &('development' 'stakeholder'  developmentStakeholder+=[org::Stakeholder|QualifiedName]+)?
 	&('see''goal'  goalReference+=[Goal|QualifiedName]+)?
+	&('see''requirement'  requirementReference+=[Requirement|QualifiedName]+)?
 	 &('see''document'  docReference+=ExternalDocument+)? 
 		&('issues' issues+=STRING+ )?
 	)
@@ -179,6 +181,7 @@ Requirement returns Requirement:
 	&(dropped?='dropped' ( dropRationale=STRING )? )? 
 	 &('development' 'stakeholder'  developmentStakeholder+=[org::Stakeholder|QualifiedName]+)?
 	&('see''goal'  goalReference+=[Goal|QualifiedName]+)?
+	&('see''requirement'  requirementReference+=[Requirement|QualifiedName]+)?
 	 &('see''document'  docReference+=ExternalDocument+)? 
 		&('issues' issues+=STRING+ )?
 	)

@@ -330,6 +330,7 @@ public class ReqSpecSemanticSequencer extends CommonSemanticSequencer {
 	 *         evolvesReference+=[Requirement|QualifiedName]* 
 	 *         (dropped?='dropped' dropRationale=STRING?)? 
 	 *         stakeholderReference+=[Stakeholder|QualifiedName]* 
+	 *         goalReference+=[Goal|QualifiedName]* 
 	 *         docReference+=ExternalDocument* 
 	 *         issues+=STRING*
 	 *     )
@@ -426,6 +427,7 @@ public class ReqSpecSemanticSequencer extends CommonSemanticSequencer {
 	 *         (dropped?='dropped' dropRationale=STRING?)? 
 	 *         developmentStakeholder+=[Stakeholder|QualifiedName]* 
 	 *         goalReference+=[Goal|QualifiedName]* 
+	 *         requirementReference+=[Requirement|QualifiedName]* 
 	 *         docReference+=ExternalDocument* 
 	 *         issues+=STRING*
 	 *     )
@@ -475,6 +477,7 @@ public class ReqSpecSemanticSequencer extends CommonSemanticSequencer {
 	 *         (dropped?='dropped' dropRationale=STRING?)? 
 	 *         developmentStakeholder+=[Stakeholder|QualifiedName]* 
 	 *         goalReference+=[Goal|QualifiedName]* 
+	 *         requirementReference+=[Requirement|QualifiedName]* 
 	 *         docReference+=ExternalDocument* 
 	 *         issues+=STRING*
 	 *     )

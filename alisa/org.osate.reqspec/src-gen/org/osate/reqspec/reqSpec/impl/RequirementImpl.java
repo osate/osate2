@@ -39,7 +39,6 @@ import org.osate.alisa.common.common.AVariableDeclaration;
 
 import org.osate.organization.organization.Stakeholder;
 
-import org.osate.reqspec.reqSpec.Goal;
 import org.osate.reqspec.reqSpec.ReqPredicate;
 import org.osate.reqspec.reqSpec.ReqSpecPackage;
 import org.osate.reqspec.reqSpec.Requirement;
@@ -59,7 +58,7 @@ import org.osate.reqspec.reqSpec.Requirement;
  *   <li>{@link org.osate.reqspec.reqSpec.impl.RequirementImpl#getRefinesReference <em>Refines Reference</em>}</li>
  *   <li>{@link org.osate.reqspec.reqSpec.impl.RequirementImpl#getDecomposesReference <em>Decomposes Reference</em>}</li>
  *   <li>{@link org.osate.reqspec.reqSpec.impl.RequirementImpl#getDevelopmentStakeholder <em>Development Stakeholder</em>}</li>
- *   <li>{@link org.osate.reqspec.reqSpec.impl.RequirementImpl#getGoalReference <em>Goal Reference</em>}</li>
+ *   <li>{@link org.osate.reqspec.reqSpec.impl.RequirementImpl#getRequirementReference <em>Requirement Reference</em>}</li>
  *   <li>{@link org.osate.reqspec.reqSpec.impl.RequirementImpl#getComponentCategory <em>Component Category</em>}</li>
  * </ul>
  *
@@ -148,14 +147,14 @@ public class RequirementImpl extends ContractualElementImpl implements Requireme
   protected EList<Stakeholder> developmentStakeholder;
 
   /**
-   * The cached value of the '{@link #getGoalReference() <em>Goal Reference</em>}' reference list.
+   * The cached value of the '{@link #getRequirementReference() <em>Requirement Reference</em>}' reference list.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @see #getGoalReference()
+   * @see #getRequirementReference()
    * @generated
    * @ordered
    */
-  protected EList<Goal> goalReference;
+  protected EList<Requirement> requirementReference;
 
   /**
    * The cached value of the '{@link #getComponentCategory() <em>Component Category</em>}' attribute list.
@@ -363,13 +362,13 @@ public class RequirementImpl extends ContractualElementImpl implements Requireme
    * <!-- end-user-doc -->
    * @generated
    */
-  public EList<Goal> getGoalReference()
+  public EList<Requirement> getRequirementReference()
   {
-    if (goalReference == null)
+    if (requirementReference == null)
     {
-      goalReference = new EObjectResolvingEList<Goal>(Goal.class, this, ReqSpecPackage.REQUIREMENT__GOAL_REFERENCE);
+      requirementReference = new EObjectResolvingEList<Requirement>(Requirement.class, this, ReqSpecPackage.REQUIREMENT__REQUIREMENT_REFERENCE);
     }
-    return goalReference;
+    return requirementReference;
   }
 
   /**
@@ -429,8 +428,8 @@ public class RequirementImpl extends ContractualElementImpl implements Requireme
         return getDecomposesReference();
       case ReqSpecPackage.REQUIREMENT__DEVELOPMENT_STAKEHOLDER:
         return getDevelopmentStakeholder();
-      case ReqSpecPackage.REQUIREMENT__GOAL_REFERENCE:
-        return getGoalReference();
+      case ReqSpecPackage.REQUIREMENT__REQUIREMENT_REFERENCE:
+        return getRequirementReference();
       case ReqSpecPackage.REQUIREMENT__COMPONENT_CATEGORY:
         return getComponentCategory();
     }
@@ -473,9 +472,9 @@ public class RequirementImpl extends ContractualElementImpl implements Requireme
         getDevelopmentStakeholder().clear();
         getDevelopmentStakeholder().addAll((Collection<? extends Stakeholder>)newValue);
         return;
-      case ReqSpecPackage.REQUIREMENT__GOAL_REFERENCE:
-        getGoalReference().clear();
-        getGoalReference().addAll((Collection<? extends Goal>)newValue);
+      case ReqSpecPackage.REQUIREMENT__REQUIREMENT_REFERENCE:
+        getRequirementReference().clear();
+        getRequirementReference().addAll((Collection<? extends Requirement>)newValue);
         return;
       case ReqSpecPackage.REQUIREMENT__COMPONENT_CATEGORY:
         getComponentCategory().clear();
@@ -516,8 +515,8 @@ public class RequirementImpl extends ContractualElementImpl implements Requireme
       case ReqSpecPackage.REQUIREMENT__DEVELOPMENT_STAKEHOLDER:
         getDevelopmentStakeholder().clear();
         return;
-      case ReqSpecPackage.REQUIREMENT__GOAL_REFERENCE:
-        getGoalReference().clear();
+      case ReqSpecPackage.REQUIREMENT__REQUIREMENT_REFERENCE:
+        getRequirementReference().clear();
         return;
       case ReqSpecPackage.REQUIREMENT__COMPONENT_CATEGORY:
         getComponentCategory().clear();
@@ -550,8 +549,8 @@ public class RequirementImpl extends ContractualElementImpl implements Requireme
         return decomposesReference != null && !decomposesReference.isEmpty();
       case ReqSpecPackage.REQUIREMENT__DEVELOPMENT_STAKEHOLDER:
         return developmentStakeholder != null && !developmentStakeholder.isEmpty();
-      case ReqSpecPackage.REQUIREMENT__GOAL_REFERENCE:
-        return goalReference != null && !goalReference.isEmpty();
+      case ReqSpecPackage.REQUIREMENT__REQUIREMENT_REFERENCE:
+        return requirementReference != null && !requirementReference.isEmpty();
       case ReqSpecPackage.REQUIREMENT__COMPONENT_CATEGORY:
         return componentCategory != null && !componentCategory.isEmpty();
     }
