@@ -92,14 +92,6 @@ class CommonScopeProvider extends AbstractDeclarativeScopeProvider {
 		}
 	}
 
-	@Inject ICommonGlobalReferenceFinder refFinder
-
-	def scope_AbstractNamedValue(EObject context, EReference reference) {
-		val props = refFinder.getEObjectDescriptions(context, Aadl2Package.eINSTANCE.property, "aadl")
-		+ refFinder.getEObjectDescriptions(context, Aadl2Package.eINSTANCE.propertyConstant, "aadl")
-		new SimpleScope(IScope::NULLSCOPE, props, true)
-	}
-
 	val private static EClass UNITS_TYPE = Aadl2Package.eINSTANCE.getUnitsType();
 
 	def private static getUnitLiterals(EObject context) {
