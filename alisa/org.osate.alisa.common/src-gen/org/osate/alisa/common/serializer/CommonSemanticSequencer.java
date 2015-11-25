@@ -330,7 +330,7 @@ public class CommonSemanticSequencer extends AbstractDelegatingSemanticSequencer
 	
 	/**
 	 * Constraint:
-	 *     (((type=ID name=ID) | name=ID) right=AExpression?)
+	 *     (((type=ID name=ID) | name=ID) right=AExpression)
 	 */
 	protected void sequence_ValDeclaration(EObject context, ValDeclaration semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);

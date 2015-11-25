@@ -32,7 +32,7 @@ Uncertainty:
 ;
 
 ValDeclaration returns AVariableDeclaration:
-	 {ValDeclaration} 'val' (=> (type=ID name=ID) | name=ID) '=' (right=AExpression)?  
+	 {ValDeclaration} 'val' (=> (type=ID name=ID) | name=ID) '=' right=AExpression  
 	 ;
 
 ComputeDeclaration returns AVariableDeclaration:

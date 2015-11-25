@@ -287,10 +287,10 @@ public class CommonGrammarAccess extends AbstractGrammarElementFinder {
 		private final RuleCall cRightAExpressionParserRuleCall_4_0 = (RuleCall)cRightAssignment_4.eContents().get(0);
 		
 		//ValDeclaration returns AVariableDeclaration:
-		//	{ValDeclaration} "val" (=> (type=ID name=ID) | name=ID) "=" right=AExpression?;
+		//	{ValDeclaration} "val" (=> (type=ID name=ID) | name=ID) "=" right=AExpression;
 		@Override public ParserRule getRule() { return rule; }
 
-		//{ValDeclaration} "val" (=> (type=ID name=ID) | name=ID) "=" right=AExpression?
+		//{ValDeclaration} "val" (=> (type=ID name=ID) | name=ID) "=" right=AExpression
 		public Group getGroup() { return cGroup; }
 
 		//{ValDeclaration}
@@ -329,7 +329,7 @@ public class CommonGrammarAccess extends AbstractGrammarElementFinder {
 		//"="
 		public Keyword getEqualsSignKeyword_3() { return cEqualsSignKeyword_3; }
 
-		//right=AExpression?
+		//right=AExpression
 		public Assignment getRightAssignment_4() { return cRightAssignment_4; }
 
 		//AExpression
@@ -2135,7 +2135,7 @@ public class CommonGrammarAccess extends AbstractGrammarElementFinder {
 	}
 
 	//ValDeclaration returns AVariableDeclaration:
-	//	{ValDeclaration} "val" (=> (type=ID name=ID) | name=ID) "=" right=AExpression?;
+	//	{ValDeclaration} "val" (=> (type=ID name=ID) | name=ID) "=" right=AExpression;
 	public ValDeclarationElements getValDeclarationAccess() {
 		return pValDeclaration;
 	}
