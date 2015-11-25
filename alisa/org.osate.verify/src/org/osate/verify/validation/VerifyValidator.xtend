@@ -171,7 +171,7 @@ class VerifyValidator extends AbstractVerifyValidator {
 	def void checkVerificationPlanUniqueToComponentClassifier(VerificationPlan vp) {
 		val sysReq = vp.requirements
 		if (sysReq instanceof SystemRequirements) {
-			val vps = verifyGlobalRefFinder.getAllVerificationPlansForSystemRequirement(sysReq, vp)
+			val vps = verifyGlobalRefFinder.getAllVerificationPlansForRequirements(sysReq, vp)
 			if (vps.size > 1) {
 				error("Other Verification Plans exist for '" + sysReq.name +
 					"'. Only one Verification Plans is allowed for a specific System Requirements.", vp,

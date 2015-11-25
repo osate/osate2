@@ -22,7 +22,7 @@ ReqRoot:  StakeholderGoals | ReqDocument | SystemRequirements | GlobalRequiremen
 
 
 StakeholderGoals: 'stakeholder' 'goals' name=QualifiedName (':' title=STRING)?
-	( 'for' (target=[aadl2::ComponentClassifier|AadlClassifierReference] | componentCategory+=ComponentCategory+ | global?='all'))
+	( 'for' (target=[aadl2::ComponentClassifier|AadlClassifierReference] | componentCategory+=ComponentCategory+ ))
 	('use' 'constants' importConstants+=[GlobalConstants|QualifiedName]+)?
 	'[' 
 	(	description=Description? 
@@ -193,7 +193,7 @@ DocRequirement returns Requirement:
 	(':'  title=STRING)? 
 	( 'for'  ( targetDescription=STRING |
 		(target=[aadl2::ComponentClassifier|AadlClassifierReference] ( targetElement=[aadl2::NamedElement|ID])?  ) |
-		componentCategory+=ComponentCategory+| global?='all')
+		componentCategory+=ComponentCategory+)
 	)?
 '['	(
  	('requirement''type'  requirementType+=[categories::RequirementType|ID]+ )?

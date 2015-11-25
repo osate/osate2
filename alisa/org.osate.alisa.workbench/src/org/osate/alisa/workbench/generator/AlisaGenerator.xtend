@@ -1,6 +1,6 @@
 /**
  * Copyright 2015 Carnegie Mellon University. All Rights Reserved.
- *
+ * 
  * NO WARRANTY. THIS CARNEGIE MELLON UNIVERSITY AND SOFTWARE ENGINEERING INSTITUTE
  * MATERIAL IS FURNISHED ON AN "AS-IS" BASIS. CARNEGIE MELLON UNIVERSITY MAKES NO
  * WARRANTIES OF ANY KIND, EITHER EXPRESSED OR IMPLIED, AS TO ANY MATTER INCLUDING,
@@ -8,9 +8,9 @@
  * EXCLUSIVITY, OR RESULTS OBTAINED FROM USE OF THE MATERIAL. CARNEGIE MELLON
  * UNIVERSITY DOES NOT MAKE ANY WARRANTY OF ANY KIND WITH RESPECT TO FREEDOM FROM
  * PATENT, TRADEMARK, OR COPYRIGHT INFRINGEMENT.
- *
+ * 
  * Released under the Eclipse Public License (http://www.eclipse.org/org/documents/epl-v10.php)
- *
+ * 
  * See COPYRIGHT file for full details.
  */
 
@@ -48,6 +48,10 @@ import static extension org.osate.reqspec.util.ReqSpecUtilExtension.*
 import org.eclipse.emf.common.util.EList
 import org.osate.verify.verify.VerificationPlan
 import org.eclipse.emf.common.util.BasicEList
+import org.osate.reqspec.reqSpec.SystemRequirements
+import org.osate.reqspec.reqSpec.GlobalRequirements
+import org.osate.reqspec.reqSpec.Requirement
+import org.osate.reqspec.reqSpec.Requirements
 
 /**
  * Generates code from your model files on save.
@@ -59,53 +63,59 @@ class AlisaGenerator implements IGenerator {
 	override void doGenerate(Resource resource, IFileSystemAccess fsa) {
 		val workarea = resource.contents.get(0) as AlisaWorkArea
 		workarea.cases.forEach [ mycase |
-			switch (mycase){
-			AssurancePlan: fsa.generateFile('''«mycase.name».assure''', generateFullRootCase(mycase))
-			AssuranceTask: fsa.generateFile('''«mycase.name».assure''', generateAssuranceTask(mycase))
+			switch (mycase) {
+				AssurancePlan: fsa.generateFile('''«mycase.name».assure''', generateFullRootCase(mycase))
+				AssuranceTask: fsa.generateFile('''«mycase.name».assure''', generateAssuranceTask(mycase))
 			}
 		]
 	}
 
 	@Inject extension IQualifiedNameProvider qualifiedNameProvider
-	
+
 	var CategoryFilter filter = null
-	
+
 	var AssurancePlan rootAssuranceCase;
-	
-	def generateAssuranceTask(AssuranceTask at){
-		filter = at 
+
+	def generateAssuranceTask(AssuranceTask at) {
+		filter = at
+	globalPlans = new BasicEList()
+	globalClaims = new BasicEList()
 		at.assurancePlan?.generateRootCase
 	}
-	
-	var EList<VerificationPlan> allPlans = new BasicEList()
+
+	var EList<VerificationPlan> globalPlans 
+
+	var EList<Claim> globalClaims 
 
 	def generateFullRootCase(AssurancePlan acp) {
 		filter = null
+	globalPlans = new BasicEList()
+	globalClaims = new BasicEList()
 		generateRootCase(acp)
 	}
 
 	def generateRootCase(AssurancePlan acp) {
 		rootAssuranceCase = acp
 		val res = generateCase(acp, null)
-		if (res.length == 0 ){
+		if (res.length == 0) {
 			acp.emptyCase("\"Empty case due to unresolved target reference or empty filter result\"")
 		} else {
 			res
 		}
 	}
-	
-	def emptyCase(AssurancePlan acp,String msg){
-	'''
-	case  «acp.name»
-	for  «acp.name»
-	[
-		tbdcount 0
-		message «msg»
-	]
-	'''
+
+	def emptyCase(AssurancePlan acp, String msg) {
+		'''
+			case  «acp.name»
+			for  «acp.name»
+			[
+				tbdcount 0
+				message «msg»
+			]
+		'''
 	}
 
-@Inject extension IVerifyGlobalReferenceFinder referenceFinder
+	@Inject extension IVerifyGlobalReferenceFinder referenceFinder
 
 	/**
 	 * acp: AssurancePlan of the system of interest
@@ -113,23 +123,23 @@ class AlisaGenerator implements IGenerator {
 	 * either acp or sub may be null, but not both
 	 * they can both be set, in this case acp takes precedence
 	 */
-	def CharSequence generateCase(AssurancePlan acp, Subcomponent sub){
+	def CharSequence generateCase(AssurancePlan acp, Subcomponent sub) {
 		var Iterable<VerificationPlan> myplans = Collections.EMPTY_LIST
 		var ComponentClassifier cc
-		if (acp != null){
+		if (acp != null) {
 			myplans = acp.assure
 			cc = acp.target
-			if (myplans.empty && !Aadl2Util.isNull(cc)){
+			if (myplans.empty && !Aadl2Util.isNull(cc)) {
 				myplans = cc.getVerificationPlans(rootAssuranceCase)
 			}
 		}
-		if (myplans.empty && !Aadl2Util.isNull(sub)){
+		if (myplans.empty && !Aadl2Util.isNull(sub)) {
 			cc = sub.allClassifier
-		 	if (!Aadl2Util.isNull(cc)) {
-		 	myplans = cc.getVerificationPlans(rootAssuranceCase);
-		 	} else {
-		 	myplans =Collections.EMPTY_LIST
-		 	}
+			if (!Aadl2Util.isNull(cc)) {
+				myplans = cc.getVerificationPlans(rootAssuranceCase);
+			} else {
+				myplans = Collections.EMPTY_LIST
+			}
 		}
 		val APparts = doAssurancePlanParts(acp, myplans, cc)
 		if(APparts.length == 0) return ''''''
@@ -146,59 +156,89 @@ class AlisaGenerator implements IGenerator {
 				system «sub.name»
 			«ENDIF»
 				[
-					tbdcount 0
-					«APparts»
+				tbdcount 0
+				«APparts»
 				]
 		'''
 	}
-	
-	def doAssurancePlanParts(AssurancePlan acp, Iterable<VerificationPlan> myplans,ComponentClassifier cc){
+
+	def doAssurancePlanParts(AssurancePlan acp, Iterable<VerificationPlan> myplans, ComponentClassifier cc) {
+		// first collect any global includes
+		for (myplan : myplans) {
+			val reqs = myplan.requirements
+			if (reqs instanceof SystemRequirements) {
+				val includes = reqs.include
+				for (incl : includes) {
+					if (incl.include instanceof Requirements) {
+						if (incl.componentCategory.matchingCategory(cc.category)) {
+							val plans = referenceFinder.
+								getAllVerificationPlansForRequirements(incl.include as Requirements, acp)
+							globalPlans.addAll(plans)
+						}
+					} else {
+						val greq = incl.include as Requirement
+						val greqs = greq.containingRequirements
+						val plans = referenceFinder.getAllVerificationPlansForRequirements(greqs, acp)
+						for (vp : plans) {
+							for (claim : vp.claim) {
+								if(claim.requirement.equals(greq.name)) globalClaims.add(claim)
+							}
+						}
+					}
+				}
+			}
+		}
 		'''
-		«FOR myplan : myplans»
-		«FOR claim : myplan.claim»
-		«IF claim.evaluateRequirementFilter(filter)»
-		«claim.generate()»
-		«ENDIF»
-		«ENDFOR»
-		«ENDFOR»
-«««		«FOR myplan : allPlans»
-«««		«FOR claim : myplan.claim.filter[cl|cl.requirement?.matchingCategory(cc.category)]»
-«««		«IF claim.evaluateRequirementFilter(filter)»
-«««			«claim.generate()»
-«««		«ENDIF»
-«««		«ENDFOR»
-«««		«ENDFOR»
-	    «IF cc instanceof ComponentImplementation»
-		«FOR subc : cc.allSubcomponents»
-			«subc.filterplans(acp)»
-		«ENDFOR»
-	    «ENDIF»
+			«FOR myplan : myplans»
+				«FOR claim : myplan.claim»
+					«IF claim.evaluateRequirementFilter(filter)»
+						«claim.generate()»
+					«ENDIF»
+				«ENDFOR»
+			«ENDFOR»
+			«FOR myplan : globalPlans»
+				«FOR claim : myplan.claim.filter[cl|cl.requirement?.componentCategory.matchingCategory(cc.category)]»
+					«IF claim.evaluateRequirementFilter(filter)»
+						«claim.generate()»
+					«ENDIF»
+				«ENDFOR»
+			«ENDFOR»
+				«FOR claim : globalClaims.filter[cl|cl.requirement?.componentCategory.matchingCategory(cc.category)]»
+					«IF claim.evaluateRequirementFilter(filter)»
+						«claim.generate()»
+					«ENDIF»
+				«ENDFOR»
+			   «IF cc instanceof ComponentImplementation»
+				«FOR subc : cc.allSubcomponents»
+					«subc.filterplans(acp)»
+				«ENDFOR»
+			   «ENDIF»
 		'''
 	}
-	
-	def CharSequence filterplans(Subcomponent subc, AssurancePlan parentacp){
+
+	def CharSequence filterplans(Subcomponent subc, AssurancePlan parentacp) {
 		val cc = subc.allClassifier
-		if (subc.skipAssuranceplans(parentacp)) return ''''''
-		if (cc instanceof ComponentType){
-			generateCase(null,subc)
+		if(subc.skipAssuranceplans(parentacp)) return ''''''
+		if (cc instanceof ComponentType) {
+			generateCase(null, subc)
 		} else {
-		val subacp = cc.getSubsystemAssuranceplan(parentacp)
-		generateCase(subacp,subc)
+			val subacp = cc.getSubsystemAssuranceplan(parentacp)
+			generateCase(subacp, subc)
 		}
 	}
-	
-	def boolean skipAssuranceplans(Subcomponent subc, AssurancePlan parentacp){
-		if (parentacp == null) return false
-		if (parentacp.assumeAll) return true
+
+	def boolean skipAssuranceplans(Subcomponent subc, AssurancePlan parentacp) {
+		if(parentacp == null) return false
+		if(parentacp.assumeAll) return true
 		val assumes = parentacp.assumeSubsystems
-		for (sub: assumes){
-			if (sub.name.equalsIgnoreCase(subc.name)) return true;
+		for (sub : assumes) {
+			if(sub.name.equalsIgnoreCase(subc.name)) return true;
 		}
 		return false
 	}
-	
-	def AssurancePlan getSubsystemAssuranceplan(ComponentClassifier cc, AssurancePlan parentacp){
-		if (parentacp == null) return null
+
+	def AssurancePlan getSubsystemAssuranceplan(ComponentClassifier cc, AssurancePlan parentacp) {
+		if(parentacp == null) return null
 //		val assure = parentacp.assureSubsystemPlans
 //		for (ap: assure){
 //			if (cc.isSameorExtends(ap.target)) return ap;
@@ -208,64 +248,64 @@ class AlisaGenerator implements IGenerator {
 
 	def CharSequence generate(Claim claim) {
 		val claimvas = doGenerateVA(claim)
-		val subclaims = if (claim.assert == null) doGenerateSubclaims(claim)
-		val claimassert = if (claim.assert != null) claim.assert.generate else ''''''
-		if (claimvas.length == 0 && subclaims.length == 0 && claimassert.length == 0) return ''''''
+		val subclaims = if(claim.assert == null) doGenerateSubclaims(claim)
+		val claimassert = if(claim.assert != null) claim.assert.generate else ''''''
+		if(claimvas.length == 0 && subclaims.length == 0 && claimassert.length == 0) return ''''''
 		'''
 			claim «claim.requirement.fullyQualifiedName»
 			[
 				tbdcount 0
-			    «subclaims»
-			    «IF claim.assert != null»
-			    «claimassert»
-			    «ELSE»
-			    «claimvas»
-			    «ENDIF»
+				   «subclaims»
+				   «IF claim.assert != null»
+				   	«claimassert»
+				   «ELSE»
+				   	«claimvas»
+				   «ENDIF»
 				]
-			'''
+		'''
 	}
-	
-	def doGenerateVA(Claim claim){
-	'''
-	«FOR va : claim.activities»
-		«va.doGenerate»
-	«ENDFOR»
-	'''	
+
+	def doGenerateVA(Claim claim) {
+		'''
+			«FOR va : claim.activities»
+				«va.doGenerate»
+			«ENDFOR»
+		'''
 	}
-	
-	def doGenerateSubclaims(Claim claim){
-	'''
-	«FOR subclaim : claim?.subclaim»
-		«subclaim.generate»
-	«ENDFOR»
-	'''	
+
+	def doGenerateSubclaims(Claim claim) {
+		'''
+			«FOR subclaim : claim?.subclaim»
+				«subclaim.generate»
+			«ENDFOR»
+		'''
 	}
 
 	def doGenerate(VerificationActivity va) {
 		'''
 			«IF va.evaluateVerificationActivityFilter(filter) && va.evaluateVerificationMethodFilter(filter) »
-			verification «va.fullyQualifiedName»
-			[
-				executionstate todo
-				resultstate tbd
-				tbdcount 0
-				«IF va.method?.precondition != null»
-				precondition «va.method.fullyQualifiedName»
+				verification «va.fullyQualifiedName»
 				[
 					executionstate todo
 					resultstate tbd
 					tbdcount 0
+					«IF va.method?.precondition != null»
+						precondition «va.method.fullyQualifiedName»
+						[
+							executionstate todo
+							resultstate tbd
+							tbdcount 0
+						]
+					«ENDIF»
+					«IF va.method?.validation != null»
+						validation «va.method.fullyQualifiedName»
+						[
+							executionstate todo
+							resultstate tbd
+							tbdcount 0
+						]
+					«ENDIF»
 				]
-				«ENDIF»
-				«IF va.method?.validation != null»
-				validation «va.method.fullyQualifiedName»
-				[
-					executionstate todo
-					resultstate tbd
-					tbdcount 0
-				]
-				«ENDIF»
-			]
 			«ENDIF»
 		'''
 	}
@@ -290,8 +330,8 @@ class AlisaGenerator implements IGenerator {
 	def doGenerate(ThenExpr expr) {
 		val leftresult = expr.left.generate
 		val successorresult = expr.successor.generate
-		if (leftresult.length == 0) return ''''''
-		if (successorresult == 0) return leftresult
+		if(leftresult.length == 0) return ''''''
+		if(successorresult == 0) return leftresult
 		'''
 			then
 				«leftresult»
@@ -306,22 +346,22 @@ class AlisaGenerator implements IGenerator {
 	def doGenerate(ElseExpr expr) {
 		val leftresult = expr.left.generate
 		val errorresult = expr.error.generate
-		val failresult = expr.fail?.generate?:''''''
-		val timeoutresult = expr.timeout?.generate?:''''''
-		if (leftresult.length == 0) return ''''''
-		if (errorresult == 0&&failresult.length == 0 && timeoutresult.length ==0) return leftresult
+		val failresult = expr.fail?.generate ?: ''''''
+		val timeoutresult = expr.timeout?.generate ?: ''''''
+		if(leftresult.length == 0) return ''''''
+		if(errorresult == 0 && failresult.length == 0 && timeoutresult.length == 0) return leftresult
 		'''
 			else
 				«expr.left.generate»
 			«IF errorresult.length > 0»
-			error 
-				«errorresult»
+				error 
+					«errorresult»
 			«ENDIF»
 			«IF expr.fail != null»
-			fail "«expr.fail.generate»"
+				fail "«expr.fail.generate»"
 			«ENDIF»
 			«IF expr.timeout != null»
-			timeout "«expr.timeout.generate»"
+				timeout "«expr.timeout.generate»"
 			«ENDIF»
 			[
 				tbdcount 0
@@ -330,9 +370,9 @@ class AlisaGenerator implements IGenerator {
 	}
 
 	def doGenerate(RefExpr expr) {
-		if (expr.verification != null) expr.verification.doGenerate
-		else 
-		''''''
+		if (expr.verification != null)
+			expr.verification.doGenerate
+		else ''''''
 	}
 
 }

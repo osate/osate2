@@ -138,8 +138,6 @@ With : 'with';
 
 FullStopFullStopLessThanSign : '..<';
 
-All : 'all';
-
 Bus : 'bus';
 
 For : 'for';

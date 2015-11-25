@@ -82,7 +82,6 @@ import org.osate.reqspec.services.ReqSpecGrammarAccess;
 		tokenNameToValue.put("QuestionMarkColon", "'?:'");
 		tokenNameToValue.put("VerticalLineVerticalLine", "'||'");
 		tokenNameToValue.put("FullStopFullStopLessThanSign", "'..<'");
-		tokenNameToValue.put("All", "'all'");
 		tokenNameToValue.put("Bus", "'bus'");
 		tokenNameToValue.put("For", "'for'");
 		tokenNameToValue.put("Img", "'img'");
@@ -2138,12 +2137,6 @@ rule__StakeholderGoals__Alternatives_4_1
 )
 )
 
-    |(
-{ before(grammarAccess.getStakeholderGoalsAccess().getGlobalAssignment_4_1_2()); }
-(rule__StakeholderGoals__GlobalAssignment_4_1_2)
-{ after(grammarAccess.getStakeholderGoalsAccess().getGlobalAssignment_4_1_2()); }
-)
-
 ;
 finally {
 	restoreStackSize(stackSize);
@@ -2299,12 +2292,6 @@ rule__DocRequirement__Alternatives_3_1
 (rule__DocRequirement__ComponentCategoryAssignment_3_1_2)*
 { after(grammarAccess.getDocRequirementAccess().getComponentCategoryAssignment_3_1_2()); }
 )
-)
-
-    |(
-{ before(grammarAccess.getDocRequirementAccess().getGlobalAssignment_3_1_3()); }
-(rule__DocRequirement__GlobalAssignment_3_1_3)
-{ after(grammarAccess.getDocRequirementAccess().getGlobalAssignment_3_1_3()); }
 )
 
 ;
@@ -23679,29 +23666,6 @@ finally {
 	restoreStackSize(stackSize);
 }
 
-rule__StakeholderGoals__GlobalAssignment_4_1_2
-    @init {
-		int stackSize = keepStackSize();
-    }
-:
-(
-{ before(grammarAccess.getStakeholderGoalsAccess().getGlobalAllKeyword_4_1_2_0()); }
-(
-{ before(grammarAccess.getStakeholderGoalsAccess().getGlobalAllKeyword_4_1_2_0()); }
-
-	All 
-
-{ after(grammarAccess.getStakeholderGoalsAccess().getGlobalAllKeyword_4_1_2_0()); }
-)
-
-{ after(grammarAccess.getStakeholderGoalsAccess().getGlobalAllKeyword_4_1_2_0()); }
-)
-
-;
-finally {
-	restoreStackSize(stackSize);
-}
-
 rule__StakeholderGoals__ImportConstantsAssignment_5_2
     @init {
 		int stackSize = keepStackSize();
@@ -25825,29 +25789,6 @@ rule__DocRequirement__ComponentCategoryAssignment_3_1_2
 (
 { before(grammarAccess.getDocRequirementAccess().getComponentCategoryComponentCategoryParserRuleCall_3_1_2_0()); }
 	ruleComponentCategory{ after(grammarAccess.getDocRequirementAccess().getComponentCategoryComponentCategoryParserRuleCall_3_1_2_0()); }
-)
-
-;
-finally {
-	restoreStackSize(stackSize);
-}
-
-rule__DocRequirement__GlobalAssignment_3_1_3
-    @init {
-		int stackSize = keepStackSize();
-    }
-:
-(
-{ before(grammarAccess.getDocRequirementAccess().getGlobalAllKeyword_3_1_3_0()); }
-(
-{ before(grammarAccess.getDocRequirementAccess().getGlobalAllKeyword_3_1_3_0()); }
-
-	All 
-
-{ after(grammarAccess.getDocRequirementAccess().getGlobalAllKeyword_3_1_3_0()); }
-)
-
-{ after(grammarAccess.getDocRequirementAccess().getGlobalAllKeyword_3_1_3_0()); }
 )
 
 ;

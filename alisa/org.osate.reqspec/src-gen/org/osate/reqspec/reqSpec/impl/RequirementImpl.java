@@ -61,7 +61,6 @@ import org.osate.reqspec.reqSpec.Requirement;
  *   <li>{@link org.osate.reqspec.reqSpec.impl.RequirementImpl#getDevelopmentStakeholder <em>Development Stakeholder</em>}</li>
  *   <li>{@link org.osate.reqspec.reqSpec.impl.RequirementImpl#getGoalReference <em>Goal Reference</em>}</li>
  *   <li>{@link org.osate.reqspec.reqSpec.impl.RequirementImpl#getComponentCategory <em>Component Category</em>}</li>
- *   <li>{@link org.osate.reqspec.reqSpec.impl.RequirementImpl#isGlobal <em>Global</em>}</li>
  * </ul>
  *
  * @generated
@@ -167,26 +166,6 @@ public class RequirementImpl extends ContractualElementImpl implements Requireme
    * @ordered
    */
   protected EList<ComponentCategory> componentCategory;
-
-  /**
-   * The default value of the '{@link #isGlobal() <em>Global</em>}' attribute.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @see #isGlobal()
-   * @generated
-   * @ordered
-   */
-  protected static final boolean GLOBAL_EDEFAULT = false;
-
-  /**
-   * The cached value of the '{@link #isGlobal() <em>Global</em>}' attribute.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @see #isGlobal()
-   * @generated
-   * @ordered
-   */
-  protected boolean global = GLOBAL_EDEFAULT;
 
   /**
    * <!-- begin-user-doc -->
@@ -412,29 +391,6 @@ public class RequirementImpl extends ContractualElementImpl implements Requireme
    * <!-- end-user-doc -->
    * @generated
    */
-  public boolean isGlobal()
-  {
-    return global;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public void setGlobal(boolean newGlobal)
-  {
-    boolean oldGlobal = global;
-    global = newGlobal;
-    if (eNotificationRequired())
-      eNotify(new ENotificationImpl(this, Notification.SET, ReqSpecPackage.REQUIREMENT__GLOBAL, oldGlobal, global));
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
   @Override
   public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs)
   {
@@ -477,8 +433,6 @@ public class RequirementImpl extends ContractualElementImpl implements Requireme
         return getGoalReference();
       case ReqSpecPackage.REQUIREMENT__COMPONENT_CATEGORY:
         return getComponentCategory();
-      case ReqSpecPackage.REQUIREMENT__GLOBAL:
-        return isGlobal();
     }
     return super.eGet(featureID, resolve, coreType);
   }
@@ -527,9 +481,6 @@ public class RequirementImpl extends ContractualElementImpl implements Requireme
         getComponentCategory().clear();
         getComponentCategory().addAll((Collection<? extends ComponentCategory>)newValue);
         return;
-      case ReqSpecPackage.REQUIREMENT__GLOBAL:
-        setGlobal((Boolean)newValue);
-        return;
     }
     super.eSet(featureID, newValue);
   }
@@ -571,9 +522,6 @@ public class RequirementImpl extends ContractualElementImpl implements Requireme
       case ReqSpecPackage.REQUIREMENT__COMPONENT_CATEGORY:
         getComponentCategory().clear();
         return;
-      case ReqSpecPackage.REQUIREMENT__GLOBAL:
-        setGlobal(GLOBAL_EDEFAULT);
-        return;
     }
     super.eUnset(featureID);
   }
@@ -606,8 +554,6 @@ public class RequirementImpl extends ContractualElementImpl implements Requireme
         return goalReference != null && !goalReference.isEmpty();
       case ReqSpecPackage.REQUIREMENT__COMPONENT_CATEGORY:
         return componentCategory != null && !componentCategory.isEmpty();
-      case ReqSpecPackage.REQUIREMENT__GLOBAL:
-        return global != GLOBAL_EDEFAULT;
     }
     return super.eIsSet(featureID);
   }
@@ -627,8 +573,6 @@ public class RequirementImpl extends ContractualElementImpl implements Requireme
     result.append(exceptionText);
     result.append(", componentCategory: ");
     result.append(componentCategory);
-    result.append(", global: ");
-    result.append(global);
     result.append(')');
     return result.toString();
   }

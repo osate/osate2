@@ -241,8 +241,7 @@ public class ReqSpecSemanticSequencer extends CommonSemanticSequencer {
 	 *         (
 	 *             targetDescription=STRING | 
 	 *             (target=[ComponentClassifier|AadlClassifierReference] targetElement=[NamedElement|ID]?) | 
-	 *             componentCategory+=ComponentCategory+ | 
-	 *             global?='all'
+	 *             componentCategory+=ComponentCategory+
 	 *         )? 
 	 *         requirementType+=[RequirementType|ID]* 
 	 *         qualityAttribute+=[QualityAttribute|ID]* 
@@ -445,7 +444,7 @@ public class ReqSpecSemanticSequencer extends CommonSemanticSequencer {
 	 *     (
 	 *         name=QualifiedName 
 	 *         title=STRING? 
-	 *         (target=[ComponentClassifier|AadlClassifierReference] | componentCategory+=ComponentCategory+ | global?='all') 
+	 *         (target=[ComponentClassifier|AadlClassifierReference] | componentCategory+=ComponentCategory+) 
 	 *         importConstants+=[GlobalConstants|QualifiedName]* 
 	 *         description=Description? 
 	 *         constants+=ValDeclaration* 

@@ -284,7 +284,6 @@ public class ReqSpecParser extends AbstractContentAssistParser {
 					put(grammarAccess.getStakeholderGoalsAccess().getTitleAssignment_3_1(), "rule__StakeholderGoals__TitleAssignment_3_1");
 					put(grammarAccess.getStakeholderGoalsAccess().getTargetAssignment_4_1_0(), "rule__StakeholderGoals__TargetAssignment_4_1_0");
 					put(grammarAccess.getStakeholderGoalsAccess().getComponentCategoryAssignment_4_1_1(), "rule__StakeholderGoals__ComponentCategoryAssignment_4_1_1");
-					put(grammarAccess.getStakeholderGoalsAccess().getGlobalAssignment_4_1_2(), "rule__StakeholderGoals__GlobalAssignment_4_1_2");
 					put(grammarAccess.getStakeholderGoalsAccess().getImportConstantsAssignment_5_2(), "rule__StakeholderGoals__ImportConstantsAssignment_5_2");
 					put(grammarAccess.getStakeholderGoalsAccess().getDescriptionAssignment_7_0(), "rule__StakeholderGoals__DescriptionAssignment_7_0");
 					put(grammarAccess.getStakeholderGoalsAccess().getConstantsAssignment_7_1(), "rule__StakeholderGoals__ConstantsAssignment_7_1");
@@ -413,7 +412,6 @@ public class ReqSpecParser extends AbstractContentAssistParser {
 					put(grammarAccess.getDocRequirementAccess().getTargetAssignment_3_1_1_0(), "rule__DocRequirement__TargetAssignment_3_1_1_0");
 					put(grammarAccess.getDocRequirementAccess().getTargetElementAssignment_3_1_1_1(), "rule__DocRequirement__TargetElementAssignment_3_1_1_1");
 					put(grammarAccess.getDocRequirementAccess().getComponentCategoryAssignment_3_1_2(), "rule__DocRequirement__ComponentCategoryAssignment_3_1_2");
-					put(grammarAccess.getDocRequirementAccess().getGlobalAssignment_3_1_3(), "rule__DocRequirement__GlobalAssignment_3_1_3");
 					put(grammarAccess.getDocRequirementAccess().getRequirementTypeAssignment_5_0_2(), "rule__DocRequirement__RequirementTypeAssignment_5_0_2");
 					put(grammarAccess.getDocRequirementAccess().getQualityAttributeAssignment_5_1_2(), "rule__DocRequirement__QualityAttributeAssignment_5_1_2");
 					put(grammarAccess.getDocRequirementAccess().getUserSelectionAssignment_5_2_2(), "rule__DocRequirement__UserSelectionAssignment_5_2_2");

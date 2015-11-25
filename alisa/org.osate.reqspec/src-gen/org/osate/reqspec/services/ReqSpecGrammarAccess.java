@@ -205,8 +205,6 @@ public class ReqSpecGrammarAccess extends AbstractGrammarElementFinder {
 		private final RuleCall cTargetComponentClassifierAadlClassifierReferenceParserRuleCall_4_1_0_0_1 = (RuleCall)cTargetComponentClassifierCrossReference_4_1_0_0.eContents().get(1);
 		private final Assignment cComponentCategoryAssignment_4_1_1 = (Assignment)cAlternatives_4_1.eContents().get(1);
 		private final RuleCall cComponentCategoryComponentCategoryParserRuleCall_4_1_1_0 = (RuleCall)cComponentCategoryAssignment_4_1_1.eContents().get(0);
-		private final Assignment cGlobalAssignment_4_1_2 = (Assignment)cAlternatives_4_1.eContents().get(2);
-		private final Keyword cGlobalAllKeyword_4_1_2_0 = (Keyword)cGlobalAssignment_4_1_2.eContents().get(0);
 		private final Group cGroup_5 = (Group)cGroup.eContents().get(5);
 		private final Keyword cUseKeyword_5_0 = (Keyword)cGroup_5.eContents().get(0);
 		private final Keyword cConstantsKeyword_5_1 = (Keyword)cGroup_5.eContents().get(1);
@@ -234,15 +232,15 @@ public class ReqSpecGrammarAccess extends AbstractGrammarElementFinder {
 		
 		//StakeholderGoals:
 		//	"stakeholder" "goals" name=QualifiedName (":" title=STRING)? ("for"
-		//	(target=[aadl2::ComponentClassifier|AadlClassifierReference] | componentCategory+=ComponentCategory+ |
-		//	global?="all")) ("use" "constants" importConstants+=[GlobalConstants|QualifiedName]+)? "[" (description=Description?
-		//	& constants+=ValDeclaration* & content+=Goal* & ("see" "document" docReference+=ExternalDocument+)? & ("issues"
+		//	(target=[aadl2::ComponentClassifier|AadlClassifierReference] | componentCategory+=ComponentCategory+)) ("use"
+		//	"constants" importConstants+=[GlobalConstants|QualifiedName]+)? "[" (description=Description? &
+		//	constants+=ValDeclaration* & content+=Goal* & ("see" "document" docReference+=ExternalDocument+)? & ("issues"
 		//	issues+=STRING+)?) "]";
 		@Override public ParserRule getRule() { return rule; }
 
 		//"stakeholder" "goals" name=QualifiedName (":" title=STRING)? ("for"
-		//(target=[aadl2::ComponentClassifier|AadlClassifierReference] | componentCategory+=ComponentCategory+ | global?="all"))
-		//("use" "constants" importConstants+=[GlobalConstants|QualifiedName]+)? "[" (description=Description? &
+		//(target=[aadl2::ComponentClassifier|AadlClassifierReference] | componentCategory+=ComponentCategory+)) ("use"
+		//"constants" importConstants+=[GlobalConstants|QualifiedName]+)? "[" (description=Description? &
 		//constants+=ValDeclaration* & content+=Goal* & ("see" "document" docReference+=ExternalDocument+)? & ("issues"
 		//issues+=STRING+)?) "]"
 		public Group getGroup() { return cGroup; }
@@ -271,14 +269,13 @@ public class ReqSpecGrammarAccess extends AbstractGrammarElementFinder {
 		//STRING
 		public RuleCall getTitleSTRINGTerminalRuleCall_3_1_0() { return cTitleSTRINGTerminalRuleCall_3_1_0; }
 
-		//"for" (target=[aadl2::ComponentClassifier|AadlClassifierReference] | componentCategory+=ComponentCategory+ |
-		//global?="all")
+		//"for" (target=[aadl2::ComponentClassifier|AadlClassifierReference] | componentCategory+=ComponentCategory+)
 		public Group getGroup_4() { return cGroup_4; }
 
 		//"for"
 		public Keyword getForKeyword_4_0() { return cForKeyword_4_0; }
 
-		//target=[aadl2::ComponentClassifier|AadlClassifierReference] | componentCategory+=ComponentCategory+ | global?="all"
+		//target=[aadl2::ComponentClassifier|AadlClassifierReference] | componentCategory+=ComponentCategory+
 		public Alternatives getAlternatives_4_1() { return cAlternatives_4_1; }
 
 		//target=[aadl2::ComponentClassifier|AadlClassifierReference]
@@ -295,12 +292,6 @@ public class ReqSpecGrammarAccess extends AbstractGrammarElementFinder {
 
 		//ComponentCategory
 		public RuleCall getComponentCategoryComponentCategoryParserRuleCall_4_1_1_0() { return cComponentCategoryComponentCategoryParserRuleCall_4_1_1_0; }
-
-		//global?="all"
-		public Assignment getGlobalAssignment_4_1_2() { return cGlobalAssignment_4_1_2; }
-
-		//"all"
-		public Keyword getGlobalAllKeyword_4_1_2_0() { return cGlobalAllKeyword_4_1_2_0; }
 
 		//("use" "constants" importConstants+=[GlobalConstants|QualifiedName]+)?
 		public Group getGroup_5() { return cGroup_5; }
@@ -2539,8 +2530,6 @@ public class ReqSpecGrammarAccess extends AbstractGrammarElementFinder {
 		private final RuleCall cTargetElementNamedElementIDTerminalRuleCall_3_1_1_1_0_1 = (RuleCall)cTargetElementNamedElementCrossReference_3_1_1_1_0.eContents().get(1);
 		private final Assignment cComponentCategoryAssignment_3_1_2 = (Assignment)cAlternatives_3_1.eContents().get(2);
 		private final RuleCall cComponentCategoryComponentCategoryParserRuleCall_3_1_2_0 = (RuleCall)cComponentCategoryAssignment_3_1_2.eContents().get(0);
-		private final Assignment cGlobalAssignment_3_1_3 = (Assignment)cAlternatives_3_1.eContents().get(3);
-		private final Keyword cGlobalAllKeyword_3_1_3_0 = (Keyword)cGlobalAssignment_3_1_3.eContents().get(0);
 		private final Keyword cLeftSquareBracketKeyword_4 = (Keyword)cGroup.eContents().get(4);
 		private final UnorderedGroup cUnorderedGroup_5 = (UnorderedGroup)cGroup.eContents().get(5);
 		private final Group cGroup_5_0 = (Group)cUnorderedGroup_5.eContents().get(0);
@@ -2627,8 +2616,7 @@ public class ReqSpecGrammarAccess extends AbstractGrammarElementFinder {
 		//DocRequirement returns Requirement:
 		//	"requirement" name=ID (":" title=STRING)? ("for" (targetDescription=STRING |
 		//	target=[aadl2::ComponentClassifier|AadlClassifierReference] targetElement=[aadl2::NamedElement]? |
-		//	componentCategory+=ComponentCategory+ | global?="all"))? "[" (("requirement" "type"
-		//	requirementType+=[categories::RequirementType]+)? // predicate expression 
+		//	componentCategory+=ComponentCategory+))? "[" (("requirement" "type" requirementType+=[categories::RequirementType]+)? // predicate expression 
 		//	& ("quality" "attribute" qualityAttribute+=[categories::QualityAttribute]+)? & ("user" "selection"
 		//	userSelection+=[categories::UserSelection]+)? & description=Description? & constants+=ValDeclaration* &
 		//	computes+=ComputeDeclaration* & predicate=ReqPredicate? & rationale=Rationale? & changeUncertainty=Uncertainty? &
@@ -2642,8 +2630,7 @@ public class ReqSpecGrammarAccess extends AbstractGrammarElementFinder {
 
 		//"requirement" name=ID (":" title=STRING)? ("for" (targetDescription=STRING |
 		//target=[aadl2::ComponentClassifier|AadlClassifierReference] targetElement=[aadl2::NamedElement]? |
-		//componentCategory+=ComponentCategory+ | global?="all"))? "[" (("requirement" "type"
-		//requirementType+=[categories::RequirementType]+)? // predicate expression 
+		//componentCategory+=ComponentCategory+))? "[" (("requirement" "type" requirementType+=[categories::RequirementType]+)? // predicate expression 
 		//& ("quality" "attribute" qualityAttribute+=[categories::QualityAttribute]+)? & ("user" "selection"
 		//userSelection+=[categories::UserSelection]+)? & description=Description? & constants+=ValDeclaration* &
 		//computes+=ComputeDeclaration* & predicate=ReqPredicate? & rationale=Rationale? & changeUncertainty=Uncertainty? &
@@ -2677,14 +2664,14 @@ public class ReqSpecGrammarAccess extends AbstractGrammarElementFinder {
 		public RuleCall getTitleSTRINGTerminalRuleCall_2_1_0() { return cTitleSTRINGTerminalRuleCall_2_1_0; }
 
 		//("for" (targetDescription=STRING | target=[aadl2::ComponentClassifier|AadlClassifierReference]
-		//targetElement=[aadl2::NamedElement]? | componentCategory+=ComponentCategory+ | global?="all"))?
+		//targetElement=[aadl2::NamedElement]? | componentCategory+=ComponentCategory+))?
 		public Group getGroup_3() { return cGroup_3; }
 
 		//"for"
 		public Keyword getForKeyword_3_0() { return cForKeyword_3_0; }
 
 		//targetDescription=STRING | target=[aadl2::ComponentClassifier|AadlClassifierReference]
-		//targetElement=[aadl2::NamedElement]? | componentCategory+=ComponentCategory+ | global?="all"
+		//targetElement=[aadl2::NamedElement]? | componentCategory+=ComponentCategory+
 		public Alternatives getAlternatives_3_1() { return cAlternatives_3_1; }
 
 		//targetDescription=STRING
@@ -2719,12 +2706,6 @@ public class ReqSpecGrammarAccess extends AbstractGrammarElementFinder {
 
 		//ComponentCategory
 		public RuleCall getComponentCategoryComponentCategoryParserRuleCall_3_1_2_0() { return cComponentCategoryComponentCategoryParserRuleCall_3_1_2_0; }
-
-		//global?="all"
-		public Assignment getGlobalAssignment_3_1_3() { return cGlobalAssignment_3_1_3; }
-
-		//"all"
-		public Keyword getGlobalAllKeyword_3_1_3_0() { return cGlobalAllKeyword_3_1_3_0; }
 
 		//"["
 		public Keyword getLeftSquareBracketKeyword_4() { return cLeftSquareBracketKeyword_4; }
@@ -3376,9 +3357,9 @@ public class ReqSpecGrammarAccess extends AbstractGrammarElementFinder {
 
 	//StakeholderGoals:
 	//	"stakeholder" "goals" name=QualifiedName (":" title=STRING)? ("for"
-	//	(target=[aadl2::ComponentClassifier|AadlClassifierReference] | componentCategory+=ComponentCategory+ |
-	//	global?="all")) ("use" "constants" importConstants+=[GlobalConstants|QualifiedName]+)? "[" (description=Description?
-	//	& constants+=ValDeclaration* & content+=Goal* & ("see" "document" docReference+=ExternalDocument+)? & ("issues"
+	//	(target=[aadl2::ComponentClassifier|AadlClassifierReference] | componentCategory+=ComponentCategory+)) ("use"
+	//	"constants" importConstants+=[GlobalConstants|QualifiedName]+)? "[" (description=Description? &
+	//	constants+=ValDeclaration* & content+=Goal* & ("see" "document" docReference+=ExternalDocument+)? & ("issues"
 	//	issues+=STRING+)?) "]";
 	public StakeholderGoalsElements getStakeholderGoalsAccess() {
 		return pStakeholderGoals;
@@ -3519,8 +3500,7 @@ public class ReqSpecGrammarAccess extends AbstractGrammarElementFinder {
 	//DocRequirement returns Requirement:
 	//	"requirement" name=ID (":" title=STRING)? ("for" (targetDescription=STRING |
 	//	target=[aadl2::ComponentClassifier|AadlClassifierReference] targetElement=[aadl2::NamedElement]? |
-	//	componentCategory+=ComponentCategory+ | global?="all"))? "[" (("requirement" "type"
-	//	requirementType+=[categories::RequirementType]+)? // predicate expression 
+	//	componentCategory+=ComponentCategory+))? "[" (("requirement" "type" requirementType+=[categories::RequirementType]+)? // predicate expression 
 	//	& ("quality" "attribute" qualityAttribute+=[categories::QualityAttribute]+)? & ("user" "selection"
 	//	userSelection+=[categories::UserSelection]+)? & description=Description? & constants+=ValDeclaration* &
 	//	computes+=ComputeDeclaration* & predicate=ReqPredicate? & rationale=Rationale? & changeUncertainty=Uncertainty? &

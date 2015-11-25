@@ -36,7 +36,6 @@ import org.osate.alisa.common.common.Description;
  *   <li>{@link org.osate.reqspec.reqSpec.StakeholderGoals#getTitle <em>Title</em>}</li>
  *   <li>{@link org.osate.reqspec.reqSpec.StakeholderGoals#getTarget <em>Target</em>}</li>
  *   <li>{@link org.osate.reqspec.reqSpec.StakeholderGoals#getComponentCategory <em>Component Category</em>}</li>
- *   <li>{@link org.osate.reqspec.reqSpec.StakeholderGoals#isGlobal <em>Global</em>}</li>
  *   <li>{@link org.osate.reqspec.reqSpec.StakeholderGoals#getImportConstants <em>Import Constants</em>}</li>
  *   <li>{@link org.osate.reqspec.reqSpec.StakeholderGoals#getDescription <em>Description</em>}</li>
  *   <li>{@link org.osate.reqspec.reqSpec.StakeholderGoals#getConstants <em>Constants</em>}</li>
@@ -146,32 +145,6 @@ public interface StakeholderGoals extends ReqSpecContainer, ReqRoot
    * @generated
    */
   EList<ComponentCategory> getComponentCategory();
-
-  /**
-   * Returns the value of the '<em><b>Global</b></em>' attribute.
-   * <!-- begin-user-doc -->
-   * <p>
-   * If the meaning of the '<em>Global</em>' attribute isn't clear,
-   * there really should be more of a description here...
-   * </p>
-   * <!-- end-user-doc -->
-   * @return the value of the '<em>Global</em>' attribute.
-   * @see #setGlobal(boolean)
-   * @see org.osate.reqspec.reqSpec.ReqSpecPackage#getStakeholderGoals_Global()
-   * @model
-   * @generated
-   */
-  boolean isGlobal();
-
-  /**
-   * Sets the value of the '{@link org.osate.reqspec.reqSpec.StakeholderGoals#isGlobal <em>Global</em>}' attribute.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @param value the new value of the '<em>Global</em>' attribute.
-   * @see #isGlobal()
-   * @generated
-   */
-  void setGlobal(boolean value);
 
   /**
    * Returns the value of the '<em><b>Import Constants</b></em>' reference list.

@@ -190,6 +190,8 @@ class AssureProcessor implements IAssureProcessor {
 		if (verificationResult instanceof VerificationActivityResult) {
 			actualParameters = verificationResult.target.parameters
 		} else if (verificationResult instanceof ValidationResult) {
+			actualParameters = method.validation.parameters
+		} else if (verificationResult instanceof PreconditionResult) {
 			actualParameters = method.precondition.parameters
 		}
 

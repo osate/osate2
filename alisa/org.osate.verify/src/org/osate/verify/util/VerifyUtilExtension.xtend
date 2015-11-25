@@ -31,6 +31,7 @@ import org.osate.verify.verify.VerificationPlan
 import static org.osate.categories.util.CategoriesUtil.*
 
 import static extension org.eclipse.xtext.EcoreUtil2.*
+import org.osate.reqspec.reqSpec.Requirement
 
 class VerifyUtilExtension {
 

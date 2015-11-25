@@ -33,6 +33,7 @@ import org.osate.alisa.common.util.CommonUtilExtension
 import org.osate.alisa.common.common.AVariableDeclaration
 import org.eclipse.emf.common.util.BasicEList
 import org.osate.aadl2.ComponentCategory
+import org.osate.reqspec.reqSpec.Requirements
 
 class ReqSpecUtilExtension {
 
@@ -60,8 +61,8 @@ class ReqSpecUtilExtension {
 		sh.getContainerOfType(Requirement)
 	}
 
-	def static containingSystemRequirements(EObject sh) {
-		sh.getContainerOfType(SystemRequirements)
+	def static containingRequirements(EObject sh) {
+		sh.getContainerOfType(Requirements)
 	}
 
 	def static containingStakeholderGoals(EObject sh) {
@@ -84,7 +85,7 @@ class ReqSpecUtilExtension {
 		}
 
 		def static getImportedGlobals(EObject context) {
-			val sr = containingSystemRequirements(context)
+			val sr = org.osate.reqspec.util.ReqSpecUtilExtension.containingRequirements(context)
 			val sg = containingStakeholderGoals(context)
 			val res = sr?.importConstants ?: sg?.importConstants
 			res
@@ -103,7 +104,7 @@ class ReqSpecUtilExtension {
 			for (r : req.refinesReference) {
 				result = scopeForValComputeReq(r, result)
 			}
-			val sr = containingSystemRequirements(req)
+			val sr = org.osate.reqspec.util.ReqSpecUtilExtension.containingRequirements(req)
 			if (sr != null) {
 				result = new SimpleScope(result,
 					Scopes::scopedElementsFor(sr.computes + sr.constants,
@@ -167,7 +168,7 @@ class ReqSpecUtilExtension {
 			for (r : req.refinesReference) {
 				result = scopeForValReq(r, result)
 			}
-			val sr = containingSystemRequirements(req)
+			val sr = org.osate.reqspec.util.ReqSpecUtilExtension.containingRequirements(req)
 			if (sr != null) {
 				result = new SimpleScope(result,
 					Scopes::scopedElementsFor(sr.constants,
@@ -190,7 +191,7 @@ class ReqSpecUtilExtension {
 			for (r : req.refinesReference) {
 				result = scopeForComputeReq(r, result)
 			}
-			val sr = containingSystemRequirements(req)
+			val sr = org.osate.reqspec.util.ReqSpecUtilExtension.containingRequirements(req)
 			if (sr != null) {
 				result = new SimpleScope(result,
 					Scopes::scopedElementsFor(sr.computes,
@@ -212,15 +213,11 @@ class ReqSpecUtilExtension {
 
 		}
 		
-		def static boolean matchingCategory(Requirement req, ComponentCategory cat){
-			if (req.global) return true
+		def static boolean matchingCategory(Iterable <ComponentCategory> catlist, ComponentCategory cat){
+			if (catlist.empty) return true
 			if (cat == null) return true
-			req.componentCategory.exists[c|c.getName().equalsIgnoreCase(cat.getName())]
+			catlist.exists[c|c.getName().equalsIgnoreCase(cat.getName())]
 		}
 		
-		def static boolean matchingCategory(StakeholderGoals sg, ComponentCategory cat){
-			if (sg.global) return true
-			sg.componentCategory.exists[c|c.getName().equalsIgnoreCase(cat.getName())]
-		}
 
 	}

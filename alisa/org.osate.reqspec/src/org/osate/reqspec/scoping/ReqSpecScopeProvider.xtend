@@ -112,7 +112,9 @@ class ReqSpecScopeProvider extends CommonScopeProvider {
 // use delegate to get other scopes including the global scope
 		var result = delegateGetScope(context,reference)//IScope.NULLSCOPE
 
-		val targetComponentClassifier = containingSystemRequirements(context).target
+		val reqs = containingRequirements(context)
+		if (reqs instanceof SystemRequirements){
+		val targetComponentClassifier = reqs.target
 		val Iterable<SystemRequirements> listAccessibleSystemRequirements = commonRefFinder.getEObjectDescriptions(
 			targetComponentClassifier, ReqSpecPackage.Literals.SYSTEM_REQUIREMENTS, "reqspec").map [ eod |
 			EcoreUtil.resolve(eod.EObjectOrProxy, context) as SystemRequirements
@@ -124,6 +126,7 @@ class ReqSpecScopeProvider extends CommonScopeProvider {
 					Scopes::scopedElementsFor(sr.content,
 						QualifiedName::wrapper(SimpleAttributeResolver::NAME_RESOLVER)), true)
 			}
+		}
 		}
 		result
 	}

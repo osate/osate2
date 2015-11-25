@@ -43,7 +43,6 @@ import org.osate.organization.organization.Stakeholder;
  *   <li>{@link org.osate.reqspec.reqSpec.Requirement#getDevelopmentStakeholder <em>Development Stakeholder</em>}</li>
  *   <li>{@link org.osate.reqspec.reqSpec.Requirement#getGoalReference <em>Goal Reference</em>}</li>
  *   <li>{@link org.osate.reqspec.reqSpec.Requirement#getComponentCategory <em>Component Category</em>}</li>
- *   <li>{@link org.osate.reqspec.reqSpec.Requirement#isGlobal <em>Global</em>}</li>
  * </ul>
  *
  * @see org.osate.reqspec.reqSpec.ReqSpecPackage#getRequirement()
@@ -227,31 +226,5 @@ public interface Requirement extends ContractualElement
    * @generated
    */
   EList<ComponentCategory> getComponentCategory();
-
-  /**
-   * Returns the value of the '<em><b>Global</b></em>' attribute.
-   * <!-- begin-user-doc -->
-   * <p>
-   * If the meaning of the '<em>Global</em>' attribute isn't clear,
-   * there really should be more of a description here...
-   * </p>
-   * <!-- end-user-doc -->
-   * @return the value of the '<em>Global</em>' attribute.
-   * @see #setGlobal(boolean)
-   * @see org.osate.reqspec.reqSpec.ReqSpecPackage#getRequirement_Global()
-   * @model
-   * @generated
-   */
-  boolean isGlobal();
-
-  /**
-   * Sets the value of the '{@link org.osate.reqspec.reqSpec.Requirement#isGlobal <em>Global</em>}' attribute.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @param value the new value of the '<em>Global</em>' attribute.
-   * @see #isGlobal()
-   * @generated
-   */
-  void setGlobal(boolean value);
 
 } // Requirement

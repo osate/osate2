@@ -27,6 +27,7 @@ import org.osate.verify.verify.VerificationPlan
 import org.osate.verify.verify.VerifyPackage
 
 import static extension org.osate.alisa.common.util.CommonUtilExtension.*
+import org.osate.reqspec.reqSpec.Requirements
 
 @ImplementedBy(VerifyGlobalReferenceFinder)
 interface IVerifyGlobalReferenceFinder {
@@ -41,7 +42,7 @@ interface IVerifyGlobalReferenceFinder {
 	 * method to be used for scope creation as it does not use EReferences
 	 */
 	
-	def Iterable<VerificationPlan> getAllVerificationPlansForSystemRequirement(SystemRequirements sysReqs, EObject context);
+	def Iterable<VerificationPlan> getAllVerificationPlansForRequirements(Requirements reqs, EObject context);
 }
 
 class VerifyGlobalReferenceFinder implements IVerifyGlobalReferenceFinder{
@@ -56,9 +57,9 @@ class VerifyGlobalReferenceFinder implements IVerifyGlobalReferenceFinder{
 		
 
 
-		override Iterable<VerificationPlan> getAllVerificationPlansForSystemRequirement(SystemRequirements sysReqs, EObject context){
+		override Iterable<VerificationPlan> getAllVerificationPlansForRequirements(Requirements reqs, EObject context){
 			 refFinder.getEObjectDescriptions(context, VerifyPackage.Literals.VERIFICATION_PLAN, "verify").map [ eod |
-			EcoreUtil.resolve(eod.EObjectOrProxy, context) as VerificationPlan].filter[vp|vp.requirements === sysReqs]
+			EcoreUtil.resolve(eod.EObjectOrProxy, context) as VerificationPlan].filter[vp|vp.requirements === reqs]
 		}
 
 }

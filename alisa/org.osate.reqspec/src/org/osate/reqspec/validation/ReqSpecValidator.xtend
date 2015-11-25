@@ -447,7 +447,8 @@ class ReqSpecValidator extends AbstractReqSpecValidator {
 	def void checkRequirementShadowing(Requirement req){
 		val reqName = req.name.toLowerCase
 		val reqEvolvesReferences = req.evolvesReference
-		val containingSysReqs = req.containingSystemRequirements
+		val containingSysReqs = req.containingRequirements
+		if (containingSysReqs instanceof SystemRequirements){
 		val componentClassifier = containingSysReqs.target
 		val classifierParents = new ArrayList<ComponentClassifier>
 
@@ -466,6 +467,8 @@ class ReqSpecValidator extends AbstractReqSpecValidator {
 				}
 			]
 		]
+			
+		}
 	}
 
 	def void buildExtended(ComponentClassifier compClassifier, List<ComponentClassifier> ancestors){
@@ -485,18 +488,22 @@ class ReqSpecValidator extends AbstractReqSpecValidator {
 	def void checkRequirementRefinement(Requirement req){
 		switch req {
 			case req.refinesReference.nullOrEmpty : {}
-			case req.refinesReference.head.containingSystemRequirements === req.containingSystemRequirements : {}
+			case req.refinesReference.head.containingRequirements === req.containingRequirements : {}
 			default : {
 				val classifierParents = new ArrayList<ComponentClassifier>
-				req.containingSystemRequirements.target.buildExtended(classifierParents)
-				val refTarget = req.refinesReference.head.containingSystemRequirements.target
-				if (classifierParents.contains(refTarget)) return;
+				val reqs = req.containingRequirements
+				if (reqs instanceof SystemRequirements){
+				reqs.target.buildExtended(classifierParents)
+				val refinedreqs = req.refinesReference.head.containingRequirements
+				if (refinedreqs instanceof SystemRequirements){
+				if (classifierParents.contains(refinedreqs.target)) return;
 				error("Requirement '" + req.name + "' refined from '" + req.refinesReference.head.name + 
 						"' and must either be in the same System Requirements or '" +
 						req.name + "' must be for an extension or implementation of the component '" + 
 						req.refinesReference.head.name + "' is for. '", req,  
 						ReqSpecPackage.Literals.CONTRACTUAL_ELEMENT__NAME)
-				
+				}
+				}
 			}	
 		}
 	}
