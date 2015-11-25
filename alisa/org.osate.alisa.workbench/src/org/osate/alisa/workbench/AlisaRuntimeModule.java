@@ -27,7 +27,7 @@ import org.eclipse.xtext.generator.IOutputConfigurationProvider;
  */
 public class AlisaRuntimeModule extends org.osate.alisa.workbench.AbstractAlisaRuntimeModule {
 	public Class<? extends org.eclipse.xtext.naming.IQualifiedNameConverter> bindIQualifiedNameConverter() {
-		return org.osate.alisa.workbench.naming.WorkbenchQualifiedNameConverter.class;
+		return org.osate.alisa.common.naming.CommonQualifiedNameConverter.class;
 	}
 
 	@Override
