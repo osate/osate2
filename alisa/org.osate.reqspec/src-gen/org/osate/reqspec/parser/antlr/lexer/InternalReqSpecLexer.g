@@ -124,6 +124,8 @@ Goal : 'goal';
 
 Null : 'null';
 
+Self : 'self';
+
 This : 'this';
 
 True : 'true';

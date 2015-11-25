@@ -45,6 +45,7 @@ import org.osate.reqspec.reqSpec.ReqSpecPackage;
  * <ul>
  *   <li>{@link org.osate.reqspec.reqSpec.impl.IncludeGlobalRequirementImpl#getInclude <em>Include</em>}</li>
  *   <li>{@link org.osate.reqspec.reqSpec.impl.IncludeGlobalRequirementImpl#getComponentCategory <em>Component Category</em>}</li>
+ *   <li>{@link org.osate.reqspec.reqSpec.impl.IncludeGlobalRequirementImpl#isSelf <em>Self</em>}</li>
  * </ul>
  *
  * @generated
@@ -70,6 +71,26 @@ public class IncludeGlobalRequirementImpl extends MinimalEObjectImpl.Container i
    * @ordered
    */
   protected EList<ComponentCategory> componentCategory;
+
+  /**
+   * The default value of the '{@link #isSelf() <em>Self</em>}' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see #isSelf()
+   * @generated
+   * @ordered
+   */
+  protected static final boolean SELF_EDEFAULT = false;
+
+  /**
+   * The cached value of the '{@link #isSelf() <em>Self</em>}' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see #isSelf()
+   * @generated
+   * @ordered
+   */
+  protected boolean self = SELF_EDEFAULT;
 
   /**
    * <!-- begin-user-doc -->
@@ -154,6 +175,29 @@ public class IncludeGlobalRequirementImpl extends MinimalEObjectImpl.Container i
    * <!-- end-user-doc -->
    * @generated
    */
+  public boolean isSelf()
+  {
+    return self;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public void setSelf(boolean newSelf)
+  {
+    boolean oldSelf = self;
+    self = newSelf;
+    if (eNotificationRequired())
+      eNotify(new ENotificationImpl(this, Notification.SET, ReqSpecPackage.INCLUDE_GLOBAL_REQUIREMENT__SELF, oldSelf, self));
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
   @Override
   public Object eGet(int featureID, boolean resolve, boolean coreType)
   {
@@ -164,6 +208,8 @@ public class IncludeGlobalRequirementImpl extends MinimalEObjectImpl.Container i
         return basicGetInclude();
       case ReqSpecPackage.INCLUDE_GLOBAL_REQUIREMENT__COMPONENT_CATEGORY:
         return getComponentCategory();
+      case ReqSpecPackage.INCLUDE_GLOBAL_REQUIREMENT__SELF:
+        return isSelf();
     }
     return super.eGet(featureID, resolve, coreType);
   }
@@ -186,6 +232,9 @@ public class IncludeGlobalRequirementImpl extends MinimalEObjectImpl.Container i
         getComponentCategory().clear();
         getComponentCategory().addAll((Collection<? extends ComponentCategory>)newValue);
         return;
+      case ReqSpecPackage.INCLUDE_GLOBAL_REQUIREMENT__SELF:
+        setSelf((Boolean)newValue);
+        return;
     }
     super.eSet(featureID, newValue);
   }
@@ -206,6 +255,9 @@ public class IncludeGlobalRequirementImpl extends MinimalEObjectImpl.Container i
       case ReqSpecPackage.INCLUDE_GLOBAL_REQUIREMENT__COMPONENT_CATEGORY:
         getComponentCategory().clear();
         return;
+      case ReqSpecPackage.INCLUDE_GLOBAL_REQUIREMENT__SELF:
+        setSelf(SELF_EDEFAULT);
+        return;
     }
     super.eUnset(featureID);
   }
@@ -224,6 +276,8 @@ public class IncludeGlobalRequirementImpl extends MinimalEObjectImpl.Container i
         return include != null;
       case ReqSpecPackage.INCLUDE_GLOBAL_REQUIREMENT__COMPONENT_CATEGORY:
         return componentCategory != null && !componentCategory.isEmpty();
+      case ReqSpecPackage.INCLUDE_GLOBAL_REQUIREMENT__SELF:
+        return self != SELF_EDEFAULT;
     }
     return super.eIsSet(featureID);
   }
@@ -241,6 +295,8 @@ public class IncludeGlobalRequirementImpl extends MinimalEObjectImpl.Container i
     StringBuffer result = new StringBuffer(super.toString());
     result.append(" (componentCategory: ");
     result.append(componentCategory);
+    result.append(", self: ");
+    result.append(self);
     result.append(')');
     return result.toString();
   }

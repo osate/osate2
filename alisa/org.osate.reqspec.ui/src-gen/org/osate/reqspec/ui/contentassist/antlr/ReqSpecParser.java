@@ -61,6 +61,7 @@ public class ReqSpecParser extends AbstractContentAssistParser {
 					put(grammarAccess.getRequirementAccess().getAlternatives_5_8_1(), "rule__Requirement__Alternatives_5_8_1");
 					put(grammarAccess.getDocRequirementAccess().getAlternatives_3_1(), "rule__DocRequirement__Alternatives_3_1");
 					put(grammarAccess.getDocRequirementAccess().getAlternatives_5_8_1(), "rule__DocRequirement__Alternatives_5_8_1");
+					put(grammarAccess.getIncludeGlobalRequirementAccess().getAlternatives_2_1(), "rule__IncludeGlobalRequirement__Alternatives_2_1");
 					put(grammarAccess.getReqPredicateAccess().getAlternatives(), "rule__ReqPredicate__Alternatives");
 					put(grammarAccess.getDescriptionElementAccess().getAlternatives(), "rule__DescriptionElement__Alternatives");
 					put(grammarAccess.getValDeclarationAccess().getAlternatives_2(), "rule__ValDeclaration__Alternatives_2");
@@ -429,7 +430,8 @@ public class ReqSpecParser extends AbstractContentAssistParser {
 					put(grammarAccess.getDocRequirementAccess().getDocReferenceAssignment_5_15_2(), "rule__DocRequirement__DocReferenceAssignment_5_15_2");
 					put(grammarAccess.getDocRequirementAccess().getIssuesAssignment_5_16_1(), "rule__DocRequirement__IssuesAssignment_5_16_1");
 					put(grammarAccess.getIncludeGlobalRequirementAccess().getIncludeAssignment_1(), "rule__IncludeGlobalRequirement__IncludeAssignment_1");
-					put(grammarAccess.getIncludeGlobalRequirementAccess().getComponentCategoryAssignment_2_1(), "rule__IncludeGlobalRequirement__ComponentCategoryAssignment_2_1");
+					put(grammarAccess.getIncludeGlobalRequirementAccess().getComponentCategoryAssignment_2_1_0(), "rule__IncludeGlobalRequirement__ComponentCategoryAssignment_2_1_0");
+					put(grammarAccess.getIncludeGlobalRequirementAccess().getSelfAssignment_2_1_1(), "rule__IncludeGlobalRequirement__SelfAssignment_2_1_1");
 					put(grammarAccess.getInformalPredicateAccess().getDescriptionAssignment_2(), "rule__InformalPredicate__DescriptionAssignment_2");
 					put(grammarAccess.getPredicateAccess().getXpressionAssignment_1(), "rule__Predicate__XpressionAssignment_1");
 					put(grammarAccess.getValuePredicateAccess().getXpressionAssignment_2(), "rule__ValuePredicate__XpressionAssignment_2");

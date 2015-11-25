@@ -93,6 +93,7 @@
     <genClasses ecoreClass="ReqSpec.ecore#//IncludeGlobalRequirement">
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference ReqSpec.ecore#//IncludeGlobalRequirement/include"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute ReqSpec.ecore#//IncludeGlobalRequirement/componentCategory"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute ReqSpec.ecore#//IncludeGlobalRequirement/self"/>
     </genClasses>
     <genClasses ecoreClass="ReqSpec.ecore#//ReqPredicate"/>
     <genClasses ecoreClass="ReqSpec.ecore#//InformalPredicate">

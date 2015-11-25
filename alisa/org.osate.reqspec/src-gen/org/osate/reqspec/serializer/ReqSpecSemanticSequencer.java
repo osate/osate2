@@ -342,7 +342,7 @@ public class ReqSpecSemanticSequencer extends CommonSemanticSequencer {
 	
 	/**
 	 * Constraint:
-	 *     (include=[EObject|QualifiedName] componentCategory+=ComponentCategory*)
+	 *     (include=[EObject|QualifiedName] (componentCategory+=ComponentCategory+ | self?='self')?)
 	 */
 	protected void sequence_IncludeGlobalRequirement(EObject context, IncludeGlobalRequirement semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);

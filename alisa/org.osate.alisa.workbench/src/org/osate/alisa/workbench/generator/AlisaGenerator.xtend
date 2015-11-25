@@ -164,6 +164,8 @@ class AlisaGenerator implements IGenerator {
 
 	def doAssurancePlanParts(AssurancePlan acp, Iterable<VerificationPlan> myplans, ComponentClassifier cc) {
 		// first collect any global includes
+		val selfPlans = new BasicEList()
+		val selfClaims = new BasicEList()
 		for (myplan : myplans) {
 			val reqs = myplan.requirements
 			if (reqs instanceof SystemRequirements) {
@@ -173,7 +175,11 @@ class AlisaGenerator implements IGenerator {
 						if (incl.componentCategory.matchingCategory(cc.category)) {
 							val plans = referenceFinder.
 								getAllVerificationPlansForRequirements(incl.include as Requirements, acp)
-							globalPlans.addAll(plans)
+							if (incl.self){
+								selfPlans.addAll(plans)
+							} else {
+								globalPlans.addAll(plans)
+							}
 						}
 					} else {
 						val greq = incl.include as Requirement
@@ -181,7 +187,13 @@ class AlisaGenerator implements IGenerator {
 						val plans = referenceFinder.getAllVerificationPlansForRequirements(greqs, acp)
 						for (vp : plans) {
 							for (claim : vp.claim) {
-								if(claim.requirement.equals(greq.name)) globalClaims.add(claim)
+								if(claim.requirement.equals(greq.name)) {
+									if (incl.self) {
+											selfClaims.add(claim)
+										} else {
+											globalClaims.add(claim)
+										}
+									}
 							}
 						}
 					}
@@ -196,6 +208,18 @@ class AlisaGenerator implements IGenerator {
 					«ENDIF»
 				«ENDFOR»
 			«ENDFOR»
+			«FOR myplan : selfPlans»
+				«FOR claim : myplan.claim.filter[cl|cl.requirement?.componentCategory.matchingCategory(cc.category)]»
+					«IF claim.evaluateRequirementFilter(filter)»
+						«claim.generate()»
+					«ENDIF»
+				«ENDFOR»
+			«ENDFOR»
+				«FOR claim : selfClaims.filter[cl|cl.requirement?.componentCategory.matchingCategory(cc.category)]»
+					«IF claim.evaluateRequirementFilter(filter)»
+						«claim.generate()»
+					«ENDIF»
+				«ENDFOR»
 			«FOR myplan : globalPlans»
 				«FOR claim : myplan.claim.filter[cl|cl.requirement?.componentCategory.matchingCategory(cc.category)]»
 					«IF claim.evaluateRequirementFilter(filter)»

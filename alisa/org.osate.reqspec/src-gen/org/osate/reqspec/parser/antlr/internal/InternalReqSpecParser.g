@@ -5200,10 +5200,10 @@ ruleIncludeGlobalRequirement returns [EObject current=null]
     {
     	newLeafNode(otherlv_2, grammarAccess.getIncludeGlobalRequirementAccess().getForKeyword_2_0());
     }
-(
+((
 (
 		{ 
-	        newCompositeNode(grammarAccess.getIncludeGlobalRequirementAccess().getComponentCategoryComponentCategoryParserRuleCall_2_1_0()); 
+	        newCompositeNode(grammarAccess.getIncludeGlobalRequirementAccess().getComponentCategoryComponentCategoryParserRuleCall_2_1_0_0()); 
 	    }
 		lv_componentCategory_3_0=ruleComponentCategory		{
 	        if ($current==null) {
@@ -5218,7 +5218,24 @@ ruleIncludeGlobalRequirement returns [EObject current=null]
 	    }
 
 )
-)+)?)
+)+
+    |(
+(
+		lv_self_4_0=
+	Self
+    {
+        newLeafNode(lv_self_4_0, grammarAccess.getIncludeGlobalRequirementAccess().getSelfSelfKeyword_2_1_1_0());
+    }
+
+	    {
+	        if ($current==null) {
+	            $current = createModelElement(grammarAccess.getIncludeGlobalRequirementRule());
+	        }
+       		setWithLastConsumed($current, "self", true, "self");
+	    }
+
+)
+)))?)
 ;
 
 
