@@ -55,10 +55,12 @@ public static val ASSURANCE_PLAN_OWN_INVALID_VERIFICATION_PLANS = 'org.osate.ali
 	def void checkAssurancePlanNormal(AssurancePlan assurancePlan) {
 		checkAssurancePlanOwnOmissions(assurancePlan)
 	}
-	@Check(CheckType.FAST)
-	def void checkAssurancePlanFast(AssurancePlan assurancePlan) {
-		checkAssurancePlanOwnForInvalid(assurancePlan) 
-	}
+	
+// Need to fix. Gives false error. Also needs to deal with global requirements	
+//	@Check(CheckType.NORMAL)
+//	def void checkAssurancePlanFast(AssurancePlan assurancePlan) {
+//		checkAssurancePlanOwnForInvalid(assurancePlan) 
+//	}
 
 	def void checkAssurancePlanOwnOmissions(AssurancePlan assurancePlan) {
 		val res = referenceFinder.getVerificationPlans(assurancePlan.target, assurancePlan).filter([avp | !assurancePlan.assure.contains(avp)])		
@@ -68,14 +70,15 @@ public static val ASSURANCE_PLAN_OWN_INVALID_VERIFICATION_PLANS = 'org.osate.ali
 				namesAndURI.set(counter * 2, vp.name)
 				namesAndURI.set((counter * 2) + 1, EcoreUtil.getURI(vp).toString())
 			])
-			warning("Assurance Plan '" + assurancePlan.name + "' missing Verification Plans in 'assure own' statement '",
+			warning("Assurance Plan '" + assurancePlan.name + "' missing Verification Plans in 'assure' statement '",
 				assurancePlan, AlisaPackage.Literals.ASSURANCE_PLAN__NAME, ASSURANCE_PLAN_OWN_MISSING_VERIFICATION_PLANS, namesAndURI)
 		}
 	}
 
 	def void checkAssurancePlanOwnForInvalid(AssurancePlan assurancePlan) {
 		val res = assurancePlan.assure.filter([avp |
-			!referenceFinder.getVerificationPlans(assurancePlan.target, assurancePlan).toList.contains(avp)
+			val res = referenceFinder.getVerificationPlans(assurancePlan.target, assurancePlan)
+			!res.exists[vp| vp.name.equalsIgnoreCase(avp.name)]
 		])
 		if (res.size > 0){
 			res.forEach([vp, counter |
