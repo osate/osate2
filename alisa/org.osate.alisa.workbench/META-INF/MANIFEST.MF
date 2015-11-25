@@ -15,6 +15,7 @@ Require-Bundle: org.eclipse.xtext;visibility:=reexport,
  org.eclipse.emf.ecore,
  org.eclipse.emf.common,
  org.antlr.runtime,
+ org.osate.verify;bundle-version="1.0.0",
  org.osate.aadl2;bundle-version="1.0.0",
  org.osate.reqspec;bundle-version="1.0.0",
  org.osate.alisa.common;bundle-version="1.0.0";visibility:=reexport,
@@ -24,7 +25,6 @@ Require-Bundle: org.eclipse.xtext;visibility:=reexport,
  org.objectweb.asm;bundle-version="[5.0.1,6.0.0)";resolution:=optional,
  org.osate.organization;bundle-version="1.0.0",
  org.osate.xtext.aadl2.properties;bundle-version="1.0.0",
- org.osate.verify;bundle-version="1.0.0",
  org.eclipse.xtext.xbase.lib
 Import-Package: org.apache.log4j
 Bundle-RequiredExecutionEnvironment: JavaSE-1.8
