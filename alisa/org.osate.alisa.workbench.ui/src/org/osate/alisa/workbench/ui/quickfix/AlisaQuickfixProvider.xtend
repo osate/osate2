@@ -58,7 +58,7 @@ class AlisaQuickfixProvider extends DefaultQuickfixProvider {
 	@Fix(AlisaValidator.ASSURANCE_PLAN_OWN_MISSING_VERIFICATION_PLANS)
 	def public void fixMissingOwnVerificationPlans(Issue issue, IssueResolutionAcceptor acceptor) {
 		val names = "'" + issue.getData.indexed().filter([key % 2 == 0]).join("', '", [value]) + "'"
-		acceptor.accept(issue, "Add verification plans " + names + " to 'assure own'", null, null,
+		acceptor.accept(issue, "Add verification plans " + names + " to 'assure'", null, null,
 				new ISemanticModification() {
 					override apply(EObject element, IModificationContext context) throws Exception {
 						val assurancePlan = element as AssurancePlan
@@ -81,7 +81,7 @@ class AlisaQuickfixProvider extends DefaultQuickfixProvider {
 	def public void fixInvalidOwnVerificationPlans(Issue issue, IssueResolutionAcceptor acceptor) {
 		val name = issue.getData.head
 		val vpUri = issue.getData.get(1)
-		acceptor.accept(issue, "Remove verification plan '" + name + "' from 'assure own'", null, null,
+		acceptor.accept(issue, "Remove verification plan '" + name + "' from 'assure'", null, null,
 				new ISemanticModification() {
 					override apply(EObject element, IModificationContext context) throws Exception {
 						val assurancePlan = element as AssurancePlan
