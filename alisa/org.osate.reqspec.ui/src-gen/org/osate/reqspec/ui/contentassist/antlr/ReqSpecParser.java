@@ -132,6 +132,7 @@ public class ReqSpecParser extends AbstractContentAssistParser {
 					put(grammarAccess.getGoalAccess().getGroup_5_10(), "rule__Goal__Group_5_10__0");
 					put(grammarAccess.getGoalAccess().getGroup_5_11(), "rule__Goal__Group_5_11__0");
 					put(grammarAccess.getGoalAccess().getGroup_5_12(), "rule__Goal__Group_5_12__0");
+					put(grammarAccess.getGoalAccess().getGroup_5_13(), "rule__Goal__Group_5_13__0");
 					put(grammarAccess.getSystemRequirementAccess().getGroup(), "rule__SystemRequirement__Group__0");
 					put(grammarAccess.getSystemRequirementAccess().getGroup_2(), "rule__SystemRequirement__Group_2__0");
 					put(grammarAccess.getSystemRequirementAccess().getGroup_3(), "rule__SystemRequirement__Group_3__0");
@@ -146,6 +147,7 @@ public class ReqSpecParser extends AbstractContentAssistParser {
 					put(grammarAccess.getSystemRequirementAccess().getGroup_5_14(), "rule__SystemRequirement__Group_5_14__0");
 					put(grammarAccess.getSystemRequirementAccess().getGroup_5_15(), "rule__SystemRequirement__Group_5_15__0");
 					put(grammarAccess.getSystemRequirementAccess().getGroup_5_16(), "rule__SystemRequirement__Group_5_16__0");
+					put(grammarAccess.getSystemRequirementAccess().getGroup_5_17(), "rule__SystemRequirement__Group_5_17__0");
 					put(grammarAccess.getRequirementAccess().getGroup(), "rule__Requirement__Group__0");
 					put(grammarAccess.getRequirementAccess().getGroup_2(), "rule__Requirement__Group_2__0");
 					put(grammarAccess.getRequirementAccess().getGroup_3(), "rule__Requirement__Group_3__0");
@@ -160,6 +162,7 @@ public class ReqSpecParser extends AbstractContentAssistParser {
 					put(grammarAccess.getRequirementAccess().getGroup_5_14(), "rule__Requirement__Group_5_14__0");
 					put(grammarAccess.getRequirementAccess().getGroup_5_15(), "rule__Requirement__Group_5_15__0");
 					put(grammarAccess.getRequirementAccess().getGroup_5_16(), "rule__Requirement__Group_5_16__0");
+					put(grammarAccess.getRequirementAccess().getGroup_5_17(), "rule__Requirement__Group_5_17__0");
 					put(grammarAccess.getDocRequirementAccess().getGroup(), "rule__DocRequirement__Group__0");
 					put(grammarAccess.getDocRequirementAccess().getGroup_2(), "rule__DocRequirement__Group_2__0");
 					put(grammarAccess.getDocRequirementAccess().getGroup_3(), "rule__DocRequirement__Group_3__0");
@@ -351,8 +354,9 @@ public class ReqSpecParser extends AbstractContentAssistParser {
 					put(grammarAccess.getGoalAccess().getDroppedAssignment_5_9_0(), "rule__Goal__DroppedAssignment_5_9_0");
 					put(grammarAccess.getGoalAccess().getDropRationaleAssignment_5_9_1(), "rule__Goal__DropRationaleAssignment_5_9_1");
 					put(grammarAccess.getGoalAccess().getStakeholderReferenceAssignment_5_10_1(), "rule__Goal__StakeholderReferenceAssignment_5_10_1");
-					put(grammarAccess.getGoalAccess().getDocReferenceAssignment_5_11_2(), "rule__Goal__DocReferenceAssignment_5_11_2");
-					put(grammarAccess.getGoalAccess().getIssuesAssignment_5_12_1(), "rule__Goal__IssuesAssignment_5_12_1");
+					put(grammarAccess.getGoalAccess().getGoalReferenceAssignment_5_11_2(), "rule__Goal__GoalReferenceAssignment_5_11_2");
+					put(grammarAccess.getGoalAccess().getDocReferenceAssignment_5_12_2(), "rule__Goal__DocReferenceAssignment_5_12_2");
+					put(grammarAccess.getGoalAccess().getIssuesAssignment_5_13_1(), "rule__Goal__IssuesAssignment_5_13_1");
 					put(grammarAccess.getSystemRequirementAccess().getNameAssignment_1(), "rule__SystemRequirement__NameAssignment_1");
 					put(grammarAccess.getSystemRequirementAccess().getTitleAssignment_2_1(), "rule__SystemRequirement__TitleAssignment_2_1");
 					put(grammarAccess.getSystemRequirementAccess().getTargetElementAssignment_3_1(), "rule__SystemRequirement__TargetElementAssignment_3_1");
@@ -373,8 +377,9 @@ public class ReqSpecParser extends AbstractContentAssistParser {
 					put(grammarAccess.getSystemRequirementAccess().getDropRationaleAssignment_5_12_1(), "rule__SystemRequirement__DropRationaleAssignment_5_12_1");
 					put(grammarAccess.getSystemRequirementAccess().getDevelopmentStakeholderAssignment_5_13_2(), "rule__SystemRequirement__DevelopmentStakeholderAssignment_5_13_2");
 					put(grammarAccess.getSystemRequirementAccess().getGoalReferenceAssignment_5_14_2(), "rule__SystemRequirement__GoalReferenceAssignment_5_14_2");
-					put(grammarAccess.getSystemRequirementAccess().getDocReferenceAssignment_5_15_2(), "rule__SystemRequirement__DocReferenceAssignment_5_15_2");
-					put(grammarAccess.getSystemRequirementAccess().getIssuesAssignment_5_16_1(), "rule__SystemRequirement__IssuesAssignment_5_16_1");
+					put(grammarAccess.getSystemRequirementAccess().getRequirementReferenceAssignment_5_15_2(), "rule__SystemRequirement__RequirementReferenceAssignment_5_15_2");
+					put(grammarAccess.getSystemRequirementAccess().getDocReferenceAssignment_5_16_2(), "rule__SystemRequirement__DocReferenceAssignment_5_16_2");
+					put(grammarAccess.getSystemRequirementAccess().getIssuesAssignment_5_17_1(), "rule__SystemRequirement__IssuesAssignment_5_17_1");
 					put(grammarAccess.getRequirementAccess().getNameAssignment_1(), "rule__Requirement__NameAssignment_1");
 					put(grammarAccess.getRequirementAccess().getTitleAssignment_2_1(), "rule__Requirement__TitleAssignment_2_1");
 					put(grammarAccess.getRequirementAccess().getComponentCategoryAssignment_3_1(), "rule__Requirement__ComponentCategoryAssignment_3_1");
@@ -395,8 +400,9 @@ public class ReqSpecParser extends AbstractContentAssistParser {
 					put(grammarAccess.getRequirementAccess().getDropRationaleAssignment_5_12_1(), "rule__Requirement__DropRationaleAssignment_5_12_1");
 					put(grammarAccess.getRequirementAccess().getDevelopmentStakeholderAssignment_5_13_2(), "rule__Requirement__DevelopmentStakeholderAssignment_5_13_2");
 					put(grammarAccess.getRequirementAccess().getGoalReferenceAssignment_5_14_2(), "rule__Requirement__GoalReferenceAssignment_5_14_2");
-					put(grammarAccess.getRequirementAccess().getDocReferenceAssignment_5_15_2(), "rule__Requirement__DocReferenceAssignment_5_15_2");
-					put(grammarAccess.getRequirementAccess().getIssuesAssignment_5_16_1(), "rule__Requirement__IssuesAssignment_5_16_1");
+					put(grammarAccess.getRequirementAccess().getRequirementReferenceAssignment_5_15_2(), "rule__Requirement__RequirementReferenceAssignment_5_15_2");
+					put(grammarAccess.getRequirementAccess().getDocReferenceAssignment_5_16_2(), "rule__Requirement__DocReferenceAssignment_5_16_2");
+					put(grammarAccess.getRequirementAccess().getIssuesAssignment_5_17_1(), "rule__Requirement__IssuesAssignment_5_17_1");
 					put(grammarAccess.getDocRequirementAccess().getNameAssignment_1(), "rule__DocRequirement__NameAssignment_1");
 					put(grammarAccess.getDocRequirementAccess().getTitleAssignment_2_1(), "rule__DocRequirement__TitleAssignment_2_1");
 					put(grammarAccess.getDocRequirementAccess().getTargetDescriptionAssignment_3_1_0(), "rule__DocRequirement__TargetDescriptionAssignment_3_1_0");

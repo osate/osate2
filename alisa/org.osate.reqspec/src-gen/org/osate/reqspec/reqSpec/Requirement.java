@@ -41,7 +41,7 @@ import org.osate.organization.organization.Stakeholder;
  *   <li>{@link org.osate.reqspec.reqSpec.Requirement#getRefinesReference <em>Refines Reference</em>}</li>
  *   <li>{@link org.osate.reqspec.reqSpec.Requirement#getDecomposesReference <em>Decomposes Reference</em>}</li>
  *   <li>{@link org.osate.reqspec.reqSpec.Requirement#getDevelopmentStakeholder <em>Development Stakeholder</em>}</li>
- *   <li>{@link org.osate.reqspec.reqSpec.Requirement#getGoalReference <em>Goal Reference</em>}</li>
+ *   <li>{@link org.osate.reqspec.reqSpec.Requirement#getRequirementReference <em>Requirement Reference</em>}</li>
  *   <li>{@link org.osate.reqspec.reqSpec.Requirement#getComponentCategory <em>Component Category</em>}</li>
  * </ul>
  *
@@ -194,20 +194,20 @@ public interface Requirement extends ContractualElement
   EList<Stakeholder> getDevelopmentStakeholder();
 
   /**
-   * Returns the value of the '<em><b>Goal Reference</b></em>' reference list.
-   * The list contents are of type {@link org.osate.reqspec.reqSpec.Goal}.
+   * Returns the value of the '<em><b>Requirement Reference</b></em>' reference list.
+   * The list contents are of type {@link org.osate.reqspec.reqSpec.Requirement}.
    * <!-- begin-user-doc -->
    * <p>
-   * If the meaning of the '<em>Goal Reference</em>' reference list isn't clear,
+   * If the meaning of the '<em>Requirement Reference</em>' reference list isn't clear,
    * there really should be more of a description here...
    * </p>
    * <!-- end-user-doc -->
-   * @return the value of the '<em>Goal Reference</em>' reference list.
-   * @see org.osate.reqspec.reqSpec.ReqSpecPackage#getRequirement_GoalReference()
+   * @return the value of the '<em>Requirement Reference</em>' reference list.
+   * @see org.osate.reqspec.reqSpec.ReqSpecPackage#getRequirement_RequirementReference()
    * @model
    * @generated
    */
-  EList<Goal> getGoalReference();
+  EList<Requirement> getRequirementReference();
 
   /**
    * Returns the value of the '<em><b>Component Category</b></em>' attribute list.

@@ -55,6 +55,7 @@ import org.osate.categories.categories.UserCategory;
  *   <li>{@link org.osate.reqspec.reqSpec.ContractualElement#getDropRationale <em>Drop Rationale</em>}</li>
  *   <li>{@link org.osate.reqspec.reqSpec.ContractualElement#getDocReference <em>Doc Reference</em>}</li>
  *   <li>{@link org.osate.reqspec.reqSpec.ContractualElement#getIssues <em>Issues</em>}</li>
+ *   <li>{@link org.osate.reqspec.reqSpec.ContractualElement#getGoalReference <em>Goal Reference</em>}</li>
  * </ul>
  *
  * @see org.osate.reqspec.reqSpec.ReqSpecPackage#getContractualElement()
@@ -418,5 +419,21 @@ public interface ContractualElement extends EObject
    * @generated
    */
   EList<String> getIssues();
+
+  /**
+   * Returns the value of the '<em><b>Goal Reference</b></em>' reference list.
+   * The list contents are of type {@link org.osate.reqspec.reqSpec.Goal}.
+   * <!-- begin-user-doc -->
+   * <p>
+   * If the meaning of the '<em>Goal Reference</em>' reference list isn't clear,
+   * there really should be more of a description here...
+   * </p>
+   * <!-- end-user-doc -->
+   * @return the value of the '<em>Goal Reference</em>' reference list.
+   * @see org.osate.reqspec.reqSpec.ReqSpecPackage#getContractualElement_GoalReference()
+   * @model
+   * @generated
+   */
+  EList<Goal> getGoalReference();
 
 } // ContractualElement

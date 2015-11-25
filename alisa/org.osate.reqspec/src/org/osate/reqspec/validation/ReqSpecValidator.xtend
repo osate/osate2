@@ -101,7 +101,7 @@ class ReqSpecValidator extends AbstractReqSpecValidator {
 		if (req.goalReference.empty  ) {
 			if (req.refinesReference.empty){ 
 			warning('System requirement should have stakeholder goal or requirement reference', 
-					ReqSpecPackage.Literals.REQUIREMENT__GOAL_REFERENCE,
+					ReqSpecPackage.Literals.CONTRACTUAL_ELEMENT__GOAL_REFERENCE,
 					MISSING_STAKEHOLDER_GOAL)
 			} else {
 				req.refinesReference.forEach[checkMissingGoal]

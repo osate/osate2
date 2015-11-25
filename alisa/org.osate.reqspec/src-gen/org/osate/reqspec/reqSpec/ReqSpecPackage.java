@@ -308,13 +308,22 @@ public interface ReqSpecPackage extends EPackage
   int CONTRACTUAL_ELEMENT__ISSUES = 15;
 
   /**
+   * The feature id for the '<em><b>Goal Reference</b></em>' reference list.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int CONTRACTUAL_ELEMENT__GOAL_REFERENCE = 16;
+
+  /**
    * The number of structural features of the '<em>Contractual Element</em>' class.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    * @ordered
    */
-  int CONTRACTUAL_ELEMENT_FEATURE_COUNT = 16;
+  int CONTRACTUAL_ELEMENT_FEATURE_COUNT = 17;
 
   /**
    * The meta object id for the '{@link org.osate.reqspec.reqSpec.impl.ReqRootImpl <em>Req Root</em>}' class.
@@ -836,6 +845,15 @@ public interface ReqSpecPackage extends EPackage
   int GOAL__ISSUES = CONTRACTUAL_ELEMENT__ISSUES;
 
   /**
+   * The feature id for the '<em><b>Goal Reference</b></em>' reference list.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int GOAL__GOAL_REFERENCE = CONTRACTUAL_ELEMENT__GOAL_REFERENCE;
+
+  /**
    * The feature id for the '<em><b>Refines Reference</b></em>' reference list.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -1026,6 +1044,15 @@ public interface ReqSpecPackage extends EPackage
   int REQUIREMENT__ISSUES = CONTRACTUAL_ELEMENT__ISSUES;
 
   /**
+   * The feature id for the '<em><b>Goal Reference</b></em>' reference list.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int REQUIREMENT__GOAL_REFERENCE = CONTRACTUAL_ELEMENT__GOAL_REFERENCE;
+
+  /**
    * The feature id for the '<em><b>Computes</b></em>' containment reference list.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -1089,13 +1116,13 @@ public interface ReqSpecPackage extends EPackage
   int REQUIREMENT__DEVELOPMENT_STAKEHOLDER = CONTRACTUAL_ELEMENT_FEATURE_COUNT + 6;
 
   /**
-   * The feature id for the '<em><b>Goal Reference</b></em>' reference list.
+   * The feature id for the '<em><b>Requirement Reference</b></em>' reference list.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    * @ordered
    */
-  int REQUIREMENT__GOAL_REFERENCE = CONTRACTUAL_ELEMENT_FEATURE_COUNT + 7;
+  int REQUIREMENT__REQUIREMENT_REFERENCE = CONTRACTUAL_ELEMENT_FEATURE_COUNT + 7;
 
   /**
    * The feature id for the '<em><b>Component Category</b></em>' attribute list.
@@ -1779,6 +1806,17 @@ public interface ReqSpecPackage extends EPackage
   EAttribute getContractualElement_Issues();
 
   /**
+   * Returns the meta object for the reference list '{@link org.osate.reqspec.reqSpec.ContractualElement#getGoalReference <em>Goal Reference</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the reference list '<em>Goal Reference</em>'.
+   * @see org.osate.reqspec.reqSpec.ContractualElement#getGoalReference()
+   * @see #getContractualElement()
+   * @generated
+   */
+  EReference getContractualElement_GoalReference();
+
+  /**
    * Returns the meta object for class '{@link org.osate.reqspec.reqSpec.ReqRoot <em>Req Root</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -2289,15 +2327,15 @@ public interface ReqSpecPackage extends EPackage
   EReference getRequirement_DevelopmentStakeholder();
 
   /**
-   * Returns the meta object for the reference list '{@link org.osate.reqspec.reqSpec.Requirement#getGoalReference <em>Goal Reference</em>}'.
+   * Returns the meta object for the reference list '{@link org.osate.reqspec.reqSpec.Requirement#getRequirementReference <em>Requirement Reference</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @return the meta object for the reference list '<em>Goal Reference</em>'.
-   * @see org.osate.reqspec.reqSpec.Requirement#getGoalReference()
+   * @return the meta object for the reference list '<em>Requirement Reference</em>'.
+   * @see org.osate.reqspec.reqSpec.Requirement#getRequirementReference()
    * @see #getRequirement()
    * @generated
    */
-  EReference getRequirement_GoalReference();
+  EReference getRequirement_RequirementReference();
 
   /**
    * Returns the meta object for the attribute list '{@link org.osate.reqspec.reqSpec.Requirement#getComponentCategory <em>Component Category</em>}'.
@@ -2705,6 +2743,14 @@ public interface ReqSpecPackage extends EPackage
     EAttribute CONTRACTUAL_ELEMENT__ISSUES = eINSTANCE.getContractualElement_Issues();
 
     /**
+     * The meta object literal for the '<em><b>Goal Reference</b></em>' reference list feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EReference CONTRACTUAL_ELEMENT__GOAL_REFERENCE = eINSTANCE.getContractualElement_GoalReference();
+
+    /**
      * The meta object literal for the '{@link org.osate.reqspec.reqSpec.impl.ReqRootImpl <em>Req Root</em>}' class.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
@@ -3095,12 +3141,12 @@ public interface ReqSpecPackage extends EPackage
     EReference REQUIREMENT__DEVELOPMENT_STAKEHOLDER = eINSTANCE.getRequirement_DevelopmentStakeholder();
 
     /**
-     * The meta object literal for the '<em><b>Goal Reference</b></em>' reference list feature.
+     * The meta object literal for the '<em><b>Requirement Reference</b></em>' reference list feature.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @generated
      */
-    EReference REQUIREMENT__GOAL_REFERENCE = eINSTANCE.getRequirement_GoalReference();
+    EReference REQUIREMENT__REQUIREMENT_REFERENCE = eINSTANCE.getRequirement_RequirementReference();
 
     /**
      * The meta object literal for the '<em><b>Component Category</b></em>' attribute list feature.

@@ -47,6 +47,7 @@ import org.osate.categories.categories.UserCategory;
 
 import org.osate.reqspec.reqSpec.ContractualElement;
 import org.osate.reqspec.reqSpec.ExternalDocument;
+import org.osate.reqspec.reqSpec.Goal;
 import org.osate.reqspec.reqSpec.ReqSpecPackage;
 import org.osate.reqspec.reqSpec.Requirement;
 
@@ -74,6 +75,7 @@ import org.osate.reqspec.reqSpec.Requirement;
  *   <li>{@link org.osate.reqspec.reqSpec.impl.ContractualElementImpl#getDropRationale <em>Drop Rationale</em>}</li>
  *   <li>{@link org.osate.reqspec.reqSpec.impl.ContractualElementImpl#getDocReference <em>Doc Reference</em>}</li>
  *   <li>{@link org.osate.reqspec.reqSpec.impl.ContractualElementImpl#getIssues <em>Issues</em>}</li>
+ *   <li>{@link org.osate.reqspec.reqSpec.impl.ContractualElementImpl#getGoalReference <em>Goal Reference</em>}</li>
  * </ul>
  *
  * @generated
@@ -289,6 +291,16 @@ public class ContractualElementImpl extends MinimalEObjectImpl.Container impleme
    * @ordered
    */
   protected EList<String> issues;
+
+  /**
+   * The cached value of the '{@link #getGoalReference() <em>Goal Reference</em>}' reference list.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see #getGoalReference()
+   * @generated
+   * @ordered
+   */
+  protected EList<Goal> goalReference;
 
   /**
    * <!-- begin-user-doc -->
@@ -745,6 +757,20 @@ public class ContractualElementImpl extends MinimalEObjectImpl.Container impleme
    * <!-- end-user-doc -->
    * @generated
    */
+  public EList<Goal> getGoalReference()
+  {
+    if (goalReference == null)
+    {
+      goalReference = new EObjectResolvingEList<Goal>(Goal.class, this, ReqSpecPackage.CONTRACTUAL_ELEMENT__GOAL_REFERENCE);
+    }
+    return goalReference;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
   @Override
   public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs)
   {
@@ -808,6 +834,8 @@ public class ContractualElementImpl extends MinimalEObjectImpl.Container impleme
         return getDocReference();
       case ReqSpecPackage.CONTRACTUAL_ELEMENT__ISSUES:
         return getIssues();
+      case ReqSpecPackage.CONTRACTUAL_ELEMENT__GOAL_REFERENCE:
+        return getGoalReference();
     }
     return super.eGet(featureID, resolve, coreType);
   }
@@ -877,6 +905,10 @@ public class ContractualElementImpl extends MinimalEObjectImpl.Container impleme
         getIssues().clear();
         getIssues().addAll((Collection<? extends String>)newValue);
         return;
+      case ReqSpecPackage.CONTRACTUAL_ELEMENT__GOAL_REFERENCE:
+        getGoalReference().clear();
+        getGoalReference().addAll((Collection<? extends Goal>)newValue);
+        return;
     }
     super.eSet(featureID, newValue);
   }
@@ -939,6 +971,9 @@ public class ContractualElementImpl extends MinimalEObjectImpl.Container impleme
       case ReqSpecPackage.CONTRACTUAL_ELEMENT__ISSUES:
         getIssues().clear();
         return;
+      case ReqSpecPackage.CONTRACTUAL_ELEMENT__GOAL_REFERENCE:
+        getGoalReference().clear();
+        return;
     }
     super.eUnset(featureID);
   }
@@ -985,6 +1020,8 @@ public class ContractualElementImpl extends MinimalEObjectImpl.Container impleme
         return docReference != null && !docReference.isEmpty();
       case ReqSpecPackage.CONTRACTUAL_ELEMENT__ISSUES:
         return issues != null && !issues.isEmpty();
+      case ReqSpecPackage.CONTRACTUAL_ELEMENT__GOAL_REFERENCE:
+        return goalReference != null && !goalReference.isEmpty();
     }
     return super.eIsSet(featureID);
   }
