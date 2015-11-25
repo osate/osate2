@@ -21,6 +21,7 @@ package org.osate.alisa.workbench;
 
 import org.eclipse.xtext.conversion.IValueConverterService;
 import org.eclipse.xtext.generator.IOutputConfigurationProvider;
+import org.eclipse.xtext.scoping.IScopeProvider;
 
 /**
  * Use this class to register components to be used at runtime / without the Equinox extension registry.
@@ -38,5 +39,11 @@ public class AlisaRuntimeModule extends org.osate.alisa.workbench.AbstractAlisaR
 	public Class<? extends IOutputConfigurationProvider> bindIOutputConfigurationProvider() {
 		return org.osate.alisa.workbench.generator.AlisaOutputConfigurationProvider.class;
 	}
+
+	@Override
+	public Class<? extends IScopeProvider> bindIScopeProvider() {
+		return org.osate.alisa.workbench.scoping.AlisaScopeProvider.class;
+	}
+
 
 }

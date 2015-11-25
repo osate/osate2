@@ -20,6 +20,13 @@
 package org.osate.alisa.workbench.scoping
 
 import org.eclipse.xtext.scoping.impl.AbstractDeclarativeScopeProvider
+import org.eclipse.emf.ecore.EReference
+import org.osate.alisa.workbench.alisa.AssurancePlan
+import org.eclipse.xtext.scoping.impl.SimpleScope
+import org.eclipse.xtext.scoping.Scopes
+import org.eclipse.xtext.naming.QualifiedName
+import org.eclipse.xtext.scoping.IScope
+import org.eclipse.xtext.util.SimpleAttributeResolver
 
 /**
  * This class contains custom scoping description.
@@ -29,5 +36,16 @@ import org.eclipse.xtext.scoping.impl.AbstractDeclarativeScopeProvider
  *
  */
 class AlisaScopeProvider extends AbstractDeclarativeScopeProvider {
+	def scope_Subcomponent(AssurancePlan context, EReference reference) {
+		val targetClassifier = context.target
+		if (targetClassifier != null) {
+//			targetClassifier.getAllFeatures.scopeFor
+			return new SimpleScope(IScope::NULLSCOPE,
+				Scopes::scopedElementsFor(targetClassifier.allSubcomponents,
+					QualifiedName::wrapper(SimpleAttributeResolver::NAME_RESOLVER)), true)
+		} else {
+			IScope.NULLSCOPE
+		}
+	}
 
 }
