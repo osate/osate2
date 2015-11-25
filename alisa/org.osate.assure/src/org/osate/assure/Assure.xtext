@@ -2,7 +2,6 @@ grammar org.osate.assure.Assure with org.eclipse.xtext.common.Terminals
 
 generate assure "http://www.osate.org/assure/Assure"
 import "http://aadl.info/AADL/2.0" as aadl2
-import "http://aadl.info/AADL/2.0/instance" as instance
 import "http://www.osate.org/reqspec/ReqSpec" as ReqSpec
 import "http://www.osate.org/alisa/common/Common" as Common
 import "http://www.osate.org/alisa/workbench/Alisa" as Alisa
@@ -72,7 +71,6 @@ ValidationResult returns VerificationResult:
 // result of executing a verification activity
 VerificationActivityResult returns VerificationResult:
 	'verification' {VerificationActivityResult}	target=[Verify::VerificationActivity|QualifiedName]
-//	('instance' instance= [instance::InstanceObject|URIID])?
 	'['
 	'executionstate'  executionState=VerificationExecutionState
 	'resultstate' resultState=VerificationResultState

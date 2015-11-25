@@ -536,18 +536,16 @@ public class AssureGrammarAccess extends AbstractGrammarElementFinder {
 		
 		//// result of executing a verification activity
 		//VerificationActivityResult returns VerificationResult:
-		//	"verification" {VerificationActivityResult} target=[Verify::VerificationActivity|QualifiedName] //	('instance' instance= [instance::InstanceObject|URIID])?
-		//	"[" "executionstate" executionState=VerificationExecutionState "resultstate" resultState=VerificationResultState
-		//	("issues" "[" issues+=ResultIssue* "]")? ("report" resultReport=[results::ResultReport|QualifiedName])?
-		//	metrics=Metrics ("message" message=STRING)? preconditionResult=PreconditionResult? validationResult=ValidationResult?
-		//	"]";
+		//	"verification" {VerificationActivityResult} target=[Verify::VerificationActivity|QualifiedName] "[" "executionstate"
+		//	executionState=VerificationExecutionState "resultstate" resultState=VerificationResultState ("issues" "["
+		//	issues+=ResultIssue* "]")? ("report" resultReport=[results::ResultReport|QualifiedName])? metrics=Metrics ("message"
+		//	message=STRING)? preconditionResult=PreconditionResult? validationResult=ValidationResult? "]";
 		@Override public ParserRule getRule() { return rule; }
 
-		//"verification" {VerificationActivityResult} target=[Verify::VerificationActivity|QualifiedName] //	('instance' instance= [instance::InstanceObject|URIID])?
-		//"[" "executionstate" executionState=VerificationExecutionState "resultstate" resultState=VerificationResultState
-		//("issues" "[" issues+=ResultIssue* "]")? ("report" resultReport=[results::ResultReport|QualifiedName])?
-		//metrics=Metrics ("message" message=STRING)? preconditionResult=PreconditionResult? validationResult=ValidationResult?
-		//"]"
+		//"verification" {VerificationActivityResult} target=[Verify::VerificationActivity|QualifiedName] "[" "executionstate"
+		//executionState=VerificationExecutionState "resultstate" resultState=VerificationResultState ("issues" "["
+		//issues+=ResultIssue* "]")? ("report" resultReport=[results::ResultReport|QualifiedName])? metrics=Metrics ("message"
+		//message=STRING)? preconditionResult=PreconditionResult? validationResult=ValidationResult? "]"
 		public Group getGroup() { return cGroup; }
 
 		//"verification"
@@ -565,7 +563,6 @@ public class AssureGrammarAccess extends AbstractGrammarElementFinder {
 		//QualifiedName
 		public RuleCall getTargetVerificationActivityQualifiedNameParserRuleCall_2_0_1() { return cTargetVerificationActivityQualifiedNameParserRuleCall_2_0_1; }
 
-		////	('instance' instance= [instance::InstanceObject|URIID])?
 		//"["
 		public Keyword getLeftSquareBracketKeyword_3() { return cLeftSquareBracketKeyword_3; }
 
@@ -1557,11 +1554,10 @@ public class AssureGrammarAccess extends AbstractGrammarElementFinder {
 
 	//// result of executing a verification activity
 	//VerificationActivityResult returns VerificationResult:
-	//	"verification" {VerificationActivityResult} target=[Verify::VerificationActivity|QualifiedName] //	('instance' instance= [instance::InstanceObject|URIID])?
-	//	"[" "executionstate" executionState=VerificationExecutionState "resultstate" resultState=VerificationResultState
-	//	("issues" "[" issues+=ResultIssue* "]")? ("report" resultReport=[results::ResultReport|QualifiedName])?
-	//	metrics=Metrics ("message" message=STRING)? preconditionResult=PreconditionResult? validationResult=ValidationResult?
-	//	"]";
+	//	"verification" {VerificationActivityResult} target=[Verify::VerificationActivity|QualifiedName] "[" "executionstate"
+	//	executionState=VerificationExecutionState "resultstate" resultState=VerificationResultState ("issues" "["
+	//	issues+=ResultIssue* "]")? ("report" resultReport=[results::ResultReport|QualifiedName])? metrics=Metrics ("message"
+	//	message=STRING)? preconditionResult=PreconditionResult? validationResult=ValidationResult? "]";
 	public VerificationActivityResultElements getVerificationActivityResultAccess() {
 		return pVerificationActivityResult;
 	}
