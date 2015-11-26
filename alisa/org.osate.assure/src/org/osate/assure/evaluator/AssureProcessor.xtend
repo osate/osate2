@@ -64,6 +64,7 @@ import org.eclipse.emf.common.util.BasicEList
 import org.eclipse.emf.ecore.EObject
 import org.eclipse.emf.common.util.EList
 import org.osate.aadl2.operations.NumberValueOperations
+import org.osate.results.results.ResultsFactory
 
 @ImplementedBy(AssureProcessor)
 interface IAssureProcessor {
@@ -311,7 +312,7 @@ class AssureProcessor implements IAssureProcessor {
 						if (proof.valid) {
 							setToSuccess(verificationResult)
 						} else {
-							val proveri = AssureFactory.eINSTANCE.createResultIssue
+							val proveri = ResultsFactory.eINSTANCE.createResultIssue
 							proof.doResoluteResults(proveri)
 							setToFail(verificationResult, proveri.issues)
 						}

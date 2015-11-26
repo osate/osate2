@@ -108,15 +108,6 @@ public interface AssureFactory extends EFactory
   Metrics createMetrics();
 
   /**
-   * Returns a new object of class '<em>Result Issue</em>'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return a new object of class '<em>Result Issue</em>'.
-   * @generated
-   */
-  ResultIssue createResultIssue();
-
-  /**
    * Returns a new object of class '<em>Precondition Result</em>'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->

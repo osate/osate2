@@ -14,12 +14,6 @@
       <genEnumLiterals ecoreEnumLiteral="Assure.ecore#//ElseType/TIMEOUT"/>
       <genEnumLiterals ecoreEnumLiteral="Assure.ecore#//ElseType/ERROR"/>
     </genEnums>
-    <genEnums typeSafeEnumCompatible="false" ecoreEnum="Assure.ecore#//ResultIssueType">
-      <genEnumLiterals ecoreEnumLiteral="Assure.ecore#//ResultIssueType/ERROR"/>
-      <genEnumLiterals ecoreEnumLiteral="Assure.ecore#//ResultIssueType/WARNING"/>
-      <genEnumLiterals ecoreEnumLiteral="Assure.ecore#//ResultIssueType/SUCCESS"/>
-      <genEnumLiterals ecoreEnumLiteral="Assure.ecore#//ResultIssueType/INFO"/>
-    </genEnums>
     <genEnums typeSafeEnumCompatible="false" ecoreEnum="Assure.ecore#//VerificationResultState">
       <genEnumLiterals ecoreEnumLiteral="Assure.ecore#//VerificationResultState/TBD"/>
       <genEnumLiterals ecoreEnumLiteral="Assure.ecore#//VerificationResultState/SUCCESS"/>
@@ -81,14 +75,6 @@
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Assure.ecore#//Metrics/preconditionfailCount"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Assure.ecore#//Metrics/validationfailCount"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Assure.ecore#//Metrics/weight"/>
-    </genClasses>
-    <genClasses ecoreClass="Assure.ecore#//ResultIssue">
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Assure.ecore#//ResultIssue/issueType"/>
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Assure.ecore#//ResultIssue/name"/>
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Assure.ecore#//ResultIssue/message"/>
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Assure.ecore#//ResultIssue/exceptionType"/>
-      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference Assure.ecore#//ResultIssue/target"/>
-      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Assure.ecore#//ResultIssue/issues"/>
     </genClasses>
     <genClasses ecoreClass="Assure.ecore#//PreconditionResult">
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference Assure.ecore#//PreconditionResult/target"/>

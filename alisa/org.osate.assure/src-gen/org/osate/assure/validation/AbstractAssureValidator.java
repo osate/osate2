@@ -21,11 +21,11 @@ import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.xtext.validation.ComposedChecks;
 
 @ComposedChecks(validators= {org.eclipse.xtext.validation.NamesAreUniqueValidator.class})
-public class AbstractAssureValidator extends org.eclipse.xtext.validation.AbstractDeclarativeValidator {
+public class AbstractAssureValidator extends org.osate.results.validation.ResultsValidator {
 
 	@Override
 	protected List<EPackage> getEPackages() {
-	    List<EPackage> result = new ArrayList<EPackage>();
+	    List<EPackage> result = new ArrayList<EPackage>(super.getEPackages());
 	    result.add(org.osate.assure.assure.AssurePackage.eINSTANCE);
 		return result;
 	}

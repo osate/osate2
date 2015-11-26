@@ -86,7 +86,6 @@ public class AssureFactoryImpl extends EFactoryImpl implements AssureFactory
       case AssurePackage.ELSE_RESULT: return createElseResult();
       case AssurePackage.THEN_RESULT: return createThenResult();
       case AssurePackage.METRICS: return createMetrics();
-      case AssurePackage.RESULT_ISSUE: return createResultIssue();
       case AssurePackage.PRECONDITION_RESULT: return createPreconditionResult();
       case AssurePackage.VALIDATION_RESULT: return createValidationResult();
       case AssurePackage.VERIFICATION_ACTIVITY_RESULT: return createVerificationActivityResult();
@@ -107,8 +106,6 @@ public class AssureFactoryImpl extends EFactoryImpl implements AssureFactory
     {
       case AssurePackage.ELSE_TYPE:
         return createElseTypeFromString(eDataType, initialValue);
-      case AssurePackage.RESULT_ISSUE_TYPE:
-        return createResultIssueTypeFromString(eDataType, initialValue);
       case AssurePackage.VERIFICATION_RESULT_STATE:
         return createVerificationResultStateFromString(eDataType, initialValue);
       case AssurePackage.VERIFICATION_EXECUTION_STATE:
@@ -130,8 +127,6 @@ public class AssureFactoryImpl extends EFactoryImpl implements AssureFactory
     {
       case AssurePackage.ELSE_TYPE:
         return convertElseTypeToString(eDataType, instanceValue);
-      case AssurePackage.RESULT_ISSUE_TYPE:
-        return convertResultIssueTypeToString(eDataType, instanceValue);
       case AssurePackage.VERIFICATION_RESULT_STATE:
         return convertVerificationResultStateToString(eDataType, instanceValue);
       case AssurePackage.VERIFICATION_EXECUTION_STATE:
@@ -234,17 +229,6 @@ public class AssureFactoryImpl extends EFactoryImpl implements AssureFactory
    * <!-- end-user-doc -->
    * @generated
    */
-  public ResultIssue createResultIssue()
-  {
-    ResultIssueImpl resultIssue = new ResultIssueImpl();
-    return resultIssue;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
   public PreconditionResult createPreconditionResult()
   {
     PreconditionResultImpl preconditionResult = new PreconditionResultImpl();
@@ -291,28 +275,6 @@ public class AssureFactoryImpl extends EFactoryImpl implements AssureFactory
    * @generated
    */
   public String convertElseTypeToString(EDataType eDataType, Object instanceValue)
-  {
-    return instanceValue == null ? null : instanceValue.toString();
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public ResultIssueType createResultIssueTypeFromString(EDataType eDataType, String initialValue)
-  {
-    ResultIssueType result = ResultIssueType.get(initialValue);
-    if (result == null) throw new IllegalArgumentException("The value '" + initialValue + "' is not a valid enumerator of '" + eDataType.getName() + "'");
-    return result;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public String convertResultIssueTypeToString(EDataType eDataType, Object instanceValue)
   {
     return instanceValue == null ? null : instanceValue.toString();
   }

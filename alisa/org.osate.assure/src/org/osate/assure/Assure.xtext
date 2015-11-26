@@ -1,4 +1,4 @@
-grammar org.osate.assure.Assure with org.eclipse.xtext.common.Terminals
+grammar org.osate.assure.Assure with org.osate.results.Results//org.eclipse.xtext.common.Terminals
 
 generate assure "http://www.osate.org/assure/Assure"
 import "http://aadl.info/AADL/2.0" as aadl2
@@ -125,19 +125,6 @@ Metrics returns Metrics:
 	('prefailcount'  preconditionfailCount=INT)?
 	('validfailcount'  validationfailCount=INT)?
 	('weight' weight = INT)?
-;
-
-// use it for failures, warnings and successes.
-ResultIssue:
-	issueType=ResultIssueType (':' name=ID)?
-	message=STRING
-	('exception' exceptionType = STRING)?
-	('target' target=[ecore::EObject|URIID])?
-	('[' issues +=ResultIssue+']')?
-;
-
-enum ResultIssueType:
-	ERROR='error' | WARNING='warning'| SUCCESS='success' | INFO='info'
 ;
 
 
