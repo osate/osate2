@@ -20,8 +20,6 @@
 package org.osate.assure.ui.labeling
 
 import com.google.inject.Inject
-import org.osate.assure.assure.ResultIssue
-import org.osate.assure.assure.ResultIssueType
 import org.osate.assure.assure.ClaimResult
 import static extension org.osate.assure.util.AssureUtilExtension.*
 import org.osate.assure.assure.VerificationActivityResult
@@ -29,6 +27,8 @@ import org.osate.assure.assure.AssuranceCase
 import org.osate.assure.assure.ValidationResult
 import org.osate.assure.assure.ThenResult
 import org.osate.assure.assure.ElseResult
+import org.osate.results.results.ResultIssue
+import org.osate.results.results.ResultIssueType
 
 /**
  * Provides labels for a EObjects.
@@ -61,8 +61,7 @@ class AssureLabelProvider extends org.eclipse.xtext.ui.label.DefaultEObjectLabel
 	}
 	
 	def text(ResultIssue ele) {
-		if (ele.name == null) return (ele.target?.constructLabel?:"")+ ele.constructMessage
-		ele.name + ": " + ele.constructMessage
+		return (ele.target?.constructLabel?:"")+ ele.constructMessage
 	}
 	
 	def text(ElseResult ele) {

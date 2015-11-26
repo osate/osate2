@@ -30,7 +30,7 @@ public class AssureStandaloneSetupGenerated implements ISetup {
 
 	@Override
 	public Injector createInjectorAndDoEMFRegistration() {
-		org.eclipse.xtext.common.TerminalsStandaloneSetup.doSetup();
+		org.osate.results.ResultsStandaloneSetup.doSetup();
 
 		Injector injector = createInjector();
 		register(injector);

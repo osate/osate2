@@ -21,9 +21,9 @@ import org.eclipse.emf.ecore.EObject
 import org.osate.assure.assure.ClaimResult
 import org.osate.assure.assure.VerificationActivityResult
 import org.osate.assure.assure.PreconditionResult
-import org.osate.assure.assure.ResultIssue
 import org.osate.assure.assure.ValidationResult
 import org.osate.assure.assure.AssuranceCase
+import org.osate.results.results.ResultIssue
 
 class AssureEObjectHoverProvider extends DefaultEObjectHoverProvider {
 	override getHoverInfoAsHtml(EObject o){

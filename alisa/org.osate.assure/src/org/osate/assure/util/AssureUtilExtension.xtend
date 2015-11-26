@@ -35,24 +35,29 @@ import org.eclipse.emf.common.util.EList
 import org.eclipse.emf.ecore.EObject
 import org.eclipse.emf.ecore.util.EcoreUtil
 import org.eclipse.xtext.EcoreUtil2
+import org.osate.aadl2.BooleanLiteral
 import org.osate.aadl2.ComponentCategory
 import org.osate.aadl2.ComponentImplementation
+import org.osate.aadl2.IntegerLiteral
 import org.osate.aadl2.NamedElement
+import org.osate.aadl2.NumberValue
+import org.osate.aadl2.RealLiteral
+import org.osate.aadl2.StringLiteral
+import org.osate.aadl2.UnitLiteral
 import org.osate.aadl2.instance.ComponentInstance
 import org.osate.aadl2.instance.ConnectionInstance
 import org.osate.aadl2.instance.InstanceObject
 import org.osate.aadl2.instance.SystemInstance
 import org.osate.aadl2.modelsupport.AadlConstants
 import org.osate.aadl2.modelsupport.resources.OsateResourceUtil
+import org.osate.aadl2.util.Aadl2Util
+import org.osate.alisa.common.util.CommonUtilExtension
 import org.osate.assure.assure.AssuranceCase
-import org.osate.assure.assure.AssureFactory
 import org.osate.assure.assure.AssureResult
 import org.osate.assure.assure.ClaimResult
 import org.osate.assure.assure.ElseResult
 import org.osate.assure.assure.ElseType
 import org.osate.assure.assure.PreconditionResult
-import org.osate.assure.assure.ResultIssue
-import org.osate.assure.assure.ResultIssueType
 import org.osate.assure.assure.ThenResult
 import org.osate.assure.assure.ValidationResult
 import org.osate.assure.assure.VerificationActivityResult
@@ -60,24 +65,15 @@ import org.osate.assure.assure.VerificationExecutionState
 import org.osate.assure.assure.VerificationExpr
 import org.osate.assure.assure.VerificationResult
 import org.osate.assure.assure.VerificationResultState
+import org.osate.results.results.ResultIssue
+import org.osate.results.results.ResultIssueType
+import org.osate.results.results.ResultsFactory
 import org.osate.verify.verify.RefExpr
 import org.osate.verify.verify.VerificationMethod
 
 import static extension org.osate.aadl2.instantiation.InstantiateModel.buildInstanceModelFile
 import static extension org.osate.alisa.common.util.CommonUtilExtension.*
 import static extension org.osate.reqspec.util.ReqSpecUtilExtension.*
-import org.osate.aadl2.ComponentClassifier
-import org.osate.aadl2.Subcomponent
-import org.osate.aadl2.util.Aadl2Util
-import org.osate.alisa.common.common.Description
-import org.osate.alisa.workbench.util.AlisaWorkbenchUtilExtension
-import org.osate.alisa.common.util.CommonUtilExtension
-import org.osate.aadl2.IntegerLiteral
-import org.osate.aadl2.RealLiteral
-import org.osate.aadl2.StringLiteral
-import org.osate.aadl2.BooleanLiteral
-import org.osate.aadl2.NumberValue
-import org.osate.aadl2.UnitLiteral
 
 class AssureUtilExtension {
 
@@ -237,7 +233,7 @@ class AssureUtilExtension {
 	}
 
 	def static ResultIssue addErrorIssue(VerificationResult vr, EObject target, String message, String issueSource) {
-		val issue = AssureFactory.eINSTANCE.createResultIssue
+		val issue = ResultsFactory.eINSTANCE.createResultIssue
 		issue.message = message?:"no message"
 		issue.issueType = ResultIssueType.ERROR;
 		issue.exceptionType = issueSource
@@ -251,7 +247,7 @@ class AssureUtilExtension {
 	}
 
 	def static ResultIssue addInfoIssue(VerificationResult vr, EObject target, String message, String issueSource) {
-		val issue = AssureFactory.eINSTANCE.createResultIssue
+		val issue = ResultsFactory.eINSTANCE.createResultIssue
 		issue.message = message
 		issue.issueType = ResultIssueType.INFO;
 		issue.exceptionType = issueSource
@@ -265,7 +261,7 @@ class AssureUtilExtension {
 	}
 
 	def static ResultIssue addSuccessIssue(VerificationResult vr, EObject target, String message, String issueSource) {
-		val issue = AssureFactory.eINSTANCE.createResultIssue
+		val issue = ResultsFactory.eINSTANCE.createResultIssue
 		issue.message = message
 		issue.issueType = ResultIssueType.SUCCESS;
 		issue.exceptionType = issueSource
@@ -279,7 +275,7 @@ class AssureUtilExtension {
 	}
 
 	def static ResultIssue addWarningIssue(VerificationResult vr, EObject target, String message, String issueSource) {
-		val issue = AssureFactory.eINSTANCE.createResultIssue
+		val issue = ResultsFactory.eINSTANCE.createResultIssue
 		issue.message = message
 		issue.issueType = ResultIssueType.WARNING;
 		issue.exceptionType = issueSource
@@ -307,12 +303,12 @@ class AssureUtilExtension {
 	}
 
 	def static ResultIssue addErrorIssue(ResultIssue ri, EObject target, String message, String issueSource) {
-		val issue = AssureFactory.eINSTANCE.createResultIssue
+		val issue = ResultsFactory.eINSTANCE.createResultIssue
 		issue.message = message
 		issue.issueType = ResultIssueType.ERROR;
 		issue.exceptionType = issueSource
 		if (target instanceof FunctionDefinition) {
-			issue.name = target.name
+			issue.target = target
 		} else if (!(target instanceof FailExpr)) {
 			issue.target = target
 		} else if (target instanceof FailExpr) {
@@ -329,16 +325,15 @@ class AssureUtilExtension {
 	}
 
 	def static ResultIssue addSuccessIssue(ResultIssue ri, EObject target, String message, String issueSource) {
-		val issue = AssureFactory.eINSTANCE.createResultIssue
+		val issue = ResultsFactory.eINSTANCE.createResultIssue
 		issue.message = message
 		issue.issueType = ResultIssueType.SUCCESS;
 		issue.exceptionType = issueSource
 		if (target instanceof FunctionDefinition) {
-			issue.name = target.name
+			issue.target = target
 		} else if (!(target instanceof FailExpr)) {
 			issue.target = target
 		} else if (target instanceof FailExpr) {
-			ri.name = "Fail"
 			if (message.length > 14) {
 				ri.message = message.substring(15)
 			} else {

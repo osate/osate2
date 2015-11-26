@@ -21,7 +21,6 @@ import org.eclipse.emf.ecore.EObject;
 import org.eclipse.xtext.serializer.acceptor.ISemanticSequenceAcceptor;
 import org.eclipse.xtext.serializer.diagnostic.ISemanticSequencerDiagnosticProvider;
 import org.eclipse.xtext.serializer.diagnostic.ISerializationDiagnostic.Acceptor;
-import org.eclipse.xtext.serializer.sequencer.AbstractDelegatingSemanticSequencer;
 import org.eclipse.xtext.serializer.sequencer.GenericSequencer;
 import org.eclipse.xtext.serializer.sequencer.ISemanticSequencer;
 import org.eclipse.xtext.serializer.sequencer.ITransientValueService;
@@ -31,14 +30,21 @@ import org.osate.assure.assure.ClaimResult;
 import org.osate.assure.assure.ElseResult;
 import org.osate.assure.assure.Metrics;
 import org.osate.assure.assure.PreconditionResult;
-import org.osate.assure.assure.ResultIssue;
 import org.osate.assure.assure.ThenResult;
 import org.osate.assure.assure.ValidationResult;
 import org.osate.assure.assure.VerificationActivityResult;
 import org.osate.assure.services.AssureGrammarAccess;
+import org.osate.results.results.IssueReport;
+import org.osate.results.results.ResultContributor;
+import org.osate.results.results.ResultData;
+import org.osate.results.results.ResultIssue;
+import org.osate.results.results.ResultReport;
+import org.osate.results.results.ResultReportCollection;
+import org.osate.results.results.ResultsPackage;
+import org.osate.results.serializer.ResultsSemanticSequencer;
 
 @SuppressWarnings("all")
-public class AssureSemanticSequencer extends AbstractDelegatingSemanticSequencer {
+public class AssureSemanticSequencer extends ResultsSemanticSequencer {
 
 	@Inject
 	private AssureGrammarAccess grammarAccess;
@@ -61,9 +67,6 @@ public class AssureSemanticSequencer extends AbstractDelegatingSemanticSequencer
 			case AssurePackage.PRECONDITION_RESULT:
 				sequence_PreconditionResult(context, (PreconditionResult) semanticObject); 
 				return; 
-			case AssurePackage.RESULT_ISSUE:
-				sequence_ResultIssue(context, (ResultIssue) semanticObject); 
-				return; 
 			case AssurePackage.THEN_RESULT:
 				sequence_ThenResult(context, (ThenResult) semanticObject); 
 				return; 
@@ -72,6 +75,26 @@ public class AssureSemanticSequencer extends AbstractDelegatingSemanticSequencer
 				return; 
 			case AssurePackage.VERIFICATION_ACTIVITY_RESULT:
 				sequence_VerificationActivityResult(context, (VerificationActivityResult) semanticObject); 
+				return; 
+			}
+		else if(semanticObject.eClass().getEPackage() == ResultsPackage.eINSTANCE) switch(semanticObject.eClass().getClassifierID()) {
+			case ResultsPackage.ISSUE_REPORT:
+				sequence_IssueReport(context, (IssueReport) semanticObject); 
+				return; 
+			case ResultsPackage.RESULT_CONTRIBUTOR:
+				sequence_ResultContributor(context, (ResultContributor) semanticObject); 
+				return; 
+			case ResultsPackage.RESULT_DATA:
+				sequence_ResultData(context, (ResultData) semanticObject); 
+				return; 
+			case ResultsPackage.RESULT_ISSUE:
+				sequence_ResultIssue(context, (ResultIssue) semanticObject); 
+				return; 
+			case ResultsPackage.RESULT_REPORT:
+				sequence_ResultReport(context, (ResultReport) semanticObject); 
+				return; 
+			case ResultsPackage.RESULT_REPORT_COLLECTION:
+				sequence_ResultReportCollection(context, (ResultReportCollection) semanticObject); 
 				return; 
 			}
 		if (errorAcceptor != null) errorAcceptor.accept(diagnosticProvider.createInvalidContextOrTypeDiagnostic(semanticObject, context));
@@ -152,22 +175,6 @@ public class AssureSemanticSequencer extends AbstractDelegatingSemanticSequencer
 	 *     )
 	 */
 	protected void sequence_PreconditionResult(EObject context, PreconditionResult semanticObject) {
-		genericSequencer.createSequence(context, semanticObject);
-	}
-	
-	
-	/**
-	 * Constraint:
-	 *     (
-	 *         issueType=ResultIssueType 
-	 *         name=ID? 
-	 *         message=STRING 
-	 *         exceptionType=STRING? 
-	 *         target=[EObject|URIID]? 
-	 *         issues+=ResultIssue*
-	 *     )
-	 */
-	protected void sequence_ResultIssue(EObject context, ResultIssue semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
 	}
 	

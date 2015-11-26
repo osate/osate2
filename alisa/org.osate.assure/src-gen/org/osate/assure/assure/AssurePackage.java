@@ -583,79 +583,6 @@ public interface AssurePackage extends EPackage
   int METRICS_FEATURE_COUNT = 10;
 
   /**
-   * The meta object id for the '{@link org.osate.assure.assure.impl.ResultIssueImpl <em>Result Issue</em>}' class.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @see org.osate.assure.assure.impl.ResultIssueImpl
-   * @see org.osate.assure.assure.impl.AssurePackageImpl#getResultIssue()
-   * @generated
-   */
-  int RESULT_ISSUE = 8;
-
-  /**
-   * The feature id for the '<em><b>Issue Type</b></em>' attribute.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int RESULT_ISSUE__ISSUE_TYPE = 0;
-
-  /**
-   * The feature id for the '<em><b>Name</b></em>' attribute.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int RESULT_ISSUE__NAME = 1;
-
-  /**
-   * The feature id for the '<em><b>Message</b></em>' attribute.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int RESULT_ISSUE__MESSAGE = 2;
-
-  /**
-   * The feature id for the '<em><b>Exception Type</b></em>' attribute.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int RESULT_ISSUE__EXCEPTION_TYPE = 3;
-
-  /**
-   * The feature id for the '<em><b>Target</b></em>' reference.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int RESULT_ISSUE__TARGET = 4;
-
-  /**
-   * The feature id for the '<em><b>Issues</b></em>' containment reference list.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int RESULT_ISSUE__ISSUES = 5;
-
-  /**
-   * The number of structural features of the '<em>Result Issue</em>' class.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int RESULT_ISSUE_FEATURE_COUNT = 6;
-
-  /**
    * The meta object id for the '{@link org.osate.assure.assure.impl.PreconditionResultImpl <em>Precondition Result</em>}' class.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -663,7 +590,7 @@ public interface AssurePackage extends EPackage
    * @see org.osate.assure.assure.impl.AssurePackageImpl#getPreconditionResult()
    * @generated
    */
-  int PRECONDITION_RESULT = 9;
+  int PRECONDITION_RESULT = 8;
 
   /**
    * The feature id for the '<em><b>Metrics</b></em>' containment reference.
@@ -745,7 +672,7 @@ public interface AssurePackage extends EPackage
    * @see org.osate.assure.assure.impl.AssurePackageImpl#getValidationResult()
    * @generated
    */
-  int VALIDATION_RESULT = 10;
+  int VALIDATION_RESULT = 9;
 
   /**
    * The feature id for the '<em><b>Metrics</b></em>' containment reference.
@@ -827,7 +754,7 @@ public interface AssurePackage extends EPackage
    * @see org.osate.assure.assure.impl.AssurePackageImpl#getVerificationActivityResult()
    * @generated
    */
-  int VERIFICATION_ACTIVITY_RESULT = 11;
+  int VERIFICATION_ACTIVITY_RESULT = 10;
 
   /**
    * The feature id for the '<em><b>Metrics</b></em>' containment reference.
@@ -927,17 +854,7 @@ public interface AssurePackage extends EPackage
    * @see org.osate.assure.assure.impl.AssurePackageImpl#getElseType()
    * @generated
    */
-  int ELSE_TYPE = 12;
-
-  /**
-   * The meta object id for the '{@link org.osate.assure.assure.ResultIssueType <em>Result Issue Type</em>}' enum.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @see org.osate.assure.assure.ResultIssueType
-   * @see org.osate.assure.assure.impl.AssurePackageImpl#getResultIssueType()
-   * @generated
-   */
-  int RESULT_ISSUE_TYPE = 13;
+  int ELSE_TYPE = 11;
 
   /**
    * The meta object id for the '{@link org.osate.assure.assure.VerificationResultState <em>Verification Result State</em>}' enum.
@@ -947,7 +864,7 @@ public interface AssurePackage extends EPackage
    * @see org.osate.assure.assure.impl.AssurePackageImpl#getVerificationResultState()
    * @generated
    */
-  int VERIFICATION_RESULT_STATE = 14;
+  int VERIFICATION_RESULT_STATE = 12;
 
   /**
    * The meta object id for the '{@link org.osate.assure.assure.VerificationExecutionState <em>Verification Execution State</em>}' enum.
@@ -957,7 +874,7 @@ public interface AssurePackage extends EPackage
    * @see org.osate.assure.assure.impl.AssurePackageImpl#getVerificationExecutionState()
    * @generated
    */
-  int VERIFICATION_EXECUTION_STATE = 15;
+  int VERIFICATION_EXECUTION_STATE = 13;
 
 
   /**
@@ -1415,82 +1332,6 @@ public interface AssurePackage extends EPackage
   EAttribute getMetrics_Weight();
 
   /**
-   * Returns the meta object for class '{@link org.osate.assure.assure.ResultIssue <em>Result Issue</em>}'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return the meta object for class '<em>Result Issue</em>'.
-   * @see org.osate.assure.assure.ResultIssue
-   * @generated
-   */
-  EClass getResultIssue();
-
-  /**
-   * Returns the meta object for the attribute '{@link org.osate.assure.assure.ResultIssue#getIssueType <em>Issue Type</em>}'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return the meta object for the attribute '<em>Issue Type</em>'.
-   * @see org.osate.assure.assure.ResultIssue#getIssueType()
-   * @see #getResultIssue()
-   * @generated
-   */
-  EAttribute getResultIssue_IssueType();
-
-  /**
-   * Returns the meta object for the attribute '{@link org.osate.assure.assure.ResultIssue#getName <em>Name</em>}'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return the meta object for the attribute '<em>Name</em>'.
-   * @see org.osate.assure.assure.ResultIssue#getName()
-   * @see #getResultIssue()
-   * @generated
-   */
-  EAttribute getResultIssue_Name();
-
-  /**
-   * Returns the meta object for the attribute '{@link org.osate.assure.assure.ResultIssue#getMessage <em>Message</em>}'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return the meta object for the attribute '<em>Message</em>'.
-   * @see org.osate.assure.assure.ResultIssue#getMessage()
-   * @see #getResultIssue()
-   * @generated
-   */
-  EAttribute getResultIssue_Message();
-
-  /**
-   * Returns the meta object for the attribute '{@link org.osate.assure.assure.ResultIssue#getExceptionType <em>Exception Type</em>}'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return the meta object for the attribute '<em>Exception Type</em>'.
-   * @see org.osate.assure.assure.ResultIssue#getExceptionType()
-   * @see #getResultIssue()
-   * @generated
-   */
-  EAttribute getResultIssue_ExceptionType();
-
-  /**
-   * Returns the meta object for the reference '{@link org.osate.assure.assure.ResultIssue#getTarget <em>Target</em>}'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return the meta object for the reference '<em>Target</em>'.
-   * @see org.osate.assure.assure.ResultIssue#getTarget()
-   * @see #getResultIssue()
-   * @generated
-   */
-  EReference getResultIssue_Target();
-
-  /**
-   * Returns the meta object for the containment reference list '{@link org.osate.assure.assure.ResultIssue#getIssues <em>Issues</em>}'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return the meta object for the containment reference list '<em>Issues</em>'.
-   * @see org.osate.assure.assure.ResultIssue#getIssues()
-   * @see #getResultIssue()
-   * @generated
-   */
-  EReference getResultIssue_Issues();
-
-  /**
    * Returns the meta object for class '{@link org.osate.assure.assure.PreconditionResult <em>Precondition Result</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -1584,16 +1425,6 @@ public interface AssurePackage extends EPackage
    * @generated
    */
   EEnum getElseType();
-
-  /**
-   * Returns the meta object for enum '{@link org.osate.assure.assure.ResultIssueType <em>Result Issue Type</em>}'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return the meta object for enum '<em>Result Issue Type</em>'.
-   * @see org.osate.assure.assure.ResultIssueType
-   * @generated
-   */
-  EEnum getResultIssueType();
 
   /**
    * Returns the meta object for enum '{@link org.osate.assure.assure.VerificationResultState <em>Verification Result State</em>}'.
@@ -1991,64 +1822,6 @@ public interface AssurePackage extends EPackage
     EAttribute METRICS__WEIGHT = eINSTANCE.getMetrics_Weight();
 
     /**
-     * The meta object literal for the '{@link org.osate.assure.assure.impl.ResultIssueImpl <em>Result Issue</em>}' class.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @see org.osate.assure.assure.impl.ResultIssueImpl
-     * @see org.osate.assure.assure.impl.AssurePackageImpl#getResultIssue()
-     * @generated
-     */
-    EClass RESULT_ISSUE = eINSTANCE.getResultIssue();
-
-    /**
-     * The meta object literal for the '<em><b>Issue Type</b></em>' attribute feature.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
-    EAttribute RESULT_ISSUE__ISSUE_TYPE = eINSTANCE.getResultIssue_IssueType();
-
-    /**
-     * The meta object literal for the '<em><b>Name</b></em>' attribute feature.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
-    EAttribute RESULT_ISSUE__NAME = eINSTANCE.getResultIssue_Name();
-
-    /**
-     * The meta object literal for the '<em><b>Message</b></em>' attribute feature.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
-    EAttribute RESULT_ISSUE__MESSAGE = eINSTANCE.getResultIssue_Message();
-
-    /**
-     * The meta object literal for the '<em><b>Exception Type</b></em>' attribute feature.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
-    EAttribute RESULT_ISSUE__EXCEPTION_TYPE = eINSTANCE.getResultIssue_ExceptionType();
-
-    /**
-     * The meta object literal for the '<em><b>Target</b></em>' reference feature.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
-    EReference RESULT_ISSUE__TARGET = eINSTANCE.getResultIssue_Target();
-
-    /**
-     * The meta object literal for the '<em><b>Issues</b></em>' containment reference list feature.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
-    EReference RESULT_ISSUE__ISSUES = eINSTANCE.getResultIssue_Issues();
-
-    /**
      * The meta object literal for the '{@link org.osate.assure.assure.impl.PreconditionResultImpl <em>Precondition Result</em>}' class.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
@@ -2127,16 +1900,6 @@ public interface AssurePackage extends EPackage
      * @generated
      */
     EEnum ELSE_TYPE = eINSTANCE.getElseType();
-
-    /**
-     * The meta object literal for the '{@link org.osate.assure.assure.ResultIssueType <em>Result Issue Type</em>}' enum.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @see org.osate.assure.assure.ResultIssueType
-     * @see org.osate.assure.assure.impl.AssurePackageImpl#getResultIssueType()
-     * @generated
-     */
-    EEnum RESULT_ISSUE_TYPE = eINSTANCE.getResultIssueType();
 
     /**
      * The meta object literal for the '{@link org.osate.assure.assure.VerificationResultState <em>Verification Result State</em>}' enum.
