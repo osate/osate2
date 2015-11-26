@@ -665,6 +665,7 @@ class AssureUtilExtension {
 	 * This method is used in the process and set result methods
 	 */
 	private def static void addTo(AssureResult subresult, AssureResult result) {
+		if (subresult == null) return
 		val counts = result.metrics
 		val subcounts = subresult.metrics
 		counts.failCount = counts.failCount + subcounts.failCount
