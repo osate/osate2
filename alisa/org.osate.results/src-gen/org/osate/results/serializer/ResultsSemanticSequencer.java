@@ -28,10 +28,10 @@ import org.eclipse.xtext.serializer.sequencer.ISemanticNodeProvider.INodesForEOb
 import org.eclipse.xtext.serializer.sequencer.ISemanticSequencer;
 import org.eclipse.xtext.serializer.sequencer.ITransientValueService;
 import org.eclipse.xtext.serializer.sequencer.ITransientValueService.ValueTransient;
-import org.osate.results.results.IssuesReport;
-import org.osate.results.results.ReportIssue;
+import org.osate.results.results.IssueReport;
 import org.osate.results.results.ResultContributor;
 import org.osate.results.results.ResultData;
+import org.osate.results.results.ResultIssue;
 import org.osate.results.results.ResultReport;
 import org.osate.results.results.ResultReportCollection;
 import org.osate.results.results.ResultsPackage;
@@ -46,17 +46,17 @@ public class ResultsSemanticSequencer extends AbstractDelegatingSemanticSequence
 	@Override
 	public void createSequence(EObject context, EObject semanticObject) {
 		if(semanticObject.eClass().getEPackage() == ResultsPackage.eINSTANCE) switch(semanticObject.eClass().getClassifierID()) {
-			case ResultsPackage.ISSUES_REPORT:
-				sequence_IssuesReport(context, (IssuesReport) semanticObject); 
-				return; 
-			case ResultsPackage.REPORT_ISSUE:
-				sequence_ReportIssue(context, (ReportIssue) semanticObject); 
+			case ResultsPackage.ISSUE_REPORT:
+				sequence_IssueReport(context, (IssueReport) semanticObject); 
 				return; 
 			case ResultsPackage.RESULT_CONTRIBUTOR:
 				sequence_ResultContributor(context, (ResultContributor) semanticObject); 
 				return; 
 			case ResultsPackage.RESULT_DATA:
 				sequence_ResultData(context, (ResultData) semanticObject); 
+				return; 
+			case ResultsPackage.RESULT_ISSUE:
+				sequence_ResultIssue(context, (ResultIssue) semanticObject); 
 				return; 
 			case ResultsPackage.RESULT_REPORT:
 				sequence_ResultReport(context, (ResultReport) semanticObject); 
@@ -70,38 +70,24 @@ public class ResultsSemanticSequencer extends AbstractDelegatingSemanticSequence
 	
 	/**
 	 * Constraint:
-	 *     (name=ID title=STRING? target=[EObject|URIID] decription=STRING? issues+=ReportIssue*)
+	 *     (issueType=ResultIssueType message=STRING target=[EObject|URIID]? exceptionType=STRING? issues+=ResultIssue*)
 	 */
-	protected void sequence_IssuesReport(EObject context, IssuesReport semanticObject) {
+	protected void sequence_IssueReport(EObject context, IssueReport semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
 	}
 	
 	
 	/**
 	 * Constraint:
-	 *     (issueType=ReportIssueType title=STRING target=[EObject|URIID])
-	 */
-	protected void sequence_ReportIssue(EObject context, ReportIssue semanticObject) {
-		if(errorAcceptor != null) {
-			if(transientValues.isValueTransient(semanticObject, ResultsPackage.Literals.REPORT_ISSUE__ISSUE_TYPE) == ValueTransient.YES)
-				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, ResultsPackage.Literals.REPORT_ISSUE__ISSUE_TYPE));
-			if(transientValues.isValueTransient(semanticObject, ResultsPackage.Literals.REPORT_ISSUE__TITLE) == ValueTransient.YES)
-				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, ResultsPackage.Literals.REPORT_ISSUE__TITLE));
-			if(transientValues.isValueTransient(semanticObject, ResultsPackage.Literals.REPORT_ISSUE__TARGET) == ValueTransient.YES)
-				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, ResultsPackage.Literals.REPORT_ISSUE__TARGET));
-		}
-		INodesForEObjectProvider nodes = createNodeProvider(semanticObject);
-		SequenceFeeder feeder = createSequencerFeeder(semanticObject, nodes);
-		feeder.accept(grammarAccess.getReportIssueAccess().getIssueTypeReportIssueTypeEnumRuleCall_0_0(), semanticObject.getIssueType());
-		feeder.accept(grammarAccess.getReportIssueAccess().getTitleSTRINGTerminalRuleCall_1_0(), semanticObject.getTitle());
-		feeder.accept(grammarAccess.getReportIssueAccess().getTargetEObjectURIIDParserRuleCall_2_0_1(), semanticObject.getTarget());
-		feeder.finish();
-	}
-	
-	
-	/**
-	 * Constraint:
-	 *     (contributor=[EObject|URIID] cell+=STRING+ issues+=ReportIssue* subcontributor+=ResultContributor*)
+	 *     (
+	 *         target=[EObject|URIID] 
+	 *         issueType=ResultIssueType 
+	 *         message=STRING 
+	 *         exceptionType=STRING? 
+	 *         cell+=STRING+ 
+	 *         issues+=ResultIssue* 
+	 *         subcontributor+=ResultContributor*
+	 *     )
 	 */
 	protected void sequence_ResultContributor(EObject context, ResultContributor semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
@@ -129,13 +115,22 @@ public class ResultsSemanticSequencer extends AbstractDelegatingSemanticSequence
 	
 	/**
 	 * Constraint:
+	 *     (issueType=ResultIssueType message=STRING target=[EObject|URIID]? exceptionType=STRING? issues+=ResultIssue*)
+	 */
+	protected void sequence_ResultIssue(EObject context, ResultIssue semanticObject) {
+		genericSequencer.createSequence(context, semanticObject);
+	}
+	
+	
+	/**
+	 * Constraint:
 	 *     (
 	 *         name=ID 
 	 *         title=STRING? 
 	 *         target=[EObject|URIID] 
 	 *         decription=STRING? 
 	 *         content+=ResultReport* 
-	 *         issues+=ReportIssue*
+	 *         issues+=ResultIssue?
 	 *     )
 	 */
 	protected void sequence_ResultReportCollection(EObject context, ResultReportCollection semanticObject) {
@@ -149,10 +144,13 @@ public class ResultsSemanticSequencer extends AbstractDelegatingSemanticSequence
 	 *         name=ID 
 	 *         title=STRING? 
 	 *         target=[EObject|URIID] 
+	 *         issueType=ResultIssueType 
+	 *         message=STRING 
+	 *         exceptionType=STRING? 
 	 *         decription=STRING? 
 	 *         (heading=STRING content+=ResultContributor*)? 
 	 *         resultData+=ResultData* 
-	 *         issues+=ReportIssue*
+	 *         issues+=ResultIssue?
 	 *     )
 	 */
 	protected void sequence_ResultReport(EObject context, ResultReport semanticObject) {

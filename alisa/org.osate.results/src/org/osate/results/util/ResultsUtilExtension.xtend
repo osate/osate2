@@ -17,12 +17,13 @@
 package org.osate.results.util
 
 import org.eclipse.emf.ecore.EObject
-import org.osate.results.results.ReportIssueType
+import org.osate.results.results.ResultIssueType
 import org.osate.results.results.ResultContributor
 import org.osate.results.results.ResultReport
 import org.osate.results.results.ResultReportCollection
 import org.osate.results.results.ResultsFactory
-import org.osate.results.results.ResultIssueHolder
+import org.osate.results.results.ResultIssue
+import org.osate.results.results.ResultIssue
 
 class ResultsUtilExtension {
 	def static String getResultValue(ResultReport report, String resultName){
@@ -32,34 +33,34 @@ class ResultsUtilExtension {
 		""
 	} 
 	
-	def static void addError(ResultIssueHolder holder, String msg, EObject target){
-		holder.addIssue(msg, target,  ReportIssueType.ERROR)
+	def static void addError(ResultIssue holder, String msg, EObject target){
+		holder.addIssue(msg, target,  ResultIssueType.ERROR)
 	} 
 	
-	def static void addWarning(ResultIssueHolder holder, String msg, EObject target){
-		holder.addIssue(msg, target,  ReportIssueType.WARNING)
+	def static void addWarning(ResultIssue holder, String msg, EObject target){
+		holder.addIssue(msg, target,  ResultIssueType.WARNING)
 	} 
 	
-	def static void addInfo(ResultIssueHolder holder, String msg, EObject target){
-		holder.addIssue(msg, target,  ReportIssueType.INFO)
+	def static void addInfo(ResultIssue holder, String msg, EObject target){
+		holder.addIssue(msg, target,  ResultIssueType.INFO)
 	} 
 	
-	def static void addSuccess(ResultIssueHolder holder, String msg, EObject target){
-		holder.addIssue(msg, target,  ReportIssueType.SUCCESS)
+	def static void addSuccess(ResultIssue holder, String msg, EObject target){
+		holder.addIssue(msg, target,  ResultIssueType.SUCCESS)
 	} 
 	
-	def static void addFail(ResultIssueHolder holder, String msg, EObject target){
-		holder.addIssue(msg, target,  ReportIssueType.FAIL)
+	def static void addFail(ResultIssue holder, String msg, EObject target){
+		holder.addIssue(msg, target,  ResultIssueType.FAIL)
 	} 
 	
-	def static void addUnknown(ResultIssueHolder holder, String msg, EObject target){
-		holder.addIssue(msg, target,  ReportIssueType.UNKNOWN)
+	def static void addUnknown(ResultIssue holder, String msg, EObject target){
+		holder.addIssue(msg, target,  ResultIssueType.UNKNOWN)
 	} 
 	
-	def static void addIssue (ResultIssueHolder holder, String msg, EObject target,  ReportIssueType rit){
-		val issue = ResultsFactory.eINSTANCE.createReportIssue
+	def static void addIssue (ResultIssue holder, String msg, EObject target,  ResultIssueType rit){
+		val issue = ResultsFactory.eINSTANCE.createResultIssue
 		issue.target = target
-		issue.title = msg
+		issue.message = msg
 		issue.issueType = rit
 		holder.issues.add(issue)
 	} 
@@ -85,7 +86,7 @@ class ResultsUtilExtension {
 	}
 	
 	def static ResultContributor addReportContributor(ResultReport report, EObject target){
-		val res = ResultsFactory.eINSTANCE.createResultContributor => [ contributor = target]
+		val res = ResultsFactory.eINSTANCE.createResultContributor => [ it.target = target]
 		report.content += res
 		res
 	}

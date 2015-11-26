@@ -18,32 +18,29 @@ package org.osate.results.results.impl;
 import org.eclipse.emf.common.notify.Notification;
 
 import org.eclipse.emf.ecore.EClass;
-import org.eclipse.emf.ecore.EObject;
-import org.eclipse.emf.ecore.InternalEObject;
 
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
-import org.eclipse.emf.ecore.impl.MinimalEObjectImpl;
 
-import org.osate.results.results.ReportIssue;
-import org.osate.results.results.ReportIssueType;
+import org.osate.results.results.ResultIssue;
+import org.osate.results.results.ResultIssueType;
 import org.osate.results.results.ResultsPackage;
 
 /**
  * <!-- begin-user-doc -->
- * An implementation of the model object '<em><b>Report Issue</b></em>'.
+ * An implementation of the model object '<em><b>Result Issue</b></em>'.
  * <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
  * </p>
  * <ul>
- *   <li>{@link org.osate.results.results.impl.ReportIssueImpl#getIssueType <em>Issue Type</em>}</li>
- *   <li>{@link org.osate.results.results.impl.ReportIssueImpl#getTitle <em>Title</em>}</li>
- *   <li>{@link org.osate.results.results.impl.ReportIssueImpl#getTarget <em>Target</em>}</li>
+ *   <li>{@link org.osate.results.results.impl.ResultIssueImpl#getIssueType <em>Issue Type</em>}</li>
+ *   <li>{@link org.osate.results.results.impl.ResultIssueImpl#getMessage <em>Message</em>}</li>
+ *   <li>{@link org.osate.results.results.impl.ResultIssueImpl#getExceptionType <em>Exception Type</em>}</li>
  * </ul>
  *
  * @generated
  */
-public class ReportIssueImpl extends MinimalEObjectImpl.Container implements ReportIssue
+public class ResultIssueImpl extends ResultReportsImpl implements ResultIssue
 {
   /**
    * The default value of the '{@link #getIssueType() <em>Issue Type</em>}' attribute.
@@ -53,7 +50,7 @@ public class ReportIssueImpl extends MinimalEObjectImpl.Container implements Rep
    * @generated
    * @ordered
    */
-  protected static final ReportIssueType ISSUE_TYPE_EDEFAULT = ReportIssueType.ERROR;
+  protected static final ResultIssueType ISSUE_TYPE_EDEFAULT = ResultIssueType.ERROR;
 
   /**
    * The cached value of the '{@link #getIssueType() <em>Issue Type</em>}' attribute.
@@ -63,44 +60,54 @@ public class ReportIssueImpl extends MinimalEObjectImpl.Container implements Rep
    * @generated
    * @ordered
    */
-  protected ReportIssueType issueType = ISSUE_TYPE_EDEFAULT;
+  protected ResultIssueType issueType = ISSUE_TYPE_EDEFAULT;
 
   /**
-   * The default value of the '{@link #getTitle() <em>Title</em>}' attribute.
+   * The default value of the '{@link #getMessage() <em>Message</em>}' attribute.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @see #getTitle()
+   * @see #getMessage()
    * @generated
    * @ordered
    */
-  protected static final String TITLE_EDEFAULT = null;
+  protected static final String MESSAGE_EDEFAULT = null;
 
   /**
-   * The cached value of the '{@link #getTitle() <em>Title</em>}' attribute.
+   * The cached value of the '{@link #getMessage() <em>Message</em>}' attribute.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @see #getTitle()
+   * @see #getMessage()
    * @generated
    * @ordered
    */
-  protected String title = TITLE_EDEFAULT;
+  protected String message = MESSAGE_EDEFAULT;
 
   /**
-   * The cached value of the '{@link #getTarget() <em>Target</em>}' reference.
+   * The default value of the '{@link #getExceptionType() <em>Exception Type</em>}' attribute.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @see #getTarget()
+   * @see #getExceptionType()
    * @generated
    * @ordered
    */
-  protected EObject target;
+  protected static final String EXCEPTION_TYPE_EDEFAULT = null;
+
+  /**
+   * The cached value of the '{@link #getExceptionType() <em>Exception Type</em>}' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see #getExceptionType()
+   * @generated
+   * @ordered
+   */
+  protected String exceptionType = EXCEPTION_TYPE_EDEFAULT;
 
   /**
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    */
-  protected ReportIssueImpl()
+  protected ResultIssueImpl()
   {
     super();
   }
@@ -113,7 +120,7 @@ public class ReportIssueImpl extends MinimalEObjectImpl.Container implements Rep
   @Override
   protected EClass eStaticClass()
   {
-    return ResultsPackage.Literals.REPORT_ISSUE;
+    return ResultsPackage.Literals.RESULT_ISSUE;
   }
 
   /**
@@ -121,7 +128,7 @@ public class ReportIssueImpl extends MinimalEObjectImpl.Container implements Rep
    * <!-- end-user-doc -->
    * @generated
    */
-  public ReportIssueType getIssueType()
+  public ResultIssueType getIssueType()
   {
     return issueType;
   }
@@ -131,12 +138,12 @@ public class ReportIssueImpl extends MinimalEObjectImpl.Container implements Rep
    * <!-- end-user-doc -->
    * @generated
    */
-  public void setIssueType(ReportIssueType newIssueType)
+  public void setIssueType(ResultIssueType newIssueType)
   {
-    ReportIssueType oldIssueType = issueType;
+    ResultIssueType oldIssueType = issueType;
     issueType = newIssueType == null ? ISSUE_TYPE_EDEFAULT : newIssueType;
     if (eNotificationRequired())
-      eNotify(new ENotificationImpl(this, Notification.SET, ResultsPackage.REPORT_ISSUE__ISSUE_TYPE, oldIssueType, issueType));
+      eNotify(new ENotificationImpl(this, Notification.SET, ResultsPackage.RESULT_ISSUE__ISSUE_TYPE, oldIssueType, issueType));
   }
 
   /**
@@ -144,9 +151,9 @@ public class ReportIssueImpl extends MinimalEObjectImpl.Container implements Rep
    * <!-- end-user-doc -->
    * @generated
    */
-  public String getTitle()
+  public String getMessage()
   {
-    return title;
+    return message;
   }
 
   /**
@@ -154,12 +161,12 @@ public class ReportIssueImpl extends MinimalEObjectImpl.Container implements Rep
    * <!-- end-user-doc -->
    * @generated
    */
-  public void setTitle(String newTitle)
+  public void setMessage(String newMessage)
   {
-    String oldTitle = title;
-    title = newTitle;
+    String oldMessage = message;
+    message = newMessage;
     if (eNotificationRequired())
-      eNotify(new ENotificationImpl(this, Notification.SET, ResultsPackage.REPORT_ISSUE__TITLE, oldTitle, title));
+      eNotify(new ENotificationImpl(this, Notification.SET, ResultsPackage.RESULT_ISSUE__MESSAGE, oldMessage, message));
   }
 
   /**
@@ -167,19 +174,9 @@ public class ReportIssueImpl extends MinimalEObjectImpl.Container implements Rep
    * <!-- end-user-doc -->
    * @generated
    */
-  public EObject getTarget()
+  public String getExceptionType()
   {
-    if (target != null && target.eIsProxy())
-    {
-      InternalEObject oldTarget = (InternalEObject)target;
-      target = eResolveProxy(oldTarget);
-      if (target != oldTarget)
-      {
-        if (eNotificationRequired())
-          eNotify(new ENotificationImpl(this, Notification.RESOLVE, ResultsPackage.REPORT_ISSUE__TARGET, oldTarget, target));
-      }
-    }
-    return target;
+    return exceptionType;
   }
 
   /**
@@ -187,22 +184,12 @@ public class ReportIssueImpl extends MinimalEObjectImpl.Container implements Rep
    * <!-- end-user-doc -->
    * @generated
    */
-  public EObject basicGetTarget()
+  public void setExceptionType(String newExceptionType)
   {
-    return target;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public void setTarget(EObject newTarget)
-  {
-    EObject oldTarget = target;
-    target = newTarget;
+    String oldExceptionType = exceptionType;
+    exceptionType = newExceptionType;
     if (eNotificationRequired())
-      eNotify(new ENotificationImpl(this, Notification.SET, ResultsPackage.REPORT_ISSUE__TARGET, oldTarget, target));
+      eNotify(new ENotificationImpl(this, Notification.SET, ResultsPackage.RESULT_ISSUE__EXCEPTION_TYPE, oldExceptionType, exceptionType));
   }
 
   /**
@@ -215,13 +202,12 @@ public class ReportIssueImpl extends MinimalEObjectImpl.Container implements Rep
   {
     switch (featureID)
     {
-      case ResultsPackage.REPORT_ISSUE__ISSUE_TYPE:
+      case ResultsPackage.RESULT_ISSUE__ISSUE_TYPE:
         return getIssueType();
-      case ResultsPackage.REPORT_ISSUE__TITLE:
-        return getTitle();
-      case ResultsPackage.REPORT_ISSUE__TARGET:
-        if (resolve) return getTarget();
-        return basicGetTarget();
+      case ResultsPackage.RESULT_ISSUE__MESSAGE:
+        return getMessage();
+      case ResultsPackage.RESULT_ISSUE__EXCEPTION_TYPE:
+        return getExceptionType();
     }
     return super.eGet(featureID, resolve, coreType);
   }
@@ -236,14 +222,14 @@ public class ReportIssueImpl extends MinimalEObjectImpl.Container implements Rep
   {
     switch (featureID)
     {
-      case ResultsPackage.REPORT_ISSUE__ISSUE_TYPE:
-        setIssueType((ReportIssueType)newValue);
+      case ResultsPackage.RESULT_ISSUE__ISSUE_TYPE:
+        setIssueType((ResultIssueType)newValue);
         return;
-      case ResultsPackage.REPORT_ISSUE__TITLE:
-        setTitle((String)newValue);
+      case ResultsPackage.RESULT_ISSUE__MESSAGE:
+        setMessage((String)newValue);
         return;
-      case ResultsPackage.REPORT_ISSUE__TARGET:
-        setTarget((EObject)newValue);
+      case ResultsPackage.RESULT_ISSUE__EXCEPTION_TYPE:
+        setExceptionType((String)newValue);
         return;
     }
     super.eSet(featureID, newValue);
@@ -259,14 +245,14 @@ public class ReportIssueImpl extends MinimalEObjectImpl.Container implements Rep
   {
     switch (featureID)
     {
-      case ResultsPackage.REPORT_ISSUE__ISSUE_TYPE:
+      case ResultsPackage.RESULT_ISSUE__ISSUE_TYPE:
         setIssueType(ISSUE_TYPE_EDEFAULT);
         return;
-      case ResultsPackage.REPORT_ISSUE__TITLE:
-        setTitle(TITLE_EDEFAULT);
+      case ResultsPackage.RESULT_ISSUE__MESSAGE:
+        setMessage(MESSAGE_EDEFAULT);
         return;
-      case ResultsPackage.REPORT_ISSUE__TARGET:
-        setTarget((EObject)null);
+      case ResultsPackage.RESULT_ISSUE__EXCEPTION_TYPE:
+        setExceptionType(EXCEPTION_TYPE_EDEFAULT);
         return;
     }
     super.eUnset(featureID);
@@ -282,12 +268,12 @@ public class ReportIssueImpl extends MinimalEObjectImpl.Container implements Rep
   {
     switch (featureID)
     {
-      case ResultsPackage.REPORT_ISSUE__ISSUE_TYPE:
+      case ResultsPackage.RESULT_ISSUE__ISSUE_TYPE:
         return issueType != ISSUE_TYPE_EDEFAULT;
-      case ResultsPackage.REPORT_ISSUE__TITLE:
-        return TITLE_EDEFAULT == null ? title != null : !TITLE_EDEFAULT.equals(title);
-      case ResultsPackage.REPORT_ISSUE__TARGET:
-        return target != null;
+      case ResultsPackage.RESULT_ISSUE__MESSAGE:
+        return MESSAGE_EDEFAULT == null ? message != null : !MESSAGE_EDEFAULT.equals(message);
+      case ResultsPackage.RESULT_ISSUE__EXCEPTION_TYPE:
+        return EXCEPTION_TYPE_EDEFAULT == null ? exceptionType != null : !EXCEPTION_TYPE_EDEFAULT.equals(exceptionType);
     }
     return super.eIsSet(featureID);
   }
@@ -305,10 +291,12 @@ public class ReportIssueImpl extends MinimalEObjectImpl.Container implements Rep
     StringBuffer result = new StringBuffer(super.toString());
     result.append(" (issueType: ");
     result.append(issueType);
-    result.append(", title: ");
-    result.append(title);
+    result.append(", message: ");
+    result.append(message);
+    result.append(", exceptionType: ");
+    result.append(exceptionType);
     result.append(')');
     return result.toString();
   }
 
-} //ReportIssueImpl
+} //ResultIssueImpl

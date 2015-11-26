@@ -15,14 +15,24 @@
  */
 package org.osate.results.results.impl;
 
+import java.util.Collection;
+
 import org.eclipse.emf.common.notify.Notification;
+import org.eclipse.emf.common.notify.NotificationChain;
+
+import org.eclipse.emf.common.util.EList;
 
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.InternalEObject;
 
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
+import org.eclipse.emf.ecore.impl.MinimalEObjectImpl;
 
+import org.eclipse.emf.ecore.util.EObjectContainmentEList;
+import org.eclipse.emf.ecore.util.InternalEList;
+
+import org.osate.results.results.ResultIssue;
 import org.osate.results.results.ResultReports;
 import org.osate.results.results.ResultsPackage;
 
@@ -34,56 +44,14 @@ import org.osate.results.results.ResultsPackage;
  * The following features are implemented:
  * </p>
  * <ul>
- *   <li>{@link org.osate.results.results.impl.ResultReportsImpl#getName <em>Name</em>}</li>
- *   <li>{@link org.osate.results.results.impl.ResultReportsImpl#getTitle <em>Title</em>}</li>
  *   <li>{@link org.osate.results.results.impl.ResultReportsImpl#getTarget <em>Target</em>}</li>
- *   <li>{@link org.osate.results.results.impl.ResultReportsImpl#getDecription <em>Decription</em>}</li>
+ *   <li>{@link org.osate.results.results.impl.ResultReportsImpl#getIssues <em>Issues</em>}</li>
  * </ul>
  *
  * @generated
  */
-public class ResultReportsImpl extends ResultIssueHolderImpl implements ResultReports
+public class ResultReportsImpl extends MinimalEObjectImpl.Container implements ResultReports
 {
-  /**
-   * The default value of the '{@link #getName() <em>Name</em>}' attribute.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @see #getName()
-   * @generated
-   * @ordered
-   */
-  protected static final String NAME_EDEFAULT = null;
-
-  /**
-   * The cached value of the '{@link #getName() <em>Name</em>}' attribute.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @see #getName()
-   * @generated
-   * @ordered
-   */
-  protected String name = NAME_EDEFAULT;
-
-  /**
-   * The default value of the '{@link #getTitle() <em>Title</em>}' attribute.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @see #getTitle()
-   * @generated
-   * @ordered
-   */
-  protected static final String TITLE_EDEFAULT = null;
-
-  /**
-   * The cached value of the '{@link #getTitle() <em>Title</em>}' attribute.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @see #getTitle()
-   * @generated
-   * @ordered
-   */
-  protected String title = TITLE_EDEFAULT;
-
   /**
    * The cached value of the '{@link #getTarget() <em>Target</em>}' reference.
    * <!-- begin-user-doc -->
@@ -95,24 +63,14 @@ public class ResultReportsImpl extends ResultIssueHolderImpl implements ResultRe
   protected EObject target;
 
   /**
-   * The default value of the '{@link #getDecription() <em>Decription</em>}' attribute.
+   * The cached value of the '{@link #getIssues() <em>Issues</em>}' containment reference list.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @see #getDecription()
+   * @see #getIssues()
    * @generated
    * @ordered
    */
-  protected static final String DECRIPTION_EDEFAULT = null;
-
-  /**
-   * The cached value of the '{@link #getDecription() <em>Decription</em>}' attribute.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @see #getDecription()
-   * @generated
-   * @ordered
-   */
-  protected String decription = DECRIPTION_EDEFAULT;
+  protected EList<ResultIssue> issues;
 
   /**
    * <!-- begin-user-doc -->
@@ -133,52 +91,6 @@ public class ResultReportsImpl extends ResultIssueHolderImpl implements ResultRe
   protected EClass eStaticClass()
   {
     return ResultsPackage.Literals.RESULT_REPORTS;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public String getName()
-  {
-    return name;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public void setName(String newName)
-  {
-    String oldName = name;
-    name = newName;
-    if (eNotificationRequired())
-      eNotify(new ENotificationImpl(this, Notification.SET, ResultsPackage.RESULT_REPORTS__NAME, oldName, name));
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public String getTitle()
-  {
-    return title;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public void setTitle(String newTitle)
-  {
-    String oldTitle = title;
-    title = newTitle;
-    if (eNotificationRequired())
-      eNotify(new ENotificationImpl(this, Notification.SET, ResultsPackage.RESULT_REPORTS__TITLE, oldTitle, title));
   }
 
   /**
@@ -229,9 +141,13 @@ public class ResultReportsImpl extends ResultIssueHolderImpl implements ResultRe
    * <!-- end-user-doc -->
    * @generated
    */
-  public String getDecription()
+  public EList<ResultIssue> getIssues()
   {
-    return decription;
+    if (issues == null)
+    {
+      issues = new EObjectContainmentEList<ResultIssue>(ResultIssue.class, this, ResultsPackage.RESULT_REPORTS__ISSUES);
+    }
+    return issues;
   }
 
   /**
@@ -239,12 +155,15 @@ public class ResultReportsImpl extends ResultIssueHolderImpl implements ResultRe
    * <!-- end-user-doc -->
    * @generated
    */
-  public void setDecription(String newDecription)
+  @Override
+  public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs)
   {
-    String oldDecription = decription;
-    decription = newDecription;
-    if (eNotificationRequired())
-      eNotify(new ENotificationImpl(this, Notification.SET, ResultsPackage.RESULT_REPORTS__DECRIPTION, oldDecription, decription));
+    switch (featureID)
+    {
+      case ResultsPackage.RESULT_REPORTS__ISSUES:
+        return ((InternalEList<?>)getIssues()).basicRemove(otherEnd, msgs);
+    }
+    return super.eInverseRemove(otherEnd, featureID, msgs);
   }
 
   /**
@@ -257,15 +176,11 @@ public class ResultReportsImpl extends ResultIssueHolderImpl implements ResultRe
   {
     switch (featureID)
     {
-      case ResultsPackage.RESULT_REPORTS__NAME:
-        return getName();
-      case ResultsPackage.RESULT_REPORTS__TITLE:
-        return getTitle();
       case ResultsPackage.RESULT_REPORTS__TARGET:
         if (resolve) return getTarget();
         return basicGetTarget();
-      case ResultsPackage.RESULT_REPORTS__DECRIPTION:
-        return getDecription();
+      case ResultsPackage.RESULT_REPORTS__ISSUES:
+        return getIssues();
     }
     return super.eGet(featureID, resolve, coreType);
   }
@@ -275,22 +190,18 @@ public class ResultReportsImpl extends ResultIssueHolderImpl implements ResultRe
    * <!-- end-user-doc -->
    * @generated
    */
+  @SuppressWarnings("unchecked")
   @Override
   public void eSet(int featureID, Object newValue)
   {
     switch (featureID)
     {
-      case ResultsPackage.RESULT_REPORTS__NAME:
-        setName((String)newValue);
-        return;
-      case ResultsPackage.RESULT_REPORTS__TITLE:
-        setTitle((String)newValue);
-        return;
       case ResultsPackage.RESULT_REPORTS__TARGET:
         setTarget((EObject)newValue);
         return;
-      case ResultsPackage.RESULT_REPORTS__DECRIPTION:
-        setDecription((String)newValue);
+      case ResultsPackage.RESULT_REPORTS__ISSUES:
+        getIssues().clear();
+        getIssues().addAll((Collection<? extends ResultIssue>)newValue);
         return;
     }
     super.eSet(featureID, newValue);
@@ -306,17 +217,11 @@ public class ResultReportsImpl extends ResultIssueHolderImpl implements ResultRe
   {
     switch (featureID)
     {
-      case ResultsPackage.RESULT_REPORTS__NAME:
-        setName(NAME_EDEFAULT);
-        return;
-      case ResultsPackage.RESULT_REPORTS__TITLE:
-        setTitle(TITLE_EDEFAULT);
-        return;
       case ResultsPackage.RESULT_REPORTS__TARGET:
         setTarget((EObject)null);
         return;
-      case ResultsPackage.RESULT_REPORTS__DECRIPTION:
-        setDecription(DECRIPTION_EDEFAULT);
+      case ResultsPackage.RESULT_REPORTS__ISSUES:
+        getIssues().clear();
         return;
     }
     super.eUnset(featureID);
@@ -332,37 +237,12 @@ public class ResultReportsImpl extends ResultIssueHolderImpl implements ResultRe
   {
     switch (featureID)
     {
-      case ResultsPackage.RESULT_REPORTS__NAME:
-        return NAME_EDEFAULT == null ? name != null : !NAME_EDEFAULT.equals(name);
-      case ResultsPackage.RESULT_REPORTS__TITLE:
-        return TITLE_EDEFAULT == null ? title != null : !TITLE_EDEFAULT.equals(title);
       case ResultsPackage.RESULT_REPORTS__TARGET:
         return target != null;
-      case ResultsPackage.RESULT_REPORTS__DECRIPTION:
-        return DECRIPTION_EDEFAULT == null ? decription != null : !DECRIPTION_EDEFAULT.equals(decription);
+      case ResultsPackage.RESULT_REPORTS__ISSUES:
+        return issues != null && !issues.isEmpty();
     }
     return super.eIsSet(featureID);
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  @Override
-  public String toString()
-  {
-    if (eIsProxy()) return super.toString();
-
-    StringBuffer result = new StringBuffer(super.toString());
-    result.append(" (name: ");
-    result.append(name);
-    result.append(", title: ");
-    result.append(title);
-    result.append(", decription: ");
-    result.append(decription);
-    result.append(')');
-    return result.toString();
   }
 
 } //ResultReportsImpl

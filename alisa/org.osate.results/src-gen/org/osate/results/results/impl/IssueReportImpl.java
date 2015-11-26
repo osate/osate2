@@ -17,24 +17,24 @@ package org.osate.results.results.impl;
 
 import org.eclipse.emf.ecore.EClass;
 
-import org.osate.results.results.IssuesReport;
+import org.osate.results.results.IssueReport;
 import org.osate.results.results.ResultsPackage;
 
 /**
  * <!-- begin-user-doc -->
- * An implementation of the model object '<em><b>Issues Report</b></em>'.
+ * An implementation of the model object '<em><b>Issue Report</b></em>'.
  * <!-- end-user-doc -->
  *
  * @generated
  */
-public class IssuesReportImpl extends ResultReportsImpl implements IssuesReport
+public class IssueReportImpl extends ResultIssueImpl implements IssueReport
 {
   /**
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    */
-  protected IssuesReportImpl()
+  protected IssueReportImpl()
   {
     super();
   }
@@ -47,7 +47,7 @@ public class IssuesReportImpl extends ResultReportsImpl implements IssuesReport
   @Override
   protected EClass eStaticClass()
   {
-    return ResultsPackage.Literals.ISSUES_REPORT;
+    return ResultsPackage.Literals.ISSUE_REPORT;
   }
 
-} //IssuesReportImpl
+} //IssueReportImpl

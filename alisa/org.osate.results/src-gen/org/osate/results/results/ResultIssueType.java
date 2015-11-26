@@ -23,14 +23,14 @@ import org.eclipse.emf.common.util.Enumerator;
 
 /**
  * <!-- begin-user-doc -->
- * A representation of the literals of the enumeration '<em><b>Report Issue Type</b></em>',
+ * A representation of the literals of the enumeration '<em><b>Result Issue Type</b></em>',
  * and utility methods for working with them.
  * <!-- end-user-doc -->
- * @see org.osate.results.results.ResultsPackage#getReportIssueType()
+ * @see org.osate.results.results.ResultsPackage#getResultIssueType()
  * @model
  * @generated
  */
-public enum ReportIssueType implements Enumerator
+public enum ResultIssueType implements Enumerator
 {
   /**
    * The '<em><b>ERROR</b></em>' literal object.
@@ -183,13 +183,13 @@ public enum ReportIssueType implements Enumerator
   public static final int UNKNOWN_VALUE = 5;
 
   /**
-   * An array of all the '<em><b>Report Issue Type</b></em>' enumerators.
+   * An array of all the '<em><b>Result Issue Type</b></em>' enumerators.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    */
-  private static final ReportIssueType[] VALUES_ARRAY =
-    new ReportIssueType[]
+  private static final ResultIssueType[] VALUES_ARRAY =
+    new ResultIssueType[]
     {
       ERROR,
       WARNING,
@@ -200,26 +200,26 @@ public enum ReportIssueType implements Enumerator
     };
 
   /**
-   * A public read-only list of all the '<em><b>Report Issue Type</b></em>' enumerators.
+   * A public read-only list of all the '<em><b>Result Issue Type</b></em>' enumerators.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    */
-  public static final List<ReportIssueType> VALUES = Collections.unmodifiableList(Arrays.asList(VALUES_ARRAY));
+  public static final List<ResultIssueType> VALUES = Collections.unmodifiableList(Arrays.asList(VALUES_ARRAY));
 
   /**
-   * Returns the '<em><b>Report Issue Type</b></em>' literal with the specified literal value.
+   * Returns the '<em><b>Result Issue Type</b></em>' literal with the specified literal value.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @param literal the literal.
    * @return the matching enumerator or <code>null</code>.
    * @generated
    */
-  public static ReportIssueType get(String literal)
+  public static ResultIssueType get(String literal)
   {
     for (int i = 0; i < VALUES_ARRAY.length; ++i)
     {
-      ReportIssueType result = VALUES_ARRAY[i];
+      ResultIssueType result = VALUES_ARRAY[i];
       if (result.toString().equals(literal))
       {
         return result;
@@ -229,18 +229,18 @@ public enum ReportIssueType implements Enumerator
   }
 
   /**
-   * Returns the '<em><b>Report Issue Type</b></em>' literal with the specified name.
+   * Returns the '<em><b>Result Issue Type</b></em>' literal with the specified name.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @param name the name.
    * @return the matching enumerator or <code>null</code>.
    * @generated
    */
-  public static ReportIssueType getByName(String name)
+  public static ResultIssueType getByName(String name)
   {
     for (int i = 0; i < VALUES_ARRAY.length; ++i)
     {
-      ReportIssueType result = VALUES_ARRAY[i];
+      ResultIssueType result = VALUES_ARRAY[i];
       if (result.getName().equals(name))
       {
         return result;
@@ -250,14 +250,14 @@ public enum ReportIssueType implements Enumerator
   }
 
   /**
-   * Returns the '<em><b>Report Issue Type</b></em>' literal with the specified integer value.
+   * Returns the '<em><b>Result Issue Type</b></em>' literal with the specified integer value.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @param value the integer value.
    * @return the matching enumerator or <code>null</code>.
    * @generated
    */
-  public static ReportIssueType get(int value)
+  public static ResultIssueType get(int value)
   {
     switch (value)
     {
@@ -298,7 +298,7 @@ public enum ReportIssueType implements Enumerator
    * <!-- end-user-doc -->
    * @generated
    */
-  private ReportIssueType(int value, String name, String literal)
+  private ResultIssueType(int value, String name, String literal)
   {
     this.value = value;
     this.name = name;
@@ -347,4 +347,4 @@ public enum ReportIssueType implements Enumerator
     return literal;
   }
   
-} //ReportIssueType
+} //ResultIssueType

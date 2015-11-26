@@ -1,16 +1,18 @@
 ':'=21
-'='=29
+'='=31
 '['=18
 ']'=20
 'contributor'=27
 'data'=28
 'description'=22
 'error'=11
+'exception'=24
 'fail'=15
 'heading'=25
 'info'=13
-'issues'=23
-'report'=24
+'issue'=30
+'issues'=29
+'report'=23
 'reports'=17
 'results'=26
 'success'=14
@@ -43,3 +45,5 @@ T__26=26
 T__27=27
 T__28=28
 T__29=29
+T__30=30
+T__31=31

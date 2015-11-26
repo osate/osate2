@@ -22,6 +22,7 @@ import org.eclipse.xtext.IGrammarAccess;
 import org.eclipse.xtext.RuleCall;
 import org.eclipse.xtext.nodemodel.INode;
 import org.eclipse.xtext.serializer.analysis.GrammarAlias.AbstractElementAlias;
+import org.eclipse.xtext.serializer.analysis.GrammarAlias.GroupAlias;
 import org.eclipse.xtext.serializer.analysis.GrammarAlias.TokenAlias;
 import org.eclipse.xtext.serializer.analysis.ISyntacticSequencerPDAProvider.ISynNavigable;
 import org.eclipse.xtext.serializer.analysis.ISyntacticSequencerPDAProvider.ISynTransition;
@@ -32,16 +33,14 @@ import org.osate.results.services.ResultsGrammarAccess;
 public class ResultsSyntacticSequencer extends AbstractSyntacticSequencer {
 
 	protected ResultsGrammarAccess grammarAccess;
-	protected AbstractElementAlias match_ResultContributor_IssuesKeyword_5_0_q;
-	protected AbstractElementAlias match_ResultReportCollection_IssuesKeyword_8_0_q;
-	protected AbstractElementAlias match_ResultReport_IssuesKeyword_9_0_q;
+	protected AbstractElementAlias match_IssueReport___LeftSquareBracketKeyword_6_0_RightSquareBracketKeyword_6_2__q;
+	protected AbstractElementAlias match_ResultIssue___LeftSquareBracketKeyword_5_0_RightSquareBracketKeyword_5_2__q;
 	
 	@Inject
 	protected void init(IGrammarAccess access) {
 		grammarAccess = (ResultsGrammarAccess) access;
-		match_ResultContributor_IssuesKeyword_5_0_q = new TokenAlias(false, true, grammarAccess.getResultContributorAccess().getIssuesKeyword_5_0());
-		match_ResultReportCollection_IssuesKeyword_8_0_q = new TokenAlias(false, true, grammarAccess.getResultReportCollectionAccess().getIssuesKeyword_8_0());
-		match_ResultReport_IssuesKeyword_9_0_q = new TokenAlias(false, true, grammarAccess.getResultReportAccess().getIssuesKeyword_9_0());
+		match_IssueReport___LeftSquareBracketKeyword_6_0_RightSquareBracketKeyword_6_2__q = new GroupAlias(false, true, new TokenAlias(false, false, grammarAccess.getIssueReportAccess().getLeftSquareBracketKeyword_6_0()), new TokenAlias(false, false, grammarAccess.getIssueReportAccess().getRightSquareBracketKeyword_6_2()));
+		match_ResultIssue___LeftSquareBracketKeyword_5_0_RightSquareBracketKeyword_5_2__q = new GroupAlias(false, true, new TokenAlias(false, false, grammarAccess.getResultIssueAccess().getLeftSquareBracketKeyword_5_0()), new TokenAlias(false, false, grammarAccess.getResultIssueAccess().getRightSquareBracketKeyword_5_2()));
 	}
 	
 	@Override
@@ -56,53 +55,37 @@ public class ResultsSyntacticSequencer extends AbstractSyntacticSequencer {
 		List<INode> transitionNodes = collectNodes(fromNode, toNode);
 		for (AbstractElementAlias syntax : transition.getAmbiguousSyntaxes()) {
 			List<INode> syntaxNodes = getNodesFor(transitionNodes, syntax);
-			if(match_ResultContributor_IssuesKeyword_5_0_q.equals(syntax))
-				emit_ResultContributor_IssuesKeyword_5_0_q(semanticObject, getLastNavigableState(), syntaxNodes);
-			else if(match_ResultReportCollection_IssuesKeyword_8_0_q.equals(syntax))
-				emit_ResultReportCollection_IssuesKeyword_8_0_q(semanticObject, getLastNavigableState(), syntaxNodes);
-			else if(match_ResultReport_IssuesKeyword_9_0_q.equals(syntax))
-				emit_ResultReport_IssuesKeyword_9_0_q(semanticObject, getLastNavigableState(), syntaxNodes);
+			if(match_IssueReport___LeftSquareBracketKeyword_6_0_RightSquareBracketKeyword_6_2__q.equals(syntax))
+				emit_IssueReport___LeftSquareBracketKeyword_6_0_RightSquareBracketKeyword_6_2__q(semanticObject, getLastNavigableState(), syntaxNodes);
+			else if(match_ResultIssue___LeftSquareBracketKeyword_5_0_RightSquareBracketKeyword_5_2__q.equals(syntax))
+				emit_ResultIssue___LeftSquareBracketKeyword_5_0_RightSquareBracketKeyword_5_2__q(semanticObject, getLastNavigableState(), syntaxNodes);
 			else acceptNodes(getLastNavigableState(), syntaxNodes);
 		}
 	}
 
 	/**
 	 * Ambiguous syntax:
-	 *     'issues'?
+	 *     ('[' ']')?
 	 *
 	 * This ambiguous syntax occurs at:
-	 *     cell+=STRING (ambiguity) ']' (rule end)
-	 *     cell+=STRING (ambiguity) subcontributor+=ResultContributor
+	 *     exceptionType=STRING (ambiguity) (rule end)
+	 *     message=STRING (ambiguity) (rule end)
+	 *     target=[EObject|URIID] (ambiguity) (rule end)
 	 */
-	protected void emit_ResultContributor_IssuesKeyword_5_0_q(EObject semanticObject, ISynNavigable transition, List<INode> nodes) {
+	protected void emit_IssueReport___LeftSquareBracketKeyword_6_0_RightSquareBracketKeyword_6_2__q(EObject semanticObject, ISynNavigable transition, List<INode> nodes) {
 		acceptNodes(transition, nodes);
 	}
 	
 	/**
 	 * Ambiguous syntax:
-	 *     'issues'?
+	 *     ('[' ']')?
 	 *
 	 * This ambiguous syntax occurs at:
-	 *     content+=ResultReport (ambiguity) ']' (rule end)
-	 *     decription=STRING (ambiguity) ']' (rule end)
-	 *     target=[EObject|URIID] (ambiguity) ']' (rule end)
+	 *     exceptionType=STRING (ambiguity) (rule end)
+	 *     message=STRING (ambiguity) (rule end)
+	 *     target=[EObject|URIID] (ambiguity) (rule end)
 	 */
-	protected void emit_ResultReportCollection_IssuesKeyword_8_0_q(EObject semanticObject, ISynNavigable transition, List<INode> nodes) {
-		acceptNodes(transition, nodes);
-	}
-	
-	/**
-	 * Ambiguous syntax:
-	 *     'issues'?
-	 *
-	 * This ambiguous syntax occurs at:
-	 *     content+=ResultContributor (ambiguity) ']' (rule end)
-	 *     decription=STRING (ambiguity) ']' (rule end)
-	 *     heading=STRING (ambiguity) ']' (rule end)
-	 *     resultData+=ResultData (ambiguity) ']' (rule end)
-	 *     target=[EObject|URIID] (ambiguity) ']' (rule end)
-	 */
-	protected void emit_ResultReport_IssuesKeyword_9_0_q(EObject semanticObject, ISynNavigable transition, List<INode> nodes) {
+	protected void emit_ResultIssue___LeftSquareBracketKeyword_5_0_RightSquareBracketKeyword_5_2__q(EObject semanticObject, ISynNavigable transition, List<INode> nodes) {
 		acceptNodes(transition, nodes);
 	}
 	
