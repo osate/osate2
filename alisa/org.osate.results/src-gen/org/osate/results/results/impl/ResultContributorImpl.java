@@ -17,22 +17,19 @@ package org.osate.results.results.impl;
 
 import java.util.Collection;
 
-import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.notify.NotificationChain;
 
 import org.eclipse.emf.common.util.EList;
 
 import org.eclipse.emf.ecore.EClass;
-import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.InternalEObject;
-
-import org.eclipse.emf.ecore.impl.ENotificationImpl;
 
 import org.eclipse.emf.ecore.util.EDataTypeEList;
 import org.eclipse.emf.ecore.util.EObjectContainmentEList;
 import org.eclipse.emf.ecore.util.InternalEList;
 
 import org.osate.results.results.ResultContributor;
+import org.osate.results.results.ResultIssue;
 import org.osate.results.results.ResultsPackage;
 
 /**
@@ -43,25 +40,14 @@ import org.osate.results.results.ResultsPackage;
  * The following features are implemented:
  * </p>
  * <ul>
- *   <li>{@link org.osate.results.results.impl.ResultContributorImpl#getContributor <em>Contributor</em>}</li>
  *   <li>{@link org.osate.results.results.impl.ResultContributorImpl#getCell <em>Cell</em>}</li>
  *   <li>{@link org.osate.results.results.impl.ResultContributorImpl#getSubcontributor <em>Subcontributor</em>}</li>
  * </ul>
  *
  * @generated
  */
-public class ResultContributorImpl extends ResultIssueHolderImpl implements ResultContributor
+public class ResultContributorImpl extends ResultIssueImpl implements ResultContributor
 {
-  /**
-   * The cached value of the '{@link #getContributor() <em>Contributor</em>}' reference.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @see #getContributor()
-   * @generated
-   * @ordered
-   */
-  protected EObject contributor;
-
   /**
    * The cached value of the '{@link #getCell() <em>Cell</em>}' attribute list.
    * <!-- begin-user-doc -->
@@ -80,7 +66,7 @@ public class ResultContributorImpl extends ResultIssueHolderImpl implements Resu
    * @generated
    * @ordered
    */
-  protected EList<ResultContributor> subcontributor;
+  protected EList<ResultIssue> subcontributor;
 
   /**
    * <!-- begin-user-doc -->
@@ -108,49 +94,6 @@ public class ResultContributorImpl extends ResultIssueHolderImpl implements Resu
    * <!-- end-user-doc -->
    * @generated
    */
-  public EObject getContributor()
-  {
-    if (contributor != null && contributor.eIsProxy())
-    {
-      InternalEObject oldContributor = (InternalEObject)contributor;
-      contributor = eResolveProxy(oldContributor);
-      if (contributor != oldContributor)
-      {
-        if (eNotificationRequired())
-          eNotify(new ENotificationImpl(this, Notification.RESOLVE, ResultsPackage.RESULT_CONTRIBUTOR__CONTRIBUTOR, oldContributor, contributor));
-      }
-    }
-    return contributor;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public EObject basicGetContributor()
-  {
-    return contributor;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public void setContributor(EObject newContributor)
-  {
-    EObject oldContributor = contributor;
-    contributor = newContributor;
-    if (eNotificationRequired())
-      eNotify(new ENotificationImpl(this, Notification.SET, ResultsPackage.RESULT_CONTRIBUTOR__CONTRIBUTOR, oldContributor, contributor));
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
   public EList<String> getCell()
   {
     if (cell == null)
@@ -165,11 +108,11 @@ public class ResultContributorImpl extends ResultIssueHolderImpl implements Resu
    * <!-- end-user-doc -->
    * @generated
    */
-  public EList<ResultContributor> getSubcontributor()
+  public EList<ResultIssue> getSubcontributor()
   {
     if (subcontributor == null)
     {
-      subcontributor = new EObjectContainmentEList<ResultContributor>(ResultContributor.class, this, ResultsPackage.RESULT_CONTRIBUTOR__SUBCONTRIBUTOR);
+      subcontributor = new EObjectContainmentEList<ResultIssue>(ResultIssue.class, this, ResultsPackage.RESULT_CONTRIBUTOR__SUBCONTRIBUTOR);
     }
     return subcontributor;
   }
@@ -200,9 +143,6 @@ public class ResultContributorImpl extends ResultIssueHolderImpl implements Resu
   {
     switch (featureID)
     {
-      case ResultsPackage.RESULT_CONTRIBUTOR__CONTRIBUTOR:
-        if (resolve) return getContributor();
-        return basicGetContributor();
       case ResultsPackage.RESULT_CONTRIBUTOR__CELL:
         return getCell();
       case ResultsPackage.RESULT_CONTRIBUTOR__SUBCONTRIBUTOR:
@@ -222,16 +162,13 @@ public class ResultContributorImpl extends ResultIssueHolderImpl implements Resu
   {
     switch (featureID)
     {
-      case ResultsPackage.RESULT_CONTRIBUTOR__CONTRIBUTOR:
-        setContributor((EObject)newValue);
-        return;
       case ResultsPackage.RESULT_CONTRIBUTOR__CELL:
         getCell().clear();
         getCell().addAll((Collection<? extends String>)newValue);
         return;
       case ResultsPackage.RESULT_CONTRIBUTOR__SUBCONTRIBUTOR:
         getSubcontributor().clear();
-        getSubcontributor().addAll((Collection<? extends ResultContributor>)newValue);
+        getSubcontributor().addAll((Collection<? extends ResultIssue>)newValue);
         return;
     }
     super.eSet(featureID, newValue);
@@ -247,9 +184,6 @@ public class ResultContributorImpl extends ResultIssueHolderImpl implements Resu
   {
     switch (featureID)
     {
-      case ResultsPackage.RESULT_CONTRIBUTOR__CONTRIBUTOR:
-        setContributor((EObject)null);
-        return;
       case ResultsPackage.RESULT_CONTRIBUTOR__CELL:
         getCell().clear();
         return;
@@ -270,8 +204,6 @@ public class ResultContributorImpl extends ResultIssueHolderImpl implements Resu
   {
     switch (featureID)
     {
-      case ResultsPackage.RESULT_CONTRIBUTOR__CONTRIBUTOR:
-        return contributor != null;
       case ResultsPackage.RESULT_CONTRIBUTOR__CELL:
         return cell != null && !cell.isEmpty();
       case ResultsPackage.RESULT_CONTRIBUTOR__SUBCONTRIBUTOR:

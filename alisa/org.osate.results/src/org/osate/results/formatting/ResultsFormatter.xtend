@@ -52,10 +52,10 @@ class ResultsFormatter extends AbstractDeclarativeFormatter {
 			c.setLinewrap().before(pair.second);
 		}
 		c.setLinewrap().after(resultReportRule);
+		c.setLinewrap().after(resultIssueRule);
 		c.setLinewrap().after(resultReportCollectionRule);
-		c.setLinewrap().after(issuesReportRule);
 		c.setLinewrap().after(resultContributorRule);
-		for (kw : findKeywords("description","heading","data","target","result","issues")) {
+		for (kw : findKeywords("description","heading","data","exception","target","result")) {
 			c.setLinewrap().before(kw);
 		}
 	}

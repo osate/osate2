@@ -89,7 +89,6 @@ public class ResultsSwitch<T> extends Switch<T>
       {
         ResultReports resultReports = (ResultReports)theEObject;
         T result = caseResultReports(resultReports);
-        if (result == null) result = caseResultIssueHolder(resultReports);
         if (result == null) result = defaultCase(theEObject);
         return result;
       }
@@ -98,47 +97,14 @@ public class ResultsSwitch<T> extends Switch<T>
         ResultReportCollection resultReportCollection = (ResultReportCollection)theEObject;
         T result = caseResultReportCollection(resultReportCollection);
         if (result == null) result = caseResultReports(resultReportCollection);
-        if (result == null) result = caseResultIssueHolder(resultReportCollection);
         if (result == null) result = defaultCase(theEObject);
         return result;
       }
-      case ResultsPackage.RESULT_REPORT:
+      case ResultsPackage.RESULT_ISSUE:
       {
-        ResultReport resultReport = (ResultReport)theEObject;
-        T result = caseResultReport(resultReport);
-        if (result == null) result = caseResultReports(resultReport);
-        if (result == null) result = caseResultIssueHolder(resultReport);
-        if (result == null) result = defaultCase(theEObject);
-        return result;
-      }
-      case ResultsPackage.ISSUES_REPORT:
-      {
-        IssuesReport issuesReport = (IssuesReport)theEObject;
-        T result = caseIssuesReport(issuesReport);
-        if (result == null) result = caseResultReports(issuesReport);
-        if (result == null) result = caseResultIssueHolder(issuesReport);
-        if (result == null) result = defaultCase(theEObject);
-        return result;
-      }
-      case ResultsPackage.RESULT_ISSUE_HOLDER:
-      {
-        ResultIssueHolder resultIssueHolder = (ResultIssueHolder)theEObject;
-        T result = caseResultIssueHolder(resultIssueHolder);
-        if (result == null) result = defaultCase(theEObject);
-        return result;
-      }
-      case ResultsPackage.RESULT_CONTRIBUTOR:
-      {
-        ResultContributor resultContributor = (ResultContributor)theEObject;
-        T result = caseResultContributor(resultContributor);
-        if (result == null) result = caseResultIssueHolder(resultContributor);
-        if (result == null) result = defaultCase(theEObject);
-        return result;
-      }
-      case ResultsPackage.REPORT_ISSUE:
-      {
-        ReportIssue reportIssue = (ReportIssue)theEObject;
-        T result = caseReportIssue(reportIssue);
+        ResultIssue resultIssue = (ResultIssue)theEObject;
+        T result = caseResultIssue(resultIssue);
+        if (result == null) result = caseResultReports(resultIssue);
         if (result == null) result = defaultCase(theEObject);
         return result;
       }
@@ -146,6 +112,33 @@ public class ResultsSwitch<T> extends Switch<T>
       {
         ResultData resultData = (ResultData)theEObject;
         T result = caseResultData(resultData);
+        if (result == null) result = defaultCase(theEObject);
+        return result;
+      }
+      case ResultsPackage.RESULT_REPORT:
+      {
+        ResultReport resultReport = (ResultReport)theEObject;
+        T result = caseResultReport(resultReport);
+        if (result == null) result = caseResultIssue(resultReport);
+        if (result == null) result = caseResultReports(resultReport);
+        if (result == null) result = defaultCase(theEObject);
+        return result;
+      }
+      case ResultsPackage.RESULT_CONTRIBUTOR:
+      {
+        ResultContributor resultContributor = (ResultContributor)theEObject;
+        T result = caseResultContributor(resultContributor);
+        if (result == null) result = caseResultIssue(resultContributor);
+        if (result == null) result = caseResultReports(resultContributor);
+        if (result == null) result = defaultCase(theEObject);
+        return result;
+      }
+      case ResultsPackage.ISSUE_REPORT:
+      {
+        IssueReport issueReport = (IssueReport)theEObject;
+        T result = caseIssueReport(issueReport);
+        if (result == null) result = caseResultIssue(issueReport);
+        if (result == null) result = caseResultReports(issueReport);
         if (result == null) result = defaultCase(theEObject);
         return result;
       }
@@ -186,6 +179,38 @@ public class ResultsSwitch<T> extends Switch<T>
   }
 
   /**
+   * Returns the result of interpreting the object as an instance of '<em>Result Issue</em>'.
+   * <!-- begin-user-doc -->
+   * This implementation returns null;
+   * returning a non-null result will terminate the switch.
+   * <!-- end-user-doc -->
+   * @param object the target of the switch.
+   * @return the result of interpreting the object as an instance of '<em>Result Issue</em>'.
+   * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+   * @generated
+   */
+  public T caseResultIssue(ResultIssue object)
+  {
+    return null;
+  }
+
+  /**
+   * Returns the result of interpreting the object as an instance of '<em>Result Data</em>'.
+   * <!-- begin-user-doc -->
+   * This implementation returns null;
+   * returning a non-null result will terminate the switch.
+   * <!-- end-user-doc -->
+   * @param object the target of the switch.
+   * @return the result of interpreting the object as an instance of '<em>Result Data</em>'.
+   * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+   * @generated
+   */
+  public T caseResultData(ResultData object)
+  {
+    return null;
+  }
+
+  /**
    * Returns the result of interpreting the object as an instance of '<em>Result Report</em>'.
    * <!-- begin-user-doc -->
    * This implementation returns null;
@@ -197,38 +222,6 @@ public class ResultsSwitch<T> extends Switch<T>
    * @generated
    */
   public T caseResultReport(ResultReport object)
-  {
-    return null;
-  }
-
-  /**
-   * Returns the result of interpreting the object as an instance of '<em>Issues Report</em>'.
-   * <!-- begin-user-doc -->
-   * This implementation returns null;
-   * returning a non-null result will terminate the switch.
-   * <!-- end-user-doc -->
-   * @param object the target of the switch.
-   * @return the result of interpreting the object as an instance of '<em>Issues Report</em>'.
-   * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
-   * @generated
-   */
-  public T caseIssuesReport(IssuesReport object)
-  {
-    return null;
-  }
-
-  /**
-   * Returns the result of interpreting the object as an instance of '<em>Result Issue Holder</em>'.
-   * <!-- begin-user-doc -->
-   * This implementation returns null;
-   * returning a non-null result will terminate the switch.
-   * <!-- end-user-doc -->
-   * @param object the target of the switch.
-   * @return the result of interpreting the object as an instance of '<em>Result Issue Holder</em>'.
-   * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
-   * @generated
-   */
-  public T caseResultIssueHolder(ResultIssueHolder object)
   {
     return null;
   }
@@ -250,33 +243,17 @@ public class ResultsSwitch<T> extends Switch<T>
   }
 
   /**
-   * Returns the result of interpreting the object as an instance of '<em>Report Issue</em>'.
+   * Returns the result of interpreting the object as an instance of '<em>Issue Report</em>'.
    * <!-- begin-user-doc -->
    * This implementation returns null;
    * returning a non-null result will terminate the switch.
    * <!-- end-user-doc -->
    * @param object the target of the switch.
-   * @return the result of interpreting the object as an instance of '<em>Report Issue</em>'.
+   * @return the result of interpreting the object as an instance of '<em>Issue Report</em>'.
    * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
    * @generated
    */
-  public T caseReportIssue(ReportIssue object)
-  {
-    return null;
-  }
-
-  /**
-   * Returns the result of interpreting the object as an instance of '<em>Result Data</em>'.
-   * <!-- begin-user-doc -->
-   * This implementation returns null;
-   * returning a non-null result will terminate the switch.
-   * <!-- end-user-doc -->
-   * @param object the target of the switch.
-   * @return the result of interpreting the object as an instance of '<em>Result Data</em>'.
-   * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
-   * @generated
-   */
-  public T caseResultData(ResultData object)
+  public T caseIssueReport(IssueReport object)
   {
     return null;
   }

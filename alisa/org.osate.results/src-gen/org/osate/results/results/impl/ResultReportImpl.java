@@ -30,8 +30,8 @@ import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.eclipse.emf.ecore.util.EObjectContainmentEList;
 import org.eclipse.emf.ecore.util.InternalEList;
 
-import org.osate.results.results.ResultContributor;
 import org.osate.results.results.ResultData;
+import org.osate.results.results.ResultIssue;
 import org.osate.results.results.ResultReport;
 import org.osate.results.results.ResultsPackage;
 
@@ -43,6 +43,9 @@ import org.osate.results.results.ResultsPackage;
  * The following features are implemented:
  * </p>
  * <ul>
+ *   <li>{@link org.osate.results.results.impl.ResultReportImpl#getName <em>Name</em>}</li>
+ *   <li>{@link org.osate.results.results.impl.ResultReportImpl#getTitle <em>Title</em>}</li>
+ *   <li>{@link org.osate.results.results.impl.ResultReportImpl#getDecription <em>Decription</em>}</li>
  *   <li>{@link org.osate.results.results.impl.ResultReportImpl#getHeading <em>Heading</em>}</li>
  *   <li>{@link org.osate.results.results.impl.ResultReportImpl#getContent <em>Content</em>}</li>
  *   <li>{@link org.osate.results.results.impl.ResultReportImpl#getResultData <em>Result Data</em>}</li>
@@ -50,8 +53,68 @@ import org.osate.results.results.ResultsPackage;
  *
  * @generated
  */
-public class ResultReportImpl extends ResultReportsImpl implements ResultReport
+public class ResultReportImpl extends ResultIssueImpl implements ResultReport
 {
+  /**
+   * The default value of the '{@link #getName() <em>Name</em>}' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see #getName()
+   * @generated
+   * @ordered
+   */
+  protected static final String NAME_EDEFAULT = null;
+
+  /**
+   * The cached value of the '{@link #getName() <em>Name</em>}' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see #getName()
+   * @generated
+   * @ordered
+   */
+  protected String name = NAME_EDEFAULT;
+
+  /**
+   * The default value of the '{@link #getTitle() <em>Title</em>}' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see #getTitle()
+   * @generated
+   * @ordered
+   */
+  protected static final String TITLE_EDEFAULT = null;
+
+  /**
+   * The cached value of the '{@link #getTitle() <em>Title</em>}' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see #getTitle()
+   * @generated
+   * @ordered
+   */
+  protected String title = TITLE_EDEFAULT;
+
+  /**
+   * The default value of the '{@link #getDecription() <em>Decription</em>}' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see #getDecription()
+   * @generated
+   * @ordered
+   */
+  protected static final String DECRIPTION_EDEFAULT = null;
+
+  /**
+   * The cached value of the '{@link #getDecription() <em>Decription</em>}' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see #getDecription()
+   * @generated
+   * @ordered
+   */
+  protected String decription = DECRIPTION_EDEFAULT;
+
   /**
    * The default value of the '{@link #getHeading() <em>Heading</em>}' attribute.
    * <!-- begin-user-doc -->
@@ -80,7 +143,7 @@ public class ResultReportImpl extends ResultReportsImpl implements ResultReport
    * @generated
    * @ordered
    */
-  protected EList<ResultContributor> content;
+  protected EList<ResultIssue> content;
 
   /**
    * The cached value of the '{@link #getResultData() <em>Result Data</em>}' containment reference list.
@@ -118,6 +181,75 @@ public class ResultReportImpl extends ResultReportsImpl implements ResultReport
    * <!-- end-user-doc -->
    * @generated
    */
+  public String getName()
+  {
+    return name;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public void setName(String newName)
+  {
+    String oldName = name;
+    name = newName;
+    if (eNotificationRequired())
+      eNotify(new ENotificationImpl(this, Notification.SET, ResultsPackage.RESULT_REPORT__NAME, oldName, name));
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public String getTitle()
+  {
+    return title;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public void setTitle(String newTitle)
+  {
+    String oldTitle = title;
+    title = newTitle;
+    if (eNotificationRequired())
+      eNotify(new ENotificationImpl(this, Notification.SET, ResultsPackage.RESULT_REPORT__TITLE, oldTitle, title));
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public String getDecription()
+  {
+    return decription;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public void setDecription(String newDecription)
+  {
+    String oldDecription = decription;
+    decription = newDecription;
+    if (eNotificationRequired())
+      eNotify(new ENotificationImpl(this, Notification.SET, ResultsPackage.RESULT_REPORT__DECRIPTION, oldDecription, decription));
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
   public String getHeading()
   {
     return heading;
@@ -141,11 +273,11 @@ public class ResultReportImpl extends ResultReportsImpl implements ResultReport
    * <!-- end-user-doc -->
    * @generated
    */
-  public EList<ResultContributor> getContent()
+  public EList<ResultIssue> getContent()
   {
     if (content == null)
     {
-      content = new EObjectContainmentEList<ResultContributor>(ResultContributor.class, this, ResultsPackage.RESULT_REPORT__CONTENT);
+      content = new EObjectContainmentEList<ResultIssue>(ResultIssue.class, this, ResultsPackage.RESULT_REPORT__CONTENT);
     }
     return content;
   }
@@ -192,6 +324,12 @@ public class ResultReportImpl extends ResultReportsImpl implements ResultReport
   {
     switch (featureID)
     {
+      case ResultsPackage.RESULT_REPORT__NAME:
+        return getName();
+      case ResultsPackage.RESULT_REPORT__TITLE:
+        return getTitle();
+      case ResultsPackage.RESULT_REPORT__DECRIPTION:
+        return getDecription();
       case ResultsPackage.RESULT_REPORT__HEADING:
         return getHeading();
       case ResultsPackage.RESULT_REPORT__CONTENT:
@@ -213,12 +351,21 @@ public class ResultReportImpl extends ResultReportsImpl implements ResultReport
   {
     switch (featureID)
     {
+      case ResultsPackage.RESULT_REPORT__NAME:
+        setName((String)newValue);
+        return;
+      case ResultsPackage.RESULT_REPORT__TITLE:
+        setTitle((String)newValue);
+        return;
+      case ResultsPackage.RESULT_REPORT__DECRIPTION:
+        setDecription((String)newValue);
+        return;
       case ResultsPackage.RESULT_REPORT__HEADING:
         setHeading((String)newValue);
         return;
       case ResultsPackage.RESULT_REPORT__CONTENT:
         getContent().clear();
-        getContent().addAll((Collection<? extends ResultContributor>)newValue);
+        getContent().addAll((Collection<? extends ResultIssue>)newValue);
         return;
       case ResultsPackage.RESULT_REPORT__RESULT_DATA:
         getResultData().clear();
@@ -238,6 +385,15 @@ public class ResultReportImpl extends ResultReportsImpl implements ResultReport
   {
     switch (featureID)
     {
+      case ResultsPackage.RESULT_REPORT__NAME:
+        setName(NAME_EDEFAULT);
+        return;
+      case ResultsPackage.RESULT_REPORT__TITLE:
+        setTitle(TITLE_EDEFAULT);
+        return;
+      case ResultsPackage.RESULT_REPORT__DECRIPTION:
+        setDecription(DECRIPTION_EDEFAULT);
+        return;
       case ResultsPackage.RESULT_REPORT__HEADING:
         setHeading(HEADING_EDEFAULT);
         return;
@@ -261,6 +417,12 @@ public class ResultReportImpl extends ResultReportsImpl implements ResultReport
   {
     switch (featureID)
     {
+      case ResultsPackage.RESULT_REPORT__NAME:
+        return NAME_EDEFAULT == null ? name != null : !NAME_EDEFAULT.equals(name);
+      case ResultsPackage.RESULT_REPORT__TITLE:
+        return TITLE_EDEFAULT == null ? title != null : !TITLE_EDEFAULT.equals(title);
+      case ResultsPackage.RESULT_REPORT__DECRIPTION:
+        return DECRIPTION_EDEFAULT == null ? decription != null : !DECRIPTION_EDEFAULT.equals(decription);
       case ResultsPackage.RESULT_REPORT__HEADING:
         return HEADING_EDEFAULT == null ? heading != null : !HEADING_EDEFAULT.equals(heading);
       case ResultsPackage.RESULT_REPORT__CONTENT:
@@ -282,7 +444,13 @@ public class ResultReportImpl extends ResultReportsImpl implements ResultReport
     if (eIsProxy()) return super.toString();
 
     StringBuffer result = new StringBuffer(super.toString());
-    result.append(" (heading: ");
+    result.append(" (name: ");
+    result.append(name);
+    result.append(", title: ");
+    result.append(title);
+    result.append(", decription: ");
+    result.append(decription);
+    result.append(", heading: ");
     result.append(heading);
     result.append(')');
     return result.toString();

@@ -54,6 +54,24 @@ public interface ResultsFactory extends EFactory
   ResultReportCollection createResultReportCollection();
 
   /**
+   * Returns a new object of class '<em>Result Issue</em>'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return a new object of class '<em>Result Issue</em>'.
+   * @generated
+   */
+  ResultIssue createResultIssue();
+
+  /**
+   * Returns a new object of class '<em>Result Data</em>'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return a new object of class '<em>Result Data</em>'.
+   * @generated
+   */
+  ResultData createResultData();
+
+  /**
    * Returns a new object of class '<em>Result Report</em>'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -61,24 +79,6 @@ public interface ResultsFactory extends EFactory
    * @generated
    */
   ResultReport createResultReport();
-
-  /**
-   * Returns a new object of class '<em>Issues Report</em>'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return a new object of class '<em>Issues Report</em>'.
-   * @generated
-   */
-  IssuesReport createIssuesReport();
-
-  /**
-   * Returns a new object of class '<em>Result Issue Holder</em>'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return a new object of class '<em>Result Issue Holder</em>'.
-   * @generated
-   */
-  ResultIssueHolder createResultIssueHolder();
 
   /**
    * Returns a new object of class '<em>Result Contributor</em>'.
@@ -90,22 +90,13 @@ public interface ResultsFactory extends EFactory
   ResultContributor createResultContributor();
 
   /**
-   * Returns a new object of class '<em>Report Issue</em>'.
+   * Returns a new object of class '<em>Issue Report</em>'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @return a new object of class '<em>Report Issue</em>'.
+   * @return a new object of class '<em>Issue Report</em>'.
    * @generated
    */
-  ReportIssue createReportIssue();
-
-  /**
-   * Returns a new object of class '<em>Result Data</em>'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return a new object of class '<em>Result Data</em>'.
-   * @generated
-   */
-  ResultData createResultData();
+  IssueReport createIssueReport();
 
   /**
    * Returns the package supported by this factory.

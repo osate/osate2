@@ -8,45 +8,45 @@
     editorPluginID="org.osate.results.editor" runtimeVersion="2.11">
   <genPackages prefix="Results" basePackage="org.osate.results" disposableProviderFactory="true"
       fileExtensions="results" ecorePackage="Results.ecore#/">
-    <genEnums typeSafeEnumCompatible="false" ecoreEnum="Results.ecore#//ReportIssueType">
-      <genEnumLiterals ecoreEnumLiteral="Results.ecore#//ReportIssueType/ERROR"/>
-      <genEnumLiterals ecoreEnumLiteral="Results.ecore#//ReportIssueType/WARNING"/>
-      <genEnumLiterals ecoreEnumLiteral="Results.ecore#//ReportIssueType/INFO"/>
-      <genEnumLiterals ecoreEnumLiteral="Results.ecore#//ReportIssueType/SUCCESS"/>
-      <genEnumLiterals ecoreEnumLiteral="Results.ecore#//ReportIssueType/FAIL"/>
-      <genEnumLiterals ecoreEnumLiteral="Results.ecore#//ReportIssueType/UNKNOWN"/>
+    <genEnums typeSafeEnumCompatible="false" ecoreEnum="Results.ecore#//ResultIssueType">
+      <genEnumLiterals ecoreEnumLiteral="Results.ecore#//ResultIssueType/ERROR"/>
+      <genEnumLiterals ecoreEnumLiteral="Results.ecore#//ResultIssueType/WARNING"/>
+      <genEnumLiterals ecoreEnumLiteral="Results.ecore#//ResultIssueType/INFO"/>
+      <genEnumLiterals ecoreEnumLiteral="Results.ecore#//ResultIssueType/SUCCESS"/>
+      <genEnumLiterals ecoreEnumLiteral="Results.ecore#//ResultIssueType/FAIL"/>
+      <genEnumLiterals ecoreEnumLiteral="Results.ecore#//ResultIssueType/UNKNOWN"/>
     </genEnums>
     <genClasses ecoreClass="Results.ecore#//ResultReports">
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Results.ecore#//ResultReports/name"/>
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Results.ecore#//ResultReports/title"/>
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference Results.ecore#//ResultReports/target"/>
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Results.ecore#//ResultReports/decription"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Results.ecore#//ResultReports/issues"/>
     </genClasses>
     <genClasses ecoreClass="Results.ecore#//ResultReportCollection">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Results.ecore#//ResultReportCollection/name"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Results.ecore#//ResultReportCollection/title"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Results.ecore#//ResultReportCollection/decription"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Results.ecore#//ResultReportCollection/content"/>
     </genClasses>
-    <genClasses ecoreClass="Results.ecore#//ResultReport">
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Results.ecore#//ResultReport/heading"/>
-      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Results.ecore#//ResultReport/content"/>
-      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Results.ecore#//ResultReport/resultData"/>
-    </genClasses>
-    <genClasses ecoreClass="Results.ecore#//IssuesReport"/>
-    <genClasses ecoreClass="Results.ecore#//ResultIssueHolder">
-      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Results.ecore#//ResultIssueHolder/issues"/>
-    </genClasses>
-    <genClasses ecoreClass="Results.ecore#//ResultContributor">
-      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference Results.ecore#//ResultContributor/contributor"/>
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Results.ecore#//ResultContributor/cell"/>
-      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Results.ecore#//ResultContributor/subcontributor"/>
-    </genClasses>
-    <genClasses ecoreClass="Results.ecore#//ReportIssue">
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Results.ecore#//ReportIssue/issueType"/>
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Results.ecore#//ReportIssue/title"/>
-      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference Results.ecore#//ReportIssue/target"/>
+    <genClasses ecoreClass="Results.ecore#//ResultIssue">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Results.ecore#//ResultIssue/issueType"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Results.ecore#//ResultIssue/message"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Results.ecore#//ResultIssue/exceptionType"/>
     </genClasses>
     <genClasses ecoreClass="Results.ecore#//ResultData">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Results.ecore#//ResultData/name"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Results.ecore#//ResultData/value"/>
     </genClasses>
+    <genClasses ecoreClass="Results.ecore#//ResultReport">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Results.ecore#//ResultReport/name"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Results.ecore#//ResultReport/title"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Results.ecore#//ResultReport/decription"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Results.ecore#//ResultReport/heading"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Results.ecore#//ResultReport/content"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Results.ecore#//ResultReport/resultData"/>
+    </genClasses>
+    <genClasses ecoreClass="Results.ecore#//ResultContributor">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Results.ecore#//ResultContributor/cell"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Results.ecore#//ResultContributor/subcontributor"/>
+    </genClasses>
+    <genClasses ecoreClass="Results.ecore#//IssueReport"/>
   </genPackages>
 </genmodel:GenModel>

@@ -26,6 +26,9 @@ import org.eclipse.emf.common.util.EList;
  * The following features are supported:
  * </p>
  * <ul>
+ *   <li>{@link org.osate.results.results.ResultReport#getName <em>Name</em>}</li>
+ *   <li>{@link org.osate.results.results.ResultReport#getTitle <em>Title</em>}</li>
+ *   <li>{@link org.osate.results.results.ResultReport#getDecription <em>Decription</em>}</li>
  *   <li>{@link org.osate.results.results.ResultReport#getHeading <em>Heading</em>}</li>
  *   <li>{@link org.osate.results.results.ResultReport#getContent <em>Content</em>}</li>
  *   <li>{@link org.osate.results.results.ResultReport#getResultData <em>Result Data</em>}</li>
@@ -35,8 +38,86 @@ import org.eclipse.emf.common.util.EList;
  * @model
  * @generated
  */
-public interface ResultReport extends ResultReports
+public interface ResultReport extends ResultIssue
 {
+  /**
+   * Returns the value of the '<em><b>Name</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <p>
+   * If the meaning of the '<em>Name</em>' attribute isn't clear,
+   * there really should be more of a description here...
+   * </p>
+   * <!-- end-user-doc -->
+   * @return the value of the '<em>Name</em>' attribute.
+   * @see #setName(String)
+   * @see org.osate.results.results.ResultsPackage#getResultReport_Name()
+   * @model
+   * @generated
+   */
+  String getName();
+
+  /**
+   * Sets the value of the '{@link org.osate.results.results.ResultReport#getName <em>Name</em>}' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @param value the new value of the '<em>Name</em>' attribute.
+   * @see #getName()
+   * @generated
+   */
+  void setName(String value);
+
+  /**
+   * Returns the value of the '<em><b>Title</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <p>
+   * If the meaning of the '<em>Title</em>' attribute isn't clear,
+   * there really should be more of a description here...
+   * </p>
+   * <!-- end-user-doc -->
+   * @return the value of the '<em>Title</em>' attribute.
+   * @see #setTitle(String)
+   * @see org.osate.results.results.ResultsPackage#getResultReport_Title()
+   * @model
+   * @generated
+   */
+  String getTitle();
+
+  /**
+   * Sets the value of the '{@link org.osate.results.results.ResultReport#getTitle <em>Title</em>}' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @param value the new value of the '<em>Title</em>' attribute.
+   * @see #getTitle()
+   * @generated
+   */
+  void setTitle(String value);
+
+  /**
+   * Returns the value of the '<em><b>Decription</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <p>
+   * If the meaning of the '<em>Decription</em>' attribute isn't clear,
+   * there really should be more of a description here...
+   * </p>
+   * <!-- end-user-doc -->
+   * @return the value of the '<em>Decription</em>' attribute.
+   * @see #setDecription(String)
+   * @see org.osate.results.results.ResultsPackage#getResultReport_Decription()
+   * @model
+   * @generated
+   */
+  String getDecription();
+
+  /**
+   * Sets the value of the '{@link org.osate.results.results.ResultReport#getDecription <em>Decription</em>}' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @param value the new value of the '<em>Decription</em>' attribute.
+   * @see #getDecription()
+   * @generated
+   */
+  void setDecription(String value);
+
   /**
    * Returns the value of the '<em><b>Heading</b></em>' attribute.
    * <!-- begin-user-doc -->
@@ -65,7 +146,7 @@ public interface ResultReport extends ResultReports
 
   /**
    * Returns the value of the '<em><b>Content</b></em>' containment reference list.
-   * The list contents are of type {@link org.osate.results.results.ResultContributor}.
+   * The list contents are of type {@link org.osate.results.results.ResultIssue}.
    * <!-- begin-user-doc -->
    * <p>
    * If the meaning of the '<em>Content</em>' containment reference list isn't clear,
@@ -77,7 +158,7 @@ public interface ResultReport extends ResultReports
    * @model containment="true"
    * @generated
    */
-  EList<ResultContributor> getContent();
+  EList<ResultIssue> getContent();
 
   /**
    * Returns the value of the '<em><b>Result Data</b></em>' containment reference list.
