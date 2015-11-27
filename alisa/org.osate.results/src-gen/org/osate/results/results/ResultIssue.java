@@ -15,6 +15,9 @@
  */
 package org.osate.results.results;
 
+import org.eclipse.emf.common.util.EList;
+
+import org.eclipse.emf.ecore.EObject;
 
 /**
  * <!-- begin-user-doc -->
@@ -27,14 +30,16 @@ package org.osate.results.results;
  * <ul>
  *   <li>{@link org.osate.results.results.ResultIssue#getIssueType <em>Issue Type</em>}</li>
  *   <li>{@link org.osate.results.results.ResultIssue#getMessage <em>Message</em>}</li>
+ *   <li>{@link org.osate.results.results.ResultIssue#getTarget <em>Target</em>}</li>
  *   <li>{@link org.osate.results.results.ResultIssue#getExceptionType <em>Exception Type</em>}</li>
+ *   <li>{@link org.osate.results.results.ResultIssue#getIssues <em>Issues</em>}</li>
  * </ul>
  *
  * @see org.osate.results.results.ResultsPackage#getResultIssue()
  * @model
  * @generated
  */
-public interface ResultIssue extends ResultReports
+public interface ResultIssue extends EObject
 {
   /**
    * Returns the value of the '<em><b>Issue Type</b></em>' attribute.
@@ -92,6 +97,32 @@ public interface ResultIssue extends ResultReports
   void setMessage(String value);
 
   /**
+   * Returns the value of the '<em><b>Target</b></em>' reference.
+   * <!-- begin-user-doc -->
+   * <p>
+   * If the meaning of the '<em>Target</em>' reference isn't clear,
+   * there really should be more of a description here...
+   * </p>
+   * <!-- end-user-doc -->
+   * @return the value of the '<em>Target</em>' reference.
+   * @see #setTarget(EObject)
+   * @see org.osate.results.results.ResultsPackage#getResultIssue_Target()
+   * @model
+   * @generated
+   */
+  EObject getTarget();
+
+  /**
+   * Sets the value of the '{@link org.osate.results.results.ResultIssue#getTarget <em>Target</em>}' reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @param value the new value of the '<em>Target</em>' reference.
+   * @see #getTarget()
+   * @generated
+   */
+  void setTarget(EObject value);
+
+  /**
    * Returns the value of the '<em><b>Exception Type</b></em>' attribute.
    * <!-- begin-user-doc -->
    * <p>
@@ -116,5 +147,21 @@ public interface ResultIssue extends ResultReports
    * @generated
    */
   void setExceptionType(String value);
+
+  /**
+   * Returns the value of the '<em><b>Issues</b></em>' containment reference list.
+   * The list contents are of type {@link org.osate.results.results.ResultIssue}.
+   * <!-- begin-user-doc -->
+   * <p>
+   * If the meaning of the '<em>Issues</em>' containment reference list isn't clear,
+   * there really should be more of a description here...
+   * </p>
+   * <!-- end-user-doc -->
+   * @return the value of the '<em>Issues</em>' containment reference list.
+   * @see org.osate.results.results.ResultsPackage#getResultIssue_Issues()
+   * @model containment="true"
+   * @generated
+   */
+  EList<ResultIssue> getIssues();
 
 } // ResultIssue

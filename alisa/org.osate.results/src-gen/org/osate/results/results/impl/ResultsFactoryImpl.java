@@ -80,11 +80,11 @@ public class ResultsFactoryImpl extends EFactoryImpl implements ResultsFactory
     {
       case ResultsPackage.RESULT_REPORTS: return createResultReports();
       case ResultsPackage.RESULT_REPORT_COLLECTION: return createResultReportCollection();
-      case ResultsPackage.RESULT_ISSUE: return createResultIssue();
-      case ResultsPackage.RESULT_DATA: return createResultData();
       case ResultsPackage.RESULT_REPORT: return createResultReport();
       case ResultsPackage.RESULT_CONTRIBUTOR: return createResultContributor();
-      case ResultsPackage.ISSUE_REPORT: return createIssueReport();
+      case ResultsPackage.ISSUES_REPORT: return createIssuesReport();
+      case ResultsPackage.RESULT_ISSUE: return createResultIssue();
+      case ResultsPackage.RESULT_DATA: return createResultData();
       default:
         throw new IllegalArgumentException("The class '" + eClass.getName() + "' is not a valid classifier");
     }
@@ -151,28 +151,6 @@ public class ResultsFactoryImpl extends EFactoryImpl implements ResultsFactory
    * <!-- end-user-doc -->
    * @generated
    */
-  public ResultIssue createResultIssue()
-  {
-    ResultIssueImpl resultIssue = new ResultIssueImpl();
-    return resultIssue;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public ResultData createResultData()
-  {
-    ResultDataImpl resultData = new ResultDataImpl();
-    return resultData;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
   public ResultReport createResultReport()
   {
     ResultReportImpl resultReport = new ResultReportImpl();
@@ -195,10 +173,32 @@ public class ResultsFactoryImpl extends EFactoryImpl implements ResultsFactory
    * <!-- end-user-doc -->
    * @generated
    */
-  public IssueReport createIssueReport()
+  public IssuesReport createIssuesReport()
   {
-    IssueReportImpl issueReport = new IssueReportImpl();
-    return issueReport;
+    IssuesReportImpl issuesReport = new IssuesReportImpl();
+    return issuesReport;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public ResultIssue createResultIssue()
+  {
+    ResultIssueImpl resultIssue = new ResultIssueImpl();
+    return resultIssue;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public ResultData createResultData()
+  {
+    ResultDataImpl resultData = new ResultDataImpl();
+    return resultData;
   }
 
   /**

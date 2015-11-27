@@ -28,7 +28,7 @@ import org.eclipse.xtext.serializer.sequencer.ISemanticNodeProvider.INodesForEOb
 import org.eclipse.xtext.serializer.sequencer.ISemanticSequencer;
 import org.eclipse.xtext.serializer.sequencer.ITransientValueService;
 import org.eclipse.xtext.serializer.sequencer.ITransientValueService.ValueTransient;
-import org.osate.results.results.IssueReport;
+import org.osate.results.results.IssuesReport;
 import org.osate.results.results.ResultContributor;
 import org.osate.results.results.ResultData;
 import org.osate.results.results.ResultIssue;
@@ -46,8 +46,8 @@ public class ResultsSemanticSequencer extends AbstractDelegatingSemanticSequence
 	@Override
 	public void createSequence(EObject context, EObject semanticObject) {
 		if(semanticObject.eClass().getEPackage() == ResultsPackage.eINSTANCE) switch(semanticObject.eClass().getClassifierID()) {
-			case ResultsPackage.ISSUE_REPORT:
-				sequence_IssueReport(context, (IssueReport) semanticObject); 
+			case ResultsPackage.ISSUES_REPORT:
+				sequence_IssuesReport(context, (IssuesReport) semanticObject); 
 				return; 
 			case ResultsPackage.RESULT_CONTRIBUTOR:
 				sequence_ResultContributor(context, (ResultContributor) semanticObject); 
@@ -70,24 +70,16 @@ public class ResultsSemanticSequencer extends AbstractDelegatingSemanticSequence
 	
 	/**
 	 * Constraint:
-	 *     (issueType=ResultIssueType message=STRING target=[EObject|URIID]? exceptionType=STRING? issues+=ResultIssue*)
+	 *     (name=ID target=[EObject|URIID]? (description=STRING? issues+=ResultIssue*)?)
 	 */
-	protected void sequence_IssueReport(EObject context, IssueReport semanticObject) {
+	protected void sequence_IssuesReport(EObject context, IssuesReport semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
 	}
 	
 	
 	/**
 	 * Constraint:
-	 *     (
-	 *         target=[EObject|URIID] 
-	 *         issueType=ResultIssueType 
-	 *         message=STRING 
-	 *         exceptionType=STRING? 
-	 *         cell+=STRING+ 
-	 *         issues+=ResultIssue* 
-	 *         subcontributor+=ResultContributor*
-	 *     )
+	 *     (target=[EObject|URIID] resultData+=ResultData* issues+=ResultIssue* subcontributor+=ResultContributor*)
 	 */
 	protected void sequence_ResultContributor(EObject context, ResultContributor semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
@@ -144,9 +136,6 @@ public class ResultsSemanticSequencer extends AbstractDelegatingSemanticSequence
 	 *         name=ID 
 	 *         title=STRING? 
 	 *         target=[EObject|URIID] 
-	 *         issueType=ResultIssueType 
-	 *         message=STRING 
-	 *         exceptionType=STRING? 
 	 *         decription=STRING? 
 	 *         (heading=STRING content+=ResultContributor*)? 
 	 *         resultData+=ResultData* 

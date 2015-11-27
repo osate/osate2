@@ -44,6 +44,7 @@ import org.osate.results.results.ResultsPackage;
  * The following features are implemented:
  * </p>
  * <ul>
+ *   <li>{@link org.osate.results.results.impl.ResultReportsImpl#getName <em>Name</em>}</li>
  *   <li>{@link org.osate.results.results.impl.ResultReportsImpl#getTarget <em>Target</em>}</li>
  *   <li>{@link org.osate.results.results.impl.ResultReportsImpl#getIssues <em>Issues</em>}</li>
  * </ul>
@@ -52,6 +53,26 @@ import org.osate.results.results.ResultsPackage;
  */
 public class ResultReportsImpl extends MinimalEObjectImpl.Container implements ResultReports
 {
+  /**
+   * The default value of the '{@link #getName() <em>Name</em>}' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see #getName()
+   * @generated
+   * @ordered
+   */
+  protected static final String NAME_EDEFAULT = null;
+
+  /**
+   * The cached value of the '{@link #getName() <em>Name</em>}' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see #getName()
+   * @generated
+   * @ordered
+   */
+  protected String name = NAME_EDEFAULT;
+
   /**
    * The cached value of the '{@link #getTarget() <em>Target</em>}' reference.
    * <!-- begin-user-doc -->
@@ -91,6 +112,29 @@ public class ResultReportsImpl extends MinimalEObjectImpl.Container implements R
   protected EClass eStaticClass()
   {
     return ResultsPackage.Literals.RESULT_REPORTS;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public String getName()
+  {
+    return name;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public void setName(String newName)
+  {
+    String oldName = name;
+    name = newName;
+    if (eNotificationRequired())
+      eNotify(new ENotificationImpl(this, Notification.SET, ResultsPackage.RESULT_REPORTS__NAME, oldName, name));
   }
 
   /**
@@ -176,6 +220,8 @@ public class ResultReportsImpl extends MinimalEObjectImpl.Container implements R
   {
     switch (featureID)
     {
+      case ResultsPackage.RESULT_REPORTS__NAME:
+        return getName();
       case ResultsPackage.RESULT_REPORTS__TARGET:
         if (resolve) return getTarget();
         return basicGetTarget();
@@ -196,6 +242,9 @@ public class ResultReportsImpl extends MinimalEObjectImpl.Container implements R
   {
     switch (featureID)
     {
+      case ResultsPackage.RESULT_REPORTS__NAME:
+        setName((String)newValue);
+        return;
       case ResultsPackage.RESULT_REPORTS__TARGET:
         setTarget((EObject)newValue);
         return;
@@ -217,6 +266,9 @@ public class ResultReportsImpl extends MinimalEObjectImpl.Container implements R
   {
     switch (featureID)
     {
+      case ResultsPackage.RESULT_REPORTS__NAME:
+        setName(NAME_EDEFAULT);
+        return;
       case ResultsPackage.RESULT_REPORTS__TARGET:
         setTarget((EObject)null);
         return;
@@ -237,12 +289,31 @@ public class ResultReportsImpl extends MinimalEObjectImpl.Container implements R
   {
     switch (featureID)
     {
+      case ResultsPackage.RESULT_REPORTS__NAME:
+        return NAME_EDEFAULT == null ? name != null : !NAME_EDEFAULT.equals(name);
       case ResultsPackage.RESULT_REPORTS__TARGET:
         return target != null;
       case ResultsPackage.RESULT_REPORTS__ISSUES:
         return issues != null && !issues.isEmpty();
     }
     return super.eIsSet(featureID);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  @Override
+  public String toString()
+  {
+    if (eIsProxy()) return super.toString();
+
+    StringBuffer result = new StringBuffer(super.toString());
+    result.append(" (name: ");
+    result.append(name);
+    result.append(')');
+    return result.toString();
   }
 
 } //ResultReportsImpl

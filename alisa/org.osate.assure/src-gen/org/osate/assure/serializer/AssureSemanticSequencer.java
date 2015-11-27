@@ -34,7 +34,7 @@ import org.osate.assure.assure.ThenResult;
 import org.osate.assure.assure.ValidationResult;
 import org.osate.assure.assure.VerificationActivityResult;
 import org.osate.assure.services.AssureGrammarAccess;
-import org.osate.results.results.IssueReport;
+import org.osate.results.results.IssuesReport;
 import org.osate.results.results.ResultContributor;
 import org.osate.results.results.ResultData;
 import org.osate.results.results.ResultIssue;
@@ -78,8 +78,8 @@ public class AssureSemanticSequencer extends ResultsSemanticSequencer {
 				return; 
 			}
 		else if(semanticObject.eClass().getEPackage() == ResultsPackage.eINSTANCE) switch(semanticObject.eClass().getClassifierID()) {
-			case ResultsPackage.ISSUE_REPORT:
-				sequence_IssueReport(context, (IssueReport) semanticObject); 
+			case ResultsPackage.ISSUES_REPORT:
+				sequence_IssuesReport(context, (IssuesReport) semanticObject); 
 				return; 
 			case ResultsPackage.RESULT_CONTRIBUTOR:
 				sequence_ResultContributor(context, (ResultContributor) semanticObject); 

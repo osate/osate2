@@ -98,16 +98,6 @@ public class ResultsAdapterFactory extends AdapterFactoryImpl
         return createResultReportCollectionAdapter();
       }
       @Override
-      public Adapter caseResultIssue(ResultIssue object)
-      {
-        return createResultIssueAdapter();
-      }
-      @Override
-      public Adapter caseResultData(ResultData object)
-      {
-        return createResultDataAdapter();
-      }
-      @Override
       public Adapter caseResultReport(ResultReport object)
       {
         return createResultReportAdapter();
@@ -118,9 +108,19 @@ public class ResultsAdapterFactory extends AdapterFactoryImpl
         return createResultContributorAdapter();
       }
       @Override
-      public Adapter caseIssueReport(IssueReport object)
+      public Adapter caseIssuesReport(IssuesReport object)
       {
-        return createIssueReportAdapter();
+        return createIssuesReportAdapter();
+      }
+      @Override
+      public Adapter caseResultIssue(ResultIssue object)
+      {
+        return createResultIssueAdapter();
+      }
+      @Override
+      public Adapter caseResultData(ResultData object)
+      {
+        return createResultDataAdapter();
       }
       @Override
       public Adapter defaultCase(EObject object)
@@ -175,36 +175,6 @@ public class ResultsAdapterFactory extends AdapterFactoryImpl
   }
 
   /**
-   * Creates a new adapter for an object of class '{@link org.osate.results.results.ResultIssue <em>Result Issue</em>}'.
-   * <!-- begin-user-doc -->
-   * This default implementation returns null so that we can easily ignore cases;
-   * it's useful to ignore a case when inheritance will catch all the cases anyway.
-   * <!-- end-user-doc -->
-   * @return the new adapter.
-   * @see org.osate.results.results.ResultIssue
-   * @generated
-   */
-  public Adapter createResultIssueAdapter()
-  {
-    return null;
-  }
-
-  /**
-   * Creates a new adapter for an object of class '{@link org.osate.results.results.ResultData <em>Result Data</em>}'.
-   * <!-- begin-user-doc -->
-   * This default implementation returns null so that we can easily ignore cases;
-   * it's useful to ignore a case when inheritance will catch all the cases anyway.
-   * <!-- end-user-doc -->
-   * @return the new adapter.
-   * @see org.osate.results.results.ResultData
-   * @generated
-   */
-  public Adapter createResultDataAdapter()
-  {
-    return null;
-  }
-
-  /**
    * Creates a new adapter for an object of class '{@link org.osate.results.results.ResultReport <em>Result Report</em>}'.
    * <!-- begin-user-doc -->
    * This default implementation returns null so that we can easily ignore cases;
@@ -235,16 +205,46 @@ public class ResultsAdapterFactory extends AdapterFactoryImpl
   }
 
   /**
-   * Creates a new adapter for an object of class '{@link org.osate.results.results.IssueReport <em>Issue Report</em>}'.
+   * Creates a new adapter for an object of class '{@link org.osate.results.results.IssuesReport <em>Issues Report</em>}'.
    * <!-- begin-user-doc -->
    * This default implementation returns null so that we can easily ignore cases;
    * it's useful to ignore a case when inheritance will catch all the cases anyway.
    * <!-- end-user-doc -->
    * @return the new adapter.
-   * @see org.osate.results.results.IssueReport
+   * @see org.osate.results.results.IssuesReport
    * @generated
    */
-  public Adapter createIssueReportAdapter()
+  public Adapter createIssuesReportAdapter()
+  {
+    return null;
+  }
+
+  /**
+   * Creates a new adapter for an object of class '{@link org.osate.results.results.ResultIssue <em>Result Issue</em>}'.
+   * <!-- begin-user-doc -->
+   * This default implementation returns null so that we can easily ignore cases;
+   * it's useful to ignore a case when inheritance will catch all the cases anyway.
+   * <!-- end-user-doc -->
+   * @return the new adapter.
+   * @see org.osate.results.results.ResultIssue
+   * @generated
+   */
+  public Adapter createResultIssueAdapter()
+  {
+    return null;
+  }
+
+  /**
+   * Creates a new adapter for an object of class '{@link org.osate.results.results.ResultData <em>Result Data</em>}'.
+   * <!-- begin-user-doc -->
+   * This default implementation returns null so that we can easily ignore cases;
+   * it's useful to ignore a case when inheritance will catch all the cases anyway.
+   * <!-- end-user-doc -->
+   * @return the new adapter.
+   * @see org.osate.results.results.ResultData
+   * @generated
+   */
+  public Adapter createResultDataAdapter()
   {
     return null;
   }

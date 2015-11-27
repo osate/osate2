@@ -30,8 +30,8 @@ import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.eclipse.emf.ecore.util.EObjectContainmentEList;
 import org.eclipse.emf.ecore.util.InternalEList;
 
+import org.osate.results.results.ResultContributor;
 import org.osate.results.results.ResultData;
-import org.osate.results.results.ResultIssue;
 import org.osate.results.results.ResultReport;
 import org.osate.results.results.ResultsPackage;
 
@@ -43,7 +43,6 @@ import org.osate.results.results.ResultsPackage;
  * The following features are implemented:
  * </p>
  * <ul>
- *   <li>{@link org.osate.results.results.impl.ResultReportImpl#getName <em>Name</em>}</li>
  *   <li>{@link org.osate.results.results.impl.ResultReportImpl#getTitle <em>Title</em>}</li>
  *   <li>{@link org.osate.results.results.impl.ResultReportImpl#getDecription <em>Decription</em>}</li>
  *   <li>{@link org.osate.results.results.impl.ResultReportImpl#getHeading <em>Heading</em>}</li>
@@ -53,28 +52,8 @@ import org.osate.results.results.ResultsPackage;
  *
  * @generated
  */
-public class ResultReportImpl extends ResultIssueImpl implements ResultReport
+public class ResultReportImpl extends ResultReportsImpl implements ResultReport
 {
-  /**
-   * The default value of the '{@link #getName() <em>Name</em>}' attribute.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @see #getName()
-   * @generated
-   * @ordered
-   */
-  protected static final String NAME_EDEFAULT = null;
-
-  /**
-   * The cached value of the '{@link #getName() <em>Name</em>}' attribute.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @see #getName()
-   * @generated
-   * @ordered
-   */
-  protected String name = NAME_EDEFAULT;
-
   /**
    * The default value of the '{@link #getTitle() <em>Title</em>}' attribute.
    * <!-- begin-user-doc -->
@@ -143,7 +122,7 @@ public class ResultReportImpl extends ResultIssueImpl implements ResultReport
    * @generated
    * @ordered
    */
-  protected EList<ResultIssue> content;
+  protected EList<ResultContributor> content;
 
   /**
    * The cached value of the '{@link #getResultData() <em>Result Data</em>}' containment reference list.
@@ -174,29 +153,6 @@ public class ResultReportImpl extends ResultIssueImpl implements ResultReport
   protected EClass eStaticClass()
   {
     return ResultsPackage.Literals.RESULT_REPORT;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public String getName()
-  {
-    return name;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public void setName(String newName)
-  {
-    String oldName = name;
-    name = newName;
-    if (eNotificationRequired())
-      eNotify(new ENotificationImpl(this, Notification.SET, ResultsPackage.RESULT_REPORT__NAME, oldName, name));
   }
 
   /**
@@ -273,11 +229,11 @@ public class ResultReportImpl extends ResultIssueImpl implements ResultReport
    * <!-- end-user-doc -->
    * @generated
    */
-  public EList<ResultIssue> getContent()
+  public EList<ResultContributor> getContent()
   {
     if (content == null)
     {
-      content = new EObjectContainmentEList<ResultIssue>(ResultIssue.class, this, ResultsPackage.RESULT_REPORT__CONTENT);
+      content = new EObjectContainmentEList<ResultContributor>(ResultContributor.class, this, ResultsPackage.RESULT_REPORT__CONTENT);
     }
     return content;
   }
@@ -324,8 +280,6 @@ public class ResultReportImpl extends ResultIssueImpl implements ResultReport
   {
     switch (featureID)
     {
-      case ResultsPackage.RESULT_REPORT__NAME:
-        return getName();
       case ResultsPackage.RESULT_REPORT__TITLE:
         return getTitle();
       case ResultsPackage.RESULT_REPORT__DECRIPTION:
@@ -351,9 +305,6 @@ public class ResultReportImpl extends ResultIssueImpl implements ResultReport
   {
     switch (featureID)
     {
-      case ResultsPackage.RESULT_REPORT__NAME:
-        setName((String)newValue);
-        return;
       case ResultsPackage.RESULT_REPORT__TITLE:
         setTitle((String)newValue);
         return;
@@ -365,7 +316,7 @@ public class ResultReportImpl extends ResultIssueImpl implements ResultReport
         return;
       case ResultsPackage.RESULT_REPORT__CONTENT:
         getContent().clear();
-        getContent().addAll((Collection<? extends ResultIssue>)newValue);
+        getContent().addAll((Collection<? extends ResultContributor>)newValue);
         return;
       case ResultsPackage.RESULT_REPORT__RESULT_DATA:
         getResultData().clear();
@@ -385,9 +336,6 @@ public class ResultReportImpl extends ResultIssueImpl implements ResultReport
   {
     switch (featureID)
     {
-      case ResultsPackage.RESULT_REPORT__NAME:
-        setName(NAME_EDEFAULT);
-        return;
       case ResultsPackage.RESULT_REPORT__TITLE:
         setTitle(TITLE_EDEFAULT);
         return;
@@ -417,8 +365,6 @@ public class ResultReportImpl extends ResultIssueImpl implements ResultReport
   {
     switch (featureID)
     {
-      case ResultsPackage.RESULT_REPORT__NAME:
-        return NAME_EDEFAULT == null ? name != null : !NAME_EDEFAULT.equals(name);
       case ResultsPackage.RESULT_REPORT__TITLE:
         return TITLE_EDEFAULT == null ? title != null : !TITLE_EDEFAULT.equals(title);
       case ResultsPackage.RESULT_REPORT__DECRIPTION:
@@ -444,9 +390,7 @@ public class ResultReportImpl extends ResultIssueImpl implements ResultReport
     if (eIsProxy()) return super.toString();
 
     StringBuffer result = new StringBuffer(super.toString());
-    result.append(" (name: ");
-    result.append(name);
-    result.append(", title: ");
+    result.append(" (title: ");
     result.append(title);
     result.append(", decription: ");
     result.append(decription);
