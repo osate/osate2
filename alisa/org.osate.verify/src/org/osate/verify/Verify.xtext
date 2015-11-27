@@ -25,7 +25,7 @@ VerificationPlan returns VerificationPlan:
 
 Claim:
 	'claim' requirement=[ReqSpec::Requirement|QualifiedName]  (':' title=STRING)?
-	('(' weight=Number ')')?
+	('(' weight=INT ')')?
 	'['
 	(
 		  ('activities' activities += VerificationActivity*)?

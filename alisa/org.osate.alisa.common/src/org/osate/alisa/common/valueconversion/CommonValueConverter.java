@@ -56,4 +56,25 @@ public class CommonValueConverter extends DefaultTerminalConverters {
 		};
 	}
 
+	@ValueConverter(rule = "INTVALUE")
+	public IValueConverter<Long> INTVALUE() {
+		return new IValueConverter<Long>() {
+			@Override
+			public Long toValue(String string, INode node) {
+				if (string == null) {
+					return 0L;
+				}
+				if (string.indexOf('_') != -1) {
+					string = string.replaceAll("_", "");
+				}
+				return Long.valueOf(string);
+			}
+
+			@Override
+			public String toString(Long value) {
+				return value.toString();
+			}
+		};
+	}
+
 }

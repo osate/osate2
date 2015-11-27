@@ -40,6 +40,7 @@ public class VerifySyntacticSequencer extends AbstractSyntacticSequencer {
 	protected AbstractElementAlias match_Claim___ActivitiesKeyword_5_0_0_a_IssuesKeyword_5_4_0__q;
 	protected AbstractElementAlias match_CompositeEvidenceExpr_LeftParenthesisKeyword_0_0_a;
 	protected AbstractElementAlias match_CompositeEvidenceExpr_LeftParenthesisKeyword_0_0_p;
+	protected AbstractElementAlias match_ResultIssue___LeftSquareBracketKeyword_5_0_RightSquareBracketKeyword_5_2__q;
 	protected AbstractElementAlias match_VerificationActivity___PropertyKeyword_10_0_ValuesKeyword_10_1_LeftParenthesisKeyword_10_2_RightParenthesisKeyword_10_4__q;
 	protected AbstractElementAlias match_VerificationMethod_CategoryKeyword_5_5_0_q;
 	protected AbstractElementAlias match_VerificationMethod_QualityKeyword_5_4_0_q;
@@ -57,6 +58,7 @@ public class VerifySyntacticSequencer extends AbstractSyntacticSequencer {
 		match_Claim___ActivitiesKeyword_5_0_0_a_IssuesKeyword_5_4_0__q = new GroupAlias(false, true, new TokenAlias(true, true, grammarAccess.getClaimAccess().getActivitiesKeyword_5_0_0()), new TokenAlias(false, false, grammarAccess.getClaimAccess().getIssuesKeyword_5_4_0()));
 		match_CompositeEvidenceExpr_LeftParenthesisKeyword_0_0_a = new TokenAlias(true, true, grammarAccess.getCompositeEvidenceExprAccess().getLeftParenthesisKeyword_0_0());
 		match_CompositeEvidenceExpr_LeftParenthesisKeyword_0_0_p = new TokenAlias(true, false, grammarAccess.getCompositeEvidenceExprAccess().getLeftParenthesisKeyword_0_0());
+		match_ResultIssue___LeftSquareBracketKeyword_5_0_RightSquareBracketKeyword_5_2__q = new GroupAlias(false, true, new TokenAlias(false, false, grammarAccess.getResultIssueAccess().getLeftSquareBracketKeyword_5_0()), new TokenAlias(false, false, grammarAccess.getResultIssueAccess().getRightSquareBracketKeyword_5_2()));
 		match_VerificationActivity___PropertyKeyword_10_0_ValuesKeyword_10_1_LeftParenthesisKeyword_10_2_RightParenthesisKeyword_10_4__q = new GroupAlias(false, true, new TokenAlias(false, false, grammarAccess.getVerificationActivityAccess().getPropertyKeyword_10_0()), new TokenAlias(false, false, grammarAccess.getVerificationActivityAccess().getValuesKeyword_10_1()), new TokenAlias(false, false, grammarAccess.getVerificationActivityAccess().getLeftParenthesisKeyword_10_2()), new TokenAlias(false, false, grammarAccess.getVerificationActivityAccess().getRightParenthesisKeyword_10_4()));
 		match_VerificationMethod_CategoryKeyword_5_5_0_q = new TokenAlias(false, true, grammarAccess.getVerificationMethodAccess().getCategoryKeyword_5_5_0());
 		match_VerificationMethod_QualityKeyword_5_4_0_q = new TokenAlias(false, true, grammarAccess.getVerificationMethodAccess().getQualityKeyword_5_4_0());
@@ -91,6 +93,8 @@ public class VerifySyntacticSequencer extends AbstractSyntacticSequencer {
 				emit_CompositeEvidenceExpr_LeftParenthesisKeyword_0_0_a(semanticObject, getLastNavigableState(), syntaxNodes);
 			else if(match_CompositeEvidenceExpr_LeftParenthesisKeyword_0_0_p.equals(syntax))
 				emit_CompositeEvidenceExpr_LeftParenthesisKeyword_0_0_p(semanticObject, getLastNavigableState(), syntaxNodes);
+			else if(match_ResultIssue___LeftSquareBracketKeyword_5_0_RightSquareBracketKeyword_5_2__q.equals(syntax))
+				emit_ResultIssue___LeftSquareBracketKeyword_5_0_RightSquareBracketKeyword_5_2__q(semanticObject, getLastNavigableState(), syntaxNodes);
 			else if(match_VerificationActivity___PropertyKeyword_10_0_ValuesKeyword_10_1_LeftParenthesisKeyword_10_2_RightParenthesisKeyword_10_4__q.equals(syntax))
 				emit_VerificationActivity___PropertyKeyword_10_0_ValuesKeyword_10_1_LeftParenthesisKeyword_10_2_RightParenthesisKeyword_10_4__q(semanticObject, getLastNavigableState(), syntaxNodes);
 			else if(match_VerificationMethod_CategoryKeyword_5_5_0_q.equals(syntax))
@@ -195,11 +199,11 @@ public class VerifySyntacticSequencer extends AbstractSyntacticSequencer {
 	 *     title=STRING '[' (ambiguity) 'issues' issues+=STRING
 	 *     title=STRING '[' (ambiguity) rationale=Rationale
 	 *     title=STRING '[' (ambiguity) subclaim+=Claim
-	 *     weight=Number ')' '[' (ambiguity) ']' (rule end)
-	 *     weight=Number ')' '[' (ambiguity) 'assert' assert=ArgumentExpr
-	 *     weight=Number ')' '[' (ambiguity) 'issues' issues+=STRING
-	 *     weight=Number ')' '[' (ambiguity) rationale=Rationale
-	 *     weight=Number ')' '[' (ambiguity) subclaim+=Claim
+	 *     weight=INT ')' '[' (ambiguity) ']' (rule end)
+	 *     weight=INT ')' '[' (ambiguity) 'assert' assert=ArgumentExpr
+	 *     weight=INT ')' '[' (ambiguity) 'issues' issues+=STRING
+	 *     weight=INT ')' '[' (ambiguity) rationale=Rationale
+	 *     weight=INT ')' '[' (ambiguity) subclaim+=Claim
 	 */
 	protected void emit_Claim_ActivitiesKeyword_5_0_0_a(EObject semanticObject, ISynNavigable transition, List<INode> nodes) {
 		acceptNodes(transition, nodes);
@@ -216,7 +220,7 @@ public class VerifySyntacticSequencer extends AbstractSyntacticSequencer {
 	 *     requirement=[Requirement|QualifiedName] '[' (ambiguity) activities+=VerificationActivity
 	 *     subclaim+=Claim (ambiguity) activities+=VerificationActivity
 	 *     title=STRING '[' (ambiguity) activities+=VerificationActivity
-	 *     weight=Number ')' '[' (ambiguity) activities+=VerificationActivity
+	 *     weight=INT ')' '[' (ambiguity) activities+=VerificationActivity
 	 */
 	protected void emit_Claim_ActivitiesKeyword_5_0_0_p(EObject semanticObject, ISynNavigable transition, List<INode> nodes) {
 		acceptNodes(transition, nodes);
@@ -257,6 +261,19 @@ public class VerifySyntacticSequencer extends AbstractSyntacticSequencer {
 	 *     (rule start) (ambiguity) {ThenExpr.left=}
 	 */
 	protected void emit_CompositeEvidenceExpr_LeftParenthesisKeyword_0_0_p(EObject semanticObject, ISynNavigable transition, List<INode> nodes) {
+		acceptNodes(transition, nodes);
+	}
+	
+	/**
+	 * Ambiguous syntax:
+	 *     ('[' ']')?
+	 *
+	 * This ambiguous syntax occurs at:
+	 *     exceptionType=STRING (ambiguity) (rule end)
+	 *     message=STRING (ambiguity) (rule end)
+	 *     target=[EObject|URIID] (ambiguity) (rule end)
+	 */
+	protected void emit_ResultIssue___LeftSquareBracketKeyword_5_0_RightSquareBracketKeyword_5_2__q(EObject semanticObject, ISynNavigable transition, List<INode> nodes) {
 		acceptNodes(transition, nodes);
 	}
 	

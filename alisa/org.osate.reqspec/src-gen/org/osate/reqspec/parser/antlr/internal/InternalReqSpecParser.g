@@ -29,6 +29,7 @@ import org.eclipse.xtext.parser.*;
 import org.eclipse.xtext.parser.impl.*;
 import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.emf.ecore.EObject;
+import org.eclipse.emf.common.util.Enumerator;
 import org.eclipse.xtext.parser.antlr.AbstractInternalAntlrParser;
 import org.eclipse.xtext.parser.antlr.XtextTokenStream;
 import org.eclipse.xtext.parser.antlr.XtextTokenStream.HiddenTokens;
@@ -5814,25 +5815,25 @@ ruleUncertainty returns [EObject current=null]
 	 				  getUnorderedGroupHelper().select(grammarAccess.getUncertaintyAccess().getUnorderedGroup_2(), 0);
 	 				}
 					({true}?=>(
-	otherlv_3=Volatility
+	otherlv_3=Importance
     {
-    	newLeafNode(otherlv_3, grammarAccess.getUncertaintyAccess().getVolatilityKeyword_2_0_0());
+    	newLeafNode(otherlv_3, grammarAccess.getUncertaintyAccess().getImportanceKeyword_2_0_0());
     }
 (
 (
-		{ 
-	        newCompositeNode(grammarAccess.getUncertaintyAccess().getVolatilityNumberParserRuleCall_2_0_1_0()); 
-	    }
-		lv_volatility_4_0=ruleNumber		{
+		lv_importance_4_0=RULE_INT
+		{
+			newLeafNode(lv_importance_4_0, grammarAccess.getUncertaintyAccess().getImportanceINTTerminalRuleCall_2_0_1_0()); 
+		}
+		{
 	        if ($current==null) {
-	            $current = createModelElementForParent(grammarAccess.getUncertaintyRule());
+	            $current = createModelElement(grammarAccess.getUncertaintyRule());
 	        }
-       		set(
+       		setWithLastConsumed(
        			$current, 
-       			"volatility",
-        		lv_volatility_4_0, 
-        		"Number");
-	        afterParserOrEnumRuleCall();
+       			"importance",
+        		lv_importance_4_0, 
+        		"INT");
 	    }
 
 )
@@ -5849,200 +5850,25 @@ ruleUncertainty returns [EObject current=null]
 	 				  getUnorderedGroupHelper().select(grammarAccess.getUncertaintyAccess().getUnorderedGroup_2(), 1);
 	 				}
 					({true}?=>(
-	otherlv_5=Costimpact
+	otherlv_5=Difficulty
     {
-    	newLeafNode(otherlv_5, grammarAccess.getUncertaintyAccess().getCostimpactKeyword_2_1_0());
+    	newLeafNode(otherlv_5, grammarAccess.getUncertaintyAccess().getDifficultyKeyword_2_1_0());
     }
 (
 (
-		{ 
-	        newCompositeNode(grammarAccess.getUncertaintyAccess().getCostimpactNumberParserRuleCall_2_1_1_0()); 
-	    }
-		lv_costimpact_6_0=ruleNumber		{
+		lv_difficulty_6_0=RULE_INT
+		{
+			newLeafNode(lv_difficulty_6_0, grammarAccess.getUncertaintyAccess().getDifficultyINTTerminalRuleCall_2_1_1_0()); 
+		}
+		{
 	        if ($current==null) {
-	            $current = createModelElementForParent(grammarAccess.getUncertaintyRule());
+	            $current = createModelElement(grammarAccess.getUncertaintyRule());
 	        }
-       		set(
+       		setWithLastConsumed(
        			$current, 
-       			"costimpact",
-        		lv_costimpact_6_0, 
-        		"Number");
-	        afterParserOrEnumRuleCall();
-	    }
-
-)
-)))
-					{ 
-	 				  getUnorderedGroupHelper().returnFromSelection(grammarAccess.getUncertaintyAccess().getUnorderedGroup_2());
-	 				}
- 				)
-			)  |
-
-			( 
-				{getUnorderedGroupHelper().canSelect(grammarAccess.getUncertaintyAccess().getUnorderedGroup_2(), 2)}?=>(
-					{ 
-	 				  getUnorderedGroupHelper().select(grammarAccess.getUncertaintyAccess().getUnorderedGroup_2(), 2);
-	 				}
-					({true}?=>(
-	otherlv_7=Scheduleimpact
-    {
-    	newLeafNode(otherlv_7, grammarAccess.getUncertaintyAccess().getScheduleimpactKeyword_2_2_0());
-    }
-(
-(
-		{ 
-	        newCompositeNode(grammarAccess.getUncertaintyAccess().getScheduleimpactNumberParserRuleCall_2_2_1_0()); 
-	    }
-		lv_scheduleimpact_8_0=ruleNumber		{
-	        if ($current==null) {
-	            $current = createModelElementForParent(grammarAccess.getUncertaintyRule());
-	        }
-       		set(
-       			$current, 
-       			"scheduleimpact",
-        		lv_scheduleimpact_8_0, 
-        		"Number");
-	        afterParserOrEnumRuleCall();
-	    }
-
-)
-)))
-					{ 
-	 				  getUnorderedGroupHelper().returnFromSelection(grammarAccess.getUncertaintyAccess().getUnorderedGroup_2());
-	 				}
- 				)
-			)  |
-
-			( 
-				{getUnorderedGroupHelper().canSelect(grammarAccess.getUncertaintyAccess().getUnorderedGroup_2(), 3)}?=>(
-					{ 
-	 				  getUnorderedGroupHelper().select(grammarAccess.getUncertaintyAccess().getUnorderedGroup_2(), 3);
-	 				}
-					({true}?=>(
-	otherlv_9=Familiarity
-    {
-    	newLeafNode(otherlv_9, grammarAccess.getUncertaintyAccess().getFamiliarityKeyword_2_3_0());
-    }
-(
-(
-		{ 
-	        newCompositeNode(grammarAccess.getUncertaintyAccess().getFamiliarityNumberParserRuleCall_2_3_1_0()); 
-	    }
-		lv_familiarity_10_0=ruleNumber		{
-	        if ($current==null) {
-	            $current = createModelElementForParent(grammarAccess.getUncertaintyRule());
-	        }
-       		set(
-       			$current, 
-       			"familiarity",
-        		lv_familiarity_10_0, 
-        		"Number");
-	        afterParserOrEnumRuleCall();
-	    }
-
-)
-)))
-					{ 
-	 				  getUnorderedGroupHelper().returnFromSelection(grammarAccess.getUncertaintyAccess().getUnorderedGroup_2());
-	 				}
- 				)
-			)  |
-
-			( 
-				{getUnorderedGroupHelper().canSelect(grammarAccess.getUncertaintyAccess().getUnorderedGroup_2(), 4)}?=>(
-					{ 
-	 				  getUnorderedGroupHelper().select(grammarAccess.getUncertaintyAccess().getUnorderedGroup_2(), 4);
-	 				}
-					({true}?=>(
-	otherlv_11=Timecriticality
-    {
-    	newLeafNode(otherlv_11, grammarAccess.getUncertaintyAccess().getTimecriticalityKeyword_2_4_0());
-    }
-(
-(
-		{ 
-	        newCompositeNode(grammarAccess.getUncertaintyAccess().getTimecriticalityNumberParserRuleCall_2_4_1_0()); 
-	    }
-		lv_timecriticality_12_0=ruleNumber		{
-	        if ($current==null) {
-	            $current = createModelElementForParent(grammarAccess.getUncertaintyRule());
-	        }
-       		set(
-       			$current, 
-       			"timecriticality",
-        		lv_timecriticality_12_0, 
-        		"Number");
-	        afterParserOrEnumRuleCall();
-	    }
-
-)
-)))
-					{ 
-	 				  getUnorderedGroupHelper().returnFromSelection(grammarAccess.getUncertaintyAccess().getUnorderedGroup_2());
-	 				}
- 				)
-			)  |
-
-			( 
-				{getUnorderedGroupHelper().canSelect(grammarAccess.getUncertaintyAccess().getUnorderedGroup_2(), 5)}?=>(
-					{ 
-	 				  getUnorderedGroupHelper().select(grammarAccess.getUncertaintyAccess().getUnorderedGroup_2(), 5);
-	 				}
-					({true}?=>(
-	otherlv_13=Riskindex
-    {
-    	newLeafNode(otherlv_13, grammarAccess.getUncertaintyAccess().getRiskindexKeyword_2_5_0());
-    }
-(
-(
-		{ 
-	        newCompositeNode(grammarAccess.getUncertaintyAccess().getRiskindexNumberParserRuleCall_2_5_1_0()); 
-	    }
-		lv_riskindex_14_0=ruleNumber		{
-	        if ($current==null) {
-	            $current = createModelElementForParent(grammarAccess.getUncertaintyRule());
-	        }
-       		set(
-       			$current, 
-       			"riskindex",
-        		lv_riskindex_14_0, 
-        		"Number");
-	        afterParserOrEnumRuleCall();
-	    }
-
-)
-)))
-					{ 
-	 				  getUnorderedGroupHelper().returnFromSelection(grammarAccess.getUncertaintyAccess().getUnorderedGroup_2());
-	 				}
- 				)
-			)  |
-
-			( 
-				{getUnorderedGroupHelper().canSelect(grammarAccess.getUncertaintyAccess().getUnorderedGroup_2(), 6)}?=>(
-					{ 
-	 				  getUnorderedGroupHelper().select(grammarAccess.getUncertaintyAccess().getUnorderedGroup_2(), 6);
-	 				}
-					({true}?=>(
-	otherlv_15=Maturityindex
-    {
-    	newLeafNode(otherlv_15, grammarAccess.getUncertaintyAccess().getMaturityindexKeyword_2_6_0());
-    }
-(
-(
-		{ 
-	        newCompositeNode(grammarAccess.getUncertaintyAccess().getMaturityindexNumberParserRuleCall_2_6_1_0()); 
-	    }
-		lv_maturityindex_16_0=ruleNumber		{
-	        if ($current==null) {
-	            $current = createModelElementForParent(grammarAccess.getUncertaintyRule());
-	        }
-       		set(
-       			$current, 
-       			"maturityindex",
-        		lv_maturityindex_16_0, 
-        		"Number");
-	        afterParserOrEnumRuleCall();
+       			"difficulty",
+        		lv_difficulty_6_0, 
+        		"INT");
 	    }
 
 )
@@ -6062,11 +5888,144 @@ ruleUncertainty returns [EObject current=null]
 	}
 
 )
-	otherlv_17=RightSquareBracket
+	otherlv_7=RightSquareBracket
     {
-    	newLeafNode(otherlv_17, grammarAccess.getUncertaintyAccess().getRightSquareBracketKeyword_3());
+    	newLeafNode(otherlv_7, grammarAccess.getUncertaintyAccess().getRightSquareBracketKeyword_3());
     }
 )
+;
+
+
+
+
+
+// Entry rule entryRuleResultIssue
+entryRuleResultIssue returns [EObject current=null]
+	:
+	{ newCompositeNode(grammarAccess.getResultIssueRule()); }
+	 iv_ruleResultIssue=ruleResultIssue 
+	 { $current=$iv_ruleResultIssue.current; } 
+	 EOF 
+;
+
+// Rule ResultIssue
+ruleResultIssue returns [EObject current=null] 
+    @init { enterRule(); 
+    }
+    @after { leaveRule(); }:
+(
+	otherlv_0=Issue
+    {
+    	newLeafNode(otherlv_0, grammarAccess.getResultIssueAccess().getIssueKeyword_0());
+    }
+(
+(
+		{ 
+	        newCompositeNode(grammarAccess.getResultIssueAccess().getIssueTypeResultIssueTypeEnumRuleCall_1_0()); 
+	    }
+		lv_issueType_1_0=ruleResultIssueType		{
+	        if ($current==null) {
+	            $current = createModelElementForParent(grammarAccess.getResultIssueRule());
+	        }
+       		set(
+       			$current, 
+       			"issueType",
+        		lv_issueType_1_0, 
+        		"ResultIssueType");
+	        afterParserOrEnumRuleCall();
+	    }
+
+)
+)(
+(
+		lv_message_2_0=RULE_STRING
+		{
+			newLeafNode(lv_message_2_0, grammarAccess.getResultIssueAccess().getMessageSTRINGTerminalRuleCall_2_0()); 
+		}
+		{
+	        if ($current==null) {
+	            $current = createModelElement(grammarAccess.getResultIssueRule());
+	        }
+       		setWithLastConsumed(
+       			$current, 
+       			"message",
+        		lv_message_2_0, 
+        		"STRING");
+	    }
+
+)
+)(
+	otherlv_3=Target
+    {
+    	newLeafNode(otherlv_3, grammarAccess.getResultIssueAccess().getTargetKeyword_3_0());
+    }
+(
+(
+		{
+			if ($current==null) {
+	            $current = createModelElement(grammarAccess.getResultIssueRule());
+	        }
+        }
+		{ 
+	        newCompositeNode(grammarAccess.getResultIssueAccess().getTargetEObjectCrossReference_3_1_0()); 
+	    }
+		ruleURIID		{ 
+	        afterParserOrEnumRuleCall();
+	    }
+
+)
+))?(
+	otherlv_5=Exception
+    {
+    	newLeafNode(otherlv_5, grammarAccess.getResultIssueAccess().getExceptionKeyword_4_0());
+    }
+(
+(
+		lv_exceptionType_6_0=RULE_STRING
+		{
+			newLeafNode(lv_exceptionType_6_0, grammarAccess.getResultIssueAccess().getExceptionTypeSTRINGTerminalRuleCall_4_1_0()); 
+		}
+		{
+	        if ($current==null) {
+	            $current = createModelElement(grammarAccess.getResultIssueRule());
+	        }
+       		setWithLastConsumed(
+       			$current, 
+       			"exceptionType",
+        		lv_exceptionType_6_0, 
+        		"STRING");
+	    }
+
+)
+))?(
+	otherlv_7=LeftSquareBracket
+    {
+    	newLeafNode(otherlv_7, grammarAccess.getResultIssueAccess().getLeftSquareBracketKeyword_5_0());
+    }
+(
+(
+		{ 
+	        newCompositeNode(grammarAccess.getResultIssueAccess().getIssuesResultIssueParserRuleCall_5_1_0()); 
+	    }
+		lv_issues_8_0=ruleResultIssue		{
+	        if ($current==null) {
+	            $current = createModelElementForParent(grammarAccess.getResultIssueRule());
+	        }
+       		add(
+       			$current, 
+       			"issues",
+        		lv_issues_8_0, 
+        		"ResultIssue");
+	        afterParserOrEnumRuleCall();
+	    }
+
+)
+)*
+	otherlv_9=RightSquareBracket
+    {
+    	newLeafNode(otherlv_9, grammarAccess.getResultIssueAccess().getRightSquareBracketKeyword_5_2());
+    }
+)?)
 ;
 
 
@@ -7802,12 +7761,12 @@ ruleAInt returns [AntlrDatatypeRuleToken current=new AntlrDatatypeRuleToken()]
     }
     @after { leaveRule();
     }:
-    this_INTEGER_LIT_0=RULE_INTEGER_LIT    {
-		$current.merge(this_INTEGER_LIT_0);
+    this_INT_0=RULE_INT    {
+		$current.merge(this_INT_0);
     }
 
     { 
-    newLeafNode(this_INTEGER_LIT_0, grammarAccess.getAIntAccess().getINTEGER_LITTerminalRuleCall()); 
+    newLeafNode(this_INT_0, grammarAccess.getAIntAccess().getINTTerminalRuleCall()); 
     }
 
     ;
@@ -8529,6 +8488,33 @@ ruleAADLPROPERTYREFERENCE returns [AntlrDatatypeRuleToken current=new AntlrDatat
 
 
 
+// Entry rule entryRuleURIID
+entryRuleURIID returns [String current=null] 
+:
+	{ newCompositeNode(grammarAccess.getURIIDRule()); } 
+	 iv_ruleURIID=ruleURIID 
+	 { $current=$iv_ruleURIID.current.getText(); }  
+	 EOF 
+;
+
+// Rule URIID
+ruleURIID returns [AntlrDatatypeRuleToken current=new AntlrDatatypeRuleToken()] 
+    @init { enterRule(); 
+    }
+    @after { leaveRule();
+    }:
+    this_STRING_0=RULE_STRING    {
+		$current.merge(this_STRING_0);
+    }
+
+    { 
+    newLeafNode(this_STRING_0, grammarAccess.getURIIDAccess().getSTRINGTerminalRuleCall()); 
+    }
+
+    ;
+
+
+
 
 
 // Entry rule entryRuleQualifiedName
@@ -8573,79 +8559,52 @@ ruleQualifiedName returns [AntlrDatatypeRuleToken current=new AntlrDatatypeRuleT
 
 
 
-// Entry rule entryRuleNumber
-entryRuleNumber returns [String current=null] 
-	@init { 
-		HiddenTokens myHiddenTokenState = ((XtextTokenStream)input).setHiddenTokens();
-	}
-:
-	{ newCompositeNode(grammarAccess.getNumberRule()); } 
-	 iv_ruleNumber=ruleNumber 
-	 { $current=$iv_ruleNumber.current.getText(); }  
-	 EOF 
-;
-finally {
-	myHiddenTokenState.restore();
-}
-
-// Rule Number
-ruleNumber returns [AntlrDatatypeRuleToken current=new AntlrDatatypeRuleToken()] 
-    @init { enterRule(); 
-		HiddenTokens myHiddenTokenState = ((XtextTokenStream)input).setHiddenTokens();
-    }
-    @after { leaveRule();
-    }:
-(    this_HEX_0=RULE_HEX    {
-		$current.merge(this_HEX_0);
-    }
-
-    { 
-    newLeafNode(this_HEX_0, grammarAccess.getNumberAccess().getHEXTerminalRuleCall_0()); 
-    }
-
-    |((    this_INT_1=RULE_INT    {
-		$current.merge(this_INT_1);
-    }
-
-    { 
-    newLeafNode(this_INT_1, grammarAccess.getNumberAccess().getINTTerminalRuleCall_1_0_0()); 
-    }
-
-    |    this_DECIMAL_2=RULE_DECIMAL    {
-		$current.merge(this_DECIMAL_2);
-    }
-
-    { 
-    newLeafNode(this_DECIMAL_2, grammarAccess.getNumberAccess().getDECIMALTerminalRuleCall_1_0_1()); 
-    }
-)(
-	kw=FullStop 
+// Rule ResultIssueType
+ruleResultIssueType returns [Enumerator current=null] 
+    @init { enterRule(); }
+    @after { leaveRule(); }:
+((    enumLiteral_0=Tbd
     {
-        $current.merge(kw);
-        newLeafNode(kw, grammarAccess.getNumberAccess().getFullStopKeyword_1_1_0()); 
+        $current = grammarAccess.getResultIssueTypeAccess().getTBDEnumLiteralDeclaration_0().getEnumLiteral().getInstance();
+        newLeafNode(enumLiteral_0, grammarAccess.getResultIssueTypeAccess().getTBDEnumLiteralDeclaration_0()); 
     }
-(    this_INT_4=RULE_INT    {
-		$current.merge(this_INT_4);
+)
+    |(    enumLiteral_1=Unknown
+    {
+        $current = grammarAccess.getResultIssueTypeAccess().getUNKNOWNEnumLiteralDeclaration_1().getEnumLiteral().getInstance();
+        newLeafNode(enumLiteral_1, grammarAccess.getResultIssueTypeAccess().getUNKNOWNEnumLiteralDeclaration_1()); 
     }
-
-    { 
-    newLeafNode(this_INT_4, grammarAccess.getNumberAccess().getINTTerminalRuleCall_1_1_1_0()); 
+)
+    |(    enumLiteral_2=Error
+    {
+        $current = grammarAccess.getResultIssueTypeAccess().getERROREnumLiteralDeclaration_2().getEnumLiteral().getInstance();
+        newLeafNode(enumLiteral_2, grammarAccess.getResultIssueTypeAccess().getERROREnumLiteralDeclaration_2()); 
     }
-
-    |    this_DECIMAL_5=RULE_DECIMAL    {
-		$current.merge(this_DECIMAL_5);
+)
+    |(    enumLiteral_3=Warning
+    {
+        $current = grammarAccess.getResultIssueTypeAccess().getWARNINGEnumLiteralDeclaration_3().getEnumLiteral().getInstance();
+        newLeafNode(enumLiteral_3, grammarAccess.getResultIssueTypeAccess().getWARNINGEnumLiteralDeclaration_3()); 
     }
-
-    { 
-    newLeafNode(this_DECIMAL_5, grammarAccess.getNumberAccess().getDECIMALTerminalRuleCall_1_1_1_1()); 
+)
+    |(    enumLiteral_4=Info
+    {
+        $current = grammarAccess.getResultIssueTypeAccess().getINFOEnumLiteralDeclaration_4().getEnumLiteral().getInstance();
+        newLeafNode(enumLiteral_4, grammarAccess.getResultIssueTypeAccess().getINFOEnumLiteralDeclaration_4()); 
     }
-))?))
-    ;
-finally {
-	myHiddenTokenState.restore();
-}
-
-
+)
+    |(    enumLiteral_5=Success
+    {
+        $current = grammarAccess.getResultIssueTypeAccess().getSUCCESSEnumLiteralDeclaration_5().getEnumLiteral().getInstance();
+        newLeafNode(enumLiteral_5, grammarAccess.getResultIssueTypeAccess().getSUCCESSEnumLiteralDeclaration_5()); 
+    }
+)
+    |(    enumLiteral_6=Fail
+    {
+        $current = grammarAccess.getResultIssueTypeAccess().getFAILEnumLiteralDeclaration_6().getEnumLiteral().getInstance();
+        newLeafNode(enumLiteral_6, grammarAccess.getResultIssueTypeAccess().getFAILEnumLiteralDeclaration_6()); 
+    }
+));
 
 
 

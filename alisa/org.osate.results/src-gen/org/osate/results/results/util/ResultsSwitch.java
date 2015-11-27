@@ -115,25 +115,18 @@ public class ResultsSwitch<T> extends Switch<T>
         if (result == null) result = defaultCase(theEObject);
         return result;
       }
+      case ResultsPackage.RESULT_DATA:
+      {
+        ResultData resultData = (ResultData)theEObject;
+        T result = caseResultData(resultData);
+        if (result == null) result = defaultCase(theEObject);
+        return result;
+      }
       case ResultsPackage.ISSUES_REPORT:
       {
         IssuesReport issuesReport = (IssuesReport)theEObject;
         T result = caseIssuesReport(issuesReport);
         if (result == null) result = caseResultReport(issuesReport);
-        if (result == null) result = defaultCase(theEObject);
-        return result;
-      }
-      case ResultsPackage.RESULT_ISSUE:
-      {
-        ResultIssue resultIssue = (ResultIssue)theEObject;
-        T result = caseResultIssue(resultIssue);
-        if (result == null) result = defaultCase(theEObject);
-        return result;
-      }
-      case ResultsPackage.RESULT_DATA:
-      {
-        ResultData resultData = (ResultData)theEObject;
-        T result = caseResultData(resultData);
         if (result == null) result = defaultCase(theEObject);
         return result;
       }
@@ -206,38 +199,6 @@ public class ResultsSwitch<T> extends Switch<T>
   }
 
   /**
-   * Returns the result of interpreting the object as an instance of '<em>Issues Report</em>'.
-   * <!-- begin-user-doc -->
-   * This implementation returns null;
-   * returning a non-null result will terminate the switch.
-   * <!-- end-user-doc -->
-   * @param object the target of the switch.
-   * @return the result of interpreting the object as an instance of '<em>Issues Report</em>'.
-   * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
-   * @generated
-   */
-  public T caseIssuesReport(IssuesReport object)
-  {
-    return null;
-  }
-
-  /**
-   * Returns the result of interpreting the object as an instance of '<em>Result Issue</em>'.
-   * <!-- begin-user-doc -->
-   * This implementation returns null;
-   * returning a non-null result will terminate the switch.
-   * <!-- end-user-doc -->
-   * @param object the target of the switch.
-   * @return the result of interpreting the object as an instance of '<em>Result Issue</em>'.
-   * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
-   * @generated
-   */
-  public T caseResultIssue(ResultIssue object)
-  {
-    return null;
-  }
-
-  /**
    * Returns the result of interpreting the object as an instance of '<em>Result Data</em>'.
    * <!-- begin-user-doc -->
    * This implementation returns null;
@@ -249,6 +210,22 @@ public class ResultsSwitch<T> extends Switch<T>
    * @generated
    */
   public T caseResultData(ResultData object)
+  {
+    return null;
+  }
+
+  /**
+   * Returns the result of interpreting the object as an instance of '<em>Issues Report</em>'.
+   * <!-- begin-user-doc -->
+   * This implementation returns null;
+   * returning a non-null result will terminate the switch.
+   * <!-- end-user-doc -->
+   * @param object the target of the switch.
+   * @return the result of interpreting the object as an instance of '<em>Issues Report</em>'.
+   * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+   * @generated
+   */
+  public T caseIssuesReport(IssuesReport object)
   {
     return null;
   }

@@ -24,6 +24,30 @@ import org.eclipse.xtext.serializer.diagnostic.ISerializationDiagnostic.Acceptor
 import org.eclipse.xtext.serializer.sequencer.GenericSequencer;
 import org.eclipse.xtext.serializer.sequencer.ISemanticSequencer;
 import org.eclipse.xtext.serializer.sequencer.ITransientValueService;
+import org.osate.aadl2.Aadl2Package;
+import org.osate.aadl2.BooleanLiteral;
+import org.osate.aadl2.IntegerLiteral;
+import org.osate.aadl2.RangeValue;
+import org.osate.aadl2.RealLiteral;
+import org.osate.aadl2.StringLiteral;
+import org.osate.alisa.common.common.ABinaryOperation;
+import org.osate.alisa.common.common.AListTerm;
+import org.osate.alisa.common.common.ANullLiteral;
+import org.osate.alisa.common.common.APropertyReference;
+import org.osate.alisa.common.common.ASetLiteral;
+import org.osate.alisa.common.common.AUnaryOperation;
+import org.osate.alisa.common.common.AVariableReference;
+import org.osate.alisa.common.common.CommonPackage;
+import org.osate.alisa.common.common.ComputeDeclaration;
+import org.osate.alisa.common.common.Description;
+import org.osate.alisa.common.common.DescriptionElement;
+import org.osate.alisa.common.common.ImageReference;
+import org.osate.alisa.common.common.Rationale;
+import org.osate.alisa.common.common.ResultIssue;
+import org.osate.alisa.common.common.ShowValue;
+import org.osate.alisa.common.common.Uncertainty;
+import org.osate.alisa.common.common.ValDeclaration;
+import org.osate.alisa.common.serializer.CommonSemanticSequencer;
 import org.osate.assure.assure.AssuranceCase;
 import org.osate.assure.assure.AssurePackage;
 import org.osate.assure.assure.ClaimResult;
@@ -34,24 +58,33 @@ import org.osate.assure.assure.ThenResult;
 import org.osate.assure.assure.ValidationResult;
 import org.osate.assure.assure.VerificationActivityResult;
 import org.osate.assure.services.AssureGrammarAccess;
-import org.osate.results.results.IssuesReport;
-import org.osate.results.results.ResultContributor;
-import org.osate.results.results.ResultData;
-import org.osate.results.results.ResultDataReport;
-import org.osate.results.results.ResultIssue;
-import org.osate.results.results.ResultReportCollection;
-import org.osate.results.results.ResultsPackage;
-import org.osate.results.serializer.ResultsSemanticSequencer;
 
 @SuppressWarnings("all")
-public class AssureSemanticSequencer extends ResultsSemanticSequencer {
+public class AssureSemanticSequencer extends CommonSemanticSequencer {
 
 	@Inject
 	private AssureGrammarAccess grammarAccess;
 	
 	@Override
 	public void createSequence(EObject context, EObject semanticObject) {
-		if(semanticObject.eClass().getEPackage() == AssurePackage.eINSTANCE) switch(semanticObject.eClass().getClassifierID()) {
+		if(semanticObject.eClass().getEPackage() == Aadl2Package.eINSTANCE) switch(semanticObject.eClass().getClassifierID()) {
+			case Aadl2Package.BOOLEAN_LITERAL:
+				sequence_ABooleanLiteral(context, (BooleanLiteral) semanticObject); 
+				return; 
+			case Aadl2Package.INTEGER_LITERAL:
+				sequence_AIntegerTerm(context, (IntegerLiteral) semanticObject); 
+				return; 
+			case Aadl2Package.RANGE_VALUE:
+				sequence_ANumericRangeTerm(context, (RangeValue) semanticObject); 
+				return; 
+			case Aadl2Package.REAL_LITERAL:
+				sequence_ARealTerm(context, (RealLiteral) semanticObject); 
+				return; 
+			case Aadl2Package.STRING_LITERAL:
+				sequence_StringTerm(context, (StringLiteral) semanticObject); 
+				return; 
+			}
+		else if(semanticObject.eClass().getEPackage() == AssurePackage.eINSTANCE) switch(semanticObject.eClass().getClassifierID()) {
 			case AssurePackage.ASSURANCE_CASE:
 				sequence_AssuranceCase(context, (AssuranceCase) semanticObject); 
 				return; 
@@ -77,24 +110,54 @@ public class AssureSemanticSequencer extends ResultsSemanticSequencer {
 				sequence_VerificationActivityResult(context, (VerificationActivityResult) semanticObject); 
 				return; 
 			}
-		else if(semanticObject.eClass().getEPackage() == ResultsPackage.eINSTANCE) switch(semanticObject.eClass().getClassifierID()) {
-			case ResultsPackage.ISSUES_REPORT:
-				sequence_IssuesReport(context, (IssuesReport) semanticObject); 
+		else if(semanticObject.eClass().getEPackage() == CommonPackage.eINSTANCE) switch(semanticObject.eClass().getClassifierID()) {
+			case CommonPackage.ABINARY_OPERATION:
+				sequence_AAdditiveExpression_AAndExpression_AEqualityExpression_AMultiplicativeExpression_AOrExpression_AOtherOperatorExpression_ARelationalExpression(context, (ABinaryOperation) semanticObject); 
 				return; 
-			case ResultsPackage.RESULT_CONTRIBUTOR:
-				sequence_ResultContributor(context, (ResultContributor) semanticObject); 
+			case CommonPackage.ALIST_TERM:
+				sequence_AListTerm(context, (AListTerm) semanticObject); 
 				return; 
-			case ResultsPackage.RESULT_DATA:
-				sequence_ResultData(context, (ResultData) semanticObject); 
+			case CommonPackage.ANULL_LITERAL:
+				sequence_ANullLiteral(context, (ANullLiteral) semanticObject); 
 				return; 
-			case ResultsPackage.RESULT_DATA_REPORT:
-				sequence_ResultDataReport(context, (ResultDataReport) semanticObject); 
+			case CommonPackage.APROPERTY_REFERENCE:
+				sequence_APropertyReference(context, (APropertyReference) semanticObject); 
 				return; 
-			case ResultsPackage.RESULT_ISSUE:
+			case CommonPackage.ASET_LITERAL:
+				sequence_ASetTerm(context, (ASetLiteral) semanticObject); 
+				return; 
+			case CommonPackage.AUNARY_OPERATION:
+				sequence_AUnaryOperation(context, (AUnaryOperation) semanticObject); 
+				return; 
+			case CommonPackage.AVARIABLE_REFERENCE:
+				sequence_AVariableReference(context, (AVariableReference) semanticObject); 
+				return; 
+			case CommonPackage.COMPUTE_DECLARATION:
+				sequence_ComputeDeclaration(context, (ComputeDeclaration) semanticObject); 
+				return; 
+			case CommonPackage.DESCRIPTION:
+				sequence_Description(context, (Description) semanticObject); 
+				return; 
+			case CommonPackage.DESCRIPTION_ELEMENT:
+				sequence_DescriptionElement(context, (DescriptionElement) semanticObject); 
+				return; 
+			case CommonPackage.IMAGE_REFERENCE:
+				sequence_ImageReference(context, (ImageReference) semanticObject); 
+				return; 
+			case CommonPackage.RATIONALE:
+				sequence_Rationale(context, (Rationale) semanticObject); 
+				return; 
+			case CommonPackage.RESULT_ISSUE:
 				sequence_ResultIssue(context, (ResultIssue) semanticObject); 
 				return; 
-			case ResultsPackage.RESULT_REPORT_COLLECTION:
-				sequence_ResultReportCollection(context, (ResultReportCollection) semanticObject); 
+			case CommonPackage.SHOW_VALUE:
+				sequence_ShowValue(context, (ShowValue) semanticObject); 
+				return; 
+			case CommonPackage.UNCERTAINTY:
+				sequence_Uncertainty(context, (Uncertainty) semanticObject); 
+				return; 
+			case CommonPackage.VAL_DECLARATION:
+				sequence_ValDeclaration(context, (ValDeclaration) semanticObject); 
 				return; 
 			}
 		if (errorAcceptor != null) errorAcceptor.accept(diagnosticProvider.createInvalidContextOrTypeDiagnostic(semanticObject, context));

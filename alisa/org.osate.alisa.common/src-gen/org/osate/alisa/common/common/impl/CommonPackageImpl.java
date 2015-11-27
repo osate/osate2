@@ -17,6 +17,7 @@ package org.osate.alisa.common.common.impl;
 
 import org.eclipse.emf.ecore.EAttribute;
 import org.eclipse.emf.ecore.EClass;
+import org.eclipse.emf.ecore.EEnum;
 import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.EReference;
 import org.eclipse.emf.ecore.EcorePackage;
@@ -41,6 +42,8 @@ import org.osate.alisa.common.common.Description;
 import org.osate.alisa.common.common.DescriptionElement;
 import org.osate.alisa.common.common.ImageReference;
 import org.osate.alisa.common.common.Rationale;
+import org.osate.alisa.common.common.ResultIssue;
+import org.osate.alisa.common.common.ResultIssueType;
 import org.osate.alisa.common.common.ShowValue;
 import org.osate.alisa.common.common.Uncertainty;
 import org.osate.alisa.common.common.ValDeclaration;
@@ -80,6 +83,13 @@ public class CommonPackageImpl extends EPackageImpl implements CommonPackage
    * @generated
    */
   private EClass uncertaintyEClass = null;
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  private EClass resultIssueEClass = null;
 
   /**
    * <!-- begin-user-doc -->
@@ -171,6 +181,13 @@ public class CommonPackageImpl extends EPackageImpl implements CommonPackage
    * @generated
    */
   private EClass aNullLiteralEClass = null;
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  private EEnum resultIssueTypeEEnum = null;
 
   /**
    * Creates an instance of the model <b>Package</b>, registered with
@@ -343,7 +360,7 @@ public class CommonPackageImpl extends EPackageImpl implements CommonPackage
    * <!-- end-user-doc -->
    * @generated
    */
-  public EAttribute getUncertainty_Volatility()
+  public EAttribute getUncertainty_Importance()
   {
     return (EAttribute)uncertaintyEClass.getEStructuralFeatures().get(0);
   }
@@ -353,7 +370,7 @@ public class CommonPackageImpl extends EPackageImpl implements CommonPackage
    * <!-- end-user-doc -->
    * @generated
    */
-  public EAttribute getUncertainty_Costimpact()
+  public EAttribute getUncertainty_Difficulty()
   {
     return (EAttribute)uncertaintyEClass.getEStructuralFeatures().get(1);
   }
@@ -363,9 +380,9 @@ public class CommonPackageImpl extends EPackageImpl implements CommonPackage
    * <!-- end-user-doc -->
    * @generated
    */
-  public EAttribute getUncertainty_Scheduleimpact()
+  public EClass getResultIssue()
   {
-    return (EAttribute)uncertaintyEClass.getEStructuralFeatures().get(2);
+    return resultIssueEClass;
   }
 
   /**
@@ -373,9 +390,9 @@ public class CommonPackageImpl extends EPackageImpl implements CommonPackage
    * <!-- end-user-doc -->
    * @generated
    */
-  public EAttribute getUncertainty_Familiarity()
+  public EAttribute getResultIssue_IssueType()
   {
-    return (EAttribute)uncertaintyEClass.getEStructuralFeatures().get(3);
+    return (EAttribute)resultIssueEClass.getEStructuralFeatures().get(0);
   }
 
   /**
@@ -383,9 +400,9 @@ public class CommonPackageImpl extends EPackageImpl implements CommonPackage
    * <!-- end-user-doc -->
    * @generated
    */
-  public EAttribute getUncertainty_Timecriticality()
+  public EAttribute getResultIssue_Message()
   {
-    return (EAttribute)uncertaintyEClass.getEStructuralFeatures().get(4);
+    return (EAttribute)resultIssueEClass.getEStructuralFeatures().get(1);
   }
 
   /**
@@ -393,9 +410,9 @@ public class CommonPackageImpl extends EPackageImpl implements CommonPackage
    * <!-- end-user-doc -->
    * @generated
    */
-  public EAttribute getUncertainty_Riskindex()
+  public EReference getResultIssue_Target()
   {
-    return (EAttribute)uncertaintyEClass.getEStructuralFeatures().get(5);
+    return (EReference)resultIssueEClass.getEStructuralFeatures().get(2);
   }
 
   /**
@@ -403,9 +420,19 @@ public class CommonPackageImpl extends EPackageImpl implements CommonPackage
    * <!-- end-user-doc -->
    * @generated
    */
-  public EAttribute getUncertainty_Maturityindex()
+  public EAttribute getResultIssue_ExceptionType()
   {
-    return (EAttribute)uncertaintyEClass.getEStructuralFeatures().get(6);
+    return (EAttribute)resultIssueEClass.getEStructuralFeatures().get(3);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EReference getResultIssue_Issues()
+  {
+    return (EReference)resultIssueEClass.getEStructuralFeatures().get(4);
   }
 
   /**
@@ -693,6 +720,16 @@ public class CommonPackageImpl extends EPackageImpl implements CommonPackage
    * <!-- end-user-doc -->
    * @generated
    */
+  public EEnum getResultIssueType()
+  {
+    return resultIssueTypeEEnum;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
   public CommonFactory getCommonFactory()
   {
     return (CommonFactory)getEFactoryInstance();
@@ -731,13 +768,15 @@ public class CommonPackageImpl extends EPackageImpl implements CommonPackage
     createEAttribute(rationaleEClass, RATIONALE__TEXT);
 
     uncertaintyEClass = createEClass(UNCERTAINTY);
-    createEAttribute(uncertaintyEClass, UNCERTAINTY__VOLATILITY);
-    createEAttribute(uncertaintyEClass, UNCERTAINTY__COSTIMPACT);
-    createEAttribute(uncertaintyEClass, UNCERTAINTY__SCHEDULEIMPACT);
-    createEAttribute(uncertaintyEClass, UNCERTAINTY__FAMILIARITY);
-    createEAttribute(uncertaintyEClass, UNCERTAINTY__TIMECRITICALITY);
-    createEAttribute(uncertaintyEClass, UNCERTAINTY__RISKINDEX);
-    createEAttribute(uncertaintyEClass, UNCERTAINTY__MATURITYINDEX);
+    createEAttribute(uncertaintyEClass, UNCERTAINTY__IMPORTANCE);
+    createEAttribute(uncertaintyEClass, UNCERTAINTY__DIFFICULTY);
+
+    resultIssueEClass = createEClass(RESULT_ISSUE);
+    createEAttribute(resultIssueEClass, RESULT_ISSUE__ISSUE_TYPE);
+    createEAttribute(resultIssueEClass, RESULT_ISSUE__MESSAGE);
+    createEReference(resultIssueEClass, RESULT_ISSUE__TARGET);
+    createEAttribute(resultIssueEClass, RESULT_ISSUE__EXCEPTION_TYPE);
+    createEReference(resultIssueEClass, RESULT_ISSUE__ISSUES);
 
     aVariableDeclarationEClass = createEClass(AVARIABLE_DECLARATION);
     createEAttribute(aVariableDeclarationEClass, AVARIABLE_DECLARATION__TYPE);
@@ -779,6 +818,9 @@ public class CommonPackageImpl extends EPackageImpl implements CommonPackage
     createEReference(aListTermEClass, ALIST_TERM__ELEMENTS);
 
     aNullLiteralEClass = createEClass(ANULL_LITERAL);
+
+    // Create enums
+    resultIssueTypeEEnum = createEEnum(RESULT_ISSUE_TYPE);
   }
 
   /**
@@ -839,13 +881,15 @@ public class CommonPackageImpl extends EPackageImpl implements CommonPackage
     initEAttribute(getRationale_Text(), theEcorePackage.getEString(), "text", null, 0, 1, Rationale.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
     initEClass(uncertaintyEClass, Uncertainty.class, "Uncertainty", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-    initEAttribute(getUncertainty_Volatility(), theEcorePackage.getEString(), "volatility", null, 0, 1, Uncertainty.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-    initEAttribute(getUncertainty_Costimpact(), theEcorePackage.getEString(), "costimpact", null, 0, 1, Uncertainty.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-    initEAttribute(getUncertainty_Scheduleimpact(), theEcorePackage.getEString(), "scheduleimpact", null, 0, 1, Uncertainty.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-    initEAttribute(getUncertainty_Familiarity(), theEcorePackage.getEString(), "familiarity", null, 0, 1, Uncertainty.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-    initEAttribute(getUncertainty_Timecriticality(), theEcorePackage.getEString(), "timecriticality", null, 0, 1, Uncertainty.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-    initEAttribute(getUncertainty_Riskindex(), theEcorePackage.getEString(), "riskindex", null, 0, 1, Uncertainty.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-    initEAttribute(getUncertainty_Maturityindex(), theEcorePackage.getEString(), "maturityindex", null, 0, 1, Uncertainty.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEAttribute(getUncertainty_Importance(), theEcorePackage.getEInt(), "importance", null, 0, 1, Uncertainty.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEAttribute(getUncertainty_Difficulty(), theEcorePackage.getEInt(), "difficulty", null, 0, 1, Uncertainty.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+    initEClass(resultIssueEClass, ResultIssue.class, "ResultIssue", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+    initEAttribute(getResultIssue_IssueType(), this.getResultIssueType(), "issueType", null, 0, 1, ResultIssue.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEAttribute(getResultIssue_Message(), theEcorePackage.getEString(), "message", null, 0, 1, ResultIssue.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEReference(getResultIssue_Target(), theEcorePackage.getEObject(), null, "target", null, 0, 1, ResultIssue.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEAttribute(getResultIssue_ExceptionType(), theEcorePackage.getEString(), "exceptionType", null, 0, 1, ResultIssue.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEReference(getResultIssue_Issues(), this.getResultIssue(), null, "issues", null, 0, -1, ResultIssue.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
     initEClass(aVariableDeclarationEClass, AVariableDeclaration.class, "AVariableDeclaration", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
     initEAttribute(getAVariableDeclaration_Type(), theEcorePackage.getEString(), "type", null, 0, 1, AVariableDeclaration.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
@@ -887,6 +931,16 @@ public class CommonPackageImpl extends EPackageImpl implements CommonPackage
     initEReference(getAListTerm_Elements(), theAadl2Package.getPropertyExpression(), null, "elements", null, 0, -1, AListTerm.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
     initEClass(aNullLiteralEClass, ANullLiteral.class, "ANullLiteral", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+
+    // Initialize enums and add enum literals
+    initEEnum(resultIssueTypeEEnum, ResultIssueType.class, "ResultIssueType");
+    addEEnumLiteral(resultIssueTypeEEnum, ResultIssueType.TBD);
+    addEEnumLiteral(resultIssueTypeEEnum, ResultIssueType.UNKNOWN);
+    addEEnumLiteral(resultIssueTypeEEnum, ResultIssueType.ERROR);
+    addEEnumLiteral(resultIssueTypeEEnum, ResultIssueType.WARNING);
+    addEEnumLiteral(resultIssueTypeEEnum, ResultIssueType.INFO);
+    addEEnumLiteral(resultIssueTypeEEnum, ResultIssueType.SUCCESS);
+    addEEnumLiteral(resultIssueTypeEEnum, ResultIssueType.FAIL);
 
     // Create resource
     createResource(eNS_URI);

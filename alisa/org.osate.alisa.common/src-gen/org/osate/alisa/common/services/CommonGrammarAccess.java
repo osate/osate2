@@ -129,44 +129,20 @@ public class CommonGrammarAccess extends AbstractGrammarElementFinder {
 		private final Keyword cLeftSquareBracketKeyword_1 = (Keyword)cGroup.eContents().get(1);
 		private final UnorderedGroup cUnorderedGroup_2 = (UnorderedGroup)cGroup.eContents().get(2);
 		private final Group cGroup_2_0 = (Group)cUnorderedGroup_2.eContents().get(0);
-		private final Keyword cVolatilityKeyword_2_0_0 = (Keyword)cGroup_2_0.eContents().get(0);
-		private final Assignment cVolatilityAssignment_2_0_1 = (Assignment)cGroup_2_0.eContents().get(1);
-		private final RuleCall cVolatilityNumberParserRuleCall_2_0_1_0 = (RuleCall)cVolatilityAssignment_2_0_1.eContents().get(0);
+		private final Keyword cImportanceKeyword_2_0_0 = (Keyword)cGroup_2_0.eContents().get(0);
+		private final Assignment cImportanceAssignment_2_0_1 = (Assignment)cGroup_2_0.eContents().get(1);
+		private final RuleCall cImportanceINTTerminalRuleCall_2_0_1_0 = (RuleCall)cImportanceAssignment_2_0_1.eContents().get(0);
 		private final Group cGroup_2_1 = (Group)cUnorderedGroup_2.eContents().get(1);
-		private final Keyword cCostimpactKeyword_2_1_0 = (Keyword)cGroup_2_1.eContents().get(0);
-		private final Assignment cCostimpactAssignment_2_1_1 = (Assignment)cGroup_2_1.eContents().get(1);
-		private final RuleCall cCostimpactNumberParserRuleCall_2_1_1_0 = (RuleCall)cCostimpactAssignment_2_1_1.eContents().get(0);
-		private final Group cGroup_2_2 = (Group)cUnorderedGroup_2.eContents().get(2);
-		private final Keyword cScheduleimpactKeyword_2_2_0 = (Keyword)cGroup_2_2.eContents().get(0);
-		private final Assignment cScheduleimpactAssignment_2_2_1 = (Assignment)cGroup_2_2.eContents().get(1);
-		private final RuleCall cScheduleimpactNumberParserRuleCall_2_2_1_0 = (RuleCall)cScheduleimpactAssignment_2_2_1.eContents().get(0);
-		private final Group cGroup_2_3 = (Group)cUnorderedGroup_2.eContents().get(3);
-		private final Keyword cFamiliarityKeyword_2_3_0 = (Keyword)cGroup_2_3.eContents().get(0);
-		private final Assignment cFamiliarityAssignment_2_3_1 = (Assignment)cGroup_2_3.eContents().get(1);
-		private final RuleCall cFamiliarityNumberParserRuleCall_2_3_1_0 = (RuleCall)cFamiliarityAssignment_2_3_1.eContents().get(0);
-		private final Group cGroup_2_4 = (Group)cUnorderedGroup_2.eContents().get(4);
-		private final Keyword cTimecriticalityKeyword_2_4_0 = (Keyword)cGroup_2_4.eContents().get(0);
-		private final Assignment cTimecriticalityAssignment_2_4_1 = (Assignment)cGroup_2_4.eContents().get(1);
-		private final RuleCall cTimecriticalityNumberParserRuleCall_2_4_1_0 = (RuleCall)cTimecriticalityAssignment_2_4_1.eContents().get(0);
-		private final Group cGroup_2_5 = (Group)cUnorderedGroup_2.eContents().get(5);
-		private final Keyword cRiskindexKeyword_2_5_0 = (Keyword)cGroup_2_5.eContents().get(0);
-		private final Assignment cRiskindexAssignment_2_5_1 = (Assignment)cGroup_2_5.eContents().get(1);
-		private final RuleCall cRiskindexNumberParserRuleCall_2_5_1_0 = (RuleCall)cRiskindexAssignment_2_5_1.eContents().get(0);
-		private final Group cGroup_2_6 = (Group)cUnorderedGroup_2.eContents().get(6);
-		private final Keyword cMaturityindexKeyword_2_6_0 = (Keyword)cGroup_2_6.eContents().get(0);
-		private final Assignment cMaturityindexAssignment_2_6_1 = (Assignment)cGroup_2_6.eContents().get(1);
-		private final RuleCall cMaturityindexNumberParserRuleCall_2_6_1_0 = (RuleCall)cMaturityindexAssignment_2_6_1.eContents().get(0);
+		private final Keyword cDifficultyKeyword_2_1_0 = (Keyword)cGroup_2_1.eContents().get(0);
+		private final Assignment cDifficultyAssignment_2_1_1 = (Assignment)cGroup_2_1.eContents().get(1);
+		private final RuleCall cDifficultyINTTerminalRuleCall_2_1_1_0 = (RuleCall)cDifficultyAssignment_2_1_1.eContents().get(0);
 		private final Keyword cRightSquareBracketKeyword_3 = (Keyword)cGroup.eContents().get(3);
 		
 		//Uncertainty:
-		//	"uncertainty" "[" ("volatility" volatility=Number & "costimpact" costimpact=Number & "scheduleimpact"
-		//	scheduleimpact=Number & "familiarity" familiarity=Number & "timecriticality" timecriticality=Number & "riskindex"
-		//	riskindex=Number & "maturityindex" maturityindex=Number) "]";
+		//	"uncertainty" "[" ("importance" importance=INT & "difficulty" difficulty=INT) "]";
 		@Override public ParserRule getRule() { return rule; }
 
-		//"uncertainty" "[" ("volatility" volatility=Number & "costimpact" costimpact=Number & "scheduleimpact"
-		//scheduleimpact=Number & "familiarity" familiarity=Number & "timecriticality" timecriticality=Number & "riskindex"
-		//riskindex=Number & "maturityindex" maturityindex=Number) "]"
+		//"uncertainty" "[" ("importance" importance=INT & "difficulty" difficulty=INT) "]"
 		public Group getGroup() { return cGroup; }
 
 		//"uncertainty"
@@ -175,97 +151,126 @@ public class CommonGrammarAccess extends AbstractGrammarElementFinder {
 		//"["
 		public Keyword getLeftSquareBracketKeyword_1() { return cLeftSquareBracketKeyword_1; }
 
-		//"volatility" volatility=Number & "costimpact" costimpact=Number & "scheduleimpact" scheduleimpact=Number & "familiarity"
-		//familiarity=Number & "timecriticality" timecriticality=Number & "riskindex" riskindex=Number & "maturityindex"
-		//maturityindex=Number
+		//"importance" importance=INT & "difficulty" difficulty=INT
 		public UnorderedGroup getUnorderedGroup_2() { return cUnorderedGroup_2; }
 
-		//"volatility" volatility=Number
+		//"importance" importance=INT
 		public Group getGroup_2_0() { return cGroup_2_0; }
 
-		//"volatility"
-		public Keyword getVolatilityKeyword_2_0_0() { return cVolatilityKeyword_2_0_0; }
+		//"importance"
+		public Keyword getImportanceKeyword_2_0_0() { return cImportanceKeyword_2_0_0; }
 
-		//volatility=Number
-		public Assignment getVolatilityAssignment_2_0_1() { return cVolatilityAssignment_2_0_1; }
+		//importance=INT
+		public Assignment getImportanceAssignment_2_0_1() { return cImportanceAssignment_2_0_1; }
 
-		//Number
-		public RuleCall getVolatilityNumberParserRuleCall_2_0_1_0() { return cVolatilityNumberParserRuleCall_2_0_1_0; }
+		//INT
+		public RuleCall getImportanceINTTerminalRuleCall_2_0_1_0() { return cImportanceINTTerminalRuleCall_2_0_1_0; }
 
-		//"costimpact" costimpact=Number
+		//"difficulty" difficulty=INT
 		public Group getGroup_2_1() { return cGroup_2_1; }
 
-		//"costimpact"
-		public Keyword getCostimpactKeyword_2_1_0() { return cCostimpactKeyword_2_1_0; }
+		//"difficulty"
+		public Keyword getDifficultyKeyword_2_1_0() { return cDifficultyKeyword_2_1_0; }
 
-		//costimpact=Number
-		public Assignment getCostimpactAssignment_2_1_1() { return cCostimpactAssignment_2_1_1; }
+		//difficulty=INT
+		public Assignment getDifficultyAssignment_2_1_1() { return cDifficultyAssignment_2_1_1; }
 
-		//Number
-		public RuleCall getCostimpactNumberParserRuleCall_2_1_1_0() { return cCostimpactNumberParserRuleCall_2_1_1_0; }
-
-		//"scheduleimpact" scheduleimpact=Number
-		public Group getGroup_2_2() { return cGroup_2_2; }
-
-		//"scheduleimpact"
-		public Keyword getScheduleimpactKeyword_2_2_0() { return cScheduleimpactKeyword_2_2_0; }
-
-		//scheduleimpact=Number
-		public Assignment getScheduleimpactAssignment_2_2_1() { return cScheduleimpactAssignment_2_2_1; }
-
-		//Number
-		public RuleCall getScheduleimpactNumberParserRuleCall_2_2_1_0() { return cScheduleimpactNumberParserRuleCall_2_2_1_0; }
-
-		//"familiarity" familiarity=Number
-		public Group getGroup_2_3() { return cGroup_2_3; }
-
-		//"familiarity"
-		public Keyword getFamiliarityKeyword_2_3_0() { return cFamiliarityKeyword_2_3_0; }
-
-		//familiarity=Number
-		public Assignment getFamiliarityAssignment_2_3_1() { return cFamiliarityAssignment_2_3_1; }
-
-		//Number
-		public RuleCall getFamiliarityNumberParserRuleCall_2_3_1_0() { return cFamiliarityNumberParserRuleCall_2_3_1_0; }
-
-		//"timecriticality" timecriticality=Number
-		public Group getGroup_2_4() { return cGroup_2_4; }
-
-		//"timecriticality"
-		public Keyword getTimecriticalityKeyword_2_4_0() { return cTimecriticalityKeyword_2_4_0; }
-
-		//timecriticality=Number
-		public Assignment getTimecriticalityAssignment_2_4_1() { return cTimecriticalityAssignment_2_4_1; }
-
-		//Number
-		public RuleCall getTimecriticalityNumberParserRuleCall_2_4_1_0() { return cTimecriticalityNumberParserRuleCall_2_4_1_0; }
-
-		//"riskindex" riskindex=Number
-		public Group getGroup_2_5() { return cGroup_2_5; }
-
-		//"riskindex"
-		public Keyword getRiskindexKeyword_2_5_0() { return cRiskindexKeyword_2_5_0; }
-
-		//riskindex=Number
-		public Assignment getRiskindexAssignment_2_5_1() { return cRiskindexAssignment_2_5_1; }
-
-		//Number
-		public RuleCall getRiskindexNumberParserRuleCall_2_5_1_0() { return cRiskindexNumberParserRuleCall_2_5_1_0; }
-
-		//"maturityindex" maturityindex=Number
-		public Group getGroup_2_6() { return cGroup_2_6; }
-
-		//"maturityindex"
-		public Keyword getMaturityindexKeyword_2_6_0() { return cMaturityindexKeyword_2_6_0; }
-
-		//maturityindex=Number
-		public Assignment getMaturityindexAssignment_2_6_1() { return cMaturityindexAssignment_2_6_1; }
-
-		//Number
-		public RuleCall getMaturityindexNumberParserRuleCall_2_6_1_0() { return cMaturityindexNumberParserRuleCall_2_6_1_0; }
+		//INT
+		public RuleCall getDifficultyINTTerminalRuleCall_2_1_1_0() { return cDifficultyINTTerminalRuleCall_2_1_1_0; }
 
 		//"]"
 		public Keyword getRightSquareBracketKeyword_3() { return cRightSquareBracketKeyword_3; }
+	}
+
+	public class ResultIssueElements extends AbstractParserRuleElementFinder {
+		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "ResultIssue");
+		private final Group cGroup = (Group)rule.eContents().get(1);
+		private final Keyword cIssueKeyword_0 = (Keyword)cGroup.eContents().get(0);
+		private final Assignment cIssueTypeAssignment_1 = (Assignment)cGroup.eContents().get(1);
+		private final RuleCall cIssueTypeResultIssueTypeEnumRuleCall_1_0 = (RuleCall)cIssueTypeAssignment_1.eContents().get(0);
+		private final Assignment cMessageAssignment_2 = (Assignment)cGroup.eContents().get(2);
+		private final RuleCall cMessageSTRINGTerminalRuleCall_2_0 = (RuleCall)cMessageAssignment_2.eContents().get(0);
+		private final Group cGroup_3 = (Group)cGroup.eContents().get(3);
+		private final Keyword cTargetKeyword_3_0 = (Keyword)cGroup_3.eContents().get(0);
+		private final Assignment cTargetAssignment_3_1 = (Assignment)cGroup_3.eContents().get(1);
+		private final CrossReference cTargetEObjectCrossReference_3_1_0 = (CrossReference)cTargetAssignment_3_1.eContents().get(0);
+		private final RuleCall cTargetEObjectURIIDParserRuleCall_3_1_0_1 = (RuleCall)cTargetEObjectCrossReference_3_1_0.eContents().get(1);
+		private final Group cGroup_4 = (Group)cGroup.eContents().get(4);
+		private final Keyword cExceptionKeyword_4_0 = (Keyword)cGroup_4.eContents().get(0);
+		private final Assignment cExceptionTypeAssignment_4_1 = (Assignment)cGroup_4.eContents().get(1);
+		private final RuleCall cExceptionTypeSTRINGTerminalRuleCall_4_1_0 = (RuleCall)cExceptionTypeAssignment_4_1.eContents().get(0);
+		private final Group cGroup_5 = (Group)cGroup.eContents().get(5);
+		private final Keyword cLeftSquareBracketKeyword_5_0 = (Keyword)cGroup_5.eContents().get(0);
+		private final Assignment cIssuesAssignment_5_1 = (Assignment)cGroup_5.eContents().get(1);
+		private final RuleCall cIssuesResultIssueParserRuleCall_5_1_0 = (RuleCall)cIssuesAssignment_5_1.eContents().get(0);
+		private final Keyword cRightSquareBracketKeyword_5_2 = (Keyword)cGroup_5.eContents().get(2);
+		
+		//// This is similar to diagnostics
+		//ResultIssue:
+		//	"issue" issueType=ResultIssueType message=STRING ("target" target=[ecore::EObject|URIID])? ("exception"
+		//	exceptionType=STRING)? ("[" issues+=ResultIssue* "]")?;
+		@Override public ParserRule getRule() { return rule; }
+
+		//"issue" issueType=ResultIssueType message=STRING ("target" target=[ecore::EObject|URIID])? ("exception"
+		//exceptionType=STRING)? ("[" issues+=ResultIssue* "]")?
+		public Group getGroup() { return cGroup; }
+
+		//"issue"
+		public Keyword getIssueKeyword_0() { return cIssueKeyword_0; }
+
+		//issueType=ResultIssueType
+		public Assignment getIssueTypeAssignment_1() { return cIssueTypeAssignment_1; }
+
+		//ResultIssueType
+		public RuleCall getIssueTypeResultIssueTypeEnumRuleCall_1_0() { return cIssueTypeResultIssueTypeEnumRuleCall_1_0; }
+
+		//message=STRING
+		public Assignment getMessageAssignment_2() { return cMessageAssignment_2; }
+
+		//STRING
+		public RuleCall getMessageSTRINGTerminalRuleCall_2_0() { return cMessageSTRINGTerminalRuleCall_2_0; }
+
+		//("target" target=[ecore::EObject|URIID])?
+		public Group getGroup_3() { return cGroup_3; }
+
+		//"target"
+		public Keyword getTargetKeyword_3_0() { return cTargetKeyword_3_0; }
+
+		//target=[ecore::EObject|URIID]
+		public Assignment getTargetAssignment_3_1() { return cTargetAssignment_3_1; }
+
+		//[ecore::EObject|URIID]
+		public CrossReference getTargetEObjectCrossReference_3_1_0() { return cTargetEObjectCrossReference_3_1_0; }
+
+		//URIID
+		public RuleCall getTargetEObjectURIIDParserRuleCall_3_1_0_1() { return cTargetEObjectURIIDParserRuleCall_3_1_0_1; }
+
+		//("exception" exceptionType=STRING)?
+		public Group getGroup_4() { return cGroup_4; }
+
+		//"exception"
+		public Keyword getExceptionKeyword_4_0() { return cExceptionKeyword_4_0; }
+
+		//exceptionType=STRING
+		public Assignment getExceptionTypeAssignment_4_1() { return cExceptionTypeAssignment_4_1; }
+
+		//STRING
+		public RuleCall getExceptionTypeSTRINGTerminalRuleCall_4_1_0() { return cExceptionTypeSTRINGTerminalRuleCall_4_1_0; }
+
+		//("[" issues+=ResultIssue* "]")?
+		public Group getGroup_5() { return cGroup_5; }
+
+		//"["
+		public Keyword getLeftSquareBracketKeyword_5_0() { return cLeftSquareBracketKeyword_5_0; }
+
+		//issues+=ResultIssue*
+		public Assignment getIssuesAssignment_5_1() { return cIssuesAssignment_5_1; }
+
+		//ResultIssue
+		public RuleCall getIssuesResultIssueParserRuleCall_5_1_0() { return cIssuesResultIssueParserRuleCall_5_1_0; }
+
+		//"]"
+		public Keyword getRightSquareBracketKeyword_5_2() { return cRightSquareBracketKeyword_5_2; }
 	}
 
 	public class ValDeclarationElements extends AbstractParserRuleElementFinder {
@@ -1321,14 +1326,14 @@ public class CommonGrammarAccess extends AbstractGrammarElementFinder {
 
 	public class AIntElements extends AbstractParserRuleElementFinder {
 		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "AInt");
-		private final RuleCall cINTEGER_LITTerminalRuleCall = (RuleCall)rule.eContents().get(1);
+		private final RuleCall cINTTerminalRuleCall = (RuleCall)rule.eContents().get(1);
 		
 		//AInt returns aadl2::Integer:
-		//	INTEGER_LIT;
+		//	INT;
 		@Override public ParserRule getRule() { return rule; }
 
-		//INTEGER_LIT
-		public RuleCall getINTEGER_LITTerminalRuleCall() { return cINTEGER_LITTerminalRuleCall; }
+		//INT
+		public RuleCall getINTTerminalRuleCall() { return cINTTerminalRuleCall; }
 	}
 
 	public class ARealTermElements extends AbstractParserRuleElementFinder {
@@ -1862,6 +1867,7 @@ public class CommonGrammarAccess extends AbstractGrammarElementFinder {
 		private final Keyword cFullStopKeyword_1_0 = (Keyword)cGroup_1.eContents().get(0);
 		private final RuleCall cIDTerminalRuleCall_1_1 = (RuleCall)cGroup_1.eContents().get(1);
 		
+		////terminal URIID : ('a'..'z'|'A'..'Z') ('a'..'z'|'A'..'Z'|'_'|'0'..'9'|'#'|'@'|'/'|':')*;
 		//QualifiedName:
 		//	ID ("." ID)*;
 		@Override public ParserRule getRule() { return rule; }
@@ -1881,64 +1887,82 @@ public class CommonGrammarAccess extends AbstractGrammarElementFinder {
 		//ID
 		public RuleCall getIDTerminalRuleCall_1_1() { return cIDTerminalRuleCall_1_1; }
 	}
-
-	public class NumberElements extends AbstractParserRuleElementFinder {
-		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "Number");
+	
+	
+	public class ResultIssueTypeElements extends AbstractEnumRuleElementFinder {
+		private final EnumRule rule = (EnumRule) GrammarUtil.findRuleForName(getGrammar(), "ResultIssueType");
 		private final Alternatives cAlternatives = (Alternatives)rule.eContents().get(1);
-		private final RuleCall cHEXTerminalRuleCall_0 = (RuleCall)cAlternatives.eContents().get(0);
-		private final Group cGroup_1 = (Group)cAlternatives.eContents().get(1);
-		private final Alternatives cAlternatives_1_0 = (Alternatives)cGroup_1.eContents().get(0);
-		private final RuleCall cINTTerminalRuleCall_1_0_0 = (RuleCall)cAlternatives_1_0.eContents().get(0);
-		private final RuleCall cDECIMALTerminalRuleCall_1_0_1 = (RuleCall)cAlternatives_1_0.eContents().get(1);
-		private final Group cGroup_1_1 = (Group)cGroup_1.eContents().get(1);
-		private final Keyword cFullStopKeyword_1_1_0 = (Keyword)cGroup_1_1.eContents().get(0);
-		private final Alternatives cAlternatives_1_1_1 = (Alternatives)cGroup_1_1.eContents().get(1);
-		private final RuleCall cINTTerminalRuleCall_1_1_1_0 = (RuleCall)cAlternatives_1_1_1.eContents().get(0);
-		private final RuleCall cDECIMALTerminalRuleCall_1_1_1_1 = (RuleCall)cAlternatives_1_1_1.eContents().get(1);
+		private final EnumLiteralDeclaration cTBDEnumLiteralDeclaration_0 = (EnumLiteralDeclaration)cAlternatives.eContents().get(0);
+		private final Keyword cTBDTbdKeyword_0_0 = (Keyword)cTBDEnumLiteralDeclaration_0.eContents().get(0);
+		private final EnumLiteralDeclaration cUNKNOWNEnumLiteralDeclaration_1 = (EnumLiteralDeclaration)cAlternatives.eContents().get(1);
+		private final Keyword cUNKNOWNUnknownKeyword_1_0 = (Keyword)cUNKNOWNEnumLiteralDeclaration_1.eContents().get(0);
+		private final EnumLiteralDeclaration cERROREnumLiteralDeclaration_2 = (EnumLiteralDeclaration)cAlternatives.eContents().get(2);
+		private final Keyword cERRORErrorKeyword_2_0 = (Keyword)cERROREnumLiteralDeclaration_2.eContents().get(0);
+		private final EnumLiteralDeclaration cWARNINGEnumLiteralDeclaration_3 = (EnumLiteralDeclaration)cAlternatives.eContents().get(3);
+		private final Keyword cWARNINGWarningKeyword_3_0 = (Keyword)cWARNINGEnumLiteralDeclaration_3.eContents().get(0);
+		private final EnumLiteralDeclaration cINFOEnumLiteralDeclaration_4 = (EnumLiteralDeclaration)cAlternatives.eContents().get(4);
+		private final Keyword cINFOInfoKeyword_4_0 = (Keyword)cINFOEnumLiteralDeclaration_4.eContents().get(0);
+		private final EnumLiteralDeclaration cSUCCESSEnumLiteralDeclaration_5 = (EnumLiteralDeclaration)cAlternatives.eContents().get(5);
+		private final Keyword cSUCCESSSuccessKeyword_5_0 = (Keyword)cSUCCESSEnumLiteralDeclaration_5.eContents().get(0);
+		private final EnumLiteralDeclaration cFAILEnumLiteralDeclaration_6 = (EnumLiteralDeclaration)cAlternatives.eContents().get(6);
+		private final Keyword cFAILFailKeyword_6_0 = (Keyword)cFAILEnumLiteralDeclaration_6.eContents().get(0);
 		
-		//Number hidden():
-		//	HEX | (INT | DECIMAL) ("." (INT | DECIMAL))?;
-		@Override public ParserRule getRule() { return rule; }
+		//enum ResultIssueType:
+		//	TBD="tbd" | UNKNOWN="unknown" | ERROR="error" | WARNING="warning" | INFO="info" | SUCCESS="success" | FAIL="fail";
+		public EnumRule getRule() { return rule; }
 
-		//HEX | (INT | DECIMAL) ("." (INT | DECIMAL))?
+		//TBD="tbd" | UNKNOWN="unknown" | ERROR="error" | WARNING="warning" | INFO="info" | SUCCESS="success" | FAIL="fail"
 		public Alternatives getAlternatives() { return cAlternatives; }
 
-		//HEX
-		public RuleCall getHEXTerminalRuleCall_0() { return cHEXTerminalRuleCall_0; }
+		//TBD="tbd"
+		public EnumLiteralDeclaration getTBDEnumLiteralDeclaration_0() { return cTBDEnumLiteralDeclaration_0; }
 
-		//(INT | DECIMAL) ("." (INT | DECIMAL))?
-		public Group getGroup_1() { return cGroup_1; }
+		//"tbd"
+		public Keyword getTBDTbdKeyword_0_0() { return cTBDTbdKeyword_0_0; }
 
-		//INT | DECIMAL
-		public Alternatives getAlternatives_1_0() { return cAlternatives_1_0; }
+		//UNKNOWN="unknown"
+		public EnumLiteralDeclaration getUNKNOWNEnumLiteralDeclaration_1() { return cUNKNOWNEnumLiteralDeclaration_1; }
 
-		//INT
-		public RuleCall getINTTerminalRuleCall_1_0_0() { return cINTTerminalRuleCall_1_0_0; }
+		//"unknown"
+		public Keyword getUNKNOWNUnknownKeyword_1_0() { return cUNKNOWNUnknownKeyword_1_0; }
 
-		//DECIMAL
-		public RuleCall getDECIMALTerminalRuleCall_1_0_1() { return cDECIMALTerminalRuleCall_1_0_1; }
+		//ERROR="error"
+		public EnumLiteralDeclaration getERROREnumLiteralDeclaration_2() { return cERROREnumLiteralDeclaration_2; }
 
-		//("." (INT | DECIMAL))?
-		public Group getGroup_1_1() { return cGroup_1_1; }
+		//"error"
+		public Keyword getERRORErrorKeyword_2_0() { return cERRORErrorKeyword_2_0; }
 
-		//"."
-		public Keyword getFullStopKeyword_1_1_0() { return cFullStopKeyword_1_1_0; }
+		//WARNING="warning"
+		public EnumLiteralDeclaration getWARNINGEnumLiteralDeclaration_3() { return cWARNINGEnumLiteralDeclaration_3; }
 
-		//INT | DECIMAL
-		public Alternatives getAlternatives_1_1_1() { return cAlternatives_1_1_1; }
+		//"warning"
+		public Keyword getWARNINGWarningKeyword_3_0() { return cWARNINGWarningKeyword_3_0; }
 
-		//INT
-		public RuleCall getINTTerminalRuleCall_1_1_1_0() { return cINTTerminalRuleCall_1_1_1_0; }
+		//INFO="info"
+		public EnumLiteralDeclaration getINFOEnumLiteralDeclaration_4() { return cINFOEnumLiteralDeclaration_4; }
 
-		//DECIMAL
-		public RuleCall getDECIMALTerminalRuleCall_1_1_1_1() { return cDECIMALTerminalRuleCall_1_1_1_1; }
+		//"info"
+		public Keyword getINFOInfoKeyword_4_0() { return cINFOInfoKeyword_4_0; }
+
+		//SUCCESS="success"
+		public EnumLiteralDeclaration getSUCCESSEnumLiteralDeclaration_5() { return cSUCCESSEnumLiteralDeclaration_5; }
+
+		//"success"
+		public Keyword getSUCCESSSuccessKeyword_5_0() { return cSUCCESSSuccessKeyword_5_0; }
+
+		//FAIL="fail"
+		public EnumLiteralDeclaration getFAILEnumLiteralDeclaration_6() { return cFAILEnumLiteralDeclaration_6; }
+
+		//"fail"
+		public Keyword getFAILFailKeyword_6_0() { return cFAILFailKeyword_6_0; }
 	}
-	
 	
 	private final DescriptionElements pDescription;
 	private final DescriptionElementElements pDescriptionElement;
 	private final RationaleElements pRationale;
 	private final UncertaintyElements pUncertainty;
+	private final ResultIssueElements pResultIssue;
+	private final ResultIssueTypeElements unknownRuleResultIssueType;
 	private final ValDeclarationElements pValDeclaration;
 	private final ComputeDeclarationElements pComputeDeclaration;
 	private final APropertyReferenceElements pAPropertyReference;
@@ -1982,7 +2006,6 @@ public class CommonGrammarAccess extends AbstractGrammarElementFinder {
 	private final TerminalRule tEXPONENT;
 	private final TerminalRule tINT_EXPONENT;
 	private final TerminalRule tREAL_LIT;
-	private final TerminalRule tINTEGER_LIT;
 	private final TerminalRule tDIGIT;
 	private final TerminalRule tEXTENDED_DIGIT;
 	private final TerminalRule tBASED_INTEGER;
@@ -1990,10 +2013,6 @@ public class CommonGrammarAccess extends AbstractGrammarElementFinder {
 	private final AADLPROPERTYREFERENCEElements pAADLPROPERTYREFERENCE;
 	private final URIIDElements pURIID;
 	private final QualifiedNameElements pQualifiedName;
-	private final NumberElements pNumber;
-	private final TerminalRule tHEX;
-	private final TerminalRule tINT;
-	private final TerminalRule tDECIMAL;
 	
 	private final Grammar grammar;
 
@@ -2008,6 +2027,8 @@ public class CommonGrammarAccess extends AbstractGrammarElementFinder {
 		this.pDescriptionElement = new DescriptionElementElements();
 		this.pRationale = new RationaleElements();
 		this.pUncertainty = new UncertaintyElements();
+		this.pResultIssue = new ResultIssueElements();
+		this.unknownRuleResultIssueType = new ResultIssueTypeElements();
 		this.pValDeclaration = new ValDeclarationElements();
 		this.pComputeDeclaration = new ComputeDeclarationElements();
 		this.pAPropertyReference = new APropertyReferenceElements();
@@ -2051,7 +2072,6 @@ public class CommonGrammarAccess extends AbstractGrammarElementFinder {
 		this.tEXPONENT = (TerminalRule) GrammarUtil.findRuleForName(getGrammar(), "EXPONENT");
 		this.tINT_EXPONENT = (TerminalRule) GrammarUtil.findRuleForName(getGrammar(), "INT_EXPONENT");
 		this.tREAL_LIT = (TerminalRule) GrammarUtil.findRuleForName(getGrammar(), "REAL_LIT");
-		this.tINTEGER_LIT = (TerminalRule) GrammarUtil.findRuleForName(getGrammar(), "INTEGER_LIT");
 		this.tDIGIT = (TerminalRule) GrammarUtil.findRuleForName(getGrammar(), "DIGIT");
 		this.tEXTENDED_DIGIT = (TerminalRule) GrammarUtil.findRuleForName(getGrammar(), "EXTENDED_DIGIT");
 		this.tBASED_INTEGER = (TerminalRule) GrammarUtil.findRuleForName(getGrammar(), "BASED_INTEGER");
@@ -2059,10 +2079,6 @@ public class CommonGrammarAccess extends AbstractGrammarElementFinder {
 		this.pAADLPROPERTYREFERENCE = new AADLPROPERTYREFERENCEElements();
 		this.pURIID = new URIIDElements();
 		this.pQualifiedName = new QualifiedNameElements();
-		this.pNumber = new NumberElements();
-		this.tHEX = (TerminalRule) GrammarUtil.findRuleForName(getGrammar(), "HEX");
-		this.tINT = (TerminalRule) GrammarUtil.findRuleForName(getGrammar(), "INT");
-		this.tDECIMAL = (TerminalRule) GrammarUtil.findRuleForName(getGrammar(), "DECIMAL");
 	}
 	
 	protected Grammar internalFindGrammar(GrammarProvider grammarProvider) {
@@ -2123,15 +2139,35 @@ public class CommonGrammarAccess extends AbstractGrammarElementFinder {
 	}
 
 	//Uncertainty:
-	//	"uncertainty" "[" ("volatility" volatility=Number & "costimpact" costimpact=Number & "scheduleimpact"
-	//	scheduleimpact=Number & "familiarity" familiarity=Number & "timecriticality" timecriticality=Number & "riskindex"
-	//	riskindex=Number & "maturityindex" maturityindex=Number) "]";
+	//	"uncertainty" "[" ("importance" importance=INT & "difficulty" difficulty=INT) "]";
 	public UncertaintyElements getUncertaintyAccess() {
 		return pUncertainty;
 	}
 	
 	public ParserRule getUncertaintyRule() {
 		return getUncertaintyAccess().getRule();
+	}
+
+	//// This is similar to diagnostics
+	//ResultIssue:
+	//	"issue" issueType=ResultIssueType message=STRING ("target" target=[ecore::EObject|URIID])? ("exception"
+	//	exceptionType=STRING)? ("[" issues+=ResultIssue* "]")?;
+	public ResultIssueElements getResultIssueAccess() {
+		return pResultIssue;
+	}
+	
+	public ParserRule getResultIssueRule() {
+		return getResultIssueAccess().getRule();
+	}
+
+	//enum ResultIssueType:
+	//	TBD="tbd" | UNKNOWN="unknown" | ERROR="error" | WARNING="warning" | INFO="info" | SUCCESS="success" | FAIL="fail";
+	public ResultIssueTypeElements getResultIssueTypeAccess() {
+		return unknownRuleResultIssueType;
+	}
+	
+	public EnumRule getResultIssueTypeRule() {
+		return getResultIssueTypeAccess().getRule();
 	}
 
 	//ValDeclaration returns AVariableDeclaration:
@@ -2409,7 +2445,7 @@ public class CommonGrammarAccess extends AbstractGrammarElementFinder {
 	}
 
 	//AInt returns aadl2::Integer:
-	//	INTEGER_LIT;
+	//	INT;
 	public AIntElements getAIntAccess() {
 		return pAInt;
 	}
@@ -2560,12 +2596,12 @@ public class CommonGrammarAccess extends AbstractGrammarElementFinder {
 		return tREAL_LIT;
 	} 
 
-	//terminal INTEGER_LIT:
-	//	DIGIT+ ("_" DIGIT+)* ("#" BASED_INTEGER "#" INT_EXPONENT? | INT_EXPONENT?);
-	public TerminalRule getINTEGER_LITRule() {
-		return tINTEGER_LIT;
-	} 
-
+	////terminal INTEGER_LIT : 
+	////		(DIGIT)+('_' (DIGIT)+)*
+	////		(( '#' BASED_INTEGER  '#' ( INT_EXPONENT )? )
+	////			| (INT_EXPONENT)?
+	////		)
+	////  ;
 	//terminal fragment DIGIT:
 	//	"0".."9";
 	public TerminalRule getDIGITRule() {
@@ -2615,6 +2651,7 @@ public class CommonGrammarAccess extends AbstractGrammarElementFinder {
 		return getURIIDAccess().getRule();
 	}
 
+	////terminal URIID : ('a'..'z'|'A'..'Z') ('a'..'z'|'A'..'Z'|'_'|'0'..'9'|'#'|'@'|'/'|':')*;
 	//QualifiedName:
 	//	ID ("." ID)*;
 	public QualifiedNameElements getQualifiedNameAccess() {
@@ -2625,38 +2662,16 @@ public class CommonGrammarAccess extends AbstractGrammarElementFinder {
 		return getQualifiedNameAccess().getRule();
 	}
 
-	//Number hidden():
-	//	HEX | (INT | DECIMAL) ("." (INT | DECIMAL))?;
-	public NumberElements getNumberAccess() {
-		return pNumber;
-	}
-	
-	public ParserRule getNumberRule() {
-		return getNumberAccess().getRule();
-	}
-
-	//terminal HEX:
-	//	("0x" | "0X") ("0".."9" | "a".."f" | "A".."F" | "_")+ ("#" (("b" | "B") ("i" | "I") | ("l" | "L")))?;
-	public TerminalRule getHEXRule() {
-		return tHEX;
-	} 
-
-	//terminal INT returns ecore::EInt:
-	//	"0".."9" ("0".."9" | "_")*;
-	public TerminalRule getINTRule() {
-		return tINT;
-	} 
-
-	//terminal DECIMAL:
-	//	INT (("e" | "E") ("+" | "-")? INT)? (("b" | "B") ("i" | "I" | "d" | "D") | ("l" | "L" | "d" | "D" | "f" | "F"))?;
-	public TerminalRule getDECIMALRule() {
-		return tDECIMAL;
-	} 
-
 	//terminal ID:
 	//	"^"? ("a".."z" | "A".."Z" | "_") ("a".."z" | "A".."Z" | "_" | "0".."9")*;
 	public TerminalRule getIDRule() {
 		return gaTerminals.getIDRule();
+	} 
+
+	//terminal INT returns ecore::EInt:
+	//	"0".."9"+;
+	public TerminalRule getINTRule() {
+		return gaTerminals.getINTRule();
 	} 
 
 	//terminal STRING:

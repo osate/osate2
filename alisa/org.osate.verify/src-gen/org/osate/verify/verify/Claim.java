@@ -109,12 +109,12 @@ public interface Claim extends EObject
    * </p>
    * <!-- end-user-doc -->
    * @return the value of the '<em>Weight</em>' attribute.
-   * @see #setWeight(String)
+   * @see #setWeight(int)
    * @see org.osate.verify.verify.VerifyPackage#getClaim_Weight()
    * @model
    * @generated
    */
-  String getWeight();
+  int getWeight();
 
   /**
    * Sets the value of the '{@link org.osate.verify.verify.Claim#getWeight <em>Weight</em>}' attribute.
@@ -124,7 +124,7 @@ public interface Claim extends EObject
    * @see #getWeight()
    * @generated
    */
-  void setWeight(String value);
+  void setWeight(int value);
 
   /**
    * Returns the value of the '<em><b>Activities</b></em>' containment reference list.

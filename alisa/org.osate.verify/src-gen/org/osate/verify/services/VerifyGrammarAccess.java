@@ -182,7 +182,7 @@ public class VerifyGrammarAccess extends AbstractGrammarElementFinder {
 		private final Group cGroup_3 = (Group)cGroup.eContents().get(3);
 		private final Keyword cLeftParenthesisKeyword_3_0 = (Keyword)cGroup_3.eContents().get(0);
 		private final Assignment cWeightAssignment_3_1 = (Assignment)cGroup_3.eContents().get(1);
-		private final RuleCall cWeightNumberParserRuleCall_3_1_0 = (RuleCall)cWeightAssignment_3_1.eContents().get(0);
+		private final RuleCall cWeightINTTerminalRuleCall_3_1_0 = (RuleCall)cWeightAssignment_3_1.eContents().get(0);
 		private final Keyword cRightParenthesisKeyword_3_2 = (Keyword)cGroup_3.eContents().get(2);
 		private final Keyword cLeftSquareBracketKeyword_4 = (Keyword)cGroup.eContents().get(4);
 		private final UnorderedGroup cUnorderedGroup_5 = (UnorderedGroup)cGroup.eContents().get(5);
@@ -205,12 +205,12 @@ public class VerifyGrammarAccess extends AbstractGrammarElementFinder {
 		private final Keyword cRightSquareBracketKeyword_6 = (Keyword)cGroup.eContents().get(6);
 		
 		//Claim:
-		//	"claim" requirement=[ReqSpec::Requirement|QualifiedName] (":" title=STRING)? ("(" weight=Number ")")? "["
-		//	(("activities" activities+=VerificationActivity*)? & ("assert" assert=ArgumentExpr)? & rationale=Rationale? &
-		//	subclaim+=Claim* & ("issues" issues+=STRING+)?) "]";
+		//	"claim" requirement=[ReqSpec::Requirement|QualifiedName] (":" title=STRING)? ("(" weight=INT ")")? "[" (("activities"
+		//	activities+=VerificationActivity*)? & ("assert" assert=ArgumentExpr)? & rationale=Rationale? & subclaim+=Claim* &
+		//	("issues" issues+=STRING+)?) "]";
 		@Override public ParserRule getRule() { return rule; }
 
-		//"claim" requirement=[ReqSpec::Requirement|QualifiedName] (":" title=STRING)? ("(" weight=Number ")")? "[" (("activities"
+		//"claim" requirement=[ReqSpec::Requirement|QualifiedName] (":" title=STRING)? ("(" weight=INT ")")? "[" (("activities"
 		//activities+=VerificationActivity*)? & ("assert" assert=ArgumentExpr)? & rationale=Rationale? & subclaim+=Claim* &
 		//("issues" issues+=STRING+)?) "]"
 		public Group getGroup() { return cGroup; }
@@ -239,17 +239,17 @@ public class VerifyGrammarAccess extends AbstractGrammarElementFinder {
 		//STRING
 		public RuleCall getTitleSTRINGTerminalRuleCall_2_1_0() { return cTitleSTRINGTerminalRuleCall_2_1_0; }
 
-		//("(" weight=Number ")")?
+		//("(" weight=INT ")")?
 		public Group getGroup_3() { return cGroup_3; }
 
 		//"("
 		public Keyword getLeftParenthesisKeyword_3_0() { return cLeftParenthesisKeyword_3_0; }
 
-		//weight=Number
+		//weight=INT
 		public Assignment getWeightAssignment_3_1() { return cWeightAssignment_3_1; }
 
-		//Number
-		public RuleCall getWeightNumberParserRuleCall_3_1_0() { return cWeightNumberParserRuleCall_3_1_0; }
+		//INT
+		public RuleCall getWeightINTTerminalRuleCall_3_1_0() { return cWeightINTTerminalRuleCall_3_1_0; }
 
 		//")"
 		public Keyword getRightParenthesisKeyword_3_2() { return cRightParenthesisKeyword_3_2; }
@@ -1716,9 +1716,9 @@ public class VerifyGrammarAccess extends AbstractGrammarElementFinder {
 	}
 
 	//Claim:
-	//	"claim" requirement=[ReqSpec::Requirement|QualifiedName] (":" title=STRING)? ("(" weight=Number ")")? "["
-	//	(("activities" activities+=VerificationActivity*)? & ("assert" assert=ArgumentExpr)? & rationale=Rationale? &
-	//	subclaim+=Claim* & ("issues" issues+=STRING+)?) "]";
+	//	"claim" requirement=[ReqSpec::Requirement|QualifiedName] (":" title=STRING)? ("(" weight=INT ")")? "[" (("activities"
+	//	activities+=VerificationActivity*)? & ("assert" assert=ArgumentExpr)? & rationale=Rationale? & subclaim+=Claim* &
+	//	("issues" issues+=STRING+)?) "]";
 	public ClaimElements getClaimAccess() {
 		return pClaim;
 	}
@@ -1964,9 +1964,7 @@ public class VerifyGrammarAccess extends AbstractGrammarElementFinder {
 	}
 
 	//Uncertainty:
-	//	"uncertainty" "[" ("volatility" volatility=Number & "costimpact" costimpact=Number & "scheduleimpact"
-	//	scheduleimpact=Number & "familiarity" familiarity=Number & "timecriticality" timecriticality=Number & "riskindex"
-	//	riskindex=Number & "maturityindex" maturityindex=Number) "]";
+	//	"uncertainty" "[" ("importance" importance=INT & "difficulty" difficulty=INT) "]";
 	public CommonGrammarAccess.UncertaintyElements getUncertaintyAccess() {
 		return gaCommon.getUncertaintyAccess();
 	}
@@ -1975,8 +1973,30 @@ public class VerifyGrammarAccess extends AbstractGrammarElementFinder {
 		return getUncertaintyAccess().getRule();
 	}
 
+	//// This is similar to diagnostics
+	//ResultIssue:
+	//	"issue" issueType=ResultIssueType message=STRING ("target" target=[ecore::EObject|URIID])? ("exception"
+	//	exceptionType=STRING)? ("[" issues+=ResultIssue* "]")?;
+	public CommonGrammarAccess.ResultIssueElements getResultIssueAccess() {
+		return gaCommon.getResultIssueAccess();
+	}
+	
+	public ParserRule getResultIssueRule() {
+		return getResultIssueAccess().getRule();
+	}
+
+	//enum ResultIssueType:
+	//	TBD="tbd" | UNKNOWN="unknown" | ERROR="error" | WARNING="warning" | INFO="info" | SUCCESS="success" | FAIL="fail";
+	public CommonGrammarAccess.ResultIssueTypeElements getResultIssueTypeAccess() {
+		return gaCommon.getResultIssueTypeAccess();
+	}
+	
+	public EnumRule getResultIssueTypeRule() {
+		return getResultIssueTypeAccess().getRule();
+	}
+
 	//ValDeclaration returns AVariableDeclaration:
-	//	{ValDeclaration} "val" (=> (type=ID name=ID) | name=ID) "=" right=AExpression?;
+	//	{ValDeclaration} "val" (=> (type=ID name=ID) | name=ID) "=" right=AExpression;
 	public CommonGrammarAccess.ValDeclarationElements getValDeclarationAccess() {
 		return gaCommon.getValDeclarationAccess();
 	}
@@ -2250,7 +2270,7 @@ public class VerifyGrammarAccess extends AbstractGrammarElementFinder {
 	}
 
 	//AInt returns aadl2::Integer:
-	//	INTEGER_LIT;
+	//	INT;
 	public CommonGrammarAccess.AIntElements getAIntAccess() {
 		return gaCommon.getAIntAccess();
 	}
@@ -2401,12 +2421,12 @@ public class VerifyGrammarAccess extends AbstractGrammarElementFinder {
 		return gaCommon.getREAL_LITRule();
 	} 
 
-	//terminal INTEGER_LIT:
-	//	DIGIT+ ("_" DIGIT+)* ("#" BASED_INTEGER "#" INT_EXPONENT? | INT_EXPONENT?);
-	public TerminalRule getINTEGER_LITRule() {
-		return gaCommon.getINTEGER_LITRule();
-	} 
-
+	////terminal INTEGER_LIT : 
+	////		(DIGIT)+('_' (DIGIT)+)*
+	////		(( '#' BASED_INTEGER  '#' ( INT_EXPONENT )? )
+	////			| (INT_EXPONENT)?
+	////		)
+	////  ;
 	//terminal fragment DIGIT:
 	//	"0".."9";
 	public TerminalRule getDIGITRule() {
@@ -2456,6 +2476,7 @@ public class VerifyGrammarAccess extends AbstractGrammarElementFinder {
 		return getURIIDAccess().getRule();
 	}
 
+	////terminal URIID : ('a'..'z'|'A'..'Z') ('a'..'z'|'A'..'Z'|'_'|'0'..'9'|'#'|'@'|'/'|':')*;
 	//QualifiedName:
 	//	ID ("." ID)*;
 	public CommonGrammarAccess.QualifiedNameElements getQualifiedNameAccess() {
@@ -2466,38 +2487,16 @@ public class VerifyGrammarAccess extends AbstractGrammarElementFinder {
 		return getQualifiedNameAccess().getRule();
 	}
 
-	//Number hidden():
-	//	HEX | (INT | DECIMAL) ("." (INT | DECIMAL))?;
-	public CommonGrammarAccess.NumberElements getNumberAccess() {
-		return gaCommon.getNumberAccess();
-	}
-	
-	public ParserRule getNumberRule() {
-		return getNumberAccess().getRule();
-	}
-
-	//terminal HEX:
-	//	("0x" | "0X") ("0".."9" | "a".."f" | "A".."F" | "_")+ ("#" (("b" | "B") ("i" | "I") | ("l" | "L")))?;
-	public TerminalRule getHEXRule() {
-		return gaCommon.getHEXRule();
-	} 
-
-	//terminal INT returns ecore::EInt:
-	//	"0".."9" ("0".."9" | "_")*;
-	public TerminalRule getINTRule() {
-		return gaCommon.getINTRule();
-	} 
-
-	//terminal DECIMAL:
-	//	INT (("e" | "E") ("+" | "-")? INT)? (("b" | "B") ("i" | "I" | "d" | "D") | ("l" | "L" | "d" | "D" | "f" | "F"))?;
-	public TerminalRule getDECIMALRule() {
-		return gaCommon.getDECIMALRule();
-	} 
-
 	//terminal ID:
 	//	"^"? ("a".."z" | "A".."Z" | "_") ("a".."z" | "A".."Z" | "_" | "0".."9")*;
 	public TerminalRule getIDRule() {
 		return gaCommon.getIDRule();
+	} 
+
+	//terminal INT returns ecore::EInt:
+	//	"0".."9"+;
+	public TerminalRule getINTRule() {
+		return gaCommon.getINTRule();
 	} 
 
 	//terminal STRING:

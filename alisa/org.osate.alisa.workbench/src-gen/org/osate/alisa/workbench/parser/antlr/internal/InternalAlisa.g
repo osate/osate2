@@ -36,6 +36,7 @@ import org.eclipse.xtext.parser.*;
 import org.eclipse.xtext.parser.impl.*;
 import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.emf.ecore.EObject;
+import org.eclipse.emf.common.util.Enumerator;
 import org.eclipse.xtext.parser.antlr.AbstractInternalAntlrParser;
 import org.eclipse.xtext.parser.antlr.XtextTokenStream;
 import org.eclipse.xtext.parser.antlr.XtextTokenStream.HiddenTokens;
@@ -845,6 +846,134 @@ ruleDescriptionElement returns [EObject current=null]
 
 
 
+
+
+
+
+
+// Entry rule entryRuleResultIssue
+entryRuleResultIssue returns [EObject current=null] 
+	:
+	{ newCompositeNode(grammarAccess.getResultIssueRule()); }
+	 iv_ruleResultIssue=ruleResultIssue 
+	 { $current=$iv_ruleResultIssue.current; } 
+	 EOF 
+;
+
+// Rule ResultIssue
+ruleResultIssue returns [EObject current=null] 
+    @init { enterRule(); 
+    }
+    @after { leaveRule(); }:
+(	otherlv_0='issue' 
+    {
+    	newLeafNode(otherlv_0, grammarAccess.getResultIssueAccess().getIssueKeyword_0());
+    }
+(
+(
+		{ 
+	        newCompositeNode(grammarAccess.getResultIssueAccess().getIssueTypeResultIssueTypeEnumRuleCall_1_0()); 
+	    }
+		lv_issueType_1_0=ruleResultIssueType		{
+	        if ($current==null) {
+	            $current = createModelElementForParent(grammarAccess.getResultIssueRule());
+	        }
+       		set(
+       			$current, 
+       			"issueType",
+        		lv_issueType_1_0, 
+        		"ResultIssueType");
+	        afterParserOrEnumRuleCall();
+	    }
+
+)
+)(
+(
+		lv_message_2_0=RULE_STRING
+		{
+			newLeafNode(lv_message_2_0, grammarAccess.getResultIssueAccess().getMessageSTRINGTerminalRuleCall_2_0()); 
+		}
+		{
+	        if ($current==null) {
+	            $current = createModelElement(grammarAccess.getResultIssueRule());
+	        }
+       		setWithLastConsumed(
+       			$current, 
+       			"message",
+        		lv_message_2_0, 
+        		"STRING");
+	    }
+
+)
+)(	otherlv_3='target' 
+    {
+    	newLeafNode(otherlv_3, grammarAccess.getResultIssueAccess().getTargetKeyword_3_0());
+    }
+(
+(
+		{
+			if ($current==null) {
+	            $current = createModelElement(grammarAccess.getResultIssueRule());
+	        }
+        }
+		{ 
+	        newCompositeNode(grammarAccess.getResultIssueAccess().getTargetEObjectCrossReference_3_1_0()); 
+	    }
+		ruleURIID		{ 
+	        afterParserOrEnumRuleCall();
+	    }
+
+)
+))?(	otherlv_5='exception' 
+    {
+    	newLeafNode(otherlv_5, grammarAccess.getResultIssueAccess().getExceptionKeyword_4_0());
+    }
+(
+(
+		lv_exceptionType_6_0=RULE_STRING
+		{
+			newLeafNode(lv_exceptionType_6_0, grammarAccess.getResultIssueAccess().getExceptionTypeSTRINGTerminalRuleCall_4_1_0()); 
+		}
+		{
+	        if ($current==null) {
+	            $current = createModelElement(grammarAccess.getResultIssueRule());
+	        }
+       		setWithLastConsumed(
+       			$current, 
+       			"exceptionType",
+        		lv_exceptionType_6_0, 
+        		"STRING");
+	    }
+
+)
+))?(	otherlv_7='[' 
+    {
+    	newLeafNode(otherlv_7, grammarAccess.getResultIssueAccess().getLeftSquareBracketKeyword_5_0());
+    }
+(
+(
+		{ 
+	        newCompositeNode(grammarAccess.getResultIssueAccess().getIssuesResultIssueParserRuleCall_5_1_0()); 
+	    }
+		lv_issues_8_0=ruleResultIssue		{
+	        if ($current==null) {
+	            $current = createModelElementForParent(grammarAccess.getResultIssueRule());
+	        }
+       		add(
+       			$current, 
+       			"issues",
+        		lv_issues_8_0, 
+        		"ResultIssue");
+	        afterParserOrEnumRuleCall();
+	    }
+
+)
+)*	otherlv_9=']' 
+    {
+    	newLeafNode(otherlv_9, grammarAccess.getResultIssueAccess().getRightSquareBracketKeyword_5_2());
+    }
+)?)
+;
 
 
 
@@ -2353,12 +2482,12 @@ ruleAInt returns [AntlrDatatypeRuleToken current=new AntlrDatatypeRuleToken()]
     @init { enterRule(); 
     }
     @after { leaveRule(); }:
-    this_INTEGER_LIT_0=RULE_INTEGER_LIT    {
-		$current.merge(this_INTEGER_LIT_0);
+    this_INT_0=RULE_INT    {
+		$current.merge(this_INT_0);
     }
 
     { 
-    newLeafNode(this_INTEGER_LIT_0, grammarAccess.getAIntAccess().getINTEGER_LITTerminalRuleCall()); 
+    newLeafNode(this_INT_0, grammarAccess.getAIntAccess().getINTTerminalRuleCall()); 
     }
 
     ;
@@ -2923,6 +3052,32 @@ ruleAADLPROPERTYREFERENCE returns [AntlrDatatypeRuleToken current=new AntlrDatat
 
 
 
+// Entry rule entryRuleURIID
+entryRuleURIID returns [String current=null] 
+	:
+	{ newCompositeNode(grammarAccess.getURIIDRule()); } 
+	 iv_ruleURIID=ruleURIID 
+	 { $current=$iv_ruleURIID.current.getText(); }  
+	 EOF 
+;
+
+// Rule URIID
+ruleURIID returns [AntlrDatatypeRuleToken current=new AntlrDatatypeRuleToken()] 
+    @init { enterRule(); 
+    }
+    @after { leaveRule(); }:
+    this_STRING_0=RULE_STRING    {
+		$current.merge(this_STRING_0);
+    }
+
+    { 
+    newLeafNode(this_STRING_0, grammarAccess.getURIIDAccess().getSTRINGTerminalRuleCall()); 
+    }
+
+    ;
+
+
+
 
 
 // Entry rule entryRuleQualifiedName
@@ -2966,78 +3121,52 @@ ruleQualifiedName returns [AntlrDatatypeRuleToken current=new AntlrDatatypeRuleT
 
 
 
-// Entry rule entryRuleNumber
-entryRuleNumber returns [String current=null] 
-	@init { 
-		HiddenTokens myHiddenTokenState = ((XtextTokenStream)input).setHiddenTokens();
-	}
-	:
-	{ newCompositeNode(grammarAccess.getNumberRule()); } 
-	 iv_ruleNumber=ruleNumber 
-	 { $current=$iv_ruleNumber.current.getText(); }  
-	 EOF 
-;
-finally {
-	myHiddenTokenState.restore();
-}
-
-// Rule Number
-ruleNumber returns [AntlrDatatypeRuleToken current=new AntlrDatatypeRuleToken()] 
-    @init { enterRule(); 
-		HiddenTokens myHiddenTokenState = ((XtextTokenStream)input).setHiddenTokens();
-    }
+// Rule ResultIssueType
+ruleResultIssueType returns [Enumerator current=null] 
+    @init { enterRule(); }
     @after { leaveRule(); }:
-(    this_HEX_0=RULE_HEX    {
-		$current.merge(this_HEX_0);
+((	enumLiteral_0='tbd' 
+	{
+        $current = grammarAccess.getResultIssueTypeAccess().getTBDEnumLiteralDeclaration_0().getEnumLiteral().getInstance();
+        newLeafNode(enumLiteral_0, grammarAccess.getResultIssueTypeAccess().getTBDEnumLiteralDeclaration_0()); 
     }
-
-    { 
-    newLeafNode(this_HEX_0, grammarAccess.getNumberAccess().getHEXTerminalRuleCall_0()); 
+)
+    |(	enumLiteral_1='unknown' 
+	{
+        $current = grammarAccess.getResultIssueTypeAccess().getUNKNOWNEnumLiteralDeclaration_1().getEnumLiteral().getInstance();
+        newLeafNode(enumLiteral_1, grammarAccess.getResultIssueTypeAccess().getUNKNOWNEnumLiteralDeclaration_1()); 
     }
-
-    |((    this_INT_1=RULE_INT    {
-		$current.merge(this_INT_1);
+)
+    |(	enumLiteral_2='error' 
+	{
+        $current = grammarAccess.getResultIssueTypeAccess().getERROREnumLiteralDeclaration_2().getEnumLiteral().getInstance();
+        newLeafNode(enumLiteral_2, grammarAccess.getResultIssueTypeAccess().getERROREnumLiteralDeclaration_2()); 
     }
-
-    { 
-    newLeafNode(this_INT_1, grammarAccess.getNumberAccess().getINTTerminalRuleCall_1_0_0()); 
+)
+    |(	enumLiteral_3='warning' 
+	{
+        $current = grammarAccess.getResultIssueTypeAccess().getWARNINGEnumLiteralDeclaration_3().getEnumLiteral().getInstance();
+        newLeafNode(enumLiteral_3, grammarAccess.getResultIssueTypeAccess().getWARNINGEnumLiteralDeclaration_3()); 
     }
-
-    |    this_DECIMAL_2=RULE_DECIMAL    {
-		$current.merge(this_DECIMAL_2);
+)
+    |(	enumLiteral_4='info' 
+	{
+        $current = grammarAccess.getResultIssueTypeAccess().getINFOEnumLiteralDeclaration_4().getEnumLiteral().getInstance();
+        newLeafNode(enumLiteral_4, grammarAccess.getResultIssueTypeAccess().getINFOEnumLiteralDeclaration_4()); 
     }
-
-    { 
-    newLeafNode(this_DECIMAL_2, grammarAccess.getNumberAccess().getDECIMALTerminalRuleCall_1_0_1()); 
+)
+    |(	enumLiteral_5='success' 
+	{
+        $current = grammarAccess.getResultIssueTypeAccess().getSUCCESSEnumLiteralDeclaration_5().getEnumLiteral().getInstance();
+        newLeafNode(enumLiteral_5, grammarAccess.getResultIssueTypeAccess().getSUCCESSEnumLiteralDeclaration_5()); 
     }
-)(
-	kw='.' 
-    {
-        $current.merge(kw);
-        newLeafNode(kw, grammarAccess.getNumberAccess().getFullStopKeyword_1_1_0()); 
+)
+    |(	enumLiteral_6='fail' 
+	{
+        $current = grammarAccess.getResultIssueTypeAccess().getFAILEnumLiteralDeclaration_6().getEnumLiteral().getInstance();
+        newLeafNode(enumLiteral_6, grammarAccess.getResultIssueTypeAccess().getFAILEnumLiteralDeclaration_6()); 
     }
-(    this_INT_4=RULE_INT    {
-		$current.merge(this_INT_4);
-    }
-
-    { 
-    newLeafNode(this_INT_4, grammarAccess.getNumberAccess().getINTTerminalRuleCall_1_1_1_0()); 
-    }
-
-    |    this_DECIMAL_5=RULE_DECIMAL    {
-		$current.merge(this_DECIMAL_5);
-    }
-
-    { 
-    newLeafNode(this_DECIMAL_5, grammarAccess.getNumberAccess().getDECIMALTerminalRuleCall_1_1_1_1()); 
-    }
-))?))
-    ;
-finally {
-	myHiddenTokenState.restore();
-}
-
-
+));
 
 
 
@@ -3047,21 +3176,15 @@ fragment RULE_INT_EXPONENT : ('e'|'E') '+'? RULE_DIGIT+;
 
 RULE_REAL_LIT : RULE_DIGIT+ ('_' RULE_DIGIT+)* '.' RULE_DIGIT+ ('_' RULE_DIGIT+)* RULE_EXPONENT?;
 
-RULE_INTEGER_LIT : RULE_DIGIT+ ('_' RULE_DIGIT+)* ('#' RULE_BASED_INTEGER '#' RULE_INT_EXPONENT?|RULE_INT_EXPONENT?);
-
 fragment RULE_DIGIT : '0'..'9';
 
 fragment RULE_EXTENDED_DIGIT : ('0'..'9'|'a'..'f'|'A'..'F');
 
 fragment RULE_BASED_INTEGER : RULE_EXTENDED_DIGIT ('_'? RULE_EXTENDED_DIGIT)*;
 
-RULE_HEX : ('0x'|'0X') ('0'..'9'|'a'..'f'|'A'..'F'|'_')+ ('#' (('b'|'B') ('i'|'I')|('l'|'L')))?;
-
-RULE_INT : '0'..'9' ('0'..'9'|'_')*;
-
-RULE_DECIMAL : RULE_INT (('e'|'E') ('+'|'-')? RULE_INT)? (('b'|'B') ('i'|'I'|'d'|'D')|('l'|'L'|'d'|'D'|'f'|'F'))?;
-
 RULE_ID : '^'? ('a'..'z'|'A'..'Z'|'_') ('a'..'z'|'A'..'Z'|'_'|'0'..'9')*;
+
+RULE_INT : ('0'..'9')+;
 
 RULE_STRING : ('"' ('\\' .|~(('\\'|'"')))* '"'|'\'' ('\\' .|~(('\\'|'\'')))* '\'');
 

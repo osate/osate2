@@ -28,19 +28,11 @@ import org.eclipse.xtext.ui.editor.contentassist.antlr.internal.Lexer;
 
 
 
-Timecriticality : 'timecriticality';
-
-Scheduleimpact : 'scheduleimpact';
-
-Maturityindex : 'maturityindex';
-
 Requirements : 'requirements';
 
 Description : 'description';
 
 Development : 'development';
-
-Familiarity : 'familiarity';
 
 Requirement : 'requirement';
 
@@ -48,17 +40,19 @@ Stakeholder : 'stakeholder';
 
 Uncertainty : 'uncertainty';
 
-Costimpact : 'costimpact';
-
 Decomposes : 'decomposes';
 
-Subprogram : 'subprogram';
+Difficulty : 'difficulty';
 
-Volatility : 'volatility';
+Importance : 'importance';
+
+Subprogram : 'subprogram';
 
 Conflicts : 'conflicts';
 
 Constants : 'constants';
+
+Exception : 'exception';
 
 Mitigates : 'mitigates';
 
@@ -67,8 +61,6 @@ Predicate : 'predicate';
 Processor : 'processor';
 
 Rationale : 'rationale';
-
-Riskindex : 'riskindex';
 
 Abstract : 'abstract';
 
@@ -94,7 +86,13 @@ Refines : 'refines';
 
 Section : 'section';
 
+Success : 'success';
+
+Unknown : 'unknown';
+
 Virtual : 'virtual';
+
+Warning : 'warning';
 
 Device : 'device';
 
@@ -106,9 +104,13 @@ Memory : 'memory';
 
 KW_System : 'system';
 
+Target : 'target';
+
 Thread : 'thread';
 
 Delta : 'delta';
+
+Error : 'error';
 
 False : 'false';
 
@@ -116,11 +118,17 @@ Goals : 'goals';
 
 Group : 'group';
 
+Issue : 'issue';
+
 Value : 'value';
 
 Data : 'data';
 
+Fail : 'fail';
+
 Goal : 'goal';
+
+Info : 'info';
 
 Null : 'null';
 
@@ -141,6 +149,8 @@ For : 'for';
 Img : 'img';
 
 See : 'see';
+
+Tbd : 'tbd';
 
 Use : 'use';
 
@@ -218,21 +228,15 @@ fragment RULE_INT_EXPONENT : ('e'|'E') '+'? RULE_DIGIT+;
 
 RULE_REAL_LIT : RULE_DIGIT+ ('_' RULE_DIGIT+)* '.' RULE_DIGIT+ ('_' RULE_DIGIT+)* RULE_EXPONENT?;
 
-RULE_INTEGER_LIT : RULE_DIGIT+ ('_' RULE_DIGIT+)* ('#' RULE_BASED_INTEGER '#' RULE_INT_EXPONENT?|RULE_INT_EXPONENT?);
-
 fragment RULE_DIGIT : '0'..'9';
 
 fragment RULE_EXTENDED_DIGIT : ('0'..'9'|'a'..'f'|'A'..'F');
 
 fragment RULE_BASED_INTEGER : RULE_EXTENDED_DIGIT ('_'? RULE_EXTENDED_DIGIT)*;
 
-RULE_HEX : ('0x'|'0X') ('0'..'9'|'a'..'f'|'A'..'F'|'_')+ ('#' (('b'|'B') ('i'|'I')|('l'|'L')))?;
-
-RULE_INT : '0'..'9' ('0'..'9'|'_')*;
-
-RULE_DECIMAL : RULE_INT (('e'|'E') ('+'|'-')? RULE_INT)? (('b'|'B') ('i'|'I'|'d'|'D')|('l'|'L'|'d'|'D'|'f'|'F'))?;
-
 RULE_ID : '^'? ('a'..'z'|'A'..'Z'|'_') ('a'..'z'|'A'..'Z'|'_'|'0'..'9')*;
+
+RULE_INT : ('0'..'9')+;
 
 RULE_STRING : ('"' ('\\' .|~(('\\'|'"')))* '"'|'\'' ('\\' .|~(('\\'|'\'')))* '\'');
 

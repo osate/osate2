@@ -101,7 +101,7 @@ public class ClaimImpl extends MinimalEObjectImpl.Container implements Claim
    * @generated
    * @ordered
    */
-  protected static final String WEIGHT_EDEFAULT = null;
+  protected static final int WEIGHT_EDEFAULT = 0;
 
   /**
    * The cached value of the '{@link #getWeight() <em>Weight</em>}' attribute.
@@ -111,7 +111,7 @@ public class ClaimImpl extends MinimalEObjectImpl.Container implements Claim
    * @generated
    * @ordered
    */
-  protected String weight = WEIGHT_EDEFAULT;
+  protected int weight = WEIGHT_EDEFAULT;
 
   /**
    * The cached value of the '{@link #getActivities() <em>Activities</em>}' containment reference list.
@@ -255,7 +255,7 @@ public class ClaimImpl extends MinimalEObjectImpl.Container implements Claim
    * <!-- end-user-doc -->
    * @generated
    */
-  public String getWeight()
+  public int getWeight()
   {
     return weight;
   }
@@ -265,9 +265,9 @@ public class ClaimImpl extends MinimalEObjectImpl.Container implements Claim
    * <!-- end-user-doc -->
    * @generated
    */
-  public void setWeight(String newWeight)
+  public void setWeight(int newWeight)
   {
-    String oldWeight = weight;
+    int oldWeight = weight;
     weight = newWeight;
     if (eNotificationRequired())
       eNotify(new ENotificationImpl(this, Notification.SET, VerifyPackage.CLAIM__WEIGHT, oldWeight, weight));
@@ -482,7 +482,7 @@ public class ClaimImpl extends MinimalEObjectImpl.Container implements Claim
         setTitle((String)newValue);
         return;
       case VerifyPackage.CLAIM__WEIGHT:
-        setWeight((String)newValue);
+        setWeight((Integer)newValue);
         return;
       case VerifyPackage.CLAIM__ACTIVITIES:
         getActivities().clear();
@@ -559,7 +559,7 @@ public class ClaimImpl extends MinimalEObjectImpl.Container implements Claim
       case VerifyPackage.CLAIM__TITLE:
         return TITLE_EDEFAULT == null ? title != null : !TITLE_EDEFAULT.equals(title);
       case VerifyPackage.CLAIM__WEIGHT:
-        return WEIGHT_EDEFAULT == null ? weight != null : !WEIGHT_EDEFAULT.equals(weight);
+        return weight != WEIGHT_EDEFAULT;
       case VerifyPackage.CLAIM__ACTIVITIES:
         return activities != null && !activities.isEmpty();
       case VerifyPackage.CLAIM__ASSERT:

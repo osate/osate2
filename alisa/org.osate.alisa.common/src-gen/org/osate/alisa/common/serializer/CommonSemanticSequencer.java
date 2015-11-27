@@ -47,6 +47,7 @@ import org.osate.alisa.common.common.Description;
 import org.osate.alisa.common.common.DescriptionElement;
 import org.osate.alisa.common.common.ImageReference;
 import org.osate.alisa.common.common.Rationale;
+import org.osate.alisa.common.common.ResultIssue;
 import org.osate.alisa.common.common.ShowValue;
 import org.osate.alisa.common.common.Uncertainty;
 import org.osate.alisa.common.common.ValDeclaration;
@@ -113,6 +114,9 @@ public class CommonSemanticSequencer extends AbstractDelegatingSemanticSequencer
 				return; 
 			case CommonPackage.RATIONALE:
 				sequence_Rationale(context, (Rationale) semanticObject); 
+				return; 
+			case CommonPackage.RESULT_ISSUE:
+				sequence_ResultIssue(context, (ResultIssue) semanticObject); 
 				return; 
 			case CommonPackage.SHOW_VALUE:
 				sequence_ShowValue(context, (ShowValue) semanticObject); 
@@ -295,6 +299,15 @@ public class CommonSemanticSequencer extends AbstractDelegatingSemanticSequencer
 	
 	/**
 	 * Constraint:
+	 *     (issueType=ResultIssueType message=STRING target=[EObject|URIID]? exceptionType=STRING? issues+=ResultIssue*)
+	 */
+	protected void sequence_ResultIssue(EObject context, ResultIssue semanticObject) {
+		genericSequencer.createSequence(context, semanticObject);
+	}
+	
+	
+	/**
+	 * Constraint:
 	 *     (ref=[AVariableDeclaration|ID] unit=[UnitLiteral|ID]?)
 	 */
 	protected void sequence_ShowValue(EObject context, ShowValue semanticObject) {
@@ -313,15 +326,7 @@ public class CommonSemanticSequencer extends AbstractDelegatingSemanticSequencer
 	
 	/**
 	 * Constraint:
-	 *     (
-	 *         volatility=Number 
-	 *         costimpact=Number 
-	 *         scheduleimpact=Number 
-	 *         familiarity=Number 
-	 *         timecriticality=Number 
-	 *         riskindex=Number 
-	 *         maturityindex=Number
-	 *     )
+	 *     (importance=INT difficulty=INT)
 	 */
 	protected void sequence_Uncertainty(EObject context, Uncertainty semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);

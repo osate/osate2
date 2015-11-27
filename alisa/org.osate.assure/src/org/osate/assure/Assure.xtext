@@ -1,4 +1,4 @@
-grammar org.osate.assure.Assure with org.osate.results.Results//org.eclipse.xtext.common.Terminals
+grammar org.osate.assure.Assure with org.osate.alisa.common.Common//org.osate.results.Results//org.eclipse.xtext.common.Terminals
 
 generate assure "http://www.osate.org/assure/Assure"
 import "http://aadl.info/AADL/2.0" as aadl2
@@ -141,9 +141,3 @@ enum  VerificationExecutionState:
 ;
 
 
-AadlClassifierReference:
-	ID ('::' ID)+ ('.' ID)?;
-
-QualifiedName : ID ( => '.' ID )*
-	
-;

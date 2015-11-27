@@ -21,12 +21,13 @@ import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.xtext.validation.ComposedChecks;
 
 @ComposedChecks(validators= {org.eclipse.xtext.validation.NamesAreUniqueValidator.class})
-public class AbstractResultsValidator extends org.eclipse.xtext.validation.AbstractDeclarativeValidator {
+public class AbstractResultsValidator extends org.osate.alisa.common.validation.CommonValidator {
 
 	@Override
 	protected List<EPackage> getEPackages() {
-	    List<EPackage> result = new ArrayList<EPackage>();
+	    List<EPackage> result = new ArrayList<EPackage>(super.getEPackages());
 	    result.add(org.osate.results.results.ResultsPackage.eINSTANCE);
+	    result.add(EPackage.Registry.INSTANCE.getEPackage("http://aadl.info/AADL/2.0"));
 		return result;
 	}
 }

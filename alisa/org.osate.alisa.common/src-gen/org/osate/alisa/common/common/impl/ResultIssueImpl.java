@@ -13,7 +13,7 @@
  * 
  * See COPYRIGHT file for full details.
  */
-package org.osate.results.results.impl;
+package org.osate.alisa.common.common.impl;
 
 import java.util.Collection;
 
@@ -32,9 +32,9 @@ import org.eclipse.emf.ecore.impl.MinimalEObjectImpl;
 import org.eclipse.emf.ecore.util.EObjectContainmentEList;
 import org.eclipse.emf.ecore.util.InternalEList;
 
-import org.osate.results.results.ResultIssue;
-import org.osate.results.results.ResultIssueType;
-import org.osate.results.results.ResultsPackage;
+import org.osate.alisa.common.common.CommonPackage;
+import org.osate.alisa.common.common.ResultIssue;
+import org.osate.alisa.common.common.ResultIssueType;
 
 /**
  * <!-- begin-user-doc -->
@@ -44,11 +44,11 @@ import org.osate.results.results.ResultsPackage;
  * The following features are implemented:
  * </p>
  * <ul>
- *   <li>{@link org.osate.results.results.impl.ResultIssueImpl#getIssueType <em>Issue Type</em>}</li>
- *   <li>{@link org.osate.results.results.impl.ResultIssueImpl#getMessage <em>Message</em>}</li>
- *   <li>{@link org.osate.results.results.impl.ResultIssueImpl#getTarget <em>Target</em>}</li>
- *   <li>{@link org.osate.results.results.impl.ResultIssueImpl#getExceptionType <em>Exception Type</em>}</li>
- *   <li>{@link org.osate.results.results.impl.ResultIssueImpl#getIssues <em>Issues</em>}</li>
+ *   <li>{@link org.osate.alisa.common.common.impl.ResultIssueImpl#getIssueType <em>Issue Type</em>}</li>
+ *   <li>{@link org.osate.alisa.common.common.impl.ResultIssueImpl#getMessage <em>Message</em>}</li>
+ *   <li>{@link org.osate.alisa.common.common.impl.ResultIssueImpl#getTarget <em>Target</em>}</li>
+ *   <li>{@link org.osate.alisa.common.common.impl.ResultIssueImpl#getExceptionType <em>Exception Type</em>}</li>
+ *   <li>{@link org.osate.alisa.common.common.impl.ResultIssueImpl#getIssues <em>Issues</em>}</li>
  * </ul>
  *
  * @generated
@@ -153,7 +153,7 @@ public class ResultIssueImpl extends MinimalEObjectImpl.Container implements Res
   @Override
   protected EClass eStaticClass()
   {
-    return ResultsPackage.Literals.RESULT_ISSUE;
+    return CommonPackage.Literals.RESULT_ISSUE;
   }
 
   /**
@@ -176,7 +176,7 @@ public class ResultIssueImpl extends MinimalEObjectImpl.Container implements Res
     ResultIssueType oldIssueType = issueType;
     issueType = newIssueType == null ? ISSUE_TYPE_EDEFAULT : newIssueType;
     if (eNotificationRequired())
-      eNotify(new ENotificationImpl(this, Notification.SET, ResultsPackage.RESULT_ISSUE__ISSUE_TYPE, oldIssueType, issueType));
+      eNotify(new ENotificationImpl(this, Notification.SET, CommonPackage.RESULT_ISSUE__ISSUE_TYPE, oldIssueType, issueType));
   }
 
   /**
@@ -199,7 +199,7 @@ public class ResultIssueImpl extends MinimalEObjectImpl.Container implements Res
     String oldMessage = message;
     message = newMessage;
     if (eNotificationRequired())
-      eNotify(new ENotificationImpl(this, Notification.SET, ResultsPackage.RESULT_ISSUE__MESSAGE, oldMessage, message));
+      eNotify(new ENotificationImpl(this, Notification.SET, CommonPackage.RESULT_ISSUE__MESSAGE, oldMessage, message));
   }
 
   /**
@@ -216,7 +216,7 @@ public class ResultIssueImpl extends MinimalEObjectImpl.Container implements Res
       if (target != oldTarget)
       {
         if (eNotificationRequired())
-          eNotify(new ENotificationImpl(this, Notification.RESOLVE, ResultsPackage.RESULT_ISSUE__TARGET, oldTarget, target));
+          eNotify(new ENotificationImpl(this, Notification.RESOLVE, CommonPackage.RESULT_ISSUE__TARGET, oldTarget, target));
       }
     }
     return target;
@@ -242,7 +242,7 @@ public class ResultIssueImpl extends MinimalEObjectImpl.Container implements Res
     EObject oldTarget = target;
     target = newTarget;
     if (eNotificationRequired())
-      eNotify(new ENotificationImpl(this, Notification.SET, ResultsPackage.RESULT_ISSUE__TARGET, oldTarget, target));
+      eNotify(new ENotificationImpl(this, Notification.SET, CommonPackage.RESULT_ISSUE__TARGET, oldTarget, target));
   }
 
   /**
@@ -265,7 +265,7 @@ public class ResultIssueImpl extends MinimalEObjectImpl.Container implements Res
     String oldExceptionType = exceptionType;
     exceptionType = newExceptionType;
     if (eNotificationRequired())
-      eNotify(new ENotificationImpl(this, Notification.SET, ResultsPackage.RESULT_ISSUE__EXCEPTION_TYPE, oldExceptionType, exceptionType));
+      eNotify(new ENotificationImpl(this, Notification.SET, CommonPackage.RESULT_ISSUE__EXCEPTION_TYPE, oldExceptionType, exceptionType));
   }
 
   /**
@@ -277,7 +277,7 @@ public class ResultIssueImpl extends MinimalEObjectImpl.Container implements Res
   {
     if (issues == null)
     {
-      issues = new EObjectContainmentEList<ResultIssue>(ResultIssue.class, this, ResultsPackage.RESULT_ISSUE__ISSUES);
+      issues = new EObjectContainmentEList<ResultIssue>(ResultIssue.class, this, CommonPackage.RESULT_ISSUE__ISSUES);
     }
     return issues;
   }
@@ -292,7 +292,7 @@ public class ResultIssueImpl extends MinimalEObjectImpl.Container implements Res
   {
     switch (featureID)
     {
-      case ResultsPackage.RESULT_ISSUE__ISSUES:
+      case CommonPackage.RESULT_ISSUE__ISSUES:
         return ((InternalEList<?>)getIssues()).basicRemove(otherEnd, msgs);
     }
     return super.eInverseRemove(otherEnd, featureID, msgs);
@@ -308,16 +308,16 @@ public class ResultIssueImpl extends MinimalEObjectImpl.Container implements Res
   {
     switch (featureID)
     {
-      case ResultsPackage.RESULT_ISSUE__ISSUE_TYPE:
+      case CommonPackage.RESULT_ISSUE__ISSUE_TYPE:
         return getIssueType();
-      case ResultsPackage.RESULT_ISSUE__MESSAGE:
+      case CommonPackage.RESULT_ISSUE__MESSAGE:
         return getMessage();
-      case ResultsPackage.RESULT_ISSUE__TARGET:
+      case CommonPackage.RESULT_ISSUE__TARGET:
         if (resolve) return getTarget();
         return basicGetTarget();
-      case ResultsPackage.RESULT_ISSUE__EXCEPTION_TYPE:
+      case CommonPackage.RESULT_ISSUE__EXCEPTION_TYPE:
         return getExceptionType();
-      case ResultsPackage.RESULT_ISSUE__ISSUES:
+      case CommonPackage.RESULT_ISSUE__ISSUES:
         return getIssues();
     }
     return super.eGet(featureID, resolve, coreType);
@@ -334,19 +334,19 @@ public class ResultIssueImpl extends MinimalEObjectImpl.Container implements Res
   {
     switch (featureID)
     {
-      case ResultsPackage.RESULT_ISSUE__ISSUE_TYPE:
+      case CommonPackage.RESULT_ISSUE__ISSUE_TYPE:
         setIssueType((ResultIssueType)newValue);
         return;
-      case ResultsPackage.RESULT_ISSUE__MESSAGE:
+      case CommonPackage.RESULT_ISSUE__MESSAGE:
         setMessage((String)newValue);
         return;
-      case ResultsPackage.RESULT_ISSUE__TARGET:
+      case CommonPackage.RESULT_ISSUE__TARGET:
         setTarget((EObject)newValue);
         return;
-      case ResultsPackage.RESULT_ISSUE__EXCEPTION_TYPE:
+      case CommonPackage.RESULT_ISSUE__EXCEPTION_TYPE:
         setExceptionType((String)newValue);
         return;
-      case ResultsPackage.RESULT_ISSUE__ISSUES:
+      case CommonPackage.RESULT_ISSUE__ISSUES:
         getIssues().clear();
         getIssues().addAll((Collection<? extends ResultIssue>)newValue);
         return;
@@ -364,19 +364,19 @@ public class ResultIssueImpl extends MinimalEObjectImpl.Container implements Res
   {
     switch (featureID)
     {
-      case ResultsPackage.RESULT_ISSUE__ISSUE_TYPE:
+      case CommonPackage.RESULT_ISSUE__ISSUE_TYPE:
         setIssueType(ISSUE_TYPE_EDEFAULT);
         return;
-      case ResultsPackage.RESULT_ISSUE__MESSAGE:
+      case CommonPackage.RESULT_ISSUE__MESSAGE:
         setMessage(MESSAGE_EDEFAULT);
         return;
-      case ResultsPackage.RESULT_ISSUE__TARGET:
+      case CommonPackage.RESULT_ISSUE__TARGET:
         setTarget((EObject)null);
         return;
-      case ResultsPackage.RESULT_ISSUE__EXCEPTION_TYPE:
+      case CommonPackage.RESULT_ISSUE__EXCEPTION_TYPE:
         setExceptionType(EXCEPTION_TYPE_EDEFAULT);
         return;
-      case ResultsPackage.RESULT_ISSUE__ISSUES:
+      case CommonPackage.RESULT_ISSUE__ISSUES:
         getIssues().clear();
         return;
     }
@@ -393,15 +393,15 @@ public class ResultIssueImpl extends MinimalEObjectImpl.Container implements Res
   {
     switch (featureID)
     {
-      case ResultsPackage.RESULT_ISSUE__ISSUE_TYPE:
+      case CommonPackage.RESULT_ISSUE__ISSUE_TYPE:
         return issueType != ISSUE_TYPE_EDEFAULT;
-      case ResultsPackage.RESULT_ISSUE__MESSAGE:
+      case CommonPackage.RESULT_ISSUE__MESSAGE:
         return MESSAGE_EDEFAULT == null ? message != null : !MESSAGE_EDEFAULT.equals(message);
-      case ResultsPackage.RESULT_ISSUE__TARGET:
+      case CommonPackage.RESULT_ISSUE__TARGET:
         return target != null;
-      case ResultsPackage.RESULT_ISSUE__EXCEPTION_TYPE:
+      case CommonPackage.RESULT_ISSUE__EXCEPTION_TYPE:
         return EXCEPTION_TYPE_EDEFAULT == null ? exceptionType != null : !EXCEPTION_TYPE_EDEFAULT.equals(exceptionType);
-      case ResultsPackage.RESULT_ISSUE__ISSUES:
+      case CommonPackage.RESULT_ISSUE__ISSUES:
         return issues != null && !issues.isEmpty();
     }
     return super.eIsSet(featureID);

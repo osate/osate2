@@ -13,7 +13,7 @@
  * 
  * See COPYRIGHT file for full details.
  */
-package org.osate.results.results;
+package org.osate.alisa.common.common;
 
 import java.util.Arrays;
 import java.util.Collections;
@@ -26,7 +26,7 @@ import org.eclipse.emf.common.util.Enumerator;
  * A representation of the literals of the enumeration '<em><b>Result Issue Type</b></em>',
  * and utility methods for working with them.
  * <!-- end-user-doc -->
- * @see org.osate.results.results.ResultsPackage#getResultIssueType()
+ * @see org.osate.alisa.common.common.CommonPackage#getResultIssueType()
  * @model
  * @generated
  */

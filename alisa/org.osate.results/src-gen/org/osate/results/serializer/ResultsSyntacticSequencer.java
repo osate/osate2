@@ -33,12 +33,16 @@ import org.osate.results.services.ResultsGrammarAccess;
 public class ResultsSyntacticSequencer extends AbstractSyntacticSequencer {
 
 	protected ResultsGrammarAccess grammarAccess;
+	protected AbstractElementAlias match_AParenthesizedExpression_LeftParenthesisKeyword_0_a;
+	protected AbstractElementAlias match_AParenthesizedExpression_LeftParenthesisKeyword_0_p;
 	protected AbstractElementAlias match_IssuesReport___LeftSquareBracketKeyword_3_0_RightSquareBracketKeyword_3_3__q;
 	protected AbstractElementAlias match_ResultIssue___LeftSquareBracketKeyword_5_0_RightSquareBracketKeyword_5_2__q;
 	
 	@Inject
 	protected void init(IGrammarAccess access) {
 		grammarAccess = (ResultsGrammarAccess) access;
+		match_AParenthesizedExpression_LeftParenthesisKeyword_0_a = new TokenAlias(true, true, grammarAccess.getAParenthesizedExpressionAccess().getLeftParenthesisKeyword_0());
+		match_AParenthesizedExpression_LeftParenthesisKeyword_0_p = new TokenAlias(true, false, grammarAccess.getAParenthesizedExpressionAccess().getLeftParenthesisKeyword_0());
 		match_IssuesReport___LeftSquareBracketKeyword_3_0_RightSquareBracketKeyword_3_3__q = new GroupAlias(false, true, new TokenAlias(false, false, grammarAccess.getIssuesReportAccess().getLeftSquareBracketKeyword_3_0()), new TokenAlias(false, false, grammarAccess.getIssuesReportAccess().getRightSquareBracketKeyword_3_3()));
 		match_ResultIssue___LeftSquareBracketKeyword_5_0_RightSquareBracketKeyword_5_2__q = new GroupAlias(false, true, new TokenAlias(false, false, grammarAccess.getResultIssueAccess().getLeftSquareBracketKeyword_5_0()), new TokenAlias(false, false, grammarAccess.getResultIssueAccess().getRightSquareBracketKeyword_5_2()));
 	}
@@ -55,7 +59,11 @@ public class ResultsSyntacticSequencer extends AbstractSyntacticSequencer {
 		List<INode> transitionNodes = collectNodes(fromNode, toNode);
 		for (AbstractElementAlias syntax : transition.getAmbiguousSyntaxes()) {
 			List<INode> syntaxNodes = getNodesFor(transitionNodes, syntax);
-			if(match_IssuesReport___LeftSquareBracketKeyword_3_0_RightSquareBracketKeyword_3_3__q.equals(syntax))
+			if(match_AParenthesizedExpression_LeftParenthesisKeyword_0_a.equals(syntax))
+				emit_AParenthesizedExpression_LeftParenthesisKeyword_0_a(semanticObject, getLastNavigableState(), syntaxNodes);
+			else if(match_AParenthesizedExpression_LeftParenthesisKeyword_0_p.equals(syntax))
+				emit_AParenthesizedExpression_LeftParenthesisKeyword_0_p(semanticObject, getLastNavigableState(), syntaxNodes);
+			else if(match_IssuesReport___LeftSquareBracketKeyword_3_0_RightSquareBracketKeyword_3_3__q.equals(syntax))
 				emit_IssuesReport___LeftSquareBracketKeyword_3_0_RightSquareBracketKeyword_3_3__q(semanticObject, getLastNavigableState(), syntaxNodes);
 			else if(match_ResultIssue___LeftSquareBracketKeyword_5_0_RightSquareBracketKeyword_5_2__q.equals(syntax))
 				emit_ResultIssue___LeftSquareBracketKeyword_5_0_RightSquareBracketKeyword_5_2__q(semanticObject, getLastNavigableState(), syntaxNodes);
@@ -63,6 +71,54 @@ public class ResultsSyntacticSequencer extends AbstractSyntacticSequencer {
 		}
 	}
 
+	/**
+	 * Ambiguous syntax:
+	 *     '('*
+	 *
+	 * This ambiguous syntax occurs at:
+	 *     (rule start) (ambiguity) '#' '[' ']' (rule start)
+	 *     (rule start) (ambiguity) '#' '[' elements+=AExpression
+	 *     (rule start) (ambiguity) '@' property=[AbstractNamedValue|AADLPROPERTYREFERENCE]
+	 *     (rule start) (ambiguity) 'false' (rule start)
+	 *     (rule start) (ambiguity) 'null' (rule start)
+	 *     (rule start) (ambiguity) '{' '}' (rule start)
+	 *     (rule start) (ambiguity) '{' elements+=AExpression
+	 *     (rule start) (ambiguity) feature=OpUnary
+	 *     (rule start) (ambiguity) value=AInt
+	 *     (rule start) (ambiguity) value=AReal
+	 *     (rule start) (ambiguity) value=NoQuoteString
+	 *     (rule start) (ambiguity) value?='true'
+	 *     (rule start) (ambiguity) variable=[AVariableDeclaration|ID]
+	 *     (rule start) (ambiguity) {ABinaryOperation.leftOperand=}
+	 */
+	protected void emit_AParenthesizedExpression_LeftParenthesisKeyword_0_a(EObject semanticObject, ISynNavigable transition, List<INode> nodes) {
+		acceptNodes(transition, nodes);
+	}
+	
+	/**
+	 * Ambiguous syntax:
+	 *     '('+
+	 *
+	 * This ambiguous syntax occurs at:
+	 *     (rule start) (ambiguity) '#' '[' ']' ')' (rule start)
+	 *     (rule start) (ambiguity) '#' '[' elements+=AExpression
+	 *     (rule start) (ambiguity) '@' property=[AbstractNamedValue|AADLPROPERTYREFERENCE]
+	 *     (rule start) (ambiguity) 'false' ')' (rule start)
+	 *     (rule start) (ambiguity) 'null' ')' (rule start)
+	 *     (rule start) (ambiguity) '{' '}' ')' (rule start)
+	 *     (rule start) (ambiguity) '{' elements+=AExpression
+	 *     (rule start) (ambiguity) feature=OpUnary
+	 *     (rule start) (ambiguity) value=AInt
+	 *     (rule start) (ambiguity) value=AReal
+	 *     (rule start) (ambiguity) value=NoQuoteString
+	 *     (rule start) (ambiguity) value?='true'
+	 *     (rule start) (ambiguity) variable=[AVariableDeclaration|ID]
+	 *     (rule start) (ambiguity) {ABinaryOperation.leftOperand=}
+	 */
+	protected void emit_AParenthesizedExpression_LeftParenthesisKeyword_0_p(EObject semanticObject, ISynNavigable transition, List<INode> nodes) {
+		acceptNodes(transition, nodes);
+	}
+	
 	/**
 	 * Ambiguous syntax:
 	 *     ('[' ']')?

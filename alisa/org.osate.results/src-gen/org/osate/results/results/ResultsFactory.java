@@ -72,24 +72,6 @@ public interface ResultsFactory extends EFactory
   ResultContributor createResultContributor();
 
   /**
-   * Returns a new object of class '<em>Issues Report</em>'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return a new object of class '<em>Issues Report</em>'.
-   * @generated
-   */
-  IssuesReport createIssuesReport();
-
-  /**
-   * Returns a new object of class '<em>Result Issue</em>'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return a new object of class '<em>Result Issue</em>'.
-   * @generated
-   */
-  ResultIssue createResultIssue();
-
-  /**
    * Returns a new object of class '<em>Result Data</em>'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -97,6 +79,15 @@ public interface ResultsFactory extends EFactory
    * @generated
    */
   ResultData createResultData();
+
+  /**
+   * Returns a new object of class '<em>Issues Report</em>'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return a new object of class '<em>Issues Report</em>'.
+   * @generated
+   */
+  IssuesReport createIssuesReport();
 
   /**
    * Returns the package supported by this factory.
