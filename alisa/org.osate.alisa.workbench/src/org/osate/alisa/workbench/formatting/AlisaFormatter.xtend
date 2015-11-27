@@ -52,7 +52,7 @@ class AlisaFormatter extends AbstractDeclarativeFormatter {
 		}
 		c.setLinewrap(1,2,2).after(assurancePlanRule);
 		c.setLinewrap(1,2,2).after(assuranceTaskRule);
-		for (kw : findKeywords("assure", "description", "assume","issues","filter","claims")) {
+		for (kw : findKeywords("assure",  "assume","issues","category","quality","phase")) {
 			c.setLinewrap().before(kw);
 		}
 	}

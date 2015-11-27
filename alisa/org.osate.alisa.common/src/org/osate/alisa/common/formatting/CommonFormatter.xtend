@@ -21,6 +21,9 @@ package org.osate.alisa.common.formatting
 
 import org.eclipse.xtext.formatting.impl.AbstractDeclarativeFormatter
 import org.eclipse.xtext.formatting.impl.FormattingConfig
+import org.osate.alisa.common.services.CommonGrammarAccess
+import com.google.inject.Inject
+
 // import com.google.inject.Inject;
 // import org.osate.alisa.common.services.CommonGrammarAccess
 
@@ -34,13 +37,20 @@ import org.eclipse.xtext.formatting.impl.FormattingConfig
  */
 class CommonFormatter extends AbstractDeclarativeFormatter {
 
-//	@Inject extension CommonGrammarAccess
+	@Inject extension CommonGrammarAccess
 	
 	override protected void configureFormatting(FormattingConfig c) {
 // It's usually a good idea to activate the following three statements.
 // They will add and preserve newlines around comments
-//		c.setLinewrap(0, 1, 2).before(SL_COMMENTRule)
-//		c.setLinewrap(0, 1, 2).before(ML_COMMENTRule)
-//		c.setLinewrap(0, 1, 1).after(ML_COMMENTRule)
+		c.setLinewrap(0, 1, 2).before(SL_COMMENTRule)
+		c.setLinewrap(0, 1, 2).before(ML_COMMENTRule)
+		c.setLinewrap(0, 1, 1).after(ML_COMMENTRule)
+		for (pair : findKeywordPairs("[", "]")) {
+			c.setIndentationIncrement().after(pair.first);
+			c.setLinewrap().after(pair.first);
+			c.setIndentationDecrement().before(pair.second);
+			c.setLinewrap().before(pair.second);
+		}
+		c.setLinewrap().after(resultIssueRule);
 	}
 }
