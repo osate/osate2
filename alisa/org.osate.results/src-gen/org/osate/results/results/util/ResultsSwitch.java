@@ -85,10 +85,10 @@ public class ResultsSwitch<T> extends Switch<T>
   {
     switch (classifierID)
     {
-      case ResultsPackage.RESULT_REPORTS:
+      case ResultsPackage.RESULT_REPORT:
       {
-        ResultReports resultReports = (ResultReports)theEObject;
-        T result = caseResultReports(resultReports);
+        ResultReport resultReport = (ResultReport)theEObject;
+        T result = caseResultReport(resultReport);
         if (result == null) result = defaultCase(theEObject);
         return result;
       }
@@ -96,15 +96,15 @@ public class ResultsSwitch<T> extends Switch<T>
       {
         ResultReportCollection resultReportCollection = (ResultReportCollection)theEObject;
         T result = caseResultReportCollection(resultReportCollection);
-        if (result == null) result = caseResultReports(resultReportCollection);
+        if (result == null) result = caseResultReport(resultReportCollection);
         if (result == null) result = defaultCase(theEObject);
         return result;
       }
-      case ResultsPackage.RESULT_REPORT:
+      case ResultsPackage.RESULT_DATA_REPORT:
       {
-        ResultReport resultReport = (ResultReport)theEObject;
-        T result = caseResultReport(resultReport);
-        if (result == null) result = caseResultReports(resultReport);
+        ResultDataReport resultDataReport = (ResultDataReport)theEObject;
+        T result = caseResultDataReport(resultDataReport);
+        if (result == null) result = caseResultReport(resultDataReport);
         if (result == null) result = defaultCase(theEObject);
         return result;
       }
@@ -119,7 +119,7 @@ public class ResultsSwitch<T> extends Switch<T>
       {
         IssuesReport issuesReport = (IssuesReport)theEObject;
         T result = caseIssuesReport(issuesReport);
-        if (result == null) result = caseResultReports(issuesReport);
+        if (result == null) result = caseResultReport(issuesReport);
         if (result == null) result = defaultCase(theEObject);
         return result;
       }
@@ -142,17 +142,17 @@ public class ResultsSwitch<T> extends Switch<T>
   }
 
   /**
-   * Returns the result of interpreting the object as an instance of '<em>Result Reports</em>'.
+   * Returns the result of interpreting the object as an instance of '<em>Result Report</em>'.
    * <!-- begin-user-doc -->
    * This implementation returns null;
    * returning a non-null result will terminate the switch.
    * <!-- end-user-doc -->
    * @param object the target of the switch.
-   * @return the result of interpreting the object as an instance of '<em>Result Reports</em>'.
+   * @return the result of interpreting the object as an instance of '<em>Result Report</em>'.
    * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
    * @generated
    */
-  public T caseResultReports(ResultReports object)
+  public T caseResultReport(ResultReport object)
   {
     return null;
   }
@@ -174,17 +174,17 @@ public class ResultsSwitch<T> extends Switch<T>
   }
 
   /**
-   * Returns the result of interpreting the object as an instance of '<em>Result Report</em>'.
+   * Returns the result of interpreting the object as an instance of '<em>Result Data Report</em>'.
    * <!-- begin-user-doc -->
    * This implementation returns null;
    * returning a non-null result will terminate the switch.
    * <!-- end-user-doc -->
    * @param object the target of the switch.
-   * @return the result of interpreting the object as an instance of '<em>Result Report</em>'.
+   * @return the result of interpreting the object as an instance of '<em>Result Data Report</em>'.
    * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
    * @generated
    */
-  public T caseResultReport(ResultReport object)
+  public T caseResultDataReport(ResultDataReport object)
   {
     return null;
   }

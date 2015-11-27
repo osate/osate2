@@ -35,7 +35,7 @@ import org.eclipse.emf.common.util.EList;
  * @model
  * @generated
  */
-public interface ResultReportCollection extends ResultReports
+public interface ResultReportCollection extends ResultReport
 {
   /**
    * Returns the value of the '<em><b>Title</b></em>' attribute.

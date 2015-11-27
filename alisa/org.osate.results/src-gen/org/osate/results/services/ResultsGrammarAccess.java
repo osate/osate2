@@ -30,22 +30,22 @@ import org.eclipse.xtext.common.services.TerminalsGrammarAccess;
 public class ResultsGrammarAccess extends AbstractGrammarElementFinder {
 	
 	
-	public class ResultReportsElements extends AbstractParserRuleElementFinder {
-		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "ResultReports");
+	public class ResultReportElements extends AbstractParserRuleElementFinder {
+		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "ResultReport");
 		private final Alternatives cAlternatives = (Alternatives)rule.eContents().get(1);
-		private final RuleCall cResultReportParserRuleCall_0 = (RuleCall)cAlternatives.eContents().get(0);
+		private final RuleCall cResultDataReportParserRuleCall_0 = (RuleCall)cAlternatives.eContents().get(0);
 		private final RuleCall cResultReportCollectionParserRuleCall_1 = (RuleCall)cAlternatives.eContents().get(1);
 		private final RuleCall cIssuesReportParserRuleCall_2 = (RuleCall)cAlternatives.eContents().get(2);
 		
-		//ResultReports:
-		//	ResultReport | ResultReportCollection | IssuesReport;
+		//ResultReport:
+		//	ResultDataReport | ResultReportCollection | IssuesReport;
 		@Override public ParserRule getRule() { return rule; }
 
-		//ResultReport | ResultReportCollection | IssuesReport
+		//ResultDataReport | ResultReportCollection | IssuesReport
 		public Alternatives getAlternatives() { return cAlternatives; }
 
-		//ResultReport
-		public RuleCall getResultReportParserRuleCall_0() { return cResultReportParserRuleCall_0; }
+		//ResultDataReport
+		public RuleCall getResultDataReportParserRuleCall_0() { return cResultDataReportParserRuleCall_0; }
 
 		//ResultReportCollection
 		public RuleCall getResultReportCollectionParserRuleCall_1() { return cResultReportCollectionParserRuleCall_1; }
@@ -155,8 +155,8 @@ public class ResultsGrammarAccess extends AbstractGrammarElementFinder {
 		public Keyword getRightSquareBracketKeyword_9() { return cRightSquareBracketKeyword_9; }
 	}
 
-	public class ResultReportElements extends AbstractParserRuleElementFinder {
-		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "ResultReport");
+	public class ResultDataReportElements extends AbstractParserRuleElementFinder {
+		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "ResultDataReport");
 		private final Group cGroup = (Group)rule.eContents().get(1);
 		private final Keyword cReportKeyword_0 = (Keyword)cGroup.eContents().get(0);
 		private final Assignment cNameAssignment_1 = (Assignment)cGroup.eContents().get(1);
@@ -191,15 +191,15 @@ public class ResultsGrammarAccess extends AbstractGrammarElementFinder {
 		//// one report of an analysis for one item in the instance model.
 		//// it may be a report per SOM or per end to end flow
 		//// result represents the result data that can be queried
-		//ResultReport:
+		//ResultDataReport:
 		//	"report" name=ID (":" title=STRING)? "for" target= // system instance or other EObject
 		//	[ecore::EObject|URIID] "[" ("description" decription=STRING)? ("heading" heading=STRING content+=ResultContributor*)?
-		//	("results" resultData+=ResultData+)? issues+=ResultIssue? "]";
+		//	("results" resultData+=ResultData+)? issues+=ResultIssue* "]";
 		@Override public ParserRule getRule() { return rule; }
 
 		//"report" name=ID (":" title=STRING)? "for" target= // system instance or other EObject
 		//[ecore::EObject|URIID] "[" ("description" decription=STRING)? ("heading" heading=STRING content+=ResultContributor*)?
-		//("results" resultData+=ResultData+)? issues+=ResultIssue? "]"
+		//("results" resultData+=ResultData+)? issues+=ResultIssue* "]"
 		public Group getGroup() { return cGroup; }
 
 		//"report"
@@ -282,7 +282,7 @@ public class ResultsGrammarAccess extends AbstractGrammarElementFinder {
 		//ResultData
 		public RuleCall getResultDataResultDataParserRuleCall_8_1_0() { return cResultDataResultDataParserRuleCall_8_1_0; }
 
-		//issues+=ResultIssue?
+		//issues+=ResultIssue*
 		public Assignment getIssuesAssignment_9() { return cIssuesAssignment_9; }
 
 		//ResultIssue
@@ -661,9 +661,9 @@ public class ResultsGrammarAccess extends AbstractGrammarElementFinder {
 		public Keyword getFAILFailKeyword_6_0() { return cFAILFailKeyword_6_0; }
 	}
 	
-	private final ResultReportsElements pResultReports;
-	private final ResultReportCollectionElements pResultReportCollection;
 	private final ResultReportElements pResultReport;
+	private final ResultReportCollectionElements pResultReportCollection;
+	private final ResultDataReportElements pResultDataReport;
 	private final ResultContributorElements pResultContributor;
 	private final IssuesReportElements pIssuesReport;
 	private final ResultIssueElements pResultIssue;
@@ -680,9 +680,9 @@ public class ResultsGrammarAccess extends AbstractGrammarElementFinder {
 		TerminalsGrammarAccess gaTerminals) {
 		this.grammar = internalFindGrammar(grammarProvider);
 		this.gaTerminals = gaTerminals;
-		this.pResultReports = new ResultReportsElements();
-		this.pResultReportCollection = new ResultReportCollectionElements();
 		this.pResultReport = new ResultReportElements();
+		this.pResultReportCollection = new ResultReportCollectionElements();
+		this.pResultDataReport = new ResultDataReportElements();
 		this.pResultContributor = new ResultContributorElements();
 		this.pIssuesReport = new IssuesReportElements();
 		this.pResultIssue = new ResultIssueElements();
@@ -718,14 +718,14 @@ public class ResultsGrammarAccess extends AbstractGrammarElementFinder {
 	}
 
 	
-	//ResultReports:
-	//	ResultReport | ResultReportCollection | IssuesReport;
-	public ResultReportsElements getResultReportsAccess() {
-		return pResultReports;
+	//ResultReport:
+	//	ResultDataReport | ResultReportCollection | IssuesReport;
+	public ResultReportElements getResultReportAccess() {
+		return pResultReport;
 	}
 	
-	public ParserRule getResultReportsRule() {
-		return getResultReportsAccess().getRule();
+	public ParserRule getResultReportRule() {
+		return getResultReportAccess().getRule();
 	}
 
 	//// Collection of reports for an instance model (root), e.g., for collection of end to end flows
@@ -743,16 +743,16 @@ public class ResultsGrammarAccess extends AbstractGrammarElementFinder {
 	//// one report of an analysis for one item in the instance model.
 	//// it may be a report per SOM or per end to end flow
 	//// result represents the result data that can be queried
-	//ResultReport:
+	//ResultDataReport:
 	//	"report" name=ID (":" title=STRING)? "for" target= // system instance or other EObject
 	//	[ecore::EObject|URIID] "[" ("description" decription=STRING)? ("heading" heading=STRING content+=ResultContributor*)?
-	//	("results" resultData+=ResultData+)? issues+=ResultIssue? "]";
-	public ResultReportElements getResultReportAccess() {
-		return pResultReport;
+	//	("results" resultData+=ResultData+)? issues+=ResultIssue* "]";
+	public ResultDataReportElements getResultDataReportAccess() {
+		return pResultDataReport;
 	}
 	
-	public ParserRule getResultReportRule() {
-		return getResultReportAccess().getRule();
+	public ParserRule getResultDataReportRule() {
+		return getResultDataReportAccess().getRule();
 	}
 
 	//// one row to represent a contributor to the result calculation.

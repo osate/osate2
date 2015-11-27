@@ -78,9 +78,9 @@ public class ResultsFactoryImpl extends EFactoryImpl implements ResultsFactory
   {
     switch (eClass.getClassifierID())
     {
-      case ResultsPackage.RESULT_REPORTS: return createResultReports();
-      case ResultsPackage.RESULT_REPORT_COLLECTION: return createResultReportCollection();
       case ResultsPackage.RESULT_REPORT: return createResultReport();
+      case ResultsPackage.RESULT_REPORT_COLLECTION: return createResultReportCollection();
+      case ResultsPackage.RESULT_DATA_REPORT: return createResultDataReport();
       case ResultsPackage.RESULT_CONTRIBUTOR: return createResultContributor();
       case ResultsPackage.ISSUES_REPORT: return createIssuesReport();
       case ResultsPackage.RESULT_ISSUE: return createResultIssue();
@@ -129,10 +129,10 @@ public class ResultsFactoryImpl extends EFactoryImpl implements ResultsFactory
    * <!-- end-user-doc -->
    * @generated
    */
-  public ResultReports createResultReports()
+  public ResultReport createResultReport()
   {
-    ResultReportsImpl resultReports = new ResultReportsImpl();
-    return resultReports;
+    ResultReportImpl resultReport = new ResultReportImpl();
+    return resultReport;
   }
 
   /**
@@ -151,10 +151,10 @@ public class ResultsFactoryImpl extends EFactoryImpl implements ResultsFactory
    * <!-- end-user-doc -->
    * @generated
    */
-  public ResultReport createResultReport()
+  public ResultDataReport createResultDataReport()
   {
-    ResultReportImpl resultReport = new ResultReportImpl();
-    return resultReport;
+    ResultDataReportImpl resultDataReport = new ResultDataReportImpl();
+    return resultDataReport;
   }
 
   /**

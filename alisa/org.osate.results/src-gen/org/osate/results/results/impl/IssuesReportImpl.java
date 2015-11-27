@@ -37,7 +37,7 @@ import org.osate.results.results.ResultsPackage;
  *
  * @generated
  */
-public class IssuesReportImpl extends ResultReportsImpl implements IssuesReport
+public class IssuesReportImpl extends ResultReportImpl implements IssuesReport
 {
   /**
    * The default value of the '{@link #getDescription() <em>Description</em>}' attribute.

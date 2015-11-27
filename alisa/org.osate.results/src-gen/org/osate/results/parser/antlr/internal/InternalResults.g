@@ -57,7 +57,7 @@ import org.osate.results.services.ResultsGrammarAccess;
     
     @Override
     protected String getFirstRuleName() {
-    	return "ResultReports";	
+    	return "ResultReport";	
    	}
    	
    	@Override
@@ -76,33 +76,33 @@ import org.osate.results.services.ResultsGrammarAccess;
 
 
 
-// Entry rule entryRuleResultReports
-entryRuleResultReports returns [EObject current=null] 
+// Entry rule entryRuleResultReport
+entryRuleResultReport returns [EObject current=null] 
 	:
-	{ newCompositeNode(grammarAccess.getResultReportsRule()); }
-	 iv_ruleResultReports=ruleResultReports 
-	 { $current=$iv_ruleResultReports.current; } 
+	{ newCompositeNode(grammarAccess.getResultReportRule()); }
+	 iv_ruleResultReport=ruleResultReport 
+	 { $current=$iv_ruleResultReport.current; } 
 	 EOF 
 ;
 
-// Rule ResultReports
-ruleResultReports returns [EObject current=null] 
+// Rule ResultReport
+ruleResultReport returns [EObject current=null] 
     @init { enterRule(); 
     }
     @after { leaveRule(); }:
 (
     { 
-        newCompositeNode(grammarAccess.getResultReportsAccess().getResultReportParserRuleCall_0()); 
+        newCompositeNode(grammarAccess.getResultReportAccess().getResultDataReportParserRuleCall_0()); 
     }
-    this_ResultReport_0=ruleResultReport
+    this_ResultDataReport_0=ruleResultDataReport
     { 
-        $current = $this_ResultReport_0.current; 
+        $current = $this_ResultDataReport_0.current; 
         afterParserOrEnumRuleCall();
     }
 
     |
     { 
-        newCompositeNode(grammarAccess.getResultReportsAccess().getResultReportCollectionParserRuleCall_1()); 
+        newCompositeNode(grammarAccess.getResultReportAccess().getResultReportCollectionParserRuleCall_1()); 
     }
     this_ResultReportCollection_1=ruleResultReportCollection
     { 
@@ -112,7 +112,7 @@ ruleResultReports returns [EObject current=null]
 
     |
     { 
-        newCompositeNode(grammarAccess.getResultReportsAccess().getIssuesReportParserRuleCall_2()); 
+        newCompositeNode(grammarAccess.getResultReportAccess().getIssuesReportParserRuleCall_2()); 
     }
     this_IssuesReport_2=ruleIssuesReport
     { 
@@ -276,33 +276,33 @@ ruleResultReportCollection returns [EObject current=null]
 
 
 
-// Entry rule entryRuleResultReport
-entryRuleResultReport returns [EObject current=null] 
+// Entry rule entryRuleResultDataReport
+entryRuleResultDataReport returns [EObject current=null] 
 	:
-	{ newCompositeNode(grammarAccess.getResultReportRule()); }
-	 iv_ruleResultReport=ruleResultReport 
-	 { $current=$iv_ruleResultReport.current; } 
+	{ newCompositeNode(grammarAccess.getResultDataReportRule()); }
+	 iv_ruleResultDataReport=ruleResultDataReport 
+	 { $current=$iv_ruleResultDataReport.current; } 
 	 EOF 
 ;
 
-// Rule ResultReport
-ruleResultReport returns [EObject current=null] 
+// Rule ResultDataReport
+ruleResultDataReport returns [EObject current=null] 
     @init { enterRule(); 
     }
     @after { leaveRule(); }:
 (	otherlv_0='report' 
     {
-    	newLeafNode(otherlv_0, grammarAccess.getResultReportAccess().getReportKeyword_0());
+    	newLeafNode(otherlv_0, grammarAccess.getResultDataReportAccess().getReportKeyword_0());
     }
 (
 (
 		lv_name_1_0=RULE_ID
 		{
-			newLeafNode(lv_name_1_0, grammarAccess.getResultReportAccess().getNameIDTerminalRuleCall_1_0()); 
+			newLeafNode(lv_name_1_0, grammarAccess.getResultDataReportAccess().getNameIDTerminalRuleCall_1_0()); 
 		}
 		{
 	        if ($current==null) {
-	            $current = createModelElement(grammarAccess.getResultReportRule());
+	            $current = createModelElement(grammarAccess.getResultDataReportRule());
 	        }
        		setWithLastConsumed(
        			$current, 
@@ -314,17 +314,17 @@ ruleResultReport returns [EObject current=null]
 )
 )(	otherlv_2=':' 
     {
-    	newLeafNode(otherlv_2, grammarAccess.getResultReportAccess().getColonKeyword_2_0());
+    	newLeafNode(otherlv_2, grammarAccess.getResultDataReportAccess().getColonKeyword_2_0());
     }
 (
 (
 		lv_title_3_0=RULE_STRING
 		{
-			newLeafNode(lv_title_3_0, grammarAccess.getResultReportAccess().getTitleSTRINGTerminalRuleCall_2_1_0()); 
+			newLeafNode(lv_title_3_0, grammarAccess.getResultDataReportAccess().getTitleSTRINGTerminalRuleCall_2_1_0()); 
 		}
 		{
 	        if ($current==null) {
-	            $current = createModelElement(grammarAccess.getResultReportRule());
+	            $current = createModelElement(grammarAccess.getResultDataReportRule());
 	        }
        		setWithLastConsumed(
        			$current, 
@@ -336,17 +336,17 @@ ruleResultReport returns [EObject current=null]
 )
 ))?	otherlv_4='for' 
     {
-    	newLeafNode(otherlv_4, grammarAccess.getResultReportAccess().getForKeyword_3());
+    	newLeafNode(otherlv_4, grammarAccess.getResultDataReportAccess().getForKeyword_3());
     }
 (
 (
 		{
 			if ($current==null) {
-	            $current = createModelElement(grammarAccess.getResultReportRule());
+	            $current = createModelElement(grammarAccess.getResultDataReportRule());
 	        }
         }
 		{ 
-	        newCompositeNode(grammarAccess.getResultReportAccess().getTargetEObjectCrossReference_4_0()); 
+	        newCompositeNode(grammarAccess.getResultDataReportAccess().getTargetEObjectCrossReference_4_0()); 
 	    }
 		ruleURIID		{ 
 	        afterParserOrEnumRuleCall();
@@ -355,21 +355,21 @@ ruleResultReport returns [EObject current=null]
 )
 )	otherlv_6='[' 
     {
-    	newLeafNode(otherlv_6, grammarAccess.getResultReportAccess().getLeftSquareBracketKeyword_5());
+    	newLeafNode(otherlv_6, grammarAccess.getResultDataReportAccess().getLeftSquareBracketKeyword_5());
     }
 (	otherlv_7='description' 
     {
-    	newLeafNode(otherlv_7, grammarAccess.getResultReportAccess().getDescriptionKeyword_6_0());
+    	newLeafNode(otherlv_7, grammarAccess.getResultDataReportAccess().getDescriptionKeyword_6_0());
     }
 (
 (
 		lv_decription_8_0=RULE_STRING
 		{
-			newLeafNode(lv_decription_8_0, grammarAccess.getResultReportAccess().getDecriptionSTRINGTerminalRuleCall_6_1_0()); 
+			newLeafNode(lv_decription_8_0, grammarAccess.getResultDataReportAccess().getDecriptionSTRINGTerminalRuleCall_6_1_0()); 
 		}
 		{
 	        if ($current==null) {
-	            $current = createModelElement(grammarAccess.getResultReportRule());
+	            $current = createModelElement(grammarAccess.getResultDataReportRule());
 	        }
        		setWithLastConsumed(
        			$current, 
@@ -381,17 +381,17 @@ ruleResultReport returns [EObject current=null]
 )
 ))?(	otherlv_9='heading' 
     {
-    	newLeafNode(otherlv_9, grammarAccess.getResultReportAccess().getHeadingKeyword_7_0());
+    	newLeafNode(otherlv_9, grammarAccess.getResultDataReportAccess().getHeadingKeyword_7_0());
     }
 (
 (
 		lv_heading_10_0=RULE_STRING
 		{
-			newLeafNode(lv_heading_10_0, grammarAccess.getResultReportAccess().getHeadingSTRINGTerminalRuleCall_7_1_0()); 
+			newLeafNode(lv_heading_10_0, grammarAccess.getResultDataReportAccess().getHeadingSTRINGTerminalRuleCall_7_1_0()); 
 		}
 		{
 	        if ($current==null) {
-	            $current = createModelElement(grammarAccess.getResultReportRule());
+	            $current = createModelElement(grammarAccess.getResultDataReportRule());
 	        }
        		setWithLastConsumed(
        			$current, 
@@ -404,11 +404,11 @@ ruleResultReport returns [EObject current=null]
 )(
 (
 		{ 
-	        newCompositeNode(grammarAccess.getResultReportAccess().getContentResultContributorParserRuleCall_7_2_0()); 
+	        newCompositeNode(grammarAccess.getResultDataReportAccess().getContentResultContributorParserRuleCall_7_2_0()); 
 	    }
 		lv_content_11_0=ruleResultContributor		{
 	        if ($current==null) {
-	            $current = createModelElementForParent(grammarAccess.getResultReportRule());
+	            $current = createModelElementForParent(grammarAccess.getResultDataReportRule());
 	        }
        		add(
        			$current, 
@@ -421,16 +421,16 @@ ruleResultReport returns [EObject current=null]
 )
 )*)?(	otherlv_12='results' 
     {
-    	newLeafNode(otherlv_12, grammarAccess.getResultReportAccess().getResultsKeyword_8_0());
+    	newLeafNode(otherlv_12, grammarAccess.getResultDataReportAccess().getResultsKeyword_8_0());
     }
 (
 (
 		{ 
-	        newCompositeNode(grammarAccess.getResultReportAccess().getResultDataResultDataParserRuleCall_8_1_0()); 
+	        newCompositeNode(grammarAccess.getResultDataReportAccess().getResultDataResultDataParserRuleCall_8_1_0()); 
 	    }
 		lv_resultData_13_0=ruleResultData		{
 	        if ($current==null) {
-	            $current = createModelElementForParent(grammarAccess.getResultReportRule());
+	            $current = createModelElementForParent(grammarAccess.getResultDataReportRule());
 	        }
        		add(
        			$current, 
@@ -444,11 +444,11 @@ ruleResultReport returns [EObject current=null]
 )+)?(
 (
 		{ 
-	        newCompositeNode(grammarAccess.getResultReportAccess().getIssuesResultIssueParserRuleCall_9_0()); 
+	        newCompositeNode(grammarAccess.getResultDataReportAccess().getIssuesResultIssueParserRuleCall_9_0()); 
 	    }
 		lv_issues_14_0=ruleResultIssue		{
 	        if ($current==null) {
-	            $current = createModelElementForParent(grammarAccess.getResultReportRule());
+	            $current = createModelElementForParent(grammarAccess.getResultDataReportRule());
 	        }
        		add(
        			$current, 
@@ -459,9 +459,9 @@ ruleResultReport returns [EObject current=null]
 	    }
 
 )
-)?	otherlv_15=']' 
+)*	otherlv_15=']' 
     {
-    	newLeafNode(otherlv_15, grammarAccess.getResultReportAccess().getRightSquareBracketKeyword_10());
+    	newLeafNode(otherlv_15, grammarAccess.getResultDataReportAccess().getRightSquareBracketKeyword_10());
     }
 )
 ;

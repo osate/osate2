@@ -24,9 +24,10 @@ import org.osate.results.results.ResultReportCollection
 import org.osate.results.results.ResultsFactory
 import org.osate.results.results.ResultIssue
 import org.osate.results.results.ResultIssue
+import org.osate.results.results.ResultDataReport
 
 class ResultsUtilExtension {
-	def static String getResultValue(ResultReport report, String resultName){
+	def static String getResultValue(ResultDataReport report, String resultName){
 		for (pair : report.resultData){
 			if (pair.name == resultName) return pair.value
 		}
@@ -85,13 +86,13 @@ class ResultsUtilExtension {
 		res
 	}
 	
-	def static ResultContributor addReportContributor(ResultReport report, EObject target){
+	def static ResultContributor addReportContributor(ResultDataReport report, EObject target){
 		val res = ResultsFactory.eINSTANCE.createResultContributor => [ it.target = target]
 		report.content += res
 		res
 	}
 	
-	def static void addResultValue(ResultReport report, String myname, String myvalue){
+	def static void addResultValue(ResultDataReport report, String myname, String myvalue){
 			val resData = ResultsFactory.eINSTANCE.createResultData
 				=> [ name = myname
 					value = myvalue]
