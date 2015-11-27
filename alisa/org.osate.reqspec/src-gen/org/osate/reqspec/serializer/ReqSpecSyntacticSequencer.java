@@ -76,6 +76,7 @@ public class ReqSpecSyntacticSequencer extends AbstractSyntacticSequencer {
 	protected AbstractElementAlias match_Requirement___SeeKeyword_5_14_0_GoalKeyword_5_14_1__q;
 	protected AbstractElementAlias match_Requirement___SeeKeyword_5_15_0_RequirementKeyword_5_15_1__q;
 	protected AbstractElementAlias match_Requirement___SeeKeyword_5_16_0_DocumentKeyword_5_16_1__q;
+	protected AbstractElementAlias match_ResultIssue___LeftSquareBracketKeyword_5_0_RightSquareBracketKeyword_5_2__q;
 	protected AbstractElementAlias match_StakeholderGoals_IssuesKeyword_7_4_0_q;
 	protected AbstractElementAlias match_StakeholderGoals___SeeKeyword_7_3_0_DocumentKeyword_7_3_1__q;
 	protected AbstractElementAlias match_SystemRequirement_CategoryKeyword_5_1_0_q;
@@ -138,6 +139,7 @@ public class ReqSpecSyntacticSequencer extends AbstractSyntacticSequencer {
 		match_Requirement___SeeKeyword_5_14_0_GoalKeyword_5_14_1__q = new GroupAlias(false, true, new TokenAlias(false, false, grammarAccess.getRequirementAccess().getSeeKeyword_5_14_0()), new TokenAlias(false, false, grammarAccess.getRequirementAccess().getGoalKeyword_5_14_1()));
 		match_Requirement___SeeKeyword_5_15_0_RequirementKeyword_5_15_1__q = new GroupAlias(false, true, new TokenAlias(false, false, grammarAccess.getRequirementAccess().getSeeKeyword_5_15_0()), new TokenAlias(false, false, grammarAccess.getRequirementAccess().getRequirementKeyword_5_15_1()));
 		match_Requirement___SeeKeyword_5_16_0_DocumentKeyword_5_16_1__q = new GroupAlias(false, true, new TokenAlias(false, false, grammarAccess.getRequirementAccess().getSeeKeyword_5_16_0()), new TokenAlias(false, false, grammarAccess.getRequirementAccess().getDocumentKeyword_5_16_1()));
+		match_ResultIssue___LeftSquareBracketKeyword_5_0_RightSquareBracketKeyword_5_2__q = new GroupAlias(false, true, new TokenAlias(false, false, grammarAccess.getResultIssueAccess().getLeftSquareBracketKeyword_5_0()), new TokenAlias(false, false, grammarAccess.getResultIssueAccess().getRightSquareBracketKeyword_5_2()));
 		match_StakeholderGoals_IssuesKeyword_7_4_0_q = new TokenAlias(false, true, grammarAccess.getStakeholderGoalsAccess().getIssuesKeyword_7_4_0());
 		match_StakeholderGoals___SeeKeyword_7_3_0_DocumentKeyword_7_3_1__q = new GroupAlias(false, true, new TokenAlias(false, false, grammarAccess.getStakeholderGoalsAccess().getSeeKeyword_7_3_0()), new TokenAlias(false, false, grammarAccess.getStakeholderGoalsAccess().getDocumentKeyword_7_3_1()));
 		match_SystemRequirement_CategoryKeyword_5_1_0_q = new TokenAlias(false, true, grammarAccess.getSystemRequirementAccess().getCategoryKeyword_5_1_0());
@@ -253,6 +255,8 @@ public class ReqSpecSyntacticSequencer extends AbstractSyntacticSequencer {
 				emit_Requirement___SeeKeyword_5_15_0_RequirementKeyword_5_15_1__q(semanticObject, getLastNavigableState(), syntaxNodes);
 			else if(match_Requirement___SeeKeyword_5_16_0_DocumentKeyword_5_16_1__q.equals(syntax))
 				emit_Requirement___SeeKeyword_5_16_0_DocumentKeyword_5_16_1__q(semanticObject, getLastNavigableState(), syntaxNodes);
+			else if(match_ResultIssue___LeftSquareBracketKeyword_5_0_RightSquareBracketKeyword_5_2__q.equals(syntax))
+				emit_ResultIssue___LeftSquareBracketKeyword_5_0_RightSquareBracketKeyword_5_2__q(semanticObject, getLastNavigableState(), syntaxNodes);
 			else if(match_StakeholderGoals_IssuesKeyword_7_4_0_q.equals(syntax))
 				emit_StakeholderGoals_IssuesKeyword_7_4_0_q(semanticObject, getLastNavigableState(), syntaxNodes);
 			else if(match_StakeholderGoals___SeeKeyword_7_3_0_DocumentKeyword_7_3_1__q.equals(syntax))
@@ -783,6 +787,19 @@ public class ReqSpecSyntacticSequencer extends AbstractSyntacticSequencer {
 	 *     docReference+=ExternalDocument (ambiguity) docReference+=ExternalDocument
 	 */
 	protected void emit_Requirement___SeeKeyword_5_16_0_DocumentKeyword_5_16_1__q(EObject semanticObject, ISynNavigable transition, List<INode> nodes) {
+		acceptNodes(transition, nodes);
+	}
+	
+	/**
+	 * Ambiguous syntax:
+	 *     ('[' ']')?
+	 *
+	 * This ambiguous syntax occurs at:
+	 *     exceptionType=STRING (ambiguity) (rule end)
+	 *     message=STRING (ambiguity) (rule end)
+	 *     target=[EObject|URIID] (ambiguity) (rule end)
+	 */
+	protected void emit_ResultIssue___LeftSquareBracketKeyword_5_0_RightSquareBracketKeyword_5_2__q(EObject semanticObject, ISynNavigable transition, List<INode> nodes) {
 		acceptNodes(transition, nodes);
 	}
 	

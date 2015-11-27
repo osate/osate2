@@ -33,13 +33,8 @@ import org.osate.alisa.common.common.Uncertainty;
  * The following features are implemented:
  * </p>
  * <ul>
- *   <li>{@link org.osate.alisa.common.common.impl.UncertaintyImpl#getVolatility <em>Volatility</em>}</li>
- *   <li>{@link org.osate.alisa.common.common.impl.UncertaintyImpl#getCostimpact <em>Costimpact</em>}</li>
- *   <li>{@link org.osate.alisa.common.common.impl.UncertaintyImpl#getScheduleimpact <em>Scheduleimpact</em>}</li>
- *   <li>{@link org.osate.alisa.common.common.impl.UncertaintyImpl#getFamiliarity <em>Familiarity</em>}</li>
- *   <li>{@link org.osate.alisa.common.common.impl.UncertaintyImpl#getTimecriticality <em>Timecriticality</em>}</li>
- *   <li>{@link org.osate.alisa.common.common.impl.UncertaintyImpl#getRiskindex <em>Riskindex</em>}</li>
- *   <li>{@link org.osate.alisa.common.common.impl.UncertaintyImpl#getMaturityindex <em>Maturityindex</em>}</li>
+ *   <li>{@link org.osate.alisa.common.common.impl.UncertaintyImpl#getImportance <em>Importance</em>}</li>
+ *   <li>{@link org.osate.alisa.common.common.impl.UncertaintyImpl#getDifficulty <em>Difficulty</em>}</li>
  * </ul>
  *
  * @generated
@@ -47,144 +42,44 @@ import org.osate.alisa.common.common.Uncertainty;
 public class UncertaintyImpl extends MinimalEObjectImpl.Container implements Uncertainty
 {
   /**
-   * The default value of the '{@link #getVolatility() <em>Volatility</em>}' attribute.
+   * The default value of the '{@link #getImportance() <em>Importance</em>}' attribute.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @see #getVolatility()
+   * @see #getImportance()
    * @generated
    * @ordered
    */
-  protected static final String VOLATILITY_EDEFAULT = null;
+  protected static final int IMPORTANCE_EDEFAULT = 0;
 
   /**
-   * The cached value of the '{@link #getVolatility() <em>Volatility</em>}' attribute.
+   * The cached value of the '{@link #getImportance() <em>Importance</em>}' attribute.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @see #getVolatility()
+   * @see #getImportance()
    * @generated
    * @ordered
    */
-  protected String volatility = VOLATILITY_EDEFAULT;
+  protected int importance = IMPORTANCE_EDEFAULT;
 
   /**
-   * The default value of the '{@link #getCostimpact() <em>Costimpact</em>}' attribute.
+   * The default value of the '{@link #getDifficulty() <em>Difficulty</em>}' attribute.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @see #getCostimpact()
+   * @see #getDifficulty()
    * @generated
    * @ordered
    */
-  protected static final String COSTIMPACT_EDEFAULT = null;
+  protected static final int DIFFICULTY_EDEFAULT = 0;
 
   /**
-   * The cached value of the '{@link #getCostimpact() <em>Costimpact</em>}' attribute.
+   * The cached value of the '{@link #getDifficulty() <em>Difficulty</em>}' attribute.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @see #getCostimpact()
+   * @see #getDifficulty()
    * @generated
    * @ordered
    */
-  protected String costimpact = COSTIMPACT_EDEFAULT;
-
-  /**
-   * The default value of the '{@link #getScheduleimpact() <em>Scheduleimpact</em>}' attribute.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @see #getScheduleimpact()
-   * @generated
-   * @ordered
-   */
-  protected static final String SCHEDULEIMPACT_EDEFAULT = null;
-
-  /**
-   * The cached value of the '{@link #getScheduleimpact() <em>Scheduleimpact</em>}' attribute.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @see #getScheduleimpact()
-   * @generated
-   * @ordered
-   */
-  protected String scheduleimpact = SCHEDULEIMPACT_EDEFAULT;
-
-  /**
-   * The default value of the '{@link #getFamiliarity() <em>Familiarity</em>}' attribute.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @see #getFamiliarity()
-   * @generated
-   * @ordered
-   */
-  protected static final String FAMILIARITY_EDEFAULT = null;
-
-  /**
-   * The cached value of the '{@link #getFamiliarity() <em>Familiarity</em>}' attribute.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @see #getFamiliarity()
-   * @generated
-   * @ordered
-   */
-  protected String familiarity = FAMILIARITY_EDEFAULT;
-
-  /**
-   * The default value of the '{@link #getTimecriticality() <em>Timecriticality</em>}' attribute.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @see #getTimecriticality()
-   * @generated
-   * @ordered
-   */
-  protected static final String TIMECRITICALITY_EDEFAULT = null;
-
-  /**
-   * The cached value of the '{@link #getTimecriticality() <em>Timecriticality</em>}' attribute.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @see #getTimecriticality()
-   * @generated
-   * @ordered
-   */
-  protected String timecriticality = TIMECRITICALITY_EDEFAULT;
-
-  /**
-   * The default value of the '{@link #getRiskindex() <em>Riskindex</em>}' attribute.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @see #getRiskindex()
-   * @generated
-   * @ordered
-   */
-  protected static final String RISKINDEX_EDEFAULT = null;
-
-  /**
-   * The cached value of the '{@link #getRiskindex() <em>Riskindex</em>}' attribute.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @see #getRiskindex()
-   * @generated
-   * @ordered
-   */
-  protected String riskindex = RISKINDEX_EDEFAULT;
-
-  /**
-   * The default value of the '{@link #getMaturityindex() <em>Maturityindex</em>}' attribute.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @see #getMaturityindex()
-   * @generated
-   * @ordered
-   */
-  protected static final String MATURITYINDEX_EDEFAULT = null;
-
-  /**
-   * The cached value of the '{@link #getMaturityindex() <em>Maturityindex</em>}' attribute.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @see #getMaturityindex()
-   * @generated
-   * @ordered
-   */
-  protected String maturityindex = MATURITYINDEX_EDEFAULT;
+  protected int difficulty = DIFFICULTY_EDEFAULT;
 
   /**
    * <!-- begin-user-doc -->
@@ -212,9 +107,9 @@ public class UncertaintyImpl extends MinimalEObjectImpl.Container implements Unc
    * <!-- end-user-doc -->
    * @generated
    */
-  public String getVolatility()
+  public int getImportance()
   {
-    return volatility;
+    return importance;
   }
 
   /**
@@ -222,12 +117,12 @@ public class UncertaintyImpl extends MinimalEObjectImpl.Container implements Unc
    * <!-- end-user-doc -->
    * @generated
    */
-  public void setVolatility(String newVolatility)
+  public void setImportance(int newImportance)
   {
-    String oldVolatility = volatility;
-    volatility = newVolatility;
+    int oldImportance = importance;
+    importance = newImportance;
     if (eNotificationRequired())
-      eNotify(new ENotificationImpl(this, Notification.SET, CommonPackage.UNCERTAINTY__VOLATILITY, oldVolatility, volatility));
+      eNotify(new ENotificationImpl(this, Notification.SET, CommonPackage.UNCERTAINTY__IMPORTANCE, oldImportance, importance));
   }
 
   /**
@@ -235,9 +130,9 @@ public class UncertaintyImpl extends MinimalEObjectImpl.Container implements Unc
    * <!-- end-user-doc -->
    * @generated
    */
-  public String getCostimpact()
+  public int getDifficulty()
   {
-    return costimpact;
+    return difficulty;
   }
 
   /**
@@ -245,127 +140,12 @@ public class UncertaintyImpl extends MinimalEObjectImpl.Container implements Unc
    * <!-- end-user-doc -->
    * @generated
    */
-  public void setCostimpact(String newCostimpact)
+  public void setDifficulty(int newDifficulty)
   {
-    String oldCostimpact = costimpact;
-    costimpact = newCostimpact;
+    int oldDifficulty = difficulty;
+    difficulty = newDifficulty;
     if (eNotificationRequired())
-      eNotify(new ENotificationImpl(this, Notification.SET, CommonPackage.UNCERTAINTY__COSTIMPACT, oldCostimpact, costimpact));
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public String getScheduleimpact()
-  {
-    return scheduleimpact;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public void setScheduleimpact(String newScheduleimpact)
-  {
-    String oldScheduleimpact = scheduleimpact;
-    scheduleimpact = newScheduleimpact;
-    if (eNotificationRequired())
-      eNotify(new ENotificationImpl(this, Notification.SET, CommonPackage.UNCERTAINTY__SCHEDULEIMPACT, oldScheduleimpact, scheduleimpact));
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public String getFamiliarity()
-  {
-    return familiarity;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public void setFamiliarity(String newFamiliarity)
-  {
-    String oldFamiliarity = familiarity;
-    familiarity = newFamiliarity;
-    if (eNotificationRequired())
-      eNotify(new ENotificationImpl(this, Notification.SET, CommonPackage.UNCERTAINTY__FAMILIARITY, oldFamiliarity, familiarity));
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public String getTimecriticality()
-  {
-    return timecriticality;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public void setTimecriticality(String newTimecriticality)
-  {
-    String oldTimecriticality = timecriticality;
-    timecriticality = newTimecriticality;
-    if (eNotificationRequired())
-      eNotify(new ENotificationImpl(this, Notification.SET, CommonPackage.UNCERTAINTY__TIMECRITICALITY, oldTimecriticality, timecriticality));
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public String getRiskindex()
-  {
-    return riskindex;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public void setRiskindex(String newRiskindex)
-  {
-    String oldRiskindex = riskindex;
-    riskindex = newRiskindex;
-    if (eNotificationRequired())
-      eNotify(new ENotificationImpl(this, Notification.SET, CommonPackage.UNCERTAINTY__RISKINDEX, oldRiskindex, riskindex));
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public String getMaturityindex()
-  {
-    return maturityindex;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public void setMaturityindex(String newMaturityindex)
-  {
-    String oldMaturityindex = maturityindex;
-    maturityindex = newMaturityindex;
-    if (eNotificationRequired())
-      eNotify(new ENotificationImpl(this, Notification.SET, CommonPackage.UNCERTAINTY__MATURITYINDEX, oldMaturityindex, maturityindex));
+      eNotify(new ENotificationImpl(this, Notification.SET, CommonPackage.UNCERTAINTY__DIFFICULTY, oldDifficulty, difficulty));
   }
 
   /**
@@ -378,20 +158,10 @@ public class UncertaintyImpl extends MinimalEObjectImpl.Container implements Unc
   {
     switch (featureID)
     {
-      case CommonPackage.UNCERTAINTY__VOLATILITY:
-        return getVolatility();
-      case CommonPackage.UNCERTAINTY__COSTIMPACT:
-        return getCostimpact();
-      case CommonPackage.UNCERTAINTY__SCHEDULEIMPACT:
-        return getScheduleimpact();
-      case CommonPackage.UNCERTAINTY__FAMILIARITY:
-        return getFamiliarity();
-      case CommonPackage.UNCERTAINTY__TIMECRITICALITY:
-        return getTimecriticality();
-      case CommonPackage.UNCERTAINTY__RISKINDEX:
-        return getRiskindex();
-      case CommonPackage.UNCERTAINTY__MATURITYINDEX:
-        return getMaturityindex();
+      case CommonPackage.UNCERTAINTY__IMPORTANCE:
+        return getImportance();
+      case CommonPackage.UNCERTAINTY__DIFFICULTY:
+        return getDifficulty();
     }
     return super.eGet(featureID, resolve, coreType);
   }
@@ -406,26 +176,11 @@ public class UncertaintyImpl extends MinimalEObjectImpl.Container implements Unc
   {
     switch (featureID)
     {
-      case CommonPackage.UNCERTAINTY__VOLATILITY:
-        setVolatility((String)newValue);
+      case CommonPackage.UNCERTAINTY__IMPORTANCE:
+        setImportance((Integer)newValue);
         return;
-      case CommonPackage.UNCERTAINTY__COSTIMPACT:
-        setCostimpact((String)newValue);
-        return;
-      case CommonPackage.UNCERTAINTY__SCHEDULEIMPACT:
-        setScheduleimpact((String)newValue);
-        return;
-      case CommonPackage.UNCERTAINTY__FAMILIARITY:
-        setFamiliarity((String)newValue);
-        return;
-      case CommonPackage.UNCERTAINTY__TIMECRITICALITY:
-        setTimecriticality((String)newValue);
-        return;
-      case CommonPackage.UNCERTAINTY__RISKINDEX:
-        setRiskindex((String)newValue);
-        return;
-      case CommonPackage.UNCERTAINTY__MATURITYINDEX:
-        setMaturityindex((String)newValue);
+      case CommonPackage.UNCERTAINTY__DIFFICULTY:
+        setDifficulty((Integer)newValue);
         return;
     }
     super.eSet(featureID, newValue);
@@ -441,26 +196,11 @@ public class UncertaintyImpl extends MinimalEObjectImpl.Container implements Unc
   {
     switch (featureID)
     {
-      case CommonPackage.UNCERTAINTY__VOLATILITY:
-        setVolatility(VOLATILITY_EDEFAULT);
+      case CommonPackage.UNCERTAINTY__IMPORTANCE:
+        setImportance(IMPORTANCE_EDEFAULT);
         return;
-      case CommonPackage.UNCERTAINTY__COSTIMPACT:
-        setCostimpact(COSTIMPACT_EDEFAULT);
-        return;
-      case CommonPackage.UNCERTAINTY__SCHEDULEIMPACT:
-        setScheduleimpact(SCHEDULEIMPACT_EDEFAULT);
-        return;
-      case CommonPackage.UNCERTAINTY__FAMILIARITY:
-        setFamiliarity(FAMILIARITY_EDEFAULT);
-        return;
-      case CommonPackage.UNCERTAINTY__TIMECRITICALITY:
-        setTimecriticality(TIMECRITICALITY_EDEFAULT);
-        return;
-      case CommonPackage.UNCERTAINTY__RISKINDEX:
-        setRiskindex(RISKINDEX_EDEFAULT);
-        return;
-      case CommonPackage.UNCERTAINTY__MATURITYINDEX:
-        setMaturityindex(MATURITYINDEX_EDEFAULT);
+      case CommonPackage.UNCERTAINTY__DIFFICULTY:
+        setDifficulty(DIFFICULTY_EDEFAULT);
         return;
     }
     super.eUnset(featureID);
@@ -476,20 +216,10 @@ public class UncertaintyImpl extends MinimalEObjectImpl.Container implements Unc
   {
     switch (featureID)
     {
-      case CommonPackage.UNCERTAINTY__VOLATILITY:
-        return VOLATILITY_EDEFAULT == null ? volatility != null : !VOLATILITY_EDEFAULT.equals(volatility);
-      case CommonPackage.UNCERTAINTY__COSTIMPACT:
-        return COSTIMPACT_EDEFAULT == null ? costimpact != null : !COSTIMPACT_EDEFAULT.equals(costimpact);
-      case CommonPackage.UNCERTAINTY__SCHEDULEIMPACT:
-        return SCHEDULEIMPACT_EDEFAULT == null ? scheduleimpact != null : !SCHEDULEIMPACT_EDEFAULT.equals(scheduleimpact);
-      case CommonPackage.UNCERTAINTY__FAMILIARITY:
-        return FAMILIARITY_EDEFAULT == null ? familiarity != null : !FAMILIARITY_EDEFAULT.equals(familiarity);
-      case CommonPackage.UNCERTAINTY__TIMECRITICALITY:
-        return TIMECRITICALITY_EDEFAULT == null ? timecriticality != null : !TIMECRITICALITY_EDEFAULT.equals(timecriticality);
-      case CommonPackage.UNCERTAINTY__RISKINDEX:
-        return RISKINDEX_EDEFAULT == null ? riskindex != null : !RISKINDEX_EDEFAULT.equals(riskindex);
-      case CommonPackage.UNCERTAINTY__MATURITYINDEX:
-        return MATURITYINDEX_EDEFAULT == null ? maturityindex != null : !MATURITYINDEX_EDEFAULT.equals(maturityindex);
+      case CommonPackage.UNCERTAINTY__IMPORTANCE:
+        return importance != IMPORTANCE_EDEFAULT;
+      case CommonPackage.UNCERTAINTY__DIFFICULTY:
+        return difficulty != DIFFICULTY_EDEFAULT;
     }
     return super.eIsSet(featureID);
   }
@@ -505,20 +235,10 @@ public class UncertaintyImpl extends MinimalEObjectImpl.Container implements Unc
     if (eIsProxy()) return super.toString();
 
     StringBuffer result = new StringBuffer(super.toString());
-    result.append(" (volatility: ");
-    result.append(volatility);
-    result.append(", costimpact: ");
-    result.append(costimpact);
-    result.append(", scheduleimpact: ");
-    result.append(scheduleimpact);
-    result.append(", familiarity: ");
-    result.append(familiarity);
-    result.append(", timecriticality: ");
-    result.append(timecriticality);
-    result.append(", riskindex: ");
-    result.append(riskindex);
-    result.append(", maturityindex: ");
-    result.append(maturityindex);
+    result.append(" (importance: ");
+    result.append(importance);
+    result.append(", difficulty: ");
+    result.append(difficulty);
     result.append(')');
     return result.toString();
   }

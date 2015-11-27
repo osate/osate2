@@ -13,7 +13,7 @@
  * 
  * See COPYRIGHT file for full details.
  */
-package org.osate.results.results;
+package org.osate.alisa.common.common;
 
 import org.eclipse.emf.common.util.EList;
 
@@ -28,14 +28,14 @@ import org.eclipse.emf.ecore.EObject;
  * The following features are supported:
  * </p>
  * <ul>
- *   <li>{@link org.osate.results.results.ResultIssue#getIssueType <em>Issue Type</em>}</li>
- *   <li>{@link org.osate.results.results.ResultIssue#getMessage <em>Message</em>}</li>
- *   <li>{@link org.osate.results.results.ResultIssue#getTarget <em>Target</em>}</li>
- *   <li>{@link org.osate.results.results.ResultIssue#getExceptionType <em>Exception Type</em>}</li>
- *   <li>{@link org.osate.results.results.ResultIssue#getIssues <em>Issues</em>}</li>
+ *   <li>{@link org.osate.alisa.common.common.ResultIssue#getIssueType <em>Issue Type</em>}</li>
+ *   <li>{@link org.osate.alisa.common.common.ResultIssue#getMessage <em>Message</em>}</li>
+ *   <li>{@link org.osate.alisa.common.common.ResultIssue#getTarget <em>Target</em>}</li>
+ *   <li>{@link org.osate.alisa.common.common.ResultIssue#getExceptionType <em>Exception Type</em>}</li>
+ *   <li>{@link org.osate.alisa.common.common.ResultIssue#getIssues <em>Issues</em>}</li>
  * </ul>
  *
- * @see org.osate.results.results.ResultsPackage#getResultIssue()
+ * @see org.osate.alisa.common.common.CommonPackage#getResultIssue()
  * @model
  * @generated
  */
@@ -43,7 +43,7 @@ public interface ResultIssue extends EObject
 {
   /**
    * Returns the value of the '<em><b>Issue Type</b></em>' attribute.
-   * The literals are from the enumeration {@link org.osate.results.results.ResultIssueType}.
+   * The literals are from the enumeration {@link org.osate.alisa.common.common.ResultIssueType}.
    * <!-- begin-user-doc -->
    * <p>
    * If the meaning of the '<em>Issue Type</em>' attribute isn't clear,
@@ -51,20 +51,20 @@ public interface ResultIssue extends EObject
    * </p>
    * <!-- end-user-doc -->
    * @return the value of the '<em>Issue Type</em>' attribute.
-   * @see org.osate.results.results.ResultIssueType
+   * @see org.osate.alisa.common.common.ResultIssueType
    * @see #setIssueType(ResultIssueType)
-   * @see org.osate.results.results.ResultsPackage#getResultIssue_IssueType()
+   * @see org.osate.alisa.common.common.CommonPackage#getResultIssue_IssueType()
    * @model
    * @generated
    */
   ResultIssueType getIssueType();
 
   /**
-   * Sets the value of the '{@link org.osate.results.results.ResultIssue#getIssueType <em>Issue Type</em>}' attribute.
+   * Sets the value of the '{@link org.osate.alisa.common.common.ResultIssue#getIssueType <em>Issue Type</em>}' attribute.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @param value the new value of the '<em>Issue Type</em>' attribute.
-   * @see org.osate.results.results.ResultIssueType
+   * @see org.osate.alisa.common.common.ResultIssueType
    * @see #getIssueType()
    * @generated
    */
@@ -80,14 +80,14 @@ public interface ResultIssue extends EObject
    * <!-- end-user-doc -->
    * @return the value of the '<em>Message</em>' attribute.
    * @see #setMessage(String)
-   * @see org.osate.results.results.ResultsPackage#getResultIssue_Message()
+   * @see org.osate.alisa.common.common.CommonPackage#getResultIssue_Message()
    * @model
    * @generated
    */
   String getMessage();
 
   /**
-   * Sets the value of the '{@link org.osate.results.results.ResultIssue#getMessage <em>Message</em>}' attribute.
+   * Sets the value of the '{@link org.osate.alisa.common.common.ResultIssue#getMessage <em>Message</em>}' attribute.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @param value the new value of the '<em>Message</em>' attribute.
@@ -106,14 +106,14 @@ public interface ResultIssue extends EObject
    * <!-- end-user-doc -->
    * @return the value of the '<em>Target</em>' reference.
    * @see #setTarget(EObject)
-   * @see org.osate.results.results.ResultsPackage#getResultIssue_Target()
+   * @see org.osate.alisa.common.common.CommonPackage#getResultIssue_Target()
    * @model
    * @generated
    */
   EObject getTarget();
 
   /**
-   * Sets the value of the '{@link org.osate.results.results.ResultIssue#getTarget <em>Target</em>}' reference.
+   * Sets the value of the '{@link org.osate.alisa.common.common.ResultIssue#getTarget <em>Target</em>}' reference.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @param value the new value of the '<em>Target</em>' reference.
@@ -132,14 +132,14 @@ public interface ResultIssue extends EObject
    * <!-- end-user-doc -->
    * @return the value of the '<em>Exception Type</em>' attribute.
    * @see #setExceptionType(String)
-   * @see org.osate.results.results.ResultsPackage#getResultIssue_ExceptionType()
+   * @see org.osate.alisa.common.common.CommonPackage#getResultIssue_ExceptionType()
    * @model
    * @generated
    */
   String getExceptionType();
 
   /**
-   * Sets the value of the '{@link org.osate.results.results.ResultIssue#getExceptionType <em>Exception Type</em>}' attribute.
+   * Sets the value of the '{@link org.osate.alisa.common.common.ResultIssue#getExceptionType <em>Exception Type</em>}' attribute.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @param value the new value of the '<em>Exception Type</em>' attribute.
@@ -150,7 +150,7 @@ public interface ResultIssue extends EObject
 
   /**
    * Returns the value of the '<em><b>Issues</b></em>' containment reference list.
-   * The list contents are of type {@link org.osate.results.results.ResultIssue}.
+   * The list contents are of type {@link org.osate.alisa.common.common.ResultIssue}.
    * <!-- begin-user-doc -->
    * <p>
    * If the meaning of the '<em>Issues</em>' containment reference list isn't clear,
@@ -158,7 +158,7 @@ public interface ResultIssue extends EObject
    * </p>
    * <!-- end-user-doc -->
    * @return the value of the '<em>Issues</em>' containment reference list.
-   * @see org.osate.results.results.ResultsPackage#getResultIssue_Issues()
+   * @see org.osate.alisa.common.common.CommonPackage#getResultIssue_Issues()
    * @model containment="true"
    * @generated
    */

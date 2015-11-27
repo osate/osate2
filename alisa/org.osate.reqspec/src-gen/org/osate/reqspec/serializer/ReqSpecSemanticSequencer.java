@@ -46,6 +46,7 @@ import org.osate.alisa.common.common.Description;
 import org.osate.alisa.common.common.DescriptionElement;
 import org.osate.alisa.common.common.ImageReference;
 import org.osate.alisa.common.common.Rationale;
+import org.osate.alisa.common.common.ResultIssue;
 import org.osate.alisa.common.common.ShowValue;
 import org.osate.alisa.common.common.Uncertainty;
 import org.osate.alisa.common.common.ValDeclaration;
@@ -128,6 +129,9 @@ public class ReqSpecSemanticSequencer extends CommonSemanticSequencer {
 				return; 
 			case CommonPackage.RATIONALE:
 				sequence_Rationale(context, (Rationale) semanticObject); 
+				return; 
+			case CommonPackage.RESULT_ISSUE:
+				sequence_ResultIssue(context, (ResultIssue) semanticObject); 
 				return; 
 			case CommonPackage.SHOW_VALUE:
 				sequence_ShowValue(context, (ShowValue) semanticObject); 

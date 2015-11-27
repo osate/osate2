@@ -26,13 +26,8 @@ import org.eclipse.emf.ecore.EObject;
  * The following features are supported:
  * </p>
  * <ul>
- *   <li>{@link org.osate.alisa.common.common.Uncertainty#getVolatility <em>Volatility</em>}</li>
- *   <li>{@link org.osate.alisa.common.common.Uncertainty#getCostimpact <em>Costimpact</em>}</li>
- *   <li>{@link org.osate.alisa.common.common.Uncertainty#getScheduleimpact <em>Scheduleimpact</em>}</li>
- *   <li>{@link org.osate.alisa.common.common.Uncertainty#getFamiliarity <em>Familiarity</em>}</li>
- *   <li>{@link org.osate.alisa.common.common.Uncertainty#getTimecriticality <em>Timecriticality</em>}</li>
- *   <li>{@link org.osate.alisa.common.common.Uncertainty#getRiskindex <em>Riskindex</em>}</li>
- *   <li>{@link org.osate.alisa.common.common.Uncertainty#getMaturityindex <em>Maturityindex</em>}</li>
+ *   <li>{@link org.osate.alisa.common.common.Uncertainty#getImportance <em>Importance</em>}</li>
+ *   <li>{@link org.osate.alisa.common.common.Uncertainty#getDifficulty <em>Difficulty</em>}</li>
  * </ul>
  *
  * @see org.osate.alisa.common.common.CommonPackage#getUncertainty()
@@ -42,185 +37,55 @@ import org.eclipse.emf.ecore.EObject;
 public interface Uncertainty extends EObject
 {
   /**
-   * Returns the value of the '<em><b>Volatility</b></em>' attribute.
+   * Returns the value of the '<em><b>Importance</b></em>' attribute.
    * <!-- begin-user-doc -->
    * <p>
-   * If the meaning of the '<em>Volatility</em>' attribute isn't clear,
+   * If the meaning of the '<em>Importance</em>' attribute isn't clear,
    * there really should be more of a description here...
    * </p>
    * <!-- end-user-doc -->
-   * @return the value of the '<em>Volatility</em>' attribute.
-   * @see #setVolatility(String)
-   * @see org.osate.alisa.common.common.CommonPackage#getUncertainty_Volatility()
+   * @return the value of the '<em>Importance</em>' attribute.
+   * @see #setImportance(int)
+   * @see org.osate.alisa.common.common.CommonPackage#getUncertainty_Importance()
    * @model
    * @generated
    */
-  String getVolatility();
+  int getImportance();
 
   /**
-   * Sets the value of the '{@link org.osate.alisa.common.common.Uncertainty#getVolatility <em>Volatility</em>}' attribute.
+   * Sets the value of the '{@link org.osate.alisa.common.common.Uncertainty#getImportance <em>Importance</em>}' attribute.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @param value the new value of the '<em>Volatility</em>' attribute.
-   * @see #getVolatility()
+   * @param value the new value of the '<em>Importance</em>' attribute.
+   * @see #getImportance()
    * @generated
    */
-  void setVolatility(String value);
+  void setImportance(int value);
 
   /**
-   * Returns the value of the '<em><b>Costimpact</b></em>' attribute.
+   * Returns the value of the '<em><b>Difficulty</b></em>' attribute.
    * <!-- begin-user-doc -->
    * <p>
-   * If the meaning of the '<em>Costimpact</em>' attribute isn't clear,
+   * If the meaning of the '<em>Difficulty</em>' attribute isn't clear,
    * there really should be more of a description here...
    * </p>
    * <!-- end-user-doc -->
-   * @return the value of the '<em>Costimpact</em>' attribute.
-   * @see #setCostimpact(String)
-   * @see org.osate.alisa.common.common.CommonPackage#getUncertainty_Costimpact()
+   * @return the value of the '<em>Difficulty</em>' attribute.
+   * @see #setDifficulty(int)
+   * @see org.osate.alisa.common.common.CommonPackage#getUncertainty_Difficulty()
    * @model
    * @generated
    */
-  String getCostimpact();
+  int getDifficulty();
 
   /**
-   * Sets the value of the '{@link org.osate.alisa.common.common.Uncertainty#getCostimpact <em>Costimpact</em>}' attribute.
+   * Sets the value of the '{@link org.osate.alisa.common.common.Uncertainty#getDifficulty <em>Difficulty</em>}' attribute.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @param value the new value of the '<em>Costimpact</em>' attribute.
-   * @see #getCostimpact()
+   * @param value the new value of the '<em>Difficulty</em>' attribute.
+   * @see #getDifficulty()
    * @generated
    */
-  void setCostimpact(String value);
-
-  /**
-   * Returns the value of the '<em><b>Scheduleimpact</b></em>' attribute.
-   * <!-- begin-user-doc -->
-   * <p>
-   * If the meaning of the '<em>Scheduleimpact</em>' attribute isn't clear,
-   * there really should be more of a description here...
-   * </p>
-   * <!-- end-user-doc -->
-   * @return the value of the '<em>Scheduleimpact</em>' attribute.
-   * @see #setScheduleimpact(String)
-   * @see org.osate.alisa.common.common.CommonPackage#getUncertainty_Scheduleimpact()
-   * @model
-   * @generated
-   */
-  String getScheduleimpact();
-
-  /**
-   * Sets the value of the '{@link org.osate.alisa.common.common.Uncertainty#getScheduleimpact <em>Scheduleimpact</em>}' attribute.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @param value the new value of the '<em>Scheduleimpact</em>' attribute.
-   * @see #getScheduleimpact()
-   * @generated
-   */
-  void setScheduleimpact(String value);
-
-  /**
-   * Returns the value of the '<em><b>Familiarity</b></em>' attribute.
-   * <!-- begin-user-doc -->
-   * <p>
-   * If the meaning of the '<em>Familiarity</em>' attribute isn't clear,
-   * there really should be more of a description here...
-   * </p>
-   * <!-- end-user-doc -->
-   * @return the value of the '<em>Familiarity</em>' attribute.
-   * @see #setFamiliarity(String)
-   * @see org.osate.alisa.common.common.CommonPackage#getUncertainty_Familiarity()
-   * @model
-   * @generated
-   */
-  String getFamiliarity();
-
-  /**
-   * Sets the value of the '{@link org.osate.alisa.common.common.Uncertainty#getFamiliarity <em>Familiarity</em>}' attribute.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @param value the new value of the '<em>Familiarity</em>' attribute.
-   * @see #getFamiliarity()
-   * @generated
-   */
-  void setFamiliarity(String value);
-
-  /**
-   * Returns the value of the '<em><b>Timecriticality</b></em>' attribute.
-   * <!-- begin-user-doc -->
-   * <p>
-   * If the meaning of the '<em>Timecriticality</em>' attribute isn't clear,
-   * there really should be more of a description here...
-   * </p>
-   * <!-- end-user-doc -->
-   * @return the value of the '<em>Timecriticality</em>' attribute.
-   * @see #setTimecriticality(String)
-   * @see org.osate.alisa.common.common.CommonPackage#getUncertainty_Timecriticality()
-   * @model
-   * @generated
-   */
-  String getTimecriticality();
-
-  /**
-   * Sets the value of the '{@link org.osate.alisa.common.common.Uncertainty#getTimecriticality <em>Timecriticality</em>}' attribute.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @param value the new value of the '<em>Timecriticality</em>' attribute.
-   * @see #getTimecriticality()
-   * @generated
-   */
-  void setTimecriticality(String value);
-
-  /**
-   * Returns the value of the '<em><b>Riskindex</b></em>' attribute.
-   * <!-- begin-user-doc -->
-   * <p>
-   * If the meaning of the '<em>Riskindex</em>' attribute isn't clear,
-   * there really should be more of a description here...
-   * </p>
-   * <!-- end-user-doc -->
-   * @return the value of the '<em>Riskindex</em>' attribute.
-   * @see #setRiskindex(String)
-   * @see org.osate.alisa.common.common.CommonPackage#getUncertainty_Riskindex()
-   * @model
-   * @generated
-   */
-  String getRiskindex();
-
-  /**
-   * Sets the value of the '{@link org.osate.alisa.common.common.Uncertainty#getRiskindex <em>Riskindex</em>}' attribute.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @param value the new value of the '<em>Riskindex</em>' attribute.
-   * @see #getRiskindex()
-   * @generated
-   */
-  void setRiskindex(String value);
-
-  /**
-   * Returns the value of the '<em><b>Maturityindex</b></em>' attribute.
-   * <!-- begin-user-doc -->
-   * <p>
-   * If the meaning of the '<em>Maturityindex</em>' attribute isn't clear,
-   * there really should be more of a description here...
-   * </p>
-   * <!-- end-user-doc -->
-   * @return the value of the '<em>Maturityindex</em>' attribute.
-   * @see #setMaturityindex(String)
-   * @see org.osate.alisa.common.common.CommonPackage#getUncertainty_Maturityindex()
-   * @model
-   * @generated
-   */
-  String getMaturityindex();
-
-  /**
-   * Sets the value of the '{@link org.osate.alisa.common.common.Uncertainty#getMaturityindex <em>Maturityindex</em>}' attribute.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @param value the new value of the '<em>Maturityindex</em>' attribute.
-   * @see #getMaturityindex()
-   * @generated
-   */
-  void setMaturityindex(String value);
+  void setDifficulty(int value);
 
 } // Uncertainty

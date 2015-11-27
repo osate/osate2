@@ -16,6 +16,7 @@
 package org.osate.alisa.common.common.impl;
 
 import org.eclipse.emf.ecore.EClass;
+import org.eclipse.emf.ecore.EDataType;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EPackage;
 
@@ -81,6 +82,7 @@ public class CommonFactoryImpl extends EFactoryImpl implements CommonFactory
       case CommonPackage.DESCRIPTION_ELEMENT: return createDescriptionElement();
       case CommonPackage.RATIONALE: return createRationale();
       case CommonPackage.UNCERTAINTY: return createUncertainty();
+      case CommonPackage.RESULT_ISSUE: return createResultIssue();
       case CommonPackage.AVARIABLE_DECLARATION: return createAVariableDeclaration();
       case CommonPackage.AEXPRESSION: return createAExpression();
       case CommonPackage.SHOW_VALUE: return createShowValue();
@@ -96,6 +98,40 @@ public class CommonFactoryImpl extends EFactoryImpl implements CommonFactory
       case CommonPackage.ANULL_LITERAL: return createANullLiteral();
       default:
         throw new IllegalArgumentException("The class '" + eClass.getName() + "' is not a valid classifier");
+    }
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  @Override
+  public Object createFromString(EDataType eDataType, String initialValue)
+  {
+    switch (eDataType.getClassifierID())
+    {
+      case CommonPackage.RESULT_ISSUE_TYPE:
+        return createResultIssueTypeFromString(eDataType, initialValue);
+      default:
+        throw new IllegalArgumentException("The datatype '" + eDataType.getName() + "' is not a valid classifier");
+    }
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  @Override
+  public String convertToString(EDataType eDataType, Object instanceValue)
+  {
+    switch (eDataType.getClassifierID())
+    {
+      case CommonPackage.RESULT_ISSUE_TYPE:
+        return convertResultIssueTypeToString(eDataType, instanceValue);
+      default:
+        throw new IllegalArgumentException("The datatype '" + eDataType.getName() + "' is not a valid classifier");
     }
   }
 
@@ -141,6 +177,17 @@ public class CommonFactoryImpl extends EFactoryImpl implements CommonFactory
   {
     UncertaintyImpl uncertainty = new UncertaintyImpl();
     return uncertainty;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public ResultIssue createResultIssue()
+  {
+    ResultIssueImpl resultIssue = new ResultIssueImpl();
+    return resultIssue;
   }
 
   /**
@@ -284,6 +331,28 @@ public class CommonFactoryImpl extends EFactoryImpl implements CommonFactory
   {
     ANullLiteralImpl aNullLiteral = new ANullLiteralImpl();
     return aNullLiteral;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public ResultIssueType createResultIssueTypeFromString(EDataType eDataType, String initialValue)
+  {
+    ResultIssueType result = ResultIssueType.get(initialValue);
+    if (result == null) throw new IllegalArgumentException("The value '" + initialValue + "' is not a valid enumerator of '" + eDataType.getName() + "'");
+    return result;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public String convertResultIssueTypeToString(EDataType eDataType, Object instanceValue)
+  {
+    return instanceValue == null ? null : instanceValue.toString();
   }
 
   /**

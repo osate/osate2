@@ -30,12 +30,13 @@ import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.eclipse.emf.ecore.util.EObjectContainmentEList;
 import org.eclipse.emf.ecore.util.InternalEList;
 
+import org.osate.alisa.common.common.ResultIssue;
+
 import org.osate.assure.assure.AssurePackage;
 import org.osate.assure.assure.VerificationExecutionState;
 import org.osate.assure.assure.VerificationResult;
 import org.osate.assure.assure.VerificationResultState;
 
-import org.osate.results.results.ResultIssue;
 import org.osate.results.results.ResultReport;
 
 /**

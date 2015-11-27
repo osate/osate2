@@ -8,6 +8,15 @@
     editorPluginID="org.osate.alisa.common.editor" runtimeVersion="2.11" usedGenPackages="platform:/plugin/org.eclipse.emf.ecore/model/Ecore.genmodel#//ecore platform:/resource/org.osate.aadl2/model/aadl2.genmodel#//aadl2">
   <genPackages prefix="Common" basePackage="org.osate.alisa.common" disposableProviderFactory="true"
       fileExtensions="___common___" ecorePackage="Common.ecore#/">
+    <genEnums typeSafeEnumCompatible="false" ecoreEnum="Common.ecore#//ResultIssueType">
+      <genEnumLiterals ecoreEnumLiteral="Common.ecore#//ResultIssueType/TBD"/>
+      <genEnumLiterals ecoreEnumLiteral="Common.ecore#//ResultIssueType/UNKNOWN"/>
+      <genEnumLiterals ecoreEnumLiteral="Common.ecore#//ResultIssueType/ERROR"/>
+      <genEnumLiterals ecoreEnumLiteral="Common.ecore#//ResultIssueType/WARNING"/>
+      <genEnumLiterals ecoreEnumLiteral="Common.ecore#//ResultIssueType/INFO"/>
+      <genEnumLiterals ecoreEnumLiteral="Common.ecore#//ResultIssueType/SUCCESS"/>
+      <genEnumLiterals ecoreEnumLiteral="Common.ecore#//ResultIssueType/FAIL"/>
+    </genEnums>
     <genClasses ecoreClass="Common.ecore#//Description">
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Common.ecore#//Description/description"/>
     </genClasses>
@@ -21,13 +30,15 @@
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Common.ecore#//Rationale/text"/>
     </genClasses>
     <genClasses ecoreClass="Common.ecore#//Uncertainty">
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Common.ecore#//Uncertainty/volatility"/>
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Common.ecore#//Uncertainty/costimpact"/>
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Common.ecore#//Uncertainty/scheduleimpact"/>
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Common.ecore#//Uncertainty/familiarity"/>
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Common.ecore#//Uncertainty/timecriticality"/>
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Common.ecore#//Uncertainty/riskindex"/>
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Common.ecore#//Uncertainty/maturityindex"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Common.ecore#//Uncertainty/importance"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Common.ecore#//Uncertainty/difficulty"/>
+    </genClasses>
+    <genClasses ecoreClass="Common.ecore#//ResultIssue">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Common.ecore#//ResultIssue/issueType"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Common.ecore#//ResultIssue/message"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference Common.ecore#//ResultIssue/target"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Common.ecore#//ResultIssue/exceptionType"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Common.ecore#//ResultIssue/issues"/>
     </genClasses>
     <genClasses ecoreClass="Common.ecore#//AVariableDeclaration">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Common.ecore#//AVariableDeclaration/type"/>

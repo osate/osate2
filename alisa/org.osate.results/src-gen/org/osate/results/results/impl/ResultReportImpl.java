@@ -32,7 +32,8 @@ import org.eclipse.emf.ecore.impl.MinimalEObjectImpl;
 import org.eclipse.emf.ecore.util.EObjectContainmentEList;
 import org.eclipse.emf.ecore.util.InternalEList;
 
-import org.osate.results.results.ResultIssue;
+import org.osate.alisa.common.common.ResultIssue;
+
 import org.osate.results.results.ResultReport;
 import org.osate.results.results.ResultsPackage;
 

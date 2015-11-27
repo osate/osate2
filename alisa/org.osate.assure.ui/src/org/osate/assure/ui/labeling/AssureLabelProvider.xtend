@@ -27,8 +27,8 @@ import org.osate.assure.assure.AssuranceCase
 import org.osate.assure.assure.ValidationResult
 import org.osate.assure.assure.ThenResult
 import org.osate.assure.assure.ElseResult
-import org.osate.results.results.ResultIssue
-import org.osate.results.results.ResultIssueType
+import org.osate.alisa.common.common.ResultIssue
+import org.osate.alisa.common.common.ResultIssueType
 
 /**
  * Provides labels for a EObjects.

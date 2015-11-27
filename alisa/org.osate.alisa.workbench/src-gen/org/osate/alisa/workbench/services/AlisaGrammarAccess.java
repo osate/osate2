@@ -555,9 +555,7 @@ public class AlisaGrammarAccess extends AbstractGrammarElementFinder {
 	}
 
 	//Uncertainty:
-	//	"uncertainty" "[" ("volatility" volatility=Number & "costimpact" costimpact=Number & "scheduleimpact"
-	//	scheduleimpact=Number & "familiarity" familiarity=Number & "timecriticality" timecriticality=Number & "riskindex"
-	//	riskindex=Number & "maturityindex" maturityindex=Number) "]";
+	//	"uncertainty" "[" ("importance" importance=INT & "difficulty" difficulty=INT) "]";
 	public CommonGrammarAccess.UncertaintyElements getUncertaintyAccess() {
 		return gaCommon.getUncertaintyAccess();
 	}
@@ -566,8 +564,30 @@ public class AlisaGrammarAccess extends AbstractGrammarElementFinder {
 		return getUncertaintyAccess().getRule();
 	}
 
+	//// This is similar to diagnostics
+	//ResultIssue:
+	//	"issue" issueType=ResultIssueType message=STRING ("target" target=[ecore::EObject|URIID])? ("exception"
+	//	exceptionType=STRING)? ("[" issues+=ResultIssue* "]")?;
+	public CommonGrammarAccess.ResultIssueElements getResultIssueAccess() {
+		return gaCommon.getResultIssueAccess();
+	}
+	
+	public ParserRule getResultIssueRule() {
+		return getResultIssueAccess().getRule();
+	}
+
+	//enum ResultIssueType:
+	//	TBD="tbd" | UNKNOWN="unknown" | ERROR="error" | WARNING="warning" | INFO="info" | SUCCESS="success" | FAIL="fail";
+	public CommonGrammarAccess.ResultIssueTypeElements getResultIssueTypeAccess() {
+		return gaCommon.getResultIssueTypeAccess();
+	}
+	
+	public EnumRule getResultIssueTypeRule() {
+		return getResultIssueTypeAccess().getRule();
+	}
+
 	//ValDeclaration returns AVariableDeclaration:
-	//	{ValDeclaration} "val" (=> (type=ID name=ID) | name=ID) "=" right=AExpression?;
+	//	{ValDeclaration} "val" (=> (type=ID name=ID) | name=ID) "=" right=AExpression;
 	public CommonGrammarAccess.ValDeclarationElements getValDeclarationAccess() {
 		return gaCommon.getValDeclarationAccess();
 	}
@@ -841,7 +861,7 @@ public class AlisaGrammarAccess extends AbstractGrammarElementFinder {
 	}
 
 	//AInt returns aadl2::Integer:
-	//	INTEGER_LIT;
+	//	INT;
 	public CommonGrammarAccess.AIntElements getAIntAccess() {
 		return gaCommon.getAIntAccess();
 	}
@@ -992,12 +1012,12 @@ public class AlisaGrammarAccess extends AbstractGrammarElementFinder {
 		return gaCommon.getREAL_LITRule();
 	} 
 
-	//terminal INTEGER_LIT:
-	//	DIGIT+ ("_" DIGIT+)* ("#" BASED_INTEGER "#" INT_EXPONENT? | INT_EXPONENT?);
-	public TerminalRule getINTEGER_LITRule() {
-		return gaCommon.getINTEGER_LITRule();
-	} 
-
+	////terminal INTEGER_LIT : 
+	////		(DIGIT)+('_' (DIGIT)+)*
+	////		(( '#' BASED_INTEGER  '#' ( INT_EXPONENT )? )
+	////			| (INT_EXPONENT)?
+	////		)
+	////  ;
 	//terminal fragment DIGIT:
 	//	"0".."9";
 	public TerminalRule getDIGITRule() {
@@ -1047,6 +1067,7 @@ public class AlisaGrammarAccess extends AbstractGrammarElementFinder {
 		return getURIIDAccess().getRule();
 	}
 
+	////terminal URIID : ('a'..'z'|'A'..'Z') ('a'..'z'|'A'..'Z'|'_'|'0'..'9'|'#'|'@'|'/'|':')*;
 	//QualifiedName:
 	//	ID ("." ID)*;
 	public CommonGrammarAccess.QualifiedNameElements getQualifiedNameAccess() {
@@ -1057,38 +1078,16 @@ public class AlisaGrammarAccess extends AbstractGrammarElementFinder {
 		return getQualifiedNameAccess().getRule();
 	}
 
-	//Number hidden():
-	//	HEX | (INT | DECIMAL) ("." (INT | DECIMAL))?;
-	public CommonGrammarAccess.NumberElements getNumberAccess() {
-		return gaCommon.getNumberAccess();
-	}
-	
-	public ParserRule getNumberRule() {
-		return getNumberAccess().getRule();
-	}
-
-	//terminal HEX:
-	//	("0x" | "0X") ("0".."9" | "a".."f" | "A".."F" | "_")+ ("#" (("b" | "B") ("i" | "I") | ("l" | "L")))?;
-	public TerminalRule getHEXRule() {
-		return gaCommon.getHEXRule();
-	} 
-
-	//terminal INT returns ecore::EInt:
-	//	"0".."9" ("0".."9" | "_")*;
-	public TerminalRule getINTRule() {
-		return gaCommon.getINTRule();
-	} 
-
-	//terminal DECIMAL:
-	//	INT (("e" | "E") ("+" | "-")? INT)? (("b" | "B") ("i" | "I" | "d" | "D") | ("l" | "L" | "d" | "D" | "f" | "F"))?;
-	public TerminalRule getDECIMALRule() {
-		return gaCommon.getDECIMALRule();
-	} 
-
 	//terminal ID:
 	//	"^"? ("a".."z" | "A".."Z" | "_") ("a".."z" | "A".."Z" | "_" | "0".."9")*;
 	public TerminalRule getIDRule() {
 		return gaCommon.getIDRule();
+	} 
+
+	//terminal INT returns ecore::EInt:
+	//	"0".."9"+;
+	public TerminalRule getINTRule() {
+		return gaCommon.getINTRule();
 	} 
 
 	//terminal STRING:

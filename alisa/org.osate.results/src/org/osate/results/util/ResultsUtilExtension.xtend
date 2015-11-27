@@ -17,14 +17,14 @@
 package org.osate.results.util
 
 import org.eclipse.emf.ecore.EObject
-import org.osate.results.results.ResultIssueType
 import org.osate.results.results.ResultContributor
 import org.osate.results.results.ResultReport
 import org.osate.results.results.ResultReportCollection
 import org.osate.results.results.ResultsFactory
-import org.osate.results.results.ResultIssue
-import org.osate.results.results.ResultIssue
 import org.osate.results.results.ResultDataReport
+import org.osate.alisa.common.common.ResultIssue
+import org.osate.alisa.common.common.ResultIssueType
+import org.osate.alisa.common.common.CommonFactory
 
 class ResultsUtilExtension {
 	def static String getResultValue(ResultDataReport report, String resultName){
@@ -59,7 +59,7 @@ class ResultsUtilExtension {
 	} 
 	
 	def static void addIssue (ResultIssue holder, String msg, EObject target,  ResultIssueType rit){
-		val issue = ResultsFactory.eINSTANCE.createResultIssue
+		val issue = CommonFactory.eINSTANCE.createResultIssue
 		issue.target = target
 		issue.message = msg
 		issue.issueType = rit

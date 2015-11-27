@@ -19,6 +19,8 @@ import org.eclipse.emf.common.util.EList;
 
 import org.eclipse.emf.ecore.EObject;
 
+import org.osate.alisa.common.common.ResultIssue;
+
 /**
  * <!-- begin-user-doc -->
  * A representation of the model object '<em><b>Result Contributor</b></em>'.
@@ -84,7 +86,7 @@ public interface ResultContributor extends EObject
 
   /**
    * Returns the value of the '<em><b>Issues</b></em>' containment reference list.
-   * The list contents are of type {@link org.osate.results.results.ResultIssue}.
+   * The list contents are of type {@link org.osate.alisa.common.common.ResultIssue}.
    * <!-- begin-user-doc -->
    * <p>
    * If the meaning of the '<em>Issues</em>' containment reference list isn't clear,

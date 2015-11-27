@@ -43,6 +43,7 @@ public class AlisaSyntacticSequencer extends AbstractSyntacticSequencer {
 	protected AbstractElementAlias match_AssuranceTask_IssuesKeyword_8_3_0_q;
 	protected AbstractElementAlias match_AssuranceTask_PhaseKeyword_8_2_0_q;
 	protected AbstractElementAlias match_AssuranceTask_QualityKeyword_8_1_0_q;
+	protected AbstractElementAlias match_ResultIssue___LeftSquareBracketKeyword_5_0_RightSquareBracketKeyword_5_2__q;
 	
 	@Inject
 	protected void init(IGrammarAccess access) {
@@ -57,6 +58,7 @@ public class AlisaSyntacticSequencer extends AbstractSyntacticSequencer {
 		match_AssuranceTask_IssuesKeyword_8_3_0_q = new TokenAlias(false, true, grammarAccess.getAssuranceTaskAccess().getIssuesKeyword_8_3_0());
 		match_AssuranceTask_PhaseKeyword_8_2_0_q = new TokenAlias(false, true, grammarAccess.getAssuranceTaskAccess().getPhaseKeyword_8_2_0());
 		match_AssuranceTask_QualityKeyword_8_1_0_q = new TokenAlias(false, true, grammarAccess.getAssuranceTaskAccess().getQualityKeyword_8_1_0());
+		match_ResultIssue___LeftSquareBracketKeyword_5_0_RightSquareBracketKeyword_5_2__q = new GroupAlias(false, true, new TokenAlias(false, false, grammarAccess.getResultIssueAccess().getLeftSquareBracketKeyword_5_0()), new TokenAlias(false, false, grammarAccess.getResultIssueAccess().getRightSquareBracketKeyword_5_2()));
 	}
 	
 	@Override
@@ -91,6 +93,8 @@ public class AlisaSyntacticSequencer extends AbstractSyntacticSequencer {
 				emit_AssuranceTask_PhaseKeyword_8_2_0_q(semanticObject, getLastNavigableState(), syntaxNodes);
 			else if(match_AssuranceTask_QualityKeyword_8_1_0_q.equals(syntax))
 				emit_AssuranceTask_QualityKeyword_8_1_0_q(semanticObject, getLastNavigableState(), syntaxNodes);
+			else if(match_ResultIssue___LeftSquareBracketKeyword_5_0_RightSquareBracketKeyword_5_2__q.equals(syntax))
+				emit_ResultIssue___LeftSquareBracketKeyword_5_0_RightSquareBracketKeyword_5_2__q(semanticObject, getLastNavigableState(), syntaxNodes);
 			else acceptNodes(getLastNavigableState(), syntaxNodes);
 		}
 	}
@@ -228,6 +232,19 @@ public class AlisaSyntacticSequencer extends AbstractSyntacticSequencer {
 	 *     qualityCategory+=[QualityCategory|ID] (ambiguity) qualityCategory+=[QualityCategory|ID]
 	 */
 	protected void emit_AssuranceTask_QualityKeyword_8_1_0_q(EObject semanticObject, ISynNavigable transition, List<INode> nodes) {
+		acceptNodes(transition, nodes);
+	}
+	
+	/**
+	 * Ambiguous syntax:
+	 *     ('[' ']')?
+	 *
+	 * This ambiguous syntax occurs at:
+	 *     exceptionType=STRING (ambiguity) (rule end)
+	 *     message=STRING (ambiguity) (rule end)
+	 *     target=[EObject|URIID] (ambiguity) (rule end)
+	 */
+	protected void emit_ResultIssue___LeftSquareBracketKeyword_5_0_RightSquareBracketKeyword_5_2__q(EObject semanticObject, ISynNavigable transition, List<INode> nodes) {
 		acceptNodes(transition, nodes);
 	}
 	

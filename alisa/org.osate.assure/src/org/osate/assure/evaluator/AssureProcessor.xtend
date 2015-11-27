@@ -24,14 +24,20 @@ import com.rockwellcollins.atc.resolute.resolute.FnCallExpr
 import com.rockwellcollins.atc.resolute.resolute.ProveStatement
 import com.rockwellcollins.atc.resolute.resolute.ResoluteFactory
 import org.eclipse.core.runtime.IProgressMonitor
-import org.osate.aadl2.Aadl2Factory
+import org.eclipse.emf.common.util.BasicEList
+import org.eclipse.emf.common.util.EList
+import org.eclipse.emf.ecore.EObject
+import org.osate.aadl2.BooleanLiteral
+import org.osate.aadl2.IntegerLiteral
+import org.osate.aadl2.NumberValue
+import org.osate.aadl2.RealLiteral
+import org.osate.aadl2.StringLiteral
 import org.osate.aadl2.instance.ComponentInstance
 import org.osate.aadl2.instance.InstanceObject
-import org.osate.aadl2.util.OsateDebug
-import org.osate.alisa.common.common.ComputeDeclaration
+import org.osate.alisa.common.common.AVariableReference
+import org.osate.alisa.common.common.CommonFactory
 import org.osate.alisa.common.common.ValDeclaration
 import org.osate.assure.assure.AssuranceCase
-import org.osate.assure.assure.AssureFactory
 import org.osate.assure.assure.ElseResult
 import org.osate.assure.assure.ElseType
 import org.osate.assure.assure.PreconditionResult
@@ -48,23 +54,10 @@ import org.osate.verify.verify.JavaMethod
 import org.osate.verify.verify.ManualMethod
 import org.osate.verify.verify.PluginMethod
 import org.osate.verify.verify.ResoluteMethod
-import org.osate.verify.verify.VerificationActivity
-import org.osate.verify.verify.VerificationMethod
 import org.osate.xtext.aadl2.properties.util.PropertyUtils
 
 import static extension org.osate.alisa.common.util.CommonUtilExtension.*
 import static extension org.osate.assure.util.AssureUtilExtension.*
-import org.osate.aadl2.NumberValue
-import org.osate.alisa.common.common.AVariableReference
-import org.osate.aadl2.IntegerLiteral
-import org.osate.aadl2.RealLiteral
-import org.osate.aadl2.StringLiteral
-import org.osate.aadl2.BooleanLiteral
-import org.eclipse.emf.common.util.BasicEList
-import org.eclipse.emf.ecore.EObject
-import org.eclipse.emf.common.util.EList
-import org.osate.aadl2.operations.NumberValueOperations
-import org.osate.results.results.ResultsFactory
 
 @ImplementedBy(AssureProcessor)
 interface IAssureProcessor {
@@ -312,7 +305,7 @@ class AssureProcessor implements IAssureProcessor {
 						if (proof.valid) {
 							setToSuccess(verificationResult)
 						} else {
-							val proveri = ResultsFactory.eINSTANCE.createResultIssue
+							val proveri = CommonFactory.eINSTANCE.createResultIssue
 							proof.doResoluteResults(proveri)
 							setToFail(verificationResult, proveri.issues)
 						}

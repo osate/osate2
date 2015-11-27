@@ -116,6 +116,13 @@ public class CommonSwitch<T> extends Switch<T>
         if (result == null) result = defaultCase(theEObject);
         return result;
       }
+      case CommonPackage.RESULT_ISSUE:
+      {
+        ResultIssue resultIssue = (ResultIssue)theEObject;
+        T result = caseResultIssue(resultIssue);
+        if (result == null) result = defaultCase(theEObject);
+        return result;
+      }
       case CommonPackage.AVARIABLE_DECLARATION:
       {
         AVariableDeclaration aVariableDeclaration = (AVariableDeclaration)theEObject;
@@ -291,6 +298,22 @@ public class CommonSwitch<T> extends Switch<T>
    * @generated
    */
   public T caseUncertainty(Uncertainty object)
+  {
+    return null;
+  }
+
+  /**
+   * Returns the result of interpreting the object as an instance of '<em>Result Issue</em>'.
+   * <!-- begin-user-doc -->
+   * This implementation returns null;
+   * returning a non-null result will terminate the switch.
+   * <!-- end-user-doc -->
+   * @param object the target of the switch.
+   * @return the result of interpreting the object as an instance of '<em>Result Issue</em>'.
+   * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+   * @generated
+   */
+  public T caseResultIssue(ResultIssue object)
   {
     return null;
   }

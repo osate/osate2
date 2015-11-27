@@ -30,7 +30,7 @@ public class AssureStandaloneSetupGenerated implements ISetup {
 
 	@Override
 	public Injector createInjectorAndDoEMFRegistration() {
-		org.osate.results.ResultsStandaloneSetup.doSetup();
+		org.osate.alisa.common.CommonStandaloneSetup.doSetup();
 
 		Injector injector = createInjector();
 		register(injector);
