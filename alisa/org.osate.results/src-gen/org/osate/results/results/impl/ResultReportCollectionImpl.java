@@ -30,7 +30,7 @@ import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.eclipse.emf.ecore.util.EObjectContainmentEList;
 import org.eclipse.emf.ecore.util.InternalEList;
 
-import org.osate.results.results.ResultIssue;
+import org.osate.results.results.ResultReport;
 import org.osate.results.results.ResultReportCollection;
 import org.osate.results.results.ResultsPackage;
 
@@ -42,7 +42,6 @@ import org.osate.results.results.ResultsPackage;
  * The following features are implemented:
  * </p>
  * <ul>
- *   <li>{@link org.osate.results.results.impl.ResultReportCollectionImpl#getName <em>Name</em>}</li>
  *   <li>{@link org.osate.results.results.impl.ResultReportCollectionImpl#getTitle <em>Title</em>}</li>
  *   <li>{@link org.osate.results.results.impl.ResultReportCollectionImpl#getDecription <em>Decription</em>}</li>
  *   <li>{@link org.osate.results.results.impl.ResultReportCollectionImpl#getContent <em>Content</em>}</li>
@@ -52,26 +51,6 @@ import org.osate.results.results.ResultsPackage;
  */
 public class ResultReportCollectionImpl extends ResultReportsImpl implements ResultReportCollection
 {
-  /**
-   * The default value of the '{@link #getName() <em>Name</em>}' attribute.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @see #getName()
-   * @generated
-   * @ordered
-   */
-  protected static final String NAME_EDEFAULT = null;
-
-  /**
-   * The cached value of the '{@link #getName() <em>Name</em>}' attribute.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @see #getName()
-   * @generated
-   * @ordered
-   */
-  protected String name = NAME_EDEFAULT;
-
   /**
    * The default value of the '{@link #getTitle() <em>Title</em>}' attribute.
    * <!-- begin-user-doc -->
@@ -120,7 +99,7 @@ public class ResultReportCollectionImpl extends ResultReportsImpl implements Res
    * @generated
    * @ordered
    */
-  protected EList<ResultIssue> content;
+  protected EList<ResultReport> content;
 
   /**
    * <!-- begin-user-doc -->
@@ -141,29 +120,6 @@ public class ResultReportCollectionImpl extends ResultReportsImpl implements Res
   protected EClass eStaticClass()
   {
     return ResultsPackage.Literals.RESULT_REPORT_COLLECTION;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public String getName()
-  {
-    return name;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public void setName(String newName)
-  {
-    String oldName = name;
-    name = newName;
-    if (eNotificationRequired())
-      eNotify(new ENotificationImpl(this, Notification.SET, ResultsPackage.RESULT_REPORT_COLLECTION__NAME, oldName, name));
   }
 
   /**
@@ -217,11 +173,11 @@ public class ResultReportCollectionImpl extends ResultReportsImpl implements Res
    * <!-- end-user-doc -->
    * @generated
    */
-  public EList<ResultIssue> getContent()
+  public EList<ResultReport> getContent()
   {
     if (content == null)
     {
-      content = new EObjectContainmentEList<ResultIssue>(ResultIssue.class, this, ResultsPackage.RESULT_REPORT_COLLECTION__CONTENT);
+      content = new EObjectContainmentEList<ResultReport>(ResultReport.class, this, ResultsPackage.RESULT_REPORT_COLLECTION__CONTENT);
     }
     return content;
   }
@@ -252,8 +208,6 @@ public class ResultReportCollectionImpl extends ResultReportsImpl implements Res
   {
     switch (featureID)
     {
-      case ResultsPackage.RESULT_REPORT_COLLECTION__NAME:
-        return getName();
       case ResultsPackage.RESULT_REPORT_COLLECTION__TITLE:
         return getTitle();
       case ResultsPackage.RESULT_REPORT_COLLECTION__DECRIPTION:
@@ -275,9 +229,6 @@ public class ResultReportCollectionImpl extends ResultReportsImpl implements Res
   {
     switch (featureID)
     {
-      case ResultsPackage.RESULT_REPORT_COLLECTION__NAME:
-        setName((String)newValue);
-        return;
       case ResultsPackage.RESULT_REPORT_COLLECTION__TITLE:
         setTitle((String)newValue);
         return;
@@ -286,7 +237,7 @@ public class ResultReportCollectionImpl extends ResultReportsImpl implements Res
         return;
       case ResultsPackage.RESULT_REPORT_COLLECTION__CONTENT:
         getContent().clear();
-        getContent().addAll((Collection<? extends ResultIssue>)newValue);
+        getContent().addAll((Collection<? extends ResultReport>)newValue);
         return;
     }
     super.eSet(featureID, newValue);
@@ -302,9 +253,6 @@ public class ResultReportCollectionImpl extends ResultReportsImpl implements Res
   {
     switch (featureID)
     {
-      case ResultsPackage.RESULT_REPORT_COLLECTION__NAME:
-        setName(NAME_EDEFAULT);
-        return;
       case ResultsPackage.RESULT_REPORT_COLLECTION__TITLE:
         setTitle(TITLE_EDEFAULT);
         return;
@@ -328,8 +276,6 @@ public class ResultReportCollectionImpl extends ResultReportsImpl implements Res
   {
     switch (featureID)
     {
-      case ResultsPackage.RESULT_REPORT_COLLECTION__NAME:
-        return NAME_EDEFAULT == null ? name != null : !NAME_EDEFAULT.equals(name);
       case ResultsPackage.RESULT_REPORT_COLLECTION__TITLE:
         return TITLE_EDEFAULT == null ? title != null : !TITLE_EDEFAULT.equals(title);
       case ResultsPackage.RESULT_REPORT_COLLECTION__DECRIPTION:
@@ -351,9 +297,7 @@ public class ResultReportCollectionImpl extends ResultReportsImpl implements Res
     if (eIsProxy()) return super.toString();
 
     StringBuffer result = new StringBuffer(super.toString());
-    result.append(" (name: ");
-    result.append(name);
-    result.append(", title: ");
+    result.append(" (title: ");
     result.append(title);
     result.append(", decription: ");
     result.append(decription);

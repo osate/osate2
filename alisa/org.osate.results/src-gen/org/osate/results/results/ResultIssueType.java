@@ -33,54 +33,14 @@ import org.eclipse.emf.common.util.Enumerator;
 public enum ResultIssueType implements Enumerator
 {
   /**
-   * The '<em><b>ERROR</b></em>' literal object.
+   * The '<em><b>TBD</b></em>' literal object.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @see #ERROR_VALUE
+   * @see #TBD_VALUE
    * @generated
    * @ordered
    */
-  ERROR(0, "ERROR", "error"),
-
-  /**
-   * The '<em><b>WARNING</b></em>' literal object.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @see #WARNING_VALUE
-   * @generated
-   * @ordered
-   */
-  WARNING(1, "WARNING", "warning"),
-
-  /**
-   * The '<em><b>INFO</b></em>' literal object.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @see #INFO_VALUE
-   * @generated
-   * @ordered
-   */
-  INFO(2, "INFO", "info"),
-
-  /**
-   * The '<em><b>SUCCESS</b></em>' literal object.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @see #SUCCESS_VALUE
-   * @generated
-   * @ordered
-   */
-  SUCCESS(3, "SUCCESS", "success"),
-
-  /**
-   * The '<em><b>FAIL</b></em>' literal object.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @see #FAIL_VALUE
-   * @generated
-   * @ordered
-   */
-  FAIL(4, "FAIL", "fail"),
+  TBD(0, "TBD", "tbd"),
 
   /**
    * The '<em><b>UNKNOWN</b></em>' literal object.
@@ -90,82 +50,72 @@ public enum ResultIssueType implements Enumerator
    * @generated
    * @ordered
    */
-  UNKNOWN(5, "UNKNOWN", "unknown");
+  UNKNOWN(1, "UNKNOWN", "unknown"),
 
   /**
-   * The '<em><b>ERROR</b></em>' literal value.
+   * The '<em><b>ERROR</b></em>' literal object.
    * <!-- begin-user-doc -->
-   * <p>
-   * If the meaning of '<em><b>ERROR</b></em>' literal object isn't clear,
-   * there really should be more of a description here...
-   * </p>
    * <!-- end-user-doc -->
-   * @see #ERROR
-   * @model literal="error"
+   * @see #ERROR_VALUE
    * @generated
    * @ordered
    */
-  public static final int ERROR_VALUE = 0;
+  ERROR(2, "ERROR", "error"),
 
   /**
-   * The '<em><b>WARNING</b></em>' literal value.
+   * The '<em><b>WARNING</b></em>' literal object.
    * <!-- begin-user-doc -->
-   * <p>
-   * If the meaning of '<em><b>WARNING</b></em>' literal object isn't clear,
-   * there really should be more of a description here...
-   * </p>
    * <!-- end-user-doc -->
-   * @see #WARNING
-   * @model literal="warning"
+   * @see #WARNING_VALUE
    * @generated
    * @ordered
    */
-  public static final int WARNING_VALUE = 1;
+  WARNING(3, "WARNING", "warning"),
 
   /**
-   * The '<em><b>INFO</b></em>' literal value.
+   * The '<em><b>INFO</b></em>' literal object.
    * <!-- begin-user-doc -->
-   * <p>
-   * If the meaning of '<em><b>INFO</b></em>' literal object isn't clear,
-   * there really should be more of a description here...
-   * </p>
    * <!-- end-user-doc -->
-   * @see #INFO
-   * @model literal="info"
+   * @see #INFO_VALUE
    * @generated
    * @ordered
    */
-  public static final int INFO_VALUE = 2;
+  INFO(4, "INFO", "info"),
 
   /**
-   * The '<em><b>SUCCESS</b></em>' literal value.
+   * The '<em><b>SUCCESS</b></em>' literal object.
    * <!-- begin-user-doc -->
-   * <p>
-   * If the meaning of '<em><b>SUCCESS</b></em>' literal object isn't clear,
-   * there really should be more of a description here...
-   * </p>
    * <!-- end-user-doc -->
-   * @see #SUCCESS
-   * @model literal="success"
+   * @see #SUCCESS_VALUE
    * @generated
    * @ordered
    */
-  public static final int SUCCESS_VALUE = 3;
+  SUCCESS(5, "SUCCESS", "success"),
 
   /**
-   * The '<em><b>FAIL</b></em>' literal value.
+   * The '<em><b>FAIL</b></em>' literal object.
    * <!-- begin-user-doc -->
-   * <p>
-   * If the meaning of '<em><b>FAIL</b></em>' literal object isn't clear,
-   * there really should be more of a description here...
-   * </p>
    * <!-- end-user-doc -->
-   * @see #FAIL
-   * @model literal="fail"
+   * @see #FAIL_VALUE
    * @generated
    * @ordered
    */
-  public static final int FAIL_VALUE = 4;
+  FAIL(6, "FAIL", "fail");
+
+  /**
+   * The '<em><b>TBD</b></em>' literal value.
+   * <!-- begin-user-doc -->
+   * <p>
+   * If the meaning of '<em><b>TBD</b></em>' literal object isn't clear,
+   * there really should be more of a description here...
+   * </p>
+   * <!-- end-user-doc -->
+   * @see #TBD
+   * @model literal="tbd"
+   * @generated
+   * @ordered
+   */
+  public static final int TBD_VALUE = 0;
 
   /**
    * The '<em><b>UNKNOWN</b></em>' literal value.
@@ -180,7 +130,82 @@ public enum ResultIssueType implements Enumerator
    * @generated
    * @ordered
    */
-  public static final int UNKNOWN_VALUE = 5;
+  public static final int UNKNOWN_VALUE = 1;
+
+  /**
+   * The '<em><b>ERROR</b></em>' literal value.
+   * <!-- begin-user-doc -->
+   * <p>
+   * If the meaning of '<em><b>ERROR</b></em>' literal object isn't clear,
+   * there really should be more of a description here...
+   * </p>
+   * <!-- end-user-doc -->
+   * @see #ERROR
+   * @model literal="error"
+   * @generated
+   * @ordered
+   */
+  public static final int ERROR_VALUE = 2;
+
+  /**
+   * The '<em><b>WARNING</b></em>' literal value.
+   * <!-- begin-user-doc -->
+   * <p>
+   * If the meaning of '<em><b>WARNING</b></em>' literal object isn't clear,
+   * there really should be more of a description here...
+   * </p>
+   * <!-- end-user-doc -->
+   * @see #WARNING
+   * @model literal="warning"
+   * @generated
+   * @ordered
+   */
+  public static final int WARNING_VALUE = 3;
+
+  /**
+   * The '<em><b>INFO</b></em>' literal value.
+   * <!-- begin-user-doc -->
+   * <p>
+   * If the meaning of '<em><b>INFO</b></em>' literal object isn't clear,
+   * there really should be more of a description here...
+   * </p>
+   * <!-- end-user-doc -->
+   * @see #INFO
+   * @model literal="info"
+   * @generated
+   * @ordered
+   */
+  public static final int INFO_VALUE = 4;
+
+  /**
+   * The '<em><b>SUCCESS</b></em>' literal value.
+   * <!-- begin-user-doc -->
+   * <p>
+   * If the meaning of '<em><b>SUCCESS</b></em>' literal object isn't clear,
+   * there really should be more of a description here...
+   * </p>
+   * <!-- end-user-doc -->
+   * @see #SUCCESS
+   * @model literal="success"
+   * @generated
+   * @ordered
+   */
+  public static final int SUCCESS_VALUE = 5;
+
+  /**
+   * The '<em><b>FAIL</b></em>' literal value.
+   * <!-- begin-user-doc -->
+   * <p>
+   * If the meaning of '<em><b>FAIL</b></em>' literal object isn't clear,
+   * there really should be more of a description here...
+   * </p>
+   * <!-- end-user-doc -->
+   * @see #FAIL
+   * @model literal="fail"
+   * @generated
+   * @ordered
+   */
+  public static final int FAIL_VALUE = 6;
 
   /**
    * An array of all the '<em><b>Result Issue Type</b></em>' enumerators.
@@ -191,12 +216,13 @@ public enum ResultIssueType implements Enumerator
   private static final ResultIssueType[] VALUES_ARRAY =
     new ResultIssueType[]
     {
+      TBD,
+      UNKNOWN,
       ERROR,
       WARNING,
       INFO,
       SUCCESS,
       FAIL,
-      UNKNOWN,
     };
 
   /**
@@ -261,12 +287,13 @@ public enum ResultIssueType implements Enumerator
   {
     switch (value)
     {
+      case TBD_VALUE: return TBD;
+      case UNKNOWN_VALUE: return UNKNOWN;
       case ERROR_VALUE: return ERROR;
       case WARNING_VALUE: return WARNING;
       case INFO_VALUE: return INFO;
       case SUCCESS_VALUE: return SUCCESS;
       case FAIL_VALUE: return FAIL;
-      case UNKNOWN_VALUE: return UNKNOWN;
     }
     return null;
   }

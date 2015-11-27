@@ -141,9 +141,6 @@ enum  VerificationExecutionState:
 ;
 
 
-
-URIID: STRING;	
-
 AadlClassifierReference:
 	ID ('::' ID)+ ('.' ID)?;
 

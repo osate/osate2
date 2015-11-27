@@ -1534,7 +1534,7 @@ public class AssureGrammarAccess extends AbstractGrammarElementFinder {
 	}
 
 	//ResultReports:
-	//	ResultReport | ResultReportCollection | IssueReport;
+	//	ResultReport | ResultReportCollection | IssuesReport;
 	public ResultsGrammarAccess.ResultReportsElements getResultReportsAccess() {
 		return gaResults.getResultReportsAccess();
 	}
@@ -1545,8 +1545,8 @@ public class AssureGrammarAccess extends AbstractGrammarElementFinder {
 
 	//// Collection of reports for an instance model (root), e.g., for collection of end to end flows
 	//ResultReportCollection:
-	//	"reports" name=ID (":" title=STRING)? "[" "target" target= // system instance or other EObject
-	//	[ecore::EObject|URIID] ("description" decription=STRING)? content+=ResultReport* issues+=ResultIssue? "]";
+	//	"reports" name=ID (":" title=STRING)? "for" target= // system instance or other EObject
+	//	[ecore::EObject|URIID] "[" ("description" decription=STRING)? content+=ResultReport* issues+=ResultIssue? "]";
 	public ResultsGrammarAccess.ResultReportCollectionElements getResultReportCollectionAccess() {
 		return gaResults.getResultReportCollectionAccess();
 	}
@@ -1558,11 +1558,10 @@ public class AssureGrammarAccess extends AbstractGrammarElementFinder {
 	//// one report of an analysis for one item in the instance model.
 	//// it may be a report per SOM or per end to end flow
 	//// result represents the result data that can be queried
-	//ResultReport returns ResultIssue:
-	//	{ResultReport} "report" name=ID (":" title=STRING)? target= // system instance or other EObject
-	//	[ecore::EObject|URIID] issueType=ResultIssueType message=STRING ("exception" exceptionType=STRING)? "[" ("description"
-	//	decription=STRING)? ("heading" heading=STRING content+=ResultContributor*)? ("results" resultData+=ResultData+)?
-	//	issues+=ResultIssue? "]";
+	//ResultReport:
+	//	"report" name=ID (":" title=STRING)? "for" target= // system instance or other EObject
+	//	[ecore::EObject|URIID] "[" ("description" decription=STRING)? ("heading" heading=STRING content+=ResultContributor*)?
+	//	("results" resultData+=ResultData+)? issues+=ResultIssue? "]";
 	public ResultsGrammarAccess.ResultReportElements getResultReportAccess() {
 		return gaResults.getResultReportAccess();
 	}
@@ -1575,10 +1574,10 @@ public class AssureGrammarAccess extends AbstractGrammarElementFinder {
 	//// this structure can be nested
 	//// each contributor can have issues reported
 	//// user may define a subclass of this to add analysis specific data representations
-	//ResultContributor returns ResultIssue:
-	//	{ResultContributor} "contributor" target= // instance model element or declarative model element
-	//	[ecore::EObject|URIID] issueType=ResultIssueType message=STRING ("exception" exceptionType=STRING)? "[" "data"
-	//	cell+=STRING+ issues+=ResultIssue* subcontributor+=ResultContributor* "]";
+	//ResultContributor:
+	//	"contributor" target= // instance model element or declarative model element
+	//	[ecore::EObject|URIID] "[" ("results" resultData+=ResultData+)? issues+=ResultIssue* subcontributor+=ResultContributor*
+	//	"]";
 	public ResultsGrammarAccess.ResultContributorElements getResultContributorAccess() {
 		return gaResults.getResultContributorAccess();
 	}
@@ -1587,15 +1586,15 @@ public class AssureGrammarAccess extends AbstractGrammarElementFinder {
 		return getResultContributorAccess().getRule();
 	}
 
-	//IssueReport returns ResultIssue:
-	//	{IssueReport} "issues" issueType=ResultIssueType message=STRING ("target" target=[ecore::EObject|URIID])?
-	//	("exception" exceptionType=STRING)? ("[" issues+=ResultIssue* "]")?;
-	public ResultsGrammarAccess.IssueReportElements getIssueReportAccess() {
-		return gaResults.getIssueReportAccess();
+	//IssuesReport:
+	//	"issues" name=ID ("for" target=[ecore::EObject|URIID])? ("[" ("description" description=STRING)? issues+=ResultIssue*
+	//	"]")?;
+	public ResultsGrammarAccess.IssuesReportElements getIssuesReportAccess() {
+		return gaResults.getIssuesReportAccess();
 	}
 	
-	public ParserRule getIssueReportRule() {
-		return getIssueReportAccess().getRule();
+	public ParserRule getIssuesReportRule() {
+		return getIssuesReportAccess().getRule();
 	}
 
 	//// This is similar to diagnostics
@@ -1624,7 +1623,7 @@ public class AssureGrammarAccess extends AbstractGrammarElementFinder {
 	}
 
 	//enum ResultIssueType:
-	//	ERROR="error" | WARNING="warning" | INFO="info" | SUCCESS="success" | FAIL="fail" | UNKNOWN="unknown";
+	//	TBD="tbd" | UNKNOWN="unknown" | ERROR="error" | WARNING="warning" | INFO="info" | SUCCESS="success" | FAIL="fail";
 	public ResultsGrammarAccess.ResultIssueTypeElements getResultIssueTypeAccess() {
 		return gaResults.getResultIssueTypeAccess();
 	}

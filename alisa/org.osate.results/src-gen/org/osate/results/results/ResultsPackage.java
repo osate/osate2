@@ -81,13 +81,22 @@ public interface ResultsPackage extends EPackage
   int RESULT_REPORTS = 0;
 
   /**
+   * The feature id for the '<em><b>Name</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int RESULT_REPORTS__NAME = 0;
+
+  /**
    * The feature id for the '<em><b>Target</b></em>' reference.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    * @ordered
    */
-  int RESULT_REPORTS__TARGET = 0;
+  int RESULT_REPORTS__TARGET = 1;
 
   /**
    * The feature id for the '<em><b>Issues</b></em>' containment reference list.
@@ -96,7 +105,7 @@ public interface ResultsPackage extends EPackage
    * @generated
    * @ordered
    */
-  int RESULT_REPORTS__ISSUES = 1;
+  int RESULT_REPORTS__ISSUES = 2;
 
   /**
    * The number of structural features of the '<em>Result Reports</em>' class.
@@ -105,7 +114,7 @@ public interface ResultsPackage extends EPackage
    * @generated
    * @ordered
    */
-  int RESULT_REPORTS_FEATURE_COUNT = 2;
+  int RESULT_REPORTS_FEATURE_COUNT = 3;
 
   /**
    * The meta object id for the '{@link org.osate.results.results.impl.ResultReportCollectionImpl <em>Result Report Collection</em>}' class.
@@ -116,6 +125,15 @@ public interface ResultsPackage extends EPackage
    * @generated
    */
   int RESULT_REPORT_COLLECTION = 1;
+
+  /**
+   * The feature id for the '<em><b>Name</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int RESULT_REPORT_COLLECTION__NAME = RESULT_REPORTS__NAME;
 
   /**
    * The feature id for the '<em><b>Target</b></em>' reference.
@@ -136,22 +154,13 @@ public interface ResultsPackage extends EPackage
   int RESULT_REPORT_COLLECTION__ISSUES = RESULT_REPORTS__ISSUES;
 
   /**
-   * The feature id for the '<em><b>Name</b></em>' attribute.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int RESULT_REPORT_COLLECTION__NAME = RESULT_REPORTS_FEATURE_COUNT + 0;
-
-  /**
    * The feature id for the '<em><b>Title</b></em>' attribute.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    * @ordered
    */
-  int RESULT_REPORT_COLLECTION__TITLE = RESULT_REPORTS_FEATURE_COUNT + 1;
+  int RESULT_REPORT_COLLECTION__TITLE = RESULT_REPORTS_FEATURE_COUNT + 0;
 
   /**
    * The feature id for the '<em><b>Decription</b></em>' attribute.
@@ -160,7 +169,7 @@ public interface ResultsPackage extends EPackage
    * @generated
    * @ordered
    */
-  int RESULT_REPORT_COLLECTION__DECRIPTION = RESULT_REPORTS_FEATURE_COUNT + 2;
+  int RESULT_REPORT_COLLECTION__DECRIPTION = RESULT_REPORTS_FEATURE_COUNT + 1;
 
   /**
    * The feature id for the '<em><b>Content</b></em>' containment reference list.
@@ -169,7 +178,7 @@ public interface ResultsPackage extends EPackage
    * @generated
    * @ordered
    */
-  int RESULT_REPORT_COLLECTION__CONTENT = RESULT_REPORTS_FEATURE_COUNT + 3;
+  int RESULT_REPORT_COLLECTION__CONTENT = RESULT_REPORTS_FEATURE_COUNT + 2;
 
   /**
    * The number of structural features of the '<em>Result Report Collection</em>' class.
@@ -178,7 +187,208 @@ public interface ResultsPackage extends EPackage
    * @generated
    * @ordered
    */
-  int RESULT_REPORT_COLLECTION_FEATURE_COUNT = RESULT_REPORTS_FEATURE_COUNT + 4;
+  int RESULT_REPORT_COLLECTION_FEATURE_COUNT = RESULT_REPORTS_FEATURE_COUNT + 3;
+
+  /**
+   * The meta object id for the '{@link org.osate.results.results.impl.ResultReportImpl <em>Result Report</em>}' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see org.osate.results.results.impl.ResultReportImpl
+   * @see org.osate.results.results.impl.ResultsPackageImpl#getResultReport()
+   * @generated
+   */
+  int RESULT_REPORT = 2;
+
+  /**
+   * The feature id for the '<em><b>Name</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int RESULT_REPORT__NAME = RESULT_REPORTS__NAME;
+
+  /**
+   * The feature id for the '<em><b>Target</b></em>' reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int RESULT_REPORT__TARGET = RESULT_REPORTS__TARGET;
+
+  /**
+   * The feature id for the '<em><b>Issues</b></em>' containment reference list.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int RESULT_REPORT__ISSUES = RESULT_REPORTS__ISSUES;
+
+  /**
+   * The feature id for the '<em><b>Title</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int RESULT_REPORT__TITLE = RESULT_REPORTS_FEATURE_COUNT + 0;
+
+  /**
+   * The feature id for the '<em><b>Decription</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int RESULT_REPORT__DECRIPTION = RESULT_REPORTS_FEATURE_COUNT + 1;
+
+  /**
+   * The feature id for the '<em><b>Heading</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int RESULT_REPORT__HEADING = RESULT_REPORTS_FEATURE_COUNT + 2;
+
+  /**
+   * The feature id for the '<em><b>Content</b></em>' containment reference list.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int RESULT_REPORT__CONTENT = RESULT_REPORTS_FEATURE_COUNT + 3;
+
+  /**
+   * The feature id for the '<em><b>Result Data</b></em>' containment reference list.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int RESULT_REPORT__RESULT_DATA = RESULT_REPORTS_FEATURE_COUNT + 4;
+
+  /**
+   * The number of structural features of the '<em>Result Report</em>' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int RESULT_REPORT_FEATURE_COUNT = RESULT_REPORTS_FEATURE_COUNT + 5;
+
+  /**
+   * The meta object id for the '{@link org.osate.results.results.impl.ResultContributorImpl <em>Result Contributor</em>}' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see org.osate.results.results.impl.ResultContributorImpl
+   * @see org.osate.results.results.impl.ResultsPackageImpl#getResultContributor()
+   * @generated
+   */
+  int RESULT_CONTRIBUTOR = 3;
+
+  /**
+   * The feature id for the '<em><b>Target</b></em>' reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int RESULT_CONTRIBUTOR__TARGET = 0;
+
+  /**
+   * The feature id for the '<em><b>Result Data</b></em>' containment reference list.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int RESULT_CONTRIBUTOR__RESULT_DATA = 1;
+
+  /**
+   * The feature id for the '<em><b>Issues</b></em>' containment reference list.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int RESULT_CONTRIBUTOR__ISSUES = 2;
+
+  /**
+   * The feature id for the '<em><b>Subcontributor</b></em>' containment reference list.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int RESULT_CONTRIBUTOR__SUBCONTRIBUTOR = 3;
+
+  /**
+   * The number of structural features of the '<em>Result Contributor</em>' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int RESULT_CONTRIBUTOR_FEATURE_COUNT = 4;
+
+  /**
+   * The meta object id for the '{@link org.osate.results.results.impl.IssuesReportImpl <em>Issues Report</em>}' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see org.osate.results.results.impl.IssuesReportImpl
+   * @see org.osate.results.results.impl.ResultsPackageImpl#getIssuesReport()
+   * @generated
+   */
+  int ISSUES_REPORT = 4;
+
+  /**
+   * The feature id for the '<em><b>Name</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int ISSUES_REPORT__NAME = RESULT_REPORTS__NAME;
+
+  /**
+   * The feature id for the '<em><b>Target</b></em>' reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int ISSUES_REPORT__TARGET = RESULT_REPORTS__TARGET;
+
+  /**
+   * The feature id for the '<em><b>Issues</b></em>' containment reference list.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int ISSUES_REPORT__ISSUES = RESULT_REPORTS__ISSUES;
+
+  /**
+   * The feature id for the '<em><b>Description</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int ISSUES_REPORT__DESCRIPTION = RESULT_REPORTS_FEATURE_COUNT + 0;
+
+  /**
+   * The number of structural features of the '<em>Issues Report</em>' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int ISSUES_REPORT_FEATURE_COUNT = RESULT_REPORTS_FEATURE_COUNT + 1;
 
   /**
    * The meta object id for the '{@link org.osate.results.results.impl.ResultIssueImpl <em>Result Issue</em>}' class.
@@ -188,25 +398,7 @@ public interface ResultsPackage extends EPackage
    * @see org.osate.results.results.impl.ResultsPackageImpl#getResultIssue()
    * @generated
    */
-  int RESULT_ISSUE = 2;
-
-  /**
-   * The feature id for the '<em><b>Target</b></em>' reference.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int RESULT_ISSUE__TARGET = RESULT_REPORTS__TARGET;
-
-  /**
-   * The feature id for the '<em><b>Issues</b></em>' containment reference list.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int RESULT_ISSUE__ISSUES = RESULT_REPORTS__ISSUES;
+  int RESULT_ISSUE = 5;
 
   /**
    * The feature id for the '<em><b>Issue Type</b></em>' attribute.
@@ -215,7 +407,7 @@ public interface ResultsPackage extends EPackage
    * @generated
    * @ordered
    */
-  int RESULT_ISSUE__ISSUE_TYPE = RESULT_REPORTS_FEATURE_COUNT + 0;
+  int RESULT_ISSUE__ISSUE_TYPE = 0;
 
   /**
    * The feature id for the '<em><b>Message</b></em>' attribute.
@@ -224,7 +416,16 @@ public interface ResultsPackage extends EPackage
    * @generated
    * @ordered
    */
-  int RESULT_ISSUE__MESSAGE = RESULT_REPORTS_FEATURE_COUNT + 1;
+  int RESULT_ISSUE__MESSAGE = 1;
+
+  /**
+   * The feature id for the '<em><b>Target</b></em>' reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int RESULT_ISSUE__TARGET = 2;
 
   /**
    * The feature id for the '<em><b>Exception Type</b></em>' attribute.
@@ -233,7 +434,16 @@ public interface ResultsPackage extends EPackage
    * @generated
    * @ordered
    */
-  int RESULT_ISSUE__EXCEPTION_TYPE = RESULT_REPORTS_FEATURE_COUNT + 2;
+  int RESULT_ISSUE__EXCEPTION_TYPE = 3;
+
+  /**
+   * The feature id for the '<em><b>Issues</b></em>' containment reference list.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int RESULT_ISSUE__ISSUES = 4;
 
   /**
    * The number of structural features of the '<em>Result Issue</em>' class.
@@ -242,7 +452,7 @@ public interface ResultsPackage extends EPackage
    * @generated
    * @ordered
    */
-  int RESULT_ISSUE_FEATURE_COUNT = RESULT_REPORTS_FEATURE_COUNT + 3;
+  int RESULT_ISSUE_FEATURE_COUNT = 5;
 
   /**
    * The meta object id for the '{@link org.osate.results.results.impl.ResultDataImpl <em>Result Data</em>}' class.
@@ -252,7 +462,7 @@ public interface ResultsPackage extends EPackage
    * @see org.osate.results.results.impl.ResultsPackageImpl#getResultData()
    * @generated
    */
-  int RESULT_DATA = 3;
+  int RESULT_DATA = 6;
 
   /**
    * The feature id for the '<em><b>Name</b></em>' attribute.
@@ -282,270 +492,6 @@ public interface ResultsPackage extends EPackage
   int RESULT_DATA_FEATURE_COUNT = 2;
 
   /**
-   * The meta object id for the '{@link org.osate.results.results.impl.ResultReportImpl <em>Result Report</em>}' class.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @see org.osate.results.results.impl.ResultReportImpl
-   * @see org.osate.results.results.impl.ResultsPackageImpl#getResultReport()
-   * @generated
-   */
-  int RESULT_REPORT = 4;
-
-  /**
-   * The feature id for the '<em><b>Target</b></em>' reference.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int RESULT_REPORT__TARGET = RESULT_ISSUE__TARGET;
-
-  /**
-   * The feature id for the '<em><b>Issues</b></em>' containment reference list.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int RESULT_REPORT__ISSUES = RESULT_ISSUE__ISSUES;
-
-  /**
-   * The feature id for the '<em><b>Issue Type</b></em>' attribute.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int RESULT_REPORT__ISSUE_TYPE = RESULT_ISSUE__ISSUE_TYPE;
-
-  /**
-   * The feature id for the '<em><b>Message</b></em>' attribute.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int RESULT_REPORT__MESSAGE = RESULT_ISSUE__MESSAGE;
-
-  /**
-   * The feature id for the '<em><b>Exception Type</b></em>' attribute.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int RESULT_REPORT__EXCEPTION_TYPE = RESULT_ISSUE__EXCEPTION_TYPE;
-
-  /**
-   * The feature id for the '<em><b>Name</b></em>' attribute.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int RESULT_REPORT__NAME = RESULT_ISSUE_FEATURE_COUNT + 0;
-
-  /**
-   * The feature id for the '<em><b>Title</b></em>' attribute.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int RESULT_REPORT__TITLE = RESULT_ISSUE_FEATURE_COUNT + 1;
-
-  /**
-   * The feature id for the '<em><b>Decription</b></em>' attribute.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int RESULT_REPORT__DECRIPTION = RESULT_ISSUE_FEATURE_COUNT + 2;
-
-  /**
-   * The feature id for the '<em><b>Heading</b></em>' attribute.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int RESULT_REPORT__HEADING = RESULT_ISSUE_FEATURE_COUNT + 3;
-
-  /**
-   * The feature id for the '<em><b>Content</b></em>' containment reference list.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int RESULT_REPORT__CONTENT = RESULT_ISSUE_FEATURE_COUNT + 4;
-
-  /**
-   * The feature id for the '<em><b>Result Data</b></em>' containment reference list.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int RESULT_REPORT__RESULT_DATA = RESULT_ISSUE_FEATURE_COUNT + 5;
-
-  /**
-   * The number of structural features of the '<em>Result Report</em>' class.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int RESULT_REPORT_FEATURE_COUNT = RESULT_ISSUE_FEATURE_COUNT + 6;
-
-  /**
-   * The meta object id for the '{@link org.osate.results.results.impl.ResultContributorImpl <em>Result Contributor</em>}' class.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @see org.osate.results.results.impl.ResultContributorImpl
-   * @see org.osate.results.results.impl.ResultsPackageImpl#getResultContributor()
-   * @generated
-   */
-  int RESULT_CONTRIBUTOR = 5;
-
-  /**
-   * The feature id for the '<em><b>Target</b></em>' reference.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int RESULT_CONTRIBUTOR__TARGET = RESULT_ISSUE__TARGET;
-
-  /**
-   * The feature id for the '<em><b>Issues</b></em>' containment reference list.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int RESULT_CONTRIBUTOR__ISSUES = RESULT_ISSUE__ISSUES;
-
-  /**
-   * The feature id for the '<em><b>Issue Type</b></em>' attribute.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int RESULT_CONTRIBUTOR__ISSUE_TYPE = RESULT_ISSUE__ISSUE_TYPE;
-
-  /**
-   * The feature id for the '<em><b>Message</b></em>' attribute.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int RESULT_CONTRIBUTOR__MESSAGE = RESULT_ISSUE__MESSAGE;
-
-  /**
-   * The feature id for the '<em><b>Exception Type</b></em>' attribute.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int RESULT_CONTRIBUTOR__EXCEPTION_TYPE = RESULT_ISSUE__EXCEPTION_TYPE;
-
-  /**
-   * The feature id for the '<em><b>Cell</b></em>' attribute list.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int RESULT_CONTRIBUTOR__CELL = RESULT_ISSUE_FEATURE_COUNT + 0;
-
-  /**
-   * The feature id for the '<em><b>Subcontributor</b></em>' containment reference list.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int RESULT_CONTRIBUTOR__SUBCONTRIBUTOR = RESULT_ISSUE_FEATURE_COUNT + 1;
-
-  /**
-   * The number of structural features of the '<em>Result Contributor</em>' class.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int RESULT_CONTRIBUTOR_FEATURE_COUNT = RESULT_ISSUE_FEATURE_COUNT + 2;
-
-  /**
-   * The meta object id for the '{@link org.osate.results.results.impl.IssueReportImpl <em>Issue Report</em>}' class.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @see org.osate.results.results.impl.IssueReportImpl
-   * @see org.osate.results.results.impl.ResultsPackageImpl#getIssueReport()
-   * @generated
-   */
-  int ISSUE_REPORT = 6;
-
-  /**
-   * The feature id for the '<em><b>Target</b></em>' reference.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int ISSUE_REPORT__TARGET = RESULT_ISSUE__TARGET;
-
-  /**
-   * The feature id for the '<em><b>Issues</b></em>' containment reference list.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int ISSUE_REPORT__ISSUES = RESULT_ISSUE__ISSUES;
-
-  /**
-   * The feature id for the '<em><b>Issue Type</b></em>' attribute.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int ISSUE_REPORT__ISSUE_TYPE = RESULT_ISSUE__ISSUE_TYPE;
-
-  /**
-   * The feature id for the '<em><b>Message</b></em>' attribute.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int ISSUE_REPORT__MESSAGE = RESULT_ISSUE__MESSAGE;
-
-  /**
-   * The feature id for the '<em><b>Exception Type</b></em>' attribute.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int ISSUE_REPORT__EXCEPTION_TYPE = RESULT_ISSUE__EXCEPTION_TYPE;
-
-  /**
-   * The number of structural features of the '<em>Issue Report</em>' class.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int ISSUE_REPORT_FEATURE_COUNT = RESULT_ISSUE_FEATURE_COUNT + 0;
-
-  /**
    * The meta object id for the '{@link org.osate.results.results.ResultIssueType <em>Result Issue Type</em>}' enum.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -565,6 +511,17 @@ public interface ResultsPackage extends EPackage
    * @generated
    */
   EClass getResultReports();
+
+  /**
+   * Returns the meta object for the attribute '{@link org.osate.results.results.ResultReports#getName <em>Name</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the attribute '<em>Name</em>'.
+   * @see org.osate.results.results.ResultReports#getName()
+   * @see #getResultReports()
+   * @generated
+   */
+  EAttribute getResultReports_Name();
 
   /**
    * Returns the meta object for the reference '{@link org.osate.results.results.ResultReports#getTarget <em>Target</em>}'.
@@ -597,17 +554,6 @@ public interface ResultsPackage extends EPackage
    * @generated
    */
   EClass getResultReportCollection();
-
-  /**
-   * Returns the meta object for the attribute '{@link org.osate.results.results.ResultReportCollection#getName <em>Name</em>}'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return the meta object for the attribute '<em>Name</em>'.
-   * @see org.osate.results.results.ResultReportCollection#getName()
-   * @see #getResultReportCollection()
-   * @generated
-   */
-  EAttribute getResultReportCollection_Name();
 
   /**
    * Returns the meta object for the attribute '{@link org.osate.results.results.ResultReportCollection#getTitle <em>Title</em>}'.
@@ -643,81 +589,6 @@ public interface ResultsPackage extends EPackage
   EReference getResultReportCollection_Content();
 
   /**
-   * Returns the meta object for class '{@link org.osate.results.results.ResultIssue <em>Result Issue</em>}'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return the meta object for class '<em>Result Issue</em>'.
-   * @see org.osate.results.results.ResultIssue
-   * @generated
-   */
-  EClass getResultIssue();
-
-  /**
-   * Returns the meta object for the attribute '{@link org.osate.results.results.ResultIssue#getIssueType <em>Issue Type</em>}'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return the meta object for the attribute '<em>Issue Type</em>'.
-   * @see org.osate.results.results.ResultIssue#getIssueType()
-   * @see #getResultIssue()
-   * @generated
-   */
-  EAttribute getResultIssue_IssueType();
-
-  /**
-   * Returns the meta object for the attribute '{@link org.osate.results.results.ResultIssue#getMessage <em>Message</em>}'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return the meta object for the attribute '<em>Message</em>'.
-   * @see org.osate.results.results.ResultIssue#getMessage()
-   * @see #getResultIssue()
-   * @generated
-   */
-  EAttribute getResultIssue_Message();
-
-  /**
-   * Returns the meta object for the attribute '{@link org.osate.results.results.ResultIssue#getExceptionType <em>Exception Type</em>}'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return the meta object for the attribute '<em>Exception Type</em>'.
-   * @see org.osate.results.results.ResultIssue#getExceptionType()
-   * @see #getResultIssue()
-   * @generated
-   */
-  EAttribute getResultIssue_ExceptionType();
-
-  /**
-   * Returns the meta object for class '{@link org.osate.results.results.ResultData <em>Result Data</em>}'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return the meta object for class '<em>Result Data</em>'.
-   * @see org.osate.results.results.ResultData
-   * @generated
-   */
-  EClass getResultData();
-
-  /**
-   * Returns the meta object for the attribute '{@link org.osate.results.results.ResultData#getName <em>Name</em>}'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return the meta object for the attribute '<em>Name</em>'.
-   * @see org.osate.results.results.ResultData#getName()
-   * @see #getResultData()
-   * @generated
-   */
-  EAttribute getResultData_Name();
-
-  /**
-   * Returns the meta object for the attribute '{@link org.osate.results.results.ResultData#getValue <em>Value</em>}'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return the meta object for the attribute '<em>Value</em>'.
-   * @see org.osate.results.results.ResultData#getValue()
-   * @see #getResultData()
-   * @generated
-   */
-  EAttribute getResultData_Value();
-
-  /**
    * Returns the meta object for class '{@link org.osate.results.results.ResultReport <em>Result Report</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -726,17 +597,6 @@ public interface ResultsPackage extends EPackage
    * @generated
    */
   EClass getResultReport();
-
-  /**
-   * Returns the meta object for the attribute '{@link org.osate.results.results.ResultReport#getName <em>Name</em>}'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return the meta object for the attribute '<em>Name</em>'.
-   * @see org.osate.results.results.ResultReport#getName()
-   * @see #getResultReport()
-   * @generated
-   */
-  EAttribute getResultReport_Name();
 
   /**
    * Returns the meta object for the attribute '{@link org.osate.results.results.ResultReport#getTitle <em>Title</em>}'.
@@ -804,15 +664,37 @@ public interface ResultsPackage extends EPackage
   EClass getResultContributor();
 
   /**
-   * Returns the meta object for the attribute list '{@link org.osate.results.results.ResultContributor#getCell <em>Cell</em>}'.
+   * Returns the meta object for the reference '{@link org.osate.results.results.ResultContributor#getTarget <em>Target</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @return the meta object for the attribute list '<em>Cell</em>'.
-   * @see org.osate.results.results.ResultContributor#getCell()
+   * @return the meta object for the reference '<em>Target</em>'.
+   * @see org.osate.results.results.ResultContributor#getTarget()
    * @see #getResultContributor()
    * @generated
    */
-  EAttribute getResultContributor_Cell();
+  EReference getResultContributor_Target();
+
+  /**
+   * Returns the meta object for the containment reference list '{@link org.osate.results.results.ResultContributor#getResultData <em>Result Data</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the containment reference list '<em>Result Data</em>'.
+   * @see org.osate.results.results.ResultContributor#getResultData()
+   * @see #getResultContributor()
+   * @generated
+   */
+  EReference getResultContributor_ResultData();
+
+  /**
+   * Returns the meta object for the containment reference list '{@link org.osate.results.results.ResultContributor#getIssues <em>Issues</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the containment reference list '<em>Issues</em>'.
+   * @see org.osate.results.results.ResultContributor#getIssues()
+   * @see #getResultContributor()
+   * @generated
+   */
+  EReference getResultContributor_Issues();
 
   /**
    * Returns the meta object for the containment reference list '{@link org.osate.results.results.ResultContributor#getSubcontributor <em>Subcontributor</em>}'.
@@ -826,14 +708,122 @@ public interface ResultsPackage extends EPackage
   EReference getResultContributor_Subcontributor();
 
   /**
-   * Returns the meta object for class '{@link org.osate.results.results.IssueReport <em>Issue Report</em>}'.
+   * Returns the meta object for class '{@link org.osate.results.results.IssuesReport <em>Issues Report</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @return the meta object for class '<em>Issue Report</em>'.
-   * @see org.osate.results.results.IssueReport
+   * @return the meta object for class '<em>Issues Report</em>'.
+   * @see org.osate.results.results.IssuesReport
    * @generated
    */
-  EClass getIssueReport();
+  EClass getIssuesReport();
+
+  /**
+   * Returns the meta object for the attribute '{@link org.osate.results.results.IssuesReport#getDescription <em>Description</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the attribute '<em>Description</em>'.
+   * @see org.osate.results.results.IssuesReport#getDescription()
+   * @see #getIssuesReport()
+   * @generated
+   */
+  EAttribute getIssuesReport_Description();
+
+  /**
+   * Returns the meta object for class '{@link org.osate.results.results.ResultIssue <em>Result Issue</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for class '<em>Result Issue</em>'.
+   * @see org.osate.results.results.ResultIssue
+   * @generated
+   */
+  EClass getResultIssue();
+
+  /**
+   * Returns the meta object for the attribute '{@link org.osate.results.results.ResultIssue#getIssueType <em>Issue Type</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the attribute '<em>Issue Type</em>'.
+   * @see org.osate.results.results.ResultIssue#getIssueType()
+   * @see #getResultIssue()
+   * @generated
+   */
+  EAttribute getResultIssue_IssueType();
+
+  /**
+   * Returns the meta object for the attribute '{@link org.osate.results.results.ResultIssue#getMessage <em>Message</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the attribute '<em>Message</em>'.
+   * @see org.osate.results.results.ResultIssue#getMessage()
+   * @see #getResultIssue()
+   * @generated
+   */
+  EAttribute getResultIssue_Message();
+
+  /**
+   * Returns the meta object for the reference '{@link org.osate.results.results.ResultIssue#getTarget <em>Target</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the reference '<em>Target</em>'.
+   * @see org.osate.results.results.ResultIssue#getTarget()
+   * @see #getResultIssue()
+   * @generated
+   */
+  EReference getResultIssue_Target();
+
+  /**
+   * Returns the meta object for the attribute '{@link org.osate.results.results.ResultIssue#getExceptionType <em>Exception Type</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the attribute '<em>Exception Type</em>'.
+   * @see org.osate.results.results.ResultIssue#getExceptionType()
+   * @see #getResultIssue()
+   * @generated
+   */
+  EAttribute getResultIssue_ExceptionType();
+
+  /**
+   * Returns the meta object for the containment reference list '{@link org.osate.results.results.ResultIssue#getIssues <em>Issues</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the containment reference list '<em>Issues</em>'.
+   * @see org.osate.results.results.ResultIssue#getIssues()
+   * @see #getResultIssue()
+   * @generated
+   */
+  EReference getResultIssue_Issues();
+
+  /**
+   * Returns the meta object for class '{@link org.osate.results.results.ResultData <em>Result Data</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for class '<em>Result Data</em>'.
+   * @see org.osate.results.results.ResultData
+   * @generated
+   */
+  EClass getResultData();
+
+  /**
+   * Returns the meta object for the attribute '{@link org.osate.results.results.ResultData#getName <em>Name</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the attribute '<em>Name</em>'.
+   * @see org.osate.results.results.ResultData#getName()
+   * @see #getResultData()
+   * @generated
+   */
+  EAttribute getResultData_Name();
+
+  /**
+   * Returns the meta object for the attribute '{@link org.osate.results.results.ResultData#getValue <em>Value</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the attribute '<em>Value</em>'.
+   * @see org.osate.results.results.ResultData#getValue()
+   * @see #getResultData()
+   * @generated
+   */
+  EAttribute getResultData_Value();
 
   /**
    * Returns the meta object for enum '{@link org.osate.results.results.ResultIssueType <em>Result Issue Type</em>}'.
@@ -879,6 +869,14 @@ public interface ResultsPackage extends EPackage
     EClass RESULT_REPORTS = eINSTANCE.getResultReports();
 
     /**
+     * The meta object literal for the '<em><b>Name</b></em>' attribute feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EAttribute RESULT_REPORTS__NAME = eINSTANCE.getResultReports_Name();
+
+    /**
      * The meta object literal for the '<em><b>Target</b></em>' reference feature.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
@@ -905,14 +903,6 @@ public interface ResultsPackage extends EPackage
     EClass RESULT_REPORT_COLLECTION = eINSTANCE.getResultReportCollection();
 
     /**
-     * The meta object literal for the '<em><b>Name</b></em>' attribute feature.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
-    EAttribute RESULT_REPORT_COLLECTION__NAME = eINSTANCE.getResultReportCollection_Name();
-
-    /**
      * The meta object literal for the '<em><b>Title</b></em>' attribute feature.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
@@ -937,66 +927,6 @@ public interface ResultsPackage extends EPackage
     EReference RESULT_REPORT_COLLECTION__CONTENT = eINSTANCE.getResultReportCollection_Content();
 
     /**
-     * The meta object literal for the '{@link org.osate.results.results.impl.ResultIssueImpl <em>Result Issue</em>}' class.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @see org.osate.results.results.impl.ResultIssueImpl
-     * @see org.osate.results.results.impl.ResultsPackageImpl#getResultIssue()
-     * @generated
-     */
-    EClass RESULT_ISSUE = eINSTANCE.getResultIssue();
-
-    /**
-     * The meta object literal for the '<em><b>Issue Type</b></em>' attribute feature.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
-    EAttribute RESULT_ISSUE__ISSUE_TYPE = eINSTANCE.getResultIssue_IssueType();
-
-    /**
-     * The meta object literal for the '<em><b>Message</b></em>' attribute feature.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
-    EAttribute RESULT_ISSUE__MESSAGE = eINSTANCE.getResultIssue_Message();
-
-    /**
-     * The meta object literal for the '<em><b>Exception Type</b></em>' attribute feature.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
-    EAttribute RESULT_ISSUE__EXCEPTION_TYPE = eINSTANCE.getResultIssue_ExceptionType();
-
-    /**
-     * The meta object literal for the '{@link org.osate.results.results.impl.ResultDataImpl <em>Result Data</em>}' class.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @see org.osate.results.results.impl.ResultDataImpl
-     * @see org.osate.results.results.impl.ResultsPackageImpl#getResultData()
-     * @generated
-     */
-    EClass RESULT_DATA = eINSTANCE.getResultData();
-
-    /**
-     * The meta object literal for the '<em><b>Name</b></em>' attribute feature.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
-    EAttribute RESULT_DATA__NAME = eINSTANCE.getResultData_Name();
-
-    /**
-     * The meta object literal for the '<em><b>Value</b></em>' attribute feature.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
-    EAttribute RESULT_DATA__VALUE = eINSTANCE.getResultData_Value();
-
-    /**
      * The meta object literal for the '{@link org.osate.results.results.impl.ResultReportImpl <em>Result Report</em>}' class.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
@@ -1005,14 +935,6 @@ public interface ResultsPackage extends EPackage
      * @generated
      */
     EClass RESULT_REPORT = eINSTANCE.getResultReport();
-
-    /**
-     * The meta object literal for the '<em><b>Name</b></em>' attribute feature.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
-    EAttribute RESULT_REPORT__NAME = eINSTANCE.getResultReport_Name();
 
     /**
      * The meta object literal for the '<em><b>Title</b></em>' attribute feature.
@@ -1065,12 +987,28 @@ public interface ResultsPackage extends EPackage
     EClass RESULT_CONTRIBUTOR = eINSTANCE.getResultContributor();
 
     /**
-     * The meta object literal for the '<em><b>Cell</b></em>' attribute list feature.
+     * The meta object literal for the '<em><b>Target</b></em>' reference feature.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @generated
      */
-    EAttribute RESULT_CONTRIBUTOR__CELL = eINSTANCE.getResultContributor_Cell();
+    EReference RESULT_CONTRIBUTOR__TARGET = eINSTANCE.getResultContributor_Target();
+
+    /**
+     * The meta object literal for the '<em><b>Result Data</b></em>' containment reference list feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EReference RESULT_CONTRIBUTOR__RESULT_DATA = eINSTANCE.getResultContributor_ResultData();
+
+    /**
+     * The meta object literal for the '<em><b>Issues</b></em>' containment reference list feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EReference RESULT_CONTRIBUTOR__ISSUES = eINSTANCE.getResultContributor_Issues();
 
     /**
      * The meta object literal for the '<em><b>Subcontributor</b></em>' containment reference list feature.
@@ -1081,14 +1019,98 @@ public interface ResultsPackage extends EPackage
     EReference RESULT_CONTRIBUTOR__SUBCONTRIBUTOR = eINSTANCE.getResultContributor_Subcontributor();
 
     /**
-     * The meta object literal for the '{@link org.osate.results.results.impl.IssueReportImpl <em>Issue Report</em>}' class.
+     * The meta object literal for the '{@link org.osate.results.results.impl.IssuesReportImpl <em>Issues Report</em>}' class.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @see org.osate.results.results.impl.IssueReportImpl
-     * @see org.osate.results.results.impl.ResultsPackageImpl#getIssueReport()
+     * @see org.osate.results.results.impl.IssuesReportImpl
+     * @see org.osate.results.results.impl.ResultsPackageImpl#getIssuesReport()
      * @generated
      */
-    EClass ISSUE_REPORT = eINSTANCE.getIssueReport();
+    EClass ISSUES_REPORT = eINSTANCE.getIssuesReport();
+
+    /**
+     * The meta object literal for the '<em><b>Description</b></em>' attribute feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EAttribute ISSUES_REPORT__DESCRIPTION = eINSTANCE.getIssuesReport_Description();
+
+    /**
+     * The meta object literal for the '{@link org.osate.results.results.impl.ResultIssueImpl <em>Result Issue</em>}' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see org.osate.results.results.impl.ResultIssueImpl
+     * @see org.osate.results.results.impl.ResultsPackageImpl#getResultIssue()
+     * @generated
+     */
+    EClass RESULT_ISSUE = eINSTANCE.getResultIssue();
+
+    /**
+     * The meta object literal for the '<em><b>Issue Type</b></em>' attribute feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EAttribute RESULT_ISSUE__ISSUE_TYPE = eINSTANCE.getResultIssue_IssueType();
+
+    /**
+     * The meta object literal for the '<em><b>Message</b></em>' attribute feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EAttribute RESULT_ISSUE__MESSAGE = eINSTANCE.getResultIssue_Message();
+
+    /**
+     * The meta object literal for the '<em><b>Target</b></em>' reference feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EReference RESULT_ISSUE__TARGET = eINSTANCE.getResultIssue_Target();
+
+    /**
+     * The meta object literal for the '<em><b>Exception Type</b></em>' attribute feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EAttribute RESULT_ISSUE__EXCEPTION_TYPE = eINSTANCE.getResultIssue_ExceptionType();
+
+    /**
+     * The meta object literal for the '<em><b>Issues</b></em>' containment reference list feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EReference RESULT_ISSUE__ISSUES = eINSTANCE.getResultIssue_Issues();
+
+    /**
+     * The meta object literal for the '{@link org.osate.results.results.impl.ResultDataImpl <em>Result Data</em>}' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see org.osate.results.results.impl.ResultDataImpl
+     * @see org.osate.results.results.impl.ResultsPackageImpl#getResultData()
+     * @generated
+     */
+    EClass RESULT_DATA = eINSTANCE.getResultData();
+
+    /**
+     * The meta object literal for the '<em><b>Name</b></em>' attribute feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EAttribute RESULT_DATA__NAME = eINSTANCE.getResultData_Name();
+
+    /**
+     * The meta object literal for the '<em><b>Value</b></em>' attribute feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EAttribute RESULT_DATA__VALUE = eINSTANCE.getResultData_Value();
 
     /**
      * The meta object literal for the '{@link org.osate.results.results.ResultIssueType <em>Result Issue Type</em>}' enum.

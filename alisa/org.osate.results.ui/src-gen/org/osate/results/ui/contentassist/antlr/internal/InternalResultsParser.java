@@ -37,7 +37,7 @@ import java.util.ArrayList;
 @SuppressWarnings("all")
 public class InternalResultsParser extends AbstractInternalContentAssistParser {
     public static final String[] tokenNames = new String[] {
-        "<invalid>", "<EOR>", "<DOWN>", "<UP>", "RULE_STRING", "RULE_ID", "RULE_INT", "RULE_ML_COMMENT", "RULE_SL_COMMENT", "RULE_WS", "RULE_ANY_OTHER", "'error'", "'warning'", "'info'", "'success'", "'fail'", "'unknown'", "'reports'", "'['", "'target'", "']'", "':'", "'description'", "'report'", "'exception'", "'heading'", "'results'", "'contributor'", "'data'", "'issues'", "'issue'", "'='"
+        "<invalid>", "<EOR>", "<DOWN>", "<UP>", "RULE_STRING", "RULE_ID", "RULE_INT", "RULE_ML_COMMENT", "RULE_SL_COMMENT", "RULE_WS", "RULE_ANY_OTHER", "'tbd'", "'unknown'", "'error'", "'warning'", "'info'", "'success'", "'fail'", "'reports'", "'for'", "'['", "']'", "':'", "'description'", "'report'", "'heading'", "'results'", "'contributor'", "'issues'", "'issue'", "'target'", "'exception'", "'='"
     };
     public static final int RULE_STRING=4;
     public static final int RULE_SL_COMMENT=8;
@@ -53,6 +53,7 @@ public class InternalResultsParser extends AbstractInternalContentAssistParser {
     public static final int EOF=-1;
     public static final int T__30=30;
     public static final int T__31=31;
+    public static final int T__32=32;
     public static final int RULE_ID=5;
     public static final int RULE_WS=9;
     public static final int RULE_ANY_OTHER=10;
@@ -414,21 +415,21 @@ public class InternalResultsParser extends AbstractInternalContentAssistParser {
     // $ANTLR end "ruleResultContributor"
 
 
-    // $ANTLR start "entryRuleIssueReport"
-    // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:184:1: entryRuleIssueReport : ruleIssueReport EOF ;
-    public final void entryRuleIssueReport() throws RecognitionException {
+    // $ANTLR start "entryRuleIssuesReport"
+    // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:184:1: entryRuleIssuesReport : ruleIssuesReport EOF ;
+    public final void entryRuleIssuesReport() throws RecognitionException {
         try {
-            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:185:1: ( ruleIssueReport EOF )
-            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:186:1: ruleIssueReport EOF
+            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:185:1: ( ruleIssuesReport EOF )
+            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:186:1: ruleIssuesReport EOF
             {
-             before(grammarAccess.getIssueReportRule()); 
-            pushFollow(FOLLOW_ruleIssueReport_in_entryRuleIssueReport301);
-            ruleIssueReport();
+             before(grammarAccess.getIssuesReportRule()); 
+            pushFollow(FOLLOW_ruleIssuesReport_in_entryRuleIssuesReport301);
+            ruleIssuesReport();
 
             state._fsp--;
 
-             after(grammarAccess.getIssueReportRule()); 
-            match(input,EOF,FOLLOW_EOF_in_entryRuleIssueReport308); 
+             after(grammarAccess.getIssuesReportRule()); 
+            match(input,EOF,FOLLOW_EOF_in_entryRuleIssuesReport308); 
 
             }
 
@@ -441,35 +442,35 @@ public class InternalResultsParser extends AbstractInternalContentAssistParser {
         }
         return ;
     }
-    // $ANTLR end "entryRuleIssueReport"
+    // $ANTLR end "entryRuleIssuesReport"
 
 
-    // $ANTLR start "ruleIssueReport"
-    // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:193:1: ruleIssueReport : ( ( rule__IssueReport__Group__0 ) ) ;
-    public final void ruleIssueReport() throws RecognitionException {
+    // $ANTLR start "ruleIssuesReport"
+    // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:193:1: ruleIssuesReport : ( ( rule__IssuesReport__Group__0 ) ) ;
+    public final void ruleIssuesReport() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:197:2: ( ( ( rule__IssueReport__Group__0 ) ) )
-            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:198:1: ( ( rule__IssueReport__Group__0 ) )
+            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:197:2: ( ( ( rule__IssuesReport__Group__0 ) ) )
+            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:198:1: ( ( rule__IssuesReport__Group__0 ) )
             {
-            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:198:1: ( ( rule__IssueReport__Group__0 ) )
-            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:199:1: ( rule__IssueReport__Group__0 )
+            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:198:1: ( ( rule__IssuesReport__Group__0 ) )
+            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:199:1: ( rule__IssuesReport__Group__0 )
             {
-             before(grammarAccess.getIssueReportAccess().getGroup()); 
-            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:200:1: ( rule__IssueReport__Group__0 )
-            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:200:2: rule__IssueReport__Group__0
+             before(grammarAccess.getIssuesReportAccess().getGroup()); 
+            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:200:1: ( rule__IssuesReport__Group__0 )
+            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:200:2: rule__IssuesReport__Group__0
             {
-            pushFollow(FOLLOW_rule__IssueReport__Group__0_in_ruleIssueReport334);
-            rule__IssueReport__Group__0();
+            pushFollow(FOLLOW_rule__IssuesReport__Group__0_in_ruleIssuesReport334);
+            rule__IssuesReport__Group__0();
 
             state._fsp--;
 
 
             }
 
-             after(grammarAccess.getIssueReportAccess().getGroup()); 
+             after(grammarAccess.getIssuesReportAccess().getGroup()); 
 
             }
 
@@ -488,7 +489,7 @@ public class InternalResultsParser extends AbstractInternalContentAssistParser {
         }
         return ;
     }
-    // $ANTLR end "ruleIssueReport"
+    // $ANTLR end "ruleIssuesReport"
 
 
     // $ANTLR start "entryRuleResultIssue"
@@ -760,26 +761,26 @@ public class InternalResultsParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__ResultReports__Alternatives"
-    // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:315:1: rule__ResultReports__Alternatives : ( ( ruleResultReport ) | ( ruleResultReportCollection ) | ( ruleIssueReport ) );
+    // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:315:1: rule__ResultReports__Alternatives : ( ( ruleResultReport ) | ( ruleResultReportCollection ) | ( ruleIssuesReport ) );
     public final void rule__ResultReports__Alternatives() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:319:1: ( ( ruleResultReport ) | ( ruleResultReportCollection ) | ( ruleIssueReport ) )
+            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:319:1: ( ( ruleResultReport ) | ( ruleResultReportCollection ) | ( ruleIssuesReport ) )
             int alt1=3;
             switch ( input.LA(1) ) {
-            case 23:
+            case 24:
                 {
                 alt1=1;
                 }
                 break;
-            case 17:
+            case 18:
                 {
                 alt1=2;
                 }
                 break;
-            case 29:
+            case 28:
                 {
                 alt1=3;
                 }
@@ -831,18 +832,18 @@ public class InternalResultsParser extends AbstractInternalContentAssistParser {
                     }
                     break;
                 case 3 :
-                    // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:332:6: ( ruleIssueReport )
+                    // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:332:6: ( ruleIssuesReport )
                     {
-                    // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:332:6: ( ruleIssueReport )
-                    // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:333:1: ruleIssueReport
+                    // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:332:6: ( ruleIssuesReport )
+                    // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:333:1: ruleIssuesReport
                     {
-                     before(grammarAccess.getResultReportsAccess().getIssueReportParserRuleCall_2()); 
-                    pushFollow(FOLLOW_ruleIssueReport_in_rule__ResultReports__Alternatives619);
-                    ruleIssueReport();
+                     before(grammarAccess.getResultReportsAccess().getIssuesReportParserRuleCall_2()); 
+                    pushFollow(FOLLOW_ruleIssuesReport_in_rule__ResultReports__Alternatives619);
+                    ruleIssuesReport();
 
                     state._fsp--;
 
-                     after(grammarAccess.getResultReportsAccess().getIssueReportParserRuleCall_2()); 
+                     after(grammarAccess.getResultReportsAccess().getIssuesReportParserRuleCall_2()); 
 
                     }
 
@@ -867,14 +868,14 @@ public class InternalResultsParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__ResultIssueType__Alternatives"
-    // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:343:1: rule__ResultIssueType__Alternatives : ( ( ( 'error' ) ) | ( ( 'warning' ) ) | ( ( 'info' ) ) | ( ( 'success' ) ) | ( ( 'fail' ) ) | ( ( 'unknown' ) ) );
+    // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:343:1: rule__ResultIssueType__Alternatives : ( ( ( 'tbd' ) ) | ( ( 'unknown' ) ) | ( ( 'error' ) ) | ( ( 'warning' ) ) | ( ( 'info' ) ) | ( ( 'success' ) ) | ( ( 'fail' ) ) );
     public final void rule__ResultIssueType__Alternatives() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:347:1: ( ( ( 'error' ) ) | ( ( 'warning' ) ) | ( ( 'info' ) ) | ( ( 'success' ) ) | ( ( 'fail' ) ) | ( ( 'unknown' ) ) )
-            int alt2=6;
+            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:347:1: ( ( ( 'tbd' ) ) | ( ( 'unknown' ) ) | ( ( 'error' ) ) | ( ( 'warning' ) ) | ( ( 'info' ) ) | ( ( 'success' ) ) | ( ( 'fail' ) ) )
+            int alt2=7;
             switch ( input.LA(1) ) {
             case 11:
                 {
@@ -906,6 +907,11 @@ public class InternalResultsParser extends AbstractInternalContentAssistParser {
                 alt2=6;
                 }
                 break;
+            case 17:
+                {
+                alt2=7;
+                }
+                break;
             default:
                 NoViableAltException nvae =
                     new NoViableAltException("", 2, 0, input);
@@ -915,20 +921,20 @@ public class InternalResultsParser extends AbstractInternalContentAssistParser {
 
             switch (alt2) {
                 case 1 :
-                    // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:348:1: ( ( 'error' ) )
+                    // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:348:1: ( ( 'tbd' ) )
                     {
-                    // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:348:1: ( ( 'error' ) )
-                    // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:349:1: ( 'error' )
+                    // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:348:1: ( ( 'tbd' ) )
+                    // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:349:1: ( 'tbd' )
                     {
-                     before(grammarAccess.getResultIssueTypeAccess().getERROREnumLiteralDeclaration_0()); 
-                    // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:350:1: ( 'error' )
-                    // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:350:3: 'error'
+                     before(grammarAccess.getResultIssueTypeAccess().getTBDEnumLiteralDeclaration_0()); 
+                    // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:350:1: ( 'tbd' )
+                    // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:350:3: 'tbd'
                     {
                     match(input,11,FOLLOW_11_in_rule__ResultIssueType__Alternatives652); 
 
                     }
 
-                     after(grammarAccess.getResultIssueTypeAccess().getERROREnumLiteralDeclaration_0()); 
+                     after(grammarAccess.getResultIssueTypeAccess().getTBDEnumLiteralDeclaration_0()); 
 
                     }
 
@@ -936,20 +942,20 @@ public class InternalResultsParser extends AbstractInternalContentAssistParser {
                     }
                     break;
                 case 2 :
-                    // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:355:6: ( ( 'warning' ) )
+                    // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:355:6: ( ( 'unknown' ) )
                     {
-                    // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:355:6: ( ( 'warning' ) )
-                    // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:356:1: ( 'warning' )
+                    // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:355:6: ( ( 'unknown' ) )
+                    // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:356:1: ( 'unknown' )
                     {
-                     before(grammarAccess.getResultIssueTypeAccess().getWARNINGEnumLiteralDeclaration_1()); 
-                    // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:357:1: ( 'warning' )
-                    // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:357:3: 'warning'
+                     before(grammarAccess.getResultIssueTypeAccess().getUNKNOWNEnumLiteralDeclaration_1()); 
+                    // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:357:1: ( 'unknown' )
+                    // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:357:3: 'unknown'
                     {
                     match(input,12,FOLLOW_12_in_rule__ResultIssueType__Alternatives673); 
 
                     }
 
-                     after(grammarAccess.getResultIssueTypeAccess().getWARNINGEnumLiteralDeclaration_1()); 
+                     after(grammarAccess.getResultIssueTypeAccess().getUNKNOWNEnumLiteralDeclaration_1()); 
 
                     }
 
@@ -957,20 +963,20 @@ public class InternalResultsParser extends AbstractInternalContentAssistParser {
                     }
                     break;
                 case 3 :
-                    // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:362:6: ( ( 'info' ) )
+                    // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:362:6: ( ( 'error' ) )
                     {
-                    // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:362:6: ( ( 'info' ) )
-                    // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:363:1: ( 'info' )
+                    // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:362:6: ( ( 'error' ) )
+                    // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:363:1: ( 'error' )
                     {
-                     before(grammarAccess.getResultIssueTypeAccess().getINFOEnumLiteralDeclaration_2()); 
-                    // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:364:1: ( 'info' )
-                    // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:364:3: 'info'
+                     before(grammarAccess.getResultIssueTypeAccess().getERROREnumLiteralDeclaration_2()); 
+                    // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:364:1: ( 'error' )
+                    // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:364:3: 'error'
                     {
                     match(input,13,FOLLOW_13_in_rule__ResultIssueType__Alternatives694); 
 
                     }
 
-                     after(grammarAccess.getResultIssueTypeAccess().getINFOEnumLiteralDeclaration_2()); 
+                     after(grammarAccess.getResultIssueTypeAccess().getERROREnumLiteralDeclaration_2()); 
 
                     }
 
@@ -978,20 +984,20 @@ public class InternalResultsParser extends AbstractInternalContentAssistParser {
                     }
                     break;
                 case 4 :
-                    // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:369:6: ( ( 'success' ) )
+                    // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:369:6: ( ( 'warning' ) )
                     {
-                    // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:369:6: ( ( 'success' ) )
-                    // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:370:1: ( 'success' )
+                    // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:369:6: ( ( 'warning' ) )
+                    // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:370:1: ( 'warning' )
                     {
-                     before(grammarAccess.getResultIssueTypeAccess().getSUCCESSEnumLiteralDeclaration_3()); 
-                    // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:371:1: ( 'success' )
-                    // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:371:3: 'success'
+                     before(grammarAccess.getResultIssueTypeAccess().getWARNINGEnumLiteralDeclaration_3()); 
+                    // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:371:1: ( 'warning' )
+                    // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:371:3: 'warning'
                     {
                     match(input,14,FOLLOW_14_in_rule__ResultIssueType__Alternatives715); 
 
                     }
 
-                     after(grammarAccess.getResultIssueTypeAccess().getSUCCESSEnumLiteralDeclaration_3()); 
+                     after(grammarAccess.getResultIssueTypeAccess().getWARNINGEnumLiteralDeclaration_3()); 
 
                     }
 
@@ -999,20 +1005,20 @@ public class InternalResultsParser extends AbstractInternalContentAssistParser {
                     }
                     break;
                 case 5 :
-                    // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:376:6: ( ( 'fail' ) )
+                    // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:376:6: ( ( 'info' ) )
                     {
-                    // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:376:6: ( ( 'fail' ) )
-                    // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:377:1: ( 'fail' )
+                    // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:376:6: ( ( 'info' ) )
+                    // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:377:1: ( 'info' )
                     {
-                     before(grammarAccess.getResultIssueTypeAccess().getFAILEnumLiteralDeclaration_4()); 
-                    // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:378:1: ( 'fail' )
-                    // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:378:3: 'fail'
+                     before(grammarAccess.getResultIssueTypeAccess().getINFOEnumLiteralDeclaration_4()); 
+                    // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:378:1: ( 'info' )
+                    // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:378:3: 'info'
                     {
                     match(input,15,FOLLOW_15_in_rule__ResultIssueType__Alternatives736); 
 
                     }
 
-                     after(grammarAccess.getResultIssueTypeAccess().getFAILEnumLiteralDeclaration_4()); 
+                     after(grammarAccess.getResultIssueTypeAccess().getINFOEnumLiteralDeclaration_4()); 
 
                     }
 
@@ -1020,20 +1026,41 @@ public class InternalResultsParser extends AbstractInternalContentAssistParser {
                     }
                     break;
                 case 6 :
-                    // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:383:6: ( ( 'unknown' ) )
+                    // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:383:6: ( ( 'success' ) )
                     {
-                    // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:383:6: ( ( 'unknown' ) )
-                    // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:384:1: ( 'unknown' )
+                    // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:383:6: ( ( 'success' ) )
+                    // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:384:1: ( 'success' )
                     {
-                     before(grammarAccess.getResultIssueTypeAccess().getUNKNOWNEnumLiteralDeclaration_5()); 
-                    // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:385:1: ( 'unknown' )
-                    // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:385:3: 'unknown'
+                     before(grammarAccess.getResultIssueTypeAccess().getSUCCESSEnumLiteralDeclaration_5()); 
+                    // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:385:1: ( 'success' )
+                    // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:385:3: 'success'
                     {
                     match(input,16,FOLLOW_16_in_rule__ResultIssueType__Alternatives757); 
 
                     }
 
-                     after(grammarAccess.getResultIssueTypeAccess().getUNKNOWNEnumLiteralDeclaration_5()); 
+                     after(grammarAccess.getResultIssueTypeAccess().getSUCCESSEnumLiteralDeclaration_5()); 
+
+                    }
+
+
+                    }
+                    break;
+                case 7 :
+                    // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:390:6: ( ( 'fail' ) )
+                    {
+                    // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:390:6: ( ( 'fail' ) )
+                    // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:391:1: ( 'fail' )
+                    {
+                     before(grammarAccess.getResultIssueTypeAccess().getFAILEnumLiteralDeclaration_6()); 
+                    // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:392:1: ( 'fail' )
+                    // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:392:3: 'fail'
+                    {
+                    match(input,17,FOLLOW_17_in_rule__ResultIssueType__Alternatives778); 
+
+                    }
+
+                     after(grammarAccess.getResultIssueTypeAccess().getFAILEnumLiteralDeclaration_6()); 
 
                     }
 
@@ -1058,21 +1085,21 @@ public class InternalResultsParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__ResultReportCollection__Group__0"
-    // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:397:1: rule__ResultReportCollection__Group__0 : rule__ResultReportCollection__Group__0__Impl rule__ResultReportCollection__Group__1 ;
+    // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:404:1: rule__ResultReportCollection__Group__0 : rule__ResultReportCollection__Group__0__Impl rule__ResultReportCollection__Group__1 ;
     public final void rule__ResultReportCollection__Group__0() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:401:1: ( rule__ResultReportCollection__Group__0__Impl rule__ResultReportCollection__Group__1 )
-            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:402:2: rule__ResultReportCollection__Group__0__Impl rule__ResultReportCollection__Group__1
+            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:408:1: ( rule__ResultReportCollection__Group__0__Impl rule__ResultReportCollection__Group__1 )
+            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:409:2: rule__ResultReportCollection__Group__0__Impl rule__ResultReportCollection__Group__1
             {
-            pushFollow(FOLLOW_rule__ResultReportCollection__Group__0__Impl_in_rule__ResultReportCollection__Group__0790);
+            pushFollow(FOLLOW_rule__ResultReportCollection__Group__0__Impl_in_rule__ResultReportCollection__Group__0811);
             rule__ResultReportCollection__Group__0__Impl();
 
             state._fsp--;
 
-            pushFollow(FOLLOW_rule__ResultReportCollection__Group__1_in_rule__ResultReportCollection__Group__0793);
+            pushFollow(FOLLOW_rule__ResultReportCollection__Group__1_in_rule__ResultReportCollection__Group__0814);
             rule__ResultReportCollection__Group__1();
 
             state._fsp--;
@@ -1096,20 +1123,20 @@ public class InternalResultsParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__ResultReportCollection__Group__0__Impl"
-    // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:409:1: rule__ResultReportCollection__Group__0__Impl : ( 'reports' ) ;
+    // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:416:1: rule__ResultReportCollection__Group__0__Impl : ( 'reports' ) ;
     public final void rule__ResultReportCollection__Group__0__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:413:1: ( ( 'reports' ) )
-            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:414:1: ( 'reports' )
+            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:420:1: ( ( 'reports' ) )
+            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:421:1: ( 'reports' )
             {
-            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:414:1: ( 'reports' )
-            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:415:1: 'reports'
+            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:421:1: ( 'reports' )
+            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:422:1: 'reports'
             {
              before(grammarAccess.getResultReportCollectionAccess().getReportsKeyword_0()); 
-            match(input,17,FOLLOW_17_in_rule__ResultReportCollection__Group__0__Impl821); 
+            match(input,18,FOLLOW_18_in_rule__ResultReportCollection__Group__0__Impl842); 
              after(grammarAccess.getResultReportCollectionAccess().getReportsKeyword_0()); 
 
             }
@@ -1133,21 +1160,21 @@ public class InternalResultsParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__ResultReportCollection__Group__1"
-    // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:428:1: rule__ResultReportCollection__Group__1 : rule__ResultReportCollection__Group__1__Impl rule__ResultReportCollection__Group__2 ;
+    // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:435:1: rule__ResultReportCollection__Group__1 : rule__ResultReportCollection__Group__1__Impl rule__ResultReportCollection__Group__2 ;
     public final void rule__ResultReportCollection__Group__1() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:432:1: ( rule__ResultReportCollection__Group__1__Impl rule__ResultReportCollection__Group__2 )
-            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:433:2: rule__ResultReportCollection__Group__1__Impl rule__ResultReportCollection__Group__2
+            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:439:1: ( rule__ResultReportCollection__Group__1__Impl rule__ResultReportCollection__Group__2 )
+            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:440:2: rule__ResultReportCollection__Group__1__Impl rule__ResultReportCollection__Group__2
             {
-            pushFollow(FOLLOW_rule__ResultReportCollection__Group__1__Impl_in_rule__ResultReportCollection__Group__1852);
+            pushFollow(FOLLOW_rule__ResultReportCollection__Group__1__Impl_in_rule__ResultReportCollection__Group__1873);
             rule__ResultReportCollection__Group__1__Impl();
 
             state._fsp--;
 
-            pushFollow(FOLLOW_rule__ResultReportCollection__Group__2_in_rule__ResultReportCollection__Group__1855);
+            pushFollow(FOLLOW_rule__ResultReportCollection__Group__2_in_rule__ResultReportCollection__Group__1876);
             rule__ResultReportCollection__Group__2();
 
             state._fsp--;
@@ -1171,23 +1198,23 @@ public class InternalResultsParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__ResultReportCollection__Group__1__Impl"
-    // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:440:1: rule__ResultReportCollection__Group__1__Impl : ( ( rule__ResultReportCollection__NameAssignment_1 ) ) ;
+    // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:447:1: rule__ResultReportCollection__Group__1__Impl : ( ( rule__ResultReportCollection__NameAssignment_1 ) ) ;
     public final void rule__ResultReportCollection__Group__1__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:444:1: ( ( ( rule__ResultReportCollection__NameAssignment_1 ) ) )
-            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:445:1: ( ( rule__ResultReportCollection__NameAssignment_1 ) )
+            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:451:1: ( ( ( rule__ResultReportCollection__NameAssignment_1 ) ) )
+            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:452:1: ( ( rule__ResultReportCollection__NameAssignment_1 ) )
             {
-            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:445:1: ( ( rule__ResultReportCollection__NameAssignment_1 ) )
-            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:446:1: ( rule__ResultReportCollection__NameAssignment_1 )
+            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:452:1: ( ( rule__ResultReportCollection__NameAssignment_1 ) )
+            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:453:1: ( rule__ResultReportCollection__NameAssignment_1 )
             {
              before(grammarAccess.getResultReportCollectionAccess().getNameAssignment_1()); 
-            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:447:1: ( rule__ResultReportCollection__NameAssignment_1 )
-            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:447:2: rule__ResultReportCollection__NameAssignment_1
+            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:454:1: ( rule__ResultReportCollection__NameAssignment_1 )
+            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:454:2: rule__ResultReportCollection__NameAssignment_1
             {
-            pushFollow(FOLLOW_rule__ResultReportCollection__NameAssignment_1_in_rule__ResultReportCollection__Group__1__Impl882);
+            pushFollow(FOLLOW_rule__ResultReportCollection__NameAssignment_1_in_rule__ResultReportCollection__Group__1__Impl903);
             rule__ResultReportCollection__NameAssignment_1();
 
             state._fsp--;
@@ -1218,21 +1245,21 @@ public class InternalResultsParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__ResultReportCollection__Group__2"
-    // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:457:1: rule__ResultReportCollection__Group__2 : rule__ResultReportCollection__Group__2__Impl rule__ResultReportCollection__Group__3 ;
+    // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:464:1: rule__ResultReportCollection__Group__2 : rule__ResultReportCollection__Group__2__Impl rule__ResultReportCollection__Group__3 ;
     public final void rule__ResultReportCollection__Group__2() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:461:1: ( rule__ResultReportCollection__Group__2__Impl rule__ResultReportCollection__Group__3 )
-            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:462:2: rule__ResultReportCollection__Group__2__Impl rule__ResultReportCollection__Group__3
+            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:468:1: ( rule__ResultReportCollection__Group__2__Impl rule__ResultReportCollection__Group__3 )
+            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:469:2: rule__ResultReportCollection__Group__2__Impl rule__ResultReportCollection__Group__3
             {
-            pushFollow(FOLLOW_rule__ResultReportCollection__Group__2__Impl_in_rule__ResultReportCollection__Group__2912);
+            pushFollow(FOLLOW_rule__ResultReportCollection__Group__2__Impl_in_rule__ResultReportCollection__Group__2933);
             rule__ResultReportCollection__Group__2__Impl();
 
             state._fsp--;
 
-            pushFollow(FOLLOW_rule__ResultReportCollection__Group__3_in_rule__ResultReportCollection__Group__2915);
+            pushFollow(FOLLOW_rule__ResultReportCollection__Group__3_in_rule__ResultReportCollection__Group__2936);
             rule__ResultReportCollection__Group__3();
 
             state._fsp--;
@@ -1256,31 +1283,31 @@ public class InternalResultsParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__ResultReportCollection__Group__2__Impl"
-    // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:469:1: rule__ResultReportCollection__Group__2__Impl : ( ( rule__ResultReportCollection__Group_2__0 )? ) ;
+    // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:476:1: rule__ResultReportCollection__Group__2__Impl : ( ( rule__ResultReportCollection__Group_2__0 )? ) ;
     public final void rule__ResultReportCollection__Group__2__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:473:1: ( ( ( rule__ResultReportCollection__Group_2__0 )? ) )
-            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:474:1: ( ( rule__ResultReportCollection__Group_2__0 )? )
+            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:480:1: ( ( ( rule__ResultReportCollection__Group_2__0 )? ) )
+            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:481:1: ( ( rule__ResultReportCollection__Group_2__0 )? )
             {
-            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:474:1: ( ( rule__ResultReportCollection__Group_2__0 )? )
-            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:475:1: ( rule__ResultReportCollection__Group_2__0 )?
+            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:481:1: ( ( rule__ResultReportCollection__Group_2__0 )? )
+            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:482:1: ( rule__ResultReportCollection__Group_2__0 )?
             {
              before(grammarAccess.getResultReportCollectionAccess().getGroup_2()); 
-            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:476:1: ( rule__ResultReportCollection__Group_2__0 )?
+            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:483:1: ( rule__ResultReportCollection__Group_2__0 )?
             int alt3=2;
             int LA3_0 = input.LA(1);
 
-            if ( (LA3_0==21) ) {
+            if ( (LA3_0==22) ) {
                 alt3=1;
             }
             switch (alt3) {
                 case 1 :
-                    // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:476:2: rule__ResultReportCollection__Group_2__0
+                    // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:483:2: rule__ResultReportCollection__Group_2__0
                     {
-                    pushFollow(FOLLOW_rule__ResultReportCollection__Group_2__0_in_rule__ResultReportCollection__Group__2__Impl942);
+                    pushFollow(FOLLOW_rule__ResultReportCollection__Group_2__0_in_rule__ResultReportCollection__Group__2__Impl963);
                     rule__ResultReportCollection__Group_2__0();
 
                     state._fsp--;
@@ -1314,21 +1341,21 @@ public class InternalResultsParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__ResultReportCollection__Group__3"
-    // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:486:1: rule__ResultReportCollection__Group__3 : rule__ResultReportCollection__Group__3__Impl rule__ResultReportCollection__Group__4 ;
+    // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:493:1: rule__ResultReportCollection__Group__3 : rule__ResultReportCollection__Group__3__Impl rule__ResultReportCollection__Group__4 ;
     public final void rule__ResultReportCollection__Group__3() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:490:1: ( rule__ResultReportCollection__Group__3__Impl rule__ResultReportCollection__Group__4 )
-            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:491:2: rule__ResultReportCollection__Group__3__Impl rule__ResultReportCollection__Group__4
+            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:497:1: ( rule__ResultReportCollection__Group__3__Impl rule__ResultReportCollection__Group__4 )
+            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:498:2: rule__ResultReportCollection__Group__3__Impl rule__ResultReportCollection__Group__4
             {
-            pushFollow(FOLLOW_rule__ResultReportCollection__Group__3__Impl_in_rule__ResultReportCollection__Group__3973);
+            pushFollow(FOLLOW_rule__ResultReportCollection__Group__3__Impl_in_rule__ResultReportCollection__Group__3994);
             rule__ResultReportCollection__Group__3__Impl();
 
             state._fsp--;
 
-            pushFollow(FOLLOW_rule__ResultReportCollection__Group__4_in_rule__ResultReportCollection__Group__3976);
+            pushFollow(FOLLOW_rule__ResultReportCollection__Group__4_in_rule__ResultReportCollection__Group__3997);
             rule__ResultReportCollection__Group__4();
 
             state._fsp--;
@@ -1352,21 +1379,21 @@ public class InternalResultsParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__ResultReportCollection__Group__3__Impl"
-    // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:498:1: rule__ResultReportCollection__Group__3__Impl : ( '[' ) ;
+    // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:505:1: rule__ResultReportCollection__Group__3__Impl : ( 'for' ) ;
     public final void rule__ResultReportCollection__Group__3__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:502:1: ( ( '[' ) )
-            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:503:1: ( '[' )
+            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:509:1: ( ( 'for' ) )
+            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:510:1: ( 'for' )
             {
-            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:503:1: ( '[' )
-            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:504:1: '['
+            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:510:1: ( 'for' )
+            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:511:1: 'for'
             {
-             before(grammarAccess.getResultReportCollectionAccess().getLeftSquareBracketKeyword_3()); 
-            match(input,18,FOLLOW_18_in_rule__ResultReportCollection__Group__3__Impl1004); 
-             after(grammarAccess.getResultReportCollectionAccess().getLeftSquareBracketKeyword_3()); 
+             before(grammarAccess.getResultReportCollectionAccess().getForKeyword_3()); 
+            match(input,19,FOLLOW_19_in_rule__ResultReportCollection__Group__3__Impl1025); 
+             after(grammarAccess.getResultReportCollectionAccess().getForKeyword_3()); 
 
             }
 
@@ -1389,21 +1416,21 @@ public class InternalResultsParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__ResultReportCollection__Group__4"
-    // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:517:1: rule__ResultReportCollection__Group__4 : rule__ResultReportCollection__Group__4__Impl rule__ResultReportCollection__Group__5 ;
+    // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:524:1: rule__ResultReportCollection__Group__4 : rule__ResultReportCollection__Group__4__Impl rule__ResultReportCollection__Group__5 ;
     public final void rule__ResultReportCollection__Group__4() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:521:1: ( rule__ResultReportCollection__Group__4__Impl rule__ResultReportCollection__Group__5 )
-            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:522:2: rule__ResultReportCollection__Group__4__Impl rule__ResultReportCollection__Group__5
+            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:528:1: ( rule__ResultReportCollection__Group__4__Impl rule__ResultReportCollection__Group__5 )
+            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:529:2: rule__ResultReportCollection__Group__4__Impl rule__ResultReportCollection__Group__5
             {
-            pushFollow(FOLLOW_rule__ResultReportCollection__Group__4__Impl_in_rule__ResultReportCollection__Group__41035);
+            pushFollow(FOLLOW_rule__ResultReportCollection__Group__4__Impl_in_rule__ResultReportCollection__Group__41056);
             rule__ResultReportCollection__Group__4__Impl();
 
             state._fsp--;
 
-            pushFollow(FOLLOW_rule__ResultReportCollection__Group__5_in_rule__ResultReportCollection__Group__41038);
+            pushFollow(FOLLOW_rule__ResultReportCollection__Group__5_in_rule__ResultReportCollection__Group__41059);
             rule__ResultReportCollection__Group__5();
 
             state._fsp--;
@@ -1427,21 +1454,31 @@ public class InternalResultsParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__ResultReportCollection__Group__4__Impl"
-    // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:529:1: rule__ResultReportCollection__Group__4__Impl : ( 'target' ) ;
+    // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:536:1: rule__ResultReportCollection__Group__4__Impl : ( ( rule__ResultReportCollection__TargetAssignment_4 ) ) ;
     public final void rule__ResultReportCollection__Group__4__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:533:1: ( ( 'target' ) )
-            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:534:1: ( 'target' )
+            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:540:1: ( ( ( rule__ResultReportCollection__TargetAssignment_4 ) ) )
+            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:541:1: ( ( rule__ResultReportCollection__TargetAssignment_4 ) )
             {
-            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:534:1: ( 'target' )
-            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:535:1: 'target'
+            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:541:1: ( ( rule__ResultReportCollection__TargetAssignment_4 ) )
+            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:542:1: ( rule__ResultReportCollection__TargetAssignment_4 )
             {
-             before(grammarAccess.getResultReportCollectionAccess().getTargetKeyword_4()); 
-            match(input,19,FOLLOW_19_in_rule__ResultReportCollection__Group__4__Impl1066); 
-             after(grammarAccess.getResultReportCollectionAccess().getTargetKeyword_4()); 
+             before(grammarAccess.getResultReportCollectionAccess().getTargetAssignment_4()); 
+            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:543:1: ( rule__ResultReportCollection__TargetAssignment_4 )
+            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:543:2: rule__ResultReportCollection__TargetAssignment_4
+            {
+            pushFollow(FOLLOW_rule__ResultReportCollection__TargetAssignment_4_in_rule__ResultReportCollection__Group__4__Impl1086);
+            rule__ResultReportCollection__TargetAssignment_4();
+
+            state._fsp--;
+
+
+            }
+
+             after(grammarAccess.getResultReportCollectionAccess().getTargetAssignment_4()); 
 
             }
 
@@ -1464,21 +1501,21 @@ public class InternalResultsParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__ResultReportCollection__Group__5"
-    // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:548:1: rule__ResultReportCollection__Group__5 : rule__ResultReportCollection__Group__5__Impl rule__ResultReportCollection__Group__6 ;
+    // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:553:1: rule__ResultReportCollection__Group__5 : rule__ResultReportCollection__Group__5__Impl rule__ResultReportCollection__Group__6 ;
     public final void rule__ResultReportCollection__Group__5() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:552:1: ( rule__ResultReportCollection__Group__5__Impl rule__ResultReportCollection__Group__6 )
-            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:553:2: rule__ResultReportCollection__Group__5__Impl rule__ResultReportCollection__Group__6
+            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:557:1: ( rule__ResultReportCollection__Group__5__Impl rule__ResultReportCollection__Group__6 )
+            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:558:2: rule__ResultReportCollection__Group__5__Impl rule__ResultReportCollection__Group__6
             {
-            pushFollow(FOLLOW_rule__ResultReportCollection__Group__5__Impl_in_rule__ResultReportCollection__Group__51097);
+            pushFollow(FOLLOW_rule__ResultReportCollection__Group__5__Impl_in_rule__ResultReportCollection__Group__51116);
             rule__ResultReportCollection__Group__5__Impl();
 
             state._fsp--;
 
-            pushFollow(FOLLOW_rule__ResultReportCollection__Group__6_in_rule__ResultReportCollection__Group__51100);
+            pushFollow(FOLLOW_rule__ResultReportCollection__Group__6_in_rule__ResultReportCollection__Group__51119);
             rule__ResultReportCollection__Group__6();
 
             state._fsp--;
@@ -1502,31 +1539,21 @@ public class InternalResultsParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__ResultReportCollection__Group__5__Impl"
-    // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:560:1: rule__ResultReportCollection__Group__5__Impl : ( ( rule__ResultReportCollection__TargetAssignment_5 ) ) ;
+    // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:565:1: rule__ResultReportCollection__Group__5__Impl : ( '[' ) ;
     public final void rule__ResultReportCollection__Group__5__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:564:1: ( ( ( rule__ResultReportCollection__TargetAssignment_5 ) ) )
-            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:565:1: ( ( rule__ResultReportCollection__TargetAssignment_5 ) )
+            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:569:1: ( ( '[' ) )
+            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:570:1: ( '[' )
             {
-            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:565:1: ( ( rule__ResultReportCollection__TargetAssignment_5 ) )
-            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:566:1: ( rule__ResultReportCollection__TargetAssignment_5 )
+            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:570:1: ( '[' )
+            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:571:1: '['
             {
-             before(grammarAccess.getResultReportCollectionAccess().getTargetAssignment_5()); 
-            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:567:1: ( rule__ResultReportCollection__TargetAssignment_5 )
-            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:567:2: rule__ResultReportCollection__TargetAssignment_5
-            {
-            pushFollow(FOLLOW_rule__ResultReportCollection__TargetAssignment_5_in_rule__ResultReportCollection__Group__5__Impl1127);
-            rule__ResultReportCollection__TargetAssignment_5();
-
-            state._fsp--;
-
-
-            }
-
-             after(grammarAccess.getResultReportCollectionAccess().getTargetAssignment_5()); 
+             before(grammarAccess.getResultReportCollectionAccess().getLeftSquareBracketKeyword_5()); 
+            match(input,20,FOLLOW_20_in_rule__ResultReportCollection__Group__5__Impl1147); 
+             after(grammarAccess.getResultReportCollectionAccess().getLeftSquareBracketKeyword_5()); 
 
             }
 
@@ -1549,21 +1576,21 @@ public class InternalResultsParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__ResultReportCollection__Group__6"
-    // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:577:1: rule__ResultReportCollection__Group__6 : rule__ResultReportCollection__Group__6__Impl rule__ResultReportCollection__Group__7 ;
+    // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:584:1: rule__ResultReportCollection__Group__6 : rule__ResultReportCollection__Group__6__Impl rule__ResultReportCollection__Group__7 ;
     public final void rule__ResultReportCollection__Group__6() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:581:1: ( rule__ResultReportCollection__Group__6__Impl rule__ResultReportCollection__Group__7 )
-            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:582:2: rule__ResultReportCollection__Group__6__Impl rule__ResultReportCollection__Group__7
+            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:588:1: ( rule__ResultReportCollection__Group__6__Impl rule__ResultReportCollection__Group__7 )
+            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:589:2: rule__ResultReportCollection__Group__6__Impl rule__ResultReportCollection__Group__7
             {
-            pushFollow(FOLLOW_rule__ResultReportCollection__Group__6__Impl_in_rule__ResultReportCollection__Group__61157);
+            pushFollow(FOLLOW_rule__ResultReportCollection__Group__6__Impl_in_rule__ResultReportCollection__Group__61178);
             rule__ResultReportCollection__Group__6__Impl();
 
             state._fsp--;
 
-            pushFollow(FOLLOW_rule__ResultReportCollection__Group__7_in_rule__ResultReportCollection__Group__61160);
+            pushFollow(FOLLOW_rule__ResultReportCollection__Group__7_in_rule__ResultReportCollection__Group__61181);
             rule__ResultReportCollection__Group__7();
 
             state._fsp--;
@@ -1587,31 +1614,31 @@ public class InternalResultsParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__ResultReportCollection__Group__6__Impl"
-    // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:589:1: rule__ResultReportCollection__Group__6__Impl : ( ( rule__ResultReportCollection__Group_6__0 )? ) ;
+    // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:596:1: rule__ResultReportCollection__Group__6__Impl : ( ( rule__ResultReportCollection__Group_6__0 )? ) ;
     public final void rule__ResultReportCollection__Group__6__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:593:1: ( ( ( rule__ResultReportCollection__Group_6__0 )? ) )
-            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:594:1: ( ( rule__ResultReportCollection__Group_6__0 )? )
+            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:600:1: ( ( ( rule__ResultReportCollection__Group_6__0 )? ) )
+            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:601:1: ( ( rule__ResultReportCollection__Group_6__0 )? )
             {
-            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:594:1: ( ( rule__ResultReportCollection__Group_6__0 )? )
-            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:595:1: ( rule__ResultReportCollection__Group_6__0 )?
+            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:601:1: ( ( rule__ResultReportCollection__Group_6__0 )? )
+            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:602:1: ( rule__ResultReportCollection__Group_6__0 )?
             {
              before(grammarAccess.getResultReportCollectionAccess().getGroup_6()); 
-            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:596:1: ( rule__ResultReportCollection__Group_6__0 )?
+            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:603:1: ( rule__ResultReportCollection__Group_6__0 )?
             int alt4=2;
             int LA4_0 = input.LA(1);
 
-            if ( (LA4_0==22) ) {
+            if ( (LA4_0==23) ) {
                 alt4=1;
             }
             switch (alt4) {
                 case 1 :
-                    // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:596:2: rule__ResultReportCollection__Group_6__0
+                    // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:603:2: rule__ResultReportCollection__Group_6__0
                     {
-                    pushFollow(FOLLOW_rule__ResultReportCollection__Group_6__0_in_rule__ResultReportCollection__Group__6__Impl1187);
+                    pushFollow(FOLLOW_rule__ResultReportCollection__Group_6__0_in_rule__ResultReportCollection__Group__6__Impl1208);
                     rule__ResultReportCollection__Group_6__0();
 
                     state._fsp--;
@@ -1645,21 +1672,21 @@ public class InternalResultsParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__ResultReportCollection__Group__7"
-    // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:606:1: rule__ResultReportCollection__Group__7 : rule__ResultReportCollection__Group__7__Impl rule__ResultReportCollection__Group__8 ;
+    // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:613:1: rule__ResultReportCollection__Group__7 : rule__ResultReportCollection__Group__7__Impl rule__ResultReportCollection__Group__8 ;
     public final void rule__ResultReportCollection__Group__7() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:610:1: ( rule__ResultReportCollection__Group__7__Impl rule__ResultReportCollection__Group__8 )
-            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:611:2: rule__ResultReportCollection__Group__7__Impl rule__ResultReportCollection__Group__8
+            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:617:1: ( rule__ResultReportCollection__Group__7__Impl rule__ResultReportCollection__Group__8 )
+            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:618:2: rule__ResultReportCollection__Group__7__Impl rule__ResultReportCollection__Group__8
             {
-            pushFollow(FOLLOW_rule__ResultReportCollection__Group__7__Impl_in_rule__ResultReportCollection__Group__71218);
+            pushFollow(FOLLOW_rule__ResultReportCollection__Group__7__Impl_in_rule__ResultReportCollection__Group__71239);
             rule__ResultReportCollection__Group__7__Impl();
 
             state._fsp--;
 
-            pushFollow(FOLLOW_rule__ResultReportCollection__Group__8_in_rule__ResultReportCollection__Group__71221);
+            pushFollow(FOLLOW_rule__ResultReportCollection__Group__8_in_rule__ResultReportCollection__Group__71242);
             rule__ResultReportCollection__Group__8();
 
             state._fsp--;
@@ -1683,35 +1710,35 @@ public class InternalResultsParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__ResultReportCollection__Group__7__Impl"
-    // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:618:1: rule__ResultReportCollection__Group__7__Impl : ( ( rule__ResultReportCollection__ContentAssignment_7 )* ) ;
+    // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:625:1: rule__ResultReportCollection__Group__7__Impl : ( ( rule__ResultReportCollection__ContentAssignment_7 )* ) ;
     public final void rule__ResultReportCollection__Group__7__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:622:1: ( ( ( rule__ResultReportCollection__ContentAssignment_7 )* ) )
-            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:623:1: ( ( rule__ResultReportCollection__ContentAssignment_7 )* )
+            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:629:1: ( ( ( rule__ResultReportCollection__ContentAssignment_7 )* ) )
+            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:630:1: ( ( rule__ResultReportCollection__ContentAssignment_7 )* )
             {
-            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:623:1: ( ( rule__ResultReportCollection__ContentAssignment_7 )* )
-            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:624:1: ( rule__ResultReportCollection__ContentAssignment_7 )*
+            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:630:1: ( ( rule__ResultReportCollection__ContentAssignment_7 )* )
+            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:631:1: ( rule__ResultReportCollection__ContentAssignment_7 )*
             {
              before(grammarAccess.getResultReportCollectionAccess().getContentAssignment_7()); 
-            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:625:1: ( rule__ResultReportCollection__ContentAssignment_7 )*
+            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:632:1: ( rule__ResultReportCollection__ContentAssignment_7 )*
             loop5:
             do {
                 int alt5=2;
                 int LA5_0 = input.LA(1);
 
-                if ( (LA5_0==23) ) {
+                if ( (LA5_0==24) ) {
                     alt5=1;
                 }
 
 
                 switch (alt5) {
             	case 1 :
-            	    // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:625:2: rule__ResultReportCollection__ContentAssignment_7
+            	    // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:632:2: rule__ResultReportCollection__ContentAssignment_7
             	    {
-            	    pushFollow(FOLLOW_rule__ResultReportCollection__ContentAssignment_7_in_rule__ResultReportCollection__Group__7__Impl1248);
+            	    pushFollow(FOLLOW_rule__ResultReportCollection__ContentAssignment_7_in_rule__ResultReportCollection__Group__7__Impl1269);
             	    rule__ResultReportCollection__ContentAssignment_7();
 
             	    state._fsp--;
@@ -1748,21 +1775,21 @@ public class InternalResultsParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__ResultReportCollection__Group__8"
-    // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:635:1: rule__ResultReportCollection__Group__8 : rule__ResultReportCollection__Group__8__Impl rule__ResultReportCollection__Group__9 ;
+    // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:642:1: rule__ResultReportCollection__Group__8 : rule__ResultReportCollection__Group__8__Impl rule__ResultReportCollection__Group__9 ;
     public final void rule__ResultReportCollection__Group__8() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:639:1: ( rule__ResultReportCollection__Group__8__Impl rule__ResultReportCollection__Group__9 )
-            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:640:2: rule__ResultReportCollection__Group__8__Impl rule__ResultReportCollection__Group__9
+            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:646:1: ( rule__ResultReportCollection__Group__8__Impl rule__ResultReportCollection__Group__9 )
+            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:647:2: rule__ResultReportCollection__Group__8__Impl rule__ResultReportCollection__Group__9
             {
-            pushFollow(FOLLOW_rule__ResultReportCollection__Group__8__Impl_in_rule__ResultReportCollection__Group__81279);
+            pushFollow(FOLLOW_rule__ResultReportCollection__Group__8__Impl_in_rule__ResultReportCollection__Group__81300);
             rule__ResultReportCollection__Group__8__Impl();
 
             state._fsp--;
 
-            pushFollow(FOLLOW_rule__ResultReportCollection__Group__9_in_rule__ResultReportCollection__Group__81282);
+            pushFollow(FOLLOW_rule__ResultReportCollection__Group__9_in_rule__ResultReportCollection__Group__81303);
             rule__ResultReportCollection__Group__9();
 
             state._fsp--;
@@ -1786,31 +1813,31 @@ public class InternalResultsParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__ResultReportCollection__Group__8__Impl"
-    // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:647:1: rule__ResultReportCollection__Group__8__Impl : ( ( rule__ResultReportCollection__IssuesAssignment_8 )? ) ;
+    // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:654:1: rule__ResultReportCollection__Group__8__Impl : ( ( rule__ResultReportCollection__IssuesAssignment_8 )? ) ;
     public final void rule__ResultReportCollection__Group__8__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:651:1: ( ( ( rule__ResultReportCollection__IssuesAssignment_8 )? ) )
-            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:652:1: ( ( rule__ResultReportCollection__IssuesAssignment_8 )? )
+            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:658:1: ( ( ( rule__ResultReportCollection__IssuesAssignment_8 )? ) )
+            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:659:1: ( ( rule__ResultReportCollection__IssuesAssignment_8 )? )
             {
-            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:652:1: ( ( rule__ResultReportCollection__IssuesAssignment_8 )? )
-            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:653:1: ( rule__ResultReportCollection__IssuesAssignment_8 )?
+            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:659:1: ( ( rule__ResultReportCollection__IssuesAssignment_8 )? )
+            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:660:1: ( rule__ResultReportCollection__IssuesAssignment_8 )?
             {
              before(grammarAccess.getResultReportCollectionAccess().getIssuesAssignment_8()); 
-            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:654:1: ( rule__ResultReportCollection__IssuesAssignment_8 )?
+            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:661:1: ( rule__ResultReportCollection__IssuesAssignment_8 )?
             int alt6=2;
             int LA6_0 = input.LA(1);
 
-            if ( (LA6_0==30) ) {
+            if ( (LA6_0==29) ) {
                 alt6=1;
             }
             switch (alt6) {
                 case 1 :
-                    // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:654:2: rule__ResultReportCollection__IssuesAssignment_8
+                    // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:661:2: rule__ResultReportCollection__IssuesAssignment_8
                     {
-                    pushFollow(FOLLOW_rule__ResultReportCollection__IssuesAssignment_8_in_rule__ResultReportCollection__Group__8__Impl1309);
+                    pushFollow(FOLLOW_rule__ResultReportCollection__IssuesAssignment_8_in_rule__ResultReportCollection__Group__8__Impl1330);
                     rule__ResultReportCollection__IssuesAssignment_8();
 
                     state._fsp--;
@@ -1844,16 +1871,16 @@ public class InternalResultsParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__ResultReportCollection__Group__9"
-    // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:664:1: rule__ResultReportCollection__Group__9 : rule__ResultReportCollection__Group__9__Impl ;
+    // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:671:1: rule__ResultReportCollection__Group__9 : rule__ResultReportCollection__Group__9__Impl ;
     public final void rule__ResultReportCollection__Group__9() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:668:1: ( rule__ResultReportCollection__Group__9__Impl )
-            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:669:2: rule__ResultReportCollection__Group__9__Impl
+            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:675:1: ( rule__ResultReportCollection__Group__9__Impl )
+            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:676:2: rule__ResultReportCollection__Group__9__Impl
             {
-            pushFollow(FOLLOW_rule__ResultReportCollection__Group__9__Impl_in_rule__ResultReportCollection__Group__91340);
+            pushFollow(FOLLOW_rule__ResultReportCollection__Group__9__Impl_in_rule__ResultReportCollection__Group__91361);
             rule__ResultReportCollection__Group__9__Impl();
 
             state._fsp--;
@@ -1877,20 +1904,20 @@ public class InternalResultsParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__ResultReportCollection__Group__9__Impl"
-    // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:675:1: rule__ResultReportCollection__Group__9__Impl : ( ']' ) ;
+    // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:682:1: rule__ResultReportCollection__Group__9__Impl : ( ']' ) ;
     public final void rule__ResultReportCollection__Group__9__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:679:1: ( ( ']' ) )
-            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:680:1: ( ']' )
+            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:686:1: ( ( ']' ) )
+            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:687:1: ( ']' )
             {
-            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:680:1: ( ']' )
-            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:681:1: ']'
+            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:687:1: ( ']' )
+            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:688:1: ']'
             {
              before(grammarAccess.getResultReportCollectionAccess().getRightSquareBracketKeyword_9()); 
-            match(input,20,FOLLOW_20_in_rule__ResultReportCollection__Group__9__Impl1368); 
+            match(input,21,FOLLOW_21_in_rule__ResultReportCollection__Group__9__Impl1389); 
              after(grammarAccess.getResultReportCollectionAccess().getRightSquareBracketKeyword_9()); 
 
             }
@@ -1914,21 +1941,21 @@ public class InternalResultsParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__ResultReportCollection__Group_2__0"
-    // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:714:1: rule__ResultReportCollection__Group_2__0 : rule__ResultReportCollection__Group_2__0__Impl rule__ResultReportCollection__Group_2__1 ;
+    // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:721:1: rule__ResultReportCollection__Group_2__0 : rule__ResultReportCollection__Group_2__0__Impl rule__ResultReportCollection__Group_2__1 ;
     public final void rule__ResultReportCollection__Group_2__0() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:718:1: ( rule__ResultReportCollection__Group_2__0__Impl rule__ResultReportCollection__Group_2__1 )
-            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:719:2: rule__ResultReportCollection__Group_2__0__Impl rule__ResultReportCollection__Group_2__1
+            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:725:1: ( rule__ResultReportCollection__Group_2__0__Impl rule__ResultReportCollection__Group_2__1 )
+            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:726:2: rule__ResultReportCollection__Group_2__0__Impl rule__ResultReportCollection__Group_2__1
             {
-            pushFollow(FOLLOW_rule__ResultReportCollection__Group_2__0__Impl_in_rule__ResultReportCollection__Group_2__01419);
+            pushFollow(FOLLOW_rule__ResultReportCollection__Group_2__0__Impl_in_rule__ResultReportCollection__Group_2__01440);
             rule__ResultReportCollection__Group_2__0__Impl();
 
             state._fsp--;
 
-            pushFollow(FOLLOW_rule__ResultReportCollection__Group_2__1_in_rule__ResultReportCollection__Group_2__01422);
+            pushFollow(FOLLOW_rule__ResultReportCollection__Group_2__1_in_rule__ResultReportCollection__Group_2__01443);
             rule__ResultReportCollection__Group_2__1();
 
             state._fsp--;
@@ -1952,20 +1979,20 @@ public class InternalResultsParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__ResultReportCollection__Group_2__0__Impl"
-    // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:726:1: rule__ResultReportCollection__Group_2__0__Impl : ( ':' ) ;
+    // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:733:1: rule__ResultReportCollection__Group_2__0__Impl : ( ':' ) ;
     public final void rule__ResultReportCollection__Group_2__0__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:730:1: ( ( ':' ) )
-            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:731:1: ( ':' )
+            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:737:1: ( ( ':' ) )
+            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:738:1: ( ':' )
             {
-            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:731:1: ( ':' )
-            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:732:1: ':'
+            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:738:1: ( ':' )
+            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:739:1: ':'
             {
              before(grammarAccess.getResultReportCollectionAccess().getColonKeyword_2_0()); 
-            match(input,21,FOLLOW_21_in_rule__ResultReportCollection__Group_2__0__Impl1450); 
+            match(input,22,FOLLOW_22_in_rule__ResultReportCollection__Group_2__0__Impl1471); 
              after(grammarAccess.getResultReportCollectionAccess().getColonKeyword_2_0()); 
 
             }
@@ -1989,16 +2016,16 @@ public class InternalResultsParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__ResultReportCollection__Group_2__1"
-    // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:745:1: rule__ResultReportCollection__Group_2__1 : rule__ResultReportCollection__Group_2__1__Impl ;
+    // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:752:1: rule__ResultReportCollection__Group_2__1 : rule__ResultReportCollection__Group_2__1__Impl ;
     public final void rule__ResultReportCollection__Group_2__1() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:749:1: ( rule__ResultReportCollection__Group_2__1__Impl )
-            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:750:2: rule__ResultReportCollection__Group_2__1__Impl
+            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:756:1: ( rule__ResultReportCollection__Group_2__1__Impl )
+            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:757:2: rule__ResultReportCollection__Group_2__1__Impl
             {
-            pushFollow(FOLLOW_rule__ResultReportCollection__Group_2__1__Impl_in_rule__ResultReportCollection__Group_2__11481);
+            pushFollow(FOLLOW_rule__ResultReportCollection__Group_2__1__Impl_in_rule__ResultReportCollection__Group_2__11502);
             rule__ResultReportCollection__Group_2__1__Impl();
 
             state._fsp--;
@@ -2022,23 +2049,23 @@ public class InternalResultsParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__ResultReportCollection__Group_2__1__Impl"
-    // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:756:1: rule__ResultReportCollection__Group_2__1__Impl : ( ( rule__ResultReportCollection__TitleAssignment_2_1 ) ) ;
+    // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:763:1: rule__ResultReportCollection__Group_2__1__Impl : ( ( rule__ResultReportCollection__TitleAssignment_2_1 ) ) ;
     public final void rule__ResultReportCollection__Group_2__1__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:760:1: ( ( ( rule__ResultReportCollection__TitleAssignment_2_1 ) ) )
-            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:761:1: ( ( rule__ResultReportCollection__TitleAssignment_2_1 ) )
+            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:767:1: ( ( ( rule__ResultReportCollection__TitleAssignment_2_1 ) ) )
+            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:768:1: ( ( rule__ResultReportCollection__TitleAssignment_2_1 ) )
             {
-            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:761:1: ( ( rule__ResultReportCollection__TitleAssignment_2_1 ) )
-            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:762:1: ( rule__ResultReportCollection__TitleAssignment_2_1 )
+            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:768:1: ( ( rule__ResultReportCollection__TitleAssignment_2_1 ) )
+            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:769:1: ( rule__ResultReportCollection__TitleAssignment_2_1 )
             {
              before(grammarAccess.getResultReportCollectionAccess().getTitleAssignment_2_1()); 
-            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:763:1: ( rule__ResultReportCollection__TitleAssignment_2_1 )
-            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:763:2: rule__ResultReportCollection__TitleAssignment_2_1
+            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:770:1: ( rule__ResultReportCollection__TitleAssignment_2_1 )
+            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:770:2: rule__ResultReportCollection__TitleAssignment_2_1
             {
-            pushFollow(FOLLOW_rule__ResultReportCollection__TitleAssignment_2_1_in_rule__ResultReportCollection__Group_2__1__Impl1508);
+            pushFollow(FOLLOW_rule__ResultReportCollection__TitleAssignment_2_1_in_rule__ResultReportCollection__Group_2__1__Impl1529);
             rule__ResultReportCollection__TitleAssignment_2_1();
 
             state._fsp--;
@@ -2069,21 +2096,21 @@ public class InternalResultsParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__ResultReportCollection__Group_6__0"
-    // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:777:1: rule__ResultReportCollection__Group_6__0 : rule__ResultReportCollection__Group_6__0__Impl rule__ResultReportCollection__Group_6__1 ;
+    // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:784:1: rule__ResultReportCollection__Group_6__0 : rule__ResultReportCollection__Group_6__0__Impl rule__ResultReportCollection__Group_6__1 ;
     public final void rule__ResultReportCollection__Group_6__0() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:781:1: ( rule__ResultReportCollection__Group_6__0__Impl rule__ResultReportCollection__Group_6__1 )
-            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:782:2: rule__ResultReportCollection__Group_6__0__Impl rule__ResultReportCollection__Group_6__1
+            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:788:1: ( rule__ResultReportCollection__Group_6__0__Impl rule__ResultReportCollection__Group_6__1 )
+            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:789:2: rule__ResultReportCollection__Group_6__0__Impl rule__ResultReportCollection__Group_6__1
             {
-            pushFollow(FOLLOW_rule__ResultReportCollection__Group_6__0__Impl_in_rule__ResultReportCollection__Group_6__01542);
+            pushFollow(FOLLOW_rule__ResultReportCollection__Group_6__0__Impl_in_rule__ResultReportCollection__Group_6__01563);
             rule__ResultReportCollection__Group_6__0__Impl();
 
             state._fsp--;
 
-            pushFollow(FOLLOW_rule__ResultReportCollection__Group_6__1_in_rule__ResultReportCollection__Group_6__01545);
+            pushFollow(FOLLOW_rule__ResultReportCollection__Group_6__1_in_rule__ResultReportCollection__Group_6__01566);
             rule__ResultReportCollection__Group_6__1();
 
             state._fsp--;
@@ -2107,20 +2134,20 @@ public class InternalResultsParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__ResultReportCollection__Group_6__0__Impl"
-    // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:789:1: rule__ResultReportCollection__Group_6__0__Impl : ( 'description' ) ;
+    // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:796:1: rule__ResultReportCollection__Group_6__0__Impl : ( 'description' ) ;
     public final void rule__ResultReportCollection__Group_6__0__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:793:1: ( ( 'description' ) )
-            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:794:1: ( 'description' )
+            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:800:1: ( ( 'description' ) )
+            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:801:1: ( 'description' )
             {
-            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:794:1: ( 'description' )
-            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:795:1: 'description'
+            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:801:1: ( 'description' )
+            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:802:1: 'description'
             {
              before(grammarAccess.getResultReportCollectionAccess().getDescriptionKeyword_6_0()); 
-            match(input,22,FOLLOW_22_in_rule__ResultReportCollection__Group_6__0__Impl1573); 
+            match(input,23,FOLLOW_23_in_rule__ResultReportCollection__Group_6__0__Impl1594); 
              after(grammarAccess.getResultReportCollectionAccess().getDescriptionKeyword_6_0()); 
 
             }
@@ -2144,16 +2171,16 @@ public class InternalResultsParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__ResultReportCollection__Group_6__1"
-    // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:808:1: rule__ResultReportCollection__Group_6__1 : rule__ResultReportCollection__Group_6__1__Impl ;
+    // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:815:1: rule__ResultReportCollection__Group_6__1 : rule__ResultReportCollection__Group_6__1__Impl ;
     public final void rule__ResultReportCollection__Group_6__1() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:812:1: ( rule__ResultReportCollection__Group_6__1__Impl )
-            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:813:2: rule__ResultReportCollection__Group_6__1__Impl
+            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:819:1: ( rule__ResultReportCollection__Group_6__1__Impl )
+            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:820:2: rule__ResultReportCollection__Group_6__1__Impl
             {
-            pushFollow(FOLLOW_rule__ResultReportCollection__Group_6__1__Impl_in_rule__ResultReportCollection__Group_6__11604);
+            pushFollow(FOLLOW_rule__ResultReportCollection__Group_6__1__Impl_in_rule__ResultReportCollection__Group_6__11625);
             rule__ResultReportCollection__Group_6__1__Impl();
 
             state._fsp--;
@@ -2177,23 +2204,23 @@ public class InternalResultsParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__ResultReportCollection__Group_6__1__Impl"
-    // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:819:1: rule__ResultReportCollection__Group_6__1__Impl : ( ( rule__ResultReportCollection__DecriptionAssignment_6_1 ) ) ;
+    // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:826:1: rule__ResultReportCollection__Group_6__1__Impl : ( ( rule__ResultReportCollection__DecriptionAssignment_6_1 ) ) ;
     public final void rule__ResultReportCollection__Group_6__1__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:823:1: ( ( ( rule__ResultReportCollection__DecriptionAssignment_6_1 ) ) )
-            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:824:1: ( ( rule__ResultReportCollection__DecriptionAssignment_6_1 ) )
+            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:830:1: ( ( ( rule__ResultReportCollection__DecriptionAssignment_6_1 ) ) )
+            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:831:1: ( ( rule__ResultReportCollection__DecriptionAssignment_6_1 ) )
             {
-            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:824:1: ( ( rule__ResultReportCollection__DecriptionAssignment_6_1 ) )
-            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:825:1: ( rule__ResultReportCollection__DecriptionAssignment_6_1 )
+            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:831:1: ( ( rule__ResultReportCollection__DecriptionAssignment_6_1 ) )
+            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:832:1: ( rule__ResultReportCollection__DecriptionAssignment_6_1 )
             {
              before(grammarAccess.getResultReportCollectionAccess().getDecriptionAssignment_6_1()); 
-            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:826:1: ( rule__ResultReportCollection__DecriptionAssignment_6_1 )
-            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:826:2: rule__ResultReportCollection__DecriptionAssignment_6_1
+            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:833:1: ( rule__ResultReportCollection__DecriptionAssignment_6_1 )
+            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:833:2: rule__ResultReportCollection__DecriptionAssignment_6_1
             {
-            pushFollow(FOLLOW_rule__ResultReportCollection__DecriptionAssignment_6_1_in_rule__ResultReportCollection__Group_6__1__Impl1631);
+            pushFollow(FOLLOW_rule__ResultReportCollection__DecriptionAssignment_6_1_in_rule__ResultReportCollection__Group_6__1__Impl1652);
             rule__ResultReportCollection__DecriptionAssignment_6_1();
 
             state._fsp--;
@@ -2224,21 +2251,21 @@ public class InternalResultsParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__ResultReport__Group__0"
-    // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:840:1: rule__ResultReport__Group__0 : rule__ResultReport__Group__0__Impl rule__ResultReport__Group__1 ;
+    // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:847:1: rule__ResultReport__Group__0 : rule__ResultReport__Group__0__Impl rule__ResultReport__Group__1 ;
     public final void rule__ResultReport__Group__0() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:844:1: ( rule__ResultReport__Group__0__Impl rule__ResultReport__Group__1 )
-            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:845:2: rule__ResultReport__Group__0__Impl rule__ResultReport__Group__1
+            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:851:1: ( rule__ResultReport__Group__0__Impl rule__ResultReport__Group__1 )
+            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:852:2: rule__ResultReport__Group__0__Impl rule__ResultReport__Group__1
             {
-            pushFollow(FOLLOW_rule__ResultReport__Group__0__Impl_in_rule__ResultReport__Group__01665);
+            pushFollow(FOLLOW_rule__ResultReport__Group__0__Impl_in_rule__ResultReport__Group__01686);
             rule__ResultReport__Group__0__Impl();
 
             state._fsp--;
 
-            pushFollow(FOLLOW_rule__ResultReport__Group__1_in_rule__ResultReport__Group__01668);
+            pushFollow(FOLLOW_rule__ResultReport__Group__1_in_rule__ResultReport__Group__01689);
             rule__ResultReport__Group__1();
 
             state._fsp--;
@@ -2262,31 +2289,31 @@ public class InternalResultsParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__ResultReport__Group__0__Impl"
-    // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:852:1: rule__ResultReport__Group__0__Impl : ( () ) ;
+    // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:859:1: rule__ResultReport__Group__0__Impl : ( 'report' ) ;
     public final void rule__ResultReport__Group__0__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:856:1: ( ( () ) )
-            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:857:1: ( () )
+            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:863:1: ( ( 'report' ) )
+            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:864:1: ( 'report' )
             {
-            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:857:1: ( () )
-            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:858:1: ()
+            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:864:1: ( 'report' )
+            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:865:1: 'report'
             {
-             before(grammarAccess.getResultReportAccess().getResultReportAction_0()); 
-            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:859:1: ()
-            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:861:1: 
-            {
-            }
-
-             after(grammarAccess.getResultReportAccess().getResultReportAction_0()); 
+             before(grammarAccess.getResultReportAccess().getReportKeyword_0()); 
+            match(input,24,FOLLOW_24_in_rule__ResultReport__Group__0__Impl1717); 
+             after(grammarAccess.getResultReportAccess().getReportKeyword_0()); 
 
             }
 
 
             }
 
+        }
+        catch (RecognitionException re) {
+            reportError(re);
+            recover(input,re);
         }
         finally {
 
@@ -2299,21 +2326,21 @@ public class InternalResultsParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__ResultReport__Group__1"
-    // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:871:1: rule__ResultReport__Group__1 : rule__ResultReport__Group__1__Impl rule__ResultReport__Group__2 ;
+    // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:878:1: rule__ResultReport__Group__1 : rule__ResultReport__Group__1__Impl rule__ResultReport__Group__2 ;
     public final void rule__ResultReport__Group__1() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:875:1: ( rule__ResultReport__Group__1__Impl rule__ResultReport__Group__2 )
-            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:876:2: rule__ResultReport__Group__1__Impl rule__ResultReport__Group__2
+            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:882:1: ( rule__ResultReport__Group__1__Impl rule__ResultReport__Group__2 )
+            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:883:2: rule__ResultReport__Group__1__Impl rule__ResultReport__Group__2
             {
-            pushFollow(FOLLOW_rule__ResultReport__Group__1__Impl_in_rule__ResultReport__Group__11726);
+            pushFollow(FOLLOW_rule__ResultReport__Group__1__Impl_in_rule__ResultReport__Group__11748);
             rule__ResultReport__Group__1__Impl();
 
             state._fsp--;
 
-            pushFollow(FOLLOW_rule__ResultReport__Group__2_in_rule__ResultReport__Group__11729);
+            pushFollow(FOLLOW_rule__ResultReport__Group__2_in_rule__ResultReport__Group__11751);
             rule__ResultReport__Group__2();
 
             state._fsp--;
@@ -2337,21 +2364,31 @@ public class InternalResultsParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__ResultReport__Group__1__Impl"
-    // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:883:1: rule__ResultReport__Group__1__Impl : ( 'report' ) ;
+    // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:890:1: rule__ResultReport__Group__1__Impl : ( ( rule__ResultReport__NameAssignment_1 ) ) ;
     public final void rule__ResultReport__Group__1__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:887:1: ( ( 'report' ) )
-            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:888:1: ( 'report' )
+            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:894:1: ( ( ( rule__ResultReport__NameAssignment_1 ) ) )
+            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:895:1: ( ( rule__ResultReport__NameAssignment_1 ) )
             {
-            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:888:1: ( 'report' )
-            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:889:1: 'report'
+            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:895:1: ( ( rule__ResultReport__NameAssignment_1 ) )
+            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:896:1: ( rule__ResultReport__NameAssignment_1 )
             {
-             before(grammarAccess.getResultReportAccess().getReportKeyword_1()); 
-            match(input,23,FOLLOW_23_in_rule__ResultReport__Group__1__Impl1757); 
-             after(grammarAccess.getResultReportAccess().getReportKeyword_1()); 
+             before(grammarAccess.getResultReportAccess().getNameAssignment_1()); 
+            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:897:1: ( rule__ResultReport__NameAssignment_1 )
+            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:897:2: rule__ResultReport__NameAssignment_1
+            {
+            pushFollow(FOLLOW_rule__ResultReport__NameAssignment_1_in_rule__ResultReport__Group__1__Impl1778);
+            rule__ResultReport__NameAssignment_1();
+
+            state._fsp--;
+
+
+            }
+
+             after(grammarAccess.getResultReportAccess().getNameAssignment_1()); 
 
             }
 
@@ -2374,21 +2411,21 @@ public class InternalResultsParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__ResultReport__Group__2"
-    // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:902:1: rule__ResultReport__Group__2 : rule__ResultReport__Group__2__Impl rule__ResultReport__Group__3 ;
+    // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:907:1: rule__ResultReport__Group__2 : rule__ResultReport__Group__2__Impl rule__ResultReport__Group__3 ;
     public final void rule__ResultReport__Group__2() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:906:1: ( rule__ResultReport__Group__2__Impl rule__ResultReport__Group__3 )
-            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:907:2: rule__ResultReport__Group__2__Impl rule__ResultReport__Group__3
+            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:911:1: ( rule__ResultReport__Group__2__Impl rule__ResultReport__Group__3 )
+            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:912:2: rule__ResultReport__Group__2__Impl rule__ResultReport__Group__3
             {
-            pushFollow(FOLLOW_rule__ResultReport__Group__2__Impl_in_rule__ResultReport__Group__21788);
+            pushFollow(FOLLOW_rule__ResultReport__Group__2__Impl_in_rule__ResultReport__Group__21808);
             rule__ResultReport__Group__2__Impl();
 
             state._fsp--;
 
-            pushFollow(FOLLOW_rule__ResultReport__Group__3_in_rule__ResultReport__Group__21791);
+            pushFollow(FOLLOW_rule__ResultReport__Group__3_in_rule__ResultReport__Group__21811);
             rule__ResultReport__Group__3();
 
             state._fsp--;
@@ -2412,31 +2449,42 @@ public class InternalResultsParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__ResultReport__Group__2__Impl"
-    // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:914:1: rule__ResultReport__Group__2__Impl : ( ( rule__ResultReport__NameAssignment_2 ) ) ;
+    // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:919:1: rule__ResultReport__Group__2__Impl : ( ( rule__ResultReport__Group_2__0 )? ) ;
     public final void rule__ResultReport__Group__2__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:918:1: ( ( ( rule__ResultReport__NameAssignment_2 ) ) )
-            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:919:1: ( ( rule__ResultReport__NameAssignment_2 ) )
+            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:923:1: ( ( ( rule__ResultReport__Group_2__0 )? ) )
+            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:924:1: ( ( rule__ResultReport__Group_2__0 )? )
             {
-            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:919:1: ( ( rule__ResultReport__NameAssignment_2 ) )
-            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:920:1: ( rule__ResultReport__NameAssignment_2 )
+            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:924:1: ( ( rule__ResultReport__Group_2__0 )? )
+            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:925:1: ( rule__ResultReport__Group_2__0 )?
             {
-             before(grammarAccess.getResultReportAccess().getNameAssignment_2()); 
-            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:921:1: ( rule__ResultReport__NameAssignment_2 )
-            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:921:2: rule__ResultReport__NameAssignment_2
-            {
-            pushFollow(FOLLOW_rule__ResultReport__NameAssignment_2_in_rule__ResultReport__Group__2__Impl1818);
-            rule__ResultReport__NameAssignment_2();
+             before(grammarAccess.getResultReportAccess().getGroup_2()); 
+            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:926:1: ( rule__ResultReport__Group_2__0 )?
+            int alt7=2;
+            int LA7_0 = input.LA(1);
 
-            state._fsp--;
+            if ( (LA7_0==22) ) {
+                alt7=1;
+            }
+            switch (alt7) {
+                case 1 :
+                    // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:926:2: rule__ResultReport__Group_2__0
+                    {
+                    pushFollow(FOLLOW_rule__ResultReport__Group_2__0_in_rule__ResultReport__Group__2__Impl1838);
+                    rule__ResultReport__Group_2__0();
 
+                    state._fsp--;
+
+
+                    }
+                    break;
 
             }
 
-             after(grammarAccess.getResultReportAccess().getNameAssignment_2()); 
+             after(grammarAccess.getResultReportAccess().getGroup_2()); 
 
             }
 
@@ -2459,21 +2507,21 @@ public class InternalResultsParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__ResultReport__Group__3"
-    // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:931:1: rule__ResultReport__Group__3 : rule__ResultReport__Group__3__Impl rule__ResultReport__Group__4 ;
+    // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:936:1: rule__ResultReport__Group__3 : rule__ResultReport__Group__3__Impl rule__ResultReport__Group__4 ;
     public final void rule__ResultReport__Group__3() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:935:1: ( rule__ResultReport__Group__3__Impl rule__ResultReport__Group__4 )
-            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:936:2: rule__ResultReport__Group__3__Impl rule__ResultReport__Group__4
+            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:940:1: ( rule__ResultReport__Group__3__Impl rule__ResultReport__Group__4 )
+            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:941:2: rule__ResultReport__Group__3__Impl rule__ResultReport__Group__4
             {
-            pushFollow(FOLLOW_rule__ResultReport__Group__3__Impl_in_rule__ResultReport__Group__31848);
+            pushFollow(FOLLOW_rule__ResultReport__Group__3__Impl_in_rule__ResultReport__Group__31869);
             rule__ResultReport__Group__3__Impl();
 
             state._fsp--;
 
-            pushFollow(FOLLOW_rule__ResultReport__Group__4_in_rule__ResultReport__Group__31851);
+            pushFollow(FOLLOW_rule__ResultReport__Group__4_in_rule__ResultReport__Group__31872);
             rule__ResultReport__Group__4();
 
             state._fsp--;
@@ -2497,42 +2545,21 @@ public class InternalResultsParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__ResultReport__Group__3__Impl"
-    // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:943:1: rule__ResultReport__Group__3__Impl : ( ( rule__ResultReport__Group_3__0 )? ) ;
+    // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:948:1: rule__ResultReport__Group__3__Impl : ( 'for' ) ;
     public final void rule__ResultReport__Group__3__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:947:1: ( ( ( rule__ResultReport__Group_3__0 )? ) )
-            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:948:1: ( ( rule__ResultReport__Group_3__0 )? )
+            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:952:1: ( ( 'for' ) )
+            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:953:1: ( 'for' )
             {
-            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:948:1: ( ( rule__ResultReport__Group_3__0 )? )
-            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:949:1: ( rule__ResultReport__Group_3__0 )?
+            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:953:1: ( 'for' )
+            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:954:1: 'for'
             {
-             before(grammarAccess.getResultReportAccess().getGroup_3()); 
-            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:950:1: ( rule__ResultReport__Group_3__0 )?
-            int alt7=2;
-            int LA7_0 = input.LA(1);
-
-            if ( (LA7_0==21) ) {
-                alt7=1;
-            }
-            switch (alt7) {
-                case 1 :
-                    // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:950:2: rule__ResultReport__Group_3__0
-                    {
-                    pushFollow(FOLLOW_rule__ResultReport__Group_3__0_in_rule__ResultReport__Group__3__Impl1878);
-                    rule__ResultReport__Group_3__0();
-
-                    state._fsp--;
-
-
-                    }
-                    break;
-
-            }
-
-             after(grammarAccess.getResultReportAccess().getGroup_3()); 
+             before(grammarAccess.getResultReportAccess().getForKeyword_3()); 
+            match(input,19,FOLLOW_19_in_rule__ResultReport__Group__3__Impl1900); 
+             after(grammarAccess.getResultReportAccess().getForKeyword_3()); 
 
             }
 
@@ -2555,21 +2582,21 @@ public class InternalResultsParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__ResultReport__Group__4"
-    // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:960:1: rule__ResultReport__Group__4 : rule__ResultReport__Group__4__Impl rule__ResultReport__Group__5 ;
+    // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:967:1: rule__ResultReport__Group__4 : rule__ResultReport__Group__4__Impl rule__ResultReport__Group__5 ;
     public final void rule__ResultReport__Group__4() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:964:1: ( rule__ResultReport__Group__4__Impl rule__ResultReport__Group__5 )
-            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:965:2: rule__ResultReport__Group__4__Impl rule__ResultReport__Group__5
+            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:971:1: ( rule__ResultReport__Group__4__Impl rule__ResultReport__Group__5 )
+            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:972:2: rule__ResultReport__Group__4__Impl rule__ResultReport__Group__5
             {
-            pushFollow(FOLLOW_rule__ResultReport__Group__4__Impl_in_rule__ResultReport__Group__41909);
+            pushFollow(FOLLOW_rule__ResultReport__Group__4__Impl_in_rule__ResultReport__Group__41931);
             rule__ResultReport__Group__4__Impl();
 
             state._fsp--;
 
-            pushFollow(FOLLOW_rule__ResultReport__Group__5_in_rule__ResultReport__Group__41912);
+            pushFollow(FOLLOW_rule__ResultReport__Group__5_in_rule__ResultReport__Group__41934);
             rule__ResultReport__Group__5();
 
             state._fsp--;
@@ -2593,23 +2620,23 @@ public class InternalResultsParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__ResultReport__Group__4__Impl"
-    // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:972:1: rule__ResultReport__Group__4__Impl : ( ( rule__ResultReport__TargetAssignment_4 ) ) ;
+    // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:979:1: rule__ResultReport__Group__4__Impl : ( ( rule__ResultReport__TargetAssignment_4 ) ) ;
     public final void rule__ResultReport__Group__4__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:976:1: ( ( ( rule__ResultReport__TargetAssignment_4 ) ) )
-            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:977:1: ( ( rule__ResultReport__TargetAssignment_4 ) )
+            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:983:1: ( ( ( rule__ResultReport__TargetAssignment_4 ) ) )
+            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:984:1: ( ( rule__ResultReport__TargetAssignment_4 ) )
             {
-            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:977:1: ( ( rule__ResultReport__TargetAssignment_4 ) )
-            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:978:1: ( rule__ResultReport__TargetAssignment_4 )
+            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:984:1: ( ( rule__ResultReport__TargetAssignment_4 ) )
+            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:985:1: ( rule__ResultReport__TargetAssignment_4 )
             {
              before(grammarAccess.getResultReportAccess().getTargetAssignment_4()); 
-            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:979:1: ( rule__ResultReport__TargetAssignment_4 )
-            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:979:2: rule__ResultReport__TargetAssignment_4
+            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:986:1: ( rule__ResultReport__TargetAssignment_4 )
+            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:986:2: rule__ResultReport__TargetAssignment_4
             {
-            pushFollow(FOLLOW_rule__ResultReport__TargetAssignment_4_in_rule__ResultReport__Group__4__Impl1939);
+            pushFollow(FOLLOW_rule__ResultReport__TargetAssignment_4_in_rule__ResultReport__Group__4__Impl1961);
             rule__ResultReport__TargetAssignment_4();
 
             state._fsp--;
@@ -2640,21 +2667,21 @@ public class InternalResultsParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__ResultReport__Group__5"
-    // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:989:1: rule__ResultReport__Group__5 : rule__ResultReport__Group__5__Impl rule__ResultReport__Group__6 ;
+    // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:996:1: rule__ResultReport__Group__5 : rule__ResultReport__Group__5__Impl rule__ResultReport__Group__6 ;
     public final void rule__ResultReport__Group__5() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:993:1: ( rule__ResultReport__Group__5__Impl rule__ResultReport__Group__6 )
-            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:994:2: rule__ResultReport__Group__5__Impl rule__ResultReport__Group__6
+            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:1000:1: ( rule__ResultReport__Group__5__Impl rule__ResultReport__Group__6 )
+            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:1001:2: rule__ResultReport__Group__5__Impl rule__ResultReport__Group__6
             {
-            pushFollow(FOLLOW_rule__ResultReport__Group__5__Impl_in_rule__ResultReport__Group__51969);
+            pushFollow(FOLLOW_rule__ResultReport__Group__5__Impl_in_rule__ResultReport__Group__51991);
             rule__ResultReport__Group__5__Impl();
 
             state._fsp--;
 
-            pushFollow(FOLLOW_rule__ResultReport__Group__6_in_rule__ResultReport__Group__51972);
+            pushFollow(FOLLOW_rule__ResultReport__Group__6_in_rule__ResultReport__Group__51994);
             rule__ResultReport__Group__6();
 
             state._fsp--;
@@ -2678,31 +2705,21 @@ public class InternalResultsParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__ResultReport__Group__5__Impl"
-    // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:1001:1: rule__ResultReport__Group__5__Impl : ( ( rule__ResultReport__IssueTypeAssignment_5 ) ) ;
+    // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:1008:1: rule__ResultReport__Group__5__Impl : ( '[' ) ;
     public final void rule__ResultReport__Group__5__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:1005:1: ( ( ( rule__ResultReport__IssueTypeAssignment_5 ) ) )
-            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:1006:1: ( ( rule__ResultReport__IssueTypeAssignment_5 ) )
+            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:1012:1: ( ( '[' ) )
+            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:1013:1: ( '[' )
             {
-            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:1006:1: ( ( rule__ResultReport__IssueTypeAssignment_5 ) )
-            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:1007:1: ( rule__ResultReport__IssueTypeAssignment_5 )
+            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:1013:1: ( '[' )
+            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:1014:1: '['
             {
-             before(grammarAccess.getResultReportAccess().getIssueTypeAssignment_5()); 
-            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:1008:1: ( rule__ResultReport__IssueTypeAssignment_5 )
-            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:1008:2: rule__ResultReport__IssueTypeAssignment_5
-            {
-            pushFollow(FOLLOW_rule__ResultReport__IssueTypeAssignment_5_in_rule__ResultReport__Group__5__Impl1999);
-            rule__ResultReport__IssueTypeAssignment_5();
-
-            state._fsp--;
-
-
-            }
-
-             after(grammarAccess.getResultReportAccess().getIssueTypeAssignment_5()); 
+             before(grammarAccess.getResultReportAccess().getLeftSquareBracketKeyword_5()); 
+            match(input,20,FOLLOW_20_in_rule__ResultReport__Group__5__Impl2022); 
+             after(grammarAccess.getResultReportAccess().getLeftSquareBracketKeyword_5()); 
 
             }
 
@@ -2725,21 +2742,21 @@ public class InternalResultsParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__ResultReport__Group__6"
-    // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:1018:1: rule__ResultReport__Group__6 : rule__ResultReport__Group__6__Impl rule__ResultReport__Group__7 ;
+    // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:1027:1: rule__ResultReport__Group__6 : rule__ResultReport__Group__6__Impl rule__ResultReport__Group__7 ;
     public final void rule__ResultReport__Group__6() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:1022:1: ( rule__ResultReport__Group__6__Impl rule__ResultReport__Group__7 )
-            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:1023:2: rule__ResultReport__Group__6__Impl rule__ResultReport__Group__7
+            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:1031:1: ( rule__ResultReport__Group__6__Impl rule__ResultReport__Group__7 )
+            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:1032:2: rule__ResultReport__Group__6__Impl rule__ResultReport__Group__7
             {
-            pushFollow(FOLLOW_rule__ResultReport__Group__6__Impl_in_rule__ResultReport__Group__62029);
+            pushFollow(FOLLOW_rule__ResultReport__Group__6__Impl_in_rule__ResultReport__Group__62053);
             rule__ResultReport__Group__6__Impl();
 
             state._fsp--;
 
-            pushFollow(FOLLOW_rule__ResultReport__Group__7_in_rule__ResultReport__Group__62032);
+            pushFollow(FOLLOW_rule__ResultReport__Group__7_in_rule__ResultReport__Group__62056);
             rule__ResultReport__Group__7();
 
             state._fsp--;
@@ -2763,31 +2780,42 @@ public class InternalResultsParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__ResultReport__Group__6__Impl"
-    // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:1030:1: rule__ResultReport__Group__6__Impl : ( ( rule__ResultReport__MessageAssignment_6 ) ) ;
+    // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:1039:1: rule__ResultReport__Group__6__Impl : ( ( rule__ResultReport__Group_6__0 )? ) ;
     public final void rule__ResultReport__Group__6__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:1034:1: ( ( ( rule__ResultReport__MessageAssignment_6 ) ) )
-            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:1035:1: ( ( rule__ResultReport__MessageAssignment_6 ) )
+            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:1043:1: ( ( ( rule__ResultReport__Group_6__0 )? ) )
+            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:1044:1: ( ( rule__ResultReport__Group_6__0 )? )
             {
-            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:1035:1: ( ( rule__ResultReport__MessageAssignment_6 ) )
-            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:1036:1: ( rule__ResultReport__MessageAssignment_6 )
+            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:1044:1: ( ( rule__ResultReport__Group_6__0 )? )
+            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:1045:1: ( rule__ResultReport__Group_6__0 )?
             {
-             before(grammarAccess.getResultReportAccess().getMessageAssignment_6()); 
-            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:1037:1: ( rule__ResultReport__MessageAssignment_6 )
-            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:1037:2: rule__ResultReport__MessageAssignment_6
-            {
-            pushFollow(FOLLOW_rule__ResultReport__MessageAssignment_6_in_rule__ResultReport__Group__6__Impl2059);
-            rule__ResultReport__MessageAssignment_6();
+             before(grammarAccess.getResultReportAccess().getGroup_6()); 
+            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:1046:1: ( rule__ResultReport__Group_6__0 )?
+            int alt8=2;
+            int LA8_0 = input.LA(1);
 
-            state._fsp--;
+            if ( (LA8_0==23) ) {
+                alt8=1;
+            }
+            switch (alt8) {
+                case 1 :
+                    // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:1046:2: rule__ResultReport__Group_6__0
+                    {
+                    pushFollow(FOLLOW_rule__ResultReport__Group_6__0_in_rule__ResultReport__Group__6__Impl2083);
+                    rule__ResultReport__Group_6__0();
 
+                    state._fsp--;
+
+
+                    }
+                    break;
 
             }
 
-             after(grammarAccess.getResultReportAccess().getMessageAssignment_6()); 
+             after(grammarAccess.getResultReportAccess().getGroup_6()); 
 
             }
 
@@ -2810,21 +2838,21 @@ public class InternalResultsParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__ResultReport__Group__7"
-    // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:1047:1: rule__ResultReport__Group__7 : rule__ResultReport__Group__7__Impl rule__ResultReport__Group__8 ;
+    // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:1056:1: rule__ResultReport__Group__7 : rule__ResultReport__Group__7__Impl rule__ResultReport__Group__8 ;
     public final void rule__ResultReport__Group__7() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:1051:1: ( rule__ResultReport__Group__7__Impl rule__ResultReport__Group__8 )
-            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:1052:2: rule__ResultReport__Group__7__Impl rule__ResultReport__Group__8
+            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:1060:1: ( rule__ResultReport__Group__7__Impl rule__ResultReport__Group__8 )
+            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:1061:2: rule__ResultReport__Group__7__Impl rule__ResultReport__Group__8
             {
-            pushFollow(FOLLOW_rule__ResultReport__Group__7__Impl_in_rule__ResultReport__Group__72089);
+            pushFollow(FOLLOW_rule__ResultReport__Group__7__Impl_in_rule__ResultReport__Group__72114);
             rule__ResultReport__Group__7__Impl();
 
             state._fsp--;
 
-            pushFollow(FOLLOW_rule__ResultReport__Group__8_in_rule__ResultReport__Group__72092);
+            pushFollow(FOLLOW_rule__ResultReport__Group__8_in_rule__ResultReport__Group__72117);
             rule__ResultReport__Group__8();
 
             state._fsp--;
@@ -2848,31 +2876,31 @@ public class InternalResultsParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__ResultReport__Group__7__Impl"
-    // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:1059:1: rule__ResultReport__Group__7__Impl : ( ( rule__ResultReport__Group_7__0 )? ) ;
+    // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:1068:1: rule__ResultReport__Group__7__Impl : ( ( rule__ResultReport__Group_7__0 )? ) ;
     public final void rule__ResultReport__Group__7__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:1063:1: ( ( ( rule__ResultReport__Group_7__0 )? ) )
-            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:1064:1: ( ( rule__ResultReport__Group_7__0 )? )
+            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:1072:1: ( ( ( rule__ResultReport__Group_7__0 )? ) )
+            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:1073:1: ( ( rule__ResultReport__Group_7__0 )? )
             {
-            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:1064:1: ( ( rule__ResultReport__Group_7__0 )? )
-            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:1065:1: ( rule__ResultReport__Group_7__0 )?
+            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:1073:1: ( ( rule__ResultReport__Group_7__0 )? )
+            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:1074:1: ( rule__ResultReport__Group_7__0 )?
             {
              before(grammarAccess.getResultReportAccess().getGroup_7()); 
-            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:1066:1: ( rule__ResultReport__Group_7__0 )?
-            int alt8=2;
-            int LA8_0 = input.LA(1);
+            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:1075:1: ( rule__ResultReport__Group_7__0 )?
+            int alt9=2;
+            int LA9_0 = input.LA(1);
 
-            if ( (LA8_0==24) ) {
-                alt8=1;
+            if ( (LA9_0==25) ) {
+                alt9=1;
             }
-            switch (alt8) {
+            switch (alt9) {
                 case 1 :
-                    // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:1066:2: rule__ResultReport__Group_7__0
+                    // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:1075:2: rule__ResultReport__Group_7__0
                     {
-                    pushFollow(FOLLOW_rule__ResultReport__Group_7__0_in_rule__ResultReport__Group__7__Impl2119);
+                    pushFollow(FOLLOW_rule__ResultReport__Group_7__0_in_rule__ResultReport__Group__7__Impl2144);
                     rule__ResultReport__Group_7__0();
 
                     state._fsp--;
@@ -2906,21 +2934,21 @@ public class InternalResultsParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__ResultReport__Group__8"
-    // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:1076:1: rule__ResultReport__Group__8 : rule__ResultReport__Group__8__Impl rule__ResultReport__Group__9 ;
+    // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:1085:1: rule__ResultReport__Group__8 : rule__ResultReport__Group__8__Impl rule__ResultReport__Group__9 ;
     public final void rule__ResultReport__Group__8() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:1080:1: ( rule__ResultReport__Group__8__Impl rule__ResultReport__Group__9 )
-            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:1081:2: rule__ResultReport__Group__8__Impl rule__ResultReport__Group__9
+            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:1089:1: ( rule__ResultReport__Group__8__Impl rule__ResultReport__Group__9 )
+            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:1090:2: rule__ResultReport__Group__8__Impl rule__ResultReport__Group__9
             {
-            pushFollow(FOLLOW_rule__ResultReport__Group__8__Impl_in_rule__ResultReport__Group__82150);
+            pushFollow(FOLLOW_rule__ResultReport__Group__8__Impl_in_rule__ResultReport__Group__82175);
             rule__ResultReport__Group__8__Impl();
 
             state._fsp--;
 
-            pushFollow(FOLLOW_rule__ResultReport__Group__9_in_rule__ResultReport__Group__82153);
+            pushFollow(FOLLOW_rule__ResultReport__Group__9_in_rule__ResultReport__Group__82178);
             rule__ResultReport__Group__9();
 
             state._fsp--;
@@ -2944,21 +2972,42 @@ public class InternalResultsParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__ResultReport__Group__8__Impl"
-    // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:1088:1: rule__ResultReport__Group__8__Impl : ( '[' ) ;
+    // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:1097:1: rule__ResultReport__Group__8__Impl : ( ( rule__ResultReport__Group_8__0 )? ) ;
     public final void rule__ResultReport__Group__8__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:1092:1: ( ( '[' ) )
-            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:1093:1: ( '[' )
+            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:1101:1: ( ( ( rule__ResultReport__Group_8__0 )? ) )
+            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:1102:1: ( ( rule__ResultReport__Group_8__0 )? )
             {
-            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:1093:1: ( '[' )
-            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:1094:1: '['
+            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:1102:1: ( ( rule__ResultReport__Group_8__0 )? )
+            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:1103:1: ( rule__ResultReport__Group_8__0 )?
             {
-             before(grammarAccess.getResultReportAccess().getLeftSquareBracketKeyword_8()); 
-            match(input,18,FOLLOW_18_in_rule__ResultReport__Group__8__Impl2181); 
-             after(grammarAccess.getResultReportAccess().getLeftSquareBracketKeyword_8()); 
+             before(grammarAccess.getResultReportAccess().getGroup_8()); 
+            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:1104:1: ( rule__ResultReport__Group_8__0 )?
+            int alt10=2;
+            int LA10_0 = input.LA(1);
+
+            if ( (LA10_0==26) ) {
+                alt10=1;
+            }
+            switch (alt10) {
+                case 1 :
+                    // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:1104:2: rule__ResultReport__Group_8__0
+                    {
+                    pushFollow(FOLLOW_rule__ResultReport__Group_8__0_in_rule__ResultReport__Group__8__Impl2205);
+                    rule__ResultReport__Group_8__0();
+
+                    state._fsp--;
+
+
+                    }
+                    break;
+
+            }
+
+             after(grammarAccess.getResultReportAccess().getGroup_8()); 
 
             }
 
@@ -2981,21 +3030,21 @@ public class InternalResultsParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__ResultReport__Group__9"
-    // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:1107:1: rule__ResultReport__Group__9 : rule__ResultReport__Group__9__Impl rule__ResultReport__Group__10 ;
+    // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:1114:1: rule__ResultReport__Group__9 : rule__ResultReport__Group__9__Impl rule__ResultReport__Group__10 ;
     public final void rule__ResultReport__Group__9() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:1111:1: ( rule__ResultReport__Group__9__Impl rule__ResultReport__Group__10 )
-            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:1112:2: rule__ResultReport__Group__9__Impl rule__ResultReport__Group__10
+            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:1118:1: ( rule__ResultReport__Group__9__Impl rule__ResultReport__Group__10 )
+            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:1119:2: rule__ResultReport__Group__9__Impl rule__ResultReport__Group__10
             {
-            pushFollow(FOLLOW_rule__ResultReport__Group__9__Impl_in_rule__ResultReport__Group__92212);
+            pushFollow(FOLLOW_rule__ResultReport__Group__9__Impl_in_rule__ResultReport__Group__92236);
             rule__ResultReport__Group__9__Impl();
 
             state._fsp--;
 
-            pushFollow(FOLLOW_rule__ResultReport__Group__10_in_rule__ResultReport__Group__92215);
+            pushFollow(FOLLOW_rule__ResultReport__Group__10_in_rule__ResultReport__Group__92239);
             rule__ResultReport__Group__10();
 
             state._fsp--;
@@ -3019,32 +3068,32 @@ public class InternalResultsParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__ResultReport__Group__9__Impl"
-    // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:1119:1: rule__ResultReport__Group__9__Impl : ( ( rule__ResultReport__Group_9__0 )? ) ;
+    // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:1126:1: rule__ResultReport__Group__9__Impl : ( ( rule__ResultReport__IssuesAssignment_9 )? ) ;
     public final void rule__ResultReport__Group__9__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:1123:1: ( ( ( rule__ResultReport__Group_9__0 )? ) )
-            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:1124:1: ( ( rule__ResultReport__Group_9__0 )? )
+            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:1130:1: ( ( ( rule__ResultReport__IssuesAssignment_9 )? ) )
+            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:1131:1: ( ( rule__ResultReport__IssuesAssignment_9 )? )
             {
-            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:1124:1: ( ( rule__ResultReport__Group_9__0 )? )
-            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:1125:1: ( rule__ResultReport__Group_9__0 )?
+            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:1131:1: ( ( rule__ResultReport__IssuesAssignment_9 )? )
+            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:1132:1: ( rule__ResultReport__IssuesAssignment_9 )?
             {
-             before(grammarAccess.getResultReportAccess().getGroup_9()); 
-            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:1126:1: ( rule__ResultReport__Group_9__0 )?
-            int alt9=2;
-            int LA9_0 = input.LA(1);
+             before(grammarAccess.getResultReportAccess().getIssuesAssignment_9()); 
+            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:1133:1: ( rule__ResultReport__IssuesAssignment_9 )?
+            int alt11=2;
+            int LA11_0 = input.LA(1);
 
-            if ( (LA9_0==22) ) {
-                alt9=1;
+            if ( (LA11_0==29) ) {
+                alt11=1;
             }
-            switch (alt9) {
+            switch (alt11) {
                 case 1 :
-                    // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:1126:2: rule__ResultReport__Group_9__0
+                    // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:1133:2: rule__ResultReport__IssuesAssignment_9
                     {
-                    pushFollow(FOLLOW_rule__ResultReport__Group_9__0_in_rule__ResultReport__Group__9__Impl2242);
-                    rule__ResultReport__Group_9__0();
+                    pushFollow(FOLLOW_rule__ResultReport__IssuesAssignment_9_in_rule__ResultReport__Group__9__Impl2266);
+                    rule__ResultReport__IssuesAssignment_9();
 
                     state._fsp--;
 
@@ -3054,7 +3103,7 @@ public class InternalResultsParser extends AbstractInternalContentAssistParser {
 
             }
 
-             after(grammarAccess.getResultReportAccess().getGroup_9()); 
+             after(grammarAccess.getResultReportAccess().getIssuesAssignment_9()); 
 
             }
 
@@ -3077,22 +3126,17 @@ public class InternalResultsParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__ResultReport__Group__10"
-    // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:1136:1: rule__ResultReport__Group__10 : rule__ResultReport__Group__10__Impl rule__ResultReport__Group__11 ;
+    // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:1143:1: rule__ResultReport__Group__10 : rule__ResultReport__Group__10__Impl ;
     public final void rule__ResultReport__Group__10() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:1140:1: ( rule__ResultReport__Group__10__Impl rule__ResultReport__Group__11 )
-            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:1141:2: rule__ResultReport__Group__10__Impl rule__ResultReport__Group__11
+            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:1147:1: ( rule__ResultReport__Group__10__Impl )
+            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:1148:2: rule__ResultReport__Group__10__Impl
             {
-            pushFollow(FOLLOW_rule__ResultReport__Group__10__Impl_in_rule__ResultReport__Group__102273);
+            pushFollow(FOLLOW_rule__ResultReport__Group__10__Impl_in_rule__ResultReport__Group__102297);
             rule__ResultReport__Group__10__Impl();
-
-            state._fsp--;
-
-            pushFollow(FOLLOW_rule__ResultReport__Group__11_in_rule__ResultReport__Group__102276);
-            rule__ResultReport__Group__11();
 
             state._fsp--;
 
@@ -3115,42 +3159,21 @@ public class InternalResultsParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__ResultReport__Group__10__Impl"
-    // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:1148:1: rule__ResultReport__Group__10__Impl : ( ( rule__ResultReport__Group_10__0 )? ) ;
+    // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:1154:1: rule__ResultReport__Group__10__Impl : ( ']' ) ;
     public final void rule__ResultReport__Group__10__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:1152:1: ( ( ( rule__ResultReport__Group_10__0 )? ) )
-            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:1153:1: ( ( rule__ResultReport__Group_10__0 )? )
+            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:1158:1: ( ( ']' ) )
+            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:1159:1: ( ']' )
             {
-            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:1153:1: ( ( rule__ResultReport__Group_10__0 )? )
-            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:1154:1: ( rule__ResultReport__Group_10__0 )?
+            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:1159:1: ( ']' )
+            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:1160:1: ']'
             {
-             before(grammarAccess.getResultReportAccess().getGroup_10()); 
-            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:1155:1: ( rule__ResultReport__Group_10__0 )?
-            int alt10=2;
-            int LA10_0 = input.LA(1);
-
-            if ( (LA10_0==25) ) {
-                alt10=1;
-            }
-            switch (alt10) {
-                case 1 :
-                    // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:1155:2: rule__ResultReport__Group_10__0
-                    {
-                    pushFollow(FOLLOW_rule__ResultReport__Group_10__0_in_rule__ResultReport__Group__10__Impl2303);
-                    rule__ResultReport__Group_10__0();
-
-                    state._fsp--;
-
-
-                    }
-                    break;
-
-            }
-
-             after(grammarAccess.getResultReportAccess().getGroup_10()); 
+             before(grammarAccess.getResultReportAccess().getRightSquareBracketKeyword_10()); 
+            match(input,21,FOLLOW_21_in_rule__ResultReport__Group__10__Impl2325); 
+             after(grammarAccess.getResultReportAccess().getRightSquareBracketKeyword_10()); 
 
             }
 
@@ -3172,119 +3195,23 @@ public class InternalResultsParser extends AbstractInternalContentAssistParser {
     // $ANTLR end "rule__ResultReport__Group__10__Impl"
 
 
-    // $ANTLR start "rule__ResultReport__Group__11"
-    // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:1165:1: rule__ResultReport__Group__11 : rule__ResultReport__Group__11__Impl rule__ResultReport__Group__12 ;
-    public final void rule__ResultReport__Group__11() throws RecognitionException {
+    // $ANTLR start "rule__ResultReport__Group_2__0"
+    // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:1195:1: rule__ResultReport__Group_2__0 : rule__ResultReport__Group_2__0__Impl rule__ResultReport__Group_2__1 ;
+    public final void rule__ResultReport__Group_2__0() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:1169:1: ( rule__ResultReport__Group__11__Impl rule__ResultReport__Group__12 )
-            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:1170:2: rule__ResultReport__Group__11__Impl rule__ResultReport__Group__12
+            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:1199:1: ( rule__ResultReport__Group_2__0__Impl rule__ResultReport__Group_2__1 )
+            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:1200:2: rule__ResultReport__Group_2__0__Impl rule__ResultReport__Group_2__1
             {
-            pushFollow(FOLLOW_rule__ResultReport__Group__11__Impl_in_rule__ResultReport__Group__112334);
-            rule__ResultReport__Group__11__Impl();
+            pushFollow(FOLLOW_rule__ResultReport__Group_2__0__Impl_in_rule__ResultReport__Group_2__02378);
+            rule__ResultReport__Group_2__0__Impl();
 
             state._fsp--;
 
-            pushFollow(FOLLOW_rule__ResultReport__Group__12_in_rule__ResultReport__Group__112337);
-            rule__ResultReport__Group__12();
-
-            state._fsp--;
-
-
-            }
-
-        }
-        catch (RecognitionException re) {
-            reportError(re);
-            recover(input,re);
-        }
-        finally {
-
-            	restoreStackSize(stackSize);
-
-        }
-        return ;
-    }
-    // $ANTLR end "rule__ResultReport__Group__11"
-
-
-    // $ANTLR start "rule__ResultReport__Group__11__Impl"
-    // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:1177:1: rule__ResultReport__Group__11__Impl : ( ( rule__ResultReport__Group_11__0 )? ) ;
-    public final void rule__ResultReport__Group__11__Impl() throws RecognitionException {
-
-        		int stackSize = keepStackSize();
-            
-        try {
-            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:1181:1: ( ( ( rule__ResultReport__Group_11__0 )? ) )
-            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:1182:1: ( ( rule__ResultReport__Group_11__0 )? )
-            {
-            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:1182:1: ( ( rule__ResultReport__Group_11__0 )? )
-            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:1183:1: ( rule__ResultReport__Group_11__0 )?
-            {
-             before(grammarAccess.getResultReportAccess().getGroup_11()); 
-            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:1184:1: ( rule__ResultReport__Group_11__0 )?
-            int alt11=2;
-            int LA11_0 = input.LA(1);
-
-            if ( (LA11_0==26) ) {
-                alt11=1;
-            }
-            switch (alt11) {
-                case 1 :
-                    // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:1184:2: rule__ResultReport__Group_11__0
-                    {
-                    pushFollow(FOLLOW_rule__ResultReport__Group_11__0_in_rule__ResultReport__Group__11__Impl2364);
-                    rule__ResultReport__Group_11__0();
-
-                    state._fsp--;
-
-
-                    }
-                    break;
-
-            }
-
-             after(grammarAccess.getResultReportAccess().getGroup_11()); 
-
-            }
-
-
-            }
-
-        }
-        catch (RecognitionException re) {
-            reportError(re);
-            recover(input,re);
-        }
-        finally {
-
-            	restoreStackSize(stackSize);
-
-        }
-        return ;
-    }
-    // $ANTLR end "rule__ResultReport__Group__11__Impl"
-
-
-    // $ANTLR start "rule__ResultReport__Group__12"
-    // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:1194:1: rule__ResultReport__Group__12 : rule__ResultReport__Group__12__Impl rule__ResultReport__Group__13 ;
-    public final void rule__ResultReport__Group__12() throws RecognitionException {
-
-        		int stackSize = keepStackSize();
-            
-        try {
-            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:1198:1: ( rule__ResultReport__Group__12__Impl rule__ResultReport__Group__13 )
-            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:1199:2: rule__ResultReport__Group__12__Impl rule__ResultReport__Group__13
-            {
-            pushFollow(FOLLOW_rule__ResultReport__Group__12__Impl_in_rule__ResultReport__Group__122395);
-            rule__ResultReport__Group__12__Impl();
-
-            state._fsp--;
-
-            pushFollow(FOLLOW_rule__ResultReport__Group__13_in_rule__ResultReport__Group__122398);
-            rule__ResultReport__Group__13();
+            pushFollow(FOLLOW_rule__ResultReport__Group_2__1_in_rule__ResultReport__Group_2__02381);
+            rule__ResultReport__Group_2__1();
 
             state._fsp--;
 
@@ -3303,46 +3230,25 @@ public class InternalResultsParser extends AbstractInternalContentAssistParser {
         }
         return ;
     }
-    // $ANTLR end "rule__ResultReport__Group__12"
+    // $ANTLR end "rule__ResultReport__Group_2__0"
 
 
-    // $ANTLR start "rule__ResultReport__Group__12__Impl"
-    // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:1206:1: rule__ResultReport__Group__12__Impl : ( ( rule__ResultReport__IssuesAssignment_12 )? ) ;
-    public final void rule__ResultReport__Group__12__Impl() throws RecognitionException {
+    // $ANTLR start "rule__ResultReport__Group_2__0__Impl"
+    // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:1207:1: rule__ResultReport__Group_2__0__Impl : ( ':' ) ;
+    public final void rule__ResultReport__Group_2__0__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:1210:1: ( ( ( rule__ResultReport__IssuesAssignment_12 )? ) )
-            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:1211:1: ( ( rule__ResultReport__IssuesAssignment_12 )? )
+            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:1211:1: ( ( ':' ) )
+            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:1212:1: ( ':' )
             {
-            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:1211:1: ( ( rule__ResultReport__IssuesAssignment_12 )? )
-            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:1212:1: ( rule__ResultReport__IssuesAssignment_12 )?
+            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:1212:1: ( ':' )
+            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:1213:1: ':'
             {
-             before(grammarAccess.getResultReportAccess().getIssuesAssignment_12()); 
-            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:1213:1: ( rule__ResultReport__IssuesAssignment_12 )?
-            int alt12=2;
-            int LA12_0 = input.LA(1);
-
-            if ( (LA12_0==30) ) {
-                alt12=1;
-            }
-            switch (alt12) {
-                case 1 :
-                    // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:1213:2: rule__ResultReport__IssuesAssignment_12
-                    {
-                    pushFollow(FOLLOW_rule__ResultReport__IssuesAssignment_12_in_rule__ResultReport__Group__12__Impl2425);
-                    rule__ResultReport__IssuesAssignment_12();
-
-                    state._fsp--;
-
-
-                    }
-                    break;
-
-            }
-
-             after(grammarAccess.getResultReportAccess().getIssuesAssignment_12()); 
+             before(grammarAccess.getResultReportAccess().getColonKeyword_2_0()); 
+            match(input,22,FOLLOW_22_in_rule__ResultReport__Group_2__0__Impl2409); 
+             after(grammarAccess.getResultReportAccess().getColonKeyword_2_0()); 
 
             }
 
@@ -3361,21 +3267,21 @@ public class InternalResultsParser extends AbstractInternalContentAssistParser {
         }
         return ;
     }
-    // $ANTLR end "rule__ResultReport__Group__12__Impl"
+    // $ANTLR end "rule__ResultReport__Group_2__0__Impl"
 
 
-    // $ANTLR start "rule__ResultReport__Group__13"
-    // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:1223:1: rule__ResultReport__Group__13 : rule__ResultReport__Group__13__Impl ;
-    public final void rule__ResultReport__Group__13() throws RecognitionException {
+    // $ANTLR start "rule__ResultReport__Group_2__1"
+    // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:1226:1: rule__ResultReport__Group_2__1 : rule__ResultReport__Group_2__1__Impl ;
+    public final void rule__ResultReport__Group_2__1() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:1227:1: ( rule__ResultReport__Group__13__Impl )
-            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:1228:2: rule__ResultReport__Group__13__Impl
+            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:1230:1: ( rule__ResultReport__Group_2__1__Impl )
+            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:1231:2: rule__ResultReport__Group_2__1__Impl
             {
-            pushFollow(FOLLOW_rule__ResultReport__Group__13__Impl_in_rule__ResultReport__Group__132456);
-            rule__ResultReport__Group__13__Impl();
+            pushFollow(FOLLOW_rule__ResultReport__Group_2__1__Impl_in_rule__ResultReport__Group_2__12440);
+            rule__ResultReport__Group_2__1__Impl();
 
             state._fsp--;
 
@@ -3394,100 +3300,35 @@ public class InternalResultsParser extends AbstractInternalContentAssistParser {
         }
         return ;
     }
-    // $ANTLR end "rule__ResultReport__Group__13"
+    // $ANTLR end "rule__ResultReport__Group_2__1"
 
 
-    // $ANTLR start "rule__ResultReport__Group__13__Impl"
-    // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:1234:1: rule__ResultReport__Group__13__Impl : ( ']' ) ;
-    public final void rule__ResultReport__Group__13__Impl() throws RecognitionException {
-
-        		int stackSize = keepStackSize();
-            
-        try {
-            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:1238:1: ( ( ']' ) )
-            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:1239:1: ( ']' )
-            {
-            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:1239:1: ( ']' )
-            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:1240:1: ']'
-            {
-             before(grammarAccess.getResultReportAccess().getRightSquareBracketKeyword_13()); 
-            match(input,20,FOLLOW_20_in_rule__ResultReport__Group__13__Impl2484); 
-             after(grammarAccess.getResultReportAccess().getRightSquareBracketKeyword_13()); 
-
-            }
-
-
-            }
-
-        }
-        catch (RecognitionException re) {
-            reportError(re);
-            recover(input,re);
-        }
-        finally {
-
-            	restoreStackSize(stackSize);
-
-        }
-        return ;
-    }
-    // $ANTLR end "rule__ResultReport__Group__13__Impl"
-
-
-    // $ANTLR start "rule__ResultReport__Group_3__0"
-    // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:1281:1: rule__ResultReport__Group_3__0 : rule__ResultReport__Group_3__0__Impl rule__ResultReport__Group_3__1 ;
-    public final void rule__ResultReport__Group_3__0() throws RecognitionException {
+    // $ANTLR start "rule__ResultReport__Group_2__1__Impl"
+    // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:1237:1: rule__ResultReport__Group_2__1__Impl : ( ( rule__ResultReport__TitleAssignment_2_1 ) ) ;
+    public final void rule__ResultReport__Group_2__1__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:1285:1: ( rule__ResultReport__Group_3__0__Impl rule__ResultReport__Group_3__1 )
-            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:1286:2: rule__ResultReport__Group_3__0__Impl rule__ResultReport__Group_3__1
+            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:1241:1: ( ( ( rule__ResultReport__TitleAssignment_2_1 ) ) )
+            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:1242:1: ( ( rule__ResultReport__TitleAssignment_2_1 ) )
             {
-            pushFollow(FOLLOW_rule__ResultReport__Group_3__0__Impl_in_rule__ResultReport__Group_3__02543);
-            rule__ResultReport__Group_3__0__Impl();
-
-            state._fsp--;
-
-            pushFollow(FOLLOW_rule__ResultReport__Group_3__1_in_rule__ResultReport__Group_3__02546);
-            rule__ResultReport__Group_3__1();
+            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:1242:1: ( ( rule__ResultReport__TitleAssignment_2_1 ) )
+            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:1243:1: ( rule__ResultReport__TitleAssignment_2_1 )
+            {
+             before(grammarAccess.getResultReportAccess().getTitleAssignment_2_1()); 
+            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:1244:1: ( rule__ResultReport__TitleAssignment_2_1 )
+            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:1244:2: rule__ResultReport__TitleAssignment_2_1
+            {
+            pushFollow(FOLLOW_rule__ResultReport__TitleAssignment_2_1_in_rule__ResultReport__Group_2__1__Impl2467);
+            rule__ResultReport__TitleAssignment_2_1();
 
             state._fsp--;
 
 
             }
 
-        }
-        catch (RecognitionException re) {
-            reportError(re);
-            recover(input,re);
-        }
-        finally {
-
-            	restoreStackSize(stackSize);
-
-        }
-        return ;
-    }
-    // $ANTLR end "rule__ResultReport__Group_3__0"
-
-
-    // $ANTLR start "rule__ResultReport__Group_3__0__Impl"
-    // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:1293:1: rule__ResultReport__Group_3__0__Impl : ( ':' ) ;
-    public final void rule__ResultReport__Group_3__0__Impl() throws RecognitionException {
-
-        		int stackSize = keepStackSize();
-            
-        try {
-            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:1297:1: ( ( ':' ) )
-            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:1298:1: ( ':' )
-            {
-            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:1298:1: ( ':' )
-            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:1299:1: ':'
-            {
-             before(grammarAccess.getResultReportAccess().getColonKeyword_3_0()); 
-            match(input,21,FOLLOW_21_in_rule__ResultReport__Group_3__0__Impl2574); 
-             after(grammarAccess.getResultReportAccess().getColonKeyword_3_0()); 
+             after(grammarAccess.getResultReportAccess().getTitleAssignment_2_1()); 
 
             }
 
@@ -3506,21 +3347,26 @@ public class InternalResultsParser extends AbstractInternalContentAssistParser {
         }
         return ;
     }
-    // $ANTLR end "rule__ResultReport__Group_3__0__Impl"
+    // $ANTLR end "rule__ResultReport__Group_2__1__Impl"
 
 
-    // $ANTLR start "rule__ResultReport__Group_3__1"
-    // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:1312:1: rule__ResultReport__Group_3__1 : rule__ResultReport__Group_3__1__Impl ;
-    public final void rule__ResultReport__Group_3__1() throws RecognitionException {
+    // $ANTLR start "rule__ResultReport__Group_6__0"
+    // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:1258:1: rule__ResultReport__Group_6__0 : rule__ResultReport__Group_6__0__Impl rule__ResultReport__Group_6__1 ;
+    public final void rule__ResultReport__Group_6__0() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:1316:1: ( rule__ResultReport__Group_3__1__Impl )
-            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:1317:2: rule__ResultReport__Group_3__1__Impl
+            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:1262:1: ( rule__ResultReport__Group_6__0__Impl rule__ResultReport__Group_6__1 )
+            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:1263:2: rule__ResultReport__Group_6__0__Impl rule__ResultReport__Group_6__1
             {
-            pushFollow(FOLLOW_rule__ResultReport__Group_3__1__Impl_in_rule__ResultReport__Group_3__12605);
-            rule__ResultReport__Group_3__1__Impl();
+            pushFollow(FOLLOW_rule__ResultReport__Group_6__0__Impl_in_rule__ResultReport__Group_6__02501);
+            rule__ResultReport__Group_6__0__Impl();
+
+            state._fsp--;
+
+            pushFollow(FOLLOW_rule__ResultReport__Group_6__1_in_rule__ResultReport__Group_6__02504);
+            rule__ResultReport__Group_6__1();
 
             state._fsp--;
 
@@ -3539,35 +3385,25 @@ public class InternalResultsParser extends AbstractInternalContentAssistParser {
         }
         return ;
     }
-    // $ANTLR end "rule__ResultReport__Group_3__1"
+    // $ANTLR end "rule__ResultReport__Group_6__0"
 
 
-    // $ANTLR start "rule__ResultReport__Group_3__1__Impl"
-    // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:1323:1: rule__ResultReport__Group_3__1__Impl : ( ( rule__ResultReport__TitleAssignment_3_1 ) ) ;
-    public final void rule__ResultReport__Group_3__1__Impl() throws RecognitionException {
+    // $ANTLR start "rule__ResultReport__Group_6__0__Impl"
+    // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:1270:1: rule__ResultReport__Group_6__0__Impl : ( 'description' ) ;
+    public final void rule__ResultReport__Group_6__0__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:1327:1: ( ( ( rule__ResultReport__TitleAssignment_3_1 ) ) )
-            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:1328:1: ( ( rule__ResultReport__TitleAssignment_3_1 ) )
+            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:1274:1: ( ( 'description' ) )
+            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:1275:1: ( 'description' )
             {
-            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:1328:1: ( ( rule__ResultReport__TitleAssignment_3_1 ) )
-            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:1329:1: ( rule__ResultReport__TitleAssignment_3_1 )
+            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:1275:1: ( 'description' )
+            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:1276:1: 'description'
             {
-             before(grammarAccess.getResultReportAccess().getTitleAssignment_3_1()); 
-            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:1330:1: ( rule__ResultReport__TitleAssignment_3_1 )
-            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:1330:2: rule__ResultReport__TitleAssignment_3_1
-            {
-            pushFollow(FOLLOW_rule__ResultReport__TitleAssignment_3_1_in_rule__ResultReport__Group_3__1__Impl2632);
-            rule__ResultReport__TitleAssignment_3_1();
-
-            state._fsp--;
-
-
-            }
-
-             after(grammarAccess.getResultReportAccess().getTitleAssignment_3_1()); 
+             before(grammarAccess.getResultReportAccess().getDescriptionKeyword_6_0()); 
+            match(input,23,FOLLOW_23_in_rule__ResultReport__Group_6__0__Impl2532); 
+             after(grammarAccess.getResultReportAccess().getDescriptionKeyword_6_0()); 
 
             }
 
@@ -3586,25 +3422,105 @@ public class InternalResultsParser extends AbstractInternalContentAssistParser {
         }
         return ;
     }
-    // $ANTLR end "rule__ResultReport__Group_3__1__Impl"
+    // $ANTLR end "rule__ResultReport__Group_6__0__Impl"
+
+
+    // $ANTLR start "rule__ResultReport__Group_6__1"
+    // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:1289:1: rule__ResultReport__Group_6__1 : rule__ResultReport__Group_6__1__Impl ;
+    public final void rule__ResultReport__Group_6__1() throws RecognitionException {
+
+        		int stackSize = keepStackSize();
+            
+        try {
+            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:1293:1: ( rule__ResultReport__Group_6__1__Impl )
+            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:1294:2: rule__ResultReport__Group_6__1__Impl
+            {
+            pushFollow(FOLLOW_rule__ResultReport__Group_6__1__Impl_in_rule__ResultReport__Group_6__12563);
+            rule__ResultReport__Group_6__1__Impl();
+
+            state._fsp--;
+
+
+            }
+
+        }
+        catch (RecognitionException re) {
+            reportError(re);
+            recover(input,re);
+        }
+        finally {
+
+            	restoreStackSize(stackSize);
+
+        }
+        return ;
+    }
+    // $ANTLR end "rule__ResultReport__Group_6__1"
+
+
+    // $ANTLR start "rule__ResultReport__Group_6__1__Impl"
+    // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:1300:1: rule__ResultReport__Group_6__1__Impl : ( ( rule__ResultReport__DecriptionAssignment_6_1 ) ) ;
+    public final void rule__ResultReport__Group_6__1__Impl() throws RecognitionException {
+
+        		int stackSize = keepStackSize();
+            
+        try {
+            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:1304:1: ( ( ( rule__ResultReport__DecriptionAssignment_6_1 ) ) )
+            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:1305:1: ( ( rule__ResultReport__DecriptionAssignment_6_1 ) )
+            {
+            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:1305:1: ( ( rule__ResultReport__DecriptionAssignment_6_1 ) )
+            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:1306:1: ( rule__ResultReport__DecriptionAssignment_6_1 )
+            {
+             before(grammarAccess.getResultReportAccess().getDecriptionAssignment_6_1()); 
+            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:1307:1: ( rule__ResultReport__DecriptionAssignment_6_1 )
+            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:1307:2: rule__ResultReport__DecriptionAssignment_6_1
+            {
+            pushFollow(FOLLOW_rule__ResultReport__DecriptionAssignment_6_1_in_rule__ResultReport__Group_6__1__Impl2590);
+            rule__ResultReport__DecriptionAssignment_6_1();
+
+            state._fsp--;
+
+
+            }
+
+             after(grammarAccess.getResultReportAccess().getDecriptionAssignment_6_1()); 
+
+            }
+
+
+            }
+
+        }
+        catch (RecognitionException re) {
+            reportError(re);
+            recover(input,re);
+        }
+        finally {
+
+            	restoreStackSize(stackSize);
+
+        }
+        return ;
+    }
+    // $ANTLR end "rule__ResultReport__Group_6__1__Impl"
 
 
     // $ANTLR start "rule__ResultReport__Group_7__0"
-    // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:1344:1: rule__ResultReport__Group_7__0 : rule__ResultReport__Group_7__0__Impl rule__ResultReport__Group_7__1 ;
+    // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:1321:1: rule__ResultReport__Group_7__0 : rule__ResultReport__Group_7__0__Impl rule__ResultReport__Group_7__1 ;
     public final void rule__ResultReport__Group_7__0() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:1348:1: ( rule__ResultReport__Group_7__0__Impl rule__ResultReport__Group_7__1 )
-            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:1349:2: rule__ResultReport__Group_7__0__Impl rule__ResultReport__Group_7__1
+            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:1325:1: ( rule__ResultReport__Group_7__0__Impl rule__ResultReport__Group_7__1 )
+            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:1326:2: rule__ResultReport__Group_7__0__Impl rule__ResultReport__Group_7__1
             {
-            pushFollow(FOLLOW_rule__ResultReport__Group_7__0__Impl_in_rule__ResultReport__Group_7__02666);
+            pushFollow(FOLLOW_rule__ResultReport__Group_7__0__Impl_in_rule__ResultReport__Group_7__02624);
             rule__ResultReport__Group_7__0__Impl();
 
             state._fsp--;
 
-            pushFollow(FOLLOW_rule__ResultReport__Group_7__1_in_rule__ResultReport__Group_7__02669);
+            pushFollow(FOLLOW_rule__ResultReport__Group_7__1_in_rule__ResultReport__Group_7__02627);
             rule__ResultReport__Group_7__1();
 
             state._fsp--;
@@ -3628,21 +3544,21 @@ public class InternalResultsParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__ResultReport__Group_7__0__Impl"
-    // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:1356:1: rule__ResultReport__Group_7__0__Impl : ( 'exception' ) ;
+    // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:1333:1: rule__ResultReport__Group_7__0__Impl : ( 'heading' ) ;
     public final void rule__ResultReport__Group_7__0__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:1360:1: ( ( 'exception' ) )
-            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:1361:1: ( 'exception' )
+            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:1337:1: ( ( 'heading' ) )
+            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:1338:1: ( 'heading' )
             {
-            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:1361:1: ( 'exception' )
-            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:1362:1: 'exception'
+            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:1338:1: ( 'heading' )
+            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:1339:1: 'heading'
             {
-             before(grammarAccess.getResultReportAccess().getExceptionKeyword_7_0()); 
-            match(input,24,FOLLOW_24_in_rule__ResultReport__Group_7__0__Impl2697); 
-             after(grammarAccess.getResultReportAccess().getExceptionKeyword_7_0()); 
+             before(grammarAccess.getResultReportAccess().getHeadingKeyword_7_0()); 
+            match(input,25,FOLLOW_25_in_rule__ResultReport__Group_7__0__Impl2655); 
+             after(grammarAccess.getResultReportAccess().getHeadingKeyword_7_0()); 
 
             }
 
@@ -3665,17 +3581,22 @@ public class InternalResultsParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__ResultReport__Group_7__1"
-    // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:1375:1: rule__ResultReport__Group_7__1 : rule__ResultReport__Group_7__1__Impl ;
+    // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:1352:1: rule__ResultReport__Group_7__1 : rule__ResultReport__Group_7__1__Impl rule__ResultReport__Group_7__2 ;
     public final void rule__ResultReport__Group_7__1() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:1379:1: ( rule__ResultReport__Group_7__1__Impl )
-            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:1380:2: rule__ResultReport__Group_7__1__Impl
+            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:1356:1: ( rule__ResultReport__Group_7__1__Impl rule__ResultReport__Group_7__2 )
+            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:1357:2: rule__ResultReport__Group_7__1__Impl rule__ResultReport__Group_7__2
             {
-            pushFollow(FOLLOW_rule__ResultReport__Group_7__1__Impl_in_rule__ResultReport__Group_7__12728);
+            pushFollow(FOLLOW_rule__ResultReport__Group_7__1__Impl_in_rule__ResultReport__Group_7__12686);
             rule__ResultReport__Group_7__1__Impl();
+
+            state._fsp--;
+
+            pushFollow(FOLLOW_rule__ResultReport__Group_7__2_in_rule__ResultReport__Group_7__12689);
+            rule__ResultReport__Group_7__2();
 
             state._fsp--;
 
@@ -3698,31 +3619,31 @@ public class InternalResultsParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__ResultReport__Group_7__1__Impl"
-    // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:1386:1: rule__ResultReport__Group_7__1__Impl : ( ( rule__ResultReport__ExceptionTypeAssignment_7_1 ) ) ;
+    // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:1364:1: rule__ResultReport__Group_7__1__Impl : ( ( rule__ResultReport__HeadingAssignment_7_1 ) ) ;
     public final void rule__ResultReport__Group_7__1__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:1390:1: ( ( ( rule__ResultReport__ExceptionTypeAssignment_7_1 ) ) )
-            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:1391:1: ( ( rule__ResultReport__ExceptionTypeAssignment_7_1 ) )
+            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:1368:1: ( ( ( rule__ResultReport__HeadingAssignment_7_1 ) ) )
+            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:1369:1: ( ( rule__ResultReport__HeadingAssignment_7_1 ) )
             {
-            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:1391:1: ( ( rule__ResultReport__ExceptionTypeAssignment_7_1 ) )
-            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:1392:1: ( rule__ResultReport__ExceptionTypeAssignment_7_1 )
+            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:1369:1: ( ( rule__ResultReport__HeadingAssignment_7_1 ) )
+            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:1370:1: ( rule__ResultReport__HeadingAssignment_7_1 )
             {
-             before(grammarAccess.getResultReportAccess().getExceptionTypeAssignment_7_1()); 
-            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:1393:1: ( rule__ResultReport__ExceptionTypeAssignment_7_1 )
-            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:1393:2: rule__ResultReport__ExceptionTypeAssignment_7_1
+             before(grammarAccess.getResultReportAccess().getHeadingAssignment_7_1()); 
+            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:1371:1: ( rule__ResultReport__HeadingAssignment_7_1 )
+            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:1371:2: rule__ResultReport__HeadingAssignment_7_1
             {
-            pushFollow(FOLLOW_rule__ResultReport__ExceptionTypeAssignment_7_1_in_rule__ResultReport__Group_7__1__Impl2755);
-            rule__ResultReport__ExceptionTypeAssignment_7_1();
+            pushFollow(FOLLOW_rule__ResultReport__HeadingAssignment_7_1_in_rule__ResultReport__Group_7__1__Impl2716);
+            rule__ResultReport__HeadingAssignment_7_1();
 
             state._fsp--;
 
 
             }
 
-             after(grammarAccess.getResultReportAccess().getExceptionTypeAssignment_7_1()); 
+             after(grammarAccess.getResultReportAccess().getHeadingAssignment_7_1()); 
 
             }
 
@@ -3744,23 +3665,18 @@ public class InternalResultsParser extends AbstractInternalContentAssistParser {
     // $ANTLR end "rule__ResultReport__Group_7__1__Impl"
 
 
-    // $ANTLR start "rule__ResultReport__Group_9__0"
-    // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:1407:1: rule__ResultReport__Group_9__0 : rule__ResultReport__Group_9__0__Impl rule__ResultReport__Group_9__1 ;
-    public final void rule__ResultReport__Group_9__0() throws RecognitionException {
+    // $ANTLR start "rule__ResultReport__Group_7__2"
+    // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:1381:1: rule__ResultReport__Group_7__2 : rule__ResultReport__Group_7__2__Impl ;
+    public final void rule__ResultReport__Group_7__2() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:1411:1: ( rule__ResultReport__Group_9__0__Impl rule__ResultReport__Group_9__1 )
-            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:1412:2: rule__ResultReport__Group_9__0__Impl rule__ResultReport__Group_9__1
+            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:1385:1: ( rule__ResultReport__Group_7__2__Impl )
+            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:1386:2: rule__ResultReport__Group_7__2__Impl
             {
-            pushFollow(FOLLOW_rule__ResultReport__Group_9__0__Impl_in_rule__ResultReport__Group_9__02789);
-            rule__ResultReport__Group_9__0__Impl();
-
-            state._fsp--;
-
-            pushFollow(FOLLOW_rule__ResultReport__Group_9__1_in_rule__ResultReport__Group_9__02792);
-            rule__ResultReport__Group_9__1();
+            pushFollow(FOLLOW_rule__ResultReport__Group_7__2__Impl_in_rule__ResultReport__Group_7__22746);
+            rule__ResultReport__Group_7__2__Impl();
 
             state._fsp--;
 
@@ -3779,25 +3695,53 @@ public class InternalResultsParser extends AbstractInternalContentAssistParser {
         }
         return ;
     }
-    // $ANTLR end "rule__ResultReport__Group_9__0"
+    // $ANTLR end "rule__ResultReport__Group_7__2"
 
 
-    // $ANTLR start "rule__ResultReport__Group_9__0__Impl"
-    // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:1419:1: rule__ResultReport__Group_9__0__Impl : ( 'description' ) ;
-    public final void rule__ResultReport__Group_9__0__Impl() throws RecognitionException {
+    // $ANTLR start "rule__ResultReport__Group_7__2__Impl"
+    // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:1392:1: rule__ResultReport__Group_7__2__Impl : ( ( rule__ResultReport__ContentAssignment_7_2 )* ) ;
+    public final void rule__ResultReport__Group_7__2__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:1423:1: ( ( 'description' ) )
-            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:1424:1: ( 'description' )
+            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:1396:1: ( ( ( rule__ResultReport__ContentAssignment_7_2 )* ) )
+            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:1397:1: ( ( rule__ResultReport__ContentAssignment_7_2 )* )
             {
-            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:1424:1: ( 'description' )
-            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:1425:1: 'description'
+            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:1397:1: ( ( rule__ResultReport__ContentAssignment_7_2 )* )
+            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:1398:1: ( rule__ResultReport__ContentAssignment_7_2 )*
             {
-             before(grammarAccess.getResultReportAccess().getDescriptionKeyword_9_0()); 
-            match(input,22,FOLLOW_22_in_rule__ResultReport__Group_9__0__Impl2820); 
-             after(grammarAccess.getResultReportAccess().getDescriptionKeyword_9_0()); 
+             before(grammarAccess.getResultReportAccess().getContentAssignment_7_2()); 
+            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:1399:1: ( rule__ResultReport__ContentAssignment_7_2 )*
+            loop12:
+            do {
+                int alt12=2;
+                int LA12_0 = input.LA(1);
+
+                if ( (LA12_0==27) ) {
+                    alt12=1;
+                }
+
+
+                switch (alt12) {
+            	case 1 :
+            	    // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:1399:2: rule__ResultReport__ContentAssignment_7_2
+            	    {
+            	    pushFollow(FOLLOW_rule__ResultReport__ContentAssignment_7_2_in_rule__ResultReport__Group_7__2__Impl2773);
+            	    rule__ResultReport__ContentAssignment_7_2();
+
+            	    state._fsp--;
+
+
+            	    }
+            	    break;
+
+            	default :
+            	    break loop12;
+                }
+            } while (true);
+
+             after(grammarAccess.getResultReportAccess().getContentAssignment_7_2()); 
 
             }
 
@@ -3816,21 +3760,26 @@ public class InternalResultsParser extends AbstractInternalContentAssistParser {
         }
         return ;
     }
-    // $ANTLR end "rule__ResultReport__Group_9__0__Impl"
+    // $ANTLR end "rule__ResultReport__Group_7__2__Impl"
 
 
-    // $ANTLR start "rule__ResultReport__Group_9__1"
-    // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:1438:1: rule__ResultReport__Group_9__1 : rule__ResultReport__Group_9__1__Impl ;
-    public final void rule__ResultReport__Group_9__1() throws RecognitionException {
+    // $ANTLR start "rule__ResultReport__Group_8__0"
+    // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:1415:1: rule__ResultReport__Group_8__0 : rule__ResultReport__Group_8__0__Impl rule__ResultReport__Group_8__1 ;
+    public final void rule__ResultReport__Group_8__0() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:1442:1: ( rule__ResultReport__Group_9__1__Impl )
-            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:1443:2: rule__ResultReport__Group_9__1__Impl
+            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:1419:1: ( rule__ResultReport__Group_8__0__Impl rule__ResultReport__Group_8__1 )
+            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:1420:2: rule__ResultReport__Group_8__0__Impl rule__ResultReport__Group_8__1
             {
-            pushFollow(FOLLOW_rule__ResultReport__Group_9__1__Impl_in_rule__ResultReport__Group_9__12851);
-            rule__ResultReport__Group_9__1__Impl();
+            pushFollow(FOLLOW_rule__ResultReport__Group_8__0__Impl_in_rule__ResultReport__Group_8__02810);
+            rule__ResultReport__Group_8__0__Impl();
+
+            state._fsp--;
+
+            pushFollow(FOLLOW_rule__ResultReport__Group_8__1_in_rule__ResultReport__Group_8__02813);
+            rule__ResultReport__Group_8__1();
 
             state._fsp--;
 
@@ -3849,35 +3798,25 @@ public class InternalResultsParser extends AbstractInternalContentAssistParser {
         }
         return ;
     }
-    // $ANTLR end "rule__ResultReport__Group_9__1"
+    // $ANTLR end "rule__ResultReport__Group_8__0"
 
 
-    // $ANTLR start "rule__ResultReport__Group_9__1__Impl"
-    // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:1449:1: rule__ResultReport__Group_9__1__Impl : ( ( rule__ResultReport__DecriptionAssignment_9_1 ) ) ;
-    public final void rule__ResultReport__Group_9__1__Impl() throws RecognitionException {
+    // $ANTLR start "rule__ResultReport__Group_8__0__Impl"
+    // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:1427:1: rule__ResultReport__Group_8__0__Impl : ( 'results' ) ;
+    public final void rule__ResultReport__Group_8__0__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:1453:1: ( ( ( rule__ResultReport__DecriptionAssignment_9_1 ) ) )
-            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:1454:1: ( ( rule__ResultReport__DecriptionAssignment_9_1 ) )
+            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:1431:1: ( ( 'results' ) )
+            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:1432:1: ( 'results' )
             {
-            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:1454:1: ( ( rule__ResultReport__DecriptionAssignment_9_1 ) )
-            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:1455:1: ( rule__ResultReport__DecriptionAssignment_9_1 )
+            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:1432:1: ( 'results' )
+            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:1433:1: 'results'
             {
-             before(grammarAccess.getResultReportAccess().getDecriptionAssignment_9_1()); 
-            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:1456:1: ( rule__ResultReport__DecriptionAssignment_9_1 )
-            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:1456:2: rule__ResultReport__DecriptionAssignment_9_1
-            {
-            pushFollow(FOLLOW_rule__ResultReport__DecriptionAssignment_9_1_in_rule__ResultReport__Group_9__1__Impl2878);
-            rule__ResultReport__DecriptionAssignment_9_1();
-
-            state._fsp--;
-
-
-            }
-
-             after(grammarAccess.getResultReportAccess().getDecriptionAssignment_9_1()); 
+             before(grammarAccess.getResultReportAccess().getResultsKeyword_8_0()); 
+            match(input,26,FOLLOW_26_in_rule__ResultReport__Group_8__0__Impl2841); 
+             after(grammarAccess.getResultReportAccess().getResultsKeyword_8_0()); 
 
             }
 
@@ -3896,26 +3835,21 @@ public class InternalResultsParser extends AbstractInternalContentAssistParser {
         }
         return ;
     }
-    // $ANTLR end "rule__ResultReport__Group_9__1__Impl"
+    // $ANTLR end "rule__ResultReport__Group_8__0__Impl"
 
 
-    // $ANTLR start "rule__ResultReport__Group_10__0"
-    // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:1470:1: rule__ResultReport__Group_10__0 : rule__ResultReport__Group_10__0__Impl rule__ResultReport__Group_10__1 ;
-    public final void rule__ResultReport__Group_10__0() throws RecognitionException {
+    // $ANTLR start "rule__ResultReport__Group_8__1"
+    // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:1446:1: rule__ResultReport__Group_8__1 : rule__ResultReport__Group_8__1__Impl ;
+    public final void rule__ResultReport__Group_8__1() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:1474:1: ( rule__ResultReport__Group_10__0__Impl rule__ResultReport__Group_10__1 )
-            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:1475:2: rule__ResultReport__Group_10__0__Impl rule__ResultReport__Group_10__1
+            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:1450:1: ( rule__ResultReport__Group_8__1__Impl )
+            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:1451:2: rule__ResultReport__Group_8__1__Impl
             {
-            pushFollow(FOLLOW_rule__ResultReport__Group_10__0__Impl_in_rule__ResultReport__Group_10__02912);
-            rule__ResultReport__Group_10__0__Impl();
-
-            state._fsp--;
-
-            pushFollow(FOLLOW_rule__ResultReport__Group_10__1_in_rule__ResultReport__Group_10__02915);
-            rule__ResultReport__Group_10__1();
+            pushFollow(FOLLOW_rule__ResultReport__Group_8__1__Impl_in_rule__ResultReport__Group_8__12872);
+            rule__ResultReport__Group_8__1__Impl();
 
             state._fsp--;
 
@@ -3934,195 +3868,62 @@ public class InternalResultsParser extends AbstractInternalContentAssistParser {
         }
         return ;
     }
-    // $ANTLR end "rule__ResultReport__Group_10__0"
+    // $ANTLR end "rule__ResultReport__Group_8__1"
 
 
-    // $ANTLR start "rule__ResultReport__Group_10__0__Impl"
-    // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:1482:1: rule__ResultReport__Group_10__0__Impl : ( 'heading' ) ;
-    public final void rule__ResultReport__Group_10__0__Impl() throws RecognitionException {
-
-        		int stackSize = keepStackSize();
-            
-        try {
-            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:1486:1: ( ( 'heading' ) )
-            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:1487:1: ( 'heading' )
-            {
-            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:1487:1: ( 'heading' )
-            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:1488:1: 'heading'
-            {
-             before(grammarAccess.getResultReportAccess().getHeadingKeyword_10_0()); 
-            match(input,25,FOLLOW_25_in_rule__ResultReport__Group_10__0__Impl2943); 
-             after(grammarAccess.getResultReportAccess().getHeadingKeyword_10_0()); 
-
-            }
-
-
-            }
-
-        }
-        catch (RecognitionException re) {
-            reportError(re);
-            recover(input,re);
-        }
-        finally {
-
-            	restoreStackSize(stackSize);
-
-        }
-        return ;
-    }
-    // $ANTLR end "rule__ResultReport__Group_10__0__Impl"
-
-
-    // $ANTLR start "rule__ResultReport__Group_10__1"
-    // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:1501:1: rule__ResultReport__Group_10__1 : rule__ResultReport__Group_10__1__Impl rule__ResultReport__Group_10__2 ;
-    public final void rule__ResultReport__Group_10__1() throws RecognitionException {
+    // $ANTLR start "rule__ResultReport__Group_8__1__Impl"
+    // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:1457:1: rule__ResultReport__Group_8__1__Impl : ( ( ( rule__ResultReport__ResultDataAssignment_8_1 ) ) ( ( rule__ResultReport__ResultDataAssignment_8_1 )* ) ) ;
+    public final void rule__ResultReport__Group_8__1__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:1505:1: ( rule__ResultReport__Group_10__1__Impl rule__ResultReport__Group_10__2 )
-            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:1506:2: rule__ResultReport__Group_10__1__Impl rule__ResultReport__Group_10__2
+            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:1461:1: ( ( ( ( rule__ResultReport__ResultDataAssignment_8_1 ) ) ( ( rule__ResultReport__ResultDataAssignment_8_1 )* ) ) )
+            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:1462:1: ( ( ( rule__ResultReport__ResultDataAssignment_8_1 ) ) ( ( rule__ResultReport__ResultDataAssignment_8_1 )* ) )
             {
-            pushFollow(FOLLOW_rule__ResultReport__Group_10__1__Impl_in_rule__ResultReport__Group_10__12974);
-            rule__ResultReport__Group_10__1__Impl();
-
-            state._fsp--;
-
-            pushFollow(FOLLOW_rule__ResultReport__Group_10__2_in_rule__ResultReport__Group_10__12977);
-            rule__ResultReport__Group_10__2();
+            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:1462:1: ( ( ( rule__ResultReport__ResultDataAssignment_8_1 ) ) ( ( rule__ResultReport__ResultDataAssignment_8_1 )* ) )
+            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:1463:1: ( ( rule__ResultReport__ResultDataAssignment_8_1 ) ) ( ( rule__ResultReport__ResultDataAssignment_8_1 )* )
+            {
+            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:1463:1: ( ( rule__ResultReport__ResultDataAssignment_8_1 ) )
+            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:1464:1: ( rule__ResultReport__ResultDataAssignment_8_1 )
+            {
+             before(grammarAccess.getResultReportAccess().getResultDataAssignment_8_1()); 
+            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:1465:1: ( rule__ResultReport__ResultDataAssignment_8_1 )
+            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:1465:2: rule__ResultReport__ResultDataAssignment_8_1
+            {
+            pushFollow(FOLLOW_rule__ResultReport__ResultDataAssignment_8_1_in_rule__ResultReport__Group_8__1__Impl2901);
+            rule__ResultReport__ResultDataAssignment_8_1();
 
             state._fsp--;
 
 
             }
 
-        }
-        catch (RecognitionException re) {
-            reportError(re);
-            recover(input,re);
-        }
-        finally {
-
-            	restoreStackSize(stackSize);
-
-        }
-        return ;
-    }
-    // $ANTLR end "rule__ResultReport__Group_10__1"
-
-
-    // $ANTLR start "rule__ResultReport__Group_10__1__Impl"
-    // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:1513:1: rule__ResultReport__Group_10__1__Impl : ( ( rule__ResultReport__HeadingAssignment_10_1 ) ) ;
-    public final void rule__ResultReport__Group_10__1__Impl() throws RecognitionException {
-
-        		int stackSize = keepStackSize();
-            
-        try {
-            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:1517:1: ( ( ( rule__ResultReport__HeadingAssignment_10_1 ) ) )
-            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:1518:1: ( ( rule__ResultReport__HeadingAssignment_10_1 ) )
-            {
-            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:1518:1: ( ( rule__ResultReport__HeadingAssignment_10_1 ) )
-            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:1519:1: ( rule__ResultReport__HeadingAssignment_10_1 )
-            {
-             before(grammarAccess.getResultReportAccess().getHeadingAssignment_10_1()); 
-            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:1520:1: ( rule__ResultReport__HeadingAssignment_10_1 )
-            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:1520:2: rule__ResultReport__HeadingAssignment_10_1
-            {
-            pushFollow(FOLLOW_rule__ResultReport__HeadingAssignment_10_1_in_rule__ResultReport__Group_10__1__Impl3004);
-            rule__ResultReport__HeadingAssignment_10_1();
-
-            state._fsp--;
-
+             after(grammarAccess.getResultReportAccess().getResultDataAssignment_8_1()); 
 
             }
 
-             after(grammarAccess.getResultReportAccess().getHeadingAssignment_10_1()); 
-
-            }
-
-
-            }
-
-        }
-        catch (RecognitionException re) {
-            reportError(re);
-            recover(input,re);
-        }
-        finally {
-
-            	restoreStackSize(stackSize);
-
-        }
-        return ;
-    }
-    // $ANTLR end "rule__ResultReport__Group_10__1__Impl"
-
-
-    // $ANTLR start "rule__ResultReport__Group_10__2"
-    // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:1530:1: rule__ResultReport__Group_10__2 : rule__ResultReport__Group_10__2__Impl ;
-    public final void rule__ResultReport__Group_10__2() throws RecognitionException {
-
-        		int stackSize = keepStackSize();
-            
-        try {
-            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:1534:1: ( rule__ResultReport__Group_10__2__Impl )
-            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:1535:2: rule__ResultReport__Group_10__2__Impl
+            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:1468:1: ( ( rule__ResultReport__ResultDataAssignment_8_1 )* )
+            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:1469:1: ( rule__ResultReport__ResultDataAssignment_8_1 )*
             {
-            pushFollow(FOLLOW_rule__ResultReport__Group_10__2__Impl_in_rule__ResultReport__Group_10__23034);
-            rule__ResultReport__Group_10__2__Impl();
-
-            state._fsp--;
-
-
-            }
-
-        }
-        catch (RecognitionException re) {
-            reportError(re);
-            recover(input,re);
-        }
-        finally {
-
-            	restoreStackSize(stackSize);
-
-        }
-        return ;
-    }
-    // $ANTLR end "rule__ResultReport__Group_10__2"
-
-
-    // $ANTLR start "rule__ResultReport__Group_10__2__Impl"
-    // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:1541:1: rule__ResultReport__Group_10__2__Impl : ( ( rule__ResultReport__ContentAssignment_10_2 )* ) ;
-    public final void rule__ResultReport__Group_10__2__Impl() throws RecognitionException {
-
-        		int stackSize = keepStackSize();
-            
-        try {
-            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:1545:1: ( ( ( rule__ResultReport__ContentAssignment_10_2 )* ) )
-            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:1546:1: ( ( rule__ResultReport__ContentAssignment_10_2 )* )
-            {
-            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:1546:1: ( ( rule__ResultReport__ContentAssignment_10_2 )* )
-            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:1547:1: ( rule__ResultReport__ContentAssignment_10_2 )*
-            {
-             before(grammarAccess.getResultReportAccess().getContentAssignment_10_2()); 
-            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:1548:1: ( rule__ResultReport__ContentAssignment_10_2 )*
+             before(grammarAccess.getResultReportAccess().getResultDataAssignment_8_1()); 
+            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:1470:1: ( rule__ResultReport__ResultDataAssignment_8_1 )*
             loop13:
             do {
                 int alt13=2;
                 int LA13_0 = input.LA(1);
 
-                if ( (LA13_0==27) ) {
+                if ( (LA13_0==RULE_ID) ) {
                     alt13=1;
                 }
 
 
                 switch (alt13) {
             	case 1 :
-            	    // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:1548:2: rule__ResultReport__ContentAssignment_10_2
+            	    // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:1470:2: rule__ResultReport__ResultDataAssignment_8_1
             	    {
-            	    pushFollow(FOLLOW_rule__ResultReport__ContentAssignment_10_2_in_rule__ResultReport__Group_10__2__Impl3061);
-            	    rule__ResultReport__ContentAssignment_10_2();
+            	    pushFollow(FOLLOW_rule__ResultReport__ResultDataAssignment_8_1_in_rule__ResultReport__Group_8__1__Impl2913);
+            	    rule__ResultReport__ResultDataAssignment_8_1();
 
             	    state._fsp--;
 
@@ -4135,202 +3936,7 @@ public class InternalResultsParser extends AbstractInternalContentAssistParser {
                 }
             } while (true);
 
-             after(grammarAccess.getResultReportAccess().getContentAssignment_10_2()); 
-
-            }
-
-
-            }
-
-        }
-        catch (RecognitionException re) {
-            reportError(re);
-            recover(input,re);
-        }
-        finally {
-
-            	restoreStackSize(stackSize);
-
-        }
-        return ;
-    }
-    // $ANTLR end "rule__ResultReport__Group_10__2__Impl"
-
-
-    // $ANTLR start "rule__ResultReport__Group_11__0"
-    // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:1564:1: rule__ResultReport__Group_11__0 : rule__ResultReport__Group_11__0__Impl rule__ResultReport__Group_11__1 ;
-    public final void rule__ResultReport__Group_11__0() throws RecognitionException {
-
-        		int stackSize = keepStackSize();
-            
-        try {
-            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:1568:1: ( rule__ResultReport__Group_11__0__Impl rule__ResultReport__Group_11__1 )
-            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:1569:2: rule__ResultReport__Group_11__0__Impl rule__ResultReport__Group_11__1
-            {
-            pushFollow(FOLLOW_rule__ResultReport__Group_11__0__Impl_in_rule__ResultReport__Group_11__03098);
-            rule__ResultReport__Group_11__0__Impl();
-
-            state._fsp--;
-
-            pushFollow(FOLLOW_rule__ResultReport__Group_11__1_in_rule__ResultReport__Group_11__03101);
-            rule__ResultReport__Group_11__1();
-
-            state._fsp--;
-
-
-            }
-
-        }
-        catch (RecognitionException re) {
-            reportError(re);
-            recover(input,re);
-        }
-        finally {
-
-            	restoreStackSize(stackSize);
-
-        }
-        return ;
-    }
-    // $ANTLR end "rule__ResultReport__Group_11__0"
-
-
-    // $ANTLR start "rule__ResultReport__Group_11__0__Impl"
-    // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:1576:1: rule__ResultReport__Group_11__0__Impl : ( 'results' ) ;
-    public final void rule__ResultReport__Group_11__0__Impl() throws RecognitionException {
-
-        		int stackSize = keepStackSize();
-            
-        try {
-            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:1580:1: ( ( 'results' ) )
-            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:1581:1: ( 'results' )
-            {
-            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:1581:1: ( 'results' )
-            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:1582:1: 'results'
-            {
-             before(grammarAccess.getResultReportAccess().getResultsKeyword_11_0()); 
-            match(input,26,FOLLOW_26_in_rule__ResultReport__Group_11__0__Impl3129); 
-             after(grammarAccess.getResultReportAccess().getResultsKeyword_11_0()); 
-
-            }
-
-
-            }
-
-        }
-        catch (RecognitionException re) {
-            reportError(re);
-            recover(input,re);
-        }
-        finally {
-
-            	restoreStackSize(stackSize);
-
-        }
-        return ;
-    }
-    // $ANTLR end "rule__ResultReport__Group_11__0__Impl"
-
-
-    // $ANTLR start "rule__ResultReport__Group_11__1"
-    // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:1595:1: rule__ResultReport__Group_11__1 : rule__ResultReport__Group_11__1__Impl ;
-    public final void rule__ResultReport__Group_11__1() throws RecognitionException {
-
-        		int stackSize = keepStackSize();
-            
-        try {
-            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:1599:1: ( rule__ResultReport__Group_11__1__Impl )
-            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:1600:2: rule__ResultReport__Group_11__1__Impl
-            {
-            pushFollow(FOLLOW_rule__ResultReport__Group_11__1__Impl_in_rule__ResultReport__Group_11__13160);
-            rule__ResultReport__Group_11__1__Impl();
-
-            state._fsp--;
-
-
-            }
-
-        }
-        catch (RecognitionException re) {
-            reportError(re);
-            recover(input,re);
-        }
-        finally {
-
-            	restoreStackSize(stackSize);
-
-        }
-        return ;
-    }
-    // $ANTLR end "rule__ResultReport__Group_11__1"
-
-
-    // $ANTLR start "rule__ResultReport__Group_11__1__Impl"
-    // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:1606:1: rule__ResultReport__Group_11__1__Impl : ( ( ( rule__ResultReport__ResultDataAssignment_11_1 ) ) ( ( rule__ResultReport__ResultDataAssignment_11_1 )* ) ) ;
-    public final void rule__ResultReport__Group_11__1__Impl() throws RecognitionException {
-
-        		int stackSize = keepStackSize();
-            
-        try {
-            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:1610:1: ( ( ( ( rule__ResultReport__ResultDataAssignment_11_1 ) ) ( ( rule__ResultReport__ResultDataAssignment_11_1 )* ) ) )
-            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:1611:1: ( ( ( rule__ResultReport__ResultDataAssignment_11_1 ) ) ( ( rule__ResultReport__ResultDataAssignment_11_1 )* ) )
-            {
-            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:1611:1: ( ( ( rule__ResultReport__ResultDataAssignment_11_1 ) ) ( ( rule__ResultReport__ResultDataAssignment_11_1 )* ) )
-            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:1612:1: ( ( rule__ResultReport__ResultDataAssignment_11_1 ) ) ( ( rule__ResultReport__ResultDataAssignment_11_1 )* )
-            {
-            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:1612:1: ( ( rule__ResultReport__ResultDataAssignment_11_1 ) )
-            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:1613:1: ( rule__ResultReport__ResultDataAssignment_11_1 )
-            {
-             before(grammarAccess.getResultReportAccess().getResultDataAssignment_11_1()); 
-            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:1614:1: ( rule__ResultReport__ResultDataAssignment_11_1 )
-            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:1614:2: rule__ResultReport__ResultDataAssignment_11_1
-            {
-            pushFollow(FOLLOW_rule__ResultReport__ResultDataAssignment_11_1_in_rule__ResultReport__Group_11__1__Impl3189);
-            rule__ResultReport__ResultDataAssignment_11_1();
-
-            state._fsp--;
-
-
-            }
-
-             after(grammarAccess.getResultReportAccess().getResultDataAssignment_11_1()); 
-
-            }
-
-            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:1617:1: ( ( rule__ResultReport__ResultDataAssignment_11_1 )* )
-            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:1618:1: ( rule__ResultReport__ResultDataAssignment_11_1 )*
-            {
-             before(grammarAccess.getResultReportAccess().getResultDataAssignment_11_1()); 
-            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:1619:1: ( rule__ResultReport__ResultDataAssignment_11_1 )*
-            loop14:
-            do {
-                int alt14=2;
-                int LA14_0 = input.LA(1);
-
-                if ( (LA14_0==RULE_ID) ) {
-                    alt14=1;
-                }
-
-
-                switch (alt14) {
-            	case 1 :
-            	    // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:1619:2: rule__ResultReport__ResultDataAssignment_11_1
-            	    {
-            	    pushFollow(FOLLOW_rule__ResultReport__ResultDataAssignment_11_1_in_rule__ResultReport__Group_11__1__Impl3201);
-            	    rule__ResultReport__ResultDataAssignment_11_1();
-
-            	    state._fsp--;
-
-
-            	    }
-            	    break;
-
-            	default :
-            	    break loop14;
-                }
-            } while (true);
-
-             after(grammarAccess.getResultReportAccess().getResultDataAssignment_11_1()); 
+             after(grammarAccess.getResultReportAccess().getResultDataAssignment_8_1()); 
 
             }
 
@@ -4352,25 +3958,25 @@ public class InternalResultsParser extends AbstractInternalContentAssistParser {
         }
         return ;
     }
-    // $ANTLR end "rule__ResultReport__Group_11__1__Impl"
+    // $ANTLR end "rule__ResultReport__Group_8__1__Impl"
 
 
     // $ANTLR start "rule__ResultContributor__Group__0"
-    // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:1634:1: rule__ResultContributor__Group__0 : rule__ResultContributor__Group__0__Impl rule__ResultContributor__Group__1 ;
+    // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:1485:1: rule__ResultContributor__Group__0 : rule__ResultContributor__Group__0__Impl rule__ResultContributor__Group__1 ;
     public final void rule__ResultContributor__Group__0() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:1638:1: ( rule__ResultContributor__Group__0__Impl rule__ResultContributor__Group__1 )
-            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:1639:2: rule__ResultContributor__Group__0__Impl rule__ResultContributor__Group__1
+            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:1489:1: ( rule__ResultContributor__Group__0__Impl rule__ResultContributor__Group__1 )
+            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:1490:2: rule__ResultContributor__Group__0__Impl rule__ResultContributor__Group__1
             {
-            pushFollow(FOLLOW_rule__ResultContributor__Group__0__Impl_in_rule__ResultContributor__Group__03238);
+            pushFollow(FOLLOW_rule__ResultContributor__Group__0__Impl_in_rule__ResultContributor__Group__02950);
             rule__ResultContributor__Group__0__Impl();
 
             state._fsp--;
 
-            pushFollow(FOLLOW_rule__ResultContributor__Group__1_in_rule__ResultContributor__Group__03241);
+            pushFollow(FOLLOW_rule__ResultContributor__Group__1_in_rule__ResultContributor__Group__02953);
             rule__ResultContributor__Group__1();
 
             state._fsp--;
@@ -4394,31 +4000,31 @@ public class InternalResultsParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__ResultContributor__Group__0__Impl"
-    // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:1646:1: rule__ResultContributor__Group__0__Impl : ( () ) ;
+    // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:1497:1: rule__ResultContributor__Group__0__Impl : ( 'contributor' ) ;
     public final void rule__ResultContributor__Group__0__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:1650:1: ( ( () ) )
-            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:1651:1: ( () )
+            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:1501:1: ( ( 'contributor' ) )
+            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:1502:1: ( 'contributor' )
             {
-            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:1651:1: ( () )
-            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:1652:1: ()
+            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:1502:1: ( 'contributor' )
+            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:1503:1: 'contributor'
             {
-             before(grammarAccess.getResultContributorAccess().getResultContributorAction_0()); 
-            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:1653:1: ()
-            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:1655:1: 
-            {
-            }
-
-             after(grammarAccess.getResultContributorAccess().getResultContributorAction_0()); 
+             before(grammarAccess.getResultContributorAccess().getContributorKeyword_0()); 
+            match(input,27,FOLLOW_27_in_rule__ResultContributor__Group__0__Impl2981); 
+             after(grammarAccess.getResultContributorAccess().getContributorKeyword_0()); 
 
             }
 
 
             }
 
+        }
+        catch (RecognitionException re) {
+            reportError(re);
+            recover(input,re);
         }
         finally {
 
@@ -4431,21 +4037,21 @@ public class InternalResultsParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__ResultContributor__Group__1"
-    // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:1665:1: rule__ResultContributor__Group__1 : rule__ResultContributor__Group__1__Impl rule__ResultContributor__Group__2 ;
+    // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:1516:1: rule__ResultContributor__Group__1 : rule__ResultContributor__Group__1__Impl rule__ResultContributor__Group__2 ;
     public final void rule__ResultContributor__Group__1() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:1669:1: ( rule__ResultContributor__Group__1__Impl rule__ResultContributor__Group__2 )
-            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:1670:2: rule__ResultContributor__Group__1__Impl rule__ResultContributor__Group__2
+            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:1520:1: ( rule__ResultContributor__Group__1__Impl rule__ResultContributor__Group__2 )
+            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:1521:2: rule__ResultContributor__Group__1__Impl rule__ResultContributor__Group__2
             {
-            pushFollow(FOLLOW_rule__ResultContributor__Group__1__Impl_in_rule__ResultContributor__Group__13299);
+            pushFollow(FOLLOW_rule__ResultContributor__Group__1__Impl_in_rule__ResultContributor__Group__13012);
             rule__ResultContributor__Group__1__Impl();
 
             state._fsp--;
 
-            pushFollow(FOLLOW_rule__ResultContributor__Group__2_in_rule__ResultContributor__Group__13302);
+            pushFollow(FOLLOW_rule__ResultContributor__Group__2_in_rule__ResultContributor__Group__13015);
             rule__ResultContributor__Group__2();
 
             state._fsp--;
@@ -4469,21 +4075,31 @@ public class InternalResultsParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__ResultContributor__Group__1__Impl"
-    // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:1677:1: rule__ResultContributor__Group__1__Impl : ( 'contributor' ) ;
+    // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:1528:1: rule__ResultContributor__Group__1__Impl : ( ( rule__ResultContributor__TargetAssignment_1 ) ) ;
     public final void rule__ResultContributor__Group__1__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:1681:1: ( ( 'contributor' ) )
-            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:1682:1: ( 'contributor' )
+            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:1532:1: ( ( ( rule__ResultContributor__TargetAssignment_1 ) ) )
+            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:1533:1: ( ( rule__ResultContributor__TargetAssignment_1 ) )
             {
-            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:1682:1: ( 'contributor' )
-            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:1683:1: 'contributor'
+            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:1533:1: ( ( rule__ResultContributor__TargetAssignment_1 ) )
+            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:1534:1: ( rule__ResultContributor__TargetAssignment_1 )
             {
-             before(grammarAccess.getResultContributorAccess().getContributorKeyword_1()); 
-            match(input,27,FOLLOW_27_in_rule__ResultContributor__Group__1__Impl3330); 
-             after(grammarAccess.getResultContributorAccess().getContributorKeyword_1()); 
+             before(grammarAccess.getResultContributorAccess().getTargetAssignment_1()); 
+            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:1535:1: ( rule__ResultContributor__TargetAssignment_1 )
+            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:1535:2: rule__ResultContributor__TargetAssignment_1
+            {
+            pushFollow(FOLLOW_rule__ResultContributor__TargetAssignment_1_in_rule__ResultContributor__Group__1__Impl3042);
+            rule__ResultContributor__TargetAssignment_1();
+
+            state._fsp--;
+
+
+            }
+
+             after(grammarAccess.getResultContributorAccess().getTargetAssignment_1()); 
 
             }
 
@@ -4506,21 +4122,21 @@ public class InternalResultsParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__ResultContributor__Group__2"
-    // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:1696:1: rule__ResultContributor__Group__2 : rule__ResultContributor__Group__2__Impl rule__ResultContributor__Group__3 ;
+    // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:1545:1: rule__ResultContributor__Group__2 : rule__ResultContributor__Group__2__Impl rule__ResultContributor__Group__3 ;
     public final void rule__ResultContributor__Group__2() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:1700:1: ( rule__ResultContributor__Group__2__Impl rule__ResultContributor__Group__3 )
-            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:1701:2: rule__ResultContributor__Group__2__Impl rule__ResultContributor__Group__3
+            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:1549:1: ( rule__ResultContributor__Group__2__Impl rule__ResultContributor__Group__3 )
+            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:1550:2: rule__ResultContributor__Group__2__Impl rule__ResultContributor__Group__3
             {
-            pushFollow(FOLLOW_rule__ResultContributor__Group__2__Impl_in_rule__ResultContributor__Group__23361);
+            pushFollow(FOLLOW_rule__ResultContributor__Group__2__Impl_in_rule__ResultContributor__Group__23072);
             rule__ResultContributor__Group__2__Impl();
 
             state._fsp--;
 
-            pushFollow(FOLLOW_rule__ResultContributor__Group__3_in_rule__ResultContributor__Group__23364);
+            pushFollow(FOLLOW_rule__ResultContributor__Group__3_in_rule__ResultContributor__Group__23075);
             rule__ResultContributor__Group__3();
 
             state._fsp--;
@@ -4544,31 +4160,21 @@ public class InternalResultsParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__ResultContributor__Group__2__Impl"
-    // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:1708:1: rule__ResultContributor__Group__2__Impl : ( ( rule__ResultContributor__TargetAssignment_2 ) ) ;
+    // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:1557:1: rule__ResultContributor__Group__2__Impl : ( '[' ) ;
     public final void rule__ResultContributor__Group__2__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:1712:1: ( ( ( rule__ResultContributor__TargetAssignment_2 ) ) )
-            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:1713:1: ( ( rule__ResultContributor__TargetAssignment_2 ) )
+            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:1561:1: ( ( '[' ) )
+            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:1562:1: ( '[' )
             {
-            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:1713:1: ( ( rule__ResultContributor__TargetAssignment_2 ) )
-            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:1714:1: ( rule__ResultContributor__TargetAssignment_2 )
+            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:1562:1: ( '[' )
+            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:1563:1: '['
             {
-             before(grammarAccess.getResultContributorAccess().getTargetAssignment_2()); 
-            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:1715:1: ( rule__ResultContributor__TargetAssignment_2 )
-            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:1715:2: rule__ResultContributor__TargetAssignment_2
-            {
-            pushFollow(FOLLOW_rule__ResultContributor__TargetAssignment_2_in_rule__ResultContributor__Group__2__Impl3391);
-            rule__ResultContributor__TargetAssignment_2();
-
-            state._fsp--;
-
-
-            }
-
-             after(grammarAccess.getResultContributorAccess().getTargetAssignment_2()); 
+             before(grammarAccess.getResultContributorAccess().getLeftSquareBracketKeyword_2()); 
+            match(input,20,FOLLOW_20_in_rule__ResultContributor__Group__2__Impl3103); 
+             after(grammarAccess.getResultContributorAccess().getLeftSquareBracketKeyword_2()); 
 
             }
 
@@ -4591,21 +4197,21 @@ public class InternalResultsParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__ResultContributor__Group__3"
-    // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:1725:1: rule__ResultContributor__Group__3 : rule__ResultContributor__Group__3__Impl rule__ResultContributor__Group__4 ;
+    // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:1576:1: rule__ResultContributor__Group__3 : rule__ResultContributor__Group__3__Impl rule__ResultContributor__Group__4 ;
     public final void rule__ResultContributor__Group__3() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:1729:1: ( rule__ResultContributor__Group__3__Impl rule__ResultContributor__Group__4 )
-            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:1730:2: rule__ResultContributor__Group__3__Impl rule__ResultContributor__Group__4
+            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:1580:1: ( rule__ResultContributor__Group__3__Impl rule__ResultContributor__Group__4 )
+            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:1581:2: rule__ResultContributor__Group__3__Impl rule__ResultContributor__Group__4
             {
-            pushFollow(FOLLOW_rule__ResultContributor__Group__3__Impl_in_rule__ResultContributor__Group__33421);
+            pushFollow(FOLLOW_rule__ResultContributor__Group__3__Impl_in_rule__ResultContributor__Group__33134);
             rule__ResultContributor__Group__3__Impl();
 
             state._fsp--;
 
-            pushFollow(FOLLOW_rule__ResultContributor__Group__4_in_rule__ResultContributor__Group__33424);
+            pushFollow(FOLLOW_rule__ResultContributor__Group__4_in_rule__ResultContributor__Group__33137);
             rule__ResultContributor__Group__4();
 
             state._fsp--;
@@ -4629,31 +4235,42 @@ public class InternalResultsParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__ResultContributor__Group__3__Impl"
-    // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:1737:1: rule__ResultContributor__Group__3__Impl : ( ( rule__ResultContributor__IssueTypeAssignment_3 ) ) ;
+    // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:1588:1: rule__ResultContributor__Group__3__Impl : ( ( rule__ResultContributor__Group_3__0 )? ) ;
     public final void rule__ResultContributor__Group__3__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:1741:1: ( ( ( rule__ResultContributor__IssueTypeAssignment_3 ) ) )
-            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:1742:1: ( ( rule__ResultContributor__IssueTypeAssignment_3 ) )
+            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:1592:1: ( ( ( rule__ResultContributor__Group_3__0 )? ) )
+            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:1593:1: ( ( rule__ResultContributor__Group_3__0 )? )
             {
-            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:1742:1: ( ( rule__ResultContributor__IssueTypeAssignment_3 ) )
-            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:1743:1: ( rule__ResultContributor__IssueTypeAssignment_3 )
+            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:1593:1: ( ( rule__ResultContributor__Group_3__0 )? )
+            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:1594:1: ( rule__ResultContributor__Group_3__0 )?
             {
-             before(grammarAccess.getResultContributorAccess().getIssueTypeAssignment_3()); 
-            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:1744:1: ( rule__ResultContributor__IssueTypeAssignment_3 )
-            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:1744:2: rule__ResultContributor__IssueTypeAssignment_3
-            {
-            pushFollow(FOLLOW_rule__ResultContributor__IssueTypeAssignment_3_in_rule__ResultContributor__Group__3__Impl3451);
-            rule__ResultContributor__IssueTypeAssignment_3();
+             before(grammarAccess.getResultContributorAccess().getGroup_3()); 
+            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:1595:1: ( rule__ResultContributor__Group_3__0 )?
+            int alt14=2;
+            int LA14_0 = input.LA(1);
 
-            state._fsp--;
+            if ( (LA14_0==26) ) {
+                alt14=1;
+            }
+            switch (alt14) {
+                case 1 :
+                    // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:1595:2: rule__ResultContributor__Group_3__0
+                    {
+                    pushFollow(FOLLOW_rule__ResultContributor__Group_3__0_in_rule__ResultContributor__Group__3__Impl3164);
+                    rule__ResultContributor__Group_3__0();
 
+                    state._fsp--;
+
+
+                    }
+                    break;
 
             }
 
-             after(grammarAccess.getResultContributorAccess().getIssueTypeAssignment_3()); 
+             after(grammarAccess.getResultContributorAccess().getGroup_3()); 
 
             }
 
@@ -4676,21 +4293,21 @@ public class InternalResultsParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__ResultContributor__Group__4"
-    // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:1754:1: rule__ResultContributor__Group__4 : rule__ResultContributor__Group__4__Impl rule__ResultContributor__Group__5 ;
+    // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:1605:1: rule__ResultContributor__Group__4 : rule__ResultContributor__Group__4__Impl rule__ResultContributor__Group__5 ;
     public final void rule__ResultContributor__Group__4() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:1758:1: ( rule__ResultContributor__Group__4__Impl rule__ResultContributor__Group__5 )
-            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:1759:2: rule__ResultContributor__Group__4__Impl rule__ResultContributor__Group__5
+            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:1609:1: ( rule__ResultContributor__Group__4__Impl rule__ResultContributor__Group__5 )
+            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:1610:2: rule__ResultContributor__Group__4__Impl rule__ResultContributor__Group__5
             {
-            pushFollow(FOLLOW_rule__ResultContributor__Group__4__Impl_in_rule__ResultContributor__Group__43481);
+            pushFollow(FOLLOW_rule__ResultContributor__Group__4__Impl_in_rule__ResultContributor__Group__43195);
             rule__ResultContributor__Group__4__Impl();
 
             state._fsp--;
 
-            pushFollow(FOLLOW_rule__ResultContributor__Group__5_in_rule__ResultContributor__Group__43484);
+            pushFollow(FOLLOW_rule__ResultContributor__Group__5_in_rule__ResultContributor__Group__43198);
             rule__ResultContributor__Group__5();
 
             state._fsp--;
@@ -4714,31 +4331,49 @@ public class InternalResultsParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__ResultContributor__Group__4__Impl"
-    // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:1766:1: rule__ResultContributor__Group__4__Impl : ( ( rule__ResultContributor__MessageAssignment_4 ) ) ;
+    // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:1617:1: rule__ResultContributor__Group__4__Impl : ( ( rule__ResultContributor__IssuesAssignment_4 )* ) ;
     public final void rule__ResultContributor__Group__4__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:1770:1: ( ( ( rule__ResultContributor__MessageAssignment_4 ) ) )
-            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:1771:1: ( ( rule__ResultContributor__MessageAssignment_4 ) )
+            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:1621:1: ( ( ( rule__ResultContributor__IssuesAssignment_4 )* ) )
+            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:1622:1: ( ( rule__ResultContributor__IssuesAssignment_4 )* )
             {
-            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:1771:1: ( ( rule__ResultContributor__MessageAssignment_4 ) )
-            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:1772:1: ( rule__ResultContributor__MessageAssignment_4 )
+            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:1622:1: ( ( rule__ResultContributor__IssuesAssignment_4 )* )
+            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:1623:1: ( rule__ResultContributor__IssuesAssignment_4 )*
             {
-             before(grammarAccess.getResultContributorAccess().getMessageAssignment_4()); 
-            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:1773:1: ( rule__ResultContributor__MessageAssignment_4 )
-            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:1773:2: rule__ResultContributor__MessageAssignment_4
-            {
-            pushFollow(FOLLOW_rule__ResultContributor__MessageAssignment_4_in_rule__ResultContributor__Group__4__Impl3511);
-            rule__ResultContributor__MessageAssignment_4();
+             before(grammarAccess.getResultContributorAccess().getIssuesAssignment_4()); 
+            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:1624:1: ( rule__ResultContributor__IssuesAssignment_4 )*
+            loop15:
+            do {
+                int alt15=2;
+                int LA15_0 = input.LA(1);
 
-            state._fsp--;
+                if ( (LA15_0==29) ) {
+                    alt15=1;
+                }
 
 
-            }
+                switch (alt15) {
+            	case 1 :
+            	    // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:1624:2: rule__ResultContributor__IssuesAssignment_4
+            	    {
+            	    pushFollow(FOLLOW_rule__ResultContributor__IssuesAssignment_4_in_rule__ResultContributor__Group__4__Impl3225);
+            	    rule__ResultContributor__IssuesAssignment_4();
 
-             after(grammarAccess.getResultContributorAccess().getMessageAssignment_4()); 
+            	    state._fsp--;
+
+
+            	    }
+            	    break;
+
+            	default :
+            	    break loop15;
+                }
+            } while (true);
+
+             after(grammarAccess.getResultContributorAccess().getIssuesAssignment_4()); 
 
             }
 
@@ -4761,21 +4396,21 @@ public class InternalResultsParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__ResultContributor__Group__5"
-    // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:1783:1: rule__ResultContributor__Group__5 : rule__ResultContributor__Group__5__Impl rule__ResultContributor__Group__6 ;
+    // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:1634:1: rule__ResultContributor__Group__5 : rule__ResultContributor__Group__5__Impl rule__ResultContributor__Group__6 ;
     public final void rule__ResultContributor__Group__5() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:1787:1: ( rule__ResultContributor__Group__5__Impl rule__ResultContributor__Group__6 )
-            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:1788:2: rule__ResultContributor__Group__5__Impl rule__ResultContributor__Group__6
+            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:1638:1: ( rule__ResultContributor__Group__5__Impl rule__ResultContributor__Group__6 )
+            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:1639:2: rule__ResultContributor__Group__5__Impl rule__ResultContributor__Group__6
             {
-            pushFollow(FOLLOW_rule__ResultContributor__Group__5__Impl_in_rule__ResultContributor__Group__53541);
+            pushFollow(FOLLOW_rule__ResultContributor__Group__5__Impl_in_rule__ResultContributor__Group__53256);
             rule__ResultContributor__Group__5__Impl();
 
             state._fsp--;
 
-            pushFollow(FOLLOW_rule__ResultContributor__Group__6_in_rule__ResultContributor__Group__53544);
+            pushFollow(FOLLOW_rule__ResultContributor__Group__6_in_rule__ResultContributor__Group__53259);
             rule__ResultContributor__Group__6();
 
             state._fsp--;
@@ -4799,42 +4434,49 @@ public class InternalResultsParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__ResultContributor__Group__5__Impl"
-    // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:1795:1: rule__ResultContributor__Group__5__Impl : ( ( rule__ResultContributor__Group_5__0 )? ) ;
+    // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:1646:1: rule__ResultContributor__Group__5__Impl : ( ( rule__ResultContributor__SubcontributorAssignment_5 )* ) ;
     public final void rule__ResultContributor__Group__5__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:1799:1: ( ( ( rule__ResultContributor__Group_5__0 )? ) )
-            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:1800:1: ( ( rule__ResultContributor__Group_5__0 )? )
+            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:1650:1: ( ( ( rule__ResultContributor__SubcontributorAssignment_5 )* ) )
+            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:1651:1: ( ( rule__ResultContributor__SubcontributorAssignment_5 )* )
             {
-            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:1800:1: ( ( rule__ResultContributor__Group_5__0 )? )
-            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:1801:1: ( rule__ResultContributor__Group_5__0 )?
+            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:1651:1: ( ( rule__ResultContributor__SubcontributorAssignment_5 )* )
+            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:1652:1: ( rule__ResultContributor__SubcontributorAssignment_5 )*
             {
-             before(grammarAccess.getResultContributorAccess().getGroup_5()); 
-            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:1802:1: ( rule__ResultContributor__Group_5__0 )?
-            int alt15=2;
-            int LA15_0 = input.LA(1);
+             before(grammarAccess.getResultContributorAccess().getSubcontributorAssignment_5()); 
+            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:1653:1: ( rule__ResultContributor__SubcontributorAssignment_5 )*
+            loop16:
+            do {
+                int alt16=2;
+                int LA16_0 = input.LA(1);
 
-            if ( (LA15_0==24) ) {
-                alt15=1;
-            }
-            switch (alt15) {
-                case 1 :
-                    // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:1802:2: rule__ResultContributor__Group_5__0
-                    {
-                    pushFollow(FOLLOW_rule__ResultContributor__Group_5__0_in_rule__ResultContributor__Group__5__Impl3571);
-                    rule__ResultContributor__Group_5__0();
-
-                    state._fsp--;
+                if ( (LA16_0==27) ) {
+                    alt16=1;
+                }
 
 
-                    }
-                    break;
+                switch (alt16) {
+            	case 1 :
+            	    // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:1653:2: rule__ResultContributor__SubcontributorAssignment_5
+            	    {
+            	    pushFollow(FOLLOW_rule__ResultContributor__SubcontributorAssignment_5_in_rule__ResultContributor__Group__5__Impl3286);
+            	    rule__ResultContributor__SubcontributorAssignment_5();
 
-            }
+            	    state._fsp--;
 
-             after(grammarAccess.getResultContributorAccess().getGroup_5()); 
+
+            	    }
+            	    break;
+
+            	default :
+            	    break loop16;
+                }
+            } while (true);
+
+             after(grammarAccess.getResultContributorAccess().getSubcontributorAssignment_5()); 
 
             }
 
@@ -4857,22 +4499,17 @@ public class InternalResultsParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__ResultContributor__Group__6"
-    // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:1812:1: rule__ResultContributor__Group__6 : rule__ResultContributor__Group__6__Impl rule__ResultContributor__Group__7 ;
+    // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:1663:1: rule__ResultContributor__Group__6 : rule__ResultContributor__Group__6__Impl ;
     public final void rule__ResultContributor__Group__6() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:1816:1: ( rule__ResultContributor__Group__6__Impl rule__ResultContributor__Group__7 )
-            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:1817:2: rule__ResultContributor__Group__6__Impl rule__ResultContributor__Group__7
+            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:1667:1: ( rule__ResultContributor__Group__6__Impl )
+            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:1668:2: rule__ResultContributor__Group__6__Impl
             {
-            pushFollow(FOLLOW_rule__ResultContributor__Group__6__Impl_in_rule__ResultContributor__Group__63602);
+            pushFollow(FOLLOW_rule__ResultContributor__Group__6__Impl_in_rule__ResultContributor__Group__63317);
             rule__ResultContributor__Group__6__Impl();
-
-            state._fsp--;
-
-            pushFollow(FOLLOW_rule__ResultContributor__Group__7_in_rule__ResultContributor__Group__63605);
-            rule__ResultContributor__Group__7();
 
             state._fsp--;
 
@@ -4895,21 +4532,21 @@ public class InternalResultsParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__ResultContributor__Group__6__Impl"
-    // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:1824:1: rule__ResultContributor__Group__6__Impl : ( '[' ) ;
+    // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:1674:1: rule__ResultContributor__Group__6__Impl : ( ']' ) ;
     public final void rule__ResultContributor__Group__6__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:1828:1: ( ( '[' ) )
-            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:1829:1: ( '[' )
+            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:1678:1: ( ( ']' ) )
+            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:1679:1: ( ']' )
             {
-            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:1829:1: ( '[' )
-            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:1830:1: '['
+            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:1679:1: ( ']' )
+            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:1680:1: ']'
             {
-             before(grammarAccess.getResultContributorAccess().getLeftSquareBracketKeyword_6()); 
-            match(input,18,FOLLOW_18_in_rule__ResultContributor__Group__6__Impl3633); 
-             after(grammarAccess.getResultContributorAccess().getLeftSquareBracketKeyword_6()); 
+             before(grammarAccess.getResultContributorAccess().getRightSquareBracketKeyword_6()); 
+            match(input,21,FOLLOW_21_in_rule__ResultContributor__Group__6__Impl3345); 
+             after(grammarAccess.getResultContributorAccess().getRightSquareBracketKeyword_6()); 
 
             }
 
@@ -4931,23 +4568,23 @@ public class InternalResultsParser extends AbstractInternalContentAssistParser {
     // $ANTLR end "rule__ResultContributor__Group__6__Impl"
 
 
-    // $ANTLR start "rule__ResultContributor__Group__7"
-    // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:1843:1: rule__ResultContributor__Group__7 : rule__ResultContributor__Group__7__Impl rule__ResultContributor__Group__8 ;
-    public final void rule__ResultContributor__Group__7() throws RecognitionException {
+    // $ANTLR start "rule__ResultContributor__Group_3__0"
+    // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:1707:1: rule__ResultContributor__Group_3__0 : rule__ResultContributor__Group_3__0__Impl rule__ResultContributor__Group_3__1 ;
+    public final void rule__ResultContributor__Group_3__0() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:1847:1: ( rule__ResultContributor__Group__7__Impl rule__ResultContributor__Group__8 )
-            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:1848:2: rule__ResultContributor__Group__7__Impl rule__ResultContributor__Group__8
+            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:1711:1: ( rule__ResultContributor__Group_3__0__Impl rule__ResultContributor__Group_3__1 )
+            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:1712:2: rule__ResultContributor__Group_3__0__Impl rule__ResultContributor__Group_3__1
             {
-            pushFollow(FOLLOW_rule__ResultContributor__Group__7__Impl_in_rule__ResultContributor__Group__73664);
-            rule__ResultContributor__Group__7__Impl();
+            pushFollow(FOLLOW_rule__ResultContributor__Group_3__0__Impl_in_rule__ResultContributor__Group_3__03390);
+            rule__ResultContributor__Group_3__0__Impl();
 
             state._fsp--;
 
-            pushFollow(FOLLOW_rule__ResultContributor__Group__8_in_rule__ResultContributor__Group__73667);
-            rule__ResultContributor__Group__8();
+            pushFollow(FOLLOW_rule__ResultContributor__Group_3__1_in_rule__ResultContributor__Group_3__03393);
+            rule__ResultContributor__Group_3__1();
 
             state._fsp--;
 
@@ -4966,25 +4603,25 @@ public class InternalResultsParser extends AbstractInternalContentAssistParser {
         }
         return ;
     }
-    // $ANTLR end "rule__ResultContributor__Group__7"
+    // $ANTLR end "rule__ResultContributor__Group_3__0"
 
 
-    // $ANTLR start "rule__ResultContributor__Group__7__Impl"
-    // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:1855:1: rule__ResultContributor__Group__7__Impl : ( 'data' ) ;
-    public final void rule__ResultContributor__Group__7__Impl() throws RecognitionException {
+    // $ANTLR start "rule__ResultContributor__Group_3__0__Impl"
+    // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:1719:1: rule__ResultContributor__Group_3__0__Impl : ( 'results' ) ;
+    public final void rule__ResultContributor__Group_3__0__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:1859:1: ( ( 'data' ) )
-            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:1860:1: ( 'data' )
+            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:1723:1: ( ( 'results' ) )
+            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:1724:1: ( 'results' )
             {
-            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:1860:1: ( 'data' )
-            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:1861:1: 'data'
+            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:1724:1: ( 'results' )
+            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:1725:1: 'results'
             {
-             before(grammarAccess.getResultContributorAccess().getDataKeyword_7()); 
-            match(input,28,FOLLOW_28_in_rule__ResultContributor__Group__7__Impl3695); 
-             after(grammarAccess.getResultContributorAccess().getDataKeyword_7()); 
+             before(grammarAccess.getResultContributorAccess().getResultsKeyword_3_0()); 
+            match(input,26,FOLLOW_26_in_rule__ResultContributor__Group_3__0__Impl3421); 
+             after(grammarAccess.getResultContributorAccess().getResultsKeyword_3_0()); 
 
             }
 
@@ -5003,26 +4640,21 @@ public class InternalResultsParser extends AbstractInternalContentAssistParser {
         }
         return ;
     }
-    // $ANTLR end "rule__ResultContributor__Group__7__Impl"
+    // $ANTLR end "rule__ResultContributor__Group_3__0__Impl"
 
 
-    // $ANTLR start "rule__ResultContributor__Group__8"
-    // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:1874:1: rule__ResultContributor__Group__8 : rule__ResultContributor__Group__8__Impl rule__ResultContributor__Group__9 ;
-    public final void rule__ResultContributor__Group__8() throws RecognitionException {
+    // $ANTLR start "rule__ResultContributor__Group_3__1"
+    // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:1738:1: rule__ResultContributor__Group_3__1 : rule__ResultContributor__Group_3__1__Impl ;
+    public final void rule__ResultContributor__Group_3__1() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:1878:1: ( rule__ResultContributor__Group__8__Impl rule__ResultContributor__Group__9 )
-            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:1879:2: rule__ResultContributor__Group__8__Impl rule__ResultContributor__Group__9
+            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:1742:1: ( rule__ResultContributor__Group_3__1__Impl )
+            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:1743:2: rule__ResultContributor__Group_3__1__Impl
             {
-            pushFollow(FOLLOW_rule__ResultContributor__Group__8__Impl_in_rule__ResultContributor__Group__83726);
-            rule__ResultContributor__Group__8__Impl();
-
-            state._fsp--;
-
-            pushFollow(FOLLOW_rule__ResultContributor__Group__9_in_rule__ResultContributor__Group__83729);
-            rule__ResultContributor__Group__9();
+            pushFollow(FOLLOW_rule__ResultContributor__Group_3__1__Impl_in_rule__ResultContributor__Group_3__13452);
+            rule__ResultContributor__Group_3__1__Impl();
 
             state._fsp--;
 
@@ -5041,168 +4673,62 @@ public class InternalResultsParser extends AbstractInternalContentAssistParser {
         }
         return ;
     }
-    // $ANTLR end "rule__ResultContributor__Group__8"
+    // $ANTLR end "rule__ResultContributor__Group_3__1"
 
 
-    // $ANTLR start "rule__ResultContributor__Group__8__Impl"
-    // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:1886:1: rule__ResultContributor__Group__8__Impl : ( ( ( rule__ResultContributor__CellAssignment_8 ) ) ( ( rule__ResultContributor__CellAssignment_8 )* ) ) ;
-    public final void rule__ResultContributor__Group__8__Impl() throws RecognitionException {
+    // $ANTLR start "rule__ResultContributor__Group_3__1__Impl"
+    // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:1749:1: rule__ResultContributor__Group_3__1__Impl : ( ( ( rule__ResultContributor__ResultDataAssignment_3_1 ) ) ( ( rule__ResultContributor__ResultDataAssignment_3_1 )* ) ) ;
+    public final void rule__ResultContributor__Group_3__1__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:1890:1: ( ( ( ( rule__ResultContributor__CellAssignment_8 ) ) ( ( rule__ResultContributor__CellAssignment_8 )* ) ) )
-            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:1891:1: ( ( ( rule__ResultContributor__CellAssignment_8 ) ) ( ( rule__ResultContributor__CellAssignment_8 )* ) )
+            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:1753:1: ( ( ( ( rule__ResultContributor__ResultDataAssignment_3_1 ) ) ( ( rule__ResultContributor__ResultDataAssignment_3_1 )* ) ) )
+            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:1754:1: ( ( ( rule__ResultContributor__ResultDataAssignment_3_1 ) ) ( ( rule__ResultContributor__ResultDataAssignment_3_1 )* ) )
             {
-            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:1891:1: ( ( ( rule__ResultContributor__CellAssignment_8 ) ) ( ( rule__ResultContributor__CellAssignment_8 )* ) )
-            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:1892:1: ( ( rule__ResultContributor__CellAssignment_8 ) ) ( ( rule__ResultContributor__CellAssignment_8 )* )
+            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:1754:1: ( ( ( rule__ResultContributor__ResultDataAssignment_3_1 ) ) ( ( rule__ResultContributor__ResultDataAssignment_3_1 )* ) )
+            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:1755:1: ( ( rule__ResultContributor__ResultDataAssignment_3_1 ) ) ( ( rule__ResultContributor__ResultDataAssignment_3_1 )* )
             {
-            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:1892:1: ( ( rule__ResultContributor__CellAssignment_8 ) )
-            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:1893:1: ( rule__ResultContributor__CellAssignment_8 )
+            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:1755:1: ( ( rule__ResultContributor__ResultDataAssignment_3_1 ) )
+            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:1756:1: ( rule__ResultContributor__ResultDataAssignment_3_1 )
             {
-             before(grammarAccess.getResultContributorAccess().getCellAssignment_8()); 
-            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:1894:1: ( rule__ResultContributor__CellAssignment_8 )
-            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:1894:2: rule__ResultContributor__CellAssignment_8
+             before(grammarAccess.getResultContributorAccess().getResultDataAssignment_3_1()); 
+            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:1757:1: ( rule__ResultContributor__ResultDataAssignment_3_1 )
+            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:1757:2: rule__ResultContributor__ResultDataAssignment_3_1
             {
-            pushFollow(FOLLOW_rule__ResultContributor__CellAssignment_8_in_rule__ResultContributor__Group__8__Impl3758);
-            rule__ResultContributor__CellAssignment_8();
+            pushFollow(FOLLOW_rule__ResultContributor__ResultDataAssignment_3_1_in_rule__ResultContributor__Group_3__1__Impl3481);
+            rule__ResultContributor__ResultDataAssignment_3_1();
 
             state._fsp--;
 
 
             }
 
-             after(grammarAccess.getResultContributorAccess().getCellAssignment_8()); 
+             after(grammarAccess.getResultContributorAccess().getResultDataAssignment_3_1()); 
 
             }
 
-            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:1897:1: ( ( rule__ResultContributor__CellAssignment_8 )* )
-            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:1898:1: ( rule__ResultContributor__CellAssignment_8 )*
+            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:1760:1: ( ( rule__ResultContributor__ResultDataAssignment_3_1 )* )
+            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:1761:1: ( rule__ResultContributor__ResultDataAssignment_3_1 )*
             {
-             before(grammarAccess.getResultContributorAccess().getCellAssignment_8()); 
-            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:1899:1: ( rule__ResultContributor__CellAssignment_8 )*
-            loop16:
-            do {
-                int alt16=2;
-                int LA16_0 = input.LA(1);
-
-                if ( (LA16_0==RULE_STRING) ) {
-                    alt16=1;
-                }
-
-
-                switch (alt16) {
-            	case 1 :
-            	    // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:1899:2: rule__ResultContributor__CellAssignment_8
-            	    {
-            	    pushFollow(FOLLOW_rule__ResultContributor__CellAssignment_8_in_rule__ResultContributor__Group__8__Impl3770);
-            	    rule__ResultContributor__CellAssignment_8();
-
-            	    state._fsp--;
-
-
-            	    }
-            	    break;
-
-            	default :
-            	    break loop16;
-                }
-            } while (true);
-
-             after(grammarAccess.getResultContributorAccess().getCellAssignment_8()); 
-
-            }
-
-
-            }
-
-
-            }
-
-        }
-        catch (RecognitionException re) {
-            reportError(re);
-            recover(input,re);
-        }
-        finally {
-
-            	restoreStackSize(stackSize);
-
-        }
-        return ;
-    }
-    // $ANTLR end "rule__ResultContributor__Group__8__Impl"
-
-
-    // $ANTLR start "rule__ResultContributor__Group__9"
-    // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:1910:1: rule__ResultContributor__Group__9 : rule__ResultContributor__Group__9__Impl rule__ResultContributor__Group__10 ;
-    public final void rule__ResultContributor__Group__9() throws RecognitionException {
-
-        		int stackSize = keepStackSize();
-            
-        try {
-            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:1914:1: ( rule__ResultContributor__Group__9__Impl rule__ResultContributor__Group__10 )
-            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:1915:2: rule__ResultContributor__Group__9__Impl rule__ResultContributor__Group__10
-            {
-            pushFollow(FOLLOW_rule__ResultContributor__Group__9__Impl_in_rule__ResultContributor__Group__93803);
-            rule__ResultContributor__Group__9__Impl();
-
-            state._fsp--;
-
-            pushFollow(FOLLOW_rule__ResultContributor__Group__10_in_rule__ResultContributor__Group__93806);
-            rule__ResultContributor__Group__10();
-
-            state._fsp--;
-
-
-            }
-
-        }
-        catch (RecognitionException re) {
-            reportError(re);
-            recover(input,re);
-        }
-        finally {
-
-            	restoreStackSize(stackSize);
-
-        }
-        return ;
-    }
-    // $ANTLR end "rule__ResultContributor__Group__9"
-
-
-    // $ANTLR start "rule__ResultContributor__Group__9__Impl"
-    // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:1922:1: rule__ResultContributor__Group__9__Impl : ( ( rule__ResultContributor__IssuesAssignment_9 )* ) ;
-    public final void rule__ResultContributor__Group__9__Impl() throws RecognitionException {
-
-        		int stackSize = keepStackSize();
-            
-        try {
-            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:1926:1: ( ( ( rule__ResultContributor__IssuesAssignment_9 )* ) )
-            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:1927:1: ( ( rule__ResultContributor__IssuesAssignment_9 )* )
-            {
-            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:1927:1: ( ( rule__ResultContributor__IssuesAssignment_9 )* )
-            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:1928:1: ( rule__ResultContributor__IssuesAssignment_9 )*
-            {
-             before(grammarAccess.getResultContributorAccess().getIssuesAssignment_9()); 
-            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:1929:1: ( rule__ResultContributor__IssuesAssignment_9 )*
+             before(grammarAccess.getResultContributorAccess().getResultDataAssignment_3_1()); 
+            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:1762:1: ( rule__ResultContributor__ResultDataAssignment_3_1 )*
             loop17:
             do {
                 int alt17=2;
                 int LA17_0 = input.LA(1);
 
-                if ( (LA17_0==30) ) {
+                if ( (LA17_0==RULE_ID) ) {
                     alt17=1;
                 }
 
 
                 switch (alt17) {
             	case 1 :
-            	    // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:1929:2: rule__ResultContributor__IssuesAssignment_9
+            	    // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:1762:2: rule__ResultContributor__ResultDataAssignment_3_1
             	    {
-            	    pushFollow(FOLLOW_rule__ResultContributor__IssuesAssignment_9_in_rule__ResultContributor__Group__9__Impl3833);
-            	    rule__ResultContributor__IssuesAssignment_9();
+            	    pushFollow(FOLLOW_rule__ResultContributor__ResultDataAssignment_3_1_in_rule__ResultContributor__Group_3__1__Impl3493);
+            	    rule__ResultContributor__ResultDataAssignment_3_1();
 
             	    state._fsp--;
 
@@ -5215,110 +4741,10 @@ public class InternalResultsParser extends AbstractInternalContentAssistParser {
                 }
             } while (true);
 
-             after(grammarAccess.getResultContributorAccess().getIssuesAssignment_9()); 
+             after(grammarAccess.getResultContributorAccess().getResultDataAssignment_3_1()); 
 
             }
 
-
-            }
-
-        }
-        catch (RecognitionException re) {
-            reportError(re);
-            recover(input,re);
-        }
-        finally {
-
-            	restoreStackSize(stackSize);
-
-        }
-        return ;
-    }
-    // $ANTLR end "rule__ResultContributor__Group__9__Impl"
-
-
-    // $ANTLR start "rule__ResultContributor__Group__10"
-    // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:1939:1: rule__ResultContributor__Group__10 : rule__ResultContributor__Group__10__Impl rule__ResultContributor__Group__11 ;
-    public final void rule__ResultContributor__Group__10() throws RecognitionException {
-
-        		int stackSize = keepStackSize();
-            
-        try {
-            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:1943:1: ( rule__ResultContributor__Group__10__Impl rule__ResultContributor__Group__11 )
-            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:1944:2: rule__ResultContributor__Group__10__Impl rule__ResultContributor__Group__11
-            {
-            pushFollow(FOLLOW_rule__ResultContributor__Group__10__Impl_in_rule__ResultContributor__Group__103864);
-            rule__ResultContributor__Group__10__Impl();
-
-            state._fsp--;
-
-            pushFollow(FOLLOW_rule__ResultContributor__Group__11_in_rule__ResultContributor__Group__103867);
-            rule__ResultContributor__Group__11();
-
-            state._fsp--;
-
-
-            }
-
-        }
-        catch (RecognitionException re) {
-            reportError(re);
-            recover(input,re);
-        }
-        finally {
-
-            	restoreStackSize(stackSize);
-
-        }
-        return ;
-    }
-    // $ANTLR end "rule__ResultContributor__Group__10"
-
-
-    // $ANTLR start "rule__ResultContributor__Group__10__Impl"
-    // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:1951:1: rule__ResultContributor__Group__10__Impl : ( ( rule__ResultContributor__SubcontributorAssignment_10 )* ) ;
-    public final void rule__ResultContributor__Group__10__Impl() throws RecognitionException {
-
-        		int stackSize = keepStackSize();
-            
-        try {
-            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:1955:1: ( ( ( rule__ResultContributor__SubcontributorAssignment_10 )* ) )
-            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:1956:1: ( ( rule__ResultContributor__SubcontributorAssignment_10 )* )
-            {
-            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:1956:1: ( ( rule__ResultContributor__SubcontributorAssignment_10 )* )
-            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:1957:1: ( rule__ResultContributor__SubcontributorAssignment_10 )*
-            {
-             before(grammarAccess.getResultContributorAccess().getSubcontributorAssignment_10()); 
-            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:1958:1: ( rule__ResultContributor__SubcontributorAssignment_10 )*
-            loop18:
-            do {
-                int alt18=2;
-                int LA18_0 = input.LA(1);
-
-                if ( (LA18_0==27) ) {
-                    alt18=1;
-                }
-
-
-                switch (alt18) {
-            	case 1 :
-            	    // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:1958:2: rule__ResultContributor__SubcontributorAssignment_10
-            	    {
-            	    pushFollow(FOLLOW_rule__ResultContributor__SubcontributorAssignment_10_in_rule__ResultContributor__Group__10__Impl3894);
-            	    rule__ResultContributor__SubcontributorAssignment_10();
-
-            	    state._fsp--;
-
-
-            	    }
-            	    break;
-
-            	default :
-            	    break loop18;
-                }
-            } while (true);
-
-             after(grammarAccess.getResultContributorAccess().getSubcontributorAssignment_10()); 
 
             }
 
@@ -5337,21 +4763,26 @@ public class InternalResultsParser extends AbstractInternalContentAssistParser {
         }
         return ;
     }
-    // $ANTLR end "rule__ResultContributor__Group__10__Impl"
+    // $ANTLR end "rule__ResultContributor__Group_3__1__Impl"
 
 
-    // $ANTLR start "rule__ResultContributor__Group__11"
-    // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:1968:1: rule__ResultContributor__Group__11 : rule__ResultContributor__Group__11__Impl ;
-    public final void rule__ResultContributor__Group__11() throws RecognitionException {
+    // $ANTLR start "rule__IssuesReport__Group__0"
+    // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:1777:1: rule__IssuesReport__Group__0 : rule__IssuesReport__Group__0__Impl rule__IssuesReport__Group__1 ;
+    public final void rule__IssuesReport__Group__0() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:1972:1: ( rule__ResultContributor__Group__11__Impl )
-            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:1973:2: rule__ResultContributor__Group__11__Impl
+            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:1781:1: ( rule__IssuesReport__Group__0__Impl rule__IssuesReport__Group__1 )
+            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:1782:2: rule__IssuesReport__Group__0__Impl rule__IssuesReport__Group__1
             {
-            pushFollow(FOLLOW_rule__ResultContributor__Group__11__Impl_in_rule__ResultContributor__Group__113925);
-            rule__ResultContributor__Group__11__Impl();
+            pushFollow(FOLLOW_rule__IssuesReport__Group__0__Impl_in_rule__IssuesReport__Group__03530);
+            rule__IssuesReport__Group__0__Impl();
+
+            state._fsp--;
+
+            pushFollow(FOLLOW_rule__IssuesReport__Group__1_in_rule__IssuesReport__Group__03533);
+            rule__IssuesReport__Group__1();
 
             state._fsp--;
 
@@ -5370,25 +4801,25 @@ public class InternalResultsParser extends AbstractInternalContentAssistParser {
         }
         return ;
     }
-    // $ANTLR end "rule__ResultContributor__Group__11"
+    // $ANTLR end "rule__IssuesReport__Group__0"
 
 
-    // $ANTLR start "rule__ResultContributor__Group__11__Impl"
-    // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:1979:1: rule__ResultContributor__Group__11__Impl : ( ']' ) ;
-    public final void rule__ResultContributor__Group__11__Impl() throws RecognitionException {
+    // $ANTLR start "rule__IssuesReport__Group__0__Impl"
+    // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:1789:1: rule__IssuesReport__Group__0__Impl : ( 'issues' ) ;
+    public final void rule__IssuesReport__Group__0__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:1983:1: ( ( ']' ) )
-            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:1984:1: ( ']' )
+            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:1793:1: ( ( 'issues' ) )
+            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:1794:1: ( 'issues' )
             {
-            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:1984:1: ( ']' )
-            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:1985:1: ']'
+            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:1794:1: ( 'issues' )
+            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:1795:1: 'issues'
             {
-             before(grammarAccess.getResultContributorAccess().getRightSquareBracketKeyword_11()); 
-            match(input,20,FOLLOW_20_in_rule__ResultContributor__Group__11__Impl3953); 
-             after(grammarAccess.getResultContributorAccess().getRightSquareBracketKeyword_11()); 
+             before(grammarAccess.getIssuesReportAccess().getIssuesKeyword_0()); 
+            match(input,28,FOLLOW_28_in_rule__IssuesReport__Group__0__Impl3561); 
+             after(grammarAccess.getIssuesReportAccess().getIssuesKeyword_0()); 
 
             }
 
@@ -5407,26 +4838,26 @@ public class InternalResultsParser extends AbstractInternalContentAssistParser {
         }
         return ;
     }
-    // $ANTLR end "rule__ResultContributor__Group__11__Impl"
+    // $ANTLR end "rule__IssuesReport__Group__0__Impl"
 
 
-    // $ANTLR start "rule__ResultContributor__Group_5__0"
-    // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:2022:1: rule__ResultContributor__Group_5__0 : rule__ResultContributor__Group_5__0__Impl rule__ResultContributor__Group_5__1 ;
-    public final void rule__ResultContributor__Group_5__0() throws RecognitionException {
+    // $ANTLR start "rule__IssuesReport__Group__1"
+    // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:1808:1: rule__IssuesReport__Group__1 : rule__IssuesReport__Group__1__Impl rule__IssuesReport__Group__2 ;
+    public final void rule__IssuesReport__Group__1() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:2026:1: ( rule__ResultContributor__Group_5__0__Impl rule__ResultContributor__Group_5__1 )
-            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:2027:2: rule__ResultContributor__Group_5__0__Impl rule__ResultContributor__Group_5__1
+            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:1812:1: ( rule__IssuesReport__Group__1__Impl rule__IssuesReport__Group__2 )
+            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:1813:2: rule__IssuesReport__Group__1__Impl rule__IssuesReport__Group__2
             {
-            pushFollow(FOLLOW_rule__ResultContributor__Group_5__0__Impl_in_rule__ResultContributor__Group_5__04008);
-            rule__ResultContributor__Group_5__0__Impl();
+            pushFollow(FOLLOW_rule__IssuesReport__Group__1__Impl_in_rule__IssuesReport__Group__13592);
+            rule__IssuesReport__Group__1__Impl();
 
             state._fsp--;
 
-            pushFollow(FOLLOW_rule__ResultContributor__Group_5__1_in_rule__ResultContributor__Group_5__04011);
-            rule__ResultContributor__Group_5__1();
+            pushFollow(FOLLOW_rule__IssuesReport__Group__2_in_rule__IssuesReport__Group__13595);
+            rule__IssuesReport__Group__2();
 
             state._fsp--;
 
@@ -5445,25 +4876,35 @@ public class InternalResultsParser extends AbstractInternalContentAssistParser {
         }
         return ;
     }
-    // $ANTLR end "rule__ResultContributor__Group_5__0"
+    // $ANTLR end "rule__IssuesReport__Group__1"
 
 
-    // $ANTLR start "rule__ResultContributor__Group_5__0__Impl"
-    // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:2034:1: rule__ResultContributor__Group_5__0__Impl : ( 'exception' ) ;
-    public final void rule__ResultContributor__Group_5__0__Impl() throws RecognitionException {
+    // $ANTLR start "rule__IssuesReport__Group__1__Impl"
+    // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:1820:1: rule__IssuesReport__Group__1__Impl : ( ( rule__IssuesReport__NameAssignment_1 ) ) ;
+    public final void rule__IssuesReport__Group__1__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:2038:1: ( ( 'exception' ) )
-            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:2039:1: ( 'exception' )
+            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:1824:1: ( ( ( rule__IssuesReport__NameAssignment_1 ) ) )
+            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:1825:1: ( ( rule__IssuesReport__NameAssignment_1 ) )
             {
-            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:2039:1: ( 'exception' )
-            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:2040:1: 'exception'
+            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:1825:1: ( ( rule__IssuesReport__NameAssignment_1 ) )
+            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:1826:1: ( rule__IssuesReport__NameAssignment_1 )
             {
-             before(grammarAccess.getResultContributorAccess().getExceptionKeyword_5_0()); 
-            match(input,24,FOLLOW_24_in_rule__ResultContributor__Group_5__0__Impl4039); 
-             after(grammarAccess.getResultContributorAccess().getExceptionKeyword_5_0()); 
+             before(grammarAccess.getIssuesReportAccess().getNameAssignment_1()); 
+            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:1827:1: ( rule__IssuesReport__NameAssignment_1 )
+            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:1827:2: rule__IssuesReport__NameAssignment_1
+            {
+            pushFollow(FOLLOW_rule__IssuesReport__NameAssignment_1_in_rule__IssuesReport__Group__1__Impl3622);
+            rule__IssuesReport__NameAssignment_1();
+
+            state._fsp--;
+
+
+            }
+
+             after(grammarAccess.getIssuesReportAccess().getNameAssignment_1()); 
 
             }
 
@@ -5482,21 +4923,26 @@ public class InternalResultsParser extends AbstractInternalContentAssistParser {
         }
         return ;
     }
-    // $ANTLR end "rule__ResultContributor__Group_5__0__Impl"
+    // $ANTLR end "rule__IssuesReport__Group__1__Impl"
 
 
-    // $ANTLR start "rule__ResultContributor__Group_5__1"
-    // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:2053:1: rule__ResultContributor__Group_5__1 : rule__ResultContributor__Group_5__1__Impl ;
-    public final void rule__ResultContributor__Group_5__1() throws RecognitionException {
+    // $ANTLR start "rule__IssuesReport__Group__2"
+    // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:1837:1: rule__IssuesReport__Group__2 : rule__IssuesReport__Group__2__Impl rule__IssuesReport__Group__3 ;
+    public final void rule__IssuesReport__Group__2() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:2057:1: ( rule__ResultContributor__Group_5__1__Impl )
-            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:2058:2: rule__ResultContributor__Group_5__1__Impl
+            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:1841:1: ( rule__IssuesReport__Group__2__Impl rule__IssuesReport__Group__3 )
+            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:1842:2: rule__IssuesReport__Group__2__Impl rule__IssuesReport__Group__3
             {
-            pushFollow(FOLLOW_rule__ResultContributor__Group_5__1__Impl_in_rule__ResultContributor__Group_5__14070);
-            rule__ResultContributor__Group_5__1__Impl();
+            pushFollow(FOLLOW_rule__IssuesReport__Group__2__Impl_in_rule__IssuesReport__Group__23652);
+            rule__IssuesReport__Group__2__Impl();
+
+            state._fsp--;
+
+            pushFollow(FOLLOW_rule__IssuesReport__Group__3_in_rule__IssuesReport__Group__23655);
+            rule__IssuesReport__Group__3();
 
             state._fsp--;
 
@@ -5515,35 +4961,46 @@ public class InternalResultsParser extends AbstractInternalContentAssistParser {
         }
         return ;
     }
-    // $ANTLR end "rule__ResultContributor__Group_5__1"
+    // $ANTLR end "rule__IssuesReport__Group__2"
 
 
-    // $ANTLR start "rule__ResultContributor__Group_5__1__Impl"
-    // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:2064:1: rule__ResultContributor__Group_5__1__Impl : ( ( rule__ResultContributor__ExceptionTypeAssignment_5_1 ) ) ;
-    public final void rule__ResultContributor__Group_5__1__Impl() throws RecognitionException {
+    // $ANTLR start "rule__IssuesReport__Group__2__Impl"
+    // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:1849:1: rule__IssuesReport__Group__2__Impl : ( ( rule__IssuesReport__Group_2__0 )? ) ;
+    public final void rule__IssuesReport__Group__2__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:2068:1: ( ( ( rule__ResultContributor__ExceptionTypeAssignment_5_1 ) ) )
-            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:2069:1: ( ( rule__ResultContributor__ExceptionTypeAssignment_5_1 ) )
+            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:1853:1: ( ( ( rule__IssuesReport__Group_2__0 )? ) )
+            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:1854:1: ( ( rule__IssuesReport__Group_2__0 )? )
             {
-            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:2069:1: ( ( rule__ResultContributor__ExceptionTypeAssignment_5_1 ) )
-            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:2070:1: ( rule__ResultContributor__ExceptionTypeAssignment_5_1 )
+            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:1854:1: ( ( rule__IssuesReport__Group_2__0 )? )
+            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:1855:1: ( rule__IssuesReport__Group_2__0 )?
             {
-             before(grammarAccess.getResultContributorAccess().getExceptionTypeAssignment_5_1()); 
-            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:2071:1: ( rule__ResultContributor__ExceptionTypeAssignment_5_1 )
-            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:2071:2: rule__ResultContributor__ExceptionTypeAssignment_5_1
-            {
-            pushFollow(FOLLOW_rule__ResultContributor__ExceptionTypeAssignment_5_1_in_rule__ResultContributor__Group_5__1__Impl4097);
-            rule__ResultContributor__ExceptionTypeAssignment_5_1();
+             before(grammarAccess.getIssuesReportAccess().getGroup_2()); 
+            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:1856:1: ( rule__IssuesReport__Group_2__0 )?
+            int alt18=2;
+            int LA18_0 = input.LA(1);
 
-            state._fsp--;
+            if ( (LA18_0==19) ) {
+                alt18=1;
+            }
+            switch (alt18) {
+                case 1 :
+                    // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:1856:2: rule__IssuesReport__Group_2__0
+                    {
+                    pushFollow(FOLLOW_rule__IssuesReport__Group_2__0_in_rule__IssuesReport__Group__2__Impl3682);
+                    rule__IssuesReport__Group_2__0();
 
+                    state._fsp--;
+
+
+                    }
+                    break;
 
             }
 
-             after(grammarAccess.getResultContributorAccess().getExceptionTypeAssignment_5_1()); 
+             after(grammarAccess.getIssuesReportAccess().getGroup_2()); 
 
             }
 
@@ -5562,26 +5019,21 @@ public class InternalResultsParser extends AbstractInternalContentAssistParser {
         }
         return ;
     }
-    // $ANTLR end "rule__ResultContributor__Group_5__1__Impl"
+    // $ANTLR end "rule__IssuesReport__Group__2__Impl"
 
 
-    // $ANTLR start "rule__IssueReport__Group__0"
-    // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:2085:1: rule__IssueReport__Group__0 : rule__IssueReport__Group__0__Impl rule__IssueReport__Group__1 ;
-    public final void rule__IssueReport__Group__0() throws RecognitionException {
+    // $ANTLR start "rule__IssuesReport__Group__3"
+    // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:1866:1: rule__IssuesReport__Group__3 : rule__IssuesReport__Group__3__Impl ;
+    public final void rule__IssuesReport__Group__3() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:2089:1: ( rule__IssueReport__Group__0__Impl rule__IssueReport__Group__1 )
-            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:2090:2: rule__IssueReport__Group__0__Impl rule__IssueReport__Group__1
+            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:1870:1: ( rule__IssuesReport__Group__3__Impl )
+            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:1871:2: rule__IssuesReport__Group__3__Impl
             {
-            pushFollow(FOLLOW_rule__IssueReport__Group__0__Impl_in_rule__IssueReport__Group__04131);
-            rule__IssueReport__Group__0__Impl();
-
-            state._fsp--;
-
-            pushFollow(FOLLOW_rule__IssueReport__Group__1_in_rule__IssueReport__Group__04134);
-            rule__IssueReport__Group__1();
+            pushFollow(FOLLOW_rule__IssuesReport__Group__3__Impl_in_rule__IssuesReport__Group__33713);
+            rule__IssuesReport__Group__3__Impl();
 
             state._fsp--;
 
@@ -5600,356 +5052,36 @@ public class InternalResultsParser extends AbstractInternalContentAssistParser {
         }
         return ;
     }
-    // $ANTLR end "rule__IssueReport__Group__0"
+    // $ANTLR end "rule__IssuesReport__Group__3"
 
 
-    // $ANTLR start "rule__IssueReport__Group__0__Impl"
-    // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:2097:1: rule__IssueReport__Group__0__Impl : ( () ) ;
-    public final void rule__IssueReport__Group__0__Impl() throws RecognitionException {
-
-        		int stackSize = keepStackSize();
-            
-        try {
-            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:2101:1: ( ( () ) )
-            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:2102:1: ( () )
-            {
-            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:2102:1: ( () )
-            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:2103:1: ()
-            {
-             before(grammarAccess.getIssueReportAccess().getIssueReportAction_0()); 
-            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:2104:1: ()
-            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:2106:1: 
-            {
-            }
-
-             after(grammarAccess.getIssueReportAccess().getIssueReportAction_0()); 
-
-            }
-
-
-            }
-
-        }
-        finally {
-
-            	restoreStackSize(stackSize);
-
-        }
-        return ;
-    }
-    // $ANTLR end "rule__IssueReport__Group__0__Impl"
-
-
-    // $ANTLR start "rule__IssueReport__Group__1"
-    // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:2116:1: rule__IssueReport__Group__1 : rule__IssueReport__Group__1__Impl rule__IssueReport__Group__2 ;
-    public final void rule__IssueReport__Group__1() throws RecognitionException {
+    // $ANTLR start "rule__IssuesReport__Group__3__Impl"
+    // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:1877:1: rule__IssuesReport__Group__3__Impl : ( ( rule__IssuesReport__Group_3__0 )? ) ;
+    public final void rule__IssuesReport__Group__3__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:2120:1: ( rule__IssueReport__Group__1__Impl rule__IssueReport__Group__2 )
-            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:2121:2: rule__IssueReport__Group__1__Impl rule__IssueReport__Group__2
+            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:1881:1: ( ( ( rule__IssuesReport__Group_3__0 )? ) )
+            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:1882:1: ( ( rule__IssuesReport__Group_3__0 )? )
             {
-            pushFollow(FOLLOW_rule__IssueReport__Group__1__Impl_in_rule__IssueReport__Group__14192);
-            rule__IssueReport__Group__1__Impl();
-
-            state._fsp--;
-
-            pushFollow(FOLLOW_rule__IssueReport__Group__2_in_rule__IssueReport__Group__14195);
-            rule__IssueReport__Group__2();
-
-            state._fsp--;
-
-
-            }
-
-        }
-        catch (RecognitionException re) {
-            reportError(re);
-            recover(input,re);
-        }
-        finally {
-
-            	restoreStackSize(stackSize);
-
-        }
-        return ;
-    }
-    // $ANTLR end "rule__IssueReport__Group__1"
-
-
-    // $ANTLR start "rule__IssueReport__Group__1__Impl"
-    // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:2128:1: rule__IssueReport__Group__1__Impl : ( 'issues' ) ;
-    public final void rule__IssueReport__Group__1__Impl() throws RecognitionException {
-
-        		int stackSize = keepStackSize();
-            
-        try {
-            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:2132:1: ( ( 'issues' ) )
-            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:2133:1: ( 'issues' )
+            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:1882:1: ( ( rule__IssuesReport__Group_3__0 )? )
+            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:1883:1: ( rule__IssuesReport__Group_3__0 )?
             {
-            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:2133:1: ( 'issues' )
-            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:2134:1: 'issues'
-            {
-             before(grammarAccess.getIssueReportAccess().getIssuesKeyword_1()); 
-            match(input,29,FOLLOW_29_in_rule__IssueReport__Group__1__Impl4223); 
-             after(grammarAccess.getIssueReportAccess().getIssuesKeyword_1()); 
-
-            }
-
-
-            }
-
-        }
-        catch (RecognitionException re) {
-            reportError(re);
-            recover(input,re);
-        }
-        finally {
-
-            	restoreStackSize(stackSize);
-
-        }
-        return ;
-    }
-    // $ANTLR end "rule__IssueReport__Group__1__Impl"
-
-
-    // $ANTLR start "rule__IssueReport__Group__2"
-    // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:2147:1: rule__IssueReport__Group__2 : rule__IssueReport__Group__2__Impl rule__IssueReport__Group__3 ;
-    public final void rule__IssueReport__Group__2() throws RecognitionException {
-
-        		int stackSize = keepStackSize();
-            
-        try {
-            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:2151:1: ( rule__IssueReport__Group__2__Impl rule__IssueReport__Group__3 )
-            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:2152:2: rule__IssueReport__Group__2__Impl rule__IssueReport__Group__3
-            {
-            pushFollow(FOLLOW_rule__IssueReport__Group__2__Impl_in_rule__IssueReport__Group__24254);
-            rule__IssueReport__Group__2__Impl();
-
-            state._fsp--;
-
-            pushFollow(FOLLOW_rule__IssueReport__Group__3_in_rule__IssueReport__Group__24257);
-            rule__IssueReport__Group__3();
-
-            state._fsp--;
-
-
-            }
-
-        }
-        catch (RecognitionException re) {
-            reportError(re);
-            recover(input,re);
-        }
-        finally {
-
-            	restoreStackSize(stackSize);
-
-        }
-        return ;
-    }
-    // $ANTLR end "rule__IssueReport__Group__2"
-
-
-    // $ANTLR start "rule__IssueReport__Group__2__Impl"
-    // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:2159:1: rule__IssueReport__Group__2__Impl : ( ( rule__IssueReport__IssueTypeAssignment_2 ) ) ;
-    public final void rule__IssueReport__Group__2__Impl() throws RecognitionException {
-
-        		int stackSize = keepStackSize();
-            
-        try {
-            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:2163:1: ( ( ( rule__IssueReport__IssueTypeAssignment_2 ) ) )
-            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:2164:1: ( ( rule__IssueReport__IssueTypeAssignment_2 ) )
-            {
-            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:2164:1: ( ( rule__IssueReport__IssueTypeAssignment_2 ) )
-            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:2165:1: ( rule__IssueReport__IssueTypeAssignment_2 )
-            {
-             before(grammarAccess.getIssueReportAccess().getIssueTypeAssignment_2()); 
-            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:2166:1: ( rule__IssueReport__IssueTypeAssignment_2 )
-            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:2166:2: rule__IssueReport__IssueTypeAssignment_2
-            {
-            pushFollow(FOLLOW_rule__IssueReport__IssueTypeAssignment_2_in_rule__IssueReport__Group__2__Impl4284);
-            rule__IssueReport__IssueTypeAssignment_2();
-
-            state._fsp--;
-
-
-            }
-
-             after(grammarAccess.getIssueReportAccess().getIssueTypeAssignment_2()); 
-
-            }
-
-
-            }
-
-        }
-        catch (RecognitionException re) {
-            reportError(re);
-            recover(input,re);
-        }
-        finally {
-
-            	restoreStackSize(stackSize);
-
-        }
-        return ;
-    }
-    // $ANTLR end "rule__IssueReport__Group__2__Impl"
-
-
-    // $ANTLR start "rule__IssueReport__Group__3"
-    // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:2176:1: rule__IssueReport__Group__3 : rule__IssueReport__Group__3__Impl rule__IssueReport__Group__4 ;
-    public final void rule__IssueReport__Group__3() throws RecognitionException {
-
-        		int stackSize = keepStackSize();
-            
-        try {
-            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:2180:1: ( rule__IssueReport__Group__3__Impl rule__IssueReport__Group__4 )
-            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:2181:2: rule__IssueReport__Group__3__Impl rule__IssueReport__Group__4
-            {
-            pushFollow(FOLLOW_rule__IssueReport__Group__3__Impl_in_rule__IssueReport__Group__34314);
-            rule__IssueReport__Group__3__Impl();
-
-            state._fsp--;
-
-            pushFollow(FOLLOW_rule__IssueReport__Group__4_in_rule__IssueReport__Group__34317);
-            rule__IssueReport__Group__4();
-
-            state._fsp--;
-
-
-            }
-
-        }
-        catch (RecognitionException re) {
-            reportError(re);
-            recover(input,re);
-        }
-        finally {
-
-            	restoreStackSize(stackSize);
-
-        }
-        return ;
-    }
-    // $ANTLR end "rule__IssueReport__Group__3"
-
-
-    // $ANTLR start "rule__IssueReport__Group__3__Impl"
-    // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:2188:1: rule__IssueReport__Group__3__Impl : ( ( rule__IssueReport__MessageAssignment_3 ) ) ;
-    public final void rule__IssueReport__Group__3__Impl() throws RecognitionException {
-
-        		int stackSize = keepStackSize();
-            
-        try {
-            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:2192:1: ( ( ( rule__IssueReport__MessageAssignment_3 ) ) )
-            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:2193:1: ( ( rule__IssueReport__MessageAssignment_3 ) )
-            {
-            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:2193:1: ( ( rule__IssueReport__MessageAssignment_3 ) )
-            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:2194:1: ( rule__IssueReport__MessageAssignment_3 )
-            {
-             before(grammarAccess.getIssueReportAccess().getMessageAssignment_3()); 
-            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:2195:1: ( rule__IssueReport__MessageAssignment_3 )
-            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:2195:2: rule__IssueReport__MessageAssignment_3
-            {
-            pushFollow(FOLLOW_rule__IssueReport__MessageAssignment_3_in_rule__IssueReport__Group__3__Impl4344);
-            rule__IssueReport__MessageAssignment_3();
-
-            state._fsp--;
-
-
-            }
-
-             after(grammarAccess.getIssueReportAccess().getMessageAssignment_3()); 
-
-            }
-
-
-            }
-
-        }
-        catch (RecognitionException re) {
-            reportError(re);
-            recover(input,re);
-        }
-        finally {
-
-            	restoreStackSize(stackSize);
-
-        }
-        return ;
-    }
-    // $ANTLR end "rule__IssueReport__Group__3__Impl"
-
-
-    // $ANTLR start "rule__IssueReport__Group__4"
-    // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:2205:1: rule__IssueReport__Group__4 : rule__IssueReport__Group__4__Impl rule__IssueReport__Group__5 ;
-    public final void rule__IssueReport__Group__4() throws RecognitionException {
-
-        		int stackSize = keepStackSize();
-            
-        try {
-            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:2209:1: ( rule__IssueReport__Group__4__Impl rule__IssueReport__Group__5 )
-            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:2210:2: rule__IssueReport__Group__4__Impl rule__IssueReport__Group__5
-            {
-            pushFollow(FOLLOW_rule__IssueReport__Group__4__Impl_in_rule__IssueReport__Group__44374);
-            rule__IssueReport__Group__4__Impl();
-
-            state._fsp--;
-
-            pushFollow(FOLLOW_rule__IssueReport__Group__5_in_rule__IssueReport__Group__44377);
-            rule__IssueReport__Group__5();
-
-            state._fsp--;
-
-
-            }
-
-        }
-        catch (RecognitionException re) {
-            reportError(re);
-            recover(input,re);
-        }
-        finally {
-
-            	restoreStackSize(stackSize);
-
-        }
-        return ;
-    }
-    // $ANTLR end "rule__IssueReport__Group__4"
-
-
-    // $ANTLR start "rule__IssueReport__Group__4__Impl"
-    // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:2217:1: rule__IssueReport__Group__4__Impl : ( ( rule__IssueReport__Group_4__0 )? ) ;
-    public final void rule__IssueReport__Group__4__Impl() throws RecognitionException {
-
-        		int stackSize = keepStackSize();
-            
-        try {
-            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:2221:1: ( ( ( rule__IssueReport__Group_4__0 )? ) )
-            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:2222:1: ( ( rule__IssueReport__Group_4__0 )? )
-            {
-            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:2222:1: ( ( rule__IssueReport__Group_4__0 )? )
-            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:2223:1: ( rule__IssueReport__Group_4__0 )?
-            {
-             before(grammarAccess.getIssueReportAccess().getGroup_4()); 
-            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:2224:1: ( rule__IssueReport__Group_4__0 )?
+             before(grammarAccess.getIssuesReportAccess().getGroup_3()); 
+            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:1884:1: ( rule__IssuesReport__Group_3__0 )?
             int alt19=2;
             int LA19_0 = input.LA(1);
 
-            if ( (LA19_0==19) ) {
+            if ( (LA19_0==20) ) {
                 alt19=1;
             }
             switch (alt19) {
                 case 1 :
-                    // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:2224:2: rule__IssueReport__Group_4__0
+                    // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:1884:2: rule__IssuesReport__Group_3__0
                     {
-                    pushFollow(FOLLOW_rule__IssueReport__Group_4__0_in_rule__IssueReport__Group__4__Impl4404);
-                    rule__IssueReport__Group_4__0();
+                    pushFollow(FOLLOW_rule__IssuesReport__Group_3__0_in_rule__IssuesReport__Group__3__Impl3740);
+                    rule__IssuesReport__Group_3__0();
 
                     state._fsp--;
 
@@ -5959,7 +5091,7 @@ public class InternalResultsParser extends AbstractInternalContentAssistParser {
 
             }
 
-             after(grammarAccess.getIssueReportAccess().getGroup_4()); 
+             after(grammarAccess.getIssuesReportAccess().getGroup_3()); 
 
             }
 
@@ -5978,26 +5110,26 @@ public class InternalResultsParser extends AbstractInternalContentAssistParser {
         }
         return ;
     }
-    // $ANTLR end "rule__IssueReport__Group__4__Impl"
+    // $ANTLR end "rule__IssuesReport__Group__3__Impl"
 
 
-    // $ANTLR start "rule__IssueReport__Group__5"
-    // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:2234:1: rule__IssueReport__Group__5 : rule__IssueReport__Group__5__Impl rule__IssueReport__Group__6 ;
-    public final void rule__IssueReport__Group__5() throws RecognitionException {
+    // $ANTLR start "rule__IssuesReport__Group_2__0"
+    // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:1902:1: rule__IssuesReport__Group_2__0 : rule__IssuesReport__Group_2__0__Impl rule__IssuesReport__Group_2__1 ;
+    public final void rule__IssuesReport__Group_2__0() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:2238:1: ( rule__IssueReport__Group__5__Impl rule__IssueReport__Group__6 )
-            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:2239:2: rule__IssueReport__Group__5__Impl rule__IssueReport__Group__6
+            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:1906:1: ( rule__IssuesReport__Group_2__0__Impl rule__IssuesReport__Group_2__1 )
+            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:1907:2: rule__IssuesReport__Group_2__0__Impl rule__IssuesReport__Group_2__1
             {
-            pushFollow(FOLLOW_rule__IssueReport__Group__5__Impl_in_rule__IssueReport__Group__54435);
-            rule__IssueReport__Group__5__Impl();
+            pushFollow(FOLLOW_rule__IssuesReport__Group_2__0__Impl_in_rule__IssuesReport__Group_2__03779);
+            rule__IssuesReport__Group_2__0__Impl();
 
             state._fsp--;
 
-            pushFollow(FOLLOW_rule__IssueReport__Group__6_in_rule__IssueReport__Group__54438);
-            rule__IssueReport__Group__6();
+            pushFollow(FOLLOW_rule__IssuesReport__Group_2__1_in_rule__IssuesReport__Group_2__03782);
+            rule__IssuesReport__Group_2__1();
 
             state._fsp--;
 
@@ -6016,36 +5148,266 @@ public class InternalResultsParser extends AbstractInternalContentAssistParser {
         }
         return ;
     }
-    // $ANTLR end "rule__IssueReport__Group__5"
+    // $ANTLR end "rule__IssuesReport__Group_2__0"
 
 
-    // $ANTLR start "rule__IssueReport__Group__5__Impl"
-    // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:2246:1: rule__IssueReport__Group__5__Impl : ( ( rule__IssueReport__Group_5__0 )? ) ;
-    public final void rule__IssueReport__Group__5__Impl() throws RecognitionException {
+    // $ANTLR start "rule__IssuesReport__Group_2__0__Impl"
+    // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:1914:1: rule__IssuesReport__Group_2__0__Impl : ( 'for' ) ;
+    public final void rule__IssuesReport__Group_2__0__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:2250:1: ( ( ( rule__IssueReport__Group_5__0 )? ) )
-            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:2251:1: ( ( rule__IssueReport__Group_5__0 )? )
+            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:1918:1: ( ( 'for' ) )
+            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:1919:1: ( 'for' )
             {
-            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:2251:1: ( ( rule__IssueReport__Group_5__0 )? )
-            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:2252:1: ( rule__IssueReport__Group_5__0 )?
+            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:1919:1: ( 'for' )
+            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:1920:1: 'for'
             {
-             before(grammarAccess.getIssueReportAccess().getGroup_5()); 
-            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:2253:1: ( rule__IssueReport__Group_5__0 )?
+             before(grammarAccess.getIssuesReportAccess().getForKeyword_2_0()); 
+            match(input,19,FOLLOW_19_in_rule__IssuesReport__Group_2__0__Impl3810); 
+             after(grammarAccess.getIssuesReportAccess().getForKeyword_2_0()); 
+
+            }
+
+
+            }
+
+        }
+        catch (RecognitionException re) {
+            reportError(re);
+            recover(input,re);
+        }
+        finally {
+
+            	restoreStackSize(stackSize);
+
+        }
+        return ;
+    }
+    // $ANTLR end "rule__IssuesReport__Group_2__0__Impl"
+
+
+    // $ANTLR start "rule__IssuesReport__Group_2__1"
+    // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:1933:1: rule__IssuesReport__Group_2__1 : rule__IssuesReport__Group_2__1__Impl ;
+    public final void rule__IssuesReport__Group_2__1() throws RecognitionException {
+
+        		int stackSize = keepStackSize();
+            
+        try {
+            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:1937:1: ( rule__IssuesReport__Group_2__1__Impl )
+            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:1938:2: rule__IssuesReport__Group_2__1__Impl
+            {
+            pushFollow(FOLLOW_rule__IssuesReport__Group_2__1__Impl_in_rule__IssuesReport__Group_2__13841);
+            rule__IssuesReport__Group_2__1__Impl();
+
+            state._fsp--;
+
+
+            }
+
+        }
+        catch (RecognitionException re) {
+            reportError(re);
+            recover(input,re);
+        }
+        finally {
+
+            	restoreStackSize(stackSize);
+
+        }
+        return ;
+    }
+    // $ANTLR end "rule__IssuesReport__Group_2__1"
+
+
+    // $ANTLR start "rule__IssuesReport__Group_2__1__Impl"
+    // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:1944:1: rule__IssuesReport__Group_2__1__Impl : ( ( rule__IssuesReport__TargetAssignment_2_1 ) ) ;
+    public final void rule__IssuesReport__Group_2__1__Impl() throws RecognitionException {
+
+        		int stackSize = keepStackSize();
+            
+        try {
+            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:1948:1: ( ( ( rule__IssuesReport__TargetAssignment_2_1 ) ) )
+            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:1949:1: ( ( rule__IssuesReport__TargetAssignment_2_1 ) )
+            {
+            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:1949:1: ( ( rule__IssuesReport__TargetAssignment_2_1 ) )
+            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:1950:1: ( rule__IssuesReport__TargetAssignment_2_1 )
+            {
+             before(grammarAccess.getIssuesReportAccess().getTargetAssignment_2_1()); 
+            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:1951:1: ( rule__IssuesReport__TargetAssignment_2_1 )
+            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:1951:2: rule__IssuesReport__TargetAssignment_2_1
+            {
+            pushFollow(FOLLOW_rule__IssuesReport__TargetAssignment_2_1_in_rule__IssuesReport__Group_2__1__Impl3868);
+            rule__IssuesReport__TargetAssignment_2_1();
+
+            state._fsp--;
+
+
+            }
+
+             after(grammarAccess.getIssuesReportAccess().getTargetAssignment_2_1()); 
+
+            }
+
+
+            }
+
+        }
+        catch (RecognitionException re) {
+            reportError(re);
+            recover(input,re);
+        }
+        finally {
+
+            	restoreStackSize(stackSize);
+
+        }
+        return ;
+    }
+    // $ANTLR end "rule__IssuesReport__Group_2__1__Impl"
+
+
+    // $ANTLR start "rule__IssuesReport__Group_3__0"
+    // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:1965:1: rule__IssuesReport__Group_3__0 : rule__IssuesReport__Group_3__0__Impl rule__IssuesReport__Group_3__1 ;
+    public final void rule__IssuesReport__Group_3__0() throws RecognitionException {
+
+        		int stackSize = keepStackSize();
+            
+        try {
+            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:1969:1: ( rule__IssuesReport__Group_3__0__Impl rule__IssuesReport__Group_3__1 )
+            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:1970:2: rule__IssuesReport__Group_3__0__Impl rule__IssuesReport__Group_3__1
+            {
+            pushFollow(FOLLOW_rule__IssuesReport__Group_3__0__Impl_in_rule__IssuesReport__Group_3__03902);
+            rule__IssuesReport__Group_3__0__Impl();
+
+            state._fsp--;
+
+            pushFollow(FOLLOW_rule__IssuesReport__Group_3__1_in_rule__IssuesReport__Group_3__03905);
+            rule__IssuesReport__Group_3__1();
+
+            state._fsp--;
+
+
+            }
+
+        }
+        catch (RecognitionException re) {
+            reportError(re);
+            recover(input,re);
+        }
+        finally {
+
+            	restoreStackSize(stackSize);
+
+        }
+        return ;
+    }
+    // $ANTLR end "rule__IssuesReport__Group_3__0"
+
+
+    // $ANTLR start "rule__IssuesReport__Group_3__0__Impl"
+    // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:1977:1: rule__IssuesReport__Group_3__0__Impl : ( '[' ) ;
+    public final void rule__IssuesReport__Group_3__0__Impl() throws RecognitionException {
+
+        		int stackSize = keepStackSize();
+            
+        try {
+            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:1981:1: ( ( '[' ) )
+            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:1982:1: ( '[' )
+            {
+            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:1982:1: ( '[' )
+            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:1983:1: '['
+            {
+             before(grammarAccess.getIssuesReportAccess().getLeftSquareBracketKeyword_3_0()); 
+            match(input,20,FOLLOW_20_in_rule__IssuesReport__Group_3__0__Impl3933); 
+             after(grammarAccess.getIssuesReportAccess().getLeftSquareBracketKeyword_3_0()); 
+
+            }
+
+
+            }
+
+        }
+        catch (RecognitionException re) {
+            reportError(re);
+            recover(input,re);
+        }
+        finally {
+
+            	restoreStackSize(stackSize);
+
+        }
+        return ;
+    }
+    // $ANTLR end "rule__IssuesReport__Group_3__0__Impl"
+
+
+    // $ANTLR start "rule__IssuesReport__Group_3__1"
+    // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:1996:1: rule__IssuesReport__Group_3__1 : rule__IssuesReport__Group_3__1__Impl rule__IssuesReport__Group_3__2 ;
+    public final void rule__IssuesReport__Group_3__1() throws RecognitionException {
+
+        		int stackSize = keepStackSize();
+            
+        try {
+            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:2000:1: ( rule__IssuesReport__Group_3__1__Impl rule__IssuesReport__Group_3__2 )
+            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:2001:2: rule__IssuesReport__Group_3__1__Impl rule__IssuesReport__Group_3__2
+            {
+            pushFollow(FOLLOW_rule__IssuesReport__Group_3__1__Impl_in_rule__IssuesReport__Group_3__13964);
+            rule__IssuesReport__Group_3__1__Impl();
+
+            state._fsp--;
+
+            pushFollow(FOLLOW_rule__IssuesReport__Group_3__2_in_rule__IssuesReport__Group_3__13967);
+            rule__IssuesReport__Group_3__2();
+
+            state._fsp--;
+
+
+            }
+
+        }
+        catch (RecognitionException re) {
+            reportError(re);
+            recover(input,re);
+        }
+        finally {
+
+            	restoreStackSize(stackSize);
+
+        }
+        return ;
+    }
+    // $ANTLR end "rule__IssuesReport__Group_3__1"
+
+
+    // $ANTLR start "rule__IssuesReport__Group_3__1__Impl"
+    // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:2008:1: rule__IssuesReport__Group_3__1__Impl : ( ( rule__IssuesReport__Group_3_1__0 )? ) ;
+    public final void rule__IssuesReport__Group_3__1__Impl() throws RecognitionException {
+
+        		int stackSize = keepStackSize();
+            
+        try {
+            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:2012:1: ( ( ( rule__IssuesReport__Group_3_1__0 )? ) )
+            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:2013:1: ( ( rule__IssuesReport__Group_3_1__0 )? )
+            {
+            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:2013:1: ( ( rule__IssuesReport__Group_3_1__0 )? )
+            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:2014:1: ( rule__IssuesReport__Group_3_1__0 )?
+            {
+             before(grammarAccess.getIssuesReportAccess().getGroup_3_1()); 
+            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:2015:1: ( rule__IssuesReport__Group_3_1__0 )?
             int alt20=2;
             int LA20_0 = input.LA(1);
 
-            if ( (LA20_0==24) ) {
+            if ( (LA20_0==23) ) {
                 alt20=1;
             }
             switch (alt20) {
                 case 1 :
-                    // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:2253:2: rule__IssueReport__Group_5__0
+                    // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:2015:2: rule__IssuesReport__Group_3_1__0
                     {
-                    pushFollow(FOLLOW_rule__IssueReport__Group_5__0_in_rule__IssueReport__Group__5__Impl4465);
-                    rule__IssueReport__Group_5__0();
+                    pushFollow(FOLLOW_rule__IssuesReport__Group_3_1__0_in_rule__IssuesReport__Group_3__1__Impl3994);
+                    rule__IssuesReport__Group_3_1__0();
 
                     state._fsp--;
 
@@ -6055,7 +5417,7 @@ public class InternalResultsParser extends AbstractInternalContentAssistParser {
 
             }
 
-             after(grammarAccess.getIssueReportAccess().getGroup_5()); 
+             after(grammarAccess.getIssuesReportAccess().getGroup_3_1()); 
 
             }
 
@@ -6074,21 +5436,26 @@ public class InternalResultsParser extends AbstractInternalContentAssistParser {
         }
         return ;
     }
-    // $ANTLR end "rule__IssueReport__Group__5__Impl"
+    // $ANTLR end "rule__IssuesReport__Group_3__1__Impl"
 
 
-    // $ANTLR start "rule__IssueReport__Group__6"
-    // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:2263:1: rule__IssueReport__Group__6 : rule__IssueReport__Group__6__Impl ;
-    public final void rule__IssueReport__Group__6() throws RecognitionException {
+    // $ANTLR start "rule__IssuesReport__Group_3__2"
+    // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:2025:1: rule__IssuesReport__Group_3__2 : rule__IssuesReport__Group_3__2__Impl rule__IssuesReport__Group_3__3 ;
+    public final void rule__IssuesReport__Group_3__2() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:2267:1: ( rule__IssueReport__Group__6__Impl )
-            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:2268:2: rule__IssueReport__Group__6__Impl
+            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:2029:1: ( rule__IssuesReport__Group_3__2__Impl rule__IssuesReport__Group_3__3 )
+            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:2030:2: rule__IssuesReport__Group_3__2__Impl rule__IssuesReport__Group_3__3
             {
-            pushFollow(FOLLOW_rule__IssueReport__Group__6__Impl_in_rule__IssueReport__Group__64496);
-            rule__IssueReport__Group__6__Impl();
+            pushFollow(FOLLOW_rule__IssuesReport__Group_3__2__Impl_in_rule__IssuesReport__Group_3__24025);
+            rule__IssuesReport__Group_3__2__Impl();
+
+            state._fsp--;
+
+            pushFollow(FOLLOW_rule__IssuesReport__Group_3__3_in_rule__IssuesReport__Group_3__24028);
+            rule__IssuesReport__Group_3__3();
 
             state._fsp--;
 
@@ -6107,521 +5474,40 @@ public class InternalResultsParser extends AbstractInternalContentAssistParser {
         }
         return ;
     }
-    // $ANTLR end "rule__IssueReport__Group__6"
+    // $ANTLR end "rule__IssuesReport__Group_3__2"
 
 
-    // $ANTLR start "rule__IssueReport__Group__6__Impl"
-    // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:2274:1: rule__IssueReport__Group__6__Impl : ( ( rule__IssueReport__Group_6__0 )? ) ;
-    public final void rule__IssueReport__Group__6__Impl() throws RecognitionException {
-
-        		int stackSize = keepStackSize();
-            
-        try {
-            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:2278:1: ( ( ( rule__IssueReport__Group_6__0 )? ) )
-            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:2279:1: ( ( rule__IssueReport__Group_6__0 )? )
-            {
-            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:2279:1: ( ( rule__IssueReport__Group_6__0 )? )
-            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:2280:1: ( rule__IssueReport__Group_6__0 )?
-            {
-             before(grammarAccess.getIssueReportAccess().getGroup_6()); 
-            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:2281:1: ( rule__IssueReport__Group_6__0 )?
-            int alt21=2;
-            int LA21_0 = input.LA(1);
-
-            if ( (LA21_0==18) ) {
-                alt21=1;
-            }
-            switch (alt21) {
-                case 1 :
-                    // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:2281:2: rule__IssueReport__Group_6__0
-                    {
-                    pushFollow(FOLLOW_rule__IssueReport__Group_6__0_in_rule__IssueReport__Group__6__Impl4523);
-                    rule__IssueReport__Group_6__0();
-
-                    state._fsp--;
-
-
-                    }
-                    break;
-
-            }
-
-             after(grammarAccess.getIssueReportAccess().getGroup_6()); 
-
-            }
-
-
-            }
-
-        }
-        catch (RecognitionException re) {
-            reportError(re);
-            recover(input,re);
-        }
-        finally {
-
-            	restoreStackSize(stackSize);
-
-        }
-        return ;
-    }
-    // $ANTLR end "rule__IssueReport__Group__6__Impl"
-
-
-    // $ANTLR start "rule__IssueReport__Group_4__0"
-    // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:2305:1: rule__IssueReport__Group_4__0 : rule__IssueReport__Group_4__0__Impl rule__IssueReport__Group_4__1 ;
-    public final void rule__IssueReport__Group_4__0() throws RecognitionException {
+    // $ANTLR start "rule__IssuesReport__Group_3__2__Impl"
+    // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:2037:1: rule__IssuesReport__Group_3__2__Impl : ( ( rule__IssuesReport__IssuesAssignment_3_2 )* ) ;
+    public final void rule__IssuesReport__Group_3__2__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:2309:1: ( rule__IssueReport__Group_4__0__Impl rule__IssueReport__Group_4__1 )
-            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:2310:2: rule__IssueReport__Group_4__0__Impl rule__IssueReport__Group_4__1
+            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:2041:1: ( ( ( rule__IssuesReport__IssuesAssignment_3_2 )* ) )
+            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:2042:1: ( ( rule__IssuesReport__IssuesAssignment_3_2 )* )
             {
-            pushFollow(FOLLOW_rule__IssueReport__Group_4__0__Impl_in_rule__IssueReport__Group_4__04568);
-            rule__IssueReport__Group_4__0__Impl();
-
-            state._fsp--;
-
-            pushFollow(FOLLOW_rule__IssueReport__Group_4__1_in_rule__IssueReport__Group_4__04571);
-            rule__IssueReport__Group_4__1();
-
-            state._fsp--;
-
-
-            }
-
-        }
-        catch (RecognitionException re) {
-            reportError(re);
-            recover(input,re);
-        }
-        finally {
-
-            	restoreStackSize(stackSize);
-
-        }
-        return ;
-    }
-    // $ANTLR end "rule__IssueReport__Group_4__0"
-
-
-    // $ANTLR start "rule__IssueReport__Group_4__0__Impl"
-    // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:2317:1: rule__IssueReport__Group_4__0__Impl : ( 'target' ) ;
-    public final void rule__IssueReport__Group_4__0__Impl() throws RecognitionException {
-
-        		int stackSize = keepStackSize();
-            
-        try {
-            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:2321:1: ( ( 'target' ) )
-            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:2322:1: ( 'target' )
+            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:2042:1: ( ( rule__IssuesReport__IssuesAssignment_3_2 )* )
+            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:2043:1: ( rule__IssuesReport__IssuesAssignment_3_2 )*
             {
-            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:2322:1: ( 'target' )
-            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:2323:1: 'target'
-            {
-             before(grammarAccess.getIssueReportAccess().getTargetKeyword_4_0()); 
-            match(input,19,FOLLOW_19_in_rule__IssueReport__Group_4__0__Impl4599); 
-             after(grammarAccess.getIssueReportAccess().getTargetKeyword_4_0()); 
-
-            }
-
-
-            }
-
-        }
-        catch (RecognitionException re) {
-            reportError(re);
-            recover(input,re);
-        }
-        finally {
-
-            	restoreStackSize(stackSize);
-
-        }
-        return ;
-    }
-    // $ANTLR end "rule__IssueReport__Group_4__0__Impl"
-
-
-    // $ANTLR start "rule__IssueReport__Group_4__1"
-    // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:2336:1: rule__IssueReport__Group_4__1 : rule__IssueReport__Group_4__1__Impl ;
-    public final void rule__IssueReport__Group_4__1() throws RecognitionException {
-
-        		int stackSize = keepStackSize();
-            
-        try {
-            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:2340:1: ( rule__IssueReport__Group_4__1__Impl )
-            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:2341:2: rule__IssueReport__Group_4__1__Impl
-            {
-            pushFollow(FOLLOW_rule__IssueReport__Group_4__1__Impl_in_rule__IssueReport__Group_4__14630);
-            rule__IssueReport__Group_4__1__Impl();
-
-            state._fsp--;
-
-
-            }
-
-        }
-        catch (RecognitionException re) {
-            reportError(re);
-            recover(input,re);
-        }
-        finally {
-
-            	restoreStackSize(stackSize);
-
-        }
-        return ;
-    }
-    // $ANTLR end "rule__IssueReport__Group_4__1"
-
-
-    // $ANTLR start "rule__IssueReport__Group_4__1__Impl"
-    // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:2347:1: rule__IssueReport__Group_4__1__Impl : ( ( rule__IssueReport__TargetAssignment_4_1 ) ) ;
-    public final void rule__IssueReport__Group_4__1__Impl() throws RecognitionException {
-
-        		int stackSize = keepStackSize();
-            
-        try {
-            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:2351:1: ( ( ( rule__IssueReport__TargetAssignment_4_1 ) ) )
-            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:2352:1: ( ( rule__IssueReport__TargetAssignment_4_1 ) )
-            {
-            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:2352:1: ( ( rule__IssueReport__TargetAssignment_4_1 ) )
-            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:2353:1: ( rule__IssueReport__TargetAssignment_4_1 )
-            {
-             before(grammarAccess.getIssueReportAccess().getTargetAssignment_4_1()); 
-            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:2354:1: ( rule__IssueReport__TargetAssignment_4_1 )
-            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:2354:2: rule__IssueReport__TargetAssignment_4_1
-            {
-            pushFollow(FOLLOW_rule__IssueReport__TargetAssignment_4_1_in_rule__IssueReport__Group_4__1__Impl4657);
-            rule__IssueReport__TargetAssignment_4_1();
-
-            state._fsp--;
-
-
-            }
-
-             after(grammarAccess.getIssueReportAccess().getTargetAssignment_4_1()); 
-
-            }
-
-
-            }
-
-        }
-        catch (RecognitionException re) {
-            reportError(re);
-            recover(input,re);
-        }
-        finally {
-
-            	restoreStackSize(stackSize);
-
-        }
-        return ;
-    }
-    // $ANTLR end "rule__IssueReport__Group_4__1__Impl"
-
-
-    // $ANTLR start "rule__IssueReport__Group_5__0"
-    // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:2368:1: rule__IssueReport__Group_5__0 : rule__IssueReport__Group_5__0__Impl rule__IssueReport__Group_5__1 ;
-    public final void rule__IssueReport__Group_5__0() throws RecognitionException {
-
-        		int stackSize = keepStackSize();
-            
-        try {
-            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:2372:1: ( rule__IssueReport__Group_5__0__Impl rule__IssueReport__Group_5__1 )
-            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:2373:2: rule__IssueReport__Group_5__0__Impl rule__IssueReport__Group_5__1
-            {
-            pushFollow(FOLLOW_rule__IssueReport__Group_5__0__Impl_in_rule__IssueReport__Group_5__04691);
-            rule__IssueReport__Group_5__0__Impl();
-
-            state._fsp--;
-
-            pushFollow(FOLLOW_rule__IssueReport__Group_5__1_in_rule__IssueReport__Group_5__04694);
-            rule__IssueReport__Group_5__1();
-
-            state._fsp--;
-
-
-            }
-
-        }
-        catch (RecognitionException re) {
-            reportError(re);
-            recover(input,re);
-        }
-        finally {
-
-            	restoreStackSize(stackSize);
-
-        }
-        return ;
-    }
-    // $ANTLR end "rule__IssueReport__Group_5__0"
-
-
-    // $ANTLR start "rule__IssueReport__Group_5__0__Impl"
-    // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:2380:1: rule__IssueReport__Group_5__0__Impl : ( 'exception' ) ;
-    public final void rule__IssueReport__Group_5__0__Impl() throws RecognitionException {
-
-        		int stackSize = keepStackSize();
-            
-        try {
-            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:2384:1: ( ( 'exception' ) )
-            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:2385:1: ( 'exception' )
-            {
-            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:2385:1: ( 'exception' )
-            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:2386:1: 'exception'
-            {
-             before(grammarAccess.getIssueReportAccess().getExceptionKeyword_5_0()); 
-            match(input,24,FOLLOW_24_in_rule__IssueReport__Group_5__0__Impl4722); 
-             after(grammarAccess.getIssueReportAccess().getExceptionKeyword_5_0()); 
-
-            }
-
-
-            }
-
-        }
-        catch (RecognitionException re) {
-            reportError(re);
-            recover(input,re);
-        }
-        finally {
-
-            	restoreStackSize(stackSize);
-
-        }
-        return ;
-    }
-    // $ANTLR end "rule__IssueReport__Group_5__0__Impl"
-
-
-    // $ANTLR start "rule__IssueReport__Group_5__1"
-    // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:2399:1: rule__IssueReport__Group_5__1 : rule__IssueReport__Group_5__1__Impl ;
-    public final void rule__IssueReport__Group_5__1() throws RecognitionException {
-
-        		int stackSize = keepStackSize();
-            
-        try {
-            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:2403:1: ( rule__IssueReport__Group_5__1__Impl )
-            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:2404:2: rule__IssueReport__Group_5__1__Impl
-            {
-            pushFollow(FOLLOW_rule__IssueReport__Group_5__1__Impl_in_rule__IssueReport__Group_5__14753);
-            rule__IssueReport__Group_5__1__Impl();
-
-            state._fsp--;
-
-
-            }
-
-        }
-        catch (RecognitionException re) {
-            reportError(re);
-            recover(input,re);
-        }
-        finally {
-
-            	restoreStackSize(stackSize);
-
-        }
-        return ;
-    }
-    // $ANTLR end "rule__IssueReport__Group_5__1"
-
-
-    // $ANTLR start "rule__IssueReport__Group_5__1__Impl"
-    // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:2410:1: rule__IssueReport__Group_5__1__Impl : ( ( rule__IssueReport__ExceptionTypeAssignment_5_1 ) ) ;
-    public final void rule__IssueReport__Group_5__1__Impl() throws RecognitionException {
-
-        		int stackSize = keepStackSize();
-            
-        try {
-            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:2414:1: ( ( ( rule__IssueReport__ExceptionTypeAssignment_5_1 ) ) )
-            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:2415:1: ( ( rule__IssueReport__ExceptionTypeAssignment_5_1 ) )
-            {
-            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:2415:1: ( ( rule__IssueReport__ExceptionTypeAssignment_5_1 ) )
-            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:2416:1: ( rule__IssueReport__ExceptionTypeAssignment_5_1 )
-            {
-             before(grammarAccess.getIssueReportAccess().getExceptionTypeAssignment_5_1()); 
-            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:2417:1: ( rule__IssueReport__ExceptionTypeAssignment_5_1 )
-            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:2417:2: rule__IssueReport__ExceptionTypeAssignment_5_1
-            {
-            pushFollow(FOLLOW_rule__IssueReport__ExceptionTypeAssignment_5_1_in_rule__IssueReport__Group_5__1__Impl4780);
-            rule__IssueReport__ExceptionTypeAssignment_5_1();
-
-            state._fsp--;
-
-
-            }
-
-             after(grammarAccess.getIssueReportAccess().getExceptionTypeAssignment_5_1()); 
-
-            }
-
-
-            }
-
-        }
-        catch (RecognitionException re) {
-            reportError(re);
-            recover(input,re);
-        }
-        finally {
-
-            	restoreStackSize(stackSize);
-
-        }
-        return ;
-    }
-    // $ANTLR end "rule__IssueReport__Group_5__1__Impl"
-
-
-    // $ANTLR start "rule__IssueReport__Group_6__0"
-    // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:2431:1: rule__IssueReport__Group_6__0 : rule__IssueReport__Group_6__0__Impl rule__IssueReport__Group_6__1 ;
-    public final void rule__IssueReport__Group_6__0() throws RecognitionException {
-
-        		int stackSize = keepStackSize();
-            
-        try {
-            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:2435:1: ( rule__IssueReport__Group_6__0__Impl rule__IssueReport__Group_6__1 )
-            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:2436:2: rule__IssueReport__Group_6__0__Impl rule__IssueReport__Group_6__1
-            {
-            pushFollow(FOLLOW_rule__IssueReport__Group_6__0__Impl_in_rule__IssueReport__Group_6__04814);
-            rule__IssueReport__Group_6__0__Impl();
-
-            state._fsp--;
-
-            pushFollow(FOLLOW_rule__IssueReport__Group_6__1_in_rule__IssueReport__Group_6__04817);
-            rule__IssueReport__Group_6__1();
-
-            state._fsp--;
-
-
-            }
-
-        }
-        catch (RecognitionException re) {
-            reportError(re);
-            recover(input,re);
-        }
-        finally {
-
-            	restoreStackSize(stackSize);
-
-        }
-        return ;
-    }
-    // $ANTLR end "rule__IssueReport__Group_6__0"
-
-
-    // $ANTLR start "rule__IssueReport__Group_6__0__Impl"
-    // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:2443:1: rule__IssueReport__Group_6__0__Impl : ( '[' ) ;
-    public final void rule__IssueReport__Group_6__0__Impl() throws RecognitionException {
-
-        		int stackSize = keepStackSize();
-            
-        try {
-            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:2447:1: ( ( '[' ) )
-            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:2448:1: ( '[' )
-            {
-            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:2448:1: ( '[' )
-            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:2449:1: '['
-            {
-             before(grammarAccess.getIssueReportAccess().getLeftSquareBracketKeyword_6_0()); 
-            match(input,18,FOLLOW_18_in_rule__IssueReport__Group_6__0__Impl4845); 
-             after(grammarAccess.getIssueReportAccess().getLeftSquareBracketKeyword_6_0()); 
-
-            }
-
-
-            }
-
-        }
-        catch (RecognitionException re) {
-            reportError(re);
-            recover(input,re);
-        }
-        finally {
-
-            	restoreStackSize(stackSize);
-
-        }
-        return ;
-    }
-    // $ANTLR end "rule__IssueReport__Group_6__0__Impl"
-
-
-    // $ANTLR start "rule__IssueReport__Group_6__1"
-    // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:2462:1: rule__IssueReport__Group_6__1 : rule__IssueReport__Group_6__1__Impl rule__IssueReport__Group_6__2 ;
-    public final void rule__IssueReport__Group_6__1() throws RecognitionException {
-
-        		int stackSize = keepStackSize();
-            
-        try {
-            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:2466:1: ( rule__IssueReport__Group_6__1__Impl rule__IssueReport__Group_6__2 )
-            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:2467:2: rule__IssueReport__Group_6__1__Impl rule__IssueReport__Group_6__2
-            {
-            pushFollow(FOLLOW_rule__IssueReport__Group_6__1__Impl_in_rule__IssueReport__Group_6__14876);
-            rule__IssueReport__Group_6__1__Impl();
-
-            state._fsp--;
-
-            pushFollow(FOLLOW_rule__IssueReport__Group_6__2_in_rule__IssueReport__Group_6__14879);
-            rule__IssueReport__Group_6__2();
-
-            state._fsp--;
-
-
-            }
-
-        }
-        catch (RecognitionException re) {
-            reportError(re);
-            recover(input,re);
-        }
-        finally {
-
-            	restoreStackSize(stackSize);
-
-        }
-        return ;
-    }
-    // $ANTLR end "rule__IssueReport__Group_6__1"
-
-
-    // $ANTLR start "rule__IssueReport__Group_6__1__Impl"
-    // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:2474:1: rule__IssueReport__Group_6__1__Impl : ( ( rule__IssueReport__IssuesAssignment_6_1 )* ) ;
-    public final void rule__IssueReport__Group_6__1__Impl() throws RecognitionException {
-
-        		int stackSize = keepStackSize();
-            
-        try {
-            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:2478:1: ( ( ( rule__IssueReport__IssuesAssignment_6_1 )* ) )
-            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:2479:1: ( ( rule__IssueReport__IssuesAssignment_6_1 )* )
-            {
-            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:2479:1: ( ( rule__IssueReport__IssuesAssignment_6_1 )* )
-            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:2480:1: ( rule__IssueReport__IssuesAssignment_6_1 )*
-            {
-             before(grammarAccess.getIssueReportAccess().getIssuesAssignment_6_1()); 
-            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:2481:1: ( rule__IssueReport__IssuesAssignment_6_1 )*
-            loop22:
+             before(grammarAccess.getIssuesReportAccess().getIssuesAssignment_3_2()); 
+            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:2044:1: ( rule__IssuesReport__IssuesAssignment_3_2 )*
+            loop21:
             do {
-                int alt22=2;
-                int LA22_0 = input.LA(1);
+                int alt21=2;
+                int LA21_0 = input.LA(1);
 
-                if ( (LA22_0==30) ) {
-                    alt22=1;
+                if ( (LA21_0==29) ) {
+                    alt21=1;
                 }
 
 
-                switch (alt22) {
+                switch (alt21) {
             	case 1 :
-            	    // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:2481:2: rule__IssueReport__IssuesAssignment_6_1
+            	    // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:2044:2: rule__IssuesReport__IssuesAssignment_3_2
             	    {
-            	    pushFollow(FOLLOW_rule__IssueReport__IssuesAssignment_6_1_in_rule__IssueReport__Group_6__1__Impl4906);
-            	    rule__IssueReport__IssuesAssignment_6_1();
+            	    pushFollow(FOLLOW_rule__IssuesReport__IssuesAssignment_3_2_in_rule__IssuesReport__Group_3__2__Impl4055);
+            	    rule__IssuesReport__IssuesAssignment_3_2();
 
             	    state._fsp--;
 
@@ -6630,11 +5516,11 @@ public class InternalResultsParser extends AbstractInternalContentAssistParser {
             	    break;
 
             	default :
-            	    break loop22;
+            	    break loop21;
                 }
             } while (true);
 
-             after(grammarAccess.getIssueReportAccess().getIssuesAssignment_6_1()); 
+             after(grammarAccess.getIssuesReportAccess().getIssuesAssignment_3_2()); 
 
             }
 
@@ -6653,21 +5539,21 @@ public class InternalResultsParser extends AbstractInternalContentAssistParser {
         }
         return ;
     }
-    // $ANTLR end "rule__IssueReport__Group_6__1__Impl"
+    // $ANTLR end "rule__IssuesReport__Group_3__2__Impl"
 
 
-    // $ANTLR start "rule__IssueReport__Group_6__2"
-    // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:2491:1: rule__IssueReport__Group_6__2 : rule__IssueReport__Group_6__2__Impl ;
-    public final void rule__IssueReport__Group_6__2() throws RecognitionException {
+    // $ANTLR start "rule__IssuesReport__Group_3__3"
+    // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:2054:1: rule__IssuesReport__Group_3__3 : rule__IssuesReport__Group_3__3__Impl ;
+    public final void rule__IssuesReport__Group_3__3() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:2495:1: ( rule__IssueReport__Group_6__2__Impl )
-            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:2496:2: rule__IssueReport__Group_6__2__Impl
+            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:2058:1: ( rule__IssuesReport__Group_3__3__Impl )
+            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:2059:2: rule__IssuesReport__Group_3__3__Impl
             {
-            pushFollow(FOLLOW_rule__IssueReport__Group_6__2__Impl_in_rule__IssueReport__Group_6__24937);
-            rule__IssueReport__Group_6__2__Impl();
+            pushFollow(FOLLOW_rule__IssuesReport__Group_3__3__Impl_in_rule__IssuesReport__Group_3__34086);
+            rule__IssuesReport__Group_3__3__Impl();
 
             state._fsp--;
 
@@ -6686,25 +5572,25 @@ public class InternalResultsParser extends AbstractInternalContentAssistParser {
         }
         return ;
     }
-    // $ANTLR end "rule__IssueReport__Group_6__2"
+    // $ANTLR end "rule__IssuesReport__Group_3__3"
 
 
-    // $ANTLR start "rule__IssueReport__Group_6__2__Impl"
-    // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:2502:1: rule__IssueReport__Group_6__2__Impl : ( ']' ) ;
-    public final void rule__IssueReport__Group_6__2__Impl() throws RecognitionException {
+    // $ANTLR start "rule__IssuesReport__Group_3__3__Impl"
+    // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:2065:1: rule__IssuesReport__Group_3__3__Impl : ( ']' ) ;
+    public final void rule__IssuesReport__Group_3__3__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:2506:1: ( ( ']' ) )
-            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:2507:1: ( ']' )
+            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:2069:1: ( ( ']' ) )
+            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:2070:1: ( ']' )
             {
-            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:2507:1: ( ']' )
-            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:2508:1: ']'
+            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:2070:1: ( ']' )
+            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:2071:1: ']'
             {
-             before(grammarAccess.getIssueReportAccess().getRightSquareBracketKeyword_6_2()); 
-            match(input,20,FOLLOW_20_in_rule__IssueReport__Group_6__2__Impl4965); 
-             after(grammarAccess.getIssueReportAccess().getRightSquareBracketKeyword_6_2()); 
+             before(grammarAccess.getIssuesReportAccess().getRightSquareBracketKeyword_3_3()); 
+            match(input,21,FOLLOW_21_in_rule__IssuesReport__Group_3__3__Impl4114); 
+             after(grammarAccess.getIssuesReportAccess().getRightSquareBracketKeyword_3_3()); 
 
             }
 
@@ -6723,25 +5609,180 @@ public class InternalResultsParser extends AbstractInternalContentAssistParser {
         }
         return ;
     }
-    // $ANTLR end "rule__IssueReport__Group_6__2__Impl"
+    // $ANTLR end "rule__IssuesReport__Group_3__3__Impl"
+
+
+    // $ANTLR start "rule__IssuesReport__Group_3_1__0"
+    // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:2092:1: rule__IssuesReport__Group_3_1__0 : rule__IssuesReport__Group_3_1__0__Impl rule__IssuesReport__Group_3_1__1 ;
+    public final void rule__IssuesReport__Group_3_1__0() throws RecognitionException {
+
+        		int stackSize = keepStackSize();
+            
+        try {
+            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:2096:1: ( rule__IssuesReport__Group_3_1__0__Impl rule__IssuesReport__Group_3_1__1 )
+            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:2097:2: rule__IssuesReport__Group_3_1__0__Impl rule__IssuesReport__Group_3_1__1
+            {
+            pushFollow(FOLLOW_rule__IssuesReport__Group_3_1__0__Impl_in_rule__IssuesReport__Group_3_1__04153);
+            rule__IssuesReport__Group_3_1__0__Impl();
+
+            state._fsp--;
+
+            pushFollow(FOLLOW_rule__IssuesReport__Group_3_1__1_in_rule__IssuesReport__Group_3_1__04156);
+            rule__IssuesReport__Group_3_1__1();
+
+            state._fsp--;
+
+
+            }
+
+        }
+        catch (RecognitionException re) {
+            reportError(re);
+            recover(input,re);
+        }
+        finally {
+
+            	restoreStackSize(stackSize);
+
+        }
+        return ;
+    }
+    // $ANTLR end "rule__IssuesReport__Group_3_1__0"
+
+
+    // $ANTLR start "rule__IssuesReport__Group_3_1__0__Impl"
+    // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:2104:1: rule__IssuesReport__Group_3_1__0__Impl : ( 'description' ) ;
+    public final void rule__IssuesReport__Group_3_1__0__Impl() throws RecognitionException {
+
+        		int stackSize = keepStackSize();
+            
+        try {
+            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:2108:1: ( ( 'description' ) )
+            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:2109:1: ( 'description' )
+            {
+            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:2109:1: ( 'description' )
+            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:2110:1: 'description'
+            {
+             before(grammarAccess.getIssuesReportAccess().getDescriptionKeyword_3_1_0()); 
+            match(input,23,FOLLOW_23_in_rule__IssuesReport__Group_3_1__0__Impl4184); 
+             after(grammarAccess.getIssuesReportAccess().getDescriptionKeyword_3_1_0()); 
+
+            }
+
+
+            }
+
+        }
+        catch (RecognitionException re) {
+            reportError(re);
+            recover(input,re);
+        }
+        finally {
+
+            	restoreStackSize(stackSize);
+
+        }
+        return ;
+    }
+    // $ANTLR end "rule__IssuesReport__Group_3_1__0__Impl"
+
+
+    // $ANTLR start "rule__IssuesReport__Group_3_1__1"
+    // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:2123:1: rule__IssuesReport__Group_3_1__1 : rule__IssuesReport__Group_3_1__1__Impl ;
+    public final void rule__IssuesReport__Group_3_1__1() throws RecognitionException {
+
+        		int stackSize = keepStackSize();
+            
+        try {
+            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:2127:1: ( rule__IssuesReport__Group_3_1__1__Impl )
+            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:2128:2: rule__IssuesReport__Group_3_1__1__Impl
+            {
+            pushFollow(FOLLOW_rule__IssuesReport__Group_3_1__1__Impl_in_rule__IssuesReport__Group_3_1__14215);
+            rule__IssuesReport__Group_3_1__1__Impl();
+
+            state._fsp--;
+
+
+            }
+
+        }
+        catch (RecognitionException re) {
+            reportError(re);
+            recover(input,re);
+        }
+        finally {
+
+            	restoreStackSize(stackSize);
+
+        }
+        return ;
+    }
+    // $ANTLR end "rule__IssuesReport__Group_3_1__1"
+
+
+    // $ANTLR start "rule__IssuesReport__Group_3_1__1__Impl"
+    // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:2134:1: rule__IssuesReport__Group_3_1__1__Impl : ( ( rule__IssuesReport__DescriptionAssignment_3_1_1 ) ) ;
+    public final void rule__IssuesReport__Group_3_1__1__Impl() throws RecognitionException {
+
+        		int stackSize = keepStackSize();
+            
+        try {
+            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:2138:1: ( ( ( rule__IssuesReport__DescriptionAssignment_3_1_1 ) ) )
+            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:2139:1: ( ( rule__IssuesReport__DescriptionAssignment_3_1_1 ) )
+            {
+            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:2139:1: ( ( rule__IssuesReport__DescriptionAssignment_3_1_1 ) )
+            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:2140:1: ( rule__IssuesReport__DescriptionAssignment_3_1_1 )
+            {
+             before(grammarAccess.getIssuesReportAccess().getDescriptionAssignment_3_1_1()); 
+            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:2141:1: ( rule__IssuesReport__DescriptionAssignment_3_1_1 )
+            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:2141:2: rule__IssuesReport__DescriptionAssignment_3_1_1
+            {
+            pushFollow(FOLLOW_rule__IssuesReport__DescriptionAssignment_3_1_1_in_rule__IssuesReport__Group_3_1__1__Impl4242);
+            rule__IssuesReport__DescriptionAssignment_3_1_1();
+
+            state._fsp--;
+
+
+            }
+
+             after(grammarAccess.getIssuesReportAccess().getDescriptionAssignment_3_1_1()); 
+
+            }
+
+
+            }
+
+        }
+        catch (RecognitionException re) {
+            reportError(re);
+            recover(input,re);
+        }
+        finally {
+
+            	restoreStackSize(stackSize);
+
+        }
+        return ;
+    }
+    // $ANTLR end "rule__IssuesReport__Group_3_1__1__Impl"
 
 
     // $ANTLR start "rule__ResultIssue__Group__0"
-    // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:2527:1: rule__ResultIssue__Group__0 : rule__ResultIssue__Group__0__Impl rule__ResultIssue__Group__1 ;
+    // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:2155:1: rule__ResultIssue__Group__0 : rule__ResultIssue__Group__0__Impl rule__ResultIssue__Group__1 ;
     public final void rule__ResultIssue__Group__0() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:2531:1: ( rule__ResultIssue__Group__0__Impl rule__ResultIssue__Group__1 )
-            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:2532:2: rule__ResultIssue__Group__0__Impl rule__ResultIssue__Group__1
+            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:2159:1: ( rule__ResultIssue__Group__0__Impl rule__ResultIssue__Group__1 )
+            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:2160:2: rule__ResultIssue__Group__0__Impl rule__ResultIssue__Group__1
             {
-            pushFollow(FOLLOW_rule__ResultIssue__Group__0__Impl_in_rule__ResultIssue__Group__05002);
+            pushFollow(FOLLOW_rule__ResultIssue__Group__0__Impl_in_rule__ResultIssue__Group__04276);
             rule__ResultIssue__Group__0__Impl();
 
             state._fsp--;
 
-            pushFollow(FOLLOW_rule__ResultIssue__Group__1_in_rule__ResultIssue__Group__05005);
+            pushFollow(FOLLOW_rule__ResultIssue__Group__1_in_rule__ResultIssue__Group__04279);
             rule__ResultIssue__Group__1();
 
             state._fsp--;
@@ -6765,20 +5806,20 @@ public class InternalResultsParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__ResultIssue__Group__0__Impl"
-    // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:2539:1: rule__ResultIssue__Group__0__Impl : ( 'issue' ) ;
+    // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:2167:1: rule__ResultIssue__Group__0__Impl : ( 'issue' ) ;
     public final void rule__ResultIssue__Group__0__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:2543:1: ( ( 'issue' ) )
-            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:2544:1: ( 'issue' )
+            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:2171:1: ( ( 'issue' ) )
+            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:2172:1: ( 'issue' )
             {
-            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:2544:1: ( 'issue' )
-            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:2545:1: 'issue'
+            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:2172:1: ( 'issue' )
+            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:2173:1: 'issue'
             {
              before(grammarAccess.getResultIssueAccess().getIssueKeyword_0()); 
-            match(input,30,FOLLOW_30_in_rule__ResultIssue__Group__0__Impl5033); 
+            match(input,29,FOLLOW_29_in_rule__ResultIssue__Group__0__Impl4307); 
              after(grammarAccess.getResultIssueAccess().getIssueKeyword_0()); 
 
             }
@@ -6802,21 +5843,21 @@ public class InternalResultsParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__ResultIssue__Group__1"
-    // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:2558:1: rule__ResultIssue__Group__1 : rule__ResultIssue__Group__1__Impl rule__ResultIssue__Group__2 ;
+    // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:2186:1: rule__ResultIssue__Group__1 : rule__ResultIssue__Group__1__Impl rule__ResultIssue__Group__2 ;
     public final void rule__ResultIssue__Group__1() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:2562:1: ( rule__ResultIssue__Group__1__Impl rule__ResultIssue__Group__2 )
-            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:2563:2: rule__ResultIssue__Group__1__Impl rule__ResultIssue__Group__2
+            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:2190:1: ( rule__ResultIssue__Group__1__Impl rule__ResultIssue__Group__2 )
+            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:2191:2: rule__ResultIssue__Group__1__Impl rule__ResultIssue__Group__2
             {
-            pushFollow(FOLLOW_rule__ResultIssue__Group__1__Impl_in_rule__ResultIssue__Group__15064);
+            pushFollow(FOLLOW_rule__ResultIssue__Group__1__Impl_in_rule__ResultIssue__Group__14338);
             rule__ResultIssue__Group__1__Impl();
 
             state._fsp--;
 
-            pushFollow(FOLLOW_rule__ResultIssue__Group__2_in_rule__ResultIssue__Group__15067);
+            pushFollow(FOLLOW_rule__ResultIssue__Group__2_in_rule__ResultIssue__Group__14341);
             rule__ResultIssue__Group__2();
 
             state._fsp--;
@@ -6840,23 +5881,23 @@ public class InternalResultsParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__ResultIssue__Group__1__Impl"
-    // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:2570:1: rule__ResultIssue__Group__1__Impl : ( ( rule__ResultIssue__IssueTypeAssignment_1 ) ) ;
+    // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:2198:1: rule__ResultIssue__Group__1__Impl : ( ( rule__ResultIssue__IssueTypeAssignment_1 ) ) ;
     public final void rule__ResultIssue__Group__1__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:2574:1: ( ( ( rule__ResultIssue__IssueTypeAssignment_1 ) ) )
-            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:2575:1: ( ( rule__ResultIssue__IssueTypeAssignment_1 ) )
+            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:2202:1: ( ( ( rule__ResultIssue__IssueTypeAssignment_1 ) ) )
+            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:2203:1: ( ( rule__ResultIssue__IssueTypeAssignment_1 ) )
             {
-            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:2575:1: ( ( rule__ResultIssue__IssueTypeAssignment_1 ) )
-            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:2576:1: ( rule__ResultIssue__IssueTypeAssignment_1 )
+            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:2203:1: ( ( rule__ResultIssue__IssueTypeAssignment_1 ) )
+            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:2204:1: ( rule__ResultIssue__IssueTypeAssignment_1 )
             {
              before(grammarAccess.getResultIssueAccess().getIssueTypeAssignment_1()); 
-            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:2577:1: ( rule__ResultIssue__IssueTypeAssignment_1 )
-            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:2577:2: rule__ResultIssue__IssueTypeAssignment_1
+            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:2205:1: ( rule__ResultIssue__IssueTypeAssignment_1 )
+            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:2205:2: rule__ResultIssue__IssueTypeAssignment_1
             {
-            pushFollow(FOLLOW_rule__ResultIssue__IssueTypeAssignment_1_in_rule__ResultIssue__Group__1__Impl5094);
+            pushFollow(FOLLOW_rule__ResultIssue__IssueTypeAssignment_1_in_rule__ResultIssue__Group__1__Impl4368);
             rule__ResultIssue__IssueTypeAssignment_1();
 
             state._fsp--;
@@ -6887,21 +5928,21 @@ public class InternalResultsParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__ResultIssue__Group__2"
-    // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:2587:1: rule__ResultIssue__Group__2 : rule__ResultIssue__Group__2__Impl rule__ResultIssue__Group__3 ;
+    // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:2215:1: rule__ResultIssue__Group__2 : rule__ResultIssue__Group__2__Impl rule__ResultIssue__Group__3 ;
     public final void rule__ResultIssue__Group__2() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:2591:1: ( rule__ResultIssue__Group__2__Impl rule__ResultIssue__Group__3 )
-            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:2592:2: rule__ResultIssue__Group__2__Impl rule__ResultIssue__Group__3
+            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:2219:1: ( rule__ResultIssue__Group__2__Impl rule__ResultIssue__Group__3 )
+            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:2220:2: rule__ResultIssue__Group__2__Impl rule__ResultIssue__Group__3
             {
-            pushFollow(FOLLOW_rule__ResultIssue__Group__2__Impl_in_rule__ResultIssue__Group__25124);
+            pushFollow(FOLLOW_rule__ResultIssue__Group__2__Impl_in_rule__ResultIssue__Group__24398);
             rule__ResultIssue__Group__2__Impl();
 
             state._fsp--;
 
-            pushFollow(FOLLOW_rule__ResultIssue__Group__3_in_rule__ResultIssue__Group__25127);
+            pushFollow(FOLLOW_rule__ResultIssue__Group__3_in_rule__ResultIssue__Group__24401);
             rule__ResultIssue__Group__3();
 
             state._fsp--;
@@ -6925,23 +5966,23 @@ public class InternalResultsParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__ResultIssue__Group__2__Impl"
-    // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:2599:1: rule__ResultIssue__Group__2__Impl : ( ( rule__ResultIssue__MessageAssignment_2 ) ) ;
+    // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:2227:1: rule__ResultIssue__Group__2__Impl : ( ( rule__ResultIssue__MessageAssignment_2 ) ) ;
     public final void rule__ResultIssue__Group__2__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:2603:1: ( ( ( rule__ResultIssue__MessageAssignment_2 ) ) )
-            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:2604:1: ( ( rule__ResultIssue__MessageAssignment_2 ) )
+            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:2231:1: ( ( ( rule__ResultIssue__MessageAssignment_2 ) ) )
+            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:2232:1: ( ( rule__ResultIssue__MessageAssignment_2 ) )
             {
-            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:2604:1: ( ( rule__ResultIssue__MessageAssignment_2 ) )
-            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:2605:1: ( rule__ResultIssue__MessageAssignment_2 )
+            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:2232:1: ( ( rule__ResultIssue__MessageAssignment_2 ) )
+            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:2233:1: ( rule__ResultIssue__MessageAssignment_2 )
             {
              before(grammarAccess.getResultIssueAccess().getMessageAssignment_2()); 
-            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:2606:1: ( rule__ResultIssue__MessageAssignment_2 )
-            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:2606:2: rule__ResultIssue__MessageAssignment_2
+            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:2234:1: ( rule__ResultIssue__MessageAssignment_2 )
+            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:2234:2: rule__ResultIssue__MessageAssignment_2
             {
-            pushFollow(FOLLOW_rule__ResultIssue__MessageAssignment_2_in_rule__ResultIssue__Group__2__Impl5154);
+            pushFollow(FOLLOW_rule__ResultIssue__MessageAssignment_2_in_rule__ResultIssue__Group__2__Impl4428);
             rule__ResultIssue__MessageAssignment_2();
 
             state._fsp--;
@@ -6972,21 +6013,21 @@ public class InternalResultsParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__ResultIssue__Group__3"
-    // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:2616:1: rule__ResultIssue__Group__3 : rule__ResultIssue__Group__3__Impl rule__ResultIssue__Group__4 ;
+    // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:2244:1: rule__ResultIssue__Group__3 : rule__ResultIssue__Group__3__Impl rule__ResultIssue__Group__4 ;
     public final void rule__ResultIssue__Group__3() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:2620:1: ( rule__ResultIssue__Group__3__Impl rule__ResultIssue__Group__4 )
-            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:2621:2: rule__ResultIssue__Group__3__Impl rule__ResultIssue__Group__4
+            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:2248:1: ( rule__ResultIssue__Group__3__Impl rule__ResultIssue__Group__4 )
+            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:2249:2: rule__ResultIssue__Group__3__Impl rule__ResultIssue__Group__4
             {
-            pushFollow(FOLLOW_rule__ResultIssue__Group__3__Impl_in_rule__ResultIssue__Group__35184);
+            pushFollow(FOLLOW_rule__ResultIssue__Group__3__Impl_in_rule__ResultIssue__Group__34458);
             rule__ResultIssue__Group__3__Impl();
 
             state._fsp--;
 
-            pushFollow(FOLLOW_rule__ResultIssue__Group__4_in_rule__ResultIssue__Group__35187);
+            pushFollow(FOLLOW_rule__ResultIssue__Group__4_in_rule__ResultIssue__Group__34461);
             rule__ResultIssue__Group__4();
 
             state._fsp--;
@@ -7010,31 +6051,31 @@ public class InternalResultsParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__ResultIssue__Group__3__Impl"
-    // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:2628:1: rule__ResultIssue__Group__3__Impl : ( ( rule__ResultIssue__Group_3__0 )? ) ;
+    // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:2256:1: rule__ResultIssue__Group__3__Impl : ( ( rule__ResultIssue__Group_3__0 )? ) ;
     public final void rule__ResultIssue__Group__3__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:2632:1: ( ( ( rule__ResultIssue__Group_3__0 )? ) )
-            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:2633:1: ( ( rule__ResultIssue__Group_3__0 )? )
+            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:2260:1: ( ( ( rule__ResultIssue__Group_3__0 )? ) )
+            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:2261:1: ( ( rule__ResultIssue__Group_3__0 )? )
             {
-            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:2633:1: ( ( rule__ResultIssue__Group_3__0 )? )
-            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:2634:1: ( rule__ResultIssue__Group_3__0 )?
+            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:2261:1: ( ( rule__ResultIssue__Group_3__0 )? )
+            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:2262:1: ( rule__ResultIssue__Group_3__0 )?
             {
              before(grammarAccess.getResultIssueAccess().getGroup_3()); 
-            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:2635:1: ( rule__ResultIssue__Group_3__0 )?
-            int alt23=2;
-            int LA23_0 = input.LA(1);
+            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:2263:1: ( rule__ResultIssue__Group_3__0 )?
+            int alt22=2;
+            int LA22_0 = input.LA(1);
 
-            if ( (LA23_0==19) ) {
-                alt23=1;
+            if ( (LA22_0==30) ) {
+                alt22=1;
             }
-            switch (alt23) {
+            switch (alt22) {
                 case 1 :
-                    // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:2635:2: rule__ResultIssue__Group_3__0
+                    // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:2263:2: rule__ResultIssue__Group_3__0
                     {
-                    pushFollow(FOLLOW_rule__ResultIssue__Group_3__0_in_rule__ResultIssue__Group__3__Impl5214);
+                    pushFollow(FOLLOW_rule__ResultIssue__Group_3__0_in_rule__ResultIssue__Group__3__Impl4488);
                     rule__ResultIssue__Group_3__0();
 
                     state._fsp--;
@@ -7068,21 +6109,21 @@ public class InternalResultsParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__ResultIssue__Group__4"
-    // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:2645:1: rule__ResultIssue__Group__4 : rule__ResultIssue__Group__4__Impl rule__ResultIssue__Group__5 ;
+    // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:2273:1: rule__ResultIssue__Group__4 : rule__ResultIssue__Group__4__Impl rule__ResultIssue__Group__5 ;
     public final void rule__ResultIssue__Group__4() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:2649:1: ( rule__ResultIssue__Group__4__Impl rule__ResultIssue__Group__5 )
-            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:2650:2: rule__ResultIssue__Group__4__Impl rule__ResultIssue__Group__5
+            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:2277:1: ( rule__ResultIssue__Group__4__Impl rule__ResultIssue__Group__5 )
+            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:2278:2: rule__ResultIssue__Group__4__Impl rule__ResultIssue__Group__5
             {
-            pushFollow(FOLLOW_rule__ResultIssue__Group__4__Impl_in_rule__ResultIssue__Group__45245);
+            pushFollow(FOLLOW_rule__ResultIssue__Group__4__Impl_in_rule__ResultIssue__Group__44519);
             rule__ResultIssue__Group__4__Impl();
 
             state._fsp--;
 
-            pushFollow(FOLLOW_rule__ResultIssue__Group__5_in_rule__ResultIssue__Group__45248);
+            pushFollow(FOLLOW_rule__ResultIssue__Group__5_in_rule__ResultIssue__Group__44522);
             rule__ResultIssue__Group__5();
 
             state._fsp--;
@@ -7106,31 +6147,31 @@ public class InternalResultsParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__ResultIssue__Group__4__Impl"
-    // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:2657:1: rule__ResultIssue__Group__4__Impl : ( ( rule__ResultIssue__Group_4__0 )? ) ;
+    // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:2285:1: rule__ResultIssue__Group__4__Impl : ( ( rule__ResultIssue__Group_4__0 )? ) ;
     public final void rule__ResultIssue__Group__4__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:2661:1: ( ( ( rule__ResultIssue__Group_4__0 )? ) )
-            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:2662:1: ( ( rule__ResultIssue__Group_4__0 )? )
+            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:2289:1: ( ( ( rule__ResultIssue__Group_4__0 )? ) )
+            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:2290:1: ( ( rule__ResultIssue__Group_4__0 )? )
             {
-            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:2662:1: ( ( rule__ResultIssue__Group_4__0 )? )
-            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:2663:1: ( rule__ResultIssue__Group_4__0 )?
+            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:2290:1: ( ( rule__ResultIssue__Group_4__0 )? )
+            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:2291:1: ( rule__ResultIssue__Group_4__0 )?
             {
              before(grammarAccess.getResultIssueAccess().getGroup_4()); 
-            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:2664:1: ( rule__ResultIssue__Group_4__0 )?
-            int alt24=2;
-            int LA24_0 = input.LA(1);
+            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:2292:1: ( rule__ResultIssue__Group_4__0 )?
+            int alt23=2;
+            int LA23_0 = input.LA(1);
 
-            if ( (LA24_0==24) ) {
-                alt24=1;
+            if ( (LA23_0==31) ) {
+                alt23=1;
             }
-            switch (alt24) {
+            switch (alt23) {
                 case 1 :
-                    // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:2664:2: rule__ResultIssue__Group_4__0
+                    // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:2292:2: rule__ResultIssue__Group_4__0
                     {
-                    pushFollow(FOLLOW_rule__ResultIssue__Group_4__0_in_rule__ResultIssue__Group__4__Impl5275);
+                    pushFollow(FOLLOW_rule__ResultIssue__Group_4__0_in_rule__ResultIssue__Group__4__Impl4549);
                     rule__ResultIssue__Group_4__0();
 
                     state._fsp--;
@@ -7164,16 +6205,16 @@ public class InternalResultsParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__ResultIssue__Group__5"
-    // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:2674:1: rule__ResultIssue__Group__5 : rule__ResultIssue__Group__5__Impl ;
+    // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:2302:1: rule__ResultIssue__Group__5 : rule__ResultIssue__Group__5__Impl ;
     public final void rule__ResultIssue__Group__5() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:2678:1: ( rule__ResultIssue__Group__5__Impl )
-            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:2679:2: rule__ResultIssue__Group__5__Impl
+            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:2306:1: ( rule__ResultIssue__Group__5__Impl )
+            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:2307:2: rule__ResultIssue__Group__5__Impl
             {
-            pushFollow(FOLLOW_rule__ResultIssue__Group__5__Impl_in_rule__ResultIssue__Group__55306);
+            pushFollow(FOLLOW_rule__ResultIssue__Group__5__Impl_in_rule__ResultIssue__Group__54580);
             rule__ResultIssue__Group__5__Impl();
 
             state._fsp--;
@@ -7197,31 +6238,31 @@ public class InternalResultsParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__ResultIssue__Group__5__Impl"
-    // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:2685:1: rule__ResultIssue__Group__5__Impl : ( ( rule__ResultIssue__Group_5__0 )? ) ;
+    // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:2313:1: rule__ResultIssue__Group__5__Impl : ( ( rule__ResultIssue__Group_5__0 )? ) ;
     public final void rule__ResultIssue__Group__5__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:2689:1: ( ( ( rule__ResultIssue__Group_5__0 )? ) )
-            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:2690:1: ( ( rule__ResultIssue__Group_5__0 )? )
+            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:2317:1: ( ( ( rule__ResultIssue__Group_5__0 )? ) )
+            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:2318:1: ( ( rule__ResultIssue__Group_5__0 )? )
             {
-            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:2690:1: ( ( rule__ResultIssue__Group_5__0 )? )
-            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:2691:1: ( rule__ResultIssue__Group_5__0 )?
+            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:2318:1: ( ( rule__ResultIssue__Group_5__0 )? )
+            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:2319:1: ( rule__ResultIssue__Group_5__0 )?
             {
              before(grammarAccess.getResultIssueAccess().getGroup_5()); 
-            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:2692:1: ( rule__ResultIssue__Group_5__0 )?
-            int alt25=2;
-            int LA25_0 = input.LA(1);
+            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:2320:1: ( rule__ResultIssue__Group_5__0 )?
+            int alt24=2;
+            int LA24_0 = input.LA(1);
 
-            if ( (LA25_0==18) ) {
-                alt25=1;
+            if ( (LA24_0==20) ) {
+                alt24=1;
             }
-            switch (alt25) {
+            switch (alt24) {
                 case 1 :
-                    // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:2692:2: rule__ResultIssue__Group_5__0
+                    // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:2320:2: rule__ResultIssue__Group_5__0
                     {
-                    pushFollow(FOLLOW_rule__ResultIssue__Group_5__0_in_rule__ResultIssue__Group__5__Impl5333);
+                    pushFollow(FOLLOW_rule__ResultIssue__Group_5__0_in_rule__ResultIssue__Group__5__Impl4607);
                     rule__ResultIssue__Group_5__0();
 
                     state._fsp--;
@@ -7255,21 +6296,21 @@ public class InternalResultsParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__ResultIssue__Group_3__0"
-    // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:2714:1: rule__ResultIssue__Group_3__0 : rule__ResultIssue__Group_3__0__Impl rule__ResultIssue__Group_3__1 ;
+    // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:2342:1: rule__ResultIssue__Group_3__0 : rule__ResultIssue__Group_3__0__Impl rule__ResultIssue__Group_3__1 ;
     public final void rule__ResultIssue__Group_3__0() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:2718:1: ( rule__ResultIssue__Group_3__0__Impl rule__ResultIssue__Group_3__1 )
-            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:2719:2: rule__ResultIssue__Group_3__0__Impl rule__ResultIssue__Group_3__1
+            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:2346:1: ( rule__ResultIssue__Group_3__0__Impl rule__ResultIssue__Group_3__1 )
+            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:2347:2: rule__ResultIssue__Group_3__0__Impl rule__ResultIssue__Group_3__1
             {
-            pushFollow(FOLLOW_rule__ResultIssue__Group_3__0__Impl_in_rule__ResultIssue__Group_3__05376);
+            pushFollow(FOLLOW_rule__ResultIssue__Group_3__0__Impl_in_rule__ResultIssue__Group_3__04650);
             rule__ResultIssue__Group_3__0__Impl();
 
             state._fsp--;
 
-            pushFollow(FOLLOW_rule__ResultIssue__Group_3__1_in_rule__ResultIssue__Group_3__05379);
+            pushFollow(FOLLOW_rule__ResultIssue__Group_3__1_in_rule__ResultIssue__Group_3__04653);
             rule__ResultIssue__Group_3__1();
 
             state._fsp--;
@@ -7293,20 +6334,20 @@ public class InternalResultsParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__ResultIssue__Group_3__0__Impl"
-    // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:2726:1: rule__ResultIssue__Group_3__0__Impl : ( 'target' ) ;
+    // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:2354:1: rule__ResultIssue__Group_3__0__Impl : ( 'target' ) ;
     public final void rule__ResultIssue__Group_3__0__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:2730:1: ( ( 'target' ) )
-            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:2731:1: ( 'target' )
+            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:2358:1: ( ( 'target' ) )
+            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:2359:1: ( 'target' )
             {
-            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:2731:1: ( 'target' )
-            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:2732:1: 'target'
+            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:2359:1: ( 'target' )
+            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:2360:1: 'target'
             {
              before(grammarAccess.getResultIssueAccess().getTargetKeyword_3_0()); 
-            match(input,19,FOLLOW_19_in_rule__ResultIssue__Group_3__0__Impl5407); 
+            match(input,30,FOLLOW_30_in_rule__ResultIssue__Group_3__0__Impl4681); 
              after(grammarAccess.getResultIssueAccess().getTargetKeyword_3_0()); 
 
             }
@@ -7330,16 +6371,16 @@ public class InternalResultsParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__ResultIssue__Group_3__1"
-    // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:2745:1: rule__ResultIssue__Group_3__1 : rule__ResultIssue__Group_3__1__Impl ;
+    // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:2373:1: rule__ResultIssue__Group_3__1 : rule__ResultIssue__Group_3__1__Impl ;
     public final void rule__ResultIssue__Group_3__1() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:2749:1: ( rule__ResultIssue__Group_3__1__Impl )
-            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:2750:2: rule__ResultIssue__Group_3__1__Impl
+            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:2377:1: ( rule__ResultIssue__Group_3__1__Impl )
+            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:2378:2: rule__ResultIssue__Group_3__1__Impl
             {
-            pushFollow(FOLLOW_rule__ResultIssue__Group_3__1__Impl_in_rule__ResultIssue__Group_3__15438);
+            pushFollow(FOLLOW_rule__ResultIssue__Group_3__1__Impl_in_rule__ResultIssue__Group_3__14712);
             rule__ResultIssue__Group_3__1__Impl();
 
             state._fsp--;
@@ -7363,23 +6404,23 @@ public class InternalResultsParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__ResultIssue__Group_3__1__Impl"
-    // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:2756:1: rule__ResultIssue__Group_3__1__Impl : ( ( rule__ResultIssue__TargetAssignment_3_1 ) ) ;
+    // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:2384:1: rule__ResultIssue__Group_3__1__Impl : ( ( rule__ResultIssue__TargetAssignment_3_1 ) ) ;
     public final void rule__ResultIssue__Group_3__1__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:2760:1: ( ( ( rule__ResultIssue__TargetAssignment_3_1 ) ) )
-            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:2761:1: ( ( rule__ResultIssue__TargetAssignment_3_1 ) )
+            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:2388:1: ( ( ( rule__ResultIssue__TargetAssignment_3_1 ) ) )
+            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:2389:1: ( ( rule__ResultIssue__TargetAssignment_3_1 ) )
             {
-            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:2761:1: ( ( rule__ResultIssue__TargetAssignment_3_1 ) )
-            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:2762:1: ( rule__ResultIssue__TargetAssignment_3_1 )
+            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:2389:1: ( ( rule__ResultIssue__TargetAssignment_3_1 ) )
+            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:2390:1: ( rule__ResultIssue__TargetAssignment_3_1 )
             {
              before(grammarAccess.getResultIssueAccess().getTargetAssignment_3_1()); 
-            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:2763:1: ( rule__ResultIssue__TargetAssignment_3_1 )
-            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:2763:2: rule__ResultIssue__TargetAssignment_3_1
+            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:2391:1: ( rule__ResultIssue__TargetAssignment_3_1 )
+            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:2391:2: rule__ResultIssue__TargetAssignment_3_1
             {
-            pushFollow(FOLLOW_rule__ResultIssue__TargetAssignment_3_1_in_rule__ResultIssue__Group_3__1__Impl5465);
+            pushFollow(FOLLOW_rule__ResultIssue__TargetAssignment_3_1_in_rule__ResultIssue__Group_3__1__Impl4739);
             rule__ResultIssue__TargetAssignment_3_1();
 
             state._fsp--;
@@ -7410,21 +6451,21 @@ public class InternalResultsParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__ResultIssue__Group_4__0"
-    // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:2777:1: rule__ResultIssue__Group_4__0 : rule__ResultIssue__Group_4__0__Impl rule__ResultIssue__Group_4__1 ;
+    // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:2405:1: rule__ResultIssue__Group_4__0 : rule__ResultIssue__Group_4__0__Impl rule__ResultIssue__Group_4__1 ;
     public final void rule__ResultIssue__Group_4__0() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:2781:1: ( rule__ResultIssue__Group_4__0__Impl rule__ResultIssue__Group_4__1 )
-            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:2782:2: rule__ResultIssue__Group_4__0__Impl rule__ResultIssue__Group_4__1
+            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:2409:1: ( rule__ResultIssue__Group_4__0__Impl rule__ResultIssue__Group_4__1 )
+            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:2410:2: rule__ResultIssue__Group_4__0__Impl rule__ResultIssue__Group_4__1
             {
-            pushFollow(FOLLOW_rule__ResultIssue__Group_4__0__Impl_in_rule__ResultIssue__Group_4__05499);
+            pushFollow(FOLLOW_rule__ResultIssue__Group_4__0__Impl_in_rule__ResultIssue__Group_4__04773);
             rule__ResultIssue__Group_4__0__Impl();
 
             state._fsp--;
 
-            pushFollow(FOLLOW_rule__ResultIssue__Group_4__1_in_rule__ResultIssue__Group_4__05502);
+            pushFollow(FOLLOW_rule__ResultIssue__Group_4__1_in_rule__ResultIssue__Group_4__04776);
             rule__ResultIssue__Group_4__1();
 
             state._fsp--;
@@ -7448,20 +6489,20 @@ public class InternalResultsParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__ResultIssue__Group_4__0__Impl"
-    // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:2789:1: rule__ResultIssue__Group_4__0__Impl : ( 'exception' ) ;
+    // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:2417:1: rule__ResultIssue__Group_4__0__Impl : ( 'exception' ) ;
     public final void rule__ResultIssue__Group_4__0__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:2793:1: ( ( 'exception' ) )
-            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:2794:1: ( 'exception' )
+            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:2421:1: ( ( 'exception' ) )
+            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:2422:1: ( 'exception' )
             {
-            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:2794:1: ( 'exception' )
-            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:2795:1: 'exception'
+            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:2422:1: ( 'exception' )
+            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:2423:1: 'exception'
             {
              before(grammarAccess.getResultIssueAccess().getExceptionKeyword_4_0()); 
-            match(input,24,FOLLOW_24_in_rule__ResultIssue__Group_4__0__Impl5530); 
+            match(input,31,FOLLOW_31_in_rule__ResultIssue__Group_4__0__Impl4804); 
              after(grammarAccess.getResultIssueAccess().getExceptionKeyword_4_0()); 
 
             }
@@ -7485,16 +6526,16 @@ public class InternalResultsParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__ResultIssue__Group_4__1"
-    // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:2808:1: rule__ResultIssue__Group_4__1 : rule__ResultIssue__Group_4__1__Impl ;
+    // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:2436:1: rule__ResultIssue__Group_4__1 : rule__ResultIssue__Group_4__1__Impl ;
     public final void rule__ResultIssue__Group_4__1() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:2812:1: ( rule__ResultIssue__Group_4__1__Impl )
-            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:2813:2: rule__ResultIssue__Group_4__1__Impl
+            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:2440:1: ( rule__ResultIssue__Group_4__1__Impl )
+            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:2441:2: rule__ResultIssue__Group_4__1__Impl
             {
-            pushFollow(FOLLOW_rule__ResultIssue__Group_4__1__Impl_in_rule__ResultIssue__Group_4__15561);
+            pushFollow(FOLLOW_rule__ResultIssue__Group_4__1__Impl_in_rule__ResultIssue__Group_4__14835);
             rule__ResultIssue__Group_4__1__Impl();
 
             state._fsp--;
@@ -7518,23 +6559,23 @@ public class InternalResultsParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__ResultIssue__Group_4__1__Impl"
-    // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:2819:1: rule__ResultIssue__Group_4__1__Impl : ( ( rule__ResultIssue__ExceptionTypeAssignment_4_1 ) ) ;
+    // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:2447:1: rule__ResultIssue__Group_4__1__Impl : ( ( rule__ResultIssue__ExceptionTypeAssignment_4_1 ) ) ;
     public final void rule__ResultIssue__Group_4__1__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:2823:1: ( ( ( rule__ResultIssue__ExceptionTypeAssignment_4_1 ) ) )
-            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:2824:1: ( ( rule__ResultIssue__ExceptionTypeAssignment_4_1 ) )
+            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:2451:1: ( ( ( rule__ResultIssue__ExceptionTypeAssignment_4_1 ) ) )
+            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:2452:1: ( ( rule__ResultIssue__ExceptionTypeAssignment_4_1 ) )
             {
-            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:2824:1: ( ( rule__ResultIssue__ExceptionTypeAssignment_4_1 ) )
-            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:2825:1: ( rule__ResultIssue__ExceptionTypeAssignment_4_1 )
+            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:2452:1: ( ( rule__ResultIssue__ExceptionTypeAssignment_4_1 ) )
+            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:2453:1: ( rule__ResultIssue__ExceptionTypeAssignment_4_1 )
             {
              before(grammarAccess.getResultIssueAccess().getExceptionTypeAssignment_4_1()); 
-            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:2826:1: ( rule__ResultIssue__ExceptionTypeAssignment_4_1 )
-            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:2826:2: rule__ResultIssue__ExceptionTypeAssignment_4_1
+            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:2454:1: ( rule__ResultIssue__ExceptionTypeAssignment_4_1 )
+            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:2454:2: rule__ResultIssue__ExceptionTypeAssignment_4_1
             {
-            pushFollow(FOLLOW_rule__ResultIssue__ExceptionTypeAssignment_4_1_in_rule__ResultIssue__Group_4__1__Impl5588);
+            pushFollow(FOLLOW_rule__ResultIssue__ExceptionTypeAssignment_4_1_in_rule__ResultIssue__Group_4__1__Impl4862);
             rule__ResultIssue__ExceptionTypeAssignment_4_1();
 
             state._fsp--;
@@ -7565,21 +6606,21 @@ public class InternalResultsParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__ResultIssue__Group_5__0"
-    // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:2840:1: rule__ResultIssue__Group_5__0 : rule__ResultIssue__Group_5__0__Impl rule__ResultIssue__Group_5__1 ;
+    // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:2468:1: rule__ResultIssue__Group_5__0 : rule__ResultIssue__Group_5__0__Impl rule__ResultIssue__Group_5__1 ;
     public final void rule__ResultIssue__Group_5__0() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:2844:1: ( rule__ResultIssue__Group_5__0__Impl rule__ResultIssue__Group_5__1 )
-            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:2845:2: rule__ResultIssue__Group_5__0__Impl rule__ResultIssue__Group_5__1
+            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:2472:1: ( rule__ResultIssue__Group_5__0__Impl rule__ResultIssue__Group_5__1 )
+            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:2473:2: rule__ResultIssue__Group_5__0__Impl rule__ResultIssue__Group_5__1
             {
-            pushFollow(FOLLOW_rule__ResultIssue__Group_5__0__Impl_in_rule__ResultIssue__Group_5__05622);
+            pushFollow(FOLLOW_rule__ResultIssue__Group_5__0__Impl_in_rule__ResultIssue__Group_5__04896);
             rule__ResultIssue__Group_5__0__Impl();
 
             state._fsp--;
 
-            pushFollow(FOLLOW_rule__ResultIssue__Group_5__1_in_rule__ResultIssue__Group_5__05625);
+            pushFollow(FOLLOW_rule__ResultIssue__Group_5__1_in_rule__ResultIssue__Group_5__04899);
             rule__ResultIssue__Group_5__1();
 
             state._fsp--;
@@ -7603,20 +6644,20 @@ public class InternalResultsParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__ResultIssue__Group_5__0__Impl"
-    // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:2852:1: rule__ResultIssue__Group_5__0__Impl : ( '[' ) ;
+    // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:2480:1: rule__ResultIssue__Group_5__0__Impl : ( '[' ) ;
     public final void rule__ResultIssue__Group_5__0__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:2856:1: ( ( '[' ) )
-            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:2857:1: ( '[' )
+            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:2484:1: ( ( '[' ) )
+            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:2485:1: ( '[' )
             {
-            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:2857:1: ( '[' )
-            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:2858:1: '['
+            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:2485:1: ( '[' )
+            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:2486:1: '['
             {
              before(grammarAccess.getResultIssueAccess().getLeftSquareBracketKeyword_5_0()); 
-            match(input,18,FOLLOW_18_in_rule__ResultIssue__Group_5__0__Impl5653); 
+            match(input,20,FOLLOW_20_in_rule__ResultIssue__Group_5__0__Impl4927); 
              after(grammarAccess.getResultIssueAccess().getLeftSquareBracketKeyword_5_0()); 
 
             }
@@ -7640,21 +6681,21 @@ public class InternalResultsParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__ResultIssue__Group_5__1"
-    // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:2871:1: rule__ResultIssue__Group_5__1 : rule__ResultIssue__Group_5__1__Impl rule__ResultIssue__Group_5__2 ;
+    // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:2499:1: rule__ResultIssue__Group_5__1 : rule__ResultIssue__Group_5__1__Impl rule__ResultIssue__Group_5__2 ;
     public final void rule__ResultIssue__Group_5__1() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:2875:1: ( rule__ResultIssue__Group_5__1__Impl rule__ResultIssue__Group_5__2 )
-            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:2876:2: rule__ResultIssue__Group_5__1__Impl rule__ResultIssue__Group_5__2
+            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:2503:1: ( rule__ResultIssue__Group_5__1__Impl rule__ResultIssue__Group_5__2 )
+            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:2504:2: rule__ResultIssue__Group_5__1__Impl rule__ResultIssue__Group_5__2
             {
-            pushFollow(FOLLOW_rule__ResultIssue__Group_5__1__Impl_in_rule__ResultIssue__Group_5__15684);
+            pushFollow(FOLLOW_rule__ResultIssue__Group_5__1__Impl_in_rule__ResultIssue__Group_5__14958);
             rule__ResultIssue__Group_5__1__Impl();
 
             state._fsp--;
 
-            pushFollow(FOLLOW_rule__ResultIssue__Group_5__2_in_rule__ResultIssue__Group_5__15687);
+            pushFollow(FOLLOW_rule__ResultIssue__Group_5__2_in_rule__ResultIssue__Group_5__14961);
             rule__ResultIssue__Group_5__2();
 
             state._fsp--;
@@ -7678,35 +6719,35 @@ public class InternalResultsParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__ResultIssue__Group_5__1__Impl"
-    // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:2883:1: rule__ResultIssue__Group_5__1__Impl : ( ( rule__ResultIssue__IssuesAssignment_5_1 )* ) ;
+    // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:2511:1: rule__ResultIssue__Group_5__1__Impl : ( ( rule__ResultIssue__IssuesAssignment_5_1 )* ) ;
     public final void rule__ResultIssue__Group_5__1__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:2887:1: ( ( ( rule__ResultIssue__IssuesAssignment_5_1 )* ) )
-            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:2888:1: ( ( rule__ResultIssue__IssuesAssignment_5_1 )* )
+            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:2515:1: ( ( ( rule__ResultIssue__IssuesAssignment_5_1 )* ) )
+            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:2516:1: ( ( rule__ResultIssue__IssuesAssignment_5_1 )* )
             {
-            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:2888:1: ( ( rule__ResultIssue__IssuesAssignment_5_1 )* )
-            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:2889:1: ( rule__ResultIssue__IssuesAssignment_5_1 )*
+            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:2516:1: ( ( rule__ResultIssue__IssuesAssignment_5_1 )* )
+            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:2517:1: ( rule__ResultIssue__IssuesAssignment_5_1 )*
             {
              before(grammarAccess.getResultIssueAccess().getIssuesAssignment_5_1()); 
-            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:2890:1: ( rule__ResultIssue__IssuesAssignment_5_1 )*
-            loop26:
+            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:2518:1: ( rule__ResultIssue__IssuesAssignment_5_1 )*
+            loop25:
             do {
-                int alt26=2;
-                int LA26_0 = input.LA(1);
+                int alt25=2;
+                int LA25_0 = input.LA(1);
 
-                if ( (LA26_0==30) ) {
-                    alt26=1;
+                if ( (LA25_0==29) ) {
+                    alt25=1;
                 }
 
 
-                switch (alt26) {
+                switch (alt25) {
             	case 1 :
-            	    // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:2890:2: rule__ResultIssue__IssuesAssignment_5_1
+            	    // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:2518:2: rule__ResultIssue__IssuesAssignment_5_1
             	    {
-            	    pushFollow(FOLLOW_rule__ResultIssue__IssuesAssignment_5_1_in_rule__ResultIssue__Group_5__1__Impl5714);
+            	    pushFollow(FOLLOW_rule__ResultIssue__IssuesAssignment_5_1_in_rule__ResultIssue__Group_5__1__Impl4988);
             	    rule__ResultIssue__IssuesAssignment_5_1();
 
             	    state._fsp--;
@@ -7716,7 +6757,7 @@ public class InternalResultsParser extends AbstractInternalContentAssistParser {
             	    break;
 
             	default :
-            	    break loop26;
+            	    break loop25;
                 }
             } while (true);
 
@@ -7743,16 +6784,16 @@ public class InternalResultsParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__ResultIssue__Group_5__2"
-    // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:2900:1: rule__ResultIssue__Group_5__2 : rule__ResultIssue__Group_5__2__Impl ;
+    // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:2528:1: rule__ResultIssue__Group_5__2 : rule__ResultIssue__Group_5__2__Impl ;
     public final void rule__ResultIssue__Group_5__2() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:2904:1: ( rule__ResultIssue__Group_5__2__Impl )
-            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:2905:2: rule__ResultIssue__Group_5__2__Impl
+            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:2532:1: ( rule__ResultIssue__Group_5__2__Impl )
+            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:2533:2: rule__ResultIssue__Group_5__2__Impl
             {
-            pushFollow(FOLLOW_rule__ResultIssue__Group_5__2__Impl_in_rule__ResultIssue__Group_5__25745);
+            pushFollow(FOLLOW_rule__ResultIssue__Group_5__2__Impl_in_rule__ResultIssue__Group_5__25019);
             rule__ResultIssue__Group_5__2__Impl();
 
             state._fsp--;
@@ -7776,20 +6817,20 @@ public class InternalResultsParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__ResultIssue__Group_5__2__Impl"
-    // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:2911:1: rule__ResultIssue__Group_5__2__Impl : ( ']' ) ;
+    // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:2539:1: rule__ResultIssue__Group_5__2__Impl : ( ']' ) ;
     public final void rule__ResultIssue__Group_5__2__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:2915:1: ( ( ']' ) )
-            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:2916:1: ( ']' )
+            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:2543:1: ( ( ']' ) )
+            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:2544:1: ( ']' )
             {
-            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:2916:1: ( ']' )
-            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:2917:1: ']'
+            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:2544:1: ( ']' )
+            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:2545:1: ']'
             {
              before(grammarAccess.getResultIssueAccess().getRightSquareBracketKeyword_5_2()); 
-            match(input,20,FOLLOW_20_in_rule__ResultIssue__Group_5__2__Impl5773); 
+            match(input,21,FOLLOW_21_in_rule__ResultIssue__Group_5__2__Impl5047); 
              after(grammarAccess.getResultIssueAccess().getRightSquareBracketKeyword_5_2()); 
 
             }
@@ -7813,21 +6854,21 @@ public class InternalResultsParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__ResultData__Group__0"
-    // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:2936:1: rule__ResultData__Group__0 : rule__ResultData__Group__0__Impl rule__ResultData__Group__1 ;
+    // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:2564:1: rule__ResultData__Group__0 : rule__ResultData__Group__0__Impl rule__ResultData__Group__1 ;
     public final void rule__ResultData__Group__0() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:2940:1: ( rule__ResultData__Group__0__Impl rule__ResultData__Group__1 )
-            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:2941:2: rule__ResultData__Group__0__Impl rule__ResultData__Group__1
+            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:2568:1: ( rule__ResultData__Group__0__Impl rule__ResultData__Group__1 )
+            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:2569:2: rule__ResultData__Group__0__Impl rule__ResultData__Group__1
             {
-            pushFollow(FOLLOW_rule__ResultData__Group__0__Impl_in_rule__ResultData__Group__05810);
+            pushFollow(FOLLOW_rule__ResultData__Group__0__Impl_in_rule__ResultData__Group__05084);
             rule__ResultData__Group__0__Impl();
 
             state._fsp--;
 
-            pushFollow(FOLLOW_rule__ResultData__Group__1_in_rule__ResultData__Group__05813);
+            pushFollow(FOLLOW_rule__ResultData__Group__1_in_rule__ResultData__Group__05087);
             rule__ResultData__Group__1();
 
             state._fsp--;
@@ -7851,23 +6892,23 @@ public class InternalResultsParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__ResultData__Group__0__Impl"
-    // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:2948:1: rule__ResultData__Group__0__Impl : ( ( rule__ResultData__NameAssignment_0 ) ) ;
+    // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:2576:1: rule__ResultData__Group__0__Impl : ( ( rule__ResultData__NameAssignment_0 ) ) ;
     public final void rule__ResultData__Group__0__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:2952:1: ( ( ( rule__ResultData__NameAssignment_0 ) ) )
-            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:2953:1: ( ( rule__ResultData__NameAssignment_0 ) )
+            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:2580:1: ( ( ( rule__ResultData__NameAssignment_0 ) ) )
+            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:2581:1: ( ( rule__ResultData__NameAssignment_0 ) )
             {
-            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:2953:1: ( ( rule__ResultData__NameAssignment_0 ) )
-            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:2954:1: ( rule__ResultData__NameAssignment_0 )
+            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:2581:1: ( ( rule__ResultData__NameAssignment_0 ) )
+            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:2582:1: ( rule__ResultData__NameAssignment_0 )
             {
              before(grammarAccess.getResultDataAccess().getNameAssignment_0()); 
-            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:2955:1: ( rule__ResultData__NameAssignment_0 )
-            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:2955:2: rule__ResultData__NameAssignment_0
+            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:2583:1: ( rule__ResultData__NameAssignment_0 )
+            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:2583:2: rule__ResultData__NameAssignment_0
             {
-            pushFollow(FOLLOW_rule__ResultData__NameAssignment_0_in_rule__ResultData__Group__0__Impl5840);
+            pushFollow(FOLLOW_rule__ResultData__NameAssignment_0_in_rule__ResultData__Group__0__Impl5114);
             rule__ResultData__NameAssignment_0();
 
             state._fsp--;
@@ -7898,21 +6939,21 @@ public class InternalResultsParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__ResultData__Group__1"
-    // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:2965:1: rule__ResultData__Group__1 : rule__ResultData__Group__1__Impl rule__ResultData__Group__2 ;
+    // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:2593:1: rule__ResultData__Group__1 : rule__ResultData__Group__1__Impl rule__ResultData__Group__2 ;
     public final void rule__ResultData__Group__1() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:2969:1: ( rule__ResultData__Group__1__Impl rule__ResultData__Group__2 )
-            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:2970:2: rule__ResultData__Group__1__Impl rule__ResultData__Group__2
+            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:2597:1: ( rule__ResultData__Group__1__Impl rule__ResultData__Group__2 )
+            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:2598:2: rule__ResultData__Group__1__Impl rule__ResultData__Group__2
             {
-            pushFollow(FOLLOW_rule__ResultData__Group__1__Impl_in_rule__ResultData__Group__15870);
+            pushFollow(FOLLOW_rule__ResultData__Group__1__Impl_in_rule__ResultData__Group__15144);
             rule__ResultData__Group__1__Impl();
 
             state._fsp--;
 
-            pushFollow(FOLLOW_rule__ResultData__Group__2_in_rule__ResultData__Group__15873);
+            pushFollow(FOLLOW_rule__ResultData__Group__2_in_rule__ResultData__Group__15147);
             rule__ResultData__Group__2();
 
             state._fsp--;
@@ -7936,20 +6977,20 @@ public class InternalResultsParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__ResultData__Group__1__Impl"
-    // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:2977:1: rule__ResultData__Group__1__Impl : ( '=' ) ;
+    // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:2605:1: rule__ResultData__Group__1__Impl : ( '=' ) ;
     public final void rule__ResultData__Group__1__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:2981:1: ( ( '=' ) )
-            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:2982:1: ( '=' )
+            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:2609:1: ( ( '=' ) )
+            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:2610:1: ( '=' )
             {
-            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:2982:1: ( '=' )
-            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:2983:1: '='
+            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:2610:1: ( '=' )
+            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:2611:1: '='
             {
              before(grammarAccess.getResultDataAccess().getEqualsSignKeyword_1()); 
-            match(input,31,FOLLOW_31_in_rule__ResultData__Group__1__Impl5901); 
+            match(input,32,FOLLOW_32_in_rule__ResultData__Group__1__Impl5175); 
              after(grammarAccess.getResultDataAccess().getEqualsSignKeyword_1()); 
 
             }
@@ -7973,16 +7014,16 @@ public class InternalResultsParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__ResultData__Group__2"
-    // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:2996:1: rule__ResultData__Group__2 : rule__ResultData__Group__2__Impl ;
+    // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:2624:1: rule__ResultData__Group__2 : rule__ResultData__Group__2__Impl ;
     public final void rule__ResultData__Group__2() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:3000:1: ( rule__ResultData__Group__2__Impl )
-            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:3001:2: rule__ResultData__Group__2__Impl
+            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:2628:1: ( rule__ResultData__Group__2__Impl )
+            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:2629:2: rule__ResultData__Group__2__Impl
             {
-            pushFollow(FOLLOW_rule__ResultData__Group__2__Impl_in_rule__ResultData__Group__25932);
+            pushFollow(FOLLOW_rule__ResultData__Group__2__Impl_in_rule__ResultData__Group__25206);
             rule__ResultData__Group__2__Impl();
 
             state._fsp--;
@@ -8006,23 +7047,23 @@ public class InternalResultsParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__ResultData__Group__2__Impl"
-    // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:3007:1: rule__ResultData__Group__2__Impl : ( ( rule__ResultData__ValueAssignment_2 ) ) ;
+    // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:2635:1: rule__ResultData__Group__2__Impl : ( ( rule__ResultData__ValueAssignment_2 ) ) ;
     public final void rule__ResultData__Group__2__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:3011:1: ( ( ( rule__ResultData__ValueAssignment_2 ) ) )
-            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:3012:1: ( ( rule__ResultData__ValueAssignment_2 ) )
+            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:2639:1: ( ( ( rule__ResultData__ValueAssignment_2 ) ) )
+            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:2640:1: ( ( rule__ResultData__ValueAssignment_2 ) )
             {
-            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:3012:1: ( ( rule__ResultData__ValueAssignment_2 ) )
-            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:3013:1: ( rule__ResultData__ValueAssignment_2 )
+            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:2640:1: ( ( rule__ResultData__ValueAssignment_2 ) )
+            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:2641:1: ( rule__ResultData__ValueAssignment_2 )
             {
              before(grammarAccess.getResultDataAccess().getValueAssignment_2()); 
-            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:3014:1: ( rule__ResultData__ValueAssignment_2 )
-            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:3014:2: rule__ResultData__ValueAssignment_2
+            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:2642:1: ( rule__ResultData__ValueAssignment_2 )
+            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:2642:2: rule__ResultData__ValueAssignment_2
             {
-            pushFollow(FOLLOW_rule__ResultData__ValueAssignment_2_in_rule__ResultData__Group__2__Impl5959);
+            pushFollow(FOLLOW_rule__ResultData__ValueAssignment_2_in_rule__ResultData__Group__2__Impl5233);
             rule__ResultData__ValueAssignment_2();
 
             state._fsp--;
@@ -8053,20 +7094,20 @@ public class InternalResultsParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__ResultReportCollection__NameAssignment_1"
-    // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:3031:1: rule__ResultReportCollection__NameAssignment_1 : ( RULE_ID ) ;
+    // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:2659:1: rule__ResultReportCollection__NameAssignment_1 : ( RULE_ID ) ;
     public final void rule__ResultReportCollection__NameAssignment_1() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:3035:1: ( ( RULE_ID ) )
-            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:3036:1: ( RULE_ID )
+            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:2663:1: ( ( RULE_ID ) )
+            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:2664:1: ( RULE_ID )
             {
-            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:3036:1: ( RULE_ID )
-            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:3037:1: RULE_ID
+            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:2664:1: ( RULE_ID )
+            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:2665:1: RULE_ID
             {
              before(grammarAccess.getResultReportCollectionAccess().getNameIDTerminalRuleCall_1_0()); 
-            match(input,RULE_ID,FOLLOW_RULE_ID_in_rule__ResultReportCollection__NameAssignment_16000); 
+            match(input,RULE_ID,FOLLOW_RULE_ID_in_rule__ResultReportCollection__NameAssignment_15274); 
              after(grammarAccess.getResultReportCollectionAccess().getNameIDTerminalRuleCall_1_0()); 
 
             }
@@ -8090,20 +7131,20 @@ public class InternalResultsParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__ResultReportCollection__TitleAssignment_2_1"
-    // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:3046:1: rule__ResultReportCollection__TitleAssignment_2_1 : ( RULE_STRING ) ;
+    // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:2674:1: rule__ResultReportCollection__TitleAssignment_2_1 : ( RULE_STRING ) ;
     public final void rule__ResultReportCollection__TitleAssignment_2_1() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:3050:1: ( ( RULE_STRING ) )
-            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:3051:1: ( RULE_STRING )
+            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:2678:1: ( ( RULE_STRING ) )
+            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:2679:1: ( RULE_STRING )
             {
-            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:3051:1: ( RULE_STRING )
-            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:3052:1: RULE_STRING
+            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:2679:1: ( RULE_STRING )
+            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:2680:1: RULE_STRING
             {
              before(grammarAccess.getResultReportCollectionAccess().getTitleSTRINGTerminalRuleCall_2_1_0()); 
-            match(input,RULE_STRING,FOLLOW_RULE_STRING_in_rule__ResultReportCollection__TitleAssignment_2_16031); 
+            match(input,RULE_STRING,FOLLOW_RULE_STRING_in_rule__ResultReportCollection__TitleAssignment_2_15305); 
              after(grammarAccess.getResultReportCollectionAccess().getTitleSTRINGTerminalRuleCall_2_1_0()); 
 
             }
@@ -8126,34 +7167,34 @@ public class InternalResultsParser extends AbstractInternalContentAssistParser {
     // $ANTLR end "rule__ResultReportCollection__TitleAssignment_2_1"
 
 
-    // $ANTLR start "rule__ResultReportCollection__TargetAssignment_5"
-    // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:3061:1: rule__ResultReportCollection__TargetAssignment_5 : ( ( ruleURIID ) ) ;
-    public final void rule__ResultReportCollection__TargetAssignment_5() throws RecognitionException {
+    // $ANTLR start "rule__ResultReportCollection__TargetAssignment_4"
+    // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:2689:1: rule__ResultReportCollection__TargetAssignment_4 : ( ( ruleURIID ) ) ;
+    public final void rule__ResultReportCollection__TargetAssignment_4() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:3065:1: ( ( ( ruleURIID ) ) )
-            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:3066:1: ( ( ruleURIID ) )
+            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:2693:1: ( ( ( ruleURIID ) ) )
+            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:2694:1: ( ( ruleURIID ) )
             {
-            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:3066:1: ( ( ruleURIID ) )
-            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:3067:1: ( ruleURIID )
+            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:2694:1: ( ( ruleURIID ) )
+            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:2695:1: ( ruleURIID )
             {
-             before(grammarAccess.getResultReportCollectionAccess().getTargetEObjectCrossReference_5_0()); 
-            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:3068:1: ( ruleURIID )
-            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:3069:1: ruleURIID
+             before(grammarAccess.getResultReportCollectionAccess().getTargetEObjectCrossReference_4_0()); 
+            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:2696:1: ( ruleURIID )
+            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:2697:1: ruleURIID
             {
-             before(grammarAccess.getResultReportCollectionAccess().getTargetEObjectURIIDParserRuleCall_5_0_1()); 
-            pushFollow(FOLLOW_ruleURIID_in_rule__ResultReportCollection__TargetAssignment_56066);
+             before(grammarAccess.getResultReportCollectionAccess().getTargetEObjectURIIDParserRuleCall_4_0_1()); 
+            pushFollow(FOLLOW_ruleURIID_in_rule__ResultReportCollection__TargetAssignment_45340);
             ruleURIID();
 
             state._fsp--;
 
-             after(grammarAccess.getResultReportCollectionAccess().getTargetEObjectURIIDParserRuleCall_5_0_1()); 
+             after(grammarAccess.getResultReportCollectionAccess().getTargetEObjectURIIDParserRuleCall_4_0_1()); 
 
             }
 
-             after(grammarAccess.getResultReportCollectionAccess().getTargetEObjectCrossReference_5_0()); 
+             after(grammarAccess.getResultReportCollectionAccess().getTargetEObjectCrossReference_4_0()); 
 
             }
 
@@ -8172,24 +7213,24 @@ public class InternalResultsParser extends AbstractInternalContentAssistParser {
         }
         return ;
     }
-    // $ANTLR end "rule__ResultReportCollection__TargetAssignment_5"
+    // $ANTLR end "rule__ResultReportCollection__TargetAssignment_4"
 
 
     // $ANTLR start "rule__ResultReportCollection__DecriptionAssignment_6_1"
-    // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:3080:1: rule__ResultReportCollection__DecriptionAssignment_6_1 : ( RULE_STRING ) ;
+    // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:2708:1: rule__ResultReportCollection__DecriptionAssignment_6_1 : ( RULE_STRING ) ;
     public final void rule__ResultReportCollection__DecriptionAssignment_6_1() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:3084:1: ( ( RULE_STRING ) )
-            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:3085:1: ( RULE_STRING )
+            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:2712:1: ( ( RULE_STRING ) )
+            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:2713:1: ( RULE_STRING )
             {
-            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:3085:1: ( RULE_STRING )
-            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:3086:1: RULE_STRING
+            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:2713:1: ( RULE_STRING )
+            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:2714:1: RULE_STRING
             {
              before(grammarAccess.getResultReportCollectionAccess().getDecriptionSTRINGTerminalRuleCall_6_1_0()); 
-            match(input,RULE_STRING,FOLLOW_RULE_STRING_in_rule__ResultReportCollection__DecriptionAssignment_6_16101); 
+            match(input,RULE_STRING,FOLLOW_RULE_STRING_in_rule__ResultReportCollection__DecriptionAssignment_6_15375); 
              after(grammarAccess.getResultReportCollectionAccess().getDecriptionSTRINGTerminalRuleCall_6_1_0()); 
 
             }
@@ -8213,20 +7254,20 @@ public class InternalResultsParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__ResultReportCollection__ContentAssignment_7"
-    // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:3095:1: rule__ResultReportCollection__ContentAssignment_7 : ( ruleResultReport ) ;
+    // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:2723:1: rule__ResultReportCollection__ContentAssignment_7 : ( ruleResultReport ) ;
     public final void rule__ResultReportCollection__ContentAssignment_7() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:3099:1: ( ( ruleResultReport ) )
-            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:3100:1: ( ruleResultReport )
+            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:2727:1: ( ( ruleResultReport ) )
+            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:2728:1: ( ruleResultReport )
             {
-            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:3100:1: ( ruleResultReport )
-            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:3101:1: ruleResultReport
+            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:2728:1: ( ruleResultReport )
+            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:2729:1: ruleResultReport
             {
              before(grammarAccess.getResultReportCollectionAccess().getContentResultReportParserRuleCall_7_0()); 
-            pushFollow(FOLLOW_ruleResultReport_in_rule__ResultReportCollection__ContentAssignment_76132);
+            pushFollow(FOLLOW_ruleResultReport_in_rule__ResultReportCollection__ContentAssignment_75406);
             ruleResultReport();
 
             state._fsp--;
@@ -8254,20 +7295,20 @@ public class InternalResultsParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__ResultReportCollection__IssuesAssignment_8"
-    // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:3110:1: rule__ResultReportCollection__IssuesAssignment_8 : ( ruleResultIssue ) ;
+    // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:2738:1: rule__ResultReportCollection__IssuesAssignment_8 : ( ruleResultIssue ) ;
     public final void rule__ResultReportCollection__IssuesAssignment_8() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:3114:1: ( ( ruleResultIssue ) )
-            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:3115:1: ( ruleResultIssue )
+            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:2742:1: ( ( ruleResultIssue ) )
+            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:2743:1: ( ruleResultIssue )
             {
-            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:3115:1: ( ruleResultIssue )
-            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:3116:1: ruleResultIssue
+            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:2743:1: ( ruleResultIssue )
+            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:2744:1: ruleResultIssue
             {
              before(grammarAccess.getResultReportCollectionAccess().getIssuesResultIssueParserRuleCall_8_0()); 
-            pushFollow(FOLLOW_ruleResultIssue_in_rule__ResultReportCollection__IssuesAssignment_86163);
+            pushFollow(FOLLOW_ruleResultIssue_in_rule__ResultReportCollection__IssuesAssignment_85437);
             ruleResultIssue();
 
             state._fsp--;
@@ -8294,22 +7335,22 @@ public class InternalResultsParser extends AbstractInternalContentAssistParser {
     // $ANTLR end "rule__ResultReportCollection__IssuesAssignment_8"
 
 
-    // $ANTLR start "rule__ResultReport__NameAssignment_2"
-    // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:3125:1: rule__ResultReport__NameAssignment_2 : ( RULE_ID ) ;
-    public final void rule__ResultReport__NameAssignment_2() throws RecognitionException {
+    // $ANTLR start "rule__ResultReport__NameAssignment_1"
+    // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:2753:1: rule__ResultReport__NameAssignment_1 : ( RULE_ID ) ;
+    public final void rule__ResultReport__NameAssignment_1() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:3129:1: ( ( RULE_ID ) )
-            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:3130:1: ( RULE_ID )
+            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:2757:1: ( ( RULE_ID ) )
+            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:2758:1: ( RULE_ID )
             {
-            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:3130:1: ( RULE_ID )
-            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:3131:1: RULE_ID
+            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:2758:1: ( RULE_ID )
+            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:2759:1: RULE_ID
             {
-             before(grammarAccess.getResultReportAccess().getNameIDTerminalRuleCall_2_0()); 
-            match(input,RULE_ID,FOLLOW_RULE_ID_in_rule__ResultReport__NameAssignment_26194); 
-             after(grammarAccess.getResultReportAccess().getNameIDTerminalRuleCall_2_0()); 
+             before(grammarAccess.getResultReportAccess().getNameIDTerminalRuleCall_1_0()); 
+            match(input,RULE_ID,FOLLOW_RULE_ID_in_rule__ResultReport__NameAssignment_15468); 
+             after(grammarAccess.getResultReportAccess().getNameIDTerminalRuleCall_1_0()); 
 
             }
 
@@ -8328,25 +7369,25 @@ public class InternalResultsParser extends AbstractInternalContentAssistParser {
         }
         return ;
     }
-    // $ANTLR end "rule__ResultReport__NameAssignment_2"
+    // $ANTLR end "rule__ResultReport__NameAssignment_1"
 
 
-    // $ANTLR start "rule__ResultReport__TitleAssignment_3_1"
-    // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:3140:1: rule__ResultReport__TitleAssignment_3_1 : ( RULE_STRING ) ;
-    public final void rule__ResultReport__TitleAssignment_3_1() throws RecognitionException {
+    // $ANTLR start "rule__ResultReport__TitleAssignment_2_1"
+    // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:2768:1: rule__ResultReport__TitleAssignment_2_1 : ( RULE_STRING ) ;
+    public final void rule__ResultReport__TitleAssignment_2_1() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:3144:1: ( ( RULE_STRING ) )
-            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:3145:1: ( RULE_STRING )
+            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:2772:1: ( ( RULE_STRING ) )
+            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:2773:1: ( RULE_STRING )
             {
-            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:3145:1: ( RULE_STRING )
-            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:3146:1: RULE_STRING
+            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:2773:1: ( RULE_STRING )
+            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:2774:1: RULE_STRING
             {
-             before(grammarAccess.getResultReportAccess().getTitleSTRINGTerminalRuleCall_3_1_0()); 
-            match(input,RULE_STRING,FOLLOW_RULE_STRING_in_rule__ResultReport__TitleAssignment_3_16225); 
-             after(grammarAccess.getResultReportAccess().getTitleSTRINGTerminalRuleCall_3_1_0()); 
+             before(grammarAccess.getResultReportAccess().getTitleSTRINGTerminalRuleCall_2_1_0()); 
+            match(input,RULE_STRING,FOLLOW_RULE_STRING_in_rule__ResultReport__TitleAssignment_2_15499); 
+             after(grammarAccess.getResultReportAccess().getTitleSTRINGTerminalRuleCall_2_1_0()); 
 
             }
 
@@ -8365,28 +7406,28 @@ public class InternalResultsParser extends AbstractInternalContentAssistParser {
         }
         return ;
     }
-    // $ANTLR end "rule__ResultReport__TitleAssignment_3_1"
+    // $ANTLR end "rule__ResultReport__TitleAssignment_2_1"
 
 
     // $ANTLR start "rule__ResultReport__TargetAssignment_4"
-    // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:3155:1: rule__ResultReport__TargetAssignment_4 : ( ( ruleURIID ) ) ;
+    // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:2783:1: rule__ResultReport__TargetAssignment_4 : ( ( ruleURIID ) ) ;
     public final void rule__ResultReport__TargetAssignment_4() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:3159:1: ( ( ( ruleURIID ) ) )
-            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:3160:1: ( ( ruleURIID ) )
+            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:2787:1: ( ( ( ruleURIID ) ) )
+            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:2788:1: ( ( ruleURIID ) )
             {
-            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:3160:1: ( ( ruleURIID ) )
-            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:3161:1: ( ruleURIID )
+            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:2788:1: ( ( ruleURIID ) )
+            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:2789:1: ( ruleURIID )
             {
              before(grammarAccess.getResultReportAccess().getTargetEObjectCrossReference_4_0()); 
-            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:3162:1: ( ruleURIID )
-            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:3163:1: ruleURIID
+            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:2790:1: ( ruleURIID )
+            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:2791:1: ruleURIID
             {
              before(grammarAccess.getResultReportAccess().getTargetEObjectURIIDParserRuleCall_4_0_1()); 
-            pushFollow(FOLLOW_ruleURIID_in_rule__ResultReport__TargetAssignment_46260);
+            pushFollow(FOLLOW_ruleURIID_in_rule__ResultReport__TargetAssignment_45534);
             ruleURIID();
 
             state._fsp--;
@@ -8417,26 +7458,22 @@ public class InternalResultsParser extends AbstractInternalContentAssistParser {
     // $ANTLR end "rule__ResultReport__TargetAssignment_4"
 
 
-    // $ANTLR start "rule__ResultReport__IssueTypeAssignment_5"
-    // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:3174:1: rule__ResultReport__IssueTypeAssignment_5 : ( ruleResultIssueType ) ;
-    public final void rule__ResultReport__IssueTypeAssignment_5() throws RecognitionException {
+    // $ANTLR start "rule__ResultReport__DecriptionAssignment_6_1"
+    // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:2802:1: rule__ResultReport__DecriptionAssignment_6_1 : ( RULE_STRING ) ;
+    public final void rule__ResultReport__DecriptionAssignment_6_1() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:3178:1: ( ( ruleResultIssueType ) )
-            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:3179:1: ( ruleResultIssueType )
+            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:2806:1: ( ( RULE_STRING ) )
+            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:2807:1: ( RULE_STRING )
             {
-            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:3179:1: ( ruleResultIssueType )
-            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:3180:1: ruleResultIssueType
+            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:2807:1: ( RULE_STRING )
+            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:2808:1: RULE_STRING
             {
-             before(grammarAccess.getResultReportAccess().getIssueTypeResultIssueTypeEnumRuleCall_5_0()); 
-            pushFollow(FOLLOW_ruleResultIssueType_in_rule__ResultReport__IssueTypeAssignment_56295);
-            ruleResultIssueType();
-
-            state._fsp--;
-
-             after(grammarAccess.getResultReportAccess().getIssueTypeResultIssueTypeEnumRuleCall_5_0()); 
+             before(grammarAccess.getResultReportAccess().getDecriptionSTRINGTerminalRuleCall_6_1_0()); 
+            match(input,RULE_STRING,FOLLOW_RULE_STRING_in_rule__ResultReport__DecriptionAssignment_6_15569); 
+             after(grammarAccess.getResultReportAccess().getDecriptionSTRINGTerminalRuleCall_6_1_0()); 
 
             }
 
@@ -8455,25 +7492,25 @@ public class InternalResultsParser extends AbstractInternalContentAssistParser {
         }
         return ;
     }
-    // $ANTLR end "rule__ResultReport__IssueTypeAssignment_5"
+    // $ANTLR end "rule__ResultReport__DecriptionAssignment_6_1"
 
 
-    // $ANTLR start "rule__ResultReport__MessageAssignment_6"
-    // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:3189:1: rule__ResultReport__MessageAssignment_6 : ( RULE_STRING ) ;
-    public final void rule__ResultReport__MessageAssignment_6() throws RecognitionException {
+    // $ANTLR start "rule__ResultReport__HeadingAssignment_7_1"
+    // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:2817:1: rule__ResultReport__HeadingAssignment_7_1 : ( RULE_STRING ) ;
+    public final void rule__ResultReport__HeadingAssignment_7_1() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:3193:1: ( ( RULE_STRING ) )
-            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:3194:1: ( RULE_STRING )
+            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:2821:1: ( ( RULE_STRING ) )
+            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:2822:1: ( RULE_STRING )
             {
-            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:3194:1: ( RULE_STRING )
-            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:3195:1: RULE_STRING
+            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:2822:1: ( RULE_STRING )
+            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:2823:1: RULE_STRING
             {
-             before(grammarAccess.getResultReportAccess().getMessageSTRINGTerminalRuleCall_6_0()); 
-            match(input,RULE_STRING,FOLLOW_RULE_STRING_in_rule__ResultReport__MessageAssignment_66326); 
-             after(grammarAccess.getResultReportAccess().getMessageSTRINGTerminalRuleCall_6_0()); 
+             before(grammarAccess.getResultReportAccess().getHeadingSTRINGTerminalRuleCall_7_1_0()); 
+            match(input,RULE_STRING,FOLLOW_RULE_STRING_in_rule__ResultReport__HeadingAssignment_7_15600); 
+             after(grammarAccess.getResultReportAccess().getHeadingSTRINGTerminalRuleCall_7_1_0()); 
 
             }
 
@@ -8492,140 +7529,29 @@ public class InternalResultsParser extends AbstractInternalContentAssistParser {
         }
         return ;
     }
-    // $ANTLR end "rule__ResultReport__MessageAssignment_6"
+    // $ANTLR end "rule__ResultReport__HeadingAssignment_7_1"
 
 
-    // $ANTLR start "rule__ResultReport__ExceptionTypeAssignment_7_1"
-    // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:3204:1: rule__ResultReport__ExceptionTypeAssignment_7_1 : ( RULE_STRING ) ;
-    public final void rule__ResultReport__ExceptionTypeAssignment_7_1() throws RecognitionException {
-
-        		int stackSize = keepStackSize();
-            
-        try {
-            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:3208:1: ( ( RULE_STRING ) )
-            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:3209:1: ( RULE_STRING )
-            {
-            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:3209:1: ( RULE_STRING )
-            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:3210:1: RULE_STRING
-            {
-             before(grammarAccess.getResultReportAccess().getExceptionTypeSTRINGTerminalRuleCall_7_1_0()); 
-            match(input,RULE_STRING,FOLLOW_RULE_STRING_in_rule__ResultReport__ExceptionTypeAssignment_7_16357); 
-             after(grammarAccess.getResultReportAccess().getExceptionTypeSTRINGTerminalRuleCall_7_1_0()); 
-
-            }
-
-
-            }
-
-        }
-        catch (RecognitionException re) {
-            reportError(re);
-            recover(input,re);
-        }
-        finally {
-
-            	restoreStackSize(stackSize);
-
-        }
-        return ;
-    }
-    // $ANTLR end "rule__ResultReport__ExceptionTypeAssignment_7_1"
-
-
-    // $ANTLR start "rule__ResultReport__DecriptionAssignment_9_1"
-    // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:3219:1: rule__ResultReport__DecriptionAssignment_9_1 : ( RULE_STRING ) ;
-    public final void rule__ResultReport__DecriptionAssignment_9_1() throws RecognitionException {
+    // $ANTLR start "rule__ResultReport__ContentAssignment_7_2"
+    // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:2832:1: rule__ResultReport__ContentAssignment_7_2 : ( ruleResultContributor ) ;
+    public final void rule__ResultReport__ContentAssignment_7_2() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:3223:1: ( ( RULE_STRING ) )
-            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:3224:1: ( RULE_STRING )
+            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:2836:1: ( ( ruleResultContributor ) )
+            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:2837:1: ( ruleResultContributor )
             {
-            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:3224:1: ( RULE_STRING )
-            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:3225:1: RULE_STRING
+            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:2837:1: ( ruleResultContributor )
+            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:2838:1: ruleResultContributor
             {
-             before(grammarAccess.getResultReportAccess().getDecriptionSTRINGTerminalRuleCall_9_1_0()); 
-            match(input,RULE_STRING,FOLLOW_RULE_STRING_in_rule__ResultReport__DecriptionAssignment_9_16388); 
-             after(grammarAccess.getResultReportAccess().getDecriptionSTRINGTerminalRuleCall_9_1_0()); 
-
-            }
-
-
-            }
-
-        }
-        catch (RecognitionException re) {
-            reportError(re);
-            recover(input,re);
-        }
-        finally {
-
-            	restoreStackSize(stackSize);
-
-        }
-        return ;
-    }
-    // $ANTLR end "rule__ResultReport__DecriptionAssignment_9_1"
-
-
-    // $ANTLR start "rule__ResultReport__HeadingAssignment_10_1"
-    // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:3234:1: rule__ResultReport__HeadingAssignment_10_1 : ( RULE_STRING ) ;
-    public final void rule__ResultReport__HeadingAssignment_10_1() throws RecognitionException {
-
-        		int stackSize = keepStackSize();
-            
-        try {
-            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:3238:1: ( ( RULE_STRING ) )
-            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:3239:1: ( RULE_STRING )
-            {
-            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:3239:1: ( RULE_STRING )
-            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:3240:1: RULE_STRING
-            {
-             before(grammarAccess.getResultReportAccess().getHeadingSTRINGTerminalRuleCall_10_1_0()); 
-            match(input,RULE_STRING,FOLLOW_RULE_STRING_in_rule__ResultReport__HeadingAssignment_10_16419); 
-             after(grammarAccess.getResultReportAccess().getHeadingSTRINGTerminalRuleCall_10_1_0()); 
-
-            }
-
-
-            }
-
-        }
-        catch (RecognitionException re) {
-            reportError(re);
-            recover(input,re);
-        }
-        finally {
-
-            	restoreStackSize(stackSize);
-
-        }
-        return ;
-    }
-    // $ANTLR end "rule__ResultReport__HeadingAssignment_10_1"
-
-
-    // $ANTLR start "rule__ResultReport__ContentAssignment_10_2"
-    // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:3249:1: rule__ResultReport__ContentAssignment_10_2 : ( ruleResultContributor ) ;
-    public final void rule__ResultReport__ContentAssignment_10_2() throws RecognitionException {
-
-        		int stackSize = keepStackSize();
-            
-        try {
-            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:3253:1: ( ( ruleResultContributor ) )
-            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:3254:1: ( ruleResultContributor )
-            {
-            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:3254:1: ( ruleResultContributor )
-            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:3255:1: ruleResultContributor
-            {
-             before(grammarAccess.getResultReportAccess().getContentResultContributorParserRuleCall_10_2_0()); 
-            pushFollow(FOLLOW_ruleResultContributor_in_rule__ResultReport__ContentAssignment_10_26450);
+             before(grammarAccess.getResultReportAccess().getContentResultContributorParserRuleCall_7_2_0()); 
+            pushFollow(FOLLOW_ruleResultContributor_in_rule__ResultReport__ContentAssignment_7_25631);
             ruleResultContributor();
 
             state._fsp--;
 
-             after(grammarAccess.getResultReportAccess().getContentResultContributorParserRuleCall_10_2_0()); 
+             after(grammarAccess.getResultReportAccess().getContentResultContributorParserRuleCall_7_2_0()); 
 
             }
 
@@ -8644,29 +7570,29 @@ public class InternalResultsParser extends AbstractInternalContentAssistParser {
         }
         return ;
     }
-    // $ANTLR end "rule__ResultReport__ContentAssignment_10_2"
+    // $ANTLR end "rule__ResultReport__ContentAssignment_7_2"
 
 
-    // $ANTLR start "rule__ResultReport__ResultDataAssignment_11_1"
-    // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:3264:1: rule__ResultReport__ResultDataAssignment_11_1 : ( ruleResultData ) ;
-    public final void rule__ResultReport__ResultDataAssignment_11_1() throws RecognitionException {
+    // $ANTLR start "rule__ResultReport__ResultDataAssignment_8_1"
+    // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:2847:1: rule__ResultReport__ResultDataAssignment_8_1 : ( ruleResultData ) ;
+    public final void rule__ResultReport__ResultDataAssignment_8_1() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:3268:1: ( ( ruleResultData ) )
-            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:3269:1: ( ruleResultData )
+            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:2851:1: ( ( ruleResultData ) )
+            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:2852:1: ( ruleResultData )
             {
-            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:3269:1: ( ruleResultData )
-            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:3270:1: ruleResultData
+            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:2852:1: ( ruleResultData )
+            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:2853:1: ruleResultData
             {
-             before(grammarAccess.getResultReportAccess().getResultDataResultDataParserRuleCall_11_1_0()); 
-            pushFollow(FOLLOW_ruleResultData_in_rule__ResultReport__ResultDataAssignment_11_16481);
+             before(grammarAccess.getResultReportAccess().getResultDataResultDataParserRuleCall_8_1_0()); 
+            pushFollow(FOLLOW_ruleResultData_in_rule__ResultReport__ResultDataAssignment_8_15662);
             ruleResultData();
 
             state._fsp--;
 
-             after(grammarAccess.getResultReportAccess().getResultDataResultDataParserRuleCall_11_1_0()); 
+             after(grammarAccess.getResultReportAccess().getResultDataResultDataParserRuleCall_8_1_0()); 
 
             }
 
@@ -8685,29 +7611,29 @@ public class InternalResultsParser extends AbstractInternalContentAssistParser {
         }
         return ;
     }
-    // $ANTLR end "rule__ResultReport__ResultDataAssignment_11_1"
+    // $ANTLR end "rule__ResultReport__ResultDataAssignment_8_1"
 
 
-    // $ANTLR start "rule__ResultReport__IssuesAssignment_12"
-    // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:3279:1: rule__ResultReport__IssuesAssignment_12 : ( ruleResultIssue ) ;
-    public final void rule__ResultReport__IssuesAssignment_12() throws RecognitionException {
+    // $ANTLR start "rule__ResultReport__IssuesAssignment_9"
+    // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:2862:1: rule__ResultReport__IssuesAssignment_9 : ( ruleResultIssue ) ;
+    public final void rule__ResultReport__IssuesAssignment_9() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:3283:1: ( ( ruleResultIssue ) )
-            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:3284:1: ( ruleResultIssue )
+            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:2866:1: ( ( ruleResultIssue ) )
+            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:2867:1: ( ruleResultIssue )
             {
-            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:3284:1: ( ruleResultIssue )
-            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:3285:1: ruleResultIssue
+            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:2867:1: ( ruleResultIssue )
+            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:2868:1: ruleResultIssue
             {
-             before(grammarAccess.getResultReportAccess().getIssuesResultIssueParserRuleCall_12_0()); 
-            pushFollow(FOLLOW_ruleResultIssue_in_rule__ResultReport__IssuesAssignment_126512);
+             before(grammarAccess.getResultReportAccess().getIssuesResultIssueParserRuleCall_9_0()); 
+            pushFollow(FOLLOW_ruleResultIssue_in_rule__ResultReport__IssuesAssignment_95693);
             ruleResultIssue();
 
             state._fsp--;
 
-             after(grammarAccess.getResultReportAccess().getIssuesResultIssueParserRuleCall_12_0()); 
+             after(grammarAccess.getResultReportAccess().getIssuesResultIssueParserRuleCall_9_0()); 
 
             }
 
@@ -8726,37 +7652,37 @@ public class InternalResultsParser extends AbstractInternalContentAssistParser {
         }
         return ;
     }
-    // $ANTLR end "rule__ResultReport__IssuesAssignment_12"
+    // $ANTLR end "rule__ResultReport__IssuesAssignment_9"
 
 
-    // $ANTLR start "rule__ResultContributor__TargetAssignment_2"
-    // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:3294:1: rule__ResultContributor__TargetAssignment_2 : ( ( ruleURIID ) ) ;
-    public final void rule__ResultContributor__TargetAssignment_2() throws RecognitionException {
+    // $ANTLR start "rule__ResultContributor__TargetAssignment_1"
+    // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:2877:1: rule__ResultContributor__TargetAssignment_1 : ( ( ruleURIID ) ) ;
+    public final void rule__ResultContributor__TargetAssignment_1() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:3298:1: ( ( ( ruleURIID ) ) )
-            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:3299:1: ( ( ruleURIID ) )
+            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:2881:1: ( ( ( ruleURIID ) ) )
+            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:2882:1: ( ( ruleURIID ) )
             {
-            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:3299:1: ( ( ruleURIID ) )
-            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:3300:1: ( ruleURIID )
+            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:2882:1: ( ( ruleURIID ) )
+            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:2883:1: ( ruleURIID )
             {
-             before(grammarAccess.getResultContributorAccess().getTargetEObjectCrossReference_2_0()); 
-            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:3301:1: ( ruleURIID )
-            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:3302:1: ruleURIID
+             before(grammarAccess.getResultContributorAccess().getTargetEObjectCrossReference_1_0()); 
+            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:2884:1: ( ruleURIID )
+            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:2885:1: ruleURIID
             {
-             before(grammarAccess.getResultContributorAccess().getTargetEObjectURIIDParserRuleCall_2_0_1()); 
-            pushFollow(FOLLOW_ruleURIID_in_rule__ResultContributor__TargetAssignment_26547);
+             before(grammarAccess.getResultContributorAccess().getTargetEObjectURIIDParserRuleCall_1_0_1()); 
+            pushFollow(FOLLOW_ruleURIID_in_rule__ResultContributor__TargetAssignment_15728);
             ruleURIID();
 
             state._fsp--;
 
-             after(grammarAccess.getResultContributorAccess().getTargetEObjectURIIDParserRuleCall_2_0_1()); 
+             after(grammarAccess.getResultContributorAccess().getTargetEObjectURIIDParserRuleCall_1_0_1()); 
 
             }
 
-             after(grammarAccess.getResultContributorAccess().getTargetEObjectCrossReference_2_0()); 
+             after(grammarAccess.getResultContributorAccess().getTargetEObjectCrossReference_1_0()); 
 
             }
 
@@ -8775,29 +7701,29 @@ public class InternalResultsParser extends AbstractInternalContentAssistParser {
         }
         return ;
     }
-    // $ANTLR end "rule__ResultContributor__TargetAssignment_2"
+    // $ANTLR end "rule__ResultContributor__TargetAssignment_1"
 
 
-    // $ANTLR start "rule__ResultContributor__IssueTypeAssignment_3"
-    // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:3313:1: rule__ResultContributor__IssueTypeAssignment_3 : ( ruleResultIssueType ) ;
-    public final void rule__ResultContributor__IssueTypeAssignment_3() throws RecognitionException {
+    // $ANTLR start "rule__ResultContributor__ResultDataAssignment_3_1"
+    // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:2896:1: rule__ResultContributor__ResultDataAssignment_3_1 : ( ruleResultData ) ;
+    public final void rule__ResultContributor__ResultDataAssignment_3_1() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:3317:1: ( ( ruleResultIssueType ) )
-            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:3318:1: ( ruleResultIssueType )
+            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:2900:1: ( ( ruleResultData ) )
+            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:2901:1: ( ruleResultData )
             {
-            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:3318:1: ( ruleResultIssueType )
-            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:3319:1: ruleResultIssueType
+            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:2901:1: ( ruleResultData )
+            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:2902:1: ruleResultData
             {
-             before(grammarAccess.getResultContributorAccess().getIssueTypeResultIssueTypeEnumRuleCall_3_0()); 
-            pushFollow(FOLLOW_ruleResultIssueType_in_rule__ResultContributor__IssueTypeAssignment_36582);
-            ruleResultIssueType();
+             before(grammarAccess.getResultContributorAccess().getResultDataResultDataParserRuleCall_3_1_0()); 
+            pushFollow(FOLLOW_ruleResultData_in_rule__ResultContributor__ResultDataAssignment_3_15763);
+            ruleResultData();
 
             state._fsp--;
 
-             after(grammarAccess.getResultContributorAccess().getIssueTypeResultIssueTypeEnumRuleCall_3_0()); 
+             after(grammarAccess.getResultContributorAccess().getResultDataResultDataParserRuleCall_3_1_0()); 
 
             }
 
@@ -8816,140 +7742,29 @@ public class InternalResultsParser extends AbstractInternalContentAssistParser {
         }
         return ;
     }
-    // $ANTLR end "rule__ResultContributor__IssueTypeAssignment_3"
+    // $ANTLR end "rule__ResultContributor__ResultDataAssignment_3_1"
 
 
-    // $ANTLR start "rule__ResultContributor__MessageAssignment_4"
-    // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:3328:1: rule__ResultContributor__MessageAssignment_4 : ( RULE_STRING ) ;
-    public final void rule__ResultContributor__MessageAssignment_4() throws RecognitionException {
-
-        		int stackSize = keepStackSize();
-            
-        try {
-            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:3332:1: ( ( RULE_STRING ) )
-            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:3333:1: ( RULE_STRING )
-            {
-            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:3333:1: ( RULE_STRING )
-            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:3334:1: RULE_STRING
-            {
-             before(grammarAccess.getResultContributorAccess().getMessageSTRINGTerminalRuleCall_4_0()); 
-            match(input,RULE_STRING,FOLLOW_RULE_STRING_in_rule__ResultContributor__MessageAssignment_46613); 
-             after(grammarAccess.getResultContributorAccess().getMessageSTRINGTerminalRuleCall_4_0()); 
-
-            }
-
-
-            }
-
-        }
-        catch (RecognitionException re) {
-            reportError(re);
-            recover(input,re);
-        }
-        finally {
-
-            	restoreStackSize(stackSize);
-
-        }
-        return ;
-    }
-    // $ANTLR end "rule__ResultContributor__MessageAssignment_4"
-
-
-    // $ANTLR start "rule__ResultContributor__ExceptionTypeAssignment_5_1"
-    // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:3343:1: rule__ResultContributor__ExceptionTypeAssignment_5_1 : ( RULE_STRING ) ;
-    public final void rule__ResultContributor__ExceptionTypeAssignment_5_1() throws RecognitionException {
+    // $ANTLR start "rule__ResultContributor__IssuesAssignment_4"
+    // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:2911:1: rule__ResultContributor__IssuesAssignment_4 : ( ruleResultIssue ) ;
+    public final void rule__ResultContributor__IssuesAssignment_4() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:3347:1: ( ( RULE_STRING ) )
-            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:3348:1: ( RULE_STRING )
+            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:2915:1: ( ( ruleResultIssue ) )
+            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:2916:1: ( ruleResultIssue )
             {
-            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:3348:1: ( RULE_STRING )
-            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:3349:1: RULE_STRING
+            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:2916:1: ( ruleResultIssue )
+            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:2917:1: ruleResultIssue
             {
-             before(grammarAccess.getResultContributorAccess().getExceptionTypeSTRINGTerminalRuleCall_5_1_0()); 
-            match(input,RULE_STRING,FOLLOW_RULE_STRING_in_rule__ResultContributor__ExceptionTypeAssignment_5_16644); 
-             after(grammarAccess.getResultContributorAccess().getExceptionTypeSTRINGTerminalRuleCall_5_1_0()); 
-
-            }
-
-
-            }
-
-        }
-        catch (RecognitionException re) {
-            reportError(re);
-            recover(input,re);
-        }
-        finally {
-
-            	restoreStackSize(stackSize);
-
-        }
-        return ;
-    }
-    // $ANTLR end "rule__ResultContributor__ExceptionTypeAssignment_5_1"
-
-
-    // $ANTLR start "rule__ResultContributor__CellAssignment_8"
-    // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:3358:1: rule__ResultContributor__CellAssignment_8 : ( RULE_STRING ) ;
-    public final void rule__ResultContributor__CellAssignment_8() throws RecognitionException {
-
-        		int stackSize = keepStackSize();
-            
-        try {
-            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:3362:1: ( ( RULE_STRING ) )
-            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:3363:1: ( RULE_STRING )
-            {
-            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:3363:1: ( RULE_STRING )
-            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:3364:1: RULE_STRING
-            {
-             before(grammarAccess.getResultContributorAccess().getCellSTRINGTerminalRuleCall_8_0()); 
-            match(input,RULE_STRING,FOLLOW_RULE_STRING_in_rule__ResultContributor__CellAssignment_86675); 
-             after(grammarAccess.getResultContributorAccess().getCellSTRINGTerminalRuleCall_8_0()); 
-
-            }
-
-
-            }
-
-        }
-        catch (RecognitionException re) {
-            reportError(re);
-            recover(input,re);
-        }
-        finally {
-
-            	restoreStackSize(stackSize);
-
-        }
-        return ;
-    }
-    // $ANTLR end "rule__ResultContributor__CellAssignment_8"
-
-
-    // $ANTLR start "rule__ResultContributor__IssuesAssignment_9"
-    // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:3373:1: rule__ResultContributor__IssuesAssignment_9 : ( ruleResultIssue ) ;
-    public final void rule__ResultContributor__IssuesAssignment_9() throws RecognitionException {
-
-        		int stackSize = keepStackSize();
-            
-        try {
-            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:3377:1: ( ( ruleResultIssue ) )
-            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:3378:1: ( ruleResultIssue )
-            {
-            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:3378:1: ( ruleResultIssue )
-            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:3379:1: ruleResultIssue
-            {
-             before(grammarAccess.getResultContributorAccess().getIssuesResultIssueParserRuleCall_9_0()); 
-            pushFollow(FOLLOW_ruleResultIssue_in_rule__ResultContributor__IssuesAssignment_96706);
+             before(grammarAccess.getResultContributorAccess().getIssuesResultIssueParserRuleCall_4_0()); 
+            pushFollow(FOLLOW_ruleResultIssue_in_rule__ResultContributor__IssuesAssignment_45794);
             ruleResultIssue();
 
             state._fsp--;
 
-             after(grammarAccess.getResultContributorAccess().getIssuesResultIssueParserRuleCall_9_0()); 
+             after(grammarAccess.getResultContributorAccess().getIssuesResultIssueParserRuleCall_4_0()); 
 
             }
 
@@ -8968,29 +7783,29 @@ public class InternalResultsParser extends AbstractInternalContentAssistParser {
         }
         return ;
     }
-    // $ANTLR end "rule__ResultContributor__IssuesAssignment_9"
+    // $ANTLR end "rule__ResultContributor__IssuesAssignment_4"
 
 
-    // $ANTLR start "rule__ResultContributor__SubcontributorAssignment_10"
-    // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:3388:1: rule__ResultContributor__SubcontributorAssignment_10 : ( ruleResultContributor ) ;
-    public final void rule__ResultContributor__SubcontributorAssignment_10() throws RecognitionException {
+    // $ANTLR start "rule__ResultContributor__SubcontributorAssignment_5"
+    // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:2926:1: rule__ResultContributor__SubcontributorAssignment_5 : ( ruleResultContributor ) ;
+    public final void rule__ResultContributor__SubcontributorAssignment_5() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:3392:1: ( ( ruleResultContributor ) )
-            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:3393:1: ( ruleResultContributor )
+            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:2930:1: ( ( ruleResultContributor ) )
+            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:2931:1: ( ruleResultContributor )
             {
-            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:3393:1: ( ruleResultContributor )
-            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:3394:1: ruleResultContributor
+            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:2931:1: ( ruleResultContributor )
+            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:2932:1: ruleResultContributor
             {
-             before(grammarAccess.getResultContributorAccess().getSubcontributorResultContributorParserRuleCall_10_0()); 
-            pushFollow(FOLLOW_ruleResultContributor_in_rule__ResultContributor__SubcontributorAssignment_106737);
+             before(grammarAccess.getResultContributorAccess().getSubcontributorResultContributorParserRuleCall_5_0()); 
+            pushFollow(FOLLOW_ruleResultContributor_in_rule__ResultContributor__SubcontributorAssignment_55825);
             ruleResultContributor();
 
             state._fsp--;
 
-             after(grammarAccess.getResultContributorAccess().getSubcontributorResultContributorParserRuleCall_10_0()); 
+             after(grammarAccess.getResultContributorAccess().getSubcontributorResultContributorParserRuleCall_5_0()); 
 
             }
 
@@ -9009,29 +7824,25 @@ public class InternalResultsParser extends AbstractInternalContentAssistParser {
         }
         return ;
     }
-    // $ANTLR end "rule__ResultContributor__SubcontributorAssignment_10"
+    // $ANTLR end "rule__ResultContributor__SubcontributorAssignment_5"
 
 
-    // $ANTLR start "rule__IssueReport__IssueTypeAssignment_2"
-    // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:3403:1: rule__IssueReport__IssueTypeAssignment_2 : ( ruleResultIssueType ) ;
-    public final void rule__IssueReport__IssueTypeAssignment_2() throws RecognitionException {
+    // $ANTLR start "rule__IssuesReport__NameAssignment_1"
+    // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:2941:1: rule__IssuesReport__NameAssignment_1 : ( RULE_ID ) ;
+    public final void rule__IssuesReport__NameAssignment_1() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:3407:1: ( ( ruleResultIssueType ) )
-            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:3408:1: ( ruleResultIssueType )
+            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:2945:1: ( ( RULE_ID ) )
+            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:2946:1: ( RULE_ID )
             {
-            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:3408:1: ( ruleResultIssueType )
-            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:3409:1: ruleResultIssueType
+            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:2946:1: ( RULE_ID )
+            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:2947:1: RULE_ID
             {
-             before(grammarAccess.getIssueReportAccess().getIssueTypeResultIssueTypeEnumRuleCall_2_0()); 
-            pushFollow(FOLLOW_ruleResultIssueType_in_rule__IssueReport__IssueTypeAssignment_26768);
-            ruleResultIssueType();
-
-            state._fsp--;
-
-             after(grammarAccess.getIssueReportAccess().getIssueTypeResultIssueTypeEnumRuleCall_2_0()); 
+             before(grammarAccess.getIssuesReportAccess().getNameIDTerminalRuleCall_1_0()); 
+            match(input,RULE_ID,FOLLOW_RULE_ID_in_rule__IssuesReport__NameAssignment_15856); 
+             after(grammarAccess.getIssuesReportAccess().getNameIDTerminalRuleCall_1_0()); 
 
             }
 
@@ -9050,111 +7861,37 @@ public class InternalResultsParser extends AbstractInternalContentAssistParser {
         }
         return ;
     }
-    // $ANTLR end "rule__IssueReport__IssueTypeAssignment_2"
+    // $ANTLR end "rule__IssuesReport__NameAssignment_1"
 
 
-    // $ANTLR start "rule__IssueReport__MessageAssignment_3"
-    // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:3418:1: rule__IssueReport__MessageAssignment_3 : ( RULE_STRING ) ;
-    public final void rule__IssueReport__MessageAssignment_3() throws RecognitionException {
-
-        		int stackSize = keepStackSize();
-            
-        try {
-            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:3422:1: ( ( RULE_STRING ) )
-            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:3423:1: ( RULE_STRING )
-            {
-            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:3423:1: ( RULE_STRING )
-            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:3424:1: RULE_STRING
-            {
-             before(grammarAccess.getIssueReportAccess().getMessageSTRINGTerminalRuleCall_3_0()); 
-            match(input,RULE_STRING,FOLLOW_RULE_STRING_in_rule__IssueReport__MessageAssignment_36799); 
-             after(grammarAccess.getIssueReportAccess().getMessageSTRINGTerminalRuleCall_3_0()); 
-
-            }
-
-
-            }
-
-        }
-        catch (RecognitionException re) {
-            reportError(re);
-            recover(input,re);
-        }
-        finally {
-
-            	restoreStackSize(stackSize);
-
-        }
-        return ;
-    }
-    // $ANTLR end "rule__IssueReport__MessageAssignment_3"
-
-
-    // $ANTLR start "rule__IssueReport__TargetAssignment_4_1"
-    // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:3433:1: rule__IssueReport__TargetAssignment_4_1 : ( ( ruleURIID ) ) ;
-    public final void rule__IssueReport__TargetAssignment_4_1() throws RecognitionException {
+    // $ANTLR start "rule__IssuesReport__TargetAssignment_2_1"
+    // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:2956:1: rule__IssuesReport__TargetAssignment_2_1 : ( ( ruleURIID ) ) ;
+    public final void rule__IssuesReport__TargetAssignment_2_1() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:3437:1: ( ( ( ruleURIID ) ) )
-            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:3438:1: ( ( ruleURIID ) )
+            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:2960:1: ( ( ( ruleURIID ) ) )
+            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:2961:1: ( ( ruleURIID ) )
             {
-            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:3438:1: ( ( ruleURIID ) )
-            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:3439:1: ( ruleURIID )
+            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:2961:1: ( ( ruleURIID ) )
+            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:2962:1: ( ruleURIID )
             {
-             before(grammarAccess.getIssueReportAccess().getTargetEObjectCrossReference_4_1_0()); 
-            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:3440:1: ( ruleURIID )
-            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:3441:1: ruleURIID
+             before(grammarAccess.getIssuesReportAccess().getTargetEObjectCrossReference_2_1_0()); 
+            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:2963:1: ( ruleURIID )
+            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:2964:1: ruleURIID
             {
-             before(grammarAccess.getIssueReportAccess().getTargetEObjectURIIDParserRuleCall_4_1_0_1()); 
-            pushFollow(FOLLOW_ruleURIID_in_rule__IssueReport__TargetAssignment_4_16834);
+             before(grammarAccess.getIssuesReportAccess().getTargetEObjectURIIDParserRuleCall_2_1_0_1()); 
+            pushFollow(FOLLOW_ruleURIID_in_rule__IssuesReport__TargetAssignment_2_15891);
             ruleURIID();
 
             state._fsp--;
 
-             after(grammarAccess.getIssueReportAccess().getTargetEObjectURIIDParserRuleCall_4_1_0_1()); 
+             after(grammarAccess.getIssuesReportAccess().getTargetEObjectURIIDParserRuleCall_2_1_0_1()); 
 
             }
 
-             after(grammarAccess.getIssueReportAccess().getTargetEObjectCrossReference_4_1_0()); 
-
-            }
-
-
-            }
-
-        }
-        catch (RecognitionException re) {
-            reportError(re);
-            recover(input,re);
-        }
-        finally {
-
-            	restoreStackSize(stackSize);
-
-        }
-        return ;
-    }
-    // $ANTLR end "rule__IssueReport__TargetAssignment_4_1"
-
-
-    // $ANTLR start "rule__IssueReport__ExceptionTypeAssignment_5_1"
-    // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:3452:1: rule__IssueReport__ExceptionTypeAssignment_5_1 : ( RULE_STRING ) ;
-    public final void rule__IssueReport__ExceptionTypeAssignment_5_1() throws RecognitionException {
-
-        		int stackSize = keepStackSize();
-            
-        try {
-            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:3456:1: ( ( RULE_STRING ) )
-            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:3457:1: ( RULE_STRING )
-            {
-            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:3457:1: ( RULE_STRING )
-            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:3458:1: RULE_STRING
-            {
-             before(grammarAccess.getIssueReportAccess().getExceptionTypeSTRINGTerminalRuleCall_5_1_0()); 
-            match(input,RULE_STRING,FOLLOW_RULE_STRING_in_rule__IssueReport__ExceptionTypeAssignment_5_16869); 
-             after(grammarAccess.getIssueReportAccess().getExceptionTypeSTRINGTerminalRuleCall_5_1_0()); 
+             after(grammarAccess.getIssuesReportAccess().getTargetEObjectCrossReference_2_1_0()); 
 
             }
 
@@ -9173,29 +7910,66 @@ public class InternalResultsParser extends AbstractInternalContentAssistParser {
         }
         return ;
     }
-    // $ANTLR end "rule__IssueReport__ExceptionTypeAssignment_5_1"
+    // $ANTLR end "rule__IssuesReport__TargetAssignment_2_1"
 
 
-    // $ANTLR start "rule__IssueReport__IssuesAssignment_6_1"
-    // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:3467:1: rule__IssueReport__IssuesAssignment_6_1 : ( ruleResultIssue ) ;
-    public final void rule__IssueReport__IssuesAssignment_6_1() throws RecognitionException {
+    // $ANTLR start "rule__IssuesReport__DescriptionAssignment_3_1_1"
+    // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:2975:1: rule__IssuesReport__DescriptionAssignment_3_1_1 : ( RULE_STRING ) ;
+    public final void rule__IssuesReport__DescriptionAssignment_3_1_1() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:3471:1: ( ( ruleResultIssue ) )
-            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:3472:1: ( ruleResultIssue )
+            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:2979:1: ( ( RULE_STRING ) )
+            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:2980:1: ( RULE_STRING )
             {
-            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:3472:1: ( ruleResultIssue )
-            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:3473:1: ruleResultIssue
+            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:2980:1: ( RULE_STRING )
+            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:2981:1: RULE_STRING
             {
-             before(grammarAccess.getIssueReportAccess().getIssuesResultIssueParserRuleCall_6_1_0()); 
-            pushFollow(FOLLOW_ruleResultIssue_in_rule__IssueReport__IssuesAssignment_6_16900);
+             before(grammarAccess.getIssuesReportAccess().getDescriptionSTRINGTerminalRuleCall_3_1_1_0()); 
+            match(input,RULE_STRING,FOLLOW_RULE_STRING_in_rule__IssuesReport__DescriptionAssignment_3_1_15926); 
+             after(grammarAccess.getIssuesReportAccess().getDescriptionSTRINGTerminalRuleCall_3_1_1_0()); 
+
+            }
+
+
+            }
+
+        }
+        catch (RecognitionException re) {
+            reportError(re);
+            recover(input,re);
+        }
+        finally {
+
+            	restoreStackSize(stackSize);
+
+        }
+        return ;
+    }
+    // $ANTLR end "rule__IssuesReport__DescriptionAssignment_3_1_1"
+
+
+    // $ANTLR start "rule__IssuesReport__IssuesAssignment_3_2"
+    // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:2990:1: rule__IssuesReport__IssuesAssignment_3_2 : ( ruleResultIssue ) ;
+    public final void rule__IssuesReport__IssuesAssignment_3_2() throws RecognitionException {
+
+        		int stackSize = keepStackSize();
+            
+        try {
+            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:2994:1: ( ( ruleResultIssue ) )
+            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:2995:1: ( ruleResultIssue )
+            {
+            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:2995:1: ( ruleResultIssue )
+            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:2996:1: ruleResultIssue
+            {
+             before(grammarAccess.getIssuesReportAccess().getIssuesResultIssueParserRuleCall_3_2_0()); 
+            pushFollow(FOLLOW_ruleResultIssue_in_rule__IssuesReport__IssuesAssignment_3_25957);
             ruleResultIssue();
 
             state._fsp--;
 
-             after(grammarAccess.getIssueReportAccess().getIssuesResultIssueParserRuleCall_6_1_0()); 
+             after(grammarAccess.getIssuesReportAccess().getIssuesResultIssueParserRuleCall_3_2_0()); 
 
             }
 
@@ -9214,24 +7988,24 @@ public class InternalResultsParser extends AbstractInternalContentAssistParser {
         }
         return ;
     }
-    // $ANTLR end "rule__IssueReport__IssuesAssignment_6_1"
+    // $ANTLR end "rule__IssuesReport__IssuesAssignment_3_2"
 
 
     // $ANTLR start "rule__ResultIssue__IssueTypeAssignment_1"
-    // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:3482:1: rule__ResultIssue__IssueTypeAssignment_1 : ( ruleResultIssueType ) ;
+    // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:3005:1: rule__ResultIssue__IssueTypeAssignment_1 : ( ruleResultIssueType ) ;
     public final void rule__ResultIssue__IssueTypeAssignment_1() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:3486:1: ( ( ruleResultIssueType ) )
-            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:3487:1: ( ruleResultIssueType )
+            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:3009:1: ( ( ruleResultIssueType ) )
+            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:3010:1: ( ruleResultIssueType )
             {
-            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:3487:1: ( ruleResultIssueType )
-            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:3488:1: ruleResultIssueType
+            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:3010:1: ( ruleResultIssueType )
+            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:3011:1: ruleResultIssueType
             {
              before(grammarAccess.getResultIssueAccess().getIssueTypeResultIssueTypeEnumRuleCall_1_0()); 
-            pushFollow(FOLLOW_ruleResultIssueType_in_rule__ResultIssue__IssueTypeAssignment_16931);
+            pushFollow(FOLLOW_ruleResultIssueType_in_rule__ResultIssue__IssueTypeAssignment_15988);
             ruleResultIssueType();
 
             state._fsp--;
@@ -9259,20 +8033,20 @@ public class InternalResultsParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__ResultIssue__MessageAssignment_2"
-    // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:3497:1: rule__ResultIssue__MessageAssignment_2 : ( RULE_STRING ) ;
+    // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:3020:1: rule__ResultIssue__MessageAssignment_2 : ( RULE_STRING ) ;
     public final void rule__ResultIssue__MessageAssignment_2() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:3501:1: ( ( RULE_STRING ) )
-            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:3502:1: ( RULE_STRING )
+            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:3024:1: ( ( RULE_STRING ) )
+            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:3025:1: ( RULE_STRING )
             {
-            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:3502:1: ( RULE_STRING )
-            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:3503:1: RULE_STRING
+            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:3025:1: ( RULE_STRING )
+            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:3026:1: RULE_STRING
             {
              before(grammarAccess.getResultIssueAccess().getMessageSTRINGTerminalRuleCall_2_0()); 
-            match(input,RULE_STRING,FOLLOW_RULE_STRING_in_rule__ResultIssue__MessageAssignment_26962); 
+            match(input,RULE_STRING,FOLLOW_RULE_STRING_in_rule__ResultIssue__MessageAssignment_26019); 
              after(grammarAccess.getResultIssueAccess().getMessageSTRINGTerminalRuleCall_2_0()); 
 
             }
@@ -9296,24 +8070,24 @@ public class InternalResultsParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__ResultIssue__TargetAssignment_3_1"
-    // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:3512:1: rule__ResultIssue__TargetAssignment_3_1 : ( ( ruleURIID ) ) ;
+    // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:3035:1: rule__ResultIssue__TargetAssignment_3_1 : ( ( ruleURIID ) ) ;
     public final void rule__ResultIssue__TargetAssignment_3_1() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:3516:1: ( ( ( ruleURIID ) ) )
-            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:3517:1: ( ( ruleURIID ) )
+            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:3039:1: ( ( ( ruleURIID ) ) )
+            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:3040:1: ( ( ruleURIID ) )
             {
-            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:3517:1: ( ( ruleURIID ) )
-            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:3518:1: ( ruleURIID )
+            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:3040:1: ( ( ruleURIID ) )
+            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:3041:1: ( ruleURIID )
             {
              before(grammarAccess.getResultIssueAccess().getTargetEObjectCrossReference_3_1_0()); 
-            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:3519:1: ( ruleURIID )
-            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:3520:1: ruleURIID
+            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:3042:1: ( ruleURIID )
+            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:3043:1: ruleURIID
             {
              before(grammarAccess.getResultIssueAccess().getTargetEObjectURIIDParserRuleCall_3_1_0_1()); 
-            pushFollow(FOLLOW_ruleURIID_in_rule__ResultIssue__TargetAssignment_3_16997);
+            pushFollow(FOLLOW_ruleURIID_in_rule__ResultIssue__TargetAssignment_3_16054);
             ruleURIID();
 
             state._fsp--;
@@ -9345,20 +8119,20 @@ public class InternalResultsParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__ResultIssue__ExceptionTypeAssignment_4_1"
-    // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:3531:1: rule__ResultIssue__ExceptionTypeAssignment_4_1 : ( RULE_STRING ) ;
+    // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:3054:1: rule__ResultIssue__ExceptionTypeAssignment_4_1 : ( RULE_STRING ) ;
     public final void rule__ResultIssue__ExceptionTypeAssignment_4_1() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:3535:1: ( ( RULE_STRING ) )
-            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:3536:1: ( RULE_STRING )
+            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:3058:1: ( ( RULE_STRING ) )
+            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:3059:1: ( RULE_STRING )
             {
-            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:3536:1: ( RULE_STRING )
-            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:3537:1: RULE_STRING
+            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:3059:1: ( RULE_STRING )
+            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:3060:1: RULE_STRING
             {
              before(grammarAccess.getResultIssueAccess().getExceptionTypeSTRINGTerminalRuleCall_4_1_0()); 
-            match(input,RULE_STRING,FOLLOW_RULE_STRING_in_rule__ResultIssue__ExceptionTypeAssignment_4_17032); 
+            match(input,RULE_STRING,FOLLOW_RULE_STRING_in_rule__ResultIssue__ExceptionTypeAssignment_4_16089); 
              after(grammarAccess.getResultIssueAccess().getExceptionTypeSTRINGTerminalRuleCall_4_1_0()); 
 
             }
@@ -9382,20 +8156,20 @@ public class InternalResultsParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__ResultIssue__IssuesAssignment_5_1"
-    // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:3546:1: rule__ResultIssue__IssuesAssignment_5_1 : ( ruleResultIssue ) ;
+    // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:3069:1: rule__ResultIssue__IssuesAssignment_5_1 : ( ruleResultIssue ) ;
     public final void rule__ResultIssue__IssuesAssignment_5_1() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:3550:1: ( ( ruleResultIssue ) )
-            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:3551:1: ( ruleResultIssue )
+            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:3073:1: ( ( ruleResultIssue ) )
+            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:3074:1: ( ruleResultIssue )
             {
-            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:3551:1: ( ruleResultIssue )
-            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:3552:1: ruleResultIssue
+            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:3074:1: ( ruleResultIssue )
+            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:3075:1: ruleResultIssue
             {
              before(grammarAccess.getResultIssueAccess().getIssuesResultIssueParserRuleCall_5_1_0()); 
-            pushFollow(FOLLOW_ruleResultIssue_in_rule__ResultIssue__IssuesAssignment_5_17063);
+            pushFollow(FOLLOW_ruleResultIssue_in_rule__ResultIssue__IssuesAssignment_5_16120);
             ruleResultIssue();
 
             state._fsp--;
@@ -9423,20 +8197,20 @@ public class InternalResultsParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__ResultData__NameAssignment_0"
-    // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:3561:1: rule__ResultData__NameAssignment_0 : ( RULE_ID ) ;
+    // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:3084:1: rule__ResultData__NameAssignment_0 : ( RULE_ID ) ;
     public final void rule__ResultData__NameAssignment_0() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:3565:1: ( ( RULE_ID ) )
-            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:3566:1: ( RULE_ID )
+            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:3088:1: ( ( RULE_ID ) )
+            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:3089:1: ( RULE_ID )
             {
-            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:3566:1: ( RULE_ID )
-            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:3567:1: RULE_ID
+            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:3089:1: ( RULE_ID )
+            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:3090:1: RULE_ID
             {
              before(grammarAccess.getResultDataAccess().getNameIDTerminalRuleCall_0_0()); 
-            match(input,RULE_ID,FOLLOW_RULE_ID_in_rule__ResultData__NameAssignment_07094); 
+            match(input,RULE_ID,FOLLOW_RULE_ID_in_rule__ResultData__NameAssignment_06151); 
              after(grammarAccess.getResultDataAccess().getNameIDTerminalRuleCall_0_0()); 
 
             }
@@ -9460,20 +8234,20 @@ public class InternalResultsParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__ResultData__ValueAssignment_2"
-    // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:3576:1: rule__ResultData__ValueAssignment_2 : ( RULE_STRING ) ;
+    // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:3099:1: rule__ResultData__ValueAssignment_2 : ( RULE_STRING ) ;
     public final void rule__ResultData__ValueAssignment_2() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:3580:1: ( ( RULE_STRING ) )
-            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:3581:1: ( RULE_STRING )
+            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:3103:1: ( ( RULE_STRING ) )
+            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:3104:1: ( RULE_STRING )
             {
-            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:3581:1: ( RULE_STRING )
-            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:3582:1: RULE_STRING
+            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:3104:1: ( RULE_STRING )
+            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:3105:1: RULE_STRING
             {
              before(grammarAccess.getResultDataAccess().getValueSTRINGTerminalRuleCall_2_0()); 
-            match(input,RULE_STRING,FOLLOW_RULE_STRING_in_rule__ResultData__ValueAssignment_27125); 
+            match(input,RULE_STRING,FOLLOW_RULE_STRING_in_rule__ResultData__ValueAssignment_26182); 
              after(grammarAccess.getResultDataAccess().getValueSTRINGTerminalRuleCall_2_0()); 
 
             }
@@ -9512,9 +8286,9 @@ public class InternalResultsParser extends AbstractInternalContentAssistParser {
     public static final BitSet FOLLOW_ruleResultContributor_in_entryRuleResultContributor241 = new BitSet(new long[]{0x0000000000000000L});
     public static final BitSet FOLLOW_EOF_in_entryRuleResultContributor248 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_rule__ResultContributor__Group__0_in_ruleResultContributor274 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleIssueReport_in_entryRuleIssueReport301 = new BitSet(new long[]{0x0000000000000000L});
-    public static final BitSet FOLLOW_EOF_in_entryRuleIssueReport308 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__IssueReport__Group__0_in_ruleIssueReport334 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleIssuesReport_in_entryRuleIssuesReport301 = new BitSet(new long[]{0x0000000000000000L});
+    public static final BitSet FOLLOW_EOF_in_entryRuleIssuesReport308 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__IssuesReport__Group__0_in_ruleIssuesReport334 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_ruleResultIssue_in_entryRuleResultIssue361 = new BitSet(new long[]{0x0000000000000000L});
     public static final BitSet FOLLOW_EOF_in_entryRuleResultIssue368 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_rule__ResultIssue__Group__0_in_ruleResultIssue394 = new BitSet(new long[]{0x0000000000000002L});
@@ -9527,276 +8301,238 @@ public class InternalResultsParser extends AbstractInternalContentAssistParser {
     public static final BitSet FOLLOW_rule__ResultIssueType__Alternatives_in_ruleResultIssueType550 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_ruleResultReport_in_rule__ResultReports__Alternatives585 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_ruleResultReportCollection_in_rule__ResultReports__Alternatives602 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleIssueReport_in_rule__ResultReports__Alternatives619 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleIssuesReport_in_rule__ResultReports__Alternatives619 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_11_in_rule__ResultIssueType__Alternatives652 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_12_in_rule__ResultIssueType__Alternatives673 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_13_in_rule__ResultIssueType__Alternatives694 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_14_in_rule__ResultIssueType__Alternatives715 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_15_in_rule__ResultIssueType__Alternatives736 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_16_in_rule__ResultIssueType__Alternatives757 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__ResultReportCollection__Group__0__Impl_in_rule__ResultReportCollection__Group__0790 = new BitSet(new long[]{0x0000000000000020L});
-    public static final BitSet FOLLOW_rule__ResultReportCollection__Group__1_in_rule__ResultReportCollection__Group__0793 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_17_in_rule__ResultReportCollection__Group__0__Impl821 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__ResultReportCollection__Group__1__Impl_in_rule__ResultReportCollection__Group__1852 = new BitSet(new long[]{0x0000000000240000L});
-    public static final BitSet FOLLOW_rule__ResultReportCollection__Group__2_in_rule__ResultReportCollection__Group__1855 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__ResultReportCollection__NameAssignment_1_in_rule__ResultReportCollection__Group__1__Impl882 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__ResultReportCollection__Group__2__Impl_in_rule__ResultReportCollection__Group__2912 = new BitSet(new long[]{0x0000000000240000L});
-    public static final BitSet FOLLOW_rule__ResultReportCollection__Group__3_in_rule__ResultReportCollection__Group__2915 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__ResultReportCollection__Group_2__0_in_rule__ResultReportCollection__Group__2__Impl942 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__ResultReportCollection__Group__3__Impl_in_rule__ResultReportCollection__Group__3973 = new BitSet(new long[]{0x0000000000080000L});
-    public static final BitSet FOLLOW_rule__ResultReportCollection__Group__4_in_rule__ResultReportCollection__Group__3976 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_18_in_rule__ResultReportCollection__Group__3__Impl1004 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__ResultReportCollection__Group__4__Impl_in_rule__ResultReportCollection__Group__41035 = new BitSet(new long[]{0x0000000000000010L});
-    public static final BitSet FOLLOW_rule__ResultReportCollection__Group__5_in_rule__ResultReportCollection__Group__41038 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_19_in_rule__ResultReportCollection__Group__4__Impl1066 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__ResultReportCollection__Group__5__Impl_in_rule__ResultReportCollection__Group__51097 = new BitSet(new long[]{0x0000000040D00000L});
-    public static final BitSet FOLLOW_rule__ResultReportCollection__Group__6_in_rule__ResultReportCollection__Group__51100 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__ResultReportCollection__TargetAssignment_5_in_rule__ResultReportCollection__Group__5__Impl1127 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__ResultReportCollection__Group__6__Impl_in_rule__ResultReportCollection__Group__61157 = new BitSet(new long[]{0x0000000040D00000L});
-    public static final BitSet FOLLOW_rule__ResultReportCollection__Group__7_in_rule__ResultReportCollection__Group__61160 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__ResultReportCollection__Group_6__0_in_rule__ResultReportCollection__Group__6__Impl1187 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__ResultReportCollection__Group__7__Impl_in_rule__ResultReportCollection__Group__71218 = new BitSet(new long[]{0x0000000040D00000L});
-    public static final BitSet FOLLOW_rule__ResultReportCollection__Group__8_in_rule__ResultReportCollection__Group__71221 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__ResultReportCollection__ContentAssignment_7_in_rule__ResultReportCollection__Group__7__Impl1248 = new BitSet(new long[]{0x0000000000800002L});
-    public static final BitSet FOLLOW_rule__ResultReportCollection__Group__8__Impl_in_rule__ResultReportCollection__Group__81279 = new BitSet(new long[]{0x0000000040D00000L});
-    public static final BitSet FOLLOW_rule__ResultReportCollection__Group__9_in_rule__ResultReportCollection__Group__81282 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__ResultReportCollection__IssuesAssignment_8_in_rule__ResultReportCollection__Group__8__Impl1309 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__ResultReportCollection__Group__9__Impl_in_rule__ResultReportCollection__Group__91340 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_20_in_rule__ResultReportCollection__Group__9__Impl1368 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__ResultReportCollection__Group_2__0__Impl_in_rule__ResultReportCollection__Group_2__01419 = new BitSet(new long[]{0x0000000000000010L});
-    public static final BitSet FOLLOW_rule__ResultReportCollection__Group_2__1_in_rule__ResultReportCollection__Group_2__01422 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_21_in_rule__ResultReportCollection__Group_2__0__Impl1450 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__ResultReportCollection__Group_2__1__Impl_in_rule__ResultReportCollection__Group_2__11481 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__ResultReportCollection__TitleAssignment_2_1_in_rule__ResultReportCollection__Group_2__1__Impl1508 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__ResultReportCollection__Group_6__0__Impl_in_rule__ResultReportCollection__Group_6__01542 = new BitSet(new long[]{0x0000000000000010L});
-    public static final BitSet FOLLOW_rule__ResultReportCollection__Group_6__1_in_rule__ResultReportCollection__Group_6__01545 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_22_in_rule__ResultReportCollection__Group_6__0__Impl1573 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__ResultReportCollection__Group_6__1__Impl_in_rule__ResultReportCollection__Group_6__11604 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__ResultReportCollection__DecriptionAssignment_6_1_in_rule__ResultReportCollection__Group_6__1__Impl1631 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__ResultReport__Group__0__Impl_in_rule__ResultReport__Group__01665 = new BitSet(new long[]{0x0000000000800000L});
-    public static final BitSet FOLLOW_rule__ResultReport__Group__1_in_rule__ResultReport__Group__01668 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__ResultReport__Group__1__Impl_in_rule__ResultReport__Group__11726 = new BitSet(new long[]{0x0000000000000020L});
-    public static final BitSet FOLLOW_rule__ResultReport__Group__2_in_rule__ResultReport__Group__11729 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_23_in_rule__ResultReport__Group__1__Impl1757 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__ResultReport__Group__2__Impl_in_rule__ResultReport__Group__21788 = new BitSet(new long[]{0x0000000000200010L});
-    public static final BitSet FOLLOW_rule__ResultReport__Group__3_in_rule__ResultReport__Group__21791 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__ResultReport__NameAssignment_2_in_rule__ResultReport__Group__2__Impl1818 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__ResultReport__Group__3__Impl_in_rule__ResultReport__Group__31848 = new BitSet(new long[]{0x0000000000200010L});
-    public static final BitSet FOLLOW_rule__ResultReport__Group__4_in_rule__ResultReport__Group__31851 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__ResultReport__Group_3__0_in_rule__ResultReport__Group__3__Impl1878 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__ResultReport__Group__4__Impl_in_rule__ResultReport__Group__41909 = new BitSet(new long[]{0x000000000001F800L});
-    public static final BitSet FOLLOW_rule__ResultReport__Group__5_in_rule__ResultReport__Group__41912 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__ResultReport__TargetAssignment_4_in_rule__ResultReport__Group__4__Impl1939 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__ResultReport__Group__5__Impl_in_rule__ResultReport__Group__51969 = new BitSet(new long[]{0x0000000000000010L});
-    public static final BitSet FOLLOW_rule__ResultReport__Group__6_in_rule__ResultReport__Group__51972 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__ResultReport__IssueTypeAssignment_5_in_rule__ResultReport__Group__5__Impl1999 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__ResultReport__Group__6__Impl_in_rule__ResultReport__Group__62029 = new BitSet(new long[]{0x0000000001040000L});
-    public static final BitSet FOLLOW_rule__ResultReport__Group__7_in_rule__ResultReport__Group__62032 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__ResultReport__MessageAssignment_6_in_rule__ResultReport__Group__6__Impl2059 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__ResultReport__Group__7__Impl_in_rule__ResultReport__Group__72089 = new BitSet(new long[]{0x0000000001040000L});
-    public static final BitSet FOLLOW_rule__ResultReport__Group__8_in_rule__ResultReport__Group__72092 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__ResultReport__Group_7__0_in_rule__ResultReport__Group__7__Impl2119 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__ResultReport__Group__8__Impl_in_rule__ResultReport__Group__82150 = new BitSet(new long[]{0x0000000046500000L});
-    public static final BitSet FOLLOW_rule__ResultReport__Group__9_in_rule__ResultReport__Group__82153 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_18_in_rule__ResultReport__Group__8__Impl2181 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__ResultReport__Group__9__Impl_in_rule__ResultReport__Group__92212 = new BitSet(new long[]{0x0000000046500000L});
-    public static final BitSet FOLLOW_rule__ResultReport__Group__10_in_rule__ResultReport__Group__92215 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__ResultReport__Group_9__0_in_rule__ResultReport__Group__9__Impl2242 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__ResultReport__Group__10__Impl_in_rule__ResultReport__Group__102273 = new BitSet(new long[]{0x0000000046500000L});
-    public static final BitSet FOLLOW_rule__ResultReport__Group__11_in_rule__ResultReport__Group__102276 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__ResultReport__Group_10__0_in_rule__ResultReport__Group__10__Impl2303 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__ResultReport__Group__11__Impl_in_rule__ResultReport__Group__112334 = new BitSet(new long[]{0x0000000046500000L});
-    public static final BitSet FOLLOW_rule__ResultReport__Group__12_in_rule__ResultReport__Group__112337 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__ResultReport__Group_11__0_in_rule__ResultReport__Group__11__Impl2364 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__ResultReport__Group__12__Impl_in_rule__ResultReport__Group__122395 = new BitSet(new long[]{0x0000000046500000L});
-    public static final BitSet FOLLOW_rule__ResultReport__Group__13_in_rule__ResultReport__Group__122398 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__ResultReport__IssuesAssignment_12_in_rule__ResultReport__Group__12__Impl2425 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__ResultReport__Group__13__Impl_in_rule__ResultReport__Group__132456 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_20_in_rule__ResultReport__Group__13__Impl2484 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__ResultReport__Group_3__0__Impl_in_rule__ResultReport__Group_3__02543 = new BitSet(new long[]{0x0000000000000010L});
-    public static final BitSet FOLLOW_rule__ResultReport__Group_3__1_in_rule__ResultReport__Group_3__02546 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_21_in_rule__ResultReport__Group_3__0__Impl2574 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__ResultReport__Group_3__1__Impl_in_rule__ResultReport__Group_3__12605 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__ResultReport__TitleAssignment_3_1_in_rule__ResultReport__Group_3__1__Impl2632 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__ResultReport__Group_7__0__Impl_in_rule__ResultReport__Group_7__02666 = new BitSet(new long[]{0x0000000000000010L});
-    public static final BitSet FOLLOW_rule__ResultReport__Group_7__1_in_rule__ResultReport__Group_7__02669 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_24_in_rule__ResultReport__Group_7__0__Impl2697 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__ResultReport__Group_7__1__Impl_in_rule__ResultReport__Group_7__12728 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__ResultReport__ExceptionTypeAssignment_7_1_in_rule__ResultReport__Group_7__1__Impl2755 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__ResultReport__Group_9__0__Impl_in_rule__ResultReport__Group_9__02789 = new BitSet(new long[]{0x0000000000000010L});
-    public static final BitSet FOLLOW_rule__ResultReport__Group_9__1_in_rule__ResultReport__Group_9__02792 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_22_in_rule__ResultReport__Group_9__0__Impl2820 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__ResultReport__Group_9__1__Impl_in_rule__ResultReport__Group_9__12851 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__ResultReport__DecriptionAssignment_9_1_in_rule__ResultReport__Group_9__1__Impl2878 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__ResultReport__Group_10__0__Impl_in_rule__ResultReport__Group_10__02912 = new BitSet(new long[]{0x0000000000000010L});
-    public static final BitSet FOLLOW_rule__ResultReport__Group_10__1_in_rule__ResultReport__Group_10__02915 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_25_in_rule__ResultReport__Group_10__0__Impl2943 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__ResultReport__Group_10__1__Impl_in_rule__ResultReport__Group_10__12974 = new BitSet(new long[]{0x0000000008000000L});
-    public static final BitSet FOLLOW_rule__ResultReport__Group_10__2_in_rule__ResultReport__Group_10__12977 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__ResultReport__HeadingAssignment_10_1_in_rule__ResultReport__Group_10__1__Impl3004 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__ResultReport__Group_10__2__Impl_in_rule__ResultReport__Group_10__23034 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__ResultReport__ContentAssignment_10_2_in_rule__ResultReport__Group_10__2__Impl3061 = new BitSet(new long[]{0x0000000008000002L});
-    public static final BitSet FOLLOW_rule__ResultReport__Group_11__0__Impl_in_rule__ResultReport__Group_11__03098 = new BitSet(new long[]{0x0000000000000020L});
-    public static final BitSet FOLLOW_rule__ResultReport__Group_11__1_in_rule__ResultReport__Group_11__03101 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_26_in_rule__ResultReport__Group_11__0__Impl3129 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__ResultReport__Group_11__1__Impl_in_rule__ResultReport__Group_11__13160 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__ResultReport__ResultDataAssignment_11_1_in_rule__ResultReport__Group_11__1__Impl3189 = new BitSet(new long[]{0x0000000000000022L});
-    public static final BitSet FOLLOW_rule__ResultReport__ResultDataAssignment_11_1_in_rule__ResultReport__Group_11__1__Impl3201 = new BitSet(new long[]{0x0000000000000022L});
-    public static final BitSet FOLLOW_rule__ResultContributor__Group__0__Impl_in_rule__ResultContributor__Group__03238 = new BitSet(new long[]{0x0000000008000000L});
-    public static final BitSet FOLLOW_rule__ResultContributor__Group__1_in_rule__ResultContributor__Group__03241 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__ResultContributor__Group__1__Impl_in_rule__ResultContributor__Group__13299 = new BitSet(new long[]{0x0000000000000010L});
-    public static final BitSet FOLLOW_rule__ResultContributor__Group__2_in_rule__ResultContributor__Group__13302 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_27_in_rule__ResultContributor__Group__1__Impl3330 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__ResultContributor__Group__2__Impl_in_rule__ResultContributor__Group__23361 = new BitSet(new long[]{0x000000000001F800L});
-    public static final BitSet FOLLOW_rule__ResultContributor__Group__3_in_rule__ResultContributor__Group__23364 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__ResultContributor__TargetAssignment_2_in_rule__ResultContributor__Group__2__Impl3391 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__ResultContributor__Group__3__Impl_in_rule__ResultContributor__Group__33421 = new BitSet(new long[]{0x0000000000000010L});
-    public static final BitSet FOLLOW_rule__ResultContributor__Group__4_in_rule__ResultContributor__Group__33424 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__ResultContributor__IssueTypeAssignment_3_in_rule__ResultContributor__Group__3__Impl3451 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__ResultContributor__Group__4__Impl_in_rule__ResultContributor__Group__43481 = new BitSet(new long[]{0x0000000001040000L});
-    public static final BitSet FOLLOW_rule__ResultContributor__Group__5_in_rule__ResultContributor__Group__43484 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__ResultContributor__MessageAssignment_4_in_rule__ResultContributor__Group__4__Impl3511 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__ResultContributor__Group__5__Impl_in_rule__ResultContributor__Group__53541 = new BitSet(new long[]{0x0000000001040000L});
-    public static final BitSet FOLLOW_rule__ResultContributor__Group__6_in_rule__ResultContributor__Group__53544 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__ResultContributor__Group_5__0_in_rule__ResultContributor__Group__5__Impl3571 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__ResultContributor__Group__6__Impl_in_rule__ResultContributor__Group__63602 = new BitSet(new long[]{0x0000000010000000L});
-    public static final BitSet FOLLOW_rule__ResultContributor__Group__7_in_rule__ResultContributor__Group__63605 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_18_in_rule__ResultContributor__Group__6__Impl3633 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__ResultContributor__Group__7__Impl_in_rule__ResultContributor__Group__73664 = new BitSet(new long[]{0x0000000000000010L});
-    public static final BitSet FOLLOW_rule__ResultContributor__Group__8_in_rule__ResultContributor__Group__73667 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_28_in_rule__ResultContributor__Group__7__Impl3695 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__ResultContributor__Group__8__Impl_in_rule__ResultContributor__Group__83726 = new BitSet(new long[]{0x0000000048100000L});
-    public static final BitSet FOLLOW_rule__ResultContributor__Group__9_in_rule__ResultContributor__Group__83729 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__ResultContributor__CellAssignment_8_in_rule__ResultContributor__Group__8__Impl3758 = new BitSet(new long[]{0x0000000000000012L});
-    public static final BitSet FOLLOW_rule__ResultContributor__CellAssignment_8_in_rule__ResultContributor__Group__8__Impl3770 = new BitSet(new long[]{0x0000000000000012L});
-    public static final BitSet FOLLOW_rule__ResultContributor__Group__9__Impl_in_rule__ResultContributor__Group__93803 = new BitSet(new long[]{0x0000000048100000L});
-    public static final BitSet FOLLOW_rule__ResultContributor__Group__10_in_rule__ResultContributor__Group__93806 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__ResultContributor__IssuesAssignment_9_in_rule__ResultContributor__Group__9__Impl3833 = new BitSet(new long[]{0x0000000040000002L});
-    public static final BitSet FOLLOW_rule__ResultContributor__Group__10__Impl_in_rule__ResultContributor__Group__103864 = new BitSet(new long[]{0x0000000048100000L});
-    public static final BitSet FOLLOW_rule__ResultContributor__Group__11_in_rule__ResultContributor__Group__103867 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__ResultContributor__SubcontributorAssignment_10_in_rule__ResultContributor__Group__10__Impl3894 = new BitSet(new long[]{0x0000000008000002L});
-    public static final BitSet FOLLOW_rule__ResultContributor__Group__11__Impl_in_rule__ResultContributor__Group__113925 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_20_in_rule__ResultContributor__Group__11__Impl3953 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__ResultContributor__Group_5__0__Impl_in_rule__ResultContributor__Group_5__04008 = new BitSet(new long[]{0x0000000000000010L});
-    public static final BitSet FOLLOW_rule__ResultContributor__Group_5__1_in_rule__ResultContributor__Group_5__04011 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_24_in_rule__ResultContributor__Group_5__0__Impl4039 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__ResultContributor__Group_5__1__Impl_in_rule__ResultContributor__Group_5__14070 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__ResultContributor__ExceptionTypeAssignment_5_1_in_rule__ResultContributor__Group_5__1__Impl4097 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__IssueReport__Group__0__Impl_in_rule__IssueReport__Group__04131 = new BitSet(new long[]{0x0000000020000000L});
-    public static final BitSet FOLLOW_rule__IssueReport__Group__1_in_rule__IssueReport__Group__04134 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__IssueReport__Group__1__Impl_in_rule__IssueReport__Group__14192 = new BitSet(new long[]{0x000000000001F800L});
-    public static final BitSet FOLLOW_rule__IssueReport__Group__2_in_rule__IssueReport__Group__14195 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_29_in_rule__IssueReport__Group__1__Impl4223 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__IssueReport__Group__2__Impl_in_rule__IssueReport__Group__24254 = new BitSet(new long[]{0x0000000000000010L});
-    public static final BitSet FOLLOW_rule__IssueReport__Group__3_in_rule__IssueReport__Group__24257 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__IssueReport__IssueTypeAssignment_2_in_rule__IssueReport__Group__2__Impl4284 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__IssueReport__Group__3__Impl_in_rule__IssueReport__Group__34314 = new BitSet(new long[]{0x00000000010C0000L});
-    public static final BitSet FOLLOW_rule__IssueReport__Group__4_in_rule__IssueReport__Group__34317 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__IssueReport__MessageAssignment_3_in_rule__IssueReport__Group__3__Impl4344 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__IssueReport__Group__4__Impl_in_rule__IssueReport__Group__44374 = new BitSet(new long[]{0x00000000010C0000L});
-    public static final BitSet FOLLOW_rule__IssueReport__Group__5_in_rule__IssueReport__Group__44377 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__IssueReport__Group_4__0_in_rule__IssueReport__Group__4__Impl4404 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__IssueReport__Group__5__Impl_in_rule__IssueReport__Group__54435 = new BitSet(new long[]{0x00000000010C0000L});
-    public static final BitSet FOLLOW_rule__IssueReport__Group__6_in_rule__IssueReport__Group__54438 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__IssueReport__Group_5__0_in_rule__IssueReport__Group__5__Impl4465 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__IssueReport__Group__6__Impl_in_rule__IssueReport__Group__64496 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__IssueReport__Group_6__0_in_rule__IssueReport__Group__6__Impl4523 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__IssueReport__Group_4__0__Impl_in_rule__IssueReport__Group_4__04568 = new BitSet(new long[]{0x0000000000000010L});
-    public static final BitSet FOLLOW_rule__IssueReport__Group_4__1_in_rule__IssueReport__Group_4__04571 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_19_in_rule__IssueReport__Group_4__0__Impl4599 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__IssueReport__Group_4__1__Impl_in_rule__IssueReport__Group_4__14630 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__IssueReport__TargetAssignment_4_1_in_rule__IssueReport__Group_4__1__Impl4657 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__IssueReport__Group_5__0__Impl_in_rule__IssueReport__Group_5__04691 = new BitSet(new long[]{0x0000000000000010L});
-    public static final BitSet FOLLOW_rule__IssueReport__Group_5__1_in_rule__IssueReport__Group_5__04694 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_24_in_rule__IssueReport__Group_5__0__Impl4722 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__IssueReport__Group_5__1__Impl_in_rule__IssueReport__Group_5__14753 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__IssueReport__ExceptionTypeAssignment_5_1_in_rule__IssueReport__Group_5__1__Impl4780 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__IssueReport__Group_6__0__Impl_in_rule__IssueReport__Group_6__04814 = new BitSet(new long[]{0x0000000040100000L});
-    public static final BitSet FOLLOW_rule__IssueReport__Group_6__1_in_rule__IssueReport__Group_6__04817 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_18_in_rule__IssueReport__Group_6__0__Impl4845 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__IssueReport__Group_6__1__Impl_in_rule__IssueReport__Group_6__14876 = new BitSet(new long[]{0x0000000040100000L});
-    public static final BitSet FOLLOW_rule__IssueReport__Group_6__2_in_rule__IssueReport__Group_6__14879 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__IssueReport__IssuesAssignment_6_1_in_rule__IssueReport__Group_6__1__Impl4906 = new BitSet(new long[]{0x0000000040000002L});
-    public static final BitSet FOLLOW_rule__IssueReport__Group_6__2__Impl_in_rule__IssueReport__Group_6__24937 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_20_in_rule__IssueReport__Group_6__2__Impl4965 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__ResultIssue__Group__0__Impl_in_rule__ResultIssue__Group__05002 = new BitSet(new long[]{0x000000000001F800L});
-    public static final BitSet FOLLOW_rule__ResultIssue__Group__1_in_rule__ResultIssue__Group__05005 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_30_in_rule__ResultIssue__Group__0__Impl5033 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__ResultIssue__Group__1__Impl_in_rule__ResultIssue__Group__15064 = new BitSet(new long[]{0x0000000000000010L});
-    public static final BitSet FOLLOW_rule__ResultIssue__Group__2_in_rule__ResultIssue__Group__15067 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__ResultIssue__IssueTypeAssignment_1_in_rule__ResultIssue__Group__1__Impl5094 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__ResultIssue__Group__2__Impl_in_rule__ResultIssue__Group__25124 = new BitSet(new long[]{0x00000000010C0000L});
-    public static final BitSet FOLLOW_rule__ResultIssue__Group__3_in_rule__ResultIssue__Group__25127 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__ResultIssue__MessageAssignment_2_in_rule__ResultIssue__Group__2__Impl5154 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__ResultIssue__Group__3__Impl_in_rule__ResultIssue__Group__35184 = new BitSet(new long[]{0x00000000010C0000L});
-    public static final BitSet FOLLOW_rule__ResultIssue__Group__4_in_rule__ResultIssue__Group__35187 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__ResultIssue__Group_3__0_in_rule__ResultIssue__Group__3__Impl5214 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__ResultIssue__Group__4__Impl_in_rule__ResultIssue__Group__45245 = new BitSet(new long[]{0x00000000010C0000L});
-    public static final BitSet FOLLOW_rule__ResultIssue__Group__5_in_rule__ResultIssue__Group__45248 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__ResultIssue__Group_4__0_in_rule__ResultIssue__Group__4__Impl5275 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__ResultIssue__Group__5__Impl_in_rule__ResultIssue__Group__55306 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__ResultIssue__Group_5__0_in_rule__ResultIssue__Group__5__Impl5333 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__ResultIssue__Group_3__0__Impl_in_rule__ResultIssue__Group_3__05376 = new BitSet(new long[]{0x0000000000000010L});
-    public static final BitSet FOLLOW_rule__ResultIssue__Group_3__1_in_rule__ResultIssue__Group_3__05379 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_19_in_rule__ResultIssue__Group_3__0__Impl5407 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__ResultIssue__Group_3__1__Impl_in_rule__ResultIssue__Group_3__15438 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__ResultIssue__TargetAssignment_3_1_in_rule__ResultIssue__Group_3__1__Impl5465 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__ResultIssue__Group_4__0__Impl_in_rule__ResultIssue__Group_4__05499 = new BitSet(new long[]{0x0000000000000010L});
-    public static final BitSet FOLLOW_rule__ResultIssue__Group_4__1_in_rule__ResultIssue__Group_4__05502 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_24_in_rule__ResultIssue__Group_4__0__Impl5530 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__ResultIssue__Group_4__1__Impl_in_rule__ResultIssue__Group_4__15561 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__ResultIssue__ExceptionTypeAssignment_4_1_in_rule__ResultIssue__Group_4__1__Impl5588 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__ResultIssue__Group_5__0__Impl_in_rule__ResultIssue__Group_5__05622 = new BitSet(new long[]{0x0000000040100000L});
-    public static final BitSet FOLLOW_rule__ResultIssue__Group_5__1_in_rule__ResultIssue__Group_5__05625 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_18_in_rule__ResultIssue__Group_5__0__Impl5653 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__ResultIssue__Group_5__1__Impl_in_rule__ResultIssue__Group_5__15684 = new BitSet(new long[]{0x0000000040100000L});
-    public static final BitSet FOLLOW_rule__ResultIssue__Group_5__2_in_rule__ResultIssue__Group_5__15687 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__ResultIssue__IssuesAssignment_5_1_in_rule__ResultIssue__Group_5__1__Impl5714 = new BitSet(new long[]{0x0000000040000002L});
-    public static final BitSet FOLLOW_rule__ResultIssue__Group_5__2__Impl_in_rule__ResultIssue__Group_5__25745 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_20_in_rule__ResultIssue__Group_5__2__Impl5773 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__ResultData__Group__0__Impl_in_rule__ResultData__Group__05810 = new BitSet(new long[]{0x0000000080000000L});
-    public static final BitSet FOLLOW_rule__ResultData__Group__1_in_rule__ResultData__Group__05813 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__ResultData__NameAssignment_0_in_rule__ResultData__Group__0__Impl5840 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__ResultData__Group__1__Impl_in_rule__ResultData__Group__15870 = new BitSet(new long[]{0x0000000000000010L});
-    public static final BitSet FOLLOW_rule__ResultData__Group__2_in_rule__ResultData__Group__15873 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_31_in_rule__ResultData__Group__1__Impl5901 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__ResultData__Group__2__Impl_in_rule__ResultData__Group__25932 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__ResultData__ValueAssignment_2_in_rule__ResultData__Group__2__Impl5959 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_RULE_ID_in_rule__ResultReportCollection__NameAssignment_16000 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_RULE_STRING_in_rule__ResultReportCollection__TitleAssignment_2_16031 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleURIID_in_rule__ResultReportCollection__TargetAssignment_56066 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_RULE_STRING_in_rule__ResultReportCollection__DecriptionAssignment_6_16101 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleResultReport_in_rule__ResultReportCollection__ContentAssignment_76132 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleResultIssue_in_rule__ResultReportCollection__IssuesAssignment_86163 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_RULE_ID_in_rule__ResultReport__NameAssignment_26194 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_RULE_STRING_in_rule__ResultReport__TitleAssignment_3_16225 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleURIID_in_rule__ResultReport__TargetAssignment_46260 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleResultIssueType_in_rule__ResultReport__IssueTypeAssignment_56295 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_RULE_STRING_in_rule__ResultReport__MessageAssignment_66326 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_RULE_STRING_in_rule__ResultReport__ExceptionTypeAssignment_7_16357 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_RULE_STRING_in_rule__ResultReport__DecriptionAssignment_9_16388 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_RULE_STRING_in_rule__ResultReport__HeadingAssignment_10_16419 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleResultContributor_in_rule__ResultReport__ContentAssignment_10_26450 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleResultData_in_rule__ResultReport__ResultDataAssignment_11_16481 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleResultIssue_in_rule__ResultReport__IssuesAssignment_126512 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleURIID_in_rule__ResultContributor__TargetAssignment_26547 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleResultIssueType_in_rule__ResultContributor__IssueTypeAssignment_36582 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_RULE_STRING_in_rule__ResultContributor__MessageAssignment_46613 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_RULE_STRING_in_rule__ResultContributor__ExceptionTypeAssignment_5_16644 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_RULE_STRING_in_rule__ResultContributor__CellAssignment_86675 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleResultIssue_in_rule__ResultContributor__IssuesAssignment_96706 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleResultContributor_in_rule__ResultContributor__SubcontributorAssignment_106737 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleResultIssueType_in_rule__IssueReport__IssueTypeAssignment_26768 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_RULE_STRING_in_rule__IssueReport__MessageAssignment_36799 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleURIID_in_rule__IssueReport__TargetAssignment_4_16834 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_RULE_STRING_in_rule__IssueReport__ExceptionTypeAssignment_5_16869 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleResultIssue_in_rule__IssueReport__IssuesAssignment_6_16900 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleResultIssueType_in_rule__ResultIssue__IssueTypeAssignment_16931 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_RULE_STRING_in_rule__ResultIssue__MessageAssignment_26962 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleURIID_in_rule__ResultIssue__TargetAssignment_3_16997 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_RULE_STRING_in_rule__ResultIssue__ExceptionTypeAssignment_4_17032 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleResultIssue_in_rule__ResultIssue__IssuesAssignment_5_17063 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_RULE_ID_in_rule__ResultData__NameAssignment_07094 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_RULE_STRING_in_rule__ResultData__ValueAssignment_27125 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_17_in_rule__ResultIssueType__Alternatives778 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__ResultReportCollection__Group__0__Impl_in_rule__ResultReportCollection__Group__0811 = new BitSet(new long[]{0x0000000000000020L});
+    public static final BitSet FOLLOW_rule__ResultReportCollection__Group__1_in_rule__ResultReportCollection__Group__0814 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_18_in_rule__ResultReportCollection__Group__0__Impl842 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__ResultReportCollection__Group__1__Impl_in_rule__ResultReportCollection__Group__1873 = new BitSet(new long[]{0x0000000000480000L});
+    public static final BitSet FOLLOW_rule__ResultReportCollection__Group__2_in_rule__ResultReportCollection__Group__1876 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__ResultReportCollection__NameAssignment_1_in_rule__ResultReportCollection__Group__1__Impl903 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__ResultReportCollection__Group__2__Impl_in_rule__ResultReportCollection__Group__2933 = new BitSet(new long[]{0x0000000000480000L});
+    public static final BitSet FOLLOW_rule__ResultReportCollection__Group__3_in_rule__ResultReportCollection__Group__2936 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__ResultReportCollection__Group_2__0_in_rule__ResultReportCollection__Group__2__Impl963 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__ResultReportCollection__Group__3__Impl_in_rule__ResultReportCollection__Group__3994 = new BitSet(new long[]{0x0000000000000010L});
+    public static final BitSet FOLLOW_rule__ResultReportCollection__Group__4_in_rule__ResultReportCollection__Group__3997 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_19_in_rule__ResultReportCollection__Group__3__Impl1025 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__ResultReportCollection__Group__4__Impl_in_rule__ResultReportCollection__Group__41056 = new BitSet(new long[]{0x0000000000100000L});
+    public static final BitSet FOLLOW_rule__ResultReportCollection__Group__5_in_rule__ResultReportCollection__Group__41059 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__ResultReportCollection__TargetAssignment_4_in_rule__ResultReportCollection__Group__4__Impl1086 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__ResultReportCollection__Group__5__Impl_in_rule__ResultReportCollection__Group__51116 = new BitSet(new long[]{0x0000000021A00000L});
+    public static final BitSet FOLLOW_rule__ResultReportCollection__Group__6_in_rule__ResultReportCollection__Group__51119 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_20_in_rule__ResultReportCollection__Group__5__Impl1147 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__ResultReportCollection__Group__6__Impl_in_rule__ResultReportCollection__Group__61178 = new BitSet(new long[]{0x0000000021A00000L});
+    public static final BitSet FOLLOW_rule__ResultReportCollection__Group__7_in_rule__ResultReportCollection__Group__61181 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__ResultReportCollection__Group_6__0_in_rule__ResultReportCollection__Group__6__Impl1208 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__ResultReportCollection__Group__7__Impl_in_rule__ResultReportCollection__Group__71239 = new BitSet(new long[]{0x0000000021A00000L});
+    public static final BitSet FOLLOW_rule__ResultReportCollection__Group__8_in_rule__ResultReportCollection__Group__71242 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__ResultReportCollection__ContentAssignment_7_in_rule__ResultReportCollection__Group__7__Impl1269 = new BitSet(new long[]{0x0000000001000002L});
+    public static final BitSet FOLLOW_rule__ResultReportCollection__Group__8__Impl_in_rule__ResultReportCollection__Group__81300 = new BitSet(new long[]{0x0000000021A00000L});
+    public static final BitSet FOLLOW_rule__ResultReportCollection__Group__9_in_rule__ResultReportCollection__Group__81303 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__ResultReportCollection__IssuesAssignment_8_in_rule__ResultReportCollection__Group__8__Impl1330 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__ResultReportCollection__Group__9__Impl_in_rule__ResultReportCollection__Group__91361 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_21_in_rule__ResultReportCollection__Group__9__Impl1389 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__ResultReportCollection__Group_2__0__Impl_in_rule__ResultReportCollection__Group_2__01440 = new BitSet(new long[]{0x0000000000000010L});
+    public static final BitSet FOLLOW_rule__ResultReportCollection__Group_2__1_in_rule__ResultReportCollection__Group_2__01443 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_22_in_rule__ResultReportCollection__Group_2__0__Impl1471 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__ResultReportCollection__Group_2__1__Impl_in_rule__ResultReportCollection__Group_2__11502 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__ResultReportCollection__TitleAssignment_2_1_in_rule__ResultReportCollection__Group_2__1__Impl1529 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__ResultReportCollection__Group_6__0__Impl_in_rule__ResultReportCollection__Group_6__01563 = new BitSet(new long[]{0x0000000000000010L});
+    public static final BitSet FOLLOW_rule__ResultReportCollection__Group_6__1_in_rule__ResultReportCollection__Group_6__01566 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_23_in_rule__ResultReportCollection__Group_6__0__Impl1594 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__ResultReportCollection__Group_6__1__Impl_in_rule__ResultReportCollection__Group_6__11625 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__ResultReportCollection__DecriptionAssignment_6_1_in_rule__ResultReportCollection__Group_6__1__Impl1652 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__ResultReport__Group__0__Impl_in_rule__ResultReport__Group__01686 = new BitSet(new long[]{0x0000000000000020L});
+    public static final BitSet FOLLOW_rule__ResultReport__Group__1_in_rule__ResultReport__Group__01689 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_24_in_rule__ResultReport__Group__0__Impl1717 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__ResultReport__Group__1__Impl_in_rule__ResultReport__Group__11748 = new BitSet(new long[]{0x0000000000480000L});
+    public static final BitSet FOLLOW_rule__ResultReport__Group__2_in_rule__ResultReport__Group__11751 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__ResultReport__NameAssignment_1_in_rule__ResultReport__Group__1__Impl1778 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__ResultReport__Group__2__Impl_in_rule__ResultReport__Group__21808 = new BitSet(new long[]{0x0000000000480000L});
+    public static final BitSet FOLLOW_rule__ResultReport__Group__3_in_rule__ResultReport__Group__21811 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__ResultReport__Group_2__0_in_rule__ResultReport__Group__2__Impl1838 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__ResultReport__Group__3__Impl_in_rule__ResultReport__Group__31869 = new BitSet(new long[]{0x0000000000000010L});
+    public static final BitSet FOLLOW_rule__ResultReport__Group__4_in_rule__ResultReport__Group__31872 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_19_in_rule__ResultReport__Group__3__Impl1900 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__ResultReport__Group__4__Impl_in_rule__ResultReport__Group__41931 = new BitSet(new long[]{0x0000000000100000L});
+    public static final BitSet FOLLOW_rule__ResultReport__Group__5_in_rule__ResultReport__Group__41934 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__ResultReport__TargetAssignment_4_in_rule__ResultReport__Group__4__Impl1961 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__ResultReport__Group__5__Impl_in_rule__ResultReport__Group__51991 = new BitSet(new long[]{0x0000000026A00000L});
+    public static final BitSet FOLLOW_rule__ResultReport__Group__6_in_rule__ResultReport__Group__51994 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_20_in_rule__ResultReport__Group__5__Impl2022 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__ResultReport__Group__6__Impl_in_rule__ResultReport__Group__62053 = new BitSet(new long[]{0x0000000026A00000L});
+    public static final BitSet FOLLOW_rule__ResultReport__Group__7_in_rule__ResultReport__Group__62056 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__ResultReport__Group_6__0_in_rule__ResultReport__Group__6__Impl2083 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__ResultReport__Group__7__Impl_in_rule__ResultReport__Group__72114 = new BitSet(new long[]{0x0000000026A00000L});
+    public static final BitSet FOLLOW_rule__ResultReport__Group__8_in_rule__ResultReport__Group__72117 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__ResultReport__Group_7__0_in_rule__ResultReport__Group__7__Impl2144 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__ResultReport__Group__8__Impl_in_rule__ResultReport__Group__82175 = new BitSet(new long[]{0x0000000026A00000L});
+    public static final BitSet FOLLOW_rule__ResultReport__Group__9_in_rule__ResultReport__Group__82178 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__ResultReport__Group_8__0_in_rule__ResultReport__Group__8__Impl2205 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__ResultReport__Group__9__Impl_in_rule__ResultReport__Group__92236 = new BitSet(new long[]{0x0000000026A00000L});
+    public static final BitSet FOLLOW_rule__ResultReport__Group__10_in_rule__ResultReport__Group__92239 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__ResultReport__IssuesAssignment_9_in_rule__ResultReport__Group__9__Impl2266 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__ResultReport__Group__10__Impl_in_rule__ResultReport__Group__102297 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_21_in_rule__ResultReport__Group__10__Impl2325 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__ResultReport__Group_2__0__Impl_in_rule__ResultReport__Group_2__02378 = new BitSet(new long[]{0x0000000000000010L});
+    public static final BitSet FOLLOW_rule__ResultReport__Group_2__1_in_rule__ResultReport__Group_2__02381 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_22_in_rule__ResultReport__Group_2__0__Impl2409 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__ResultReport__Group_2__1__Impl_in_rule__ResultReport__Group_2__12440 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__ResultReport__TitleAssignment_2_1_in_rule__ResultReport__Group_2__1__Impl2467 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__ResultReport__Group_6__0__Impl_in_rule__ResultReport__Group_6__02501 = new BitSet(new long[]{0x0000000000000010L});
+    public static final BitSet FOLLOW_rule__ResultReport__Group_6__1_in_rule__ResultReport__Group_6__02504 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_23_in_rule__ResultReport__Group_6__0__Impl2532 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__ResultReport__Group_6__1__Impl_in_rule__ResultReport__Group_6__12563 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__ResultReport__DecriptionAssignment_6_1_in_rule__ResultReport__Group_6__1__Impl2590 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__ResultReport__Group_7__0__Impl_in_rule__ResultReport__Group_7__02624 = new BitSet(new long[]{0x0000000000000010L});
+    public static final BitSet FOLLOW_rule__ResultReport__Group_7__1_in_rule__ResultReport__Group_7__02627 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_25_in_rule__ResultReport__Group_7__0__Impl2655 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__ResultReport__Group_7__1__Impl_in_rule__ResultReport__Group_7__12686 = new BitSet(new long[]{0x0000000008000000L});
+    public static final BitSet FOLLOW_rule__ResultReport__Group_7__2_in_rule__ResultReport__Group_7__12689 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__ResultReport__HeadingAssignment_7_1_in_rule__ResultReport__Group_7__1__Impl2716 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__ResultReport__Group_7__2__Impl_in_rule__ResultReport__Group_7__22746 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__ResultReport__ContentAssignment_7_2_in_rule__ResultReport__Group_7__2__Impl2773 = new BitSet(new long[]{0x0000000008000002L});
+    public static final BitSet FOLLOW_rule__ResultReport__Group_8__0__Impl_in_rule__ResultReport__Group_8__02810 = new BitSet(new long[]{0x0000000000000020L});
+    public static final BitSet FOLLOW_rule__ResultReport__Group_8__1_in_rule__ResultReport__Group_8__02813 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_26_in_rule__ResultReport__Group_8__0__Impl2841 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__ResultReport__Group_8__1__Impl_in_rule__ResultReport__Group_8__12872 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__ResultReport__ResultDataAssignment_8_1_in_rule__ResultReport__Group_8__1__Impl2901 = new BitSet(new long[]{0x0000000000000022L});
+    public static final BitSet FOLLOW_rule__ResultReport__ResultDataAssignment_8_1_in_rule__ResultReport__Group_8__1__Impl2913 = new BitSet(new long[]{0x0000000000000022L});
+    public static final BitSet FOLLOW_rule__ResultContributor__Group__0__Impl_in_rule__ResultContributor__Group__02950 = new BitSet(new long[]{0x0000000000000010L});
+    public static final BitSet FOLLOW_rule__ResultContributor__Group__1_in_rule__ResultContributor__Group__02953 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_27_in_rule__ResultContributor__Group__0__Impl2981 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__ResultContributor__Group__1__Impl_in_rule__ResultContributor__Group__13012 = new BitSet(new long[]{0x0000000000100000L});
+    public static final BitSet FOLLOW_rule__ResultContributor__Group__2_in_rule__ResultContributor__Group__13015 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__ResultContributor__TargetAssignment_1_in_rule__ResultContributor__Group__1__Impl3042 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__ResultContributor__Group__2__Impl_in_rule__ResultContributor__Group__23072 = new BitSet(new long[]{0x000000002C200000L});
+    public static final BitSet FOLLOW_rule__ResultContributor__Group__3_in_rule__ResultContributor__Group__23075 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_20_in_rule__ResultContributor__Group__2__Impl3103 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__ResultContributor__Group__3__Impl_in_rule__ResultContributor__Group__33134 = new BitSet(new long[]{0x000000002C200000L});
+    public static final BitSet FOLLOW_rule__ResultContributor__Group__4_in_rule__ResultContributor__Group__33137 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__ResultContributor__Group_3__0_in_rule__ResultContributor__Group__3__Impl3164 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__ResultContributor__Group__4__Impl_in_rule__ResultContributor__Group__43195 = new BitSet(new long[]{0x000000002C200000L});
+    public static final BitSet FOLLOW_rule__ResultContributor__Group__5_in_rule__ResultContributor__Group__43198 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__ResultContributor__IssuesAssignment_4_in_rule__ResultContributor__Group__4__Impl3225 = new BitSet(new long[]{0x0000000020000002L});
+    public static final BitSet FOLLOW_rule__ResultContributor__Group__5__Impl_in_rule__ResultContributor__Group__53256 = new BitSet(new long[]{0x000000002C200000L});
+    public static final BitSet FOLLOW_rule__ResultContributor__Group__6_in_rule__ResultContributor__Group__53259 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__ResultContributor__SubcontributorAssignment_5_in_rule__ResultContributor__Group__5__Impl3286 = new BitSet(new long[]{0x0000000008000002L});
+    public static final BitSet FOLLOW_rule__ResultContributor__Group__6__Impl_in_rule__ResultContributor__Group__63317 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_21_in_rule__ResultContributor__Group__6__Impl3345 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__ResultContributor__Group_3__0__Impl_in_rule__ResultContributor__Group_3__03390 = new BitSet(new long[]{0x0000000000000020L});
+    public static final BitSet FOLLOW_rule__ResultContributor__Group_3__1_in_rule__ResultContributor__Group_3__03393 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_26_in_rule__ResultContributor__Group_3__0__Impl3421 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__ResultContributor__Group_3__1__Impl_in_rule__ResultContributor__Group_3__13452 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__ResultContributor__ResultDataAssignment_3_1_in_rule__ResultContributor__Group_3__1__Impl3481 = new BitSet(new long[]{0x0000000000000022L});
+    public static final BitSet FOLLOW_rule__ResultContributor__ResultDataAssignment_3_1_in_rule__ResultContributor__Group_3__1__Impl3493 = new BitSet(new long[]{0x0000000000000022L});
+    public static final BitSet FOLLOW_rule__IssuesReport__Group__0__Impl_in_rule__IssuesReport__Group__03530 = new BitSet(new long[]{0x0000000000000020L});
+    public static final BitSet FOLLOW_rule__IssuesReport__Group__1_in_rule__IssuesReport__Group__03533 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_28_in_rule__IssuesReport__Group__0__Impl3561 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__IssuesReport__Group__1__Impl_in_rule__IssuesReport__Group__13592 = new BitSet(new long[]{0x0000000000180000L});
+    public static final BitSet FOLLOW_rule__IssuesReport__Group__2_in_rule__IssuesReport__Group__13595 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__IssuesReport__NameAssignment_1_in_rule__IssuesReport__Group__1__Impl3622 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__IssuesReport__Group__2__Impl_in_rule__IssuesReport__Group__23652 = new BitSet(new long[]{0x0000000000180000L});
+    public static final BitSet FOLLOW_rule__IssuesReport__Group__3_in_rule__IssuesReport__Group__23655 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__IssuesReport__Group_2__0_in_rule__IssuesReport__Group__2__Impl3682 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__IssuesReport__Group__3__Impl_in_rule__IssuesReport__Group__33713 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__IssuesReport__Group_3__0_in_rule__IssuesReport__Group__3__Impl3740 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__IssuesReport__Group_2__0__Impl_in_rule__IssuesReport__Group_2__03779 = new BitSet(new long[]{0x0000000000000010L});
+    public static final BitSet FOLLOW_rule__IssuesReport__Group_2__1_in_rule__IssuesReport__Group_2__03782 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_19_in_rule__IssuesReport__Group_2__0__Impl3810 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__IssuesReport__Group_2__1__Impl_in_rule__IssuesReport__Group_2__13841 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__IssuesReport__TargetAssignment_2_1_in_rule__IssuesReport__Group_2__1__Impl3868 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__IssuesReport__Group_3__0__Impl_in_rule__IssuesReport__Group_3__03902 = new BitSet(new long[]{0x0000000020A00000L});
+    public static final BitSet FOLLOW_rule__IssuesReport__Group_3__1_in_rule__IssuesReport__Group_3__03905 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_20_in_rule__IssuesReport__Group_3__0__Impl3933 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__IssuesReport__Group_3__1__Impl_in_rule__IssuesReport__Group_3__13964 = new BitSet(new long[]{0x0000000020A00000L});
+    public static final BitSet FOLLOW_rule__IssuesReport__Group_3__2_in_rule__IssuesReport__Group_3__13967 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__IssuesReport__Group_3_1__0_in_rule__IssuesReport__Group_3__1__Impl3994 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__IssuesReport__Group_3__2__Impl_in_rule__IssuesReport__Group_3__24025 = new BitSet(new long[]{0x0000000020A00000L});
+    public static final BitSet FOLLOW_rule__IssuesReport__Group_3__3_in_rule__IssuesReport__Group_3__24028 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__IssuesReport__IssuesAssignment_3_2_in_rule__IssuesReport__Group_3__2__Impl4055 = new BitSet(new long[]{0x0000000020000002L});
+    public static final BitSet FOLLOW_rule__IssuesReport__Group_3__3__Impl_in_rule__IssuesReport__Group_3__34086 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_21_in_rule__IssuesReport__Group_3__3__Impl4114 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__IssuesReport__Group_3_1__0__Impl_in_rule__IssuesReport__Group_3_1__04153 = new BitSet(new long[]{0x0000000000000010L});
+    public static final BitSet FOLLOW_rule__IssuesReport__Group_3_1__1_in_rule__IssuesReport__Group_3_1__04156 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_23_in_rule__IssuesReport__Group_3_1__0__Impl4184 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__IssuesReport__Group_3_1__1__Impl_in_rule__IssuesReport__Group_3_1__14215 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__IssuesReport__DescriptionAssignment_3_1_1_in_rule__IssuesReport__Group_3_1__1__Impl4242 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__ResultIssue__Group__0__Impl_in_rule__ResultIssue__Group__04276 = new BitSet(new long[]{0x000000000003F800L});
+    public static final BitSet FOLLOW_rule__ResultIssue__Group__1_in_rule__ResultIssue__Group__04279 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_29_in_rule__ResultIssue__Group__0__Impl4307 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__ResultIssue__Group__1__Impl_in_rule__ResultIssue__Group__14338 = new BitSet(new long[]{0x0000000000000010L});
+    public static final BitSet FOLLOW_rule__ResultIssue__Group__2_in_rule__ResultIssue__Group__14341 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__ResultIssue__IssueTypeAssignment_1_in_rule__ResultIssue__Group__1__Impl4368 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__ResultIssue__Group__2__Impl_in_rule__ResultIssue__Group__24398 = new BitSet(new long[]{0x00000000C0100000L});
+    public static final BitSet FOLLOW_rule__ResultIssue__Group__3_in_rule__ResultIssue__Group__24401 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__ResultIssue__MessageAssignment_2_in_rule__ResultIssue__Group__2__Impl4428 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__ResultIssue__Group__3__Impl_in_rule__ResultIssue__Group__34458 = new BitSet(new long[]{0x00000000C0100000L});
+    public static final BitSet FOLLOW_rule__ResultIssue__Group__4_in_rule__ResultIssue__Group__34461 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__ResultIssue__Group_3__0_in_rule__ResultIssue__Group__3__Impl4488 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__ResultIssue__Group__4__Impl_in_rule__ResultIssue__Group__44519 = new BitSet(new long[]{0x00000000C0100000L});
+    public static final BitSet FOLLOW_rule__ResultIssue__Group__5_in_rule__ResultIssue__Group__44522 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__ResultIssue__Group_4__0_in_rule__ResultIssue__Group__4__Impl4549 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__ResultIssue__Group__5__Impl_in_rule__ResultIssue__Group__54580 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__ResultIssue__Group_5__0_in_rule__ResultIssue__Group__5__Impl4607 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__ResultIssue__Group_3__0__Impl_in_rule__ResultIssue__Group_3__04650 = new BitSet(new long[]{0x0000000000000010L});
+    public static final BitSet FOLLOW_rule__ResultIssue__Group_3__1_in_rule__ResultIssue__Group_3__04653 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_30_in_rule__ResultIssue__Group_3__0__Impl4681 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__ResultIssue__Group_3__1__Impl_in_rule__ResultIssue__Group_3__14712 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__ResultIssue__TargetAssignment_3_1_in_rule__ResultIssue__Group_3__1__Impl4739 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__ResultIssue__Group_4__0__Impl_in_rule__ResultIssue__Group_4__04773 = new BitSet(new long[]{0x0000000000000010L});
+    public static final BitSet FOLLOW_rule__ResultIssue__Group_4__1_in_rule__ResultIssue__Group_4__04776 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_31_in_rule__ResultIssue__Group_4__0__Impl4804 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__ResultIssue__Group_4__1__Impl_in_rule__ResultIssue__Group_4__14835 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__ResultIssue__ExceptionTypeAssignment_4_1_in_rule__ResultIssue__Group_4__1__Impl4862 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__ResultIssue__Group_5__0__Impl_in_rule__ResultIssue__Group_5__04896 = new BitSet(new long[]{0x0000000020200000L});
+    public static final BitSet FOLLOW_rule__ResultIssue__Group_5__1_in_rule__ResultIssue__Group_5__04899 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_20_in_rule__ResultIssue__Group_5__0__Impl4927 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__ResultIssue__Group_5__1__Impl_in_rule__ResultIssue__Group_5__14958 = new BitSet(new long[]{0x0000000020200000L});
+    public static final BitSet FOLLOW_rule__ResultIssue__Group_5__2_in_rule__ResultIssue__Group_5__14961 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__ResultIssue__IssuesAssignment_5_1_in_rule__ResultIssue__Group_5__1__Impl4988 = new BitSet(new long[]{0x0000000020000002L});
+    public static final BitSet FOLLOW_rule__ResultIssue__Group_5__2__Impl_in_rule__ResultIssue__Group_5__25019 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_21_in_rule__ResultIssue__Group_5__2__Impl5047 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__ResultData__Group__0__Impl_in_rule__ResultData__Group__05084 = new BitSet(new long[]{0x0000000100000000L});
+    public static final BitSet FOLLOW_rule__ResultData__Group__1_in_rule__ResultData__Group__05087 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__ResultData__NameAssignment_0_in_rule__ResultData__Group__0__Impl5114 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__ResultData__Group__1__Impl_in_rule__ResultData__Group__15144 = new BitSet(new long[]{0x0000000000000010L});
+    public static final BitSet FOLLOW_rule__ResultData__Group__2_in_rule__ResultData__Group__15147 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_32_in_rule__ResultData__Group__1__Impl5175 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__ResultData__Group__2__Impl_in_rule__ResultData__Group__25206 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__ResultData__ValueAssignment_2_in_rule__ResultData__Group__2__Impl5233 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_RULE_ID_in_rule__ResultReportCollection__NameAssignment_15274 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_RULE_STRING_in_rule__ResultReportCollection__TitleAssignment_2_15305 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleURIID_in_rule__ResultReportCollection__TargetAssignment_45340 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_RULE_STRING_in_rule__ResultReportCollection__DecriptionAssignment_6_15375 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleResultReport_in_rule__ResultReportCollection__ContentAssignment_75406 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleResultIssue_in_rule__ResultReportCollection__IssuesAssignment_85437 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_RULE_ID_in_rule__ResultReport__NameAssignment_15468 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_RULE_STRING_in_rule__ResultReport__TitleAssignment_2_15499 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleURIID_in_rule__ResultReport__TargetAssignment_45534 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_RULE_STRING_in_rule__ResultReport__DecriptionAssignment_6_15569 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_RULE_STRING_in_rule__ResultReport__HeadingAssignment_7_15600 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleResultContributor_in_rule__ResultReport__ContentAssignment_7_25631 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleResultData_in_rule__ResultReport__ResultDataAssignment_8_15662 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleResultIssue_in_rule__ResultReport__IssuesAssignment_95693 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleURIID_in_rule__ResultContributor__TargetAssignment_15728 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleResultData_in_rule__ResultContributor__ResultDataAssignment_3_15763 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleResultIssue_in_rule__ResultContributor__IssuesAssignment_45794 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleResultContributor_in_rule__ResultContributor__SubcontributorAssignment_55825 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_RULE_ID_in_rule__IssuesReport__NameAssignment_15856 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleURIID_in_rule__IssuesReport__TargetAssignment_2_15891 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_RULE_STRING_in_rule__IssuesReport__DescriptionAssignment_3_1_15926 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleResultIssue_in_rule__IssuesReport__IssuesAssignment_3_25957 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleResultIssueType_in_rule__ResultIssue__IssueTypeAssignment_15988 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_RULE_STRING_in_rule__ResultIssue__MessageAssignment_26019 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleURIID_in_rule__ResultIssue__TargetAssignment_3_16054 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_RULE_STRING_in_rule__ResultIssue__ExceptionTypeAssignment_4_16089 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleResultIssue_in_rule__ResultIssue__IssuesAssignment_5_16120 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_RULE_ID_in_rule__ResultData__NameAssignment_06151 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_RULE_STRING_in_rule__ResultData__ValueAssignment_26182 = new BitSet(new long[]{0x0000000000000002L});
 
 }

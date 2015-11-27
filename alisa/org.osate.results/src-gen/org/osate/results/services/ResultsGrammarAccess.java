@@ -35,13 +35,13 @@ public class ResultsGrammarAccess extends AbstractGrammarElementFinder {
 		private final Alternatives cAlternatives = (Alternatives)rule.eContents().get(1);
 		private final RuleCall cResultReportParserRuleCall_0 = (RuleCall)cAlternatives.eContents().get(0);
 		private final RuleCall cResultReportCollectionParserRuleCall_1 = (RuleCall)cAlternatives.eContents().get(1);
-		private final RuleCall cIssueReportParserRuleCall_2 = (RuleCall)cAlternatives.eContents().get(2);
+		private final RuleCall cIssuesReportParserRuleCall_2 = (RuleCall)cAlternatives.eContents().get(2);
 		
 		//ResultReports:
-		//	ResultReport | ResultReportCollection | IssueReport;
+		//	ResultReport | ResultReportCollection | IssuesReport;
 		@Override public ParserRule getRule() { return rule; }
 
-		//ResultReport | ResultReportCollection | IssueReport
+		//ResultReport | ResultReportCollection | IssuesReport
 		public Alternatives getAlternatives() { return cAlternatives; }
 
 		//ResultReport
@@ -50,8 +50,8 @@ public class ResultsGrammarAccess extends AbstractGrammarElementFinder {
 		//ResultReportCollection
 		public RuleCall getResultReportCollectionParserRuleCall_1() { return cResultReportCollectionParserRuleCall_1; }
 
-		//IssueReport
-		public RuleCall getIssueReportParserRuleCall_2() { return cIssueReportParserRuleCall_2; }
+		//IssuesReport
+		public RuleCall getIssuesReportParserRuleCall_2() { return cIssuesReportParserRuleCall_2; }
 	}
 
 	public class ResultReportCollectionElements extends AbstractParserRuleElementFinder {
@@ -64,11 +64,11 @@ public class ResultsGrammarAccess extends AbstractGrammarElementFinder {
 		private final Keyword cColonKeyword_2_0 = (Keyword)cGroup_2.eContents().get(0);
 		private final Assignment cTitleAssignment_2_1 = (Assignment)cGroup_2.eContents().get(1);
 		private final RuleCall cTitleSTRINGTerminalRuleCall_2_1_0 = (RuleCall)cTitleAssignment_2_1.eContents().get(0);
-		private final Keyword cLeftSquareBracketKeyword_3 = (Keyword)cGroup.eContents().get(3);
-		private final Keyword cTargetKeyword_4 = (Keyword)cGroup.eContents().get(4);
-		private final Assignment cTargetAssignment_5 = (Assignment)cGroup.eContents().get(5);
-		private final CrossReference cTargetEObjectCrossReference_5_0 = (CrossReference)cTargetAssignment_5.eContents().get(0);
-		private final RuleCall cTargetEObjectURIIDParserRuleCall_5_0_1 = (RuleCall)cTargetEObjectCrossReference_5_0.eContents().get(1);
+		private final Keyword cForKeyword_3 = (Keyword)cGroup.eContents().get(3);
+		private final Assignment cTargetAssignment_4 = (Assignment)cGroup.eContents().get(4);
+		private final CrossReference cTargetEObjectCrossReference_4_0 = (CrossReference)cTargetAssignment_4.eContents().get(0);
+		private final RuleCall cTargetEObjectURIIDParserRuleCall_4_0_1 = (RuleCall)cTargetEObjectCrossReference_4_0.eContents().get(1);
+		private final Keyword cLeftSquareBracketKeyword_5 = (Keyword)cGroup.eContents().get(5);
 		private final Group cGroup_6 = (Group)cGroup.eContents().get(6);
 		private final Keyword cDescriptionKeyword_6_0 = (Keyword)cGroup_6.eContents().get(0);
 		private final Assignment cDecriptionAssignment_6_1 = (Assignment)cGroup_6.eContents().get(1);
@@ -81,12 +81,12 @@ public class ResultsGrammarAccess extends AbstractGrammarElementFinder {
 		
 		//// Collection of reports for an instance model (root), e.g., for collection of end to end flows
 		//ResultReportCollection:
-		//	"reports" name=ID (":" title=STRING)? "[" "target" target= // system instance or other EObject
-		//	[ecore::EObject|URIID] ("description" decription=STRING)? content+=ResultReport* issues+=ResultIssue? "]";
+		//	"reports" name=ID (":" title=STRING)? "for" target= // system instance or other EObject
+		//	[ecore::EObject|URIID] "[" ("description" decription=STRING)? content+=ResultReport* issues+=ResultIssue? "]";
 		@Override public ParserRule getRule() { return rule; }
 
-		//"reports" name=ID (":" title=STRING)? "[" "target" target= // system instance or other EObject
-		//[ecore::EObject|URIID] ("description" decription=STRING)? content+=ResultReport* issues+=ResultIssue? "]"
+		//"reports" name=ID (":" title=STRING)? "for" target= // system instance or other EObject
+		//[ecore::EObject|URIID] "[" ("description" decription=STRING)? content+=ResultReport* issues+=ResultIssue? "]"
 		public Group getGroup() { return cGroup; }
 
 		//"reports"
@@ -110,22 +110,22 @@ public class ResultsGrammarAccess extends AbstractGrammarElementFinder {
 		//STRING
 		public RuleCall getTitleSTRINGTerminalRuleCall_2_1_0() { return cTitleSTRINGTerminalRuleCall_2_1_0; }
 
-		//"["
-		public Keyword getLeftSquareBracketKeyword_3() { return cLeftSquareBracketKeyword_3; }
-
-		//"target"
-		public Keyword getTargetKeyword_4() { return cTargetKeyword_4; }
+		//"for"
+		public Keyword getForKeyword_3() { return cForKeyword_3; }
 
 		//target= // system instance or other EObject
 		//[ecore::EObject|URIID]
-		public Assignment getTargetAssignment_5() { return cTargetAssignment_5; }
+		public Assignment getTargetAssignment_4() { return cTargetAssignment_4; }
 
 		//// system instance or other EObject
 		//[ecore::EObject|URIID]
-		public CrossReference getTargetEObjectCrossReference_5_0() { return cTargetEObjectCrossReference_5_0; }
+		public CrossReference getTargetEObjectCrossReference_4_0() { return cTargetEObjectCrossReference_4_0; }
 
 		//URIID
-		public RuleCall getTargetEObjectURIIDParserRuleCall_5_0_1() { return cTargetEObjectURIIDParserRuleCall_5_0_1; }
+		public RuleCall getTargetEObjectURIIDParserRuleCall_4_0_1() { return cTargetEObjectURIIDParserRuleCall_4_0_1; }
+
+		//"["
+		public Keyword getLeftSquareBracketKeyword_5() { return cLeftSquareBracketKeyword_5; }
 
 		//("description" decription=STRING)?
 		public Group getGroup_6() { return cGroup_6; }
@@ -158,83 +158,73 @@ public class ResultsGrammarAccess extends AbstractGrammarElementFinder {
 	public class ResultReportElements extends AbstractParserRuleElementFinder {
 		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "ResultReport");
 		private final Group cGroup = (Group)rule.eContents().get(1);
-		private final Action cResultReportAction_0 = (Action)cGroup.eContents().get(0);
-		private final Keyword cReportKeyword_1 = (Keyword)cGroup.eContents().get(1);
-		private final Assignment cNameAssignment_2 = (Assignment)cGroup.eContents().get(2);
-		private final RuleCall cNameIDTerminalRuleCall_2_0 = (RuleCall)cNameAssignment_2.eContents().get(0);
-		private final Group cGroup_3 = (Group)cGroup.eContents().get(3);
-		private final Keyword cColonKeyword_3_0 = (Keyword)cGroup_3.eContents().get(0);
-		private final Assignment cTitleAssignment_3_1 = (Assignment)cGroup_3.eContents().get(1);
-		private final RuleCall cTitleSTRINGTerminalRuleCall_3_1_0 = (RuleCall)cTitleAssignment_3_1.eContents().get(0);
+		private final Keyword cReportKeyword_0 = (Keyword)cGroup.eContents().get(0);
+		private final Assignment cNameAssignment_1 = (Assignment)cGroup.eContents().get(1);
+		private final RuleCall cNameIDTerminalRuleCall_1_0 = (RuleCall)cNameAssignment_1.eContents().get(0);
+		private final Group cGroup_2 = (Group)cGroup.eContents().get(2);
+		private final Keyword cColonKeyword_2_0 = (Keyword)cGroup_2.eContents().get(0);
+		private final Assignment cTitleAssignment_2_1 = (Assignment)cGroup_2.eContents().get(1);
+		private final RuleCall cTitleSTRINGTerminalRuleCall_2_1_0 = (RuleCall)cTitleAssignment_2_1.eContents().get(0);
+		private final Keyword cForKeyword_3 = (Keyword)cGroup.eContents().get(3);
 		private final Assignment cTargetAssignment_4 = (Assignment)cGroup.eContents().get(4);
 		private final CrossReference cTargetEObjectCrossReference_4_0 = (CrossReference)cTargetAssignment_4.eContents().get(0);
 		private final RuleCall cTargetEObjectURIIDParserRuleCall_4_0_1 = (RuleCall)cTargetEObjectCrossReference_4_0.eContents().get(1);
-		private final Assignment cIssueTypeAssignment_5 = (Assignment)cGroup.eContents().get(5);
-		private final RuleCall cIssueTypeResultIssueTypeEnumRuleCall_5_0 = (RuleCall)cIssueTypeAssignment_5.eContents().get(0);
-		private final Assignment cMessageAssignment_6 = (Assignment)cGroup.eContents().get(6);
-		private final RuleCall cMessageSTRINGTerminalRuleCall_6_0 = (RuleCall)cMessageAssignment_6.eContents().get(0);
+		private final Keyword cLeftSquareBracketKeyword_5 = (Keyword)cGroup.eContents().get(5);
+		private final Group cGroup_6 = (Group)cGroup.eContents().get(6);
+		private final Keyword cDescriptionKeyword_6_0 = (Keyword)cGroup_6.eContents().get(0);
+		private final Assignment cDecriptionAssignment_6_1 = (Assignment)cGroup_6.eContents().get(1);
+		private final RuleCall cDecriptionSTRINGTerminalRuleCall_6_1_0 = (RuleCall)cDecriptionAssignment_6_1.eContents().get(0);
 		private final Group cGroup_7 = (Group)cGroup.eContents().get(7);
-		private final Keyword cExceptionKeyword_7_0 = (Keyword)cGroup_7.eContents().get(0);
-		private final Assignment cExceptionTypeAssignment_7_1 = (Assignment)cGroup_7.eContents().get(1);
-		private final RuleCall cExceptionTypeSTRINGTerminalRuleCall_7_1_0 = (RuleCall)cExceptionTypeAssignment_7_1.eContents().get(0);
-		private final Keyword cLeftSquareBracketKeyword_8 = (Keyword)cGroup.eContents().get(8);
-		private final Group cGroup_9 = (Group)cGroup.eContents().get(9);
-		private final Keyword cDescriptionKeyword_9_0 = (Keyword)cGroup_9.eContents().get(0);
-		private final Assignment cDecriptionAssignment_9_1 = (Assignment)cGroup_9.eContents().get(1);
-		private final RuleCall cDecriptionSTRINGTerminalRuleCall_9_1_0 = (RuleCall)cDecriptionAssignment_9_1.eContents().get(0);
-		private final Group cGroup_10 = (Group)cGroup.eContents().get(10);
-		private final Keyword cHeadingKeyword_10_0 = (Keyword)cGroup_10.eContents().get(0);
-		private final Assignment cHeadingAssignment_10_1 = (Assignment)cGroup_10.eContents().get(1);
-		private final RuleCall cHeadingSTRINGTerminalRuleCall_10_1_0 = (RuleCall)cHeadingAssignment_10_1.eContents().get(0);
-		private final Assignment cContentAssignment_10_2 = (Assignment)cGroup_10.eContents().get(2);
-		private final RuleCall cContentResultContributorParserRuleCall_10_2_0 = (RuleCall)cContentAssignment_10_2.eContents().get(0);
-		private final Group cGroup_11 = (Group)cGroup.eContents().get(11);
-		private final Keyword cResultsKeyword_11_0 = (Keyword)cGroup_11.eContents().get(0);
-		private final Assignment cResultDataAssignment_11_1 = (Assignment)cGroup_11.eContents().get(1);
-		private final RuleCall cResultDataResultDataParserRuleCall_11_1_0 = (RuleCall)cResultDataAssignment_11_1.eContents().get(0);
-		private final Assignment cIssuesAssignment_12 = (Assignment)cGroup.eContents().get(12);
-		private final RuleCall cIssuesResultIssueParserRuleCall_12_0 = (RuleCall)cIssuesAssignment_12.eContents().get(0);
-		private final Keyword cRightSquareBracketKeyword_13 = (Keyword)cGroup.eContents().get(13);
+		private final Keyword cHeadingKeyword_7_0 = (Keyword)cGroup_7.eContents().get(0);
+		private final Assignment cHeadingAssignment_7_1 = (Assignment)cGroup_7.eContents().get(1);
+		private final RuleCall cHeadingSTRINGTerminalRuleCall_7_1_0 = (RuleCall)cHeadingAssignment_7_1.eContents().get(0);
+		private final Assignment cContentAssignment_7_2 = (Assignment)cGroup_7.eContents().get(2);
+		private final RuleCall cContentResultContributorParserRuleCall_7_2_0 = (RuleCall)cContentAssignment_7_2.eContents().get(0);
+		private final Group cGroup_8 = (Group)cGroup.eContents().get(8);
+		private final Keyword cResultsKeyword_8_0 = (Keyword)cGroup_8.eContents().get(0);
+		private final Assignment cResultDataAssignment_8_1 = (Assignment)cGroup_8.eContents().get(1);
+		private final RuleCall cResultDataResultDataParserRuleCall_8_1_0 = (RuleCall)cResultDataAssignment_8_1.eContents().get(0);
+		private final Assignment cIssuesAssignment_9 = (Assignment)cGroup.eContents().get(9);
+		private final RuleCall cIssuesResultIssueParserRuleCall_9_0 = (RuleCall)cIssuesAssignment_9.eContents().get(0);
+		private final Keyword cRightSquareBracketKeyword_10 = (Keyword)cGroup.eContents().get(10);
 		
 		//// one report of an analysis for one item in the instance model.
 		//// it may be a report per SOM or per end to end flow
 		//// result represents the result data that can be queried
-		//ResultReport returns ResultIssue:
-		//	{ResultReport} "report" name=ID (":" title=STRING)? target= // system instance or other EObject
-		//	[ecore::EObject|URIID] issueType=ResultIssueType message=STRING ("exception" exceptionType=STRING)? "[" ("description"
-		//	decription=STRING)? ("heading" heading=STRING content+=ResultContributor*)? ("results" resultData+=ResultData+)?
-		//	issues+=ResultIssue? "]";
+		//ResultReport:
+		//	"report" name=ID (":" title=STRING)? "for" target= // system instance or other EObject
+		//	[ecore::EObject|URIID] "[" ("description" decription=STRING)? ("heading" heading=STRING content+=ResultContributor*)?
+		//	("results" resultData+=ResultData+)? issues+=ResultIssue? "]";
 		@Override public ParserRule getRule() { return rule; }
 
-		//{ResultReport} "report" name=ID (":" title=STRING)? target= // system instance or other EObject
-		//[ecore::EObject|URIID] issueType=ResultIssueType message=STRING ("exception" exceptionType=STRING)? "[" ("description"
-		//decription=STRING)? ("heading" heading=STRING content+=ResultContributor*)? ("results" resultData+=ResultData+)?
-		//issues+=ResultIssue? "]"
+		//"report" name=ID (":" title=STRING)? "for" target= // system instance or other EObject
+		//[ecore::EObject|URIID] "[" ("description" decription=STRING)? ("heading" heading=STRING content+=ResultContributor*)?
+		//("results" resultData+=ResultData+)? issues+=ResultIssue? "]"
 		public Group getGroup() { return cGroup; }
 
-		//{ResultReport}
-		public Action getResultReportAction_0() { return cResultReportAction_0; }
-
 		//"report"
-		public Keyword getReportKeyword_1() { return cReportKeyword_1; }
+		public Keyword getReportKeyword_0() { return cReportKeyword_0; }
 
 		//name=ID
-		public Assignment getNameAssignment_2() { return cNameAssignment_2; }
+		public Assignment getNameAssignment_1() { return cNameAssignment_1; }
 
 		//ID
-		public RuleCall getNameIDTerminalRuleCall_2_0() { return cNameIDTerminalRuleCall_2_0; }
+		public RuleCall getNameIDTerminalRuleCall_1_0() { return cNameIDTerminalRuleCall_1_0; }
 
 		//(":" title=STRING)?
-		public Group getGroup_3() { return cGroup_3; }
+		public Group getGroup_2() { return cGroup_2; }
 
 		//":"
-		public Keyword getColonKeyword_3_0() { return cColonKeyword_3_0; }
+		public Keyword getColonKeyword_2_0() { return cColonKeyword_2_0; }
 
 		//title=STRING
-		public Assignment getTitleAssignment_3_1() { return cTitleAssignment_3_1; }
+		public Assignment getTitleAssignment_2_1() { return cTitleAssignment_2_1; }
 
 		//STRING
-		public RuleCall getTitleSTRINGTerminalRuleCall_3_1_0() { return cTitleSTRINGTerminalRuleCall_3_1_0; }
+		public RuleCall getTitleSTRINGTerminalRuleCall_2_1_0() { return cTitleSTRINGTerminalRuleCall_2_1_0; }
+
+		//"for"
+		public Keyword getForKeyword_3() { return cForKeyword_3; }
 
 		//target= // system instance or other EObject
 		//[ecore::EObject|URIID]
@@ -247,287 +237,219 @@ public class ResultsGrammarAccess extends AbstractGrammarElementFinder {
 		//URIID
 		public RuleCall getTargetEObjectURIIDParserRuleCall_4_0_1() { return cTargetEObjectURIIDParserRuleCall_4_0_1; }
 
-		//issueType=ResultIssueType
-		public Assignment getIssueTypeAssignment_5() { return cIssueTypeAssignment_5; }
-
-		//ResultIssueType
-		public RuleCall getIssueTypeResultIssueTypeEnumRuleCall_5_0() { return cIssueTypeResultIssueTypeEnumRuleCall_5_0; }
-
-		//message=STRING
-		public Assignment getMessageAssignment_6() { return cMessageAssignment_6; }
-
-		//STRING
-		public RuleCall getMessageSTRINGTerminalRuleCall_6_0() { return cMessageSTRINGTerminalRuleCall_6_0; }
-
-		//("exception" exceptionType=STRING)?
-		public Group getGroup_7() { return cGroup_7; }
-
-		//"exception"
-		public Keyword getExceptionKeyword_7_0() { return cExceptionKeyword_7_0; }
-
-		//exceptionType=STRING
-		public Assignment getExceptionTypeAssignment_7_1() { return cExceptionTypeAssignment_7_1; }
-
-		//STRING
-		public RuleCall getExceptionTypeSTRINGTerminalRuleCall_7_1_0() { return cExceptionTypeSTRINGTerminalRuleCall_7_1_0; }
-
 		//"["
-		public Keyword getLeftSquareBracketKeyword_8() { return cLeftSquareBracketKeyword_8; }
+		public Keyword getLeftSquareBracketKeyword_5() { return cLeftSquareBracketKeyword_5; }
 
 		//("description" decription=STRING)?
-		public Group getGroup_9() { return cGroup_9; }
+		public Group getGroup_6() { return cGroup_6; }
 
 		//"description"
-		public Keyword getDescriptionKeyword_9_0() { return cDescriptionKeyword_9_0; }
+		public Keyword getDescriptionKeyword_6_0() { return cDescriptionKeyword_6_0; }
 
 		//decription=STRING
-		public Assignment getDecriptionAssignment_9_1() { return cDecriptionAssignment_9_1; }
+		public Assignment getDecriptionAssignment_6_1() { return cDecriptionAssignment_6_1; }
 
 		//STRING
-		public RuleCall getDecriptionSTRINGTerminalRuleCall_9_1_0() { return cDecriptionSTRINGTerminalRuleCall_9_1_0; }
+		public RuleCall getDecriptionSTRINGTerminalRuleCall_6_1_0() { return cDecriptionSTRINGTerminalRuleCall_6_1_0; }
 
 		//("heading" heading=STRING content+=ResultContributor*)?
-		public Group getGroup_10() { return cGroup_10; }
+		public Group getGroup_7() { return cGroup_7; }
 
 		//"heading"
-		public Keyword getHeadingKeyword_10_0() { return cHeadingKeyword_10_0; }
+		public Keyword getHeadingKeyword_7_0() { return cHeadingKeyword_7_0; }
 
 		//heading=STRING
-		public Assignment getHeadingAssignment_10_1() { return cHeadingAssignment_10_1; }
+		public Assignment getHeadingAssignment_7_1() { return cHeadingAssignment_7_1; }
 
 		//STRING
-		public RuleCall getHeadingSTRINGTerminalRuleCall_10_1_0() { return cHeadingSTRINGTerminalRuleCall_10_1_0; }
+		public RuleCall getHeadingSTRINGTerminalRuleCall_7_1_0() { return cHeadingSTRINGTerminalRuleCall_7_1_0; }
 
 		//content+=ResultContributor*
-		public Assignment getContentAssignment_10_2() { return cContentAssignment_10_2; }
+		public Assignment getContentAssignment_7_2() { return cContentAssignment_7_2; }
 
 		//ResultContributor
-		public RuleCall getContentResultContributorParserRuleCall_10_2_0() { return cContentResultContributorParserRuleCall_10_2_0; }
+		public RuleCall getContentResultContributorParserRuleCall_7_2_0() { return cContentResultContributorParserRuleCall_7_2_0; }
 
 		//("results" resultData+=ResultData+)?
-		public Group getGroup_11() { return cGroup_11; }
+		public Group getGroup_8() { return cGroup_8; }
 
 		//"results"
-		public Keyword getResultsKeyword_11_0() { return cResultsKeyword_11_0; }
+		public Keyword getResultsKeyword_8_0() { return cResultsKeyword_8_0; }
 
 		//resultData+=ResultData+
-		public Assignment getResultDataAssignment_11_1() { return cResultDataAssignment_11_1; }
+		public Assignment getResultDataAssignment_8_1() { return cResultDataAssignment_8_1; }
 
 		//ResultData
-		public RuleCall getResultDataResultDataParserRuleCall_11_1_0() { return cResultDataResultDataParserRuleCall_11_1_0; }
+		public RuleCall getResultDataResultDataParserRuleCall_8_1_0() { return cResultDataResultDataParserRuleCall_8_1_0; }
 
 		//issues+=ResultIssue?
-		public Assignment getIssuesAssignment_12() { return cIssuesAssignment_12; }
-
-		//ResultIssue
-		public RuleCall getIssuesResultIssueParserRuleCall_12_0() { return cIssuesResultIssueParserRuleCall_12_0; }
-
-		//"]"
-		public Keyword getRightSquareBracketKeyword_13() { return cRightSquareBracketKeyword_13; }
-	}
-
-	public class ResultContributorElements extends AbstractParserRuleElementFinder {
-		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "ResultContributor");
-		private final Group cGroup = (Group)rule.eContents().get(1);
-		private final Action cResultContributorAction_0 = (Action)cGroup.eContents().get(0);
-		private final Keyword cContributorKeyword_1 = (Keyword)cGroup.eContents().get(1);
-		private final Assignment cTargetAssignment_2 = (Assignment)cGroup.eContents().get(2);
-		private final CrossReference cTargetEObjectCrossReference_2_0 = (CrossReference)cTargetAssignment_2.eContents().get(0);
-		private final RuleCall cTargetEObjectURIIDParserRuleCall_2_0_1 = (RuleCall)cTargetEObjectCrossReference_2_0.eContents().get(1);
-		private final Assignment cIssueTypeAssignment_3 = (Assignment)cGroup.eContents().get(3);
-		private final RuleCall cIssueTypeResultIssueTypeEnumRuleCall_3_0 = (RuleCall)cIssueTypeAssignment_3.eContents().get(0);
-		private final Assignment cMessageAssignment_4 = (Assignment)cGroup.eContents().get(4);
-		private final RuleCall cMessageSTRINGTerminalRuleCall_4_0 = (RuleCall)cMessageAssignment_4.eContents().get(0);
-		private final Group cGroup_5 = (Group)cGroup.eContents().get(5);
-		private final Keyword cExceptionKeyword_5_0 = (Keyword)cGroup_5.eContents().get(0);
-		private final Assignment cExceptionTypeAssignment_5_1 = (Assignment)cGroup_5.eContents().get(1);
-		private final RuleCall cExceptionTypeSTRINGTerminalRuleCall_5_1_0 = (RuleCall)cExceptionTypeAssignment_5_1.eContents().get(0);
-		private final Keyword cLeftSquareBracketKeyword_6 = (Keyword)cGroup.eContents().get(6);
-		private final Keyword cDataKeyword_7 = (Keyword)cGroup.eContents().get(7);
-		private final Assignment cCellAssignment_8 = (Assignment)cGroup.eContents().get(8);
-		private final RuleCall cCellSTRINGTerminalRuleCall_8_0 = (RuleCall)cCellAssignment_8.eContents().get(0);
-		private final Assignment cIssuesAssignment_9 = (Assignment)cGroup.eContents().get(9);
-		private final RuleCall cIssuesResultIssueParserRuleCall_9_0 = (RuleCall)cIssuesAssignment_9.eContents().get(0);
-		private final Assignment cSubcontributorAssignment_10 = (Assignment)cGroup.eContents().get(10);
-		private final RuleCall cSubcontributorResultContributorParserRuleCall_10_0 = (RuleCall)cSubcontributorAssignment_10.eContents().get(0);
-		private final Keyword cRightSquareBracketKeyword_11 = (Keyword)cGroup.eContents().get(11);
-		
-		//// one row to represent a contributor to the result calculation.
-		//// this structure can be nested
-		//// each contributor can have issues reported
-		//// user may define a subclass of this to add analysis specific data representations
-		//ResultContributor returns ResultIssue:
-		//	{ResultContributor} "contributor" target= // instance model element or declarative model element
-		//	[ecore::EObject|URIID] issueType=ResultIssueType message=STRING ("exception" exceptionType=STRING)? "[" "data"
-		//	cell+=STRING+ issues+=ResultIssue* subcontributor+=ResultContributor* "]";
-		@Override public ParserRule getRule() { return rule; }
-
-		//{ResultContributor} "contributor" target= // instance model element or declarative model element
-		//[ecore::EObject|URIID] issueType=ResultIssueType message=STRING ("exception" exceptionType=STRING)? "[" "data"
-		//cell+=STRING+ issues+=ResultIssue* subcontributor+=ResultContributor* "]"
-		public Group getGroup() { return cGroup; }
-
-		//{ResultContributor}
-		public Action getResultContributorAction_0() { return cResultContributorAction_0; }
-
-		//"contributor"
-		public Keyword getContributorKeyword_1() { return cContributorKeyword_1; }
-
-		//target= // instance model element or declarative model element
-		//[ecore::EObject|URIID]
-		public Assignment getTargetAssignment_2() { return cTargetAssignment_2; }
-
-		//// instance model element or declarative model element
-		//[ecore::EObject|URIID]
-		public CrossReference getTargetEObjectCrossReference_2_0() { return cTargetEObjectCrossReference_2_0; }
-
-		//URIID
-		public RuleCall getTargetEObjectURIIDParserRuleCall_2_0_1() { return cTargetEObjectURIIDParserRuleCall_2_0_1; }
-
-		//issueType=ResultIssueType
-		public Assignment getIssueTypeAssignment_3() { return cIssueTypeAssignment_3; }
-
-		//ResultIssueType
-		public RuleCall getIssueTypeResultIssueTypeEnumRuleCall_3_0() { return cIssueTypeResultIssueTypeEnumRuleCall_3_0; }
-
-		//message=STRING
-		public Assignment getMessageAssignment_4() { return cMessageAssignment_4; }
-
-		//STRING
-		public RuleCall getMessageSTRINGTerminalRuleCall_4_0() { return cMessageSTRINGTerminalRuleCall_4_0; }
-
-		//("exception" exceptionType=STRING)?
-		public Group getGroup_5() { return cGroup_5; }
-
-		//"exception"
-		public Keyword getExceptionKeyword_5_0() { return cExceptionKeyword_5_0; }
-
-		//exceptionType=STRING
-		public Assignment getExceptionTypeAssignment_5_1() { return cExceptionTypeAssignment_5_1; }
-
-		//STRING
-		public RuleCall getExceptionTypeSTRINGTerminalRuleCall_5_1_0() { return cExceptionTypeSTRINGTerminalRuleCall_5_1_0; }
-
-		//"["
-		public Keyword getLeftSquareBracketKeyword_6() { return cLeftSquareBracketKeyword_6; }
-
-		//"data"
-		public Keyword getDataKeyword_7() { return cDataKeyword_7; }
-
-		//cell+=STRING+
-		public Assignment getCellAssignment_8() { return cCellAssignment_8; }
-
-		//STRING
-		public RuleCall getCellSTRINGTerminalRuleCall_8_0() { return cCellSTRINGTerminalRuleCall_8_0; }
-
-		//issues+=ResultIssue*
 		public Assignment getIssuesAssignment_9() { return cIssuesAssignment_9; }
 
 		//ResultIssue
 		public RuleCall getIssuesResultIssueParserRuleCall_9_0() { return cIssuesResultIssueParserRuleCall_9_0; }
 
-		//subcontributor+=ResultContributor*
-		public Assignment getSubcontributorAssignment_10() { return cSubcontributorAssignment_10; }
-
-		//ResultContributor
-		public RuleCall getSubcontributorResultContributorParserRuleCall_10_0() { return cSubcontributorResultContributorParserRuleCall_10_0; }
-
 		//"]"
-		public Keyword getRightSquareBracketKeyword_11() { return cRightSquareBracketKeyword_11; }
+		public Keyword getRightSquareBracketKeyword_10() { return cRightSquareBracketKeyword_10; }
 	}
 
-	public class IssueReportElements extends AbstractParserRuleElementFinder {
-		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "IssueReport");
+	public class ResultContributorElements extends AbstractParserRuleElementFinder {
+		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "ResultContributor");
 		private final Group cGroup = (Group)rule.eContents().get(1);
-		private final Action cIssueReportAction_0 = (Action)cGroup.eContents().get(0);
-		private final Keyword cIssuesKeyword_1 = (Keyword)cGroup.eContents().get(1);
-		private final Assignment cIssueTypeAssignment_2 = (Assignment)cGroup.eContents().get(2);
-		private final RuleCall cIssueTypeResultIssueTypeEnumRuleCall_2_0 = (RuleCall)cIssueTypeAssignment_2.eContents().get(0);
-		private final Assignment cMessageAssignment_3 = (Assignment)cGroup.eContents().get(3);
-		private final RuleCall cMessageSTRINGTerminalRuleCall_3_0 = (RuleCall)cMessageAssignment_3.eContents().get(0);
-		private final Group cGroup_4 = (Group)cGroup.eContents().get(4);
-		private final Keyword cTargetKeyword_4_0 = (Keyword)cGroup_4.eContents().get(0);
-		private final Assignment cTargetAssignment_4_1 = (Assignment)cGroup_4.eContents().get(1);
-		private final CrossReference cTargetEObjectCrossReference_4_1_0 = (CrossReference)cTargetAssignment_4_1.eContents().get(0);
-		private final RuleCall cTargetEObjectURIIDParserRuleCall_4_1_0_1 = (RuleCall)cTargetEObjectCrossReference_4_1_0.eContents().get(1);
-		private final Group cGroup_5 = (Group)cGroup.eContents().get(5);
-		private final Keyword cExceptionKeyword_5_0 = (Keyword)cGroup_5.eContents().get(0);
-		private final Assignment cExceptionTypeAssignment_5_1 = (Assignment)cGroup_5.eContents().get(1);
-		private final RuleCall cExceptionTypeSTRINGTerminalRuleCall_5_1_0 = (RuleCall)cExceptionTypeAssignment_5_1.eContents().get(0);
-		private final Group cGroup_6 = (Group)cGroup.eContents().get(6);
-		private final Keyword cLeftSquareBracketKeyword_6_0 = (Keyword)cGroup_6.eContents().get(0);
-		private final Assignment cIssuesAssignment_6_1 = (Assignment)cGroup_6.eContents().get(1);
-		private final RuleCall cIssuesResultIssueParserRuleCall_6_1_0 = (RuleCall)cIssuesAssignment_6_1.eContents().get(0);
-		private final Keyword cRightSquareBracketKeyword_6_2 = (Keyword)cGroup_6.eContents().get(2);
+		private final Keyword cContributorKeyword_0 = (Keyword)cGroup.eContents().get(0);
+		private final Assignment cTargetAssignment_1 = (Assignment)cGroup.eContents().get(1);
+		private final CrossReference cTargetEObjectCrossReference_1_0 = (CrossReference)cTargetAssignment_1.eContents().get(0);
+		private final RuleCall cTargetEObjectURIIDParserRuleCall_1_0_1 = (RuleCall)cTargetEObjectCrossReference_1_0.eContents().get(1);
+		private final Keyword cLeftSquareBracketKeyword_2 = (Keyword)cGroup.eContents().get(2);
+		private final Group cGroup_3 = (Group)cGroup.eContents().get(3);
+		private final Keyword cResultsKeyword_3_0 = (Keyword)cGroup_3.eContents().get(0);
+		private final Assignment cResultDataAssignment_3_1 = (Assignment)cGroup_3.eContents().get(1);
+		private final RuleCall cResultDataResultDataParserRuleCall_3_1_0 = (RuleCall)cResultDataAssignment_3_1.eContents().get(0);
+		private final Assignment cIssuesAssignment_4 = (Assignment)cGroup.eContents().get(4);
+		private final RuleCall cIssuesResultIssueParserRuleCall_4_0 = (RuleCall)cIssuesAssignment_4.eContents().get(0);
+		private final Assignment cSubcontributorAssignment_5 = (Assignment)cGroup.eContents().get(5);
+		private final RuleCall cSubcontributorResultContributorParserRuleCall_5_0 = (RuleCall)cSubcontributorAssignment_5.eContents().get(0);
+		private final Keyword cRightSquareBracketKeyword_6 = (Keyword)cGroup.eContents().get(6);
 		
-		//IssueReport returns ResultIssue:
-		//	{IssueReport} "issues" issueType=ResultIssueType message=STRING ("target" target=[ecore::EObject|URIID])?
-		//	("exception" exceptionType=STRING)? ("[" issues+=ResultIssue* "]")?;
+		//// one row to represent a contributor to the result calculation.
+		//// this structure can be nested
+		//// each contributor can have issues reported
+		//// user may define a subclass of this to add analysis specific data representations
+		//ResultContributor:
+		//	"contributor" target= // instance model element or declarative model element
+		//	[ecore::EObject|URIID] "[" ("results" resultData+=ResultData+)? issues+=ResultIssue* subcontributor+=ResultContributor*
+		//	"]";
 		@Override public ParserRule getRule() { return rule; }
 
-		//{IssueReport} "issues" issueType=ResultIssueType message=STRING ("target" target=[ecore::EObject|URIID])? ("exception"
-		//exceptionType=STRING)? ("[" issues+=ResultIssue* "]")?
+		//"contributor" target= // instance model element or declarative model element
+		//[ecore::EObject|URIID] "[" ("results" resultData+=ResultData+)? issues+=ResultIssue* subcontributor+=ResultContributor*
+		//"]"
 		public Group getGroup() { return cGroup; }
 
-		//{IssueReport}
-		public Action getIssueReportAction_0() { return cIssueReportAction_0; }
+		//"contributor"
+		public Keyword getContributorKeyword_0() { return cContributorKeyword_0; }
 
-		//"issues"
-		public Keyword getIssuesKeyword_1() { return cIssuesKeyword_1; }
-
-		//issueType=ResultIssueType
-		public Assignment getIssueTypeAssignment_2() { return cIssueTypeAssignment_2; }
-
-		//ResultIssueType
-		public RuleCall getIssueTypeResultIssueTypeEnumRuleCall_2_0() { return cIssueTypeResultIssueTypeEnumRuleCall_2_0; }
-
-		//message=STRING
-		public Assignment getMessageAssignment_3() { return cMessageAssignment_3; }
-
-		//STRING
-		public RuleCall getMessageSTRINGTerminalRuleCall_3_0() { return cMessageSTRINGTerminalRuleCall_3_0; }
-
-		//("target" target=[ecore::EObject|URIID])?
-		public Group getGroup_4() { return cGroup_4; }
-
-		//"target"
-		public Keyword getTargetKeyword_4_0() { return cTargetKeyword_4_0; }
-
-		//target=[ecore::EObject|URIID]
-		public Assignment getTargetAssignment_4_1() { return cTargetAssignment_4_1; }
-
+		//target= // instance model element or declarative model element
 		//[ecore::EObject|URIID]
-		public CrossReference getTargetEObjectCrossReference_4_1_0() { return cTargetEObjectCrossReference_4_1_0; }
+		public Assignment getTargetAssignment_1() { return cTargetAssignment_1; }
+
+		//// instance model element or declarative model element
+		//[ecore::EObject|URIID]
+		public CrossReference getTargetEObjectCrossReference_1_0() { return cTargetEObjectCrossReference_1_0; }
 
 		//URIID
-		public RuleCall getTargetEObjectURIIDParserRuleCall_4_1_0_1() { return cTargetEObjectURIIDParserRuleCall_4_1_0_1; }
-
-		//("exception" exceptionType=STRING)?
-		public Group getGroup_5() { return cGroup_5; }
-
-		//"exception"
-		public Keyword getExceptionKeyword_5_0() { return cExceptionKeyword_5_0; }
-
-		//exceptionType=STRING
-		public Assignment getExceptionTypeAssignment_5_1() { return cExceptionTypeAssignment_5_1; }
-
-		//STRING
-		public RuleCall getExceptionTypeSTRINGTerminalRuleCall_5_1_0() { return cExceptionTypeSTRINGTerminalRuleCall_5_1_0; }
-
-		//("[" issues+=ResultIssue* "]")?
-		public Group getGroup_6() { return cGroup_6; }
+		public RuleCall getTargetEObjectURIIDParserRuleCall_1_0_1() { return cTargetEObjectURIIDParserRuleCall_1_0_1; }
 
 		//"["
-		public Keyword getLeftSquareBracketKeyword_6_0() { return cLeftSquareBracketKeyword_6_0; }
+		public Keyword getLeftSquareBracketKeyword_2() { return cLeftSquareBracketKeyword_2; }
+
+		//("results" resultData+=ResultData+)?
+		public Group getGroup_3() { return cGroup_3; }
+
+		//"results"
+		public Keyword getResultsKeyword_3_0() { return cResultsKeyword_3_0; }
+
+		//resultData+=ResultData+
+		public Assignment getResultDataAssignment_3_1() { return cResultDataAssignment_3_1; }
+
+		//ResultData
+		public RuleCall getResultDataResultDataParserRuleCall_3_1_0() { return cResultDataResultDataParserRuleCall_3_1_0; }
 
 		//issues+=ResultIssue*
-		public Assignment getIssuesAssignment_6_1() { return cIssuesAssignment_6_1; }
+		public Assignment getIssuesAssignment_4() { return cIssuesAssignment_4; }
 
 		//ResultIssue
-		public RuleCall getIssuesResultIssueParserRuleCall_6_1_0() { return cIssuesResultIssueParserRuleCall_6_1_0; }
+		public RuleCall getIssuesResultIssueParserRuleCall_4_0() { return cIssuesResultIssueParserRuleCall_4_0; }
+
+		//subcontributor+=ResultContributor*
+		public Assignment getSubcontributorAssignment_5() { return cSubcontributorAssignment_5; }
+
+		//ResultContributor
+		public RuleCall getSubcontributorResultContributorParserRuleCall_5_0() { return cSubcontributorResultContributorParserRuleCall_5_0; }
 
 		//"]"
-		public Keyword getRightSquareBracketKeyword_6_2() { return cRightSquareBracketKeyword_6_2; }
+		public Keyword getRightSquareBracketKeyword_6() { return cRightSquareBracketKeyword_6; }
+	}
+
+	public class IssuesReportElements extends AbstractParserRuleElementFinder {
+		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "IssuesReport");
+		private final Group cGroup = (Group)rule.eContents().get(1);
+		private final Keyword cIssuesKeyword_0 = (Keyword)cGroup.eContents().get(0);
+		private final Assignment cNameAssignment_1 = (Assignment)cGroup.eContents().get(1);
+		private final RuleCall cNameIDTerminalRuleCall_1_0 = (RuleCall)cNameAssignment_1.eContents().get(0);
+		private final Group cGroup_2 = (Group)cGroup.eContents().get(2);
+		private final Keyword cForKeyword_2_0 = (Keyword)cGroup_2.eContents().get(0);
+		private final Assignment cTargetAssignment_2_1 = (Assignment)cGroup_2.eContents().get(1);
+		private final CrossReference cTargetEObjectCrossReference_2_1_0 = (CrossReference)cTargetAssignment_2_1.eContents().get(0);
+		private final RuleCall cTargetEObjectURIIDParserRuleCall_2_1_0_1 = (RuleCall)cTargetEObjectCrossReference_2_1_0.eContents().get(1);
+		private final Group cGroup_3 = (Group)cGroup.eContents().get(3);
+		private final Keyword cLeftSquareBracketKeyword_3_0 = (Keyword)cGroup_3.eContents().get(0);
+		private final Group cGroup_3_1 = (Group)cGroup_3.eContents().get(1);
+		private final Keyword cDescriptionKeyword_3_1_0 = (Keyword)cGroup_3_1.eContents().get(0);
+		private final Assignment cDescriptionAssignment_3_1_1 = (Assignment)cGroup_3_1.eContents().get(1);
+		private final RuleCall cDescriptionSTRINGTerminalRuleCall_3_1_1_0 = (RuleCall)cDescriptionAssignment_3_1_1.eContents().get(0);
+		private final Assignment cIssuesAssignment_3_2 = (Assignment)cGroup_3.eContents().get(2);
+		private final RuleCall cIssuesResultIssueParserRuleCall_3_2_0 = (RuleCall)cIssuesAssignment_3_2.eContents().get(0);
+		private final Keyword cRightSquareBracketKeyword_3_3 = (Keyword)cGroup_3.eContents().get(3);
+		
+		//IssuesReport:
+		//	"issues" name=ID ("for" target=[ecore::EObject|URIID])? ("[" ("description" description=STRING)? issues+=ResultIssue*
+		//	"]")?;
+		@Override public ParserRule getRule() { return rule; }
+
+		//"issues" name=ID ("for" target=[ecore::EObject|URIID])? ("[" ("description" description=STRING)? issues+=ResultIssue*
+		//"]")?
+		public Group getGroup() { return cGroup; }
+
+		//"issues"
+		public Keyword getIssuesKeyword_0() { return cIssuesKeyword_0; }
+
+		//name=ID
+		public Assignment getNameAssignment_1() { return cNameAssignment_1; }
+
+		//ID
+		public RuleCall getNameIDTerminalRuleCall_1_0() { return cNameIDTerminalRuleCall_1_0; }
+
+		//("for" target=[ecore::EObject|URIID])?
+		public Group getGroup_2() { return cGroup_2; }
+
+		//"for"
+		public Keyword getForKeyword_2_0() { return cForKeyword_2_0; }
+
+		//target=[ecore::EObject|URIID]
+		public Assignment getTargetAssignment_2_1() { return cTargetAssignment_2_1; }
+
+		//[ecore::EObject|URIID]
+		public CrossReference getTargetEObjectCrossReference_2_1_0() { return cTargetEObjectCrossReference_2_1_0; }
+
+		//URIID
+		public RuleCall getTargetEObjectURIIDParserRuleCall_2_1_0_1() { return cTargetEObjectURIIDParserRuleCall_2_1_0_1; }
+
+		//("[" ("description" description=STRING)? issues+=ResultIssue* "]")?
+		public Group getGroup_3() { return cGroup_3; }
+
+		//"["
+		public Keyword getLeftSquareBracketKeyword_3_0() { return cLeftSquareBracketKeyword_3_0; }
+
+		//("description" description=STRING)?
+		public Group getGroup_3_1() { return cGroup_3_1; }
+
+		//"description"
+		public Keyword getDescriptionKeyword_3_1_0() { return cDescriptionKeyword_3_1_0; }
+
+		//description=STRING
+		public Assignment getDescriptionAssignment_3_1_1() { return cDescriptionAssignment_3_1_1; }
+
+		//STRING
+		public RuleCall getDescriptionSTRINGTerminalRuleCall_3_1_1_0() { return cDescriptionSTRINGTerminalRuleCall_3_1_1_0; }
+
+		//issues+=ResultIssue*
+		public Assignment getIssuesAssignment_3_2() { return cIssuesAssignment_3_2; }
+
+		//ResultIssue
+		public RuleCall getIssuesResultIssueParserRuleCall_3_2_0() { return cIssuesResultIssueParserRuleCall_3_2_0; }
+
+		//"]"
+		public Keyword getRightSquareBracketKeyword_3_3() { return cRightSquareBracketKeyword_3_3; }
 	}
 
 	public class ResultIssueElements extends AbstractParserRuleElementFinder {
@@ -674,68 +596,76 @@ public class ResultsGrammarAccess extends AbstractGrammarElementFinder {
 	public class ResultIssueTypeElements extends AbstractEnumRuleElementFinder {
 		private final EnumRule rule = (EnumRule) GrammarUtil.findRuleForName(getGrammar(), "ResultIssueType");
 		private final Alternatives cAlternatives = (Alternatives)rule.eContents().get(1);
-		private final EnumLiteralDeclaration cERROREnumLiteralDeclaration_0 = (EnumLiteralDeclaration)cAlternatives.eContents().get(0);
-		private final Keyword cERRORErrorKeyword_0_0 = (Keyword)cERROREnumLiteralDeclaration_0.eContents().get(0);
-		private final EnumLiteralDeclaration cWARNINGEnumLiteralDeclaration_1 = (EnumLiteralDeclaration)cAlternatives.eContents().get(1);
-		private final Keyword cWARNINGWarningKeyword_1_0 = (Keyword)cWARNINGEnumLiteralDeclaration_1.eContents().get(0);
-		private final EnumLiteralDeclaration cINFOEnumLiteralDeclaration_2 = (EnumLiteralDeclaration)cAlternatives.eContents().get(2);
-		private final Keyword cINFOInfoKeyword_2_0 = (Keyword)cINFOEnumLiteralDeclaration_2.eContents().get(0);
-		private final EnumLiteralDeclaration cSUCCESSEnumLiteralDeclaration_3 = (EnumLiteralDeclaration)cAlternatives.eContents().get(3);
-		private final Keyword cSUCCESSSuccessKeyword_3_0 = (Keyword)cSUCCESSEnumLiteralDeclaration_3.eContents().get(0);
-		private final EnumLiteralDeclaration cFAILEnumLiteralDeclaration_4 = (EnumLiteralDeclaration)cAlternatives.eContents().get(4);
-		private final Keyword cFAILFailKeyword_4_0 = (Keyword)cFAILEnumLiteralDeclaration_4.eContents().get(0);
-		private final EnumLiteralDeclaration cUNKNOWNEnumLiteralDeclaration_5 = (EnumLiteralDeclaration)cAlternatives.eContents().get(5);
-		private final Keyword cUNKNOWNUnknownKeyword_5_0 = (Keyword)cUNKNOWNEnumLiteralDeclaration_5.eContents().get(0);
+		private final EnumLiteralDeclaration cTBDEnumLiteralDeclaration_0 = (EnumLiteralDeclaration)cAlternatives.eContents().get(0);
+		private final Keyword cTBDTbdKeyword_0_0 = (Keyword)cTBDEnumLiteralDeclaration_0.eContents().get(0);
+		private final EnumLiteralDeclaration cUNKNOWNEnumLiteralDeclaration_1 = (EnumLiteralDeclaration)cAlternatives.eContents().get(1);
+		private final Keyword cUNKNOWNUnknownKeyword_1_0 = (Keyword)cUNKNOWNEnumLiteralDeclaration_1.eContents().get(0);
+		private final EnumLiteralDeclaration cERROREnumLiteralDeclaration_2 = (EnumLiteralDeclaration)cAlternatives.eContents().get(2);
+		private final Keyword cERRORErrorKeyword_2_0 = (Keyword)cERROREnumLiteralDeclaration_2.eContents().get(0);
+		private final EnumLiteralDeclaration cWARNINGEnumLiteralDeclaration_3 = (EnumLiteralDeclaration)cAlternatives.eContents().get(3);
+		private final Keyword cWARNINGWarningKeyword_3_0 = (Keyword)cWARNINGEnumLiteralDeclaration_3.eContents().get(0);
+		private final EnumLiteralDeclaration cINFOEnumLiteralDeclaration_4 = (EnumLiteralDeclaration)cAlternatives.eContents().get(4);
+		private final Keyword cINFOInfoKeyword_4_0 = (Keyword)cINFOEnumLiteralDeclaration_4.eContents().get(0);
+		private final EnumLiteralDeclaration cSUCCESSEnumLiteralDeclaration_5 = (EnumLiteralDeclaration)cAlternatives.eContents().get(5);
+		private final Keyword cSUCCESSSuccessKeyword_5_0 = (Keyword)cSUCCESSEnumLiteralDeclaration_5.eContents().get(0);
+		private final EnumLiteralDeclaration cFAILEnumLiteralDeclaration_6 = (EnumLiteralDeclaration)cAlternatives.eContents().get(6);
+		private final Keyword cFAILFailKeyword_6_0 = (Keyword)cFAILEnumLiteralDeclaration_6.eContents().get(0);
 		
 		//enum ResultIssueType:
-		//	ERROR="error" | WARNING="warning" | INFO="info" | SUCCESS="success" | FAIL="fail" | UNKNOWN="unknown";
+		//	TBD="tbd" | UNKNOWN="unknown" | ERROR="error" | WARNING="warning" | INFO="info" | SUCCESS="success" | FAIL="fail";
 		public EnumRule getRule() { return rule; }
 
-		//ERROR="error" | WARNING="warning" | INFO="info" | SUCCESS="success" | FAIL="fail" | UNKNOWN="unknown"
+		//TBD="tbd" | UNKNOWN="unknown" | ERROR="error" | WARNING="warning" | INFO="info" | SUCCESS="success" | FAIL="fail"
 		public Alternatives getAlternatives() { return cAlternatives; }
 
-		//ERROR="error"
-		public EnumLiteralDeclaration getERROREnumLiteralDeclaration_0() { return cERROREnumLiteralDeclaration_0; }
+		//TBD="tbd"
+		public EnumLiteralDeclaration getTBDEnumLiteralDeclaration_0() { return cTBDEnumLiteralDeclaration_0; }
 
-		//"error"
-		public Keyword getERRORErrorKeyword_0_0() { return cERRORErrorKeyword_0_0; }
-
-		//WARNING="warning"
-		public EnumLiteralDeclaration getWARNINGEnumLiteralDeclaration_1() { return cWARNINGEnumLiteralDeclaration_1; }
-
-		//"warning"
-		public Keyword getWARNINGWarningKeyword_1_0() { return cWARNINGWarningKeyword_1_0; }
-
-		//INFO="info"
-		public EnumLiteralDeclaration getINFOEnumLiteralDeclaration_2() { return cINFOEnumLiteralDeclaration_2; }
-
-		//"info"
-		public Keyword getINFOInfoKeyword_2_0() { return cINFOInfoKeyword_2_0; }
-
-		//SUCCESS="success"
-		public EnumLiteralDeclaration getSUCCESSEnumLiteralDeclaration_3() { return cSUCCESSEnumLiteralDeclaration_3; }
-
-		//"success"
-		public Keyword getSUCCESSSuccessKeyword_3_0() { return cSUCCESSSuccessKeyword_3_0; }
-
-		//FAIL="fail"
-		public EnumLiteralDeclaration getFAILEnumLiteralDeclaration_4() { return cFAILEnumLiteralDeclaration_4; }
-
-		//"fail"
-		public Keyword getFAILFailKeyword_4_0() { return cFAILFailKeyword_4_0; }
+		//"tbd"
+		public Keyword getTBDTbdKeyword_0_0() { return cTBDTbdKeyword_0_0; }
 
 		//UNKNOWN="unknown"
-		public EnumLiteralDeclaration getUNKNOWNEnumLiteralDeclaration_5() { return cUNKNOWNEnumLiteralDeclaration_5; }
+		public EnumLiteralDeclaration getUNKNOWNEnumLiteralDeclaration_1() { return cUNKNOWNEnumLiteralDeclaration_1; }
 
 		//"unknown"
-		public Keyword getUNKNOWNUnknownKeyword_5_0() { return cUNKNOWNUnknownKeyword_5_0; }
+		public Keyword getUNKNOWNUnknownKeyword_1_0() { return cUNKNOWNUnknownKeyword_1_0; }
+
+		//ERROR="error"
+		public EnumLiteralDeclaration getERROREnumLiteralDeclaration_2() { return cERROREnumLiteralDeclaration_2; }
+
+		//"error"
+		public Keyword getERRORErrorKeyword_2_0() { return cERRORErrorKeyword_2_0; }
+
+		//WARNING="warning"
+		public EnumLiteralDeclaration getWARNINGEnumLiteralDeclaration_3() { return cWARNINGEnumLiteralDeclaration_3; }
+
+		//"warning"
+		public Keyword getWARNINGWarningKeyword_3_0() { return cWARNINGWarningKeyword_3_0; }
+
+		//INFO="info"
+		public EnumLiteralDeclaration getINFOEnumLiteralDeclaration_4() { return cINFOEnumLiteralDeclaration_4; }
+
+		//"info"
+		public Keyword getINFOInfoKeyword_4_0() { return cINFOInfoKeyword_4_0; }
+
+		//SUCCESS="success"
+		public EnumLiteralDeclaration getSUCCESSEnumLiteralDeclaration_5() { return cSUCCESSEnumLiteralDeclaration_5; }
+
+		//"success"
+		public Keyword getSUCCESSSuccessKeyword_5_0() { return cSUCCESSSuccessKeyword_5_0; }
+
+		//FAIL="fail"
+		public EnumLiteralDeclaration getFAILEnumLiteralDeclaration_6() { return cFAILEnumLiteralDeclaration_6; }
+
+		//"fail"
+		public Keyword getFAILFailKeyword_6_0() { return cFAILFailKeyword_6_0; }
 	}
 	
 	private final ResultReportsElements pResultReports;
 	private final ResultReportCollectionElements pResultReportCollection;
 	private final ResultReportElements pResultReport;
 	private final ResultContributorElements pResultContributor;
-	private final IssueReportElements pIssueReport;
+	private final IssuesReportElements pIssuesReport;
 	private final ResultIssueElements pResultIssue;
 	private final ResultDataElements pResultData;
 	private final ResultIssueTypeElements unknownRuleResultIssueType;
@@ -754,7 +684,7 @@ public class ResultsGrammarAccess extends AbstractGrammarElementFinder {
 		this.pResultReportCollection = new ResultReportCollectionElements();
 		this.pResultReport = new ResultReportElements();
 		this.pResultContributor = new ResultContributorElements();
-		this.pIssueReport = new IssueReportElements();
+		this.pIssuesReport = new IssuesReportElements();
 		this.pResultIssue = new ResultIssueElements();
 		this.pResultData = new ResultDataElements();
 		this.unknownRuleResultIssueType = new ResultIssueTypeElements();
@@ -789,7 +719,7 @@ public class ResultsGrammarAccess extends AbstractGrammarElementFinder {
 
 	
 	//ResultReports:
-	//	ResultReport | ResultReportCollection | IssueReport;
+	//	ResultReport | ResultReportCollection | IssuesReport;
 	public ResultReportsElements getResultReportsAccess() {
 		return pResultReports;
 	}
@@ -800,8 +730,8 @@ public class ResultsGrammarAccess extends AbstractGrammarElementFinder {
 
 	//// Collection of reports for an instance model (root), e.g., for collection of end to end flows
 	//ResultReportCollection:
-	//	"reports" name=ID (":" title=STRING)? "[" "target" target= // system instance or other EObject
-	//	[ecore::EObject|URIID] ("description" decription=STRING)? content+=ResultReport* issues+=ResultIssue? "]";
+	//	"reports" name=ID (":" title=STRING)? "for" target= // system instance or other EObject
+	//	[ecore::EObject|URIID] "[" ("description" decription=STRING)? content+=ResultReport* issues+=ResultIssue? "]";
 	public ResultReportCollectionElements getResultReportCollectionAccess() {
 		return pResultReportCollection;
 	}
@@ -813,11 +743,10 @@ public class ResultsGrammarAccess extends AbstractGrammarElementFinder {
 	//// one report of an analysis for one item in the instance model.
 	//// it may be a report per SOM or per end to end flow
 	//// result represents the result data that can be queried
-	//ResultReport returns ResultIssue:
-	//	{ResultReport} "report" name=ID (":" title=STRING)? target= // system instance or other EObject
-	//	[ecore::EObject|URIID] issueType=ResultIssueType message=STRING ("exception" exceptionType=STRING)? "[" ("description"
-	//	decription=STRING)? ("heading" heading=STRING content+=ResultContributor*)? ("results" resultData+=ResultData+)?
-	//	issues+=ResultIssue? "]";
+	//ResultReport:
+	//	"report" name=ID (":" title=STRING)? "for" target= // system instance or other EObject
+	//	[ecore::EObject|URIID] "[" ("description" decription=STRING)? ("heading" heading=STRING content+=ResultContributor*)?
+	//	("results" resultData+=ResultData+)? issues+=ResultIssue? "]";
 	public ResultReportElements getResultReportAccess() {
 		return pResultReport;
 	}
@@ -830,10 +759,10 @@ public class ResultsGrammarAccess extends AbstractGrammarElementFinder {
 	//// this structure can be nested
 	//// each contributor can have issues reported
 	//// user may define a subclass of this to add analysis specific data representations
-	//ResultContributor returns ResultIssue:
-	//	{ResultContributor} "contributor" target= // instance model element or declarative model element
-	//	[ecore::EObject|URIID] issueType=ResultIssueType message=STRING ("exception" exceptionType=STRING)? "[" "data"
-	//	cell+=STRING+ issues+=ResultIssue* subcontributor+=ResultContributor* "]";
+	//ResultContributor:
+	//	"contributor" target= // instance model element or declarative model element
+	//	[ecore::EObject|URIID] "[" ("results" resultData+=ResultData+)? issues+=ResultIssue* subcontributor+=ResultContributor*
+	//	"]";
 	public ResultContributorElements getResultContributorAccess() {
 		return pResultContributor;
 	}
@@ -842,15 +771,15 @@ public class ResultsGrammarAccess extends AbstractGrammarElementFinder {
 		return getResultContributorAccess().getRule();
 	}
 
-	//IssueReport returns ResultIssue:
-	//	{IssueReport} "issues" issueType=ResultIssueType message=STRING ("target" target=[ecore::EObject|URIID])?
-	//	("exception" exceptionType=STRING)? ("[" issues+=ResultIssue* "]")?;
-	public IssueReportElements getIssueReportAccess() {
-		return pIssueReport;
+	//IssuesReport:
+	//	"issues" name=ID ("for" target=[ecore::EObject|URIID])? ("[" ("description" description=STRING)? issues+=ResultIssue*
+	//	"]")?;
+	public IssuesReportElements getIssuesReportAccess() {
+		return pIssuesReport;
 	}
 	
-	public ParserRule getIssueReportRule() {
-		return getIssueReportAccess().getRule();
+	public ParserRule getIssuesReportRule() {
+		return getIssuesReportAccess().getRule();
 	}
 
 	//// This is similar to diagnostics
@@ -879,7 +808,7 @@ public class ResultsGrammarAccess extends AbstractGrammarElementFinder {
 	}
 
 	//enum ResultIssueType:
-	//	ERROR="error" | WARNING="warning" | INFO="info" | SUCCESS="success" | FAIL="fail" | UNKNOWN="unknown";
+	//	TBD="tbd" | UNKNOWN="unknown" | ERROR="error" | WARNING="warning" | INFO="info" | SUCCESS="success" | FAIL="fail";
 	public ResultIssueTypeElements getResultIssueTypeAccess() {
 		return unknownRuleResultIssueType;
 	}
