@@ -36,13 +36,13 @@ public interface ResultsFactory extends EFactory
   ResultsFactory eINSTANCE = org.osate.results.results.impl.ResultsFactoryImpl.init();
 
   /**
-   * Returns a new object of class '<em>Result Reports</em>'.
+   * Returns a new object of class '<em>Result Report</em>'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @return a new object of class '<em>Result Reports</em>'.
+   * @return a new object of class '<em>Result Report</em>'.
    * @generated
    */
-  ResultReports createResultReports();
+  ResultReport createResultReport();
 
   /**
    * Returns a new object of class '<em>Result Report Collection</em>'.
@@ -54,13 +54,13 @@ public interface ResultsFactory extends EFactory
   ResultReportCollection createResultReportCollection();
 
   /**
-   * Returns a new object of class '<em>Result Report</em>'.
+   * Returns a new object of class '<em>Result Data Report</em>'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @return a new object of class '<em>Result Report</em>'.
+   * @return a new object of class '<em>Result Data Report</em>'.
    * @generated
    */
-  ResultReport createResultReport();
+  ResultDataReport createResultDataReport();
 
   /**
    * Returns a new object of class '<em>Result Contributor</em>'.

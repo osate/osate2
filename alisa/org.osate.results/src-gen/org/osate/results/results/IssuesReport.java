@@ -32,7 +32,7 @@ package org.osate.results.results;
  * @model
  * @generated
  */
-public interface IssuesReport extends ResultReports
+public interface IssuesReport extends ResultReport
 {
   /**
    * Returns the value of the '<em><b>Description</b></em>' attribute.

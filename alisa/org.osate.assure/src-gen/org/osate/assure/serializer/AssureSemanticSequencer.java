@@ -37,8 +37,8 @@ import org.osate.assure.services.AssureGrammarAccess;
 import org.osate.results.results.IssuesReport;
 import org.osate.results.results.ResultContributor;
 import org.osate.results.results.ResultData;
+import org.osate.results.results.ResultDataReport;
 import org.osate.results.results.ResultIssue;
-import org.osate.results.results.ResultReport;
 import org.osate.results.results.ResultReportCollection;
 import org.osate.results.results.ResultsPackage;
 import org.osate.results.serializer.ResultsSemanticSequencer;
@@ -87,11 +87,11 @@ public class AssureSemanticSequencer extends ResultsSemanticSequencer {
 			case ResultsPackage.RESULT_DATA:
 				sequence_ResultData(context, (ResultData) semanticObject); 
 				return; 
+			case ResultsPackage.RESULT_DATA_REPORT:
+				sequence_ResultDataReport(context, (ResultDataReport) semanticObject); 
+				return; 
 			case ResultsPackage.RESULT_ISSUE:
 				sequence_ResultIssue(context, (ResultIssue) semanticObject); 
-				return; 
-			case ResultsPackage.RESULT_REPORT:
-				sequence_ResultReport(context, (ResultReport) semanticObject); 
 				return; 
 			case ResultsPackage.RESULT_REPORT_COLLECTION:
 				sequence_ResultReportCollection(context, (ResultReportCollection) semanticObject); 

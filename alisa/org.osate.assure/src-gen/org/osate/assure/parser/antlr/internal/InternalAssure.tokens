@@ -1,6 +1,6 @@
 '.'=42
 ':'=44
-'='=52
+'='=49
 '['=14
 ']'=16
 'case'=11
@@ -13,14 +13,14 @@
 'else'=25
 'error'=26
 'errorcount'=36
-'exception'=51
+'exception'=52
 'executionstate'=19
 'fail'=27
 'failcount'=34
 'for'=12
 'heading'=46
 'info'=62
-'issue'=49
+'issue'=50
 'issues'=21
 'message'=15
 'ok'=53
@@ -35,7 +35,7 @@
 'success'=55
 'successcount'=33
 'system'=13
-'target'=50
+'target'=51
 'tbd'=54
 'tbdcount'=32
 'then'=29

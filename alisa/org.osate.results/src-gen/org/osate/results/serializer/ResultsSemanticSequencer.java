@@ -31,8 +31,8 @@ import org.eclipse.xtext.serializer.sequencer.ITransientValueService.ValueTransi
 import org.osate.results.results.IssuesReport;
 import org.osate.results.results.ResultContributor;
 import org.osate.results.results.ResultData;
+import org.osate.results.results.ResultDataReport;
 import org.osate.results.results.ResultIssue;
-import org.osate.results.results.ResultReport;
 import org.osate.results.results.ResultReportCollection;
 import org.osate.results.results.ResultsPackage;
 import org.osate.results.services.ResultsGrammarAccess;
@@ -55,11 +55,11 @@ public class ResultsSemanticSequencer extends AbstractDelegatingSemanticSequence
 			case ResultsPackage.RESULT_DATA:
 				sequence_ResultData(context, (ResultData) semanticObject); 
 				return; 
+			case ResultsPackage.RESULT_DATA_REPORT:
+				sequence_ResultDataReport(context, (ResultDataReport) semanticObject); 
+				return; 
 			case ResultsPackage.RESULT_ISSUE:
 				sequence_ResultIssue(context, (ResultIssue) semanticObject); 
-				return; 
-			case ResultsPackage.RESULT_REPORT:
-				sequence_ResultReport(context, (ResultReport) semanticObject); 
 				return; 
 			case ResultsPackage.RESULT_REPORT_COLLECTION:
 				sequence_ResultReportCollection(context, (ResultReportCollection) semanticObject); 
@@ -82,6 +82,23 @@ public class ResultsSemanticSequencer extends AbstractDelegatingSemanticSequence
 	 *     (target=[EObject|URIID] resultData+=ResultData* issues+=ResultIssue* subcontributor+=ResultContributor*)
 	 */
 	protected void sequence_ResultContributor(EObject context, ResultContributor semanticObject) {
+		genericSequencer.createSequence(context, semanticObject);
+	}
+	
+	
+	/**
+	 * Constraint:
+	 *     (
+	 *         name=ID 
+	 *         title=STRING? 
+	 *         target=[EObject|URIID] 
+	 *         decription=STRING? 
+	 *         (heading=STRING content+=ResultContributor*)? 
+	 *         resultData+=ResultData* 
+	 *         issues+=ResultIssue*
+	 *     )
+	 */
+	protected void sequence_ResultDataReport(EObject context, ResultDataReport semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
 	}
 	
@@ -126,23 +143,6 @@ public class ResultsSemanticSequencer extends AbstractDelegatingSemanticSequence
 	 *     )
 	 */
 	protected void sequence_ResultReportCollection(EObject context, ResultReportCollection semanticObject) {
-		genericSequencer.createSequence(context, semanticObject);
-	}
-	
-	
-	/**
-	 * Constraint:
-	 *     (
-	 *         name=ID 
-	 *         title=STRING? 
-	 *         target=[EObject|URIID] 
-	 *         decription=STRING? 
-	 *         (heading=STRING content+=ResultContributor*)? 
-	 *         resultData+=ResultData* 
-	 *         issues+=ResultIssue?
-	 *     )
-	 */
-	protected void sequence_ResultReport(EObject context, ResultReport semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
 	}
 }

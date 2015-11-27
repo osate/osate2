@@ -30,26 +30,29 @@ import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.eclipse.emf.ecore.util.EObjectContainmentEList;
 import org.eclipse.emf.ecore.util.InternalEList;
 
-import org.osate.results.results.ResultReport;
-import org.osate.results.results.ResultReportCollection;
+import org.osate.results.results.ResultContributor;
+import org.osate.results.results.ResultData;
+import org.osate.results.results.ResultDataReport;
 import org.osate.results.results.ResultsPackage;
 
 /**
  * <!-- begin-user-doc -->
- * An implementation of the model object '<em><b>Result Report Collection</b></em>'.
+ * An implementation of the model object '<em><b>Result Data Report</b></em>'.
  * <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
  * </p>
  * <ul>
- *   <li>{@link org.osate.results.results.impl.ResultReportCollectionImpl#getTitle <em>Title</em>}</li>
- *   <li>{@link org.osate.results.results.impl.ResultReportCollectionImpl#getDecription <em>Decription</em>}</li>
- *   <li>{@link org.osate.results.results.impl.ResultReportCollectionImpl#getContent <em>Content</em>}</li>
+ *   <li>{@link org.osate.results.results.impl.ResultDataReportImpl#getTitle <em>Title</em>}</li>
+ *   <li>{@link org.osate.results.results.impl.ResultDataReportImpl#getDecription <em>Decription</em>}</li>
+ *   <li>{@link org.osate.results.results.impl.ResultDataReportImpl#getHeading <em>Heading</em>}</li>
+ *   <li>{@link org.osate.results.results.impl.ResultDataReportImpl#getContent <em>Content</em>}</li>
+ *   <li>{@link org.osate.results.results.impl.ResultDataReportImpl#getResultData <em>Result Data</em>}</li>
  * </ul>
  *
  * @generated
  */
-public class ResultReportCollectionImpl extends ResultReportImpl implements ResultReportCollection
+public class ResultDataReportImpl extends ResultReportImpl implements ResultDataReport
 {
   /**
    * The default value of the '{@link #getTitle() <em>Title</em>}' attribute.
@@ -92,6 +95,26 @@ public class ResultReportCollectionImpl extends ResultReportImpl implements Resu
   protected String decription = DECRIPTION_EDEFAULT;
 
   /**
+   * The default value of the '{@link #getHeading() <em>Heading</em>}' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see #getHeading()
+   * @generated
+   * @ordered
+   */
+  protected static final String HEADING_EDEFAULT = null;
+
+  /**
+   * The cached value of the '{@link #getHeading() <em>Heading</em>}' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see #getHeading()
+   * @generated
+   * @ordered
+   */
+  protected String heading = HEADING_EDEFAULT;
+
+  /**
    * The cached value of the '{@link #getContent() <em>Content</em>}' containment reference list.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -99,14 +122,24 @@ public class ResultReportCollectionImpl extends ResultReportImpl implements Resu
    * @generated
    * @ordered
    */
-  protected EList<ResultReport> content;
+  protected EList<ResultContributor> content;
+
+  /**
+   * The cached value of the '{@link #getResultData() <em>Result Data</em>}' containment reference list.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see #getResultData()
+   * @generated
+   * @ordered
+   */
+  protected EList<ResultData> resultData;
 
   /**
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    */
-  protected ResultReportCollectionImpl()
+  protected ResultDataReportImpl()
   {
     super();
   }
@@ -119,7 +152,7 @@ public class ResultReportCollectionImpl extends ResultReportImpl implements Resu
   @Override
   protected EClass eStaticClass()
   {
-    return ResultsPackage.Literals.RESULT_REPORT_COLLECTION;
+    return ResultsPackage.Literals.RESULT_DATA_REPORT;
   }
 
   /**
@@ -142,7 +175,7 @@ public class ResultReportCollectionImpl extends ResultReportImpl implements Resu
     String oldTitle = title;
     title = newTitle;
     if (eNotificationRequired())
-      eNotify(new ENotificationImpl(this, Notification.SET, ResultsPackage.RESULT_REPORT_COLLECTION__TITLE, oldTitle, title));
+      eNotify(new ENotificationImpl(this, Notification.SET, ResultsPackage.RESULT_DATA_REPORT__TITLE, oldTitle, title));
   }
 
   /**
@@ -165,7 +198,7 @@ public class ResultReportCollectionImpl extends ResultReportImpl implements Resu
     String oldDecription = decription;
     decription = newDecription;
     if (eNotificationRequired())
-      eNotify(new ENotificationImpl(this, Notification.SET, ResultsPackage.RESULT_REPORT_COLLECTION__DECRIPTION, oldDecription, decription));
+      eNotify(new ENotificationImpl(this, Notification.SET, ResultsPackage.RESULT_DATA_REPORT__DECRIPTION, oldDecription, decription));
   }
 
   /**
@@ -173,13 +206,50 @@ public class ResultReportCollectionImpl extends ResultReportImpl implements Resu
    * <!-- end-user-doc -->
    * @generated
    */
-  public EList<ResultReport> getContent()
+  public String getHeading()
+  {
+    return heading;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public void setHeading(String newHeading)
+  {
+    String oldHeading = heading;
+    heading = newHeading;
+    if (eNotificationRequired())
+      eNotify(new ENotificationImpl(this, Notification.SET, ResultsPackage.RESULT_DATA_REPORT__HEADING, oldHeading, heading));
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EList<ResultContributor> getContent()
   {
     if (content == null)
     {
-      content = new EObjectContainmentEList<ResultReport>(ResultReport.class, this, ResultsPackage.RESULT_REPORT_COLLECTION__CONTENT);
+      content = new EObjectContainmentEList<ResultContributor>(ResultContributor.class, this, ResultsPackage.RESULT_DATA_REPORT__CONTENT);
     }
     return content;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EList<ResultData> getResultData()
+  {
+    if (resultData == null)
+    {
+      resultData = new EObjectContainmentEList<ResultData>(ResultData.class, this, ResultsPackage.RESULT_DATA_REPORT__RESULT_DATA);
+    }
+    return resultData;
   }
 
   /**
@@ -192,8 +262,10 @@ public class ResultReportCollectionImpl extends ResultReportImpl implements Resu
   {
     switch (featureID)
     {
-      case ResultsPackage.RESULT_REPORT_COLLECTION__CONTENT:
+      case ResultsPackage.RESULT_DATA_REPORT__CONTENT:
         return ((InternalEList<?>)getContent()).basicRemove(otherEnd, msgs);
+      case ResultsPackage.RESULT_DATA_REPORT__RESULT_DATA:
+        return ((InternalEList<?>)getResultData()).basicRemove(otherEnd, msgs);
     }
     return super.eInverseRemove(otherEnd, featureID, msgs);
   }
@@ -208,12 +280,16 @@ public class ResultReportCollectionImpl extends ResultReportImpl implements Resu
   {
     switch (featureID)
     {
-      case ResultsPackage.RESULT_REPORT_COLLECTION__TITLE:
+      case ResultsPackage.RESULT_DATA_REPORT__TITLE:
         return getTitle();
-      case ResultsPackage.RESULT_REPORT_COLLECTION__DECRIPTION:
+      case ResultsPackage.RESULT_DATA_REPORT__DECRIPTION:
         return getDecription();
-      case ResultsPackage.RESULT_REPORT_COLLECTION__CONTENT:
+      case ResultsPackage.RESULT_DATA_REPORT__HEADING:
+        return getHeading();
+      case ResultsPackage.RESULT_DATA_REPORT__CONTENT:
         return getContent();
+      case ResultsPackage.RESULT_DATA_REPORT__RESULT_DATA:
+        return getResultData();
     }
     return super.eGet(featureID, resolve, coreType);
   }
@@ -229,15 +305,22 @@ public class ResultReportCollectionImpl extends ResultReportImpl implements Resu
   {
     switch (featureID)
     {
-      case ResultsPackage.RESULT_REPORT_COLLECTION__TITLE:
+      case ResultsPackage.RESULT_DATA_REPORT__TITLE:
         setTitle((String)newValue);
         return;
-      case ResultsPackage.RESULT_REPORT_COLLECTION__DECRIPTION:
+      case ResultsPackage.RESULT_DATA_REPORT__DECRIPTION:
         setDecription((String)newValue);
         return;
-      case ResultsPackage.RESULT_REPORT_COLLECTION__CONTENT:
+      case ResultsPackage.RESULT_DATA_REPORT__HEADING:
+        setHeading((String)newValue);
+        return;
+      case ResultsPackage.RESULT_DATA_REPORT__CONTENT:
         getContent().clear();
-        getContent().addAll((Collection<? extends ResultReport>)newValue);
+        getContent().addAll((Collection<? extends ResultContributor>)newValue);
+        return;
+      case ResultsPackage.RESULT_DATA_REPORT__RESULT_DATA:
+        getResultData().clear();
+        getResultData().addAll((Collection<? extends ResultData>)newValue);
         return;
     }
     super.eSet(featureID, newValue);
@@ -253,14 +336,20 @@ public class ResultReportCollectionImpl extends ResultReportImpl implements Resu
   {
     switch (featureID)
     {
-      case ResultsPackage.RESULT_REPORT_COLLECTION__TITLE:
+      case ResultsPackage.RESULT_DATA_REPORT__TITLE:
         setTitle(TITLE_EDEFAULT);
         return;
-      case ResultsPackage.RESULT_REPORT_COLLECTION__DECRIPTION:
+      case ResultsPackage.RESULT_DATA_REPORT__DECRIPTION:
         setDecription(DECRIPTION_EDEFAULT);
         return;
-      case ResultsPackage.RESULT_REPORT_COLLECTION__CONTENT:
+      case ResultsPackage.RESULT_DATA_REPORT__HEADING:
+        setHeading(HEADING_EDEFAULT);
+        return;
+      case ResultsPackage.RESULT_DATA_REPORT__CONTENT:
         getContent().clear();
+        return;
+      case ResultsPackage.RESULT_DATA_REPORT__RESULT_DATA:
+        getResultData().clear();
         return;
     }
     super.eUnset(featureID);
@@ -276,12 +365,16 @@ public class ResultReportCollectionImpl extends ResultReportImpl implements Resu
   {
     switch (featureID)
     {
-      case ResultsPackage.RESULT_REPORT_COLLECTION__TITLE:
+      case ResultsPackage.RESULT_DATA_REPORT__TITLE:
         return TITLE_EDEFAULT == null ? title != null : !TITLE_EDEFAULT.equals(title);
-      case ResultsPackage.RESULT_REPORT_COLLECTION__DECRIPTION:
+      case ResultsPackage.RESULT_DATA_REPORT__DECRIPTION:
         return DECRIPTION_EDEFAULT == null ? decription != null : !DECRIPTION_EDEFAULT.equals(decription);
-      case ResultsPackage.RESULT_REPORT_COLLECTION__CONTENT:
+      case ResultsPackage.RESULT_DATA_REPORT__HEADING:
+        return HEADING_EDEFAULT == null ? heading != null : !HEADING_EDEFAULT.equals(heading);
+      case ResultsPackage.RESULT_DATA_REPORT__CONTENT:
         return content != null && !content.isEmpty();
+      case ResultsPackage.RESULT_DATA_REPORT__RESULT_DATA:
+        return resultData != null && !resultData.isEmpty();
     }
     return super.eIsSet(featureID);
   }
@@ -301,8 +394,10 @@ public class ResultReportCollectionImpl extends ResultReportImpl implements Resu
     result.append(title);
     result.append(", decription: ");
     result.append(decription);
+    result.append(", heading: ");
+    result.append(heading);
     result.append(')');
     return result.toString();
   }
 
-} //ResultReportCollectionImpl
+} //ResultDataReportImpl
