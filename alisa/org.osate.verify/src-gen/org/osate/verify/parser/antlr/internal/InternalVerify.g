@@ -1227,11 +1227,11 @@ ruleVerificationActivity returns [EObject current=null]
 	    }
 
 )
-))?(	otherlv_3='phase' 
+))?	otherlv_3=':' 
     {
-    	newLeafNode(otherlv_3, grammarAccess.getVerificationActivityAccess().getPhaseKeyword_2_0());
+    	newLeafNode(otherlv_3, grammarAccess.getVerificationActivityAccess().getColonKeyword_2());
     }
-(
+((
 (
 		{
 			if ($current==null) {
@@ -1240,13 +1240,13 @@ ruleVerificationActivity returns [EObject current=null]
         }
 	otherlv_4=RULE_ID
 	{
-		newLeafNode(otherlv_4, grammarAccess.getVerificationActivityAccess().getPhaseCategoryPhaseCategoryCrossReference_2_1_0()); 
+		newLeafNode(otherlv_4, grammarAccess.getVerificationActivityAccess().getResultComputeDeclarationCrossReference_3_0_0()); 
 	}
 
 )
-)+)?(	otherlv_5='category' 
+)(	otherlv_5=',' 
     {
-    	newLeafNode(otherlv_5, grammarAccess.getVerificationActivityAccess().getCategoryKeyword_3_0());
+    	newLeafNode(otherlv_5, grammarAccess.getVerificationActivityAccess().getCommaKeyword_3_1_0());
     }
 (
 (
@@ -1257,47 +1257,13 @@ ruleVerificationActivity returns [EObject current=null]
         }
 	otherlv_6=RULE_ID
 	{
-		newLeafNode(otherlv_6, grammarAccess.getVerificationActivityAccess().getUserCategoryUserCategoryCrossReference_3_1_0()); 
+		newLeafNode(otherlv_6, grammarAccess.getVerificationActivityAccess().getResultComputeDeclarationCrossReference_3_1_1_0()); 
 	}
 
 )
-)+)?	otherlv_7=':' 
+))*	otherlv_7='=' 
     {
-    	newLeafNode(otherlv_7, grammarAccess.getVerificationActivityAccess().getColonKeyword_4());
-    }
-((
-(
-		{
-			if ($current==null) {
-	            $current = createModelElement(grammarAccess.getVerificationActivityRule());
-	        }
-        }
-	otherlv_8=RULE_ID
-	{
-		newLeafNode(otherlv_8, grammarAccess.getVerificationActivityAccess().getResultComputeDeclarationCrossReference_5_0_0()); 
-	}
-
-)
-)(	otherlv_9=',' 
-    {
-    	newLeafNode(otherlv_9, grammarAccess.getVerificationActivityAccess().getCommaKeyword_5_1_0());
-    }
-(
-(
-		{
-			if ($current==null) {
-	            $current = createModelElement(grammarAccess.getVerificationActivityRule());
-	        }
-        }
-	otherlv_10=RULE_ID
-	{
-		newLeafNode(otherlv_10, grammarAccess.getVerificationActivityAccess().getResultComputeDeclarationCrossReference_5_1_1_0()); 
-	}
-
-)
-))*	otherlv_11='=' 
-    {
-    	newLeafNode(otherlv_11, grammarAccess.getVerificationActivityAccess().getEqualsSignKeyword_5_2());
+    	newLeafNode(otherlv_7, grammarAccess.getVerificationActivityAccess().getEqualsSignKeyword_3_2());
     }
 )?(
 (
@@ -1307,16 +1273,16 @@ ruleVerificationActivity returns [EObject current=null]
 	        }
         }
 		{ 
-	        newCompositeNode(grammarAccess.getVerificationActivityAccess().getMethodVerificationMethodCrossReference_6_0()); 
+	        newCompositeNode(grammarAccess.getVerificationActivityAccess().getMethodVerificationMethodCrossReference_4_0()); 
 	    }
 		ruleQualifiedName		{ 
 	        afterParserOrEnumRuleCall();
 	    }
 
 )
-)	otherlv_13='(' 
+)	otherlv_9='(' 
     {
-    	newLeafNode(otherlv_13, grammarAccess.getVerificationActivityAccess().getLeftParenthesisKeyword_7());
+    	newLeafNode(otherlv_9, grammarAccess.getVerificationActivityAccess().getLeftParenthesisKeyword_5());
     }
 ((
 (
@@ -1325,15 +1291,15 @@ ruleVerificationActivity returns [EObject current=null]
 	            $current = createModelElement(grammarAccess.getVerificationActivityRule());
 	        }
         }
-	otherlv_14=RULE_ID
+	otherlv_10=RULE_ID
 	{
-		newLeafNode(otherlv_14, grammarAccess.getVerificationActivityAccess().getParametersValDeclarationCrossReference_8_0_0()); 
+		newLeafNode(otherlv_10, grammarAccess.getVerificationActivityAccess().getParametersValDeclarationCrossReference_6_0_0()); 
 	}
 
 )
-)(	otherlv_15=',' 
+)(	otherlv_11=',' 
     {
-    	newLeafNode(otherlv_15, grammarAccess.getVerificationActivityAccess().getCommaKeyword_8_1_0());
+    	newLeafNode(otherlv_11, grammarAccess.getVerificationActivityAccess().getCommaKeyword_6_1_0());
     }
 (
 (
@@ -1342,27 +1308,27 @@ ruleVerificationActivity returns [EObject current=null]
 	            $current = createModelElement(grammarAccess.getVerificationActivityRule());
 	        }
         }
-	otherlv_16=RULE_ID
+	otherlv_12=RULE_ID
 	{
-		newLeafNode(otherlv_16, grammarAccess.getVerificationActivityAccess().getParametersValDeclarationCrossReference_8_1_1_0()); 
+		newLeafNode(otherlv_12, grammarAccess.getVerificationActivityAccess().getParametersValDeclarationCrossReference_6_1_1_0()); 
 	}
 
 )
-))*)?	otherlv_17=')' 
+))*)?	otherlv_13=')' 
     {
-    	newLeafNode(otherlv_17, grammarAccess.getVerificationActivityAccess().getRightParenthesisKeyword_9());
+    	newLeafNode(otherlv_13, grammarAccess.getVerificationActivityAccess().getRightParenthesisKeyword_7());
     }
-(	otherlv_18='property' 
+(	otherlv_14='property' 
     {
-    	newLeafNode(otherlv_18, grammarAccess.getVerificationActivityAccess().getPropertyKeyword_10_0());
+    	newLeafNode(otherlv_14, grammarAccess.getVerificationActivityAccess().getPropertyKeyword_8_0());
     }
-	otherlv_19='values' 
+	otherlv_15='values' 
     {
-    	newLeafNode(otherlv_19, grammarAccess.getVerificationActivityAccess().getValuesKeyword_10_1());
+    	newLeafNode(otherlv_15, grammarAccess.getVerificationActivityAccess().getValuesKeyword_8_1());
     }
-	otherlv_20='(' 
+	otherlv_16='(' 
     {
-    	newLeafNode(otherlv_20, grammarAccess.getVerificationActivityAccess().getLeftParenthesisKeyword_10_2());
+    	newLeafNode(otherlv_16, grammarAccess.getVerificationActivityAccess().getLeftParenthesisKeyword_8_2());
     }
 ((
 (
@@ -1371,15 +1337,15 @@ ruleVerificationActivity returns [EObject current=null]
 	            $current = createModelElement(grammarAccess.getVerificationActivityRule());
 	        }
         }
-	otherlv_21=RULE_ID
+	otherlv_17=RULE_ID
 	{
-		newLeafNode(otherlv_21, grammarAccess.getVerificationActivityAccess().getPropertyValuesValDeclarationCrossReference_10_3_0_0()); 
+		newLeafNode(otherlv_17, grammarAccess.getVerificationActivityAccess().getPropertyValuesValDeclarationCrossReference_8_3_0_0()); 
 	}
 
 )
-)(	otherlv_22=',' 
+)(	otherlv_18=',' 
     {
-    	newLeafNode(otherlv_22, grammarAccess.getVerificationActivityAccess().getCommaKeyword_10_3_1_0());
+    	newLeafNode(otherlv_18, grammarAccess.getVerificationActivityAccess().getCommaKeyword_8_3_1_0());
     }
 (
 (
@@ -1388,25 +1354,101 @@ ruleVerificationActivity returns [EObject current=null]
 	            $current = createModelElement(grammarAccess.getVerificationActivityRule());
 	        }
         }
-	otherlv_23=RULE_ID
+	otherlv_19=RULE_ID
 	{
-		newLeafNode(otherlv_23, grammarAccess.getVerificationActivityAccess().getPropertyValuesValDeclarationCrossReference_10_3_1_1_0()); 
+		newLeafNode(otherlv_19, grammarAccess.getVerificationActivityAccess().getPropertyValuesValDeclarationCrossReference_8_3_1_1_0()); 
 	}
 
 )
-))*)?	otherlv_24=')' 
+))*)?	otherlv_20=')' 
     {
-    	newLeafNode(otherlv_24, grammarAccess.getVerificationActivityAccess().getRightParenthesisKeyword_10_4());
+    	newLeafNode(otherlv_20, grammarAccess.getVerificationActivityAccess().getRightParenthesisKeyword_8_4());
     }
-)?(	otherlv_25='timeout' 
+)?	otherlv_21='[' 
     {
-    	newLeafNode(otherlv_25, grammarAccess.getVerificationActivityAccess().getTimeoutKeyword_11_0());
+    	newLeafNode(otherlv_21, grammarAccess.getVerificationActivityAccess().getLeftSquareBracketKeyword_9());
+    }
+(
+
+(
+	{ 
+	  getUnorderedGroupHelper().enter(grammarAccess.getVerificationActivityAccess().getUnorderedGroup_10());
+	}
+	(
+		(
+
+			( 
+				{getUnorderedGroupHelper().canSelect(grammarAccess.getVerificationActivityAccess().getUnorderedGroup_10(), 0)}?=>(
+					{ 
+	 				  getUnorderedGroupHelper().select(grammarAccess.getVerificationActivityAccess().getUnorderedGroup_10(), 0);
+	 				}
+					({true}?=>(	otherlv_23='phase' 
+    {
+    	newLeafNode(otherlv_23, grammarAccess.getVerificationActivityAccess().getPhaseKeyword_10_0_0());
     }
 (
 (
-		lv_timeout_26_0=RULE_INT
 		{
-			newLeafNode(lv_timeout_26_0, grammarAccess.getVerificationActivityAccess().getTimeoutINTTerminalRuleCall_11_1_0()); 
+			if ($current==null) {
+	            $current = createModelElement(grammarAccess.getVerificationActivityRule());
+	        }
+        }
+	otherlv_24=RULE_ID
+	{
+		newLeafNode(otherlv_24, grammarAccess.getVerificationActivityAccess().getPhaseCategoryPhaseCategoryCrossReference_10_0_1_0()); 
+	}
+
+)
+)+))
+					{ 
+	 				  getUnorderedGroupHelper().returnFromSelection(grammarAccess.getVerificationActivityAccess().getUnorderedGroup_10());
+	 				}
+ 				)
+			)  |
+
+			( 
+				{getUnorderedGroupHelper().canSelect(grammarAccess.getVerificationActivityAccess().getUnorderedGroup_10(), 1)}?=>(
+					{ 
+	 				  getUnorderedGroupHelper().select(grammarAccess.getVerificationActivityAccess().getUnorderedGroup_10(), 1);
+	 				}
+					({true}?=>(	otherlv_25='category' 
+    {
+    	newLeafNode(otherlv_25, grammarAccess.getVerificationActivityAccess().getCategoryKeyword_10_1_0());
+    }
+(
+(
+		{
+			if ($current==null) {
+	            $current = createModelElement(grammarAccess.getVerificationActivityRule());
+	        }
+        }
+	otherlv_26=RULE_ID
+	{
+		newLeafNode(otherlv_26, grammarAccess.getVerificationActivityAccess().getUserCategoryUserCategoryCrossReference_10_1_1_0()); 
+	}
+
+)
+)+))
+					{ 
+	 				  getUnorderedGroupHelper().returnFromSelection(grammarAccess.getVerificationActivityAccess().getUnorderedGroup_10());
+	 				}
+ 				)
+			)  |
+
+			( 
+				{getUnorderedGroupHelper().canSelect(grammarAccess.getVerificationActivityAccess().getUnorderedGroup_10(), 2)}?=>(
+					{ 
+	 				  getUnorderedGroupHelper().select(grammarAccess.getVerificationActivityAccess().getUnorderedGroup_10(), 2);
+	 				}
+					({true}?=>(	otherlv_27='timeout' 
+    {
+    	newLeafNode(otherlv_27, grammarAccess.getVerificationActivityAccess().getTimeoutKeyword_10_2_0());
+    }
+(
+(
+		lv_timeout_28_0=RULE_INT
+		{
+			newLeafNode(lv_timeout_28_0, grammarAccess.getVerificationActivityAccess().getTimeoutINTTerminalRuleCall_10_2_1_0()); 
 		}
 		{
 	        if ($current==null) {
@@ -1415,12 +1457,30 @@ ruleVerificationActivity returns [EObject current=null]
        		setWithLastConsumed(
        			$current, 
        			"timeout",
-        		lv_timeout_26_0, 
+        		lv_timeout_28_0, 
         		"INT");
 	    }
 
 )
-))?)
+)))
+					{ 
+	 				  getUnorderedGroupHelper().returnFromSelection(grammarAccess.getVerificationActivityAccess().getUnorderedGroup_10());
+	 				}
+ 				)
+			)  
+
+		)*	
+	)
+)
+	{ 
+	  getUnorderedGroupHelper().leave(grammarAccess.getVerificationActivityAccess().getUnorderedGroup_10());
+	}
+
+)	otherlv_29=']' 
+    {
+    	newLeafNode(otherlv_29, grammarAccess.getVerificationActivityAccess().getRightSquareBracketKeyword_11());
+    }
+)
 ;
 
 

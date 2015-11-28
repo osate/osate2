@@ -376,12 +376,12 @@ public class VerifySemanticSequencer extends CommonSemanticSequencer {
 	 *     (
 	 *         name=ID 
 	 *         title=STRING? 
-	 *         phaseCategory+=[PhaseCategory|ID]* 
-	 *         userCategory+=[UserCategory|ID]* 
 	 *         (result+=[ComputeDeclaration|ID] result+=[ComputeDeclaration|ID]*)? 
 	 *         method=[VerificationMethod|QualifiedName] 
 	 *         (parameters+=[ValDeclaration|ID] parameters+=[ValDeclaration|ID]*)? 
 	 *         (propertyValues+=[ValDeclaration|ID] propertyValues+=[ValDeclaration|ID]*)? 
+	 *         phaseCategory+=[PhaseCategory|ID]* 
+	 *         userCategory+=[UserCategory|ID]* 
 	 *         timeout=INT?
 	 *     )
 	 */

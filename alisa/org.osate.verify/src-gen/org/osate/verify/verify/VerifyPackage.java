@@ -318,31 +318,13 @@ public interface VerifyPackage extends EPackage
   int VERIFICATION_ACTIVITY__TITLE = 1;
 
   /**
-   * The feature id for the '<em><b>Phase Category</b></em>' reference list.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int VERIFICATION_ACTIVITY__PHASE_CATEGORY = 2;
-
-  /**
-   * The feature id for the '<em><b>User Category</b></em>' reference list.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int VERIFICATION_ACTIVITY__USER_CATEGORY = 3;
-
-  /**
    * The feature id for the '<em><b>Result</b></em>' reference list.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    * @ordered
    */
-  int VERIFICATION_ACTIVITY__RESULT = 4;
+  int VERIFICATION_ACTIVITY__RESULT = 2;
 
   /**
    * The feature id for the '<em><b>Method</b></em>' reference.
@@ -351,7 +333,7 @@ public interface VerifyPackage extends EPackage
    * @generated
    * @ordered
    */
-  int VERIFICATION_ACTIVITY__METHOD = 5;
+  int VERIFICATION_ACTIVITY__METHOD = 3;
 
   /**
    * The feature id for the '<em><b>Parameters</b></em>' reference list.
@@ -360,7 +342,7 @@ public interface VerifyPackage extends EPackage
    * @generated
    * @ordered
    */
-  int VERIFICATION_ACTIVITY__PARAMETERS = 6;
+  int VERIFICATION_ACTIVITY__PARAMETERS = 4;
 
   /**
    * The feature id for the '<em><b>Property Values</b></em>' reference list.
@@ -369,7 +351,25 @@ public interface VerifyPackage extends EPackage
    * @generated
    * @ordered
    */
-  int VERIFICATION_ACTIVITY__PROPERTY_VALUES = 7;
+  int VERIFICATION_ACTIVITY__PROPERTY_VALUES = 5;
+
+  /**
+   * The feature id for the '<em><b>Phase Category</b></em>' reference list.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int VERIFICATION_ACTIVITY__PHASE_CATEGORY = 6;
+
+  /**
+   * The feature id for the '<em><b>User Category</b></em>' reference list.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int VERIFICATION_ACTIVITY__USER_CATEGORY = 7;
 
   /**
    * The feature id for the '<em><b>Timeout</b></em>' attribute.
@@ -1266,28 +1266,6 @@ public interface VerifyPackage extends EPackage
   EAttribute getVerificationActivity_Title();
 
   /**
-   * Returns the meta object for the reference list '{@link org.osate.verify.verify.VerificationActivity#getPhaseCategory <em>Phase Category</em>}'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return the meta object for the reference list '<em>Phase Category</em>'.
-   * @see org.osate.verify.verify.VerificationActivity#getPhaseCategory()
-   * @see #getVerificationActivity()
-   * @generated
-   */
-  EReference getVerificationActivity_PhaseCategory();
-
-  /**
-   * Returns the meta object for the reference list '{@link org.osate.verify.verify.VerificationActivity#getUserCategory <em>User Category</em>}'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return the meta object for the reference list '<em>User Category</em>'.
-   * @see org.osate.verify.verify.VerificationActivity#getUserCategory()
-   * @see #getVerificationActivity()
-   * @generated
-   */
-  EReference getVerificationActivity_UserCategory();
-
-  /**
    * Returns the meta object for the reference list '{@link org.osate.verify.verify.VerificationActivity#getResult <em>Result</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -1330,6 +1308,28 @@ public interface VerifyPackage extends EPackage
    * @generated
    */
   EReference getVerificationActivity_PropertyValues();
+
+  /**
+   * Returns the meta object for the reference list '{@link org.osate.verify.verify.VerificationActivity#getPhaseCategory <em>Phase Category</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the reference list '<em>Phase Category</em>'.
+   * @see org.osate.verify.verify.VerificationActivity#getPhaseCategory()
+   * @see #getVerificationActivity()
+   * @generated
+   */
+  EReference getVerificationActivity_PhaseCategory();
+
+  /**
+   * Returns the meta object for the reference list '{@link org.osate.verify.verify.VerificationActivity#getUserCategory <em>User Category</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the reference list '<em>User Category</em>'.
+   * @see org.osate.verify.verify.VerificationActivity#getUserCategory()
+   * @see #getVerificationActivity()
+   * @generated
+   */
+  EReference getVerificationActivity_UserCategory();
 
   /**
    * Returns the meta object for the attribute '{@link org.osate.verify.verify.VerificationActivity#getTimeout <em>Timeout</em>}'.
@@ -2084,22 +2084,6 @@ public interface VerifyPackage extends EPackage
     EAttribute VERIFICATION_ACTIVITY__TITLE = eINSTANCE.getVerificationActivity_Title();
 
     /**
-     * The meta object literal for the '<em><b>Phase Category</b></em>' reference list feature.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
-    EReference VERIFICATION_ACTIVITY__PHASE_CATEGORY = eINSTANCE.getVerificationActivity_PhaseCategory();
-
-    /**
-     * The meta object literal for the '<em><b>User Category</b></em>' reference list feature.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
-    EReference VERIFICATION_ACTIVITY__USER_CATEGORY = eINSTANCE.getVerificationActivity_UserCategory();
-
-    /**
      * The meta object literal for the '<em><b>Result</b></em>' reference list feature.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
@@ -2130,6 +2114,22 @@ public interface VerifyPackage extends EPackage
      * @generated
      */
     EReference VERIFICATION_ACTIVITY__PROPERTY_VALUES = eINSTANCE.getVerificationActivity_PropertyValues();
+
+    /**
+     * The meta object literal for the '<em><b>Phase Category</b></em>' reference list feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EReference VERIFICATION_ACTIVITY__PHASE_CATEGORY = eINSTANCE.getVerificationActivity_PhaseCategory();
+
+    /**
+     * The meta object literal for the '<em><b>User Category</b></em>' reference list feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EReference VERIFICATION_ACTIVITY__USER_CATEGORY = eINSTANCE.getVerificationActivity_UserCategory();
 
     /**
      * The meta object literal for the '<em><b>Timeout</b></em>' attribute feature.

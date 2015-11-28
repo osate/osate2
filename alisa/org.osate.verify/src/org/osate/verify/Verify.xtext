@@ -83,8 +83,6 @@ VAReference returns ArgumentExpr:
 VerificationActivity:
 	name=ID (':' title=STRING)? 
 //	('for' target=[aadl2::ComponentImplementation|AadlClassifierReference])? // for specific AADL model configuration
-	('phase' phaseCategory+=[categories::PhaseCategory|ID]+)?
-	('category' userCategory+=[categories::UserCategory|ID]+)?
 	':'
 	(result+=[common::ComputeDeclaration|ID] (',' result+=[common::ComputeDeclaration|ID])* '=')?
 	method=[VerificationMethod|QualifiedName] 
@@ -94,7 +92,11 @@ VerificationActivity:
 		(propertyValues+=[common::ValDeclaration|ID] (',' propertyValues+=[common::ValDeclaration|ID])*)? 
 		')'
 	)?
-	('timeout' timeout=INT)?
+	'['(
+		('phase' phaseCategory+=[categories::PhaseCategory|ID]+)?
+	&('category' userCategory+=[categories::UserCategory|ID]+)?
+	&('timeout' timeout=INT)?
+	)']'
 ;
 
 

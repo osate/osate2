@@ -19,7 +19,7 @@
 '::'=88
 '<'=69
 '<>'=75
-'='=38
+'='=36
 '=='=66
 '=>'=74
 '>'=70
@@ -32,7 +32,7 @@
 'all'=34
 'assert'=28
 'boolean'=47
-'category'=37
+'category'=40
 'claim'=24
 'description'=54
 'else'=30
@@ -50,12 +50,12 @@
 'method'=45
 'methods'=43
 'null'=87
-'phase'=36
+'phase'=39
 'plan'=18
 'plugin'=53
 'precondition'=42
 'properties'=46
-'property'=39
+'property'=37
 'quality'=49
 'rationale'=56
 'report'=48
@@ -69,7 +69,7 @@
 'true'=85
 'unknown'=90
 'validation'=41
-'values'=40
+'values'=38
 'verification'=17
 'warning'=91
 '{'=82

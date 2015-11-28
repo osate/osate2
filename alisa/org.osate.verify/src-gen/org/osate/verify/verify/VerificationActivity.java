@@ -36,12 +36,12 @@ import org.osate.categories.categories.UserCategory;
  * <ul>
  *   <li>{@link org.osate.verify.verify.VerificationActivity#getName <em>Name</em>}</li>
  *   <li>{@link org.osate.verify.verify.VerificationActivity#getTitle <em>Title</em>}</li>
- *   <li>{@link org.osate.verify.verify.VerificationActivity#getPhaseCategory <em>Phase Category</em>}</li>
- *   <li>{@link org.osate.verify.verify.VerificationActivity#getUserCategory <em>User Category</em>}</li>
  *   <li>{@link org.osate.verify.verify.VerificationActivity#getResult <em>Result</em>}</li>
  *   <li>{@link org.osate.verify.verify.VerificationActivity#getMethod <em>Method</em>}</li>
  *   <li>{@link org.osate.verify.verify.VerificationActivity#getParameters <em>Parameters</em>}</li>
  *   <li>{@link org.osate.verify.verify.VerificationActivity#getPropertyValues <em>Property Values</em>}</li>
+ *   <li>{@link org.osate.verify.verify.VerificationActivity#getPhaseCategory <em>Phase Category</em>}</li>
+ *   <li>{@link org.osate.verify.verify.VerificationActivity#getUserCategory <em>User Category</em>}</li>
  *   <li>{@link org.osate.verify.verify.VerificationActivity#getTimeout <em>Timeout</em>}</li>
  * </ul>
  *
@@ -102,38 +102,6 @@ public interface VerificationActivity extends EObject
    * @generated
    */
   void setTitle(String value);
-
-  /**
-   * Returns the value of the '<em><b>Phase Category</b></em>' reference list.
-   * The list contents are of type {@link org.osate.categories.categories.PhaseCategory}.
-   * <!-- begin-user-doc -->
-   * <p>
-   * If the meaning of the '<em>Phase Category</em>' reference list isn't clear,
-   * there really should be more of a description here...
-   * </p>
-   * <!-- end-user-doc -->
-   * @return the value of the '<em>Phase Category</em>' reference list.
-   * @see org.osate.verify.verify.VerifyPackage#getVerificationActivity_PhaseCategory()
-   * @model
-   * @generated
-   */
-  EList<PhaseCategory> getPhaseCategory();
-
-  /**
-   * Returns the value of the '<em><b>User Category</b></em>' reference list.
-   * The list contents are of type {@link org.osate.categories.categories.UserCategory}.
-   * <!-- begin-user-doc -->
-   * <p>
-   * If the meaning of the '<em>User Category</em>' reference list isn't clear,
-   * there really should be more of a description here...
-   * </p>
-   * <!-- end-user-doc -->
-   * @return the value of the '<em>User Category</em>' reference list.
-   * @see org.osate.verify.verify.VerifyPackage#getVerificationActivity_UserCategory()
-   * @model
-   * @generated
-   */
-  EList<UserCategory> getUserCategory();
 
   /**
    * Returns the value of the '<em><b>Result</b></em>' reference list.
@@ -208,6 +176,38 @@ public interface VerificationActivity extends EObject
    * @generated
    */
   EList<ValDeclaration> getPropertyValues();
+
+  /**
+   * Returns the value of the '<em><b>Phase Category</b></em>' reference list.
+   * The list contents are of type {@link org.osate.categories.categories.PhaseCategory}.
+   * <!-- begin-user-doc -->
+   * <p>
+   * If the meaning of the '<em>Phase Category</em>' reference list isn't clear,
+   * there really should be more of a description here...
+   * </p>
+   * <!-- end-user-doc -->
+   * @return the value of the '<em>Phase Category</em>' reference list.
+   * @see org.osate.verify.verify.VerifyPackage#getVerificationActivity_PhaseCategory()
+   * @model
+   * @generated
+   */
+  EList<PhaseCategory> getPhaseCategory();
+
+  /**
+   * Returns the value of the '<em><b>User Category</b></em>' reference list.
+   * The list contents are of type {@link org.osate.categories.categories.UserCategory}.
+   * <!-- begin-user-doc -->
+   * <p>
+   * If the meaning of the '<em>User Category</em>' reference list isn't clear,
+   * there really should be more of a description here...
+   * </p>
+   * <!-- end-user-doc -->
+   * @return the value of the '<em>User Category</em>' reference list.
+   * @see org.osate.verify.verify.VerifyPackage#getVerificationActivity_UserCategory()
+   * @model
+   * @generated
+   */
+  EList<UserCategory> getUserCategory();
 
   /**
    * Returns the value of the '<em><b>Timeout</b></em>' attribute.
