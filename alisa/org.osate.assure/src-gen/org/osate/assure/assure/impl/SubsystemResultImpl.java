@@ -30,29 +30,28 @@ import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.eclipse.emf.ecore.util.EObjectContainmentEList;
 import org.eclipse.emf.ecore.util.InternalEList;
 
-import org.osate.alisa.workbench.alisa.AssurancePlan;
-
-import org.osate.assure.assure.AssuranceCase;
 import org.osate.assure.assure.AssurePackage;
-import org.osate.assure.assure.ModelResult;
+import org.osate.assure.assure.ClaimResult;
+import org.osate.assure.assure.SubsystemResult;
 
 /**
  * <!-- begin-user-doc -->
- * An implementation of the model object '<em><b>Assurance Case</b></em>'.
+ * An implementation of the model object '<em><b>Subsystem Result</b></em>'.
  * <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
  * </p>
  * <ul>
- *   <li>{@link org.osate.assure.assure.impl.AssuranceCaseImpl#getName <em>Name</em>}</li>
- *   <li>{@link org.osate.assure.assure.impl.AssuranceCaseImpl#getPlan <em>Plan</em>}</li>
- *   <li>{@link org.osate.assure.assure.impl.AssuranceCaseImpl#getMessage <em>Message</em>}</li>
- *   <li>{@link org.osate.assure.assure.impl.AssuranceCaseImpl#getModelResult <em>Model Result</em>}</li>
+ *   <li>{@link org.osate.assure.assure.impl.SubsystemResultImpl#getName <em>Name</em>}</li>
+ *   <li>{@link org.osate.assure.assure.impl.SubsystemResultImpl#getTargetSystem <em>Target System</em>}</li>
+ *   <li>{@link org.osate.assure.assure.impl.SubsystemResultImpl#getMessage <em>Message</em>}</li>
+ *   <li>{@link org.osate.assure.assure.impl.SubsystemResultImpl#getClaimResult <em>Claim Result</em>}</li>
+ *   <li>{@link org.osate.assure.assure.impl.SubsystemResultImpl#getSubsystemResult <em>Subsystem Result</em>}</li>
  * </ul>
  *
  * @generated
  */
-public class AssuranceCaseImpl extends AssureResultImpl implements AssuranceCase
+public class SubsystemResultImpl extends AssureResultImpl implements SubsystemResult
 {
   /**
    * The default value of the '{@link #getName() <em>Name</em>}' attribute.
@@ -75,14 +74,24 @@ public class AssuranceCaseImpl extends AssureResultImpl implements AssuranceCase
   protected String name = NAME_EDEFAULT;
 
   /**
-   * The cached value of the '{@link #getPlan() <em>Plan</em>}' reference.
+   * The default value of the '{@link #getTargetSystem() <em>Target System</em>}' attribute.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @see #getPlan()
+   * @see #getTargetSystem()
    * @generated
    * @ordered
    */
-  protected AssurancePlan plan;
+  protected static final String TARGET_SYSTEM_EDEFAULT = null;
+
+  /**
+   * The cached value of the '{@link #getTargetSystem() <em>Target System</em>}' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see #getTargetSystem()
+   * @generated
+   * @ordered
+   */
+  protected String targetSystem = TARGET_SYSTEM_EDEFAULT;
 
   /**
    * The default value of the '{@link #getMessage() <em>Message</em>}' attribute.
@@ -105,21 +114,31 @@ public class AssuranceCaseImpl extends AssureResultImpl implements AssuranceCase
   protected String message = MESSAGE_EDEFAULT;
 
   /**
-   * The cached value of the '{@link #getModelResult() <em>Model Result</em>}' containment reference list.
+   * The cached value of the '{@link #getClaimResult() <em>Claim Result</em>}' containment reference list.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @see #getModelResult()
+   * @see #getClaimResult()
    * @generated
    * @ordered
    */
-  protected EList<ModelResult> modelResult;
+  protected EList<ClaimResult> claimResult;
+
+  /**
+   * The cached value of the '{@link #getSubsystemResult() <em>Subsystem Result</em>}' containment reference list.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see #getSubsystemResult()
+   * @generated
+   * @ordered
+   */
+  protected EList<SubsystemResult> subsystemResult;
 
   /**
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    */
-  protected AssuranceCaseImpl()
+  protected SubsystemResultImpl()
   {
     super();
   }
@@ -132,7 +151,7 @@ public class AssuranceCaseImpl extends AssureResultImpl implements AssuranceCase
   @Override
   protected EClass eStaticClass()
   {
-    return AssurePackage.Literals.ASSURANCE_CASE;
+    return AssurePackage.Literals.SUBSYSTEM_RESULT;
   }
 
   /**
@@ -155,7 +174,7 @@ public class AssuranceCaseImpl extends AssureResultImpl implements AssuranceCase
     String oldName = name;
     name = newName;
     if (eNotificationRequired())
-      eNotify(new ENotificationImpl(this, Notification.SET, AssurePackage.ASSURANCE_CASE__NAME, oldName, name));
+      eNotify(new ENotificationImpl(this, Notification.SET, AssurePackage.SUBSYSTEM_RESULT__NAME, oldName, name));
   }
 
   /**
@@ -163,19 +182,9 @@ public class AssuranceCaseImpl extends AssureResultImpl implements AssuranceCase
    * <!-- end-user-doc -->
    * @generated
    */
-  public AssurancePlan getPlan()
+  public String getTargetSystem()
   {
-    if (plan != null && plan.eIsProxy())
-    {
-      InternalEObject oldPlan = (InternalEObject)plan;
-      plan = (AssurancePlan)eResolveProxy(oldPlan);
-      if (plan != oldPlan)
-      {
-        if (eNotificationRequired())
-          eNotify(new ENotificationImpl(this, Notification.RESOLVE, AssurePackage.ASSURANCE_CASE__PLAN, oldPlan, plan));
-      }
-    }
-    return plan;
+    return targetSystem;
   }
 
   /**
@@ -183,22 +192,12 @@ public class AssuranceCaseImpl extends AssureResultImpl implements AssuranceCase
    * <!-- end-user-doc -->
    * @generated
    */
-  public AssurancePlan basicGetPlan()
+  public void setTargetSystem(String newTargetSystem)
   {
-    return plan;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public void setPlan(AssurancePlan newPlan)
-  {
-    AssurancePlan oldPlan = plan;
-    plan = newPlan;
+    String oldTargetSystem = targetSystem;
+    targetSystem = newTargetSystem;
     if (eNotificationRequired())
-      eNotify(new ENotificationImpl(this, Notification.SET, AssurePackage.ASSURANCE_CASE__PLAN, oldPlan, plan));
+      eNotify(new ENotificationImpl(this, Notification.SET, AssurePackage.SUBSYSTEM_RESULT__TARGET_SYSTEM, oldTargetSystem, targetSystem));
   }
 
   /**
@@ -221,7 +220,7 @@ public class AssuranceCaseImpl extends AssureResultImpl implements AssuranceCase
     String oldMessage = message;
     message = newMessage;
     if (eNotificationRequired())
-      eNotify(new ENotificationImpl(this, Notification.SET, AssurePackage.ASSURANCE_CASE__MESSAGE, oldMessage, message));
+      eNotify(new ENotificationImpl(this, Notification.SET, AssurePackage.SUBSYSTEM_RESULT__MESSAGE, oldMessage, message));
   }
 
   /**
@@ -229,13 +228,27 @@ public class AssuranceCaseImpl extends AssureResultImpl implements AssuranceCase
    * <!-- end-user-doc -->
    * @generated
    */
-  public EList<ModelResult> getModelResult()
+  public EList<ClaimResult> getClaimResult()
   {
-    if (modelResult == null)
+    if (claimResult == null)
     {
-      modelResult = new EObjectContainmentEList<ModelResult>(ModelResult.class, this, AssurePackage.ASSURANCE_CASE__MODEL_RESULT);
+      claimResult = new EObjectContainmentEList<ClaimResult>(ClaimResult.class, this, AssurePackage.SUBSYSTEM_RESULT__CLAIM_RESULT);
     }
-    return modelResult;
+    return claimResult;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EList<SubsystemResult> getSubsystemResult()
+  {
+    if (subsystemResult == null)
+    {
+      subsystemResult = new EObjectContainmentEList<SubsystemResult>(SubsystemResult.class, this, AssurePackage.SUBSYSTEM_RESULT__SUBSYSTEM_RESULT);
+    }
+    return subsystemResult;
   }
 
   /**
@@ -248,8 +261,10 @@ public class AssuranceCaseImpl extends AssureResultImpl implements AssuranceCase
   {
     switch (featureID)
     {
-      case AssurePackage.ASSURANCE_CASE__MODEL_RESULT:
-        return ((InternalEList<?>)getModelResult()).basicRemove(otherEnd, msgs);
+      case AssurePackage.SUBSYSTEM_RESULT__CLAIM_RESULT:
+        return ((InternalEList<?>)getClaimResult()).basicRemove(otherEnd, msgs);
+      case AssurePackage.SUBSYSTEM_RESULT__SUBSYSTEM_RESULT:
+        return ((InternalEList<?>)getSubsystemResult()).basicRemove(otherEnd, msgs);
     }
     return super.eInverseRemove(otherEnd, featureID, msgs);
   }
@@ -264,15 +279,16 @@ public class AssuranceCaseImpl extends AssureResultImpl implements AssuranceCase
   {
     switch (featureID)
     {
-      case AssurePackage.ASSURANCE_CASE__NAME:
+      case AssurePackage.SUBSYSTEM_RESULT__NAME:
         return getName();
-      case AssurePackage.ASSURANCE_CASE__PLAN:
-        if (resolve) return getPlan();
-        return basicGetPlan();
-      case AssurePackage.ASSURANCE_CASE__MESSAGE:
+      case AssurePackage.SUBSYSTEM_RESULT__TARGET_SYSTEM:
+        return getTargetSystem();
+      case AssurePackage.SUBSYSTEM_RESULT__MESSAGE:
         return getMessage();
-      case AssurePackage.ASSURANCE_CASE__MODEL_RESULT:
-        return getModelResult();
+      case AssurePackage.SUBSYSTEM_RESULT__CLAIM_RESULT:
+        return getClaimResult();
+      case AssurePackage.SUBSYSTEM_RESULT__SUBSYSTEM_RESULT:
+        return getSubsystemResult();
     }
     return super.eGet(featureID, resolve, coreType);
   }
@@ -288,18 +304,22 @@ public class AssuranceCaseImpl extends AssureResultImpl implements AssuranceCase
   {
     switch (featureID)
     {
-      case AssurePackage.ASSURANCE_CASE__NAME:
+      case AssurePackage.SUBSYSTEM_RESULT__NAME:
         setName((String)newValue);
         return;
-      case AssurePackage.ASSURANCE_CASE__PLAN:
-        setPlan((AssurancePlan)newValue);
+      case AssurePackage.SUBSYSTEM_RESULT__TARGET_SYSTEM:
+        setTargetSystem((String)newValue);
         return;
-      case AssurePackage.ASSURANCE_CASE__MESSAGE:
+      case AssurePackage.SUBSYSTEM_RESULT__MESSAGE:
         setMessage((String)newValue);
         return;
-      case AssurePackage.ASSURANCE_CASE__MODEL_RESULT:
-        getModelResult().clear();
-        getModelResult().addAll((Collection<? extends ModelResult>)newValue);
+      case AssurePackage.SUBSYSTEM_RESULT__CLAIM_RESULT:
+        getClaimResult().clear();
+        getClaimResult().addAll((Collection<? extends ClaimResult>)newValue);
+        return;
+      case AssurePackage.SUBSYSTEM_RESULT__SUBSYSTEM_RESULT:
+        getSubsystemResult().clear();
+        getSubsystemResult().addAll((Collection<? extends SubsystemResult>)newValue);
         return;
     }
     super.eSet(featureID, newValue);
@@ -315,17 +335,20 @@ public class AssuranceCaseImpl extends AssureResultImpl implements AssuranceCase
   {
     switch (featureID)
     {
-      case AssurePackage.ASSURANCE_CASE__NAME:
+      case AssurePackage.SUBSYSTEM_RESULT__NAME:
         setName(NAME_EDEFAULT);
         return;
-      case AssurePackage.ASSURANCE_CASE__PLAN:
-        setPlan((AssurancePlan)null);
+      case AssurePackage.SUBSYSTEM_RESULT__TARGET_SYSTEM:
+        setTargetSystem(TARGET_SYSTEM_EDEFAULT);
         return;
-      case AssurePackage.ASSURANCE_CASE__MESSAGE:
+      case AssurePackage.SUBSYSTEM_RESULT__MESSAGE:
         setMessage(MESSAGE_EDEFAULT);
         return;
-      case AssurePackage.ASSURANCE_CASE__MODEL_RESULT:
-        getModelResult().clear();
+      case AssurePackage.SUBSYSTEM_RESULT__CLAIM_RESULT:
+        getClaimResult().clear();
+        return;
+      case AssurePackage.SUBSYSTEM_RESULT__SUBSYSTEM_RESULT:
+        getSubsystemResult().clear();
         return;
     }
     super.eUnset(featureID);
@@ -341,14 +364,16 @@ public class AssuranceCaseImpl extends AssureResultImpl implements AssuranceCase
   {
     switch (featureID)
     {
-      case AssurePackage.ASSURANCE_CASE__NAME:
+      case AssurePackage.SUBSYSTEM_RESULT__NAME:
         return NAME_EDEFAULT == null ? name != null : !NAME_EDEFAULT.equals(name);
-      case AssurePackage.ASSURANCE_CASE__PLAN:
-        return plan != null;
-      case AssurePackage.ASSURANCE_CASE__MESSAGE:
+      case AssurePackage.SUBSYSTEM_RESULT__TARGET_SYSTEM:
+        return TARGET_SYSTEM_EDEFAULT == null ? targetSystem != null : !TARGET_SYSTEM_EDEFAULT.equals(targetSystem);
+      case AssurePackage.SUBSYSTEM_RESULT__MESSAGE:
         return MESSAGE_EDEFAULT == null ? message != null : !MESSAGE_EDEFAULT.equals(message);
-      case AssurePackage.ASSURANCE_CASE__MODEL_RESULT:
-        return modelResult != null && !modelResult.isEmpty();
+      case AssurePackage.SUBSYSTEM_RESULT__CLAIM_RESULT:
+        return claimResult != null && !claimResult.isEmpty();
+      case AssurePackage.SUBSYSTEM_RESULT__SUBSYSTEM_RESULT:
+        return subsystemResult != null && !subsystemResult.isEmpty();
     }
     return super.eIsSet(featureID);
   }
@@ -366,10 +391,12 @@ public class AssuranceCaseImpl extends AssureResultImpl implements AssuranceCase
     StringBuffer result = new StringBuffer(super.toString());
     result.append(" (name: ");
     result.append(name);
+    result.append(", targetSystem: ");
+    result.append(targetSystem);
     result.append(", message: ");
     result.append(message);
     result.append(')');
     return result.toString();
   }
 
-} //AssuranceCaseImpl
+} //SubsystemResultImpl

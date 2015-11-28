@@ -45,6 +45,24 @@ public interface AssureFactory extends EFactory
   AssuranceCase createAssuranceCase();
 
   /**
+   * Returns a new object of class '<em>Model Result</em>'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return a new object of class '<em>Model Result</em>'.
+   * @generated
+   */
+  ModelResult createModelResult();
+
+  /**
+   * Returns a new object of class '<em>Subsystem Result</em>'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return a new object of class '<em>Subsystem Result</em>'.
+   * @generated
+   */
+  SubsystemResult createSubsystemResult();
+
+  /**
    * Returns a new object of class '<em>Claim Result</em>'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->

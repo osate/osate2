@@ -6,10 +6,15 @@ import "http://www.osate.org/verify/Verify" as Verify
 import "http://www.osate.org/categories/Categories" as categories
 
 AlisaWorkArea:
-	cases+=(AssurancePlan|AssuranceTask)*;
+	plan=AssurancePlan
+	tasks+=AssuranceTask*;
  
 AssurancePlan:
 	'assurance' 'plan' name=QualifiedName (':' title=STRING)?
+	modelPlan+=ModelPlan+
+	;
+
+ModelPlan:
 	'for' target=[aadl2::ComponentImplementation|AadlClassifierReference]
 	'['
 	(

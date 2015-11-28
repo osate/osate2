@@ -13,15 +13,37 @@ import "http://www.eclipse.org/emf/2002/Ecore" as ecore
 // result for a system in the architecture hierarchy
 AssuranceCase:
 	'case' name=QualifiedName 
-	('for' target=[Alisa::AssurancePlan|QualifiedName])?
-	('system' targetSystem=ID)?
+	('plan' plan=[Alisa::AssurancePlan|QualifiedName])?
+	'['
+	metrics=Metrics
+	('message' message= STRING)?
+	modelResult += ModelResult+
+	']'  
+;
+
+ModelResult:
+	'model' name=QualifiedName 
+	('for' target=[aadl2::ComponentImplementation|AadlClassifierReference])?
+	'['
+	metrics=Metrics
+	('message' message= STRING)?
+	claimResult += ClaimResult*
+	subsystemResult += SubsystemResult*
+	subAssuranceCase += [AssuranceCase|QualifiedName]*//[Alisa::AssurancePlan|QualifiedName]*
+	']'  
+;
+
+SubsystemResult:
+	'subsystem' name=QualifiedName 
+	'for' targetSystem=ID
 	'['
 	metrics=Metrics
 	('message' message= STRING)?
 	(claimResult += ClaimResult)*
-	(subAssuranceCase += AssuranceCase)*
+	(subsystemResult += SubsystemResult)*
 	']'  
 ;
+
 
 // Result of meeting a requirement
 ClaimResult:
@@ -87,7 +109,7 @@ VerificationActivityResult returns VerificationResult:
 ;
 
 AssureResult:
-	VerificationExpr |
+	VerificationExpr | ModelResult | SubsystemResult |
 		AssuranceCase | ClaimResult  | PreconditionResult | ValidationResult
 	;
 

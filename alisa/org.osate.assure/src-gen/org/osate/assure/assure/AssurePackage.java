@@ -78,7 +78,7 @@ public interface AssurePackage extends EPackage
    * @see org.osate.assure.assure.impl.AssurePackageImpl#getAssureResult()
    * @generated
    */
-  int ASSURE_RESULT = 3;
+  int ASSURE_RESULT = 5;
 
   /**
    * The feature id for the '<em><b>Metrics</b></em>' containment reference.
@@ -127,22 +127,13 @@ public interface AssurePackage extends EPackage
   int ASSURANCE_CASE__NAME = ASSURE_RESULT_FEATURE_COUNT + 0;
 
   /**
-   * The feature id for the '<em><b>Target</b></em>' reference.
+   * The feature id for the '<em><b>Plan</b></em>' reference.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    * @ordered
    */
-  int ASSURANCE_CASE__TARGET = ASSURE_RESULT_FEATURE_COUNT + 1;
-
-  /**
-   * The feature id for the '<em><b>Target System</b></em>' attribute.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int ASSURANCE_CASE__TARGET_SYSTEM = ASSURE_RESULT_FEATURE_COUNT + 2;
+  int ASSURANCE_CASE__PLAN = ASSURE_RESULT_FEATURE_COUNT + 1;
 
   /**
    * The feature id for the '<em><b>Message</b></em>' attribute.
@@ -151,25 +142,16 @@ public interface AssurePackage extends EPackage
    * @generated
    * @ordered
    */
-  int ASSURANCE_CASE__MESSAGE = ASSURE_RESULT_FEATURE_COUNT + 3;
+  int ASSURANCE_CASE__MESSAGE = ASSURE_RESULT_FEATURE_COUNT + 2;
 
   /**
-   * The feature id for the '<em><b>Claim Result</b></em>' containment reference list.
+   * The feature id for the '<em><b>Model Result</b></em>' containment reference list.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    * @ordered
    */
-  int ASSURANCE_CASE__CLAIM_RESULT = ASSURE_RESULT_FEATURE_COUNT + 4;
-
-  /**
-   * The feature id for the '<em><b>Sub Assurance Case</b></em>' containment reference list.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int ASSURANCE_CASE__SUB_ASSURANCE_CASE = ASSURE_RESULT_FEATURE_COUNT + 5;
+  int ASSURANCE_CASE__MODEL_RESULT = ASSURE_RESULT_FEATURE_COUNT + 3;
 
   /**
    * The number of structural features of the '<em>Assurance Case</em>' class.
@@ -178,7 +160,162 @@ public interface AssurePackage extends EPackage
    * @generated
    * @ordered
    */
-  int ASSURANCE_CASE_FEATURE_COUNT = ASSURE_RESULT_FEATURE_COUNT + 6;
+  int ASSURANCE_CASE_FEATURE_COUNT = ASSURE_RESULT_FEATURE_COUNT + 4;
+
+  /**
+   * The meta object id for the '{@link org.osate.assure.assure.impl.ModelResultImpl <em>Model Result</em>}' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see org.osate.assure.assure.impl.ModelResultImpl
+   * @see org.osate.assure.assure.impl.AssurePackageImpl#getModelResult()
+   * @generated
+   */
+  int MODEL_RESULT = 1;
+
+  /**
+   * The feature id for the '<em><b>Metrics</b></em>' containment reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int MODEL_RESULT__METRICS = ASSURE_RESULT__METRICS;
+
+  /**
+   * The feature id for the '<em><b>Name</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int MODEL_RESULT__NAME = ASSURE_RESULT_FEATURE_COUNT + 0;
+
+  /**
+   * The feature id for the '<em><b>Target</b></em>' reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int MODEL_RESULT__TARGET = ASSURE_RESULT_FEATURE_COUNT + 1;
+
+  /**
+   * The feature id for the '<em><b>Message</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int MODEL_RESULT__MESSAGE = ASSURE_RESULT_FEATURE_COUNT + 2;
+
+  /**
+   * The feature id for the '<em><b>Claim Result</b></em>' containment reference list.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int MODEL_RESULT__CLAIM_RESULT = ASSURE_RESULT_FEATURE_COUNT + 3;
+
+  /**
+   * The feature id for the '<em><b>Subsystem Result</b></em>' containment reference list.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int MODEL_RESULT__SUBSYSTEM_RESULT = ASSURE_RESULT_FEATURE_COUNT + 4;
+
+  /**
+   * The feature id for the '<em><b>Sub Assurance Case</b></em>' reference list.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int MODEL_RESULT__SUB_ASSURANCE_CASE = ASSURE_RESULT_FEATURE_COUNT + 5;
+
+  /**
+   * The number of structural features of the '<em>Model Result</em>' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int MODEL_RESULT_FEATURE_COUNT = ASSURE_RESULT_FEATURE_COUNT + 6;
+
+  /**
+   * The meta object id for the '{@link org.osate.assure.assure.impl.SubsystemResultImpl <em>Subsystem Result</em>}' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see org.osate.assure.assure.impl.SubsystemResultImpl
+   * @see org.osate.assure.assure.impl.AssurePackageImpl#getSubsystemResult()
+   * @generated
+   */
+  int SUBSYSTEM_RESULT = 2;
+
+  /**
+   * The feature id for the '<em><b>Metrics</b></em>' containment reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int SUBSYSTEM_RESULT__METRICS = ASSURE_RESULT__METRICS;
+
+  /**
+   * The feature id for the '<em><b>Name</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int SUBSYSTEM_RESULT__NAME = ASSURE_RESULT_FEATURE_COUNT + 0;
+
+  /**
+   * The feature id for the '<em><b>Target System</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int SUBSYSTEM_RESULT__TARGET_SYSTEM = ASSURE_RESULT_FEATURE_COUNT + 1;
+
+  /**
+   * The feature id for the '<em><b>Message</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int SUBSYSTEM_RESULT__MESSAGE = ASSURE_RESULT_FEATURE_COUNT + 2;
+
+  /**
+   * The feature id for the '<em><b>Claim Result</b></em>' containment reference list.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int SUBSYSTEM_RESULT__CLAIM_RESULT = ASSURE_RESULT_FEATURE_COUNT + 3;
+
+  /**
+   * The feature id for the '<em><b>Subsystem Result</b></em>' containment reference list.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int SUBSYSTEM_RESULT__SUBSYSTEM_RESULT = ASSURE_RESULT_FEATURE_COUNT + 4;
+
+  /**
+   * The number of structural features of the '<em>Subsystem Result</em>' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int SUBSYSTEM_RESULT_FEATURE_COUNT = ASSURE_RESULT_FEATURE_COUNT + 5;
 
   /**
    * The meta object id for the '{@link org.osate.assure.assure.impl.ClaimResultImpl <em>Claim Result</em>}' class.
@@ -188,7 +325,7 @@ public interface AssurePackage extends EPackage
    * @see org.osate.assure.assure.impl.AssurePackageImpl#getClaimResult()
    * @generated
    */
-  int CLAIM_RESULT = 1;
+  int CLAIM_RESULT = 3;
 
   /**
    * The feature id for the '<em><b>Metrics</b></em>' containment reference.
@@ -252,7 +389,7 @@ public interface AssurePackage extends EPackage
    * @see org.osate.assure.assure.impl.AssurePackageImpl#getVerificationResult()
    * @generated
    */
-  int VERIFICATION_RESULT = 2;
+  int VERIFICATION_RESULT = 4;
 
   /**
    * The feature id for the '<em><b>Metrics</b></em>' containment reference.
@@ -325,7 +462,7 @@ public interface AssurePackage extends EPackage
    * @see org.osate.assure.assure.impl.AssurePackageImpl#getVerificationExpr()
    * @generated
    */
-  int VERIFICATION_EXPR = 4;
+  int VERIFICATION_EXPR = 6;
 
   /**
    * The feature id for the '<em><b>Metrics</b></em>' containment reference.
@@ -353,7 +490,7 @@ public interface AssurePackage extends EPackage
    * @see org.osate.assure.assure.impl.AssurePackageImpl#getElseResult()
    * @generated
    */
-  int ELSE_RESULT = 5;
+  int ELSE_RESULT = 7;
 
   /**
    * The feature id for the '<em><b>Metrics</b></em>' containment reference.
@@ -426,7 +563,7 @@ public interface AssurePackage extends EPackage
    * @see org.osate.assure.assure.impl.AssurePackageImpl#getThenResult()
    * @generated
    */
-  int THEN_RESULT = 6;
+  int THEN_RESULT = 8;
 
   /**
    * The feature id for the '<em><b>Metrics</b></em>' containment reference.
@@ -481,7 +618,7 @@ public interface AssurePackage extends EPackage
    * @see org.osate.assure.assure.impl.AssurePackageImpl#getMetrics()
    * @generated
    */
-  int METRICS = 7;
+  int METRICS = 9;
 
   /**
    * The feature id for the '<em><b>Tbd Count</b></em>' attribute.
@@ -590,7 +727,7 @@ public interface AssurePackage extends EPackage
    * @see org.osate.assure.assure.impl.AssurePackageImpl#getPreconditionResult()
    * @generated
    */
-  int PRECONDITION_RESULT = 8;
+  int PRECONDITION_RESULT = 10;
 
   /**
    * The feature id for the '<em><b>Metrics</b></em>' containment reference.
@@ -672,7 +809,7 @@ public interface AssurePackage extends EPackage
    * @see org.osate.assure.assure.impl.AssurePackageImpl#getValidationResult()
    * @generated
    */
-  int VALIDATION_RESULT = 9;
+  int VALIDATION_RESULT = 11;
 
   /**
    * The feature id for the '<em><b>Metrics</b></em>' containment reference.
@@ -754,7 +891,7 @@ public interface AssurePackage extends EPackage
    * @see org.osate.assure.assure.impl.AssurePackageImpl#getVerificationActivityResult()
    * @generated
    */
-  int VERIFICATION_ACTIVITY_RESULT = 10;
+  int VERIFICATION_ACTIVITY_RESULT = 12;
 
   /**
    * The feature id for the '<em><b>Metrics</b></em>' containment reference.
@@ -854,7 +991,7 @@ public interface AssurePackage extends EPackage
    * @see org.osate.assure.assure.impl.AssurePackageImpl#getElseType()
    * @generated
    */
-  int ELSE_TYPE = 11;
+  int ELSE_TYPE = 13;
 
   /**
    * The meta object id for the '{@link org.osate.assure.assure.VerificationResultState <em>Verification Result State</em>}' enum.
@@ -864,7 +1001,7 @@ public interface AssurePackage extends EPackage
    * @see org.osate.assure.assure.impl.AssurePackageImpl#getVerificationResultState()
    * @generated
    */
-  int VERIFICATION_RESULT_STATE = 12;
+  int VERIFICATION_RESULT_STATE = 14;
 
   /**
    * The meta object id for the '{@link org.osate.assure.assure.VerificationExecutionState <em>Verification Execution State</em>}' enum.
@@ -874,7 +1011,7 @@ public interface AssurePackage extends EPackage
    * @see org.osate.assure.assure.impl.AssurePackageImpl#getVerificationExecutionState()
    * @generated
    */
-  int VERIFICATION_EXECUTION_STATE = 13;
+  int VERIFICATION_EXECUTION_STATE = 15;
 
 
   /**
@@ -899,26 +1036,15 @@ public interface AssurePackage extends EPackage
   EAttribute getAssuranceCase_Name();
 
   /**
-   * Returns the meta object for the reference '{@link org.osate.assure.assure.AssuranceCase#getTarget <em>Target</em>}'.
+   * Returns the meta object for the reference '{@link org.osate.assure.assure.AssuranceCase#getPlan <em>Plan</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @return the meta object for the reference '<em>Target</em>'.
-   * @see org.osate.assure.assure.AssuranceCase#getTarget()
+   * @return the meta object for the reference '<em>Plan</em>'.
+   * @see org.osate.assure.assure.AssuranceCase#getPlan()
    * @see #getAssuranceCase()
    * @generated
    */
-  EReference getAssuranceCase_Target();
-
-  /**
-   * Returns the meta object for the attribute '{@link org.osate.assure.assure.AssuranceCase#getTargetSystem <em>Target System</em>}'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return the meta object for the attribute '<em>Target System</em>'.
-   * @see org.osate.assure.assure.AssuranceCase#getTargetSystem()
-   * @see #getAssuranceCase()
-   * @generated
-   */
-  EAttribute getAssuranceCase_TargetSystem();
+  EReference getAssuranceCase_Plan();
 
   /**
    * Returns the meta object for the attribute '{@link org.osate.assure.assure.AssuranceCase#getMessage <em>Message</em>}'.
@@ -932,26 +1058,156 @@ public interface AssurePackage extends EPackage
   EAttribute getAssuranceCase_Message();
 
   /**
-   * Returns the meta object for the containment reference list '{@link org.osate.assure.assure.AssuranceCase#getClaimResult <em>Claim Result</em>}'.
+   * Returns the meta object for the containment reference list '{@link org.osate.assure.assure.AssuranceCase#getModelResult <em>Model Result</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the containment reference list '<em>Model Result</em>'.
+   * @see org.osate.assure.assure.AssuranceCase#getModelResult()
+   * @see #getAssuranceCase()
+   * @generated
+   */
+  EReference getAssuranceCase_ModelResult();
+
+  /**
+   * Returns the meta object for class '{@link org.osate.assure.assure.ModelResult <em>Model Result</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for class '<em>Model Result</em>'.
+   * @see org.osate.assure.assure.ModelResult
+   * @generated
+   */
+  EClass getModelResult();
+
+  /**
+   * Returns the meta object for the attribute '{@link org.osate.assure.assure.ModelResult#getName <em>Name</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the attribute '<em>Name</em>'.
+   * @see org.osate.assure.assure.ModelResult#getName()
+   * @see #getModelResult()
+   * @generated
+   */
+  EAttribute getModelResult_Name();
+
+  /**
+   * Returns the meta object for the reference '{@link org.osate.assure.assure.ModelResult#getTarget <em>Target</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the reference '<em>Target</em>'.
+   * @see org.osate.assure.assure.ModelResult#getTarget()
+   * @see #getModelResult()
+   * @generated
+   */
+  EReference getModelResult_Target();
+
+  /**
+   * Returns the meta object for the attribute '{@link org.osate.assure.assure.ModelResult#getMessage <em>Message</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the attribute '<em>Message</em>'.
+   * @see org.osate.assure.assure.ModelResult#getMessage()
+   * @see #getModelResult()
+   * @generated
+   */
+  EAttribute getModelResult_Message();
+
+  /**
+   * Returns the meta object for the containment reference list '{@link org.osate.assure.assure.ModelResult#getClaimResult <em>Claim Result</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @return the meta object for the containment reference list '<em>Claim Result</em>'.
-   * @see org.osate.assure.assure.AssuranceCase#getClaimResult()
-   * @see #getAssuranceCase()
+   * @see org.osate.assure.assure.ModelResult#getClaimResult()
+   * @see #getModelResult()
    * @generated
    */
-  EReference getAssuranceCase_ClaimResult();
+  EReference getModelResult_ClaimResult();
 
   /**
-   * Returns the meta object for the containment reference list '{@link org.osate.assure.assure.AssuranceCase#getSubAssuranceCase <em>Sub Assurance Case</em>}'.
+   * Returns the meta object for the containment reference list '{@link org.osate.assure.assure.ModelResult#getSubsystemResult <em>Subsystem Result</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @return the meta object for the containment reference list '<em>Sub Assurance Case</em>'.
-   * @see org.osate.assure.assure.AssuranceCase#getSubAssuranceCase()
-   * @see #getAssuranceCase()
+   * @return the meta object for the containment reference list '<em>Subsystem Result</em>'.
+   * @see org.osate.assure.assure.ModelResult#getSubsystemResult()
+   * @see #getModelResult()
    * @generated
    */
-  EReference getAssuranceCase_SubAssuranceCase();
+  EReference getModelResult_SubsystemResult();
+
+  /**
+   * Returns the meta object for the reference list '{@link org.osate.assure.assure.ModelResult#getSubAssuranceCase <em>Sub Assurance Case</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the reference list '<em>Sub Assurance Case</em>'.
+   * @see org.osate.assure.assure.ModelResult#getSubAssuranceCase()
+   * @see #getModelResult()
+   * @generated
+   */
+  EReference getModelResult_SubAssuranceCase();
+
+  /**
+   * Returns the meta object for class '{@link org.osate.assure.assure.SubsystemResult <em>Subsystem Result</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for class '<em>Subsystem Result</em>'.
+   * @see org.osate.assure.assure.SubsystemResult
+   * @generated
+   */
+  EClass getSubsystemResult();
+
+  /**
+   * Returns the meta object for the attribute '{@link org.osate.assure.assure.SubsystemResult#getName <em>Name</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the attribute '<em>Name</em>'.
+   * @see org.osate.assure.assure.SubsystemResult#getName()
+   * @see #getSubsystemResult()
+   * @generated
+   */
+  EAttribute getSubsystemResult_Name();
+
+  /**
+   * Returns the meta object for the attribute '{@link org.osate.assure.assure.SubsystemResult#getTargetSystem <em>Target System</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the attribute '<em>Target System</em>'.
+   * @see org.osate.assure.assure.SubsystemResult#getTargetSystem()
+   * @see #getSubsystemResult()
+   * @generated
+   */
+  EAttribute getSubsystemResult_TargetSystem();
+
+  /**
+   * Returns the meta object for the attribute '{@link org.osate.assure.assure.SubsystemResult#getMessage <em>Message</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the attribute '<em>Message</em>'.
+   * @see org.osate.assure.assure.SubsystemResult#getMessage()
+   * @see #getSubsystemResult()
+   * @generated
+   */
+  EAttribute getSubsystemResult_Message();
+
+  /**
+   * Returns the meta object for the containment reference list '{@link org.osate.assure.assure.SubsystemResult#getClaimResult <em>Claim Result</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the containment reference list '<em>Claim Result</em>'.
+   * @see org.osate.assure.assure.SubsystemResult#getClaimResult()
+   * @see #getSubsystemResult()
+   * @generated
+   */
+  EReference getSubsystemResult_ClaimResult();
+
+  /**
+   * Returns the meta object for the containment reference list '{@link org.osate.assure.assure.SubsystemResult#getSubsystemResult <em>Subsystem Result</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the containment reference list '<em>Subsystem Result</em>'.
+   * @see org.osate.assure.assure.SubsystemResult#getSubsystemResult()
+   * @see #getSubsystemResult()
+   * @generated
+   */
+  EReference getSubsystemResult_SubsystemResult();
 
   /**
    * Returns the meta object for class '{@link org.osate.assure.assure.ClaimResult <em>Claim Result</em>}'.
@@ -1488,20 +1744,12 @@ public interface AssurePackage extends EPackage
     EAttribute ASSURANCE_CASE__NAME = eINSTANCE.getAssuranceCase_Name();
 
     /**
-     * The meta object literal for the '<em><b>Target</b></em>' reference feature.
+     * The meta object literal for the '<em><b>Plan</b></em>' reference feature.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @generated
      */
-    EReference ASSURANCE_CASE__TARGET = eINSTANCE.getAssuranceCase_Target();
-
-    /**
-     * The meta object literal for the '<em><b>Target System</b></em>' attribute feature.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
-    EAttribute ASSURANCE_CASE__TARGET_SYSTEM = eINSTANCE.getAssuranceCase_TargetSystem();
+    EReference ASSURANCE_CASE__PLAN = eINSTANCE.getAssuranceCase_Plan();
 
     /**
      * The meta object literal for the '<em><b>Message</b></em>' attribute feature.
@@ -1512,20 +1760,120 @@ public interface AssurePackage extends EPackage
     EAttribute ASSURANCE_CASE__MESSAGE = eINSTANCE.getAssuranceCase_Message();
 
     /**
+     * The meta object literal for the '<em><b>Model Result</b></em>' containment reference list feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EReference ASSURANCE_CASE__MODEL_RESULT = eINSTANCE.getAssuranceCase_ModelResult();
+
+    /**
+     * The meta object literal for the '{@link org.osate.assure.assure.impl.ModelResultImpl <em>Model Result</em>}' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see org.osate.assure.assure.impl.ModelResultImpl
+     * @see org.osate.assure.assure.impl.AssurePackageImpl#getModelResult()
+     * @generated
+     */
+    EClass MODEL_RESULT = eINSTANCE.getModelResult();
+
+    /**
+     * The meta object literal for the '<em><b>Name</b></em>' attribute feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EAttribute MODEL_RESULT__NAME = eINSTANCE.getModelResult_Name();
+
+    /**
+     * The meta object literal for the '<em><b>Target</b></em>' reference feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EReference MODEL_RESULT__TARGET = eINSTANCE.getModelResult_Target();
+
+    /**
+     * The meta object literal for the '<em><b>Message</b></em>' attribute feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EAttribute MODEL_RESULT__MESSAGE = eINSTANCE.getModelResult_Message();
+
+    /**
      * The meta object literal for the '<em><b>Claim Result</b></em>' containment reference list feature.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @generated
      */
-    EReference ASSURANCE_CASE__CLAIM_RESULT = eINSTANCE.getAssuranceCase_ClaimResult();
+    EReference MODEL_RESULT__CLAIM_RESULT = eINSTANCE.getModelResult_ClaimResult();
 
     /**
-     * The meta object literal for the '<em><b>Sub Assurance Case</b></em>' containment reference list feature.
+     * The meta object literal for the '<em><b>Subsystem Result</b></em>' containment reference list feature.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @generated
      */
-    EReference ASSURANCE_CASE__SUB_ASSURANCE_CASE = eINSTANCE.getAssuranceCase_SubAssuranceCase();
+    EReference MODEL_RESULT__SUBSYSTEM_RESULT = eINSTANCE.getModelResult_SubsystemResult();
+
+    /**
+     * The meta object literal for the '<em><b>Sub Assurance Case</b></em>' reference list feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EReference MODEL_RESULT__SUB_ASSURANCE_CASE = eINSTANCE.getModelResult_SubAssuranceCase();
+
+    /**
+     * The meta object literal for the '{@link org.osate.assure.assure.impl.SubsystemResultImpl <em>Subsystem Result</em>}' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see org.osate.assure.assure.impl.SubsystemResultImpl
+     * @see org.osate.assure.assure.impl.AssurePackageImpl#getSubsystemResult()
+     * @generated
+     */
+    EClass SUBSYSTEM_RESULT = eINSTANCE.getSubsystemResult();
+
+    /**
+     * The meta object literal for the '<em><b>Name</b></em>' attribute feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EAttribute SUBSYSTEM_RESULT__NAME = eINSTANCE.getSubsystemResult_Name();
+
+    /**
+     * The meta object literal for the '<em><b>Target System</b></em>' attribute feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EAttribute SUBSYSTEM_RESULT__TARGET_SYSTEM = eINSTANCE.getSubsystemResult_TargetSystem();
+
+    /**
+     * The meta object literal for the '<em><b>Message</b></em>' attribute feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EAttribute SUBSYSTEM_RESULT__MESSAGE = eINSTANCE.getSubsystemResult_Message();
+
+    /**
+     * The meta object literal for the '<em><b>Claim Result</b></em>' containment reference list feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EReference SUBSYSTEM_RESULT__CLAIM_RESULT = eINSTANCE.getSubsystemResult_ClaimResult();
+
+    /**
+     * The meta object literal for the '<em><b>Subsystem Result</b></em>' containment reference list feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EReference SUBSYSTEM_RESULT__SUBSYSTEM_RESULT = eINSTANCE.getSubsystemResult_SubsystemResult();
 
     /**
      * The meta object literal for the '{@link org.osate.assure.assure.impl.ClaimResultImpl <em>Claim Result</em>}' class.

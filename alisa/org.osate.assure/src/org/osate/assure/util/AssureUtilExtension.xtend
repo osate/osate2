@@ -51,13 +51,17 @@ import org.osate.aadl2.instance.SystemInstance
 import org.osate.aadl2.modelsupport.AadlConstants
 import org.osate.aadl2.modelsupport.resources.OsateResourceUtil
 import org.osate.aadl2.util.Aadl2Util
-import org.osate.alisa.common.util.CommonUtilExtension
+import org.osate.alisa.common.common.CommonFactory
+import org.osate.alisa.common.common.ResultIssue
+import org.osate.alisa.common.common.ResultIssueType
 import org.osate.assure.assure.AssuranceCase
 import org.osate.assure.assure.AssureResult
 import org.osate.assure.assure.ClaimResult
 import org.osate.assure.assure.ElseResult
 import org.osate.assure.assure.ElseType
+import org.osate.assure.assure.ModelResult
 import org.osate.assure.assure.PreconditionResult
+import org.osate.assure.assure.SubsystemResult
 import org.osate.assure.assure.ThenResult
 import org.osate.assure.assure.ValidationResult
 import org.osate.assure.assure.VerificationActivityResult
@@ -71,23 +75,18 @@ import org.osate.verify.verify.VerificationMethod
 import static extension org.osate.aadl2.instantiation.InstantiateModel.buildInstanceModelFile
 import static extension org.osate.alisa.common.util.CommonUtilExtension.*
 import static extension org.osate.reqspec.util.ReqSpecUtilExtension.*
-import org.osate.alisa.common.common.ResultIssue
-import org.osate.alisa.common.common.ResultIssueType
-import org.osate.alisa.common.common.CommonFactory
 
 class AssureUtilExtension {
 
-	/**
-	 * get enclosing assurance case. If the assureObject is an AssuranceCase we get the enclosing one.
-	 */
-	def static AssuranceCase getEnclosingAssuranceCase(EObject assureObject) {
+	
+	def static SubsystemResult getEnclosingSubsystemResult(EObject assureObject) {
 		if (assureObject.eContainer == null) return null;
 		var result = assureObject.eContainer
-		while (result != null && !(result instanceof AssuranceCase)) {
+		while (result != null && !(result instanceof SubsystemResult)) {
 			result = result.eContainer
 		}
 		if(result == null) return null
-		return result as AssuranceCase
+		return result as SubsystemResult
 	}
 
 	def static AssuranceCase getRootAssuranceCase(EObject assureObject) {
@@ -102,9 +101,9 @@ class AssureUtilExtension {
 		var ac = assureObject
 		while (ac != null) {
 			ac = ac.eContainer
-			if (ac instanceof AssuranceCase){
-				if (ac.target?.target != null){
-					return ac.target?.target
+			if (ac instanceof ModelResult){
+				if (ac.target != null){
+					return ac.target
 				}
 			}
 		}
@@ -130,25 +129,15 @@ class AssureUtilExtension {
 		req?.targetElement
 	}
 
-//	def static SystemInstance getVerificationActivityInstanceModel(VerificationResult assureObject) {
-//		val ci = if (assureObject instanceof VerificationActivityResult) {assureObject.target?.target} else {
-//			(assureObject.eContainer as VerificationActivityResult).target?.target
-//		}
-//		if (ci != null){
-//			return ci.instanceModel
-//		}
-//		return null
-//	}
-
 	def static SystemInstance getAssuranceCaseInstanceModel(VerificationResult assureObject) {
 		val rac = assureObject.assuranceCaseTarget
 		if (rac == null ) return null
 		rac.instanceModel
 	}
 
-	def static ComponentInstance findTargetSystemComponentInstance(SystemInstance si,AssuranceCase ac){
-		if (ac.targetSystem != null){
-			val ci = findTargetSystemComponentInstance(si,ac.enclosingAssuranceCase)
+	def static ComponentInstance findTargetSystemComponentInstance(SystemInstance si,SubsystemResult ac){
+		if (ac != null && ac.targetSystem != null){
+			val ci = findTargetSystemComponentInstance(si,ac.enclosingSubsystemResult)
 			findElementInstance(ci,ac.targetSystem) as ComponentInstance
 		} else {
 			si
@@ -481,6 +470,8 @@ class AssureUtilExtension {
 	def static getPrintableName(AssureResult ar) {
 		switch (ar) {
 			AssuranceCase: return "system "+ar.name
+			ModelResult: return "model "+ar.name
+			SubsystemResult: return "subsystem "+ar.name
 			ClaimResult: return "claim "+ar.name
 			ValidationResult: return "validation "+ar.name
 			PreconditionResult: return "precondition "+ar.name
@@ -494,6 +485,8 @@ class AssureUtilExtension {
 	def static getName(AssureResult ar) {
 		switch (ar) {
 			AssuranceCase: return ar.name
+			ModelResult: return ar.name
+			SubsystemResult: return ar.name
 			ClaimResult: return ar.name
 			ValidationResult: return ar.name
 			PreconditionResult: return ar.name
@@ -688,9 +681,23 @@ class AssureUtilExtension {
 
 	def static AssuranceCase recomputeAllCounts(AssuranceCase caseResult) {
 		caseResult.resetCounts
-		caseResult.recomputeAllCounts(caseResult.claimResult)
-		caseResult.recomputeAllCounts(caseResult.subAssuranceCase)
+		caseResult.recomputeAllCounts(caseResult.modelResult)
 		caseResult
+	}
+
+	def static ModelResult recomputeAllCounts(ModelResult modelResult) {
+		modelResult.resetCounts
+		modelResult.recomputeAllCounts(modelResult.claimResult)
+		modelResult.recomputeAllCounts(modelResult.subsystemResult)
+		modelResult.recomputeAllCounts(modelResult.subAssuranceCase)
+		modelResult
+	}
+
+	def static SubsystemResult recomputeAllCounts(SubsystemResult subsystemResult) {
+		subsystemResult.resetCounts
+		subsystemResult.recomputeAllCounts(subsystemResult.claimResult)
+		subsystemResult.recomputeAllCounts(subsystemResult.subsystemResult)
+		subsystemResult
 	}
 
 	private def static ClaimResult recomputeAllCounts(ClaimResult claimResult) {
@@ -753,6 +760,8 @@ class AssureUtilExtension {
 	private def static AssureResult recomputeAllCounts(AssureResult assureResult) {
 		switch (assureResult) {
 			AssuranceCase: assureResult.recomputeAllCounts
+			ModelResult: assureResult.recomputeAllCounts
+			SubsystemResult: assureResult.recomputeAllCounts
 			ClaimResult: assureResult.recomputeAllCounts
 			ValidationResult: assureResult.recomputeAllCounts
 			PreconditionResult: assureResult.recomputeAllCounts
@@ -963,9 +972,23 @@ class AssureUtilExtension {
 
 	private def static AssuranceCase addAllSubCounts(AssuranceCase caseResult) {
 		caseResult.resetCounts
-		caseResult.claimResult.forEach[e|e.addTo(caseResult)]
-		caseResult.subAssuranceCase.forEach[e|e.addTo(caseResult)]
+		caseResult.modelResult.forEach[e|e.addTo(caseResult)]
 		caseResult
+	}
+
+	private def static ModelResult addAllSubCounts(ModelResult modelResult) {
+		modelResult.resetCounts
+		modelResult.claimResult.forEach[e|e.addTo(modelResult)]
+		modelResult.subsystemResult.forEach[e|e.addTo(modelResult)]
+		modelResult.subAssuranceCase.forEach[e|e.addTo(modelResult)]
+		modelResult
+	}
+
+	private def static SubsystemResult addAllSubCounts(SubsystemResult subsystemResult) {
+		subsystemResult.resetCounts
+		subsystemResult.claimResult.forEach[e|e.addTo(subsystemResult)]
+		subsystemResult.subsystemResult.forEach[e|e.addTo(subsystemResult)]
+		subsystemResult
 	}
 
 	private def static ClaimResult addAllSubCounts(ClaimResult claimResult) {
@@ -1028,6 +1051,8 @@ class AssureUtilExtension {
 	private def static AssureResult addAllSubCounts(AssureResult assureResult) {
 		switch (assureResult) {
 			AssuranceCase: assureResult.addAllSubCounts
+			ModelResult: assureResult.addAllSubCounts
+			SubsystemResult: assureResult.addAllSubCounts
 			ClaimResult: assureResult.addAllSubCounts
 			ValidationResult: assureResult.addAllSubCounts
 			PreconditionResult: assureResult.addAllSubCounts
@@ -1057,6 +1082,10 @@ class AssureUtilExtension {
 		// has to be a string without space (ID) 
 		switch (ar) {
 			AssuranceCase:
+				return ar.name
+			ModelResult:
+				return ar.name
+			SubsystemResult:
 				return ar.name
 			ClaimResult:
 				return ar.target?.title ?: ar.target.name
@@ -1092,17 +1121,22 @@ class AssureUtilExtension {
 		return ""
 	}
 
-	def static String constructDescription(AssuranceCase ar) {
-		val ap = ar.target
-		if (ap == null){
+	def static String constructMessage(ModelResult ce) {
+		if(ce.message != null) return ce.message
+		return ""
+	}
+
+	def static String constructMessage(SubsystemResult ce) {
+		if(ce.message != null) return ce.message
+		return ""
+	}
+
+	def static String constructDescription(ModelResult ar) {
+		val ci = ar.target
+		if (ci == null){
 			return ""
 		}
-		if(ap.description != null) {
-			val d = ap.description
-			return CommonUtilExtension.toText(d,ar.claimSubject)
-			}
-		if(ap.title != null) return ap.title
-		""
+		"Verified system implementation "+ci.getQualifiedName()
 	}
 	
 	def static String getName(VerificationActivityResult cr){
@@ -1127,7 +1161,14 @@ class AssureUtilExtension {
 	}
 
 	def static String getName(AssuranceCase ce) {
-		if (ce.target != null && ce.target.target != null) return ce.target.target.name
+		return ce.plan.name
+	}
+
+	def static String getName(ModelResult ce) {
+		return ce.target.getName
+	}
+
+	def static String getName(SubsystemResult ce) {
 		return ce.targetSystem
 	}
 	

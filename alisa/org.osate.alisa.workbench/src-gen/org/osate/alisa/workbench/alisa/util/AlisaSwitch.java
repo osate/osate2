@@ -101,6 +101,13 @@ public class AlisaSwitch<T> extends Switch<T>
         if (result == null) result = defaultCase(theEObject);
         return result;
       }
+      case AlisaPackage.MODEL_PLAN:
+      {
+        ModelPlan modelPlan = (ModelPlan)theEObject;
+        T result = caseModelPlan(modelPlan);
+        if (result == null) result = defaultCase(theEObject);
+        return result;
+      }
       case AlisaPackage.ASSURANCE_TASK:
       {
         AssuranceTask assuranceTask = (AssuranceTask)theEObject;
@@ -141,6 +148,22 @@ public class AlisaSwitch<T> extends Switch<T>
    * @generated
    */
   public T caseAssurancePlan(AssurancePlan object)
+  {
+    return null;
+  }
+
+  /**
+   * Returns the result of interpreting the object as an instance of '<em>Model Plan</em>'.
+   * <!-- begin-user-doc -->
+   * This implementation returns null;
+   * returning a non-null result will terminate the switch.
+   * <!-- end-user-doc -->
+   * @param object the target of the switch.
+   * @return the result of interpreting the object as an instance of '<em>Model Plan</em>'.
+   * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+   * @generated
+   */
+  public T caseModelPlan(ModelPlan object)
   {
     return null;
   }

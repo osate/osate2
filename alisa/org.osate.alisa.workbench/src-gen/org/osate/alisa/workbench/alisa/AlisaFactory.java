@@ -54,6 +54,15 @@ public interface AlisaFactory extends EFactory
   AssurancePlan createAssurancePlan();
 
   /**
+   * Returns a new object of class '<em>Model Plan</em>'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return a new object of class '<em>Model Plan</em>'.
+   * @generated
+   */
+  ModelPlan createModelPlan();
+
+  /**
    * Returns a new object of class '<em>Assurance Task</em>'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->

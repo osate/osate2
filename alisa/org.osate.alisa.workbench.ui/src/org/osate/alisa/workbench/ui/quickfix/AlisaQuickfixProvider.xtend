@@ -31,6 +31,7 @@ import org.eclipse.xtext.validation.Issue
 import org.osate.alisa.workbench.alisa.AssurancePlan
 import org.osate.alisa.workbench.validation.AlisaValidator
 import org.osate.verify.verify.VerificationPlan
+import org.osate.alisa.workbench.alisa.ModelPlan
 
 /**
  * Custom quickfixes.
@@ -61,11 +62,11 @@ class AlisaQuickfixProvider extends DefaultQuickfixProvider {
 		acceptor.accept(issue, "Add verification plans " + names + " to 'assure'", null, null,
 				new ISemanticModification() {
 					override apply(EObject element, IModificationContext context) throws Exception {
-						val assurancePlan = element as AssurancePlan
+						val modelPlan = element as ModelPlan
 						val ResourceSet resourceSet = element.eResource().getResourceSet()
 						val uris = issue.getData.indexed().filter([key % 2 == 1])
 						uris.forEach([uri |
-							assurancePlan.assure.add(resourceSet.getEObject(URI.createURI(uri.value), true) as VerificationPlan)
+							modelPlan.assure.add(resourceSet.getEObject(URI.createURI(uri.value), true) as VerificationPlan)
 						])
 					}
 				});
@@ -84,9 +85,9 @@ class AlisaQuickfixProvider extends DefaultQuickfixProvider {
 		acceptor.accept(issue, "Remove verification plan '" + name + "' from 'assure'", null, null,
 				new ISemanticModification() {
 					override apply(EObject element, IModificationContext context) throws Exception {
-						val assurancePlan = element as AssurancePlan
+						val modelPlan = element as ModelPlan
 						val ResourceSet resourceSet = element.eResource().getResourceSet()
-						assurancePlan.assure.remove(resourceSet.getEObject(URI.createURI(vpUri), true) as VerificationPlan)
+						modelPlan.assure.remove(resourceSet.getEObject(URI.createURI(vpUri), true) as VerificationPlan)
 					}
 				});
 	}

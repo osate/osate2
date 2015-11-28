@@ -45,6 +45,7 @@ import org.osate.verify.verify.VerificationActivity
 
 import static extension org.osate.verify.util.VerifyUtilExtension.*
 import static extension org.osate.reqspec.util.ReqSpecUtilExtension.*
+import static extension org.osate.alisa.workbench.util.AlisaWorkbenchUtilExtension.*
 import org.eclipse.emf.common.util.EList
 import org.osate.verify.verify.VerificationPlan
 import org.eclipse.emf.common.util.BasicEList
@@ -52,6 +53,7 @@ import org.osate.reqspec.reqSpec.SystemRequirements
 import org.osate.reqspec.reqSpec.GlobalRequirements
 import org.osate.reqspec.reqSpec.Requirement
 import org.osate.reqspec.reqSpec.Requirements
+import org.osate.alisa.workbench.alisa.ModelPlan
 
 /**
  * Generates code from your model files on save.
@@ -62,12 +64,13 @@ class AlisaGenerator implements IGenerator {
 
 	override void doGenerate(Resource resource, IFileSystemAccess fsa) {
 		val workarea = resource.contents.get(0) as AlisaWorkArea
-		workarea.cases.forEach [ mycase |
-			switch (mycase) {
-				AssurancePlan: fsa.generateFile('''«mycase.name».assure''', generateFullRootCase(mycase))
-				AssuranceTask: fsa.generateFile('''«mycase.name».assure''', generateAssuranceTask(mycase))
-			}
+		val mycase = workarea.plan
+		if (mycase != null) {
+		fsa.generateFile('''«mycase.name».assure''', generateFullRootCase(mycase))
+		workarea.tasks.forEach [ task |
+		fsa.generateFile('''«task.name».assure''', generateAssuranceTask(task as AssuranceTask))
 		]
+		}
 	}
 
 	@Inject extension IQualifiedNameProvider qualifiedNameProvider
@@ -80,7 +83,12 @@ class AlisaGenerator implements IGenerator {
 		filter = at
 	globalPlans = new BasicEList()
 	globalClaims = new BasicEList()
-		at.assurancePlan?.generateRootCase
+	val res =	at.assurancePlan?.generateRootCase
+		if (res.length == 0) {
+			at.emptyCase("\"Empty case due to unresolved target reference or empty filter result\"")
+		} else {
+			res
+		}
 	}
 
 	var EList<VerificationPlan> globalPlans 
@@ -96,18 +104,21 @@ class AlisaGenerator implements IGenerator {
 
 	def generateRootCase(AssurancePlan acp) {
 		rootAssuranceCase = acp
-		val res = generateCase(acp, null)
-		if (res.length == 0) {
-			acp.emptyCase("\"Empty case due to unresolved target reference or empty filter result\"")
-		} else {
-			res
-		}
+		'''
+		case «acp.name»
+		plan «acp.name»
+		[
+			«FOR mp : acp.modelPlan»
+				«mp.generateModelCase»
+			«ENDFOR»
+		]
+		'''
 	}
 
-	def emptyCase(AssurancePlan acp, String msg) {
+	def emptyCase(AssuranceTask at, String msg) {
 		'''
-			case  «acp.name»
-			for  «acp.name»
+			case  «at.name»
+			plan  «at.assurancePlan.name»
 			[
 				tbdcount 0
 				message «msg»
@@ -117,13 +128,7 @@ class AlisaGenerator implements IGenerator {
 
 	@Inject extension IVerifyGlobalReferenceFinder referenceFinder
 
-	/**
-	 * acp: AssurancePlan of the system of interest
-	 * sub: system of interest as subcomponent of another system
-	 * either acp or sub may be null, but not both
-	 * they can both be set, in this case acp takes precedence
-	 */
-	def CharSequence generateCase(AssurancePlan acp, Subcomponent sub) {
+	def CharSequence generateModelCase(ModelPlan acp) {
 		var Iterable<VerificationPlan> myplans = Collections.EMPTY_LIST
 		var ComponentClassifier cc
 		if (acp != null) {
@@ -133,6 +138,23 @@ class AlisaGenerator implements IGenerator {
 				myplans = cc.getVerificationPlans(rootAssuranceCase)
 			}
 		}
+		val APparts = doAssurancePlanParts(acp, myplans, cc)
+		if(APparts.length == 0) return ''''''
+		'''	
+			model «acp.enclosingAssurancePlan.name»
+			for «acp.target.getQualifiedName»
+				[
+				tbdcount 0
+				«APparts»
+				]
+		'''
+	}
+	/**
+	 * sub: system of interest as subcomponent of another system
+	 */
+	def CharSequence generateSubCase(ModelPlan mp,Subcomponent sub) {
+		var Iterable<VerificationPlan> myplans = Collections.EMPTY_LIST
+		var ComponentClassifier cc
 		if (myplans.empty && !Aadl2Util.isNull(sub)) {
 			cc = sub.allClassifier
 			if (!Aadl2Util.isNull(cc)) {
@@ -141,20 +163,11 @@ class AlisaGenerator implements IGenerator {
 				myplans = Collections.EMPTY_LIST
 			}
 		}
-		val APparts = doAssurancePlanParts(acp, myplans, cc)
+		val APparts = doAssurancePlanParts(mp, myplans, cc)
 		if(APparts.length == 0) return ''''''
 		'''	
-			«IF sub == null»
-				case «acp.name» 
-			«ELSE»
-				case «sub.name» 
-			«ENDIF»
-			«IF acp != null»
-				for «acp.name»
-			«ENDIF»
-			«IF sub != null»
-				system «sub.name»
-			«ENDIF»
+				subsystem «sub.name» 
+				for «sub.name»
 				[
 				tbdcount 0
 				«APparts»
@@ -162,7 +175,7 @@ class AlisaGenerator implements IGenerator {
 		'''
 	}
 
-	def doAssurancePlanParts(AssurancePlan acp, Iterable<VerificationPlan> myplans, ComponentClassifier cc) {
+	def doAssurancePlanParts(ModelPlan mp, Iterable<VerificationPlan> myplans, ComponentClassifier cc) {
 		// first collect any global includes
 		val selfPlans = new BasicEList()
 		val selfClaims = new BasicEList()
@@ -174,7 +187,7 @@ class AlisaGenerator implements IGenerator {
 					if (incl.include instanceof Requirements) {
 						if (incl.componentCategory.matchingCategory(cc.category)) {
 							val plans = referenceFinder.
-								getAllVerificationPlansForRequirements(incl.include as Requirements, acp)
+								getAllVerificationPlansForRequirements(incl.include as Requirements, myplan)
 							if (incl.self){
 								selfPlans.addAll(plans)
 							} else {
@@ -184,7 +197,7 @@ class AlisaGenerator implements IGenerator {
 					} else {
 						val greq = incl.include as Requirement
 						val greqs = greq.containingRequirements
-						val plans = referenceFinder.getAllVerificationPlansForRequirements(greqs, acp)
+						val plans = referenceFinder.getAllVerificationPlansForRequirements(greqs, myplan)
 						for (vp : plans) {
 							for (claim : vp.claim) {
 								if(claim.requirement.equals(greq.name)) {
@@ -234,24 +247,24 @@ class AlisaGenerator implements IGenerator {
 				«ENDFOR»
 			   «IF cc instanceof ComponentImplementation»
 				«FOR subc : cc.allSubcomponents»
-					«subc.filterplans(acp)»
+					«subc.filterplans(mp)»
 				«ENDFOR»
 			   «ENDIF»
 		'''
 	}
 
-	def CharSequence filterplans(Subcomponent subc, AssurancePlan parentacp) {
+	def CharSequence filterplans(Subcomponent subc, ModelPlan parentmp) {
 		val cc = subc.allClassifier
-		if(subc.skipAssuranceplans(parentacp)) return ''''''
+		if(subc.skipAssuranceplans(parentmp)) return ''''''
 		if (cc instanceof ComponentType) {
-			generateCase(null, subc)
+			generateSubCase(null, subc)
 		} else {
-			val subacp = cc.getSubsystemAssuranceplan(parentacp)
-			generateCase(subacp, subc)
+//		XXX	val subacp = cc.getSubsystemAssuranceplan(parentmp)
+			generateSubCase(parentmp, subc)
 		}
 	}
 
-	def boolean skipAssuranceplans(Subcomponent subc, AssurancePlan parentacp) {
+	def boolean skipAssuranceplans(Subcomponent subc, ModelPlan parentacp) {
 		if(parentacp == null) return false
 		if(parentacp.assumeAll) return true
 		val assumes = parentacp.assumeSubsystems
@@ -263,7 +276,7 @@ class AlisaGenerator implements IGenerator {
 
 	def AssurancePlan getSubsystemAssuranceplan(ComponentClassifier cc, AssurancePlan parentacp) {
 		if(parentacp == null) return null
-//		val assure = parentacp.assureSubsystemPlans
+//	XXX	val assure = parentacp.assureSubsystemPlans
 //		for (ap: assure){
 //			if (cc.isSameorExtends(ap.target)) return ap;
 //		}

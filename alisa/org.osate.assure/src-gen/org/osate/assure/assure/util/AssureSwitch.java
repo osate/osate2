@@ -93,6 +93,22 @@ public class AssureSwitch<T> extends Switch<T>
         if (result == null) result = defaultCase(theEObject);
         return result;
       }
+      case AssurePackage.MODEL_RESULT:
+      {
+        ModelResult modelResult = (ModelResult)theEObject;
+        T result = caseModelResult(modelResult);
+        if (result == null) result = caseAssureResult(modelResult);
+        if (result == null) result = defaultCase(theEObject);
+        return result;
+      }
+      case AssurePackage.SUBSYSTEM_RESULT:
+      {
+        SubsystemResult subsystemResult = (SubsystemResult)theEObject;
+        T result = caseSubsystemResult(subsystemResult);
+        if (result == null) result = caseAssureResult(subsystemResult);
+        if (result == null) result = defaultCase(theEObject);
+        return result;
+      }
       case AssurePackage.CLAIM_RESULT:
       {
         ClaimResult claimResult = (ClaimResult)theEObject;
@@ -196,6 +212,38 @@ public class AssureSwitch<T> extends Switch<T>
    * @generated
    */
   public T caseAssuranceCase(AssuranceCase object)
+  {
+    return null;
+  }
+
+  /**
+   * Returns the result of interpreting the object as an instance of '<em>Model Result</em>'.
+   * <!-- begin-user-doc -->
+   * This implementation returns null;
+   * returning a non-null result will terminate the switch.
+   * <!-- end-user-doc -->
+   * @param object the target of the switch.
+   * @return the result of interpreting the object as an instance of '<em>Model Result</em>'.
+   * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+   * @generated
+   */
+  public T caseModelResult(ModelResult object)
+  {
+    return null;
+  }
+
+  /**
+   * Returns the result of interpreting the object as an instance of '<em>Subsystem Result</em>'.
+   * <!-- begin-user-doc -->
+   * This implementation returns null;
+   * returning a non-null result will terminate the switch.
+   * <!-- end-user-doc -->
+   * @param object the target of the switch.
+   * @return the result of interpreting the object as an instance of '<em>Subsystem Result</em>'.
+   * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+   * @generated
+   */
+  public T caseSubsystemResult(SubsystemResult object)
   {
     return null;
   }

@@ -58,6 +58,8 @@ import org.osate.xtext.aadl2.properties.util.PropertyUtils
 
 import static extension org.osate.alisa.common.util.CommonUtilExtension.*
 import static extension org.osate.assure.util.AssureUtilExtension.*
+import org.osate.assure.assure.ModelResult
+import org.osate.assure.assure.SubsystemResult
 
 @ImplementedBy(AssureProcessor)
 interface IAssureProcessor {
@@ -77,13 +79,23 @@ class AssureProcessor implements IAssureProcessor {
 	override processCase(AssuranceCase assureResult, IProgressMonitor monitor) {
 		progressmonitor = monitor
 		val count = AssureUtilExtension.numberVerificationResults(assureResult)
-		progressmonitor.beginTask(assureResult.target.name, count)
+		progressmonitor.beginTask(assureResult.plan.name, count)
 		assureResult.process
 	}
 
 	def dispatch void process(AssuranceCase caseResult) {
+		caseResult.modelResult.forEach[claimResult|claimResult.process]
+	}
+
+	def dispatch void process(ModelResult caseResult) {
 		caseResult.claimResult.forEach[claimResult|claimResult.process]
+		caseResult.subsystemResult.forEach[claimResult|claimResult.process]
 		caseResult.subAssuranceCase.forEach[subcaseResult|subcaseResult.process]
+	}
+
+	def dispatch void process(SubsystemResult caseResult) {
+		caseResult.claimResult.forEach[claimResult|claimResult.process]
+		caseResult.subsystemResult.forEach[subcaseResult|subcaseResult.process]
 	}
 
 	def dispatch void process(org.osate.assure.assure.ClaimResult claimResult) {
@@ -164,7 +176,7 @@ class AssureProcessor implements IAssureProcessor {
 			return
 		}
 		var ComponentInstance targetComponent = instanceroot
-		targetComponent = findTargetSystemComponentInstance(instanceroot, verificationResult.enclosingAssuranceCase)
+		targetComponent = findTargetSystemComponentInstance(instanceroot, verificationResult.enclosingSubsystemResult)
 		if (targetComponent == null) {
 			setToError(verificationResult, "Unresolved target system for claim", null)
 			return
