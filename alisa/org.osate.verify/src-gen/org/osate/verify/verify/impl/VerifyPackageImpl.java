@@ -506,7 +506,7 @@ public class VerifyPackageImpl extends EPackageImpl implements VerifyPackage
    * <!-- end-user-doc -->
    * @generated
    */
-  public EReference getVerificationActivity_PhaseCategory()
+  public EReference getVerificationActivity_Result()
   {
     return (EReference)verificationActivityEClass.getEStructuralFeatures().get(2);
   }
@@ -516,7 +516,7 @@ public class VerifyPackageImpl extends EPackageImpl implements VerifyPackage
    * <!-- end-user-doc -->
    * @generated
    */
-  public EReference getVerificationActivity_UserCategory()
+  public EReference getVerificationActivity_Method()
   {
     return (EReference)verificationActivityEClass.getEStructuralFeatures().get(3);
   }
@@ -526,7 +526,7 @@ public class VerifyPackageImpl extends EPackageImpl implements VerifyPackage
    * <!-- end-user-doc -->
    * @generated
    */
-  public EReference getVerificationActivity_Result()
+  public EReference getVerificationActivity_Parameters()
   {
     return (EReference)verificationActivityEClass.getEStructuralFeatures().get(4);
   }
@@ -536,7 +536,7 @@ public class VerifyPackageImpl extends EPackageImpl implements VerifyPackage
    * <!-- end-user-doc -->
    * @generated
    */
-  public EReference getVerificationActivity_Method()
+  public EReference getVerificationActivity_PropertyValues()
   {
     return (EReference)verificationActivityEClass.getEStructuralFeatures().get(5);
   }
@@ -546,7 +546,7 @@ public class VerifyPackageImpl extends EPackageImpl implements VerifyPackage
    * <!-- end-user-doc -->
    * @generated
    */
-  public EReference getVerificationActivity_Parameters()
+  public EReference getVerificationActivity_PhaseCategory()
   {
     return (EReference)verificationActivityEClass.getEStructuralFeatures().get(6);
   }
@@ -556,7 +556,7 @@ public class VerifyPackageImpl extends EPackageImpl implements VerifyPackage
    * <!-- end-user-doc -->
    * @generated
    */
-  public EReference getVerificationActivity_PropertyValues()
+  public EReference getVerificationActivity_UserCategory()
   {
     return (EReference)verificationActivityEClass.getEStructuralFeatures().get(7);
   }
@@ -1118,12 +1118,12 @@ public class VerifyPackageImpl extends EPackageImpl implements VerifyPackage
     verificationActivityEClass = createEClass(VERIFICATION_ACTIVITY);
     createEAttribute(verificationActivityEClass, VERIFICATION_ACTIVITY__NAME);
     createEAttribute(verificationActivityEClass, VERIFICATION_ACTIVITY__TITLE);
-    createEReference(verificationActivityEClass, VERIFICATION_ACTIVITY__PHASE_CATEGORY);
-    createEReference(verificationActivityEClass, VERIFICATION_ACTIVITY__USER_CATEGORY);
     createEReference(verificationActivityEClass, VERIFICATION_ACTIVITY__RESULT);
     createEReference(verificationActivityEClass, VERIFICATION_ACTIVITY__METHOD);
     createEReference(verificationActivityEClass, VERIFICATION_ACTIVITY__PARAMETERS);
     createEReference(verificationActivityEClass, VERIFICATION_ACTIVITY__PROPERTY_VALUES);
+    createEReference(verificationActivityEClass, VERIFICATION_ACTIVITY__PHASE_CATEGORY);
+    createEReference(verificationActivityEClass, VERIFICATION_ACTIVITY__USER_CATEGORY);
     createEAttribute(verificationActivityEClass, VERIFICATION_ACTIVITY__TIMEOUT);
 
     verificationConditionEClass = createEClass(VERIFICATION_CONDITION);
@@ -1267,12 +1267,12 @@ public class VerifyPackageImpl extends EPackageImpl implements VerifyPackage
     initEClass(verificationActivityEClass, VerificationActivity.class, "VerificationActivity", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
     initEAttribute(getVerificationActivity_Name(), theEcorePackage.getEString(), "name", null, 0, 1, VerificationActivity.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEAttribute(getVerificationActivity_Title(), theEcorePackage.getEString(), "title", null, 0, 1, VerificationActivity.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-    initEReference(getVerificationActivity_PhaseCategory(), theCategoriesPackage.getPhaseCategory(), null, "phaseCategory", null, 0, -1, VerificationActivity.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-    initEReference(getVerificationActivity_UserCategory(), theCategoriesPackage.getUserCategory(), null, "userCategory", null, 0, -1, VerificationActivity.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEReference(getVerificationActivity_Result(), theCommonPackage.getComputeDeclaration(), null, "result", null, 0, -1, VerificationActivity.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEReference(getVerificationActivity_Method(), this.getVerificationMethod(), null, "method", null, 0, 1, VerificationActivity.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEReference(getVerificationActivity_Parameters(), theCommonPackage.getValDeclaration(), null, "parameters", null, 0, -1, VerificationActivity.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEReference(getVerificationActivity_PropertyValues(), theCommonPackage.getValDeclaration(), null, "propertyValues", null, 0, -1, VerificationActivity.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEReference(getVerificationActivity_PhaseCategory(), theCategoriesPackage.getPhaseCategory(), null, "phaseCategory", null, 0, -1, VerificationActivity.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEReference(getVerificationActivity_UserCategory(), theCategoriesPackage.getUserCategory(), null, "userCategory", null, 0, -1, VerificationActivity.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEAttribute(getVerificationActivity_Timeout(), theEcorePackage.getEInt(), "timeout", null, 0, 1, VerificationActivity.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
     initEClass(verificationConditionEClass, VerificationCondition.class, "VerificationCondition", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
