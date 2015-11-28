@@ -77,6 +77,8 @@ import org.osate.assure.assure.AssureResult;
 import org.osate.assure.assure.ClaimResult;
 import org.osate.assure.assure.ElseResult;
 import org.osate.assure.assure.Metrics;
+import org.osate.assure.assure.ModelResult;
+import org.osate.assure.assure.SubsystemResult;
 import org.osate.assure.assure.ThenResult;
 import org.osate.assure.assure.VerificationActivityResult;
 import org.osate.assure.assure.VerificationExpr;
@@ -188,30 +190,17 @@ public class AssureExportHandler extends AbstractHandler {
 
 	protected IStatus runJob(AssuranceCase rootCaseResult, IProgressMonitor monitor) {
 
-//		long start = System.currentTimeMillis();
-//		resetToTBD(rootCaseResult);
-//		recomputeAllCounts(rootCaseResult);
-//		VerifyUtilExtension.clearAllHasRunRecords();
-//		AssureUtilExtension.initializeResoluteContext(getInstanceModel(rootCaseResult));
-
-//		AssureProcessing.processCaseResult(rootCaseResult);
-//		assureProcessor.process(rootCaseResult);
-
-//		long stop = System.currentTimeMillis();
-//		System.out.println("Evaluation time: " + (stop - start) / 1000.0 + "s");
 		model = createInitialModel();
 
 		Goal goal = DcaseFactory.eINSTANCE.createGoal();
 		goal.setName("Assurance Case " + rootCaseResult.getName() + " for "
-				+ rootCaseResult.getTarget().getTarget().getQualifiedName());
-		goal.setDesc(AssureUtilExtension.constructDescription(rootCaseResult));
+				+ rootCaseResult.getPlan().getName());
 		goal.setMessage(getMetricsAsText(rootCaseResult));
 		model.getRootBasicNode().add(goal);
 
-		for (ClaimResult cr : rootCaseResult.getClaimResult()) {
-			exportClaim(goal, cr);
+		for (ModelResult cr : rootCaseResult.getModelResult()) {
+			exportModelResult(goal, cr);
 		}
-		exportCases(goal, rootCaseResult.getSubAssuranceCase());
 
 		URI diagramURI;
 		URI modelURI;
@@ -277,7 +266,37 @@ public class AssureExportHandler extends AbstractHandler {
 		}
 	}
 
-	private void exportCases(BasicNode parent, Iterable<AssuranceCase> aclist) {
+	private void exportSubsystems(BasicNode parent, Iterable<SubsystemResult> aclist) {
+		Strategy strategy = DcaseFactory.eINSTANCE.createStrategy();
+		model.getRootBasicNode().add(strategy);
+		DcaseLink001 link = DcaseFactory.eINSTANCE.createDcaseLink001();
+		link.setTarget(strategy);
+		link.setSource(parent);
+		model.getRootBasicLink().add(link);
+		strategy.setDesc("Assurance case for the following subsystems");
+		for (SubsystemResult ac : aclist) {
+			exportSubsystem(strategy, ac);
+		}
+	}
+
+	private void exportSubsystem(BasicNode parent, SubsystemResult ac) {
+		Goal goal = DcaseFactory.eINSTANCE.createGoal();
+		goal.setName("Subssytem case for " + ac.getTargetSystem());
+		goal.setMessage(getMetricsAsText(ac));
+		model.getRootBasicNode().add(goal);
+		DcaseLink001 link = DcaseFactory.eINSTANCE.createDcaseLink001();
+		link.setTarget(goal);
+		link.setSource(parent);
+		model.getRootBasicLink().add(link);
+		for (ClaimResult cr : ac.getClaimResult()){
+			exportClaim(goal, cr);
+		}
+		if (!ac.getSubsystemResult().isEmpty()){
+			exportSubsystems(goal, ac.getSubsystemResult());
+		}
+	}
+
+	private void exportSubCases(BasicNode parent, Iterable<AssuranceCase> aclist) {
 		Strategy strategy = DcaseFactory.eINSTANCE.createStrategy();
 		model.getRootBasicNode().add(strategy);
 		DcaseLink001 link = DcaseFactory.eINSTANCE.createDcaseLink001();
@@ -286,16 +305,31 @@ public class AssureExportHandler extends AbstractHandler {
 		model.getRootBasicLink().add(link);
 		strategy.setDesc("Assurance case for the following subsystems");
 		for (AssuranceCase ac : aclist) {
-			exportCase(strategy, ac);
+			exportSubCase(strategy, ac);
 		}
 	}
 
-	private void exportCase(BasicNode parent, AssuranceCase ac) {
+	private void exportSubCase(BasicNode parent, AssuranceCase ac) {
+		Goal goal = DcaseFactory.eINSTANCE.createGoal();
+
+		goal.setName("Assurance Case " + ac.getName() + " for "
+				+ ac.getPlan().getName());
+		goal.setMessage(getMetricsAsText(ac));
+		model.getRootBasicNode().add(goal);
+		DcaseLink001 link = DcaseFactory.eINSTANCE.createDcaseLink001();
+		link.setTarget(goal);
+		link.setSource(parent);
+		model.getRootBasicLink().add(link);
+
+		for (ModelResult cr : ac.getModelResult()) {
+			exportModelResult(goal, cr);
+		}
+	}
+
+	private void exportModelResult(BasicNode parent, ModelResult ac) {
 		Goal goal = DcaseFactory.eINSTANCE.createGoal();
 		if (ac.getTarget() != null) {
-			goal.setName("Assurance Case for " + ac.getTarget().getTarget().getQualifiedName());
-		} else {
-			goal.setName("Assurance Case for subsystem " + ac.getTargetSystem());
+			goal.setName("Assurance Case for " + ac.getTarget().getQualifiedName());
 		}
 		goal.setDesc(AssureUtilExtension.constructDescription(ac));
 		goal.setMessage(getMetricsAsText(ac));
@@ -308,7 +342,12 @@ public class AssureExportHandler extends AbstractHandler {
 		for (ClaimResult cr : ac.getClaimResult()) {
 			exportClaim(goal, cr);
 		}
-		exportCases(goal, ac.getSubAssuranceCase());
+		if (!ac.getSubsystemResult().isEmpty()){
+			exportSubsystems(goal, ac.getSubsystemResult());
+		}
+		if (!ac.getSubAssuranceCase().isEmpty()){
+			exportSubsystems(goal, ac.getSubsystemResult());
+		}
 	}
 
 	private boolean isAllVAResults(Iterable<VerificationExpr> velist) {

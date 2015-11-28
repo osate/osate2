@@ -100,6 +100,11 @@ public class AlisaAdapterFactory extends AdapterFactoryImpl
         return createAssurancePlanAdapter();
       }
       @Override
+      public Adapter caseModelPlan(ModelPlan object)
+      {
+        return createModelPlanAdapter();
+      }
+      @Override
       public Adapter caseAssuranceTask(AssuranceTask object)
       {
         return createAssuranceTaskAdapter();
@@ -157,6 +162,21 @@ public class AlisaAdapterFactory extends AdapterFactoryImpl
    * @generated
    */
   public Adapter createAssurancePlanAdapter()
+  {
+    return null;
+  }
+
+  /**
+   * Creates a new adapter for an object of class '{@link org.osate.alisa.workbench.alisa.ModelPlan <em>Model Plan</em>}'.
+   * <!-- begin-user-doc -->
+   * This default implementation returns null so that we can easily ignore cases;
+   * it's useful to ignore a case when inheritance will catch all the cases anyway.
+   * <!-- end-user-doc -->
+   * @return the new adapter.
+   * @see org.osate.alisa.workbench.alisa.ModelPlan
+   * @generated
+   */
+  public Adapter createModelPlanAdapter()
   {
     return null;
   }

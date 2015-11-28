@@ -53,7 +53,9 @@ import org.osate.assure.assure.AssurePackage;
 import org.osate.assure.assure.ClaimResult;
 import org.osate.assure.assure.ElseResult;
 import org.osate.assure.assure.Metrics;
+import org.osate.assure.assure.ModelResult;
 import org.osate.assure.assure.PreconditionResult;
+import org.osate.assure.assure.SubsystemResult;
 import org.osate.assure.assure.ThenResult;
 import org.osate.assure.assure.ValidationResult;
 import org.osate.assure.assure.VerificationActivityResult;
@@ -97,8 +99,14 @@ public class AssureSemanticSequencer extends CommonSemanticSequencer {
 			case AssurePackage.METRICS:
 				sequence_Metrics(context, (Metrics) semanticObject); 
 				return; 
+			case AssurePackage.MODEL_RESULT:
+				sequence_ModelResult(context, (ModelResult) semanticObject); 
+				return; 
 			case AssurePackage.PRECONDITION_RESULT:
 				sequence_PreconditionResult(context, (PreconditionResult) semanticObject); 
+				return; 
+			case AssurePackage.SUBSYSTEM_RESULT:
+				sequence_SubsystemResult(context, (SubsystemResult) semanticObject); 
 				return; 
 			case AssurePackage.THEN_RESULT:
 				sequence_ThenResult(context, (ThenResult) semanticObject); 
@@ -165,15 +173,7 @@ public class AssureSemanticSequencer extends CommonSemanticSequencer {
 	
 	/**
 	 * Constraint:
-	 *     (
-	 *         name=QualifiedName 
-	 *         target=[AssurancePlan|QualifiedName]? 
-	 *         targetSystem=ID? 
-	 *         metrics=Metrics 
-	 *         message=STRING? 
-	 *         claimResult+=ClaimResult* 
-	 *         subAssuranceCase+=AssuranceCase*
-	 *     )
+	 *     (name=QualifiedName plan=[AssurancePlan|QualifiedName]? metrics=Metrics message=STRING? modelResult+=ModelResult+)
 	 */
 	protected void sequence_AssuranceCase(EObject context, AssuranceCase semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
@@ -228,6 +228,23 @@ public class AssureSemanticSequencer extends CommonSemanticSequencer {
 	/**
 	 * Constraint:
 	 *     (
+	 *         name=QualifiedName 
+	 *         target=[ComponentImplementation|AadlClassifierReference]? 
+	 *         metrics=Metrics 
+	 *         message=STRING? 
+	 *         claimResult+=ClaimResult* 
+	 *         subsystemResult+=SubsystemResult* 
+	 *         subAssuranceCase+=[AssuranceCase|QualifiedName]*
+	 *     )
+	 */
+	protected void sequence_ModelResult(EObject context, ModelResult semanticObject) {
+		genericSequencer.createSequence(context, semanticObject);
+	}
+	
+	
+	/**
+	 * Constraint:
+	 *     (
 	 *         target=[VerificationMethod|QualifiedName] 
 	 *         executionState=VerificationExecutionState 
 	 *         resultState=VerificationResultState 
@@ -238,6 +255,22 @@ public class AssureSemanticSequencer extends CommonSemanticSequencer {
 	 *     )
 	 */
 	protected void sequence_PreconditionResult(EObject context, PreconditionResult semanticObject) {
+		genericSequencer.createSequence(context, semanticObject);
+	}
+	
+	
+	/**
+	 * Constraint:
+	 *     (
+	 *         name=QualifiedName 
+	 *         targetSystem=ID 
+	 *         metrics=Metrics 
+	 *         message=STRING? 
+	 *         claimResult+=ClaimResult* 
+	 *         subsystemResult+=SubsystemResult*
+	 *     )
+	 */
+	protected void sequence_SubsystemResult(EObject context, SubsystemResult semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
 	}
 	

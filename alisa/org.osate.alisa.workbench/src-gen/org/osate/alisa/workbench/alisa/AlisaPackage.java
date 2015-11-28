@@ -82,13 +82,22 @@ public interface AlisaPackage extends EPackage
   int ALISA_WORK_AREA = 0;
 
   /**
-   * The feature id for the '<em><b>Cases</b></em>' containment reference list.
+   * The feature id for the '<em><b>Plan</b></em>' containment reference.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    * @ordered
    */
-  int ALISA_WORK_AREA__CASES = 0;
+  int ALISA_WORK_AREA__PLAN = 0;
+
+  /**
+   * The feature id for the '<em><b>Tasks</b></em>' containment reference list.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int ALISA_WORK_AREA__TASKS = 1;
 
   /**
    * The number of structural features of the '<em>Work Area</em>' class.
@@ -97,7 +106,7 @@ public interface AlisaPackage extends EPackage
    * @generated
    * @ordered
    */
-  int ALISA_WORK_AREA_FEATURE_COUNT = 1;
+  int ALISA_WORK_AREA_FEATURE_COUNT = 2;
 
   /**
    * The meta object id for the '{@link org.osate.alisa.workbench.alisa.impl.AssurancePlanImpl <em>Assurance Plan</em>}' class.
@@ -128,76 +137,13 @@ public interface AlisaPackage extends EPackage
   int ASSURANCE_PLAN__TITLE = 1;
 
   /**
-   * The feature id for the '<em><b>Target</b></em>' reference.
+   * The feature id for the '<em><b>Model Plan</b></em>' containment reference list.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    * @ordered
    */
-  int ASSURANCE_PLAN__TARGET = 2;
-
-  /**
-   * The feature id for the '<em><b>Description</b></em>' containment reference.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int ASSURANCE_PLAN__DESCRIPTION = 3;
-
-  /**
-   * The feature id for the '<em><b>Assure</b></em>' reference list.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int ASSURANCE_PLAN__ASSURE = 4;
-
-  /**
-   * The feature id for the '<em><b>Assure Subsystems</b></em>' reference list.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int ASSURANCE_PLAN__ASSURE_SUBSYSTEMS = 5;
-
-  /**
-   * The feature id for the '<em><b>Assure All</b></em>' attribute.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int ASSURANCE_PLAN__ASSURE_ALL = 6;
-
-  /**
-   * The feature id for the '<em><b>Assume Subsystems</b></em>' reference list.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int ASSURANCE_PLAN__ASSUME_SUBSYSTEMS = 7;
-
-  /**
-   * The feature id for the '<em><b>Assume All</b></em>' attribute.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int ASSURANCE_PLAN__ASSUME_ALL = 8;
-
-  /**
-   * The feature id for the '<em><b>Issues</b></em>' attribute list.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int ASSURANCE_PLAN__ISSUES = 9;
+  int ASSURANCE_PLAN__MODEL_PLAN = 2;
 
   /**
    * The number of structural features of the '<em>Assurance Plan</em>' class.
@@ -206,7 +152,98 @@ public interface AlisaPackage extends EPackage
    * @generated
    * @ordered
    */
-  int ASSURANCE_PLAN_FEATURE_COUNT = 10;
+  int ASSURANCE_PLAN_FEATURE_COUNT = 3;
+
+  /**
+   * The meta object id for the '{@link org.osate.alisa.workbench.alisa.impl.ModelPlanImpl <em>Model Plan</em>}' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see org.osate.alisa.workbench.alisa.impl.ModelPlanImpl
+   * @see org.osate.alisa.workbench.alisa.impl.AlisaPackageImpl#getModelPlan()
+   * @generated
+   */
+  int MODEL_PLAN = 2;
+
+  /**
+   * The feature id for the '<em><b>Target</b></em>' reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int MODEL_PLAN__TARGET = 0;
+
+  /**
+   * The feature id for the '<em><b>Description</b></em>' containment reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int MODEL_PLAN__DESCRIPTION = 1;
+
+  /**
+   * The feature id for the '<em><b>Assure</b></em>' reference list.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int MODEL_PLAN__ASSURE = 2;
+
+  /**
+   * The feature id for the '<em><b>Assure Subsystems</b></em>' reference list.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int MODEL_PLAN__ASSURE_SUBSYSTEMS = 3;
+
+  /**
+   * The feature id for the '<em><b>Assure All</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int MODEL_PLAN__ASSURE_ALL = 4;
+
+  /**
+   * The feature id for the '<em><b>Assume Subsystems</b></em>' reference list.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int MODEL_PLAN__ASSUME_SUBSYSTEMS = 5;
+
+  /**
+   * The feature id for the '<em><b>Assume All</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int MODEL_PLAN__ASSUME_ALL = 6;
+
+  /**
+   * The feature id for the '<em><b>Issues</b></em>' attribute list.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int MODEL_PLAN__ISSUES = 7;
+
+  /**
+   * The number of structural features of the '<em>Model Plan</em>' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int MODEL_PLAN_FEATURE_COUNT = 8;
 
   /**
    * The meta object id for the '{@link org.osate.alisa.workbench.alisa.impl.AssuranceTaskImpl <em>Assurance Task</em>}' class.
@@ -216,7 +253,7 @@ public interface AlisaPackage extends EPackage
    * @see org.osate.alisa.workbench.alisa.impl.AlisaPackageImpl#getAssuranceTask()
    * @generated
    */
-  int ASSURANCE_TASK = 2;
+  int ASSURANCE_TASK = 3;
 
   /**
    * The feature id for the '<em><b>Name</b></em>' attribute.
@@ -329,15 +366,26 @@ public interface AlisaPackage extends EPackage
   EClass getAlisaWorkArea();
 
   /**
-   * Returns the meta object for the containment reference list '{@link org.osate.alisa.workbench.alisa.AlisaWorkArea#getCases <em>Cases</em>}'.
+   * Returns the meta object for the containment reference '{@link org.osate.alisa.workbench.alisa.AlisaWorkArea#getPlan <em>Plan</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @return the meta object for the containment reference list '<em>Cases</em>'.
-   * @see org.osate.alisa.workbench.alisa.AlisaWorkArea#getCases()
+   * @return the meta object for the containment reference '<em>Plan</em>'.
+   * @see org.osate.alisa.workbench.alisa.AlisaWorkArea#getPlan()
    * @see #getAlisaWorkArea()
    * @generated
    */
-  EReference getAlisaWorkArea_Cases();
+  EReference getAlisaWorkArea_Plan();
+
+  /**
+   * Returns the meta object for the containment reference list '{@link org.osate.alisa.workbench.alisa.AlisaWorkArea#getTasks <em>Tasks</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the containment reference list '<em>Tasks</em>'.
+   * @see org.osate.alisa.workbench.alisa.AlisaWorkArea#getTasks()
+   * @see #getAlisaWorkArea()
+   * @generated
+   */
+  EReference getAlisaWorkArea_Tasks();
 
   /**
    * Returns the meta object for class '{@link org.osate.alisa.workbench.alisa.AssurancePlan <em>Assurance Plan</em>}'.
@@ -372,92 +420,113 @@ public interface AlisaPackage extends EPackage
   EAttribute getAssurancePlan_Title();
 
   /**
-   * Returns the meta object for the reference '{@link org.osate.alisa.workbench.alisa.AssurancePlan#getTarget <em>Target</em>}'.
+   * Returns the meta object for the containment reference list '{@link org.osate.alisa.workbench.alisa.AssurancePlan#getModelPlan <em>Model Plan</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the containment reference list '<em>Model Plan</em>'.
+   * @see org.osate.alisa.workbench.alisa.AssurancePlan#getModelPlan()
+   * @see #getAssurancePlan()
+   * @generated
+   */
+  EReference getAssurancePlan_ModelPlan();
+
+  /**
+   * Returns the meta object for class '{@link org.osate.alisa.workbench.alisa.ModelPlan <em>Model Plan</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for class '<em>Model Plan</em>'.
+   * @see org.osate.alisa.workbench.alisa.ModelPlan
+   * @generated
+   */
+  EClass getModelPlan();
+
+  /**
+   * Returns the meta object for the reference '{@link org.osate.alisa.workbench.alisa.ModelPlan#getTarget <em>Target</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @return the meta object for the reference '<em>Target</em>'.
-   * @see org.osate.alisa.workbench.alisa.AssurancePlan#getTarget()
-   * @see #getAssurancePlan()
+   * @see org.osate.alisa.workbench.alisa.ModelPlan#getTarget()
+   * @see #getModelPlan()
    * @generated
    */
-  EReference getAssurancePlan_Target();
+  EReference getModelPlan_Target();
 
   /**
-   * Returns the meta object for the containment reference '{@link org.osate.alisa.workbench.alisa.AssurancePlan#getDescription <em>Description</em>}'.
+   * Returns the meta object for the containment reference '{@link org.osate.alisa.workbench.alisa.ModelPlan#getDescription <em>Description</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @return the meta object for the containment reference '<em>Description</em>'.
-   * @see org.osate.alisa.workbench.alisa.AssurancePlan#getDescription()
-   * @see #getAssurancePlan()
+   * @see org.osate.alisa.workbench.alisa.ModelPlan#getDescription()
+   * @see #getModelPlan()
    * @generated
    */
-  EReference getAssurancePlan_Description();
+  EReference getModelPlan_Description();
 
   /**
-   * Returns the meta object for the reference list '{@link org.osate.alisa.workbench.alisa.AssurancePlan#getAssure <em>Assure</em>}'.
+   * Returns the meta object for the reference list '{@link org.osate.alisa.workbench.alisa.ModelPlan#getAssure <em>Assure</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @return the meta object for the reference list '<em>Assure</em>'.
-   * @see org.osate.alisa.workbench.alisa.AssurancePlan#getAssure()
-   * @see #getAssurancePlan()
+   * @see org.osate.alisa.workbench.alisa.ModelPlan#getAssure()
+   * @see #getModelPlan()
    * @generated
    */
-  EReference getAssurancePlan_Assure();
+  EReference getModelPlan_Assure();
 
   /**
-   * Returns the meta object for the reference list '{@link org.osate.alisa.workbench.alisa.AssurancePlan#getAssureSubsystems <em>Assure Subsystems</em>}'.
+   * Returns the meta object for the reference list '{@link org.osate.alisa.workbench.alisa.ModelPlan#getAssureSubsystems <em>Assure Subsystems</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @return the meta object for the reference list '<em>Assure Subsystems</em>'.
-   * @see org.osate.alisa.workbench.alisa.AssurancePlan#getAssureSubsystems()
-   * @see #getAssurancePlan()
+   * @see org.osate.alisa.workbench.alisa.ModelPlan#getAssureSubsystems()
+   * @see #getModelPlan()
    * @generated
    */
-  EReference getAssurancePlan_AssureSubsystems();
+  EReference getModelPlan_AssureSubsystems();
 
   /**
-   * Returns the meta object for the attribute '{@link org.osate.alisa.workbench.alisa.AssurancePlan#isAssureAll <em>Assure All</em>}'.
+   * Returns the meta object for the attribute '{@link org.osate.alisa.workbench.alisa.ModelPlan#isAssureAll <em>Assure All</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @return the meta object for the attribute '<em>Assure All</em>'.
-   * @see org.osate.alisa.workbench.alisa.AssurancePlan#isAssureAll()
-   * @see #getAssurancePlan()
+   * @see org.osate.alisa.workbench.alisa.ModelPlan#isAssureAll()
+   * @see #getModelPlan()
    * @generated
    */
-  EAttribute getAssurancePlan_AssureAll();
+  EAttribute getModelPlan_AssureAll();
 
   /**
-   * Returns the meta object for the reference list '{@link org.osate.alisa.workbench.alisa.AssurancePlan#getAssumeSubsystems <em>Assume Subsystems</em>}'.
+   * Returns the meta object for the reference list '{@link org.osate.alisa.workbench.alisa.ModelPlan#getAssumeSubsystems <em>Assume Subsystems</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @return the meta object for the reference list '<em>Assume Subsystems</em>'.
-   * @see org.osate.alisa.workbench.alisa.AssurancePlan#getAssumeSubsystems()
-   * @see #getAssurancePlan()
+   * @see org.osate.alisa.workbench.alisa.ModelPlan#getAssumeSubsystems()
+   * @see #getModelPlan()
    * @generated
    */
-  EReference getAssurancePlan_AssumeSubsystems();
+  EReference getModelPlan_AssumeSubsystems();
 
   /**
-   * Returns the meta object for the attribute '{@link org.osate.alisa.workbench.alisa.AssurancePlan#isAssumeAll <em>Assume All</em>}'.
+   * Returns the meta object for the attribute '{@link org.osate.alisa.workbench.alisa.ModelPlan#isAssumeAll <em>Assume All</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @return the meta object for the attribute '<em>Assume All</em>'.
-   * @see org.osate.alisa.workbench.alisa.AssurancePlan#isAssumeAll()
-   * @see #getAssurancePlan()
+   * @see org.osate.alisa.workbench.alisa.ModelPlan#isAssumeAll()
+   * @see #getModelPlan()
    * @generated
    */
-  EAttribute getAssurancePlan_AssumeAll();
+  EAttribute getModelPlan_AssumeAll();
 
   /**
-   * Returns the meta object for the attribute list '{@link org.osate.alisa.workbench.alisa.AssurancePlan#getIssues <em>Issues</em>}'.
+   * Returns the meta object for the attribute list '{@link org.osate.alisa.workbench.alisa.ModelPlan#getIssues <em>Issues</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @return the meta object for the attribute list '<em>Issues</em>'.
-   * @see org.osate.alisa.workbench.alisa.AssurancePlan#getIssues()
-   * @see #getAssurancePlan()
+   * @see org.osate.alisa.workbench.alisa.ModelPlan#getIssues()
+   * @see #getModelPlan()
    * @generated
    */
-  EAttribute getAssurancePlan_Issues();
+  EAttribute getModelPlan_Issues();
 
   /**
    * Returns the meta object for class '{@link org.osate.alisa.workbench.alisa.AssuranceTask <em>Assurance Task</em>}'.
@@ -536,12 +605,20 @@ public interface AlisaPackage extends EPackage
     EClass ALISA_WORK_AREA = eINSTANCE.getAlisaWorkArea();
 
     /**
-     * The meta object literal for the '<em><b>Cases</b></em>' containment reference list feature.
+     * The meta object literal for the '<em><b>Plan</b></em>' containment reference feature.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @generated
      */
-    EReference ALISA_WORK_AREA__CASES = eINSTANCE.getAlisaWorkArea_Cases();
+    EReference ALISA_WORK_AREA__PLAN = eINSTANCE.getAlisaWorkArea_Plan();
+
+    /**
+     * The meta object literal for the '<em><b>Tasks</b></em>' containment reference list feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EReference ALISA_WORK_AREA__TASKS = eINSTANCE.getAlisaWorkArea_Tasks();
 
     /**
      * The meta object literal for the '{@link org.osate.alisa.workbench.alisa.impl.AssurancePlanImpl <em>Assurance Plan</em>}' class.
@@ -570,12 +647,30 @@ public interface AlisaPackage extends EPackage
     EAttribute ASSURANCE_PLAN__TITLE = eINSTANCE.getAssurancePlan_Title();
 
     /**
+     * The meta object literal for the '<em><b>Model Plan</b></em>' containment reference list feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EReference ASSURANCE_PLAN__MODEL_PLAN = eINSTANCE.getAssurancePlan_ModelPlan();
+
+    /**
+     * The meta object literal for the '{@link org.osate.alisa.workbench.alisa.impl.ModelPlanImpl <em>Model Plan</em>}' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see org.osate.alisa.workbench.alisa.impl.ModelPlanImpl
+     * @see org.osate.alisa.workbench.alisa.impl.AlisaPackageImpl#getModelPlan()
+     * @generated
+     */
+    EClass MODEL_PLAN = eINSTANCE.getModelPlan();
+
+    /**
      * The meta object literal for the '<em><b>Target</b></em>' reference feature.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @generated
      */
-    EReference ASSURANCE_PLAN__TARGET = eINSTANCE.getAssurancePlan_Target();
+    EReference MODEL_PLAN__TARGET = eINSTANCE.getModelPlan_Target();
 
     /**
      * The meta object literal for the '<em><b>Description</b></em>' containment reference feature.
@@ -583,7 +678,7 @@ public interface AlisaPackage extends EPackage
      * <!-- end-user-doc -->
      * @generated
      */
-    EReference ASSURANCE_PLAN__DESCRIPTION = eINSTANCE.getAssurancePlan_Description();
+    EReference MODEL_PLAN__DESCRIPTION = eINSTANCE.getModelPlan_Description();
 
     /**
      * The meta object literal for the '<em><b>Assure</b></em>' reference list feature.
@@ -591,7 +686,7 @@ public interface AlisaPackage extends EPackage
      * <!-- end-user-doc -->
      * @generated
      */
-    EReference ASSURANCE_PLAN__ASSURE = eINSTANCE.getAssurancePlan_Assure();
+    EReference MODEL_PLAN__ASSURE = eINSTANCE.getModelPlan_Assure();
 
     /**
      * The meta object literal for the '<em><b>Assure Subsystems</b></em>' reference list feature.
@@ -599,7 +694,7 @@ public interface AlisaPackage extends EPackage
      * <!-- end-user-doc -->
      * @generated
      */
-    EReference ASSURANCE_PLAN__ASSURE_SUBSYSTEMS = eINSTANCE.getAssurancePlan_AssureSubsystems();
+    EReference MODEL_PLAN__ASSURE_SUBSYSTEMS = eINSTANCE.getModelPlan_AssureSubsystems();
 
     /**
      * The meta object literal for the '<em><b>Assure All</b></em>' attribute feature.
@@ -607,7 +702,7 @@ public interface AlisaPackage extends EPackage
      * <!-- end-user-doc -->
      * @generated
      */
-    EAttribute ASSURANCE_PLAN__ASSURE_ALL = eINSTANCE.getAssurancePlan_AssureAll();
+    EAttribute MODEL_PLAN__ASSURE_ALL = eINSTANCE.getModelPlan_AssureAll();
 
     /**
      * The meta object literal for the '<em><b>Assume Subsystems</b></em>' reference list feature.
@@ -615,7 +710,7 @@ public interface AlisaPackage extends EPackage
      * <!-- end-user-doc -->
      * @generated
      */
-    EReference ASSURANCE_PLAN__ASSUME_SUBSYSTEMS = eINSTANCE.getAssurancePlan_AssumeSubsystems();
+    EReference MODEL_PLAN__ASSUME_SUBSYSTEMS = eINSTANCE.getModelPlan_AssumeSubsystems();
 
     /**
      * The meta object literal for the '<em><b>Assume All</b></em>' attribute feature.
@@ -623,7 +718,7 @@ public interface AlisaPackage extends EPackage
      * <!-- end-user-doc -->
      * @generated
      */
-    EAttribute ASSURANCE_PLAN__ASSUME_ALL = eINSTANCE.getAssurancePlan_AssumeAll();
+    EAttribute MODEL_PLAN__ASSUME_ALL = eINSTANCE.getModelPlan_AssumeAll();
 
     /**
      * The meta object literal for the '<em><b>Issues</b></em>' attribute list feature.
@@ -631,7 +726,7 @@ public interface AlisaPackage extends EPackage
      * <!-- end-user-doc -->
      * @generated
      */
-    EAttribute ASSURANCE_PLAN__ISSUES = eINSTANCE.getAssurancePlan_Issues();
+    EAttribute MODEL_PLAN__ISSUES = eINSTANCE.getModelPlan_Issues();
 
     /**
      * The meta object literal for the '{@link org.osate.alisa.workbench.alisa.impl.AssuranceTaskImpl <em>Assurance Task</em>}' class.

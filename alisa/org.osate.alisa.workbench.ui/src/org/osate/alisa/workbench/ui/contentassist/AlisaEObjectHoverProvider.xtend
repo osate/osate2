@@ -19,9 +19,10 @@ package org.osate.alisa.workbench.ui.contentassist
 import com.google.inject.Inject
 import org.eclipse.emf.ecore.EObject
 import org.eclipse.xtext.ui.editor.hover.html.DefaultEObjectHoverProvider
+import org.osate.aadl2.ComponentImplementation
 import org.osate.alisa.workbench.alisa.AssurancePlan
 import org.osate.verify.util.IVerifyGlobalReferenceFinder
-import org.osate.verify.verify.VerificationPlan
+import org.osate.alisa.workbench.alisa.ModelPlan
 
 class AlisaEObjectHoverProvider extends DefaultEObjectHoverProvider {
 
@@ -30,9 +31,9 @@ class AlisaEObjectHoverProvider extends DefaultEObjectHoverProvider {
 	override getHoverInfoAsHtml(EObject o) {
 		switch (o) {
 			AssurancePlan: {
-				val rootsystem = o.target
-				val z = rootsystem.getVerificationPlans(o).map[vp|(vp as VerificationPlan).name]
-				val res = "VerificationPlans:" + z.fold("")[a, b|a + " " + b]
+				val mps = o.modelPlan
+				val z = mps.map[mp|(mp as ModelPlan).target.name]
+				val res = "Verified system implementations: " + z.fold("")[a, b|a + " " + b]
 				return res
 			}
 		}

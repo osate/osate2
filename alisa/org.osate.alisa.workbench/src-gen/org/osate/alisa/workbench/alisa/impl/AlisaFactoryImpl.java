@@ -79,6 +79,7 @@ public class AlisaFactoryImpl extends EFactoryImpl implements AlisaFactory
     {
       case AlisaPackage.ALISA_WORK_AREA: return createAlisaWorkArea();
       case AlisaPackage.ASSURANCE_PLAN: return createAssurancePlan();
+      case AlisaPackage.MODEL_PLAN: return createModelPlan();
       case AlisaPackage.ASSURANCE_TASK: return createAssuranceTask();
       default:
         throw new IllegalArgumentException("The class '" + eClass.getName() + "' is not a valid classifier");
@@ -105,6 +106,17 @@ public class AlisaFactoryImpl extends EFactoryImpl implements AlisaFactory
   {
     AssurancePlanImpl assurancePlan = new AssurancePlanImpl();
     return assurancePlan;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public ModelPlan createModelPlan()
+  {
+    ModelPlanImpl modelPlan = new ModelPlanImpl();
+    return modelPlan;
   }
 
   /**

@@ -52,6 +52,7 @@ import org.osate.alisa.workbench.alisa.AlisaPackage;
 import org.osate.alisa.workbench.alisa.AlisaWorkArea;
 import org.osate.alisa.workbench.alisa.AssurancePlan;
 import org.osate.alisa.workbench.alisa.AssuranceTask;
+import org.osate.alisa.workbench.alisa.ModelPlan;
 import org.osate.alisa.workbench.services.AlisaGrammarAccess;
 
 @SuppressWarnings("all")
@@ -88,6 +89,9 @@ public class AlisaSemanticSequencer extends CommonSemanticSequencer {
 				return; 
 			case AlisaPackage.ASSURANCE_TASK:
 				sequence_AssuranceTask(context, (AssuranceTask) semanticObject); 
+				return; 
+			case AlisaPackage.MODEL_PLAN:
+				sequence_ModelPlan(context, (ModelPlan) semanticObject); 
 				return; 
 			}
 		else if(semanticObject.eClass().getEPackage() == CommonPackage.eINSTANCE) switch(semanticObject.eClass().getClassifierID()) {
@@ -145,7 +149,7 @@ public class AlisaSemanticSequencer extends CommonSemanticSequencer {
 	
 	/**
 	 * Constraint:
-	 *     (cases+=AssurancePlan | cases+=AssuranceTask)*
+	 *     (plan=AssurancePlan tasks+=AssuranceTask*)
 	 */
 	protected void sequence_AlisaWorkArea(EObject context, AlisaWorkArea semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
@@ -154,15 +158,7 @@ public class AlisaSemanticSequencer extends CommonSemanticSequencer {
 	
 	/**
 	 * Constraint:
-	 *     (
-	 *         name=QualifiedName 
-	 *         title=STRING? 
-	 *         target=[ComponentImplementation|AadlClassifierReference] 
-	 *         description=Description? 
-	 *         assure+=[VerificationPlan|QualifiedName]* 
-	 *         (assureSubsystems+=[Subcomponent|ID]+ | assureAll?='all' | assumeSubsystems+=[Subcomponent|ID]+ | assumeAll?='all')? 
-	 *         issues+=STRING*
-	 *     )
+	 *     (name=QualifiedName title=STRING? modelPlan+=ModelPlan+)
 	 */
 	protected void sequence_AssurancePlan(EObject context, AssurancePlan semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
@@ -182,6 +178,21 @@ public class AlisaSemanticSequencer extends CommonSemanticSequencer {
 	 *     )
 	 */
 	protected void sequence_AssuranceTask(EObject context, AssuranceTask semanticObject) {
+		genericSequencer.createSequence(context, semanticObject);
+	}
+	
+	
+	/**
+	 * Constraint:
+	 *     (
+	 *         target=[ComponentImplementation|AadlClassifierReference] 
+	 *         description=Description? 
+	 *         assure+=[VerificationPlan|QualifiedName]* 
+	 *         (assureSubsystems+=[Subcomponent|ID]+ | assureAll?='all' | assumeSubsystems+=[Subcomponent|ID]+ | assumeAll?='all')? 
+	 *         issues+=STRING*
+	 *     )
+	 */
+	protected void sequence_ModelPlan(EObject context, ModelPlan semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
 	}
 }

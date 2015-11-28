@@ -29,11 +29,9 @@ import org.osate.alisa.workbench.alisa.AssurancePlan;
  * </p>
  * <ul>
  *   <li>{@link org.osate.assure.assure.AssuranceCase#getName <em>Name</em>}</li>
- *   <li>{@link org.osate.assure.assure.AssuranceCase#getTarget <em>Target</em>}</li>
- *   <li>{@link org.osate.assure.assure.AssuranceCase#getTargetSystem <em>Target System</em>}</li>
+ *   <li>{@link org.osate.assure.assure.AssuranceCase#getPlan <em>Plan</em>}</li>
  *   <li>{@link org.osate.assure.assure.AssuranceCase#getMessage <em>Message</em>}</li>
- *   <li>{@link org.osate.assure.assure.AssuranceCase#getClaimResult <em>Claim Result</em>}</li>
- *   <li>{@link org.osate.assure.assure.AssuranceCase#getSubAssuranceCase <em>Sub Assurance Case</em>}</li>
+ *   <li>{@link org.osate.assure.assure.AssuranceCase#getModelResult <em>Model Result</em>}</li>
  * </ul>
  *
  * @see org.osate.assure.assure.AssurePackage#getAssuranceCase()
@@ -69,56 +67,30 @@ public interface AssuranceCase extends AssureResult
   void setName(String value);
 
   /**
-   * Returns the value of the '<em><b>Target</b></em>' reference.
+   * Returns the value of the '<em><b>Plan</b></em>' reference.
    * <!-- begin-user-doc -->
    * <p>
-   * If the meaning of the '<em>Target</em>' reference isn't clear,
+   * If the meaning of the '<em>Plan</em>' reference isn't clear,
    * there really should be more of a description here...
    * </p>
    * <!-- end-user-doc -->
-   * @return the value of the '<em>Target</em>' reference.
-   * @see #setTarget(AssurancePlan)
-   * @see org.osate.assure.assure.AssurePackage#getAssuranceCase_Target()
+   * @return the value of the '<em>Plan</em>' reference.
+   * @see #setPlan(AssurancePlan)
+   * @see org.osate.assure.assure.AssurePackage#getAssuranceCase_Plan()
    * @model
    * @generated
    */
-  AssurancePlan getTarget();
+  AssurancePlan getPlan();
 
   /**
-   * Sets the value of the '{@link org.osate.assure.assure.AssuranceCase#getTarget <em>Target</em>}' reference.
+   * Sets the value of the '{@link org.osate.assure.assure.AssuranceCase#getPlan <em>Plan</em>}' reference.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @param value the new value of the '<em>Target</em>' reference.
-   * @see #getTarget()
+   * @param value the new value of the '<em>Plan</em>' reference.
+   * @see #getPlan()
    * @generated
    */
-  void setTarget(AssurancePlan value);
-
-  /**
-   * Returns the value of the '<em><b>Target System</b></em>' attribute.
-   * <!-- begin-user-doc -->
-   * <p>
-   * If the meaning of the '<em>Target System</em>' attribute isn't clear,
-   * there really should be more of a description here...
-   * </p>
-   * <!-- end-user-doc -->
-   * @return the value of the '<em>Target System</em>' attribute.
-   * @see #setTargetSystem(String)
-   * @see org.osate.assure.assure.AssurePackage#getAssuranceCase_TargetSystem()
-   * @model
-   * @generated
-   */
-  String getTargetSystem();
-
-  /**
-   * Sets the value of the '{@link org.osate.assure.assure.AssuranceCase#getTargetSystem <em>Target System</em>}' attribute.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @param value the new value of the '<em>Target System</em>' attribute.
-   * @see #getTargetSystem()
-   * @generated
-   */
-  void setTargetSystem(String value);
+  void setPlan(AssurancePlan value);
 
   /**
    * Returns the value of the '<em><b>Message</b></em>' attribute.
@@ -147,35 +119,19 @@ public interface AssuranceCase extends AssureResult
   void setMessage(String value);
 
   /**
-   * Returns the value of the '<em><b>Claim Result</b></em>' containment reference list.
-   * The list contents are of type {@link org.osate.assure.assure.ClaimResult}.
+   * Returns the value of the '<em><b>Model Result</b></em>' containment reference list.
+   * The list contents are of type {@link org.osate.assure.assure.ModelResult}.
    * <!-- begin-user-doc -->
    * <p>
-   * If the meaning of the '<em>Claim Result</em>' containment reference list isn't clear,
+   * If the meaning of the '<em>Model Result</em>' containment reference list isn't clear,
    * there really should be more of a description here...
    * </p>
    * <!-- end-user-doc -->
-   * @return the value of the '<em>Claim Result</em>' containment reference list.
-   * @see org.osate.assure.assure.AssurePackage#getAssuranceCase_ClaimResult()
+   * @return the value of the '<em>Model Result</em>' containment reference list.
+   * @see org.osate.assure.assure.AssurePackage#getAssuranceCase_ModelResult()
    * @model containment="true"
    * @generated
    */
-  EList<ClaimResult> getClaimResult();
-
-  /**
-   * Returns the value of the '<em><b>Sub Assurance Case</b></em>' containment reference list.
-   * The list contents are of type {@link org.osate.assure.assure.AssuranceCase}.
-   * <!-- begin-user-doc -->
-   * <p>
-   * If the meaning of the '<em>Sub Assurance Case</em>' containment reference list isn't clear,
-   * there really should be more of a description here...
-   * </p>
-   * <!-- end-user-doc -->
-   * @return the value of the '<em>Sub Assurance Case</em>' containment reference list.
-   * @see org.osate.assure.assure.AssurePackage#getAssuranceCase_SubAssuranceCase()
-   * @model containment="true"
-   * @generated
-   */
-  EList<AssuranceCase> getSubAssuranceCase();
+  EList<ModelResult> getModelResult();
 
 } // AssuranceCase

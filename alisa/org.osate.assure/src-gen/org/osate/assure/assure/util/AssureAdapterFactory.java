@@ -93,6 +93,16 @@ public class AssureAdapterFactory extends AdapterFactoryImpl
         return createAssuranceCaseAdapter();
       }
       @Override
+      public Adapter caseModelResult(ModelResult object)
+      {
+        return createModelResultAdapter();
+      }
+      @Override
+      public Adapter caseSubsystemResult(SubsystemResult object)
+      {
+        return createSubsystemResultAdapter();
+      }
+      @Override
       public Adapter caseClaimResult(ClaimResult object)
       {
         return createClaimResultAdapter();
@@ -175,6 +185,36 @@ public class AssureAdapterFactory extends AdapterFactoryImpl
    * @generated
    */
   public Adapter createAssuranceCaseAdapter()
+  {
+    return null;
+  }
+
+  /**
+   * Creates a new adapter for an object of class '{@link org.osate.assure.assure.ModelResult <em>Model Result</em>}'.
+   * <!-- begin-user-doc -->
+   * This default implementation returns null so that we can easily ignore cases;
+   * it's useful to ignore a case when inheritance will catch all the cases anyway.
+   * <!-- end-user-doc -->
+   * @return the new adapter.
+   * @see org.osate.assure.assure.ModelResult
+   * @generated
+   */
+  public Adapter createModelResultAdapter()
+  {
+    return null;
+  }
+
+  /**
+   * Creates a new adapter for an object of class '{@link org.osate.assure.assure.SubsystemResult <em>Subsystem Result</em>}'.
+   * <!-- begin-user-doc -->
+   * This default implementation returns null so that we can easily ignore cases;
+   * it's useful to ignore a case when inheritance will catch all the cases anyway.
+   * <!-- end-user-doc -->
+   * @return the new adapter.
+   * @see org.osate.assure.assure.SubsystemResult
+   * @generated
+   */
+  public Adapter createSubsystemResultAdapter()
   {
     return null;
   }
