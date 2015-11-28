@@ -179,6 +179,8 @@ class AlisaGenerator implements IGenerator {
 		// first collect any global includes
 		val selfPlans = new BasicEList()
 		val selfClaims = new BasicEList()
+		val globalPlansTop = globalPlans.size
+		val globalClaimsTop = globalClaims.size
 		for (myplan : myplans) {
 			val reqs = myplan.requirements
 			if (reqs instanceof SystemRequirements) {
@@ -200,7 +202,7 @@ class AlisaGenerator implements IGenerator {
 						val plans = referenceFinder.getAllVerificationPlansForRequirements(greqs, myplan)
 						for (vp : plans) {
 							for (claim : vp.claim) {
-								if(claim.requirement.equals(greq.name)) {
+								if(claim.requirement.name.equals(greq.name)) {
 									if (incl.self) {
 											selfClaims.add(claim)
 										} else {
@@ -213,7 +215,7 @@ class AlisaGenerator implements IGenerator {
 				}
 			}
 		}
-		'''
+		val result = '''
 			«FOR myplan : myplans»
 				«FOR claim : myplan.claim»
 					«IF claim.evaluateRequirementFilter(filter)»
@@ -240,17 +242,28 @@ class AlisaGenerator implements IGenerator {
 					«ENDIF»
 				«ENDFOR»
 			«ENDFOR»
-				«FOR claim : globalClaims.filter[cl|cl.requirement?.componentCategory.matchingCategory(cc.category)]»
-					«IF claim.evaluateRequirementFilter(filter)»
-						«claim.generate()»
-					«ENDIF»
-				«ENDFOR»
-			   «IF cc instanceof ComponentImplementation»
-				«FOR subc : cc.allSubcomponents»
-					«subc.filterplans(mp)»
-				«ENDFOR»
-			   «ENDIF»
+			«FOR claim : globalClaims.filter[cl|cl.requirement?.componentCategory.matchingCategory(cc.category)]»
+				«IF claim.evaluateRequirementFilter(filter)»
+					«claim.generate()»
+				«ENDIF»
+			«ENDFOR»
+			«IF cc instanceof ComponentImplementation»
+			«FOR subc : cc.allSubcomponents»
+				«subc.filterplans(mp)»
+			«ENDFOR»
+			«ENDIF»
 		'''
+		var plansize = globalPlans.size
+		while (plansize > globalPlansTop) {
+			globalClaims.remove(plansize-1)
+			plansize = plansize -1
+		}
+		var claimsize = globalClaims.size
+		while (claimsize > globalClaimsTop) {
+			globalClaims.remove(claimsize-1)
+			claimsize = claimsize -1
+		}
+		return result
 	}
 
 	def CharSequence filterplans(Subcomponent subc, ModelPlan parentmp) {
@@ -292,13 +305,13 @@ class AlisaGenerator implements IGenerator {
 			claim «claim.requirement.fullyQualifiedName»
 			[
 				tbdcount 0
-				   «subclaims»
-				   «IF claim.assert != null»
-				   	«claimassert»
-				   «ELSE»
-				   	«claimvas»
-				   «ENDIF»
-				]
+				«subclaims»
+				«IF claim.assert != null»
+				«claimassert»
+				«ELSE»
+				«claimvas»
+				«ENDIF»
+			]
 		'''
 	}
 
