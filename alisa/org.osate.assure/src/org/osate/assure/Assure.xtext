@@ -11,7 +11,7 @@ import "http://www.eclipse.org/emf/2002/Ecore" as ecore
 
  
 // result for a system in the architecture hierarchy
-AssuranceCase:
+AssuranceCaseResult:
 	'case' name=QualifiedName 
 	('plan' plan=[Alisa::AssurancePlan|QualifiedName])?
 	'['
@@ -29,7 +29,7 @@ ModelResult:
 	('message' message= STRING)?
 	claimResult += ClaimResult*
 	subsystemResult += SubsystemResult*
-	subAssuranceCase += [AssuranceCase|QualifiedName]*//[Alisa::AssurancePlan|QualifiedName]*
+	subAssuranceCase += [AssuranceCaseResult|QualifiedName]*//[Alisa::AssurancePlan|QualifiedName]*
 	']'  
 ;
 
@@ -110,7 +110,7 @@ VerificationActivityResult returns VerificationResult:
 
 AssureResult:
 	VerificationExpr | ModelResult | SubsystemResult |
-		AssuranceCase | ClaimResult  | PreconditionResult | ValidationResult
+		AssuranceCaseResult | ClaimResult  | PreconditionResult | ValidationResult
 	;
 
 enum ElseType: 

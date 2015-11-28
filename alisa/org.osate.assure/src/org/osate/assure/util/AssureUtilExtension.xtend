@@ -54,7 +54,7 @@ import org.osate.aadl2.util.Aadl2Util
 import org.osate.alisa.common.common.CommonFactory
 import org.osate.alisa.common.common.ResultIssue
 import org.osate.alisa.common.common.ResultIssueType
-import org.osate.assure.assure.AssuranceCase
+import org.osate.assure.assure.AssuranceCaseResult
 import org.osate.assure.assure.AssureResult
 import org.osate.assure.assure.ClaimResult
 import org.osate.assure.assure.ElseResult
@@ -89,12 +89,12 @@ class AssureUtilExtension {
 		return result as SubsystemResult
 	}
 
-	def static AssuranceCase getRootAssuranceCase(EObject assureObject) {
+	def static AssuranceCaseResult getRootAssuranceCaseResult(EObject assureObject) {
 		var result = assureObject
 		while (result.eContainer != null) {
 			result = result.eContainer
 		}
-		return result as AssuranceCase
+		return result as AssuranceCaseResult
 	}
 
 	def static ComponentImplementation getAssuranceCaseTarget(EObject assureObject) {
@@ -469,7 +469,7 @@ class AssureUtilExtension {
 
 	def static getPrintableName(AssureResult ar) {
 		switch (ar) {
-			AssuranceCase: return "system "+ar.name
+			AssuranceCaseResult: return "system "+ar.name
 			ModelResult: return "model "+ar.name
 			SubsystemResult: return "subsystem "+ar.name
 			ClaimResult: return "claim "+ar.name
@@ -484,7 +484,7 @@ class AssureUtilExtension {
 
 	def static getName(AssureResult ar) {
 		switch (ar) {
-			AssuranceCase: return ar.name
+			AssuranceCaseResult: return ar.name
 			ModelResult: return ar.name
 			SubsystemResult: return ar.name
 			ClaimResult: return ar.name
@@ -569,7 +569,7 @@ class AssureUtilExtension {
 	/**
 	  * this method resets the execution state of all verification activities to TBD
 	  */
-	def static void resetToTBD(AssuranceCase root) {
+	def static void resetToTBD(AssuranceCaseResult root) {
 		val vrlist = EcoreUtil2.eAllOfType(root, VerificationResult)
 		vrlist.forEach [ vr |
 			vr.resultState = VerificationResultState.TBD
@@ -679,7 +679,7 @@ class AssureUtilExtension {
 		parts.forEach[e|e.recomputeAllCounts.addTo(result)]
 	}
 
-	def static AssuranceCase recomputeAllCounts(AssuranceCase caseResult) {
+	def static AssuranceCaseResult recomputeAllCounts(AssuranceCaseResult caseResult) {
 		caseResult.resetCounts
 		caseResult.recomputeAllCounts(caseResult.modelResult)
 		caseResult
@@ -759,7 +759,7 @@ class AssureUtilExtension {
 
 	private def static AssureResult recomputeAllCounts(AssureResult assureResult) {
 		switch (assureResult) {
-			AssuranceCase: assureResult.recomputeAllCounts
+			AssuranceCaseResult: assureResult.recomputeAllCounts
 			ModelResult: assureResult.recomputeAllCounts
 			SubsystemResult: assureResult.recomputeAllCounts
 			ClaimResult: assureResult.recomputeAllCounts
@@ -970,7 +970,7 @@ class AssureUtilExtension {
 	 * recompute the result count from the part list counts without recursing
 	 */
 
-	private def static AssuranceCase addAllSubCounts(AssuranceCase caseResult) {
+	private def static AssuranceCaseResult addAllSubCounts(AssuranceCaseResult caseResult) {
 		caseResult.resetCounts
 		caseResult.modelResult.forEach[e|e.addTo(caseResult)]
 		caseResult
@@ -1050,7 +1050,7 @@ class AssureUtilExtension {
 
 	private def static AssureResult addAllSubCounts(AssureResult assureResult) {
 		switch (assureResult) {
-			AssuranceCase: assureResult.addAllSubCounts
+			AssuranceCaseResult: assureResult.addAllSubCounts
 			ModelResult: assureResult.addAllSubCounts
 			SubsystemResult: assureResult.addAllSubCounts
 			ClaimResult: assureResult.addAllSubCounts
@@ -1081,7 +1081,7 @@ class AssureUtilExtension {
 
 		// has to be a string without space (ID) 
 		switch (ar) {
-			AssuranceCase:
+			AssuranceCaseResult:
 				return ar.name
 			ModelResult:
 				return ar.name
@@ -1116,7 +1116,7 @@ class AssureUtilExtension {
 		return ""
 	}
 
-	def static String constructMessage(AssuranceCase ce) {
+	def static String constructMessage(AssuranceCaseResult ce) {
 		if(ce.message != null) return ce.message
 		return ""
 	}
@@ -1160,7 +1160,7 @@ class AssureUtilExtension {
 		return "[unresolved:"+cr.target.toString+"]"
 	}
 
-	def static String getName(AssuranceCase ce) {
+	def static String getName(AssuranceCaseResult ce) {
 		return ce.plan.name
 	}
 
@@ -1209,7 +1209,7 @@ class AssureUtilExtension {
 
 	def static String assureResultCounts(AssureResult ele) {
 		val elec= ele.metrics
-		if (ele instanceof AssuranceCase && ele.isZeroCount && ele.eContainer == null){
+		if (ele instanceof AssuranceCaseResult && ele.isZeroCount && ele.eContainer == null){
 			ele.resetCounts
 			ele.recomputeAllCounts
 		}
@@ -1240,7 +1240,7 @@ class AssureUtilExtension {
 		return si	
 	}
 	
-	def static int  numberVerificationResults(AssuranceCase ac){
+	def static int  numberVerificationResults(AssuranceCaseResult ac){
 		return EcoreUtil2.eAllOfType(ac, typeof(VerificationActivityResult)).size();
 	}
 	

@@ -34,7 +34,7 @@ import org.eclipse.emf.ecore.util.InternalEList;
 
 import org.osate.aadl2.ComponentImplementation;
 
-import org.osate.assure.assure.AssuranceCase;
+import org.osate.assure.assure.AssuranceCaseResult;
 import org.osate.assure.assure.AssurePackage;
 import org.osate.assure.assure.ClaimResult;
 import org.osate.assure.assure.ModelResult;
@@ -138,7 +138,7 @@ public class ModelResultImpl extends AssureResultImpl implements ModelResult
    * @generated
    * @ordered
    */
-  protected EList<AssuranceCase> subAssuranceCase;
+  protected EList<AssuranceCaseResult> subAssuranceCase;
 
   /**
    * <!-- begin-user-doc -->
@@ -283,11 +283,11 @@ public class ModelResultImpl extends AssureResultImpl implements ModelResult
    * <!-- end-user-doc -->
    * @generated
    */
-  public EList<AssuranceCase> getSubAssuranceCase()
+  public EList<AssuranceCaseResult> getSubAssuranceCase()
   {
     if (subAssuranceCase == null)
     {
-      subAssuranceCase = new EObjectResolvingEList<AssuranceCase>(AssuranceCase.class, this, AssurePackage.MODEL_RESULT__SUB_ASSURANCE_CASE);
+      subAssuranceCase = new EObjectResolvingEList<AssuranceCaseResult>(AssuranceCaseResult.class, this, AssurePackage.MODEL_RESULT__SUB_ASSURANCE_CASE);
     }
     return subAssuranceCase;
   }
@@ -367,7 +367,7 @@ public class ModelResultImpl extends AssureResultImpl implements ModelResult
         return;
       case AssurePackage.MODEL_RESULT__SUB_ASSURANCE_CASE:
         getSubAssuranceCase().clear();
-        getSubAssuranceCase().addAll((Collection<? extends AssuranceCase>)newValue);
+        getSubAssuranceCase().addAll((Collection<? extends AssuranceCaseResult>)newValue);
         return;
     }
     super.eSet(featureID, newValue);

@@ -61,7 +61,7 @@ import org.eclipse.xtext.ui.editor.model.IXtextDocument;
 import org.eclipse.xtext.ui.editor.model.IXtextModelListener;
 import org.eclipse.xtext.ui.editor.utils.EditorUtils;
 import org.eclipse.xtext.util.concurrent.IUnitOfWork;
-import org.osate.assure.assure.AssuranceCase;
+import org.osate.assure.assure.AssuranceCaseResult;
 import org.osate.assure.assure.AssureResult;
 import org.osate.assure.assure.ClaimResult;
 import org.osate.assure.assure.Metrics;
@@ -87,10 +87,10 @@ import com.google.inject.Inject;
 					@Override
 					public void run() {
 						if(inputURI != null){
-							AssuranceCase assuranceCase = xtextDoc.readOnly(new IUnitOfWork<AssuranceCase, XtextResource>(){
+							AssuranceCaseResult assuranceCase = xtextDoc.readOnly(new IUnitOfWork<AssuranceCaseResult, XtextResource>(){
 								@Override
-								public AssuranceCase exec(XtextResource state) throws Exception {
-									return (AssuranceCase) state.getResourceSet().getEObject(inputURI, true);
+								public AssuranceCaseResult exec(XtextResource state) throws Exception {
+									return (AssuranceCaseResult) state.getResourceSet().getEObject(inputURI, true);
 								}
 							});
 							treeViewer.setInput(Arrays.asList(assuranceCase));
@@ -280,7 +280,7 @@ import com.google.inject.Inject;
 	        }
 	    }
 
-	    public void setProofs(AssuranceCase proofTrees) {
+	    public void setProofs(AssuranceCaseResult proofTrees) {
 	    	if (xtextDoc != null){
 		    	xtextDoc.removeModelListener(modelListener);
 	    	}

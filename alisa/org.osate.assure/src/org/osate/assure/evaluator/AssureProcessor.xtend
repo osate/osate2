@@ -37,7 +37,7 @@ import org.osate.aadl2.instance.InstanceObject
 import org.osate.alisa.common.common.AVariableReference
 import org.osate.alisa.common.common.CommonFactory
 import org.osate.alisa.common.common.ValDeclaration
-import org.osate.assure.assure.AssuranceCase
+import org.osate.assure.assure.AssuranceCaseResult
 import org.osate.assure.assure.ElseResult
 import org.osate.assure.assure.ElseType
 import org.osate.assure.assure.PreconditionResult
@@ -63,7 +63,7 @@ import org.osate.assure.assure.SubsystemResult
 
 @ImplementedBy(AssureProcessor)
 interface IAssureProcessor {
-	def void processCase(AssuranceCase assureResult, IProgressMonitor monitor);
+	def void processCase(AssuranceCaseResult assureResult, IProgressMonitor monitor);
 }
 
 /**
@@ -76,14 +76,14 @@ class AssureProcessor implements IAssureProcessor {
 
 	var IProgressMonitor progressmonitor
 
-	override processCase(AssuranceCase assureResult, IProgressMonitor monitor) {
+	override processCase(AssuranceCaseResult assureResult, IProgressMonitor monitor) {
 		progressmonitor = monitor
 		val count = AssureUtilExtension.numberVerificationResults(assureResult)
 		progressmonitor.beginTask(assureResult.plan.name, count)
 		assureResult.process
 	}
 
-	def dispatch void process(AssuranceCase caseResult) {
+	def dispatch void process(AssuranceCaseResult caseResult) {
 		caseResult.modelResult.forEach[claimResult|claimResult.process]
 	}
 

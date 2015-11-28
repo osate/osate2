@@ -72,7 +72,7 @@ import org.eclipse.xtext.ui.editor.outline.impl.EObjectNode;
 import org.eclipse.xtext.ui.editor.utils.EditorUtils;
 import org.eclipse.xtext.ui.util.ResourceUtil;
 import org.eclipse.xtext.util.concurrent.IUnitOfWork;
-import org.osate.assure.assure.AssuranceCase;
+import org.osate.assure.assure.AssuranceCaseResult;
 import org.osate.assure.assure.AssureResult;
 import org.osate.assure.assure.ClaimResult;
 import org.osate.assure.assure.ElseResult;
@@ -82,7 +82,7 @@ import org.osate.assure.assure.SubsystemResult;
 import org.osate.assure.assure.ThenResult;
 import org.osate.assure.assure.VerificationActivityResult;
 import org.osate.assure.assure.VerificationExpr;
-import org.osate.assure.assure.impl.AssuranceCaseImpl;
+import org.osate.assure.assure.impl.AssuranceCaseResultImpl;
 import org.osate.assure.evaluator.IAssureProcessor;
 import org.osate.assure.util.AssureUtilExtension;
 import org.osate.organization.organization.Stakeholder;
@@ -139,8 +139,8 @@ public class AssureExportHandler extends AbstractHandler {
 					@Override
 					public IStatus exec(XtextResource resource) throws Exception {
 						EObject eobj = resource.getResourceSet().getEObject(uri, true);
-						if (eobj instanceof AssuranceCaseImpl) {
-							return runJob((AssuranceCaseImpl) eobj, monitor);
+						if (eobj instanceof AssuranceCaseResultImpl) {
+							return runJob((AssuranceCaseResultImpl) eobj, monitor);
 						} else {
 							return Status.CANCEL_STATUS;
 						}
@@ -188,7 +188,7 @@ public class AssureExportHandler extends AbstractHandler {
 		return "ASSURE verification";
 	}
 
-	protected IStatus runJob(AssuranceCase rootCaseResult, IProgressMonitor monitor) {
+	protected IStatus runJob(AssuranceCaseResult rootCaseResult, IProgressMonitor monitor) {
 
 		model = createInitialModel();
 
@@ -296,7 +296,7 @@ public class AssureExportHandler extends AbstractHandler {
 		}
 	}
 
-	private void exportSubCases(BasicNode parent, Iterable<AssuranceCase> aclist) {
+	private void exportSubCases(BasicNode parent, Iterable<AssuranceCaseResult> aclist) {
 		Strategy strategy = DcaseFactory.eINSTANCE.createStrategy();
 		model.getRootBasicNode().add(strategy);
 		DcaseLink001 link = DcaseFactory.eINSTANCE.createDcaseLink001();
@@ -304,12 +304,12 @@ public class AssureExportHandler extends AbstractHandler {
 		link.setSource(parent);
 		model.getRootBasicLink().add(link);
 		strategy.setDesc("Assurance case for the following subsystems");
-		for (AssuranceCase ac : aclist) {
+		for (AssuranceCaseResult ac : aclist) {
 			exportSubCase(strategy, ac);
 		}
 	}
 
-	private void exportSubCase(BasicNode parent, AssuranceCase ac) {
+	private void exportSubCase(BasicNode parent, AssuranceCaseResult ac) {
 		Goal goal = DcaseFactory.eINSTANCE.createGoal();
 
 		goal.setName("Assurance Case " + ac.getName() + " for "
@@ -457,13 +457,13 @@ public class AssureExportHandler extends AbstractHandler {
 
 	}
 
-	private static URI getModelURI(AssuranceCase rootCaseResult) {
+	private static URI getModelURI(AssuranceCaseResult rootCaseResult) {
 		IFile file = ResourceUtil.getFile(rootCaseResult.eResource());
 		IPath path = file.getFullPath();
 		return URI.createPlatformResourceURI(path.addFileExtension("dcase_model").toString(), true);
 	}
 
-	private static URI getDiagramURI(AssuranceCase rootCaseResult) {
+	private static URI getDiagramURI(AssuranceCaseResult rootCaseResult) {
 //		EObject obj = cr.getLocation();
 		Resource res = rootCaseResult.eResource();
 		IFile file = ResourceUtil.getFile(res);

@@ -23,7 +23,7 @@ import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.Status;
 import org.eclipse.emf.ecore.EObject;
-import org.osate.assure.assure.AssuranceCase;
+import org.osate.assure.assure.AssuranceCaseResult;
 import org.osate.assure.evaluator.IAssureProcessor;
 import org.osate.assure.util.AssureUtilExtension;
 import org.osate.verify.util.VerifyUtilExtension;
@@ -45,7 +45,7 @@ public class AssureHandler extends AlisaHandler {
 //						@Override
 //						public IStatus exec(XtextResource resource) {
 //							EObject eobj = resource.getResourceSet().getEObject(uri, true);
-//							AssuranceCase ae = AssureUtilExtension.getRootAssuranceCase(eobj);
+//							AssuranceCaseResult ae = AssureUtilExtension.getRootAssuranceCase(eobj);
 //							if (ae != null) {
 //								return runJob(ae, monitor);
 //							} else {
@@ -88,9 +88,9 @@ public class AssureHandler extends AlisaHandler {
 	@Override
 	protected IStatus runJob(EObject sel, IProgressMonitor monitor) {
 
-		AssuranceCase rootCaseResult = null;
+		AssuranceCaseResult rootCaseResult = null;
 		try {
-			rootCaseResult = (AssuranceCase)sel;
+			rootCaseResult = (AssuranceCaseResult)sel;
 		} catch (Exception e) {
 			e.printStackTrace();
 			return Status.CANCEL_STATUS;

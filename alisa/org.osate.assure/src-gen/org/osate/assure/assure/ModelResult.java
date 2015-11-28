@@ -154,7 +154,7 @@ public interface ModelResult extends AssureResult
 
   /**
    * Returns the value of the '<em><b>Sub Assurance Case</b></em>' reference list.
-   * The list contents are of type {@link org.osate.assure.assure.AssuranceCase}.
+   * The list contents are of type {@link org.osate.assure.assure.AssuranceCaseResult}.
    * <!-- begin-user-doc -->
    * <p>
    * If the meaning of the '<em>Sub Assurance Case</em>' reference list isn't clear,
@@ -166,6 +166,6 @@ public interface ModelResult extends AssureResult
    * @model
    * @generated
    */
-  EList<AssuranceCase> getSubAssuranceCase();
+  EList<AssuranceCaseResult> getSubAssuranceCase();
 
 } // ModelResult

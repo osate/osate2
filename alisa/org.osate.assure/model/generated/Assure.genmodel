@@ -27,11 +27,11 @@
       <genEnumLiterals ecoreEnumLiteral="Assure.ecore#//VerificationExecutionState/REDO"/>
       <genEnumLiterals ecoreEnumLiteral="Assure.ecore#//VerificationExecutionState/COMPLETED"/>
     </genEnums>
-    <genClasses ecoreClass="Assure.ecore#//AssuranceCase">
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Assure.ecore#//AssuranceCase/name"/>
-      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference Assure.ecore#//AssuranceCase/plan"/>
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Assure.ecore#//AssuranceCase/message"/>
-      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Assure.ecore#//AssuranceCase/modelResult"/>
+    <genClasses ecoreClass="Assure.ecore#//AssuranceCaseResult">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Assure.ecore#//AssuranceCaseResult/name"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference Assure.ecore#//AssuranceCaseResult/plan"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Assure.ecore#//AssuranceCaseResult/message"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Assure.ecore#//AssuranceCaseResult/modelResult"/>
     </genClasses>
     <genClasses ecoreClass="Assure.ecore#//ModelResult">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Assure.ecore#//ModelResult/name"/>

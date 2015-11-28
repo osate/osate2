@@ -26,7 +26,7 @@ import org.eclipse.ui.PartInitException;
 import org.eclipse.ui.handlers.IHandlerActivation;
 import org.eclipse.ui.handlers.IHandlerService;
 import org.eclipse.xtext.EcoreUtil2;
-import org.osate.assure.assure.AssuranceCase;
+import org.osate.assure.assure.AssuranceCaseResult;
 import org.osate.assure.assure.AssureResult;
 import org.osate.assure.ui.views.AssureView;
 import org.osate.assure.util.AssureUtilExtension;
@@ -49,7 +49,7 @@ import org.osate.assure.util.AssureUtilExtension;
 			long start = System.currentTimeMillis();
 
 			if (root instanceof AssureResult){
-				AssuranceCase ac = AssureUtilExtension.getRootAssuranceCase(root); 
+				AssuranceCaseResult ac = AssureUtilExtension.getRootAssuranceCaseResult(root); 
 				drawProofs(ac);
 			}
 
@@ -91,7 +91,7 @@ import org.osate.assure.util.AssureUtilExtension;
 		}
 
 
-		private void drawProofs(final AssuranceCase ac) {
+		private void drawProofs(final AssuranceCaseResult ac) {
 			final IWorkbenchPage page = getWindow().getActivePage();
 
 			Display.getDefault().asyncExec(new Runnable() {
@@ -102,7 +102,7 @@ import org.osate.assure.util.AssureUtilExtension;
 			});
 		}
 
-		private void displayView(final AssuranceCase ac, final IWorkbenchPage page) {
+		private void displayView(final AssuranceCaseResult ac, final IWorkbenchPage page) {
 			try {
 				AssureView view = (AssureView) page.showView(AssureView.ID);
 				view.setProofs(ac);

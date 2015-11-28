@@ -30,8 +30,8 @@ import org.osate.alisa.common.services.CommonGrammarAccess;
 public class AssureGrammarAccess extends AbstractGrammarElementFinder {
 	
 	
-	public class AssuranceCaseElements extends AbstractParserRuleElementFinder {
-		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "AssuranceCase");
+	public class AssuranceCaseResultElements extends AbstractParserRuleElementFinder {
+		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "AssuranceCaseResult");
 		private final Group cGroup = (Group)rule.eContents().get(1);
 		private final Keyword cCaseKeyword_0 = (Keyword)cGroup.eContents().get(0);
 		private final Assignment cNameAssignment_1 = (Assignment)cGroup.eContents().get(1);
@@ -53,7 +53,7 @@ public class AssureGrammarAccess extends AbstractGrammarElementFinder {
 		private final Keyword cRightSquareBracketKeyword_7 = (Keyword)cGroup.eContents().get(7);
 		
 		//// result for a system in the architecture hierarchy
-		//AssuranceCase:
+		//AssuranceCaseResult:
 		//	"case" name=QualifiedName ("plan" plan=[Alisa::AssurancePlan|QualifiedName])? "[" metrics=Metrics ("message"
 		//	message=STRING)? modelResult+=ModelResult+ "]";
 		@Override public ParserRule getRule() { return rule; }
@@ -140,19 +140,19 @@ public class AssureGrammarAccess extends AbstractGrammarElementFinder {
 		private final Assignment cSubsystemResultAssignment_7 = (Assignment)cGroup.eContents().get(7);
 		private final RuleCall cSubsystemResultSubsystemResultParserRuleCall_7_0 = (RuleCall)cSubsystemResultAssignment_7.eContents().get(0);
 		private final Assignment cSubAssuranceCaseAssignment_8 = (Assignment)cGroup.eContents().get(8);
-		private final CrossReference cSubAssuranceCaseAssuranceCaseCrossReference_8_0 = (CrossReference)cSubAssuranceCaseAssignment_8.eContents().get(0);
-		private final RuleCall cSubAssuranceCaseAssuranceCaseQualifiedNameParserRuleCall_8_0_1 = (RuleCall)cSubAssuranceCaseAssuranceCaseCrossReference_8_0.eContents().get(1);
+		private final CrossReference cSubAssuranceCaseAssuranceCaseResultCrossReference_8_0 = (CrossReference)cSubAssuranceCaseAssignment_8.eContents().get(0);
+		private final RuleCall cSubAssuranceCaseAssuranceCaseResultQualifiedNameParserRuleCall_8_0_1 = (RuleCall)cSubAssuranceCaseAssuranceCaseResultCrossReference_8_0.eContents().get(1);
 		private final Keyword cRightSquareBracketKeyword_9 = (Keyword)cGroup.eContents().get(9);
 		
 		//ModelResult:
 		//	"model" name=QualifiedName ("for" target=[aadl2::ComponentImplementation|AadlClassifierReference])? "["
 		//	metrics=Metrics ("message" message=STRING)? claimResult+=ClaimResult* subsystemResult+=SubsystemResult* //[Alisa::AssurancePlan|QualifiedName]*
-		//	subAssuranceCase+=[AssuranceCase|QualifiedName]* "]";
+		//	subAssuranceCase+=[AssuranceCaseResult|QualifiedName]* "]";
 		@Override public ParserRule getRule() { return rule; }
 
 		//"model" name=QualifiedName ("for" target=[aadl2::ComponentImplementation|AadlClassifierReference])? "[" metrics=Metrics
 		//("message" message=STRING)? claimResult+=ClaimResult* subsystemResult+=SubsystemResult* //[Alisa::AssurancePlan|QualifiedName]*
-		//subAssuranceCase+=[AssuranceCase|QualifiedName]* "]"
+		//subAssuranceCase+=[AssuranceCaseResult|QualifiedName]* "]"
 		public Group getGroup() { return cGroup; }
 
 		//"model"
@@ -213,14 +213,14 @@ public class AssureGrammarAccess extends AbstractGrammarElementFinder {
 		public RuleCall getSubsystemResultSubsystemResultParserRuleCall_7_0() { return cSubsystemResultSubsystemResultParserRuleCall_7_0; }
 
 		////[Alisa::AssurancePlan|QualifiedName]*
-		//subAssuranceCase+=[AssuranceCase|QualifiedName]*
+		//subAssuranceCase+=[AssuranceCaseResult|QualifiedName]*
 		public Assignment getSubAssuranceCaseAssignment_8() { return cSubAssuranceCaseAssignment_8; }
 
-		//[AssuranceCase|QualifiedName]
-		public CrossReference getSubAssuranceCaseAssuranceCaseCrossReference_8_0() { return cSubAssuranceCaseAssuranceCaseCrossReference_8_0; }
+		//[AssuranceCaseResult|QualifiedName]
+		public CrossReference getSubAssuranceCaseAssuranceCaseResultCrossReference_8_0() { return cSubAssuranceCaseAssuranceCaseResultCrossReference_8_0; }
 
 		//QualifiedName
-		public RuleCall getSubAssuranceCaseAssuranceCaseQualifiedNameParserRuleCall_8_0_1() { return cSubAssuranceCaseAssuranceCaseQualifiedNameParserRuleCall_8_0_1; }
+		public RuleCall getSubAssuranceCaseAssuranceCaseResultQualifiedNameParserRuleCall_8_0_1() { return cSubAssuranceCaseAssuranceCaseResultQualifiedNameParserRuleCall_8_0_1; }
 
 		//"]"
 		public Keyword getRightSquareBracketKeyword_9() { return cRightSquareBracketKeyword_9; }
@@ -828,17 +828,18 @@ public class AssureGrammarAccess extends AbstractGrammarElementFinder {
 		private final RuleCall cVerificationExprParserRuleCall_0 = (RuleCall)cAlternatives.eContents().get(0);
 		private final RuleCall cModelResultParserRuleCall_1 = (RuleCall)cAlternatives.eContents().get(1);
 		private final RuleCall cSubsystemResultParserRuleCall_2 = (RuleCall)cAlternatives.eContents().get(2);
-		private final RuleCall cAssuranceCaseParserRuleCall_3 = (RuleCall)cAlternatives.eContents().get(3);
+		private final RuleCall cAssuranceCaseResultParserRuleCall_3 = (RuleCall)cAlternatives.eContents().get(3);
 		private final RuleCall cClaimResultParserRuleCall_4 = (RuleCall)cAlternatives.eContents().get(4);
 		private final RuleCall cPreconditionResultParserRuleCall_5 = (RuleCall)cAlternatives.eContents().get(5);
 		private final RuleCall cValidationResultParserRuleCall_6 = (RuleCall)cAlternatives.eContents().get(6);
 		
 		//AssureResult:
-		//	VerificationExpr | ModelResult | SubsystemResult | AssuranceCase | ClaimResult | PreconditionResult |
+		//	VerificationExpr | ModelResult | SubsystemResult | AssuranceCaseResult | ClaimResult | PreconditionResult |
 		//	ValidationResult;
 		@Override public ParserRule getRule() { return rule; }
 
-		//VerificationExpr | ModelResult | SubsystemResult | AssuranceCase | ClaimResult | PreconditionResult | ValidationResult
+		//VerificationExpr | ModelResult | SubsystemResult | AssuranceCaseResult | ClaimResult | PreconditionResult |
+		//ValidationResult
 		public Alternatives getAlternatives() { return cAlternatives; }
 
 		//VerificationExpr
@@ -850,8 +851,8 @@ public class AssureGrammarAccess extends AbstractGrammarElementFinder {
 		//SubsystemResult
 		public RuleCall getSubsystemResultParserRuleCall_2() { return cSubsystemResultParserRuleCall_2; }
 
-		//AssuranceCase
-		public RuleCall getAssuranceCaseParserRuleCall_3() { return cAssuranceCaseParserRuleCall_3; }
+		//AssuranceCaseResult
+		public RuleCall getAssuranceCaseResultParserRuleCall_3() { return cAssuranceCaseResultParserRuleCall_3; }
 
 		//ClaimResult
 		public RuleCall getClaimResultParserRuleCall_4() { return cClaimResultParserRuleCall_4; }
@@ -1384,7 +1385,7 @@ public class AssureGrammarAccess extends AbstractGrammarElementFinder {
 		public Keyword getCOMPLETEDCompletedKeyword_3_0() { return cCOMPLETEDCompletedKeyword_3_0; }
 	}
 	
-	private final AssuranceCaseElements pAssuranceCase;
+	private final AssuranceCaseResultElements pAssuranceCaseResult;
 	private final ModelResultElements pModelResult;
 	private final SubsystemResultElements pSubsystemResult;
 	private final ClaimResultElements pClaimResult;
@@ -1409,7 +1410,7 @@ public class AssureGrammarAccess extends AbstractGrammarElementFinder {
 		CommonGrammarAccess gaCommon) {
 		this.grammar = internalFindGrammar(grammarProvider);
 		this.gaCommon = gaCommon;
-		this.pAssuranceCase = new AssuranceCaseElements();
+		this.pAssuranceCaseResult = new AssuranceCaseResultElements();
 		this.pModelResult = new ModelResultElements();
 		this.pSubsystemResult = new SubsystemResultElements();
 		this.pClaimResult = new ClaimResultElements();
@@ -1454,21 +1455,21 @@ public class AssureGrammarAccess extends AbstractGrammarElementFinder {
 
 	
 	//// result for a system in the architecture hierarchy
-	//AssuranceCase:
+	//AssuranceCaseResult:
 	//	"case" name=QualifiedName ("plan" plan=[Alisa::AssurancePlan|QualifiedName])? "[" metrics=Metrics ("message"
 	//	message=STRING)? modelResult+=ModelResult+ "]";
-	public AssuranceCaseElements getAssuranceCaseAccess() {
-		return pAssuranceCase;
+	public AssuranceCaseResultElements getAssuranceCaseResultAccess() {
+		return pAssuranceCaseResult;
 	}
 	
-	public ParserRule getAssuranceCaseRule() {
-		return getAssuranceCaseAccess().getRule();
+	public ParserRule getAssuranceCaseResultRule() {
+		return getAssuranceCaseResultAccess().getRule();
 	}
 
 	//ModelResult:
 	//	"model" name=QualifiedName ("for" target=[aadl2::ComponentImplementation|AadlClassifierReference])? "["
 	//	metrics=Metrics ("message" message=STRING)? claimResult+=ClaimResult* subsystemResult+=SubsystemResult* //[Alisa::AssurancePlan|QualifiedName]*
-	//	subAssuranceCase+=[AssuranceCase|QualifiedName]* "]";
+	//	subAssuranceCase+=[AssuranceCaseResult|QualifiedName]* "]";
 	public ModelResultElements getModelResultAccess() {
 		return pModelResult;
 	}
@@ -1541,7 +1542,7 @@ public class AssureGrammarAccess extends AbstractGrammarElementFinder {
 	}
 
 	//AssureResult:
-	//	VerificationExpr | ModelResult | SubsystemResult | AssuranceCase | ClaimResult | PreconditionResult |
+	//	VerificationExpr | ModelResult | SubsystemResult | AssuranceCaseResult | ClaimResult | PreconditionResult |
 	//	ValidationResult;
 	public AssureResultElements getAssureResultAccess() {
 		return pAssureResult;
