@@ -48,7 +48,7 @@ import org.osate.alisa.common.common.ShowValue;
 import org.osate.alisa.common.common.Uncertainty;
 import org.osate.alisa.common.common.ValDeclaration;
 import org.osate.alisa.common.serializer.CommonSemanticSequencer;
-import org.osate.assure.assure.AssuranceCase;
+import org.osate.assure.assure.AssuranceCaseResult;
 import org.osate.assure.assure.AssurePackage;
 import org.osate.assure.assure.ClaimResult;
 import org.osate.assure.assure.ElseResult;
@@ -87,8 +87,8 @@ public class AssureSemanticSequencer extends CommonSemanticSequencer {
 				return; 
 			}
 		else if(semanticObject.eClass().getEPackage() == AssurePackage.eINSTANCE) switch(semanticObject.eClass().getClassifierID()) {
-			case AssurePackage.ASSURANCE_CASE:
-				sequence_AssuranceCase(context, (AssuranceCase) semanticObject); 
+			case AssurePackage.ASSURANCE_CASE_RESULT:
+				sequence_AssuranceCaseResult(context, (AssuranceCaseResult) semanticObject); 
 				return; 
 			case AssurePackage.CLAIM_RESULT:
 				sequence_ClaimResult(context, (ClaimResult) semanticObject); 
@@ -175,7 +175,7 @@ public class AssureSemanticSequencer extends CommonSemanticSequencer {
 	 * Constraint:
 	 *     (name=QualifiedName plan=[AssurancePlan|QualifiedName]? metrics=Metrics message=STRING? modelResult+=ModelResult+)
 	 */
-	protected void sequence_AssuranceCase(EObject context, AssuranceCase semanticObject) {
+	protected void sequence_AssuranceCaseResult(EObject context, AssuranceCaseResult semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
 	}
 	
@@ -234,7 +234,7 @@ public class AssureSemanticSequencer extends CommonSemanticSequencer {
 	 *         message=STRING? 
 	 *         claimResult+=ClaimResult* 
 	 *         subsystemResult+=SubsystemResult* 
-	 *         subAssuranceCase+=[AssuranceCase|QualifiedName]*
+	 *         subAssuranceCase+=[AssuranceCaseResult|QualifiedName]*
 	 *     )
 	 */
 	protected void sequence_ModelResult(EObject context, ModelResult semanticObject) {

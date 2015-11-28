@@ -23,7 +23,7 @@ import com.google.inject.Inject
 import org.osate.assure.assure.ClaimResult
 import static extension org.osate.assure.util.AssureUtilExtension.*
 import org.osate.assure.assure.VerificationActivityResult
-import org.osate.assure.assure.AssuranceCase
+import org.osate.assure.assure.AssuranceCaseResult
 import org.osate.assure.assure.ValidationResult
 import org.osate.assure.assure.ThenResult
 import org.osate.assure.assure.ElseResult
@@ -57,7 +57,7 @@ class AssureLabelProvider extends org.eclipse.xtext.ui.label.DefaultEObjectLabel
 
 	}
 	
-	def text(AssuranceCase ele) {
+	def text(AssuranceCaseResult ele) {
 		"System "+ele.name +": "+ele.constructMessage		
 		+ ele.assureResultCounts
 	}
@@ -109,7 +109,7 @@ class AssureLabelProvider extends org.eclipse.xtext.ui.label.DefaultEObjectLabel
 		return 'questionmark.png'//'evidence.png'
 	}
 	
-	def image(AssuranceCase ele) {
+	def image(AssuranceCaseResult ele) {
 		if (ele.isSuccessful) return 'valid.png'//'assuresuccess.png'
 		if (ele.isFail) return 'invalid.png'//'validationfail.png'
 		if (ele.isErrorTimeOut) return 'error.png'//'validationfail.png'

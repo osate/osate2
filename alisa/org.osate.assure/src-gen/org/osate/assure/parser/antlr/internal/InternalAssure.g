@@ -57,7 +57,7 @@ import org.osate.assure.services.AssureGrammarAccess;
     
     @Override
     protected String getFirstRuleName() {
-    	return "AssuranceCase";	
+    	return "AssuranceCaseResult";	
    	}
    	
    	@Override
@@ -76,32 +76,32 @@ import org.osate.assure.services.AssureGrammarAccess;
 
 
 
-// Entry rule entryRuleAssuranceCase
-entryRuleAssuranceCase returns [EObject current=null] 
+// Entry rule entryRuleAssuranceCaseResult
+entryRuleAssuranceCaseResult returns [EObject current=null] 
 	:
-	{ newCompositeNode(grammarAccess.getAssuranceCaseRule()); }
-	 iv_ruleAssuranceCase=ruleAssuranceCase 
-	 { $current=$iv_ruleAssuranceCase.current; } 
+	{ newCompositeNode(grammarAccess.getAssuranceCaseResultRule()); }
+	 iv_ruleAssuranceCaseResult=ruleAssuranceCaseResult 
+	 { $current=$iv_ruleAssuranceCaseResult.current; } 
 	 EOF 
 ;
 
-// Rule AssuranceCase
-ruleAssuranceCase returns [EObject current=null] 
+// Rule AssuranceCaseResult
+ruleAssuranceCaseResult returns [EObject current=null] 
     @init { enterRule(); 
     }
     @after { leaveRule(); }:
 (	otherlv_0='case' 
     {
-    	newLeafNode(otherlv_0, grammarAccess.getAssuranceCaseAccess().getCaseKeyword_0());
+    	newLeafNode(otherlv_0, grammarAccess.getAssuranceCaseResultAccess().getCaseKeyword_0());
     }
 (
 (
 		{ 
-	        newCompositeNode(grammarAccess.getAssuranceCaseAccess().getNameQualifiedNameParserRuleCall_1_0()); 
+	        newCompositeNode(grammarAccess.getAssuranceCaseResultAccess().getNameQualifiedNameParserRuleCall_1_0()); 
 	    }
 		lv_name_1_0=ruleQualifiedName		{
 	        if ($current==null) {
-	            $current = createModelElementForParent(grammarAccess.getAssuranceCaseRule());
+	            $current = createModelElementForParent(grammarAccess.getAssuranceCaseResultRule());
 	        }
        		set(
        			$current, 
@@ -114,17 +114,17 @@ ruleAssuranceCase returns [EObject current=null]
 )
 )(	otherlv_2='plan' 
     {
-    	newLeafNode(otherlv_2, grammarAccess.getAssuranceCaseAccess().getPlanKeyword_2_0());
+    	newLeafNode(otherlv_2, grammarAccess.getAssuranceCaseResultAccess().getPlanKeyword_2_0());
     }
 (
 (
 		{
 			if ($current==null) {
-	            $current = createModelElement(grammarAccess.getAssuranceCaseRule());
+	            $current = createModelElement(grammarAccess.getAssuranceCaseResultRule());
 	        }
         }
 		{ 
-	        newCompositeNode(grammarAccess.getAssuranceCaseAccess().getPlanAssurancePlanCrossReference_2_1_0()); 
+	        newCompositeNode(grammarAccess.getAssuranceCaseResultAccess().getPlanAssurancePlanCrossReference_2_1_0()); 
 	    }
 		ruleQualifiedName		{ 
 	        afterParserOrEnumRuleCall();
@@ -133,16 +133,16 @@ ruleAssuranceCase returns [EObject current=null]
 )
 ))?	otherlv_4='[' 
     {
-    	newLeafNode(otherlv_4, grammarAccess.getAssuranceCaseAccess().getLeftSquareBracketKeyword_3());
+    	newLeafNode(otherlv_4, grammarAccess.getAssuranceCaseResultAccess().getLeftSquareBracketKeyword_3());
     }
 (
 (
 		{ 
-	        newCompositeNode(grammarAccess.getAssuranceCaseAccess().getMetricsMetricsParserRuleCall_4_0()); 
+	        newCompositeNode(grammarAccess.getAssuranceCaseResultAccess().getMetricsMetricsParserRuleCall_4_0()); 
 	    }
 		lv_metrics_5_0=ruleMetrics		{
 	        if ($current==null) {
-	            $current = createModelElementForParent(grammarAccess.getAssuranceCaseRule());
+	            $current = createModelElementForParent(grammarAccess.getAssuranceCaseResultRule());
 	        }
        		set(
        			$current, 
@@ -155,17 +155,17 @@ ruleAssuranceCase returns [EObject current=null]
 )
 )(	otherlv_6='message' 
     {
-    	newLeafNode(otherlv_6, grammarAccess.getAssuranceCaseAccess().getMessageKeyword_5_0());
+    	newLeafNode(otherlv_6, grammarAccess.getAssuranceCaseResultAccess().getMessageKeyword_5_0());
     }
 (
 (
 		lv_message_7_0=RULE_STRING
 		{
-			newLeafNode(lv_message_7_0, grammarAccess.getAssuranceCaseAccess().getMessageSTRINGTerminalRuleCall_5_1_0()); 
+			newLeafNode(lv_message_7_0, grammarAccess.getAssuranceCaseResultAccess().getMessageSTRINGTerminalRuleCall_5_1_0()); 
 		}
 		{
 	        if ($current==null) {
-	            $current = createModelElement(grammarAccess.getAssuranceCaseRule());
+	            $current = createModelElement(grammarAccess.getAssuranceCaseResultRule());
 	        }
        		setWithLastConsumed(
        			$current, 
@@ -178,11 +178,11 @@ ruleAssuranceCase returns [EObject current=null]
 ))?(
 (
 		{ 
-	        newCompositeNode(grammarAccess.getAssuranceCaseAccess().getModelResultModelResultParserRuleCall_6_0()); 
+	        newCompositeNode(grammarAccess.getAssuranceCaseResultAccess().getModelResultModelResultParserRuleCall_6_0()); 
 	    }
 		lv_modelResult_8_0=ruleModelResult		{
 	        if ($current==null) {
-	            $current = createModelElementForParent(grammarAccess.getAssuranceCaseRule());
+	            $current = createModelElementForParent(grammarAccess.getAssuranceCaseResultRule());
 	        }
        		add(
        			$current, 
@@ -195,7 +195,7 @@ ruleAssuranceCase returns [EObject current=null]
 )
 )+	otherlv_9=']' 
     {
-    	newLeafNode(otherlv_9, grammarAccess.getAssuranceCaseAccess().getRightSquareBracketKeyword_7());
+    	newLeafNode(otherlv_9, grammarAccess.getAssuranceCaseResultAccess().getRightSquareBracketKeyword_7());
     }
 )
 ;
@@ -347,7 +347,7 @@ ruleModelResult returns [EObject current=null]
 	        }
         }
 		{ 
-	        newCompositeNode(grammarAccess.getModelResultAccess().getSubAssuranceCaseAssuranceCaseCrossReference_8_0()); 
+	        newCompositeNode(grammarAccess.getModelResultAccess().getSubAssuranceCaseAssuranceCaseResultCrossReference_8_0()); 
 	    }
 		ruleQualifiedName		{ 
 	        afterParserOrEnumRuleCall();

@@ -72,9 +72,9 @@ public class AssureParser extends AbstractContentAssistParser {
 					put(grammarAccess.getVerificationResultStateAccess().getAlternatives(), "rule__VerificationResultState__Alternatives");
 					put(grammarAccess.getVerificationExecutionStateAccess().getAlternatives(), "rule__VerificationExecutionState__Alternatives");
 					put(grammarAccess.getResultIssueTypeAccess().getAlternatives(), "rule__ResultIssueType__Alternatives");
-					put(grammarAccess.getAssuranceCaseAccess().getGroup(), "rule__AssuranceCase__Group__0");
-					put(grammarAccess.getAssuranceCaseAccess().getGroup_2(), "rule__AssuranceCase__Group_2__0");
-					put(grammarAccess.getAssuranceCaseAccess().getGroup_5(), "rule__AssuranceCase__Group_5__0");
+					put(grammarAccess.getAssuranceCaseResultAccess().getGroup(), "rule__AssuranceCaseResult__Group__0");
+					put(grammarAccess.getAssuranceCaseResultAccess().getGroup_2(), "rule__AssuranceCaseResult__Group_2__0");
+					put(grammarAccess.getAssuranceCaseResultAccess().getGroup_5(), "rule__AssuranceCaseResult__Group_5__0");
 					put(grammarAccess.getModelResultAccess().getGroup(), "rule__ModelResult__Group__0");
 					put(grammarAccess.getModelResultAccess().getGroup_2(), "rule__ModelResult__Group_2__0");
 					put(grammarAccess.getModelResultAccess().getGroup_5(), "rule__ModelResult__Group_5__0");
@@ -193,11 +193,11 @@ public class AssureParser extends AbstractContentAssistParser {
 					put(grammarAccess.getAADLPROPERTYREFERENCEAccess().getGroup_1(), "rule__AADLPROPERTYREFERENCE__Group_1__0");
 					put(grammarAccess.getQualifiedNameAccess().getGroup(), "rule__QualifiedName__Group__0");
 					put(grammarAccess.getQualifiedNameAccess().getGroup_1(), "rule__QualifiedName__Group_1__0");
-					put(grammarAccess.getAssuranceCaseAccess().getNameAssignment_1(), "rule__AssuranceCase__NameAssignment_1");
-					put(grammarAccess.getAssuranceCaseAccess().getPlanAssignment_2_1(), "rule__AssuranceCase__PlanAssignment_2_1");
-					put(grammarAccess.getAssuranceCaseAccess().getMetricsAssignment_4(), "rule__AssuranceCase__MetricsAssignment_4");
-					put(grammarAccess.getAssuranceCaseAccess().getMessageAssignment_5_1(), "rule__AssuranceCase__MessageAssignment_5_1");
-					put(grammarAccess.getAssuranceCaseAccess().getModelResultAssignment_6(), "rule__AssuranceCase__ModelResultAssignment_6");
+					put(grammarAccess.getAssuranceCaseResultAccess().getNameAssignment_1(), "rule__AssuranceCaseResult__NameAssignment_1");
+					put(grammarAccess.getAssuranceCaseResultAccess().getPlanAssignment_2_1(), "rule__AssuranceCaseResult__PlanAssignment_2_1");
+					put(grammarAccess.getAssuranceCaseResultAccess().getMetricsAssignment_4(), "rule__AssuranceCaseResult__MetricsAssignment_4");
+					put(grammarAccess.getAssuranceCaseResultAccess().getMessageAssignment_5_1(), "rule__AssuranceCaseResult__MessageAssignment_5_1");
+					put(grammarAccess.getAssuranceCaseResultAccess().getModelResultAssignment_6(), "rule__AssuranceCaseResult__ModelResultAssignment_6");
 					put(grammarAccess.getModelResultAccess().getNameAssignment_1(), "rule__ModelResult__NameAssignment_1");
 					put(grammarAccess.getModelResultAccess().getTargetAssignment_2_1(), "rule__ModelResult__TargetAssignment_2_1");
 					put(grammarAccess.getModelResultAccess().getMetricsAssignment_4(), "rule__ModelResult__MetricsAssignment_4");
@@ -324,7 +324,7 @@ public class AssureParser extends AbstractContentAssistParser {
 	protected Collection<FollowElement> getFollowElements(AbstractInternalContentAssistParser parser) {
 		try {
 			org.osate.assure.ui.contentassist.antlr.internal.InternalAssureParser typedParser = (org.osate.assure.ui.contentassist.antlr.internal.InternalAssureParser) parser;
-			typedParser.entryRuleAssuranceCase();
+			typedParser.entryRuleAssuranceCaseResult();
 			return typedParser.getFollowElements();
 		} catch(RecognitionException ex) {
 			throw new RuntimeException(ex);
