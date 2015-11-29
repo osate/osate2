@@ -26,10 +26,7 @@ import org.eclipse.xtext.validation.CheckType
 import org.osate.alisa.workbench.alisa.AlisaPackage
 import org.osate.alisa.workbench.alisa.AssurancePlan
 import org.osate.verify.util.IVerifyGlobalReferenceFinder
-import org.osate.alisa.workbench.alisa.ModelPlan
 import static extension org.osate.alisa.workbench.util.AlisaWorkbenchUtilExtension.*
-
-//import org.eclipse.xtext.validation.Check
 
 /**
  * Custom validation rules. 
@@ -54,8 +51,8 @@ public static val ASSURANCE_PLAN_OWN_INVALID_VERIFICATION_PLANS = 'org.osate.ali
 	@Inject extension IVerifyGlobalReferenceFinder referenceFinder
 
 	@Check(CheckType.NORMAL)
-	def void checkModelPlanNormal(ModelPlan assurancePlan) {
-		checkModelPlanOwnOmissions(assurancePlan)
+	def void checkAssurancePlanNormal(AssurancePlan assurancePlan) {
+		checkAssurancePlanOwnOmissions(assurancePlan)
 	}
 	
 // Need to fix. Gives false error. Also needs to deal with global requirements	
@@ -64,20 +61,20 @@ public static val ASSURANCE_PLAN_OWN_INVALID_VERIFICATION_PLANS = 'org.osate.ali
 //		checkAssurancePlanOwnForInvalid(assurancePlan) 
 //	}
 
-	def void checkModelPlanOwnOmissions(ModelPlan modelPlan) {
-		val res = referenceFinder.getVerificationPlans(modelPlan.target, modelPlan).filter([avp | !modelPlan.assure.contains(avp)])		
+	def void checkAssurancePlanOwnOmissions(AssurancePlan assurancePlan) {
+		val res = referenceFinder.getVerificationPlans(assurancePlan.target, assurancePlan).filter([avp | !assurancePlan.assure.contains(avp)])		
 		if (res.size > 0){
 			val String[] namesAndURI = newArrayOfSize(res.length * 2)
 			res.forEach([vp, counter |
 				namesAndURI.set(counter * 2, vp.name)
 				namesAndURI.set((counter * 2) + 1, EcoreUtil.getURI(vp).toString())
 			])
-			warning("Assurance Plan '" + modelPlan.enclosingAssurancePlan.name + "' missing Verification Plans in 'assure' statement '",
-				modelPlan, AlisaPackage.Literals.ASSURANCE_PLAN__NAME, ASSURANCE_PLAN_OWN_MISSING_VERIFICATION_PLANS, namesAndURI)
+			warning("Assurance Plan '" + assurancePlan.enclosingAssurancePlan.name + "' missing Verification Plans in 'assure' statement '",
+				assurancePlan, AlisaPackage.Literals.ASSURANCE_PLAN__NAME, ASSURANCE_PLAN_OWN_MISSING_VERIFICATION_PLANS, namesAndURI)
 		}
 	}
 
-	def void checkModelPlanOwnForInvalid(ModelPlan assurancePlan) {
+	def void checkModelPlanOwnForInvalid(AssurancePlan assurancePlan) {
 		val res = assurancePlan.assure.filter([avp |
 			val res = referenceFinder.getVerificationPlans(assurancePlan.target, assurancePlan)
 			!res.exists[vp| vp.name.equalsIgnoreCase(avp.name)]
@@ -86,7 +83,7 @@ public static val ASSURANCE_PLAN_OWN_INVALID_VERIFICATION_PLANS = 'org.osate.ali
 			res.forEach([vp, counter |
 				val idx = assurancePlan.assure.indexed.filter([value == vp]).head.key
 				error("Verification Plan '" + vp.name  + "' is not valid for Assurance Plan '" +assurancePlan.enclosingAssurancePlan.name,
-						assurancePlan, AlisaPackage.Literals.MODEL_PLAN__ASSURE, idx, 
+						assurancePlan, AlisaPackage.Literals.ASSURANCE_PLAN__ASSURE, idx, 
 						ASSURANCE_PLAN_OWN_INVALID_VERIFICATION_PLANS, vp.name, EcoreUtil.getURI(vp).toString())
 				
 			])

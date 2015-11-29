@@ -90,19 +90,14 @@ public class AlisaAdapterFactory extends AdapterFactoryImpl
     new AlisaSwitch<Adapter>()
     {
       @Override
-      public Adapter caseAlisaWorkArea(AlisaWorkArea object)
+      public Adapter caseAssuranceCase(AssuranceCase object)
       {
-        return createAlisaWorkAreaAdapter();
+        return createAssuranceCaseAdapter();
       }
       @Override
       public Adapter caseAssurancePlan(AssurancePlan object)
       {
         return createAssurancePlanAdapter();
-      }
-      @Override
-      public Adapter caseModelPlan(ModelPlan object)
-      {
-        return createModelPlanAdapter();
       }
       @Override
       public Adapter caseAssuranceTask(AssuranceTask object)
@@ -137,16 +132,16 @@ public class AlisaAdapterFactory extends AdapterFactoryImpl
 
 
   /**
-   * Creates a new adapter for an object of class '{@link org.osate.alisa.workbench.alisa.AlisaWorkArea <em>Work Area</em>}'.
+   * Creates a new adapter for an object of class '{@link org.osate.alisa.workbench.alisa.AssuranceCase <em>Assurance Case</em>}'.
    * <!-- begin-user-doc -->
    * This default implementation returns null so that we can easily ignore cases;
    * it's useful to ignore a case when inheritance will catch all the cases anyway.
    * <!-- end-user-doc -->
    * @return the new adapter.
-   * @see org.osate.alisa.workbench.alisa.AlisaWorkArea
+   * @see org.osate.alisa.workbench.alisa.AssuranceCase
    * @generated
    */
-  public Adapter createAlisaWorkAreaAdapter()
+  public Adapter createAssuranceCaseAdapter()
   {
     return null;
   }
@@ -162,21 +157,6 @@ public class AlisaAdapterFactory extends AdapterFactoryImpl
    * @generated
    */
   public Adapter createAssurancePlanAdapter()
-  {
-    return null;
-  }
-
-  /**
-   * Creates a new adapter for an object of class '{@link org.osate.alisa.workbench.alisa.ModelPlan <em>Model Plan</em>}'.
-   * <!-- begin-user-doc -->
-   * This default implementation returns null so that we can easily ignore cases;
-   * it's useful to ignore a case when inheritance will catch all the cases anyway.
-   * <!-- end-user-doc -->
-   * @return the new adapter.
-   * @see org.osate.alisa.workbench.alisa.ModelPlan
-   * @generated
-   */
-  public Adapter createModelPlanAdapter()
   {
     return null;
   }

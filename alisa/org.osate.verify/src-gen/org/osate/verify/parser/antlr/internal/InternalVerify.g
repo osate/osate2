@@ -1364,27 +1364,27 @@ ruleVerificationActivity returns [EObject current=null]
     {
     	newLeafNode(otherlv_20, grammarAccess.getVerificationActivityAccess().getRightParenthesisKeyword_8_4());
     }
-)?	otherlv_21='[' 
+)?(	otherlv_21='[' 
     {
-    	newLeafNode(otherlv_21, grammarAccess.getVerificationActivityAccess().getLeftSquareBracketKeyword_9());
+    	newLeafNode(otherlv_21, grammarAccess.getVerificationActivityAccess().getLeftSquareBracketKeyword_9_0());
     }
 (
 
 (
 	{ 
-	  getUnorderedGroupHelper().enter(grammarAccess.getVerificationActivityAccess().getUnorderedGroup_10());
+	  getUnorderedGroupHelper().enter(grammarAccess.getVerificationActivityAccess().getUnorderedGroup_9_1());
 	}
 	(
 		(
 
 			( 
-				{getUnorderedGroupHelper().canSelect(grammarAccess.getVerificationActivityAccess().getUnorderedGroup_10(), 0)}?=>(
+				{getUnorderedGroupHelper().canSelect(grammarAccess.getVerificationActivityAccess().getUnorderedGroup_9_1(), 0)}?=>(
 					{ 
-	 				  getUnorderedGroupHelper().select(grammarAccess.getVerificationActivityAccess().getUnorderedGroup_10(), 0);
+	 				  getUnorderedGroupHelper().select(grammarAccess.getVerificationActivityAccess().getUnorderedGroup_9_1(), 0);
 	 				}
 					({true}?=>(	otherlv_23='phase' 
     {
-    	newLeafNode(otherlv_23, grammarAccess.getVerificationActivityAccess().getPhaseKeyword_10_0_0());
+    	newLeafNode(otherlv_23, grammarAccess.getVerificationActivityAccess().getPhaseKeyword_9_1_0_0());
     }
 (
 (
@@ -1395,25 +1395,25 @@ ruleVerificationActivity returns [EObject current=null]
         }
 	otherlv_24=RULE_ID
 	{
-		newLeafNode(otherlv_24, grammarAccess.getVerificationActivityAccess().getPhaseCategoryPhaseCategoryCrossReference_10_0_1_0()); 
+		newLeafNode(otherlv_24, grammarAccess.getVerificationActivityAccess().getPhaseCategoryPhaseCategoryCrossReference_9_1_0_1_0()); 
 	}
 
 )
 )+))
 					{ 
-	 				  getUnorderedGroupHelper().returnFromSelection(grammarAccess.getVerificationActivityAccess().getUnorderedGroup_10());
+	 				  getUnorderedGroupHelper().returnFromSelection(grammarAccess.getVerificationActivityAccess().getUnorderedGroup_9_1());
 	 				}
  				)
 			)  |
 
 			( 
-				{getUnorderedGroupHelper().canSelect(grammarAccess.getVerificationActivityAccess().getUnorderedGroup_10(), 1)}?=>(
+				{getUnorderedGroupHelper().canSelect(grammarAccess.getVerificationActivityAccess().getUnorderedGroup_9_1(), 1)}?=>(
 					{ 
-	 				  getUnorderedGroupHelper().select(grammarAccess.getVerificationActivityAccess().getUnorderedGroup_10(), 1);
+	 				  getUnorderedGroupHelper().select(grammarAccess.getVerificationActivityAccess().getUnorderedGroup_9_1(), 1);
 	 				}
 					({true}?=>(	otherlv_25='category' 
     {
-    	newLeafNode(otherlv_25, grammarAccess.getVerificationActivityAccess().getCategoryKeyword_10_1_0());
+    	newLeafNode(otherlv_25, grammarAccess.getVerificationActivityAccess().getCategoryKeyword_9_1_1_0());
     }
 (
 (
@@ -1424,31 +1424,31 @@ ruleVerificationActivity returns [EObject current=null]
         }
 	otherlv_26=RULE_ID
 	{
-		newLeafNode(otherlv_26, grammarAccess.getVerificationActivityAccess().getUserCategoryUserCategoryCrossReference_10_1_1_0()); 
+		newLeafNode(otherlv_26, grammarAccess.getVerificationActivityAccess().getUserCategoryUserCategoryCrossReference_9_1_1_1_0()); 
 	}
 
 )
 )+))
 					{ 
-	 				  getUnorderedGroupHelper().returnFromSelection(grammarAccess.getVerificationActivityAccess().getUnorderedGroup_10());
+	 				  getUnorderedGroupHelper().returnFromSelection(grammarAccess.getVerificationActivityAccess().getUnorderedGroup_9_1());
 	 				}
  				)
 			)  |
 
 			( 
-				{getUnorderedGroupHelper().canSelect(grammarAccess.getVerificationActivityAccess().getUnorderedGroup_10(), 2)}?=>(
+				{getUnorderedGroupHelper().canSelect(grammarAccess.getVerificationActivityAccess().getUnorderedGroup_9_1(), 2)}?=>(
 					{ 
-	 				  getUnorderedGroupHelper().select(grammarAccess.getVerificationActivityAccess().getUnorderedGroup_10(), 2);
+	 				  getUnorderedGroupHelper().select(grammarAccess.getVerificationActivityAccess().getUnorderedGroup_9_1(), 2);
 	 				}
 					({true}?=>(	otherlv_27='timeout' 
     {
-    	newLeafNode(otherlv_27, grammarAccess.getVerificationActivityAccess().getTimeoutKeyword_10_2_0());
+    	newLeafNode(otherlv_27, grammarAccess.getVerificationActivityAccess().getTimeoutKeyword_9_1_2_0());
     }
 (
 (
 		lv_timeout_28_0=RULE_INT
 		{
-			newLeafNode(lv_timeout_28_0, grammarAccess.getVerificationActivityAccess().getTimeoutINTTerminalRuleCall_10_2_1_0()); 
+			newLeafNode(lv_timeout_28_0, grammarAccess.getVerificationActivityAccess().getTimeoutINTTerminalRuleCall_9_1_2_1_0()); 
 		}
 		{
 	        if ($current==null) {
@@ -1464,7 +1464,7 @@ ruleVerificationActivity returns [EObject current=null]
 )
 )))
 					{ 
-	 				  getUnorderedGroupHelper().returnFromSelection(grammarAccess.getVerificationActivityAccess().getUnorderedGroup_10());
+	 				  getUnorderedGroupHelper().returnFromSelection(grammarAccess.getVerificationActivityAccess().getUnorderedGroup_9_1());
 	 				}
  				)
 			)  
@@ -1473,14 +1473,14 @@ ruleVerificationActivity returns [EObject current=null]
 	)
 )
 	{ 
-	  getUnorderedGroupHelper().leave(grammarAccess.getVerificationActivityAccess().getUnorderedGroup_10());
+	  getUnorderedGroupHelper().leave(grammarAccess.getVerificationActivityAccess().getUnorderedGroup_9_1());
 	}
 
 )	otherlv_29=']' 
     {
-    	newLeafNode(otherlv_29, grammarAccess.getVerificationActivityAccess().getRightSquareBracketKeyword_11());
+    	newLeafNode(otherlv_29, grammarAccess.getVerificationActivityAccess().getRightSquareBracketKeyword_9_2());
     }
-)
+)?)
 ;
 
 

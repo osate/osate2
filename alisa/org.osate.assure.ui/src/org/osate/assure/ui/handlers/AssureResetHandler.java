@@ -46,7 +46,7 @@ public class AssureResetHandler extends AlisaHandler {
 						@Override
 						public IStatus exec(XtextResource resource) {
 							EObject eobj = resource.getResourceSet().getEObject(uri, true);
-							AssuranceCaseResult ae = AssureUtilExtension.getRootAssuranceCaseResult(eobj);
+							AssuranceCaseResult ae = AssureUtilExtension.getAssuranceCaseResult(eobj);
 							if (ae != null) {
 								return runJob(ae, monitor);
 							} else {

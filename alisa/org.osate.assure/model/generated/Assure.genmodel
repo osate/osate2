@@ -29,12 +29,11 @@
     </genEnums>
     <genClasses ecoreClass="Assure.ecore#//AssuranceCaseResult">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Assure.ecore#//AssuranceCaseResult/name"/>
-      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference Assure.ecore#//AssuranceCaseResult/plan"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Assure.ecore#//AssuranceCaseResult/message"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Assure.ecore#//AssuranceCaseResult/modelResult"/>
     </genClasses>
     <genClasses ecoreClass="Assure.ecore#//ModelResult">
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Assure.ecore#//ModelResult/name"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference Assure.ecore#//ModelResult/plan"/>
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference Assure.ecore#//ModelResult/target"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Assure.ecore#//ModelResult/message"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Assure.ecore#//ModelResult/claimResult"/>

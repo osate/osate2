@@ -79,7 +79,7 @@ class AssureProcessor implements IAssureProcessor {
 	override processCase(AssuranceCaseResult assureResult, IProgressMonitor monitor) {
 		progressmonitor = monitor
 		val count = AssureUtilExtension.numberVerificationResults(assureResult)
-		progressmonitor.beginTask(assureResult.plan.name, count)
+		progressmonitor.beginTask(assureResult.name, count)
 		assureResult.process
 	}
 

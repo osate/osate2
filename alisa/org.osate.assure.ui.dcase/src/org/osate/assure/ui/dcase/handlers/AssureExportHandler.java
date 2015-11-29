@@ -194,7 +194,7 @@ public class AssureExportHandler extends AbstractHandler {
 
 		Goal goal = DcaseFactory.eINSTANCE.createGoal();
 		goal.setName("Assurance Case " + rootCaseResult.getName() + " for "
-				+ rootCaseResult.getPlan().getName());
+				+ rootCaseResult.getName());
 		goal.setMessage(getMetricsAsText(rootCaseResult));
 		model.getRootBasicNode().add(goal);
 
@@ -313,7 +313,7 @@ public class AssureExportHandler extends AbstractHandler {
 		Goal goal = DcaseFactory.eINSTANCE.createGoal();
 
 		goal.setName("Assurance Case " + ac.getName() + " for "
-				+ ac.getPlan().getName());
+				+ ac.getName());
 		goal.setMessage(getMetricsAsText(ac));
 		model.getRootBasicNode().add(goal);
 		DcaseLink001 link = DcaseFactory.eINSTANCE.createDcaseLink001();

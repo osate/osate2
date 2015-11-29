@@ -37,7 +37,7 @@ public class AlisaParser extends org.eclipse.xtext.parser.antlr.AbstractAntlrPar
 	
 	@Override 
 	protected String getDefaultRuleName() {
-		return "AlisaWorkArea";
+		return "AssuranceCase";
 	}
 	
 	public AlisaGrammarAccess getGrammarAccess() {

@@ -29,7 +29,6 @@ import org.osate.categories.categories.CategoryFilter;
  * </p>
  * <ul>
  *   <li>{@link org.osate.alisa.workbench.alisa.AssuranceTask#getTitle <em>Title</em>}</li>
- *   <li>{@link org.osate.alisa.workbench.alisa.AssuranceTask#getAssurancePlan <em>Assurance Plan</em>}</li>
  *   <li>{@link org.osate.alisa.workbench.alisa.AssuranceTask#getIssues <em>Issues</em>}</li>
  * </ul>
  *
@@ -64,32 +63,6 @@ public interface AssuranceTask extends CategoryFilter
    * @generated
    */
   void setTitle(String value);
-
-  /**
-   * Returns the value of the '<em><b>Assurance Plan</b></em>' reference.
-   * <!-- begin-user-doc -->
-   * <p>
-   * If the meaning of the '<em>Assurance Plan</em>' reference isn't clear,
-   * there really should be more of a description here...
-   * </p>
-   * <!-- end-user-doc -->
-   * @return the value of the '<em>Assurance Plan</em>' reference.
-   * @see #setAssurancePlan(AssurancePlan)
-   * @see org.osate.alisa.workbench.alisa.AlisaPackage#getAssuranceTask_AssurancePlan()
-   * @model
-   * @generated
-   */
-  AssurancePlan getAssurancePlan();
-
-  /**
-   * Sets the value of the '{@link org.osate.alisa.workbench.alisa.AssuranceTask#getAssurancePlan <em>Assurance Plan</em>}' reference.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @param value the new value of the '<em>Assurance Plan</em>' reference.
-   * @see #getAssurancePlan()
-   * @generated
-   */
-  void setAssurancePlan(AssurancePlan value);
 
   /**
    * Returns the value of the '<em><b>Issues</b></em>' attribute list.

@@ -89,7 +89,7 @@ class AssureUtilExtension {
 		return result as SubsystemResult
 	}
 
-	def static AssuranceCaseResult getRootAssuranceCaseResult(EObject assureObject) {
+	def static AssuranceCaseResult getAssuranceCaseResult(EObject assureObject) {
 		var result = assureObject
 		while (result.eContainer != null) {
 			result = result.eContainer
@@ -1161,11 +1161,11 @@ class AssureUtilExtension {
 	}
 
 	def static String getName(AssuranceCaseResult ce) {
-		return ce.plan.name
+		return ce.name
 	}
 
 	def static String getName(ModelResult ce) {
-		return ce.target.getName
+		return ce.assuranceCaseResult.name+'.'+ce.plan.getName
 	}
 
 	def static String getName(SubsystemResult ce) {

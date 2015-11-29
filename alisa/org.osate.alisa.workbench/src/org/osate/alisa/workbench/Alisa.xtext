@@ -5,35 +5,34 @@ import "http://aadl.info/AADL/2.0" as aadl2
 import "http://www.osate.org/verify/Verify" as Verify 
 import "http://www.osate.org/categories/Categories" as categories
 
-AlisaWorkArea:
-	plan=AssurancePlan
-	tasks+=AssuranceTask*;
  
-AssurancePlan:
-	'assurance' 'plan' name=QualifiedName (':' title=STRING)?
-	modelPlan+=ModelPlan+
+AssuranceCase:
+	'assurance' 'case' name=QualifiedName (':' title=STRING)?
+	'for' system=[aadl2::ComponentType|AadlClassifierReference]
+	'['
+	description=Description?
+	assurancePlans+=AssurancePlan+
+	tasks+=AssuranceTask*
+	']'
 	;
 
-ModelPlan:
+AssurancePlan:
+	'assurance' 'plan' name=ID (':' title=STRING)?
 	'for' target=[aadl2::ComponentImplementation|AadlClassifierReference]
-	'['
-	(
+	'['(
 	(description=Description)?
 	& ('assure' assure+=[Verify::VerificationPlan|QualifiedName]+)?
 	& (('assure' 'subsystem' (assureSubsystems+=[aadl2::Subcomponent|ID]+|assureAll?='all'))
 	| ('assume' 'subsystem' (assumeSubsystems+=[aadl2::Subcomponent|ID]+|assumeAll?='all')))?
 		& ('issues' issues+=STRING+ )?
-	)
-	']';
+	)']';
 	
 	AssuranceTask returns categories::CategoryFilter :
-		{AssuranceTask} 'assurance''task' name=ID (':' title=STRING)? 'for' assurancePlan=[AssurancePlan|QualifiedName]
-		'['
-	(
+		{AssuranceTask} 'assurance''task' name=ID (':' title=STRING)? 
+		'['	(
 	('category' userCategory+=[categories::UserCategory|ID]+ anyUserSelection?='any'?)?
 	&('quality' qualityCategory+=[categories::QualityCategory|ID]+ anyQualityAttribute?='any'?)?
 	&('phase' phaseCategory+=[categories::PhaseCategory|ID]+ anyDevelopmentPhase?='any'?)?
 	&('issues' issues+=STRING+ )?
-	)
-	']'
+	)']'
 	;
