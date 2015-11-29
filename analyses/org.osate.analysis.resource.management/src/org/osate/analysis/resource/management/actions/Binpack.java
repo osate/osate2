@@ -56,6 +56,7 @@ import org.eclipse.emf.edit.domain.AdapterFactoryEditingDomain;
 import org.eclipse.emf.edit.domain.EditingDomain;
 import org.eclipse.jface.dialogs.Dialog;
 import org.eclipse.swt.widgets.Display;
+import org.eclipse.swt.widgets.Shell;
 import org.osate.aadl2.Classifier;
 import org.osate.aadl2.ClassifierValue;
 import org.osate.aadl2.ComponentCategory;
@@ -666,7 +667,8 @@ public class Binpack extends AbstractInstanceOrDeclarativeModelReadOnlyAction {
 
 		final String propText = getBindingText(threadsToProc);
 		boolean done = false;
-		while (!done) {
+		final Shell sh = getShell();
+		while (sh != null && !done) {
 			final Dialog d = new PackingSuccessfulDialog(getShell(), som, root.getComponentImplementation().getName(),
 					threadsToProc, result.problem.hardwareGraph, propText);
 			final ShowDialog sd = new ShowDialog() {
