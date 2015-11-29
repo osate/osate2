@@ -17,8 +17,6 @@ package org.osate.assure.assure;
 
 import org.eclipse.emf.common.util.EList;
 
-import org.osate.alisa.workbench.alisa.AssurancePlan;
-
 /**
  * <!-- begin-user-doc -->
  * A representation of the model object '<em><b>Assurance Case Result</b></em>'.
@@ -29,7 +27,6 @@ import org.osate.alisa.workbench.alisa.AssurancePlan;
  * </p>
  * <ul>
  *   <li>{@link org.osate.assure.assure.AssuranceCaseResult#getName <em>Name</em>}</li>
- *   <li>{@link org.osate.assure.assure.AssuranceCaseResult#getPlan <em>Plan</em>}</li>
  *   <li>{@link org.osate.assure.assure.AssuranceCaseResult#getMessage <em>Message</em>}</li>
  *   <li>{@link org.osate.assure.assure.AssuranceCaseResult#getModelResult <em>Model Result</em>}</li>
  * </ul>
@@ -65,32 +62,6 @@ public interface AssuranceCaseResult extends AssureResult
    * @generated
    */
   void setName(String value);
-
-  /**
-   * Returns the value of the '<em><b>Plan</b></em>' reference.
-   * <!-- begin-user-doc -->
-   * <p>
-   * If the meaning of the '<em>Plan</em>' reference isn't clear,
-   * there really should be more of a description here...
-   * </p>
-   * <!-- end-user-doc -->
-   * @return the value of the '<em>Plan</em>' reference.
-   * @see #setPlan(AssurancePlan)
-   * @see org.osate.assure.assure.AssurePackage#getAssuranceCaseResult_Plan()
-   * @model
-   * @generated
-   */
-  AssurancePlan getPlan();
-
-  /**
-   * Sets the value of the '{@link org.osate.assure.assure.AssuranceCaseResult#getPlan <em>Plan</em>}' reference.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @param value the new value of the '<em>Plan</em>' reference.
-   * @see #getPlan()
-   * @generated
-   */
-  void setPlan(AssurancePlan value);
 
   /**
    * Returns the value of the '<em><b>Message</b></em>' attribute.

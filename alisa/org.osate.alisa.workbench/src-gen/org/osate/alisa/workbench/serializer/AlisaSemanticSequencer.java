@@ -49,10 +49,9 @@ import org.osate.alisa.common.common.Uncertainty;
 import org.osate.alisa.common.common.ValDeclaration;
 import org.osate.alisa.common.serializer.CommonSemanticSequencer;
 import org.osate.alisa.workbench.alisa.AlisaPackage;
-import org.osate.alisa.workbench.alisa.AlisaWorkArea;
+import org.osate.alisa.workbench.alisa.AssuranceCase;
 import org.osate.alisa.workbench.alisa.AssurancePlan;
 import org.osate.alisa.workbench.alisa.AssuranceTask;
-import org.osate.alisa.workbench.alisa.ModelPlan;
 import org.osate.alisa.workbench.services.AlisaGrammarAccess;
 
 @SuppressWarnings("all")
@@ -81,17 +80,14 @@ public class AlisaSemanticSequencer extends CommonSemanticSequencer {
 				return; 
 			}
 		else if(semanticObject.eClass().getEPackage() == AlisaPackage.eINSTANCE) switch(semanticObject.eClass().getClassifierID()) {
-			case AlisaPackage.ALISA_WORK_AREA:
-				sequence_AlisaWorkArea(context, (AlisaWorkArea) semanticObject); 
+			case AlisaPackage.ASSURANCE_CASE:
+				sequence_AssuranceCase(context, (AssuranceCase) semanticObject); 
 				return; 
 			case AlisaPackage.ASSURANCE_PLAN:
 				sequence_AssurancePlan(context, (AssurancePlan) semanticObject); 
 				return; 
 			case AlisaPackage.ASSURANCE_TASK:
 				sequence_AssuranceTask(context, (AssuranceTask) semanticObject); 
-				return; 
-			case AlisaPackage.MODEL_PLAN:
-				sequence_ModelPlan(context, (ModelPlan) semanticObject); 
 				return; 
 			}
 		else if(semanticObject.eClass().getEPackage() == CommonPackage.eINSTANCE) switch(semanticObject.eClass().getClassifierID()) {
@@ -149,16 +145,31 @@ public class AlisaSemanticSequencer extends CommonSemanticSequencer {
 	
 	/**
 	 * Constraint:
-	 *     (plan=AssurancePlan tasks+=AssuranceTask*)
+	 *     (
+	 *         name=QualifiedName 
+	 *         title=STRING? 
+	 *         system=[ComponentType|AadlClassifierReference] 
+	 *         description=Description? 
+	 *         assurancePlans+=AssurancePlan+ 
+	 *         tasks+=AssuranceTask*
+	 *     )
 	 */
-	protected void sequence_AlisaWorkArea(EObject context, AlisaWorkArea semanticObject) {
+	protected void sequence_AssuranceCase(EObject context, AssuranceCase semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
 	}
 	
 	
 	/**
 	 * Constraint:
-	 *     (name=QualifiedName title=STRING? modelPlan+=ModelPlan+)
+	 *     (
+	 *         name=ID 
+	 *         title=STRING? 
+	 *         target=[ComponentImplementation|AadlClassifierReference] 
+	 *         description=Description? 
+	 *         assure+=[VerificationPlan|QualifiedName]* 
+	 *         (assureSubsystems+=[Subcomponent|ID]+ | assureAll?='all' | assumeSubsystems+=[Subcomponent|ID]+ | assumeAll?='all')? 
+	 *         issues+=STRING*
+	 *     )
 	 */
 	protected void sequence_AssurancePlan(EObject context, AssurancePlan semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
@@ -170,7 +181,6 @@ public class AlisaSemanticSequencer extends CommonSemanticSequencer {
 	 *     (
 	 *         name=ID 
 	 *         title=STRING? 
-	 *         assurancePlan=[AssurancePlan|QualifiedName] 
 	 *         (userCategory+=[UserCategory|ID]+ anyUserSelection?='any'?)? 
 	 *         (qualityCategory+=[QualityCategory|ID]+ anyQualityAttribute?='any'?)? 
 	 *         (phaseCategory+=[PhaseCategory|ID]+ anyDevelopmentPhase?='any'?)? 
@@ -178,21 +188,6 @@ public class AlisaSemanticSequencer extends CommonSemanticSequencer {
 	 *     )
 	 */
 	protected void sequence_AssuranceTask(EObject context, AssuranceTask semanticObject) {
-		genericSequencer.createSequence(context, semanticObject);
-	}
-	
-	
-	/**
-	 * Constraint:
-	 *     (
-	 *         target=[ComponentImplementation|AadlClassifierReference] 
-	 *         description=Description? 
-	 *         assure+=[VerificationPlan|QualifiedName]* 
-	 *         (assureSubsystems+=[Subcomponent|ID]+ | assureAll?='all' | assumeSubsystems+=[Subcomponent|ID]+ | assumeAll?='all')? 
-	 *         issues+=STRING*
-	 *     )
-	 */
-	protected void sequence_ModelPlan(EObject context, ModelPlan semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
 	}
 }

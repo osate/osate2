@@ -87,10 +87,10 @@ public class AlisaSwitch<T> extends Switch<T>
   {
     switch (classifierID)
     {
-      case AlisaPackage.ALISA_WORK_AREA:
+      case AlisaPackage.ASSURANCE_CASE:
       {
-        AlisaWorkArea alisaWorkArea = (AlisaWorkArea)theEObject;
-        T result = caseAlisaWorkArea(alisaWorkArea);
+        AssuranceCase assuranceCase = (AssuranceCase)theEObject;
+        T result = caseAssuranceCase(assuranceCase);
         if (result == null) result = defaultCase(theEObject);
         return result;
       }
@@ -98,13 +98,6 @@ public class AlisaSwitch<T> extends Switch<T>
       {
         AssurancePlan assurancePlan = (AssurancePlan)theEObject;
         T result = caseAssurancePlan(assurancePlan);
-        if (result == null) result = defaultCase(theEObject);
-        return result;
-      }
-      case AlisaPackage.MODEL_PLAN:
-      {
-        ModelPlan modelPlan = (ModelPlan)theEObject;
-        T result = caseModelPlan(modelPlan);
         if (result == null) result = defaultCase(theEObject);
         return result;
       }
@@ -121,17 +114,17 @@ public class AlisaSwitch<T> extends Switch<T>
   }
 
   /**
-   * Returns the result of interpreting the object as an instance of '<em>Work Area</em>'.
+   * Returns the result of interpreting the object as an instance of '<em>Assurance Case</em>'.
    * <!-- begin-user-doc -->
    * This implementation returns null;
    * returning a non-null result will terminate the switch.
    * <!-- end-user-doc -->
    * @param object the target of the switch.
-   * @return the result of interpreting the object as an instance of '<em>Work Area</em>'.
+   * @return the result of interpreting the object as an instance of '<em>Assurance Case</em>'.
    * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
    * @generated
    */
-  public T caseAlisaWorkArea(AlisaWorkArea object)
+  public T caseAssuranceCase(AssuranceCase object)
   {
     return null;
   }
@@ -148,22 +141,6 @@ public class AlisaSwitch<T> extends Switch<T>
    * @generated
    */
   public T caseAssurancePlan(AssurancePlan object)
-  {
-    return null;
-  }
-
-  /**
-   * Returns the result of interpreting the object as an instance of '<em>Model Plan</em>'.
-   * <!-- begin-user-doc -->
-   * This implementation returns null;
-   * returning a non-null result will terminate the switch.
-   * <!-- end-user-doc -->
-   * @param object the target of the switch.
-   * @return the result of interpreting the object as an instance of '<em>Model Plan</em>'.
-   * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
-   * @generated
-   */
-  public T caseModelPlan(ModelPlan object)
   {
     return null;
   }

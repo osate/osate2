@@ -26,7 +26,7 @@ import org.eclipse.xtext.scoping.Scopes
 import org.eclipse.xtext.scoping.impl.AbstractDeclarativeScopeProvider
 import org.eclipse.xtext.scoping.impl.SimpleScope
 import org.eclipse.xtext.util.SimpleAttributeResolver
-import org.osate.alisa.workbench.alisa.ModelPlan
+import org.osate.alisa.workbench.alisa.AssurancePlan
 
 /**
  * This class contains custom scoping description.
@@ -36,7 +36,7 @@ import org.osate.alisa.workbench.alisa.ModelPlan
  *
  */
 class AlisaScopeProvider extends AbstractDeclarativeScopeProvider {
-	def scope_Subcomponent(ModelPlan context, EReference reference) {
+	def scope_Subcomponent(AssurancePlan context, EReference reference) {
 		val targetClassifier = context.target
 		if (targetClassifier != null) {
 //			targetClassifier.getAllFeatures.scopeFor

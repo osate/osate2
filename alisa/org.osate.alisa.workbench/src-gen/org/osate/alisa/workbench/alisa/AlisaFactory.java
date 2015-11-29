@@ -36,13 +36,13 @@ public interface AlisaFactory extends EFactory
   AlisaFactory eINSTANCE = org.osate.alisa.workbench.alisa.impl.AlisaFactoryImpl.init();
 
   /**
-   * Returns a new object of class '<em>Work Area</em>'.
+   * Returns a new object of class '<em>Assurance Case</em>'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @return a new object of class '<em>Work Area</em>'.
+   * @return a new object of class '<em>Assurance Case</em>'.
    * @generated
    */
-  AlisaWorkArea createAlisaWorkArea();
+  AssuranceCase createAssuranceCase();
 
   /**
    * Returns a new object of class '<em>Assurance Plan</em>'.
@@ -52,15 +52,6 @@ public interface AlisaFactory extends EFactory
    * @generated
    */
   AssurancePlan createAssurancePlan();
-
-  /**
-   * Returns a new object of class '<em>Model Plan</em>'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return a new object of class '<em>Model Plan</em>'.
-   * @generated
-   */
-  ModelPlan createModelPlan();
 
   /**
    * Returns a new object of class '<em>Assurance Task</em>'.

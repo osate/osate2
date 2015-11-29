@@ -21,6 +21,8 @@ package org.osate.alisa.workbench.generator
 
 import com.google.inject.Inject
 import java.util.Collections
+import org.eclipse.emf.common.util.BasicEList
+import org.eclipse.emf.common.util.EList
 import org.eclipse.emf.ecore.resource.Resource
 import org.eclipse.xtext.generator.IFileSystemAccess
 import org.eclipse.xtext.generator.IGenerator
@@ -30,10 +32,13 @@ import org.osate.aadl2.ComponentImplementation
 import org.osate.aadl2.ComponentType
 import org.osate.aadl2.Subcomponent
 import org.osate.aadl2.util.Aadl2Util
-import org.osate.alisa.workbench.alisa.AlisaWorkArea
-import org.osate.alisa.workbench.alisa.AssurancePlan
+import org.osate.alisa.workbench.alisa.AssuranceCase
 import org.osate.alisa.workbench.alisa.AssuranceTask
+import org.osate.alisa.workbench.util.IAlisaGlobalReferenceFinder
 import org.osate.categories.categories.CategoryFilter
+import org.osate.reqspec.reqSpec.Requirement
+import org.osate.reqspec.reqSpec.Requirements
+import org.osate.reqspec.reqSpec.SystemRequirements
 import org.osate.verify.util.IVerifyGlobalReferenceFinder
 import org.osate.verify.verify.AllExpr
 import org.osate.verify.verify.ArgumentExpr
@@ -42,18 +47,12 @@ import org.osate.verify.verify.ElseExpr
 import org.osate.verify.verify.RefExpr
 import org.osate.verify.verify.ThenExpr
 import org.osate.verify.verify.VerificationActivity
-
-import static extension org.osate.verify.util.VerifyUtilExtension.*
-import static extension org.osate.reqspec.util.ReqSpecUtilExtension.*
-import static extension org.osate.alisa.workbench.util.AlisaWorkbenchUtilExtension.*
-import org.eclipse.emf.common.util.EList
 import org.osate.verify.verify.VerificationPlan
-import org.eclipse.emf.common.util.BasicEList
-import org.osate.reqspec.reqSpec.SystemRequirements
-import org.osate.reqspec.reqSpec.GlobalRequirements
-import org.osate.reqspec.reqSpec.Requirement
-import org.osate.reqspec.reqSpec.Requirements
-import org.osate.alisa.workbench.alisa.ModelPlan
+
+import static extension org.osate.reqspec.util.ReqSpecUtilExtension.*
+import static extension org.osate.verify.util.VerifyUtilExtension.*
+import static extension org.osate.alisa.workbench.util.AlisaWorkbenchUtilExtension.*
+import org.osate.alisa.workbench.alisa.AssurancePlan
 
 /**
  * Generates code from your model files on save.
@@ -63,13 +62,12 @@ import org.osate.alisa.workbench.alisa.ModelPlan
 class AlisaGenerator implements IGenerator {
 
 	override void doGenerate(Resource resource, IFileSystemAccess fsa) {
-		val workarea = resource.contents.get(0) as AlisaWorkArea
-		val mycase = workarea.plan
+		val mycase = resource.contents.get(0) as AssuranceCase
 		if (mycase != null) {
-		fsa.generateFile('''«mycase.name».assure''', generateFullRootCase(mycase))
-		workarea.tasks.forEach [ task |
-		fsa.generateFile('''«task.name».assure''', generateAssuranceTask(task as AssuranceTask))
-		]
+			fsa.generateFile('''«mycase.name».assure''', generateFullAssuranceCase(mycase))
+			mycase.tasks.forEach [ task |
+				fsa.generateFile('''«task.name».assure''', generateAssuranceTask(task as AssuranceTask))
+			]
 		}
 	}
 
@@ -77,13 +75,11 @@ class AlisaGenerator implements IGenerator {
 
 	var CategoryFilter filter = null
 
-	var AssurancePlan rootAssuranceCase;
-
 	def generateAssuranceTask(AssuranceTask at) {
 		filter = at
-	globalPlans = new BasicEList()
-	globalClaims = new BasicEList()
-	val res =	at.assurancePlan?.generateRootCase
+		globalPlans = new BasicEList()
+		globalClaims = new BasicEList()
+		val res = at.assuranceCase.generateAssuranceCase
 		if (res.length == 0) {
 			at.emptyCase("\"Empty case due to unresolved target reference or empty filter result\"")
 		} else {
@@ -91,34 +87,32 @@ class AlisaGenerator implements IGenerator {
 		}
 	}
 
-	var EList<VerificationPlan> globalPlans 
+	var EList<VerificationPlan> globalPlans
 
-	var EList<Claim> globalClaims 
+	var EList<Claim> globalClaims
 
-	def generateFullRootCase(AssurancePlan acp) {
+	def generateFullAssuranceCase(AssuranceCase acp) {
 		filter = null
-	globalPlans = new BasicEList()
-	globalClaims = new BasicEList()
-		generateRootCase(acp)
+		globalPlans = new BasicEList()
+		globalClaims = new BasicEList()
+		acp.generateAssuranceCase
 	}
 
-	def generateRootCase(AssurancePlan acp) {
-		rootAssuranceCase = acp
+	def generateAssuranceCase(AssuranceCase acp) {
 		'''
-		case «acp.name»
-		plan «acp.name»
-		[
-			«FOR mp : acp.modelPlan»
-				«mp.generateModelCase»
-			«ENDFOR»
-		]
+			case «acp.name»
+			[
+				tbdcount 0
+				«FOR ap : acp.assurancePlans»
+					«ap.generateAssurancePlan»
+				«ENDFOR»
+			]
 		'''
 	}
 
 	def emptyCase(AssuranceTask at, String msg) {
 		'''
 			case  «at.name»
-			plan  «at.assurancePlan.name»
 			[
 				tbdcount 0
 				message «msg»
@@ -128,20 +122,20 @@ class AlisaGenerator implements IGenerator {
 
 	@Inject extension IVerifyGlobalReferenceFinder referenceFinder
 
-	def CharSequence generateModelCase(ModelPlan acp) {
+	def CharSequence generateAssurancePlan(AssurancePlan acp) {
 		var Iterable<VerificationPlan> myplans = Collections.EMPTY_LIST
 		var ComponentClassifier cc
 		if (acp != null) {
 			myplans = acp.assure
 			cc = acp.target
 			if (myplans.empty && !Aadl2Util.isNull(cc)) {
-				myplans = cc.getVerificationPlans(rootAssuranceCase)
+				myplans = cc.getVerificationPlans(acp)
 			}
 		}
 		val APparts = doAssurancePlanParts(acp, myplans, cc)
 		if(APparts.length == 0) return ''''''
 		'''	
-			model «acp.enclosingAssurancePlan.name»
+			model «acp.assuranceCase.name».«acp.name»
 			for «acp.target.getQualifiedName»
 				[
 				tbdcount 0
@@ -149,48 +143,71 @@ class AlisaGenerator implements IGenerator {
 				]
 		'''
 	}
+
 	/**
 	 * sub: system of interest as subcomponent of another system
 	 */
-	def CharSequence generateSubCase(ModelPlan mp,Subcomponent sub) {
+	def CharSequence generateSubsystemVerificationPlansGlobals(Subcomponent sub,AssurancePlan mp) {
 		var Iterable<VerificationPlan> myplans = Collections.EMPTY_LIST
 		var ComponentClassifier cc
-		if (myplans.empty && !Aadl2Util.isNull(sub)) {
+		if (!Aadl2Util.isNull(sub)) {
 			cc = sub.allClassifier
 			if (!Aadl2Util.isNull(cc)) {
-				myplans = cc.getVerificationPlans(rootAssuranceCase);
-			} else {
-				myplans = Collections.EMPTY_LIST
+				myplans = cc.getVerificationPlans(mp);
 			}
 		}
 		val APparts = doAssurancePlanParts(mp, myplans, cc)
 		if(APparts.length == 0) return ''''''
 		'''	
-				subsystem «sub.name» 
-				for «sub.name»
-				[
-				tbdcount 0
-				«APparts»
-				]
+			subsystem «sub.name» 
+			for «sub.name»
+			[
+			tbdcount 0
+			«APparts»
+			]
+		'''
+	}
+	
+	/**
+	 * sub: system of interest as subcomponent of another system only for global requirements from enclosing case
+	 */
+	def CharSequence generateSubsystemGlobalOnly(Subcomponent sub,AssurancePlan mp) {
+		var Iterable<VerificationPlan> myplans = Collections.EMPTY_LIST
+		val APparts = doAssurancePlanParts(mp, myplans, sub.allClassifier)
+		if(APparts.length == 0) return ''''''
+		'''	
+			subsystem «sub.name» 
+			for «sub.name»
+			[
+			tbdcount 0
+			«APparts»
+			]
 		'''
 	}
 
-	def doAssurancePlanParts(ModelPlan mp, Iterable<VerificationPlan> myplans, ComponentClassifier cc) {
-		// first collect any global includes
+	/**
+	 * generate myplans verification plan claims.
+	 * process include to identify and generate locally used and recursively used global requirements.
+	 * myplans:  Myplans may be empty list.
+	 * cc: component classifier for which we identify include requirements 
+	 * 
+	 */
+	def doAssurancePlanParts(AssurancePlan assurancePlan, Iterable<VerificationPlan> vplans, ComponentClassifier cc) {
+		// first collect any global and self includes
 		val selfPlans = new BasicEList()
 		val selfClaims = new BasicEList()
 		val globalPlansTop = globalPlans.size
 		val globalClaimsTop = globalClaims.size
-		for (myplan : myplans) {
-			val reqs = myplan.requirements
+		for (vplan : vplans) {
+			val reqs = vplan.requirements
 			if (reqs instanceof SystemRequirements) {
 				val includes = reqs.include
 				for (incl : includes) {
 					if (incl.include instanceof Requirements) {
 						if (incl.componentCategory.matchingCategory(cc.category)) {
 							val plans = referenceFinder.
-								getAllVerificationPlansForRequirements(incl.include as Requirements, myplan)
-							if (incl.self){
+								getAllVerificationPlansForRequirements(incl.include as Requirements, vplan)
+							if (incl.self) {
 								selfPlans.addAll(plans)
 							} else {
 								globalPlans.addAll(plans)
@@ -199,16 +216,16 @@ class AlisaGenerator implements IGenerator {
 					} else {
 						val greq = incl.include as Requirement
 						val greqs = greq.containingRequirements
-						val plans = referenceFinder.getAllVerificationPlansForRequirements(greqs, myplan)
+						val plans = referenceFinder.getAllVerificationPlansForRequirements(greqs, vplan)
 						for (vp : plans) {
 							for (claim : vp.claim) {
-								if(claim.requirement.name.equals(greq.name)) {
+								if (claim.requirement.name.equals(greq.name)) {
 									if (incl.self) {
-											selfClaims.add(claim)
-										} else {
-											globalClaims.add(claim)
-										}
+										selfClaims.add(claim)
+									} else {
+										globalClaims.add(claim)
 									}
+								}
 							}
 						}
 					}
@@ -216,27 +233,27 @@ class AlisaGenerator implements IGenerator {
 			}
 		}
 		val result = '''
-			«FOR myplan : myplans»
-				«FOR claim : myplan.claim»
+			«FOR vplan : vplans»
+				«FOR claim : vplan.claim»
 					«IF claim.evaluateRequirementFilter(filter)»
 						«claim.generate()»
 					«ENDIF»
 				«ENDFOR»
 			«ENDFOR»
-			«FOR myplan : selfPlans»
-				«FOR claim : myplan.claim.filter[cl|cl.requirement?.componentCategory.matchingCategory(cc.category)]»
+			«FOR vplan : selfPlans»
+				«FOR claim : vplan.claim.filter[cl|cl.requirement?.componentCategory.matchingCategory(cc.category)]»
 					«IF claim.evaluateRequirementFilter(filter)»
 						«claim.generate()»
 					«ENDIF»
 				«ENDFOR»
 			«ENDFOR»
 				«FOR claim : selfClaims.filter[cl|cl.requirement?.componentCategory.matchingCategory(cc.category)]»
-					«IF claim.evaluateRequirementFilter(filter)»
-						«claim.generate()»
-					«ENDIF»
+				«IF claim.evaluateRequirementFilter(filter)»
+					«claim.generate()»
+				«ENDIF»
 				«ENDFOR»
-			«FOR myplan : globalPlans»
-				«FOR claim : myplan.claim.filter[cl|cl.requirement?.componentCategory.matchingCategory(cc.category)]»
+			«FOR vplan : globalPlans»
+				«FOR claim : vplan.claim.filter[cl|cl.requirement?.componentCategory.matchingCategory(cc.category)]»
 					«IF claim.evaluateRequirementFilter(filter)»
 						«claim.generate()»
 					«ENDIF»
@@ -248,36 +265,48 @@ class AlisaGenerator implements IGenerator {
 				«ENDIF»
 			«ENDFOR»
 			«IF cc instanceof ComponentImplementation»
-			«FOR subc : cc.allSubcomponents»
-				«subc.filterplans(mp)»
-			«ENDFOR»
+				«FOR subc : cc.allSubcomponents»
+					«subc.generateSubsystemPlans(assurancePlan)»
+				«ENDFOR»
 			«ENDIF»
 		'''
 		var plansize = globalPlans.size
 		while (plansize > globalPlansTop) {
-			globalClaims.remove(plansize-1)
-			plansize = plansize -1
+			globalClaims.remove(plansize - 1)
+			plansize = plansize - 1
 		}
 		var claimsize = globalClaims.size
 		while (claimsize > globalClaimsTop) {
-			globalClaims.remove(claimsize-1)
-			claimsize = claimsize -1
+			globalClaims.remove(claimsize - 1)
+			claimsize = claimsize - 1
 		}
 		return result
 	}
 
-	def CharSequence filterplans(Subcomponent subc, ModelPlan parentmp) {
+	@Inject IAlisaGlobalReferenceFinder refFinder
+
+	def CharSequence generateSubsystemPlans(Subcomponent subc, AssurancePlan parentap) {
 		val cc = subc.allClassifier
-		if(subc.skipAssuranceplans(parentmp)) return ''''''
-		if (cc instanceof ComponentType) {
-			generateSubCase(null, subc)
-		} else {
-//		XXX	val subacp = cc.getSubsystemAssuranceplan(parentmp)
-			generateSubCase(parentmp, subc)
+		if(subc.isAssumeSubsystem(parentap)) return subc.generateSubsystemGlobalOnly(parentap)
+		switch (cc) {
+			ComponentType:
+				generateSubsystemGlobalOnly(subc,parentap)
+			ComponentImplementation: {
+				val submps = refFinder.getAssurancePlans(cc)
+				if (submps.empty) {
+					subc.generateSubsystemVerificationPlansGlobals(parentap)
+				} else {
+				'''
+				«FOR submp : submps»
+				«submp.generateAssurancePlan()»
+				«ENDFOR»
+				'''	
+				}
+			}
 		}
 	}
 
-	def boolean skipAssuranceplans(Subcomponent subc, ModelPlan parentacp) {
+	def boolean isAssumeSubsystem(Subcomponent subc, AssurancePlan parentacp) {
 		if(parentacp == null) return false
 		if(parentacp.assumeAll) return true
 		val assumes = parentacp.assumeSubsystems
@@ -285,15 +314,6 @@ class AlisaGenerator implements IGenerator {
 			if(sub.name.equalsIgnoreCase(subc.name)) return true;
 		}
 		return false
-	}
-
-	def AssurancePlan getSubsystemAssuranceplan(ComponentClassifier cc, AssurancePlan parentacp) {
-		if(parentacp == null) return null
-//	XXX	val assure = parentacp.assureSubsystemPlans
-//		for (ap: assure){
-//			if (cc.isSameorExtends(ap.target)) return ap;
-//		}
-		return null
 	}
 
 	def CharSequence generate(Claim claim) {
@@ -307,9 +327,9 @@ class AlisaGenerator implements IGenerator {
 				tbdcount 0
 				«subclaims»
 				«IF claim.assert != null»
-				«claimassert»
+					«claimassert»
 				«ELSE»
-				«claimvas»
+					«claimvas»
 				«ENDIF»
 			]
 		'''

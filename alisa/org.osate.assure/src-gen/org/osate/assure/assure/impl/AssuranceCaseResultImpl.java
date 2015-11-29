@@ -30,8 +30,6 @@ import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.eclipse.emf.ecore.util.EObjectContainmentEList;
 import org.eclipse.emf.ecore.util.InternalEList;
 
-import org.osate.alisa.workbench.alisa.AssurancePlan;
-
 import org.osate.assure.assure.AssuranceCaseResult;
 import org.osate.assure.assure.AssurePackage;
 import org.osate.assure.assure.ModelResult;
@@ -45,7 +43,6 @@ import org.osate.assure.assure.ModelResult;
  * </p>
  * <ul>
  *   <li>{@link org.osate.assure.assure.impl.AssuranceCaseResultImpl#getName <em>Name</em>}</li>
- *   <li>{@link org.osate.assure.assure.impl.AssuranceCaseResultImpl#getPlan <em>Plan</em>}</li>
  *   <li>{@link org.osate.assure.assure.impl.AssuranceCaseResultImpl#getMessage <em>Message</em>}</li>
  *   <li>{@link org.osate.assure.assure.impl.AssuranceCaseResultImpl#getModelResult <em>Model Result</em>}</li>
  * </ul>
@@ -73,16 +70,6 @@ public class AssuranceCaseResultImpl extends AssureResultImpl implements Assuran
    * @ordered
    */
   protected String name = NAME_EDEFAULT;
-
-  /**
-   * The cached value of the '{@link #getPlan() <em>Plan</em>}' reference.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @see #getPlan()
-   * @generated
-   * @ordered
-   */
-  protected AssurancePlan plan;
 
   /**
    * The default value of the '{@link #getMessage() <em>Message</em>}' attribute.
@@ -163,49 +150,6 @@ public class AssuranceCaseResultImpl extends AssureResultImpl implements Assuran
    * <!-- end-user-doc -->
    * @generated
    */
-  public AssurancePlan getPlan()
-  {
-    if (plan != null && plan.eIsProxy())
-    {
-      InternalEObject oldPlan = (InternalEObject)plan;
-      plan = (AssurancePlan)eResolveProxy(oldPlan);
-      if (plan != oldPlan)
-      {
-        if (eNotificationRequired())
-          eNotify(new ENotificationImpl(this, Notification.RESOLVE, AssurePackage.ASSURANCE_CASE_RESULT__PLAN, oldPlan, plan));
-      }
-    }
-    return plan;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public AssurancePlan basicGetPlan()
-  {
-    return plan;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public void setPlan(AssurancePlan newPlan)
-  {
-    AssurancePlan oldPlan = plan;
-    plan = newPlan;
-    if (eNotificationRequired())
-      eNotify(new ENotificationImpl(this, Notification.SET, AssurePackage.ASSURANCE_CASE_RESULT__PLAN, oldPlan, plan));
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
   public String getMessage()
   {
     return message;
@@ -266,9 +210,6 @@ public class AssuranceCaseResultImpl extends AssureResultImpl implements Assuran
     {
       case AssurePackage.ASSURANCE_CASE_RESULT__NAME:
         return getName();
-      case AssurePackage.ASSURANCE_CASE_RESULT__PLAN:
-        if (resolve) return getPlan();
-        return basicGetPlan();
       case AssurePackage.ASSURANCE_CASE_RESULT__MESSAGE:
         return getMessage();
       case AssurePackage.ASSURANCE_CASE_RESULT__MODEL_RESULT:
@@ -290,9 +231,6 @@ public class AssuranceCaseResultImpl extends AssureResultImpl implements Assuran
     {
       case AssurePackage.ASSURANCE_CASE_RESULT__NAME:
         setName((String)newValue);
-        return;
-      case AssurePackage.ASSURANCE_CASE_RESULT__PLAN:
-        setPlan((AssurancePlan)newValue);
         return;
       case AssurePackage.ASSURANCE_CASE_RESULT__MESSAGE:
         setMessage((String)newValue);
@@ -318,9 +256,6 @@ public class AssuranceCaseResultImpl extends AssureResultImpl implements Assuran
       case AssurePackage.ASSURANCE_CASE_RESULT__NAME:
         setName(NAME_EDEFAULT);
         return;
-      case AssurePackage.ASSURANCE_CASE_RESULT__PLAN:
-        setPlan((AssurancePlan)null);
-        return;
       case AssurePackage.ASSURANCE_CASE_RESULT__MESSAGE:
         setMessage(MESSAGE_EDEFAULT);
         return;
@@ -343,8 +278,6 @@ public class AssuranceCaseResultImpl extends AssureResultImpl implements Assuran
     {
       case AssurePackage.ASSURANCE_CASE_RESULT__NAME:
         return NAME_EDEFAULT == null ? name != null : !NAME_EDEFAULT.equals(name);
-      case AssurePackage.ASSURANCE_CASE_RESULT__PLAN:
-        return plan != null;
       case AssurePackage.ASSURANCE_CASE_RESULT__MESSAGE:
         return MESSAGE_EDEFAULT == null ? message != null : !MESSAGE_EDEFAULT.equals(message);
       case AssurePackage.ASSURANCE_CASE_RESULT__MODEL_RESULT:

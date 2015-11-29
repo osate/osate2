@@ -19,6 +19,8 @@ import org.eclipse.emf.common.util.EList;
 
 import org.osate.aadl2.ComponentImplementation;
 
+import org.osate.alisa.workbench.alisa.AssurancePlan;
+
 /**
  * <!-- begin-user-doc -->
  * A representation of the model object '<em><b>Model Result</b></em>'.
@@ -28,7 +30,7 @@ import org.osate.aadl2.ComponentImplementation;
  * The following features are supported:
  * </p>
  * <ul>
- *   <li>{@link org.osate.assure.assure.ModelResult#getName <em>Name</em>}</li>
+ *   <li>{@link org.osate.assure.assure.ModelResult#getPlan <em>Plan</em>}</li>
  *   <li>{@link org.osate.assure.assure.ModelResult#getTarget <em>Target</em>}</li>
  *   <li>{@link org.osate.assure.assure.ModelResult#getMessage <em>Message</em>}</li>
  *   <li>{@link org.osate.assure.assure.ModelResult#getClaimResult <em>Claim Result</em>}</li>
@@ -43,30 +45,30 @@ import org.osate.aadl2.ComponentImplementation;
 public interface ModelResult extends AssureResult
 {
   /**
-   * Returns the value of the '<em><b>Name</b></em>' attribute.
+   * Returns the value of the '<em><b>Plan</b></em>' reference.
    * <!-- begin-user-doc -->
    * <p>
-   * If the meaning of the '<em>Name</em>' attribute isn't clear,
+   * If the meaning of the '<em>Plan</em>' reference isn't clear,
    * there really should be more of a description here...
    * </p>
    * <!-- end-user-doc -->
-   * @return the value of the '<em>Name</em>' attribute.
-   * @see #setName(String)
-   * @see org.osate.assure.assure.AssurePackage#getModelResult_Name()
+   * @return the value of the '<em>Plan</em>' reference.
+   * @see #setPlan(AssurancePlan)
+   * @see org.osate.assure.assure.AssurePackage#getModelResult_Plan()
    * @model
    * @generated
    */
-  String getName();
+  AssurancePlan getPlan();
 
   /**
-   * Sets the value of the '{@link org.osate.assure.assure.ModelResult#getName <em>Name</em>}' attribute.
+   * Sets the value of the '{@link org.osate.assure.assure.ModelResult#getPlan <em>Plan</em>}' reference.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @param value the new value of the '<em>Name</em>' attribute.
-   * @see #getName()
+   * @param value the new value of the '<em>Plan</em>' reference.
+   * @see #getPlan()
    * @generated
    */
-  void setName(String value);
+  void setPlan(AssurancePlan value);
 
   /**
    * Returns the value of the '<em><b>Target</b></em>' reference.

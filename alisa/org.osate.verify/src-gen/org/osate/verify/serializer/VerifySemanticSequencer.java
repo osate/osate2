@@ -380,9 +380,7 @@ public class VerifySemanticSequencer extends CommonSemanticSequencer {
 	 *         method=[VerificationMethod|QualifiedName] 
 	 *         (parameters+=[ValDeclaration|ID] parameters+=[ValDeclaration|ID]*)? 
 	 *         (propertyValues+=[ValDeclaration|ID] propertyValues+=[ValDeclaration|ID]*)? 
-	 *         phaseCategory+=[PhaseCategory|ID]* 
-	 *         userCategory+=[UserCategory|ID]* 
-	 *         timeout=INT?
+	 *         (phaseCategory+=[PhaseCategory|ID]* userCategory+=[UserCategory|ID]* timeout=INT?)?
 	 *     )
 	 */
 	protected void sequence_VerificationActivity(EObject context, VerificationActivity semanticObject) {

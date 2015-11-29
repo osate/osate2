@@ -49,7 +49,7 @@ import org.osate.assure.util.AssureUtilExtension;
 			long start = System.currentTimeMillis();
 
 			if (root instanceof AssureResult){
-				AssuranceCaseResult ac = AssureUtilExtension.getRootAssuranceCaseResult(root); 
+				AssuranceCaseResult ac = AssureUtilExtension.getAssuranceCaseResult(root); 
 				drawProofs(ac);
 			}
 

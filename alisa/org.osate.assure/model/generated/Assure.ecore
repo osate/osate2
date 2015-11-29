@@ -3,13 +3,12 @@
     xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" name="assure" nsURI="http://www.osate.org/assure/Assure" nsPrefix="assure">
   <eClassifiers xsi:type="ecore:EClass" name="AssuranceCaseResult" eSuperTypes="#//AssureResult">
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" eType="ecore:EDataType platform:/resource/org.eclipse.emf.ecore/model/Ecore.ecore#//EString"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="plan" eType="ecore:EClass platform:/resource/org.osate.alisa.workbench/model/generated/Alisa.ecore#//AssurancePlan"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="message" eType="ecore:EDataType platform:/resource/org.eclipse.emf.ecore/model/Ecore.ecore#//EString"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="modelResult" upperBound="-1"
         eType="#//ModelResult" containment="true"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="ModelResult" eSuperTypes="#//AssureResult">
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" eType="ecore:EDataType platform:/resource/org.eclipse.emf.ecore/model/Ecore.ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="plan" eType="ecore:EClass platform:/resource/org.osate.alisa.workbench/model/generated/Alisa.ecore#//AssurancePlan"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="target" eType="ecore:EClass platform:/resource/org.osate.aadl2/model/aadl2.ecore#//ComponentImplementation"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="message" eType="ecore:EDataType platform:/resource/org.eclipse.emf.ecore/model/Ecore.ecore#//EString"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="claimResult" upperBound="-1"

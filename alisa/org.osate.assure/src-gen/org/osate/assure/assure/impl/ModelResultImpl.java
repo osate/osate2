@@ -34,6 +34,8 @@ import org.eclipse.emf.ecore.util.InternalEList;
 
 import org.osate.aadl2.ComponentImplementation;
 
+import org.osate.alisa.workbench.alisa.AssurancePlan;
+
 import org.osate.assure.assure.AssuranceCaseResult;
 import org.osate.assure.assure.AssurePackage;
 import org.osate.assure.assure.ClaimResult;
@@ -48,7 +50,7 @@ import org.osate.assure.assure.SubsystemResult;
  * The following features are implemented:
  * </p>
  * <ul>
- *   <li>{@link org.osate.assure.assure.impl.ModelResultImpl#getName <em>Name</em>}</li>
+ *   <li>{@link org.osate.assure.assure.impl.ModelResultImpl#getPlan <em>Plan</em>}</li>
  *   <li>{@link org.osate.assure.assure.impl.ModelResultImpl#getTarget <em>Target</em>}</li>
  *   <li>{@link org.osate.assure.assure.impl.ModelResultImpl#getMessage <em>Message</em>}</li>
  *   <li>{@link org.osate.assure.assure.impl.ModelResultImpl#getClaimResult <em>Claim Result</em>}</li>
@@ -61,24 +63,14 @@ import org.osate.assure.assure.SubsystemResult;
 public class ModelResultImpl extends AssureResultImpl implements ModelResult
 {
   /**
-   * The default value of the '{@link #getName() <em>Name</em>}' attribute.
+   * The cached value of the '{@link #getPlan() <em>Plan</em>}' reference.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @see #getName()
+   * @see #getPlan()
    * @generated
    * @ordered
    */
-  protected static final String NAME_EDEFAULT = null;
-
-  /**
-   * The cached value of the '{@link #getName() <em>Name</em>}' attribute.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @see #getName()
-   * @generated
-   * @ordered
-   */
-  protected String name = NAME_EDEFAULT;
+  protected AssurancePlan plan;
 
   /**
    * The cached value of the '{@link #getTarget() <em>Target</em>}' reference.
@@ -166,9 +158,19 @@ public class ModelResultImpl extends AssureResultImpl implements ModelResult
    * <!-- end-user-doc -->
    * @generated
    */
-  public String getName()
+  public AssurancePlan getPlan()
   {
-    return name;
+    if (plan != null && plan.eIsProxy())
+    {
+      InternalEObject oldPlan = (InternalEObject)plan;
+      plan = (AssurancePlan)eResolveProxy(oldPlan);
+      if (plan != oldPlan)
+      {
+        if (eNotificationRequired())
+          eNotify(new ENotificationImpl(this, Notification.RESOLVE, AssurePackage.MODEL_RESULT__PLAN, oldPlan, plan));
+      }
+    }
+    return plan;
   }
 
   /**
@@ -176,12 +178,22 @@ public class ModelResultImpl extends AssureResultImpl implements ModelResult
    * <!-- end-user-doc -->
    * @generated
    */
-  public void setName(String newName)
+  public AssurancePlan basicGetPlan()
   {
-    String oldName = name;
-    name = newName;
+    return plan;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public void setPlan(AssurancePlan newPlan)
+  {
+    AssurancePlan oldPlan = plan;
+    plan = newPlan;
     if (eNotificationRequired())
-      eNotify(new ENotificationImpl(this, Notification.SET, AssurePackage.MODEL_RESULT__NAME, oldName, name));
+      eNotify(new ENotificationImpl(this, Notification.SET, AssurePackage.MODEL_RESULT__PLAN, oldPlan, plan));
   }
 
   /**
@@ -320,8 +332,9 @@ public class ModelResultImpl extends AssureResultImpl implements ModelResult
   {
     switch (featureID)
     {
-      case AssurePackage.MODEL_RESULT__NAME:
-        return getName();
+      case AssurePackage.MODEL_RESULT__PLAN:
+        if (resolve) return getPlan();
+        return basicGetPlan();
       case AssurePackage.MODEL_RESULT__TARGET:
         if (resolve) return getTarget();
         return basicGetTarget();
@@ -348,8 +361,8 @@ public class ModelResultImpl extends AssureResultImpl implements ModelResult
   {
     switch (featureID)
     {
-      case AssurePackage.MODEL_RESULT__NAME:
-        setName((String)newValue);
+      case AssurePackage.MODEL_RESULT__PLAN:
+        setPlan((AssurancePlan)newValue);
         return;
       case AssurePackage.MODEL_RESULT__TARGET:
         setTarget((ComponentImplementation)newValue);
@@ -383,8 +396,8 @@ public class ModelResultImpl extends AssureResultImpl implements ModelResult
   {
     switch (featureID)
     {
-      case AssurePackage.MODEL_RESULT__NAME:
-        setName(NAME_EDEFAULT);
+      case AssurePackage.MODEL_RESULT__PLAN:
+        setPlan((AssurancePlan)null);
         return;
       case AssurePackage.MODEL_RESULT__TARGET:
         setTarget((ComponentImplementation)null);
@@ -415,8 +428,8 @@ public class ModelResultImpl extends AssureResultImpl implements ModelResult
   {
     switch (featureID)
     {
-      case AssurePackage.MODEL_RESULT__NAME:
-        return NAME_EDEFAULT == null ? name != null : !NAME_EDEFAULT.equals(name);
+      case AssurePackage.MODEL_RESULT__PLAN:
+        return plan != null;
       case AssurePackage.MODEL_RESULT__TARGET:
         return target != null;
       case AssurePackage.MODEL_RESULT__MESSAGE:
@@ -442,9 +455,7 @@ public class ModelResultImpl extends AssureResultImpl implements ModelResult
     if (eIsProxy()) return super.toString();
 
     StringBuffer result = new StringBuffer(super.toString());
-    result.append(" (name: ");
-    result.append(name);
-    result.append(", message: ");
+    result.append(" (message: ");
     result.append(message);
     result.append(')');
     return result.toString();

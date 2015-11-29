@@ -127,22 +127,13 @@ public interface AssurePackage extends EPackage
   int ASSURANCE_CASE_RESULT__NAME = ASSURE_RESULT_FEATURE_COUNT + 0;
 
   /**
-   * The feature id for the '<em><b>Plan</b></em>' reference.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int ASSURANCE_CASE_RESULT__PLAN = ASSURE_RESULT_FEATURE_COUNT + 1;
-
-  /**
    * The feature id for the '<em><b>Message</b></em>' attribute.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    * @ordered
    */
-  int ASSURANCE_CASE_RESULT__MESSAGE = ASSURE_RESULT_FEATURE_COUNT + 2;
+  int ASSURANCE_CASE_RESULT__MESSAGE = ASSURE_RESULT_FEATURE_COUNT + 1;
 
   /**
    * The feature id for the '<em><b>Model Result</b></em>' containment reference list.
@@ -151,7 +142,7 @@ public interface AssurePackage extends EPackage
    * @generated
    * @ordered
    */
-  int ASSURANCE_CASE_RESULT__MODEL_RESULT = ASSURE_RESULT_FEATURE_COUNT + 3;
+  int ASSURANCE_CASE_RESULT__MODEL_RESULT = ASSURE_RESULT_FEATURE_COUNT + 2;
 
   /**
    * The number of structural features of the '<em>Assurance Case Result</em>' class.
@@ -160,7 +151,7 @@ public interface AssurePackage extends EPackage
    * @generated
    * @ordered
    */
-  int ASSURANCE_CASE_RESULT_FEATURE_COUNT = ASSURE_RESULT_FEATURE_COUNT + 4;
+  int ASSURANCE_CASE_RESULT_FEATURE_COUNT = ASSURE_RESULT_FEATURE_COUNT + 3;
 
   /**
    * The meta object id for the '{@link org.osate.assure.assure.impl.ModelResultImpl <em>Model Result</em>}' class.
@@ -182,13 +173,13 @@ public interface AssurePackage extends EPackage
   int MODEL_RESULT__METRICS = ASSURE_RESULT__METRICS;
 
   /**
-   * The feature id for the '<em><b>Name</b></em>' attribute.
+   * The feature id for the '<em><b>Plan</b></em>' reference.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    * @ordered
    */
-  int MODEL_RESULT__NAME = ASSURE_RESULT_FEATURE_COUNT + 0;
+  int MODEL_RESULT__PLAN = ASSURE_RESULT_FEATURE_COUNT + 0;
 
   /**
    * The feature id for the '<em><b>Target</b></em>' reference.
@@ -1036,17 +1027,6 @@ public interface AssurePackage extends EPackage
   EAttribute getAssuranceCaseResult_Name();
 
   /**
-   * Returns the meta object for the reference '{@link org.osate.assure.assure.AssuranceCaseResult#getPlan <em>Plan</em>}'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return the meta object for the reference '<em>Plan</em>'.
-   * @see org.osate.assure.assure.AssuranceCaseResult#getPlan()
-   * @see #getAssuranceCaseResult()
-   * @generated
-   */
-  EReference getAssuranceCaseResult_Plan();
-
-  /**
    * Returns the meta object for the attribute '{@link org.osate.assure.assure.AssuranceCaseResult#getMessage <em>Message</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -1079,15 +1059,15 @@ public interface AssurePackage extends EPackage
   EClass getModelResult();
 
   /**
-   * Returns the meta object for the attribute '{@link org.osate.assure.assure.ModelResult#getName <em>Name</em>}'.
+   * Returns the meta object for the reference '{@link org.osate.assure.assure.ModelResult#getPlan <em>Plan</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @return the meta object for the attribute '<em>Name</em>'.
-   * @see org.osate.assure.assure.ModelResult#getName()
+   * @return the meta object for the reference '<em>Plan</em>'.
+   * @see org.osate.assure.assure.ModelResult#getPlan()
    * @see #getModelResult()
    * @generated
    */
-  EAttribute getModelResult_Name();
+  EReference getModelResult_Plan();
 
   /**
    * Returns the meta object for the reference '{@link org.osate.assure.assure.ModelResult#getTarget <em>Target</em>}'.
@@ -1744,14 +1724,6 @@ public interface AssurePackage extends EPackage
     EAttribute ASSURANCE_CASE_RESULT__NAME = eINSTANCE.getAssuranceCaseResult_Name();
 
     /**
-     * The meta object literal for the '<em><b>Plan</b></em>' reference feature.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
-    EReference ASSURANCE_CASE_RESULT__PLAN = eINSTANCE.getAssuranceCaseResult_Plan();
-
-    /**
      * The meta object literal for the '<em><b>Message</b></em>' attribute feature.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
@@ -1778,12 +1750,12 @@ public interface AssurePackage extends EPackage
     EClass MODEL_RESULT = eINSTANCE.getModelResult();
 
     /**
-     * The meta object literal for the '<em><b>Name</b></em>' attribute feature.
+     * The meta object literal for the '<em><b>Plan</b></em>' reference feature.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @generated
      */
-    EAttribute MODEL_RESULT__NAME = eINSTANCE.getModelResult_Name();
+    EReference MODEL_RESULT__PLAN = eINSTANCE.getModelResult_Plan();
 
     /**
      * The meta object literal for the '<em><b>Target</b></em>' reference feature.

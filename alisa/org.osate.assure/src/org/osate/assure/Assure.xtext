@@ -13,7 +13,6 @@ import "http://www.eclipse.org/emf/2002/Ecore" as ecore
 // result for a system in the architecture hierarchy
 AssuranceCaseResult:
 	'case' name=QualifiedName 
-	('plan' plan=[Alisa::AssurancePlan|QualifiedName])?
 	'['
 	metrics=Metrics
 	('message' message= STRING)?
@@ -22,8 +21,8 @@ AssuranceCaseResult:
 ;
 
 ModelResult:
-	'model' name=QualifiedName 
-	('for' target=[aadl2::ComponentImplementation|AadlClassifierReference])?
+	'model' plan=[Alisa::AssurancePlan|QualifiedName]
+	'for' target=[aadl2::ComponentImplementation|AadlClassifierReference]
 	'['
 	metrics=Metrics
 	('message' message= STRING)?

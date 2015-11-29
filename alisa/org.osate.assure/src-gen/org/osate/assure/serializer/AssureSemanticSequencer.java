@@ -173,7 +173,7 @@ public class AssureSemanticSequencer extends CommonSemanticSequencer {
 	
 	/**
 	 * Constraint:
-	 *     (name=QualifiedName plan=[AssurancePlan|QualifiedName]? metrics=Metrics message=STRING? modelResult+=ModelResult+)
+	 *     (name=QualifiedName metrics=Metrics message=STRING? modelResult+=ModelResult+)
 	 */
 	protected void sequence_AssuranceCaseResult(EObject context, AssuranceCaseResult semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
@@ -228,8 +228,8 @@ public class AssureSemanticSequencer extends CommonSemanticSequencer {
 	/**
 	 * Constraint:
 	 *     (
-	 *         name=QualifiedName 
-	 *         target=[ComponentImplementation|AadlClassifierReference]? 
+	 *         plan=[AssurancePlan|QualifiedName] 
+	 *         target=[ComponentImplementation|AadlClassifierReference] 
 	 *         metrics=Metrics 
 	 *         message=STRING? 
 	 *         claimResult+=ClaimResult* 
