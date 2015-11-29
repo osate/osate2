@@ -58,7 +58,7 @@ class AssureLabelProvider extends org.eclipse.xtext.ui.label.DefaultEObjectLabel
 	}
 	
 	def text(AssuranceCaseResult ele) {
-		"System "+ele.name +": "+ele.constructMessage		
+		"System case "+ele.name +": "+ele.constructMessage		
 		+ ele.assureResultCounts
 	}
 	
