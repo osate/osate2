@@ -20,8 +20,10 @@ import java.awt.Toolkit;
 import java.awt.datatransfer.Clipboard;
 import java.awt.datatransfer.StringSelection;
 import java.awt.datatransfer.Transferable;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
+import java.util.List;
 
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EObject;
@@ -39,10 +41,12 @@ import org.eclipse.jface.viewers.ILabelProvider;
 import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.jface.viewers.TreePath;
 import org.eclipse.jface.viewers.TreeViewer;
+import org.eclipse.jface.viewers.TreeViewerColumn;
 import org.eclipse.jface.viewers.Viewer;
 import org.eclipse.jface.viewers.ViewerFilter;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.widgets.Composite;
+import org.eclipse.swt.widgets.Tree;
 import org.eclipse.ui.IWorkbenchActionConstants;
 import org.eclipse.ui.IWorkbenchPage;
 import org.eclipse.ui.PartInitException;
@@ -65,6 +69,10 @@ import org.osate.assure.assure.AssuranceCaseResult;
 import org.osate.assure.assure.AssureResult;
 import org.osate.assure.assure.ClaimResult;
 import org.osate.assure.assure.Metrics;
+import org.osate.assure.ui.labeling.AssureColorColumnLabelProvider;
+import org.osate.assure.ui.labeling.AssureDescriptionColumnLabelProvider;
+import org.osate.assure.ui.labeling.AssureMetricsColumnLabelProvider;
+import org.osate.assure.ui.labeling.AssureNameColumnLabelProvider;
 import org.osate.assure.util.AssureUtilExtension;
 
 import com.google.inject.Inject;
@@ -108,13 +116,68 @@ import com.google.inject.Inject;
 	    @Inject
 	    ILabelProvider labelProvider;
 	    URI inputURI;
-
 	    @Override
 	    public void createPartControl(Composite parent) {
-	        treeViewer = new TreeViewer(parent, SWT.SINGLE);
+	    	
+	        Tree resultTree = new Tree(parent, SWT.BORDER | SWT.H_SCROLL | SWT.V_SCROLL );
+	        resultTree.setHeaderVisible(true);
+
+	        treeViewer = new TreeViewer(resultTree);
+	        resultTree.setLinesVisible(false);
+	        TreeViewerColumn column0 = new TreeViewerColumn(treeViewer, SWT.LEFT);
+	        column0.getColumn().setAlignment(SWT.LEFT);
+	        column0.getColumn().setText("Evidence");
+	        column0.getColumn().setWidth(300);
+	        column0.getColumn().setResizable(true);
+	        column0.setLabelProvider(new AssureNameColumnLabelProvider());
+
+	        List<TreeViewerColumn> indicatorColumns = new ArrayList<TreeViewerColumn>();
+	        for (int i=0; i<10; i++){
+	        	indicatorColumns.add(new TreeViewerColumn(treeViewer, SWT.RIGHT));
+	        	indicatorColumns.get(i).getColumn().setAlignment(SWT.LEFT);
+	        	indicatorColumns.get(i).getColumn().setWidth(45);
+	        	indicatorColumns.get(i).getColumn().setResizable(false);
+        		indicatorColumns.get(i).getColumn().setText("");
+	        	if (i==0){
+	        		indicatorColumns.get(i).getColumn().setText("0");
+		        	indicatorColumns.get(i).getColumn().setAlignment(SWT.LEFT);
+	        	} else if (i==5){
+	        		indicatorColumns.get(i).getColumn().setText(".5    -");
+		        	indicatorColumns.get(i).getColumn().setAlignment(SWT.LEFT );
+	        	} else if (i==9){
+	        		indicatorColumns.get(i).getColumn().setText("1");
+		        	indicatorColumns.get(i).getColumn().setAlignment(SWT.RIGHT);
+	        	} else {
+	        		indicatorColumns.get(i).getColumn().setText("-");
+	        		if (i > 4) 
+	        			indicatorColumns.get(i).getColumn().setAlignment(SWT.RIGHT);
+	        		else 
+	        			indicatorColumns.get(i).getColumn().setAlignment(SWT.CENTER);
+	        	}
+	        	indicatorColumns.get(i).setLabelProvider(new AssureColorColumnLabelProvider(i));
+	        }
+	        
+	        TreeViewerColumn column2 = new TreeViewerColumn(treeViewer, SWT.RIGHT);
+	        column2.getColumn().setAlignment(SWT.LEFT);
+	        column2.getColumn().setText("Description");
+	        column2.getColumn().setWidth(450);
+	        column2.getColumn().setResizable(true);
+	        column2.setLabelProvider(new AssureDescriptionColumnLabelProvider());
+
+	        TreeViewerColumn columnx = new TreeViewerColumn(treeViewer, SWT.RIGHT);
+	        columnx.getColumn().setAlignment(SWT.LEFT);
+	        columnx.getColumn().setText("results count");
+	        columnx.getColumn().setWidth(200);
+	        columnx.getColumn().setResizable(true);
+	        columnx.setLabelProvider(new AssureMetricsColumnLabelProvider());
+
+	        
+	        
+
+//	        treeViewer = new TreeViewer(parent, SWT.SINGLE);
 	        getSite().setSelectionProvider(treeViewer);
 	        treeViewer.setContentProvider(new AssureContentProvider());
-	        treeViewer.setLabelProvider(labelProvider);//new AssureLabelProvider(null));
+//	        treeViewer.setLabelProvider(labelProvider);//new AssureLabelProvider(null));
 	        AssureTooltipListener.createAndRegister(treeViewer);
 	        treeViewer.addFilter(new NoMetricsFilter());
 	//        treeViewer.addFilter(noClaimsResultFilter);
