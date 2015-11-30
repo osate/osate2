@@ -26,8 +26,8 @@ import org.eclipse.emf.ecore.EObject;
  * The following features are supported:
  * </p>
  * <ul>
- *   <li>{@link org.osate.alisa.common.common.Uncertainty#getImportance <em>Importance</em>}</li>
- *   <li>{@link org.osate.alisa.common.common.Uncertainty#getDifficulty <em>Difficulty</em>}</li>
+ *   <li>{@link org.osate.alisa.common.common.Uncertainty#getVolatility <em>Volatility</em>}</li>
+ *   <li>{@link org.osate.alisa.common.common.Uncertainty#getImpact <em>Impact</em>}</li>
  * </ul>
  *
  * @see org.osate.alisa.common.common.CommonPackage#getUncertainty()
@@ -37,55 +37,55 @@ import org.eclipse.emf.ecore.EObject;
 public interface Uncertainty extends EObject
 {
   /**
-   * Returns the value of the '<em><b>Importance</b></em>' attribute.
+   * Returns the value of the '<em><b>Volatility</b></em>' attribute.
    * <!-- begin-user-doc -->
    * <p>
-   * If the meaning of the '<em>Importance</em>' attribute isn't clear,
+   * If the meaning of the '<em>Volatility</em>' attribute isn't clear,
    * there really should be more of a description here...
    * </p>
    * <!-- end-user-doc -->
-   * @return the value of the '<em>Importance</em>' attribute.
-   * @see #setImportance(int)
-   * @see org.osate.alisa.common.common.CommonPackage#getUncertainty_Importance()
+   * @return the value of the '<em>Volatility</em>' attribute.
+   * @see #setVolatility(int)
+   * @see org.osate.alisa.common.common.CommonPackage#getUncertainty_Volatility()
    * @model
    * @generated
    */
-  int getImportance();
+  int getVolatility();
 
   /**
-   * Sets the value of the '{@link org.osate.alisa.common.common.Uncertainty#getImportance <em>Importance</em>}' attribute.
+   * Sets the value of the '{@link org.osate.alisa.common.common.Uncertainty#getVolatility <em>Volatility</em>}' attribute.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @param value the new value of the '<em>Importance</em>' attribute.
-   * @see #getImportance()
+   * @param value the new value of the '<em>Volatility</em>' attribute.
+   * @see #getVolatility()
    * @generated
    */
-  void setImportance(int value);
+  void setVolatility(int value);
 
   /**
-   * Returns the value of the '<em><b>Difficulty</b></em>' attribute.
+   * Returns the value of the '<em><b>Impact</b></em>' attribute.
    * <!-- begin-user-doc -->
    * <p>
-   * If the meaning of the '<em>Difficulty</em>' attribute isn't clear,
+   * If the meaning of the '<em>Impact</em>' attribute isn't clear,
    * there really should be more of a description here...
    * </p>
    * <!-- end-user-doc -->
-   * @return the value of the '<em>Difficulty</em>' attribute.
-   * @see #setDifficulty(int)
-   * @see org.osate.alisa.common.common.CommonPackage#getUncertainty_Difficulty()
+   * @return the value of the '<em>Impact</em>' attribute.
+   * @see #setImpact(int)
+   * @see org.osate.alisa.common.common.CommonPackage#getUncertainty_Impact()
    * @model
    * @generated
    */
-  int getDifficulty();
+  int getImpact();
 
   /**
-   * Sets the value of the '{@link org.osate.alisa.common.common.Uncertainty#getDifficulty <em>Difficulty</em>}' attribute.
+   * Sets the value of the '{@link org.osate.alisa.common.common.Uncertainty#getImpact <em>Impact</em>}' attribute.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @param value the new value of the '<em>Difficulty</em>' attribute.
-   * @see #getDifficulty()
+   * @param value the new value of the '<em>Impact</em>' attribute.
+   * @see #getImpact()
    * @generated
    */
-  void setDifficulty(int value);
+  void setImpact(int value);
 
 } // Uncertainty

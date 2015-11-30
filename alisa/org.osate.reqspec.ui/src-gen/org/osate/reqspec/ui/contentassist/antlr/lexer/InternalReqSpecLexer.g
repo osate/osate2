@@ -42,11 +42,9 @@ Uncertainty : 'uncertainty';
 
 Decomposes : 'decomposes';
 
-Difficulty : 'difficulty';
-
-Importance : 'importance';
-
 Subprogram : 'subprogram';
+
+Volatility : 'volatility';
 
 Conflicts : 'conflicts';
 
@@ -97,6 +95,8 @@ Warning : 'warning';
 Device : 'device';
 
 Global : 'global';
+
+Impact : 'impact';
 
 Issues : 'issues';
 

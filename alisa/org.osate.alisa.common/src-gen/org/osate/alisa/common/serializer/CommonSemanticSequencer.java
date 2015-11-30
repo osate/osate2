@@ -326,7 +326,7 @@ public class CommonSemanticSequencer extends AbstractDelegatingSemanticSequencer
 	
 	/**
 	 * Constraint:
-	 *     (importance=INT difficulty=INT)
+	 *     (volatility=INT impact=INT)
 	 */
 	protected void sequence_Uncertainty(EObject context, Uncertainty semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);

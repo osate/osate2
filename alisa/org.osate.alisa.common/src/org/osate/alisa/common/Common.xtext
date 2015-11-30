@@ -20,8 +20,8 @@ Uncertainty:
 	'uncertainty' 
 	'['
 	(
-		('importance' importance=INT)
-		&('difficulty' difficulty=INT)
+		('volatility' volatility=INT)
+		&('impact' impact=INT)
 	)
 	']'
 ;

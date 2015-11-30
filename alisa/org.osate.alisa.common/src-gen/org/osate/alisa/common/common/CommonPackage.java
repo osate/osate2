@@ -194,22 +194,22 @@ public interface CommonPackage extends EPackage
   int UNCERTAINTY = 3;
 
   /**
-   * The feature id for the '<em><b>Importance</b></em>' attribute.
+   * The feature id for the '<em><b>Volatility</b></em>' attribute.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    * @ordered
    */
-  int UNCERTAINTY__IMPORTANCE = 0;
+  int UNCERTAINTY__VOLATILITY = 0;
 
   /**
-   * The feature id for the '<em><b>Difficulty</b></em>' attribute.
+   * The feature id for the '<em><b>Impact</b></em>' attribute.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    * @ordered
    */
-  int UNCERTAINTY__DIFFICULTY = 1;
+  int UNCERTAINTY__IMPACT = 1;
 
   /**
    * The number of structural features of the '<em>Uncertainty</em>' class.
@@ -964,26 +964,26 @@ public interface CommonPackage extends EPackage
   EClass getUncertainty();
 
   /**
-   * Returns the meta object for the attribute '{@link org.osate.alisa.common.common.Uncertainty#getImportance <em>Importance</em>}'.
+   * Returns the meta object for the attribute '{@link org.osate.alisa.common.common.Uncertainty#getVolatility <em>Volatility</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @return the meta object for the attribute '<em>Importance</em>'.
-   * @see org.osate.alisa.common.common.Uncertainty#getImportance()
+   * @return the meta object for the attribute '<em>Volatility</em>'.
+   * @see org.osate.alisa.common.common.Uncertainty#getVolatility()
    * @see #getUncertainty()
    * @generated
    */
-  EAttribute getUncertainty_Importance();
+  EAttribute getUncertainty_Volatility();
 
   /**
-   * Returns the meta object for the attribute '{@link org.osate.alisa.common.common.Uncertainty#getDifficulty <em>Difficulty</em>}'.
+   * Returns the meta object for the attribute '{@link org.osate.alisa.common.common.Uncertainty#getImpact <em>Impact</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @return the meta object for the attribute '<em>Difficulty</em>'.
-   * @see org.osate.alisa.common.common.Uncertainty#getDifficulty()
+   * @return the meta object for the attribute '<em>Impact</em>'.
+   * @see org.osate.alisa.common.common.Uncertainty#getImpact()
    * @see #getUncertainty()
    * @generated
    */
-  EAttribute getUncertainty_Difficulty();
+  EAttribute getUncertainty_Impact();
 
   /**
    * Returns the meta object for class '{@link org.osate.alisa.common.common.ResultIssue <em>Result Issue</em>}'.
@@ -1467,20 +1467,20 @@ public interface CommonPackage extends EPackage
     EClass UNCERTAINTY = eINSTANCE.getUncertainty();
 
     /**
-     * The meta object literal for the '<em><b>Importance</b></em>' attribute feature.
+     * The meta object literal for the '<em><b>Volatility</b></em>' attribute feature.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @generated
      */
-    EAttribute UNCERTAINTY__IMPORTANCE = eINSTANCE.getUncertainty_Importance();
+    EAttribute UNCERTAINTY__VOLATILITY = eINSTANCE.getUncertainty_Volatility();
 
     /**
-     * The meta object literal for the '<em><b>Difficulty</b></em>' attribute feature.
+     * The meta object literal for the '<em><b>Impact</b></em>' attribute feature.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @generated
      */
-    EAttribute UNCERTAINTY__DIFFICULTY = eINSTANCE.getUncertainty_Difficulty();
+    EAttribute UNCERTAINTY__IMPACT = eINSTANCE.getUncertainty_Impact();
 
     /**
      * The meta object literal for the '{@link org.osate.alisa.common.common.impl.ResultIssueImpl <em>Result Issue</em>}' class.

@@ -33,8 +33,8 @@ import org.osate.alisa.common.common.Uncertainty;
  * The following features are implemented:
  * </p>
  * <ul>
- *   <li>{@link org.osate.alisa.common.common.impl.UncertaintyImpl#getImportance <em>Importance</em>}</li>
- *   <li>{@link org.osate.alisa.common.common.impl.UncertaintyImpl#getDifficulty <em>Difficulty</em>}</li>
+ *   <li>{@link org.osate.alisa.common.common.impl.UncertaintyImpl#getVolatility <em>Volatility</em>}</li>
+ *   <li>{@link org.osate.alisa.common.common.impl.UncertaintyImpl#getImpact <em>Impact</em>}</li>
  * </ul>
  *
  * @generated
@@ -42,44 +42,44 @@ import org.osate.alisa.common.common.Uncertainty;
 public class UncertaintyImpl extends MinimalEObjectImpl.Container implements Uncertainty
 {
   /**
-   * The default value of the '{@link #getImportance() <em>Importance</em>}' attribute.
+   * The default value of the '{@link #getVolatility() <em>Volatility</em>}' attribute.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @see #getImportance()
+   * @see #getVolatility()
    * @generated
    * @ordered
    */
-  protected static final int IMPORTANCE_EDEFAULT = 0;
+  protected static final int VOLATILITY_EDEFAULT = 0;
 
   /**
-   * The cached value of the '{@link #getImportance() <em>Importance</em>}' attribute.
+   * The cached value of the '{@link #getVolatility() <em>Volatility</em>}' attribute.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @see #getImportance()
+   * @see #getVolatility()
    * @generated
    * @ordered
    */
-  protected int importance = IMPORTANCE_EDEFAULT;
+  protected int volatility = VOLATILITY_EDEFAULT;
 
   /**
-   * The default value of the '{@link #getDifficulty() <em>Difficulty</em>}' attribute.
+   * The default value of the '{@link #getImpact() <em>Impact</em>}' attribute.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @see #getDifficulty()
+   * @see #getImpact()
    * @generated
    * @ordered
    */
-  protected static final int DIFFICULTY_EDEFAULT = 0;
+  protected static final int IMPACT_EDEFAULT = 0;
 
   /**
-   * The cached value of the '{@link #getDifficulty() <em>Difficulty</em>}' attribute.
+   * The cached value of the '{@link #getImpact() <em>Impact</em>}' attribute.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @see #getDifficulty()
+   * @see #getImpact()
    * @generated
    * @ordered
    */
-  protected int difficulty = DIFFICULTY_EDEFAULT;
+  protected int impact = IMPACT_EDEFAULT;
 
   /**
    * <!-- begin-user-doc -->
@@ -107,9 +107,9 @@ public class UncertaintyImpl extends MinimalEObjectImpl.Container implements Unc
    * <!-- end-user-doc -->
    * @generated
    */
-  public int getImportance()
+  public int getVolatility()
   {
-    return importance;
+    return volatility;
   }
 
   /**
@@ -117,12 +117,12 @@ public class UncertaintyImpl extends MinimalEObjectImpl.Container implements Unc
    * <!-- end-user-doc -->
    * @generated
    */
-  public void setImportance(int newImportance)
+  public void setVolatility(int newVolatility)
   {
-    int oldImportance = importance;
-    importance = newImportance;
+    int oldVolatility = volatility;
+    volatility = newVolatility;
     if (eNotificationRequired())
-      eNotify(new ENotificationImpl(this, Notification.SET, CommonPackage.UNCERTAINTY__IMPORTANCE, oldImportance, importance));
+      eNotify(new ENotificationImpl(this, Notification.SET, CommonPackage.UNCERTAINTY__VOLATILITY, oldVolatility, volatility));
   }
 
   /**
@@ -130,9 +130,9 @@ public class UncertaintyImpl extends MinimalEObjectImpl.Container implements Unc
    * <!-- end-user-doc -->
    * @generated
    */
-  public int getDifficulty()
+  public int getImpact()
   {
-    return difficulty;
+    return impact;
   }
 
   /**
@@ -140,12 +140,12 @@ public class UncertaintyImpl extends MinimalEObjectImpl.Container implements Unc
    * <!-- end-user-doc -->
    * @generated
    */
-  public void setDifficulty(int newDifficulty)
+  public void setImpact(int newImpact)
   {
-    int oldDifficulty = difficulty;
-    difficulty = newDifficulty;
+    int oldImpact = impact;
+    impact = newImpact;
     if (eNotificationRequired())
-      eNotify(new ENotificationImpl(this, Notification.SET, CommonPackage.UNCERTAINTY__DIFFICULTY, oldDifficulty, difficulty));
+      eNotify(new ENotificationImpl(this, Notification.SET, CommonPackage.UNCERTAINTY__IMPACT, oldImpact, impact));
   }
 
   /**
@@ -158,10 +158,10 @@ public class UncertaintyImpl extends MinimalEObjectImpl.Container implements Unc
   {
     switch (featureID)
     {
-      case CommonPackage.UNCERTAINTY__IMPORTANCE:
-        return getImportance();
-      case CommonPackage.UNCERTAINTY__DIFFICULTY:
-        return getDifficulty();
+      case CommonPackage.UNCERTAINTY__VOLATILITY:
+        return getVolatility();
+      case CommonPackage.UNCERTAINTY__IMPACT:
+        return getImpact();
     }
     return super.eGet(featureID, resolve, coreType);
   }
@@ -176,11 +176,11 @@ public class UncertaintyImpl extends MinimalEObjectImpl.Container implements Unc
   {
     switch (featureID)
     {
-      case CommonPackage.UNCERTAINTY__IMPORTANCE:
-        setImportance((Integer)newValue);
+      case CommonPackage.UNCERTAINTY__VOLATILITY:
+        setVolatility((Integer)newValue);
         return;
-      case CommonPackage.UNCERTAINTY__DIFFICULTY:
-        setDifficulty((Integer)newValue);
+      case CommonPackage.UNCERTAINTY__IMPACT:
+        setImpact((Integer)newValue);
         return;
     }
     super.eSet(featureID, newValue);
@@ -196,11 +196,11 @@ public class UncertaintyImpl extends MinimalEObjectImpl.Container implements Unc
   {
     switch (featureID)
     {
-      case CommonPackage.UNCERTAINTY__IMPORTANCE:
-        setImportance(IMPORTANCE_EDEFAULT);
+      case CommonPackage.UNCERTAINTY__VOLATILITY:
+        setVolatility(VOLATILITY_EDEFAULT);
         return;
-      case CommonPackage.UNCERTAINTY__DIFFICULTY:
-        setDifficulty(DIFFICULTY_EDEFAULT);
+      case CommonPackage.UNCERTAINTY__IMPACT:
+        setImpact(IMPACT_EDEFAULT);
         return;
     }
     super.eUnset(featureID);
@@ -216,10 +216,10 @@ public class UncertaintyImpl extends MinimalEObjectImpl.Container implements Unc
   {
     switch (featureID)
     {
-      case CommonPackage.UNCERTAINTY__IMPORTANCE:
-        return importance != IMPORTANCE_EDEFAULT;
-      case CommonPackage.UNCERTAINTY__DIFFICULTY:
-        return difficulty != DIFFICULTY_EDEFAULT;
+      case CommonPackage.UNCERTAINTY__VOLATILITY:
+        return volatility != VOLATILITY_EDEFAULT;
+      case CommonPackage.UNCERTAINTY__IMPACT:
+        return impact != IMPACT_EDEFAULT;
     }
     return super.eIsSet(featureID);
   }
@@ -235,10 +235,10 @@ public class UncertaintyImpl extends MinimalEObjectImpl.Container implements Unc
     if (eIsProxy()) return super.toString();
 
     StringBuffer result = new StringBuffer(super.toString());
-    result.append(" (importance: ");
-    result.append(importance);
-    result.append(", difficulty: ");
-    result.append(difficulty);
+    result.append(" (volatility: ");
+    result.append(volatility);
+    result.append(", impact: ");
+    result.append(impact);
     result.append(')');
     return result.toString();
   }
