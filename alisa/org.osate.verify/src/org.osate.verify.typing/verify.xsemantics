@@ -1,0 +1,41 @@
+import org.eclipse.emf.ecore.EObject
+import org.eclipse.xtext.EcoreUtil2
+import org.osate.aadl2.Aadl2Factory
+import org.osate.aadl2.PropertyType
+import org.osate.alisa.common.typing.CommonTypeSystem
+import org.osate.verify.verify.FormalParameter
+import org.osate.verify.verify.VerificationActivity
+import org.osate.verify.verify.VerificationPlan
+
+system org.osate.verify.typing.VerifyTypeSystem extends CommonTypeSystem
+
+judgments {
+	override type |- EObject verifyObject : output PropertyType
+		error "cannot type " + stringRep(verifyObject)
+		source verifyObject
+}
+
+rule VerificationActivity
+	G |- VerificationActivity activity : PropertyType type
+from {
+}
+
+rule FormalParameter
+	G |- FormalParameter param : PropertyType type
+from {
+	switch param.parameterType {
+		case "boolean": Aadl2Factory.eINSTANCE.createAadlBoolean
+		case "integer": Aadl2Factory.eINSTANCE.createAadlInteger
+		case "real": Aadl2Factory.eINSTANCE.createAadlReal
+		case "string": Aadl2Factory.eINSTANCE.createAadlString
+	}
+}
+
+checkrule CheckActivityCalls for 
+	VerificationPlan plan
+from {
+	val verificationActivities = EcoreUtil2.getAllContentsOfType(plan, typeof(VerificationActivity))
+	verificationActivities.forEach[
+		empty |- it : var PropertyType type
+	]
+}

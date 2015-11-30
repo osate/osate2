@@ -1,0 +1,25 @@
+import org.osate.aadl2.Aadl2Factory
+import org.osate.aadl2.PropertyType
+import org.osate.alisa.common.common.AExpression
+import org.osate.alisa.common.common.ValDeclaration
+import org.eclipse.emf.ecore.EObject
+
+system org.osate.alisa.common.typing.CommonTypeSystem
+
+judgments {
+	type |- EObject commonObject : output PropertyType
+		error "cannot type " + stringRep(commonObject)
+		source commonObject
+	}
+
+rule ValDeclaration
+  G |- ValDeclaration valDecl : PropertyType type
+from {
+	G |- valDecl.right : type
+}
+
+rule AExpression
+	G |- AExpression param : PropertyType type
+from {
+	Aadl2Factory.eINSTANCE.createAadlInteger
+}
