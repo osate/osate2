@@ -3,16 +3,18 @@ package org.osate.assure.ui.labeling;
 import org.eclipse.jface.viewers.ColumnLabelProvider
 import org.eclipse.swt.SWT
 import org.eclipse.swt.widgets.Display
-import org.osate.assure.assure.AssuranceCase
 import org.osate.assure.assure.ClaimResult
 import org.osate.assure.assure.ElseResult
-import org.osate.assure.assure.ResultIssue
-import org.osate.assure.assure.ResultIssueType
 import org.osate.assure.assure.ThenResult
 import org.osate.assure.assure.ValidationResult
 import org.osate.assure.assure.VerificationActivityResult
 import static extension org.osate.assure.util.AssureUtilExtension.*
 import org.osate.assure.assure.Metrics
+import org.osate.alisa.common.common.ResultIssue
+import org.osate.alisa.common.common.ResultIssueType
+import org.osate.assure.assure.AssuranceCaseResult
+import org.osate.assure.assure.ModelResult
+import org.osate.assure.assure.SubsystemResult
 
 class AssureColorColumnLabelProvider extends ColumnLabelProvider {
 	
@@ -52,7 +54,19 @@ class AssureColorColumnLabelProvider extends ColumnLabelProvider {
 				var colorBlockCountHolder = AssureColorBlockCountHolder.createAssureColorBlockCountHolder(ele)
 				colorBlockCountHolder.colorValues.get(indicatorColumnNumber)
 			}
-			AssuranceCase : {
+			AssuranceCaseResult : {
+				if (ele.isSuccessful) return SWT.COLOR_GREEN
+				if (ele.isZeroCount) return SWT.COLOR_DARK_BLUE
+				var colorBlockCountHolder = AssureColorBlockCountHolder.createAssureColorBlockCountHolder(ele)
+				colorBlockCountHolder.colorValues.get(indicatorColumnNumber)
+			}
+			ModelResult : {
+				if (ele.isSuccessful) return SWT.COLOR_GREEN
+				if (ele.isZeroCount) return SWT.COLOR_DARK_BLUE
+				var colorBlockCountHolder = AssureColorBlockCountHolder.createAssureColorBlockCountHolder(ele)
+				colorBlockCountHolder.colorValues.get(indicatorColumnNumber)
+			}
+			SubsystemResult : {
 				if (ele.isSuccessful) return SWT.COLOR_GREEN
 				if (ele.isZeroCount) return SWT.COLOR_DARK_BLUE
 				var colorBlockCountHolder = AssureColorBlockCountHolder.createAssureColorBlockCountHolder(ele)

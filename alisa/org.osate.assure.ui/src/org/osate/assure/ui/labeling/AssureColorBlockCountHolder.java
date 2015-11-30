@@ -4,7 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.eclipse.swt.SWT;
-import org.osate.assure.assure.AssuranceCase;
+import org.osate.assure.assure.AssuranceCaseResult;
+import org.osate.assure.assure.AssureResult;
 import org.osate.assure.assure.ClaimResult;
 import org.osate.assure.util.AssureUtilExtension;
 
@@ -39,8 +40,8 @@ public class AssureColorBlockCountHolder {
 	}
 	private void populateAssureColorBlockCountHolder(Object resultObj){
 
-		if (resultObj instanceof ClaimResult){
-			ClaimResult ele = (ClaimResult)resultObj;
+		if (resultObj instanceof AssureResult){
+			AssureResult ele = (AssureResult)resultObj;
 			totalCount = AssureUtilExtension.getTotalCount(ele);
 			if (ele.getMetrics().getSuccessCount() > 0 && totalCount > 0){
 				successBlocks = getBlockCount(ele.getMetrics().getSuccessCount());
@@ -72,39 +73,39 @@ public class AssureColorBlockCountHolder {
 					successBlocks = successBlocks - 1;
 				}
 			}
-		} else if (resultObj instanceof AssuranceCase){
-			AssuranceCase ele = (AssuranceCase)resultObj;
-			totalCount = AssureUtilExtension.getTotalCount(ele);
-			if (ele.getMetrics().getSuccessCount() > 0 && totalCount > 0){
-				successBlocks = getBlockCount(ele.getMetrics().getSuccessCount());
-				if (successBlocks < 1) successBlocks = 1;
-			}
-			if (ele.getMetrics().getFailCount() > 0 && totalCount > 0){
-				failBlocks = getBlockCount(ele.getMetrics().getFailCount());
-				if (failBlocks < 1) failBlocks = 1;
-			}
-			if (ele.getMetrics().getErrorCount() + ele.getMetrics().getTimeoutCount() > 0 && totalCount > 0){
-				errorBlocks = getBlockCount(ele.getMetrics().getErrorCount() + ele.getMetrics().getTimeoutCount());
-				if (errorBlocks < 1) errorBlocks = 1;
-			}
-			while (successBlocks + failBlocks + errorBlocks > 0 && successBlocks + failBlocks + errorBlocks < 10) {
-				if (failBlocks > 1 && firstIslargestValue(failBlocks, successBlocks, errorBlocks)) {
-					failBlocks = failBlocks + 1;
-				} else if (errorBlocks > 1 && firstIslargestValue(errorBlocks, failBlocks, successBlocks)) {
-					errorBlocks = errorBlocks + 1;
-				} else if (successBlocks > 1 && firstIslargestValue(successBlocks, failBlocks, errorBlocks)){
-					successBlocks = successBlocks + 1;
-				}
-			}
-			while (successBlocks + failBlocks + errorBlocks > 10){
-				if (failBlocks > 1 && firstIslargestValue(failBlocks, successBlocks, errorBlocks)) {
-					failBlocks = failBlocks - 1;
-				} else if (errorBlocks > 1 && firstIslargestValue(errorBlocks, failBlocks, successBlocks)) {
-					errorBlocks = errorBlocks - 1;
-				} else if (successBlocks > 1 && firstIslargestValue(successBlocks, failBlocks, errorBlocks)){
-					successBlocks = successBlocks - 1;
-				}
-			}
+//		} else if (resultObj instanceof AssureResult){
+//			AssureResult ele = (AssureResult)resultObj;
+//			totalCount = AssureUtilExtension.getTotalCount(ele);
+//			if (ele.getMetrics().getSuccessCount() > 0 && totalCount > 0){
+//				successBlocks = getBlockCount(ele.getMetrics().getSuccessCount());
+//				if (successBlocks < 1) successBlocks = 1;
+//			}
+//			if (ele.getMetrics().getFailCount() > 0 && totalCount > 0){
+//				failBlocks = getBlockCount(ele.getMetrics().getFailCount());
+//				if (failBlocks < 1) failBlocks = 1;
+//			}
+//			if (ele.getMetrics().getErrorCount() + ele.getMetrics().getTimeoutCount() > 0 && totalCount > 0){
+//				errorBlocks = getBlockCount(ele.getMetrics().getErrorCount() + ele.getMetrics().getTimeoutCount());
+//				if (errorBlocks < 1) errorBlocks = 1;
+//			}
+//			while (successBlocks + failBlocks + errorBlocks > 0 && successBlocks + failBlocks + errorBlocks < 10) {
+//				if (failBlocks > 1 && firstIslargestValue(failBlocks, successBlocks, errorBlocks)) {
+//					failBlocks = failBlocks + 1;
+//				} else if (errorBlocks > 1 && firstIslargestValue(errorBlocks, failBlocks, successBlocks)) {
+//					errorBlocks = errorBlocks + 1;
+//				} else if (successBlocks > 1 && firstIslargestValue(successBlocks, failBlocks, errorBlocks)){
+//					successBlocks = successBlocks + 1;
+//				}
+//			}
+//			while (successBlocks + failBlocks + errorBlocks > 10){
+//				if (failBlocks > 1 && firstIslargestValue(failBlocks, successBlocks, errorBlocks)) {
+//					failBlocks = failBlocks - 1;
+//				} else if (errorBlocks > 1 && firstIslargestValue(errorBlocks, failBlocks, successBlocks)) {
+//					errorBlocks = errorBlocks - 1;
+//				} else if (successBlocks > 1 && firstIslargestValue(successBlocks, failBlocks, errorBlocks)){
+//					successBlocks = successBlocks - 1;
+//				}
+//			}
 		}
 		for(int i=0;i<successBlocks;i++){
 			colorValues.set(i, SWT.COLOR_GREEN);

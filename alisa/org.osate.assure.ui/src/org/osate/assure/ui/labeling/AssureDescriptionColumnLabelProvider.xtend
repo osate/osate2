@@ -1,13 +1,15 @@
 package org.osate.assure.ui.labeling
 
 import org.eclipse.jface.viewers.ColumnLabelProvider
-import org.osate.assure.assure.AssuranceCase
 import org.osate.assure.assure.ClaimResult
 import org.osate.assure.assure.ElseResult
-import org.osate.assure.assure.ResultIssue
 import org.osate.assure.assure.ThenResult
 import org.osate.assure.assure.VerificationActivityResult
 import static extension org.osate.assure.util.AssureUtilExtension.*
+import org.osate.assure.assure.AssuranceCaseResult
+import org.osate.alisa.common.common.ResultIssue
+import org.osate.assure.assure.ModelResult
+import org.osate.assure.assure.SubsystemResult
 
 class AssureDescriptionColumnLabelProvider extends ColumnLabelProvider{
 	
@@ -15,7 +17,9 @@ class AssureDescriptionColumnLabelProvider extends ColumnLabelProvider{
 		switch ele {
 			ClaimResult : ele.constructMessage
 			VerificationActivityResult :  ele.constructMessage + ele.resultState.toTextLabel
-			AssuranceCase : ele.constructMessage
+			AssuranceCaseResult : ele.constructMessage
+			ModelResult : ele.constructMessage
+			SubsystemResult : ele.constructMessage
 			ResultIssue : ele.constructMessage
 			ElseResult : 'else'
 			ThenResult : 'then'

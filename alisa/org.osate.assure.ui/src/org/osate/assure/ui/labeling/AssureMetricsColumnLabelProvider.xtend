@@ -1,27 +1,30 @@
 package org.osate.assure.ui.labeling;
 
 import org.eclipse.jface.viewers.ColumnLabelProvider
-import org.osate.assure.assure.AssuranceCase
 import org.osate.assure.assure.ClaimResult
 import org.osate.assure.assure.ElseResult
-import org.osate.assure.assure.ResultIssue
-import org.osate.assure.assure.ResultIssueType
 import org.osate.assure.assure.ThenResult
 import org.osate.assure.assure.ValidationResult
 import org.osate.assure.assure.VerificationActivityResult
 
 import static extension org.osate.assure.util.AssureUtilExtension.*
+import org.osate.assure.assure.AssuranceCaseResult
+import org.osate.alisa.common.common.ResultIssue
+import org.osate.assure.assure.ModelResult
+import org.osate.alisa.common.common.ResultIssueType
+import org.osate.assure.assure.SubsystemResult
 
 class AssureMetricsColumnLabelProvider extends ColumnLabelProvider {
 
 	override getText(Object ele) {
 		switch ele {
-			AssuranceCase : ele.assureResultCounts
+			AssuranceCaseResult : ele.assureResultCounts
+			ModelResult : ele.assureResultCounts
+			SubsystemResult : ele.assureResultCounts
 			ClaimResult : ele.assureResultCounts
 			VerificationActivityResult : ele.assureResultCounts
 			ResultIssue : {
-					if (ele.name == null) ele.target?.constructLabel?:""+ ele.constructMessage
-					else ele.name + ": " + ele.constructMessage
+					ele.target?.constructLabel?:""+ ele.constructMessage
 			}
 			ElseResult : 'else'
 			ThenResult : 'then'
@@ -50,7 +53,21 @@ class AssureMetricsColumnLabelProvider extends ColumnLabelProvider {
 				if (ele.isZeroCount) return 'info.png'
 				'questionmark.png'
 			}
-			AssuranceCase : {
+			ModelResult : {
+				if (ele.isSuccessful) return 'valid.png'
+				if (ele.isFail) return 'invalid.png'
+				if (ele.isErrorTimeOut) return 'error.png'
+				if (ele.isZeroCount) return 'info.png'
+				'questionmark.png'
+			}
+			SubsystemResult : {
+				if (ele.isSuccessful) return 'valid.png'
+				if (ele.isFail) return 'invalid.png'
+				if (ele.isErrorTimeOut) return 'error.png'
+				if (ele.isZeroCount) return 'info.png'
+				'questionmark.png'
+			}
+			AssuranceCaseResult : {
 				if (ele.isSuccessful) return 'valid.png'
 				if (ele.isFail) return 'invalid.png'
 				if (ele.isErrorTimeOut) return 'error.png'
