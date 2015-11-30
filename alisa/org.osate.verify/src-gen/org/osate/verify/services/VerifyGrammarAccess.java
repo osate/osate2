@@ -1983,7 +1983,7 @@ public class VerifyGrammarAccess extends AbstractGrammarElementFinder {
 	}
 
 	//Uncertainty:
-	//	"uncertainty" "[" ("importance" importance=INT & "difficulty" difficulty=INT) "]";
+	//	"uncertainty" "[" ("volatility" volatility=INT & "impact" impact=INT) "]";
 	public CommonGrammarAccess.UncertaintyElements getUncertaintyAccess() {
 		return gaCommon.getUncertaintyAccess();
 	}

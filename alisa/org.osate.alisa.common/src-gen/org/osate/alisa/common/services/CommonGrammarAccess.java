@@ -129,20 +129,20 @@ public class CommonGrammarAccess extends AbstractGrammarElementFinder {
 		private final Keyword cLeftSquareBracketKeyword_1 = (Keyword)cGroup.eContents().get(1);
 		private final UnorderedGroup cUnorderedGroup_2 = (UnorderedGroup)cGroup.eContents().get(2);
 		private final Group cGroup_2_0 = (Group)cUnorderedGroup_2.eContents().get(0);
-		private final Keyword cImportanceKeyword_2_0_0 = (Keyword)cGroup_2_0.eContents().get(0);
-		private final Assignment cImportanceAssignment_2_0_1 = (Assignment)cGroup_2_0.eContents().get(1);
-		private final RuleCall cImportanceINTTerminalRuleCall_2_0_1_0 = (RuleCall)cImportanceAssignment_2_0_1.eContents().get(0);
+		private final Keyword cVolatilityKeyword_2_0_0 = (Keyword)cGroup_2_0.eContents().get(0);
+		private final Assignment cVolatilityAssignment_2_0_1 = (Assignment)cGroup_2_0.eContents().get(1);
+		private final RuleCall cVolatilityINTTerminalRuleCall_2_0_1_0 = (RuleCall)cVolatilityAssignment_2_0_1.eContents().get(0);
 		private final Group cGroup_2_1 = (Group)cUnorderedGroup_2.eContents().get(1);
-		private final Keyword cDifficultyKeyword_2_1_0 = (Keyword)cGroup_2_1.eContents().get(0);
-		private final Assignment cDifficultyAssignment_2_1_1 = (Assignment)cGroup_2_1.eContents().get(1);
-		private final RuleCall cDifficultyINTTerminalRuleCall_2_1_1_0 = (RuleCall)cDifficultyAssignment_2_1_1.eContents().get(0);
+		private final Keyword cImpactKeyword_2_1_0 = (Keyword)cGroup_2_1.eContents().get(0);
+		private final Assignment cImpactAssignment_2_1_1 = (Assignment)cGroup_2_1.eContents().get(1);
+		private final RuleCall cImpactINTTerminalRuleCall_2_1_1_0 = (RuleCall)cImpactAssignment_2_1_1.eContents().get(0);
 		private final Keyword cRightSquareBracketKeyword_3 = (Keyword)cGroup.eContents().get(3);
 		
 		//Uncertainty:
-		//	"uncertainty" "[" ("importance" importance=INT & "difficulty" difficulty=INT) "]";
+		//	"uncertainty" "[" ("volatility" volatility=INT & "impact" impact=INT) "]";
 		@Override public ParserRule getRule() { return rule; }
 
-		//"uncertainty" "[" ("importance" importance=INT & "difficulty" difficulty=INT) "]"
+		//"uncertainty" "[" ("volatility" volatility=INT & "impact" impact=INT) "]"
 		public Group getGroup() { return cGroup; }
 
 		//"uncertainty"
@@ -151,32 +151,32 @@ public class CommonGrammarAccess extends AbstractGrammarElementFinder {
 		//"["
 		public Keyword getLeftSquareBracketKeyword_1() { return cLeftSquareBracketKeyword_1; }
 
-		//"importance" importance=INT & "difficulty" difficulty=INT
+		//"volatility" volatility=INT & "impact" impact=INT
 		public UnorderedGroup getUnorderedGroup_2() { return cUnorderedGroup_2; }
 
-		//"importance" importance=INT
+		//"volatility" volatility=INT
 		public Group getGroup_2_0() { return cGroup_2_0; }
 
-		//"importance"
-		public Keyword getImportanceKeyword_2_0_0() { return cImportanceKeyword_2_0_0; }
+		//"volatility"
+		public Keyword getVolatilityKeyword_2_0_0() { return cVolatilityKeyword_2_0_0; }
 
-		//importance=INT
-		public Assignment getImportanceAssignment_2_0_1() { return cImportanceAssignment_2_0_1; }
+		//volatility=INT
+		public Assignment getVolatilityAssignment_2_0_1() { return cVolatilityAssignment_2_0_1; }
 
 		//INT
-		public RuleCall getImportanceINTTerminalRuleCall_2_0_1_0() { return cImportanceINTTerminalRuleCall_2_0_1_0; }
+		public RuleCall getVolatilityINTTerminalRuleCall_2_0_1_0() { return cVolatilityINTTerminalRuleCall_2_0_1_0; }
 
-		//"difficulty" difficulty=INT
+		//"impact" impact=INT
 		public Group getGroup_2_1() { return cGroup_2_1; }
 
-		//"difficulty"
-		public Keyword getDifficultyKeyword_2_1_0() { return cDifficultyKeyword_2_1_0; }
+		//"impact"
+		public Keyword getImpactKeyword_2_1_0() { return cImpactKeyword_2_1_0; }
 
-		//difficulty=INT
-		public Assignment getDifficultyAssignment_2_1_1() { return cDifficultyAssignment_2_1_1; }
+		//impact=INT
+		public Assignment getImpactAssignment_2_1_1() { return cImpactAssignment_2_1_1; }
 
 		//INT
-		public RuleCall getDifficultyINTTerminalRuleCall_2_1_1_0() { return cDifficultyINTTerminalRuleCall_2_1_1_0; }
+		public RuleCall getImpactINTTerminalRuleCall_2_1_1_0() { return cImpactINTTerminalRuleCall_2_1_1_0; }
 
 		//"]"
 		public Keyword getRightSquareBracketKeyword_3() { return cRightSquareBracketKeyword_3; }
@@ -2139,7 +2139,7 @@ public class CommonGrammarAccess extends AbstractGrammarElementFinder {
 	}
 
 	//Uncertainty:
-	//	"uncertainty" "[" ("importance" importance=INT & "difficulty" difficulty=INT) "]";
+	//	"uncertainty" "[" ("volatility" volatility=INT & "impact" impact=INT) "]";
 	public UncertaintyElements getUncertaintyAccess() {
 		return pUncertainty;
 	}

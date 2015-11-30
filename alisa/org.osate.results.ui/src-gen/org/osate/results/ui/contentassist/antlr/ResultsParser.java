@@ -196,8 +196,8 @@ public class ResultsParser extends AbstractContentAssistParser {
 					put(grammarAccess.getDescriptionElementAccess().getThisTargetAssignment_2(), "rule__DescriptionElement__ThisTargetAssignment_2");
 					put(grammarAccess.getDescriptionElementAccess().getImageAssignment_3(), "rule__DescriptionElement__ImageAssignment_3");
 					put(grammarAccess.getRationaleAccess().getTextAssignment_1(), "rule__Rationale__TextAssignment_1");
-					put(grammarAccess.getUncertaintyAccess().getImportanceAssignment_2_0_1(), "rule__Uncertainty__ImportanceAssignment_2_0_1");
-					put(grammarAccess.getUncertaintyAccess().getDifficultyAssignment_2_1_1(), "rule__Uncertainty__DifficultyAssignment_2_1_1");
+					put(grammarAccess.getUncertaintyAccess().getVolatilityAssignment_2_0_1(), "rule__Uncertainty__VolatilityAssignment_2_0_1");
+					put(grammarAccess.getUncertaintyAccess().getImpactAssignment_2_1_1(), "rule__Uncertainty__ImpactAssignment_2_1_1");
 					put(grammarAccess.getResultIssueAccess().getIssueTypeAssignment_1(), "rule__ResultIssue__IssueTypeAssignment_1");
 					put(grammarAccess.getResultIssueAccess().getMessageAssignment_2(), "rule__ResultIssue__MessageAssignment_2");
 					put(grammarAccess.getResultIssueAccess().getTargetAssignment_3_1(), "rule__ResultIssue__TargetAssignment_3_1");

@@ -5815,15 +5815,15 @@ ruleUncertainty returns [EObject current=null]
 	 				  getUnorderedGroupHelper().select(grammarAccess.getUncertaintyAccess().getUnorderedGroup_2(), 0);
 	 				}
 					({true}?=>(
-	otherlv_3=Importance
+	otherlv_3=Volatility
     {
-    	newLeafNode(otherlv_3, grammarAccess.getUncertaintyAccess().getImportanceKeyword_2_0_0());
+    	newLeafNode(otherlv_3, grammarAccess.getUncertaintyAccess().getVolatilityKeyword_2_0_0());
     }
 (
 (
-		lv_importance_4_0=RULE_INT
+		lv_volatility_4_0=RULE_INT
 		{
-			newLeafNode(lv_importance_4_0, grammarAccess.getUncertaintyAccess().getImportanceINTTerminalRuleCall_2_0_1_0()); 
+			newLeafNode(lv_volatility_4_0, grammarAccess.getUncertaintyAccess().getVolatilityINTTerminalRuleCall_2_0_1_0()); 
 		}
 		{
 	        if ($current==null) {
@@ -5831,8 +5831,8 @@ ruleUncertainty returns [EObject current=null]
 	        }
        		setWithLastConsumed(
        			$current, 
-       			"importance",
-        		lv_importance_4_0, 
+       			"volatility",
+        		lv_volatility_4_0, 
         		"INT");
 	    }
 
@@ -5850,15 +5850,15 @@ ruleUncertainty returns [EObject current=null]
 	 				  getUnorderedGroupHelper().select(grammarAccess.getUncertaintyAccess().getUnorderedGroup_2(), 1);
 	 				}
 					({true}?=>(
-	otherlv_5=Difficulty
+	otherlv_5=Impact
     {
-    	newLeafNode(otherlv_5, grammarAccess.getUncertaintyAccess().getDifficultyKeyword_2_1_0());
+    	newLeafNode(otherlv_5, grammarAccess.getUncertaintyAccess().getImpactKeyword_2_1_0());
     }
 (
 (
-		lv_difficulty_6_0=RULE_INT
+		lv_impact_6_0=RULE_INT
 		{
-			newLeafNode(lv_difficulty_6_0, grammarAccess.getUncertaintyAccess().getDifficultyINTTerminalRuleCall_2_1_1_0()); 
+			newLeafNode(lv_impact_6_0, grammarAccess.getUncertaintyAccess().getImpactINTTerminalRuleCall_2_1_1_0()); 
 		}
 		{
 	        if ($current==null) {
@@ -5866,8 +5866,8 @@ ruleUncertainty returns [EObject current=null]
 	        }
        		setWithLastConsumed(
        			$current, 
-       			"difficulty",
-        		lv_difficulty_6_0, 
+       			"impact",
+        		lv_impact_6_0, 
         		"INT");
 	    }
 

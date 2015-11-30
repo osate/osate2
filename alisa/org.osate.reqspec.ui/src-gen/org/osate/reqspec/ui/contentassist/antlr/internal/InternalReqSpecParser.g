@@ -106,6 +106,7 @@ import org.osate.reqspec.services.ReqSpecGrammarAccess;
 		tokenNameToValue.put("Value", "'value'");
 		tokenNameToValue.put("Device", "'device'");
 		tokenNameToValue.put("Global", "'global'");
+		tokenNameToValue.put("Impact", "'impact'");
 		tokenNameToValue.put("Issues", "'issues'");
 		tokenNameToValue.put("Memory", "'memory'");
 		tokenNameToValue.put("KW_System", "'system'");
@@ -135,9 +136,8 @@ import org.osate.reqspec.services.ReqSpecGrammarAccess;
 		tokenNameToValue.put("Processor", "'processor'");
 		tokenNameToValue.put("Rationale", "'rationale'");
 		tokenNameToValue.put("Decomposes", "'decomposes'");
-		tokenNameToValue.put("Difficulty", "'difficulty'");
-		tokenNameToValue.put("Importance", "'importance'");
 		tokenNameToValue.put("Subprogram", "'subprogram'");
+		tokenNameToValue.put("Volatility", "'volatility'");
 		tokenNameToValue.put("Description", "'description'");
 		tokenNameToValue.put("Development", "'development'");
 		tokenNameToValue.put("Requirement", "'requirement'");
@@ -13417,11 +13417,11 @@ rule__Uncertainty__Group_2_0__0__Impl
     }
 :
 (
-{ before(grammarAccess.getUncertaintyAccess().getImportanceKeyword_2_0_0()); }
+{ before(grammarAccess.getUncertaintyAccess().getVolatilityKeyword_2_0_0()); }
 
-	Importance 
+	Volatility 
 
-{ after(grammarAccess.getUncertaintyAccess().getImportanceKeyword_2_0_0()); }
+{ after(grammarAccess.getUncertaintyAccess().getVolatilityKeyword_2_0_0()); }
 )
 
 ;
@@ -13447,9 +13447,9 @@ rule__Uncertainty__Group_2_0__1__Impl
     }
 :
 (
-{ before(grammarAccess.getUncertaintyAccess().getImportanceAssignment_2_0_1()); }
-(rule__Uncertainty__ImportanceAssignment_2_0_1)
-{ after(grammarAccess.getUncertaintyAccess().getImportanceAssignment_2_0_1()); }
+{ before(grammarAccess.getUncertaintyAccess().getVolatilityAssignment_2_0_1()); }
+(rule__Uncertainty__VolatilityAssignment_2_0_1)
+{ after(grammarAccess.getUncertaintyAccess().getVolatilityAssignment_2_0_1()); }
 )
 
 ;
@@ -13480,11 +13480,11 @@ rule__Uncertainty__Group_2_1__0__Impl
     }
 :
 (
-{ before(grammarAccess.getUncertaintyAccess().getDifficultyKeyword_2_1_0()); }
+{ before(grammarAccess.getUncertaintyAccess().getImpactKeyword_2_1_0()); }
 
-	Difficulty 
+	Impact 
 
-{ after(grammarAccess.getUncertaintyAccess().getDifficultyKeyword_2_1_0()); }
+{ after(grammarAccess.getUncertaintyAccess().getImpactKeyword_2_1_0()); }
 )
 
 ;
@@ -13510,9 +13510,9 @@ rule__Uncertainty__Group_2_1__1__Impl
     }
 :
 (
-{ before(grammarAccess.getUncertaintyAccess().getDifficultyAssignment_2_1_1()); }
-(rule__Uncertainty__DifficultyAssignment_2_1_1)
-{ after(grammarAccess.getUncertaintyAccess().getDifficultyAssignment_2_1_1()); }
+{ before(grammarAccess.getUncertaintyAccess().getImpactAssignment_2_1_1()); }
+(rule__Uncertainty__ImpactAssignment_2_1_1)
+{ after(grammarAccess.getUncertaintyAccess().getImpactAssignment_2_1_1()); }
 )
 
 ;
@@ -25576,14 +25576,14 @@ finally {
 	restoreStackSize(stackSize);
 }
 
-rule__Uncertainty__ImportanceAssignment_2_0_1
+rule__Uncertainty__VolatilityAssignment_2_0_1
     @init {
 		int stackSize = keepStackSize();
     }
 :
 (
-{ before(grammarAccess.getUncertaintyAccess().getImportanceINTTerminalRuleCall_2_0_1_0()); }
-	RULE_INT{ after(grammarAccess.getUncertaintyAccess().getImportanceINTTerminalRuleCall_2_0_1_0()); }
+{ before(grammarAccess.getUncertaintyAccess().getVolatilityINTTerminalRuleCall_2_0_1_0()); }
+	RULE_INT{ after(grammarAccess.getUncertaintyAccess().getVolatilityINTTerminalRuleCall_2_0_1_0()); }
 )
 
 ;
@@ -25591,14 +25591,14 @@ finally {
 	restoreStackSize(stackSize);
 }
 
-rule__Uncertainty__DifficultyAssignment_2_1_1
+rule__Uncertainty__ImpactAssignment_2_1_1
     @init {
 		int stackSize = keepStackSize();
     }
 :
 (
-{ before(grammarAccess.getUncertaintyAccess().getDifficultyINTTerminalRuleCall_2_1_1_0()); }
-	RULE_INT{ after(grammarAccess.getUncertaintyAccess().getDifficultyINTTerminalRuleCall_2_1_1_0()); }
+{ before(grammarAccess.getUncertaintyAccess().getImpactINTTerminalRuleCall_2_1_1_0()); }
+	RULE_INT{ after(grammarAccess.getUncertaintyAccess().getImpactINTTerminalRuleCall_2_1_1_0()); }
 )
 
 ;
