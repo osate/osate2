@@ -15,11 +15,16 @@ import java.util.Objects;
 import java.util.Set;
 
 import org.eclipse.emf.common.command.BasicCommandStack;
+import org.eclipse.emf.common.command.Command;
 import org.eclipse.emf.common.command.CommandStackListener;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.resource.Resource;
+import org.eclipse.emf.transaction.NotificationFilter;
 import org.eclipse.emf.transaction.RecordingCommand;
+import org.eclipse.emf.transaction.ResourceSetChangeEvent;
+import org.eclipse.emf.transaction.ResourceSetListener;
+import org.eclipse.emf.transaction.RollbackException;
 import org.eclipse.emf.transaction.TransactionalEditingDomain;
 import org.eclipse.gef.ContextMenuProvider;
 import org.eclipse.gef.palette.PaletteDrawer;
@@ -87,6 +92,38 @@ public class AgeDiagramBehavior extends DiagramBehavior {
 				updateWhenVisible = false;
 			}
 		}			
+	};
+	
+	// Diagram change listener which refreshes the entire diagram. This is needed because there are cases where graphiti does not 
+	// correctly update the diagram after shapes are moved.
+	private final ResourceSetListener diagramChangeListener = new ResourceSetListener() {
+		@Override
+		public NotificationFilter getFilter() {
+			return NotificationFilter.NOT_TOUCH;
+		}
+
+		@Override
+		public Command transactionAboutToCommit(ResourceSetChangeEvent event) throws RollbackException {
+			return null;
+		}
+
+		@Override
+		public void resourceSetChanged(final ResourceSetChangeEvent event) {
+			getRefreshBehavior().initRefresh();
+			refresh();
+		}
+
+		public boolean isAggregatePrecommitListener() {
+			return false;
+		}
+
+		public boolean isPostcommitOnly() {
+			return true;
+		}
+
+		public boolean isPrecommitOnly() {
+			return false;
+		}		
 	};
 	
 	public AgeDiagramBehavior(final IDiagramContainerUI diagramContainer, final GhostPurger ghostPurger, final DiagramService diagramService, final PropertyService propertyService) {
@@ -310,6 +347,39 @@ public class AgeDiagramBehavior extends DiagramBehavior {
 	}
 	
 	@Override
+	protected void registerDiagramResourceSetListener() {
+		// Do not call super method. This diagram behavior has a custom diagram change listener.
+		final TransactionalEditingDomain eDomain = getEditingDomain();
+		eDomain.addResourceSetListener(diagramChangeListener);
+	}
+	
+	@Override
+	protected void unregisterDiagramResourceSetListener() {
+		// Do not call super method. This diagram behavior has a custom diagram change listener.
+		if (diagramChangeListener != null) {
+			//diagramChangeListener.stopListening();
+			final TransactionalEditingDomain editingDomain = getEditingDomain();
+			if (editingDomain != null) {
+				editingDomain.removeResourceSetListener(diagramChangeListener);
+			}
+		}
+	}
+	
+	@Override
+	protected void registerBusinessObjectsListener() {
+		// Do not call super method
+		
+		AgeXtextUtil.addModelListener(modelListener);
+	}
+	
+	@Override
+	protected void unregisterBusinessObjectsListener() {
+		AgeXtextUtil.removeModelListener(modelListener);
+		
+		// Do not call super method
+	}
+	
+	@Override
 	protected DefaultRefreshBehavior createRefreshBehavior() {		
 		return new DefaultRefreshBehavior(this) {
 			@Override
@@ -480,16 +550,6 @@ public class AgeDiagramBehavior extends DiagramBehavior {
 		};
 	}
 
-	@Override
-	protected void registerBusinessObjectsListener() {
-		AgeXtextUtil.addModelListener(modelListener);
-	}
-	
-	@Override
-	protected void unregisterDiagramResourceSetListener() {
-		AgeXtextUtil.removeModelListener(modelListener);
-	}
-	
 	// This prevents cluttering the context menu with global eclipse menu items
 	@Override
 	protected boolean shouldRegisterContextMenu() {

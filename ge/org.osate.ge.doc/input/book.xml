@@ -405,7 +405,7 @@
 				<title>Creating Source Flow Implementations</title>
 					<orderedlist>
 					<listitem>
-						<para>Select a valid source flow specification.</para>
+						<para>Select a valid source flow specification in the top-level component implementation.</para>
 						<mediaobject><imageobject>
     						<imagedata fileref="images/FlowImplSourceStep1.png" format="PNG"/>
   						</imageobject></mediaobject>
@@ -431,7 +431,7 @@
 				<title>Creating Sink Flow Implementations</title>
 				<orderedlist>
 					<listitem>
-					<para>Select a valid sink flow specification.</para>
+					<para>Select a valid sink flow specification in the top-level component implementation.</para>
 					<mediaobject><imageobject>
     					<imagedata fileref="images/FlowImplSinkStep1.png" format="PNG"/>
   					</imageobject></mediaobject>
@@ -457,7 +457,7 @@
 				<title>Creating Path Flow Implementations</title>
 				<orderedlist>
 					<listitem>
-					<para>Select a valid path flow specification.</para>
+					<para>Select a valid path flow specification in the top-level component implementation.</para>
 					<mediaobject><imageobject>
     					<imagedata fileref="images/FlowImplPathStep1.png" format="PNG"/>
   					</imageobject></mediaobject>

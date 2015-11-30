@@ -13,6 +13,7 @@ import org.eclipse.emf.transaction.TransactionalEditingDomain;
 import org.eclipse.graphiti.dt.IDiagramTypeProvider;
 import org.eclipse.graphiti.mm.pictograms.Connection;
 import org.eclipse.graphiti.mm.pictograms.ConnectionDecorator;
+import org.eclipse.graphiti.mm.pictograms.Diagram;
 import org.eclipse.graphiti.mm.pictograms.PictogramElement;
 import org.eclipse.graphiti.mm.pictograms.Shape;
 import org.eclipse.jface.dialogs.Dialog;
@@ -117,7 +118,7 @@ public class CreateEndToEndFlowSpecificationTool {
 				return;
 			}
 
-			if (!dlg.getFlows().isEmpty()) {
+			if (dlg != null && !dlg.getFlows().isEmpty()) {
 				aadlModService.modify(ci, new AbstractModifier<ComponentImplementation, Object>() {
 					@Override
 					public Object modify(final Resource resource, final ComponentImplementation ci) {
@@ -142,14 +143,23 @@ public class CreateEndToEndFlowSpecificationTool {
 			public void execute() {
 				// Dispose of the coloring object
 				if (coloring != null) {
-					if (dlg != null) {
-						dlg.close();
-					}
 					coloring.dispose();
+					coloring = null;
 				}
-				canActivate = true;
+				
 			}
 		});
+		
+		if (dlg != null) {
+			dlg.close();
+			dlg = null;
+		}
+		
+		this.dtp = null;
+		this.ci = null;
+		this.bor = null;
+		this.previouslySelectedPes.clear();
+		canActivate = true;
 	}
 
 	/**
@@ -165,43 +175,53 @@ public class CreateEndToEndFlowSpecificationTool {
 		if (dlg != null && dlg.getShell() != null && dlg.getShell().isVisible()) {
 			// If the selection is a valid addition to the end to end flow specification, add it.
 			final TransactionalEditingDomain editingDomain = dtp.getDiagramBehavior().getEditingDomain();
-			editingDomain.getCommandStack().execute(new NonUndoableToolCommand() {
+			Display.getDefault().asyncExec(new Runnable() {
 				@Override
-				public void execute() {
-					for (PictogramElement pe : selectedPes) {
-						Shape shape = null;
-						if (pe instanceof Connection) {
-							shape = connectionService.getOwnerShape((Connection)pe);
-						} else if (pe instanceof ConnectionDecorator) {
-							final ConnectionDecorator cd = ((ConnectionDecorator)pe);
-							pe = cd.getConnection();
-							shape = connectionService.getOwnerShape((Connection)pe);
-						}
-	
-						final Object bo = bor.getBusinessObjectForPictogramElement(pe);
-						final Context context = shapeService.getClosestBusinessObjectOfType(shape, Context.class);
-	
-						if (dlg != null && bo instanceof Element) {
-							//if a PE has been removed, color it black
-							if(dlg.getRemovedElement() != null) {
-								coloring.setForeground(dlg.getRemovedElement(), Color.BLACK);
-								dlg.setRemovedElement(null);
-							} else if (pe != null && dlg.canAddSelectedElement((Element)bo, context)) {
-								if (bo instanceof ModeFeature) {
-									coloring.setForeground(pe, Color.MAGENTA.brighter());
-								} else if (dlg.eTEFlow != null && dlg.eTEFlow.getAllFlowSegments().size() == 1) {
-									coloring.setForeground(pe, Color.ORANGE.darker());
-								} else {
-									coloring.setForeground(pe, Color.MAGENTA.darker());
+				public void run() {
+					editingDomain.getCommandStack().execute(new NonUndoableToolCommand() {
+						@Override
+						public void execute() {
+							if(selectedPes.length == 1 && dlg != null && dlg.flowSegmentComposite != null && !dlg.flowSegmentComposite.isDisposed()) {
+								// Get the selected pictogram
+								PictogramElement pe = selectedPes[0];
+								Shape shape = null;
+								if (pe instanceof Connection) {
+									shape = connectionService.getOwnerShape((Connection)pe);
+								} else if (pe instanceof ConnectionDecorator) {
+									final ConnectionDecorator cd = ((ConnectionDecorator)pe);
+									pe = cd.getConnection();
+									shape = connectionService.getOwnerShape((Connection)pe);
 								}
-								previouslySelectedPes.add(pe);
-							}
-							if (dlg.flowSegmentComposite != null && !dlg.flowSegmentComposite.isDisposed()) {
-								dlg.setMessage(getDialogMessage());
+			
+								final Object bo = bor.getBusinessObjectForPictogramElement(pe);
+								final Context context = shapeService.getClosestBusinessObjectOfType(shape, Context.class);
+			
+								if (bo instanceof Element && pe != null && !(pe instanceof Diagram)) {
+									String error = null;
+									if (dlg.addSelectedElement((Element)bo, context)) {
+										if (bo instanceof ModeFeature) {
+											coloring.setForeground(pe, Color.MAGENTA.brighter());
+										} else if (dlg.eTEFlow != null && dlg.eTEFlow.getAllFlowSegments().size() == 1) {
+											coloring.setForeground(pe, Color.ORANGE.darker());
+										} else {
+											coloring.setForeground(pe, Color.MAGENTA.darker());
+										}
+										previouslySelectedPes.add(pe);
+									} else {
+										error = "Invalid element selected. ";
+									}
+									
+									if(error == null) {
+										dlg.setErrorMessage(null);
+										dlg.setMessage(getDialogMessage());
+									} else {
+										dlg.setErrorMessage(error + " " + getDialogMessage());
+									}
+								}
 							}
 						}
-					}
-				}
+					});
+				}				
 			});
 		}
 	}
@@ -242,7 +262,6 @@ public class CreateEndToEndFlowSpecificationTool {
 		private StyledText flowSegmentLabel;
 		private Text newETEFlowName;
 		private NamingService namingService;
-		private PictogramElement removedPictogramElement = null;
 		private final Aadl2Package pkg = Aadl2Factory.eINSTANCE.getAadl2Package();
 		final List<String> segmentList = new ArrayList<String>();
 		final List<String> modeList = new ArrayList<String>();
@@ -265,15 +284,15 @@ public class CreateEndToEndFlowSpecificationTool {
 		 * @param context - current context
 		 * @return - true or false depending if the object selected is valid
 		 */
-		private boolean canAddSelectedElement(final Element selectedEle, final Context context) {
+		private boolean addSelectedElement(final Element selectedEle, final Context context) {
 			if (isValid(getRefinedElement(selectedEle), context)) {
 				if (selectedEle instanceof org.osate.aadl2.Connection) {
 					//Create flow segment with context = null because all valid connections belong to diagram
-					return canAddFlowSegmentOrModeFeature(createEndToEndFlowSegments(selectedEle, null));
+					return addFlowSegmentOrModeFeature(createEndToEndFlowSegments(selectedEle, null));
 				} else if (selectedEle instanceof FlowSpecification) {
-					return canAddFlowSegmentOrModeFeature(createEndToEndFlowSegments(selectedEle, context));
+					return addFlowSegmentOrModeFeature(createEndToEndFlowSegments(selectedEle, context));
 				} else {
-					return canAddFlowSegmentOrModeFeature(selectedEle);
+					return addFlowSegmentOrModeFeature(selectedEle);
 				}
 			}
 			return false;
@@ -331,7 +350,7 @@ public class CreateEndToEndFlowSpecificationTool {
 		 * @param object - Flow segment or mode feature added to End to End Flow
 		 * @return - true or false depending on if the object was added to End to End Flow
 		 */
-		private boolean canAddFlowSegmentOrModeFeature(final Object object) {
+		private boolean addFlowSegmentOrModeFeature(final Object object) {
 			if (!flowSegmentComposite.isDisposed()) {
 				flowSegmentLabel.setEnabled(true);
 				if (object instanceof EndToEndFlowSegment) {
@@ -379,19 +398,6 @@ public class CreateEndToEndFlowSpecificationTool {
 				modeString += string;
 			}
 			return modeString == "" ? modeString : modeString + ")";
-		}
-
-		/**
-		 * Sets PictogramElement removed from End to End Flow and removes from previous PE list
-		 * @param setValue
-		 */
-		private void setRemovedElement(final PictogramElement setValue) {
-			removedPictogramElement = setValue;
-			previouslySelectedPes.remove(setValue);
-		}
-
-		private PictogramElement getRemovedElement() {
-			return removedPictogramElement;
 		}
 
 		private void updateWidgets() {
@@ -595,7 +601,16 @@ public class CreateEndToEndFlowSpecificationTool {
 					int prevPesSize = previouslySelectedPes.size();
 					if (prevPesSize > 0) {
 						final PictogramElement removedPe = previouslySelectedPes.get(prevPesSize-1);
-						setRemovedElement(removedPe);
+						previouslySelectedPes.remove(prevPesSize-1);
+						
+						final TransactionalEditingDomain editingDomain = dtp.getDiagramBehavior().getEditingDomain();
+						editingDomain.getCommandStack().execute(new NonUndoableToolCommand() {
+							@Override
+							public void execute() {
+								coloring.setForeground(removedPe, Color.BLACK);
+							};
+						});
+						
 						final Object ob = bor.getBusinessObjectForPictogramElement(removedPe);
 						if (ob instanceof ModeFeature)  {
 							eTEFlow.getInModeOrTransitions().remove(eTEFlow.getInModeOrTransitions().size()-1);
@@ -610,10 +625,10 @@ public class CreateEndToEndFlowSpecificationTool {
 						modeList.clear();
 						flowSegmentLabel.setText("");
 						for (EndToEndFlowSegment c : eTEFlow.getAllFlowSegments()) {
-							canAddFlowSegmentOrModeFeature(c);
+							addFlowSegmentOrModeFeature(c);
 						}
 						for (ModeFeature m : eTEFlow.getInModeOrTransitions()) {
-							canAddFlowSegmentOrModeFeature(m);
+							addFlowSegmentOrModeFeature(m);
 						}
 
 						clearSelection(dtp);
