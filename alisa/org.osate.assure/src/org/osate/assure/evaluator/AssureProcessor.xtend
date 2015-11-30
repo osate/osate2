@@ -40,7 +40,9 @@ import org.osate.alisa.common.common.ValDeclaration
 import org.osate.assure.assure.AssuranceCaseResult
 import org.osate.assure.assure.ElseResult
 import org.osate.assure.assure.ElseType
+import org.osate.assure.assure.ModelResult
 import org.osate.assure.assure.PreconditionResult
+import org.osate.assure.assure.SubsystemResult
 import org.osate.assure.assure.ThenResult
 import org.osate.assure.assure.ValidationResult
 import org.osate.assure.assure.VerificationActivityResult
@@ -58,8 +60,6 @@ import org.osate.xtext.aadl2.properties.util.PropertyUtils
 
 import static extension org.osate.alisa.common.util.CommonUtilExtension.*
 import static extension org.osate.assure.util.AssureUtilExtension.*
-import org.osate.assure.assure.ModelResult
-import org.osate.assure.assure.SubsystemResult
 
 @ImplementedBy(AssureProcessor)
 interface IAssureProcessor {
@@ -431,7 +431,9 @@ class AssureProcessor implements IAssureProcessor {
 						val modelValue = PropertyUtils.getScaledNumberValue(object, property, unit)
 
 						if (reqValue != modelValue) {
-							println("no match " + modelValue + " != " + reqValue)
+							println("Property " + property.getQualifiedName() + ": Value in model (" + modelValue + unit.name + ") does not match required value (" + reqValue + unit.name + ")")
+							result.addErrorIssue(object, "Property " + property.getQualifiedName() + ": Value in model (" + modelValue + unit.name + ") does not match required value (" + reqValue + unit.name + ")")
+							result.setToFail
 						} else {
 							println("   match " + modelValue + " == " + reqValue)
 						}
@@ -440,8 +442,6 @@ class AssureProcessor implements IAssureProcessor {
 					e.printStackTrace
 				}
 			}
-
-		// val vm = PropertyUtils.getScaledNumberValue(object, property, unit)
 		}
 		return success;
 	}
