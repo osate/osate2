@@ -118,20 +118,19 @@ public class AssureGrammarAccess extends AbstractGrammarElementFinder {
 		private final Assignment cSubsystemResultAssignment_8 = (Assignment)cGroup.eContents().get(8);
 		private final RuleCall cSubsystemResultSubsystemResultParserRuleCall_8_0 = (RuleCall)cSubsystemResultAssignment_8.eContents().get(0);
 		private final Assignment cSubAssuranceCaseAssignment_9 = (Assignment)cGroup.eContents().get(9);
-		private final CrossReference cSubAssuranceCaseAssuranceCaseResultCrossReference_9_0 = (CrossReference)cSubAssuranceCaseAssignment_9.eContents().get(0);
-		private final RuleCall cSubAssuranceCaseAssuranceCaseResultQualifiedNameParserRuleCall_9_0_1 = (RuleCall)cSubAssuranceCaseAssuranceCaseResultCrossReference_9_0.eContents().get(1);
+		private final RuleCall cSubAssuranceCaseAssuranceCaseResultParserRuleCall_9_0 = (RuleCall)cSubAssuranceCaseAssignment_9.eContents().get(0);
 		private final Keyword cRightSquareBracketKeyword_10 = (Keyword)cGroup.eContents().get(10);
 		
 		//ModelResult:
 		//	"model" plan=[Alisa::AssurancePlan|QualifiedName] "for"
 		//	target=[aadl2::ComponentImplementation|AadlClassifierReference] "[" metrics=Metrics ("message" message=STRING)?
-		//	claimResult+=ClaimResult* subsystemResult+=SubsystemResult* //[Alisa::AssurancePlan|QualifiedName]*
-		//	subAssuranceCase+=[AssuranceCaseResult|QualifiedName]* "]";
+		//	claimResult+=ClaimResult* subsystemResult+=SubsystemResult* //[Alisa::AssuranceCase|QualifiedName]*
+		//	subAssuranceCase+=AssuranceCaseResult* "]";
 		@Override public ParserRule getRule() { return rule; }
 
 		//"model" plan=[Alisa::AssurancePlan|QualifiedName] "for" target=[aadl2::ComponentImplementation|AadlClassifierReference]
-		//"[" metrics=Metrics ("message" message=STRING)? claimResult+=ClaimResult* subsystemResult+=SubsystemResult* //[Alisa::AssurancePlan|QualifiedName]*
-		//subAssuranceCase+=[AssuranceCaseResult|QualifiedName]* "]"
+		//"[" metrics=Metrics ("message" message=STRING)? claimResult+=ClaimResult* subsystemResult+=SubsystemResult* //[Alisa::AssuranceCase|QualifiedName]*
+		//subAssuranceCase+=AssuranceCaseResult* "]"
 		public Group getGroup() { return cGroup; }
 
 		//"model"
@@ -191,15 +190,12 @@ public class AssureGrammarAccess extends AbstractGrammarElementFinder {
 		//SubsystemResult
 		public RuleCall getSubsystemResultSubsystemResultParserRuleCall_8_0() { return cSubsystemResultSubsystemResultParserRuleCall_8_0; }
 
-		////[Alisa::AssurancePlan|QualifiedName]*
-		//subAssuranceCase+=[AssuranceCaseResult|QualifiedName]*
+		////[Alisa::AssuranceCase|QualifiedName]*
+		//subAssuranceCase+=AssuranceCaseResult*
 		public Assignment getSubAssuranceCaseAssignment_9() { return cSubAssuranceCaseAssignment_9; }
 
-		//[AssuranceCaseResult|QualifiedName]
-		public CrossReference getSubAssuranceCaseAssuranceCaseResultCrossReference_9_0() { return cSubAssuranceCaseAssuranceCaseResultCrossReference_9_0; }
-
-		//QualifiedName
-		public RuleCall getSubAssuranceCaseAssuranceCaseResultQualifiedNameParserRuleCall_9_0_1() { return cSubAssuranceCaseAssuranceCaseResultQualifiedNameParserRuleCall_9_0_1; }
+		//AssuranceCaseResult
+		public RuleCall getSubAssuranceCaseAssuranceCaseResultParserRuleCall_9_0() { return cSubAssuranceCaseAssuranceCaseResultParserRuleCall_9_0; }
 
 		//"]"
 		public Keyword getRightSquareBracketKeyword_10() { return cRightSquareBracketKeyword_10; }
@@ -1447,8 +1443,8 @@ public class AssureGrammarAccess extends AbstractGrammarElementFinder {
 	//ModelResult:
 	//	"model" plan=[Alisa::AssurancePlan|QualifiedName] "for"
 	//	target=[aadl2::ComponentImplementation|AadlClassifierReference] "[" metrics=Metrics ("message" message=STRING)?
-	//	claimResult+=ClaimResult* subsystemResult+=SubsystemResult* //[Alisa::AssurancePlan|QualifiedName]*
-	//	subAssuranceCase+=[AssuranceCaseResult|QualifiedName]* "]";
+	//	claimResult+=ClaimResult* subsystemResult+=SubsystemResult* //[Alisa::AssuranceCase|QualifiedName]*
+	//	subAssuranceCase+=AssuranceCaseResult* "]";
 	public ModelResultElements getModelResultAccess() {
 		return pModelResult;
 	}

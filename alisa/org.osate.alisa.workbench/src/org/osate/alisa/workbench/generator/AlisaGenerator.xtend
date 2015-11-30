@@ -292,13 +292,13 @@ class AlisaGenerator implements IGenerator {
 			ComponentType:
 				generateSubsystemGlobalOnly(subc,parentap)
 			ComponentImplementation: {
-				val submps = refFinder.getAssurancePlans(cc)
-				if (submps.empty) {
+				val subacs = refFinder.getAssuranceCases(cc)
+				if (subacs.empty) {
 					subc.generateSubsystemVerificationPlansGlobals(parentap)
 				} else {
 				'''
-				«FOR submp : submps»
-				«submp.generateAssurancePlan()»
+				«FOR subac : subacs»
+				«subac.generateAssuranceCase»
 				«ENDFOR»
 				'''	
 				}

@@ -29,7 +29,6 @@ import org.eclipse.emf.ecore.InternalEObject;
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 
 import org.eclipse.emf.ecore.util.EObjectContainmentEList;
-import org.eclipse.emf.ecore.util.EObjectResolvingEList;
 import org.eclipse.emf.ecore.util.InternalEList;
 
 import org.osate.aadl2.ComponentImplementation;
@@ -123,7 +122,7 @@ public class ModelResultImpl extends AssureResultImpl implements ModelResult
   protected EList<SubsystemResult> subsystemResult;
 
   /**
-   * The cached value of the '{@link #getSubAssuranceCase() <em>Sub Assurance Case</em>}' reference list.
+   * The cached value of the '{@link #getSubAssuranceCase() <em>Sub Assurance Case</em>}' containment reference list.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @see #getSubAssuranceCase()
@@ -299,7 +298,7 @@ public class ModelResultImpl extends AssureResultImpl implements ModelResult
   {
     if (subAssuranceCase == null)
     {
-      subAssuranceCase = new EObjectResolvingEList<AssuranceCaseResult>(AssuranceCaseResult.class, this, AssurePackage.MODEL_RESULT__SUB_ASSURANCE_CASE);
+      subAssuranceCase = new EObjectContainmentEList<AssuranceCaseResult>(AssuranceCaseResult.class, this, AssurePackage.MODEL_RESULT__SUB_ASSURANCE_CASE);
     }
     return subAssuranceCase;
   }
@@ -318,6 +317,8 @@ public class ModelResultImpl extends AssureResultImpl implements ModelResult
         return ((InternalEList<?>)getClaimResult()).basicRemove(otherEnd, msgs);
       case AssurePackage.MODEL_RESULT__SUBSYSTEM_RESULT:
         return ((InternalEList<?>)getSubsystemResult()).basicRemove(otherEnd, msgs);
+      case AssurePackage.MODEL_RESULT__SUB_ASSURANCE_CASE:
+        return ((InternalEList<?>)getSubAssuranceCase()).basicRemove(otherEnd, msgs);
     }
     return super.eInverseRemove(otherEnd, featureID, msgs);
   }

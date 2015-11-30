@@ -28,7 +28,7 @@ ModelResult:
 	('message' message= STRING)?
 	claimResult += ClaimResult*
 	subsystemResult += SubsystemResult*
-	subAssuranceCase += [AssuranceCaseResult|QualifiedName]*//[Alisa::AssurancePlan|QualifiedName]*
+	subAssuranceCase += AssuranceCaseResult*//[Alisa::AssuranceCase|QualifiedName]*
 	']'  
 ;
 

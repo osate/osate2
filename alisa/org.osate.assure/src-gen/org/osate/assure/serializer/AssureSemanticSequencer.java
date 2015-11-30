@@ -234,7 +234,7 @@ public class AssureSemanticSequencer extends CommonSemanticSequencer {
 	 *         message=STRING? 
 	 *         claimResult+=ClaimResult* 
 	 *         subsystemResult+=SubsystemResult* 
-	 *         subAssuranceCase+=[AssuranceCaseResult|QualifiedName]*
+	 *         subAssuranceCase+=AssuranceCaseResult*
 	 *     )
 	 */
 	protected void sequence_ModelResult(EObject context, ModelResult semanticObject) {

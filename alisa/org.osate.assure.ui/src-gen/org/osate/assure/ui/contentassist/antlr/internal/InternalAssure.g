@@ -12091,12 +12091,8 @@ rule__ModelResult__SubAssuranceCaseAssignment_9
     }
 :
 (
-{ before(grammarAccess.getModelResultAccess().getSubAssuranceCaseAssuranceCaseResultCrossReference_9_0()); }
-(
-{ before(grammarAccess.getModelResultAccess().getSubAssuranceCaseAssuranceCaseResultQualifiedNameParserRuleCall_9_0_1()); }
-	ruleQualifiedName{ after(grammarAccess.getModelResultAccess().getSubAssuranceCaseAssuranceCaseResultQualifiedNameParserRuleCall_9_0_1()); }
-)
-{ after(grammarAccess.getModelResultAccess().getSubAssuranceCaseAssuranceCaseResultCrossReference_9_0()); }
+{ before(grammarAccess.getModelResultAccess().getSubAssuranceCaseAssuranceCaseResultParserRuleCall_9_0()); }
+	ruleAssuranceCaseResult{ after(grammarAccess.getModelResultAccess().getSubAssuranceCaseAssuranceCaseResultParserRuleCall_9_0()); }
 )
 
 ;

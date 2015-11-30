@@ -218,7 +218,7 @@ public interface AssurePackage extends EPackage
   int MODEL_RESULT__SUBSYSTEM_RESULT = ASSURE_RESULT_FEATURE_COUNT + 4;
 
   /**
-   * The feature id for the '<em><b>Sub Assurance Case</b></em>' reference list.
+   * The feature id for the '<em><b>Sub Assurance Case</b></em>' containment reference list.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
@@ -1114,10 +1114,10 @@ public interface AssurePackage extends EPackage
   EReference getModelResult_SubsystemResult();
 
   /**
-   * Returns the meta object for the reference list '{@link org.osate.assure.assure.ModelResult#getSubAssuranceCase <em>Sub Assurance Case</em>}'.
+   * Returns the meta object for the containment reference list '{@link org.osate.assure.assure.ModelResult#getSubAssuranceCase <em>Sub Assurance Case</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @return the meta object for the reference list '<em>Sub Assurance Case</em>'.
+   * @return the meta object for the containment reference list '<em>Sub Assurance Case</em>'.
    * @see org.osate.assure.assure.ModelResult#getSubAssuranceCase()
    * @see #getModelResult()
    * @generated
@@ -1790,7 +1790,7 @@ public interface AssurePackage extends EPackage
     EReference MODEL_RESULT__SUBSYSTEM_RESULT = eINSTANCE.getModelResult_SubsystemResult();
 
     /**
-     * The meta object literal for the '<em><b>Sub Assurance Case</b></em>' reference list feature.
+     * The meta object literal for the '<em><b>Sub Assurance Case</b></em>' containment reference list feature.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @generated

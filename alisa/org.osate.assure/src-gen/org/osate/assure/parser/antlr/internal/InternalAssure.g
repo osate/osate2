@@ -319,15 +319,18 @@ ruleModelResult returns [EObject current=null]
 )
 )*(
 (
-		{
-			if ($current==null) {
-	            $current = createModelElement(grammarAccess.getModelResultRule());
-	        }
-        }
 		{ 
-	        newCompositeNode(grammarAccess.getModelResultAccess().getSubAssuranceCaseAssuranceCaseResultCrossReference_9_0()); 
+	        newCompositeNode(grammarAccess.getModelResultAccess().getSubAssuranceCaseAssuranceCaseResultParserRuleCall_9_0()); 
 	    }
-		ruleQualifiedName		{ 
+		lv_subAssuranceCase_10_0=ruleAssuranceCaseResult		{
+	        if ($current==null) {
+	            $current = createModelElementForParent(grammarAccess.getModelResultRule());
+	        }
+       		add(
+       			$current, 
+       			"subAssuranceCase",
+        		lv_subAssuranceCase_10_0, 
+        		"AssuranceCaseResult");
 	        afterParserOrEnumRuleCall();
 	    }
 

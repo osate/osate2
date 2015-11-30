@@ -15,8 +15,8 @@
         eType="#//ClaimResult" containment="true"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="subsystemResult" upperBound="-1"
         eType="#//SubsystemResult" containment="true"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="subAssuranceCase" unique="false"
-        upperBound="-1" eType="#//AssuranceCaseResult"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="subAssuranceCase" upperBound="-1"
+        eType="#//AssuranceCaseResult" containment="true"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="SubsystemResult" eSuperTypes="#//AssureResult">
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" eType="ecore:EDataType platform:/resource/org.eclipse.emf.ecore/model/Ecore.ecore#//EString"/>

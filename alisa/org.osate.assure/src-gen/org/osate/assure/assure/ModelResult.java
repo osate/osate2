@@ -155,17 +155,17 @@ public interface ModelResult extends AssureResult
   EList<SubsystemResult> getSubsystemResult();
 
   /**
-   * Returns the value of the '<em><b>Sub Assurance Case</b></em>' reference list.
+   * Returns the value of the '<em><b>Sub Assurance Case</b></em>' containment reference list.
    * The list contents are of type {@link org.osate.assure.assure.AssuranceCaseResult}.
    * <!-- begin-user-doc -->
    * <p>
-   * If the meaning of the '<em>Sub Assurance Case</em>' reference list isn't clear,
+   * If the meaning of the '<em>Sub Assurance Case</em>' containment reference list isn't clear,
    * there really should be more of a description here...
    * </p>
    * <!-- end-user-doc -->
-   * @return the value of the '<em>Sub Assurance Case</em>' reference list.
+   * @return the value of the '<em>Sub Assurance Case</em>' containment reference list.
    * @see org.osate.assure.assure.AssurePackage#getModelResult_SubAssuranceCase()
-   * @model
+   * @model containment="true"
    * @generated
    */
   EList<AssuranceCaseResult> getSubAssuranceCase();
