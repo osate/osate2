@@ -167,7 +167,8 @@ public class AlisaSemanticSequencer extends CommonSemanticSequencer {
 	 *         target=[ComponentImplementation|AadlClassifierReference] 
 	 *         description=Description? 
 	 *         assure+=[VerificationPlan|QualifiedName]* 
-	 *         (assureSubsystems+=[Subcomponent|ID]+ | assureAll?='all' | assumeSubsystems+=[Subcomponent|ID]+ | assumeAll?='all')? 
+	 *         (assureSubsystems+=[Subcomponent|ID]+ | assureAll?='all')? 
+	 *         (assumeSubsystems+=[Subcomponent|ID]+ | assumeAll?='all')? 
 	 *         issues+=STRING*
 	 *     )
 	 */
