@@ -19,6 +19,14 @@
  */
 package org.osate.categories.validation
 
+import org.eclipse.xtext.validation.Check
+import org.eclipse.xtext.validation.CheckType
+import org.osate.categories.categories.Categories
+import org.osate.categories.categories.PhaseCategories
+import org.osate.categories.categories.QualityCategories
+import org.osate.categories.categories.UserCategories
+import org.eclipse.xtext.validation.ValidationMessageAcceptor
+
 //import org.eclipse.xtext.validation.Check
 /**
  * Custom validation rules. 
@@ -26,4 +34,18 @@ package org.osate.categories.validation
  * see http://www.eclipse.org/Xtext/documentation.html#validation
  */
 class CategoriesValidator extends AbstractCategoriesValidator {
+	
+	@Check(CheckType.FAST)
+	def void checkDuplicateCategoryNames(Categories categories){
+		val categoriesTypeName = 
+		switch categories{
+			UserCategories : "category"
+			QualityCategories : "quality"
+			PhaseCategories : "phase"
+		}
+		categories.category.groupBy[name.toLowerCase].filter[name, dupeList| dupeList.size > 1].
+			forEach[name, dupes|dupes.forEach[dupe|
+				warning("Category '" + dupe.name + "' has a duplicate under '" + categoriesTypeName +"'.",
+						dupe, null, ValidationMessageAcceptor.INSIGNIFICANT_INDEX, null)]]
+	}
 }
