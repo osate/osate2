@@ -208,7 +208,7 @@
             	</visibleWhen>
          	</command>  
          </menuContribution>
-         <menuContribution locationURI="popup:org.eclipse.xtext.ui.outline?after=additions">
+         <!--menuContribution locationURI="popup:org.eclipse.xtext.ui.outline?after=additions">
 			<command commandId="org.eclipse.xtext.ui.editor.copyqualifiedname.OutlineCopyQualifiedName" 
 				style="push" tooltip="Copy Qualified Name">
          		<visibleWhen checkEnabled="false">
@@ -220,7 +220,7 @@
 					</and>
 				</visibleWhen>
 			</command>
-         </menuContribution>
+         </menuContribution-->
     </extension>
     <extension point="org.eclipse.ui.menus">
 <!--          <menuContribution locationURI="popup:#TextEditorContext?after=copy">

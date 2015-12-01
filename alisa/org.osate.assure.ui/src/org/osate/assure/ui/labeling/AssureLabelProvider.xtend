@@ -31,6 +31,7 @@ import org.osate.alisa.common.common.ResultIssue
 import org.osate.alisa.common.common.ResultIssueType
 import org.osate.assure.assure.ModelResult
 import org.osate.assure.assure.SubsystemResult
+import org.osate.assure.assure.PreconditionResult
 
 /**
  * Provides labels for a EObjects.
@@ -52,7 +53,17 @@ class AssureLabelProvider extends org.eclipse.xtext.ui.label.DefaultEObjectLabel
 	}
 	
 	def text(VerificationActivityResult ele) {
-		"Evidence "+ele.name +": "+ ele.constructMessage + ele.resultState.toTextLabel
+		"Verification "+ele.name +": "+ ele.constructMessage + ele.resultState.toTextLabel
+		+ ele.assureResultCounts
+
+	}
+	def text(ValidationResult ele) {
+		"Validation "+ele.name +": "+ ele.constructMessage + ele.resultState.toTextLabel
+		+ ele.assureResultCounts
+
+	}
+	def text(PreconditionResult ele) {
+		"Precondition "+ele.name +": "+ ele.constructMessage + ele.resultState.toTextLabel
 		+ ele.assureResultCounts
 
 	}
@@ -102,6 +113,14 @@ class AssureLabelProvider extends org.eclipse.xtext.ui.label.DefaultEObjectLabel
 	}
 	
 	def image(VerificationActivityResult ele) {
+		if (ele.isSuccessful) return 'valid.png'//'evidencesuccess.png'
+		if (ele.isFail) return 'invalid.png'//'validationfail.png'
+		if (ele.isErrorTimeOut) return 'error.png'//'validationfail.png'
+		if (ele.isZeroCount) return 'info.png'//'validationfail.png'
+		return 'questionmark.png'//'evidence.png'
+	}
+	
+	def image(PreconditionResult ele) {
 		if (ele.isSuccessful) return 'valid.png'//'evidencesuccess.png'
 		if (ele.isFail) return 'invalid.png'//'validationfail.png'
 		if (ele.isErrorTimeOut) return 'error.png'//'validationfail.png'
