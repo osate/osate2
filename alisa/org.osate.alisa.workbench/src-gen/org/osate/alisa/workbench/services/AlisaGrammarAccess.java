@@ -334,41 +334,43 @@ public class AlisaGrammarAccess extends AbstractGrammarElementFinder {
 		private final RuleCall cTitleSTRINGTerminalRuleCall_4_1_0 = (RuleCall)cTitleAssignment_4_1.eContents().get(0);
 		private final Keyword cLeftSquareBracketKeyword_5 = (Keyword)cGroup.eContents().get(5);
 		private final UnorderedGroup cUnorderedGroup_6 = (UnorderedGroup)cGroup.eContents().get(6);
-		private final Group cGroup_6_0 = (Group)cUnorderedGroup_6.eContents().get(0);
-		private final Keyword cCategoryKeyword_6_0_0 = (Keyword)cGroup_6_0.eContents().get(0);
-		private final Assignment cUserCategoryAssignment_6_0_1 = (Assignment)cGroup_6_0.eContents().get(1);
-		private final CrossReference cUserCategoryUserCategoryCrossReference_6_0_1_0 = (CrossReference)cUserCategoryAssignment_6_0_1.eContents().get(0);
-		private final RuleCall cUserCategoryUserCategoryIDTerminalRuleCall_6_0_1_0_1 = (RuleCall)cUserCategoryUserCategoryCrossReference_6_0_1_0.eContents().get(1);
-		private final Assignment cAnyUserSelectionAssignment_6_0_2 = (Assignment)cGroup_6_0.eContents().get(2);
-		private final Keyword cAnyUserSelectionAnyKeyword_6_0_2_0 = (Keyword)cAnyUserSelectionAssignment_6_0_2.eContents().get(0);
+		private final Assignment cDescriptionAssignment_6_0 = (Assignment)cUnorderedGroup_6.eContents().get(0);
+		private final RuleCall cDescriptionDescriptionParserRuleCall_6_0_0 = (RuleCall)cDescriptionAssignment_6_0.eContents().get(0);
 		private final Group cGroup_6_1 = (Group)cUnorderedGroup_6.eContents().get(1);
-		private final Keyword cQualityKeyword_6_1_0 = (Keyword)cGroup_6_1.eContents().get(0);
-		private final Assignment cQualityCategoryAssignment_6_1_1 = (Assignment)cGroup_6_1.eContents().get(1);
-		private final CrossReference cQualityCategoryQualityCategoryCrossReference_6_1_1_0 = (CrossReference)cQualityCategoryAssignment_6_1_1.eContents().get(0);
-		private final RuleCall cQualityCategoryQualityCategoryIDTerminalRuleCall_6_1_1_0_1 = (RuleCall)cQualityCategoryQualityCategoryCrossReference_6_1_1_0.eContents().get(1);
-		private final Assignment cAnyQualityAttributeAssignment_6_1_2 = (Assignment)cGroup_6_1.eContents().get(2);
-		private final Keyword cAnyQualityAttributeAnyKeyword_6_1_2_0 = (Keyword)cAnyQualityAttributeAssignment_6_1_2.eContents().get(0);
+		private final Keyword cCategoryKeyword_6_1_0 = (Keyword)cGroup_6_1.eContents().get(0);
+		private final Assignment cUserCategoryAssignment_6_1_1 = (Assignment)cGroup_6_1.eContents().get(1);
+		private final CrossReference cUserCategoryUserCategoryCrossReference_6_1_1_0 = (CrossReference)cUserCategoryAssignment_6_1_1.eContents().get(0);
+		private final RuleCall cUserCategoryUserCategoryIDTerminalRuleCall_6_1_1_0_1 = (RuleCall)cUserCategoryUserCategoryCrossReference_6_1_1_0.eContents().get(1);
+		private final Assignment cAnyUserSelectionAssignment_6_1_2 = (Assignment)cGroup_6_1.eContents().get(2);
+		private final Keyword cAnyUserSelectionAnyKeyword_6_1_2_0 = (Keyword)cAnyUserSelectionAssignment_6_1_2.eContents().get(0);
 		private final Group cGroup_6_2 = (Group)cUnorderedGroup_6.eContents().get(2);
-		private final Keyword cPhaseKeyword_6_2_0 = (Keyword)cGroup_6_2.eContents().get(0);
-		private final Assignment cPhaseCategoryAssignment_6_2_1 = (Assignment)cGroup_6_2.eContents().get(1);
-		private final CrossReference cPhaseCategoryPhaseCategoryCrossReference_6_2_1_0 = (CrossReference)cPhaseCategoryAssignment_6_2_1.eContents().get(0);
-		private final RuleCall cPhaseCategoryPhaseCategoryIDTerminalRuleCall_6_2_1_0_1 = (RuleCall)cPhaseCategoryPhaseCategoryCrossReference_6_2_1_0.eContents().get(1);
-		private final Assignment cAnyDevelopmentPhaseAssignment_6_2_2 = (Assignment)cGroup_6_2.eContents().get(2);
-		private final Keyword cAnyDevelopmentPhaseAnyKeyword_6_2_2_0 = (Keyword)cAnyDevelopmentPhaseAssignment_6_2_2.eContents().get(0);
+		private final Keyword cQualityKeyword_6_2_0 = (Keyword)cGroup_6_2.eContents().get(0);
+		private final Assignment cQualityCategoryAssignment_6_2_1 = (Assignment)cGroup_6_2.eContents().get(1);
+		private final CrossReference cQualityCategoryQualityCategoryCrossReference_6_2_1_0 = (CrossReference)cQualityCategoryAssignment_6_2_1.eContents().get(0);
+		private final RuleCall cQualityCategoryQualityCategoryIDTerminalRuleCall_6_2_1_0_1 = (RuleCall)cQualityCategoryQualityCategoryCrossReference_6_2_1_0.eContents().get(1);
+		private final Assignment cAnyQualityAttributeAssignment_6_2_2 = (Assignment)cGroup_6_2.eContents().get(2);
+		private final Keyword cAnyQualityAttributeAnyKeyword_6_2_2_0 = (Keyword)cAnyQualityAttributeAssignment_6_2_2.eContents().get(0);
 		private final Group cGroup_6_3 = (Group)cUnorderedGroup_6.eContents().get(3);
-		private final Keyword cIssuesKeyword_6_3_0 = (Keyword)cGroup_6_3.eContents().get(0);
-		private final Assignment cIssuesAssignment_6_3_1 = (Assignment)cGroup_6_3.eContents().get(1);
-		private final RuleCall cIssuesSTRINGTerminalRuleCall_6_3_1_0 = (RuleCall)cIssuesAssignment_6_3_1.eContents().get(0);
+		private final Keyword cPhaseKeyword_6_3_0 = (Keyword)cGroup_6_3.eContents().get(0);
+		private final Assignment cPhaseCategoryAssignment_6_3_1 = (Assignment)cGroup_6_3.eContents().get(1);
+		private final CrossReference cPhaseCategoryPhaseCategoryCrossReference_6_3_1_0 = (CrossReference)cPhaseCategoryAssignment_6_3_1.eContents().get(0);
+		private final RuleCall cPhaseCategoryPhaseCategoryIDTerminalRuleCall_6_3_1_0_1 = (RuleCall)cPhaseCategoryPhaseCategoryCrossReference_6_3_1_0.eContents().get(1);
+		private final Assignment cAnyDevelopmentPhaseAssignment_6_3_2 = (Assignment)cGroup_6_3.eContents().get(2);
+		private final Keyword cAnyDevelopmentPhaseAnyKeyword_6_3_2_0 = (Keyword)cAnyDevelopmentPhaseAssignment_6_3_2.eContents().get(0);
+		private final Group cGroup_6_4 = (Group)cUnorderedGroup_6.eContents().get(4);
+		private final Keyword cIssuesKeyword_6_4_0 = (Keyword)cGroup_6_4.eContents().get(0);
+		private final Assignment cIssuesAssignment_6_4_1 = (Assignment)cGroup_6_4.eContents().get(1);
+		private final RuleCall cIssuesSTRINGTerminalRuleCall_6_4_1_0 = (RuleCall)cIssuesAssignment_6_4_1.eContents().get(0);
 		private final Keyword cRightSquareBracketKeyword_7 = (Keyword)cGroup.eContents().get(7);
 		
 		//AssuranceTask returns categories::CategoryFilter:
-		//	{AssuranceTask} "assurance" "task" name=ID (":" title=STRING)? "[" (("category"
+		//	{AssuranceTask} "assurance" "task" name=ID (":" title=STRING)? "[" (description=Description? & ("category"
 		//	userCategory+=[categories::UserCategory]+ anyUserSelection?="any"?)? & ("quality"
 		//	qualityCategory+=[categories::QualityCategory]+ anyQualityAttribute?="any"?)? & ("phase"
 		//	phaseCategory+=[categories::PhaseCategory]+ anyDevelopmentPhase?="any"?)? & ("issues" issues+=STRING+)?) "]";
 		@Override public ParserRule getRule() { return rule; }
 
-		//{AssuranceTask} "assurance" "task" name=ID (":" title=STRING)? "[" (("category"
+		//{AssuranceTask} "assurance" "task" name=ID (":" title=STRING)? "[" (description=Description? & ("category"
 		//userCategory+=[categories::UserCategory]+ anyUserSelection?="any"?)? & ("quality"
 		//qualityCategory+=[categories::QualityCategory]+ anyQualityAttribute?="any"?)? & ("phase"
 		//phaseCategory+=[categories::PhaseCategory]+ anyDevelopmentPhase?="any"?)? & ("issues" issues+=STRING+)?) "]"
@@ -404,85 +406,91 @@ public class AlisaGrammarAccess extends AbstractGrammarElementFinder {
 		//"["
 		public Keyword getLeftSquareBracketKeyword_5() { return cLeftSquareBracketKeyword_5; }
 
-		//("category" userCategory+=[categories::UserCategory]+ anyUserSelection?="any"?)? & ("quality"
+		//description=Description? & ("category" userCategory+=[categories::UserCategory]+ anyUserSelection?="any"?)? & ("quality"
 		//qualityCategory+=[categories::QualityCategory]+ anyQualityAttribute?="any"?)? & ("phase"
 		//phaseCategory+=[categories::PhaseCategory]+ anyDevelopmentPhase?="any"?)? & ("issues" issues+=STRING+)?
 		public UnorderedGroup getUnorderedGroup_6() { return cUnorderedGroup_6; }
 
+		//description=Description?
+		public Assignment getDescriptionAssignment_6_0() { return cDescriptionAssignment_6_0; }
+
+		//Description
+		public RuleCall getDescriptionDescriptionParserRuleCall_6_0_0() { return cDescriptionDescriptionParserRuleCall_6_0_0; }
+
 		//("category" userCategory+=[categories::UserCategory]+ anyUserSelection?="any"?)?
-		public Group getGroup_6_0() { return cGroup_6_0; }
-
-		//"category"
-		public Keyword getCategoryKeyword_6_0_0() { return cCategoryKeyword_6_0_0; }
-
-		//userCategory+=[categories::UserCategory]+
-		public Assignment getUserCategoryAssignment_6_0_1() { return cUserCategoryAssignment_6_0_1; }
-
-		//[categories::UserCategory]
-		public CrossReference getUserCategoryUserCategoryCrossReference_6_0_1_0() { return cUserCategoryUserCategoryCrossReference_6_0_1_0; }
-
-		//ID
-		public RuleCall getUserCategoryUserCategoryIDTerminalRuleCall_6_0_1_0_1() { return cUserCategoryUserCategoryIDTerminalRuleCall_6_0_1_0_1; }
-
-		//anyUserSelection?="any"?
-		public Assignment getAnyUserSelectionAssignment_6_0_2() { return cAnyUserSelectionAssignment_6_0_2; }
-
-		//"any"
-		public Keyword getAnyUserSelectionAnyKeyword_6_0_2_0() { return cAnyUserSelectionAnyKeyword_6_0_2_0; }
-
-		//("quality" qualityCategory+=[categories::QualityCategory]+ anyQualityAttribute?="any"?)?
 		public Group getGroup_6_1() { return cGroup_6_1; }
 
-		//"quality"
-		public Keyword getQualityKeyword_6_1_0() { return cQualityKeyword_6_1_0; }
+		//"category"
+		public Keyword getCategoryKeyword_6_1_0() { return cCategoryKeyword_6_1_0; }
 
-		//qualityCategory+=[categories::QualityCategory]+
-		public Assignment getQualityCategoryAssignment_6_1_1() { return cQualityCategoryAssignment_6_1_1; }
+		//userCategory+=[categories::UserCategory]+
+		public Assignment getUserCategoryAssignment_6_1_1() { return cUserCategoryAssignment_6_1_1; }
 
-		//[categories::QualityCategory]
-		public CrossReference getQualityCategoryQualityCategoryCrossReference_6_1_1_0() { return cQualityCategoryQualityCategoryCrossReference_6_1_1_0; }
+		//[categories::UserCategory]
+		public CrossReference getUserCategoryUserCategoryCrossReference_6_1_1_0() { return cUserCategoryUserCategoryCrossReference_6_1_1_0; }
 
 		//ID
-		public RuleCall getQualityCategoryQualityCategoryIDTerminalRuleCall_6_1_1_0_1() { return cQualityCategoryQualityCategoryIDTerminalRuleCall_6_1_1_0_1; }
+		public RuleCall getUserCategoryUserCategoryIDTerminalRuleCall_6_1_1_0_1() { return cUserCategoryUserCategoryIDTerminalRuleCall_6_1_1_0_1; }
 
-		//anyQualityAttribute?="any"?
-		public Assignment getAnyQualityAttributeAssignment_6_1_2() { return cAnyQualityAttributeAssignment_6_1_2; }
+		//anyUserSelection?="any"?
+		public Assignment getAnyUserSelectionAssignment_6_1_2() { return cAnyUserSelectionAssignment_6_1_2; }
 
 		//"any"
-		public Keyword getAnyQualityAttributeAnyKeyword_6_1_2_0() { return cAnyQualityAttributeAnyKeyword_6_1_2_0; }
+		public Keyword getAnyUserSelectionAnyKeyword_6_1_2_0() { return cAnyUserSelectionAnyKeyword_6_1_2_0; }
 
-		//("phase" phaseCategory+=[categories::PhaseCategory]+ anyDevelopmentPhase?="any"?)?
+		//("quality" qualityCategory+=[categories::QualityCategory]+ anyQualityAttribute?="any"?)?
 		public Group getGroup_6_2() { return cGroup_6_2; }
 
-		//"phase"
-		public Keyword getPhaseKeyword_6_2_0() { return cPhaseKeyword_6_2_0; }
+		//"quality"
+		public Keyword getQualityKeyword_6_2_0() { return cQualityKeyword_6_2_0; }
 
-		//phaseCategory+=[categories::PhaseCategory]+
-		public Assignment getPhaseCategoryAssignment_6_2_1() { return cPhaseCategoryAssignment_6_2_1; }
+		//qualityCategory+=[categories::QualityCategory]+
+		public Assignment getQualityCategoryAssignment_6_2_1() { return cQualityCategoryAssignment_6_2_1; }
 
-		//[categories::PhaseCategory]
-		public CrossReference getPhaseCategoryPhaseCategoryCrossReference_6_2_1_0() { return cPhaseCategoryPhaseCategoryCrossReference_6_2_1_0; }
+		//[categories::QualityCategory]
+		public CrossReference getQualityCategoryQualityCategoryCrossReference_6_2_1_0() { return cQualityCategoryQualityCategoryCrossReference_6_2_1_0; }
 
 		//ID
-		public RuleCall getPhaseCategoryPhaseCategoryIDTerminalRuleCall_6_2_1_0_1() { return cPhaseCategoryPhaseCategoryIDTerminalRuleCall_6_2_1_0_1; }
+		public RuleCall getQualityCategoryQualityCategoryIDTerminalRuleCall_6_2_1_0_1() { return cQualityCategoryQualityCategoryIDTerminalRuleCall_6_2_1_0_1; }
 
-		//anyDevelopmentPhase?="any"?
-		public Assignment getAnyDevelopmentPhaseAssignment_6_2_2() { return cAnyDevelopmentPhaseAssignment_6_2_2; }
+		//anyQualityAttribute?="any"?
+		public Assignment getAnyQualityAttributeAssignment_6_2_2() { return cAnyQualityAttributeAssignment_6_2_2; }
 
 		//"any"
-		public Keyword getAnyDevelopmentPhaseAnyKeyword_6_2_2_0() { return cAnyDevelopmentPhaseAnyKeyword_6_2_2_0; }
+		public Keyword getAnyQualityAttributeAnyKeyword_6_2_2_0() { return cAnyQualityAttributeAnyKeyword_6_2_2_0; }
 
-		//("issues" issues+=STRING+)?
+		//("phase" phaseCategory+=[categories::PhaseCategory]+ anyDevelopmentPhase?="any"?)?
 		public Group getGroup_6_3() { return cGroup_6_3; }
 
+		//"phase"
+		public Keyword getPhaseKeyword_6_3_0() { return cPhaseKeyword_6_3_0; }
+
+		//phaseCategory+=[categories::PhaseCategory]+
+		public Assignment getPhaseCategoryAssignment_6_3_1() { return cPhaseCategoryAssignment_6_3_1; }
+
+		//[categories::PhaseCategory]
+		public CrossReference getPhaseCategoryPhaseCategoryCrossReference_6_3_1_0() { return cPhaseCategoryPhaseCategoryCrossReference_6_3_1_0; }
+
+		//ID
+		public RuleCall getPhaseCategoryPhaseCategoryIDTerminalRuleCall_6_3_1_0_1() { return cPhaseCategoryPhaseCategoryIDTerminalRuleCall_6_3_1_0_1; }
+
+		//anyDevelopmentPhase?="any"?
+		public Assignment getAnyDevelopmentPhaseAssignment_6_3_2() { return cAnyDevelopmentPhaseAssignment_6_3_2; }
+
+		//"any"
+		public Keyword getAnyDevelopmentPhaseAnyKeyword_6_3_2_0() { return cAnyDevelopmentPhaseAnyKeyword_6_3_2_0; }
+
+		//("issues" issues+=STRING+)?
+		public Group getGroup_6_4() { return cGroup_6_4; }
+
 		//"issues"
-		public Keyword getIssuesKeyword_6_3_0() { return cIssuesKeyword_6_3_0; }
+		public Keyword getIssuesKeyword_6_4_0() { return cIssuesKeyword_6_4_0; }
 
 		//issues+=STRING+
-		public Assignment getIssuesAssignment_6_3_1() { return cIssuesAssignment_6_3_1; }
+		public Assignment getIssuesAssignment_6_4_1() { return cIssuesAssignment_6_4_1; }
 
 		//STRING
-		public RuleCall getIssuesSTRINGTerminalRuleCall_6_3_1_0() { return cIssuesSTRINGTerminalRuleCall_6_3_1_0; }
+		public RuleCall getIssuesSTRINGTerminalRuleCall_6_4_1_0() { return cIssuesSTRINGTerminalRuleCall_6_4_1_0; }
 
 		//"]"
 		public Keyword getRightSquareBracketKeyword_7() { return cRightSquareBracketKeyword_7; }
@@ -559,7 +567,7 @@ public class AlisaGrammarAccess extends AbstractGrammarElementFinder {
 	}
 
 	//AssuranceTask returns categories::CategoryFilter:
-	//	{AssuranceTask} "assurance" "task" name=ID (":" title=STRING)? "[" (("category"
+	//	{AssuranceTask} "assurance" "task" name=ID (":" title=STRING)? "[" (description=Description? & ("category"
 	//	userCategory+=[categories::UserCategory]+ anyUserSelection?="any"?)? & ("quality"
 	//	qualityCategory+=[categories::QualityCategory]+ anyQualityAttribute?="any"?)? & ("phase"
 	//	phaseCategory+=[categories::PhaseCategory]+ anyDevelopmentPhase?="any"?)? & ("issues" issues+=STRING+)?) "]";

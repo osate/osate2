@@ -30,7 +30,8 @@ AssurancePlan:
 	AssuranceTask returns categories::CategoryFilter :
 		{AssuranceTask} 'assurance''task' name=ID (':' title=STRING)? 
 		'['	(
-	('category' userCategory+=[categories::UserCategory|ID]+ anyUserSelection?='any'?)?
+	(description=Description)?
+	&('category' userCategory+=[categories::UserCategory|ID]+ anyUserSelection?='any'?)?
 	&('quality' qualityCategory+=[categories::QualityCategory|ID]+ anyQualityAttribute?='any'?)?
 	&('phase' phaseCategory+=[categories::PhaseCategory|ID]+ anyDevelopmentPhase?='any'?)?
 	&('issues' issues+=STRING+ )?

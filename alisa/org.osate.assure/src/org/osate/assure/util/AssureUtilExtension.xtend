@@ -1126,11 +1126,10 @@ class AssureUtilExtension {
 	}
 
 	def static String constructDescription(ModelResult ar) {
-		val ci = ar.target
-		if (ci == null){
-			return ""
-		}
-		"Verified system implementation "+ci.getQualifiedName()
+		val plan = ar.plan
+		if (plan?.description != null) return plan.description.toText(plan.target)
+		if (plan.title != null) return plan.title
+		"Verified system implementation "+plan.target.getQualifiedName()
 	}
 
 	def static String getName(VerificationActivityResult cr) {

@@ -337,9 +337,19 @@ public class AlisaPackageImpl extends EPackageImpl implements AlisaPackage
    * <!-- end-user-doc -->
    * @generated
    */
+  public EReference getAssuranceTask_Description()
+  {
+    return (EReference)assuranceTaskEClass.getEStructuralFeatures().get(1);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
   public EAttribute getAssuranceTask_Issues()
   {
-    return (EAttribute)assuranceTaskEClass.getEStructuralFeatures().get(1);
+    return (EAttribute)assuranceTaskEClass.getEStructuralFeatures().get(2);
   }
 
   /**
@@ -394,6 +404,7 @@ public class AlisaPackageImpl extends EPackageImpl implements AlisaPackage
 
     assuranceTaskEClass = createEClass(ASSURANCE_TASK);
     createEAttribute(assuranceTaskEClass, ASSURANCE_TASK__TITLE);
+    createEReference(assuranceTaskEClass, ASSURANCE_TASK__DESCRIPTION);
     createEAttribute(assuranceTaskEClass, ASSURANCE_TASK__ISSUES);
   }
 
@@ -458,6 +469,7 @@ public class AlisaPackageImpl extends EPackageImpl implements AlisaPackage
 
     initEClass(assuranceTaskEClass, AssuranceTask.class, "AssuranceTask", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
     initEAttribute(getAssuranceTask_Title(), theEcorePackage.getEString(), "title", null, 0, 1, AssuranceTask.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEReference(getAssuranceTask_Description(), theCommonPackage.getDescription(), null, "description", null, 0, 1, AssuranceTask.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEAttribute(getAssuranceTask_Issues(), theEcorePackage.getEString(), "issues", null, 0, -1, AssuranceTask.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
     // Create resource

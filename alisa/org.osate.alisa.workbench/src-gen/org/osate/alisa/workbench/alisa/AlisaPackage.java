@@ -336,13 +336,22 @@ public interface AlisaPackage extends EPackage
   int ASSURANCE_TASK__TITLE = CategoriesPackage.CATEGORY_FILTER_FEATURE_COUNT + 0;
 
   /**
+   * The feature id for the '<em><b>Description</b></em>' containment reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int ASSURANCE_TASK__DESCRIPTION = CategoriesPackage.CATEGORY_FILTER_FEATURE_COUNT + 1;
+
+  /**
    * The feature id for the '<em><b>Issues</b></em>' attribute list.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    * @ordered
    */
-  int ASSURANCE_TASK__ISSUES = CategoriesPackage.CATEGORY_FILTER_FEATURE_COUNT + 1;
+  int ASSURANCE_TASK__ISSUES = CategoriesPackage.CATEGORY_FILTER_FEATURE_COUNT + 2;
 
   /**
    * The number of structural features of the '<em>Assurance Task</em>' class.
@@ -351,7 +360,7 @@ public interface AlisaPackage extends EPackage
    * @generated
    * @ordered
    */
-  int ASSURANCE_TASK_FEATURE_COUNT = CategoriesPackage.CATEGORY_FILTER_FEATURE_COUNT + 2;
+  int ASSURANCE_TASK_FEATURE_COUNT = CategoriesPackage.CATEGORY_FILTER_FEATURE_COUNT + 3;
 
 
   /**
@@ -572,6 +581,17 @@ public interface AlisaPackage extends EPackage
   EAttribute getAssuranceTask_Title();
 
   /**
+   * Returns the meta object for the containment reference '{@link org.osate.alisa.workbench.alisa.AssuranceTask#getDescription <em>Description</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the containment reference '<em>Description</em>'.
+   * @see org.osate.alisa.workbench.alisa.AssuranceTask#getDescription()
+   * @see #getAssuranceTask()
+   * @generated
+   */
+  EReference getAssuranceTask_Description();
+
+  /**
    * Returns the meta object for the attribute list '{@link org.osate.alisa.workbench.alisa.AssuranceTask#getIssues <em>Issues</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -770,6 +790,14 @@ public interface AlisaPackage extends EPackage
      * @generated
      */
     EAttribute ASSURANCE_TASK__TITLE = eINSTANCE.getAssuranceTask_Title();
+
+    /**
+     * The meta object literal for the '<em><b>Description</b></em>' containment reference feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EReference ASSURANCE_TASK__DESCRIPTION = eINSTANCE.getAssuranceTask_Description();
 
     /**
      * The meta object literal for the '<em><b>Issues</b></em>' attribute list feature.

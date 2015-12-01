@@ -17,6 +17,8 @@ package org.osate.alisa.workbench.alisa;
 
 import org.eclipse.emf.common.util.EList;
 
+import org.osate.alisa.common.common.Description;
+
 import org.osate.categories.categories.CategoryFilter;
 
 /**
@@ -29,6 +31,7 @@ import org.osate.categories.categories.CategoryFilter;
  * </p>
  * <ul>
  *   <li>{@link org.osate.alisa.workbench.alisa.AssuranceTask#getTitle <em>Title</em>}</li>
+ *   <li>{@link org.osate.alisa.workbench.alisa.AssuranceTask#getDescription <em>Description</em>}</li>
  *   <li>{@link org.osate.alisa.workbench.alisa.AssuranceTask#getIssues <em>Issues</em>}</li>
  * </ul>
  *
@@ -63,6 +66,32 @@ public interface AssuranceTask extends CategoryFilter
    * @generated
    */
   void setTitle(String value);
+
+  /**
+   * Returns the value of the '<em><b>Description</b></em>' containment reference.
+   * <!-- begin-user-doc -->
+   * <p>
+   * If the meaning of the '<em>Description</em>' containment reference isn't clear,
+   * there really should be more of a description here...
+   * </p>
+   * <!-- end-user-doc -->
+   * @return the value of the '<em>Description</em>' containment reference.
+   * @see #setDescription(Description)
+   * @see org.osate.alisa.workbench.alisa.AlisaPackage#getAssuranceTask_Description()
+   * @model containment="true"
+   * @generated
+   */
+  Description getDescription();
+
+  /**
+   * Sets the value of the '{@link org.osate.alisa.workbench.alisa.AssuranceTask#getDescription <em>Description</em>}' containment reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @param value the new value of the '<em>Description</em>' containment reference.
+   * @see #getDescription()
+   * @generated
+   */
+  void setDescription(Description value);
 
   /**
    * Returns the value of the '<em><b>Issues</b></em>' attribute list.

@@ -18,14 +18,18 @@ package org.osate.alisa.workbench.alisa.impl;
 import java.util.Collection;
 
 import org.eclipse.emf.common.notify.Notification;
+import org.eclipse.emf.common.notify.NotificationChain;
 
 import org.eclipse.emf.common.util.EList;
 
 import org.eclipse.emf.ecore.EClass;
+import org.eclipse.emf.ecore.InternalEObject;
 
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 
 import org.eclipse.emf.ecore.util.EDataTypeEList;
+
+import org.osate.alisa.common.common.Description;
 
 import org.osate.alisa.workbench.alisa.AlisaPackage;
 import org.osate.alisa.workbench.alisa.AssuranceTask;
@@ -41,6 +45,7 @@ import org.osate.categories.categories.impl.CategoryFilterImpl;
  * </p>
  * <ul>
  *   <li>{@link org.osate.alisa.workbench.alisa.impl.AssuranceTaskImpl#getTitle <em>Title</em>}</li>
+ *   <li>{@link org.osate.alisa.workbench.alisa.impl.AssuranceTaskImpl#getDescription <em>Description</em>}</li>
  *   <li>{@link org.osate.alisa.workbench.alisa.impl.AssuranceTaskImpl#getIssues <em>Issues</em>}</li>
  * </ul>
  *
@@ -67,6 +72,16 @@ public class AssuranceTaskImpl extends CategoryFilterImpl implements AssuranceTa
    * @ordered
    */
   protected String title = TITLE_EDEFAULT;
+
+  /**
+   * The cached value of the '{@link #getDescription() <em>Description</em>}' containment reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see #getDescription()
+   * @generated
+   * @ordered
+   */
+  protected Description description;
 
   /**
    * The cached value of the '{@link #getIssues() <em>Issues</em>}' attribute list.
@@ -127,6 +142,54 @@ public class AssuranceTaskImpl extends CategoryFilterImpl implements AssuranceTa
    * <!-- end-user-doc -->
    * @generated
    */
+  public Description getDescription()
+  {
+    return description;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public NotificationChain basicSetDescription(Description newDescription, NotificationChain msgs)
+  {
+    Description oldDescription = description;
+    description = newDescription;
+    if (eNotificationRequired())
+    {
+      ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, AlisaPackage.ASSURANCE_TASK__DESCRIPTION, oldDescription, newDescription);
+      if (msgs == null) msgs = notification; else msgs.add(notification);
+    }
+    return msgs;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public void setDescription(Description newDescription)
+  {
+    if (newDescription != description)
+    {
+      NotificationChain msgs = null;
+      if (description != null)
+        msgs = ((InternalEObject)description).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - AlisaPackage.ASSURANCE_TASK__DESCRIPTION, null, msgs);
+      if (newDescription != null)
+        msgs = ((InternalEObject)newDescription).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - AlisaPackage.ASSURANCE_TASK__DESCRIPTION, null, msgs);
+      msgs = basicSetDescription(newDescription, msgs);
+      if (msgs != null) msgs.dispatch();
+    }
+    else if (eNotificationRequired())
+      eNotify(new ENotificationImpl(this, Notification.SET, AlisaPackage.ASSURANCE_TASK__DESCRIPTION, newDescription, newDescription));
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
   public EList<String> getIssues()
   {
     if (issues == null)
@@ -142,12 +205,30 @@ public class AssuranceTaskImpl extends CategoryFilterImpl implements AssuranceTa
    * @generated
    */
   @Override
+  public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs)
+  {
+    switch (featureID)
+    {
+      case AlisaPackage.ASSURANCE_TASK__DESCRIPTION:
+        return basicSetDescription(null, msgs);
+    }
+    return super.eInverseRemove(otherEnd, featureID, msgs);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  @Override
   public Object eGet(int featureID, boolean resolve, boolean coreType)
   {
     switch (featureID)
     {
       case AlisaPackage.ASSURANCE_TASK__TITLE:
         return getTitle();
+      case AlisaPackage.ASSURANCE_TASK__DESCRIPTION:
+        return getDescription();
       case AlisaPackage.ASSURANCE_TASK__ISSUES:
         return getIssues();
     }
@@ -167,6 +248,9 @@ public class AssuranceTaskImpl extends CategoryFilterImpl implements AssuranceTa
     {
       case AlisaPackage.ASSURANCE_TASK__TITLE:
         setTitle((String)newValue);
+        return;
+      case AlisaPackage.ASSURANCE_TASK__DESCRIPTION:
+        setDescription((Description)newValue);
         return;
       case AlisaPackage.ASSURANCE_TASK__ISSUES:
         getIssues().clear();
@@ -189,6 +273,9 @@ public class AssuranceTaskImpl extends CategoryFilterImpl implements AssuranceTa
       case AlisaPackage.ASSURANCE_TASK__TITLE:
         setTitle(TITLE_EDEFAULT);
         return;
+      case AlisaPackage.ASSURANCE_TASK__DESCRIPTION:
+        setDescription((Description)null);
+        return;
       case AlisaPackage.ASSURANCE_TASK__ISSUES:
         getIssues().clear();
         return;
@@ -208,6 +295,8 @@ public class AssuranceTaskImpl extends CategoryFilterImpl implements AssuranceTa
     {
       case AlisaPackage.ASSURANCE_TASK__TITLE:
         return TITLE_EDEFAULT == null ? title != null : !TITLE_EDEFAULT.equals(title);
+      case AlisaPackage.ASSURANCE_TASK__DESCRIPTION:
+        return description != null;
       case AlisaPackage.ASSURANCE_TASK__ISSUES:
         return issues != null && !issues.isEmpty();
     }

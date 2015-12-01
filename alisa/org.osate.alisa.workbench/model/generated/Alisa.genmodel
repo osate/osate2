@@ -30,6 +30,7 @@
     </genClasses>
     <genClasses ecoreClass="Alisa.ecore#//AssuranceTask">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Alisa.ecore#//AssuranceTask/title"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Alisa.ecore#//AssuranceTask/description"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Alisa.ecore#//AssuranceTask/issues"/>
     </genClasses>
   </genPackages>

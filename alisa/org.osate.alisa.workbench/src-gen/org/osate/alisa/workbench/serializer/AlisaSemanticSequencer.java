@@ -182,6 +182,7 @@ public class AlisaSemanticSequencer extends CommonSemanticSequencer {
 	 *     (
 	 *         name=ID 
 	 *         title=STRING? 
+	 *         description=Description? 
 	 *         (userCategory+=[UserCategory|ID]+ anyUserSelection?='any'?)? 
 	 *         (qualityCategory+=[QualityCategory|ID]+ anyQualityAttribute?='any'?)? 
 	 *         (phaseCategory+=[PhaseCategory|ID]+ anyDevelopmentPhase?='any'?)? 
