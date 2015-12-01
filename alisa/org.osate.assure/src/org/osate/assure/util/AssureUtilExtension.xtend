@@ -447,13 +447,6 @@ class AssureUtilExtension {
 		}
 	}
 
-	def static getTheWeight(RefExpr expr) {
-		switch expr {
-			case expr.weight == 0: 1
-			default: expr.weight
-		}
-	}
-
 	def static String constructLabel(EObject obj) {
 		switch (obj) {
 			SystemInstance: return "top " + obj.componentImplementation.name + ": "
