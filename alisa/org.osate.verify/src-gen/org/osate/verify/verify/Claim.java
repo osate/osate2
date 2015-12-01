@@ -34,10 +34,10 @@ import org.osate.reqspec.reqSpec.Requirement;
  * <ul>
  *   <li>{@link org.osate.verify.verify.Claim#getRequirement <em>Requirement</em>}</li>
  *   <li>{@link org.osate.verify.verify.Claim#getTitle <em>Title</em>}</li>
- *   <li>{@link org.osate.verify.verify.Claim#getWeight <em>Weight</em>}</li>
  *   <li>{@link org.osate.verify.verify.Claim#getActivities <em>Activities</em>}</li>
  *   <li>{@link org.osate.verify.verify.Claim#getAssert <em>Assert</em>}</li>
  *   <li>{@link org.osate.verify.verify.Claim#getRationale <em>Rationale</em>}</li>
+ *   <li>{@link org.osate.verify.verify.Claim#getWeight <em>Weight</em>}</li>
  *   <li>{@link org.osate.verify.verify.Claim#getSubclaim <em>Subclaim</em>}</li>
  *   <li>{@link org.osate.verify.verify.Claim#getIssues <em>Issues</em>}</li>
  * </ul>
@@ -99,32 +99,6 @@ public interface Claim extends EObject
    * @generated
    */
   void setTitle(String value);
-
-  /**
-   * Returns the value of the '<em><b>Weight</b></em>' attribute.
-   * <!-- begin-user-doc -->
-   * <p>
-   * If the meaning of the '<em>Weight</em>' attribute isn't clear,
-   * there really should be more of a description here...
-   * </p>
-   * <!-- end-user-doc -->
-   * @return the value of the '<em>Weight</em>' attribute.
-   * @see #setWeight(int)
-   * @see org.osate.verify.verify.VerifyPackage#getClaim_Weight()
-   * @model
-   * @generated
-   */
-  int getWeight();
-
-  /**
-   * Sets the value of the '{@link org.osate.verify.verify.Claim#getWeight <em>Weight</em>}' attribute.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @param value the new value of the '<em>Weight</em>' attribute.
-   * @see #getWeight()
-   * @generated
-   */
-  void setWeight(int value);
 
   /**
    * Returns the value of the '<em><b>Activities</b></em>' containment reference list.
@@ -193,6 +167,32 @@ public interface Claim extends EObject
    * @generated
    */
   void setRationale(Rationale value);
+
+  /**
+   * Returns the value of the '<em><b>Weight</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <p>
+   * If the meaning of the '<em>Weight</em>' attribute isn't clear,
+   * there really should be more of a description here...
+   * </p>
+   * <!-- end-user-doc -->
+   * @return the value of the '<em>Weight</em>' attribute.
+   * @see #setWeight(int)
+   * @see org.osate.verify.verify.VerifyPackage#getClaim_Weight()
+   * @model
+   * @generated
+   */
+  int getWeight();
+
+  /**
+   * Sets the value of the '{@link org.osate.verify.verify.Claim#getWeight <em>Weight</em>}' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @param value the new value of the '<em>Weight</em>' attribute.
+   * @see #getWeight()
+   * @generated
+   */
+  void setWeight(int value);
 
   /**
    * Returns the value of the '<em><b>Subclaim</b></em>' containment reference list.

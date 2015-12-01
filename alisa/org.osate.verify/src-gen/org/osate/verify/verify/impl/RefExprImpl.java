@@ -35,7 +35,6 @@ import org.osate.verify.verify.VerifyPackage;
  * </p>
  * <ul>
  *   <li>{@link org.osate.verify.verify.impl.RefExprImpl#getVerification <em>Verification</em>}</li>
- *   <li>{@link org.osate.verify.verify.impl.RefExprImpl#getWeight <em>Weight</em>}</li>
  * </ul>
  *
  * @generated
@@ -51,26 +50,6 @@ public class RefExprImpl extends ArgumentExprImpl implements RefExpr
    * @ordered
    */
   protected VerificationActivity verification;
-
-  /**
-   * The default value of the '{@link #getWeight() <em>Weight</em>}' attribute.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @see #getWeight()
-   * @generated
-   * @ordered
-   */
-  protected static final int WEIGHT_EDEFAULT = 0;
-
-  /**
-   * The cached value of the '{@link #getWeight() <em>Weight</em>}' attribute.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @see #getWeight()
-   * @generated
-   * @ordered
-   */
-  protected int weight = WEIGHT_EDEFAULT;
 
   /**
    * <!-- begin-user-doc -->
@@ -141,29 +120,6 @@ public class RefExprImpl extends ArgumentExprImpl implements RefExpr
    * <!-- end-user-doc -->
    * @generated
    */
-  public int getWeight()
-  {
-    return weight;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public void setWeight(int newWeight)
-  {
-    int oldWeight = weight;
-    weight = newWeight;
-    if (eNotificationRequired())
-      eNotify(new ENotificationImpl(this, Notification.SET, VerifyPackage.REF_EXPR__WEIGHT, oldWeight, weight));
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
   @Override
   public Object eGet(int featureID, boolean resolve, boolean coreType)
   {
@@ -172,8 +128,6 @@ public class RefExprImpl extends ArgumentExprImpl implements RefExpr
       case VerifyPackage.REF_EXPR__VERIFICATION:
         if (resolve) return getVerification();
         return basicGetVerification();
-      case VerifyPackage.REF_EXPR__WEIGHT:
-        return getWeight();
     }
     return super.eGet(featureID, resolve, coreType);
   }
@@ -190,9 +144,6 @@ public class RefExprImpl extends ArgumentExprImpl implements RefExpr
     {
       case VerifyPackage.REF_EXPR__VERIFICATION:
         setVerification((VerificationActivity)newValue);
-        return;
-      case VerifyPackage.REF_EXPR__WEIGHT:
-        setWeight((Integer)newValue);
         return;
     }
     super.eSet(featureID, newValue);
@@ -211,9 +162,6 @@ public class RefExprImpl extends ArgumentExprImpl implements RefExpr
       case VerifyPackage.REF_EXPR__VERIFICATION:
         setVerification((VerificationActivity)null);
         return;
-      case VerifyPackage.REF_EXPR__WEIGHT:
-        setWeight(WEIGHT_EDEFAULT);
-        return;
     }
     super.eUnset(featureID);
   }
@@ -230,27 +178,8 @@ public class RefExprImpl extends ArgumentExprImpl implements RefExpr
     {
       case VerifyPackage.REF_EXPR__VERIFICATION:
         return verification != null;
-      case VerifyPackage.REF_EXPR__WEIGHT:
-        return weight != WEIGHT_EDEFAULT;
     }
     return super.eIsSet(featureID);
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  @Override
-  public String toString()
-  {
-    if (eIsProxy()) return super.toString();
-
-    StringBuffer result = new StringBuffer(super.toString());
-    result.append(" (weight: ");
-    result.append(weight);
-    result.append(')');
-    return result.toString();
   }
 
 } //RefExprImpl

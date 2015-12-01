@@ -208,22 +208,13 @@ public interface VerifyPackage extends EPackage
   int CLAIM__TITLE = 1;
 
   /**
-   * The feature id for the '<em><b>Weight</b></em>' attribute.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int CLAIM__WEIGHT = 2;
-
-  /**
    * The feature id for the '<em><b>Activities</b></em>' containment reference list.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    * @ordered
    */
-  int CLAIM__ACTIVITIES = 3;
+  int CLAIM__ACTIVITIES = 2;
 
   /**
    * The feature id for the '<em><b>Assert</b></em>' containment reference.
@@ -232,7 +223,7 @@ public interface VerifyPackage extends EPackage
    * @generated
    * @ordered
    */
-  int CLAIM__ASSERT = 4;
+  int CLAIM__ASSERT = 3;
 
   /**
    * The feature id for the '<em><b>Rationale</b></em>' containment reference.
@@ -241,7 +232,16 @@ public interface VerifyPackage extends EPackage
    * @generated
    * @ordered
    */
-  int CLAIM__RATIONALE = 5;
+  int CLAIM__RATIONALE = 4;
+
+  /**
+   * The feature id for the '<em><b>Weight</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int CLAIM__WEIGHT = 5;
 
   /**
    * The feature id for the '<em><b>Subclaim</b></em>' containment reference list.
@@ -372,7 +372,7 @@ public interface VerifyPackage extends EPackage
   int VERIFICATION_ACTIVITY__USER_CATEGORY = 7;
 
   /**
-   * The feature id for the '<em><b>Timeout</b></em>' attribute.
+   * The feature id for the '<em><b>Timeout</b></em>' containment reference.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
@@ -381,13 +381,22 @@ public interface VerifyPackage extends EPackage
   int VERIFICATION_ACTIVITY__TIMEOUT = 8;
 
   /**
+   * The feature id for the '<em><b>Weight</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int VERIFICATION_ACTIVITY__WEIGHT = 9;
+
+  /**
    * The number of structural features of the '<em>Verification Activity</em>' class.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    * @ordered
    */
-  int VERIFICATION_ACTIVITY_FEATURE_COUNT = 9;
+  int VERIFICATION_ACTIVITY_FEATURE_COUNT = 10;
 
   /**
    * The meta object id for the '{@link org.osate.verify.verify.impl.VerificationConditionImpl <em>Verification Condition</em>}' class.
@@ -925,22 +934,13 @@ public interface VerifyPackage extends EPackage
   int REF_EXPR__VERIFICATION = ARGUMENT_EXPR_FEATURE_COUNT + 0;
 
   /**
-   * The feature id for the '<em><b>Weight</b></em>' attribute.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int REF_EXPR__WEIGHT = ARGUMENT_EXPR_FEATURE_COUNT + 1;
-
-  /**
    * The number of structural features of the '<em>Ref Expr</em>' class.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    * @ordered
    */
-  int REF_EXPR_FEATURE_COUNT = ARGUMENT_EXPR_FEATURE_COUNT + 2;
+  int REF_EXPR_FEATURE_COUNT = ARGUMENT_EXPR_FEATURE_COUNT + 1;
 
   /**
    * The meta object id for the '{@link org.osate.verify.verify.impl.VerificationValidationImpl <em>Verification Validation</em>}' class.
@@ -1158,17 +1158,6 @@ public interface VerifyPackage extends EPackage
   EAttribute getClaim_Title();
 
   /**
-   * Returns the meta object for the attribute '{@link org.osate.verify.verify.Claim#getWeight <em>Weight</em>}'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return the meta object for the attribute '<em>Weight</em>'.
-   * @see org.osate.verify.verify.Claim#getWeight()
-   * @see #getClaim()
-   * @generated
-   */
-  EAttribute getClaim_Weight();
-
-  /**
    * Returns the meta object for the containment reference list '{@link org.osate.verify.verify.Claim#getActivities <em>Activities</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -1200,6 +1189,17 @@ public interface VerifyPackage extends EPackage
    * @generated
    */
   EReference getClaim_Rationale();
+
+  /**
+   * Returns the meta object for the attribute '{@link org.osate.verify.verify.Claim#getWeight <em>Weight</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the attribute '<em>Weight</em>'.
+   * @see org.osate.verify.verify.Claim#getWeight()
+   * @see #getClaim()
+   * @generated
+   */
+  EAttribute getClaim_Weight();
 
   /**
    * Returns the meta object for the containment reference list '{@link org.osate.verify.verify.Claim#getSubclaim <em>Subclaim</em>}'.
@@ -1332,15 +1332,26 @@ public interface VerifyPackage extends EPackage
   EReference getVerificationActivity_UserCategory();
 
   /**
-   * Returns the meta object for the attribute '{@link org.osate.verify.verify.VerificationActivity#getTimeout <em>Timeout</em>}'.
+   * Returns the meta object for the containment reference '{@link org.osate.verify.verify.VerificationActivity#getTimeout <em>Timeout</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @return the meta object for the attribute '<em>Timeout</em>'.
+   * @return the meta object for the containment reference '<em>Timeout</em>'.
    * @see org.osate.verify.verify.VerificationActivity#getTimeout()
    * @see #getVerificationActivity()
    * @generated
    */
-  EAttribute getVerificationActivity_Timeout();
+  EReference getVerificationActivity_Timeout();
+
+  /**
+   * Returns the meta object for the attribute '{@link org.osate.verify.verify.VerificationActivity#getWeight <em>Weight</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the attribute '<em>Weight</em>'.
+   * @see org.osate.verify.verify.VerificationActivity#getWeight()
+   * @see #getVerificationActivity()
+   * @generated
+   */
+  EAttribute getVerificationActivity_Weight();
 
   /**
    * Returns the meta object for class '{@link org.osate.verify.verify.VerificationCondition <em>Verification Condition</em>}'.
@@ -1836,17 +1847,6 @@ public interface VerifyPackage extends EPackage
   EReference getRefExpr_Verification();
 
   /**
-   * Returns the meta object for the attribute '{@link org.osate.verify.verify.RefExpr#getWeight <em>Weight</em>}'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return the meta object for the attribute '<em>Weight</em>'.
-   * @see org.osate.verify.verify.RefExpr#getWeight()
-   * @see #getRefExpr()
-   * @generated
-   */
-  EAttribute getRefExpr_Weight();
-
-  /**
    * Returns the meta object for class '{@link org.osate.verify.verify.VerificationValidation <em>Verification Validation</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -2000,14 +2000,6 @@ public interface VerifyPackage extends EPackage
     EAttribute CLAIM__TITLE = eINSTANCE.getClaim_Title();
 
     /**
-     * The meta object literal for the '<em><b>Weight</b></em>' attribute feature.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
-    EAttribute CLAIM__WEIGHT = eINSTANCE.getClaim_Weight();
-
-    /**
      * The meta object literal for the '<em><b>Activities</b></em>' containment reference list feature.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
@@ -2030,6 +2022,14 @@ public interface VerifyPackage extends EPackage
      * @generated
      */
     EReference CLAIM__RATIONALE = eINSTANCE.getClaim_Rationale();
+
+    /**
+     * The meta object literal for the '<em><b>Weight</b></em>' attribute feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EAttribute CLAIM__WEIGHT = eINSTANCE.getClaim_Weight();
 
     /**
      * The meta object literal for the '<em><b>Subclaim</b></em>' containment reference list feature.
@@ -2132,12 +2132,20 @@ public interface VerifyPackage extends EPackage
     EReference VERIFICATION_ACTIVITY__USER_CATEGORY = eINSTANCE.getVerificationActivity_UserCategory();
 
     /**
-     * The meta object literal for the '<em><b>Timeout</b></em>' attribute feature.
+     * The meta object literal for the '<em><b>Timeout</b></em>' containment reference feature.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @generated
      */
-    EAttribute VERIFICATION_ACTIVITY__TIMEOUT = eINSTANCE.getVerificationActivity_Timeout();
+    EReference VERIFICATION_ACTIVITY__TIMEOUT = eINSTANCE.getVerificationActivity_Timeout();
+
+    /**
+     * The meta object literal for the '<em><b>Weight</b></em>' attribute feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EAttribute VERIFICATION_ACTIVITY__WEIGHT = eINSTANCE.getVerificationActivity_Weight();
 
     /**
      * The meta object literal for the '{@link org.osate.verify.verify.impl.VerificationConditionImpl <em>Verification Condition</em>}' class.
@@ -2532,14 +2540,6 @@ public interface VerifyPackage extends EPackage
      * @generated
      */
     EReference REF_EXPR__VERIFICATION = eINSTANCE.getRefExpr_Verification();
-
-    /**
-     * The meta object literal for the '<em><b>Weight</b></em>' attribute feature.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
-    EAttribute REF_EXPR__WEIGHT = eINSTANCE.getRefExpr_Weight();
 
     /**
      * The meta object literal for the '{@link org.osate.verify.verify.impl.VerificationValidationImpl <em>Verification Validation</em>}' class.

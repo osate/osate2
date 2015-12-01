@@ -221,10 +221,10 @@ public class VerifySemanticSequencer extends CommonSemanticSequencer {
 	 *     (
 	 *         requirement=[Requirement|QualifiedName] 
 	 *         title=STRING? 
-	 *         weight=INT? 
 	 *         activities+=VerificationActivity* 
 	 *         assert=ArgumentExpr? 
 	 *         rationale=Rationale? 
+	 *         weight=INT? 
 	 *         subclaim+=Claim* 
 	 *         issues+=STRING*
 	 *     )
@@ -364,10 +364,17 @@ public class VerifySemanticSequencer extends CommonSemanticSequencer {
 	
 	/**
 	 * Constraint:
-	 *     (verification=[VerificationActivity|ID] weight=INT?)
+	 *     verification=[VerificationActivity|ID]
 	 */
 	protected void sequence_VAReference(EObject context, RefExpr semanticObject) {
-		genericSequencer.createSequence(context, semanticObject);
+		if(errorAcceptor != null) {
+			if(transientValues.isValueTransient(semanticObject, VerifyPackage.Literals.REF_EXPR__VERIFICATION) == ValueTransient.YES)
+				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, VerifyPackage.Literals.REF_EXPR__VERIFICATION));
+		}
+		INodesForEObjectProvider nodes = createNodeProvider(semanticObject);
+		SequenceFeeder feeder = createSequencerFeeder(semanticObject, nodes);
+		feeder.accept(grammarAccess.getVAReferenceAccess().getVerificationVerificationActivityIDTerminalRuleCall_1_0_1(), semanticObject.getVerification());
+		feeder.finish();
 	}
 	
 	
@@ -380,7 +387,7 @@ public class VerifySemanticSequencer extends CommonSemanticSequencer {
 	 *         method=[VerificationMethod|QualifiedName] 
 	 *         (parameters+=[ValDeclaration|ID] parameters+=[ValDeclaration|ID]*)? 
 	 *         (propertyValues+=[ValDeclaration|ID] propertyValues+=[ValDeclaration|ID]*)? 
-	 *         (phaseCategory+=[PhaseCategory|ID]* userCategory+=[UserCategory|ID]* timeout=INT?)?
+	 *         (phaseCategory+=[PhaseCategory|ID]* userCategory+=[UserCategory|ID]* timeout=AIntegerTerm? weight=INT?)?
 	 *     )
 	 */
 	protected void sequence_VerificationActivity(EObject context, VerificationActivity semanticObject) {

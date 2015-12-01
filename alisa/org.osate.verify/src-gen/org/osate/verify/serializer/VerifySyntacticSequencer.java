@@ -35,9 +35,9 @@ public class VerifySyntacticSequencer extends AbstractSyntacticSequencer {
 	protected VerifyGrammarAccess grammarAccess;
 	protected AbstractElementAlias match_AParenthesizedExpression_LeftParenthesisKeyword_0_a;
 	protected AbstractElementAlias match_AParenthesizedExpression_LeftParenthesisKeyword_0_p;
-	protected AbstractElementAlias match_Claim_ActivitiesKeyword_5_0_0_a;
-	protected AbstractElementAlias match_Claim_ActivitiesKeyword_5_0_0_p;
-	protected AbstractElementAlias match_Claim___ActivitiesKeyword_5_0_0_a_IssuesKeyword_5_4_0__q;
+	protected AbstractElementAlias match_Claim_ActivitiesKeyword_4_0_0_a;
+	protected AbstractElementAlias match_Claim_ActivitiesKeyword_4_0_0_p;
+	protected AbstractElementAlias match_Claim___ActivitiesKeyword_4_0_0_a_IssuesKeyword_4_5_0__q;
 	protected AbstractElementAlias match_CompositeEvidenceExpr_LeftParenthesisKeyword_0_0_a;
 	protected AbstractElementAlias match_CompositeEvidenceExpr_LeftParenthesisKeyword_0_0_p;
 	protected AbstractElementAlias match_ResultIssue___LeftSquareBracketKeyword_5_0_RightSquareBracketKeyword_5_2__q;
@@ -56,9 +56,9 @@ public class VerifySyntacticSequencer extends AbstractSyntacticSequencer {
 		grammarAccess = (VerifyGrammarAccess) access;
 		match_AParenthesizedExpression_LeftParenthesisKeyword_0_a = new TokenAlias(true, true, grammarAccess.getAParenthesizedExpressionAccess().getLeftParenthesisKeyword_0());
 		match_AParenthesizedExpression_LeftParenthesisKeyword_0_p = new TokenAlias(true, false, grammarAccess.getAParenthesizedExpressionAccess().getLeftParenthesisKeyword_0());
-		match_Claim_ActivitiesKeyword_5_0_0_a = new TokenAlias(true, true, grammarAccess.getClaimAccess().getActivitiesKeyword_5_0_0());
-		match_Claim_ActivitiesKeyword_5_0_0_p = new TokenAlias(true, false, grammarAccess.getClaimAccess().getActivitiesKeyword_5_0_0());
-		match_Claim___ActivitiesKeyword_5_0_0_a_IssuesKeyword_5_4_0__q = new GroupAlias(false, true, new TokenAlias(true, true, grammarAccess.getClaimAccess().getActivitiesKeyword_5_0_0()), new TokenAlias(false, false, grammarAccess.getClaimAccess().getIssuesKeyword_5_4_0()));
+		match_Claim_ActivitiesKeyword_4_0_0_a = new TokenAlias(true, true, grammarAccess.getClaimAccess().getActivitiesKeyword_4_0_0());
+		match_Claim_ActivitiesKeyword_4_0_0_p = new TokenAlias(true, false, grammarAccess.getClaimAccess().getActivitiesKeyword_4_0_0());
+		match_Claim___ActivitiesKeyword_4_0_0_a_IssuesKeyword_4_5_0__q = new GroupAlias(false, true, new TokenAlias(true, true, grammarAccess.getClaimAccess().getActivitiesKeyword_4_0_0()), new TokenAlias(false, false, grammarAccess.getClaimAccess().getIssuesKeyword_4_5_0()));
 		match_CompositeEvidenceExpr_LeftParenthesisKeyword_0_0_a = new TokenAlias(true, true, grammarAccess.getCompositeEvidenceExprAccess().getLeftParenthesisKeyword_0_0());
 		match_CompositeEvidenceExpr_LeftParenthesisKeyword_0_0_p = new TokenAlias(true, false, grammarAccess.getCompositeEvidenceExprAccess().getLeftParenthesisKeyword_0_0());
 		match_ResultIssue___LeftSquareBracketKeyword_5_0_RightSquareBracketKeyword_5_2__q = new GroupAlias(false, true, new TokenAlias(false, false, grammarAccess.getResultIssueAccess().getLeftSquareBracketKeyword_5_0()), new TokenAlias(false, false, grammarAccess.getResultIssueAccess().getRightSquareBracketKeyword_5_2()));
@@ -89,12 +89,12 @@ public class VerifySyntacticSequencer extends AbstractSyntacticSequencer {
 				emit_AParenthesizedExpression_LeftParenthesisKeyword_0_a(semanticObject, getLastNavigableState(), syntaxNodes);
 			else if(match_AParenthesizedExpression_LeftParenthesisKeyword_0_p.equals(syntax))
 				emit_AParenthesizedExpression_LeftParenthesisKeyword_0_p(semanticObject, getLastNavigableState(), syntaxNodes);
-			else if(match_Claim_ActivitiesKeyword_5_0_0_a.equals(syntax))
-				emit_Claim_ActivitiesKeyword_5_0_0_a(semanticObject, getLastNavigableState(), syntaxNodes);
-			else if(match_Claim_ActivitiesKeyword_5_0_0_p.equals(syntax))
-				emit_Claim_ActivitiesKeyword_5_0_0_p(semanticObject, getLastNavigableState(), syntaxNodes);
-			else if(match_Claim___ActivitiesKeyword_5_0_0_a_IssuesKeyword_5_4_0__q.equals(syntax))
-				emit_Claim___ActivitiesKeyword_5_0_0_a_IssuesKeyword_5_4_0__q(semanticObject, getLastNavigableState(), syntaxNodes);
+			else if(match_Claim_ActivitiesKeyword_4_0_0_a.equals(syntax))
+				emit_Claim_ActivitiesKeyword_4_0_0_a(semanticObject, getLastNavigableState(), syntaxNodes);
+			else if(match_Claim_ActivitiesKeyword_4_0_0_p.equals(syntax))
+				emit_Claim_ActivitiesKeyword_4_0_0_p(semanticObject, getLastNavigableState(), syntaxNodes);
+			else if(match_Claim___ActivitiesKeyword_4_0_0_a_IssuesKeyword_4_5_0__q.equals(syntax))
+				emit_Claim___ActivitiesKeyword_4_0_0_a_IssuesKeyword_4_5_0__q(semanticObject, getLastNavigableState(), syntaxNodes);
 			else if(match_CompositeEvidenceExpr_LeftParenthesisKeyword_0_0_a.equals(syntax))
 				emit_CompositeEvidenceExpr_LeftParenthesisKeyword_0_0_a(semanticObject, getLastNavigableState(), syntaxNodes);
 			else if(match_CompositeEvidenceExpr_LeftParenthesisKeyword_0_0_p.equals(syntax))
@@ -179,45 +179,53 @@ public class VerifySyntacticSequencer extends AbstractSyntacticSequencer {
 	 *     activities+=VerificationActivity (ambiguity) ']' (rule end)
 	 *     activities+=VerificationActivity (ambiguity) 'assert' assert=ArgumentExpr
 	 *     activities+=VerificationActivity (ambiguity) 'issues' issues+=STRING
+	 *     activities+=VerificationActivity (ambiguity) 'weight' weight=INT
 	 *     activities+=VerificationActivity (ambiguity) activities+=VerificationActivity
 	 *     activities+=VerificationActivity (ambiguity) rationale=Rationale
 	 *     activities+=VerificationActivity (ambiguity) subclaim+=Claim
 	 *     assert=ArgumentExpr (ambiguity) ']' (rule end)
 	 *     assert=ArgumentExpr (ambiguity) 'assert' assert=ArgumentExpr
 	 *     assert=ArgumentExpr (ambiguity) 'issues' issues+=STRING
+	 *     assert=ArgumentExpr (ambiguity) 'weight' weight=INT
 	 *     assert=ArgumentExpr (ambiguity) rationale=Rationale
 	 *     assert=ArgumentExpr (ambiguity) subclaim+=Claim
 	 *     issues+=STRING (ambiguity) ']' (rule end)
 	 *     issues+=STRING (ambiguity) 'assert' assert=ArgumentExpr
+	 *     issues+=STRING (ambiguity) 'weight' weight=INT
 	 *     issues+=STRING (ambiguity) rationale=Rationale
 	 *     issues+=STRING (ambiguity) subclaim+=Claim
 	 *     rationale=Rationale (ambiguity) ']' (rule end)
 	 *     rationale=Rationale (ambiguity) 'assert' assert=ArgumentExpr
 	 *     rationale=Rationale (ambiguity) 'issues' issues+=STRING
+	 *     rationale=Rationale (ambiguity) 'weight' weight=INT
 	 *     rationale=Rationale (ambiguity) rationale=Rationale
 	 *     rationale=Rationale (ambiguity) subclaim+=Claim
 	 *     requirement=[Requirement|QualifiedName] '[' (ambiguity) ']' (rule end)
 	 *     requirement=[Requirement|QualifiedName] '[' (ambiguity) 'assert' assert=ArgumentExpr
 	 *     requirement=[Requirement|QualifiedName] '[' (ambiguity) 'issues' issues+=STRING
+	 *     requirement=[Requirement|QualifiedName] '[' (ambiguity) 'weight' weight=INT
 	 *     requirement=[Requirement|QualifiedName] '[' (ambiguity) rationale=Rationale
 	 *     requirement=[Requirement|QualifiedName] '[' (ambiguity) subclaim+=Claim
 	 *     subclaim+=Claim (ambiguity) ']' (rule end)
 	 *     subclaim+=Claim (ambiguity) 'assert' assert=ArgumentExpr
 	 *     subclaim+=Claim (ambiguity) 'issues' issues+=STRING
+	 *     subclaim+=Claim (ambiguity) 'weight' weight=INT
 	 *     subclaim+=Claim (ambiguity) rationale=Rationale
 	 *     subclaim+=Claim (ambiguity) subclaim+=Claim
 	 *     title=STRING '[' (ambiguity) ']' (rule end)
 	 *     title=STRING '[' (ambiguity) 'assert' assert=ArgumentExpr
 	 *     title=STRING '[' (ambiguity) 'issues' issues+=STRING
+	 *     title=STRING '[' (ambiguity) 'weight' weight=INT
 	 *     title=STRING '[' (ambiguity) rationale=Rationale
 	 *     title=STRING '[' (ambiguity) subclaim+=Claim
-	 *     weight=INT ')' '[' (ambiguity) ']' (rule end)
-	 *     weight=INT ')' '[' (ambiguity) 'assert' assert=ArgumentExpr
-	 *     weight=INT ')' '[' (ambiguity) 'issues' issues+=STRING
-	 *     weight=INT ')' '[' (ambiguity) rationale=Rationale
-	 *     weight=INT ')' '[' (ambiguity) subclaim+=Claim
+	 *     weight=INT (ambiguity) ']' (rule end)
+	 *     weight=INT (ambiguity) 'assert' assert=ArgumentExpr
+	 *     weight=INT (ambiguity) 'issues' issues+=STRING
+	 *     weight=INT (ambiguity) 'weight' weight=INT
+	 *     weight=INT (ambiguity) rationale=Rationale
+	 *     weight=INT (ambiguity) subclaim+=Claim
 	 */
-	protected void emit_Claim_ActivitiesKeyword_5_0_0_a(EObject semanticObject, ISynNavigable transition, List<INode> nodes) {
+	protected void emit_Claim_ActivitiesKeyword_4_0_0_a(EObject semanticObject, ISynNavigable transition, List<INode> nodes) {
 		acceptNodes(transition, nodes);
 	}
 	
@@ -232,9 +240,9 @@ public class VerifySyntacticSequencer extends AbstractSyntacticSequencer {
 	 *     requirement=[Requirement|QualifiedName] '[' (ambiguity) activities+=VerificationActivity
 	 *     subclaim+=Claim (ambiguity) activities+=VerificationActivity
 	 *     title=STRING '[' (ambiguity) activities+=VerificationActivity
-	 *     weight=INT ')' '[' (ambiguity) activities+=VerificationActivity
+	 *     weight=INT (ambiguity) activities+=VerificationActivity
 	 */
-	protected void emit_Claim_ActivitiesKeyword_5_0_0_p(EObject semanticObject, ISynNavigable transition, List<INode> nodes) {
+	protected void emit_Claim_ActivitiesKeyword_4_0_0_p(EObject semanticObject, ISynNavigable transition, List<INode> nodes) {
 		acceptNodes(transition, nodes);
 	}
 	
@@ -245,7 +253,7 @@ public class VerifySyntacticSequencer extends AbstractSyntacticSequencer {
 	 * This ambiguous syntax occurs at:
 	 *     issues+=STRING (ambiguity) issues+=STRING
 	 */
-	protected void emit_Claim___ActivitiesKeyword_5_0_0_a_IssuesKeyword_5_4_0__q(EObject semanticObject, ISynNavigable transition, List<INode> nodes) {
+	protected void emit_Claim___ActivitiesKeyword_4_0_0_a_IssuesKeyword_4_5_0__q(EObject semanticObject, ISynNavigable transition, List<INode> nodes) {
 		acceptNodes(transition, nodes);
 	}
 	
@@ -331,11 +339,13 @@ public class VerifySyntacticSequencer extends AbstractSyntacticSequencer {
 	 * This ambiguous syntax occurs at:
 	 *     method=[VerificationMethod|QualifiedName] '(' ')' (ambiguity) '[' 'category' userCategory+=[UserCategory|ID]
 	 *     method=[VerificationMethod|QualifiedName] '(' ')' (ambiguity) '[' 'phase' phaseCategory+=[PhaseCategory|ID]
-	 *     method=[VerificationMethod|QualifiedName] '(' ')' (ambiguity) '[' 'timeout' timeout=INT
+	 *     method=[VerificationMethod|QualifiedName] '(' ')' (ambiguity) '[' 'timeout' timeout=AIntegerTerm
+	 *     method=[VerificationMethod|QualifiedName] '(' ')' (ambiguity) '[' 'weight' weight=INT
 	 *     method=[VerificationMethod|QualifiedName] '(' ')' (ambiguity) ('[' ']')? (rule end)
 	 *     parameters+=[ValDeclaration|ID] ')' (ambiguity) '[' 'category' userCategory+=[UserCategory|ID]
 	 *     parameters+=[ValDeclaration|ID] ')' (ambiguity) '[' 'phase' phaseCategory+=[PhaseCategory|ID]
-	 *     parameters+=[ValDeclaration|ID] ')' (ambiguity) '[' 'timeout' timeout=INT
+	 *     parameters+=[ValDeclaration|ID] ')' (ambiguity) '[' 'timeout' timeout=AIntegerTerm
+	 *     parameters+=[ValDeclaration|ID] ')' (ambiguity) '[' 'weight' weight=INT
 	 *     parameters+=[ValDeclaration|ID] ')' (ambiguity) ('[' ']')? (rule end)
 	 */
 	protected void emit_VerificationActivity___PropertyKeyword_8_0_ValuesKeyword_8_1_LeftParenthesisKeyword_8_2_RightParenthesisKeyword_8_4__q(EObject semanticObject, ISynNavigable transition, List<INode> nodes) {

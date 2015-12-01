@@ -19,6 +19,8 @@ import org.eclipse.emf.common.util.EList;
 
 import org.eclipse.emf.ecore.EObject;
 
+import org.osate.aadl2.IntegerLiteral;
+
 import org.osate.alisa.common.common.ComputeDeclaration;
 import org.osate.alisa.common.common.ValDeclaration;
 
@@ -43,6 +45,7 @@ import org.osate.categories.categories.UserCategory;
  *   <li>{@link org.osate.verify.verify.VerificationActivity#getPhaseCategory <em>Phase Category</em>}</li>
  *   <li>{@link org.osate.verify.verify.VerificationActivity#getUserCategory <em>User Category</em>}</li>
  *   <li>{@link org.osate.verify.verify.VerificationActivity#getTimeout <em>Timeout</em>}</li>
+ *   <li>{@link org.osate.verify.verify.VerificationActivity#getWeight <em>Weight</em>}</li>
  * </ul>
  *
  * @see org.osate.verify.verify.VerifyPackage#getVerificationActivity()
@@ -210,29 +213,55 @@ public interface VerificationActivity extends EObject
   EList<UserCategory> getUserCategory();
 
   /**
-   * Returns the value of the '<em><b>Timeout</b></em>' attribute.
+   * Returns the value of the '<em><b>Timeout</b></em>' containment reference.
    * <!-- begin-user-doc -->
    * <p>
-   * If the meaning of the '<em>Timeout</em>' attribute isn't clear,
+   * If the meaning of the '<em>Timeout</em>' containment reference isn't clear,
    * there really should be more of a description here...
    * </p>
    * <!-- end-user-doc -->
-   * @return the value of the '<em>Timeout</em>' attribute.
-   * @see #setTimeout(int)
+   * @return the value of the '<em>Timeout</em>' containment reference.
+   * @see #setTimeout(IntegerLiteral)
    * @see org.osate.verify.verify.VerifyPackage#getVerificationActivity_Timeout()
-   * @model
+   * @model containment="true"
    * @generated
    */
-  int getTimeout();
+  IntegerLiteral getTimeout();
 
   /**
-   * Sets the value of the '{@link org.osate.verify.verify.VerificationActivity#getTimeout <em>Timeout</em>}' attribute.
+   * Sets the value of the '{@link org.osate.verify.verify.VerificationActivity#getTimeout <em>Timeout</em>}' containment reference.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @param value the new value of the '<em>Timeout</em>' attribute.
+   * @param value the new value of the '<em>Timeout</em>' containment reference.
    * @see #getTimeout()
    * @generated
    */
-  void setTimeout(int value);
+  void setTimeout(IntegerLiteral value);
+
+  /**
+   * Returns the value of the '<em><b>Weight</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <p>
+   * If the meaning of the '<em>Weight</em>' attribute isn't clear,
+   * there really should be more of a description here...
+   * </p>
+   * <!-- end-user-doc -->
+   * @return the value of the '<em>Weight</em>' attribute.
+   * @see #setWeight(int)
+   * @see org.osate.verify.verify.VerifyPackage#getVerificationActivity_Weight()
+   * @model
+   * @generated
+   */
+  int getWeight();
+
+  /**
+   * Sets the value of the '{@link org.osate.verify.verify.VerificationActivity#getWeight <em>Weight</em>}' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @param value the new value of the '<em>Weight</em>' attribute.
+   * @see #getWeight()
+   * @generated
+   */
+  void setWeight(int value);
 
 } // VerificationActivity

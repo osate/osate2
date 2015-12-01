@@ -26,7 +26,6 @@ package org.osate.verify.verify;
  * </p>
  * <ul>
  *   <li>{@link org.osate.verify.verify.RefExpr#getVerification <em>Verification</em>}</li>
- *   <li>{@link org.osate.verify.verify.RefExpr#getWeight <em>Weight</em>}</li>
  * </ul>
  *
  * @see org.osate.verify.verify.VerifyPackage#getRefExpr()
@@ -60,31 +59,5 @@ public interface RefExpr extends ArgumentExpr
    * @generated
    */
   void setVerification(VerificationActivity value);
-
-  /**
-   * Returns the value of the '<em><b>Weight</b></em>' attribute.
-   * <!-- begin-user-doc -->
-   * <p>
-   * If the meaning of the '<em>Weight</em>' attribute isn't clear,
-   * there really should be more of a description here...
-   * </p>
-   * <!-- end-user-doc -->
-   * @return the value of the '<em>Weight</em>' attribute.
-   * @see #setWeight(int)
-   * @see org.osate.verify.verify.VerifyPackage#getRefExpr_Weight()
-   * @model
-   * @generated
-   */
-  int getWeight();
-
-  /**
-   * Sets the value of the '{@link org.osate.verify.verify.RefExpr#getWeight <em>Weight</em>}' attribute.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @param value the new value of the '<em>Weight</em>' attribute.
-   * @see #getWeight()
-   * @generated
-   */
-  void setWeight(int value);
 
 } // RefExpr

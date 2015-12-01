@@ -25,12 +25,12 @@ VerificationPlan returns VerificationPlan:
 
 Claim:
 	'claim' requirement=[ReqSpec::Requirement|QualifiedName]  (':' title=STRING)?
-	('(' weight=INT ')')?
 	'['
 	(
 		  ('activities' activities += VerificationActivity*)?
 		& ('assert' assert=ArgumentExpr)?
 		& rationale=Rationale?
+		&('weight' weight=INT )?
 		& subclaim+=Claim*
 		& ('issues' issues+=STRING+ )?
 	)  
@@ -76,7 +76,7 @@ CompositeEvidenceExpr returns ArgumentExpr:
 
 VAReference returns ArgumentExpr:
 	{RefExpr} verification=[VerificationActivity|ID]
-	('(' weight=INT ')')?;
+;
 
 
 
@@ -95,7 +95,8 @@ VerificationActivity:
 	('['(
 		('phase' phaseCategory+=[categories::PhaseCategory|ID]+)?
 	&('category' userCategory+=[categories::UserCategory|ID]+)?
-	&('timeout' timeout=INT)?
+	&('timeout' timeout=AIntegerTerm)?
+	&('weight' weight=INT)?
 	)']')?
 ;
 

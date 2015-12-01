@@ -23,10 +23,10 @@
     <genClasses ecoreClass="Verify.ecore#//Claim">
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference Verify.ecore#//Claim/requirement"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Verify.ecore#//Claim/title"/>
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Verify.ecore#//Claim/weight"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Verify.ecore#//Claim/activities"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Verify.ecore#//Claim/assert"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Verify.ecore#//Claim/rationale"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Verify.ecore#//Claim/weight"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Verify.ecore#//Claim/subclaim"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Verify.ecore#//Claim/issues"/>
     </genClasses>
@@ -40,7 +40,8 @@
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference Verify.ecore#//VerificationActivity/propertyValues"/>
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference Verify.ecore#//VerificationActivity/phaseCategory"/>
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference Verify.ecore#//VerificationActivity/userCategory"/>
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Verify.ecore#//VerificationActivity/timeout"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Verify.ecore#//VerificationActivity/timeout"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Verify.ecore#//VerificationActivity/weight"/>
     </genClasses>
     <genClasses ecoreClass="Verify.ecore#//VerificationCondition">
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference Verify.ecore#//VerificationCondition/method"/>
@@ -99,7 +100,6 @@
     </genClasses>
     <genClasses ecoreClass="Verify.ecore#//RefExpr">
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference Verify.ecore#//RefExpr/verification"/>
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Verify.ecore#//RefExpr/weight"/>
     </genClasses>
     <genClasses ecoreClass="Verify.ecore#//VerificationValidation"/>
     <genClasses ecoreClass="Verify.ecore#//VerificationPrecondition"/>

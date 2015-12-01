@@ -18,6 +18,7 @@ package org.osate.verify.verify.impl;
 import java.util.Collection;
 
 import org.eclipse.emf.common.notify.Notification;
+import org.eclipse.emf.common.notify.NotificationChain;
 
 import org.eclipse.emf.common.util.EList;
 
@@ -28,6 +29,8 @@ import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.eclipse.emf.ecore.impl.MinimalEObjectImpl;
 
 import org.eclipse.emf.ecore.util.EObjectResolvingEList;
+
+import org.osate.aadl2.IntegerLiteral;
 
 import org.osate.alisa.common.common.ComputeDeclaration;
 import org.osate.alisa.common.common.ValDeclaration;
@@ -56,6 +59,7 @@ import org.osate.verify.verify.VerifyPackage;
  *   <li>{@link org.osate.verify.verify.impl.VerificationActivityImpl#getPhaseCategory <em>Phase Category</em>}</li>
  *   <li>{@link org.osate.verify.verify.impl.VerificationActivityImpl#getUserCategory <em>User Category</em>}</li>
  *   <li>{@link org.osate.verify.verify.impl.VerificationActivityImpl#getTimeout <em>Timeout</em>}</li>
+ *   <li>{@link org.osate.verify.verify.impl.VerificationActivityImpl#getWeight <em>Weight</em>}</li>
  * </ul>
  *
  * @generated
@@ -163,24 +167,34 @@ public class VerificationActivityImpl extends MinimalEObjectImpl.Container imple
   protected EList<UserCategory> userCategory;
 
   /**
-   * The default value of the '{@link #getTimeout() <em>Timeout</em>}' attribute.
+   * The cached value of the '{@link #getTimeout() <em>Timeout</em>}' containment reference.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @see #getTimeout()
    * @generated
    * @ordered
    */
-  protected static final int TIMEOUT_EDEFAULT = 0;
+  protected IntegerLiteral timeout;
 
   /**
-   * The cached value of the '{@link #getTimeout() <em>Timeout</em>}' attribute.
+   * The default value of the '{@link #getWeight() <em>Weight</em>}' attribute.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @see #getTimeout()
+   * @see #getWeight()
    * @generated
    * @ordered
    */
-  protected int timeout = TIMEOUT_EDEFAULT;
+  protected static final int WEIGHT_EDEFAULT = 0;
+
+  /**
+   * The cached value of the '{@link #getWeight() <em>Weight</em>}' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see #getWeight()
+   * @generated
+   * @ordered
+   */
+  protected int weight = WEIGHT_EDEFAULT;
 
   /**
    * <!-- begin-user-doc -->
@@ -367,7 +381,7 @@ public class VerificationActivityImpl extends MinimalEObjectImpl.Container imple
    * <!-- end-user-doc -->
    * @generated
    */
-  public int getTimeout()
+  public IntegerLiteral getTimeout()
   {
     return timeout;
   }
@@ -377,12 +391,76 @@ public class VerificationActivityImpl extends MinimalEObjectImpl.Container imple
    * <!-- end-user-doc -->
    * @generated
    */
-  public void setTimeout(int newTimeout)
+  public NotificationChain basicSetTimeout(IntegerLiteral newTimeout, NotificationChain msgs)
   {
-    int oldTimeout = timeout;
+    IntegerLiteral oldTimeout = timeout;
     timeout = newTimeout;
     if (eNotificationRequired())
-      eNotify(new ENotificationImpl(this, Notification.SET, VerifyPackage.VERIFICATION_ACTIVITY__TIMEOUT, oldTimeout, timeout));
+    {
+      ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, VerifyPackage.VERIFICATION_ACTIVITY__TIMEOUT, oldTimeout, newTimeout);
+      if (msgs == null) msgs = notification; else msgs.add(notification);
+    }
+    return msgs;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public void setTimeout(IntegerLiteral newTimeout)
+  {
+    if (newTimeout != timeout)
+    {
+      NotificationChain msgs = null;
+      if (timeout != null)
+        msgs = ((InternalEObject)timeout).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - VerifyPackage.VERIFICATION_ACTIVITY__TIMEOUT, null, msgs);
+      if (newTimeout != null)
+        msgs = ((InternalEObject)newTimeout).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - VerifyPackage.VERIFICATION_ACTIVITY__TIMEOUT, null, msgs);
+      msgs = basicSetTimeout(newTimeout, msgs);
+      if (msgs != null) msgs.dispatch();
+    }
+    else if (eNotificationRequired())
+      eNotify(new ENotificationImpl(this, Notification.SET, VerifyPackage.VERIFICATION_ACTIVITY__TIMEOUT, newTimeout, newTimeout));
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public int getWeight()
+  {
+    return weight;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public void setWeight(int newWeight)
+  {
+    int oldWeight = weight;
+    weight = newWeight;
+    if (eNotificationRequired())
+      eNotify(new ENotificationImpl(this, Notification.SET, VerifyPackage.VERIFICATION_ACTIVITY__WEIGHT, oldWeight, weight));
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  @Override
+  public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs)
+  {
+    switch (featureID)
+    {
+      case VerifyPackage.VERIFICATION_ACTIVITY__TIMEOUT:
+        return basicSetTimeout(null, msgs);
+    }
+    return super.eInverseRemove(otherEnd, featureID, msgs);
   }
 
   /**
@@ -414,6 +492,8 @@ public class VerificationActivityImpl extends MinimalEObjectImpl.Container imple
         return getUserCategory();
       case VerifyPackage.VERIFICATION_ACTIVITY__TIMEOUT:
         return getTimeout();
+      case VerifyPackage.VERIFICATION_ACTIVITY__WEIGHT:
+        return getWeight();
     }
     return super.eGet(featureID, resolve, coreType);
   }
@@ -459,7 +539,10 @@ public class VerificationActivityImpl extends MinimalEObjectImpl.Container imple
         getUserCategory().addAll((Collection<? extends UserCategory>)newValue);
         return;
       case VerifyPackage.VERIFICATION_ACTIVITY__TIMEOUT:
-        setTimeout((Integer)newValue);
+        setTimeout((IntegerLiteral)newValue);
+        return;
+      case VerifyPackage.VERIFICATION_ACTIVITY__WEIGHT:
+        setWeight((Integer)newValue);
         return;
     }
     super.eSet(featureID, newValue);
@@ -500,7 +583,10 @@ public class VerificationActivityImpl extends MinimalEObjectImpl.Container imple
         getUserCategory().clear();
         return;
       case VerifyPackage.VERIFICATION_ACTIVITY__TIMEOUT:
-        setTimeout(TIMEOUT_EDEFAULT);
+        setTimeout((IntegerLiteral)null);
+        return;
+      case VerifyPackage.VERIFICATION_ACTIVITY__WEIGHT:
+        setWeight(WEIGHT_EDEFAULT);
         return;
     }
     super.eUnset(featureID);
@@ -533,7 +619,9 @@ public class VerificationActivityImpl extends MinimalEObjectImpl.Container imple
       case VerifyPackage.VERIFICATION_ACTIVITY__USER_CATEGORY:
         return userCategory != null && !userCategory.isEmpty();
       case VerifyPackage.VERIFICATION_ACTIVITY__TIMEOUT:
-        return timeout != TIMEOUT_EDEFAULT;
+        return timeout != null;
+      case VerifyPackage.VERIFICATION_ACTIVITY__WEIGHT:
+        return weight != WEIGHT_EDEFAULT;
     }
     return super.eIsSet(featureID);
   }
@@ -553,8 +641,8 @@ public class VerificationActivityImpl extends MinimalEObjectImpl.Container imple
     result.append(name);
     result.append(", title: ");
     result.append(title);
-    result.append(", timeout: ");
-    result.append(timeout);
+    result.append(", weight: ");
+    result.append(weight);
     result.append(')');
     return result.toString();
   }
