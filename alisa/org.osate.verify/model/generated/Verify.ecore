@@ -77,6 +77,8 @@
         eType="#//FormalParameter" containment="true"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="properties" unique="false"
         upperBound="-1" eType="ecore:EClass platform:/resource/org.osate.aadl2/model/aadl2.ecore#//Property"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="resultValues" upperBound="-1"
+        eType="#//FormalParameter" containment="true"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="isPredicate" eType="ecore:EDataType platform:/resource/org.eclipse.emf.ecore/model/Ecore.ecore#//EBoolean"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="isResultReport" eType="ecore:EDataType platform:/resource/org.eclipse.emf.ecore/model/Ecore.ecore#//EBoolean"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="title" eType="ecore:EDataType platform:/resource/org.eclipse.emf.ecore/model/Ecore.ecore#//EString"/>

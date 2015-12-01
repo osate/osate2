@@ -114,11 +114,11 @@ VerificationPrecondition returns VerificationCondition:
 	;
 
 VerificationMethodRegistry returns VerificationMethodRegistry:
-	'verification' 'methods' name=ID
+	'verification' 'methods' name=QualifiedName
 	(':' title=STRING)?
 	'[' (
 	( description=Description)?
-	methods+=VerificationMethod*)
+	methods+=VerificationMethod+)
 	']';
 
 	
@@ -133,6 +133,11 @@ VerificationMethod:
 		(
 			'properties' '('
 			(properties+=[aadl2::Property|AADLPROPERTYREFERENCE] (',' properties+=[aadl2::Property|AADLPROPERTYREFERENCE])*)? 
+			')'
+		)?
+		(
+			'returns' '('
+			(resultValues+=FormalParameter (',' resultValues+=FormalParameter)*)? 
 			')'
 		)?
 		(isPredicate?='boolean'|isResultReport?='report')?

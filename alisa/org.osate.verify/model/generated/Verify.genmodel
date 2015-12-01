@@ -62,6 +62,7 @@
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Verify.ecore#//VerificationMethod/name"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Verify.ecore#//VerificationMethod/params"/>
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference Verify.ecore#//VerificationMethod/properties"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Verify.ecore#//VerificationMethod/resultValues"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Verify.ecore#//VerificationMethod/isPredicate"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Verify.ecore#//VerificationMethod/isResultReport"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Verify.ecore#//VerificationMethod/title"/>

@@ -397,7 +397,7 @@ public class VerifySemanticSequencer extends CommonSemanticSequencer {
 	
 	/**
 	 * Constraint:
-	 *     (name=ID title=STRING? description=Description? methods+=VerificationMethod*)
+	 *     (name=QualifiedName title=STRING? description=Description? methods+=VerificationMethod+)
 	 */
 	protected void sequence_VerificationMethodRegistry(EObject context, VerificationMethodRegistry semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
@@ -411,6 +411,7 @@ public class VerifySemanticSequencer extends CommonSemanticSequencer {
 	 *         (
 	 *             (params+=FormalParameter params+=FormalParameter*)? 
 	 *             (properties+=[Property|AADLPROPERTYREFERENCE] properties+=[Property|AADLPROPERTYREFERENCE]*)? 
+	 *             (resultValues+=FormalParameter resultValues+=FormalParameter*)? 
 	 *             (isPredicate?='boolean' | isResultReport?='report')?
 	 *         )? 
 	 *         title=STRING? 

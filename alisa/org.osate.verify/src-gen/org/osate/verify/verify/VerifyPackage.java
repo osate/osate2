@@ -574,13 +574,22 @@ public interface VerifyPackage extends EPackage
   int VERIFICATION_METHOD__PROPERTIES = 2;
 
   /**
+   * The feature id for the '<em><b>Result Values</b></em>' containment reference list.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int VERIFICATION_METHOD__RESULT_VALUES = 3;
+
+  /**
    * The feature id for the '<em><b>Is Predicate</b></em>' attribute.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    * @ordered
    */
-  int VERIFICATION_METHOD__IS_PREDICATE = 3;
+  int VERIFICATION_METHOD__IS_PREDICATE = 4;
 
   /**
    * The feature id for the '<em><b>Is Result Report</b></em>' attribute.
@@ -589,7 +598,7 @@ public interface VerifyPackage extends EPackage
    * @generated
    * @ordered
    */
-  int VERIFICATION_METHOD__IS_RESULT_REPORT = 4;
+  int VERIFICATION_METHOD__IS_RESULT_REPORT = 5;
 
   /**
    * The feature id for the '<em><b>Title</b></em>' attribute.
@@ -598,7 +607,7 @@ public interface VerifyPackage extends EPackage
    * @generated
    * @ordered
    */
-  int VERIFICATION_METHOD__TITLE = 5;
+  int VERIFICATION_METHOD__TITLE = 6;
 
   /**
    * The feature id for the '<em><b>Method Kind</b></em>' containment reference.
@@ -607,7 +616,7 @@ public interface VerifyPackage extends EPackage
    * @generated
    * @ordered
    */
-  int VERIFICATION_METHOD__METHOD_KIND = 6;
+  int VERIFICATION_METHOD__METHOD_KIND = 7;
 
   /**
    * The feature id for the '<em><b>Description</b></em>' containment reference.
@@ -616,7 +625,7 @@ public interface VerifyPackage extends EPackage
    * @generated
    * @ordered
    */
-  int VERIFICATION_METHOD__DESCRIPTION = 7;
+  int VERIFICATION_METHOD__DESCRIPTION = 8;
 
   /**
    * The feature id for the '<em><b>Precondition</b></em>' containment reference.
@@ -625,7 +634,7 @@ public interface VerifyPackage extends EPackage
    * @generated
    * @ordered
    */
-  int VERIFICATION_METHOD__PRECONDITION = 8;
+  int VERIFICATION_METHOD__PRECONDITION = 9;
 
   /**
    * The feature id for the '<em><b>Validation</b></em>' containment reference.
@@ -634,7 +643,7 @@ public interface VerifyPackage extends EPackage
    * @generated
    * @ordered
    */
-  int VERIFICATION_METHOD__VALIDATION = 9;
+  int VERIFICATION_METHOD__VALIDATION = 10;
 
   /**
    * The feature id for the '<em><b>Quality Category</b></em>' reference list.
@@ -643,7 +652,7 @@ public interface VerifyPackage extends EPackage
    * @generated
    * @ordered
    */
-  int VERIFICATION_METHOD__QUALITY_CATEGORY = 10;
+  int VERIFICATION_METHOD__QUALITY_CATEGORY = 11;
 
   /**
    * The feature id for the '<em><b>User Category</b></em>' reference list.
@@ -652,7 +661,7 @@ public interface VerifyPackage extends EPackage
    * @generated
    * @ordered
    */
-  int VERIFICATION_METHOD__USER_CATEGORY = 11;
+  int VERIFICATION_METHOD__USER_CATEGORY = 12;
 
   /**
    * The number of structural features of the '<em>Verification Method</em>' class.
@@ -661,7 +670,7 @@ public interface VerifyPackage extends EPackage
    * @generated
    * @ordered
    */
-  int VERIFICATION_METHOD_FEATURE_COUNT = 12;
+  int VERIFICATION_METHOD_FEATURE_COUNT = 13;
 
   /**
    * The meta object id for the '{@link org.osate.verify.verify.impl.MethodKindImpl <em>Method Kind</em>}' class.
@@ -1526,6 +1535,17 @@ public interface VerifyPackage extends EPackage
   EReference getVerificationMethod_Properties();
 
   /**
+   * Returns the meta object for the containment reference list '{@link org.osate.verify.verify.VerificationMethod#getResultValues <em>Result Values</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the containment reference list '<em>Result Values</em>'.
+   * @see org.osate.verify.verify.VerificationMethod#getResultValues()
+   * @see #getVerificationMethod()
+   * @generated
+   */
+  EReference getVerificationMethod_ResultValues();
+
+  /**
    * Returns the meta object for the attribute '{@link org.osate.verify.verify.VerificationMethod#isIsPredicate <em>Is Predicate</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -2282,6 +2302,14 @@ public interface VerifyPackage extends EPackage
      * @generated
      */
     EReference VERIFICATION_METHOD__PROPERTIES = eINSTANCE.getVerificationMethod_Properties();
+
+    /**
+     * The meta object literal for the '<em><b>Result Values</b></em>' containment reference list feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EReference VERIFICATION_METHOD__RESULT_VALUES = eINSTANCE.getVerificationMethod_ResultValues();
 
     /**
      * The meta object literal for the '<em><b>Is Predicate</b></em>' attribute feature.

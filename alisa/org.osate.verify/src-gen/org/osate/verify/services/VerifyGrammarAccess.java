@@ -1126,7 +1126,7 @@ public class VerifyGrammarAccess extends AbstractGrammarElementFinder {
 		private final Keyword cVerificationKeyword_0 = (Keyword)cGroup.eContents().get(0);
 		private final Keyword cMethodsKeyword_1 = (Keyword)cGroup.eContents().get(1);
 		private final Assignment cNameAssignment_2 = (Assignment)cGroup.eContents().get(2);
-		private final RuleCall cNameIDTerminalRuleCall_2_0 = (RuleCall)cNameAssignment_2.eContents().get(0);
+		private final RuleCall cNameQualifiedNameParserRuleCall_2_0 = (RuleCall)cNameAssignment_2.eContents().get(0);
 		private final Group cGroup_3 = (Group)cGroup.eContents().get(3);
 		private final Keyword cColonKeyword_3_0 = (Keyword)cGroup_3.eContents().get(0);
 		private final Assignment cTitleAssignment_3_1 = (Assignment)cGroup_3.eContents().get(1);
@@ -1140,10 +1140,12 @@ public class VerifyGrammarAccess extends AbstractGrammarElementFinder {
 		private final Keyword cRightSquareBracketKeyword_6 = (Keyword)cGroup.eContents().get(6);
 		
 		//VerificationMethodRegistry:
-		//	"verification" "methods" name=ID (":" title=STRING)? "[" (description=Description? methods+=VerificationMethod*) "]";
+		//	"verification" "methods" name=QualifiedName (":" title=STRING)? "[" (description=Description?
+		//	methods+=VerificationMethod+) "]";
 		@Override public ParserRule getRule() { return rule; }
 
-		//"verification" "methods" name=ID (":" title=STRING)? "[" (description=Description? methods+=VerificationMethod*) "]"
+		//"verification" "methods" name=QualifiedName (":" title=STRING)? "[" (description=Description?
+		//methods+=VerificationMethod+) "]"
 		public Group getGroup() { return cGroup; }
 
 		//"verification"
@@ -1152,11 +1154,11 @@ public class VerifyGrammarAccess extends AbstractGrammarElementFinder {
 		//"methods"
 		public Keyword getMethodsKeyword_1() { return cMethodsKeyword_1; }
 
-		//name=ID
+		//name=QualifiedName
 		public Assignment getNameAssignment_2() { return cNameAssignment_2; }
 
-		//ID
-		public RuleCall getNameIDTerminalRuleCall_2_0() { return cNameIDTerminalRuleCall_2_0; }
+		//QualifiedName
+		public RuleCall getNameQualifiedNameParserRuleCall_2_0() { return cNameQualifiedNameParserRuleCall_2_0; }
 
 		//(":" title=STRING)?
 		public Group getGroup_3() { return cGroup_3; }
@@ -1173,7 +1175,7 @@ public class VerifyGrammarAccess extends AbstractGrammarElementFinder {
 		//"["
 		public Keyword getLeftSquareBracketKeyword_4() { return cLeftSquareBracketKeyword_4; }
 
-		//description=Description? methods+=VerificationMethod*
+		//description=Description? methods+=VerificationMethod+
 		public Group getGroup_5() { return cGroup_5; }
 
 		//description=Description?
@@ -1182,7 +1184,7 @@ public class VerifyGrammarAccess extends AbstractGrammarElementFinder {
 		//Description
 		public RuleCall getDescriptionDescriptionParserRuleCall_5_0_0() { return cDescriptionDescriptionParserRuleCall_5_0_0; }
 
-		//methods+=VerificationMethod*
+		//methods+=VerificationMethod+
 		public Assignment getMethodsAssignment_5_1() { return cMethodsAssignment_5_1; }
 
 		//VerificationMethod
@@ -1269,11 +1271,22 @@ public class VerifyGrammarAccess extends AbstractGrammarElementFinder {
 		private final CrossReference cPropertiesPropertyCrossReference_2_3_2_1_1_0 = (CrossReference)cPropertiesAssignment_2_3_2_1_1.eContents().get(0);
 		private final RuleCall cPropertiesPropertyAADLPROPERTYREFERENCEParserRuleCall_2_3_2_1_1_0_1 = (RuleCall)cPropertiesPropertyCrossReference_2_3_2_1_1_0.eContents().get(1);
 		private final Keyword cRightParenthesisKeyword_2_3_3 = (Keyword)cGroup_2_3.eContents().get(3);
-		private final Alternatives cAlternatives_2_4 = (Alternatives)cGroup_2.eContents().get(4);
-		private final Assignment cIsPredicateAssignment_2_4_0 = (Assignment)cAlternatives_2_4.eContents().get(0);
-		private final Keyword cIsPredicateBooleanKeyword_2_4_0_0 = (Keyword)cIsPredicateAssignment_2_4_0.eContents().get(0);
-		private final Assignment cIsResultReportAssignment_2_4_1 = (Assignment)cAlternatives_2_4.eContents().get(1);
-		private final Keyword cIsResultReportReportKeyword_2_4_1_0 = (Keyword)cIsResultReportAssignment_2_4_1.eContents().get(0);
+		private final Group cGroup_2_4 = (Group)cGroup_2.eContents().get(4);
+		private final Keyword cReturnsKeyword_2_4_0 = (Keyword)cGroup_2_4.eContents().get(0);
+		private final Keyword cLeftParenthesisKeyword_2_4_1 = (Keyword)cGroup_2_4.eContents().get(1);
+		private final Group cGroup_2_4_2 = (Group)cGroup_2_4.eContents().get(2);
+		private final Assignment cResultValuesAssignment_2_4_2_0 = (Assignment)cGroup_2_4_2.eContents().get(0);
+		private final RuleCall cResultValuesFormalParameterParserRuleCall_2_4_2_0_0 = (RuleCall)cResultValuesAssignment_2_4_2_0.eContents().get(0);
+		private final Group cGroup_2_4_2_1 = (Group)cGroup_2_4_2.eContents().get(1);
+		private final Keyword cCommaKeyword_2_4_2_1_0 = (Keyword)cGroup_2_4_2_1.eContents().get(0);
+		private final Assignment cResultValuesAssignment_2_4_2_1_1 = (Assignment)cGroup_2_4_2_1.eContents().get(1);
+		private final RuleCall cResultValuesFormalParameterParserRuleCall_2_4_2_1_1_0 = (RuleCall)cResultValuesAssignment_2_4_2_1_1.eContents().get(0);
+		private final Keyword cRightParenthesisKeyword_2_4_3 = (Keyword)cGroup_2_4.eContents().get(3);
+		private final Alternatives cAlternatives_2_5 = (Alternatives)cGroup_2.eContents().get(5);
+		private final Assignment cIsPredicateAssignment_2_5_0 = (Assignment)cAlternatives_2_5.eContents().get(0);
+		private final Keyword cIsPredicateBooleanKeyword_2_5_0_0 = (Keyword)cIsPredicateAssignment_2_5_0.eContents().get(0);
+		private final Assignment cIsResultReportAssignment_2_5_1 = (Assignment)cAlternatives_2_5.eContents().get(1);
+		private final Keyword cIsResultReportReportKeyword_2_5_1_0 = (Keyword)cIsResultReportAssignment_2_5_1.eContents().get(0);
 		private final Group cGroup_3 = (Group)cGroup.eContents().get(3);
 		private final Keyword cColonKeyword_3_0 = (Keyword)cGroup_3.eContents().get(0);
 		private final Assignment cTitleAssignment_3_1 = (Assignment)cGroup_3.eContents().get(1);
@@ -1303,14 +1316,16 @@ public class VerifyGrammarAccess extends AbstractGrammarElementFinder {
 		//VerificationMethod:
 		//	"method" name=ID ("(" (params+=FormalParameter ("," params+=FormalParameter)*)? ")" ("properties" "("
 		//	(properties+=[aadl2::Property|AADLPROPERTYREFERENCE] ("," properties+=[aadl2::Property|AADLPROPERTYREFERENCE])*)?
-		//	")")? (isPredicate?="boolean" | isResultReport?="report")?)? (":" title=STRING)? "[" (methodKind=MethodKind &
+		//	")")? ("returns" "(" (resultValues+=FormalParameter ("," resultValues+=FormalParameter)*)? ")")?
+		//	(isPredicate?="boolean" | isResultReport?="report")?)? (":" title=STRING)? "[" (methodKind=MethodKind &
 		//	description=Description? & precondition=VerificationPrecondition? & validation=VerificationValidation? & ("quality"
 		//	qualityCategory+=[categories::QualityCategory]+)? & ("category" userCategory+=[categories::UserCategory]+)?) "]";
 		@Override public ParserRule getRule() { return rule; }
 
 		//"method" name=ID ("(" (params+=FormalParameter ("," params+=FormalParameter)*)? ")" ("properties" "("
 		//(properties+=[aadl2::Property|AADLPROPERTYREFERENCE] ("," properties+=[aadl2::Property|AADLPROPERTYREFERENCE])*)?
-		//")")? (isPredicate?="boolean" | isResultReport?="report")?)? (":" title=STRING)? "[" (methodKind=MethodKind &
+		//")")? ("returns" "(" (resultValues+=FormalParameter ("," resultValues+=FormalParameter)*)? ")")?
+		//(isPredicate?="boolean" | isResultReport?="report")?)? (":" title=STRING)? "[" (methodKind=MethodKind &
 		//description=Description? & precondition=VerificationPrecondition? & validation=VerificationValidation? & ("quality"
 		//qualityCategory+=[categories::QualityCategory]+)? & ("category" userCategory+=[categories::UserCategory]+)?) "]"
 		public Group getGroup() { return cGroup; }
@@ -1326,7 +1341,8 @@ public class VerifyGrammarAccess extends AbstractGrammarElementFinder {
 
 		//("(" (params+=FormalParameter ("," params+=FormalParameter)*)? ")" ("properties" "("
 		//(properties+=[aadl2::Property|AADLPROPERTYREFERENCE] ("," properties+=[aadl2::Property|AADLPROPERTYREFERENCE])*)?
-		//")")? (isPredicate?="boolean" | isResultReport?="report")?)?
+		//")")? ("returns" "(" (resultValues+=FormalParameter ("," resultValues+=FormalParameter)*)? ")")?
+		//(isPredicate?="boolean" | isResultReport?="report")?)?
 		public Group getGroup_2() { return cGroup_2; }
 
 		//"("
@@ -1396,20 +1412,53 @@ public class VerifyGrammarAccess extends AbstractGrammarElementFinder {
 		//")"
 		public Keyword getRightParenthesisKeyword_2_3_3() { return cRightParenthesisKeyword_2_3_3; }
 
+		//("returns" "(" (resultValues+=FormalParameter ("," resultValues+=FormalParameter)*)? ")")?
+		public Group getGroup_2_4() { return cGroup_2_4; }
+
+		//"returns"
+		public Keyword getReturnsKeyword_2_4_0() { return cReturnsKeyword_2_4_0; }
+
+		//"("
+		public Keyword getLeftParenthesisKeyword_2_4_1() { return cLeftParenthesisKeyword_2_4_1; }
+
+		//(resultValues+=FormalParameter ("," resultValues+=FormalParameter)*)?
+		public Group getGroup_2_4_2() { return cGroup_2_4_2; }
+
+		//resultValues+=FormalParameter
+		public Assignment getResultValuesAssignment_2_4_2_0() { return cResultValuesAssignment_2_4_2_0; }
+
+		//FormalParameter
+		public RuleCall getResultValuesFormalParameterParserRuleCall_2_4_2_0_0() { return cResultValuesFormalParameterParserRuleCall_2_4_2_0_0; }
+
+		//("," resultValues+=FormalParameter)*
+		public Group getGroup_2_4_2_1() { return cGroup_2_4_2_1; }
+
+		//","
+		public Keyword getCommaKeyword_2_4_2_1_0() { return cCommaKeyword_2_4_2_1_0; }
+
+		//resultValues+=FormalParameter
+		public Assignment getResultValuesAssignment_2_4_2_1_1() { return cResultValuesAssignment_2_4_2_1_1; }
+
+		//FormalParameter
+		public RuleCall getResultValuesFormalParameterParserRuleCall_2_4_2_1_1_0() { return cResultValuesFormalParameterParserRuleCall_2_4_2_1_1_0; }
+
+		//")"
+		public Keyword getRightParenthesisKeyword_2_4_3() { return cRightParenthesisKeyword_2_4_3; }
+
 		//(isPredicate?="boolean" | isResultReport?="report")?
-		public Alternatives getAlternatives_2_4() { return cAlternatives_2_4; }
+		public Alternatives getAlternatives_2_5() { return cAlternatives_2_5; }
 
 		//isPredicate?="boolean"
-		public Assignment getIsPredicateAssignment_2_4_0() { return cIsPredicateAssignment_2_4_0; }
+		public Assignment getIsPredicateAssignment_2_5_0() { return cIsPredicateAssignment_2_5_0; }
 
 		//"boolean"
-		public Keyword getIsPredicateBooleanKeyword_2_4_0_0() { return cIsPredicateBooleanKeyword_2_4_0_0; }
+		public Keyword getIsPredicateBooleanKeyword_2_5_0_0() { return cIsPredicateBooleanKeyword_2_5_0_0; }
 
 		//isResultReport?="report"
-		public Assignment getIsResultReportAssignment_2_4_1() { return cIsResultReportAssignment_2_4_1; }
+		public Assignment getIsResultReportAssignment_2_5_1() { return cIsResultReportAssignment_2_5_1; }
 
 		//"report"
-		public Keyword getIsResultReportReportKeyword_2_4_1_0() { return cIsResultReportReportKeyword_2_4_1_0; }
+		public Keyword getIsResultReportReportKeyword_2_5_1_0() { return cIsResultReportReportKeyword_2_5_1_0; }
 
 		//(":" title=STRING)?
 		public Group getGroup_3() { return cGroup_3; }
@@ -1862,7 +1911,8 @@ public class VerifyGrammarAccess extends AbstractGrammarElementFinder {
 	}
 
 	//VerificationMethodRegistry:
-	//	"verification" "methods" name=ID (":" title=STRING)? "[" (description=Description? methods+=VerificationMethod*) "]";
+	//	"verification" "methods" name=QualifiedName (":" title=STRING)? "[" (description=Description?
+	//	methods+=VerificationMethod+) "]";
 	public VerificationMethodRegistryElements getVerificationMethodRegistryAccess() {
 		return pVerificationMethodRegistry;
 	}
@@ -1884,7 +1934,8 @@ public class VerifyGrammarAccess extends AbstractGrammarElementFinder {
 	//VerificationMethod:
 	//	"method" name=ID ("(" (params+=FormalParameter ("," params+=FormalParameter)*)? ")" ("properties" "("
 	//	(properties+=[aadl2::Property|AADLPROPERTYREFERENCE] ("," properties+=[aadl2::Property|AADLPROPERTYREFERENCE])*)?
-	//	")")? (isPredicate?="boolean" | isResultReport?="report")?)? (":" title=STRING)? "[" (methodKind=MethodKind &
+	//	")")? ("returns" "(" (resultValues+=FormalParameter ("," resultValues+=FormalParameter)*)? ")")?
+	//	(isPredicate?="boolean" | isResultReport?="report")?)? (":" title=STRING)? "[" (methodKind=MethodKind &
 	//	description=Description? & precondition=VerificationPrecondition? & validation=VerificationValidation? & ("quality"
 	//	qualityCategory+=[categories::QualityCategory]+)? & ("category" userCategory+=[categories::UserCategory]+)?) "]";
 	public VerificationMethodElements getVerificationMethodAccess() {

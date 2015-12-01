@@ -38,6 +38,7 @@ import org.osate.categories.categories.UserCategory;
  *   <li>{@link org.osate.verify.verify.VerificationMethod#getName <em>Name</em>}</li>
  *   <li>{@link org.osate.verify.verify.VerificationMethod#getParams <em>Params</em>}</li>
  *   <li>{@link org.osate.verify.verify.VerificationMethod#getProperties <em>Properties</em>}</li>
+ *   <li>{@link org.osate.verify.verify.VerificationMethod#getResultValues <em>Result Values</em>}</li>
  *   <li>{@link org.osate.verify.verify.VerificationMethod#isIsPredicate <em>Is Predicate</em>}</li>
  *   <li>{@link org.osate.verify.verify.VerificationMethod#isIsResultReport <em>Is Result Report</em>}</li>
  *   <li>{@link org.osate.verify.verify.VerificationMethod#getTitle <em>Title</em>}</li>
@@ -112,6 +113,22 @@ public interface VerificationMethod extends EObject
    * @generated
    */
   EList<Property> getProperties();
+
+  /**
+   * Returns the value of the '<em><b>Result Values</b></em>' containment reference list.
+   * The list contents are of type {@link org.osate.verify.verify.FormalParameter}.
+   * <!-- begin-user-doc -->
+   * <p>
+   * If the meaning of the '<em>Result Values</em>' containment reference list isn't clear,
+   * there really should be more of a description here...
+   * </p>
+   * <!-- end-user-doc -->
+   * @return the value of the '<em>Result Values</em>' containment reference list.
+   * @see org.osate.verify.verify.VerifyPackage#getVerificationMethod_ResultValues()
+   * @model containment="true"
+   * @generated
+   */
+  EList<FormalParameter> getResultValues();
 
   /**
    * Returns the value of the '<em><b>Is Predicate</b></em>' attribute.
