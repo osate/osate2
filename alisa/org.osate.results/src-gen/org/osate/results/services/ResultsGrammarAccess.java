@@ -658,7 +658,7 @@ public class ResultsGrammarAccess extends AbstractGrammarElementFinder {
 
 	//// This is similar to diagnostics
 	//ResultIssue:
-	//	"issue" issueType=ResultIssueType message=STRING ("target" target=[ecore::EObject|URIID])? ("exception"
+	//	issueType=ResultIssueType message=STRING ("target" target=[ecore::EObject|URIID])? ("exception"
 	//	exceptionType=STRING)? ("[" issues+=ResultIssue* "]")?;
 	public CommonGrammarAccess.ResultIssueElements getResultIssueAccess() {
 		return gaCommon.getResultIssueAccess();
@@ -669,7 +669,7 @@ public class ResultsGrammarAccess extends AbstractGrammarElementFinder {
 	}
 
 	//enum ResultIssueType:
-	//	TBD="tbd" | UNKNOWN="unknown" | ERROR="error" | WARNING="warning" | INFO="info" | SUCCESS="success" | FAIL="fail";
+	//	TBD="tbd" | ERROR="error" | WARNING="warning" | INFO="info" | SUCCESS="success" | FAIL="fail";
 	public CommonGrammarAccess.ResultIssueTypeElements getResultIssueTypeAccess() {
 		return gaCommon.getResultIssueTypeAccess();
 	}

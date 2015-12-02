@@ -43,16 +43,6 @@ public enum ResultIssueType implements Enumerator
   TBD(0, "TBD", "tbd"),
 
   /**
-   * The '<em><b>UNKNOWN</b></em>' literal object.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @see #UNKNOWN_VALUE
-   * @generated
-   * @ordered
-   */
-  UNKNOWN(1, "UNKNOWN", "unknown"),
-
-  /**
    * The '<em><b>ERROR</b></em>' literal object.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -60,7 +50,7 @@ public enum ResultIssueType implements Enumerator
    * @generated
    * @ordered
    */
-  ERROR(2, "ERROR", "error"),
+  ERROR(1, "ERROR", "error"),
 
   /**
    * The '<em><b>WARNING</b></em>' literal object.
@@ -70,7 +60,7 @@ public enum ResultIssueType implements Enumerator
    * @generated
    * @ordered
    */
-  WARNING(3, "WARNING", "warning"),
+  WARNING(2, "WARNING", "warning"),
 
   /**
    * The '<em><b>INFO</b></em>' literal object.
@@ -80,7 +70,7 @@ public enum ResultIssueType implements Enumerator
    * @generated
    * @ordered
    */
-  INFO(4, "INFO", "info"),
+  INFO(3, "INFO", "info"),
 
   /**
    * The '<em><b>SUCCESS</b></em>' literal object.
@@ -90,7 +80,7 @@ public enum ResultIssueType implements Enumerator
    * @generated
    * @ordered
    */
-  SUCCESS(5, "SUCCESS", "success"),
+  SUCCESS(4, "SUCCESS", "success"),
 
   /**
    * The '<em><b>FAIL</b></em>' literal object.
@@ -100,7 +90,7 @@ public enum ResultIssueType implements Enumerator
    * @generated
    * @ordered
    */
-  FAIL(6, "FAIL", "fail");
+  FAIL(5, "FAIL", "fail");
 
   /**
    * The '<em><b>TBD</b></em>' literal value.
@@ -118,21 +108,6 @@ public enum ResultIssueType implements Enumerator
   public static final int TBD_VALUE = 0;
 
   /**
-   * The '<em><b>UNKNOWN</b></em>' literal value.
-   * <!-- begin-user-doc -->
-   * <p>
-   * If the meaning of '<em><b>UNKNOWN</b></em>' literal object isn't clear,
-   * there really should be more of a description here...
-   * </p>
-   * <!-- end-user-doc -->
-   * @see #UNKNOWN
-   * @model literal="unknown"
-   * @generated
-   * @ordered
-   */
-  public static final int UNKNOWN_VALUE = 1;
-
-  /**
    * The '<em><b>ERROR</b></em>' literal value.
    * <!-- begin-user-doc -->
    * <p>
@@ -145,7 +120,7 @@ public enum ResultIssueType implements Enumerator
    * @generated
    * @ordered
    */
-  public static final int ERROR_VALUE = 2;
+  public static final int ERROR_VALUE = 1;
 
   /**
    * The '<em><b>WARNING</b></em>' literal value.
@@ -160,7 +135,7 @@ public enum ResultIssueType implements Enumerator
    * @generated
    * @ordered
    */
-  public static final int WARNING_VALUE = 3;
+  public static final int WARNING_VALUE = 2;
 
   /**
    * The '<em><b>INFO</b></em>' literal value.
@@ -175,7 +150,7 @@ public enum ResultIssueType implements Enumerator
    * @generated
    * @ordered
    */
-  public static final int INFO_VALUE = 4;
+  public static final int INFO_VALUE = 3;
 
   /**
    * The '<em><b>SUCCESS</b></em>' literal value.
@@ -190,7 +165,7 @@ public enum ResultIssueType implements Enumerator
    * @generated
    * @ordered
    */
-  public static final int SUCCESS_VALUE = 5;
+  public static final int SUCCESS_VALUE = 4;
 
   /**
    * The '<em><b>FAIL</b></em>' literal value.
@@ -205,7 +180,7 @@ public enum ResultIssueType implements Enumerator
    * @generated
    * @ordered
    */
-  public static final int FAIL_VALUE = 6;
+  public static final int FAIL_VALUE = 5;
 
   /**
    * An array of all the '<em><b>Result Issue Type</b></em>' enumerators.
@@ -217,7 +192,6 @@ public enum ResultIssueType implements Enumerator
     new ResultIssueType[]
     {
       TBD,
-      UNKNOWN,
       ERROR,
       WARNING,
       INFO,
@@ -288,7 +262,6 @@ public enum ResultIssueType implements Enumerator
     switch (value)
     {
       case TBD_VALUE: return TBD;
-      case UNKNOWN_VALUE: return UNKNOWN;
       case ERROR_VALUE: return ERROR;
       case WARNING_VALUE: return WARNING;
       case INFO_VALUE: return INFO;

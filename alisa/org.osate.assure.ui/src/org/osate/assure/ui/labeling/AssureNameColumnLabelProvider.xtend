@@ -14,6 +14,7 @@ import org.osate.alisa.common.common.ResultIssue
 import org.osate.assure.assure.ModelResult
 import org.osate.assure.assure.SubsystemResult
 import org.osate.alisa.common.common.ResultIssueType
+import org.osate.assure.assure.PreconditionResult
 
 class AssureNameColumnLabelProvider extends ColumnLabelProvider {
 
@@ -24,6 +25,8 @@ class AssureNameColumnLabelProvider extends ColumnLabelProvider {
 			SubsystemResult : "Subsystem "+ele.name 
 			ClaimResult : "Claim "+ele.name
 			VerificationActivityResult : "Evidence "+ele.name
+			ValidationResult : "Validation "+ele.name
+			PreconditionResult : "Precondition "+ele.name
 			ResultIssue : {
 					ele.target?.constructLabel?:""+ ele.constructMessage
 			}
@@ -82,6 +85,13 @@ class AssureNameColumnLabelProvider extends ColumnLabelProvider {
 				'questionmark.png'
 			}
 			ValidationResult : {
+				if (ele.isSuccessful) return 'valid.png'
+				if (ele.isFail) return 'invalid.png'
+				if (ele.isErrorTimeOut) return 'error.png'
+				if (ele.isZeroCount) return 'info.png'
+				'questionmark.png'
+			}
+			PreconditionResult : {
 				if (ele.isSuccessful) return 'valid.png'
 				if (ele.isFail) return 'invalid.png'
 				if (ele.isErrorTimeOut) return 'error.png'

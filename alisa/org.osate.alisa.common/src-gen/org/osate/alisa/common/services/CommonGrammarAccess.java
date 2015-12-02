@@ -185,92 +185,88 @@ public class CommonGrammarAccess extends AbstractGrammarElementFinder {
 	public class ResultIssueElements extends AbstractParserRuleElementFinder {
 		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "ResultIssue");
 		private final Group cGroup = (Group)rule.eContents().get(1);
-		private final Keyword cIssueKeyword_0 = (Keyword)cGroup.eContents().get(0);
-		private final Assignment cIssueTypeAssignment_1 = (Assignment)cGroup.eContents().get(1);
-		private final RuleCall cIssueTypeResultIssueTypeEnumRuleCall_1_0 = (RuleCall)cIssueTypeAssignment_1.eContents().get(0);
-		private final Assignment cMessageAssignment_2 = (Assignment)cGroup.eContents().get(2);
-		private final RuleCall cMessageSTRINGTerminalRuleCall_2_0 = (RuleCall)cMessageAssignment_2.eContents().get(0);
+		private final Assignment cIssueTypeAssignment_0 = (Assignment)cGroup.eContents().get(0);
+		private final RuleCall cIssueTypeResultIssueTypeEnumRuleCall_0_0 = (RuleCall)cIssueTypeAssignment_0.eContents().get(0);
+		private final Assignment cMessageAssignment_1 = (Assignment)cGroup.eContents().get(1);
+		private final RuleCall cMessageSTRINGTerminalRuleCall_1_0 = (RuleCall)cMessageAssignment_1.eContents().get(0);
+		private final Group cGroup_2 = (Group)cGroup.eContents().get(2);
+		private final Keyword cTargetKeyword_2_0 = (Keyword)cGroup_2.eContents().get(0);
+		private final Assignment cTargetAssignment_2_1 = (Assignment)cGroup_2.eContents().get(1);
+		private final CrossReference cTargetEObjectCrossReference_2_1_0 = (CrossReference)cTargetAssignment_2_1.eContents().get(0);
+		private final RuleCall cTargetEObjectURIIDParserRuleCall_2_1_0_1 = (RuleCall)cTargetEObjectCrossReference_2_1_0.eContents().get(1);
 		private final Group cGroup_3 = (Group)cGroup.eContents().get(3);
-		private final Keyword cTargetKeyword_3_0 = (Keyword)cGroup_3.eContents().get(0);
-		private final Assignment cTargetAssignment_3_1 = (Assignment)cGroup_3.eContents().get(1);
-		private final CrossReference cTargetEObjectCrossReference_3_1_0 = (CrossReference)cTargetAssignment_3_1.eContents().get(0);
-		private final RuleCall cTargetEObjectURIIDParserRuleCall_3_1_0_1 = (RuleCall)cTargetEObjectCrossReference_3_1_0.eContents().get(1);
+		private final Keyword cExceptionKeyword_3_0 = (Keyword)cGroup_3.eContents().get(0);
+		private final Assignment cExceptionTypeAssignment_3_1 = (Assignment)cGroup_3.eContents().get(1);
+		private final RuleCall cExceptionTypeSTRINGTerminalRuleCall_3_1_0 = (RuleCall)cExceptionTypeAssignment_3_1.eContents().get(0);
 		private final Group cGroup_4 = (Group)cGroup.eContents().get(4);
-		private final Keyword cExceptionKeyword_4_0 = (Keyword)cGroup_4.eContents().get(0);
-		private final Assignment cExceptionTypeAssignment_4_1 = (Assignment)cGroup_4.eContents().get(1);
-		private final RuleCall cExceptionTypeSTRINGTerminalRuleCall_4_1_0 = (RuleCall)cExceptionTypeAssignment_4_1.eContents().get(0);
-		private final Group cGroup_5 = (Group)cGroup.eContents().get(5);
-		private final Keyword cLeftSquareBracketKeyword_5_0 = (Keyword)cGroup_5.eContents().get(0);
-		private final Assignment cIssuesAssignment_5_1 = (Assignment)cGroup_5.eContents().get(1);
-		private final RuleCall cIssuesResultIssueParserRuleCall_5_1_0 = (RuleCall)cIssuesAssignment_5_1.eContents().get(0);
-		private final Keyword cRightSquareBracketKeyword_5_2 = (Keyword)cGroup_5.eContents().get(2);
+		private final Keyword cLeftSquareBracketKeyword_4_0 = (Keyword)cGroup_4.eContents().get(0);
+		private final Assignment cIssuesAssignment_4_1 = (Assignment)cGroup_4.eContents().get(1);
+		private final RuleCall cIssuesResultIssueParserRuleCall_4_1_0 = (RuleCall)cIssuesAssignment_4_1.eContents().get(0);
+		private final Keyword cRightSquareBracketKeyword_4_2 = (Keyword)cGroup_4.eContents().get(2);
 		
 		//// This is similar to diagnostics
 		//ResultIssue:
-		//	"issue" issueType=ResultIssueType message=STRING ("target" target=[ecore::EObject|URIID])? ("exception"
+		//	issueType=ResultIssueType message=STRING ("target" target=[ecore::EObject|URIID])? ("exception"
 		//	exceptionType=STRING)? ("[" issues+=ResultIssue* "]")?;
 		@Override public ParserRule getRule() { return rule; }
 
-		//"issue" issueType=ResultIssueType message=STRING ("target" target=[ecore::EObject|URIID])? ("exception"
-		//exceptionType=STRING)? ("[" issues+=ResultIssue* "]")?
+		//issueType=ResultIssueType message=STRING ("target" target=[ecore::EObject|URIID])? ("exception" exceptionType=STRING)?
+		//("[" issues+=ResultIssue* "]")?
 		public Group getGroup() { return cGroup; }
 
-		//"issue"
-		public Keyword getIssueKeyword_0() { return cIssueKeyword_0; }
-
 		//issueType=ResultIssueType
-		public Assignment getIssueTypeAssignment_1() { return cIssueTypeAssignment_1; }
+		public Assignment getIssueTypeAssignment_0() { return cIssueTypeAssignment_0; }
 
 		//ResultIssueType
-		public RuleCall getIssueTypeResultIssueTypeEnumRuleCall_1_0() { return cIssueTypeResultIssueTypeEnumRuleCall_1_0; }
+		public RuleCall getIssueTypeResultIssueTypeEnumRuleCall_0_0() { return cIssueTypeResultIssueTypeEnumRuleCall_0_0; }
 
 		//message=STRING
-		public Assignment getMessageAssignment_2() { return cMessageAssignment_2; }
+		public Assignment getMessageAssignment_1() { return cMessageAssignment_1; }
 
 		//STRING
-		public RuleCall getMessageSTRINGTerminalRuleCall_2_0() { return cMessageSTRINGTerminalRuleCall_2_0; }
+		public RuleCall getMessageSTRINGTerminalRuleCall_1_0() { return cMessageSTRINGTerminalRuleCall_1_0; }
 
 		//("target" target=[ecore::EObject|URIID])?
-		public Group getGroup_3() { return cGroup_3; }
+		public Group getGroup_2() { return cGroup_2; }
 
 		//"target"
-		public Keyword getTargetKeyword_3_0() { return cTargetKeyword_3_0; }
+		public Keyword getTargetKeyword_2_0() { return cTargetKeyword_2_0; }
 
 		//target=[ecore::EObject|URIID]
-		public Assignment getTargetAssignment_3_1() { return cTargetAssignment_3_1; }
+		public Assignment getTargetAssignment_2_1() { return cTargetAssignment_2_1; }
 
 		//[ecore::EObject|URIID]
-		public CrossReference getTargetEObjectCrossReference_3_1_0() { return cTargetEObjectCrossReference_3_1_0; }
+		public CrossReference getTargetEObjectCrossReference_2_1_0() { return cTargetEObjectCrossReference_2_1_0; }
 
 		//URIID
-		public RuleCall getTargetEObjectURIIDParserRuleCall_3_1_0_1() { return cTargetEObjectURIIDParserRuleCall_3_1_0_1; }
+		public RuleCall getTargetEObjectURIIDParserRuleCall_2_1_0_1() { return cTargetEObjectURIIDParserRuleCall_2_1_0_1; }
 
 		//("exception" exceptionType=STRING)?
-		public Group getGroup_4() { return cGroup_4; }
+		public Group getGroup_3() { return cGroup_3; }
 
 		//"exception"
-		public Keyword getExceptionKeyword_4_0() { return cExceptionKeyword_4_0; }
+		public Keyword getExceptionKeyword_3_0() { return cExceptionKeyword_3_0; }
 
 		//exceptionType=STRING
-		public Assignment getExceptionTypeAssignment_4_1() { return cExceptionTypeAssignment_4_1; }
+		public Assignment getExceptionTypeAssignment_3_1() { return cExceptionTypeAssignment_3_1; }
 
 		//STRING
-		public RuleCall getExceptionTypeSTRINGTerminalRuleCall_4_1_0() { return cExceptionTypeSTRINGTerminalRuleCall_4_1_0; }
+		public RuleCall getExceptionTypeSTRINGTerminalRuleCall_3_1_0() { return cExceptionTypeSTRINGTerminalRuleCall_3_1_0; }
 
 		//("[" issues+=ResultIssue* "]")?
-		public Group getGroup_5() { return cGroup_5; }
+		public Group getGroup_4() { return cGroup_4; }
 
 		//"["
-		public Keyword getLeftSquareBracketKeyword_5_0() { return cLeftSquareBracketKeyword_5_0; }
+		public Keyword getLeftSquareBracketKeyword_4_0() { return cLeftSquareBracketKeyword_4_0; }
 
 		//issues+=ResultIssue*
-		public Assignment getIssuesAssignment_5_1() { return cIssuesAssignment_5_1; }
+		public Assignment getIssuesAssignment_4_1() { return cIssuesAssignment_4_1; }
 
 		//ResultIssue
-		public RuleCall getIssuesResultIssueParserRuleCall_5_1_0() { return cIssuesResultIssueParserRuleCall_5_1_0; }
+		public RuleCall getIssuesResultIssueParserRuleCall_4_1_0() { return cIssuesResultIssueParserRuleCall_4_1_0; }
 
 		//"]"
-		public Keyword getRightSquareBracketKeyword_5_2() { return cRightSquareBracketKeyword_5_2; }
+		public Keyword getRightSquareBracketKeyword_4_2() { return cRightSquareBracketKeyword_4_2; }
 	}
 
 	public class ValDeclarationElements extends AbstractParserRuleElementFinder {
@@ -1894,24 +1890,22 @@ public class CommonGrammarAccess extends AbstractGrammarElementFinder {
 		private final Alternatives cAlternatives = (Alternatives)rule.eContents().get(1);
 		private final EnumLiteralDeclaration cTBDEnumLiteralDeclaration_0 = (EnumLiteralDeclaration)cAlternatives.eContents().get(0);
 		private final Keyword cTBDTbdKeyword_0_0 = (Keyword)cTBDEnumLiteralDeclaration_0.eContents().get(0);
-		private final EnumLiteralDeclaration cUNKNOWNEnumLiteralDeclaration_1 = (EnumLiteralDeclaration)cAlternatives.eContents().get(1);
-		private final Keyword cUNKNOWNUnknownKeyword_1_0 = (Keyword)cUNKNOWNEnumLiteralDeclaration_1.eContents().get(0);
-		private final EnumLiteralDeclaration cERROREnumLiteralDeclaration_2 = (EnumLiteralDeclaration)cAlternatives.eContents().get(2);
-		private final Keyword cERRORErrorKeyword_2_0 = (Keyword)cERROREnumLiteralDeclaration_2.eContents().get(0);
-		private final EnumLiteralDeclaration cWARNINGEnumLiteralDeclaration_3 = (EnumLiteralDeclaration)cAlternatives.eContents().get(3);
-		private final Keyword cWARNINGWarningKeyword_3_0 = (Keyword)cWARNINGEnumLiteralDeclaration_3.eContents().get(0);
-		private final EnumLiteralDeclaration cINFOEnumLiteralDeclaration_4 = (EnumLiteralDeclaration)cAlternatives.eContents().get(4);
-		private final Keyword cINFOInfoKeyword_4_0 = (Keyword)cINFOEnumLiteralDeclaration_4.eContents().get(0);
-		private final EnumLiteralDeclaration cSUCCESSEnumLiteralDeclaration_5 = (EnumLiteralDeclaration)cAlternatives.eContents().get(5);
-		private final Keyword cSUCCESSSuccessKeyword_5_0 = (Keyword)cSUCCESSEnumLiteralDeclaration_5.eContents().get(0);
-		private final EnumLiteralDeclaration cFAILEnumLiteralDeclaration_6 = (EnumLiteralDeclaration)cAlternatives.eContents().get(6);
-		private final Keyword cFAILFailKeyword_6_0 = (Keyword)cFAILEnumLiteralDeclaration_6.eContents().get(0);
+		private final EnumLiteralDeclaration cERROREnumLiteralDeclaration_1 = (EnumLiteralDeclaration)cAlternatives.eContents().get(1);
+		private final Keyword cERRORErrorKeyword_1_0 = (Keyword)cERROREnumLiteralDeclaration_1.eContents().get(0);
+		private final EnumLiteralDeclaration cWARNINGEnumLiteralDeclaration_2 = (EnumLiteralDeclaration)cAlternatives.eContents().get(2);
+		private final Keyword cWARNINGWarningKeyword_2_0 = (Keyword)cWARNINGEnumLiteralDeclaration_2.eContents().get(0);
+		private final EnumLiteralDeclaration cINFOEnumLiteralDeclaration_3 = (EnumLiteralDeclaration)cAlternatives.eContents().get(3);
+		private final Keyword cINFOInfoKeyword_3_0 = (Keyword)cINFOEnumLiteralDeclaration_3.eContents().get(0);
+		private final EnumLiteralDeclaration cSUCCESSEnumLiteralDeclaration_4 = (EnumLiteralDeclaration)cAlternatives.eContents().get(4);
+		private final Keyword cSUCCESSSuccessKeyword_4_0 = (Keyword)cSUCCESSEnumLiteralDeclaration_4.eContents().get(0);
+		private final EnumLiteralDeclaration cFAILEnumLiteralDeclaration_5 = (EnumLiteralDeclaration)cAlternatives.eContents().get(5);
+		private final Keyword cFAILFailKeyword_5_0 = (Keyword)cFAILEnumLiteralDeclaration_5.eContents().get(0);
 		
 		//enum ResultIssueType:
-		//	TBD="tbd" | UNKNOWN="unknown" | ERROR="error" | WARNING="warning" | INFO="info" | SUCCESS="success" | FAIL="fail";
+		//	TBD="tbd" | ERROR="error" | WARNING="warning" | INFO="info" | SUCCESS="success" | FAIL="fail";
 		public EnumRule getRule() { return rule; }
 
-		//TBD="tbd" | UNKNOWN="unknown" | ERROR="error" | WARNING="warning" | INFO="info" | SUCCESS="success" | FAIL="fail"
+		//TBD="tbd" | ERROR="error" | WARNING="warning" | INFO="info" | SUCCESS="success" | FAIL="fail"
 		public Alternatives getAlternatives() { return cAlternatives; }
 
 		//TBD="tbd"
@@ -1920,41 +1914,35 @@ public class CommonGrammarAccess extends AbstractGrammarElementFinder {
 		//"tbd"
 		public Keyword getTBDTbdKeyword_0_0() { return cTBDTbdKeyword_0_0; }
 
-		//UNKNOWN="unknown"
-		public EnumLiteralDeclaration getUNKNOWNEnumLiteralDeclaration_1() { return cUNKNOWNEnumLiteralDeclaration_1; }
-
-		//"unknown"
-		public Keyword getUNKNOWNUnknownKeyword_1_0() { return cUNKNOWNUnknownKeyword_1_0; }
-
 		//ERROR="error"
-		public EnumLiteralDeclaration getERROREnumLiteralDeclaration_2() { return cERROREnumLiteralDeclaration_2; }
+		public EnumLiteralDeclaration getERROREnumLiteralDeclaration_1() { return cERROREnumLiteralDeclaration_1; }
 
 		//"error"
-		public Keyword getERRORErrorKeyword_2_0() { return cERRORErrorKeyword_2_0; }
+		public Keyword getERRORErrorKeyword_1_0() { return cERRORErrorKeyword_1_0; }
 
 		//WARNING="warning"
-		public EnumLiteralDeclaration getWARNINGEnumLiteralDeclaration_3() { return cWARNINGEnumLiteralDeclaration_3; }
+		public EnumLiteralDeclaration getWARNINGEnumLiteralDeclaration_2() { return cWARNINGEnumLiteralDeclaration_2; }
 
 		//"warning"
-		public Keyword getWARNINGWarningKeyword_3_0() { return cWARNINGWarningKeyword_3_0; }
+		public Keyword getWARNINGWarningKeyword_2_0() { return cWARNINGWarningKeyword_2_0; }
 
 		//INFO="info"
-		public EnumLiteralDeclaration getINFOEnumLiteralDeclaration_4() { return cINFOEnumLiteralDeclaration_4; }
+		public EnumLiteralDeclaration getINFOEnumLiteralDeclaration_3() { return cINFOEnumLiteralDeclaration_3; }
 
 		//"info"
-		public Keyword getINFOInfoKeyword_4_0() { return cINFOInfoKeyword_4_0; }
+		public Keyword getINFOInfoKeyword_3_0() { return cINFOInfoKeyword_3_0; }
 
 		//SUCCESS="success"
-		public EnumLiteralDeclaration getSUCCESSEnumLiteralDeclaration_5() { return cSUCCESSEnumLiteralDeclaration_5; }
+		public EnumLiteralDeclaration getSUCCESSEnumLiteralDeclaration_4() { return cSUCCESSEnumLiteralDeclaration_4; }
 
 		//"success"
-		public Keyword getSUCCESSSuccessKeyword_5_0() { return cSUCCESSSuccessKeyword_5_0; }
+		public Keyword getSUCCESSSuccessKeyword_4_0() { return cSUCCESSSuccessKeyword_4_0; }
 
 		//FAIL="fail"
-		public EnumLiteralDeclaration getFAILEnumLiteralDeclaration_6() { return cFAILEnumLiteralDeclaration_6; }
+		public EnumLiteralDeclaration getFAILEnumLiteralDeclaration_5() { return cFAILEnumLiteralDeclaration_5; }
 
 		//"fail"
-		public Keyword getFAILFailKeyword_6_0() { return cFAILFailKeyword_6_0; }
+		public Keyword getFAILFailKeyword_5_0() { return cFAILFailKeyword_5_0; }
 	}
 	
 	private final DescriptionElements pDescription;
@@ -2150,7 +2138,7 @@ public class CommonGrammarAccess extends AbstractGrammarElementFinder {
 
 	//// This is similar to diagnostics
 	//ResultIssue:
-	//	"issue" issueType=ResultIssueType message=STRING ("target" target=[ecore::EObject|URIID])? ("exception"
+	//	issueType=ResultIssueType message=STRING ("target" target=[ecore::EObject|URIID])? ("exception"
 	//	exceptionType=STRING)? ("[" issues+=ResultIssue* "]")?;
 	public ResultIssueElements getResultIssueAccess() {
 		return pResultIssue;
@@ -2161,7 +2149,7 @@ public class CommonGrammarAccess extends AbstractGrammarElementFinder {
 	}
 
 	//enum ResultIssueType:
-	//	TBD="tbd" | UNKNOWN="unknown" | ERROR="error" | WARNING="warning" | INFO="info" | SUCCESS="success" | FAIL="fail";
+	//	TBD="tbd" | ERROR="error" | WARNING="warning" | INFO="info" | SUCCESS="success" | FAIL="fail";
 	public ResultIssueTypeElements getResultIssueTypeAccess() {
 		return unknownRuleResultIssueType;
 	}

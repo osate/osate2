@@ -30,12 +30,11 @@
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EEnum" name="ResultIssueType">
     <eLiterals name="TBD" literal="tbd"/>
-    <eLiterals name="UNKNOWN" value="1" literal="unknown"/>
-    <eLiterals name="ERROR" value="2" literal="error"/>
-    <eLiterals name="WARNING" value="3" literal="warning"/>
-    <eLiterals name="INFO" value="4" literal="info"/>
-    <eLiterals name="SUCCESS" value="5" literal="success"/>
-    <eLiterals name="FAIL" value="6" literal="fail"/>
+    <eLiterals name="ERROR" value="1" literal="error"/>
+    <eLiterals name="WARNING" value="2" literal="warning"/>
+    <eLiterals name="INFO" value="3" literal="info"/>
+    <eLiterals name="SUCCESS" value="4" literal="success"/>
+    <eLiterals name="FAIL" value="5" literal="fail"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="AVariableDeclaration">
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="type" eType="ecore:EDataType platform:/plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//EString"/>

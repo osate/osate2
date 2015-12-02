@@ -54,8 +54,8 @@ class ResultsUtilExtension {
 		holder.addIssue(msg, target,  ResultIssueType.FAIL)
 	} 
 	
-	def static void addUnknown(ResultIssue holder, String msg, EObject target){
-		holder.addIssue(msg, target,  ResultIssueType.UNKNOWN)
+	def static void addTBD(ResultIssue holder, String msg, EObject target){
+		holder.addIssue(msg, target,  ResultIssueType.TBD)
 	} 
 	
 	def static void addIssue (ResultIssue holder, String msg, EObject target,  ResultIssueType rit){

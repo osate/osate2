@@ -86,8 +86,6 @@ Section : 'section';
 
 Success : 'success';
 
-Unknown : 'unknown';
-
 Virtual : 'virtual';
 
 Warning : 'warning';
@@ -117,8 +115,6 @@ False : 'false';
 Goals : 'goals';
 
 Group : 'group';
-
-Issue : 'issue';
 
 Value : 'value';
 

@@ -935,7 +935,6 @@ public class CommonPackageImpl extends EPackageImpl implements CommonPackage
     // Initialize enums and add enum literals
     initEEnum(resultIssueTypeEEnum, ResultIssueType.class, "ResultIssueType");
     addEEnumLiteral(resultIssueTypeEEnum, ResultIssueType.TBD);
-    addEEnumLiteral(resultIssueTypeEEnum, ResultIssueType.UNKNOWN);
     addEEnumLiteral(resultIssueTypeEEnum, ResultIssueType.ERROR);
     addEEnumLiteral(resultIssueTypeEEnum, ResultIssueType.WARNING);
     addEEnumLiteral(resultIssueTypeEEnum, ResultIssueType.INFO);

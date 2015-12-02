@@ -43,7 +43,7 @@ public class AlisaSyntacticSequencer extends AbstractSyntacticSequencer {
 	protected AbstractElementAlias match_AssuranceTask_IssuesKeyword_6_4_0_q;
 	protected AbstractElementAlias match_AssuranceTask_PhaseKeyword_6_3_0_q;
 	protected AbstractElementAlias match_AssuranceTask_QualityKeyword_6_2_0_q;
-	protected AbstractElementAlias match_ResultIssue___LeftSquareBracketKeyword_5_0_RightSquareBracketKeyword_5_2__q;
+	protected AbstractElementAlias match_ResultIssue___LeftSquareBracketKeyword_4_0_RightSquareBracketKeyword_4_2__q;
 	
 	@Inject
 	protected void init(IGrammarAccess access) {
@@ -58,7 +58,7 @@ public class AlisaSyntacticSequencer extends AbstractSyntacticSequencer {
 		match_AssuranceTask_IssuesKeyword_6_4_0_q = new TokenAlias(false, true, grammarAccess.getAssuranceTaskAccess().getIssuesKeyword_6_4_0());
 		match_AssuranceTask_PhaseKeyword_6_3_0_q = new TokenAlias(false, true, grammarAccess.getAssuranceTaskAccess().getPhaseKeyword_6_3_0());
 		match_AssuranceTask_QualityKeyword_6_2_0_q = new TokenAlias(false, true, grammarAccess.getAssuranceTaskAccess().getQualityKeyword_6_2_0());
-		match_ResultIssue___LeftSquareBracketKeyword_5_0_RightSquareBracketKeyword_5_2__q = new GroupAlias(false, true, new TokenAlias(false, false, grammarAccess.getResultIssueAccess().getLeftSquareBracketKeyword_5_0()), new TokenAlias(false, false, grammarAccess.getResultIssueAccess().getRightSquareBracketKeyword_5_2()));
+		match_ResultIssue___LeftSquareBracketKeyword_4_0_RightSquareBracketKeyword_4_2__q = new GroupAlias(false, true, new TokenAlias(false, false, grammarAccess.getResultIssueAccess().getLeftSquareBracketKeyword_4_0()), new TokenAlias(false, false, grammarAccess.getResultIssueAccess().getRightSquareBracketKeyword_4_2()));
 	}
 	
 	@Override
@@ -93,8 +93,8 @@ public class AlisaSyntacticSequencer extends AbstractSyntacticSequencer {
 				emit_AssuranceTask_PhaseKeyword_6_3_0_q(semanticObject, getLastNavigableState(), syntaxNodes);
 			else if(match_AssuranceTask_QualityKeyword_6_2_0_q.equals(syntax))
 				emit_AssuranceTask_QualityKeyword_6_2_0_q(semanticObject, getLastNavigableState(), syntaxNodes);
-			else if(match_ResultIssue___LeftSquareBracketKeyword_5_0_RightSquareBracketKeyword_5_2__q.equals(syntax))
-				emit_ResultIssue___LeftSquareBracketKeyword_5_0_RightSquareBracketKeyword_5_2__q(semanticObject, getLastNavigableState(), syntaxNodes);
+			else if(match_ResultIssue___LeftSquareBracketKeyword_4_0_RightSquareBracketKeyword_4_2__q.equals(syntax))
+				emit_ResultIssue___LeftSquareBracketKeyword_4_0_RightSquareBracketKeyword_4_2__q(semanticObject, getLastNavigableState(), syntaxNodes);
 			else acceptNodes(getLastNavigableState(), syntaxNodes);
 		}
 	}
@@ -244,7 +244,7 @@ public class AlisaSyntacticSequencer extends AbstractSyntacticSequencer {
 	 *     message=STRING (ambiguity) (rule end)
 	 *     target=[EObject|URIID] (ambiguity) (rule end)
 	 */
-	protected void emit_ResultIssue___LeftSquareBracketKeyword_5_0_RightSquareBracketKeyword_5_2__q(EObject semanticObject, ISynNavigable transition, List<INode> nodes) {
+	protected void emit_ResultIssue___LeftSquareBracketKeyword_4_0_RightSquareBracketKeyword_4_2__q(EObject semanticObject, ISynNavigable transition, List<INode> nodes) {
 		acceptNodes(transition, nodes);
 	}
 	

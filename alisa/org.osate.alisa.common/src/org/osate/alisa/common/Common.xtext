@@ -28,7 +28,7 @@ Uncertainty:
 
 // This is similar to diagnostics
 ResultIssue returns ResultIssue:
-	'issue' issueType=ResultIssueType
+	issueType=ResultIssueType
 	message=STRING
 	('target' target=[ecore::EObject|URIID])?
 	('exception' exceptionType = STRING)?
@@ -37,7 +37,7 @@ ResultIssue returns ResultIssue:
 
 
 enum ResultIssueType:
-	TBD = 'tbd'|UNKNOWN = 'unknown'| ERROR='error' |  WARNING='warning' | INFO='info' | SUCCESS='success' | FAIL='fail' 
+	TBD = 'tbd'| ERROR='error' |  WARNING='warning' | INFO='info' | SUCCESS='success' | FAIL='fail' 
 ;
 
 ValDeclaration returns AVariableDeclaration:

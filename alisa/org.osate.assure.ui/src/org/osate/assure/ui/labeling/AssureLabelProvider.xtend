@@ -53,7 +53,7 @@ class AssureLabelProvider extends org.eclipse.xtext.ui.label.DefaultEObjectLabel
 	}
 	
 	def text(VerificationActivityResult ele) {
-		"Verification "+ele.name +": "+ ele.constructMessage + ele.resultState.toTextLabel
+		"Evidence "+ele.name +": "+ ele.constructMessage + ele.resultState.toTextLabel
 		+ ele.assureResultCounts
 
 	}

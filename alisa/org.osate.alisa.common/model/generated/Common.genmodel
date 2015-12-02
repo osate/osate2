@@ -10,7 +10,6 @@
       fileExtensions="___common___" ecorePackage="Common.ecore#/">
     <genEnums typeSafeEnumCompatible="false" ecoreEnum="Common.ecore#//ResultIssueType">
       <genEnumLiterals ecoreEnumLiteral="Common.ecore#//ResultIssueType/TBD"/>
-      <genEnumLiterals ecoreEnumLiteral="Common.ecore#//ResultIssueType/UNKNOWN"/>
       <genEnumLiterals ecoreEnumLiteral="Common.ecore#//ResultIssueType/ERROR"/>
       <genEnumLiterals ecoreEnumLiteral="Common.ecore#//ResultIssueType/WARNING"/>
       <genEnumLiterals ecoreEnumLiteral="Common.ecore#//ResultIssueType/INFO"/>
