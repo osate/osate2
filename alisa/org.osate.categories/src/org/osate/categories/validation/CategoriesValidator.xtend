@@ -19,13 +19,16 @@
  */
 package org.osate.categories.validation
 
+import com.google.inject.Inject
+import org.eclipse.xtext.nodemodel.util.NodeModelUtils
 import org.eclipse.xtext.validation.Check
 import org.eclipse.xtext.validation.CheckType
-import org.osate.categories.categories.Categories
-import org.osate.categories.categories.PhaseCategories
-import org.osate.categories.categories.QualityCategories
-import org.osate.categories.categories.UserCategories
 import org.eclipse.xtext.validation.ValidationMessageAcceptor
+import org.osate.alisa.common.scoping.ICommonGlobalReferenceFinder
+import org.osate.categories.categories.Category
+import org.osate.categories.categories.PhaseCategory
+import org.osate.categories.categories.QualityCategory
+import org.osate.categories.categories.UserCategory
 
 //import org.eclipse.xtext.validation.Check
 /**
@@ -34,18 +37,27 @@ import org.eclipse.xtext.validation.ValidationMessageAcceptor
  * see http://www.eclipse.org/Xtext/documentation.html#validation
  */
 class CategoriesValidator extends AbstractCategoriesValidator {
-	
+
+	public static val DUPLICATE_CATEGORY = 'org.osate.categories.validation.duplicate.category'
+
+	@Inject
+	var ICommonGlobalReferenceFinder refFinder
+
 	@Check(CheckType.FAST)
-	def void checkDuplicateCategoryNames(Categories categories){
-		val categoriesTypeName = 
-		switch categories{
-			UserCategories : "category"
-			QualityCategories : "quality"
-			PhaseCategories : "phase"
+	def void checkDuplicateCategoryNames(Category category){
+		val categoryType = 
+		switch category{
+			UserCategory : "category"
+			QualityCategory : "quality"
+			PhaseCategory : "phase"
 		}
-		categories.category.groupBy[name.toLowerCase].filter[name, dupeList| dupeList.size > 1].
-			forEach[name, dupes|dupes.forEach[dupe|
-				warning("Category '" + dupe.name + "' has a duplicate under '" + categoriesTypeName +"'.",
-						dupe, null, ValidationMessageAcceptor.INSIGNIFICANT_INDEX, null)]]
+		
+		val dupes = refFinder.getDuplicates(category)
+		if (dupes.size > 0) {
+			val node = NodeModelUtils.getNode(category);
+			warning("Duplicate " + categoryType + " name '" + category.name + "'",  
+				category, null, ValidationMessageAcceptor.INSIGNIFICANT_INDEX, DUPLICATE_CATEGORY, 
+				categoryType, "" + node.offset, "" + node.length)
+		}
 	}
 }

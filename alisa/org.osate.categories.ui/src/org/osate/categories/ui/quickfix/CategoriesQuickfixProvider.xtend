@@ -19,30 +19,43 @@
 */
 package org.osate.categories.ui.quickfix
 
+import org.eclipse.xtext.ui.editor.model.edit.IModification
+import org.eclipse.xtext.ui.editor.model.edit.IModificationContext
+import org.eclipse.xtext.ui.editor.quickfix.DefaultQuickfixProvider
 import org.eclipse.xtext.ui.editor.quickfix.Fix
-import org.osate.categories.validation.CategoriesValidator
-import org.eclipse.xtext.validation.Issue
 import org.eclipse.xtext.ui.editor.quickfix.IssueResolutionAcceptor
-import org.osate.categories.categories.Category
-
-import org.osate.categories.util.CategoriesUtil
+import org.eclipse.xtext.validation.Issue
+import org.osate.categories.validation.CategoriesValidator
 
 /**
  * Custom quickfixes.
  *
  * see http://www.eclipse.org/Xtext/documentation.html#quickfixes
  */
-class CategoriesQuickfixProvider extends org.eclipse.xtext.ui.editor.quickfix.DefaultQuickfixProvider {//org.osate.alisa.common.ui.quickfix.CommonQuickfixProvider {
+class CategoriesQuickfixProvider extends DefaultQuickfixProvider {//org.osate.alisa.common.ui.quickfix.CommonQuickfixProvider {
 	
-//@Fix(CategoriesValidator::DUPLICATE_CATEGORY)
-//	def void removeCategory(Issue issue, IssueResolutionAcceptor acceptor) {
-//		acceptor.accept(
-//			issue,
-//			"Remove category",
-//			'''Remove category '«issue.data.get(0)»' ''',
-//			"delete.gif",
-//			[element, context|(element as Category).containingCategories.category.remove(element)]
-//		)
-//	}
+	/**
+	 * QuickFix for removing a duplicated Category
+	 * The issue data array is expected to have two elements:
+	 *
+	 * issue.getData()[0]: The Category type
+	 * issue.getData()[1]: The offset of the Category
+	 * issue.getData()[2]: The length of the Category
+	 * 
+	 */
+	@Fix(CategoriesValidator.DUPLICATE_CATEGORY)
+	def public void fixDuplicateCategory(Issue issue, IssueResolutionAcceptor acceptor) {
+		val catType = issue.data.head
+		val offset = Integer.parseInt(issue.data.get(1))
+		val length = Integer.parseInt(issue.data.get(2))
+
+		acceptor.accept(issue, "Remove this duplicate " + catType, null, null, 
+			new IModification() {
+				override public void apply(IModificationContext context) throws Exception {
+					context.getXtextDocument().replace(offset, length, "");
+			}
+		});
+	}
+
 
 }
