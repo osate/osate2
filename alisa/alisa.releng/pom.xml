@@ -44,7 +44,6 @@
 				<module>../org.osate.organization.tests</module>
 				<module>../org.osate.reqspec.tests</module>
 				<module>../org.osate.results.tests</module>
-				<module>../org.osate.units.test</module>
 				<module>../org.osate.verify.tests</module>
 			</modules>
 		</profile>
