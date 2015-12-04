@@ -16,7 +16,6 @@
 
 package org.osate.assure.ui.views;
 
-	import java.util.ArrayList;
 	import java.util.List;
 
 import org.eclipse.emf.ecore.EObject;

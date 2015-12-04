@@ -53,16 +53,16 @@ class ReqSpecTests {
   	def void testParsing() {
 	      //goals
 	      val model = '''
-	          stakeholder goals SCSgoals for "some ref" [
-		          goal g1 : "Safety" [
+	          stakeholder goals SCSgoals for "some ref" 
+	          [
+		          goal g1 : "Safety" 
+		          [
 			          description "The system shall be safe."
 			          rationale "This is a control system, whose failure affects lives. "
 			          stakeholder sei.phf sei.dpg
 		          ]
 	          ]
 	      '''.parse
-	      val entity = model.parts.get(0);
-	      //println(entity)
       }
       
       @Test
