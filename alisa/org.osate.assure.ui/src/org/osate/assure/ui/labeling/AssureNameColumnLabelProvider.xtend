@@ -43,10 +43,12 @@ class AssureNameColumnLabelProvider extends ColumnLabelProvider {
 		switch ele {
 			ResultIssue : {
 				switch(ele.issueType){
-					case ResultIssueType.ERROR: 'invalid.png'
+					case ResultIssueType.ERROR: 'error.png'
 					case ResultIssueType.SUCCESS: 'valid.png'
 					case ResultIssueType.WARNING: 'warning.png'
 					case ResultIssueType.INFO: 'info.png'
+					case FAIL: 'invalid.png'
+					case TBD: 'questionmark.png'
 				}
 			}
 			ClaimResult : {

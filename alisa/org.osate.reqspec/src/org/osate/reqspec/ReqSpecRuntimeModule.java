@@ -22,7 +22,6 @@ package org.osate.reqspec;
 import org.eclipse.xtext.conversion.IValueConverterService;
 import org.eclipse.xtext.scoping.IScopeProvider;
 import org.eclipse.xtext.serializer.tokens.ICrossReferenceSerializer;
-import org.osate.reqspec.scoping.ReqSpecScopeProvider;
 import org.osate.reqspec.serializer.ReqSpecCrossReferenceSerializer;
 
 /**

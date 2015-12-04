@@ -19,19 +19,16 @@
  */
 package org.osate.verify.ui.contentassist
 
-import org.osate.verify.ui.contentassist.AbstractVerifyProposalProvider
+import java.util.ArrayList
+import org.eclipse.emf.ecore.EObject
+import org.eclipse.emf.ecore.util.EcoreUtil
+import org.eclipse.xtext.Assignment
+import org.eclipse.xtext.CrossReference
 import org.eclipse.xtext.ui.editor.contentassist.ContentAssistContext
 import org.eclipse.xtext.ui.editor.contentassist.ICompletionProposalAcceptor
-import org.eclipse.xtext.Assignment
-import org.eclipse.emf.ecore.EObject
-import org.eclipse.xtext.CrossReference
-import org.osate.verify.verify.VerificationPlan
-import org.eclipse.emf.ecore.util.EcoreUtil
-import java.util.ArrayList
-import org.osate.categories.categories.CategoriesPackage
 import org.osate.verify.verify.VerificationActivity
 import org.osate.verify.verify.VerificationMethod
-import static extension org.osate.verify.util.VerifyUtilExtension.*
+import org.osate.verify.verify.VerificationPlan
 
 /**
  * see http://www.eclipse.org/Xtext/documentation.html#contentAssist on how to customize content assistant
@@ -63,7 +60,6 @@ class VerifyProposalProvider extends AbstractVerifyProposalProvider {
 			context,
 			acceptor,
 			[description| val match = description.qualifiedName.toString; 
-				val qa = (model as VerificationMethod).qualityCategory;
 				 ! (model as VerificationMethod).qualityCategory.exists[c|c.name.equals(match)]
 			]
 		);

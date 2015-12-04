@@ -1,38 +1,28 @@
 package org.osate.verify.linking;
 
 	import java.util.ArrayList;
-	import java.util.Collections;
-	import java.util.List;
+import java.util.Collections;
+import java.util.List;
 
-	import org.eclipse.core.resources.IProject;
-	import org.eclipse.core.resources.IProjectDescription;
-	import org.eclipse.core.resources.IWorkspaceRoot;
-	import org.eclipse.core.resources.ResourcesPlugin;
-	import org.eclipse.core.runtime.CoreException;
-	import org.eclipse.emf.common.util.URI;
-	import org.eclipse.emf.ecore.EClass;
-	import org.eclipse.emf.ecore.EObject;
-	import org.eclipse.emf.ecore.EReference;
-	import org.eclipse.emf.ecore.util.EcoreUtil;
+import org.eclipse.core.resources.IProject;
+import org.eclipse.core.resources.IProjectDescription;
+import org.eclipse.core.resources.IWorkspaceRoot;
+import org.eclipse.core.resources.ResourcesPlugin;
+import org.eclipse.core.runtime.CoreException;
+import org.eclipse.emf.common.util.URI;
+import org.eclipse.emf.ecore.EClass;
+import org.eclipse.emf.ecore.EObject;
+import org.eclipse.emf.ecore.EReference;
+import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.xtext.linking.impl.DefaultLinkingService;
 import org.eclipse.xtext.linking.impl.IllegalNodeException;
-	import org.eclipse.xtext.nodemodel.INode;
-	import org.eclipse.xtext.resource.IEObjectDescription;
-	import org.osate.aadl2.Aadl2Package;
-	import org.osate.aadl2.PropertyValue;
-	import org.osate.aadl2.UnitLiteral;
-	import org.osate.aadl2.UnitsType;
-	import org.osate.aadl2.util.Aadl2Util;
+import org.eclipse.xtext.nodemodel.INode;
+import org.eclipse.xtext.resource.IEObjectDescription;
+import org.osate.aadl2.util.Aadl2Util;
 import org.osate.verify.verify.ResoluteMethod;
-import org.osate.xtext.aadl2.properties.linking.PropertiesLinkingService;
-	import org.osate.xtext.aadl2.properties.util.EMFIndexRetrieval;
+import org.osate.xtext.aadl2.properties.util.EMFIndexRetrieval;
 
-	import com.rockwellcollins.atc.resolute.resolute.ClaimArg;
-	import com.rockwellcollins.atc.resolute.resolute.FnCallExpr;
-	import com.rockwellcollins.atc.resolute.resolute.IdExpr;
-	import com.rockwellcollins.atc.resolute.resolute.NestedDotID;
-	import com.rockwellcollins.atc.resolute.resolute.QuantArg;
-	import com.rockwellcollins.atc.resolute.resolute.ResolutePackage;
+import com.rockwellcollins.atc.resolute.resolute.ResolutePackage;
 
 
 public class VerifyLinkingService  extends DefaultLinkingService{//PropertiesLinkingService {

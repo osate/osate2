@@ -20,19 +20,6 @@ import java.io.IOException;
 import java.util.Collections;
 import java.util.List;
 
-import net.dependableos.dcase.Argument;
-import net.dependableos.dcase.BasicNode;
-import net.dependableos.dcase.DcaseFactory;
-import net.dependableos.dcase.DcaseLink001;
-import net.dependableos.dcase.DcaseLink002;
-import net.dependableos.dcase.DcaseLink003;
-import net.dependableos.dcase.Evidence;
-import net.dependableos.dcase.Goal;
-import net.dependableos.dcase.Strategy;
-import net.dependableos.dcase.diagram.edit.parts.ArgumentEditPart;
-import net.dependableos.dcase.diagram.part.DcaseDiagramEditorPlugin;
-import net.dependableos.dcase.diagram.part.Messages;
-
 import org.eclipse.core.commands.AbstractHandler;
 import org.eclipse.core.commands.ExecutionEvent;
 import org.eclipse.core.commands.ExecutionException;
@@ -83,7 +70,6 @@ import org.osate.assure.assure.ThenResult;
 import org.osate.assure.assure.VerificationActivityResult;
 import org.osate.assure.assure.VerificationExpr;
 import org.osate.assure.assure.impl.AssuranceCaseResultImpl;
-import org.osate.assure.evaluator.IAssureProcessor;
 import org.osate.assure.util.AssureUtilExtension;
 import org.osate.organization.organization.Stakeholder;
 import org.osate.reqspec.reqSpec.Requirement;
@@ -91,15 +77,24 @@ import org.osate.reqspec.util.ReqSpecUtilExtension;
 import org.osate.verify.util.VerifyUtilExtension;
 import org.osate.verify.verify.Claim;
 
-import com.google.inject.Inject;
+import net.dependableos.dcase.Argument;
+import net.dependableos.dcase.BasicNode;
+import net.dependableos.dcase.DcaseFactory;
+import net.dependableos.dcase.DcaseLink001;
+import net.dependableos.dcase.DcaseLink002;
+import net.dependableos.dcase.DcaseLink003;
+import net.dependableos.dcase.Evidence;
+import net.dependableos.dcase.Goal;
+import net.dependableos.dcase.Strategy;
+import net.dependableos.dcase.diagram.edit.parts.ArgumentEditPart;
+import net.dependableos.dcase.diagram.part.DcaseDiagramEditorPlugin;
+import net.dependableos.dcase.diagram.part.Messages;
 
 public class AssureExportHandler extends AbstractHandler {
 
 	private IWorkbenchWindow window;
 	private ExecutionEvent executionEvent;
 
-	@Inject
-	private IAssureProcessor assureProcessor;
 
 	protected ExecutionEvent getExecutionEvent() {
 		return this.executionEvent;

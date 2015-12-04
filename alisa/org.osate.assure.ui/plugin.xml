@@ -334,7 +334,7 @@
 	            	<and>
 	            		<reference definitionId="org.osate.assure.Assure.XtextEditor.opened" />
 						<iterate>
-							<adapt type="org.osate.assure.assure.AssuranceCase" />
+							<adapt type="org.osate.assure.assure.AssuranceCaseResult" />
 						</iterate>
 					</and>
 				</visibleWhen>

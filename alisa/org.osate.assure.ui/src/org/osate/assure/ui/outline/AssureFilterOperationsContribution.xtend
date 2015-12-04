@@ -16,19 +16,18 @@
 
 package org.osate.assure.ui.outline
 
-import org.eclipse.xtext.ui.editor.outline.actions.AbstractFilterOutlineContribution
 import com.google.inject.Inject
-import org.eclipse.xtext.ui.PluginImageHelper
-import org.eclipse.xtext.ui.editor.outline.IOutlineNode
-import org.eclipse.xtext.ui.editor.outline.impl.EObjectNode
-import org.osate.assure.assure.AssurePackage
-import org.eclipse.jface.resource.ImageDescriptor
-import org.eclipse.jface.action.Action
-import java.util.EventObject
-import org.eclipse.xtext.util.concurrent.IUnitOfWork
 import org.eclipse.core.runtime.IStatus
 import org.eclipse.core.runtime.Status
 import org.eclipse.emf.ecore.EObject
+import org.eclipse.jface.action.Action
+import org.eclipse.jface.resource.ImageDescriptor
+import org.eclipse.xtext.ui.PluginImageHelper
+import org.eclipse.xtext.ui.editor.outline.IOutlineNode
+import org.eclipse.xtext.ui.editor.outline.actions.AbstractFilterOutlineContribution
+import org.eclipse.xtext.ui.editor.outline.impl.EObjectNode
+import org.eclipse.xtext.util.concurrent.IUnitOfWork
+import org.osate.assure.assure.AssurePackage
 import org.osate.assure.assure.ClaimResult
 
 class AssureFilterOperationsContribution extends AbstractFilterOutlineContribution {
@@ -51,7 +50,6 @@ def EObject getModelObject()
 
 override boolean apply(IOutlineNode node) {
 	val nn = node as EObjectNode
-	val boolean result = false
 	val res = nn.readOnly(
                         new IUnitOfWork<IStatus, EObject>() {
                             override IStatus exec(EObject eobj) throws Exception {

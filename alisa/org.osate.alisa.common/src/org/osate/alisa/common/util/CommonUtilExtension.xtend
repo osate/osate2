@@ -16,29 +16,28 @@
 
 package org.osate.alisa.common.util
 
-import org.osate.aadl2.NamedElement
-import org.osate.alisa.common.common.Description
-import org.osate.alisa.common.common.DescriptionElement
-import org.osate.alisa.common.common.ComputeDeclaration
-import org.osate.alisa.common.common.APropertyReference
-import org.osate.aadl2.properties.PropertyLookupException
-import org.osate.aadl2.ComponentType
-import org.osate.aadl2.ComponentImplementation
-import org.osate.aadl2.Classifier
-import org.osate.aadl2.ComponentClassifier
-import org.osate.aadl2.instance.ComponentInstance
-import org.osate.aadl2.instance.InstanceObject
+import org.eclipse.emf.common.util.EList
 import org.eclipse.emf.common.util.URI
 import org.eclipse.emf.ecore.util.EcoreUtil
-import org.eclipse.emf.common.util.EList
-import org.osate.aadl2.EndToEndFlow
-import org.osate.aadl2.Subcomponent
-import org.osate.aadl2.Feature
-import org.osate.aadl2.util.Aadl2Util
-import org.osate.alisa.common.common.ValDeclaration
-import org.osate.aadl2.Property
-import org.osate.aadl2.UnitLiteral
 import org.eclipse.internal.xtend.expression.ast.NullLiteral
+import org.osate.aadl2.Classifier
+import org.osate.aadl2.ComponentClassifier
+import org.osate.aadl2.ComponentImplementation
+import org.osate.aadl2.ComponentType
+import org.osate.aadl2.EndToEndFlow
+import org.osate.aadl2.Feature
+import org.osate.aadl2.NamedElement
+import org.osate.aadl2.Property
+import org.osate.aadl2.Subcomponent
+import org.osate.aadl2.instance.ComponentInstance
+import org.osate.aadl2.instance.InstanceObject
+import org.osate.aadl2.properties.PropertyLookupException
+import org.osate.aadl2.util.Aadl2Util
+import org.osate.alisa.common.common.APropertyReference
+import org.osate.alisa.common.common.ComputeDeclaration
+import org.osate.alisa.common.common.Description
+import org.osate.alisa.common.common.DescriptionElement
+import org.osate.alisa.common.common.ValDeclaration
 
 class CommonUtilExtension {
 

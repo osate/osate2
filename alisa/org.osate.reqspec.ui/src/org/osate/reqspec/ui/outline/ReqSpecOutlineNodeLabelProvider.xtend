@@ -17,19 +17,17 @@
 package org.osate.reqspec.ui.outline;
 
 import com.google.inject.Inject
+import org.eclipse.jface.viewers.StyledString
 import org.eclipse.xtext.ui.editor.outline.impl.EObjectNode
 import org.eclipse.xtext.ui.editor.outline.impl.OutlineNodeLabelProvider
 import org.osate.aadl2.modelsupport.resources.OsateResourceUtil
-import static extension org.osate.alisa.common.util.CommonUtilExtension.*
 import org.osate.reqspec.reqSpec.Goal
 import org.osate.reqspec.reqSpec.ReqSpec
 import org.osate.reqspec.reqSpec.Requirement
 import org.osate.reqspec.reqSpec.StakeholderGoals
 import org.osate.reqspec.reqSpec.SystemRequirements
-import org.eclipse.jface.viewers.StyledString
-import org.eclipse.xtext.ui.editor.outline.IOutlineNode
-import org.eclipse.swt.graphics.Image
-import org.eclipse.emf.ecore.EObject
+
+import static extension org.osate.alisa.common.util.CommonUtilExtension.*
 
 class ReqSpecOutlineNodeLabelProvider extends OutlineNodeLabelProvider {
 

@@ -21,11 +21,8 @@ import org.eclipse.emf.ecore.EEnum;
 import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.EReference;
 import org.eclipse.emf.ecore.EcorePackage;
-
 import org.eclipse.emf.ecore.impl.EPackageImpl;
-
 import org.osate.aadl2.Aadl2Package;
-
 import org.osate.alisa.common.common.ABinaryOperation;
 import org.osate.alisa.common.common.AExpression;
 import org.osate.alisa.common.common.AListTerm;

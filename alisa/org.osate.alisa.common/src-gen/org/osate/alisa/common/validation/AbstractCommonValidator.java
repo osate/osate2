@@ -17,6 +17,7 @@ package org.osate.alisa.common.validation;
 
 import java.util.ArrayList;
 import java.util.List;
+
 import org.eclipse.emf.ecore.EPackage;
 
 public class AbstractCommonValidator extends org.eclipse.xtext.validation.AbstractDeclarativeValidator {

@@ -39,7 +39,6 @@ import org.osate.aadl2.UnitLiteral
 import org.osate.aadl2.UnitsType
 import org.osate.alisa.common.common.ShowValue
 import org.osate.xtext.aadl2.properties.util.EMFIndexRetrieval
-import com.google.inject.Inject
 
 /**
  * This class contains custom scoping description.

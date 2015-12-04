@@ -25,8 +25,6 @@ import org.osate.verify.util.IVerifyGlobalReferenceFinder
 
 class AlisaEObjectHoverProvider extends DefaultEObjectHoverProvider {
 
-	@Inject extension IVerifyGlobalReferenceFinder referenceFinder
-
 	override getHoverInfoAsHtml(EObject o) {
 		switch (o) {
 			AssuranceCase: {

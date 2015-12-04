@@ -20,9 +20,7 @@
 package org.osate.reqspec.scoping
 
 import com.google.inject.Inject
-import org.eclipse.emf.common.util.BasicEList
 import org.eclipse.emf.common.util.EList
-import org.eclipse.emf.ecore.EObject
 import org.eclipse.emf.ecore.EReference
 import org.eclipse.emf.ecore.util.BasicInternalEList
 import org.eclipse.emf.ecore.util.EcoreUtil
@@ -33,7 +31,7 @@ import org.eclipse.xtext.scoping.impl.SimpleScope
 import org.eclipse.xtext.util.SimpleAttributeResolver
 import org.osate.aadl2.ComponentClassifier
 import org.osate.aadl2.ComponentImplementation
-import org.osate.alisa.common.common.AVariableDeclaration
+import org.osate.alisa.common.common.AVariableReference
 import org.osate.alisa.common.scoping.CommonScopeProvider
 import org.osate.alisa.common.scoping.ICommonGlobalReferenceFinder
 import org.osate.reqspec.reqSpec.ContractualElement
@@ -41,11 +39,9 @@ import org.osate.reqspec.reqSpec.Goal
 import org.osate.reqspec.reqSpec.ReqSpecPackage
 import org.osate.reqspec.reqSpec.Requirement
 import org.osate.reqspec.reqSpec.SystemRequirements
-import org.osate.reqspec.util.IReqspecGlobalReferenceFinder
 
 import static org.osate.alisa.common.util.CommonUtilExtension.*
 import static org.osate.reqspec.util.ReqSpecUtilExtension.*
-import org.osate.alisa.common.common.AVariableReference
 
 /**
  * This class contains custom scoping description.
@@ -56,7 +52,6 @@ import org.osate.alisa.common.common.AVariableReference
  */
 class ReqSpecScopeProvider extends CommonScopeProvider {
 	@Inject var ICommonGlobalReferenceFinder commonRefFinder
-	@Inject var IReqspecGlobalReferenceFinder refFinder
 
 	// For Reference is from Goal, Requirement 
 	def scope_NamedElement(ContractualElement context, EReference reference) {

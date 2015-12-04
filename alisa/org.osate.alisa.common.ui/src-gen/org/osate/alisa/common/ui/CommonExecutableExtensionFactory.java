@@ -16,11 +16,10 @@
 package org.osate.alisa.common.ui;
 
 import org.eclipse.xtext.ui.guice.AbstractGuiceAwareExecutableExtensionFactory;
+import org.osate.alisa.common.ui.internal.CommonActivator;
 import org.osgi.framework.Bundle;
 
 import com.google.inject.Injector;
-
-import org.osate.alisa.common.ui.internal.CommonActivator;
 
 /**
  * This class was generated. Customizations should only happen in a newly

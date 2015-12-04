@@ -96,10 +96,12 @@ class AssureLabelProvider extends org.eclipse.xtext.ui.label.DefaultEObjectLabel
 
 	def image(ResultIssue ele) {
 		switch(ele.issueType){
-			case ResultIssueType.ERROR: 'invalid.png'
-			case ResultIssueType.SUCCESS: 'valid.png'
-			case ResultIssueType.WARNING: 'warning.png'
-			case ResultIssueType.INFO: 'info.png'
+			case ERROR: 'error.png'
+			case SUCCESS: 'valid.png'
+			case WARNING: 'warning.png'
+			case INFO: 'info.png'
+			case FAIL: 'invalid.png'
+			case TBD: 'questionmark.png'
 		}
 	}
 	

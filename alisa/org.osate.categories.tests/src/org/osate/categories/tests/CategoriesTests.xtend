@@ -15,17 +15,11 @@
  */
 
 package org.osate.categories.tests
-import org.junit.runner.RunWith
-import org.eclipse.xtext.junit4.XtextRunner
-import org.osate.categories.CategoriesInjectorProvider
+
 import org.eclipse.xtext.junit4.InjectWith
-import org.osate.categories.categories.Categories
-import com.google.inject.Inject
-import org.eclipse.xtext.junit4.util.ParseHelper
-import org.junit.Test
-import org.eclipse.xtext.junit4.validation.ValidationTestHelper
-import org.osate.categories.categories.CategoriesPackage
-import org.osate.categories.validation.CategoriesValidator
+import org.eclipse.xtext.junit4.XtextRunner
+import org.junit.runner.RunWith
+import org.osate.categories.CategoriesInjectorProvider
 
 @RunWith(typeof(XtextRunner))
 	@InjectWith(typeof(CategoriesInjectorProvider))

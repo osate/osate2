@@ -15,10 +15,10 @@
  */
 package org.osate.alisa.common.parser.antlr;
 
-import com.google.inject.Inject;
-
 import org.eclipse.xtext.parser.antlr.XtextTokenStream;
 import org.osate.alisa.common.services.CommonGrammarAccess;
+
+import com.google.inject.Inject;
 
 public class CommonParser extends org.eclipse.xtext.parser.antlr.AbstractAntlrParser {
 	

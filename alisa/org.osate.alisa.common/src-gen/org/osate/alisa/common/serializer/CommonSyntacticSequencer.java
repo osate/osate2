@@ -15,8 +15,8 @@
  */
 package org.osate.alisa.common.serializer;
 
-import com.google.inject.Inject;
 import java.util.List;
+
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.xtext.IGrammarAccess;
 import org.eclipse.xtext.RuleCall;
@@ -28,6 +28,8 @@ import org.eclipse.xtext.serializer.analysis.ISyntacticSequencerPDAProvider.ISyn
 import org.eclipse.xtext.serializer.analysis.ISyntacticSequencerPDAProvider.ISynTransition;
 import org.eclipse.xtext.serializer.sequencer.AbstractSyntacticSequencer;
 import org.osate.alisa.common.services.CommonGrammarAccess;
+
+import com.google.inject.Inject;
 
 @SuppressWarnings("all")
 public class CommonSyntacticSequencer extends AbstractSyntacticSequencer {

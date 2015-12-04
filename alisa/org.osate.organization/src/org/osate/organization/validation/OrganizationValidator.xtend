@@ -19,8 +19,6 @@
  */
 package org.osate.organization.validation
 
-import com.google.inject.Inject
-import org.eclipse.xtext.scoping.IGlobalScopeProvider
 import org.eclipse.xtext.validation.Check
 import org.osate.organization.organization.OrganizationPackage
 import org.osate.organization.organization.Stakeholder
@@ -33,8 +31,6 @@ import org.osate.organization.util.OrganizationUtil
  */
 class OrganizationValidator extends AbstractOrganizationValidator {
 	extension OrganizationUtil ou = new OrganizationUtil
-	@Inject
-	private IGlobalScopeProvider scopeProvider;
 
 	public static val DUPLICATE_STAKEHOLDER = "org.osate.organization.DuplicateStakeholder"
 	public static val DUPLICATE_ORGANIZATION = "org.osate.organization.DuplicateOrganization"

@@ -16,6 +16,7 @@
 package org.osate.alisa.common.parser.antlr;
 
 import java.io.InputStream;
+
 import org.eclipse.xtext.parser.antlr.IAntlrTokenFileProvider;
 
 public class CommonAntlrTokenFileProvider implements IAntlrTokenFileProvider {

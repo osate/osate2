@@ -23,7 +23,6 @@ import java.util.HashSet
 import org.eclipse.emf.ecore.resource.Resource
 import org.eclipse.xtext.generator.IFileSystemAccess
 import org.eclipse.xtext.generator.IGenerator
-import org.osate.verify.verify.Verification
 import org.osate.verify.verify.VerificationActivity
 import org.osate.verify.verify.VerificationMethodRegistry
 
@@ -78,10 +77,9 @@ class VerifyGenerator implements IGenerator {
 	}
 	
 	 
-	def dispatch String generateImports(VerificationActivity va){
+	def String generateImports(VerificationActivity va){
 		val themethod = va.method.name//?.methodPath
 		if (themethod != null && addedImports.add(themethod)) {
-			val substr = themethod.lastIndexOf('.');
 			'''import «themethod.substring(0,themethod.lastIndexOf('.'))»;
 			'''
 		}

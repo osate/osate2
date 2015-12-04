@@ -16,7 +16,6 @@
 package org.osate.alisa.common.common.impl;
 
 import org.eclipse.emf.ecore.EClass;
-
 import org.osate.alisa.common.common.CommonPackage;
 import org.osate.alisa.common.common.ComputeDeclaration;
 

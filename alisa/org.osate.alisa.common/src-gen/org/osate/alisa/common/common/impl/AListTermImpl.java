@@ -18,19 +18,13 @@ package org.osate.alisa.common.common.impl;
 import java.util.Collection;
 
 import org.eclipse.emf.common.notify.NotificationChain;
-
 import org.eclipse.emf.common.util.EList;
-
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.InternalEObject;
-
 import org.eclipse.emf.ecore.util.EObjectContainmentEList;
 import org.eclipse.emf.ecore.util.InternalEList;
-
 import org.osate.aadl2.PropertyExpression;
-
 import org.osate.aadl2.impl.PropertyExpressionImpl;
-
 import org.osate.alisa.common.common.AListTerm;
 import org.osate.alisa.common.common.CommonPackage;
 

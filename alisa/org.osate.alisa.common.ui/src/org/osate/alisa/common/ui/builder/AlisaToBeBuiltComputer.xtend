@@ -17,11 +17,8 @@
 package org.osate.alisa.common.ui.builder
 
 import com.google.inject.Inject
-import com.google.inject.Singleton
 import java.util.HashMap
 import java.util.HashSet
-import java.util.Map
-import java.util.Set
 import org.eclipse.core.resources.IFolder
 import org.eclipse.core.resources.IProject
 import org.eclipse.core.resources.IStorage
@@ -29,10 +26,10 @@ import org.eclipse.core.runtime.CoreException
 import org.eclipse.core.runtime.IProgressMonitor
 import org.eclipse.emf.common.util.URI
 import org.eclipse.xtext.builder.builderState.IBuilderState
+import org.eclipse.xtext.builder.clustering.CopiedResourceDescription
 import org.eclipse.xtext.builder.impl.IToBeBuiltComputerContribution
 import org.eclipse.xtext.builder.impl.ToBeBuilt
 import org.eclipse.xtext.ui.resource.IStorage2UriMapper
-import org.eclipse.xtext.builder.clustering.CopiedResourceDescription
 
 class AlisaToBeBuiltComputer implements IToBeBuiltComputerContribution {
 

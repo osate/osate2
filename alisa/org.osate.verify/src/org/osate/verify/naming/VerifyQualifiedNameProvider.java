@@ -17,12 +17,8 @@
 package org.osate.verify.naming;
 
 import org.eclipse.emf.ecore.EObject;
-import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.xtext.naming.DefaultDeclarativeQualifiedNameProvider;
 import org.eclipse.xtext.naming.QualifiedName;
-import org.osate.reqspec.reqSpec.Requirement;
-import org.osate.verify.verify.Claim;
-import org.osate.verify.verify.VerificationActivity;
 
 public class VerifyQualifiedNameProvider extends DefaultDeclarativeQualifiedNameProvider {
 	// Enable to limit indexing to global items
