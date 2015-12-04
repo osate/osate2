@@ -318,14 +318,16 @@ class AlisaGenerator implements IGenerator {
 
 	def CharSequence generate(Claim claim) {
 		val claimvas = doGenerateVA(claim)
-		val subclaims = if(claim.assert == null) doGenerateSubclaims(claim)
+		val subclaims = if(claim.subclaim != null) doGenerateSubclaims(claim) else ''''''
 		val claimassert = if(claim.assert != null) claim.assert.generate else ''''''
 		if(claimvas.length == 0 && subclaims.length == 0 && claimassert.length == 0) return ''''''
 		'''
 			claim «claim.requirement.fullyQualifiedName»
 			[
 				tbdcount 0
-				«subclaims»
+				«IF claim.subclaim != null»
+					«subclaims»
+				«ENDIF»
 				«IF claim.assert != null»
 					«claimassert»
 				«ELSE»
