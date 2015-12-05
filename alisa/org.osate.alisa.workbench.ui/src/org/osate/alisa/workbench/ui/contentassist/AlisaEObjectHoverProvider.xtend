@@ -16,12 +16,10 @@
 
 package org.osate.alisa.workbench.ui.contentassist
 
-import com.google.inject.Inject
 import org.eclipse.emf.ecore.EObject
 import org.eclipse.xtext.ui.editor.hover.html.DefaultEObjectHoverProvider
 import org.osate.alisa.workbench.alisa.AssuranceCase
 import org.osate.alisa.workbench.alisa.AssurancePlan
-import org.osate.verify.util.IVerifyGlobalReferenceFinder
 
 class AlisaEObjectHoverProvider extends DefaultEObjectHoverProvider {
 
@@ -29,7 +27,7 @@ class AlisaEObjectHoverProvider extends DefaultEObjectHoverProvider {
 		switch (o) {
 			AssuranceCase: {
 				val mps = o.assurancePlans
-				val z = mps.map[mp|(mp as AssurancePlan).target.name]
+				val z = mps.map[mp|mp.target.name]
 				val res = "Verified system implementations: " + z.fold("")[a, b|a + " " + b]
 				return res
 			}

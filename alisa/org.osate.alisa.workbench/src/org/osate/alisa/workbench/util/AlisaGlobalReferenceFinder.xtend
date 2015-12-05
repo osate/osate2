@@ -1,18 +1,15 @@
 package org.osate.alisa.workbench.util
 
 import com.google.inject.ImplementedBy
-import org.eclipse.emf.ecore.EObject
-import org.osate.aadl2.ComponentClassifier
-import org.osate.aadl2.instance.ComponentInstance
-import org.osate.alisa.workbench.alisa.AssurancePlan
-import org.osate.aadl2.ComponentImplementation
-import org.osate.alisa.workbench.alisa.AssurancePlan
-import org.osate.alisa.workbench.alisa.AlisaPackage
 import com.google.inject.Inject
-import org.osate.alisa.common.scoping.ICommonGlobalReferenceFinder
 import org.eclipse.emf.ecore.util.EcoreUtil
+import org.osate.aadl2.ComponentClassifier
+import org.osate.aadl2.ComponentImplementation
+import org.osate.alisa.common.scoping.ICommonGlobalReferenceFinder
 import org.osate.alisa.common.util.CommonUtilExtension
+import org.osate.alisa.workbench.alisa.AlisaPackage
 import org.osate.alisa.workbench.alisa.AssuranceCase
+import org.osate.alisa.workbench.alisa.AssurancePlan
 
 @ImplementedBy(AlisaGlobalReferenceFinder)
 interface IAlisaGlobalReferenceFinder {

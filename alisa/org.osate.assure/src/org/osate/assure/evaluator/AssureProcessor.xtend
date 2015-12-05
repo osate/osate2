@@ -202,8 +202,8 @@ class AssureProcessor implements IAssureProcessor {
 		}
 
 		if (actualParameters.size < method.params.size) {
-			setToError(verificationResult,
-				"Fewer actual parameters than formal parameters for verification activity", null)
+			setToError(verificationResult, "Fewer actual parameters than formal parameters for verification activity",
+				null)
 			return
 		}
 		val nbParams = method.params.size
@@ -247,11 +247,11 @@ class AssureProcessor implements IAssureProcessor {
 
 			// for conversion into Java Object see AssureUtilExtension.convertToJavaObjects 
 			if (i < nbParams) {
-				var formalParam = method.params.get(i) as FormalParameter
+				var formalParam = method.params.get(i)
 				if (actual instanceof NumberValue) {
 					if (formalParam.unit != null && actual.unit != null &&
 						!formalParam.unit.name.equals(actual.unit.name)) {
-						actual = convertValueToUnit(actual as NumberValue, formalParam.unit)
+						actual = convertValueToUnit(actual, formalParam.unit)
 					}
 				}
 				val paramType = formalParam.parameterType
@@ -266,7 +266,7 @@ class AssureProcessor implements IAssureProcessor {
 			i = i + 1
 		}
 		if (verificationResult instanceof VerificationActivityResult) {
-			val result = checkProperties(target, verificationResult)
+			checkProperties(target, verificationResult)
 		}
 
 		try {
@@ -422,25 +422,27 @@ class AssureProcessor implements IAssureProcessor {
 			val property = iter1.next
 			val variable = iter2.next
 
-			if (variable instanceof ValDeclaration) {
-				try {
-					val value = variable.right
-					if (value instanceof NumberValue) {
-						val unit = value.unit
-						val reqValue = value.getScaledValue(unit)
-						val modelValue = PropertyUtils.getScaledNumberValue(object, property, unit)
+			try {
+				val value = variable.right
+				if (value instanceof NumberValue) {
+					val unit = value.unit
+					val reqValue = value.getScaledValue(unit)
+					val modelValue = PropertyUtils.getScaledNumberValue(object, property, unit)
 
-						if (reqValue != modelValue) {
-							println("Property " + property.getQualifiedName() + ": Value in model (" + modelValue + unit.name + ") does not match required value (" + reqValue + unit.name + ")")
-							result.addErrorIssue(object, "Property " + property.getQualifiedName() + ": Value in model (" + modelValue + unit.name + ") does not match required value (" + reqValue + unit.name + ")")
-							result.setToFail
-						} else {
-							println("   match " + modelValue + " == " + reqValue)
-						}
+					if (reqValue != modelValue) {
+						println(
+							"Property " + property.getQualifiedName() + ": Value in model (" + modelValue + unit.name +
+								") does not match required value (" + reqValue + unit.name + ")")
+						result.addErrorIssue(object,
+							"Property " + property.getQualifiedName() + ": Value in model (" + modelValue + unit.name +
+								") does not match required value (" + reqValue + unit.name + ")")
+						result.setToFail
+					} else {
+						println("   match " + modelValue + " == " + reqValue)
 					}
-				} catch (Exception e) {
-					e.printStackTrace
 				}
+			} catch (Exception e) {
+				e.printStackTrace
 			}
 		}
 		return success;

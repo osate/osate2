@@ -75,7 +75,7 @@ class VerifyQuickfixProvider extends DefaultQuickfixProvider {
 		acceptor.accept(issue, "Add claim for " + reqName, null, null,
 				new ISemanticModification() {
 					override apply(EObject element, IModificationContext context) throws Exception {
-						val resourceSet = element.eResource().getResourceSet() as ResourceSet
+						val resourceSet = element.eResource().getResourceSet() 
 						val req = resourceSet.getEObject(URI.createURI(reqURI), true) as Requirement
 						val verificationPlan = element as VerificationPlan
 						val Claim claim = verifyFactory.createClaim
@@ -101,9 +101,9 @@ class VerifyQuickfixProvider extends DefaultQuickfixProvider {
 		acceptor.accept(issue, "Remove " + elementType + ".", null, null,
 				new ISemanticModification() {
 					override apply(EObject element, IModificationContext context) throws Exception {
-						val resourceSet = element.eResource().getResourceSet() as ResourceSet
+						val resourceSet = element.eResource().getResourceSet() 
 						val verification  = resourceSet.getEObject(URI.createURI(verificationURI), true) as Verification
-						val illegalObject = element as EObject
+						val illegalObject = element 
 						verification.contents.remove(illegalObject)
 					}
 				});

@@ -69,7 +69,6 @@ import org.osate.assure.assure.VerificationExecutionState
 import org.osate.assure.assure.VerificationExpr
 import org.osate.assure.assure.VerificationResult
 import org.osate.assure.assure.VerificationResultState
-import org.osate.verify.verify.RefExpr
 import org.osate.verify.verify.VerificationMethod
 
 import static extension org.osate.aadl2.instantiation.InstantiateModel.buildInstanceModelFile

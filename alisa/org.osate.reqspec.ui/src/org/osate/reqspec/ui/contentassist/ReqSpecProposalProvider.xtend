@@ -32,16 +32,13 @@ import org.eclipse.xtext.ui.editor.contentassist.ICompletionProposalAcceptor
 import org.osate.aadl2.Classifier
 import org.osate.aadl2.ComponentImplementation
 import org.osate.alisa.common.scoping.ICommonGlobalReferenceFinder
+import org.osate.reqspec.reqSpec.GlobalRequirements
 import org.osate.reqspec.reqSpec.ReqSpecPackage
+import org.osate.reqspec.reqSpec.Requirement
 import org.osate.reqspec.reqSpec.StakeholderGoals
 import org.osate.reqspec.reqSpec.SystemRequirements
 
 import static org.osate.alisa.common.util.CommonUtilExtension.*
-import org.osate.categories.categories.CategoriesPackage
-import org.osate.categories.categories.Categories
-import org.osate.reqspec.reqSpec.Requirement
-import org.osate.reqspec.reqSpec.Goal
-import org.osate.reqspec.reqSpec.GlobalRequirements
 
 /**
  * see http://www.eclipse.org/Xtext/documentation.html#contentAssist on how to customize content assistant
@@ -151,7 +148,7 @@ class ReqSpecProposalProvider extends AbstractReqSpecProposalProvider {
 
 		// If implementation collect for type
 		if (cl instanceof ComponentImplementation) {
-			var temp2 = (cl as ComponentImplementation).type
+			var temp2 = cl.type
 			cls.add(temp2);
 			while (temp2.getExtended() != null) {
 				if (cls.contains(temp2.getExtended())) {
@@ -223,8 +220,7 @@ class ReqSpecProposalProvider extends AbstractReqSpecProposalProvider {
 			assignment.getTerminal() as CrossReference,
 			context,
 			acceptor,
-			[description|val match = description.qualifiedName.toString; 
-				 model instanceof GlobalRequirements || (model instanceof Requirement && model.eContainer instanceof GlobalRequirements)
+			[description| model instanceof GlobalRequirements || (model instanceof Requirement && model.eContainer instanceof GlobalRequirements)
 			]
 		);
 	}

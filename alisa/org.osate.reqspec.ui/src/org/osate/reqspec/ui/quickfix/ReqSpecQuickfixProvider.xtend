@@ -168,7 +168,7 @@ class ReqSpecQuickfixProvider extends DefaultQuickfixProvider {
 		acceptor.accept(issue, "Remove refines " + refinedGoalName, null, null,
 				new ISemanticModification() {
 					override apply(EObject element, IModificationContext context) throws Exception {
-						val resourceSet = element.eResource().getResourceSet() as ResourceSet
+						val resourceSet = element.eResource().getResourceSet() 
 						val refinedGoal = resourceSet.getEObject(URI.createURI(refinedGoalURI), true) as Goal
 						val goal = element as Goal
 						goal.refinesReference.remove(refinedGoal)
@@ -192,7 +192,7 @@ class ReqSpecQuickfixProvider extends DefaultQuickfixProvider {
 		acceptor.accept(issue, "Remove refines " + refinedReqName, null, null,
 				new ISemanticModification() {
 					override apply(EObject element, IModificationContext context) throws Exception {
-						val resourceSet = element.eResource().getResourceSet() as ResourceSet
+						val resourceSet = element.eResource().getResourceSet() 
 						val refinedReq = resourceSet.getEObject(URI.createURI(refinedReqURI), true) as Requirement
 						val requirement = element as Requirement
 						requirement.refinesReference.remove(refinedReq)
@@ -217,7 +217,7 @@ class ReqSpecQuickfixProvider extends DefaultQuickfixProvider {
 					override apply(EObject element, IModificationContext context) throws Exception {
 						val resourceSet = element.eResource().getResourceSet() as ResourceSet
 						val section  = resourceSet.getEObject(URI.createURI(sectionURI), true) as DocumentSection
-						val illegalObject = element as EObject
+						val illegalObject = element 
 						section.content.remove(illegalObject)
 					}
 				});
@@ -241,7 +241,7 @@ class ReqSpecQuickfixProvider extends DefaultQuickfixProvider {
 					override apply(EObject element, IModificationContext context) throws Exception {
 						val resourceSet = element.eResource().getResourceSet() as ResourceSet
 						val reqDoc  = resourceSet.getEObject(URI.createURI(reqDocURI), true) as ReqDocument
-						val illegalObject = element as EObject
+						val illegalObject = element 
 						reqDoc.content.remove(illegalObject)
 					}
 				});
@@ -265,7 +265,7 @@ class ReqSpecQuickfixProvider extends DefaultQuickfixProvider {
 					override apply(EObject element, IModificationContext context) throws Exception {
 						val resourceSet = element.eResource().getResourceSet() as ResourceSet
 						val reqSpec  = resourceSet.getEObject(URI.createURI(reqSpecURI), true) as ReqSpec
-						val illegalObject = element as EObject
+						val illegalObject = element 
 						reqSpec.parts.remove(illegalObject)
 					}
 				});

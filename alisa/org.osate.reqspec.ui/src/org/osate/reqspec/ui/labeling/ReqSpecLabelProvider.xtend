@@ -20,18 +20,18 @@
 package org.osate.reqspec.ui.labeling
 
 import com.google.inject.Inject
-import org.osate.reqspec.reqSpec.Requirement
-import static extension org.osate.alisa.common.util.CommonUtilExtension.*
+import org.eclipse.emf.edit.ui.provider.AdapterFactoryLabelProvider
+import org.eclipse.xtext.ui.label.DefaultEObjectLabelProvider
 
 /**
  * Provides labels for a EObjects.
  * 
  * see http://www.eclipse.org/Xtext/documentation.html#labelProvider
  */
-class ReqSpecLabelProvider extends org.eclipse.xtext.ui.label.DefaultEObjectLabelProvider {
+class ReqSpecLabelProvider extends DefaultEObjectLabelProvider {
 
 	@Inject
-	new(org.eclipse.emf.edit.ui.provider.AdapterFactoryLabelProvider delegate) {
+	new(AdapterFactoryLabelProvider delegate) {
 		super(delegate);
 	}
 
