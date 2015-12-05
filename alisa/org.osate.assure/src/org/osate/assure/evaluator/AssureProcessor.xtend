@@ -105,14 +105,19 @@ class AssureProcessor implements IAssureProcessor {
 
 	def dispatch void process(VerificationActivityResult vaResult) {
 		progressmonitor.subTask(vaResult.target.name) // + " on " + vaResult.claimSubject.name)
+		val start = System.currentTimeMillis();
 		if (vaResult.executionState != VerificationExecutionState.TODO) {
 			progressmonitor.worked(1)
+		val stop = System.currentTimeMillis();
+		System.out.println(vaResult.target.name+": Evaluation time: " + (stop - start) / 1000.0 + "s");
 			return;
 		}
 		if (vaResult.preconditionResult != null) {
 			vaResult.preconditionResult.process
 			if (!vaResult.preconditionResult.isSuccess) {
 				progressmonitor.worked(1)
+		val stop = System.currentTimeMillis();
+		System.out.println(vaResult.target.name+": Evaluation time: " + (stop - start) / 1000.0 + "s");
 				return
 			}
 		}
@@ -120,6 +125,8 @@ class AssureProcessor implements IAssureProcessor {
 		if (vaResult.validationResult != null) {
 			vaResult.validationResult.process
 		}
+		val stop = System.currentTimeMillis();
+		System.out.println(vaResult.target.name+": Evaluation time: " + (stop - start) / 1000.0 + "s");
 		progressmonitor.worked(1)
 	}
 

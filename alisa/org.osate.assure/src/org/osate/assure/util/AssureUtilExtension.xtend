@@ -1225,6 +1225,7 @@ class AssureUtilExtension {
 		if (Aadl2Util.isNull(cimpl)) return null
 		var si = instanceModelRecord.get(cimpl.name) as SystemInstance
 		if (si == null) {
+			System.out.println("Instantiating "+cimpl.getQualifiedName())
 			si = cimpl.buildInstanceModelFile
 			setInstanceModel(cimpl, si)
 		}
