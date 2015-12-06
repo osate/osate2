@@ -54,7 +54,7 @@ import org.osate.assure.util.AssureUtilExtension;
 			}
 
 			long stop = System.currentTimeMillis();
-			System.out.println("Evaluation time: " + (stop - start) / 1000.0 + "s");
+			System.out.println("RunAssure evaluation time: " + (stop - start) / 1000.0 + "s");
 
 			enableRerunHandler(root);
 			System.out.println(EcoreUtil2.getURI(root));

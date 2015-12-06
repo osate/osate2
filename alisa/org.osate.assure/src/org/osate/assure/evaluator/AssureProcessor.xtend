@@ -75,6 +75,21 @@ interface IAssureProcessor {
 class AssureProcessor implements IAssureProcessor {
 
 	var IProgressMonitor progressmonitor
+	
+	var long start = 0
+	
+	def void startSubTask(VerificationActivityResult vaResult){
+		progressmonitor.subTask(vaResult.target.name) // + " on " + vaResult.claimSubject.name)
+		start = System.currentTimeMillis();	
+	}
+	def void doneSubTask(VerificationActivityResult vaResult){
+		val instanceroot = vaResult.assuranceCaseInstanceModel
+		val targetComponent = findTargetSystemComponentInstance(instanceroot, vaResult.enclosingSubsystemResult)
+		val target = targetComponent.instanceObjectPath
+		progressmonitor.worked(1)
+		val stop = System.currentTimeMillis();
+		System.out.println("Evaluation time: " + (stop - start) / 1000.0 + "s :"+vaResult.target.name+" on "+target);
+	}
 
 	override processCase(AssuranceCaseResult assureResult, IProgressMonitor monitor) {
 		progressmonitor = monitor
@@ -104,20 +119,15 @@ class AssureProcessor implements IAssureProcessor {
 	}
 
 	def dispatch void process(VerificationActivityResult vaResult) {
-		progressmonitor.subTask(vaResult.target.name) // + " on " + vaResult.claimSubject.name)
-		val start = System.currentTimeMillis();
+		startSubTask(vaResult)
 		if (vaResult.executionState != VerificationExecutionState.TODO) {
-			progressmonitor.worked(1)
-		val stop = System.currentTimeMillis();
-		System.out.println(vaResult.target.name+": Evaluation time: " + (stop - start) / 1000.0 + "s");
+			doneSubTask(vaResult)
 			return;
 		}
 		if (vaResult.preconditionResult != null) {
 			vaResult.preconditionResult.process
 			if (!vaResult.preconditionResult.isSuccess) {
-				progressmonitor.worked(1)
-		val stop = System.currentTimeMillis();
-		System.out.println(vaResult.target.name+": Evaluation time: " + (stop - start) / 1000.0 + "s");
+				doneSubTask(vaResult)
 				return
 			}
 		}
@@ -125,9 +135,7 @@ class AssureProcessor implements IAssureProcessor {
 		if (vaResult.validationResult != null) {
 			vaResult.validationResult.process
 		}
-		val stop = System.currentTimeMillis();
-		System.out.println(vaResult.target.name+": Evaluation time: " + (stop - start) / 1000.0 + "s");
-		progressmonitor.worked(1)
+		doneSubTask(vaResult)
 	}
 
 	def dispatch void process(ElseResult vaResult) {

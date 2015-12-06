@@ -110,7 +110,7 @@ public class AssureHandler extends AlisaHandler {
 			e.printStackTrace();
 		}
 		long stop = System.currentTimeMillis();
-		System.out.println("Evaluation time: " + (stop - start) / 1000.0 + "s");
+		System.out.println("Assure evaluation time: " + (stop - start) / 1000.0 + "s");
 
 		return Status.OK_STATUS;
 	}
