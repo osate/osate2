@@ -275,8 +275,8 @@ public class NFCHoBinPacker {
 		// CONSTRAINED COMPONENTS ---");
 
 		Iterator orderedComposites = problem.softwareGraph.iterator();
-		System.out.println("OrderedComposites.size("
-				+ problem.softwareGraph.size() + ")");
+//		System.out.println("OrderedComposites.size("
+//				+ problem.softwareGraph.size() + ")");
 		SoftwareNode composite = null;
 		while (orderedComposites.hasNext() || composite != null) {
 			if (composite == null) {
