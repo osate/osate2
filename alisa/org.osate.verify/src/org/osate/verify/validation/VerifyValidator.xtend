@@ -20,10 +20,15 @@
 package org.osate.verify.validation
 
 import com.google.inject.Inject
+import java.util.ArrayList
+import java.util.List
 import org.eclipse.emf.ecore.EObject
+import org.eclipse.emf.ecore.EPackage
 import org.eclipse.emf.ecore.util.EcoreUtil
 import org.eclipse.xtext.validation.Check
 import org.eclipse.xtext.validation.CheckType
+import org.osate.reqspec.reqSpec.SystemRequirements
+import org.osate.verify.typing.validation.VerifyTypeSystemValidator
 import org.osate.verify.util.IVerifyGlobalReferenceFinder
 import org.osate.verify.util.VerificationMethodDispatchers
 import org.osate.verify.verify.Claim
@@ -32,20 +37,19 @@ import org.osate.verify.verify.PluginMethod
 import org.osate.verify.verify.Verification
 import org.osate.verify.verify.VerificationActivity
 import org.osate.verify.verify.VerificationCondition
+import org.osate.verify.verify.VerificationMethod
 import org.osate.verify.verify.VerificationMethodRegistry
 import org.osate.verify.verify.VerificationPlan
 import org.osate.verify.verify.VerifyPackage
 
 import static org.osate.verify.util.VerifyUtilExtension.*
-import org.osate.verify.verify.VerificationMethod
-import org.osate.reqspec.reqSpec.SystemRequirements
 
 /**
  * Custom validation rules. 
  * 
  * see http://www.eclipse.org/Xtext/documentation.html#validation
  */
-class VerifyValidator extends AbstractVerifyValidator {
+class VerifyValidator extends VerifyTypeSystemValidator {
 
 	public static val INCORRECT_METHOD_PATH = "org.osate.verify.incorrectMethodPath"
 	public static val INCORRECT_METHOD_REFERENCE = "org.osate.verify.incorrectMethodReference"
@@ -57,6 +61,13 @@ class VerifyValidator extends AbstractVerifyValidator {
 	public static val CLAIM_REQ_FOR_NOT_VP_FOR = "org.osate.verify.claimReqForNotVpFor"
 	public static val ILLEGAL_OBJECT_FOR_FILETYPE = "org.osate.verify.illegal.object.for.filetype"
 
+	override protected List<EPackage> getEPackages() {
+	    val List<EPackage> result = new ArrayList<EPackage>(super.getEPackages())
+	    result.add(VerifyPackage.eINSTANCE)
+	    result.add(EPackage.Registry.INSTANCE.getEPackage("http://aadl.info/AADL/2.0"))
+		return result
+	}
+	
 	@Inject IVerifyGlobalReferenceFinder verifyGlobalRefFinder
 
 	@Check

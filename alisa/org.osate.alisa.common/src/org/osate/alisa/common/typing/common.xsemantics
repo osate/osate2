@@ -1,10 +1,13 @@
-import org.osate.aadl2.Aadl2Factory
-import org.osate.aadl2.PropertyType
-import org.osate.alisa.common.common.AExpression
-import org.osate.alisa.common.common.ValDeclaration
 import org.eclipse.emf.ecore.EObject
+import org.osate.aadl2.Aadl2Factory
+import org.osate.aadl2.PropertyExpression
+import org.osate.aadl2.PropertyType
+import org.osate.alisa.common.common.ValDeclaration
+import org.osate.alisa.common.validation.AbstractCommonValidator
 
 system org.osate.alisa.common.typing.CommonTypeSystem
+
+validatorExtends AbstractCommonValidator
 
 judgments {
 	type |- EObject commonObject : output PropertyType
@@ -19,7 +22,7 @@ from {
 }
 
 rule AExpression
-	G |- AExpression param : PropertyType type
+	G |- PropertyExpression param : PropertyType type
 from {
-	Aadl2Factory.eINSTANCE.createAadlInteger
+	type = Aadl2Factory.eINSTANCE.createAadlInteger
 }
