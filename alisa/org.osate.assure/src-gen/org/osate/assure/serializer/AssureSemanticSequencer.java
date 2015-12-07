@@ -217,7 +217,8 @@ public class AssureSemanticSequencer extends CommonSemanticSequencer {
 	 *         thenskipCount=INT? 
 	 *         preconditionfailCount=INT? 
 	 *         validationfailCount=INT? 
-	 *         weight=INT?
+	 *         weight=INT? 
+	 *         executionTime=AInt?
 	 *     )
 	 */
 	protected void sequence_Metrics(EObject context, Metrics semanticObject) {

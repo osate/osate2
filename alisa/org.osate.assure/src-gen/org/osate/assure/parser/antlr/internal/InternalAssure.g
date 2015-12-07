@@ -1767,6 +1767,28 @@ ruleMetrics returns [EObject current=null]
 	    }
 
 )
+))?(	otherlv_21='time' 
+    {
+    	newLeafNode(otherlv_21, grammarAccess.getMetricsAccess().getTimeKeyword_11_0());
+    }
+(
+(
+		{ 
+	        newCompositeNode(grammarAccess.getMetricsAccess().getExecutionTimeAIntParserRuleCall_11_1_0()); 
+	    }
+		lv_executionTime_22_0=ruleAInt		{
+	        if ($current==null) {
+	            $current = createModelElementForParent(grammarAccess.getMetricsRule());
+	        }
+       		set(
+       			$current, 
+       			"executionTime",
+        		lv_executionTime_22_0, 
+        		"AInt");
+	        afterParserOrEnumRuleCall();
+	    }
+
+)
 ))?)
 ;
 

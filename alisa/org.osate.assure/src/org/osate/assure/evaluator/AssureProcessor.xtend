@@ -83,11 +83,13 @@ class AssureProcessor implements IAssureProcessor {
 		start = System.currentTimeMillis();	
 	}
 	def void doneSubTask(VerificationActivityResult vaResult){
+		progressmonitor.worked(1)
+		val stop = System.currentTimeMillis();
+		vaResult.metrics.executionTime = (stop - start)
+
 		val instanceroot = vaResult.assuranceCaseInstanceModel
 		val targetComponent = findTargetSystemComponentInstance(instanceroot, vaResult.enclosingSubsystemResult)
 		val target = targetComponent.instanceObjectPath
-		progressmonitor.worked(1)
-		val stop = System.currentTimeMillis();
 		System.out.println("Evaluation time: " + (stop - start) / 1000.0 + "s :"+vaResult.target.name+" on "+target);
 	}
 

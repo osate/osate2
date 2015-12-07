@@ -6881,6 +6881,7 @@ rule__Metrics__Group__10
     }
 :
 	rule__Metrics__Group__10__Impl
+	rule__Metrics__Group__11
 ;
 finally {
 	restoreStackSize(stackSize);
@@ -6901,6 +6902,36 @@ rule__Metrics__Group__10__Impl
 finally {
 	restoreStackSize(stackSize);
 }
+
+
+rule__Metrics__Group__11
+    @init {
+		int stackSize = keepStackSize();
+    }
+:
+	rule__Metrics__Group__11__Impl
+;
+finally {
+	restoreStackSize(stackSize);
+}
+
+rule__Metrics__Group__11__Impl
+    @init {
+		int stackSize = keepStackSize();
+    }
+:
+(
+{ before(grammarAccess.getMetricsAccess().getGroup_11()); }
+(rule__Metrics__Group_11__0)?
+{ after(grammarAccess.getMetricsAccess().getGroup_11()); }
+)
+
+;
+finally {
+	restoreStackSize(stackSize);
+}
+
+
 
 
 
@@ -7543,6 +7574,69 @@ rule__Metrics__Group_10__1__Impl
 { before(grammarAccess.getMetricsAccess().getWeightAssignment_10_1()); }
 (rule__Metrics__WeightAssignment_10_1)
 { after(grammarAccess.getMetricsAccess().getWeightAssignment_10_1()); }
+)
+
+;
+finally {
+	restoreStackSize(stackSize);
+}
+
+
+
+
+
+
+rule__Metrics__Group_11__0
+    @init {
+		int stackSize = keepStackSize();
+    }
+:
+	rule__Metrics__Group_11__0__Impl
+	rule__Metrics__Group_11__1
+;
+finally {
+	restoreStackSize(stackSize);
+}
+
+rule__Metrics__Group_11__0__Impl
+    @init {
+		int stackSize = keepStackSize();
+    }
+:
+(
+{ before(grammarAccess.getMetricsAccess().getTimeKeyword_11_0()); }
+
+	'time' 
+
+{ after(grammarAccess.getMetricsAccess().getTimeKeyword_11_0()); }
+)
+
+;
+finally {
+	restoreStackSize(stackSize);
+}
+
+
+rule__Metrics__Group_11__1
+    @init {
+		int stackSize = keepStackSize();
+    }
+:
+	rule__Metrics__Group_11__1__Impl
+;
+finally {
+	restoreStackSize(stackSize);
+}
+
+rule__Metrics__Group_11__1__Impl
+    @init {
+		int stackSize = keepStackSize();
+    }
+:
+(
+{ before(grammarAccess.getMetricsAccess().getExecutionTimeAssignment_11_1()); }
+(rule__Metrics__ExecutionTimeAssignment_11_1)
+{ after(grammarAccess.getMetricsAccess().getExecutionTimeAssignment_11_1()); }
 )
 
 ;
@@ -12899,6 +12993,21 @@ rule__Metrics__WeightAssignment_10_1
 (
 { before(grammarAccess.getMetricsAccess().getWeightINTTerminalRuleCall_10_1_0()); }
 	RULE_INT{ after(grammarAccess.getMetricsAccess().getWeightINTTerminalRuleCall_10_1_0()); }
+)
+
+;
+finally {
+	restoreStackSize(stackSize);
+}
+
+rule__Metrics__ExecutionTimeAssignment_11_1
+    @init {
+		int stackSize = keepStackSize();
+    }
+:
+(
+{ before(grammarAccess.getMetricsAccess().getExecutionTimeAIntParserRuleCall_11_1_0()); }
+	ruleAInt{ after(grammarAccess.getMetricsAccess().getExecutionTimeAIntParserRuleCall_11_1_0()); }
 )
 
 ;

@@ -43,6 +43,7 @@ import org.osate.assure.assure.Metrics;
  *   <li>{@link org.osate.assure.assure.impl.MetricsImpl#getPreconditionfailCount <em>Preconditionfail Count</em>}</li>
  *   <li>{@link org.osate.assure.assure.impl.MetricsImpl#getValidationfailCount <em>Validationfail Count</em>}</li>
  *   <li>{@link org.osate.assure.assure.impl.MetricsImpl#getWeight <em>Weight</em>}</li>
+ *   <li>{@link org.osate.assure.assure.impl.MetricsImpl#getExecutionTime <em>Execution Time</em>}</li>
  * </ul>
  *
  * @generated
@@ -248,6 +249,26 @@ public class MetricsImpl extends MinimalEObjectImpl.Container implements Metrics
    * @ordered
    */
   protected int weight = WEIGHT_EDEFAULT;
+
+  /**
+   * The default value of the '{@link #getExecutionTime() <em>Execution Time</em>}' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see #getExecutionTime()
+   * @generated
+   * @ordered
+   */
+  protected static final long EXECUTION_TIME_EDEFAULT = 0L;
+
+  /**
+   * The cached value of the '{@link #getExecutionTime() <em>Execution Time</em>}' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see #getExecutionTime()
+   * @generated
+   * @ordered
+   */
+  protected long executionTime = EXECUTION_TIME_EDEFAULT;
 
   /**
    * <!-- begin-user-doc -->
@@ -505,6 +526,29 @@ public class MetricsImpl extends MinimalEObjectImpl.Container implements Metrics
    * <!-- end-user-doc -->
    * @generated
    */
+  public long getExecutionTime()
+  {
+    return executionTime;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public void setExecutionTime(long newExecutionTime)
+  {
+    long oldExecutionTime = executionTime;
+    executionTime = newExecutionTime;
+    if (eNotificationRequired())
+      eNotify(new ENotificationImpl(this, Notification.SET, AssurePackage.METRICS__EXECUTION_TIME, oldExecutionTime, executionTime));
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
   @Override
   public Object eGet(int featureID, boolean resolve, boolean coreType)
   {
@@ -530,6 +574,8 @@ public class MetricsImpl extends MinimalEObjectImpl.Container implements Metrics
         return getValidationfailCount();
       case AssurePackage.METRICS__WEIGHT:
         return getWeight();
+      case AssurePackage.METRICS__EXECUTION_TIME:
+        return getExecutionTime();
     }
     return super.eGet(featureID, resolve, coreType);
   }
@@ -573,6 +619,9 @@ public class MetricsImpl extends MinimalEObjectImpl.Container implements Metrics
         return;
       case AssurePackage.METRICS__WEIGHT:
         setWeight((Integer)newValue);
+        return;
+      case AssurePackage.METRICS__EXECUTION_TIME:
+        setExecutionTime((Long)newValue);
         return;
     }
     super.eSet(featureID, newValue);
@@ -618,6 +667,9 @@ public class MetricsImpl extends MinimalEObjectImpl.Container implements Metrics
       case AssurePackage.METRICS__WEIGHT:
         setWeight(WEIGHT_EDEFAULT);
         return;
+      case AssurePackage.METRICS__EXECUTION_TIME:
+        setExecutionTime(EXECUTION_TIME_EDEFAULT);
+        return;
     }
     super.eUnset(featureID);
   }
@@ -652,6 +704,8 @@ public class MetricsImpl extends MinimalEObjectImpl.Container implements Metrics
         return validationfailCount != VALIDATIONFAIL_COUNT_EDEFAULT;
       case AssurePackage.METRICS__WEIGHT:
         return weight != WEIGHT_EDEFAULT;
+      case AssurePackage.METRICS__EXECUTION_TIME:
+        return executionTime != EXECUTION_TIME_EDEFAULT;
     }
     return super.eIsSet(featureID);
   }
@@ -687,6 +741,8 @@ public class MetricsImpl extends MinimalEObjectImpl.Container implements Metrics
     result.append(validationfailCount);
     result.append(", weight: ");
     result.append(weight);
+    result.append(", executionTime: ");
+    result.append(executionTime);
     result.append(')');
     return result.toString();
   }

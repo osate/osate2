@@ -1065,18 +1065,22 @@ public class AssureGrammarAccess extends AbstractGrammarElementFinder {
 		private final Keyword cWeightKeyword_10_0 = (Keyword)cGroup_10.eContents().get(0);
 		private final Assignment cWeightAssignment_10_1 = (Assignment)cGroup_10.eContents().get(1);
 		private final RuleCall cWeightINTTerminalRuleCall_10_1_0 = (RuleCall)cWeightAssignment_10_1.eContents().get(0);
+		private final Group cGroup_11 = (Group)cGroup.eContents().get(11);
+		private final Keyword cTimeKeyword_11_0 = (Keyword)cGroup_11.eContents().get(0);
+		private final Assignment cExecutionTimeAssignment_11_1 = (Assignment)cGroup_11.eContents().get(1);
+		private final RuleCall cExecutionTimeAIntParserRuleCall_11_1_0 = (RuleCall)cExecutionTimeAssignment_11_1.eContents().get(0);
 		
 		//Metrics:
 		//	{Metrics} ("tbdcount" tbdCount=INT)? ("successcount" successCount=INT)? ("failcount" failCount=INT)? ("timeoutcount"
 		//	timeoutCount=INT)? ("errorcount" errorCount=INT)? ("didelsecount" didelseCount=INT)? // else branch executed
 		//	("thenskipcount" thenskipCount=INT)? ("prefailcount" preconditionfailCount=INT)? ("validfailcount"
-		//	validationfailCount=INT)? ("weight" weight=INT)?;
+		//	validationfailCount=INT)? ("weight" weight=INT)? ("time" executionTime=AInt)?;
 		@Override public ParserRule getRule() { return rule; }
 
 		//{Metrics} ("tbdcount" tbdCount=INT)? ("successcount" successCount=INT)? ("failcount" failCount=INT)? ("timeoutcount"
 		//timeoutCount=INT)? ("errorcount" errorCount=INT)? ("didelsecount" didelseCount=INT)? // else branch executed
 		//("thenskipcount" thenskipCount=INT)? ("prefailcount" preconditionfailCount=INT)? ("validfailcount"
-		//validationfailCount=INT)? ("weight" weight=INT)?
+		//validationfailCount=INT)? ("weight" weight=INT)? ("time" executionTime=AInt)?
 		public Group getGroup() { return cGroup; }
 
 		//{Metrics}
@@ -1201,6 +1205,18 @@ public class AssureGrammarAccess extends AbstractGrammarElementFinder {
 
 		//INT
 		public RuleCall getWeightINTTerminalRuleCall_10_1_0() { return cWeightINTTerminalRuleCall_10_1_0; }
+
+		//("time" executionTime=AInt)?
+		public Group getGroup_11() { return cGroup_11; }
+
+		//"time"
+		public Keyword getTimeKeyword_11_0() { return cTimeKeyword_11_0; }
+
+		//executionTime=AInt
+		public Assignment getExecutionTimeAssignment_11_1() { return cExecutionTimeAssignment_11_1; }
+
+		//AInt
+		public RuleCall getExecutionTimeAIntParserRuleCall_11_1_0() { return cExecutionTimeAIntParserRuleCall_11_1_0; }
 	}
 	
 	
@@ -1572,7 +1588,7 @@ public class AssureGrammarAccess extends AbstractGrammarElementFinder {
 	//	{Metrics} ("tbdcount" tbdCount=INT)? ("successcount" successCount=INT)? ("failcount" failCount=INT)? ("timeoutcount"
 	//	timeoutCount=INT)? ("errorcount" errorCount=INT)? ("didelsecount" didelseCount=INT)? // else branch executed
 	//	("thenskipcount" thenskipCount=INT)? ("prefailcount" preconditionfailCount=INT)? ("validfailcount"
-	//	validationfailCount=INT)? ("weight" weight=INT)?;
+	//	validationfailCount=INT)? ("weight" weight=INT)? ("time" executionTime=AInt)?;
 	public MetricsElements getMetricsAccess() {
 		return pMetrics;
 	}

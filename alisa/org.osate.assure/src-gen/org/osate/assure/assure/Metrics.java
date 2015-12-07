@@ -36,6 +36,7 @@ import org.eclipse.emf.ecore.EObject;
  *   <li>{@link org.osate.assure.assure.Metrics#getPreconditionfailCount <em>Preconditionfail Count</em>}</li>
  *   <li>{@link org.osate.assure.assure.Metrics#getValidationfailCount <em>Validationfail Count</em>}</li>
  *   <li>{@link org.osate.assure.assure.Metrics#getWeight <em>Weight</em>}</li>
+ *   <li>{@link org.osate.assure.assure.Metrics#getExecutionTime <em>Execution Time</em>}</li>
  * </ul>
  *
  * @see org.osate.assure.assure.AssurePackage#getMetrics()
@@ -303,5 +304,31 @@ public interface Metrics extends EObject
    * @generated
    */
   void setWeight(int value);
+
+  /**
+   * Returns the value of the '<em><b>Execution Time</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <p>
+   * If the meaning of the '<em>Execution Time</em>' attribute isn't clear,
+   * there really should be more of a description here...
+   * </p>
+   * <!-- end-user-doc -->
+   * @return the value of the '<em>Execution Time</em>' attribute.
+   * @see #setExecutionTime(long)
+   * @see org.osate.assure.assure.AssurePackage#getMetrics_ExecutionTime()
+   * @model dataType="org.osate.aadl2.Integer"
+   * @generated
+   */
+  long getExecutionTime();
+
+  /**
+   * Sets the value of the '{@link org.osate.assure.assure.Metrics#getExecutionTime <em>Execution Time</em>}' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @param value the new value of the '<em>Execution Time</em>' attribute.
+   * @see #getExecutionTime()
+   * @generated
+   */
+  void setExecutionTime(long value);
 
 } // Metrics

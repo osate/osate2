@@ -146,6 +146,7 @@ Metrics returns Metrics:
 	('prefailcount'  preconditionfailCount=INT)?
 	('validfailcount'  validationfailCount=INT)?
 	('weight' weight = INT)?
+	('time' executionTime = AInt)?
 ;
 
 

@@ -1210,6 +1210,12 @@ class AssureUtilExtension {
 			elec.tbdCount + " EL" + elec.didelseCount + " TS" + elec.thenskipCount + ")"
 	}
 
+
+	def static String assureExecutionTime(AssureResult ele) {
+		val elec= ele.metrics
+		"("+elec.executionTime+" ms)"
+	}
+
 	// manage instance model generation
 	static val instanceModelRecord = Collections.synchronizedMap(newHashMap)
 

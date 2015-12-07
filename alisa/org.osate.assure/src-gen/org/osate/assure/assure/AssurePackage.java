@@ -702,13 +702,22 @@ public interface AssurePackage extends EPackage
   int METRICS__WEIGHT = 9;
 
   /**
+   * The feature id for the '<em><b>Execution Time</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int METRICS__EXECUTION_TIME = 10;
+
+  /**
    * The number of structural features of the '<em>Metrics</em>' class.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    * @ordered
    */
-  int METRICS_FEATURE_COUNT = 10;
+  int METRICS_FEATURE_COUNT = 11;
 
   /**
    * The meta object id for the '{@link org.osate.assure.assure.impl.PreconditionResultImpl <em>Precondition Result</em>}' class.
@@ -1568,6 +1577,17 @@ public interface AssurePackage extends EPackage
   EAttribute getMetrics_Weight();
 
   /**
+   * Returns the meta object for the attribute '{@link org.osate.assure.assure.Metrics#getExecutionTime <em>Execution Time</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the attribute '<em>Execution Time</em>'.
+   * @see org.osate.assure.assure.Metrics#getExecutionTime()
+   * @see #getMetrics()
+   * @generated
+   */
+  EAttribute getMetrics_ExecutionTime();
+
+  /**
    * Returns the meta object for class '{@link org.osate.assure.assure.PreconditionResult <em>Precondition Result</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -2140,6 +2160,14 @@ public interface AssurePackage extends EPackage
      * @generated
      */
     EAttribute METRICS__WEIGHT = eINSTANCE.getMetrics_Weight();
+
+    /**
+     * The meta object literal for the '<em><b>Execution Time</b></em>' attribute feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EAttribute METRICS__EXECUTION_TIME = eINSTANCE.getMetrics_ExecutionTime();
 
     /**
      * The meta object literal for the '{@link org.osate.assure.assure.impl.PreconditionResultImpl <em>Precondition Result</em>}' class.
