@@ -23,6 +23,7 @@ import com.rockwellcollins.atc.resolute.analysis.results.ClaimResult
 import com.rockwellcollins.atc.resolute.resolute.FnCallExpr
 import com.rockwellcollins.atc.resolute.resolute.ProveStatement
 import com.rockwellcollins.atc.resolute.resolute.ResoluteFactory
+import com.rockwellcollins.atc.resolute.resolute.NestedDotID
 import org.eclipse.core.runtime.IProgressMonitor
 import org.eclipse.emf.common.util.BasicEList
 import org.eclipse.emf.common.util.EList
@@ -60,6 +61,9 @@ import org.osate.xtext.aadl2.properties.util.PropertyUtils
 
 import static extension org.osate.alisa.common.util.CommonUtilExtension.*
 import static extension org.osate.assure.util.AssureUtilExtension.*
+import com.rockwellcollins.atc.resolute.analysis.values.NamedElementValue
+import com.rockwellcollins.atc.resolute.resolute.ThisExpr
+import org.osate.aadl2.instance.SystemInstance
 
 @ImplementedBy(AssureProcessor)
 interface IAssureProcessor {
@@ -323,7 +327,7 @@ class AssureProcessor implements IAssureProcessor {
 					AssureUtilExtension.initializeResoluteContext(instanceroot);
 					val EvaluationContext context = new EvaluationContext(instanceroot, sets, featToConnsMap);
 					val ResoluteInterpreter interpreter = new ResoluteInterpreter(context);
-					val provecall = createWrapperProveCall(methodtype, parameters)
+					val provecall = createWrapperProveCall(methodtype, targetComponent,parameters)
 					if (provecall == null) {
 						setToError(verificationResult,
 							"Could not find Resolute Function " + verificationResult.method.name)
@@ -379,17 +383,35 @@ class AssureProcessor implements IAssureProcessor {
 		verificationResult.eResource.save(null)
 	}
 
-	def ProveStatement createWrapperProveCall(ResoluteMethod rm, EList<EObject> params) {
+	def ProveStatement createWrapperProveCall(ResoluteMethod rm, ComponentInstance ci,EList<EObject> params) {
 		val found = rm.methodReference
 		val factory = ResoluteFactory.eINSTANCE
 		if(found == null) return null
 		val call = factory.createFnCallExpr
 		call.fn = found
-		call.args.add(factory.createThisExpr)
+		// TODO this is instance root. We want the current instance.
+		// Either this.sub1.sub2 or new NamedElementValue(targetComponent)
+		call.args.add(createComponentinstanceReference(ci))
 		addParams(call, params)
 		val prove = factory.createProveStatement
 		prove.expr = call
 		prove
+	}
+	
+	def ThisExpr createComponentinstanceReference(ComponentInstance ci){
+		val factory = ResoluteFactory.eINSTANCE
+		var NestedDotID nid = null
+		var nci = ci
+		while (!(ci instanceof SystemInstance)){
+			val x = factory.createNestedDotID 
+			x.base = ci.subcomponent
+			x.sub = nid
+			nid = x
+			nci = nci.eContainer as ComponentInstance
+		}
+		val te = factory.createThisExpr
+		te.sub = nid
+		te
 	}
 
 	def addParams(FnCallExpr call, EList<EObject> params) {
