@@ -248,28 +248,31 @@ public class AgeDiagramBehavior extends DiagramBehavior {
 				// Update the diagram
 				final EObject contents = resource.getContents().get(0);
 				if(contents instanceof NamedElement) {
-					final Runnable updateIfPackageMatches = new Runnable() {
-						@Override
-						public void run() {
-							final Object bo = AadlElementWrapper.unwrap(getDiagramTypeProvider().getFeatureProvider().getBusinessObjectForPictogramElement(getDiagramTypeProvider().getDiagram()));
-							if(bo instanceof Element) {
-								if(((Element)bo).eResource() == resource) {
-									update();
-								}
-							}							
-						}						
-					};
-			
-					if(Display.getDefault().getThread() == Thread.currentThread()) {
-						updateIfPackageMatches.run();
-					} else {
-						Display.getDefault().asyncExec(updateIfPackageMatches);	
-					}
+					updateIfDiagramResourceMatches(resource);
 				}
 			}					
 		}	
 	};
 
+	private void updateIfDiagramResourceMatches(final Resource resource) {
+		// Ensure the method is called in the UI thread
+		if (Display.getCurrent() == null) {
+			Display.getDefault().asyncExec(new Runnable() {
+				public void run() {
+					updateIfDiagramResourceMatches(resource);
+				}
+			});
+			return;
+		}
+		
+		final Object bo = AadlElementWrapper.unwrap(getDiagramTypeProvider().getFeatureProvider().getBusinessObjectForPictogramElement(getDiagramTypeProvider().getDiagram()));
+		if(bo instanceof Element) {
+			if(((Element)bo).eResource() == resource) {
+				update();
+			}
+		}
+	}
+	
 	public void updateDiagramWhenVisible() {
 		update();
 	}
@@ -394,6 +397,15 @@ public class AgeDiagramBehavior extends DiagramBehavior {
 			
 			@Override
 			public void refresh() {
+				if (Display.getCurrent() == null) {
+					Display.getDefault().asyncExec(new Runnable() {
+						public void run() {
+							refresh();
+						}
+					});
+					return;
+				}
+				
 				// Update the toolbars
 				if(getDiagramContainer() instanceof EditorPart) {
 					((EditorPart)getDiagramContainer()).getEditorSite().getActionBars().getToolBarManager().update(true);

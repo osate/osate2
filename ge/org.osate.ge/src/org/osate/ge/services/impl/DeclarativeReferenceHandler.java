@@ -5,6 +5,11 @@ import java.util.HashSet;
 import java.util.Map;
 import java.util.Objects;
 import java.util.Set;
+
+import javax.annotation.PreDestroy;
+import javax.inject.Inject;
+import javax.inject.Named;
+
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.resources.IResource;
 import org.eclipse.core.resources.IResourceChangeEvent;
@@ -52,6 +57,9 @@ import org.osate.aadl2.SubprogramCallSequence;
 import org.osate.aadl2.TypeExtension;
 import org.osate.annexsupport.AnnexUtil;
 import org.osate.ge.diagrams.componentImplementation.patterns.SubprogramCallOrder;
+import org.osate.ge.ext.Names;
+import org.osate.ge.ext.annotations.GetReference;
+import org.osate.ge.ext.annotations.GetReferencedObject;
 import org.osate.ge.services.CachingService;
 import org.osate.ge.services.CachingService.Cache;
 import org.osate.ge.services.SavedAadlResourceService;
@@ -237,16 +245,19 @@ public class DeclarativeReferenceHandler {
 	private final static String TYPE_ANNEX_SUBCLAUSE = "annex_subclause";
 	private final DeclarativeCache declarativeCache;
          
+	@Inject
 	public DeclarativeReferenceHandler(final IDiagramTypeProvider diagramTypeProvider, final CachingService cachingService, final SavedAadlResourceService savedAadlResourceService) {
 		this.declarativeCache = new DeclarativeCache(diagramTypeProvider, cachingService, savedAadlResourceService);		
 		cachingService.registerCache(declarativeCache);
 	}
 		
+	@PreDestroy
 	public void dispose() {
 		declarativeCache.dispose();
 	}
 	
-	public String getReference(final Object bo) {
+	@GetReference
+	public String getReference(final @Named(Names.BUSINESS_OBJECT) Object bo) {
 		if(bo instanceof AadlPackage) {
 			return TYPE_PACKAGE + " " + ((AadlPackage)bo).getQualifiedName();				
 		} else if(bo instanceof Classifier) {
@@ -305,7 +316,8 @@ public class DeclarativeReferenceHandler {
 		}
 	}
 	
-	public Object getReferencedObject(final String reference, final String[] refSegs) {
+	@GetReferencedObject
+	public Object getReferencedObject(final @Named(Names.REFERENCE) String reference, final @Named(Names.REFERENCE_SEGMENTS) String[] refSegs) {
 		Objects.requireNonNull(reference, "reference must not be null");
 		Objects.requireNonNull(refSegs, "refSegs must not be null");
 

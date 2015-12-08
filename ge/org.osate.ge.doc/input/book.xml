@@ -833,6 +833,32 @@
 				<title>Adding Support for a new Business Object</title>
 				<para><emphasis role="bold">This capability is currently in development. The documentation will be updated as the extension points are finalized. </emphasis></para>
 				<section>
+					<title>Reference Handlers</title>
+					<para>Referenced handlers are registered using the org.osate.ge.referenceHandlers extension point. The graphical editor uses reference handlers to generate a reference to a business object and to retrieve a business object using the previously generated reference. </para>
+					<para>References are used to associate a pictogram element with a business object. References are stored in the diagram and must be unique to the business object. All business objects for which a pictogram element is associated must be handled by a reference handler. A single reference handler may handle multiple types of business objects.</para>
+					<para>The DeclarativeReferenceHandler class may be used as an example of a reference handler.</para>
+					<para>Reference handlers differ from other extensions in a couple ways.</para>
+					<itemizedlist>
+						<listitem><para>Instances are not shared between diagrams.</para></listitem>
+						<listitem><para>Constructors may accept arguments. As with method invocations, arguments are injected using dependency injection.</para></listitem>
+					</itemizedlist>
+					<para>Required Annotations:</para>
+					<itemizedlist>
+						<listitem><para>GetReference</para></listitem>
+						<listitem><para>GetReferencedObject</para></listitem>
+					</itemizedlist>
+					<para>Optional Annotations:</para>
+					<itemizedlist>
+						<listitem><para>PreDestroy</para></listitem>
+					</itemizedlist>
+					<para>Supported named parameters:</para>
+					<itemizedlist>
+						<listitem><para>BUSINESS_OBJECT(GetReference)</para></listitem>
+						<listitem><para>REFERENCE(GetReferencedObject)</para></listitem>
+						<listitem><para>REFERENCE_SEGMENTS(GetReferencedObject)</para></listitem>
+					</itemizedlist>
+				</section>
+				<section>
 					<title>Styles</title>
 					<para>The graphical editor manages creating and updating the styles needed by the diagram. Styles are created by style factories which are registered using the org.osate.ge.styles extension point. A style factory is registered for a particular style ID. The appropriate style factory is activated whenever the graphical editor needs to instantiate a style. </para>
 					<para>The graphical editor implements style factories which may be used as examples. Those style factories are contained in the <emphasis>org.osate.ge.styles</emphasis> package.</para>

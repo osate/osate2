@@ -26,6 +26,7 @@ import org.osate.xtext.aadl2.ui.propertyview.IAadlPropertySource;
  *
  */
 public class GraphitiEditPartAdapterFactory implements IAdapterFactory {
+	@SuppressWarnings("unchecked")
 	@Override
 	public Object getAdapter(Object adaptableObject, @SuppressWarnings("rawtypes") Class adapterType) {
 		// Get the business object
@@ -69,7 +70,7 @@ public class GraphitiEditPartAdapterFactory implements IAdapterFactory {
 		return null;
 	}
 
-	@SuppressWarnings("rawtypes")
+	@SuppressWarnings({ "rawtypes", "unchecked" })
 	@Override
 	public Class[] getAdapterList() {
 		return new Class[] { IAadlPropertySource.class, IPropertySource.class};
