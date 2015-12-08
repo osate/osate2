@@ -164,7 +164,7 @@ SystemRequirement returns Requirement:
 Requirement returns Requirement:
 	'requirement'  name=ID   
 	(':'  title=STRING)? 
-	( 'for'  componentCategory+=ComponentCategory+	)?
+	( 'for'  (componentCategory+=ComponentCategory+ | connections?='connections')	)?
 '['	(
  	('quality'  qualityCategory+=[categories::QualityCategory|ID]+ )?
  	&('category'  userCategory+=[categories::UserCategory|ID]+ )?

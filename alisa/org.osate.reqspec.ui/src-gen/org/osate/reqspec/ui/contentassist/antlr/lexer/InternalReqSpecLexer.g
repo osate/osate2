@@ -30,6 +30,8 @@ import org.eclipse.xtext.ui.editor.contentassist.antlr.internal.Lexer;
 
 Requirements : 'requirements';
 
+Connections : 'connections';
+
 Description : 'description';
 
 Development : 'development';

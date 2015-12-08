@@ -58,6 +58,7 @@ public class ReqSpecParser extends AbstractContentAssistParser {
 					put(grammarAccess.getDocumentSectionAccess().getContentAlternatives_4_1_0(), "rule__DocumentSection__ContentAlternatives_4_1_0");
 					put(grammarAccess.getDocGoalAccess().getAlternatives_3_1(), "rule__DocGoal__Alternatives_3_1");
 					put(grammarAccess.getSystemRequirementAccess().getAlternatives_5_8_1(), "rule__SystemRequirement__Alternatives_5_8_1");
+					put(grammarAccess.getRequirementAccess().getAlternatives_3_1(), "rule__Requirement__Alternatives_3_1");
 					put(grammarAccess.getRequirementAccess().getAlternatives_5_8_1(), "rule__Requirement__Alternatives_5_8_1");
 					put(grammarAccess.getDocRequirementAccess().getAlternatives_3_1(), "rule__DocRequirement__Alternatives_3_1");
 					put(grammarAccess.getDocRequirementAccess().getAlternatives_5_8_1(), "rule__DocRequirement__Alternatives_5_8_1");
@@ -378,7 +379,8 @@ public class ReqSpecParser extends AbstractContentAssistParser {
 					put(grammarAccess.getSystemRequirementAccess().getIssuesAssignment_5_17_1(), "rule__SystemRequirement__IssuesAssignment_5_17_1");
 					put(grammarAccess.getRequirementAccess().getNameAssignment_1(), "rule__Requirement__NameAssignment_1");
 					put(grammarAccess.getRequirementAccess().getTitleAssignment_2_1(), "rule__Requirement__TitleAssignment_2_1");
-					put(grammarAccess.getRequirementAccess().getComponentCategoryAssignment_3_1(), "rule__Requirement__ComponentCategoryAssignment_3_1");
+					put(grammarAccess.getRequirementAccess().getComponentCategoryAssignment_3_1_0(), "rule__Requirement__ComponentCategoryAssignment_3_1_0");
+					put(grammarAccess.getRequirementAccess().getConnectionsAssignment_3_1_1(), "rule__Requirement__ConnectionsAssignment_3_1_1");
 					put(grammarAccess.getRequirementAccess().getQualityCategoryAssignment_5_0_1(), "rule__Requirement__QualityCategoryAssignment_5_0_1");
 					put(grammarAccess.getRequirementAccess().getUserCategoryAssignment_5_1_1(), "rule__Requirement__UserCategoryAssignment_5_1_1");
 					put(grammarAccess.getRequirementAccess().getDescriptionAssignment_5_2(), "rule__Requirement__DescriptionAssignment_5_2");

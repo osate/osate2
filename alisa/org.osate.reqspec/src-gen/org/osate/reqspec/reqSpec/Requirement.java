@@ -43,6 +43,7 @@ import org.osate.organization.organization.Stakeholder;
  *   <li>{@link org.osate.reqspec.reqSpec.Requirement#getDevelopmentStakeholder <em>Development Stakeholder</em>}</li>
  *   <li>{@link org.osate.reqspec.reqSpec.Requirement#getRequirementReference <em>Requirement Reference</em>}</li>
  *   <li>{@link org.osate.reqspec.reqSpec.Requirement#getComponentCategory <em>Component Category</em>}</li>
+ *   <li>{@link org.osate.reqspec.reqSpec.Requirement#isConnections <em>Connections</em>}</li>
  * </ul>
  *
  * @see org.osate.reqspec.reqSpec.ReqSpecPackage#getRequirement()
@@ -226,5 +227,31 @@ public interface Requirement extends ContractualElement
    * @generated
    */
   EList<ComponentCategory> getComponentCategory();
+
+  /**
+   * Returns the value of the '<em><b>Connections</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <p>
+   * If the meaning of the '<em>Connections</em>' attribute isn't clear,
+   * there really should be more of a description here...
+   * </p>
+   * <!-- end-user-doc -->
+   * @return the value of the '<em>Connections</em>' attribute.
+   * @see #setConnections(boolean)
+   * @see org.osate.reqspec.reqSpec.ReqSpecPackage#getRequirement_Connections()
+   * @model
+   * @generated
+   */
+  boolean isConnections();
+
+  /**
+   * Sets the value of the '{@link org.osate.reqspec.reqSpec.Requirement#isConnections <em>Connections</em>}' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @param value the new value of the '<em>Connections</em>' attribute.
+   * @see #isConnections()
+   * @generated
+   */
+  void setConnections(boolean value);
 
 } // Requirement

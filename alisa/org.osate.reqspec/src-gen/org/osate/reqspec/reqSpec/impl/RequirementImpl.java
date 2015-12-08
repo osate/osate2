@@ -60,6 +60,7 @@ import org.osate.reqspec.reqSpec.Requirement;
  *   <li>{@link org.osate.reqspec.reqSpec.impl.RequirementImpl#getDevelopmentStakeholder <em>Development Stakeholder</em>}</li>
  *   <li>{@link org.osate.reqspec.reqSpec.impl.RequirementImpl#getRequirementReference <em>Requirement Reference</em>}</li>
  *   <li>{@link org.osate.reqspec.reqSpec.impl.RequirementImpl#getComponentCategory <em>Component Category</em>}</li>
+ *   <li>{@link org.osate.reqspec.reqSpec.impl.RequirementImpl#isConnections <em>Connections</em>}</li>
  * </ul>
  *
  * @generated
@@ -165,6 +166,26 @@ public class RequirementImpl extends ContractualElementImpl implements Requireme
    * @ordered
    */
   protected EList<ComponentCategory> componentCategory;
+
+  /**
+   * The default value of the '{@link #isConnections() <em>Connections</em>}' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see #isConnections()
+   * @generated
+   * @ordered
+   */
+  protected static final boolean CONNECTIONS_EDEFAULT = false;
+
+  /**
+   * The cached value of the '{@link #isConnections() <em>Connections</em>}' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see #isConnections()
+   * @generated
+   * @ordered
+   */
+  protected boolean connections = CONNECTIONS_EDEFAULT;
 
   /**
    * <!-- begin-user-doc -->
@@ -390,6 +411,29 @@ public class RequirementImpl extends ContractualElementImpl implements Requireme
    * <!-- end-user-doc -->
    * @generated
    */
+  public boolean isConnections()
+  {
+    return connections;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public void setConnections(boolean newConnections)
+  {
+    boolean oldConnections = connections;
+    connections = newConnections;
+    if (eNotificationRequired())
+      eNotify(new ENotificationImpl(this, Notification.SET, ReqSpecPackage.REQUIREMENT__CONNECTIONS, oldConnections, connections));
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
   @Override
   public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs)
   {
@@ -432,6 +476,8 @@ public class RequirementImpl extends ContractualElementImpl implements Requireme
         return getRequirementReference();
       case ReqSpecPackage.REQUIREMENT__COMPONENT_CATEGORY:
         return getComponentCategory();
+      case ReqSpecPackage.REQUIREMENT__CONNECTIONS:
+        return isConnections();
     }
     return super.eGet(featureID, resolve, coreType);
   }
@@ -480,6 +526,9 @@ public class RequirementImpl extends ContractualElementImpl implements Requireme
         getComponentCategory().clear();
         getComponentCategory().addAll((Collection<? extends ComponentCategory>)newValue);
         return;
+      case ReqSpecPackage.REQUIREMENT__CONNECTIONS:
+        setConnections((Boolean)newValue);
+        return;
     }
     super.eSet(featureID, newValue);
   }
@@ -521,6 +570,9 @@ public class RequirementImpl extends ContractualElementImpl implements Requireme
       case ReqSpecPackage.REQUIREMENT__COMPONENT_CATEGORY:
         getComponentCategory().clear();
         return;
+      case ReqSpecPackage.REQUIREMENT__CONNECTIONS:
+        setConnections(CONNECTIONS_EDEFAULT);
+        return;
     }
     super.eUnset(featureID);
   }
@@ -553,6 +605,8 @@ public class RequirementImpl extends ContractualElementImpl implements Requireme
         return requirementReference != null && !requirementReference.isEmpty();
       case ReqSpecPackage.REQUIREMENT__COMPONENT_CATEGORY:
         return componentCategory != null && !componentCategory.isEmpty();
+      case ReqSpecPackage.REQUIREMENT__CONNECTIONS:
+        return connections != CONNECTIONS_EDEFAULT;
     }
     return super.eIsSet(featureID);
   }
@@ -572,6 +626,8 @@ public class RequirementImpl extends ContractualElementImpl implements Requireme
     result.append(exceptionText);
     result.append(", componentCategory: ");
     result.append(componentCategory);
+    result.append(", connections: ");
+    result.append(connections);
     result.append(')');
     return result.toString();
   }

@@ -415,7 +415,7 @@ public class ReqSpecSemanticSequencer extends CommonSemanticSequencer {
 	 *     (
 	 *         name=ID 
 	 *         title=STRING? 
-	 *         componentCategory+=ComponentCategory* 
+	 *         (componentCategory+=ComponentCategory+ | connections?='connections')? 
 	 *         qualityCategory+=[QualityCategory|ID]* 
 	 *         userCategory+=[UserCategory|ID]* 
 	 *         description=Description? 

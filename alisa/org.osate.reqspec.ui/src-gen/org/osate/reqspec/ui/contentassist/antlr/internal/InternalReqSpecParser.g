@@ -136,6 +136,7 @@ import org.osate.reqspec.services.ReqSpecGrammarAccess;
 		tokenNameToValue.put("Decomposes", "'decomposes'");
 		tokenNameToValue.put("Subprogram", "'subprogram'");
 		tokenNameToValue.put("Volatility", "'volatility'");
+		tokenNameToValue.put("Connections", "'connections'");
 		tokenNameToValue.put("Description", "'description'");
 		tokenNameToValue.put("Development", "'development'");
 		tokenNameToValue.put("Requirement", "'requirement'");
@@ -2273,6 +2274,35 @@ rule__SystemRequirement__Alternatives_5_8_1
 { before(grammarAccess.getSystemRequirementAccess().getExceptionTextAssignment_5_8_1_1()); }
 (rule__SystemRequirement__ExceptionTextAssignment_5_8_1_1)
 { after(grammarAccess.getSystemRequirementAccess().getExceptionTextAssignment_5_8_1_1()); }
+)
+
+;
+finally {
+	restoreStackSize(stackSize);
+}
+
+rule__Requirement__Alternatives_3_1
+    @init {
+		int stackSize = keepStackSize();
+    }
+:
+(
+(
+{ before(grammarAccess.getRequirementAccess().getComponentCategoryAssignment_3_1_0()); }
+(rule__Requirement__ComponentCategoryAssignment_3_1_0)
+{ after(grammarAccess.getRequirementAccess().getComponentCategoryAssignment_3_1_0()); }
+)
+(
+{ before(grammarAccess.getRequirementAccess().getComponentCategoryAssignment_3_1_0()); }
+(rule__Requirement__ComponentCategoryAssignment_3_1_0)*
+{ after(grammarAccess.getRequirementAccess().getComponentCategoryAssignment_3_1_0()); }
+)
+)
+
+    |(
+{ before(grammarAccess.getRequirementAccess().getConnectionsAssignment_3_1_1()); }
+(rule__Requirement__ConnectionsAssignment_3_1_1)
+{ after(grammarAccess.getRequirementAccess().getConnectionsAssignment_3_1_1()); }
 )
 
 ;
@@ -10040,16 +10070,9 @@ rule__Requirement__Group_3__1__Impl
     }
 :
 (
-(
-{ before(grammarAccess.getRequirementAccess().getComponentCategoryAssignment_3_1()); }
-(rule__Requirement__ComponentCategoryAssignment_3_1)
-{ after(grammarAccess.getRequirementAccess().getComponentCategoryAssignment_3_1()); }
-)
-(
-{ before(grammarAccess.getRequirementAccess().getComponentCategoryAssignment_3_1()); }
-(rule__Requirement__ComponentCategoryAssignment_3_1)*
-{ after(grammarAccess.getRequirementAccess().getComponentCategoryAssignment_3_1()); }
-)
+{ before(grammarAccess.getRequirementAccess().getAlternatives_3_1()); }
+(rule__Requirement__Alternatives_3_1)
+{ after(grammarAccess.getRequirementAccess().getAlternatives_3_1()); }
 )
 
 ;
@@ -24522,14 +24545,37 @@ finally {
 	restoreStackSize(stackSize);
 }
 
-rule__Requirement__ComponentCategoryAssignment_3_1
+rule__Requirement__ComponentCategoryAssignment_3_1_0
     @init {
 		int stackSize = keepStackSize();
     }
 :
 (
-{ before(grammarAccess.getRequirementAccess().getComponentCategoryComponentCategoryParserRuleCall_3_1_0()); }
-	ruleComponentCategory{ after(grammarAccess.getRequirementAccess().getComponentCategoryComponentCategoryParserRuleCall_3_1_0()); }
+{ before(grammarAccess.getRequirementAccess().getComponentCategoryComponentCategoryParserRuleCall_3_1_0_0()); }
+	ruleComponentCategory{ after(grammarAccess.getRequirementAccess().getComponentCategoryComponentCategoryParserRuleCall_3_1_0_0()); }
+)
+
+;
+finally {
+	restoreStackSize(stackSize);
+}
+
+rule__Requirement__ConnectionsAssignment_3_1_1
+    @init {
+		int stackSize = keepStackSize();
+    }
+:
+(
+{ before(grammarAccess.getRequirementAccess().getConnectionsConnectionsKeyword_3_1_1_0()); }
+(
+{ before(grammarAccess.getRequirementAccess().getConnectionsConnectionsKeyword_3_1_1_0()); }
+
+	Connections 
+
+{ after(grammarAccess.getRequirementAccess().getConnectionsConnectionsKeyword_3_1_1_0()); }
+)
+
+{ after(grammarAccess.getRequirementAccess().getConnectionsConnectionsKeyword_3_1_1_0()); }
 )
 
 ;
