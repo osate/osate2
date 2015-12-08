@@ -189,10 +189,10 @@ class AssureUtilExtension {
 			]
 		}
 		targetmarkers.forEach[em|verificationActivityResult.addMarkerIssue(instance, em)]
-		if (verificationActivityResult.issues.exists[ri|ri.issueType == ResultIssueType.ERROR]) {
+		if (verificationActivityResult.issues.exists[ri|ri.issueType == ResultIssueType.FAIL]) {
 			verificationActivityResult.setToFail
-//		} else if (verificationActivityResult.issues.exists[ri|ri.issueType == ResultIssueType.WARNING]){
-//			verificationActivityResult.setToError
+		} else if (verificationActivityResult.issues.exists[ri|ri.issueType == ResultIssueType.ERROR]){
+			verificationActivityResult.setToError
 		} else {
 			verificationActivityResult.setToSuccess
 		}
@@ -914,24 +914,11 @@ class AssureUtilExtension {
 	def private static boolean updateOwnResultState(VerificationResult ar, VerificationResultState newState) {
 		val counts = ar.metrics
 		if (ar.resultState == newState) return false
-		if (ar.resultState == VerificationResultState.TBD) {
-			counts.tbdCount = counts.tbdCount - 1
-			ar.executionState = VerificationExecutionState.COMPLETED
-			switch (newState) {
-				case VerificationResultState.SUCCESS:
-					counts.successCount = counts.successCount + 1
-				case VerificationResultState.FAIL:
-					counts.failCount = counts.failCount + 1
-				case VerificationResultState.ERROR:
-					counts.errorCount = counts.errorCount + 1
-				case VerificationResultState.TIMEOUT:
-					counts.timeoutCount = counts.timeoutCount + 1
-				case VerificationResultState.TBD: {
-				}
-			}
-		} else if (newState == VerificationResultState.TBD) {
-			counts.tbdCount = counts.tbdCount + 1
-			ar.executionState = VerificationExecutionState.TODO
+	
+		if (ar.resultState == VerificationResultState.FAIL && newState != VerificationResultState.TBD) return true 
+		if (ar.resultState == VerificationResultState.ERROR && (newState == VerificationResultState.SUCCESS|| newState == VerificationResultState.TIMEOUT)) return true 
+		if (ar.resultState == VerificationResultState.TIMEOUT && newState == VerificationResultState.SUCCESS ) return true 
+	// undo old state count
 			switch (ar.resultState) {
 				case VerificationResultState.SUCCESS:
 					counts.successCount = counts.successCount - 1
@@ -944,9 +931,20 @@ class AssureUtilExtension {
 				case VerificationResultState.TBD:
 					counts.tbdCount = counts.tbdCount - 1
 			}
-		} else {
-			// should not occur or only when setting multiple error or fail messages
-		}
+		// do new state count
+			switch (newState) {
+				case VerificationResultState.SUCCESS:
+					counts.successCount = counts.successCount + 1
+				case VerificationResultState.FAIL:
+					counts.failCount = counts.failCount + 1
+				case VerificationResultState.ERROR:
+					counts.errorCount = counts.errorCount + 1
+				case VerificationResultState.TIMEOUT:
+					counts.timeoutCount = counts.timeoutCount + 1
+				case VerificationResultState.TBD: {
+				}
+			}
+		
 		ar.resultState = newState
 		true
 	}
