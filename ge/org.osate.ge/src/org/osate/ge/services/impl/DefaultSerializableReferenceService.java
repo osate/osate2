@@ -16,8 +16,8 @@ import org.eclipse.gef.EditPart;
 import org.osate.aadl2.Element;
 import org.osate.ge.diagrams.common.AadlElementWrapper;
 import org.osate.ge.ext.Names;
-import org.osate.ge.ext.annotations.GetReference;
-import org.osate.ge.ext.annotations.GetReferencedObject;
+import org.osate.ge.ext.annotations.BuildReference;
+import org.osate.ge.ext.annotations.ResolveReference;
 import org.osate.ge.services.ExtensionService;
 import org.osate.ge.services.SerializableReferenceService;
 
@@ -75,10 +75,9 @@ public class DefaultSerializableReferenceService implements SerializableReferenc
 			// Set context fields
 			argCtx.set(Names.BUSINESS_OBJECT, bo);
 			for(final Object refHandler : referenceHandlers) {
-				final String ref = (String)ContextInjectionFactory.invoke(refHandler, GetReference.class, ctx, argCtx, null);
-				
+				final String[] ref = (String[])ContextInjectionFactory.invoke(refHandler, BuildReference.class, ctx, argCtx, null);
 				if(ref != null) {
-					return ref;
+					return String.join(" ", ref);
 				}
 			}
 		} finally {
@@ -90,30 +89,28 @@ public class DefaultSerializableReferenceService implements SerializableReferenc
 	}
 		
 	@Override
-	public Object getReferencedObject(final String reference) {
-		Objects.requireNonNull(reference, "reference must not be null");
+	public Object getReferencedObject(final String referenceStr) {
+		Objects.requireNonNull(referenceStr, "referenceStr must not be null");
 		ensureReferenceHandlersHaveBeenInstantiated();
 		
 		// Break the reference into segments
-		final String[] refSegs = reference.split(" ");
-		if(refSegs.length < 2) {
+		final String[] ref = referenceStr.split(" ");
+		if(ref.length < 2) {
 			return null;
 		}
 			
 		try {
 			// Set context fields
-			argCtx.set(Names.REFERENCE, reference);
-			argCtx.set(Names.REFERENCE_SEGMENTS, refSegs);			
+			argCtx.set(Names.REFERENCE, ref);	
 			
 			for(final Object refHandler : referenceHandlers) {
-				final Object referencedObject = ContextInjectionFactory.invoke(refHandler, GetReferencedObject.class, ctx, argCtx, null);
+				final Object referencedObject = ContextInjectionFactory.invoke(refHandler, ResolveReference.class, ctx, argCtx, null);
 				if(referencedObject != null) {
 					return referencedObject instanceof Element ?  new AadlElementWrapper((Element)referencedObject) : null;
 				}
 			}
 		} finally {
 			argCtx.remove(Names.REFERENCE);
-			argCtx.remove(Names.REFERENCE_SEGMENTS);
 		}
 		
 		return null;

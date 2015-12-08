@@ -834,7 +834,7 @@
 				<para><emphasis role="bold">This capability is currently in development. The documentation will be updated as the extension points are finalized. </emphasis></para>
 				<section>
 					<title>Reference Handlers</title>
-					<para>Referenced handlers are registered using the org.osate.ge.referenceHandlers extension point. The graphical editor uses reference handlers to generate a reference to a business object and to retrieve a business object using the previously generated reference. </para>
+					<para>Referenced handlers are registered using the org.osate.ge.referenceHandlers extension point. The graphical editor uses reference handlers to generate a reference to a business object and to retrieve a business object using the previously generated reference.</para>
 					<para>References are used to associate a pictogram element with a business object. References are stored in the diagram and must be unique to the business object. All business objects for which a pictogram element is associated must be handled by a reference handler. A single reference handler may handle multiple types of business objects.</para>
 					<para>The DeclarativeReferenceHandler class may be used as an example of a reference handler.</para>
 					<para>Reference handlers differ from other extensions in a couple ways.</para>
@@ -844,8 +844,8 @@
 					</itemizedlist>
 					<para>Required Annotations:</para>
 					<itemizedlist>
-						<listitem><para>GetReference</para></listitem>
-						<listitem><para>GetReferencedObject</para></listitem>
+						<listitem><para>BuildReference</para></listitem>
+						<listitem><para>ResolveReference</para></listitem>
 					</itemizedlist>
 					<para>Optional Annotations:</para>
 					<itemizedlist>
@@ -853,9 +853,8 @@
 					</itemizedlist>
 					<para>Supported named parameters:</para>
 					<itemizedlist>
-						<listitem><para>BUSINESS_OBJECT(GetReference)</para></listitem>
-						<listitem><para>REFERENCE(GetReferencedObject)</para></listitem>
-						<listitem><para>REFERENCE_SEGMENTS(GetReferencedObject)</para></listitem>
+						<listitem><para>BUSINESS_OBJECT(BuildReference)</para></listitem>
+						<listitem><para>REFERENCE(ResolveReference)</para></listitem>
 					</itemizedlist>
 				</section>
 				<section>

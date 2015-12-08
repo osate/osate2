@@ -2,6 +2,7 @@ package org.osate.ge.services.impl;
 
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 import java.util.Set;
@@ -58,8 +59,8 @@ import org.osate.aadl2.TypeExtension;
 import org.osate.annexsupport.AnnexUtil;
 import org.osate.ge.diagrams.componentImplementation.patterns.SubprogramCallOrder;
 import org.osate.ge.ext.Names;
-import org.osate.ge.ext.annotations.GetReference;
-import org.osate.ge.ext.annotations.GetReferencedObject;
+import org.osate.ge.ext.annotations.BuildReference;
+import org.osate.ge.ext.annotations.ResolveReference;
 import org.osate.ge.services.CachingService;
 import org.osate.ge.services.CachingService.Cache;
 import org.osate.ge.services.SavedAadlResourceService;
@@ -256,43 +257,43 @@ public class DeclarativeReferenceHandler {
 		declarativeCache.dispose();
 	}
 	
-	@GetReference
-	public String getReference(final @Named(Names.BUSINESS_OBJECT) Object bo) {
+	@BuildReference
+	public String[] getReference(final @Named(Names.BUSINESS_OBJECT) Object bo) {
 		if(bo instanceof AadlPackage) {
-			return TYPE_PACKAGE + " " + ((AadlPackage)bo).getQualifiedName();				
+			return new String[] {TYPE_PACKAGE, ((AadlPackage)bo).getQualifiedName()};				
 		} else if(bo instanceof Classifier) {
-			return TYPE_CLASSIFIER + " " + ((Classifier)bo).getQualifiedName();
+			return new String[] {TYPE_CLASSIFIER, ((Classifier)bo).getQualifiedName()};
 		} else if(bo instanceof Subcomponent) {
-			return TYPE_SUBCOMPONENT + " " + ((Subcomponent)bo).getQualifiedName();
+			return new String[] {TYPE_SUBCOMPONENT, ((Subcomponent)bo).getQualifiedName()};
 		} else if(bo instanceof Realization) {
-			return TYPE_REALIZATION + " " + ((Realization)bo).getSpecific().getQualifiedName();
+			return new String[] {TYPE_REALIZATION, ((Realization)bo).getSpecific().getQualifiedName()};
 		} else if(bo instanceof TypeExtension) {
-			return TYPE_TYPE_EXTENSION + " " + ((TypeExtension)bo).getSpecific().getQualifiedName();
+			return new String[] {TYPE_TYPE_EXTENSION, ((TypeExtension)bo).getSpecific().getQualifiedName()};
 		} else if(bo instanceof ImplementationExtension) {
-			return TYPE_IMPLEMENTATION_EXTENSION + " " + ((ImplementationExtension)bo).getSpecific().getQualifiedName();
+			return new String[] {TYPE_IMPLEMENTATION_EXTENSION, ((ImplementationExtension)bo).getSpecific().getQualifiedName()};
 		} else if(bo instanceof GroupExtension) {
-			return TYPE_GROUP_EXTENSION + " " + ((GroupExtension)bo).getSpecific().getQualifiedName();
+			return new String[] {TYPE_GROUP_EXTENSION, ((GroupExtension)bo).getSpecific().getQualifiedName()};
 		} else if(bo instanceof Feature) {
-			return TYPE_FEATURE + " " + ((Feature)bo).getQualifiedName();
+			return new String[] {TYPE_FEATURE, ((Feature)bo).getQualifiedName()};
 		} else if(bo instanceof InternalFeature) {
-			return TYPE_INTERNAL_FEATURE + " " + ((InternalFeature)bo).getQualifiedName();
+			return new String[] {TYPE_INTERNAL_FEATURE, ((InternalFeature)bo).getQualifiedName()};
 		} else if(bo instanceof ProcessorFeature) {
-			return TYPE_PROCESSOR_FEATURE + "  " + ((ProcessorFeature)bo).getQualifiedName();
+			return new String[] {TYPE_PROCESSOR_FEATURE, ((ProcessorFeature)bo).getQualifiedName()};
 		} else if(bo instanceof FlowSpecification) {
-			return TYPE_FLOW_SPECIFICATION + " " + ((FlowSpecification)bo).getQualifiedName();
+			return new String[] {TYPE_FLOW_SPECIFICATION, ((FlowSpecification)bo).getQualifiedName()};
 		} else if(bo instanceof Connection) {
-			return TYPE_CONNECTION + " " + ((Connection)bo).getQualifiedName();
+			return new String[] {TYPE_CONNECTION, ((Connection)bo).getQualifiedName()};
 		} else if(bo instanceof Mode) {
-			return TYPE_MODE + " " + ((Mode)bo).getQualifiedName();
+			return new String[] {TYPE_MODE, ((Mode)bo).getQualifiedName()};
 		} else if(bo instanceof ModeTransition) {
 			return buildModeTransitionKey((ModeTransition)bo);
 		} else if(bo instanceof SubprogramCallSequence) {
-			return TYPE_SUBPROGRAM_CALL_SEQUENCE + " " + ((SubprogramCallSequence)bo).getQualifiedName();
+			return new String[] {TYPE_SUBPROGRAM_CALL_SEQUENCE, ((SubprogramCallSequence)bo).getQualifiedName()};
 		} else if(bo instanceof SubprogramCall) {
-			return TYPE_SUBPROGRAM_CALL + " " + ((SubprogramCall)bo).getQualifiedName();
+			return new String[] {TYPE_SUBPROGRAM_CALL, ((SubprogramCall)bo).getQualifiedName()};
 		} else if(bo instanceof SubprogramCallOrder) {
 			final SubprogramCallOrder sco = (SubprogramCallOrder)bo;
-			return TYPE_SUBPROGRAM_CALL_ORDER + " " + sco.previousSubprogramCall.getQualifiedName() + " " + sco.subprogramCall.getQualifiedName();
+			return new String[] {TYPE_SUBPROGRAM_CALL_ORDER, sco.previousSubprogramCall.getQualifiedName(), sco.subprogramCall.getQualifiedName()};
 		} else if(bo instanceof AnnexLibrary) {
 			final AnnexLibrary annexLibrary = (AnnexLibrary)bo;					
 			final AadlPackage annexPkg = getAnnexLibraryPackage(annexLibrary);
@@ -301,7 +302,7 @@ public class DeclarativeReferenceHandler {
 			}
 			
 			final int index = getAnnexLibraryIndex(annexLibrary);
-			return TYPE_ANNEX_LIBRARY + " " + annexPkg.getQualifiedName() + " " + annexLibrary.getName().toLowerCase() + " " + index;
+			return new String[] {TYPE_ANNEX_LIBRARY, annexPkg.getQualifiedName(), annexLibrary.getName().toLowerCase(), Integer.toString(index)};
 		} else if(bo instanceof AnnexSubclause) {
 			final AnnexSubclause annexSubclause = (AnnexSubclause)bo;			
 			if(annexSubclause.getContainingClassifier() == null) {
@@ -310,15 +311,14 @@ public class DeclarativeReferenceHandler {
 			
 			final Classifier annexSubclauseClassifier = annexSubclause.getContainingClassifier();	
 			final int index = getAnnexSubclauseIndex(annexSubclause);
-			return TYPE_ANNEX_SUBCLAUSE + " " + annexSubclauseClassifier.getQualifiedName() + " " + annexSubclause.getName().toLowerCase() + " " + index;
+			return new String[] {TYPE_ANNEX_SUBCLAUSE, annexSubclauseClassifier.getQualifiedName(), annexSubclause.getName().toLowerCase(), Integer.toString(index)};
 		} else {
 			return null;
 		}
 	}
 	
-	@GetReferencedObject
-	public Object getReferencedObject(final @Named(Names.REFERENCE) String reference, final @Named(Names.REFERENCE_SEGMENTS) String[] refSegs) {
-		Objects.requireNonNull(reference, "reference must not be null");
+	@ResolveReference
+	public Object getReferencedObject(final @Named(Names.REFERENCE) String[] refSegs) {
 		Objects.requireNonNull(refSegs, "refSegs must not be null");
 
 		if(refSegs.length < 2) {
@@ -364,7 +364,7 @@ public class DeclarativeReferenceHandler {
 				final ComponentClassifier cc = getNamedElementByQualifiedName(qualifiedName, ComponentClassifier.class);
 				if(cc != null) {
 					for(final ModeTransition mt : cc.getOwnedModeTransitions()) {
-						if(reference.equalsIgnoreCase(buildModeTransitionKey(mt))) {
+						if(equalsIgnoreCase(refSegs, buildModeTransitionKey(mt))) { 
 							referencedObject = mt;
 							break;
 						}
@@ -410,6 +410,26 @@ public class DeclarativeReferenceHandler {
 		}
 		
 		return referencedObject;
+	}
+	
+	/**
+	 * Assumes all elements are non-null
+	 * @param a1
+	 * @param a2
+	 * @return
+	 */
+	private boolean equalsIgnoreCase(final String[] a1, final String[] a2) {
+		if(a1.length != a2.length) {
+			return false;
+		}
+		
+		for(int i = 0; i < a1.length; i++) {
+			if(!a1[i].equalsIgnoreCase(a2[i])) {
+				return false;
+			}
+		}
+		
+		return true;
 	}
 
 	@SuppressWarnings("unchecked")
@@ -546,18 +566,21 @@ public class DeclarativeReferenceHandler {
 		return (ne == null || ne.getName() == null) ? "<null>" : ne.getName();
 	}
 	
-	private String buildModeTransitionKey(final ModeTransition mt) {
-		String result = TYPE_MODE_TRANSITION + " ";
-		result += mt.getContainingClassifier().getQualifiedName();
-		result += " " + getNameForSerialization(mt);
-		result += " " + getNameForSerialization(mt.getSource());
-		result += " " + getNameForSerialization(mt.getDestination());
-		for(final ModeTransitionTrigger trigger : mt.getOwnedTriggers()) {
-			result += " " + getNameForSerialization(trigger.getContext());
-			result += " " + getNameForSerialization(trigger.getTriggerPort());
+	private String[] buildModeTransitionKey(final ModeTransition mt) {
+		final List<ModeTransitionTrigger> triggers = mt.getOwnedTriggers();
+		final String[] key = new String[5 + (triggers.size() * 2)];
+		int index = 0;
+		key[index++] = TYPE_MODE_TRANSITION;
+		key[index++] = mt.getContainingClassifier().getQualifiedName();
+		key[index++] = getNameForSerialization(mt);
+		key[index++] = getNameForSerialization(mt.getSource());
+		key[index++] = getNameForSerialization(mt.getDestination());
+		for(final ModeTransitionTrigger trigger : triggers) {
+			key[index++] = getNameForSerialization(trigger.getContext());
+			key[index++] = getNameForSerialization(trigger.getTriggerPort());
 		}
 
-		return result;
+		return key;
 	}
 	
 	// Helper methods for working with Annexes
