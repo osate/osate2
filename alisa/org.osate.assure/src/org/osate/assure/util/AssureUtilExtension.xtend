@@ -234,6 +234,20 @@ class AssureUtilExtension {
 		issue
 	}
 
+	def static ResultIssue addFailIssue(VerificationResult vr, EObject target, String message) {
+		addFailIssue(vr, target, message, null)
+	}
+
+	def static ResultIssue addFailIssue(VerificationResult vr, EObject target, String message, String issueSource) {
+		val issue = CommonFactory.eINSTANCE.createResultIssue
+		issue.message = message?:"no message"
+		issue.issueType = ResultIssueType.FAIL;
+		issue.exceptionType = issueSource
+		issue.target = target
+		vr.issues.add(issue)
+		issue
+	}
+
 	def static ResultIssue addInfoIssue(VerificationResult vr, EObject target, String message) {
 		addInfoIssue(vr, target, message, null)
 	}
@@ -804,7 +818,7 @@ class AssureUtilExtension {
 	}
 
 	def static void setToError(VerificationResult verificationActivityResult, String message, EObject target) {
-		if (message != null && !message.isEmpty) verificationActivityResult.addErrorIssue(target, message, null);
+		verificationActivityResult.addErrorIssue(target, message, null);
 		verificationActivityResult.setToError
 	}
 
@@ -814,7 +828,7 @@ class AssureUtilExtension {
 	}
 
 	def static void setToFail(VerificationResult verificationActivityResult, String message, EObject target) {
-		if (message != null && !message.isEmpty) verificationActivityResult.addErrorIssue(target, message, null);
+		verificationActivityResult.addFailIssue(target, message, null);
 		verificationActivityResult.setToFail
 	}
 
@@ -823,13 +837,8 @@ class AssureUtilExtension {
 		verificationActivityResult.setToFail
 	}
 
-	def static void setToFail(VerificationResult verificationActivityResult, EObject target, String message) {
-		verificationActivityResult.addErrorIssue(target, message, null);
-		verificationActivityResult.setToFail
-	}
-
 	def static void setToFail(VerificationResult verificationActivityResult, Throwable e) {
-		verificationActivityResult.addErrorIssue(null, e.message ?: e.toString, null); // e.getClass().getName());
+		verificationActivityResult.addFailIssue(null, e.message ?: e.toString, null); // e.getClass().getName());
 		verificationActivityResult.setToFail
 	}
 
@@ -843,13 +852,6 @@ class AssureUtilExtension {
 		verificationActivityResult.setToError
 	}
 
-//	
-//	def static String stackTrace(Throwable e){
-//		val StringWriter writer = new StringWriter
-//		val PrintWriter pwriter = new PrintWriter(writer)
-//		e.printStackTrace(pwriter)
-//		writer.toString
-//	}
 	/**
 	 * the next methods update the counts for FailThen and AndThen
 	 */
