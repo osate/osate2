@@ -130,6 +130,12 @@ class AssureUtilExtension {
 		req?.targetElement
 	}
 
+	def static boolean isConnections(EObject assureObject) {
+		val req = if (assureObject instanceof ClaimResult) assureObject.target else assureObject.enclosingClaimResult.
+				target
+		req?.connections
+	}
+
 	def static SystemInstance getAssuranceCaseInstanceModel(VerificationResult assureObject) {
 		val rac = assureObject.assuranceCaseTarget
 		if (rac == null) return null

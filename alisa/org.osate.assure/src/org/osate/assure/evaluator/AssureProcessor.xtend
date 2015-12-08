@@ -64,6 +64,7 @@ import static extension org.osate.assure.util.AssureUtilExtension.*
 import com.rockwellcollins.atc.resolute.analysis.values.NamedElementValue
 import com.rockwellcollins.atc.resolute.resolute.ThisExpr
 import org.osate.aadl2.instance.SystemInstance
+import org.osate.verify.verify.MethodKind
 
 @ImplementedBy(AssureProcessor)
 interface IAssureProcessor {
@@ -79,14 +80,15 @@ interface IAssureProcessor {
 class AssureProcessor implements IAssureProcessor {
 
 	var IProgressMonitor progressmonitor
-	
+
 	var long start = 0
-	
-	def void startSubTask(VerificationActivityResult vaResult){
+
+	def void startSubTask(VerificationActivityResult vaResult) {
 		progressmonitor.subTask(vaResult.target.name) // + " on " + vaResult.claimSubject.name)
-		start = System.currentTimeMillis();	
+		start = System.currentTimeMillis();
 	}
-	def void doneSubTask(VerificationActivityResult vaResult){
+
+	def void doneSubTask(VerificationActivityResult vaResult) {
 		progressmonitor.worked(1)
 		val stop = System.currentTimeMillis();
 		vaResult.metrics.executionTime = (stop - start)
@@ -94,7 +96,8 @@ class AssureProcessor implements IAssureProcessor {
 		val instanceroot = vaResult.assuranceCaseInstanceModel
 		val targetComponent = findTargetSystemComponentInstance(instanceroot, vaResult.enclosingSubsystemResult)
 		val target = targetComponent.instanceObjectPath
-		System.out.println("Evaluation time: " + (stop - start) / 1000.0 + "s :"+vaResult.target.name+" on "+target);
+		System.out.println(
+			"Evaluation time: " + (stop - start) / 1000.0 + "s :" + vaResult.target.name + " on " + target);
 	}
 
 	override processCase(AssuranceCaseResult assureResult, IProgressMonitor monitor) {
@@ -187,7 +190,6 @@ class AssureProcessor implements IAssureProcessor {
 	 */
 	def void runVerificationMethod(VerificationResult verificationResult) {
 		val method = verificationResult.method;
-		var Object res = null
 		// target element is the element referred to by the requirement. This may be empty
 		val targetElement = verificationResult.targetElement
 		// the next outer assurance case object that refers to a system implementation. 
@@ -295,29 +297,26 @@ class AssureProcessor implements IAssureProcessor {
 			switch (methodtype) {
 				JavaMethod: {
 					// The parameters are objects from the Properties Meta model. May need to get converted to Java base types
-					res = VerificationMethodDispatchers.eInstance.workspaceInvoke(methodtype, target, parameters)
-					if (res != null) {
-						if (res instanceof Boolean) {
-							if (res != true) {
-								setToFail(verificationResult, "", target);
-							} else {
-								setToSuccess(verificationResult)
-							}
-						} else if (res instanceof String) {
-							setToSuccess(verificationResult, res, target)
-						} else if (res instanceof ResultReport) {
-							verificationResult.resultReport = res
-						} else {
-							setToError(verificationResult, "No result report from analysis", target);
+					if (verificationResult.connections) {
+						for (conn : targetComponent.connectionInstances) {
+							executeJavaMethod(verificationResult, methodtype, conn, parameters)
 						}
+					} else {
+						executeJavaMethod(verificationResult, methodtype, target, parameters)
 					}
 				}
 				PluginMethod: {
 					// The parameters are objects from the Properties Meta model. It is up to the plugin interface method to convert to Java base types
-					res = VerificationMethodDispatchers.eInstance.dispatchVerificationMethod(methodtype, instanceroot,
-						parameters) // returning the marker or diagnostic id as string
+					val res = VerificationMethodDispatchers.eInstance.
+						dispatchVerificationMethod(methodtype, instanceroot, parameters) // returning the marker or diagnostic id as string
 					if (res instanceof String) {
-						addMarkersAsResult(verificationResult, target, res, method)
+						if (verificationResult.connections) {
+							for (conn : targetComponent.connectionInstances) {
+								addMarkersAsResult(verificationResult, conn, res, method)
+							}
+						} else {
+							addMarkersAsResult(verificationResult, target, res, method)
+						}
 					} else {
 						setToError(verificationResult, "Analysis return type is not a string of MarkerType", target);
 					}
@@ -327,7 +326,7 @@ class AssureProcessor implements IAssureProcessor {
 					AssureUtilExtension.initializeResoluteContext(instanceroot);
 					val EvaluationContext context = new EvaluationContext(instanceroot, sets, featToConnsMap);
 					val ResoluteInterpreter interpreter = new ResoluteInterpreter(context);
-					val provecall = createWrapperProveCall(methodtype, targetComponent,parameters)
+					val provecall = createWrapperProveCall(methodtype, targetComponent, parameters)
 					if (provecall == null) {
 						setToError(verificationResult,
 							"Could not find Resolute Function " + verificationResult.method.name)
@@ -383,7 +382,28 @@ class AssureProcessor implements IAssureProcessor {
 		verificationResult.eResource.save(null)
 	}
 
-	def ProveStatement createWrapperProveCall(ResoluteMethod rm, ComponentInstance ci,EList<EObject> params) {
+	def executeJavaMethod(VerificationResult verificationResult, JavaMethod methodtype, InstanceObject target,
+		EList<EObject> parameters) {
+		val res = VerificationMethodDispatchers.eInstance.workspaceInvoke(methodtype, target, parameters)
+		if (res != null) {
+			if (res instanceof Boolean) {
+				if (res != true) {
+					setToFail(verificationResult, "", target);
+				} else {
+					setToSuccess(verificationResult)
+				}
+			} else if (res instanceof String) {
+				setToSuccess(verificationResult, res, target)
+			} else if (res instanceof ResultReport) {
+				verificationResult.resultReport = res
+			} else {
+				setToError(verificationResult, "No result report from analysis", target);
+			}
+		}
+
+	}
+
+	def ProveStatement createWrapperProveCall(ResoluteMethod rm, ComponentInstance ci, EList<EObject> params) {
 		val found = rm.methodReference
 		val factory = ResoluteFactory.eINSTANCE
 		if(found == null) return null
@@ -397,13 +417,13 @@ class AssureProcessor implements IAssureProcessor {
 		prove.expr = call
 		prove
 	}
-	
-	def ThisExpr createComponentinstanceReference(ComponentInstance ci){
+
+	def ThisExpr createComponentinstanceReference(ComponentInstance ci) {
 		val factory = ResoluteFactory.eINSTANCE
 		var NestedDotID nid = null
 		var nci = ci
-		while (!(ci instanceof SystemInstance)){
-			val x = factory.createNestedDotID 
+		while (!(ci instanceof SystemInstance)) {
+			val x = factory.createNestedDotID
 			x.base = ci.subcomponent
 			x.sub = nid
 			nid = x
