@@ -136,6 +136,10 @@ class AssureUtilExtension {
 		req?.connections
 	}
 
+	def static String getConnectionID(EObject assureObject) {
+		assureObject.enclosingClaimResult.targetelement
+	}
+
 	def static SystemInstance getAssuranceCaseInstanceModel(VerificationResult assureObject) {
 		val rac = assureObject.assuranceCaseTarget
 		if (rac == null) return null

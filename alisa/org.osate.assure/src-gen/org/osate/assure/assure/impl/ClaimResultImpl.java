@@ -45,6 +45,7 @@ import org.osate.reqspec.reqSpec.Requirement;
  * </p>
  * <ul>
  *   <li>{@link org.osate.assure.assure.impl.ClaimResultImpl#getTarget <em>Target</em>}</li>
+ *   <li>{@link org.osate.assure.assure.impl.ClaimResultImpl#getTargetelement <em>Targetelement</em>}</li>
  *   <li>{@link org.osate.assure.assure.impl.ClaimResultImpl#getMessage <em>Message</em>}</li>
  *   <li>{@link org.osate.assure.assure.impl.ClaimResultImpl#getSubClaimResult <em>Sub Claim Result</em>}</li>
  *   <li>{@link org.osate.assure.assure.impl.ClaimResultImpl#getVerificationActivityResult <em>Verification Activity Result</em>}</li>
@@ -63,6 +64,26 @@ public class ClaimResultImpl extends AssureResultImpl implements ClaimResult
    * @ordered
    */
   protected Requirement target;
+
+  /**
+   * The default value of the '{@link #getTargetelement() <em>Targetelement</em>}' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see #getTargetelement()
+   * @generated
+   * @ordered
+   */
+  protected static final String TARGETELEMENT_EDEFAULT = null;
+
+  /**
+   * The cached value of the '{@link #getTargetelement() <em>Targetelement</em>}' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see #getTargetelement()
+   * @generated
+   * @ordered
+   */
+  protected String targetelement = TARGETELEMENT_EDEFAULT;
 
   /**
    * The default value of the '{@link #getMessage() <em>Message</em>}' attribute.
@@ -173,6 +194,29 @@ public class ClaimResultImpl extends AssureResultImpl implements ClaimResult
    * <!-- end-user-doc -->
    * @generated
    */
+  public String getTargetelement()
+  {
+    return targetelement;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public void setTargetelement(String newTargetelement)
+  {
+    String oldTargetelement = targetelement;
+    targetelement = newTargetelement;
+    if (eNotificationRequired())
+      eNotify(new ENotificationImpl(this, Notification.SET, AssurePackage.CLAIM_RESULT__TARGETELEMENT, oldTargetelement, targetelement));
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
   public String getMessage()
   {
     return message;
@@ -250,6 +294,8 @@ public class ClaimResultImpl extends AssureResultImpl implements ClaimResult
       case AssurePackage.CLAIM_RESULT__TARGET:
         if (resolve) return getTarget();
         return basicGetTarget();
+      case AssurePackage.CLAIM_RESULT__TARGETELEMENT:
+        return getTargetelement();
       case AssurePackage.CLAIM_RESULT__MESSAGE:
         return getMessage();
       case AssurePackage.CLAIM_RESULT__SUB_CLAIM_RESULT:
@@ -273,6 +319,9 @@ public class ClaimResultImpl extends AssureResultImpl implements ClaimResult
     {
       case AssurePackage.CLAIM_RESULT__TARGET:
         setTarget((Requirement)newValue);
+        return;
+      case AssurePackage.CLAIM_RESULT__TARGETELEMENT:
+        setTargetelement((String)newValue);
         return;
       case AssurePackage.CLAIM_RESULT__MESSAGE:
         setMessage((String)newValue);
@@ -302,6 +351,9 @@ public class ClaimResultImpl extends AssureResultImpl implements ClaimResult
       case AssurePackage.CLAIM_RESULT__TARGET:
         setTarget((Requirement)null);
         return;
+      case AssurePackage.CLAIM_RESULT__TARGETELEMENT:
+        setTargetelement(TARGETELEMENT_EDEFAULT);
+        return;
       case AssurePackage.CLAIM_RESULT__MESSAGE:
         setMessage(MESSAGE_EDEFAULT);
         return;
@@ -327,6 +379,8 @@ public class ClaimResultImpl extends AssureResultImpl implements ClaimResult
     {
       case AssurePackage.CLAIM_RESULT__TARGET:
         return target != null;
+      case AssurePackage.CLAIM_RESULT__TARGETELEMENT:
+        return TARGETELEMENT_EDEFAULT == null ? targetelement != null : !TARGETELEMENT_EDEFAULT.equals(targetelement);
       case AssurePackage.CLAIM_RESULT__MESSAGE:
         return MESSAGE_EDEFAULT == null ? message != null : !MESSAGE_EDEFAULT.equals(message);
       case AssurePackage.CLAIM_RESULT__SUB_CLAIM_RESULT:
@@ -348,7 +402,9 @@ public class ClaimResultImpl extends AssureResultImpl implements ClaimResult
     if (eIsProxy()) return super.toString();
 
     StringBuffer result = new StringBuffer(super.toString());
-    result.append(" (message: ");
+    result.append(" (targetelement: ");
+    result.append(targetelement);
+    result.append(", message: ");
     result.append(message);
     result.append(')');
     return result.toString();

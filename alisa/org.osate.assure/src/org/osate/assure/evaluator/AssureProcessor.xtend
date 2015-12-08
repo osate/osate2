@@ -204,7 +204,8 @@ class AssureProcessor implements IAssureProcessor {
 			setToError(verificationResult, "Unresolved target system for claim", null)
 			return
 		}
-		var InstanceObject target = targetComponent;
+		var InstanceObject target = targetComponent
+		val connID = verificationResult.connectionID
 		if (targetElement != null) {
 			if (targetElement.eIsProxy) {
 				setToError(verificationResult, "Unresolved target element for claim", targetComponent)
@@ -212,6 +213,9 @@ class AssureProcessor implements IAssureProcessor {
 			}
 			val x = targetComponent.findElementInstance(targetElement)
 			target = x ?: targetComponent
+		} else if (connID != null){
+			val y = targetComponent.findConnectionInstance(connID)
+			target = y ?: targetComponent
 		}
 		// The parameters are objects from the Properties Meta model.
 		var EList<EObject> parameters
@@ -297,7 +301,7 @@ class AssureProcessor implements IAssureProcessor {
 			switch (methodtype) {
 				JavaMethod: {
 					// The parameters are objects from the Properties Meta model. May need to get converted to Java base types
-					if (verificationResult.connections) {
+					if (connID == null && verificationResult.connections) {
 						for (conn : targetComponent.connectionInstances) {
 							executeJavaMethod(verificationResult, methodtype, conn, parameters)
 						}
@@ -310,7 +314,7 @@ class AssureProcessor implements IAssureProcessor {
 					val res = VerificationMethodDispatchers.eInstance.
 						dispatchVerificationMethod(methodtype, instanceroot, parameters) // returning the marker or diagnostic id as string
 					if (res instanceof String) {
-						if (verificationResult.connections) {
+						if (connID == null && verificationResult.connections) {
 							for (conn : targetComponent.connectionInstances) {
 								addMarkersAsResult(verificationResult, conn, res, method)
 							}

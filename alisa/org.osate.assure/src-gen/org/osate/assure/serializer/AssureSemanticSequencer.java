@@ -182,7 +182,14 @@ public class AssureSemanticSequencer extends CommonSemanticSequencer {
 	
 	/**
 	 * Constraint:
-	 *     (target=[Requirement|QualifiedName] metrics=Metrics message=STRING? subClaimResult+=ClaimResult* verificationActivityResult+=VerificationExpr*)
+	 *     (
+	 *         target=[Requirement|QualifiedName] 
+	 *         metrics=Metrics 
+	 *         targetelement=ID? 
+	 *         message=STRING? 
+	 *         subClaimResult+=ClaimResult* 
+	 *         verificationActivityResult+=VerificationExpr*
+	 *     )
 	 */
 	protected void sequence_ClaimResult(EObject context, ClaimResult semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);

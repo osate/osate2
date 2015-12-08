@@ -80,6 +80,7 @@ public class AssureParser extends AbstractContentAssistParser {
 					put(grammarAccess.getSubsystemResultAccess().getGroup_6(), "rule__SubsystemResult__Group_6__0");
 					put(grammarAccess.getClaimResultAccess().getGroup(), "rule__ClaimResult__Group__0");
 					put(grammarAccess.getClaimResultAccess().getGroup_4(), "rule__ClaimResult__Group_4__0");
+					put(grammarAccess.getClaimResultAccess().getGroup_5(), "rule__ClaimResult__Group_5__0");
 					put(grammarAccess.getPreconditionResultAccess().getGroup(), "rule__PreconditionResult__Group__0");
 					put(grammarAccess.getPreconditionResultAccess().getGroup_8(), "rule__PreconditionResult__Group_8__0");
 					put(grammarAccess.getPreconditionResultAccess().getGroup_9(), "rule__PreconditionResult__Group_9__0");
@@ -211,9 +212,10 @@ public class AssureParser extends AbstractContentAssistParser {
 					put(grammarAccess.getSubsystemResultAccess().getSubsystemResultAssignment_8(), "rule__SubsystemResult__SubsystemResultAssignment_8");
 					put(grammarAccess.getClaimResultAccess().getTargetAssignment_1(), "rule__ClaimResult__TargetAssignment_1");
 					put(grammarAccess.getClaimResultAccess().getMetricsAssignment_3(), "rule__ClaimResult__MetricsAssignment_3");
-					put(grammarAccess.getClaimResultAccess().getMessageAssignment_4_1(), "rule__ClaimResult__MessageAssignment_4_1");
-					put(grammarAccess.getClaimResultAccess().getSubClaimResultAssignment_5(), "rule__ClaimResult__SubClaimResultAssignment_5");
-					put(grammarAccess.getClaimResultAccess().getVerificationActivityResultAssignment_6(), "rule__ClaimResult__VerificationActivityResultAssignment_6");
+					put(grammarAccess.getClaimResultAccess().getTargetelementAssignment_4_1(), "rule__ClaimResult__TargetelementAssignment_4_1");
+					put(grammarAccess.getClaimResultAccess().getMessageAssignment_5_1(), "rule__ClaimResult__MessageAssignment_5_1");
+					put(grammarAccess.getClaimResultAccess().getSubClaimResultAssignment_6(), "rule__ClaimResult__SubClaimResultAssignment_6");
+					put(grammarAccess.getClaimResultAccess().getVerificationActivityResultAssignment_7(), "rule__ClaimResult__VerificationActivityResultAssignment_7");
 					put(grammarAccess.getPreconditionResultAccess().getTargetAssignment_2(), "rule__PreconditionResult__TargetAssignment_2");
 					put(grammarAccess.getPreconditionResultAccess().getExecutionStateAssignment_5(), "rule__PreconditionResult__ExecutionStateAssignment_5");
 					put(grammarAccess.getPreconditionResultAccess().getResultStateAssignment_7(), "rule__PreconditionResult__ResultStateAssignment_7");

@@ -49,6 +49,7 @@
     </genClasses>
     <genClasses ecoreClass="Assure.ecore#//ClaimResult">
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference Assure.ecore#//ClaimResult/target"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Assure.ecore#//ClaimResult/targetelement"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Assure.ecore#//ClaimResult/message"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Assure.ecore#//ClaimResult/subClaimResult"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Assure.ecore#//ClaimResult/verificationActivityResult"/>

@@ -243,7 +243,13 @@ class AlisaGenerator implements IGenerator {
 			«FOR vplan : selfPlans»
 				«FOR claim : vplan.claim.filter[cl|cl.requirement?.componentCategory.matchingCategory(cc.category)]»
 					«IF claim.evaluateRequirementFilter(filter)»
+					«IF cc instanceof ComponentImplementation && claim.requirement.connections»
+					«FOR conn : (cc as ComponentImplementation).allConnections»
+						«claim.generate("for "+conn.name)»
+					«ENDFOR»
+					«ELSE»
 						«claim.generate()»
+					«ENDIF»
 					«ENDIF»
 				«ENDFOR»
 			«ENDFOR»
@@ -316,7 +322,20 @@ class AlisaGenerator implements IGenerator {
 		return false
 	}
 
+//	def CharSequence generateAll(Claim claim, ComponentClassifier cc) {
+//		if (cc instanceof ComponentImplementation && claim.requirement.connections){
+//			
+//		} else {
+//			
+//		}
+//	}
+
 	def CharSequence generate(Claim claim) {
+		claim.generate(null)
+	}
+
+
+	def CharSequence generate(Claim claim, String forTargetElement) {
 		val claimvas = doGenerateVA(claim)
 		val subclaims = if(claim.subclaim != null) doGenerateSubclaims(claim) else ''''''
 		val claimassert = if(claim.assert != null) claim.assert.generate else ''''''
@@ -325,8 +344,8 @@ class AlisaGenerator implements IGenerator {
 			claim «claim.requirement.fullyQualifiedName»
 			[
 				tbdcount 0
-				«IF claim.subclaim != null»
-					«subclaims»
+				«IF forTargetElement != null»
+					«forTargetElement»
 				«ENDIF»
 				«IF claim.assert != null»
 					«claimassert»

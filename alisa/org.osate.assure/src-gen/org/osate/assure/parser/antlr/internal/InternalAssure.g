@@ -550,15 +550,37 @@ ruleClaimResult returns [EObject current=null]
 	    }
 
 )
-)(	otherlv_4='message' 
+)(	otherlv_4='for' 
     {
-    	newLeafNode(otherlv_4, grammarAccess.getClaimResultAccess().getMessageKeyword_4_0());
+    	newLeafNode(otherlv_4, grammarAccess.getClaimResultAccess().getForKeyword_4_0());
     }
 (
 (
-		lv_message_5_0=RULE_STRING
+		lv_targetelement_5_0=RULE_ID
 		{
-			newLeafNode(lv_message_5_0, grammarAccess.getClaimResultAccess().getMessageSTRINGTerminalRuleCall_4_1_0()); 
+			newLeafNode(lv_targetelement_5_0, grammarAccess.getClaimResultAccess().getTargetelementIDTerminalRuleCall_4_1_0()); 
+		}
+		{
+	        if ($current==null) {
+	            $current = createModelElement(grammarAccess.getClaimResultRule());
+	        }
+       		setWithLastConsumed(
+       			$current, 
+       			"targetelement",
+        		lv_targetelement_5_0, 
+        		"ID");
+	    }
+
+)
+))?(	otherlv_6='message' 
+    {
+    	newLeafNode(otherlv_6, grammarAccess.getClaimResultAccess().getMessageKeyword_5_0());
+    }
+(
+(
+		lv_message_7_0=RULE_STRING
+		{
+			newLeafNode(lv_message_7_0, grammarAccess.getClaimResultAccess().getMessageSTRINGTerminalRuleCall_5_1_0()); 
 		}
 		{
 	        if ($current==null) {
@@ -567,7 +589,7 @@ ruleClaimResult returns [EObject current=null]
        		setWithLastConsumed(
        			$current, 
        			"message",
-        		lv_message_5_0, 
+        		lv_message_7_0, 
         		"STRING");
 	    }
 
@@ -575,16 +597,16 @@ ruleClaimResult returns [EObject current=null]
 ))?(
 (
 		{ 
-	        newCompositeNode(grammarAccess.getClaimResultAccess().getSubClaimResultClaimResultParserRuleCall_5_0()); 
+	        newCompositeNode(grammarAccess.getClaimResultAccess().getSubClaimResultClaimResultParserRuleCall_6_0()); 
 	    }
-		lv_subClaimResult_6_0=ruleClaimResult		{
+		lv_subClaimResult_8_0=ruleClaimResult		{
 	        if ($current==null) {
 	            $current = createModelElementForParent(grammarAccess.getClaimResultRule());
 	        }
        		add(
        			$current, 
        			"subClaimResult",
-        		lv_subClaimResult_6_0, 
+        		lv_subClaimResult_8_0, 
         		"ClaimResult");
 	        afterParserOrEnumRuleCall();
 	    }
@@ -593,24 +615,24 @@ ruleClaimResult returns [EObject current=null]
 )*(
 (
 		{ 
-	        newCompositeNode(grammarAccess.getClaimResultAccess().getVerificationActivityResultVerificationExprParserRuleCall_6_0()); 
+	        newCompositeNode(grammarAccess.getClaimResultAccess().getVerificationActivityResultVerificationExprParserRuleCall_7_0()); 
 	    }
-		lv_verificationActivityResult_7_0=ruleVerificationExpr		{
+		lv_verificationActivityResult_9_0=ruleVerificationExpr		{
 	        if ($current==null) {
 	            $current = createModelElementForParent(grammarAccess.getClaimResultRule());
 	        }
        		add(
        			$current, 
        			"verificationActivityResult",
-        		lv_verificationActivityResult_7_0, 
+        		lv_verificationActivityResult_9_0, 
         		"VerificationExpr");
 	        afterParserOrEnumRuleCall();
 	    }
 
 )
-)*	otherlv_8=']' 
+)*	otherlv_10=']' 
     {
-    	newLeafNode(otherlv_8, grammarAccess.getClaimResultAccess().getRightSquareBracketKeyword_7());
+    	newLeafNode(otherlv_10, grammarAccess.getClaimResultAccess().getRightSquareBracketKeyword_8());
     }
 )
 ;
