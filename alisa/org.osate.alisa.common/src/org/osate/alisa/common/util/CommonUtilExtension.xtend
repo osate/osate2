@@ -182,11 +182,17 @@ class CommonUtilExtension {
 	def static ConnectionInstance findConnectionInstance(ComponentInstance ci, String name) {
 		for (ei : ci.connectionInstances) {
 			for(connref:ei.connectionReferences){
-				if(connref.source instanceof Subcomponent && connref.destination instanceof Subcomponent && 
-				name.equalsIgnoreCase(connref.connection.name)) return ei
+				val conn = connref.connection
+				if(conn.source.context instanceof Subcomponent && conn.destination.context instanceof Subcomponent && 
+				name.equalsIgnoreCase(conn.name)) return ei
 			}
 		}
 		return null
+	}
+
+	def static getCrossConnections(ComponentImplementation ci) {
+	   ci.allConnections.filter[conn|conn.source.context instanceof Subcomponent && 
+	   	conn.destination.context instanceof Subcomponent]
 	}
 
 	def static findElementInstance(ComponentInstance io, String elementName) {

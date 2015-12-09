@@ -337,13 +337,13 @@ public interface AssurePackage extends EPackage
   int CLAIM_RESULT__TARGET = ASSURE_RESULT_FEATURE_COUNT + 0;
 
   /**
-   * The feature id for the '<em><b>Targetelement</b></em>' attribute.
+   * The feature id for the '<em><b>Targetelement ID</b></em>' attribute.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    * @ordered
    */
-  int CLAIM_RESULT__TARGETELEMENT = ASSURE_RESULT_FEATURE_COUNT + 1;
+  int CLAIM_RESULT__TARGETELEMENT_ID = ASSURE_RESULT_FEATURE_COUNT + 1;
 
   /**
    * The feature id for the '<em><b>Message</b></em>' attribute.
@@ -1229,15 +1229,15 @@ public interface AssurePackage extends EPackage
   EReference getClaimResult_Target();
 
   /**
-   * Returns the meta object for the attribute '{@link org.osate.assure.assure.ClaimResult#getTargetelement <em>Targetelement</em>}'.
+   * Returns the meta object for the attribute '{@link org.osate.assure.assure.ClaimResult#getTargetelementID <em>Targetelement ID</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @return the meta object for the attribute '<em>Targetelement</em>'.
-   * @see org.osate.assure.assure.ClaimResult#getTargetelement()
+   * @return the meta object for the attribute '<em>Targetelement ID</em>'.
+   * @see org.osate.assure.assure.ClaimResult#getTargetelementID()
    * @see #getClaimResult()
    * @generated
    */
-  EAttribute getClaimResult_Targetelement();
+  EAttribute getClaimResult_TargetelementID();
 
   /**
    * Returns the meta object for the attribute '{@link org.osate.assure.assure.ClaimResult#getMessage <em>Message</em>}'.
@@ -1906,12 +1906,12 @@ public interface AssurePackage extends EPackage
     EReference CLAIM_RESULT__TARGET = eINSTANCE.getClaimResult_Target();
 
     /**
-     * The meta object literal for the '<em><b>Targetelement</b></em>' attribute feature.
+     * The meta object literal for the '<em><b>Targetelement ID</b></em>' attribute feature.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @generated
      */
-    EAttribute CLAIM_RESULT__TARGETELEMENT = eINSTANCE.getClaimResult_Targetelement();
+    EAttribute CLAIM_RESULT__TARGETELEMENT_ID = eINSTANCE.getClaimResult_TargetelementID();
 
     /**
      * The meta object literal for the '<em><b>Message</b></em>' attribute feature.

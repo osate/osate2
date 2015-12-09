@@ -45,7 +45,7 @@ import org.osate.reqspec.reqSpec.Requirement;
  * </p>
  * <ul>
  *   <li>{@link org.osate.assure.assure.impl.ClaimResultImpl#getTarget <em>Target</em>}</li>
- *   <li>{@link org.osate.assure.assure.impl.ClaimResultImpl#getTargetelement <em>Targetelement</em>}</li>
+ *   <li>{@link org.osate.assure.assure.impl.ClaimResultImpl#getTargetelementID <em>Targetelement ID</em>}</li>
  *   <li>{@link org.osate.assure.assure.impl.ClaimResultImpl#getMessage <em>Message</em>}</li>
  *   <li>{@link org.osate.assure.assure.impl.ClaimResultImpl#getSubClaimResult <em>Sub Claim Result</em>}</li>
  *   <li>{@link org.osate.assure.assure.impl.ClaimResultImpl#getVerificationActivityResult <em>Verification Activity Result</em>}</li>
@@ -66,24 +66,24 @@ public class ClaimResultImpl extends AssureResultImpl implements ClaimResult
   protected Requirement target;
 
   /**
-   * The default value of the '{@link #getTargetelement() <em>Targetelement</em>}' attribute.
+   * The default value of the '{@link #getTargetelementID() <em>Targetelement ID</em>}' attribute.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @see #getTargetelement()
+   * @see #getTargetelementID()
    * @generated
    * @ordered
    */
-  protected static final String TARGETELEMENT_EDEFAULT = null;
+  protected static final String TARGETELEMENT_ID_EDEFAULT = null;
 
   /**
-   * The cached value of the '{@link #getTargetelement() <em>Targetelement</em>}' attribute.
+   * The cached value of the '{@link #getTargetelementID() <em>Targetelement ID</em>}' attribute.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @see #getTargetelement()
+   * @see #getTargetelementID()
    * @generated
    * @ordered
    */
-  protected String targetelement = TARGETELEMENT_EDEFAULT;
+  protected String targetelementID = TARGETELEMENT_ID_EDEFAULT;
 
   /**
    * The default value of the '{@link #getMessage() <em>Message</em>}' attribute.
@@ -194,9 +194,9 @@ public class ClaimResultImpl extends AssureResultImpl implements ClaimResult
    * <!-- end-user-doc -->
    * @generated
    */
-  public String getTargetelement()
+  public String getTargetelementID()
   {
-    return targetelement;
+    return targetelementID;
   }
 
   /**
@@ -204,12 +204,12 @@ public class ClaimResultImpl extends AssureResultImpl implements ClaimResult
    * <!-- end-user-doc -->
    * @generated
    */
-  public void setTargetelement(String newTargetelement)
+  public void setTargetelementID(String newTargetelementID)
   {
-    String oldTargetelement = targetelement;
-    targetelement = newTargetelement;
+    String oldTargetelementID = targetelementID;
+    targetelementID = newTargetelementID;
     if (eNotificationRequired())
-      eNotify(new ENotificationImpl(this, Notification.SET, AssurePackage.CLAIM_RESULT__TARGETELEMENT, oldTargetelement, targetelement));
+      eNotify(new ENotificationImpl(this, Notification.SET, AssurePackage.CLAIM_RESULT__TARGETELEMENT_ID, oldTargetelementID, targetelementID));
   }
 
   /**
@@ -294,8 +294,8 @@ public class ClaimResultImpl extends AssureResultImpl implements ClaimResult
       case AssurePackage.CLAIM_RESULT__TARGET:
         if (resolve) return getTarget();
         return basicGetTarget();
-      case AssurePackage.CLAIM_RESULT__TARGETELEMENT:
-        return getTargetelement();
+      case AssurePackage.CLAIM_RESULT__TARGETELEMENT_ID:
+        return getTargetelementID();
       case AssurePackage.CLAIM_RESULT__MESSAGE:
         return getMessage();
       case AssurePackage.CLAIM_RESULT__SUB_CLAIM_RESULT:
@@ -320,8 +320,8 @@ public class ClaimResultImpl extends AssureResultImpl implements ClaimResult
       case AssurePackage.CLAIM_RESULT__TARGET:
         setTarget((Requirement)newValue);
         return;
-      case AssurePackage.CLAIM_RESULT__TARGETELEMENT:
-        setTargetelement((String)newValue);
+      case AssurePackage.CLAIM_RESULT__TARGETELEMENT_ID:
+        setTargetelementID((String)newValue);
         return;
       case AssurePackage.CLAIM_RESULT__MESSAGE:
         setMessage((String)newValue);
@@ -351,8 +351,8 @@ public class ClaimResultImpl extends AssureResultImpl implements ClaimResult
       case AssurePackage.CLAIM_RESULT__TARGET:
         setTarget((Requirement)null);
         return;
-      case AssurePackage.CLAIM_RESULT__TARGETELEMENT:
-        setTargetelement(TARGETELEMENT_EDEFAULT);
+      case AssurePackage.CLAIM_RESULT__TARGETELEMENT_ID:
+        setTargetelementID(TARGETELEMENT_ID_EDEFAULT);
         return;
       case AssurePackage.CLAIM_RESULT__MESSAGE:
         setMessage(MESSAGE_EDEFAULT);
@@ -379,8 +379,8 @@ public class ClaimResultImpl extends AssureResultImpl implements ClaimResult
     {
       case AssurePackage.CLAIM_RESULT__TARGET:
         return target != null;
-      case AssurePackage.CLAIM_RESULT__TARGETELEMENT:
-        return TARGETELEMENT_EDEFAULT == null ? targetelement != null : !TARGETELEMENT_EDEFAULT.equals(targetelement);
+      case AssurePackage.CLAIM_RESULT__TARGETELEMENT_ID:
+        return TARGETELEMENT_ID_EDEFAULT == null ? targetelementID != null : !TARGETELEMENT_ID_EDEFAULT.equals(targetelementID);
       case AssurePackage.CLAIM_RESULT__MESSAGE:
         return MESSAGE_EDEFAULT == null ? message != null : !MESSAGE_EDEFAULT.equals(message);
       case AssurePackage.CLAIM_RESULT__SUB_CLAIM_RESULT:
@@ -402,8 +402,8 @@ public class ClaimResultImpl extends AssureResultImpl implements ClaimResult
     if (eIsProxy()) return super.toString();
 
     StringBuffer result = new StringBuffer(super.toString());
-    result.append(" (targetelement: ");
-    result.append(targetelement);
+    result.append(" (targetelementID: ");
+    result.append(targetelementID);
     result.append(", message: ");
     result.append(message);
     result.append(')');

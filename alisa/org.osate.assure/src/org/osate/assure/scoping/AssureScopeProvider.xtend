@@ -20,6 +20,14 @@
 package org.osate.assure.scoping
 
 import org.eclipse.xtext.scoping.impl.AbstractDeclarativeScopeProvider
+import org.eclipse.emf.ecore.EReference
+import org.osate.assure.assure.ClaimResult
+import org.eclipse.xtext.scoping.impl.SimpleScope
+import org.eclipse.xtext.scoping.IScope
+import org.eclipse.xtext.scoping.Scopes
+import org.eclipse.xtext.naming.QualifiedName
+import org.eclipse.xtext.util.SimpleAttributeResolver
+import org.osate.aadl2.ComponentImplementation
 
 /**
  * This class contains custom scoping description.
@@ -29,6 +37,25 @@ import org.eclipse.xtext.scoping.impl.AbstractDeclarativeScopeProvider
  *
  */
 class AssureScopeProvider extends AbstractDeclarativeScopeProvider {
+
+//	def scope_NamedElement(ClaimResult context, EReference reference) {
+//		val targetClassifier = targetClassifier(context)
+//		if (targetClassifier != null) {
+////			targetClassifier.getAllFeatures.scopeFor
+//			val thescope = new SimpleScope(IScope::NULLSCOPE,
+//				Scopes::scopedElementsFor(targetClassifier.getAllFeatures+targetClassifier.allModes,
+//					QualifiedName::wrapper(SimpleAttributeResolver::NAME_RESOLVER)), true)
+//			if (targetClassifier instanceof ComponentImplementation) {
+//				new SimpleScope(thescope,
+//					Scopes::scopedElementsFor(targetClassifier.allSubcomponents+targetClassifier.allEndToEndFlows,
+//						QualifiedName::wrapper(SimpleAttributeResolver::NAME_RESOLVER)), true)
+//			} else {
+//				return thescope
+//			}
+//		} else {
+//			IScope.NULLSCOPE
+//		}
+//	}
 
 
 }

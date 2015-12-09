@@ -74,6 +74,7 @@ import org.osate.verify.verify.VerificationMethod
 import static extension org.osate.aadl2.instantiation.InstantiateModel.buildInstanceModelFile
 import static extension org.osate.alisa.common.util.CommonUtilExtension.*
 import static extension org.osate.reqspec.util.ReqSpecUtilExtension.*
+import org.osate.assure.services.AssureGrammarAccess.SubsystemResultElements
 
 class AssureUtilExtension {
 
@@ -96,7 +97,10 @@ class AssureUtilExtension {
 		return result as AssuranceCaseResult
 	}
 
-	def static ComponentImplementation getAssuranceCaseTarget(EObject assureObject) {
+	/*
+	 * return the component classifier associated
+	 */
+	def static ComponentImplementation getCaseTargetClassifier(EObject assureObject) {
 		var ac = assureObject
 		while (ac != null) {
 			ac = ac.eContainer
@@ -104,13 +108,17 @@ class AssureUtilExtension {
 				if (ac.target != null){
 					return ac.target
 				}
+//	TODO		} else if (ac instanceof SubsystemResult){
+//				if (ac.targetSystem != null){
+//					return ac.targetSystem.xx
+//				}
 			}
 		}
 		return null
 	}
 
-	def static ClaimResult getEnclosingClaimResult(EObject assureObject) {
-		var result = assureObject.eContainer
+	def static ClaimResult getClaimResult(EObject assureObject) {
+		var result = assureObject
 		while (!(result instanceof ClaimResult)) {
 			result = result.eContainer
 		}
@@ -118,30 +126,31 @@ class AssureUtilExtension {
 		return result as ClaimResult
 	}
 
+	/*
+	 * return the subject of the claim given a ClaimResult or VerificationResult inside a ClaimResult
+	 */
 	def static NamedElement getClaimSubject(EObject assureObject) {
-		val req = if (assureObject instanceof ClaimResult) assureObject.target else assureObject.enclosingClaimResult.
-				target
+		val req = assureObject.claimResult.target		
 		req?.targetElement ?: req.targetClassifier
 	}
 
+	/*
+	 * return the targetElement or null
+	 */
 	def static NamedElement getTargetElement(EObject assureObject) {
-		val req = if (assureObject instanceof ClaimResult) assureObject.target else assureObject.enclosingClaimResult.
-				target
-		req?.targetElement
+		assureObject.claimResult.target?.targetElement
 	}
 
 	def static boolean isConnections(EObject assureObject) {
-		val req = if (assureObject instanceof ClaimResult) assureObject.target else assureObject.enclosingClaimResult.
-				target
-		req?.connections
+		assureObject.claimResult.target?.connections
 	}
 
 	def static String getConnectionID(EObject assureObject) {
-		assureObject.enclosingClaimResult.targetelement
+		assureObject.claimResult.targetelementID
 	}
 
 	def static SystemInstance getAssuranceCaseInstanceModel(VerificationResult assureObject) {
-		val rac = assureObject.assuranceCaseTarget
+		val rac = assureObject.caseTargetClassifier
 		if (rac == null) return null
 		rac.instanceModel
 	}
@@ -1175,10 +1184,13 @@ class AssureUtilExtension {
 	}
 
 	def static String getName(ClaimResult cr) {
+		val targetElementLabel= if(cr.targetelementID != null) "("+cr.targetelementID+")" 
+		else if (!Aadl2Util.isNull(cr.targetElement)) "("+cr.targetElement.name+")"
+		else ""
 		if (!Aadl2Util.isNull(cr.target)) {
-			return cr.target?.name
+			return cr.target?.name + targetElementLabel
 		}
-		return "[unresolved:" + cr.target.toString + "]"
+		return "[unresolved:" + cr.target.toString + "]"+targetElementLabel
 	}
 
 	def static String constructDescription(ClaimResult cr) {

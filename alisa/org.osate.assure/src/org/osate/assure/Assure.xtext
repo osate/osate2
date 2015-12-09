@@ -49,7 +49,7 @@ ClaimResult:
 	'claim' target=[ReqSpec::Requirement|QualifiedName]
 	'['
 	metrics=Metrics
-	('for' targetelement=ID)?
+	('for' targetelementID=ID)?
 	('message' message= STRING)?
 	(subClaimResult += ClaimResult)*
 	(verificationActivityResult+= VerificationExpr)*

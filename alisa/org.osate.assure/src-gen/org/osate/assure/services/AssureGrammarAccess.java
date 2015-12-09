@@ -299,8 +299,8 @@ public class AssureGrammarAccess extends AbstractGrammarElementFinder {
 		private final RuleCall cMetricsMetricsParserRuleCall_3_0 = (RuleCall)cMetricsAssignment_3.eContents().get(0);
 		private final Group cGroup_4 = (Group)cGroup.eContents().get(4);
 		private final Keyword cForKeyword_4_0 = (Keyword)cGroup_4.eContents().get(0);
-		private final Assignment cTargetelementAssignment_4_1 = (Assignment)cGroup_4.eContents().get(1);
-		private final RuleCall cTargetelementIDTerminalRuleCall_4_1_0 = (RuleCall)cTargetelementAssignment_4_1.eContents().get(0);
+		private final Assignment cTargetelementIDAssignment_4_1 = (Assignment)cGroup_4.eContents().get(1);
+		private final RuleCall cTargetelementIDIDTerminalRuleCall_4_1_0 = (RuleCall)cTargetelementIDAssignment_4_1.eContents().get(0);
 		private final Group cGroup_5 = (Group)cGroup.eContents().get(5);
 		private final Keyword cMessageKeyword_5_0 = (Keyword)cGroup_5.eContents().get(0);
 		private final Assignment cMessageAssignment_5_1 = (Assignment)cGroup_5.eContents().get(1);
@@ -313,11 +313,11 @@ public class AssureGrammarAccess extends AbstractGrammarElementFinder {
 		
 		//// Result of meeting a requirement
 		//ClaimResult:
-		//	"claim" target=[ReqSpec::Requirement|QualifiedName] "[" metrics=Metrics ("for" targetelement=ID)? ("message"
+		//	"claim" target=[ReqSpec::Requirement|QualifiedName] "[" metrics=Metrics ("for" targetelementID=ID)? ("message"
 		//	message=STRING)? subClaimResult+=ClaimResult* verificationActivityResult+=VerificationExpr* "]";
 		@Override public ParserRule getRule() { return rule; }
 
-		//"claim" target=[ReqSpec::Requirement|QualifiedName] "[" metrics=Metrics ("for" targetelement=ID)? ("message"
+		//"claim" target=[ReqSpec::Requirement|QualifiedName] "[" metrics=Metrics ("for" targetelementID=ID)? ("message"
 		//message=STRING)? subClaimResult+=ClaimResult* verificationActivityResult+=VerificationExpr* "]"
 		public Group getGroup() { return cGroup; }
 
@@ -342,17 +342,17 @@ public class AssureGrammarAccess extends AbstractGrammarElementFinder {
 		//Metrics
 		public RuleCall getMetricsMetricsParserRuleCall_3_0() { return cMetricsMetricsParserRuleCall_3_0; }
 
-		//("for" targetelement=ID)?
+		//("for" targetelementID=ID)?
 		public Group getGroup_4() { return cGroup_4; }
 
 		//"for"
 		public Keyword getForKeyword_4_0() { return cForKeyword_4_0; }
 
-		//targetelement=ID
-		public Assignment getTargetelementAssignment_4_1() { return cTargetelementAssignment_4_1; }
+		//targetelementID=ID
+		public Assignment getTargetelementIDAssignment_4_1() { return cTargetelementIDAssignment_4_1; }
 
 		//ID
-		public RuleCall getTargetelementIDTerminalRuleCall_4_1_0() { return cTargetelementIDTerminalRuleCall_4_1_0; }
+		public RuleCall getTargetelementIDIDTerminalRuleCall_4_1_0() { return cTargetelementIDIDTerminalRuleCall_4_1_0; }
 
 		//("message" message=STRING)?
 		public Group getGroup_5() { return cGroup_5; }
@@ -1498,7 +1498,7 @@ public class AssureGrammarAccess extends AbstractGrammarElementFinder {
 
 	//// Result of meeting a requirement
 	//ClaimResult:
-	//	"claim" target=[ReqSpec::Requirement|QualifiedName] "[" metrics=Metrics ("for" targetelement=ID)? ("message"
+	//	"claim" target=[ReqSpec::Requirement|QualifiedName] "[" metrics=Metrics ("for" targetelementID=ID)? ("message"
 	//	message=STRING)? subClaimResult+=ClaimResult* verificationActivityResult+=VerificationExpr* "]";
 	public ClaimResultElements getClaimResultAccess() {
 		return pClaimResult;

@@ -29,7 +29,7 @@ import org.osate.reqspec.reqSpec.Requirement;
  * </p>
  * <ul>
  *   <li>{@link org.osate.assure.assure.ClaimResult#getTarget <em>Target</em>}</li>
- *   <li>{@link org.osate.assure.assure.ClaimResult#getTargetelement <em>Targetelement</em>}</li>
+ *   <li>{@link org.osate.assure.assure.ClaimResult#getTargetelementID <em>Targetelement ID</em>}</li>
  *   <li>{@link org.osate.assure.assure.ClaimResult#getMessage <em>Message</em>}</li>
  *   <li>{@link org.osate.assure.assure.ClaimResult#getSubClaimResult <em>Sub Claim Result</em>}</li>
  *   <li>{@link org.osate.assure.assure.ClaimResult#getVerificationActivityResult <em>Verification Activity Result</em>}</li>
@@ -68,30 +68,30 @@ public interface ClaimResult extends AssureResult
   void setTarget(Requirement value);
 
   /**
-   * Returns the value of the '<em><b>Targetelement</b></em>' attribute.
+   * Returns the value of the '<em><b>Targetelement ID</b></em>' attribute.
    * <!-- begin-user-doc -->
    * <p>
-   * If the meaning of the '<em>Targetelement</em>' attribute isn't clear,
+   * If the meaning of the '<em>Targetelement ID</em>' attribute isn't clear,
    * there really should be more of a description here...
    * </p>
    * <!-- end-user-doc -->
-   * @return the value of the '<em>Targetelement</em>' attribute.
-   * @see #setTargetelement(String)
-   * @see org.osate.assure.assure.AssurePackage#getClaimResult_Targetelement()
+   * @return the value of the '<em>Targetelement ID</em>' attribute.
+   * @see #setTargetelementID(String)
+   * @see org.osate.assure.assure.AssurePackage#getClaimResult_TargetelementID()
    * @model
    * @generated
    */
-  String getTargetelement();
+  String getTargetelementID();
 
   /**
-   * Sets the value of the '{@link org.osate.assure.assure.ClaimResult#getTargetelement <em>Targetelement</em>}' attribute.
+   * Sets the value of the '{@link org.osate.assure.assure.ClaimResult#getTargetelementID <em>Targetelement ID</em>}' attribute.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @param value the new value of the '<em>Targetelement</em>' attribute.
-   * @see #getTargetelement()
+   * @param value the new value of the '<em>Targetelement ID</em>' attribute.
+   * @see #getTargetelementID()
    * @generated
    */
-  void setTargetelement(String value);
+  void setTargetelementID(String value);
 
   /**
    * Returns the value of the '<em><b>Message</b></em>' attribute.

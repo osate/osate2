@@ -3760,9 +3760,9 @@ rule__ClaimResult__Group_4__1__Impl
     }
 :
 (
-{ before(grammarAccess.getClaimResultAccess().getTargetelementAssignment_4_1()); }
-(rule__ClaimResult__TargetelementAssignment_4_1)
-{ after(grammarAccess.getClaimResultAccess().getTargetelementAssignment_4_1()); }
+{ before(grammarAccess.getClaimResultAccess().getTargetelementIDAssignment_4_1()); }
+(rule__ClaimResult__TargetelementIDAssignment_4_1)
+{ after(grammarAccess.getClaimResultAccess().getTargetelementIDAssignment_4_1()); }
 )
 
 ;
@@ -12372,14 +12372,14 @@ finally {
 	restoreStackSize(stackSize);
 }
 
-rule__ClaimResult__TargetelementAssignment_4_1
+rule__ClaimResult__TargetelementIDAssignment_4_1
     @init {
 		int stackSize = keepStackSize();
     }
 :
 (
-{ before(grammarAccess.getClaimResultAccess().getTargetelementIDTerminalRuleCall_4_1_0()); }
-	RULE_ID{ after(grammarAccess.getClaimResultAccess().getTargetelementIDTerminalRuleCall_4_1_0()); }
+{ before(grammarAccess.getClaimResultAccess().getTargetelementIDIDTerminalRuleCall_4_1_0()); }
+	RULE_ID{ after(grammarAccess.getClaimResultAccess().getTargetelementIDIDTerminalRuleCall_4_1_0()); }
 )
 
 ;

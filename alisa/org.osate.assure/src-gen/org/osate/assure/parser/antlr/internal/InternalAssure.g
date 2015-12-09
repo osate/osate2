@@ -556,9 +556,9 @@ ruleClaimResult returns [EObject current=null]
     }
 (
 (
-		lv_targetelement_5_0=RULE_ID
+		lv_targetelementID_5_0=RULE_ID
 		{
-			newLeafNode(lv_targetelement_5_0, grammarAccess.getClaimResultAccess().getTargetelementIDTerminalRuleCall_4_1_0()); 
+			newLeafNode(lv_targetelementID_5_0, grammarAccess.getClaimResultAccess().getTargetelementIDIDTerminalRuleCall_4_1_0()); 
 		}
 		{
 	        if ($current==null) {
@@ -566,8 +566,8 @@ ruleClaimResult returns [EObject current=null]
 	        }
        		setWithLastConsumed(
        			$current, 
-       			"targetelement",
-        		lv_targetelement_5_0, 
+       			"targetelementID",
+        		lv_targetelementID_5_0, 
         		"ID");
 	    }
 

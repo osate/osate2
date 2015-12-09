@@ -11447,26 +11447,26 @@ public class InternalAssureParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__ClaimResult__Group_4__1__Impl"
-    // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:3757:1: rule__ClaimResult__Group_4__1__Impl : ( ( rule__ClaimResult__TargetelementAssignment_4_1 ) ) ;
+    // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:3757:1: rule__ClaimResult__Group_4__1__Impl : ( ( rule__ClaimResult__TargetelementIDAssignment_4_1 ) ) ;
     public final void rule__ClaimResult__Group_4__1__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:3761:1: ( ( ( rule__ClaimResult__TargetelementAssignment_4_1 ) ) )
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:3762:1: ( ( rule__ClaimResult__TargetelementAssignment_4_1 ) )
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:3761:1: ( ( ( rule__ClaimResult__TargetelementIDAssignment_4_1 ) ) )
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:3762:1: ( ( rule__ClaimResult__TargetelementIDAssignment_4_1 ) )
             {
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:3762:1: ( ( rule__ClaimResult__TargetelementAssignment_4_1 ) )
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:3763:1: ( rule__ClaimResult__TargetelementAssignment_4_1 )
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:3762:1: ( ( rule__ClaimResult__TargetelementIDAssignment_4_1 ) )
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:3763:1: ( rule__ClaimResult__TargetelementIDAssignment_4_1 )
             {
             if ( state.backtracking==0 ) {
-               before(grammarAccess.getClaimResultAccess().getTargetelementAssignment_4_1()); 
+               before(grammarAccess.getClaimResultAccess().getTargetelementIDAssignment_4_1()); 
             }
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:3764:1: ( rule__ClaimResult__TargetelementAssignment_4_1 )
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:3764:2: rule__ClaimResult__TargetelementAssignment_4_1
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:3764:1: ( rule__ClaimResult__TargetelementIDAssignment_4_1 )
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:3764:2: rule__ClaimResult__TargetelementIDAssignment_4_1
             {
-            pushFollow(FOLLOW_rule__ClaimResult__TargetelementAssignment_4_1_in_rule__ClaimResult__Group_4__1__Impl7883);
-            rule__ClaimResult__TargetelementAssignment_4_1();
+            pushFollow(FOLLOW_rule__ClaimResult__TargetelementIDAssignment_4_1_in_rule__ClaimResult__Group_4__1__Impl7883);
+            rule__ClaimResult__TargetelementIDAssignment_4_1();
 
             state._fsp--;
             if (state.failed) return ;
@@ -11474,7 +11474,7 @@ public class InternalAssureParser extends AbstractInternalContentAssistParser {
             }
 
             if ( state.backtracking==0 ) {
-               after(grammarAccess.getClaimResultAccess().getTargetelementAssignment_4_1()); 
+               after(grammarAccess.getClaimResultAccess().getTargetelementIDAssignment_4_1()); 
             }
 
             }
@@ -35073,9 +35073,9 @@ public class InternalAssureParser extends AbstractInternalContentAssistParser {
     // $ANTLR end "rule__ClaimResult__MetricsAssignment_3"
 
 
-    // $ANTLR start "rule__ClaimResult__TargetelementAssignment_4_1"
-    // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:12375:1: rule__ClaimResult__TargetelementAssignment_4_1 : ( RULE_ID ) ;
-    public final void rule__ClaimResult__TargetelementAssignment_4_1() throws RecognitionException {
+    // $ANTLR start "rule__ClaimResult__TargetelementIDAssignment_4_1"
+    // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:12375:1: rule__ClaimResult__TargetelementIDAssignment_4_1 : ( RULE_ID ) ;
+    public final void rule__ClaimResult__TargetelementIDAssignment_4_1() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
@@ -35087,11 +35087,11 @@ public class InternalAssureParser extends AbstractInternalContentAssistParser {
             // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:12381:1: RULE_ID
             {
             if ( state.backtracking==0 ) {
-               before(grammarAccess.getClaimResultAccess().getTargetelementIDTerminalRuleCall_4_1_0()); 
+               before(grammarAccess.getClaimResultAccess().getTargetelementIDIDTerminalRuleCall_4_1_0()); 
             }
-            match(input,RULE_ID,FOLLOW_RULE_ID_in_rule__ClaimResult__TargetelementAssignment_4_124850); if (state.failed) return ;
+            match(input,RULE_ID,FOLLOW_RULE_ID_in_rule__ClaimResult__TargetelementIDAssignment_4_124850); if (state.failed) return ;
             if ( state.backtracking==0 ) {
-               after(grammarAccess.getClaimResultAccess().getTargetelementIDTerminalRuleCall_4_1_0()); 
+               after(grammarAccess.getClaimResultAccess().getTargetelementIDIDTerminalRuleCall_4_1_0()); 
             }
 
             }
@@ -35111,7 +35111,7 @@ public class InternalAssureParser extends AbstractInternalContentAssistParser {
         }
         return ;
     }
-    // $ANTLR end "rule__ClaimResult__TargetelementAssignment_4_1"
+    // $ANTLR end "rule__ClaimResult__TargetelementIDAssignment_4_1"
 
 
     // $ANTLR start "rule__ClaimResult__MessageAssignment_5_1"
@@ -39547,7 +39547,7 @@ public class InternalAssureParser extends AbstractInternalContentAssistParser {
     public static final BitSet FOLLOW_rule__ClaimResult__Group_4__1_in_rule__ClaimResult__Group_4__07797 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_55_in_rule__ClaimResult__Group_4__0__Impl7825 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_rule__ClaimResult__Group_4__1__Impl_in_rule__ClaimResult__Group_4__17856 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__ClaimResult__TargetelementAssignment_4_1_in_rule__ClaimResult__Group_4__1__Impl7883 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__ClaimResult__TargetelementIDAssignment_4_1_in_rule__ClaimResult__Group_4__1__Impl7883 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_rule__ClaimResult__Group_5__0__Impl_in_rule__ClaimResult__Group_5__07917 = new BitSet(new long[]{0x0000000000000040L});
     public static final BitSet FOLLOW_rule__ClaimResult__Group_5__1_in_rule__ClaimResult__Group_5__07920 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_53_in_rule__ClaimResult__Group_5__0__Impl7948 = new BitSet(new long[]{0x0000000000000002L});
@@ -40246,7 +40246,7 @@ public class InternalAssureParser extends AbstractInternalContentAssistParser {
     public static final BitSet FOLLOW_ruleSubsystemResult_in_rule__SubsystemResult__SubsystemResultAssignment_824749 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_ruleQualifiedName_in_rule__ClaimResult__TargetAssignment_124784 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_ruleMetrics_in_rule__ClaimResult__MetricsAssignment_324819 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_RULE_ID_in_rule__ClaimResult__TargetelementAssignment_4_124850 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_RULE_ID_in_rule__ClaimResult__TargetelementIDAssignment_4_124850 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_RULE_STRING_in_rule__ClaimResult__MessageAssignment_5_124881 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_ruleClaimResult_in_rule__ClaimResult__SubClaimResultAssignment_624912 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_ruleVerificationExpr_in_rule__ClaimResult__VerificationActivityResultAssignment_724943 = new BitSet(new long[]{0x0000000000000002L});

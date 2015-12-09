@@ -185,7 +185,7 @@ public class AssureSemanticSequencer extends CommonSemanticSequencer {
 	 *     (
 	 *         target=[Requirement|QualifiedName] 
 	 *         metrics=Metrics 
-	 *         targetelement=ID? 
+	 *         targetelementID=ID? 
 	 *         message=STRING? 
 	 *         subClaimResult+=ClaimResult* 
 	 *         verificationActivityResult+=VerificationExpr*

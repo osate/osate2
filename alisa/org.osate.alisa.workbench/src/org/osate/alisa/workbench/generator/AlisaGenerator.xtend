@@ -52,6 +52,7 @@ import org.osate.verify.verify.VerificationPlan
 import static extension org.osate.reqspec.util.ReqSpecUtilExtension.*
 import static extension org.osate.verify.util.VerifyUtilExtension.*
 import static extension org.osate.alisa.workbench.util.AlisaWorkbenchUtilExtension.*
+import static extension org.osate.alisa.common.util.CommonUtilExtension.*
 import org.osate.alisa.workbench.alisa.AssurancePlan
 
 /**
@@ -232,42 +233,37 @@ class AlisaGenerator implements IGenerator {
 				}
 			}
 		}
-		val result = '''
+		val result = 
+		'''
 			«FOR vplan : vplans»
 				«FOR claim : vplan.claim»
 					«IF claim.evaluateRequirementFilter(filter)»
-						«claim.generate()»
+					«claim.generate()»
 					«ENDIF»
 				«ENDFOR»
 			«ENDFOR»
 			«FOR vplan : selfPlans»
 				«FOR claim : vplan.claim.filter[cl|cl.requirement?.componentCategory.matchingCategory(cc.category)]»
-					«IF claim.evaluateRequirementFilter(filter)»
-					«IF cc instanceof ComponentImplementation && claim.requirement.connections»
-					«FOR conn : (cc as ComponentImplementation).allConnections»
-						«claim.generate("for "+conn.name)»
-					«ENDFOR»
-					«ELSE»
-						«claim.generate()»
-					«ENDIF»
-					«ENDIF»
+				«IF claim.evaluateRequirementFilter(filter)»
+				«claim.generateAll(cc)»
+				«ENDIF»
 				«ENDFOR»
 			«ENDFOR»
 				«FOR claim : selfClaims.filter[cl|cl.requirement?.componentCategory.matchingCategory(cc.category)]»
 				«IF claim.evaluateRequirementFilter(filter)»
-					«claim.generate()»
+				«claim.generateAll(cc)»
 				«ENDIF»
 				«ENDFOR»
 			«FOR vplan : globalPlans»
 				«FOR claim : vplan.claim.filter[cl|cl.requirement?.componentCategory.matchingCategory(cc.category)]»
 					«IF claim.evaluateRequirementFilter(filter)»
-						«claim.generate()»
+					«claim.generateAll(cc)»
 					«ENDIF»
 				«ENDFOR»
 			«ENDFOR»
 			«FOR claim : globalClaims.filter[cl|cl.requirement?.componentCategory.matchingCategory(cc.category)]»
 				«IF claim.evaluateRequirementFilter(filter)»
-					«claim.generate()»
+				«claim.generateAll(cc)»
 				«ENDIF»
 			«ENDFOR»
 			«IF cc instanceof ComponentImplementation»
@@ -322,13 +318,18 @@ class AlisaGenerator implements IGenerator {
 		return false
 	}
 
-//	def CharSequence generateAll(Claim claim, ComponentClassifier cc) {
-//		if (cc instanceof ComponentImplementation && claim.requirement.connections){
-//			
-//		} else {
-//			
-//		}
-//	}
+
+	def CharSequence generateAll(Claim claim, ComponentClassifier cc){
+		'''
+		«IF cc instanceof ComponentImplementation && claim.requirement.connections»
+		«FOR conn : (cc as ComponentImplementation).crossConnections»
+		«claim.generate("for "+conn.name)»
+		«ENDFOR»
+		«ELSE»
+		«claim.generate()»
+		«ENDIF»
+		'''		
+	}
 
 	def CharSequence generate(Claim claim) {
 		claim.generate(null)
@@ -341,18 +342,18 @@ class AlisaGenerator implements IGenerator {
 		val claimassert = if(claim.assert != null) claim.assert.generate else ''''''
 		if(claimvas.length == 0 && subclaims.length == 0 && claimassert.length == 0) return ''''''
 		'''
-			claim «claim.requirement.fullyQualifiedName»
-			[
-				tbdcount 0
-				«IF forTargetElement != null»
-					«forTargetElement»
-				«ENDIF»
-				«IF claim.assert != null»
-					«claimassert»
-				«ELSE»
-					«claimvas»
-				«ENDIF»
-			]
+		claim «claim.requirement.fullyQualifiedName»
+		[
+			tbdcount 0
+			«IF forTargetElement != null»
+			«forTargetElement»
+			«ENDIF»
+			«IF claim.assert != null»
+			«claimassert»
+			«ELSE»
+			«claimvas»
+			«ENDIF»
+		]
 		'''
 	}
 
