@@ -209,7 +209,8 @@ public class AssureGrammarAccess extends AbstractGrammarElementFinder {
 		private final RuleCall cNameQualifiedNameParserRuleCall_1_0 = (RuleCall)cNameAssignment_1.eContents().get(0);
 		private final Keyword cForKeyword_2 = (Keyword)cGroup.eContents().get(2);
 		private final Assignment cTargetSystemAssignment_3 = (Assignment)cGroup.eContents().get(3);
-		private final RuleCall cTargetSystemIDTerminalRuleCall_3_0 = (RuleCall)cTargetSystemAssignment_3.eContents().get(0);
+		private final CrossReference cTargetSystemSubcomponentCrossReference_3_0 = (CrossReference)cTargetSystemAssignment_3.eContents().get(0);
+		private final RuleCall cTargetSystemSubcomponentIDTerminalRuleCall_3_0_1 = (RuleCall)cTargetSystemSubcomponentCrossReference_3_0.eContents().get(1);
 		private final Keyword cLeftSquareBracketKeyword_4 = (Keyword)cGroup.eContents().get(4);
 		private final Assignment cMetricsAssignment_5 = (Assignment)cGroup.eContents().get(5);
 		private final RuleCall cMetricsMetricsParserRuleCall_5_0 = (RuleCall)cMetricsAssignment_5.eContents().get(0);
@@ -224,11 +225,11 @@ public class AssureGrammarAccess extends AbstractGrammarElementFinder {
 		private final Keyword cRightSquareBracketKeyword_9 = (Keyword)cGroup.eContents().get(9);
 		
 		//SubsystemResult:
-		//	"subsystem" name=QualifiedName "for" targetSystem=ID "[" metrics=Metrics ("message" message=STRING)?
-		//	claimResult+=ClaimResult* subsystemResult+=SubsystemResult* "]";
+		//	"subsystem" name=QualifiedName "for" targetSystem=[aadl2::Subcomponent] "[" metrics=Metrics ("message"
+		//	message=STRING)? claimResult+=ClaimResult* subsystemResult+=SubsystemResult* "]";
 		@Override public ParserRule getRule() { return rule; }
 
-		//"subsystem" name=QualifiedName "for" targetSystem=ID "[" metrics=Metrics ("message" message=STRING)?
+		//"subsystem" name=QualifiedName "for" targetSystem=[aadl2::Subcomponent] "[" metrics=Metrics ("message" message=STRING)?
 		//claimResult+=ClaimResult* subsystemResult+=SubsystemResult* "]"
 		public Group getGroup() { return cGroup; }
 
@@ -244,11 +245,14 @@ public class AssureGrammarAccess extends AbstractGrammarElementFinder {
 		//"for"
 		public Keyword getForKeyword_2() { return cForKeyword_2; }
 
-		//targetSystem=ID
+		//targetSystem=[aadl2::Subcomponent]
 		public Assignment getTargetSystemAssignment_3() { return cTargetSystemAssignment_3; }
 
+		//[aadl2::Subcomponent]
+		public CrossReference getTargetSystemSubcomponentCrossReference_3_0() { return cTargetSystemSubcomponentCrossReference_3_0; }
+
 		//ID
-		public RuleCall getTargetSystemIDTerminalRuleCall_3_0() { return cTargetSystemIDTerminalRuleCall_3_0; }
+		public RuleCall getTargetSystemSubcomponentIDTerminalRuleCall_3_0_1() { return cTargetSystemSubcomponentIDTerminalRuleCall_3_0_1; }
 
 		//"["
 		public Keyword getLeftSquareBracketKeyword_4() { return cLeftSquareBracketKeyword_4; }
@@ -299,8 +303,9 @@ public class AssureGrammarAccess extends AbstractGrammarElementFinder {
 		private final RuleCall cMetricsMetricsParserRuleCall_3_0 = (RuleCall)cMetricsAssignment_3.eContents().get(0);
 		private final Group cGroup_4 = (Group)cGroup.eContents().get(4);
 		private final Keyword cForKeyword_4_0 = (Keyword)cGroup_4.eContents().get(0);
-		private final Assignment cTargetelementIDAssignment_4_1 = (Assignment)cGroup_4.eContents().get(1);
-		private final RuleCall cTargetelementIDIDTerminalRuleCall_4_1_0 = (RuleCall)cTargetelementIDAssignment_4_1.eContents().get(0);
+		private final Assignment cModelElementAssignment_4_1 = (Assignment)cGroup_4.eContents().get(1);
+		private final CrossReference cModelElementNamedElementCrossReference_4_1_0 = (CrossReference)cModelElementAssignment_4_1.eContents().get(0);
+		private final RuleCall cModelElementNamedElementIDTerminalRuleCall_4_1_0_1 = (RuleCall)cModelElementNamedElementCrossReference_4_1_0.eContents().get(1);
 		private final Group cGroup_5 = (Group)cGroup.eContents().get(5);
 		private final Keyword cMessageKeyword_5_0 = (Keyword)cGroup_5.eContents().get(0);
 		private final Assignment cMessageAssignment_5_1 = (Assignment)cGroup_5.eContents().get(1);
@@ -313,12 +318,12 @@ public class AssureGrammarAccess extends AbstractGrammarElementFinder {
 		
 		//// Result of meeting a requirement
 		//ClaimResult:
-		//	"claim" target=[ReqSpec::Requirement|QualifiedName] "[" metrics=Metrics ("for" targetelementID=ID)? ("message"
-		//	message=STRING)? subClaimResult+=ClaimResult* verificationActivityResult+=VerificationExpr* "]";
+		//	"claim" target=[ReqSpec::Requirement|QualifiedName] "[" metrics=Metrics ("for" modelElement=[aadl2::NamedElement])?
+		//	("message" message=STRING)? subClaimResult+=ClaimResult* verificationActivityResult+=VerificationExpr* "]";
 		@Override public ParserRule getRule() { return rule; }
 
-		//"claim" target=[ReqSpec::Requirement|QualifiedName] "[" metrics=Metrics ("for" targetelementID=ID)? ("message"
-		//message=STRING)? subClaimResult+=ClaimResult* verificationActivityResult+=VerificationExpr* "]"
+		//"claim" target=[ReqSpec::Requirement|QualifiedName] "[" metrics=Metrics ("for" modelElement=[aadl2::NamedElement])?
+		//("message" message=STRING)? subClaimResult+=ClaimResult* verificationActivityResult+=VerificationExpr* "]"
 		public Group getGroup() { return cGroup; }
 
 		//"claim"
@@ -342,17 +347,20 @@ public class AssureGrammarAccess extends AbstractGrammarElementFinder {
 		//Metrics
 		public RuleCall getMetricsMetricsParserRuleCall_3_0() { return cMetricsMetricsParserRuleCall_3_0; }
 
-		//("for" targetelementID=ID)?
+		//("for" modelElement=[aadl2::NamedElement])?
 		public Group getGroup_4() { return cGroup_4; }
 
 		//"for"
 		public Keyword getForKeyword_4_0() { return cForKeyword_4_0; }
 
-		//targetelementID=ID
-		public Assignment getTargetelementIDAssignment_4_1() { return cTargetelementIDAssignment_4_1; }
+		//modelElement=[aadl2::NamedElement]
+		public Assignment getModelElementAssignment_4_1() { return cModelElementAssignment_4_1; }
+
+		//[aadl2::NamedElement]
+		public CrossReference getModelElementNamedElementCrossReference_4_1_0() { return cModelElementNamedElementCrossReference_4_1_0; }
 
 		//ID
-		public RuleCall getTargetelementIDIDTerminalRuleCall_4_1_0() { return cTargetelementIDIDTerminalRuleCall_4_1_0; }
+		public RuleCall getModelElementNamedElementIDTerminalRuleCall_4_1_0_1() { return cModelElementNamedElementIDTerminalRuleCall_4_1_0_1; }
 
 		//("message" message=STRING)?
 		public Group getGroup_5() { return cGroup_5; }
@@ -1486,8 +1494,8 @@ public class AssureGrammarAccess extends AbstractGrammarElementFinder {
 	}
 
 	//SubsystemResult:
-	//	"subsystem" name=QualifiedName "for" targetSystem=ID "[" metrics=Metrics ("message" message=STRING)?
-	//	claimResult+=ClaimResult* subsystemResult+=SubsystemResult* "]";
+	//	"subsystem" name=QualifiedName "for" targetSystem=[aadl2::Subcomponent] "[" metrics=Metrics ("message"
+	//	message=STRING)? claimResult+=ClaimResult* subsystemResult+=SubsystemResult* "]";
 	public SubsystemResultElements getSubsystemResultAccess() {
 		return pSubsystemResult;
 	}
@@ -1498,8 +1506,8 @@ public class AssureGrammarAccess extends AbstractGrammarElementFinder {
 
 	//// Result of meeting a requirement
 	//ClaimResult:
-	//	"claim" target=[ReqSpec::Requirement|QualifiedName] "[" metrics=Metrics ("for" targetelementID=ID)? ("message"
-	//	message=STRING)? subClaimResult+=ClaimResult* verificationActivityResult+=VerificationExpr* "]";
+	//	"claim" target=[ReqSpec::Requirement|QualifiedName] "[" metrics=Metrics ("for" modelElement=[aadl2::NamedElement])?
+	//	("message" message=STRING)? subClaimResult+=ClaimResult* verificationActivityResult+=VerificationExpr* "]";
 	public ClaimResultElements getClaimResultAccess() {
 		return pClaimResult;
 	}

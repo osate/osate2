@@ -16,6 +16,8 @@
 
 package org.osate.assure;
 
+import org.eclipse.xtext.scoping.IScopeProvider;
+
 /**
  * Use this class to register components to be used at runtime / without the Equinox extension registry.
  */
@@ -32,6 +34,10 @@ public class AssureRuntimeModule extends org.osate.assure.AbstractAssureRuntimeM
 	@SuppressWarnings("restriction")
 	public Class<? extends org.eclipse.xtext.serializer.tokens.ICrossReferenceSerializer> bindICrossReferenceSerializer() {
 		return org.osate.assure.serializer.AssureCrossReferenceSerializer.class;
+	}
+	@Override
+	public Class<? extends IScopeProvider> bindIScopeProvider() {
+		return org.osate.assure.scoping.AssureScopeProvider.class;
 	}
 
 }

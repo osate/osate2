@@ -23,12 +23,15 @@ import org.eclipse.emf.common.notify.NotificationChain;
 import org.eclipse.emf.common.util.EList;
 
 import org.eclipse.emf.ecore.EClass;
+import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.InternalEObject;
 
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 
 import org.eclipse.emf.ecore.util.EObjectContainmentEList;
 import org.eclipse.emf.ecore.util.InternalEList;
+
+import org.osate.aadl2.Subcomponent;
 
 import org.osate.assure.assure.AssurePackage;
 import org.osate.assure.assure.ClaimResult;
@@ -74,24 +77,14 @@ public class SubsystemResultImpl extends AssureResultImpl implements SubsystemRe
   protected String name = NAME_EDEFAULT;
 
   /**
-   * The default value of the '{@link #getTargetSystem() <em>Target System</em>}' attribute.
+   * The cached value of the '{@link #getTargetSystem() <em>Target System</em>}' reference.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @see #getTargetSystem()
    * @generated
    * @ordered
    */
-  protected static final String TARGET_SYSTEM_EDEFAULT = null;
-
-  /**
-   * The cached value of the '{@link #getTargetSystem() <em>Target System</em>}' attribute.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @see #getTargetSystem()
-   * @generated
-   * @ordered
-   */
-  protected String targetSystem = TARGET_SYSTEM_EDEFAULT;
+  protected Subcomponent targetSystem;
 
   /**
    * The default value of the '{@link #getMessage() <em>Message</em>}' attribute.
@@ -182,7 +175,27 @@ public class SubsystemResultImpl extends AssureResultImpl implements SubsystemRe
    * <!-- end-user-doc -->
    * @generated
    */
-  public String getTargetSystem()
+  public Subcomponent getTargetSystem()
+  {
+    if (targetSystem != null && ((EObject)targetSystem).eIsProxy())
+    {
+      InternalEObject oldTargetSystem = (InternalEObject)targetSystem;
+      targetSystem = (Subcomponent)eResolveProxy(oldTargetSystem);
+      if (targetSystem != oldTargetSystem)
+      {
+        if (eNotificationRequired())
+          eNotify(new ENotificationImpl(this, Notification.RESOLVE, AssurePackage.SUBSYSTEM_RESULT__TARGET_SYSTEM, oldTargetSystem, targetSystem));
+      }
+    }
+    return targetSystem;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public Subcomponent basicGetTargetSystem()
   {
     return targetSystem;
   }
@@ -192,9 +205,9 @@ public class SubsystemResultImpl extends AssureResultImpl implements SubsystemRe
    * <!-- end-user-doc -->
    * @generated
    */
-  public void setTargetSystem(String newTargetSystem)
+  public void setTargetSystem(Subcomponent newTargetSystem)
   {
-    String oldTargetSystem = targetSystem;
+    Subcomponent oldTargetSystem = targetSystem;
     targetSystem = newTargetSystem;
     if (eNotificationRequired())
       eNotify(new ENotificationImpl(this, Notification.SET, AssurePackage.SUBSYSTEM_RESULT__TARGET_SYSTEM, oldTargetSystem, targetSystem));
@@ -282,7 +295,8 @@ public class SubsystemResultImpl extends AssureResultImpl implements SubsystemRe
       case AssurePackage.SUBSYSTEM_RESULT__NAME:
         return getName();
       case AssurePackage.SUBSYSTEM_RESULT__TARGET_SYSTEM:
-        return getTargetSystem();
+        if (resolve) return getTargetSystem();
+        return basicGetTargetSystem();
       case AssurePackage.SUBSYSTEM_RESULT__MESSAGE:
         return getMessage();
       case AssurePackage.SUBSYSTEM_RESULT__CLAIM_RESULT:
@@ -308,7 +322,7 @@ public class SubsystemResultImpl extends AssureResultImpl implements SubsystemRe
         setName((String)newValue);
         return;
       case AssurePackage.SUBSYSTEM_RESULT__TARGET_SYSTEM:
-        setTargetSystem((String)newValue);
+        setTargetSystem((Subcomponent)newValue);
         return;
       case AssurePackage.SUBSYSTEM_RESULT__MESSAGE:
         setMessage((String)newValue);
@@ -339,7 +353,7 @@ public class SubsystemResultImpl extends AssureResultImpl implements SubsystemRe
         setName(NAME_EDEFAULT);
         return;
       case AssurePackage.SUBSYSTEM_RESULT__TARGET_SYSTEM:
-        setTargetSystem(TARGET_SYSTEM_EDEFAULT);
+        setTargetSystem((Subcomponent)null);
         return;
       case AssurePackage.SUBSYSTEM_RESULT__MESSAGE:
         setMessage(MESSAGE_EDEFAULT);
@@ -367,7 +381,7 @@ public class SubsystemResultImpl extends AssureResultImpl implements SubsystemRe
       case AssurePackage.SUBSYSTEM_RESULT__NAME:
         return NAME_EDEFAULT == null ? name != null : !NAME_EDEFAULT.equals(name);
       case AssurePackage.SUBSYSTEM_RESULT__TARGET_SYSTEM:
-        return TARGET_SYSTEM_EDEFAULT == null ? targetSystem != null : !TARGET_SYSTEM_EDEFAULT.equals(targetSystem);
+        return targetSystem != null;
       case AssurePackage.SUBSYSTEM_RESULT__MESSAGE:
         return MESSAGE_EDEFAULT == null ? message != null : !MESSAGE_EDEFAULT.equals(message);
       case AssurePackage.SUBSYSTEM_RESULT__CLAIM_RESULT:
@@ -391,8 +405,6 @@ public class SubsystemResultImpl extends AssureResultImpl implements SubsystemRe
     StringBuffer result = new StringBuffer(super.toString());
     result.append(" (name: ");
     result.append(name);
-    result.append(", targetSystem: ");
-    result.append(targetSystem);
     result.append(", message: ");
     result.append(message);
     result.append(')');

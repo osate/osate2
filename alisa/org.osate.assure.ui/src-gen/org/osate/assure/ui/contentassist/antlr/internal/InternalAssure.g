@@ -3760,9 +3760,9 @@ rule__ClaimResult__Group_4__1__Impl
     }
 :
 (
-{ before(grammarAccess.getClaimResultAccess().getTargetelementIDAssignment_4_1()); }
-(rule__ClaimResult__TargetelementIDAssignment_4_1)
-{ after(grammarAccess.getClaimResultAccess().getTargetelementIDAssignment_4_1()); }
+{ before(grammarAccess.getClaimResultAccess().getModelElementAssignment_4_1()); }
+(rule__ClaimResult__ModelElementAssignment_4_1)
+{ after(grammarAccess.getClaimResultAccess().getModelElementAssignment_4_1()); }
 )
 
 ;
@@ -12269,8 +12269,12 @@ rule__SubsystemResult__TargetSystemAssignment_3
     }
 :
 (
-{ before(grammarAccess.getSubsystemResultAccess().getTargetSystemIDTerminalRuleCall_3_0()); }
-	RULE_ID{ after(grammarAccess.getSubsystemResultAccess().getTargetSystemIDTerminalRuleCall_3_0()); }
+{ before(grammarAccess.getSubsystemResultAccess().getTargetSystemSubcomponentCrossReference_3_0()); }
+(
+{ before(grammarAccess.getSubsystemResultAccess().getTargetSystemSubcomponentIDTerminalRuleCall_3_0_1()); }
+	RULE_ID{ after(grammarAccess.getSubsystemResultAccess().getTargetSystemSubcomponentIDTerminalRuleCall_3_0_1()); }
+)
+{ after(grammarAccess.getSubsystemResultAccess().getTargetSystemSubcomponentCrossReference_3_0()); }
 )
 
 ;
@@ -12372,14 +12376,18 @@ finally {
 	restoreStackSize(stackSize);
 }
 
-rule__ClaimResult__TargetelementIDAssignment_4_1
+rule__ClaimResult__ModelElementAssignment_4_1
     @init {
 		int stackSize = keepStackSize();
     }
 :
 (
-{ before(grammarAccess.getClaimResultAccess().getTargetelementIDIDTerminalRuleCall_4_1_0()); }
-	RULE_ID{ after(grammarAccess.getClaimResultAccess().getTargetelementIDIDTerminalRuleCall_4_1_0()); }
+{ before(grammarAccess.getClaimResultAccess().getModelElementNamedElementCrossReference_4_1_0()); }
+(
+{ before(grammarAccess.getClaimResultAccess().getModelElementNamedElementIDTerminalRuleCall_4_1_0_1()); }
+	RULE_ID{ after(grammarAccess.getClaimResultAccess().getModelElementNamedElementIDTerminalRuleCall_4_1_0_1()); }
+)
+{ after(grammarAccess.getClaimResultAccess().getModelElementNamedElementCrossReference_4_1_0()); }
 )
 
 ;

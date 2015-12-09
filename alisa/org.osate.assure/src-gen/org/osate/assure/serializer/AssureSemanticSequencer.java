@@ -185,7 +185,7 @@ public class AssureSemanticSequencer extends CommonSemanticSequencer {
 	 *     (
 	 *         target=[Requirement|QualifiedName] 
 	 *         metrics=Metrics 
-	 *         targetelementID=ID? 
+	 *         modelElement=[NamedElement|ID]? 
 	 *         message=STRING? 
 	 *         subClaimResult+=ClaimResult* 
 	 *         verificationActivityResult+=VerificationExpr*
@@ -271,7 +271,7 @@ public class AssureSemanticSequencer extends CommonSemanticSequencer {
 	 * Constraint:
 	 *     (
 	 *         name=QualifiedName 
-	 *         targetSystem=ID 
+	 *         targetSystem=[Subcomponent|ID] 
 	 *         metrics=Metrics 
 	 *         message=STRING? 
 	 *         claimResult+=ClaimResult* 

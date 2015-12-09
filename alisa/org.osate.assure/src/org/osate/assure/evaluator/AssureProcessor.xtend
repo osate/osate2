@@ -93,11 +93,11 @@ class AssureProcessor implements IAssureProcessor {
 		val stop = System.currentTimeMillis();
 		vaResult.metrics.executionTime = (stop - start)
 
-		val instanceroot = vaResult.assuranceCaseInstanceModel
-		val targetComponent = findTargetSystemComponentInstance(instanceroot, vaResult.enclosingSubsystemResult)
-		val target = targetComponent.instanceObjectPath
+//		val instanceroot = vaResult.assuranceCaseInstanceModel
+//		val targetComponent = findTargetSystemComponentInstance(instanceroot, vaResult.enclosingSubsystemResult)
+		val targetPath = vaResult.buildCaseModelElementPath
 		System.out.println(
-			"Evaluation time: " + (stop - start) / 1000.0 + "s :" + vaResult.target.name + " on " + target);
+			"Evaluation time: " + (stop - start) / 1000.0 + "s :" + vaResult.target.name + " on " + targetPath);
 	}
 
 	override processCase(AssuranceCaseResult assureResult, IProgressMonitor monitor) {
@@ -191,7 +191,7 @@ class AssureProcessor implements IAssureProcessor {
 	def void runVerificationMethod(VerificationResult verificationResult) {
 		val method = verificationResult.method;
 		// target element is the element referred to by the requirement. This may be empty
-		val targetElement = verificationResult.targetElement
+		val targetElement = verificationResult.caseTargetModelElement
 		// the next outer assurance case object that refers to a system implementation. 
 		var instanceroot = verificationResult.assuranceCaseInstanceModel
 		if (instanceroot == null) {
@@ -205,7 +205,6 @@ class AssureProcessor implements IAssureProcessor {
 			return
 		}
 		var InstanceObject target = targetComponent
-		val connID = verificationResult.connectionID
 		if (targetElement != null) {
 			if (targetElement.eIsProxy) {
 				setToError(verificationResult, "Unresolved target element for claim", targetComponent)
@@ -213,9 +212,6 @@ class AssureProcessor implements IAssureProcessor {
 			}
 			val x = targetComponent.findElementInstance(targetElement)
 			target = x ?: targetComponent
-		} else if (connID != null){
-			val y = targetComponent.findConnectionInstance(connID)
-			target = y ?: targetComponent
 		}
 		// The parameters are objects from the Properties Meta model.
 		var EList<EObject> parameters
@@ -301,26 +297,14 @@ class AssureProcessor implements IAssureProcessor {
 			switch (methodtype) {
 				JavaMethod: {
 					// The parameters are objects from the Properties Meta model. May need to get converted to Java base types
-					if (connID == null && verificationResult.connections) {
-						for (conn : targetComponent.connectionInstances) {
-							executeJavaMethod(verificationResult, methodtype, conn, parameters)
-						}
-					} else {
-						executeJavaMethod(verificationResult, methodtype, target, parameters)
-					}
+					executeJavaMethod(verificationResult, methodtype, target, parameters)
 				}
 				PluginMethod: {
 					// The parameters are objects from the Properties Meta model. It is up to the plugin interface method to convert to Java base types
 					val res = VerificationMethodDispatchers.eInstance.
 						dispatchVerificationMethod(methodtype, instanceroot, parameters) // returning the marker or diagnostic id as string
 					if (res instanceof String) {
-						if (connID == null && verificationResult.connections) {
-							for (conn : targetComponent.connectionInstances) {
-								addMarkersAsResult(verificationResult, conn, res, method)
-							}
-						} else {
-							addMarkersAsResult(verificationResult, target, res, method)
-						}
+						addMarkersAsResult(verificationResult, target, res, method)
 					} else {
 						setToError(verificationResult, "Analysis return type is not a string of MarkerType", target);
 					}
@@ -464,7 +448,7 @@ class AssureProcessor implements IAssureProcessor {
 		val found = vr.methodReference
 		val factory = ResoluteFactory.eINSTANCE
 		val target = factory.createIdExpr
-		target.id = vr.claimSubject
+		target.id = vr.caseTargetModelElement
 		val call = factory.createFnCallExpr
 		call.fn = found
 		call.args.add(target)

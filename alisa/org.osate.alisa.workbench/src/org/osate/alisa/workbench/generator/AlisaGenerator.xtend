@@ -332,7 +332,7 @@ class AlisaGenerator implements IGenerator {
 	}
 
 	def CharSequence generate(Claim claim) {
-		claim.generate(null)
+		claim.generate(claim.requirement.targetElement?.name)
 	}
 
 
@@ -368,7 +368,7 @@ class AlisaGenerator implements IGenerator {
 	def doGenerateSubclaims(Claim claim) {
 		'''
 			«FOR subclaim : claim?.subclaim»
-				«subclaim.generate»
+				«subclaim.generate(claim.requirement.targetElement?.name)»
 			«ENDFOR»
 		'''
 	}

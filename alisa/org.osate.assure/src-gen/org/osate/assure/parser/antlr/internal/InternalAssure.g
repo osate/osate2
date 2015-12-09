@@ -388,20 +388,15 @@ ruleSubsystemResult returns [EObject current=null]
     }
 (
 (
-		lv_targetSystem_3_0=RULE_ID
 		{
-			newLeafNode(lv_targetSystem_3_0, grammarAccess.getSubsystemResultAccess().getTargetSystemIDTerminalRuleCall_3_0()); 
-		}
-		{
-	        if ($current==null) {
+			if ($current==null) {
 	            $current = createModelElement(grammarAccess.getSubsystemResultRule());
 	        }
-       		setWithLastConsumed(
-       			$current, 
-       			"targetSystem",
-        		lv_targetSystem_3_0, 
-        		"ID");
-	    }
+        }
+	otherlv_3=RULE_ID
+	{
+		newLeafNode(otherlv_3, grammarAccess.getSubsystemResultAccess().getTargetSystemSubcomponentCrossReference_3_0()); 
+	}
 
 )
 )	otherlv_4='[' 
@@ -556,20 +551,15 @@ ruleClaimResult returns [EObject current=null]
     }
 (
 (
-		lv_targetelementID_5_0=RULE_ID
 		{
-			newLeafNode(lv_targetelementID_5_0, grammarAccess.getClaimResultAccess().getTargetelementIDIDTerminalRuleCall_4_1_0()); 
-		}
-		{
-	        if ($current==null) {
+			if ($current==null) {
 	            $current = createModelElement(grammarAccess.getClaimResultRule());
 	        }
-       		setWithLastConsumed(
-       			$current, 
-       			"targetelementID",
-        		lv_targetelementID_5_0, 
-        		"ID");
-	    }
+        }
+	otherlv_5=RULE_ID
+	{
+		newLeafNode(otherlv_5, grammarAccess.getClaimResultAccess().getModelElementNamedElementCrossReference_4_1_0()); 
+	}
 
 )
 ))?(	otherlv_6='message' 
