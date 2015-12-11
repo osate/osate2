@@ -323,7 +323,7 @@ class AlisaGenerator implements IGenerator {
 		'''
 		«IF cc instanceof ComponentImplementation && claim.requirement.connections»
 		«FOR conn : (cc as ComponentImplementation).crossConnections»
-		«claim.generate("for "+conn.name)»
+		«claim.generate(conn.name)»
 		«ENDFOR»
 		«ELSE»
 		«claim.generate()»
@@ -332,6 +332,7 @@ class AlisaGenerator implements IGenerator {
 	}
 
 	def CharSequence generate(Claim claim) {
+		
 		claim.generate(claim.requirement.targetElement?.name)
 	}
 
@@ -346,7 +347,7 @@ class AlisaGenerator implements IGenerator {
 		[
 			tbdcount 0
 			«IF forTargetElement != null»
-			«forTargetElement»
+			for «forTargetElement»
 			«ENDIF»
 			«IF claim.assert != null»
 			«claimassert»

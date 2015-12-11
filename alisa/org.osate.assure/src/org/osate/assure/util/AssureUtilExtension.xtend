@@ -1249,13 +1249,14 @@ class AssureUtilExtension {
 			ModelResult: ar.target.getQualifiedName()
 			ClaimResult: {
 				val res = buildCaseModelElementPath(ar.eContainer as AssureResult)
-				if (ar.eContainer instanceof ClaimResult) return res
+				if (ar.eContainer instanceof ClaimResult)  res
 				else 
-				if (ar.modelElement != null) return res+"."+ar.modelElement.name
-				else return res
+				if (ar.modelElement != null)  res+"."+ar.modelElement.name
+				else  res
 				}
+			VerificationResult: buildCaseModelElementPath(ar.claimResult)
+			AssuranceCaseResult: ""
 		}
-		return ""
 	}
 
 	// manage instance model generation
